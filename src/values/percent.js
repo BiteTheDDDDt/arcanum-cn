@@ -38,6 +38,6 @@ export default class Percent {
 
 	}
 
-	clone() { return new Percent(this.pct) }
+	clone() { return new Percent( 100*this.pct) }
 
 }

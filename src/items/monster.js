@@ -1,6 +1,5 @@
 import GData from "./gdata";
 import Stat from "../values/stat";
-import Range from "../values/range";
 
 const defaults = {
 

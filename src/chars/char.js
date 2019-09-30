@@ -5,7 +5,8 @@ import Stat from '../values/stat';
 import Dot from './dot';
 import Attack from './attack';
 import GameState from '../gameState';
-import { assignNoFunc } from '../util/util';
+import { assignNoFunc, cloneClass } from '../util/util';
+import Monster from '../items/monster';
 
 /**
  * @constant {number} DELAY_RATE - speed to attack delay conversion constant.
@@ -33,7 +34,7 @@ export default class Char {
 
 	get speed() { return this._speed; }
 	set speed(v) {
-		this._speed = v;
+		this._speed = v instanceof Stat ? v : new Stat(v);
 		this.delay = getDelay(v);
 	}
 
@@ -74,7 +75,9 @@ export default class Char {
 
 	constructor( vars ){
 
-		if ( vars ) assignNoFunc(this,vars);
+		for( let p in vars ) {
+			this[p] = vars[p];
+		}
 
 		this.type = 'npc';
 

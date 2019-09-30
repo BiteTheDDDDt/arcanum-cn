@@ -33,11 +33,11 @@ module.exports = {
 	},
 	devtool:false,
 	plugins:[new VueLoader(),
-		/*new webpack.SourceMapDevToolPlugin(
+		new webpack.SourceMapDevToolPlugin(
 			{
 				fileContext:'./dist/'
 			}
-		),*/
+		),
 		new webpack.DefinePlugin({
 			__DIST:false,
 			__VERSION:vers

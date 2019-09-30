@@ -67,7 +67,8 @@ export default {
 	},
 
 	/**
-	 * @property {Object} template - data used to create this Item.
+	 * @property {Object} template - original data used to create this Item.
+	 * Should be raw, immutable data.
 	 */
 	get template() { return this._template; },
 	set template(v) { this._template = v;},

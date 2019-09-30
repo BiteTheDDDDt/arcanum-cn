@@ -1,6 +1,4 @@
 import Char from './char';
-import Monster from '../items/monster';
-import { cloneClass  } from 'objecty'
 import Range, { RangeTest } from '../values/range';
 import Stat from '../values/stat';
 import Percent, { PercentTest } from '../values/percent';
@@ -44,10 +42,27 @@ export default class Npc extends Char {
 	}
 
 	get loot() {
-		console.log('GEtting GETTER loot');
-		return this.template ? this.template.loot : null;
+		return this._loot;
 	}
-	set loot(v){}
+	set loot( loot ){
+
+		for( var p in loot ) {
+
+			var sub = loot[p];
+			if ( (typeof sub==='string') ) {
+
+				if ( PercentTest.test(sub)) {
+
+					loot[p] = new Percent(sub);
+				} else if ( RangeTest.test(sub) ) {
+					loot[p ] = new Range(sub);
+				}
+			}
+		}
+
+		this._loot = loot;
+
+	}
 
 	get damage() { return this._damage; }
 	set damage(v) {
@@ -78,7 +93,7 @@ export default class Npc extends Char {
 
 	constructor(vars) {
 
-		super( vars instanceof Monster ? cloneClass(vars) : vars );
+		super( vars );
 
 		this.dodge = this.dodge || 0;
 
@@ -95,29 +110,6 @@ export default class Npc extends Char {
 		this.maxHp = this._maxHp || this._hp;
 
 		if ( this.dmg && (this.damage===null||this.damage===undefined) ) this.damage = this.dmg;
-
-		this.initLoot();
-	}
-
-	initLoot(){
-
-		let loot = this.loot;
-		if ( !loot) return;
-
-		for( let p in loot ) {
-
-			var sub = loot[p];
-			if ( (typeof sub==='string') ) {
-
-				if ( PercentTest.test(sub)) {
-
-					loot[p] = new Percent(sub);
-				} else if ( RangeTest.test(sub) ) {
-					loot[p ] = new Range(sub);
-				}
-			}
-
-		}
 
 	}
 

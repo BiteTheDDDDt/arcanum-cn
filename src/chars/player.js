@@ -18,7 +18,9 @@ const EXP_RATE = 0.125;
 export default class Player extends Char {
 
 	get level() { return this._level; }
-	set level(v) { this._level=v;}
+	set level(v) {
+		this._level = v;
+	}
 
 	/**
 	 * @property {string} title
@@ -207,6 +209,7 @@ export default class Player extends Char {
 			id:'baseWeapon',
 			name:'fists',
 			attack:new Attack({
+				name:"fists",
 				tohit:1,
 				kind:'blunt',
 				damage:new Range(0,1)
