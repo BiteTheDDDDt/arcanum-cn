@@ -1,6 +1,6 @@
-import Stat from "../stat";
+import Stat from "../values/stat";
 import Resource from "../items/resource";
-import Range from '../range';
+import Range from '../values/range';
 import GData from "../items/gdata";
 import Game from '../game';
 import { tryDamage } from '../composites/combat';
@@ -167,8 +167,8 @@ export default class Player extends Char {
 
 		this.retreat = this.retreat || 0;
 
-		this._tohit = this._tohit || 1;
-		this._defense = this._defense || 0;
+		if ( !this.tohit) this.tohit = 1;
+		if ( !this.defense ) this.defense = 0;
 
 		this._resist = this._resist || {};
 		for( let p in this._resist ) {

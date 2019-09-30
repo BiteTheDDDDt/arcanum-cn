@@ -7,7 +7,10 @@
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-eval("exports = module.exports = __webpack_require__(/*! ../../node_modules/css-loader/dist/runtime/api.js */ \"./node_modules/css-loader/dist/runtime/api.js\")(false);\n// Module\nexports.push([module.i, \"\\ndiv.spellbook[data-v-6adcb0a2] {\\r\\n\\tdisplay:flex;\\r\\n\\tpadding: 8px 14px;\\r\\n\\tflex-direction: column;\\r\\n\\theight:100%;\\n}\\n.spell-table[data-v-6adcb0a2] {\\r\\n\\torder: 2; padding: 4px;\\r\\n\\toverflow-y: auto;\\r\\n\\theight:100%;\\r\\n\\tmargin-bottom: 20px;\\n}\\n.spell-table table[data-v-6adcb0a2] { display: flex; flex-flow: row wrap; justify-content: space-between;\\n}\\n.spell-table table tr[data-v-6adcb0a2] { display:flex; flex-basis: 48%;\\n}\\n.spell-table table tr td[data-v-6adcb0a2]:nth-child(1), .spell-table table tr td[data-v-6adcb0a2]:nth-child(3) {\\r\\n\\tflex-basis: 20%; order: 3;\\n}\\n.spell-table table tr td[data-v-6adcb0a2]:nth-child(2) { flex: 1; order: 1;}\\n.spell-table table tr td[data-v-6adcb0a2]:nth-child(3) { flex-basis: 20%; order: 2;\\n}\\n.spell-table table td[data-v-6adcb0a2] { display: flex;\\n}\\ndiv.spellbook .filters[data-v-6adcb0a2] {\\r\\n        order: 1; flex-flow: row wrap; display: flex;\\r\\n        border-bottom: 1px solid var(--separator-color);\\r\\n        margin: 0; padding: 4px; line-height: 2em;\\n}\\ndiv.spellbook div.filters div[data-v-6adcb0a2] { box-sizing: border-box; margin: 0;\\n}\\ndiv.spellbook div.filters div[data-v-6adcb0a2]:nth-child(1),\\r\\ndiv.spellbook div.filters div[data-v-6adcb0a2]:nth-child(2) {\\r\\n        flex-basis: 50%;\\n}\\ndiv.spellbook div.filters input[type=text][data-v-6adcb0a2] { padding: 4px 0 4px 0;\\n}\\ndiv.spellbook div.filters > div input[type=text][data-v-6adcb0a2],\\r\\ndiv.spellbook div.filters > div input[type=number][data-v-6adcb0a2] {\\r\\n\\r\\n\\t\\tflex: 1;\\r\\n\\t\\tmargin-right: 1em;\\r\\n\\t\\tmargin-left: 1em;\\r\\n\\t\\tmin-width: unset;\\r\\n\\t\\tmax-width: unset;\\r\\n\\t\\tpadding: 4px 0;\\r\\n\\t\\tfont-size: 105%;\\r\\n\\t\\twidth: 0;\\n}\\ndiv.spellbook div.filters > div[data-v-6adcb0a2] { display: flex; align-items: center;\\n}\\ndiv.spellbook div.filters > div label[data-v-6adcb0a2] { flex-basis: 20%;\\n}\\ndiv.spellbook div.filters > div input[data-v-6adcb0a2] { min-width: 0; padding: 0; text-indent: 4px;\\n}\\ndiv.spellbook div.filters div.checks[data-v-6adcb0a2] { margin: 0; flex-basis: 16%;\\n}\\r\\n\\r\\n\\r\\n\", \"\"]);\n\n\n//# sourceURL=webpack://%5Bname%5D/./src/ui/spellbook.vue?./node_modules/css-loader/dist/cjs.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/vue-loader/lib??vue-loader-options");
+exports = module.exports = __webpack_require__(/*! ../../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js")(false);
+// Module
+exports.push([module.i, "\ndiv.spellbook[data-v-6adcb0a2] {\r\n\tdisplay:flex;\r\n\tpadding: 8px 14px;\r\n\tflex-direction: column;\r\n\theight:100%;\n}\n.spell-table[data-v-6adcb0a2] {\r\n\torder: 2; padding: 4px;\r\n\toverflow-y: auto;\r\n\theight:100%;\r\n\tmargin-bottom: 20px;\n}\n.spell-table table[data-v-6adcb0a2] { display: flex; flex-flow: row wrap; justify-content: space-between;\n}\n.spell-table table tr[data-v-6adcb0a2] { display:flex; flex-basis: 48%;\n}\n.spell-table table tr td[data-v-6adcb0a2]:nth-child(1), .spell-table table tr td[data-v-6adcb0a2]:nth-child(3) {\r\n\tflex-basis: 20%; order: 3;\n}\n.spell-table table tr td[data-v-6adcb0a2]:nth-child(2) { flex: 1; order: 1;}\n.spell-table table tr td[data-v-6adcb0a2]:nth-child(3) { flex-basis: 20%; order: 2;\n}\n.spell-table table td[data-v-6adcb0a2] { display: flex;\n}\ndiv.spellbook .filters[data-v-6adcb0a2] {\r\n        order: 1; flex-flow: row wrap; display: flex;\r\n        border-bottom: 1px solid var(--separator-color);\r\n        margin: 0; padding: 4px; line-height: 2em;\n}\ndiv.spellbook div.filters div[data-v-6adcb0a2] { box-sizing: border-box; margin: 0;\n}\ndiv.spellbook div.filters div[data-v-6adcb0a2]:nth-child(1),\r\ndiv.spellbook div.filters div[data-v-6adcb0a2]:nth-child(2) {\r\n        flex-basis: 50%;\n}\ndiv.spellbook div.filters input[type=text][data-v-6adcb0a2] { padding: 4px 0 4px 0;\n}\ndiv.spellbook div.filters > div input[type=text][data-v-6adcb0a2],\r\ndiv.spellbook div.filters > div input[type=number][data-v-6adcb0a2] {\r\n\r\n\t\tflex: 1;\r\n\t\tmargin-right: 1em;\r\n\t\tmargin-left: 1em;\r\n\t\tmin-width: unset;\r\n\t\tmax-width: unset;\r\n\t\tpadding: 4px 0;\r\n\t\tfont-size: 105%;\r\n\t\twidth: 0;\n}\ndiv.spellbook div.filters > div[data-v-6adcb0a2] { display: flex; align-items: center;\n}\ndiv.spellbook div.filters > div label[data-v-6adcb0a2] { flex-basis: 20%;\n}\ndiv.spellbook div.filters > div input[data-v-6adcb0a2] { min-width: 0; padding: 0; text-indent: 4px;\n}\ndiv.spellbook div.filters div.checks[data-v-6adcb0a2] { margin: 0; flex-basis: 16%;\n}\r\n\r\n\r\n", ""]);
+
 
 /***/ }),
 
@@ -18,7 +21,26 @@ eval("exports = module.exports = __webpack_require__(/*! ../../node_modules/css-
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-eval("\nvar content = __webpack_require__(/*! !../../node_modules/css-loader/dist/cjs.js!../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../node_modules/vue-loader/lib??vue-loader-options!./spellbook.vue?vue&type=style&index=0&id=6adcb0a2&scoped=true&lang=css& */ \"./node_modules/css-loader/dist/cjs.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/vue-loader/lib/index.js?!./src/ui/spellbook.vue?vue&type=style&index=0&id=6adcb0a2&scoped=true&lang=css&\");\n\nif(typeof content === 'string') content = [[module.i, content, '']];\n\nvar transform;\nvar insertInto;\n\n\n\nvar options = {\"hmr\":true}\n\noptions.transform = transform\noptions.insertInto = undefined;\n\nvar update = __webpack_require__(/*! ../../node_modules/style-loader/lib/addStyles.js */ \"./node_modules/style-loader/lib/addStyles.js\")(content, options);\n\nif(content.locals) module.exports = content.locals;\n\nif(false) {}\n\n//# sourceURL=webpack://%5Bname%5D/./src/ui/spellbook.vue?./node_modules/style-loader!./node_modules/css-loader/dist/cjs.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/vue-loader/lib??vue-loader-options");
+
+var content = __webpack_require__(/*! !../../node_modules/css-loader/dist/cjs.js!../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../node_modules/vue-loader/lib??vue-loader-options!./spellbook.vue?vue&type=style&index=0&id=6adcb0a2&scoped=true&lang=css& */ "./node_modules/css-loader/dist/cjs.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/vue-loader/lib/index.js?!./src/ui/spellbook.vue?vue&type=style&index=0&id=6adcb0a2&scoped=true&lang=css&");
+
+if(typeof content === 'string') content = [[module.i, content, '']];
+
+var transform;
+var insertInto;
+
+
+
+var options = {"hmr":true}
+
+options.transform = transform
+options.insertInto = undefined;
+
+var update = __webpack_require__(/*! ../../node_modules/style-loader/lib/addStyles.js */ "./node_modules/style-loader/lib/addStyles.js")(content, options);
+
+if(content.locals) module.exports = content.locals;
+
+if(false) {}
 
 /***/ }),
 
@@ -30,7 +52,93 @@ eval("\nvar content = __webpack_require__(/*! !../../node_modules/css-loader/dis
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _itemsBase__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./itemsBase */ \"./src/ui/itemsBase.js\");\n/* harmony import */ var _components_filterbox_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./components/filterbox.vue */ \"./src/ui/components/filterbox.vue\");\n/* harmony import */ var _game__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../game */ \"./src/game.js\");\n\r\n\r\n\r\n\r\n\r\n/* harmony default export */ __webpack_exports__[\"default\"] = ({\r\n\r\n\tprops:['state'],\r\n\tmixins:[_itemsBase__WEBPACK_IMPORTED_MODULE_0__[\"default\"]],\r\n\tdata(){\r\n\r\n\t\treturn {\r\n\t\t\tfiltered:null,\r\n\t\t\tviewSchools:[],\r\n\t\t\tpMin:null,\r\n\t\t\tpMax:null\r\n\t\t};\r\n\r\n\t},\r\n\tcomponents:{\r\n\t\tfilterbox:_components_filterbox_vue__WEBPACK_IMPORTED_MODULE_1__[\"default\"]\r\n\t},\r\n\tcomputed:{\r\n\r\n\r\n\r\n\t\tminLevel:{\r\n\r\n\t\t\tget(){ return this.pMin; },\r\n\t\t\tset(v){ this.pMin = Number(v); }\r\n\r\n\t\t},\r\n\r\n\t\t/**\r\n\t\t * @property {Object.<string,string>} schools - schools of all unlocked spells.\r\n\t\t */\r\n\t\tschools() {\r\n\r\n\t\t\tlet res = {};\r\n\r\n\t\t\tlet a = this.spells;\r\n\t\t\tfor( let i = a.length-1; i>= 0; i-- ) {\r\n\t\t\t\tvar s = a[i];\r\n\t\t\t\tif ( s.school ) res[s.school] = true;\r\n\t\t\t}\r\n\r\n\t\t\treturn res;\r\n\r\n\t\t},\r\n\r\n\t\t/**\r\n\t\t * @property {Spell[]} viewing - array of spells actually visible.\r\n\t\t */\r\n\t\tviewing() {\r\n\r\n\t\t\tlet spells = this.filtered;\r\n\t\t\tlet vSchools = this.viewSchools;\r\n\t\t\tlet level = this.minLevel;\r\n\r\n\t\t\tif ( vSchools.length>0 || level ) {\r\n\r\n\t\t\t\treturn spells.filter(v=>{\r\n\t\t\t\t\treturn ((vSchools.length===0||vSchools.includes(v.school)) )\r\n\t\t\t\t\t\t&&(!level||(v.level===level));\r\n\t\t\t\t});\r\n\r\n\t\t\t}\r\n\t\t\treturn spells;\r\n\r\n\t\t},\r\n\r\n\t\t/**\r\n\t\t * @property {Spell} spells - array of spells unlocked.\r\n\t\t */\r\n\t\tspells(){\r\n\t\t\treturn this.state.filterItems(\r\n\t\t\t\tit=>it.type === 'spell' && !this.locked(it) );\r\n\t\t}\r\n\r\n\t}\r\n\r\n});\r\n\n\n//# sourceURL=webpack://%5Bname%5D/./src/ui/spellbook.vue?./node_modules/vue-loader/lib??vue-loader-options");
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _itemsBase__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./itemsBase */ "./src/ui/itemsBase.js");
+/* harmony import */ var _components_filterbox_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./components/filterbox.vue */ "./src/ui/components/filterbox.vue");
+/* harmony import */ var _game__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../game */ "./src/game.js");
+
+
+
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+
+	props:['state'],
+	mixins:[_itemsBase__WEBPACK_IMPORTED_MODULE_0__["default"]],
+	data(){
+
+		return {
+			filtered:null,
+			viewSchools:[],
+			pMin:null,
+			pMax:null
+		};
+
+	},
+	components:{
+		filterbox:_components_filterbox_vue__WEBPACK_IMPORTED_MODULE_1__["default"]
+	},
+	computed:{
+
+
+
+		minLevel:{
+
+			get(){ return this.pMin; },
+			set(v){ this.pMin = Number(v); }
+
+		},
+
+		/**
+		 * @property {Object.<string,string>} schools - schools of all unlocked spells.
+		 */
+		schools() {
+
+			let res = {};
+
+			let a = this.spells;
+			for( let i = a.length-1; i>= 0; i-- ) {
+				var s = a[i];
+				if ( s.school ) res[s.school] = true;
+			}
+
+			return res;
+
+		},
+
+		/**
+		 * @property {Spell[]} viewing - array of spells actually visible.
+		 */
+		viewing() {
+
+			let spells = this.filtered;
+			let vSchools = this.viewSchools;
+			let level = this.minLevel;
+
+			if ( vSchools.length>0 || level ) {
+
+				return spells.filter(v=>{
+					return ((vSchools.length===0||vSchools.includes(v.school)) )
+						&&(!level||(v.level===level));
+				});
+
+			}
+			return spells;
+
+		},
+
+		/**
+		 * @property {Spell} spells - array of spells unlocked.
+		 */
+		spells(){
+			return this.state.filterItems(
+				it=>it.type === 'spell' && !this.locked(it) );
+		}
+
+	}
+
+});
+
 
 /***/ }),
 
@@ -42,7 +150,197 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _ite
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"render\", function() { return render; });\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"staticRenderFns\", function() { return staticRenderFns; });\nvar render = function() {\n  var _vm = this\n  var _h = _vm.$createElement\n  var _c = _vm._self._c || _h\n  return _c(\"div\", { staticClass: \"spellbook\" }, [\n    _c(\"div\", { staticClass: \"spell-table\" }, [\n      _c(\n        \"table\",\n        _vm._l(_vm.viewing, function(s) {\n          return _c(\n            \"tr\",\n            {\n              key: s.id,\n              on: {\n                \"!mouseenter\": function($event) {\n                  $event.stopPropagation()\n                  return _vm.dispatch(\"itemover\", $event, s)\n                }\n              }\n            },\n            [\n              _c(\"td\", [\n                s.owned && s.attack\n                  ? _c(\n                      \"button\",\n                      {\n                        on: {\n                          click: function($event) {\n                            return _vm.dispatch(\"primary\", s)\n                          }\n                        }\n                      },\n                      [\n                        _vm._v(\n                          \"\\n\\t\\t\\t\" +\n                            _vm._s(\n                              _vm.state.player.primary === s\n                                ? \"Unequip\"\n                                : \"Primary\"\n                            ) +\n                            \"\\n\\t\\t\\t\"\n                        )\n                      ]\n                    )\n                  : _vm._e()\n              ]),\n              _vm._v(\" \"),\n              _c(\"td\", [_vm._v(_vm._s(s.name))]),\n              _vm._v(\" \"),\n              _c(\"td\", [\n                s.owned\n                  ? _c(\n                      \"button\",\n                      {\n                        attrs: { disabled: !_vm.usable(s) },\n                        on: {\n                          click: function($event) {\n                            return _vm.dispatch(\"spell\", s)\n                          }\n                        }\n                      },\n                      [_vm._v(\"Cast\")]\n                    )\n                  : _c(\n                      \"button\",\n                      {\n                        attrs: { disabled: !_vm.usable(s) },\n                        on: {\n                          click: function($event) {\n                            return _vm.dispatch(\"buy\", s)\n                          }\n                        }\n                      },\n                      [_vm._v(\"Learn\")]\n                    )\n              ])\n            ]\n          )\n        }),\n        0\n      )\n    ]),\n    _vm._v(\" \"),\n    _c(\n      \"div\",\n      { staticClass: \"filters\" },\n      [\n        _c(\"filterbox\", {\n          attrs: { items: _vm.spells },\n          model: {\n            value: _vm.filtered,\n            callback: function($$v) {\n              _vm.filtered = $$v\n            },\n            expression: \"filtered\"\n          }\n        }),\n        _vm._v(\" \"),\n        _c(\"div\", [\n          _c(\n            \"label\",\n            { staticClass: \"level-lbl\", attrs: { for: _vm.elmId(\"level\") } },\n            [_vm._v(\"Level\")]\n          ),\n          _vm._v(\" \"),\n          _c(\"input\", {\n            directives: [\n              {\n                name: \"model\",\n                rawName: \"v-model\",\n                value: _vm.minLevel,\n                expression: \"minLevel\"\n              }\n            ],\n            staticClass: \"level\",\n            attrs: {\n              id: _vm.elmId(\"level\"),\n              type: \"number\",\n              min: \"0\",\n              size: \"5\"\n            },\n            domProps: { value: _vm.minLevel },\n            on: {\n              input: function($event) {\n                if ($event.target.composing) {\n                  return\n                }\n                _vm.minLevel = $event.target.value\n              }\n            }\n          })\n        ]),\n        _vm._v(\" \"),\n        _vm._l(_vm.schools, function(p, k) {\n          return _c(\"div\", { key: k, staticClass: \"checks\" }, [\n            _c(\"input\", {\n              directives: [\n                {\n                  name: \"model\",\n                  rawName: \"v-model\",\n                  value: _vm.viewSchools,\n                  expression: \"viewSchools\"\n                }\n              ],\n              attrs: { type: \"checkbox\", id: _vm.elmId(\"chk\" + k) },\n              domProps: {\n                value: k,\n                checked: Array.isArray(_vm.viewSchools)\n                  ? _vm._i(_vm.viewSchools, k) > -1\n                  : _vm.viewSchools\n              },\n              on: {\n                change: function($event) {\n                  var $$a = _vm.viewSchools,\n                    $$el = $event.target,\n                    $$c = $$el.checked ? true : false\n                  if (Array.isArray($$a)) {\n                    var $$v = k,\n                      $$i = _vm._i($$a, $$v)\n                    if ($$el.checked) {\n                      $$i < 0 && (_vm.viewSchools = $$a.concat([$$v]))\n                    } else {\n                      $$i > -1 &&\n                        (_vm.viewSchools = $$a\n                          .slice(0, $$i)\n                          .concat($$a.slice($$i + 1)))\n                    }\n                  } else {\n                    _vm.viewSchools = $$c\n                  }\n                }\n              }\n            }),\n            _vm._v(\" \"),\n            _c(\"label\", { attrs: { for: _vm.elmId(\"chk\" + k) } }, [\n              _vm._v(_vm._s(k))\n            ])\n          ])\n        })\n      ],\n      2\n    )\n  ])\n}\nvar staticRenderFns = []\nrender._withStripped = true\n\n\n\n//# sourceURL=webpack://%5Bname%5D/./src/ui/spellbook.vue?./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options");
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "spellbook" }, [
+    _c("div", { staticClass: "spell-table" }, [
+      _c(
+        "table",
+        _vm._l(_vm.viewing, function(s) {
+          return _c(
+            "tr",
+            {
+              key: s.id,
+              on: {
+                "!mouseenter": function($event) {
+                  $event.stopPropagation()
+                  return _vm.dispatch("itemover", $event, s)
+                }
+              }
+            },
+            [
+              _c("td", [
+                s.owned && s.attack
+                  ? _c(
+                      "button",
+                      {
+                        on: {
+                          click: function($event) {
+                            return _vm.dispatch("primary", s)
+                          }
+                        }
+                      },
+                      [
+                        _vm._v(
+                          "\n\t\t\t" +
+                            _vm._s(
+                              _vm.state.player.primary === s
+                                ? "Unequip"
+                                : "Primary"
+                            ) +
+                            "\n\t\t\t"
+                        )
+                      ]
+                    )
+                  : _vm._e()
+              ]),
+              _vm._v(" "),
+              _c("td", [_vm._v(_vm._s(s.name))]),
+              _vm._v(" "),
+              _c("td", [
+                s.owned
+                  ? _c(
+                      "button",
+                      {
+                        attrs: { disabled: !_vm.usable(s) },
+                        on: {
+                          click: function($event) {
+                            return _vm.dispatch("spell", s)
+                          }
+                        }
+                      },
+                      [_vm._v("Cast")]
+                    )
+                  : _c(
+                      "button",
+                      {
+                        attrs: { disabled: !_vm.usable(s) },
+                        on: {
+                          click: function($event) {
+                            return _vm.dispatch("buy", s)
+                          }
+                        }
+                      },
+                      [_vm._v("Learn")]
+                    )
+              ])
+            ]
+          )
+        }),
+        0
+      )
+    ]),
+    _vm._v(" "),
+    _c(
+      "div",
+      { staticClass: "filters" },
+      [
+        _c("filterbox", {
+          attrs: { items: _vm.spells },
+          model: {
+            value: _vm.filtered,
+            callback: function($$v) {
+              _vm.filtered = $$v
+            },
+            expression: "filtered"
+          }
+        }),
+        _vm._v(" "),
+        _c("div", [
+          _c(
+            "label",
+            { staticClass: "level-lbl", attrs: { for: _vm.elmId("level") } },
+            [_vm._v("Level")]
+          ),
+          _vm._v(" "),
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.minLevel,
+                expression: "minLevel"
+              }
+            ],
+            staticClass: "level",
+            attrs: {
+              id: _vm.elmId("level"),
+              type: "number",
+              min: "0",
+              size: "5"
+            },
+            domProps: { value: _vm.minLevel },
+            on: {
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.minLevel = $event.target.value
+              }
+            }
+          })
+        ]),
+        _vm._v(" "),
+        _vm._l(_vm.schools, function(p, k) {
+          return _c("div", { key: k, staticClass: "checks" }, [
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.viewSchools,
+                  expression: "viewSchools"
+                }
+              ],
+              attrs: { type: "checkbox", id: _vm.elmId("chk" + k) },
+              domProps: {
+                value: k,
+                checked: Array.isArray(_vm.viewSchools)
+                  ? _vm._i(_vm.viewSchools, k) > -1
+                  : _vm.viewSchools
+              },
+              on: {
+                change: function($event) {
+                  var $$a = _vm.viewSchools,
+                    $$el = $event.target,
+                    $$c = $$el.checked ? true : false
+                  if (Array.isArray($$a)) {
+                    var $$v = k,
+                      $$i = _vm._i($$a, $$v)
+                    if ($$el.checked) {
+                      $$i < 0 && (_vm.viewSchools = $$a.concat([$$v]))
+                    } else {
+                      $$i > -1 &&
+                        (_vm.viewSchools = $$a
+                          .slice(0, $$i)
+                          .concat($$a.slice($$i + 1)))
+                    }
+                  } else {
+                    _vm.viewSchools = $$c
+                  }
+                }
+              }
+            }),
+            _vm._v(" "),
+            _c("label", { attrs: { for: _vm.elmId("chk" + k) } }, [
+              _vm._v(_vm._s(k))
+            ])
+          ])
+        })
+      ],
+      2
+    )
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
 
 /***/ }),
 
@@ -54,7 +352,34 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) *
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _spellbook_vue_vue_type_template_id_6adcb0a2_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./spellbook.vue?vue&type=template&id=6adcb0a2&scoped=true& */ \"./src/ui/spellbook.vue?vue&type=template&id=6adcb0a2&scoped=true&\");\n/* harmony import */ var _spellbook_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./spellbook.vue?vue&type=script&lang=js& */ \"./src/ui/spellbook.vue?vue&type=script&lang=js&\");\n/* empty/unused harmony star reexport *//* harmony import */ var _spellbook_vue_vue_type_style_index_0_id_6adcb0a2_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./spellbook.vue?vue&type=style&index=0&id=6adcb0a2&scoped=true&lang=css& */ \"./src/ui/spellbook.vue?vue&type=style&index=0&id=6adcb0a2&scoped=true&lang=css&\");\n/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ \"./node_modules/vue-loader/lib/runtime/componentNormalizer.js\");\n\n\n\n\n\n\n/* normalize component */\n\nvar component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__[\"default\"])(\n  _spellbook_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__[\"default\"],\n  _spellbook_vue_vue_type_template_id_6adcb0a2_scoped_true___WEBPACK_IMPORTED_MODULE_0__[\"render\"],\n  _spellbook_vue_vue_type_template_id_6adcb0a2_scoped_true___WEBPACK_IMPORTED_MODULE_0__[\"staticRenderFns\"],\n  false,\n  null,\n  \"6adcb0a2\",\n  null\n  \n)\n\n/* hot reload */\nif (false) { var api; }\ncomponent.options.__file = \"src/ui/spellbook.vue\"\n/* harmony default export */ __webpack_exports__[\"default\"] = (component.exports);\n\n//# sourceURL=webpack://%5Bname%5D/./src/ui/spellbook.vue?");
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _spellbook_vue_vue_type_template_id_6adcb0a2_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./spellbook.vue?vue&type=template&id=6adcb0a2&scoped=true& */ "./src/ui/spellbook.vue?vue&type=template&id=6adcb0a2&scoped=true&");
+/* harmony import */ var _spellbook_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./spellbook.vue?vue&type=script&lang=js& */ "./src/ui/spellbook.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _spellbook_vue_vue_type_style_index_0_id_6adcb0a2_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./spellbook.vue?vue&type=style&index=0&id=6adcb0a2&scoped=true&lang=css& */ "./src/ui/spellbook.vue?vue&type=style&index=0&id=6adcb0a2&scoped=true&lang=css&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
+  _spellbook_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _spellbook_vue_vue_type_template_id_6adcb0a2_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _spellbook_vue_vue_type_template_id_6adcb0a2_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  "6adcb0a2",
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "src/ui/spellbook.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
 
 /***/ }),
 
@@ -66,7 +391,9 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _spe
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _node_modules_vue_loader_lib_index_js_vue_loader_options_spellbook_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../node_modules/vue-loader/lib??vue-loader-options!./spellbook.vue?vue&type=script&lang=js& */ \"./node_modules/vue-loader/lib/index.js?!./src/ui/spellbook.vue?vue&type=script&lang=js&\");\n/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__[\"default\"] = (_node_modules_vue_loader_lib_index_js_vue_loader_options_spellbook_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__[\"default\"]); \n\n//# sourceURL=webpack://%5Bname%5D/./src/ui/spellbook.vue?");
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_index_js_vue_loader_options_spellbook_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../node_modules/vue-loader/lib??vue-loader-options!./spellbook.vue?vue&type=script&lang=js& */ "./node_modules/vue-loader/lib/index.js?!./src/ui/spellbook.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_vue_loader_lib_index_js_vue_loader_options_spellbook_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
@@ -78,7 +405,11 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _nod
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_dist_cjs_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_vue_loader_lib_index_js_vue_loader_options_spellbook_vue_vue_type_style_index_0_id_6adcb0a2_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../node_modules/style-loader!../../node_modules/css-loader/dist/cjs.js!../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../node_modules/vue-loader/lib??vue-loader-options!./spellbook.vue?vue&type=style&index=0&id=6adcb0a2&scoped=true&lang=css& */ \"./node_modules/style-loader/index.js!./node_modules/css-loader/dist/cjs.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/vue-loader/lib/index.js?!./src/ui/spellbook.vue?vue&type=style&index=0&id=6adcb0a2&scoped=true&lang=css&\");\n/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_dist_cjs_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_vue_loader_lib_index_js_vue_loader_options_spellbook_vue_vue_type_style_index_0_id_6adcb0a2_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_index_js_node_modules_css_loader_dist_cjs_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_vue_loader_lib_index_js_vue_loader_options_spellbook_vue_vue_type_style_index_0_id_6adcb0a2_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__);\n/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_style_loader_index_js_node_modules_css_loader_dist_cjs_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_vue_loader_lib_index_js_vue_loader_options_spellbook_vue_vue_type_style_index_0_id_6adcb0a2_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_style_loader_index_js_node_modules_css_loader_dist_cjs_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_vue_loader_lib_index_js_vue_loader_options_spellbook_vue_vue_type_style_index_0_id_6adcb0a2_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));\n /* harmony default export */ __webpack_exports__[\"default\"] = (_node_modules_style_loader_index_js_node_modules_css_loader_dist_cjs_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_vue_loader_lib_index_js_vue_loader_options_spellbook_vue_vue_type_style_index_0_id_6adcb0a2_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default.a); \n\n//# sourceURL=webpack://%5Bname%5D/./src/ui/spellbook.vue?");
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_dist_cjs_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_vue_loader_lib_index_js_vue_loader_options_spellbook_vue_vue_type_style_index_0_id_6adcb0a2_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../node_modules/style-loader!../../node_modules/css-loader/dist/cjs.js!../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../node_modules/vue-loader/lib??vue-loader-options!./spellbook.vue?vue&type=style&index=0&id=6adcb0a2&scoped=true&lang=css& */ "./node_modules/style-loader/index.js!./node_modules/css-loader/dist/cjs.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/vue-loader/lib/index.js?!./src/ui/spellbook.vue?vue&type=style&index=0&id=6adcb0a2&scoped=true&lang=css&");
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_dist_cjs_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_vue_loader_lib_index_js_vue_loader_options_spellbook_vue_vue_type_style_index_0_id_6adcb0a2_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_index_js_node_modules_css_loader_dist_cjs_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_vue_loader_lib_index_js_vue_loader_options_spellbook_vue_vue_type_style_index_0_id_6adcb0a2_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_style_loader_index_js_node_modules_css_loader_dist_cjs_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_vue_loader_lib_index_js_vue_loader_options_spellbook_vue_vue_type_style_index_0_id_6adcb0a2_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_style_loader_index_js_node_modules_css_loader_dist_cjs_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_vue_loader_lib_index_js_vue_loader_options_spellbook_vue_vue_type_style_index_0_id_6adcb0a2_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_style_loader_index_js_node_modules_css_loader_dist_cjs_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_vue_loader_lib_index_js_vue_loader_options_spellbook_vue_vue_type_style_index_0_id_6adcb0a2_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default.a); 
 
 /***/ }),
 
@@ -90,7 +421,13 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _nod
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_spellbook_vue_vue_type_template_id_6adcb0a2_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../node_modules/vue-loader/lib??vue-loader-options!./spellbook.vue?vue&type=template&id=6adcb0a2&scoped=true& */ \"./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./src/ui/spellbook.vue?vue&type=template&id=6adcb0a2&scoped=true&\");\n/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, \"render\", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_spellbook_vue_vue_type_template_id_6adcb0a2_scoped_true___WEBPACK_IMPORTED_MODULE_0__[\"render\"]; });\n\n/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, \"staticRenderFns\", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_spellbook_vue_vue_type_template_id_6adcb0a2_scoped_true___WEBPACK_IMPORTED_MODULE_0__[\"staticRenderFns\"]; });\n\n\n\n//# sourceURL=webpack://%5Bname%5D/./src/ui/spellbook.vue?");
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_spellbook_vue_vue_type_template_id_6adcb0a2_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../node_modules/vue-loader/lib??vue-loader-options!./spellbook.vue?vue&type=template&id=6adcb0a2&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./src/ui/spellbook.vue?vue&type=template&id=6adcb0a2&scoped=true&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_spellbook_vue_vue_type_template_id_6adcb0a2_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_spellbook_vue_vue_type_template_id_6adcb0a2_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
 
 /***/ })
 

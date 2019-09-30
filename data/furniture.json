@@ -584,7 +584,7 @@
 		"id":"brazier",
 		"desc":"Stand of burning hot coals.",
 		"tags":"firesource,spiritsource",
-		"require":"tier0",
+		"require":"g.tier0>0",
 		"max":3,
 		"repeat":true,
 		"cost":{

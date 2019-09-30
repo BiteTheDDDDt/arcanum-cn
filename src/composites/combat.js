@@ -1,5 +1,5 @@
 import Game from '../game';
-import Range from '../range';
+import Range from '../values/range';
 import Dot from '../chars/dot';
 import Npc, { ALLY } from '../chars/npc';
 

@@ -1,8 +1,8 @@
 import {changes, jsonify, cloneClass } from 'objecty';
-import Percent from '../percent';
+import Percent from '../values/percent';
 import Game from '../game';
-import Stat from '../stat';
-import Mod from '../mod';
+import Stat from '../values/stat';
+import Mod from '../values/mod';
 
 export function mergeClass( destClass, src ) {
 

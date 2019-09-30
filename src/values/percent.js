@@ -12,11 +12,11 @@ export default class Percent {
 	 */
 
 	/**
-	 * @property {boolean} value - returns true
-	 * if a random roll is beneath the percent.
+	 * @property {number} value - 1 if a random roll
+	 * is below the percentile.
 	 */
 	get value() {
-		return Math.random() < this.pct;
+		return (Math.random() < this.pct) ? 1 : 0;
 	}
 
 	toString() { return (100*this.pct) + '%';}

@@ -1,9 +1,9 @@
 import Char from './char';
 import Monster from '../items/monster';
 import { cloneClass  } from 'objecty'
-import Range, { RangeTest } from '../range';
-import Stat from '../stat';
-import Percent, { PercentTest } from '../percent';
+import Range, { RangeTest } from '../values/range';
+import Stat from '../values/stat';
+import Percent, { PercentTest } from '../values/percent';
 
 /**
  * @const {number} ALLY - team constant for allies.
@@ -110,10 +110,9 @@ export default class Npc extends Char {
 			if ( (typeof sub==='string') ) {
 
 				if ( PercentTest.test(sub)) {
-					console.warn('pct str:' + p );
+
 					loot[p] = new Percent(sub);
 				} else if ( RangeTest.test(sub) ) {
-					console.warn(p + ' loot range: ' + sub );
 					loot[p ] = new Range(sub);
 				}
 			}

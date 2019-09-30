@@ -1,6 +1,34 @@
 import {getPropDesc} from 'objecty';
 
 /**
+ * Only assign values already defined in dest's protochain.
+ * @param {*} dest
+ * @param {*} src
+ */
+export const assignOwn = (dest, src ) => {
+
+	var vars = Object.getPrototypeOf(dest);
+	while ( vars !== Object.prototype ) {
+
+		for( let p of Object.getOwnPropertyNames(vars) ) {
+
+			var desc = getPropDesc(dest, p);
+			if ( desc && (!desc.writable && desc.set === undefined) ) {
+				continue;
+			}
+
+			if ( src[p] !== undefined ) dest[p] = src[p];
+
+		}
+		vars = Object.getPrototypeOf(vars);
+
+	}
+
+	return dest;
+
+}
+
+/**
  * Find an item in an array matching predicate, remove and return it.
  * @param {Array} a
  * @param {*} pred

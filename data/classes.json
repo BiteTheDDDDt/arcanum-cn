@@ -116,8 +116,9 @@
 	"id":"adept",
 	"name":"Adept",
 	"title":"adept",
+	"tags":"t_tier0",
 	"desc":"Your master behind you, you set off into the world alone. You had better find a new place to stay.",
-	"effect":"tier0"
+	"mod":"tier0"
 },
 
 {

@@ -3,7 +3,7 @@ import {quickSplice} from './util/util';
 import GData from './items/gdata';
 import Log from './log.js';
 import GameState from './gameState';
-import Range from './range';
+import Range from './values/range';
 import ItemGen from './itemgen';
 import TechTree from './techTree';
 import Dot from './chars/dot';
@@ -24,7 +24,7 @@ import Runner from './modules/runner';
 import Events, {EVT_UNLOCK, EVT_EVENT, ENTER_LOC, EXIT_LOC, ITEM_ATTACK } from './events';
 import Resource from './items/resource';
 import Skill from './items/skill';
-import Stat from './stat';
+import Stat from './values/stat';
 
 var techTree;
 
@@ -137,14 +137,19 @@ export default {
 			var list = this.state.getTagList('t_tier'+n);
 			var evt = this.state.getData('tier'+n);
 
+			var hasEvent = false;
+
 			for( var i = list.length-1; i>= 0; i-- ) {
 
-				if ( list[i].value > 0) this.doEvent( evt);
-				break;
+				if ( list[i].value > 0) {
+					this.doEvent( evt );
+					hasEvent = true;
+					break;
+				}
 
 			}
 			// none of this tier.
-			evt.value =0;
+			if ( !hasEvent ) evt.value = 0;
 
 		}
 
@@ -709,7 +714,11 @@ export default {
 	 * @param {*} evt
 	 */
 	doEvent(evt){
-		if ( !this.doItem(evt) ) return false;
+		if ( !this.doItem(evt) ) {
+			console.log('EVENT MAXED: ' +  evt.id );
+			return false;
+		}
+		console.log('triggering tier: ' + evt.id );
 		evt.locked = false;
 		Events.dispatch( EVT_EVENT, evt );
 	},
@@ -927,6 +936,18 @@ export default {
 				else {
 					target.applyMods( mod[p], amt );
 					target.dirty = true;
+				}
+			}
+
+		} else if ( typeof mod === 'string') {
+
+			let t = this.getData(mod);
+			if ( t ) {
+				this.doItem(t,amt);
+			} else {
+				t = this.getTagList(mod);
+				if ( t ) {
+					this.doItem(t,amt);
 				}
 			}
 

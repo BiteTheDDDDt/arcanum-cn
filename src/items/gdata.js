@@ -1,5 +1,5 @@
 import { defineExcept, clone } from 'objecty';
-import Stat from '../stat';
+import Stat from '../values/stat';
 import Base, {mergeClass} from './base';
 import { arrayMerge, assignPublic } from '../util/util';
 

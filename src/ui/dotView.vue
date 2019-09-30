@@ -40,7 +40,7 @@ export default {
 		justify-content: space-around;
 	}
 
-	div.dot-view span {
+	div.dot-view span.mini {
 		display:flex;
 		flex-direction: row;
 		justify-content: space-around;

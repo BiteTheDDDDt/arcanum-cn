@@ -1,7 +1,7 @@
 import Base, {mergeClass} from '../items/base';
 import { mergeSafe } from 'objecty';
 import {tryDamage} from '../composites/combat';
-import Stat from '../stat';
+import Stat from '../values/stat';
 import Dot from './dot';
 import Attack from './attack';
 import GameState from '../gameState';
@@ -21,10 +21,12 @@ export default class Char {
 	set states(v) { this._states = v; }
 
 	get defense() { return this._defense; }
-	set defense(v) { this._defense =v; }
+	set defense(v) {
+		this._defense = v instanceof Stat ? v : new Stat(v);
+	}
 
 	get tohit() { return this._tohit; }
-	set tohit(v) { this._tohit = v; }
+	set tohit(v) { this._tohit = v instanceof Stat ? v : new Stat(v); }
 
 	get resist() { return this._resist };
 	set resist(v) { this._resist = v; }

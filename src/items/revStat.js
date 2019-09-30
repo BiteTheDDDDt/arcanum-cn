@@ -1,5 +1,5 @@
 import Resource from "./resource";
-import Stat from "../stat";
+import Stat from "../values/stat";
 
 /**
  * A reversed Resource is 'filled' at 0 and bad at max.

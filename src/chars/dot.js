@@ -1,5 +1,5 @@
-import Range from "../range";
-import Mod from "../mod";
+import Range from "../values/range";
+import Mod from "../values/mod";
 
 export default class Dot {
 

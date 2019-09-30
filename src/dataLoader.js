@@ -1,9 +1,9 @@
 import GData from './items/gdata';
 import Player from './chars/player';
 
-import Range, {RangeTest} from './range';
-import Percent, {PercentTest} from './percent';
-import Mod, {ModTest} from './mod';
+import Range, {RangeTest} from './values/range';
+import Percent, {PercentTest} from './values/percent';
+import Mod, {ModTest} from './values/mod';
 
 import Resource from './items/resource';
 import ZeroSum from './items/zerosum';
@@ -228,7 +228,11 @@ export default {
 
 		gd.events = this.initItems( dataLists['events'], GData, null, 'event' );
 		gd.classes = this.initItems( dataLists['classes'], GData, 'class', 'class' );
-		gd.classes.forEach(v=>{v.warn=true;});
+		gd.classes.forEach(v=>{
+			v.warn=true;
+			v.repeat = false;
+			v.max = 1;
+		});
 
 		gd.actions = this.initItems( dataLists['actions'], Action, null, 'action' );
 		gd.actions.forEach( v=>v.repeat = (v.repeat!==undefined ) ? v.repeat : true );

@@ -1,7 +1,7 @@
 import Inventory from "./inventory";
 import { ALLY } from "./npc";
 import Events, { ALLY_DIED, ACT_CHANGED } from '../events';
-import Stat from "../stat";
+import Stat from "../values/stat";
 
 export default class Minions extends Inventory {
 

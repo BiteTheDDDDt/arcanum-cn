@@ -1,7 +1,7 @@
 <script>
 import Game from '../game';
 import ItemBase from './itemsBase';
-import Range from '../range';
+import Range from '../values/range';
 import FilterBox from './components/filterbox.vue';
 
 export default {

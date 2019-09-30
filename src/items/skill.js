@@ -1,5 +1,5 @@
 import Action from './action';
-import Stat from '../stat';
+import Stat from '../values/stat';
 
 const EXP_RATIO = 0.35;
 

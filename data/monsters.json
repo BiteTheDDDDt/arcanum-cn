@@ -2650,7 +2650,8 @@
 
     },
     {
-        "id":"m_lich",
+		"id":"m_lich",
+		"name":"lich",
         "level":14,
         "kind":"undead",
         "evil":30,

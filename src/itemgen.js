@@ -1,12 +1,12 @@
 import Game from './game';
 import Wearable from "./chars/wearable";
 import { randElm, randMatch, includesAny} from 'objecty';
-import Percent, { PercentTest } from './percent';
+import Percent, { PercentTest } from './values/percent';
 import Item from './items/item';
 import Encounter, { ENCOUNTER } from './items/encounter';
 import Npc from './chars/npc';
 import GenGroup from './genGroup';
-import Mod from './mod';
+import Mod from './values/mod';
 
 /**
  * Revive a prototyped item based on an item template.

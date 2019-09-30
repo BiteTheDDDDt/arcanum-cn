@@ -1,4 +1,4 @@
-import Range from "../range";
+import Range from "../values/range";
 import { assignPublic } from "../util/util";
 
 export default class Attack {

@@ -1,6 +1,6 @@
 import GData from "./gdata";
-import Stat from "../stat";
-import Range from "../range";
+import Stat from "../values/stat";
+import Range from "../values/range";
 
 const defaults = {
 
@@ -32,14 +32,6 @@ export default class Monster extends GData {
 		this.tohit = this.tohit || this.level;
 		this.defense = ( this.defense === null || this.defense === undefined )
 								? this.level : this.defense;
-
-		console.log('PARSE MONSTER: ' + this.id );
-
-		for( let p in this.loot ) {
-
-			var l = this.loot[p];
-			if ( l instanceof Range) console.log(p + ' ALREADY RANGE');
-		}
 
 
 	}

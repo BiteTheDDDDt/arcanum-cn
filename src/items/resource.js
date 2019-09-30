@@ -1,4 +1,4 @@
-import Stat from '../stat';
+import Stat from '../values/stat';
 import GData from './gdata';
 
 export default class Resource extends GData {
@@ -64,7 +64,7 @@ export default class Resource extends GData {
 
 		super(vars);
 
-		if ( this._value != vars.val ) console.log( 'this.valu: ' + this._value );
+		//if ( this._value != vars.val ) console.log( 'this.valu: ' + this._value );
 
 		this._value = this._value || 0;
 

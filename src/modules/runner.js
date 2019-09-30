@@ -1,7 +1,7 @@
 import Game from '../game';
 import {quickSplice, findRemove} from '../util/util';
 import Events, {ACT_DONE, ACT_CHANGED, HALT_ACT, ACT_BLOCKED, EXP_MAX } from '../events';
-import Stat from '../stat';
+import Stat from '../values/stat';
 import Base, {mergeClass} from '../items/base';
 import Runnable from '../composites/runnable';
 

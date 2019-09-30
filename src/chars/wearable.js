@@ -1,9 +1,9 @@
 import Base, {mergeClass} from '../items/base';
-import Range from "../range";
+import Range from "../values/range";
 import Attack from './attack';
 
 import {mergeSafe} from "objecty";
-import Mod from '../mod';
+import Mod from '../values/mod';
 import { assignNoFunc } from '../util/util';
 
 

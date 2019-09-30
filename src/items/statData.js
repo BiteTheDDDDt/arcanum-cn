@@ -1,4 +1,4 @@
-import Stat from '../stat';
+import Stat from '../values/stat';
 import GData from './gdata';
 
 /**

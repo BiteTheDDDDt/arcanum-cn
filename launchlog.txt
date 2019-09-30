@@ -1,0 +1,87 @@
+DEBUG|003.110|BreakpointsManager: Setting 1 breakpoints for d:\GitDev\arcanum\src\game.js
+DEBUG|003.111|BreakpointsManager: Setting 1 breakpoints for d:\GitDev\arcanum\src\chars\npc.js
+DEBUG|003.120|FirefoxDebugAdapter: Setting exception filters: []
+DEBUG|003.122|FirefoxDebugAdapter: 0 threads
+DEBUG|003.309|DebugConnection: Received response/event {"from":"root","applicationType":"browser","testConnectionPrefix":"server1.conn0.","traits":{"sources":true,"networkMonitor":true,"storageInspector":true,"storageInspectorReadOnly":true,"wasmBinarySource":true,"bulk":true,"directorScripts":true,"noBlackBoxing":false,"noPrettyPrinting":true,"breakpointWhileRunning":true,"memoryActorAllocations":true,"webConsoleCommands":true,"allowChromeProcess":true,"profilerDataFilterable":true,"heapSnapshots":true,"documentLoadingMarkers":true,"webExtensionAddonConnect":true,"perfActorVersion":1,"nativeLogpoints":true,"hasThreadFront":true}}
+DEBUG|003.512|RootActorProxy: Fetching tabs
+DEBUG|003.512|DebugConnection: Sending request {"to":"root","type":"listTabs"}
+DEBUG|003.548|DebugConnection: Received response/event {"preferenceActor":"server1.conn0.preferenceActor3","actorRegistryActor":"server1.conn0.actorRegistryActor4","addonsActor":"server1.conn0.addonsActor5","deviceActor":"server1.conn0.deviceActor6","heapSnapshotFileActor":"server1.conn0.heapSnapshotFileActor7","perfActor":"server1.conn0.perfActor8","selected":0,"tabs":[{"actor":"server1.conn0.child1/frameTarget1","traits":{"isBrowsingContext":true},"title":"","url":"about:blank","outerWindowID":6442450945,"consoleActor":"server1.conn0.child1/consoleActor2","inspectorActor":"server1.conn0.child1/inspectorActor3","styleSheetsActor":"server1.conn0.child1/styleSheetsActor4","storageActor":"server1.conn0.child1/storageActor5","memoryActor":"server1.conn0.child1/memoryActor6","framerateActor":"server1.conn0.child1/framerateActor7","reflowActor":"server1.conn0.child1/reflowActor8","cssPropertiesActor":"server1.conn0.child1/cssPropertiesActor9","performanceActor":"server1.conn0.child1/performanceActor10","animationsActor":"server1.conn0.child1/animationsActor11","promisesActor":"server1.conn0.child1/promisesActor12","emulationActor":"server1.conn0.child1/emulationActor13","webExtensionInspectedWindowActor":"server1.conn0.child1/webExtensionInspectedWindowActor14","accessibilityActor":"server1.conn0.child1/accessibilityActor15","screenshotActor":"server1.conn0.child1/screenshotActor16","changesActor":"server1.conn0.child1/changesActor17","webSocketActor":"server1.conn0.child1/webSocketActor18"}],"from":"root"}
+DEBUG|003.548|RootActorProxy: Received 1 tabs
+DEBUG|003.548|RootActorProxy: Tab server1.conn0.child1/frameTarget1 opened
+INFO |003.548|FirefoxDebugSession: Tab opened with url about:blank
+DEBUG|003.549|TabActorProxy: Attaching to tab server1.conn0.child1/frameTarget1
+DEBUG|003.549|DebugConnection: Sending request {"to":"server1.conn0.child1/frameTarget1","type":"attach"}
+DEBUG|003.558|DebugConnection: Received response/event {"type":"tabAttached","threadActor":"server1.conn0.child1/context19","cacheDisabled":false,"javascriptEnabled":true,"traits":{"reconfigure":false,"frames":true,"logInPage":true,"canRewind":false},"from":"server1.conn0.child1/frameTarget1"}
+DEBUG|003.558|TabActorProxy: Attached to tab server1.conn0.child1/frameTarget1
+DEBUG|003.559|ThreadActorProxy: Created thread server1.conn0.child1/context19
+DEBUG|003.559|FirefoxDebugSession: Attached to tab server1.conn0.child1/frameTarget1
+DEBUG|003.559|TabActorProxy: Fetching workers
+DEBUG|003.559|DebugConnection: Sending request {"to":"server1.conn0.child1/frameTarget1","type":"listWorkers"}
+DEBUG|003.560|ThreadPauseCoordinator: Requesting auto interrupt for Tab 1
+DEBUG|003.560|ThreadPauseCoordinator: current pauses: [], requested pauses: [Tab 1/auto], requested resumes: []
+DEBUG|003.560|ThreadPauseCoordinator: Interrupting Tab 1
+DEBUG|003.560|ThreadActorProxy: Attaching thread server1.conn0.child1/context19
+DEBUG|003.560|DebugConnection: Sending request {"to":"server1.conn0.child1/context19","type":"attach","options":{"pauseOnExceptions":false,"ignoreCaughtExceptions":true}}
+DEBUG|003.560|DebugConnection: Received response/event {"type":"frameUpdate","frames":[{"id":6442450945,"url":"about:blank","title":""}],"from":"server1.conn0.child1/frameTarget1"}
+DEBUG|003.560|DebugConnection: Received response/event {"type":"frameUpdate","frames":[{"id":6442450945,"url":"about:blank","title":""}],"from":"server1.conn0.child1/frameTarget1"}
+DEBUG|003.562|DebugConnection: Received response/event {"workers":[],"from":"server1.conn0.child1/frameTarget1"}
+DEBUG|003.562|TabActorProxy: Received 0 workers
+DEBUG|003.563|DebugConnection: Received response/event {"from":"server1.conn0.child1/context19"}
+INFO |003.564|ThreadActorProxy: Received unexpected response, this is probably due to Firefox bug #1577996
+DEBUG|003.564|ThreadActorProxy: Received paused message of type attached
+DEBUG|003.564|DebugConnection: Received response/event {"from":"server1.conn0.child1/context19","type":"paused","actor":"server1.conn0.child1/pause20","poppedFrames":[],"why":{"type":"attached"}}
+DEBUG|003.564|ThreadPauseCoordinator: Tab 1 interrupted, type auto
+DEBUG|003.564|ThreadPauseCoordinator: current pauses: [Tab 1/auto], requested pauses: [], requested resumes: []
+DEBUG|003.564|ThreadActorProxy: Fetching sources from thread server1.conn0.child1/context19
+DEBUG|003.564|DebugConnection: Sending request {"to":"server1.conn0.child1/context19","type":"sources"}
+DEBUG|003.565|DebugConnection: Received response/event {"sources":[],"from":"server1.conn0.child1/context19"}
+DEBUG|003.565|ThreadActorProxy: Received 0 sources from thread server1.conn0.child1/context19
+DEBUG|003.565|ThreadCoordinator: state: paused, target: running, tasks: 0/0, eval: 0
+DEBUG|003.565|ThreadPauseCoordinator: Requesting resume for Tab 1
+DEBUG|003.565|ThreadPauseCoordinator: current pauses: [Tab 1/auto], requested pauses: [], requested resumes: [Tab 1]
+DEBUG|003.566|ThreadPauseCoordinator: Resuming Tab 1
+DEBUG|003.566|ThreadActorProxy: Resuming thread server1.conn0.child1/context19
+DEBUG|003.566|DebugConnection: Sending request {"to":"server1.conn0.child1/context19","type":"resume"}
+DEBUG|003.567|DebugConnection: Received response/event {"from":"server1.conn0.child1/context19","type":"resumed"}
+DEBUG|003.567|ThreadActorProxy: Received resumed event from server1.conn0.child1/context19
+DEBUG|003.567|ThreadPauseCoordinator: Tab 1 resumed
+DEBUG|003.567|ThreadPauseCoordinator: current pauses: [], requested pauses: [], requested resumes: []
+DEBUG|003.567|ThreadCoordinator: state: running, target: running, tasks: 0/0, eval: 0
+DEBUG|003.567|ConsoleActorProxy: Starting console listeners
+DEBUG|003.567|DebugConnection: Sending request {"to":"server1.conn0.child1/consoleActor2","type":"startListeners","listeners":["PageError","ConsoleAPI"]}
+DEBUG|003.567|ConsoleActorProxy: Getting cached messages
+DEBUG|003.567|DebugConnection: Sending request {"to":"server1.conn0.child1/consoleActor2","type":"getCachedMessages","messageTypes":["PageError","ConsoleAPI"]}
+DEBUG|003.568|DebugConnection: Received response/event {"from":"server1.conn0.child1/context19"}
+INFO |003.568|ThreadActorProxy: Received unexpected response, this is probably due to Firefox bug #1577996
+DEBUG|003.580|DebugConnection: Received response/event {"startedListeners":["PageError","ConsoleAPI"],"nativeConsoleAPI":true,"traits":{"transferredResponseSize":true,"selectedObjectActor":true,"fetchCacheDescriptor":true},"from":"server1.conn0.child1/consoleActor2"}
+DEBUG|003.580|ConsoleActorProxy: Listeners started
+DEBUG|003.582|DebugConnection: Received response/event {"from":"server1.conn0.child1/consoleActor2","messages":[]}
+DEBUG|003.582|ConsoleActorProxy: Received cached messages
+DEBUG|003.661|FirefoxDebugAdapter: 1 threads
+DEBUG|004.264|DebugConnection: Received response/event {"type":"frameUpdate","frames":[{"id":6442450945,"url":"about:blank","title":""}],"from":"server1.conn0.child1/frameTarget1"}
+DEBUG|004.275|DebugConnection: Received response/event {"type":"frameUpdate","frames":[{"id":6442450945,"url":"d:\\GitDev\\arcanum/dev.html","title":""}],"from":"server1.conn0.child1/frameTarget1"}
+DEBUG|004.275|DebugConnection: Received response/event {"from":"root","type":"tabListChanged"}
+DEBUG|004.275|RootActorProxy: Received tabListChanged event
+DEBUG|004.275|RootActorProxy: Fetching tabs
+DEBUG|004.275|DebugConnection: Sending request {"to":"root","type":"listTabs"}
+DEBUG|004.276|DebugConnection: Received response/event {"from":"server1.conn0.child1/context19","type":"newSource","source":{"actor":"server1.conn0.child1/source21","extensionName":null,"url":"chrome://browser/content/aboutNetError.js","isBlackBoxed":false,"sourceMapURL":null,"introductionUrl":null,"introductionType":"scriptElement"}}
+DEBUG|004.276|ThreadActorProxy: New source chrome://browser/content/aboutNetError.js on thread server1.conn0.child1/context19
+DEBUG|004.276|SourceMappingThreadActorProxy: Trying to sourcemap {"actor":"server1.conn0.child1/source21","extensionName":null,"url":"chrome://browser/content/aboutNetError.js","isBlackBoxed":false,"sourceMapURL":null,"introductionUrl":null,"introductionType":"scriptElement"}
+INFO |004.277|PathConversion: Can't convert url chrome://browser/content/aboutNetError.js to path
+DEBUG|004.277|SkipFilesManager: skipFile is not set for chrome://browser/content/aboutNetError.js
+DEBUG|004.290|DebugConnection: Received response/event {"preferenceActor":"server1.conn0.preferenceActor3","actorRegistryActor":"server1.conn0.actorRegistryActor4","addonsActor":"server1.conn0.addonsActor5","deviceActor":"server1.conn0.deviceActor6","heapSnapshotFileActor":"server1.conn0.heapSnapshotFileActor7","perfActor":"server1.conn0.perfActor8","selected":0,"tabs":[{"actor":"server1.conn0.child1/frameTarget1","traits":{"isBrowsingContext":true},"title":"Problem loading page","url":"d:\\GitDev\\arcanum/dev.html","outerWindowID":6442450945,"consoleActor":"server1.conn0.child1/consoleActor2","inspectorActor":"server1.conn0.child1/inspectorActor3","styleSheetsActor":"server1.conn0.child1/styleSheetsActor4","storageActor":"server1.conn0.child1/storageActor5","memoryActor":"server1.conn0.child1/memoryActor6","framerateActor":"server1.conn0.child1/framerateActor7","reflowActor":"server1.conn0.child1/reflowActor8","cssPropertiesActor":"server1.conn0.child1/cssPropertiesActor9","performanceActor":"server1.conn0.child1/performanceActor10","animationsActor":"server1.conn0.child1/animationsActor11","promisesActor":"server1.conn0.child1/promisesActor12","emulationActor":"server1.conn0.child1/emulationActor13","webExtensionInspectedWindowActor":"server1.conn0.child1/webExtensionInspectedWindowActor14","accessibilityActor":"server1.conn0.child1/accessibilityActor15","screenshotActor":"server1.conn0.child1/screenshotActor16","changesActor":"server1.conn0.child1/changesActor17","webSocketActor":"server1.conn0.child1/webSocketActor18"}],"from":"root"}
+DEBUG|004.291|RootActorProxy: Received 1 tabs
+DEBUG|028.924|DebugConnection: Received response/event {"from":"root","type":"forwardingCancelled","prefix":"server1.conn0.child1"}
+DEBUG|028.924|RootActorProxy: Received forwardingCancelled event from root (ignoring)
+DEBUG|028.924|DebugConnection: Received response/event {"from":"server1.conn0.child1/frameTarget1","type":"tabDetached"}
+DEBUG|028.924|TabActorProxy: Detached from tab server1.conn0.child1/frameTarget1 because it was closed
+DEBUG|028.924|ThreadPauseCoordinator: Removing Tab 1
+DEBUG|028.924|ThreadPauseCoordinator: current pauses: [], requested pauses: [], requested resumes: []
+DEBUG|028.929|DebugConnection: Received response/event {"from":"root","type":"tabListChanged"}
+DEBUG|028.929|RootActorProxy: Received tabListChanged event
+DEBUG|028.929|RootActorProxy: Fetching tabs
+DEBUG|028.929|DebugConnection: Sending request {"to":"root","type":"listTabs"}
+DEBUG|028.932|DebugConnection: Received response/event {"preferenceActor":"server1.conn0.preferenceActor3","actorRegistryActor":"server1.conn0.actorRegistryActor4","addonsActor":"server1.conn0.addonsActor5","deviceActor":"server1.conn0.deviceActor6","heapSnapshotFileActor":"server1.conn0.heapSnapshotFileActor7","perfActor":"server1.conn0.perfActor8","selected":0,"tabs":[],"from":"root"}
+INFO |028.932|RootActorProxy: Received 0 tabs - will retry in 100ms
+INFO |028.940|FirefoxDebugSession: Connection to Firefox closed - terminating debug session
+DEBUG|029.032|DebugConnection: Sending request {"to":"root","type":"listTabs"}
