@@ -2,6 +2,7 @@
 import Game from '../../game';
 
 import ItemsBase from '../itemsBase.js';
+import { SET_SLOT } from '../../events';
 
 /**
  * Component to pick current slot item from all available slot items.
@@ -20,7 +21,7 @@ export default {
 	data(){
 		return {
 			changing:false,
-			pEvent:this.pickEvent||'upgrade'
+			pEvent:this.pickEvent||SET_SLOT
 		};
 	},
 	methods:{

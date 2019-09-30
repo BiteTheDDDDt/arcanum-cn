@@ -1,6 +1,6 @@
 import Game from '../game';
 import {quickSplice, findRemove} from '../util/util';
-import Events, {ACT_DONE, ACT_CHANGED, HALT_ACT, ACT_BLOCKED, EXP_MAX } from '../events';
+import Events, {ACT_DONE, ACT_CHANGED, HALT_ACT, ACT_BLOCKED, EXP_MAX, STOP_ALL } from '../events';
 import Stat from '../values/stat';
 import Base, {mergeClass} from '../items/base';
 import Runnable from '../composites/runnable';
@@ -157,6 +157,7 @@ const Runner = {
 		Events.add( HALT_ACT, this.haltAction, this );
 		Events.add( ACT_BLOCKED, this.actBlocked, this );
 		Events.add( EXP_MAX, this.expMax, this );
+		Events.add( STOP_ALL, this.stopAll, this );
 
 	},
 
@@ -396,6 +397,15 @@ const Runner = {
 
 	},
 
+	stopAll() {
+
+		for( let i = this.actives.length-1; i>=0; i--) {
+			this.stopAction( i, false );
+		}
+		this.clearWaits();
+
+	},
+
 	/**
 	 * Action is done, but could be perpetual/ongoing.
 	 * Attempt to repay cost and keep action.
@@ -459,8 +469,6 @@ const Runner = {
 			}
 
 		}
-
-		//this.tryAdd( Game.state.restAction );
 
 	},
 

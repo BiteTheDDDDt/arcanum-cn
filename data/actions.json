@@ -265,7 +265,7 @@
 		"length":10,
 		"fill":"hp",
 		"cost":{
-			"bodies":1
+			"bodies":0.5
 		},
 		"effect":{
 			"hp":40
@@ -282,6 +282,7 @@
 		},
 		"result":{
 			"evilamt":5,
+			"rage":-1,
 			"bodies":1
 		},"flavor":"why do they come to me to die?"
 	},
@@ -528,8 +529,10 @@
 		"id":"rest",
 		"tags":"t_rest",
 		"name":"rest",
+		"slot":"rest",
 		"verb":"resting",
 		"locked":false,
+		"owned":true,
 		"perpetual":true,
 		"fill":[ "stamina", "hp", "manas", "stress"],
 		"effect":{
@@ -546,17 +549,43 @@
 		"id":"chant",
 		"tags":"t_rest",
 		"verb":"chanting",
-		"perpetual":true,
+		"owned":true,
+		"slot":"rest",
 		"length":10,
 		"need":"g.lightlore>=5&&g.evil<=0",
 		"fill":[ "light", "hp", "mana", "stress"],
 		"effect":{
 			"virtue":1,
-			"stress":-1,
-			"mana":0.5,
-			"hp":1,
-			"light":0.05,
+			"stress":-1.2,
+			"manas":{
+				"skipLocked":true,
+				"value":0.5
+			},
+			"stamina":0.82,
+			"hp":1.1,
+			"light":0.2,
 			"evilamt":-0.1
+		}
+	},
+	{
+		"id":"naturecamp",
+		"tags":"t_rest",
+		"name":"camp",
+		"slot":"rest",
+		"owned":true,
+		"verb":"camping",
+		"length":10,
+		"need":"g.naturelore>=5",
+		"fill":[ "nature", "hp", "mana", "stamina","stress"],
+		"effect":{
+			"stress":-1.7,
+			"manas":{
+				"skipLocked":true,
+				"value":0.5
+			},
+			"stamina":0.7,
+			"hp":1,
+			"nature":0.2
 		}
 	},
 	{
@@ -564,7 +593,8 @@
 		"name":"eat children",
 		"tags":"t_rest",
 		"verb":"eating children",
-		"perpetual":true,
+		"slot":"rest",
+		"owned":true,
 		"length":10,
 		"require":"(g.witch+g.thanophage)>0",
 		"need":"cauldron",
@@ -578,10 +608,10 @@
 		},
 		"effect":{
 			"evilamt":1,
-			"mana":0.5,
-			"shadow":0.2,
-			"spirit":0.2,
-			"stress":-1,
+			"mana":0.6,
+			"shadow":0.6,
+			"spirit":0.6,
+			"stress":-1.1,
 			"stamina":1,
 			"hp":2
 		}

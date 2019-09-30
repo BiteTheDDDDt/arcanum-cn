@@ -4,6 +4,7 @@ import Game from '../game';
 import ItemsBase from './itemsBase';
 import UpgradeView from './upgrades.vue';
 import FilterBox from './components/filterbox.vue';
+import { SET_SLOT } from '../events';
 
 /**
  * @emits sell
@@ -29,6 +30,9 @@ export default {
 			filtered:null
 		}
 
+	},
+	created() {
+		this.SET_SLOT = SET_SLOT;
 	},
 	methods:{
 
@@ -83,7 +87,7 @@ export default {
 			<span @mouseenter.capture.stop="dispatch('itemover', $event, curHome )">home:<br>{{ curHome ? curHome.name : 'None'}}</span>
 			<div v-if="homesAvail.length>0">
 			<button @click="toggleSwitch">{{ switching ? 'Done' : 'Switch' }}</button>
-			<upgrades v-if="switching" class="homes-view" :items="homesAvail" pick-event="home" />
+			<upgrades v-if="switching" class="homes-view" :items="homesAvail" :pick-event="SET_SLOT" />
 			</div>
 
 		</div>

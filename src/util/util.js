@@ -1,5 +1,21 @@
 import {getPropDesc} from 'objecty';
 
+
+/**
+ * Ensure the existence of props on an object.
+ * Mostly for Vue reactivity.
+ * @property {Object} obj
+ * @property {string[]} props - props to set.
+ */
+export const ensure = ( obj, props ) => {
+
+	for( let i = props.length-1; i>= 0; i-- ) {
+		var s = props[i];
+		if ( !obj.hasOwnProperty(s) ) obj[s] = null;
+	}
+
+}
+
 /**
  * Performs a deep-clone of an object, including class prototype
  * and class methods.

@@ -35,6 +35,11 @@ const ACT_CHANGED = 'actchanged';
 const ACT_IMPROVED = 'actimprove';
 
 /**
+ * stop all running actions.
+ */
+const STOP_ALL = 'stopall';
+
+/**
  * Dispatched by a Runnable when it has completed.
  * It is the job of the runnable to determine when it has completed.
  */
@@ -66,9 +71,10 @@ const ITEM_ATTACK = 'item_atk';
 const ENC_DONE = 'enc_done';
 const ENTER_LOC = 'enter_loc';
 const EXIT_LOC = 'exit_loc';
+const SET_SLOT = 'set_slot';
 
-export { HALT_ACT, EVT_COMBAT, EVT_EVENT, EVT_UNLOCK, EXP_MAX, EVT_LOOT, ACT_DONE, ALLY_DIED, CHAR_DIED,
-	ENTER_LOC, EXIT_LOC, ITEM_ATTACK,
+export { HALT_ACT, EVT_COMBAT, EVT_EVENT, SET_SLOT, EVT_UNLOCK, EXP_MAX, EVT_LOOT, ACT_DONE, ALLY_DIED, CHAR_DIED,
+	ENTER_LOC, EXIT_LOC, ITEM_ATTACK, STOP_ALL,
 	ACT_CHANGED, ACT_IMPROVED, ACT_BLOCKED,
 	DAMAGE_MISS, ENEMY_HIT, PLAYER_HIT, DEFEATED, ENEMY_SLAIN, COMBAT_DONE, ENC_DONE, LEVEL_UP };
 
@@ -115,7 +121,9 @@ export default {
 		events.removeAllListeners( ACT_IMPROVED );
 		events.removeAllListeners( ACT_BLOCKED );
 		events.removeAllListeners( HALT_ACT);
+		events.removeAllListeners( STOP_ALL );
 
+		events.removeAllListeners( SET_SLOT );
 		events.removeAllListeners( EVT_COMBAT );
 		events.removeAllListeners( CHAR_DIED );
 		events.removeAllListeners( ENEMY_SLAIN );

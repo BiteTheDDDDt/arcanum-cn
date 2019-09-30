@@ -71,6 +71,7 @@ export default {
 		<tr><td>exp</td><th> {{ exp }} / {{ next }} </th></tr>
 		<tr><td @mouseenter.capture.stop="dispatch( 'itemover', $event,sp)">skill points</td><th> {{ sp.value.toFixed(2) }}</th></tr>
 
+		<tr><td>rest</td><th><slotpick pick="rest" /></th></tr>
 		<tr><td>mount</td><th><slotpick pick="mount" /></th></tr>
 		<tr><td @mouseenter.capture.stop="dispatch( 'itemover', $event,dist)">distance</td><th>{{ dist.current }}</th></tr>
 		</table>
@@ -98,16 +99,23 @@ export default {
 
 		</table>
 
+		<div>
+		<span>resists</span>
 		<table class="resists">
 			<tr v-for="(r,k) in player.resist" :key="k">
 				<td>{{k}}</td><td class="num-align">{{r}}%</td>
 			</tr>
 		</table>
+		</div>
+
+		<div>
+		<span>immunities</span>
 		<table class="immunities">
 			<tr v-for="(r,k) in player.immunities" :key="k">
 				<td>{{k}}</td>
 			</tr>
 		</table>
+		</div>
 
 		<upgrades></upgrades>
 

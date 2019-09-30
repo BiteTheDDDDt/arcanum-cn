@@ -84,7 +84,7 @@ export default class SlotGroup {
 
 	/**
 	 *
-	 * @param {Armor|Weapon} it
+	 * @param {Item} it
 	 * @param {string} slot
 	 * @returns {boolean|Wearable|Wearable[]}
 	 */

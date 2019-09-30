@@ -10,6 +10,19 @@ import Events, { LEVEL_UP } from "../events";
 import Attack from "./attack";
 import Wearable from "./wearable";
 
+const Fists = new Wearable({
+
+	id:'baseWeapon',
+	name:'fists',
+	attack:new Attack({
+		name:"fists",
+		tohit:1,
+		kind:'blunt',
+		damage:new Range(0,1)
+	})
+
+});
+
 /**
  * @constant {number} EXP_RATE
  */
@@ -23,6 +36,7 @@ export default class Player extends Char {
 	}
 
 	/**
+	 * currently active title.
 	 * @property {string} title
 	 */
 	get title() { return this._title; }
@@ -129,6 +143,7 @@ export default class Player extends Char {
 		data.name = ( this.name );
 
 		data.titles = this.titles;
+		data.title = this.title;
 
 		data.next = ( this.next );
 		// attack timer.
@@ -204,28 +219,17 @@ export default class Player extends Char {
 		this.bonuses = this.bonuses || {
 		}
 
-		this.baseWeapon = this.baseWeapon || {
-
-			id:'baseWeapon',
-			name:'fists',
-			attack:new Attack({
-				name:"fists",
-				tohit:1,
-				kind:'blunt',
-				damage:new Range(0,1)
-			})
-
-		};
-
-		this.damage = this.damage || 1;
-
 		this.alignment = this.alignment || 'neutral';
+
+		if ( this.baseWeapon ) this.baseWeapon = Fists;
+		if ( this.damage === null || this.damage === undefined ) this.damage = 1;
 
 		/**
 		 * @property {Item} primary - primary attack.
 		 */
 		this.primary = this.primary || null;
-		this.weapon = this.weapon || this.baseWeapon;
+
+		if ( !this.weapon ) this.weapon = this.baseWeapon;
 
 		this._name = this._name || 'wizrobe';
 

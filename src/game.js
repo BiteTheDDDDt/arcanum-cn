@@ -2,16 +2,12 @@ import DataLoader from './dataLoader';
 import {quickSplice} from './util/util';
 import GData from './items/gdata';
 import Log from './log.js';
-import GameState from './gameState';
+import GameState, { REST_SLOT } from './gameState';
 import Range from './values/range';
 import ItemGen from './itemgen';
 import TechTree from './techTree';
 import Dot from './chars/dot';
 
-/**
- * @module Randoms - randomized events.
- */
-import Randoms from './modules/randoms';
 
 /**
  * @property {Runner} Runner - runs actions in tandem.
@@ -21,7 +17,7 @@ import Runner from './modules/runner';
 /**
  * @note these refer to Code-events, not in-game events.
  */
-import Events, {EVT_UNLOCK, EVT_EVENT, ENTER_LOC, EXIT_LOC, ITEM_ATTACK } from './events';
+import Events, {EVT_UNLOCK, EVT_EVENT, ENTER_LOC, EXIT_LOC, ITEM_ATTACK, SET_SLOT } from './events';
 import Resource from './items/resource';
 import Skill from './items/skill';
 import Stat from './values/stat';
@@ -121,6 +117,7 @@ export default {
 
 			Events.add( ENTER_LOC, this.enterLoc, this );
 			Events.add( EXIT_LOC, this.enterLoc, this );
+			Events.add( SET_SLOT, this.setSlot, this );
 
 		}, err=>{ console.error('game err: ' + err )});
 
@@ -188,6 +185,18 @@ export default {
 		for( let i = acts.length-1; i>= 0; i-- ) {
 			if ( acts[i].timer > 0) this.addTimer( acts[i]);
 		}
+
+	},
+
+	setSlot( it ) {
+
+		let cur = this.state.getSlot( it.slot );
+		if ( cur ) { this.remove( cur, 1 );}
+
+		this.state.setSlot( it.slot, it );
+
+		this.payCost( it.cost );
+		return this.doItem(it);
 
 	},
 
@@ -286,7 +295,7 @@ export default {
 	/**
 	 * Wrapper for Runner rest
 	 */
-	doRest() { Runner.tryAdd( this.state.restAction ) },
+	doRest() { Runner.tryAdd( this.state.getSlot(REST_SLOT) ) },
 
 	haltAction(a) { Runner.stopAction(a);},
 
@@ -666,16 +675,6 @@ export default {
 			return this.create(it, true );
 		}
 
-		if ( it.slot) {
-
-			let cur = this.state.getSlot(it.slot, it.type );
-			console.log('cur slot: ' + (cur ? cur.id : 'none'));
-			if ( cur ) {
-				this.remove( cur, 1 );
-			}
-			this.state.setSlot(it.slot, it);
-
-		}
 		if ( it.exec ) it.exec();
 
 		if ( it.title ) this.state.player.title = it.title;

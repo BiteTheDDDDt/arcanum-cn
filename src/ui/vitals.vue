@@ -4,6 +4,7 @@ import Running from './running.vue';
 
 import Game from '../game';
 import ItemBase from './itemsBase';
+import { STOP_ALL } from '../events';
 
 /**
  * Player vital bars.
@@ -15,6 +16,11 @@ export default {
 	components:{
 		progbar:ProgBar,
 		running:Running
+	},
+	created(){
+
+		this.STOP_ALL = STOP_ALL;
+
 	},
 	computed:{
 
@@ -33,9 +39,13 @@ export default {
 
 	<div class="vitals">
 
-		<div class="separate"><button class="btn-sm" @click="dispatch('rest')"
+		<div class="separate">
+
+			<button class="btn-sm" @click="dispatch(STOP_ALL)">Stop All</button>
+
+			<button class="btn-sm" @click="dispatch('rest')" :disabled="resting"
 			@mouseenter.capture.stop="dispatch('itemover',$event, state.restAction )">
-			{{ this.resting ? 'Stop' : 'Rest' }}</button>
+			{{ state.restAction.name }}</button>
 
 			<button v-if="!focus.locked" class="btn-sm" @mouseenter.capture.stop="dispatch('itemover',$event, focus )"
 				:disabled="!usable(focus)"

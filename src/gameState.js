@@ -10,6 +10,9 @@ import Minions from './chars/minions';
  */
 import Runner from './modules/runner';
 import Explore from './composites/explore';
+import { ensure } from './util/util';
+
+export const REST_SLOT = 'rest';
 
 export default class GameState {
 
@@ -18,7 +21,6 @@ export default class GameState {
 		let slotIds = {};
 		for( let p in this.slots ) {
 			if ( this.slots[p] ) slotIds[p] = this.slots[p].id;
-			else slotIds[p] = null;
 		}
 
 		let data = {
@@ -31,7 +33,6 @@ export default class GameState {
 			drops:this.drops,
 			explore:this.explore,
 			sellRate:this.sellRate,
-			restAction:this.restAction ? this.restAction.id : null,
 			NEXT_ID:this.NEXT_ID
 
 		};
@@ -57,20 +58,7 @@ export default class GameState {
 		 */
 		this.NEXT_ID = this.NEXT_ID || 0;
 
-		/**
-		 * @property {Object.<string,Item>} slots - slots for items which can only have
-		 * a single active at a given time.
-		 */
-		this.slots = this.slots || {
-			'home':null,
-			'mount':null,
-			'bed':null
-		}
-
-		/**
-		 * @property {string} restAction - default resting action.
-		 */
-		this.restAction = this.restAction || this.getData( 'rest' );
+		this.initSlots();
 
 		this.quickslots = this.quickslots || [];
 
@@ -127,6 +115,21 @@ export default class GameState {
 
 	}
 
+	initSlots(){
+
+		/**
+		 * @property {Object.<string,Item>} slots - slots for items which can only have
+		 * a single active at a given time.
+		 */
+		this.slots = this.slots || {};
+
+		// all must be defined for Vue. slots could be missing from save.
+		ensure( this.slots, ['home', 'mount', 'bed', REST_SLOT]);
+
+		if ( !this.slots[REST_SLOT] ) this.slots[REST_SLOT] = this.getData('rest');
+
+	}
+
 	/**
 	 *
 	 * @param {Object.<string,Items>} g - all game data.
@@ -154,11 +157,10 @@ export default class GameState {
 
 	revive() {
 
-		if ( typeof this.restAction === 'string') this.restAction = this.getData( this.restAction );
-
 		for( let p in this.slots ) {
 			if ( typeof this.slots[p] === 'string') this.slots[p] = this.getData(this.slots[p] );
 		}
+		this.restAction = this.slots[REST_SLOT];
 
 		if ( this.quickslots ) {
 			this.quickslots = this.quickslots.map( v=>this.getData(v) );
@@ -378,12 +380,15 @@ export default class GameState {
 
 	/**
 	 * Set slotted item for exclusive items.
-	 * @param {string} id
+	 * @param {string} slot
 	 * @param {?GData} v - item to place in slot, or null.
 	 */
-	setSlot(id,v) {
+	setSlot(slot,v) {
 		if ( v && (v.type === 'wearable') ) return;
-		this.slots[id] = v;
+		this.slots[slot] = v;
+
+		if ( slot === REST_SLOT ) this.restAction = v;
+
 	}
 
 	/**

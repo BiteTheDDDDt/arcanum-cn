@@ -97,8 +97,6 @@ export default {
 		this.listen('brew', this.onBrew );
 		this.listen( 'use', this.onUse );
 
-		this.listen('home', this.onHome );
-
 		this.listen( 'spell', this.onSpell );
 		this.listen( 'buy', this.onBuy );
 
@@ -251,10 +249,6 @@ export default {
 			this.game.tryItem( action );
 		},
 
-		/**
-		 * Attempt to buy new house.
-		 */
-		onHome(it) { this.game.tryItem(it); },
 		onConfirmed(it) { this.game.tryItem(it); },
 		onSpell( spell ) { this.game.tryItem(spell); },
 
