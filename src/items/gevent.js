@@ -1,4 +1,5 @@
 import GData from "./gdata";
+import Events, { EVT_EVENT } from "../events";
 
 /**
  * Represents in-game event.
@@ -18,6 +19,15 @@ export default class GEvent extends GData {
 	constructor(vars=null){
 
 		super(vars);
+
+	}
+
+	amount( g, amt ) {
+
+		if ( !super.amount(g,amt) ) return;
+
+		this.locked = false;
+		Events.emit( EVT_EVENT, this );
 
 	}
 

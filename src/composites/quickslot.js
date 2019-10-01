@@ -52,6 +52,7 @@ export default class QuickSlot {
 	/**
 	 * All quickSlots are created at startup, so vars is always
 	 * JSON data or null.
+	 * @param {Object} [vars=null]
 	 */
 	constructor( vars=null ) {
 

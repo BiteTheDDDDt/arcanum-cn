@@ -20,7 +20,7 @@ export default class Runnable extends Proxy {
 	get type() { return 'runnable'; }
 
 	/**
-	 * @property {?Item} target - target of the running item.
+	 * @property {?GData} target - target of the running item.
 	 * may be undefined if not applicable.
 	 */
 	get target() { return this._target;}

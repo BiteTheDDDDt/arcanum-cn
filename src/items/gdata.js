@@ -152,6 +152,14 @@ export default class GData {
 	}
 
 	/**
+	 * Default implementation of use() is to add 1.
+	 * @param {Game} g
+	 */
+	use( g ) {
+		this.amount( g, 1 );
+	}
+
+	/**
 	 * Get or lose quantity.
 	 * @param {Game} g
 	 */

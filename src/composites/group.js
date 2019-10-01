@@ -56,6 +56,21 @@ export default class Group {
 	canPay() {
 	}
 
+	/**
+	 *
+	 * @param {Game} g
+	 * @param {*} amt
+	 */
+	amount( g, amt ) {
+
+		for( let i = this.items.length-1; i>= 0;i--) {
+
+			this.items[i].amount( g, amt );
+
+		}
+
+	}
+
 	exec() {
 
 		for( let i = this.items.length-1; i>= 0;i--) {

@@ -41,6 +41,11 @@ export default class Proxy {
 
 	}
 
+	amount( g, amt ) {
+
+		if ( this._item ) this._item.amount(g, amt );
+
+	}
 
 	revive( gs ) {
 

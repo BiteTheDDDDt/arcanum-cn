@@ -139,7 +139,7 @@ export default {
 			for( var i = list.length-1; i>= 0; i-- ) {
 
 				if ( list[i].value > 0) {
-					this.doEvent( evt );
+					evt.amount(this,1 );
 					hasEvent = true;
 					break;
 				}
@@ -234,8 +234,8 @@ export default {
 
 		Runner.update(dt);
 
-		this.doResources(dt, this.state.resources);
-		this.doResources( dt, this.state.playerStats );
+		this.doResources( this.state.resources, dt);
+		this.doResources( this.state.playerStats, dt );
 
 		if ( this.timers ) {
 
@@ -262,7 +262,7 @@ export default {
 	 * Frame update of all resources.
 	 * @param {number} dt - elapsed time.
 	 */
-	doResources( dt, stats ) {
+	doResources( stats, dt ) {
 
 		let len = stats.length, stat;
 		for( let i = len-1; i >= 0; i-- ) {
@@ -361,7 +361,7 @@ export default {
 					this.state.setSlot(it.slot, null );
 				}
 
-				if ( it.running ) this.doRest();
+				if ( it.running ) Runner.stopAction(it);
 				if ( it == this.state.raid.dungeon ) this.state.raid.setDungeon(null);
 
 				if ( it instanceof Resource || it instanceof Skill ) {
@@ -431,7 +431,7 @@ export default {
 	 */
 	removeAll( it ){
 
-		if ( it instanceof Object ) {
+		if ( typeof it === 'object' ) {
 
 			this.remove( it, it.value );
 
@@ -674,7 +674,7 @@ export default {
 		// randomized event.
 		if ( evt.rand ) {
 
-		} else this.doEvent(evt);
+		} else evt.amount( this, 1 );
 
 	},
 
@@ -683,12 +683,7 @@ export default {
 	 * @param {*} evt
 	 */
 	doEvent(evt){
-		if ( !evt.amount( this ) ) {
-			return false;
-		}
-		console.log('triggering tier: ' + evt.id );
-		evt.locked = false;
-		Events.emit( EVT_EVENT, evt );
+		evt.amount(this, 1 );
 	},
 
 	doLog( logItem ) {
@@ -697,7 +692,9 @@ export default {
 
 	/**
 	 * Remove some amount of an item.
-	 * @property {string} id - item id or tag.
+	 * If a tag list is specified, the amount will only be removed
+	 * from a single element of the list. Apparently.
+	 * @property {string|GData} id - item id or tag.
 	 */
 	remove( id, amt=1 ){
 
@@ -939,7 +936,7 @@ export default {
 			a[i].amount(this, amt);
 		}
 
-	}
+	},
 
 	/**
 	 * Apply an effect or mod to all Items with given tag.

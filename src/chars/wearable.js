@@ -93,6 +93,20 @@ export default class Wearable {
 
 	}
 
+	/**
+	 * Does not normally apply.
+	 * @param {*} g
+	 */
+	use(g) {
+	}
+
+	/**
+	 * Non-stacking. Does not apply.
+	 * @param {*} g
+	 */
+	amount(g) {
+	}
+
 	maxed() { return false; }
 
 	revive( state ) {

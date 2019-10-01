@@ -1,5 +1,7 @@
 basic item events:
 
+'amount' - apply amount to item total
+
 'buy' - initial purchase required before use.
 spells, enchants, potions, mounts
 
@@ -8,6 +10,7 @@ must pay 'cost' on use.
 may be runnable (perpetual), one one-time.
 
 'usewith' - identical to use but requires a use target.
+possibly unnecessary. 'use' can be used with param?
 
 'sell' - sell item.
 

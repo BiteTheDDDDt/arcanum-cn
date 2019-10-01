@@ -26,6 +26,7 @@ import Enchant from './items/enchant';
 import Item from './items/item';
 import Potion from './items/potion';
 import Encounter, { ENCOUNTER } from './items/encounter';
+import GEvent from './items/gevent';
 
 const DataDir = './data/';
 const DataFiles = [ 'resources', 'upgrades', 'actions', 'homes', 'furniture', 'skills',
@@ -226,8 +227,8 @@ export default {
 
 		gd.materials = this.initItems( dataLists['materials'], Material, 'material', 'material ');
 
-		gd.events = this.initItems( dataLists['events'], GData, null, 'event' );
-		gd.classes = this.initItems( dataLists['classes'], GData, 'class', 'class' );
+		gd.events = this.initItems( dataLists['events'], GEvent, null, 'event' );
+		gd.classes = this.initItems( dataLists['classes'], GEvent, 'class', 'class' );
 		gd.classes.forEach(v=>{
 			v.warn=true;
 			v.repeat = false;
