@@ -32,8 +32,8 @@ export default class Proxy {
 	get running() { return this.item ? this.item.running:false;}
 	set running(v) { if ( this.item) this.item.running=v;}
 
-	maxed() { return this.item.maxed(); }
-	canUse() { return this.item.canUse(); }
+	maxed() { return this.item ? this.item.maxed() : true; }
+	canUse() { return this.item ? this.item.canUse() : false; }
 
 	constructor( vars=null ){
 

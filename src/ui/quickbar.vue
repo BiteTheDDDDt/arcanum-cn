@@ -2,6 +2,7 @@
 import Game from '../game';
 import {abbr} from '../util/format';
 import {MAX_SLOTS } from '../composites/quickbar';
+import { TRY_USE } from '../events';
 
 /**
  * Bar for quick-use items.
@@ -11,6 +12,7 @@ export default {
 	create(){
 
 		this.bar = Game.state.quickbar;
+		this.TRY_USE = TRY_USE;
 
 	},
 	methods:{
@@ -65,7 +67,7 @@ export default {
 		<div class="quickslot" v-for="(it,i) in slots" :key="i">
 
 			<div v-if="it!=null" :class="it.school ? it.school :''"
-					@click="emit('action', it)"
+					@click="emit( TRY_USE, it)"
 					@mouseenter.capture.stop="emit( 'itemover',$event,it)">
 
 

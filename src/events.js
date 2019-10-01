@@ -31,6 +31,7 @@ export const TRY_BUY = 'buy';
 export const TRY_USE = 'tryuse';
 export const TRY_SELL = 'trysell';
 export const TRY_USE_WITH = 'tryusewith';
+export const USE = 'use';
 
 export const SET_SLOT = 'set_slot';
 

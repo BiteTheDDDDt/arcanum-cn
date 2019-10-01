@@ -20,7 +20,7 @@ import Adventure from './adventure.vue';
 import Settings from '../settings';
 import Cheats from '../cheats';
 
-import { TRY_BUY } from '../events';
+import { TRY_BUY, USE, TRY_USE } from '../events';
 import { TICK_TIME } from '../game';
 
 /**
@@ -119,7 +119,9 @@ export default {
 			this.add('drop', this.onDrop );
 			this.add('enchant', this.onEnchant );
 			this.add('craft', this.onCraft );
-			this.add( 'use', this.onUse );
+
+			this.add( TRY_USE, this.tryUse )
+			this.add( USE, this.onUse );
 
 
 			this.add( TRY_BUY, this.onBuy );
@@ -255,6 +257,8 @@ export default {
 		onRest(){ this.game.toggleAction( this.state.restAction ); },
 
 		onConfirmed(it) { this.game.tryItem(it); },
+
+		tryUse( it ) { this.game.tryItem(it ) },
 
 		/**
 		 * Item clicked.

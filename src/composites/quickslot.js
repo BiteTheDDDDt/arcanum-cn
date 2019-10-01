@@ -84,6 +84,22 @@ export default class QuickSlot {
 	 * @param {Game} g
 	 */
 	use( g ) {
+
+		if ( this._item && this._item.value > 0 ) {
+
+			this._item.use(g);
+
+		} else {
+
+			if ( this.recipe ) {
+
+				this._item = g.state.findInstance( this.recipe, true );
+				if ( this._item ) this._item.use(g);
+
+			}
+
+		}
+
 	}
 
 	revive(gs) {

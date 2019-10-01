@@ -5,9 +5,10 @@ import Attack from './attack';
 import {mergeSafe} from "objecty";
 import Mod from '../values/mod';
 import { assignNoFunc } from '../util/util';
+import Item from '../items/item';
 
 
-export default class Wearable {
+export default class Wearable extends Item {
 
 	toJSON() {
 
@@ -36,13 +37,7 @@ export default class Wearable {
 
 	}
 
-	get instance() { return true; }
 	get equippable() { return true; }
-
-	/**
-	 * @property {string} recipe - id of item used to create this item.
-	 */
-	get recipe() { return this.template?  this.template.id : this._id; }
 
 	/**
 	 * @property {number} enchants - total level of all enchantments applied.
@@ -81,30 +76,16 @@ export default class Wearable {
 
 	constructor(vars=null){
 
+		super( null );
+
 		if ( vars ) assignNoFunc(this,vars );// Object.assign(this,vars);
 
 		this.value = this.value || 1;
 
 		//if ( vars ) logObj( vars, 'vars');
 		//if( vars.template ) logObj( vars.template, ' template' );
-		if ( !this.type ) {
-			this.type = 'wearable';
-		}
+		if ( !this.type ) { this.type = 'wearable'; }
 
-	}
-
-	/**
-	 * Does not normally apply.
-	 * @param {*} g
-	 */
-	use(g) {
-	}
-
-	/**
-	 * Non-stacking. Does not apply.
-	 * @param {*} g
-	 */
-	amount(g) {
 	}
 
 	maxed() { return false; }
@@ -218,6 +199,3 @@ export default class Wearable {
 	}
 
 }
-
-
-mergeClass( Wearable, Base );

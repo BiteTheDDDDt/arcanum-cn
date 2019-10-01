@@ -117,6 +117,49 @@ export default class GData {
 	}
 
 	/**
+	 * Determines whether an item can be run as a continuous action.
+	 * @param {Game} g
+	 * @param {number} dt - minimum length of time item would run.
+	 * @returns {boolean}
+	 */
+	canRun( g, dt ) {
+
+		if ( this.disabled || this.maxed() || (this.need && !g.unlockTest( this.need, this )) ) return false;
+
+		if ( this.buy && !this.owned && !g.canPay(this.buy) ) return false;
+
+		// cost only paid at _start_ of runnable action.
+		if ( this.cost && (this.exp === 0) && !g.canPay(this.cost) ) return false;
+
+		if ( this.fill && g.filled( it.fill, this ) ) return false;
+
+		return this.run && g.canPay( this.run, dt );
+
+	}
+
+	/**
+	 * Determine if an item can be used. Ongoing/perpetual actions
+	 * test with 'canRun' instead.
+	 * @param {Game} g
+	 */
+	canUse( g ){
+
+		if ( this.perpetual || this.length>0 ) { return g.canRun(this); }
+
+		if ( this.disabled || (this.need && !g.unlockTest( this.need, this )) ) return false;
+		if ( this.buy && !this.owned && !g.canPay(this.buy) ) return false;
+
+		if ( this.slot && g.state.getSlot(this.slot, this.type ) === this) return false;
+		if ( this.maxed() ) return false;
+
+		if ( this.cd && this.timer > 0 ) return false;
+
+		if ( this.fill && g.filled( this.fill, this ) ) return false;
+
+		return !this.cost || g.canPay(this.cost);
+	}
+
+	/**
 	 * Add or remove amount from Item, after min/max bounds are taken into account.
 	 * Returns the amount actually added or removed.
 	 *

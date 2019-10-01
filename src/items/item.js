@@ -1,7 +1,13 @@
 import Base, {mergeClass} from './base';
 import { mergeSafe} from 'objecty';
 
+const ItemDefaults = {
+	stack:true,
+	consume:true
+}
+
 /**
+ * @class Item
  * Carryable or equippable instanced Item.
  * An instanced item can be created, destroyed, discarded, etc.
  */
@@ -38,13 +44,42 @@ export default class Item {
 	get stack() { return this._stack; }
 	set stack(v) { this._stack = v; }
 
+	get defaults() { return this._defaults || ItemDefaults }
+	set defaults(v) { this._defaults = v;}
+
 	constructor( vars=null ) {
 
 		if ( vars ) Object.assign( this, vars );
-		if ( this.consume === null || this.consume === undefined ) this.consume = true;
 
-		console.log('Item: ' +  this.id );
-		if ( this.stack !== false ) this.stack = true;
+
+		if ( this.consume === null || this.consume === undefined ) this.consume = this.defaults.consume;
+		if ( this.stack === null || this.stack === undefined ) this.stack = this.defaults.stack;
+
+	}
+
+	use( g, targ, inv=null ) {
+
+		if ( this.consume === true ) {
+			this.value--;
+			if ( this.value <= 0 ) ( inv || g.state.inventory ).remove( this );
+		}
+
+		if ( this.use ) {
+
+			if (this.use.dot ) {
+				g.state.player.addDot( new Dot( this.use.dot, this.id, this.name) );
+			}
+			g.applyEffect( this.use );
+
+		}
+
+	}
+
+	/**
+	 * Non-stacking. Does not apply.
+	 * @param {*} g
+	 */
+	amount(g) {
 	}
 
 	maxed(){

@@ -1,6 +1,7 @@
 <script>
 import Game from '../game';
 import FilterBox from './components/filterbox.vue';
+import { USE } from '../events';
 
 export default {
 
@@ -13,6 +14,9 @@ export default {
 		return {
 			filtered:null
 		}
+	},
+	created() {
+		this.USE = USE;
 	},
 	components:{
 		filterbox:FilterBox
@@ -71,7 +75,7 @@ export default {
 		<template v-if="!selecting">
 
 			<td v-if="it.equippable"><button @click="emit('equip',it, inv)">Equip</button></td>
-			<td v-if="it.use"><button @click="emit( 'use', it)">Use</button></td>
+			<td v-if="it.use"><button @click="emit( USE, it)">Use</button></td>
 			<td v-if="take&&!playerFull"><button @click="onTake(it)">Take</button></td>
 
 			<td>

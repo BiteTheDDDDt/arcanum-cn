@@ -32,8 +32,6 @@ export default class Runnable extends Proxy {
 	get repeatable() { return this._item && this._item.repeatable || false; }
 
 	percent() { return this._length ? 100*this._exp / this._length : 0; }
-	maxed() { return this.item.maxed(); }
-	canUse() { return this.item.canUse(); }
 
 	get length() { return this._length; }
 	set length(v) { this._length = v;}

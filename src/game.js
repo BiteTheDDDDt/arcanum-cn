@@ -17,7 +17,7 @@ import Runner from './modules/runner';
 /**
  * @note these refer to Code-events, not in-game events.
  */
-import Events, {EVT_UNLOCK, EVT_EVENT, ENTER_LOC, EXIT_LOC, ITEM_ATTACK, SET_SLOT } from './events';
+import Events, {EVT_UNLOCK, EVT_EVENT, ENTER_LOC, EXIT_LOC, ITEM_ATTACK, SET_SLOT, TRY_USE } from './events';
 import Resource from './items/resource';
 import Skill from './items/skill';
 import Stat from './values/stat';
@@ -118,6 +118,7 @@ export default {
 			Events.add( ENTER_LOC, this.enterLoc, this );
 			Events.add( EXIT_LOC, this.enterLoc, this );
 			Events.add( SET_SLOT, this.setSlot, this );
+			Events.add( TRY_USE, this.tryUse, this );
 
 		}, err=>{ console.error('game err: ' + err )});
 
@@ -469,6 +470,19 @@ export default {
 	},
 
 	/**
+	 * Use inventory or equip item.
+	 * @param {*} it
+	 */
+	use( it, targ, inv=null ) {
+
+		it.use( this );
+
+	},
+
+	tryUse( it ) {
+	},
+
+	/**
 	 * Attempt to pay for an item, and if the cost is met, apply it.
 	 * @param {GData} it
 	 * @returns {boolean} - true if item is used. note that 'buying' an item
@@ -482,7 +496,7 @@ export default {
 
 		if ( it.instance ){
 
-			this.use(it);
+			it.use(this);
 
 		} else if ( it.buy && !it.owned ) {
 
@@ -507,33 +521,6 @@ export default {
 				}
 			}
 
-		}
-
-	},
-
-
-	/**
-	 * Use item from inventory.
-	 * @param {*} it
-	 */
-	use( it, targ, inv=null ) {
-
-		if ( it === null ) return;
-		if ( typeof it === 'string' || it.value <= 0 ) {
-
-			console.log('FIND: ' + it );
-			it = this.state.findData( typeof it === 'object' ? it.recipe : it, true);
-			if ( !it ) return;
-
-		}
-
-		if ( it.consume === true ) {
-			it.value--;
-			if ( it.value <= 0 ) ( inv || this.state.inventory ).remove(it);
-		}
-		if ( it.use ) {
-			if ( it.use.dot ) this.state.player.addDot( new Dot( it.use.dot, it.id, it.name) );
-			this.applyEffect( it.use );
 		}
 
 	},
@@ -1002,22 +989,7 @@ export default {
 	 * @returns {boolean}
 	 */
 	canRun( it ) {
-
-		if ( it.disabled || it.maxed() || (it.need && !this.unlockTest( it.need, it )) ) return false;
-
-		if ( it.buy && !it.owned && !this.canPay(it.buy) ) return false;
-
-		// cost only paid at _start_ of runnable action.
-		if ( it.cost && (it.exp === 0) && !this.canPay(it.cost) ) return false;
-
-		if ( it.fill ) {
-
-			let t = this.getData(it.fill);
-			if ( t && t.maxed() ) return false;
-
-		}
-		return !it.run || this.canPay( it.run, TICK_TIME/1000 );
-
+		return it.canRun( this, TICK_TIME/1000 );
 	},
 
 	/**
@@ -1026,25 +998,7 @@ export default {
 	 * @param {GData} it
 	 */
 	canUse( it ){
-
-		if ( it.disabled || (it.need && !this.unlockTest( it.need, it )) ) return false;
-		if ( it.buy && !it.owned && !this.canPay(it.buy) ) return false;
-
-		if ( it.perpetual || it.length>0 ) { return this.canRun(it); }
-
-		if ( it.slot && this.state.getSlot(it.slot, it.type ) === it) return false;
-		if ( it.maxed() ) return false;
-
-		if ( it.cd && it.timer > 0 ) return false;
-
-		if ( it.fill ) {
-
-			let t = this.getData(it.fill);
-			if ( t && t.maxed() ) return false;
-
-		}
-
-		return !it.cost || this.canPay(it.cost);
+		return it.canUse( this );
 	},
 
 	/**
