@@ -570,7 +570,7 @@
 		"name":"basin",
 		"tags":"watersource",
 		"desc":"Basin of water.",
-		"require":"atticbedroom",
+		"require":"evt_helper",
 		"repeat":true,
 		"cost":{
 			"gold":50,

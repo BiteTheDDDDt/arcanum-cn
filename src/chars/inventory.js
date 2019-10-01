@@ -115,9 +115,10 @@ export default class Inventory {
 	 * If false, only an exact id match is returned.
 	 */
 	find(id, proto=false ) {
-		console.log('find id: ' + id );
-		return proto === true ? this.items.find( v=>v.id===id||v.protoId===id) :
+
+		return proto === true ? this.items.find( v=>v.id===id||v.recipe===id) :
 			this.items.find( v=>v.id===id);
+
 	}
 
 	/**

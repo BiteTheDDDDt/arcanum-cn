@@ -1,11 +1,12 @@
 import Game from '../game';
 import Events, {ACT_DONE} from '../events';
+import Proxy from './proxy';
 
 /**
  * Wraps an action in progress with an action target, and possible
  * extra instance data.
  */
-export default class Runnable {
+export default class Runnable extends Proxy {
 
 	toJSON(){
 
@@ -24,35 +25,6 @@ export default class Runnable {
 	 */
 	get target() { return this._target;}
 	set target(v) { this._target = v; }
-
-	/**
-	 * @property {Item} item - item being run.
-	 */
-	get item() { return this._item; }
-	set item(v) { this._item = v; }
-
-	/**
-	 * @property {string} id - maybe a bad idea.
-	 */
-	get id() { return this.item.id; }
-
-	set count(v){}
-	set name(v){}
-
-	/**
-	 * @property {string} name
-	 */
-	get name() { return this.item ? this.item.name : ''; }
-
-	hasTag(t) { return this.item && this.item.hasTag(t); }
-	hasTags(t) { return this.item && this.items.hasTag(t); }
-
-	get cost() { return this.item ? this.item.cost : null; }
-	get run() { return this.item ? this.item.run : null; }
-	get effect() { return this.item ? this.item.effect : null; }
-
-	get running() { return this.item ? this.item.running:false;}
-	set running(v) { if ( this.item) this.item.running=v;}
 
 	get exp(){ return this._exp; }
 	set exp(v) { this._exp = v; }
@@ -75,6 +47,8 @@ export default class Runnable {
 	 * @param {*} targ
 	 */
 	constructor( vars=null, targ=null ) {
+
+		super();
 
 		if ( targ ) {
 
@@ -101,12 +75,11 @@ export default class Runnable {
 
 	revive( state ) {
 
-		if ( typeof this._item === 'string') this._item = state.findData(this._item);
+		super.revive(state);
+
 		if ( typeof this._target === 'string') this._target = state.findData(this._target);
 
-		if ( this.item ) this._length = this._item.length;
-		console.log('this exp: ' + this.exp );
-		console.log('enc len: ' + this.length );
+		if ( this.item ) this._length = this.item.length;
 
 	}
 

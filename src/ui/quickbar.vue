@@ -1,18 +1,29 @@
 <script>
-
+import Game from '../game';
 import {abbr} from '../util/format';
+import {MAX_SLOTS } from '../composites/quickbar';
 
 /**
  * Bar for quick-use items.
  */
 export default {
-	props:['slots'],
+
+	create(){
+
+		this.bar = Game.state.quickbar;
+
+	},
 	methods:{
 
 		remove(ind){
 
-			if ( ind >= 0) this.$set( this.slots, ind, undefined );
+			if ( ind >= 0) {
+				this.bar.clear(ind);
+			}
 
+		},
+
+		item(ind ) {
 		},
 
 		clicked(it) {
@@ -22,6 +33,24 @@ export default {
 
 	},
 	computed:{
+
+		items() {
+
+			let slots = this.bar.slots
+			let a = [];
+
+			for( let i = 0; i < MAX_SLOTS; i++ ) {
+
+				var it = slots[i];
+
+
+				a[i] = null;
+
+			}
+
+			return a;
+
+		},
 
 		hasItems(){ return this.slots.some(v=>v!=null); }
 

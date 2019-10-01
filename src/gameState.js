@@ -2,7 +2,6 @@ import Inventory from './chars/inventory';
 import Raid from './composites/raid';
 import GData from './items/gdata';
 import Equip from './chars/equip';
-import Runnable from './composites/runnable';
 import Minions from './chars/minions';
 
 /**
@@ -11,6 +10,7 @@ import Minions from './chars/minions';
 import Runner from './modules/runner';
 import Explore from './composites/explore';
 import { ensure } from './util/util';
+import Quickbar from './composites/quickbar';
 
 export const REST_SLOT = 'rest';
 
@@ -26,7 +26,7 @@ export default class GameState {
 		let data = {
 
 			items:( this.items ),
-			quickbar:this.quickbar.map(v=>v ? v.id : null),
+			quickbar:this.quickbar,
 			slots:slotIds,
 			equip:( this.equip ),
 			raid:( this.raid ),
@@ -63,7 +63,7 @@ export default class GameState {
 		/**
 		 * @compat
 		 */
-		this.quickbar = this.quickbar || this.quickslots || [];
+		this.quickbar = new Quickbar( this.quickbar || this.quickslots );
 
 		this.initMaterials( this.materials );
 
@@ -175,21 +175,10 @@ export default class GameState {
 		this.raid.revive( this );
 		this.explore.revive(this);
 
-		this.reviveQuickbar();
+		this.quickbar.revive(this);
 
 		Runner.revive(this);
 		this.items.runner = Runner;
-
-	}
-
-	reviveQuickbar(){
-
-		for( let i = this.quickbar.length-1; i>= 0; i-- ) {
-
-			var it = this.quickbar[i];
-			if ( it ) this.quickbar[i] = this.findData(it,true );
-
-		}
 
 	}
 
@@ -248,25 +237,16 @@ export default class GameState {
 	 * @param {number} slotNum
 	 */
 	setQuickSlot( it, slotNum ) {
+		this.quickbar.setSlot(it, slotNum);
+	}
 
-		if ( it.type ==='resource') return;
-
-		//console.log('use slot: ' + slotNum );
-		// NOTE: using splice for Vue reactivity.
-		if ( slotNum >= 0 && slotNum <=9 ) {
-
-			let ind = slotNum > 0 ? slotNum - 1 : 9;
-			if ( ind < this.quickbar.length ) this.quickbar.splice(ind,1, it );
-			else {
-
-				let a = this.quickbar.slice();
-				a[ind] = it;
-				this.quickbar = a;
-
-			}
-
-		}
-
+	/**
+	 * Get quickslot item for slot number.
+	 * @param {number} slotNum
+	 * @returns {?GData}
+	*/
+	getQuickSlot( slotNum ) {
+		return this.quickbar.getSlot( slotNum);
 	}
 
 	/**
@@ -284,16 +264,6 @@ export default class GameState {
 		}
 
 		return a;
-	}
-
-	/**
-	 * Get quickslot item for slot number.
-	 * @param {number} slotNum
-	 * @returns {?GData}
-	 */
-	getQuickSlot( slotNum ) {
-		let ind = slotNum > 0 ? slotNum - 1 : 9;
-		return this.quickbar[ind];
 	}
 
 	/**
@@ -406,12 +376,21 @@ export default class GameState {
 	}
 
 	/**
-	 * Find item in base items, equip, or inventory.
+	 * Find an item instantiated from given item proto/recipe.
 	 * @param {string} id
 	 */
-	findData(id) {
+	findInstance( id ) {
+		return this.inventory.find(id, true) || this.equip.find(id, true );
+	}
 
-		return this.getData(id) || this.inventory.find(id) || this.equip.find(id);
+	/**
+	 * Find item in base items, equip, or inventory.
+	 * @param {string} id
+	 * @param {boolean} [any=false] - whether to return any matching type.
+	 */
+	findData(id, any=false) {
+
+		return this.getData(id) || this.inventory.find(id, any) || this.equip.find(id, any );
 	}
 
 	getData(id) {

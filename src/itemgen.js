@@ -25,7 +25,7 @@ export function itemRevive(gs, it ) {
 
 		var type = orig.type;
 		if ( type == null ) {
-			console.warn( 'Unknown Item type: '+ it.type + ' -> ' + it.template + ' -> ' + it.protoId );
+			console.warn( 'Unknown Item type: '+ it.type + ' -> ' + it.template + ' -> ' + it.recipe );
 		}
 
 		if ( type === 'armor' || type === 'weapon' || type === 'wearable') {
@@ -43,6 +43,7 @@ export function itemRevive(gs, it ) {
 			console.log('default revive: ' + it.id );
 			it = new Item(it);
 		}
+		it.owned = true;
 
 		it.revive( gs );
 
@@ -160,6 +161,8 @@ export default class ItemGen {
 		if ( it === undefined ) return null;
 
 		it.id = proto.id + this.state.nextId();
+		it.owned = true;
+
 		return it;
 
 	}
@@ -213,8 +216,8 @@ export default class ItemGen {
 
 		/** @todo: THIS IS BAD */
 
-		else if ( info.type && !info.isProto ) {
-			Game.doItem( info, amt ||0 );
+		else if ( info.type && !info.isRecipe ) {
+			if ( amt != 0 ) info.amount( Game, amt );
 			return;
 		}
 

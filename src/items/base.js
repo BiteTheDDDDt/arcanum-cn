@@ -1,5 +1,4 @@
 import {changes, jsonify, cloneClass } from 'objecty';
-import Percent from '../values/percent';
 import Game from '../game';
 import Stat from '../values/stat';
 import Mod from '../values/mod';
@@ -278,14 +277,6 @@ export default {
 
 		}
 
-	},
-
-	/**
-	 * Get the value of an object, or a default value.
-	 * @param {Object|number} obj
-	 * @param {*} def
-	 */
-	getValue( obj, def=0 ) {
 	},
 
 	/**

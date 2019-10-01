@@ -38,6 +38,27 @@
 
 	},
 	{
+		"id":"spellcraft",
+		"school":"arcane",
+		"verb":"studying spells",
+		"desc":"the ability to build greater spells from lesser is what separates a practitioner from a master.",
+		"require":"g.tier2>0&&g.lore>=15",
+		"buy":{
+			"sp":5
+		},
+		"run":{
+			"stamina":0.2,
+			"research":5
+		},
+		"result":{
+
+			"sp":0.1,
+			"research.max":5
+
+		}
+
+	},
+	{
 		"id":"trickery",
 		"school":"arcane",
 		"verb":"scheming",

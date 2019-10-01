@@ -949,9 +949,38 @@
 		"divination.max":3,
 		"divination.rate":"10%",
 		"scrying.max":2,
-		"lore.max":3,
+		"lore.max":2,
 		"lore.rate":"10%"
 	},"flavor":"it waits in time"
+},
+{
+	"id":"thaumaturge",
+	"title":"thaumaturge",
+	"desc":"a maker of wonders",
+	"require":"g.tier3>0&&g.spirit>=15&&g.divination>=15",
+	"tags":"t_tier4",
+	"cost":{
+		"research":5000,
+		"arcana":25,
+		"tomes":7,
+		"spiritgem":20,
+		"runestones":5
+	},
+	"effect":{
+		"sp":2
+	},
+	"mod":{
+		"tier4":true,
+		"spiritlore.max":2,
+		"divination.max":3,
+		"spellcraft.max":2,
+		"spellcraft.rate":"0.3+5%",
+		"lore.max":2,
+		"light.max":2,
+		"light.rate":"0.2+5%",
+		"lore.rate":"0.4+5%",
+		"mana.max":3
+	}
 },
 {
 	"id":"necromancer",
@@ -984,31 +1013,6 @@
 	}
 },
 {
-	"id":"thaumaturge",
-	"title":"thaumaturge",
-	"desc":"a crafter of wonders",
-	"require":"g.tier3>0&&g.spirit>=15&&g.divination>=15",
-	"tags":"t_tier4",
-	"cost":{
-		"research":5000,
-		"arcana":25,
-		"tomes":7,
-		"spiritgem":20,
-		"runestones":5
-	},
-	"effect":{
-		"sp":2
-	},
-	"mod":{
-		"tier4":true,
-		"spiritlore.max":2,
-		"divination.max":3,
-		"lore.max":2,
-		"lore.rate":0.4,
-		"mana.max":3
-	}
-},
-{
 	"id":"wizard",
 	"title":"wizard",
 	"desc":"raw magic power",
@@ -1028,7 +1032,11 @@
 		"tier4":true,
 		"research.max":"40-5%",
 		"languages.max":2,
+		"conjuration.max":1,
+		"crafting.max":1,
 		"lore.max":3,
+		"spellcraft.max":3,
+		"spellcraft.rate":0.5,
 		"lore.rate":"10%",
 		"mana.max":3
 	}

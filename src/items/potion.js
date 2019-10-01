@@ -14,7 +14,7 @@ const defaults = {
  */
 export default class Potion extends GData {
 
-	get isProto() {return true; }
+	get isRecipe() {return true; }
 
 	constructor(vars=null ) {
 

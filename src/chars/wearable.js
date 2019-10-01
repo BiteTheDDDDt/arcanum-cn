@@ -40,9 +40,9 @@ export default class Wearable {
 	get equippable() { return true; }
 
 	/**
-	 * @property {string} protoId - id of item template used to instance this item.
+	 * @property {string} recipe - id of item used to create this item.
 	 */
-	get protoId() { return this.template?  this.template.id : this._id; }
+	get recipe() { return this.template?  this.template.id : this._id; }
 
 	/**
 	 * @property {number} enchants - total level of all enchantments applied.

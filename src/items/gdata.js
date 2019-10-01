@@ -2,6 +2,7 @@ import { defineExcept, clone } from 'objecty';
 import Stat from '../values/stat';
 import Base, {mergeClass} from './base';
 import { arrayMerge, assignPublic } from '../util/util';
+import { ITEM_ATTACK } from '../events';
 
 /**
  * @typedef {Object} Effect
@@ -147,6 +148,40 @@ export default class GData {
 		this.value += amt;
 
 		return amt;
+
+	}
+
+	/**
+	 * Get or lose quantity.
+	 * @param {Game} g
+	 */
+	amount( g, count=1 ) {
+
+		if ( this.topoff ) count = this.topoff(count);
+		if ( count === 0 ) return;
+
+		if ( this.isRecipe ) {
+			console.log('CREATING isRecipe: ' + this.id );
+			return this.create( g, true );
+		}
+
+		if ( this.exec ) this.exec();
+
+		if ( this.title ) g.state.player.title = this.title;
+		if ( this.effect ) g.applyEffect(this.effect);
+		if ( this.mod ) g.addMod( this.mod, count );
+		if ( this.lock ) g.lock( this.lock );
+		if ( this.dot ) g.state.player.addDot( new Dot(this.dot, this.id, this.name) );
+		if ( this.disable ) g.disable( this.disable );
+
+		if ( this.log ) Events.emit( EVT_EVENT, this.log );
+
+		if ( this.attack ) {
+			if (this.type !== 'wearable' && this.type !== 'weapon') Events.emit( ITEM_ATTACK, this );
+		}
+
+		this.dirty = true;
+		return true;
 
 	}
 

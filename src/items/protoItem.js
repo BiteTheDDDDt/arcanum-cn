@@ -13,7 +13,7 @@ export default class ProtoItem extends GData {
 
 	}
 
-	get isProto() { return true; }
+	get isRecipe() { return true; }
 
 	get material() { return this._material; }
 	set material(v) { this._material=v;}

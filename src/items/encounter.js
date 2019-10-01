@@ -16,7 +16,7 @@ export const ENCOUNTER = 'enc';
  */
 export default class Encounter extends GData {
 
-	get isProto() {return true; }
+	get isRecipe() {return true; }
 
 	get exp() { return this._exp;}
 	set exp(v) { this._exp = v;}

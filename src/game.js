@@ -196,7 +196,7 @@ export default {
 		this.state.setSlot( it.slot, it );
 
 		this.payCost( it.cost );
-		return this.doItem(it);
+		return it.amount( this );
 
 	},
 
@@ -271,7 +271,9 @@ export default {
 			if ( stat.locked === false ) {
 
 				if  ( stat.rate.value !== 0 ) {
-					this.doItem( stat, stat.rate.value*dt );
+
+					stat.amount(this, stat.rate.value*dt);
+
 				}
 
 			}
@@ -461,9 +463,8 @@ export default {
 		if ( this.canPay(it.buy) === false ) return false;
 		this.payCost( it.buy );
 
-		if ( it.isProto ) this.create( it );
-
-		it.owned = true;
+		if ( it.isRecipe ) this.create( it );
+		else it.owned = true;
 
 	},
 
@@ -489,7 +490,7 @@ export default {
 
 		} else {
 
-			if ( it.isProto ) {
+			if ( it.isRecipe ) {
 
 				this.craft(it );
 
@@ -502,7 +503,7 @@ export default {
 				if ( it.slot ) this.setSlot( it );
 				else {
 					this.payCost( it.cost );
-					return this.doItem(it);
+					it.amount( this );
 				}
 			}
 
@@ -516,6 +517,15 @@ export default {
 	 * @param {*} it
 	 */
 	use( it, targ, inv=null ) {
+
+		if ( it === null ) return;
+		if ( typeof it === 'string' || it.value <= 0 ) {
+
+			console.log('FIND: ' + it );
+			it = this.state.findData( typeof it === 'object' ? it.recipe : it, true);
+			if ( !it ) return;
+
+		}
 
 		if ( it.consume === true ) {
 			it.value--;
@@ -651,45 +661,7 @@ export default {
 		if ( !it || !it.max ) return;
 
 		let del = it.max.value - it.value;
-		if ( del > 0) this.doItem( it, it.max.value - it.value );
-
-	},
-
-	/**
-	 * Get a game item without paying cost.
-	 * @param {GData} it
-	 * @param {number} count
-	 */
-	doItem( it, count=1 ) {
-
-		count = it.topoff(count);
-		if ( count === 0 ) {
-			return;
-		}
-		//it.value += it.consume ? -count : count;
-
-		if ( it.isProto ) {
-			console.log('CREATING ISPROTO: ' + it.id );
-			return this.create(it, true );
-		}
-
-		if ( it.exec ) it.exec();
-
-		if ( it.title ) this.state.player.title = it.title;
-		if ( it.effect ) this.applyEffect(it.effect);
-		if ( it.mod ) this.addMod( it.mod, count );
-		if ( it.lock ) this.lock( it.lock );
-		if ( it.dot ) this.state.player.addDot( new Dot(it.dot, it.id, it.name) );
-		if ( it.disable ) this.disable( it.disable );
-
-		if ( it.log ) Events.emit( EVT_EVENT, it.log );
-
-		if ( it.attack ) {
-			if (it.type !== 'wearable' && it.type !== 'weapon') Events.emit( ITEM_ATTACK, it );
-		}
-
-		it.dirty = true;
-		return true;
+		if ( del > 0) it.amount( this, it.max.value - it.value );
 
 	},
 
@@ -711,8 +683,7 @@ export default {
 	 * @param {*} evt
 	 */
 	doEvent(evt){
-		if ( !this.doItem(evt) ) {
-			console.log('EVENT MAXED: ' +  evt.id );
+		if ( !evt.amount( this ) ) {
 			return false;
 		}
 		console.log('triggering tier: ' + evt.id );
@@ -863,14 +834,14 @@ export default {
 				} else {
 
 					if ( target.type === 'event' ) this.unlockEvent( target );
-					else if ( typeof e === 'number' ) this.doItem( target, e*dt );
+					else if ( typeof e === 'number' ) target.amount( this, e*dt );
 					else if ( e instanceof Range ) {
 
-						this.doItem( target, e.value*dt );
+						target.amount( this, e.value*dt );
 					} else if ( typeof e === 'boolean') {
 
 						target.locked = !e;
-						this.doItem( target );
+						target.amount( this, 1 );
 
 					} else target.applyVars(e,dt);
 
@@ -884,7 +855,11 @@ export default {
 			if ( target !== undefined ) {
 
 				if ( target.type === 'event') this.unlockEvent( target );
-				else this.doItem( target, dt );
+				else target.amount( this, dt );
+
+			} else {
+
+				this.getAmount( this.getTagList(effect), dt );
 
 			}
 
@@ -929,7 +904,7 @@ export default {
 				var target = this.getData( p );
 
 				if ( target === undefined ) this.modTag( p, mod[p], amt );
-				else if ( mod[p] === true ) this.doItem( target, 1 );
+				else if ( mod[p] === true ) target.amount( this, 1 );
 				else {
 					target.applyMods( mod[p], amt );
 					target.dirty = true;
@@ -940,17 +915,31 @@ export default {
 
 			let t = this.getData(mod);
 			if ( t ) {
-				this.doItem(t,amt);
+				t.amount(this,amt);
 			} else {
-				t = this.getTagList(mod);
-				if ( t ) {
-					this.doItem(t,amt);
-				}
+
+				this.getAmount( this.getTagList(mod), amt );
+
 			}
 
 		}
 
 	},
+
+	/**
+	 *
+	 * @param {GData[]} a
+	 * @param {*} amt
+	 */
+	getAmount( a, amt=1 ) {
+
+		if ( !a ) return;
+
+		for( let i = a.length-1; i>= 0; i-- ) {
+			a[i].amount(this, amt);
+		}
+
+	}
 
 	/**
 	 * Apply an effect or mod to all Items with given tag.
@@ -1194,7 +1183,7 @@ export default {
 
 		}
 		if ( it.mod) this.addMod(it.mod);
-		//this.doItem(it);
+
 		it.equip( this.state.player );
 
 
