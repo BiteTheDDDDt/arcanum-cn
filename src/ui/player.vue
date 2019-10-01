@@ -61,23 +61,27 @@ export default {
 
 	<div class="player-view">
 
-		<table>
+		<div class="player-tables">
 
-		<tr><td>name</td><th>
+		<div>
+		<table>
+		<tr><td>name</td><th class="text-entry">
 			<input class="fld-name" type="text" v-model="name"></th></tr>
-		<tr @mouseenter.capture.stop="dispatch( 'itemover', $event,player.titles, 'Titles')"><td>title</td><th> {{ title}}</th></tr>
+		<tr @mouseenter.capture.stop="emit( 'itemover', $event,player.titles, 'Titles')"><td>title</td><th> {{ title}}</th></tr>
 		<!--<tr><td>alignment</td><th>{{ player.alignment }}</th></tr>-->
 		<tr><td>level</td><th> {{ level }}</th></tr>
 		<tr><td>exp</td><th> {{ exp }} / {{ next }} </th></tr>
-		<tr><td @mouseenter.capture.stop="dispatch( 'itemover', $event,sp)">skill points</td><th> {{ sp.value.toFixed(2) }}</th></tr>
+		<tr><td @mouseenter.capture.stop="emit( 'itemover', $event,sp)">skill points</td><th> {{ sp.value.toFixed(2) }}</th></tr>
 
 		<tr><td>rest</td><th><slotpick pick="rest" /></th></tr>
 		<tr><td>mount</td><th><slotpick pick="mount" /></th></tr>
-		<tr><td @mouseenter.capture.stop="dispatch( 'itemover', $event,dist)">distance</td><th>{{ dist.current }}</th></tr>
+		<tr><td @mouseenter.capture.stop="emit( 'itemover', $event,dist)">distance</td><th>{{ dist.current }}</th></tr>
 		</table>
+		</div>
 
+		<div>
 		<table>
-			<tr><td @mouseenter.capture.stop="dispatch( 'itemover', $event, hp)">life</td><th>
+			<tr><td @mouseenter.capture.stop="emit( 'itemover', $event, hp)">life</td><th>
 			{{ floor( hp.value ) }} / {{ floor( hp.max.value ) }}</th></tr>
 
 			<tr><td>stamina</td><th>
@@ -90,18 +94,19 @@ export default {
 
 			<tr><td>speed</td><th>{{ speed.toFixed(2) }}</th></tr>
 
-			<tr @mouseenter.capture.stop="dispatch( 'itemover', $event,player.weapon)">
+			<tr @mouseenter.capture.stop="emit( 'itemover', $event,player.weapon)">
 				<td>weapon</td><th>{{ player.weapon ? player.weapon.name : 'None' }}</th></tr>
 
-			<tr @mouseenter.capture.stop="dispatch( 'itemover', $event,player.primary)">
+			<tr @mouseenter.capture.stop="emit( 'itemover', $event,player.primary)">
 				<td>spell</td><th>{{ player.primary ? player.primary.name : 'None' }}</th></tr>
 
 
 		</table>
+		</div>
 
 		<div>
-		<span>resists</span>
 		<table class="resists">
+			<tr><th>resists</th></tr>
 			<tr v-for="(r,k) in player.resist" :key="k">
 				<td>{{k}}</td><td class="num-align">{{r}}%</td>
 			</tr>
@@ -109,12 +114,15 @@ export default {
 		</div>
 
 		<div>
-		<span>immunities</span>
+
 		<table class="immunities">
+			<tr><th>immunities</th></tr>
 			<tr v-for="(r,k) in player.immunities" :key="k">
 				<td>{{k}}</td>
 			</tr>
 		</table>
+		</div>
+
 		</div>
 
 		<upgrades></upgrades>
@@ -133,7 +141,26 @@ div.player-view {
 	justify-content: space-between;
 }
 
-div.player-view input[type=text].fld-name { margin: 0; }
+div.player-view div.player-tables {
+	display:flex;
+	flex-flow: row wrap;
+	align-content:flex-start;
+	flex-grow: 1;
+}
+
+div.player-tables div {
+	margin-top:10px;
+	flex-basis: 50%;
+}
+
+div.player-view input[type=text].fld-name {
+	margin: 0; }
+
+
+
+div.player-view input[type=text] {
+	border: none; background: transparent; font-size: 1em; cursor: text; position: relative;
+}
 
 td, th {
 	padding: 2px 4px;

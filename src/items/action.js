@@ -100,7 +100,7 @@ export default class Action extends GData {
 		this.value++;
 
 		if ( this.exec ) this.exec();
-		Events.dispatch( ACT_DONE, this );
+		Events.emit( ACT_DONE, this );
 
 	}
 
@@ -151,7 +151,7 @@ export default class Action extends GData {
 
 		}
 
-		if ( improve ) Events.dispatch( ACT_IMPROVED, this );
+		if ( improve ) Events.emit( ACT_IMPROVED, this );
 
 		this._exp = 0;
 

@@ -84,7 +84,7 @@ export default {
 
 		<div class="cur-home">
 
-			<span @mouseenter.capture.stop="dispatch('itemover', $event, curHome )">home:<br>{{ curHome ? curHome.name : 'None'}}</span>
+			<span @mouseenter.capture.stop="emit( 'itemover', $event, curHome )">home:<br>{{ curHome ? curHome.name : 'None'}}</span>
 			<div v-if="homesAvail.length>0">
 			<button @click="toggleSwitch">{{ switching ? 'Done' : 'Switch' }}</button>
 			<upgrades v-if="switching" class="homes-view" :items="homesAvail" :pick-event="SET_SLOT" />
@@ -109,14 +109,14 @@ export default {
 		<tr><th>Space</th><th class="name">Furnishing</th><th>Owned</th><th/><th/></tr>
 
 
-		<tr v-for="it in filtered" :key="it.id" @mouseenter.capture.stop="dispatch('itemover', $event, it )">
+		<tr v-for="it in filtered" :key="it.id" @mouseenter.capture.stop="emit( 'itemover', $event, it )">
 
 			<td class="space">{{ it.cost.space }}</td>
 			<td class="name">{{ it.name }}</td> <td class="count">{{ it.value || 0 }}</td>
 			<td><button type="button" :disabled="!usable(it)" class="buy-btn"
-				@click="dispatch('upgrade',it)">Buy</button></td>
+				@click="emit('upgrade',it)">Buy</button></td>
 
-			<td><button type="button" :disabled="!it.value || it.value<=0" class="sell-btn" @click="dispatch('sell',it)">Sell</button></td>
+			<td><button type="button" :disabled="!it.value || it.value<=0" class="sell-btn" @click="emit('sell',it)">Sell</button></td>
 
 		</tr>
 

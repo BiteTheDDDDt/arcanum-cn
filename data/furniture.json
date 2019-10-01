@@ -1244,7 +1244,7 @@
 		},
 		"mod":{
 			"summoning.max":2,
-			"summong.rate":"5%",
+			"summoning.rate":"5%",
 			"demonology.max":1,
 			"demonology.rate":"5%"
 		}
@@ -1266,7 +1266,7 @@
 		},
 		"mod":{
 			"summoning.max":1,
-			"summong.rate":"2%",
+			"summoning.rate":"2%",
 			"demonology.max":2,
 			"demonology.rate":"10%"
 		}

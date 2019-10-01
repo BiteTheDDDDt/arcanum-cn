@@ -60,7 +60,7 @@ export default {
 	<div class="char-list">
 	<table>
 		<tr><th>Creature</th><th class="num-align">Hp</th><th>active</th></tr>
-		<tr class="char-row" v-for="b in filtered" :key="b.id" @mouseenter.capture.stop="dispatch('itemover',$event,b)">
+		<tr class="char-row" v-for="b in filtered" :key="b.id" @mouseenter.capture.stop="emit( 'itemover',$event,b)">
 			<th><input class="fld-name" type="text" v-model="b.name"></th>
 			<td class="num-align">{{ toNum(b.hp) }} / {{ toNum( b.maxHp ) }}</td>
 

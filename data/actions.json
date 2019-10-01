@@ -570,12 +570,13 @@
 	{
 		"id":"naturecamp",
 		"tags":"t_rest",
-		"name":"camp",
+		"name":"commune",
 		"slot":"rest",
 		"owned":true,
-		"verb":"camping",
+		"verb":"communing",
+		"desc":"commune with natural forces",
 		"length":10,
-		"need":"g.naturelore>=5",
+		"need":"g.naturelore>=12",
 		"fill":[ "nature", "hp", "mana", "stamina","stress"],
 		"effect":{
 			"stress":-1.7,

@@ -14,7 +14,7 @@ export default {
 	 * @property {?string} slotName - name to display to user. defaults to slot.
 	 * @property {?Item[]} choices - list of items to filter. if not set, all game items are tested
 	 * for a matching slot property.
-	 * @property {?string} pickEvent - event to dispatch on item picked.
+	 * @property {?string} pickEvent - event to emit on item picked.
 	 */
 	props:['pick', 'slotName', 'choices', 'pickEvent'],
 	mixins:[ItemsBase],
@@ -53,19 +53,19 @@ export default {
 <template>
 <div>
 
-	<span v-if="slotName">{{slotName}}:</span><span @mouseenter.capture.stop="dispatch('itemover',$event,curItem)">{{ curItem ? curItem.name : 'None'}}</span>
+	<span v-if="slotName">{{slotName}}:</span><span @mouseenter.capture.stop="emit( 'itemover',$event,curItem)">{{ curItem ? curItem.name : 'None'}}</span>
 	<div class="inline" v-if="avail.length>0">
 	<button @click="toggleChange">{{ changing ? 'Done' : 'Choose' }}</button>
 
 	<div class="upgrade-list" v-if="changing">
 
 		<span class="action-btn" v-for="it in avail" :key="it.id"
-			@mouseenter.capture.stop="dispatch( 'itemover', $event,it)">
+			@mouseenter.capture.stop="emit( 'itemover', $event,it)">
 
 		<button
 			class="wrapped-btn"
 			:disabled="!usable(it)"
-			@click="dispatch( pEvent, it)">{{ it.name || it.id }}</button>
+			@click="emit( pEvent, it)">{{ it.name || it.id }}</button>
 		</span>
 
 	</div>

@@ -23,7 +23,7 @@ export default {
 
 			let items = this.inv.removeAll();
 			for( let i = items.length-1; i>=0; i-- ){
-				this.dispatch( 'sell', items[i], null, items[i].value);
+				this.emit( 'sell', items[i], null, items[i].value);
 			}
 
 		},
@@ -36,7 +36,7 @@ export default {
 		onTake(it) {
 
 			//console.log('start take: ' + it.id );
-			this.dispatch('take', it );
+			this.emit('take', it );
 			this.inv.remove(it);
 
 		}
@@ -65,18 +65,18 @@ export default {
 <table class="inv item-table">
 
 	<tr v-for="it in ( nosearch ? inv.items : filtered )" :key="it.id">
-		<td @mouseenter.capture.stop="dispatch('itemover',$event,it)">{{ it.name + count(it) }}</td>
+		<td @mouseenter.capture.stop="emit( 'itemover',$event,it)">{{ it.name + count(it) }}</td>
 
 
 		<template v-if="!selecting">
 
-			<td v-if="it.equippable"><button @click="dispatch('equip',it, inv)">Equip</button></td>
-			<td v-if="it.use"><button @click="dispatch( 'use', it)">Use</button></td>
+			<td v-if="it.equippable"><button @click="emit('equip',it, inv)">Equip</button></td>
+			<td v-if="it.use"><button @click="emit( 'use', it)">Use</button></td>
 			<td v-if="take&&!playerFull"><button @click="onTake(it)">Take</button></td>
 
 			<td>
-			<button @click="dispatch('sell',it,inv)" @mouseenter.capture.stop="dispatch('itemover',$event,it)">Sell</button>
-			<button v-if="it.value>1" @click="dispatch('sell',it,inv, it.value)" @mouseenter.capture.stop="dispatch('itemover',$event,it)">Sell All</button>
+			<button @click="emit('sell',it,inv)" @mouseenter.capture.stop="emit( 'itemover',$event,it)">Sell</button>
+			<button v-if="it.value>1" @click="emit('sell',it,inv, it.value)" @mouseenter.capture.stop="emit( 'itemover',$event,it)">Sell All</button>
 				<!--<button v-else @click="drop(it)">Drop</button>--></td>
 
 		</template>

@@ -26,7 +26,7 @@ export default class GameState {
 		let data = {
 
 			items:( this.items ),
-			quickslots:this.quickslots.map(v=> v ? v.id : null ),
+			quickbar:this.quickbar.map(v=>v ? v.id : null),
 			slots:slotIds,
 			equip:( this.equip ),
 			raid:( this.raid ),
@@ -60,7 +60,10 @@ export default class GameState {
 
 		this.initSlots();
 
-		this.quickslots = this.quickslots || [];
+		/**
+		 * @compat
+		 */
+		this.quickbar = this.quickbar || this.quickslots || [];
 
 		this.initMaterials( this.materials );
 
@@ -162,10 +165,6 @@ export default class GameState {
 		}
 		this.restAction = this.slots[REST_SLOT];
 
-		if ( this.quickslots ) {
-			this.quickslots = this.quickslots.map( v=>this.getData(v) );
-		}
-
 		this.equip.revive( this );
 		this.inventory.revive( this );
 
@@ -176,8 +175,21 @@ export default class GameState {
 		this.raid.revive( this );
 		this.explore.revive(this);
 
+		this.reviveQuickbar();
+
 		Runner.revive(this);
 		this.items.runner = Runner;
+
+	}
+
+	reviveQuickbar(){
+
+		for( let i = this.quickbar.length-1; i>= 0; i-- ) {
+
+			var it = this.quickbar[i];
+			if ( it ) this.quickbar[i] = this.findData(it,true );
+
+		}
 
 	}
 
@@ -237,17 +249,19 @@ export default class GameState {
 	 */
 	setQuickSlot( it, slotNum ) {
 
+		if ( it.type ==='resource') return;
+
 		//console.log('use slot: ' + slotNum );
 		// NOTE: using splice for Vue reactivity.
 		if ( slotNum >= 0 && slotNum <=9 ) {
 
 			let ind = slotNum > 0 ? slotNum - 1 : 9;
-			if ( ind < this.quickslots.length ) this.quickslots.splice(ind,1, it );
+			if ( ind < this.quickbar.length ) this.quickbar.splice(ind,1, it );
 			else {
 
-				let a = this.quickslots.slice();
+				let a = this.quickbar.slice();
 				a[ind] = it;
-				this.quickslots = a;
+				this.quickbar = a;
 
 			}
 
@@ -279,7 +293,7 @@ export default class GameState {
 	 */
 	getQuickSlot( slotNum ) {
 		let ind = slotNum > 0 ? slotNum - 1 : 9;
-		return this.quickslots[ind];
+		return this.quickbar[ind];
 	}
 
 	/**

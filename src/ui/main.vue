@@ -20,6 +20,7 @@ import Adventure from './adventure.vue';
 import Settings from '../settings';
 import Cheats from '../cheats';
 
+import { TRY_BUY } from '../events';
 import { TICK_TIME } from '../game';
 
 /**
@@ -80,31 +81,8 @@ export default {
 		this.listen('game-loaded', this.gameLoaded );
 		this.listen('setting', this.onSetting );
 
-		this.listen( 'sell', this.onSell );
-		this.listen( 'take', this.onTake );
-		this.listen( 'itemover', this.itemOver );
-		this.listen( 'itemout', this.itemOut );
-
-		this.listen( 'upgrade', this.onUpgrade );
-		this.listen( 'action', this.onAction );
-
-		this.listen( 'rest', this.onRest );
-
-		this.listen('equip', this.onEquip );
-		this.listen('unequip', this.onUnequip );
-		this.listen('drop', this.onDrop );
-		this.listen('enchant', this.onEnchant );
-		this.listen('brew', this.onBrew );
-		this.listen( 'use', this.onUse );
-
-		this.listen( 'spell', this.onSpell );
-		this.listen( 'buy', this.onBuy );
-
 		this.listen('pause', this.pause );
 		this.listen('unpause', this.unpause );
-
-		// primary attack.
-		this.listen( 'primary', this.onPrimary);
 
 
 	},
@@ -114,6 +92,40 @@ export default {
 
 			this.state = Game.state;
 			this.section = this.state.sections.find( v=>v.id==='sect_main');
+
+			this.initEvents();
+
+		},
+
+		/**
+		 * Listen non-system events.
+		 */
+		initEvents() {
+
+			this.add( 'itemover', this.itemOver );
+			this.add( 'itemout', this.itemOut );
+
+			this.add( 'sell', this.onSell );
+			this.add( 'take', this.onTake );
+
+			this.add( 'upgrade', this.onItem );
+			this.add( 'action', this.onItem );
+			this.add( 'spell', this.onItem );
+
+			this.add( 'rest', this.onRest );
+
+			this.add('equip', this.onEquip );
+			this.add('unequip', this.onUnequip );
+			this.add('drop', this.onDrop );
+			this.add('enchant', this.onEnchant );
+			this.add('craft', this.onCraft );
+			this.add( 'use', this.onUse );
+
+
+			this.add( TRY_BUY, this.onBuy );
+
+			// primary attack.
+			this.add( 'primary', this.onPrimary);
 
 		},
 
@@ -210,7 +222,7 @@ export default {
 
 		onTake(it) { this.game.take(it); },
 
-		onBrew(it) { this.game.craft(it); },
+		onCraft(it) { this.game.craft(it); },
 
 		/**
 		 * Use instanced item.
@@ -240,22 +252,17 @@ export default {
 
 		},
 
-		onRest(){
-			this.game.toggleAction( this.state.restAction );
-		},
-
-		onAction( action ) {
-
-			this.game.tryItem( action );
-		},
+		onRest(){ this.game.toggleAction( this.state.restAction ); },
 
 		onConfirmed(it) { this.game.tryItem(it); },
-		onSpell( spell ) { this.game.tryItem(spell); },
 
-		onUpgrade(upgrade) {
+		/**
+		 * Item clicked.
+		 */
+		onItem(item) {
 
-			if ( upgrade.warn ) this.$refs.warn.warn( upgrade );
-			else this.game.tryItem(upgrade);
+			if ( item.warn ) this.$refs.warn.warn( item );
+			else this.game.tryItem(item);
 
 		},
 
@@ -282,7 +289,7 @@ export default {
 
 <template>
 
-	<div class="full" @mouseover.capture.stop="dispatch('itemout')">
+	<div class="full" @mouseover.capture.stop="emit('itemout')">
 
 		<top-bar>
 			<template slot="center">
@@ -345,7 +352,7 @@ export default {
 
 		</div>
 
-		<div v-if="state" class="bot-bar"><quickbar :slots="state.quickslots" /></div>
+		<div v-if="state" class="bot-bar"><quickbar :slots="state.quickbar" /></div>
 
 	</div>
 </template>

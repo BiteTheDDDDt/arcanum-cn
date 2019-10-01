@@ -211,6 +211,8 @@ export function logObj( obj, msg='' ) {
 }
 
 export const randElm = (arr)=>{
+	if ( arr === null || arr === undefined ) return null;
+
 	const ind = Math.floor( Math.random()*(arr.length));
 	return arr[ind];
 }

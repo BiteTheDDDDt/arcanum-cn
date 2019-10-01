@@ -94,7 +94,7 @@ export default class Runnable {
 
 		if ( this.exp > this.length ) {
 			if ( this.target ) Game.useWith( this.item, this.target );
-			Events.dispatch( ACT_DONE, this, this.repeatable );
+			Events.emit( ACT_DONE, this, this.repeatable );
 		}
 
 	}

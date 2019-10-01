@@ -301,7 +301,7 @@ const Runner = {
 			}
 
 			// action already in running list.
-			Events.dispatch( ACT_CHANGED );
+			Events.emit( ACT_CHANGED );
 			this.runAction(a);
 
 		}

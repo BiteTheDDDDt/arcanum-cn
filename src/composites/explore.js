@@ -102,8 +102,8 @@ export default class Explore {
 			this.enc.update( dt );
 			if ( this.player.defeated ) {
 
-				Events.dispatch( DEFEATED, this );
-				Events.dispatch( ACT_BLOCKED, this, true );
+				Events.emit( DEFEATED, this );
+				Events.emit( ACT_BLOCKED, this, true );
 
 			} else if ( this.enc.done ) {
 
@@ -183,7 +183,7 @@ export default class Explore {
 
 		this.enc = null;
 
-		Events.dispatch( ACT_DONE, this, false );
+		Events.emit( ACT_DONE, this, false );
 		this.locale = null;
 
 	}

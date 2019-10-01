@@ -7,11 +7,6 @@ import {abbr} from '../util/format';
  */
 export default {
 	props:['slots'],
-	/*data(){
-		return {
-			slots:this.state.quickslots
-		}
-	},*/
 	methods:{
 
 		remove(ind){
@@ -41,8 +36,8 @@ export default {
 		<div class="quickslot" v-for="(it,i) in slots" :key="i">
 
 			<div v-if="it!=null" :class="it.school ? it.school :''"
-					@click="dispatch('action', it)"
-					@mouseenter.capture.stop="dispatch('itemover',$event,it)">
+					@click="emit('action', it)"
+					@mouseenter.capture.stop="emit( 'itemover',$event,it)">
 
 
 				<div>{{ abbr(it) }}</div>
@@ -84,7 +79,7 @@ div.quickbar {
 	flex-direction: row;
 	justify-self: flex-end;
 	z-index: 50;
-	margin: 8px 0px;
+	margin: 4px 0px;
 }
 
 div.quickslot {

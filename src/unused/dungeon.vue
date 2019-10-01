@@ -24,7 +24,7 @@ export default {
 	<div class="dungeon" v-if="dungeon">
 
 		<progbar class="dungeon" :label="dungeon.name" :value="dungeon.exp" :max="dungeon.length" />
-		<button class="raid-btn" :disabled="!game.canRun(dungeon)" @click="dispatch( 'raid', dungeon )">Enter</button>
+		<button class="raid-btn" :disabled="!game.canRun(dungeon)" @click="emit( 'raid', dungeon )">Enter</button>
 
 	</div>
 </template>

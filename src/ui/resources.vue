@@ -20,7 +20,7 @@ export default {
 <div class="resource-list">
 
 		<tr :class="{'item-name':true, locked:reslocked(it)}" v-for="it in displayed" :key="it.id"
-			@mouseenter.capture.stop="dispatch('itemover',$event,it)">
+			@mouseenter.capture.stop="emit( 'itemover',$event,it)">
 
 			<td>{{ it.name }}</td>
 			<td class="num-align">{{ floor( it.value ) + ( it.max && it.max.value>0 ? '/' + floor(it.max.value) : '' )}}</td>

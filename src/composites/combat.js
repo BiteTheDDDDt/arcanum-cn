@@ -22,7 +22,7 @@ export function tryDamage(target, attack, attacker = null) {
 
 		if (target.isImmune(attack.kind)) {
 
-			Events.dispatch(DAMAGE_MISS, target.name + ' is immune to ' + attack.kind);
+			Events.emit(DAMAGE_MISS, target.name + ' is immune to ' + attack.kind);
 
 			return false;
 		}
@@ -47,19 +47,19 @@ export function tryDamage(target, attack, attacker = null) {
 
 		target.hp -= dmg;
 		if ( target.hp <= 0 ) {
-			Events.dispatch( CHAR_DIED, target, attack );
+			Events.emit( CHAR_DIED, target, attack );
 		}
 
 		var attackName = attack.name || (attacker ? attacker.name : '');
 
-		Events.dispatch(EVT_COMBAT, null, target.name + ' hit' +
+		Events.emit(EVT_COMBAT, null, target.name + ' hit' +
 			(attackName != null ? (' by ' + attackName ) : '') +
 			': ' + dmg.toFixed(1));
 
 		if (attack.leech && attacker) {
 			let amt = Math.floor(100 * attack.leech * dmg) / 100;
 			attacker.hp += amt;
-			Events.dispatch(EVT_COMBAT, null, attacker.name + ' steals ' + amt + ' life.');
+			Events.emit(EVT_COMBAT, null, attacker.name + ' steals ' + amt + ' life.');
 		}
 
 	}
@@ -200,7 +200,7 @@ export default class Combat {
 		//console.log('spell attack');
 		if ( this._enemies.length===0 ) {
 
-			Events.dispatch(EVT_COMBAT, null, this.player.name + ' casts ' + it.name + ' at the darkness.' );
+			Events.emit(EVT_COMBAT, null, this.player.name + ' casts ' + it.name + ' at the darkness.' );
 
 		} else this.allyAttack( this.player, it );
 
@@ -288,14 +288,14 @@ export default class Combat {
 
 		if ( Math.random() >  this.dodgeRoll( defender.dodge, tohit )) {
 
-			Events.dispatch( DAMAGE_MISS, defender.name + ' dodges ' + (attack.name||attacker.name));
+			Events.emit( DAMAGE_MISS, defender.name + ' dodges ' + (attack.name||attacker.name));
 			return false;
 		}
 
 		//console.log( attacker.name + ': ' + tohit + '  vs: ' + defender.defense );
 		if ( Math.random()*( 10 + tohit ) >= Math.random()*(10 + defender.defense ) ) return true;
 
-		Events.dispatch( DAMAGE_MISS, attacker.name + ' misses' );
+		Events.emit( DAMAGE_MISS, attacker.name + ' misses' );
 		return false;
 
 	}
@@ -316,7 +316,7 @@ export default class Combat {
 
 		}
 
-		if ( enemies.length>0 && enemies[0]) Events.dispatch( EVT_COMBAT, enemies[0].name + ' Encountered' );
+		if ( enemies.length>0 && enemies[0]) Events.emit( EVT_COMBAT, enemies[0].name + ' Encountered' );
 
 		this.enemies = enemies;
 
@@ -353,9 +353,9 @@ export default class Combat {
 		if ( char === this.player ) return;
 		else if ( char.team === ALLY ) {
 
-			Events.dispatch( ALLY_DIED, char );
+			Events.emit( ALLY_DIED, char );
 
-		} else Events.dispatch( ENEMY_SLAIN, char, attacker );
+		} else Events.emit( ENEMY_SLAIN, char, attacker );
 
 	}
 

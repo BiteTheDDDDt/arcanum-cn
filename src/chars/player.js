@@ -378,7 +378,7 @@ export default class Player extends Char {
 		this._exp.value -= this._next;
 		this._next = Math.floor( this._next * ( 1 + EXP_RATE ) );
 
-		Events.dispatch( LEVEL_UP, this );
+		Events.emit( LEVEL_UP, this );
 
 	}
 

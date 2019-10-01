@@ -3,6 +3,7 @@ import Game from '../game';
 import ItemBase from './itemsBase';
 import Range from '../values/range';
 import FilterBox from './components/filterbox.vue';
+import { TRY_BUY } from '../events';
 
 export default {
 
@@ -14,6 +15,9 @@ export default {
 	},
 	components:{
 		filterbox:FilterBox
+	},
+	created() {
+		this.TRY_BUY = TRY_BUY;
 	},
 	methods:{
 
@@ -59,12 +63,12 @@ export default {
 	<div class="char-list">
 	<table class="bestiary">
 		<tr><th>Creature</th><th>Level</th><th>Slain</th><th class="num-align">Hp</th></tr>
-		<tr v-for="b in filtered" :key="b.id" @mouseenter.capture.stop="dispatch('itemover',$event,b)">
+		<tr v-for="b in filtered" :key="b.id" @mouseenter.capture.stop="emit( 'itemover',$event,b)">
 			<th>{{ b.name }}</th>
 			<td class="num-align">{{ b.level }}</td>
 			<td class="num-align">{{ b.value }}</td>
 			<td class="num-align">{{ showHp(b) ? toNum(b.hp) : '??' }}</td>
-			<td><button @click="dispatch('buy',b)" :disabled="b.unique||!buyable(b)||minions.freeSpace()==0||b.value<10">Buy</button></td>
+			<td><button @click="emit( TRY_BUY,b)" :disabled="b.unique||!buyable(b)||minions.freeSpace()==0||b.value<10">Buy</button></td>
 		</tr>
 	</table>
 	</div>

@@ -27,12 +27,12 @@ export default {
 <div>
 
 	<span :class="{'action-btn':true, locked:it.owned||locked(it) }" v-for="it in items" :key="it.id"
-		@mouseenter.capture.stop="dispatch( 'itemover', $event,it)">
+		@mouseenter.capture.stop="emit( 'itemover', $event,it)">
 
 	<button
 		class="wrapped-btn"
 		:disabled="!usable(it)"
-		@click="dispatch( pEvent, it)">{{ showName(it) }}</button>
+		@click="emit( pEvent, it)">{{ showName(it) }}</button>
 	</span>
 
 </div>

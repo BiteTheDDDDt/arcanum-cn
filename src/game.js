@@ -217,12 +217,6 @@ export default {
 
 	},
 
-	pause() {
-	},
-
-	unpause() {
-	},
-
 	/**
 	 * Frame update.
 	 */
@@ -485,11 +479,13 @@ export default {
 
 		if ( !this.canUse(it) ) return false;
 
-		if ( it.buy && !it.owned ) {
+		if ( it.instance ){
 
-			this.payCost( it.buy );
-			it.owned = true;
-			return false;
+			this.use(it);
+
+		} else if ( it.buy && !it.owned ) {
+
+			this.tryBuy(it);
 
 		} else {
 
@@ -503,12 +499,31 @@ export default {
 
 			} else {
 
-				if ( it.slot && this.state.getSlot( it.slot, it.type) === it ) return;
-
-				this.payCost( it.cost );
-				return this.doItem(it);
+				if ( it.slot ) this.setSlot( it );
+				else {
+					this.payCost( it.cost );
+					return this.doItem(it);
+				}
 			}
 
+		}
+
+	},
+
+
+	/**
+	 * Use item from inventory.
+	 * @param {*} it
+	 */
+	use( it, targ, inv=null ) {
+
+		if ( it.consume === true ) {
+			it.value--;
+			if ( it.value <= 0 ) ( inv || this.state.inventory ).remove(it);
+		}
+		if ( it.use ) {
+			if ( it.use.dot ) this.state.player.addDot( new Dot( it.use.dot, it.id, it.name) );
+			this.applyEffect( it.use );
 		}
 
 	},
@@ -574,23 +589,6 @@ export default {
 
 		}
 
-
-	},
-
-	/**
-	 * Use item from inventory.
-	 * @param {*} it
-	 */
-	use( it, targ, inv=null ) {
-
-		if ( it.consume === true ) {
-			it.value--;
-			if ( it.value <= 0 ) ( inv || this.state.inventory ).remove(it);
-		}
-		if ( it.use ) {
-			if ( it.use.dot ) this.state.player.addDot( new Dot( it.use.dot, it.id, it.name) );
-			this.applyEffect( it.use );
-		}
 
 	},
 
@@ -684,10 +682,10 @@ export default {
 		if ( it.dot ) this.state.player.addDot( new Dot(it.dot, it.id, it.name) );
 		if ( it.disable ) this.disable( it.disable );
 
-		if ( it.log ) Events.dispatch( EVT_EVENT, it.log );
+		if ( it.log ) Events.emit( EVT_EVENT, it.log );
 
 		if ( it.attack ) {
-			if (it.type !== 'wearable' && it.type !== 'weapon') Events.dispatch( ITEM_ATTACK, it );
+			if (it.type !== 'wearable' && it.type !== 'weapon') Events.emit( ITEM_ATTACK, it );
 		}
 
 		it.dirty = true;
@@ -719,11 +717,11 @@ export default {
 		}
 		console.log('triggering tier: ' + evt.id );
 		evt.locked = false;
-		Events.dispatch( EVT_EVENT, evt );
+		Events.emit( EVT_EVENT, evt );
 	},
 
 	doLog( logItem ) {
-		Events.dispatch( EVT_EVENT, logItem );
+		Events.emit( EVT_EVENT, logItem );
 	},
 
 	/**
@@ -774,7 +772,7 @@ export default {
 		else {
 			it.locked = false;
 			it.dirty = true;
-			Events.dispatch( EVT_UNLOCK, it );
+			Events.emit( EVT_UNLOCK, it );
 		}
 
 		return true;
@@ -859,7 +857,7 @@ export default {
 				if ( target === undefined || target === null ) {
 
 					if ( p === 'title') this.state.player.addTitle( e );
-					else if ( p === 'log') Events.dispatch( EVT_EVENT, e );
+					else if ( p === 'log') Events.emit( EVT_EVENT, e );
 					else this.applyToTag( p, e, dt );
 
 				} else {

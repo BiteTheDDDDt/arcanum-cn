@@ -1,7 +1,16 @@
 import Emitter from 'eventemitter3';
 import {uppercase} from './util/util';
 
+/**
+ * @const {Emitter} events - emitter for in-game events.
+ */
 const events = new Emitter();
+
+/**
+ * @const {Emitter} sys - emitter for system-level events.
+ * (save,load,gameLoaded, etc.)
+ */
+const sys = new Emitter();
 
 const EVT_COMBAT = 'combat';
 /**
@@ -14,6 +23,17 @@ const EVT_DISABLED = 'disabled';
 
 const COMBAT_DONE = 'combat_done';
 const ENEMY_SLAIN = 'slain';
+
+/**
+ * BASIC ITEM EVENTS
+ */
+export const TRY_BUY = 'buy';
+export const TRY_USE = 'tryuse';
+export const TRY_SELL = 'trysell';
+export const TRY_USE_WITH = 'tryusewith';
+
+export const SET_SLOT = 'set_slot';
+
 /**
  * Any character died by damage.
  */
@@ -71,9 +91,8 @@ const ITEM_ATTACK = 'item_atk';
 const ENC_DONE = 'enc_done';
 const ENTER_LOC = 'enter_loc';
 const EXIT_LOC = 'exit_loc';
-const SET_SLOT = 'set_slot';
 
-export { HALT_ACT, EVT_COMBAT, EVT_EVENT, SET_SLOT, EVT_UNLOCK, EXP_MAX, EVT_LOOT, ACT_DONE, ALLY_DIED, CHAR_DIED,
+export { HALT_ACT, EVT_COMBAT, EVT_EVENT, EVT_UNLOCK, EXP_MAX, EVT_LOOT, ACT_DONE, ALLY_DIED, CHAR_DIED,
 	ENTER_LOC, EXIT_LOC, ITEM_ATTACK, STOP_ALL,
 	ACT_CHANGED, ACT_IMPROVED, ACT_BLOCKED,
 	DAMAGE_MISS, ENEMY_HIT, PLAYER_HIT, DEFEATED, ENEMY_SLAIN, COMBAT_DONE, ENC_DONE, LEVEL_UP };
@@ -109,36 +128,7 @@ export default {
 
 		this.started = false;
 
-		events.removeAllListeners( EVT_COMBAT );
-		events.removeAllListeners( EVT_LOOT );
-		events.removeAllListeners( EVT_UNLOCK );
-		events.removeAllListeners( EVT_EVENT );
-		events.removeAllListeners( LEVEL_UP );
-		events.removeAllListeners( EXP_MAX );
-
-		events.removeAllListeners( ACT_DONE );
-		events.removeAllListeners( ACT_CHANGED );
-		events.removeAllListeners( ACT_IMPROVED );
-		events.removeAllListeners( ACT_BLOCKED );
-		events.removeAllListeners( HALT_ACT);
-		events.removeAllListeners( STOP_ALL );
-
-		events.removeAllListeners( SET_SLOT );
-		events.removeAllListeners( EVT_COMBAT );
-		events.removeAllListeners( CHAR_DIED );
-		events.removeAllListeners( ENEMY_SLAIN );
-		events.removeAllListeners( DEFEATED );
-
-		events.removeAllListeners( DAMAGE_MISS );
-
-		events.removeAllListeners( ENTER_LOC );
-		events.removeAllListeners( EXIT_LOC );
-		events.removeAllListeners( ENC_DONE );
-		events.removeAllListeners( ITEM_ATTACK );
-
-		events.removeAllListeners( PLAYER_HIT );
-		events.removeAllListeners( ENEMY_HIT );
-		events.removeAllListeners( ALLY_DIED );
+		events.removeAllListeners();
 
 	},
 
@@ -198,7 +188,17 @@ export default {
 	},
 
 	/**
+	 * Dispatch a game-level event.
+	 * @param  {...any} params
+	 */
+	emit( ...params ) {
+		events.emit.apply( events, params );
+
+	},
+
+	/**
 	 *
+	 * Add game-event listener.
 	 * @param {string} evt
 	 */
 	add( evt, listener, context ) {
@@ -206,21 +206,22 @@ export default {
 	},
 
 	/**
-	 * @alias add() for Vue switch-out.
+	 * listen for system-level events.
 	 * @param {*} evt
 	 * @param {*} f
 	 * @param {*} context
 	 */
 	listen(evt, f, context) {
-		events.addListener(evt,f,context);
+		sys.addListener(evt,f,context);
 	},
 
 	/**
-	 *
+	 * Dispatch a system-level event.
+	 * pause,save,reload,etc.
 	 * @param  {...any} params
 	 */
 	dispatch( ...params ) {
-		events.emit.apply( events, params );
+		sys.emit.apply( sys, params );
 	}
 
 

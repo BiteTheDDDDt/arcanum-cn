@@ -29,9 +29,9 @@ export default {
 <div class="allupgrades">
 	<div class="div-hr">upgrades</div>
 	<div class="up-list">
-	<div v-for="it in classes" :key="it.id" @mouseenter.capture.stop="dispatch( 'itemover', $event,it)">{{it.name + count(it) }}</div>
-	<div v-for="it in actions" :key="it.id" @mouseenter.capture.stop="dispatch( 'itemover', $event,it)">{{it.name + count(it) }}</div>
-	<div v-for="it in upgrades" :key="it.id" @mouseenter.capture.stop="dispatch( 'itemover', $event,it)">{{it.name + count(it) }}</div>
+	<div v-for="it in classes" :key="it.id" @mouseenter.capture.stop="emit( 'itemover', $event,it)">{{it.name + count(it) }}</div>
+	<div v-for="it in actions" :key="it.id" @mouseenter.capture.stop="emit( 'itemover', $event,it)">{{it.name + count(it) }}</div>
+	<div v-for="it in upgrades" :key="it.id" @mouseenter.capture.stop="emit( 'itemover', $event,it)">{{it.name + count(it) }}</div>
 	</div>
 </div>
 </template>
