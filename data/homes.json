@@ -32,7 +32,6 @@
 			"name":"Rented Room",
 			"desc":"You are now living at a local inn, losing precious coins to pay the rent."
 		},
-		"disable":["alcove","atticbedroom"],
 		"mod":{
 			"space.max":10,
 			"gold.rate":-0.4

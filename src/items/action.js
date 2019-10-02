@@ -104,11 +104,11 @@ export default class Action extends GData {
 
 	}
 
-	canUse() {
+	/*canUse() {
 		if ( this.maxed() ) return false;
 		if ( this.cd > 0 && this.timer > 0 ) return false;
 		return true;
-	}
+	}*/
 
 	/**
 	 * Action executed, whether runnable or one-time.

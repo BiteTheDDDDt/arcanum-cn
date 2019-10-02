@@ -123,6 +123,7 @@ export default {
 			this.add( TRY_USE, this.tryUse )
 			this.add( USE, this.onUse );
 
+			this.add('quickslot', this.doQuickslot);
 
 			this.add( TRY_BUY, this.onBuy );
 
@@ -205,10 +206,16 @@ export default {
 				if ( e.shiftKey && this.overItem ) this.state.setQuickSlot( this.overItem, num );
 				else {
 					let it = this.state.getQuickSlot(num);
-					if ( it) this.game.tryItem( it.getTarget( this.game ) );
+					if ( it) this.doQuickslot(it);
 				}
 
 			}
+
+		},
+
+		doQuickslot(it) {
+
+			 this.game.tryItem( it.getTarget( this.game ) );
 
 		},
 
