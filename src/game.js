@@ -465,7 +465,7 @@ export default {
 		this.payCost( it.buy );
 
 		if ( it.isRecipe ) this.create( it );
-		else it.owned = true;
+		it.owned = true;
 
 	},
 
@@ -490,7 +490,7 @@ export default {
 	 */
 	tryItem(it) {
 
-		console.log('TRYING ITEM: ' + it.id );
+		if ( !it) return;
 
 		if ( it.type ==='dungeon') return this.enterLoc(it);
 

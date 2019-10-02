@@ -23,7 +23,7 @@ export default class Item {
 		let data = this.excludeJSON() || {};
 
 		data.id = this.id;
-		data.recipe = this.recipe.id;
+		data.recipe = this.recipe;
 		data.value = this.value;
 
 		return data ? data : undefined;
@@ -36,6 +36,7 @@ export default class Item {
 	 * @property {string} recipe - id of item template used to instance this item.
 	 */
 	get recipe() { return this.template?  this.template.id : this._id; }
+	set recipe(v) {}
 
 	/**
 	 * @property {boolean} consume - whether the item is consumed when used.

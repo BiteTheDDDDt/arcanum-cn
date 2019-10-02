@@ -593,7 +593,8 @@ const Runner = {
 };
 
 /**
- * applyMods() etc.
+ * applyMods() currently needed to increase runners.
+ * @todo move this to Item stat.
  */
 mergeClass( Runner, Base );
 

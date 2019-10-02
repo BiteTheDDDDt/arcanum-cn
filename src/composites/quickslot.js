@@ -34,16 +34,14 @@ export default class QuickSlot extends Proxy {
 
 		super.item = v;
 
-		this.recipe = ( v && typeof v === 'object' ) ? v.recipe : null;
+		if ( v && typeof v === 'object' ){
+
+			// if id === recipe, the item is just using the recipe as a stand-in until item is found.
+			if ( v.id !== this.recipe ) this.recipe = v.recipe;
+
+		} else this.recipe = null;
 
 	}
-
-	/**
-	 * @property {boolean} - whether slotted item is an instanced item.
-	 * if item is null, game searches for alternate item instanced from same recipe.
-	 */
-	get instance() { return this._instance; }
-	set instance(v) { this._instance = v;}
 
 	/**
 	 * @property {string} recipe - recipe of the item, if any.
@@ -52,7 +50,7 @@ export default class QuickSlot extends Proxy {
 	 */
 	get recipe() {return this._recipe;}
 	set recipe(v) {
-		this.instance = v != null;
+
 		this._recipe = v;
 	}
 
@@ -85,7 +83,15 @@ export default class QuickSlot extends Proxy {
 	/**
 	 * @returns {GData} target of the quickSlot item.
 	 */
-	getTarget() {
+	getTarget( g ) {
+
+		// if the recipe.id === item.id then the recipe was being used as a representative stand-in until an item isntance
+		// could be found.
+		if ( this.item && this.item.value > 0 && (!this.recipe || this.recipe !== this.item.id )) return this.item;
+		else if ( this.recipe ) return g.state.findInstance( this.recipe, true );
+
+		return null;
+
 	}
 
 	/**
@@ -94,34 +100,32 @@ export default class QuickSlot extends Proxy {
 	 */
 	use( g ) {
 
-		if ( this._item && this._item.value > 0 ) {
-
-			this._item.use(g);
-
-		} else {
-
-			if ( this.recipe ) {
-
-				this._item = g.state.findInstance( this.recipe, true );
-				if ( this._item ) this._item.use(g);
-
-			}
-
-		}
+		let targ = this.getTarget(g);
+		if ( targ != null && targ.value >0 ) targ.use(g);
 
 	}
 
 	revive(gs) {
 
-		if ( this._item ) this.item = gs.findData( this._item, false );
-		else if ( this.recipe ) {
+		if ( this.item ) {
 
-			if ( this.recipe ) {
-
-				// no item.
-				this.item = gs.findInstance( this.recipe, true );
-
+			var revive = gs.findData( this.item, false );
+			if ( revive ) {
+				this.item = revive;
+				return;
 			}
+
+		}
+
+		// if the item didnt revive, need to rely on recipe.
+		if ( this.recipe ) {
+
+			// save recipe so item setter doesnt overwrite.
+			let recipe = this.recipe;
+
+			// no item. if a matching item type can't be found, the recipe item
+			// is used as the quickbar rollover and a type will be searched on use.
+			this.item = gs.findInstance( recipe, true ) || gs.getData( recipe );
 
 		}
 
