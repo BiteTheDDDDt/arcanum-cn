@@ -91,7 +91,7 @@ export default class QuickSlot extends Proxy {
 
 		// if the recipe.id === item.id then the recipe was being used as a representative stand-in until an item isntance
 		// could be found.
-		if ( this.item && !this.item.instance ) return this.item;
+		if ( this.item && (!this.recipe) ) return this.item;
 		else if ( this.item && this.item.value > 0 && (!this.recipe || this.recipe !== this.item.id )) return this.item;
 		else if ( this.recipe ) return g.state.findInstance( this.recipe, true );
 

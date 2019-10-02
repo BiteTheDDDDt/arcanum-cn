@@ -140,7 +140,9 @@ export default {
 			for( var i = list.length-1; i>= 0; i-- ) {
 
 				if ( list[i].value > 0) {
-					evt.amount(this,1 );
+					if ( evt.value == 0 ) {
+						evt.amount(this,1 );
+					}
 					hasEvent = true;
 					break;
 				}
@@ -336,8 +338,9 @@ export default {
 	 */
 	disable( it ) {
 
-		if ( Array.isArray(it) ) for( let v of it ) this.disable(v);
-		else {
+		if ( Array.isArray(it) ) for( let v of it ) {
+			this.disable(v);
+		} else {
 
 			if ( typeof it === 'string' ) {
 
@@ -352,14 +355,12 @@ export default {
 
 			}
 
-			if ( it ) {
+			if ( it && !it.disabled ) {
 
 				it.disabled = true;
 
-				console.log( 'DISABLE: ' + it.id );
-
 				if ( it.slot && this.state.getSlot(it.slot, it.type) === it ) {
-					this.state.setSlot(it.slot, null );
+					this.remove( it, 1 );
 				}
 
 				if ( it.running ) Runner.stopAction(it);
@@ -368,7 +369,10 @@ export default {
 				if ( it instanceof Resource || it instanceof Skill ) {
 					this.remove( it, it.value);
 
-				} else if ( it.mod ) this.removeMod( it.mod, it.value );
+				} else if ( it.mod ) {
+					console.log('REMOVING MOD: ' + it.id + ' --> ' + it.value );
+					this.removeMod( it.mod, it.value );
+				}
 
 			}
 
@@ -883,6 +887,8 @@ export default {
 	 */
 	addMod( mod, amt=1 ) {
 
+		if ( !mod ) return;
+
 		if ( Array.isArray(mod)  ) for( let m of mod ) this.addMod(m, amt);
 		else if ( typeof mod === 'object' ) {
 
@@ -891,10 +897,15 @@ export default {
 				var target = this.getData( p );
 
 				if ( target === undefined ) this.modTag( p, mod[p], amt );
-				else if ( mod[p] === true ) target.amount( this, 1 );
-				else {
-					target.applyMods( mod[p], amt );
-					target.dirty = true;
+				else if ( mod[p] === true ){
+
+					if ( target.type === 'event' && !target.value ) target.amount( this, 1 );
+
+				} else {
+					if ( target.applyMods) {
+						target.applyMods( mod[p], amt );
+						target.dirty = true;
+					} else console.warn( 'no applyMods func: ' + target );
 				}
 			}
 
@@ -902,10 +913,11 @@ export default {
 
 			let t = this.getData(mod);
 			if ( t ) {
-				t.amount(this,amt);
+				if ( t.type ==='event' && !t.value ) t.amount(this,1 );
 			} else {
 
-				this.getAmount( this.getTagList(mod), amt );
+				let list = this.getTagList(mod);
+				if ( list ) list.forEach( this.addMod, this );
 
 			}
 
@@ -1225,13 +1237,13 @@ export default {
 	 * Increment lock counter on item or items.
 	 * @param {string|string[]|GData|GData[]} id
 	 */
-	lock(id, amt=1) {
+	lock(id ) {
 
 		if (  Array.isArray(id)) {
-			id.forEach( v=>this.lock(v,amt), this );
+			id.forEach( v=>this.lock(v), this );
 		} else if ( typeof id === 'object' ) {
 
-			id.locks += amt;
+			id.locks++;
 			id.dirty =true;
 
 		} else {
@@ -1239,14 +1251,12 @@ export default {
 			let it = this.getData(id);
 			if ( it ) {
 
-				it.locks += amt;
-				console.log( it.id + ' adding locks: ' + it.locks );
-				it.dirty = true;
+				this.lock(it);
 
 			} else {
 
 				it = this.state.getTagList(id);
-				if ( it ) it.forEach(v=>this.lock(v,amt), this );
+				if ( it ) it.forEach(v=>this.lock(v), this );
 
 			}
 

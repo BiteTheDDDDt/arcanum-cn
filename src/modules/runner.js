@@ -498,8 +498,10 @@ const Runner = {
 	 */
 	doAction(a, dt) {
 
-		if ( !a.canUse() ) {
+		if ( a.maxed() ) {
 			this.stopAction(a);
+			this.tryAdd( Game.state.restAction );
+			return;
 		}
 
 		if ( a.run ) {

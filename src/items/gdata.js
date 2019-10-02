@@ -123,7 +123,7 @@ export default class GData {
 	 * @param {number} dt - minimum length of time item would run.
 	 * @returns {boolean}
 	 */
-	canRun( g, dt ) {
+	canRun( g, dt=1 ) {
 
 		if ( this.disabled || this.maxed() || (this.need && !g.unlockTest( this.need, this )) ) return false;
 
@@ -134,7 +134,7 @@ export default class GData {
 
 		if ( this.fill && g.filled( this.fill, this ) ) return false;
 
-		return this.run && g.canPay( this.run, dt );
+		return !this.run || g.canPay( this.run, dt );
 
 	}
 
@@ -145,10 +145,10 @@ export default class GData {
 	 */
 	canUse( g ){
 
-		if ( this.perpetual || this.length>0 ) { return g.canRun(this); }
-
 		if ( this.disabled || (this.need && !g.unlockTest( this.need, this )) ) return false;
 		if ( this.buy && !this.owned && !g.canPay(this.buy) ) return false;
+
+		if ( this.perpetual || this.length>0 ) { return this.canRun(g); }
 
 		if ( this.slot && g.state.getSlot(this.slot, this.type ) === this) return false;
 		if ( this.maxed() ) return false;
@@ -202,7 +202,7 @@ export default class GData {
 	use( g ) {
 
 		if ( this.slot ) g.setSlot( this );
-		this.amount( g, 1 );
+		else this.amount( g, 1 );
 
 	}
 
@@ -216,7 +216,6 @@ export default class GData {
 		if ( count === 0 ) return;
 
 		if ( this.isRecipe ) {
-			console.log('CREATING isRecipe: ' + this.id );
 			return this.create( g, true );
 		}
 

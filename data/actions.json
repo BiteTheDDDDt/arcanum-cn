@@ -576,7 +576,7 @@
 		"verb":"communing",
 		"desc":"commune with natural forces",
 		"perpetual":true,
-		"need":"g.naturelore>=12",
+		"require":"g.naturelore>=12",
 		"fill":[ "nature", "hp", "mana", "stamina","stress"],
 		"effect":{
 			"stress":-1.7,
