@@ -214,7 +214,7 @@ export default class Combat {
 
 		let atk = src ? (src.attack||src) : attacker.attack;
 
-		if ( atk.targets === 'all') {
+		if (atk&& atk.targets === 'all') {
 
 			for( let i = this.enemies.length-1; i>= 0; i-- ) {
 				this.doAttack(attacker, atk, this.enemies[i]);
@@ -236,7 +236,7 @@ export default class Combat {
 			return;
 		}
 
-		if ( attack.targets === 'all' ) {
+		if ( attack && attack.targets === 'all' ) {
 
 			this._allies.forEach(v=>this.doAttack(attacker, attack, v) );
 			this.doAttack( attacker, attack, this.player );
