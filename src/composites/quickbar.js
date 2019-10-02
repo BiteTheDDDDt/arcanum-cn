@@ -32,10 +32,16 @@ export default class Quickbar {
 	 */
 	constructor( vars=null ){
 
-		if ( Array.isArray(vars) ) this.slots = vars;
-		else if ( vars ) Object.assign( this, vars );
+		if ( Array.isArray(vars) ) {
 
-		if ( !this._slots ) this.slots = [];
+			this.slots = vars;
+
+		} else if ( vars ) {
+
+			Object.assign( this, vars );
+			if ( !vars.slots ) this.slots = [];
+
+		} else this.slots = [];
 
 	}
 

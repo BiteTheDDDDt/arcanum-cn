@@ -63,7 +63,7 @@ export default class GameState {
 		/**
 		 * @compat
 		 */
-		this.quickbar = new Quickbar( baseData.quickbar || this.quickslots );
+		this.quickbar = new Quickbar( this.quickslots ||baseData.quickbar );
 
 		this.initMaterials( this.materials );
 
