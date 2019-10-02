@@ -10,10 +10,6 @@ import { TRY_USE } from '../events';
 export default {
 
 	props:['bar'],
-	created(){
-		this.TRY_USE = TRY_USE;
-
-	},
 	methods:{
 
 		remove(ind){
@@ -68,7 +64,7 @@ export default {
 		<div class="quickslot" v-for="(it,i) in slots" :key="i">
 
 			<div v-if="it.item!=null" :class="it.item.school ? it.item.school :''"
-					@click="emit( TRY_USE, it.item||it )"
+					@click="emit( 'quickslot', it )"
 					@mouseenter.capture.stop="emit( 'itemover',$event,it)">
 
 
