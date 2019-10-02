@@ -37,7 +37,7 @@ export default class QuickSlot extends Proxy {
 		if ( v && typeof v === 'object' ){
 
 			// if id === recipe, the item is just using the recipe as a stand-in until item is found.
-			if ( v.id !== this.recipe ) this.recipe = v.recipe;
+			if ( v.id !== this.recipe ) this.recipe = v.recipe || null;
 
 		} else this.recipe = null;
 
