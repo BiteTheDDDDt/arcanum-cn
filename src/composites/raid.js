@@ -33,6 +33,7 @@ export default class Raid {
 	percent() { return this.locale ? this.locale.percent() : 0; }
 	maxed() { return !this.locale || this.locale.maxed(); }
 
+	canRun() { return this.locale != null; }
 	canUse() { return this.locale && !this.locale.maxed(); }
 
 	/**

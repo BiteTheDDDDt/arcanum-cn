@@ -500,6 +500,7 @@ export default {
 
 		} else if ( it.buy && !it.owned ) {
 
+			console.log('BUYING: ' + it.name );
 			this.tryBuy(it);
 
 		} else {
@@ -989,7 +990,10 @@ export default {
 	 * @returns {boolean}
 	 */
 	canRun( it ) {
-		return it.canRun( this, TICK_TIME/1000 );
+
+		if ( !it.canRun ) console.warn( it.id + ' missing canRun()');
+		else return it.canRun( this, TICK_TIME/1000 );
+
 	},
 
 	/**
@@ -997,7 +1001,10 @@ export default {
 	 * test with 'canRun' instead.
 	 * @param {GData} it
 	 */
-	canUse( it ){ return it.canUse( this ); },
+	canUse( it ){
+		if ( !it.canUse ) console.warn( it.id + ' missing canUse()');
+		else return it.canUse( this );
+	},
 
 	/**
 	 * Attempts to pay the cost to perform an action, buy an upgrade, etc.

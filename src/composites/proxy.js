@@ -19,6 +19,7 @@ export default class Proxy {
 	hasTag(t) { return this.item && this.item.hasTag(t); }
 	hasTags(t) { return this.item && this.items.hasTag(t); }
 
+	get buy() { return this.item ? this.item.buy : null; }
 	get cost() { return this.item ? this.item.cost : null; }
 	get run() { return this.item ? this.item.run : null; }
 	get effect() { return this.item ? this.item.effect : null; }
@@ -28,6 +29,9 @@ export default class Proxy {
 	 */
 	get item() { return this._item; }
 	set item(v) { this._item = v; }
+
+	get owned() { return this._item ? this.item.owned : false; }
+	set owned(v) { if ( this._item ) this._item.owned = v; }
 
 	get running() { return this.item ? this.item.running:false;}
 	set running(v) {

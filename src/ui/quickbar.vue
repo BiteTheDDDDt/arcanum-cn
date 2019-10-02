@@ -54,9 +54,13 @@ export default {
 
 		},
 
+		slots() {
+			return this.bar.slots;
+		},
+
 		hasItems(){
 
-			return this.bar.slots.some(v=>v.item!=null);
+			return this.slots.some(v=>v.item!=null);
 
 		}
 
@@ -70,15 +74,15 @@ export default {
 
 		<div class="quickslot" v-for="(it,i) in bar.slots" :key="i">
 
-			<div v-if="it!=null" :class="it.school ? it.school :''"
-					@click="emit( TRY_USE, it)"
+			<div v-if="it.item!=null" :class="it.item.school ? it.item.school :''"
+					@click="emit( TRY_USE, it.item || it )"
 					@mouseenter.capture.stop="emit( 'itemover',$event,it)">
 
 
 				<div>{{ abbr(it) }}</div>
 
 				<div class="remove" @click="remove(i)" />
-				<div v-if="it.school" class="bgfill" >&nbsp;</div>
+				<div v-if="it.item.school" class="bgfill" >&nbsp;</div>
 
 			</div>
 			<div v-else>{{ (i != 9) ? i + 1 : 0 }}</div>
