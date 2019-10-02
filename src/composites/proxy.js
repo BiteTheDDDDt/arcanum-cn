@@ -6,7 +6,7 @@ export default class Proxy {
 	/**
 	 * @property {string} id - maybe a bad idea.
 	 */
-	get id() { return this.item.id; }
+	get id() { return ( this.item ? this.item.id : '' ); }
 
 	/**
 	 * @property {string} name
@@ -24,6 +24,9 @@ export default class Proxy {
 	get run() { return this.item ? this.item.run : null; }
 	get effect() { return this.item ? this.item.effect : null; }
 
+	get length () {return this.item ? this.item.length : null }
+	get perpetual() { return this._item ? this._item.perpetual : false }
+
 	/**
 	 * @property {Item} item - item being run.
 	 */
@@ -37,6 +40,8 @@ export default class Proxy {
 	set running(v) {
 		if ( this.item) this.item.running=v;
 	}
+
+	isProxy() { return true; }
 
 	maxed() { return this.item ? this.item.maxed() : true; }
 	canUse( g ) { return this.item ? this.item.canUse( g ) : false; }

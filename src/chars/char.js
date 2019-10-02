@@ -85,7 +85,6 @@ export default class Char {
 		this.immunities = this.immunities || {};
 		this._resist = this._resist || {};
 
-		//console.log( this.id + ' damage: ' + this.damage );
 		//console.log( this.id + ' tohit: ' + this.tohit );
 
 		/**

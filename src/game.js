@@ -201,7 +201,7 @@ export default {
 
 	},
 
-	enterLoc( locale, enter ) {
+	enterLoc( locale, enter=true ) {
 
 		let control = locale.type === 'dungeon' ? this.state.raid : this.state.explore;
 		if ( enter ) {
@@ -490,7 +490,9 @@ export default {
 	 */
 	tryItem(it) {
 
-		if ( it.type ==='dungeon') return this.startRaid(it);
+		console.log('TRYING ITEM: ' + it.id );
+
+		if ( it.type ==='dungeon') return this.enterLoc(it);
 
 		if ( !this.canUse(it) ) return false;
 
@@ -826,7 +828,7 @@ export default {
 					} else if ( typeof e === 'boolean') {
 
 						target.locked = !e;
-						target.amount( this, 1 );
+						target.use( this );
 
 					} else target.applyVars(e,dt);
 

@@ -61,6 +61,10 @@ export default class Item {
 
 	}
 
+	canUse(g) {
+		return this.consume || this.onuse;
+	}
+
 	use( g, targ, inv=null ) {
 
 		if ( this.consume === true ) {

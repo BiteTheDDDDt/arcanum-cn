@@ -237,6 +237,9 @@ export default class GameState {
 	 * @param {number} slotNum
 	 */
 	setQuickSlot( it, slotNum ) {
+
+		console.log('SETTING SLOT: ' + it.name );
+
 		this.quickbar.setSlot(it, slotNum);
 	}
 

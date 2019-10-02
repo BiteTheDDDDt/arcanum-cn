@@ -25,18 +25,12 @@ export default {
 
 		},
 
-		item(ind ) {
-		},
-
-		clicked(it) {
-		},
-
 		abbr:abbr
 
 	},
 	computed:{
 
-		items() {
+		/*items() {
 
 			let slots = this.bar.slots
 			let a = [];
@@ -52,7 +46,7 @@ export default {
 
 			return a;
 
-		},
+		},*/
 
 		slots() {
 			return this.bar.slots;
@@ -72,10 +66,10 @@ export default {
 <template>
 	<div class="quickbar" v-if="hasItems">
 
-		<div class="quickslot" v-for="(it,i) in bar.slots" :key="i">
+		<div class="quickslot" v-for="(it,i) in slots" :key="i">
 
 			<div v-if="it.item!=null" :class="it.item.school ? it.item.school :''"
-					@click="emit( TRY_USE, it.item || it )"
+					@click="emit( TRY_USE, it.item||it )"
 					@mouseenter.capture.stop="emit( 'itemover',$event,it)">
 
 

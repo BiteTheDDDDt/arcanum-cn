@@ -15,10 +15,10 @@ import Mod from './values/mod';
  */
 export function itemRevive(gs, it ) {
 
-		var orig = it.template;
+		var orig = it.template || it.recipe;
 		if ( typeof orig === 'string') orig = gs.getData( orig );
 		if ( !orig) {
-			console.warn('inv. bad item type: ' + it.id + ' -> ' + it.template );
+			console.warn('inv. bad item type: ' + it.id + ' -> ' + it.template + ' -> ' + it.recipe );
 			return null;
 		}
 		it.template = orig;

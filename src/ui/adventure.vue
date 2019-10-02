@@ -128,6 +128,7 @@ div.raid-bottom {
 	justify-content: space-between;
 	padding-top:8px;
 	width:100%;
+	height:min-content;
 	overflow-y:auto;
 }
 

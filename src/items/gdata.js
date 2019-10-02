@@ -2,7 +2,7 @@ import { defineExcept, clone } from 'objecty';
 import Stat from '../values/stat';
 import Base, {mergeClass} from './base';
 import { arrayMerge, assignPublic } from '../util/util';
-import { ITEM_ATTACK } from '../events';
+import Events, { ITEM_ATTACK } from '../events';
 
 /**
  * @typedef {Object} Effect
@@ -199,7 +199,10 @@ export default class GData {
 	 * @param {Game} g
 	 */
 	use( g ) {
+
+		if ( this.slot ) g.setSlot( this );
 		this.amount( g, 1 );
+
 	}
 
 	/**
@@ -223,6 +226,7 @@ export default class GData {
 		if ( this.mod ) g.addMod( this.mod, count );
 		if ( this.lock ) g.lock( this.lock );
 		if ( this.dot ) g.state.player.addDot( new Dot(this.dot, this.id, this.name) );
+
 		if ( this.disable ) g.disable( this.disable );
 
 		if ( this.log ) Events.emit( EVT_EVENT, this.log );

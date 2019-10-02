@@ -24,15 +24,15 @@ export default class QuickSlot extends Proxy {
 
 	get name() {
 
-		return this._item ? this._item.name :
+		return super.item ? super.item.name :
 		this.recipe || '';
 
 	}
 
-	get item() { return this._item; }
+	get item() { return super.item; }
 	set item(v) {
 
-		this._item = v;
+		super.item = v;
 
 		this.recipe = ( v && typeof v === 'object' ) ? v.recipe : null;
 

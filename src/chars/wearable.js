@@ -76,7 +76,10 @@ export default class Wearable extends Item {
 
 	constructor(vars=null){
 
-		super( null );
+		super();
+
+		this.stack = false;
+		this.consume = false;
 
 		if ( vars ) assignNoFunc(this,vars );// Object.assign(this,vars);
 
