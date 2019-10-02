@@ -39,6 +39,7 @@ export default class Quickbar {
 		} else if ( vars ) {
 
 			Object.assign( this, vars );
+			if ( !vars.slots ) this.slots = [];
 
 		} else this.slots = [];
 

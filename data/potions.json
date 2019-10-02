@@ -11,7 +11,7 @@
 		"cost":{
 			"herbs":10
 		},
-		"use":"poisonward"
+		"onuse":"poisonward"
 	},
 	{
 		"id":"pot_mana1",
@@ -23,7 +23,7 @@
 		"cost":{
 			"herbs":10
 		},
-		"use":{
+		"onuse":{
 			"mana":5
 		}
 	},
@@ -38,7 +38,7 @@
 			"herbs":10
 		},
 		"name":"minor healing",
-		"use":"heal1"
+		"onuse":"heal1"
 	},
 	{
 		"id":"pot_stam1",
@@ -51,7 +51,7 @@
 		"cost":{
 			"herbs":10
 		},
-		"use":{
+		"onuse":{
 			"stamina":10
 		}
 
@@ -68,7 +68,7 @@
 		"cost":{
 			"herbs":20
 		},
-		"use":{
+		"onuse":{
 			"dot":{
 
 				"hp":1,

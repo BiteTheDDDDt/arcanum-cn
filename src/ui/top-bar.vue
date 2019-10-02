@@ -57,7 +57,7 @@ export default {
 			<button class="text-button" @click="dispatch('open-settings')">&#9881;</button>
 			<span class="vers">ver. {{ VERSION }}</span>
 			<a href="https://discord.gg/4dB2ZE5" target="_blank">discord</a>
-			<a href="https://www.paypal.me/lerpinglemur" target="_blank">donate</a>
+			<a href="https://www.patreon.com/theoryofmagic" target="_blank">patreon</a>
 			<a href="https://www.reddit.com/r/wizrobe/" target="_blank">reddit</a>
 			<a href="https://discord.gg/8jDVVC3" target="_blank">guide</a>
 		</span>

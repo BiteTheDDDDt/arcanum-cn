@@ -1,9 +1,9 @@
 import GData from './items/gdata';
 import Player from './chars/player';
 
-import Range, {RangeTest} from './range';
-import Percent, {PercentTest} from './percent';
-import Mod, {ModTest} from './mod';
+import Range, {RangeTest} from './values/range';
+import Percent, {PercentTest} from './values/percent';
+import Mod, {ModTest} from './values/mod';
 
 import Resource from './items/resource';
 import ZeroSum from './items/zerosum';
@@ -13,7 +13,9 @@ import Skill from './items/skill';
 import Monster from './items/monster';
 
 //import VarPath  from './varPath';
-import Dungeon from './items/dungeon.js';
+import Dungeon from './items/dungeon';
+import Locale from './items/locale';
+
 import Spell from './items/spell.js';
 import Action from './items/action';
 
@@ -23,11 +25,13 @@ import Material from './chars/material';
 import Enchant from './items/enchant';
 import Item from './items/item';
 import Potion from './items/potion';
+import Encounter, { ENCOUNTER } from './items/encounter';
+import GEvent from './items/gevent';
 
 const DataDir = './data/';
 const DataFiles = [ 'resources', 'upgrades', 'actions', 'homes', 'furniture', 'skills',
 	'player', 'spells', 'monsters', 'dungeons', 'events', 'classes', 'armors', 'weapons',
-	'materials', 'enchants', 'sections', 'potions' ];
+	'materials', 'enchants', 'sections', 'potions', 'encounters', 'locales','stressors' ];
 
 /**
  * @const {RegEx} IdTest - Test for a simple id name.
@@ -132,7 +136,7 @@ export default {
 
 			if ( p === 'items') continue;
 			var dataItem = saveData[p];
-			//console.log('game save item: ' + p );
+
 			saveData[p] = this.parseSub(dataItem);
 
 		}
@@ -149,7 +153,6 @@ export default {
 
 			idList = itemLists[p];
 
-			//console.log('CREATING LIST TYPE: ' + p );
 			// lists of game-item data by type.
 			gameLists[p] = gameList = [];
 
@@ -178,8 +181,6 @@ export default {
 		// though they can be set to null.
 		for( let p in templates ) {
 
-			//console.log('MERGING: ' + p );
-
 			var saveObj = saveItems[p] || {};
 
 			mergeSafe( saveObj, templates[p] );
@@ -198,6 +199,7 @@ export default {
 		this.items = gd.items;
 
 		gd.resources = this.initItems( dataLists['resources'], Resource );
+		gd.stressors = this.initItems( dataLists['stressors'], Resource, 'stress', 'stress' );
 
 		gd.upgrades = this.initItems( dataLists['upgrades'], GData, null, 'upgrade' );
 
@@ -208,7 +210,10 @@ export default {
 
 		gd.skills = this.initItems( dataLists['skills'], Skill );
 
+		gd.encounters = this.initItems( dataLists['encounters'], Encounter, ENCOUNTER, ENCOUNTER);
 		gd.monsters = this.initItems( dataLists['monsters'], Monster, 'monster', 'monster' );
+
+		this.initItems( dataLists['locales'], Locale );
 		this.initItems( dataLists['dungeons'], Dungeon );
 		this.initItems( dataLists['spells'], Spell );
 
@@ -222,9 +227,13 @@ export default {
 
 		gd.materials = this.initItems( dataLists['materials'], Material, 'material', 'material ');
 
-		gd.events = this.initItems( dataLists['events'], GData, null, 'event' );
-		gd.classes = this.initItems( dataLists['classes'], GData, 'class', 'class' );
-		gd.classes.forEach(v=>{v.warn=true;});
+		gd.events = this.initItems( dataLists['events'], GEvent, null, 'event' );
+		gd.classes = this.initItems( dataLists['classes'], GEvent, 'class', 'class' );
+		gd.classes.forEach(v=>{
+			v.warn=true;
+			v.repeat = false;
+			v.max = 1;
+		});
 
 		gd.actions = this.initItems( dataLists['actions'], Action, null, 'action' );
 		gd.actions.forEach( v=>v.repeat = (v.repeat!==undefined ) ? v.repeat : true );
@@ -259,12 +268,12 @@ export default {
 				}
 
 				var obj = sub[p];
-				var type = typeof obj;
-				if ( type === 'string' ){
+				if ( typeof obj === 'string' ){
 
 					if ( PercentTest.test(obj) ) {
 
 						sub[p] = new Percent(obj);
+
 					} else if ( RangeTest.test(obj) ) sub[p] = new Range(obj);
 					else if ( !isNaN(obj) ) {
 						if ( obj !== null && obj !== undefined && obj !== '' ) console.warn('string used as Number: ' + p + ' -> ' + obj );
@@ -273,7 +282,7 @@ export default {
 					}
 					else if ( p === 'damage' || p === 'dmg') sub[p] = this.makeDmgFunc(obj);
 
-				} else if ( type === 'object' ) this.parseSub(obj);
+				} else if ( typeof obj === 'object' ) this.parseSub(obj);
 
 				if ( p.includes('.')) this.splitKeyPath( sub, p );
 

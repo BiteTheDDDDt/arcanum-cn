@@ -37,11 +37,21 @@ export default class Log {
 	}
 
 	log( title='', text='', type='event' ) {
+
 		this.items.push( new LogItem(title, text, type ) );
+		if ( this.items.length >= this.maxItems+50 ) {
+			this.items.splice( 0, 50 );
+		}
+
 	}
 
 	logItem(it) {
+
 		this.items.push( it);
+		if ( this.items.length >= this.maxItems+50 ) {
+			this.items.splice( 0, 50 );
+		}
+
 	}
 
 }

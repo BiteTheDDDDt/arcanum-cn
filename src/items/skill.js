@@ -1,5 +1,5 @@
 import Action from './action';
-import Stat from '../stat';
+import Stat from '../values/stat';
 
 const EXP_RATIO = 0.35;
 
@@ -18,7 +18,7 @@ export default class Skill extends Action {
 
 	get exp() { return super.exp; }
 	set exp(v) {
-		if ( this.maxed() ) return;
+		if ( this.locked || this.maxed() ) return;
 		super.exp = v;
 	}
 
@@ -62,7 +62,11 @@ export default class Skill extends Action {
 
 	exec() {
 
-		if ( this.value > Math.floor(this._max) ) this.value = Math.floor(this.max);
+		if ( this.value > Math.floor(this._max.value) ) {
+			this.value = Math.floor(this.max.value);
+			return;
+		}
+
 		this._length += this._length*EXP_RATIO;
 
 		this.dirty = true;

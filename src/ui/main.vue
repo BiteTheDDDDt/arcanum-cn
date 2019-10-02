@@ -20,6 +20,7 @@ import Adventure from './adventure.vue';
 import Settings from '../settings';
 import Cheats from '../cheats';
 
+import { TRY_BUY, USE, TRY_USE } from '../events';
 import { TICK_TIME } from '../game';
 
 /**
@@ -80,33 +81,8 @@ export default {
 		this.listen('game-loaded', this.gameLoaded );
 		this.listen('setting', this.onSetting );
 
-		this.listen( 'sell', this.onSell );
-		this.listen( 'take', this.onTake );
-		this.listen( 'itemover', this.itemOver );
-		this.listen( 'itemout', this.itemOut );
-
-		this.listen( 'upgrade', this.onUpgrade );
-		this.listen( 'action', this.onAction );
-		this.listen( 'raid', this.onRaid );
-		this.listen( 'rest', this.onRest );
-
-		this.listen('equip', this.onEquip );
-		this.listen('unequip', this.onUnequip );
-		this.listen('drop', this.onDrop );
-		this.listen('enchant', this.onEnchant );
-		this.listen('brew', this.onBrew );
-		this.listen( 'use', this.onUse );
-
-		this.listen('home', this.onHome );
-
-		this.listen( 'spell', this.onSpell );
-		this.listen( 'buy', this.onBuy );
-
 		this.listen('pause', this.pause );
 		this.listen('unpause', this.unpause );
-
-		// primary attack.
-		this.listen( 'primary', this.onPrimary);
 
 
 	},
@@ -116,6 +92,42 @@ export default {
 
 			this.state = Game.state;
 			this.section = this.state.sections.find( v=>v.id==='sect_main');
+
+			this.initEvents();
+
+		},
+
+		/**
+		 * Listen non-system events.
+		 */
+		initEvents() {
+
+			this.add( 'itemover', this.itemOver );
+			this.add( 'itemout', this.itemOut );
+
+			this.add( 'sell', this.onSell );
+			this.add( 'take', this.onTake );
+
+			this.add( 'upgrade', this.onItem );
+			this.add( 'action', this.onItem );
+			this.add( 'spell', this.onItem );
+
+			this.add( 'rest', this.onRest );
+
+			this.add('equip', this.onEquip );
+			this.add('unequip', this.onUnequip );
+			this.add('drop', this.onDrop );
+			this.add('enchant', this.onEnchant );
+			this.add('craft', this.onCraft );
+
+			this.add( TRY_USE, this.tryUse )
+			this.add( USE, this.onUse );
+
+
+			this.add( TRY_BUY, this.onBuy );
+
+			// primary attack.
+			this.add( 'primary', this.onPrimary);
 
 		},
 
@@ -155,9 +167,7 @@ export default {
 			}
 			this.stopAutoSave();
 
-			window.removeEventListener('keydown',evt=>{
-				if ( evt.repeat) return;
-				this.keyDown( evt ); evt.stopPropagation(); }, false );
+			if ( this.keyListen ) window.removeEventListener('keydown', this.keyListen, false );
 
 
 		},
@@ -170,12 +180,15 @@ export default {
 					this.runner = setInterval( ()=>this.game.update(), TICK_TIME );
 				}
 
-			window.addEventListener('keydown',evt=>{
+				this.keyListen = evt=>{
 				if ( evt.repeat) return;
-				this.keyDown( evt ); evt.stopPropagation(); }, false );
+				this.keyDown( evt ); evt.stopPropagation(); }
+
+				window.addEventListener('keydown', this.keyListen, false );
+				this.startAutoSave();
 
 			}
-			this.startAutoSave();
+
 
 		},
 
@@ -192,7 +205,7 @@ export default {
 				if ( e.shiftKey && this.overItem ) this.state.setQuickSlot( this.overItem, num );
 				else {
 					let it = this.state.getQuickSlot(num);
-					if ( it) this.game.tryItem( it );
+					if ( it) this.game.tryItem( it.getTarget( this.game ) );
 				}
 
 			}
@@ -211,7 +224,7 @@ export default {
 
 		onTake(it) { this.game.take(it); },
 
-		onBrew(it) { this.game.craft(it); },
+		onCraft(it) { this.game.craft(it); },
 
 		/**
 		 * Use instanced item.
@@ -241,26 +254,19 @@ export default {
 
 		},
 
-		onRest(){
-			this.game.toggleAction( this.state.restAction );
-		},
+		onRest(){ this.game.toggleAction( this.state.restAction ); },
 
-		onAction( action ) {
+		onConfirmed(it) { this.game.tryItem(it); },
 
-			this.game.tryItem( action );
-		},
+		tryUse( it ) { this.game.tryItem(it ) },
 
 		/**
-		 * Attempt to buy new house.
+		 * Item clicked.
 		 */
-		onHome(it) { this.game.tryItem(it); },
-		onConfirmed(it) { this.game.tryItem(it); },
-		onSpell( spell ) { this.game.tryItem(spell); },
+		onItem(item) {
 
-		onUpgrade(upgrade) {
-
-			if ( upgrade.warn ) this.$refs.warn.warn( upgrade );
-			else this.game.tryItem(upgrade);
+			if ( item.warn ) this.$refs.warn.warn( item );
+			else this.game.tryItem(item);
 
 		},
 
@@ -269,21 +275,6 @@ export default {
 		 * @property {Item} item - item to buy.
 		 */
 		onBuy(item) { this.game.tryBuy(item); },
-
-		/**
-		 * @param {Dungeon} dungeon
-		 * @param {boolean} enter
-		 */
-		onRaid( dungeon, enter ) {
-
-			if ( enter ) this.game.startRaid( dungeon );
-			else {
-				this.state.raid.dungeon = null;
-				this.game.haltAction( this.state.raid );
-
-			}
-
-		},
 
 		onPrimary( s) {
 			if ( this.state.player.primary === s) this.state.player.setPrimary(null);
@@ -302,7 +293,7 @@ export default {
 
 <template>
 
-	<div class="full" @mouseover.capture.stop="dispatch('itemout')">
+	<div class="full" @mouseover.capture.stop="emit('itemout')">
 
 		<top-bar>
 			<template slot="center">
@@ -365,7 +356,7 @@ export default {
 
 		</div>
 
-		<div v-if="state" class="bot-bar"><quickbar :slots="state.quickslots" /></div>
+		<div v-if="state" class="bot-bar"><quickbar :bar="state.quickbar" /></div>
 
 	</div>
 </template>

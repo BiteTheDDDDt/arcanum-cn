@@ -1,4 +1,4 @@
-import Range from "../range";
+import Range from "../values/range";
 import { assignPublic } from "../util/util";
 
 export default class Attack {
@@ -13,6 +13,16 @@ export default class Attack {
 			id:this.id,
 			dot:this.dot
 		};
+
+	}
+
+	get kind(){ return this._kind; }
+	set kind(k){
+
+		this._kind = k;
+		if ( this.dot ){
+			if ( !this.dot.kind ) this.dot.kind = k;
+		}
 
 	}
 

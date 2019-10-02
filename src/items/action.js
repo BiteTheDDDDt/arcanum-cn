@@ -9,15 +9,6 @@ export default class Action extends GData {
 	get level() {return this._level;}
 	set level(v) { this._level = v;}
 
-	get ex(){return this._exp; }
-	set ex(v) { this._exp = v;}
-
-	get value() { return this._value; }
-	set value(v) {
-
-		this._value = v;
-	}
-
 	/**
 	 * @property {number} exp - alias ex data files.
 	 */
@@ -25,12 +16,11 @@ export default class Action extends GData {
 	set exp(v){
 
 		this._exp = v;
-		if ( this._length ) {
+		if ( (this._length&& (v>=this._length) )
+			|| ( this.perpetual && v >= 1 ) ) {
 
-			if ( v >= this._length ) Events.gfire( EXP_MAX, this );
-
-		}else if ( ( this.perpetual && v > 1 ) ) {
 			Events.gfire( EXP_MAX, this );
+
 		}
 
 	}
@@ -51,7 +41,7 @@ export default class Action extends GData {
 
 		this.repeat = this.repeat === false ? false : true;
 		this.type = 'action';
-		if ( this.length ) this._exp = this._exp || 0;
+		if ( this.length || this.perpetual ) this._exp = this._exp || 0;
 
 		this.running = this.running || false;
 
@@ -107,11 +97,10 @@ export default class Action extends GData {
 		if ( this.mod ) Game.addMod( this.mod );
 		if ( this.loot ) Game.getLoot( this.loot );
 
-		if ( this.id === 'herbalism' ) console.log('CINCREASING VALUE');
 		this.value++;
 
 		if ( this.exec ) this.exec();
-		Events.dispatch( ACT_DONE, this );
+		Events.emit( ACT_DONE, this );
 
 	}
 
@@ -162,7 +151,7 @@ export default class Action extends GData {
 
 		}
 
-		if ( improve ) Events.dispatch( ACT_IMPROVED, this );
+		if ( improve ) Events.emit( ACT_IMPROVED, this );
 
 		this._exp = 0;
 

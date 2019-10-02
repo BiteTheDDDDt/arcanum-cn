@@ -44,7 +44,7 @@ export default {
 
 		<div class="enchants">
 
-		<div><div @mouseenter.capture.stop="dispatch('itemover', $event, target )">
+		<div><div @mouseenter.capture.stop="emit( 'itemover', $event, target )">
 			Target: {{ target ? target.name : 'None' }}
 		</div>
 		<span class="note-text">Items can only be enchanted with enchantments of equal or lower level.</span>
@@ -56,15 +56,15 @@ export default {
 		<filterbox v-model="filtered" :items="enchants" min-items="7" />
 
 		<div class="enchant-list">
-		<div class='enchant' v-for="it in filtered" :key="it.id" @mouseenter.capture.stop="dispatch( 'itemover', $event,it)">
+		<div class='enchant' v-for="it in filtered" :key="it.id" @mouseenter.capture.stop="emit( 'itemover', $event,it)">
 
 			<span class="ench-name">{{ it.name }}</span>
 
 			<button v-if="it.buy&&!it.owned" :disabled="!buyable(it)"
-				@click="dispatch('buy', it)">Unlock</button>
+				@click="emit('buy', it)">Unlock</button>
 
 			<button v-else :disabled="!target||!it.canApply(target)||!usable(it)"
-				@click="dispatch( 'enchant', it, target )">Enchant</button>
+				@click="emit( 'enchant', it, target )">Enchant</button>
 
 		</div>
 		</div>

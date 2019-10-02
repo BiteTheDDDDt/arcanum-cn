@@ -4,6 +4,7 @@ import Running from './running.vue';
 
 import Game from '../game';
 import ItemBase from './itemsBase';
+import { STOP_ALL } from '../events';
 
 /**
  * Player vital bars.
@@ -15,6 +16,11 @@ export default {
 	components:{
 		progbar:ProgBar,
 		running:Running
+	},
+	created(){
+
+		this.STOP_ALL = STOP_ALL;
+
 	},
 	computed:{
 
@@ -33,13 +39,17 @@ export default {
 
 	<div class="vitals">
 
-		<div class="separate"><button class="btn-sm" @click="dispatch('rest')"
-			@mouseenter.capture.stop="dispatch('itemover',$event, state.restAction )">
-			{{ this.resting ? 'Stop' : 'Rest' }}</button>
+		<div class="separate">
 
-			<button v-if="!focus.locked" class="btn-sm" @mouseenter.capture.stop="dispatch('itemover',$event, focus )"
+			<button class="btn-sm" @click="emit(STOP_ALL)">Stop All</button>
+
+			<button class="btn-sm" @click="emit('rest')" :disabled="resting"
+			@mouseenter.capture.stop="emit( 'itemover',$event, state.restAction )">
+			{{ state.restAction.name }}</button>
+
+			<button v-if="!focus.locked" class="btn-sm" @mouseenter.capture.stop="emit( 'itemover',$event, focus )"
 				:disabled="!usable(focus)"
-				@click="dispatch('action', focus)">Focus</button>
+				@click="emit('action', focus)">Focus</button>
 		</div>
 
 		<running />
@@ -49,16 +59,16 @@ export default {
 
 		<tr><td>stamina</td>
 		<td colspan="2"><progbar class="stamina" :value="stamina.value" :max="stamina.max.value"
-			@mouseenter.capture.stop.native="dispatch('itemover',$event,stamina)"/></td></tr>
+			@mouseenter.capture.stop.native="emit( 'itemover',$event,stamina)"/></td></tr>
 
 		<tr><td>hp</td>
 		<td colspan="2"><progbar class="hp" :value="player.hp.value" :max="player.hp.max.value"
-			@mouseenter.capture.stop.native="dispatch('itemover',$event,player.hp)"/></td></tr>
+			@mouseenter.capture.stop.native="emit( 'itemover',$event,player.hp)"/></td></tr>
 
 		<tr v-for="it in manaList" :key="it.key">
 			<td>{{it.name}}</td>
 		<td colspan="2"><progbar :value="it.value" :class="it.id" :max="it.max.value"
-			@mouseenter.native.capture.stop="dispatch('itemover',$event,it)"/></td></tr>
+			@mouseenter.native.capture.stop="emit( 'itemover',$event,it)"/></td></tr>
 
 		</table>
 

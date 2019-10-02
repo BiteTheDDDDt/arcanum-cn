@@ -846,6 +846,7 @@
 	{
 		"id":"mk_hobgoblin",
 		"name":"summon hobgoblin",
+		"school":"mana",
 		"level":6,
 		"buy":{
 			"research":100,
@@ -1070,12 +1071,12 @@
 			"light":5
 		},
 		"dot":{
-			"duration":45,
+			"duration":60,
 			"mod":{
 				"lore.rate":0.5,
-				"naturelore.rate":0.2,
-				"lightlore.rate":0.2,
-				"languages.rate":0.2
+				"naturelore.rate":"0.2+2%",
+				"lightlore.rate":"0.2+2%",
+				"languages.rate":"0.2+2%"
 			}
 		}
 	},
@@ -1096,10 +1097,10 @@
 			"fire":2
 		},
 		"dot":{
-			"duration":45,
+			"duration":60,
 			"mod":{
-				"lore.rate":0.2,
-				"firelore.rate":0.5
+				"lore.rate":0.5,
+				"firelore.rate":"0.2+2%"
 			}
 		}
 	},
@@ -1120,10 +1121,10 @@
 
 		},
 		"dot":{
-			"duration":45,
+			"duration":60,
 			"mod":{
-				"lore.rate":0.2,
-				"waterlore.rate":0.5
+				"lore.rate":0.5,
+				"waterlore.rate":"0.2+2%"
 			}
 		}
 	},
@@ -1144,10 +1145,10 @@
 
 		},
 		"dot":{
-			"duration":45,
+			"duration":60,
 			"mod":{
-				"lore.rate":0.2,
-				"airlore.rate":0.5
+				"lore.rate":0.5,
+				"airlore.rate":"0.2+2%"
 			}
 		}
 	},
@@ -1166,16 +1167,17 @@
 
 		},
 		"cost":{
-			"shadow":5
+			"shadow":5,
+			"bonedust":1
 		},
 		"dot":{
-			"duration":45,
+			"duration":60,
 			"mod":{
 				"lore.rate":0.5,
-				"dissection.rate":0.2,
-				"shadowlore.rate":0.2,
-				"demonology.rate":0.2,
-				"reanimation.rate":0.2
+				"dissection.rate":"0.3+2%",
+				"shadowlore.rate":"0.3+2%",
+				"demonology.rate":"0.3+2%",
+				"reanimation.rate":"0.3+2%"
 			}
 		}
 	},

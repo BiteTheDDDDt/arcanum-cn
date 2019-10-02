@@ -1,12 +1,15 @@
 import Game from '../game';
 import {quickSplice, findRemove} from '../util/util';
-import Events, {ACT_DONE, ACT_CHANGED, HALT_ACT, ACT_BLOCKED, EXP_MAX } from '../events';
-import Stat from '../stat';
+import Events, {ACT_DONE, ACT_CHANGED, HALT_ACT, ACT_BLOCKED, EXP_MAX, STOP_ALL } from '../events';
+import Stat from '../values/stat';
 import Base, {mergeClass} from '../items/base';
 import Runnable from '../composites/runnable';
 
 const REST_TAG = 't_rest';
 const DUNGEON = 'dungeon';
+const LOCALE = 'locale';
+
+export { LOCALE, DUNGEON, REST_TAG };
 
 /**
  * Tracks running/perpetual actions.
@@ -41,7 +44,7 @@ const Runner = {
 	},
 
 	set exp(v) {
-		console.log('setting EXP: ' + v );
+
 		for( let i = this.actives.length-1; i>= 0;i-- ) {
 
 			var a = this.actives[i];
@@ -94,13 +97,13 @@ const Runner = {
 
 		} else if ( !this._max ) {
 
-			this._max = new Stat(v);
+			this._max = new Stat(v,true);
 		} else if ( typeof v === 'number' ) {
 
 
 			this._max.base = v;
 
-		} else this._max = new Stat(v);
+		} else this._max = new Stat(v,true);
 
 	},
 
@@ -143,12 +146,18 @@ const Runner = {
 		this.max = this._max || 1;
 
 		this.waiting = this.reviveList( this.waiting, gs, false );
+
+		if ( this.waiting.length > this.max ) {
+			this.waiting = this.waiting.slice( this.waiting.length - this.max );
+		}
+
 		this.actives = this.reviveList( this.actives, gs, true );
 
 		Events.add( ACT_DONE, this.actDone, this );
 		Events.add( HALT_ACT, this.haltAction, this );
 		Events.add( ACT_BLOCKED, this.actBlocked, this );
 		Events.add( EXP_MAX, this.expMax, this );
+		Events.add( STOP_ALL, this.stopAll, this );
 
 	},
 
@@ -157,8 +166,8 @@ const Runner = {
 	 * @param {*} it
 	 */
 	expMax( it ) {
-		console.log('MAX EXP. COMPLETE: ' + it.id );
-		if ( it.complete && typeof it.complete === 'function') it.complete();
+		//console.log('EXP. COMPLETE: ' + it.id );
+		if ( it.complete && (typeof it.complete) === 'function') it.complete();
 
 	},
 
@@ -220,9 +229,7 @@ const Runner = {
 			return (v instanceof Runnable)&&(id===v.item.id && t === v.target.id );
 		};
 
-		console.log('SEARCHING EXISTING');
 		let run = findRemove( this.waiting, p);
-		if ( run ) console.log('RUNNABLE FOUND IN WAITING');
 
 		if ( !run ) {
 
@@ -294,7 +301,7 @@ const Runner = {
 			}
 
 			// action already in running list.
-			Events.dispatch( ACT_CHANGED );
+			Events.emit( ACT_CHANGED );
 			this.runAction(a);
 
 		}
@@ -311,9 +318,11 @@ const Runner = {
 
 		this.stopAction( act, false );
 		if ( act.hasTag(REST_TAG) ) {
+
 			this.tryResume();
 
 		} else {
+			//if( resume) console.log('ADDING NEW WAIT: ' + act.id );
 			if ( resume ) this.addWait(act);
 			this.doRest();
 		}
@@ -333,7 +342,7 @@ const Runner = {
 		}
 
 		let a = this.actives[i];
-		console.log('STOPPING: ' + a.name );
+		//console.log('STOPPING: ' + a.name );
 
 		a.running = false;
 		this.actives.splice(i,1);
@@ -363,17 +372,17 @@ const Runner = {
 
 		if ( a.hasTag(REST_TAG) ) return;
 
+		//console.log('adding wait: ' + a.id );
 		this.waiting.push(a);
 
-		let len = this.max.value - this.waiting.length;
+		let len = this.waiting.length - this.max.value;
 		let i = 0;
 
-		console.log('REMOVING ' + len + ' WAITING');
 		while ( len > 0 ) {
 
 			a = this.waiting[i];
 			if ( !(a instanceof Runnable ) ) {
-				this.waiting.splice( a, 1 );
+				this.waiting.splice( i, 1 );
 			} else i++;
 			len--;
 
@@ -385,6 +394,15 @@ const Runner = {
 
 		if ( act instanceof Runnable ) this.addWait(act);
 		this.stopAction( act );
+
+	},
+
+	stopAll() {
+
+		for( let i = this.actives.length-1; i>=0; i--) {
+			this.stopAction( i, false );
+		}
+		this.clearWaits();
 
 	},
 
@@ -451,8 +469,6 @@ const Runner = {
 			}
 
 		}
-
-		//this.tryAdd( Game.state.restAction );
 
 	},
 
@@ -577,7 +593,8 @@ const Runner = {
 };
 
 /**
- * applyMods() etc.
+ * applyMods() currently needed to increase runners.
+ * @todo move this to Item stat.
  */
 mergeClass( Runner, Base );
 

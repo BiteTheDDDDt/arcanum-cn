@@ -16,8 +16,17 @@ Vue.mixin({
 	},
 	methods: {
 
+		/**
+		 * System-related events.
+		 */
 		listen:Events.listen,
 		dispatch:Events.dispatch,
+
+		/**
+		 * Game-level events.
+		 */
+		emit:Events.emit,
+		add:Events.add,
 
 		// get id for html element.
 		elmId(name) { return name + this._uid; }

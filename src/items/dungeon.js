@@ -1,6 +1,7 @@
 import Monster from './monster';
 import Action from './action';
 import Game from '../game';
+import { getDist } from './locale';
 
 /**
  * @type {Object} Enemy
@@ -48,7 +49,7 @@ export default class Dungeon extends Action {
 		// default require for dungeon is player-level.
 		this.require = this.require || this.levelTest;
 
-		this.dist = ( this.dist === undefined || this.dist === null ) ? Math.ceil( 4.4*Math.exp( 0.32*this.level ) ) : this.dist;
+		this.dist = ( this.dist === undefined || this.dist === null ) ? getDist(this.level) : this.dist;
 		//this.addRequire( 'dist', this.dist );
 
 		//console.log(this.id + ' dist: ' + this.dist );

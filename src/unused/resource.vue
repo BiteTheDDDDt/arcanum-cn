@@ -4,7 +4,7 @@
 /*import { floor } from 'format';
 
 export default {
-	
+
 	props:['res'],
 	methods:{
 		floor:floor
@@ -37,7 +37,7 @@ export default {
 <template>
 
 	<tr :class="cssClass"
-		@mouseenter.capture.stop="dispatch('itemover',$event,res)">
+		@mouseenter.capture.stop="emit( 'itemover',$event,res)">
 
 		<td>{{ res.name }}</td>
 		<td>{{ value + maxStr }}</td>

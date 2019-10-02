@@ -1,5 +1,86 @@
 import {getPropDesc} from 'objecty';
 
+
+/**
+ * Ensure the existence of props on an object.
+ * Mostly for Vue reactivity.
+ * @property {Object} obj
+ * @property {string[]} props - props to set.
+ */
+export const ensure = ( obj, props ) => {
+
+	for( let i = props.length-1; i>= 0; i-- ) {
+		var s = props[i];
+		if ( !obj.hasOwnProperty(s) ) obj[s] = null;
+	}
+
+}
+
+/**
+ * Performs a deep-clone of an object, including class prototype
+ * and class methods.
+ * @param {Object} src
+ * @param {?Object} [dest=null] - optional base object of the clone.
+ * if set, root object will not be cloned, only subobjects.
+ */
+export function cloneClass( src, dest=null ) {
+
+	let o;
+
+	if ( !dest ) {
+		let proto = Object.getPrototypeOf( src );
+		dest = Array.isArray(src) ? [] : ( proto ? Object.create( proto ) : {} );
+	}
+
+	for( let p in src ) {
+
+		o = src[p];
+
+		var def = getPropDesc( dest, p );
+		if ( def && ( !def.writable || def.set === undefined ) ) continue;
+
+		if ( o === null || o === undefined ) dest[p] = o;
+		else if ( typeof o === 'object' ) {
+
+			if ( o.clone && typeof o.clone === 'function' ) dest[p] = o.clone.call( o );
+			else dest[p] = cloneClass( o );
+
+		} else dest[p] = o;
+
+	}
+
+	return dest;
+
+}
+
+/**
+ * Only assign values already defined in dest's protochain.
+ * @param {*} dest
+ * @param {*} src
+ */
+export const assignOwn = (dest, src ) => {
+
+	var vars = Object.getPrototypeOf(dest);
+	while ( vars !== Object.prototype ) {
+
+		for( let p of Object.getOwnPropertyNames(vars) ) {
+
+			var desc = getPropDesc(dest, p);
+			if ( desc && (!desc.writable && desc.set === undefined) ) {
+				continue;
+			}
+
+			if ( src[p] !== undefined ) dest[p] = src[p];
+
+		}
+		vars = Object.getPrototypeOf(vars);
+
+	}
+
+	return dest;
+
+}
+
 /**
  * Find an item in an array matching predicate, remove and return it.
  * @param {Array} a
@@ -59,7 +140,6 @@ export function assignNoFunc( dest, src ) {
 
 			var desc = getPropDesc(dest, p);
 			if ( desc && (!desc.writable && desc.set === undefined) ) {
-				//console.log('SKIPPING: ' + p);
 				continue;
 			}
 
@@ -87,7 +167,7 @@ export function assignPublic( dest, src ) {
 
 			var desc = getPropDesc(dest, p);
 			if ( desc && (!desc.writable && desc.set === undefined) ) {
-				console.log('SKIPPING: ' + p);
+				//console.log('SKIPPING: ' + p);
 				continue;
 			}
 
@@ -131,6 +211,8 @@ export function logObj( obj, msg='' ) {
 }
 
 export const randElm = (arr)=>{
+	if ( arr === null || arr === undefined ) return null;
+
 	const ind = Math.floor( Math.random()*(arr.length));
 	return arr[ind];
 }

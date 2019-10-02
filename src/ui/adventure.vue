@@ -4,7 +4,10 @@ import ItemBase from './itemsBase.js';
 
 import ProgBar from './components/progbar.vue';
 import FilterBox from './components/filterbox.vue';
-import Combat from './items/combat.vue';
+
+import Explore from './items/explore.vue';
+
+import { ENTER_LOC } from '../events';
 
 const MAX_ITEMS = 5;
 
@@ -19,30 +22,31 @@ export default {
 		}
 	},
 	beforeCreate(){
+		this.ENTER_LOC = ENTER_LOC;
 		this.game = Game;
 	},
 	components:{
-		combat:Combat,
+		explore:Explore,
 		progbar:ProgBar,
 		filterbox:FilterBox,
 		inv:()=>import( /* webpackChunkName: "inv-ui" */ './inventory.vue')
 	},
 	computed:{
 
+		drops() { return Game.state.drops; },
+
 		combatLog() {
 			return this.log.items.filter(
 				v=>v.type==='combat' ).slice( -MAX_ITEMS );
 		},
 
-		cur() { return this.state.raid.dungeon },
+		explore() { return this.state.raid.running ? this.state.raid : this.state.explore; },
 
-		raid() { return this.state.raid; },
+		exploring() { return this.explore && this.explore.running; },
 
-		raiding() { return this.raid.running; },
-
-		dungeons(){
+		locales(){
 			return this.state.filterItems(
-				it=>it.type==='dungeon' && !this.locked(it)
+				it=>(it.type==='dungeon'||it.type==='locale') && !this.locked(it)
 			);
 		}
 
@@ -56,35 +60,18 @@ export default {
 
 <div class="adventure">
 
-		<div v-if="raiding">
+		<explore v-if="exploring" :explore="explore" />
 
-		<div class="active-dungeon" v-if="raiding&&cur">
-			<span class="active-title">
-				<span>{{ cur.name }}</span><button class="raid-btn"
-				@click="dispatch( 'raid', cur, false )"
-				@mouseenter.capture.stop="dispatch('itemover', $event, cur )">
-				Flee</button>
-			</span>
-
-			<span class="bar"><progbar :value="cur.exp" :max="cur.length" /></span>
-
-		</div>
-
-			<combat class="combat" v-if="raiding" :combat="raid.combat" />
-
-		</div>
-
-		<!--<filterbox v-model="filtered" :items="dungeons" min-items="8" />-->
-
-		<div class="dungeons" v-else>
-		<div class="dungeon" v-for="d in dungeons" :key="d.id">
+		<!--<filterbox v-model="filtered" :items="locales" min-items="8" />-->
+		<div class="locales" v-else>
+		<div class="dungeon" v-for="d in locales" :key="d.id">
 
 			<span>
 			<span>{{ d.name }}</span>
 
-			<span><button class="raid-btn" :disabled="!game.canRun(d)"
-				@click="dispatch( 'raid', d, true )"
-				@mouseenter.capture.stop="dispatch('itemover', $event, d )">
+			<!-- EVENT MUST BE ON OUTER SPAN - CHROME -->
+			<span @mouseenter.capture.stop="emit( 'itemover', $event, d )"><button class="raid-btn" :disabled="!game.canRun(d)"
+				@click="emit( ENTER_LOC, d, true )">
 				Enter</button></span>
 				</span>
 
@@ -95,9 +82,9 @@ export default {
 
 	<div class="raid-bottom">
 
-		<inv class="inv" :inv="raid.drops" take=true nosearch=true />
+		<inv class="inv" :inv="drops" take=true nosearch=true />
 		<div class="log">
-			<span v-if="raiding">Adventuring...<br></span>
+			<span v-if="exploring">Exploring...<br></span>
 
 			<div class="outlog">
 			<div class="log-item" v-for="(it,i) in combatLog" :key="i">
@@ -114,24 +101,6 @@ export default {
 
 <style scoped>
 
-.combat {
-	overflow-y: auto;
-}
-
-div.adventure .active-title {
-	display:flex;
-	min-width: 400px;
-}
-
-div.adventure .active-title > span {
-	margin-right:16px;
-}
-
-.separate {
-	margin-bottom: 14px;
-	min-height:160px;
-}
-
 div.adventure {
 	display:flex;
 	padding:0px 15px;
@@ -140,14 +109,14 @@ div.adventure {
 	height:100%;
 }
 
-div.dungeons {
+div.locales {
 	display:flex;
 	align-items:flex-start;
-	flex-grow:2;
+	flex-grow:1;
 	flex-flow: row wrap;
 	justify-content: space-between;
 	overflow-y: auto;
-	min-height: 55%;
+	min-height: 50%;
 	padding-bottom: 32px;
 	border-bottom: 1px solid var(--separator-color);
 
@@ -159,7 +128,7 @@ div.raid-bottom {
 	justify-content: space-between;
 	padding-top:8px;
 	width:100%;
-	flex-shrink: 1;
+	height:min-content;
 	overflow-y:auto;
 }
 

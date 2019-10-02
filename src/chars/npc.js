@@ -1,8 +1,7 @@
 import Char from './char';
-import Monster from '../items/monster';
-import { cloneClass  } from 'objecty'
-import Range from '../range';
-import Stat from '../stat';
+import Range, { RangeTest } from '../values/range';
+import Stat from '../values/stat';
+import Percent, { PercentTest } from '../values/percent';
 
 /**
  * @const {number} ALLY - team constant for allies.
@@ -31,7 +30,7 @@ export default class Npc extends Char {
 
 	get maxHp() { return this._maxHp; }
 	set maxHp(v) {
-		this._maxHp = v instanceof Stat ? v : new Stat(v);
+		this._maxHp = v instanceof Stat ? v : new Stat(v,true);
 	}
 
 	get hp() { return this._hp; }
@@ -39,6 +38,29 @@ export default class Npc extends Char {
 
 		if ( this._maxHp && v > this._maxHp ) this._hp = this._maxHp.value;
 		else this._hp = v;
+
+	}
+
+	get loot() {
+		return this._loot;
+	}
+	set loot( loot ){
+
+		for( var p in loot ) {
+
+			var sub = loot[p];
+			if ( (typeof sub==='string') ) {
+
+				if ( PercentTest.test(sub)) {
+
+					loot[p] = new Percent(sub);
+				} else if ( RangeTest.test(sub) ) {
+					loot[p ] = new Range(sub);
+				}
+			}
+		}
+
+		this._loot = loot;
 
 	}
 
@@ -71,7 +93,7 @@ export default class Npc extends Char {
 
 	constructor(vars) {
 
-		super( vars instanceof Monster ? cloneClass(vars) : vars );
+		super( vars );
 
 		this.dodge = this.dodge || 0;
 

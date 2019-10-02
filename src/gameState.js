@@ -2,13 +2,17 @@ import Inventory from './chars/inventory';
 import Raid from './composites/raid';
 import GData from './items/gdata';
 import Equip from './chars/equip';
-import Runnable from './composites/runnable';
 import Minions from './chars/minions';
 
 /**
  * @todo violation of principle.
  */
 import Runner from './modules/runner';
+import Explore from './composites/explore';
+import { ensure } from './util/util';
+import Quickbar from './composites/quickbar';
+
+export const REST_SLOT = 'rest';
 
 export default class GameState {
 
@@ -17,18 +21,18 @@ export default class GameState {
 		let slotIds = {};
 		for( let p in this.slots ) {
 			if ( this.slots[p] ) slotIds[p] = this.slots[p].id;
-			else slotIds[p] = null;
 		}
 
 		let data = {
 
 			items:( this.items ),
-			quickslots:this.quickslots.map(v=> v ? v.id : null ),
+			quickbar:this.quickbar,
 			slots:slotIds,
 			equip:( this.equip ),
 			raid:( this.raid ),
+			drops:this.drops,
+			explore:this.explore,
 			sellRate:this.sellRate,
-			restAction:this.restAction ? this.restAction.id : null,
 			NEXT_ID:this.NEXT_ID
 
 		};
@@ -54,27 +58,19 @@ export default class GameState {
 		 */
 		this.NEXT_ID = this.NEXT_ID || 0;
 
-		/**
-		 * @property {Object.<string,Item>} slots - slots for items which can only have
-		 * a single active at a given time.
-		 */
-		this.slots = this.slots || {
-			'home':null,
-			'mount':null,
-			'bed':null
-		}
+		this.initSlots();
 
 		/**
-		 * @property {string} restAction - default resting action.
+		 * @compat
 		 */
-		this.restAction = this.restAction || this.getData( 'rest' );
-
-		this.quickslots = this.quickslots || [];
+		this.quickbar = new Quickbar( this.quickslots ||baseData.quickbar );
 
 		this.initMaterials( this.materials );
 
 		this.inventory = new Inventory( this.items.inv || baseData.inventory || {max:3} );
 		this.items.inv = this.inventory;
+
+		this.drops = new Inventory();
 
 		/**
 		 * @property {Minions} minions
@@ -90,6 +86,7 @@ export default class GameState {
 		this.sellRate = this.sellRate || 0.5;
 
 		this.raid = new Raid( baseData.raid );
+		this.explore = new Explore( baseData.explore );
 
 		this.revive();
 
@@ -121,6 +118,21 @@ export default class GameState {
 
 	}
 
+	initSlots(){
+
+		/**
+		 * @property {Object.<string,Item>} slots - slots for items which can only have
+		 * a single active at a given time.
+		 */
+		this.slots = this.slots || {};
+
+		// all must be defined for Vue. slots could be missing from save.
+		ensure( this.slots, ['home', 'mount', 'bed', REST_SLOT]);
+
+		if ( !this.slots[REST_SLOT] ) this.slots[REST_SLOT] = this.getData('rest');
+
+	}
+
 	/**
 	 *
 	 * @param {Object.<string,Items>} g - all game data.
@@ -148,15 +160,10 @@ export default class GameState {
 
 	revive() {
 
-		if ( typeof this.restAction === 'string') this.restAction = this.getData( this.restAction );
-
 		for( let p in this.slots ) {
 			if ( typeof this.slots[p] === 'string') this.slots[p] = this.getData(this.slots[p] );
 		}
-
-		if ( this.quickslots ) {
-			this.quickslots = this.quickslots.map( v=>this.getData(v) );
-		}
+		this.restAction = this.slots[REST_SLOT];
 
 		this.equip.revive( this );
 		this.inventory.revive( this );
@@ -164,7 +171,11 @@ export default class GameState {
 		this.minions.revive(this);
 		this.player.revive(this);
 
+		this.drops.revive(this);
 		this.raid.revive( this );
+		this.explore.revive(this);
+
+		this.quickbar.revive(this);
 
 		Runner.revive(this);
 		this.items.runner = Runner;
@@ -227,22 +238,18 @@ export default class GameState {
 	 */
 	setQuickSlot( it, slotNum ) {
 
-		//console.log('use slot: ' + slotNum );
-		// NOTE: using splice for Vue reactivity.
-		if ( slotNum >= 0 && slotNum <=9 ) {
+		console.log('SETTING SLOT: ' + it.name );
 
-			let ind = slotNum > 0 ? slotNum - 1 : 9;
-			if ( ind < this.quickslots.length ) this.quickslots.splice(ind,1, it );
-			else {
+		this.quickbar.setSlot(it, slotNum);
+	}
 
-				let a = this.quickslots.slice();
-				a[ind] = it;
-				this.quickslots = a;
-
-			}
-
-		}
-
+	/**
+	 * Get quickslot item for slot number.
+	 * @param {number} slotNum
+	 * @returns {?GData}
+	*/
+	getQuickSlot( slotNum ) {
+		return this.quickbar.getSlot( slotNum);
 	}
 
 	/**
@@ -260,16 +267,6 @@ export default class GameState {
 		}
 
 		return a;
-	}
-
-	/**
-	 * Get quickslot item for slot number.
-	 * @param {number} slotNum
-	 * @returns {?GData}
-	 */
-	getQuickSlot( slotNum ) {
-		let ind = slotNum > 0 ? slotNum - 1 : 9;
-		return this.quickslots[ind];
 	}
 
 	/**
@@ -370,21 +367,33 @@ export default class GameState {
 
 	/**
 	 * Set slotted item for exclusive items.
-	 * @param {string} id
+	 * @param {string} slot
 	 * @param {?GData} v - item to place in slot, or null.
 	 */
-	setSlot(id,v) {
+	setSlot(slot,v) {
 		if ( v && (v.type === 'wearable') ) return;
-		this.slots[id] = v;
+		this.slots[slot] = v;
+
+		if ( slot === REST_SLOT ) this.restAction = v;
+
+	}
+
+	/**
+	 * Find an item instantiated from given item proto/recipe.
+	 * @param {string} id
+	 */
+	findInstance( id ) {
+		return this.inventory.find(id, true) || this.equip.find(id, true );
 	}
 
 	/**
 	 * Find item in base items, equip, or inventory.
 	 * @param {string} id
+	 * @param {boolean} [any=false] - whether to return any matching type.
 	 */
-	findData(id) {
+	findData(id, any=false) {
 
-		return this.getData(id) || this.inventory.find(id) || this.equip.find(id);
+		return this.getData(id) || this.inventory.find(id, any) || this.equip.find(id, any );
 	}
 
 	getData(id) {

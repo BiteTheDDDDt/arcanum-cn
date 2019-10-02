@@ -140,7 +140,7 @@
 	{
 		"id":"vault",
 		"desc":"A safe space for treasure.",
-		"require":"g.space>=25",
+		"require":"g.space.max>=25",
 		"repeat":true,
 		"cost":{
 			"gold":500,
@@ -157,7 +157,7 @@
 		"id":"treasureroom",
 		"name":"treasure room",
 		"desc":"A large room for accumulated treasures.",
-		"require":"g.space>=50",
+		"require":"g.space.max>=50",
 		"repeat":true,
 		"cost":{
 			"gold":1000,
@@ -242,7 +242,7 @@
 			"animals.max":1,
 			"animals.rate":0.3,
 			"naturelore.max":1,
-			"naturelore.rate":0.3
+			"naturelore.rate":"0.3+1%"
 		}
 	},
 	{
@@ -462,14 +462,16 @@
 		"repeat":true,
 		"desc":"A rough but sturdy bookcase.",
 		"require":"g.codices>=20",
+		"max":20,
 		"cost":{
 			"gold":200,
 			"space":2
 		},
 		"mod":{
+			"starcharts.max":1,
 			"codices":{
-				"mod.research.max":1,
-				"max":20
+				"mod.research.max":0.5,
+				"max":15
 			},
 			"tomes.max":1
 		}
@@ -496,7 +498,7 @@
 		"name":"lattice window",
 		"tags":"lightsource,airsource",
 		"desc":"An elegant latticed portal for letting in air and light.",
-		"require":"g.space>=15",
+		"require":"g.space.max>=15",
 		"max":3,
 		"cost":{
 			"gold":300,
@@ -568,7 +570,7 @@
 		"name":"basin",
 		"tags":"watersource",
 		"desc":"Basin of water.",
-		"require":"atticbedroom",
+		"require":"evt_helper",
 		"repeat":true,
 		"cost":{
 			"gold":50,
@@ -582,7 +584,7 @@
 		"id":"brazier",
 		"desc":"Stand of burning hot coals.",
 		"tags":"firesource,spiritsource",
-		"require":"tier0",
+		"require":"g.tier0>0",
 		"max":3,
 		"repeat":true,
 		"cost":{
@@ -612,7 +614,7 @@
 	{
 		"id":"bonfire",
 		"tags":"firesource",
-		"require":"g.space>=20",
+		"require":"g.space.max>=20",
 		"desc":"a burning pyre for the practice of pyromancy.",
 		"cost":{
 			"fire":4,
@@ -751,6 +753,7 @@
 			"space":1
 		},
 		"mod":{
+			"bonedust.max":10,
 			"bones.max":20,
 			"shadowlore.max":1,
 			"spiritlore.max":1,
@@ -816,7 +819,7 @@
 		"desc":"A simple, bare cell.",
 		"tags":"prison,shadowsource",
 		"repeat":true,
-		"require":"g.tier0>0&&g.space>=20",
+		"require":"g.tier0>0&&g.space.max>=20",
 		"cost":{
 			"gold":300,
 			"space":5
@@ -957,6 +960,7 @@
 			"space":20
 		},
 		"mod":{
+			"starcharts.max":50,
 			"codices.max":100,
 			"lore.rate":0.2,
 			"research.max":100,
@@ -975,6 +979,7 @@
 			"space":50
 		},
 		"mod":{
+			"starcharts.max":50,
 			"chronomancy.max":1,
 			"chronomancy.rate":0.01,
 			"astronomy.max":3,
@@ -990,18 +995,21 @@
 		"id":"garden",
 		"desc":"A small garden by your home.",
 		"tags":"naturesource,taggarden",
-		"require":"witch",
+		"require":"(g.witch+g.druid+g.fey+g.kell)>0",
+		"max":3,
 		"cost":{
 			"gold":300,
-			"research":500,
+			"research":550,
 			"space":10
 		},
 		"mod":{
+			"herbs.max":10,
 			"herbs.rate":1,
 			"herbalism.rate":0.2,
 			"herbalism.max":3,
 			"nature.max":1,
-			"nature.rate":0.3
+			"nature.rate":0.3,
+			"naturelore.rate":0.2
 		}
 
 	},
@@ -1025,7 +1033,7 @@
 		"id":"pond",
 		"desc":"Pond",
 		"tags":"watersource",
-		"require":"g.space>50",
+		"require":"g.space.max>50",
 		"cost":{
 			"gold":500,
 			"space":25
@@ -1034,8 +1042,9 @@
 			"water.rate":0.01,
 			"nature.rate":0.01,
 			"naturelore.max":1,
+			"naturelore.rate":"0.2+5%",
 			"waterlore.max":2,
-			"waterlore.rate":0.3
+			"waterlore.rate":"0.3+5%"
 		}
 	},
 	{
@@ -1043,7 +1052,7 @@
 		"id":"sandgarden",
 		"name":"sand garden",
 		"desc":"rocks and sand form patterns of intricate design.",
-		"require":"g.earth.max>=5&&g.space>=50",
+		"require":"g.earth.max>=5&&g.space.max>=50",
 		"cost":{
 			"space":20,
 			"gold":100,
@@ -1079,7 +1088,7 @@
 		"name":"lake of fire",
 		"desc":"A lake of burning fire.",
 		"tags":"firesource",
-		"require":"g.fire.max>=10&&g.space>=100",
+		"require":"g.fire.max>=10&&g.space.max>=100",
 		"cost":{
 			"space":20,
 			"fire":10,
@@ -1099,7 +1108,7 @@
 		"id":"bottomlesspit",
 		"name":"bottomless pit",
 		"desc":"An endless hole in the ground.",
-		"require":"g.planeslore>=5&&g.space>=20&&g.tier3>0",
+		"require":"g.planeslore>=5&&g.space.max>=20&&g.tier3>0",
 		"cost":{
 			"space":5,
 			"gems":10,
@@ -1123,7 +1132,7 @@
 		"id":"torturechamber",
 		"name":"torture chamber",
 		"desc":"A room for inquisitions and research.",
-		"require":"g.evil>0&&g.space>=100",
+		"require":"g.evil>0&&g.space.max>=100",
 		"tags":"shadowsource",
 		"cost":{
 			"space":50,
@@ -1142,7 +1151,7 @@
 
 		"id":"graveyard",
 		"desc":"A resting place for the dead.",
-		"require":"g.space>=100",
+		"require":"g.space.max>=100",
 		"tags":"shadowsource,spiritsource",
 		"cost":{
 			"space":50,
@@ -1151,6 +1160,7 @@
 			"research":1000
 		},
 		"mod":{
+			"bonedust.max":10,
 			"souls.rate":0.01,
 			"bodies.max":20,
 			"bones.max":50,
@@ -1167,7 +1177,7 @@
 		"id":"workshop",
 		"tags":"workspace",
 		"desc":"A space suitable for crafting items.",
-		"require":"g.space>=50",
+		"require":"g.space.max>=50",
 		"cost":{
 			"space":50,
 			"gold":500,
@@ -1187,12 +1197,15 @@
 		"cost":{
 			"gold":500,
 			"research":750,
-			"space":100
+			"space":75
 		},
 		"mod":{
-			"codices.max":500,
-			"research.max":100,
-			"lore.rate":0.5,
+			"starcharts.max":50,
+			"codices.max":400,
+			"tomes.max":75,
+			"codices.mod.research.max":10,
+			"research.max":50,
+			"lore.rate":"0.3+5%",
 			"research.rate":0.1
 		}
 
@@ -1213,6 +1226,49 @@
 			"astronomy.rate":0.2,
 			"earthlore.max":3,
 			"earthlore.rate":0.4
+		}
+
+	},
+	{
+		"id":"bindcircle",
+		"name":"binding circle",
+		"desc":"magic circle for binding summoned entities",
+		"tags":"prison",
+		"require":"g.summoning>=6||g.demonology>=7",
+		"cost":{
+			"gold":500,
+			"gems":25,
+			"bloodgem":10,
+			"spiritgem":10,
+			"space":6
+		},
+		"mod":{
+			"summoning.max":2,
+			"summoning.rate":"5%",
+			"demonology.max":1,
+			"demonology.rate":"5%"
+		}
+
+	},
+	{
+		"id":"pentagram",
+		"name":"demonic pentagram",
+		"desc":"used for summoning demonic entities.",
+		"tags":"prison",
+		"require":"g.demonology>=12",
+		"cost":{
+			"gold":1500,
+			"gems":50,
+			"bloodgem":10,
+			"spiritgem":10,
+			"shadowgem":10,
+			"space":10
+		},
+		"mod":{
+			"summoning.max":1,
+			"summoning.rate":"2%",
+			"demonology.max":2,
+			"demonology.rate":"10%"
 		}
 
 	},

@@ -11,6 +11,8 @@ export default class Stat {
 		let def = this._mods[DEFAULT_MOD];
 		if ( def !== undefined ) o.mods = { [DEFAULT_MOD]:def};
 
+		if ( this.pos ) o.pos = true;
+
 		return o;
 
 	}
@@ -36,10 +38,14 @@ export default class Stat {
 	/**
 	 * @property {number} value
 	 */
-	get value() { return (this._base + this._bonus)*( 1 + this._pct ); }
+	get value() {
+		return this._pos ? Math.max( (this._base + this._bonus)*( 1 + this._pct ),0) :
+		(this._base + this._bonus)*( 1 + this._pct );
+	}
 	set value(v){}
 
-	valueOf() { return (this._base + this._bonus)*( 1 + this._pct ); }
+	valueOf() {return this._pos ? Math.max( (this._base + this._bonus)*( 1 + this._pct ),0) :
+		(this._base + this._bonus)*( 1 + this._pct );}
 
 	get base() { return this._base; }
 	set base(v) {
@@ -71,16 +77,24 @@ export default class Stat {
 	}
 
 	/**
+	 * @property {boolean} pos - force positive value after mods.
+	 */
+	get pos(){return this._pos; }
+	set pos(v) { this._pos = v;}
+
+	/**
 	 *
 	 * @param {Object|number} vars
 	 */
-	constructor( vars=null ) {
+	constructor( vars=null, pos ) {
 
 		if ( typeof vars === 'object') {
 
 			if ( vars ) Object.assign( this, vars );
 
 		} else if ( !isNaN(vars) ) this._base = Number(vars);
+
+		if ( pos ) this.pos = pos;
 
 		this._base = this._base||0;
 

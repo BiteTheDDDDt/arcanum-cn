@@ -48,13 +48,13 @@
 	{
 		"id":"evt_rangers",
 		"name":"Interlopers",
-		"require":"g.tier7&&g.player.level>=7&&g.evilamt>=50",
+		"require":"g.tier7>0&&g.player.level>=7&&g.evilamt>=50",
 		"desc":"Hearing of your wicked deeds, the rangers of the Ettinmarch plots your downfall. An assault on their camps should crush their presumption."
 	},
 	{
 		"id":"evt_cabal",
 		"name":"Plotters",
-		"require":"g.tier7&&g.player.level>=7&&g.virtue>=50",
+		"require":"g.tier7>0&&g.player.level>=7&&g.virtue>=50",
 		"desc":"Learning of your virtuous ways, a cabal of cytherian priests plots your overthrow. deal with them for the good of the land."
 	},
 	{
@@ -94,7 +94,7 @@
 		"id":"tier2",
 		"name":"Arcane Ascendant",
 		"desc":"The majority of arcane dabblers never reach such heights as this.",
-		"lock":["t_tier1","t_tier2"],
+		"lock":"t_tier2",
 		"effect":{
 			"player.exp":25
 		},
@@ -110,7 +110,7 @@
 		"id":"tier3",
 		"name":"Magical Mastery",
 		"desc":"",
-		"lock":["t_tier2","t_tier3"],
+		"lock":"t_tier3",
 		"effect":{
 			"sp":1,
 			"player.exp":50
@@ -128,7 +128,7 @@
 		"id":"tier4",
 		"name":"Supreme Sorcery",
 		"desc":"",
-		"lock":["t_tier3","t_tier4"],
+		"lock":"t_tier4",
 		"effect":{
 			"sp":1,
 			"player.exp":75
@@ -146,7 +146,7 @@
 		"id":"tier5",
 		"name":"Dhrunic Rival",
 		"desc":"a contending power of the world",
-		"lock":["t_tier4","t_tier5"],
+		"lock":"t_tier5",
 		"effect":{
 			"sp":1,
 			"player.exp":100
@@ -162,10 +162,29 @@
 
 	},
 	{
+		"id":"tier6",
+		"name":"Magic of Ages",
+		"desc":"ages of the world come and go; only these endure.",
+		"lock":"t_tier6",
+		"effect":{
+			"sp":1,
+			"player.exp":100
+		},
+		"mod":{
+			"lore.max":3,
+			"crafting.max":4,
+			"arcanebody.max":1,
+			"arcanebody2.max":1,
+			"occultendure.max":1,
+			"crystalmind.max":1
+		}
+
+	},
+	{
 		"id":"tier7",
 		"name":"Dhrunic Pillar",
 		"desc":"a foundation of the world",
-		"lock":["t_tier6","t_tier7"],
+		"lock":"t_tier7",
 		"effect":{
 			"sp":1,
 			"player.exp":100

@@ -1,11 +1,12 @@
 import Game from '../game';
 import Events, {ACT_DONE} from '../events';
+import Proxy from './proxy';
 
 /**
  * Wraps an action in progress with an action target, and possible
  * extra instance data.
  */
-export default class Runnable {
+export default class Runnable extends Proxy {
 
 	toJSON(){
 
@@ -19,40 +20,11 @@ export default class Runnable {
 	get type() { return 'runnable'; }
 
 	/**
-	 * @property {?Item} target - target of the running item.
+	 * @property {?GData} target - target of the running item.
 	 * may be undefined if not applicable.
 	 */
 	get target() { return this._target;}
 	set target(v) { this._target = v; }
-
-	/**
-	 * @property {Item} item - item being run.
-	 */
-	get item() { return this._item; }
-	set item(v) { this._item = v; }
-
-	/**
-	 * @property {string} id - maybe a bad idea.
-	 */
-	get id() { return this.item.id; }
-
-	set count(v){}
-	set name(v){}
-
-	/**
-	 * @property {string} name
-	 */
-	get name() { return this.item ? this.item.name : ''; }
-
-	hasTag(t) { return this.item && this.item.hasTag(t); }
-	hasTags(t) { return this.item && this.items.hasTag(t); }
-
-	get cost() { return this.item ? this.item.cost : null; }
-	get run() { return this.item ? this.item.run : null; }
-	get effect() { return this.item ? this.item.effect : null; }
-
-	get running() { return this.item ? this.item.running:false;}
-	set running(v) { if ( this.item) this.item.running=v;}
 
 	get exp(){ return this._exp; }
 	set exp(v) { this._exp = v; }
@@ -60,8 +32,6 @@ export default class Runnable {
 	get repeatable() { return this._item && this._item.repeatable || false; }
 
 	percent() { return this._length ? 100*this._exp / this._length : 0; }
-	maxed() { return this.item.maxed(); }
-	canUse() { return this.item.canUse(); }
 
 	get length() { return this._length; }
 	set length(v) { this._length = v;}
@@ -75,6 +45,8 @@ export default class Runnable {
 	 * @param {*} targ
 	 */
 	constructor( vars=null, targ=null ) {
+
+		super();
 
 		if ( targ ) {
 
@@ -94,19 +66,18 @@ export default class Runnable {
 
 		if ( this.exp > this.length ) {
 			if ( this.target ) Game.useWith( this.item, this.target );
-			Events.dispatch( ACT_DONE, this, this.repeatable );
+			Events.emit( ACT_DONE, this, this.repeatable );
 		}
 
 	}
 
 	revive( state ) {
 
-		if ( typeof this._item === 'string') this._item = state.findData(this._item);
+		super.revive(state);
+
 		if ( typeof this._target === 'string') this._target = state.findData(this._target);
 
-		if ( this.item ) this._length = this._item.length;
-		console.log('this exp: ' + this.exp );
-		console.log('enc len: ' + this.length );
+		if ( this.item ) this._length = this.item.length;
 
 	}
 

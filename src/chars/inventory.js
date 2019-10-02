@@ -1,5 +1,5 @@
 import Wearable from "./wearable";
-import Stat from "../stat";
+import Stat from "../values/stat";
 import Base, {mergeClass} from '../items/base';
 import Item from "../items/item";
 import Npc from "./npc";
@@ -23,7 +23,7 @@ export default class Inventory {
 
 	get max() { return this._max; }
 	set max(v) {
-		this._max = v instanceof Stat ? v : new Stat(v);
+		this._max = v instanceof Stat ? v : new Stat(v,true);
 	}
 
 	constructor(vars=null){
@@ -34,7 +34,7 @@ export default class Inventory {
 
 		this.type = this.id = 'inventory';
 
-		this._max = this._max || 0;
+		this.max = this._max || 0;
 
 	}
 
@@ -67,6 +67,7 @@ export default class Inventory {
 		} else {
 
 			if ( it.stack ) {
+				console.warn('adding stacking item: ' + it.id );
 				let inst = this.find( it.id, true );
 				if ( inst && inst !== it ){
 					inst.value++;
@@ -114,9 +115,10 @@ export default class Inventory {
 	 * If false, only an exact id match is returned.
 	 */
 	find(id, proto=false ) {
-		console.log('find id: ' + id );
-		return proto === true ? this.items.find( v=>v.id===id||v.protoId===id) :
+
+		return proto === true ? this.items.find( v=>v.id===id||v.recipe===id) :
 			this.items.find( v=>v.id===id);
+
 	}
 
 	/**

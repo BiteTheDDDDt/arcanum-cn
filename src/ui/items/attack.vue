@@ -1,5 +1,5 @@
 <script>
-import Range from '../../range';
+import Range from '../../values/range';
 import Dot from './dot.vue';
 
 export default {

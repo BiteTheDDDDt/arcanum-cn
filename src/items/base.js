@@ -1,8 +1,7 @@
 import {changes, jsonify, cloneClass } from 'objecty';
-import Percent from '../percent';
 import Game from '../game';
-import Stat from '../stat';
-import Mod from '../mod';
+import Stat from '../values/stat';
+import Mod from '../values/mod';
 
 export function mergeClass( destClass, src ) {
 
@@ -24,7 +23,7 @@ export function mergeClass( destClass, src ) {
   * @const {string[]} JSONIgnore - ignore these properties by default when saving.
   */
  const JSONIgnore = [ 'template', 'id', 'type', 'defaults', 'name', 'desc', 'running', 'current',
- 	'locked', 'locks', 'delta', 'tags', 'mod', 'effect', 'progress','need', 'require'];
+ 	'locked', 'locks', 'value', 'exp', 'delta', 'tags', 'mod', 'effect', 'progress','need', 'require'];
 
 /**
  * Base class of all Game Objects.
@@ -67,7 +66,8 @@ export default {
 	},
 
 	/**
-	 * @property {Object} template - data used to create this Item.
+	 * @property {Object} template - original data used to create this Item.
+	 * Should be raw, immutable data.
 	 */
 	get template() { return this._template; },
 	set template(v) { this._template = v;},
@@ -104,6 +104,18 @@ export default {
 	 */
 	get current() { return this.value },
 	set current(v) {},
+
+	/**
+	 * @property {number} ex - save/load alias for exp with no triggers.
+	 */
+	get ex(){return this._exp; },
+	set ex(v) { this._exp = v;},
+
+	/**
+	 * @property {number} val - saving/loading from json without triggers.
+	 */
+	get val() { return this._value },
+	set val(v) { this._value = v; },
 
 	/**
 	 * @property {number} value
@@ -181,7 +193,7 @@ export default {
 					else this.subeffect( this[p], mods[p], amt );
 
 				} else if ( this[p] !== undefined ) {
-					console.log( this.id + ' adding vars: ' + p );
+					//console.log( this.id + ' adding vars: ' + p );
 					this[p] += Number(mods[p])*amt;
 				} else {
 					console.log('NEW SUB: ' + p );
@@ -217,7 +229,7 @@ export default {
 
 			if ( targ instanceof Stat || targ instanceof Mod ) targ.apply( mods, amt );
 			else if ( typeof targ === 'object') {
-				console.log('targ is object');
+
 				targ.value = (targ.value || 0 ) + amt*mods;
 			}
 
@@ -268,14 +280,6 @@ export default {
 	},
 
 	/**
-	 * Get the value of an object, or a default value.
-	 * @param {Object|number} obj
-	 * @param {*} def
-	 */
-	getValue( obj, def=0 ) {
-	},
-
-	/**
 	 * Perform a subobject assignment.
 	 * @param {Object} obj - base object being assigned to.
 	 * @param {Object} m - object with subobjects representing assignment paths.
@@ -319,7 +323,7 @@ export default {
 	 */
 	newSub( obj, key, mod, amt ) {
 
-		console.log( this.id + ' adding KEY: ' + key );
+		//console.log( this.id + ' adding KEY: ' + key );
 		obj[key] = amt*mod.value;
 	},
 
@@ -331,7 +335,7 @@ export default {
 	changeMod( mod, amt ) {
 
 		if ( this.equippable ) return;
-		console.log( this.id + ': adding mod amt: ' + amt );
+		//console.log( this.id + ': adding mod amt: ' + amt );
 
 		// apply change to modifier for existing item amount.
 		Game.addMod( mod, amt*this.value );

@@ -1,24 +1,31 @@
 import Game from './game';
 import Wearable from "./chars/wearable";
 import { randElm, randMatch, includesAny} from 'objecty';
-import Percent from './percent';
+import Percent, { PercentTest } from './values/percent';
 import Item from './items/item';
+import Encounter, { ENCOUNTER } from './items/encounter';
 import Npc from './chars/npc';
 import GenGroup from './genGroup';
+import Mod from './values/mod';
 
+/**
+ * Revive a prototyped item based on an item template.
+ * @param {*} gs
+ * @param {*} it
+ */
 export function itemRevive(gs, it ) {
 
-		var orig = it.template;
+		var orig = it.template || it.recipe;
 		if ( typeof orig === 'string') orig = gs.getData( orig );
 		if ( !orig) {
-			console.warn('inv. bad item type: ' + it.id + ' -> ' + it.template );
+			console.warn('inv. bad item type: ' + it.id + ' -> ' + it.template + ' -> ' + it.recipe );
 			return null;
 		}
 		it.template = orig;
 
 		var type = orig.type;
 		if ( type == null ) {
-			console.warn( 'Unknown Item type: '+ it.type + ' -> ' + it.template + ' -> ' + it.protoId );
+			console.warn( 'Unknown Item type: '+ it.type + ' -> ' + it.template + ' -> ' + it.recipe );
 		}
 
 		if ( type === 'armor' || type === 'weapon' || type === 'wearable') {
@@ -27,10 +34,16 @@ export function itemRevive(gs, it ) {
 
 		} else if ( type === 'monster') {
 			it = new Npc(it);
+		} else if ( type === 'enc') {
+
+			// encounter.
+			it = new Encounter(it);
+
 		} else {
 			console.log('default revive: ' + it.id );
 			it = new Item(it);
 		}
+		it.owned = true;
 
 		it.revive( gs );
 
@@ -119,7 +132,7 @@ export default class ItemGen {
 
 	/**
 	 * Instantiate a prototypical item.
-	 * @param {Object} proto
+	 * @param {object} proto
 	 * @returns {Item|Wearable} the item created, or null on failure.
 	 */
 	instance( proto ) {
@@ -128,8 +141,12 @@ export default class ItemGen {
 
 		if ( proto.type === 'armor' || proto.type === 'weapon' || proto.type === 'wearable' ) {
 
-			console.log('instance wearable: ' + proto.id );
+			//console.log('instance wearable: ' + proto.id );
 			return this.itemClone( proto, this.matForItem(proto ));
+
+		} else if ( proto.type === ENCOUNTER ) {
+
+			it = new Encounter(proto);
 
 		} else if ( proto.type === 'potion' ) {
 
@@ -144,6 +161,8 @@ export default class ItemGen {
 		if ( it === undefined ) return null;
 
 		it.id = proto.id + this.state.nextId();
+		it.owned = true;
+
 		return it;
 
 	}
@@ -196,8 +215,9 @@ export default class ItemGen {
 			|| info.type ==='armor') return this.fromData( info );
 
 		/** @todo: THIS IS BAD */
-		else if ( info.type && !info.isProto ) {
-			Game.doItem( info, amt );
+
+		else if ( info.type && !info.isRecipe ) {
+			if ( amt != 0 ) info.amount( Game, amt );
 			return;
 		}
 
@@ -207,6 +227,7 @@ export default class ItemGen {
 
 		let items = [];
 		for( let p in info ) {
+			//console.log('GETTING SUB LOOT: ' + p);
 			var it = this.getLoot( this.state.getData(p), info[p] );
 			if ( it ) items.push(it );
 		}

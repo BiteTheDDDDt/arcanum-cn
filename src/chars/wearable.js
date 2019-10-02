@@ -1,16 +1,14 @@
 import Base, {mergeClass} from '../items/base';
-import Range from "../range";
+import Range from "../values/range";
 import Attack from './attack';
 
 import {mergeSafe} from "objecty";
-import Mod from '../mod';
+import Mod from '../values/mod';
 import { assignNoFunc } from '../util/util';
+import Item from '../items/item';
 
 
-export default class Wearable {
-
-	get value() { return 1;}
-	set value(v){}
+export default class Wearable extends Item {
 
 	toJSON() {
 
@@ -39,13 +37,7 @@ export default class Wearable {
 
 	}
 
-	get instance() { return true; }
 	get equippable() { return true; }
-
-	/**
-	 * @property {string} protoId - id of item template used to instance this item.
-	 */
-	get protoId() { return this.template?  this.template.id : this._id; }
 
 	/**
 	 * @property {number} enchants - total level of all enchantments applied.
@@ -66,8 +58,6 @@ export default class Wearable {
 	set attack(v) {
 
 		if ( v ) {
-
-			console.log('CREATING WEARABLE ATTACK: '  + v );
 			this._attack = v instanceof Attack ? v.clone() : new Attack(v);
 		} else this._attack = null;
 
@@ -86,14 +76,18 @@ export default class Wearable {
 
 	constructor(vars=null){
 
+		super();
+
+		this.stack = false;
+		this.consume = false;
+
 		if ( vars ) assignNoFunc(this,vars );// Object.assign(this,vars);
+
+		this.value = this.value || 1;
 
 		//if ( vars ) logObj( vars, 'vars');
 		//if( vars.template ) logObj( vars.template, ' template' );
-		if ( !this.type ) {
-			console.warn('NO TYPE. USING WEARABLE');
-			this.type = 'wearable';
-		}
+		if ( !this.type ) { this.type = 'wearable'; }
 
 	}
 
@@ -134,7 +128,7 @@ export default class Wearable {
 				this.applyBonus( this.attack, 'damage', mat.bonus );
 			}
 			if ( mat.tohit ) {
-				console.log('apply mat to: ' + this.id );
+				//console.log('apply mat to: ' + this.id );
 				this.applyBonus( this.attack, 'tohit', mat.tohit );
 			}
 
@@ -208,6 +202,3 @@ export default class Wearable {
 	}
 
 }
-
-
-mergeClass( Wearable, Base );

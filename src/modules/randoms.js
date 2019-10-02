@@ -24,7 +24,7 @@ export default {
 
 			} else if ( 6000*Math.random() < e.rand ) {
 
-				Game.doEvent(e);
+				e.amount( Game, 1);
 
 			}
 

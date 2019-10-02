@@ -38,6 +38,27 @@
 
 	},
 	{
+		"id":"spellcraft",
+		"school":"arcane",
+		"verb":"studying spells",
+		"desc":"the ability to build greater spells from lesser is what separates a practitioner from a master.",
+		"require":"g.tier2>0&&g.lore>=15",
+		"buy":{
+			"sp":5
+		},
+		"run":{
+			"stamina":0.2,
+			"research":5
+		},
+		"result":{
+
+			"sp":0.1,
+			"research.max":5
+
+		}
+
+	},
+	{
 		"id":"trickery",
 		"school":"arcane",
 		"verb":"scheming",
@@ -571,6 +592,24 @@
 			"arcana.max":1,
 			"research.max":1
 		}, "flavor":"there is no safe distance"
+
+	},
+	{
+
+		"id":"voidlore",
+		"name":"void lore",
+		"require":"g.planeslore>=10&&g.tier5>=0",
+		"desc":"the absence of all things",
+		"run":{
+			"stamina":0.7,
+			"research":5,
+			"arcana":0.1
+		},
+		"mod":{
+			"space.max":"2%",
+			"dist.max":"1%",
+			"research.max":1
+		}, "flavor":"what could go wrong?"
 
 	},
 	{

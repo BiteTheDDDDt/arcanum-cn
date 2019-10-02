@@ -1,10 +1,12 @@
 import Base, {mergeClass} from '../items/base';
 import { mergeSafe } from 'objecty';
 import {tryDamage} from '../composites/combat';
-import Stat from '../stat';
+import Stat from '../values/stat';
 import Dot from './dot';
 import Attack from './attack';
 import GameState from '../gameState';
+import { assignNoFunc, cloneClass } from '../util/util';
+import Monster from '../items/monster';
 
 /**
  * @constant {number} DELAY_RATE - speed to attack delay conversion constant.
@@ -16,24 +18,23 @@ export function getDelay(s) {
 
 export default class Char {
 
-	get statuses() { return this._statuses; }
-	set statuses(v) { this._statuses = v; }
+	get states() { return this._states; }
+	set states(v) { this._states = v; }
 
 	get defense() { return this._defense; }
-	set defense(v) { this._defense =v; }
+	set defense(v) {
+		this._defense = v instanceof Stat ? v : new Stat(v);
+	}
 
 	get tohit() { return this._tohit; }
-	set tohit(v) { this._tohit = v; }
-
-	get statuses() { return this._statuses; }
-	set statuses(v) { this._statuses = v; }
+	set tohit(v) { this._tohit = v instanceof Stat ? v : new Stat(v); }
 
 	get resist() { return this._resist };
 	set resist(v) { this._resist = v; }
 
 	get speed() { return this._speed; }
 	set speed(v) {
-		this._speed = v;
+		this._speed = v instanceof Stat ? v : new Stat(v);
 		this.delay = getDelay(v);
 	}
 
@@ -74,15 +75,16 @@ export default class Char {
 
 	constructor( vars ){
 
-		if ( vars ) Object.assign( this, vars );
+		for( let p in vars ) {
+			this[p] = vars[p];
+		}
 
 		this.type = 'npc';
 
-		this.statuses = this.statuses || {};
+		this.states = this.states || {};
 		this.immunities = this.immunities || {};
 		this._resist = this._resist || {};
 
-		//console.log( this.id + ' damage: ' + this.damage );
 		//console.log( this.id + ' tohit: ' + this.tohit );
 
 		/**
@@ -169,7 +171,7 @@ export default class Char {
 
 	}
 
-	hasStatus(stat) { return this.statuses[stat] > 0; }
+	hasStatus(stat) { return this.states[stat] > 0; }
 	isImmune(kind) { return this.immunities[kind] > 0; }
 
 	/**
@@ -199,11 +201,11 @@ export default class Char {
 	}
 
 	addStatus(stat) {
-		this.statuses[stat] = this.statuses[stat] ? this.statuses[stat] + 1 : 1;
+		this.states[stat] = this.states[stat] ? this.states[stat] + 1 : 1;
 	}
 
 	removeStatus(stat) {
-		this.statuses[stat] = this.statuses[stat] ? this.statuses[stat] - 1 : 0;
+		this.states[stat] = this.states[stat] ? this.states[stat] - 1 : 0;
 	}
 
 	/**

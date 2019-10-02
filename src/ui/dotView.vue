@@ -1,13 +1,14 @@
 <script>
-import { seconds } from '../util/format.js';
+import { seconds, abbr } from '../util/format.js';
 import ItemBase from 'ui/itemsBase';
 
 export default {
 
-	props:['dots'],
+	props:['dots', 'mini'],
 	mixins:[ItemBase],
 	beforeCreate(){
 		this.seconds = seconds;
+		this.abbr = abbr;
 	}
 
 }
@@ -17,13 +18,13 @@ export default {
 
 	<div class="dot-view">
 
-		<div :class="['dot',d.kind]" v-for="d in dots" :key="d.id"
-		@mouseenter.capture.stop="dispatch( 'itemover', $event,d)">
+		<div :class="['dot',d.kind, d.school, mini ? 'mini':'']" v-for="d in dots" :key="d.id"
+		@mouseenter.capture.stop="emit( 'itemover', $event,d)">
 
-			{{ seconds( d.duration ) }}<br>
-			{{ d.name }}
+			<span>{{ Math.ceil( d.duration ) }}</span>
+			<span v-if="!mini"><br>{{ mini ? abbr( d ) : d.name }}</span>
 
-			<div v-if="d.kind" class="bgfill" >&nbsp;</div>
+			<div v-if="d.kind||d.school" class="bgfill" >&nbsp;</div>
 
 		</div>
 
@@ -39,12 +40,26 @@ export default {
 		justify-content: space-around;
 	}
 
+	div.dot-view span.mini {
+		display:flex;
+		flex-direction: row;
+		justify-content: space-around;
+		align-items: center;
+	}
+
 	div.dot {
 		max-height:40px;
 		margin:0px 2px;
 		text-align: center;
 		padding:4px;
 		border: 1px solid black;
+	}
+
+	div.mini {
+		height:22px;
+		width: 22px;
+		font-size: 0.7em;
+		padding:0;
 	}
 
 </style>

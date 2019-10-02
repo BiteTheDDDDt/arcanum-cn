@@ -2,16 +2,12 @@ import DataLoader from './dataLoader';
 import {quickSplice} from './util/util';
 import GData from './items/gdata';
 import Log from './log.js';
-import GameState from './gameState';
-import Range from './range';
+import GameState, { REST_SLOT } from './gameState';
+import Range from './values/range';
 import ItemGen from './itemgen';
 import TechTree from './techTree';
 import Dot from './chars/dot';
 
-/**
- * @module Randoms - randomized events.
- */
-import Randoms from './modules/randoms';
 
 /**
  * @property {Runner} Runner - runs actions in tandem.
@@ -21,10 +17,10 @@ import Runner from './modules/runner';
 /**
  * @note these refer to Code-events, not in-game events.
  */
-import Events, {EVT_UNLOCK, EVT_EVENT, ACT_CHANGED } from './events';
+import Events, {EVT_UNLOCK, EVT_EVENT, ENTER_LOC, EXIT_LOC, ITEM_ATTACK, SET_SLOT, TRY_USE } from './events';
 import Resource from './items/resource';
 import Skill from './items/skill';
-import Stat from './stat';
+import Stat from './values/stat';
 
 var techTree;
 
@@ -84,6 +80,7 @@ export default {
 		this._items = null;
 		this.timers = [];
 
+
 		return this.load();
 
 	},
@@ -91,6 +88,8 @@ export default {
 	load( saveData=null ) {
 
 		this.loaded = false;
+
+		this.log.clear();
 
 		Events.started = false;
 		// Code events. Not game events.
@@ -103,6 +102,7 @@ export default {
 
 			this._items = this.state.items;
 
+			this.recheckTiers();
 			this.restoreMods();
 
 			techTree = new TechTree( this._items );
@@ -115,11 +115,42 @@ export default {
 			this.loaded = true;
 			Events.started = true;
 
+			Events.add( ENTER_LOC, this.enterLoc, this );
+			Events.add( EXIT_LOC, this.enterLoc, this );
+			Events.add( SET_SLOT, this.setSlot, this );
+			Events.add( TRY_USE, this.tryUse, this );
+
 		}, err=>{ console.error('game err: ' + err )});
 
 	},
 
 	save() {
+	},
+
+	recheckTiers() {
+
+		let n = 0;
+		while ( ++n <= 5 ) {
+
+			var list = this.state.getTagList('t_tier'+n);
+			var evt = this.state.getData('tier'+n);
+
+			var hasEvent = false;
+
+			for( var i = list.length-1; i>= 0; i-- ) {
+
+				if ( list[i].value > 0) {
+					evt.amount(this,1 );
+					hasEvent = true;
+					break;
+				}
+
+			}
+			// none of this tier.
+			if ( !hasEvent ) evt.value = 0;
+
+		}
+
 	},
 
 	/**
@@ -158,17 +189,33 @@ export default {
 
 	},
 
-	startRaid( dungeon) {
+	setSlot( it ) {
 
-		this.state.raid.setDungeon(dungeon);
-		this.setAction( this.state.raid );
+		let cur = this.state.getSlot( it.slot );
+		if ( cur ) { this.remove( cur, 1 );}
+
+		this.state.setSlot( it.slot, it );
+
+		this.payCost( it.cost );
+		return it.amount( this );
 
 	},
 
-	pause() {
-	},
+	enterLoc( locale, enter=true ) {
 
-	unpause() {
+		let control = locale.type === 'dungeon' ? this.state.raid : this.state.explore;
+		if ( enter ) {
+
+			control.enter( locale );
+			this.setAction( control );
+
+		} else {
+
+			control.locale = null;
+			this.haltAction( control );
+
+		}
+
 	},
 
 	/**
@@ -188,8 +235,8 @@ export default {
 
 		Runner.update(dt);
 
-		this.doResources(dt, this.state.resources);
-		this.doResources( dt, this.state.playerStats );
+		this.doResources( this.state.resources, dt);
+		this.doResources( this.state.playerStats, dt );
 
 		if ( this.timers ) {
 
@@ -216,7 +263,7 @@ export default {
 	 * Frame update of all resources.
 	 * @param {number} dt - elapsed time.
 	 */
-	doResources( dt, stats ) {
+	doResources( stats, dt ) {
 
 		let len = stats.length, stat;
 		for( let i = len-1; i >= 0; i-- ) {
@@ -224,7 +271,10 @@ export default {
 			stat = stats[i];
 			if ( stat.locked === false ) {
 
-				if  ( stat.rate.value !== 0 ) { this.doItem( stat, stat.rate.value*dt );
+				if  ( stat.rate.value !== 0 ) {
+
+					stat.amount(this, stat.rate.value*dt);
+
 				}
 
 			}
@@ -237,14 +287,12 @@ export default {
 	 * Toggles an action on or off.
 	 * @param {GData} a
 	 */
-	toggleAction(a) {
-		Runner.toggleAct(a);
-	},
+	toggleAction(a) { Runner.toggleAct(a); },
 
 	/**
 	 * Wrapper for Runner rest
 	 */
-	doRest() { Runner.tryAdd( this.state.restAction ) },
+	doRest() { Runner.tryAdd( this.state.getSlot(REST_SLOT) ) },
 
 	haltAction(a) { Runner.stopAction(a);},
 
@@ -254,12 +302,13 @@ export default {
 	 * Tests if an action has effectively filled a resource.
 	 * @param {string|string[]} v - data or datas to fill.
 	 * @param {GData} a - action doing the filling.
+	 * @param {string} - name of relavant filling effect ( for tag-item fills)
 	 */
-	filled( v, a ) {
+	filled( v, a, tag ) {
 
 		if ( Array.isArray(v) ) {
 			for( let i = v.length-1; i>=0; i-- ) {
-				if ( !this.filled( v[i], a ) )return false;
+				if ( !this.filled( v[i], a, tag ) ) return false;
 			}
 			return true;
 		}
@@ -268,19 +317,16 @@ export default {
 		if (fill === undefined ) {
 
 			fill = this.state.getTagList( v );
-			return fill === undefined ? true : this.filled(fill, a);
+			return fill === undefined ? true : this.filled(fill, a, v );
 
 		}
 
 		if ( !fill.rate || !a.effect || fill.rate.value >= 0 ) return fill.maxed();
 
-		// negative-change comparison.
-		let change = a.effect[v];
-		if ( change && (fill.rate+change) <= 0 ) {
-			// the filling action can never actually fill, so count it as filled.
-			return true;
-		}
-		return false;
+		// actual filling rate.
+		tag = a.effect[ tag || v ];
+
+		return ( !tag || fill.filled(tag ) );
 
 	},
 
@@ -316,7 +362,7 @@ export default {
 					this.state.setSlot(it.slot, null );
 				}
 
-				if ( it.running ) this.doRest();
+				if ( it.running ) Runner.stopAction(it);
 				if ( it == this.state.raid.dungeon ) this.state.raid.setDungeon(null);
 
 				if ( it instanceof Resource || it instanceof Skill ) {
@@ -348,10 +394,12 @@ export default {
 	 */
 	trySell( it, inv, count=1 ) {
 
-		if ( it.value < 1 && !it.instance ) { return false; }
+		if ( it.value < 1 && !it.instance ) {
+			return false; }
 
 		if ( count > it.value ) count = it.value;
 
+		console.log('sell count: ' + count );
 		let sellObj = it.sell || it.cost;
 		let goldPrice = count*this.sellPrice(it);
 
@@ -384,7 +432,7 @@ export default {
 	 */
 	removeAll( it ){
 
-		if ( it instanceof Object ) {
+		if ( typeof it === 'object' ) {
 
 			this.remove( it, it.value );
 
@@ -416,10 +464,22 @@ export default {
 		if ( this.canPay(it.buy) === false ) return false;
 		this.payCost( it.buy );
 
-		if ( it.isProto ) this.create( it );
-
+		if ( it.isRecipe ) this.create( it );
 		it.owned = true;
 
+	},
+
+	/**
+	 * Use inventory or equip item.
+	 * @param {*} it
+	 */
+	use( it, targ, inv=null ) {
+
+		it.use( this );
+
+	},
+
+	tryUse( it ) {
 	},
 
 	/**
@@ -430,19 +490,24 @@ export default {
 	 */
 	tryItem(it) {
 
-		if ( it.type ==='dungeon') return this.startRaid(it);
+		if ( !it) return;
+
+		if ( it.type ==='dungeon') return this.enterLoc(it);
 
 		if ( !this.canUse(it) ) return false;
 
-		if ( it.buy && !it.owned ) {
+		if ( it.instance ){
 
-			this.payCost( it.buy );
-			it.owned = true;
-			return false;
+			it.use(this);
+
+		} else if ( it.buy && !it.owned ) {
+
+			console.log('BUYING: ' + it.name );
+			this.tryBuy(it);
 
 		} else {
 
-			if ( it.isProto ) {
+			if ( it.isRecipe ) {
 
 				this.craft(it );
 
@@ -452,10 +517,11 @@ export default {
 
 			} else {
 
-				if ( it.slot && this.state.getSlot( it.slot, it.type) === it ) return;
-
-				this.payCost( it.cost );
-				return this.doItem(it);
+				if ( it.slot ) this.setSlot( it );
+				else {
+					this.payCost( it.cost );
+					it.amount( this );
+				}
 			}
 
 		}
@@ -473,6 +539,18 @@ export default {
 		this.payCost( it.cost );
 
 		this.create( it );
+
+	},
+
+	/**
+	 * Create instance from data.
+	 * @param {string|Object} data
+	 */
+	instance( data ) {
+
+		if ( typeof data === 'string') data = this.state.getData(data);
+
+		return this.itemGen.instance(data);
 
 	},
 
@@ -511,23 +589,6 @@ export default {
 
 		}
 
-
-	},
-
-	/**
-	 * Use item from inventory.
-	 * @param {*} it
-	 */
-	use( it, targ, inv=null ) {
-
-		if ( it.consume === true ) {
-			it.value--;
-			if ( it.value <= 0 ) ( inv || this.state.inventory ).remove(it);
-		}
-		if ( it.use ) {
-			if ( it.use.dot ) this.state.player.addDot( new Dot( it.use.dot, it.id, it.name) );
-			this.applyEffect( it.use );
-		}
 
 	},
 
@@ -590,51 +651,7 @@ export default {
 		if ( !it || !it.max ) return;
 
 		let del = it.max.value - it.value;
-		if ( del > 0) this.doItem( it, it.max.value - it.value );
-
-	},
-
-	/**
-	 * Get a game item without paying cost.
-	 * @param {GData} it
-	 * @param {number} count
-	 */
-	doItem( it, count=1 ) {
-
-		if ( it.maxed() ) return false;
-		if ( it.isProto ) return this.create(it, true );
-
-		if ( it.slot) {
-
-			let cur = this.state.getSlot(it.slot, it.type );
-			console.log('cur slot: ' + (cur ? cur.id : 'none'));
-			if ( cur ) {
-				this.remove( cur, 1 );
-			}
-			this.state.setSlot(it.slot, it);
-
-		}
-		if ( it.exec ) it.exec();
-
-		it.value += it.consume ? -count : count;
-
-		if ( it.title ) this.state.player.title = it.title;
-		if ( it.effect ) this.applyEffect(it.effect);
-		if ( it.mod ) this.addMod( it.mod, count );
-		if ( it.lock ) this.lock( it.lock );
-		if ( it.dot ) this.state.player.addDot( new Dot(it.dot, it.id, it.name) );
-		if ( it.disable ) this.disable( it.disable );
-
-		if ( it.log ) Events.dispatch( EVT_EVENT, it.log );
-
-		if ( it.attack ) {
-			if ( (it.type !== 'wearable' && it.type !== 'weapon')
-			&& this.state.raid.running )
-				this.state.raid.spellAttack( it );
-		}
-
-		it.dirty = true;
-		return true;
+		if ( del > 0) it.amount( this, it.max.value - it.value );
 
 	},
 
@@ -647,7 +664,7 @@ export default {
 		// randomized event.
 		if ( evt.rand ) {
 
-		} else this.doEvent(evt);
+		} else evt.amount( this, 1 );
 
 	},
 
@@ -656,18 +673,18 @@ export default {
 	 * @param {*} evt
 	 */
 	doEvent(evt){
-		if ( !this.doItem(evt) ) return false;
-		evt.locked = false;
-		Events.dispatch( EVT_EVENT, evt );
+		evt.amount(this, 1 );
 	},
 
 	doLog( logItem ) {
-		Events.dispatch( EVT_EVENT, logItem );
+		Events.emit( EVT_EVENT, logItem );
 	},
 
 	/**
 	 * Remove some amount of an item.
-	 * @property {string} id - item id or tag.
+	 * If a tag list is specified, the amount will only be removed
+	 * from a single element of the list. Apparently.
+	 * @property {string|GData} id - item id or tag.
 	 */
 	remove( id, amt=1 ){
 
@@ -713,7 +730,7 @@ export default {
 		else {
 			it.locked = false;
 			it.dirty = true;
-			Events.dispatch( EVT_UNLOCK, it );
+			Events.emit( EVT_UNLOCK, it );
 		}
 
 		return true;
@@ -796,19 +813,22 @@ export default {
 				e = effect[p];
 
 				if ( target === undefined || target === null ) {
-					if ( p === 'title') {
-						this.state.player.addTitle( e );
-						continue;
-					}
+
+					if ( p === 'title') this.state.player.addTitle( e );
+					else if ( p === 'log') Events.emit( EVT_EVENT, e );
 					else this.applyToTag( p, e, dt );
+
 				} else {
+
 					if ( target.type === 'event' ) this.unlockEvent( target );
-					else if ( typeof e === 'number' ) this.doItem( target, e*dt );
-					else if ( e instanceof Range ) this.doItem( target, e.value );
-					else if ( typeof e === 'boolean') {
+					else if ( typeof e === 'number' ) target.amount( this, e*dt );
+					else if ( e instanceof Range ) {
+
+						target.amount( this, e.value*dt );
+					} else if ( typeof e === 'boolean') {
 
 						target.locked = !e;
-						this.doItem( target );
+						target.use( this );
 
 					} else target.applyVars(e,dt);
 
@@ -822,7 +842,11 @@ export default {
 			if ( target !== undefined ) {
 
 				if ( target.type === 'event') this.unlockEvent( target );
-				else this.doItem( target, dt );
+				else target.amount( this, dt );
+
+			} else {
+
+				this.getAmount( this.getTagList(effect), dt );
 
 			}
 
@@ -867,13 +891,39 @@ export default {
 				var target = this.getData( p );
 
 				if ( target === undefined ) this.modTag( p, mod[p], amt );
-				else if ( mod[p] === true ) this.doItem( target, 1 );
+				else if ( mod[p] === true ) target.amount( this, 1 );
 				else {
 					target.applyMods( mod[p], amt );
 					target.dirty = true;
 				}
 			}
 
+		} else if ( typeof mod === 'string') {
+
+			let t = this.getData(mod);
+			if ( t ) {
+				t.amount(this,amt);
+			} else {
+
+				this.getAmount( this.getTagList(mod), amt );
+
+			}
+
+		}
+
+	},
+
+	/**
+	 *
+	 * @param {GData[]} a
+	 * @param {*} amt
+	 */
+	getAmount( a, amt=1 ) {
+
+		if ( !a ) return;
+
+		for( let i = a.length-1; i>= 0; i-- ) {
+			a[i].amount(this, amt);
 		}
 
 	},
@@ -943,20 +993,8 @@ export default {
 	 */
 	canRun( it ) {
 
-		if ( it.disabled || it.maxed() || (it.need && !this.unlockTest( it.need, it )) ) return false;
-
-		if ( it.buy && !it.owned && !this.canPay(it.buy) ) return false;
-
-		// cost only paid at _start_ of runnable action.
-		if ( it.cost && (it.exp === 0) && !this.canPay(it.cost) ) return false;
-
-		if ( it.fill ) {
-
-			let t = this.getData(it.fill);
-			if ( t && t.maxed() ) return false;
-
-		}
-		return !it.run || this.canPay( it.run, TICK_TIME/1000 );
+		if ( !it.canRun ) console.warn( it.id + ' missing canRun()');
+		else return it.canRun( this, TICK_TIME/1000 );
 
 	},
 
@@ -966,25 +1004,8 @@ export default {
 	 * @param {GData} it
 	 */
 	canUse( it ){
-
-		if ( it.disabled || (it.need && !this.unlockTest( it.need, it )) ) return false;
-		if ( it.buy && !it.owned && !this.canPay(it.buy) ) return false;
-
-		if ( it.perpetual || it.length>0 ) { return this.canRun(it); }
-
-		if ( it.slot && this.state.getSlot(it.slot, it.type ) === it) return false;
-		if ( it.maxed() ) return false;
-
-		if ( it.cd && it.timer > 0 ) return false;
-
-		if ( it.fill ) {
-
-			let t = this.getData(it.fill);
-			if ( t && t.maxed() ) return false;
-
-		}
-
-		return !it.cost || this.canPay(it.cost);
+		if ( !it.canUse ) console.warn( it.id + ' missing canUse()');
+		else return it.canUse( this );
 	},
 
 	/**
@@ -1008,6 +1029,8 @@ export default {
 			}
 
 			for( let p in cost ) {
+
+				res = cost[p];
 
 				res = this.getData(p);
 				if ( res ) {
@@ -1118,7 +1141,7 @@ export default {
 
 		}
 		if ( it.mod) this.addMod(it.mod);
-		//this.doItem(it);
+
 		it.equip( this.state.player );
 
 

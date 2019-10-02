@@ -11,7 +11,7 @@ export default {
 			return (a.verb || a.name) +
 				( ( a.length ) ? ' ' + a.percent().toFixed(0) + '%': '' );
 		},
-		halt(a) { this.dispatch( HALT_ACT, a); }
+		halt(a) { this.emit( HALT_ACT, a); }
 
 	},
 	computed:{

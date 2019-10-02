@@ -353,7 +353,6 @@
 		"desc":"Keep your money safe.",
 		"require":"g.gold>=5",
 		"max":2,
-		"repeat":true,
 		"cost":5,
 		"flavor":"seems a tad pricey for a bag.",
 		"mod":{
@@ -366,7 +365,6 @@
 		"desc":"Small bag keeps gems safe without scratching.",
 		"require":"g.gems>=5",
 		"max":2,
-		"repeat":true,
 		"cost":300,
 		"flavor":"who prices these bags?!",
 		"mod":{
@@ -380,7 +378,6 @@
 		"desc":"Finely crafted box for storing magic gems.",
 		"require":["tier0","gem"],
 		"max":5,
-		"repeat":true,
 		"cost":{
 			"gems":15,
 			"gold":800
@@ -612,6 +609,7 @@
 			"gold":200
 		},
 		"mod":{
+			"starcharts.max":15,
 			"research.max":10,
 			"divination.max":1,
 			"divination.rate":"20%",
@@ -631,6 +629,7 @@
 			"gold":200
 		},
 		"mod":{
+			"starcharts.max":10,
 			"research.max":10,
 			"planeslore.max":1,
 			"planeslore.rate":0.3,
@@ -705,9 +704,10 @@
 		"mod":{
 			"research.max":5,
 			"naturelore.max":2,
+			"naturelore.rate":"0.2+1%",
 			"languages.max":1,
 			"languages.rate":0.2,
-			"animals.rate":0.2
+			"animals.rate":"0.2+1%"
 		}
 
 	},
@@ -837,6 +837,21 @@
 			"inv.max":1
 		},
 		"flavor":"There's another coin down here somewhere..."
+	},
+	{
+
+		"id":"expedientretreat",
+		"name":"expedient retreat",
+		"desc":"return to dungeons below your level after making a hasty exit.",
+		"require":"g.trickster>0||g.tier2>0",
+		"cost":{
+			"arcana":5,
+			"research":500
+		},
+		"mod":{
+			"player.retreat":1
+		}
+
 	},
 	{
 		"id":"earthaffinity",
@@ -1363,7 +1378,7 @@
 		},
 		"mod":{
 			"stamina.max":1,
-			"stamina.rate":0.1
+			"stamina.rate":"0.12+1%"
 		}
 
 	},
@@ -1399,6 +1414,7 @@
 		"name":"magic skull",
 		"require":"g.necromancer>0||g.witch>0",
 		"desc":"An ordinary human skull, infused with necromantic magicks.",
+		"max":1,
 		"cost":{
 			"skull":1,
 			"gems":2,
@@ -1418,12 +1434,15 @@
 	{
 		"id":"voidtouch",
 		"name":"touching the void",
-		"require":"g.planeslore>=20",
+		"locked":true,
+		"require":"g.voidlore>=40",
 		"cost":{
 
 		},
 		"mod":{
-
+			"void.rate":0.01,
+			"voidlore.max":3,
+			"voidlore.rate":0.5
 		},
 		"effect":{
 
@@ -1442,7 +1461,7 @@
 		},
 		"mod":{
 			"lore.max":2,
-			"demonology.max":1,
+			"demonology.max":2,
 			"demonology.rate":0.3,
 			"planeslore.max":1
 		}, "flavor":"and they say the blood has to be yours."
@@ -1463,7 +1482,7 @@
 		"mod":{
 			"hp.rate":-1.5,
 			"player.defense":30,
-			"stamina.rate":-1,
+			"stamina.rate":-0.5,
 			"sp.rate":0.0001,
 			"planeslore.max":2,
 			"shadowlore.max":2,

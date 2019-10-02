@@ -1,28 +1,178 @@
 [
-	{
+{
 	"id":"mustylibrary",
 	"name":"musty library",
 	"level":1,
 	"length":10,
 	"require":"apprentice",
+	"desc":"a good apprentice spends all their free time in the library. after doing chores, of course.",
 	"run":{
 		"stamina":0.2
 	},
 	"result":{
-
+		"arcana":0.1,
+		"research":10
 	},
 	"loot":{
 		"scrolls":"1~4"
 	},
-	"enemies":[
-		["newt","newt","newt"],
-		"lgmouse",
-		"bigstone",
-		"stingybee",
-		"smsnake",
-		"twikman"
+	"encs":[
+		"enc_tapestry",
+		"enc_primer1",
+		"enc_chest1",
+		"enc_primer1",
+		"enc_workbook1"
 	]
+},
+{
+	"id":"loc_spring",
+	"name":"lillit's spring",
+	"level":2,
+	"length":15,
+	"require":"apprentice",
+	"desc":"tradition tells of a spring with enchanted waters. investigations might prove revealing.",
+	"run":{
+		"stamina":0.2
+	},
+	"result":{
+		"arcana":0.1,
+		"research":10
+	},
+	"loot":{
+		"herbs":"2~5"
+	},
+	"encs":[
+		"manatree",
+		"mysticwater",
+		"manatree",
+		"hiddencache"
+	]
+},
+{
+	"id":"eryleyot",
+	"name":"eryl eyot",
+	"level":5,
+	"length":25,
+	"desc":"the small and tranquil island is inhabited by an old hermit named thyffr",
+	"run":{
+		"stamina":0.2
+	},
+	"effect":{
 
+	},
+	"result":{
+		"arcana":0.1,
+		"research":10
+	},
+	"loot":{
+		"scrolls":"1~4",
+		"herbs":"2~5"
+	},
+	"encs":[
+		"enc_chest3",
+		"brightvista",
+		"enc_thyffr",
+		"mysticwater"
+	]
+},
+{
+	"id":"loc_treffil",
+	"name":"treffil woods",
+	"level":7,
+	"length":15,
+	"desc":"the treffil woods posses many features of interest to the magical scholar.",
+	"run":{
+		"stamina":0.2
+	},
+	"result":{
+		"arcana":0.1,
+		"naturelore.exp":10,
+		"herbalism.exp":5,
+		"animals.exp":5
+	},
+	"loot":{
+		"herbs":"5~10"
+	},
+	"encs":[
+		"manatree",
+		"mysticwater",
+		"brightvista",
+		"hauntedglade",
+		"enc_delki",
+		"hiddencache"
+	]
+},
+{
+	"id":"rithel",
+	"level":14,
+	"desc":"this tiny outpost in the center of thangmor outlasted even the pillars",
+	"run":{
+		"stamina":0.2
+	},
+	"result":{
+		"arcana":0.1,
+		"research":10
+	},
+	"loot":{
+		"scrolls":"1~4"
+	},
+	"encs":[
+		"enc_chest2",
+		"enc_primer2",
+		"enc_delki",
+		"brightvista"
+	]
+},
+{
+	"id":"ruinedcrypt",
+	"name":"ruined crypt",
+	"level":4,
+	"length":30,
+	"require":"adept",
+	"desc":"an ancient crypt of crumbling stone.",
+	"run":{
+		"stamina":0.2
+	},
+	"result":{
+		"arcana":0.15,
+		"research":20
+	},
+	"loot":{
+		"scrolls":"2~4"
+	},
+	"encs":[
+		"enc_tapestry",
+		"enc_mummy",
+		"sarcophagus",
+		"enc_rats",
+		"strangebones",
+		"enc_embalm4",
+		"enc_chest2"
+	]
+},
+{
+	"id":"hallofmirrors",
+	"level":300,
+	"length":10,
+	"desc":"",
+	"run":{
+		"stamina":0.2
+	},
+	"result":{
+		"arcana":0.1,
+		"research":10
+	},
+	"loot":{
+		"scrolls":"1~4"
+	},
+	"encs":[
+		"enc_tapestry",
+		"enc_primer1",
+		"enc_chest1",
+		"enc_primer1",
+		"enc_workbook1"
+	]
 }
+
 
 ]

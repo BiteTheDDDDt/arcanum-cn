@@ -265,7 +265,7 @@
 		"length":10,
 		"fill":"hp",
 		"cost":{
-			"bodies":1
+			"bodies":0.5
 		},
 		"effect":{
 			"hp":40
@@ -282,6 +282,7 @@
 		},
 		"result":{
 			"evilamt":5,
+			"rage":-1,
 			"bodies":1
 		},"flavor":"why do they come to me to die?"
 	},
@@ -397,6 +398,7 @@
 			"research":25
 		},
 		"run":{
+			"bonedust":0.2,
 			"stamina":0.3,
 			"spirit":0.3
 		},
@@ -527,33 +529,64 @@
 		"id":"rest",
 		"tags":"t_rest",
 		"name":"rest",
+		"slot":"rest",
 		"verb":"resting",
 		"locked":false,
+		"owned":true,
 		"perpetual":true,
-		"fill":[ "stamina", "hp", "manas" ],
+		"fill":[ "stamina", "hp", "manas", "stress"],
 		"effect":{
 			"manas":{
 				"skipLocked":true,
 				"value":0.5
 			},
 			"stamina":0.8,
-			"hp":1
+			"hp":1,
+			"stress":-1
 		}
 	},
 	{
 		"id":"chant",
 		"tags":"t_rest",
 		"verb":"chanting",
-		"perpetual":true,
+		"owned":true,
+		"slot":"rest",
 		"length":10,
 		"need":"g.lightlore>=5&&g.evil<=0",
-		"fill":[ "light", "hp", "mana" ],
+		"fill":[ "light", "hp", "mana", "stress"],
 		"effect":{
 			"virtue":1,
-			"mana":0.5,
-			"hp":1,
-			"light":0.05,
+			"stress":-1.2,
+			"manas":{
+				"skipLocked":true,
+				"value":0.5
+			},
+			"stamina":0.82,
+			"hp":1.1,
+			"light":0.2,
 			"evilamt":-0.1
+		}
+	},
+	{
+		"id":"naturecamp",
+		"tags":"t_rest",
+		"name":"commune",
+		"slot":"rest",
+		"owned":true,
+		"verb":"communing",
+		"desc":"commune with natural forces",
+		"perpetual":true,
+		"need":"g.naturelore>=12",
+		"fill":[ "nature", "hp", "mana", "stamina","stress"],
+		"effect":{
+			"stress":-1.7,
+			"manas":{
+				"skipLocked":true,
+				"value":0.5
+			},
+			"stamina":0.7,
+			"hp":1,
+			"nature":0.2
 		}
 	},
 	{
@@ -561,17 +594,25 @@
 		"name":"eat children",
 		"tags":"t_rest",
 		"verb":"eating children",
-		"perpetual":true,
+		"slot":"rest",
+		"owned":true,
 		"length":10,
-		"require":"g.evilamt>0&&g.witch>0",
+		"require":"(g.witch+g.thanophage)>0",
 		"need":"cauldron",
 		"desc":"how could you!?!",
-		"fill":[ "shadow", "hp", "mana", "stamina", "spirit" ],
+		"fill":[ "shadow", "hp", "mana", "stamina", "spirit", "stress" ],
+		"every":{
+			"100":{
+				"effect.hp":0.5,
+				"effect.shadow":0.05
+			}
+		},
 		"effect":{
 			"evilamt":1,
-			"mana":0.5,
-			"shadow":0.2,
-			"spirit":0.2,
+			"mana":0.6,
+			"shadow":0.6,
+			"spirit":0.6,
+			"stress":-1.1,
 			"stamina":1,
 			"hp":2
 		}
@@ -623,10 +664,11 @@
 			}
 		},
 		"effect":{
-			"nature":0.5,
+			"nature":0.3,
 			"naturelore":{
 				"exp":0.1,
-				"max":0.001
+				"max":0.001,
+				"rate":0.001
 			},
 			"animals.exp":1,
 			"herbalism.exp":1
@@ -761,6 +803,7 @@
 		"length":10,
 		"verb":"mapping stars",
 		"require":"g.astronomy>=5",
+		"fill":"starcharts",
 		"cost":{
 			"scrolls":1
 		},
@@ -814,6 +857,25 @@
 		"result":{
 			"tomes":1
 		}
+
+	},
+	{
+		"id":"codexannih",
+		"name":"codex annihilus",
+		"require":"(g.darkmagician+g.dreadlord)>0",
+		"desc":"karnivex's manual of destruction",
+		"length":75,
+		"repeat":false,
+		"cost":{
+			"codices":10
+		},
+		"run":{
+			"research":1
+		},
+		"result":{
+			"player.damage":2,
+			"player.tohit":1
+		},"flavor":"what he lacked in depth, karnivex made up for with sheer destructive force"
 
 	},
 	{
@@ -1013,6 +1075,7 @@
 			"desc":"your first map of the heavens is complete."
 		},
 		"result":{
+			"starcharts.max":10,
 			"research.max":10,
 			"divination":{
 				"max":1,
@@ -1261,6 +1324,11 @@
 		"desc":"quicken your skills with magic energy.",
 		"require":"mana",
 		"need":"g.runner.hasType('skill')",
+		"every":{
+			"100":{
+				"effect.runner.exp":0.004
+			}
+		},
 		"cost":{
 			"mana":0.1
 		},
@@ -1301,7 +1369,7 @@
 			"lore.max":1,
 			"lore.rate":0.2,
 			"naturelore.max":2,
-			"naturelore.rate":0.2
+			"naturelore.rate":"0.2+3%"
 		}
 
 	},

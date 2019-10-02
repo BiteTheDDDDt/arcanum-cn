@@ -6,7 +6,7 @@ import {indexAfter} from '../util/util';
 
 import Game from '../game';
 import Skill from '../items/skill';
-import Stat from '../stat';
+import Stat from '../values/stat';
 
 export default {
 

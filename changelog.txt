@@ -1,3 +1,27 @@
+VER 69:
+
+BUGFIX:
+
+Fixed Elemental loot bug.
+
+Fixed percent regex.
+
+
+VER 64+
+
+FEATURES:
+
+New-combat adventure locations in progress.
+
+Added new class tiers.
+
+BUGS:
+
+Some previous classes were moved so some prior saves can now select Multiple
+classes of the same tier.
+
+
+
 9/22
 
 FEATURES:

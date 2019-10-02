@@ -49,3 +49,8 @@ archlich
 avatar
 archlock
 high elemental
+
+
+high kell
+high witch
+dark wizard

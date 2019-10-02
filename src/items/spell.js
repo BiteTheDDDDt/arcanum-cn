@@ -31,8 +31,15 @@ export default class Spell extends Action {
 			if ( !this.buy.arcana && this.level > 1 ) this.buy.arcana = this.level - 1;
 
 		}
-		if ( this.attack && !(this.attack instanceof Attack) ) this.attack = new Attack(this.attack);
-		if ( this.attack ) this.attack.name = this.name;
+
+		if ( this.attack ) {
+
+			if ( !(this.attack instanceof Attack) ) this.attack = new Attack(this.attack);
+			this.attack.name = this.name;
+			if (!this.attack.kind) this.attack.kind = this.school;
+
+		}
+
 
 		if ( this.locked ) this.addRequire( this.spellRequire );
 		if ( this.school ) this.addRequire( this.school );

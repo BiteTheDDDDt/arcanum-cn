@@ -1,6 +1,6 @@
 <script>
 
-import Range from '../../range';
+import Range from '../../values/range';
 import ItemsBase from '../itemsBase';
 
 import InfoBlock from './info-block.vue';

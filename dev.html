@@ -76,12 +76,6 @@
 
 		div.div-hr { border: none; margin: 0; }
 		.table-head { border: none; }
-		.player-view input[type=text] { border: none; background: transparent; font-size: 1em; cursor: text; position: relative; }
-		.player-view table:first-child tr:first-child th::before { content: '✎'; top: 20px; left: 0; color :#AAA; width: 100%; height: 100%; }
-		table.item-table tr, table.item-table th { max-height: unset; padding: unset; }
-
-
-
 
 		/* Main Layout */
 
@@ -251,25 +245,25 @@
 
 		/* Dungeons */
 
-		.menu-content div.adventure > div.dungeons {
+		.menu-content div.adventure > div.locales {
 			/*display: flex; flex-flow: row wrap; justify-content: space-around;*/
 			display: grid;
 			grid-template-columns: repeat( auto-fit, 256px ); grid-gap: var(--small-gap); grid-auto-rows: min-content;
 			padding: var(--medium-gap);
 			border-top: 1px solid var(--separator-color);
 		}
-		.menu-content div.adventure > div.dungeons .dungeon {
+		.menu-content div.adventure > div.locales .locale {
 			padding: var(--medium-gap);
 			border-radius: var(--list-entry-border-radius);
 			display: flex; flex-flow: column; height: 100%;
 		}
-		.menu-content div.adventure > div.dungeons .dungeon > span:nth-child(1) {
+		.menu-content div.adventure > div.locales .locale > span:nth-child(1) {
 			display: flex; flex-flow: row; justify-content: space-between; flex: 1;
 		}
 
-		body.compact .menu-content div.adventure > div.dungeons { grid-template-columns: minmax( 200px, 1fr) repeat( auto-fit, minmax( 200px, 1fr) ); }
-		body.compact .menu-content div.adventure > div.dungeons .dungeon { background: var(--list-entry-background); }
-		body.compact .menu-content div.adventure > div.dungeons .dungeon .bar { border: none;}
+		body.compact .menu-content div.adventure > div.locales { grid-template-columns: minmax( 200px, 1fr) repeat( auto-fit, minmax( 200px, 1fr) ); }
+		body.compact .menu-content div.adventure > div.locales .locale { background: var(--list-entry-background); }
+		body.compact .menu-content div.adventure > div.locales .locale .bar { border: none;}
 
 
 
@@ -418,42 +412,9 @@
 
 
 		/* Player */
-
-		.menu-content div.player-view {
-			padding: 0;
-			display: grid;
-			grid-template-columns: 50% 50%;
-			grid-template-rows: 50% 50%;
-		}
-		.menu-content div.player-view table {
-			display: flex; flex-direction: column; text-transform: capitalize;
-			overflow-y: auto; overflow-x: hidden; min-width: 256px;
-		}
-		.menu-content div.player-view table:nth-child(1) { grid-area: 1/1/1/1; }
-		.menu-content div.player-view table:nth-child(2) { grid-area: 1/2/1/3; }
-		.menu-content div.player-view .allupgrades { grid-area: 2/1/3/3; }
-
-		.menu-content div.player-view table tr { display: flex; align-items: flex-start; width: 100%; }
-		.menu-content div.player-view table tr td,
-		.menu-content div.player-view table tr th { padding: var(--small-gap); vertical-align: unset; display: flex; }
-		.menu-content div.player-view table tr td { flex-basis: 40%; justify-content: flex-end; }
-		.menu-content div.player-view table tr th { flex: 1; margin-left: var(--small-gap); }
-
-		.menu-content div.player-view div.allupgrades {
-			padding: 0; text-align: right; overflow-x: hidden;
-		}
-		.menu-content div.player-view div.allupgrades .up-list {
-			display: grid; grid-template-columns: repeat( auto-fit, minmax( 150px, 1fr ) ); gap: 1px; grid-auto-rows: 1fr;
-			margin: 0; overflow: visible;
-		}
-		.menu-content div.player-view div.allupgrades .up-list div {
-			padding: var(--medium-gap); color: var(--quiet-text-color);
-			display: flex; align-items:center; justify-content: center; text-align: center;
-		}
-
 		.menu-content div.player-view input[type=text].fld-name { margin: 0; }
 
-		.player-view .allupgrades .div-hr { background: var(--header-background-color); padding: var(--small-gap); }
+
 		/* mount name span */
 		span[data-v-6f6112d4] { display:block; }
 

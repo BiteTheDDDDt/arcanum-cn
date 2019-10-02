@@ -3,7 +3,7 @@
 		"id":"hp",
 		"name":"life",
 		"desc":"Wizard life-force",
-		"value":10,
+		"val":10,
 		"max":10,
 		"unit":false,
 		"locked":false
@@ -12,13 +12,13 @@
 
 		"id":"stamina",
 		"max":10,
-		"value":10,
+		"val":10,
 		"unit":false,
 		"locked":false
 	},
 	{
 		"id":"age",
-		"value":"15~25",
+		"val":"15~25",
 		"locked":false
 	},
 	{
@@ -26,18 +26,18 @@
 		"name":"distance",
 		"desc":"Maximum travel distance.",
 		"max":10,
-		"value":10,
+		"val":10,
 		"zerosum":true,
 		"locked":false
 	},
 	{
 		"id":"sight",
-		"value":0,
+		"val":0,
 		"locked":false
 	},
 	{
 		"id":"exp",
-		"value":0,
+		"val":0,
 		"unit":false,
 		"locked":false
 	},
@@ -45,12 +45,12 @@
 		"id":"sp",
 		"name":"skill points",
 		"desc":"Spend to unlock new skills",
-		"value":0,
+		"val":0,
 		"locked":false
 	},
 	{
 		"id":"dodge",
-		"value":5,
+		"val":5,
 		"max":5,
 		"unit":false,
 		"locked":false
@@ -58,7 +58,7 @@
 	{
 		"id":"speed",
 		"desc":"Movement speed",
-		"value":1,
+		"val":1,
 		"stat":true,
 		"unit":false,
 		"locked":false
@@ -67,7 +67,7 @@
 		"id":"DR",
 		"name":"Damanage reduction",
 		"desc":"Amount of damage subtracted from total.",
-		"value":5,
+		"val":5,
 		"max":5,
 		"unit":false,
 		"locked":false
@@ -76,19 +76,19 @@
 		"id":"virtue",
 		"hidden":"true",
 		"tags":"Tendency to good",
-		"value":0
+		"val":0
 	},
 	{
 		"id":"evilamt",
 		"name":"evil",
 		"hidden":true,
 		"desc":"Tendency to evil",
-		"value":0
+		"val":0
 	},
 	{
 		"id":"notoriety",
 		"hidden":"true",
 		"tags":"Your reputation in the world",
-		"value":0
+		"val":0
 	}
 ]

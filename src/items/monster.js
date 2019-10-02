@@ -1,5 +1,5 @@
 import GData from "./gdata";
-import Stat from "../stat";
+import Stat from "../values/stat";
 
 const defaults = {
 
@@ -13,7 +13,7 @@ export default class Monster extends GData {
 
 	get defaults() { return defaults; }
 
-	get isProto() {return true; }
+	get isRecipe() {return true; }
 
 	toJSON() {
 		if ( this.value > 0 ) return { value:this.value};
@@ -31,6 +31,7 @@ export default class Monster extends GData {
 		this.tohit = this.tohit || this.level;
 		this.defense = ( this.defense === null || this.defense === undefined )
 								? this.level : this.defense;
+
 
 	}
 

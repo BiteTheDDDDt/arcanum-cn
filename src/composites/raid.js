@@ -1,4 +1,4 @@
-import Events, { ENEMY_SLAIN, ACT_DONE, CHAR_DIED } from '../events';
+import Events, { ENEMY_SLAIN, ACT_DONE, ITEM_ATTACK, CHAR_DIED, DEFEATED, ACT_BLOCKED } from '../events';
 
 import Game from '../game';
 import Inventory from '../chars/inventory';
@@ -16,48 +16,48 @@ export default class Raid {
 	/**
 	 * @property {string} name - name of dungeon in progress.
 	 */
-	get name() { return this.dungeon? this.dungeon.name : ''; }
+	get name() { return this.locale? this.locale.name : ''; }
 
-	get cost() { return this.dungeon ? this.dungeon.cost : null; }
-	get run() { return this.dungeon ? this.dungeon.run : null; }
+	get cost() { return this.locale ? this.locale.cost : null; }
+	get run() { return this.locale ? this.locale.run : null; }
 
-	get exp(){ return this.dungeon ? this.dungeon.exp : 0; }
+	get exp(){ return this.locale ? this.locale.exp : 0; }
 	set exp(v){
 
-		if ( v >= this.dungeon.length ) {
-			this.raidDone( this.dungeon );
-		} else this.dungeon.exp=v;
+		if ( v >= this.locale.length ) {
+			this.complete();
+		} else this.locale.exp=v;
 
 	}
 
-	percent() { return this.dungeon ? this.dungeon.percent() : 0; }
-	maxed() { return !this.dungeon || this.dungeon.maxed(); }
+	percent() { return this.locale ? this.locale.percent() : 0; }
+	maxed() { return !this.locale || this.locale.maxed(); }
 
-	canUse() { return this.dungeon && !this.dungeon.maxed(); }
+	canRun() { return this.locale != null; }
+	canUse() { return this.locale && !this.locale.maxed(); }
+
+	/**
+	 * @compat @deprecated
+	 */
+	set dungeon(v) {this.locale = v;}
 
 	/**
 	 * @property {number} length - length of dungeon in progress.
 	 */
-	get length() { return this.dungeon ? this.dungeon.length : 0; }
+	get length() { return this.locale ? this.locale.length : 0; }
 
 	get combat() { return this._combat; }
 	set combat(v) { this._combat = v instanceof Combat ? v : new Combat(v); }
 
-	/**
-	 * @property {Inventory} drops - items dropped in current dungeon.
-	 * can be taken by player.
-	 */
-	get drops() { return this._drops; }
-	set drops(v) {
-		this._drops = (v instanceof Inventory ) ? v : new Inventory(v);
-	}
+	get enc() { return this._combat; }
+	set enc(v) {}
 
-	get complete() { return this.exp === this.length; }
+	get done() { return this.exp === this.length; }
 
 	toJSON() {
 
 		return {
-			dungeon:this.dungeon ? this.dungeon.id : undefined,
+			locale:this.locale ? this.locale.id : undefined,
 			drops:this.drops
 		}
 
@@ -80,9 +80,9 @@ export default class Raid {
 		this.type = 'raid';
 
 		/**
-		 * @property {Dungeon} dungeon - current dungeon.
+		 * @property {Dungeon} locale - current dungeon.
 		 */
-		this.dungeon = this.dungeon || null;
+		this.locale = this.locale || null;
 
 	}
 
@@ -91,26 +91,36 @@ export default class Raid {
 		this.state = gameState;
 		this.player = gameState.player;
 
-		this.drops.revive(gameState);
-
 		Events.add( ENEMY_SLAIN, this.enemyDied, this );
+		Events.add( ITEM_ATTACK, this.spellAttack, this );
+		Events.add( CHAR_DIED, this.charDied, this );
 
-		if ( typeof this.dungeon === 'string') this.dungeon = gameState.getData(this.dungeon);
+		if ( typeof this.locale === 'string') this.locale = gameState.getData(this.locale);
 
-		if ( !this.dungeon) this.running = false;
+		if ( !this.locale) this.running = false;
 
 		this._combat.revive( gameState );
 
 	}
 
+	charDied( c ) {
+
+		if ( c !== this.player || !this.running ) return;
+
+		Events.emit( DEFEATED, null );
+		Events.emit( ACT_BLOCKED, this,
+			this.locale && this.player.level>this.locale.level && this.player.retreat>0 );
+
+	}
+
 	update(dt) {
 
-		if ( this.dungeon == null || this.complete ) return;
+		if ( this.locale == null || this.done ) return;
 
 		if ( this._combat.complete ) {
 
-			this.combatDone();
-			if ( !this.complete ) this.nextCombat();
+			this.advance();
+			if ( !this.done ) this.nextEnc();
 
 		} else this._combat.update(dt);
 
@@ -120,19 +130,19 @@ export default class Raid {
 	 * Player-casted spell or action attack.
 	 * @param {Item} it
 	 */
-	spellAttack( it ) { if ( this.dungeon ) this._combat.spellAttack(it); }
+	spellAttack( it ) { if ( this.locale && this.running ) this._combat.spellAttack(it); }
 
 	/**
 	 * Get next dungeon enemy.
 	 */
-	nextCombat() {
+	nextEnc() {
 
 
 		/**
 		 * @todo: maket this happen automatically.
 		 */
 		this.player.delay = getDelay( this.player.speed );
-		this.combat.setEnemies( this.dungeon.getEnemy(), this.exp/this.length );
+		this.combat.setEnemies( this.locale.getEnemy(), this.exp/this.length );
 
 	}
 
@@ -152,41 +162,43 @@ export default class Raid {
 		}
 
 		if ( enemy.result ) Game.applyEffect( enemy.result );
-		if ( enemy.loot ) Game.getLoot( enemy.loot, this.drops );
-		else Game.getLoot( {max:enemy.level, pct:30}, this.drops );
+		if ( enemy.loot ) Game.getLoot( enemy.loot, Game.state.drops );
+		else Game.getLoot( {max:enemy.level, pct:30}, Game.state.drops );
 
 	}
 
-	combatDone() { this.exp += 1; }
+	advance() { this.exp += 1; }
 
-	raidDone() {
+	complete() {
 
-		this.dungeon.exp = this.dungeon.length;
-		this.dungeon.dirty = true;
+		this.locale.exp = this.locale.length;
+		this.locale.dirty = true;
 
-		if ( this.dungeon.loot ) Game.getLoot( this.dungeon.loot, this.drops );
-		if ( this.dungeon.result ) Game.applyEffect( this.dungeon.result );
-		this.dungeon.value++;
+		if ( this.locale.loot ) Game.getLoot( this.locale.loot, Game.state.drops );
+		if ( this.locale.result ) Game.applyEffect( this.locale.result );
+		this.locale.value++;
 
-		var del = Math.max( 1 + this.player.level - this.dungeon.level, 1 );
+		var del = Math.max( 1 + this.player.level - this.locale.level, 1 );
 
-		this.player.exp +=	(this.dungeon.level)*( 15 + this.dungeon.length )/( 0.8*del );
+		this.player.exp +=	(this.locale.level)*( 15 + this.locale.length )/( 0.8*del );
 
-		Events.dispatch( ACT_DONE, this, false );
-		this.dungeon = null;
+		Events.emit( ACT_DONE, this, false );
+		this.locale = null;
 
 	}
 
-	setDungeon( d ) {
-
+	/**
+	 * enter dungeon
+	 * @param {*} d
+	 */
+	enter( d ) {
 
 		this.player.timer = this.player.delay;
 
 		if ( d != null ) {
 
-			if ( d != this.dungeon ) {
+			if ( d != this.locale ) {
 				this.combat.clear();
-				this.drops.clear();
 			}
 
 			if ( d.exp >= d.length ) {
@@ -194,8 +206,8 @@ export default class Raid {
 			}
 		}
 
-		this.dungeon = d;
-		if ( this.combat.complete ) this.nextCombat();
+		this.locale = d;
+		if ( this.combat.complete ) this.nextEnc();
 
 	}
 

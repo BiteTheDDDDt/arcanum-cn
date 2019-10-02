@@ -1,4 +1,4 @@
-export const RangeTest = /^\d+\.?\d*\~\d+\.?\d*$/i;
+export const RangeTest = /^\-?\d+\.?\d*\~\-?\d+\.?\d*$/i;
 
 const SPLIT_CHAR = '~';
 

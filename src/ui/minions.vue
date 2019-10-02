@@ -55,12 +55,12 @@ export default {
 	<span v-if="inRaid" class="warn-text">Cannot change active minions while adventuring</span>
 	<div class="minion-title">
 		<span>{{ minions.count + ' / ' + Math.floor(minions.max) + ' Used' }}</span>
-		<span>Allies Power: {{ minions.allyTotal + ' / ' + Math.floor( minions.maxAllies.value ) }}</span></div>
+		<span>Allies Power: {{ minions.allyTotal.toFixed(2) + ' / ' + Math.floor( minions.maxAllies.value ) }}</span></div>
 
 	<div class="char-list">
 	<table>
 		<tr><th>Creature</th><th class="num-align">Hp</th><th>active</th></tr>
-		<tr class="char-row" v-for="b in filtered" :key="b.id" @mouseenter.capture.stop="dispatch('itemover',$event,b)">
+		<tr class="char-row" v-for="b in filtered" :key="b.id" @mouseenter.capture.stop="emit( 'itemover',$event,b)">
 			<th><input class="fld-name" type="text" v-model="b.name"></th>
 			<td class="num-align">{{ toNum(b.hp) }} / {{ toNum( b.maxHp ) }}</td>
 

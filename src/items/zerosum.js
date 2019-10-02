@@ -1,5 +1,5 @@
 import Resource from "./resource";
-import Stat from "../stat";
+import Stat from "../values/stat";
 
 /**
  * A Zero-sum resource starts filled at its maximum value.

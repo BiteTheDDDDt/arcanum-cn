@@ -1,39 +1,61 @@
 <script>
+import Game from '../game';
+import {abbr} from '../util/format';
+import {MAX_SLOTS } from '../composites/quickbar';
+import { TRY_USE } from '../events';
+
 /**
  * Bar for quick-use items.
  */
 export default {
-	props:['slots'],
-	/*data(){
-		return {
-			slots:this.state.quickslots
-		}
-	},*/
+
+	props:['bar'],
+	created(){
+		this.TRY_USE = TRY_USE;
+
+	},
 	methods:{
 
 		remove(ind){
 
-			if ( ind >= 0) this.$set( this.slots, ind, undefined );
+			if ( ind >= 0) {
+				this.bar.clear(ind);
+			}
 
 		},
 
-		clicked(it) {
-		},
-
-		abbr(it){
-
-			if ( !it ) return '';
-
-			let s = it.name;
-			let ind = s.indexOf(' ');
-			if ( ind >= 0 && ind < s.length ) return s[0] + s[ind+1];
-			return s.slice(0,2);
-		}
+		abbr:abbr
 
 	},
 	computed:{
 
-		hasItems(){ return this.slots.some(v=>v!=null); }
+		/*items() {
+
+			let slots = this.bar.slots
+			let a = [];
+
+			for( let i = 0; i < MAX_SLOTS; i++ ) {
+
+				var it = slots[i];
+
+
+				a[i] = null;
+
+			}
+
+			return a;
+
+		},*/
+
+		slots() {
+			return this.bar.slots;
+		},
+
+		hasItems(){
+
+			return this.slots.some(v=>v.item!=null);
+
+		}
 
 	}
 
@@ -45,15 +67,15 @@ export default {
 
 		<div class="quickslot" v-for="(it,i) in slots" :key="i">
 
-			<div v-if="it!=null" :class="it.school ? it.school :''"
-					@click="dispatch('action', it)"
-					@mouseenter.capture.stop="dispatch('itemover',$event,it)">
+			<div v-if="it.item!=null" :class="it.item.school ? it.item.school :''"
+					@click="emit( TRY_USE, it.item||it )"
+					@mouseenter.capture.stop="emit( 'itemover',$event,it)">
 
 
 				<div>{{ abbr(it) }}</div>
 
 				<div class="remove" @click="remove(i)" />
-				<div v-if="it.school" class="bgfill" >&nbsp;</div>
+				<div v-if="it.item.school" class="bgfill" >&nbsp;</div>
 
 			</div>
 			<div v-else>{{ (i != 9) ? i + 1 : 0 }}</div>
@@ -89,7 +111,7 @@ div.quickbar {
 	flex-direction: row;
 	justify-self: flex-end;
 	z-index: 50;
-	margin: 8px 0px;
+	margin: 4px 0px;
 }
 
 div.quickslot {

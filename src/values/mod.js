@@ -27,8 +27,15 @@ export default class Mod {
 	}
 
 	toString() {
-		let s = this.bonus !== 0 ? this.bonus : '';
+
+		let s = ( this.bonus !== 0 ?
+			this.bonus.toString()
+		: '' );
+
+
 		if ( this._pct !== 0 ) {
+
+			if ( this.bonus !== 0 ) s += ', ';
 			s += ( this._pct > 0 ? '+' : '' ) + (100*this._pct) + '%';
 		}
 		return s;

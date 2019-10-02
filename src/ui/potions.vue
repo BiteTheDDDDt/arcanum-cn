@@ -3,6 +3,7 @@ import Game from '../game';
 
 import FilterBox from './components/filterbox.vue';
 import ItemsBase from './itemsBase';
+import {TRY_BUY} from '../events';
 
 export default {
 
@@ -23,8 +24,7 @@ export default {
 	},
 	beforeCreate(){
 		this.game = Game
-	},
-	methods:{
+		this.TRY_BUY = TRY_BUY;
 	},
 	computed:{
 
@@ -43,15 +43,15 @@ export default {
 		<div class="flex-row separate">
 
 		<div class="flex-col">
-		<div v-for="it in filtered" :key="it.id" @mouseenter.capture.stop="dispatch( 'itemover', $event,it)">
+		<div v-for="it in filtered" :key="it.id" @mouseenter.capture.stop="emit( 'itemover', $event,it)">
 
 			{{ it.name }}
 
 			<button v-if="it.buy&&!it.owned" :disabled="!buyable(it)"
-				@click="dispatch('buy', it)">Unlock</button>
+				@click="emit('buy', it)">Unlock</button>
 
 			<button v-else :disabled="!usable(it)"
-				@click="dispatch( 'brew', it )">Brew</button>
+				@click="emit( 'craft', it )">Brew</button>
 
 		</div>
 		</div>

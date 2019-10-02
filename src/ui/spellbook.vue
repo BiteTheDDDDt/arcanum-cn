@@ -88,17 +88,17 @@ export default {
 
 		<div class="spell-table">
 		<table>
-		<tr v-for="s in viewing" :key="s.id" @mouseenter.capture.stop="dispatch('itemover', $event, s )">
+		<tr v-for="s in viewing" :key="s.id" @mouseenter.capture.stop="emit( 'itemover', $event, s )">
 
-			<td><button v-if="s.owned&&s.attack" @click="dispatch('primary',s)">
+			<td><button v-if="s.owned&&s.attack" @click="emit('primary',s)">
 				{{ state.player.primary===s ? 'Unequip' : 'Primary' }}
 				</button></td>
 			<td>{{ s.name }}</td>
 			<td>
 
-				<button v-if="s.owned" @click="dispatch('spell', s)" :disabled="!usable(s)">Cast</button>
+				<button v-if="s.owned" @click="emit('spell', s)" :disabled="!usable(s)">Cast</button>
 
-				<button v-else @click="dispatch('buy', s)" :disabled="!usable(s)">Learn</button>
+				<button v-else @click="emit('buy', s)" :disabled="!usable(s)">Learn</button>
 
 			</td>
 

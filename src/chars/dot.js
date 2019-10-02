@@ -1,5 +1,5 @@
-import Range from "../range";
-import Mod from "../mod";
+import Range from "../values/range";
+import Mod from "../values/mod";
 
 export default class Dot {
 
@@ -46,7 +46,7 @@ export default class Dot {
 
 		this.source = this.source || source || null;
 
-		this.name = name || this.name || ( source ? source.name : '' );
+		this.name = this.name || name || ( source ? source.name : '' );
 		this.id = this.id || this.name || (source ? source.id || source.name : '');
 
 		/**

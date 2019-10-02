@@ -1,6 +1,6 @@
-import Stat from "../stat";
+import Stat from "../values/stat";
 import Resource from "../items/resource";
-import Range from '../range';
+import Range from '../values/range';
 import GData from "../items/gdata";
 import Game from '../game';
 import { tryDamage } from '../composites/combat';
@@ -10,6 +10,19 @@ import Events, { LEVEL_UP } from "../events";
 import Attack from "./attack";
 import Wearable from "./wearable";
 
+const Fists = new Wearable({
+
+	id:'baseWeapon',
+	name:'fists',
+	attack:new Attack({
+		name:"fists",
+		tohit:1,
+		kind:'blunt',
+		damage:new Range(0,1)
+	})
+
+});
+
 /**
  * @constant {number} EXP_RATE
  */
@@ -18,9 +31,12 @@ const EXP_RATE = 0.125;
 export default class Player extends Char {
 
 	get level() { return this._level; }
-	set level(v) { this._level=v;}
+	set level(v) {
+		this._level = v;
+	}
 
 	/**
+	 * currently active title.
 	 * @property {string} title
 	 */
 	get title() { return this._title; }
@@ -70,8 +86,6 @@ export default class Player extends Char {
 
 	}
 
-	get alive() {return this._hp.value > 0; }
-
 	/**
 	 * @property {Wearable} weapon - primary weapon.
 	 */
@@ -99,6 +113,20 @@ export default class Player extends Char {
 		this._mount = v;
 	}
 
+	get alive() {return this._hp.value > 0; }
+
+	get defeated() {
+
+		if ( this._hp.value <= 0 ) return true;
+		for( let i = this.stressors.length-1; i>=0; i--){
+
+			var s = this.stressors[i];
+			if ( s.value >= s.max.value ) return true;
+		}
+		return false;
+
+	}
+
 	/**
 	 * NOTE: Elements that are themselves Items are not encoded,
 	 * since they are encoded in the Item array.
@@ -115,6 +143,7 @@ export default class Player extends Char {
 		data.name = ( this.name );
 
 		data.titles = this.titles;
+		data.title = this.title;
 
 		data.next = ( this.next );
 		// attack timer.
@@ -127,7 +156,9 @@ export default class Player extends Char {
 		data.immunities = this.immunities;
 		data.resists =this.resists;
 
-		data.statuses = this.statuses;
+		data.retreat = this.retreat||undefined;
+
+		data.states = this.states;
 		data.className = this.className;
 
 		if ( this.primary ) data.primary = this.primary.id;
@@ -151,15 +182,17 @@ export default class Player extends Char {
 
 		this._next = this._next || 50;
 
-		this._tohit = this._tohit || 1;
-		this._defense = this._defense || 0;
+		this.retreat = this.retreat || 0;
+
+		if ( !this.tohit) this.tohit = 1;
+		if ( !this.defense ) this.defense = 0;
 
 		this._resist = this._resist || {};
 		for( let p in this._resist ) {
 			this._resist[p] = new Stat( this._resist[p]);
 		}
 
-		this._statuses = this._statuses || {
+		this._states = this._states || {
 			fly:0,
 			sleep:0,
 			swim:0,
@@ -186,27 +219,17 @@ export default class Player extends Char {
 		this.bonuses = this.bonuses || {
 		}
 
-		this.baseWeapon = this.baseWeapon || {
-
-			id:'baseWeapon',
-			name:'fists',
-			attack:new Attack({
-				tohit:1,
-				kind:'blunt',
-				damage:new Range(0,1)
-			})
-
-		};
-
-		this.damage = this.damage || 1;
-
 		this.alignment = this.alignment || 'neutral';
+
+		if ( this.baseWeapon ) this.baseWeapon = Fists;
+		if ( this.damage === null || this.damage === undefined ) this.damage = 1;
 
 		/**
 		 * @property {Item} primary - primary attack.
 		 */
 		this.primary = this.primary || null;
-		this.weapon = this.weapon || this.baseWeapon;
+
+		if ( !this.weapon ) this.weapon = this.baseWeapon;
 
 		this._name = this._name || 'wizrobe';
 
@@ -216,6 +239,19 @@ export default class Player extends Char {
 		if ( !this._titles.includes(title) ) {
 			this._titles.push(title);
 		}
+	}
+
+
+	revive( state ) {
+
+		super.revive(state);
+
+		if ( this.weapon && (typeof this.weapon === 'string') ) this.weapon = state.equip.find( this.weapon );
+		this.primary = this.primary && typeof this.primary === 'string' ? state.getData( this.primary ) : this.primary;
+
+		// copy in stressors to test player defeats.
+		this.stressors = state.stressors;
+
 	}
 
 	/**
@@ -318,15 +354,6 @@ export default class Player extends Char {
 
 	}
 
-	revive( state ) {
-
-		super.revive(state);
-
-		if ( this.weapon && (typeof this.weapon === 'string') ) this.weapon = state.equip.find( this.weapon );
-		this.primary = this.primary && typeof this.primary === 'string' ? state.getData( this.primary ) : this.primary;
-
-	}
-
 	/**
 	 * Clear primary spell attack.
 	 */
@@ -351,7 +378,7 @@ export default class Player extends Char {
 		this._exp.value -= this._next;
 		this._next = Math.floor( this._next * ( 1 + EXP_RATE ) );
 
-		Events.dispatch( LEVEL_UP, this );
+		Events.emit( LEVEL_UP, this );
 
 	}
 

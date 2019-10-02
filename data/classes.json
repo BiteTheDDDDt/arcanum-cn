@@ -116,8 +116,9 @@
 	"id":"adept",
 	"name":"Adept",
 	"title":"adept",
+	"tags":"t_tier0",
 	"desc":"Your master behind you, you set off into the world alone. You had better find a new place to stay.",
-	"effect":"tier0"
+	"mod":"tier0"
 },
 
 {
@@ -135,10 +136,10 @@
 		"gold":500
 	},
 	"effect":{
-		"tier1":true,
 		"sp":1
 	},
 	"mod":{
+		"tier1":true,
 		"research.max":20,
 		"lore.max":1,
 		"astronomy.max":1,
@@ -161,18 +162,20 @@
 		"bones":10
 	},
 	"effect":{
-		"tier1":true,
+
 		"sp":1
 	},
 	"mod":{
+		"tier1":true,
 		"evilamt":5,
-		"research.max":20,
+		"research.max":100,
 		"demonology.max":2,
 		"lore.max":1,
+		"lore.rate":"5%",
 		"mana.max":1,
 		"mana.rate":0.01,
 		"shadowlore.max":1,
-		"shadowlore.rate":0.1
+		"shadowlore.rate":"0.1+5%"
 	}
 },
 
@@ -189,10 +192,10 @@
 		"arcana":7
 	},
 	"effect":{
-		"tier1":true,
 		"sp":2
 	},
 	"mod":{
+		"tier1":true,
 		"mana.max":1,
 		"research.max":10,
 		"embalming.max":1,
@@ -221,11 +224,13 @@
 	},
 	"disable":[],
 	"effect":{
-		"tier1":true,
-		"sp":2,
-		"witchcraft":true
+
+		"sp":2
+
 	},
 	"mod":{
+		"tier1":true,
+		"witchcraft":true,
 		"research.max":10,
 		"naturelore.max":1,
 		"naturelore.rate":"10%",
@@ -251,10 +256,11 @@
 		"arcana":5
 	},
 	"effect":{
-		"tier1":true,
+
 		"sp":3
 	},
 	"mod":{
+		"tier1":true,
 		"gold.max":10,
 		"research.max":2,
 		"trickery.max":2,
@@ -280,10 +286,10 @@
 		"arcana":7
 	},
 	"effect":{
-		"tier2":true,
 		"sp":2
 	},
 	"mod":{
+		"tier2":true,
 		"evilamt":10,
 		"research.max":10,
 		"embalming.max":1,
@@ -294,30 +300,32 @@
 	}, "flavor":"even the dead have their uses"
 },
 {
-	"id":"necromancer",
-	"title":"necromancer",
-	"tags":"t_tier4",
-	"desc":"master of death magic",
-	"require":"g.tier3>0&&g.evil>0&&g.shadowlore>=18",
+	"id":"thanophage",
+	"title":"thanophage",
+	"tags":"t_tier3",
+	"desc":"extend your life with the spare parts of the dead.",
+	"require":"g.tier2>0&&g.evil>0",
 	"cost":{
-		"research":3000,
-		"bones":100,
-		"bodies":50,
+		"research":1000,
+		"bones":50,
+		"bodies":10,
+		"bonedust":25,
 		"arcana":10
 	},
 	"effect":{
-		"tier4":true,
+
 		"sp":2
 	},
 	"mod":{
-		"research.max":50,
-		"embalming.max":2,
-		"reanimation.max":1,
-		"shadowlore.max":3,
-		"shadowlore.rate":"10%",
-		"potions.max":2,
-		"spiritlore.max":3,
-		"spiritlore.rate":0.2
+		"tier3":true,
+		"evilamt":20,
+		"lore.max":2,
+		"research.max":25,
+		"embalming.max":1,
+		"reanimation.max":2,
+		"reanimation.rate":"5%",
+		"shadowlore.max":2,
+		"shadowlore.rate":"5%"
 	}
 },
 {
@@ -335,10 +343,10 @@
 		"gold":400
 	},
 	"effect":{
-		"tier2":true,
 		"sp":1
 	},
 	"mod":{
+		"tier2":true,
 		"research.max":-50,
 		"mana.max":1,
 		"mana.rate":0.1,
@@ -352,8 +360,8 @@
 	"id":"dreadlord",
 	"title":"dreadlord",
 	"desc":"harbinger of destruction",
-	"tags":"t_tier2",
-	"require":"g.tier1>0&&g.evil>0&&g.hp>=30&&g.player.level>=20",
+	"tags":"t_tier3",
+	"require":"g.tier2>0&&g.evil>0&&g.hp>=100&&g.player.level>=17",
 	"cost":{
 		"research":1000,
 		"bones":100,
@@ -361,33 +369,39 @@
 		"arcana":10
 	},
 	"effect":{
-		"tier2":true,
+
 		"sp":1
 	},
 	"mod":{
+		"tier3":true,
 		"player.tohit":"10%",
 		"hp.max":"10%",
-		"shadowlore.max":2
+		"shadowlore.max":2,
+		"shadowlore.rate":"1%",
+		"arcanebody.max":1,
+		"arcanebody2.max":1
 	}
 
 },
 {
 	"id":"warlock",
 	"title":"warlock",
-	"tags":"t_tier3",
+	"tags":"t_tier4",
 	"desc":"master of demons and demonic magic",
-	"require":"g.tier2>0&&g.evil>0&&g.demonology>=10",
+	"require":"g.tier3>0&&g.evil>0&&g.demonology>=10",
 	"cost":{
-		"research":1000,
+		"research":4000,
 		"souls":50,
-		"arcana":12,
-		"tomes":5
+		"arcana":15,
+		"tomes":10,
+		"runestones":5
 	},
 	"effect":{
-		"tier3":true,
+
 		"sp":1
 	},
 	"mod":{
+		"tier4":true,
 		"anatomy.max":3,
 		"lore.rate":"10%",
 		"lore.max":2,
@@ -405,7 +419,7 @@
 	"title":"blood mage",
 	"tags":"t_tier3",
 	"desc":"the magic in your veins",
-	"require":"g.tier2>0&&(g.battlemage+g.dreadlord+g.warlock)>0",
+	"require":"g.tier2>0&&(g.battlemage>0||g.hp.max>150)",
 	"cost":{
 		"research":1500,
 		"arcana":8,
@@ -413,10 +427,11 @@
 		"bloodgem":15
 	},
 	"effect":{
-		"tier3":true,
+
 		"sp":1
 	},
 	"mod":{
+		"tier3":true,
 		"research.max":-50,
 		"bloodgem.max":10,
 		"mana.max":1,
@@ -433,18 +448,20 @@
 {
 	"id":"summoner",
 	"title":"summoner",
-	"tags":"t_tier2",
-	"desc":"alone or not, the summoner is never without an army.",
-	"require":"g.minions>4&&g.tier1>0&&g.lore>=20",
+	"tags":"t_tier3",
+	"desc":"alone or in company, the summoner is never without an army.",
+	"require":"g.minions>4&&g.tier2>0&&g.lore>=20",
 	"cost":{
 		"research":1000,
-		"arcana":10
+		"arcana":15,
+		"tomes":5
 	},
 	"effect":{
-		"tier2":true,
+
 		"sp":1
 	},
 	"mod":{
+		"tier3":true,
 		"minions.max":1,
 		"charms.max":1,
 		"lore.max":2,
@@ -452,38 +469,13 @@
 		"mana.max":2,
 		"summoning.max":4,
 		"summoning.rate":"20%"
-	}
+	},"flavor":"i'd like to introduce you to some friends"
 
 },
 {
-	"id":"archlock",
-	"title":"archlock",
-	"desc":"master of demons and demonic magic",
-	"tags":"t_tier5",
-	"require":"g.warlock>0&&g.demonology>=20",
-	"cost":{
-		"research":5000,
-		"souls":100,
-		"tomes":25,
-		"arcana":20
-	},
-	"effect":{
-		"tier5":true,
-		"sp":2
-	},"mod":{
-		"lore.max":2,
-		"lore.rate":"10%",
-		"firelore.max":3,
-		"firelore.rate":"20%",
-		"demonology.max":5,
-		"demonology.rate":"20%"
-	}
-
-},
-{
-	"id":"druid",
-	"title":"druid",
-	"desc":"druid",
+	"id":"warden",
+	"title":"warden",
+	"desc":"a keeper of the forests, mountains, and hills",
 	"tags":"t_tier2",
 	"require":"g.tier1>0&&g.naturelore>=12",
 	"cost":{
@@ -493,10 +485,10 @@
 		"arcana":10
 	},
 	"effect":{
-		"tier2":true,
 		"sp":1
 	},
 	"mod":{
+		"tier2":true,
 		"research.max":5,
 		"naturelore.max":3,
 		"naturelore.rate":"1+15%",
@@ -511,10 +503,10 @@
 	"tags":"t_tier2",
 	"disable":[],
 	"effect":{
-		"tier2":true,
 		"sp":3
 	},
 	"mod":{
+		"tier2":true,
 		"research.max":20,
 		"crafting.max":2,
 		"potions.max":3,
@@ -537,10 +529,10 @@
 		"arcana":12
 	},
 	"effect":{
-		"tier2":true,
 		"sp":2
 	},
 	"mod":{
+		"tier2":true,
 		"research.max":15,
 		"enchanting.max":3,
 		"arcana.max":2,
@@ -566,10 +558,10 @@
 		"earthgem":10
 	},
 	"effect":{
-		"tier2":true,
 		"sp":2
 	},
 	"mod":{
+		"tier2":true,
 		"earthlore.max":2,
 		"earthlore.rate":"10%",
 		"stamina.max":"10%",
@@ -594,10 +586,10 @@
 		"firegem":10
 	},
 	"effect":{
-		"tier2":true,
 		"sp":2
 	},
 	"mod":{
+		"tier2":true,
 		"firelore.max":2,
 		"firelore.rate":"10%",
 		"dodge.max":"10%",
@@ -622,10 +614,11 @@
 		"watergem":10
 	},
 	"effect":{
-		"tier2":true,
+
 		"sp":2
 	},
 	"mod":{
+		"tier2":true,
 		"waterlore.max":2,
 		"waterlore.rate":"10%",
 		"dodge.max":"10%",
@@ -650,10 +643,11 @@
 		"airgem":10
 	},
 	"effect":{
-		"tier2":true,
+
 		"sp":2
 	},
 	"mod":{
+		"tier2":true,
 		"airlore.max":2,
 		"airlore.rate":"10%",
 		"dodge.max":"10%",
@@ -673,10 +667,11 @@
 		"tomes":10
 	},
 	"effect":{
-		"tier3":true,
+
 		"sp":1
 	},
 	"mod":{
+		"tier3":true,
 		"lore.max":1,
 		"mana.max":2,
 		"airlore.max":3,
@@ -698,10 +693,11 @@
 		"codices":20
 	},
 	"effect":{
-		"tier1":true,
+
 		"sp":1
 	},
 	"mod":{
+		"tier1":true,
 		"research.max":5,
 		"elemental.max":2,
 		"elemental.rate":0.2
@@ -723,10 +719,11 @@
 		"arcana":20
 	},
 	"effect":{
-		"tier4":true,
+
 		"sp":1
 	},
 	"mod":{
+		"tier4":true,
 		"lore.max":1,
 		"mana.max":1,
 		"earthlore.max":2,
@@ -735,6 +732,33 @@
 		"waterlore.rate":"10%",
 		"firelore.max":2,
 		"firelore.rate":"10%"
+	}
+},
+{
+	"id":"druid",
+	"title":"druid",
+	"desc":"a spellcaster dedicated to the natural world",
+	"tags":"t_tier3",
+	"require":"g.tier2>0&&g.naturelore>=15",
+	"cost":{
+		"research":1000,
+		"naturegem":20,
+		"herbs":25,
+		"arcana":15
+	},
+	"effect":{
+
+		"sp":1
+	},
+	"mod":{
+		"tier3":true,
+		"naturelore.max":3,
+		"naturelore.rate":"0.2+5%",
+		"animals.max":2,
+		"herbalism.max":2,
+		"herbalism.rate":"10%",
+		"potions.max":1,
+		"potions.rate":0.4
 	}
 },
 {
@@ -751,10 +775,11 @@
 		"watergem":20
 	},
 	"effect":{
-		"tier3":true,
+
 		"sp":2
 	},
 	"mod":{
+		"tier3":true,
 		"airlore.max":2,
 		"firelore.max":2,
 		"earthlore.max":2,
@@ -777,10 +802,11 @@
 		"arcana":5
 	},
 	"effect":{
-		"tier1":true,
+
 		"sp":2
 	},
 	"mod":{
+		"tier1":true,
 		"virtue":1,
 		"research.max":15,
 		"lore.max":2,
@@ -805,10 +831,11 @@
 		"research":2000
 	},
 	"effect":{
-		"tier2":true,
+
 		"sp":2
 	},
 	"mod":{
+		"tier2":true,
 		"virtue":5,
 		"lore.max":2,
 		"mana.max":3,
@@ -830,10 +857,11 @@
 		"tomes":1
 	},
 	"effect":{
-		"tier2":true,
+
 		"sp":2
 	},
 	"mod":{
+		"tier2":true,
 		"research.max":40,
 		"lore.max":2,
 		"lore.rate":0.4,
@@ -841,26 +869,147 @@
 	}
 },
 {
-	"id":"thaumaturge",
-	"title":"thaumaturge",
-	"desc":"a crafter of wonders",
-	"require":"g.tier3>0&&g.spirit>=15&&g.divination>=15",
-	"tags":"t_tier4",
+	"id":"doomsayer",
+	"title":"doomsayer",
+	"desc":"harbinger of ruin",
+	"require":"g.tier2>0&&g.spirit>=12&&g.divination>=12",
+	"tags":"t_tier3",
 	"cost":{
-		"research":4000,
-		"arcana":25,
+		"research":1000,
+		"arcana":15,
 		"tomes":7
 	},
 	"effect":{
-		"tier4":true,
 		"sp":2
 	},
 	"mod":{
+		"tier3":true,
 		"spiritlore.max":2,
 		"divination.max":3,
+		"scrying.max":2,
 		"lore.max":2,
-		"lore.rate":0.4,
+		"lore.rate":"10%",
 		"mana.max":3
+	}
+},
+{
+	"id":"fey",
+	"title":"fey",
+	"desc":"a being of wild and natural magic",
+	"tags":"t_tier4",
+	"require":"g.tier3>0&&g.naturelore>=20&&(g.witch+g.druid+g.elementalist)>0",
+	"cost":{
+		"research":5000,
+
+		"naturegem":30,
+		"herbs":75,
+		"arcana":15,
+		"runestones":5
+	},
+	"effect":{
+
+		"sp":1
+	},
+	"mod":{
+		"tier4":true,
+		"research.max":"-5%",
+		"waterlore.max":2,
+		"earthlore.max":2,
+		"airlore.max":2,
+		"naturelore.max":3,
+		"naturelore.rate":"1+10%",
+		"animals.max":2,
+		"animals.rate":"1+10%",
+		"herbalism.max":2,
+		"herbalism.rate":"1+10%"
+	}
+},
+{
+	"id":"heresiarch",
+	"title":"heresiarch",
+	"desc":"a reckoning comes.",
+	"require":"g.tier3>0&&g.spirit>=15&&g.divination>=17",
+	"tags":"t_tier4",
+	"cost":{
+		"research":5000,
+		"arcana":20,
+		"tomes":15,
+		"spiritgem":20,
+		"runestones":5
+	},
+	"effect":{
+
+		"sp":2
+	},
+	"mod":{
+		"tier4":true,
+		"research.max":"-2%",
+		"spiritlore.max":2,
+		"spiritlore.rate":"10%",
+		"divination.max":3,
+		"divination.rate":"10%",
+		"scrying.max":2,
+		"lore.max":2,
+		"lore.rate":"10%"
+	},"flavor":"it waits in time"
+},
+{
+	"id":"thaumaturge",
+	"title":"thaumaturge",
+	"desc":"a maker of wonders",
+	"require":"g.tier3>0&&g.spirit>=15&&g.divination>=15",
+	"tags":"t_tier4",
+	"cost":{
+		"research":5000,
+		"arcana":25,
+		"tomes":7,
+		"spiritgem":20,
+		"runestones":5
+	},
+	"effect":{
+		"sp":2
+	},
+	"mod":{
+		"tier4":true,
+		"spiritlore.max":2,
+		"divination.max":3,
+		"spellcraft.max":2,
+		"spellcraft.rate":"0.3+5%",
+		"lore.max":2,
+		"light.max":2,
+		"light.rate":"0.2+5%",
+		"lore.rate":"0.4+5%",
+		"mana.max":3
+	}
+},
+{
+	"id":"necromancer",
+	"title":"necromancer",
+	"tags":"t_tier4",
+	"desc":"master of death magic",
+	"require":"g.tier3>0&&g.evil>0&&g.shadowlore>=17",
+	"cost":{
+		"research":2000,
+		"bones":100,
+		"bodies":50,
+		"souls":40,
+		"arcana":10,
+		"runestones":5
+	},
+	"effect":{
+		"sp":2
+	},
+	"mod":{
+		"tier4":true,
+		"research.max":"50-2%",
+		"embalming.max":1,
+		"reanimation.max":3,
+		"reanimation.rate":"10%",
+		"shadowlore.max":2,
+		"shadowlore.rate":"0.2+5%",
+		"potions.max":1,
+		"spiritlore.max":3,
+		"spiritlore.rate":"10%"
 	}
 },
 {
@@ -870,44 +1019,149 @@
 	"tags":"t_tier4",
 	"require":"g.tier3>0&&g.lore>=25",
 	"cost":{
-		"research":4000,
+		"research":5000,
+
 		"arcana":25,
-		"tomes":10
+		"tomes":10,
+		"runestones":5
 	},
 	"effect":{
-		"tier4":true,
 		"sp":2
 	},
 	"mod":{
-		"research.max":40,
+		"tier4":true,
+		"research.max":"40-5%",
 		"languages.max":2,
+		"conjuration.max":1,
+		"crafting.max":1,
 		"lore.max":3,
-		"lore.rate":0.4,
+		"spellcraft.max":3,
+		"spellcraft.rate":0.5,
+		"lore.rate":"10%",
 		"mana.max":3
 	}
 },
 {
 	"id":"dhrunic wizard",
-	"title":"wizard",
+	"title":"dhrunic wizard",
 	"desc":"raw magic power",
 	"tags":"t_tier5",
 	"require":"g.tier4>0&&g.lore>=30",
 	"cost":{
-		"research":7000,
+		"research":20000,
 		"arcana":25,
-		"tomes":30
+
+		"tomes":30,
+		"runestones":10
 	},
 	"effect":{
-		"tier5":true,
 		"sp":3
 	},
 	"mod":{
-		"research.max":50,
+		"tier5":true,
+		"research.max":"-25%",
 		"languages.max":2,
+		"firelore.max":1,
+		"waterlore.max":1,
+		"airlore.max":1,
+		"lightlore.max":1,
+		"crafting.max":2,
 		"lore.max":5,
 		"lore.rate":"20%",
 		"mana.max":3
+	},"flavor":"In the end it was three Thule Wizards and The Necromancer who brought the locks to heel."
+},
+{
+	"id":"kell",
+	"title":"kell",
+	"desc":"immortal spirits of nature, even the weakest Kell could rival wizards",
+	"tags":"t_tier5",
+	"require":"g.tier4>0&&g.naturelore>=25&&(g.witch+g.fey+g.highelemental)>0",
+	"cost":{
+		"research":15000,
+		"naturegem":50,
+		"herbs":75,
+		"arcana":20,
+		"runestones":15
+	},
+	"effect":{
+		"sp":2
+	},
+	"mod":{
+		"tier5":true,
+		"lore.max":2,
+		"research.max":"-17%",
+		"lore.rate":"10%",
+		"airlore.max":2,
+		"airlore.rate":"10%",
+		"naturelore.max":3,
+		"naturelore.rate":"15%",
+		"animals.max":2,
+		"animals.rate":"10%",
+		"herbalism.max":1,
+		"herbalism.rate":"15%"
+	},"flavor":"most preferred their glades and fens to the turmoils of the world"
+},
+{
+	"id":"greynecromancer",
+	"title":"grey necromancer",
+	"name":"grey necromancer",
+	"tags":"t_tier5",
+	"desc":"disciple of death",
+	"require":"g.tier4>0&&g.evil>0&&g.spiritlore>=15&&g.shadowlore>=24",
+	"cost":{
+		"research":17000,
+		"bones":100,
+		"bodies":50,
+		"souls":100,
+		"arcana":10,
+		"runestones":10
+	},
+	"effect":{
+		"sp":2
+	},
+	"mod":{
+		"tier5":true,
+		"research.max":"-14%",
+		"lore.max":2,
+		"lore.rate":"10%",
+		"embalming.max":2,
+		"reanimation.max":3,
+		"reanimation.rate":"10%",
+		"shadowlore.max":2,
+		"shadowlore.rate":"5%",
+		"spiritlore.max":3,
+		"spiritlore.rate":"10%"
 	}
-}
+},
+{
+		"id":"archlock",
+		"title":"archlock",
+		"desc":"master of demons and demonic magic",
+		"tags":"t_tier5",
+		"require":"g.warlock>0&&g.demonology>=20",
+		"cost":{
+			"research":15000,
+
+			"souls":75,
+			"bodies":10,
+			"tomes":25,
+			"arcana":25,
+			"runestones":10
+		},
+		"effect":{
+			"sp":2
+		},"mod":{
+			"tier5":true,
+			"lore.max":2,
+			"research.max":"-14%",
+			"lore.rate":"10%",
+			"firelore.max":3,
+			"firelore.rate":"20%",
+			"demonology.max":5,
+			"demonology.rate":"20%"
+		},"flavor":"in the War of the Locks the Seven raged for power and Dhrune trembled in their wake."
+
+	}
 
 ]

@@ -119,7 +119,7 @@
 			"space.max":25,
 			"gold.rate":0.2,
 			"gold.max":25,
-			"nature.rate":-0.2,
+			"nature.rate":"-5%",
 			"arcana.rate":-0.001
 		}
 	},
@@ -185,7 +185,7 @@
 			"shadowlore.max":1,
 			"shadowlore.rate":0.1,
 			"light.max":-2,
-			"light.rate":-0.2
+			"light.rate":"-2%"
 		},
 		"lock":["latticewindow"]
 
@@ -205,7 +205,7 @@
 			"air.rate":0.1,
 			"mana.rate":0.1,
 			"shadow.max":-1,
-			"shadow.rate":-0.3
+			"shadow.rate":"-5%"
 		}
 	},
 	{
@@ -218,7 +218,8 @@
 			"space.max":75,
 			"spiritlore.max":1,
 			"spiritlore.rate":0.1,
-			"shadow.rate":0.1
+			"shadow.rate":0.1,
+			"demonology.max":1
 		}
 	},
 	{
@@ -231,6 +232,7 @@
 			"minions.max":10,
 			"space.max":110,
 			"runes.max":2,
+			"demonology.max":1,
 			"runes.rate":"10%",
 			"spiritlore.max":1,
 			"spiritlore.rate":0.1,
@@ -281,7 +283,7 @@
 			"naturelore.rate":0.1,
 			"earthlore.max":1,
 			"lightlore.max":-1,
-			"lightlore.rate":-0.1
+			"lightlore.rate":"-2%"
 		},
 		"lock":["latticewindow"]
 
@@ -295,7 +297,7 @@
 			"minions.max":15,
 			"space.max":200,
 			"nature.max":-1,
-			"nature.rate":-0.1
+			"nature.rate":"-5%"
 		}
 	},
 	{
@@ -324,7 +326,7 @@
 			"minions.max":10,
 			"space.max":200,
 			"shadow.max":-3,
-			"shadow.rate":-0.5
+			"shadow.rate":"-10%"
 		}
 	},
 	{
@@ -342,7 +344,7 @@
 			"space.max":300,
 			"nature.max":2,
 			"air.max":1,
-			"fire.rate":-0.2
+			"fire.rate":"-2%"
 		}
 	},
 	{
@@ -355,8 +357,8 @@
 			"space.max":400,
 			"charms.max":2,
 			"charms.rate":"10%",
-			"spirit.rate":-0.1,
-			"shadowlore.max":-1,
+			"spirit.rate":"-2%",
+			"shadowlore.max":"-2%",
 			"research.rate":-0.5
 		}
 	},
@@ -409,7 +411,7 @@
 			"firelore.rate":0.2,
 			"earthlore.max":3,
 			"earthlore.rate":0.2,
-			"water.max":-3,
+			"water.max":"-15%",
 			"water.rate":-2
 		},
 		"lock":["latticewindow"]
@@ -433,9 +435,10 @@
 			"earthlore.rate":"20%",
 			"shadow.max":3,
 			"shadow.rate":0.2,
+			"demonology.max":1,
 			"light.max":-3,
 			"lightlore.rate":-2,
-			"light.rate":-1
+			"light.rate":"-10%"
 		},
 		"lock":["latticewindow"]
 
