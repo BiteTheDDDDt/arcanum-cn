@@ -1,7 +1,9 @@
+import Proxy from "./proxy";
+
 /**
  * Slot in quickslot bar.
  */
-export default class QuickSlot {
+export default class QuickSlot extends Proxy {
 
 	toJSON(){
 
@@ -20,14 +22,19 @@ export default class QuickSlot {
 
 	}
 
-	get name() { return this._item ? this._item.name : ''; }
+	get name() {
+
+		return this._item ? this._item.name :
+		this.recipe || '';
+
+	}
 
 	get item() { return this._item; }
 	set item(v) {
 
 		this._item = v;
 
-		this.recipe = typeof v === 'object' ? v.recipe : null;
+		this.recipe = ( v && typeof v === 'object' ) ? v.recipe : null;
 
 	}
 
@@ -55,6 +62,8 @@ export default class QuickSlot {
 	 * @param {Object} [vars=null]
 	 */
 	constructor( vars=null ) {
+
+		super();
 
 		if ( vars ) {
 

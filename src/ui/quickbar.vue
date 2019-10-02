@@ -9,7 +9,7 @@ import { TRY_USE } from '../events';
  */
 export default {
 
-	create(){
+	created(){
 
 		this.bar = Game.state.quickbar;
 		this.TRY_USE = TRY_USE;
@@ -54,7 +54,11 @@ export default {
 
 		},
 
-		hasItems(){ return this.slots.some(v=>v!=null); }
+		hasItems(){
+
+			return this.bar.slots.some(v=>v.item!=null);
+
+		}
 
 	}
 
@@ -64,7 +68,7 @@ export default {
 <template>
 	<div class="quickbar" v-if="hasItems">
 
-		<div class="quickslot" v-for="(it,i) in slots" :key="i">
+		<div class="quickslot" v-for="(it,i) in bar.slots" :key="i">
 
 			<div v-if="it!=null" :class="it.school ? it.school :''"
 					@click="emit( TRY_USE, it)"

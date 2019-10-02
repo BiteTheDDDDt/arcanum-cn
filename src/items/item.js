@@ -13,6 +13,11 @@ const ItemDefaults = {
  */
 export default class Item {
 
+	/**
+	 * @property {object} onuse - effect to apply on 'use' action.
+	 * might be replaced with 'effect' since it seems to be the same.
+	 */
+
 	toJSON() {
 
 		let data = this.excludeJSON() || {};
@@ -51,7 +56,6 @@ export default class Item {
 
 		if ( vars ) Object.assign( this, vars );
 
-
 		if ( this.consume === null || this.consume === undefined ) this.consume = this.defaults.consume;
 		if ( this.stack === null || this.stack === undefined ) this.stack = this.defaults.stack;
 
@@ -64,12 +68,12 @@ export default class Item {
 			if ( this.value <= 0 ) ( inv || g.state.inventory ).remove( this );
 		}
 
-		if ( this.use ) {
+		if ( this.onuse ) {
 
-			if (this.use.dot ) {
-				g.state.player.addDot( new Dot( this.use.dot, this.id, this.name) );
+			if (this.onuse.dot ) {
+				g.state.player.addDot( new Dot( this.onuse.dot, this.id, this.name) );
 			}
-			g.applyEffect( this.use );
+			g.applyEffect( this.onuse );
 
 		}
 

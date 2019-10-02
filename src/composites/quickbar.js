@@ -13,7 +13,7 @@ export default class Quickbar {
 	get slots() { return this._slots; }
 	set slots(v) {
 
-		if ( !v) return;
+		if ( v === null || v === undefined ) return;
 
 		let a = [];
 
@@ -30,7 +30,7 @@ export default class Quickbar {
 	 *
 	 * @param {*} vars
 	 */
-	constructor( vars ){
+	constructor( vars=null ){
 
 		if ( vars ) Object.assign( this, vars );
 

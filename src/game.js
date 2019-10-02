@@ -997,9 +997,7 @@ export default {
 	 * test with 'canRun' instead.
 	 * @param {GData} it
 	 */
-	canUse( it ){
-		return it.canUse( this );
-	},
+	canUse( it ){ return it.canUse( this ); },
 
 	/**
 	 * Attempts to pay the cost to perform an action, buy an upgrade, etc.
