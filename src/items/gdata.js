@@ -3,6 +3,7 @@ import Stat from '../values/stat';
 import Base, {mergeClass} from './base';
 import { arrayMerge, assignPublic } from '../util/util';
 import Events, { ITEM_ATTACK } from '../events';
+import Dot from '../chars/dot';
 
 /**
  * @typedef {Object} Effect

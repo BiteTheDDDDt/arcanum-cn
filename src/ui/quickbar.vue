@@ -10,8 +10,6 @@ import { TRY_USE } from '../events';
 export default {
 
 	created(){
-
-		this.bar = Game.state.quickbar;
 		this.TRY_USE = TRY_USE;
 
 	},
@@ -47,6 +45,10 @@ export default {
 			return a;
 
 		},*/
+
+		bar() {
+			return Game.state.quickbar;
+		},
 
 		slots() {
 			return this.bar.slots;

@@ -67,16 +67,20 @@ export default class QuickSlot extends Proxy {
 
 			if ( typeof vars === 'string') {
 
-				this._item = vars;
+				this.item = vars;
+				this.recipe = null;
 
 			} else if ( typeof vars === 'object' ) {
 
-				this._item = vars.item;
-				this._recipe = vars.recipe;
+				this.item = vars.item;
+				this.recipe = vars.recipe;
 
 			}
 
-		} else this.item = null;
+		} else {
+			this.item = null;
+			this.recipe = null;
+		}
 
 	}
 
