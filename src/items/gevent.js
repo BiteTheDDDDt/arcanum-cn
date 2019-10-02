@@ -22,6 +22,11 @@ export default class GEvent extends GData {
 
 	}
 
+	/*topoff( amt ) {
+		if ( !this.repeat && amt>0&& this.value >= 1 ) return 0;
+		return amt;
+	}*/
+
 	amount( g, amt ) {
 
 		if ( !super.amount(g,amt) ) return;
