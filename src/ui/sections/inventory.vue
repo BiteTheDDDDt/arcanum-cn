@@ -1,7 +1,7 @@
 <script>
-import Game from '../game';
-import FilterBox from './components/filterbox.vue';
-import { USE } from '../events';
+import Game from '../../game';
+import FilterBox from '../components/filterbox.vue';
+import { USE } from '../../events';
 
 export default {
 

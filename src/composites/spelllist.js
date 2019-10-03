@@ -62,6 +62,11 @@ export default class SpellList extends Inventory {
 
 	}
 
+	/**
+	 *
+	 * @param {Game} g
+	 * @returns {boolean} true if spell was successfully cast.
+	 */
 	onUse(g) {
 
 		var len = this.items.length;
@@ -73,9 +78,10 @@ export default class SpellList extends Inventory {
 
 			if ( this.items[i].canPay(g) ) {
 
+				g.payCost( this.items[i].cost );
 				this.items[i].onUse(g);
 				this.lastInd = i;
-				break;
+				return true;
 
 			}
 
@@ -83,6 +89,7 @@ export default class SpellList extends Inventory {
 
 		} while ( i !== start );
 
+		return false;
 
 	}
 
@@ -110,7 +117,10 @@ export default class SpellList extends Inventory {
 	 * @param {GameState} gs
 	 */
 	revive(gs){
-		this.items = gs.toData(this.items);
+
+		super.revive(gs);
+		if (this.max.value === 0 ) this.max.value = gs.player.level;
+
 	}
 
 }

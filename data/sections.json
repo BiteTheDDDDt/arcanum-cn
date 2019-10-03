@@ -32,7 +32,7 @@
 	},
 	{
 		"id":"sect_spells",
-		"name":"spellbook",
+		"name":"spells",
 		"require":"g.spellbook.value>0"
 
 	},

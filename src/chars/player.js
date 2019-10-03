@@ -247,6 +247,9 @@ export default class Player extends Char {
 		super.revive(state);
 
 		if ( this.weapon && (typeof this.weapon === 'string') ) this.weapon = state.equip.find( this.weapon );
+
+		this.spelllist = state.getData('spelllist');
+
 		this.primary = this.primary && typeof this.primary === 'string' ? state.getData( this.primary ) : this.primary;
 
 		// copy in stressors to test player defeats.
@@ -370,6 +373,8 @@ export default class Player extends Char {
 		if ( this._level % 3 === 0 ) this.sp.value++;
 		if ( this._level % 5 === 0 ) Game.getData('minions').maxAllies.value++;
 		if ( this._level % 4 === 0 ) Game.getData('speed').value++;
+
+		Game.getData('spelllist').max += 1;
 
 		this.tohit++;
 		this.hp.max.base += 2;

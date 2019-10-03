@@ -47,17 +47,17 @@ export default {
 		warn:Warn,
 		'top-bar':TopBar,
 		settings:SettingsUI,
-		skills:()=> import( /* webpackChunkName: "skills-ui" */ './skillsPane.vue' ),
-		equip:()=>import( /* webpackChunkName: "equip-ui" */ './equip.vue'),
-		inventory:()=> import( /* webpackChunkName: "inv-ui" */ './inventory.vue' ),
-		potions:()=> import( /* webpackChunkName: "potions-ui" */ './potions.vue'),
+		skills:()=> import( /* webpackChunkName: "skills-ui" */ './sections/skillsPane.vue' ),
+		equip:()=>import( /* webpackChunkName: "equip-ui" */ './sections/equip.vue'),
+		inventory:()=> import( /* webpackChunkName: "inv-ui" */ './sections/inventory.vue' ),
+		potions:()=> import( /* webpackChunkName: "potions-ui" */ './sections/potions.vue'),
 		homes:()=>import( /* webpackChunkName: "homes-ui" */ './homes.vue'),
 		player:()=>import( /* webpackChunkName: "player-ui" */'./player.vue'),
-		bestiary:()=>import(/* webpackChunkName: "bestiary-ui" */ './bestiary.vue' ),
-		spellbook:()=>import( /* webpackChunkName: "spells-ui" */ 'ui/spellbook.vue'),
+		bestiary:()=>import(/* webpackChunkName: "bestiary-ui" */ './sections/bestiary.vue' ),
+		spells:()=>import( /* webpackChunkName: "spells-ui" */ './sections/spells.vue'),
 		adventure:()=>import( /* webpackChunkName: "raid-ui" */ './adventure.vue'),
-		enchanting:()=>import( /* webpackChunkName: "enchant-ui" */'./enchanting.vue' ),
-		minions:()=>import( /* webpackChunkName: "minions-ui" */ './minions.vue' ),
+		enchanting:()=>import( /* webpackChunkName: "enchant-ui" */'./sections/enchanting.vue' ),
+		minions:()=>import( /* webpackChunkName: "minions-ui" */ './sections/minions.vue' ),
 		'vue-menu':Menu
 	},
 	data(){
@@ -347,7 +347,7 @@ export default {
 
 		</template>
 
-		<template slot="sect_spells"><spellbook :state="state" /></template>
+		<template slot="sect_spells"><spells /></template>
 
 		<template slot="sect_potions"><potions /></template>
 

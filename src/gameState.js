@@ -89,7 +89,7 @@ export default class GameState {
 		this.raid = new Raid( baseData.raid );
 		this.explore = new Explore( baseData.explore );
 
-		this.spelllist = new SpellList( baseData.spelllist );
+		this.items.spelllist = this.spelllist = new SpellList( baseData.spelllist );
 
 		this.revive();
 
@@ -171,14 +171,14 @@ export default class GameState {
 		this.equip.revive( this );
 		this.inventory.revive( this );
 
+		this.spelllist.revive(this);
+
 		this.minions.revive(this);
 		this.player.revive(this);
 
 		this.drops.revive(this);
 		this.raid.revive( this );
 		this.explore.revive(this);
-
-		this.spelllist.revive(this);
 
 		this.quickbar.revive(this);
 

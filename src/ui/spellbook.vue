@@ -20,9 +20,18 @@ export default {
 	components:{
 		filterbox:FilterBox
 	},
+	methods:{
+
+		addList(it) {
+			this.list.add(it);
+		}
+
+	},
 	computed:{
 
-
+		list(){
+			return Game.state.spelllist;
+		},
 
 		minLevel:{
 
@@ -90,9 +99,14 @@ export default {
 		<table>
 		<tr v-for="s in viewing" :key="s.id" @mouseenter.capture.stop="emit( 'itemover', $event, s )">
 
-			<td><button v-if="s.owned&&s.attack" @click="emit('primary',s)">
+			<td>
+
+				<button v-if="s.owned&&s.attack&&list.canAdd(s)" @click="addList(s)">Memorize</button>
+				<!--<button v-if="s.owned&&s.attack" @click="emit('primary',s)">
 				{{ state.player.primary===s ? 'Unequip' : 'Primary' }}
-				</button></td>
+				</button>-->
+
+				</td>
 			<td>{{ s.name }}</td>
 			<td>
 
@@ -107,6 +121,8 @@ export default {
 		</div>
 
 		<div class="filters">
+
+			<button @click="$emit('toggle')">Memorized</button>
 
 			<filterbox v-model="filtered" :items="spells" />
 

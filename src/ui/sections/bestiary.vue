@@ -1,9 +1,9 @@
 <script>
-import Game from '../game';
-import ItemBase from './itemsBase';
-import Range from '../values/range';
-import FilterBox from './components/filterbox.vue';
-import { TRY_BUY } from '../events';
+import Game from '../../game';
+import ItemBase from '../itemsBase';
+import Range from '../../values/range';
+import FilterBox from '../components/filterbox.vue';
+import { TRY_BUY } from '../../events';
 
 export default {
 

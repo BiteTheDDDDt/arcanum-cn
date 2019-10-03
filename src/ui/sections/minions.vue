@@ -1,7 +1,7 @@
 <script>
-import Game from '../game';
+import Game from '../../game';
 
-import FilterBox from './components/filterbox.vue';
+import FilterBox from '../components/filterbox.vue';
 
 export default {
 
