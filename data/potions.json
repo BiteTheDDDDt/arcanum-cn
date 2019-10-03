@@ -11,7 +11,7 @@
 		"cost":{
 			"herbs":10
 		},
-		"onuse":"poisonward"
+		"use":"poisonward"
 	},
 	{
 		"id":"pot_mana1",
@@ -23,7 +23,7 @@
 		"cost":{
 			"herbs":10
 		},
-		"onuse":{
+		"use":{
 			"mana":5
 		}
 	},
@@ -38,7 +38,7 @@
 			"herbs":10
 		},
 		"name":"minor healing",
-		"onuse":"heal1"
+		"use":"heal1"
 	},
 	{
 		"id":"pot_stam1",
@@ -51,7 +51,7 @@
 		"cost":{
 			"herbs":10
 		},
-		"onuse":{
+		"use":{
 			"stamina":10
 		}
 
@@ -68,7 +68,7 @@
 		"cost":{
 			"herbs":20
 		},
-		"onuse":{
+		"use":{
 			"dot":{
 
 				"hp":1,
@@ -77,6 +77,27 @@
 
 			}
 		}
+	},
+	{
+		"id":"pot_godsblood",
+		"name":"god's blood",
+		"level":10,
+		"buy":{
+			"gold":500,
+			"tomes":1,
+			"research":500
+		},
+		"cost":{
+			"herbs":50,
+			"ichor":1
+		},
+		"use":{
+			"dot":{
+				"hp.max":300,
+				"duration":3600
+			}
+		}
+
 	}
 
 
