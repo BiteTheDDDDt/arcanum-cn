@@ -66,7 +66,7 @@ export default class Item {
 		return this.consume || this.onuse;
 	}
 
-	use( g, targ, inv=null ) {
+	onUse( g, targ, inv=null ) {
 
 		if ( this.consume === true ) {
 			this.value--;

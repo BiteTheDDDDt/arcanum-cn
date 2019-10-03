@@ -103,10 +103,10 @@ export default class QuickSlot extends Proxy {
 	 *
 	 * @param {Game} g
 	 */
-	use( g ) {
+	onUse( g ) {
 
 		let targ = this.getTarget(g);
-		if ( targ != null && targ.value >0 ) targ.use(g);
+		if ( targ != null && targ.value >0 ) targ.onUse(g);
 
 	}
 

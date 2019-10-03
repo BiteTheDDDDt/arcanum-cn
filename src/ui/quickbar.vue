@@ -65,7 +65,7 @@ export default {
 
 			<div v-if="it.item!=null" :class="it.item.school ? it.item.school :''"
 					@click="emit( 'quickslot', it )"
-					@mouseenter.capture.stop="emit( 'itemover',$event,it)">
+					@mouseenter.capture.stop="emit( 'itemover',$event,it.item||it)">
 
 
 				<div>{{ abbr(it) }}</div>

@@ -1,4 +1,4 @@
-import Inventory from './chars/inventory';
+import Inventory from './composites/inventory';
 import Raid from './composites/raid';
 import GData from './items/gdata';
 import Equip from './chars/equip';
@@ -11,6 +11,7 @@ import Runner from './modules/runner';
 import Explore from './composites/explore';
 import { ensure } from './util/util';
 import Quickbar from './composites/quickbar';
+import SpellList from './composites/spelllist';
 
 export const REST_SLOT = 'rest';
 
@@ -87,6 +88,8 @@ export default class GameState {
 
 		this.raid = new Raid( baseData.raid );
 		this.explore = new Explore( baseData.explore );
+
+		this.spelllist = new SpellList( baseData.spelllist );
 
 		this.revive();
 
@@ -174,6 +177,8 @@ export default class GameState {
 		this.drops.revive(this);
 		this.raid.revive( this );
 		this.explore.revive(this);
+
+		this.spelllist.revive(this);
 
 		this.quickbar.revive(this);
 

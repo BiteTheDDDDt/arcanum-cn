@@ -928,24 +928,24 @@
 	"id":"heresiarch",
 	"title":"heresiarch",
 	"desc":"a reckoning comes.",
-	"require":"g.tier3>0&&g.spirit>=15&&g.divination>=17",
-	"tags":"t_tier4",
+	"require":"g.tier4>0&&g.spirit>=15&&g.divination>=17",
+	"tags":"t_tier5",
 	"cost":{
 		"research":5000,
 		"arcana":20,
 		"tomes":15,
 		"spiritgem":20,
-		"runestones":5
+		"runestones":10
 	},
 	"effect":{
 
 		"sp":2
 	},
 	"mod":{
-		"tier4":true,
-		"research.max":"-2%",
-		"spiritlore.max":2,
-		"spiritlore.rate":"10%",
+		"tier5":true,
+		"research.max":"-5%",
+		"spiritlore.max":3,
+		"spiritlore.rate":"12%",
 		"divination.max":3,
 		"divination.rate":"10%",
 		"scrying.max":2,

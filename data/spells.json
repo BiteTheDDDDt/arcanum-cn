@@ -80,7 +80,7 @@
 			"dot":{
 				"kind":"shadow",
 				"duration":10,
-				"damage":0.4
+				"damage":1
 			}
 		}
 
@@ -118,7 +118,8 @@
 			"dot":{
 				"kind":"shadow",
 				"duration":10,
-				"damage":0.7
+				"damage":0.7,
+				"leech":1
 			}
 		}
 
@@ -126,7 +127,7 @@
 	{
 		"id":"deathbolt",
 		"name":"death bolt",
-		"level":5,
+		"level":6,
 		"require":"darkbolt",
 		"school":"shadow",
 		"buy":{
@@ -136,7 +137,7 @@
 
 		},
 		"cost":{
-			"shadow":5
+			"shadow":3
 		},
 		"at":{
 			"25":{
@@ -154,9 +155,46 @@
 		"attack":{
 			"damage":"5~10",
 			"dot":{
-				"kind":"shadow",
+				"kind":"drain",
 				"duration":30,
-				"damage":1
+				"damage":2
+			}
+		}
+
+	},
+	{
+		"id":"lifedrain",
+		"name":"drain life",
+		"level":12,
+		"school":"shadow",
+		"buy":{
+
+			"research":5000,
+			"shadowgem":20,
+			"tomes":10
+
+		},
+		"cost":{
+			"shadow":4
+		},
+		"at":{
+			"25":{
+				"attack.dot.damage.max":5
+			},
+			"75":{
+				"attack.dot.damage.min":5
+			},
+			"300":{
+				"attack.dot.damage.max":5,
+				"attack.dot.damage.min":5
+			}
+		},
+		"attack":{
+			"dot":{
+				"kind":"drain",
+				"leech":0.75,
+				"duration":60,
+				"damage":"15~30"
 			}
 		}
 
@@ -477,6 +515,7 @@
 		"level":1,
 		"school":"mana",
 		"locked":false,
+		"desc":"lines of arcane energy damage all enemies.",
 		"buy":{
 
 			"research":100,
@@ -498,7 +537,7 @@
 		},
 		"attack":{
 			"targets":"all",
-			"damage":"0.5~1",
+			"damage":"0.75~1",
 			"kind":"arcane",
 			"tohit":1
 		}
@@ -1205,6 +1244,39 @@
 		}
 	},
 	{
+		"id":"magebolt",
+		"name":"mage bolt",
+		"level":9,
+		"school":"mana",
+		"buy":{
+
+			"research":5000,
+			"tomes":5,
+			"arcanegem":20
+
+		},
+		"at":{
+			"10":{
+				"attack.damage.max":5
+			},
+			"50":{
+				"attack.damage.min":5
+			},
+			"200":{
+				"attack.damage.max":5,
+				"attack.damage.min":5
+			}
+		},
+		"cost":{
+			"mana":2
+		},
+		"attack":{
+			"damage":"10~20",
+			"kind":"arcane",
+			"tohit":10
+		}
+	},
+	{
 		"id":"whisper",
 		"level":2,
 		"desc":"spirits whisper hidden truths as you study.",
@@ -1319,7 +1391,7 @@
 
 		},
 		"cost":{
-			"air":5
+			"air":1
 		},
 		"dot":{
 			"duration":20,
@@ -1345,7 +1417,7 @@
 
 		},
 		"cost":{
-			"air":5
+			"air":3
 		},
 		"dot":{
 			"duration":45,
@@ -1373,7 +1445,7 @@
 				"id":"jinx",
 				"kind":"curse",
 				"duration":30,
-				"tohit":-5
+				"tohit":-10
 			}
 		}
 	},
@@ -1462,7 +1534,7 @@
 
 		},
 		"cost":{
-			"mana":15
+			"mana":10
 		},
 		"dot":{
 			"duration":60,
@@ -1600,7 +1672,34 @@
 				"id":"venom",
 				"kind":"poison",
 				"duration":30,
-				"damage":"7~10"
+				"damage":"8~15"
+			}
+		}
+
+	},
+	{
+		"id":"cordyceps",
+		"level":7,
+		"school":"nature",
+		"require":"venom2",
+		"desc":"a fungal cloud that damages all enemies.",
+		"buy":{
+
+			"research":4000,
+			"tomes":5,
+			"naturegem":10
+
+		},
+		"cost":{
+			"nature":5
+		},
+		"attack":{
+			"targets":"all",
+			"dot":{
+				"id":"venom",
+				"kind":"poison",
+				"duration":45,
+				"damage":"7~11"
 			}
 		}
 

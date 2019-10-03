@@ -479,7 +479,7 @@ export default {
 	 */
 	use( it, targ, inv=null ) {
 
-		it.use( this );
+		it.onUse( this );
 
 	},
 
@@ -502,7 +502,7 @@ export default {
 
 		if ( it.instance ){
 
-			it.use(this);
+			it.onUse( this);
 
 		} else if ( it.buy && !it.owned ) {
 
@@ -832,7 +832,7 @@ export default {
 					} else if ( typeof e === 'boolean') {
 
 						target.locked = !e;
-						target.use( this );
+						target.onUse( this );
 
 					} else target.applyVars(e,dt);
 

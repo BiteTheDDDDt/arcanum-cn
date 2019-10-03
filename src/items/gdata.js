@@ -196,10 +196,10 @@ export default class GData {
 	}
 
 	/**
-	 * Default implementation of use() is to add 1.
+	 * Default implementation of onUse()) is to add 1.
 	 * @param {Game} g
 	 */
-	use( g ) {
+	onUse( g ) {
 
 		if ( this.slot ) g.setSlot( this );
 		else this.amount( g, 1 );
