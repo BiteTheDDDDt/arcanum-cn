@@ -790,7 +790,10 @@
 		"tags":"tricksource",
 		"cost":{
 			"gold":50
+		},"mod":{
+			"luck":0.5
 		}
+
 	},
 	{
 		"id":"threesidecoin",
@@ -799,6 +802,7 @@
 		"require":"g.prestidigitation>10",
 		"tags":"tricksource",
 		"cost":{
+			"research":200,
 			"gold":300
 		},"mod":{
 			"trickery.max":1,

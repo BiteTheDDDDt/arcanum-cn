@@ -64,6 +64,9 @@ export default class Char {
 
 	}
 
+	get instance() { return true; }
+	set instance(v) {}
+
 	get regen() { return this._regen; }
 	set regen(v) { this._regen = ( v instanceof Stat ) ? v : new Stat(v); }
 
