@@ -53,7 +53,10 @@ export default class Group {
 
 	}
 
-	canPay( g ) {
+	canUse( g ) {
+	}
+
+	onUse(g) {
 	}
 
 	/**
@@ -64,9 +67,7 @@ export default class Group {
 	amount( g, amt ) {
 
 		for( let i = this.items.length-1; i>= 0;i--) {
-
 			this.items[i].amount( g, amt );
-
 		}
 
 	}

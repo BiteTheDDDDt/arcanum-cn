@@ -1267,6 +1267,27 @@
 
 	},
 	{
+		"id":"specialization",
+		"desc":"specialize in a school of magic",
+		"require":"g.lore>100",
+		"max":1,
+		"cost":{
+			"tomes":1,
+			"arcana":1,
+			"gold":300
+		},
+		"choice":{
+
+			"target":"t_school",
+			"mod":{
+				"max":2,
+				"rate":"2%"
+			}
+
+		}
+
+	},
+	{
 
 		"id":"crystalmind",
 		"name":"crystal mind",

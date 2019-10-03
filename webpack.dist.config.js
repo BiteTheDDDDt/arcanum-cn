@@ -33,6 +33,7 @@ module.exports = {
 	plugins: [new VueLoader(),
 	new webpack.DefinePlugin({
 		__DIST:true,
+		__SAVE:null,
 		__VERSION:vers
 	})],
 

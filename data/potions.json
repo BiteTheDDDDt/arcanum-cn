@@ -93,7 +93,9 @@
 		},
 		"use":{
 			"dot":{
-				"hp.max":300,
+				"mod":{
+					"hp.max":300
+				},
 				"duration":3600
 			}
 		}

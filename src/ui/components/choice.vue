@@ -70,7 +70,7 @@ export default {
 				if ( it.choices ) {
 
 					this.item = it;
-					this.choices = it.choices;
+					this.choices = it.choice;
 
 				} else this.choices = it;
 
@@ -84,7 +84,7 @@ export default {
 			this.item = null;
 			this.choices = null;
 
-			this.$emit('choice', opt, it );
+			this.$emit( 'choice', opt, it );
 
 		},
 		cancel(){
