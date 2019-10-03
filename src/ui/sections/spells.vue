@@ -108,8 +108,6 @@ export default {
 
 	<div class="filters">
 
-			<button @click="toggle">Memorized</button>
-
 			<filterbox v-model="filtered" :items="spells" />
 
 		<div>
@@ -122,6 +120,8 @@ export default {
 					<input type="checkbox" :value="k" :id="elmId('chk'+k)" v-model="viewSchools" >
 					<label :for="elmId('chk'+k)">{{ k }}</label>
 		</div>
+
+		<button @click="toggle">Memorized</button>
 
 	</div>
 
@@ -166,7 +166,7 @@ div.spells .spelllist {
 }
 
 div.spells .filters {
-        order: 1; flex-flow: row wrap; display: flex;
+       flex-flow: row wrap; display: flex;
         border-bottom: 1px solid var(--separator-color);
         margin: 0; padding: 4px; line-height: 2em;
     }

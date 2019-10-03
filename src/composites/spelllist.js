@@ -42,7 +42,9 @@ export default class SpellList extends Inventory {
 
 		this.spaceProp = 'level';
 
-		this.order = this.order || ORDER;
+		this.order = this.order || LOOP;
+
+		console.log('LIST ORDER: ' + this.order );
 
 	}
 
@@ -80,6 +82,7 @@ export default class SpellList extends Inventory {
 			if ( this.items[i].canUse(g) ) {
 
 				g.payCost( this.items[i].cost );
+				console.log('USING: ' + this.items[i].name );
 				this.items[i].onUse(g);
 				this.lastInd = i;
 				return true;
@@ -89,6 +92,8 @@ export default class SpellList extends Inventory {
 			if ( ++i >= len ) i = 0;
 
 		} while ( i !== start );
+
+		console.log('NO SPELLS FOUND');
 
 		return false;
 

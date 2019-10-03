@@ -1252,7 +1252,7 @@
 
 			"research":5000,
 			"tomes":5,
-			"arcanegem":20
+			"managem":20
 
 		},
 		"at":{
@@ -1268,7 +1268,7 @@
 			}
 		},
 		"cost":{
-			"mana":2
+			"mana":4
 		},
 		"attack":{
 			"damage":"10~20",

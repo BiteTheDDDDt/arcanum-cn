@@ -56,6 +56,13 @@ var vm = new Vue({
 		this.loadSave();
 
 	},
+	computed:{
+
+		saveloc(){
+			return __SAVE ? __SAVE + '/'+ 'gameData' : 'gameData';
+		}
+
+	},
 	methods:{
 
 		gameLoaded() {
@@ -117,7 +124,7 @@ var vm = new Vue({
 
 		loadSave() {
 
-			let str = window.localStorage.getItem( 'gameData');
+			let str = window.localStorage.getItem( this.saveloc);
 			if ( !str ) console.log('no data saved.');
 			this.loadData( str );
 
@@ -139,7 +146,7 @@ var vm = new Vue({
 
 			let store = window.localStorage;
 			let json = JSON.stringify( this.game.state );
-			store.setItem( 'gameData', json );
+			store.setItem( saveloc, json );
 		},
 
 		save() {
@@ -149,7 +156,7 @@ var vm = new Vue({
 
 			let json = JSON.stringify( this.game.state );
 			console.log( json )
-			store.setItem( 'gameData', json );
+			store.setItem( saveloc, json );
 
 		},
 		reset() {

@@ -57,7 +57,7 @@ export default {
 <style scoped>
 
 .spellbook {
-	order: 2; padding: 4px;
+	padding: 4px;
 	overflow-y: auto;
 	height:100%;
 	margin-bottom: 20px;
@@ -72,6 +72,7 @@ export default {
 
  div.spellbook { flex-direction: column; padding: 0; }
 div.spellbook { margin: 0; padding: var(--medium-gap); }
+
  div.spellbook table {
         display: grid; grid-template-columns: minmax( 256px, 1fr ) repeat( auto-fit, minmax( 256px, 1fr ));
         grid-auto-rows:  1fr;

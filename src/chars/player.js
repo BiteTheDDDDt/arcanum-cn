@@ -14,12 +14,12 @@ const Fists = new Wearable({
 
 	id:'baseWeapon',
 	name:'fists',
-	attack:new Attack({
+	attack:{
 		name:"fists",
 		tohit:1,
 		kind:'blunt',
-		damage:new Range(0,1)
-	})
+		damage:"0~1"
+	}
 
 });
 
@@ -91,9 +91,14 @@ export default class Player extends Char {
 	 */
 	get weapon() { return this._weapon; }
 	set weapon(v) {
-		this._weapon = v;
-		if ( !(v instanceof Wearable) ) console.log('NON WEAPON SOURCE');
-		if ( !v ) this._weapon = this.baseWeapon;
+
+		if ( v ){
+			this._weapon = v;
+			if ( !(v instanceof Wearable) ) console.log('NON WEAPON SOURCE');
+		} else {
+			console.log('USING FISTS: ' + Fists );
+			this._weapon = Fists;
+		}
 	}
 
 	/**
@@ -221,7 +226,6 @@ export default class Player extends Char {
 
 		this.alignment = this.alignment || 'neutral';
 
-		if ( this.baseWeapon ) this.baseWeapon = Fists;
 		if ( this.damage === null || this.damage === undefined ) this.damage = 1;
 
 		/**
@@ -229,7 +233,7 @@ export default class Player extends Char {
 		 */
 		this.primary = this.primary || null;
 
-		if ( !this.weapon ) this.weapon = this.baseWeapon;
+		if ( !this.weapon ) this.weapon = Fists;
 
 		this._name = this._name || 'wizrobe';
 
