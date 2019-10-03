@@ -162,6 +162,8 @@ export default {
 
 		let items = this.state.items;
 
+		this.state.player.begin();
+
 		for( let p in items ) {
 
 			var it = items[p];

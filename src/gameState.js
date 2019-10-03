@@ -87,7 +87,7 @@ export default class GameState {
 		this.raid = new Raid( baseData.raid );
 		this.explore = new Explore( baseData.explore );
 
-		this.items.spelllist = this.spelllist = new SpellList( baseData.spelllist );
+		this.items.spelllist = this.spelllist = new SpellList( this.items.spelllist );
 
 		this.prepItems();
 

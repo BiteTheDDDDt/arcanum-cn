@@ -123,6 +123,13 @@ export default class Char {
 	}
 
 	/**
+	 * Called once game actually begins. Dot-mods can't be applied
+	 * before game start because they can trigger game functions.
+	 */
+	begin() {
+	}
+
+	/**
 	 * Base item of dot.
 	 * @param {Dot} it
 	 */
