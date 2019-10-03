@@ -1076,7 +1076,7 @@
             "name":"bite",
             "kind":"pierce",
             "dmg":"4~7"
-		},"loot":{"crocodile tooth":10, "crocodile tears":5},
+		},"loot":{"crocodiletears":5},
 		"resist":{
 			"water":10,
 			"nature":20
@@ -1114,7 +1114,7 @@
             "name":"mallet",
             "kind":"blunt",
             "dmg":"7~11"
-        }, "loot":{"potion of cure light wounds":10}
+        }, "loot":{}
 
     },
     {
@@ -1199,7 +1199,7 @@
 		"resist":{
 			"fire":20
 		},
-		"loot":{"sulfur":5, "potion of cure light wounds":10, "potion of cure moderate wounds":10}
+		"loot":{"sulfur":5}
 
     },
     {
@@ -2371,7 +2371,7 @@
             "kind":"drain",
 			"dmg":"10~25",
 			"leech":0.4
-        }, "loot":{"vampire fang":10, "potion of major agony":10}
+        }, "loot":{"vampfang":"15%" }
 
 	},
 	{
@@ -2422,7 +2422,7 @@
             "name":"claws",
             "kind":"slash",
             "dmg":"12~28"
-        }, "loot":{"raw wood":5}
+        }, "loot":{}
 
     },
     {
@@ -2437,7 +2437,7 @@
             "name":"claymore",
             "kind":"slash",
             "dmg":"15~20"
-        }, "loot":{ "potion of cure major wounds":15}
+        }, "loot":{ "ichor":"1%"}
 
 	},
 	{
@@ -2452,7 +2452,7 @@
             "name":"kick",
             "kind":"blunt",
             "dmg":"14~27"
-        },"loot":{"raw stone":25}
+        },"loot":{}
 
     },
 	{
@@ -2532,7 +2532,7 @@
 				"dmg":"3~5",
 				"duration":20
 			}
-		}, "loot":{ "potion of major agony":15},
+		}, "loot":{},
 		"immune":"poison",
 		"resist":{
 			"water":20,
@@ -2555,7 +2555,7 @@
             "name":"longsword",
             "kind":"slash",
             "dmg":"36~45"
-        }, "loot":{"bone":10, "potion of moderate agony":10}
+        }, "loot":{"bone":10}
 
 	},
 	{
@@ -2572,7 +2572,7 @@
             "name":"pound",
             "kind":"blunt",
             "dmg":"20~30"
-        }, "loot":{"raw wood":15}
+        }, "loot":{}
     },
     {
         "id":"wyvern",
@@ -2648,7 +2648,7 @@
             "name":"light sword",
             "kind":"holy",
             "dmg":"20~50"
-		}, "loot":{"angel wing":10, "halo":5, "potion of cure critical wounds":20 },
+		}, "loot":{"angelwing":"1%", "ichor":"30%" },
 		"immune":"light"
 
     },
@@ -2666,7 +2666,7 @@
             "name":"death touch",
             "kind":"drain",
             "dmg":"26~36"
-        }, "loot":{ "potion of critical agony":15}
+        }, "loot":{ "ichor":"2%"}
 
 	},
 	{
@@ -2682,7 +2682,7 @@
             "name":"darksword",
             "kind":"evil",
             "dmg":"15~40"
-        },"loot":{"sulfur":30, "fire essence":1, "potion of critical agony":15}
+        },"loot":{"sulfur":30, "fireessence":1, "ichor":"5%"}
 
     },
     {
@@ -2698,7 +2698,7 @@
             "name":"punch",
             "kind":"blunt",
             "dmg":"17~50"
-         } , "loot":{ "potion of major agony":15, "potion of cure major wounds":15}
+         } , "loot":{ "ichor":"5%"}
 
 	},
 	{
@@ -2765,7 +2765,7 @@
             "kind":"drain",
 			"dmg":"12~45",
 			"leech":0.45
-		}, "loot":{"vampire fang":15},
+		}, "loot":{"vampfang":"15%", "ichor":"5%"},
 		"resist":{
 			"shadow":30
 		}
@@ -2784,7 +2784,7 @@
             "name":"punch",
             "kind":"cold",
             "dmg":"30~40"
-		 } , "loot":{ "potion of major agony":15, "potion of cure major wounds":15},
+		 } , "loot":{},
 		 "resist":{
 			 "water":70,
 			 "air":70
@@ -2823,7 +2823,7 @@
             "name":"death touch",
             "kind":"drain",
             "dmg":"30~40"
-        }, "loot":{ "potion of critical agony":15}
+        }, "loot":{}
 
 	},
     {
@@ -2861,7 +2861,7 @@
             "kind":"shadow",
 			"dmg":"20~50",
 			"leech":0.7
-		}, "loot":{"vampire fang":25, "potion of critical agony":30},
+		}, "loot":{"vampfang":25},
 		"resist":{
 			"shadow":80
 		}
@@ -2896,7 +2896,7 @@
             "name":"flame whip",
             "kind":"fire",
             "dmg":"45~75"
-		}, "loot":{"fire essence":10},
+		}, "loot":{"fireessence":10},
 		"immune":"fire"
 
 	},
@@ -2914,7 +2914,7 @@
             "name":"light sword",
             "kind":"holy",
             "dmg":"30~55"
-		}, "loot":{"angel wing":10, "halo":5, "potion of cure critical wounds":20 },
+		}, "loot":{"angelwing":10, "ichor":"50%"},
 		"immune":"light"
 
     },
@@ -3017,7 +3017,7 @@
             "name":"death touch",
             "kind":"shadow",
             "dmg":"80~120"
-        }, "loot":{}
+        }, "loot":{"ichor":"10%"}
 
 	},
 	{

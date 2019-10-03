@@ -44,22 +44,6 @@ export default {
 
 <style scoped>
 
-div.popup {
-	height:auto;
-	min-height:100px;
-	min-width:200px;
-	max-width:240px;
-	position: absolute;
-	z-index:20000;
-	left:50%;
-	top:20%;
-	align-self: center;
-	background:inherit;
-	padding:12px;
-	border: 1.5px solid rgb( 100, 100,100);
-	border-radius: 0.20rem;
-}
-
 div.popup div {
 	margin:6px 0px;
 }
