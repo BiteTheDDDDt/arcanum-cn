@@ -77,6 +77,8 @@ export default class ItemGen {
 		 */
 		this.byKind = {};
 
+		this.luck = state.getData('luck');
+
 		this.initGroup( 'armor', state.armors );
 		this.initGroup('weapon', state.weapons );
 		this.initGroup('materials', state.materials );
@@ -195,7 +197,7 @@ export default class ItemGen {
 
 		if ( amt instanceof Percent ) {
 
-			if ( !amt.value ) return null;
+			if ( !amt.roll( this.luck.value ) ) return null;
 			amt = 1;
 
 		} else if ( amt.value ) amt = amt.value;

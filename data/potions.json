@@ -80,7 +80,7 @@
 	},
 	{
 		"id":"pot_godsblood",
-		"name":"god's blood",
+		"name":"god blood",
 		"level":10,
 		"buy":{
 			"gold":500,

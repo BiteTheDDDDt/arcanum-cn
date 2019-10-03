@@ -89,9 +89,9 @@ export default class GameState {
 
 		this.items.spelllist = this.spelllist = new SpellList( this.items.spelllist );
 
-		this.prepItems();
-
 		this.revive();
+
+		this.prepItems();
 
 		/**
 		 * @todo: messy bug fix. used to place player-specific resources on update-list.

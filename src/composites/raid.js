@@ -1,4 +1,4 @@
-import Events, { ENEMY_SLAIN, ACT_DONE, ITEM_ATTACK, CHAR_DIED, DEFEATED, ACT_BLOCKED } from '../events';
+import Events, { ENEMY_SLAIN, ACT_DONE, ITEM_ATTACK, CHAR_DIED, DEFEATED, ACT_BLOCKED, EVT_COMBAT } from '../events';
 
 import Game from '../game';
 import Inventory from './inventory';
@@ -106,6 +106,11 @@ export default class Raid {
 	charDied( c ) {
 
 		if ( c !== this.player || !this.running ) return;
+
+		if ( this.player.luck > 100*Math.random() ) {
+			this.player.hp.value = Math.ceil( 0.05*this.player.hp.max );
+			Events.emit( EVT_COMBAT, 'Lucky Recovery', this.player.name + ' has a close call.' );
+		}
 
 		Events.emit( DEFEATED, null );
 		Events.emit( ACT_BLOCKED, this,

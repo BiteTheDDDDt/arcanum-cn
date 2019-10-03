@@ -1,5 +1,9 @@
 import Action from './action';
 
+const defaults = {
+	verb:'enchanting'
+};
+
 export default class Enchant extends Action {
 
 	/**
@@ -14,6 +18,8 @@ export default class Enchant extends Action {
 	constructor(vars){
 
 		super(vars);
+
+		this.verb = this.verb || 'enchanting';
 
 		this.level = this.level || 0;
 		this.need = this.need || 'enchantsource';

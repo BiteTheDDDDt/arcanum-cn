@@ -297,7 +297,7 @@ export default class Combat {
 		let tohit = attacker.tohit || 0;
 		if ( attack && (attack != attacker) ) tohit += ( attack.tohit || 0 );
 
-		if ( Math.random() >  this.dodgeRoll( defender.dodge, tohit )) {
+		if ( this.dodgeRoll( defender.dodge, tohit )) {
 
 			Events.emit( DAMAGE_MISS, defender.name + ' dodges ' + (attack.name||attacker.name));
 			return false;
@@ -352,10 +352,18 @@ export default class Combat {
 	 */
 	clear() { this._enemies = []; }
 
+	/**
+	 * exponentially decreasing function. Lower is better.
+	 * e^(-1/100) approx 99% (not to dodge)
+	 * 1/e = 37% - might be too low.
+	 * @param {number} dodge
+	 * @param {number} tohit
+	 * @returns {boolean} true if defender dodges.
+	 */
 	dodgeRoll( dodge, tohit ) {
 
 		let x = ( tohit > dodge ? 1 : dodge - tohit )/10;
-		return ( Math.exp( -x*x ) );
+		return Math.random() > ( Math.exp( -x*x ) );
 
 	}
 
