@@ -1,13 +1,13 @@
 <script>
-import Game from '../game';
-import ItemBase from './itemsBase.js';
+import Game from '../../game';
+import ItemBase from '../itemsBase.js';
 
-import ProgBar from './components/progbar.vue';
-import FilterBox from './components/filterbox.vue';
+import ProgBar from '../components/progbar.vue';
+import FilterBox from '../components/filterbox.vue';
 
-import Explore from './items/explore.vue';
+import Explore from '../items/explore.vue';
 
-import { ENTER_LOC } from '../events';
+import { ENTER_LOC } from '../../events';
 
 const MAX_ITEMS = 5;
 

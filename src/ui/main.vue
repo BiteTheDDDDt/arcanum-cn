@@ -15,7 +15,6 @@ import SettingsUI from './settings.vue';
 
 
 import LogView from './outlog.vue';
-import Adventure from './adventure.vue';
 
 import Settings from '../settings';
 import Cheats from '../cheats';
@@ -47,7 +46,7 @@ export default {
 		warn:Warn,
 		'top-bar':TopBar,
 		settings:SettingsUI,
-		skills:()=> import( /* webpackChunkName: "skills-ui" */ './sections/skillsPane.vue' ),
+		skills:()=> import( /* webpackChunkName: "skills-ui" */ './sections/skills.vue' ),
 		equip:()=>import( /* webpackChunkName: "equip-ui" */ './sections/equip.vue'),
 		inventory:()=> import( /* webpackChunkName: "inv-ui" */ './sections/inventory.vue' ),
 		potions:()=> import( /* webpackChunkName: "potions-ui" */ './sections/potions.vue'),
@@ -55,7 +54,7 @@ export default {
 		player:()=>import( /* webpackChunkName: "player-ui" */'./player.vue'),
 		bestiary:()=>import(/* webpackChunkName: "bestiary-ui" */ './sections/bestiary.vue' ),
 		spells:()=>import( /* webpackChunkName: "spells-ui" */ './sections/spells.vue'),
-		adventure:()=>import( /* webpackChunkName: "raid-ui" */ './adventure.vue'),
+		adventure:()=>import( /* webpackChunkName: "raid-ui" */ './sections/adventure.vue'),
 		enchanting:()=>import( /* webpackChunkName: "enchant-ui" */'./sections/enchanting.vue' ),
 		minions:()=>import( /* webpackChunkName: "minions-ui" */ './sections/minions.vue' ),
 		'vue-menu':Menu

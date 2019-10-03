@@ -5,7 +5,6 @@ export default {
 	methods:{
 
 		remove(it) {
-
 			this.list.remove(it);
 
 		},
@@ -27,8 +26,8 @@ export default {
 <div class="spelllist">
 
 	<span class='warn-text' v-if="list.full()">Spelllist is Full</span>
-	<div v-for="(it,ind) in list" :key="ind">
-		<span>{{ it.name }}</span><button @click="remove(it)"></button>
+	<div v-for="(it,ind) in list.items" :key="ind">
+		<span>{{ it.name }}</span><button @click="remove(it)">Remove</button>
 	</div>
 
 </div>

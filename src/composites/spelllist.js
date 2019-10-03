@@ -31,6 +31,7 @@ export default class SpellList extends Inventory {
 	 * @property {number} order - ORDER,RANDOM,LOOP - cast attempt order.
 	 */
 	get order() { return this._order; }
+	set order(v) { this._order=v;}
 
 	constructor( vars=null ) {
 
@@ -76,7 +77,7 @@ export default class SpellList extends Inventory {
 
 		do {
 
-			if ( this.items[i].canPay(g) ) {
+			if ( this.items[i].canUse(g) ) {
 
 				g.payCost( this.items[i].cost );
 				this.items[i].onUse(g);

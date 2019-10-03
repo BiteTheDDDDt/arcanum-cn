@@ -425,17 +425,7 @@
 
     /* Spellbook */
 
-    .full div.spellbook { flex-direction: column; padding: 0; }
-    .full div.spellbook .spell-table { margin: 0; padding: var(--medium-gap); }
-    .full div.spellbook .spell-table table {
-        display: grid; grid-template-columns: minmax( 256px, 1fr ) repeat( auto-fit, minmax( 256px, 1fr ));
-        grid-auto-rows:  1fr;
-    }
-    .full div.spellbook .spell-table table tr { padding: var(--small-gap); display:flex; align-items:center; }
-    .full div.spellbook .spell-table table tr td:nth-child(1),
-    .full div.spellbook .spell-table table tr td:nth-child(2){ flex: 1; }
-    .full div.spellbook .spell-table table tr td:nth-child(2){ flex: 2; }
-    .full div.spellbook button { flex: 1; font-size: var(--compact-small-font); margin: 0; }
+
 
     .full div.spellbook .filters {
         order: 1; flex-flow: row wrap; display: flex; text-align: center;
