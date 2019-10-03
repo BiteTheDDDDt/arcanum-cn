@@ -138,6 +138,7 @@ export default class Combat {
 
 		this.state = state;
 		this.player = state.player;
+		this.spelllist = state.getData('spelllist');
 
 		for( let i = this._enemies.length-1; i>=0; i-- ) this._enemies[i].revive(state);
 
@@ -160,7 +161,7 @@ export default class Combat {
 			this.player.timer += this.player.delay;
 
 			// attempt to use primary item attack first.
-			if ( !this.player.primary || !Game.tryItem( this.player.primary )) {
+			if ( this.spelllist.count === 0 || !this.tryCast() ) {
 
 				this.allyAttack( this.player, this.player.weapon||this.player.baseWeapon );
 
@@ -188,6 +189,16 @@ export default class Combat {
 			if ( action ) this.enemyAttack( e, action );
 
 		}
+
+	}
+
+	/**
+	 * try casting spell from player spelllist.
+	 */
+	tryCast(){
+
+		if ( !this.spelllist.canUse(Game) ) return false;
+		return this.spelllist.onUse(Game);
 
 	}
 

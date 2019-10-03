@@ -59,7 +59,10 @@ export default class Wearable extends Item {
 
 		if ( v ) {
 			this._attack = v instanceof Attack ? v.clone() : new Attack(v);
-		} else this._attack = null;
+		} else {
+			console.log('NO ATTACK: ' + this.id );
+			this._attack = null;
+		}
 
 	}
 

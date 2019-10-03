@@ -1,4 +1,4 @@
-import Inventory from "./inventory";
+import Inventory from "../composites/inventory";
 import { ALLY } from "./npc";
 import Events, { ALLY_DIED, ACT_CHANGED } from '../events';
 import Stat from "../values/stat";

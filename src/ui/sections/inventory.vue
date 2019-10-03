@@ -1,7 +1,7 @@
 <script>
-import Game from '../game';
-import FilterBox from './components/filterbox.vue';
-import { USE } from '../events';
+import Game from '../../game';
+import FilterBox from '../components/filterbox.vue';
+import { USE } from '../../events';
 
 export default {
 
@@ -35,6 +35,13 @@ export default {
 		count(it) { return it.value > 1 ? ' (' + Math.floor(it.value) + ')': ''; },
 		drop( it ){
 			this.inv.remove(it);
+		},
+
+		/**
+		 * Test if item can be added to inventory.
+		 */
+		canAdd(it) {
+			return this.inv.canAdd(it);
 		},
 
 		onTake(it) {
@@ -76,7 +83,7 @@ export default {
 
 			<td v-if="it.equippable"><button @click="emit('equip',it, inv)">Equip</button></td>
 			<td v-if="it.onuse"><button @click="emit( USE, it)">Use</button></td>
-			<td v-if="take&&!playerFull"><button @click="onTake(it)">Take</button></td>
+			<td v-if="take&&canAdd(it)"><button @click="onTake(it)">Take</button></td>
 
 			<td>
 			<button @click="emit('sell',it,inv)" @mouseenter.capture.stop="emit( 'itemover',$event,it)">Sell</button>

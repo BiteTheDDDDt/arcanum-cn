@@ -107,7 +107,7 @@
 		},
 		"result":{
 			"gold":"0~300",
-			"arcanegem":"10%",
+			"managem":"10%",
 			"gems":"0~5",
 			"tomes":"0~1"
 		}
@@ -173,7 +173,7 @@
 		},
 		"result":{
 			"gold":"0~300",
-			"arcanegem":"10%",
+			"managem":"10%",
 			"gems":"0~5",
 			"tomes":"0~1"
 		}

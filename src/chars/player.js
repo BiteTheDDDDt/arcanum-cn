@@ -14,12 +14,12 @@ const Fists = new Wearable({
 
 	id:'baseWeapon',
 	name:'fists',
-	attack:new Attack({
+	attack:{
 		name:"fists",
 		tohit:1,
 		kind:'blunt',
-		damage:new Range(0,1)
-	})
+		damage:"0~1"
+	}
 
 });
 
@@ -91,9 +91,14 @@ export default class Player extends Char {
 	 */
 	get weapon() { return this._weapon; }
 	set weapon(v) {
-		this._weapon = v;
-		if ( !(v instanceof Wearable) ) console.log('NON WEAPON SOURCE');
-		if ( !v ) this._weapon = this.baseWeapon;
+
+		if ( v ){
+			this._weapon = v;
+			if ( !(v instanceof Wearable) ) console.log('NON WEAPON SOURCE');
+		} else {
+			console.log('USING FISTS: ' + Fists );
+			this._weapon = Fists;
+		}
 	}
 
 	/**
@@ -221,7 +226,6 @@ export default class Player extends Char {
 
 		this.alignment = this.alignment || 'neutral';
 
-		if ( this.baseWeapon ) this.baseWeapon = Fists;
 		if ( this.damage === null || this.damage === undefined ) this.damage = 1;
 
 		/**
@@ -229,7 +233,7 @@ export default class Player extends Char {
 		 */
 		this.primary = this.primary || null;
 
-		if ( !this.weapon ) this.weapon = this.baseWeapon;
+		if ( !this.weapon ) this.weapon = Fists;
 
 		this._name = this._name || 'wizrobe';
 
@@ -247,6 +251,9 @@ export default class Player extends Char {
 		super.revive(state);
 
 		if ( this.weapon && (typeof this.weapon === 'string') ) this.weapon = state.equip.find( this.weapon );
+
+		this.spelllist = state.getData('spelllist');
+
 		this.primary = this.primary && typeof this.primary === 'string' ? state.getData( this.primary ) : this.primary;
 
 		// copy in stressors to test player defeats.
@@ -370,6 +377,8 @@ export default class Player extends Char {
 		if ( this._level % 3 === 0 ) this.sp.value++;
 		if ( this._level % 5 === 0 ) Game.getData('minions').maxAllies.value++;
 		if ( this._level % 4 === 0 ) Game.getData('speed').value++;
+
+		Game.getData('spelllist').max += 1;
 
 		this.tohit++;
 		this.hp.max.base += 2;

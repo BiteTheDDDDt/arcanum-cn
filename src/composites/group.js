@@ -53,7 +53,7 @@ export default class Group {
 
 	}
 
-	canPay() {
+	canPay( g ) {
 	}
 
 	/**

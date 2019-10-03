@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "webpack --watch --config webpack.dev.config.js",
+	"test": "webpack --watch --config webpack.test.config.js",
     "build": "webpack --watch --config webpack.dist.config.js"
   },
   "repository": {
