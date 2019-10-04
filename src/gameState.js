@@ -188,7 +188,7 @@ export default class GameState {
 			 * and can be referenced.
 			 */
 			if ( it.revive && typeof it.revive === 'function') {
-				console.log('REVIVING: ' + it.id );
+				//console.log('REVIVING: ' + it.id );
 				it.revive(this);
 			}
 
