@@ -6,7 +6,7 @@ import Game from '../../game';
 
 export default {
 
-	mixins:ItemBase,
+	mixins:[ItemBase],
 	data(){
 
 		return {
@@ -120,7 +120,7 @@ export default {
 		 * @property {Spell[]} spells - all spells in game.
 		 */
 		spells() {
-			return Game.state.filterItems( v=>v.type === 'spell');
+			return Game.state.filterItems( v=>v.type === 'spell'&&!this.locked(v));
 		},
 
 		/**

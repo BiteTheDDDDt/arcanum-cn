@@ -39,7 +39,7 @@
 	{
 		"id":"sect_scraft",
 		"name":"spellcraft",
-		"require":"g.spellcraft>0"
+		"require":"spellcraft"
 
 	},
 	{

@@ -69,7 +69,8 @@
 		"val":0,
 		"stat":true,
 		"unit":"false",
-		"locked":false
+		"locked":false,
+		"flavor":"let's keep this party polite"
 	},
 	{
 		"id":"scraft",
