@@ -82,7 +82,7 @@ export default {
 		<template v-if="!selecting">
 
 			<td v-if="it.equippable"><button @click="emit('equip',it, inv)">Equip</button></td>
-			<td v-if="it.onuse"><button @click="emit( USE, it)">Use</button></td>
+			<td v-if="it.use"><button @click="emit( USE, it)">Use</button></td>
 			<td v-if="take&&canAdd(it)"><button @click="onTake(it)">Take</button></td>
 
 			<td>

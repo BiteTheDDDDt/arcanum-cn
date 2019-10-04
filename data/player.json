@@ -64,6 +64,14 @@
 		"locked":false
 	},
 	{
+		"id":"luck",
+		"desc":"affinity for fortune",
+		"val":0,
+		"stat":true,
+		"unit":"false",
+		"locked":false
+	},
+	{
 		"id":"DR",
 		"name":"Damanage reduction",
 		"desc":"Amount of damage subtracted from total.",

@@ -675,7 +675,7 @@
 		"id":"searingbolt",
 		"name":"searing bolt",
 		"level":3,
-		"desc":"a bolt of fire with lingerine flame",
+		"desc":"a bolt of fire with lingering flames",
 		"school":"fire",
 		"require":"firebolt",
 		"buy":{
@@ -1614,7 +1614,7 @@
 
 		},
 		"cost":{
-			"earth":20
+			"earth":7
 		},
 		"dot":{
 			"duration":120,

@@ -9,7 +9,6 @@ export const LOOP = 'loop';
 
 export default class SpellList extends Inventory {
 
-
 	toJSON(){
 
 		let data = super.toJSON();
@@ -43,8 +42,6 @@ export default class SpellList extends Inventory {
 		this.spaceProp = 'level';
 
 		this.order = this.order || LOOP;
-
-		console.log('LIST ORDER: ' + this.order );
 
 	}
 

@@ -1,5 +1,6 @@
 import Base, {mergeClass} from './base';
 import { mergeSafe} from 'objecty';
+import Dot from '../chars/dot';
 
 const ItemDefaults = {
 	stack:true,
@@ -63,7 +64,7 @@ export default class Item {
 	}
 
 	canUse(g) {
-		return this.consume || this.onuse;
+		return this.consume || this.use;
 	}
 
 	onUse( g, targ, inv=null ) {
@@ -73,12 +74,12 @@ export default class Item {
 			if ( this.value <= 0 ) ( inv || g.state.inventory ).remove( this );
 		}
 
-		if ( this.onuse ) {
+		if ( this.use ) {
 
-			if (this.onuse.dot ) {
-				g.state.player.addDot( new Dot( this.onuse.dot, this.id, this.name) );
+			if (this.use.dot ) {
+				g.state.player.addDot( new Dot( this.use.dot, this.id, this.name) );
 			}
-			g.applyEffect( this.onuse );
+			g.applyEffect( this.use );
 
 		}
 

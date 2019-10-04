@@ -18,6 +18,7 @@
 	{
 		"id":"lore",
 		"school":"arcane",
+		"tags":"t_school",
 		"verb":"reading lore",
 		"desc":"nothing is more important to a wizard than the depth of their lore.",
 		"locked":false,
@@ -73,6 +74,10 @@
 		"result":{
 			"sp":0.2,
 			"arcana":1
+		},
+		"mod":{
+			"luck":0.4,
+			"dodge":0.4
 		}
 
 	},
@@ -322,6 +327,7 @@
 	},
 	{
 		"id":"lightlore",
+		"tags":"t_school",
 		"name":"lumenology",
 		"desc":"study of pure light",
 		"require":"lightsource",
@@ -338,6 +344,7 @@
 	},
 	{
 		"id":"shadowlore",
+		"tags":"t_school",
 		"require":"g.dissection>=3||g.evil>0",
 		"school":"shadow",
 		"need":"shadowsource",
@@ -353,6 +360,7 @@
 	{
 
 		"id":"spiritlore",
+		"tags":"t_school",
 		"name":"spirit lore",
 		"desc":"seeing the unseen",
 		"require":"g.lore>=6",
@@ -370,6 +378,7 @@
 	},
 	{
 		"id":"firelore",
+		"tags":"t_school",
 		"name":"pyromancy",
 		"desc":"the investigation of fire",
 		"tags":"elemental",
@@ -389,8 +398,8 @@
 	{
 		"id":"earthlore",
 		"name":"minerology",
+		"tags":"t_school,elemental",
 		"need":"earthsource",
-		"tags":"elemental",
 		"run":{
 			"stamina":0.4
 		},
@@ -407,7 +416,7 @@
 		"name":"water lore",
 		"desc":"the study of water",
 		"verb":"studying water",
-		"tags":"elemental",
+		"tags":"elemental,t_school",
 		"need":"watersource",
 		"run":{
 			"stamina":0.4
@@ -426,7 +435,7 @@
 		"name":"air lore",
 		"desc":"the study of air",
 		"verb":"studying air",
-		"tags":"elemental",
+		"tags":"elemental,t_school",
 		"need":"airsource",
 		"run":{
 			"stamina":0.3
@@ -444,6 +453,7 @@
 		"id":"naturelore",
 		"name":"nature lore",
 		"verb":"observing nature",
+		"tags":"t_school",
 		"require":"g.herbalism>=3",
 		"run":{
 			"stamina":0.4
@@ -618,6 +628,7 @@
 	{
 		"id":"chronomancy",
 		"require":["tier3","timesource"],
+		"tags":"t_school",
 		"desc":"There must be a way...",
 		"run":{
 			"stamina":0.3,

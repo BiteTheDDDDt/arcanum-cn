@@ -42,9 +42,7 @@ export default class GameState {
 
 	}
 
-	nextId() {
-		return this.NEXT_ID++;
-	}
+	nextId() { return this.NEXT_ID++; }
 
 	/**
 	 *
@@ -89,11 +87,16 @@ export default class GameState {
 		this.raid = new Raid( baseData.raid );
 		this.explore = new Explore( baseData.explore );
 
-		this.items.spelllist = this.spelllist = new SpellList( baseData.spelllist );
+		this.items.spelllist = this.spelllist = new SpellList( this.items.spelllist );
 
 		this.revive();
 
-		/** @todo: messy bug fix. */
+		this.prepItems();
+
+		/**
+		 * @todo: messy bug fix. used to place player-specific resources on update-list.
+		 * just move to player update()?
+		 */
 		this.playerStats = this.player.getResources();
 
 		/**
@@ -102,14 +105,31 @@ export default class GameState {
 		*/
 		this.tagLists = this.makeLists( this.items );
 
+	}
+
+	/**
+	 * Revive custom items.
+	 */
+	prepItems() {
+
 		let count = 0;
 		for( let p in this.items ) {
 
 			var it = this.items[p];
 			count++;
-			if ( !it.hasTag ) {
-				console.warn( p + ' -> ' + this.items[p].id + ' Has no type. Removing.');
+
+			/**
+			 * special instanced item.
+			 */
+			if ( it.instance ) {
+
+
+
+			} else if ( !it.hasTag ) {
+
+				console.warn( p + ' -> ' + this.items[p].id + ' missing hasTag(). Removing.');
 				delete this.items[p];
+
 			} else if ( it.hasTag('home')) {
 
 				it.need = this.homeTest;
@@ -117,7 +137,8 @@ export default class GameState {
 			}
 
 		}
-		console.log('item count: ' + count );
+
+		console.warn('item count: ' + count );
 
 	}
 

@@ -161,7 +161,8 @@ div.spells .spellbook {
 
 div.spells .spelllist {
 	border-left: 1px solid var( --separator-color );
-	width:100px;
+	width:140px;
+	padding: var( --tiny-gap );
 	flex-shrink: 1;
 }
 

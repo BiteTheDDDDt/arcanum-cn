@@ -88,7 +88,6 @@
 		"verb":"performing",
 		"require":"spellbook",
 		"length":15,
-		"perpetual":true,
 		"every":{
 			"10":{
 				"effect.gold":0.01

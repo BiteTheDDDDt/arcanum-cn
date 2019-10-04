@@ -262,6 +262,18 @@ export default class Player extends Char {
 	}
 
 	/**
+	 * Called once game actually begins. Dot-mods can't be applied
+	 * before game start because they can trigger game functions.
+	 */
+	begin() {
+
+		for( let i = this.dots.length-1; i>=0; i-- ){
+			if ( this.dots[i].mod) Game.addMod( this.dots[i].mod, 1 );
+		}
+
+	}
+
+	/**
 	 * Perform update effects.
 	 * @param {number} dt - elapsed time.
 	 */

@@ -42,6 +42,7 @@ div.allupgrades {
 	display:flex;
 	flex-flow: column nowrap;
 	height:100%;
+	padding-right: 8px;
 }
 div.up-list {
 	margin-bottom:14px;

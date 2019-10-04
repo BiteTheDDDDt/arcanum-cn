@@ -22,6 +22,27 @@
 		}
 	},
 	{
+		"id":"en_luck1",
+		"name":"luck",
+		"adj":"of luck",
+		"targets":"ring",
+		"desc":"infuse a ring with a mana gem.",
+		"require":"g.enchanting>=1",
+		"level":1,
+		"buy":{
+			"arcana":1,
+			"research":100
+		},
+		"length":30,
+		"cost":{
+			"airgem":1,
+			"mana":5
+		},
+		"mod":{
+			"mod.luck":1
+		},"flavor":"let's keep this party polite"
+	},
+	{
 		"id":"en_mana1",
 		"name":"mana",
 		"verb":"enchanting",

@@ -21,6 +21,8 @@ const EVT_UNLOCK = 'unlock';
 const EVT_LOOT = 'loot';
 const EVT_DISABLED = 'disabled';
 
+export const LogTypes = [ EVT_EVENT, EVT_UNLOCK,EVT_COMBAT, EVT_LOOT ];
+
 const COMBAT_DONE = 'combat_done';
 const ENEMY_SLAIN = 'slain';
 

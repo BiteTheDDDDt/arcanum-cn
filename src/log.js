@@ -1,6 +1,6 @@
 export class LogItem {
 
-	constructor( title='', text='', type=''){
+	constructor( title='', text='', type='', subtype=''){
 
 		this.text = text;
 		this.title = title;
@@ -9,6 +9,8 @@ export class LogItem {
 	 	* @var {string} type - message type.
 	 	*/
 		this.type = type;
+
+		this.subtype = subtype;
 
 	}
 
@@ -36,9 +38,9 @@ export default class Log {
 		this.items.splice( 0, this.items.length );
 	}
 
-	log( title='', text='', type='event' ) {
+	log( title='', text='', type='event', sub=null ) {
 
-		this.items.push( new LogItem(title, text, type ) );
+		this.items.push( new LogItem(title, text, type, sub ) );
 		if ( this.items.length >= this.maxItems+50 ) {
 			this.items.splice( 0, 50 );
 		}

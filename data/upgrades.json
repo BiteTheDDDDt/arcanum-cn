@@ -790,7 +790,10 @@
 		"tags":"tricksource",
 		"cost":{
 			"gold":50
+		},"mod":{
+			"luck":0.5
 		}
+
 	},
 	{
 		"id":"threesidecoin",
@@ -799,6 +802,7 @@
 		"require":"g.prestidigitation>10",
 		"tags":"tricksource",
 		"cost":{
+			"research":200,
 			"gold":300
 		},"mod":{
 			"trickery.max":1,
@@ -1263,6 +1267,27 @@
 			"arcanebody.max":3,
 			"minions.max":2,
 			"allies.max":1
+		}
+
+	},
+	{
+		"id":"specialization",
+		"desc":"specialize in a school of magic",
+		"require":"g.lore>100",
+		"max":1,
+		"cost":{
+			"tomes":1,
+			"arcana":1,
+			"gold":300
+		},
+		"choice":{
+
+			"target":"t_school",
+			"mod":{
+				"max":2,
+				"rate":"2%"
+			}
+
 		}
 
 	},

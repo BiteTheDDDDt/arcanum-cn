@@ -146,7 +146,7 @@ var vm = new Vue({
 
 			let store = window.localStorage;
 			let json = JSON.stringify( this.game.state );
-			store.setItem( saveloc, json );
+			store.setItem( this.saveloc, json );
 		},
 
 		save() {
@@ -156,7 +156,7 @@ var vm = new Vue({
 
 			let json = JSON.stringify( this.game.state );
 			console.log( json )
-			store.setItem( saveloc, json );
+			store.setItem( this.saveloc, json );
 
 		},
 		reset() {

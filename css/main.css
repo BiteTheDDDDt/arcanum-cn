@@ -11,6 +11,13 @@
 	--progbar-light-text:#555;
 	--odd-list-color:#e5e5e5;
 	--action-btn-color: #fdc679;
+
+	--tiny-gap: 0.1em;
+	--small-gap: 0.35em;
+	--medium-gap: 0.65em;
+	--large-gap: 1.25em;
+	--comfy-gap: 0.4em;
+
 }
 :root body.darkmode {
 	--header-background-color: rgb(58, 58, 58);
@@ -45,6 +52,21 @@ input[type="button"], button, div.text-button {
 
 }
 
+div.popup {
+	height:auto;
+	min-height:100px;
+	min-width:200px;
+	max-width:240px;
+	position: absolute;
+	z-index:20000;
+	left:50%;
+	top:20%;
+	align-self: center;
+	background:inherit;
+	padding:12px;
+	border: 1.5px solid rgb( 100, 100,100);
+	border-radius: 0.20rem;
+}
 
 div.text-button {
 	display:flex;

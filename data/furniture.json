@@ -945,6 +945,7 @@
 		"mod":{
 			"managem.max":2,
 			"alchemy.max":2,
+			"potions.max":1,
 			"alchemy.rate":0.1,
 			"arcana.rate":0.0001
 		}
@@ -1126,6 +1127,24 @@
 			"shadow.rate":0.01
 		}
 
+	},
+	{
+
+		"id":"potroom",
+		"name":"potions room",
+		"desc":"room for preparing and brewing potions",
+		"tags":"potsource",
+		"cost":{
+			"space":20,
+			"gold":500,
+			"research":700
+		},
+		"mod":{
+			"potions.max":2,
+			"potions.rate":0.5,
+			"alchemy.max":1,
+			"alchemy.rate":1
+		}
 	},
 	{
 
