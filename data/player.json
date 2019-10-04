@@ -72,6 +72,13 @@
 		"locked":false
 	},
 	{
+		"id":"scraft",
+		"name":"spellcraft power",
+		"val":1,
+		"stat":true,
+		"unit":true
+	},
+	{
 		"id":"DR",
 		"name":"Damanage reduction",
 		"desc":"Amount of damage subtracted from total.",

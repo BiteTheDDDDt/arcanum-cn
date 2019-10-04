@@ -2914,7 +2914,7 @@
             "name":"light sword",
             "kind":"holy",
             "dmg":"30~55"
-		}, "loot":{"angelwing":10, "ichor":"50%"},
+		}, "loot":{"ichor":"50%"},
 		"immune":"light"
 
     },

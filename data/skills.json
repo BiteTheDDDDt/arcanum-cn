@@ -378,10 +378,9 @@
 	},
 	{
 		"id":"firelore",
-		"tags":"t_school",
+		"tags":"t_school,elemental",
 		"name":"pyromancy",
 		"desc":"the investigation of fire",
-		"tags":"elemental",
 		"need":"firesource",
 		"run":{
 			"stamina":0.4,

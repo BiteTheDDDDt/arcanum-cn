@@ -37,6 +37,12 @@
 
 	},
 	{
+		"id":"sect_scraft",
+		"name":"spellcraft",
+		"require":"g.spellcraft>0"
+
+	},
+	{
 		"id":"sect_equip",
 		"name":"equip",
 		"require":"apprentice"

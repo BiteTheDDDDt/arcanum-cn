@@ -12,6 +12,7 @@ import Explore from './composites/explore';
 import { ensure } from './util/util';
 import Quickbar from './composites/quickbar';
 import SpellList from './composites/spelllist';
+import Spellcraft from './composites/spellcraft';
 
 export const REST_SLOT = 'rest';
 
@@ -42,7 +43,13 @@ export default class GameState {
 
 	}
 
-	nextId() { return this.NEXT_ID++; }
+	/**
+	 * Create unique string id.
+	 * @param {string} [s='']
+	 */
+	nextId( s='' ) { return s + this.nextIdNum(); }
+
+	nextIdNum() { return this.NEXT_ID++; }
 
 	/**
 	 *
@@ -87,6 +94,7 @@ export default class GameState {
 		this.raid = new Raid( baseData.raid );
 		this.explore = new Explore( baseData.explore );
 
+		this.spellcraft = new Spellcraft( this.items.spellcraft );
 		this.items.spelllist = this.spelllist = new SpellList( this.items.spelllist );
 
 		this.revive();
@@ -358,6 +366,19 @@ export default class GameState {
 			if ( this.items[p].hasTags(tags) ) a.push(this.items[p]);
 		}
 		return a;
+
+	}
+
+	/**
+	 * Add created item to items list.
+	 * @param {GData} it
+	 */
+	addItem( it ) {
+
+		if ( this.items[it.id] ) return false;
+		this.items[id] = it;
+
+		return true;
 
 	}
 

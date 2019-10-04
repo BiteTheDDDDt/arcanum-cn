@@ -98,7 +98,7 @@ export default class ItemGen {
 		let it = new Npc( proto );
 		it.value = 1;
 		it.name = proto.name;
-		it.id = proto.id + this.state.nextId();
+		it.id = this.state.nextId( proto.id );
 		return it;
 
 	}
@@ -162,7 +162,7 @@ export default class ItemGen {
 
 		if ( it === undefined ) return null;
 
-		it.id = proto.id + this.state.nextId();
+		it.id = proto.id + this.state.nextIdNum();
 		it.owned = true;
 
 		return it;
@@ -409,7 +409,7 @@ export default class ItemGen {
 			data.name = material.id + ' ' + data.name;
 		} else data.name = data.name;
 
-		data.id = data.id + this.state.nextId();
+		data.id = data.id + this.state.nextIdNum();
 
 		return data;
 	}

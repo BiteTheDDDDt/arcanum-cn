@@ -1071,6 +1071,7 @@ export default {
 	/**
 	 * Determine if an object cost can be paid before the pay attempt
 	 * is actually made.
+	 * @todo: this is incorrect for multicosts.
 	 * @param {Array|Object} cost
 	 * @returns {boolean} true if cost can be paid.
 	 */
