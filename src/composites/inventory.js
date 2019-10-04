@@ -107,6 +107,8 @@ export default class Inventory {
 			this.items.push( it );
 			this.used += this.spaceProp ? ( it[ this.spaceProp ] || 0 ) : 1;
 
+			console.warn('CUR USED: ' + this.used);
+			console.warn('CUR MAX: ' + this.max.value );
 
 		}
 		this.dirty = true;
@@ -143,7 +145,7 @@ export default class Inventory {
 	 */
 	full(){
 
-		return this.max >0 && this.used >= this.max;
+		return this.max >0 && this.used >= Math.floor(this.max.value );
 	}
 
 	/**

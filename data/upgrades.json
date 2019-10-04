@@ -1347,7 +1347,7 @@
 	{
 		"id":"innerlight",
 		"name":"inner light",
-		"require":"g.oracle>0&&g.divination>=8",
+		"require":"(g.oracle+g.seer)>0&&g.divination>=8",
 		"desc":"a light in the darkness",
 		"cost":{
 			"research":300,
@@ -1362,7 +1362,7 @@
 	},
 	{
 		"id":"forewarned",
-		"require":"g.seer>0&&g.oracle>0&&g.divination>=12",
+		"require":"(g.seer+g.oracle)>0&&g.divination>=12",
 		"desc":"all these things have I expected, and more...",
 		"cost":{
 			"lightgem":20,
@@ -1375,6 +1375,45 @@
 		}
 
 	},
+	{
+		"id":"truesight",
+		"require":"(g.seer+g.oracle)>0&&g.tier4>0",
+		"desc":"immunity to mortal deceptions.",
+		"cost":{
+			"tomes":5,
+			"research":1000,
+			"arcana":4
+		},
+		"warn":true,
+		"disable":"trickery",
+		"mod":{
+			"lightlore.max":2,
+			"lightlore.rate":"5%",
+			"player.tohit":2,
+			"player.defense":2,
+			"dodge":2
+		}
+
+	},
+	{
+		"id":"fatalist",
+		"require":"(g.seer+g.oracle)>0&&g.tier5>0&&g.truesight>0",
+		"desc":"become the guiding hand of fate.",
+		"cost":{
+			"tomes":20,
+			"research":2000,
+			"arcana":5
+		},
+		"mod":{
+			"lightlore.max":2,
+			"lightlore.rate":"10%",
+			"player.tohit":3,
+			"player.defense":3,
+			"dodge":3
+		},"flavor":"gods do not play dice"
+
+	},
+
 	{
 		"id":"celerity",
 		"require":"tier1",
@@ -1816,8 +1855,8 @@
 		},
 		"mod":{
 			"allies.max":4,
-			"minions.max":4,
-			"lightlore.max":1,
+			"minions.max":2,
+			"lightlore.max":2,
 			"lightlore.rate":"10%"
 		}
 

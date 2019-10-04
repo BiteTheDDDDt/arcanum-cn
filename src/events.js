@@ -89,6 +89,11 @@ const EXP_MAX = 'exp_max';
 const ITEM_ATTACK = 'item_atk';
 
 /**
+ * Completely delete item data. Use for Custom items only.
+ */
+const DELETE_ITEM = 'delitem';
+
+/**
  * Encounter done.
  */
 const ENC_DONE = 'enc_done';
@@ -96,7 +101,7 @@ const ENTER_LOC = 'enter_loc';
 const EXIT_LOC = 'exit_loc';
 
 export { HALT_ACT, EVT_COMBAT, EVT_EVENT, EVT_UNLOCK, EXP_MAX, EVT_LOOT, ACT_DONE, ALLY_DIED, CHAR_DIED,
-	ENTER_LOC, EXIT_LOC, ITEM_ATTACK, STOP_ALL,
+	ENTER_LOC, EXIT_LOC, ITEM_ATTACK, STOP_ALL, DELETE_ITEM,
 	ACT_CHANGED, ACT_IMPROVED, ACT_BLOCKED,
 	DAMAGE_MISS, ENEMY_HIT, PLAYER_HIT, DEFEATED, ENEMY_SLAIN, COMBAT_DONE, ENC_DONE, LEVEL_UP };
 

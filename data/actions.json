@@ -671,7 +671,7 @@
 			},
 			"animals.exp":1,
 			"herbalism.exp":1
-		}
+		}, "flavor":"a tramp abroad"
 	},
 	{
 		"id":"pace",
@@ -688,7 +688,7 @@
 			},
 			"120":{
 				"effect.research":0.1,
-				"sp":0.0001
+				"effect.sp":0.0001
 			},
 			"500":{
 				"effect.research":0.2,
@@ -750,7 +750,7 @@
 
 		"id":"craftrune",
 		"name":"craft rune",
-		"require":"g.crafting>=15&&g.runes>=3",
+		"require":"g.crafting>=14&&g.runes>=3",
 		"length":10,
 		"cost":{
 			"tomes":1,

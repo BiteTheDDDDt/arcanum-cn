@@ -69,7 +69,19 @@
 		"val":0,
 		"stat":true,
 		"unit":"false",
-		"locked":false
+		"locked":false,
+		"flavor":"let's keep this party polite"
+	},
+	{
+		"id":"scraft",
+		"name":"spellcraft power",
+		"val":1,
+		"stat":true,
+		"unit":true,
+		"locked":false,
+		"mod":{
+			"userSpells.max":0.5
+		}
 	},
 	{
 		"id":"DR",

@@ -6,7 +6,7 @@ import ItemsBase from '../itemsBase';
 import InfoBlock from './info-block.vue';
 export default {
 
-	props:['dot'],
+	props:['dot', 'title'],
 	name:'dot',
 	mixins:[ItemsBase],
 	components:{
@@ -33,7 +33,7 @@ export default {
 <div class="dot">
 
 	<hr>
-	<div class="note-text">dot:</div>
+	<div class="note-text">{{ title || 'dot'}}:</div>
 	<div>
 		<div><span>duration: </span><span>{{ dot.duration || 'infinity' }}</span></div>
 		<div v-if="dot.damage"><span>dmg: </span><span>{{damage}}</span></div>
@@ -41,8 +41,6 @@ export default {
 	</div>
 
 			<div v-if="dot.effect||dot.mod">
-
-			<hr>
 
 			<div v-if="dot.effect||dot.mod" class="note-text">effects:</div>
 			<info v-if="dot.effect" :info="dot.effect" runnable="true" />

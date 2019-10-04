@@ -57,6 +57,7 @@ export default {
 		adventure:()=>import( /* webpackChunkName: "raid-ui" */ './sections/adventure.vue'),
 		enchanting:()=>import( /* webpackChunkName: "enchant-ui" */'./sections/enchanting.vue' ),
 		minions:()=>import( /* webpackChunkName: "minions-ui" */ './sections/minions.vue' ),
+		scraft:()=>import( /* webpackChunkName: "scraft-ui" */ './sections/scraft.vue' ),
 		'vue-menu':Menu
 	},
 	data(){
@@ -347,6 +348,7 @@ export default {
 		</template>
 
 		<template slot="sect_spells"><spells /></template>
+		<template slot="sect_scraft"><scraft /></template>
 
 		<template slot="sect_potions"><potions /></template>
 

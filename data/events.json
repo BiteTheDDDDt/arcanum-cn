@@ -93,7 +93,7 @@
 	{
 		"id":"tier2",
 		"name":"Arcane Ascendant",
-		"desc":"The majority of arcane dabblers never reach such heights as this.",
+		"desc":"The masses of arcane dabblers never reach such heights.",
 		"lock":"t_tier2",
 		"effect":{
 			"player.exp":25
@@ -109,7 +109,7 @@
 	{
 		"id":"tier3",
 		"name":"Magical Mastery",
-		"desc":"",
+		"desc":"You are a master of your field of magic.",
 		"lock":"t_tier3",
 		"effect":{
 			"sp":1,
@@ -127,7 +127,7 @@
 	{
 		"id":"tier4",
 		"name":"Supreme Sorcery",
-		"desc":"",
+		"desc":"Not even the masters could challenge you.",
 		"lock":"t_tier4",
 		"effect":{
 			"sp":1,

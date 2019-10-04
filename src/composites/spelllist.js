@@ -79,7 +79,7 @@ export default class SpellList extends Inventory {
 			if ( this.items[i].canUse(g) ) {
 
 				g.payCost( this.items[i].cost );
-				console.log('USING: ' + this.items[i].name );
+				//console.log('USING: ' + this.items[i].name );
 				this.items[i].onUse(g);
 				this.lastInd = i;
 				return true;

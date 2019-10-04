@@ -12,6 +12,8 @@ import Explore from './composites/explore';
 import { ensure } from './util/util';
 import Quickbar from './composites/quickbar';
 import SpellList from './composites/spelllist';
+import Group from './composites/group';
+import UserSpells from './composites/userSpells';
 
 export const REST_SLOT = 'rest';
 
@@ -42,7 +44,13 @@ export default class GameState {
 
 	}
 
-	nextId() { return this.NEXT_ID++; }
+	/**
+	 * Create unique string id.
+	 * @param {string} [s='']
+	 */
+	nextId( s='' ) { return s + this.nextIdNum(); }
+
+	nextIdNum() { return this.NEXT_ID++; }
 
 	/**
 	 *
@@ -87,11 +95,21 @@ export default class GameState {
 		this.raid = new Raid( baseData.raid );
 		this.explore = new Explore( baseData.explore );
 
+		this.prepItems();
+
+		this.userSpells = this.items.userSpells = new UserSpells( this.items.userSpells );
 		this.items.spelllist = this.spelllist = new SpellList( this.items.spelllist );
 
 		this.revive();
 
-		this.prepItems();
+		this.readyItems();
+
+		/**
+		 * @todo: FIX THIS.
+		 * Runner relies on the previous instance of runner to reset.
+		 */
+		Runner.revive(this);
+		this.items.runner = Runner;
 
 		/**
 		 * @todo: messy bug fix. used to place player-specific resources on update-list.
@@ -112,32 +130,87 @@ export default class GameState {
 	 */
 	prepItems() {
 
-		let count = 0;
 		for( let p in this.items ) {
 
 			var it = this.items[p];
-			count++;
 
 			/**
 			 * special instanced item.
 			 */
-			if ( it.instance ) {
+			if ( it.custom === 'group') {
 
+				console.warn('CUSTOM: ' + it.id + ' name: ' + it.name );
+				this.items[p] = new Group( it );
 
-
-			} else if ( !it.hasTag ) {
-
-				console.warn( p + ' -> ' + this.items[p].id + ' missing hasTag(). Removing.');
-				delete this.items[p];
-
-			} else if ( it.hasTag('home')) {
-
-				it.need = this.homeTest;
+			} else if ( it.instance ) {
 
 			}
 
 		}
 
+
+	}
+
+	revive() {
+
+		for( let p in this.slots ) {
+			if ( typeof this.slots[p] === 'string') this.slots[p] = this.getData(this.slots[p] );
+		}
+		this.restAction = this.slots[REST_SLOT];
+
+		this.equip.revive( this );
+
+		/*this.inventory.revive( this );
+		this.spelllist.revive(this);
+		this.minions.revive(this);*/
+
+		this.player.revive(this);
+
+		this.drops.revive(this);
+		this.raid.revive( this );
+		this.explore.revive(this);
+
+		this.quickbar.revive(this);
+
+	}
+
+	/**
+	 * Check items for game-breaking inconsistencies and remove or fix
+	 * bad item entries.
+	 */
+	readyItems() {
+
+		let count = 0;
+		for( let p in this.items ) {
+
+			var it = this.items[p];
+			/**
+			 * revive() has to be called after prepItems() so custom items are instanced
+			 * and can be referenced.
+			 */
+			if ( it.revive && typeof it.revive === 'function') {
+				//console.log('REVIVING: ' + it.id );
+				it.revive(this);
+			}
+
+			if ( !it.hasTag ) {
+
+				console.warn( p + ' -> ' + this.items[p].id + ' missing hasTag(). Removing.');
+				delete this.items[p];
+
+
+			} else {
+
+				// need hasTag() func.
+				if ( it.hasTag('home')) {
+
+					it.need = this.homeTest;
+
+				}
+				count++;
+			}
+
+		}
 		console.warn('item count: ' + count );
 
 	}
@@ -179,32 +252,6 @@ export default class GameState {
 		}
 
 		this.matsById = byId;
-
-	}
-
-	revive() {
-
-		for( let p in this.slots ) {
-			if ( typeof this.slots[p] === 'string') this.slots[p] = this.getData(this.slots[p] );
-		}
-		this.restAction = this.slots[REST_SLOT];
-
-		this.equip.revive( this );
-		this.inventory.revive( this );
-
-		this.spelllist.revive(this);
-
-		this.minions.revive(this);
-		this.player.revive(this);
-
-		this.drops.revive(this);
-		this.raid.revive( this );
-		this.explore.revive(this);
-
-		this.quickbar.revive(this);
-
-		Runner.revive(this);
-		this.items.runner = Runner;
 
 	}
 
@@ -359,6 +406,28 @@ export default class GameState {
 		}
 		return a;
 
+	}
+
+	/**
+	 * Add created item to items list.
+	 * @param {GData} it
+	 */
+	addItem( it ) {
+
+		if ( this.items[it.id] ) return false;
+		this.items[it.id] = it;
+
+		return true;
+
+	}
+
+	/**
+	 * Should only be used for custom items.
+	 * Call from Game so DELETE_ITEM event called.
+	 * @param {GData} it
+	 */
+	deleteItem( it ) {
+		delete this.items[it.id];
 	}
 
 	/**

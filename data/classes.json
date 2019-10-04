@@ -501,7 +501,7 @@
 	"title":"alchemist",
 	"tags":"t_tier2",
 	"desc":"an alchemist uses magical knowledge to craft wonders.",
-	"require":"g.tier2>0&&g.potions>=4&&g.alchemy>=5",
+	"require":"g.tier1>0&&g.potions>=4&&g.alchemy>=5",
 	"cost":{
 		"research":1000,
 		"managem":5,
@@ -909,7 +909,7 @@
 	"title":"fey",
 	"desc":"a being of wild and natural magic",
 	"tags":"t_tier4",
-	"require":"g.tier3>0&&g.naturelore>=20&&(g.witch+g.druid+g.elementalist)>0",
+	"require":"g.tier3>0&&g.naturelore>=19&&(g.witch+g.druid+g.elementalist)>0",
 	"cost":{
 		"research":5000,
 
@@ -1088,7 +1088,7 @@
 	"title":"kell",
 	"desc":"immortal spirits of nature, even the weakest Kell could rival wizards",
 	"tags":"t_tier5",
-	"require":"g.tier4>0&&g.naturelore>=25&&(g.witch+g.fey+g.highelemental)>0",
+	"require":"g.tier4>0&&g.naturelore>=23&&(g.witch+g.fey+g.highelemental)>0",
 	"cost":{
 		"research":15000,
 		"naturegem":50,

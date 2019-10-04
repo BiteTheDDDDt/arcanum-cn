@@ -4,6 +4,7 @@ import Game from '../../game';
 import ItemsBase from '../itemsBase.js';
 import InfoBlock from './info-block.vue';
 import Attack from './attack.vue';
+import Dot from './dot.vue';
 
 import {precise} from '../../util/format';
 
@@ -13,10 +14,11 @@ export default {
 	mixins:[ItemsBase],
 	components:{
 		info:InfoBlock,
-		attack:Attack
+		attack:Attack,
+		dot:Dot
 	},
 	methods:{
-		precise(v){return precise(v);},
+		precise:precise
 	},
 	computed:{
 
@@ -121,7 +123,12 @@ export default {
 
 		<attack v-if="item.attack" :item="item.attack" />
 
-		<div v-if="item.effect||item.mod||item.result" class="note-text"><hr>effects:</div>
+		<div v-if="item.effect||item.mod||item.result||item.dot" class="note-text"><hr>effects:</div>
+
+
+
+		<dot v-if="item.dot" :dot="item.dot" />
+
 		<info v-if="item.effect" :info="item.effect" :rate="runnable(item)" />
 		<info v-if="item.mod" :info="item.mod" />
 		<info v-if="item.result" :info="item.result" />

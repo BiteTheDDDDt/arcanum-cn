@@ -54,11 +54,9 @@
 			"stamina":0.2,
 			"research":5
 		},
-		"result":{
-
-			"sp":0.1,
-			"research.max":5
-
+		"mod":{
+			"research.max":5,
+			"scraft":1
 		}
 
 	},
@@ -107,6 +105,9 @@
 		"verb":"translating",
 		"desc":"study ancient dhrunic runes.",
 		"require":"g.tier1>0&&g.lore>=10&&g.dwarfbook>0",
+		"buy":{
+			"sp":3
+		},
 		"run":{
 			"stamina":0.2,
 			"research":1
@@ -295,6 +296,9 @@
 		"id":"summoning",
 		"require":"g.tier1>0",
 		"school":"arcane",
+		"buy":{
+			"sp":2
+		},
 		"run":{
 			"stamina":0.7
 		},
@@ -378,10 +382,9 @@
 	},
 	{
 		"id":"firelore",
-		"tags":"t_school",
+		"tags":"t_school,elemental",
 		"name":"pyromancy",
 		"desc":"the investigation of fire",
-		"tags":"elemental",
 		"need":"firesource",
 		"run":{
 			"stamina":0.4,
@@ -471,6 +474,9 @@
 
 		"id":"demonology",
 		"require":"tier1",
+		"buy":{
+			"sp":2
+		},
 		"run":{
 			"stamina":0.4,
 			"hp":1
@@ -595,6 +601,9 @@
 		"name":"planes lore",
 		"require":"g.astronomy>=5&&g.tier1>0",
 		"desc":"farther than the stars and closer than your fingertips",
+		"buy":{
+			"sp":2
+		},
 		"run":{
 			"stamina":0.7,
 			"research":1,
@@ -613,6 +622,9 @@
 		"name":"void lore",
 		"require":"g.planeslore>=10&&g.tier5>=0",
 		"desc":"the absence of all things",
+		"buy":{
+			"sp":5
+		},
 		"run":{
 			"stamina":0.7,
 			"research":5,
@@ -630,6 +642,9 @@
 		"require":["tier3","timesource"],
 		"tags":"t_school",
 		"desc":"There must be a way...",
+		"buy":{
+			"sp":5
+		},
 		"run":{
 			"stamina":0.3,
 			"research":1,

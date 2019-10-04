@@ -17,7 +17,7 @@ import Runner from './modules/runner';
 /**
  * @note these refer to Code-events, not in-game events.
  */
-import Events, {EVT_UNLOCK, EVT_EVENT, ENTER_LOC, EXIT_LOC, ITEM_ATTACK, SET_SLOT, TRY_USE } from './events';
+import Events, {EVT_UNLOCK, EVT_EVENT, ENTER_LOC, EXIT_LOC, ITEM_ATTACK, SET_SLOT, TRY_USE, DELETE_ITEM } from './events';
 import Resource from './items/resource';
 import Skill from './items/skill';
 import Stat from './values/stat';
@@ -119,6 +119,7 @@ export default {
 			Events.add( EXIT_LOC, this.enterLoc, this );
 			Events.add( SET_SLOT, this.setSlot, this );
 			Events.add( TRY_USE, this.tryUse, this );
+			Events.add( DELETE_ITEM, this.onDelete, this );
 
 		}, err=>{ console.error('game err: ' + err )});
 
@@ -546,6 +547,14 @@ export default {
 
 		this.create( it );
 
+	},
+
+	/**
+	 * Custom item deleted from game.
+	 * @param {*} it
+	 */
+	onDelete(it) {
+		this.state.deleteItem(it);
 	},
 
 	/**
@@ -1071,6 +1080,7 @@ export default {
 	/**
 	 * Determine if an object cost can be paid before the pay attempt
 	 * is actually made.
+	 * @todo: this is incorrect for multicosts.
 	 * @param {Array|Object} cost
 	 * @returns {boolean} true if cost can be paid.
 	 */

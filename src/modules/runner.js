@@ -16,7 +16,6 @@ export { LOCALE, DUNGEON, REST_TAG };
  */
 const Runner = {
 
-
 	toJSON() {
 
 		return {
@@ -106,6 +105,8 @@ const Runner = {
 		} else this._max = new Stat(v,true);
 
 	},
+
+	id:'runner',
 
 	/**
 	 * @property {Runnable[]} runnables - use-with object combinations.
@@ -347,7 +348,7 @@ const Runner = {
 		a.running = false;
 		this.actives.splice(i,1);
 
-		if ( tryResume && a.hasTag(REST_TAG) ){
+		if ( tryResume ){//&& a.hasTag(REST_TAG) ){
 			this.tryResume();
 		}
 
@@ -419,9 +420,13 @@ const Runner = {
 
 				this.setAction(act);
 
+			} else if ( !act.hasTag(REST_TAG )) {
+
+				this.stopAction( act, true );
+
 			} else {
 
-				this.stopAction(act);
+				this.stopAction( act );
 				this.addWait(act);
 
 				// attempt to resume any waiting actions.
