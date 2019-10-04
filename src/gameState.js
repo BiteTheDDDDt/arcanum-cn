@@ -106,6 +106,7 @@ export default class GameState {
 
 		/**
 		 * @todo: FIX THIS.
+		 * Runner relies on the previous instance of runner to reset.
 		 */
 		Runner.revive(this);
 		this.items.runner = Runner;

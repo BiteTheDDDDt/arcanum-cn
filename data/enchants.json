@@ -177,6 +177,90 @@
 		}
 	},
 	{
+		"id":"en_fire1",
+		"name":"fire ring",
+		"adj":"of fire",
+		"targets":"ring",
+		"desc":"increases your aptitude with fire",
+		"require":"g.enchanting>=1&&g.firelore>=7",
+		"level":1,
+		"buy":{
+			"research":300
+		},
+		"length":30,
+		"cost":{
+			"firegem":1,
+			"fire":5
+		},
+		"mod":{
+			"mod.firelore.max":1,
+			"mod.fire.rate":0.2
+		}
+	},
+	{
+		"id":"en_water1",
+		"name":"water ring",
+		"adj":"of water",
+		"targets":"ring",
+		"desc":"increases your aptitude with water",
+		"require":"g.enchanting>=1&&g.waterlore>=7",
+		"level":1,
+		"buy":{
+			"research":300
+		},
+		"length":30,
+		"cost":{
+			"watergem":1,
+			"water":5
+		},
+		"mod":{
+			"mod.waterlore.max":1,
+			"mod.water.rate":0.2
+		}
+	},
+	{
+		"id":"en_earth1",
+		"name":"earth ring",
+		"adj":"of earth",
+		"targets":"ring",
+		"desc":"increases your aptitude with earth",
+		"require":"g.enchanting>=1&&g.earthlore>=7",
+		"level":1,
+		"buy":{
+			"research":300
+		},
+		"length":30,
+		"cost":{
+			"earthgem":1,
+			"earth":5
+		},
+		"mod":{
+			"mod.earthlore.max":1,
+			"mod.earth.rate":0.2
+		}
+	},
+	{
+		"id":"en_air1",
+		"name":"air ring",
+		"adj":"of air",
+		"targets":"ring",
+		"desc":"increases your aptitude with air",
+		"require":"g.enchanting>=1&&g.airlore>=7",
+		"level":1,
+		"buy":{
+			"research":300
+		},
+		"length":30,
+		"cost":{
+			"airgem":1,
+			"air":5
+		},
+		"mod":{
+			"mod.airlore.max":1,
+			"mod.air.rate":0.2
+		}
+	},
+	{
 		"id":"en_speed2",
 		"name":"quick boots II",
 		"verb":"infusing shoes",

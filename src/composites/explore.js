@@ -43,6 +43,8 @@ export default class Explore {
 	maxed() { return !this.locale || this.locale.maxed(); }
 
 	canUse() { return this.locale && !this.locale.maxed(); }
+	canRun(g) { return this.locale && this.locale.canRun(g); }
+
 
 	get encs() { return this.locale ? this.locale.encs : null; }
 

@@ -167,6 +167,7 @@
 		"name":"drain life",
 		"level":12,
 		"school":"shadow",
+		"require":"g.necromancy>=5&&g.shadowlore>=25",
 		"buy":{
 
 			"research":5000,

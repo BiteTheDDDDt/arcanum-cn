@@ -211,8 +211,8 @@
 	{
 		"id":"ichor",
 		"tags":"reagent",
-		"desc":"The blood of gods. No current use.",
-		"favor":"the secret courtesy that courses like ichor",
+		"desc":"The blood of gods.",
+		"flavor":"the secret courtesy that courses like ichor",
 		"max":5
 	},
 	{
