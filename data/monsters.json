@@ -2763,8 +2763,8 @@
         "attack":{
             "name":"bite",
             "kind":"drain",
-			"dmg":"12~45",
-			"leech":0.45
+			"dmg":"12~35",
+			"leech":0.3
 		}, "loot":{"vampfang":"15%", "ichor":"5%"},
 		"resist":{
 			"shadow":30
@@ -2860,7 +2860,7 @@
             "name":"bite",
             "kind":"shadow",
 			"dmg":"20~50",
-			"leech":0.7
+			"leech":0.4
 		}, "loot":{"vampfang":25},
 		"resist":{
 			"shadow":80
@@ -2878,7 +2878,7 @@
         "attack":{
             "name":"crush",
             "kind":"blunt",
-            "dmg":"20~42"
+            "dmg":"30~72"
 		},
 		"immune":"water"
 

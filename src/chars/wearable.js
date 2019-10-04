@@ -85,7 +85,7 @@ export default class Wearable extends Item {
 
 		if ( vars ) assignNoFunc(this,vars );// Object.assign(this,vars);
 
-		this.value = this.value || 1;
+		this.value = this.val = 1;
 
 		//if ( vars ) logObj( vars, 'vars');
 		//if( vars.template ) logObj( vars.template, ' template' );
