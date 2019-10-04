@@ -151,7 +151,9 @@ export default {
 	</div>
 	<div class="spells">
 	<div class="custom" v-for="c in userSpells.items" :key="c.id" @mouseenter.capture.stop="emit( 'itemover',$event,c)">
-		<span>{{c.name}}</span>
+		<span class="text-entry">
+			<input class="fld-name" type="text" v-model="c.name">
+		</span>
 		<button @click="removeSpell(c)">Remove</button>
 	</div>
 	</div>
@@ -164,8 +166,8 @@ export default {
 	<div class="options">
 		<span class="warn-text" v-if="craft.level>=maxLevels">You are at your power limit.</span>
 
-		<div><label :for="elmId('spName')">Spell Name</label>
-		<input :id="elmId('spName')" type="text" v-model="craft.name">
+		<div class="text-entry"><label :for="elmId('spName')">Spell</label>
+		<input class="fld-name" :id="elmId('spName')" type="text" v-model="craft.name">
 		</div>
 
 		<span>Power: {{ craft.level + ' / ' + Math.floor(maxLevels) }}</span>
