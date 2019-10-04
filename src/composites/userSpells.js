@@ -88,6 +88,7 @@ export default class UserSpells extends Inventory {
 		g.id = this.state.nextId('spell');
 		g.type = 'spell';
 		g.name = name || 'new spell';
+		g.computeCost();
 
 		this.state.addItem( g );
 

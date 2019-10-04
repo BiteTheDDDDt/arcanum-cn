@@ -170,9 +170,11 @@ export default {
 		<input class="fld-name" :id="elmId('spName')" type="text" v-model="craft.name">
 		</div>
 
+		<!--chrome wrap-->
+		<span @mouseenter.capture.stop="emit( 'itemover',$event,craft)">
 		<span>Power: {{ craft.level + ' / ' + Math.floor(maxLevels) }}</span>
-		<button @click="create" :disabled="!canCraft"
-			@mouseenter.capture.stop="emit( 'itemover',$event,craft)">Craft</button>
+		<button @click="create" :disabled="!canCraft">Craft</button>
+		</span>
 
 	</div>
 
