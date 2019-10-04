@@ -16,7 +16,7 @@ export default {
 			list:[],
 
 			levels:0,
-			name:'New Spell'
+			name:'new spell'
 
 		};
 
@@ -111,7 +111,6 @@ export default {
 		},
 
 		maxLevels() {
-			console.log('SCRAFT LEVEL: ' + this.scraft.value );
 			return Math.floor( this.scraft.value );
 		}
 
@@ -132,7 +131,7 @@ export default {
 	</div>
 	<div class="spells">
 	<div class="custom" v-for="c in userSpells.items" :key="c.id">
-		<span>{{c.name}}</span><button @click="removeSpell(c)">Remove</button>
+		<span @mouseenter.capture.stop="emit( 'itemover',$event,c)">{{c.name}}</span><button @click="removeSpell(c)">Remove</button>
 	</div>
 	</div>
 
@@ -148,18 +147,18 @@ export default {
 		<input :id="elmId('spName')" type="text" v-model="name">
 		</div>
 
-		<span>Power Used: {{ levels + ' / ' + Math.floor(maxLevels) }}</span>
+		<span>Power: {{ levels + ' / ' + Math.floor(maxLevels) }}</span>
 		<button @click="create" :disabled="!canCraft">Craft</button>
 	</div>
 
-	<div v-for="(s,ind) in list" :key="ind">
+	<div v-for="(s,ind) in list" :key="ind" @mouseenter.capture.stop="emit( 'itemover',$event,s)">
 		<span>{{s.name}}</span><button @click="removeAt(ind)">Remove</button>
 	</div>
 
 </div>
-<div class="spells">
+<div class="allspells">
 
-	<div v-for="(s) in spells" :key="s.id">
+	<div v-for="(s) in spells" :key="s.id"  @mouseenter.capture.stop="emit( 'itemover',$event,s)">
 		<span>{{s.name}}</span><button @click="add(s)" :disabled="!canAdd(s)">Add</button>
 	</div>
 
@@ -172,29 +171,40 @@ export default {
 
 <style scoped>
 
+div.spellcraft {
+	display:flex;
+	flex-direction: column;
+}
+
 div.spellcraft .userspells {
 	display:flex;
 	flex-direction: column;
+	padding: 8px;
+	border-bottom: 1pt solid var( --separator-color );
 }
 
 div.userspells .spells {
 	display:flex;
 	flex-direction:row;
-	justify-content: space-evenly;
 }
 
-div.spellcraft {
-	display:flex;
-	flex-direction: column;
+div.spells .custom {
+	margin-right:20px;
+}
+
+.crafting .options {
+	padding-bottom: 4px;
 }
 
 div.spellcraft .bottom {
 	display:flex;
 	flex-direction: row;
 	justify-content: space-between;
+	padding-top: 8px;
+	padding-left: 8px;
 }
 
-div.spellcraft .crafting, div.spellcraft .spells {
+div.spellcraft .crafting, div.spellcraft .allspells {
 	display:flex;
 	flex-direction: column;
 }

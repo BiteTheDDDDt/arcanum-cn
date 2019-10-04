@@ -77,6 +77,7 @@ export default class Group {
 
 	get locked() { return false;}
 	get owned(){return true;}
+	maxed(){ return false; }
 
 	constructor(vars=null ) {
 
@@ -164,8 +165,6 @@ export default class Group {
 		this.effect = this.items.map( v=>v.name );
 
 	}
-
-	maxed(){ return false; }
 
 }
 
