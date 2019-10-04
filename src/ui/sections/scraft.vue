@@ -1,6 +1,7 @@
 <script>
 import ItemBase from '../itemsBase';
 
+import {craftCost} from '../../composites/userSpells';
 import Game from '../../game';
 
 export default {
@@ -15,8 +16,15 @@ export default {
 			 */
 			list:[],
 
-			levels:0,
-			name:'new spell'
+			/**
+			 * Craft info object.
+			 */
+			craft:{
+
+				name:'new spell',
+				level:0,
+				buy:null
+			}
 
 		};
 
@@ -31,7 +39,7 @@ export default {
 		},
 
 		canAdd(s) {
-			return s.level + this.levels <= this.maxLevels;
+			return s.level + this.craft.level <= this.maxLevels;
 		},
 
 		/**
@@ -39,9 +47,11 @@ export default {
 		 */
 		create() {
 
-			this.userSpells.create( this.list, this.name );
+			this.userSpells.create( this.list, this.craft.name );
 			this.list = [];
-			this.levels = 0;
+
+			this.craft.level = 0;
+			this.craft.buy = null;
 
 		},
 
@@ -52,7 +62,8 @@ export default {
 		 */
 		canCraft() {
 
-			return !this.userSpells.full() && this.list.length>0;
+			return !this.userSpells.full() && this.list.length>0
+				&& Game.canPay( this.craft.buy );
 
 		},
 
@@ -60,8 +71,11 @@ export default {
 		 * Add spell to the current crafting group.
 		 */
 		add(s) {
+
 			this.list.push(s);
-			this.levels += s.level;
+			this.craft.level += s.level;
+			this.craft.buy = craftCost( this.list );
+
 		},
 
 		/**
@@ -70,7 +84,8 @@ export default {
 		removeAt(i) {
 
 			let s = this.list[i];
-			if ( s ) this.levels -= s.level;
+			if ( s ) this.craft.level -= s.level;
+			this.craft.buy = craftCost( this.list );
 
 			this.list.splice(i,1);
 
@@ -80,8 +95,11 @@ export default {
 
 			let ind = this.list.indexOf(s);
 			if ( ind >= 0 ) {
+
 				this.list.splice( ind, 1 );
-				this.levels -= s.level;
+				this.craft.level -= s.level;
+				this.craft.buy = craftCost( this.list );
+
 			}
 
 		}
@@ -131,7 +149,8 @@ export default {
 	</div>
 	<div class="spells">
 	<div class="custom" v-for="c in userSpells.items" :key="c.id">
-		<span @mouseenter.capture.stop="emit( 'itemover',$event,c)">{{c.name}}</span><button @click="removeSpell(c)">Remove</button>
+		<span @mouseenter.capture.stop="emit( 'itemover',$event,c)">{{c.name}}</span>
+		<button @click="removeSpell(c)">Remove</button>
 	</div>
 	</div>
 
@@ -141,14 +160,16 @@ export default {
 <div class="crafting">
 
 	<div class="options">
-		<span class="warn-text" v-if="levels>=maxLevels">You have reached your power limit.</span>
+		<span class="warn-text" v-if="craft.level>=maxLevels">You have reached your power limit.</span>
 
 		<div><label :for="elmId('spName')">Spell Name</label>
-		<input :id="elmId('spName')" type="text" v-model="name">
+		<input :id="elmId('spName')" type="text" v-model="craft.name">
 		</div>
 
-		<span>Power: {{ levels + ' / ' + Math.floor(maxLevels) }}</span>
-		<button @click="create" :disabled="!canCraft">Craft</button>
+		<span>Power: {{ craft.level + ' / ' + Math.floor(maxLevels) }}</span>
+		<button @click="create" :disabled="!canCraft"
+			@mouseenter.capture.stop="emit( 'itemover',$event,craft)">Craft</button>
+
 	</div>
 
 	<div v-for="(s,ind) in list" :key="ind" @mouseenter.capture.stop="emit( 'itemover',$event,s)">
