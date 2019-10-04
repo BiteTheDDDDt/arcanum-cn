@@ -22,6 +22,13 @@ export default {
 	},
 	methods:{
 
+		/**
+		 * Remove user spell from UserSpells
+		 */
+		removeSpell(s){
+			this.userSpells.remove(s);
+		},
+
 		canAdd(s) {
 			return s.level + this.levels <= this.maxLevel;
 		},
@@ -37,6 +44,9 @@ export default {
 			this.levels += s.level;
 		},
 
+		/**
+		 * Remove spell from building list.
+		 */
 		removeAt(ind) {
 
 			let s = this.list[i];
@@ -60,9 +70,10 @@ export default {
 	computed:{
 
 		/**
-		 * @property {Group[]} crafts - spells already crafted.
+		 * @property {UserSpells} userSpells - spells already crafted.
 		 */
-		crafts() {
+		userSpells() {
+			return Game.state.userSpells;
 		},
 
 		/**
@@ -75,11 +86,11 @@ export default {
 		/**
 		 * Spellcraft power.
 		 */
-		power(){
+		scraft(){
 			return Game.state.getData('scraft');
 		},
 
-		maxLevel() { return Math.floor( this.power.value ); }
+		maxLevels() { return Math.floor( this.scraft.value ); }
 
 	}
 
@@ -93,8 +104,9 @@ export default {
 
 <div class="customs">
 
-	<div v-for="c in crafts" :key="c.id">
-		<span>{{c.name}}</span>
+	<span>Custom Spells: {{ Math.floor( userSpells.used) + ' / ' + Math.floor( userSpells.max.value ) }}
+	<div v-for="c in userSpells.items" :key="c.id">
+		<span>{{c.name}}</span><button @click="removeSpell(c)">Remove</button>
 	</div>
 
 </div>
@@ -103,7 +115,8 @@ export default {
 <div class="crafting">
 
 	<div>
-		<span class="warn-text"></span>
+		<span class="warn-text" v-if="levels>=maxLevels">Spellcrafting maximum</span>
+		<span>Power Used: {{ levels + ' / ' + Math.floor(maxLevels) }}</span>
 		<button @click="create">Craft</button>
 	</div>
 

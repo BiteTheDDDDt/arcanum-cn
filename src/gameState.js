@@ -12,7 +12,8 @@ import Explore from './composites/explore';
 import { ensure } from './util/util';
 import Quickbar from './composites/quickbar';
 import SpellList from './composites/spelllist';
-import Spellcraft from './composites/spellcraft';
+import Group from './composites/group';
+import UserSpells from './composites/userSpells';
 
 export const REST_SLOT = 'rest';
 
@@ -94,12 +95,14 @@ export default class GameState {
 		this.raid = new Raid( baseData.raid );
 		this.explore = new Explore( baseData.explore );
 
-		this.spellcraft = new Spellcraft( this.items.spellcraft );
+		this.userSpells = this.items.userSpells = new UserSpells( this.items.userSpells );
 		this.items.spelllist = this.spelllist = new SpellList( this.items.spelllist );
+
+		this.prepItems();
 
 		this.revive();
 
-		this.prepItems();
+		this.readyItems();
 
 		/**
 		 * @todo: messy bug fix. used to place player-specific resources on update-list.
@@ -120,23 +123,19 @@ export default class GameState {
 	 */
 	prepItems() {
 
-		let count = 0;
 		for( let p in this.items ) {
 
 			var it = this.items[p];
-			count++;
 
 			/**
 			 * special instanced item.
 			 */
 			if ( it.instance ) {
 
-
-
-			} else if ( !it.hasTag ) {
-
-				console.warn( p + ' -> ' + this.items[p].id + ' missing hasTag(). Removing.');
-				delete this.items[p];
+				if ( it.custom === 'group') {
+					console.log('custom: ' + it.id + ' name: ' + it.name );
+					this.items[p] = new Group( it );
+				}
 
 			} else if ( it.hasTag('home')) {
 
@@ -146,6 +145,35 @@ export default class GameState {
 
 		}
 
+
+
+	}
+
+	/**
+	 * Check items for game-breaking inconsistencies and remove or fix
+	 * bad item entries.
+	 */
+	readyItems() {
+
+		let count = 0;
+		for( let p in this.items ) {
+
+			var it = this.items[p];
+			/**
+			 * revive() has to be called after prepItems() so custom items are instanced
+			 * and can be referenced.
+			 */
+			if ( it.revive && typeof it.revive === 'function') it.revive(this);
+
+			if ( !it.hasTag ) {
+
+				console.warn( p + ' -> ' + this.items[p].id + ' missing hasTag(). Removing.');
+				this.items[p] = undefined;
+
+
+			} else count++;
+
+		}
 		console.warn('item count: ' + count );
 
 	}

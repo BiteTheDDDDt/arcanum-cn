@@ -54,11 +54,9 @@
 			"stamina":0.2,
 			"research":5
 		},
-		"result":{
-
-			"sp":0.1,
-			"research.max":5
-
+		"mod":{
+			"research.max":5,
+			"scraft.max":1
 		}
 
 	},

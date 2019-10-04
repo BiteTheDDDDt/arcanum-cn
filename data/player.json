@@ -76,7 +76,10 @@
 		"name":"spellcraft power",
 		"val":1,
 		"stat":true,
-		"unit":true
+		"unit":true,
+		"mod":{
+			"userSpells.max":0.5
+		}
 	},
 	{
 		"id":"DR",

@@ -1,4 +1,5 @@
 import Inventory from "./inventory";
+import Group from "./group";
 
 /**
  * Return a cost object for crafting the list of spells.
@@ -46,13 +47,41 @@ export function schoolCost ( school, level=1, res={} ) {
 
 }
 
-export default class Spellcraft extends Inventory {
+export default class UserSpells extends Inventory {
 
 	constructor(vars=null) {
 
 		super(vars);
 
+		this.spaceProp = 'level';
 		this.name = "crafted spells";
+
+	}
+
+	revive(gs) {
+
+		this.state = gs;
+
+	}
+
+	/**
+	 *
+	 * @param {Spell[]} list
+	 */
+	create( list, name=null ) {
+
+		let g = new Group();
+
+		g.items = list;
+		g.id = this.state.nextId('spell');
+		g.type = 'spell';
+		g.name = name || 'New Spell';
+
+		this.state.addItem( g );
+
+		this.add( g );
+
+		return g;
 
 	}
 

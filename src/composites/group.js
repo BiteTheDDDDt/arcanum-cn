@@ -1,5 +1,6 @@
 import { mergeCosts, addValues } from "../util/dataUtil";
 import { logObj } from "../util/util";
+import Base, { mergeClass } from "../items/base";
 
 export default class Group {
 
@@ -11,8 +12,8 @@ export default class Group {
 			items:this.items.map(v=>v.id),
 			name:this.name,
 			type:this.type,
-			instance:true,
-			custom:true
+			val:this.value,
+			custom:this.custom
 
 		}
 	}
@@ -45,8 +46,19 @@ export default class Group {
 		this._items = a;
 	}
 
-	get subtype() { return this._subtype;}
-	set subtype(v) { this._subtype = v;}
+	/**
+	 * @property {string} type - type might need to be a standard type
+	 * in order to mimic a default item in item lists.
+	 * 'custom' can distinguish as group.
+	 */
+	get type() { return this._type; }
+	set type(v) { this._type = v; }
+
+	/**
+	 * @property {string} custom - custom type.
+	 */
+	get custom() { return 'group'; }
+	set custom(v){}
 
 	get instance() { return true; }
 	set instance(v){}
@@ -149,3 +161,5 @@ export default class Group {
 	}
 
 }
+
+mergeClass( Group, Base );
