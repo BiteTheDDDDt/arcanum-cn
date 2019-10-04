@@ -16,7 +16,6 @@ export { LOCALE, DUNGEON, REST_TAG };
  */
 const Runner = {
 
-
 	toJSON() {
 
 		return {
@@ -106,6 +105,8 @@ const Runner = {
 		} else this._max = new Stat(v,true);
 
 	},
+
+	id:'runner',
 
 	/**
 	 * @property {Runnable[]} runnables - use-with object combinations.

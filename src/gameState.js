@@ -99,11 +99,16 @@ export default class GameState {
 
 		this.userSpells = this.items.userSpells = new UserSpells( this.items.userSpells );
 		this.items.spelllist = this.spelllist = new SpellList( this.items.spelllist );
-		this.items.runner = Runner;
 
 		this.revive();
 
 		this.readyItems();
+
+		/**
+		 * @todo: FIX THIS.
+		 */
+		Runner.revive(this);
+		this.items.runner = Runner;
 
 		/**
 		 * @todo: messy bug fix. used to place player-specific resources on update-list.
@@ -166,8 +171,6 @@ export default class GameState {
 
 		this.quickbar.revive(this);
 
-		//Runner.revive(this);
-
 	}
 
 	/**
@@ -184,7 +187,10 @@ export default class GameState {
 			 * revive() has to be called after prepItems() so custom items are instanced
 			 * and can be referenced.
 			 */
-			if ( it.revive && typeof it.revive === 'function') it.revive(this);
+			if ( it.revive && typeof it.revive === 'function') {
+				console.log('REVIVING: ' + it.id );
+				it.revive(this);
+			}
 
 			if ( !it.hasTag ) {
 
