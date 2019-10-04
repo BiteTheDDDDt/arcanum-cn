@@ -47,23 +47,13 @@ export default {
 		 */
 		create() {
 
+			Game.payCost( this.craft.buy );
+
 			this.userSpells.create( this.list, this.craft.name );
 			this.list = [];
 
 			this.craft.level = 0;
 			this.craft.buy = null;
-
-		},
-
-		/**
-		 * Determine if the group being created can be crafted.
-		 * cost+length + user slots available.
-		 * @returns {boolean}
-		 */
-		canCraft() {
-
-			return !this.userSpells.full() && this.list.length>0
-				&& Game.canPay( this.craft.buy );
 
 		},
 
@@ -108,6 +98,18 @@ export default {
 	computed:{
 
 		/**
+		 * Determine if the group being created can be crafted.
+		 * cost+length + user slots available.
+		 * @returns {boolean}
+		 */
+		canCraft() {
+
+			return !this.userSpells.full() && this.list.length>0
+				&& Game.canPay( this.craft.buy );
+
+		},
+
+		/**
 		 * @property {UserSpells} userSpells - spells already crafted.
 		 */
 		userSpells() {
@@ -148,8 +150,8 @@ export default {
 		Custom Spells: {{ Math.floor( userSpells.used) + ' / ' + Math.floor( userSpells.max.value ) }}
 	</div>
 	<div class="spells">
-	<div class="custom" v-for="c in userSpells.items" :key="c.id">
-		<span @mouseenter.capture.stop="emit( 'itemover',$event,c)">{{c.name}}</span>
+	<div class="custom" v-for="c in userSpells.items" :key="c.id" @mouseenter.capture.stop="emit( 'itemover',$event,c)">
+		<span>{{c.name}}</span>
 		<button @click="removeSpell(c)">Remove</button>
 	</div>
 	</div>
@@ -160,7 +162,7 @@ export default {
 <div class="crafting">
 
 	<div class="options">
-		<span class="warn-text" v-if="craft.level>=maxLevels">You have reached your power limit.</span>
+		<span class="warn-text" v-if="craft.level>=maxLevels">You are at your power limit.</span>
 
 		<div><label :for="elmId('spName')">Spell Name</label>
 		<input :id="elmId('spName')" type="text" v-model="craft.name">
