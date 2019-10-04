@@ -56,7 +56,7 @@
 		},
 		"mod":{
 			"research.max":5,
-			"scraft.max":1
+			"scraft":1
 		}
 
 	},

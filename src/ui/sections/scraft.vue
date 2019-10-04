@@ -15,7 +15,8 @@ export default {
 			 */
 			list:[],
 
-			levels:0
+			levels:0,
+			name:'New Spell'
 
 		};
 
@@ -30,13 +31,14 @@ export default {
 		},
 
 		canAdd(s) {
-			return s.level + this.levels <= this.maxLevel;
+			return s.level + this.levels <= this.maxLevels;
 		},
 
 		/**
 		 * @function create - create the new spell combination.
 		 */
 		create() {
+			this.userSpells.create( this.list, this.name );
 		},
 
 		add(s) {
@@ -90,7 +92,10 @@ export default {
 			return Game.state.getData('scraft');
 		},
 
-		maxLevels() { return Math.floor( this.scraft.value ); }
+		maxLevels() {
+			console.log('SCRAFT LEVEL: ' + this.scraft.value );
+			return Math.floor( this.scraft.value );
+		}
 
 	}
 
@@ -104,7 +109,9 @@ export default {
 
 <div class="customs">
 
-	<span>Custom Spells: {{ Math.floor( userSpells.used) + ' / ' + Math.floor( userSpells.max.value ) }}
+	<div>
+		Custom Spells: {{ Math.floor( userSpells.used) + ' / ' + Math.floor( userSpells.max.value ) }}
+	</div>
 	<div v-for="c in userSpells.items" :key="c.id">
 		<span>{{c.name}}</span><button @click="removeSpell(c)">Remove</button>
 	</div>
@@ -114,8 +121,13 @@ export default {
 <div class="bottom">
 <div class="crafting">
 
-	<div>
-		<span class="warn-text" v-if="levels>=maxLevels">Spellcrafting maximum</span>
+	<div class="options">
+		<span class="warn-text" v-if="levels>=maxLevels">You have reached your power limit.</span>
+
+		<div><label :for="elmId('spName')">Spell Name</label>
+		<input :id="elmId('spName')" type="text" v-model="name">
+		</div>
+
 		<span>Power Used: {{ levels + ' / ' + Math.floor(maxLevels) }}</span>
 		<button @click="create">Craft</button>
 	</div>
@@ -128,7 +140,7 @@ export default {
 <div class="spells">
 
 	<div v-for="(s) in spells" :key="s.id">
-		<span>{{s.name}}<button @click="add(s)" :disabled="!canAdd(s)">Add</button>
+		<span>{{s.name}}</span><button @click="add(s)" :disabled="!canAdd(s)">Add</button>
 	</div>
 
 </div>
@@ -139,6 +151,11 @@ export default {
 </template>
 
 <style scoped>
+
+div.spellcraft .customs {
+	display:flex;
+	flex-direction: row;
+}
 
 div.spellcraft {
 	display:flex;

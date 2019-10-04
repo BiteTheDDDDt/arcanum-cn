@@ -137,10 +137,6 @@ export default class GameState {
 					this.items[p] = new Group( it );
 				}
 
-			} else if ( it.hasTag('home')) {
-
-				it.need = this.homeTest;
-
 			}
 
 		}
@@ -168,10 +164,19 @@ export default class GameState {
 			if ( !it.hasTag ) {
 
 				console.warn( p + ' -> ' + this.items[p].id + ' missing hasTag(). Removing.');
-				this.items[p] = undefined;
+				delete this.items[p];
 
 
-			} else count++;
+			} else {
+
+				// need hasTag() func.
+				if ( it.hasTag('home')) {
+
+					it.need = this.homeTest;
+
+				}
+				count++;
+			}
 
 		}
 		console.warn('item count: ' + count );
@@ -404,10 +409,19 @@ export default class GameState {
 	addItem( it ) {
 
 		if ( this.items[it.id] ) return false;
-		this.items[id] = it;
+		this.items[it.id] = it;
 
 		return true;
 
+	}
+
+	/**
+	 * Should only be used for custom items.
+	 * Call from Game so DELETE_ITEM event called.
+	 * @param {GData} it
+	 */
+	deleteItem( it ) {
+		delete this.items[it.id];
 	}
 
 	/**

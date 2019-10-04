@@ -1,5 +1,6 @@
 import Inventory from "./inventory";
 import Group from "./group";
+import Events, { DELETE_ITEM } from "../events";
 
 /**
  * Return a cost object for crafting the list of spells.
@@ -53,6 +54,7 @@ export default class UserSpells extends Inventory {
 
 		super(vars);
 
+		this.id = 'userSpells';
 		this.spaceProp = 'level';
 		this.name = "crafted spells";
 
@@ -60,8 +62,19 @@ export default class UserSpells extends Inventory {
 
 	revive(gs) {
 
+		super.revive(gs);
 		this.state = gs;
 
+	}
+
+	/**
+	 * @todo: Cover removeAt()
+	 * @param {*} s
+	 */
+	remove(s) {
+
+		Events.emit( DELETE_ITEM, s );
+		super.remove(s);
 	}
 
 	/**
