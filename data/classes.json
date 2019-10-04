@@ -501,7 +501,7 @@
 	"title":"alchemist",
 	"tags":"t_tier2",
 	"desc":"an alchemist uses magical knowledge to craft wonders.",
-	"require":"g.tier2>0&&g.potions>=4&&g.alchemy>=5",
+	"require":"g.tier1>0&&g.potions>=4&&g.alchemy>=5",
 	"cost":{
 		"research":1000,
 		"managem":5,

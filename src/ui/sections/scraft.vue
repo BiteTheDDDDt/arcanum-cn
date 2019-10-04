@@ -41,6 +41,7 @@ export default {
 
 			this.userSpells.create( this.list, this.name );
 			this.list = [];
+			this.levels = 0;
 
 		},
 

@@ -60,9 +60,6 @@ export default class Group {
 	get custom() { return 'group'; }
 	set custom(v){}
 
-	get instance() { return true; }
-	set instance(v){}
-
 	get name() {return this._name; }
 	set name(v) { this._name = v; }
 
@@ -74,6 +71,12 @@ export default class Group {
 	 */
 	get cost() { return this._cost; }
 	set cost(v) { this._cost = v;}
+
+	/*get instance() { return true; }
+	set instance(v){}*/
+
+	get locked() { return false;}
+	get owned(){return true;}
 
 	constructor(vars=null ) {
 
@@ -158,7 +161,11 @@ export default class Group {
 		this.items = gs.toData(this.items);
 		this.computeCost();
 
+		this.effect = this.items.map( v=>v.name );
+
 	}
+
+	maxed(){ return false; }
 
 }
 

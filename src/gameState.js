@@ -95,10 +95,11 @@ export default class GameState {
 		this.raid = new Raid( baseData.raid );
 		this.explore = new Explore( baseData.explore );
 
+		this.prepItems();
+
 		this.userSpells = this.items.userSpells = new UserSpells( this.items.userSpells );
 		this.items.spelllist = this.spelllist = new SpellList( this.items.spelllist );
-
-		this.prepItems();
+		this.items.runner = Runner;
 
 		this.revive();
 
@@ -130,18 +131,42 @@ export default class GameState {
 			/**
 			 * special instanced item.
 			 */
-			if ( it.instance ) {
+			if ( it.custom === 'group') {
 
-				if ( it.custom === 'group') {
-					console.log('custom: ' + it.id + ' name: ' + it.name );
-					this.items[p] = new Group( it );
-				}
+				console.warn('CUSTOM: ' + it.id + ' name: ' + it.name );
+				this.items[p] = new Group( it );
+
+			} else if ( it.instance ) {
 
 			}
 
 		}
 
 
+	}
+
+	revive() {
+
+		for( let p in this.slots ) {
+			if ( typeof this.slots[p] === 'string') this.slots[p] = this.getData(this.slots[p] );
+		}
+		this.restAction = this.slots[REST_SLOT];
+
+		this.equip.revive( this );
+
+		/*this.inventory.revive( this );
+		this.spelllist.revive(this);
+		this.minions.revive(this);*/
+
+		this.player.revive(this);
+
+		this.drops.revive(this);
+		this.raid.revive( this );
+		this.explore.revive(this);
+
+		this.quickbar.revive(this);
+
+		//Runner.revive(this);
 
 	}
 
@@ -220,32 +245,6 @@ export default class GameState {
 		}
 
 		this.matsById = byId;
-
-	}
-
-	revive() {
-
-		for( let p in this.slots ) {
-			if ( typeof this.slots[p] === 'string') this.slots[p] = this.getData(this.slots[p] );
-		}
-		this.restAction = this.slots[REST_SLOT];
-
-		this.equip.revive( this );
-		this.inventory.revive( this );
-
-		this.spelllist.revive(this);
-
-		this.minions.revive(this);
-		this.player.revive(this);
-
-		this.drops.revive(this);
-		this.raid.revive( this );
-		this.explore.revive(this);
-
-		this.quickbar.revive(this);
-
-		Runner.revive(this);
-		this.items.runner = Runner;
 
 	}
 
