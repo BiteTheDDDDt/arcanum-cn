@@ -38,9 +38,26 @@ export default {
 		 * @function create - create the new spell combination.
 		 */
 		create() {
+
 			this.userSpells.create( this.list, this.name );
+			this.list = [];
+
 		},
 
+		/**
+		 * Determine if the group being created can be crafted.
+		 * cost+length + user slots available.
+		 * @returns {boolean}
+		 */
+		canCraft() {
+
+			return !this.userSpells.full() && this.list.length>0;
+
+		},
+
+		/**
+		 * Add spell to the current crafting group.
+		 */
 		add(s) {
 			this.list.push(s);
 			this.levels += s.level;
@@ -49,7 +66,7 @@ export default {
 		/**
 		 * Remove spell from building list.
 		 */
-		removeAt(ind) {
+		removeAt(i) {
 
 			let s = this.list[i];
 			if ( s ) this.levels -= s.level;
@@ -107,13 +124,15 @@ export default {
 
 <div class="spellcraft">
 
-<div class="customs">
+<div class="userspells">
 
 	<div>
 		Custom Spells: {{ Math.floor( userSpells.used) + ' / ' + Math.floor( userSpells.max.value ) }}
 	</div>
-	<div v-for="c in userSpells.items" :key="c.id">
+	<div class="spells">
+	<div class="custom" v-for="c in userSpells.items" :key="c.id">
 		<span>{{c.name}}</span><button @click="removeSpell(c)">Remove</button>
+	</div>
 	</div>
 
 </div>
@@ -129,7 +148,7 @@ export default {
 		</div>
 
 		<span>Power Used: {{ levels + ' / ' + Math.floor(maxLevels) }}</span>
-		<button @click="create">Craft</button>
+		<button @click="create" :disabled="!canCraft">Craft</button>
 	</div>
 
 	<div v-for="(s,ind) in list" :key="ind">
@@ -152,9 +171,15 @@ export default {
 
 <style scoped>
 
-div.spellcraft .customs {
+div.spellcraft .userspells {
 	display:flex;
-	flex-direction: row;
+	flex-direction: column;
+}
+
+div.userspells .spells {
+	display:flex;
+	flex-direction:row;
+	justify-content: space-evenly;
 }
 
 div.spellcraft {
@@ -165,6 +190,7 @@ div.spellcraft {
 div.spellcraft .bottom {
 	display:flex;
 	flex-direction: row;
+	justify-content: space-between;
 }
 
 div.spellcraft .crafting, div.spellcraft .spells {

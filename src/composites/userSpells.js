@@ -55,7 +55,6 @@ export default class UserSpells extends Inventory {
 		super(vars);
 
 		this.id = 'userSpells';
-		this.spaceProp = 'level';
 		this.name = "crafted spells";
 
 	}
