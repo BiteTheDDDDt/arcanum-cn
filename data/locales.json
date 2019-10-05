@@ -78,10 +78,10 @@
 },
 {
 	"id":"loc_treffil",
-	"name":"treffil woods",
+	"name":"explore treffil wood",
 	"level":7,
 	"length":15,
-	"desc":"the treffil woods posses many features of interest to the magical scholar.",
+	"desc":"the woods posses many features of interest to the magical scholar.",
 	"run":{
 		"stamina":0.2
 	},

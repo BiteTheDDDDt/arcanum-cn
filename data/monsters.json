@@ -19,6 +19,20 @@
 
 	},
 	{
+		"id":"undeadcrow",
+		"name":"",
+		"level":0.5,
+		"kind":"undead",
+		"desc":"little more than tatters and bones",
+		"hp":"2",
+		"defense":2,
+		"attack":{
+		  "name":"pecking",
+		  "kind":"necrotic",
+		  "dmg":"0.5~3"
+		},"flavor":"how does it fly?"
+	},
+	{
         "id":"wisp",
         "level":1,
         "kind":"spirit",
@@ -313,6 +327,7 @@
 			"damage":"1~2"
 		}
 	},
+
 	{
         "id":"wombat",
         "level":2,

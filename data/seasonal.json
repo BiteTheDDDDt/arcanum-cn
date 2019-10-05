@@ -1,4 +1,19 @@
 {
+
+	"actions":[
+
+		{
+			"id":"crjacklant",
+			"effect":{
+				"jacklantern":1
+			}
+		}
+	],
+
+	"events":[
+
+	],
+
 	"locales":[
 
 		{
@@ -58,12 +73,28 @@
 		{
 			"id":"pumpkins",
 			"desc":"",
-			"max":5
+			"max":5,
+			"mod":{
+				"nature.rate":0.05,
+				"earth.rate":0.05
+			}
 		},
 		{
-			"id":"jackolantern",
+			"id":"jacklantern",
 			"name":"jack o' lantern",
-			"max":3
+			"max":3,
+			"mod":{
+				"light.rate":0.1,
+				"fire.rate":0.1
+			}
+		},
+		{
+			"id":"cobwebs",
+			"max":5,
+			"mod":{
+				"shadow.rate":0.1,
+				"air.rate":0.1
+			}
 		}
 
 	],
@@ -71,7 +102,8 @@
 
 		{
 			"id":"graveyard",
-			"name":"graveyard",
+			"name":"Graveyard",
+			"desc":"The graveyard beside Hallomar is nearly abandoned now. Low murmurs and eerie croakings haunt the autumn nights.",
 			"level":3,
 			"length":20,
 			"require":"evt_halloween",
@@ -80,18 +112,24 @@
 				"hp":0.5
 			},
 			"result":{
-				"pumpkin":"1~2"
+				"pumpkin":"1~2",
+				"title":"Hallowed Defender"
 			},
 			"loot":{
 				"max":1
 			},
+			"log":{
+				"name":"Graveyard cleansed",
+				"desc":"You have survived the horrors of night, for now..."
+			},
+			"boss":"shamblingmound",
 			"enemies":[
 				["undeadcrow","undeadcrow","undeadcrow"],
 				"zombie",
 				"ghoul",
 				"ghast",
 				"ghost",
-			"skeleton"
+				"skeleton"
 			]
 
 		}
