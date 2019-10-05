@@ -31,7 +31,7 @@ import GEvent from './items/gevent';
 const DataDir = './data/';
 const DataFiles = [ 'resources', 'upgrades', 'actions', 'homes', 'furniture', 'skills',
 	'player', 'spells', 'monsters', 'dungeons', 'events', 'classes', 'armors', 'weapons',
-	'materials', 'enchants', 'sections', 'potions', 'encounters', 'locales','stressors' ];
+	'materials', 'enchants', 'sections', 'potions', 'encounters', 'locales','stressors', 'seasonal' ];
 
 /**
  * @const {RegEx} IdTest - Test for a simple id name.
@@ -109,6 +109,7 @@ export default {
 			var itemList = filesArr[i];
 			//console.log('Setting Default List: ' + DataFiles[i] );
 
+			// @todo: a bit messy.
 			for( let j = itemList.length-1; j >= 0; j-- ) {
 
 				// copy every list item as a template.
