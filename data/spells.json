@@ -1494,6 +1494,58 @@
 		}
 	},
 	{
+		"id":"soothing",
+		"name":"soothing breeze",
+		"level":2,
+		"perpetual":true,
+		"school":"air",
+		"desc":"a light wind steadies your nerves.",
+		"buy":{
+
+			"research":200,
+			"codices":5,
+			"airgem":1
+
+		},
+		"cost":{
+			"air":3
+		},
+		"dot":{
+			"duration":45,
+			"effect":{
+				"unease":-0.2,
+				"madness":-0.2,
+				"weary":-0.2
+			}
+		}
+	},
+	{
+		"id":"calming",
+		"name":"calming murmurs",
+		"level":2,
+		"perpetual":true,
+		"school":"spirit",
+		"desc":"whispers on the wind calm your troubled mind.",
+		"buy":{
+
+			"research":200,
+			"codices":5,
+			"spiritgem":1
+
+		},
+		"cost":{
+			"spirit":3
+		},
+		"dot":{
+			"duration":45,
+			"effect":{
+				"bf":-0.2,
+				"rage":-0.2,
+				"madness":-0.2
+			}
+		}
+	},
+	{
 		"id":"stoneskin",
 		"name":"stone skin",
 		"desc":"hardens the skin of the caster.",

@@ -113,7 +113,7 @@
 			},
 			"result":{
 				"pumpkin":"1~2",
-				"title":"Hallowed Defender"
+				"title":"hallowed defender"
 			},
 			"loot":{
 				"max":1
@@ -134,6 +134,12 @@
 
 		}
 
+	], "potions":[
+
+		{
+			"id":"bubblebrew",
+			"name":"bubbling brew"
+		}
 	]
 
 
