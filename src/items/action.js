@@ -15,6 +15,8 @@ export default class Action extends GData {
 	get exp() { return this._exp || 0; }
 	set exp(v){
 
+		if ( this.locked || this.disabled ) return;
+
 		this._exp = v;
 		if ( (this._length&& (v>=this._length) )
 			|| (!this._length && this.perpetual && v >= 1 ) ) {

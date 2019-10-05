@@ -227,7 +227,7 @@
 	},
 	{
 		"id":"history",
-		"require":"g.languages>12",
+		"require":"g.languages>7",
 		"desc":"the knowledge of what has come before reveals what is yet possible.",
 		"verb":"historicizing",
 		"disabled":true,

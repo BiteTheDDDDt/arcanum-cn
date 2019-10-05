@@ -1,7 +1,7 @@
 import { defineExcept, clone } from 'objecty';
 import Stat from '../values/stat';
 import Base, {mergeClass} from './base';
-import { arrayMerge, assignPublic } from '../util/util';
+import { arrayMerge, assignPublic, logObj } from '../util/util';
 import Events, { ITEM_ATTACK, EVT_EVENT } from '../events';
 import Dot from '../chars/dot';
 
@@ -311,11 +311,15 @@ export default class GData {
 	addRequire( item ) {
 
 		if ( !this.require ) {
+
 			this.require = item;
+
 		} else {
 
 			if ( this.require === item ||
-				(Array.isArray(this.require) && this.require.includes(item)) ) return;
+				(Array.isArray(this.require) && this.require.includes(item)) ) {
+					return;
+			}
 			this.require = arrayMerge( this.require, item );
 		}
 

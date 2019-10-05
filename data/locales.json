@@ -72,6 +72,7 @@
 		"enc_chest3",
 		"brightvista",
 		"enc_thyffr",
+		"starrysky1",
 		"mysticwater"
 	]
 },
@@ -100,6 +101,36 @@
 		"hauntedglade",
 		"enc_delki",
 		"hiddencache"
+	]
+},
+{
+	"id":"pidwigcove",
+	"name":"pidwig's cove",
+	"level":9,
+	"length":25,
+	"desc":"The half-goblin Pidwig has sailed the waters around his bay for hundreds of years. In that time he has collected a myriad of interesting artifacts.",
+	"run":{
+		"stamina":0.2
+	},
+	"effect":{
+
+	},
+	"result":{
+		"arcana":0.1
+	},
+	"loot":{
+		"gold":"20~30",
+		"gems":"4~10"
+	},
+	"encs":[
+		"enc_chest3",
+		"pidwigstars",
+		"enc_pidwig",
+		"murkywater",
+		"pidwigtreasure",
+		"enc_chest1",
+		"sombersunset",
+		"starrysky1"
 	]
 },
 {

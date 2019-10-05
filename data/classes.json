@@ -604,7 +604,7 @@
 		"tier2":true,
 		"firelore.max":2,
 		"firelore.rate":"10%",
-		"dodge.max":"10%",
+		"dodge":"10%",
 		"mana.max":2
 	},
 	"flavor":""
@@ -633,7 +633,7 @@
 		"tier2":true,
 		"waterlore.max":2,
 		"waterlore.rate":"10%",
-		"dodge.max":"10%",
+		"dodge":"10%",
 		"mana.max":2
 	},
 	"flavor":""
@@ -662,7 +662,7 @@
 		"tier2":true,
 		"airlore.max":2,
 		"airlore.rate":"10%",
-		"dodge.max":"10%",
+		"dodge":"10%",
 		"mana.max":2
 	},
 	"flavor":"there's a storm coming"

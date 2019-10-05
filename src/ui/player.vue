@@ -30,7 +30,8 @@ export default {
 		level() {return this.player.level; },
 		hp() {return this.player.hp; },
 		defense() {return this.player.defense.value; },
-		dodge(){ return this.player.dodge.value },
+		dodge(){ return Math.floor(this.player.dodge.valueOf()) },
+		luck(){return Math.floor(this.player.luck.valueOf()) },
 		damage() { return this.player.damage || 0 },
 		tohit() {return this.player.tohit.value; },
 		exp() {return this.floor( this.player.exp.value ); },
@@ -89,6 +90,7 @@ export default {
 
 			<tr><td>defense</td><th>{{ defense }}</th></tr>
 			<tr><td>dodge</td><th>{{ dodge }}</th></tr>
+			<tr><td>luck</td><th>{{ luck }}</th></tr>
 			<tr><td>damage bonus</td><th>{{ damage }}</th></tr>
 			<tr><td>hit bonus</td><th>{{ tohit }}</th></tr>
 

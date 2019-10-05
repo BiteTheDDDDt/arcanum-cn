@@ -29,7 +29,8 @@
 		"desc":"water suffused with enchantments",
 		"effect":{
 			"bf":"-1~2",
-			"nature.exp":2,
+			"nature.exp":1,
+			"waterlore.exp":1,
 			"arcana":0.001
 		}
 	},
@@ -55,6 +56,17 @@
 		"result":{
 			"research":0.5,
 			"arcana":0.02
+		}
+	},
+	{
+		"id":"foggydale",
+		"name":"foggy dale",
+		"desc":"the fog here is so thick, you can't see your own hands.",
+		"effect":{
+			"bf":"1~2",
+			"unease":"1~2",
+			"airlore.exp":2,
+			"spiritlore.exp":1
 		}
 	},
 	{
@@ -86,7 +98,7 @@
 	{
 		"id":"enc_chest3",
 		"name":"dusty chest",
-		"desc":"a battered, wooden chest.",
+		"desc":"a small but solid chest.",
 		"effect":{
 			"rage":"1~3"
 		},
@@ -99,8 +111,8 @@
 	},
 	{
 		"id":"enc_chest4",
-		"name":"dusty chest",
-		"desc":"a battered, wooden chest.",
+		"name":"oak chest",
+		"desc":"a sturdy, oaken chest.",
 		"effect":{
 			"rage":"2~4",
 			"weary":"1~3"
@@ -256,6 +268,90 @@
 			"gems":"2~5",
 			"scrolls":"2~5",
 			"codices":"0~4"
+		}
+	},
+	{
+		"id":"murkywater",
+		"name":"murky waters",
+		"desc":"ominous shapes drift and flow beneath the deep unsettled water.",
+		"effect":{
+			"bf":"0~2",
+			"unease":"2~3",
+			"madness":"1~2",
+			"waterlore.exp":2,
+			"shadowlore.exp":1,
+			"arcana.max":0.05
+		}
+	},
+	{
+		"id":"encpidwig",
+		"name":"talk to pidwig",
+		"desc":"pidwig is sparse with words, but has seem many mysteries in his travels.",
+		"effect":{
+			"bf":"0~2",
+			"weary":"0~2",
+			"unease":"0~2",
+			"history.exp":2,
+			"astronomy.exp":1,
+			"lore.exp":1
+		},
+		"result":{
+			"arcana":0.05
+		}
+
+	},
+	{
+		"id":"pidwigtreasure",
+		"name":"pidwig's hoard",
+		"desc":"over the years Pidwig has amassed a sizeable collection of gems and artifacts.",
+		"effect":{
+			"crafting.exp":1,
+			"history.exp":1,
+			"trickery.exp":1,
+			"rage":"0~2",
+			"madness":"0~2"
+		},
+		"loot":"gem",
+		"flavor":"perhaps he could be induced to part with some..."
+
+	},
+	{
+		"id":"starrysky1",
+		"name":"starry night",
+		"desc":"a clear sky affords an endless view of the firmament.",
+		"effect":{
+			"bf":"1~2",
+			"unease":"-1~2",
+			"madness":"-1~1",
+			"astronomy.exp":1,
+			"planeslore.exp":1,
+			"scrying.exp":1
+		}
+	},
+	{
+		"id":"pidwigstars",
+		"name":"pidwig's starcharts",
+		"desc":"an old hand at astronomical calculations, pidwig shares his extensive observations.",
+		"effect":{
+			"bf":"1~3",
+			"unease":"-1~2",
+			"madness":"-1~1",
+			"astronomy.exp":3,
+			"planeslore.exp":1,
+			"scrying.exp":1
+		}, "loot":"starchart"
+	},
+	{
+		"id":"sombersunset",
+		"name":"somber sunset",
+		"desc":"the lapping waves in the dying sun hint at secrets just beyond your reach.",
+		"effect":{
+			"rage":"-1~-2",
+			"weary":"-1~-2",
+			"madness":"-1~-2",
+			"waterlore.exp":1,
+			"mysticism.exp":1,
+			"divination.exp":1
 		}
 	},
 	{

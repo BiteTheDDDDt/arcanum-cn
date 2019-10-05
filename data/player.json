@@ -51,7 +51,7 @@
 	{
 		"id":"dodge",
 		"val":5,
-		"max":5,
+		"stat":true,
 		"unit":false,
 		"locked":false
 	},
@@ -85,7 +85,7 @@
 	},
 	{
 		"id":"DR",
-		"name":"Damanage reduction",
+		"name":"Damage reduction",
 		"desc":"Amount of damage subtracted from total.",
 		"val":5,
 		"max":5,

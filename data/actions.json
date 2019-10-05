@@ -552,7 +552,7 @@
 		"slot":"rest",
 		"length":10,
 		"need":"g.lightlore>=5&&g.evil<=0",
-		"fill":[ "light", "hp", "mana", "stress"],
+		"fill":[ "stamina", "hp", "manas", "stress"],
 		"effect":{
 			"virtue":1,
 			"stress":-1.2,

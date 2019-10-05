@@ -798,8 +798,25 @@ export default {
 			return ( it.type === 'resource' || it.type === 'action') ?
 				(it.locked === false) : it.value > 0;
 
-		} else if (  Array.isArray(test) ) return test.every( v=>this.unlockTest(v,item), this );
-		else if ( test.type != null ) {
+		} else if (  Array.isArray(test) ) {
+
+			return test.every( v=>this.unlockTest(v,item), this );
+
+		} else if ( type === 'object' ) {
+
+			// @todo: take recursive values into account.
+			let limit, it;
+			for( let p in test ) {
+
+				it = this.getData(p);
+				if ( !it ) continue;
+				limit = test[p];
+				if ( it.value < limit ) return false;
+
+			}
+			return true;
+
+		} else if ( test.type != null ) {
 
 			return ( test.type === 'resource' || test.type === 'action') ? !test.locked : test.value > 0;
 

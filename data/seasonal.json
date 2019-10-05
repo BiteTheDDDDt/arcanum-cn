@@ -1,0 +1,102 @@
+{
+	"locales":[
+
+		{
+			"id":"loc_pumpkin",
+			"name":"pumpkin patch",
+			"level":2,
+			"length":100,
+			"desc":"Nestled in the fog of the midlands, the village of Hallomar holds a yearly celebration in its pumpkin patch.",
+			"run":{
+				"stamina":0.2
+			},
+			"effect":{
+
+			},
+			"result":{
+				"pumpkin":"1~3"
+			},
+			"loot":{
+				"gold":"20~30",
+				"gems":"4~10"
+			},
+			"encs":[
+				"pumpkinpatch",
+				"hauntedglade",
+				"pumpkinpatch",
+				"murkywater",
+				"foggydale",
+				"enc_chest1",
+				"hiddencache",
+				"starrysky1"
+
+			],"flavor":"just don't wander too far from the village."
+		}
+
+	],
+	"encounters":[
+
+		{
+			"id":"enc_pumppatch",
+			"name":"pumpkin patch",
+			"desc":"the pumpkins have grown ripe in the autumn hay",
+			"effect":{
+				"weary":"1~2",
+				"unease":"1~2",
+				"herbalism.exp":1,
+				"spiritlore.exp":1,
+				"spiritlore.max":0.01
+			}
+		}
+
+	],
+	"monsters":[
+
+	],
+	"resources":[
+
+		{
+			"id":"pumpkins",
+			"desc":"",
+			"max":5
+		},
+		{
+			"id":"jackolantern",
+			"name":"jack o' lantern",
+			"max":3
+		}
+
+	],
+	"dungeons":[
+
+		{
+			"id":"graveyard",
+			"name":"graveyard",
+			"level":3,
+			"length":20,
+			"require":"evt_halloween",
+			"run":{
+				"stamina":0.4,
+				"hp":0.5
+			},
+			"result":{
+				"pumpkin":"1~2"
+			},
+			"loot":{
+				"max":1
+			},
+			"enemies":[
+				["undeadcrow","undeadcrow","undeadcrow"],
+				"zombie",
+				"ghoul",
+				"ghast",
+				"ghost",
+			"skeleton"
+			]
+
+		}
+
+	]
+
+
+}
