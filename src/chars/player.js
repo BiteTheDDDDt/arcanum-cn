@@ -6,9 +6,10 @@ import Game from '../game';
 import { tryDamage } from '../composites/combat';
 
 import Char, { getDelay } from './char';
-import Events, { LEVEL_UP } from "../events";
+import Events, { LEVEL_UP, NEW_TITLE } from "../events";
 import Attack from "./attack";
 import Wearable from "./wearable";
+import events from "../events";
 
 const Fists = new Wearable({
 
@@ -239,9 +240,14 @@ export default class Player extends Char {
 	}
 
 	addTitle( title ){
+
 		if ( !this._titles.includes(title) ) {
+
+			events.emit( NEW_TITLE, title );
 			this._titles.push(title);
+
 		}
+
 	}
 
 

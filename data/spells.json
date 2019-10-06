@@ -1305,6 +1305,7 @@
 	},
 	{
 		"id":"venom1",
+		"name":"venom I",
 		"level":3,
 		"require":"g.player.level>=7&&g.naturelore>=6",
 		"school":"nature",

@@ -97,6 +97,7 @@ export default class GameState {
 
 		this.prepItems();
 
+		this.runner = this.items.runner = new Runner( this.items.runner );
 		this.userSpells = this.items.userSpells = new UserSpells( this.items.userSpells );
 		this.items.spelllist = this.spelllist = new SpellList( this.items.spelllist );
 
@@ -107,13 +108,6 @@ export default class GameState {
 		// circular problem. spelllist has to be revived after created spells
 		// compute their levels. unless levels stored in json?
 		this.spelllist.calcUsed();
-
-		/**
-		 * @todo: FIX THIS.
-		 * Runner relies on the previous instance of runner to reset.
-		 */
-		Runner.revive(this);
-		this.items.runner = Runner;
 
 		/**
 		 * @todo: messy bug fix. used to place player-specific resources on update-list.

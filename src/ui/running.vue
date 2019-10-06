@@ -1,6 +1,5 @@
 <script>
 import Game from '../game';
-import Runner from '../modules/runner';
 import {HALT_ACT} from '../events';
 
 export default {
@@ -16,7 +15,7 @@ export default {
 	},
 	computed:{
 
-		runner(){return Runner; }
+		runner(){ return Game.Runner; }
 
 	}
 

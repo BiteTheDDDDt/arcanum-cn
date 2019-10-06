@@ -100,9 +100,11 @@ const ENC_DONE = 'enc_done';
 const ENTER_LOC = 'enter_loc';
 const EXIT_LOC = 'exit_loc';
 
+const NEW_TITLE = 'newtitle';
+
 export { HALT_ACT, EVT_COMBAT, EVT_EVENT, EVT_UNLOCK, EXP_MAX, EVT_LOOT, ACT_DONE, ALLY_DIED, CHAR_DIED,
 	ENTER_LOC, EXIT_LOC, ITEM_ATTACK, STOP_ALL, DELETE_ITEM,
-	ACT_CHANGED, ACT_IMPROVED, ACT_BLOCKED,
+	ACT_CHANGED, ACT_IMPROVED, ACT_BLOCKED, NEW_TITLE,
 	DAMAGE_MISS, ENEMY_HIT, PLAYER_HIT, DEFEATED, ENEMY_SLAIN, COMBAT_DONE, ENC_DONE, LEVEL_UP };
 
 export default {
@@ -122,6 +124,7 @@ export default {
 		events.addListener( EVT_UNLOCK, this.onUnlock, this );
 		events.addListener( EVT_EVENT, this.onEvent, this );
 		events.addListener( LEVEL_UP, this.onLevel, this );
+		events.addListener( NEW_TITLE, this.onNewTitle, this );
 
 		events.addListener( ACT_IMPROVED, this.actImproved, this );
 
@@ -158,6 +161,10 @@ export default {
 	},
 
 	actionDone(it){
+	},
+
+	onNewTitle(t) {
+		this.log.log( 'Title Earned: ' + uppercase(t), null, EVT_UNLOCK );
 	},
 
 	actImproved(it) {

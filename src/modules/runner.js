@@ -14,7 +14,30 @@ export { LOCALE, DUNGEON, REST_TAG };
 /**
  * Tracks running/perpetual actions.
  */
-const Runner = {
+export default class Runner {
+
+	constructor(vars=null ){
+
+		if ( vars ) Object.assign(this,vars);
+
+		this.id = 'runner';
+
+		/**
+		 * @property {Runnable[]} runnables - use-with object combinations.
+		 */
+		//runnables:null,
+
+		/**
+		 * @property {Action[]} actives - Actively running tasks.
+		 */
+		this.actives = this.actives || null;
+
+		/**
+		 * @property {Action[]} waiting - actions waiting to run once rest is complete.
+		 */
+		this.waiting = this.waiting || null;
+
+	}
 
 	toJSON() {
 
@@ -29,7 +52,7 @@ const Runner = {
 			//runnables:this.runnables
 		};
 
-	},
+	}
 
 	/**
 	 * @todo : Messy for Focus skill.
@@ -40,7 +63,7 @@ const Runner = {
 			if ( a.type === 'skill' ) return a.exp;
 		}
 		return 0;
-	},
+	}
 
 	set exp(v) {
 
@@ -53,7 +76,7 @@ const Runner = {
 			}
 
 		}
-	},
+	}
 
 	/**
 	 * Used for cheat.
@@ -67,27 +90,27 @@ const Runner = {
 
 		}
 
-	},
+	}
 
 	/**
 	 * @item compat.
 	 */
-	get type() { return 'runner'; },
-	hasTag() { return false; },
+	get type() { return 'runner'; }
+	hasTag() { return false; }
 
 	/**
 	 * @property {number} running - number currently running.
 	 */
-	get running(){return this.actives.length; },
+	get running(){return this.actives.length; }
 
 	/**
 	 * @property {number} available - number of available run slots.
 	 */
 	get free(){
 		return this.max.value - this.actives.length;
-	},
+	}
 
-	get max() { return this._max; },
+	get max() { return this._max; }
 	set max(v) {
 
 		if ( v instanceof Stat ) {
@@ -104,45 +127,13 @@ const Runner = {
 
 		} else this._max = new Stat(v,true);
 
-	},
-
-	id:'runner',
+	}
 
 	/**
-	 * @property {Runnable[]} runnables - use-with object combinations.
-	 */
-	//runnables:null,
-
-	/**
-	 * @property {Action[]} actives - Actively running tasks.
-	 */
-	actives:null,
-
-	/**
-	 * @property {Action[]} waiting - actions waiting to run once rest is complete.
-	 */
-	waiting:null,
-
-		/**
 	 * revive data from save.
 	 * @param {GameState} gs
 	 */
 	revive( gs ) {
-
-		/**
-		 * Only one object. page reloads, etc.
-		 */
-		this.waiting = null;
-		this.actives = null;
-		this._max = null;
-
-		let data = gs.getData('runner');
-		if ( data ) {
-
-			this.waiting = data.waiting;
-			this.actives = data.actives;
-			this.max = data.max;
-		}
 
 		this.max = this._max || 1;
 
@@ -160,7 +151,7 @@ const Runner = {
 		Events.add( EXP_MAX, this.expMax, this );
 		Events.add( STOP_ALL, this.stopAll, this );
 
-	},
+	}
 
 	/**
 	 * Item reached max exp value.
@@ -170,7 +161,7 @@ const Runner = {
 		//console.log('EXP. COMPLETE: ' + it.id );
 		if ( it.complete && (typeof it.complete) === 'function') it.complete();
 
-	},
+	}
 
 	/**
 	 * Revive a list, removing Runnable elements that can't revive (missing items, etc.)
@@ -192,7 +183,7 @@ const Runner = {
 
 		return list;
 
-	},
+	}
 
 	reviveAct( a, gs, running=false ) {
 
@@ -212,7 +203,7 @@ const Runner = {
 
 		return a;
 
-	},
+	}
 
 	/**
 	 * setAction of two items combined.
@@ -244,7 +235,7 @@ const Runner = {
 		}
 		this.setAction( run );
 
-	},
+	}
 
 	/**
 	 * Toggle running state of action.
@@ -267,7 +258,7 @@ const Runner = {
 		}
 
 
-	},
+	}
 
 	/**
 	 * Add an action absolutely, removing a running action if necessary.
@@ -309,7 +300,7 @@ const Runner = {
 
 
 
-	},
+	}
 
 	/**
 	 *
@@ -328,7 +319,7 @@ const Runner = {
 			this.doRest();
 		}
 
-	},
+	}
 
 	/**
 	 * UNIQUE ACCESS POINT for removing active action.
@@ -352,7 +343,7 @@ const Runner = {
 			this.tryResume();
 		}
 
-	},
+	}
 
 	/**
 	 * Attempt to add an action, while avoiding any conflicting action types.
@@ -367,7 +358,7 @@ const Runner = {
 
 		return true;
 
-	},
+	}
 
 	addWait( a ){
 
@@ -389,14 +380,14 @@ const Runner = {
 
 		}
 
-	},
+	}
 
 	haltAction( act ) {
 
 		if ( act instanceof Runnable ) this.addWait(act);
 		this.stopAction( act );
 
-	},
+	}
 
 	stopAll() {
 
@@ -405,7 +396,7 @@ const Runner = {
 		}
 		this.clearWaits();
 
-	},
+	}
 
 	/**
 	 * Action is done, but could be perpetual/ongoing.
@@ -451,11 +442,11 @@ const Runner = {
 
 		}
 
-	},
+	}
 
 	clearWaits() {
 		this.waiting.splice(0,this.waiting.length);
-	},
+	}
 
 	/**
 	 * Attempt to resume any waiting actions.
@@ -481,7 +472,7 @@ const Runner = {
 
 		}
 
-	},
+	}
 
 	update(dt) {
 
@@ -491,7 +482,7 @@ const Runner = {
 
 		}
 
-	},
+	}
 
 	/**
 	 * Force-add a rest action.
@@ -499,7 +490,7 @@ const Runner = {
 	 */
 	doRest(){
 		this.tryAdd( Game.state.restAction );
-	},
+	}
 
 	/**
 	 * Update individual action. Called during update()
@@ -540,7 +531,7 @@ const Runner = {
 
 		}
 
-	},
+	}
 
 	/**
 	 * UNIQUE ACCESS POINT for pushing action active.
@@ -549,7 +540,7 @@ const Runner = {
 	runAction(a) {
 		a.running=true;
 		this.actives.push(a);
-	},
+	}
 
 	/**
 	 * Tests if exact action is running.
@@ -558,7 +549,7 @@ const Runner = {
 	 */
 	has(a) {
 		return this.actives.includes(a);
-	},
+	}
 
 	/**
 	 * Get index of a running action matching the type of the given action.
@@ -579,7 +570,7 @@ const Runner = {
 
 		return -1;
 
-	},
+	}
 
 	/**
 	 * Tests if the runner already has a similar action in progress.
@@ -603,12 +594,10 @@ const Runner = {
 	}
 
 
-};
+}
 
 /**
  * applyMods() currently needed to increase runners.
  * @todo move this to Item stat.
  */
 mergeClass( Runner, Base );
-
-export default Runner;

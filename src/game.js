@@ -8,12 +8,6 @@ import ItemGen from './itemgen';
 import TechTree from './techTree';
 import Dot from './chars/dot';
 
-
-/**
- * @property {Runner} Runner - runs actions in tandem.
- */
-import Runner from './modules/runner';
-
 /**
  * @note these refer to Code-events, not in-game events.
  */
@@ -101,6 +95,9 @@ export default {
 			this.itemGen = new ItemGen( this.state );
 
 			this._items = this.state.items;
+
+
+			this.Runner = this.state.runner;
 
 			this.recheckTiers();
 			this.restoreMods();
@@ -240,7 +237,7 @@ export default {
 		this.state.player.update(dt);
 		this.state.minions.update(dt);
 
-		Runner.update(dt);
+		this.Runner.update(dt);
 
 		this.doResources( this.state.resources, dt);
 		this.doResources( this.state.playerStats, dt );
@@ -294,16 +291,16 @@ export default {
 	 * Toggles an action on or off.
 	 * @param {GData} a
 	 */
-	toggleAction(a) { Runner.toggleAct(a); },
+	toggleAction(a) { this.Runner.toggleAct(a); },
 
 	/**
 	 * Wrapper for Runner rest
 	 */
-	doRest() { Runner.tryAdd( this.state.getSlot(REST_SLOT) ) },
+	doRest() { this.Runner.tryAdd( this.state.getSlot(REST_SLOT) ) },
 
-	haltAction(a) { Runner.stopAction(a);},
+	haltAction(a) { this.Runner.stopAction(a);},
 
-	setAction( a ) { Runner.setAction(a); },
+	setAction( a ) { this.Runner.setAction(a); },
 
 	/**
 	 * Tests if an action has effectively filled a resource.
@@ -368,7 +365,7 @@ export default {
 					this.remove( it, 1 );
 				}
 
-				if ( it.running ) Runner.stopAction(it);
+				if ( it.running ) this.Runner.stopAction(it);
 				if ( it == this.state.raid.dungeon ) this.state.raid.setDungeon(null);
 
 				if ( it instanceof Resource || it instanceof Skill ) {
@@ -633,7 +630,7 @@ export default {
 			} else {
 
 				// runner will handle costs.
-				Runner.useWith( it, targ );
+				this.Runner.useWith( it, targ );
 
 			}
 		}
