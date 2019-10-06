@@ -53,20 +53,20 @@ export default {
 
 	/**
 	 * Lists of item ids for each item type.
-	 * itemType => item id list
+	 * (item source file/item type) => item list
 	 * @property {Object.<string,string[]>}
 	 */
-	itemLists:null,
+	dataLists:null,
 
 	async loadGame( saveData ) {
 
 		if ( this.templates === null ) {
 
 			return this.loadData().then(()=>{
-				return this.makeGameData( this.templates, this.itemLists, saveData );
+				return this.makeGameData( this.templates, this.dataLists, saveData );
 			});
 
-		} else return this.makeGameData( this.templates, this.itemLists, saveData );
+		} else return this.makeGameData( this.templates, this.dataLists, saveData );
 
 	},
 
@@ -85,43 +85,37 @@ export default {
 
 		let templates = {};
 
-		// modules must be preparsed.
+		// easiest to preparse modules so templates can be assigned in one place.
 		for( let p in loads ) {
 
 			var fileData = loads[p];
 			if ( !fileData ) {
 				console.warn( 'Missing Data for: ' + p );
-			} else if ( fileData.module) this.mergeModule( fileData, loads );
-			else {
-
-
-
-
+			} else if ( fileData.module) {
+				this.mergeModule( fileData, loads );
+				loads[p] = undefined;
 			}
 
 		}
 
-		for( let i = filesArr.length-1; i>=0; i-- ) {
+		for( let p in loads ) {
 
-			var itemList = filesArr[i];
-			//console.log('Setting Default List: ' + DataFiles[i] );
+			var itemList = loads[p];
+			if ( !itemList ) continue;
 
-			// @todo: a bit messy.
 			for( let j = itemList.length-1; j >= 0; j-- ) {
 
-				// copy every list item as a template.
+				// copy every data item into a template.
 				templates[ itemList[j].id ] = ( itemList[j] );
 
 			}
-
-			loads[ DataFiles[i] ] = itemList.map(v=>v.id);
 
 		}
 
 		this.templates = this.freezeData( templates );
 		//for( let p in this.templates ) console.log('template: ' + p );
 
-		this.itemLists = loads;
+		this.dataLists = loads;
 
 	},
 
@@ -168,7 +162,7 @@ export default {
 
 	},
 
-	makeGameData( templates, itemLists, saveData={} ){
+	makeGameData( templates, dataLists, saveData={} ){
 
 		saveData = saveData || {};
 
@@ -182,25 +176,27 @@ export default {
 
 		}
 
+		// combined items.
 		saveData.items = this.mergeDefaults( templates, saveData.items );
 
 		/**
 		 * Form the actual item lists used as the gameData.
+		 * @todo clear up these steps a bit.
 		 */
 		let gameLists = {};
 
-		var idList, gameList;
-		for( let p in itemLists ) {
+		var dataList, gameList;
+		for( let p in dataLists ) {
 
-			idList = itemLists[p];
+			dataList = dataLists[p];
 
 			// lists of game-item data by type.
 			gameLists[p] = gameList = [];
 
-			for( let i = 0; i < idList.length; i++ ) {
+			for( let i = 0; i < dataList.length; i++ ) {
 				// copy actual game data into game list.
 				//console.log('Adding ' + idList[i] + ' Item: ' + saveData.items[ idList[i] ] );
-				gameList[i] = saveData.items[ idList[i] ];
+				gameList[i] = saveData.items[ dataList[i].id ];
 			}
 
 
