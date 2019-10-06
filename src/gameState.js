@@ -104,6 +104,10 @@ export default class GameState {
 
 		this.readyItems();
 
+		// circular problem. spelllist has to be revived after created spells
+		// compute their levels. unless levels stored in json?
+		this.spelllist.calcUsed();
+
 		/**
 		 * @todo: FIX THIS.
 		 * Runner relies on the previous instance of runner to reset.
