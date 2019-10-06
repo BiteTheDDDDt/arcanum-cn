@@ -235,7 +235,7 @@ export default class ItemGen {
 		let items = [];
 		for( let p in info ) {
 			//console.log('GETTING SUB LOOT: ' + p);
-			var it = this.getLoot( this.state.getData(p), info[p] );
+			var it = this.getLoot( p, info[p] );
 			if ( it ) items.push(it );
 		}
 

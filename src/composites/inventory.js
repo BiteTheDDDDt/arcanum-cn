@@ -95,9 +95,10 @@ export default class Inventory {
 		} else {
 
 			if ( it.stack ) {
-				console.warn('adding stacking: ' + it.id );
-				let inst = this.findMatch( it.id );
-				if ( inst && inst !== it ){
+				console.warn('add stack: ' + it.id );
+				let inst = this.findMatch( it );
+				if ( inst ){
+					console.log('MATCH FOUND');
 					inst.value++;
 					return;
 				}
@@ -107,7 +108,7 @@ export default class Inventory {
 			this.items.push( it );
 			this.used += this.spaceProp ? ( it[ this.spaceProp ] || 0 ) : 1;
 
-			console.warn('CUR USED: ' + this.used);
+			//console.warn('CUR USED: ' + this.used);
 			//console.warn('CUR MAX: ' + this.max.value );
 
 		}
@@ -189,8 +190,9 @@ export default class Inventory {
 
 		let id = it.id;
 		let rec = it.recipe;
+		console.log('FIND: ' + it.id + ' OR:  ' + rec );
 
-		return this.items.find( v=>v.id===id || (rec&&v.rec===rec));
+		return this.items.find( v=>v.id===id || (rec&&v.recipe===rec));
 
 	}
 

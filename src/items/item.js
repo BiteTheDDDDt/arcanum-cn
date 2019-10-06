@@ -32,7 +32,6 @@ export default class Item {
 
 		data.id = this.id;
 		data.recipe = this.recipe;
-		data.value = this.value;
 
 		return data ? data : undefined;
 
