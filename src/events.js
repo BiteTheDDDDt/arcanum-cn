@@ -161,13 +161,20 @@ export default {
 
 		let text;
 
+		if ( !loot ) return;
+
 		if ( Array.isArray(loot)) {
 
 			let len = loot.length;
 			if ( len === 0 ) return;
-			text = loot[0].name;
-			for( let i = 1; i < len; i++ ) {
-				text += ', ' + loot[i].name;
+
+			let i = 0;
+			while ( i < len && loot[i] == null ) i++;
+			if ( i >= len ) return;
+
+			text = loot[i].name;
+			while ( ++i < len ) {
+				if ( loot[i]) text += ', ' + loot[i].name;
 			}
 
 		} else if ( typeof loot === 'object') {

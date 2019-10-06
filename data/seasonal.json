@@ -61,7 +61,7 @@
 			"name":"carve lantern",
 			"require":"pumpkins",
 			"length":15,
-			"fill":"jacklantern",
+			"fill":["jacklantern","pumpseeds"],
 			"cost":{
 				"pumpkins":1
 			},

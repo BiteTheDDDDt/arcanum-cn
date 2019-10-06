@@ -1,5 +1,18 @@
 import {getPropDesc} from 'objecty';
 
+/**
+ * Return first non-null element of array.
+ * @param {Array} a
+ */
+export const first = (a) =>{
+
+	let len = a.length;
+	for( let i = 0; i < len; i++) {
+		var e = a[i];
+		if ( e !== null && e !== undefined ) return i;
+	}
+
+}
 
 /**
  * Ensure the existence of props on an object.
