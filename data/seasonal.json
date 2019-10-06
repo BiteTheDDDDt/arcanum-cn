@@ -12,7 +12,7 @@
 
 			"id":"filchpump",
 			"name":"filch pumpkins",
-			"require":"tier0",
+			"require":"apprentice",
 			"length":10,
 			"desc":"steal pumpkins from nearby homes",
 			"run":{
@@ -59,7 +59,7 @@
 			"id":"tricktreat",
 			"name":"trick & treat",
 			"require":"trickery",
-			"desc":"threaten homes with magical trickery if they don't give you gold.",
+			"desc":"threaten homes with magical trickery if they don't give you loot.",
 			"length":10,
 			"perpetual":true,
 			"run":{
@@ -149,8 +149,10 @@
 			"max":1,
 			"cost":{
 				"space":0,
-				"gold":50,
-				"research":100
+				"gold":10,
+				"research":50,
+				"pumpkins":5,
+				"jacklanterns":1
 			},
 			"mod":{
 
