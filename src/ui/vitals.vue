@@ -52,7 +52,7 @@ export default {
 				@click="emit('action', focus)">Focus</button>
 		</div>
 
-		<running />
+		<running :runner="state.runner" />
 
 		<!-- anything not a table is a headache -->
 		<table class="bars">

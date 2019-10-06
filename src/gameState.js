@@ -95,9 +95,10 @@ export default class GameState {
 		this.raid = new Raid( baseData.raid );
 		this.explore = new Explore( baseData.explore );
 
+		this.runner = this.items.runner = new Runner( this.items.runner );
+
 		this.prepItems();
 
-		this.runner = this.items.runner = new Runner( this.items.runner );
 		this.userSpells = this.items.userSpells = new UserSpells( this.items.userSpells );
 		this.items.spelllist = this.spelllist = new SpellList( this.items.spelllist );
 

@@ -216,10 +216,13 @@ export default class ItemGen {
 		}
 
 		if ( info.type === 'wearable' || info.type === 'weapon'
-			|| info.type ==='armor') return this.fromData( info );
+				|| info.type ==='armor') return this.fromData( info );
+
+		if ( info.instance ) {
+			return this.instance( info );
+		}
 
 		/** @todo: THIS IS BAD */
-
 		else if ( info.type && !info.isRecipe ) {
 			if ( amt != 0 ) info.amount( Game, amt );
 			return;

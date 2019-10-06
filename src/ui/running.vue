@@ -4,6 +4,7 @@ import {HALT_ACT} from '../events';
 
 export default {
 
+	props:['runner'],
 	methods:{
 
 		actionStr( a ){
@@ -12,13 +13,7 @@ export default {
 		},
 		halt(a) { this.emit( HALT_ACT, a); }
 
-	},
-	computed:{
-
-		runner(){ return Game.Runner; }
-
 	}
-
 }
 </script>
 

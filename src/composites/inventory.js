@@ -96,7 +96,7 @@ export default class Inventory {
 
 			if ( it.stack ) {
 				console.warn('adding stacking: ' + it.id );
-				let inst = this.find( it.id, true );
+				let inst = this.findMatch( it.id );
 				if ( inst && inst !== it ){
 					inst.value++;
 					return;
@@ -183,6 +183,15 @@ export default class Inventory {
 	 */
 	filter(p) {
 		return this.items.filter(p);
+	}
+
+	findMatch(it){
+
+		let id = it.id;
+		let rec = it.recipe;
+
+		return this.items.find( v=>v.id===id || (rec&&v.rec===rec));
+
 	}
 
 	/**

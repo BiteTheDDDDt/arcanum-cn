@@ -5,6 +5,20 @@
 
 	"data":{
 
+	"upgrades":[
+
+		{
+			"id":"pumpsack",
+			"name":"seed sack",
+			"max":3,
+			"cost":{
+				"gold":100
+			},
+			"mod":{
+				"pumpseeds.max":10
+			}
+		}
+	],
 
 	"actions":[
 
@@ -31,7 +45,7 @@
 			"id":"mk_jacklant",
 			"name":"carve lantern",
 			"require":"pumpkins",
-			"length":10,
+			"length":15,
 			"fill":"jacklantern",
 			"cost":{
 				"pumpkins":1
@@ -62,7 +76,7 @@
 			"name":"trick & treat",
 			"require":"trickery",
 			"desc":"threaten homes with magical trickery if they don't give you loot.",
-			"length":10,
+			"length":20,
 			"perpetual":true,
 			"run":{
 				"stamina":0.4
@@ -70,15 +84,24 @@
 			"effect":{
 				"trickery.exp":1
 			},
-			"result":{
+			"loot":{
+				"hal_treat":1,
 				"pumpseeds":"0~2",
-				"gold":"0~2",
-				"pumpkins":"0~1"
+				"gold":"0~5",
+				"pumpkins":"20%"
 			}
 		}
 	],
 
 	"events":[
+
+		{
+			"id":"evt_hallomar",
+			"require":"evt_helper",
+			"name":"hallomar festivities",
+			"desc":"As the harvest ends and the days go dark, the Hallomar hosts its autumnal festivities. A visit may prove fruitful in your research."
+
+		}
 
 	],
 
@@ -90,7 +113,7 @@
 			"level":0,
 			"length":100,
 			"desc":"Nestled in the fog of the midlands, the village of Hallomar holds a yearly celebration in its pumpkin patch.",
-			"require":"evt_helper",
+			"require":"evt_hallomar",
 			"run":{
 				"stamina":0.2
 			},
@@ -180,7 +203,7 @@
 			"mod":{
 
 				"cobwebs.rate":0.005,
-				"pumpkins.max":"100%",
+				"pumpkins.max":"50%",
 				"jacklantern.max":"100%",
 				"cobwebs.max":"100%"
 
@@ -195,14 +218,15 @@
 			"require":"tier0",
 			"max":5,
 			"cost":{
-				"space":1,
-				"pumpseeds":5
+				"herbs":10,
+				"pumpseeds":10
 			},
 			"mod":{
 				"herbs.max":5,
 				"herbalism.rate":0.1,
 				"herbalism.max":0.2,
 				"herbs.rate":0.1,
+				"jacklantern.max":1,
 				"pumpkins.max":10,
 				"pumpkins.rate":0.005
 			}
@@ -265,13 +289,13 @@
 				"cobwebs",
 				{
 					"id":"bdagg",
-					"name":"bone dagger",
+					"name":"necrotic dagger",
 					"material":"bone",
 					"type":"weapon",
 					"tohit":2,
-					"attack":{ "kind":"pierce", "damage":"2~4","dot":{
-						"duration":5,
-						"dmg":"1~3",
+					"attack":{ "kind":"pierce", "damage":"1~3","dot":{
+						"duration":3,
+						"dmg":"1~2",
 						"name":"necrosis",
 						"kind":"necrotic"
 
@@ -338,13 +362,31 @@
 	"monsters":[
 
 		{
+			"id":"wight",
+			"level":4,
+			"kind":"undead",
+			"desc":"The unwholesome creature leaves a trail of frost along the grass",
+			"hp":15,
+			"defense":4,
+			"attack":{
+			  "name":"frosty touch",
+			  "kind":"necrotic",
+			  "dmg":"1~3",
+				"leech":3
+			},
+			"loot":{
+				"pumpkin":"10%"
+			}
+		},
+		{
 			"id":"nec_zombie",
 			"name":"necrotic zombie",
 			"level":3,
 			"kind":"undead",
 			"desc":"A vicious zombie in a tattered dress.",
-			"hp":20,
-			"defense":3,
+			"hp":17,
+			"defense":1,
+			"speed":1,
 			"attack":{
 			  "name":"slam",
 			  "kind":"necrotic",
@@ -361,8 +403,9 @@
 			"level":2,
 			"kind":"undead",
 			"desc":"Noone's seen the Miller since he died last year...",
-			"hp":10,
-			"defense":4,
+			"hp":4,
+			"speed":4,
+			"defense":6,
 			"attack":{
 			  "name":"chilling touch",
 			  "kind":"necrotic",
@@ -400,7 +443,7 @@
 			"level":3,
 			"kind":"undead",
 			"desc":"Farmer John looks angry",
-			"hp":25,
+			"hp":15,
 			"defense":3,
 			"attack":{
 			  "name":"infectious bite",
@@ -441,15 +484,36 @@
 			"level":2,
 			"kind":"undead",
 			"desc":"the bones are mostly clean",
-			"hp":15,
-			"defense":2,
+			"hp":7,
+			"defense":4,
 			"attack":{
+				"tohit":4,
 			  "name":"impalement",
 			  "kind":"necrotic",
 			  "dmg":"1~3"
 			},
 			"loot":{
 				"pumpkins":"10%"
+			}
+		}
+
+	],
+	"items":[
+
+		{
+			"id":"hal_treat",
+			"name":"treat",
+			"level":1,
+			"stack":true,
+			"use":{
+
+
+					"hp":"-10~10",
+					"stamina":"-10~10",
+					"mana":"-10~10",
+					"duration":40
+
+
 			}
 		}
 

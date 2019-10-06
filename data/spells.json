@@ -1479,7 +1479,7 @@
 		"name":"guided strike",
 		"level":1,
 		"require":"g.divination>=3",
-		"school":"divination",
+		"school":"spirit",
 		"buy":{
 
 			"research":25,
@@ -1502,7 +1502,7 @@
 		"name":"true strike",
 		"level":3,
 		"require":"g.scrying>=1",
-		"school":"divination",
+		"school":"spirit",
 		"buy":{
 
 			"codices":1,
@@ -1525,12 +1525,12 @@
 		"name":"perfect strike",
 		"level":5,
 		"require":"g.scrying>=5",
-		"school":"divination",
+		"school":"spirit",
 		"buy":{
 
 			"tomes":1,
 			"research":100,
-			"spriritgem":5
+			"spiritgem":5
 
 		},
 		"cost":{

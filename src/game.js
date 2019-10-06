@@ -89,6 +89,8 @@ export default {
 		// Code events. Not game events.
 		Events.init(this);
 
+		this.Runner = null;
+
 		return this.loader = DataLoader.loadGame( saveData ).then( allData=>{
 
 			this.state = new GameState( allData, saveData );
@@ -401,6 +403,7 @@ export default {
 	trySell( it, inv, count=1 ) {
 
 		if ( it.value < 1 && !it.instance ) {
+			console.log('NOT INSTANCE: ' + it.id );
 			return false; }
 
 		if ( count > it.value ) count = it.value;
@@ -1006,11 +1009,15 @@ export default {
 	applyToTag( tag, obj, dt ) {
 
 		let target = this.state.getTagList(tag);
+
 		if ( target ) {
+
 			for( let i = target.length-1; i>=0; i--) {
 				target[i].applyVars( obj, dt);
 				target[i].dirty = true;
 			}
+
+
 		}
 
 	},
@@ -1253,7 +1260,7 @@ export default {
 		/** @todo this won't work right */
 		if ( typeof it === 'object' && it.stack ) {
 
-			let inst = inv.find( it.id, true );
+			let inst = inv.findMatch( it );
 			if ( inst ) {
 				inst.value++;
 				return;

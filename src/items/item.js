@@ -23,6 +23,13 @@ export default class Item {
 
 		let data = this.excludeJSON() || {};
 
+		if ( !this.template && !this.recipe ) {
+
+			//console.warn('MISSING TEMPLATE: ' + this.id );
+			data.type = this.type;
+
+		}
+
 		data.id = this.id;
 		data.recipe = this.recipe;
 		data.value = this.value;
@@ -58,6 +65,7 @@ export default class Item {
 
 		if ( vars ) Object.assign( this, vars );
 
+		this.value = this._value || 1;
 		if ( this.consume === null || this.consume === undefined ) this.consume = this.defaults.consume;
 		if ( this.stack === null || this.stack === undefined ) this.stack = this.defaults.stack;
 
@@ -103,7 +111,7 @@ export default class Item {
 
 		if ( typeof this.template ==='string' ) this.template = state.getData( this.template );
 		if ( this.template ) {
-			console.log('it revive from: ' + this.template );
+			//console.log('it revive from: ' + this.template );
 			mergeSafe( this, this.template);
 		}
 

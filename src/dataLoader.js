@@ -29,9 +29,10 @@ import Encounter, { ENCOUNTER } from './items/encounter';
 import GEvent from './items/gevent';
 
 import Loader from './util/jsonLoader';
+import { logObj } from './util/util';
 
 const DataDir = './data/';
-const DataFiles = [ 'resources', 'upgrades', 'actions', 'homes', 'furniture', 'skills',
+const DataFiles = [ 'resources', 'upgrades', 'actions', 'homes', 'furniture', 'items', 'skills',
 	'player', 'spells', 'monsters', 'dungeons', 'events', 'classes', 'armors', 'weapons',
 	'materials', 'enchants', 'sections', 'potions', 'encounters', 'locales','stressors', 'seasonal' ];
 
@@ -89,9 +90,11 @@ export default {
 		for( let p in loads ) {
 
 			var fileData = loads[p];
-			if ( !fileData ) {
+			if ( fileData === null || fileData === undefined ) {
 				console.warn( 'Missing Data for: ' + p );
+				loads[p] = [];
 			} else if ( fileData.module) {
+
 				this.mergeModule( fileData, loads );
 				loads[p] = undefined;
 			}
@@ -126,18 +129,20 @@ export default {
 	 */
 	mergeModule( mod, dataLists ){
 
-
-
 		if ( mod.data ) {
 
+			let post = mod.postfix;
 			for( let p in mod.data ) {
 
 				var newData = mod.data[p];
 				if ( !newData ) continue;
 
 				var targList = dataLists[p];
-				if ( targList ) this.mergeData( newData, targList, mod.postfix );
-				else dataLists[p] = newData;
+				if ( targList ) this.mergeData( newData, targList, post );
+				else {
+					dataLists[p] = newData;
+					if ( post ) newData.forEach(d=>d.name =( d.name || d.id ) + ' ' + post )
+				}
 
 			}
 
@@ -163,7 +168,7 @@ export default {
 
 			if ( posix ) d.name = ( d.name || d.id ) + ' ' + posix;
 
-			console.log('pushing: ' + d.id );
+			//console.log('pushing: ' + d.id );
 			if ( !Array.isArray(dest)) console.warn( 'DEST NOT AN ARRAY: ' + p );
 			dest.push(d);
 
@@ -268,6 +273,7 @@ export default {
 		this.initItems( dataLists['dungeons'], Dungeon );
 		this.initItems( dataLists['spells'], Spell );
 
+		this.initItems( dataLists['items'], Item, 'item', 'item');
 		gd.armors = this.initItems( dataLists['armors'], ProtoItem, 'armor','armor' );
 		gd.armors.forEach( v=>v.kind = v.kind || 'armor' );
 
