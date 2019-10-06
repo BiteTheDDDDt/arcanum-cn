@@ -53,23 +53,22 @@ export default class JSONLoader {
 		let promiseArr = [];
 		for( let p in loads ) {
 
-			loads[p] = new Promise(
+			loads[p] = window.fetch( this._dir + p + '.json', req ).then( r=>{
 
-				v=>window.fetch( this._dir + v + '.json', req ).then( r=>{
-
-					if ( r.status !== 200 ) return loads[p] = null;
-					return r.json().then(
+					if ( r.status !== 200 ) {
+						console.warn('Bad Status: ' + r.status );
+						return loads[p] = null;
+					} return r.json().then(
 						json=>loads[p] = json
 					);
 
-				})
-			);
+				});
 
 			promiseArr.push( loads[p]);
 
 		}
 
-		return this._promise = Promise.all( promiseArr ).then( loads, err=>{ console.error(err); });
+		return this._promise = Promise.all( promiseArr ).then( v=>loads, err=>{ console.error(err); });
 
 	}
 

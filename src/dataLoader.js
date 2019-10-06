@@ -73,7 +73,7 @@ export default {
 	loadData() {
 
 		let loader = new Loader( DataDir, DataFiles );
-		loader.load().then( this.filesLoaded(templates ));
+		return loader.load().then( v=>this.datasLoaded(v ));
 
 	},
 
@@ -81,13 +81,14 @@ export default {
 	 * Raw data files loaded, ref by filename.
 	 * @param {object.<string,json>} loads
 	 */
-	filesLoaded( loads ) {
+	datasLoaded( loads ) {
 
 		let templates = {};
 
 		// easiest to preparse modules so templates can be assigned in one place.
 		for( let p in loads ) {
 
+			console.log('checking load: ' + p );
 			var fileData = loads[p];
 			if ( !fileData ) {
 				console.warn( 'Missing Data for: ' + p );
@@ -189,6 +190,9 @@ export default {
 		for( let p in dataLists ) {
 
 			dataList = dataLists[p];
+			if ( !dataList ) {
+				console.warn('skipping empty: ' + p );
+			};
 
 			// lists of game-item data by type.
 			gameLists[p] = gameList = [];

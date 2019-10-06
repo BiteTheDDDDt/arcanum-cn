@@ -567,23 +567,6 @@
 		}
 	},
 	{
-		"id":"soothing",
-		"name":"soothing murmurs",
-		"fill":["stamina", "hp","manas", "stress"],
-		"require":"g.spiritlore>=12||g.airlore>=12",
-		"perpetual":true,
-		"desc":"whispers on the wind calm your troubled mind.",
-		"effect":{
-			"stress":-2,
-			"manas":{
-				"skipLocked":true,
-				"value":0.5
-			},
-			"stamina":0.82,
-			"hp":1.1
-		}
-	},
-	{
 		"id":"naturecamp",
 		"tags":"t_rest",
 		"name":"commune",

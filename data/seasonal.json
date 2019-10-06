@@ -10,6 +10,9 @@
 
 		{
 			"id":"mk_jacklant",
+			"cost":{
+				"pumpkin":1
+			},
 			"effect":{
 				"jacklantern":1
 			}
