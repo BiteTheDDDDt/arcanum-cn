@@ -16,6 +16,15 @@ export default class RevStat extends Resource {
 	}
 
 	/**
+	 * Determine if this resource can pay the given amount of value.
+	 * Made a function for reverseStats, among other things.
+	 * @param {number} amt
+	 */
+	canPay( amt ) {
+		return this.value + amt <= this.max.value;
+	}
+
+	/**
 	 * Determine whether the item is filled relative to a filling rate.
 	 * if the filling rate + natural item rate can't fill the item
 	 * it is considered filled to avoid getting stuck.

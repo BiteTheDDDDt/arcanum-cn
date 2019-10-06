@@ -61,6 +61,21 @@
 
 	},
 	{
+
+		"id":"concentrate",
+		"name":"concentration",
+		"desc":"keep your mind and nerves sharp under pressure.",
+		"verb":"concentrating",
+		"require":"(g.mustylibrary+g.loc_spring)>=2",
+		"run":{
+			"stamina":0.2
+		},
+		"mod":{
+			"stress.max":1
+		}
+
+	},
+	{
 		"id":"trickery",
 		"school":"arcane",
 		"verb":"scheming",

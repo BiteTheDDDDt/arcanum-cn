@@ -142,6 +142,7 @@ export default {
 
 				if ( list[i].value > 0) {
 					if ( evt.value == 0 ) {
+
 						evt.amount(this,1 );
 					}
 					hasEvent = true;
@@ -170,10 +171,11 @@ export default {
 			var it = items[p];
 			if ( !it.locked && it.value >0 && !it.disabled ) {
 
+				if ( it.id === 'tier0') console.log('ADDING TIER0 MODS');
 				if ( it.mod ) this.addMod( it.mod, it.value );
 				if ( it.lock ) this.lock( it.lock, it.count );
 
-			}
+			} else if ( it.id === 'tier0') console.log('tier0 SKIPPED');
 
 		}
 		for( let e of this.state.equip ) {
@@ -804,6 +806,12 @@ export default {
 
 		} else if ( type === 'object' ) {
 
+			/**
+			 * @todo: quick patch in case it was a data item.
+			 */
+			if ( test.id ) return ( test.type === 'resource' || test.type === 'action') ?
+			(test.locked === false) : test.value > 0;
+
 			// @todo: take recursive values into account.
 			let limit, it;
 			for( let p in test ) {
@@ -927,7 +935,9 @@ export default {
 				if ( target === undefined ) this.modTag( p, mod[p], amt );
 				else if ( mod[p] === true ){
 
-					if ( target.type === 'event' && !target.value ) target.amount( this, 1 );
+					if ( target.type === 'event' && !target.value ) {
+						target.amount( this, 1 );
+					}// else if ( target.mod ) this.addMod( target.mod, amt );
 
 				} else {
 					if ( target.applyMods) {
@@ -941,7 +951,11 @@ export default {
 
 			let t = this.getData(mod);
 			if ( t ) {
+
+
 				if ( t.type ==='event' && !t.value ) t.amount(this,1 );
+				//else if ( t.mod ) this.addMod( t.mod, amt );
+
 			} else {
 
 				let list = this.getTagList(mod);
@@ -1101,20 +1115,20 @@ export default {
 	 * @param {Array|Object} cost
 	 * @returns {boolean} true if cost can be paid.
 	 */
-	canPay( cost, unit=1 ) {
+	canPay( cost, amt=1 ) {
 
-		if (Array.isArray(cost) ) return cost.every( v=>this.canPay(v,unit), this );
+		if (Array.isArray(cost) ) return cost.every( v=>this.canPay(v,amt), this );
 
 		let res;
 
 		if ( typeof cost === 'object' ){
 
-			if ( cost instanceof Stat ) { return this.getData('gold').value >= cost.value*unit; }
+			if ( cost instanceof Stat ) { return this.getData('gold').value >= cost.value*amt; }
 
 			for( let p in cost ) {
 
 				res = this.getData(p);
-				if ( res === undefined || res.value < cost[p]*unit ) return false;
+				if ( res === undefined || !res.canPay( cost[p]*amt ) ) return false;
 
 				// @todo: recursive mod test.
 				/*let mod = res.mod;
@@ -1130,7 +1144,7 @@ export default {
 
 			res = this.getData('gold');
 			if ( !res) console.error('Error: Gold is missing');
-			return res.value >= cost*unit;
+			return res.value >= cost*amt;
 
 		}
 

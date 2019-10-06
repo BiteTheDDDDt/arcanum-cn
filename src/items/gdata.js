@@ -139,6 +139,15 @@ export default class GData {
 	}
 
 	/**
+	 * Determine if this resource can pay the given amount of value.
+	 * Made a function for reverseStats, among other things.
+	 * @param {number} amt
+	 */
+	canPay( amt ) {
+		return this.value >= amt;
+	}
+
+	/**
 	 * Determine if an item can be used. Ongoing/perpetual actions
 	 * test with 'canRun' instead.
 	 * @param {Game} g

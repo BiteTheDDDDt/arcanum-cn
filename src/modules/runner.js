@@ -414,6 +414,12 @@ const Runner = {
 	 */
 	actDone( act, repeatable=true ){
 
+		if ( act.running === false ) {
+			// skills cant be completed without actually running.
+			this.stopAction(act);
+			return;
+		}
+
 		if ( repeatable ) {
 
 			if ( Game.canRun(act) ) {

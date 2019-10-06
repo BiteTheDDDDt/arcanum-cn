@@ -88,7 +88,6 @@ export default {
 		// easiest to preparse modules so templates can be assigned in one place.
 		for( let p in loads ) {
 
-			console.log('checking load: ' + p );
 			var fileData = loads[p];
 			if ( !fileData ) {
 				console.warn( 'Missing Data for: ' + p );
@@ -127,6 +126,8 @@ export default {
 	 */
 	mergeModule( mod, dataLists ){
 
+
+
 		if ( mod.data ) {
 
 			for( let p in mod.data ) {
@@ -155,9 +156,17 @@ export default {
 		for( let i = list.length-1; i >= 0; i-- ) {
 
 			var d = list[i];
-			if ( posix && d.name ) d.name += ' ' + posix;
-			if ( !d.id ) console.warn('missing id: ' + d.name );
-			else dest[ d.id ] = d;
+			if ( !d.id ){
+				console.warn('missing id: ' + d.name );
+				continue;
+			}
+
+			if ( posix ) d.name = ( d.name || d.id ) + ' ' + posix;
+
+			console.log('pushing: ' + d.id );
+			if ( !Array.isArray(dest)) console.warn( 'DEST NOT AN ARRAY: ' + p );
+			dest.push(d);
+
 
 		}
 
@@ -191,7 +200,7 @@ export default {
 
 			dataList = dataLists[p];
 			if ( !dataList ) {
-				console.warn('skipping empty: ' + p );
+				continue;
 			};
 
 			// lists of game-item data by type.
@@ -241,6 +250,7 @@ export default {
 
 		gd.resources = this.initItems( dataLists['resources'], Resource );
 		gd.stressors = this.initItems( dataLists['stressors'], Resource, 'stress', 'stress' );
+		gd.stressors.forEach(v=>v.hidden=true);
 
 		gd.upgrades = this.initItems( dataLists['upgrades'], GData, null, 'upgrade' );
 

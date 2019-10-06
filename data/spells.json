@@ -1497,7 +1497,6 @@
 		"id":"soothing",
 		"name":"soothing breeze",
 		"level":2,
-		"perpetual":true,
 		"school":"air",
 		"desc":"a light wind steadies your nerves.",
 		"buy":{
@@ -1523,7 +1522,6 @@
 		"id":"calming",
 		"name":"calming murmurs",
 		"level":2,
-		"perpetual":true,
 		"school":"spirit",
 		"desc":"whispers on the wind calm your troubled mind.",
 		"buy":{

@@ -104,7 +104,8 @@ export default {
 
 div.explore div.stressors {
 	display:flex;
-	flex-flow: column wrap;
+	flex-flow: row wrap;
+	justify-content: space-between;
 }
 
 div.stressors .stress {
