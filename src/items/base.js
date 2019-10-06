@@ -254,22 +254,23 @@ export default {
 			//console.log('MOD NAME: ' + p);
 
 			var m = mods[p];
-			var sub = targ[p];
+			var subTarg = targ[p];
 
-			if ( sub === undefined || sub === null ) {
+			if ( subTarg === undefined || subTarg === null ) {
 
-				sub = targ[p] = ( typeof m === 'number') ? m*amt : cloneClass( m );
-				console.log( mods + '["' + p + '"]:' + m + ' -> mod targ undefined' + ' -> ' + sub );
+				subTarg = targ[p] = ( typeof m === 'number') ? m*amt : cloneClass( m );
+				console.log( mods + '["' + p + '"]:' + m + ' -> mod targ undefined' + ' -> ' + subTarg );
 
-			} else if ( m instanceof Mod ) m.applyTo( targ, p, amt );
+			} else if ( subTarg.applyMods ) subTarg.applyMods( m, amt, subTarg );
+			else if ( m instanceof Mod ) m.applyTo( targ, p, amt );
 			else if ( typeof m === 'object' ) {
 
-				this.applyObj( m, amt, sub );
+				this.applyObj( m, amt, subTarg );
 
 			} else if ( typeof m === 'number' ) {
 
-				if ( typeof sub === 'number') targ[p] += m*amt;
-				else this.applyMods( m, amt, sub);
+				if ( typeof subTarg === 'number') targ[p] += m*amt;
+				else this.applyMods( m, amt, subTarg);
 
 			} else {
 				console.warn( `UNKNOWN Mod applied to ${this.id}: ${p}:${m}`);

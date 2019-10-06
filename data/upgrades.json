@@ -1593,7 +1593,7 @@
 			"arcana":2
 		},
 		"mod":{
-			"player.dodge":2,
+			"dodge":2,
 			"airlore.max":2,
 			"airlore.rate":0.2,
 			"air.rate":0.05
@@ -1903,7 +1903,7 @@
 			"tomes":1
 		},
 		"mod":{
-			"player.dodge":1
+			"dodge":1
 		}
 	}
 

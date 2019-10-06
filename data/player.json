@@ -50,7 +50,7 @@
 	},
 	{
 		"id":"dodge",
-		"val":5,
+		"val":1,
 		"stat":true,
 		"unit":false,
 		"locked":false

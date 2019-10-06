@@ -10,6 +10,8 @@ import Events, { LEVEL_UP, NEW_TITLE } from "../events";
 import Attack from "./attack";
 import Wearable from "./wearable";
 import events from "../events";
+import { logObj } from "../util/util";
+import StatData from "../items/statData";
 
 const Fists = new Wearable({
 

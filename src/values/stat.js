@@ -139,7 +139,7 @@ export default class Stat {
 		this._pct += amt*mod.pct;
 		this._bonus += amt*mod.bonus;
 
-		//console.log( mod.id + ' MOD: ' + mod.toString() + ' x' + amt );
+		console.log( mod.id + ' MOD: ' + mod.toString() + ' x' + amt );
 
 		let cur = this.mods[ mod.id ];
 		if ( cur === undefined ) {

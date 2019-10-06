@@ -96,7 +96,7 @@ export default class Npc extends Char {
 
 		super( vars );
 
-		this.dodge = this.dodge || 0;
+		this.dodge = this.dodge || this.level/2;
 
 		this.active = this.active === undefined || this.active === null ? false : this.active;
 
