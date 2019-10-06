@@ -196,7 +196,7 @@
 
 		},
 		"run":{
-			"stamina":0.25,
+			"stamina":0.35,
 			"mana":0.1
 		},
 		"effect":{

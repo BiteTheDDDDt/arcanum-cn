@@ -311,7 +311,7 @@ export default class Runner {
 		this.stopAction( act, false );
 		if ( act.hasTag(REST_TAG) ) {
 
-			this.tryResume();
+			this.tryResume( true );
 
 		} else {
 			//if( resume) console.log('ADDING NEW WAIT: ' + act.id );
@@ -340,7 +340,9 @@ export default class Runner {
 		this.actives.splice(i,1);
 
 		if ( tryResume ){//&& a.hasTag(REST_TAG) ){
+
 			this.tryResume();
+
 		}
 
 	}
@@ -428,7 +430,6 @@ export default class Runner {
 
 				// attempt to resume any waiting actions.
 				this.tryResume();
-				this.tryAdd( Game.state.restAction );
 
 			}
 
@@ -438,7 +439,6 @@ export default class Runner {
 
 			// attempt to resume any waiting actions.
 			this.tryResume();
-			this.tryAdd( Game.state.restAction );
 
 		}
 
@@ -450,8 +450,9 @@ export default class Runner {
 
 	/**
 	 * Attempt to resume any waiting actions.
+	 * @param {boolean} norest - disallow resting on free action.
 	 */
-	tryResume() {
+	tryResume( norest=false) {
 
 		let avail = this.free;
 
@@ -471,6 +472,8 @@ export default class Runner {
 			}
 
 		}
+
+		if ( avail > 0 && !norest ) this.tryAdd( Game.state.restAction );
 
 	}
 
