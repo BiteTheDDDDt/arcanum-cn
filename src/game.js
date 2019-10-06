@@ -408,7 +408,7 @@ export default {
 
 		if ( count > it.value ) count = it.value;
 
-		console.log('sell count: ' + count );
+		console.log('sell #: ' + count );
 		let sellObj = it.sell || it.cost;
 		let goldPrice = count*this.sellPrice(it);
 
@@ -698,7 +698,7 @@ export default {
 	},
 
 	/**
-	 * Remove some amount of an item.
+	 * Remove amount of a non-inventory item.
 	 * If a tag list is specified, the amount will only be removed
 	 * from a single element of the list. Apparently.
 	 * @property {string|GData} id - item id or tag.
@@ -1097,6 +1097,12 @@ export default {
 					else res.applyVars( cost[p], -unit );
 					res.dirty = true;
 
+				} else {
+
+					res = this.inventory.findMatch( p );
+					if ( res ) this.inventory.removeQuant(res,unit);
+
+
 				}
 
 			}
@@ -1131,8 +1137,8 @@ export default {
 
 			for( let p in cost ) {
 
-				res = this.getData(p);
-				if ( res === undefined || !res.canPay( cost[p]*amt ) ) return false;
+				res = this.state.findData(p);
+				if ( res === undefined || res.value < cost[p]*amt ) return false;
 
 				// @todo: recursive mod test.
 				/*let mod = res.mod;

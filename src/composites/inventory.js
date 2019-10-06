@@ -168,6 +168,19 @@ export default class Inventory {
 	}
 
 	/**
+	 * Remove quantity of item and only drop from inventory
+	 * if remaining is 0.
+	 * @param {Item} it
+	 * @param {number} count
+	 */
+	removeQuant( it, count) {
+
+		it.value -= count;
+		if ( it.value <= 0 )this.remove(it);
+
+	}
+
+	/**
 	 *
 	 * @param {Item} it
 	 */
@@ -190,7 +203,6 @@ export default class Inventory {
 
 		let id = it.id;
 		let rec = it.recipe;
-		console.log('FIND: ' + it.id + ' OR:  ' + rec );
 
 		return this.items.find( v=>v.id===id || (rec&&v.recipe===rec));
 
