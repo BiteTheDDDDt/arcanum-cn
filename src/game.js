@@ -11,7 +11,7 @@ import Dot from './chars/dot';
 /**
  * @note these refer to Code-events, not in-game events.
  */
-import Events, {EVT_UNLOCK, EVT_EVENT, ENTER_LOC, EXIT_LOC, ITEM_ATTACK, SET_SLOT, TRY_USE, DELETE_ITEM } from './events';
+import Events, {EVT_UNLOCK, EVT_EVENT, EVT_LOOT, ENTER_LOC, EXIT_LOC, ITEM_ATTACK, SET_SLOT, TRY_USE, DELETE_ITEM } from './events';
 import Resource from './items/resource';
 import Skill from './items/skill';
 import Stat from './values/stat';
@@ -1137,8 +1137,20 @@ export default {
 
 			for( let p in cost ) {
 
+				var sub = cost[p];
 				res = this.state.findData(p);
-				if ( res === undefined || res.value < cost[p]*amt ) return false;
+				if ( !res ) return false;
+
+				if ( !isNaN(sub) || sub instanceof Stat ) {
+
+					if ( res.value < sub*amt ) return false;
+
+				} else {
+
+
+					if ( !this.canPayObj( res, sub, amt ) ) return false;
+
+				}
 
 				// @todo: recursive mod test.
 				/*let mod = res.mod;
@@ -1155,6 +1167,33 @@ export default {
 			res = this.getData('gold');
 			if ( !res) console.error('Error: Gold is missing');
 			return res.value >= cost*amt;
+
+		}
+
+		return true;
+	},
+
+	/**
+	 * Follow object path to determine ability to pay.
+	 * @param {object} parent - parent object.
+	 * @param {object|number} cost - cost expected on parent or sub.
+	 * @param {number} amt - cost multiplier.
+	 */
+	canPayObj( parent, cost, amt=1 ){
+
+		if ( cost instanceof Stat || !isNaN(cost)){
+			return parent.value >= cost;
+		}
+
+		for( let p in cost ) {
+
+			var val = cost[p];
+			if ( !isNaN(val) || val instanceof Stat ) {
+				if ( parent.value < val*amt ) return false;
+			} else if ( typeof val === 'object'){
+
+				if ( !this.canPayObj( parent[p], val, amt ) ) return false;
+			}
 
 		}
 
@@ -1276,6 +1315,9 @@ export default {
 
 		let res = this.itemGen.getLoot(it);
 		if ( res === null || res === undefined ) return;
+
+		Events.emit( EVT_LOOT, res );
+
 		inv.add( res );
 
 	},

@@ -27,7 +27,7 @@
 			"id":"applebob",
 			"name":"apple bobbing",
 			"require":"evt_hal_imp",
-			"desc":"the imp at the barrel promises some of the apples are really magic gemstones.",
+			"desc":"the imp at the barrel promises some of the apples are really magic gems.",
 			"cost":{
 				"gold":1
 			},
