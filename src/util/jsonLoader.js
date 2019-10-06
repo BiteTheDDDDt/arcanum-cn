@@ -78,10 +78,10 @@ export default class JSONLoader {
 	 * Convert promises to their json data.
 	 * @param {*} loads
 	 */
-	_loaded( loads ){
+	/*_loaded( loads ){
 		for( let p in loads ) {
 		}
-	}
+	}*/
 
 	/**
 	 * Build JSON request info for making the fetch request.

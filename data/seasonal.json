@@ -1,9 +1,15 @@
 {
+	"module":"halloween",
+
+	"postfix":"\uf09f8e83",
+
+	"data":{
+
 
 	"actions":[
 
 		{
-			"id":"crjacklant",
+			"id":"mk_jacklant",
 			"effect":{
 				"jacklantern":1
 			}
@@ -142,5 +148,6 @@
 		}
 	]
 
+	}
 
 }

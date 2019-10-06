@@ -28,6 +28,8 @@ import Potion from './items/potion';
 import Encounter, { ENCOUNTER } from './items/encounter';
 import GEvent from './items/gevent';
 
+import Loader from './util/jsonLoader';
+
 const DataDir = './data/';
 const DataFiles = [ 'resources', 'upgrades', 'actions', 'homes', 'furniture', 'skills',
 	'player', 'spells', 'monsters', 'dungeons', 'events', 'classes', 'armors', 'weapons',
@@ -70,39 +72,34 @@ export default {
 
 	loadData() {
 
-		let headers = new Headers();
-		headers.append( 'Content-Type', 'text/json');
-		return Promise.all(
-
-			DataFiles.map(
-				v=>window.fetch( DataDir + v + '.json', {
-
-					method:'GET',
-					headers:headers,
-					mode:'cors',
-					credentials:'same-origin'
-				}).then( r=>{
-
-					if ( r.status !== 200 ) return null;
-					return r.json();
-				})
-
-			)
-
-		).then( arr=>this.filesLoaded(arr),
-			err=>{ console.error(err); });
+		let loader = new Loader( DataDir, DataFiles );
+		loader.load().then( this.filesLoaded(templates ));
 
 	},
 
 	/**
-	 * Raw data files loaded.
-	 * @param {Object[][]} filesArr
+	 * Raw data files loaded, ref by filename.
+	 * @param {object.<string,json>} loads
 	 */
-	filesLoaded( filesArr ) {
+	filesLoaded( loads ) {
 
 		let templates = {};
 
-		let lists = {};
+		// modules must be preparsed.
+		for( let p in loads ) {
+
+			var fileData = loads[p];
+			if ( !fileData ) {
+				console.warn( 'Missing Data for: ' + p );
+			} else if ( fileData.module) this.mergeModule( fileData, loads );
+			else {
+
+
+
+
+			}
+
+		}
 
 		for( let i = filesArr.length-1; i>=0; i-- ) {
 
@@ -117,14 +114,57 @@ export default {
 
 			}
 
-			lists[ DataFiles[i] ] = itemList.map(v=>v.id);
+			loads[ DataFiles[i] ] = itemList.map(v=>v.id);
 
 		}
 
 		this.templates = this.freezeData( templates );
 		//for( let p in this.templates ) console.log('template: ' + p );
 
-		this.itemLists = lists;
+		this.itemLists = loads;
+
+	},
+
+	/**
+	 *
+	 * @param {object} mod
+	 * @param {object.<string,object>} dataLists - data lists by load file.
+	 */
+	mergeModule( mod, dataLists ){
+
+		if ( mod.data ) {
+
+			for( let p in mod.data ) {
+
+				var newData = mod.data[p];
+				if ( !newData ) continue;
+
+				var targList = dataLists[p];
+				if ( targList ) this.mergeData( newData, targList, mod.postfix );
+				else dataLists[p] = newData;
+
+			}
+
+		}
+
+	},
+
+	/**
+	 * Merge items from a module data list into the appropriate target list.
+	 * @param {object[]} list
+	 * @param {object} dest
+	 * @param {*} posix
+	 */
+	mergeData( list, dest, posix ) {
+
+		for( let i = list.length-1; i >= 0; i-- ) {
+
+			var d = list[i];
+			if ( posix && d.name ) d.name += ' ' + posix;
+			if ( !d.id ) console.warn('missing id: ' + d.name );
+			else dest[ d.id ] = d;
+
+		}
 
 	},
 
