@@ -56,7 +56,8 @@ export default class Npc extends Char {
 					loot[p] = new Percent(sub);
 				} else if ( RangeTest.test(sub) ) {
 					loot[p ] = new Range(sub);
-				}
+				} else if ( !isNaN(sub) ) loot[p] = Number(sub);
+
 			}
 		}
 

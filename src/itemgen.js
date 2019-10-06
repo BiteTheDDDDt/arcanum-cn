@@ -17,13 +17,15 @@ export function itemRevive(gs, it ) {
 
 		var orig = it.template || it.recipe;
 		if ( typeof orig === 'string') orig = gs.getData( orig );
-		if ( !orig) {
+
+		var type = orig ? orig.type : it.type;
+
+		if ( !type) {
 			console.warn('inv. bad item type: ' + it.id + ' -> ' + it.template + ' -> ' + it.recipe );
 			return null;
 		}
 		it.template = orig;
 
-		var type = orig.type;
 		if ( type == null ) {
 			console.warn( 'Unknown Item type: '+ it.type + ' -> ' + it.template + ' -> ' + it.recipe );
 		}

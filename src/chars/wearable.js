@@ -16,11 +16,16 @@ export default class Wearable extends Item {
 
 		data.id = this.id;
 
-		if ( !this.template ) console.warn('MISSING TEMPLATE: ' + this.id );
-		else if ( typeof this.template === 'string' ) {
+		if ( !this.template ) {
+
+			//console.warn('MISSING TEMPLATE: ' + this.id );
+			data.type = this.type;
+
+		} else if ( typeof this.template === 'string' ) {
+
 			data.template = this.template;
-		}
-		else data.template = this.template.id;
+
+		} else data.template = this.template.id;
 
 		data.name = this.name;
 		data.attack = this.attack || undefined;
@@ -90,6 +95,8 @@ export default class Wearable extends Item {
 		//if ( vars ) logObj( vars, 'vars');
 		//if( vars.template ) logObj( vars.template, ' template' );
 		if ( !this.type ) { this.type = 'wearable'; }
+
+		if ( this._attack && !this._attack.name ) this._attack.name = this.name;
 
 	}
 

@@ -24,7 +24,7 @@
 		"level":0.5,
 		"kind":"undead",
 		"desc":"little more than tatters and bones",
-		"hp":"2",
+		"hp":2,
 		"defense":2,
 		"attack":{
 		  "name":"pecking",

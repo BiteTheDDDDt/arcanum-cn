@@ -1475,6 +1475,76 @@
 
 	},
 	{
+		"id":"guidestr",
+		"name":"guided strike",
+		"level":1,
+		"require":"g.divination>=3",
+		"school":"divination",
+		"buy":{
+
+			"research":25,
+			"scrolls":1
+
+		},
+		"cost":{
+			"spirit":1
+		},
+		"dot":{
+			"duration":45,
+			"mod":{
+				"player.tohit":3
+			}
+		}
+
+	},
+	{
+		"id":"truestrike",
+		"name":"true strike",
+		"level":3,
+		"require":"g.scrying>=1",
+		"school":"divination",
+		"buy":{
+
+			"codices":1,
+			"research":100
+
+		},
+		"cost":{
+			"spirit":2
+		},
+		"dot":{
+			"duration":45,
+			"mod":{
+				"player.tohit":6
+			}
+		}
+
+	},
+	{
+		"id":"perfectstrike",
+		"name":"perfect strike",
+		"level":5,
+		"require":"g.scrying>=5",
+		"school":"divination",
+		"buy":{
+
+			"tomes":1,
+			"research":100,
+			"spriritgem":5
+
+		},
+		"cost":{
+			"spirit":2
+		},
+		"dot":{
+			"duration":45,
+			"mod":{
+				"player.tohit":15
+			}
+		}
+
+	},
+	{
 		"id":"heal2",
 		"level":4,
 		"name":"sealing light II",

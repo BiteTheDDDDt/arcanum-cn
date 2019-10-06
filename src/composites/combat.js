@@ -18,6 +18,7 @@ import Wearable from '../chars/wearable';
 */
 export function tryDamage(target, attack, attacker = null) {
 
+	if ( !target || !target.alive ) return;
 	if (attack.kind) {
 
 		if (target.isImmune(attack.kind)) {

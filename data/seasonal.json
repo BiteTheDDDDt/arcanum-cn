@@ -49,7 +49,6 @@
 			"id":"smashpump",
 			"name":"smash pumpkin",
 			"require":"pumpkins",
-			"fill":"pumpseeds",
 			"cost":{
 				"pumpkins":1
 			},
@@ -194,15 +193,16 @@
 			"tags":"taggarden,naturesource,spiritsource",
 			"desc":"a furrowed plot for growing pumpkins",
 			"require":"tier0",
+			"max":5,
 			"cost":{
-				"space":5,
+				"space":1,
 				"pumpseeds":5
 			},
 			"mod":{
 				"herbs.max":5,
-				"herbalism.rate":0.2,
-				"herbalism.max":1,
-				"herbs.rate":0.3,
+				"herbalism.rate":0.1,
+				"herbalism.max":0.2,
+				"herbs.rate":0.1,
 				"pumpkins.max":10,
 				"pumpkins.rate":0.005
 			}
@@ -261,10 +261,23 @@
 				"pumpkin":"1~2",
 				"title":"hallowed defender"
 			},
-			"loot":{
-				"max":1,
-				"cobwebs":"1~3"
-			},
+			"loot":[
+				"cobwebs",
+				{
+					"id":"bdagg",
+					"name":"bone dagger",
+					"material":"bone",
+					"type":"weapon",
+					"tohit":2,
+					"attack":{ "kind":"pierce", "damage":"2~4","dot":{
+						"duration":5,
+						"dmg":"1~3",
+						"name":"necrosis",
+						"kind":"necrotic"
+
+					}}, "cost":20, "level":3
+				}
+			],
 			"log":{
 				"name":"graves silenced",
 				"desc":"The graveyard is once more at rest. For now."
@@ -313,7 +326,7 @@
 
 			},
 			"cost":{
-				"pumpkin":1
+				"pumpkins":1
 			},
 			"attack":{
 				"damage":"5~20"
@@ -338,7 +351,7 @@
 			  "dmg":"0.5~1"
 			},
 			"loot":{
-				"pumpkin":"10%"
+				"pumpkins":"10%"
 			},"flavor":"Elena looking better than ever."
 			},
 
@@ -356,7 +369,7 @@
 			  "dmg":"2~4"
 			},
 			"loot":{
-				"pumpkin":"10%"
+				"pumpkins":"10%"
 			},"flavor":"Now they only half see him."
 			},
 			{
@@ -378,7 +391,7 @@
 				}
 			},
 			"loot":{
-				"pumpkin":"10%"
+				"pumpkins":"10%"
 			}
 			},
 			{
@@ -419,7 +432,7 @@
 			},
 			"loot":{
 				"jacklantern":"50%",
-				"pumpkins":"2"
+				"pumpkins":2
 			}
 			},
 			{
