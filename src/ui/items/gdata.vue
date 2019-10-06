@@ -123,7 +123,7 @@ export default {
 
 		<attack v-if="item.attack" :item="item.attack" />
 
-		<div v-if="item.effect||item.mod||item.result||item.dot" class="note-text"><hr>effects:</div>
+		<div v-if="item.effect||item.mod||item.result||item.dot||item.use" class="note-text"><hr>effects:</div>
 
 
 
@@ -131,6 +131,7 @@ export default {
 
 		<info v-if="item.effect" :info="item.effect" :rate="runnable(item)" />
 		<info v-if="item.mod" :info="item.mod" />
+		<info v-if="item.use" :info="item.use" />
 		<info v-if="item.result" :info="item.result" />
 
 		<div v-if="item.lock||item.disable" class="note-text"><hr>locks:</div>
