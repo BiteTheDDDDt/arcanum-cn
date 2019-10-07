@@ -1,12 +1,12 @@
 <script>
 import { LogTypes} from '../events';
+import Game from '../game';
 
 /**
  * Displays event output to user.
  */
 export default {
 
-	props:['log', 'max'],
 	data() {
 
 		var filter = 0;
@@ -15,11 +15,10 @@ export default {
 		}
 
 		return {
+			log:Game.log,
 			LogTypes:LogTypes,
 			filter:filter,
-			items:this.log.items,
-			showOptions:false,
-			pmax:this.max||80
+			showOptions:false
 
 			/**
 			 * @property {string[]} exclude - types to exclude.
@@ -51,7 +50,8 @@ export default {
 
 		visItems(){
 
-			let all = this.items;
+			let all = this.log.items;
+
 			let a = [];
 
 			for( let i = all.length-1; i>=0; i-- ) {

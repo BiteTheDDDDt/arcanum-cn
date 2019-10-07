@@ -5,15 +5,14 @@ import Stat from '../values/stat';
 import Dot from './dot';
 import Attack from './attack';
 import GameState from '../gameState';
-import { assignNoFunc, cloneClass } from '../util/util';
-import Monster from '../items/monster';
+
 
 /**
  * @constant {number} DELAY_RATE - speed to attack delay conversion constant.
  */
-export const DELAY_RATE = 3;
+export const DELAY_RATE = 3.5;
 export function getDelay(s) {
-	return DELAY_RATE*Math.exp(-s/4);
+	return 0.5 + DELAY_RATE*Math.exp(-s/8);
 }
 
 export default class Char {

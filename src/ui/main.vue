@@ -360,7 +360,7 @@ export default {
 
 		<vitals :player="state.player" :state="state" />
 
-		<log :log="game.log" />
+		<log />
 
 		</div>
 

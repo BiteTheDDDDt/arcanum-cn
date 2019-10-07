@@ -154,7 +154,6 @@ export default class Raid {
 	enemyDied( enemy, attacker ) {
 
 		this.player.exp += 1 + Math.max( enemy.level - this.player.level, 0 );
-		attacker.timer =attacker.delay;
 
 		//console.log('ENEMY templ: ' + (typeof enemy.template) );
 

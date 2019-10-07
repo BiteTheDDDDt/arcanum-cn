@@ -219,6 +219,7 @@
 			"max":50,
 			"cost":{
 
+				"space":0,
 				"jacklantern":5,
 				"research":100
 
@@ -264,6 +265,7 @@
 			"require":"tier0",
 			"max":5,
 			"cost":{
+				"space":0,
 				"herbs":10,
 				"pumpseeds":10
 			},
@@ -350,6 +352,7 @@
 			"desc":"the bridge from Hollomar to the grimpen wood isn't safe this time of year.",
 			"level":14,
 			"dist":10,
+			"length":1,
 			"require":"evt_hoofs",
 			"result":{
 
@@ -357,7 +360,8 @@
 			"boss":"hal_headless",
 			"loot":[
 
-			]
+			],
+			"enemies":["nec_skeleton"]
 
 		},
 		{

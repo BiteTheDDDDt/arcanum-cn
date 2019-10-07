@@ -153,10 +153,10 @@ export default class Combat {
 
 		if ( this._enemies.length === 0 ) return;
 
-		this.player.timer -= dt;
 		if ( this.player.alive === false ) {
 			return;
 		}
+		this.player.timer -= dt;
 		if ( this.player.timer <= 0 ) {
 
 			this.player.timer += this.player.delay;
@@ -331,6 +331,34 @@ export default class Combat {
 		if ( enemies.length>0 && enemies[0]) Events.emit( EVT_COMBAT, enemies[0].name + ' Encountered' );
 
 		this.enemies = enemies;
+		this.setTimers();
+
+	}
+
+	/**
+	 * readjust timers at combat start to the smallest delay.
+	 * prevents waiting for first attack.
+	 */
+	setTimers() {
+
+		let minDelay = this.player.delay;
+
+		for( let i = this.enemies.length-1; i >= 0; i-- ) {
+			if ( this.enemies[i].delay < minDelay) minDelay = this.enemies[i].delay;
+		}
+		for( let i = this.allies.length-1; i >= 0; i-- ) {
+			if ( this.allies[i].delay < minDelay) minDelay = this.allies[i].delay;
+		}
+
+		this.player.timer = this.player.delay - minDelay;
+
+
+		for( let i = this.enemies.length-1; i >= 0; i-- ) {
+			this.enemies[i].timer = this.enemies[i].delay - minDelay;
+		}
+		for( let i = this.allies.length-1; i >= 0; i-- ) {
+			this.allies[i].timer = this.allies[i].delay - minDelay;
+		}
 
 	}
 

@@ -23,6 +23,12 @@ export default class GData {
 	set disabled(v) { this._disabled = v;}
 
 	/**
+	 * @property {string} sym - optional unicode symbol.
+	 */
+	get sym() { return this._sym; }
+	set sym(v) { this._sym=v;}
+
+	/**
 	 * @property {Stat} max
 	 */
 	get max() { return this._max; }
