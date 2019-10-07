@@ -21,7 +21,18 @@ const EVT_UNLOCK = 'unlock';
 const EVT_LOOT = 'loot';
 const EVT_DISABLED = 'disabled';
 
-export const LogTypes = [ EVT_EVENT, EVT_UNLOCK,EVT_COMBAT, EVT_LOOT ];
+const LOG_EVENT = 1;
+const LOG_UNLOCK = 2;
+const LOG_LOOT = 4;
+const LOG_COMBAT = 8;
+const LOG_DISABLED = 16;
+
+export const LogTypes = {
+	'event':LOG_EVENT,
+	'unlock':LOG_UNLOCK,
+	'loot':LOG_LOOT,
+	'combat':LOG_COMBAT
+};
 
 const COMBAT_DONE = 'combat_done';
 const ENEMY_SLAIN = 'slain';
@@ -149,12 +160,12 @@ export default {
 	 */
 	onEvent( it ) {
 		if ( it.hidden) return;
-		this.log.log( it.name, it.desc, EVT_EVENT );
+		this.log.log( it.name, it.desc, LOG_EVENT );
 	},
 
 	onUnlock( it ) {
 		if ( it.hidden) return;
-		this.log.log( uppercase(it.type) + ' Unlocked: ' + it.name, null, EVT_UNLOCK );
+		this.log.log( uppercase(it.type) + ' Unlocked: ' + it.name, null, LOG_UNLOCK );
 	},
 
 	onLoot( loot ) {
@@ -183,7 +194,7 @@ export default {
 
 		} else if ( typeof loot === 'string' ) text = loot;
 
-		this.log.log( 'LOOT', text, EVT_LOOT );
+		this.log.log( 'LOOT', text, LOG_LOOT );
 
 	},
 
@@ -191,35 +202,35 @@ export default {
 	},
 
 	onNewTitle(t) {
-		this.log.log( 'Title Earned: ' + uppercase(t), null, EVT_UNLOCK );
+		this.log.log( 'Title Earned: ' + uppercase(t), null, LOG_UNLOCK );
 	},
 
 	actImproved(it) {
 
-		this.log.log( it.name + ' Improved', null, EVT_UNLOCK );
+		this.log.log( it.name + ' Improved', null, LOG_UNLOCK );
 	},
 
 	onLevel( player ) {
-		this.log.log( player.name + ' Level Up!', null, EVT_EVENT );
+		this.log.log( player.name + ' Level Up!', null, LOG_EVENT );
 	},
 
 	onDefeat( locale ) {
 
-		this.log.log( 'Retreat', '', EVT_COMBAT );
+		this.log.log( 'Retreat', '', LOG_COMBAT );
 
 	},
 
 	onMiss( msg ) {
 
-		this.log.log( '', msg, EVT_COMBAT );
+		this.log.log( '', msg, LOG_COMBAT );
 	},
 
 	onCombat( title, msg) {
-		this.log.log( title, msg, EVT_COMBAT );
+		this.log.log( title, msg, LOG_COMBAT );
 	},
 
 	enemySlain( enemy, attacker ) {
-		this.log.log( '', enemy.name + ' slain' + ( attacker ? ' by ' + attacker.name : ''), EVT_COMBAT );
+		this.log.log( '', enemy.name + ' slain' + ( attacker ? ' by ' + attacker.name : ''), LOG_COMBAT );
 	},
 
 	/**

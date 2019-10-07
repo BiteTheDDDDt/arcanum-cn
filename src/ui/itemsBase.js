@@ -7,6 +7,7 @@ import {indexAfter} from '../util/util';
 import Game from '../game';
 import Skill from '../items/skill';
 import Stat from '../values/stat';
+import Range from '../values/range';
 
 export default {
 
@@ -95,7 +96,7 @@ export default {
 		},
 
 		/**
-		 * @param {Object} obj - object whose effects to enumerate.
+		 * @param {Object} obj - object of effects to enumerate.
 		 * @param {Object} results - [name/effect] pairs to display to user.
 		 * @param {string} propPath - prop path from base.
 		 * @param {boolean} rate - whether display is per/s rate.
@@ -154,7 +155,14 @@ export default {
 						if ( refItem && (refItem.locked || refItem.disabled) ) continue;
 
 					}
-					if ( sub.toString && (sub.toString != Object.prototype.toString) ) {
+					if ( sub instanceof Range ) {
+
+						console.warn('SUB IS RANGE: ' + sub.toString() );
+						results[subPath] = sub.toString();
+						continue;
+					}
+
+					if ( sub.toString && (sub.toString !== Object.prototype.toString) ) {
 
 						results[subPath] = sub.toString() + ( subRate ? '/s' : '');
 

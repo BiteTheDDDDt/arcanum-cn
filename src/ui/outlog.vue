@@ -1,20 +1,25 @@
 <script>
-
-const LogTypes = ['event','unlock','combat', 'loot'];
+import { LogTypes} from '../events';
 
 /**
  * Displays event output to user.
  */
 export default {
 
-	props:['log'],
+	props:['log', 'max'],
 	data() {
+
+		var filter = 0;
+		for( let p in LogTypes) {
+			filter |= LogTypes[p];
+		}
 
 		return {
 			LogTypes:LogTypes,
-			filter:LogTypes.concat(),
+			filter:filter,
 			items:this.log.items,
-			showOptions:false
+			showOptions:false,
+			pmax:this.max||80
 
 			/**
 			 * @property {string[]} exclude - types to exclude.
@@ -23,6 +28,17 @@ export default {
 
 	},
 	methods:{
+
+		changed( box ) {
+
+			if ( box.checked ) {
+				this.filter = this.filter|box.value;
+			} else {
+				this.filter = (~box.value)&this.filter;
+
+			}
+
+		},
 
 		doOptions() {
 			this.showOptions = !this.showOptions;
@@ -38,10 +54,10 @@ export default {
 			let all = this.items;
 			let a = [];
 
-			for( let i = this.items.length-1; i>=0; i-- ) {
+			for( let i = all.length-1; i>=0; i-- ) {
 
 				var it = all[i];
-				if ( !it.type || this.filter.includes(it.type) ) a.push(it);
+				if ( !it.type || (this.filter&it.type)>0 ) a.push(it);
 			}
 			return a;
 
@@ -62,9 +78,9 @@ export default {
 				<!--<button class="text-button" @click="doOptions">&#9881;</button>-->
 				<span class="checks">
 
-				<span v-for="p in LogTypes" :key="p">
-					<input type="checkbox" :value="p" :id="elmId(p)" v-model="filter" >
-					<label :for="elmId(p)">{{ p }}</label>
+				<span v-for="(p,k) in LogTypes" :key="k">
+					<input type="checkbox" :value="p" :id="elmId(k)" :checked="filter&p" @change="changed( $event.target )" >
+					<label :for="elmId(k)">{{ k }}</label>
 				</span>
 				</span>
 

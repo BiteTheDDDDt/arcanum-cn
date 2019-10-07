@@ -9,7 +9,7 @@ import Explore from '../items/explore.vue';
 
 import { ENTER_LOC } from '../../events';
 
-const MAX_ITEMS = 5;
+const MAX_ITEMS = 7;
 
 export default {
 
