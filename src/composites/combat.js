@@ -10,6 +10,7 @@ import Events, {
 
 import Monster from '../items/monster';
 import Wearable from '../chars/wearable';
+import { itemRevive } from '../itemgen';
 
 /**
 * Attempt to damage a target. Made external for use by dots, other code.
@@ -108,13 +109,14 @@ export default class Combat {
 	get enemies() { return this._enemies; }
 	set enemies(v) {
 
-		for (let i = v.length - 1; i >= 0; i--) {
+		/*let a = [];
+		let len = v.length;
+		for( let i = 0; i < len; i++ ) {
 
-			var obj = v[i];
-			if ( obj instanceof Monster ) v[i] = Game.itemGen.npc( obj);
-			else if (!(obj instanceof Npc) ) v[i] = new Npc( v[i] );
+			if ( v[i] ) a.push( v[i]);
+			else console.warn('missing enemy: ' + v[i]);
 
-		}
+		}*/
 
 		this._enemies = v;
 	}
@@ -131,7 +133,7 @@ export default class Combat {
 
 		if (vars) Object.assign(this, vars);
 
-		this._enemies = this._enemies || [];
+		if (!this._enemies) this._enemies = [];
 
 	}
 
@@ -141,7 +143,15 @@ export default class Combat {
 		this.player = state.player;
 		this.spelllist = state.getData('spelllist');
 
-		for( let i = this._enemies.length-1; i>=0; i-- ) this._enemies[i].revive(state);
+		console.log('REVIVE NEMEIS: ' + this.enemies.length );
+
+		for( let i = this._enemies.length-1; i>=0; i-- ) {
+
+			this._enemies[i] = itemRevive( state, this._enemies[i]);
+			if ( !this._enemies[i] ) this._enemies.splice(i,1);
+
+
+		}
 
 		Events.add( CHAR_DIED, this.charDied, this );
 
@@ -315,16 +325,19 @@ export default class Combat {
 	setEnemies( enemy, pct ) {
 
 		var enemies = [];
+		var e;
 
 		if (  Array.isArray(enemy)){
 
 			for( let i = enemy.length-1; i >=0; i-- ) {
-				enemies.push( this.makeEnemy( enemy[i], pct) );
+				e = this.makeEnemy( enemy[i], pct);
+				if ( e ) enemies.push(e);
 			}
 
 		} else {
 
-			enemies.push( this.makeEnemy(enemy, pct) );
+			e = this.makeEnemy(enemy, pct);
+			if ( e ) enemies.push(e);
 
 		}
 
@@ -368,9 +381,15 @@ export default class Combat {
 	 */
 	makeEnemy( e, pct=1 ) {
 
-		if ( typeof e === 'string' ) return Game.getData(e);
+		if ( typeof e === 'string' ) {
 
-		e = Game.itemGen.genEnemy( e, pct );
+			e = Game.getData(e);
+			if ( e ) return Game.itemGen.npc(e);
+
+		}
+
+		// generate enemy from parameters.
+		e = Game.itemGen.randEnemy( e, pct );
 		if ( !e) {console.warn( 'Missing Enemy: ') }
 
 		return e;

@@ -15,6 +15,11 @@ import Mod from './values/mod';
  */
 export function itemRevive(gs, it ) {
 
+		if ( !it ) {
+			console.warn('Missing gen item: ' + it );
+			return null;
+		}
+
 		var orig = it.template || it.recipe;
 		if ( typeof orig === 'string') orig = gs.getData( orig );
 
@@ -59,7 +64,7 @@ export default class ItemGen {
 		this.state = state;
 
 		/**
-		 * Groups of item types to generate. 'armor', 'weapon', 'npc' etc.
+		 * Groups of item types to generate. 'armor', 'weapon', 'monster' etc.
 		 */
 		this.groups = {};
 
@@ -81,7 +86,7 @@ export default class ItemGen {
 		this.initGroup('weapon', state.weapons );
 		this.initGroup('materials', state.materials );
 
-		let g = this.initGroup('npc', state.monsters );
+		let g = this.initGroup('monster', state.monsters );
 		g.makeFilter( 'biome' );
 		g.makeFilter( 'kind' );
 
@@ -104,8 +109,9 @@ export default class ItemGen {
 	/**
 	 * Generate an enemy from rand definition.
 	 * @param {*} data
+	 * @param {number} [pct=1] level modifier
 	 */
-	genEnemy( data, pct=1 ) {
+	randEnemy( data, pct=1 ) {
 
 		var level =1;
 
@@ -125,8 +131,8 @@ export default class ItemGen {
 		if ( data.range ) level += (data.range*( -1 + 2*Math.random() ) );
 		level = Math.ceil(level);
 
-		let npc = this.groups.npc.randBelow( level );
-		return npc;
+		let npc = this.groups.monster.randBelow( level );
+		return npc ? this.npc(npc) : null;
 
 	}
 

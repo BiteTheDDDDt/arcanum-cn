@@ -57,7 +57,9 @@ export default class Attack {
 			kind:this.kind,
 			targets:this.targets,
 			dot:this.dot
-		})
+		});
+
+		return a;
 	}
 
 	constructor( vars=null ){
