@@ -1,4 +1,4 @@
-import {getPropDesc} from 'objecty';
+import {getPropDesc, clone} from 'objecty';
 
 /**
  * Return first non-null element of array.
@@ -137,6 +137,35 @@ export function logPublic( src ) {
 	}
 
 	console.log('PUBLIC: ' + a.join(',' ) );
+
+}
+
+/**
+ * NOTE: Merge over undefined and null values.
+ * @param {*} dest
+ * @param {*} src
+ */
+export function mergeDefined( dest, src ) {
+
+	for( let p in src ) {
+
+		var destSub = dest[p];
+		let srcSub = src[p];
+
+		if ( destSub === undefined || destSub === null ) {
+
+			if ( srcSub !== null && typeof srcSub === 'object' ) dest[p] = clone( srcSub, Array.isArray(srcSub) ? [] : {} );
+			else dest[p] = srcSub;
+
+			continue;
+
+		}
+
+		if ( srcSub && typeof destSub === 'object' && typeof srcSub === 'object') {
+			if ( !Array.isArray(destSub) && !Array.isArray(srcSub) ) mergeDefined( destSub, srcSub );
+		}
+
+	}
 
 }
 

@@ -11,6 +11,7 @@ import Events, {
 import Monster from '../items/monster';
 import Wearable from '../chars/wearable';
 import { itemRevive } from '../itemgen';
+import { logObj } from '../util/util';
 
 /**
 * Attempt to damage a target. Made external for use by dots, other code.
@@ -142,8 +143,6 @@ export default class Combat {
 		this.state = state;
 		this.player = state.player;
 		this.spelllist = state.getData('spelllist');
-
-		console.log('REVIVE NEMEIS: ' + this.enemies.length );
 
 		for( let i = this._enemies.length-1; i>=0; i-- ) {
 

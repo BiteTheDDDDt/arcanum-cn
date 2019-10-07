@@ -7,9 +7,11 @@ import Encounter, { ENCOUNTER } from './items/encounter';
 import Npc from './chars/npc';
 import GenGroup from './genGroup';
 import Mod from './values/mod';
+import { logObj } from './util/util';
 
 /**
  * Revive a prototyped item based on an item template.
+ * converts template string to actual template object before instancing/revive.
  * @param {*} gs
  * @param {*} it
  */
@@ -36,7 +38,9 @@ export function itemRevive(gs, it ) {
 			it = new Wearable(it);
 
 		} else if ( type === 'monster') {
-			it = new Npc(it);
+
+			it = new Npc( orig, it );
+
 		} else if ( type === 'enc') {
 
 			// encounter.

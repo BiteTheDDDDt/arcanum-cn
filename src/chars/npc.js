@@ -97,9 +97,11 @@ export default class Npc extends Char {
 	get active() { return this._active; }
 	set active(v) { this._active = v; }
 
-	constructor(vars) {
+	constructor(vars, save=null ) {
 
 		super( vars );
+
+		if ( save ) Object.assign( this, save );
 
 		this.dodge = this.dodge || this.level/2;
 
@@ -107,10 +109,6 @@ export default class Npc extends Char {
 
 		if ( typeof this.hp === 'string' || typeof this.hp === 'object') this.hp = new Range(this.hp);
 		if ( this.hp instanceof Range ) this.hp = this.hp.value;
-		if ( !this.hp ) {
-
-			console.log('MISSING HP:  ' + this.id );
-		}
 
 		this.tohit = this.tohit || 0;
 		this.maxHp = this._maxHp || this._hp;

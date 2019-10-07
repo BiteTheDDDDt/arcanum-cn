@@ -5,6 +5,7 @@ import Stat from '../values/stat';
 import Dot from './dot';
 import Attack from './attack';
 import GameState from '../gameState';
+import { mergeDefined } from '../util/util';
 
 
 /**
@@ -117,7 +118,7 @@ export default class Char {
 		if ( this.template ) {
 
 			let it = state.getData( this.template );
-			if ( it ) mergeSafe( this, it );
+			if ( it ) mergeDefined( this, it );
 
 			if ( !this._name ) this._name = it.name;
 			//if ( this.hp instanceof Range ) this.hp = this.hp.value;

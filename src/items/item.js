@@ -1,5 +1,4 @@
 import Base, {mergeClass} from './base';
-import { mergeSafe} from 'objecty';
 import Dot from '../chars/dot';
 import { cloneClass } from '../util/util';
 
