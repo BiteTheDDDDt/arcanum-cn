@@ -313,11 +313,40 @@
 	"dungeons":[
 
 		{
+			"id":"hal_bloodmanor",
+			"name":"blood manor",
+			"desc":"Asleep for a century, the orange lights of the Blood Manor glow once more in the dark.",
+			"level":17,
+			"length":30,
+			"dist":100,
+			"require":"hal_headless",
+			"run":{
+				"stamina":0.4,
+				"hp":0.1
+			},
+			"loot":[
+				"nymiescharm"
+			],
+			"boss":"hal_baroness",
+			"enemies":[
+				["undeadcrow","nec_ghast","undeadcrow"],
+				["nec_zombie","nec_zombie","nec_zombie"],
+				"nec_ghoul",
+				"nec_ghast",
+				"nec_ghost",
+				["nec_skeleton","nec_skeleton","nec_ghoul"]
+			]
+
+		},
+
+		{
 
 			"id":"hal_bridge",
 			"name":"hallow bridge",
 			"desc":"the bridge from Hollomar to the grimpen wood isn't safe this time of year.",
 			"level":14,
+			"dist":10,
+			"require":"evt_hoofs",
 			"result":{
 
 			},
@@ -335,12 +364,12 @@
 			"length":20,
 			"require":"loc_pumpkin",
 			"run":{
-				"stamina":0.4,
-				"hp":0.5
+				"stamina":0.3
 			},
 			"result":{
 				"pumpkin":"1~2",
-				"title":"hallowed defender"
+				"title":"hallowed defender",
+				"evt_hoofs":true
 			},
 			"loot":[
 				"cobwebs",

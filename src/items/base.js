@@ -41,7 +41,7 @@ export default {
 		let vars = changes( jsonify(this, excludes ), this.template || {} );
 
 
-		if ( this.locked === false && this.template.locked !== false ){
+		if ( this.locked === false && this.template && this.template.locked !== false ){
 			vars = vars || {};
 			vars.locked = this.locked;
 		}
@@ -56,7 +56,7 @@ export default {
 		let vars = changes( jsonify(this, JSONIgnore ),
 			this.template || {} );
 
-		if ( this.locked === false && this.template.locked !== false ){
+		if ( this.locked === false && this.template && this.template.locked !== false ){
 			vars = vars || {};
 			vars.locked = this.locked;
 		}

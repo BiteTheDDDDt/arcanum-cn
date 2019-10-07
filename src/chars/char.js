@@ -175,9 +175,17 @@ export default class Char {
 		if ( this.timer <= 0 ) {
 
 			this.timer += this.delay;
-			return this.attacks || ( this.attack || this );
+			return this.getAttack();
 
 		}
+
+	}
+
+	getAttack(){
+
+		if ( this.attacks && this.attacks.length>0 )
+			return this.attacks[Math.floor(Math.random()*this.attacks.length)];
+		return this.attack || this;
 
 	}
 

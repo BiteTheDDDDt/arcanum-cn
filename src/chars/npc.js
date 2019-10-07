@@ -17,11 +17,16 @@ export default class Npc extends Char {
 
 		let data = super.toJSON();
 		data.id = this.id;
-		data.template = this.template.id;
+
 		data.cost = undefined;
 		data.team = this.team||undefined;
 
-		if ( this.name != this.template.name ) data.name = this.name;
+		if ( this.template ){
+			data.template = this.template.id;
+			if ( this.name != this.template.name ) data.name = this.name;
+
+		} else data.name = this.name;
+
 		//data.died = this.died||undefined;
 
 		return data;
