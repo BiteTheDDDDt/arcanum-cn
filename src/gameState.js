@@ -138,7 +138,7 @@ export default class GameState {
 			 */
 			if ( it.custom === 'group') {
 
-				console.warn('CUSTOM: ' + it.id + ' name: ' + it.name );
+				//console.warn('CUSTOM: ' + it.id + ' name: ' + it.name );
 				this.items[p] = new Group( it );
 
 			} else if ( it.instance ) {

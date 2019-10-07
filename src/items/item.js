@@ -1,6 +1,7 @@
 import Base, {mergeClass} from './base';
 import { mergeSafe} from 'objecty';
 import Dot from '../chars/dot';
+import { cloneClass } from '../util/util';
 
 const ItemDefaults = {
 	stack:true,
@@ -111,7 +112,7 @@ export default class Item {
 		if ( typeof this.template ==='string' ) this.template = state.getData( this.template );
 		if ( this.template ) {
 			//console.log('it revive from: ' + this.template );
-			mergeSafe( this, this.template);
+			cloneClass( this.template, this );
 		}
 
 	}

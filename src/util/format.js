@@ -27,7 +27,7 @@ export const abbr = (it)=>{
 
 	let s = it.name || it.id;
 	if ( !s) {
-		console.warn( it + ' missing name');
+		//console.warn( it + ' missing name');
 		return it;
 	}
 

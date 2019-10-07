@@ -21,14 +21,10 @@ export function itemRevive(gs, it ) {
 		var type = orig ? orig.type : it.type;
 
 		if ( !type) {
-			console.warn('inv. bad item type: ' + it.id + ' -> ' + it.template + ' -> ' + it.recipe );
+			console.warn('gen unknown type: ' + it.id + ' -> ' + it.template + ' -> ' + it.recipe );
 			return null;
 		}
 		it.template = orig;
-
-		if ( type == null ) {
-			console.warn( 'Unknown Item type: '+ it.type + ' -> ' + it.template + ' -> ' + it.recipe );
-		}
 
 		if ( type === 'armor' || type === 'weapon' || type === 'wearable') {
 

@@ -155,12 +155,6 @@ export default {
 						if ( refItem && (refItem.locked || refItem.disabled) ) continue;
 
 					}
-					if ( sub instanceof Range ) {
-
-						console.warn('SUB IS RANGE: ' + sub.toString() );
-						results[subPath] = sub.toString();
-						continue;
-					}
 
 					if ( sub.toString && (sub.toString !== Object.prototype.toString) ) {
 
