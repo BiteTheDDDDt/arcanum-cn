@@ -215,6 +215,8 @@ export default class ItemGen {
 			return null;
 		}
 
+		if ( info.pct && (100*Math.random() > info.pct) ) return null;
+
 		if ( info.type === 'wearable' || info.type === 'weapon'
 				|| info.type ==='armor') return this.fromData( info );
 
@@ -228,7 +230,6 @@ export default class ItemGen {
 			return;
 		}
 
-		if ( info.pct && (100*Math.random() > info.pct) ) return null;
 		if ( info.level ) return this.fromLevel( info.level, info.type, info.material );
 		else if ( info.max ) return this.randBelow( info.max, info.type, info.material );
 
