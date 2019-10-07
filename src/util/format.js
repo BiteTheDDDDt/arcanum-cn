@@ -37,8 +37,16 @@ export const abbr = (it)=>{
 
 }
 
-export const fixed = (v, n=2) => {
-	return ( typeof v === 'number') ? v.toFixed(n) : v;
+/**
+ * Returns fixed point, rounding down.
+ * @param {*} v
+ * @param {*} n
+ */
+export const lowFixed = (v, n=2) => {
+
+	let pow = Math.pow(10,n);
+	return Math.floor( v*pow )/pow;
+
 }
 
 export const seconds = (v) => {

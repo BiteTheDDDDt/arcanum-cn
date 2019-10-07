@@ -1,6 +1,6 @@
 <script>
 import Game from '../game';
-import { floor } from '../util/format';
+import { floor, lowFixed } from '../util/format';
 
 import AllUpgrades from './allupgrades.vue';
 import SlotPick from './components/slotpick.vue';
@@ -38,7 +38,9 @@ export default {
 		next() {return this.floor( this.player.next ); },
 		mount() { return Game.state.getSlot('mount'); },
 		dist() { return this.player.dist; },
-		sp(){return this.player.sp; }
+
+		sp() { return this.player.sp; },
+		spStr(){return lowFixed( this.player.sp ); }
 
 
 	},
@@ -72,7 +74,7 @@ export default {
 		<!--<tr><td>alignment</td><th>{{ player.alignment }}</th></tr>-->
 		<tr><td>level</td><th> {{ level }}</th></tr>
 		<tr><td>exp</td><th> {{ exp }} / {{ next }} </th></tr>
-		<tr><td @mouseenter.capture.stop="emit( 'itemover', $event,sp)">skill points</td><th> {{ sp.value.toFixed(2) }}</th></tr>
+		<tr><td @mouseenter.capture.stop="emit( 'itemover', $event,sp)">skill points</td><th> {{spStr }}</th></tr>
 
 		<tr><td>rest</td><th><slotpick pick="rest" /></th></tr>
 		<tr><td>mount</td><th><slotpick pick="mount" /></th></tr>

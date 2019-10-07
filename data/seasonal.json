@@ -1,7 +1,7 @@
 {
 	"module":"halloween",
 
-	"postfix":"\uD83C\uDF83",
+	"sym":"\uD83C\uDF83",
 
 	"data":{
 
@@ -525,7 +525,7 @@
 			]
 		},
 		{
-			"id":"wight",
+			"id":"hal_wight",
 			"level":4,
 			"kind":"undead",
 			"desc":"The unwholesome creature leaves a trail of frost along the grass",

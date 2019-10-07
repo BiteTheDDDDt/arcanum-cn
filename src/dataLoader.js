@@ -131,17 +131,17 @@ export default {
 
 		if ( mod.data ) {
 
-			let post = mod.postfix;
+			let sym = mod.sym;
 			for( let p in mod.data ) {
 
 				var newData = mod.data[p];
 				if ( !newData ) continue;
 
 				var targList = dataLists[p];
-				if ( targList ) this.mergeData( newData, targList, post );
+				if ( targList ) this.mergeData( newData, targList, sym );
 				else {
 					dataLists[p] = newData;
-					if ( post ) newData.forEach(d=>d.name =( d.name || d.id ) + ' ' + post )
+					if ( sym ) newData.forEach(d=>d.sym = d.sym||sym )
 				}
 
 			}
@@ -154,9 +154,9 @@ export default {
 	 * Merge items from a module data list into the appropriate target list.
 	 * @param {object[]} list
 	 * @param {object} dest
-	 * @param {*} posix
+	 * @param {string} sym - special unicode symbol.
 	 */
-	mergeData( list, dest, posix ) {
+	mergeData( list, dest, sym ) {
 
 		for( let i = list.length-1; i >= 0; i-- ) {
 
@@ -166,7 +166,7 @@ export default {
 				continue;
 			}
 
-			if ( posix ) d.name = ( d.name || d.id ) + ' ' + posix;
+			if ( sym ) d.sym = d.sym || sym;
 
 			//console.log('pushing: ' + d.id );
 			if ( !Array.isArray(dest)) console.warn( 'DEST NOT AN ARRAY: ' + p );

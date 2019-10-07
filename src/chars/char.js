@@ -37,20 +37,22 @@ export default class Char {
 		this.delay = getDelay(v);
 	}
 
-	get attacks() { return this._attacks; }
-	set attacks(v){
-
-		for( let i = v.length-1; i>=0; i-- ) {
-			v[i] = (v[i] instanceof Attack) ? v[i] : new Attack(v[i]);
-
-		}
-
-		this._attacks = v;
-	}
-
 	get attack() { return this._attack; }
 	set attack(v) {
-		this._attack = ( v instanceof Attack) ? v : new Attack(v);
+
+		if ( Array.isArray(v)) {
+
+			let a = [];
+			for( let i = v.length-1; i>=0; i-- ) {
+
+				a.push( (v[i] instanceof Attack) ? v[i] : new Attack(v[i]) );
+
+			}
+
+			this._attack = a;
+
+		} else this._attack = ( v instanceof Attack) ? v : new Attack(v);
+
 	}
 
 	get dots() { return this._dots; }
@@ -182,8 +184,8 @@ export default class Char {
 
 	getAttack(){
 
-		if ( this.attacks && this.attacks.length>0 )
-			return this.attacks[Math.floor(Math.random()*this.attacks.length)];
+
+		if ( Array.isArray(this.attack) ) return this.attack[ Math.floor( Math.random()*this.attack.length ) ];
 		return this.attack || this;
 
 	}

@@ -132,20 +132,4 @@ export default class Npc extends Char {
 		);
 	}
 
-	/*update(dt) {
-
-		super.update(dt);
-
-		if ( !this.alive ) return;
-
-		this.timer -= dt;
-		if ( this.timer <= 0 ) {
-
-			this.timer += this.delay;
-			return this.attacks || this.attack || this;
-
-		}
-
-	}*/
-
 }

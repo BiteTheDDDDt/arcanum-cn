@@ -350,14 +350,15 @@ export default class Combat {
 			if ( this.allies[i].delay < minDelay) minDelay = this.allies[i].delay;
 		}
 
-		this.player.timer = this.player.delay - minDelay;
+		// +1 is initial encounter delay.
+		this.player.timer = 1 + this.player.delay - minDelay;
 
 
 		for( let i = this.enemies.length-1; i >= 0; i-- ) {
-			this.enemies[i].timer = this.enemies[i].delay - minDelay;
+			this.enemies[i].timer = 1 + this.enemies[i].delay - minDelay;
 		}
 		for( let i = this.allies.length-1; i >= 0; i-- ) {
-			this.allies[i].timer = this.allies[i].delay - minDelay;
+			this.allies[i].timer = 1 + this.allies[i].delay - minDelay;
 		}
 
 	}

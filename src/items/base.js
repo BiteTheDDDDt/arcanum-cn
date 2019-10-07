@@ -86,7 +86,7 @@ export default {
 	/**
 	 * @property {string} name - displayed name.
 	 */
-	get name() { return ( this._actname && this._value < 1 ) ? this.actname : (this._name||this.id); },
+	get name() { return (( this._actname && this._value < 1 ) ? this.actname : (this._name||this.id)) + (this.sym||''); },
 	set name(v) { this._name = v;},
 
 	/**

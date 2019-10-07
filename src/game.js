@@ -1084,6 +1084,7 @@ export default {
 				var g = this.getData('gold');
 				g.value -= cost.value*unit;
 				g.dirty = true;
+				return;
 			}
 
 			for( let p in cost ) {
@@ -1099,8 +1100,8 @@ export default {
 
 				} else {
 
-					res = this.inventory.findMatch( p );
-					if ( res ) this.inventory.removeQuant(res,unit);
+					res = this.state.inventory.findMatch( p );
+					if ( res ) this.state.inventory.removeQuant(res,unit);
 
 
 				}

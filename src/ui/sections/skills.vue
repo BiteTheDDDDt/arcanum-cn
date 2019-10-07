@@ -2,6 +2,7 @@
 import Game from '../../game';
 import ItemBase from '../itemsBase';
 import SkillView from '../items/skill.vue';
+import {lowFixed} from '../../util/format';
 
 import FilterBox from '../components/filterbox.vue';
 
@@ -24,7 +25,7 @@ export default {
 	},
 	computed:{
 
-		sp() { return this.state.getData('sp'); },
+		sp() { return lowFixed( this.state.getData('sp').value ); },
 
 		skills() { return this.state.skills; },
 
@@ -47,7 +48,7 @@ export default {
 <template>
 	<div class="skills">
 
-		<span class="separate"><filterbox v-model="filtered" :items="available" min-items="7" /><span style="align-self:center">Skill Points: {{ sp.value.toFixed(2) }}</span></span>
+		<span class="separate"><filterbox v-model="filtered" :items="available" min-items="7" /><span style="align-self:center">Skill Points: {{ sp }}</span></span>
 
 		<div class="subs">
 			<skill v-for="s in filtered" :key="s.id" :skill="s" :active="s.running" @train="train"></skill>
