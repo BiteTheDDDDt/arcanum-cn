@@ -64,7 +64,8 @@
 				"stamina":0.5
 			},
 			"effect":{
-				"trickery.exp":1
+				"trickery.exp":1,
+				"player.exp":0.1
 			},
 			"result":{
 				"pumpkins":1
@@ -82,6 +83,9 @@
 			},
 			"run":{
 				"stamina":0.3
+			},
+			"effect":{
+				"player.exp":0.2
 			},
 			"result":{
 				"pumpseeds":3,

@@ -24,7 +24,7 @@ const EVT_DISABLED = 'disabled';
 const LOG_EVENT = 1;
 const LOG_UNLOCK = 2;
 const LOG_LOOT = 4;
-const LOG_COMBAT = 8;
+export const LOG_COMBAT = 8;
 const LOG_DISABLED = 16;
 
 export const LogTypes = {

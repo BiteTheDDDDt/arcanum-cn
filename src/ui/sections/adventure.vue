@@ -7,7 +7,7 @@ import FilterBox from '../components/filterbox.vue';
 
 import Explore from '../items/explore.vue';
 
-import { ENTER_LOC } from '../../events';
+import { ENTER_LOC, LOG_COMBAT } from '../../events';
 
 const MAX_ITEMS = 7;
 
@@ -37,7 +37,7 @@ export default {
 
 		combatLog() {
 			return this.log.items.filter(
-				v=>v.type==='combat' ).slice( -MAX_ITEMS );
+				v=>v.type===LOG_COMBAT).slice( -MAX_ITEMS );
 		},
 
 		explore() { return this.state.raid.running ? this.state.raid : this.state.explore; },
