@@ -270,7 +270,7 @@ export default class Runner {
 		if ( !a) return;
 
 		if ( a.cost && (a.exp === 0) ) {
-			console.warn('PAY FIRST ACTION COST');
+			console.warn('PAY START COST');
 			Game.payCost( a.cost);
 		}
 
@@ -314,7 +314,7 @@ export default class Runner {
 			this.tryResume( true );
 
 		} else {
-			//if( resume) console.log('ADDING NEW WAIT: ' + act.id );
+
 			if ( resume ) this.addWait(act);
 			this.doRest();
 		}
@@ -369,16 +369,21 @@ export default class Runner {
 		//console.log('adding wait: ' + a.id );
 		this.waiting.push(a);
 
-		let len = this.waiting.length - this.max.value;
+		let remove = this.waiting.length - this.max.value;
 		let i = 0;
 
-		while ( len > 0 ) {
+		while ( remove > 0 ) {
 
 			a = this.waiting[i];
 			if ( !(a instanceof Runnable ) ) {
+
 				this.waiting.splice( i, 1 );
-			} else i++;
-			len--;
+
+			} else {
+				i++;
+			}
+
+			remove--;
 
 		}
 
@@ -419,7 +424,7 @@ export default class Runner {
 
 				this.setAction(act);
 
-			} else if ( !act.hasTag(REST_TAG )) {
+			} else if ( act.hasTag(REST_TAG )) {
 
 				this.stopAction( act, true );
 
@@ -513,10 +518,9 @@ export default class Runner {
 
 			if ( !Game.canPay( a.run, dt ) ) {
 				this.stopAction(a);
-				console.log('ADD WAIT: ' + a.id );
 				this.addWait(a);
 				this.tryAdd( Game.state.restAction );
-				return false;
+
 			}
 			Game.payCost( a.run, dt );
 

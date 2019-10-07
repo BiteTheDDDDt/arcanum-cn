@@ -5,9 +5,9 @@ const fs = require('fs');
 
 var versObj = fs.readFileSync( './vers.json');
 versObj = JSON.parse(versObj);
-const vers = versObj.vers;
+const vers = versObj.test;
 
-versObj.vers++;
+versObj.test++;
 fs.writeFileSync( './vers.json', JSON.stringify(versObj ));
 
 

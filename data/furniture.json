@@ -855,8 +855,7 @@
 		"max":3,
 		"cost":{
 			"gold":400,
-			"research":100,
-			"research.max":10,
+			"research":400,
 			"space":10
 		},
 		"mod":{

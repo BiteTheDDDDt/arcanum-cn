@@ -374,7 +374,7 @@ export default {
 					this.remove( it, it.value);
 
 				} else if ( it.mod ) {
-					console.log('REMOVING MOD: ' + it.id + ' --> ' + it.value );
+					//console.log('REMOVING MOD: ' + it.id + ' --> ' + it.value );
 					this.removeMod( it.mod, it.value );
 				}
 

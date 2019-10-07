@@ -674,7 +674,7 @@
 			"research":100
 		},
 		"mod":{
-			"player.dodge":1
+			"dodge":1
 		}
 
 	},
