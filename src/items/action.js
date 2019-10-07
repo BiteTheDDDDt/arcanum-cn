@@ -97,7 +97,6 @@ export default class Action extends GData {
 		if ( this.log ) Game.doLog( this.log );
 		if ( this.result ) Game.applyEffect( this.result );
 		if ( this.mod ) Game.addMod( this.mod );
-		if ( this.loot ) Game.getLoot( this.loot );
 
 		this.value++;
 
@@ -124,6 +123,8 @@ export default class Action extends GData {
 			Game.addTimer( this );
 			this.timer = this.cd;
 		}
+
+		if ( this.loot ) Game.getLoot( this.loot );
 
 		var improve = false;
 
