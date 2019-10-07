@@ -79,6 +79,7 @@ export default {
 
 				<span v-if="it.title" class="log-title">{{ it.title }}</span>
 				<span class="log-text">{{ it.text }}</span>
+				<span class="num-align" v-if="it.count>1">(x{{it.count}})</span>
 
 			</div>
 			</div>

@@ -12,6 +12,7 @@ export class LogItem {
 
 		this.subtype = subtype;
 
+		this.count = 1;
 	}
 
 }
@@ -40,7 +41,20 @@ export default class Log {
 
 	log( title='', text='', type='event', sub=null ) {
 
+		if ( this.items.length > 0 ) {
+
+			let last = this.items[this.items.length-1];
+			if ( last.type === type && last.title === title && last.text === text ) {
+
+				last.count++;
+				return;
+
+			}
+
+		}
 		this.items.push( new LogItem(title, text, type, sub ) );
+
+
 		if ( this.items.length >= this.maxItems+50 ) {
 			this.items.splice( 0, 50 );
 		}

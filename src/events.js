@@ -196,9 +196,6 @@ export default {
 
 	actImproved(it) {
 
-		/**@todo force-non focus is quickfix. not meant to stay here. */
-		if ( it.id ==='focus') return;
-
 		this.log.log( it.name + ' Improved', null, EVT_UNLOCK );
 	},
 
