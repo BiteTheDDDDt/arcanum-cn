@@ -284,6 +284,40 @@
 		}
 	},
 	{
+		"id":"enc_blackcat",
+		"name":"black cat",
+		"desc":"a black cat is an omen to be studied seriously",
+		"effect":{
+			"unease":"1~3",
+			"spiritlore.max":0.01,
+			"divination.exp":1,
+			"scrying.exp":1
+
+		},
+		"result":{
+			"arcana":0.04
+		}
+
+	},
+	{
+		"id":"enc_hestia",
+		"name":"hestia",
+		"desc":"hestia has no interest in the world outside Thangmor, but will teach those who come to her.",
+		"effect":{
+			"unease":"2~4",
+			"bf":"-2~3",
+			"potions.max":0.01,
+			"herbalism.exp":1,
+			"scrying.max":0.01,
+			"history.max":0.01
+
+		},
+		"result":{
+			"arcana":0.1
+		}
+
+	},
+	{
 		"id":"encpidwig",
 		"name":"talk to pidwig",
 		"desc":"pidwig is sparse with words, but has seem many mysteries in his travels.",

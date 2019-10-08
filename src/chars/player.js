@@ -161,7 +161,7 @@ export default class Player extends Char {
 
 		data.bonuses = this.bonuses;
 		data.immunities = this.immunities;
-		data.resists =this.resists;
+		data.resist = this.resist;
 
 		data.retreat = this.retreat||undefined;
 
@@ -209,7 +209,7 @@ export default class Player extends Char {
 			confused:0
 		};
 
-		this.immunities = this.immunities || {
+		if ( !this.immunities ) this.immunities = {
 			fire:0,
 			water:0,
 			air:0,
@@ -223,7 +223,7 @@ export default class Player extends Char {
 			disease:0
 		}
 
-		this.bonuses = this.bonuses || {
+		if ( !this.bonuses ) this.bonuses = {
 		}
 
 		this.alignment = this.alignment || 'neutral';

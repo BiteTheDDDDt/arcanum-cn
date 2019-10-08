@@ -391,8 +391,13 @@ export default class Runner {
 
 	haltAction( act ) {
 
-		if ( act instanceof Runnable ) this.addWait(act);
-		this.stopAction( act );
+		// absolute rest stop if no actions waiting.
+		if ( this.waiting.length === 0 && act.hasTag( REST_TAG ) ) this.stopAction(act,false);
+
+		else {
+			if ( act instanceof Runnable ) this.addWait(act);
+			this.stopAction( act );
+		}
 
 	}
 

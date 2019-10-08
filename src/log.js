@@ -105,7 +105,7 @@ export default class Log {
 		} //
 
 		this.counts[type] -= del;
-		console.log('CUT TYPE ' + type + ' COUNT: ' + this.counts[type] );
+		//console.log('CUT TYPE ' + type + ' COUNT: ' + this.counts[type] );
 
 		this.items = i < max ? bot.concat( this.items.slice(i) ) : bot;
 

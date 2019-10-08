@@ -1905,6 +1905,26 @@
 		"mod":{
 			"dodge":1
 		}
+	},
+	{
+		"id":"fireplane",
+		"slot":"homeplane",
+		"require":"tier5",
+		"buy":{
+
+			"flamerune":10,
+			"gold":10000,
+			"tomes":10
+
+		},
+		"mod":{
+			"space.max":"30%",
+			"firelore.max":2,
+			"water.rate":"-5%",
+			"player.resist.fire":"1+10%",
+			"player.bonuses.fire":5
+		}
 	}
+
 
 ]

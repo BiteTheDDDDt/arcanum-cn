@@ -38,6 +38,21 @@ export default class Char {
 		this.delay = getDelay(v);
 	}
 
+	get immunities(){
+		return this._immunities;
+	}
+	set immunities(v) {
+
+		for( let p in v ) {
+
+			var i = v[p];
+			if ( !(i instanceof Stat) ) v[p] = new Stat(i);
+
+		}
+
+		this._immunities=v;
+	}
+
 	get attack() { return this._attack; }
 	set attack(v) {
 

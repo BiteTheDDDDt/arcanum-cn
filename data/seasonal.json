@@ -10,6 +10,7 @@
 		{
 			"id":"pumpsack",
 			"name":"seed sack",
+			"require":"g.pumpseeds>=10",
 			"max":3,
 			"cost":{
 				"gold":500
@@ -153,6 +154,22 @@
 	"locales":[
 
 		{
+
+			"id":"hal_hestia",
+			"desc":"Deep in Thangmor forest, the great witch Hestia keeps a small, secluded cabin. On rare occasions she even takes visitors.",
+			"level":13,
+			"length":50,
+			"require":"loc_pumpkin",
+			"result":{
+
+			},
+			"loot":{
+
+			},
+			"encs":[]
+
+		},
+		{
 			"id":"loc_pumpkin",
 			"name":"hallomar",
 			"level":0,
@@ -161,9 +178,6 @@
 			"require":"evt_hallomar",
 			"run":{
 				"stamina":0.2
-			},
-			"effect":{
-
 			},
 			"result":{
 				"title":"harvest reveller",
@@ -335,7 +349,7 @@
 			],
 			"boss":"hal_baroness",
 			"enemies":[
-				["undeadcrow","nec_ghast","undeadcrow"],
+				["undeadcrow","nec_ghast","nec_ghast"],
 				["nec_zombie","nec_zombie","nec_zombie"],
 				"nec_ghoul",
 				"nec_ghast",
@@ -361,7 +375,9 @@
 			"loot":[
 
 			],
-			"enemies":["nec_skeleton"]
+			"enemies":[
+				["nec_ghost","nec_ghost","nec_ghost"]
+			]
 
 		},
 		{
@@ -471,7 +487,8 @@
 				{
 					"name":"hideous laughter",
 					"kind":"madness",
-					"targets":"all"
+					"targets":"all",
+					"dmg":"3~5"
 				},
 				{
 					"name":"life drain",
@@ -669,6 +686,7 @@
 			"id":"hal_apple",
 			"name":"apple",
 			"level":1,
+			"save":true,
 			"stack":true,
 			"use":{
 
@@ -681,6 +699,7 @@
 			"id":"hal_treat",
 			"name":"treat",
 			"level":1,
+			"save":true,
 			"stack":true,
 			"desc":"local confections may have unpredictable effects",
 			"use":{
