@@ -21,6 +21,8 @@ export default class Npc extends Char {
 		data.cost = undefined;
 		data.team = this.team||undefined;
 
+		data.timer = this.timer;
+
 		if ( this.template ){
 			data.template = this.template.id;
 			if ( this.name != this.template.name ) data.name = this.name;
@@ -51,6 +53,11 @@ export default class Npc extends Char {
 	}
 	set loot( loot ){
 
+		if ( typeof loot !== 'object'){
+			this._loot = loot;
+			return;
+		}
+
 		for( var p in loot ) {
 
 			var sub = loot[p];
@@ -59,8 +66,11 @@ export default class Npc extends Char {
 				if ( PercentTest.test(sub)) {
 
 					loot[p] = new Percent(sub);
+
 				} else if ( RangeTest.test(sub) ) {
+
 					loot[p ] = new Range(sub);
+
 				} else if ( !isNaN(sub) ) loot[p] = Number(sub);
 
 			}

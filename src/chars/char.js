@@ -45,8 +45,8 @@ export default class Char {
 
 		for( let p in v ) {
 
-			var i = v[p];
-			if ( !(i instanceof Stat) ) v[p] = new Stat(i);
+			var val = v[p];
+			if ( !(val instanceof Stat) ) v[p] = new Stat(val);
 
 		}
 
@@ -129,12 +129,14 @@ export default class Char {
 			this.dots[i].revive(state);
 		}
 
+		this.delay = getDelay( this.speed );
 
 		if ( this.template ) {
 
-			let it = state.getData( this.template );
-			if ( it ) mergeDefined( this, it );
+			//let it = state.getData( this.template );
+			//if ( it ) mergeDefined( this, it );
 
+			if ( !this.attack ) console.warn('NO ATTACK: ' + this.id );
 			if ( !this._name ) this._name = it.name;
 			//if ( this.hp instanceof Range ) this.hp = this.hp.value;
 

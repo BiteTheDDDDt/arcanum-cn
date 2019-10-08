@@ -600,7 +600,16 @@
             "dmg":"3~6"
         }, "loot":{"gold":"2~4"}
 
-    },
+	},
+	{
+		"id":"orcpriest",
+		"kind":"humanoid",
+		"level":6,
+		"hp":10,
+		"tohit":5,
+		"defense":5,
+		"damage":"3~8"
+	},
     {
         "id":"zombie",
         "level":3,
@@ -712,7 +721,8 @@
         "attack":{
             "name":"bite",
             "kind":"pierce",
-            "dmg":"1~6"}, "loot":"rat tail"
+			"dmg":"1~6"
+		}
 
     },
     {
@@ -1257,7 +1267,7 @@
 			"kind":"pierce",
 			"leech":0.2,
             "dmg":"5~7"
-        },"loot":"bat wing"
+        }
 
 	},
 	{
@@ -1360,7 +1370,7 @@
             "name":"death touch",
             "kind":"drain",
             "dmg":"3~8"
-		},"loot":{"spectral essence":5},
+		},"loot":{},
 		"resist":{
 			"spirit":20
 		},"immune":"physical"
@@ -1430,14 +1440,14 @@
         "level":6,
         "kind":"humanoid",
         "desc":"He worships evil.",
-        "hp":32,
+        "hp":45,
         "defense":32,
         "tohit":5,
         "attack":{
             "name":"harm",
             "kind":"evil",
-            "dmg":"2~6"
-		},"loot":{ "potion of cure moderate wounds":20, "potion of cure serious wounds":10},
+            "dmg":"2~5"
+		},
 		"resist":{
 			"shadow":10
 		}
@@ -1635,7 +1645,7 @@
             "kind":"pierce",
 			"dmg":"7~15",
 			"leech":0.3
-        },"loot":{"crocodile tooth":10, "crocodile tears":5}
+        },"loot":{"croctears":5}
 
 	},
 	{
@@ -2431,7 +2441,7 @@
         "evil":19,
         "hp":53,
         "tohit":15,
-		"defense":43,
+		"defense":35,
 		"regen":7,
         "attack":{
             "name":"claws",

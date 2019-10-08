@@ -663,11 +663,11 @@
 			}
 		},
 		"cost":{
-			"fire":5
+			"fire":4
 		},
 		"attack":{
 			"damage":"4~5",
-			"tohit":2,
+			"tohit":3,
 			"kind":"fire"
 		}
 
@@ -687,7 +687,7 @@
 
 		},
 		"cost":{
-			"fire":7
+			"fire":5
 		},
 		"at":{
 			"30":{
@@ -704,7 +704,7 @@
 		},
 		"attack":{
 			"damage":"7~10",
-			"tohit":2,
+			"tohit":5,
 			"kind":"fire",
 			"dot":{
 				"dmg":"2~3",
@@ -728,7 +728,7 @@
 
 		},
 		"cost":{
-			"fire":10
+			"fire":7
 		},
 		"at":{
 			"50":{
@@ -745,7 +745,7 @@
 		},
 		"attack":{
 			"damage":"15~20",
-			"tohit":5,
+			"tohit":7,
 			"kind":"fire",
 			"dot":{
 				"dmg":"5~7",
@@ -781,11 +781,11 @@
 			}
 		},
 		"cost":{
-			"water":4
+			"water":3
 		},
 		"attack":{
 			"damage":"3~4",
-			"tohit":4,
+			"tohit":5,
 			"kind":"water"
 		}
 
@@ -817,11 +817,11 @@
 			}
 		},
 		"cost":{
-			"water":6
+			"water":5
 		},
 		"attack":{
 			"damage":"7~11",
-			"tohit":7,
+			"tohit":8,
 			"kind":"water"
 		}
 
@@ -1515,7 +1515,7 @@
 		"dot":{
 			"duration":45,
 			"mod":{
-				"player.tohit":6
+				"player.tohit":7
 			}
 		}
 

@@ -40,7 +40,7 @@ export default class Inventory {
 	get used() { return this._used; }
 	set used(v) { this._used = v; }
 
-	get name() {return this._name; }
+	get name() {return this._name || this.id; }
 	set name(v) { this._name = v; }
 
 	get max() { return this._max; }

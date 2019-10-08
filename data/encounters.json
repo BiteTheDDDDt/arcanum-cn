@@ -286,6 +286,7 @@
 	{
 		"id":"enc_blackcat",
 		"name":"black cat",
+		"sym":"🐈",
 		"desc":"a black cat is an omen to be studied seriously",
 		"effect":{
 			"unease":"1~3",
@@ -300,13 +301,40 @@
 
 	},
 	{
+		"id":"enc_hest_ward",
+		"name":"warding charm",
+		"desc":"a hanging charm wards away the borgles and grimstalks.",
+		"effect":{
+			"unease":"1~3",
+			"bf":"1~3",
+			"charms.exp":1,
+			"charms.max":0.01,
+			"enchanting.exp":1,
+			"enchanting.max":0.01
+		}
+	},
+	{
+		"id":"enc_cauldron",
+		"name":"bubbling cauldron",
+		"desc":"the cauldron bubbles and glows with a odorous brew.",
+		"effect":{
+			"unease":"0~2",
+			"weary":"1~3",
+			"bf":"-1~2.5",
+			"potions.max":0.01,
+			"potions.exp":1,
+			"alchemy.exp":1,
+			"crafting.exp":1
+		}
+	},
+	{
 		"id":"enc_hestia",
 		"name":"hestia",
 		"desc":"hestia has no interest in the world outside Thangmor, but will teach those who come to her.",
 		"effect":{
 			"unease":"2~4",
 			"bf":"-2~3",
-			"potions.max":0.01,
+			"potions.exp":0.01,
 			"herbalism.exp":1,
 			"scrying.max":0.01,
 			"history.max":0.01

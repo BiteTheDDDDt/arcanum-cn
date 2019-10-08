@@ -8,8 +8,6 @@ import Events, {
 	DAMAGE_MISS, CHAR_DIED, ACT_BLOCKED, DEFEATED
 } from '../events';
 
-import Monster from '../items/monster';
-import Wearable from '../chars/wearable';
 import { itemRevive } from '../itemgen';
 import { logObj } from '../util/util';
 
@@ -305,6 +303,8 @@ export default class Combat {
 	tryHit( attacker, defender, attack ){
 
 		let tohit = attacker.tohit || 0;
+		if ( attacker.id === 'player') console.log('PLAYER HIT: ' + tohit );
+
 		if ( attack && (attack != attacker) ) tohit += ( attack.tohit || 0 );
 
 		if ( this.dodgeRoll( defender.dodge, tohit )) {
@@ -386,6 +386,7 @@ export default class Combat {
 			if ( e ) return Game.itemGen.npc(e);
 
 		}
+		if ( !e ) return null;
 
 		// generate enemy from parameters.
 		e = Game.itemGen.randEnemy( e, pct );

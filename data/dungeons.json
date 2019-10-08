@@ -413,15 +413,15 @@
 		"enemies":[
 			"direcrocodile",
 			"ghost",
-			"leech",
+			["leech","leech","leech","leech","leech"],
 			"grimstalk",
 			"stalker",
 			"corpse",
-			"eel",
+			["eel","eel","eel"],
 			"lesserwyrm",
 			"willowisp",
 			"direrat",
-			"piranha"
+			["piranha","piranha"]
 		],"flavor":"also known as Barden's bog, noone can say exactly just who Barden was."
 
 	},
@@ -434,14 +434,14 @@
 		"run":{
 			"stamina":3
 		},
-		"length":1000,
+		"length":10000,
 		"result":{
 			"title":"twice born",
 			"gems":"30~50",
-			"gold":"100~200"
+			"gold":"1000~2000"
 		},
 		"enemies":[{
-			"min":1,
+			"min":8,
 			"max":25,
 			"range":2,
 			"scale":true

@@ -200,6 +200,10 @@ a {
 	text-transform: capitalize;
 }
 
+.sm-name {
+	text-transform: lowercase;
+}
+
 .darkmode .running {
 	border-color: rgb(100,100,100);
 }
