@@ -75,9 +75,9 @@ export default {
 
 			let s = this.list[i];
 			if ( s ) this.craft.level -= s.level;
-			this.craft.buy = craftCost( this.list );
 
 			this.list.splice(i,1);
+			this.craft.buy = craftCost( this.list );
 
 		},
 

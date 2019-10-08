@@ -67,9 +67,10 @@ export default class Inventory {
 			var it = this.items[i];
 			if ( typeof it === 'object' ) {
 
-				it = itemRevive( state, this.items[i] );
+				it = itemRevive( state, it );
 
 			} else if ( typeof it === 'string') it = state.getData(it);
+
 
 			if ( it == null ) this.items.splice( i, 1 );
 			else this.items[i] = it;

@@ -315,7 +315,7 @@ export default {
 			for( let p in sub ) {
 
 				if ( p === 'mod') {
-					sub[p] = this.parseMods( sub[p], sub.id );
+					sub[p] = parseMods( sub[p], sub.id );
 					continue;
 				} else if ( p === 'require' || p === 'need' ) {
 
@@ -341,7 +341,7 @@ export default {
 
 				} else if ( typeof obj === 'object' ) this.parseSub(obj);
 
-				if ( p.includes('.')) this.splitKeyPath( sub, p );
+				if ( p.includes('.')) splitKeyPath( sub, p );
 
 			}
 
@@ -372,34 +372,6 @@ export default {
 		} else if ( typeof sub === 'string' && !IdTest.test(sub )) return this.makeTestFunc( sub );
 
 		return sub;
-
-	},
-
-	parseMods( mods, id ) {
-
-		if ( typeof mods === 'string' ) return mods;
-
-		for( let s in mods ){
-			if ( s.includes('.')) this.splitKeyPath( mods, s );
-		}
-
-		for( let s in mods ) {
-
-			var val = mods[s];
-			var typ = typeof val;
-			if ( typ === 'number' || (typ === 'string' && ModTest.test(val)) ) {
-
-				val = mods[s] = new Mod(val, id);
-
-			} else if ( val instanceof Mod ) continue;
-			else if ( typ === 'object') {
-
-				if ( val.id ) mods[s] = new Mod( val );
-				else this.parseMods( val, id );
-			}
-
-		}
-		return mods;
 
 	},
 
@@ -490,6 +462,63 @@ export default {
 	},
 
 	/**
+	 * Freeze all template data.
+	 * Clones must be made for any new edits.
+	 */
+	freezeData( obj ) {
+
+		let sub;
+		for( let p in obj ){
+
+			sub = obj[p];
+			if ( typeof sub === 'object') this.freezeData(sub);
+			else Object.freeze( sub );
+
+		}
+
+		return Object.freeze( obj );
+
+	}
+
+}
+
+
+/**
+ *
+ * @param {*} mods
+ * @param {*} id - id of mod owner.
+ * @returns {object}
+ */
+export function parseMods( mods, id ) {
+
+
+	if ( typeof mods === 'string' ) return mods;
+
+	for( let s in mods ){
+		if ( s.includes('.')) splitKeyPath( mods, s );
+	}
+
+	for( let s in mods ) {
+
+		var val = mods[s];
+		var typ = typeof val;
+		if ( typ === 'number' || (typ === 'string' && ModTest.test(val)) ) {
+
+			val = mods[s] = new Mod(val, id);
+
+		} else if ( val instanceof Mod ) continue;
+		else if ( typ === 'object') {
+
+			if ( val.id ) mods[s] = new Mod( val );
+			else parseMods( val, id );
+		}
+
+	}
+	return mods;
+
+}
+
+	/**
 	 * For an object variable path key, the key is expanded
 	 * into subojects, each with a single property of the next
 	 * part of the variable path.
@@ -498,7 +527,7 @@ export default {
 	 * @param {Object} obj - object containing the key to expand.
 	 * @param {string} prop
 	 */
-	splitKeyPath( obj, prop ) {
+	export function splitKeyPath( obj, prop ) {
 
 		let val = obj[prop];
 
@@ -521,25 +550,4 @@ export default {
 
 		obj[ keys[max] ] = val;
 
-	},
-
-	/**
-	 * Freeze all template data.
-	 * Clones must be made for any new edits.
-	 */
-	freezeData( obj ) {
-
-		let sub;
-		for( let p in obj ){
-
-			sub = obj[p];
-			if ( typeof sub === 'object') this.freezeData(sub);
-			else Object.freeze( sub );
-
-		}
-
-		return Object.freeze( obj );
-
 	}
-
-}

@@ -6,6 +6,7 @@ import {mergeSafe} from "objecty";
 import Mod from '../values/mod';
 import { assignNoFunc } from '../util/util';
 import Item from '../items/item';
+import { parseMods } from '../dataLoader';
 
 
 export default class Wearable extends Item {
@@ -120,6 +121,8 @@ export default class Wearable extends Item {
 			mergeSafe( this, this.template );
 
 		} else console.log('wearable template not found: ' + this.template );
+
+		if ( this.mod ) this.mod = parseMods( this.mod, this.id );
 
 	}
 

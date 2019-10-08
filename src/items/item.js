@@ -1,6 +1,7 @@
 import Base, {mergeClass} from './base';
 import Dot from '../chars/dot';
 import { cloneClass } from '../util/util';
+import { parseMods } from '../dataLoader';
 
 const ItemDefaults = {
 	stack:true,
@@ -113,6 +114,8 @@ export default class Item {
 			//console.log('it revive from: ' + this.template );
 			cloneClass( this.template, this );
 		}
+
+		if ( this.mod ) this.mod = parseMods( this.mod, this.id );
 
 	}
 
