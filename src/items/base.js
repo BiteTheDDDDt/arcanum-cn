@@ -74,7 +74,7 @@ export default {
 		let data = jsonify(this);
 		if ( data.template && typeof data.template === 'object' ) data.template = data.template.id;
 		if ( data.val ) data.value = undefined;
-		if ( data.sym ) data.name = this._name;
+		data.name = this._name;
 
 		return data;
 
