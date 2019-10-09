@@ -196,6 +196,18 @@ a {
 
 .locked { display:none;}
 
+div.log-item {
+	padding: 4px; margin: 1px 0; border-bottom: 1px dotted var(--quiet-text-color);
+}
+
+.log-title {
+	font-weight: bold;
+}
+
+.log-text {
+	font-weight: normal;
+}
+
 .item-name {
 	text-transform: capitalize;
 }

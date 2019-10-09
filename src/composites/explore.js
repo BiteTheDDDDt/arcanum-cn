@@ -1,5 +1,5 @@
 import Inventory from "./inventory";
-import Events, { DEFEATED, ACT_DONE,ACT_BLOCKED } from "../events";
+import Events, { DEFEATED, ACT_DONE,ACT_BLOCKED, ENC_START } from "../events";
 import { getDelay } from "../chars/char";
 
 import Game from '../game';
@@ -130,6 +130,7 @@ export default class Explore {
 
 			if ( it ){
 
+				Events.emit( ENC_START, it.name, it.desc );
 				this._enc = it;
 				it.exp = 0;
 

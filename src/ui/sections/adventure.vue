@@ -36,8 +36,25 @@ export default {
 		drops() { return Game.state.drops; },
 
 		combatLog() {
-			return this.log.items.filter(
-				v=>v.type===LOG_COMBAT).slice( -MAX_ITEMS );
+
+			let items = this.log.items;
+			let count = 0;
+			let a = [];
+
+			for( let i = items.length-1; i>=0; i-- ) {
+
+				var it = items[i];
+				if ( it.type === LOG_COMBAT ) {
+
+					a.push(it);
+					if ( ++count === MAX_ITEMS ) break;
+
+				}
+
+			}
+
+			return a;
+
 		},
 
 		explore() { return this.state.raid.running ? this.state.raid : this.state.explore; },
@@ -88,7 +105,8 @@ export default {
 
 			<div class="outlog">
 			<div class="log-item" v-for="(it,i) in combatLog" :key="i">
-				<span class="log-text">{{ it.text || '' }}</span>
+				<span class="log-title" v-if="it.title">{{ it.title }}</span>
+				<span class="log-text" v-if="it.text">{{ it.text }}</span>
 			</div>
 			</div>
 		</div>

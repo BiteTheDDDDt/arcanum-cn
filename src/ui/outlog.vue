@@ -114,7 +114,7 @@ div.outlog {
 }
 
 div.log-view {
-	border-left:1px solid var(--separator-color);
+	border-left:1px solid var(--very-quiet-text-color);
 	display:flex;
 	flex-flow: column nowrap;
 	margin-left: 8px;
@@ -141,22 +141,10 @@ span.checks {
 
 .checks span { flex-basis: 50%; }
 
-.log-view div.log-item {
-	padding: 4px; margin: 1px 0; border-bottom: 1px dotted #DDD;
-}
-
 /*div.log-item {
 	display:flex;
 	flex-direction: column;
 	margin: 8px 0px;
 }*/
-
-.log-title {
-	font-weight: bold;
-}
-
-.log-text {
-	font-weight: normal;
-}
 
 </style>

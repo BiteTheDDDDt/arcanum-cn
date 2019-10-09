@@ -235,10 +235,10 @@
 		{
 			"id":"en_pumppatch",
 			"name":"pumpkin patch",
-			"desc":"the pumpkins have grown ripe in the autumn hay",
+			"desc":"In the autumn hay grow some of the largest pumpkins to be found.",
 			"effect":{
 				"weary":"1~2",
-				"unease":"1~2",
+				"rage":"1~2",
 				"herbalism.exp":1,
 				"spiritlore.exp":1,
 				"spiritlore.max":0.01

@@ -110,6 +110,7 @@ const DELETE_ITEM = 'delitem';
  * Encounter done.
  */
 const ENC_DONE = 'enc_done';
+const ENC_START = 'enc_start'
 const ENTER_LOC = 'enter_loc';
 const EXIT_LOC = 'exit_loc';
 
@@ -118,7 +119,7 @@ const NEW_TITLE = 'newtitle';
 export { HALT_ACT, EVT_COMBAT, EVT_EVENT, EVT_UNLOCK, EXP_MAX, EVT_LOOT, ACT_DONE, ALLY_DIED, CHAR_DIED,
 	ENTER_LOC, EXIT_LOC, ITEM_ATTACK, STOP_ALL, DELETE_ITEM,
 	ACT_CHANGED, ACT_IMPROVED, ACT_BLOCKED, NEW_TITLE,
-	DAMAGE_MISS, ENEMY_HIT, PLAYER_HIT, DEFEATED, ENEMY_SLAIN, COMBAT_DONE, ENC_DONE, LEVEL_UP };
+	DAMAGE_MISS, ENEMY_HIT, PLAYER_HIT, DEFEATED, ENEMY_SLAIN, COMBAT_DONE, ENC_START, ENC_DONE, LEVEL_UP };
 
 export default {
 
@@ -146,6 +147,7 @@ export default {
 		events.addListener( DEFEATED, this.onDefeat, this );
 		events.addListener( DAMAGE_MISS, this.onMiss, this );
 		events.addListener( IS_IMMUNE, this.onImmune, this );
+		events.addListener( ENC_START, this.onEnc, this );
 
 	},
 
@@ -230,6 +232,10 @@ export default {
 	onMiss( msg ) {
 
 		this.log.log( '', msg, LOG_COMBAT );
+	},
+
+	onEnc( title, msg ) {
+		this.log.log( title, msg, LOG_COMBAT );
 	},
 
 	onCombat( title, msg) {
