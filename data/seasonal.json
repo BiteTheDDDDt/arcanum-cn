@@ -8,6 +8,62 @@
 	"upgrades":[
 
 		{
+
+			"id":"hal_charger",
+			"name":"hallow broomstick",
+			"desc":"a pitch dark horse in fumes of smoke",
+			"tags":"steed",
+			"slot":"mount",
+			"save":true,
+			"mod":{
+				"dist.max":250,
+				"player.resist.shadow":5
+			}
+
+		},
+		{
+
+			"id":"hal_carriage",
+			"name":"pumpkin carriage",
+			"desc":"a spacious and relaxing way to travel",
+			"flavor":"arrive at the ball in style",
+			"require":"g.pumpkins.max>=50",
+			"slot":"mount",
+			"save":true,
+			"buy":{
+				"research":500,
+				"herbs":50,
+				"pumpkins":75,
+				"cobwebs":10,
+				"pumpseeds":30
+			},
+			"mod":{
+				"dist.max":50,
+				"inv.max":3,
+				"herbs.rate":0.1,
+				"weary.rate":-0.1,
+				"unease.rate":-0.1
+			}
+
+		},
+		{
+
+			"id":"hal_broomstick",
+			"name":"hallow broomstick",
+			"desc":"touching the broom you hear the sound of cackling in the distance.",
+			"flavor":"hestia doesn't use this one. probably.",
+			"slot":"mount",
+			"save":true,
+			"mod":{
+				"dist.max":100,
+				"spirit.rate":0.5,
+				"rage.rate":-0.2,
+				"player.resist.spirit":4
+			}
+
+		},
+
+		{
 			"id":"pumpsack",
 			"name":"seed sack",
 			"require":"g.pumpseeds>=10",
@@ -179,12 +235,14 @@
 			"name":"hestia's cottage",
 			"desc":"Deep in Thangmor forest, the great witch Hestia keeps a small, secluded cabin. On rare occasions she even takes visitors.",
 			"level":13,
+			"dist":50,
 			"length":50,
 			"require":"loc_hal_pumpkin",
 			"result":{
 				"evt_hal_hestia_done":true,
 				"jacklantern":1,
 				"hestiabrew":1,
+				"hal_broomstick":"5%",
 				"cobwebs":3
 			},
 			"encs":[
@@ -346,7 +404,7 @@
 
 		{
 			"id":"pumpkins",
-			"desc":"",
+			"desc":"plump round gourds of the season.",
 			"max":5,
 			"mod":{
 				"nature.rate":0.05,
@@ -424,9 +482,9 @@
 
 			},
 			"boss":"hal_headless",
-			"loot":[
-
-			],
+			"loot":{
+				"hal_charger":"5%"
+			},
 			"enemies":[
 				["hal_wight","hal_wight"],
 				["nec_ghost","nec_ghost","nec_ghost"]

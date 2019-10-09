@@ -29,7 +29,7 @@ export function itemRevive(gs, it ) {
 
 		if ( !type) {
 			console.warn('gen unknown type: ' + it.id + ' -> ' + it.template + ' -> ' + it.recipe );
-			return null;
+			type = 'item';
 		}
 		it.template = orig;
 

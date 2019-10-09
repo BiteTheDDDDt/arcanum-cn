@@ -36,6 +36,8 @@ export default {
 	*/
 	excludeJSON( excludes ) {
 
+		if ( this.save && (this.value>0||this.owned)) return this.forceSave();
+
 		excludes = excludes ? JSONIgnore.concat( excludes ) : JSONIgnore;
 
 		let vars = changes( jsonify(this, excludes ), this.template || {} );
@@ -53,6 +55,8 @@ export default {
 
 	toJSON() {
 
+		if ( this.save && (this.value>0||this.owned)) return this.forceSave();
+
 		let vars = changes( jsonify(this, JSONIgnore ),
 			this.template || {} );
 
@@ -64,6 +68,19 @@ export default {
 		return vars || undefined;
 
 	},
+
+	forceSave(){
+
+		let data = jsonify(this);
+		if ( data.template && typeof data.template === 'object' ) data.template = data.template.id;
+		if ( data.val ) data.value = undefined;
+
+		return data;
+
+	},
+
+	get id() { return this._id; },
+	set id(v) { this._id = v;},
 
 	/**
 	 * @property {Object} template - original data used to create this Item.
