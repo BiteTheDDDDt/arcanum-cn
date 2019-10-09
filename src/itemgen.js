@@ -28,7 +28,7 @@ export function itemRevive(gs, it ) {
 		var type = orig ? orig.type : it.type;
 
 		if ( !type) {
-			console.warn('gen unknown type: ' + it.id + ' -> ' + it.template + ' -> ' + it.recipe );
+			console.warn('gen unknown: ' + it.id + ' -> ' + it.template + ' -> ' + it.recipe );
 			type = 'item';
 		}
 		it.template = orig;
@@ -44,7 +44,7 @@ export function itemRevive(gs, it ) {
 		} else if ( type === 'enc') {
 
 			// encounter.
-			it = new Encounter(it);
+			it = new Encounter( orig, it );
 
 		} else {
 			//console.log('default revive: ' + it.id );
@@ -171,6 +171,7 @@ export default class ItemGen {
 		if ( it === undefined ) return null;
 
 		it.id = proto.id + this.state.nextIdNum();
+		it.value = 1;
 		it.owned = true;
 
 		return it;

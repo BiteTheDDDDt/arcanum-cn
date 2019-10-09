@@ -15,9 +15,21 @@ export default class Explore {
 
 	toJSON() {
 
+		let enc = this.enc;
+
 		return {
 			locale:this.locale ? this.locale.id : undefined,
-			enc:this.enc
+			enc:enc ? {
+				id:enc.id,
+				exp:enc.exp,
+				recipe:enc.recipe,
+				template:( enc.template ?
+
+					( typeof enc.template === 'string') ? enc.template : enc.template.id :
+					undefined
+				)
+
+			} : undefined
 		}
 
 	}
@@ -78,14 +90,20 @@ export default class Explore {
 
 	}
 
-	revive( gameState ) {
+	revive( state ) {
 
-		this.state = gameState;
-		this.player = gameState.player;
+		this.state = state;
+		this.player = state.player;
 
-		if ( typeof this.locale === 'string') this.locale = gameState.getData(this.locale);
+		if ( typeof this.locale === 'string') this.locale = state.getData(this.locale);
 
-		if ( this._enc ) { this.enc = itemRevive( gameState, new Encounter(this._enc) ); }
+		if ( this._enc ) {
+			this.enc = itemRevive( state, this._enc );
+		}
+		if ( !(this.enc instanceof Encounter ) ){
+			console.warn('wrong encounter: ' + ( this.enc ? this.enc.id : this.enc ) );
+			this.enc = null;
+		}
 
 		if ( !this.locale) this.running = false;
 

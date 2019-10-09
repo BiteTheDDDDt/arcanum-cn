@@ -28,7 +28,7 @@ export default class Wearable extends Item {
 
 		} else data.template = this.template.id;
 
-		data.name = this.name;
+		data.name = this._name;
 		data.attack = this.attack || undefined;
 
 		data.enchants = this.enchants || undefined;

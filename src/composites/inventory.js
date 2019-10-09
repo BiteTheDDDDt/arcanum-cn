@@ -96,11 +96,10 @@ export default class Inventory {
 		} else {
 
 			if ( it.stack ) {
-				console.warn('add stack: ' + it.id );
 				let inst = this.findMatch( it );
 				if ( inst ){
-					console.log('MATCH FOUND');
-					inst.value++;
+					console.log('stack: ' + it.value );
+					inst.value += it.value;
 					return;
 				}
 

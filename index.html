@@ -369,32 +369,6 @@
 
 
 
-
-    /* Equip */
-
-    .full div.inv-equip { padding: 0; display: grid; grid-template-rows: 50% 50%; grid-auto-columns: 1fr; }
-    .full div.inv-equip .item-table {
-        /*display: flex; flex-flow: column;*/
-        margin: 0; padding: var(--medium-gap);
-        display: grid; grid-template-columns: repeat( auto-fit, minmax( 256px, 1fr )); grid-auto-rows: 1fr;
-        grid-column: 1/3;
-    }
-    .full div.inv-equip .item-table tr {
-        display: flex; flex-flow: row; justify-content: flex-end;
-        padding: var(--small-gap); align-items: center;
-    }
-    .full div.inv-equip .item-table tr :first-child { flex: 1; }
-    .full div.inv-equip .item-table tr button { margin: var(--tiny-gap); }
-    .full div.inv-equip .item-table td { display: flex; padding: 0; }
-    .full div.inv-equip > div:nth-child(2) {
-        border-top: 1px solid var(--separator-color);
-        /*display: flex; flex-flow: column;*/
-        display: grid; grid-template-columns: 1fr 1fr;
-    }
-
-
-    /* Inventory */
-
     table.equip {
         /*display: flex; flex-direction: column;*/
         flex-basis: 65%; overflow-y: auto;

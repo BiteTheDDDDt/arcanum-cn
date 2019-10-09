@@ -2,10 +2,7 @@
 
 export default {
 
-	props:['equip'],
-	methods:{
-
-	}
+	props:['equip']
 
 }
 </script>

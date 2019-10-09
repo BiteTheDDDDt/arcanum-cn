@@ -27,8 +27,16 @@ export default class Encounter extends GData {
 	get length() { return this._length; }
 	set length(v) { this._length = v;}
 
+	/**
+	 * Shoddy force-encode of encounter in progress.
+	 * @todo replace with generalized recipe classes.
+	 */
+	encode(){
+		return this.excludeJSON();
+	}
+
 	toJSON() {
-		if ( this.value > 0 ) return { value:this.value};
+		if ( this.value > 0 ) return { value:this.value };
 		else return undefined;
 	}
 
@@ -40,9 +48,11 @@ export default class Encounter extends GData {
 
 	get done() { return this._exp >= this.length; }
 
-	constructor( vars=null ) {
+	constructor( vars=null, save=null ) {
 
 		super(vars );
+
+		if ( save ) Object.assign( this, save );
 
 		this.type = ENCOUNTER;
 

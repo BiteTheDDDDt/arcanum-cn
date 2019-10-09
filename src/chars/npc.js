@@ -25,9 +25,9 @@ export default class Npc extends Char {
 
 		if ( this.template ){
 			data.template = this.template.id;
-			if ( this.name != this.template.name ) data.name = this.name;
+			if ( this._name != this.template.name ) data.name = this._name;
 
-		} else data.name = this.name;
+		} else data.name = this._name;
 
 		//data.died = this.died||undefined;
 

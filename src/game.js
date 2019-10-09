@@ -591,18 +591,8 @@ export default {
 
 		} else {
 
-			let inst = it.stack ? this.state.inventory.find( it.id, true ) : null;
-			if ( inst ) {
-
-				inst.value++;
-
-			} else {
-
-				inst = this.itemGen.instance( it );
-				if ( inst ) inst.value = 1;
-				this.state.inventory.add( inst );
-
-			}
+			var inst = this.itemGen.instance( it );
+			if ( inst ) this.state.inventory.add( inst );
 
 		}
 
