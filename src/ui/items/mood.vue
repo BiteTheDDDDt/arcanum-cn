@@ -9,14 +9,14 @@ export default {
 		rgb() { return this.r + ', ' + this.g + ','+this.b; },
 
 		r(){
-			return ( 255*(1 - Math.max( (this.rage.value/this.rage.max),
+			return ( 128*( Math.max( (this.rage.value/this.rage.max),
 				(this.bf.value/this.bf.max) )) );
 		},
 		g(){
-			return ( 255*(1 - (this.madness.value / this.madness.max )) );
+			return ( 128*((this.madness.value / this.madness.max )) );
 		},
 		b(){
-			return ( 255*( 1 - Math.max( (this.weary.value/this.weary.max),
+			return ( 128*( Math.max( (this.weary.value/this.weary.max),
 				(this.unease.value/this.unease.max) )) );
 		},
 
@@ -49,9 +49,9 @@ export default {
 
 <div class="mood" :style="'background:rgb('+rgb+')'">
 	&nbsp;
-	<!--<span>--{{r.toString(16)}}</span>
+	<span>--{{r.toString(16)}}</span>
 	<span>-{{g.toString(16)}}</span>
-	<span>-{{b.toString(16)}}</span>!-->
+	<span>-{{b.toString(16)}}</span>
 </div>
 
 </template>
