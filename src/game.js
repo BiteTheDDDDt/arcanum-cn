@@ -1,5 +1,5 @@
 import DataLoader from './dataLoader';
-import {quickSplice} from './util/util';
+import {quickSplice, logObj} from './util/util';
 import GData from './items/gdata';
 import Log from './log.js';
 import GameState, { REST_SLOT } from './gameState';
@@ -594,7 +594,6 @@ export default {
 			let inst = it.stack ? this.state.inventory.find( it.id, true ) : null;
 			if ( inst ) {
 
-				console.log('stack exists: ' + inst.value);
 				inst.value++;
 
 			} else {
@@ -1084,22 +1083,19 @@ export default {
 
 			for( let p in cost ) {
 
-				res = cost[p];
-
 				res = this.getData(p);
 				if ( res ) {
+
+					if ( res.instance || res.isRecipe ) {
+						this.payInst( p, cost[p]*unit );
+						continue;
+					}
 
 					if ( !isNaN(cost[p]) ) this.remove( res, cost[p]*unit );
 					else res.applyVars( cost[p], -unit );
 					res.dirty = true;
 
-				} else {
-
-					res = this.state.inventory.findMatch( p );
-					if ( res ) this.state.inventory.removeQuant(res,unit);
-
-
-				}
+				} else this.payInst(p, cost[p] );
 
 			}
 
@@ -1111,6 +1107,14 @@ export default {
 			res.dirty = true;
 
 		}
+
+	},
+
+	payInst( p, amt ){
+
+		var res = this.state.inventory.find( p,true );
+		if ( res ) this.state.inventory.removeQuant(res,amt);
+		else console.warn('QUANT NOT FOUND: ' + p );
 
 	},
 
@@ -1134,8 +1138,16 @@ export default {
 			for( let p in cost ) {
 
 				var sub = cost[p];
-				res = this.state.findData(p);
-				if ( !res ) return false;
+
+				res = this.state.getData(p);
+				if ( !res ) {
+					return false;
+				} else if ( res.instance || res.isRecipe ) {
+
+					res = this.state.inventory.findMatch( res );
+					if (!res) return false;
+
+				}
 
 				if ( !isNaN(sub) || sub instanceof Stat ) {
 
@@ -1143,7 +1155,7 @@ export default {
 
 				} else {
 
-
+					// things like research.max. with suboject costs.
 					if ( !this.canPayObj( res, sub, amt ) ) return false;
 
 				}

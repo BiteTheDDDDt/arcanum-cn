@@ -47,7 +47,7 @@ export function itemRevive(gs, it ) {
 			it = new Encounter(it);
 
 		} else {
-			console.log('default revive: ' + it.id );
+			//console.log('default revive: ' + it.id );
 			it = new Item(it);
 		}
 		it.owned = true;
@@ -226,7 +226,7 @@ export default class ItemGen {
 		if ( info.type === 'wearable' || info.type === 'weapon'
 				|| info.type ==='armor') return this.fromData( info );
 
-		if ( info.instance ) {
+		if ( info.instance || info.isRecipe ) {
 			return this.instance( info );
 		}
 

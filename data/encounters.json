@@ -218,7 +218,7 @@
 	},
 	{
 		"id":"sarcophagus",
-		"desc":"ancient and covered in faded runes",
+		"desc":"Ancient coffin marked by faded runes",
 		"level":4,
 		"effect":{
 			"unease":"0~2",
@@ -236,7 +236,7 @@
 	{
 		"id":"enc_rats",
 		"name":"plague rats",
-		"desc":"The scurrying vermin covered in welts",
+		"desc":"The scurrying vermin are covered in welts",
 		"effect":{
 			"bf":"-1~2",
 			"unease":"0~2",
@@ -327,7 +327,7 @@
 			"potions.exp":1,
 			"alchemy.exp":1,
 			"crafting.exp":1
-		}
+		},"loot":"hestiabrew"
 	},
 	{
 		"id":"enc_hestia",

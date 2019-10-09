@@ -102,6 +102,10 @@ export default {
 
 <style scoped>
 
+.explore {
+	margin: 5px;
+}
+
 div.explore div.stressors {
 	display:flex;
 	flex-flow: row wrap;

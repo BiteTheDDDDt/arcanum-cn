@@ -135,7 +135,6 @@ div.locales {
 	justify-content: space-between;
 	overflow-y: auto;
 	min-height: 50%;
-	padding-bottom: 32px;
 	border-bottom: 1px solid var(--separator-color);
 
 }

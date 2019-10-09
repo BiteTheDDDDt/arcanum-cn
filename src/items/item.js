@@ -112,6 +112,7 @@ export default class Item {
 		if ( typeof this.template ==='string' ) this.template = state.getData( this.template );
 		if ( this.template ) {
 			//console.log('it revive from: ' + this.template );
+			// STILL NECESSARY.
 			cloneClass( this.template, this );
 		}
 

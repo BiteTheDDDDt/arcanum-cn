@@ -295,7 +295,7 @@ export default class Player extends Char {
 			if ( !dot.tick(dt) ) continue;
 
 			// ignore any remainder beyond 0.
-			if ( dot.effect ) Game.applyEffect( dot.effect );
+			if ( dot.effect ) Game.applyEffect( dot.effect, dt );
 			if ( dot.damage ) tryDamage( this, dot, dot.source );
 
 			if ( dot.duration <= dt ) {
@@ -324,8 +324,6 @@ export default class Player extends Char {
 			if ( obj !== null && typeof obj === 'object' && obj.type === 'resource') res.push(obj);
 
 		}
-
-		console.log('player resources: ' + res.length );
 
 		return res;
 

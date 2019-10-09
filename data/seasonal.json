@@ -151,7 +151,7 @@
 			"desc":"outside the fields, an imp at a water barrel offers you a chance at magic riches, for a small fee."
 		},
 		{
-			"id":"evt_hal_hestia",
+			"id":"evt_hal_hestia_done",
 			"name":"purple amulet",
 			"desc":"as you leave her cottage Hestia presses a small amulet into your hand.",
 			"loot":{
@@ -182,13 +182,15 @@
 			"length":50,
 			"require":"loc_hal_pumpkin",
 			"result":{
-				"evt_hal_hestia":true,
+				"evt_hal_hestia_done":true,
 				"jacklantern":1,
+				"hestiabrew":1,
 				"cobwebs":3
 			},
 			"encs":[
 				"enc_blackcat",
 				"enc_hestia",
+				"enc_hal_hest_talk",
 				"enc_hest_ward",
 				"enc_cauldron",
 				"enc_chest2"
@@ -233,9 +235,28 @@
 	"encounters":[
 
 		{
+			"id":"enc_hal_hest_talk",
+			"name":"talk to hestia",
+			"desc":"Hestia is busy concocting a special pumpkin brew.",
+			"effect":{
+
+				"bf":"0~2",
+				"weary":"0~2",
+				"potions.exp":1,
+				"crafting.max":0.01
+			},
+			"loot":{
+				"pumpcider":1
+			},
+			"result":{
+				"pumpcider":true
+			}
+
+		},
+		{
 			"id":"en_pumppatch",
 			"name":"pumpkin patch",
-			"desc":"In the autumn hay grow some of the largest pumpkins to be found.",
+			"desc":"In Hallomar's autumn fields grow some of the largest pumpkins to be found.",
 			"effect":{
 				"weary":"1~2",
 				"rage":"1~2",
@@ -463,9 +484,33 @@
 	], "potions":[
 
 		{
+			"id":"pumpcider",
+			"name":"pumpkin cider",
+			"level":1,
+			"save":true,
+			"cost":{
+				"cobwebs":1,
+				"pumpseeds":10,
+				"hal_apple":10
+			},
+			"use":{
+				"dot":{
+					"duration":45,
+					"effect":{
+					"bf":-1,
+					"rage":-1,
+					"unease":-1,
+					"weary":-1
+					}
+				}
+			},"flavor":"what are the cobwebs for?!"
+
+		},
+		{
 			"id":"bubblebrew",
 			"name":"bubbling brew",
 			"level":1,
+			"require":"pumpseeds",
 			"cost":{
 				"cobwebs":1,
 				"pumpseeds":5,
@@ -474,8 +519,9 @@
 			"use":{
 				"hp":50,
 				"stamina":20
-			}
+			},"flavor":"looks terrible, tastes worse."
 		}
+
 	],
 	"spells":[
 
