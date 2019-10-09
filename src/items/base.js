@@ -74,6 +74,7 @@ export default {
 		let data = jsonify(this);
 		if ( data.template && typeof data.template === 'object' ) data.template = data.template.id;
 		if ( data.val ) data.value = undefined;
+		if ( data.sym ) data.name = this._name;
 
 		return data;
 
@@ -104,7 +105,18 @@ export default {
 	 * @property {string} name - displayed name.
 	 */
 	get name() { return (( this._actname && this._value < 1 ) ? this.actname : (this._name||this.id)) + (this.sym||''); },
-	set name(v) { this._name = v;},
+	set name(v) {
+
+		if ( v&&this.sym ) {
+
+			let i = v.indexOf( this.sym );
+			if ( i>= 0 ) this._name = v.slice(0, ind );
+			else this._name = v;
+
+		} else this._name = v;
+
+
+	},
 
 	/**
 	 * @property {boolean} repeat - whether the item is repeatable.
