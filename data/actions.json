@@ -665,8 +665,8 @@
 		},
 		"effect":{
 			"nature":0.3,
+			"naturelore.exp":0.1,
 			"naturelore":{
-				"exp":0.1,
 				"max":0.001,
 				"rate":0.001
 			},

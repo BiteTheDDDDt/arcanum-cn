@@ -129,7 +129,7 @@ export default {
 
 	recheckTiers() {
 
-		let n = 0;
+		let n = -1;
 		while ( ++n <= 5 ) {
 
 			var list = this.state.getTagList('t_tier'+n);
@@ -140,7 +140,9 @@ export default {
 			for( var i = list.length-1; i>= 0; i-- ) {
 
 				if ( list[i].value > 0) {
-					if ( evt.value == 0 ) {
+
+					if ( evt.locked ) evt.locked = false;
+					else if ( evt.value == 0 ) {
 
 						evt.amount(this,1 );
 					}
@@ -170,11 +172,10 @@ export default {
 			var it = items[p];
 			if ( !it.locked && it.value >0 && !it.disabled ) {
 
-				if ( it.id === 'tier0') console.log('ADDING TIER0 MODS');
 				if ( it.mod ) this.addMod( it.mod, it.value );
 				if ( it.lock ) this.lock( it.lock, it.count );
 
-			} else if ( it.id === 'tier0') console.log('tier0 SKIPPED');
+			}
 
 		}
 		for( let e of this.state.equip ) {
@@ -685,14 +686,6 @@ export default {
 
 	},
 
-	/**
-	 * Trigger an event. (Randomized events are also triggered.)
-	 * @param {*} evt
-	 */
-	doEvent(evt){
-		evt.amount(this, 1 );
-	},
-
 	doLog( logItem ) {
 		Events.emit( EVT_EVENT, logItem );
 	},
@@ -940,10 +933,12 @@ export default {
 					}// else if ( target.mod ) this.addMod( target.mod, amt );
 
 				} else {
+
 					if ( target.applyMods) {
 						target.applyMods( mod[p], amt );
 						target.dirty = true;
 					} else console.warn( 'no applyMods func: ' + target );
+
 				}
 			}
 

@@ -315,6 +315,7 @@ export default {
 			for( let p in sub ) {
 
 				if ( p === 'mod') {
+
 					sub[p] = parseMods( sub[p], sub.id );
 					continue;
 				} else if ( p === 'require' || p === 'need' ) {
@@ -490,7 +491,6 @@ export default {
  * @returns {object}
  */
 export function parseMods( mods, id ) {
-
 
 	if ( typeof mods === 'string' ) return mods;
 

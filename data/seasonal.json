@@ -30,6 +30,8 @@
 			"length":30,
 			"cost":{
 				"nymiescharm":1,
+				"cobwebs":10,
+				"jacklantern":7,
 				"gems":50
 			},
 			"mod":{
@@ -147,6 +149,24 @@
 			"id":"evt_hal_imp",
 			"name":"a strange imp",
 			"desc":"outside the fields, an imp at a water barrel offers you a chance at magic riches, for a small fee."
+		},
+		{
+			"id":"evt_hal_hestia",
+			"name":"purple amulet",
+			"desc":"as you leave her cottage Hestia presses a small amulet into your hand.",
+			"loot":{
+
+				"unique":true,
+				"save":true,
+				"template":"amulet",
+				"armor":2,
+				"slot":"neck",
+				"cost":1000,
+				"mod":{
+					"player.resist.necrotic":20
+				}
+
+			}
 		}
 
 	],
@@ -156,15 +176,15 @@
 		{
 
 			"id":"loc_hal_hestia",
+			"name":"hestia's cottage",
 			"desc":"Deep in Thangmor forest, the great witch Hestia keeps a small, secluded cabin. On rare occasions she even takes visitors.",
 			"level":13,
 			"length":50,
-			"require":"loc_pumpkin",
+			"require":"loc_hal_pumpkin",
 			"result":{
-
-			},
-			"loot":{
-
+				"evt_hal_hestia":true,
+				"jacklantern":1,
+				"cobwebs":3
 			},
 			"encs":[
 				"enc_blackcat",
@@ -198,6 +218,7 @@
 			"encs":[
 				"en_pumppatch",
 				"hauntedglade",
+				"en_pumppatch",
 				"en_pumppatch",
 				"en_pumppatch",
 				"foggydale",
@@ -234,12 +255,13 @@
 
 		{
 			"id":"jackward",
-			"name":"warding lantern",
+			"name":"warding lanterns",
 			"require":"halloporch",
 			"max":50,
 			"cost":{
 
 				"jacklantern":5,
+				"cobwebs":5,
 				"research":100
 
 			},
@@ -257,7 +279,7 @@
 			"id":"halloporch",
 			"name":"lighted porch",
 			"desc":"A porch lit by candles in the gloom.",
-			"require":"tier0",
+			"require":"g.tier0>0",
 			"max":1,
 			"cost":{
 				"gold":10,
@@ -292,6 +314,7 @@
 				"herbalism.max":0.2,
 				"herbs.rate":0.1,
 				"jacklantern.max":1,
+				"cobwebs.rate":0.01,
 				"pumpkins.max":10,
 				"pumpkins.rate":0.005
 			}
@@ -395,7 +418,7 @@
 			"desc":"The graveyard beside Hallomar is nearly abandoned now. Low murmurs and eerie croakings haunt the autumn nights.",
 			"level":3,
 			"length":20,
-			"require":"loc_pumpkin",
+			"require":"loc_hal_pumpkin",
 			"run":{
 				"stamina":0.3
 			},
@@ -497,12 +520,12 @@
 					"name":"hideous laughter",
 					"kind":"madness",
 					"targets":"all",
-					"dmg":"8~15"
+					"dmg":"10~15"
 				},
 				{
 					"name":"life drain",
-					"kind":"touch",
-					"dmg":"15~30",
+					"kind":"necrotic",
+					"dmg":"20~35",
 					"leech":0.1
 				}
 			]

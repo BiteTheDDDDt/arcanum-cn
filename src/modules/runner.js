@@ -270,7 +270,7 @@ export default class Runner {
 		if ( !a) return;
 
 		if ( a.cost && (a.exp === 0) ) {
-			console.warn('PAY START COST');
+			console.warn('PAY START');
 			Game.payCost( a.cost);
 		}
 

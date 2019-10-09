@@ -30,19 +30,21 @@ export default {
 			set(v){
 
 				this.text = v;
-
 				let p = this.pprop;
 
 				if ( !v ) this.$emit( 'input', this.items );
-				else if ( typeof p === 'function') {
+
+				var txt = v.toLowerCase();
+
+				if ( typeof p === 'function') {
 
  					this.$emit( 'input', this.items.filter(
-						it=>p(it, v)
+						it=>p(it, txt )
 					));
 
 				} else this.$emit( 'input', this.items.filter(
 					it=>(typeof it === 'object') &&
-					( (typeof it[p]) === 'string' ) && it[p].includes( v )
+					( (typeof it[p]) === 'string' ) && it[p].toLowerCase().includes( txt )
 				));
 
 			}

@@ -61,6 +61,8 @@ const ALLY_DIED = 'ally_died';
 const DEFEATED = 'defeated';
 
 const DAMAGE_MISS = 'damage_miss';
+export const IS_IMMUNE = 'dmg_immune';
+
 const ENEMY_HIT = 'enemy_hit';
 const PLAYER_HIT = 'player_hit';
 const LEVEL_UP = 'levelup'
@@ -143,6 +145,7 @@ export default {
 		events.addListener( ENEMY_SLAIN, this.enemySlain, this );
 		events.addListener( DEFEATED, this.onDefeat, this );
 		events.addListener( DAMAGE_MISS, this.onMiss, this );
+		events.addListener( IS_IMMUNE, this.onImmune, this );
 
 	},
 
@@ -218,6 +221,10 @@ export default {
 
 		this.log.log( 'Retreat', '', LOG_COMBAT );
 
+	},
+
+	onImmune( msg ) {
+		this.log.log( 'IMMUNE', msg, LOG_COMBAT );
 	},
 
 	onMiss( msg ) {

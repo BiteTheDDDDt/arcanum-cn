@@ -18,12 +18,15 @@ export default class StatData extends GData {
 	get value() { return this._value; }
 	set value(v) {
 
-		if ( v instanceof Stat ) this._value = v;
-		else if ( this._value ) {
+		if ( v instanceof Stat ) {
+
+			this._value = v;
+
+		} else if ( this._value ) {
 
 			this._value.base = (typeof v === 'object') ? v.value : v;
 
-		} else this._value = new Stat(v);
+		} else this._value = new Stat(v );
 
 	}
 	valueOf(){ return this._value.value; }

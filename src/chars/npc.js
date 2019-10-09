@@ -127,6 +127,13 @@ export default class Npc extends Char {
 
 	}
 
+	/**
+	 * Resurrect.
+	 */
+	res() {
+		this.hp = 1;
+	}
+
 	rest(dt) {
 		this.hp += 0.01*this.maxHp.value*dt;
 	}

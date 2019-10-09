@@ -78,10 +78,7 @@
 		"val":1,
 		"stat":true,
 		"unit":true,
-		"locked":false,
-		"mod":{
-			"userSpells.max":0.5
-		}
+		"locked":false
 	},
 	{
 		"id":"DR",

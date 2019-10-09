@@ -286,7 +286,6 @@
 	{
 		"id":"enc_blackcat",
 		"name":"black cat",
-		"sym":"🐈",
 		"desc":"a black cat is an omen to be studied seriously",
 		"effect":{
 			"unease":"1~3",

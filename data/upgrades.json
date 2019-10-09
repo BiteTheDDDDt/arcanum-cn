@@ -1909,7 +1909,7 @@
 	{
 		"id":"fireplane",
 		"slot":"homeplane",
-		"require":"tier5",
+		"require":"g.tier5>0&&g.planeslore>=100",
 		"buy":{
 
 			"flamerune":10,

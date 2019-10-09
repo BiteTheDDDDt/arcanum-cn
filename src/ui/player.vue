@@ -112,7 +112,7 @@ export default {
 		<table class="resists">
 			<tr><th>resists</th></tr>
 			<tr v-for="(r,k) in player.resist" :key="k">
-				<td>{{k}}</td><td class="num-align">{{r}}%</td>
+				<td>{{k}}</td><td class="num-align">{{r.value}}%</td>
 			</tr>
 		</table>
 		</div>
@@ -122,7 +122,7 @@ export default {
 		<table class="immunities">
 			<tr><th>immunities</th></tr>
 			<tr v-for="(r,k) in player.immunities" :key="k">
-				<td>{{k}}</td>
+				<td v-if="r>0">{{k}}</td>
 			</tr>
 		</table>
 		</div>

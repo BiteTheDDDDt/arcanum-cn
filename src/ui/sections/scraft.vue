@@ -120,7 +120,7 @@ export default {
 		 * @property {Spell[]} spells - all spells in game.
 		 */
 		spells() {
-			return Game.state.filterItems( v=>v.type === 'spell'&&!this.locked(v));
+			return Game.state.filterItems( v=>v.type === 'spell'&&!this.locked(v)&&v.owned);
 		},
 
 		/**

@@ -29,7 +29,9 @@ export default class GEvent extends GData {
 
 	amount( g, amt ) {
 
+		console.log('EVENT: ' + this.id );
 		if ( !super.amount(g,amt) ) return;
+
 
 		this.locked = false;
 		Events.emit( EVT_EVENT, this );

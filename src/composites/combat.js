@@ -5,7 +5,7 @@ import Npc, { ALLY } from '../chars/npc';
 
 import Events, {
 	EVT_COMBAT, ENEMY_SLAIN, ALLY_DIED,
-	DAMAGE_MISS, CHAR_DIED, ACT_BLOCKED, DEFEATED
+	DAMAGE_MISS, CHAR_DIED, ACT_BLOCKED, IS_IMMUNE
 } from '../events';
 
 import { itemRevive } from '../itemgen';
@@ -23,7 +23,7 @@ export function tryDamage(target, attack, attacker = null) {
 
 		if (target.isImmune(attack.kind)) {
 
-			Events.emit(DAMAGE_MISS, target.name + ' is immune to ' + attack.kind);
+			Events.emit(IS_IMMUNE, target.name + ' IMMUNE to ' + attack.kind);
 
 			return false;
 		}

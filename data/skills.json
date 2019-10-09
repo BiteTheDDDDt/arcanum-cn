@@ -56,7 +56,9 @@
 		},
 		"mod":{
 			"research.max":5,
-			"scraft":1
+			"scraft":1,
+			"userSpells.max":0.7
+
 		}
 
 	},
