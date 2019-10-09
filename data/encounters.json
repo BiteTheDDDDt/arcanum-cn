@@ -260,9 +260,9 @@
 		"name":"hidden cache",
 		"desc":"You sense something buried nearby.",
 		"effect":{
-			"rage":"2~4",
+			"rage":"1~2",
 			"weary":"0~2",
-			"bf":"1~-2",
+			"bf":"-1~2",
 			"naturelore.exp":1
 		},
 		"result":{

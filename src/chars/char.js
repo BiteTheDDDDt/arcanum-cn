@@ -74,10 +74,15 @@ export default class Char {
 	get dots() { return this._dots; }
 	set dots(v) {
 
+		let a = [];
+
 		for( let i = v.length-1; i >= 0; i-- ) {
-			v[i] = new Dot(v[i]);
+
+			a.push( v[i] instanceof Dot ? v[i] : new Dot(v[i] ) );
+
 		}
-		this._dots =v;
+
+		this._dots = a;
 
 	}
 
@@ -110,7 +115,7 @@ export default class Char {
 		/**
 		 * @property {Object[]} dots - timed/ongoing effects.
 		*/
-		this.dots = this.dots || [];
+		if ( !this.dots ) this.dots = [];
 
 		/**
 		 * @property {number} timer
@@ -137,7 +142,7 @@ export default class Char {
 			//if ( it ) mergeDefined( this, it );
 
 			if ( !this.attack ) console.warn('NO ATTACK: ' + this.id );
-			if ( !this._name ) this._name = it.name;
+			if ( !this.name ) this._name = it.name;
 			//if ( this.hp instanceof Range ) this.hp = this.hp.value;
 
 		}

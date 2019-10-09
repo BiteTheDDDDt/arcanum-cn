@@ -183,7 +183,9 @@ var vm = new Vue({
 
 			// clear all save data.
 			let store = window.localStorage;
-			store.clear();
+			store.setItem( this.saveloc, null );
+
+			//store.clear();
 
 			this.game.reset().then( this.gameLoaded );
 

@@ -46,7 +46,7 @@ export default class Dot {
 
 		this.source = this.source || source || null;
 
-		this.name = this.name || name || ( source ? source.name : '' );
+		if ( !this.name ) this.name = name || ( source ? source.name : '' );
 		this.id = this.id || this.name || (source ? source.id || source.name : '');
 
 		/**
@@ -79,6 +79,9 @@ export default class Dot {
 	revive(state) {
 
 		if ( this.source && typeof this.source === 'string') this.source = state.getData( this.source );
+
+		console.log('DOT DURATION: ' + this.duration );
+		console.log('ACC: ' + this.acc );
 
 		if ( this.mod ) this.mod = this.reviveMod(this.mod);
 

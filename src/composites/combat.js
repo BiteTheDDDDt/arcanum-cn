@@ -9,7 +9,6 @@ import Events, {
 } from '../events';
 
 import { itemRevive } from '../itemgen';
-import { logObj } from '../util/util';
 
 /**
 * Attempt to damage a target. Made external for use by dots, other code.

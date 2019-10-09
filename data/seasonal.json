@@ -209,20 +209,7 @@
 		{
 			"id":"evt_hal_hestia_done",
 			"name":"purple amulet",
-			"desc":"as you leave her cottage Hestia presses a small amulet into your hand.",
-			"loot":{
-
-				"unique":true,
-				"save":true,
-				"template":"amulet",
-				"armor":2,
-				"slot":"neck",
-				"cost":1000,
-				"mod":{
-					"player.resist.necrotic":20
-				}
-
-			}
+			"desc":"as you leave her cottage Hestia presses a small amulet into your hand."
 		}
 
 	],
@@ -244,6 +231,20 @@
 				"hestiabrew":1,
 				"hal_broomstick":"5%",
 				"cobwebs":3
+			},
+			"loot":{
+				"id":"hal_amulet",
+				"name":"hestia's charm",
+				"desc":"hestia's amulet throbs with a dull purple light.",
+				"unique":true,
+				"save":true,
+				"type":"armor",
+				"armor":2,
+				"slot":"neck",
+				"cost":1000,
+				"mod":{
+					"player.resist.necrotic":20
+				}
 			},
 			"encs":[
 				"enc_blackcat",
@@ -444,7 +445,7 @@
 			"level":17,
 			"length":30,
 			"dist":100,
-			"require":"hal_headless",
+			"require":"hal_bridge",
 			"run":{
 				"stamina":0.4,
 				"hp":0.1
@@ -682,16 +683,17 @@
 		{
 			"id":"hal_wight",
 			"name":"frost wight",
-			"level":4,
+			"level":5,
 			"kind":"undead",
 			"desc":"The unwholesome creature leaves a trail of frost along the grass",
 			"hp":15,
 			"defense":4,
+			"tohit":6,
 			"attack":{
 			  "name":"frosty touch",
 			  "kind":"necrotic",
 			  "dmg":"1~3",
-				"leech":3
+				"leech":1
 			},
 			"loot":{
 				"pumpkin":"10%"
@@ -709,7 +711,7 @@
 			"attack":{
 			  "name":"slam",
 			  "kind":"necrotic",
-			  "dmg":"0.5~1"
+			  "dmg":"4~8"
 			},
 			"loot":{
 				"pumpkins":"10%"
@@ -744,12 +746,12 @@
 			"attack":{
 			  "name":"infectious bite",
 			  "kind":"necrotic",
-			  "dmg":"1~2",
+			  "dmg":"2~3",
 				"dot":{
 					"name":"disease",
 					"duration":3,
 					"kind":"necrotic",
-					"dmg":"0.2~0.5"
+					"dmg":"0.3~0.5"
 				}
 			},
 			"loot":{
@@ -759,7 +761,7 @@
 			{
 			"id":"nec_ghast",
 			"name":"necrotic ghast",
-			"level":3,
+			"level":4,
 			"kind":"undead",
 			"desc":"Farmer John looks angry",
 			"hp":15,
@@ -785,11 +787,12 @@
 			"level":5,
 			"kind":"undead",
 			"desc":"A monstrous red jack o' lantern with evil glowing eyes.",
-			"hp":30,
+			"hp":100,
 			"defense":4,
 			"attack":{
 			  "name":"seed storm",
 			  "kind":"necrotic",
+			  "targets":"all",
 			  "dmg":"3~6"
 			},
 			"loot":{
@@ -806,7 +809,7 @@
 			"hp":7,
 			"defense":4,
 			"attack":{
-				"tohit":4,
+				"tohit":5,
 			  "name":"impalement",
 			  "kind":"necrotic",
 			  "dmg":"1~3"

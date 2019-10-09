@@ -23,6 +23,8 @@ export default class Npc extends Char {
 
 		data.timer = this.timer;
 
+		data.attack = this.attack;
+
 		if ( this.template ){
 			data.template = this.template.id;
 			if ( this._name != this.template.name ) data.name = this._name;

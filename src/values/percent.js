@@ -15,9 +15,7 @@ export default class Percent {
 	 * @property {number} value - 1 if a random roll
 	 * is below the percentile.
 	 */
-	get value() {
-		return (Math.random() < this.pct) ? 1 : 0;
-	}
+	get value() { return (Math.random() < this.pct) ? 1 : 0; }
 
 	/**
 	 * Perform a percent roll with a percent-percent modifier.
@@ -25,7 +23,7 @@ export default class Percent {
 	 * @returns {boolean} - true if roll succeeds.
 	 */
 	roll( mod ) {
-		return Math.random() < this.pct*( 1 + mod/100);
+		return 100*Math.random() < this.pct*( 1 + mod );
 	}
 
 	toString() { return (100*this.pct) + '%';}
