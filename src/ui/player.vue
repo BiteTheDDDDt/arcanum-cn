@@ -1,6 +1,6 @@
 <script>
 import Game from '../game';
-import { floor, lowFixed } from '../util/format';
+import { floor, lowFixed, precise } from '../util/format';
 
 import AllUpgrades from './allupgrades.vue';
 import SlotPick from './components/slotpick.vue';
@@ -53,7 +53,8 @@ export default {
 		this.player = Game.state.player;
 	},
 	methods:{
-		floor:floor
+		floor:floor,
+		precise:precise
 	}
 
 }
@@ -112,7 +113,7 @@ export default {
 		<table class="resists">
 			<tr><th>resists</th></tr>
 			<tr v-for="(r,k) in player.resist" :key="k">
-				<td>{{k}}</td><td class="num-align">{{r.value}}%</td>
+				<td>{{k}}</td><td class="num-align">{{ precise( r.value ) }}%</td>
 			</tr>
 		</table>
 		</div>
