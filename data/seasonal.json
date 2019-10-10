@@ -82,7 +82,7 @@
 		{
 			"id":"hal_rite",
 			"name":"reveler's rite",
-			"require":"nymiescharm",
+			"require":"g.hal_bloodmanor>0",
 			"desc":"Once a year under the harvest moon, devotees of Queen Nymie split their souls to doubly enjoy her dark revels.",
 			"length":30,
 			"repeat":false,
