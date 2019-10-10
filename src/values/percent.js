@@ -23,7 +23,7 @@ export default class Percent {
 	 * @returns {boolean} - true if roll succeeds.
 	 */
 	roll( mod ) {
-		return 100*Math.random() < this.pct( 100 + mod );
+		return 100*Math.random() < this.pct*( 100 + mod );
 	}
 
 	toString() { return (100*this.pct) + '%';}
