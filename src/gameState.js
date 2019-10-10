@@ -1,8 +1,8 @@
-import Inventory from './composites/inventory';
+import Inventory from './inventories/inventory';
 import Raid from './composites/raid';
 import GData from './items/gdata';
 import Equip from './chars/equip';
-import Minions from './chars/minions';
+import Minions from './inventories/minions';
 
 /**
  * @todo violation of principle.
@@ -11,9 +11,9 @@ import Runner from './modules/runner';
 import Explore from './composites/explore';
 import { ensure } from './util/util';
 import Quickbar from './composites/quickbar';
-import SpellList from './composites/spelllist';
+import SpellList from './inventories/spelllist';
 import Group from './composites/group';
-import UserSpells from './composites/userSpells';
+import UserSpells from './inventories/userSpells';
 
 export const REST_SLOT = 'rest';
 
