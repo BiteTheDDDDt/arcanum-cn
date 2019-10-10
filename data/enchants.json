@@ -129,7 +129,7 @@
 			"hp":10
 		},
 		"mod":{
-			"mod.player.regen":0.2
+			"mod.hp.rate":0.2
 		}
 	},
 	{
