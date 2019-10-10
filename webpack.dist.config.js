@@ -30,8 +30,14 @@ module.exports = {
 			}
 		],
 	},
-	plugins: [new VueLoader(),
-	new webpack.DefinePlugin({
+	plugins: [
+		new VueLoader({
+			compilerOptions:{
+
+				whitespace:'condense'
+			}
+		}),
+		new webpack.DefinePlugin({
 		__DIST:true,
 		__SAVE:null,
 		__VERSION:vers

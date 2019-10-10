@@ -6,9 +6,10 @@ import Game from '../game';
 import { tryDamage } from '../composites/combat';
 
 import Char, { getDelay } from './char';
-import Events, { LEVEL_UP } from "../events";
-import Attack from "./attack";
+import Events, { LEVEL_UP, NEW_TITLE } from "../events";
 import Wearable from "./wearable";
+import events from "../events";
+
 
 const Fists = new Wearable({
 
@@ -158,7 +159,7 @@ export default class Player extends Char {
 
 		data.bonuses = this.bonuses;
 		data.immunities = this.immunities;
-		data.resists =this.resists;
+		data.resist = this.resist;
 
 		data.retreat = this.retreat||undefined;
 
@@ -206,7 +207,7 @@ export default class Player extends Char {
 			confused:0
 		};
 
-		this.immunities = this.immunities || {
+		if ( !this.immunities ) this.immunities = {
 			fire:0,
 			water:0,
 			air:0,
@@ -220,7 +221,7 @@ export default class Player extends Char {
 			disease:0
 		}
 
-		this.bonuses = this.bonuses || {
+		if ( !this.bonuses ) this.bonuses = {
 		}
 
 		this.alignment = this.alignment || 'neutral';
@@ -239,9 +240,14 @@ export default class Player extends Char {
 	}
 
 	addTitle( title ){
+
 		if ( !this._titles.includes(title) ) {
+
+			events.emit( NEW_TITLE, title );
 			this._titles.push(title);
+
 		}
+
 	}
 
 
@@ -266,9 +272,9 @@ export default class Player extends Char {
 	 */
 	begin() {
 
-		for( let i = this.dots.length-1; i>=0; i-- ){
+		/*for( let i = this.dots.length-1; i>=0; i-- ){
 			if ( this.dots[i].mod) Game.addMod( this.dots[i].mod, 1 );
-		}
+		}*/
 
 	}
 
@@ -287,7 +293,7 @@ export default class Player extends Char {
 			if ( !dot.tick(dt) ) continue;
 
 			// ignore any remainder beyond 0.
-			if ( dot.effect ) Game.applyEffect( dot.effect );
+			if ( dot.effect ) Game.applyEffect( dot.effect, dt );
 			if ( dot.damage ) tryDamage( this, dot, dot.source );
 
 			if ( dot.duration <= dt ) {
@@ -317,8 +323,6 @@ export default class Player extends Char {
 
 		}
 
-		console.log('player resources: ' + res.length );
-
 		return res;
 
 	}
@@ -337,6 +341,12 @@ export default class Player extends Char {
 		}
 		else {
 
+			if ( !dot.id ) {
+
+				console.warn('MISSING DOT ID: ' + dot );
+				return;
+
+			}
 			this.dots.push( dot );
 			if ( dot.mod ) Game.addMod( dot.mod, 1 );
 

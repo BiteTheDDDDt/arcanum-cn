@@ -3,7 +3,7 @@ import Player from './chars/player';
 
 import Range, {RangeTest} from './values/range';
 import Percent, {PercentTest} from './values/percent';
-import Mod, {ModTest} from './values/mod';
+import {ParseMods } from './values/mod';
 
 import Resource from './items/resource';
 import ZeroSum from './items/zerosum';
@@ -28,10 +28,13 @@ import Potion from './items/potion';
 import Encounter, { ENCOUNTER } from './items/encounter';
 import GEvent from './items/gevent';
 
+import Loader from './util/jsonLoader';
+import { logObj, splitKeyPath } from './util/util';
+
 const DataDir = './data/';
-const DataFiles = [ 'resources', 'upgrades', 'actions', 'homes', 'furniture', 'skills',
+const DataFiles = [ 'resources', 'upgrades', 'actions', 'homes', 'furniture', 'items', 'skills',
 	'player', 'spells', 'monsters', 'dungeons', 'events', 'classes', 'armors', 'weapons',
-	'materials', 'enchants', 'sections', 'potions', 'encounters', 'locales','stressors' ];
+	'materials', 'enchants', 'sections', 'potions', 'encounters', 'locales','stressors', 'seasonal' ];
 
 /**
  * @const {RegEx} IdTest - Test for a simple id name.
@@ -51,83 +54,130 @@ export default {
 
 	/**
 	 * Lists of item ids for each item type.
-	 * itemType => item id list
+	 * (item source file/item type) => item list
 	 * @property {Object.<string,string[]>}
 	 */
-	itemLists:null,
+	dataLists:null,
 
 	async loadGame( saveData ) {
 
 		if ( this.templates === null ) {
 
 			return this.loadData().then(()=>{
-				return this.makeGameData( this.templates, this.itemLists, saveData );
+				return this.makeGameData( this.templates, this.dataLists, saveData );
 			});
 
-		} else return this.makeGameData( this.templates, this.itemLists, saveData );
+		} else return this.makeGameData( this.templates, this.dataLists, saveData );
 
 	},
 
 	loadData() {
 
-		let headers = new Headers();
-		headers.append( 'Content-Type', 'text/json');
-		return Promise.all(
-
-			DataFiles.map(
-				v=>window.fetch( DataDir + v + '.json', {
-
-					method:'GET',
-					headers:headers,
-					mode:'cors',
-					credentials:'same-origin'
-				}).then( r=>{
-
-					if ( r.status !== 200 ) return null;
-					return r.json();
-				})
-
-			)
-
-		).then( arr=>this.filesLoaded(arr),
-			err=>{ console.error(err); });
+		let loader = new Loader( DataDir, DataFiles );
+		return loader.load().then( v=>this.datasLoaded(v ));
 
 	},
 
 	/**
-	 * Raw data files loaded.
-	 * @param {Object[][]} filesArr
+	 * Raw data files loaded, ref by filename.
+	 * @param {object.<string,json>} loads
 	 */
-	filesLoaded( filesArr ) {
+	datasLoaded( loads ) {
 
 		let templates = {};
 
-		let lists = {};
+		// easiest to preparse modules so templates can be assigned in one place.
+		for( let p in loads ) {
 
-		for( let i = filesArr.length-1; i>=0; i-- ) {
+			var fileData = loads[p];
+			if ( fileData === null || fileData === undefined ) {
+				console.warn( 'Missing Data for: ' + p );
+				loads[p] = [];
+			} else if ( fileData.module) {
 
-			var itemList = filesArr[i];
-			//console.log('Setting Default List: ' + DataFiles[i] );
+				this.mergeModule( fileData, loads );
+				loads[p] = undefined;
+			}
+
+		}
+
+		for( let p in loads ) {
+
+			var itemList = loads[p];
+			if ( !itemList ) continue;
 
 			for( let j = itemList.length-1; j >= 0; j-- ) {
 
-				// copy every list item as a template.
+				// copy every data item into a template.
 				templates[ itemList[j].id ] = ( itemList[j] );
 
 			}
-
-			lists[ DataFiles[i] ] = itemList.map(v=>v.id);
 
 		}
 
 		this.templates = this.freezeData( templates );
 		//for( let p in this.templates ) console.log('template: ' + p );
 
-		this.itemLists = lists;
+		this.dataLists = loads;
 
 	},
 
-	makeGameData( templates, itemLists, saveData={} ){
+	/**
+	 *
+	 * @param {object} mod
+	 * @param {object.<string,object>} dataLists - data lists by load file.
+	 */
+	mergeModule( mod, dataLists ){
+
+		if ( mod.data ) {
+
+			let sym = mod.sym;
+			for( let p in mod.data ) {
+
+				var newData = mod.data[p];
+				if ( !newData ) continue;
+
+				var targList = dataLists[p];
+				if ( targList ) this.mergeData( newData, targList, sym );
+				else {
+					dataLists[p] = newData;
+					if ( sym ) newData.forEach(d=>d.sym = d.sym||sym )
+				}
+
+			}
+
+		}
+
+	},
+
+	/**
+	 * Merge items from a module data list into the appropriate target list.
+	 * @param {object[]} list
+	 * @param {object} dest
+	 * @param {string} sym - special unicode symbol.
+	 */
+	mergeData( list, dest, sym ) {
+
+		for( let i = list.length-1; i >= 0; i-- ) {
+
+			var d = list[i];
+			if ( !d.id ){
+				console.warn('missing id: ' + d.name );
+				continue;
+			}
+
+			if ( sym ) d.sym = d.sym || sym;
+
+			//console.log('pushing: ' + d.id );
+			if ( !Array.isArray(dest)) console.warn( 'DEST NOT AN ARRAY: ' + p );
+			dest.push(d);
+
+
+		}
+
+	},
+
+	makeGameData( templates, dataLists, saveData={} ){
 
 		saveData = saveData || {};
 
@@ -141,25 +191,30 @@ export default {
 
 		}
 
+		// combined items.
 		saveData.items = this.mergeDefaults( templates, saveData.items );
 
 		/**
 		 * Form the actual item lists used as the gameData.
+		 * @todo clear up these steps a bit.
 		 */
 		let gameLists = {};
 
-		var idList, gameList;
-		for( let p in itemLists ) {
+		var dataList, gameList;
+		for( let p in dataLists ) {
 
-			idList = itemLists[p];
+			dataList = dataLists[p];
+			if ( !dataList ) {
+				continue;
+			};
 
 			// lists of game-item data by type.
 			gameLists[p] = gameList = [];
 
-			for( let i = 0; i < idList.length; i++ ) {
+			for( let i = 0; i < dataList.length; i++ ) {
 				// copy actual game data into game list.
 				//console.log('Adding ' + idList[i] + ' Item: ' + saveData.items[ idList[i] ] );
-				gameList[i] = saveData.items[ idList[i] ];
+				gameList[i] = saveData.items[ dataList[i].id ];
 			}
 
 
@@ -200,6 +255,7 @@ export default {
 
 		gd.resources = this.initItems( dataLists['resources'], Resource );
 		gd.stressors = this.initItems( dataLists['stressors'], Resource, 'stress', 'stress' );
+		gd.stressors.forEach(v=>v.hidden=true);
 
 		gd.upgrades = this.initItems( dataLists['upgrades'], GData, null, 'upgrade' );
 
@@ -217,6 +273,7 @@ export default {
 		this.initItems( dataLists['dungeons'], Dungeon );
 		this.initItems( dataLists['spells'], Spell );
 
+		this.initItems( dataLists['items'], Item, 'item', 'item');
 		gd.armors = this.initItems( dataLists['armors'], ProtoItem, 'armor','armor' );
 		gd.armors.forEach( v=>v.kind = v.kind || 'armor' );
 
@@ -258,7 +315,8 @@ export default {
 			for( let p in sub ) {
 
 				if ( p === 'mod') {
-					sub[p] = this.parseMods( sub[p], sub.id );
+
+					sub[p] = ParseMods( sub[p], sub.id );
 					continue;
 				} else if ( p === 'require' || p === 'need' ) {
 
@@ -284,7 +342,7 @@ export default {
 
 				} else if ( typeof obj === 'object' ) this.parseSub(obj);
 
-				if ( p.includes('.')) this.splitKeyPath( sub, p );
+				if ( p.includes('.')) splitKeyPath( sub, p );
 
 			}
 
@@ -315,34 +373,6 @@ export default {
 		} else if ( typeof sub === 'string' && !IdTest.test(sub )) return this.makeTestFunc( sub );
 
 		return sub;
-
-	},
-
-	parseMods( mods, id ) {
-
-		if ( typeof mods === 'string' ) return mods;
-
-		for( let s in mods ){
-			if ( s.includes('.')) this.splitKeyPath( mods, s );
-		}
-
-		for( let s in mods ) {
-
-			var val = mods[s];
-			var typ = typeof val;
-			if ( typ === 'number' || (typ === 'string' && ModTest.test(val)) ) {
-
-				val = mods[s] = new Mod(val, id);
-
-			} else if ( val instanceof Mod ) continue;
-			else if ( typ === 'object') {
-
-				if ( val.id ) mods[s] = new Mod( val );
-				else this.parseMods( val, id );
-			}
-
-		}
-		return mods;
 
 	},
 
@@ -429,40 +459,6 @@ export default {
 		}
 
 		return new Player( vars );
-
-	},
-
-	/**
-	 * For an object variable path key, the key is expanded
-	 * into subojects, each with a single property of the next
-	 * part of the variable path.
-	 * This is done to allow object props to represent variable paths
-	 * without changing all the code to use Maps (with VarPath keys) and not Objects.
-	 * @param {Object} obj - object containing the key to expand.
-	 * @param {string} prop
-	 */
-	splitKeyPath( obj, prop ) {
-
-		let val = obj[prop];
-
-		delete obj[prop];
-
-		let keys = prop.split('.');
-
-		let max = keys.length-1;
-
-		// stops before length-1 since last assign goes to val.
-		for( let i = 0; i < max; i++ ) {
-
-			var cur = obj[ keys[i] ];
-			if ( cur === null || cur === undefined ) cur = {};
-			else if ( typeof cur !== 'object') cur = { value:cur };
-
-			obj = obj[ keys[i] ] = cur;
-
-		}
-
-		obj[ keys[max] ] = val;
 
 	},
 

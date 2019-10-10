@@ -323,6 +323,7 @@
 			"virtue.rate":0.001,
 			"arcana.rate":0.001,
 			"minions.max":10,
+			"lightlore.max":1,
 			"space.max":200,
 			"shadow.max":-3,
 			"shadow.rate":"-10%"
@@ -341,9 +342,9 @@
 		"mod":{
 			"minions.max":10,
 			"space.max":300,
-			"nature.max":2,
-			"air.max":1,
-			"fire.rate":"-2%"
+			"naturelore.max":2,
+			"airlore.max":1,
+			"fire.rate":"-3%"
 		}
 	},
 	{

@@ -1,6 +1,7 @@
 import Base, {mergeClass} from './base';
-import { mergeSafe} from 'objecty';
 import Dot from '../chars/dot';
+import { cloneClass } from '../util/util';
+import { ParseMods } from '../values/mod';
 
 const ItemDefaults = {
 	stack:true,
@@ -23,9 +24,15 @@ export default class Item {
 
 		let data = this.excludeJSON() || {};
 
+		if ( !this.template && !this.recipe ) {
+
+			//console.warn('MISSING TEMPLATE: ' + this.id );
+			data.type = this.type;
+
+		}
+
 		data.id = this.id;
 		data.recipe = this.recipe;
-		data.value = this.value;
 
 		return data ? data : undefined;
 
@@ -58,6 +65,9 @@ export default class Item {
 
 		if ( vars ) Object.assign( this, vars );
 
+		this.value = this._value || 1;
+
+		if ( this.id && this.id.includes('apple')) console.warn('count: ' + this.value );
 		if ( this.consume === null || this.consume === undefined ) this.consume = this.defaults.consume;
 		if ( this.stack === null || this.stack === undefined ) this.stack = this.defaults.stack;
 
@@ -103,9 +113,12 @@ export default class Item {
 
 		if ( typeof this.template ==='string' ) this.template = state.getData( this.template );
 		if ( this.template ) {
-			console.log('it revive from: ' + this.template );
-			mergeSafe( this, this.template);
+			//console.log('it revive from: ' + this.template );
+			// STILL NECESSARY.
+			cloneClass( this.template, this );
 		}
+
+		if ( this.mod ) this.mod = ParseMods( this.mod, this.id );
 
 	}
 

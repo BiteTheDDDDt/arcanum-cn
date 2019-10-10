@@ -1,6 +1,6 @@
 <script>
 import Game from '../game';
-import { floor } from '../util/format';
+import { floor, lowFixed, precise } from '../util/format';
 
 import AllUpgrades from './allupgrades.vue';
 import SlotPick from './components/slotpick.vue';
@@ -30,14 +30,17 @@ export default {
 		level() {return this.player.level; },
 		hp() {return this.player.hp; },
 		defense() {return this.player.defense.value; },
-		dodge(){ return this.player.dodge.value },
+		dodge(){ return Math.floor(this.player.dodge.valueOf()) },
+		luck(){return Math.floor(this.player.luck.valueOf()) },
 		damage() { return this.player.damage || 0 },
 		tohit() {return this.player.tohit.value; },
 		exp() {return this.floor( this.player.exp.value ); },
 		next() {return this.floor( this.player.next ); },
 		mount() { return Game.state.getSlot('mount'); },
 		dist() { return this.player.dist; },
-		sp(){return this.player.sp; }
+
+		sp() { return this.player.sp; },
+		spStr(){return lowFixed( this.player.sp ); }
 
 
 	},
@@ -50,7 +53,8 @@ export default {
 		this.player = Game.state.player;
 	},
 	methods:{
-		floor:floor
+		floor:floor,
+		precise:precise
 	}
 
 }
@@ -71,7 +75,7 @@ export default {
 		<!--<tr><td>alignment</td><th>{{ player.alignment }}</th></tr>-->
 		<tr><td>level</td><th> {{ level }}</th></tr>
 		<tr><td>exp</td><th> {{ exp }} / {{ next }} </th></tr>
-		<tr><td @mouseenter.capture.stop="emit( 'itemover', $event,sp)">skill points</td><th> {{ sp.value.toFixed(2) }}</th></tr>
+		<tr><td @mouseenter.capture.stop="emit( 'itemover', $event,sp)">skill points</td><th> {{spStr }}</th></tr>
 
 		<tr><td>rest</td><th><slotpick pick="rest" /></th></tr>
 		<tr><td>mount</td><th><slotpick pick="mount" /></th></tr>
@@ -89,6 +93,7 @@ export default {
 
 			<tr><td>defense</td><th>{{ defense }}</th></tr>
 			<tr><td>dodge</td><th>{{ dodge }}</th></tr>
+			<tr><td>luck</td><th>{{ luck }}</th></tr>
 			<tr><td>damage bonus</td><th>{{ damage }}</th></tr>
 			<tr><td>hit bonus</td><th>{{ tohit }}</th></tr>
 
@@ -108,7 +113,7 @@ export default {
 		<table class="resists">
 			<tr><th>resists</th></tr>
 			<tr v-for="(r,k) in player.resist" :key="k">
-				<td>{{k}}</td><td class="num-align">{{r}}%</td>
+				<td>{{k}}</td><td class="num-align">{{ precise( r.value ) }}%</td>
 			</tr>
 		</table>
 		</div>
@@ -118,7 +123,7 @@ export default {
 		<table class="immunities">
 			<tr><th>immunities</th></tr>
 			<tr v-for="(r,k) in player.immunities" :key="k">
-				<td>{{k}}</td>
+				<td v-if="r>0">{{k}}</td>
 			</tr>
 		</table>
 		</div>

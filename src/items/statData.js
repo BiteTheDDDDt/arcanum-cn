@@ -18,12 +18,15 @@ export default class StatData extends GData {
 	get value() { return this._value; }
 	set value(v) {
 
-		if ( v instanceof Stat ) this._value = v;
-		else if ( this._value ) {
+		if ( v instanceof Stat ) {
+
+			this._value = v;
+
+		} else if ( this._value ) {
 
 			this._value.base = (typeof v === 'object') ? v.value : v;
 
-		} else this._value = new Stat(v);
+		} else this._value = new Stat(v );
 
 	}
 	valueOf(){ return this._value.value; }
@@ -37,6 +40,11 @@ export default class StatData extends GData {
 		super(vars);
 
 		this.value = new Stat( this._value || 0 );
+
+		/**
+		 * @compat. statData is a pure stat with no max value.
+		 */
+		this.max = undefined;
 
 		/**
 		 * @property {boolean} unit - true if current value is reported in integer amounts.

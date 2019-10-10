@@ -103,6 +103,26 @@ export default {
 
 <style scoped>
 
+div.inv-equip .item-table {
+		/*display: flex; flex-flow: column;*/
+		overflow-y: auto;
+        margin: 0; padding: var(--medium-gap);
+        display: grid; grid-template-columns: repeat( auto-fit, minmax( 256px, 1fr )); grid-auto-rows: 1fr;
+        grid-column: 1/3;
+    }
+div.inv-equip .item-table tr {
+        display: flex; flex-flow: row; justify-content: flex-end;
+        padding: var(--small-gap); align-items: center;
+    }
+div.inv-equip .item-table tr :first-child { flex: 1; }
+div.inv-equip .item-table tr button { margin: var(--tiny-gap); }
+div.inv-equip .item-table td { display: flex; padding: 0; }
+div.inv-equip > div:nth-child(2) {
+        border-top: 1px solid var(--separator-color);
+        /*display: flex; flex-flow: column;*/
+        display: grid; grid-template-columns: 1fr 1fr;
+	}
+
 .flex-row {
 	align-items:center;
 	justify-content: flex-start;

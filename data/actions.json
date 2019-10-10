@@ -196,7 +196,7 @@
 
 		},
 		"run":{
-			"stamina":0.25,
+			"stamina":0.35,
 			"mana":0.1
 		},
 		"effect":{
@@ -552,7 +552,7 @@
 		"slot":"rest",
 		"length":10,
 		"need":"g.lightlore>=5&&g.evil<=0",
-		"fill":[ "light", "hp", "mana", "stress"],
+		"fill":[ "stamina", "hp", "manas", "stress"],
 		"effect":{
 			"virtue":1,
 			"stress":-1.2,
@@ -578,14 +578,15 @@
 		"require":"g.naturelore>=12",
 		"fill":[ "nature", "hp", "mana", "stamina","stress"],
 		"effect":{
-			"stress":-1.7,
+			"stress":-1.4,
 			"manas":{
 				"skipLocked":true,
 				"value":0.5
 			},
 			"stamina":0.7,
 			"hp":1,
-			"nature":0.2
+			"nature":0.2,
+			"naturelore.max":0.001
 		}
 	},
 	{
@@ -664,8 +665,8 @@
 		},
 		"effect":{
 			"nature":0.3,
+			"naturelore.exp":0.1,
 			"naturelore":{
-				"exp":0.1,
 				"max":0.001,
 				"rate":0.001
 			},

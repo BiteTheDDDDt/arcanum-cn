@@ -95,6 +95,8 @@ export default class GameState {
 		this.raid = new Raid( baseData.raid );
 		this.explore = new Explore( baseData.explore );
 
+		this.runner = this.items.runner = new Runner( this.items.runner );
+
 		this.prepItems();
 
 		this.userSpells = this.items.userSpells = new UserSpells( this.items.userSpells );
@@ -104,12 +106,9 @@ export default class GameState {
 
 		this.readyItems();
 
-		/**
-		 * @todo: FIX THIS.
-		 * Runner relies on the previous instance of runner to reset.
-		 */
-		Runner.revive(this);
-		this.items.runner = Runner;
+		// circular problem. spelllist has to be revived after created spells
+		// compute their levels. unless levels stored in json?
+		this.spelllist.calcUsed();
 
 		/**
 		 * @todo: messy bug fix. used to place player-specific resources on update-list.
@@ -139,7 +138,7 @@ export default class GameState {
 			 */
 			if ( it.custom === 'group') {
 
-				console.warn('CUSTOM: ' + it.id + ' name: ' + it.name );
+				//console.warn('CUSTOM: ' + it.id + ' name: ' + it.name );
 				this.items[p] = new Group( it );
 
 			} else if ( it.instance ) {

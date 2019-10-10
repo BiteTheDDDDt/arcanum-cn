@@ -13,6 +13,16 @@ export default class Raid {
 
 	get id() { return 'raid';}
 
+	toJSON() {
+
+		return {
+			locale:this.locale ? this.locale.id : undefined,
+			drops:this.drops,
+			combat:this.combat
+		}
+
+	}
+
 	/**
 	 * @property {string} name - name of dungeon in progress.
 	 */
@@ -53,15 +63,6 @@ export default class Raid {
 	set enc(v) {}
 
 	get done() { return this.exp === this.length; }
-
-	toJSON() {
-
-		return {
-			locale:this.locale ? this.locale.id : undefined,
-			drops:this.drops
-		}
-
-	}
 
 	/**
 	 *
@@ -142,7 +143,6 @@ export default class Raid {
 	 */
 	nextEnc() {
 
-
 		/**
 		 * @todo: maket this happen automatically.
 		 */
@@ -154,7 +154,6 @@ export default class Raid {
 	enemyDied( enemy, attacker ) {
 
 		this.player.exp += 1 + Math.max( enemy.level - this.player.level, 0 );
-		attacker.timer =attacker.delay;
 
 		//console.log('ENEMY templ: ' + (typeof enemy.template) );
 
@@ -172,7 +171,9 @@ export default class Raid {
 
 	}
 
-	advance() { this.exp += 1; }
+	advance() {
+		this.exp += 1;
+	}
 
 	complete() {
 
@@ -199,6 +200,8 @@ export default class Raid {
 	enter( d ) {
 
 		this.player.timer = this.player.delay;
+
+		console.log('RAID ENTER');
 
 		if ( d != null ) {
 

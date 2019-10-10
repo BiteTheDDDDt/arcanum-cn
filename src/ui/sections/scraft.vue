@@ -75,9 +75,9 @@ export default {
 
 			let s = this.list[i];
 			if ( s ) this.craft.level -= s.level;
-			this.craft.buy = craftCost( this.list );
 
 			this.list.splice(i,1);
+			this.craft.buy = craftCost( this.list );
 
 		},
 
@@ -120,7 +120,7 @@ export default {
 		 * @property {Spell[]} spells - all spells in game.
 		 */
 		spells() {
-			return Game.state.filterItems( v=>v.type === 'spell'&&!this.locked(v));
+			return Game.state.filterItems( v=>v.type === 'spell'&&!this.locked(v)&&v.owned);
 		},
 
 		/**

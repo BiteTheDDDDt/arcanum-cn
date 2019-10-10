@@ -1,5 +1,5 @@
 import DataLoader from './dataLoader';
-import {quickSplice} from './util/util';
+import {quickSplice, logObj} from './util/util';
 import GData from './items/gdata';
 import Log from './log.js';
 import GameState, { REST_SLOT } from './gameState';
@@ -8,16 +8,10 @@ import ItemGen from './itemgen';
 import TechTree from './techTree';
 import Dot from './chars/dot';
 
-
-/**
- * @property {Runner} Runner - runs actions in tandem.
- */
-import Runner from './modules/runner';
-
 /**
  * @note these refer to Code-events, not in-game events.
  */
-import Events, {EVT_UNLOCK, EVT_EVENT, ENTER_LOC, EXIT_LOC, ITEM_ATTACK, SET_SLOT, TRY_USE, DELETE_ITEM } from './events';
+import Events, {EVT_UNLOCK, EVT_EVENT, EVT_LOOT, ENTER_LOC, EXIT_LOC, ITEM_ATTACK, SET_SLOT, TRY_USE, DELETE_ITEM } from './events';
 import Resource from './items/resource';
 import Skill from './items/skill';
 import Stat from './values/stat';
@@ -95,12 +89,17 @@ export default {
 		// Code events. Not game events.
 		Events.init(this);
 
+		this.Runner = null;
+
 		return this.loader = DataLoader.loadGame( saveData ).then( allData=>{
 
 			this.state = new GameState( allData, saveData );
 			this.itemGen = new ItemGen( this.state );
 
 			this._items = this.state.items;
+
+
+			this.Runner = this.state.runner;
 
 			this.recheckTiers();
 			this.restoreMods();
@@ -130,7 +129,7 @@ export default {
 
 	recheckTiers() {
 
-		let n = 0;
+		let n = -1;
 		while ( ++n <= 5 ) {
 
 			var list = this.state.getTagList('t_tier'+n);
@@ -141,7 +140,10 @@ export default {
 			for( var i = list.length-1; i>= 0; i-- ) {
 
 				if ( list[i].value > 0) {
-					if ( evt.value == 0 ) {
+
+					if ( evt.locked ) evt.locked = false;
+					else if ( evt.value == 0 ) {
+
 						evt.amount(this,1 );
 					}
 					hasEvent = true;
@@ -238,7 +240,7 @@ export default {
 		this.state.player.update(dt);
 		this.state.minions.update(dt);
 
-		Runner.update(dt);
+		this.Runner.update(dt);
 
 		this.doResources( this.state.resources, dt);
 		this.doResources( this.state.playerStats, dt );
@@ -292,16 +294,16 @@ export default {
 	 * Toggles an action on or off.
 	 * @param {GData} a
 	 */
-	toggleAction(a) { Runner.toggleAct(a); },
+	toggleAction(a) { this.Runner.toggleAct(a); },
 
 	/**
 	 * Wrapper for Runner rest
 	 */
-	doRest() { Runner.tryAdd( this.state.getSlot(REST_SLOT) ) },
+	doRest() { this.Runner.tryAdd( this.state.getSlot(REST_SLOT) ) },
 
-	haltAction(a) { Runner.stopAction(a);},
+	haltAction(a) { this.Runner.stopAction(a);},
 
-	setAction( a ) { Runner.setAction(a); },
+	setAction( a ) { this.Runner.setAction(a); },
 
 	/**
 	 * Tests if an action has effectively filled a resource.
@@ -366,14 +368,14 @@ export default {
 					this.remove( it, 1 );
 				}
 
-				if ( it.running ) Runner.stopAction(it);
+				if ( it.running ) this.Runner.stopAction(it);
 				if ( it == this.state.raid.dungeon ) this.state.raid.setDungeon(null);
 
 				if ( it instanceof Resource || it instanceof Skill ) {
 					this.remove( it, it.value);
 
 				} else if ( it.mod ) {
-					console.log('REMOVING MOD: ' + it.id + ' --> ' + it.value );
+					//console.log('REMOVING MOD: ' + it.id + ' --> ' + it.value );
 					this.removeMod( it.mod, it.value );
 				}
 
@@ -402,11 +404,12 @@ export default {
 	trySell( it, inv, count=1 ) {
 
 		if ( it.value < 1 && !it.instance ) {
+			console.log('NOT INSTANCE: ' + it.id );
 			return false; }
 
 		if ( count > it.value ) count = it.value;
 
-		console.log('sell count: ' + count );
+		console.log('sell #: ' + count );
 		let sellObj = it.sell || it.cost;
 		let goldPrice = count*this.sellPrice(it);
 
@@ -588,19 +591,8 @@ export default {
 
 		} else {
 
-			let inst = it.stack ? this.state.inventory.find( it.id, true ) : null;
-			if ( inst ) {
-
-				console.log('stack exists: ' + inst.value);
-				inst.value++;
-
-			} else {
-
-				inst = this.itemGen.instance( it );
-				if ( inst ) inst.value = 1;
-				this.state.inventory.add( inst );
-
-			}
+			var inst = this.itemGen.instance( it );
+			if ( inst ) this.state.inventory.add( inst );
 
 		}
 
@@ -631,7 +623,7 @@ export default {
 			} else {
 
 				// runner will handle costs.
-				Runner.useWith( it, targ );
+				this.Runner.useWith( it, targ );
 
 			}
 		}
@@ -683,20 +675,12 @@ export default {
 
 	},
 
-	/**
-	 * Trigger an event. (Randomized events are also triggered.)
-	 * @param {*} evt
-	 */
-	doEvent(evt){
-		evt.amount(this, 1 );
-	},
-
 	doLog( logItem ) {
 		Events.emit( EVT_EVENT, logItem );
 	},
 
 	/**
-	 * Remove some amount of an item.
+	 * Remove amount of a non-inventory item.
 	 * If a tag list is specified, the amount will only be removed
 	 * from a single element of the list. Apparently.
 	 * @property {string|GData} id - item id or tag.
@@ -798,8 +782,31 @@ export default {
 			return ( it.type === 'resource' || it.type === 'action') ?
 				(it.locked === false) : it.value > 0;
 
-		} else if (  Array.isArray(test) ) return test.every( v=>this.unlockTest(v,item), this );
-		else if ( test.type != null ) {
+		} else if (  Array.isArray(test) ) {
+
+			return test.every( v=>this.unlockTest(v,item), this );
+
+		} else if ( type === 'object' ) {
+
+			/**
+			 * @todo: quick patch in case it was a data item.
+			 */
+			if ( test.id ) return ( test.type === 'resource' || test.type === 'action') ?
+			(test.locked === false) : test.value > 0;
+
+			// @todo: take recursive values into account.
+			let limit, it;
+			for( let p in test ) {
+
+				it = this.getData(p);
+				if ( !it ) continue;
+				limit = test[p];
+				if ( it.value < limit ) return false;
+
+			}
+			return true;
+
+		} else if ( test.type != null ) {
 
 			return ( test.type === 'resource' || test.type === 'action') ? !test.locked : test.value > 0;
 
@@ -910,13 +917,17 @@ export default {
 				if ( target === undefined ) this.modTag( p, mod[p], amt );
 				else if ( mod[p] === true ){
 
-					if ( target.type === 'event' && !target.value ) target.amount( this, 1 );
+					if ( target.type === 'event' && !target.value ) {
+						target.amount( this, 1 );
+					}// else if ( target.mod ) this.addMod( target.mod, amt );
 
 				} else {
+
 					if ( target.applyMods) {
 						target.applyMods( mod[p], amt );
 						target.dirty = true;
 					} else console.warn( 'no applyMods func: ' + target );
+
 				}
 			}
 
@@ -924,7 +935,11 @@ export default {
 
 			let t = this.getData(mod);
 			if ( t ) {
+
+
 				if ( t.type ==='event' && !t.value ) t.amount(this,1 );
+				//else if ( t.mod ) this.addMod( t.mod, amt );
+
 			} else {
 
 				let list = this.getTagList(mod);
@@ -978,11 +993,15 @@ export default {
 	applyToTag( tag, obj, dt ) {
 
 		let target = this.state.getTagList(tag);
+
 		if ( target ) {
+
 			for( let i = target.length-1; i>=0; i--) {
 				target[i].applyVars( obj, dt);
 				target[i].dirty = true;
 			}
+
+
 		}
 
 	},
@@ -1049,20 +1068,24 @@ export default {
 				var g = this.getData('gold');
 				g.value -= cost.value*unit;
 				g.dirty = true;
+				return;
 			}
 
 			for( let p in cost ) {
 
-				res = cost[p];
-
 				res = this.getData(p);
 				if ( res ) {
+
+					if ( res.instance || res.isRecipe ) {
+						this.payInst( p, cost[p]*unit );
+						continue;
+					}
 
 					if ( !isNaN(cost[p]) ) this.remove( res, cost[p]*unit );
 					else res.applyVars( cost[p], -unit );
 					res.dirty = true;
 
-				}
+				} else this.payInst(p, cost[p] );
 
 			}
 
@@ -1077,6 +1100,14 @@ export default {
 
 	},
 
+	payInst( p, amt ){
+
+		var res = this.state.inventory.find( p,true );
+		if ( res ) this.state.inventory.removeQuant(res,amt);
+		else console.warn('QUANT NOT FOUND: ' + p );
+
+	},
+
 	/**
 	 * Determine if an object cost can be paid before the pay attempt
 	 * is actually made.
@@ -1084,20 +1115,40 @@ export default {
 	 * @param {Array|Object} cost
 	 * @returns {boolean} true if cost can be paid.
 	 */
-	canPay( cost, unit=1 ) {
+	canPay( cost, amt=1 ) {
 
-		if (Array.isArray(cost) ) return cost.every( v=>this.canPay(v,unit), this );
+		if (Array.isArray(cost) ) return cost.every( v=>this.canPay(v,amt), this );
 
 		let res;
 
 		if ( typeof cost === 'object' ){
 
-			if ( cost instanceof Stat ) { return this.getData('gold').value >= cost.value*unit; }
+			if ( cost instanceof Stat ) { return this.getData('gold').value >= cost.value*amt; }
 
 			for( let p in cost ) {
 
-				res = this.getData(p);
-				if ( res === undefined || res.value < cost[p]*unit ) return false;
+				var sub = cost[p];
+
+				res = this.state.getData(p);
+				if ( !res ) {
+					return false;
+				} else if ( res.instance || res.isRecipe ) {
+
+					res = this.state.inventory.findMatch( res );
+					if (!res) return false;
+
+				}
+
+				if ( !isNaN(sub) || sub instanceof Stat ) {
+
+					if ( res.value < sub*amt ) return false;
+
+				} else {
+
+					// things like research.max. with suboject costs.
+					if ( !this.canPayObj( res, sub, amt ) ) return false;
+
+				}
 
 				// @todo: recursive mod test.
 				/*let mod = res.mod;
@@ -1113,7 +1164,34 @@ export default {
 
 			res = this.getData('gold');
 			if ( !res) console.error('Error: Gold is missing');
-			return res.value >= cost*unit;
+			return res.value >= cost*amt;
+
+		}
+
+		return true;
+	},
+
+	/**
+	 * Follow object path to determine ability to pay.
+	 * @param {object} parent - parent object.
+	 * @param {object|number} cost - cost expected on parent or sub.
+	 * @param {number} amt - cost multiplier.
+	 */
+	canPayObj( parent, cost, amt=1 ){
+
+		if ( cost instanceof Stat || !isNaN(cost)){
+			return parent.value >= cost;
+		}
+
+		for( let p in cost ) {
+
+			var val = cost[p];
+			if ( !isNaN(val) || val instanceof Stat ) {
+				if ( parent.value < val*amt ) return false;
+			} else if ( typeof val === 'object'){
+
+				if ( !this.canPayObj( parent[p], val, amt ) ) return false;
+			}
 
 		}
 
@@ -1225,7 +1303,7 @@ export default {
 		/** @todo this won't work right */
 		if ( typeof it === 'object' && it.stack ) {
 
-			let inst = inv.find( it.id, true );
+			let inst = inv.findMatch( it );
 			if ( inst ) {
 				inst.value++;
 				return;
@@ -1235,6 +1313,9 @@ export default {
 
 		let res = this.itemGen.getLoot(it);
 		if ( res === null || res === undefined ) return;
+
+		Events.emit( EVT_LOOT, res );
+
 		inv.add( res );
 
 	},

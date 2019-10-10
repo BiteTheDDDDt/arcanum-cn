@@ -23,7 +23,7 @@ export default {
 		<span class='name-span'><span>{{player.name }}</span><dots class="inline" mini=true :dots="player.dots" /></span>
 		<prog class="hp"
 		:value="player.hp.value" :max="player.hp.max.value" /></div>
-	<div v-for="p in npcs" :key="p.id">
+	<div v-for="p in npcs" :key="p.id" @mouseenter.capture.stop="emit( 'itemover', $event, p )">
 		<span class="name-span"><span>{{p.name }}</span><dots class="inline" mini=true :dots="p.dots" /></span>
 		<prog class="hp" :value="p.hp" :max="p.maxHp.value" />
 	</div>

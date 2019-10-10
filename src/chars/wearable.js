@@ -3,7 +3,7 @@ import Range from "../values/range";
 import Attack from './attack';
 
 import {mergeSafe} from "objecty";
-import Mod from '../values/mod';
+import Mod, { ParseMods } from '../values/mod';
 import { assignNoFunc } from '../util/util';
 import Item from '../items/item';
 
@@ -16,13 +16,18 @@ export default class Wearable extends Item {
 
 		data.id = this.id;
 
-		if ( !this.template ) console.warn('MISSING TEMPLATE: ' + this.id );
-		else if ( typeof this.template === 'string' ) {
-			data.template = this.template;
-		}
-		else data.template = this.template.id;
+		if ( !this.template ) {
 
-		data.name = this.name;
+			//console.warn('MISSING TEMPLATE: ' + this.id );
+			data.type = this.type;
+
+		} else if ( typeof this.template === 'string' ) {
+
+			data.template = this.template;
+
+		} else data.template = this.template.id;
+
+		data.name = this._name;
 		data.attack = this.attack || undefined;
 
 		data.enchants = this.enchants || undefined;
@@ -65,6 +70,9 @@ export default class Wearable extends Item {
 
 	}
 
+	get slot(){return this._slot; }
+	set slot(v){this._slot=v;}
+
 	/**
 	 * @property {string} kind - subtype of wearable.
 	 */
@@ -91,6 +99,8 @@ export default class Wearable extends Item {
 		//if( vars.template ) logObj( vars.template, ' template' );
 		if ( !this.type ) { this.type = 'wearable'; }
 
+		if ( this._attack && !this._attack.name ) this._attack.name = this.name;
+
 	}
 
 	maxed() { return false; }
@@ -113,6 +123,8 @@ export default class Wearable extends Item {
 			mergeSafe( this, this.template );
 
 		} else console.log('wearable template not found: ' + this.template );
+
+		if ( this.mod ) this.mod = ParseMods( this.mod, this.id );
 
 	}
 

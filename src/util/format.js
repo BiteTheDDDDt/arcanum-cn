@@ -25,15 +25,28 @@ export const abbr = (it)=>{
 
 	if ( !it ) return '';
 
-	let s = it.name;
+	let s = it.name || it.id;
+	if ( !s) {
+		//console.warn( it + ' missing name');
+		return it;
+	}
+
 	let ind = s.indexOf(' ');
 	if ( ind >= 0 && ind < s.length ) return s[0] + s[ind+1];
 	return s.slice(0,2);
 
 }
 
-export const fixed = (v, n=2) => {
-	return ( typeof v === 'number') ? v.toFixed(n) : v;
+/**
+ * Returns fixed point, rounding down.
+ * @param {*} v
+ * @param {*} n
+ */
+export const lowFixed = (v, n=2) => {
+
+	let pow = Math.pow(10,n);
+	return Math.floor( v*pow )/pow;
+
 }
 
 export const seconds = (v) => {

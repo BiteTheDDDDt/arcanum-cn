@@ -36,12 +36,14 @@ export default {
 	*/
 	excludeJSON( excludes ) {
 
+		if ( this.save && (this.value>0||this.owned)) return this.forceSave();
+
 		excludes = excludes ? JSONIgnore.concat( excludes ) : JSONIgnore;
 
 		let vars = changes( jsonify(this, excludes ), this.template || {} );
 
 
-		if ( this.locked === false && this.template.locked !== false ){
+		if ( this.locked === false && this.template && this.template.locked !== false ){
 			vars = vars || {};
 			vars.locked = this.locked;
 		}
@@ -53,10 +55,12 @@ export default {
 
 	toJSON() {
 
+		if ( this.save && (this.value>0||this.owned)) return this.forceSave();
+
 		let vars = changes( jsonify(this, JSONIgnore ),
 			this.template || {} );
 
-		if ( this.locked === false && this.template.locked !== false ){
+		if ( this.locked === false && this.template && this.template.locked !== false ){
 			vars = vars || {};
 			vars.locked = this.locked;
 		}
@@ -64,6 +68,20 @@ export default {
 		return vars || undefined;
 
 	},
+
+	forceSave(){
+
+		let data = jsonify(this);
+		if ( data.template && typeof data.template === 'object' ) data.template = data.template.id;
+		if ( data.val ) data.value = undefined;
+		data.name = this._name;
+
+		return data;
+
+	},
+
+	get id() { return this._id; },
+	set id(v) { this._id = v;},
 
 	/**
 	 * @property {Object} template - original data used to create this Item.
@@ -86,8 +104,19 @@ export default {
 	/**
 	 * @property {string} name - displayed name.
 	 */
-	get name() { return ( this._actname && this._value < 1 ) ? this.actname : (this._name||this.id); },
-	set name(v) { this._name = v;},
+	get name() { return (( this._actname && this._value < 1 ) ? this.actname : (this._name||this.id)) + (this.sym||''); },
+	set name(v) {
+
+		if ( v&&this.sym ) {
+
+			let i = v.indexOf( this.sym );
+			if ( i>= 0 ) this._name = v.slice(0, i );
+			else this._name = v;
+
+		} else this._name = v;
+
+
+	},
 
 	/**
 	 * @property {boolean} repeat - whether the item is repeatable.
@@ -254,22 +283,23 @@ export default {
 			//console.log('MOD NAME: ' + p);
 
 			var m = mods[p];
-			var sub = targ[p];
+			var subTarg = targ[p];
 
-			if ( sub === undefined || sub === null ) {
+			if ( subTarg === undefined || subTarg === null ) {
 
-				sub = targ[p] = ( typeof m === 'number') ? m*amt : cloneClass( m );
-				console.log( mods + '["' + p + '"]:' + m + ' -> mod targ undefined' + ' -> ' + sub );
+				subTarg = targ[p] = ( typeof m === 'number') ? m*amt : cloneClass( m );
+				console.log( mods + '["' + p + '"]:' + m + ' -> mod targ undefined' + ' -> ' + subTarg );
 
-			} else if ( m instanceof Mod ) m.applyTo( targ, p, amt );
+			} else if ( subTarg.applyMods ) subTarg.applyMods( m, amt, subTarg );
+			else if ( m instanceof Mod ) m.applyTo( targ, p, amt );
 			else if ( typeof m === 'object' ) {
 
-				this.applyObj( m, amt, sub );
+				this.applyObj( m, amt, subTarg );
 
 			} else if ( typeof m === 'number' ) {
 
-				if ( typeof sub === 'number') targ[p] += m*amt;
-				else this.applyMods( m, amt, sub);
+				if ( typeof subTarg === 'number') targ[p] += m*amt;
+				else this.applyMods( m, amt, subTarg);
 
 			} else {
 				console.warn( `UNKNOWN Mod applied to ${this.id}: ${p}:${m}`);

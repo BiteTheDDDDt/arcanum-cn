@@ -64,7 +64,7 @@ export default {
 	<table class="bestiary">
 		<tr><th>Creature</th><th>Level</th><th>Slain</th><th class="num-align">Hp</th></tr>
 		<tr v-for="b in filtered" :key="b.id" @mouseenter.capture.stop="emit( 'itemover',$event,b)">
-			<th>{{ b.name }}</th>
+			<th class="sm-name">{{ b.name }}</th>
 			<td class="num-align">{{ b.level }}</td>
 			<td class="num-align">{{ b.value }}</td>
 			<td class="num-align">{{ showHp(b) ? toNum(b.hp) : '??' }}</td>

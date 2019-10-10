@@ -102,6 +102,7 @@
 		"id":"burningcoals",
 		"name":"burning coals",
 		"desc":"bed of burning coals",
+		"tags":"bed",
 		"slot":"bed",
 		"require":"g.fire>=10",
 		"cost":{
@@ -132,6 +133,7 @@
 			"mana":5
 		},
 		"mod":{
+			"inv.max":1,
 			"gem.max":2,
 			"gold.max":200,
 			"gems.max":10
@@ -147,6 +149,7 @@
 			"space":10
 		},
 		"mod":{
+			"inv.max":2,
 			"gem.max":10,
 			"gembox.max":5,
 			"gold.max":1800,
@@ -165,6 +168,7 @@
 			"space":20
 		},
 		"mod":{
+			"inv.max":3,
 			"gem.max":20,
 			"gembox.max":10,
 			"gold.max":4000,
@@ -842,11 +846,27 @@
 			"space":10
 		},
 		"mod":{
+			"inv.max":1,
 			"player.defense":1,
 			"player.tohit":1
 		}
 
 	},
+	{
+        "id":"weaponrack",
+        "name":"weapon rack",
+        "desc":"Holds equipment you aren't using",
+        "require":"g.player.level>=5&&g.armory>0",
+        "max":3,
+        "cost":{
+			"gold":400,
+			"research":100,
+            "space":2
+        },
+        "mod":{
+            "inv.max":5
+        }
+    },
 	{
 		"id":"archive",
 		"desc":"arcane archive",
@@ -854,8 +874,7 @@
 		"max":3,
 		"cost":{
 			"gold":400,
-			"research":100,
-			"research.max":10,
+			"research":400,
 			"space":10
 		},
 		"mod":{

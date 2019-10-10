@@ -1,19 +1,23 @@
 <script>
-
-const LogTypes = ['event','unlock','combat', 'loot'];
+import { LogTypes} from '../events';
+import Game from '../game';
 
 /**
  * Displays event output to user.
  */
 export default {
 
-	props:['log'],
 	data() {
 
+		var filter = 0;
+		for( let p in LogTypes) {
+			filter |= LogTypes[p];
+		}
+
 		return {
+			log:Game.log,
 			LogTypes:LogTypes,
-			filter:LogTypes.concat(),
-			items:this.log.items,
+			filter:filter,
 			showOptions:false
 
 			/**
@@ -23,6 +27,17 @@ export default {
 
 	},
 	methods:{
+
+		changed( box ) {
+
+			if ( box.checked ) {
+				this.filter = this.filter|box.value;
+			} else {
+				this.filter = (~box.value)&this.filter;
+
+			}
+
+		},
 
 		doOptions() {
 			this.showOptions = !this.showOptions;
@@ -35,13 +50,14 @@ export default {
 
 		visItems(){
 
-			let all = this.items;
+			let all = this.log.items;
+
 			let a = [];
 
-			for( let i = this.items.length-1; i>=0; i-- ) {
+			for( let i = all.length-1; i>=0; i-- ) {
 
 				var it = all[i];
-				if ( !it.type || this.filter.includes(it.type) ) a.push(it);
+				if ( !it.type || (this.filter&it.type)>0 ) a.push(it);
 			}
 			return a;
 
@@ -59,12 +75,12 @@ export default {
 
 			<div class="top-span">
 				<button type="button" class="inline btn-sm" @click="clearLog">Clear</button>
-				<button class="text-button" @click="doOptions">&#9881;</button>
+				<!--<button class="text-button" @click="doOptions">&#9881;</button>-->
 				<span class="checks">
 
-				<span v-for="p in LogTypes" :key="p">
-					<input type="checkbox" :value="p" :id="elmId(p)" v-model="filter" >
-					<label :for="elmId(p)">{{ p }}</label>
+				<span v-for="(p,k) in LogTypes" :key="k">
+					<input type="checkbox" :value="p" :id="elmId(k)" :checked="filter&p" @change="changed( $event.target )" >
+					<label :for="elmId(k)">{{ k }}</label>
 				</span>
 				</span>
 
@@ -77,8 +93,9 @@ export default {
 			<div class="outlog">
 			<div class="log-item" v-for="(it,i) in visItems" :key="i">
 
-				<span v-if="it.title" class="log-title">{{ it.title }}</span>
+				<span v-if="it.title" class="log-title item-name">{{ it.title }}</span>
 				<span class="log-text">{{ it.text }}</span>
+				<span class="num-align" v-if="it.count>1">(x{{it.count}})</span>
 
 			</div>
 			</div>
@@ -97,7 +114,7 @@ div.outlog {
 }
 
 div.log-view {
-	border-left:1px solid var(--separator-color);
+	border-left:1px solid var(--very-quiet-text-color);
 	display:flex;
 	flex-flow: column nowrap;
 	margin-left: 8px;
@@ -124,22 +141,10 @@ span.checks {
 
 .checks span { flex-basis: 50%; }
 
-.log-view div.log-item {
-	padding: 4px; margin: 1px 0; border-bottom: 1px dotted #DDD;
-}
-
 /*div.log-item {
 	display:flex;
 	flex-direction: column;
 	margin: 8px 0px;
 }*/
-
-.log-title {
-	font-weight: bold;
-}
-
-.log-text {
-	font-weight: normal;
-}
 
 </style>

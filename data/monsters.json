@@ -19,16 +19,30 @@
 
 	},
 	{
+		"id":"undeadcrow",
+		"name":"undead crow",
+		"level":0.5,
+		"kind":"undead",
+		"desc":"little more than tatters and bones",
+		"hp":4,
+		"defense":2,
+		"attack":{
+		  "name":"pecking",
+		  "kind":"necrotic",
+		  "dmg":"0.2~1"
+		},"flavor":"how does it fly?"
+	},
+	{
         "id":"wisp",
         "level":1,
         "kind":"spirit",
         "desc":"a ghostly wisp of air.",
-        "hp":"0.5~1",
+        "hp":"1~2",
         "defense":1,
         "attack":{
             "name":"shiver",
-            "kind":"shadow",
-            "dmg":"0~1"
+            "kind":"spirit",
+            "dmg":"0~0.5"
         }
 
 	},
@@ -38,13 +52,13 @@
         "kind":"goblinoid",
         "evil":5,
         "flavor":"Na-na-na-na-Na-na Na-na-na-na-Na-na...",
-        "hp":"2~4",
+        "hp":"3~5",
 		"defense":2,
 		"regen":0.25,
         "attack":{
             "name":"claws",
             "kind":"slash",
-            "dmg":"1~2"
+            "dmg":1
         }, "loot":{
 			"dagger":"20%",
 			"gloves":"10%"
@@ -59,14 +73,14 @@
         "evil":5,
 		"flavor":"",
 		"desc":"Tiny vicious humanoid riding a dragonfly.",
-        "hp":"2~4",
+        "hp":"3~5",
 		"defense":1,
 		"tohit":2,
 		"speed":2,
         "attack":{
             "name":"spear",
             "kind":"slash",
-            "dmg":"1~2"
+            "dmg":"0.5~1.5"
         }, "loot":{
 			"scrolls":"80%",
 			"spear":"20%",
@@ -85,7 +99,7 @@
         "attack":{
             "name":"bite",
             "kind":"pierce",
-            "dmg":"2~3"
+            "dmg":"1~2"
         }, "loot":{
 			"sash":"20%"
 		},
@@ -99,13 +113,13 @@
 		"name":"Large Mouse",
 		"kind":"natural",
 		"level":1,
-		"hp":2,
+		"hp":4,
 		"tohit":2,
 		"defense":2,
 		"attack":{
 			"name":"nibble",
 			"kind":"physical",
-			"damage":"1~2",
+			"damage":"0.2~0.7",
 			"leech":0.2
 		},
 		"loot":{
@@ -117,14 +131,14 @@
 		"name":"Stingy Bee",
 		"kind":"natural",
 		"level":1,
-		"hp":1,
+		"hp":2,
 		"tohit":4,
 		"defense":2,
 		"speed":3,
 		"attack":{
 			"name":"sting",
 			"kind":"poison",
-			"damage":"1~2"
+			"damage":"0.5~1.5"
 		},
 		"loot":{
 			"max":1
@@ -188,13 +202,13 @@
         "level":1,
         "kind":"construct",
         "desc":"Must have escaped its jar.",
-        "hp":8,
+        "hp":10,
         "tohit":1,
         "defense":5,
         "attack":{
             "name":"nasty bite",
             "kind":"pierce",
-            "dmg":"2~5"
+            "dmg":"0~2"
 		},
 		"resist":{
 			"arcane":20
@@ -206,13 +220,13 @@
         "level":1,
         "kind":"beast",
         "desc":"They're tricksy.",
-        "hp":9,
+        "hp":11,
         "tohit":2,
         "defense":8,
         "attack":{
             "name":"bite",
             "kind":"pierce",
-            "dmg":"2~5"
+            "dmg":"1~3"
         },"biome":"plains"
 
 	},
@@ -221,10 +235,10 @@
 		"name":"Large Snail",
 		"kind":"natural",
 		"level":2,
-		"hp":8,
+		"hp":14,
 		"tohit":1,
 		"defense":4,
-		"damage":"2~5",
+		"damage":"0~3",
 		"speed":-1,
 		"loot":{
 			"club":1
@@ -235,10 +249,10 @@
 		"name":"Large Rat",
 		"kind":"natural",
 		"level":2,
-		"hp":5,
+		"hp":10,
 		"tohit":2,
 		"defense":2,
-		"damage":"1~3",
+		"damage":"0~2.5",
 		"resist":{
 			"poison":10
 		}
@@ -313,6 +327,7 @@
 			"damage":"1~2"
 		}
 	},
+
 	{
         "id":"wombat",
         "level":2,
@@ -585,7 +600,16 @@
             "dmg":"3~6"
         }, "loot":{"gold":"2~4"}
 
-    },
+	},
+	{
+		"id":"orcpriest",
+		"kind":"humanoid",
+		"level":6,
+		"hp":10,
+		"tohit":5,
+		"defense":5,
+		"damage":"3~8"
+	},
     {
         "id":"zombie",
         "level":3,
@@ -697,7 +721,8 @@
         "attack":{
             "name":"bite",
             "kind":"pierce",
-            "dmg":"1~6"}, "loot":"rat tail"
+			"dmg":"1~6"
+		}
 
     },
     {
@@ -1242,7 +1267,7 @@
 			"kind":"pierce",
 			"leech":0.2,
             "dmg":"5~7"
-        },"loot":"bat wing"
+        }
 
 	},
 	{
@@ -1345,7 +1370,7 @@
             "name":"death touch",
             "kind":"drain",
             "dmg":"3~8"
-		},"loot":{"spectral essence":5},
+		},"loot":{},
 		"resist":{
 			"spirit":20
 		},"immune":"physical"
@@ -1415,14 +1440,14 @@
         "level":6,
         "kind":"humanoid",
         "desc":"He worships evil.",
-        "hp":32,
+        "hp":45,
         "defense":32,
         "tohit":5,
         "attack":{
             "name":"harm",
             "kind":"evil",
-            "dmg":"2~6"
-		},"loot":{ "potion of cure moderate wounds":20, "potion of cure serious wounds":10},
+            "dmg":"2~5"
+		},
 		"resist":{
 			"shadow":10
 		}
@@ -1620,7 +1645,7 @@
             "kind":"pierce",
 			"dmg":"7~15",
 			"leech":0.3
-        },"loot":{"crocodile tooth":10, "crocodile tears":5}
+        },"loot":{"croctears":5}
 
 	},
 	{
@@ -2416,7 +2441,7 @@
         "evil":19,
         "hp":53,
         "tohit":15,
-		"defense":43,
+		"defense":35,
 		"regen":7,
         "attack":{
             "name":"claws",

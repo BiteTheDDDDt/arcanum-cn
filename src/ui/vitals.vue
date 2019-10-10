@@ -1,6 +1,7 @@
 <script>
 import ProgBar from 'ui/components/progbar.vue';
 import Running from './running.vue';
+//import Mood from './items/mood.vue';
 
 import Game from '../game';
 import ItemBase from './itemsBase';
@@ -15,6 +16,7 @@ export default {
 	mixins:[ItemBase],
 	components:{
 		progbar:ProgBar,
+		//mood:Mood,
 		running:Running
 	},
 	created(){
@@ -52,7 +54,7 @@ export default {
 				@click="emit('action', focus)">Focus</button>
 		</div>
 
-		<running />
+		<running :runner="state.runner" />
 
 		<!-- anything not a table is a headache -->
 		<table class="bars">
@@ -70,6 +72,7 @@ export default {
 		<td colspan="2"><progbar :value="it.value" :class="it.id" :max="it.max.value"
 			@mouseenter.native.capture.stop="emit( 'itemover',$event,it)"/></td></tr>
 
+		<!--<tr><td>mood</td><td><mood :state="state" /></td></tr>-->
 		</table>
 
 	</div>

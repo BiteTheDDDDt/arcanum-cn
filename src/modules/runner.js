@@ -14,7 +14,30 @@ export { LOCALE, DUNGEON, REST_TAG };
 /**
  * Tracks running/perpetual actions.
  */
-const Runner = {
+export default class Runner {
+
+	constructor(vars=null ){
+
+		if ( vars ) Object.assign(this,vars);
+
+		this.id = 'runner';
+
+		/**
+		 * @property {Runnable[]} runnables - use-with object combinations.
+		 */
+		//runnables:null,
+
+		/**
+		 * @property {Action[]} actives - Actively running tasks.
+		 */
+		this.actives = this.actives || null;
+
+		/**
+		 * @property {Action[]} waiting - actions waiting to run once rest is complete.
+		 */
+		this.waiting = this.waiting || null;
+
+	}
 
 	toJSON() {
 
@@ -29,7 +52,7 @@ const Runner = {
 			//runnables:this.runnables
 		};
 
-	},
+	}
 
 	/**
 	 * @todo : Messy for Focus skill.
@@ -40,7 +63,7 @@ const Runner = {
 			if ( a.type === 'skill' ) return a.exp;
 		}
 		return 0;
-	},
+	}
 
 	set exp(v) {
 
@@ -53,7 +76,7 @@ const Runner = {
 			}
 
 		}
-	},
+	}
 
 	/**
 	 * Used for cheat.
@@ -67,27 +90,27 @@ const Runner = {
 
 		}
 
-	},
+	}
 
 	/**
 	 * @item compat.
 	 */
-	get type() { return 'runner'; },
-	hasTag() { return false; },
+	get type() { return 'runner'; }
+	hasTag() { return false; }
 
 	/**
 	 * @property {number} running - number currently running.
 	 */
-	get running(){return this.actives.length; },
+	get running(){return this.actives.length; }
 
 	/**
 	 * @property {number} available - number of available run slots.
 	 */
 	get free(){
 		return this.max.value - this.actives.length;
-	},
+	}
 
-	get max() { return this._max; },
+	get max() { return this._max; }
 	set max(v) {
 
 		if ( v instanceof Stat ) {
@@ -104,45 +127,13 @@ const Runner = {
 
 		} else this._max = new Stat(v,true);
 
-	},
-
-	id:'runner',
+	}
 
 	/**
-	 * @property {Runnable[]} runnables - use-with object combinations.
-	 */
-	//runnables:null,
-
-	/**
-	 * @property {Action[]} actives - Actively running tasks.
-	 */
-	actives:null,
-
-	/**
-	 * @property {Action[]} waiting - actions waiting to run once rest is complete.
-	 */
-	waiting:null,
-
-		/**
 	 * revive data from save.
 	 * @param {GameState} gs
 	 */
 	revive( gs ) {
-
-		/**
-		 * Only one object. page reloads, etc.
-		 */
-		this.waiting = null;
-		this.actives = null;
-		this._max = null;
-
-		let data = gs.getData('runner');
-		if ( data ) {
-
-			this.waiting = data.waiting;
-			this.actives = data.actives;
-			this.max = data.max;
-		}
 
 		this.max = this._max || 1;
 
@@ -160,7 +151,7 @@ const Runner = {
 		Events.add( EXP_MAX, this.expMax, this );
 		Events.add( STOP_ALL, this.stopAll, this );
 
-	},
+	}
 
 	/**
 	 * Item reached max exp value.
@@ -170,7 +161,7 @@ const Runner = {
 		//console.log('EXP. COMPLETE: ' + it.id );
 		if ( it.complete && (typeof it.complete) === 'function') it.complete();
 
-	},
+	}
 
 	/**
 	 * Revive a list, removing Runnable elements that can't revive (missing items, etc.)
@@ -192,7 +183,7 @@ const Runner = {
 
 		return list;
 
-	},
+	}
 
 	reviveAct( a, gs, running=false ) {
 
@@ -212,7 +203,7 @@ const Runner = {
 
 		return a;
 
-	},
+	}
 
 	/**
 	 * setAction of two items combined.
@@ -244,7 +235,7 @@ const Runner = {
 		}
 		this.setAction( run );
 
-	},
+	}
 
 	/**
 	 * Toggle running state of action.
@@ -267,7 +258,7 @@ const Runner = {
 		}
 
 
-	},
+	}
 
 	/**
 	 * Add an action absolutely, removing a running action if necessary.
@@ -279,7 +270,7 @@ const Runner = {
 		if ( !a) return;
 
 		if ( a.cost && (a.exp === 0) ) {
-			console.warn('PAY FIRST ACTION COST');
+			console.warn('PAY START');
 			Game.payCost( a.cost);
 		}
 
@@ -309,7 +300,7 @@ const Runner = {
 
 
 
-	},
+	}
 
 	/**
 	 *
@@ -320,15 +311,15 @@ const Runner = {
 		this.stopAction( act, false );
 		if ( act.hasTag(REST_TAG) ) {
 
-			this.tryResume();
+			this.tryResume( true );
 
 		} else {
-			//if( resume) console.log('ADDING NEW WAIT: ' + act.id );
+
 			if ( resume ) this.addWait(act);
 			this.doRest();
 		}
 
-	},
+	}
 
 	/**
 	 * UNIQUE ACCESS POINT for removing active action.
@@ -349,10 +340,12 @@ const Runner = {
 		this.actives.splice(i,1);
 
 		if ( tryResume ){//&& a.hasTag(REST_TAG) ){
+
 			this.tryResume();
+
 		}
 
-	},
+	}
 
 	/**
 	 * Attempt to add an action, while avoiding any conflicting action types.
@@ -367,7 +360,7 @@ const Runner = {
 
 		return true;
 
-	},
+	}
 
 	addWait( a ){
 
@@ -376,27 +369,37 @@ const Runner = {
 		//console.log('adding wait: ' + a.id );
 		this.waiting.push(a);
 
-		let len = this.waiting.length - this.max.value;
+		let remove = this.waiting.length - this.max.value;
 		let i = 0;
 
-		while ( len > 0 ) {
+		while ( remove > 0 ) {
 
 			a = this.waiting[i];
 			if ( !(a instanceof Runnable ) ) {
+
 				this.waiting.splice( i, 1 );
-			} else i++;
-			len--;
+
+			} else {
+				i++;
+			}
+
+			remove--;
 
 		}
 
-	},
+	}
 
 	haltAction( act ) {
 
-		if ( act instanceof Runnable ) this.addWait(act);
-		this.stopAction( act );
+		// absolute rest stop if no actions waiting.
+		if ( this.waiting.length === 0 && act.hasTag( REST_TAG ) ) this.stopAction(act,false);
 
-	},
+		else {
+			if ( act instanceof Runnable ) this.addWait(act);
+			this.stopAction( act );
+		}
+
+	}
 
 	stopAll() {
 
@@ -405,7 +408,7 @@ const Runner = {
 		}
 		this.clearWaits();
 
-	},
+	}
 
 	/**
 	 * Action is done, but could be perpetual/ongoing.
@@ -414,13 +417,19 @@ const Runner = {
 	 */
 	actDone( act, repeatable=true ){
 
+		if ( act.running === false ) {
+			// skills cant be completed without actually running.
+			this.stopAction(act);
+			return;
+		}
+
 		if ( repeatable ) {
 
 			if ( Game.canRun(act) ) {
 
 				this.setAction(act);
 
-			} else if ( !act.hasTag(REST_TAG )) {
+			} else if ( act.hasTag(REST_TAG )) {
 
 				this.stopAction( act, true );
 
@@ -431,7 +440,6 @@ const Runner = {
 
 				// attempt to resume any waiting actions.
 				this.tryResume();
-				this.tryAdd( Game.state.restAction );
 
 			}
 
@@ -441,20 +449,20 @@ const Runner = {
 
 			// attempt to resume any waiting actions.
 			this.tryResume();
-			this.tryAdd( Game.state.restAction );
 
 		}
 
-	},
+	}
 
 	clearWaits() {
 		this.waiting.splice(0,this.waiting.length);
-	},
+	}
 
 	/**
 	 * Attempt to resume any waiting actions.
+	 * @param {boolean} norest - disallow resting on free action.
 	 */
-	tryResume() {
+	tryResume( norest=false) {
 
 		let avail = this.free;
 
@@ -475,7 +483,9 @@ const Runner = {
 
 		}
 
-	},
+		if ( avail > 0 && !norest ) this.tryAdd( Game.state.restAction );
+
+	}
 
 	update(dt) {
 
@@ -485,7 +495,7 @@ const Runner = {
 
 		}
 
-	},
+	}
 
 	/**
 	 * Force-add a rest action.
@@ -493,7 +503,7 @@ const Runner = {
 	 */
 	doRest(){
 		this.tryAdd( Game.state.restAction );
-	},
+	}
 
 	/**
 	 * Update individual action. Called during update()
@@ -513,10 +523,9 @@ const Runner = {
 
 			if ( !Game.canPay( a.run, dt ) ) {
 				this.stopAction(a);
-				console.log('ADD WAIT: ' + a.id );
 				this.addWait(a);
 				this.tryAdd( Game.state.restAction );
-				return false;
+
 			}
 			Game.payCost( a.run, dt );
 
@@ -534,7 +543,7 @@ const Runner = {
 
 		}
 
-	},
+	}
 
 	/**
 	 * UNIQUE ACCESS POINT for pushing action active.
@@ -543,7 +552,7 @@ const Runner = {
 	runAction(a) {
 		a.running=true;
 		this.actives.push(a);
-	},
+	}
 
 	/**
 	 * Tests if exact action is running.
@@ -552,7 +561,7 @@ const Runner = {
 	 */
 	has(a) {
 		return this.actives.includes(a);
-	},
+	}
 
 	/**
 	 * Get index of a running action matching the type of the given action.
@@ -573,7 +582,7 @@ const Runner = {
 
 		return -1;
 
-	},
+	}
 
 	/**
 	 * Tests if the runner already has a similar action in progress.
@@ -597,12 +606,10 @@ const Runner = {
 	}
 
 
-};
+}
 
 /**
  * applyMods() currently needed to increase runners.
  * @todo move this to Item stat.
  */
 mergeClass( Runner, Base );
-
-export default Runner;

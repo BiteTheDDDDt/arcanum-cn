@@ -7,9 +7,9 @@ import FilterBox from '../components/filterbox.vue';
 
 import Explore from '../items/explore.vue';
 
-import { ENTER_LOC } from '../../events';
+import { ENTER_LOC, LOG_COMBAT } from '../../events';
 
-const MAX_ITEMS = 5;
+const MAX_ITEMS = 7;
 
 export default {
 
@@ -36,8 +36,25 @@ export default {
 		drops() { return Game.state.drops; },
 
 		combatLog() {
-			return this.log.items.filter(
-				v=>v.type==='combat' ).slice( -MAX_ITEMS );
+
+			let items = this.log.items;
+			let count = 0;
+			let a = [];
+
+			for( let i = items.length-1; i>=0; i-- ) {
+
+				var it = items[i];
+				if ( it.type === LOG_COMBAT ) {
+
+					a.push(it);
+					if ( ++count === MAX_ITEMS ) break;
+
+				}
+
+			}
+
+			return a;
+
 		},
 
 		explore() { return this.state.raid.running ? this.state.raid : this.state.explore; },
@@ -88,7 +105,8 @@ export default {
 
 			<div class="outlog">
 			<div class="log-item" v-for="(it,i) in combatLog" :key="i">
-				<span class="log-text">{{ it.text || '' }}</span>
+				<span class="log-title" v-if="it.title">{{ it.title }}</span>
+				<span class="log-text" v-if="it.text">{{ it.text }}</span>
 			</div>
 			</div>
 		</div>
@@ -117,7 +135,6 @@ div.locales {
 	justify-content: space-between;
 	overflow-y: auto;
 	min-height: 50%;
-	padding-bottom: 32px;
 	border-bottom: 1px solid var(--separator-color);
 
 }
@@ -128,7 +145,6 @@ div.raid-bottom {
 	justify-content: space-between;
 	padding-top:8px;
 	width:100%;
-	height:min-content;
 	overflow-y:auto;
 }
 

@@ -1,5 +1,18 @@
-import {getPropDesc} from 'objecty';
+import {getPropDesc, clone} from 'objecty';
 
+/**
+ * Return first non-null element of array.
+ * @param {Array} a
+ */
+export const first = (a) =>{
+
+	let len = a.length;
+	for( let i = 0; i < len; i++) {
+		var e = a[i];
+		if ( e !== null && e !== undefined ) return i;
+	}
+
+}
 
 /**
  * Ensure the existence of props on an object.
@@ -127,6 +140,35 @@ export function logPublic( src ) {
 
 }
 
+/**
+ * NOTE: Merge over undefined and null values.
+ * @param {*} dest
+ * @param {*} src
+ */
+export function mergeDefined( dest, src ) {
+
+	for( let p in src ) {
+
+		var destSub = dest[p];
+		let srcSub = src[p];
+
+		if ( destSub === undefined || destSub === null ) {
+
+			if ( srcSub !== null && typeof srcSub === 'object' ) dest[p] = clone( srcSub, Array.isArray(srcSub) ? [] : {} );
+			else dest[p] = srcSub;
+
+			continue;
+
+		}
+
+		if ( srcSub && typeof destSub === 'object' && typeof srcSub === 'object') {
+			if ( !Array.isArray(destSub) && !Array.isArray(srcSub) ) mergeDefined( destSub, srcSub );
+		}
+
+	}
+
+}
+
 export function assignNoFunc( dest, src ) {
 
 	var vars = src;
@@ -153,6 +195,40 @@ export function assignNoFunc( dest, src ) {
 	return dest;
 
 }
+
+	/**
+	 * For an object variable path key, the key is expanded
+	 * into subojects, each with a single property of the next
+	 * part of the variable path.
+	 * This is done to allow object props to represent variable paths
+	 * without changing all the code to use Maps (with VarPath keys) and not Objects.
+	 * @param {Object} obj - object containing the key to expand.
+	 * @param {string} prop
+	 */
+	export function splitKeyPath( obj, prop ) {
+
+		let val = obj[prop];
+
+		delete obj[prop];
+
+		let keys = prop.split('.');
+
+		let max = keys.length-1;
+
+		// stops before length-1 since last assign goes to val.
+		for( let i = 0; i < max; i++ ) {
+
+			var cur = obj[ keys[i] ];
+			if ( cur === null || cur === undefined ) cur = {};
+			else if ( typeof cur !== 'object') cur = { value:cur };
+
+			obj = obj[ keys[i] ] = cur;
+
+		}
+
+		obj[ keys[max] ] = val;
+
+	}
 
 export function assignPublic( dest, src ) {
 

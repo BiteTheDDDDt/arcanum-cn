@@ -1,7 +1,7 @@
 import { defineExcept, clone } from 'objecty';
 import Stat from '../values/stat';
 import Base, {mergeClass} from './base';
-import { arrayMerge, assignPublic } from '../util/util';
+import { arrayMerge, assignPublic, logObj } from '../util/util';
 import Events, { ITEM_ATTACK, EVT_EVENT } from '../events';
 import Dot from '../chars/dot';
 
@@ -21,6 +21,12 @@ export default class GData {
 	 */
 	get disabled() { return this._disabled; }
 	set disabled(v) { this._disabled = v;}
+
+	/**
+	 * @property {string} sym - optional unicode symbol.
+	 */
+	get sym() { return this._sym; }
+	set sym(v) { this._sym=v;}
 
 	/**
 	 * @property {Stat} max
@@ -139,6 +145,15 @@ export default class GData {
 	}
 
 	/**
+	 * Determine if this resource can pay the given amount of value.
+	 * Made a function for reverseStats, among other things.
+	 * @param {number} amt
+	 */
+	canPay( amt ) {
+		return this.value >= amt;
+	}
+
+	/**
 	 * Determine if an item can be used. Ongoing/perpetual actions
 	 * test with 'canRun' instead.
 	 * @param {Game} g
@@ -222,7 +237,7 @@ export default class GData {
 		if ( this.exec ) this.exec();
 
 		if ( this.title ) g.state.player.title = this.title;
-		if ( this.effect ) g.applyEffect(this.effect);
+		if ( this.effect ) g.applyEffect(this.effect, count );
 		if ( this.mod ) g.addMod( this.mod, count );
 		if ( this.lock ) g.lock( this.lock );
 		if ( this.dot ) g.state.player.addDot( new Dot(this.dot, this.id, this.name) );
@@ -311,11 +326,15 @@ export default class GData {
 	addRequire( item ) {
 
 		if ( !this.require ) {
+
 			this.require = item;
+
 		} else {
 
 			if ( this.require === item ||
-				(Array.isArray(this.require) && this.require.includes(item)) ) return;
+				(Array.isArray(this.require) && this.require.includes(item)) ) {
+					return;
+			}
 			this.require = arrayMerge( this.require, item );
 		}
 

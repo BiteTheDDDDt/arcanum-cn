@@ -360,7 +360,7 @@ export default {
 
 		<vitals :player="state.player" :state="state" />
 
-		<log :log="game.log" />
+		<log />
 
 		</div>
 
@@ -429,13 +429,10 @@ div.upgrade-list {
 }
 
 div.inv-equip {
-	display:flex;
-	flex-direction: row;
-	overflow-y: auto;
-	justify-content: space-between;
 	height:100%;
-	padding: 0px 16px;
+	padding: 0; display: grid; grid-template-rows: 50% 50%; grid-auto-columns: 1fr;
 }
+
 div.bot-bar {
 	background:inherit;
 	border-top: 1px solid var(--separator-color); padding: 4px;

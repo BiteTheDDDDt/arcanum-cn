@@ -7,40 +7,47 @@ import Encounter, { ENCOUNTER } from './items/encounter';
 import Npc from './chars/npc';
 import GenGroup from './genGroup';
 import Mod from './values/mod';
+import { logObj } from './util/util';
 
 /**
  * Revive a prototyped item based on an item template.
+ * converts template string to actual template object before instancing/revive.
  * @param {*} gs
  * @param {*} it
  */
 export function itemRevive(gs, it ) {
 
-		var orig = it.template || it.recipe;
-		if ( typeof orig === 'string') orig = gs.getData( orig );
-		if ( !orig) {
-			console.warn('inv. bad item type: ' + it.id + ' -> ' + it.template + ' -> ' + it.recipe );
+		if ( !it ) {
+			console.warn('Missing gen item: ' + it );
 			return null;
 		}
-		it.template = orig;
 
-		var type = orig.type;
-		if ( type == null ) {
-			console.warn( 'Unknown Item type: '+ it.type + ' -> ' + it.template + ' -> ' + it.recipe );
+		var orig = it.template || it.recipe;
+		if ( typeof orig === 'string') orig = gs.getData( orig );
+
+		var type = orig ? orig.type : it.type;
+
+		if ( !type) {
+			console.warn('gen unknown: ' + it.id + ' -> ' + it.template + ' -> ' + it.recipe );
+			type = 'item';
 		}
+		it.template = orig;
 
 		if ( type === 'armor' || type === 'weapon' || type === 'wearable') {
 
 			it = new Wearable(it);
 
 		} else if ( type === 'monster') {
-			it = new Npc(it);
+
+			it = new Npc( orig, it );
+
 		} else if ( type === 'enc') {
 
 			// encounter.
-			it = new Encounter(it);
+			it = new Encounter( orig, it );
 
 		} else {
-			console.log('default revive: ' + it.id );
+			//console.log('default revive: ' + it.id );
 			it = new Item(it);
 		}
 		it.owned = true;
@@ -61,7 +68,7 @@ export default class ItemGen {
 		this.state = state;
 
 		/**
-		 * Groups of item types to generate. 'armor', 'weapon', 'npc' etc.
+		 * Groups of item types to generate. 'armor', 'weapon', 'monster' etc.
 		 */
 		this.groups = {};
 
@@ -83,7 +90,7 @@ export default class ItemGen {
 		this.initGroup('weapon', state.weapons );
 		this.initGroup('materials', state.materials );
 
-		let g = this.initGroup('npc', state.monsters );
+		let g = this.initGroup('monster', state.monsters );
 		g.makeFilter( 'biome' );
 		g.makeFilter( 'kind' );
 
@@ -106,8 +113,9 @@ export default class ItemGen {
 	/**
 	 * Generate an enemy from rand definition.
 	 * @param {*} data
+	 * @param {number} [pct=1] level modifier
 	 */
-	genEnemy( data, pct=1 ) {
+	randEnemy( data, pct=1 ) {
 
 		var level =1;
 
@@ -127,8 +135,8 @@ export default class ItemGen {
 		if ( data.range ) level += (data.range*( -1 + 2*Math.random() ) );
 		level = Math.ceil(level);
 
-		let npc = this.groups.npc.randBelow( level );
-		return npc;
+		let npc = this.groups.monster.randBelow( level );
+		return npc ? this.npc(npc) : null;
 
 	}
 
@@ -163,6 +171,7 @@ export default class ItemGen {
 		if ( it === undefined ) return null;
 
 		it.id = proto.id + this.state.nextIdNum();
+		it.value = 1;
 		it.owned = true;
 
 		return it;
@@ -213,24 +222,30 @@ export default class ItemGen {
 			return null;
 		}
 
+		if ( info.pct && (100*Math.random() > info.pct) ) return null;
+
 		if ( info.type === 'wearable' || info.type === 'weapon'
-			|| info.type ==='armor') return this.fromData( info );
+				|| info.type ==='armor') return this.fromData( info );
+
+		if ( info.instance || info.isRecipe ) {
+			return this.instance( info );
+		}
 
 		/** @todo: THIS IS BAD */
-
 		else if ( info.type && !info.isRecipe ) {
-			if ( amt != 0 ) info.amount( Game, amt );
+			if ( info.amount ) {
+				if ( amt != 0 ) info.amount( Game, amt );
+			} else console.warn('info.amount undefined: '+ info.if + ' -> ' + info.type );
 			return;
 		}
 
-		if ( info.pct && (100*Math.random() > info.pct) ) return null;
 		if ( info.level ) return this.fromLevel( info.level, info.type, info.material );
 		else if ( info.max ) return this.randBelow( info.max, info.type, info.material );
 
 		let items = [];
 		for( let p in info ) {
 			//console.log('GETTING SUB LOOT: ' + p);
-			var it = this.getLoot( this.state.getData(p), info[p] );
+			var it = this.getLoot( p, info[p] );
 			if ( it ) items.push(it );
 		}
 

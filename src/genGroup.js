@@ -17,7 +17,7 @@ export default class GenGroup {
 	 */
 	constructor( items ){
 
-		this.items= items;
+		this.items= items.filter( v=>!v.unique );
 		this.filters = {};
 
 	}

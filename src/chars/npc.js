@@ -17,11 +17,20 @@ export default class Npc extends Char {
 
 		let data = super.toJSON();
 		data.id = this.id;
-		data.template = this.template.id;
+
 		data.cost = undefined;
 		data.team = this.team||undefined;
 
-		if ( this.name != this.template.name ) data.name = this.name;
+		data.timer = this.timer;
+
+		data.attack = this.attack;
+
+		if ( this.template ){
+			data.template = this.template.id;
+			if ( this._name != this.template.name ) data.name = this._name;
+
+		} else data.name = this._name;
+
 		//data.died = this.died||undefined;
 
 		return data;
@@ -46,6 +55,11 @@ export default class Npc extends Char {
 	}
 	set loot( loot ){
 
+		if ( typeof loot !== 'object'){
+			this._loot = loot;
+			return;
+		}
+
 		for( var p in loot ) {
 
 			var sub = loot[p];
@@ -54,9 +68,13 @@ export default class Npc extends Char {
 				if ( PercentTest.test(sub)) {
 
 					loot[p] = new Percent(sub);
+
 				} else if ( RangeTest.test(sub) ) {
+
 					loot[p ] = new Range(sub);
-				}
+
+				} else if ( !isNaN(sub) ) loot[p] = Number(sub);
+
 			}
 		}
 
@@ -91,26 +109,31 @@ export default class Npc extends Char {
 	get active() { return this._active; }
 	set active(v) { this._active = v; }
 
-	constructor(vars) {
+	constructor(vars, save=null ) {
 
 		super( vars );
 
-		this.dodge = this.dodge || 0;
+		if ( save ) Object.assign( this, save );
+
+		this.dodge = this.dodge || this.level/2;
 
 		this.active = this.active === undefined || this.active === null ? false : this.active;
 
 		if ( typeof this.hp === 'string' || typeof this.hp === 'object') this.hp = new Range(this.hp);
 		if ( this.hp instanceof Range ) this.hp = this.hp.value;
-		if ( !this.hp ) {
-
-			console.log('MISSING HP:  ' + this.id );
-		}
 
 		this.tohit = this.tohit || 0;
 		this.maxHp = this._maxHp || this._hp;
 
 		if ( this.dmg && (this.damage===null||this.damage===undefined) ) this.damage = this.dmg;
 
+	}
+
+	/**
+	 * Resurrect.
+	 */
+	res() {
+		this.hp = 1;
 	}
 
 	rest(dt) {
@@ -125,21 +148,5 @@ export default class Npc extends Char {
 			(typeof this._damage === 'number') ? this._damage : this._damage.value
 		);
 	}
-
-	/*update(dt) {
-
-		super.update(dt);
-
-		if ( !this.alive ) return;
-
-		this.timer -= dt;
-		if ( this.timer <= 0 ) {
-
-			this.timer += this.delay;
-			return this.attacks || this.attack || this;
-
-		}
-
-	}*/
 
 }

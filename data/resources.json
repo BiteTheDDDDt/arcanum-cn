@@ -74,6 +74,50 @@
 
 	},
 	{
+
+		"id":"firerune",
+		"name":"flame runes",
+		"desc":"rune ingrained with lines of fire",
+		"max":10,
+		"mod":{
+			"research.max":10
+		}, "flavor":""
+
+	},
+	{
+
+		"id":"waterrune",
+		"name":"water runes",
+		"desc":"rune etched in flowing water",
+		"max":10,
+		"mod":{
+			"research.max":10
+		}, "flavor":""
+
+	},
+	{
+
+		"id":"airrune",
+		"name":"air runes",
+		"desc":"rune etched with solid air",
+		"max":10,
+		"mod":{
+			"research.max":10
+		}, "flavor":""
+
+	},
+	{
+
+		"id":"earthrune",
+		"name":"earth runes",
+		"desc":"rune ingrained with moonstone",
+		"max":10,
+		"mod":{
+			"research.max":10
+		}, "flavor":""
+
+	},
+	{
 		"id":"bodies",
 		"desc":"bodies for necromatic magic",
 		"max":1,

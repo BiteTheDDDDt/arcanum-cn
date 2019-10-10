@@ -56,7 +56,24 @@
 		},
 		"mod":{
 			"research.max":5,
-			"scraft":1
+			"scraft":1,
+			"userSpells.max":0.7
+
+		}
+
+	},
+	{
+
+		"id":"concentrate",
+		"name":"concentration",
+		"desc":"keep your mind and nerves sharp under pressure.",
+		"verb":"concentrating",
+		"require":"(g.mustylibrary+g.loc_spring)>=2",
+		"run":{
+			"stamina":0.2
+		},
+		"mod":{
+			"stress.max":1
 		}
 
 	},
@@ -76,7 +93,7 @@
 		"mod":{
 			"luck":0.4,
 			"dodge":0.4
-		}
+		},"flavor":"sufficiently advanced sleight of hand is indistinguishable from magic"
 
 	},
 	{
@@ -227,7 +244,7 @@
 	},
 	{
 		"id":"history",
-		"require":"g.languages>12",
+		"require":"g.languages>7",
 		"desc":"the knowledge of what has come before reveals what is yet possible.",
 		"verb":"historicizing",
 		"disabled":true,

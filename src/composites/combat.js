@@ -5,11 +5,10 @@ import Npc, { ALLY } from '../chars/npc';
 
 import Events, {
 	EVT_COMBAT, ENEMY_SLAIN, ALLY_DIED,
-	DAMAGE_MISS, CHAR_DIED, ACT_BLOCKED, DEFEATED
+	DAMAGE_MISS, CHAR_DIED, ACT_BLOCKED, IS_IMMUNE
 } from '../events';
 
-import Monster from '../items/monster';
-import Wearable from '../chars/wearable';
+import { itemRevive } from '../itemgen';
 
 /**
 * Attempt to damage a target. Made external for use by dots, other code.
@@ -18,11 +17,12 @@ import Wearable from '../chars/wearable';
 */
 export function tryDamage(target, attack, attacker = null) {
 
+	if ( !target || !target.alive ) return;
 	if (attack.kind) {
 
 		if (target.isImmune(attack.kind)) {
 
-			Events.emit(DAMAGE_MISS, target.name + ' is immune to ' + attack.kind);
+			Events.emit(IS_IMMUNE, target.name + ' IMMUNE to ' + attack.kind);
 
 			return false;
 		}
@@ -107,13 +107,14 @@ export default class Combat {
 	get enemies() { return this._enemies; }
 	set enemies(v) {
 
-		for (let i = v.length - 1; i >= 0; i--) {
+		/*let a = [];
+		let len = v.length;
+		for( let i = 0; i < len; i++ ) {
 
-			var obj = v[i];
-			if ( obj instanceof Monster ) v[i] = Game.itemGen.npc( obj);
-			else if (!(obj instanceof Npc) ) v[i] = new Npc( v[i] );
+			if ( v[i] ) a.push( v[i]);
+			else console.warn('missing enemy: ' + v[i]);
 
-		}
+		}*/
 
 		this._enemies = v;
 	}
@@ -130,7 +131,7 @@ export default class Combat {
 
 		if (vars) Object.assign(this, vars);
 
-		this._enemies = this._enemies || [];
+		if (!this._enemies) this._enemies = [];
 
 	}
 
@@ -140,7 +141,13 @@ export default class Combat {
 		this.player = state.player;
 		this.spelllist = state.getData('spelllist');
 
-		for( let i = this._enemies.length-1; i>=0; i-- ) this._enemies[i].revive(state);
+		for( let i = this._enemies.length-1; i>=0; i-- ) {
+
+			this._enemies[i] = itemRevive( state, this._enemies[i]);
+			if ( !this._enemies[i] ) this._enemies.splice(i,1);
+
+
+		}
 
 		Events.add( CHAR_DIED, this.charDied, this );
 
@@ -152,10 +159,10 @@ export default class Combat {
 
 		if ( this._enemies.length === 0 ) return;
 
-		this.player.timer -= dt;
 		if ( this.player.alive === false ) {
 			return;
 		}
+		this.player.timer -= dt;
 		if ( this.player.timer <= 0 ) {
 
 			this.player.timer += this.player.delay;
@@ -295,6 +302,8 @@ export default class Combat {
 	tryHit( attacker, defender, attack ){
 
 		let tohit = attacker.tohit || 0;
+		if ( attacker.id === 'player') console.log('PLAYER HIT: ' + tohit );
+
 		if ( attack && (attack != attacker) ) tohit += ( attack.tohit || 0 );
 
 		if ( this.dodgeRoll( defender.dodge, tohit )) {
@@ -314,22 +323,54 @@ export default class Combat {
 	setEnemies( enemy, pct ) {
 
 		var enemies = [];
+		var e;
 
 		if (  Array.isArray(enemy)){
 
 			for( let i = enemy.length-1; i >=0; i-- ) {
-				enemies.push( this.makeEnemy( enemy[i], pct) );
+				e = this.makeEnemy( enemy[i], pct);
+				if ( e ) enemies.push(e);
 			}
 
 		} else {
 
-			enemies.push( this.makeEnemy(enemy, pct) );
+			e = this.makeEnemy(enemy, pct);
+			if ( e ) enemies.push(e);
 
 		}
 
 		if ( enemies.length>0 && enemies[0]) Events.emit( EVT_COMBAT, enemies[0].name + ' Encountered' );
 
 		this.enemies = enemies;
+		this.setTimers();
+
+	}
+
+	/**
+	 * readjust timers at combat start to the smallest delay.
+	 * prevents waiting for first attack.
+	 */
+	setTimers() {
+
+		let minDelay = this.player.delay;
+
+		for( let i = this.enemies.length-1; i >= 0; i-- ) {
+			if ( this.enemies[i].delay < minDelay) minDelay = this.enemies[i].delay;
+		}
+		for( let i = this.allies.length-1; i >= 0; i-- ) {
+			if ( this.allies[i].delay < minDelay) minDelay = this.allies[i].delay;
+		}
+
+		// +1 is initial encounter delay.
+		this.player.timer = 1 + this.player.delay - minDelay;
+
+
+		for( let i = this.enemies.length-1; i >= 0; i-- ) {
+			this.enemies[i].timer = 1 + this.enemies[i].delay - minDelay;
+		}
+		for( let i = this.allies.length-1; i >= 0; i-- ) {
+			this.allies[i].timer = 1 + this.allies[i].delay - minDelay;
+		}
 
 	}
 
@@ -338,9 +379,16 @@ export default class Combat {
 	 */
 	makeEnemy( e, pct=1 ) {
 
-		if ( typeof e === 'string' ) return Game.getData(e);
+		if ( typeof e === 'string' ) {
 
-		e = Game.itemGen.genEnemy( e, pct );
+			e = Game.getData(e);
+			if ( e ) return Game.itemGen.npc(e);
+
+		}
+		if ( !e ) return null;
+
+		// generate enemy from parameters.
+		e = Game.itemGen.randEnemy( e, pct );
 		if ( !e) {console.warn( 'Missing Enemy: ') }
 
 		return e;

@@ -1,5 +1,6 @@
 import Percent from './percent';
 import Stat from './stat';
+import { splitKeyPath } from '../util/util';
 
 export const ModTest = /^([\+\-]?\d+\.?\d*\b)?(?:([\+\-]?\d+\.?\d*)\%)?$/i;
 
@@ -7,6 +8,40 @@ export const ModTest = /^([\+\-]?\d+\.?\d*\b)?(?:([\+\-]?\d+\.?\d*)\%)?$/i;
  * Modifier for mod without id.
  */
 export const DEFAULT_MOD = 'all';
+
+/**
+ * Parse object into modifiers.
+ * @param {} mods
+ */
+export const ParseMods = ( mods, id ) => {
+
+	if ( typeof mods === 'string' ) return mods;
+	else if ( typeof mods === 'number') return new Mod( mods, id );
+
+	for( let s in mods ){
+		if ( s.includes('.')) splitKeyPath( mods, s );
+	}
+
+	for( let s in mods ) {
+
+		var val = mods[s];
+		var typ = typeof val;
+		if ( typ === 'number' || (typ === 'string' && ModTest.test(val)) ) {
+
+			val = mods[s] = new Mod(val, id);
+
+		} else if ( val instanceof Mod ) continue;
+		else if ( typ === 'object') {
+
+			if ( val.id ) mods[s] = new Mod( val );
+			else if ( val.value || val.bonus ) mods[s] = new Mod(val, id );
+			else ParseMods( val, id );
+		}
+
+	}
+	return mods;
+
+}
 
 export default class Mod {
 
@@ -110,7 +145,7 @@ export default class Mod {
 		this._bonus = this._bonus || 0;
 		this._pct = this._pct || 0;
 
-		this.id = this.id || id || DEFAULT_MOD;
+		this.id = id || this.id || DEFAULT_MOD;
 
 		//console.log(this.id + ' mod created: ' + this.bonus + ' +' +this.pct+'%');
 	}

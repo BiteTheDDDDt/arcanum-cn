@@ -1,6 +1,6 @@
 import GData from "./gdata";
 import Events, { EVT_EVENT } from "../events";
-
+import Game from '../game';
 /**
  * Represents in-game event.
  */
@@ -30,6 +30,9 @@ export default class GEvent extends GData {
 	amount( g, amt ) {
 
 		if ( !super.amount(g,amt) ) return;
+
+		if ( this.loot ) Game.getLoot( this.loot );
+
 
 		this.locked = false;
 		Events.emit( EVT_EVENT, this );

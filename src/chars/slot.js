@@ -37,7 +37,7 @@ export default class Slot {
 		 */
 		this.multi = Array.isArray( this.item );
 
-		this.name = this.name || this.id;
+		this.name = this._name || this.id;
 
 	}
 

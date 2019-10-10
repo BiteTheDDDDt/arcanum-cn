@@ -5,15 +5,15 @@ import Stat from '../values/stat';
 import Dot from './dot';
 import Attack from './attack';
 import GameState from '../gameState';
-import { assignNoFunc, cloneClass } from '../util/util';
-import Monster from '../items/monster';
+import { mergeDefined } from '../util/util';
+
 
 /**
  * @constant {number} DELAY_RATE - speed to attack delay conversion constant.
  */
-export const DELAY_RATE = 3;
+export const DELAY_RATE = 3.5;
 export function getDelay(s) {
-	return DELAY_RATE*Math.exp(-s/4);
+	return 0.5 + DELAY_RATE*Math.exp(-s/8);
 }
 
 export default class Char {
@@ -38,29 +38,53 @@ export default class Char {
 		this.delay = getDelay(v);
 	}
 
-	get attacks() { return this._attacks; }
-	set attacks(v){
+	get immunities(){
+		return this._immunities;
+	}
+	set immunities(v) {
 
-		for( let i = v.length-1; i>=0; i-- ) {
-			v[i] = (v[i] instanceof Attack) ? v[i] : new Attack(v[i]);
+		for( let p in v ) {
+
+			var val = v[p];
+			if ( !(val instanceof Stat) ) v[p] = new Stat(val);
 
 		}
 
-		this._attacks = v;
+		this._immunities=v;
 	}
 
 	get attack() { return this._attack; }
 	set attack(v) {
-		this._attack = ( v instanceof Attack) ? v : new Attack(v);
+
+		if ( Array.isArray(v)) {
+
+			let a = [];
+			for( let i = v.length-1; i>=0; i-- ) {
+
+				a.push( (v[i] instanceof Attack) ? v[i] : new Attack(v[i]) );
+
+			}
+
+			this._attack = a;
+
+		} else this._attack = ( v instanceof Attack) ? v : new Attack(v);
+
 	}
 
 	get dots() { return this._dots; }
 	set dots(v) {
 
+		let a = [];
+
 		for( let i = v.length-1; i >= 0; i-- ) {
-			v[i] = new Dot(v[i]);
+
+			//var d = v[i] instanceof Dot ? v[i] : new Dot(v[i]);
+
+			a.push( v[i] instanceof Dot ? v[i] : new Dot(v[i] ) );
+
 		}
-		this._dots =v;
+
+		this._dots = a;
 
 	}
 
@@ -93,7 +117,7 @@ export default class Char {
 		/**
 		 * @property {Object[]} dots - timed/ongoing effects.
 		*/
-		this.dots = this.dots || [];
+		if ( !this.dots ) this.dots = [];
 
 		/**
 		 * @property {number} timer
@@ -112,13 +136,15 @@ export default class Char {
 			this.dots[i].revive(state);
 		}
 
+		this.delay = getDelay( this.speed );
 
 		if ( this.template ) {
 
-			let it = state.getData( this.template );
-			if ( it ) mergeSafe( this, it );
+			//let it = state.getData( this.template );
+			//if ( it ) mergeDefined( this, it );
 
-			if ( !this._name ) this._name = it.name;
+			if ( !this.attack ) console.warn('NO ATTACK: ' + this.id );
+			if ( !this.name ) this._name = it.name;
 			//if ( this.hp instanceof Range ) this.hp = this.hp.value;
 
 		}
@@ -143,7 +169,9 @@ export default class Char {
 		let cur = id ? this.dots.find( d=>d.id===id) : undefined;
 		if ( cur !== undefined ) cur.duration = it.duration;
 		else {
-			this.dots.push( new Dot(it) );
+
+			this.dots.push( it instanceof Dot ? it : new Dot(it) );
+
 		}
 
 	}
@@ -175,9 +203,17 @@ export default class Char {
 		if ( this.timer <= 0 ) {
 
 			this.timer += this.delay;
-			return this.attacks || ( this.attack || this );
+			return this.getAttack();
 
 		}
+
+	}
+
+	getAttack(){
+
+
+		if ( Array.isArray(this.attack) ) return this.attack[ Math.floor( Math.random()*this.attack.length ) ];
+		return this.attack || this;
 
 	}
 

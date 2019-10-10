@@ -40,7 +40,7 @@ export default class Inventory {
 	get used() { return this._used; }
 	set used(v) { this._used = v; }
 
-	get name() {return this._name; }
+	get name() {return this._name || this.id; }
 	set name(v) { this._name = v; }
 
 	get max() { return this._max; }
@@ -67,9 +67,10 @@ export default class Inventory {
 			var it = this.items[i];
 			if ( typeof it === 'object' ) {
 
-				it = itemRevive( state, this.items[i] );
+				it = itemRevive( state, it );
 
 			} else if ( typeof it === 'string') it = state.getData(it);
+
 
 			if ( it == null ) this.items.splice( i, 1 );
 			else this.items[i] = it;
@@ -95,10 +96,10 @@ export default class Inventory {
 		} else {
 
 			if ( it.stack ) {
-				console.warn('adding stacking: ' + it.id );
-				let inst = this.find( it.id, true );
-				if ( inst && inst !== it ){
-					inst.value++;
+				let inst = this.findMatch( it );
+				if ( inst ){
+					console.log('stack: ' + it.value );
+					inst.value += it.value;
 					return;
 				}
 
@@ -107,8 +108,8 @@ export default class Inventory {
 			this.items.push( it );
 			this.used += this.spaceProp ? ( it[ this.spaceProp ] || 0 ) : 1;
 
-			console.warn('CUR USED: ' + this.used);
-			console.warn('CUR MAX: ' + this.max.value );
+			//console.warn('CUR USED: ' + this.used);
+			//console.warn('CUR MAX: ' + this.max.value );
 
 		}
 		this.dirty = true;
@@ -167,6 +168,19 @@ export default class Inventory {
 	}
 
 	/**
+	 * Remove quantity of item and only drop from inventory
+	 * if remaining is 0.
+	 * @param {Item} it
+	 * @param {number} count
+	 */
+	removeQuant( it, count) {
+
+		it.value -= count;
+		if ( it.value <= 0 )this.remove(it);
+
+	}
+
+	/**
 	 *
 	 * @param {Item} it
 	 */
@@ -183,6 +197,15 @@ export default class Inventory {
 	 */
 	filter(p) {
 		return this.items.filter(p);
+	}
+
+	findMatch(it){
+
+		let id = it.id;
+		let rec = it.recipe;
+
+		return this.items.find( v=>v.id===id || (rec&&v.recipe===rec));
+
 	}
 
 	/**

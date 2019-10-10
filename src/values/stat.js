@@ -1,9 +1,10 @@
+import Emitter from 'eventemitter3';
 import Mod, {DEFAULT_MOD} from "./mod";
 
 /**
  * Stat with a list of modifiers.
  */
-export default class Stat {
+export default class Stat extends Emitter {
 
 	toJSON(){
 
@@ -87,6 +88,8 @@ export default class Stat {
 	 * @param {Object|number} vars
 	 */
 	constructor( vars=null, pos ) {
+
+		super();
 
 		if ( typeof vars === 'object') {
 

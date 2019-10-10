@@ -1,4 +1,5 @@
 import Inventory from "./inventory";
+import events, { DELETE_ITEM } from "../events";
 
 /**
  * Always try spells in order from start.
@@ -36,7 +37,7 @@ export default class SpellList extends Inventory {
 
 		super(vars);
 
-		this.name = this.name || 'spelllist';
+		if ( !this.name ) this.name = 'spelllist';
 		this.lastInd = this.lastInd || 0;
 
 		this.spaceProp = 'level';
@@ -115,6 +116,13 @@ export default class SpellList extends Inventory {
 
 	}
 
+	dataDeleted(it) {
+
+		if ( this.includes(it) ) {
+			this.remove(it);
+		}
+	}
+
 	/**
 	 *
 	 * @param {GameState} gs
@@ -123,6 +131,8 @@ export default class SpellList extends Inventory {
 
 		super.revive(gs);
 		if (this.max.value === 0 ) this.max.value = gs.player.level;
+
+		events.add( DELETE_ITEM, this.dataDeleted, this );
 
 	}
 

@@ -1,9 +1,14 @@
 import Range from "../values/range";
-import Mod from "../values/mod";
+import {ParseMods } from "../values/mod";
 
 export default class Dot {
 
 	toJSON(){
+
+		if ( !this.id ) {
+			console.warn('MISSING DOT ID: ' + this );
+			return undefined;
+		}
 
 		return {
 
@@ -46,12 +51,16 @@ export default class Dot {
 
 		this.source = this.source || source || null;
 
-		this.name = this.name || name || ( source ? source.name : '' );
+		if ( !this.name ) this.name = name || ( source ? source.name : '' );
 		this.id = this.id || this.name || (source ? source.id || source.name : '');
+
+		if ( !this.id ) console.warn('INVALID DOT ID: ' + this.name );
 
 		/**
 		 * @property {boolean} stack - ability of dot to stack.
 		 */
+
+		if ( this.mod ) ParseMods( this.mod, this.id );
 
 		/**
 		 * @private {number} acc - integer accumulator
@@ -60,7 +69,7 @@ export default class Dot {
 
 	}
 
-	reviveMod( m ){
+	/*reviveMod( m ){
 
 		if ( typeof m === 'object' && !(m instanceof Mod) ) {
 
@@ -74,13 +83,16 @@ export default class Dot {
 		}
 		return m;
 
-	}
+	}*/
 
 	revive(state) {
 
 		if ( this.source && typeof this.source === 'string') this.source = state.getData( this.source );
 
-		if ( this.mod ) this.mod = this.reviveMod(this.mod);
+		console.log('DOT DURATION: ' + this.duration );
+		console.log('ACC: ' + this.acc );
+
+		//if ( this.mod ) this.mod = this.reviveMod(this.mod);
 
 	}
 

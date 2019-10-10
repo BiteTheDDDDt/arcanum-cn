@@ -126,7 +126,10 @@ var vm = new Vue({
 
 			let str = window.localStorage.getItem( this.saveloc);
 			if ( !str ) console.log('no data saved.');
-			this.loadData( str );
+
+			try {
+				this.loadData( str );
+			} catch (e ) { console.error(e);}
 
 		},
 
@@ -135,7 +138,8 @@ var vm = new Vue({
 			this.dispatch('pause');
 
 			let obj = text ? JSON.parse( text ) : null;
-			this.game.load( obj ).then( this.gameLoaded );
+			this.game.load( obj ).then( this.gameLoaded,
+				e=>console.error(e) );
 
 		},
 
@@ -145,8 +149,15 @@ var vm = new Vue({
 		autosave(){
 
 			let store = window.localStorage;
-			let json = JSON.stringify( this.game.state );
-			store.setItem( this.saveloc, json );
+			try {
+
+				let json = JSON.stringify( this.game.state );
+				store.setItem( this.saveloc, json );
+
+			} catch(e) {
+				console.error(e);
+			}
+
 		},
 
 		save() {
@@ -154,9 +165,16 @@ var vm = new Vue({
 			console.log('saving...');
 			let store = window.localStorage;
 
-			let json = JSON.stringify( this.game.state );
-			console.log( json )
-			store.setItem( this.saveloc, json );
+			try {
+
+				let json = JSON.stringify( this.game.state );
+				console.log( json )
+				store.setItem( this.saveloc, json );
+
+			} catch(e) {
+				console.error(e);
+			}
+
 
 		},
 		reset() {
@@ -165,7 +183,9 @@ var vm = new Vue({
 
 			// clear all save data.
 			let store = window.localStorage;
-			store.clear();
+			store.setItem( this.saveloc, null );
+
+			//store.clear();
 
 			this.game.reset().then( this.gameLoaded );
 

@@ -432,7 +432,7 @@
 			"research":200
 		},
 		"mod":{
-			"mana.rate":0.1
+			"mana.rate":0.07
 		}
 
 	},
@@ -674,7 +674,7 @@
 			"research":100
 		},
 		"mod":{
-			"player.dodge":1
+			"dodge":1
 		}
 
 	},
@@ -1593,7 +1593,7 @@
 			"arcana":2
 		},
 		"mod":{
-			"player.dodge":2,
+			"dodge":2,
 			"airlore.max":2,
 			"airlore.rate":0.2,
 			"air.rate":0.05
@@ -1903,8 +1903,28 @@
 			"tomes":1
 		},
 		"mod":{
-			"player.dodge":1
+			"dodge":1
+		}
+	},
+	{
+		"id":"fireplane",
+		"slot":"homeplane",
+		"require":"g.tier5>0&&g.planeslore>=100",
+		"buy":{
+
+			"flamerune":10,
+			"gold":10000,
+			"tomes":10
+
+		},
+		"mod":{
+			"space.max":"30%",
+			"firelore.max":2,
+			"water.rate":"-5%",
+			"player.resist.fire":"1+10%",
+			"player.bonuses.fire":5
 		}
 	}
+
 
 ]

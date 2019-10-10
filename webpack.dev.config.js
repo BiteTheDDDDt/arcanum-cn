@@ -6,9 +6,9 @@ const fs = require('fs');
 
 var versObj = fs.readFileSync( './vers.json');
 versObj = JSON.parse(versObj);
-const vers = versObj.vers;
+const vers = versObj.dev;
 
-versObj.vers++;
+versObj.dev++;
 fs.writeFileSync( './vers.json', JSON.stringify(versObj ));
 
 
@@ -39,7 +39,7 @@ module.exports = {
 			}
 		),
 		new webpack.DefinePlugin({
-			__SAVE:null,
+			__SAVE:JSON.stringify('dev'),
 			__DIST:false,
 			__VERSION:vers
 		})],
