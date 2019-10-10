@@ -196,6 +196,40 @@ export function assignNoFunc( dest, src ) {
 
 }
 
+	/**
+	 * For an object variable path key, the key is expanded
+	 * into subojects, each with a single property of the next
+	 * part of the variable path.
+	 * This is done to allow object props to represent variable paths
+	 * without changing all the code to use Maps (with VarPath keys) and not Objects.
+	 * @param {Object} obj - object containing the key to expand.
+	 * @param {string} prop
+	 */
+	export function splitKeyPath( obj, prop ) {
+
+		let val = obj[prop];
+
+		delete obj[prop];
+
+		let keys = prop.split('.');
+
+		let max = keys.length-1;
+
+		// stops before length-1 since last assign goes to val.
+		for( let i = 0; i < max; i++ ) {
+
+			var cur = obj[ keys[i] ];
+			if ( cur === null || cur === undefined ) cur = {};
+			else if ( typeof cur !== 'object') cur = { value:cur };
+
+			obj = obj[ keys[i] ] = cur;
+
+		}
+
+		obj[ keys[max] ] = val;
+
+	}
+
 export function assignPublic( dest, src ) {
 
 	var vars = src;

@@ -3,7 +3,7 @@ import Player from './chars/player';
 
 import Range, {RangeTest} from './values/range';
 import Percent, {PercentTest} from './values/percent';
-import Mod, {ModTest} from './values/mod';
+import {ParseMods } from './values/mod';
 
 import Resource from './items/resource';
 import ZeroSum from './items/zerosum';
@@ -29,7 +29,7 @@ import Encounter, { ENCOUNTER } from './items/encounter';
 import GEvent from './items/gevent';
 
 import Loader from './util/jsonLoader';
-import { logObj } from './util/util';
+import { logObj, splitKeyPath } from './util/util';
 
 const DataDir = './data/';
 const DataFiles = [ 'resources', 'upgrades', 'actions', 'homes', 'furniture', 'items', 'skills',
@@ -316,7 +316,7 @@ export default {
 
 				if ( p === 'mod') {
 
-					sub[p] = parseMods( sub[p], sub.id );
+					sub[p] = ParseMods( sub[p], sub.id );
 					continue;
 				} else if ( p === 'require' || p === 'need' ) {
 
@@ -482,72 +482,3 @@ export default {
 	}
 
 }
-
-
-/**
- *
- * @param {*} mods
- * @param {*} id - id of mod owner.
- * @returns {object}
- */
-export function parseMods( mods, id ) {
-
-	if ( typeof mods === 'string' ) return mods;
-
-	for( let s in mods ){
-		if ( s.includes('.')) splitKeyPath( mods, s );
-	}
-
-	for( let s in mods ) {
-
-		var val = mods[s];
-		var typ = typeof val;
-		if ( typ === 'number' || (typ === 'string' && ModTest.test(val)) ) {
-
-			val = mods[s] = new Mod(val, id);
-
-		} else if ( val instanceof Mod ) continue;
-		else if ( typ === 'object') {
-
-			if ( val.id ) mods[s] = new Mod( val );
-			else parseMods( val, id );
-		}
-
-	}
-	return mods;
-
-}
-
-	/**
-	 * For an object variable path key, the key is expanded
-	 * into subojects, each with a single property of the next
-	 * part of the variable path.
-	 * This is done to allow object props to represent variable paths
-	 * without changing all the code to use Maps (with VarPath keys) and not Objects.
-	 * @param {Object} obj - object containing the key to expand.
-	 * @param {string} prop
-	 */
-	export function splitKeyPath( obj, prop ) {
-
-		let val = obj[prop];
-
-		delete obj[prop];
-
-		let keys = prop.split('.');
-
-		let max = keys.length-1;
-
-		// stops before length-1 since last assign goes to val.
-		for( let i = 0; i < max; i++ ) {
-
-			var cur = obj[ keys[i] ];
-			if ( cur === null || cur === undefined ) cur = {};
-			else if ( typeof cur !== 'object') cur = { value:cur };
-
-			obj = obj[ keys[i] ] = cur;
-
-		}
-
-		obj[ keys[max] ] = val;
-
-	}

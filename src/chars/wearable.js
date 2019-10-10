@@ -3,10 +3,9 @@ import Range from "../values/range";
 import Attack from './attack';
 
 import {mergeSafe} from "objecty";
-import Mod from '../values/mod';
+import Mod, { ParseMods } from '../values/mod';
 import { assignNoFunc } from '../util/util';
 import Item from '../items/item';
-import { parseMods } from '../dataLoader';
 
 
 export default class Wearable extends Item {
@@ -71,6 +70,9 @@ export default class Wearable extends Item {
 
 	}
 
+	get slot(){return this._slot; }
+	set slot(v){this._slot=v;}
+
 	/**
 	 * @property {string} kind - subtype of wearable.
 	 */
@@ -122,7 +124,7 @@ export default class Wearable extends Item {
 
 		} else console.log('wearable template not found: ' + this.template );
 
-		if ( this.mod ) this.mod = parseMods( this.mod, this.id );
+		if ( this.mod ) this.mod = ParseMods( this.mod, this.id );
 
 	}
 

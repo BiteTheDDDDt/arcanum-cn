@@ -78,6 +78,8 @@ export default class Char {
 
 		for( let i = v.length-1; i >= 0; i-- ) {
 
+			//var d = v[i] instanceof Dot ? v[i] : new Dot(v[i]);
+
 			a.push( v[i] instanceof Dot ? v[i] : new Dot(v[i] ) );
 
 		}
@@ -167,7 +169,9 @@ export default class Char {
 		let cur = id ? this.dots.find( d=>d.id===id) : undefined;
 		if ( cur !== undefined ) cur.duration = it.duration;
 		else {
-			this.dots.push( new Dot(it) );
+
+			this.dots.push( it instanceof Dot ? it : new Dot(it) );
+
 		}
 
 	}

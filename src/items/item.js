@@ -1,7 +1,7 @@
 import Base, {mergeClass} from './base';
 import Dot from '../chars/dot';
 import { cloneClass } from '../util/util';
-import { parseMods } from '../dataLoader';
+import { ParseMods } from '../values/mod';
 
 const ItemDefaults = {
 	stack:true,
@@ -118,7 +118,7 @@ export default class Item {
 			cloneClass( this.template, this );
 		}
 
-		if ( this.mod ) this.mod = parseMods( this.mod, this.id );
+		if ( this.mod ) this.mod = ParseMods( this.mod, this.id );
 
 	}
 

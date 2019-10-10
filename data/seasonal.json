@@ -82,8 +82,10 @@
 		{
 			"id":"hal_rite",
 			"name":"reveler's rite",
+			"require":"nymiescharm",
 			"desc":"Once a year under the harvest moon, devotees of Queen Nymie split their souls to doubly enjoy her dark revels.",
 			"length":30,
+			"repeat":false,
 			"cost":{
 				"nymiescharm":1,
 				"cobwebs":10,
@@ -450,9 +452,6 @@
 				"stamina":0.4,
 				"hp":0.1
 			},
-			"loot":[
-				"nymiescharm"
-			],
 			"boss":"hal_baroness",
 			"enemies":[
 				["undeadcrow","nec_ghast","nec_ghast"],
@@ -616,9 +615,7 @@
 			"desc":"A devotee of the immortal Night Queen, the bloody baroness extends her own life with harvests of blood.",
 			"hp":1000,
 			"defense":20,
-			"loot":{
-				"nymiescharm":1
-			},
+			"loot":"nymiescharm",
 			"attack":[
 
 				{
@@ -639,7 +636,6 @@
 			"id":"hal_headless",
 			"name":"headless rider",
 			"level":14,
-			"unique":true,
 			"kind":"undead",
 			"desc":"He rides across the Hollow bridge at night, to claim the heads of the living.",
 			"hp":500,
@@ -702,16 +698,16 @@
 		{
 			"id":"nec_zombie",
 			"name":"necrotic zombie",
-			"level":3,
+			"level":4,
 			"kind":"undead",
 			"desc":"A vicious zombie in a tattered dress.",
 			"hp":17,
-			"defense":1,
+			"defense":3,
 			"speed":1,
 			"attack":{
 			  "name":"slam",
 			  "kind":"necrotic",
-			  "dmg":"4~8"
+			  "dmg":"8~12"
 			},
 			"loot":{
 				"pumpkins":"10%"
@@ -726,11 +722,11 @@
 			"desc":"Noone's seen the Miller since he died last year...",
 			"hp":4,
 			"speed":4,
-			"defense":6,
+			"defense":8,
 			"attack":{
 			  "name":"chilling touch",
 			  "kind":"necrotic",
-			  "dmg":"2~4"
+			  "dmg":"4~8"
 			},
 			"loot":{
 				"pumpkins":"10%"
@@ -746,12 +742,12 @@
 			"attack":{
 			  "name":"infectious bite",
 			  "kind":"necrotic",
-			  "dmg":"2~3",
+			  "dmg":"4~8",
 				"dot":{
 					"name":"disease",
-					"duration":3,
+					"duration":5,
 					"kind":"necrotic",
-					"dmg":"0.3~0.5"
+					"dmg":"1~2"
 				}
 			},
 			"loot":{
@@ -769,12 +765,12 @@
 			"attack":{
 			  "name":"infectious bite",
 			  "kind":"necrotic",
-			  "dmg":"2~4",
+			  "dmg":"5~10",
 				"dot":{
 					"name":"disease",
-					"duration":3,
+					"duration":5,
 					"kind":"necrotic",
-					"dmg":"0.4~1"
+					"dmg":"1.5~3"
 				}
 			},
 			"loot":{
@@ -793,7 +789,7 @@
 			  "name":"seed storm",
 			  "kind":"necrotic",
 			  "targets":"all",
-			  "dmg":"3~6"
+			  "dmg":"8~15"
 			},
 			"loot":{
 				"jacklantern":"50%",
@@ -822,6 +818,15 @@
 	],
 	"items":[
 
+		{
+			"id":"nymiescharm",
+			"name":"nymie's charm",
+			"desc":"a small figurine of a black cat.",
+			"level":20,
+			"stack":false,
+			"save":true,
+			"unique":true
+		},
 		{
 			"id":"hal_apple",
 			"name":"apple",

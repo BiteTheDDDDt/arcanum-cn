@@ -7,11 +7,9 @@ import { tryDamage } from '../composites/combat';
 
 import Char, { getDelay } from './char';
 import Events, { LEVEL_UP, NEW_TITLE } from "../events";
-import Attack from "./attack";
 import Wearable from "./wearable";
 import events from "../events";
-import { logObj } from "../util/util";
-import StatData from "../items/statData";
+
 
 const Fists = new Wearable({
 
@@ -274,9 +272,9 @@ export default class Player extends Char {
 	 */
 	begin() {
 
-		for( let i = this.dots.length-1; i>=0; i-- ){
+		/*for( let i = this.dots.length-1; i>=0; i-- ){
 			if ( this.dots[i].mod) Game.addMod( this.dots[i].mod, 1 );
-		}
+		}*/
 
 	}
 
@@ -343,6 +341,12 @@ export default class Player extends Char {
 		}
 		else {
 
+			if ( !dot.id ) {
+
+				console.warn('MISSING DOT ID: ' + dot );
+				return;
+
+			}
 			this.dots.push( dot );
 			if ( dot.mod ) Game.addMod( dot.mod, 1 );
 

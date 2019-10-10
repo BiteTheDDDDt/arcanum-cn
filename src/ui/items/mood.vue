@@ -6,39 +6,54 @@ export default {
 	props:['state'],
 	computed:{
 
-		rgb() { return this.r + ', ' + this.g + ','+this.b; },
+		hsl() { return this.h + ', ' + this.s + '%,'+this.l + '%'; },
 
-		r(){
-			return ( 128*( Math.max( (this.rage.value/this.rage.max),
-				(this.bf.value/this.bf.max) )) );
-		},
-		g(){
-			return ( 128*((this.madness.value / this.madness.max )) );
-		},
-		b(){
-			return ( 128*( Math.max( (this.weary.value/this.weary.max),
-				(this.unease.value/this.unease.max) )) );
-		},
+		h(){
 
-		weary(){
-			return this.state.getData('weary');
-		},
+			return Math.round( 120 +
+				120*Math.max( this.wv/this.wm, this.uv/this.um)
+			- 120*Math.max( this.bf/this.bm, this.rv/this.rm)
+			- 200*( this.madness/this.madness.max )
+			);
 
-		bf(){
-			return this.state.getData('bf');
 		},
-
-		unease(){
-			return this.state.getData('unease');
+		s(){
+			return 90*( 1 - this.madness/this.madness.max );
 		},
+		l(){
+			return Math.round( 100 *( 1 - (
 
-		rage(){
-			return this.state.getData('rage');
+				(this.wv+this.uv+this.bv+this.rv)/
+				(this.wm+this.um+this.bm+this.rm)
+
+			))
+
+
+			);
 		},
 
-		madness(){
-			return this.state.getData('madness');
-		}
+		weary(){ return this.state.getData('weary');},
+		wv(){ return this.weary.value;},
+		wm(){return this.weary.max.value},
+
+		unease(){ return this.state.getData('unease'); },
+		uv(){ return this.unease.value;},
+		um(){return this.unease.max.value},
+
+		bf(){ return this.state.getData('bf'); },
+		bv(){ return this.bf.value;},
+		bm(){return this.bf.max.value},
+
+
+		rage(){ return this.state.getData('rage'); },
+		rv(){ return this.rage.value;},
+		rm(){return this.rage.max.value},
+
+
+		madness(){ return this.state.getData('madness');},
+		mv(){ return this.madness.value;},
+		mm(){return this.madness.max.value},
+
 
 	}
 }
@@ -47,11 +62,11 @@ export default {
 
 <template>
 
-<div class="mood" :style="'background:rgb('+rgb+')'">
+<div class="mood" :style="'background:hsl('+hsl+')'">
 	&nbsp;
-	<span>--{{r.toString(16)}}</span>
-	<span>-{{g.toString(16)}}</span>
-	<span>-{{b.toString(16)}}</span>
+	<!--<span>--{{h}}</span>
+	<span>-{{s}}</span>
+	<span>-{{l}}</span>-->
 </div>
 
 </template>
