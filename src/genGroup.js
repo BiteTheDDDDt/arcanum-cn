@@ -45,7 +45,7 @@ export default class GenGroup {
 
 			if ( --i < 0 ) i = level;
 
-		} while ( i != st );
+		} while ( --level >= 0 );
 
 		return it;
 

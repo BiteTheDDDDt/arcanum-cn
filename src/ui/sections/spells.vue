@@ -1,5 +1,7 @@
 <script>
 import Game from '../../game';
+import Settings from '../../settings';
+
 import ItemBase from '../itemsBase';
 
 import FilterBox from '../components/filterbox.vue';
@@ -10,13 +12,15 @@ export default {
 
 	data(){
 
-		return {
+		let spellOps = Settings.getVars( 'spells');
+
+		return Object.assign( {
 			showList:false,
 			filtered:null,
-			viewSchools:[],
-			pMin:null,
-			pMax:null
-		};
+			schools:[],
+			min:null,
+			max:null
+		}, spellOps );
 
 	},
 	mixins:[ItemBase],
@@ -31,7 +35,7 @@ export default {
 
 		toggle(){
 			this.showList = !this.showList;
-			console.log('SHOW: ' + this.showList );
+			Settings.setVar( 'spells', 'showList', this.showList );
 		}
 
 	}, computed:{
@@ -45,15 +49,32 @@ export default {
 
 		minLevel:{
 
-			get(){ return this.pMin; },
-			set(v){ this.pMin = Number(v); }
+			get(){ return this.min; },
+			set(v){
+				this.min = Number(v);
+				Settings.setVar( 'spells', 'min', this.min );
+			}
+
+		},
+
+		viewSchools:{
+
+			get(){
+				return this.schools;
+			},
+			set(v){
+
+				this.schools = v;
+				Settings.setVar( 'spells', 'schools', this.schools.concat() );
+
+			}
 
 		},
 
 		/**
 		 * @property {Object.<string,string>} schools - schools of all unlocked spells.
 		 */
-		schools() {
+		allSchools() {
 
 			let res = {};
 
@@ -73,7 +94,7 @@ export default {
 		 */
 		viewing() {
 
-			let spells = this.filtered;
+			let spells = this.filtered || this.spells;
 			let vSchools = this.viewSchools;
 			let level = this.minLevel;
 
@@ -116,7 +137,7 @@ export default {
 
 		</div>
 
-		<div class="checks" v-for="(p,k) in schools" :key="k">
+		<div class="checks" v-for="(p,k) in allSchools" :key="k">
 					<input type="checkbox" :value="k" :id="elmId('chk'+k)" v-model="viewSchools" >
 					<label :for="elmId('chk'+k)">{{ k }}</label>
 		</div>

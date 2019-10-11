@@ -1,6 +1,22 @@
 import {getPropDesc, clone} from 'objecty';
 
 /**
+ *
+ * @param {array} a
+ * @param {array} b
+ */
+export const pushNonNull = (a,b) => {
+
+	let len = b.length;
+	for( let i = 0; i < len; i++ ) {
+		var e = b[i];
+		if ( e !== null && e !== undefined ) a.push( e );
+	}
+	return a;
+
+}
+
+/**
  * Return first non-null element of array.
  * @param {Array} a
  */

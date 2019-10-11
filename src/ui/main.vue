@@ -67,7 +67,7 @@ export default {
 			overItem:null,
 			overTitle:null,
 			overElm:null,
-			section:null
+			psection:null
 		};
 
 	},
@@ -143,7 +143,7 @@ export default {
 
 		stopAutoSave() {
 			if ( this.saver ) {
-				console.log('STOP AUTOSAVE');
+				//console.log('STOP AUTOSAVE');
 				let int = this.saver;
 				this.saver = null;
 				clearInterval( int );
@@ -153,7 +153,7 @@ export default {
 		startAutoSave() {
 
 			if ( Settings.vars.autoSave && !this.saver ) {
-				console.log('START AUTOSAVE');
+				//console.log('START AUTOSAVE');
 				this.saver = setInterval( ()=>this.dispatch('autosave'), 1000*SAVE_TIME );
 			}
 
@@ -291,6 +291,18 @@ export default {
 	},
 	computed:{
 
+		section:{
+
+			get(){
+				return this.psection;
+			},
+			set(v){
+
+				this.psection=v;
+				Settings.save();
+
+			}
+		},
 		menuItems(){ return this.state.sections.filter( it=>!this.locked(it) ); }
 
 	}

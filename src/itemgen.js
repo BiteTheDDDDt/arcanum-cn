@@ -6,6 +6,7 @@ import Item from './items/item';
 import Encounter, { ENCOUNTER } from './items/encounter';
 import Npc from './chars/npc';
 import GenGroup from './genGroup';
+import { pushNonNull } from './util/util';
 
 /**
  * Revive a prototyped item based on an item template.
@@ -193,7 +194,7 @@ export default class ItemGen {
 
 		} else if ( amt.value ) amt = amt.value;
 
-		if ( Array.isArray(info) ) return info.map( this.getLoot, this );
+		if ( Array.isArray(info) ) return info.flatMap( this.getLoot, this );
 
 		if ( typeof info === 'string' ) {
 			info = this.state.getData(info);
@@ -209,7 +210,7 @@ export default class ItemGen {
 		if ( info.type === 'wearable' || info.type === 'weapon'
 				|| info.type ==='armor') return this.fromData( info, info.level );
 
-		if ( info.instance || info.isRecipe ) {
+		if ( info.id || info.instance || info.isRecipe ) {
 			return this.instance( info );
 		}
 
@@ -228,8 +229,9 @@ export default class ItemGen {
 		for( let p in info ) {
 			//console.log('GETTING SUB LOOT: ' + p);
 			var it = this.getLoot( p, info[p] );
-			if ( Array.isArray(it)) items = items.concat( it );
-			else if ( it ) items.push(it );
+			if (!it) continue;
+			else if ( Array.isArray(it)) items = pushNonNull( items, it );
+			else items.push(it );
 		}
 
 		return items;
@@ -287,7 +289,7 @@ export default class ItemGen {
 	initGroup( name, items ) {
 
 		if ( !items ) {
-			console.warn( 'group: ' + name + ' undefined.');
+			console.warn( 'group undefined: ' + name );
 			return;
 		}
 
@@ -327,10 +329,7 @@ export default class ItemGen {
 	 * Pick wearable type.
 	 * @returns {string}
 	 */
-	wearableType() {
-		return Math.random() < 0.65 ? 'armor' : 'weapon';
-
-	}
+	wearableType() { return Math.random() < 0.65 ? 'armor' : 'weapon'; }
 
 	itemClone( data, material ) {
 
