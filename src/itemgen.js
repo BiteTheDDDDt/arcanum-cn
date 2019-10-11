@@ -217,6 +217,7 @@ export default class ItemGen {
 		/** @todo: THIS IS BAD */
 		else if ( info.type && !info.isRecipe ) {
 			if ( info.amount ) {
+				if ( !info.disabled ) info.locked = false;
 				if ( amt != 0 ) info.amount( Game, amt );
 			} else console.warn('info.amount undefined: '+ info.if + ' -> ' + info.type );
 			return;
