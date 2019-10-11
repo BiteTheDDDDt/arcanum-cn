@@ -1,7 +1,7 @@
 <script>
 import ItemBase from '../itemsBase';
 
-import {craftCost} from '../../composites/userSpells';
+import {spellCost} from '../../craft';
 import Game from '../../game';
 
 export default {
@@ -64,7 +64,7 @@ export default {
 
 			this.list.push(s);
 			this.craft.level += s.level;
-			this.craft.buy = craftCost( this.list );
+			this.craft.buy = spellCost( this.list );
 
 		},
 
@@ -77,7 +77,7 @@ export default {
 			if ( s ) this.craft.level -= s.level;
 
 			this.list.splice(i,1);
-			this.craft.buy = craftCost( this.list );
+			this.craft.buy = spellCost( this.list );
 
 		},
 
@@ -88,7 +88,7 @@ export default {
 
 				this.list.splice( ind, 1 );
 				this.craft.level -= s.level;
-				this.craft.buy = craftCost( this.list );
+				this.craft.buy = spellCost( this.list );
 
 			}
 

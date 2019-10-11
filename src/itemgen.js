@@ -1,19 +1,17 @@
 import Game from './game';
 import Wearable from "./chars/wearable";
 import { randElm, randMatch, includesAny} from 'objecty';
-import Percent, { PercentTest } from './values/percent';
+import Percent from './values/percent';
 import Item from './items/item';
 import Encounter, { ENCOUNTER } from './items/encounter';
 import Npc from './chars/npc';
 import GenGroup from './genGroup';
-import Mod from './values/mod';
-import { logObj } from './util/util';
 
 /**
  * Revive a prototyped item based on an item template.
  * converts template string to actual template object before instancing/revive.
- * @param {*} gs
- * @param {*} it
+ * @param {GameState} gs
+ * @param {object|string} it
  */
 export function itemRevive(gs, it ) {
 
@@ -72,31 +70,15 @@ export default class ItemGen {
 		 */
 		this.groups = {};
 
-		/**
-		 * Iitem lists by kind then level.
-		 * @property {Object.<string,Object.<number,Wearable[]>>} byLevel
-		 */
-		this.byLevel = {};
-
-		/**
-		 * Item lists by kind.
-		 * @property {Object.<string,Item[]>} byKind
-		 */
-		this.byKind = {};
-
 		this.luck = state.getData('luck');
 
 		this.initGroup( 'armor', state.armors );
-		this.initGroup('weapon', state.weapons );
-		this.initGroup('materials', state.materials );
+		this.initGroup( 'weapon', state.weapons );
+		this.initGroup( 'materials', state.materials );
 
 		let g = this.initGroup('monster', state.monsters );
 		g.makeFilter( 'biome' );
 		g.makeFilter( 'kind' );
-
-
-		this.initList( 'armor', state.armors );
-		this.initList( 'weapon', state.weapons );
 
 	}
 
@@ -117,7 +99,7 @@ export default class ItemGen {
 	 */
 	randEnemy( data, pct=1 ) {
 
-		var level =1;
+		var level = 1;
 
 		if ( data.level ) {
 
@@ -255,33 +237,23 @@ export default class ItemGen {
 	}
 
 	/**
-	 * Get loot which is a basic game data item.
-	 * @param {GData} item
-	 */
-	getDataLoot( item ){
-	}
-
-	/**
 	 * Return a random item of the given level.
 	 * @param {number} [level=0]
-	 * @param {?string} [kind=null]
+	 * @param {?string} [type=null]
 	 * @param {?string|Material} [mat=null] - item material.
 	 */
-	fromLevel( level=0, kind=null, mat=null ){
+	fromLevel( level=0, type=null, mat=null ){
 
-		kind = kind || this.pickKind();
+		type = type || this.wearableType();
 
-		let list = this.byLevel[kind];
-		if ( list ) {
+		let g = this.groups[type];
 
-			list = list[level];
-			if ( list ) {
-				let it = randElm( list );
-				return this.fromData( it, mat );
-			}
+		if ( g ) {
 
+			let it = g.filterRand('level', level );
+			if (it ) return this.fromData( it, mat );
 
-		}
+		} else console.warn('No group: ' + type);
 
 		return null;
 
@@ -296,13 +268,14 @@ export default class ItemGen {
 	 */
 	randBelow( maxLevel=1, type=null, mat=null ){
 
-		maxLevel = Math.floor( Math.random()*(maxLevel+1) );
-		do {
-			var it = this.fromLevel( maxLevel, type, mat );
+		type = type || this.wearableType();
+		let g = this.groups[type];
 
-		} while ( !it && --maxLevel >= 0 );
+		maxLevel = Math.floor( 1 + Math.random()*maxLevel );
 
-		return it;
+		let it = g.randBelow( maxLevel );
+		return it ? this.fromData( it, mat ) : null;
+
 	}
 
 	/**
@@ -322,40 +295,6 @@ export default class ItemGen {
 		g.makeFilter('level');
 
 		return g;
-
-	}
-
-
-	/**
-	 *
-	 * @param {string} type
-	 * @param {*} list
-	 * @returns {Object}
-	 */
-	initList( type, list ) {
-
-		if ( !list ) {
-			console.warn( 'list: ' + type + ' undefined.');
-			return;
-		}
-		/**
-		 * Maps item level to item types of the appropriate level.
-		 * Object.<number,item[]>
-		 */
-		let byLevel = {};
-		let levelArr;
-
-		for( let i = list.length-1; i>= 0; i-- ) {
-
-			var it = list[i];
-			levelArr = byLevel[ it.level ] || (byLevel[it.level] = []);
-
-			levelArr.push(it);
-
-		}
-
-		this.byKind[type] = list || [];
-		this.byLevel[ type ] = byLevel;
 
 	}
 
@@ -407,7 +346,10 @@ export default class ItemGen {
 
 	}
 
-	pickKind() {
+	/**
+	 * Pick wearable type.
+	 */
+	wearableType() {
 
 		let r = Math.random();
 		if ( r < 0.5 ) return 'armor';
