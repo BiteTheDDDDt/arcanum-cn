@@ -1,6 +1,6 @@
 import Game from './game';
 import Wearable from "./chars/wearable";
-import { randElm, randMatch, includesAny} from 'objecty';
+import { randMatch, includesAny} from 'objecty';
 import Percent from './values/percent';
 import Item from './items/item';
 import Encounter, { ENCOUNTER } from './items/encounter';
@@ -163,7 +163,7 @@ export default class ItemGen {
 	/**
 	 * Generate a new item from a template item.
 	 * @param {Wearable} data
-	 * @param {string|Material} material - material to use for item.
+	 * @param {string|Material|number} material - material or material level.
 	 */
 	fromData( data, material=null ) {
 
@@ -171,7 +171,7 @@ export default class ItemGen {
 		if ( data === null || data === undefined ) return null;
 
 		let mat = material || data.material;
-		if ( !mat ) mat = this.matForItem( data );
+		if ( (typeof mat ==='number') || !mat ) mat = this.matForItem( data, mat );
 
 		if ( typeof mat === 'string' ) mat = this.state.getData( mat );
 
@@ -207,7 +207,7 @@ export default class ItemGen {
 		if ( info.pct && (100*Math.random() > info.pct) ) return null;
 
 		if ( info.type === 'wearable' || info.type === 'weapon'
-				|| info.type ==='armor') return this.fromData( info );
+				|| info.type ==='armor') return this.fromData( info, info.level );
 
 		if ( info.instance || info.isRecipe ) {
 			return this.instance( info );
@@ -251,7 +251,7 @@ export default class ItemGen {
 		if ( g ) {
 
 			let it = g.filterRand('level', level );
-			if (it ) return this.fromData( it, mat );
+			if (it ) return this.fromData( it, mat || maxLevel );
 
 		} else console.warn('No group: ' + type);
 
@@ -274,7 +274,7 @@ export default class ItemGen {
 		maxLevel = Math.floor( 1 + Math.random()*maxLevel );
 
 		let it = g.randBelow( maxLevel );
-		return it ? this.fromData( it, mat ) : null;
+		return it ? this.fromData( it, mat || maxLevel ) : null;
 
 	}
 
@@ -303,19 +303,13 @@ export default class ItemGen {
 	 * @param {Item} item
 	 * @returns {Material|null}
 	 */
-	matForItem( item ) {
-
-		let max = item.level || 1;
+	matForItem( item, level=1 ) {
 
 		let only = item.only;
 		let exclude = item.exclude;
 
-		while ( max >= 0 ) {
-
-			var matList = this.groups.materials.filtered( 'level', max-- );
-			if ( !matList) continue;
-
-			var res = randMatch( matList, v=>{
+		return this.groups.materials.randBelow( Math.max( item.level+1, level ),
+			v=>{
 
 				if ( only && !includesAny(only, v.type, v.kind ) ) return false;
 				if ( exclude && includesAny(exclude, v.type, v.kind, v.name) ) return false;
@@ -324,37 +318,17 @@ export default class ItemGen {
 				if ( v.exclude && includesAny( v.exclude, item.type, item.kind ) ) return false;
 				return true;
 
-			});
-			if ( res ) return res;
-
-		}
-
-		return null;
-
-	}
-
-	/**
-	 * Get a material below or including the given level.
-	 * @param {number} level
-	 * @param {string} itemKind
-	 */
-	getMatBelow( level, itemKind=null ) {
-
-		var pred = itemKind ? v=>!v.exclude||!v.exclude.includes(itemKind) : null;
-
-		return this.groups.materials.randBelow( level, pred );
+			}
+		);
 
 	}
 
 	/**
 	 * Pick wearable type.
+	 * @returns {string}
 	 */
 	wearableType() {
-
-		let r = Math.random();
-		if ( r < 0.5 ) return 'armor';
-		if ( r < 1 ) return 'weapon';
-		return 'equip';
+		return Math.random() < 0.65 ? 'armor' : 'weapon';
 
 	}
 
