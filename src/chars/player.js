@@ -197,6 +197,8 @@ export default class Player extends Char {
 			this._resist[p] = new Stat( this._resist[p]);
 		}
 
+		this.regen = this.regen || 0;
+
 		this._states = this._states || {
 			fly:0,
 			sleep:0,

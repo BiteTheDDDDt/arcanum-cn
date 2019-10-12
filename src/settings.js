@@ -8,8 +8,34 @@ export default {
 		autoSave:true,
 		saveTime:30,
 		darkMode:false,
-		compactMode:false
+		compactMode:false,
+		spells:{
 
+		}
+
+	},
+
+	/**
+	 * Set value of a subkeyed object.
+	 * @param {*} type
+	 * @param {*} key
+	 * @param {*} val
+	 */
+	setVar( type, key, val) {
+
+		let p = this.vars[type];
+		if ( !p ) this.vars[type] = p = {};
+
+		p[key] = val;
+
+	},
+
+	/**
+	 * Get vars sub-object.
+	 * @param {*} type
+	 */
+	getVars( type ) {
+		return this.vars[type];
 	},
 
 	load() {

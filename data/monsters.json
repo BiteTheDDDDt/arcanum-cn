@@ -12,7 +12,7 @@
             "kind":"squiggly",
             "dmg":"1~2"
         },
-        "biome":["swamp","plains","forest","hills"],
+        "biome":["swamp","plains","woods","hills"],
         "loot":{
 			"max":1
 		}
@@ -111,7 +111,7 @@
 	{
 		"id":"lgmouse",
 		"name":"Large Mouse",
-		"kind":"natural",
+		"kind":"beast",
 		"level":1,
 		"hp":4,
 		"tohit":2,
@@ -129,7 +129,7 @@
 	{
 		"id":"stingybee",
 		"name":"Stingy Bee",
-		"kind":"natural",
+		"kind":"beast",
 		"level":1,
 		"hp":2,
 		"tohit":4,
@@ -186,7 +186,7 @@
 	{
 		"id":"smbox",
 		"name":"Small Chest",
-		"kind":"natural",
+		"kind":"construct",
 		"level":1,
 		"hp":5,
 		"defense":3,
@@ -233,7 +233,7 @@
 	{
 		"id":"lgsnail",
 		"name":"Large Snail",
-		"kind":"natural",
+		"kind":"beast",
 		"level":2,
 		"hp":14,
 		"tohit":1,
@@ -247,7 +247,7 @@
 	{
 		"id":"lgrat",
 		"name":"Large Rat",
-		"kind":"natural",
+		"kind":"beast",
 		"level":2,
 		"hp":10,
 		"tohit":2,
@@ -260,7 +260,7 @@
 	{
 		"id":"angrybird",
 		"name":"Angry Bird",
-		"kind":"natural",
+		"kind":"beast",
 		"level":2,
 		"hp":2,
 		"tohit":4,
@@ -277,7 +277,7 @@
 	{
 		"id":"smsnake",
 		"name":"small snake",
-		"kind":"natural",
+		"kind":"beast",
 		"level":2,
 		"hp":5,
 		"tohit":2,
@@ -301,7 +301,7 @@
 		"id":"ratskeleton",
 		"name":"Skeletal Rat",
 		"desc":"Even the dead rats are a problem...",
-		"kind":"shadow",
+		"kind":"undead",
 		"level":1,
 		"hp":3,
 		"tohit":3,
@@ -315,7 +315,7 @@
 	{
 		"id":"raven",
 		"name":"raven",
-		"kind":"natural",
+		"kind":"beast",
 		"level":2,
 		"hp":3,
 		"speed":4,
@@ -346,7 +346,7 @@
 	{
 		"id":"coyote",
 		"name":"Coyote",
-		"kind":"natural",
+		"kind":"beast",
 		"level":3,
 		"hp":4,
 		"tohit":2,
@@ -356,7 +356,7 @@
 	{
 		"id":"hawk",
 		"name":"Hawk",
-		"kind":"natural",
+		"kind":"beast",
 		"level":3,
 		"hp":3,
 		"tohit":5,
@@ -383,7 +383,7 @@
 	{
 		"id":"warthog",
 		"name":"Warthog",
-		"kind":"natural",
+		"kind":"beast",
 		"level":3,
 		"hp":7,
 		"tohit":2,
@@ -677,7 +677,7 @@
 		"id":"slinger",
         "name":"hobbit slinger",
         "level":5,
-        "biome":["town","plains","forest","hills"],
+        "biome":["town","plains","woods","hills"],
         "kind":"humanoid",
         "evil":-1,
         "flavor":"How much damage could he do with just a sling?",
@@ -857,7 +857,7 @@
 		"name":"electric eel",
         "level":5,
         "kind":"beast",
-        "biome":"water",
+        "biome":"sea",
         "desc":"So wriggly.",
         "hp":5,
         "tohit":3,
@@ -1070,7 +1070,7 @@
 	{
 		"id":"crab",
 		"name":"scuttling crab",
-        "biome":"ocean",
+        "biome":"sea",
         "level":5,
         "kind":"beast",
         "hp":12,
@@ -1249,7 +1249,7 @@
 		},
 		"resist":{
 			"poison":25
-		},"biome":["swamp", "forest", "mountains"]
+		},"biome":["swamp", "woods", "mountains"]
 
     },
     {
@@ -1477,7 +1477,7 @@
 	{
         "id":"bear",
         "level":7,
-        "biome":["forest","hills","mountains"],
+        "biome":["woods","hills","mountains"],
         "kind":"beast",
         "desc":"He's angry now!!!",
         "hp":55,
@@ -1674,7 +1674,7 @@
         "level":10,
         "evil":8,
         "kind":"giant",
-        "biome":["hills","forest","swamp","mountains"],
+        "biome":["hills","woods","swamp","mountains"],
         "desc":"Two heads are better than one.",
         "hp":65,
         "tohit":11,
@@ -1894,7 +1894,7 @@
             "name":"horn",
             "kind":"pierce",
             "dmg":"7~14"
-        }, "biome":["plains","forest"]
+        }, "biome":["plains","woods"]
 
     },
     {
@@ -2076,7 +2076,7 @@
             "name":"claws",
             "kind":"slash",
             "dmg":"17~27"
-        }, "biome":["hills","forest"],
+        }, "biome":["hills","woods"],
         "loot":["bear claw"]
 
     },
@@ -2111,7 +2111,7 @@
             "name":"vorpal sword",
             "kind":"slash",
             "dmg":"7~15"
-		}, "biome":["town","forest","plains"],
+		}, "biome":["town","woods","plains"],
 		"resist":{
 			"spirit":20
 		}
@@ -2377,7 +2377,7 @@
             "name":"claws",
             "kind":"slash",
             "dmg":"17~23"
-        }, "biome":["forest","hills","mountains","swamp"]
+        }, "biome":["woods","hills","mountains","swamp"]
 
     },
     {
@@ -2435,7 +2435,7 @@
 	{
         "id":"grimstalk",
         "level":11,
-        "biome":"forest",
+        "biome":"woods",
         "desc":"Slashy wood demon.",
         "kind":"demon",
         "evil":19,
@@ -2586,7 +2586,7 @@
 	{
         "id":"ent",
         "level":13,
-        "biome":"forest",
+        "biome":"woods",
         "desc":"Out cruising for some ent-wives.",
         "hp":138,
         "evil":-18,

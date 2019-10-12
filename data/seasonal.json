@@ -82,7 +82,7 @@
 		{
 			"id":"hal_rite",
 			"name":"reveler's rite",
-			"require":"nymiescharm",
+			"require":"g.hal_bloodmanor>0",
 			"desc":"Once a year under the harvest moon, devotees of Queen Nymie split their souls to doubly enjoy her dark revels.",
 			"length":30,
 			"repeat":false,
@@ -228,13 +228,14 @@
 			"length":50,
 			"require":"loc_hal_pumpkin",
 			"result":{
-				"evt_hal_hestia_done":true,
-				"jacklantern":1,
+				"evt_hal_hestia_done":true
+			},
+			"loot":[
+				{"jacklantern":1,
 				"hestiabrew":1,
 				"hal_broomstick":"5%",
 				"cobwebs":3
-			},
-			"loot":{
+				},{
 				"id":"hal_amulet",
 				"name":"hestia's charm",
 				"desc":"hestia's amulet throbs with a dull purple light.",
@@ -247,7 +248,7 @@
 				"mod":{
 					"player.resist.necrotic":20
 				}
-			},
+			}],
 			"encs":[
 				"enc_blackcat",
 				"enc_hestia",

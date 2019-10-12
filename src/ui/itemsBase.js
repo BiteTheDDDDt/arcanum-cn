@@ -118,13 +118,10 @@ export default {
 				var subRate = rate;
 
 				if ( p === 'skipLocked') continue;
+				else if ( p === 'mod' || p === 'effect') subPath = propPath;
 				else if ( p === 'max' ) {
 
-					let index = indexAfter( propPath, 'mod' );
-					if ( index < 0 ) index = indexAfter( propPath, 'effect' );
-
-					if ( index > 0 ) subPath = propPath.slice(0, index) + ' max' + propPath.slice(index);
-					else subPath = 'max ' + propPath;
+					subPath = 'max ' + propPath;
 
 				} else if ( p==='base' || p === 'value') subPath = propPath;
 				else if ( p === 'rate') {

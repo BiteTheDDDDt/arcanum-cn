@@ -196,7 +196,6 @@ export default class Char {
 
 		}
 
-		if ( this.regen ) this.hp += this.regen*dt;
 		if ( !this.alive ) return;
 
 		this.timer -= dt;

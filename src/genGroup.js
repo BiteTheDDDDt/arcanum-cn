@@ -1,8 +1,9 @@
 import {randElm} from './util/util';
 
 /**
- * Category for items without an assigned value to a property
- * that should define their category.
+ * Category to assign items with no property value
+ * on the filter dimension.
+ * e.g. filters['biome'] = { any:[npcs without biomes] }
  */
 const DEFAULT_CATEGORY = 'any';
 
@@ -44,7 +45,7 @@ export default class GenGroup {
 
 			if ( --i < 0 ) i = level;
 
-		} while ( i != st );
+		} while ( --level >= 0 );
 
 		return it;
 
@@ -76,7 +77,7 @@ export default class GenGroup {
 	/**
 	 * Get a random item from a filtered subcategory.
 	 * @param {string} filter
-	 * @param {string} match
+	 * @param {string} match - filter category.
 	 */
 	filterRand( filter, match ) {
 
