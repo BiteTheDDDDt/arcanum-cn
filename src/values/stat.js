@@ -7,11 +7,15 @@ export default class Stat {
 
 	toJSON(){
 
-		let o = { base: this._base };
 		let def = this._mods[DEFAULT_MOD];
-		if ( def !== undefined ) o.mods = { [DEFAULT_MOD]:def};
+		if ( def === undefined ) return this.base;
 
-		if ( this.pos ) o.pos = true;
+		let o = { base: this._base };
+		o.mods = { [DEFAULT_MOD]:def};
+
+
+		/** @todo testing shouldn't need to save 'pos'  */
+		//if ( this.pos ) o.pos = true;
 
 		return o;
 
@@ -48,12 +52,10 @@ export default class Stat {
 		(this._base + this._bonus)*( 1 + this._pct );}
 
 	get base() { return this._base; }
-	set base(v) {
-		this._base = v;
-	}
+	set base(v) { this._base = v; }
 
 	/**
-	 * @property {number} bonus - total bonus to base.
+	 * @property {number} bonus - total bonus to base, computed from mods.
 	 */
 	get bonus(){return this._bonus; }
 
@@ -97,8 +99,8 @@ export default class Stat {
 		if ( pos ) this.pos = pos;
 
 		this._base = this._base||0;
+		if ( !this.mods ) this.mods = {};
 
-		this.mods = this.mods || {};
 		this.recalc();
 
 	}

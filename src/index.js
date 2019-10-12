@@ -87,17 +87,18 @@ var vm = new Vue({
 
 		},
 
-		saveFile(e){
+		saveFile(e, name='arcanum'){
 
 			try {
 
 				if ( this.lastSave ) URL.revokeObjectURL( this.lastSave );
 
+				let state = this.game.state;
+				let json = JSON.stringify( state );
 
-				let json = JSON.stringify( this.game.state );
 
-
-				this.lastSave = new File( [json], 'arcanum.json', {type:"text/json;charset=utf-8"} );
+				this.lastSave = new File( [json],
+					(state.player.name || 'arcanum') + '.json', {type:"text/json;charset=utf-8"} );
 
 				e.target.href = URL.createObjectURL( this.lastSave );
 

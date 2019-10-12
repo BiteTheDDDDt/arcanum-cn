@@ -56,7 +56,7 @@ export default class Skill extends Action {
 
 		if ( !this.value) this.value = 0;
 		this.rate = this.rate || new Stat(0.5);
-		this.max = this.max || new Stat(5);
+		this.max = this.max || new Stat(5, true);
 
 	}
 

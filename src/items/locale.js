@@ -1,7 +1,7 @@
 import Action from "./action";
 
 /**
- * Default dist per level function.
+ * Default dist per level function. Also currently used by dungeon.
  * @param {number} lvl
  */
 export const getDist = (lvl)=> {

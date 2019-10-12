@@ -14,7 +14,8 @@ export default class ZeroSum extends Resource {
 
 	toJSON(){
 
-		let v = super.toJSON();
+		let v = super.toJSON() || {};
+
 		v.value = undefined;
 		v.used = this._used;
 

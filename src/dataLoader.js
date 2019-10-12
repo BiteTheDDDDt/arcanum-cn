@@ -12,7 +12,6 @@ import StatData from './items/statData';
 import Skill from './items/skill';
 import Monster from './items/monster';
 
-//import VarPath  from './varPath';
 import Dungeon from './items/dungeon';
 import Locale from './items/locale';
 
@@ -350,7 +349,6 @@ export default {
 
 			if ( RangeTest.test(sub) ) return new Range(sub);
 			else if ( PercentTest.test(sub)) return new Percent(sub);
-			//else if ( sub.includes('.') ) return new VarPath( sub );
 
 		}
 

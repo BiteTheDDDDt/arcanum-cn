@@ -1,5 +1,4 @@
 <script>
-
 export default {
 
 	computed:{
@@ -42,7 +41,7 @@ export default {
 		<button @click="dispatch('load')">load</button>
 
 		<div class="text-button"><a class="text-button" id="save-file" href=""
-				download @click.self="dispatch('save-file',$event)" type="text/json">get save</a></div>
+				download @click.self="dispatch('save-file',$event )" type="text/json">get save</a></div>
 			<!--<input type="file" name="[File]" accept="text/json" @change="fileDrop">-->
 		<button id="drop-file" @drop="fileDrop"
 			@dragover="fileDrag" @dragleave.capture.stop="dragOut">[Drop Save]</button>
