@@ -53,9 +53,7 @@ export default class SpellList extends Inventory {
 	 */
 	canUse( g ) {
 
-		var len = this.items.length;
-
-		for( let i = 0; i < len; i++ ) {
+		for( let i = this.items.length-1; i>=0; i-- ) {
 			if ( this.items[i].canUse(g) ) return true;
 		}
 
@@ -91,8 +89,6 @@ export default class SpellList extends Inventory {
 
 		} while ( i !== start );
 
-		console.log('NO SPELLS FOUND');
-
 		return false;
 
 	}
@@ -117,10 +113,7 @@ export default class SpellList extends Inventory {
 	}
 
 	dataDeleted(it) {
-
-		if ( this.includes(it) ) {
-			this.remove(it);
-		}
+		this.remove(it);
 	}
 
 	/**

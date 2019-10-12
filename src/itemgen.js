@@ -1,6 +1,6 @@
 import Game from './game';
 import Wearable from "./chars/wearable";
-import { randMatch, includesAny} from 'objecty';
+import { includesAny} from 'objecty';
 import Percent from './values/percent';
 import Item from './items/item';
 import Encounter, { ENCOUNTER } from './items/encounter';

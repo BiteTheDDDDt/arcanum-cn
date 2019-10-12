@@ -8,6 +8,14 @@ export const getDist = (lvl)=> {
 	return Math.ceil( 4.4*Math.exp( 0.32*lvl ) );
 };
 
+const distTest = ( g, self) => {
+	return g.dist >= self.dist;
+}
+
+const levelTest = (g, self) => {
+	return g.player.level >= (self.level-1);
+}
+
 export default class Locale extends Action {
 
 	get encs() { return this._encs; }
@@ -18,14 +26,14 @@ export default class Locale extends Action {
 
 		for( let p in v) { a.push( v[p]); }
 
-		this._encs=a;
+		this._encs = a;
 	}
 
 	constructor(vars=null) {
 
 		super(vars);
 
-		this.level = this.level !== undefined ? this.level : 1;
+		if ( this.level === null || this.level === undefined ) this.level = 1;
 
 		this.type = 'locale';
 
@@ -36,21 +44,19 @@ export default class Locale extends Action {
 		this._length = this._length || 100;
 
 		// default require for dungeon is player-level.
-		this.require =  this.require || this.levelTest;
+		if ( !this.require ) this.require = levelTest;
+		if ( !this.need ) this.need = distTest;
 
 		this.dist = ( this.dist === undefined || this.dist === null ) ? getDist(this.level) : this.dist;
-		//this.addRequire( 'dist', this.dist );
 
 		if ( this._encs == null ) this._encs = [];
 
 		//console.log(this.id + ' dist: ' + this.dist );
 
-		if ( this.need == null ) this.need = this.distTest;
-
 	}
 
 	/**
-	 * Get next enemy.
+	 * Get next/random encounter.
 	 * @returns {string|Encounter|Object}
 	 */
 	getEnc() {
@@ -64,11 +70,5 @@ export default class Locale extends Action {
 	}
 
 	lockReq() { return false;}
-	distTest( g, self) {
-		return g.dist >= self.dist;
-	}
 
-	levelTest(g, self) {
-		return g.player.level >= (self.level-1);
-	}
 }
