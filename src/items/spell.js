@@ -1,6 +1,13 @@
-import GData from './gdata';
 import Attack from '../chars/attack';
 import Action from './action';
+
+	/**
+	 * Default require function for spells.
+	 * @param {Object} g - items
+	 */
+const spellRequire = ( g, self ) => {
+	return ( g.player.level >= 2*self.level );
+}
 
 export default class Spell extends Action {
 
@@ -41,17 +48,9 @@ export default class Spell extends Action {
 		}
 
 
-		if ( this.locked ) this.addRequire( this.spellRequire );
+		if ( this.locked ) this.addRequire( spellRequire );
 		if ( this.school ) this.addRequire( this.school );
 
-	}
-
-	/**
-	 * Default require function for spells.
-	 * @param {Object} g - items
-	 */
-	spellRequire( g, self ) {
-		return ( g.player.level >= 2*self.level );
 	}
 
 };

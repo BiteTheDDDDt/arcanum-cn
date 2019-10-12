@@ -8,16 +8,7 @@ export default {
 	 * @property {string} event - name of event to fire when an item is selected.
 	 */
 	props:['pickEvent', 'items'],
-	mixins:[ItemsBase],
-	created(){
-
-		this.pEvent = this.pickEvent || 'upgrade';
-		/*return {
-			pEvent:this.pickEvent || 'upgrade',
-			pLayout:this.layout||'upgrade-list'
-		};*/
-
-	}
+	mixins:[ItemsBase]
 
 }
 </script>
@@ -32,7 +23,7 @@ export default {
 	<button
 		class="wrapped-btn"
 		:disabled="!usable(it)"
-		@click="emit( pEvent, it)">{{ showName(it) }}</button>
+		@click="emit( pickEvent||'upgrade', pEvent, it)">{{ showName(it) }}</button>
 	</span>
 
 </div>

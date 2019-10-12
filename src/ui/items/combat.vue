@@ -4,14 +4,10 @@ import Group from './npc-group.vue';
 
 export default {
 
-	props:['combat'],
+	props:[ 'player', 'combat'],
 	components:{
 		'npc-group':Group
-	},
-	computed:{
-		player() { return Game.state.player; }
 	}
-
 }
 </script>
 

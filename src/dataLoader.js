@@ -288,7 +288,6 @@ export default {
 		gd.classes.forEach(v=>{
 			v.warn=true;
 			v.repeat = false;
-			v.max = 1;
 		});
 
 		gd.actions = this.initItems( dataLists['actions'], Action, null, 'action' );

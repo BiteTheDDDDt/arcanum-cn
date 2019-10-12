@@ -10,6 +10,24 @@ export const potUnlock = ( g, i) => {
 
 export default {
 
+	spell:{
+
+		timer:0,
+		repeat:true,
+		level:1,
+		owned:false
+
+	},
+
+	event:{
+		repeat:false
+	},
+
+	"class":{
+		warn:true,
+		repeat:false
+	},
+
 	item:{
 		level:1,
 		repeat:true,

@@ -127,9 +127,6 @@ export default {
 
 			this.add( TRY_BUY, this.onBuy );
 
-			// primary attack.
-			this.add( 'primary', this.onPrimary);
-
 		},
 
 		onSetting( setting, val ) {
@@ -281,12 +278,7 @@ export default {
 		 * Buy a spell or item without casting/using the item or its mods.
 		 * @property {Item} item - item to buy.
 		 */
-		onBuy(item) { this.game.tryBuy(item); },
-
-		onPrimary( s) {
-			if ( this.state.player.primary === s) this.state.player.setPrimary(null);
-			else this.state.player.setPrimary(s);
-		}
+		onBuy(item) { this.game.tryBuy(item); }
 
 	},
 	computed:{

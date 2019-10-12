@@ -12,36 +12,10 @@ export default {
 	props:['bar'],
 	methods:{
 
-		remove(ind){
-
-			if ( ind >= 0) {
-				this.bar.clear(ind);
-			}
-
-		},
-
 		abbr:abbr
 
 	},
 	computed:{
-
-		/*items() {
-
-			let slots = this.bar.slots
-			let a = [];
-
-			for( let i = 0; i < MAX_SLOTS; i++ ) {
-
-				var it = slots[i];
-
-
-				a[i] = null;
-
-			}
-
-			return a;
-
-		},*/
 
 		slots() {
 			return this.bar.slots;
@@ -70,7 +44,7 @@ export default {
 
 				<div>{{ abbr(it) }}</div>
 
-				<div class="remove" @click="remove(i)" />
+				<div class="remove" @click="bar.clear(i)" />
 				<div v-if="it.item.school" class="bgfill" >&nbsp;</div>
 
 			</div>

@@ -6,7 +6,6 @@ import GameState, { REST_SLOT } from './gameState';
 import Range from './values/range';
 import ItemGen from './itemgen';
 import TechTree from './techTree';
-import Dot from './chars/dot';
 
 /**
  * @note these refer to Code-events, not in-game events.
@@ -54,6 +53,8 @@ export default {
 
 	timers:[],
 
+	runner:null,
+
 	/**
 	 *
 	 * @param {*} obj
@@ -89,7 +90,7 @@ export default {
 		// Code events. Not game events.
 		Events.init(this);
 
-		this.Runner = null;
+		this.runner = null;
 
 		return this.loader = DataLoader.loadGame( saveData ).then( allData=>{
 
@@ -99,7 +100,7 @@ export default {
 			this._items = this.state.items;
 
 
-			this.Runner = this.state.runner;
+			this.runner = this.state.runner;
 
 			this.recheckTiers();
 			this.restoreMods();
@@ -122,9 +123,6 @@ export default {
 
 		}, err=>{ console.error('game err: ' + err )});
 
-	},
-
-	save() {
 	},
 
 	recheckTiers() {
@@ -240,7 +238,7 @@ export default {
 		this.state.player.update(dt);
 		this.state.minions.update(dt);
 
-		this.Runner.update(dt);
+		this.runner.update(dt);
 
 		this.doResources( this.state.resources, dt);
 		this.doResources( this.state.playerStats, dt );
@@ -294,16 +292,16 @@ export default {
 	 * Toggles an action on or off.
 	 * @param {GData} a
 	 */
-	toggleAction(a) { this.Runner.toggleAct(a); },
+	toggleAction(a) { this.runner.toggleAct(a); },
 
 	/**
 	 * Wrapper for Runner rest
 	 */
-	doRest() { this.Runner.tryAdd( this.state.getSlot(REST_SLOT) ) },
+	doRest() { this.runner.tryAdd( this.state.getSlot(REST_SLOT) ) },
 
-	haltAction(a) { this.Runner.stopAction(a);},
+	haltAction(a) { this.runner.stopAction(a);},
 
-	setAction( a ) { this.Runner.setAction(a); },
+	setAction( a ) { this.runner.setAction(a); },
 
 	/**
 	 * Tests if an action has effectively filled a resource.
@@ -368,7 +366,7 @@ export default {
 					this.remove( it, 1 );
 				}
 
-				if ( it.running ) this.Runner.stopAction(it);
+				if ( it.running ) this.runner.stopAction(it);
 				if ( it == this.state.raid.dungeon ) this.state.raid.setDungeon(null);
 
 				if ( it instanceof Resource || it instanceof Skill ) {
@@ -623,7 +621,7 @@ export default {
 			} else {
 
 				// runner will handle costs.
-				this.Runner.useWith( it, targ );
+				this.runner.useWith( it, targ );
 
 			}
 		}
@@ -869,28 +867,6 @@ export default {
 			} else {
 
 				this.getAmount( this.getTagList(effect), dt );
-
-			}
-
-		}
-
-	},
-
-	/**
-	 * Test if a mod can be applied without making value
-	 * become negative.
-	 * @param {Array|Object} mod
-	 * @param {number} amt
-	 */
-	canMod( mod, amt ) {
-
-		if ( Array.isArray(mod)  ) for( let m of mod ) if ( !this.canMod(m, amt) ) return false;
-		else if ( typeof mod === 'object' ) {
-
-			for( let p in mod ) {
-
-				var target = this.getData( p );
-				if ( target !== undefined ) return target.canApply( mod[p], amt );
 
 			}
 
@@ -1330,13 +1306,13 @@ export default {
 	 * Increment lock counter on item or items.
 	 * @param {string|string[]|GData|GData[]} id
 	 */
-	lock(id ) {
+	lock(id, amt ) {
 
 		if (  Array.isArray(id)) {
-			id.forEach( v=>this.lock(v), this );
+			id.forEach( v=>this.lock(v, amt ), this );
 		} else if ( typeof id === 'object' ) {
 
-			id.locks++;
+			id.locks += amt;
 			id.dirty =true;
 
 		} else {
@@ -1349,7 +1325,7 @@ export default {
 			} else {
 
 				it = this.state.getTagList(id);
-				if ( it ) it.forEach(v=>this.lock(v), this );
+				if ( it ) it.forEach( v=>this.lock(v, amt ), this );
 
 			}
 
@@ -1376,5 +1352,28 @@ export default {
 	 * @returns {GData|undefined}
 	 */
 	getData(id) { return this._items[id] || this.state[id]; },
+
+		/**
+	 * Test if a mod can be applied without making value
+	 * become negative.
+	 * @todo: not implemented.
+	 * @param {Array|Object} mod
+	 * @param {number} amt
+	 */
+	/*canMod( mod, amt ) {
+
+		if ( Array.isArray(mod)  ) for( let m of mod ) if ( !this.canMod(m, amt) ) return false;
+		else if ( typeof mod === 'object' ) {
+
+			for( let p in mod ) {
+
+				var target = this.getData( p );
+				if ( target !== undefined ) return target.canApply( mod[p], amt );
+
+			}
+
+		}
+
+	},*/
 
 }

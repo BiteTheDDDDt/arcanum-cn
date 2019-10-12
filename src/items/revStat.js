@@ -2,7 +2,7 @@ import Resource from "./resource";
 import Stat from "../values/stat";
 
 /**
- * A reversed Resource is 'filled' at 0 and bad at max.
+ * A reversed Resource is 'filled' at 0 and empty at max.
  */
 export default class RevStat extends Resource {
 

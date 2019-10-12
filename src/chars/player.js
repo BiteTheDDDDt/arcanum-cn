@@ -166,7 +166,6 @@ export default class Player extends Char {
 		data.states = this.states;
 		data.className = this.className;
 
-		if ( this.primary ) data.primary = this.primary.id;
 		if ( this.weapon ) data.weapon = this.weapon.id;
 
 		return data;
@@ -230,11 +229,6 @@ export default class Player extends Char {
 
 		if ( this.damage === null || this.damage === undefined ) this.damage = 1;
 
-		/**
-		 * @property {Item} primary - primary attack.
-		 */
-		this.primary = this.primary || null;
-
 		if ( !this.weapon ) this.weapon = Fists;
 
 		this._name = this._name || 'wizrobe';
@@ -260,8 +254,6 @@ export default class Player extends Char {
 		if ( this.weapon && (typeof this.weapon === 'string') ) this.weapon = state.equip.find( this.weapon );
 
 		this.spelllist = state.getData('spelllist');
-
-		this.primary = this.primary && typeof this.primary === 'string' ? state.getData( this.primary ) : this.primary;
 
 		// copy in stressors to test player defeats.
 		this.stressors = state.stressors;
@@ -369,27 +361,6 @@ export default class Player extends Char {
 		if ( !this._resist[kind] ) this._resist[kind] = new Stat( amt );
 		else this._resist[kind].base += amt;
 
-	}
-
-	/**
-	 * Set primary spell attack.
-	 * @param {GData} s
-	 */
-	setPrimary( s ) {
-
-		if ( this.primary === s || ( s && !s.attack )) return;
-		if ( this.primary !== null ) this.removePrimary();
-
-		this.primary = s;
-
-	}
-
-	/**
-	 * Clear primary spell attack.
-	 */
-	removePrimary() {
-		//let p = this.primary;
-		this.primary = null;
 	}
 
 	levelUp() {

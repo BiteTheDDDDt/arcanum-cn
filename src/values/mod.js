@@ -54,7 +54,6 @@ export default class Mod {
 		//console.log('mod save val: ' + val );
 
 		return {
-			id:this.id,
 			value:val,
 			count:this.count
 		};

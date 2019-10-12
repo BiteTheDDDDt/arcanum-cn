@@ -1,7 +1,6 @@
 <script>
 
 import ItemsBase from './itemsBase.js';
-import game from '../game';
 
 /**
  * @emits [itemover, itemout]
@@ -9,10 +8,7 @@ import game from '../game';
 export default {
 
 	props:['items'],
-	mixins:[ItemsBase],
-	created(){
-		this.game = game;
-	}
+	mixins:[ItemsBase]
 
 }
 </script>

@@ -100,6 +100,7 @@ var vm = new Vue({
 				this.lastSave = new File( [json],
 					(state.player.name || 'arcanum') + '.json', {type:"text/json;charset=utf-8"} );
 
+				e.target.title = this.lastSave.name;
 				e.target.href = URL.createObjectURL( this.lastSave );
 
 			} catch(ex) {

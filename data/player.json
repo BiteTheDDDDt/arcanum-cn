@@ -9,6 +9,13 @@
 		"locked":false
 	},
 	{
+		"id":"level",
+		"val":0,
+		"unit":true,
+		"stat":true,
+		"locked":false
+	},
+	{
 
 		"id":"stamina",
 		"max":10,

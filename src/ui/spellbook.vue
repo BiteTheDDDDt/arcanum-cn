@@ -34,9 +34,6 @@ export default {
 			<td>
 
 				<button v-if="s.owned&&list.canAdd(s)" @click="addList(s)">Memorize</button>
-				<!--<button v-if="s.owned&&s.attack" @click="emit('primary',s)">
-				{{ state.player.primary===s ? 'Unequip' : 'Primary' }}
-				</button>-->
 
 				</td>
 			<td>{{ s.name }}</td>

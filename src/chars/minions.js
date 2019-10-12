@@ -10,7 +10,7 @@ export default class Minions extends Inventory {
 	 */
 	get maxAllies() { return this._maxAllies; }
 	set maxAllies(v) {
-		this._maxAllies = v instanceof Stat ? v : new Stat(v,true);
+		this._maxAllies = v instanceof Stat ? v : new Stat(v, 'maxAllies', true);
 	}
 
 	/**

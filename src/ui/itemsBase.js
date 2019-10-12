@@ -2,12 +2,10 @@
  * Base view for all item lists.
  */
 import { floor, precise } from '../util/format';
-import {indexAfter} from '../util/util';
 
 import Game from '../game';
 import Skill from '../items/skill';
 import Stat from '../values/stat';
-import Range from '../values/range';
 
 export default {
 
