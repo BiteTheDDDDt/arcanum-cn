@@ -59,7 +59,7 @@ var vm = new Vue({
 	computed:{
 
 		saveloc(){
-			return __SAVE ? __SAVE + '/'+ 'gameData' : 'gameData';
+			return (__SAVE ? __SAVE + '/' : '' ) + 'gameData';
 		}
 
 	},

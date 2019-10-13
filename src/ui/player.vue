@@ -27,7 +27,7 @@ export default {
 
 		},
 		stamina() { return this.player.stamina; },
-		level() {return this.player.level; },
+		level() {return this.player.level.value.value; },
 		hp() {return this.player.hp; },
 		defense() {return this.player.defense.value; },
 		dodge(){ return Math.floor(this.player.dodge.valueOf()) },

@@ -40,7 +40,8 @@ export default {
 
 	load() {
 
-		let str = window.localStorage.getItem( 'gameSettings');
+		/** @todo: access from global point. */
+		let str = window.localStorage.getItem( this.saveLoc() );
 
 		if ( str ) {
 
@@ -53,13 +54,17 @@ export default {
 
 	},
 
+	saveLoc() {
+		(__SAVE ? __SAVE + '/' : '' ) + 'gameSettings'
+	},
+
 	save(){
 
 		let store = window.localStorage;
 		if ( store ) {
 
 			let json = JSON.stringify( this.vars );
-			store.setItem('gameSettings', json );
+			store.setItem( this.saveLoc(), json );
 
 		}
 
