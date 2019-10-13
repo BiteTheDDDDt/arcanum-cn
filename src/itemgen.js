@@ -7,6 +7,7 @@ import Encounter, { ENCOUNTER } from './items/encounter';
 import Npc from './chars/npc';
 import GenGroup from './genGroup';
 import { pushNonNull } from './util/util';
+import GData from './items/gdata';
 
 /**
  * Revive a prototyped item based on an item template.
@@ -210,17 +211,18 @@ export default class ItemGen {
 		if ( info.type === 'wearable' || info.type === 'weapon'
 				|| info.type ==='armor') return this.fromData( info, info.level );
 
-		if ( info.id || info.instance || info.isRecipe ) {
-			return this.instance( info );
-		}
+				if ( info.type === 'wearable' || info.type === 'weapon'
+				|| info.type ==='armor') return this.fromData( info, info.level );
 
 		/** @todo: THIS IS BAD */
-		else if ( info.type && !info.isRecipe ) {
+		if ( info instanceof GData && !info.isRecipe && !info.instance) {
 			if ( info.amount ) {
 				if ( !info.disabled ) info.locked = false;
 				if ( amt != 0 ) info.amount( Game, amt );
 			} else console.warn('info.amount undefined: '+ info.if + ' -> ' + info.type );
 			return;
+		} else if ( info.instance || info.isRecipe ) {
+			return this.instance( info );
 		}
 
 		if ( info.level ) return this.fromLevel( info.level, info.type, info.material );
