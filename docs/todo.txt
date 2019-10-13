@@ -7,9 +7,9 @@ Display Weapon/Dot stats
 
 GAME:
 
-To-do list (in game)
+Spell unlocks by school type, not player level.
 
-Multiple actions at once (non-conflicting)
+To-do list (in game) -- Maybe.
 
 Alchemy&Potions
 
@@ -34,8 +34,6 @@ fix rollovers itemover etc.
 
 more armor drop variations.
 
-
-UI display spell attacks
 
 BALANCE:
 
