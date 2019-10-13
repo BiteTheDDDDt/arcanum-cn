@@ -160,7 +160,8 @@ export default class GData {
 	 */
 	canUse( g ){
 
-		if ( this.disabled || (this.need && !g.unlockTest( this.need, this )) ) return false;
+		if ( this.disabled || this.locks>0||
+				(this.need && !g.unlockTest( this.need, this )) ) return false;
 		if ( this.buy && !this.owned && !g.canPay(this.buy) ) return false;
 
 		if ( this.perpetual || this.length>0 ) { return this.canRun(g); }

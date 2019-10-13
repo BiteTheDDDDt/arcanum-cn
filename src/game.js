@@ -1295,7 +1295,7 @@ export default {
 	 * Increment lock counter on item or items.
 	 * @param {string|string[]|GData|GData[]} id
 	 */
-	lock(id, amt ) {
+	lock(id, amt=1 ) {
 
 		if (  Array.isArray(id)) {
 			id.forEach( v=>this.lock(v, amt ), this );

@@ -15,7 +15,7 @@ import { clone } from "objecty";
  * @param {*} c1
  * @param {*} c2
 */
-export function mergeCosts( c1, c2 ) {
+export const mergeCosts = ( c1, c2 ) => {
 
 	if ( !c1 ) return clone(c2);
 	if ( !c2 ) return clone(c1);

@@ -1,7 +1,5 @@
 import Stat from "../values/stat";
 import Resource from "../items/resource";
-import Range from '../values/range';
-import GData from "../items/gdata";
 import Game from '../game';
 import { tryDamage } from '../composites/combat';
 
@@ -33,7 +31,9 @@ export default class Player extends Char {
 
 	get level() { return this._level; }
 	set level(v) {
-		this._level = v;
+
+		if ( this._level && (typeof v === 'number') ) this._level.value = v;
+		else this._level = v;
 	}
 
 	/**
@@ -143,7 +143,6 @@ export default class Player extends Char {
 
 		data.defense = ( this.defense );
 		data.tohit = ( this.tohit );
-		data.level = ( this.level );
 		data.title = ( this.title );
 		data.name = ( this.name );
 
@@ -179,7 +178,8 @@ export default class Player extends Char {
 		this.id = this.type = "player";
 
 		//if ( vars ) Object.assign( this, vars );
-		this._level = this._level || 0;
+
+		if ( !this.level ) this.level = 0;
 		this._title = this._title || 'waif';
 
 		this.titles = this._titles || [];
@@ -365,7 +365,7 @@ export default class Player extends Char {
 
 	levelUp() {
 
-		this._level++;
+		this._level.value++;
 
 		this.dirty = true;
 		if ( this._level % 3 === 0 ) this.sp.value++;
