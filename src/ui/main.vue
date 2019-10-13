@@ -116,7 +116,6 @@ export default {
 
 			this.add('equip', this.onEquip );
 			this.add('unequip', this.onUnequip );
-			this.add('drop', this.onDrop );
 			this.add('enchant', this.onEnchant );
 			this.add('craft', this.onCraft );
 
@@ -219,12 +218,6 @@ export default {
 		onEquip( it, inv ) { this.game.equip( it,inv ); },
 
 		onUnequip(slot, it){ this.game.unequip(slot, it) },
-
-		/**
-		 * Drop item from inventory.
-		 * @param {Item} it - item to drop
-		 */
-		onDrop(it) { this.game.drop(it); },
 
 		onTake(it) { this.game.take(it); },
 
@@ -368,7 +361,7 @@ export default {
 
 		</div>
 
-		<div v-if="state" class="bot-bar"><quickbar :bar="state.quickbar" /></div>
+		<div v-if="state" class="bot-bar"><quickbar :bars="state.bars" /></div>
 
 	</div>
 </template>
@@ -437,9 +430,10 @@ div.inv-equip {
 	padding: 0; display: grid; grid-template-rows: 50% 50%; grid-auto-columns: 1fr;
 }
 
+
 div.bot-bar {
-	background:inherit;
-	border-top: 1px solid var(--separator-color); padding: 4px;
+	background: inherit;
+	border-top: 1px solid var(--separator-color); padding: var(--large-gap);
 }
 
 </style>

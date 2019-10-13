@@ -1,5 +1,5 @@
 import DataLoader from './dataLoader';
-import {quickSplice, logObj} from './util/util';
+import {quickSplice} from './util/util';
 import GData from './items/gdata';
 import Log from './log.js';
 import GameState, { REST_SLOT } from './gameState';
@@ -10,7 +10,7 @@ import TechTree from './techTree';
 /**
  * @note these refer to Code-events, not in-game events.
  */
-import Events, {EVT_UNLOCK, EVT_EVENT, EVT_LOOT, ENTER_LOC, EXIT_LOC, ITEM_ATTACK, SET_SLOT, TRY_USE, DELETE_ITEM } from './events';
+import Events, {EVT_UNLOCK, EVT_EVENT, EVT_LOOT, ENTER_LOC, EXIT_LOC, SET_SLOT, TRY_USE, DELETE_ITEM } from './events';
 import Resource from './items/resource';
 import Skill from './items/skill';
 import Stat from './values/stat';
@@ -86,7 +86,6 @@ export default {
 
 		this.log.clear();
 
-		Events.started = false;
 		// Code events. Not game events.
 		Events.init(this);
 
@@ -98,7 +97,6 @@ export default {
 			this.itemGen = new ItemGen( this.state );
 
 			this._items = this.state.items;
-
 
 			this.runner = this.state.runner;
 
@@ -113,7 +111,6 @@ export default {
 			this.initTimers();
 
 			this.loaded = true;
-			Events.started = true;
 
 			Events.add( ENTER_LOC, this.enterLoc, this );
 			Events.add( EXIT_LOC, this.enterLoc, this );
@@ -510,7 +507,7 @@ export default {
 
 		} else if ( it.buy && !it.owned ) {
 
-			console.log('BUYING: ' + it.name );
+			console.log('BUY: ' + it.name );
 			this.tryBuy(it);
 
 		} else {
@@ -1248,14 +1245,6 @@ export default {
 
 		} else console.log('no reuslt');
 
-	},
-
-	/**
-	 * Remove an item from inventory.
-	 * @param {*} it
-	 */
-	drop(it) {
-		this.state.inventory.remove(it);
 	},
 
 	/**

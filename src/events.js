@@ -125,8 +125,6 @@ export default {
 
 	log:null,
 
-	started:false,
-
 	init( game ) {
 
 		this.log = game.log;
@@ -152,8 +150,6 @@ export default {
 	},
 
 	clearGameEvents() {
-
-		this.started = false;
 
 		events.removeAllListeners();
 
@@ -244,14 +240,6 @@ export default {
 
 	enemySlain( enemy, attacker ) {
 		this.log.log( '', enemy.name + ' slain' + ( attacker ? ' by ' + attacker.name : ''), LOG_COMBAT );
-	},
-
-	/**
-	 * Dispatch only if game running.
-	 * @param  {...any} params
-	 */
-	gfire( ...params ) {
-		if ( this.started ) events.emit.apply( events, params );
 	},
 
 	/**

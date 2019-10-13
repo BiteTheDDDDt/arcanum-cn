@@ -87,9 +87,9 @@ export default class Stat {
 	 */
 	constructor( vars=null, path, pos ) {
 
-		if ( typeof vars === 'object') {
+		if ( vars && typeof vars === 'object') {
 
-			if ( vars ) Object.assign( this, vars );
+			Object.assign( this, vars );
 
 		} else if ( !isNaN(vars) ) this._base = Number(vars);
 
@@ -100,6 +100,19 @@ export default class Stat {
 		this._pct = this._pct||0;
 
 		if ( !this.mods ) this.mods = {};
+		else if ( this.mods.all ) {
+
+			/**
+			 * @compat
+			 */
+			let cur = this.mods.all;
+			if ( cur.count > 0 ) {
+				this._base += cur.bonus;
+				this._pct += cur.pct;
+			}
+			delete this.mods.all;
+
+		}
 
 		this.recalc();
 
@@ -118,23 +131,11 @@ export default class Stat {
 		if ( mod instanceof Mod ) return this.addMod( mod, amt );
 		else if ( !isNaN(mod) ) {
 			this.base += mod;
-		} else {
-
-
-
+			return;
+		} else if ( typeof mod === 'object') {
+			this.base += cur.bonus;
+			this.pct += cur.pct;
 		}
-
-		//console.log('apply default mod: ' + mod );
-		let cur = this.defaultMod();
-
-		let prevBonus = cur.bonus;
-		let prevPct = cur.pct;
-
-		cur.add( mod, amt );
-
-		// save and update change.
-		this._bonus += cur.bonus - prevBonus;
-		this._mPct += cur.pct - prevPct;
 
 	}
 
