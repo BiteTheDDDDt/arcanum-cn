@@ -1,6 +1,5 @@
 <script>
 import ItemsBase from './itemsBase.js';
-import Game from '../game';
 
 export default {
 
@@ -23,7 +22,7 @@ export default {
 	<button
 		class="wrapped-btn"
 		:disabled="!usable(it)"
-		@click="emit( pickEvent||'upgrade', pEvent, it)">{{ showName(it) }}</button>
+		@click="emit( pickEvent||'upgrade', it)">{{ showName(it) }}</button>
 	</span>
 
 </div>

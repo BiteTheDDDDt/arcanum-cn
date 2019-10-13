@@ -2,7 +2,6 @@
 import Game from '../game';
 import Menu from './components/menu.vue';
 import ResoucesView from './resources.vue';
-import ActionsView from './actionsView.vue';
 import Upgrades from './upgrades.vue';
 import Quickbar from './quickbar.vue';
 import ItemsBase from './itemsBase';
@@ -36,7 +35,6 @@ export default {
 	mixins:[ItemsBase,Cheats],
 	components:{
 		resources:ResoucesView,
-		actions:ActionsView,
 		upgrades:Upgrades,
 		itempopup:ItemPopup,
 		vitals:Vitals,
@@ -320,7 +318,7 @@ export default {
 		<template slot="sect_main">
 
 		<div class="main-actions">
-		<actions class="action-list" :items="state.actions" />
+		<upgrades class="action-list" :items="state.actions" />
 		<upgrades class="upgrade-list" :items="state.upgrades" />
 		<upgrades class="upgrade-list" :items="state.classes" />
 		</div>
