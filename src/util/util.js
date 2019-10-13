@@ -298,7 +298,7 @@ export function showObj(obj) {
 
 }
 
-export function logObj( obj, msg='' ) {
+export const logObj = ( obj, msg='' ) => {
 	console.log( (msg ? msg + ': ' : '' ) + showObj(obj) );
 }
 

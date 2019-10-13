@@ -1,7 +1,7 @@
 <script>
 import Game from '../../game';
 import Settings from '../../settings';
-
+import {logObj} from '../../util/util';
 import ItemBase from '../itemsBase';
 
 import FilterBox from '../components/filterbox.vue';
@@ -100,11 +100,9 @@ export default {
 
 			if ( schools.length>0 || level ) {
 
-				return spells.filter(v=>{
-					return
-					(!schools||schools.length===0||schools.includes(v.school))
-						&&(!level||(v.level===level));
-				});
+				return spells.filter(v=> (schools.length===0||schools.includes(v.school))
+						&&(!level||(v.level===level))
+				);
 
 			}
 
