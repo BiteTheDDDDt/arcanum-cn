@@ -252,7 +252,7 @@
 			"unease":"0~2",
 			"shadowlore.exp":1,
 			"spiritlore.exp":1,
-			"spiritlore.max":0.01
+			"spiritlore.max":0.001
 		}
 	},
 	{
@@ -292,7 +292,7 @@
 		"effect":{
 			"unease":"1~2",
 			"rage":"2~4",
-			"spiritlore.max":0.01,
+			"spiritlore.max":0.001,
 			"divination.exp":1,
 			"scrying.exp":1
 

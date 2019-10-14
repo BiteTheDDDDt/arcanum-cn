@@ -324,8 +324,7 @@
 				"rage":"1~2",
 				"herbalism.exp":1,
 				"spiritlore.exp":1,
-				"spiritlore.max":0.01
-			},
+				"spiritlore.max":0.003			},
 			"loot":{
 				"evt_hal_imp":"15%",
 				"cobwebs":"0~2",

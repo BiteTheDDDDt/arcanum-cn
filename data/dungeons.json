@@ -398,7 +398,7 @@
 		"name":"the great bog",
 		"desc":"for hundreds of miles the great bog spreads across the dark center of Dhrune.",
 		"require":"g.player.dist>=200",
-		"level":11,
+		"level":13,
 		"run":{
 			"stamina":3
 		},
@@ -411,12 +411,12 @@
 		},
 		"boss":"bogwitch",
 		"enemies":[
-			"direcrocodile",
+			["direcrocodile","direcrocodile"],
 			"ghost",
 			["leech","leech","leech","leech","leech"],
 			"grimstalk",
 			"stalker",
-			"corpse",
+			["corpse","corpse","corpse","corpse"],
 			["eel","eel","eel"],
 			"lesserwyrm",
 			"willowisp",
@@ -501,11 +501,11 @@
 		"name":"desilla's grotto",
 		"desc":"in all the world, the most enjoyable place to die.",
 		"require":"g.player.dist>=500",
-		"level":13,
+		"level":15,
 		"run":{
 			"stamina":2
 		},
-		"length":50,
+		"length":75,
 		"result":{
 			"gems":"3~5",
 			"gold":"50~100",
@@ -514,14 +514,52 @@
 		"boss":"desillaconcubine",
 		"enemies":[
 			"grimstalk",
-			"stalker",
+			["stalker","willowisp"],
 			["elf","elf","elf"],
 			"incubus",
-			"imp",
-			"willowisp",
+			["imp","imp","imp"],
 			"succubus"
-		],"flavor":"desilla was known for two things; her ruthlessness, and her entertainments."
+		],"flavor":"desilla was known as much for her entertainments as her ruthlessness."
 
+	},
+	{
+		"id":"belowgorborung",
+		"name":"below mt gorborung",
+		"desc":"they say the roots of the mountain extend deeper than its heights.",
+		"level":25,
+		"length":100,
+		"run":{
+			"stamina":3
+		},
+		"result":{
+			"title":"mountaineer",
+			"earthgem":5,
+			"gems":10,
+			"tomes":2
+		},
+		"boss":{
+			"cthulhu":50,
+			"gorborung":100
+		},
+		"enemies":[
+			["stonegolem","stonegolem"],
+			["magmaelemental","magmaelemental"],
+			["earthelemental","earthelemental","earthelemental"],
+			["dwarp","dwarp"],
+			["callodiper","callodiper","callodiper"],
+			["cavetroll","cavetroll"],
+			["skellord","skellord"],
+			["wyvern","wyvern"],
+			"behemoth",
+			["trow","trow"],
+			"reddragon",
+			"balrog",
+			"m_lichlord",
+			["shade","shade"],
+			"beholder",
+			["ogre","ogre","ogre"],
+			"cavetroll"
+		]
 	},
 	{
 		"id":"holyhall",

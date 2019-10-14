@@ -350,6 +350,7 @@
 		"id":"lightlore",
 		"tags":"t_school",
 		"name":"lumenology",
+		"school":"light",
 		"desc":"study of pure light",
 		"require":"lightsource",
 		"run":{

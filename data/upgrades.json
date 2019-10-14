@@ -368,6 +368,7 @@
 		"cost":300,
 		"flavor":"who prices these bags?!",
 		"mod":{
+			"gem.max":1,
 			"gems.max":5
 		}
 	},

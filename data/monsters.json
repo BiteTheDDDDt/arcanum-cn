@@ -1302,6 +1302,20 @@
 
 	},
 	{
+		"id":"callodiper",
+		"biome":"cave",
+        "level":5,
+        "desc":"their globed hands glow with pale, unearthly light.",
+        "hp":40,
+        "attack":{
+			"targets":"all",
+            "name":"light burst",
+            "kind":"light",
+            "dmg":"3~5"
+        },"flavor":"it is said they feed on darkness."
+
+	},
+	{
 		"id":"direwolf",
 		"name":"dire wolf",
         "level":5,
@@ -1581,11 +1595,27 @@
 			"water":25
 		}
 
-    },
+	},
+	{
+		"id":"dwarp",
+		"biome":"cave",
+        "level":7,
+        "desc":"its contorted purple body can hide in the smallest crevices.",
+        "hp":35,
+		"tohit":9,
+		"speed":9,
+        "defense":20,
+        "attack":{
+            "name":"strangle",
+            "kind":"physical",
+            "dmg":"3~7"
+        },"flavor":"a dwarp can hear the drip of water through 100 feet of solid rock."
+
+	},
     {
         "id":"ogre",
         "level":7,
-        "desc":"Ever wonder what orcs would look like if they were three times as large?",
+        "flavor":"Ever wonder how orcs would look if they were three times as large?",
         "hp":45,
         "tohit":8,
         "defense":20,
@@ -1664,9 +1694,6 @@
 				"kind":"poison",
 				"damage":"3~5"
 			}
-		},
-		"loot":{
-
 		}
 	},
     {
@@ -1722,7 +1749,7 @@
             "kind":"cold",
 			"dmg":"10~20",
 			"leech":0.5
-		},"loot":{"spectral essence":5},
+		},
 		"resist":{
 			"shadow":20,
 			"spirit":20,
@@ -2415,6 +2442,33 @@
 			"max":11
 		}
 
+	},
+	{
+		"id":"desilla",
+        "level":16,
+        "evil":27,
+        "desc":"Among the warlocks, desilla was the least inclined to conquest.",
+        "hp":666,
+        "tohit":20,
+        "defense":66,
+        "attack":[
+			{
+				"name":"red haze",
+				"targets":"all",
+				"dot":{
+					"duration":20,
+					"tohit":-5
+				}
+			},
+			{
+            	"name":"red bolt",
+				"dmg":"15~23",
+				"kind":"demon"
+			}
+		], "loot":{
+			"max":15
+		}
+
     },
 	{
 		"id":"firegolem",
@@ -2436,7 +2490,7 @@
         "id":"grimstalk",
         "level":11,
         "biome":"woods",
-        "desc":"Slashy wood demon.",
+        "desc":"A wooden demon with fingers like blades.",
         "kind":"demon",
         "evil":19,
         "hp":53,
@@ -2447,7 +2501,7 @@
             "name":"claws",
             "kind":"slash",
             "dmg":"12~28"
-        }, "loot":{}
+        }
 
     },
     {
@@ -2455,28 +2509,29 @@
         "level":12,
         "evil":-8,
         "desc":"She'll take you to Valhalla.",
-        "hp":75,
+        "hp":155,
         "tohit":15,
         "defense":54,
         "attack":{
             "name":"claymore",
             "kind":"slash",
-            "dmg":"15~20"
+            "dmg":"10~17"
         }, "loot":{ "ichor":"1%"}
 
 	},
 	{
         "id":"trow",
         "level":12,
-        "evil":5,
+		"evil":5,
+		"desc":"a towering giant of stone",
         "flavor":"You should have stayed out of the cloudspine.",
-        "hp":115,
+        "hp":225,
         "tohit":10,
         "defense":50,
         "attack":{
             "name":"kick",
             "kind":"blunt",
-            "dmg":"14~27"
+            "dmg":"14~20"
         },"loot":{}
 
     },
@@ -2540,21 +2595,22 @@
         "name":"bog witch",
         "level":13,
         "evil":29,
-        "kind":"humanoid",
+		"kind":"humanoid",
+		"unique":true,
         "biome":"swamp",
         "desc":"Vicious witch in the waters of the Great Bog",
-        "hp":110,
+        "hp":500,
         "tohit":14,
 		"defense":48,
 		"regen":2,
         "attack":{
             "name":"claws",
             "kind":"slash",
-			"dmg":"18~25",
+			"dmg":"12~20",
 			"dot":{
 				"kind":"poison",
 				"name":"black blood",
-				"dmg":"3~5",
+				"dmg":"1~4",
 				"duration":20
 			}
 		}, "loot":{},
@@ -3017,8 +3073,8 @@
         "desc":"In his house at R'lyeh dead Cthulhu waits dreaming.",
         "hp":550,
 		"tohit":25,
-		"regen":20,
-        "defense":150,
+		"regen":5,
+        "defense":125,
         "attack":{
 			"name":"Madness",
 			"leech":0.25,
@@ -3048,21 +3104,19 @@
 	{
 		"id":"gorborung",
 		"name":"The Gorborung",
-		"level":33,
+		"level":25,
 		"unique":true,
         "evil":100,
-        "kind":"outsider",
         "desc":"The gargantuan entity in the depths of Mr. Gorbu never seen by mortal eyes.",
-        "hp":1200,
-		"tohit":33,
-		"regen":30,
-        "defense":200,
+        "hp":5000,
+		"tohit":20,
+        "defense":100,
         "attack":{
 			"name":"gorboring",
 			"kind":"sonic",
 			"targets":"all",
-            "dmg":"100~220"
-        }
+            "dmg":"50~75"
+        },"flavor":"most agree it's best the gorborung cannot be seen."
 	},
 	{
 		"id":"fetigern",
