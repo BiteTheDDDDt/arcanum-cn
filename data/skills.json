@@ -628,7 +628,7 @@
 			"mana":0.1
 		},
 		"mod":{
-			"dist.max":"5%",
+			"dist":"5%",
 			"arcana.max":1,
 			"research.max":1
 		}, "flavor":"there is no safe distance"
@@ -650,7 +650,7 @@
 		},
 		"mod":{
 			"space.max":"2%",
-			"dist.max":"1%",
+			"dist":"1%",
 			"research.max":1
 		}, "flavor":"what could go wrong?"
 
@@ -686,7 +686,7 @@
 		"mod":{
 			"mana.max":0.2,
 			"research.max":1,
-			"dist.max":"1%",
+			"dist":"1%",
 			"arcana.max":0.2
 		}
 	}

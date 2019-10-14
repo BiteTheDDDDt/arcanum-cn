@@ -6,7 +6,7 @@ import Item from './items/item';
 import Encounter, { ENCOUNTER } from './items/encounter';
 import Npc from './chars/npc';
 import GenGroup from './genGroup';
-import { pushNonNull } from './util/util';
+import { pushNonNull, logObj } from './util/util';
 import GData from './items/gdata';
 import { EVT_UNLOCK } from './events';
 
@@ -201,6 +201,11 @@ export default class ItemGen {
 		if ( typeof info === 'string' ) {
 
 			info = this.state.getData(info);
+			if ( info instanceof GData && !info.isRecipe && !info.instance) {
+
+				return this.getGData( info, amt );
+
+			}
 
 		}
 
@@ -214,12 +219,7 @@ export default class ItemGen {
 		if ( info.type === 'wearable' || info.type === 'weapon'
 				|| info.type ==='armor') return this.fromData( info, info.level );
 
-		/** @todo: THIS IS BAD */
-		if ( info instanceof GData && !info.isRecipe && !info.instance) {
-
-			return this.getGData( info, amt );
-
-		} else if ( info.instance || info.isRecipe ) {
+		else if ( info.instance || info.isRecipe ) {
 			return this.instance( info );
 		}
 
@@ -265,11 +265,14 @@ export default class ItemGen {
 		} else if ( amt === true ) {
 
 			// unlock.
-			it.locked = false;
-			Events.emit( EVT_UNLOCK, it );
+			if ( it.locked ) {
+				it.locked = false;
+				Events.emit( EVT_UNLOCK, it );
+			}
 
 		} else console.warn('unknown amount: '+ it + ' -> ' + amt );
 
+		return null;
 	}
 
 	/**

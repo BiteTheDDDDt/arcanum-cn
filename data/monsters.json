@@ -482,6 +482,7 @@
 	},
 	{
 		"id":"gobwarrior",
+		"name":"goblin warrior",
 		"kind":"humanoid",
 		"level":4,
 		"hp":8,

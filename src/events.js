@@ -171,31 +171,38 @@ export default {
 
 	onLoot( loot ) {
 
-		let text;
-
 		if ( !loot ) return;
 
-		if ( Array.isArray(loot)) {
+		this.log.log( 'LOOT', this.getDisplay(loot), LOG_LOOT );
 
-			let len = loot.length;
-			if ( len === 0 ) return;
+	},
 
-			let i = 0;
-			while ( i < len && loot[i] == null ) i++;
-			if ( i >= len ) return;
+	/**
+	 * Get display string for item or item list.
+	 * Empty and null entries are skipped.
+	 * @param {string|string[]|Nameable} it
+	 * @returns {string}
+	 */
+	getDisplay( it ) {
 
-			text = loot[i].name;
-			while ( ++i < len ) {
-				if ( loot[i]) text += ', ' + loot[i].name;
-			}
+		if ( typeof it === 'object') {
 
-		} else if ( typeof loot === 'object') {
+			if ( Array.isArray(it) ) {
 
-			text = loot.name;
+				let i=0, len = it.length;
 
-		} else if ( typeof loot === 'string' ) text = loot;
+				while ( i < len && it[i] == null ) i++;
+				if ( i >= len ) return '';
 
-		this.log.log( 'LOOT', text, LOG_LOOT );
+				let text = this.getDisplay(it[i]);
+				while ( ++i < len ) {
+					if ( it[i]) text += ', ' + this.getDisplay(it[i]);
+				}
+
+			} else return it.name;
+		}
+
+		return it;
 
 	},
 

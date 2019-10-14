@@ -52,7 +52,7 @@
 			"arcana":1
 		},
 		"mod":{
-			"dist.max":115,
+			"dist":115,
 			"spirit.max":1
 		}
 
@@ -72,7 +72,7 @@
 			"arcana":1
 		},
 		"mod":{
-			"dist.max":350,
+			"dist":350,
 			"spirit.max":1,
 			"spirit.rate":0.1
 		}
@@ -93,7 +93,7 @@
 			"arcana":1
 		},
 		"mod":{
-			"dist.max":300
+			"dist":300
 		}
 
 	},
@@ -120,7 +120,7 @@
 			"gold":100
 		},
 		"mod":{
-			"dist.max":10
+			"dist":10
 		}
 
 	},
@@ -135,7 +135,7 @@
 			"gold":200
 		},
 		"mod":{
-			"dist.max":25
+			"dist":25
 		}
 
 	},
@@ -151,7 +151,7 @@
 			"gems":2
 		},
 		"mod":{
-			"dist.max":50
+			"dist":50
 		}
 
 	},
@@ -167,7 +167,7 @@
 			"gems":5
 		},
 		"mod":{
-			"dist.max":95
+			"dist":95
 		}
 
 	},
@@ -186,7 +186,7 @@
 			"bonedust":20
 		},
 		"mod":{
-			"dist.max":266
+			"dist":266
 		}
 
 	},
@@ -205,7 +205,7 @@
 			"firegem":5
 		},
 		"mod":{
-			"dist.max":275
+			"dist":275
 		}
 
 	},
@@ -222,7 +222,7 @@
 			"firegem":5
 		},
 		"mod":{
-			"dist.max":550
+			"dist":550
 		},"flavor":"bring me my chariot of fire"
 
 	},
@@ -239,7 +239,7 @@
 			"gems":5
 		},
 		"mod":{
-			"dist.max":300
+			"dist":300
 		}
 
 	},
@@ -256,7 +256,7 @@
 			"gems":5
 		},
 		"mod":{
-			"dist.max":325
+			"dist":325
 		}
 
 	},
@@ -270,7 +270,7 @@
 			"research":500
 		},
 		"mod":{
-			"dist.max":"20%"
+			"dist":"20%"
 		}
 
 	},
@@ -286,22 +286,50 @@
 		},
 		"mod":{
 			"naturelore.max":1,
-			"dist.max":5
+			"dist":5
 		}
 
 	},
 	{
 
-		"id":"up_map",
+		"id":"up_map1",
+		"name":"travel map",
+		"require":"g.crafting>=6&&g.astronomy>=4",
+		"desc":"a map of the surrounding localities.",
+		"cost":{
+			"research":700
+		},
+		"mod":{
+			"dist":"5%"
+		}
+
+	},
+	{
+
+		"id":"up_pack",
+		"name":"travel pack",
+		"require":"tier0",
+		"desc":"a pack to facilitate longer travels.",
+		"cost":{
+			"gold":800
+		},
+		"mod":{
+			"dist":"7%"
+		},"flavor":"someone needs to have a talk with the sack-maker's guild."
+
+	},
+	{
+
+		"id":"up_ten_map",
 		"name":"tenwick's travel map",
-		"require":"g.tier2>0&&g.player.level>=10",
+		"require":"g.history>=4||g.crafting>=10",
 		"desc":"though neither a mage, nor a warrior, few braved the wilds of inner-Dhrune so completely as Tenwick.",
 		"cost":{
 			"gold":800,
 			"research":900
 		},
 		"mod":{
-			"dist.max":"25%"
+			"dist":"25%"
 		}
 
 	},
@@ -316,7 +344,7 @@
 			"gems":10
 		},
 		"mod":{
-			"dist.max":"25%"
+			"dist":"25%"
 		}
 
 	},
