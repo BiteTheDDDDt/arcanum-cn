@@ -1813,6 +1813,30 @@
 	},
 	{
 
+		"id":"magnificence",
+		"name":"blinding flash",
+		"level":7,
+		"desc":"",
+		"buy":{
+			"tomes":1,
+			"lightgem":10,
+			"runes":5
+		},
+		"cost":{
+			"light":7
+		},
+		"dot":{
+			"duration":60,
+			"mod":{
+				"tohit":5,
+				"hp.max":50,
+				"defense":10,
+				"speed":2
+			}
+		}
+	},
+	{
+
 		"id":"blindflash",
 		"name":"blinding flash",
 		"level":8,

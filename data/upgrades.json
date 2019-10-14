@@ -1753,6 +1753,20 @@
 
 	},
 	{
+		"id":"solidifier",
+		"name":"crystal solidifier",
+		"require":"g.alchemy>=10",
+		"cost":{
+			"research":500,
+			"codices":10
+		},
+		"mod":{
+			"gems.rate":0.01,
+			"gold.rate":-0.01
+		}
+
+	},
+	{
 		"id":"crucible",
 		"name":"fine crucible",
 		"desc":"resiliant vessel for melting substances",

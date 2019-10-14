@@ -600,7 +600,7 @@
 		"id":"holyhall",
 		"name":"hall of the holy",
 		"desc":"Various divine spirits watch over the world. And the greatest have their halls and kingdoms.",
-		"require":"g.planeslore.max>=30",
+		"require":"g.planeslore.max>=12&g.evil>0",
 		"level":17,
 		"length":50,
 		"run":{

@@ -203,6 +203,16 @@
 		"enc_primer1",
 		"enc_workbook1"
 	]
+},
+{
+	"id":"genezereth",
+	"level":15,
+	"length":100,
+	"desc":"An ancient bridge and library spanning Markhul's gap.",
+	"flavor":"third of the Four Weirs of Dhrune.",
+	"loot":{
+		"tomes":"2~3"
+	}
 }
 
 

@@ -336,14 +336,14 @@
 		"effect":{
 			"unease":"2~4",
 			"bf":"-2~3",
-			"potions.exp":0.01,
+			"potions.exp":0.001,
 			"herbalism.exp":1,
-			"scrying.max":0.01,
-			"history.max":0.01
+			"scrying.max":0.001,
+			"history.max":0.001
 
 		},
 		"result":{
-			"arcana":0.1
+			"arcana":0.01
 		}
 
 	},
@@ -428,6 +428,50 @@
 			"rage":"-1~-2",
 			"naturelore.exp":1,
 			"lightlore.exp":1
+		}
+	},
+	{
+		"id":"enc_tome",
+		"name":"runic tome",
+		"desc":"even deciphering the words is a tedious chore.",
+		"effect":{
+			"bf":"-1~4",
+			"rage":"0~4",
+			"unease":"0~2",
+			"lore.exp":2
+		},
+		"result":{
+			"codices":0.1,
+			"arcana":0.01
+		}
+	},
+	{
+		"id":"enc_history",
+		"name":"historic manuscript",
+		"desc":"much that was is lost.",
+		"effect":{
+			"bf":"-1~3",
+			"rage":"0~3",
+			"history.exp":2
+		},
+		"result":{
+			"history.max":0.001,
+			"arcana":0.01
+		}
+		,"flavor":"for none now live, who remember it."
+	},
+	{
+		"id":"enc_gap",
+		"name":"markhul's gap",
+		"desc":"looking over the edge, you see no sign of a bottom",
+		"effect":{
+			"bf":"0~3",
+			"unease":"1~4",
+			"madness":"0~3",
+			"air.exp":2
+		},
+		"result":{
+			"air.max":0.001
 		}
 	}
 ]
