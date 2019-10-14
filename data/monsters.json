@@ -1436,7 +1436,6 @@
 	{
         "id":"bugbear",
         "level":6,
-        "desc":"",
         "evil":10,
         "hp":43,
         "defense":25,
@@ -2207,6 +2206,29 @@
 
 	},
 	{
+		"id":"lightelem",
+        "name":"light elemental",
+        "level":8,
+        "kind":"elemental",
+        "desc":"Too bright to see.",
+        "tohit":13,
+        "hp":30,
+        "defense":65,
+        "attack":{
+			"targets":"all",
+            "name":"light",
+            "kind":"light",
+			"dmg":"4~10",
+			"dot":{
+				"name":"blind",
+				"kind":"blind",
+				"tohit":-3
+			}
+		},"loot":{"lightgem":"10%"},
+		"immune":"fire,light"
+
+	},
+	{
 		"id":"cavetroll",
         "name":"cave troll",
         "level":9,
@@ -2443,33 +2465,6 @@
 		}
 
 	},
-	{
-		"id":"desilla",
-        "level":16,
-        "evil":27,
-        "desc":"Among the warlocks, desilla was the least inclined to conquest.",
-        "hp":666,
-        "tohit":20,
-        "defense":66,
-        "attack":[
-			{
-				"name":"red haze",
-				"targets":"all",
-				"dot":{
-					"duration":20,
-					"tohit":-5
-				}
-			},
-			{
-            	"name":"red bolt",
-				"dmg":"15~23",
-				"kind":"demon"
-			}
-		], "loot":{
-			"max":15
-		}
-
-    },
 	{
 		"id":"firegolem",
         "name":"fire golem",
@@ -2858,14 +2853,14 @@
         "level":16,
         "kind":"giant",
         "desc":"",
-        "hp":170,
+        "hp":160,
         "tohit":17,
         "defense":65,
         "attack":{
             "name":"punch",
             "kind":"cold",
             "dmg":"30~40"
-		 } , "loot":{},
+		 },
 		 "resist":{
 			 "water":70,
 			 "air":70
@@ -2879,9 +2874,9 @@
         "biome":"mountains",
         "level":16,
         "desc":"A small mountain of magma.",
-        "hp":150,
+        "hp":170,
         "tohit":15,
-        "defense":65,
+        "defense":60,
         "attack":{
             "name":"lava slam",
             "kind":"fire",
@@ -2912,7 +2907,7 @@
         "name":"mithril golem",
         "level":17,
         "kind":"construct",
-        "desc":"Would be worth a fortune if you could actually make a dent in it.",
+        "desc":"Would be worth a fortune if you could even make a dent in it.",
         "hp":200,
         "tohit":8,
         "defense":80,
@@ -2932,7 +2927,7 @@
         "level":17,
         "kind":"undead",
         "evil":60,
-        "desc":"Probably on a first name basis with Dracula.",
+        "desc":"",
         "hp":150,
         "tohit":15,
 		"defense":75,
@@ -3009,7 +3004,7 @@
         "tohit":15,
         "defense":115,
         "attack":{
-            "name":"SMASH",
+            "name":"smash",
             "kind":"blunt",
             "dmg":"25~100"
 		},"loot":{"adamant":25},
@@ -3031,6 +3026,61 @@
             "dmg":"50~100"
         }
 	},
+	{
+		"id":"karnivex",
+        "level":19,
+        "evil":27,
+		"desc":"the weakest of the warlocks built his reputation upon slaughter.",
+		"flavor":"subtlety was lost on karnivex.",
+        "hp":1200,
+        "tohit":20,
+        "defense":110,
+        "attack":[
+			{
+				"name":"fire storm",
+				"targets":"all",
+				"dot":{
+					"duration":20,
+					"dmg":"5~7"
+				}
+			},
+			{
+            	"name":"fire bolt",
+				"dmg":"20~40"
+			}
+		], "loot":{
+			"max":20
+		}
+
+    },
+	{
+		"id":"desilla",
+        "level":20,
+        "evil":27,
+        "desc":"Among the warlocks, desilla was the least inclined to conquest.",
+        "hp":1500,
+        "tohit":25,
+        "defense":100,
+        "attack":[
+			{
+				"name":"red haze",
+				"targets":"all",
+				"dot":{
+					"id":"redhaze",
+					"duration":20,
+					"tohit":-10
+				}
+			},
+			{
+            	"name":"red bolt",
+				"dmg":"15~23",
+				"kind":"demon"
+			}
+		], "loot":{
+			"max":20
+		}
+
+    },
 	{
 		"id":"natureswrath",
         "name":"nature's wrath",

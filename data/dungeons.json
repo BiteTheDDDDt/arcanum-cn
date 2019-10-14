@@ -528,6 +528,36 @@
 
 	},
 	{
+		"id":"charredkeep",
+		"name":"charred keep",
+		"desc":"its smouldering ruins have once more begun to burn.",
+		"level":18,
+		"run":{
+			"stamina":2.5
+		},
+		"length":100,
+		"result":{
+			"gold":"300~500",
+			"ichor":3
+		},
+		"boss":["reddragon","karnivex","reddragon"],
+		"enemies":[
+			"mithrilgolem",
+			["bloodgolem","bloodgolem"],
+			["magicmirror","magicmirror"],
+			"maturereddragon",
+			["manticore","manticore"],
+			"reddragon",
+			"demon",
+			["greendragon","greendragon"],
+			"balrog",
+			"ancientvampire",
+			["masterswordsman","masterswordsman","masterswordsman"]
+
+		],"flavor":"burned black by its own denizens"
+
+	},
+	{
 		"id":"belowgorborung",
 		"name":"below mt gorborung",
 		"desc":"they say the roots of the mountain extend deeper than its heights.",
@@ -580,8 +610,17 @@
 			"evilamt":10,
 			"gold":"150~275"
 		},
+		"boss":"archon",
 		"enemies":[
-			"angel"
+			"angel",
+			"mithrilgolem",
+			"angel",
+			["angel","angel"],
+			["lightelem","lightelem","lightelem"],
+			["roc","roc","roc"],
+			["unicorn","unicorn"],
+			["ghost","ghost","ghost"],
+			["pegasus","pegasus","pegasus"]
 		]
 
 	}
