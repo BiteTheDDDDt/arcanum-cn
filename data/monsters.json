@@ -1663,7 +1663,7 @@
     {
 		"id":"direcrocodile",
         "name":"dire crocodile",
-        "kind":"magic beast",
+        "kind":"magicbeast",
         "biome":"swamp",
         "level":8,
         "desc":"",
@@ -1836,7 +1836,7 @@
     {
         "id":"pegasus",
         "level":8,
-        "kind":"magic beast",
+        "kind":"magicbeast",
         "evil":-13,
         "desc":"It's a unicorn with wings and no horn.",
         "hp":54,

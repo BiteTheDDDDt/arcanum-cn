@@ -513,7 +513,12 @@
 		},
 		"boss":"desillaconcubine",
 		"enemies":[
-			"grimstalk",
+			"masterswordsman",
+			["magicblade","magicblade"],
+			["magicmirror","magicmirror"],
+			"unicorn",
+			["pegasus","pegasus"],
+			"quasit",
 			["stalker","willowisp"],
 			["elf","elf","elf"],
 			"incubus",
@@ -532,7 +537,7 @@
 			"stamina":3
 		},
 		"result":{
-			"title":"mountaineer",
+			"title":"lightless",
 			"earthgem":5,
 			"gems":10,
 			"tomes":2

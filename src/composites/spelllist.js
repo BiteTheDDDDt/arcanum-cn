@@ -37,7 +37,7 @@ export default class SpellList extends Inventory {
 
 		super(vars);
 
-		if ( !this.name ) this.name = 'spelllist';
+		this.name = 'spelllist';
 		this.lastInd = this.lastInd || 0;
 
 		this.spaceProp = 'level';

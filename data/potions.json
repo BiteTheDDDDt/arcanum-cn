@@ -79,9 +79,24 @@
 		}
 	},
 	{
+		"id":"pot_heal3",
+		"buy":{
+			"gold":100,
+			"lightgem":1,
+			"research":500
+		},
+		"level":5,
+		"cost":{
+			"herbs":20,
+			"lightgem":1
+		},
+		"name":"minor healing",
+		"use":"heal3"
+	},
+	{
 		"id":"pot_godsblood",
 		"name":"god blood",
-		"level":10,
+		"level":12,
 		"buy":{
 			"gold":500,
 			"tomes":1,

@@ -1088,7 +1088,7 @@
 		"id":"heal1",
 		"level":2,
 		"name":"sealing light",
-		"desc":"a seam of light closes your wounds.",
+		"desc":"seams of light close your wounds.",
 		"school":"light",
 		"require":"g.player.level>=4&&g.lightlore>=4",
 		"buy":{
@@ -1586,7 +1586,7 @@
 		"id":"heal2",
 		"level":4,
 		"name":"sealing light II",
-		"desc":"a seam of light closes your wounds.",
+		"desc":"seams of light close your wounds.",
 		"school":"light",
 		"buy":{
 
@@ -1889,7 +1889,27 @@
 		}
 
 	},
+	{
+		"id":"heal3",
+		"level":7,
+		"name":"sealing light III",
+		"desc":"seams of light close your wounds.",
+		"school":"light",
+		"require":"g.lightlore>=14",
+		"buy":{
 
+			"research":1000,
+			"tomes":5,
+			"lightgem":5
+
+		},
+		"cost":{
+			"light":7
+		},
+		"effect":{
+			"hp":200
+		}
+	},
 	{
 		"id":"angelofdeath",
 		"name":"angel of death",
