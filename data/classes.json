@@ -128,7 +128,6 @@
 	"desc":"Magic in its purest form.",
 	"actname":"The Prestige",
 	"actdesc":"Pursue the path of pure magic.",
-	"warn":true,
 	"require":"g.tier0>0&&g.lore>=10",
 	"cost":{
 		"research":700,
@@ -142,6 +141,7 @@
 		"tier1":true,
 		"research.max":20,
 		"lore.max":1,
+		"lore.rate":"5%",
 		"astronomy.max":1,
 		"languages.max":1,
 		"arcana.rate":0.001,
@@ -212,7 +212,6 @@
 	"tags":"t_tier1",
 	"desc":"Witch",
 	"name":"witchcraft",
-	"warn":true,
 	"actname":"The Craft",
 	"actdesc":"Enter into the practice of witchcraft.",
 	"require":"g.tier0>0&&g.animals>=2&&g.herbalism>=3&&g.potions>=3",
@@ -271,6 +270,34 @@
 		"chaos.rate":0.1,
 		"potions.max":1,
 		"spiritlore.max":1
+	}
+},
+{
+	"id":"madcap",
+	"name":"mystic madcap",
+	"title":"arcane trickster",
+	"desc":"A penchant for chaos",
+	"tags":"t_tier2",
+	"require":"g.trickery>=7&&g.tier1>0",
+	"cost":{
+		"research":700,
+		"gems":20,
+		"gold":1000,
+		"arcana":8
+	},
+	"effect":{
+		"sp":3
+	},
+	"mod":{
+		"tier2":true,
+		"gold.max":50,
+		"trickery.max":2,
+		"trickery.rate":"10%",
+		"conjuration.max":1,
+		"lore.max":1,
+		"potions.max":1,
+		"mysticism.max":1,
+		"mysticism.rate":"5%"
 	}
 },
 {
@@ -335,7 +362,6 @@
 	"title":"Battlemage",
 	"tags":"t_tier2",
 	"actdesc":"Pursue the path of battle.",
-	"warn":true,
 	"require":"g.tier1>0&&g.player.level>=10&&g.armory>0",
 	"cost":{
 		"research":550,
@@ -532,8 +558,6 @@
 	"desc":"A master of charms and enchantments.",
 	"require":"g.tier1>0&&g.enchanting>=6&&g.charms>=3",
 	"tags":"t_tier2",
-	"disable":[],
-	"warn":true,
 	"cost":{
 		"research":2000,
 		"managem":10,
@@ -559,8 +583,6 @@
 	"title":"geomancer",
 	"desc":"lord of rocks.",
 	"tags":"t_tier2",
-	"disable":[],
-	"warn":true,
 	"actdesc":"Become a geomancer.",
 	"require":"g.tier1>0&&g.earthlore>=10",
 	"cost":{
@@ -588,7 +610,6 @@
 	"tags":"t_tier2",
 	"disable":[],
 	"name":"pyromancy",
-	"warn":true,
 	"actdesc":"Become a pyromancer.",
 	"require":"g.tier1>0&&g.firelore>=10",
 	"cost":{
@@ -616,7 +637,6 @@
 	"tags":"t_tier2",
 	"disable":[],
 	"name":"hydromancy",
-	"warn":true,
 	"actdesc":"Become a hydromancer.",
 	"require":"g.tier1>0&&g.waterlore>=10",
 	"cost":{
@@ -645,7 +665,6 @@
 	"tags":"t_tier2",
 	"disable":[],
 	"name":"wind mage",
-	"warn":true,
 	"actdesc":"Become a wind.",
 	"require":"g.tier1>0&&g.airlore>=10",
 	"cost":{
