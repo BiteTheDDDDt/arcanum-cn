@@ -1409,8 +1409,10 @@
 			"dot":{
 				"id":"jinx",
 				"kind":"curse",
-				"duration":20,
-				"tohit":-5
+				"mod":{
+					"tohit":-5
+				},
+				"duration":20
 			}
 		}
 	},
@@ -1469,6 +1471,7 @@
 	{
 
 		"id":"massjinx",
+		"name":"mass jinx",
 		"level":4,
 		"require":"trickster",
 		"desc":"curse all enemies with a streak of bad luck.",
@@ -1485,7 +1488,9 @@
 				"id":"jinx",
 				"kind":"curse",
 				"duration":30,
-				"tohit":-10
+				"mod":{
+					"tohit":-10
+				}
 			}
 		}
 	},

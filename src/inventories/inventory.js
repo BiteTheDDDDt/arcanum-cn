@@ -86,7 +86,7 @@ export default class Inventory {
 	 */
 	add(it){
 
-		if ( it === null || it === undefined || typeof it === 'boolean' || this.full() ) return false;
+		if ( it === null || it === undefined || typeof it === 'boolean' || typeof it === 'string' || this.full() ) return false;
 		if ( Array.isArray(it) ) {
 
 			for( let i = it.length-1; i>=0; i-- ) {

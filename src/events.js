@@ -172,8 +172,10 @@ export default {
 	onLoot( loot ) {
 
 		if ( !loot ) return;
+		let text = this.getDisplay(loot);
+		if ( !text) return;
 
-		this.log.log( 'LOOT', this.getDisplay(loot), LOG_LOOT );
+		this.log.log( 'LOOT', text, LOG_LOOT );
 
 	},
 
@@ -198,6 +200,8 @@ export default {
 				while ( ++i < len ) {
 					if ( it[i]) text += ', ' + this.getDisplay(it[i]);
 				}
+
+				return text;
 
 			} else return it.name;
 		}
