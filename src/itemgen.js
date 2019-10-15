@@ -8,7 +8,7 @@ import Npc from './chars/npc';
 import GenGroup from './genGroup';
 import { pushNonNull, logObj } from './util/util';
 import GData from './items/gdata';
-import { EVT_UNLOCK } from './events';
+import events, { EVT_UNLOCK } from './events';
 
 /**
  * Revive a prototyped item based on an item template.
@@ -267,7 +267,7 @@ export default class ItemGen {
 			// unlock.
 			if ( it.locked ) {
 				it.locked = false;
-				Events.emit( EVT_UNLOCK, it );
+				events.emit( EVT_UNLOCK, it );
 			}
 
 		} else console.warn('unknown amount: '+ it + ' -> ' + amt );

@@ -16,7 +16,7 @@ export default {
 <template>
 <div>
 
-	<span :class="{'action-btn':true, locked:it.owned||locked(it),
+	<span :class="{'action-btn':true, locked:(it.owned&&!it.repeat)||locked(it),
 		'running':it.running, runnable:it.perpetual||it.length>0 }" v-for="it in items" :key="it.id"
 		@mouseenter.capture.stop="emit( 'itemover', $event,it)">
 

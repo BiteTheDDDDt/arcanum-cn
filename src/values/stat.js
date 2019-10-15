@@ -130,11 +130,11 @@ export default class Stat {
 
 		if ( mod instanceof Mod ) return this.addMod( mod, amt );
 		else if ( !isNaN(mod) ) {
-			this.base += mod;
+			this.base += amt*mod;
 			return;
 		} else if ( typeof mod === 'object') {
-			this.base += cur.bonus;
-			this.pct += cur.pct;
+			this.base += amt*mod.bonus;
+			this.pct += amt*mod.pct;
 		}
 
 	}

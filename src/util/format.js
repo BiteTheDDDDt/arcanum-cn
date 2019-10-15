@@ -12,6 +12,8 @@ export const precise = (v, n=2) => {
 	else v = Number(v);
 
 	if ( v > 1 ) return v.toFixed(n);
+	let b = Math.floor(v);
+	if ( v === b ) return b;
 
 	if ( Math.pow(10,n)*v < 1 ) n += 2;
 	return v.toFixed(n);

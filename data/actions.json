@@ -164,7 +164,7 @@
 		},
 		"log":{
 			"name":"Book of Spells",
-			"desc":"Under your master's critical eye, you've compiled your very own book of spells."
+			"desc":"Under your master's critical eye, you compile your very own book of spells."
 		},
 		"run":{
 			"stamina":0.2
@@ -374,9 +374,11 @@
 		},
 		"at":{
 
-			"40":{ "effect.gold":0.2 },
-			"300":{ "effect.gold":0.5 },
-			"1200":{ "effect.gold":1 }
+			"40":{ "effect.gold":0.7 },
+			"140":{"effect.gold":0.7},
+			"290":{ "effect.gold":0.7 },
+			"700":{ "effect.gold":0.7 },
+			"1400":{ "effect.gold":1 }
 
 		},
 		"effect":{
@@ -1042,12 +1044,12 @@
 		"length":50,
 		"repeat":false,
 		"cost":{
-			"codices":30,
+			"tomes":5,
 			"mana":10,
 			"gems":10
 		},
 		"run":{
-			"research":5
+			"research":10
 		},
 		"mod":{
 			"lore.max":1,
@@ -1376,7 +1378,7 @@
 	{
 		"id":"summonfamiliar",
 		"name":"summon familiar",
-		"require":"(g.tier0>0&&g.animals>=5&&g.demonology>=4)||g.witch>0",
+		"require":"(g.animals>=5&&g.demonology>=4)||g.witch>0",
 		"repeat":false,
 		"length":100,
 		"cost":{

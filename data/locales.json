@@ -213,15 +213,18 @@
 	"desc":"You could spend a century in Fazbit's lost workshop and still not exhaust its creations.",
 	"loot":{
 		"tomes":"2~3",
-		"gems":"2~3",
+		"gems":"3~5",
+		"airgem":"50%",
+		"firegem":"50%",
 		"fazbitfixate":true
 	},
 	"encs":[
-		"enc_primer1",
+		"enc_alchemy",
 		"enc_chest1",
 		"enc_chest2",
+		"enc_furnace",
 		"enc_workbook1",
-		"enc_workbook1",
+		"enc_alchemy",
 		"enc_workbook2"
 	]
 },
@@ -232,14 +235,14 @@
 	"desc":"An ancient bridge and library spanning Markhul's gap.",
 	"flavor":"third of the Four Weirs of Dhrune.",
 	"loot":{
-		"tomes":"2~3"
+		"tomes":"3~5"
 	},"encs":[
 		"enc_tapestry",
 		"enc_tome",
 		"enc_chest1",
 		"enc_gap",
 		"enc_statue2",
-		"end_history",
+		"enc_history",
 		"enc_primer1"
 	]
 }

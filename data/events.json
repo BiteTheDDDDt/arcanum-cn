@@ -144,8 +144,8 @@
 	},
 	{
 		"id":"tier5",
-		"name":"Dhrunic Rival",
-		"desc":"a contending power of the world",
+		"name":"Dhrunic Magic",
+		"desc":"Magic from a forgotten age.",
 		"lock":"t_tier5",
 		"effect":{
 			"sp":1,

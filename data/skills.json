@@ -252,8 +252,10 @@
 			"stamina":0.2
 		},
 		"effect":{
-			"research":0.1,
-			"sp":0.001
+			"research":0.1
+		},
+		"result":{
+			"sp":0.05
 		},
 		"mod":{
 			"research.max":5,
@@ -365,8 +367,10 @@
 			"stamina":0.4
 		},
 		"effect":{
-			"arcana":0.001,
-			"sp":0.001
+			"arcana":0.001
+		},
+		"result":{
+			"sp":0.05
 		},
 		"mod":{
 			"research.max":1,
@@ -380,7 +384,7 @@
 		"name":"lumenology",
 		"school":"light",
 		"desc":"study of pure light",
-		"require":"lightsource",
+		"need":"lightsource",
 		"run":{
 			"stamina":0.4
 		},
@@ -685,7 +689,8 @@
 	},
 	{
 		"id":"chronomancy",
-		"require":["tier3","timesource"],
+		"require":"tier3",
+		"need":"timesource",
 		"tags":"t_school",
 		"desc":"There must be a way...",
 		"buy":{
