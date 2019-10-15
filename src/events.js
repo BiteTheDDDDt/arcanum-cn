@@ -165,7 +165,7 @@ export default {
 	},
 
 	onUnlock( it ) {
-		if ( it.hidden) return;
+		if ( it.hidden || it.type === 'event' ) return;
 		this.log.log( uppercase(it.type) + ' Unlocked: ' + it.name, null, LOG_UNLOCK );
 	},
 

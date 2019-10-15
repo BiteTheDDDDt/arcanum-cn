@@ -648,19 +648,6 @@ export default {
 
 	},
 
-	/**
-	 *
-	 * @param {Object} evt
-	 */
-	unlockEvent( evt ) {
-
-		// randomized event.
-		if ( evt.rand ) {
-
-		} else evt.amount( this, 1 );
-
-	},
-
 	doLog( logItem ) {
 		Events.emit( EVT_EVENT, logItem );
 	},
@@ -712,15 +699,36 @@ export default {
 		if ( test && !this.unlockTest(test, it ) ) return false;
 
 		if ( it.type === 'event') this.unlockEvent( it );
-		else {
-
-			it.locked = false;
-			it.dirty = true;
-			Events.emit( EVT_UNLOCK, it );
-
-		}
+		else this.doUnlock(it);
 
 		return true;
+
+	},
+
+	doUnlock( it ) {
+
+		it.locked = false;
+		it.dirty = true;
+		Events.emit( EVT_UNLOCK, it );
+
+	},
+
+		/**
+	 *
+	 * @param {Object} evt
+	 */
+	unlockEvent( evt ) {
+
+		if ( evt.disabled  || (!evt.locked &&!evt.repeat ) ) return;
+		evt.locked = false;
+
+		Events.emit(EVT_UNLOCK, evt );
+		evt.dirty = true;
+
+		// randomized event.
+		if ( evt.rand ) {
+
+		} else evt.amount( this, 1 );
 
 	},
 
@@ -835,9 +843,9 @@ export default {
 					else if ( e instanceof Range ) {
 
 						target.amount( this, e.value*dt );
-					} else if ( typeof e === 'boolean') {
+					} else if ( e === true ) {
 
-						target.locked = !e;
+						this.doUnlock( target );
 						target.onUse( this );
 
 					} else target.applyVars(e,dt);

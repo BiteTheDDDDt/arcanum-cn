@@ -45,7 +45,6 @@ export default class TechTree {
 				// these must be added to fringe without being unlocked.
 				let links = this.unlocks[p];
 				if ( links && links.includes(p) ) {
-					console.warn('circle: ' + p);
 					this.fringe.push( this.items[p] );
 				}
 
