@@ -27,7 +27,7 @@ export default {
 
 		},
 		stamina() { return this.player.stamina; },
-		level() {return this.player.level; },
+		level() {return this.player.level.value.value; },
 		hp() {return this.player.hp; },
 		defense() {return this.player.defense.value; },
 		dodge(){ return Math.floor(this.player.dodge.valueOf()) },
@@ -101,9 +101,6 @@ export default {
 
 			<tr @mouseenter.capture.stop="emit( 'itemover', $event,player.weapon)">
 				<td>weapon</td><th>{{ player.weapon ? player.weapon.name : 'None' }}</th></tr>
-
-			<tr @mouseenter.capture.stop="emit( 'itemover', $event,player.primary)">
-				<td>spell</td><th>{{ player.primary ? player.primary.name : 'None' }}</th></tr>
 
 
 		</table>

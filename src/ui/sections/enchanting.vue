@@ -33,8 +33,6 @@ export default {
 			return this.state.filterItems( it=>it.type==='enchant' && !this.locked(it) );
 		}
 
-	},
-	methods:{
 	}
 
 }

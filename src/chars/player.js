@@ -1,7 +1,5 @@
 import Stat from "../values/stat";
 import Resource from "../items/resource";
-import Range from '../values/range';
-import GData from "../items/gdata";
 import Game from '../game';
 import { tryDamage } from '../composites/combat';
 
@@ -33,7 +31,9 @@ export default class Player extends Char {
 
 	get level() { return this._level; }
 	set level(v) {
-		this._level = v;
+
+		if ( this._level && (typeof v === 'number') ) this._level.value = v;
+		else this._level = v;
 	}
 
 	/**
@@ -143,7 +143,6 @@ export default class Player extends Char {
 
 		data.defense = ( this.defense );
 		data.tohit = ( this.tohit );
-		data.level = ( this.level );
 		data.title = ( this.title );
 		data.name = ( this.name );
 
@@ -166,7 +165,6 @@ export default class Player extends Char {
 		data.states = this.states;
 		data.className = this.className;
 
-		if ( this.primary ) data.primary = this.primary.id;
 		if ( this.weapon ) data.weapon = this.weapon.id;
 
 		return data;
@@ -180,7 +178,8 @@ export default class Player extends Char {
 		this.id = this.type = "player";
 
 		//if ( vars ) Object.assign( this, vars );
-		this._level = this._level || 0;
+
+		if ( !this.level ) this.level = 0;
 		this._title = this._title || 'waif';
 
 		this.titles = this._titles || [];
@@ -230,11 +229,6 @@ export default class Player extends Char {
 
 		if ( this.damage === null || this.damage === undefined ) this.damage = 1;
 
-		/**
-		 * @property {Item} primary - primary attack.
-		 */
-		this.primary = this.primary || null;
-
 		if ( !this.weapon ) this.weapon = Fists;
 
 		this._name = this._name || 'wizrobe';
@@ -260,8 +254,6 @@ export default class Player extends Char {
 		if ( this.weapon && (typeof this.weapon === 'string') ) this.weapon = state.equip.find( this.weapon );
 
 		this.spelllist = state.getData('spelllist');
-
-		this.primary = this.primary && typeof this.primary === 'string' ? state.getData( this.primary ) : this.primary;
 
 		// copy in stressors to test player defeats.
 		this.stressors = state.stressors;
@@ -371,30 +363,9 @@ export default class Player extends Char {
 
 	}
 
-	/**
-	 * Set primary spell attack.
-	 * @param {GData} s
-	 */
-	setPrimary( s ) {
-
-		if ( this.primary === s || ( s && !s.attack )) return;
-		if ( this.primary !== null ) this.removePrimary();
-
-		this.primary = s;
-
-	}
-
-	/**
-	 * Clear primary spell attack.
-	 */
-	removePrimary() {
-		//let p = this.primary;
-		this.primary = null;
-	}
-
 	levelUp() {
 
-		this._level++;
+		this._level.value++;
 
 		this.dirty = true;
 		if ( this._level % 3 === 0 ) this.sp.value++;

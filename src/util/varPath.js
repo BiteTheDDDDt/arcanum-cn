@@ -8,7 +8,7 @@ export const PathRegEx = /^(?:[A-Za-z_]+\w*)+(?:\.[A-Za-z_]+\w*)*$/;
 * @param {string} s string to test.
 * @returns {bool} whether the string could represent a variable path.
 */
-export function IsVarPath(s) {
+export const IsVarPath = (s) => {
 	return PathRegEx.test(s)
 }
 

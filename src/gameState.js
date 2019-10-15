@@ -10,10 +10,10 @@ import Minions from './inventories/minions';
 import Runner from './modules/runner';
 import Explore from './composites/explore';
 import { ensure } from './util/util';
-import Quickbar from './composites/quickbar';
 import SpellList from './inventories/spelllist';
 import Group from './composites/group';
 import UserSpells from './inventories/userSpells';
+import Quickbars from './composites/quickbars';
 
 export const REST_SLOT = 'rest';
 
@@ -29,7 +29,7 @@ export default class GameState {
 		let data = {
 
 			items:( this.items ),
-			quickbar:this.quickbar,
+			bars:this.bars,
 			slots:slotIds,
 			equip:( this.equip ),
 			raid:( this.raid ),
@@ -70,7 +70,11 @@ export default class GameState {
 		/**
 		 * @compat
 		 */
-		this.quickbar = new Quickbar( this.quickslots ||baseData.quickbar );
+		this.bars = new Quickbars(
+
+			baseData.bars ||
+				{ bars:[baseData.quickbar] }
+		);
 
 		this.initMaterials( this.materials );
 
@@ -169,7 +173,7 @@ export default class GameState {
 		this.raid.revive( this );
 		this.explore.revive(this);
 
-		this.quickbar.revive(this);
+		this.bars.revive(this);
 
 	}
 
@@ -310,9 +314,9 @@ export default class GameState {
 	 */
 	setQuickSlot( it, slotNum ) {
 
-		console.log('SETTING SLOT: ' + it.name );
+		console.log('QUICK: ' + it.name );
 
-		this.quickbar.setSlot(it, slotNum);
+		this.bars.active.setSlot(it, slotNum);
 	}
 
 	/**
@@ -321,7 +325,7 @@ export default class GameState {
 	 * @returns {?GData}
 	*/
 	getQuickSlot( slotNum ) {
-		return this.quickbar.getSlot( slotNum);
+		return this.bars.active.getSlot( slotNum);
 	}
 
 	/**

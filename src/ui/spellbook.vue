@@ -6,13 +6,8 @@ export default {
 
 	props:['viewing'],
 	mixins:[ItemBase],
-
-	methods:{
-
-		addList(it) {
-			this.list.add(it);
-		}
-
+	created(){
+		this.game = Game;
 	},
 	computed:{
 
@@ -33,18 +28,15 @@ export default {
 
 			<td>
 
-				<button v-if="s.owned&&list.canAdd(s)" @click="addList(s)">Memorize</button>
-				<!--<button v-if="s.owned&&s.attack" @click="emit('primary',s)">
-				{{ state.player.primary===s ? 'Unequip' : 'Primary' }}
-				</button>-->
+				<button v-if="s.owned&&list.canAdd(s)" @click="list.add(s)">Memorize</button>
 
 				</td>
 			<td>{{ s.name }}</td>
 			<td>
 
-				<button v-if="s.owned" @click="emit('spell', s)" :disabled="!usable(s)">Cast</button>
+				<button v-if="s.owned" @click="emit('spell', s)" :disabled="!s.canUse(game)">Cast</button>
 
-				<button v-else @click="emit('buy', s)" :disabled="!usable(s)">Learn</button>
+				<button v-else @click="emit('buy', s)" :disabled="!s.canUse(game)">Learn</button>
 
 			</td>
 

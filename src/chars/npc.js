@@ -39,7 +39,7 @@ export default class Npc extends Char {
 
 	get maxHp() { return this._maxHp; }
 	set maxHp(v) {
-		this._maxHp = v instanceof Stat ? v : new Stat(v,true);
+		this._maxHp = v instanceof Stat ? v : new Stat(v, 'maxHp', true);
 	}
 
 	get hp() { return this._hp; }
@@ -50,9 +50,7 @@ export default class Npc extends Char {
 
 	}
 
-	get loot() {
-		return this._loot;
-	}
+	get loot() { return this._loot; }
 	set loot( loot ){
 
 		if ( typeof loot !== 'object'){

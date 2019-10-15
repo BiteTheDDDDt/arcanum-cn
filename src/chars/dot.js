@@ -18,7 +18,7 @@ export default class Dot {
 			dmg:this.damage || undefined,
 			effect:this.effect||undefined,
 			mod:this.mod||undefined,
-			acc:this.acc,
+			acc:this.acc||undefined,
 			duration:this.duration,
 			source:this.source ? ( typeof this.source === 'string' ? this.source : this.source.id ) : undefined
 		};
@@ -54,7 +54,7 @@ export default class Dot {
 		if ( !this.name ) this.name = name || ( source ? source.name : '' );
 		this.id = this.id || this.name || (source ? source.id || source.name : '');
 
-		if ( !this.id ) console.warn('INVALID DOT ID: ' + this.name );
+		if ( !this.id ) console.warn('BAD DOT ID: ' + this.name );
 
 		/**
 		 * @property {boolean} stack - ability of dot to stack.
@@ -69,27 +69,11 @@ export default class Dot {
 
 	}
 
-	/*reviveMod( m ){
-
-		if ( typeof m === 'object' && !(m instanceof Mod) ) {
-
-
-			if ( m.id ) return new Mod(m);
-
-			for( let p in m ) {
-				m[p] = this.reviveMod( m[p] );
-			}
-
-		}
-		return m;
-
-	}*/
-
 	revive(state) {
 
 		if ( this.source && typeof this.source === 'string') this.source = state.getData( this.source );
 
-		console.log('DOT DURATION: ' + this.duration );
+		console.log('DOT DUR: ' + this.duration );
 		console.log('ACC: ' + this.acc );
 
 		//if ( this.mod ) this.mod = this.reviveMod(this.mod);
@@ -115,5 +99,21 @@ export default class Dot {
 		return 0;
 
 	}
+
+	/*reviveMod( m ){
+
+		if ( typeof m === 'object' && !(m instanceof Mod) ) {
+
+
+			if ( m.id ) return new Mod(m);
+
+			for( let p in m ) {
+				m[p] = this.reviveMod( m[p] );
+			}
+
+		}
+		return m;
+
+	}*/
 
 }

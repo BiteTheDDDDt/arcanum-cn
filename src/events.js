@@ -125,8 +125,6 @@ export default {
 
 	log:null,
 
-	started:false,
-
 	init( game ) {
 
 		this.log = game.log;
@@ -153,8 +151,6 @@ export default {
 
 	clearGameEvents() {
 
-		this.started = false;
-
 		events.removeAllListeners();
 
 	},
@@ -175,31 +171,42 @@ export default {
 
 	onLoot( loot ) {
 
-		let text;
-
 		if ( !loot ) return;
-
-		if ( Array.isArray(loot)) {
-
-			let len = loot.length;
-			if ( len === 0 ) return;
-
-			let i = 0;
-			while ( i < len && loot[i] == null ) i++;
-			if ( i >= len ) return;
-
-			text = loot[i].name;
-			while ( ++i < len ) {
-				if ( loot[i]) text += ', ' + loot[i].name;
-			}
-
-		} else if ( typeof loot === 'object') {
-
-			text = loot.name;
-
-		} else if ( typeof loot === 'string' ) text = loot;
+		let text = this.getDisplay(loot);
+		if ( !text) return;
 
 		this.log.log( 'LOOT', text, LOG_LOOT );
+
+	},
+
+	/**
+	 * Get display string for item or item list.
+	 * Empty and null entries are skipped.
+	 * @param {string|string[]|Nameable} it
+	 * @returns {string}
+	 */
+	getDisplay( it ) {
+
+		if ( typeof it === 'object') {
+
+			if ( Array.isArray(it) ) {
+
+				let i=0, len = it.length;
+
+				while ( i < len && it[i] == null ) i++;
+				if ( i >= len ) return '';
+
+				let text = this.getDisplay(it[i]);
+				while ( ++i < len ) {
+					if ( it[i]) text += ', ' + this.getDisplay(it[i]);
+				}
+
+				return text;
+
+			} else return it.name;
+		}
+
+		return it;
 
 	},
 
@@ -244,14 +251,6 @@ export default {
 
 	enemySlain( enemy, attacker ) {
 		this.log.log( '', enemy.name + ' slain' + ( attacker ? ' by ' + attacker.name : ''), LOG_COMBAT );
-	},
-
-	/**
-	 * Dispatch only if game running.
-	 * @param  {...any} params
-	 */
-	gfire( ...params ) {
-		if ( this.started ) events.emit.apply( events, params );
 	},
 
 	/**

@@ -1,4 +1,4 @@
-import Mod, {DEFAULT_MOD} from "./mod";
+import Mod from "./mod";
 
 /**
  * Stat with a list of modifiers.
@@ -7,60 +7,53 @@ export default class Stat {
 
 	toJSON(){
 
-		let o = { base: this._base };
-		let def = this._mods[DEFAULT_MOD];
-		if ( def !== undefined ) o.mods = { [DEFAULT_MOD]:def};
+		if ( this._pct === 0 ) return this._base;
 
-		if ( this.pos ) o.pos = true;
+		let o = {
+			base: this._base,
+			pct:this._pct
+
+		};
+
+
+		/** @todo testing shouldn't need to save 'pos'  */
+		//if ( this.pos ) o.pos = true;
 
 		return o;
 
 	}
 
-	/**
-	 * @returns {Object} JSON Object with only the default modifier
-	 * included in the mods list. Use this when the other modifiers
-	 * can be recomputed on load.
-	 */
-	/*defaultJSON() {
-
-		return {
-			base:this._base,
-			mods:{ DEFAULT_MOD:this._mods[DEFAULT_MOD] }
-		};
-
-	}*/
-
 	toString(){
-		return this._base + (this._pct >= 0 ? '+' : '') + (100*this._pct) + '%';
+		return this._base + (this._mPct >= 0 ? '+' : '') + (100*this._mPct) + '%';
 	}
 
 	/**
 	 * @property {number} value
 	 */
 	get value() {
-		return this._pos ? Math.max( (this._base + this._bonus)*( 1 + this._pct ),0) :
-		(this._base + this._bonus)*( 1 + this._pct );
+		return this._pos ? Math.max( (this._base + this._bonus)*( 1 + this._mPct ),0) :
+		(this._base + this._bonus)*( 1 + this._mPct );
 	}
 	set value(v){}
 
-	valueOf() {return this._pos ? Math.max( (this._base + this._bonus)*( 1 + this._pct ),0) :
-		(this._base + this._bonus)*( 1 + this._pct );}
+	valueOf() {return this._pos ? Math.max( (this._base + this._bonus)*( 1 + this._mPct ),0) :
+		(this._base + this._bonus)*( 1 + this._mPct );}
 
 	get base() { return this._base; }
-	set base(v) {
-		this._base = v;
-	}
+	set base(v) { this._base = v; }
+
+	get pct() { return this._pct; }
+	set pct(v) { this._pct = v;}
 
 	/**
-	 * @property {number} bonus - total bonus to base.
+	 * @property {number} bonus - total bonus to base, computed from mods.
 	 */
 	get bonus(){return this._bonus; }
 
 	/**
-	 * @property {number} pct - total pct bonus, as a decimal.
+	 * @property {number} pct - mod pct bonuses, as decimal.
 	 */
-	get pct() { return this._pct };
+	get mPct() { return this._mPct };
 
 	/**
 	 * @property {Object.<string,Mod>} mods - mods applied to object.
@@ -83,22 +76,44 @@ export default class Stat {
 	set pos(v) { this._pos = v;}
 
 	/**
+	 * @property {string} path - path or id.
+	 */
+	get path() { return this._path; }
+	set path(v) { this._path = v;}
+
+	/**
 	 *
 	 * @param {Object|number} vars
 	 */
-	constructor( vars=null, pos ) {
+	constructor( vars=null, path, pos ) {
 
-		if ( typeof vars === 'object') {
+		if ( vars && typeof vars === 'object') {
 
-			if ( vars ) Object.assign( this, vars );
+			Object.assign( this, vars );
 
 		} else if ( !isNaN(vars) ) this._base = Number(vars);
 
+		if ( path ) this._path = path;
 		if ( pos ) this.pos = pos;
 
 		this._base = this._base||0;
+		this._pct = this._pct||0;
 
-		this.mods = this.mods || {};
+		if ( !this.mods ) this.mods = {};
+		else if ( this.mods.all ) {
+
+			/**
+			 * @compat
+			 */
+			let cur = this.mods.all;
+			if ( cur.count > 0 ) {
+				this._base += cur.bonus;
+				this._pct += cur.pct;
+			}
+			delete this.mods.all;
+
+		}
+
 		this.recalc();
 
 	}
@@ -114,18 +129,13 @@ export default class Stat {
 	apply( mod, amt=1 ) {
 
 		if ( mod instanceof Mod ) return this.addMod( mod, amt );
-
-		//console.log('apply default mod: ' + mod );
-		let cur = this.defaultMod();
-
-		let prevBonus = cur.bonus;
-		let prevPct = cur.pct;
-
-		cur.add( mod, amt );
-
-		// save and update change.
-		this._bonus += cur.bonus - prevBonus;
-		this._pct += cur.pct - prevPct;
+		else if ( !isNaN(mod) ) {
+			this.base += amt*mod;
+			return;
+		} else if ( typeof mod === 'object') {
+			this.base += amt*mod.bonus;
+			this.pct += amt*mod.pct;
+		}
 
 	}
 
@@ -136,7 +146,7 @@ export default class Stat {
 	 */
 	addMod( mod, amt=1 ) {
 
-		this._pct += amt*mod.pct;
+		this._mPct += amt*mod.pct;
 		this._bonus += amt*mod.bonus;
 
 		//console.log( mod.id + ' MOD: ' + mod.toString() + ' x' + amt );
@@ -147,19 +157,6 @@ export default class Stat {
 		}
 
 		cur.count += amt;
-
-	}
-
-	/**
-	 * Get or create the default stat modifier.
-	 * The modifier count begins and stays at '1' because only its
-	 * bonuses and percents change.
-	 * @returns {Mod}
-	 */
-	defaultMod(){
-
-		let cur = this.mods[DEFAULT_MOD];
-		return (cur!==undefined) ? cur : (this.mods[DEFAULT_MOD] = new Mod( {count:1}) );
 
 	}
 
@@ -181,7 +178,7 @@ export default class Stat {
 	 * @returns {number} - new stat value.
 	 */
 	delValue( delBonus=0, delPct=0 ) {
-		return ( this._base + this._bonus + delBonus )*( 1 + this._pct + delPct );
+		return ( this._base + this._bonus + delBonus )*( 1 + this._pct + this._mPct + delPct );
 	}
 
 	/**
@@ -200,7 +197,7 @@ export default class Stat {
 
 		}
 
-		this._pct = pct;
+		this._mPct = pct;
 		this._bonus = bonus;
 
 	}

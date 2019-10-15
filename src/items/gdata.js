@@ -39,7 +39,7 @@ export default class GData {
 			if ( v instanceof Stat ) this._max = v;
 			else if ( !isNaN(v) ) this._max.base = v;
 
-		} else this._max = v instanceof Stat ? v : new Stat(v,true);
+		} else this._max = v instanceof Stat ? v : new Stat(v, 'max', true);
 	}
 
 	/**
@@ -160,7 +160,8 @@ export default class GData {
 	 */
 	canUse( g ){
 
-		if ( this.disabled || (this.need && !g.unlockTest( this.need, this )) ) return false;
+		if ( this.disabled || this.locks>0||
+				(this.need && !g.unlockTest( this.need, this )) ) return false;
 		if ( this.buy && !this.owned && !g.canPay(this.buy) ) return false;
 
 		if ( this.perpetual || this.length>0 ) { return this.canRun(g); }

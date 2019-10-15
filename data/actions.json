@@ -111,7 +111,7 @@
 		"require":"g.trickery>=4",
 		"cost":{
 			"stamina":0.22,
-			"mana":0.25
+			"mana":0.1
 		},
 		"effect":{
 			"research":-0.5,
@@ -164,19 +164,20 @@
 		},
 		"log":{
 			"name":"Book of Spells",
-			"desc":"Under your master's critical eye, you've compiled your very own book of spells."
+			"desc":"Under your master's critical eye, you compile your very own book of spells."
 		},
 		"run":{
 			"stamina":0.2
 		},
 		"effect":{
-			"lore.exp":0.5
+			"lore.exp":0.5,
+			"player.exp":0.5
 		},
-		"result":{
+		"mod":{
 			"research.max":25,
 			"research.rate":0.07,
-			"arcana.rate":0.0001,
-			"player.exp":10
+			"arcana.rate":0.0001
+
 		}
 
 	},
@@ -373,9 +374,11 @@
 		},
 		"at":{
 
-			"40":{ "effect.gold":0.2 },
-			"300":{ "effect.gold":0.5 },
-			"1200":{ "effect.gold":1 }
+			"40":{ "effect.gold":0.7 },
+			"140":{"effect.gold":0.7},
+			"290":{ "effect.gold":0.7 },
+			"700":{ "effect.gold":0.7 },
+			"1400":{ "effect.gold":1 }
 
 		},
 		"effect":{
@@ -433,11 +436,11 @@
 		"id":"readpalms",
 		"name":"Read Palms",
 		"verb":"reading palms",
-		"require":"g.divination>=5||g.trickster>0",
+		"require":"g.divination>5||g.trickster>0",
 		"desc":"read palms for a small fee.",
 		"cost":{
 			"stamina":0.3,
-			"mana":1
+			"mana":0.2
 		},
 		"at":{
 
@@ -808,7 +811,7 @@
 			"scrolls":1
 		},
 		"run":{
-			"research":3
+			"research":10
 		},
 		"result":"starcharts"
 	},
@@ -991,9 +994,8 @@
 
 	},
 	{
-		"id":"fazbitfixations",
+		"id":"fazbitfixate",
 		"name":"fazbit's fixations",
-		"require":"g.alchemy>=6&&g.tier0>0",
 		"desc":"scribe a copy the seminal text in practical alchemy",
 		"length":50,
 		"repeat":false,
@@ -1037,17 +1039,17 @@
 	{
 		"id":"unendingtome",
 		"name":"unending tome",
-		"require":"g.languages>=9&&g.tier1>0",
+		"require":"g.languages>=9",
 		"desc":"some books have no end",
 		"length":50,
 		"repeat":false,
 		"cost":{
-			"codices":30,
+			"tomes":5,
 			"mana":10,
 			"gems":10
 		},
 		"run":{
-			"research":5
+			"research":10
 		},
 		"mod":{
 			"lore.max":1,
@@ -1064,19 +1066,19 @@
 		"repeat":false,
 		"length":50,
 		"cost":{
-			"codices":10
+			"codices":30
 		},
 		"run":{
-			"research":1,
+			"research":10,
 			"starcharts":0.1
 		},
 		"log":{
 			"name":"almagest",
-			"desc":"your first map of the heavens is complete."
+			"desc":"your map of the heavens is complete."
 		},
 		"result":{
 			"starcharts.max":10,
-			"research.max":10,
+			"research.max":50,
 			"divination":{
 				"max":1,
 				"rate":0.2
@@ -1085,11 +1087,11 @@
 			"lore.rate":0.2,
 			"astronomy":{
 				"max":1,
-				"rate":0.1
+				"rate":"0.1+1%"
 			},
 			"planeslore":{
 				"max":1,
-				"rate":0.2
+				"rate":"0.2+1%"
 			}
 		}
 
@@ -1376,7 +1378,7 @@
 	{
 		"id":"summonfamiliar",
 		"name":"summon familiar",
-		"require":"(g.tier0>0&&g.animals>=5&&g.demonology>=4)||g.witch>0",
+		"require":"(g.animals>=5&&g.demonology>=4)||g.witch>0",
 		"repeat":false,
 		"length":100,
 		"cost":{

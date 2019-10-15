@@ -171,7 +171,22 @@ export default class Char {
 		else {
 
 			this.dots.push( it instanceof Dot ? it : new Dot(it) );
+			if ( it.mod ) {
+				this.applyMods( it.mod, 1 );
+			}
 
+
+		}
+
+	}
+
+	rmDot( i ){
+
+		let dot = this.dots[i];
+		this.dots.splice(i,1);
+
+		if ( dot.mod ) {
+			this.applyMods( dot.mod, -1 );
 		}
 
 	}
@@ -186,7 +201,7 @@ export default class Char {
 			if ( dotTime ) {
 
 				if ( dot.duration <= 0 ) {
-					this.dots.splice( i, 1);
+					this.rmDot(i);
 				}
 				if ( dot.damage ) {
 					tryDamage( this, dot, dot.source );

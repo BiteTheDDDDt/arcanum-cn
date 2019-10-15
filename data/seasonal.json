@@ -16,7 +16,7 @@
 			"slot":"mount",
 			"save":true,
 			"mod":{
-				"dist.max":250,
+				"dist":250,
 				"player.resist.shadow":5
 			}
 
@@ -38,7 +38,7 @@
 				"pumpseeds":30
 			},
 			"mod":{
-				"dist.max":50,
+				"dist":50,
 				"inv.max":3,
 				"herbs.rate":0.1,
 				"weary.rate":-0.1,
@@ -55,7 +55,7 @@
 			"slot":"mount",
 			"save":true,
 			"mod":{
-				"dist.max":100,
+				"dist":100,
 				"spirit.rate":0.5,
 				"rage.rate":-0.2,
 				"player.resist.spirit":4
@@ -324,8 +324,7 @@
 				"rage":"1~2",
 				"herbalism.exp":1,
 				"spiritlore.exp":1,
-				"spiritlore.max":0.01
-			},
+				"spiritlore.max":0.003			},
 			"loot":{
 				"evt_hal_imp":"15%",
 				"cobwebs":"0~2",

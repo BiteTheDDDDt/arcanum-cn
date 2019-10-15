@@ -2,7 +2,6 @@
 import Game from '../game';
 import Menu from './components/menu.vue';
 import ResoucesView from './resources.vue';
-import ActionsView from './actionsView.vue';
 import Upgrades from './upgrades.vue';
 import Quickbar from './quickbar.vue';
 import ItemsBase from './itemsBase';
@@ -36,7 +35,6 @@ export default {
 	mixins:[ItemsBase,Cheats],
 	components:{
 		resources:ResoucesView,
-		actions:ActionsView,
 		upgrades:Upgrades,
 		itempopup:ItemPopup,
 		vitals:Vitals,
@@ -116,7 +114,6 @@ export default {
 
 			this.add('equip', this.onEquip );
 			this.add('unequip', this.onUnequip );
-			this.add('drop', this.onDrop );
 			this.add('enchant', this.onEnchant );
 			this.add('craft', this.onCraft );
 
@@ -126,9 +123,6 @@ export default {
 			this.add('quickslot', this.doQuickslot);
 
 			this.add( TRY_BUY, this.onBuy );
-
-			// primary attack.
-			this.add( 'primary', this.onPrimary);
 
 		},
 
@@ -223,12 +217,6 @@ export default {
 
 		onUnequip(slot, it){ this.game.unequip(slot, it) },
 
-		/**
-		 * Drop item from inventory.
-		 * @param {Item} it - item to drop
-		 */
-		onDrop(it) { this.game.drop(it); },
-
 		onTake(it) { this.game.take(it); },
 
 		onCraft(it) { this.game.craft(it); },
@@ -281,12 +269,7 @@ export default {
 		 * Buy a spell or item without casting/using the item or its mods.
 		 * @property {Item} item - item to buy.
 		 */
-		onBuy(item) { this.game.tryBuy(item); },
-
-		onPrimary( s) {
-			if ( this.state.player.primary === s) this.state.player.setPrimary(null);
-			else this.state.player.setPrimary(s);
-		}
+		onBuy(item) { this.game.tryBuy(item); }
 
 	},
 	computed:{
@@ -335,7 +318,7 @@ export default {
 		<template slot="sect_main">
 
 		<div class="main-actions">
-		<actions class="action-list" :items="state.actions" />
+		<upgrades class="action-list" :items="state.actions" />
 		<upgrades class="upgrade-list" :items="state.upgrades" />
 		<upgrades class="upgrade-list" :items="state.classes" />
 		</div>
@@ -376,7 +359,7 @@ export default {
 
 		</div>
 
-		<div v-if="state" class="bot-bar"><quickbar :bar="state.quickbar" /></div>
+		<div v-if="state" class="bot-bar"><quickbar :bars="state.bars" /></div>
 
 	</div>
 </template>
@@ -445,9 +428,10 @@ div.inv-equip {
 	padding: 0; display: grid; grid-template-rows: 50% 50%; grid-auto-columns: 1fr;
 }
 
+
 div.bot-bar {
-	background:inherit;
-	border-top: 1px solid var(--separator-color); padding: 4px;
+	background: inherit;
+	border-top: 1px solid var(--separator-color); padding: var(--large-gap);
 }
 
 </style>

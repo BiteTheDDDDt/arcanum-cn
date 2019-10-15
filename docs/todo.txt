@@ -4,12 +4,13 @@ optional dot stacking
 
 Display Weapon/Dot stats
 
+class/level on save file
 
 GAME:
 
-To-do list (in game)
+Spell unlocks by school type, not player level.
 
-Multiple actions at once (non-conflicting)
+To-do list (in game) -- Maybe.
 
 Alchemy&Potions
 
@@ -25,8 +26,6 @@ Storage max+upgrades
 
 ERRORS:
 
-Quickslot Dungeon - allows infinite completion?
-
 
 MINOR:
 
@@ -36,24 +35,14 @@ fix rollovers itemover etc.
 
 more armor drop variations.
 
-assign custom rest action.
-
-
-UI display spell attacks
 
 BALANCE:
 
 reduce player level-up speed.
 
-player stronger vs monsters same level.
-
 
 UI TWEAKS:
 
-Combat log/drops alignment.
-
 Clear button/rest button redesign
-
-Spellbook: More space between set-primary button and spell name.
 
 Popup: Mark unmet requirements.

@@ -56,11 +56,41 @@
 		}
 
 	},
+
+	{
+		"id":"pot_ironskin",
+		"name":"ironskin salve",
+		"level":2,
+		"buy":{
+			"gold":400,
+			"research":500,
+			"codices":10
+		},
+		"cost":{
+			"herbs":10
+		},"use":"ironskin"
+
+	},
+	{
+		"id":"pot_adamant",
+		"name":"adamant salve",
+		"level":10,
+		"buy":{
+			"gold":1000,
+			"tomes":5,
+			"earthgem":5
+		},
+		"cost":{
+			"herbs":30,
+			"gems":1
+		},"use":"adamantshell"
+
+	},
 	{
 		"id":"hestiabrew",
 		"name":"hestia's homebrew",
 		"require":"witch",
-		"level":3,
+		"level":4,
 		"buy":{
 			"gold":25,
 			"research":150
@@ -70,7 +100,7 @@
 		},
 		"use":{
 			"dot":{
-				"duration":40,
+				"duration":50,
 				"effect":{
 					"hp":2,
 					"nature":0.5
@@ -79,9 +109,50 @@
 		}
 	},
 	{
+		"id":"pot_waterward",
+		"name":"water ward",
+		"level":2,
+		"buy":{
+			"gold":300,
+			"research":200
+		},
+		"cost":{
+			"herbs":10
+		},
+		"use":"prowater"
+	},
+	{
+		"id":"pot_fireward",
+		"name":"fire ward",
+		"level":2,
+		"buy":{
+			"gold":300,
+			"research":200
+		},
+		"cost":{
+			"herbs":10
+		},
+		"use":"profire"
+	},
+	{
+		"id":"pot_heal3",
+		"name":"healing potion",
+		"buy":{
+			"gold":100,
+			"lightgem":1,
+			"research":500
+		},
+		"level":7,
+		"cost":{
+			"herbs":20,
+			"gems":1
+		},
+		"use":"heal3"
+	},
+	{
 		"id":"pot_godsblood",
-		"name":"god blood",
-		"level":10,
+		"name":"god's blood",
+		"level":12,
 		"buy":{
 			"gold":500,
 			"tomes":1,

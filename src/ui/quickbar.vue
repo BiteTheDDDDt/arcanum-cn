@@ -1,7 +1,6 @@
 <script>
 import Game from '../game';
 import {abbr} from '../util/format';
-import {MAX_SLOTS } from '../composites/quickbar';
 import { TRY_USE } from '../events';
 
 /**
@@ -9,39 +8,15 @@ import { TRY_USE } from '../events';
  */
 export default {
 
-	props:['bar'],
+	props:['bars'],
 	methods:{
-
-		remove(ind){
-
-			if ( ind >= 0) {
-				this.bar.clear(ind);
-			}
-
-		},
 
 		abbr:abbr
 
 	},
 	computed:{
 
-		/*items() {
-
-			let slots = this.bar.slots
-			let a = [];
-
-			for( let i = 0; i < MAX_SLOTS; i++ ) {
-
-				var it = slots[i];
-
-
-				a[i] = null;
-
-			}
-
-			return a;
-
-		},*/
+		bar(){return this.bars.active;},
 
 		slots() {
 			return this.bar.slots;
@@ -70,7 +45,7 @@ export default {
 
 				<div>{{ abbr(it) }}</div>
 
-				<div class="remove" @click="remove(i)" />
+				<div class="remove" @click="bar.clear(i)" />
 				<div v-if="it.item.school" class="bgfill" >&nbsp;</div>
 
 			</div>
@@ -98,22 +73,23 @@ p.use-msg {
 	margin-left: 10%;
 }
 
+
 div.quickbar {
 
 	display:flex;
-	cursor:pointer;
 	flex-basis: 72px;
 	width:100%;
 	flex-direction: row;
 	justify-self: flex-end;
 	z-index: 50;
-	margin: 4px 0px;
+	margin: 0;
 }
 
 div.quickslot {
 	z-index: 100;
 	min-width: 52px;
 	min-height:52px;
+	cursor: pointer;
 	text-transform: capitalize;
 	margin: 2px 6px 4px 4px;
 	padding:2px;
@@ -142,5 +118,9 @@ div.remove {
 div.remove::after {
 	content:"x";
 }
+
+.quickslot div.remove { background: #FFF0; color: #000; border: none; font-weight: bold; }
+
+
 
 </style>

@@ -6,8 +6,9 @@ import Item from './items/item';
 import Encounter, { ENCOUNTER } from './items/encounter';
 import Npc from './chars/npc';
 import GenGroup from './genGroup';
-import { pushNonNull } from './util/util';
+import { pushNonNull, logObj } from './util/util';
 import GData from './items/gdata';
+import events, { EVT_UNLOCK } from './events';
 
 /**
  * Revive a prototyped item based on an item template.
@@ -198,11 +199,18 @@ export default class ItemGen {
 		if ( Array.isArray(info) ) return info.flatMap( this.getLoot, this );
 
 		if ( typeof info === 'string' ) {
+
 			info = this.state.getData(info);
+			if ( info instanceof GData && !info.isRecipe && !info.instance) {
+
+				return this.getGData( info, amt );
+
+			}
+
 		}
 
 		if (!info) {
-			console.log('skipping NULL gen.')
+			console.log('NULL gen.')
 			return null;
 		}
 
@@ -211,19 +219,20 @@ export default class ItemGen {
 		if ( info.type === 'wearable' || info.type === 'weapon'
 				|| info.type ==='armor') return this.fromData( info, info.level );
 
-				if ( info.type === 'wearable' || info.type === 'weapon'
-				|| info.type ==='armor') return this.fromData( info, info.level );
-
-		/** @todo: THIS IS BAD */
-		if ( info instanceof GData && !info.isRecipe && !info.instance) {
-			if ( info.amount ) {
-				if ( !info.disabled ) info.locked = false;
-				if ( amt != 0 ) info.amount( Game, amt );
-			} else console.warn('info.amount undefined: '+ info.if + ' -> ' + info.type );
-			return;
-		} else if ( info.instance || info.isRecipe ) {
+		else if ( info.instance || info.isRecipe ) {
 			return this.instance( info );
 		}
+
+		return this.randLoot( info, amt );
+
+	}
+
+	/**
+	 * Return loot from an object of rand parameters.
+	 * @param {*} info
+	 * @param {*} amt
+	 */
+	randLoot( info, amt ) {
 
 		if ( info.level ) return this.fromLevel( info.level, info.type, info.material );
 		else if ( info.max ) return this.randBelow( info.max, info.type, info.material );
@@ -239,6 +248,31 @@ export default class ItemGen {
 
 		return items;
 
+	}
+
+	/**
+	 * Get some amount of non-instanced gameData.
+	 * @param {*} it
+	 * @param {*} amt
+	 */
+	getGData( it , amt ) {
+
+		if ( typeof amt === 'number') {
+
+			it.amount( Game, amt );
+			if ( amt > 0 ) return it.name;
+
+		} else if ( amt === true ) {
+
+			// unlock.
+			if ( it.locked ) {
+				it.locked = false;
+				events.emit( EVT_UNLOCK, it );
+			}
+
+		} else console.warn('unknown amount: '+ it + ' -> ' + amt );
+
+		return null;
 	}
 
 	/**

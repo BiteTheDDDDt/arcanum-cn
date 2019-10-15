@@ -49,7 +49,7 @@
 	{
         "id":"gremlin",
         "level":1,
-        "kind":"goblinoid",
+        "kind":"gobloid",
         "evil":5,
         "flavor":"Na-na-na-na-Na-na Na-na-na-na-Na-na...",
         "hp":"3~5",
@@ -471,10 +471,10 @@
 	{
 		"id":"goblin",
 		"kind":"humanoid",
-		"level":3,
+		"level":2,
 		"hp":4,
 		"defense":5,
-		"damage":"3~4",
+		"damage":"1~2",
 		"loot":{
 			"dagger":"20%",
 			"cap":"20%"
@@ -482,12 +482,13 @@
 	},
 	{
 		"id":"gobwarrior",
+		"name":"goblin warrior",
 		"kind":"humanoid",
-		"level":4,
+		"level":3,
 		"hp":8,
 		"tohit":5,
 		"defense":7,
-		"damage":"4~6",
+		"damage":"2~3",
 		"loot":{
 			"shortsword":"20%",
 			"cap":"20%",
@@ -497,7 +498,7 @@
 	{
 		"id":"gobpriest",
 		"kind":"humanoid",
-		"level":5,
+		"level":4,
 		"hp":5,
 		"tohit":5,
 		"defense":5,
@@ -515,7 +516,7 @@
 		"hp":11,
 		"tohit":6,
 		"defense":13,
-		"damage":"5~7",
+		"damage":"3~5",
 		"loot":{
 			"cap":"20%",
 			"boots":"10%"
@@ -528,7 +529,7 @@
 		"hp":14,
 		"tohit":7,
 		"defense":16,
-		"damage":"6~8",
+		"damage":"4~7",
 		"loot":{
 			"cap":"20%",
 			"boots":"10%"
@@ -541,7 +542,7 @@
 		"hp":18,
 		"tohit":8,
 		"defense":23,
-		"damage":"7~9",
+		"damage":"5~9",
 		"loot":{
 			"cap":"20%",
 			"boots":"10%",
@@ -552,12 +553,10 @@
 		"id":"warg",
 		"kind":"beast",
 		"level":6,
-		"hp":12,
+		"hp":15,
 		"tohit":7,
 		"defense":4,
-		"damage":"8~10",
-		"loot":{
-		}
+		"damage":"7~9"
 	},
 	{
 		"id":"giantspider",
@@ -1302,6 +1301,20 @@
 
 	},
 	{
+		"id":"callodiper",
+		"biome":"cave",
+        "level":5,
+        "desc":"their globed hands glow with pale, unearthly light.",
+        "hp":40,
+        "attack":{
+			"targets":"all",
+            "name":"light burst",
+            "kind":"light",
+            "dmg":"3~5"
+        },"flavor":"it is said they feed on darkness."
+
+	},
+	{
 		"id":"direwolf",
 		"name":"dire wolf",
         "level":5,
@@ -1422,7 +1435,6 @@
 	{
         "id":"bugbear",
         "level":6,
-        "desc":"",
         "evil":10,
         "hp":43,
         "defense":25,
@@ -1581,11 +1593,27 @@
 			"water":25
 		}
 
-    },
+	},
+	{
+		"id":"dwarp",
+		"biome":"cave",
+        "level":7,
+        "desc":"its contorted purple body can hide in the smallest crevices.",
+        "hp":35,
+		"tohit":9,
+		"speed":9,
+        "defense":20,
+        "attack":{
+            "name":"strangle",
+            "kind":"physical",
+            "dmg":"3~7"
+        },"flavor":"a dwarp can hear the drip of water through 100 feet of solid rock."
+
+	},
     {
         "id":"ogre",
         "level":7,
-        "desc":"Ever wonder what orcs would look like if they were three times as large?",
+        "flavor":"Ever wonder how orcs would look if they were three times as large?",
         "hp":45,
         "tohit":8,
         "defense":20,
@@ -1633,7 +1661,7 @@
     {
 		"id":"direcrocodile",
         "name":"dire crocodile",
-        "kind":"magic beast",
+        "kind":"magicbeast",
         "biome":"swamp",
         "level":8,
         "desc":"",
@@ -1664,9 +1692,6 @@
 				"kind":"poison",
 				"damage":"3~5"
 			}
-		},
-		"loot":{
-
 		}
 	},
     {
@@ -1722,7 +1747,7 @@
             "kind":"cold",
 			"dmg":"10~20",
 			"leech":0.5
-		},"loot":{"spectral essence":5},
+		},
 		"resist":{
 			"shadow":20,
 			"spirit":20,
@@ -1809,7 +1834,7 @@
     {
         "id":"pegasus",
         "level":8,
-        "kind":"magic beast",
+        "kind":"magicbeast",
         "evil":-13,
         "desc":"It's a unicorn with wings and no horn.",
         "hp":54,
@@ -2180,6 +2205,29 @@
 
 	},
 	{
+		"id":"lightelem",
+        "name":"light elemental",
+        "level":8,
+        "kind":"elemental",
+        "desc":"Too bright to see.",
+        "tohit":13,
+        "hp":30,
+        "defense":65,
+        "attack":{
+			"targets":"all",
+            "name":"light",
+            "kind":"light",
+			"dmg":"4~10",
+			"dot":{
+				"name":"blind",
+				"kind":"blind",
+				"tohit":-3
+			}
+		},"loot":{"lightgem":"10%"},
+		"immune":"fire,light"
+
+	},
+	{
 		"id":"cavetroll",
         "name":"cave troll",
         "level":9,
@@ -2415,7 +2463,7 @@
 			"max":11
 		}
 
-    },
+	},
 	{
 		"id":"firegolem",
         "name":"fire golem",
@@ -2436,7 +2484,7 @@
         "id":"grimstalk",
         "level":11,
         "biome":"woods",
-        "desc":"Slashy wood demon.",
+        "desc":"A wooden demon with fingers like blades.",
         "kind":"demon",
         "evil":19,
         "hp":53,
@@ -2447,7 +2495,7 @@
             "name":"claws",
             "kind":"slash",
             "dmg":"12~28"
-        }, "loot":{}
+        }
 
     },
     {
@@ -2455,28 +2503,29 @@
         "level":12,
         "evil":-8,
         "desc":"She'll take you to Valhalla.",
-        "hp":75,
+        "hp":155,
         "tohit":15,
         "defense":54,
         "attack":{
             "name":"claymore",
             "kind":"slash",
-            "dmg":"15~20"
+            "dmg":"10~17"
         }, "loot":{ "ichor":"1%"}
 
 	},
 	{
         "id":"trow",
         "level":12,
-        "evil":5,
+		"evil":5,
+		"desc":"a towering giant of stone",
         "flavor":"You should have stayed out of the cloudspine.",
-        "hp":115,
+        "hp":225,
         "tohit":10,
         "defense":50,
         "attack":{
             "name":"kick",
             "kind":"blunt",
-            "dmg":"14~27"
+            "dmg":"14~20"
         },"loot":{}
 
     },
@@ -2540,21 +2589,22 @@
         "name":"bog witch",
         "level":13,
         "evil":29,
-        "kind":"humanoid",
+		"kind":"humanoid",
+		"unique":true,
         "biome":"swamp",
         "desc":"Vicious witch in the waters of the Great Bog",
-        "hp":110,
+        "hp":500,
         "tohit":14,
 		"defense":48,
 		"regen":2,
         "attack":{
             "name":"claws",
             "kind":"slash",
-			"dmg":"18~25",
+			"dmg":"12~20",
 			"dot":{
 				"kind":"poison",
 				"name":"black blood",
-				"dmg":"3~5",
+				"dmg":"1~4",
 				"duration":20
 			}
 		}, "loot":{},
@@ -2802,14 +2852,14 @@
         "level":16,
         "kind":"giant",
         "desc":"",
-        "hp":170,
+        "hp":160,
         "tohit":17,
         "defense":65,
         "attack":{
             "name":"punch",
             "kind":"cold",
             "dmg":"30~40"
-		 } , "loot":{},
+		 },
 		 "resist":{
 			 "water":70,
 			 "air":70
@@ -2823,9 +2873,9 @@
         "biome":"mountains",
         "level":16,
         "desc":"A small mountain of magma.",
-        "hp":150,
+        "hp":170,
         "tohit":15,
-        "defense":65,
+        "defense":60,
         "attack":{
             "name":"lava slam",
             "kind":"fire",
@@ -2856,7 +2906,7 @@
         "name":"mithril golem",
         "level":17,
         "kind":"construct",
-        "desc":"Would be worth a fortune if you could actually make a dent in it.",
+        "desc":"Would be worth a fortune if you could even make a dent in it.",
         "hp":200,
         "tohit":8,
         "defense":80,
@@ -2876,7 +2926,7 @@
         "level":17,
         "kind":"undead",
         "evil":60,
-        "desc":"Probably on a first name basis with Dracula.",
+        "desc":"",
         "hp":150,
         "tohit":15,
 		"defense":75,
@@ -2953,7 +3003,7 @@
         "tohit":15,
         "defense":115,
         "attack":{
-            "name":"SMASH",
+            "name":"smash",
             "kind":"blunt",
             "dmg":"25~100"
 		},"loot":{"adamant":25},
@@ -2975,6 +3025,61 @@
             "dmg":"50~100"
         }
 	},
+	{
+		"id":"karnivex",
+        "level":19,
+        "evil":27,
+		"desc":"the weakest of the warlocks built his reputation upon slaughter.",
+		"flavor":"subtlety was lost on karnivex.",
+        "hp":1200,
+        "tohit":20,
+        "defense":110,
+        "attack":[
+			{
+				"name":"fire storm",
+				"targets":"all",
+				"dot":{
+					"duration":20,
+					"dmg":"5~7"
+				}
+			},
+			{
+            	"name":"fire bolt",
+				"dmg":"20~40"
+			}
+		], "loot":{
+			"max":20
+		}
+
+    },
+	{
+		"id":"desilla",
+        "level":20,
+        "evil":27,
+        "desc":"Among the warlocks, desilla was the least inclined to conquest.",
+        "hp":1500,
+        "tohit":25,
+        "defense":100,
+        "attack":[
+			{
+				"name":"red haze",
+				"targets":"all",
+				"dot":{
+					"id":"redhaze",
+					"duration":20,
+					"tohit":-10
+				}
+			},
+			{
+            	"name":"red bolt",
+				"dmg":"15~23",
+				"kind":"demon"
+			}
+		], "loot":{
+			"max":20
+		}
+
+    },
 	{
 		"id":"natureswrath",
         "name":"nature's wrath",
@@ -3017,8 +3122,8 @@
         "desc":"In his house at R'lyeh dead Cthulhu waits dreaming.",
         "hp":550,
 		"tohit":25,
-		"regen":20,
-        "defense":150,
+		"regen":5,
+        "defense":125,
         "attack":{
 			"name":"Madness",
 			"leech":0.25,
@@ -3048,21 +3153,19 @@
 	{
 		"id":"gorborung",
 		"name":"The Gorborung",
-		"level":33,
+		"level":25,
 		"unique":true,
         "evil":100,
-        "kind":"outsider",
         "desc":"The gargantuan entity in the depths of Mr. Gorbu never seen by mortal eyes.",
-        "hp":1200,
-		"tohit":33,
-		"regen":30,
-        "defense":200,
+        "hp":5000,
+		"tohit":20,
+        "defense":100,
         "attack":{
 			"name":"gorboring",
 			"kind":"sonic",
 			"targets":"all",
-            "dmg":"100~220"
-        }
+            "dmg":"50~75"
+        },"flavor":"most agree it's best the gorborung cannot be seen."
 	},
 	{
 		"id":"fetigern",

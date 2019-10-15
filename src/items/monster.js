@@ -1,8 +1,6 @@
 import GData from "./gdata";
 import Stat from "../values/stat";
 
-
-
 const defaults = {
 
 	level:1,

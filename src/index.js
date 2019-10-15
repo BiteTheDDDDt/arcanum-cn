@@ -59,7 +59,7 @@ var vm = new Vue({
 	computed:{
 
 		saveloc(){
-			return __SAVE ? __SAVE + '/'+ 'gameData' : 'gameData';
+			return (__SAVE ? __SAVE + '/' : '' ) + 'gameData';
 		}
 
 	},
@@ -87,18 +87,20 @@ var vm = new Vue({
 
 		},
 
-		saveFile(e){
+		saveFile(e, name='arcanum'){
 
 			try {
 
 				if ( this.lastSave ) URL.revokeObjectURL( this.lastSave );
 
+				let state = this.game.state;
+				let json = JSON.stringify( state );
 
-				let json = JSON.stringify( this.game.state );
 
+				this.lastSave = new File( [json],
+					(state.player.name || 'arcanum') + '.json', {type:"text/json;charset=utf-8"} );
 
-				this.lastSave = new File( [json], 'arcanum.json', {type:"text/json;charset=utf-8"} );
-
+				e.target.title = this.lastSave.name;
 				e.target.href = URL.createObjectURL( this.lastSave );
 
 			} catch(ex) {

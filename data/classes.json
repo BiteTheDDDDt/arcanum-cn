@@ -128,7 +128,6 @@
 	"desc":"Magic in its purest form.",
 	"actname":"The Prestige",
 	"actdesc":"Pursue the path of pure magic.",
-	"warn":true,
 	"require":"g.tier0>0&&g.lore>=10",
 	"cost":{
 		"research":700,
@@ -140,8 +139,9 @@
 	},
 	"mod":{
 		"tier1":true,
-		"research.max":20,
+		"research.max":100,
 		"lore.max":1,
+		"lore.rate":"5%",
 		"astronomy.max":1,
 		"languages.max":1,
 		"arcana.rate":0.001,
@@ -212,7 +212,6 @@
 	"tags":"t_tier1",
 	"desc":"Witch",
 	"name":"witchcraft",
-	"warn":true,
 	"actname":"The Craft",
 	"actdesc":"Enter into the practice of witchcraft.",
 	"require":"g.tier0>0&&g.animals>=2&&g.herbalism>=3&&g.potions>=3",
@@ -274,13 +273,42 @@
 	}
 },
 {
+	"id":"madcap",
+	"name":"mystic madcap",
+	"title":"arcane trickster",
+	"desc":"A penchant for chaos",
+	"tags":"t_tier2",
+	"require":"g.trickery>=7&&g.tier1>0",
+	"cost":{
+		"research":777,
+		"gems":7,
+		"tomes":7,
+		"gold":777,
+		"arcana":7
+	},
+	"effect":{
+		"sp":3
+	},
+	"mod":{
+		"tier2":true,
+		"gold.max":50,
+		"trickery.max":2,
+		"trickery.rate":"10%",
+		"conjuration.max":1,
+		"lore.max":1,
+		"potions.max":1,
+		"mysticism.max":1,
+		"mysticism.rate":"5%"
+	}
+},
+{
 	"id":"bonemonger",
 	"title":"bone monger",
 	"tags":"t_tier2",
 	"desc":"extend your life with the spare parts of the dead.",
 	"require":"g.tier1>0&&g.reanimator>=1&&g.evil>0",
 	"cost":{
-		"research":300,
+		"research":700,
 		"bones":10,
 		"bonedust":10,
 		"arcana":7
@@ -335,10 +363,9 @@
 	"title":"Battlemage",
 	"tags":"t_tier2",
 	"actdesc":"Pursue the path of battle.",
-	"warn":true,
 	"require":"g.tier1>0&&g.player.level>=10&&g.armory>0",
 	"cost":{
-		"research":550,
+		"research":750,
 		"arcana":7,
 		"gold":400
 	},
@@ -503,7 +530,7 @@
 	"desc":"an alchemist uses magical knowledge to craft wonders.",
 	"require":"g.tier1>0&&g.potions>=4&&g.alchemy>=5",
 	"cost":{
-		"research":1000,
+		"research":2000,
 		"managem":5,
 		"firegem":2,
 		"watergem":2,
@@ -532,12 +559,10 @@
 	"desc":"A master of charms and enchantments.",
 	"require":"g.tier1>0&&g.enchanting>=6&&g.charms>=3",
 	"tags":"t_tier2",
-	"disable":[],
-	"warn":true,
 	"cost":{
-		"research":2000,
+		"research":1200,
 		"managem":10,
-		"tomes":1,
+		"tomes":5,
 		"arcana":12
 	},
 	"effect":{
@@ -559,8 +584,6 @@
 	"title":"geomancer",
 	"desc":"lord of rocks.",
 	"tags":"t_tier2",
-	"disable":[],
-	"warn":true,
 	"actdesc":"Become a geomancer.",
 	"require":"g.tier1>0&&g.earthlore>=10",
 	"cost":{
@@ -586,9 +609,7 @@
 	"title":"pyromancer",
 	"desc":"shaper of fire",
 	"tags":"t_tier2",
-	"disable":[],
 	"name":"pyromancy",
-	"warn":true,
 	"actdesc":"Become a pyromancer.",
 	"require":"g.tier1>0&&g.firelore>=10",
 	"cost":{
@@ -614,9 +635,7 @@
 	"title":"hydromancer",
 	"desc":"master of water",
 	"tags":"t_tier2",
-	"disable":[],
 	"name":"hydromancy",
-	"warn":true,
 	"actdesc":"Become a hydromancer.",
 	"require":"g.tier1>0&&g.waterlore>=10",
 	"cost":{
@@ -643,9 +662,7 @@
 	"title":"wind mage",
 	"desc":"to walk on the wind",
 	"tags":"t_tier2",
-	"disable":[],
 	"name":"wind mage",
-	"warn":true,
 	"actdesc":"Become a wind.",
 	"require":"g.tier1>0&&g.airlore>=10",
 	"cost":{

@@ -203,6 +203,48 @@
 		"enc_primer1",
 		"enc_workbook1"
 	]
+},
+{
+	"id":"fazbitshop",
+	"name":"fazbit's workshop",
+	"level":9,
+	"length":50,
+	"require":"g.alchemy>=7||g.scrying>=9",
+	"desc":"You could spend a century in Fazbit's lost workshop and still not exhaust its creations.",
+	"loot":{
+		"tomes":"2~3",
+		"gems":"3~5",
+		"airgem":"50%",
+		"firegem":"50%",
+		"fazbitfixate":true
+	},
+	"encs":[
+		"enc_alchemy",
+		"enc_chest1",
+		"enc_chest2",
+		"enc_furnace",
+		"enc_workbook1",
+		"enc_alchemy",
+		"enc_workbook2"
+	]
+},
+{
+	"id":"genezereth",
+	"level":15,
+	"length":100,
+	"desc":"An ancient bridge and library spanning Markhul's gap.",
+	"flavor":"third of the Four Weirs of Dhrune.",
+	"loot":{
+		"tomes":"3~5"
+	},"encs":[
+		"enc_tapestry",
+		"enc_tome",
+		"enc_chest1",
+		"enc_gap",
+		"enc_statue2",
+		"enc_history",
+		"enc_primer1"
+	]
 }
 
 

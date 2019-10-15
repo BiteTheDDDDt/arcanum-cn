@@ -12,6 +12,11 @@ export default class StatData extends GData {
 	 */
 	get current() { return this.unit ? Math.floor(this.value) : this._value; }
 
+	get val() { return this.value; }
+	set val(v) {
+		this.value = v;
+	}
+
 	/**
 	 * @property {number} value
 	 */
@@ -39,7 +44,7 @@ export default class StatData extends GData {
 
 		super(vars);
 
-		this.value = new Stat( this._value || 0 );
+		if ( !this.value ) this.value = 0;
 
 		/**
 		 * @compat. statData is a pure stat with no max value.

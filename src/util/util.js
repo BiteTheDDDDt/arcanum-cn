@@ -52,7 +52,7 @@ export const ensure = ( obj, props ) => {
  * @param {?Object} [dest=null] - optional base object of the clone.
  * if set, root object will not be cloned, only subobjects.
  */
-export function cloneClass( src, dest=null ) {
+export const cloneClass = ( src, dest=null ) => {
 
 	let o;
 
@@ -137,7 +137,7 @@ export const findRemove = (a,pred) => {
  * Log all public properties.
  * @param {*} src
  */
-export function logPublic( src ) {
+export const logPublic = ( src ) => {
 
 	let a = [];
 
@@ -161,7 +161,7 @@ export function logPublic( src ) {
  * @param {*} dest
  * @param {*} src
  */
-export function mergeDefined( dest, src ) {
+export const mergeDefined = ( dest, src ) => {
 
 	for( let p in src ) {
 
@@ -185,7 +185,7 @@ export function mergeDefined( dest, src ) {
 
 }
 
-export function assignNoFunc( dest, src ) {
+export const assignNoFunc = ( dest, src ) => {
 
 	var vars = src;
 	while ( vars !== Object.prototype ) {
@@ -221,7 +221,7 @@ export function assignNoFunc( dest, src ) {
 	 * @param {Object} obj - object containing the key to expand.
 	 * @param {string} prop
 	 */
-	export function splitKeyPath( obj, prop ) {
+	export const splitKeyPath = ( obj, prop ) => {
 
 		let val = obj[prop];
 
@@ -246,7 +246,7 @@ export function assignNoFunc( dest, src ) {
 
 	}
 
-export function assignPublic( dest, src ) {
+export const assignPublic = ( dest, src ) => {
 
 	var vars = src;
 	while ( vars !== Object.prototype ) {
@@ -275,7 +275,7 @@ export function assignPublic( dest, src ) {
 }
 
 
-export function showObj(obj) {
+export const showObj = (obj) => {
 
 	if ( Array.isArray(obj)){
 
@@ -298,7 +298,7 @@ export function showObj(obj) {
 
 }
 
-export function logObj( obj, msg='' ) {
+export const logObj = ( obj, msg='' ) => {
 	console.log( (msg ? msg + ': ' : '' ) + showObj(obj) );
 }
 

@@ -167,7 +167,7 @@ export default class Combat {
 
 			this.player.timer += this.player.delay;
 
-			// attempt to use primary item attack first.
+			// attempt to use cast spell first.
 			if ( this.spelllist.count === 0 || !this.tryCast() ) {
 
 				this.allyAttack( this.player, this.player.weapon||this.player.baseWeapon );
