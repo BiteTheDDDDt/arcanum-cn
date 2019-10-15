@@ -1,11 +1,18 @@
 import Stat from '../values/stat';
 import GData from './gdata';
 
+/**
+* @returns {boolean} true if resource value is positive.
+*/
+const positive = ( g, self ) => {
+	return (self._value > 0 || (self._rate.value>0&&( (!self.max) ||self.max.value>0) ) );
+}
+
 export default class Resource extends GData {
 
 	get require() {
 		return super.require ||
-		( !this._locked ? null : ()=>this.positive() );
+		( !this._locked ? null : positive );
 	}
 	set require(v){super.require = v;}
 
@@ -114,13 +121,6 @@ export default class Resource extends GData {
 
 		} else this._delta = 0;
 
-	}
-
-	/**
-	 * @returns {boolean} true if resource value is positive.
-	 */
-	positive(){
-		return (this._value > 0 || (this._rate.value>0&&( (!this.max) ||this.max.value>0) ) );
 	}
 
 }

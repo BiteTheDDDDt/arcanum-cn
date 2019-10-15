@@ -104,14 +104,15 @@ export default {
 			this.restoreMods();
 
 			techTree = new TechTree( this._items );
-			for( let p in this._items ) {
-				if ( !this._items[p].locked ) techTree.changed(p);
-			}
+
+			// initial fringe check.
+			techTree.checkFringe();
 
 			this.initTimers();
 
 			this.loaded = true;
 
+			Events.add( EVT_UNLOCK, techTree.unlocked, techTree );
 			Events.add( ENTER_LOC, this.enterLoc, this );
 			Events.add( EXIT_LOC, this.enterLoc, this );
 			Events.add( SET_SLOT, this.setSlot, this );
@@ -248,16 +249,7 @@ export default {
 
 		}
 
-		for( let p in this._items ) {
-
-			var it = this._items[p];
-			if ( it.dirty === true ) {
-
-				it.dirty = false;
-				techTree.changed(p);
-			}
-
-		}
+		techTree.checkFringe();
 
 	},
 
@@ -721,9 +713,11 @@ export default {
 
 		if ( it.type === 'event') this.unlockEvent( it );
 		else {
+
 			it.locked = false;
 			it.dirty = true;
 			Events.emit( EVT_UNLOCK, it );
+
 		}
 
 		return true;

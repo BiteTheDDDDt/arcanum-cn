@@ -36,6 +36,23 @@ export default class TechTree {
 		 */
 		this.fringe = [];
 
+		for( let p in this.items ) {
+
+			if ( !this.items[p].locked && this.unlocks[p] ) this.fringe.push( this.items[p] );
+			else {
+
+				// check cyclic unlock. resources unlock themselves with any amount;
+				// these must be added to fringe without being unlocked.
+				let links = this.unlocks[p];
+				if ( links && links.includes(p) ) {
+					console.warn('circle: ' + p);
+					this.fringe.push( this.items[p] );
+				}
+
+			}
+
+		}
+
 	}
 
 	/**
@@ -44,7 +61,7 @@ export default class TechTree {
 	 */
 	unlocked( it ) {
 
-		if ( unlocks[it.id] !== undefined ){
+		if ( this.unlocks[it.id] !== undefined ){
 			// if duplicate entry in fringe, should be weeded out naturally anyway.
 			this.fringe.push( it );
 		}
@@ -57,15 +74,19 @@ export default class TechTree {
 	checkFringe(){
 
 		let arr = this.fringe;
+
+		//if ( Math.random() < 0.1 ) console.log('FRINGE SIZE: ' + arr.length );
+
 		for( let i = arr.length-1; i >= 0; i-- ) {
 
 			var it = arr[i];
-			if ( it.locked || it.disabled ) {
+			if ( it.disabled ) {
 
 				quickSplice( arr, i );
 
 			} else if ( it.dirty === true ) {
 
+				it.dirty = false;
 				// no potential unlocks left.
 				if ( this.changed( it.id ) === false ) {
 					quickSplice( arr, i);
@@ -171,7 +192,7 @@ export default class TechTree {
 			this.markUnlocker( sub, item );
 
 		}
-		if ( text.includes('this') ) this.markUnlocker( item.id, item );
+		if ( text.includes('this') || text.includes('self') ) this.markUnlocker( item.id, item );
 
 	}
 
