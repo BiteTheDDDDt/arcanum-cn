@@ -49,7 +49,7 @@
 	{
         "id":"gremlin",
         "level":1,
-        "kind":"goblinoid",
+        "kind":"gobloid",
         "evil":5,
         "flavor":"Na-na-na-na-Na-na Na-na-na-na-Na-na...",
         "hp":"3~5",
@@ -471,10 +471,10 @@
 	{
 		"id":"goblin",
 		"kind":"humanoid",
-		"level":3,
+		"level":2,
 		"hp":4,
 		"defense":5,
-		"damage":"3~4",
+		"damage":"1~2",
 		"loot":{
 			"dagger":"20%",
 			"cap":"20%"
@@ -484,11 +484,11 @@
 		"id":"gobwarrior",
 		"name":"goblin warrior",
 		"kind":"humanoid",
-		"level":4,
+		"level":3,
 		"hp":8,
 		"tohit":5,
 		"defense":7,
-		"damage":"4~6",
+		"damage":"2~3",
 		"loot":{
 			"shortsword":"20%",
 			"cap":"20%",
@@ -498,7 +498,7 @@
 	{
 		"id":"gobpriest",
 		"kind":"humanoid",
-		"level":5,
+		"level":4,
 		"hp":5,
 		"tohit":5,
 		"defense":5,
@@ -516,7 +516,7 @@
 		"hp":11,
 		"tohit":6,
 		"defense":13,
-		"damage":"5~7",
+		"damage":"3~5",
 		"loot":{
 			"cap":"20%",
 			"boots":"10%"
@@ -529,7 +529,7 @@
 		"hp":14,
 		"tohit":7,
 		"defense":16,
-		"damage":"6~8",
+		"damage":"4~7",
 		"loot":{
 			"cap":"20%",
 			"boots":"10%"
@@ -542,7 +542,7 @@
 		"hp":18,
 		"tohit":8,
 		"defense":23,
-		"damage":"7~9",
+		"damage":"5~9",
 		"loot":{
 			"cap":"20%",
 			"boots":"10%",

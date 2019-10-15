@@ -4,6 +4,7 @@ optional dot stacking
 
 Display Weapon/Dot stats
 
+class/level on save file
 
 GAME:
 

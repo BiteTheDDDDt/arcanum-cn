@@ -145,16 +145,15 @@
 	{
 		"id":"enc_thyffr",
 		"name":"talking to thyffr",
-		"desc":"Within a ramble of mundane details, thyffr often discloses some genuine discoveries.",
+		"desc":"Within a ramble of mundane details, thyffr often discloses some genuine history.",
 		"effect":{
 			"rage":"0~2",
 			"weary":"1~3",
 			"history.exp":2,
-			"research":1,
-			"lore.exp":1
+			"research":1
 		},
 		"result":{
-			"arcana":0.05
+			"arcana":0.01
 		}
 
 	},
@@ -459,6 +458,34 @@
 			"arcana":0.01
 		}
 		,"flavor":"for none now live, who remember it."
+	},
+	{
+		"id":"enc_workbook2",
+		"name":"master's workbook",
+		"desc":"a book on the practical applications of magic",
+		"effect":{
+			"bf":"-1~3",
+			"madness":"0~3",
+			"rage":"1~3",
+			"crafting.exp":4
+		},
+		"result":{
+			"crafting.max":0.001
+		}
+	},
+	{
+		"id":"enc_statue2",
+		"name":"crumbled statue",
+		"desc":"the old stonemasons often chiselled spells into their works.",
+		"effect":{
+			"earth.exp":1,
+			"bf":"0~2",
+			"unease":"0~2",
+			"history.exp":1
+		},
+		"result":{
+			"earth.max":0.001
+		}
 	},
 	{
 		"id":"enc_gap",

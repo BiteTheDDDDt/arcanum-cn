@@ -991,9 +991,8 @@
 
 	},
 	{
-		"id":"fazbitfixations",
+		"id":"fazbitfixate",
 		"name":"fazbit's fixations",
-		"require":"g.alchemy>=6&&g.tier0>0",
 		"desc":"scribe a copy the seminal text in practical alchemy",
 		"length":50,
 		"repeat":false,
@@ -1037,7 +1036,7 @@
 	{
 		"id":"unendingtome",
 		"name":"unending tome",
-		"require":"g.languages>=9&&g.tier1>0",
+		"require":"g.languages>=9",
 		"desc":"some books have no end",
 		"length":50,
 		"repeat":false,

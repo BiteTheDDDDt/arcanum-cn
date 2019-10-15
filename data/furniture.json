@@ -715,11 +715,12 @@
 	{
 		"id":"smstables",
 		"name":"stables",
-		"require":"g.tier0>0&&g.animals>=7",
+		"require":"g.tier2>0||g.animals>=6",
 		"tags":"stables",
 		"cost":{
 			"space":10,
-			"gold":500
+			"gold":500,
+			"research":800
 		},
 		"mod":{
 			"animals.max":1,

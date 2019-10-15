@@ -139,7 +139,7 @@
 	},
 	"mod":{
 		"tier1":true,
-		"research.max":20,
+		"research.max":100,
 		"lore.max":1,
 		"lore.rate":"5%",
 		"astronomy.max":1,
@@ -280,10 +280,11 @@
 	"tags":"t_tier2",
 	"require":"g.trickery>=7&&g.tier1>0",
 	"cost":{
-		"research":700,
-		"gems":20,
-		"gold":1000,
-		"arcana":8
+		"research":777,
+		"gems":7,
+		"tomes":7,
+		"gold":777,
+		"arcana":7
 	},
 	"effect":{
 		"sp":3
@@ -307,7 +308,7 @@
 	"desc":"extend your life with the spare parts of the dead.",
 	"require":"g.tier1>0&&g.reanimator>=1&&g.evil>0",
 	"cost":{
-		"research":300,
+		"research":700,
 		"bones":10,
 		"bonedust":10,
 		"arcana":7
@@ -364,7 +365,7 @@
 	"actdesc":"Pursue the path of battle.",
 	"require":"g.tier1>0&&g.player.level>=10&&g.armory>0",
 	"cost":{
-		"research":550,
+		"research":750,
 		"arcana":7,
 		"gold":400
 	},
@@ -529,7 +530,7 @@
 	"desc":"an alchemist uses magical knowledge to craft wonders.",
 	"require":"g.tier1>0&&g.potions>=4&&g.alchemy>=5",
 	"cost":{
-		"research":1000,
+		"research":2000,
 		"managem":5,
 		"firegem":2,
 		"watergem":2,
@@ -559,9 +560,9 @@
 	"require":"g.tier1>0&&g.enchanting>=6&&g.charms>=3",
 	"tags":"t_tier2",
 	"cost":{
-		"research":2000,
+		"research":1200,
 		"managem":10,
-		"tomes":1,
+		"tomes":5,
 		"arcana":12
 	},
 	"effect":{
@@ -608,7 +609,6 @@
 	"title":"pyromancer",
 	"desc":"shaper of fire",
 	"tags":"t_tier2",
-	"disable":[],
 	"name":"pyromancy",
 	"actdesc":"Become a pyromancer.",
 	"require":"g.tier1>0&&g.firelore>=10",
@@ -635,7 +635,6 @@
 	"title":"hydromancer",
 	"desc":"master of water",
 	"tags":"t_tier2",
-	"disable":[],
 	"name":"hydromancy",
 	"actdesc":"Become a hydromancer.",
 	"require":"g.tier1>0&&g.waterlore>=10",
@@ -663,7 +662,6 @@
 	"title":"wind mage",
 	"desc":"to walk on the wind",
 	"tags":"t_tier2",
-	"disable":[],
 	"name":"wind mage",
 	"actdesc":"Become a wind.",
 	"require":"g.tier1>0&&g.airlore>=10",

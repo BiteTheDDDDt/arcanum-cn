@@ -205,6 +205,25 @@
 	]
 },
 {
+	"id":"fazbitshop",
+	"name":"fazbit's workshop",
+	"level":9,
+	"length":50,
+	"require":"g.alchemy>=7||g.scrying>=9",
+	"desc":"You could spend a century in Fazbit's lost workshop and still not exhaust its creations.",
+	"loot":{
+		"tomes":"2~3",
+		"gems":"2~3",
+		"fazbitfixate":true
+	},
+	"encs":[
+		"enc_primer1",
+		"enc_chest1",
+		"enc_primer1",
+		"enc_workbook1"
+	]
+},
+{
 	"id":"genezereth",
 	"level":15,
 	"length":100,
@@ -212,7 +231,15 @@
 	"flavor":"third of the Four Weirs of Dhrune.",
 	"loot":{
 		"tomes":"2~3"
-	}
+	},"encs":[
+		"enc_tapestry",
+		"enc_tome",
+		"enc_chest1",
+		"enc_gap",
+		"enc_statue2",
+		"end_history",
+		"enc_primer1"
+	]
 }
 
 

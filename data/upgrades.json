@@ -461,7 +461,7 @@
 			"research":200
 		},
 		"mod":{
-			"mana.rate":0.07
+			"mana.rate":0.03
 		}
 
 	},
@@ -725,7 +725,7 @@
 		"id":"speakbirds",
 		"name":"Speak to Birds",
 		"desc":"Learn the secret languages of birds.",
-		"require":"g.languages>0&&g.animals>2&&g.birdcage>1&&g.nature>0",
+		"require":"g.languages>0&&g.animals>2&&g.birdcage>1",
 		"cost":{
 			"research":250,
 			"nature":1
@@ -788,7 +788,7 @@
 			"arcana":1
 		},
 		"mod":{
-			"bloodsiphon.effect.mana":1,
+			"bloodsiphon.effect.manas":1,
 			"bloodsiphon.effect.shadow":1,
 			"bloodsiphon.effect.spirit":1
 		}
@@ -828,7 +828,7 @@
 		"id":"threesidecoin",
 		"name":"three-sided coin",
 		"desc":"you create your own luck",
-		"require":"g.prestidigitation>10",
+		"require":"g.trickery>=4",
 		"tags":"tricksource",
 		"cost":{
 			"research":200,
@@ -904,7 +904,7 @@
 		"id":"poisonaffinity",
 		"name":"poison affinity",
 		"desc":"a natural resistance to most poisons.",
-		"require":"g.nature>10",
+		"require":"g.nature>10&&g.druid>0",
 		"cost":{
 			"research":500,
 			"naturegem":10,
@@ -1285,7 +1285,7 @@
 		"id":"chakravarti",
 		"desc":"wheels upon wheels; you turn them all.",
 		"title":"chakravarti",
-		"require":"(g.dreadlord+g.battlemage)>0&&g.minions>=25&&g.player.level>=20",
+		"require":"(g.dreadlord+g.battlemage)>0&&g.player.level>=20",
 		"cost":{
 			"research":800,
 			"hp":100,

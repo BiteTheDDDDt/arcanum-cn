@@ -1278,7 +1278,7 @@
 		"dot":{
 			"duration":45,
 			"mod":{
-				"herbs.rate":0.25
+				"herbs.rate":0.5
 			}
 		}
 	},
@@ -1837,6 +1837,28 @@
 				"hp.max":50,
 				"defense":10,
 				"speed":2
+			}
+		}
+	},
+	{
+		"id":"abundance",
+		"level":8,
+		"desc":"herbs sprout more quickly from the earth.",
+		"school":"nature",
+		"require":"g.naturelore>=15",
+		"buy":{
+
+			"research":1000,
+			"tomes":5
+
+		},
+		"cost":{
+			"nature":8
+		},
+		"dot":{
+			"duration":60,
+			"mod":{
+				"herbs.rate":1.5
 			}
 		}
 	},
