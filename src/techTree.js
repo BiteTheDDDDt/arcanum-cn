@@ -1,4 +1,5 @@
 import Game from './game';
+import { quickSplice } from './util/util';
 
 /**
  * @const {RegExp} FuncRE - regular expression to find tree relationships
@@ -14,19 +15,105 @@ export default class TechTree {
 	 */
 	constructor( items ) {
 
+		/**
+		 * @property {object.<string,GData>} items - used to check if items
+		 * locked/unlocked etc in unlock links.
+		 */
 		this.items = items;
 
 		/**
-		 * @property {Object.<string,Array>} unlocks - maps item id to target Items
-		 * the id Item could potentially unlock.
+		 * @property {Object.<string,Array>} unlocks - item id to Items potentially unlocked
+		 * by changes in Item.
 		 */
 		this.unlocks = {};
 
 		for( let p in this.items ) {
+			this.mapUnlockers( this.items[p]);
+		}
 
-			this.mapTree( this.items[p]);
+		/**
+		 * Unlocked items that might unlock other items.
+		 */
+		this.fringe = [];
+
+	}
+
+	/**
+	 * Item was unlocked. Add to fringe if it potentially unlocks other items.
+	 * @param {GData} it
+	 */
+	unlocked( it ) {
+
+		if ( unlocks[it.id] !== undefined ){
+			// if duplicate entry in fringe, should be weeded out naturally anyway.
+			this.fringe.push( it );
+		}
+
+	}
+
+	/**
+	 * Check fringe items for potential unlock events.
+	 */
+	checkFringe(){
+
+		let arr = this.fringe;
+		for( let i = arr.length-1; i >= 0; i-- ) {
+
+			var it = arr[i];
+			if ( it.locked || it.disabled ) {
+
+				quickSplice( arr, i );
+
+			} else if ( it.dirty === true ) {
+
+				// no potential unlocks left.
+				if ( this.changed( it.id ) === false ) {
+					quickSplice( arr, i);
+				}
+
+
+			}
+
 
 		}
+
+	}
+
+	/**
+	 * Call when src Item changes.
+	 * Test unlocks on all variables linked by a possible unlock chain.
+	 * @param {string} src - id of changed Item.
+	*/
+	changed( src ){
+
+		let links = this.unlocks[src];
+		// never-null. this is guaranteed.
+		if ( links === undefined ) return false;
+
+		// links is id-array.
+
+		let it;
+		for( let i = links.length-1; i>= 0; i--) {
+
+			it = this.items[ links[i] ];
+			if ( !it ) {
+				console.warn('BAD UNLOCK LINK: ' + id );
+				quickSplice( links, i );
+			} else if ( it.locked === false || it.disabled === true || Game.tryUnlock(it) ) {
+
+				// remove unlock link.
+				quickSplice( links, i );
+
+			}
+
+		}
+
+		if ( links.length === 0 ) {
+			this.unlocks[src] = undefined;
+			return false;
+		}
+
+		return true;
 
 	}
 
@@ -34,7 +121,7 @@ export default class TechTree {
 	 * Mark all Items which might potentially unlock this item.
 	 * @param {Item} item
 	 */
-	mapTree( item ) {
+	mapUnlockers( item ) {
 
 		if ( !item.locked || item.disabled ) return;
 
@@ -89,9 +176,9 @@ export default class TechTree {
 	}
 
 	/**
-	 * Map src as an unlocker of item.
+	 * Map src as a potential unlocker of item.
 	 * @param {string} src
-	 * @param {Item} item
+	 * @param {GData} item
 	 */
 	markUnlocker( src, item ) {
 
@@ -106,38 +193,8 @@ export default class TechTree {
 		}
 
 		let map = this.unlocks[src];
-		if ( map === undefined ) this.unlocks[src] = map = {};
-
-		map[item.id] = true;
-
-	}
-
-	/**
-	 * Call when some variable of src Item changes.
-	 * Test unlocks on all variables linked by a possible unlock chain.
-	 * @param {string} src
-	 */
-	changed( src ){
-
-		let links = this.unlocks[src];
-		if ( links === undefined) return;
-
-		let it;
-		let count = 0;
-		for( let p in links ) {
-
-			it = this.items[p];
-			if ( !it ) {
-				console.warn('MISSING UNLOCK LINK: ' + p );
-			} else if ( it.locked === false || it.disabled === true || Game.tryUnlock(it) ) {
-
-				// remove unlock link.
-				links[p] = undefined;
-
-			} else count++;
-
-		}
-		if ( count === 0 ) this.unlocks[src] = undefined;
+		if ( map === undefined ) this.unlocks[src] = map = [];
+		if ( !map.includes( item.id ) ) map.push( item.id );
 
 	}
 

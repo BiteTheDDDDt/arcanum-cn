@@ -302,7 +302,6 @@ export default class Combat {
 	tryHit( attacker, defender, attack ){
 
 		let tohit = attacker.tohit || 0;
-		if ( attacker.id === 'player') console.log('PLAYER HIT: ' + tohit );
 
 		if ( attack && (attack != attacker) ) tohit += ( attack.tohit || 0 );
 

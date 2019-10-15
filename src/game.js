@@ -404,7 +404,6 @@ export default {
 
 		if ( count > it.value ) count = it.value;
 
-		console.log('sell #: ' + count );
 		let sellObj = it.sell || it.cost;
 		let goldPrice = count*this.sellPrice(it);
 
@@ -1229,7 +1228,6 @@ export default {
 		let res = this.state.equip.remove( it, slot );
 		if ( res ) {
 
-			console.log('to inv-> ' + res.id );
 			this.state.inventory.add(res);
 
 			if (  Array.isArray(res) ) res.forEach(v=>{
