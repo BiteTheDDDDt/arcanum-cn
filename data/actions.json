@@ -808,7 +808,7 @@
 			"scrolls":1
 		},
 		"run":{
-			"research":3
+			"research":10
 		},
 		"result":"starcharts"
 	},
@@ -1063,19 +1063,19 @@
 		"repeat":false,
 		"length":50,
 		"cost":{
-			"codices":10
+			"codices":30
 		},
 		"run":{
-			"research":1,
+			"research":10,
 			"starcharts":0.1
 		},
 		"log":{
 			"name":"almagest",
-			"desc":"your first map of the heavens is complete."
+			"desc":"your map of the heavens is complete."
 		},
 		"result":{
 			"starcharts.max":10,
-			"research.max":10,
+			"research.max":50,
 			"divination":{
 				"max":1,
 				"rate":0.2
@@ -1084,11 +1084,11 @@
 			"lore.rate":0.2,
 			"astronomy":{
 				"max":1,
-				"rate":0.1
+				"rate":"0.1+1%"
 			},
 			"planeslore":{
 				"max":1,
-				"rate":0.2
+				"rate":"0.2+1%"
 			}
 		}
 

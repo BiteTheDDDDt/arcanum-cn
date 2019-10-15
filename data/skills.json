@@ -77,6 +77,20 @@
 
 	},
 	{
+
+		"id":"composure",
+		"name":"composure",
+		"desc":"remain unfazed under strain.",
+		"require":"g.concentrate>=4",
+		"run":{
+			"stamina":0.3
+		},
+		"mod":{
+			"stress.rate":-0.1
+		}
+
+	},
+	{
 		"id":"trickery",
 		"school":"arcane",
 		"verb":"scheming",
@@ -100,7 +114,7 @@
 		"school":"arcane",
 		"verb":"conjuring",
 		"desc":"",
-		"require":"g.tier0>0&&g.lore>=7&&g.divination>3",
+		"require":"g.lore>=7&&g.divination>3",
 		"run":{
 			"stamina":0.2,
 			"spirit":0.2
