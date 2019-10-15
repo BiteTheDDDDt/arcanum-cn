@@ -111,7 +111,7 @@
 		"require":"g.trickery>=4",
 		"cost":{
 			"stamina":0.22,
-			"mana":0.25
+			"mana":0.1
 		},
 		"effect":{
 			"research":-0.5,
@@ -170,13 +170,14 @@
 			"stamina":0.2
 		},
 		"effect":{
-			"lore.exp":0.5
+			"lore.exp":0.5,
+			"player.exp":0.5
 		},
-		"result":{
+		"mod":{
 			"research.max":25,
 			"research.rate":0.07,
-			"arcana.rate":0.0001,
-			"player.exp":10
+			"arcana.rate":0.0001
+
 		}
 
 	},
@@ -433,11 +434,11 @@
 		"id":"readpalms",
 		"name":"Read Palms",
 		"verb":"reading palms",
-		"require":"g.divination>=5||g.trickster>0",
+		"require":"g.divination>5||g.trickster>0",
 		"desc":"read palms for a small fee.",
 		"cost":{
 			"stamina":0.3,
-			"mana":1
+			"mana":0.2
 		},
 		"at":{
 
