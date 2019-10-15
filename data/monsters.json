@@ -553,12 +553,10 @@
 		"id":"warg",
 		"kind":"beast",
 		"level":6,
-		"hp":12,
+		"hp":15,
 		"tohit":7,
 		"defense":4,
-		"damage":"8~10",
-		"loot":{
-		}
+		"damage":"7~9"
 	},
 	{
 		"id":"giantspider",

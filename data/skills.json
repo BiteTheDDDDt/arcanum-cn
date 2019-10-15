@@ -11,8 +11,10 @@
 			"stamina":0.5
 		},
 		"result":{
-			"research.max":1,
 			"sp":0.1
+		},
+		"mod":{
+			"research.max":1
 		}
 	},
 	{
@@ -29,15 +31,12 @@
 			"stamina":0.2
 		},
 		"result":{
-
-			"research.max":5,
-			"arcana":{
-				"value":1,
-				"max":1
-			}
+			"arcana":1
 		},
 		"mod":{
-			"spelllist.max":0.5
+			"research.max":5,
+			"spelllist.max":0.5,
+			"arcana.max":1
 		}
 
 	},
@@ -88,7 +87,7 @@
 		},
 		"result":{
 			"sp":0.2,
-			"arcana":1
+			"arcana":0.5
 		},
 		"mod":{
 			"luck":0.4,
@@ -107,11 +106,13 @@
 			"spirit":0.2
 		},
 		"result":{
-			"research.max":1,
-			"summoning.max":0.2,
-			"summoning.rate":0.1,
 			"arcana":0.2,
 			"sp":0.05
+		},
+		"mod":{
+			"research.max":1,
+			"summoning.max":0.2,
+			"summoning.rate":0.1
 		},"flavor":"who knows where things come from? they just appear."
 
 	},
@@ -130,13 +131,15 @@
 			"research":1
 		},
 		"result":{
-			"research.max":5,
-			"languages.rate":0.1,
-			"languages.max":0.2,
-			"lore.rate":0.1,
-			"lore.max":0.2,
 			"arcana":0.1,
 			"sp":0.05
+		},
+		"mod":{
+			"research.max":5,
+			"languages.rate":"0.1+2%",
+			"languages.max":0.2,
+			"lore.rate":0.1,
+			"lore.max":0.2
 		},"flavor":""
 
 	},
@@ -149,12 +152,12 @@
 		},
 		"result":{
 			"sp":0.05,
-			"research":{
-				"max":1,
-				"value":5
-			}
+			"research":5
 		},
-		"flavor":"tend the rabbits"
+		"mod":{
+			"research.max":1
+		},
+		"flavor":"Tend the rabbits. Or horses."
 	},
 	{
 		"id":"magicbeasts",
@@ -214,9 +217,11 @@
 			"stamina":0.5
 		},
 		"result":{
-			"sp":0.05,
+			"sp":0.05
+		},
+		"mod":{
 			"crafting.max":0.2,
-			"crafting.rate":0.1
+			"crafting.rate":"0.1+1%"
 		}
 
 	},
@@ -233,10 +238,10 @@
 			"stamina":0.2
 		},
 		"effect":{
-			"research":0.1
+			"research":0.1,
+			"sp":0.001
 		},
-		"result":{
-			"sp":0.05,
+		"mod":{
 			"research.max":5,
 			"lore.rate":0.1
 		}
@@ -255,7 +260,9 @@
 			"research":0.5
 		},
 		"result":{
-			"sp":0.05,
+			"sp":0.05
+		},
+		"mod":{
 			"research.max":10,
 			"arcana.max":0.5,
 			"languages.rate":"1%"
@@ -272,9 +279,12 @@
 			"stamina":0.5
 		},
 		"result":{
-			"sp":0.05,
+			"sp":0.05
+		},
+		"mod":{
 			"research.max":1,
-			"hp.max":1
+			"hp.max":1,
+			"hp.rate":0.2
 		}
 
 	},
@@ -287,9 +297,11 @@
 			"stamina":0.5
 		},
 		"result":{
-			"sp":0.05,
-			"research.max":1,
+			"sp":0.1,
 			"bones":1
+		},
+		"mod":{
+			"research.max":1
 		}
 
 	},
@@ -302,7 +314,9 @@
 			"stamina":0.5
 		},
 		"result":{
-			"sp":0.05,
+			"sp":0.05
+		},
+		"mod":{
 			"research.max":1,
 			"shadow.rate":0.01
 		}
@@ -337,11 +351,11 @@
 			"stamina":0.4
 		},
 		"effect":{
-			"arcana":0.001
+			"arcana":0.001,
+			"sp":0.001
 		},
-		"result":{
+		"mod":{
 			"research.max":1,
-			"sp":0.05,
 			"spirit.rate":0.01
 		}
 
@@ -356,7 +370,7 @@
 		"run":{
 			"stamina":0.4
 		},
-		"result":{
+		"mod":{
 			"research.max":1,
 			"light.max":1,
 			"light.rate":0.01
@@ -373,7 +387,7 @@
 		"run":{
 			"stamina":0.5
 		},
-		"result":{
+		"mod":{
 			"research.max":1,
 			"shadow.max":1,
 			"shadow.rate":0.01
@@ -391,7 +405,7 @@
 		"run":{
 			"stamina":0.4
 		},
-		"result":{
+		"mod":{
 			"research.max":1,
 			"spirit.max":1,
 			"spirit.rate":0.01
@@ -408,7 +422,7 @@
 			"stamina":0.4,
 			"hp":0.2
 		},
-		"result":{
+		"mod":{
 			"research.max":1,
 			"fire.max":1,
 			"fire.rate":0.01
@@ -424,7 +438,7 @@
 		"run":{
 			"stamina":0.4
 		},
-		"result":{
+		"mod":{
 			"research.max":1,
 			"earth":{
 				"max":1,
@@ -442,7 +456,7 @@
 		"run":{
 			"stamina":0.4
 		},
-		"result":{
+		"mod":{
 			"research.max":1,
 			"water":{
 				"max":1,
@@ -461,7 +475,7 @@
 		"run":{
 			"stamina":0.3
 		},
-		"result":{
+		"mod":{
 			"research.max":1,
 			"air":{
 				"max":1,
@@ -479,7 +493,7 @@
 		"run":{
 			"stamina":0.4
 		},
-		"result":{
+		"mod":{
 			"research.max":1,
 			"nature":{
 				"max":1,
@@ -500,7 +514,9 @@
 			"hp":1
 		},
 		"result":{
-			"sp":0.1,
+			"sp":0.1
+		},
+		"mod":{
 			"arcana.max":0.1,
 			"lore.rate":0.2,
 			"research.max":1
@@ -536,7 +552,9 @@
 			"shadow":0.5
 		},
 		"result":{
-			"sp":0.05,
+			"sp":0.05
+		},
+		"mod":{
 			"shadow.rate":0.01
 		}
 
@@ -549,11 +567,10 @@
 			"stamina":0.5
 		},
 		"result":{
-			"sp":0.05,
-			"research":{
-				"max":1,
-				"value":5
-			}
+			"sp":0.05
+		},
+		"mod":{
+			"research.max":2
 		}
 	},
 	{
@@ -566,10 +583,7 @@
 		},
 		"result":{
 			"sp":0.05,
-			"research":{
-				"max":1,
-				"value":5
-			}
+			"arcana":0.1
 		}
 	},
 	{
@@ -581,10 +595,10 @@
 		},
 		"result":{
 			"sp":0.1,
-			"research":{
-				"max":1,
-				"value":5
-			}
+			"research":5
+		},
+		"mod":{
+			"research.max":2
 		}
 	},
 	{
@@ -594,10 +608,10 @@
 			"stamina":0.5
 		},
 		"result":{
-			"sp":0.05,
-			"research":{
-				"max":1
-			}
+			"sp":0.05
+		},
+		"mod":{
+			"research.max":2
 		}
 	},
 	{
