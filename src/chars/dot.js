@@ -84,6 +84,7 @@ export default class Dot {
 	 * Ticks dt and returns the amount the dot has actually ticked,
 	 * (allowing for seconds-only updates.)
 	 * @param {number} dt
+	 * @returns {number} - amount of tick time to count.
 	 */
 	tick(dt) {
 
