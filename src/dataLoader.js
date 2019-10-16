@@ -286,7 +286,10 @@ export default {
 		gd.events = this.initItems( dataLists['events'], GEvent, null, 'event' );
 		gd.classes = this.initItems( dataLists['classes'], GEvent, 'class', 'class' );
 		gd.classes.forEach(v=>{
-			v.warn=true;
+			if ( v.warn !== false ) {
+				v.warnMsg = 'Alternate Wizard classes of this tier will be locked.';
+				v.warn = true;
+			}
 			v.repeat = false;
 		});
 

@@ -21,6 +21,7 @@ export default class Runner {
 		if ( vars ) Object.assign(this,vars);
 
 		this.id = 'runner';
+		this.name = 'activity';
 
 		/**
 		 * @property {Runnable[]} runnables - use-with object combinations.

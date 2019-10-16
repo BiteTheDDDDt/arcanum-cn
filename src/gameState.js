@@ -214,7 +214,6 @@ export default class GameState {
 			}
 
 		}
-		console.warn('item count: ' + count );
 
 	}
 

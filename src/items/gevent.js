@@ -33,8 +33,6 @@ export default class GEvent extends GData {
 
 		if ( this.loot ) Game.getLoot( this.loot );
 
-
-		this.locked = false;
 		Events.emit( EVT_EVENT, this );
 
 	}

@@ -5,8 +5,8 @@ import Action from './action';
 	 * Default require function for spells.
 	 * @param {Object} g - items
 	 */
-const spellRequire = ( g, self ) => {
-	return ( g.player.level >= 2*self.level );
+const spellRequire = ( g, s ) => {
+	return ( g.player.level >= 2*s.level );
 }
 
 export default class Spell extends Action {

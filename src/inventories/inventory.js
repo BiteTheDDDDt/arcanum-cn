@@ -98,7 +98,6 @@ export default class Inventory {
 			if ( it.stack ) {
 				let inst = this.findMatch( it );
 				if ( inst ){
-					console.log('stack: ' + it.value );
 					inst.value += it.value;
 					return;
 				}

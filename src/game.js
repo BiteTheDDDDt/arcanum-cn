@@ -104,9 +104,11 @@ export default {
 			this.restoreMods();
 
 			techTree = new TechTree( this._items );
-			for( let p in this._items ) {
-				if ( !this._items[p].locked ) techTree.changed(p);
-			}
+
+			Events.add( EVT_UNLOCK, techTree.unlocked, techTree );
+
+			// initial fringe check.
+			techTree.checkFringe();
 
 			this.initTimers();
 
@@ -139,7 +141,7 @@ export default {
 					if ( evt.locked ) evt.locked = false;
 					else if ( evt.value == 0 ) {
 
-						evt.amount(this,1 );
+						this.unlockEvent(evt);
 					}
 					hasEvent = true;
 					break;
@@ -239,6 +241,7 @@ export default {
 
 		this.doResources( this.state.resources, dt);
 		this.doResources( this.state.playerStats, dt );
+		this.doResources( this.state.stressors, dt );
 
 		if ( this.timers ) {
 
@@ -248,16 +251,7 @@ export default {
 
 		}
 
-		for( let p in this._items ) {
-
-			var it = this._items[p];
-			if ( it.dirty === true ) {
-
-				it.dirty = false;
-				techTree.changed(p);
-			}
-
-		}
+		techTree.checkFringe();
 
 	},
 
@@ -404,7 +398,6 @@ export default {
 
 		if ( count > it.value ) count = it.value;
 
-		console.log('sell #: ' + count );
 		let sellObj = it.sell || it.cost;
 		let goldPrice = count*this.sellPrice(it);
 
@@ -657,19 +650,6 @@ export default {
 
 	},
 
-	/**
-	 *
-	 * @param {Object} evt
-	 */
-	unlockEvent( evt ) {
-
-		// randomized event.
-		if ( evt.rand ) {
-
-		} else evt.amount( this, 1 );
-
-	},
-
 	doLog( logItem ) {
 		Events.emit( EVT_EVENT, logItem );
 	},
@@ -720,14 +700,42 @@ export default {
 		let test = it.require || it.need;
 		if ( test && !this.unlockTest(test, it ) ) return false;
 
-		if ( it.type === 'event') this.unlockEvent( it );
+		this.doUnlock(it);
+
+		return true;
+
+	},
+
+	doUnlock( it ) {
+
+		if ( it.disabled ) return;
+
+		if ( it.type === 'event' ) this.unlockEvent( it );
 		else {
+
 			it.locked = false;
 			it.dirty = true;
 			Events.emit( EVT_UNLOCK, it );
 		}
 
-		return true;
+	},
+
+		/**
+	 *
+	 * @param {Object} evt
+	 */
+	unlockEvent( evt ) {
+
+		if ( evt.disabled  || (!evt.locked &&!evt.repeat ) ) return;
+		evt.locked = false;
+		evt.dirty = true;
+
+		Events.emit(EVT_UNLOCK, evt );
+
+		// randomized event.
+		if ( evt.rand ) {
+
+		} else evt.amount( this, 1 );
 
 	},
 
@@ -837,14 +845,14 @@ export default {
 
 				} else {
 
-					if ( target.type === 'event' ) this.unlockEvent( target );
+					if ( target.type === 'event' || target.type ==='class' ) this.unlockEvent( target );
 					else if ( typeof e === 'number' ) target.amount( this, e*dt );
 					else if ( e instanceof Range ) {
 
 						target.amount( this, e.value*dt );
-					} else if ( typeof e === 'boolean') {
+					} else if ( e === true ) {
 
-						target.locked = !e;
+						this.doUnlock( target );
 						target.onUse( this );
 
 					} else target.applyVars(e,dt);
@@ -858,7 +866,7 @@ export default {
 			let target = this.getData(effect);
 			if ( target !== undefined ) {
 
-				if ( target.type === 'event') this.unlockEvent( target );
+				if ( target.type === 'event' || target.type ==='class' ) this.unlockEvent( target );
 				else target.amount( this, dt );
 
 			} else {
@@ -890,8 +898,8 @@ export default {
 				if ( target === undefined ) this.modTag( p, mod[p], amt );
 				else if ( mod[p] === true ){
 
-					if ( target.type === 'event' && !target.value ) {
-						target.amount( this, 1 );
+					if ( target.type === 'event' ) {
+						this.unlockEvent(target);
 					}// else if ( target.mod ) this.addMod( target.mod, amt );
 
 				} else {
@@ -910,7 +918,7 @@ export default {
 			if ( t ) {
 
 
-				if ( t.type ==='event' && !t.value ) t.amount(this,1 );
+				if ( t.type ==='event' && !t.value ) this.unlockEvent(t);
 				//else if ( t.mod ) this.addMod( t.mod, amt );
 
 			} else {
@@ -1229,7 +1237,6 @@ export default {
 		let res = this.state.equip.remove( it, slot );
 		if ( res ) {
 
-			console.log('to inv-> ' + res.id );
 			this.state.inventory.add(res);
 
 			if (  Array.isArray(res) ) res.forEach(v=>{
