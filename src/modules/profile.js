@@ -1,4 +1,5 @@
 import Hall from "./hall";
+import Settings from '../settings';
 
 const HALL_FILE = 'hall';
 
@@ -18,6 +19,13 @@ export default {
 	 * @property {string} saveDir - global save directory.
 	 */
 	saveDir: __SAVE ? __SAVE + '/' : '',
+
+	/**
+	 * @returns {string} old save location.
+	 */
+	legacySave(){
+		return this.saveDir + 'gameData';
+	},
 
 	/**
 	 * Load information of all wizards.
@@ -43,6 +51,18 @@ export default {
 
 		}
 
+	},
+
+	/**
+	 * Get JSON data of current character.
+	 */
+	charFile(){
+	},
+
+	/**
+	 * Load active character.
+	 */
+	loadActive() {
 	},
 
 	saveHall(){

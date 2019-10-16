@@ -4,6 +4,8 @@ import Confirm from 'ui/components/confirm.vue';
 import Game from './game';
 import Events from './events';
 
+import Profile from './modules/profile';
+
 /**
  * Global dispatch.
  */

@@ -8,11 +8,18 @@ export default class Hall {
 		return {
 
 			name:this.name,
-			chars:this.chars
+			chars:this.chars,
+			active:this.active
 
 		}
 
 	}
+
+	/**
+	 * @property {string} active - name of active char.
+	 */
+	get active() { return this._active; }
+	set active(v) { this._active = v;}
 
 	get name() { return this._name; }
 	set name(v) { this._name = v; }
@@ -26,6 +33,20 @@ export default class Hall {
 
 		if ( !this.chars ) this.chars = {};
 
+	}
+
+	setLevel(lvl){
+
+	}
+
+	setName(name){
+
+	}
+
+	setTitle(){
+	}
+
+	setInfo(){
 	}
 
 	addChar( info ) {
