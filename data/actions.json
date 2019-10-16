@@ -151,8 +151,7 @@
 		"id":"spellbook",
 		"actname":"Bind Spellbook",
 		"verb":"binding spells",
-		"require":"g.lore>=2&&g.crafting>=1&&g.languages>=1",
-		"need":"g.languages>0&&g.crafting>1",
+		"require":"g.lore>=2&&g.crafting>=2&&g.languages>=1",
 		"desc":"The portal to true magic.",
 		"length":50,
 		"repeat":false,
@@ -381,6 +380,7 @@
 
 		},"effect":{
 			"embalming.exp":0.2,
+			"dissection.exp":0.1,
 			"gold":2.2
 		}
 
