@@ -268,7 +268,7 @@
 	},
 	{
 		"id":"history",
-		"require":"g.languages>7",
+		"require":"g.languages>=7",
 		"desc":"the knowledge of what has come before reveals what is yet possible.",
 		"verb":"historicizing",
 		"run":{
@@ -282,7 +282,7 @@
 		},
 		"mod":{
 			"research.max":10,
-			"arcana.max":0.5,
+			"arcana.max":0.1,
 			"languages.rate":"1%"
 		}
 

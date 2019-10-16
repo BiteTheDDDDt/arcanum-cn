@@ -2221,7 +2221,10 @@
 			"dot":{
 				"name":"blind",
 				"kind":"blind",
-				"tohit":-3
+				"duration":10,
+				"mod":{
+					"tohit":-3
+				}
 			}
 		},"loot":{"lightgem":"10%"},
 		"immune":"fire,light"
@@ -3067,7 +3070,9 @@
 				"dot":{
 					"id":"redhaze",
 					"duration":20,
-					"tohit":-10
+					"mod":{
+						"tohit":-10
+					}
 				}
 			},
 			{
