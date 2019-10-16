@@ -1222,8 +1222,8 @@
 			"naturelore.rate":"15%",
 			"animals.max":2,
 			"animals.rate":"10%",
-			"herbalism.max":1,
-			"herbalism.rate":"15%"
+			"earthlore.max":1,
+			"earthlore.rate":"15%"
 		},"flavor":"most preferred their glades and fens to the turmoils of the world"
 	},
 	{
@@ -1272,13 +1272,13 @@
 			"tier6":true,
 			"airlore.max":2,
 			"airlore.rate":"10%",
-			"naturelore.max":3,
-			"naturelore.rate":"15%",
-			"animals.max":2,
-			"animals.rate":"10%",
-			"herbalism.max":1,
-			"herbalism.rate":"15%"
-		},"flavor":"most preferred their glades and fens to the turmoils of the world"
+			"earthlore.max":3,
+			"earthlore.rate":"15%",
+			"waterlore.max":2,
+			"waterlore.rate":"10%",
+			"firelore.max":1,
+			"firelore.rate":"15%"
+		},"flavor":""
 	}
 
 ]
