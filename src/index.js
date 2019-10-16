@@ -37,7 +37,7 @@ Vue.mixin({
 
 });
 
-var vm = new Vue({
+const vm = new Vue({
 	el: '#vueRoot',
 	components:{ Main },
 	created(){
@@ -89,7 +89,7 @@ var vm = new Vue({
 
 		},
 
-		saveFile(e, name='arcanum'){
+		saveFile(e ){
 
 			try {
 
@@ -97,7 +97,6 @@ var vm = new Vue({
 
 				let state = this.game.state;
 				let json = JSON.stringify( state );
-
 
 				this.lastSave = new File( [json],
 					(state.player.name || 'arcanum') + '.json', {type:"text/json;charset=utf-8"} );
@@ -156,7 +155,7 @@ var vm = new Vue({
 			try {
 
 				let json = JSON.stringify( this.game.state );
-				store.setItem( this.saveloc, json );
+				store.setItem( Profile.curSaveLoc(), json );
 
 			} catch(e) {
 				console.error(e);
@@ -166,14 +165,13 @@ var vm = new Vue({
 
 		save() {
 
-			console.log('saving...');
 			let store = window.localStorage;
 
 			try {
 
 				let json = JSON.stringify( this.game.state );
 				console.log( json )
-				store.setItem( this.saveloc, json );
+				store.setItem( Profile.curSaveLoc(), json );
 
 			} catch(e) {
 				console.error(e);

@@ -94,14 +94,17 @@
 		"id":"trickery",
 		"school":"arcane",
 		"verb":"scheming",
-		"require":"g.prestidigitation>15",
+		"require":"g.prestidigitation>25",
+		"buy":{
+			"sp":2
+		},
 		"run":{
 			"stamina":0.2,
 			"gold":1
 		},
 		"result":{
 			"sp":0.2,
-			"arcana":0.5
+			"arcana":0.1
 		},
 		"mod":{
 			"luck":0.4,

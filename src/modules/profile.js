@@ -1,6 +1,8 @@
 import Hall from "./hall";
 import Settings from '../settings';
 
+const CHARS_DIR = 'chars/';
+const SETTINGS_DIR = 'settings/';
 const HALL_FILE = 'hall';
 
 /**
@@ -9,11 +11,6 @@ const HALL_FILE = 'hall';
 export default {
 
 	hall:null,
-
-	/**
-	 * @property {string} current - name of current character.
-	 */
-	current:null,
 
 	/**
 	 * @property {string} saveDir - global save directory.
@@ -51,6 +48,17 @@ export default {
 
 		}
 
+	},
+
+	/**
+	 * @returns {string} - save location for current char file.
+	 */
+	curSaveLoc() {
+		return this.saveDir + CHARS_DIR + this.hall.active;
+	},
+
+	curSettingsLoc(){
+		return this.saveDir + SETTINGS_DIR + this.hall.active;
 	},
 
 	/**
