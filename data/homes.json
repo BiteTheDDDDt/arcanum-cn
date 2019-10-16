@@ -316,13 +316,13 @@
 	},
 	{
 		"id":"temple",
-		"desc":"Sanctum of meditation and insight.",
+		"desc":"Sanctum of meditation and solitude.",
 		"cost":10000,
-		"require":"g.arcana>=10&&g.virtue>10",
+		"require":"(g.oracle+g.seer)>0",
 		"mod":{
 			"virtue.rate":0.001,
 			"arcana.rate":0.001,
-			"minions.max":10,
+			"minions.max":8,
 			"lightlore.max":1,
 			"space.max":200,
 			"shadow.max":-3,

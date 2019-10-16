@@ -141,8 +141,11 @@ export default class Stat {
 			this.base += amt*mod;
 			return;
 		} else if ( typeof mod === 'object') {
-			this.base += amt*mod.bonus;
-			this.pct += amt*mod.pct;
+
+			/**@todo support for percents/ranges in general. */
+			this.base += amt*( mod.bonus || 0 );
+			this.pct += amt*( mod.pct || 0 );
+
 		}
 
 	}
