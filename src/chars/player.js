@@ -266,9 +266,9 @@ export default class Player extends Char {
 	 */
 	begin() {
 
-		/*for( let i = this.dots.length-1; i>=0; i-- ){
+		for( let i = this.dots.length-1; i>=0; i-- ){
 			if ( this.dots[i].mod) Game.addMod( this.dots[i].mod, 1 );
-		}*/
+		}
 
 	}
 
