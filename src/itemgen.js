@@ -257,18 +257,15 @@ export default class ItemGen {
 	 */
 	getGData( it , amt ) {
 
-		if ( typeof amt === 'number') {
+		if ( amt === true || it.type === 'event') {
+
+			// unlock.
+			Game.doUnlock(it);
+
+		} else if ( typeof amt === 'number') {
 
 			it.amount( Game, amt );
 			if ( amt > 0 ) return it.name;
-
-		} else if ( amt === true ) {
-
-			// unlock.
-			if ( it.locked ) {
-				it.locked = false;
-				events.emit( EVT_UNLOCK, it );
-			}
 
 		} else console.warn('unknown amount: '+ it + ' -> ' + amt );
 

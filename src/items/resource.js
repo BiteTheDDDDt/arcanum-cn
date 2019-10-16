@@ -1,20 +1,23 @@
 import Stat from '../values/stat';
 import GData from './gdata';
 
-/**
-* @returns {boolean} true if resource value is positive.
-*/
-const positive = ( g, self ) => {
-	return (self._value > 0 || (self._rate.value>0&&( (!self.max) ||self.max.value>0) ) );
-}
 
 export default class Resource extends GData {
 
 	get require() {
 		return super.require ||
-		( !this._locked ? null : positive );
+		( !this._locked ? null : v=>this.positive() );
 	}
 	set require(v){super.require = v;}
+
+	/**
+	 * @note NEED 'this' so dist mangler doesn't change 's', hiding the self-reference
+	 * require from 'unlock'. messy and bad.
+	* @returns {boolean} true if resource value is positive.
+	*/
+	positive(g,s) {
+		return (this._value > 0 || (this._rate.value>0&&( (!this.max) ||this.max.value>0) ) );
+	}
 
 	/**
 	 * @property {number} current - identical to value except uses floor of values.

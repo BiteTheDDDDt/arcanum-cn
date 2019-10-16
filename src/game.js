@@ -105,6 +105,8 @@ export default {
 
 			techTree = new TechTree( this._items );
 
+			Events.add( EVT_UNLOCK, techTree.unlocked, techTree );
+
 			// initial fringe check.
 			techTree.checkFringe();
 
@@ -112,7 +114,6 @@ export default {
 
 			this.loaded = true;
 
-			Events.add( EVT_UNLOCK, techTree.unlocked, techTree );
 			Events.add( ENTER_LOC, this.enterLoc, this );
 			Events.add( EXIT_LOC, this.enterLoc, this );
 			Events.add( SET_SLOT, this.setSlot, this );
@@ -140,7 +141,7 @@ export default {
 					if ( evt.locked ) evt.locked = false;
 					else if ( evt.value == 0 ) {
 
-						evt.amount(this,1 );
+						this.unlockEvent(evt);
 					}
 					hasEvent = true;
 					break;
@@ -240,6 +241,7 @@ export default {
 
 		this.doResources( this.state.resources, dt);
 		this.doResources( this.state.playerStats, dt );
+		this.doResources( this.state.stressors, dt );
 
 		if ( this.timers ) {
 
@@ -698,8 +700,7 @@ export default {
 		let test = it.require || it.need;
 		if ( test && !this.unlockTest(test, it ) ) return false;
 
-		if ( it.type === 'event') this.unlockEvent( it );
-		else this.doUnlock(it);
+		this.doUnlock(it);
 
 		return true;
 
@@ -707,9 +708,15 @@ export default {
 
 	doUnlock( it ) {
 
-		it.locked = false;
-		it.dirty = true;
-		Events.emit( EVT_UNLOCK, it );
+		if ( it.disabled ) return;
+
+		if ( it.type === 'event' ) this.unlockEvent( it );
+		else {
+
+			it.locked = false;
+			it.dirty = true;
+			Events.emit( EVT_UNLOCK, it );
+		}
 
 	},
 
@@ -721,9 +728,9 @@ export default {
 
 		if ( evt.disabled  || (!evt.locked &&!evt.repeat ) ) return;
 		evt.locked = false;
+		evt.dirty = true;
 
 		Events.emit(EVT_UNLOCK, evt );
-		evt.dirty = true;
 
 		// randomized event.
 		if ( evt.rand ) {
@@ -838,7 +845,7 @@ export default {
 
 				} else {
 
-					if ( target.type === 'event' ) this.unlockEvent( target );
+					if ( target.type === 'event' || target.type ==='class' ) this.unlockEvent( target );
 					else if ( typeof e === 'number' ) target.amount( this, e*dt );
 					else if ( e instanceof Range ) {
 
@@ -859,7 +866,7 @@ export default {
 			let target = this.getData(effect);
 			if ( target !== undefined ) {
 
-				if ( target.type === 'event') this.unlockEvent( target );
+				if ( target.type === 'event' || target.type ==='class' ) this.unlockEvent( target );
 				else target.amount( this, dt );
 
 			} else {
@@ -891,8 +898,8 @@ export default {
 				if ( target === undefined ) this.modTag( p, mod[p], amt );
 				else if ( mod[p] === true ){
 
-					if ( target.type === 'event' && !target.value ) {
-						target.amount( this, 1 );
+					if ( target.type === 'event' ) {
+						this.unlockEvent(target);
 					}// else if ( target.mod ) this.addMod( target.mod, amt );
 
 				} else {
@@ -911,7 +918,7 @@ export default {
 			if ( t ) {
 
 
-				if ( t.type ==='event' && !t.value ) t.amount(this,1 );
+				if ( t.type ==='event' && !t.value ) this.unlockEvent(t);
 				//else if ( t.mod ) this.addMod( t.mod, amt );
 
 			} else {

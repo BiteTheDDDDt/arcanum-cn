@@ -111,10 +111,10 @@
 		"require":"g.trickery>=4",
 		"cost":{
 			"stamina":0.22,
-			"mana":0.1
+			"mana":0.1,
+			"research":0.5
 		},
 		"effect":{
-			"research":-0.5,
 			"gold":0.5,
 			"trickery.exp":0.1,
 			"evilamt":0.01,

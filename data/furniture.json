@@ -633,7 +633,7 @@
 	{
 		"id":"clepsydra",
 		"desc":"Crude measure of time",
-		"require":"tier2",
+		"require":"tier3",
 		"tags":"timesource",
 		"repeat":true,
 		"cost":{

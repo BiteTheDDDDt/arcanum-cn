@@ -70,6 +70,12 @@ export default class GData {
 	get require() { return this._require; }
 	set require(v) { this._require =v;}
 
+	get warn() { return this._warn; }
+	set warn(v) { this._warn =v;}
+
+	get warnMsg(){return this._warnMsg; }
+	set warnMsg(v) { this._warnMsg = v; }
+
 	/**
 	 * @property {Object|Array|string|function} effect
 	 */

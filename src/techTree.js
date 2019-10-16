@@ -191,7 +191,7 @@ export default class TechTree {
 			this.markUnlocker( sub, item );
 
 		}
-		if ( text.includes('this') || text.includes('self') ) this.markUnlocker( item.id, item );
+		if ( text.includes('this') || text.includes('s.') ) this.markUnlocker( item.id, item );
 
 	}
 

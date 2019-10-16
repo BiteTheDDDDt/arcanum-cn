@@ -168,7 +168,8 @@ div.home-view {
 
 div.cur-home {
 	margin-top:12px;
-	margin-right: 24px;
+	margin-right: 16px;
+	flex-basis: 110px;
 }
 
 div.nospace {

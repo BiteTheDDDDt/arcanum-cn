@@ -1,14 +1,24 @@
 <script>
 import {center} from './popups.js';
 
+const WARN_MSG = 'This action is not reversible. Continue?';
+
 export default {
 
 	data() {
-		return { item:null }
+		return {
+			item:null
+		}
+
 	},
 	updated() {
 		if ( this.item ) {
 			center( this.$el );
+		}
+	},
+	computed:{
+		msg(){
+			return this.item.warnMsg || WARN_MSG;
 		}
 	},
 	methods:{
@@ -33,7 +43,7 @@ export default {
 
 		<div>{{ item.name }}</div>
 		<div>{{item.desc }}</div>
-		<div>This action is not reversible. Continue?</div>
+		<div>{{ msg }}</div>
 		<div>
 		<button @click="confirm">Confirm</button>
 		<button @click="cancel">Cancel</button>

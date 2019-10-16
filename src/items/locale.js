@@ -8,12 +8,12 @@ export const getDist = (lvl)=> {
 	return Math.ceil( 4.4*Math.exp( 0.32*lvl ) );
 };
 
-const distTest = ( g, self) => {
-	return g.dist >= self.dist;
+const distTest = ( g, s) => {
+	return g.dist >= s.dist;
 }
 
-const levelTest = (g, self) => {
-	return g.player.level >= (self.level-1);
+const levelTest = (g, s) => {
+	return g.player.level >= (s.level-1);
 }
 
 export default class Locale extends Action {

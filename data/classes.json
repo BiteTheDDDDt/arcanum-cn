@@ -7,6 +7,7 @@
 		"actdesc":"Become an apprentice.",
 		"require":"research",
 		"disable":["cleanstables"],
+		"warn":false,
 		"log":{
 			"name":"Apprentice",
 			"desc":"After paying a small fee, you became apprenticed to a local wizard."
