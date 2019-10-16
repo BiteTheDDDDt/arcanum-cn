@@ -51,6 +51,62 @@ export default {
 	},
 
 	/**
+	 * Wipe current player data.
+	 */
+	clearCur(){
+
+		// clear hall char.
+
+		window.localStorage.setItem( this.getSaveLoc(), null );
+
+	},
+
+	/**
+	 * @returns {string} - returns the JSON string for the current
+	 * player slot, or null.
+	 */
+	loadCur(){
+
+		try {
+
+			let store = window.localStorage;
+			let str = store.getItem( this.curSaveLoc() );
+
+		} catch (e ) {
+
+			console.error(e);
+			return null;
+
+		}
+
+	},
+
+	/**
+	 *
+	 * @param {GameState} state
+	 */
+	saveCur( state ){
+
+		try {
+
+			let store = window.localStorage;
+
+			let json = JSON.stringify( state );
+			store.setItem( this.curSaveLoc(), json );
+
+			return true;
+
+		} catch(e) {
+			console.error(e);
+			return false;
+		}
+
+	},
+
+	saveSettings(){
+	},
+
+	/**
 	 * @returns {string} - save location for current char file.
 	 */
 	curSaveLoc() {

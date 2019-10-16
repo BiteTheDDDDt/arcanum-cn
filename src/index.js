@@ -51,18 +51,11 @@ const vm = new Vue({
 		this.listen('reset', this.reset );
 
 		this.listen('save', this.save );
-		this.listen('autosave', this.autosave );
+		this.listen('autosave', this.save );
 
 		this.listen( 'setting', this.onSetting );
 
 		this.loadSave();
-
-	},
-	computed:{
-
-		saveloc(){
-			return (__SAVE ? __SAVE + '/' : '' ) + 'gameData';
-		}
 
 	},
 	methods:{
@@ -118,7 +111,7 @@ const vm = new Vue({
 			const reader = new FileReader();
 			reader.onload = (e)=>{
 
-				this.loadData( e.target.result );
+				this.setGameData( e.target.result );
 
 			}
 			reader.readAsText( file );
@@ -127,16 +120,18 @@ const vm = new Vue({
 
 		loadSave() {
 
-			let str = window.localStorage.getItem( this.saveloc);
+			let str = Profile.loadCur();
 			if ( !str ) console.log('no data saved.');
 
 			try {
-				this.loadData( str );
-			} catch (e ) { console.error(e);}
+				this.setGameData( str );
+			} catch (e ) {
+				console.error(e);
+			}
 
 		},
 
-		loadData( text ){
+		setGameData( text ){
 
 			this.dispatch('pause');
 
@@ -146,48 +141,14 @@ const vm = new Vue({
 
 		},
 
-		/**
-		 * No console output.
-		 */
-		autosave(){
-
-			let store = window.localStorage;
-			try {
-
-				let json = JSON.stringify( this.game.state );
-				store.setItem( Profile.curSaveLoc(), json );
-
-			} catch(e) {
-				console.error(e);
-			}
-
-		},
-
 		save() {
-
-			let store = window.localStorage;
-
-			try {
-
-				let json = JSON.stringify( this.game.state );
-				console.log( json )
-				store.setItem( Profile.curSaveLoc(), json );
-
-			} catch(e) {
-				console.error(e);
-			}
-
-
+			Profile.saveCur( this.game.state );
 		},
 		reset() {
 
 			this.dispatch('pause');
 
-			// clear all save data.
-			let store = window.localStorage;
-			store.setItem( this.saveloc, null );
-
-			//store.clear();
+			Profile.clearCur();
 
 			this.game.reset().then( this.gameLoaded );
 
