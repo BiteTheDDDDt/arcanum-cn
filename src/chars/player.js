@@ -88,6 +88,20 @@ export default class Player extends Char {
 	}
 
 	/**
+	 * @property {Resource} speed
+	 * speed normalized to an average of level=speed.
+	 */
+	get speed() { return this._speed; }
+	set speed(v) {
+
+		if ( this._speed ) this._speed.value = v;
+		else if ( v instanceof Resource ) this._speed = v;
+
+		this.delay = getDelay( this._speed.value );
+
+	}
+
+	/**
 	 * @property {Wearable} weapon - primary weapon.
 	 */
 	get weapon() { return this._weapon; }
@@ -99,18 +113,6 @@ export default class Player extends Char {
 		} else {
 			this._weapon = Fists;
 		}
-	}
-
-	/**
-	 * @property {Resource} speed
-	 * speed normalized to an average of level=speed.
-	 */
-	get speed() { return this._speed; }
-	set speed(v) {
-
-		this._speed = v;
-		this.delay = getDelay( this._speed.value );
-
 	}
 
 	get mount() { return this._mount; }
