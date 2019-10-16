@@ -62,7 +62,7 @@ const vm = new Vue({
 
 		loadProfile(){
 
-			Profile.load();
+			Profile.loadHall();
 			this.loadSave();
 
 		},
@@ -74,7 +74,7 @@ const vm = new Vue({
 
 			try {
 
-				let str = Profile.loadCur();
+				let str = Profile.loadActive();
 				if ( !str ) console.log('no data saved.');
 
 				this.setStateJSON( str );
@@ -94,6 +94,7 @@ const vm = new Vue({
 			console.log('GAMELOADED(): ' + state );
 			this.dispatch( 'game-loaded' );
 
+			Profile.loadSettings();
 			Profile.stateLoaded( state );
 
 			this.dispatch('unpause');
@@ -174,13 +175,13 @@ const vm = new Vue({
 		},
 
 		save() {
-			Profile.saveCur( this.game.state );
+			Profile.saveActive( this.game.state );
 		},
 		reset() {
 
 			this.dispatch('pause');
 
-			Profile.clearCur();
+			Profile.clearActive();
 
 			this.game.reset().then( this.gameLoaded );
 

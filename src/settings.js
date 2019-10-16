@@ -1,4 +1,23 @@
+const Defaults = {
+
+	autoSave:true,
+	saveTime:30,
+	darkMode:false,
+	compactMode:false,
+	spells:{
+
+	}
+
+}
+
+Object.freeze( Defaults );
+
+
 export default {
+
+	toJSON(){
+		return this.vars;
+	},
 
 	/**
 	 * @property {Object} vars - variables saved to browser.
@@ -36,6 +55,20 @@ export default {
 	 */
 	getVars( type ) {
 		return this.vars[type];
+	},
+
+	/**
+	 * Set stored settings for the current wizard save.
+	 * @param {*} data
+	 */
+	setSettings( data ) {
+
+		this.vars = Object.assign( {}, Defaults );
+
+		for ( let p in data ) {
+			this.vars[p] = data[p];
+		}
+
 	},
 
 	load() {

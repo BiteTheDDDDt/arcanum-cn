@@ -1203,7 +1203,7 @@
 		"name":"unholy candle",
 		"tags":"candle",
 		"desc":"What flames cast shadows?",
-		"repeat":true,
+		"max":2,
 		"require":"g.shadow.max>=10",
 		"flavor":"darkness, darkness.",
 		"cost":75,

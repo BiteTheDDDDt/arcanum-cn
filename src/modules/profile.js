@@ -24,9 +24,9 @@ export default {
 	legacySave(){ return SAVE_DIR + 'gameData'; },
 
 	/**
-	 * Load all-wizards/Hall information.
+	 * Load Hall information.
 	 */
-	load(){
+	loadHall(){
 
 		console.log('LOADING HALL');
 		let str = window.localStorage.getItem( SAVE_DIR + HALL_FILE );
@@ -56,18 +56,20 @@ export default {
 	 * State of current player/game loaded.
 	 * @param {GameState} state
 	 */
-	stateLoaded(state){
+	stateLoaded(state) {
+
 		this.hall.playerLoaded( state.player );
+		this.saveHall();
+
 	},
 
 	/**
 	 * Wipe current player data.
 	 */
-	clearCur(){
+	clearActive(){
 
 		// clear hall char.
-
-		window.localStorage.setItem( this.getSaveLoc(), null );
+		window.localStorage.setItem( this.activeLoc(), null );
 
 	},
 
@@ -75,12 +77,12 @@ export default {
 	 * @returns {string} - returns the JSON string for the current
 	 * player slot, or null.
 	 */
-	loadCur(){
+	loadActive(){
 
 		try {
 
 			let store = window.localStorage;
-			let str = store.getItem( this.curSaveLoc() );
+			let str = store.getItem( this.activeLoc() );
 
 			// attempt load from legacy save.
 			if ( !str ) {
@@ -102,17 +104,17 @@ export default {
 	},
 
 	/**
-	 *
+	 * Save GameState of active wizard.
 	 * @param {GameState} state
 	 */
-	saveCur( state ){
+	saveActive( state ){
 
 		try {
 
 			let store = window.localStorage;
 
 			let json = JSON.stringify( state );
-			store.setItem( this.curSaveLoc(), json );
+			store.setItem( this.activeLoc(), json );
 
 			return true;
 
@@ -123,13 +125,45 @@ export default {
 
 	},
 
-	saveSettings(){
+	/**
+	 * Load settings for active wizard.
+	 */
+	loadSettings() {
+
+		try {
+
+			let str = window.localStorage.getItem( this.settingsLoc() );
+			let data = JSON.parse( str );
+
+			Settings.setSettings( data );
+
+		} catch (e ) {
+			console.error(e);
+		}
+
 	},
 
 	/**
+	 * Save settings for active wizard.
+	 */
+	saveSettings(){
+
+		try {
+
+			let data = JSON.stringify( Settings );
+			window.localStorage.setItem( this.settingsLoc(), data );
+
+		} catch (e){
+			console.error(e);
+		}
+
+	},
+
+	/**
+	 * Save loc for Active wizard.
 	 * @returns {string} - save location for current char file.
 	 */
-	curSaveLoc() {
+	activeLoc() {
 		return SAVE_DIR + CHARS_DIR + this.hall.active;
 	},
 
@@ -137,20 +171,9 @@ export default {
 		return SAVE_DIR + SETTINGS_DIR + this.hall.active;
 	},
 
-	/**
-	 * Get JSON data of current character.
-	 */
-	charFile(){
-	},
-
-	/**
-	 * Load active character.
-	 */
-	loadActive() {
-	},
-
 	saveHall(){
 
+		console.log('SAVING HALL');
 		try {
 
 			let json = JSON.stringify( this.hall );
