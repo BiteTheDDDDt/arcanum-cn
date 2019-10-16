@@ -141,7 +141,7 @@ export default {
 					if ( evt.locked ) evt.locked = false;
 					else if ( evt.value == 0 ) {
 
-						this.unlockEvent(evt);
+						evt.doUnlock();
 					}
 					hasEvent = true;
 					break;
@@ -693,49 +693,14 @@ export default {
 	 */
 	tryUnlock( it ) {
 
-		//unlockTests++;
-
 		if ( it.disabled || it.locks > 0 ) return false;
 
 		let test = it.require || it.need;
 		if ( test && !this.unlockTest(test, it ) ) return false;
 
-		this.doUnlock(it);
+		it.doUnlock();
 
 		return true;
-
-	},
-
-	doUnlock( it ) {
-
-		if ( it.disabled ) return;
-
-		if ( it.type === 'event' ) this.unlockEvent( it );
-		else {
-
-			it.locked = false;
-			it.dirty = true;
-			Events.emit( EVT_UNLOCK, it );
-		}
-
-	},
-
-		/**
-	 *
-	 * @param {Object} evt
-	 */
-	unlockEvent( evt ) {
-
-		if ( evt.disabled  || (!evt.locked &&!evt.repeat ) ) return;
-		evt.locked = false;
-		evt.dirty = true;
-
-		Events.emit(EVT_UNLOCK, evt );
-
-		// randomized event.
-		if ( evt.rand ) {
-
-		} else evt.amount( this, 1 );
 
 	},
 
@@ -845,14 +810,10 @@ export default {
 
 				} else {
 
-					if ( target.type === 'event' || target.type ==='class' ) this.unlockEvent( target );
-					else if ( typeof e === 'number' ) target.amount( this, e*dt );
-					else if ( e instanceof Range ) {
+					if ( typeof e === 'number' || e instanceof Range ) target.amount( this, e*dt );
+					else if ( e === true ) {
 
-						target.amount( this, e.value*dt );
-					} else if ( e === true ) {
-
-						this.doUnlock( target );
+						target.doUnlock();
 						target.onUse( this );
 
 					} else target.applyVars(e,dt);
@@ -866,8 +827,7 @@ export default {
 			let target = this.getData(effect);
 			if ( target !== undefined ) {
 
-				if ( target.type === 'event' || target.type ==='class' ) this.unlockEvent( target );
-				else target.amount( this, dt );
+				target.amount( this, dt );
 
 			} else {
 
@@ -898,9 +858,7 @@ export default {
 				if ( target === undefined ) this.modTag( p, mod[p], amt );
 				else if ( mod[p] === true ){
 
-					if ( target.type === 'event' ) {
-						this.unlockEvent(target);
-					}// else if ( target.mod ) this.addMod( target.mod, amt );
+					target.doUnlock();
 
 				} else {
 
@@ -917,9 +875,7 @@ export default {
 			let t = this.getData(mod);
 			if ( t ) {
 
-
-				if ( t.type ==='event' && !t.value ) this.unlockEvent(t);
-				//else if ( t.mod ) this.addMod( t.mod, amt );
+				t.amount( this, 1 );
 
 			} else {
 

@@ -257,12 +257,7 @@ export default class ItemGen {
 	 */
 	getGData( it , amt ) {
 
-		if ( amt === true || it.type === 'event') {
-
-			// unlock.
-			Game.doUnlock(it);
-
-		} else if ( typeof amt === 'number') {
+		if ( typeof amt === 'number' || typeof amt === 'boolean') {
 
 			it.amount( Game, amt );
 			if ( amt > 0 ) return it.name;

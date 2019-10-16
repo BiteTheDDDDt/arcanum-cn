@@ -2,7 +2,7 @@ import { defineExcept, clone } from 'objecty';
 import Stat from '../values/stat';
 import Base, {mergeClass} from './base';
 import { arrayMerge, assignPublic, logObj } from '../util/util';
-import Events, { ITEM_ATTACK, EVT_EVENT } from '../events';
+import Events, { ITEM_ATTACK, EVT_EVENT, EVT_UNLOCK } from '../events';
 import Dot from '../chars/dot';
 
 /**
@@ -215,6 +215,15 @@ export default class GData {
 
 		return amt;
 
+	}
+
+	doUnlock(){
+
+		if ( this.disabled || this.locked === false ) return;
+
+		this.locked = false;
+		Events.emit( EVT_UNLOCK, this );
+		this.dirty = true;
 	}
 
 	/**

@@ -96,8 +96,8 @@ export default class Stat {
 		if ( path ) this._path = path;
 		if ( pos ) this.pos = pos;
 
-		this._base = this._base||0;
-		this._pct = this._pct||0;
+		if ( !this.base ) this.base = 0;
+		if ( !this.pct ) this.pct = 0;
 
 		if ( !this.mods ) this.mods = {};
 		else if ( this.mods.all ) {
@@ -116,6 +116,14 @@ export default class Stat {
 
 		this.recalc();
 
+	}
+
+	/**
+	 * Add amount to base stat.
+	 * @param {number} amt
+	 */
+	add( amt ) {
+		this._base += amt;
 	}
 
 	/**

@@ -832,7 +832,7 @@
 		"effect":{
 			"animals.exp":2
 		},
-		"result":{
+		"mod":{
 			"research.max":10,
 			"animals.max":2,
 			"animals.rate":0.2
@@ -875,7 +875,7 @@
 		"run":{
 			"research":1
 		},
-		"result":{
+		"mod":{
 			"player.damage":2,
 			"player.tohit":1
 		},"flavor":"what he lacked in depth, karnivex made up for with sheer destructive force"
@@ -894,7 +894,7 @@
 		"run":{
 			"research":1
 		},
-		"result":{
+		"mod":{
 			"research.max":10,
 			"languages.max":1,
 			"languages.rate":0.2,
@@ -916,7 +916,7 @@
 		"run":{
 			"research":1
 		},
-		"result":{
+		"mod":{
 			"research.max":10,
 			"languages.max":1,
 			"languages.rate":0.2,
@@ -938,7 +938,7 @@
 		"run":{
 			"research":2
 		},
-		"result":{
+		"mod":{
 			"research.max":10,
 			"languages.max":2,
 			"languages.rate":0.5,
@@ -961,7 +961,7 @@
 		"run":{
 			"research":5
 		},
-		"result":{
+		"mod":{
 			"languages.max":3,
 			"languages.rate":0.4,
 			"demonology.max":2,
@@ -1005,7 +1005,7 @@
 		"run":{
 			"research":2
 		},
-		"result":{
+		"mod":{
 			"research.max":10,
 			"alchemy.max":2,
 			"alchemy.rate":0.5,
@@ -1029,7 +1029,7 @@
 		"run":{
 			"research":2
 		},
-		"result":{
+		"mod":{
 			"research.max":10,
 			"anatomy.max":3,
 			"anatomy.rate":0.2
@@ -1076,7 +1076,7 @@
 			"name":"almagest",
 			"desc":"your map of the heavens is complete."
 		},
-		"result":{
+		"mod":{
 			"starcharts.max":10,
 			"research.max":50,
 			"divination":{
@@ -1365,7 +1365,7 @@
 			"arcana":2,
 			"research":800
 		},
-		"result":{
+		"mod":{
 			"animals.max":2,
 			"animals.rate":"10%",
 			"lore.max":1,
@@ -1387,7 +1387,7 @@
 			"gems":10,
 			"research":1000
 		},
-		"result":{
+		"mod":{
 			"demonology.max":2,
 			"demonology.rate":"10%",
 			"lore.max":1,

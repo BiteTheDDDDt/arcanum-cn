@@ -16,6 +16,8 @@ export default class Range {
 		return this.min + Math.random()*( this.max - this.min );
 	}
 
+	valueOf(){ return this.value; }
+
 	/**
 	 *
 	 * @param {Object|number|string} min

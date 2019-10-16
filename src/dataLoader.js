@@ -29,6 +29,7 @@ import GEvent from './items/gevent';
 
 import Loader from './util/jsonLoader';
 import { logObj, splitKeyPath } from './util/util';
+import GClass from './items/gclass';
 
 const DataDir = './data/';
 const DataFiles = [ 'resources', 'upgrades', 'actions', 'homes', 'furniture', 'items', 'skills',
@@ -283,15 +284,8 @@ export default {
 
 		gd.materials = this.initItems( dataLists['materials'], Material, 'material', 'material ');
 
-		gd.events = this.initItems( dataLists['events'], GEvent, null, 'event' );
-		gd.classes = this.initItems( dataLists['classes'], GEvent, 'class', 'class' );
-		gd.classes.forEach(v=>{
-			if ( v.warn !== false ) {
-				v.warnMsg = 'Alternate Wizard classes of this tier will be locked.';
-				v.warn = true;
-			}
-			v.repeat = false;
-		});
+		gd.events = this.initItems( dataLists['events'], GEvent, 'event', 'event' );
+		gd.classes = this.initItems( dataLists['classes'], GClass, 'class', 'class' );
 
 		gd.actions = this.initItems( dataLists['actions'], Action, null, 'action' );
 		gd.actions.forEach( v=>v.repeat = (v.repeat!==undefined ) ? v.repeat : true );
