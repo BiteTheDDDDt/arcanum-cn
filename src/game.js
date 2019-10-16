@@ -108,7 +108,7 @@ export default {
 			Events.add( EVT_UNLOCK, techTree.unlocked, techTree );
 
 			// initial fringe check.
-			techTree.checkFringe();
+			techTree.forceCheck();
 
 			this.initTimers();
 

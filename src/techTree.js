@@ -38,8 +38,9 @@ export default class TechTree {
 
 		for( let p in this.items ) {
 
-			if ( !this.items[p].locked && this.unlocks[p] ) this.fringe.push( this.items[p] );
-			else {
+			if ( !this.items[p].locked && this.unlocks[p] ) {
+				this.fringe.push( this.items[p] );
+			} else {
 
 				// check cyclic unlock. resources unlock themselves with any amount;
 				// these must be added to fringe without being unlocked.
@@ -49,6 +50,20 @@ export default class TechTree {
 				}
 
 			}
+
+		}
+
+	}
+
+	/**
+	 * Force an initial check of possible unlocks.
+	 */
+	forceCheck() {
+
+		for( let p in this.items ) {
+
+			let it = this.items[p];
+			if ( !it.disabled ) this.changed(p);
 
 		}
 
