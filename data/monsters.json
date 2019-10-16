@@ -1185,7 +1185,7 @@
             "name":"claws",
             "kind":"slash",
             "dmg":"7~10"
-        }, "loot":{}
+        }
 
     },
     {
@@ -1398,7 +1398,7 @@
             "name":"death touch",
             "kind":"drain",
             "dmg":"3~8"
-		},"loot":{},
+		},
 		"resist":{
 			"spirit":20
 		},"immune":"physical"
