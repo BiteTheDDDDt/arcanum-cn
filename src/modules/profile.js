@@ -6,6 +6,11 @@ const SETTINGS_DIR = 'settings/';
 const HALL_FILE = 'hall';
 
 /**
+* @const {string} SAVE_DIR - global save directory.
+*/
+const SAVE_DIR = __SAVE ? __SAVE + '/' : '';
+
+/**
  * Control access to all local storage and profile information.
  */
 export default {
@@ -13,23 +18,17 @@ export default {
 	hall:null,
 
 	/**
-	 * @property {string} saveDir - global save directory.
-	 */
-	saveDir: __SAVE ? __SAVE + '/' : '',
-
-	/**
 	 * @returns {string} old save location.
+	 * @compat
 	 */
-	legacySave(){
-		return this.saveDir + 'gameData';
-	},
+	legacySave(){ return SAVE_DIR + 'gameData'; },
 
 	/**
-	 * Load information of all wizards.
+	 * Load all-wizards information.
 	 */
-	loadHall(){
+	load(){
 
-		let str = window.localStorage.getItem( this.saveDir + HALL_FILE );
+		let str = window.localStorage.getItem( SAVE_DIR + HALL_FILE );
 		if ( !str ) {
 
 			this.hall = new Hall();
@@ -110,11 +109,11 @@ export default {
 	 * @returns {string} - save location for current char file.
 	 */
 	curSaveLoc() {
-		return this.saveDir + CHARS_DIR + this.hall.active;
+		return SAVE_DIR + CHARS_DIR + this.hall.active;
 	},
 
-	curSettingsLoc(){
-		return this.saveDir + SETTINGS_DIR + this.hall.active;
+	settingsLoc(){
+		return SAVE_DIR + SETTINGS_DIR + this.hall.active;
 	},
 
 	/**
@@ -134,7 +133,7 @@ export default {
 		try {
 
 			let json = JSON.stringify( this.hall );
-			store.setItem( this.saveDir + HALL_FILE, json );
+			store.setItem( this.SAVE_DIR + HALL_FILE, json );
 
 		} catch(e){
 

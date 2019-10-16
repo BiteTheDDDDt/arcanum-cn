@@ -1,3 +1,5 @@
+import CharInfo from "./charinfo";
+
 /**
  * Wizards hall.
  */
@@ -28,7 +30,16 @@ export default class Hall {
 	set name(v) { this._name = v; }
 
 	get chars() { return this._chars; }
-	set chars(v) { this._chars = v; }
+	set chars(v) {
+
+		console.warn('CHARS IS ARRAY? ' + Array.isArray(v) );
+
+		for( let i = v.length-1; i >= 0; i-- ) {
+			v[i] = new CharInfo(v[i]);
+		}
+
+		this._chars = v;
+	}
 
 	/**
 	 * @property {number} max - maximum char slots.
@@ -41,7 +52,6 @@ export default class Hall {
 		if ( vars ) Object.assign(this, vars);
 
 		if ( !this.chars ) this.chars = [];
-
 		if ( !this.active ) this.active = 0;
 
 	}

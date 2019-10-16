@@ -60,6 +60,9 @@ const vm = new Vue({
 	},
 	methods:{
 
+		loadProfile(){
+		},
+
 		gameLoaded() {
 			console.log('gameLoaded()');
 			this.dispatch( 'game-loaded' );
