@@ -1,4 +1,5 @@
 import CharInfo from "./charinfo";
+import Stat from "../values/stat";
 
 /**
  * Wizards hall.
@@ -45,7 +46,11 @@ export default class Hall {
 	 * @property {number} max - maximum char slots.
 	 */
 	get max() {return this._max; }
-	set max(v) { this._max =v;}
+	set max(v) {
+
+		this._max = v instanceof Stat ? v : new Stat(v);
+
+	}
 
 	constructor(vars=null ){
 
@@ -54,39 +59,80 @@ export default class Hall {
 		if ( !this.chars ) this.chars = [];
 		if ( !this.active ) this.active = 0;
 
+		/** @todo: change default to 1 */
+		if ( !this.max ) this.max = 2;
+
+		// expand chars to max.
+		for( let i = this.chars.length; i < max.value; i++ ) {
+			this.chars.push( new CharInfo() );
+		}
+
 	}
 
-	setLevel(lvl){
+	/**
+	 * Player data loaded. Copy information into the active slot.
+	 * @param {*} p
+	 */
+	playerLoaded( p ) {
+
+		let char = this.chars[ this.active ] || new CharInfo();
+		char.name = p.name;
+		char.level = p.level;
+		char.title = p.title;
 
 	}
 
-	setName(name){
+	addChar( info, slot=-1 ) {
 
-	}
-
-	setTitle(){
-	}
-
-	setInfo(){
-	}
-
-	addChar( info, slot ) {
-
-
+		if ( !slot ) slot = this.active;
 		this.chars[ info.name ] = info;
 
+	}
+
+	setLevel( lvl, slot=-1 ){
+
+		let char = this.getSlot(slot);
+		if ( char) char.level = lvl;
+
+	}
+
+	setName(name, slot=-1 ){
+
+		let char = this.getSlot(slot);
+		if ( char) char.name = name;
+
+	}
+
+	setTitle( title, slot=-1 ){
+		let char = this.getSlot(slot);
+		if ( char) char.title = title;
+	}
+
+	setInfo( info, slot=-1 ){
+
+		let slot = slot > 0 ? slot : this.active;
+
+	}
+
+	getSlot(slot=-1) {
+		return this.chars[ slot < 0 ? this.active : slot ];
 	}
 
 	findSlot(p) {
 		return this.chars.findIndex(p);
 	}
 
-	getSlot( charName ) {
+	/**
+	 * Get slot index by name.
+	 * @param {string} charName
+	 * @returns {number}
+	 */
+	byName( charName ) {
 		return this.chars.findIndex( v=>v.name === charName);
 	}
 
-	rmChar( name ) {
-		this.chars[ name ] = undefined;
+	rmChar( slot ) {
+		this.chars[ slot ] = undefined;
 	}
 
 }

@@ -9,7 +9,6 @@
 			"stamina":0.08
 		},
 		"effect":{
-			"virtue":0.1,
 			"gold":0.2
 		}, "flavor":"it's stable employment"
 	},
@@ -31,7 +30,7 @@
 			"stamina":0.17
 		},
 		"effect":{
-			"virtue":0.1,
+			"virtue":0.03,
 			"gold":0.3
 		}
 	},
