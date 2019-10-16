@@ -801,7 +801,7 @@
 		"id":"sublimate",
 		"name":"sublimate lore",
 		"desc":"internalize a vast amount of existing knowledge.",
-		"require":"g.codices.max>=10",
+		"require":"g.codices.max>=10&&g.crafting>=3",
 		"warn":true,
 		"cost":{
 			"codices":30
