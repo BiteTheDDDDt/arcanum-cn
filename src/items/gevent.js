@@ -1,6 +1,5 @@
 import GData from "./gdata";
 import Events, { EVT_EVENT, EVT_UNLOCK } from "../events";
-import Game, { EVT_TIME } from '../game';
 /**
  * Represents in-game event.
  */

@@ -55,8 +55,8 @@
 			"rage":"0~2"
 		},
 		"result":{
-			"research":0.5,
-			"arcana":0.02
+			"research":1,
+			"arcana":0.005
 		}
 	},
 	{

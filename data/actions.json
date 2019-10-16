@@ -663,7 +663,7 @@
 
 		},
 		"effect":{
-			"arcana":0.01,
+			"arcana":0.001,
 			"sp":0.0001,
 			"demonology.max":0.001,
 			"demonology.exp":1,

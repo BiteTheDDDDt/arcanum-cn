@@ -1132,7 +1132,7 @@
 		"animals.rate":"10%",
 		"herbalism.max":1,
 		"herbalism.rate":"15%"
-	},"flavor":"most preferred their glades and fens to the turmoils of the world"
+	},"flavor":"kell are not of mortal blood, and only strong magic can infuse a mortal with their essence."
 },
 {
 	"id":"greynecromancer",
@@ -1196,6 +1196,89 @@
 			"demonology.rate":"20%"
 		},"flavor":"in the War of the Locks the Seven raged for power and Dhrune trembled in their wake."
 
+	},
+	{
+		"id":"greaterkell",
+		"name":"greater kell",
+		"title":"greater kell",
+		"desc":"the ranks of the kell range from minor fey and forest delki, to great spirits, ancient and indominable.",
+		"tags":"t_tier6",
+		"require":"(g.fey+g.kell)>0",
+		"cost":{
+			"research":15000,
+			"naturegem":50,
+			"herbs":75,
+			"arcana":20,
+			"runestones":15
+		},
+		"effect":{
+			"sp":2
+		},
+		"mod":{
+			"tier6":true,
+			"airlore.max":2,
+			"airlore.rate":"10%",
+			"naturelore.max":3,
+			"naturelore.rate":"15%",
+			"animals.max":2,
+			"animals.rate":"10%",
+			"herbalism.max":1,
+			"herbalism.rate":"15%"
+		},"flavor":"most preferred their glades and fens to the turmoils of the world"
+	},
+	{
+		"id":"deathmage",
+		"name":"death mage",
+		"title":"death mage",
+		"desc":"an unholy synthesis of wizardry and demonology.",
+		"tags":"t_tier6",
+		"require":"g.phylactory>0",
+		"cost":{
+			"research":20000,
+			"souls":100,
+			"bodies":100,
+			"tomes":50,
+			"arcana":30,
+			"runestones":20
+		},
+		"effect":{
+			"sp":3
+		},"mod":{
+			"tier6":true,
+			"firelore.max":3,
+			"firelore.rate":"20%",
+			"demonology.max":5,
+			"demonology.rate":"20%"
+		}
+
+	},
+	{
+		"id":"avatar",
+		"title":"avatar",
+		"desc":"An incarnation of raw, elemental forces.",
+		"tags":"t_tier6",
+		"require":"(g.highelemental+g.kell)>0",
+		"cost":{
+			"research":15000,
+			"naturegem":50,
+			"herbs":75,
+			"arcana":20,
+			"runestones":15
+		},
+		"effect":{
+			"sp":2
+		},
+		"mod":{
+			"tier6":true,
+			"airlore.max":2,
+			"airlore.rate":"10%",
+			"naturelore.max":3,
+			"naturelore.rate":"15%",
+			"animals.max":2,
+			"animals.rate":"10%",
+			"herbalism.max":1,
+			"herbalism.rate":"15%"
+		},"flavor":"most preferred their glades and fens to the turmoils of the world"
 	}
 
 ]
