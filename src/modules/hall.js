@@ -62,8 +62,9 @@ export default class Hall {
 		/** @todo: change default to 1 */
 		if ( !this.max ) this.max = 2;
 
+		let max = this.max.value;
 		// expand chars to max.
-		for( let i = this.chars.length; i < max.value; i++ ) {
+		for( let i = this.chars.length; i < max; i++ ) {
 			this.chars.push( new CharInfo() );
 		}
 
@@ -110,7 +111,7 @@ export default class Hall {
 
 	setInfo( info, slot=-1 ){
 
-		let slot = slot > 0 ? slot : this.active;
+		slot = slot > 0 ? slot : this.active;
 
 	}
 

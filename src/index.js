@@ -72,20 +72,26 @@ const vm = new Vue({
 		 */
 		loadSave() {
 
-			let str = Profile.loadCur();
-			if ( !str ) console.log('no data saved.');
-
 			try {
-				this.setGameData( str );
+
+				let str = Profile.loadCur();
+				if ( !str ) console.log('no data saved.');
+
+				this.setStateJSON( str );
+
 			} catch (e ) {
 				console.error(e);
 			}
 
 		},
 
+		/**
+		 * GameState was revived from JSON.
+		 * @param {GameState} state
+		 */
 		gameLoaded( state ) {
 
-			console.log('gameLoaded(): ' + state );
+			console.log('GAMELOADED(): ' + state );
 			this.dispatch( 'game-loaded' );
 
 			Profile.stateLoaded( state );
@@ -139,20 +145,31 @@ const vm = new Vue({
 			const reader = new FileReader();
 			reader.onload = (e)=>{
 
-				this.setGameData( e.target.result );
+				this.setStateJSON( e.target.result );
 
 			}
 			reader.readAsText( file );
 
 		},
 
-		setGameData( text ){
+		/**
+		 * Set wizard-state game data in the form of a json
+		 * text string.
+		 * @param {string} text
+		 */
+		setStateJSON( text ){
 
 			this.dispatch('pause');
 
-			let obj = text ? JSON.parse( text ) : null;
-			this.game.load( obj ).then( this.gameLoaded,
-				e=>console.error(e) );
+			try {
+
+				let obj = text ? JSON.parse( text ) : null;
+				this.game.load( obj ).then( v=>this.gameLoaded(v),
+					e=>console.error(e) );
+
+			} catch( err ) {
+				console.error( err);
+			}
 
 		},
 
