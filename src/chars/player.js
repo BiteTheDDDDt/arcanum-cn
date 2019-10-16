@@ -296,7 +296,7 @@ export default class Player extends Char {
 				updates.splice( i, 1 );
 				if ( dot.mod ) Game.addMod( dot.mod, -1 );
 
-			} else dot.duration -= dt;
+			}
 
 
 		}
