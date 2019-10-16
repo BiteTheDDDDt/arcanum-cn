@@ -26,17 +26,17 @@ export default class GEvent extends GData {
 	 * Unlocking the event triggers the event.
 	 * @todo: randomized events won't work this way.
 	 */
-	doUnlock() {
+	doUnlock(g) {
 
 		if ( this.disabled || (this.value>0 &&!this.repeat) ) return;
 		if ( this.locked ) Events.emit( EVT_UNLOCK, this );
 
-		if ( this.loot ) Game.getLoot( this.loot );
+		if ( this.loot ) g.getLoot( this.loot );
 
 		// randomized event.
 		if ( this.rand ) {
 
-		} else super.amount( this, 1 );
+		} else super.amount( g, 1 );
 
 		Events.emit( EVT_EVENT, this );
 
@@ -48,7 +48,7 @@ export default class GEvent extends GData {
 	 * @param {*} amt
 	 */
 	amount( g, amt ) {
-		this.doUnlock();
+		this.doUnlock(g);
 	}
 
 }

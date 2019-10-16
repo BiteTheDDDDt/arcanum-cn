@@ -141,7 +141,7 @@ export default {
 					if ( evt.locked ) evt.locked = false;
 					else if ( evt.value == 0 ) {
 
-						evt.doUnlock();
+						evt.doUnlock(this);
 					}
 					hasEvent = true;
 					break;
@@ -698,7 +698,7 @@ export default {
 		let test = it.require || it.need;
 		if ( test && !this.unlockTest(test, it ) ) return false;
 
-		it.doUnlock();
+		it.doUnlock(this);
 
 		return true;
 
@@ -813,7 +813,7 @@ export default {
 					if ( typeof e === 'number' || e instanceof Range ) target.amount( this, e*dt );
 					else if ( e === true ) {
 
-						target.doUnlock();
+						target.doUnlock(this);
 						target.onUse( this );
 
 					} else target.applyVars(e,dt);
@@ -858,7 +858,7 @@ export default {
 				if ( target === undefined ) this.modTag( p, mod[p], amt );
 				else if ( mod[p] === true ){
 
-					target.doUnlock();
+					target.doUnlock(this);
 
 				} else {
 
