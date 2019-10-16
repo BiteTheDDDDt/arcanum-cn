@@ -7,6 +7,8 @@ import Range from './values/range';
 import ItemGen from './itemgen';
 import TechTree from './techTree';
 
+import Profile from './modules/profile';
+
 /**
  * @note these refer to Code-events, not in-game events.
  */
@@ -80,6 +82,11 @@ export default {
 
 	},
 
+	/**
+	 *
+	 * @param {*} saveData
+	 * @returns {Promise.<GameState>}
+	 */
 	load( saveData=null ) {
 
 		this.loaded = false;
@@ -118,6 +125,8 @@ export default {
 			Events.add( EXIT_LOC, this.enterLoc, this );
 			Events.add( SET_SLOT, this.setSlot, this );
 			Events.add( DELETE_ITEM, this.onDelete, this );
+
+			return this.state;
 
 		}, err=>{ console.error('game err: ' + err )});
 

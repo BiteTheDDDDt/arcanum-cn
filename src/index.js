@@ -55,18 +55,43 @@ const vm = new Vue({
 
 		this.listen( 'setting', this.onSetting );
 
-		this.loadSave();
+		this.loadProfile();
 
 	},
 	methods:{
 
 		loadProfile(){
+
+			Profile.load();
+			this.loadSave();
+
 		},
 
-		gameLoaded() {
-			console.log('gameLoaded()');
+		/**
+		 * Load the save for the active wizard.
+		 */
+		loadSave() {
+
+			let str = Profile.loadCur();
+			if ( !str ) console.log('no data saved.');
+
+			try {
+				this.setGameData( str );
+			} catch (e ) {
+				console.error(e);
+			}
+
+		},
+
+		gameLoaded( state ) {
+
+			console.log('gameLoaded(): ' + state );
 			this.dispatch( 'game-loaded' );
+
+			Profile.stateLoaded( state );
+
 			this.dispatch('unpause');
+
 		},
 
 		onSetting( setting, v ) {
@@ -118,19 +143,6 @@ const vm = new Vue({
 
 			}
 			reader.readAsText( file );
-
-		},
-
-		loadSave() {
-
-			let str = Profile.loadCur();
-			if ( !str ) console.log('no data saved.');
-
-			try {
-				this.setGameData( str );
-			} catch (e ) {
-				console.error(e);
-			}
 
 		},
 

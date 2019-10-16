@@ -24,19 +24,22 @@ export default {
 	legacySave(){ return SAVE_DIR + 'gameData'; },
 
 	/**
-	 * Load all-wizards information.
+	 * Load all-wizards/Hall information.
 	 */
 	load(){
 
+		console.log('LOADING HALL');
 		let str = window.localStorage.getItem( SAVE_DIR + HALL_FILE );
 		if ( !str ) {
 
+			console.log('NEW HALL');
 			this.hall = new Hall();
 
 		} else {
 
 			try {
 
+				console.log('PARSING SAVED HALL');
 				this.hall = new Hall( JSON.parse(str ) );
 
 			} catch (e) {
@@ -47,6 +50,14 @@ export default {
 
 		}
 
+	},
+
+	/**
+	 * State of current player/game loaded.
+	 * @param {GameState} state
+	 */
+	stateLoaded(state){
+		this.hall.playerLoaded( state.player );
 	},
 
 	/**
@@ -70,6 +81,16 @@ export default {
 
 			let store = window.localStorage;
 			let str = store.getItem( this.curSaveLoc() );
+
+			// attempt load from legacy save.
+			if ( !str ) {
+
+				console.warn('NO CUR LOC. GETTING LEGACY CHAR.');
+				str = store.getItem( this.legacySave() );
+
+			} else console.warn('Hall-Char Loaded');
+
+			return str;
 
 		} catch (e ) {
 
