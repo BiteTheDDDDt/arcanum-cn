@@ -15,6 +15,7 @@
 		"loot":{
 			"max":1
 		},
+		"boss":"kakapo",
 		"enemies":[
 			["newt","newt","newt"],
 			"lgmouse",
