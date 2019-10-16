@@ -227,7 +227,7 @@ export default class GData {
 	}
 
 	/**
-	 * Default implementation of onUse()) is to add 1.
+	 * Default implementation of onUse() is to add 1.
 	 * @param {Game} g
 	 */
 	onUse( g ) {

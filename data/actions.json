@@ -273,6 +273,20 @@
 
 	},
 	{
+		"id":"graverob",
+        "name":"Pillage Graves",
+        "desc":"Dig up old graves for magical reagents. These guys are like 300 years old, they won't mind.",
+        "require":"g.dissection>=3",
+        "length":15,
+        "run":{
+            "stamina":0.3
+        },
+        "result":{
+            "bones":2,
+			"virtue":-0.1
+		}, "flavor":"it's for a good cause."
+	},
+	{
 		"id":"murder",
 		"desc":"an incidental necessity to the advancement of magic",
 		"require":"g.anatomy>=5&&g.shadowlore>=5&&g.dissection>=5",
@@ -298,9 +312,21 @@
 			"stamina":0.5,
 			"shadow":0.2
 		},
+		"at":{
+			"10":{
+				"result.bones.max":1
+			},
+			"20":{
+				"result.bones.min":1
+			},
+			"50":{
+				"result.bones.min":1,
+				"result.bones.max":1
+			}
+		},
 		"result":{
 			"evilamt":1,
-			"bones":"2~4"
+			"bones":"2~5"
 		}
 	},
 	{
@@ -314,7 +340,7 @@
 		},
 		"result":{
 			"skull":1,
-			"bones":"1~2"
+			"bones":"2~4"
 		}
 	},
 	{

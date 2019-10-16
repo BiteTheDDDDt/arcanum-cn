@@ -117,7 +117,6 @@ export default {
 			Events.add( ENTER_LOC, this.enterLoc, this );
 			Events.add( EXIT_LOC, this.enterLoc, this );
 			Events.add( SET_SLOT, this.setSlot, this );
-			Events.add( TRY_USE, this.tryUse, this );
 			Events.add( DELETE_ITEM, this.onDelete, this );
 
 		}, err=>{ console.error('game err: ' + err )});
@@ -393,7 +392,6 @@ export default {
 	trySell( it, inv, count=1 ) {
 
 		if ( it.value < 1 && !it.instance ) {
-			console.log('NOT INSTANCE: ' + it.id );
 			return false; }
 
 		if ( count > it.value ) count = it.value;
@@ -475,9 +473,6 @@ export default {
 
 		it.onUse( this );
 
-	},
-
-	tryUse( it ) {
 	},
 
 	/**
@@ -831,7 +826,7 @@ export default {
 
 			} else {
 
-				this.getAmount( this.getTagList(effect), dt );
+				this.listGet( this.getTagList(effect), dt );
 
 			}
 
@@ -889,11 +884,11 @@ export default {
 	},
 
 	/**
-	 *
+	 * Give a given quantity of item to all elements of an array.
 	 * @param {GData[]} a
 	 * @param {*} amt
 	 */
-	getAmount( a, amt=1 ) {
+	listGet( a, amt=1 ) {
 
 		if ( !a ) return;
 
