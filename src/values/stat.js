@@ -137,12 +137,15 @@ export default class Stat {
 	apply( mod, amt=1 ) {
 
 		if ( mod instanceof Mod ) return this.addMod( mod, amt );
+
 		else if ( !isNaN(mod) ) {
 			this.base += amt*mod;
 			return;
 		} else if ( typeof mod === 'object') {
-			this.base += amt*mod.bonus;
-			this.pct += amt*mod.pct;
+
+			this.base += amt*( mod.bonus || 0 );
+			this.pct += amt*( mod.pct || 0 );
+
 		}
 
 	}
@@ -156,8 +159,6 @@ export default class Stat {
 
 		this._mPct += amt*mod.pct;
 		this._bonus += amt*mod.bonus;
-
-		//console.log( mod.id + ' MOD: ' + mod.toString() + ' x' + amt );
 
 		let cur = this.mods[ mod.id ];
 		if ( cur === undefined ) {

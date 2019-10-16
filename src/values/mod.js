@@ -15,6 +15,10 @@ export const DEFAULT_MOD = 'all';
  */
 export const ParseMods = ( mods, id ) => {
 
+	/**
+	 * @todo confusingly this is a string for the complete Mods object.
+	 * this woudl indicate some sort of event trigger.
+	 */
 	if ( typeof mods === 'string' ) return mods;
 	else if ( typeof mods === 'number') return new Mod( mods, id );
 
@@ -114,8 +118,6 @@ export default class Mod {
 				this.bonus = Number(res[1]) || 0;
 				this.pct = Number(res[2])/100 || 0;
 
-				//console.log( this.id + 'mod regex: ' + this.bonus + ' + ' + this.pct );
-
 			} else console.log( this.id + ' no mod regex: ' + v );
 
 
@@ -146,7 +148,6 @@ export default class Mod {
 
 		this.id = id || this.id || DEFAULT_MOD;
 
-		//console.log(this.id + ' mod created: ' + this.bonus + ' +' +this.pct+'%');
 	}
 
 	clone() {
