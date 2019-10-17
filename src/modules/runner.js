@@ -271,7 +271,6 @@ export default class Runner {
 		if ( !a) return;
 
 		if ( a.cost && (a.exp === 0) ) {
-			console.warn('PAY START');
 			Game.payCost( a.cost);
 		}
 
@@ -355,9 +354,9 @@ export default class Runner {
 	 */
 	tryAdd( a ) {
 
-		if ( !this.free || this.hasType(a) ) return false;
+		if ( !this.free ) return false;
 
-		this.runAction(a);
+		this.setAction(a);
 
 		return true;
 
