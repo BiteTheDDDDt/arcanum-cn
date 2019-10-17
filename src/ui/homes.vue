@@ -153,11 +153,11 @@ div.home-view .homes-view span button {
 	flex: 1; font-size: 0.75em;
 	}
 /*div.home-view .homes-view {
-			position: absolute; z-index: 4; top: 100; left : 0; margin: var(--med-gap);
+			position: absolute; z-index: 4; top: 100; left : 0; margin: var(--md-gap);
 			display: flex; flex-flow: row wrap;
 			background: var(--popup-background-color);
 			border: 2px solid var(--separator-color); border-radius: var(--subtle-border-radius);
-			padding: var(--med-gap);
+			padding: var(--md-gap);
 		}
 */
 span.space {

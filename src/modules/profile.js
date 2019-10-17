@@ -63,6 +63,17 @@ export default {
 	},
 
 	/**
+	 * Set name of Wizards hall.
+	 * @param {*} s
+	 */
+	setHallName(s){
+
+		this.hall.name = s;
+		this.saveHall();
+
+	},
+
+	/**
 	 * set active player index.
 	 * @param {number} slot - slot to load.
 	 */

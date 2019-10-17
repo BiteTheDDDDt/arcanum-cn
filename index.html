@@ -60,7 +60,7 @@
         --comfy-gap: 0;
         --tiny-gap: 0.1em;
         --sm-gap: 0.25em;
-        --med-gap: 0.4em;
+        --md-gap: 0.4em;
         --lg-gap: 0.5em;
         --compact-small-font: 0.75em;
         --compact-small-font: 0.9em;
@@ -132,7 +132,7 @@
 
     .game-mid .menu-content .main-actions > div.action-list,
     .game-mid .menu-content .main-actions > div.upgrade-list {
-        margin: 0; padding: var(--med-gap);
+        margin: 0; padding: var(--md-gap);
         display: grid; grid-template-columns: repeat( auto-fit, var(--action-button-width) );
     }
 
@@ -248,11 +248,11 @@
         /*display: flex; flex-flow: row wrap; justify-content: space-around;*/
         display: grid;
         grid-template-columns: repeat( auto-fit, 256px ); grid-gap: var(--sm-gap); grid-auto-rows: min-content;
-        padding: var(--med-gap);
+        padding: var(--md-gap);
         border-top: 1px solid var(--separator-color);
     }
     .menu-content div.adventure > div.locales .locale {
-        padding: var(--med-gap);
+        padding: var(--md-gap);
         border-radius: var(--list-entry-border-radius);
         display: flex; flex-flow: column; height: 100%;
     }
@@ -300,13 +300,13 @@
     .full div.subs {
         /*display: flex; flex-flow: row wrap; width: 100%; justify-content: space-evenly; */
         display: grid; grid-template-columns: repeat( auto-fit, minmax( 256px, 1fr) );
-        margin: 0; padding: var(--med-gap); overflow-x: hidden; gap: var(--sm-gap);
+        margin: 0; padding: var(--md-gap); overflow-x: hidden; gap: var(--sm-gap);
         width: 100%; justify-content: space-between;
     }
 
     .full div.subs div.skill {
         margin-bottom: 0; width: unset; flex-basis: 45%; box-sizing: border-box;
-        padding: var(--med-gap); text-transform: capitalize; font-size: var(--compact-small-font);
+        padding: var(--md-gap); text-transform: capitalize; font-size: var(--compact-small-font);
          border-radius: var(--list-entry-border-radius);
     }
     .full div.sub div.skill button { font-size: 0.75em; }

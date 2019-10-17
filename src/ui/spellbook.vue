@@ -63,7 +63,7 @@ export default {
 .spellbook table td { display: flex; }
 
  div.spellbook { flex-direction: column; padding: 0; }
-div.spellbook { margin: 0; padding: var(--med-gap); }
+div.spellbook { margin: 0; padding: var(--md-gap); }
 
  div.spellbook table {
         display: grid; grid-template-columns: minmax( 256px, 1fr ) repeat( auto-fit, minmax( 256px, 1fr ));

@@ -16,6 +16,11 @@ export default {
 	components:{
 		info:Info
 	},
+	data(){
+		return {
+			hName:Profile.hall.name
+		}
+	},
 	mounted() {
 		center(this.$el);
 	},
@@ -38,11 +43,12 @@ export default {
 	},
 	computed:{
 
-		hall(){return Profile.hall;},
+		hall(){ return Profile.hall; },
 
 		hallName:{
 			get() { return this.hName; },
 			set(v) {
+				if ( v ) Profile.setHallName( v);
 				this.hName =v;
 			}
 		}
@@ -55,7 +61,8 @@ export default {
 
 <div class="popup wizhall">
 
-	<div><span>Wizard's Hall</span></div>
+	<div class="header"><input class="fld-name text-entry" type="text" v-model="hallName"></div>
+
 	<div class="chars">
 	<info v-for="(c,i) in hall.chars" :char="c" :active="i==hall.active"
 		:key="i" @load="load( i)" />
@@ -69,6 +76,16 @@ export default {
 
 <style scoped>
 
+div.header {
+	display:flex;
+	justify-content: center;
+	margin: var(--md-padding);
+}
+
+div.header .fld-name {
+	text-align: center;
+	font-size: 1.4em;
+}
 div.wizhall {
 
 	background-color: var( --background-color);

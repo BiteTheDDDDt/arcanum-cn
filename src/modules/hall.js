@@ -58,6 +58,8 @@ export default class Hall {
 		if ( !this.chars ) this.chars = [];
 		if ( !this.active ) this.active = 0;
 
+		if ( !this.name ) this.name = "Wizard's Hall";
+
 		/** @todo: change default to 1 */
 		//if ( !this.max ) this.max = 3;
 		this.max = 3;

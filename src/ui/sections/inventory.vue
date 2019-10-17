@@ -106,7 +106,7 @@ export default {
 div.inv-equip .item-table {
 		/*display: flex; flex-flow: column;*/
 		overflow-y: auto;
-        margin: 0; padding: var(--med-gap);
+        margin: 0; padding: var(--md-gap);
         display: grid; grid-template-columns: repeat( auto-fit, minmax( 256px, 1fr )); grid-auto-rows: 1fr;
         grid-column: 1/3;
     }

@@ -92,13 +92,14 @@ export default {
 		<tr><td>name</td><th class="text-entry">
 			<input class="fld-name" type="text" v-model="wizName"></th></tr>
 
+		<tr><td></td><th><button @click="openHall">Hall of Mages</button></th></tr>
+
 		<tr @mouseenter.capture.stop="emit( 'itemover', $event,player.titles, 'Titles')"><td>title</td><th> {{ title}}</th></tr>
 		<!--<tr><td>alignment</td><th>{{ player.alignment }}</th></tr>-->
 		<tr><td>level</td><th> {{ level }}</th></tr>
 		<tr><td>exp</td><th> {{ exp }} / {{ next }} </th></tr>
 		<tr><td @mouseenter.capture.stop="emit( 'itemover', $event,sp)">skill points</td><th> {{spStr }}</th></tr>
 
-		<tr><th><button @click="openHall">Hall of Mages</button></th></tr>
 
 		<tr><td>rest</td><th><slotpick pick="rest" /></th></tr>
 		<tr><td>mount</td><th><slotpick pick="mount" /></th></tr>
