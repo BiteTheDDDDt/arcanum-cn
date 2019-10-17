@@ -67,7 +67,7 @@ export default {
 			<th class="sm-name">{{ b.name }}</th>
 			<td class="num-align">{{ b.level }}</td>
 			<td class="num-align">{{ b.value }}</td>
-			<td class="num-align">{{ showHp(b) ? toNum(b.hp) : '??' }}</td>
+			<td class="num-align">{{ showHp(b) ? toNum(b.hp) : '???' }}</td>
 			<td><button @click="emit( TRY_BUY,b)" :disabled="b.unique||!buyable(b)||minions.freeSpace()==0||b.value<10">Buy</button></td>
 		</tr>
 	</table>

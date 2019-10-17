@@ -166,10 +166,13 @@ export default {
 		for( let p in items ) {
 
 			var it = items[p];
+
 			if ( !it.locked && it.value >0 && !it.disabled ) {
 
 				if ( it.mod ) this.addMod( it.mod, it.value );
-				if ( it.lock ) this.lock( it.lock, it.count );
+				if ( it.lock ) {
+					this.lock( it.lock, it.value );
+				}
 
 			}
 
@@ -1266,6 +1269,8 @@ export default {
 
 			let it = this.getData(id);
 			if ( it ) {
+
+				console.warn('APPLYING LOCK: ' + id );
 
 				this.lock(it);
 

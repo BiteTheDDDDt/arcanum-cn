@@ -1820,11 +1820,12 @@
 
 		"id":"magnificence",
 		"level":7,
+		"school":"light",
 		"desc":"",
 		"buy":{
 			"tomes":1,
 			"lightgem":10,
-			"runes":5
+			"runestones":5
 		},
 		"cost":{
 			"light":7
@@ -1865,12 +1866,13 @@
 
 		"id":"blindflash",
 		"name":"blinding flash",
+		"school":"light",
 		"level":8,
 		"desc":"a flash of pure white light",
 		"buy":{
 			"tomes":10,
 			"lightgem":20,
-			"runes":5
+			"runestones":5
 		},
 		"cost":{
 			"light":5

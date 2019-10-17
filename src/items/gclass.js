@@ -24,6 +24,8 @@ export default class GClass extends GData {
 
 		if ( this.loot ) Game.getLoot( this.loot );
 
+		this.locked = false;
+
 		Events.emit( EVT_EVENT, this );
 
 	}

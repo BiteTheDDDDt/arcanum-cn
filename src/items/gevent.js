@@ -38,6 +38,8 @@ export default class GEvent extends GData {
 
 		} else super.amount( g, 1 );
 
+		this.locked = false;
+
 		Events.emit( EVT_EVENT, this );
 
 	}
