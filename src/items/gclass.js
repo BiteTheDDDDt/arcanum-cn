@@ -1,6 +1,5 @@
 import GData from "./gdata";
 import Events, { EVT_EVENT } from "../events";
-import Game from '../game';
 /**
  * Represents in-game wizard class.
  */
@@ -15,14 +14,14 @@ export default class GClass extends GData {
 			this.warn = true;
 		}
 
-
 	}
 
 	amount( g, amt ) {
 
 		if ( !super.amount(g,amt) ) return;
 
-		if ( this.loot ) Game.getLoot( this.loot );
+		g.state.player.setClass( this.name );
+		if ( this.loot ) g.getLoot( this.loot );
 
 		Events.emit( EVT_EVENT, this );
 

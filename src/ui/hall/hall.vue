@@ -10,6 +10,7 @@ import {center} from '../components/popups.js';
  * Hall of Wizards
  *
  * @emits set-char
+ * @emits dismiss-char
  */
 export default {
 
@@ -18,6 +19,7 @@ export default {
 	},
 	data(){
 		return {
+			chars:Profile.hall.chars,
 			hName:Profile.hall.name
 		}
 	},
@@ -33,6 +35,10 @@ export default {
 
 			this.dispatch('set-char', slot );
 
+		},
+
+		dismiss(slot){
+			this.dispatch('dismiss-char', slot );
 		},
 
 		warnDone( okay, slot ) {
@@ -64,11 +70,11 @@ export default {
 	<div class="header"><input class="fld-name text-entry" type="text" v-model="hallName"></div>
 
 	<div class="chars">
-	<info v-for="(c,i) in hall.chars" :char="c" :active="i==hall.active"
-		:key="i" @load="load( i)" />
+	<info v-for="(c,i) in chars" :char="c" :active="i==hall.active"
+		:key="i" @load="load( i)" @dismiss="dismiss(i)" />
 	</div>
 
-	<button class="btn-close" @click="$emit('close')">Cancel</button>
+	<button class="btn-close" @click="$emit('close')">Close</button>
 
 </div>
 

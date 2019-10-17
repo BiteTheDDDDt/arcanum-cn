@@ -1,5 +1,3 @@
-const EMPTY_NAME = 'Empty Seat';
-
 /**
  * Character stub for Hall of Wizards.
  */
@@ -12,6 +10,7 @@ export default class CharInfo {
 		return {
 			name:this.name,
 			level:this.level,
+			gclass:this.gclass,
 			title:this.title||undefined,
 			gender:this.gender||undefined,
 			school:this.school||undefined
@@ -37,11 +36,7 @@ export default class CharInfo {
 	constructor( vars=null ){
 
 		if ( vars ) Object.assign( this,vars );
-		else this.empty = true;
-
-		if ( !this.name ) this.name = EMPTY_NAME;
-		if ( !this.level ) this.level = null;
-
+		if ( !this.name ) this.empty = true;
 
 	}
 

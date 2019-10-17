@@ -130,7 +130,12 @@ const CHAR_NAME = 'charname';
 
 const LEVEL_UP = 'levelup'
 
-export { CHAR_TITLE, NEW_TITLE, LEVEL_UP, CHAR_NAME };
+/**
+ * Character class changed.
+ */
+const CHAR_CLASS = 'charclass';
+
+export { CHAR_TITLE, NEW_TITLE, LEVEL_UP, CHAR_NAME, CHAR_CLASS };
 
 export { HALT_ACT, EVT_COMBAT, EVT_EVENT, EVT_UNLOCK, EXP_MAX, EVT_LOOT, ACT_DONE, ALLY_DIED, CHAR_DIED,
 	ENTER_LOC, EXIT_LOC, ITEM_ATTACK, STOP_ALL, DELETE_ITEM,

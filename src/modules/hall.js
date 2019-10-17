@@ -103,19 +103,24 @@ export default class Hall {
 		char.name = p.name;
 		char.level = p.level.valueOf();
 		char.title = p.title;
+		char.gclass = p.gclass;
+		char.empty = false;
 
 	}
 
-	setInfo( info, slot=-1 ){
+	/**
+	 *
+	 * @param {*} slot
+	 * @returns {boolean} false on invalid slot.
+	 */
+	clearChar( slot ) {
 
-		slot = slot > 0 ? slot : this.active;
+		if ( slot < 0 || slot >= this.chars.length ) return false;
 
-	}
+		this.chars[slot].empty = true;
+		this.chars[slot].name = null;
 
-	addChar( info, slot=-1 ) {
-
-		if ( !slot ) slot = this.active;
-		this.chars[ info.name ] = info;
+		return true;
 
 	}
 

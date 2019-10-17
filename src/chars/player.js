@@ -4,7 +4,7 @@ import Game from '../game';
 import { tryDamage } from '../composites/combat';
 
 import Char, { getDelay } from './char';
-import Events, { LEVEL_UP, NEW_TITLE, CHAR_TITLE, CHAR_NAME } from "../events";
+import Events, { LEVEL_UP, NEW_TITLE, CHAR_TITLE, CHAR_NAME, CHAR_CLASS } from "../events";
 import Wearable from "./wearable";
 import GData from "../items/gdata";
 
@@ -72,8 +72,11 @@ export default class Player extends Char {
 		}
 	}
 
-	get className() { return this._className; }
-	set className(v) { this._className = v; }
+	/**
+	 * @property {string} gclass - name of last game class attained.
+	 */
+	get gclass() { return this._gclass; }
+	set gclass(v) { this._gclass = v; }
 
 	/**
 	 * @property {number} next - exp to level up.
@@ -86,8 +89,7 @@ export default class Player extends Char {
 
 		if ( this._hp ) this._hp.value = v;
 		else if ( v instanceof GData ) this._hp = v;
-		else this._hp = new Resource( {value:v} );
-
+		else console.error('Invalid Hp: ' + v );
 	}
 
 	get damage(){ return this._damage; }
@@ -175,7 +177,7 @@ export default class Player extends Char {
 		data.retreat = this.retreat||undefined;
 
 		data.states = this.states;
-		data.className = this.className;
+		data.gclass = this.gclass;
 
 		if ( this.weapon ) data.weapon = this.weapon.id;
 
@@ -212,6 +214,14 @@ export default class Player extends Char {
 		if ( !this.weapon ) this.weapon = Fists;
 
 		if ( !this.name) this.name = 'wizrobe';
+
+	}
+
+
+	setClass( gclass ) {
+
+		this.gclass = gclass;
+		Events.emit( CHAR_CLASS, this );
 
 	}
 

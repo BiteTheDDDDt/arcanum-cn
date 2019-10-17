@@ -23,7 +23,8 @@ export default {
 			return this.char.name;
 		},
 		level() { return this.char.level },
-		title() { return this.char.title }
+		title() { return this.char.title },
+		gclass(){return this.char.gclass }
 
 	}
 
@@ -33,18 +34,23 @@ export default {
 
 <template>
 <div :class="['char-info', empty ? 'empty' : '']">
-	<div class="char-stats">
+	<div class="char-stats" v-if="!empty">
 	<span>{{ name }} the {{ title }}</span>
 	<span>level: {{ level }}</span>
-	<span>{{ title }}</span>
+	<span v-if="gclass">{{ gclass }}</span>
+	</div>
+	<div v-else>
+		<span>Chair Empty</span>
 	</div>
 
 	<div class="buttons">
 
 	<button class="enter" v-if="!active" @click="$emit('load', char)" warn="true"
-		@mouseenter.capture.stop="emit( 'itemover', $event, rollOver )">Enter</button>
+		@mouseenter.capture.stop="emit( 'itemover', $event, rollOver )">
+		<span v-if="empty">Begin</span><span v-else>Awaken</span>
+		</button>
 
-	<button class="dismiss" v-if="!active" @click="$emit('dismiss', char)" warn="true">Dismiss</button>
+	<button class="dismiss" v-if="!active&&!empty" @click="$emit('dismiss', char)" warn="true">Dismiss</button>
 
 	</div>
 
@@ -61,9 +67,15 @@ div.char-info {
 	padding: var(--md-padding);
 	border-radius: 4px;
 	min-height: 200px;
+	min-width:150px;
 
 	justify-content: space-between;
 
+}
+
+div.char-info div.buttons {
+	display:flex;
+	flex-flow: column nowrap;
 }
 
 div.char-info div.enter {

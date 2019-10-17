@@ -49,7 +49,9 @@ const vm = new Vue({
 		this.listen('load-file', this.loadFile );
 		this.listen('load', this.loadSave );
 		this.listen('reset', this.reset );
+
 		this.listen('set-char', this.setChar, this );
+		this.listen('dismiss-char', this.dismissChar, this );
 
 		this.listen('save', this.save );
 		this.listen('autosave', this.save );
@@ -66,10 +68,15 @@ const vm = new Vue({
 		 */
 		setChar( ind ){
 
-			console.log('SETTING ACTIVE: ' + ind );
 			Profile.setActive( ind, this.game.state );
-			Profile.saveHall();
 			this.loadSave();
+
+		},
+
+		dismissChar(ind) {
+
+			console.log('DISMISS: ' + ind );
+			Profile.dismiss( ind );
 
 		},
 

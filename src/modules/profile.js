@@ -1,6 +1,6 @@
 import Hall from "./hall";
 import Settings from '../settings';
-import Events, { LEVEL_UP, CHAR_NAME, CHAR_TITLE } from "../events";
+import Events, { LEVEL_UP, CHAR_NAME, CHAR_TITLE, CHAR_CLASS } from "../events";
 
 const CHARS_DIR = 'chars/';
 const SETTINGS_DIR = 'settings/';
@@ -81,9 +81,9 @@ export default {
 
 		this.hall.updateChar( state.player );
 		this.saveActive( state );
-
 		this.hall.setActive( slot );
 
+		this.saveHall();
 	},
 
 	/**
@@ -98,6 +98,7 @@ export default {
 		Events.add( LEVEL_UP, this.updateChar, this );
 		Events.add( CHAR_NAME, this.updateChar, this );
 		Events.add( CHAR_TITLE, this.updateChar, this );
+		Events.add( CHAR_CLASS, this.updateChar, this );
 
 
 	},
@@ -112,6 +113,18 @@ export default {
 
 	},
 
+	dismiss( slot ) {
+
+		if ( this.hall.clearChar(slot) ) {
+
+			window.localStorage.setItem( this.charLoc(slot), null );
+			window.localStorage.setItem( this.settingsLoc(slot), null);
+			this.saveHall();
+
+		}
+
+	},
+
 	/**
 	 * @returns {string} - returns the JSON string for the current
 	 * player slot, or null.
@@ -123,7 +136,7 @@ export default {
 			let store = window.localStorage;
 			let str = store.getItem( this.activeLoc() );
 
-			// attempt load from legacy save.
+			/** @compat attempt load from legacy save. */
 			if ( !str && this.hall.active === 0 ) {
 
 				console.log('NO 1st Char. USING LEGACY');
@@ -210,8 +223,12 @@ export default {
 		return SAVE_DIR + CHARS_DIR + this.hall.active;
 	},
 
-	settingsLoc(){
-		return SAVE_DIR + SETTINGS_DIR + this.hall.active;
+	charLoc( ind ) {
+		return SAVE_DIR + CHARS_DIR + ind;
+	},
+
+	settingsLoc( ind ){
+		return SAVE_DIR + SETTINGS_DIR + ( ind === undefined ? this.hall.active : ind );
 	},
 
 	saveHall(){
@@ -230,19 +247,6 @@ export default {
 
 		}
 
-	},
-
-	init(){
-	},
-
-	newChar() {
-	},
-
-	/**
-	 * Set information for the current character.
-	 * @param {*} charInfo
-	 */
-	setInfo( charInfo ) {
 	},
 
 	setName(name){
