@@ -259,7 +259,8 @@ export default class ItemGen {
 
 		if ( typeof amt === 'number' || typeof amt === 'boolean') {
 
-			it.amount( Game, amt );
+			if ( it.type === 'upgrade') it.doUnlock( Game );
+			else it.amount( Game, amt );
 			if ( amt > 0 ) return it.name;
 
 		} else console.warn('unknown amount: '+ it + ' -> ' + amt );
