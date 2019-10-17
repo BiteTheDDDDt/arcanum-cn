@@ -38,8 +38,14 @@ export default {
 	},
 	computed:{
 
-		hall(){return Profile.hall;}
+		hall(){return Profile.hall;},
 
+		hallName:{
+			get() { return this.hName; },
+			set(v) {
+				this.hName =v;
+			}
+		}
 	}
 
 }
@@ -49,6 +55,7 @@ export default {
 
 <div class="popup wizhall">
 
+	<div><span>Wizard's Hall</span></div>
 	<div class="chars">
 	<info v-for="(c,i) in hall.chars" :char="c" :active="i==hall.active"
 		:key="i" @load="load( i)" />

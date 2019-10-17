@@ -1,9 +1,13 @@
+const EMPTY_NAME = 'Empty Seat';
+
 /**
  * Character stub for Hall of Wizards.
  */
 export default class CharInfo {
 
 	toJSON(){
+
+		if ( this.empty ) return undefined;
 
 		return {
 			name:this.name,
@@ -33,9 +37,11 @@ export default class CharInfo {
 	constructor( vars=null ){
 
 		if ( vars ) Object.assign( this,vars );
+		else this.empty = true;
 
-		if ( !this.name ) this.name = 'wizrobe';
-		if ( !this.level ) this.level = 0;
+		if ( !this.name ) this.name = EMPTY_NAME;
+		if ( !this.level ) this.level = null;
+
 
 	}
 

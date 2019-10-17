@@ -17,13 +17,13 @@ export default {
 		rollOver(){
 		},
 
-		empty(){return !this.char; },
+		empty(){return this.char.empty },
 
 		name(){
-			return this.char ? this.char.name : 'Wizard Slot';
+			return this.char.name;
 		},
-		level() { return this.char ? this.char.level : '' },
-		title() { return this.char ? this.char.title : '' }
+		level() { return this.char.level },
+		title() { return this.char.title }
 
 	}
 
@@ -34,13 +34,19 @@ export default {
 <template>
 <div :class="['char-info', empty ? 'empty' : '']">
 	<div class="char-stats">
-	<span>Name: {{ name }}</span>
-	<span>Level: {{ level }}</span>
-	<span>Title: {{ title }}</span>
+	<span>{{ name }} the {{ title }}</span>
+	<span>level: {{ level }}</span>
+	<span>{{ title }}</span>
 	</div>
+
+	<div class="buttons">
 
 	<button class="enter" v-if="!active" @click="$emit('load', char)" warn="true"
 		@mouseenter.capture.stop="emit( 'itemover', $event, rollOver )">Enter</button>
+
+	<button class="dismiss" v-if="!active" @click="$emit('dismiss', char)" warn="true">Dismiss</button>
+
+	</div>
 
 </div>
 </template>
