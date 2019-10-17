@@ -72,7 +72,9 @@ export default class Hall {
 	}
 
 	/**
-	 *
+	 * Sets the active slot index so the specified slot will be used
+	 * on next store/load.
+	 * Does not perform any actual loading or data changes.
 	 * @param {number} slot
 	 * @returns {boolean} false on invalid slot.
 	 */

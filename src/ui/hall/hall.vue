@@ -49,7 +49,7 @@ export default {
 
 	<div class="chars">
 	<info v-for="(c,i) in hall.chars" :char="c" :active="i==hall.active"
-		:key="i" @load="dispatch('set-active', i)" />
+		:key="i" @load="load( i)" />
 	</div>
 
 	<button class="btn-close" @click="$emit('close')">Cancel</button>

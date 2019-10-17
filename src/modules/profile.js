@@ -61,6 +61,8 @@ export default {
 		this.hall.updateActive( state.player );
 		this.saveActive( state );
 
+		this.hall.setActive( slot );
+
 	},
 
 	/**

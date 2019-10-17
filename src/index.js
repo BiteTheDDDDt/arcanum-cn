@@ -66,6 +66,7 @@ const vm = new Vue({
 		 */
 		setChar( ind ){
 
+			console.log('SETTING ACTIVE: ' + ind );
 			Profile.setActive( ind, this.game.state );
 			Profile.saveHall();
 			this.loadSave();
