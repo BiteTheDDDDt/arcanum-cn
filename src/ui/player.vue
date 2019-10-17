@@ -25,7 +25,7 @@ export default {
 		name:{
 			get(){ return this.player.name; },
 			set(v){
-				if ( v ) this.player.name = v;
+				if ( v ) this.player.setName(v);
 			}
 		},
 		title(){ return this.player.title; },
@@ -88,6 +88,7 @@ export default {
 		<table>
 		<tr><td>name</td><th class="text-entry">
 			<input class="fld-name" type="text" v-model="name"></th></tr>
+
 		<tr @mouseenter.capture.stop="emit( 'itemover', $event,player.titles, 'Titles')"><td>title</td><th> {{ title}}</th></tr>
 		<!--<tr><td>alignment</td><th>{{ player.alignment }}</th></tr>-->
 		<tr><td>level</td><th> {{ level }}</th></tr>

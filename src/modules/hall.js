@@ -92,11 +92,11 @@ export default class Hall {
 	 * Player data loaded. Copy information into the active slot.
 	 * @param {Player} p
 	 */
-	updateActive( p ) {
+	updateChar( p, slot=-1 ) {
 
-		let char = this.chars[ this.active ];
+		let char = this.getSlot(slot);
 
-		if ( !char ) char = this.chars[ this.active ] = new CharInfo();
+		if ( !char ) char = this.chars[ (slot < 0 ? this.active : slot)  ] = new CharInfo();
 
 		char.name = p.name;
 		char.level = p.level.valueOf();

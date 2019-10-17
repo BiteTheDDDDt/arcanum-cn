@@ -4,7 +4,7 @@ import Game from '../game';
 import { tryDamage } from '../composites/combat';
 
 import Char, { getDelay } from './char';
-import Events, { LEVEL_UP, NEW_TITLE } from "../events";
+import Events, { LEVEL_UP, NEW_TITLE, CHAR_TITLE, CHAR_NAME } from "../events";
 import Wearable from "./wearable";
 import events from "../events";
 import GData from "../items/gdata";
@@ -33,8 +33,12 @@ export default class Player extends Char {
 	get level() { return this._level; }
 	set level(v) {
 
-		if ( this._level && (typeof v === 'number') ) this._level.value = v;
-		else this._level = v;
+		if ( this._level && (typeof v === 'number') ) {
+
+			this._level.value = v;
+
+		} else this._level = v;
+
 	}
 
 	/**
@@ -44,7 +48,6 @@ export default class Player extends Char {
 	get title() { return this._title; }
 	set title(v) {
 		this._title =v;
-		if ( !this.titles.includes(v) ) this.titles.push(v);
 	}
 
 	/**
@@ -193,47 +196,10 @@ export default class Player extends Char {
 
 		this.retreat = this.retreat || 0;
 
+		this.initStates();
+
 		if ( !this.tohit) this.tohit = 1;
 		if ( !this.defense ) this.defense = 0;
-
-		this._resist = this._resist || {};
-		for( let p in this._resist ) {
-			this._resist[p] = new Stat( this._resist[p]);
-		}
-
-		this.regen = this.regen || 0;
-
-		this._states = this._states || {
-			fly:0,
-			sleep:0,
-			swim:0,
-			immortal:0,
-			paralyzed:0,
-			stoned:0,
-			confused:0
-		};
-
-		if ( !this.immunities ) this.immunities = {
-			fire:0,
-			water:0,
-			air:0,
-			earth:0,
-			light:0,
-			shadow:0,
-			arcane:0,
-			physical:0,
-			natural:0,
-			poison:0,
-			disease:0
-		}
-
-		if ( !this.bonuses ) this.bonuses = {
-		}
-
-		if ( this.speed === undefined ) {
-			console.warn('err: manually creating speed.')
-			this.speed = new Resource({val:1});
-		}
 
 		this.alignment = this.alignment || 'neutral';
 
@@ -241,7 +207,26 @@ export default class Player extends Char {
 
 		if ( !this.weapon ) this.weapon = Fists;
 
-		this._name = this._name || 'wizrobe';
+		if ( !this.name) this.name = 'wizrobe';
+
+	}
+
+	setName( name ) {
+
+		if ( !name ) return;
+		events.emit( CHAR_NAME, this );
+		this.name = name;
+
+	}
+
+	setTitle( title ) {
+
+		if ( !title ) return;
+
+		this.title = title;
+		this.addTitle(title);
+
+		events.emit( CHAR_TITLE, this );
 
 	}
 
@@ -394,6 +379,45 @@ export default class Player extends Char {
 
 		Events.emit( LEVEL_UP, this );
 
+	}
+
+	/**
+	 * Init immunities, resists, etc.
+	 */
+	initStates(){
+		this._resist = this._resist || {};
+		for( let p in this._resist ) {
+			this._resist[p] = new Stat( this._resist[p]);
+		}
+
+		this.regen = this.regen || 0;
+
+		this._states = this._states || {
+			fly:0,
+			sleep:0,
+			swim:0,
+			immortal:0,
+			paralyzed:0,
+			stoned:0,
+			confused:0
+		};
+
+		if ( !this.immunities ) this.immunities = {
+			fire:0,
+			water:0,
+			air:0,
+			earth:0,
+			light:0,
+			shadow:0,
+			arcane:0,
+			physical:0,
+			natural:0,
+			poison:0,
+			disease:0
+		}
+
+		if ( !this.bonuses ) this.bonuses = {
+		}
 	}
 
 }

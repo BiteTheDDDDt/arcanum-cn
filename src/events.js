@@ -65,7 +65,6 @@ export const IS_IMMUNE = 'dmg_immune';
 
 const ENEMY_HIT = 'enemy_hit';
 const PLAYER_HIT = 'player_hit';
-const LEVEL_UP = 'levelup'
 
 const ACT_CHANGED = 'actchanged';
 const ACT_IMPROVED = 'actimprove';
@@ -114,12 +113,29 @@ const ENC_START = 'enc_start'
 const ENTER_LOC = 'enter_loc';
 const EXIT_LOC = 'exit_loc';
 
+
+/**
+ * New character title set.
+ */
+const CHAR_TITLE = 'chartitle';
+/**
+ * New title added but not necessarily set as main.
+ */
 const NEW_TITLE = 'newtitle';
+
+/**
+ * Character name changed.
+ */
+const CHAR_NAME = 'charname';
+
+const LEVEL_UP = 'levelup'
+
+export { CHAR_TITLE, NEW_TITLE, LEVEL_UP, CHAR_NAME };
 
 export { HALT_ACT, EVT_COMBAT, EVT_EVENT, EVT_UNLOCK, EXP_MAX, EVT_LOOT, ACT_DONE, ALLY_DIED, CHAR_DIED,
 	ENTER_LOC, EXIT_LOC, ITEM_ATTACK, STOP_ALL, DELETE_ITEM,
-	ACT_CHANGED, ACT_IMPROVED, ACT_BLOCKED, NEW_TITLE,
-	DAMAGE_MISS, ENEMY_HIT, PLAYER_HIT, DEFEATED, ENEMY_SLAIN, COMBAT_DONE, ENC_START, ENC_DONE, LEVEL_UP };
+	ACT_CHANGED, ACT_IMPROVED, ACT_BLOCKED,
+	DAMAGE_MISS, ENEMY_HIT, PLAYER_HIT, DEFEATED, ENEMY_SLAIN, COMBAT_DONE, ENC_START, ENC_DONE };
 
 export default {
 

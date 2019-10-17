@@ -1,5 +1,6 @@
 import Hall from "./hall";
 import Settings from '../settings';
+import Events, { LEVEL_UP, CHAR_NAME, CHAR_TITLE } from "../events";
 
 const CHARS_DIR = 'chars/';
 const SETTINGS_DIR = 'settings/';
@@ -51,12 +52,23 @@ export default {
 	},
 
 	/**
+	 * active player info changed.
+	 * update and save hall data.
+	 */
+	updateChar( state, slot=-1 ) {
+
+		this.hall.updateChar( state.player, slot );
+		this.saveHall();
+
+	},
+
+	/**
 	 * set active player index.
 	 * @param {number} slot - slot to load.
 	 */
 	setActive( slot, state ) {
 
-		this.hall.updateActive( state.player );
+		this.hall.updateChar( state.player );
 		this.saveActive( state );
 
 		this.hall.setActive( slot );
@@ -69,8 +81,13 @@ export default {
 	 */
 	stateLoaded(state) {
 
-		this.hall.updateActive( state.player );
+		this.hall.updateChar( state.player );
 		this.saveHall();
+
+		Events.add( LEVEL_UP, this.updateChar );
+		Events.add( CHAR_NAME, this.updateChar );
+		Events.add( CHAR_TITLE, this.updateChar );
+
 
 	},
 
