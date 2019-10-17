@@ -4,9 +4,22 @@ import { floor, lowFixed, precise } from '../util/format';
 
 import AllUpgrades from './allupgrades.vue';
 import SlotPick from './components/slotpick.vue';
+import Hall from './hall/hall.vue';
 
 export default {
 
+	components:{
+		upgrades:AllUpgrades,
+		slotpick:SlotPick,
+		hall:Hall
+	},
+	data(){
+
+		return {
+			hallOpen:false
+		}
+
+	},
 	computed:{
 
 		name:{
@@ -44,17 +57,19 @@ export default {
 
 
 	},
-	components:{
-		'upgrades':AllUpgrades,
-		'slotpick':SlotPick
-	},
 	beforeCreate(){
 
 		this.player = Game.state.player;
 	},
 	methods:{
+
 		floor:floor,
-		precise:precise
+		precise:precise,
+
+		opeHall(){ this.hallOpen = true; },
+
+		closeHall(){this.hallOpen = false;}
+
 	}
 
 }
@@ -64,6 +79,8 @@ export default {
 <template>
 
 	<div class="player-view">
+
+		<hall v-if="hallOpen" @close="closeHall" />
 
 		<div class="player-tables">
 
@@ -76,6 +93,8 @@ export default {
 		<tr><td>level</td><th> {{ level }}</th></tr>
 		<tr><td>exp</td><th> {{ exp }} / {{ next }} </th></tr>
 		<tr><td @mouseenter.capture.stop="emit( 'itemover', $event,sp)">skill points</td><th> {{spStr }}</th></tr>
+
+		<tr><th><button @click="openHall">Hall of Mages</button></th></tr>
 
 		<tr><td>rest</td><th><slotpick pick="rest" /></th></tr>
 		<tr><td>mount</td><th><slotpick pick="mount" /></th></tr>

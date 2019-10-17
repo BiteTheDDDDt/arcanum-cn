@@ -7,7 +7,16 @@ export default {
 	/**
 	 * @property {boolean} active - whether char is currently active.
 	 */
-	props:['char', 'active']
+	props:['char', 'active'],
+	computed:{
+
+		name(){
+			return this.char ? this.char.name : '';
+		},
+		level() { return this.char ? this.char.level : '' },
+		title() { return this.char ? this.char.title : '' }
+
+	}
 
 }
 </script>
@@ -15,7 +24,7 @@ export default {
 
 <template>
 <div>
-	<span>Name: {{ char.name }}</span>
+	<span>Name: {{ name }}</span>
 	<span>Level: {{ level }}</span>
 	<span>Title: {{ title }}</span>
 
