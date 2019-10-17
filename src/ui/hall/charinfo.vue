@@ -39,7 +39,7 @@ export default {
 	<span>Title: {{ title }}</span>
 	</div>
 
-	<button v-if="!active" @click="$emit('load', char)" warn="true"
+	<button class="enter" v-if="!active" @click="$emit('load', char)" warn="true"
 		@mouseenter.capture.stop="emit( 'itemover', $event, rollOver )">Enter</button>
 
 </div>
@@ -48,8 +48,21 @@ export default {
 <style scoped>
 
 div.char-info {
+
 	display:flex;
 	flex-flow: column nowrap;
+	border: 1px solid var(--separator-color);
+	padding: var(--med-padding);
+	border-radius: 4px;
+	min-height: 200px;
+
+	justify-content: space-between;
+
+}
+
+div.char-info div.enter {
+	width:78%;
+	justify-self: flex-end;
 }
 
 div.char-info.empty {

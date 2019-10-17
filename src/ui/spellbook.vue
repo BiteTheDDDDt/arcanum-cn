@@ -63,13 +63,13 @@ export default {
 .spellbook table td { display: flex; }
 
  div.spellbook { flex-direction: column; padding: 0; }
-div.spellbook { margin: 0; padding: var(--medium-gap); }
+div.spellbook { margin: 0; padding: var(--med-gap); }
 
  div.spellbook table {
         display: grid; grid-template-columns: minmax( 256px, 1fr ) repeat( auto-fit, minmax( 256px, 1fr ));
         grid-auto-rows:  1fr;
     }
-    div.spellbook  table tr { padding: var(--small-gap); display:flex; align-items:center; }
+    div.spellbook  table tr { padding: var(--sm-gap); display:flex; align-items:center; }
     div.spellbook  table tr td:nth-child(1),
     div.spellbook  table tr td:nth-child(2){ flex: 1; }
     div.spellbook  table tr td:nth-child(2){ flex: 2; }

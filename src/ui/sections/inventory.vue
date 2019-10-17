@@ -106,13 +106,13 @@ export default {
 div.inv-equip .item-table {
 		/*display: flex; flex-flow: column;*/
 		overflow-y: auto;
-        margin: 0; padding: var(--medium-gap);
+        margin: 0; padding: var(--med-gap);
         display: grid; grid-template-columns: repeat( auto-fit, minmax( 256px, 1fr )); grid-auto-rows: 1fr;
         grid-column: 1/3;
     }
 div.inv-equip .item-table tr {
         display: flex; flex-flow: row; justify-content: flex-end;
-        padding: var(--small-gap); align-items: center;
+        padding: var(--sm-gap); align-items: center;
     }
 div.inv-equip .item-table tr :first-child { flex: 1; }
 div.inv-equip .item-table tr button { margin: var(--tiny-gap); }

@@ -48,6 +48,6 @@ div.up-list {
 	overflow-x:visible;
 }
 
-div.allupgrades .div-hr { background: var(--header-background-color); padding: var(--small-gap); }
+div.allupgrades .div-hr { background: var(--header-background-color); padding: var(--sm-gap); }
 
 </style>

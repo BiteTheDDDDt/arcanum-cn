@@ -12,10 +12,14 @@
 	--odd-list-color:#e5e5e5;
 	--action-btn-color: #fdc679;
 
+	--sm-padding:4px;
+	--med-padding:8px;
+	--reg-padding:12px;
+
 	--tiny-gap: 0.1em;
-	--small-gap: 0.35em;
-	--medium-gap: 0.65em;
-	--large-gap: 1.25em;
+	--sm-gap: 0.35em;
+	--med-gap: 0.65em;
+	--lg-gap: 1.25em;
 	--comfy-gap: 0.4em;
 
 }

@@ -439,7 +439,7 @@ div.inv-equip {
 
 div.bot-bar {
 	background: inherit;
-	border-top: 1px solid var(--separator-color); padding: var(--large-gap);
+	border-top: 1px solid var(--separator-color); padding: var(--lg-gap);
 }
 
 </style>

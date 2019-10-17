@@ -483,7 +483,7 @@
 	{
 		"id":"magicadvice",
 		"name":"advise notables",
-		"desc":"from worried village councils to bumbling barons, they all require your advise",
+		"desc":"from worried village councils to bumbling barons, they all require your advice",
 		"require":"(g.witch+g.magician)>0",
 		"cost":{
 			"stamina":0.3

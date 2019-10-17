@@ -63,9 +63,12 @@ export default {
 <style scoped>
 
 div.wizhall {
+
 	background-color: var( --background-color);
- min-width: 512px;
- min-height: 320px;
+ 	min-width: 580px;
+ 	min-height: 420px;
+ 	padding: var( --reg-padding );
+
 }
 
 div.wizhall .chars {

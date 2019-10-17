@@ -218,21 +218,21 @@ div.spells div.filters div.checks { margin: 0; flex-basis: 16%; }
 		/*div.spellbook .filters {
 			order: 1; flex-flow: row wrap; display: flex; text-align: center;
 			border-bottom: 1px solid var(--separator-color);
-			margin: 0; padding: var(--small-gap); line-height: 2em; justify-content: flex-start;
+			margin: 0; padding: var(--sm-gap); line-height: 2em; justify-content: flex-start;
 		}
 		.div.spellbook div.filters div { box-sizing: border-box; margin: 0; }
 		div.spellbook div.filters div:nth-child(1),
 		div.spellbook div.filters div:nth-child(2) {
 			flex-basis: 50%;
 		}
-		div.spellbook div.filters input[type=text] { padding: var(--small-gap) 0 var(--small-gap) 0; }
+		div.spellbook div.filters input[type=text] { padding: var(--sm-gap) 0 var(--sm-gap) 0; }
 		div.spellbook div.filters > div input[type=text],
 		div.spellbook div.filters > div input[type=number] {
 			flex: 1; margin-right: 1em; margin-left: 1em; min-width: unset; max-width: unset; width: 0;
 		}
 		div.spellbook div.filters > div { display: flex; align-items: center; }
 		div.spellbook div.filters > div label { flex-basis: 20%; }
-		div.spellbook div.filters > div input { min-width: 0; padding: 0; text-indent: var(--small-gap); }
+		div.spellbook div.filters > div input { min-width: 0; padding: 0; text-indent: var(--sm-gap); }
 		div.spellbook div.filters div.checks { margin: 0; padding: 0 0.5em; flex-basis: unset; }*/
 
 </style>
