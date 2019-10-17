@@ -59,7 +59,8 @@ export default class Hall {
 		if ( !this.active ) this.active = 0;
 
 		/** @todo: change default to 1 */
-		if ( !this.max ) this.max = 2;
+		//if ( !this.max ) this.max = 3;
+		this.max = 3;
 
 		let max = this.max.value;
 		// expand chars to max.

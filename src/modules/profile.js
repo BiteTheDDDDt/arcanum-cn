@@ -28,11 +28,9 @@ export default {
 	 */
 	loadHall(){
 
-		console.log('LOADING HALL');
 		let str = window.localStorage.getItem( SAVE_DIR + HALL_FILE );
 		if ( !str ) {
 
-			console.log('NEW HALL');
 			this.hall = new Hall();
 
 		} else {
@@ -98,12 +96,12 @@ export default {
 			let str = store.getItem( this.activeLoc() );
 
 			// attempt load from legacy save.
-			if ( !str ) {
+			if ( !str && this.hall.active === 0 ) {
 
-				console.warn('NO CUR LOC. GETTING LEGACY CHAR.');
+				console.log('NO 1st Char. USING LEGACY');
 				str = store.getItem( this.legacySave() );
 
-			} else console.warn('Hall-Char Loaded');
+			}
 
 			return str;
 
@@ -190,12 +188,11 @@ export default {
 
 	saveHall(){
 
-		console.log('SAVING HALL');
 		try {
 
 			let json = JSON.stringify( this.hall );
 			if ( json ) {
-				console.log('STORING HALL FILE');
+
 				window.localStorage.setItem( SAVE_DIR + HALL_FILE, json );
 			}
 
