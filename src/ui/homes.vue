@@ -47,6 +47,13 @@ export default {
 				}
 
 			}
+			if ( it.mod && typeof it.mod === 'object') {
+
+				for( let p in it.mod) {
+					if ( p.includes(t) ) return true;
+				}
+
+			}
 
 			return false;
 
