@@ -1161,7 +1161,7 @@
 	{
 		"id":"imbuelifegem",
 		"name":"Imbue lifegem",
-		"require":"g.naturelore>=6",
+		"require":"g.naturelore>=6&&g.enchanting>0",
 		"fill":"naturegem",
 		"cost":{
 			"herbs":10,

@@ -55,9 +55,9 @@ export default {
 	 * active player info changed.
 	 * update and save hall data.
 	 */
-	updateChar( state, slot=-1 ) {
+	updateChar( player, slot=-1 ) {
 
-		this.hall.updateChar( state.player, slot );
+		this.hall.updateChar( player, slot );
 		this.saveHall();
 
 	},
@@ -84,9 +84,9 @@ export default {
 		this.hall.updateChar( state.player );
 		this.saveHall();
 
-		Events.add( LEVEL_UP, this.updateChar );
-		Events.add( CHAR_NAME, this.updateChar );
-		Events.add( CHAR_TITLE, this.updateChar );
+		Events.add( LEVEL_UP, this.updateChar, this );
+		Events.add( CHAR_NAME, this.updateChar, this );
+		Events.add( CHAR_TITLE, this.updateChar, this );
 
 
 	},

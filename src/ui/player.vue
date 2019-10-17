@@ -16,16 +16,23 @@ export default {
 	data(){
 
 		return {
-			hallOpen:false
+			hallOpen:false,
+			pName:this.player.name
 		}
 
 	},
+	beforeCreate(){
+		this.player = Game.state.player;
+		this.pName = this.player.name;
+	},
 	computed:{
 
-		name:{
-			get(){ return this.player.name; },
+		wizName:{
+			get(){ return this.pName },
 			set(v){
+
 				if ( v ) this.player.setName(v);
+				this.pName = v;
 			}
 		},
 		title(){ return this.player.title; },
@@ -57,10 +64,6 @@ export default {
 
 
 	},
-	beforeCreate(){
-
-		this.player = Game.state.player;
-	},
 	methods:{
 
 		floor:floor,
@@ -87,7 +90,7 @@ export default {
 		<div>
 		<table>
 		<tr><td>name</td><th class="text-entry">
-			<input class="fld-name" type="text" v-model="name"></th></tr>
+			<input class="fld-name" type="text" v-model="wizName"></th></tr>
 
 		<tr @mouseenter.capture.stop="emit( 'itemover', $event,player.titles, 'Titles')"><td>title</td><th> {{ title}}</th></tr>
 		<!--<tr><td>alignment</td><th>{{ player.alignment }}</th></tr>-->
