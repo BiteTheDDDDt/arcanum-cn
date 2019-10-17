@@ -124,6 +124,8 @@ export default class Wearable extends Item {
 
 		} else console.log('wearable template not found: ' + this.template );
 
+		if ( this.level === null || this.level === undefined || isNaN(this.level)) this.level = 0;
+
 		if ( this.mod ) this.mod = ParseMods( this.mod, this.id );
 
 	}
