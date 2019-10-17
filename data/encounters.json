@@ -78,7 +78,7 @@
 		"effect":{
 			"bf":"-1~2"
 		},
-		"result":{
+		"loot":{
 			"gold":"2~10",
 			"scrolls":"1~2"
 		}
@@ -91,7 +91,7 @@
 			"bf":"-1~1",
 			"rage":"0~1"
 		},
-		"result":{
+		"loot":{
 			"gold":"5~14",
 			"codices":"0~2",
 			"scrolls":"2~4"
@@ -104,7 +104,7 @@
 		"effect":{
 			"rage":"1~3"
 		},
-		"result":{
+		"loot":{
 			"gold":"0~50",
 			"gems":"2~5",
 			"scrolls":"2~5",
@@ -119,7 +119,7 @@
 			"rage":"2~4",
 			"weary":"1~3"
 		},
-		"result":{
+		"loot":{
 			"gold":"0~300",
 			"managem":"10%",
 			"gems":"0~5",
@@ -184,7 +184,7 @@
 			"anatomy.exp":1,
 			"anatomy.max":0.01
 		},
-		"result":{
+		"loot":{
 			"gold":"0~300",
 			"managem":"10%",
 			"gems":"0~5",
@@ -264,7 +264,7 @@
 			"bf":"-1~2",
 			"naturelore.exp":1
 		},
-		"result":{
+		"loot":{
 			"gold":"0~50",
 			"gems":"2~5",
 			"scrolls":"2~5",
