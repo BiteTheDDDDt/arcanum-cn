@@ -195,7 +195,8 @@ export default {
 
 			let json = JSON.stringify( this.hall );
 			if ( json ) {
-				window.localStorage.setItem( this.SAVE_DIR + HALL_FILE, json );
+				console.log('STORING HALL FILE');
+				window.localStorage.setItem( SAVE_DIR + HALL_FILE, json );
 			}
 
 		} catch(e){

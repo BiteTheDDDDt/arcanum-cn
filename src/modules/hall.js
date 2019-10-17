@@ -33,7 +33,6 @@ export default class Hall {
 	get chars() { return this._chars; }
 	set chars(v) {
 
-		console.warn('CHARS IS ARRAY? ' + Array.isArray(v) );
 
 		for( let i = v.length-1; i >= 0; i-- ) {
 			v[i] = new CharInfo(v[i]);
@@ -67,7 +66,6 @@ export default class Hall {
 		for( let i = this.chars.length; i < max; i++ ) {
 			this.chars.push( new CharInfo() );
 		}
-		console.log('HALL SIZE: ' + this.chars.length );
 
 	}
 
@@ -100,7 +98,7 @@ export default class Hall {
 		if ( !char ) char = this.chars[ this.active ] = new CharInfo();
 
 		char.name = p.name;
-		char.level = p.level;
+		char.level = p.level.valueOf();
 		char.title = p.title;
 
 	}

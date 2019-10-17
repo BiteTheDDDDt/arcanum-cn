@@ -16,8 +16,10 @@ export default {
 	components:{
 		info:Info
 	},
+	mounted() {
+		center(this.$el);
+	},
 	updated() {
-		console.log('CENTERING HALL');
 		center( this.$el );
 	},
 	methods:{
