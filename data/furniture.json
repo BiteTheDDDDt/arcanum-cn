@@ -1099,7 +1099,7 @@
 		},
 		"mod":{
 			"minions.max":"10%",
-			"allies.max":"10%"
+			"minions.maxAllies":"10%"
 		}
 
 	},

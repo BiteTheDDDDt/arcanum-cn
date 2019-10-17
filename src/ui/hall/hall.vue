@@ -74,7 +74,7 @@ export default {
 		:key="i" @load="load( i)" @dismiss="dismiss(i)" />
 	</div>
 
-	<button class="btn-close" @click="$emit('close')">Close</button>
+	<button class="btn-close" @click="$emit('close')">X</button>
 
 </div>
 
@@ -95,9 +95,8 @@ div.header .fld-name {
 div.wizhall {
 
 	background-color: var( --background-color);
- 	min-width: 580px;
- 	min-height: 420px;
- 	padding: var( --reg-padding );
+ 	min-width: 640px;
+ 	padding: var( --rg-padding );
 
 }
 
@@ -109,7 +108,7 @@ div.wizhall .chars {
 
 button.btn-close {
 	position: absolute;
-	bottom: 12px;
+	top: 12px;
 	right:12px;
 }
 

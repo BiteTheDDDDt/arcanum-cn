@@ -35,12 +35,12 @@ export default {
 <template>
 <div :class="['char-info', empty ? 'empty' : '']">
 	<div class="char-stats" v-if="!empty">
-	<span>{{ name }} the {{ title }}</span>
-	<span>level: {{ level }}</span>
+	<span class="fld-name">{{ name }} the {{ title }}</span>
 	<span v-if="gclass">{{ gclass }}</span>
+	<span>level {{ level }}</span>
 	</div>
-	<div v-else>
-		<span>Chair Empty</span>
+	<div v-else class="char-stats">
+		<span class="fld-name">Chair Empty</span>
 	</div>
 
 	<div class="buttons">
@@ -64,13 +64,20 @@ div.char-info {
 	display:flex;
 	flex-flow: column nowrap;
 	border: 1px solid var(--separator-color);
-	padding: var(--md-padding);
+	padding: var(--rg-padding);
 	border-radius: 4px;
-	min-height: 200px;
-	min-width:150px;
+	min-height: 220px;
+	width:175px;
 
 	justify-content: space-between;
 
+}
+
+div.char-info .fld-name {
+	text-align: center;
+	width:100%;
+	font-size: 1.02rem;
+	margin-bottom: var(--md-padding );
 }
 
 div.char-info div.buttons {
@@ -84,7 +91,7 @@ div.char-info div.enter {
 }
 
 div.char-info.empty {
-	background-color: rgb(157, 157, 157);
+	background-color: var( --odd-list-color );
 }
 
 div.char-stats {

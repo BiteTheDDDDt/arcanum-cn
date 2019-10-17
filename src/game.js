@@ -134,6 +134,8 @@ export default {
 
 	recheckTiers() {
 
+		let highClass = '';
+
 		let n = -1;
 		while ( ++n <= 5 ) {
 
@@ -146,6 +148,7 @@ export default {
 
 				if ( list[i].value > 0) {
 
+					highClass = list[i].name;
 					if ( evt.locked ) evt.locked = false;
 					else if ( evt.value == 0 ) {
 
@@ -159,6 +162,9 @@ export default {
 			// none of this tier.
 			if ( !hasEvent ) evt.value = 0;
 
+		}
+		if ( highClass && !this.state.player.gclass ) {
+			this.state.player.setClass( highClass );
 		}
 
 	},
