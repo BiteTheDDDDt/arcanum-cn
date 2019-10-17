@@ -87,6 +87,11 @@ export default class Player extends Char {
 
 	}
 
+	get damage(){ return this._damage; }
+	set damage(v) {
+		this._damage = v instanceof Stat ? v : new Stat(v)
+	}
+
 	/**
 	 * @property {Wearable} weapon - primary weapon.
 	 */
