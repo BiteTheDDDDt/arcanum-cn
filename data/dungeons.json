@@ -2,7 +2,7 @@
 
 	{
 		"id":"sunnyfield",
-		"name":"Sunny Field",
+		"name":"sunny field",
 		"level":1,
 		"length":10,
 		"require":"evt_helper",
@@ -28,7 +28,7 @@
 	},
 	{
 		"id":"placidgrove",
-		"name":"Placid Grove",
+		"name":"placid grove",
 		"level":2,
 		"length":12,
 		"run":{
@@ -88,7 +88,7 @@
 	},
 	{
 		"id":"hills",
-		"name":"Stony Hills",
+		"name":"stony hills",
 		"level":3,
 		"length":15,
 		"run":{

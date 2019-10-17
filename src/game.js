@@ -1255,9 +1255,6 @@ export default {
 
 			let it = this.getData(id);
 			if ( it ) {
-
-				console.warn('APPLYING LOCK: ' + id );
-
 				this.lock(it);
 
 			} else {

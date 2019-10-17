@@ -1,6 +1,7 @@
 <script>
 import Game from '../../game';
 import ItemBase from '../itemsBase.js';
+import { alphasort } from '../../util/util';
 
 import ProgBar from '../components/progbar.vue';
 import FilterBox from '../components/filterbox.vue';
@@ -61,9 +62,18 @@ export default {
 
 		exploring() { return this.explore && this.explore.running; },
 
-		locales(){
+		/**
+		 * Only sort once.
+		 */
+		allLocs(){
 			return this.state.filterItems(
-				it=>(it.type==='dungeon'||it.type==='locale') && !this.locked(it)
+				it=>(it.type==='dungeon'||it.type==='locale')
+			).sort( alphasort );
+		},
+
+		locales(){
+			return this.allLocs.filter(
+				it=>!this.locked(it)
 			);
 		}
 

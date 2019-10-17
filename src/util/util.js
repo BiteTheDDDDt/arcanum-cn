@@ -1,6 +1,13 @@
 import {getPropDesc, clone} from 'objecty';
 
 /**
+ * alphabetical sort.
+ * @param {*} a
+ * @param {*} b
+ */
+export const alphasort = (a,b)=> a.name < b.name ? -1 : 1;
+
+/**
  *
  * @param {array} a
  * @param {array} b
