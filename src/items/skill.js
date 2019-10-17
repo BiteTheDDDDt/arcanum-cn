@@ -18,7 +18,7 @@ export default class Skill extends Action {
 
 	get exp() { return super.exp; }
 	set exp(v) {
-		if ( this.locked || this.maxed() ) return;
+		if ( this.locked || this.maxed() || (this.buy &&!this.owned) ) return;
 		super.exp = v;
 	}
 
@@ -55,6 +55,8 @@ export default class Skill extends Action {
 
 		if ( !this.value) this.value = 0;
 		if ( !this.rate ) this.rate = new Stat( 0.5, 'rate' );
+		else if ( !this.rate.base ) this.rate.base = 0.5;
+
 		if (  !this.max ) this.max = new Stat(5, 'max', true);
 
 	}

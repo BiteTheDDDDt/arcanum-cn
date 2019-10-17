@@ -137,6 +137,7 @@ export default class Stat {
 	apply( mod, amt=1 ) {
 
 		if ( mod instanceof Mod ) return this.addMod( mod, amt );
+
 		else if ( !isNaN(mod) ) {
 			this.base += amt*mod;
 			return;
@@ -159,8 +160,6 @@ export default class Stat {
 
 		this._mPct += amt*mod.pct;
 		this._bonus += amt*mod.bonus;
-
-		//console.log( mod.id + ' MOD: ' + mod.toString() + ' x' + amt );
 
 		let cur = this.mods[ mod.id ];
 		if ( cur === undefined ) {

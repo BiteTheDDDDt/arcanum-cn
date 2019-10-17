@@ -5,7 +5,7 @@ import Action from "./action";
  * @param {number} lvl
  */
 export const getDist = (lvl)=> {
-	return Math.ceil( 4.4*Math.exp( 0.32*lvl ) );
+	return Math.ceil( 4.4*Math.exp( 0.30*lvl ) );
 };
 
 const distTest = ( g, s) => {

@@ -270,9 +270,9 @@ export default class Player extends Char {
 	 */
 	begin() {
 
-		/*for( let i = this.dots.length-1; i>=0; i-- ){
+		for( let i = this.dots.length-1; i>=0; i-- ){
 			if ( this.dots[i].mod) Game.addMod( this.dots[i].mod, 1 );
-		}*/
+		}
 
 	}
 
@@ -300,7 +300,7 @@ export default class Player extends Char {
 				updates.splice( i, 1 );
 				if ( dot.mod ) Game.addMod( dot.mod, -1 );
 
-			} else dot.duration -= dt;
+			}
 
 
 		}

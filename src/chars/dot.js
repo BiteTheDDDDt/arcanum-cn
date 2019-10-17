@@ -56,6 +56,8 @@ export default class Dot {
 
 		if ( !this.id ) console.warn('BAD DOT ID: ' + this.name );
 
+		if ( !this.duration) this.duration = 10;
+
 		/**
 		 * @property {boolean} stack - ability of dot to stack.
 		 */
@@ -73,8 +75,8 @@ export default class Dot {
 
 		if ( this.source && typeof this.source === 'string') this.source = state.getData( this.source );
 
-		console.log('DOT DUR: ' + this.duration );
-		console.log('ACC: ' + this.acc );
+		//console.log('DOT DUR: ' + this.duration );
+		//console.log('ACC: ' + this.acc );
 
 		//if ( this.mod ) this.mod = this.reviveMod(this.mod);
 

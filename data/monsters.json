@@ -19,6 +19,21 @@
 
 	},
 	{
+        "id":"kakapo",
+        "level":2,
+        "kind":"beast",
+        "flavor":"Better leave it. They're endangered.",
+        "hp":5,
+        "tohit":3,
+        "defense":2,
+        "attack":{
+            "name":"beak",
+            "type":"pierce",
+            "dmg":"1~4"
+        }
+
+    },
+	{
 		"id":"undeadcrow",
 		"name":"undead crow",
 		"level":0.5,
@@ -1170,7 +1185,7 @@
             "name":"claws",
             "kind":"slash",
             "dmg":"7~10"
-        }, "loot":{}
+        }
 
     },
     {
@@ -1383,7 +1398,7 @@
             "name":"death touch",
             "kind":"drain",
             "dmg":"3~8"
-		},"loot":{},
+		},
 		"resist":{
 			"spirit":20
 		},"immune":"physical"
