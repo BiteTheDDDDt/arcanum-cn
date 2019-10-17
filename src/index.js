@@ -49,6 +49,7 @@ const vm = new Vue({
 		this.listen('load-file', this.loadFile );
 		this.listen('load', this.loadSave );
 		this.listen('reset', this.reset );
+		this.listen('set-char', this.setChar, this );
 
 		this.listen('save', this.save );
 		this.listen('autosave', this.save );
@@ -59,6 +60,17 @@ const vm = new Vue({
 
 	},
 	methods:{
+
+		/**
+		 * Set current character.
+		 */
+		setChar( ind ){
+
+			Profile.setActive( ind, this.game.state );
+			Profile.saveHall();
+			this.loadSave();
+
+		},
 
 		loadProfile(){
 
@@ -96,6 +108,7 @@ const vm = new Vue({
 
 			Profile.loadSettings();
 			Profile.stateLoaded( state );
+			Profile.saveHall();
 
 			this.dispatch('unpause');
 

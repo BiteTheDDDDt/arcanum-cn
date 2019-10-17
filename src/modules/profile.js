@@ -53,12 +53,23 @@ export default {
 	},
 
 	/**
+	 * set active player index.
+	 * @param {number} slot - slot to load.
+	 */
+	setActive( slot, state ) {
+
+		this.hall.updateActive( state.player );
+		this.saveActive( state );
+
+	},
+
+	/**
 	 * State of current player/game loaded.
 	 * @param {GameState} state
 	 */
 	stateLoaded(state) {
 
-		this.hall.playerLoaded( state.player );
+		this.hall.updateActive( state.player );
 		this.saveHall();
 
 	},

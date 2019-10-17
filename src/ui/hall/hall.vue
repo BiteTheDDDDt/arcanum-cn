@@ -8,6 +8,8 @@ import {center} from './popups.js';
 
 /**
  * Hall of Wizards
+ *
+ * @emits set-char
  */
 export default {
 
@@ -15,13 +17,12 @@ export default {
 		info:Info
 	},
 	updated() {
-		if ( this.item ) {
-			center( this.$el );
-		}
+		center( this.$el );
 	},
 	methods:{
 
 		load( slot ) {
+			this.dispatch('set-char', slot );
 		}
 
 	},
@@ -38,7 +39,7 @@ export default {
 
 <div class="popup wizHall">
 
-	<info v-for="(c,i) in hall.chars" :char="c" :key="i" @load="loadSlot" />
+	<info v-for="(c,i) in hall.chars" :char="c" :key="i" @load="dispatch('set-active', i)" />
 
 	<button @click="$emit('close')">Close</button>
 

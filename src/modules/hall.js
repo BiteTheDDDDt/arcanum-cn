@@ -71,15 +71,40 @@ export default class Hall {
 	}
 
 	/**
-	 * Player data loaded. Copy information into the active slot.
-	 * @param {*} p
+	 *
+	 * @param {number} slot
+	 * @returns {boolean} false on invalid slot.
 	 */
-	playerLoaded( p ) {
+	setActive( slot ) {
 
-		let char = this.chars[ this.active ] || new CharInfo();
+		if ( slot < 0 || slot >= this.chars.length ) {
+			console.warn('invalid char slot: '+ slot);
+			return false;
+		}
+		this.active = slot;
+		return true;
+
+	}
+
+	/**
+	 * Player data loaded. Copy information into the active slot.
+	 * @param {Player} p
+	 */
+	updateActive( p ) {
+
+		let char = this.chars[ this.active ];
+
+		if ( !char ) char = this.chars[ this.active ] = new CharInfo();
+
 		char.name = p.name;
 		char.level = p.level;
 		char.title = p.title;
+
+	}
+
+	setInfo( info, slot=-1 ){
+
+		slot = slot > 0 ? slot : this.active;
 
 	}
 
@@ -107,12 +132,6 @@ export default class Hall {
 	setTitle( title, slot=-1 ){
 		let char = this.getSlot(slot);
 		if ( char) char.title = title;
-	}
-
-	setInfo( info, slot=-1 ){
-
-		slot = slot > 0 ? slot : this.active;
-
 	}
 
 	getSlot(slot=-1) {
