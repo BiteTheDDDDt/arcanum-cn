@@ -7,6 +7,7 @@ import Char, { getDelay } from './char';
 import Events, { LEVEL_UP, NEW_TITLE } from "../events";
 import Wearable from "./wearable";
 import events from "../events";
+import GData from "../items/gdata";
 
 
 const Fists = new Wearable({
@@ -82,7 +83,7 @@ export default class Player extends Char {
 	set hp(v) {
 
 		if ( this._hp ) this._hp.value = v;
-		else if ( v instanceof Resource ) this._hp = v;
+		else if ( v instanceof GData ) this._hp = v;
 		else this._hp = new Resource( {value:v} );
 
 	}
@@ -95,11 +96,11 @@ export default class Player extends Char {
 	set speed(v) {
 
 		if ( this._speed ) this._speed.value = v;
-		else if ( v instanceof Resource ) this._speed = v;
+		else if ( v instanceof GData ) this._speed = v;
 
 		if ( this._speed ) {
 			this.delay = getDelay( this._speed.value );
-		} else console.warn('no speed: ' + this.name );
+		} else console.warn('no speed: ' + this.id );
 
 	}
 
@@ -227,6 +228,11 @@ export default class Player extends Char {
 		}
 
 		if ( !this.bonuses ) this.bonuses = {
+		}
+
+		if ( this.speed === undefined ) {
+			console.warn('err: manually creating speed.')
+			this.speed = new Resource({val:1});
 		}
 
 		this.alignment = this.alignment || 'neutral';

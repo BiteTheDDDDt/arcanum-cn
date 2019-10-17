@@ -1,7 +1,5 @@
 <script>
 
-import ItemsBase from '../itemsBase';
-
 /**
  * Display of CharInfo stub.
  */
@@ -11,7 +9,6 @@ export default {
 	 * @property {boolean} active - whether char is currently active.
 	 */
 	props:['char', 'active'],
-	mixins:[ItemsBase],
 	computed:{
 
 		/**

@@ -67,6 +67,7 @@ export default class Hall {
 		for( let i = this.chars.length; i < max; i++ ) {
 			this.chars.push( new CharInfo() );
 		}
+		console.log('HALL SIZE: ' + this.chars.length );
 
 	}
 

@@ -66,7 +66,7 @@ export default {
 		floor:floor,
 		precise:precise,
 
-		opeHall(){ this.hallOpen = true; },
+		openHall(){ this.hallOpen = true; },
 
 		closeHall(){this.hallOpen = false;}
 

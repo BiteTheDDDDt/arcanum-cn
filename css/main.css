@@ -21,6 +21,7 @@
 }
 :root body.darkmode {
 	--header-background-color: rgb(58, 58, 58);
+	--background-color:#1a1a1a;
 	--button-text-color: #FFF;
 	--action-button-text-color:#aaa;
 	--action-button-border-color: #FFF;
@@ -38,7 +39,6 @@ body {
 
 body.darkmode {
 
-	background:#1a1a1a;
 	color: #D7DADC;
 }
 
@@ -58,11 +58,13 @@ div.popup {
 	min-width:200px;
 	max-width:240px;
 	position: absolute;
+	opacity:1;
 	z-index:20000;
 	left:50%;
 	top:20%;
 	align-self: center;
 	background:inherit;
+	background-clip: border-box;
 	padding:12px;
 	border: 1.5px solid rgb( 100, 100,100);
 	border-radius: 0.20rem;

@@ -17,6 +17,7 @@ export default {
 		info:Info
 	},
 	updated() {
+		console.log('CENTERING HALL');
 		center( this.$el );
 	},
 	methods:{
@@ -46,10 +47,12 @@ export default {
 
 <div class="popup wizhall">
 
+	<div class="chars">
 	<info v-for="(c,i) in hall.chars" :char="c" :active="i==hall.active"
 		:key="i" @load="dispatch('set-active', i)" />
+	</div>
 
-	<button @click="$emit('close')">Close</button>
+	<button class="btn-close" @click="$emit('close')">Cancel</button>
 
 </div>
 
@@ -58,8 +61,21 @@ export default {
 <style scoped>
 
 div.wizhall {
- min-width: 400px;
- min-height: 300px;
+	background-color: var( --background-color);
+ min-width: 512px;
+ min-height: 320px;
+}
+
+div.wizhall .chars {
+	display:flex;
+	flex-flow: row wrap;
+	justify-content: space-evenly;
+}
+
+button.btn-close {
+	position: absolute;
+	bottom: 12px;
+	right:12px;
 }
 
 </style>
