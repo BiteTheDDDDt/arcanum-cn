@@ -4,7 +4,7 @@ import Profile from '../../modules/profile';
 
 import Info from './charinfo.vue';
 
-import {center} from './popups.js';
+import {center} from '../components/popups.js';
 
 /**
  * Hall of Wizards
@@ -22,7 +22,14 @@ export default {
 	methods:{
 
 		load( slot ) {
+
 			this.dispatch('set-char', slot );
+
+		},
+
+		warnDone( okay, slot ) {
+
+			if ( okay ) this.dispatch('set-char', slot );
 		}
 
 	},
@@ -37,9 +44,10 @@ export default {
 
 <template>
 
-<div class="popup wizHall">
+<div class="popup wizhall">
 
-	<info v-for="(c,i) in hall.chars" :char="c" :key="i" @load="dispatch('set-active', i)" />
+	<info v-for="(c,i) in hall.chars" :char="c" :active="i==hall.active"
+		:key="i" @load="dispatch('set-active', i)" />
 
 	<button @click="$emit('close')">Close</button>
 
@@ -49,7 +57,7 @@ export default {
 
 <style scoped>
 
-div.wizHall {
+div.wizhall {
  min-width: 400px;
  min-height: 300px;
 }

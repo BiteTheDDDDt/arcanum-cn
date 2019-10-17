@@ -97,7 +97,9 @@ export default class Player extends Char {
 		if ( this._speed ) this._speed.value = v;
 		else if ( v instanceof Resource ) this._speed = v;
 
-		this.delay = getDelay( this._speed.value );
+		if ( this._speed ) {
+			this.delay = getDelay( this._speed.value );
+		} else console.warn('no speed: ' + this.name );
 
 	}
 

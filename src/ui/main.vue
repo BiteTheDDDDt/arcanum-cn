@@ -256,6 +256,14 @@ export default {
 		tryUse( it ) { this.game.tryItem(it ) },
 
 		/**
+		 * Warning should trigger.
+		 * @param {string} msg - warning message
+		 * @param {{boolean})=>{null}} res - resolver to call with result.
+		 */
+		onWarn( msg, res ) {
+		},
+
+		/**
 		 * Item clicked.
 		 */
 		onItem(item) {

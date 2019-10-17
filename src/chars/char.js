@@ -34,8 +34,10 @@ export default class Char {
 
 	get speed() { return this._speed; }
 	set speed(v) {
+
 		this._speed = v instanceof Stat ? v : new Stat(v);
 		this.delay = getDelay(v);
+
 	}
 
 	get immunities(){

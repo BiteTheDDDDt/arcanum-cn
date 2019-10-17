@@ -1824,7 +1824,7 @@
 		"buy":{
 			"tomes":1,
 			"lightgem":10,
-			"runes":5
+			"runestones":5
 		},
 		"cost":{
 			"light":7
@@ -1832,7 +1832,7 @@
 		"dot":{
 			"duration":60,
 			"mod":{
-				"tohit":5,
+				"player.tohit":5,
 				"hp.max":50,
 				"defense":10,
 				"speed":2
@@ -1870,7 +1870,7 @@
 		"buy":{
 			"tomes":10,
 			"lightgem":20,
-			"runes":5
+			"runestones":5
 		},
 		"cost":{
 			"light":5

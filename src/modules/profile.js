@@ -125,7 +125,9 @@ export default {
 			let store = window.localStorage;
 
 			let json = JSON.stringify( state );
-			store.setItem( this.activeLoc(), json );
+			if ( json ) {
+				store.setItem( this.activeLoc(), json );
+			}
 
 			return true;
 
@@ -162,7 +164,9 @@ export default {
 		try {
 
 			let data = JSON.stringify( Settings );
-			window.localStorage.setItem( this.settingsLoc(), data );
+			if ( data ) {
+				window.localStorage.setItem( this.settingsLoc(), data );
+			}
 
 		} catch (e){
 			console.error(e);
@@ -188,7 +192,9 @@ export default {
 		try {
 
 			let json = JSON.stringify( this.hall );
-			store.setItem( this.SAVE_DIR + HALL_FILE, json );
+			if ( json ) {
+				window.localStorage.setItem( this.SAVE_DIR + HALL_FILE, json );
+			}
 
 		} catch(e){
 
