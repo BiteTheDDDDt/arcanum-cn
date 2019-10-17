@@ -61,6 +61,20 @@ export default class Skill extends Action {
 
 	}
 
+	/**
+	 * Allow buying a skill even when maxed.
+	 * @param {*} g
+	 */
+	canBuy(g){
+
+		if ( this.disabled || this.locked || this.locks > 0 ) return false;
+
+		if ( this.buy && !g.canPay(this.buy) ) return false;
+
+		return true;
+
+	}
+
 	exec() {
 
 		if ( this.value > Math.floor(this._max.value) ) {
