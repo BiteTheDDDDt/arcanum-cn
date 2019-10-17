@@ -17,6 +17,11 @@ export default class Action extends GData {
 
 		if ( this.locked || this.disabled ) return;
 
+		if ( v < 0 ) {
+			console.warn( this.id + ' exp neg: ' + v );
+			return;
+		}
+
 		this._exp = v;
 		if ( (this._length&& (v>=this._length) )
 			|| (!this._length && this.perpetual && v >= 1 ) ) {
