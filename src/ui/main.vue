@@ -318,7 +318,8 @@ export default {
 		<template slot="sect_main">
 
 		<div class="main-actions">
-		<upgrades class="action-list" :items="state.actions" />
+		<upgrades class="action-list" :items="state.actions.filter(v=>!v.perpetual&&!v.length)" />
+		<upgrades class="action-list" :items="state.actions.filter(v=>v.perpetual||v.length>0)" />
 		<upgrades class="upgrade-list" :items="state.upgrades" />
 		<upgrades class="upgrade-list" :items="state.classes" />
 		</div>
