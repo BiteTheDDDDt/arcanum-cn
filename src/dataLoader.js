@@ -193,7 +193,7 @@ export default {
 			if ( p === 'items') continue;
 			var dataItem = saveData[p];
 
-			saveData[p] = this.prepData(dataItem);
+			saveData[p] = prepData(dataItem);
 
 		}
 
@@ -246,7 +246,7 @@ export default {
 
 			mergeSafe( saveObj, templates[p] );
 
-			saveItems[p] = this.prepData( saveObj );
+			saveItems[p] = prepData( saveObj );
 			saveObj.template = templates[p];
 
 		}
@@ -303,118 +303,6 @@ export default {
 
 		return gd;
 
-	},
-
-	prepData( sub ) {
-
-		if (Array.isArray(sub) ) {
-
-			for( let i = sub.length-1; i >= 0; i-- ) sub[i] = this.prepData( sub[i] );
-
-		} else if ( sub instanceof Object ) {
-
-			for( let p in sub ) {
-
-				if ( p === 'mod') {
-
-					sub[p] = ParseMods( sub[p], sub.id );
-					continue;
-				} else if ( p === 'require' || p === 'need' ) {
-
-					sub[p] = this.parseRequire( sub[p] );
-
-					continue;
-				}
-
-				var obj = sub[p];
-				if ( typeof obj === 'string' ){
-
-					if ( PercentTest.test(obj) ) {
-
-						sub[p] = new Percent(obj);
-
-					} else if ( RangeTest.test(obj) ) sub[p] = new Range(obj);
-					else if ( !isNaN(obj) ) {
-						if ( obj !== null && obj !== undefined && obj !== '' ) console.warn('string used as Number: ' + p + ' -> ' + obj );
-						//console.warn('store numeric data as number.');
-						//sub[p] = Number(obj);
-					}
-					else if ( p === 'damage' || p === 'dmg') sub[p] = this.makeDmgFunc(obj);
-
-				} else if ( typeof obj === 'object' ) this.prepData(obj);
-
-				if ( p.includes('.')) splitKeyPath( sub, p );
-
-			}
-
-		} else if ( typeof sub === 'string') {
-
-			if ( RangeTest.test(sub) ) return new Range(sub);
-			else if ( PercentTest.test(sub)) return new Percent(sub);
-
-		}
-
-		return sub;
-
-	},
-
-	/**
-	 * Parse a requirement-type object.
-	 * currently: 'require' or 'need'
-	 */
-	parseRequire( sub ){
-
-		// REQUIRE
-		if ( sub === null || sub === undefined || sub === false || sub === '') return undefined;
-		if ( Array.isArray(sub) ) {
-
-			for( let i = sub.length-1; i>= 0; i-- )sub[i] = this.parseRequire( sub[i] );
-
-		} else if ( typeof sub === 'string' && !IdTest.test(sub )) return this.makeTestFunc( sub );
-
-		return sub;
-
-	},
-
-	/**
-	 * Create a testing function that accepts when
-	 * the level of the given data item exceeds the level
-	 * of the item to be unlocked.
-	 * @todo: doesn't work. unlock test too abstract to detect in code.
-	 * @param {string} unlocker - name of item that unlocks the item.
-	 * @returns {function}
-	 */
-	levelTestFunc( unlocker ) {
-		return (g,i)=>{
-			g[unlocker].level >= i.level; };
-	},
-
-	/**
-	 * Create a boolean testing function from a data string.
-	 * @param {string} text - function text.
-	 */
-	makeTestFunc( text ) {
-
-		return new Function( "g", 'i', 's', 'return ' + text );
-	},
-
-	/**
-	 * Create a function which performs an arbitrary effect.
-	 * player and target params are given for simplicity.
-	 * target is the current enemy, if any.
-	 * dt is the elapsed time.
-	 * @param {*} text
-	 */
-	makeEffectFunc( text ) {
-		return new Function( 'g', 't', 'dt', text );
-	},
-
-	/**
-	 * Create a damage-value function for an attack.
-	 * @param {*} text
-	 */
-	makeDmgFunc(text){
-		return new Function( 'state', 'player', 'target', 'return ' + text );
 	},
 
 	initItems( dataList, UseClass=GData, tag=null, type=null ) {
@@ -481,4 +369,116 @@ export default {
 
 	}
 
+}
+
+export function prepData( sub ) {
+
+	if (Array.isArray(sub) ) {
+
+		for( let i = sub.length-1; i >= 0; i-- ) sub[i] = prepData( sub[i] );
+
+	} else if ( sub instanceof Object ) {
+
+		for( let p in sub ) {
+
+			if ( p === 'mod') {
+
+				sub[p] = ParseMods( sub[p], sub.id );
+				continue;
+			} else if ( p === 'require' || p === 'need' ) {
+
+				sub[p] = parseRequire( sub[p] );
+
+				continue;
+			}
+
+			var obj = sub[p];
+			if ( typeof obj === 'string' ){
+
+				if ( PercentTest.test(obj) ) {
+
+					sub[p] = new Percent(obj);
+
+				} else if ( RangeTest.test(obj) ) sub[p] = new Range(obj);
+				else if ( !isNaN(obj) ) {
+					if ( obj !== null && obj !== undefined && obj !== '' ) console.warn('string used as Number: ' + p + ' -> ' + obj );
+					//console.warn('store numeric data as number.');
+					//sub[p] = Number(obj);
+				}
+				else if ( p === 'damage' || p === 'dmg') sub[p] = makeDmgFunc(obj);
+
+			} else if ( typeof obj === 'object' ) prepData(obj);
+
+			if ( p.includes('.')) splitKeyPath( sub, p );
+
+		}
+
+	} else if ( typeof sub === 'string') {
+
+		if ( RangeTest.test(sub) ) return new Range(sub);
+		else if ( PercentTest.test(sub)) return new Percent(sub);
+
+	}
+
+	return sub;
+
+}
+
+/**
+ * Parse a requirement-type object.
+ * currently: 'require' or 'need'
+ */
+export function parseRequire( sub ){
+
+	// REQUIRE
+	if ( sub === null || sub === undefined || sub === false || sub === '') return undefined;
+	if ( Array.isArray(sub) ) {
+
+		for( let i = sub.length-1; i>= 0; i-- )sub[i] = parseRequire( sub[i] );
+
+	} else if ( typeof sub === 'string' && !IdTest.test(sub )) return makeTestFunc( sub );
+
+	return sub;
+
+}
+
+/**
+ * Create a testing function that accepts when
+ * the level of the given data item exceeds the level
+ * of the item to be unlocked.
+ * @todo: doesn't work. unlock test too abstract to detect in code.
+ * @param {string} unlocker - name of item that unlocks the item.
+ * @returns {function}
+ */
+export function levelTestFunc( unlocker ) {
+	return (g,i)=>{
+		g[unlocker].level >= i.level; };
+}
+
+/**
+ * Create a boolean testing function from a data string.
+ * @param {string} text - function text.
+ */
+export function makeTestFunc( text ) {
+
+	return new Function( "g", 'i', 's', 'return ' + text );
+}
+
+/**
+ * Create a function which performs an arbitrary effect.
+ * player and target params are given for simplicity.
+ * target is the current enemy, if any.
+ * dt is the elapsed time.
+ * @param {*} text
+ */
+export function makeEffectFunc( text ) {
+	return new Function( 'g', 't', 'dt', text );
+}
+
+/**
+ * Create a damage-value function for an attack.
+ * @param {*} text
+ */
+export function makeDmgFunc(text){
+	return new Function( 'state', 'player', 'target', 'return ' + text );
 }

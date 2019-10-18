@@ -198,6 +198,28 @@ export default {
 	},
 
 	/**
+	 * Add data item to running game.
+	 * This is mainly so Hall data can be patched into every
+	 * loaded game.
+	 * @param {Object.<string,GData>} data
+	 */
+	addData( data ) {
+
+		for( let p in data ) {
+
+			let it = data[p];
+			this.state.addItem(it);
+
+			if ( !it.locked && !it.disabled ) {
+				if ( it.mod ) this.addMod( it.mod, it.value );
+				if ( it.lock) this.lock( it.lock, it.value );
+			}
+
+		}
+
+	},
+
+	/**
 	 * Any item with a timer>0 should be added to timers.
 	 */
 	initTimers() {

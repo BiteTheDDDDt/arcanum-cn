@@ -562,6 +562,7 @@
 		"id":"belowgorborung",
 		"name":"below mt gorborung",
 		"desc":"they say the roots of the mountain extend deeper than its heights.",
+		"require":"mtgorborung",
 		"level":25,
 		"length":100,
 		"run":{
@@ -574,8 +575,8 @@
 			"tomes":2
 		},
 		"boss":{
-			"cthulhu":50,
-			"gorborung":100
+			"50":"cthulhu",
+			"100":"gorborung"
 		},
 		"enemies":[
 			["stonegolem","stonegolem"],

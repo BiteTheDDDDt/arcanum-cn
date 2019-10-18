@@ -1,6 +1,7 @@
 import Hall from "./hall";
 import Settings from '../settings';
 import Events, { LEVEL_UP, CHAR_NAME, CHAR_TITLE, CHAR_CLASS } from "../events";
+import { loadFiles, prepData } from '../dataLoader';
 
 const CHARS_DIR = 'chars/';
 const SETTINGS_DIR = 'settings/';
@@ -23,6 +24,29 @@ export default {
 	 * @compat
 	 */
 	legacySave(){ return SAVE_DIR + 'gameData'; },
+
+	/**
+	 * Load data files for hall.
+	 */
+	loadHallData() {
+
+		loadFiles(['hall']).then( (v)=>{
+
+			let arr = v['hall'];
+			if ( !arr ) {
+				console.warn('hall data missing');
+			} else {
+
+
+				this.hall.setData( arr );
+
+
+			}
+
+
+		});
+
+	},
 
 	/**
 	 * Load Hall information.
