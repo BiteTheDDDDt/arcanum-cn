@@ -1,5 +1,6 @@
 <script>
 import Game from '../game';
+import { alphasort } from '../util/util';
 
 import ItemsBase from './itemsBase';
 import UpgradeView from './upgrades.vue';
@@ -81,7 +82,8 @@ export default {
 				it.type ==='furniture' || st.typeCost(it.cost, 'space')>0
 
 			).sort(
-				(a,b)=> a.name < b.name ? -1 : 1
+				alphasort
+				//(a,b)=> a.name < b.name ? -1 : 1
 			);
 		},
 		viewable() { return this.furniture.filter( it=>!this.reslocked(it)); }

@@ -23,6 +23,8 @@ export default class GClass extends GData {
 		g.state.player.setClass( this.name );
 		if ( this.loot ) g.getLoot( this.loot );
 
+		this.locked = false;
+
 		Events.emit( EVT_EVENT, this );
 
 	}

@@ -1820,6 +1820,7 @@
 
 		"id":"magnificence",
 		"level":7,
+		"school":"light",
 		"desc":"",
 		"buy":{
 			"tomes":1,
@@ -1865,6 +1866,7 @@
 
 		"id":"blindflash",
 		"name":"blinding flash",
+		"school":"light",
 		"level":8,
 		"desc":"a flash of pure white light",
 		"buy":{

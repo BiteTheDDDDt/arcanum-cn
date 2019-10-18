@@ -25,7 +25,7 @@ export default {
 			return !it.locked && it.disabled === false;
 		},
 
-		buyable(it) { return Game.canBuy(it)},
+		buyable(it) { return it.canBuy(Game) },
 
 		reslocked( it ) {
 			return it.disabled === true || it.locks > 0 || it.locked !== false;

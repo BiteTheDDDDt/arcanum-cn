@@ -1,7 +1,7 @@
 [
 	{
 		"id":"apprentice",
-		"desc":"appentice to a notable wizard",
+		"desc":"apprentice to a notable wizard",
 		"title":"Apprentice",
 		"actname":"Apprenticeship",
 		"actdesc":"Become an apprentice.",

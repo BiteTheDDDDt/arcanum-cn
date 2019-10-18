@@ -181,10 +181,13 @@ export default {
 		for( let p in items ) {
 
 			var it = items[p];
+
 			if ( !it.locked && it.value >0 && !it.disabled ) {
 
 				if ( it.mod ) this.addMod( it.mod, it.value );
-				if ( it.lock ) this.lock( it.lock, it.count );
+				if ( it.lock ) {
+					this.lock( it.lock, it.value );
+				}
 
 			}
 
@@ -963,20 +966,6 @@ export default {
 	},
 
 	/**
-	 *
-	 * @param {*} it
-	 */
-	canBuy(it) {
-
-		if ( it.disabled || it.locked || it.locks > 0 ) return false;
-
-		if ( it.buy && !this.canPay(it.buy) ) return false;
-
-		return !it.maxed();
-
-	},
-
-	/**
 	 * Determines whether an item can be run as a continuous action.
 	 * @returns {boolean}
 	 */
@@ -1281,7 +1270,6 @@ export default {
 
 			let it = this.getData(id);
 			if ( it ) {
-
 				this.lock(it);
 
 			} else {

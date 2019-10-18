@@ -3,6 +3,7 @@ import Game from '../../game';
 import ItemBase from '../itemsBase';
 import SkillView from '../items/skill.vue';
 import {lowFixed} from '../../util/format';
+import {alphasort} from '../../util/util';
 
 import FilterBox from '../components/filterbox.vue';
 
@@ -27,7 +28,7 @@ export default {
 
 		sp() { return lowFixed( this.state.getData('sp').value ); },
 
-		skills() { return this.state.skills; },
+		skills() { return this.state.skills.sort( alphasort ); },
 
 		available(){
 			return this.skills.filter(it=> !this.reslocked(it) );

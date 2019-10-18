@@ -487,7 +487,7 @@
 		"id":"ghostcompiler",
 		"name":"ghost compiler",
 		"desc":"an invisible spirit binds your scrolls into codicils.",
-		"require":"unseenscribe",
+		"require":"g.tier1>0&&g.unseenscribe>0",
 		"max":3,
 		"cost":{
 			"arcana":1,
@@ -504,7 +504,7 @@
 	{
 		"id":"ghostchains",
 		"name":"ghost chains",
-		"require":"g.spirit>=8&&g.ghostcompiler>1&&g.crafting>=9",
+		"require":"g.tier2>0&&g.spirit>=8&&g.ghostcompiler>1",
 		"desc":"hold more spirits in your sway",
 		"max":3,
 		"cost":{
@@ -1203,6 +1203,7 @@
 		"name":"unholy candle",
 		"tags":"candle",
 		"desc":"What flames cast shadows?",
+		"repeat":true,
 		"max":2,
 		"require":"g.shadow.max>=10",
 		"flavor":"darkness, darkness.",

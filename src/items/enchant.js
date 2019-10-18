@@ -57,7 +57,8 @@ export default class Enchant extends Action {
 	 */
 	canApply( it ) {
 
-		if ( it.enchants + this.level > it.level ) return false;
+		let itLevel = it.level || 1;
+		if ( it.enchants + this.level > itLevel ) return false;
 
 		return !this._targets ||
 			this._targets.some(t=> it.type === t || it.kind === t || it.slot === t || it.hasTag(t) );
