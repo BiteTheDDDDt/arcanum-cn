@@ -28,7 +28,7 @@ export default class GameState {
 
 		let data = {
 
-			build:__VERSION,
+			version:__VERSION,
 			buildType:__SAVE,
 			items:( this.items ),
 			bars:this.bars,
