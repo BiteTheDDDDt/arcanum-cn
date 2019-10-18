@@ -74,41 +74,6 @@ export default class Module {
 	}
 
 	/**
-	 * Merge module into this module.
-	 * @param {GModule} mod
-	 * @param {*} insertLists
-	 */
-	merge( mod ) {
-
-		let items = mod.items;
-		for( let p in items ) {
-			this.items[p] = items[p];
-		}
-
-		for( let p in mod.lists ) {
-
-			let list = mod.lists[p];
-			let dest = this.lists[p];
-
-			if ( !Array.isArray(dest)) {
-
-				console.warn( 'DEST NOT ARRAY: ' + p );
-				this.lists[p] = list.slice(0);
-				continue;
-
-			}
-
-			for( let i = list.length-1; i >= 0; i-- ) {
-				dest.push( list[i] );
-			}
-
-
-		}
-
-
-	}
-
-	/**
 	 * Directly set module data in json-module format.
 	 * @param {object} data
 	 */
@@ -225,6 +190,48 @@ export default class Module {
 
 		}
 
+	}
+
+	/**
+	 * Merge module into this module.
+	 * @param {GModule} mod
+	 * @param {*} insertLists
+	 */
+	merge( mod ) {
+
+		let items = mod.items;
+		for( let p in items ) {
+			this.items[p] = items[p];
+		}
+
+		for( let p in mod.lists ) {
+
+			let list = mod.lists[p];
+			let dest = this.lists[p];
+
+			if ( !Array.isArray(dest)) {
+
+				console.warn( 'DEST NOT ARRAY: ' + p );
+				this.lists[p] = list.slice(0);
+				continue;
+
+			}
+
+			for( let i = list.length-1; i >= 0; i-- ) {
+				dest.push( list[i] );
+			}
+
+
+		}
+
+
+	}
+
+	/**
+	 * Use module templates to create instanced data and instanced data lists.
+	 * @param {object} saveData
+	 */
+	instance( saveData={} ){
 	}
 
 	/**

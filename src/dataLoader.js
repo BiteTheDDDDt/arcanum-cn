@@ -75,11 +75,11 @@ export default {
 			(v)=>{
 
 				this.dataLists = this.datasLoaded(v);
-				return this.makeGameData( this.templates, this.dataLists, saveData );
+				return this.instance( this.templates, this.dataLists, saveData );
 
 			});
 
-		} else return this.makeGameData( this.templates, this.dataLists, saveData );
+		} else return this.instance( this.templates, this.dataLists, saveData );
 
 	},
 
@@ -190,63 +190,72 @@ export default {
 	 * @param {*} dataLists
 	 * @param {*} saveData
 	 */
-	makeGameData( templates, dataLists, saveData={} ){
+	instance( templates, dataLists, saveData={} ){
 
 		saveData = saveData || {};
 
 		// restore Percent/Range classes /special functions of non-item data.
 		for( let p in saveData ) {
 
+			// items prepped separately for complex ordering reasons.
 			if ( p === 'items') continue;
-			var dataItem = saveData[p];
-
-			saveData[p] = prepData(dataItem);
+			saveData[p] = prepData( saveData[p] );
 
 		}
+		saveData.items = this.mergeItems( saveData.items, templates );
 
-		// combined items.
-		saveData.items = this.mergeDefaults( templates, saveData.items );
-
-		/**
-		 * Form the actual item lists used as the gameData.
-		 * @todo clear up these steps a bit.
-		 */
-		let gameLists = {};
-
-		var dataList, gameList;
-		for( let p in dataLists ) {
-
-			dataList = dataLists[p];
-			if ( !dataList ) {
-				continue;
-			};
-
-			// lists of game-item data by type.
-			gameLists[p] = gameList = [];
-
-			for( let i = 0; i < dataList.length; i++ ) {
-				// copy actual game data into game list.
-				//console.log('Adding ' + idList[i] + ' Item: ' + saveData.items[ idList[i] ] );
-				gameList[i] = saveData.items[ dataList[i].id ];
-			}
-
-
-		}
+		let gameLists = this.buildLists( saveData.items, dataLists );
 
 		return this.initGameData( saveData, gameLists );
 
 	},
 
 	/**
+	 * Use prepped item data to form data lists matching the
+	 * datalists from the raw data files.
+	 * @param {.<string,object>} items
+	 * @param {.<string,object[]>} dataLists
+	 * @returns {.<string,object[]>} lists of items matching lists of loaded data.
+	 */
+	buildLists( items, dataLists ){
+
+		let gameLists = {};
+
+		for( let p in dataLists ) {
+
+			var dataList = dataLists[p];
+			// possibly missing file or empty list.
+			if ( !dataList ) continue;
+
+			// lists of game-item data by type.
+			var gameList = gameLists[p] = [];
+
+			for( let i = 0; i < dataList.length; i++ ) {
+				gameList[i] = items[ dataList[i].id ];
+			}
+
+		}
+
+		return gameLists;
+
+	},
+
+	/**
 	 *
-	 * @param {.<string,Object>} templates - template items.
-	 * @param {?Object} [saveItems={}] - previous save items, if any.
+	 * @param {?Object} saveItems - previous save items.
+	 * @param {.<string,Object>} templates - template items..
 	 * @returns {.<string,Object>} - the saveItems with data merged from default data.
 	 */
-	mergeDefaults( templates, saveItems={} ) {
+	mergeItems( saveItems, templates ) {
 
-		// NOTE: This requires that properties are never actually deleted from items,
-		// though they can be set to null.
+		if (!saveItems) saveItems = {};
+
+		/**
+		 * @note ordering.
+		 * 1) raw template merged over raw save.
+		 * 2) data prepared with type instances.
+		 * 3) template assigned LAST because the template is frozen and can't be prepped.
+		 */
 		for( let p in templates ) {
 
 			var saveObj = saveItems[p] || {};
