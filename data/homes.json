@@ -342,7 +342,8 @@
 		"mod":{
 			"minions.max":10,
 			"space.max":300,
-			"naturelore.max":2,
+			"naturelore.max":4,
+			"naturelore.rate":"2%",
 			"airlore.max":1,
 			"fire.rate":"-3%"
 		}
