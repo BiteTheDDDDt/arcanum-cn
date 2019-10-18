@@ -66,19 +66,15 @@ export default class Module {
 	}
 
 	/**
-	 * Inject module into this module.
+	 * Merge module into this module.
 	 * @param {GModule} mod
 	 * @param {*} insertLists
 	 */
-	inject( mod, insertLists ) {
+	merge( mod ) {
 
 		let items = mod.items;
 		for( let p in items ) {
-
-			let it = items[p];
-
-			this.items[p] = it;
-
+			this.items[p] = items[p];
 		}
 
 		for( let p in mod.lists ) {
@@ -111,11 +107,37 @@ export default class Module {
 	 */
 	load() {
 
-		loadFiles( [ this.file ] ).then( (v)=>this.filesLoaded(v) );
+		this.lists = {};
+		this.items = {};
+
+		if ( Array.isArray(this.file) ) {
+
+			return loadFiles( this.file ).then( (v)=>this.fileLoaded(v) );
+
+		} else {
+
+			return loadFiles( [ this.file ] ).then( (v)=>this.fileLoaded(v) );
+
+		}
 
 	}
 
-	filesLoaded( files ) {
+	/**
+	 * Separate module files loaded. Each file is a list of objects
+	 * of the same type.
+	 * @param {.<string,object[]>} files
+	 */
+	typesLoaded(files) {
+
+		this.parseLists( files );
+
+	}
+
+	/**
+	 * Single Module file loaded.
+	 * @param {*} files
+	 */
+	fileLoaded( files ) {
 
 		let mod = files[this.file];
 		if ( !mod ) {
@@ -126,19 +148,23 @@ export default class Module {
 		this.name = mod.module || this.file;
 		this.sym = mod.sym;
 
-		let lists = {};
-		this.items = {};
-
-		let data = mod.data;
-		if ( data ){
-
-			for( let p in data ){
-				lists[p] = this.parseList( data[p] );
-			}
-
+		if ( mod.data ){
+			this.parseLists( mod.data );
 		}
 
 		return this;
+
+	}
+
+	/**
+	 *
+	 * @param {.<string,object[]} lists
+	 */
+	parseLists( lists ){
+
+		for( let p in lists ) {
+			this.lists[p] = this.parseList( lists[p] );
+		}
 
 	}
 
