@@ -259,7 +259,7 @@ export default class ItemGen {
 
 		if ( typeof amt === 'number' || typeof amt === 'boolean') {
 
-			if ( it.type === 'upgrade') it.doUnlock( Game );
+			if ( it.type === 'upgrade' || it.type === 'action' || it.type === 'furniture') it.doUnlock( Game );
 			else it.amount( Game, amt );
 			if ( amt > 0 ) return it.name;
 
