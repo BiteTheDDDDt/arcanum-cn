@@ -206,7 +206,7 @@ export default {
 
 		let gameLists = this.buildLists( saveData.items, dataLists );
 
-		return this.initGameData( saveData, gameLists );
+		return this.initInstance( saveData, gameLists );
 
 	},
 
@@ -271,57 +271,68 @@ export default {
 
 	},
 
-	initGameData( gd, dataLists ){
+	initInstance( inst, lists ){
 
-		this.items = gd.items;
+		var items = inst.items;
 
-		gd.resources = this.initItems( dataLists['resources'], Resource );
-		gd.stressors = this.initItems( dataLists['stressors'], Resource, 'stress', 'stress' );
-		gd.stressors.forEach(v=>v.hidden=true);
+		if ( lists.resources) inst.resources = this.initItems( items, lists['resources'], Resource );
 
-		gd.upgrades = this.initItems( dataLists['upgrades'], GData, null, 'upgrade' );
+		if ( lists.stressors ) {
+			inst.stressors = this.initItems( items, lists['stressors'], Resource, 'stress', 'stress' );
+			inst.stressors.forEach(v=>v.hidden=true);
+		}
 
-		gd.homes = this.initItems( dataLists['homes'], GData, 'home', 'home' );
-		gd.homes.forEach( v=>v.slot='home');
+		if ( lists.upgrades ) inst.upgrades = this.initItems( items, lists['upgrades'], GData, null, 'upgrade' );
 
-		this.initItems( dataLists['furniture'], GData, 'furniture', 'furniture' );
+		if ( lists.homes ) {
+			inst.homes = this.initItems( items, lists['homes'], GData, 'home', 'home' );
+			inst.homes.forEach( v=>v.slot='home');
+		}
 
-		gd.skills = this.initItems( dataLists['skills'], Skill, 'skill' );
+		if ( lists.furniture ) this.initItems( items, lists['furniture'], GData, 'furniture', 'furniture' );
 
-		gd.encounters = this.initItems( dataLists['encounters'], Encounter, ENCOUNTER, ENCOUNTER);
-		gd.monsters = this.initItems( dataLists['monsters'], Monster, 'monster', 'monster' );
+		if ( lists.skills ) inst.skills = this.initItems( items, lists['skills'], Skill, 'skill' );
 
-		this.initItems( dataLists['locales'], Locale );
-		this.initItems( dataLists['dungeons'], Dungeon );
-		this.initItems( dataLists['spells'], Spell );
+		if ( lists.encounters ) inst.encounters = this.initItems( items, lists['encounters'], Encounter, ENCOUNTER, ENCOUNTER);
+		if ( lists.monsters ) inst.monsters = this.initItems( items, lists['monsters'], Monster, 'monster', 'monster' );
 
-		this.initItems( dataLists['items'], Item, 'item', 'item');
-		gd.armors = this.initItems( dataLists['armors'], ProtoItem, 'armor','armor' );
-		gd.armors.forEach( v=>v.kind = v.kind || 'armor' );
+		if ( lists.locales ) this.initItems( items, lists['locales'], Locale );
+		if ( lists.dungeons ) this.initItems( items, lists['dungeons'], Dungeon );
+		if ( lists.spells ) this.initItems( items, lists['spells'], Spell );
 
-		gd.weapons = this.initItems( dataLists['weapons'], ProtoItem, 'weapon', 'weapon' );
-		gd.weapons.forEach(v=>v.kind=v.kind ||'weapon');
+		this.initItems( items, lists['items'], Item, 'item', 'item');
 
-		gd.potions = this.initItems( dataLists['potions'], Potion, 'potion', 'potion' );
+		if ( lists.armors ) {
+			inst.armors = this.initItems( items, lists['armors'], ProtoItem, 'armor','armor' );
+			inst.armors.forEach( v=>v.kind = v.kind || 'armor' );
+		}
 
-		gd.materials = this.initItems( dataLists['materials'], Material, 'material', 'material ');
+		if ( lists.weapons ) {
+			inst.weapons = this.initItems( items, lists['weapons'], ProtoItem, 'weapon', 'weapon' );
+			inst.weapons.forEach(v=>v.kind=v.kind ||'weapon');
+		}
 
-		gd.events = this.initItems( dataLists['events'], GEvent, 'event', 'event' );
-		gd.classes = this.initItems( dataLists['classes'], GClass, 'class', 'class' );
+		if ( lists.potions ) inst.potions = this.initItems( items, lists['potions'], Potion, 'potion', 'potion' );
 
-		gd.actions = this.initItems( dataLists['actions'], Action, null, 'action' );
-		gd.actions.forEach( v=>v.repeat = (v.repeat!==undefined ) ? v.repeat : true );
+		if ( lists.materials ) inst.materials = this.initItems( items, lists['materials'], Material, 'material', 'material ');
 
-		gd.enchants =this.initItems( dataLists['enchants'], Enchant, null, 'enchant' );
-		gd.sections = this.initItems( dataLists['sections']);
+		if ( lists.events ) inst.events = this.initItems( items, lists['events'], GEvent, 'event', 'event' );
+		if ( lists.classes ) inst.classes = this.initItems( items, lists['classes'], GClass, 'class', 'class' );
 
-		gd.player = this.items.player = this.initPlayer( dataLists['player'], gd.items.player );
+		if ( lists.actions ) inst.actions = this.initItems( items, lists['actions'], Action, null, 'action' );
 
-		return gd;
+		if ( lists.enchants ) inst.enchants =this.initItems( items, lists['enchants'], Enchant, null, 'enchant' );
+		if ( lists.sections ) inst.sections = this.initItems( items, lists['sections']);
+
+		if ( lists.player ) inst.player = this.initPlayer( items, lists['player'], inst.items.player );
+
+		return inst;
 
 	},
 
-	initItems( dataList, UseClass=GData, tag=null, type=null ) {
+	initItems( items, dataList, UseClass=GData, tag=null, type=null ) {
+
+		if (!dataList ) return undefined;
 
 		for( let i = dataList.length-1; i >= 0; i-- ) {
 
@@ -334,7 +345,7 @@ export default {
 			if ( tag ) def.addTag( tag );
 			if ( type ) def.type = type;
 
-			this.items[def.id] = def;
+			items[def.id] = def;
 
 		}
 
@@ -347,7 +358,9 @@ export default {
 	 * @param {*} stats - player stats from json.
 	 * @param {Object} savePlayer - player data from previous save.
 	 */
-	initPlayer( stats, savePlayer=null ) {
+	initPlayer( items, stats, savePlayer=null ) {
+
+		if ( !stats ) return undefined;
 
 		let vars = savePlayer || {};
 
@@ -358,7 +371,7 @@ export default {
 				( def.stat === true ? new StatData(def) :
 				( def.reverse === true ? new RevStat(def) : new Resource( def ) )
 			);
-			this.items[def.id] = res;
+			items[def.id] = res;
 
 		}
 
@@ -388,7 +401,7 @@ export const freezeData = ( obj ) => {
 
 }
 
-export function prepData( sub ) {
+export const prepData = ( sub ) => {
 
 	if (Array.isArray(sub) ) {
 

@@ -199,15 +199,17 @@ export default class Module {
 	 */
 	merge( mod ) {
 
-		let items = mod.items;
+		let items = mod.templates;
+		let dest = this.templates;
+
 		for( let p in items ) {
-			this.items[p] = items[p];
+			dest[p] = items[p];
 		}
 
 		for( let p in mod.lists ) {
 
 			let list = mod.lists[p];
-			let dest = this.lists[p];
+			dest = this.lists[p];
 
 			if ( !Array.isArray(dest)) {
 
@@ -232,78 +234,6 @@ export default class Module {
 	 * @param {object} saveData
 	 */
 	instance( saveData={} ){
-	}
-
-	/**
-	 * Create/Instantiate data items.
-	 * @param {*} lists - destination lists.
-	 * @param {*} sourceLists
-	 */
-	createData( lists, sourceLists ){
-
-		lists.resources = this.initItems( sourceLists['resources'], Resource );
-		lists.stressors = this.initItems( sourceLists['stressors'], Resource, 'stress', 'stress' );
-		lists.stressors.forEach(v=>v.hidden=true);
-
-		lists.upgrades = this.initItems( sourceLists['upgrades'], GData, null, 'upgrade' );
-
-		lists.homes = this.initItems( sourceLists['homes'], GData, 'home', 'home' );
-		lists.homes.forEach( v=>v.slot='home');
-
-		this.initItems( sourceLists['furniture'], GData, 'furniture', 'furniture' );
-
-		lists.skills = this.initItems( sourceLists['skills'], Skill, 'skill' );
-
-		lists.encounters = this.initItems( sourceLists['encounters'], Encounter, ENCOUNTER, ENCOUNTER);
-		lists.monsters = this.initItems( sourceLists['monsters'], Monster, 'monster', 'monster' );
-
-		this.initItems( sourceLists['locales'], Locale );
-		this.initItems( sourceLists['dungeons'], Dungeon );
-		this.initItems( sourceLists['spells'], Spell );
-
-		this.initItems( sourceLists['items'], Item, 'item', 'item');
-		lists.armors = this.initItems( sourceLists['armors'], ProtoItem, 'armor','armor' );
-		lists.armors.forEach( v=>v.kind = v.kind || 'armor' );
-
-		lists.weapons = this.initItems( sourceLists['weapons'], ProtoItem, 'weapon', 'weapon' );
-		lists.weapons.forEach(v=>v.kind=v.kind ||'weapon');
-
-		lists.potions = this.initItems( sourceLists['potions'], Potion, 'potion', 'potion' );
-
-		lists.materials = this.initItems( sourceLists['materials'], Material, 'material', 'material ');
-
-		lists.events = this.initItems( sourceLists['events'], GEvent, 'event', 'event' );
-		lists.classes = this.initItems( sourceLists['classes'], GClass, 'class', 'class' );
-
-		lists.actions = this.initItems( sourceLists['actions'], Action, null, 'action' );
-		lists.actions.forEach( v=>v.repeat = (v.repeat!==undefined ) ? v.repeat : true );
-
-		lists.enchants =this.initItems( sourceLists['enchants'], Enchant, null, 'enchant' );
-		lists.sections = this.initItems( sourceLists['sections']);
-
-		return lists;
-
-	}
-
-	initItems( dataList, UseClass=GData, tag=null, type=null ) {
-
-		for( let i = dataList.length-1; i >= 0; i-- ) {
-
-			var def = dataList[i];
-
-			if ( def.reverse) dataList[i] = def = new RevStat(def);
-			else if ( def.zerosum ) dataList[i] = def = new ZeroSum(def);
-			else dataList[i] = def = new UseClass( def );
-
-			if ( tag ) def.addTag( tag );
-			if ( type ) def.type = type;
-
-			this.items[def.id] = def;
-
-		}
-
-		return dataList;
-
 	}
 
 }
