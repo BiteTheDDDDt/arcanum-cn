@@ -55,7 +55,7 @@ export default {
 		<span class="link-bar">
 			<button class="text-button" @click="dispatch('open-settings')">&#9881;</button>
 			<span class="vers">build# {{ VERSION }}</span>
-			<a href="https://discord.gg/4dB2ZE5" target="_blank">discord/guide</a>
+			<a href="https://discord.gg/bCABC96" target="_blank">discord/guide</a>
 			<a href="https://www.patreon.com/theoryofmagic" target="_blank">patreon</a>
 			<a href="https://www.reddit.com/r/wizrobe/" target="_blank">reddit</a>
 		</span>
