@@ -1,4 +1,4 @@
-import { loadFiles, prepData } from '../dataLoader';
+import { loadFiles, prepData, freezeData } from '../dataLoader';
 
 import Resource from './items/resource';
 import ZeroSum from './items/zerosum';
@@ -35,6 +35,13 @@ import Locale from '../items/locale';
 export default class Module {
 
 	/**
+	 * @property {.<string,object>} templates - raw untyped object templates.
+	 * used for reloading and comparing for data save.
+	 */
+	get templates() { return this._templates; }
+	set templates(v) { this._templates =v; }
+
+	/**
 	 * @property {string} name
 	 */
 	get name() {return this._name;}
@@ -59,10 +66,11 @@ export default class Module {
 	get lists(){return this._lists; }
 	set lists(v){this._lists=v;}
 
-	constructor( file ) {
-
-		this.file = file;
-
+	/**
+	 *
+	 * @param {?object} [data=null]
+	 */
+	constructor( data ) {
 	}
 
 	/**
@@ -101,22 +109,33 @@ export default class Module {
 	}
 
 	/**
+	 * Directly set module data in json-module format.
+	 * @param {object} data
+	 */
+	setData( data ) {
+		this.fileLoaded(data);
+	}
+
+	/**
 	 * Load module data file.
 	 * Resolves to the module on load.
 	 * @returns {Promise.<GModule>}
 	 */
-	load() {
+	load( file ) {
+
+		this.file = file;
 
 		this.lists = {};
 		this.items = {};
+		this.templates = {};
 
 		if ( Array.isArray(this.file) ) {
 
-			return loadFiles( this.file ).then( (v)=>this.fileLoaded(v) );
+			return loadFiles( this.file ).then( (v)=>this.typesLoaded(v) );
 
 		} else {
-
-			return loadFiles( [ this.file ] ).then( (v)=>this.fileLoaded(v) );
+			// files returned as string->file data mapping. get the file data itself.
+			return loadFiles( [ this.file ] ).then( (v)=>this.fileLoaded( v[this.file] ) );
 
 		}
 
@@ -129,17 +148,31 @@ export default class Module {
 	 */
 	typesLoaded(files) {
 
-		this.parseLists( files );
+		/**
+		 * Precheck for submodule files.
+		 */
+		let modules = [];
+		for( let p in files ) {
+
+			var file = files[p];
+			if ( file.module ) {
+
+			} else {
+				this.lists[p] = this.parseList( lists[p] );
+			}
+
+		}
+
+		// marge in submodules.
 
 	}
 
 	/**
 	 * Single Module file loaded.
-	 * @param {*} files
+	 * @param {object} mod
 	 */
-	fileLoaded( files ) {
+	fileLoaded( mod ) {
 
-		let mod = files[this.file];
 		if ( !mod ) {
 			console.warn( this.file + ' data missing' );
 			return;
@@ -185,6 +218,8 @@ export default class Module {
 			}
 			if ( sym ) it.sym = it.sym || sym;
 
+			this.templates[ it.id ] = freezeData( it );
+
 			arr[i] = it = prepData(it);
 			this.items[it.id] = it;
 
@@ -194,7 +229,7 @@ export default class Module {
 
 	/**
 	 * Create/Instantiate data items.
-	 * @param {*} lists
+	 * @param {*} lists - destination lists.
 	 * @param {*} sourceLists
 	 */
 	createData( lists, sourceLists ){

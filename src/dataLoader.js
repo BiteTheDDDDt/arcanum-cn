@@ -54,16 +54,16 @@ export const loadFiles = ( fileList, dir=DataDir ) => {
 export default {
 
 	/**
-	 * @property {Object.<string,Object>} templates - default GameData templates.
-	 * item id => default item data.
+	 * @property {.<string,object>} templates - default untyped object templates.
+	 * item id => untyped object data.
 	 */
 	templates:null,
 
 	/**
-	 * Lists of item ids for each item type.
+	 * Lists of items for each item type.
 	 * (item source file/item type) => item list
 	 *
-	 * @property {Object.<string,object[]>}
+	 * @property {.<string,object[]>}
 	 */
 	dataLists:null,
 
@@ -121,7 +121,7 @@ export default {
 
 		}
 
-		this.templates = this.freezeData( templates );
+		this.templates = freezeData( templates );
 		//for( let p in this.templates ) console.log('template: ' + p );
 
 		return loads;
@@ -183,6 +183,13 @@ export default {
 
 	},
 
+	/**
+	 * At this point dataLists and templates both refer to the same data.
+	 * dataLists just have it separated by type.
+	 * @param {*} templates
+	 * @param {*} dataLists
+	 * @param {*} saveData
+	 */
 	makeGameData( templates, dataLists, saveData={} ){
 
 		saveData = saveData || {};
@@ -232,9 +239,9 @@ export default {
 
 	/**
 	 *
-	 * @param {Object.<string,Object>} templates - template items.
+	 * @param {.<string,Object>} templates - template items.
 	 * @param {?Object} [saveItems={}] - previous save items, if any.
-	 * @returns {Object.<string,Object>} - the saveItems with data merged from default data.
+	 * @returns {.<string,Object>} - the saveItems with data merged from default data.
 	 */
 	mergeDefaults( templates, saveItems={} ) {
 
@@ -350,24 +357,25 @@ export default {
 
 	},
 
-	/**
-	 * Freeze all template data.
-	 * Clones must be made for any new edits.
-	 */
-	freezeData( obj ) {
+}
 
-		let sub;
-		for( let p in obj ){
+/**
+ * Recursive freezing of an object template.
+ * Clones must be made to make any changes.
+ * @param {*} obj
+ */
+export const freezeData = ( obj ) => {
 
-			sub = obj[p];
-			if ( typeof sub === 'object') this.freezeData(sub);
-			else Object.freeze( sub );
+	let sub;
+	for( let p in obj ){
 
-		}
-
-		return Object.freeze( obj );
+		sub = obj[p];
+		if ( typeof sub === 'object') this.freezeData(sub);
+		else Object.freeze( sub );
 
 	}
+
+	return Object.freeze( obj );
 
 }
 
