@@ -349,7 +349,7 @@
 	},
 	{
 		"id":"palace",
-		"desc":"luxurious, spawling estate to advance your studies in maximum comfort.",
+		"desc":"luxurious, sprawling estate to advance your studies in maximum comfort.",
 		"cost":10000,
 		"require":"tier2",
 		"mod":{

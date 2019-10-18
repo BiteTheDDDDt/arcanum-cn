@@ -213,7 +213,7 @@
 		}
 	},
 	{
-        "id":"homonculus",
+        "id":"homunculus",
         "level":1,
         "kind":"construct",
         "desc":"Must have escaped its jar.",

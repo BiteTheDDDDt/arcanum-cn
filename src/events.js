@@ -25,7 +25,6 @@ const LOG_EVENT = 1;
 const LOG_UNLOCK = 2;
 const LOG_LOOT = 4;
 export const LOG_COMBAT = 8;
-const LOG_DISABLED = 16;
 
 export const LogTypes = {
 	'event':LOG_EVENT,
@@ -135,7 +134,13 @@ const LEVEL_UP = 'levelup'
  */
 const CHAR_CLASS = 'charclass';
 
-export { CHAR_TITLE, NEW_TITLE, LEVEL_UP, CHAR_NAME, CHAR_CLASS };
+/**
+ * Player's character changed in some way
+ * not covered by other events.
+ */
+const CHAR_CHANGE = 'charchange';
+
+export { CHAR_TITLE, NEW_TITLE, LEVEL_UP, CHAR_NAME, CHAR_CLASS, CHAR_CHANGE };
 
 export { HALT_ACT, EVT_COMBAT, EVT_EVENT, EVT_UNLOCK, EXP_MAX, EVT_LOOT, ACT_DONE, ALLY_DIED, CHAR_DIED,
 	ENTER_LOC, EXIT_LOC, ITEM_ATTACK, STOP_ALL, DELETE_ITEM,

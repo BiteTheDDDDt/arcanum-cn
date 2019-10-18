@@ -28,7 +28,7 @@ import Encounter, { ENCOUNTER } from './items/encounter';
 import GEvent from './items/gevent';
 
 import Loader from './util/jsonLoader';
-import { logObj, splitKeyPath } from './util/util';
+import { splitKeyPath } from './util/util';
 import GClass from './items/gclass';
 
 const DataDir = './data/';
@@ -40,6 +40,13 @@ const DataFiles = [ 'resources', 'upgrades', 'actions', 'homes', 'furniture', 'i
  * @const {RegEx} IdTest - Test for a simple id name.
  */
 const IdTest = /^[A-Za-z_]+\w*$/;
+
+export const loadFiles = ( fileList, dir=DataDir ) => {
+
+	let loader = new Loader( dir, fileList );
+	return loader.load();
+
+}
 
 /**
  * @todo replace with server call.
@@ -55,7 +62,8 @@ export default {
 	/**
 	 * Lists of item ids for each item type.
 	 * (item source file/item type) => item list
-	 * @property {Object.<string,string[]>}
+	 *
+	 * @property {Object.<string,object[]>}
 	 */
 	dataLists:null,
 
@@ -63,24 +71,22 @@ export default {
 
 		if ( this.templates === null ) {
 
-			return this.loadData().then(()=>{
+			return loadFiles( DataFiles, DataDir ).then(
+			(v)=>{
+
+				this.dataLists = this.datasLoaded(v);
 				return this.makeGameData( this.templates, this.dataLists, saveData );
+
 			});
 
 		} else return this.makeGameData( this.templates, this.dataLists, saveData );
 
 	},
 
-	loadData() {
-
-		let loader = new Loader( DataDir, DataFiles );
-		return loader.load().then( v=>this.datasLoaded(v ));
-
-	},
-
 	/**
 	 * Raw data files loaded, ref by filename.
 	 * @param {object.<string,json>} loads
+	 * @returns {Object.<string,object[]>} - source file to item list.
 	 */
 	datasLoaded( loads ) {
 
@@ -118,7 +124,7 @@ export default {
 		this.templates = this.freezeData( templates );
 		//for( let p in this.templates ) console.log('template: ' + p );
 
-		this.dataLists = loads;
+		return loads;
 
 	},
 
@@ -187,7 +193,7 @@ export default {
 			if ( p === 'items') continue;
 			var dataItem = saveData[p];
 
-			saveData[p] = this.parseSub(dataItem);
+			saveData[p] = this.prepData(dataItem);
 
 		}
 
@@ -240,7 +246,7 @@ export default {
 
 			mergeSafe( saveObj, templates[p] );
 
-			saveItems[p] = this.parseSub( saveObj );
+			saveItems[p] = this.prepData( saveObj );
 			saveObj.template = templates[p];
 
 		}
@@ -264,7 +270,7 @@ export default {
 
 		this.initItems( dataLists['furniture'], GData, 'furniture', 'furniture' );
 
-		gd.skills = this.initItems( dataLists['skills'], Skill );
+		gd.skills = this.initItems( dataLists['skills'], Skill, 'skill' );
 
 		gd.encounters = this.initItems( dataLists['encounters'], Encounter, ENCOUNTER, ENCOUNTER);
 		gd.monsters = this.initItems( dataLists['monsters'], Monster, 'monster', 'monster' );
@@ -299,11 +305,11 @@ export default {
 
 	},
 
-	parseSub( sub ) {
+	prepData( sub ) {
 
 		if (Array.isArray(sub) ) {
 
-			for( let i = sub.length-1; i >= 0; i-- ) sub[i] = this.parseSub( sub[i] );
+			for( let i = sub.length-1; i >= 0; i-- ) sub[i] = this.prepData( sub[i] );
 
 		} else if ( sub instanceof Object ) {
 
@@ -335,7 +341,7 @@ export default {
 					}
 					else if ( p === 'damage' || p === 'dmg') sub[p] = this.makeDmgFunc(obj);
 
-				} else if ( typeof obj === 'object' ) this.parseSub(obj);
+				} else if ( typeof obj === 'object' ) this.prepData(obj);
 
 				if ( p.includes('.')) splitKeyPath( sub, p );
 

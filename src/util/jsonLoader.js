@@ -40,8 +40,8 @@ export default class JSONLoader {
 	/**
 	 *
 	 * @param {?string[]} [files=null]
-	 * @returns {Promise.<object.<string,object>} - Promise with an object where each key
-	 * is a file name mapping to the loaded json.
+	 * @returns {Promise.<object.<string,object>} - Promise with an object with fileName
+	 * keys mapping to loaded JSON objects.
 	 */
 	load( files=null ) {
 

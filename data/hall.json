@@ -1,7 +1,12 @@
 [
 
 	{
-
+		"id":"points",
+		"name":"",
+		"val":0,
+		"mod":{
+			"skill.rate":"0.1%"
+		}
 	}
 
 ]
