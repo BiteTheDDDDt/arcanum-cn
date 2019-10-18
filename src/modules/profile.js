@@ -37,8 +37,16 @@ export default {
 				console.warn('hall data missing');
 			} else {
 
+				var data = {};
 
-				this.hall.setData( arr );
+				for( let i = arr.length-1; i >= 0; i-- ) {
+
+					var it = arr[i];
+					data[it.id] = prepData(it);
+
+				}
+
+				this.hall.setData( data );
 
 
 			}

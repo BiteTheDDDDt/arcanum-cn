@@ -1,12 +1,23 @@
-[
+{
 
-	{
-		"id":"points",
-		"name":"",
-		"val":0,
-		"mod":{
-			"skill.rate":"0.1%"
-		}
+	"module":"hall",
+	"symbol":"",
+
+	"data":{
+
+		"stats":[
+
+			{
+				"id":"points",
+				"name":"",
+				"val":0,
+				"mod":{
+					"skill.rate":"0.1%"
+				}
+			}
+
+		]
 	}
 
-]
+
+}
