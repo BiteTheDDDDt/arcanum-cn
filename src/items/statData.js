@@ -63,24 +63,25 @@ export default class StatData extends GData {
 	}
 
 	/**
-	 * @returns {boolean} true if an unlocked item is at maximum value.
+	 * @returns {false} true if an unlocked item is at maximum value.
 	 */
-	maxed() {
-		return false;
-	}
+	maxed() { return false; }
+
+	/**
+	 * Pure stat cannot be filled.
+	 * @returns {false}
+	 */
+	filled() { return false; }
 
 
 	/**
-	 * Not currently used any more.
+	 * Not currently used.
 	 * @param {} dt
 	 */
 	update( dt ) {
 
 		if ( this._rate.value ) {
-
-			let v = this._value + this._rate.value*dt;
-			this.value = v;
-
+			this.value += this._rate.value*dt;;
 		}
 
 	}

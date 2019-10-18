@@ -8,7 +8,7 @@ export default class ProtoItem extends GData {
 
 	toJSON() {
 
-		return this.value > 0 ? { value:this.value } : undefined;
+		return this.value > 0 ? this.value : undefined;
 
 	}
 

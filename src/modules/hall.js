@@ -41,6 +41,16 @@ export default class Hall {
 		this._chars = v;
 	}
 
+	get points() { return this._points; }
+	set points(v) {
+
+		if ( v instanceof Stat ) this._points = v;
+		else if ( this._points === undefined ) this._points = new Stat( v, 'hallPoints');
+		else if ( typeof v === 'number' ) this._points.base = v;
+		else this._points = new Stat(v, 'hallPoints');
+
+	}
+
 	/**
 	 * @property {number} max - maximum char slots.
 	 */
@@ -64,11 +74,26 @@ export default class Hall {
 		//if ( !this.max ) this.max = 3;
 		this.max = 3;
 
+		this.initChars();
+
+	}
+
+	initChars(){
+
+		let total = 0;
 		let max = this.max.value;
-		// expand chars to max.
-		for( let i = this.chars.length; i < max; i++ ) {
-			this.chars.push( new CharInfo() );
+		for( let i = 0; i < max; i++ ) {
+
+			var c = this.chars[i];
+			if ( c === undefined ) {
+				this.chars.push( new CharInfo() );
+			} else {
+				total += c.points;
+			}
+
 		}
+
+		this.points = total;
 
 	}
 

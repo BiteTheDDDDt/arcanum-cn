@@ -90,11 +90,7 @@ export default class GameState {
 
 		this.equip = new Equip( baseData.equip );
 
-		/**
- 		* @property {number} sellRate - percent of initial cost
- 		* items sell for.
- 		*/
-		this.sellRate = this.sellRate || 0.5;
+		this.initStats();
 
 		this.raid = new Raid( baseData.raid );
 		this.explore = new Explore( baseData.explore );
@@ -125,6 +121,19 @@ export default class GameState {
 		 * makes upgrading/referencing by tag easier.
 		*/
 		this.tagLists = this.makeLists( this.items );
+
+	}
+
+	/**
+	 * Game-wide stats.
+	 */
+	initStats() {
+
+		/**
+ 		* @property {number} sellRate - percent of initial cost
+ 		* items sell for.
+ 		*/
+		 this.sellRate = this.sellRate || new Stat(0.5, 'sellRate');
 
 	}
 

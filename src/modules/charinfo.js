@@ -13,7 +13,8 @@ export default class CharInfo {
 			gclass:this.gclass,
 			title:this.title||undefined,
 			gender:this.gender||undefined,
-			school:this.school||undefined
+			school:this.school||undefined,
+			points:this.points||undefined
 		}
 
 	}
@@ -33,10 +34,15 @@ export default class CharInfo {
 	get school() { return this._school; }
 	set school(v) { this._school = v; }
 
+	get points() { return this._points; }
+	set points(v) { this._points=v;}
+
 	constructor( vars=null ){
 
 		if ( vars ) Object.assign( this,vars );
 		if ( !this.name ) this.empty = true;
+
+		if ( !this.points ) this.points = 0;
 
 	}
 

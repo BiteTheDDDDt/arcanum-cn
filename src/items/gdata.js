@@ -104,7 +104,10 @@ export default class GData {
 	 */
 	constructor( vars=null, defaults=null ){
 
-		if ( vars ) assignPublic( this, vars );
+		if ( vars ) {
+			if ( typeof vars === 'object') assignPublic( this, vars );
+			else if ( !isNaN(vars) ) this.val = vars;
+		}
 		if ( defaults ) this.setDefaults( defaults );
 
 		if ( this._locked === undefined || this._locked === null ) this.locked = true;
@@ -114,16 +117,8 @@ export default class GData {
 		 */
 		this.locks = 0;
 
-		this._value = this._value || 0;
+		if ( !this.value ) this.val = 0;
 
-		if ( vars.nomax ) {
-			this._max = null;
-		}
-
-		//if ( this.owned && !this.buy && !this.value ) this._value = 1;
-		//if ( this.owned) console.log('owned: ' + this.owned + ' id: ' + this.id);
-
-		//if ( this.slot ) console.log( this.id + ' slot: ' + this.slot );
 		defineExcept( this, null,
 			['require', 'rate', 'need', 'value', 'buy', 'max', 'cost', 'id', 'name', 'warn', 'effect', 'slot' ]);
 
@@ -219,7 +214,7 @@ export default class GData {
 
 	doUnlock(){
 
-		if ( this.disabled || this.locked === false ) return;
+		if ( this.disabled || this.locked === false || this.locks>0 ) return;
 
 		this.locked = false;
 		Events.emit( EVT_UNLOCK, this );
