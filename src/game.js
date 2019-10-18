@@ -7,7 +7,6 @@ import Range from './values/range';
 import ItemGen from './itemgen';
 import TechTree from './techTree';
 
-import Profile from './modules/profile';
 
 /**
  * @note these refer to Code-events, not in-game events.
@@ -243,9 +242,6 @@ export default {
 	 * Frame update.
 	 */
 	update() {
-
-		//console.log('tests: ' + unlockTests );
-		//unlockTests = 0;
 
 		let time = Date.now();
 		let dt = Math.min( ( time - this.lastUpdate )/1000, 1 );
