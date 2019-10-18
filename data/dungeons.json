@@ -565,6 +565,7 @@
 		"require":"mtgorborung",
 		"level":25,
 		"length":100,
+		"require":"g.player.level>20&&g.mtgorborung>0",
 		"run":{
 			"stamina":3
 		},
