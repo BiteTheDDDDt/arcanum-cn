@@ -2236,7 +2236,7 @@
 			"dot":{
 				"name":"blind",
 				"kind":"blind",
-				"duration":10,
+				"duration":20,
 				"mod":{
 					"tohit":-3
 				}
