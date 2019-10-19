@@ -332,7 +332,8 @@
 	{
 
 		"id":"idrasil tree",
-		"desc":"a seedling of Yggdrasil is a tree to rival mountains.",
+		"name":"lesser idrasil",
+		"desc":"The seedlings of Yggdrasil become trees to rival mountains.",
 		"tags":"outdoors",
 		"cost":{
 			"gems":30,
@@ -342,7 +343,7 @@
 		"mod":{
 			"minions.max":10,
 			"space.max":300,
-			"naturelore.max":4,
+			"naturelore.max":3,
 			"naturelore.rate":"2%",
 			"airlore.max":1,
 			"fire.rate":"-3%"
@@ -458,6 +459,7 @@
 		"mod":{
 			"minions.max":20,
 			"space.max":420,
+			"naturelore.max":1,
 			"enchanting.max":2,
 			"enchanting.rate":"10%"
 		}

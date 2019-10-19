@@ -1096,12 +1096,14 @@
 		"research.max":"-25%",
 		"languages.max":2,
 		"firelore.max":1,
+		"firelore.rate":"1%",
 		"waterlore.max":1,
 		"airlore.max":1,
+		"airlore.rate":"1%",
 		"lightlore.max":1,
 		"crafting.max":2,
 		"lore.max":5,
-		"lore.rate":"20%",
+		"lore.rate":"10%",
 		"mana.max":3
 	},"flavor":"In the end it was three Thule Wizards and The Necromancer who brought the locks to heel."
 },

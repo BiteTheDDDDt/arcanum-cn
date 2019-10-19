@@ -490,16 +490,16 @@
 		},
 		"at":{
 
-			"50":{ "effect.gold":0.15 },
+			"50":{ "effect.gold":0.1 },
 			"150":{ "effect.gold":0.1 },
-			"500":{ "effect.gold":0.4 },
-			"1500":{ "effect.gold":1 }
+			"500":{ "effect.gold":0.3 },
+			"1500":{ "effect.gold":0.5 }
 
 		},
 		"effect":{
 			"virtue":0.1,
 			"evilamt":-0.01,
-			"gold":0.45
+			"gold":0.35
 		},"flavor":"whether they know it or not"
 
 	},
