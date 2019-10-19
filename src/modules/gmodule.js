@@ -60,9 +60,6 @@ export default class Module {
 	 */
 	load( file ) {
 
-		this.lists = {};
-		this.templates = {};
-
 		if ( Array.isArray(file) ) {
 
 			return loadFiles( file ).then( (v)=>this.typesLoaded(v) );
@@ -83,21 +80,24 @@ export default class Module {
 	 */
 	typesLoaded(files) {
 
-		this.lists = files;
+		this.templates = {};
+		this.lists = {};
 
 		// modules can only be merged after all lists have been made.
 		let modules = [];
 		for( let p in files ) {
 
 			var file = files[p];
-			if ( file.module ) {
+			if ( !file ) {
+				console.warn('no file: ' + p );
+			} else if ( file.module ) {
 
 				let mod = new Module();
 				mod.setData( file );
 				modules.push(mod);
 
 			} else {
-				this.parseList( lists[p] );
+				this.lists[p] = this.parseList( files[p] );
 			}
 
 		}
@@ -122,6 +122,9 @@ export default class Module {
 			console.warn( this.file + ' data missing' );
 			return;
 		}
+
+		this.templates = {};
+		this.lists = {};
 
 		this.name = mod.module || this.file;
 		this.sym = mod.sym;
@@ -166,6 +169,8 @@ export default class Module {
 			this.templates[ it.id ] = freezeData( it );
 
 		}
+
+		return arr;
 
 	}
 
