@@ -1968,6 +1968,20 @@
 		}
 	},
 	{
+		"id":"wizardhall",
+		"name":"Wizard's Hall",
+		"tags":"t_hall",
+		"slot":"hall",
+		"require":"g.tier5>0",
+		"buy":{
+
+		},
+		"mod":{
+
+		}
+
+	},
+	{
 		"id":"fireplane",
 		"slot":"homeplane",
 		"require":"g.tier5>0&&g.planeslore>=100",
