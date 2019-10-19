@@ -4,6 +4,34 @@ import Confirm from 'ui/components/confirm.vue';
 import Game from './game';
 import Events from './events';
 
+if ( Array.prototype.flatMap === undefined ) {
+
+	Array.prototype.flatMap = function( p, t ) {
+
+		let a = [];
+		let len = this.length;
+		for( let i = 0; i < len; i++ ) {
+
+			let v = this[i];
+
+			if ( Array.isArray( v ) ) {
+
+				v = v.flatMap( p, t );
+				for( let j = 0; j < v.length; j++) {
+					a.push(v[j]);
+				}
+
+			} else {
+				a.push( p.call( t, v ) );
+			}
+
+		}
+		return a;
+
+	}
+
+}
+
 /**
  * Global dispatch.
  */
