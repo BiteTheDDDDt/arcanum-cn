@@ -30,6 +30,7 @@ import GEvent from './items/gevent';
 import Loader from './util/jsonLoader';
 import { splitKeyPath } from './util/util';
 import GClass from './items/gclass';
+import Module from './modules/gmodule';
 
 const DataDir = './data/';
 const DataFiles = [ 'resources', 'upgrades', 'actions', 'homes', 'furniture', 'items', 'skills',
@@ -43,7 +44,6 @@ const IdTest = /^[A-Za-z_]+\w*$/;
 
 export const loadFiles = ( fileList, dir=DataDir ) => {
 
-	console.warn( 'LOADDIR: ' + dir );
 	let loader = new Loader( dir, fileList );
 	return loader.load();
 
@@ -53,6 +53,11 @@ export const loadFiles = ( fileList, dir=DataDir ) => {
  * @todo replace with server call.
  */
 export default {
+
+	/**
+	 * @property {GModule} module - main module.
+	 */
+	main:null,
 
 	/**
 	 * @property {.<string,object>} templates - default untyped object templates.
@@ -70,124 +75,25 @@ export default {
 
 	async loadGame( saveData ) {
 
-		if ( this.templates === null ) {
+		if ( this.main === null ) {
 
-			return loadFiles( DataFiles, DataDir ).then(
-			(v)=>{
+			this.main = new Module();
 
-				this.dataLists = this.datasLoaded(v);
-				return this.instance( this.templates, this.dataLists, saveData );
-
+			this.main.load( DataFiles ).then((mod)=>{
+				return mod.instance( mod.templates, mod.lists, saveData );
 			});
 
-		} else return this.instance( this.templates, this.dataLists, saveData );
-
-	},
-
-	/**
-	 * Raw data files loaded, ref by filename.
-	 * @param {object.<string,json>} loads
-	 * @returns {Object.<string,object[]>} - source file to item list.
-	 */
-	datasLoaded( loads ) {
-
-		let templates = {};
-
-		// easiest to preparse modules so templates can be assigned in one place.
-		for( let p in loads ) {
-
-			var fileData = loads[p];
-			if ( fileData === null || fileData === undefined ) {
-				console.warn( 'Missing Data for: ' + p );
-				loads[p] = [];
-			} else if ( fileData.module) {
-
-				this.mergeModule( fileData, loads );
-				loads[p] = undefined;
-			}
-
-		}
-
-		for( let p in loads ) {
-
-			var itemList = loads[p];
-			if ( !itemList ) continue;
-
-			for( let j = itemList.length-1; j >= 0; j-- ) {
-
-				// copy every data item into a template.
-				templates[ itemList[j].id ] = ( itemList[j] );
-
-			}
-
-		}
-
-		this.templates = freezeData( templates );
-
-		return loads;
-
-	},
-
-	/**
-	 *
-	 * @param {object} mod
-	 * @param {object.<string,object>} dataLists - data lists by load file.
-	 */
-	mergeModule( mod, dataLists ){
-
-		if ( mod.data ) {
-
-			let sym = mod.sym;
-			for( let p in mod.data ) {
-
-				var newData = mod.data[p];
-				if ( !newData ) continue;
-
-				var targList = dataLists[p];
-				if ( targList ) this.mergeData( newData, targList, sym );
-				else {
-					dataLists[p] = newData;
-					if ( sym ) newData.forEach(d=>d.sym = d.sym||sym )
-				}
-
-			}
-
-		}
-
-	},
-
-	/**
-	 * Merge items from a module data list into the appropriate target list.
-	 * @param {object[]} list
-	 * @param {object} dest
-	 * @param {string} sym - special unicode symbol.
-	 */
-	mergeData( list, dest, sym ) {
-
-		for( let i = list.length-1; i >= 0; i-- ) {
-
-			var d = list[i];
-			if ( !d.id ){
-				console.warn('missing id: ' + d.name );
-				continue;
-			}
-
-			if ( sym ) d.sym = d.sym || sym;
-
-			if ( !Array.isArray(dest)) console.warn( 'DEST NOT AN ARRAY: ' + p );
-			dest.push(d);
-
-
-		}
+		} else return this.instance( this.main.templates, this.main.lists, saveData );
 
 	},
 
 	/**
 	 * At this point dataLists and templates both refer to the same data.
 	 * dataLists just have it separated by type.
-	 * @param {*} templates
-	 * @param {*} dataLists
-	 * @param {*} saveData
+	 * @param {.<string,object>} templates
+	 * @param {.<string,object[]>} dataLists
+	 * @param {object} saveData
+	 * @returns {object} initialized save&game data.
 	 */
 	instance( templates, dataLists, saveData={} ){
 
@@ -240,7 +146,7 @@ export default {
 	},
 
 	/**
-	 *
+	 * Merge template data into saved data items.
 	 * @param {?Object} saveItems - previous save items.
 	 * @param {.<string,Object>} templates - template items..
 	 * @returns {.<string,Object>} - the saveItems with data merged from default data.
@@ -509,5 +415,5 @@ export function makeEffectFunc( text ) {
  * @param {*} text
  */
 export function makeDmgFunc(text){
-	return new Function( 'state', 'player', 'target', 'return ' + text );
+	return new Function( 'g', 'p', 't', 'return ' + text );
 }

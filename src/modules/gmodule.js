@@ -1,33 +1,5 @@
-import { loadFiles, prepData, freezeData } from '../dataLoader';
+import dataLoader, { loadFiles, freezeData } from '../dataLoader';
 
-import Resource from './items/resource';
-import ZeroSum from './items/zerosum';
-import RevStat from './items/revStat';
-import StatData from './items/statData';
-import Skill from './items/skill';
-import Monster from './items/monster';
-
-import Dungeon from './items/dungeon';
-import Locale from './items/locale';
-
-import Spell from './items/spell.js';
-import Action from './items/action';
-
-import { mergeSafe } from 'objecty';
-import ProtoItem from './items/protoItem';
-import Material from './chars/material';
-import Enchant from './items/enchant';
-import Item from './items/item';
-import Potion from './items/potion';
-import Encounter, { ENCOUNTER } from './items/encounter';
-import GEvent from './items/gevent';
-
-import Encounter, { ENCOUNTER } from './items/encounter';
-
-import RevStat from '../items/revStat';
-import ZeroSum from '../items/zerosum';
-import Item from '../items/item';
-import Locale from '../items/locale';
 
 /**
  * Class for loading and storing module json in a well-defined format.
@@ -42,6 +14,13 @@ export default class Module {
 	set templates(v) { this._templates =v; }
 
 	/**
+	 * Lists of items by type of data.
+	 * @property {Object.<string,object[]>}
+	*/
+	get lists(){return this._lists; }
+	set lists(v){this._lists=v;}
+
+	/**
 	 * @property {string} name
 	 */
 	get name() {return this._name;}
@@ -54,23 +33,16 @@ export default class Module {
 	set sym(v) {this._sym =v;}
 
 	/**
-	 * @property {object.<string,GData>} items - index of all items.
+	 * @property {object.<string,GData>} items - index of instanced items.
 	 */
-	get items() { return this._items; }
-	set items(v){this._items=v;}
-
-	/**
-	 * Lists of items by type of data.
-	 * @property {Object.<string,object[]>}
-	*/
-	get lists(){return this._lists; }
-	set lists(v){this._lists=v;}
+	/*get items() { return this._items; }
+	set items(v){this._items=v;}*/
 
 	/**
 	 *
 	 * @param {?object} [data=null]
 	 */
-	constructor( data ) {
+	constructor() {
 	}
 
 	/**
@@ -88,19 +60,16 @@ export default class Module {
 	 */
 	load( file ) {
 
-		this.file = file;
-
 		this.lists = {};
-		this.items = {};
 		this.templates = {};
 
-		if ( Array.isArray(this.file) ) {
+		if ( Array.isArray(file) ) {
 
-			return loadFiles( this.file ).then( (v)=>this.typesLoaded(v) );
+			return loadFiles( file ).then( (v)=>this.typesLoaded(v) );
 
 		} else {
 			// files returned as string->file data mapping. get the file data itself.
-			return loadFiles( [ this.file ] ).then( (v)=>this.fileLoaded( v[this.file] ) );
+			return loadFiles( [ file ] ).then( (v)=>this.fileLoaded( v[file] ) );
 
 		}
 
@@ -110,31 +79,42 @@ export default class Module {
 	 * Separate module files loaded. Each file is a list of objects
 	 * of the same type.
 	 * @param {.<string,object[]>} files
+	 * @returns {Module} this module.
 	 */
 	typesLoaded(files) {
 
-		/**
-		 * Precheck for submodule files.
-		 */
+		this.lists = files;
+
+		// modules can only be merged after all lists have been made.
 		let modules = [];
 		for( let p in files ) {
 
 			var file = files[p];
 			if ( file.module ) {
 
+				let mod = new Module();
+				mod.setData( file );
+				modules.push(mod);
+
 			} else {
-				this.lists[p] = this.parseList( lists[p] );
+				this.parseList( lists[p] );
 			}
 
 		}
 
 		// marge in submodules.
+		for( let i = modules.length-1; i>= 0; i-- ) {
+			this.merge( modules[i] );
+		}
+
+		return this;
 
 	}
 
 	/**
 	 * Single Module file loaded.
 	 * @param {object} mod
+	 * @returns {Module} this module.
 	 */
 	fileLoaded( mod ) {
 
@@ -161,7 +141,7 @@ export default class Module {
 	parseLists( lists ){
 
 		for( let p in lists ) {
-			this.lists[p] = this.parseList( lists[p] );
+			this.parseList( lists[p] );
 		}
 
 	}
@@ -184,9 +164,6 @@ export default class Module {
 			if ( sym ) it.sym = it.sym || sym;
 
 			this.templates[ it.id ] = freezeData( it );
-
-			arr[i] = it = prepData(it);
-			this.items[it.id] = it;
 
 		}
 
@@ -234,6 +211,7 @@ export default class Module {
 	 * @param {object} saveData
 	 */
 	instance( saveData={} ){
+		return dataLoader.instance( this.templates, this.dataLists, saveData );
 	}
 
 }
