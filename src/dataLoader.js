@@ -59,20 +59,6 @@ export default {
 	 */
 	main:null,
 
-	/**
-	 * @property {.<string,object>} templates - default untyped object templates.
-	 * item id => untyped object data.
-	 */
-	templates:null,
-
-	/**
-	 * Lists of items for each item type.
-	 * (item source file/item type) => item list
-	 *
-	 * @property {.<string,object[]>}
-	 */
-	dataLists:null,
-
 	async loadGame( saveData ) {
 
 		if ( this.main === null ) {

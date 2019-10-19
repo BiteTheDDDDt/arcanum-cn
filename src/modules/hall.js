@@ -53,10 +53,17 @@ export default class Hall {
 
 	/**
 	 * GData specific to hall.
-	 * @property {Object.<string,GData>} data
+	 * @property {Object.<string,GData>} items
 	 */
-	get data() {return this._items;}
-	set data(v){ this._items=v;}
+	get items() {return this._items;}
+	set items(v){
+
+		for( let p in v ){
+			console.log( 'hall: ' + p);
+		}
+
+		this._items=v;
+	}
 
 	/**
 	 * @property {number} max - maximum char slots.
@@ -82,12 +89,6 @@ export default class Hall {
 		this.max = 3;
 
 		this.initChars();
-
-	}
-
-	setData( data ) {
-
-		this.data = data;
 
 	}
 

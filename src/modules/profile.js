@@ -1,7 +1,8 @@
 import Hall from "./hall";
 import Settings from '../settings';
 import Events, { LEVEL_UP, CHAR_NAME, CHAR_TITLE, CHAR_CLASS } from "../events";
-import { loadFiles, prepData } from '../dataLoader';
+import dataLoader, { loadFiles, prepData } from '../dataLoader';
+import Module from "./gmodule";
 
 const CHARS_DIR = 'chars/';
 const SETTINGS_DIR = 'settings/';
@@ -28,58 +29,29 @@ export default {
 	/**
 	 * Load data files for hall.
 	 */
-	loadHallData() {
+	loadHallData( save ) {
 
-		/*loadFiles(['hall']).then( (v)=>{
-
-			let arr = v['hall'];
-			if ( !arr ) {
-				console.warn('hall data missing');
-			} else {
-
-				var data = {};
-
-				for( let i = arr.length-1; i >= 0; i-- ) {
-
-					var it = arr[i];
-					data[it.id] = prepData(it);
-
-				}
-
-				this.hall.setData( data );
-
-
-			}
-
-
-		});*/
+		let module = new Module();
+		return module.load( 'hall').then( ()=>module.instance( save ));
 
 	},
 
 	/**
 	 * Load Hall information.
 	 */
-	loadHall(){
+	async loadHall(){
 
-		let str = window.localStorage.getItem( SAVE_DIR + HALL_FILE );
-		if ( !str ) {
+		let data = window.localStorage.getItem( SAVE_DIR + HALL_FILE );
 
-			this.hall = new Hall();
-
-		} else {
-
+		if ( data ) {
 			try {
-
-				console.log('PARSING SAVED HALL');
-				this.hall = new Hall( JSON.parse(str ) );
-
-			} catch (e) {
-
-				console.error(e);
-
-			}
-
+				data = JSON.parse(data);
+			} catch(e) {console.error( e); }
 		}
+
+		data = await this.loadHallData( data );
+
+		this.hall = new Hall(data);
 
 	},
 

@@ -1888,8 +1888,8 @@
 	{
 		"id":"siegeperilous",
 		"name":"siege perilous",
-		"desc":"the fabled seat of destiny",
-		"require":"g.notoriety>=100",
+		"desc":"fabled seat of destiny",
+		"require":"g.tier4>0&&g.good>0",
 		"cost":{
 			"gold":4000,
 			"gems":30
