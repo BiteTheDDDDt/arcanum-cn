@@ -2236,7 +2236,10 @@
 			"dot":{
 				"name":"blind",
 				"kind":"blind",
-				"tohit":-3
+				"duration":20,
+				"mod":{
+					"tohit":-3
+				}
 			}
 		},"loot":{"lightgem":"10%"},
 		"immune":"fire,light"

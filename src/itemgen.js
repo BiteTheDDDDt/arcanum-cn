@@ -197,7 +197,8 @@ export default class ItemGen {
 		} else if ( amt.value ) amt = amt.value;
 
 		if ( Array.isArray(info) ) {
-			return info.flatMap( this.getLoot, this );
+			return info.flatMap ?  info.flatMap( this.getLoot, this )
+				: this.flatMap.call( info, this.getLoot, this )
 		}
 
 		if ( typeof info === 'string' ) {
@@ -226,6 +227,30 @@ export default class ItemGen {
 		}
 
 		return this.randLoot( info, amt );
+
+	}
+
+	flatMap( p, t ){
+
+		let a = [];
+		let len = this.length;
+		for( let i = 0; i < len; i++ ) {
+
+			let v = this[i];
+
+			if ( Array.isArray( v ) ) {
+
+				v = v.flatMap( p, t );
+				for( let j = 0; j < v.length; j++) {
+					a.push(v[j]);
+				}
+
+			} else {
+				a.push( p.call( t, v ) );
+			}
+
+		}
+		return a;
 
 	}
 
