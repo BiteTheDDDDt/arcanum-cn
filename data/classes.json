@@ -664,7 +664,7 @@
 	"desc":"to walk on the wind",
 	"tags":"t_tier2",
 	"name":"wind mage",
-	"actdesc":"Become a wind.",
+	"actdesc":"Become the wind.",
 	"require":"g.tier1>0&&g.airlore>=10",
 	"cost":{
 		"research":1000,
