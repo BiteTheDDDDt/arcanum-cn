@@ -1,4 +1,5 @@
 import Action from './action';
+import GData from './gdata';
 
 const defaults = {
 	verb:'enchanting'
@@ -27,19 +28,27 @@ export default class Enchant extends Action {
 	}
 
 	/**
+	 * Begin using Enchant on item. Increase item level immediately.
+	 * @param {GData} targ
+	 */
+	beginUseOn( targ ) {
+		targ.enchants = (targ.enchants || 0) + this.level;
+		targ.busy = true;
+	}
+
+	/**
 	 * Called when enchant is being used on target.
 	 * @param {*} it
 	 */
-	usingWith( it ) {
+	useOn( it ) {
 
-		console.log( this.id + ' enchant: ' + it.id );
 		if ( this.adj && !it.name.includes(this.adj) ) {
 
 			it.name += ' ' + this.adj;
 
 		} else if ( !it.name.includes('Enchanted') ) it.name = 'Enchanted ' + it.name;
 
-		it.enchants = (it.enchants || 0) + this.level;
+		targ.busy = false;
 
 		this.exec();
 
@@ -53,15 +62,15 @@ export default class Enchant extends Action {
 
 	/**
 	 * Test if enchantment can be applied to target item.
-	 * @param {Item} it
+	 * @param {Item} targ
 	 */
-	canApply( it ) {
+	canApply( targ ) {
 
-		let itLevel = it.level || 1;
-		if ( it.enchants + this.level > itLevel ) return false;
+		let itLevel = targ.level || 1;
+		if ( targ.enchants + this.level > itLevel || targ.busy ) return false;
 
 		return !this._targets ||
-			this._targets.some(t=> it.type === t || it.kind === t || it.slot === t || it.hasTag(t) );
+			this._targets.some(t=> targ.type === t || targ.kind === t || targ.slot === t || targ.hasTag(t) );
 
 	}
 

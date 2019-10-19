@@ -213,10 +213,12 @@ export default class Runner {
 	 * @param {*} it
 	 * @param {*} targ
 	 */
-	useWith( it, targ ) {
+	useOn( it, targ ) {
 
 		let id = it.id;
 		let t = targ.id;
+
+		if ( targ.running === true || it.running === true ) return false;
 
 		let p = (v)=>{
 			return (v instanceof Runnable)&&(id===v.item.id && t === v.target.id );
@@ -231,6 +233,7 @@ export default class Runner {
 			if ( !run ) {
 				console.log('CREATING NEW RUNNABLE');
 				run = new Runnable( it, targ );
+				if ( it.beginUseOn ) it.beginUseOn( targ );
 			}
 
 		}
@@ -281,12 +284,11 @@ export default class Runner {
 
 				let i = 0;
 
-				console.log('Force Stop: ' + this.actives[i].id);
 				let cur = this.actives[i];
 				this.stopAction( i, false );
 
 				if ( (cur instanceof Runnable) ){
-					console.log('WAITING RUNNABLE');
+					console.log('WAIT RUNNABLE');
 					this.addWait(cur);
 				}
 

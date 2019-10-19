@@ -231,7 +231,7 @@ export default {
 		 * @param {Item} targ - enchant target.
 		 */
 		onEnchant( e, targ ) {
-			this.game.tryUseWith( e, targ );
+			this.game.tryUseOn( e, targ );
 		},
 
 		onSell( it, inv, count ) { this.game.trySell( it, inv, count ); },

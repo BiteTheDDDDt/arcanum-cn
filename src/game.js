@@ -590,7 +590,7 @@ export default {
 	 * @param {GData} it
 	 * @param {GData} targ - enchant target.
 	 */
-	tryUseWith( it, targ ) {
+	tryUseOn( it, targ ) {
 
 		if ( targ === null || targ === undefined ) return;
 
@@ -604,12 +604,12 @@ export default {
 			if ( !it.length ) {
 
 				this.payCost( it.cost );
-				this.useWith( it, targ );
+				this.useOn( it, targ );
 
 			} else {
 
 				// runner will handle costs.
-				this.runner.useWith( it, targ );
+				this.runner.useOn( it, targ );
 
 			}
 		}
@@ -623,11 +623,11 @@ export default {
 	 * @param {GData} it
 	 * @param {GData} targ - use target.
 	 */
-	useWith( it, targ ) {
+	useOn( it, targ ) {
 
 		if ( targ === null || targ === undefined ) return;
 
-		if ( typeof it.usingWith === 'function') it.usingWith( targ );
+		if ( typeof it.useOn === 'function') it.useOn( targ );
 		it.value++;
 
 		console.log('USING: ' + it.id  + ' with ' + targ.id );
