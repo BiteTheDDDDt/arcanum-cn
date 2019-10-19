@@ -14,6 +14,7 @@ import SpellList from './inventories/spelllist';
 import Group from './composites/group';
 import UserSpells from './inventories/userSpells';
 import Quickbars from './composites/quickbars';
+import Stat from './values/stat';
 
 export const REST_SLOT = 'rest';
 
@@ -58,7 +59,7 @@ export default class GameState {
 	 *
 	 * @param {Object} baseData - base game data.
 	 */
-	constructor( baseData, restore=false ){
+	constructor( baseData ){
 
 		Object.assign( this, baseData );
 

@@ -33,11 +33,6 @@ module.exports = {
 	},
 	devtool:false,
 	plugins:[new VueLoader(),
-		new webpack.SourceMapDevToolPlugin(
-			{
-				fileContext:'./dist/'
-			}
-		),
 		new webpack.DefinePlugin({
 			__SAVE:JSON.stringify('dev'),
 			__DIST:false,
@@ -45,10 +40,10 @@ module.exports = {
 		})],
 	output:{
 
-		path:path.resolve( __dirname, "dist"),
-		publicPath:"dist/",
+		path:path.resolve( __dirname, "dev"),
+		publicPath:"dev/",
 		filename:"[name].dev.bundle.js",
-		chunkFilename:"dev/[name].bundle.js",
+		chunkFilename:"[name].bundle.js",
 		library:"[name]"
 	},
 	resolve:{

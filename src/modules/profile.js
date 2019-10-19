@@ -30,7 +30,7 @@ export default {
 	 */
 	loadHallData() {
 
-		loadFiles(['hall']).then( (v)=>{
+		/*loadFiles(['hall']).then( (v)=>{
 
 			let arr = v['hall'];
 			if ( !arr ) {
@@ -52,7 +52,7 @@ export default {
 			}
 
 
-		});
+		});*/
 
 	},
 

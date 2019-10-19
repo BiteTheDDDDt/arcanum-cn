@@ -43,6 +43,7 @@ const IdTest = /^[A-Za-z_]+\w*$/;
 
 export const loadFiles = ( fileList, dir=DataDir ) => {
 
+	console.warn( 'LOADDIR: ' + dir );
 	let loader = new Loader( dir, fileList );
 	return loader.load();
 
@@ -122,7 +123,6 @@ export default {
 		}
 
 		this.templates = freezeData( templates );
-		//for( let p in this.templates ) console.log('template: ' + p );
 
 		return loads;
 
@@ -174,7 +174,6 @@ export default {
 
 			if ( sym ) d.sym = d.sym || sym;
 
-			//console.log('pushing: ' + d.id );
 			if ( !Array.isArray(dest)) console.warn( 'DEST NOT AN ARRAY: ' + p );
 			dest.push(d);
 
@@ -332,7 +331,7 @@ export default {
 
 	initItems( items, dataList, UseClass=GData, tag=null, type=null ) {
 
-		if (!dataList ) return undefined;
+		if ( dataList === null || dataList === undefined ) return undefined;
 
 		for( let i = dataList.length-1; i >= 0; i-- ) {
 
@@ -375,7 +374,7 @@ export default {
 
 		}
 
-		return new Player( vars );
+		return items.player = new Player( vars );
 
 	},
 
@@ -392,7 +391,7 @@ export const freezeData = ( obj ) => {
 	for( let p in obj ){
 
 		sub = obj[p];
-		if ( typeof sub === 'object') this.freezeData(sub);
+		if ( typeof sub === 'object') freezeData(sub);
 		else Object.freeze( sub );
 
 	}

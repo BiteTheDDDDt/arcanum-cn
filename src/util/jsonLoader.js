@@ -74,16 +74,6 @@ export default class JSONLoader {
 	}
 
 	/**
-	 * All promises in the loads object have loaded.
-	 * Convert promises to their json data.
-	 * @param {*} loads
-	 */
-	/*_loaded( loads ){
-		for( let p in loads ) {
-		}
-	}*/
-
-	/**
 	 * Build JSON request info for making the fetch request.
 	 */
 	requestInfo(){

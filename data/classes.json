@@ -893,6 +893,8 @@
 	"mod":{
 		"tier2":true,
 		"research.max":40,
+		"firelore.max":1,
+		"mysticism.max":2,
 		"lore.max":2,
 		"lore.rate":0.4,
 		"mana.max":3

@@ -186,7 +186,7 @@ const vm = new Vue({
 			try {
 
 				let obj = text ? JSON.parse( text ) : null;
-				this.game.load( obj ).then( v=>this.gameLoaded(v),
+				this.game.load( obj ).then( this.gameLoaded,
 					e=>console.error(e) );
 
 			} catch( err ) {

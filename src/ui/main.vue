@@ -170,8 +170,8 @@ export default {
 
 			if ( this.game.loaded ) {
 
+				this.game.lastUpdate = Date.now();
 				if ( !this.runner ) {
-					this.game.lastUpdate = Date.now();
 					this.runner = setInterval( ()=>this.game.update(), TICK_TIME );
 				}
 
