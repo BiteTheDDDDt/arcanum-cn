@@ -266,7 +266,7 @@
 	},
 	{
 		"id":"cataract",
-		"desc":"A secret cavern behind a waterfall.",
+		"desc":"A deep hollow hidden behind a waterfall.",
 		"require":"g.water>=15&&g.naturelore>=10",
 		"cost":{
 			"gold":1000,
@@ -275,14 +275,14 @@
 		"mod":{
 			"minions.max":4,
 			"space.max":70,
-			"research.rate":-0.7,
+			"research.rate":"-10%",
 			"waterlore.max":2,
 			"waterlore.rate":0.2,
 			"naturelore.max":1,
 			"naturelore.rate":0.1,
 			"earthlore.max":1,
-			"lightlore.max":-1,
-			"lightlore.rate":"-2%"
+			"lightlore.max":-2,
+			"lightlore.rate":"-5%"
 		},
 		"lock":["latticewindow"]
 

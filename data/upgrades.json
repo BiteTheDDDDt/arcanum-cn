@@ -1989,20 +1989,84 @@
 	{
 		"id":"fireplane",
 		"slot":"homeplane",
-		"require":"g.tier5>0&&g.planeslore>=100",
+		"name":"",
+		"require":"g.tier5>0&&g.planeslore>=20&&g.firelore>=10",
 		"buy":{
 
 			"flamerune":10,
-			"gold":10000,
-			"tomes":10
+			"gold":15000,
+			"tomes":25
 
 		},
 		"mod":{
 			"space.max":"30%",
 			"firelore.max":2,
 			"water.rate":"-5%",
+			"water.max":-2,
 			"player.resist.fire":"1+10%",
 			"player.bonuses.fire":5
+		}
+	},
+	{
+		"id":"waterplane",
+		"slot":"homeplane",
+		"require":"g.tier5>0&&g.planeslore>=20&&g.waterlore>=10",
+		"buy":{
+
+			"waterrune":10,
+			"gold":15000,
+			"tomes":25
+
+		},
+		"mod":{
+			"space.max":"30%",
+			"waterlore.max":2,
+			"fire.rate":"-5%",
+			"fire.max":-2,
+			"player.resist.water":"1+10%",
+			"player.bonuses.water":5
+		}
+	},
+	{
+		"id":"earthplane",
+		"name":"",
+		"slot":"homeplane",
+		"require":"g.tier5>0&&g.planeslore>=20&&g.earthlore>=10",
+		"buy":{
+
+			"earthrune":10,
+			"gold":15000,
+			"tomes":25
+
+		},
+		"mod":{
+			"space.max":"30%",
+			"waterlore.max":2,
+			"fire.rate":"-5%",
+			"air.max":-2,
+			"player.resist.earth":"1+10%",
+			"player.bonuses.earth":5
+		}
+	},
+	{
+		"id":"airplane",
+		"name":"",
+		"slot":"homeplane",
+		"require":"g.tier5>0&&g.planeslore>=20&&g.airlore>=10",
+		"buy":{
+
+			"airrune":10,
+			"gold":15000,
+			"tomes":25
+
+		},
+		"mod":{
+			"space.max":"30%",
+			"airlore.max":2,
+			"earth.rate":"-5%",
+			"earth.max":-2,
+			"player.resist.air":"1+10%",
+			"player.bonuses.air":5
 		}
 	}
 
