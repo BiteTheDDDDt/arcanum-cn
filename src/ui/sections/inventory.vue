@@ -92,7 +92,7 @@ export default {
 
 		</template>
 		<template v-else>
-			<td><button @click="$emit('input', it)">Select</button></td>
+			<td><button :disabled="it.busy" @click="$emit('input', it)">Select</button></td>
 		</template>
 	</tr>
 </table>

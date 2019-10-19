@@ -196,7 +196,11 @@ export default class ItemGen {
 
 		} else if ( amt.value ) amt = amt.value;
 
-		if ( Array.isArray(info) ) return info.flatMap( this.getLoot, this );
+		if ( Array.isArray(info) ) {
+
+			return info.flatMap ? info.flatMap( this.getLoot, this ) : info.map( this.getLoot, this ).flat();
+
+		}
 
 		if ( typeof info === 'string' ) {
 

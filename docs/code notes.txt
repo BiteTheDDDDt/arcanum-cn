@@ -9,7 +9,7 @@ spells, enchants, potions, mounts
 must pay 'cost' on use.
 may be runnable (perpetual), one one-time.
 
-'usewith' - identical to use but requires a use target.
+'useOn' - identical to use but requires a use target.
 possibly unnecessary. 'use' can be used with param?
 
 'sell' - sell item.

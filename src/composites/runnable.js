@@ -29,6 +29,15 @@ export default class Runnable extends Proxy {
 	get exp(){ return this._exp; }
 	set exp(v) { this._exp = v; }
 
+	get running(){
+		if ( this._item) return this._item.running;
+		return false;
+	}
+	set running(v){
+		if ( this._item)this._item.running=v;
+		if ( this._target) this._target.running=v;
+	}
+
 	get repeatable() { return this._item && this._item.repeatable || false; }
 
 	percent() { return this._length ? 100*this._exp / this._length : 0; }
@@ -65,7 +74,7 @@ export default class Runnable extends Proxy {
 		this.exp += dt;
 
 		if ( this.exp > this.length ) {
-			if ( this.target ) Game.useWith( this.item, this.target );
+			if ( this.target ) Game.useOn( this.item, this.target );
 			Events.emit( ACT_DONE, this, this.repeatable );
 		}
 
