@@ -139,7 +139,7 @@
 		"school":"arcane",
 		"verb":"translating",
 		"desc":"study ancient dhrunic runes.",
-		"require":"g.tier1>0&&g.lore>=10&&g.dwarfbook>0",
+		"require":"g.tier2>0&&g.dwarfbook>0",
 		"buy":{
 			"sp":3
 		},

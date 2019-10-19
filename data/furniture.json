@@ -715,7 +715,7 @@
 	{
 		"id":"smstables",
 		"name":"stables",
-		"require":"g.tier2>0||g.animals>=6",
+		"require":"g.tier2>0||(g.tier1>0&&g.animals>=6)",
 		"tags":"stables",
 		"cost":{
 			"space":10,
@@ -1055,15 +1055,36 @@
 	{
 		"id":"starweb",
 		"desc":"Motes of stars fall daily from the sky. One need only collect them.",
+		"require":"tier5",
+		"max":1,
 		"cost":{
 			"research":10000,
-			"arcana":10,
-			"space":1
+			"arcana":20,
+			"space":5
 		},
 		"mod":{
-			"sindel.rate":0.0001
+			"sindel.rate":0.0001,
+			"airlore.max":1,
+			"airlore.rate":"1%"
 		}
 
+	},
+	{
+		"id":"starwell",
+		"name":"star well",
+		"desc":"Pools of light congeal softly in the basin.",
+		"require":"tier5",
+		"max":1,
+		"cost":{
+			"research":30000,
+			"arcana":30,
+			"space":10
+		},
+		"mod":{
+			"sindel.rate":0.0005,
+			"waterlore.max":1,
+			"waterlore.rate":"1%"
+		}
 	},
 	{
 		"id":"latticefence",

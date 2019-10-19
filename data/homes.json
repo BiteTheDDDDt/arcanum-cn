@@ -113,7 +113,7 @@
 		"cost":850,
 		"require":"g.tier0&&g.arcana.max>=12",
 		"mod":{
-			"minions.max":1,
+			"minions.max":2,
 			"gem.max":1,
 			"space.max":25,
 			"gold.rate":0.2,
@@ -142,7 +142,7 @@
 		"cost":950,
 		"require":"g.tier0>0&&g.naturelore>=7",
 		"mod":{
-			"minions.max":7,
+			"minions.max":5,
 			"space.max":30,
 			"nature.max":1,
 			"nature.rate":0.1
@@ -155,7 +155,7 @@
 		"cost":2000,
 		"require":"g.tier1>0&&g.arcana>=10",
 		"mod":{
-			"minions.max":10,
+			"minions.max":5,
 			"space.max":65
 		}
 	},
@@ -163,10 +163,10 @@
 		"id":"halftimber",
 		"name":"half-timber house",
 		"desc":"A vast home of rustic design",
-		"cost":2750,
+		"cost":3750,
 		"require":"g.tier1>0&&g.arcana>=10",
 		"mod":{
-			"minions.max":12,
+			"minions.max":7,
 			"space.max":75
 		}
 	},

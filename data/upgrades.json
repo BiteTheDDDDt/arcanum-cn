@@ -1481,7 +1481,7 @@
 		"name":"occult endurance",
 		"max":3,
 		"desc":"expend your research to discover new sources of stamina.",
-		"require":"g.lore>=7&&g.tier0>0",
+		"require":"g.tier0>0",
 		"warn":true,
 		"cost":{
 			"research.max":25,
@@ -1500,8 +1500,8 @@
 		"max":1,
 		"require":"g.tier2>0&&g.player.level>=15",
 		"cost":{
-			"tomes":5,
-			"mana":10
+			"tomes":10,
+			"bloodgem":5
 		},"mod":{
 			"arcanebody.mod.hp.max":2
 		}
@@ -1510,9 +1510,9 @@
 
 		"id":"chirography",
 		"desc":"improve the efficacy of your scrolls by meticulous attention to penmanship.",
-		"require":"g.lore>10",
+		"require":"g.lore>12",
 		"cost":{
-			"research":300,
+			"research":700,
 			"mana":10
 		},
 		"mod":{
@@ -1545,18 +1545,17 @@
 	{
 		"id":"voidtouch",
 		"name":"touching the void",
-		"locked":true,
-		"require":"g.voidlore>=40",
+		"require":"g.voidlore>=7",
+		"desc":"Beyond the sphere of all known planes, lies a great void. Of its powers and dangers, the books are silent.",
 		"cost":{
-
+			"research":10000,
+			"tomes":20
 		},
 		"mod":{
 			"void.rate":0.01,
+			"stamina.rate":-0.5,
 			"voidlore.max":3,
 			"voidlore.rate":0.5
-		},
-		"effect":{
-
 		}
 	},
 	{
@@ -1883,7 +1882,7 @@
 		"require":"tier1",
 		"max":1,
 		"cost":{
-			"gold":200
+			"gold":500
 		},
 		"mod":{
 			"space.max":5
@@ -1896,7 +1895,7 @@
 		"desc":"Increase the size of your existing cellars.",
 		"require":"cellar",
 		"cost":{
-			"gold":200
+			"gold":500
 		},
 		"mod":{
 			"cellar.mod.space.max":5
@@ -1969,15 +1968,21 @@
 	},
 	{
 		"id":"wizardhall",
-		"name":"Wizard's Hall",
+		"name":"wizard's hall",
 		"tags":"t_hall",
 		"slot":"hall",
 		"require":"g.tier5>0",
+		"desc":"Construct a Wizard's Hall.",
 		"buy":{
-
+			"research":50000,
+			"arcana":30,
+			"tomes":10,
+			"gold":10000
 		},
 		"mod":{
-
+			"tomes.rate":0.003,
+			"sp.rate":0.0001,
+			"evt_hall":true
 		}
 
 	},
