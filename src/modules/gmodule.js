@@ -124,7 +124,7 @@ export default class Module {
 		}
 
 		this.templates = {};
-		this.lists = {};
+		this.lists = mod.data;
 
 		this.name = mod.module || this.file;
 		this.sym = mod.sym;
@@ -185,6 +185,7 @@ export default class Module {
 		let dest = this.templates;
 
 		for( let p in items ) {
+			/**@todo maybe safeMerge in future. */
 			dest[p] = items[p];
 		}
 

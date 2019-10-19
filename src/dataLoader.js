@@ -80,7 +80,6 @@ export default {
 			this.main = new Module();
 
 			return this.main.load( DataFiles ).then((mod)=>{
-				console.log('main loaded');
 				return this.instance( mod.templates, mod.lists, saveData );
 			});
 
@@ -98,8 +97,6 @@ export default {
 	 */
 	instance( templates, dataLists, saveData={} ){
 
-		console.log('building instance');
-
 		saveData = saveData || {};
 
 		// restore Percent/Range classes /special functions of non-item data.
@@ -114,7 +111,6 @@ export default {
 
 		let gameLists = this.buildLists( saveData.items, dataLists );
 
-		console.log('init then return instance');
 		return this.initInstance( saveData, gameLists );
 
 	},
