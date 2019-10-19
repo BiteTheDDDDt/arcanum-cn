@@ -9,6 +9,7 @@ import Events, {
 } from '../events';
 
 import { itemRevive } from '../itemgen';
+import { getDelay } from '../chars/char';
 
 /**
 * Attempt to damage a target. Made external for use by dots, other code.
@@ -107,15 +108,6 @@ export default class Combat {
 	get enemies() { return this._enemies; }
 	set enemies(v) {
 
-		/*let a = [];
-		let len = v.length;
-		for( let i = 0; i < len; i++ ) {
-
-			if ( v[i] ) a.push( v[i]);
-			else console.warn('missing enemy: ' + v[i]);
-
-		}*/
-
 		this._enemies = v;
 	}
 
@@ -165,7 +157,7 @@ export default class Combat {
 		this.player.timer -= dt;
 		if ( this.player.timer <= 0 ) {
 
-			this.player.timer += this.player.delay;
+			this.player.timer += getDelay(this.player.speed);
 
 			// attempt to use cast spell first.
 			if ( this.spelllist.count === 0 || !this.tryCast() ) {

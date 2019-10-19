@@ -38,15 +38,15 @@ export default class Enchant extends Action {
 
 	/**
 	 * Called when enchant is being used on target.
-	 * @param {*} it
+	 * @param {*} targ
 	 */
-	useOn( it ) {
+	useOn( targ ) {
 
-		if ( this.adj && !it.name.includes(this.adj) ) {
+		if ( this.adj && !targ.name.includes(this.adj) ) {
 
-			it.name += ' ' + this.adj;
+			targ.name += ' ' + this.adj;
 
-		} else if ( !it.name.includes('Enchanted') ) it.name = 'Enchanted ' + it.name;
+		} else if ( !targ.name.includes('Enchanted') ) targ.name = 'Enchanted ' + targ.name;
 
 		targ.busy = false;
 

@@ -515,13 +515,18 @@
 			"gold":50
 		},
 		"effect":{
-			"bones":"5%",
+			"trickery.exp":2,
+			"conjuration.exp":2,
+			"bones":"14%",
 			"skull":"5%",
-			"gems":"5%",
-			"firegem":"0.5%",
-			"earthgem":"0.5%",
-			"airgem":"0.5%",
-			"watergem":"0.5%"
+			"gems":"20%",
+			"bodies":"1%",
+			"managem":"7%",
+			"firegem":"1%",
+			"earthgem":"1%",
+			"airgem":"1%",
+			"watergem":"1%",
+			"runestones":"1%"
 		},
 		"flavor":"an ordinary wizard's cap"
 	},

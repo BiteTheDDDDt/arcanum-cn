@@ -94,6 +94,7 @@ export default class Explore {
 
 		this.state = state;
 		this.player = state.player;
+		this.spelllist = state.getData('spelllist');
 
 		if ( typeof this.locale === 'string') this.locale = state.getData(this.locale);
 
@@ -109,6 +110,16 @@ export default class Explore {
 
 	}
 
+	/**
+	 * try casting spell from player spelllist.
+	*/
+	tryCast(){
+
+		if ( !this.spelllist.canUse(Game) ) return false;
+		return this.spelllist.onUse(Game);
+
+	}
+
 	update(dt) {
 
 		if ( this.locale == null || this.done ) return;
@@ -118,6 +129,18 @@ export default class Explore {
 		// done by runner.
 		/*if ( this.locale.effect ) { Game.applyEffect( this.locale.effect, dt ); }*/
 		if ( this.enc ) {
+
+			this.player.timer -= dt;
+			if ( this.player.timer <= 0 ) {
+
+				this.player.timer += getDelay( this.player.speed )
+
+				// attempt to use cast spell first.
+				if ( this.spelllist.count > 0 ) {
+					this.tryCast();
+				}
+
+			}
 
 			this.enc.update( dt );
 			if ( this.player.defeated ) {

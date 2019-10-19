@@ -218,7 +218,7 @@ export default class Char {
 		this.timer -= dt;
 		if ( this.timer <= 0 ) {
 
-			this.timer += this.delay;
+			this.timer += getDelay( this.speed );
 			return this.getAttack();
 
 		}
