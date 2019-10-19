@@ -1430,7 +1430,9 @@
 		"warn":true,
 		"disable":"trickery",
 		"mod":{
-			"lightlore.max":2,
+			"lightlore.max":1,
+			"scrying.max":1,
+			"divination.max":1,
 			"lightlore.rate":"5%",
 			"player.tohit":2,
 			"player.defense":2,
@@ -1441,7 +1443,7 @@
 	{
 		"id":"fatalist",
 		"require":"(g.seer+g.oracle)>0&&g.tier5>0&&g.truesight>0",
-		"desc":"become the guiding hand of fate.",
+		"desc":"the guiding hand of fate.",
 		"cost":{
 			"tomes":20,
 			"research":2000,
@@ -1450,6 +1452,8 @@
 		"mod":{
 			"lightlore.max":2,
 			"lightlore.rate":"10%",
+			"divination.max":1,
+			"scrying.max":1,
 			"player.tohit":3,
 			"player.defense":3,
 			"dodge":3
@@ -1897,8 +1901,6 @@
 		"mod":{
 			"cellar.mod.space.max":5
 		}
-	},
-	{
 	},
 	{
 		"id":"siegeperilous",

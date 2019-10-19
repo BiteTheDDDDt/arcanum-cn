@@ -957,35 +957,6 @@
 	}
 },
 {
-	"id":"heresiarch",
-	"title":"heresiarch",
-	"desc":"a reckoning comes.",
-	"require":"g.tier4>0&&g.spirit>=15&&g.divination>=17",
-	"tags":"t_tier5",
-	"cost":{
-		"research":5000,
-		"arcana":20,
-		"tomes":15,
-		"spiritgem":20,
-		"runestones":10
-	},
-	"effect":{
-
-		"sp":2
-	},
-	"mod":{
-		"tier5":true,
-		"research.max":"-5%",
-		"spiritlore.max":3,
-		"spiritlore.rate":"12%",
-		"divination.max":3,
-		"divination.rate":"10%",
-		"scrying.max":2,
-		"lore.max":2,
-		"lore.rate":"10%"
-	},"flavor":"it waits in time"
-},
-{
 	"id":"thaumaturge",
 	"title":"thaumaturge",
 	"desc":"a maker of miracles",
@@ -1084,12 +1055,9 @@
 	"cost":{
 		"research":20000,
 		"arcana":25,
-
+		"sp":10,
 		"tomes":30,
 		"runestones":10
-	},
-	"effect":{
-		"sp":3
 	},
 	"mod":{
 		"tier5":true,
@@ -1117,11 +1085,9 @@
 		"research":15000,
 		"naturegem":50,
 		"herbs":75,
+		"sp":10,
 		"arcana":20,
 		"runestones":15
-	},
-	"effect":{
-		"sp":2
 	},
 	"mod":{
 		"tier5":true,
@@ -1149,12 +1115,10 @@
 		"research":17000,
 		"bones":100,
 		"bodies":50,
+		"sp":10,
 		"souls":100,
 		"arcana":10,
 		"runestones":10
-	},
-	"effect":{
-		"sp":2
 	},
 	"mod":{
 		"tier5":true,
@@ -1179,6 +1143,7 @@
 		"tags":"t_tier5",
 		"require":"g.warlock>0&&g.demonology>=20",
 		"cost":{
+			"sp":10,
 			"research":15000,
 
 			"souls":75,
@@ -1186,9 +1151,6 @@
 			"tomes":25,
 			"arcana":25,
 			"runestones":10
-		},
-		"effect":{
-			"sp":2
 		},"mod":{
 			"tier5":true,
 			"lore.max":2,
@@ -1202,6 +1164,36 @@
 
 	},
 	{
+		"id":"heresiarch",
+		"title":"heresiarch",
+		"desc":"a reckoning comes.",
+		"require":"g.tier4>0&&g.spirit>=15&&g.divination>=17",
+		"tags":"t_tier5",
+		"cost":{
+			"sp":10,
+			"research":15000,
+			"arcana":25,
+			"tomes":15,
+			"spiritgem":50,
+			"runestones":10
+		},
+		"effect":{
+
+			"sp":2
+		},
+		"mod":{
+			"tier5":true,
+			"research.max":"-5%",
+			"spiritlore.max":3,
+			"spiritlore.rate":"12%",
+			"divination.max":3,
+			"divination.rate":"10%",
+			"scrying.max":2,
+			"lore.max":2,
+			"lore.rate":"10%"
+		},"flavor":"it waits in time"
+	},
+	{
 		"id":"greaterkell",
 		"name":"greater kell",
 		"title":"greater kell",
@@ -1212,11 +1204,9 @@
 			"research":15000,
 			"naturegem":50,
 			"herbs":75,
+			"sp":10,
 			"arcana":20,
 			"runestones":15
-		},
-		"effect":{
-			"sp":2
 		},
 		"mod":{
 			"tier6":true,
@@ -1238,22 +1228,21 @@
 		"tags":"t_tier6",
 		"require":"g.phylactory>0",
 		"cost":{
-			"research":20000,
+			"research":30000,
+			"sp":10,
 			"souls":100,
 			"bodies":100,
 			"tomes":50,
 			"arcana":30,
 			"runestones":20
 		},
-		"effect":{
-			"sp":3
-		},"mod":{
+		"mod":{
 			"tier6":true,
 			"firelore.max":3,
 			"firelore.rate":"20%",
 			"demonology.max":5,
 			"demonology.rate":"20%"
-		}
+		},"flavor":"if it breathes we can kill it."
 
 	},
 	{
@@ -1263,14 +1252,11 @@
 		"tags":"t_tier6",
 		"require":"(g.highelemental+g.kell)>0",
 		"cost":{
-			"research":15000,
-			"naturegem":50,
-			"herbs":75,
+			"research":30000,
+			"sindel":3,
+			"sp":10,
 			"arcana":20,
 			"runestones":15
-		},
-		"effect":{
-			"sp":2
 		},
 		"mod":{
 			"tier6":true,

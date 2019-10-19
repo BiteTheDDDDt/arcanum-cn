@@ -268,6 +268,7 @@
 	},
 	{
 		"id":"history",
+		"name":"world lore",
 		"require":"g.languages>=7",
 		"desc":"the knowledge of what has come before reveals what is yet possible.",
 		"verb":"historicizing",
@@ -363,6 +364,9 @@
 		"name":"blood magic",
 		"school":"blood",
 		"require":"(g.bloodmage+g.thanophage+g.alchemist)>0",
+		"buy":{
+			"sp":3
+		},
 		"run":{
 			"stamina":1,
 			"hp":1
@@ -581,6 +585,9 @@
 		"require":"g.evil>0&&g.reanimation>=7&&g.souls.max>0",
 		"school":"shadow",
 		"desc":"forbidden death magic.",
+		"buy":{
+			"sp":3
+		},
 		"run":{
 			"stamina":0.4,
 			"shadow":0.5

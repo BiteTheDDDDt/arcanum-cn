@@ -579,7 +579,7 @@
 		"owned":true,
 		"slot":"rest",
 		"length":10,
-		"need":"g.lightlore>=5&&g.evil<=0",
+		"need":"g.lightlore>=5&&g.good>0",
 		"fill":[ "stamina", "hp", "manas", "stress"],
 		"effect":{
 			"virtue":1,
@@ -668,6 +668,32 @@
 			"demonology.exp":1,
 			"spiritlore.max":0.001,
 			"spiritlore.exp":1
+		}
+
+	},
+	{
+
+		"id":"geas",
+		"desc":"undertake a quest to subdue a great evil.",
+		"require":"g.tier2>0&&g.good>0",
+		"length":100,
+		"cd":777,
+		"cost":{
+			"spirit":10,
+			"light":5
+		},
+		"run":{
+			"stamina":0.4,
+			"hp":2
+		},
+		"effect":{
+			"arcana":0.001,
+			"virtue":1,
+			"notoriety":1,
+			"history.max":0.001,
+			"history.exp":1,
+			"lightlore.max":0.001,
+			"lightlore.exp":1
 		}
 
 	},
