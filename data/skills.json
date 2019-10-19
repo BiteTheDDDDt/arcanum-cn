@@ -359,6 +359,20 @@
 
 	},
 	{
+		"id":"bloodlore",
+		"name":"blood magic",
+		"school":"blood",
+		"require":"(g.bloodmage+g.thanophage+g.alchemist)>0",
+		"run":{
+			"stamina":1,
+			"hp":1
+		},
+		"mod":{
+			"hp.max":10,
+			"hp.rate":0.1
+		}
+	},
+	{
 
 		"id":"divination",
 		"desc":"the art of foretelling",

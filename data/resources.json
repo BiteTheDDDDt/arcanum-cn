@@ -261,6 +261,18 @@
 	},
 	{
 
+		"id":"sindels",
+		"desc":"A glowing cinder of the stars.",
+		"flavor":"the pillars broke; the stars fell screaming from the sky",
+		"max":3,
+		"mod":{
+			"light.rate":0.1,
+			"player.resists.shadow":1
+		}
+
+	},
+	{
+
 		"id":"herbs",
 		"desc":"Special plants for potions and alchemy.",
 		"max":10

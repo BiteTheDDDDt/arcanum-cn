@@ -1060,6 +1060,19 @@
 	},
 
 	{
+		"id":"guidingstar",
+		"name":"guiding star",
+		"require":"g.astronomy>=15&&g.good>0",
+		"desc":"a light in the heavens guides your way.",
+		"mod":{
+			"player.tohit":4,
+			"scrying.max":2,
+			"scrying.rate":"2%"
+		},"flavor":"Mornië alantië"
+
+	},
+
+	{
 		"id":"wishingwells",
 		"name":"Wishing wells",
 		"require":"g.divination>=4&&g.fountain>0",
@@ -1886,10 +1899,12 @@
 		}
 	},
 	{
+	},
+	{
 		"id":"siegeperilous",
 		"name":"siege perilous",
 		"desc":"fabled seat of destiny",
-		"require":"g.tier4>0&&g.good>0",
+		"require":"g.tier4>0&&g.notoriety>=100",
 		"cost":{
 			"gold":4000,
 			"gems":30
