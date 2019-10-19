@@ -1,3 +1,5 @@
+FIX SPEED/DELAY numbers.
+
 resistances
 
 optional dot stacking

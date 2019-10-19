@@ -1036,9 +1036,10 @@
 	},
 	{
 		"id":"liquifier",
-		"name":"arcane liquifier",
-		"require":"g.solidifier>0&&g.workshop>0",
+		"name":"arcane alembic",
+		"require":"solidifier",
 		"desc":"a complex alchemical process drips arcane energy onto gemstones.",
+		"max":3,
 		"cost":{
 			"research":1000,
 			"gold":200,
@@ -1048,6 +1049,19 @@
 			"arcana.rate":-0.001,
 			"managem.rate":0.01,
 			"gems.rate":-0.01
+		}
+
+	},
+	{
+		"id":"starweb",
+		"desc":"Motes of stars fall daily from the sky. One need only collect them.",
+		"cost":{
+			"research":10000,
+			"arcana":10,
+			"space":1
+		},
+		"mod":{
+			"sindel.rate":0.0001
 		}
 
 	},
@@ -1146,7 +1160,7 @@
 		"id":"bottomlesspit",
 		"name":"bottomless pit",
 		"desc":"An endless hole in the ground.",
-		"require":"g.planeslore>=5&&g.space.max>=20&&g.tier3>0",
+		"require":"g.planeslore>=12&&g.space.max>=20&&g.tier4>0",
 		"cost":{
 			"space":5,
 			"gems":10,
@@ -1242,6 +1256,7 @@
 		"mod":{
 			"sp.rate":0.001,
 			"ichor.rate":0.0005,
+			"liquifier.max":4,
 			"enchanting.max":1,
 			"crafting.max":2,
 			"crafting.rate":0.4

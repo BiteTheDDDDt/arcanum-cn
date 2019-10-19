@@ -163,6 +163,23 @@
 
 	},
 	{
+		"id":"quell",
+		"level":15,
+		"school":"mana",
+		"require":"g.lore>=35",
+		"desc":"The full weight of a wizard's gaze is often overpowering.",
+		"cd":100,
+		"attack":{
+			"targets":"all",
+			"dot":{
+				"duration":60,
+				"mod":{
+					"speed":-20
+				}
+			}
+		}
+	},
+	{
 		"id":"lifedrain",
 		"name":"drain life",
 		"level":12,
@@ -1724,8 +1741,8 @@
 		"buy":{
 
 			"research":750,
-			"codices":1,
-			"earthgem":3
+			"codices":5,
+			"earthgem":5
 
 		},
 		"cost":{
@@ -1750,7 +1767,7 @@
 
 			"research":1000,
 			"tomes":1,
-			"earthgem":5
+			"earthgem":10
 
 		},
 		"cost":{
@@ -1786,6 +1803,38 @@
 			"mod":{
 				"player.defense":50
 			}
+		}
+
+	},
+	{
+		"id":"earthquake",
+		"desc":"the earth shakes beneath your feet.",
+		"school":"earth",
+		"require":{
+			"earthlore":12
+		},
+		"level":5,
+		"buy":{
+
+			"research":1750,
+			"tomes":5,
+			"earthgem":10
+
+		},
+		"cost":{
+			"earth":5
+		},
+		"attack":{
+
+			"targets":"all",
+			"damage":"5~7",
+			"dot":{
+				"duration":30,
+				"mod":{
+					"speed":-7
+				}
+			}
+
 		}
 
 	},
