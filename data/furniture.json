@@ -1035,6 +1035,23 @@
 
 	},
 	{
+		"id":"liquifier",
+		"name":"arcane liquifier",
+		"require":"g.solidifier>0&&g.workshop>0",
+		"desc":"a complex alchemical process drips arcane energy onto gemstones.",
+		"cost":{
+			"research":1000,
+			"gold":200,
+			"space":5
+		},
+		"mod":{
+			"arcana.rate":-0.001,
+			"managem.rate":0.01,
+			"gems.rate":-0.01
+		}
+
+	},
+	{
 		"id":"latticefence",
 		"name":"lattice fence",
 		"desc":"latticed fence for growing vines",
@@ -1215,7 +1232,7 @@
 
 		"id":"workshop",
 		"tags":"workspace",
-		"desc":"A space suitable for crafting items.",
+		"desc":"A space suitable for crafting and enchanting items.",
 		"require":"g.space.max>=50",
 		"cost":{
 			"space":50,
@@ -1223,9 +1240,11 @@
 			"research":25
 		},
 		"mod":{
-			"sp.rate":0.0001,
+			"sp.rate":0.001,
+			"ichor.rate":0.0005,
+			"enchanting.max":1,
 			"crafting.max":2,
-			"crafting.rate":0.2
+			"crafting.rate":0.4
 		}
 
 	},

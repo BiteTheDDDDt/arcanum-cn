@@ -1807,8 +1807,8 @@
 			"codices":10
 		},
 		"mod":{
-			"gems.rate":0.01,
-			"gold.rate":-0.01
+			"gems.rate":0.02,
+			"gold.rate":-0.1
 		}
 
 	},

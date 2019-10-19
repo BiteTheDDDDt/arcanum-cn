@@ -1205,7 +1205,7 @@
 			"naturegem":50,
 			"herbs":75,
 			"sp":10,
-			"arcana":20,
+			"arcana":25,
 			"runestones":15
 		},
 		"mod":{
@@ -1254,8 +1254,13 @@
 		"cost":{
 			"research":30000,
 			"sindel":3,
+			"managem":70,
+			"airgem":40,
+			"earthgem":40,
+			"firegem":40,
+			"watergem":40,
 			"sp":10,
-			"arcana":20,
+			"arcana":25,
 			"runestones":15
 		},
 		"mod":{
