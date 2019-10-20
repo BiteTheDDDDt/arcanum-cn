@@ -314,6 +314,38 @@ export default class Player extends Char {
 	}
 
 	/**
+	 * Get combat action.
+	 * @param {*} dt
+	 */
+	combat(dt) {
+
+		this.timer -= dt;
+		if ( this.timer <= 0 ) {
+
+			this.timer += getDelay(this.speed);
+
+			// attempt to use spell first.
+			if ( this.spelllist.count === 0 || !this.tryCast() ) {
+
+				return this.weapon;
+
+			}
+
+		}
+
+	}
+
+	/**
+	 * try casting spell from player spelllist.
+	 */
+	tryCast(){
+
+		if ( !this.spelllist.canUse(Game) ) return false;
+		return this.spelllist.onUse(Game);
+
+	}
+
+	/**
 	 * @returns {Resource[]} - list of all resources defined by Player.
 	 */
 	getResources() {

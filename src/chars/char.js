@@ -214,6 +214,14 @@ export default class Char {
 
 		if ( this.regen ) this.hp += ( this.regen*dt );
 
+	}
+
+	/**
+	 * Get Combat action.
+	 * @param {*} dt
+	 */
+	combat(dt) {
+
 		if ( !this.alive ) return;
 
 		this.timer -= dt;
@@ -227,7 +235,6 @@ export default class Char {
 	}
 
 	getAttack(){
-
 
 		if ( Array.isArray(this.attack) ) return this.attack[ Math.floor( Math.random()*this.attack.length ) ];
 		return this.attack || this;

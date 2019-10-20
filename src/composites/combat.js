@@ -148,6 +148,7 @@ export default class Combat {
 		if (vars) Object.assign(this, vars);
 
 		if (!this._enemies) this._enemies = [];
+		if ( !this.allies) this.allies = [];
 
 	}
 
@@ -155,7 +156,6 @@ export default class Combat {
 
 		this.state = state;
 		this.player = state.player;
-		this.spelllist = state.getData('spelllist');
 
 		// splices done in place to not confuse player with changed order.
 
@@ -184,24 +184,7 @@ export default class Combat {
 
 	update(dt) {
 
-		if ( this._enemies.length === 0 ) return;
-
-		if ( this.player.alive === false ) {
-			return;
-		}
-		this.player.timer -= dt;
-		if ( this.player.timer <= 0 ) {
-
-			this.player.timer += getDelay(this.player.speed);
-
-			// attempt to use cast spell first.
-			if ( this.spelllist.count === 0 || !this.tryCast() ) {
-
-				this.allyAttack( this.player, this.player.weapon||this.player.baseWeapon );
-
-			}
-
-		}
+		if ( this._enemies.length === 0 || this.player.alive === false ) return;
 
 		var e, action;
 		for( let i = this._allies.length-1; i >= 0; i-- ) {
@@ -210,7 +193,7 @@ export default class Combat {
 			if ( e.alive === false ) {
 				continue;
 			}
-			action = e.update(dt);
+			action = e.combat(dt);
 			if ( action ) this.allyAttack( e, action );
 
 		}
@@ -219,20 +202,10 @@ export default class Combat {
 
 			e = this._enemies[i];
 			if ( e.alive === false ) { this._enemies.splice(i,1); continue;}
-			action = e.update(dt);
+			action = e.combat(dt);
 			if ( action ) this.enemyAttack( e, action );
 
 		}
-
-	}
-
-	/**
-	 * try casting spell from player spelllist.
-	 */
-	tryCast(){
-
-		if ( !this.spelllist.canUse(Game) ) return false;
-		return this.spelllist.onUse(Game);
 
 	}
 
@@ -286,14 +259,15 @@ export default class Combat {
 			this._allies.forEach(v=>this.doAttack(attacker, attack, v) );
 			this.doAttack( attacker, attack, this.player );
 
-		} else this.doAttack( attacker, attack, this.teamTarget() );
+		} else this.doAttack( attacker, attack, this.teamTarget( this.allies ) );
 
 	}
 
 	/**
 	 *
-	 * @param {*} char
-	 * @param {*} targets
+	 * @param {Char} char
+	 * @param {string} targets
+	 * @returns {Char|Char[]|null}
 	 */
 	getTarget( char, targets ) {
 
@@ -302,6 +276,8 @@ export default class Combat {
 			return char.team === TEAM_ALLY ? this.teamTarget( this._enemies ) : this.teamTarget( this.allies );
 
 		} else if ( targets === TARGET_ENEMIES ) {
+
+			return char.team === TEAM_ALLY ? this._enemies : this.allies;
 
 		} else if ( targets === TARGET_SELF ) return char;
 		else if ( targets === TARGET_RAND ) {
@@ -407,15 +383,17 @@ export default class Combat {
 			if ( this.allies[i].delay < minDelay) minDelay = this.allies[i].delay;
 		}
 
-		// +1 is initial encounter delay.
-		this.player.timer = 1 + this.player.delay - minDelay;
+		// +1 initial encounter delay.
+		minDelay -= 1;
+
+		this.player.timer = this.player.delay - minDelay;
 
 
 		for( let i = this.enemies.length-1; i >= 0; i-- ) {
-			this.enemies[i].timer = 1 + this.enemies[i].delay - minDelay;
+			this.enemies[i].timer = this.enemies[i].delay - minDelay;
 		}
 		for( let i = this.allies.length-1; i >= 0; i-- ) {
-			this.allies[i].timer = 1 + this.allies[i].delay - minDelay;
+			this.allies[i].timer = this.allies[i].delay - minDelay;
 		}
 
 	}
