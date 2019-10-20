@@ -82,6 +82,10 @@ export default class Runnable extends Proxy {
 
 	}
 
+	onStop(){
+		if ( this.item.onStop ) this.item.onStop( this.target );
+	}
+
 	revive( state ) {
 
 		super.revive(state);

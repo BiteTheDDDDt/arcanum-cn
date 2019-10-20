@@ -26,6 +26,14 @@ export default {
 	},
 	beforeCreate(){
 		this.state = Game.state;
+		this.runner = this.state.runner;
+	},
+	methods:{
+
+		canApply( it, targ ) {
+			return targ&&it.canApply(targ)&& this.usable(it);
+		}
+
 	},
 	computed:{
 
@@ -61,7 +69,7 @@ export default {
 			<button v-if="it.buy&&!it.owned" :disabled="!buyable(it)"
 				@click="emit('buy', it)">Unlock</button>
 
-			<button v-else :disabled="!target||!it.canApply(target)||!usable(it)"
+			<button v-else :disabled="!canApply(it,target)"
 				@click="emit( 'enchant', it, target )">Enchant</button>
 
 		</div>

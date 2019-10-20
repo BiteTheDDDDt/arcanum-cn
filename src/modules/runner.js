@@ -213,24 +213,42 @@ export default class Runner {
 		let id = it.id;
 		let t = targ.id;
 
-		if ( targ.running === true || it.running === true ) return false;
-
-		let p = (v)=>{
-			return (v.type === TYPE_RUN )&&(id===v.item.id && t === v.target.id );
-		};
-
-		let run = findRemove( this.waiting, p);
+		let run = findRemove( this.waiting, (v)=>{
+			return (v.type === TYPE_RUN )&&(id===v.item.id && t === v.target.id )
+		});
 
 		if ( !run ) {
 
-			if ( !run ) {
-				console.log('CREATING RUNNABLE');
-				run = new Runnable( it, targ );
-				if ( it.beginUseOn ) it.beginUseOn( targ );
-			}
+			if ( targ.running === true || it.running === true ) return false;
+
+			console.log('CREATE RUNNABLE');
+			run = new Runnable( it, targ );
+			if ( it.beginUseOn ) it.beginUseOn( targ );
 
 		}
 		this.setAction( run );
+
+	}
+
+	/**
+	 * Check if item/target combination is in wait queue.
+	 * @param {GData} it
+	 * @param {GData} targ
+	 */
+	isWaiting( it, targ ){
+
+		for( let i = this.waiting.length-1; i>=0; i--) {
+
+			var a = this.waiting[i];
+			if ( a.type === TYPE_RUN ) {
+
+				if ( a.item === it && a.target === targ ) return true;
+
+			} else if ( a === it ) return true;
+
+		}
+
+		return false;
 
 	}
 
@@ -400,7 +418,7 @@ export default class Runner {
 
 		for( let i = this.actives.length-1; i>=0; i--) {
 
-			if ( this.actives[i].type === TYPE_RUN) this.addWait( this.actives[i]);
+			if ( this.actives[i].onStop ) this.actives[i].onStop();
 			this.stopAction( i, false );
 
 		}
