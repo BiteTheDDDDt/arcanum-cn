@@ -98,6 +98,7 @@ export default {
 		<!--<tr><td>alignment</td><th>{{ player.alignment }}</th></tr>-->
 		<tr><td>level</td><th> {{ level }}</th></tr>
 		<tr><td>exp</td><th> {{ exp }} / {{ next }} </th></tr>
+		<tr><td>virtue : evil</td><th> {{ Math.floor(player.virtue) }} : {{Math.floor(player.evilamt)}}</th></tr>
 		<tr><td @mouseenter.capture.stop="emit( 'itemover', $event,sp)">skill points</td><th> {{spStr }}</th></tr>
 
 

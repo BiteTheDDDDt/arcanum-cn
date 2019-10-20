@@ -126,7 +126,7 @@
 		"id":"inn",
 		"desc":"A quiet inn for hosting wayfarers.",
 		"cost":2000,
-		"require":"g.tier0>&&g.languages>=7",
+		"require":"g.tier0>0&&g.languages>=7",
 		"mod":{
 			"minions.max":5,
 			"space.max":50,
