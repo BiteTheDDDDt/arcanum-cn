@@ -44,10 +44,10 @@ const vm = new Vue({
 		this.lastSave = null;
 		this.game = Game;
 
-		this.listen('save-file', this.saveFile );
-		this.listen('load-file', this.loadFile );
-		this.listen('load', this.loadSave );
-		this.listen('reset', this.reset );
+		this.listen('save-file', this.saveFile, this );
+		this.listen('load-file', this.loadFile, this );
+		this.listen('load', this.loadSave, this );
+		this.listen('reset', this.reset,this );
 
 		this.listen('set-char', this.setChar, this );
 		this.listen('dismiss-char', this.dismissChar, this );
@@ -136,6 +136,9 @@ const vm = new Vue({
 		},
 
 		saveFile(e ){
+
+			// event shouldn't be null but for some reason, sometimes is.
+			if (!e) return;
 
 			try {
 
