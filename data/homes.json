@@ -111,7 +111,7 @@
 		"id":"shop",
 		"desc":"A small shop in a bustling city.",
 		"cost":850,
-		"require":"g.tier0&&g.arcana.max>=12",
+		"require":"g.tier0>0&&g.arcana.max>=12",
 		"mod":{
 			"minions.max":2,
 			"gem.max":1,
@@ -126,7 +126,7 @@
 		"id":"inn",
 		"desc":"A quiet inn for hosting wayfarers.",
 		"cost":2000,
-		"require":"g.tier0&&g.languages>=7",
+		"require":"g.tier0>0&&g.languages>=8",
 		"mod":{
 			"minions.max":5,
 			"space.max":50,
