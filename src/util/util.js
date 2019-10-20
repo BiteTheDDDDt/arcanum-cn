@@ -8,6 +8,26 @@ import {getPropDesc, clone} from 'objecty';
 export const alphasort = (a,b)=> a.name < b.name ? -1 : 1;
 
 /**
+ * Map Array into non-null elements of a predicate.
+ * @param {Arrray} a
+ * @param {function} p
+ */
+export const mapNonNull = (a,p) => {
+
+	let len = a.length;
+	let b = [];
+	for( let i = 0; i < len; i++ ) {
+
+		var elm = p( a[i]);
+		if ( elm !== null && elm !== undefined) b.push(elm);
+
+	}
+
+	return b;
+
+}
+
+/**
  *
  * @param {array} a
  * @param {array} b
