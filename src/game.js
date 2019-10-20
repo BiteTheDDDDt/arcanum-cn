@@ -7,10 +7,6 @@ import Range from './values/range';
 import ItemGen from './itemgen';
 import TechTree from './techTree';
 
-
-/**
- * @note these refer to Code-events, not in-game events.
- */
 import Events, {EVT_UNLOCK, EVT_EVENT, EVT_LOOT, ENTER_LOC, EXIT_LOC, SET_SLOT, TRY_USE, DELETE_ITEM } from './events';
 import Resource from './items/resource';
 import Skill from './items/skill';
@@ -43,6 +39,7 @@ export default {
 	get items() { return this._items; },
 
 	/**
+	 * Not really used any more.
 	 * @property {boolean} loaded - true when data is ready and game ready to play.
 	 */
 	loaded:false,
@@ -125,7 +122,7 @@ export default {
 			Events.add( SET_SLOT, this.setSlot, this );
 			Events.add( DELETE_ITEM, this.onDelete, this );
 
-			return this.state;
+			return this;
 
 		}, err=>{ console.error('game err: ' + err )});
 
@@ -199,7 +196,7 @@ export default {
 
 	/**
 	 * Add data item to running game.
-	 * This is mainly so Hall data can be patched into every
+	 * This is currently so Hall data can be patched into every
 	 * loaded game.
 	 * @param {Object.<string,GData>} data
 	 */
@@ -207,11 +204,15 @@ export default {
 
 		for( let p in data ) {
 
+			console.warn('ADDING DATA ITEM: ' + p );
 			let it = data[p];
 			this.state.addItem(it);
 
 			if ( !it.locked && !it.disabled ) {
-				if ( it.mod ) this.addMod( it.mod, it.value );
+				if ( it.mod && it.value != 0 ) {
+					console.log( it.id + ' ADDING MOD: ' + it.value );
+					this.addMod( it.mod, it.value );
+				}
 				if ( it.lock) this.lock( it.lock, it.value );
 			}
 

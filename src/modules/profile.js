@@ -92,12 +92,14 @@ export default {
 
 	/**
 	 * State of current player/game loaded.
-	 * @param {GameState} state
+	 * @param {Game} game
 	 */
-	stateLoaded(state) {
+	gameLoaded(game) {
 
-		this.hall.updateChar( state.player );
+		this.hall.updateChar( game.state.player );
 		this.saveHall();
+
+		game.addData( this.hall.items );
 
 		Events.add( LEVEL_UP, this.updateChar, this );
 		Events.add( CHAR_NAME, this.updateChar, this );

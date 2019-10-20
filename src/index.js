@@ -3,6 +3,7 @@ import Main from 'ui/main.vue';
 import Confirm from 'ui/components/confirm.vue';
 import Game from './game';
 import Events from './events';
+import Profile from './modules/profile';
 
 /**
  * Global dispatch.
@@ -80,8 +81,7 @@ const vm = new Vue({
 
 		loadProfile(){
 
-			Profile.loadHall();
-			this.loadSave();
+			Profile.loadHall().then( ()=>this.loadSave() );
 
 		},
 
@@ -105,16 +105,15 @@ const vm = new Vue({
 
 		/**
 		 * GameState was revived from JSON.
-		 * @param {GameState} state
+		 * @param {Game} game
 		 */
-		gameLoaded( state ) {
+		gameLoaded( game ) {
 
-			console.log('GAMELOADED(): ' + state );
+			console.log('GAMELOADED(): ' + game );
 			this.dispatch( 'game-loaded' );
 
 			Profile.loadSettings();
-			Profile.stateLoaded( state );
-			Profile.saveHall();
+			Profile.gameLoaded( game );
 
 			this.dispatch('unpause');
 
