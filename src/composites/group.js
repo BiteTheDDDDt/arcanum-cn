@@ -98,7 +98,8 @@ export default class Group {
 		for( let i = this.items.length-1; i >= 0; i-- ) {
 
 			var it = this.items[i];
-			if ( it.cost ) addValues( cost, it.cost );
+			if (!it) this.items.splice( i, 1);
+			else if ( it.cost ) addValues( cost, it.cost );
 
 
 		}
