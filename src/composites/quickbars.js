@@ -1,5 +1,6 @@
 import Quickbar from "./quickbar";
 import Stat from "../values/stat";
+import events, { DELETE_ITEM } from "../events";
 
 /**
  * Organizes sub-quick bars.
@@ -74,6 +75,16 @@ export default class Quickbars {
 
 	}
 
+	dataDeleted(it) {
+
+		if ( !it ) return;
+
+		for( let i = this.bars.length-1; i>=0; i-- ) {
+			this._bars[i].remove(it.id);
+		}
+
+	}
+
 	revive(state) {
 
 		for( let i = this.bars.length-1; i>=0; i-- ) {
@@ -82,6 +93,8 @@ export default class Quickbars {
 
 		this._index = this._index || 0;
 		this._active = this._bars[this._index];
+
+		events.add( DELETE_ITEM, this.dataDeleted, this );
 
 	}
 
