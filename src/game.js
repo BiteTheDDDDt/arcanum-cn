@@ -115,12 +115,12 @@ export default {
 
 			this.initTimers();
 
-			this.loaded = true;
-
 			Events.add( ENTER_LOC, this.enterLoc, this );
 			Events.add( EXIT_LOC, this.enterLoc, this );
 			Events.add( SET_SLOT, this.setSlot, this );
 			Events.add( DELETE_ITEM, this.onDelete, this );
+
+			this.loaded = true;
 
 			return this;
 

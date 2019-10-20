@@ -55,7 +55,7 @@ const vm = new Vue({
 		this.listen('save', this.save );
 		this.listen('autosave', this.save );
 
-		this.listen( 'setting', this.onSetting );
+		this.listen( 'setting', this.onSetting, this );
 
 		this.loadProfile();
 
@@ -137,9 +137,8 @@ const vm = new Vue({
 
 		saveFile(e ){
 
-			// event shouldn't be null but for some reason, sometimes is.
-			if (!e) return;
-
+			// event shouldnt be null but sometimes is.
+			if (!e )return;
 			try {
 
 				if ( this.lastSave ) URL.revokeObjectURL( this.lastSave );
@@ -183,6 +182,8 @@ const vm = new Vue({
 
 			this.dispatch('pause');
 
+			if (!this.game.loaded ) return;
+
 			try {
 
 				let obj = text ? JSON.parse( text ) : null;
@@ -196,7 +197,11 @@ const vm = new Vue({
 		},
 
 		save() {
+
+			if (!this.game.loaded ) return;
+
 			Profile.saveActive( this.game.state );
+
 		},
 		reset() {
 
