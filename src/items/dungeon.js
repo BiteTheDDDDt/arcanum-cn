@@ -2,6 +2,7 @@ import Monster from './monster';
 import Action from './action';
 import Game from '../game';
 import { getDist } from './locale';
+import { mapNonNull } from '../util/util';
 
 /**
  * @type {Object} Enemy
@@ -71,7 +72,7 @@ export default class Dungeon extends Action {
 	 */
 	getEnemy() {
 
-		return this.getBoss() || this._enemies[ Math.floor( Math.random()*this._enemies.length ) ];
+		return this.getBoss( this.boss ) || this._enemies[ Math.floor( Math.random()*this._enemies.length ) ];
 
 	}
 
@@ -82,14 +83,21 @@ export default class Dungeon extends Action {
 		return this._enemies[ Math.floor( Math.random()*this._enemies.length ) ];
 	}
 
-	getBoss() {
+	getBoss( boss ) {
 
-		var boss = this.boss;
 		if ( !boss ) return null;
 
 		if ( typeof boss === 'string' ) {
 
 			if ( this.exp !== this.length-1) return null;
+
+		} else if ( Array.isArray(boss) ) {
+
+			if ( this.exp !== this.length-1) return null;
+			var a = mapNonNull( boss, v=>{
+				return this.getBoss(v)
+			});
+			return a.length > 0 ? a : null;
 
 		} else if ( boss.hasOwnProperty( (this.exp+1) ) ) {
 			// mid-level boss

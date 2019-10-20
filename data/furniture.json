@@ -1206,11 +1206,12 @@
 		"id":"potroom",
 		"name":"potions room",
 		"desc":"room for preparing and brewing potions",
+		"require":"potions",
 		"tags":"potsource",
 		"cost":{
 			"space":20,
-			"gold":500,
-			"research":700
+			"gold":3000,
+			"research":3000
 		},
 		"mod":{
 			"potions.max":2,
