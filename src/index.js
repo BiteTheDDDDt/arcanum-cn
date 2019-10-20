@@ -157,6 +157,8 @@ var vm = new Vue({
 		 */
 		autosave(){
 
+			if (!this.game.loaded ) return;
+
 			let store = window.localStorage;
 			try {
 
@@ -171,7 +173,8 @@ var vm = new Vue({
 
 		save() {
 
-			console.log('saving...');
+			if (!this.game.loaded ) return;
+
 			let store = window.localStorage;
 
 			try {

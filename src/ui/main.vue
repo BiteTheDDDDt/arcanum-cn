@@ -146,6 +146,8 @@ export default {
 
 		startAutoSave() {
 
+			if (!this.runner ) return;
+
 			if ( Settings.vars.autoSave && !this.saver ) {
 				//console.log('START AUTOSAVE');
 				this.saver = setInterval( ()=>this.dispatch('autosave'), 1000*SAVE_TIME );
