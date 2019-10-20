@@ -69,7 +69,9 @@ export default class JSONLoader {
 
 		}
 
-		return this._promise = Promise.all( promiseArr ).then( ()=>loads, err=>{ console.error(err); });
+		return this._promise = Promise.all( promiseArr ).then( ()=>loads, e=>{
+			console.error( e.message + '\n' + e.stack );
+		});
 
 	}
 

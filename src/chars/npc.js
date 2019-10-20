@@ -6,7 +6,7 @@ import Percent, { PercentTest } from '../values/percent';
 /**
  * @const {number} ALLY - team constant for allies.
  */
-export const ALLY = 1;
+export const TEAM_ALLY = 1;
 
 /**
  * Class for specific Enemies/Minions in game.
@@ -31,11 +31,19 @@ export default class Npc extends Char {
 
 		} else data.name = this._name;
 
+		data.keep = this.keep;
+
 		//data.died = this.died||undefined;
 
 		return data;
 
 	}
+
+	/**
+	 * @property {boolean} keep - whether to keep ally after combat.
+	 */
+	get keep(){return this._keep;}
+	set keep(v) { this._keep = v;}
 
 	get maxHp() { return this._maxHp; }
 	set maxHp(v) {

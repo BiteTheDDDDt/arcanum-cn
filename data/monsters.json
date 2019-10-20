@@ -880,7 +880,7 @@
         "attack":{
             "name":"zap",
 			"kind":"pierce",
-			"targets":"all",
+			"targets":"enemies",
             "dmg":"2~4"
 		},
 		"resist":{
@@ -996,7 +996,7 @@
         "attack":{
             "name":"squelch",
 			"kind":"acid",
-			"targets":"all",
+			"targets":"enemies",
             "dmg":"2~4"
         }
 
@@ -1322,7 +1322,7 @@
         "desc":"their globed hands glow with pale, unearthly light.",
         "hp":40,
         "attack":{
-			"targets":"all",
+			"targets":"enemies",
             "name":"light burst",
             "kind":"light",
             "dmg":"3~5"
@@ -1991,7 +1991,7 @@
         "attack":{
             "name":"light",
 			"kind":"light",
-			"targets":"all",
+			"targets":"enemies",
             "dmg":"8~15"
 		},
 		"resist":{
@@ -2062,7 +2062,7 @@
         "attack":{
             "name":"seduction",
 			"kind":"sexy",
-			"targets":"all",
+			"targets":"enemies",
             "dmg":"5~8"
 		}, "loot":{"sulfur":10
 		}
@@ -2079,7 +2079,7 @@
         "attack":{
             "name":"stare",
 			"kind":"magic",
-			"targets":"all",
+			"targets":"enemies",
             "dmg":"17~25"
         },"loot":{
 
@@ -2211,7 +2211,7 @@
         "hp":40,
         "defense":55,
         "attack":{
-			"targets":"all",
+			"targets":"enemies",
             "name":"scorch",
             "kind":"fire",
             "dmg":"5~15"
@@ -2229,7 +2229,7 @@
         "hp":30,
         "defense":65,
         "attack":{
-			"targets":"all",
+			"targets":"enemies",
             "name":"light",
             "kind":"light",
 			"dmg":"4~10",
@@ -2295,7 +2295,7 @@
         "attack":{
             "name":"seduction",
 			"kind":"sexy",
-			"targets":"all",
+			"targets":"enemies",
             "dmg":"9~13"
         }, "loot":{"sulfur":3}
 
@@ -2352,7 +2352,7 @@
         "attack":{
             "name":"lightning",
 			"kind":"light",
-			"targets":"all",
+			"targets":"enemies",
             "dmg":"13~25"
 		},"immune":"light,fire",
 		"loot":{
@@ -2807,7 +2807,7 @@
         "attack":{
             "name":"fire breath",
 			"kind":"fire",
-			"targets":"all",
+			"targets":"enemies",
             "dmg":"23~37"
         },"resist":{
 			"fire":50,
@@ -2826,7 +2826,7 @@
         "attack":{
             "name":"trample",
 			"kind":"blunt",
-			"targets":"all",
+			"targets":"enemies",
             "dmg":"17~27"
 		},
 		"resist":{
@@ -3055,7 +3055,7 @@
         "attack":[
 			{
 				"name":"fire storm",
-				"targets":"all",
+				"targets":"enemies",
 				"dot":{
 					"duration":20,
 					"dmg":"5~7"
@@ -3081,7 +3081,7 @@
         "attack":[
 			{
 				"name":"red haze",
-				"targets":"all",
+				"targets":"enemies",
 				"dot":{
 					"id":"redhaze",
 					"duration":20,
@@ -3147,7 +3147,7 @@
         "attack":{
 			"name":"Madness",
 			"leech":0.25,
-			"targets":"all",
+			"targets":"enemies",
             "kind":"psychic",
             "dmg":"40~65"
         }
@@ -3183,7 +3183,7 @@
         "attack":{
 			"name":"gorboring",
 			"kind":"sonic",
-			"targets":"all",
+			"targets":"enemies",
             "dmg":"50~75"
         },"flavor":"most agree it's best the gorborung cannot be seen."
 	},

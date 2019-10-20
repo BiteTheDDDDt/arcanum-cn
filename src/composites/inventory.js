@@ -198,6 +198,10 @@ export default class Inventory {
 		return this.items.filter(p);
 	}
 
+	/**
+	 * Return Item with given id, or item with identical recipe.
+	 * @param {*} it
+	 */
 	findMatch(it){
 
 		let id = it.id;

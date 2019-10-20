@@ -5,7 +5,6 @@ import Stat from '../values/stat';
 import Dot from './dot';
 import Attack from './attack';
 import GameState from '../gameState';
-import { mergeDefined } from '../util/util';
 
 
 /**

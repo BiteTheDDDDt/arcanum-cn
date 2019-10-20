@@ -98,7 +98,7 @@ const vm = new Vue({
 				this.setStateJSON( str );
 
 			} catch (e ) {
-				console.error(e);
+				console.error( e.message + '\n' + e.stack );
 			}
 
 		},
@@ -151,7 +151,7 @@ const vm = new Vue({
 				e.target.href = URL.createObjectURL( this.lastSave );
 
 			} catch(ex) {
-				console.error(ex);
+				console.error( ex.message + '\n' + ex.stack );
 			}
 
 		},
@@ -184,10 +184,10 @@ const vm = new Vue({
 
 				let obj = text ? JSON.parse( text ) : null;
 				this.game.load( obj ).then( this.gameLoaded,
-					e=>console.error(e) );
+					e=>console.error( e.message + '\n' + e.stack ) );
 
 			} catch( err ) {
-				console.error( err);
+				console.error(  err.message + '\n' + err.stack );
 			}
 
 		},

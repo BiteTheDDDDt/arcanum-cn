@@ -46,7 +46,7 @@ export default {
 		if ( data ) {
 			try {
 				data = JSON.parse(data);
-			} catch(e) {console.error( e); }
+			} catch(e) {console.error( e.message + '\n' + e.stack ); }
 		}
 
 		data = await this.loadHallData( data );
@@ -154,7 +154,7 @@ export default {
 
 		} catch (e ) {
 
-			console.error(e);
+			console.error( e.message + '\n' + e.stack );
 			return null;
 
 		}
@@ -179,7 +179,7 @@ export default {
 			return true;
 
 		} catch(e) {
-			console.error(e);
+			console.error( e.message + '\n' + e.stack );
 			return false;
 		}
 
@@ -198,7 +198,7 @@ export default {
 			Settings.setSettings( data );
 
 		} catch (e ) {
-			console.error(e);
+			console.error( e.message + '\n' + e.stack );
 		}
 
 	},
@@ -216,7 +216,7 @@ export default {
 			}
 
 		} catch (e){
-			console.error(e);
+			console.error( e.message + '\n' + e.stack );
 		}
 
 	},
@@ -249,7 +249,7 @@ export default {
 
 		} catch(e){
 
-			console.error(e);
+			console.error( e.message + '\n' + e.stack );
 
 		}
 

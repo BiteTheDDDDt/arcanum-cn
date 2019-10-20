@@ -27,7 +27,7 @@ export default class Attack {
 	}
 
 	/**
-	 * @property {'all'|'self'|'allies'} targets - target of attack.
+	 * @property {string} targets - target of attack.
 	 */
 	get targets() { return this._targets; }
 	set targets(v) { this._targets=v;}

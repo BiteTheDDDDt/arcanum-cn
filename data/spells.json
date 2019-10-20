@@ -170,7 +170,7 @@
 		"desc":"The full weight of a wizard's gaze is often overpowering.",
 		"cd":100,
 		"attack":{
-			"targets":"all",
+			"targets":"enemies",
 			"dot":{
 				"duration":60,
 				"mod":{
@@ -235,7 +235,7 @@
 		},
 		"attack":{
 			"dot":{
-				"targets":"all",
+				"targets":"enemies",
 				"kind":"shadow",
 				"duration":100,
 				"resist.shadow":-10
@@ -555,7 +555,7 @@
 			"mana":1
 		},
 		"attack":{
-			"targets":"all",
+			"targets":"enemies",
 			"damage":"0.75~1",
 			"kind":"arcane",
 			"tohit":1
@@ -1500,7 +1500,7 @@
 			"mana":3
 		},
 		"attack":{
-			"targets":"all",
+			"targets":"enemies",
 			"dot":{
 				"id":"jinx",
 				"kind":"curse",
@@ -1826,7 +1826,7 @@
 		},
 		"attack":{
 
-			"targets":"all",
+			"targets":"enemies",
 			"damage":"5~7",
 			"dot":{
 				"duration":30,
@@ -1927,7 +1927,7 @@
 			"light":5
 		},
 		"attack":{
-			"targets":"all",
+			"targets":"enemies",
 			"damage":"3~5",
 			"dot":{
 				"id":"blind",
@@ -1982,7 +1982,7 @@
 			"nature":5
 		},
 		"attack":{
-			"targets":"all",
+			"targets":"enemies",
 			"dot":{
 				"id":"venom",
 				"kind":"poison",

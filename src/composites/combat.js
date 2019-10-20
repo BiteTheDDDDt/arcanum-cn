@@ -1,7 +1,7 @@
 import Game from '../game';
 import Range from '../values/range';
 import Dot from '../chars/dot';
-import Npc, { ALLY } from '../chars/npc';
+import Npc, { TEAM_ALLY } from '../chars/npc';
 
 import Events, {
 	EVT_COMBAT, ENEMY_SLAIN, ALLY_DIED,
@@ -10,6 +10,27 @@ import Events, {
 
 import { itemRevive } from '../itemgen';
 import { getDelay } from '../chars/char';
+
+/**
+ * @const {string} TARGET_ENEMIES - target all enemies.
+ */
+const TARGET_ENEMIES = 'enemies';
+
+/**
+ * @const {string} TARGET_ALLIES - target all allies.
+ */
+const TARGET_ALLIES = 'allies';
+
+/**
+ * @const {string} TARGET_SELF - target self.
+ */
+const TARGET_SELF = 'self';
+
+/**
+ * @const {string} TARGET_RAND - random target.
+ */
+const TARGET_RAND = 'rand';
+
 
 /**
 * Attempt to damage a target. Made external for use by dots, other code.
@@ -97,7 +118,10 @@ export default class Combat {
 	toJSON() {
 
 		return {
-			enemies: this._enemies
+			enemies: this._enemies,
+			allies:this._allies.map(v=>{
+				return (v === this.player) ? undefined : ( v.keep ? v.id : v );
+			})
 		}
 
 	}
@@ -133,6 +157,8 @@ export default class Combat {
 		this.player = state.player;
 		this.spelllist = state.getData('spelllist');
 
+		// splices done in place to not confuse player with changed order.
+
 		for( let i = this._enemies.length-1; i>=0; i-- ) {
 
 			this._enemies[i] = itemRevive( state, this._enemies[i]);
@@ -143,7 +169,16 @@ export default class Combat {
 
 		Events.add( CHAR_DIED, this.charDied, this );
 
-		this.allies = state.minions.active;
+		for( let i = this._allies.length-1; i>=0; i-- ) {
+
+			var it = this._allies[i];
+			if ( typeof it === 'string' ) this._allies[i] = state.minions.find( it );
+			else if ( typeof it === 'object') this._allies[i] = itemRevive( state, it );
+			else this._allies[i] = this.player;
+
+			if ( !this._allies[i] ) this._allies.splice(i,1);
+
+		}
 
 	}
 
@@ -224,7 +259,7 @@ export default class Combat {
 
 		let atk = src ? (src.attack||src) : attacker.attack;
 
-		if (atk&& atk.targets === 'all') {
+		if (atk&& atk.targets === TARGET_ENEMIES) {
 
 			for( let i = this.enemies.length-1; i>= 0; i-- ) {
 				this.doAttack(attacker, atk, this.enemies[i]);
@@ -246,28 +281,48 @@ export default class Combat {
 			return;
 		}
 
-		if ( attack && attack.targets === 'all' ) {
+		if ( attack && attack.targets === TARGET_ENEMIES ) {
 
 			this._allies.forEach(v=>this.doAttack(attacker, attack, v) );
 			this.doAttack( attacker, attack, this.player );
 
-		} else this.doAttack( attacker, attack, this.nextAlly() );
+		} else this.doAttack( attacker, attack, this.teamTarget() );
 
 	}
 
 	/**
-	 * @returns {Npc} next target of an enemy attack
+	 *
+	 * @param {*} char
+	 * @param {*} targets
 	 */
-	nextAlly() {
+	getTarget( char, targets ) {
 
-		let len = this._allies.length;
+		if ( !targets ) {
 
-		//console.log('allies: ' + len );
+			return char.team === TEAM_ALLY ? this.teamTarget( this._enemies ) : this.teamTarget( this.allies );
 
-		for( let i = 0; i < len; i++ ) {
-			if ( this._allies[i].alive ) return this._allies[i];
+		} else if ( targets === TARGET_ENEMIES ) {
+
+		} else if ( targets === TARGET_SELF ) return char;
+		else if ( targets === TARGET_RAND ) {
+
+			let r = Math.floor( Math.random()*( this._allies.length + this._enemies.length ) );
+			return ( r < this.allies.length ) ? this.teamTarget( this.allies ) : this.teamTarget( this.enemies );
+
 		}
-		return this.player;
+
+	}
+
+	/**
+	 * @returns {Char} rand attack target
+	 */
+	teamTarget( a ) {
+
+		let len = a.length;
+		for( let i = 0; i < len; i++ ) {
+			if ( a[i].alive ) return a[i];
+		}
+
 	}
 
 	/**
@@ -409,7 +464,7 @@ export default class Combat {
 	charDied( char, attacker ) {
 
 		if ( char === this.player ) return;
-		else if ( char.team === ALLY ) {
+		else if ( char.team === TEAM_ALLY ) {
 
 			Events.emit( ALLY_DIED, char );
 

@@ -1,5 +1,5 @@
 import Inventory from "./inventory";
-import { ALLY } from "../chars/npc";
+import { TEAM_ALLY } from "../chars/npc";
 import Events, { ALLY_DIED, ACT_CHANGED } from '../events';
 import Stat from "../values/stat";
 
@@ -52,7 +52,7 @@ export default class Minions extends Inventory {
 
 		super.add(m);
 
-		m.team = ALLY;
+		m.team = TEAM_ALLY;
 
 		if ( m.active ) {
 			this.setActive(m)
@@ -122,7 +122,7 @@ export default class Minions extends Inventory {
 			}
 
 			/** @compatibiltiy */
-			m.team = ALLY;
+			m.team = TEAM_ALLY;
 
 		}
 
