@@ -562,7 +562,6 @@
 		"id":"belowgorborung",
 		"name":"below mt gorborung",
 		"desc":"they say the roots of the mountain extend deeper than its heights.",
-		"require":"mtgorborung",
 		"level":25,
 		"length":100,
 		"require":"g.player.level>20&&g.mtgorborung>0",
