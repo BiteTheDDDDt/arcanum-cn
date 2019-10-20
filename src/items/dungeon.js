@@ -95,7 +95,7 @@ export default class Dungeon extends Action {
 
 			if ( this.exp !== this.length-1) return null;
 			var a = mapNonNull( boss, v=>{
-				this.getBoss(v)
+				return this.getBoss(v)
 			});
 			return a.length > 0 ? a : null;
 

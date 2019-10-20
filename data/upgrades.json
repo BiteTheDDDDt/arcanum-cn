@@ -1799,7 +1799,7 @@
 	{
 		"id":"solidifier",
 		"name":"crystal solidifier",
-		"require":"g.alchemy>=10",
+		"require":"g.alchemy>=7",
 		"cost":{
 			"research":500,
 			"codices":10
