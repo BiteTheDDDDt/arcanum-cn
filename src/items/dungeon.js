@@ -104,9 +104,8 @@ export default class Dungeon extends Action {
 			boss = boss[this.exp+1];
 		}
 
-		boss = Game.state.getData( boss );
-		if ( !boss || (boss.unique && boss.value>= 1) ) return null;
-		return boss.id;
+		boss = Game.state.getUnique( boss );
+		return boss ? boss.id : null;
 
 	}
 

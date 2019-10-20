@@ -136,7 +136,7 @@ export default class Combat {
 	}
 
 	/**
-	 * @property {Npc[]} allies - creatures fighting for player.
+	 * @property {Char[]} allies - player & allies.
 	 */
 	get allies() { return this._allies; }
 	set allies(v) { this._allies = v; }
@@ -174,11 +174,13 @@ export default class Combat {
 			var it = this._allies[i];
 			if ( typeof it === 'string' ) this._allies[i] = state.minions.find( it );
 			else if ( typeof it === 'object') this._allies[i] = itemRevive( state, it );
-			else this._allies[i] = this.player;
+			else this._allies[i] = null;
 
 			if ( !this._allies[i] ) this._allies.splice(i,1);
 
 		}
+
+		this._allies.unshift( this.player );
 
 	}
 

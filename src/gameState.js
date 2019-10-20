@@ -507,6 +507,19 @@ export default class GameState {
 		return this.getData(id) || this.inventory.find(id, any) || this.equip.find(id, any );
 	}
 
+	/**
+	 * Return item, excluding uniques with value > 0.
+	 * @param {string} id
+	 */
+	getUnique(id) {
+
+		let it = this.items[id];
+		return ( it === undefined || !it.unique ) ? it : (
+			it.value>0 ? null : it
+		);
+
+	}
+
 	getData(id) {
 		return this.items[id] || this[id];
 	}
