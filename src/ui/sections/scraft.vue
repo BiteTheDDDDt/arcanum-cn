@@ -47,6 +47,8 @@ export default {
 		 */
 		create() {
 
+			if (!this.list || this.list.length === 0 ) return;
+
 			Game.payCost( this.craft.buy );
 
 			this.userSpells.create( this.list, this.craft.name );

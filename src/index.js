@@ -43,15 +43,15 @@ var vm = new Vue({
 		this.lastSave = null;
 		this.game = Game;
 
-		this.listen('save-file', this.saveFile );
-		this.listen('load-file', this.loadFile );
-		this.listen('load', this.loadSave );
-		this.listen('reset', this.reset );
+		this.listen('save-file', this.saveFile, this );
+		this.listen('load-file', this.loadFile, this );
+		this.listen('load', this.loadSave, this );
+		this.listen('reset', this.reset, this );
 
-		this.listen('save', this.save );
-		this.listen('autosave', this.autosave );
+		this.listen('save', this.save, this );
+		this.listen('autosave', this.autosave, this );
 
-		this.listen( 'setting', this.onSetting );
+		this.listen( 'setting', this.onSetting, this );
 
 		this.loadSave();
 
@@ -87,8 +87,15 @@ var vm = new Vue({
 
 		},
 
+		/**
+		 *
+		 * @param {Event} e
+		 * @param {*} name
+		 */
 		saveFile(e, name='arcanum'){
 
+			// event shouldnt be null but sometimes is.
+			if (!e )return;
 			try {
 
 				if ( this.lastSave ) URL.revokeObjectURL( this.lastSave );

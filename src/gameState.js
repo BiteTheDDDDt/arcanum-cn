@@ -336,6 +336,8 @@ export default class GameState {
 	 */
 	toData(a) {
 
+		if (!a) return [];
+
 		for( let i = a.length-1; i >= 0; i-- ) {
 
 			var s = a[i];

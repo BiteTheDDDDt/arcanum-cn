@@ -89,7 +89,7 @@ export default class Group {
 
 	computeCost() {
 
-		if ( this.items.length === 0) {
+		if ( !this.items || this.items.length === 0) {
 			this.cost = null;
 			return;
 		}
