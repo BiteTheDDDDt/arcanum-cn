@@ -1904,13 +1904,13 @@
 		"id":"siegeperilous",
 		"name":"siege perilous",
 		"desc":"the fabled seat of destiny",
-		"require":"g.notoriety>=100",
+		"require":"g.fame>=100",
 		"cost":{
 			"gold":4000,
 			"gems":30
 		},
 		"effect":{
-			"notoriety":5
+			"fame":5
 		},
 		"mod":{
 			"allies.max":4,
