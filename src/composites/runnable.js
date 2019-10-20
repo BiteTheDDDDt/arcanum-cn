@@ -2,6 +2,8 @@ import Game from '../game';
 import Events, {ACT_DONE} from '../events';
 import Proxy from './proxy';
 
+export const TYPE_RUN = 'runnable';
+
 /**
  * Wraps an action in progress with an action target, and possible
  * extra instance data.
@@ -17,7 +19,7 @@ export default class Runnable extends Proxy {
 		};
 	}
 
-	get type() { return 'runnable'; }
+	get type() { return TYPE_RUN; }
 
 	/**
 	 * @property {?GData} target - target of the running item.

@@ -618,8 +618,8 @@
 		"tags":"timesource",
 		"require":"g.lore>=20",
 		"cost":{
-			"gems":1,
-			"research":200
+			"managem":1,
+			"research":5000
 		},
 		"mod":{
 			"research.max":5,
