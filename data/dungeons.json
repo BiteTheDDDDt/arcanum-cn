@@ -531,7 +531,7 @@
 	{
 		"id":"charredkeep",
 		"name":"charred keep",
-		"desc":"its smouldering ruins have once more begun to burn.",
+		"desc":"its smouldering ruins once more begin to burn.",
 		"level":18,
 		"run":{
 			"stamina":2.5
