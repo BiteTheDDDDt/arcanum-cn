@@ -6,6 +6,9 @@ const Defaults = {
 	compactMode:false,
 	spells:{
 
+	},
+	skills:{
+		hideMaxed:false
 	}
 
 }
@@ -30,9 +33,6 @@ export default {
 		compactMode:false,
 		spells:{
 
-		},
-		skills:{
-			hideMaxed:false
 		}
 
 	},

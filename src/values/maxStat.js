@@ -55,7 +55,7 @@ export default class MaxStat {
 	 */
 	set(v) {
 
-		if ( v > this.max.value ) v =this.max.value;
+		if ( v > this.max.value ) v = this.max.value;
 		this._value.set(v);
 	}
 
