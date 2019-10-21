@@ -34,8 +34,7 @@ export default {
 	methods:{
 
 		toggle(){
-			this.showList = !this.showList;
-			Settings.setVar( 'spells', 'showList', this.showList );
+			this.showList = Settings.setVar( 'spells', 'showList', !this.showList );
 		}
 
 	}, computed:{
@@ -51,8 +50,7 @@ export default {
 
 			get(){ return this.min; },
 			set(v){
-				this.min = Number(v);
-				Settings.setVar( 'spells', 'min', this.min );
+				this.min = Settings.setVar( 'spells', 'min', Number(v) );
 			}
 
 		},

@@ -2,6 +2,7 @@
 import Game from '../../game';
 import ItemBase from '../itemsBase';
 import SkillView from '../items/skill.vue';
+import Settings from '../../settings';
 import {lowFixed} from '../../util/format';
 import {alphasort} from '../../util/util';
 
@@ -17,21 +18,31 @@ export default {
 	},
 	data() {
 
-		return {
+		let ops = Settings.getVars('skills');
+
+		return Object.assign({
 			/**
 			 * @property {Item[]} filtered - filtered search results.
 			 */
 			filtered:null
-		}
+		}, ops );
+
 	},
 	computed:{
 
+		chkHide:{
+			get(){return this.hideMaxed;},
+			set(v){
+				this.hideMaxed = Settings.setVar( 'skills', 'hideMaxed', v );
+			}
+		},
 		sp() { return lowFixed( this.state.getData('sp').value ); },
 
 		skills() { return this.state.skills.sort( alphasort ); },
 
 		available(){
-			return this.skills.filter(it=> !this.reslocked(it) );
+			return this.hideMaxed ? this.skills.filter( it=>!it.maxed()&&!this.reslocked(it) ) :
+				this.skills.filter(it=> !this.reslocked(it) );
 		}
 
 	},
@@ -49,7 +60,14 @@ export default {
 <template>
 	<div class="skills">
 
-		<span class="separate"><filterbox v-model="filtered" :items="available" min-items="7" /><span style="align-self:center">Skill Points: {{ sp }}</span></span>
+		<span class="separate title">
+			<filterbox v-model="filtered" :items="available" min-items="7" />
+
+			<span><input :id="elmId('hideMax')" type="checkbox" v-model="chkHide">
+			<label :for="elmId('hideMax')">Hide Maxed</label></span>
+
+			<span>Skill Points: {{ sp }}</span>
+		</span>
 
 		<div class="subs">
 			<skill v-for="s in filtered" :key="s.id" :skill="s" :active="s.running" @train="train"></skill>
@@ -62,6 +80,10 @@ export default {
 
 .separate {
 	width:70%;
+}
+
+div.skills .title > span {
+	align-self:center
 }
 
 div.skills {
