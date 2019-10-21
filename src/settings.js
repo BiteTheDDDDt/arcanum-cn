@@ -30,6 +30,9 @@ export default {
 		compactMode:false,
 		spells:{
 
+		},
+		skills:{
+			hideMaxed:false
 		}
 
 	},
@@ -39,6 +42,7 @@ export default {
 	 * @param {*} type
 	 * @param {*} key
 	 * @param {*} val
+	 * @returns {*} the value set, for chaining.
 	 */
 	setVar( type, key, val) {
 
@@ -46,6 +50,8 @@ export default {
 		if ( !p ) this.vars[type] = p = {};
 
 		p[key] = val;
+
+		return val;
 
 	},
 
