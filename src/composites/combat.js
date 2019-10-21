@@ -173,14 +173,23 @@ export default class Combat {
 
 			var it = this._allies[i];
 			if ( typeof it === 'string' ) this._allies[i] = state.minions.find( it );
-			else if ( typeof it === 'object') this._allies[i] = itemRevive( state, it );
-			else this._allies[i] = null;
+			else if ( it && typeof it === 'object') this._allies[i] = itemRevive( state, it );
 
 			if ( !this._allies[i] ) this._allies.splice(i,1);
 
 		}
 
 		this._allies.unshift( this.player );
+
+	}
+
+	addNpc( it ){
+
+		it.timer = getDelay( it.speed );
+
+		if ( it.team === TEAM_ALLY ) {
+			this._allies.push( it)
+		} else this._enemies.push(it);
 
 	}
 

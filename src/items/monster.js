@@ -1,5 +1,6 @@
 import GData from "./gdata";
 import Stat from "../values/stat";
+import { TEAM_ALLY } from "../chars/npc";
 
 const defaults = {
 
@@ -32,6 +33,30 @@ export default class Monster extends GData {
 		this.defense = ( this.defense === null || this.defense === undefined )
 								? this.level : this.defense;
 
+
+	}
+
+	/**
+	 *
+	 * @param {Game} g
+	 * @param {number} team
+	 * @param {boolean} keep
+	 */
+	onCreate( g, team = TEAM_ALLY, keep=false ){
+
+		let it = g.itemGen.npc( this );
+		it.team = team;
+		it.active = keep;
+
+		if ( keep ) {
+
+			g.state.minions.add( it );
+
+		} else {
+
+			g.raid.addNpc( it );
+
+		}
 
 	}
 

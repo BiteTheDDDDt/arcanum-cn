@@ -28,7 +28,7 @@ import Encounter, { ENCOUNTER } from './items/encounter';
 import GEvent from './items/gevent';
 
 import Loader from './util/jsonLoader';
-import { splitKeyPath } from './util/util';
+import { splitKeyPath, logObj } from './util/util';
 import GClass from './items/gclass';
 import Module from './modules/gmodule';
 
@@ -150,6 +150,10 @@ export default {
 		for( let p in templates ) {
 
 			var saveObj = saveItems[p] || {};
+
+			if ( typeof saveObj === 'number') {
+				saveObj = { val:saveObj };
+			}
 
 			mergeSafe( saveObj, templates[p] );
 

@@ -92,6 +92,11 @@ export default class Player extends Char {
 		else console.error('Invalid Hp: ' + v );
 	}
 
+	/**
+	 * @property {Stat} maxHp - alias hp.max for acting as npc.
+	 */
+	get maxHp(){ return this._hp.max; }
+
 	get damage(){ return this._damage; }
 	set damage(v) {
 		this._damage = v instanceof Stat ? v : new Stat(v)

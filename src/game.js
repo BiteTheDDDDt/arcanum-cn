@@ -45,12 +45,19 @@ export default {
 	loaded:false,
 
 	/**
+	 * @property {ItemGen} itemGen - item generator/instancer object.
+	 */
+
+	/**
 	 * @property {Log} log
 	 */
 	log:new Log(),
 
 	timers:[],
 
+	/**
+	 * @property {Runner} runner - runs active actions.
+	 */
 	runner:null,
 
 	/**
@@ -120,11 +127,12 @@ export default {
 			Events.add( SET_SLOT, this.setSlot, this );
 			Events.add( DELETE_ITEM, this.onDelete, this );
 
+			console.warn('GAME LOADED');
 			this.loaded = true;
 
 			return this;
 
-		}, err=>{ console.error('game err: ' + err )});
+		}, err=>{ console.error( err.message + '\n' + err.stack )} );
 
 	},
 
@@ -595,9 +603,8 @@ export default {
 	/**
 	 * Create an item whose cost has been met ( or been provided by an effect )
 	 * @param {*} it
-	 * @param {boolean} active - whether the created item can be activated.
 	 */
-	create( it, active=false ) {
+	create( it ) {
 
 		/**
 		 * create monster and add to inventory.
@@ -605,9 +612,7 @@ export default {
 		*/
 		if ( it.type === 'monster' ) {
 
-			let m = this.itemGen.npc(it);
-			m.active = active;
-			this.state.minions.add( m );
+			if ( it.onCreate ) it.onCreate( this );
 
 		} else {
 

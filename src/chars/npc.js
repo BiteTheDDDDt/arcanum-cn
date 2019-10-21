@@ -46,15 +46,16 @@ export default class Npc extends Char {
 	set keep(v) { this._keep = v;}
 
 	get maxHp() { return this._maxHp; }
-	set maxHp(v) {
-		this._maxHp = v instanceof Stat ? v : new Stat(v, 'maxHp', true);
-	}
+	set maxHp(v) { this._maxHp = v instanceof Stat ? v : new Stat(v, 'maxHp', true); }
 
 	get hp() { return this._hp; }
 	set hp(v) {
 
-		if ( this._maxHp && v > this._maxHp ) this._hp = this._maxHp.value;
-		else this._hp = v;
+		if ( this._maxHp && v > this._maxHp ) v = this._maxHp.value;
+
+		if ( this._hp ) {
+			this._hp.base = v;
+		} else this._hp = v instanceof Stat ? v : new Stat( v, 'hp' );
 
 	}
 

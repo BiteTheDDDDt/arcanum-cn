@@ -81,6 +81,7 @@ const vm = new Vue({
 
 		loadProfile(){
 
+			console.warn('LOADING PROFILE');
 			Profile.loadHall().then( ()=>this.loadSave() );
 
 		},
@@ -92,6 +93,7 @@ const vm = new Vue({
 
 			try {
 
+				console.warn('LOADING SAVE');
 				let str = Profile.loadActive();
 				if ( !str ) console.log('no data saved.');
 
@@ -181,8 +183,6 @@ const vm = new Vue({
 		setStateJSON( text ){
 
 			this.dispatch('pause');
-
-			if (!this.game.loaded ) return;
 
 			try {
 

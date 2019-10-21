@@ -6,7 +6,7 @@ import DotView from '../dotView.vue';
 export default {
 
 	mixins:[ItemBase],
-	props:['npcs', 'label', 'player'],
+	props:['npcs', 'label'],
 	components:{
 		prog:ProgBar,
 		dots:DotView
@@ -19,13 +19,9 @@ export default {
 
 <div class="npc-group">
 	<span class="title" v-if="label">{{ label }}</span>
-	<div v-if="player">
-		<span class='name-span'><span>{{player.name }}</span><dots class="inline" mini=true :dots="player.dots" /></span>
-		<prog class="hp"
-		:value="player.hp.value" :max="player.hp.max.value" /></div>
 	<div v-for="p in npcs" :key="p.id">
 		<span class="name-span"><span @mouseenter.capture.stop="emit( 'itemover', $event, p )">{{p.name }}</span><dots class="inline" mini=true :dots="p.dots" /></span>
-		<prog class="hp" :value="p.hp" :max="p.maxHp.value" @mouseenter.capture.stop="emit( 'itemover', $event, p )" />
+		<prog class="hp" :value="p.hp.value" :max="p.maxHp.value" @mouseenter.capture.stop="emit( 'itemover', $event, p )" />
 	</div>
 
 </div>

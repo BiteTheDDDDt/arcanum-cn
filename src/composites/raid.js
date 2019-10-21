@@ -133,6 +133,15 @@ export default class Raid {
 	}
 
 	/**
+	 * Add npc to current battle.
+	 * @param {*} it
+	 */
+	addNpc( it ){
+
+		if ( this.running ) this._combat.addNpc(it);
+	}
+
+	/**
 	 * Player-casted spell or action attack.
 	 * @param {Item} it
 	 */
