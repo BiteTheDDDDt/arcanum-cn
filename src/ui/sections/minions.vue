@@ -37,8 +37,10 @@ export default {
 		},
 
 		toNum(v) {
-			if ( v === undefined ) return 0;
-			return ( (v && typeof v === 'object') ? v.value : v ).toFixed(1);
+
+			if ( v === undefined || v=== null ) return 0;
+			return ( (typeof v === 'object') ? v.value : v ).toFixed(1);
+
 		}
 
 	}

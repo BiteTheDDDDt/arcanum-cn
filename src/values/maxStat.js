@@ -14,22 +14,30 @@ export default class MaxStat {
 		if ( v === m ) return v;
 
 		return {
-			val:v,
+			v:v,
 			max:m
 		};
 
 	}
 
-	get base() { return this._value.base; }
-	set base(v) { this._value.base = v; }
+	get base() {
+		return this._value.base;
+	}
+	set base(v) {
+
+		if ( v && typeof v === 'object') {
+			this._value.base = v.base || v.value;
+		} else this._value.base = v;
+	}
 
 	get value(){ return this._value.value; }
 	set value(v) {
 
 		if ( v > this._max.value ) v = this._max.value;
 
-		if ( this._value !== undefined ) this._value.base = v;
-		else this._value = v instanceof Stat ? v : new Stat( v, 'value' );
+		if ( v instanceof Stat ) this._value = v;
+		else if ( this._value === undefined || typeof v === 'object' ) this._value = new Stat(v,'value');
+		else this._value.base =v;
 
 	}
 
@@ -39,6 +47,28 @@ export default class MaxStat {
 	}
 
 	valueOf(){ return this._value.value; }
+
+
+	/**
+	 *
+	 * @param {number} v
+	 */
+	set(v) {
+
+		if ( v > this.max.value ) v =this.max.value;
+		this._value.set(v);
+	}
+
+	/**
+	 *
+	 * @param {number} v
+	 */
+	add(v) {
+
+		this._value.base += v;
+		if ( this._value.value > this.max.value ) this._value.base = this.max.value;
+
+	}
 
 	/**
 	 *
@@ -50,8 +80,13 @@ export default class MaxStat {
 
 			if ( typeof vars === 'object') {
 
-				this.max = vars.max || vars.value || 0;
-				this.value = vars.val || vars.max || 0;
+				if ( vars.max ) this.max = vars.max;
+				else if ( vars.v) this.max = vars.v;
+				else this.max = 0;
+
+				if ( vars.v ) this.value = vars.v;
+				else if ( vars.max ) this.value = vars.max;
+				else this.value = 0;
 
 			} else if ( typeof vars === 'number') {
 

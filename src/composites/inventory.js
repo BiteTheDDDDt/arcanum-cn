@@ -69,7 +69,9 @@ export default class Inventory {
 
 				it = itemRevive( state, it );
 
-			} else if ( typeof it === 'string') it = state.getData(it);
+			} else if ( typeof it === 'string') {
+				it = state.getData(it);
+			}
 
 
 			if ( it == null ) this.items.splice( i, 1 );

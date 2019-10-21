@@ -210,8 +210,6 @@ export default class Raid {
 
 		this.player.timer = this.player.delay;
 
-		console.log('RAID ENTER');
-
 		if ( d != null ) {
 
 			if ( d != this.locale ) {

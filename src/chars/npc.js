@@ -60,8 +60,8 @@ export default class Npc extends Char {
 	get hp() { return this._hp; }
 	set hp(v) {
 
-		if ( this._hp ) this._hp.base = v;
-		else this._hp = v instanceof MaxStat ? v : new MaxStat( v );
+		if ( this._hp === undefined || typeof v === 'object' ) this._hp = v instanceof MaxStat ? v : new MaxStat(v);
+		else this._hp.value = v;
 
 	}
 
@@ -132,13 +132,15 @@ export default class Npc extends Char {
 
 		this.active = this.active === undefined || this.active === null ? false : this.active;
 
-		if ( typeof this.hp === 'string' ) this.hp = new Range(this.hp);
+		if ( typeof this.hp === 'string' ) this.hp = new Range(this.hp).value;
 		else if ( this.hp instanceof Range ) this.hp = this.hp.value;
 
 		/**
 		 * @compat
 		 */
 		if ( vars.maxHp) this.hp.max = vars.maxHp;
+
+		//console.log( this.id + ' const() : ' + this.hp.value );
 
 		this.tohit = this.tohit || 0;
 
@@ -154,7 +156,7 @@ export default class Npc extends Char {
 	}
 
 	rest(dt) {
-		this.hp += 0.01*this.hp.max.value*dt;
+		this.hp += ( 0.01*this.hp.max.value*dt );
 	}
 
 	/**

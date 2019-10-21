@@ -119,6 +119,14 @@ export default class Stat {
 	}
 
 	/**
+	 *
+	 * @param {number} v
+	 */
+	set(v) {
+		this._base = v;
+	}
+
+	/**
 	 * Add amount to base stat.
 	 * @param {number} amt
 	 */

@@ -117,11 +117,20 @@ export default class Combat {
 
 	toJSON() {
 
+		var a = undefined;
+		if ( this.allies.length > 1 ) {
+
+			a = [];
+			for( let i = 1; i < this.allies.length; i++ ) {
+				var v = this.allies[i];
+				a.push( v.keep ? v.id : v )
+			}
+
+		}
+
 		return {
 			enemies: this._enemies,
-			allies:this._allies.map(v=>{
-				return (v === this.player) ? undefined : ( v.keep ? v.id : v );
-			})
+			allies:a
 		}
 
 	}

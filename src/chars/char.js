@@ -159,6 +159,7 @@ export default class Char {
 
 		}
 
+		//console.log( this.id + ' THIS HP: ' + this.hp.value );
 	}
 
 	/**
