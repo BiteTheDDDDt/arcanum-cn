@@ -34,6 +34,11 @@ export default class Npc extends Char {
 
 		data.keep = this.keep;
 
+		/**
+		 * @compat
+		 */
+		data.maxHp = undefined;
+
 		//data.died = this.died||undefined;
 
 		return data;

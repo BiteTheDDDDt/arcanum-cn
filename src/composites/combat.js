@@ -205,7 +205,7 @@ export default class Combat {
 				continue;
 			}
 			action = e.combat(dt);
-			if ( action ) this.allyAttack( e, action );
+			if ( action ) this.attack( e, action, this._enemies );
 
 		}
 
@@ -214,7 +214,7 @@ export default class Combat {
 			e = this._enemies[i];
 			if ( e.alive === false ) { this._enemies.splice(i,1); continue;}
 			action = e.combat(dt);
-			if ( action ) this.enemyAttack( e, action );
+			if ( action ) this.attack( e, action, this._allies );
 
 		}
 
@@ -231,84 +231,23 @@ export default class Combat {
 
 			Events.emit(EVT_COMBAT, null, this.player.name + ' casts ' + it.name + ' at the darkness.' );
 
-		} else this.allyAttack( this.player, it );
+		} else this.attack( this.player, it, this.enemies );
 
 	}
 
 	/**
-	 *
-	 * @param {Item} src - attack source. (spell,weapon,etc.)
-	 */
-	allyAttack( attacker, src ) {
-
-		let atk = src ? (src.attack||src) : attacker.attack;
-
-		if (atk&& atk.targets === TARGET_ENEMIES) {
-
-			for( let i = this.enemies.length-1; i>= 0; i-- ) {
-				this.doAttack(attacker, atk, this.enemies[i]);
-			}
-
-		} else this.doAttack( attacker, atk, this.enemies[0] );
-
-	}
-
-	/**
-	 *
+	 * Attack a target.
 	 * @param {Char} attacker - enemy attacking.
-	 * @param {Object|Char} attack - attack object.
+	 * @param {Object|Char} atk - attack object.
+	 * @param {Char[]} targs - potential targets.
 	 */
-	enemyAttack( attacker, attack ) {
+	attack( attacker, atk, targs ) {
 
-		if ( Array.isArray(attack) ) {
-			attack.forEach(v=>this.enemyAttack(attacker,v), this);
-			return;
-		}
+		if ( atk && atk.targets === TARGET_ENEMIES ) {
 
-		if ( attack && attack.targets === TARGET_ENEMIES ) {
+			targs.forEach( v => v.alive? this.doAttack(attacker, atk, v):null );
 
-			this._allies.forEach(v=>this.doAttack(attacker, attack, v) );
-			this.doAttack( attacker, attack, this.player );
-
-		} else this.doAttack( attacker, attack, this.teamTarget( this.allies ) );
-
-	}
-
-	/**
-	 *
-	 * @param {Char} char
-	 * @param {string} targets
-	 * @returns {Char|Char[]|null}
-	 */
-	getTarget( char, targets ) {
-
-		if ( !targets ) {
-
-			return char.team === TEAM_ALLY ? this.teamTarget( this._enemies ) : this.teamTarget( this.allies );
-
-		} else if ( targets === TARGET_ENEMIES ) {
-
-			return char.team === TEAM_ALLY ? this._enemies : this.allies;
-
-		} else if ( targets === TARGET_SELF ) return char;
-		else if ( targets === TARGET_RAND ) {
-
-			let r = Math.floor( Math.random()*( this._allies.length + this._enemies.length ) );
-			return ( r < this.allies.length ) ? this.teamTarget( this.allies ) : this.teamTarget( this.enemies );
-
-		}
-
-	}
-
-	/**
-	 * @returns {Char} rand attack target
-	 */
-	teamTarget( a ) {
-
-		let len = a.length;
-		for( let i = 0; i < len; i++ ) {
-			if ( a[i].alive ) return a[i];
-		}
+		} else this.doAttack( attacker, atk, this.nextTarget( targs ) );
 
 	}
 
@@ -322,6 +261,43 @@ export default class Combat {
 
 		if ( this.tryHit( attacker, targ, atk ) ) {
 			tryDamage( targ, atk, attacker );
+		}
+
+	}
+
+	/**
+	 *
+	 * @param {Char} char
+	 * @param {string} targets
+	 * @returns {Char|Char[]|null}
+	 */
+	getTarget( char, targets ) {
+
+		if ( !targets ) {
+
+			return char.team === TEAM_ALLY ? this.nextTarget( this._enemies ) : this.nextTarget( this.allies );
+
+		} else if ( targets === TARGET_ENEMIES ) {
+
+			return char.team === TEAM_ALLY ? this._enemies : this.allies;
+
+		} else if ( targets === TARGET_SELF ) return char;
+		else if ( targets === TARGET_RAND ) {
+
+			let r = Math.floor( Math.random()*( this._allies.length + this._enemies.length ) );
+			return ( r < this.allies.length ) ? this.nextTarget( this.allies ) : this.nextTarget( this.enemies );
+
+		}
+
+	}
+
+	/**
+	 * @returns {Char} rand attack target
+	 */
+	nextTarget( a ) {
+
+		for( let i = a.length-1; i>=0; i-- ) {
+			if ( a[i].alive ) return a[i];
 		}
 
 	}
@@ -345,11 +321,12 @@ export default class Combat {
 			return false;
 		}
 
-		//console.log( attacker.name + ': ' + tohit + '  vs: ' + defender.defense );
+		//if ( attacker == this.player) console.log( attacker.name + ': ' + (10+tohit) + '  vs: ' + (10+defender.defense) );
 		if ( Math.random()*( 10 + tohit ) >= Math.random()*(10 + defender.defense ) ) return true;
-
-		Events.emit( DAMAGE_MISS, attacker.name + ' misses ' + defender.name );
-		return false;
+		else {
+			Events.emit( DAMAGE_MISS, attacker.name + ' misses ' + defender.name );
+			return false;
+		}
 
 	}
 

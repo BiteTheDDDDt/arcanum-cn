@@ -326,9 +326,7 @@ export default class Player extends Char {
 
 			// attempt to use spell first.
 			if ( this.spelllist.count === 0 || !this.tryCast() ) {
-
-				return this.weapon;
-
+				return this.weapon.attack;
 			}
 
 		}

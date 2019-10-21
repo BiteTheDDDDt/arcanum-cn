@@ -5,6 +5,7 @@ import Stat from '../values/stat';
 import Dot from './dot';
 import Attack from './attack';
 import GameState from '../gameState';
+import { mergeDefined, logObj } from '../util/util';
 
 
 /**
@@ -22,11 +23,22 @@ export default class Char {
 
 	get defense() { return this._defense; }
 	set defense(v) {
-		this._defense = v instanceof Stat ? v : new Stat(v);
+
+		if ( v instanceof Stat) this._defense = v;
+		else if ( this._defense ) this._defense.base = v;
+		else this._defense = new Stat(v);
+
+
 	}
 
 	get tohit() { return this._tohit; }
-	set tohit(v) { this._tohit = v instanceof Stat ? v : new Stat(v); }
+	set tohit(v) {
+
+		if ( v instanceof Stat) this._tohit = v;
+		else if ( this._tohit ) this._tohit.base = v;
+		else this._tohit = new Stat(v);
+
+	}
 
 	get resist() { return this._resist };
 	set resist(v) { this._resist = v; }
@@ -140,9 +152,6 @@ export default class Char {
 		this.delay = getDelay( this.speed );
 
 		if ( this.template ) {
-
-			//let it = state.getData( this.template );
-			//if ( it ) mergeDefined( this, it );
 
 			if ( !this.attack ) console.warn('NO ATTACK: ' + this.id );
 			if ( !this.name ) this._name = it.name;
