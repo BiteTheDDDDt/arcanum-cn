@@ -79,7 +79,7 @@ export default {
 <style scoped>
 
 .separate {
-	width:70%;
+	width:85%;
 }
 
 div.skills .title > span {
