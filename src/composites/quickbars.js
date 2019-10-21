@@ -24,9 +24,7 @@ export default class Quickbars {
 	set bars(v) {
 
 		if ( !Array.isArray(v) ) {
-
-			console.warn('NOT ARRAY: ' +v);
-
+			console.warn('NONARRAY: ' +v);
 			return;
 		}
 
@@ -37,15 +35,12 @@ export default class Quickbars {
 
 	}
 
-	get active(){
-		return this._active;
-	}
+	get active(){ return this._active; }
 
 	/**
 	 * @property {number} index - index of current bar.
 	 */
-	get index() { return this._index;
-	}
+	get index() { return this._index; }
 	set index(v) { this._index = v; }
 
 	constructor( vars=null ) {
