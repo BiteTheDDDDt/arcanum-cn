@@ -3,7 +3,7 @@ import {quickSplice, findRemove} from '../util/util';
 import Events, {ACT_DONE, ACT_CHANGED, HALT_ACT, ACT_BLOCKED, EXP_MAX, STOP_ALL } from '../events';
 import Stat from '../values/stat';
 import Base, {mergeClass} from '../items/base';
-import Runnable from '../composites/runnable';
+import Runnable, { TYPE_RUN } from '../composites/runnable';
 
 const REST_TAG = 't_rest';
 const DUNGEON = 'dungeon';
@@ -24,11 +24,6 @@ export default class Runner {
 		this.name = 'activity';
 
 		/**
-		 * @property {Runnable[]} runnables - use-with object combinations.
-		 */
-		//runnables:null,
-
-		/**
 		 * @property {Action[]} actives - Actively running tasks.
 		 */
 		this.actives = this.actives || null;
@@ -44,8 +39,8 @@ export default class Runner {
 
 		return {
 			max:this.max,
-			waiting:this.waiting.map(v=> v instanceof Runnable ? v : v.id),
-			actives:this.actives.map(v=> v instanceof Runnable ? v : v.id),
+			waiting:this.waiting.map(v=> v.type === TYPE_RUN ? v : v.id),
+			actives:this.actives.map(v=> v.type === TYPE_RUN ? v : v.id),
 
 			/**
 			 * @property {Runnable[]} runnables - running combinations of objects.
@@ -218,26 +213,42 @@ export default class Runner {
 		let id = it.id;
 		let t = targ.id;
 
-		if ( targ.running === true || it.running === true ) return false;
-
-		let p = (v)=>{
-			return (v instanceof Runnable)&&(id===v.item.id && t === v.target.id );
-		};
-
-		let run = findRemove( this.waiting, p);
+		let run = findRemove( this.waiting, (v)=>{
+			return (v.type === TYPE_RUN )&&(id===v.item.id && t === v.target.id )
+		});
 
 		if ( !run ) {
 
-			//run = findRemove( this.runnables, p );
+			if ( targ.running === true || it.running === true ) return false;
 
-			if ( !run ) {
-				console.log('MAKING RUNNABLE');
-				run = new Runnable( it, targ );
-				if ( it.beginUseOn ) it.beginUseOn( targ );
-			}
+			console.log('CREATE RUNNABLE');
+			run = new Runnable( it, targ );
+			if ( it.beginUseOn ) it.beginUseOn( targ );
 
 		}
 		this.setAction( run );
+
+	}
+
+	/**
+	 * Check if item/target combination is in wait queue.
+	 * @param {GData} it
+	 * @param {GData} targ
+	 */
+	isWaiting( it, targ ){
+
+		for( let i = this.waiting.length-1; i>=0; i--) {
+
+			var a = this.waiting[i];
+			if ( a.type === TYPE_RUN ) {
+
+				if ( a.item === it && a.target === targ ) return true;
+
+			} else if ( a === it ) return true;
+
+		}
+
+		return false;
 
 	}
 
@@ -287,7 +298,7 @@ export default class Runner {
 				let cur = this.actives[i];
 				this.stopAction( i, false );
 
-				if ( (cur instanceof Runnable) ){
+				if ( (cur.type === TYPE_RUN ) ){
 					console.log('WAIT RUNNABLE');
 					this.addWait(cur);
 				}
@@ -377,7 +388,7 @@ export default class Runner {
 		while ( remove > 0 ) {
 
 			a = this.waiting[i];
-			if ( !(a instanceof Runnable ) ) {
+			if ( a.type !== TYPE_RUN ) {
 
 				this.waiting.splice( i, 1 );
 
@@ -397,7 +408,7 @@ export default class Runner {
 		if ( this.waiting.length === 0 && act.hasTag( REST_TAG ) ) this.stopAction(act,false);
 
 		else {
-			if ( act instanceof Runnable ) this.addWait(act);
+			if ( act.type === TYPE_RUN ) this.addWait(act);
 			this.stopAction( act );
 		}
 
@@ -406,7 +417,10 @@ export default class Runner {
 	stopAll() {
 
 		for( let i = this.actives.length-1; i>=0; i--) {
+
+			if ( this.actives[i].onStop ) this.actives[i].onStop();
 			this.stopAction( i, false );
+
 		}
 		this.clearWaits();
 

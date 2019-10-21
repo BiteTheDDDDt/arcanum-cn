@@ -121,7 +121,8 @@
 	},
 
 	{
-		"id":"notoriety",
+		"id":"fame",
+		"name":"notoriety",
 		"hidden":"true",
 		"stat":"true",
 		"desc":"Your reputation in the world",

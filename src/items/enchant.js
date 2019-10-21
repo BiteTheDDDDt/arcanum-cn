@@ -55,6 +55,20 @@ export default class Enchant extends Action {
 	}
 
 	/**
+	 * Called when enchant stopped.
+	 * @param {*} targ
+	 */
+	onStop(targ){
+
+		console.log('STOPPING ENCHANT');
+		if ( targ) {
+			targ.busy = false;
+			targ.enchants -= this.level;
+
+		}
+	}
+
+	/**
 	 * Catch complete
 	 */
 	complete(){

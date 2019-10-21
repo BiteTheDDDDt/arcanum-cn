@@ -54,6 +54,23 @@ export default class Quickbar {
 	}
 
 	/**
+	 * Remove/Clear quickslot by id.
+	 * @param {string} id
+	 */
+	remove( id ) {
+
+		for( let p in this.slots ) {
+
+			var s = this.slots[p];
+			if ( s && s.item && s.id === id ) {
+				this.clear(p);
+			}
+
+		}
+
+	}
+
+	/**
 	 * Clear item at slot at index.
 	 * Index is actual slot index, not keypad number.
 	 * @param {number} ind

@@ -522,7 +522,7 @@ export default {
 
 		if ( !it) return;
 
-		if ( it.type ==='dungeon') return this.enterLoc(it);
+		if ( it.type ==='dungeon' || it.type === 'locale') return this.enterLoc(it);
 
 		if ( !this.canUse(it) ) return false;
 
