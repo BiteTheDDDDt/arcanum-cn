@@ -91,7 +91,7 @@ export default class Stat {
 
 			Object.assign( this, vars );
 
-		} else if ( !isNaN(vars) ) this._base = Number(vars);
+		} else if ( !isNaN(vars) ) this.base = Number(vars);
 
 		if ( path ) this._path = path;
 		if ( pos ) this.pos = pos;

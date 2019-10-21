@@ -348,7 +348,7 @@ export default class Combat {
 		//console.log( attacker.name + ': ' + tohit + '  vs: ' + defender.defense );
 		if ( Math.random()*( 10 + tohit ) >= Math.random()*(10 + defender.defense ) ) return true;
 
-		Events.emit( DAMAGE_MISS, attacker.name + ' misses' );
+		Events.emit( DAMAGE_MISS, attacker.name + ' misses ' + defender.name );
 		return false;
 
 	}

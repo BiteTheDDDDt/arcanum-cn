@@ -2,6 +2,7 @@ import Char from './char';
 import Range, { RangeTest } from '../values/range';
 import Stat from '../values/stat';
 import Percent, { PercentTest } from '../values/percent';
+import MaxStat from '../values/maxStat';
 
 /**
  * @const {number} ALLY - team constant for allies.
@@ -45,17 +46,17 @@ export default class Npc extends Char {
 	get keep(){return this._keep;}
 	set keep(v) { this._keep = v;}
 
-	get maxHp() { return this._maxHp; }
-	set maxHp(v) { this._maxHp = v instanceof Stat ? v : new Stat(v, 'maxHp', true); }
+	/**
+	 * @compat changed from Stat to sub Stat of hp MaxStat.
+	 */
+	get maxHp() { return this._hp.max; }
+	set maxHp(v) {}
 
 	get hp() { return this._hp; }
 	set hp(v) {
 
-		if ( this._maxHp && v > this._maxHp ) v = this._maxHp.value;
-
-		if ( this._hp ) {
-			this._hp.base = v;
-		} else this._hp = v instanceof Stat ? v : new Stat( v, 'hp' );
+		if ( this._hp ) this._hp.base = v;
+		else this._hp = v instanceof MaxStat ? v : new MaxStat( v );
 
 	}
 
@@ -126,11 +127,15 @@ export default class Npc extends Char {
 
 		this.active = this.active === undefined || this.active === null ? false : this.active;
 
-		if ( typeof this.hp === 'string' || typeof this.hp === 'object') this.hp = new Range(this.hp);
-		if ( this.hp instanceof Range ) this.hp = this.hp.value;
+		if ( typeof this.hp === 'string' ) this.hp = new Range(this.hp);
+		else if ( this.hp instanceof Range ) this.hp = this.hp.value;
+
+		/**
+		 * @compat
+		 */
+		if ( vars.maxHp) this.hp.max = vars.maxHp;
 
 		this.tohit = this.tohit || 0;
-		this.maxHp = this._maxHp || this._hp;
 
 		if ( this.dmg && (this.damage===null||this.damage===undefined) ) this.damage = this.dmg;
 
@@ -144,7 +149,7 @@ export default class Npc extends Char {
 	}
 
 	rest(dt) {
-		this.hp += 0.01*this.maxHp.value*dt;
+		this.hp += 0.01*this.hp.max.value*dt;
 	}
 
 	/**

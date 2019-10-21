@@ -54,7 +54,7 @@ export default class Monster extends GData {
 
 		} else {
 
-			g.raid.addNpc( it );
+			g.state.raid.addNpc( it );
 
 		}
 

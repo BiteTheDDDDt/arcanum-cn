@@ -98,7 +98,7 @@ export default class Char {
 	/*get died() { return this._died; }
 	set died(v) { this._died = v; }*/
 
-	get alive() { return this.hp > 0; }
+	get alive() { return this.hp.value > 0; }
 	set alive(v) {}
 
 	constructor( vars ){
