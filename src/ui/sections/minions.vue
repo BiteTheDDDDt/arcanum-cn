@@ -52,7 +52,7 @@ export default {
 
 	<filterbox v-model="filtered" :items="items" min-items="10" />
 
-	<span v-if="inRaid" class="warn-text">Cannot change active minions while adventuring</span>
+	<div v-if="inRaid" class="warn-text">Cannot change active minions while adventuring</div>
 	<div class="minion-title">
 		<span>{{ minions.count + ' / ' + Math.floor(minions.max) + ' Used' }}</span>
 		<span>Allies Power: {{ minions.allyTotal.toFixed(2) + ' / ' + Math.floor( minions.maxAllies.value ) }}</span></div>
@@ -86,8 +86,12 @@ div.minions .minion-title {
 	justify-content: space-between;
 }
 
+div.minions .warn-text {
+	margin-bottom: var( --sm-gap );
+}
 div.minions {
 	padding-left:16px;
+	padding-top: var( --tiny-gap );
 	height:100%;
 }
 

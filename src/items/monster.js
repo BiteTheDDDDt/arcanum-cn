@@ -46,7 +46,7 @@ export default class Monster extends GData {
 
 		let it = g.itemGen.npc( this );
 		it.team = team;
-		it.active = keep;
+		it.active = !keep;
 
 		if ( keep ) {
 

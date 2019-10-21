@@ -71,11 +71,6 @@ export default {
 	},
 	created(){
 
-		/**
-	 	* @property {Game} game
-	 	*/
-		this.game = Game;
-
 		this.listen('game-loaded', this.gameLoaded );
 		this.listen('setting', this.onSetting );
 
@@ -170,11 +165,11 @@ export default {
 		},
 		unpause() {
 
-			if ( this.game.loaded ) {
+			if ( Game.loaded ) {
 
-				this.game.lastUpdate = Date.now();
+				Game.lastUpdate = Date.now();
 				if ( !this.runner ) {
-					this.runner = setInterval( ()=>this.game.update(), TICK_TIME );
+					this.runner = setInterval( ()=>Game.update(), TICK_TIME );
 				}
 
 				this.keyListen = evt=>{
@@ -211,32 +206,32 @@ export default {
 
 		doQuickslot(it) {
 
-			 this.game.tryItem( it.getTarget( this.game ) );
+			 Game.tryItem( it.getTarget( Game ) );
 
 		},
 
-		onEquip( it, inv ) { this.game.equip( it,inv ); },
+		onEquip( it, inv ) { Game.equip( it,inv ); },
 
-		onUnequip(slot, it){ this.game.unequip(slot, it) },
+		onUnequip(slot, it){ Game.unequip(slot, it) },
 
-		onTake(it) { this.game.take(it); },
+		onTake(it) { Game.take(it); },
 
-		onCraft(it) { this.game.craft(it); },
+		onCraft(it) { Game.craft(it); },
 
 		/**
 		 * Use instanced item.
 		 */
-		onUse(it) { this.game.use(it); },
+		onUse(it) { Game.use(it); },
 
 		/**
 		 * @param {Enchant} e - enchantment
 		 * @param {Item} targ - enchant target.
 		 */
 		onEnchant( e, targ ) {
-			this.game.tryUseOn( e, targ );
+			Game.tryUseOn( e, targ );
 		},
 
-		onSell( it, inv, count ) { this.game.trySell( it, inv, count ); },
+		onSell( it, inv, count ) { Game.trySell( it, inv, count ); },
 
 		itemOver(evt, it, title) {
 			this.overItem = it;
@@ -251,11 +246,11 @@ export default {
 
 		},
 
-		onRest(){ this.game.toggleAction( this.state.restAction ); },
+		onRest(){ Game.toggleAction( this.state.restAction ); },
 
-		onConfirmed(it) { this.game.tryItem(it); },
+		onConfirmed(it) { Game.tryItem(it); },
 
-		tryUse( it ) { this.game.tryItem(it ) },
+		tryUse( it ) { Game.tryItem(it ) },
 
 		/**
 		 * Warning should trigger.
@@ -271,7 +266,7 @@ export default {
 		onItem(item) {
 
 			if ( item.warn ) this.$refs.warn.warn( item );
-			else this.game.tryItem(item);
+			else Game.tryItem(item);
 
 		},
 
@@ -279,7 +274,7 @@ export default {
 		 * Buy a spell or item without casting/using the item or its mods.
 		 * @property {Item} item - item to buy.
 		 */
-		onBuy(item) { this.game.tryBuy(item); }
+		onBuy(item) { Game.tryBuy( item, true ); }
 
 	},
 	computed:{

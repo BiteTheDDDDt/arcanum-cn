@@ -431,9 +431,16 @@ export default class Combat {
 	}
 
 	/**
-	 * Clear the current combat encounter.
+	 * Begin new combat encounter.
 	 */
-	clear() { this._enemies = []; }
+	begin() {
+
+		this._enemies = [];
+
+		this.allies = this.state.minions.active.slice(0);
+		this.allies.unshift( this.player );
+
+	}
 
 	/**
 	 * exponentially decreasing function. Lower is better.

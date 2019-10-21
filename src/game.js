@@ -11,6 +11,7 @@ import Events, {EVT_UNLOCK, EVT_EVENT, EVT_LOOT, ENTER_LOC, EXIT_LOC, SET_SLOT, 
 import Resource from './items/resource';
 import Skill from './items/skill';
 import Stat from './values/stat';
+import { TEAM_ALLY } from './chars/npc';
 
 var techTree;
 
@@ -498,14 +499,15 @@ export default {
 	/**
 	 * Attempt to pay the cost to permanently buy an item.
 	 * @param {GData} it
+	 * @param {boolean} keep
 	 * @returns {boolean}
 	 */
-	tryBuy(it) {
+	tryBuy( it, keep=false ) {
 
 		if ( this.canPay(it.buy) === false ) return false;
 		this.payCost( it.buy );
 
-		if ( it.isRecipe ) this.create( it );
+		if ( it.isRecipe ) this.create( it, keep );
 		it.owned = true;
 
 	},
@@ -604,7 +606,7 @@ export default {
 	 * Create an item whose cost has been met ( or been provided by an effect )
 	 * @param {*} it
 	 */
-	create( it ) {
+	create( it, keep=false ) {
 
 		/**
 		 * create monster and add to inventory.
@@ -612,7 +614,7 @@ export default {
 		*/
 		if ( it.type === 'monster' ) {
 
-			if ( it.onCreate ) it.onCreate( this );
+			if ( it.onCreate ) it.onCreate( this, TEAM_ALLY, keep );
 
 		} else {
 
