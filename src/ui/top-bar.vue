@@ -53,11 +53,12 @@ export default {
 		<span class="items"><slot name="center"></slot></span>
 
 		<span class="link-bar">
-			<button class="text-button" @click="dispatch('open-settings')">&#9881;</button>
-			<span class="vers">build# {{ VERSION }}</span>
 			<a href="https://discord.gg/bCABC96" target="_blank">discord/guide</a>
+			<a href="http://lerpinglemur.com/dhrune/index.php?title=Main_Page" target="_blank">wiki</a>
 			<a href="https://www.patreon.com/theoryofmagic" target="_blank">patreon</a>
 			<a href="https://www.reddit.com/r/wizrobe/" target="_blank">reddit</a>
+			<span class="vers">build# {{ VERSION }}</span>
+			<button class="text-button" @click="dispatch('open-settings')">&#9881;</button>
 		</span>
 
 	</div>
@@ -117,7 +118,7 @@ div.top-bar {
 	justify-self: flex-end;
 	display:flex;
 	flex-grow: 1;
-	flex-flow: row-reverse nowrap;
+	flex-flow: row nowrap;
 	font-size: 0.90em;
 }
 
