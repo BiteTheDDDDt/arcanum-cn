@@ -901,15 +901,41 @@
 	}
 },
 {
+	"id":"highmage",
+	"name":"high mage",
+	"desc":"elite of an arcane order.",
+	"tags":"t_tier3",
+	"require":"g.tier2>0&&g.lore>=21",
+	"cost":{
+		"research":5000,
+		"arcana":15,
+		"tomes":10
+	},
+	"effect":{
+		"sp":2
+	},
+	"mod":{
+		"tier3":true,
+		"research.max":50,
+		"firelore.max":1,
+		"mysticism.max":2,
+		"alchemy.max":1,
+		"spellcraft.max":2,
+		"crafting.max":1,
+		"lore.max":2
+	}
+},
+{
 	"id":"doomsayer",
 	"title":"doomsayer",
 	"desc":"harbinger of ruin",
 	"require":"g.tier2>0&&g.spirit>=12&&g.divination>=12",
 	"tags":"t_tier3",
 	"cost":{
-		"research":1000,
+		"research":2000,
 		"arcana":15,
-		"tomes":7
+		"tomes":7,
+		"spiritgem":10
 	},
 	"effect":{
 		"sp":2
@@ -918,10 +944,11 @@
 		"tier3":true,
 		"spiritlore.max":2,
 		"divination.max":3,
+		"planeslore.max":1,
 		"scrying.max":2,
 		"lore.max":2,
 		"lore.rate":"10%",
-		"mana.max":3
+		"mana.max":1
 	}
 },
 {
@@ -1025,7 +1052,6 @@
 	"require":"g.tier3>0&&g.lore>=25",
 	"cost":{
 		"research":5000,
-
 		"arcana":25,
 		"tomes":10,
 		"runestones":5
@@ -1055,7 +1081,6 @@
 	"cost":{
 		"research":20000,
 		"arcana":25,
-		"sp":10,
 		"tomes":30,
 		"runestones":10
 	},
@@ -1085,7 +1110,6 @@
 		"research":15000,
 		"naturegem":50,
 		"herbs":75,
-		"sp":10,
 		"arcana":20,
 		"runestones":15
 	},
@@ -1115,7 +1139,6 @@
 		"research":17000,
 		"bones":100,
 		"bodies":50,
-		"sp":10,
 		"souls":100,
 		"arcana":10,
 		"runestones":10
@@ -1143,9 +1166,7 @@
 		"tags":"t_tier5",
 		"require":"g.warlock>0&&g.demonology>=20",
 		"cost":{
-			"sp":10,
 			"research":15000,
-
 			"souls":75,
 			"bodies":10,
 			"tomes":25,
@@ -1170,7 +1191,6 @@
 		"require":"g.tier4>0&&g.spirit>=15&&g.divination>=17",
 		"tags":"t_tier5",
 		"cost":{
-			"sp":10,
 			"research":15000,
 			"arcana":25,
 			"tomes":15,
@@ -1194,9 +1214,8 @@
 		},"flavor":"it waits in time"
 	},
 	{
-		"id":"greaterkell",
-		"name":"greater kell",
-		"title":"greater kell",
+		"id":"highkell",
+		"name":"high kell",
 		"desc":"the ranks of the kell range from minor fey and forest delki, to great spirits, ancient and indominable.",
 		"tags":"t_tier6",
 		"require":"(g.fey+g.kell)>0",
@@ -1204,7 +1223,6 @@
 			"research":15000,
 			"naturegem":50,
 			"herbs":75,
-			"sp":10,
 			"arcana":25,
 			"runestones":15
 		},
@@ -1229,7 +1247,6 @@
 		"require":"g.phylactory>0",
 		"cost":{
 			"research":30000,
-			"sp":10,
 			"souls":100,
 			"bodies":100,
 			"tomes":50,
@@ -1244,6 +1261,32 @@
 			"demonology.rate":"20%"
 		},"flavor":"if it breathes we can kill it."
 
+	},
+	{
+		"id":"mythicwizard",
+		"name":"mythic wizard",
+		"desc":"",
+		"tags":"t_tier6",
+		"require":"g.tier5>0&&g.lore>=35&&g.spellcraft>=10",
+		"cost":{
+			"research":30000,
+			"arcana":35,
+			"tomes":50,
+			"sindel":3,
+			"runestones":10
+		},
+		"mod":{
+			"tier6":true,
+			"spellcraft.max":2,
+			"firelore.max":1,
+			"waterlore.max":1,
+			"waterlore.rate":"1%",
+			"earthlore.max":1,
+			"crafting.max":2,
+			"history.max":1,
+			"potions.max":1,
+			"alchemy.max":1
+		},"flavor":""
 	},
 	{
 		"id":"avatar",
