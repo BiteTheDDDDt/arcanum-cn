@@ -20,9 +20,10 @@ export function mergeClass( destClass, src ) {
 
  // TODO: restore 'tags' later if tags become dynamic.
  /**
+  * @todo shorten list by implementing better base/defaults logic.
   * @const {string[]} JSONIgnore - ignore these properties by default when saving.
   */
- const JSONIgnore = [ 'template', 'id', 'type', 'defaults', 'name', 'desc', 'running', 'current', 'warn', 'warnMsg',
+ const JSONIgnore = [ 'template', 'id', 'type', 'defaults', 'sname', 'sym', 'name', 'desc', 'running', 'current', 'warn', 'warnMsg',
  	'locked', 'locks', 'value', 'exp', 'delta', 'tags', 'mod', 'effect', 'progress','need', 'require'];
 
 /**
@@ -103,6 +104,14 @@ export default {
 	 * @property {string} id - internal id.
 	 */
 	toString(){return this.id;},
+
+	/**
+	 * Simple name without symbol.
+	 */
+	get sname(){
+		return this._name || this.id;
+	},
+	set sname(v){},
 
 	/**
 	 * @property {string} name - displayed name.

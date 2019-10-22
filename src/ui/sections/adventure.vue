@@ -93,14 +93,15 @@ export default {
 		<div class="locales" v-else>
 		<div class="dungeon" v-for="d in locales" :key="d.id">
 
-			<span>
-			<span>{{ d.name }}</span>
+			<span class="separate">
+				<!-- EVENT MUST BE ON OUTER SPAN - CHROME -->
+			<span @mouseenter.capture.stop="emit( 'itemover', $event, d )"><span>{{ d.sname }}</span>
 
-			<!-- EVENT MUST BE ON OUTER SPAN - CHROME -->
-			<span @mouseenter.capture.stop="emit( 'itemover', $event, d )"><button class="raid-btn" :disabled="!game.canRun(d)"
-				@click="emit( ENTER_LOC, d, true )">
-				Enter</button></span>
-				</span>
+			<button class="raid-btn" :disabled="!game.canRun(d)" @click="emit( ENTER_LOC, d, true )">Enter</button></span>
+
+
+			<span class="sym">{{ d.sym }}</span>
+			</span>
 
 			<span class="bar"><progbar :value="d.exp" :max="d.length" /></span>
 
@@ -129,6 +130,9 @@ export default {
 
 <style scoped>
 
+.sym {
+	align-self:center;
+}
 div.adventure {
 	display:flex;
 	padding:0px 15px;

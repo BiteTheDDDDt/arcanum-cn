@@ -1020,7 +1020,7 @@
 		"cost":{
 			"research":1000,
 			"airgem":15,
-			"tomes":3
+			"tomes":5
 		},
 		"mod":{
 			"player.resist.air":15

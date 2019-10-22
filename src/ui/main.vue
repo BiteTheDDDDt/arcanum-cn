@@ -8,7 +8,7 @@ import ItemsBase from './itemsBase';
 import Warn from './components/warn.vue';
 import Vitals from 'ui/vitals.vue';
 import DotView from './dotView.vue';
-import ItemPopup from './itemPopup.vue';
+import ItemPopup from './items/itemPopup.vue';
 import TopBar from './top-bar.vue';
 import SettingsUI from './settings.vue';
 
@@ -16,7 +16,7 @@ import SettingsUI from './settings.vue';
 import LogView from './outlog.vue';
 
 import Settings from '../settings';
-import Cheats from '../cheats';
+import Cheats from '../modules/cheats';
 
 import { TRY_BUY, USE, TRY_USE } from '../events';
 import { TICK_TIME } from '../game';

@@ -49,6 +49,7 @@ export default class Locale extends Action {
 
 		this.dist = ( this.dist === undefined || this.dist === null ) ? getDist(this.level) : this.dist;
 
+		if (!this.sym) this.sym = '🌳';
 		if ( this._encs == null ) this._encs = [];
 
 		//console.log(this.id + ' dist: ' + this.dist );
