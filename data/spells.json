@@ -1609,6 +1609,7 @@
 		"level":4,
 		"name":"sealing light II",
 		"desc":"seams of light close your wounds.",
+		"require":"g.heal1>0",
 		"school":"light",
 		"buy":{
 
@@ -1998,7 +1999,7 @@
 		"name":"sealing light III",
 		"desc":"seams of light close your wounds.",
 		"school":"light",
-		"require":"g.lightlore>=14",
+		"require":"g.lightlore>=14&&g.heal2>0",
 		"buy":{
 
 			"research":1000,
