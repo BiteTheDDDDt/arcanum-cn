@@ -1182,7 +1182,7 @@
 			"firelore.rate":"20%",
 			"demonology.max":5,
 			"demonology.rate":"20%"
-		},"flavor":"in the War of the Locks the Seven raged for power absolute, and Dhrune trembled in their footsteps."
+		},"flavor":"in the War of the Locks the Seven raged for Power Absolute, and Dhrune trembled in their wake."
 
 	},
 	{
@@ -1199,7 +1199,6 @@
 			"runestones":10
 		},
 		"effect":{
-
 			"sp":2
 		},
 		"mod":{
@@ -1240,9 +1239,38 @@
 		},"flavor":"most preferred their glades and fens to the turmoils of the world"
 	},
 	{
-		"id":"deathmage",
-		"name":"death mage",
-		"title":"death mage",
+		"id":"highnecro",
+		"name":"grey necromancer",
+		"tags":"t_tier6",
+		"desc":"in every aeon from among the mortals, Death appoints her viceroy.",
+		"require":"g.tier5>0&&g.evil>0&&g.spiritlore>=15&&g.shadowlore>=24",
+		"cost":{
+			"research":17000,
+			"bones":100,
+			"bodies":50,
+			"souls":100,
+			"arcana":10,
+			"runestones":10
+		},
+		"mod":{
+			"tier6":true,
+			"research.max":"-14%",
+			"lore.max":1,
+			"spellcraft.max":2,
+			"embalming.max":1,
+			"necromancy.max":3,
+			"necromancy.rate":"10%",
+			"reanimation.max":3,
+			"reanimation.rate":"10%",
+			"shadowlore.max":2,
+			"shadowlore.rate":"5%",
+			"spiritlore.max":2,
+			"spiritlore.rate":"10%"
+		},"flavor":"He was simply 'The Necromancer', and the greys bowed their heads in fear."
+	},
+	{
+		"id":"deathlock",
+		"name":"death lock",
 		"desc":"an unholy synthesis of wizardry and demonology.",
 		"tags":"t_tier6",
 		"require":"g.phylactory>0",
@@ -1256,11 +1284,15 @@
 		},
 		"mod":{
 			"tier6":true,
+			"necromancy.max":2,
+			"earthlore.max":2,
 			"firelore.max":3,
 			"firelore.rate":"20%",
+			"shadowlore.max":3,
+			"shadowlore.rate":"0.1+5%",
 			"demonology.max":5,
 			"demonology.rate":"20%"
-		},"flavor":"if it breathes we can kill it."
+		},"flavor":"Narz, Bodias, Vezial. Among even the Archlocks, some names were held in abject terror."
 
 	},
 	{
