@@ -119,7 +119,7 @@ export default class Module {
 	 */
 	fileLoaded( mod ) {
 
-		console.log('File Loaded: ' + mod.module );
+		//console.log('File Loaded: ' + mod.module );
 
 		this.templates = {};
 		this.lists = mod.data;
@@ -142,7 +142,6 @@ export default class Module {
 	parseLists( lists ){
 
 		for( let p in lists ) {
-			if ( this.name === 'hall' ) console.log('LIST NAME: ' + p);
 			this.parseList( lists[p] );
 		}
 
@@ -195,7 +194,7 @@ export default class Module {
 
 			if ( !Array.isArray(dest)) {
 
-				console.warn( 'DEST NOT ARRAY: ' + p );
+				console.warn( 'DEST NONARRAY: ' + p );
 				this.lists[p] = list.slice(0);
 				continue;
 

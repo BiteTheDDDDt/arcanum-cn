@@ -42,8 +42,14 @@ export default class Stat {
 	get base() { return this._base; }
 	set base(v) { this._base = v; }
 
+	/**
+	 * @todo: most likely remove this.pct
+	 */
 	get pct() { return this._pct; }
-	set pct(v) { this._pct = v;}
+	set pct(v) {
+		if ( v != 0 ) console.warn('NONZERO PERCENT: ' + this.path );
+		this._pct = v;
+	}
 
 	/**
 	 * @property {number} bonus - total bonus to base, computed from mods.
@@ -100,19 +106,6 @@ export default class Stat {
 		if ( !this.pct ) this.pct = 0;
 
 		if ( !this.mods ) this.mods = {};
-		else if ( this.mods.all ) {
-
-			/**
-			 * @compat
-			 */
-			let cur = this.mods.all;
-			if ( cur.count > 0 ) {
-				this._base += cur.bonus;
-				this._pct += cur.pct;
-			}
-			delete this.mods.all;
-
-		}
 
 		this.recalc();
 

@@ -131,8 +131,6 @@ export default {
 			console.warn('GAME LOADED');
 			this.loaded = true;
 
-			this.logStat( 'fame' );
-
 			return this;
 
 		}, err=>{ console.error( err.message + '\n' + err.stack )} );
@@ -150,7 +148,7 @@ export default {
 		else {
 
 			if ( full ) logObj(s,'LOG STAT' );
-			console.warn( id + ' Val: ' + s.value );
+			console.warn( id + ' value: ' + s.value );
 			console.log( s.constructor.name );
 
 		}
@@ -230,6 +228,8 @@ export default {
 	 */
 	addData( data ) {
 
+		console.warn('HALL GAME DATA');
+
 		for( let p in data ) {
 
 			console.warn('ADDING DATA ITEM: ' + p );
@@ -237,10 +237,12 @@ export default {
 			this.state.addItem(it);
 
 			if ( !it.locked && !it.disabled ) {
+
 				if ( it.mod && it.value != 0 ) {
 					console.log( it.id + ' ADDING MOD: ' + it.value );
 					this.addMod( it.mod, it.value );
 				}
+
 				if ( it.lock) this.lock( it.lock, it.value );
 			}
 

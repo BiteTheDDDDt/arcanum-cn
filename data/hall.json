@@ -12,6 +12,7 @@
 				"name":"",
 				"stat":true,
 				"value":0,
+				"locked":false,
 				"mod":{
 					"skill.rate":"0.1%"
 				}

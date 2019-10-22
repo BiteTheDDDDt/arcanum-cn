@@ -196,10 +196,8 @@ export default {
 		if ( lists.dungeons ) this.initItems( items, lists['dungeons'], Dungeon );
 		if ( lists.spells ) this.initItems( items, lists['spells'], Spell );
 
-		if ( lists.stats ){
-			console.log('MAKING STATS');
-			this.initItems( items, lists['stats'], StatData, 'stat', 'stat' );
-		}
+		if ( lists.stats ) this.initItems( items, lists['stats'], StatData, 'stat', 'stat' );
+
 
 		this.initItems( items, lists['items'], Item, 'item', 'item');
 

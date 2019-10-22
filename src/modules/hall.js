@@ -90,17 +90,12 @@ export default class Hall {
 		let it = this.items.points;
 		if ( !it ){
 			console.warn('cannot find points data');
+			this.points = new StatData(0);
 		} else {
-
 			this.points = it;
-
-			console.log('points: ' + (typeof it));
-			if ( typeof it === 'object') {
-				console.log( it.id + ' class: ' + (it.constructor.name) );
-			}
-
 		}
 
+		console.log('HALL LOADED');
 		this.initChars();
 
 	}
@@ -118,6 +113,7 @@ export default class Hall {
 		}
 
 		this.points.value = p;
+		console.log('POINTS TOTAL: ' + p );
 
 	}
 
@@ -171,8 +167,13 @@ export default class Hall {
 		char.name = p.name;
 		char.level = p.level.valueOf();
 		char.title = p.title;
+		char.titles = p.titles.length;
+		char.fame = p.fame.value.value;
 		char.gclass = p.gclass;
 		char.empty = false;
+
+		console.log('loaded points: ' + char.getPoints() );
+		console.log('CHAR UPDATES');
 
 	}
 

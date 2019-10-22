@@ -1,6 +1,9 @@
+import Game from '../game';
+
 var cheats;
 
 if ( false ) {
+
 	cheats = {};
 
 } else {
@@ -58,7 +61,7 @@ if ( false ) {
 				else {
 					let it = this.state.getData( targ );
 					if (it.locked) it.locked = false;
-					this.game.fillItem( targ );
+					Game.fillItem( targ );
 				}
 				e.stopPropagation();
 			}

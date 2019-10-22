@@ -30,13 +30,13 @@ export default class CharInfo {
 	get title(){return this._title;}
 	set title(v){ this._title =v;}
 
-	get fame() { return this._fame || 0;}
+	get fame() { return this._fame; }
 	set fame(v){this._fame=v;}
 
 	/**
 	 * @property {number} - number of titles earned.
 	 */
-	get titles(){return this._titles || 0; }
+	get titles(){return this._titles; }
 	set titles(v){this._titles =v;}
 
 	get gender(){return this._gender;}
@@ -54,6 +54,12 @@ export default class CharInfo {
 		if ( !this.name ) this.empty = true;
 
 		if ( !this.points ) this.points = 0;
+		if ( !this.fame ) this.fame = 0;
+		if ( !this.titles ) this.titles = 0;
+		if (!this.levels ) {
+			console.log( ('empty: ' + this.empty ) + ' MISSING LEVEL: ' + this.name );
+			this.levels = 0;
+		}
 
 
 	}
@@ -62,6 +68,7 @@ export default class CharInfo {
 	 * @returns {number} - calculate point contribution from char stats.
 	 */
 	getPoints(){
+		if ( this.empty ) return 0;
 		return this.fame + ( this.titles + this.levels ) /10;
 	}
 
