@@ -22,6 +22,7 @@ export default {
 	},
 	computed:{
 
+		name(){return this.item.sname || this.item.name; },
 		sellPrice(){ return Game.sellPrice(this.item);},
 
 		/**
@@ -82,12 +83,14 @@ export default {
 
 <div class="item-info">
 	<span class="separate">
-		<span class="item-name">{{item.name}}</span>
+		<span class="item-name">{{name}}</span>
 
 			<span v-if="item.type==='resource'">{{
 				item.current.toFixed(0) + ( item.max ? (' / ' + Math.floor(item.max.value ) ) :'' ) }}</span>
 			<span v-else-if="item.type==='furniture'">max: {{
 				item.max ? Math.floor(item.max.value ) : ( (item.repeat) ? '&infin;' : 1) }}</span>
+
+			<span v-if="item.sym">{{item.sym}}</span>
 
 
 	</span>
@@ -162,6 +165,10 @@ div.item-desc {
 
 .item-name {
 	font-weight: bold;
+}
+
+.separate > span {
+	margin-left:var(--small-gap);
 }
 .flavor {
 	font-style: italic;

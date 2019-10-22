@@ -8,7 +8,7 @@ import ItemsBase from './itemsBase';
 import Warn from './components/warn.vue';
 import Vitals from 'ui/vitals.vue';
 import DotView from './dotView.vue';
-import ItemPopup from './itemPopup.vue';
+import ItemPopup from './items/itemPopup.vue';
 import TopBar from './top-bar.vue';
 import SettingsUI from './settings.vue';
 

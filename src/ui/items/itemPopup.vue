@@ -1,8 +1,8 @@
 <script>
-import Game from '../game';
+import Game from '../../game';
 
-import ItemView from './items/gdata.vue';
-import {positionAt} from './components/popups.js';
+import ItemView from './gdata.vue';
+import {positionAt} from '../components/popups.js';
 
 
 /**

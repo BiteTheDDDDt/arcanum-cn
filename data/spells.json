@@ -1609,7 +1609,11 @@
 		"level":4,
 		"name":"sealing light II",
 		"desc":"seams of light close your wounds.",
+<<<<<<< HEAD
 		"require":"g.heal1>0",
+=======
+		"require":"heal1",
+>>>>>>> master
 		"school":"light",
 		"buy":{
 

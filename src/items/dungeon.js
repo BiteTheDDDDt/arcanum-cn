@@ -53,6 +53,8 @@ export default class Dungeon extends Action {
 		this.dist = ( this.dist === undefined || this.dist === null ) ? getDist(this.level) : this.dist;
 		//this.addRequire( 'dist', this.dist );
 
+		if (!this.sym) this.sym = '⚔';
+
 		//console.log(this.id + ' dist: ' + this.dist );
 
 		if ( this.need == null ) this.need = this.distTest;

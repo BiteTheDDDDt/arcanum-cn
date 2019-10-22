@@ -165,7 +165,7 @@
 		"use":{
 			"dot":{
 				"mod":{
-					"speed":25
+					"player.tohit":25
 				},
 				"duration":1800
 			}
