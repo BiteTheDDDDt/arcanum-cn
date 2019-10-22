@@ -51,15 +51,6 @@ export default class StatData extends GData {
 		 */
 		this.max = undefined;
 
-		console.log('statData: ' + this.id );
-		if ( this.id === 'fame') {
-
-			console.log( this.id + ' ' + (typeof this.value) + 'value: ' + this.value);
-			if ( typeof this.value === 'object') {
-				console.log('val class: '+ (this.value.constructor.name));
-			}
-		}
-
 		/**
 		 * @property {boolean} unit - true if current value is reported in integer amounts.
 		 */

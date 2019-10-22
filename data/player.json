@@ -101,7 +101,7 @@
 		"id":"points",
 		"desc":"hall points",
 		"hidden":true,
-		"stat":"true",
+		"stat":true,
 		"val":0
 	},
 	{

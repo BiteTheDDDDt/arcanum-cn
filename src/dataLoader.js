@@ -88,11 +88,12 @@ export default {
 		// restore Percent/Range classes /special functions of non-item data.
 		for( let p in saveData ) {
 
-			// items prepped separately for complex ordering reasons.
+			// items prepped separately so template can be written over, then prep, then template assigned.
 			if ( p === 'items') continue;
 			saveData[p] = prepData( saveData[p] );
 
 		}
+		// Merge and ensure game data item for every template item.
 		saveData.items = this.mergeItems( saveData.items, templates );
 
 		let gameLists = this.buildLists( saveData.items, dataLists );
@@ -194,6 +195,11 @@ export default {
 		if ( lists.locales ) this.initItems( items, lists['locales'], Locale );
 		if ( lists.dungeons ) this.initItems( items, lists['dungeons'], Dungeon );
 		if ( lists.spells ) this.initItems( items, lists['spells'], Spell );
+
+		if ( lists.stats ){
+			console.log('MAKING STATS');
+			this.initItems( items, lists['stats'], StatData, 'stat', 'stat' );
+		}
 
 		this.initItems( items, lists['items'], Item, 'item', 'item');
 

@@ -65,6 +65,7 @@ export default class Module {
 			return loadFiles( file ).then( (v)=>this.typesLoaded(v) );
 
 		} else {
+			this.name = file;
 			// files returned as string->file data mapping. get the file data itself.
 			return loadFiles( [ file ] ).then( (v)=>this.fileLoaded( v[file] ) );
 
@@ -118,15 +119,12 @@ export default class Module {
 	 */
 	fileLoaded( mod ) {
 
-		if ( !mod ) {
-			console.warn( this.file + ' data missing' );
-			return;
-		}
+		console.log('File Loaded: ' + mod.module );
 
 		this.templates = {};
 		this.lists = mod.data;
 
-		this.name = mod.module || this.file;
+		this.name = mod.module || this.name;
 		this.sym = mod.sym;
 
 		if ( mod.data ){
@@ -144,6 +142,7 @@ export default class Module {
 	parseLists( lists ){
 
 		for( let p in lists ) {
+			if ( this.name === 'hall' ) console.log('LIST NAME: ' + p);
 			this.parseList( lists[p] );
 		}
 
@@ -217,7 +216,7 @@ export default class Module {
 	 * @param {object} saveData
 	 */
 	instance( saveData={} ){
-		return dataLoader.instance( this.templates, this.dataLists, saveData );
+		return dataLoader.instance( this.templates, this.lists, saveData );
 	}
 
 }

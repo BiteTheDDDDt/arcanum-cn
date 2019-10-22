@@ -96,7 +96,7 @@ export default class Hall {
 
 			console.log('points: ' + (typeof it));
 			if ( typeof it === 'object') {
-				console.log('POINT TYPE: ' + (it.constructor.name) );
+				console.log( it.id + ' class: ' + (it.constructor.name) );
 			}
 
 		}

@@ -30,6 +30,9 @@ export default class CharInfo {
 	get title(){return this._title;}
 	set title(v){ this._title =v;}
 
+	get fame() { return this._fame || 0;}
+	set fame(v){this._fame=v;}
+
 	/**
 	 * @property {number} - number of titles earned.
 	 */
@@ -52,13 +55,14 @@ export default class CharInfo {
 
 		if ( !this.points ) this.points = 0;
 
+
 	}
 
 	/**
 	 * @returns {number} - calculate point contribution from char stats.
 	 */
 	getPoints(){
-		return this.points + ( this.titles + this.levels ) /10;
+		return this.fame + ( this.titles + this.levels ) /10;
 	}
 
 }
