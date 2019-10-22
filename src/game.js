@@ -1,5 +1,5 @@
 import DataLoader from './dataLoader';
-import {quickSplice} from './util/util';
+import {quickSplice, logObj} from './util/util';
 import GData from './items/gdata';
 import Log from './log.js';
 import GameState, { REST_SLOT } from './gameState';
@@ -131,10 +131,29 @@ export default {
 			console.warn('GAME LOADED');
 			this.loaded = true;
 
+			this.logStat( 'fame' );
+
 			return this;
 
 		}, err=>{ console.error( err.message + '\n' + err.stack )} );
 
+	},
+
+	/**
+	 *
+	 * @param {string} id
+	 */
+	logStat( id, full ) {
+
+		let s = this.getData(id);
+		if ( !s ) console.warn('STAT MISSING: '+id);
+		else {
+
+			if ( full ) logObj(s,'LOG STAT' );
+			console.warn( id + ' Val: ' + s.value );
+			console.log( s.constructor.name );
+
+		}
 	},
 
 	recheckTiers() {

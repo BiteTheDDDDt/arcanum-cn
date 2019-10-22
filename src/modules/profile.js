@@ -99,6 +99,7 @@ export default {
 		this.hall.updateChar( game.state.player );
 		this.saveHall();
 
+		this.hall.calcPoints();
 		game.addData( this.hall.items );
 
 		Events.add( LEVEL_UP, this.updateChar, this );

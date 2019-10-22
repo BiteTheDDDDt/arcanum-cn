@@ -68,6 +68,7 @@
 			"player.exp":15
 		},
 		"mod":{
+			"fame":1,
 			"research.max":15
 		}
 
@@ -83,6 +84,7 @@
 			"player.exp":15
 		},
 		"mod":{
+			"fame":2,
 			"crafting.max":1,
 			"arcanebody.max":1,
 			"occultendure.max":1,
@@ -99,6 +101,7 @@
 			"player.exp":25
 		},
 		"mod":{
+			"fame":3,
 			"lore.max":2,
 			"arcanebody.max":1,
 			"occultendure.max":1,
@@ -116,6 +119,7 @@
 			"player.exp":50
 		},
 		"mod":{
+			"fame":4,
 			"lore.max":3,
 			"crafting.max":2,
 			"arcanebody.max":1,
@@ -134,6 +138,7 @@
 			"player.exp":75
 		},
 		"mod":{
+			"fame":5,
 			"lore.max":4,
 			"crafting.max":2,
 			"arcanebody.max":1,
@@ -152,6 +157,7 @@
 			"player.exp":100
 		},
 		"mod":{
+			"fame":6,
 			"lore.max":4,
 			"crafting.max":2,
 			"arcanebody.max":1,
@@ -171,6 +177,7 @@
 			"player.exp":100
 		},
 		"mod":{
+			"fame":7,
 			"lore.max":3,
 			"crafting.max":4,
 			"arcanebody.max":1,
@@ -190,6 +197,7 @@
 			"player.exp":100
 		},
 		"mod":{
+			"fame":8,
 			"lore.max":4,
 			"crafting.max":2,
 			"arcanebody.max":1,
@@ -215,6 +223,7 @@
 		"require":"g.virtue>350&&g.evilamt<20",
 		"desc":"You have become a respected personage in the magical world.",
 		"mod":{
+			"fame":1,
 			"light.rate":0.1
 		}
 
@@ -263,6 +272,7 @@
 		"desc":"Your wicked deeds put you on the sure path of evil. A few more steps, and there will be no turning back.",
 		"require":"g.evilamt>=250",
 		"mod":{
+			"fame":1,
 			"shadowlore.max":1,
 			"shadowlore.rate":0.2
 		}

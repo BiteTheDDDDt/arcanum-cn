@@ -12,8 +12,10 @@ export default class CharInfo {
 			level:this.level,
 			gclass:this.gclass,
 			title:this.title||undefined,
+			titles:this.titles||undefined,
 			gender:this.gender||undefined,
 			school:this.school||undefined,
+			fame:this.fame||undefined,
 			points:this.points||undefined
 		}
 
@@ -27,6 +29,12 @@ export default class CharInfo {
 
 	get title(){return this._title;}
 	set title(v){ this._title =v;}
+
+	/**
+	 * @property {number} - number of titles earned.
+	 */
+	get titles(){return this._titles || 0; }
+	set titles(v){this._titles =v;}
 
 	get gender(){return this._gender;}
 	set gender(v){ this._gender =v;}
@@ -44,6 +52,13 @@ export default class CharInfo {
 
 		if ( !this.points ) this.points = 0;
 
+	}
+
+	/**
+	 * @returns {number} - calculate point contribution from char stats.
+	 */
+	getPoints(){
+		return this.points + ( this.titles + this.levels ) /10;
 	}
 
 }

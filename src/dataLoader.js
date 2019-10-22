@@ -234,6 +234,7 @@ export default {
 			var def = dataList[i];
 
 			if ( def.reverse) dataList[i] = def = new RevStat(def);
+			else if ( def.stat ) dataList[i] = def = new StatData(def);
 			else if ( def.zerosum ) dataList[i] = def = new ZeroSum(def);
 			else dataList[i] = def = new UseClass( def );
 

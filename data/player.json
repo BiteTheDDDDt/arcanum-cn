@@ -124,7 +124,7 @@
 		"id":"fame",
 		"name":"notoriety",
 		"hidden":"true",
-		"stat":"true",
+		"stat":true,
 		"desc":"Your reputation in the world",
 		"val":0
 	}

@@ -1,5 +1,7 @@
 import CharInfo from "./charinfo";
 import Stat from "../values/stat";
+import StatData from "../items/statData";
+import GData from "../items/gdata";
 
 /**
  * Wizards hall.
@@ -44,10 +46,7 @@ export default class Hall {
 	get points() { return this._points; }
 	set points(v) {
 
-		if ( v instanceof Stat ) this._points = v;
-		else if ( this._points === undefined ) this._points = new Stat( v, 'hallPoints');
-		else if ( typeof v === 'number' ) this._points.base = v;
-		else this._points = new Stat(v, 'hallPoints');
+		this._points = v;
 
 	}
 
@@ -88,7 +87,37 @@ export default class Hall {
 		//if ( !this.max ) this.max = 3;
 		this.max = 3;
 
+		let it = this.items.points;
+		if ( !it ){
+			console.warn('cannot find points data');
+		} else {
+
+			this.points = it;
+
+			console.log('points: ' + (typeof it));
+			if ( typeof it === 'object') {
+				console.log('POINT TYPE: ' + (it.constructor.name) );
+			}
+
+		}
+
 		this.initChars();
+
+	}
+
+	/**
+	 * Recalculate point contributions from all chars.
+	 */
+	calcPoints() {
+
+		let p = 0;
+		for( let i = this.chars.length-1; i>= 0; i--) {
+
+			p += this.chars[i].getPoints();
+
+		}
+
+		this.points.value = p;
 
 	}
 
@@ -102,12 +131,12 @@ export default class Hall {
 			if ( c === undefined ) {
 				this.chars.push( new CharInfo() );
 			} else {
-				total += c.points;
+				total += c.getPoints();
 			}
 
 		}
 
-		this.points = total;
+		this.points.value = total;
 
 	}
 

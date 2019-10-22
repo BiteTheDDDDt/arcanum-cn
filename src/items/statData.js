@@ -27,7 +27,7 @@ export default class StatData extends GData {
 
 			this._value = v;
 
-		} else if ( this._value ) {
+		} else if ( this._value !== undefined ) {
 
 			this._value.base = (typeof v === 'object') ? v.value : v;
 
@@ -44,12 +44,21 @@ export default class StatData extends GData {
 
 		super(vars);
 
-		if ( !this.value ) this.value = 0;
+		if ( this.value === undefined ) this.value = 0;
 
 		/**
 		 * @compat. statData is a pure stat with no max value.
 		 */
 		this.max = undefined;
+
+		console.log('statData: ' + this.id );
+		if ( this.id === 'fame') {
+
+			console.log( this.id + ' ' + (typeof this.value) + 'value: ' + this.value);
+			if ( typeof this.value === 'object') {
+				console.log('val class: '+ (this.value.constructor.name));
+			}
+		}
 
 		/**
 		 * @property {boolean} unit - true if current value is reported in integer amounts.
