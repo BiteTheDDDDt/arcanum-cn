@@ -949,7 +949,8 @@
 		"lore.max":2,
 		"lore.rate":"10%",
 		"mana.max":1
-	}
+	},"flavor":"you call it an empire, but in the gloaming I see only heaps of crumbled stone."
+
 },
 {
 	"id":"fey",
@@ -981,7 +982,7 @@
 		"animals.rate":"1+10%",
 		"herbalism.max":2,
 		"herbalism.rate":"1+10%"
-	}
+	},"flavor":"'Will you drink from the goblet?' she asked. 'The transformation cannot be undone.'"
 },
 {
 	"id":"thaumaturge",
@@ -1016,7 +1017,7 @@
 	"id":"necromancer",
 	"title":"necromancer",
 	"tags":"t_tier4",
-	"desc":"master of death magic",
+	"desc":"a master of death magic",
 	"require":"g.tier3>0&&g.evil>0&&g.shadowlore>=17",
 	"cost":{
 		"research":2000,
@@ -1049,7 +1050,7 @@
 	"title":"wizard",
 	"desc":"raw magic power",
 	"tags":"t_tier4",
-	"require":"g.tier3>0&&g.lore>=25",
+	"require":"g.good>0&&g.tier3>0&&g.lore>=25",
 	"cost":{
 		"research":5000,
 		"arcana":25,
@@ -1103,7 +1104,7 @@
 {
 	"id":"kell",
 	"title":"kell",
-	"desc":"immortal spirits of nature, even the weakest Kell could rival wizards",
+	"desc":"immortal spirits of nature, even the weakest Kell are beings to rival wizards",
 	"tags":"t_tier5",
 	"require":"g.tier4>0&&g.naturelore>=23&&(g.witch+g.fey+g.highelemental)>0",
 	"cost":{
@@ -1126,7 +1127,7 @@
 		"animals.rate":"10%",
 		"herbalism.max":1,
 		"herbalism.rate":"15%"
-	},"flavor":"kell are not of mortal blood, and only strong magic can infuse a mortal with their essence."
+	},"flavor":"kell are not of mortal race, and only potent magics can imbue a mortal with their essence."
 },
 {
 	"id":"greynecromancer",
@@ -1181,7 +1182,7 @@
 			"firelore.rate":"20%",
 			"demonology.max":5,
 			"demonology.rate":"20%"
-		},"flavor":"in the War of the Locks the Seven raged for power and Dhrune trembled in their wake."
+		},"flavor":"in the War of the Locks the Seven raged for power absolute, and Dhrune trembled in their footsteps."
 
 	},
 	{
@@ -1265,7 +1266,7 @@
 	{
 		"id":"mythicwizard",
 		"name":"mythic wizard",
-		"desc":"",
+		"desc":"their figures reappear throughout the ages, crashing on the stage at the pivitol juncture, then fading from history for another thousand years.",
 		"tags":"t_tier6",
 		"require":"g.tier5>0&&g.lore>=35&&g.spellcraft>=10",
 		"cost":{
@@ -1286,7 +1287,8 @@
 			"history.max":1,
 			"potions.max":1,
 			"alchemy.max":1
-		},"flavor":""
+		},"flavor":"It couldn't possibly be... I haven't heard that name since the Wind Age."
+
 	},
 	{
 		"id":"avatar",
