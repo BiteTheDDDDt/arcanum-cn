@@ -1216,7 +1216,7 @@
 	{
 		"id":"highkell",
 		"name":"high kell",
-		"desc":"the ranks of the kell range from minor fey and forest delki, to great spirits, ancient and indominable.",
+		"desc":"the ranks of the kell range from the lesser fey and forest delki, to ancient spirits, old and indominable.",
 		"tags":"t_tier6",
 		"require":"(g.fey+g.kell)>0",
 		"cost":{
@@ -1236,13 +1236,13 @@
 			"animals.rate":"10%",
 			"earthlore.max":1,
 			"earthlore.rate":"15%"
-		},"flavor":"most preferred their glades and fens to the turmoils of the world"
+		},"flavor":"'It's of no consequence to me,' returned Jora. 'I do not die Trill, and there are few things in this world that could do the trick."
 	},
 	{
 		"id":"highnecro",
-		"name":"grey necromancer",
+		"name":"the necromancer",
 		"tags":"t_tier6",
-		"desc":"in every aeon from among the mortals, Death appoints her viceroy.",
+		"desc":"In every epoch, Death appoints her viceroy.",
 		"require":"g.tier5>0&&g.evil>0&&g.spiritlore>=15&&g.shadowlore>=24",
 		"cost":{
 			"research":17000,
