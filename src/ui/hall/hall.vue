@@ -67,6 +67,8 @@ export default {
 
 <div class="popup wizhall">
 
+	<div class="power" @mouseenter.capture.stop="emit( 'itemover', $event, hall.points )">Hall Power: {{ Math.floor(hall.points.value.value) }}</div>
+
 	<div class="header"><input class="fld-name text-entry" type="text" v-model="hallName"></div>
 
 	<div class="chars">
@@ -74,7 +76,7 @@ export default {
 		:key="i" @load="load( i)" @dismiss="dismiss(i)" />
 	</div>
 
-	<button class="btn-close" @click="$emit('close')">X</button>
+	<div class="btn-close"><button class="btn-close" @click="$emit('close')">X</button></div>
 
 </div>
 
@@ -84,8 +86,15 @@ export default {
 
 div.header {
 	display:flex;
-	justify-content: center;
+	justify-content:center;
 	margin: var(--md-padding);
+}
+
+div.wizhall div.power {
+	position: absolute;
+	top: var(--md-gap );
+	left: var(--md-gap);
+	font-size: 0.94em;
 }
 
 div.header .fld-name {
@@ -93,7 +102,7 @@ div.header .fld-name {
 	font-size: 1.4em;
 }
 div.wizhall {
-
+	z-index: 5000;
 	background-color: var( --background-color);
  	min-width: 640px;
  	padding: var( --rg-padding );
@@ -108,8 +117,8 @@ div.wizhall .chars {
 
 button.btn-close {
 	position: absolute;
-	top: 12px;
-	right:12px;
+	top: var(--md-gap);
+	right: var(--md-gap);
 }
 
 </style>

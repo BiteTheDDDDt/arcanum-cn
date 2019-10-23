@@ -9,7 +9,7 @@
 
 			{
 				"id":"points",
-				"name":"",
+				"name":"hall power",
 				"stat":true,
 				"value":0,
 				"locked":false,

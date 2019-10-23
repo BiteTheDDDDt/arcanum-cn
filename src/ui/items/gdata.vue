@@ -85,8 +85,7 @@ export default {
 	<span class="separate">
 		<span class="item-name">{{name}}</span>
 
-			<span v-if="item.type==='resource'">{{
-				item.current.toFixed(0) + ( item.max ? (' / ' + Math.floor(item.max.value ) ) :'' ) }}</span>
+			<span v-if="item.type==='resource'||item.type==='stat'">{{ item.current.toFixed(0) + ( item.max ? (' / ' + Math.floor(item.max.value ) ) :'' ) }}</span>
 			<span v-else-if="item.type==='furniture'">max: {{
 				item.max ? Math.floor(item.max.value ) : ( (item.repeat) ? '&infin;' : 1) }}</span>
 
