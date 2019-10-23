@@ -16,28 +16,33 @@ export default class Resource extends GData {
 	* @returns {boolean} true if resource value is positive.
 	*/
 	positive(g,s) {
-		return (this._value > 0 || (this._rate.value>0&&( (!this.max) ||this.max.value>0) ) );
+		return (super.value > 0 || (this._rate.value>0&&( (!this.max) ||this.max.value>0) ) );
 	}
 
 	/**
 	 * @property {number} current - identical to value except uses floor of values.
 	 */
-	get current() { return this.unit ? Math.floor(this.value) : this._value; }
+	get current() { return this.unit ? Math.floor(super.value.valueOf() ) : super.value.valueOf(); }
+
+	get val(){ return super.value; }
+	set val(v){
+		super.value = v;
+	}
 
 	/**
 	 * @property {number} value
 	 */
-	get value() { return this._value; }
+	get value() { return super.value; }
 	set value(v) {
 
-		if ( this._max && v > this._max ) {
+		if ( v > this._max ) {
 
-			if ( v < this._value ) this._value = v;
+			if ( v < super.value ) super.value = v;
 
 			//
-			else this._value = Math.max( this._max.value, this._value );
+			else super.value = Math.max( this._max.value, super.value.valueOf() );
 
-		} else this._value = (v >= 0 ) ? v :0;
+		} else super.value = (v >= 0 ) ? v :0;
 
 	}
 
@@ -76,8 +81,6 @@ export default class Resource extends GData {
 
 		//if ( this._value != vars.val ) console.log( 'this.valu: ' + this._value );
 
-		this._value = this._value || 0;
-
 		if ( this.repeat !== false ) this.repeat = true;
 
 		/**
@@ -87,7 +90,7 @@ export default class Resource extends GData {
 
 		if ( this._rate === null || this._rate === undefined ) this._rate = new Stat(0);
 
-		this._lastValue = this._value;
+		this._lastValue = super.value.valueOf();
 
 		this._type = this._type || 'resource';
 
@@ -113,14 +116,15 @@ export default class Resource extends GData {
 
 		if ( this._rate.value ) {
 
-			let v = this._value + this._rate.value*dt;
+			let cur = super.value.base;
+			let v = cur + this._rate.value*dt;
 
 			if ( this._max && v > this._max.value ) v = this._max.value;
 			else if ( v < 0 ) v = 0;
 
 			this._delta = v - this._lastValue;
 
-			this._value = this._lastValue = v;
+			super.value = this._lastValue = v;
 
 		} else this._delta = 0;
 

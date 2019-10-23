@@ -111,7 +111,7 @@ export default {
 
 		<span class="separate">
 		<filterbox class="inline" v-model="filtered" :prop="searchIt" :items="viewable" />
-		<span class="space">Space: {{ Math.floor(space.value) }} / {{ Math.floor(space.max.value) }}</span>
+		<span class="space">Space: {{ Math.floor(space.valueOf() ) }} / {{ Math.floor(space.max.value) }}</span>
 		</span>
 
 			<div class="warn-text"
@@ -127,11 +127,11 @@ export default {
 		<tr v-for="it in filtered" :key="it.id" @mouseenter.capture.stop="emit( 'itemover', $event, it )">
 
 			<td class="space">{{ it.cost.space }}</td>
-			<td class="name">{{ it.name }}</td> <td class="count">{{ it.value || 0 }}</td>
+			<td class="name">{{ it.name }}</td> <td class="count">{{ it.value.valueOf() }}</td>
 			<td><button type="button" :disabled="!usable(it)" class="buy-btn"
 				@click="emit('upgrade',it)">Buy</button></td>
 
-			<td><button type="button" :disabled="!it.value || it.value<=0" class="sell-btn" @click="emit('sell',it)">Sell</button></td>
+			<td><button type="button" :disabled="it.value<=0" class="sell-btn" @click="emit('sell',it)">Sell</button></td>
 
 		</tr>
 

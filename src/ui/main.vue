@@ -359,7 +359,7 @@ export default {
 		<template slot="sect_enchant"><enchanting /></template>
 		</vue-menu>
 
-		<vitals :player="state.player" :state="state" />
+		<vitals :state="state" />
 
 		<log />
 

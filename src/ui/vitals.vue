@@ -12,7 +12,7 @@ import { STOP_ALL } from '../events';
  */
 export default {
 
-	props:['state','player'],
+	props:['state'],
 	mixins:[ItemBase],
 	components:{
 		progbar:ProgBar,
@@ -26,6 +26,7 @@ export default {
 	},
 	computed:{
 
+		hp(){return this.state.getData('hp');},
 		focus() { return this.state.getData('focus'); },
 		manaList() { return this.state.filterItems( it=>it.hasTag('manas') && !it.locked)},
 		resting() {
@@ -60,16 +61,16 @@ export default {
 		<table class="bars">
 
 		<tr><td>stamina</td>
-		<td colspan="2"><progbar class="stamina" :value="stamina.value" :max="stamina.max.value"
+		<td colspan="2"><progbar class="stamina" :value="stamina.valueOf()" :max="stamina.max.value"
 			@mouseenter.capture.stop.native="emit( 'itemover',$event,stamina)"/></td></tr>
 
 		<tr><td>hp</td>
-		<td colspan="2"><progbar class="hp" :value="player.hp.value" :max="player.hp.max.value"
-			@mouseenter.capture.stop.native="emit( 'itemover',$event,player.hp)"/></td></tr>
+		<td colspan="2"><progbar class="hp" :value="hp.valueOf()" :max="hp.max.value"
+			@mouseenter.capture.stop.native="emit( 'itemover',$event,hp)"/></td></tr>
 
 		<tr v-for="it in manaList" :key="it.key">
 			<td>{{it.name}}</td>
-		<td colspan="2"><progbar :value="it.value" :class="it.id" :max="it.max.value"
+		<td colspan="2"><progbar :value="it.valueOf()" :class="it.id" :max="it.max.value"
 			@mouseenter.native.capture.stop="emit( 'itemover',$event,it)"/></td></tr>
 
 		<!--<tr><td>mood</td><td><mood :state="state" /></td></tr>-->
