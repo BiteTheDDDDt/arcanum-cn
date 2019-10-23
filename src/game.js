@@ -232,14 +232,14 @@ export default {
 
 		for( let p in data ) {
 
-			console.warn('ADDING DATA ITEM: ' + p );
+			//console.warn('ADDING DATA ITEM: ' + p );
 			let it = data[p];
 			this.state.addItem(it);
 
 			if ( !it.locked && !it.disabled ) {
 
 				if ( it.mod && it.value != 0 ) {
-					console.log( it.id + ' ADDING MOD: ' + it.value );
+					//console.log( it.id + ' ADDING MOD: ' + it.value );
 					this.addMod( it.mod, it.value );
 				}
 

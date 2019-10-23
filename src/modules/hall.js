@@ -32,6 +32,9 @@ export default class Hall {
 	get name() { return this._name; }
 	set name(v) { this._name = v; }
 
+	/**
+	 * @property {CharInfo[]} chars
+	 */
 	get chars() { return this._chars; }
 	set chars(v) {
 
@@ -43,6 +46,9 @@ export default class Hall {
 		this._chars = v;
 	}
 
+	/**
+	 * @property {StatData} prestige
+	 */
 	get prestige() { return this._prestige; }
 	set prestige(v) {
 
@@ -93,6 +99,12 @@ export default class Hall {
 			this.prestige = new StatData(0);
 		} else {
 			this.prestige = it;
+		}
+
+		console.log('PRES MAX: ' + this.prestige.max );
+		console.log( typeof this.prestige.max );
+		if ( this.prestige.max ) {
+			console.log( 'PRESTIGE MAX NAME: ' + this.prestige.max.constructor.name );
 		}
 
 		console.log('HALL LOADED');

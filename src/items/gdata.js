@@ -34,6 +34,8 @@ export default class GData {
 	get max() { return this._max; }
 	set max(v) {
 
+		if ( v === null || v === undefined ) return;
+
 		if ( this._max ) {
 
 			if ( v instanceof Stat ) this._max = v;

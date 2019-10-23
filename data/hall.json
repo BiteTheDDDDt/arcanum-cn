@@ -1,7 +1,7 @@
 {
 
 	"module":"hall",
-	"symbol":"",
+	"sym":"🏰",
 
 	"data":{
 
@@ -14,8 +14,8 @@
 				"value":0,
 				"locked":false,
 				"mod":{
-					"skill.rate":"0.2%",
-					"stress.max":"0.2%"
+					"skill.rate":"0.1%",
+					"stress.max":"0.1%"
 				}
 			}
 

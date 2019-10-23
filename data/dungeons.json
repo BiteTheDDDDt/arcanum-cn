@@ -438,6 +438,7 @@
 		"length":10000,
 		"result":{
 			"title":"twice born",
+			"fame":3,
 			"gems":"30~50",
 			"gold":"1000~2000"
 		},
@@ -538,6 +539,7 @@
 		},
 		"length":100,
 		"result":{
+			"title":"lock slayer",
 			"gold":"300~500",
 			"ichor":3
 		},
@@ -609,6 +611,7 @@
 			"stamina":1
 		},
 		"result":{
+			"title":"holy defiler",
 			"evilamt":10,
 			"gold":"150~275"
 		},

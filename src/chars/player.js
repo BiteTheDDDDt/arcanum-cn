@@ -146,6 +146,11 @@ export default class Player extends Char {
 
 	}
 
+	get points(){ return this._points; }
+	set points(v){
+		this._points = v instanceof Stat ? v : new Stat(v);
+	}
+
 	/**
 	 * NOTE: Elements that are themselves Items are not encoded,
 	 * since they are encoded in the Item array.
@@ -169,6 +174,8 @@ export default class Player extends Char {
 		data.alignment = ( this.alignment );
 		data.damage = ( this.damage );
 		data.dots = ( this.dots );
+
+		data.points = this.points;
 
 		data.bonuses = this.bonuses;
 		data.immunities = this.immunities;

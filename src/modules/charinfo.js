@@ -69,7 +69,7 @@ export default class CharInfo {
 	 */
 	getPoints(){
 		if ( this.empty ) return 0;
-		return this.fame + ( this.titles + this.levels ) /10;
+		return this.points + this.fame + ( this.titles + this.levels ) /10;
 	}
 
 }
