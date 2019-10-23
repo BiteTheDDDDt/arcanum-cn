@@ -6,6 +6,15 @@ export default {
 	},
 	methods:{
 
+		fileSelect(e) {
+
+			e.stopPropagation();
+			e.preventDefault();
+
+			this.dispatch( 'load-file', e.target.files );
+
+		},
+
 		fileDrop(e){
 			e.stopPropagation();
 			e.preventDefault();
@@ -43,8 +52,8 @@ export default {
 		<div class="text-button"><a class="text-button" id="save-file" href="" download
 			@click.self="dispatch('save-file',$event )" type="text/json">get save</a></div>
 			<!--<input type="file" name="[File]" accept="text/json" @change="fileDrop">-->
-		<button id="drop-file" @drop="fileDrop"
-			@dragover="fileDrag" @dragleave.capture.stop="dragOut">[Drop Save]</button>
+		<button id="drop-file" @click="$refs.fileInput.click()" @drop="fileDrop" @dragover="fileDrag" @dragleave.capture.stop="dragOut" name="[Drop Save]">[Drop Save]</button>
+			<input ref="fileInput" type="file" @change="fileSelect" accept="text/json text/*">
 
 			<confirm @confirm="dispatch('reset')">reset</confirm>
 
@@ -77,6 +86,11 @@ span.vers {
 #save-file {
 	text-decoration: none;
 }
+
+input[type="file"] {
+	display:none;
+}
+
 #drop-file {
 	border: 1.75px dashed rgb(117, 117, 117);
 }
