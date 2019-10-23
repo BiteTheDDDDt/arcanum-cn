@@ -266,8 +266,8 @@
 		"verb":"infusing shoes",
 		"targets":"feet",
 		"desc":"imbue an item with inherent speed",
-		"require":"g.enchanting>=4",
-		"level":1,
+		"require":"g.enchanting>=5",
+		"level":4,
 		"buy":{
 			"tomes":3,
 			"research":800
@@ -289,7 +289,7 @@
 		"targets":"feet",
 		"desc":"imbue an item with inherent speed",
 		"require":"g.enchanting>=7",
-		"level":1,
+		"level":7,
 		"buy":{
 			"tomes":10,
 			"research":200
@@ -301,6 +301,62 @@
 		},
 		"mod":{
 			"mod.speed":3
+		}
+	},
+	{
+		"id":"en_clarity",
+		"name":"clarity",
+		"targets":"head",
+		"adj":"of clarity",
+		"desc":"an enchantment to aid the mind.",
+		"level":3,
+		"buy":{
+			"tomes":3,
+			"research":800
+		},
+		"length":20,
+		"cost":{
+			"managem":10
+		},
+		"mod":{
+			"mod.bf.rate":-0.5
+		}
+	},
+	{
+		"id":"en_courage",
+		"name":"courage",
+		"targets":"waist",
+		"desc":"an enchantment to gird the spine.",
+		"level":5,
+		"buy":{
+			"tomes":3,
+			"research":1000
+		},
+		"length":20,
+		"cost":{
+			"earthgem":5
+		},
+		"mod":{
+			"mod.unease.rate":-0.5
+		}
+	},
+	{
+		"id":"en_sanity",
+		"name":"sanity",
+		"targets":"head",
+		"adj":"of sanity",
+		"desc":"an enchantment to ward off madness",
+		"level":6,
+		"buy":{
+			"tomes":5,
+			"research":1000
+		},
+		"length":20,
+		"cost":{
+			"managem":10
+		},
+		"mod":{
+			"mod.madness.rate":-1
 		}
 	},
 	{
@@ -322,6 +378,29 @@
 		},
 		"mod":{
 			"attack.tohit":2
+		}
+	},
+	{
+		"id":"en_speed3",
+		"name":"quick boots IV",
+		"verb":"infusing shoes",
+		"targets":"feet",
+		"adj":"of speed",
+		"desc":"imbue your boots with speed",
+		"require":"g.enchanting>=10",
+		"level":7,
+		"buy":{
+			"tomes":10,
+			"runestones":10,
+			"research":3000
+		},
+		"length":30,
+		"cost":{
+			"runestones":2,
+			"mana":15
+		},
+		"mod":{
+			"mod.speed":8
 		}
 	}
 

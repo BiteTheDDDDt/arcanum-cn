@@ -19,9 +19,7 @@ export default {
 
 		empty(){return this.char.empty },
 
-		name(){
-			return this.char.name;
-		},
+		name(){ return this.char.name; },
 		level() { return this.char.level },
 		title() { return this.char.title },
 		gclass(){return this.char.gclass }
@@ -37,7 +35,9 @@ export default {
 	<div class="char-stats" v-if="!empty">
 	<span class="fld-name">{{ name }} the {{ title }}</span>
 	<span v-if="gclass">{{ gclass }}</span>
-	<span>level {{ level }}</span>
+	<span v-if="level>0">level {{ level }}</span>
+	<span v-if="char.fame>0">notoriety: {{ char.fame }}</span>
+	<span v-if="char.titles>0">titles: {{ char.titles }}</span>
 	</div>
 	<div v-else class="char-stats">
 		<span class="fld-name">Chair Empty</span>

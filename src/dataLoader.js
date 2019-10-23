@@ -94,7 +94,7 @@ export default {
 
 		}
 
-		// Remove items with outdated aliased names.
+		// Remove items with outdated/aliased names.
 		let items = saveData.items;
 		for( let p in templates ) {
 
@@ -105,7 +105,7 @@ export default {
 				if ( it ) {
 					console.warn('alias: ' + t.alias + ' -> ' + p );
 					items[p] = it;
-					items[t.alias] = undefined;
+					delete items[t.alias];
 				}
 			}
 
