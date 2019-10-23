@@ -381,6 +381,25 @@
 		}
 	},
 	{
+		"id":"en_decep",
+		"name":"deception",
+		"targets":"back",
+		"adj":"of deception",
+		"desc":"a cloak to confuse the mind.",
+		"level":9,
+		"buy":{
+			"tomes":4,
+			"research":2000
+		},
+		"length":20,
+		"cost":{
+			"watergem":10
+		},
+		"mod":{
+			"mod.trickery":2
+		}
+	},
+	{
 		"id":"en_speed3",
 		"name":"quick boots IV",
 		"verb":"infusing shoes",

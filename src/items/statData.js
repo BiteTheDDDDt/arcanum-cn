@@ -12,30 +12,6 @@ export default class StatData extends GData {
 	 */
 	get current() { return this.unit ? Math.floor(this.value) : this._value; }
 
-	get val() { return this.value; }
-	set val(v) {
-		this.value = v;
-	}
-
-	/**
-	 * @property {number} value
-	 */
-	get value() { return this._value; }
-	set value(v) {
-
-		if ( v instanceof Stat ) {
-
-			this._value = v;
-
-		} else if ( this._value !== undefined ) {
-
-			this._value.base = (typeof v === 'object') ? v.value : v;
-
-		} else this._value = new Stat(v );
-
-	}
-	valueOf(){ return this._value.value; }
-
 	/**
 	 *
 	 * @param {?Object} [vars=null]

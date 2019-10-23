@@ -99,6 +99,31 @@ export default class GData {
 	set owned(v) { this._owned = v; }
 
 	/**
+	 * @property {Stat} value
+	 */
+	get value() { return this._value; }
+	set value(v) {
+
+		if ( v instanceof Stat ) {
+
+			this._value = v;
+
+		} else if ( this._value !== undefined ) {
+
+			this._value.base = (typeof v === 'object') ? v.value : v;
+
+		} else this._value = new Stat(v );
+
+	}
+
+	get val() { return this.value; }
+	set val(v) {
+		this.value = v;
+	}
+
+	valueOf(){ return this._value.value; }
+
+	/**
 	 *
 	 * @param {?Object} [vars=null]
 	 */
