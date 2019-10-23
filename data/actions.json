@@ -1,7 +1,7 @@
 [
 	{
 		"id":"cleanstables",
-		"name":"Clean Stables",
+		"name":"clean stables",
 		"desc":"working from home.",
 		"verb":"cleaning",
 		"locked":false,
@@ -14,7 +14,7 @@
 	},
 	{
 		"id":"chores",
-		"name":"Do Chores",
+		"name":"do chores",
 		"desc":"standard apprentice work.",
 		"verb":"working",
 		"require":"apprentice",
@@ -58,7 +58,7 @@
 	},
 	{
 		"id":"errands",
-		"name":"Run Errands",
+		"name":"run errands",
 		"desc":"standard apprentice work.",
 		"verb":"running errands",
 		"require":"apprentice",
@@ -148,7 +148,7 @@
 	{
 
 		"id":"spellbook",
-		"actname":"Bind Spellbook",
+		"actname":"bind spellbook",
 		"verb":"binding spells",
 		"require":"g.lore>=2&&g.crafting>=2&&g.languages>=1",
 		"desc":"The portal to true magic.",
@@ -182,7 +182,7 @@
 	{
 
 		"id":"service",
-		"name":"Offer Services",
+		"name":"offer services",
 		"desc":"Offer your magical services to the nearby townsfolk.",
 		"verb":"servicing",
 		"require":"adept",
@@ -232,7 +232,7 @@
 	{
 
 		"id":"spingold",
-		"name":"Spin Gold",
+		"name":"spin gold",
 		"desc":"Spin straw into gold",
 		"verb":"spinning",
 		"require":"g.weaving>=5&&g.loom>0&&g.enchanting>=3",
@@ -387,9 +387,9 @@
 	{
 
 		"id":"paidseance",
-		"name":"Hold Seance",
-		"verb":"communing",
-		"desc":"Commune with the dead relatives of patrons for a small fee.",
+		"name":"hold seance",
+		"verb":"holding seance",
+		"desc":"channel spirits for a small fee.",
 		"require":["divination","spiritsource","adept"],
 		"perpetual":true,
 		"length":10,
@@ -436,7 +436,7 @@
 	},
 	{
 		"id":"treatailments",
-		"name":"Treat Ailments",
+		"name":"treat ailments",
 		"desc":"Cure customers of magical ailments.",
 		"require":"g.neophyte>0&&g.anatomy>=3",
 		"cost":{
@@ -459,7 +459,7 @@
 	},
 	{
 		"id":"readpalms",
-		"name":"Read Palms",
+		"name":"read palms",
 		"verb":"reading palms",
 		"require":"g.divination>5||g.trickster>0",
 		"desc":"read palms for a small fee.",
