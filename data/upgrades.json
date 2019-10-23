@@ -858,25 +858,27 @@
 		"id":"bagofholding",
 		"name":"bag of holding",
 		"require":"g.lore>10&&g.conjuration>7",
+		"desc":"You'll make your own bags, thank you.",
 		"max":1,
 		"cost":{
 			"gold":1000,
-			"research":500
+			"research":1000
 		},
 		"mod":{
 			"inv.max":4,
 			"gold.max":100,
 			"gems.max":20,
 			"gem.max":5
-		}
+		},"flavor":"the research costs a little more than you expected..."
 
 	},
 	{
 		"id":"deeppockets",
 		"name":"Deep Pockets",
 		"require":"g.hiddenpockets>0&&g.trickster>0&&g.conjuration>2",
-		"desc":"Lots of money.",
+		"desc":"Cheaper than buying pouches.",
 		"cost":{
+			"research":300,
 			"arcana":1
 		},
 		"mod":{
@@ -888,13 +890,14 @@
 	},
 	{
 
-		"id":"expedientretreat",
+		"id":"retreat",
+		"alias":"expedientretreat",
 		"name":"two-way portal",
 		"desc":"return to dungeons below your level after making a hasty exit.",
 		"require":"g.trickster>0||g.tier2>0",
 		"cost":{
 			"arcana":10,
-			"research":500
+			"research":2000
 		},
 		"mod":{
 			"player.retreat":1
@@ -906,7 +909,7 @@
 		"desc":"earth affinity",
 		"require":"g.earth>10",
 		"cost":{
-			"research":300,
+			"research":3000,
 			"earthgem":10,
 			"tomes":1
 		},
@@ -921,7 +924,7 @@
 		"desc":"a natural resistance to most poisons.",
 		"require":"g.nature>10&&g.druid>0",
 		"cost":{
-			"research":500,
+			"research":3000,
 			"naturegem":10,
 			"tomes":1
 		},
@@ -936,7 +939,7 @@
 		"desc":"air affinity",
 		"require":"g.air>10",
 		"cost":{
-			"research":300,
+			"research":3000,
 			"airgem":10,
 			"tomes":1
 		},
@@ -950,12 +953,26 @@
 		"desc":"water affinity",
 		"require":"g.water>10",
 		"cost":{
-			"research":300,
+			"research":3000,
 			"watergem":10,
 			"tomes":1
 		},
 		"mod":{
 			"player.resist.water":5
+		}
+
+	},
+	{
+		"id":"fireaffinity",
+		"desc":"fire affinity",
+		"require":"g.fire>10",
+		"cost":{
+			"research":3000,
+			"firegem":10,
+			"tomes":1
+		},
+		"mod":{
+			"player.resist.fire":5
 		}
 
 	},
@@ -967,7 +984,7 @@
 		"lock":["watersign","airsign","earthsign"],
 		"desc":"born under the celestial sign of fire",
 		"cost":{
-			"research":1000,
+			"research":5000,
 			"firegem":15,
 			"tomes":5
 		},
@@ -984,7 +1001,7 @@
 		"warn":true,
 		"desc":"born under the celestial sign of water",
 		"cost":{
-			"research":1000,
+			"research":5000,
 			"watergem":15,
 			"tomes":5
 		},
@@ -1001,7 +1018,7 @@
 		"warn":true,
 		"desc":"born under the celestial sign of earth",
 		"cost":{
-			"research":1000,
+			"research":5000,
 			"earthgem":15,
 			"tomes":5
 		},
@@ -1018,7 +1035,7 @@
 		"lock":["watersign","firesign","earthsign"],
 		"desc":"born under the celestial sign of wind",
 		"cost":{
-			"research":1000,
+			"research":5000,
 			"airgem":15,
 			"tomes":5
 		},
@@ -1028,26 +1045,12 @@
 
 	},
 	{
-		"id":"fireaffinity",
-		"desc":"fire affinity",
-		"require":"g.fire>10",
-		"cost":{
-			"research":300,
-			"firegem":10,
-			"tomes":1
-		},
-		"mod":{
-			"player.resist.fire":5
-		}
-
-	},
-	{
 		"id":"poisonveins",
 		"name":"poison veins",
 		"desc":"you do not fear poison",
 		"require":"g.poisonaffinity>0&&g.nature>14",
 		"cost":{
-			"research":500,
+			"research":5000,
 			"naturegem":15,
 			"tomes":5
 		},

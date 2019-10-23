@@ -93,6 +93,24 @@ export default {
 			saveData[p] = prepData( saveData[p] );
 
 		}
+
+		// Remove items with outdated aliased names.
+		let items = saveData.items;
+		for( let p in templates ) {
+
+			let t = templates[p];
+			if ( t.alias && !items[p] ) {
+				// check aliased item.
+				var it = items[t.alias];
+				if ( it ) {
+					console.warn('alias: ' + t.alias + ' -> ' + p );
+					items[p] = it;
+					items[t.alias] = undefined;
+				}
+			}
+
+		}
+
 		// Merge and ensure game data item for every template item.
 		saveData.items = this.mergeItems( saveData.items, templates );
 
