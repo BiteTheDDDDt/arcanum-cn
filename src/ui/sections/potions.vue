@@ -40,20 +40,16 @@ export default {
 
 		<filterbox v-model="filtered" :items="potions" min-items="7" />
 
-		<div class="flex-row separate">
-
 		<div class="flex-col">
-		<div v-for="it in filtered" :key="it.id" @mouseenter.capture.stop="emit( 'itemover', $event,it)">
+		<div v-for="it in filtered" class="separate" :key="it.id" @mouseenter.capture.stop="emit( 'itemover', $event,it)">
 
-			{{ it.name }}
+			<span>{{ it.name }}</span>
 
 			<button v-if="it.buy&&!it.owned" :disabled="!buyable(it)"
 				@click="emit('buy', it)">Unlock</button>
-
 			<button v-else :disabled="!usable(it)"
 				@click="emit( 'craft', it )">Brew</button>
 
-		</div>
 		</div>
 
 		</div>
@@ -63,6 +59,14 @@ export default {
 
 
 <style scoped>
+
+div.potions .flex-col {
+	flex-wrap: wrap;
+}
+
+div.flex-col .separate {
+	width:48%;
+}
 
 div.potions {
 	padding: 0px 16px;

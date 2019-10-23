@@ -98,7 +98,7 @@ export default {
 		<tr><td>notoriety</td><th>{{ Math.floor(player.fame.valueOf() ) }}</th></tr>
 		<tr><td>level</td><th> {{ level }}</th></tr>
 		<tr><td>exp</td><th> {{ exp }} / {{ next }} </th></tr>
-		<tr><td>virtue : evil</td><th> {{ Math.floor(player.virtue) }} : {{Math.floor(player.evilamt)}}</th></tr>
+		<tr><td>virtue : evil</td><th> {{ Math.floor(player.virtue.valueOf()) }} : {{Math.floor(player.evilamt.valueOf())}}</th></tr>
 		<tr><td @mouseenter.capture.stop="emit( 'itemover', $event,sp)">skill points</td><th> {{spStr }}</th></tr>
 
 

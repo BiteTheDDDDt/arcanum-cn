@@ -121,7 +121,7 @@ export default class GData {
 		this.value = v;
 	}
 
-	valueOf(){ return this._value.value; }
+	valueOf(){ return this._value.valueOf(); }
 
 	/**
 	 *
