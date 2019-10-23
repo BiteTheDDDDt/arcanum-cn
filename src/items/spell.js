@@ -5,7 +5,7 @@ import Action from './action';
 	 * Default require function for spells.
 	 * @param {Object} g - items
 	 */
-const spellRequire = ( g, s ) => {
+const levelReq = ( g, s ) => {
 	return ( g.player.level >= 2*s.level );
 }
 
@@ -17,7 +17,7 @@ const schoolUnlock = (s,lvl) => {
 
 	if ( typeof s === 'string') {
 
-		let s = 'g.' + s + 'lore';
+		s = 'g.' + s + 'lore';
 		// @note: test school existence first.
 		return new Function( 'g', 'return !' + s + '||' +
 									s + '>=' + lvl );
@@ -85,8 +85,17 @@ export default class Spell extends Action {
 		}
 
 
-		if ( this.locked ) this.addRequire( spellRequire );
-		if ( this.school ) this.addRequire( this.school );
+		if ( this.locked ) {
+
+			if ( this.school ) {
+				let req = schoolUnlock( this.school, this.level );
+				console.warn('school req: ' + req );
+				if ( req ) this.addRequire( req );
+				else this.addRequire( levelReq );
+			}
+			else this.addRequire( levelReq );
+
+		}
 
 	}
 

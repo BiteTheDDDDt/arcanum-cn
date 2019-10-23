@@ -1043,7 +1043,7 @@
 		"spellcraft.rate":0.5,
 		"lore.rate":"10%",
 		"mana.max":3
-	}
+	},"flavor":"'do not take me for some conjurer of cheap tricks.'"
 },
 {
 	"id":"wizard2",
