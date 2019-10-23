@@ -1,10 +1,10 @@
 import Attack from '../chars/attack';
 import Action from './action';
 
-	/**
-	 * Default require function for spells.
-	 * @param {Object} g - items
-	 */
+/**
+ * Default require function for spells.
+ * @param {Object} g - items
+ */
 const levelReq = ( g, s ) => {
 	return ( g.player.level >= 2*s.level );
 }
@@ -85,11 +85,10 @@ export default class Spell extends Action {
 		}
 
 
-		if ( this.locked ) {
+		if ( this.locked !== false ) {
 
 			if ( this.school ) {
 				let req = schoolUnlock( this.school, this.level );
-				console.warn('school req: ' + req );
 				if ( req ) this.addRequire( req );
 				else this.addRequire( levelReq );
 			}
