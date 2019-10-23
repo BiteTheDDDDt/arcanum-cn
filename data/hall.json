@@ -8,7 +8,7 @@
 		"stats":[
 
 			{
-				"id":"points",
+				"id":"prestige",
 				"name":"hall prestige",
 				"stat":true,
 				"value":0,

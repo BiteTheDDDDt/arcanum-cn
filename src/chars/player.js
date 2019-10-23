@@ -190,6 +190,7 @@ export default class Player extends Char {
 		super(vars);
 
 		this.id = this.type = "player";
+		if ( !vars || !vars.name) this.name = 'wizrobe';
 
 		//if ( vars ) Object.assign( this, vars );
 
@@ -212,8 +213,6 @@ export default class Player extends Char {
 		if ( this.damage === null || this.damage === undefined ) this.damage = 1;
 
 		if ( !this.weapon ) this.weapon = Fists;
-
-		if ( !this.name) this.name = 'wizrobe';
 
 	}
 

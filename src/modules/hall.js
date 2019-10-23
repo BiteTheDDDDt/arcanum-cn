@@ -43,10 +43,10 @@ export default class Hall {
 		this._chars = v;
 	}
 
-	get points() { return this._points; }
-	set points(v) {
+	get prestige() { return this._prestige; }
+	set prestige(v) {
 
-		this._points = v;
+		this._prestige = v;
 
 	}
 
@@ -87,12 +87,12 @@ export default class Hall {
 		//if ( !this.max ) this.max = 3;
 		this.max = 3;
 
-		let it = this.items.points;
+		let it = this.items.prestige;
 		if ( !it ){
-			console.warn('cannot find points data');
-			this.points = new StatData(0);
+			console.warn('cannot find prestige data');
+			this.prestige = new StatData(0);
 		} else {
-			this.points = it;
+			this.prestige = it;
 		}
 
 		console.log('HALL LOADED');
@@ -112,8 +112,7 @@ export default class Hall {
 
 		}
 
-		this.points.value = p;
-		console.log('POINTS TOTAL: ' + p );
+		this.prestige.value = p;
 
 	}
 
@@ -132,7 +131,7 @@ export default class Hall {
 
 		}
 
-		this.points.value = total;
+		this.prestige.value = total;
 
 	}
 

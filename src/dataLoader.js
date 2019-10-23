@@ -96,23 +96,27 @@ export default {
 
 		// Remove items with outdated/aliased names.
 		let items = saveData.items;
-		for( let p in templates ) {
+		if ( items ) {
 
-			let t = templates[p];
-			if ( t.alias && !items[p] ) {
-				// check aliased item.
-				var it = items[t.alias];
-				if ( it ) {
-					console.warn('alias: ' + t.alias + ' -> ' + p );
-					items[p] = it;
-					delete items[t.alias];
+			for( let p in templates ) {
+
+				let t = templates[p];
+				if ( t.alias && !items[p] ) {
+					// check aliased item.
+					var it = items[t.alias];
+					if ( it ) {
+						console.warn('alias: ' + t.alias + ' -> ' + p );
+						items[p] = it;
+						delete items[t.alias];
+					}
 				}
+
 			}
 
-		}
+		} else items = {};
 
 		// Merge and ensure game data item for every template item.
-		saveData.items = this.mergeItems( saveData.items, templates );
+		saveData.items = this.mergeItems( items, templates );
 
 		let gameLists = this.buildLists( saveData.items, dataLists );
 
@@ -152,13 +156,11 @@ export default {
 
 	/**
 	 * Merge template data into saved data items.
-	 * @param {?Object} saveItems - previous save items.
+	 * @param {Object} saveItems - previous save items.
 	 * @param {.<string,Object>} templates - template items..
 	 * @returns {.<string,Object>} - the saveItems with data merged from default data.
 	 */
 	mergeItems( saveItems, templates ) {
-
-		if (!saveItems) saveItems = {};
 
 		/**
 		 * @note ordering.
