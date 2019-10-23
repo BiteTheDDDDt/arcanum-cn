@@ -889,11 +889,11 @@
 	{
 
 		"id":"expedientretreat",
-		"name":"expedient retreat",
+		"name":"two-way portal",
 		"desc":"return to dungeons below your level after making a hasty exit.",
 		"require":"g.trickster>0||g.tier2>0",
 		"cost":{
-			"arcana":5,
+			"arcana":10,
 			"research":500
 		},
 		"mod":{
