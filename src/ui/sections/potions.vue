@@ -40,7 +40,7 @@ export default {
 
 		<filterbox v-model="filtered" :items="potions" min-items="7" />
 
-		<div class="flex-col">
+		<div class="potion-col">
 		<div v-for="it in filtered" class="separate" :key="it.id" @mouseenter.capture.stop="emit( 'itemover', $event,it)">
 
 			<span>{{ it.name }}</span>
@@ -60,8 +60,12 @@ export default {
 
 <style scoped>
 
-div.potions .flex-col {
-	flex-wrap: wrap;
+div.potions .potion-col {
+	display:grid;
+	grid-template-columns: repeat( auto-fit, minmax(256px, 0.5fr));
+	column-gap: var(--lg-gap);
+	overflow-x:hidden;
+	width:100%;
 }
 
 div.flex-col .separate {
@@ -70,8 +74,7 @@ div.flex-col .separate {
 
 div.potions {
 	padding: 0px 16px;
-	height:100%;
-	overflow-y:auto;
+
 }
 
 </style>

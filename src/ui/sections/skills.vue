@@ -98,13 +98,9 @@ div.skills {
 
 
 div.subs {
-	display:flex;
-	flex-flow: row wrap;
 	margin: 14px 0px;
 	padding-right:16px;
 	overflow-y: auto;
-	width:calc( 100% - 16px );
-	justify-content: space-between;
 }
 
 div.skill {
