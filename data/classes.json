@@ -28,8 +28,7 @@
 		"title":"falconer",
 		"tags":"t_job",
 		"actdesc":"Tend your master's owls and falcons.",
-		"require":"apprentice",
-		"need":"animals",
+		"require":"animals",
 		"cost":{
 			"gold":100,
 			"research":100,
@@ -51,8 +50,7 @@
 		"title":"herbalist",
 		"tags":"t_job",
 		"actdesc":"Gather herbs for your master's potions and alchemy.",
-		"require":"apprentice",
-		"need":"herbalism",
+		"require":"herbalism",
 		"cost":{
 			"gold":100,
 			"research":100,

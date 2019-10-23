@@ -1,12 +1,49 @@
 import Attack from '../chars/attack';
 import Action from './action';
 
-	/**
-	 * Default require function for spells.
-	 * @param {Object} g - items
-	 */
-const spellRequire = ( g, s ) => {
+/**
+ * Default require function for spells.
+ * @param {Object} g - items
+ */
+const levelReq = ( g, s ) => {
 	return ( g.player.level >= 2*s.level );
+}
+
+/**
+ * Create a school unlock function.
+ * @param {*} s
+ */
+const schoolUnlock = (s,lvl) => {
+
+	if ( typeof s === 'string') {
+
+		s = 'g.' + s + 'lore';
+		// @note: test school existence first.
+		return new Function( 'g', 'return !' + s + '||' +
+									s + '>=' + lvl );
+
+	} else if ( Array.isArray(s) ) {
+
+		if ( s.length === 1 ) return schoolUnlock(s[0]);
+
+		// total string.
+		var t = 'return ';
+
+		for( let i = s.length-1; i >= 0; i-- ) {
+
+			var d = 'g.' + s[i] + 'lore';
+			t += ('!' + d + '||' + d + '>=' + lvl);
+
+			if (i>0) t += '&&';
+
+		}
+
+		return new Function( 'g', t );
+
+	}
+
+	return null;
+
 }
 
 export default class Spell extends Action {
@@ -48,8 +85,16 @@ export default class Spell extends Action {
 		}
 
 
-		if ( this.locked ) this.addRequire( spellRequire );
-		if ( this.school ) this.addRequire( this.school );
+		if ( this.locked !== false ) {
+
+			if ( this.school ) {
+				let req = schoolUnlock( this.school, this.level );
+				if ( req ) this.addRequire( req );
+				else this.addRequire( levelReq );
+			}
+			else this.addRequire( levelReq );
+
+		}
 
 	}
 
