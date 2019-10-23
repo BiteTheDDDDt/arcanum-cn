@@ -1303,6 +1303,7 @@
 		"id":"magebolt",
 		"name":"mage bolt",
 		"level":9,
+		"require":"(g.mage+g.wizard+g.wizard2+g.highmage)>0",
 		"school":"mana",
 		"buy":{
 
@@ -1651,6 +1652,79 @@
 		}
 	},
 	{
+		"id":"zap",
+		"level":3,
+		"desc":"A short burst of lightning leaps from your fingers",
+		"require":"g.lightlore>=5||g.airlore>=5",
+		"school":"air",
+		"buy":{
+
+			"research":100,
+			"scrolls":10
+
+		},
+		"cost":{
+			"air":1
+		},
+		"at":{
+			"30":{
+				"attack.damage.max":1
+			},
+			"100":{
+				"attack.damage.min":1
+			},
+			"300":{
+				"attack.damage.max":2,
+				"attack.damage.min":2,
+				"attack.tohit":2
+			}
+		},
+		"attack":{
+			"damage":"1~2",
+			"tohit":5,
+			"kind":"light"
+		}
+	},
+	{
+		"id":"elec1",
+		"name":"lightning",
+		"level":5,
+		"desc":"An arc of lightning flashes from the sky.",
+		"require":"g.airlore>=9&&g.zap>0",
+		"school":"air",
+		"buy":{
+
+			"research":500,
+			"codices":10,
+			"airgem":5,
+			"lightgem":5
+
+		},
+		"flavor":"shazaaam?",
+		"cost":{
+			"air":5,
+			"light":3
+		},
+		"at":{
+			"30":{
+				"attack.damage.max":2
+			},
+			"100":{
+				"attack.damage.min":2
+			},
+			"300":{
+				"attack.damage.max":3,
+				"attack.damage.min":2,
+				"attack.tohit":5
+			}
+		},
+		"attack":{
+			"damage":"7~15",
+			"tohit":5,
+			"kind":"air"
+		}
+	},
+	{
 		"id":"calming",
 		"name":"calming murmurs",
 		"level":2,
@@ -1817,6 +1891,7 @@
 		"level":5,
 		"buy":{
 
+			"sp":1,
 			"research":1750,
 			"tomes":5,
 			"earthgem":10
@@ -1828,9 +1903,9 @@
 		"attack":{
 
 			"targets":"enemies",
-			"damage":"5~7",
 			"dot":{
 				"duration":30,
+				"dmg":"5~10",
 				"mod":{
 					"speed":-7
 				}
@@ -1842,10 +1917,10 @@
 	{
 
 		"id":"immunefire1",
-		"name":"quenchingsphere",
+		"name":"quenching sphere",
 		"school":"water",
 		"level":5,
-		"require":"g.player.level>=10&&g.waterlore>=15",
+		"require":"g.waterlore>=8",
 		"desc":"temporarily negate all fire damage",
 		"buy":{
 
@@ -2013,6 +2088,33 @@
 		"effect":{
 			"hp":200
 		}
+	},
+	{
+
+		"id":"immunefire2",
+		"name":"greater quenching sphere",
+		"school":"water",
+		"level":5,
+		"require":"g.waterlore>=15",
+		"desc":"temporarily negate all fire damage",
+		"buy":{
+
+			"research":4000,
+			"tomes":10
+
+		},
+		"cost":{
+			"water":7
+		},
+		"dot":{
+
+			"duration":100,
+			"mod":{
+				"player.immunities.fire":1
+			}
+
+		}
+
 	},
 	{
 		"id":"angelofdeath",

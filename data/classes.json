@@ -2,7 +2,6 @@
 	{
 		"id":"apprentice",
 		"desc":"apprentice to a notable wizard",
-		"title":"Apprentice",
 		"actname":"Apprenticeship",
 		"actdesc":"Become an apprentice.",
 		"require":"research",
@@ -25,7 +24,6 @@
 	},
 	{
 		"id":"falconer",
-		"title":"falconer",
 		"tags":"t_job",
 		"actdesc":"Tend your master's owls and falcons.",
 		"require":"apprentice",
@@ -36,19 +34,20 @@
 			"arcana":1
 		},
 		"effect":{
-			"evt_helper":true,
 			"sp":1.25,
+			"player.exp":10
+		},
+		"mod":{
+			"evt_helper":true,
 			"lore.max":1,
 			"gold.rate":0.07,
 			"animals.rate":0.2,
 			"nature.max":1,
-			"nature.rate":0.1,
-			"player.exp":10
+			"nature.rate":0.1
 		}
 	},
 	{
 		"id":"herbalist",
-		"title":"herbalist",
 		"tags":"t_job",
 		"actdesc":"Gather herbs for your master's potions and alchemy.",
 		"require":"apprentice",
@@ -61,16 +60,17 @@
 		"effect":{
 			"evt_helper":true,
 			"sp":1.5,
+			"player.exp":10
+		},
+		"mod":{
 			"lore.max":1,
 			"gold.rate":0.08,
 			"herbalism.rate":0.2,
-			"alchemy.rate":0.1,
-			"player.exp":10
+			"alchemy.rate":0.1
 		}
 	},
 	{
 		"id":"scribe",
-		"title":"scribe",
 		"tags":"t_job",
 		"actdesc":"Become your master's personal scribe.",
 		"require":"scribescroll",
@@ -80,18 +80,20 @@
 			"arcana":1
 		},
 		"effect":{
-			"lore.max":1.5,
 			"evt_helper":true,
+			"sp":1
+		},
+		"mod":{
+			"lore.max":1.5,
 			"arcana.rate":0.0001,
 			"research.max":10,
-			"sp":1,
+			"history.max":1,
 			"gold.rate":0.1,
 			"lore.rate":0.2
 		}
 	},
 {
 	"id":"neophyte",
-	"title":"neophyte",
 	"actdesc":"The final step on the twisting stairwell of apprenticeship.",
 	"require":"(g.evt_helper>0)&&g.research.max>=125&&g.spellbook.value>0",
 	"log":{
@@ -105,18 +107,19 @@
 		"arcana":3
 	},
 	"effect":{
+		"sp":1,
+		"player.exp":10
+	},
+	"mod":{
 		"research.max":10,
 		"arcana.rate":0.0001,
-		"sp":1,
 		"lore.max":1,
-		"lore.rate":0.2,
-		"player.exp":10
+		"lore.rate":0.2
 	}
 },
 {
 	"id":"adept",
-	"name":"Adept",
-	"title":"adept",
+	"name":"adept",
 	"tags":"t_tier0",
 	"desc":"Your master behind you, you set off into the world alone. You had better find a new place to stay.",
 	"mod":"tier0"
@@ -124,7 +127,6 @@
 
 {
 	"id":"magician",
-	"title":"magician",
 	"tags":"t_tier1",
 	"desc":"Magic in its purest form.",
 	"actname":"The Prestige",
@@ -152,7 +154,7 @@
 },
 {
 	"id":"darkmagician",
-	"title":"dark magician",
+	"name":"dark magician",
 	"tags":"t_tier1",
 	"desc":"A devotee of black magic.",
 	"require":"g.tier0>0&&(g.evilamt>=10||g.evil>0)",
@@ -183,7 +185,6 @@
 {
 	"id":"reanimator",
 	"tags":"t_tier1",
-	"title":"reanimator",
 	"desc":"Create and ressurect living materials.",
 	"require":"g.tier0>0&&g.reanimation>2",
 	"cost":{
@@ -209,7 +210,6 @@
 
 {
 	"id":"witch",
-	"title":"witch",
 	"tags":"t_tier1",
 	"desc":"Witch",
 	"name":"witchcraft",
@@ -244,7 +244,6 @@
 {
 	"id":"trickster",
 	"name":"arcane trickster",
-	"title":"arcane trickster",
 	"desc":"Use magic for deceit and trickery.",
 	"buyname":"Path of Trickery",
 	"tags":"t_tier1",
@@ -276,7 +275,6 @@
 {
 	"id":"madcap",
 	"name":"mystic madcap",
-	"title":"mystic madcap",
 	"desc":"A penchant for chaos",
 	"tags":"t_tier2",
 	"require":"g.trickery>=7&&g.tier1>0",
@@ -304,7 +302,6 @@
 },
 {
 	"id":"bonemonger",
-	"title":"bone monger",
 	"tags":"t_tier2",
 	"desc":"extend your life with the spare parts of the dead.",
 	"require":"g.tier1>0&&g.reanimator>=1&&g.evil>0",
@@ -330,7 +327,6 @@
 },
 {
 	"id":"thanophage",
-	"title":"thanophage",
 	"tags":"t_tier3",
 	"desc":"extend your life with the spare parts of the dead.",
 	"require":"g.tier2>0&&g.evil>0",
@@ -361,7 +357,6 @@
 
 	"id":"battlemage",
 	"name":"battle mage",
-	"title":"Battlemage",
 	"tags":"t_tier2",
 	"actdesc":"Pursue the path of battle.",
 	"require":"g.tier1>0&&g.player.level>=10&&g.armory>0",
@@ -386,7 +381,6 @@
 },
 {
 	"id":"dreadlord",
-	"title":"dreadlord",
 	"desc":"harbinger of destruction",
 	"tags":"t_tier3",
 	"require":"g.tier2>0&&g.evil>0&&g.hp>=100&&g.player.level>=17",
@@ -413,7 +407,6 @@
 },
 {
 	"id":"warlock",
-	"title":"warlock",
 	"tags":"t_tier4",
 	"desc":"master of demons and demonic magic",
 	"require":"g.tier3>0&&g.evil>0&&g.demonology>=10",
@@ -444,7 +437,6 @@
 
 	"id":"bloodmage",
 	"name":"blood mage",
-	"title":"blood mage",
 	"tags":"t_tier3",
 	"desc":"the magic in your veins",
 	"require":"g.tier2>0&&(g.battlemage>0||g.hp.max>150)",
@@ -475,7 +467,6 @@
 },
 {
 	"id":"summoner",
-	"title":"summoner",
 	"tags":"t_tier3",
 	"desc":"alone or in company, the summoner is never without an army.",
 	"require":"g.minions>4&&g.tier2>0&&g.lore>=20",
@@ -502,7 +493,6 @@
 },
 {
 	"id":"warden",
-	"title":"warden",
 	"desc":"a keeper of the forests, mountains, and hills",
 	"tags":"t_tier2",
 	"require":"g.tier1>0&&g.naturelore>=12",
@@ -526,7 +516,6 @@
 },
 {
 	"id":"alchemist",
-	"title":"alchemist",
 	"tags":"t_tier2",
 	"desc":"an alchemist uses magical knowledge to craft wonders.",
 	"require":"g.tier1>0&&g.potions>=4&&g.alchemy>=5",
@@ -556,7 +545,6 @@
 },
 {
 	"id":"enchanter",
-	"title":"enchanter",
 	"desc":"A master of charms and enchantments.",
 	"require":"g.tier1>0&&g.enchanting>=6&&g.charms>=3",
 	"tags":"t_tier2",
@@ -582,7 +570,6 @@
 },
 {
 	"id":"geomancer",
-	"title":"geomancer",
 	"desc":"lord of rocks.",
 	"tags":"t_tier2",
 	"actdesc":"Become a geomancer.",
@@ -607,7 +594,6 @@
 },
 {
 	"id":"pyromancer",
-	"title":"pyromancer",
 	"desc":"shaper of fire",
 	"tags":"t_tier2",
 	"name":"pyromancy",
@@ -633,7 +619,6 @@
 },
 {
 	"id":"hydromancer",
-	"title":"hydromancer",
 	"desc":"master of water",
 	"tags":"t_tier2",
 	"name":"hydromancy",
@@ -660,10 +645,9 @@
 },
 {
 	"id":"windmage",
-	"title":"wind mage",
+	"name":"wind mage",
 	"desc":"to walk on the wind",
 	"tags":"t_tier2",
-	"name":"wind mage",
 	"actdesc":"Become a wind mage.",
 	"require":"g.tier1>0&&g.airlore>=10",
 	"cost":{
@@ -713,7 +697,6 @@
 },
 {
 	"id":"elementalist",
-	"title":"elementalist",
 	"desc":"Master of elemental forces.",
 	"require":"g.tier0>0&&g.airlore>2&&g.firelore>2&&g.earthlore>2&&g.waterlore>2",
 	"tags":"t_tier1",
@@ -735,7 +718,6 @@
 },
 {
 	"id":"sorcerer",
-	"title":"sorcerer",
 	"desc":"A wielder of raw magical power.",
 	"require":"g.tier3>0&&(g.earthlore>=15||g.waterlore>=15||g.firelore>=15)&&(g.elementalist+g.highelemental)>0",
 	"tags":"t_tier4",
@@ -766,7 +748,6 @@
 },
 {
 	"id":"druid",
-	"title":"druid",
 	"desc":"a spellcaster dedicated to the natural world",
 	"tags":"t_tier3",
 	"require":"g.tier2>0&&g.naturelore>=15",
@@ -793,7 +774,6 @@
 },
 {
 	"id":"highelemental",
-	"title":"high elemental",
 	"tags":"t_tier3",
 	"desc":"Lord of the elements",
 	"require":"g.tier2>0&&g.airlore>7&&g.firelore>7&&g.waterlore>7&&g.earthlore>7",
@@ -821,7 +801,6 @@
 },
 {
 	"id":"oracle",
-	"title":"oracle",
 	"tags":"t_tier1",
 	"desc":"A diviner.",
 	"require":"g.tier0>0&&g.spiritlore>=5&&g.divination>=5",
@@ -851,7 +830,6 @@
 },
 {
 	"id":"seer",
-	"title":"seer",
 	"desc":"A diviner.",
 	"require":"g.tier1>0&&g.divination>=10",
 	"tags":"t_tier2",
@@ -877,7 +855,6 @@
 },
 {
 	"id":"mage",
-	"title":"mage",
 	"desc":"member of an arcane order.",
 	"tags":"t_tier2",
 	"require":"g.tier1>0&&g.lore>=17",
@@ -927,7 +904,6 @@
 },
 {
 	"id":"doomsayer",
-	"title":"doomsayer",
 	"desc":"harbinger of ruin",
 	"require":"g.tier2>0&&g.spirit>=12&&g.divination>=12",
 	"tags":"t_tier3",
@@ -954,7 +930,6 @@
 },
 {
 	"id":"fey",
-	"title":"fey",
 	"desc":"a being of wild and natural magic",
 	"tags":"t_tier4",
 	"require":"g.tier3>0&&g.naturelore>=19&&(g.witch+g.druid+g.elementalist)>0",
@@ -986,7 +961,6 @@
 },
 {
 	"id":"thaumaturge",
-	"title":"thaumaturge",
 	"desc":"a maker of miracles",
 	"require":"g.tier3>0&&g.spirit>=15&&g.divination>=15",
 	"tags":"t_tier4",
@@ -1015,7 +989,6 @@
 },
 {
 	"id":"necromancer",
-	"title":"necromancer",
 	"tags":"t_tier4",
 	"desc":"a master of death magic",
 	"require":"g.tier3>0&&g.evil>0&&g.shadowlore>=17",
@@ -1047,7 +1020,6 @@
 },
 {
 	"id":"wizard",
-	"title":"wizard",
 	"desc":"raw magic power",
 	"tags":"t_tier4",
 	"require":"g.good>0&&g.tier3>0&&g.lore>=25",
@@ -1104,7 +1076,6 @@
 },
 {
 	"id":"kell",
-	"title":"kell",
 	"desc":"immortal spirits of nature, even the weakest Kell are beings to rival wizards",
 	"tags":"t_tier5",
 	"require":"g.tier4>0&&g.naturelore>=23&&(g.witch+g.fey+g.highelemental)>0",
@@ -1132,7 +1103,6 @@
 },
 {
 	"id":"greynecromancer",
-	"title":"grey necromancer",
 	"name":"grey necromancer",
 	"tags":"t_tier5",
 	"desc":"disciple of death",
@@ -1163,7 +1133,6 @@
 },
 {
 		"id":"archlock",
-		"title":"archlock",
 		"desc":"master of demons and demonic magic",
 		"tags":"t_tier5",
 		"require":"g.warlock>0&&g.demonology>=20",
@@ -1188,7 +1157,6 @@
 	},
 	{
 		"id":"heresiarch",
-		"title":"heresiarch",
 		"desc":"a reckoning comes.",
 		"require":"g.tier4>0&&g.spirit>=15&&g.divination>=17",
 		"tags":"t_tier5",
@@ -1325,7 +1293,6 @@
 	},
 	{
 		"id":"avatar",
-		"title":"avatar",
 		"desc":"An incarnation of raw, elemental forces.",
 		"tags":"t_tier6",
 		"require":"(g.highelemental+g.kell)>0",

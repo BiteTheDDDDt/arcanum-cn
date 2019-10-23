@@ -688,7 +688,7 @@
 			"light":5
 		},
 		"run":{
-			"stamina":0.4,
+			"stamina":0.5,
 			"hp":2
 		},
 		"effect":{
@@ -725,10 +725,8 @@
 		"effect":{
 			"nature":0.3,
 			"naturelore.exp":0.1,
-			"naturelore":{
-				"max":0.001,
-				"rate":0.001
-			},
+			"naturelore.max":0.001,
+			"naturelore.rate":0.001,
 			"animals.exp":1,
 			"herbalism.exp":1
 		}, "flavor":"a tramp abroad"
@@ -780,7 +778,7 @@
 	{
 		"id":"scribescroll",
 		"name":"Scribe Scroll",
-		"require":"g.crafting>=1&&g.mana>0",
+		"require":"g.crafting>=1&&g.lore>=1",
 		"cost":{
 			"research":10,
 			"mana":1
