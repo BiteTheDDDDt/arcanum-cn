@@ -67,7 +67,7 @@ export default {
 
 <div class="popup wizhall">
 
-	<div class="power" @mouseenter.capture.stop="emit( 'itemover', $event, hall.points )">Hall Power: {{ Math.floor(hall.points.value.value) }}</div>
+	<div class="power" @mouseenter.capture.stop="emit( 'itemover', $event, hall.points )">Hall Prestige: {{ Math.floor(hall.points.value.value) }}</div>
 
 	<div class="header"><input class="fld-name text-entry" type="text" v-model="hallName"></div>
 
@@ -92,8 +92,8 @@ div.header {
 
 div.wizhall div.power {
 	position: absolute;
-	top: var(--md-gap );
-	left: var(--md-gap);
+	top: var(--lg-gap );
+	left: var(--lg-gap);
 	font-size: 0.94em;
 }
 

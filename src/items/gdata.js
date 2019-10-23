@@ -145,7 +145,7 @@ export default class GData {
 		if ( !this.value ) this.val = 0;
 
 		defineExcept( this, null,
-			['require', 'rate', 'need', 'value', 'buy', 'max', 'cost', 'id', 'name', 'warn', 'effect', 'slot' ]);
+			['require', 'rate', 'current', 'need', 'value', 'buy', 'max', 'cost', 'id', 'name', 'warn', 'effect', 'slot' ]);
 
 	}
 

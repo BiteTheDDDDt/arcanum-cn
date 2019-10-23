@@ -178,11 +178,14 @@
 		"name":"mummified remains",
 		"desc":"A corpse preserved by the stale air",
 		"effect":{
-			"bf":"-1~2",
+			"madness":"0~2",
+			"unease":"1~3",
 			"embalming.exp":1,
 			"spiritlore.exp":1,
-			"anatomy.exp":1,
-			"anatomy.max":0.01
+			"anatomy.exp":1
+		},
+		"result":{
+			"anatomy.max":0.001
 		},
 		"loot":{
 			"gold":"0~300",
@@ -197,11 +200,11 @@
 		"desc":"You've never seen such bones before.",
 		"effect":{
 			"bf":"-1~2",
-			"unease":"0~2",
-			"anatomy.exp":1,
-			"anatomy.max":0.01
+			"unease":"0~3",
+			"anatomy.exp":1
 		},
 		"result":{
+			"anatomy.max":0.001
 		}
 	},
 	{
@@ -250,7 +253,9 @@
 			"madness":"1~2",
 			"unease":"0~2",
 			"shadowlore.exp":1,
-			"spiritlore.exp":1,
+			"spiritlore.exp":1
+		},
+		"result":{
 			"spiritlore.max":0.001
 		}
 	},
@@ -289,14 +294,13 @@
 		"name":"black cat",
 		"desc":"A black cat is an omen to be studied seriously",
 		"effect":{
-			"unease":"1~2",
+			"unease":"1~4",
 			"rage":"2~4",
-			"spiritlore.max":0.001,
 			"divination.exp":1,
 			"scrying.exp":1
-
 		},
 		"result":{
+			"spiritlore.max":0.001,
 			"arcana":0.04
 		}
 
@@ -306,12 +310,14 @@
 		"name":"warding charm",
 		"desc":"A hanging charm wards away the borgles and grimstalks.",
 		"effect":{
-			"unease":"1~3",
-			"bf":"1~3",
+			"unease":"1~5",
+			"bf":"1~5",
 			"charms.exp":1,
-			"charms.max":0.01,
-			"enchanting.exp":1,
-			"enchanting.max":0.01
+			"enchanting.exp":1
+		},
+		"result":{
+			"enchanting.max":0.01,
+			"charms.max":0.01
 		}
 	},
 	{
@@ -322,11 +328,14 @@
 			"unease":"0~2",
 			"weary":"1~3",
 			"bf":"-1~2.5",
-			"potions.max":0.01,
 			"potions.exp":1,
 			"alchemy.exp":1,
 			"crafting.exp":1
-		},"loot":"hestiabrew"
+		},
+		"result":{
+			"potions.max":0.01
+		},
+		"loot":"hestiabrew"
 	},
 	{
 		"id":"enc_hestia",
@@ -335,13 +344,12 @@
 		"effect":{
 			"unease":"2~4",
 			"bf":"-2~3",
-			"potions.exp":0.001,
-			"herbalism.exp":1,
-			"scrying.max":0.001,
-			"history.max":0.001
-
+			"herbalism.exp":1
 		},
 		"result":{
+			"scrying.max":0.001,
+			"history.max":0.001,
+			"potions.exp":0.001,
 			"arcana":0.01
 		}
 

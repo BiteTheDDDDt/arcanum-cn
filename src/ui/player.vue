@@ -95,7 +95,7 @@ export default {
 		<tr><td></td><th><button @click="openHall">Hall of Mages</button></th></tr>
 
 		<tr @mouseenter.capture.stop="emit( 'itemover', $event,player.titles, 'Titles')"><td>title</td><th> {{ title}}</th></tr>
-		<!--<tr><td>alignment</td><th>{{ player.alignment }}</th></tr>-->
+		<tr><td>notoriety</td><th>{{ Math.floor(player.fame.valueOf() ) }}</th></tr>
 		<tr><td>level</td><th> {{ level }}</th></tr>
 		<tr><td>exp</td><th> {{ exp }} / {{ next }} </th></tr>
 		<tr><td>virtue : evil</td><th> {{ Math.floor(player.virtue) }} : {{Math.floor(player.evilamt)}}</th></tr>

@@ -1152,7 +1152,7 @@
 	},
 	{
 		"id":"buygem",
-		"name":"Purchase Gem",
+		"name":"purchase gem",
 		"require":"g.tier0>0&&g.gold>100",
 		"cost":100,
 		"fill":"gems",
@@ -1162,7 +1162,7 @@
 	},
 	{
 		"id":"craftgem",
-		"name":"Craft Gem",
+		"name":"craft gem",
 		"desc":"Craft a gem from raw minerals.",
 		"require":"g.crafting>=7&&g.alchemy>=5",
 		"length":10,
@@ -1178,7 +1178,7 @@
 	},
 	{
 		"id":"sellgem",
-		"name":"Sell Gem",
+		"name":"sell gem",
 		"require":"g.gems>0",
 		"cost":{
 			"gems":1
@@ -1189,7 +1189,7 @@
 	},
 	{
 		"id":"imbuelifegem",
-		"name":"Imbue lifegem",
+		"name":"imbue lifegem",
 		"require":"g.naturelore>=6&&g.enchanting>0",
 		"fill":"naturegem",
 		"cost":{
@@ -1203,7 +1203,7 @@
 	},
 	{
 		"id":"imbuemanagem",
-		"name":"Imbue gem (arcane)",
+		"name":"imbue gem (arcane)",
 		"require":"g.mana.max>=5&&g.enchanting>0",
 		"fill":"managem",
 		"cost":{
@@ -1216,7 +1216,7 @@
 	},
 	{
 		"id":"imbuebloodgem",
-		"name":"Coagulate Gem",
+		"name":"coagulate gem",
 		"require":"g.alchemy>=5&&g.anatomy>=5",
 		"fill":"bloodgem",
 		"cost":{
@@ -1229,7 +1229,7 @@
 	},
 	{
 		"id":"imbuefiregem",
-		"name":"Imbue Gem (Fire)",
+		"name":"imbue gem (fire)",
 		"require":"g.fire.max>=4&&g.enchanting>2",
 		"fill":"firegem",
 		"cost":{
@@ -1262,7 +1262,7 @@
 	},
 	{
 		"id":"imbuewatergem",
-		"name":"Imbue Gem (Water)",
+		"name":"imbue gem (water)",
 		"require":"g.water.max>=4&&g.enchanting>2",
 		"fill":"watergem",
 		"cost":{
@@ -1284,7 +1284,7 @@
 	},
 	{
 		"id":"imbueshadowgem",
-		"name":"Imbue gem (shadow)",
+		"name":"imbue gem (shadow)",
 		"require":"g.shadow.max>=4&&g.enchanting>2",
 		"fill":"shadowgem",
 		"cost":{
@@ -1295,7 +1295,7 @@
 	},
 	{
 		"id":"imbuespiritgem",
-		"name":"Imbue gem (spirit)",
+		"name":"imbue gem (spirit)",
 		"require":"g.spirit.max>=4&&g.enchanting>2",
 		"fill":"spiritgem",
 		"cost":{
@@ -1307,7 +1307,7 @@
 	},
 	{
 		"id":"sellscroll",
-		"name":"Sell Scroll",
+		"name":"sell scroll",
 		"require":"g.scribescroll&&g.scrolls>=5",
 		"cost":{
 			"scrolls":1
@@ -1349,7 +1349,7 @@
 		"id":"up_lich",
 		"actname":"rite of undeath",
 		"desc":"obtain immortality by becoming a lich",
-		"require":"g.crafting>=20&&g.necromancy>=30",
+		"require":"g.crafting>=20&&g.necromancy>=8",
 		"repeat":false,
 		"length":50,
 		"cost":{
