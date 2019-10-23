@@ -968,7 +968,29 @@
 
 	},
 	{
+		"id":"mk_murder",
+		"name":"summon murder",
+		"require":"summoner",
+		"level":5,
+		"cd":150,
+		"buy":{
+			"research":1000,
+			"codices":10,
+			"managem":3
+		},
+		"cost":{
+			"mana":7
+		},
+		"effect":[
+			"raven",
+			"raven",
+			"raven",
+			"raven",
+			"raven"
+		]
 
+	},
+	{
 		"id":"prolight",
 		"name":"protection: light",
 		"school":"shadow",
