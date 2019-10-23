@@ -9,6 +9,43 @@ const spellRequire = ( g, s ) => {
 	return ( g.player.level >= 2*s.level );
 }
 
+/**
+ * Create a school unlock function.
+ * @param {*} s
+ */
+const schoolUnlock = (s,lvl) => {
+
+	if ( typeof s === 'string') {
+
+		let s = 'g.' + s + 'lore';
+		// @note: test school existence first.
+		return new Function( 'g', 'return !' + s + '||' +
+									s + '>=' + lvl );
+
+	} else if ( Array.isArray(s) ) {
+
+		if ( s.length === 1 ) return schoolUnlock(s[0]);
+
+		// total string.
+		var t = 'return ';
+
+		for( let i = s.length-1; i >= 0; i-- ) {
+
+			var d = 'g.' + s[i] + 'lore';
+			t += ('!' + d + '||' + d + '>=' + lvl);
+
+			if (i>0) t += '&&';
+
+		}
+
+		return new Function( 'g', t );
+
+	}
+
+	return null;
+
+}
+
 export default class Spell extends Action {
 
 	toJSON(){
