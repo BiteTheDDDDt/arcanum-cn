@@ -1654,7 +1654,7 @@
 	{
 		"id":"zap",
 		"level":3,
-		"desc":"A short burst of lightning leaps from your fingers",
+		"desc":"An electric shock leaps from your fingers",
 		"require":"g.lightlore>=5||g.airlore>=5",
 		"school":"air",
 		"buy":{
@@ -1682,7 +1682,14 @@
 		"attack":{
 			"damage":"1~2",
 			"tohit":5,
-			"kind":"light"
+			"kind":"air",
+			"dot":{
+				"name":"blind",
+				"duration":5,
+				"mod":{
+					"tohit":-2
+				}
+			}
 		}
 	},
 	{
@@ -1690,7 +1697,7 @@
 		"name":"lightning",
 		"level":5,
 		"desc":"An arc of lightning flashes from the sky.",
-		"require":"g.airlore>=9&&g.zap>0",
+		"require":"g.airlore>=7&&g.zap>0",
 		"school":"air",
 		"buy":{
 
@@ -1702,8 +1709,51 @@
 		},
 		"flavor":"shazaaam?",
 		"cost":{
-			"air":5,
-			"light":3
+			"air":5
+		},
+		"at":{
+			"30":{
+				"attack.damage.max":2
+			},
+			"150":{
+				"attack.damage.min":2
+			},
+			"400":{
+				"attack.damage.max":3,
+				"attack.damage.min":2,
+				"attack.tohit":4
+			}
+		},
+		"attack":{
+			"damage":"7~15",
+			"tohit":7,
+			"kind":"air",
+			"dot":{
+				"name":"blind",
+				"duration":5,
+				"mod":{
+					"tohit":-4
+				}
+			}
+		}
+	},
+	{
+		"id":"elec2",
+		"name":"doublestrike",
+		"level":8,
+		"desc":"Twin arcs of lightning flash from the sky.",
+		"flavor":"sometimes lightning does strike twice.",
+		"require":"g.airlore>=9&&g.elec1>0",
+		"school":"air",
+		"buy":{
+
+			"research":1000,
+			"tomes":3,
+			"airgem":10
+
+		},
+		"cost":{
+			"air":5
 		},
 		"at":{
 			"30":{
@@ -1714,14 +1764,64 @@
 			},
 			"300":{
 				"attack.damage.max":3,
-				"attack.damage.min":2,
+				"attack.damage.min":3,
 				"attack.tohit":5
 			}
 		},
 		"attack":{
 			"damage":"7~15",
-			"tohit":5,
-			"kind":"air"
+			"tohit":12,
+			"kind":"air",
+			"dot":{
+				"name":"blind",
+				"duration":5,
+				"mod":{
+					"tohit":-7
+				}
+			}
+		}
+	},
+	{
+		"id":"elec3",
+		"name":"thunderstrike",
+		"level":12,
+		"desc":"a blinding storm of lightning.",
+		"require":"g.airlore>=12>=3&&elec2>0",
+		"school":"air",
+		"buy":{
+
+			"research":5000,
+			"tomes":10,
+			"airgem":15
+
+		},
+		"cost":{
+			"air":10
+		},
+		"at":{
+			"30":{
+				"attack.dot.damage.max":3
+			},
+			"100":{
+				"attack.dot.damage.min":3
+			},
+			"300":{
+				"attack.dot.damage.max":4,
+				"attack.dot.damage.min":4,
+				"attack.toHit":5
+			}
+		},
+		"attack":{
+			"tohit":15,
+			"dot":{
+				"targets":"enemies",
+				"kind":"air",
+				"duration":15,
+				"dmg":"7~15",
+				"mod":{
+					"tohit":-5
+				}
+			}
 		}
 	},
 	{
