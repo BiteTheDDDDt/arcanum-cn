@@ -113,6 +113,22 @@ export default class Hall {
 	}
 
 	/**
+	 *
+	 * @param {*} slot
+	 * @returns {boolean} false on invalid slot.
+	 */
+	dismiss( slot ) {
+
+		if ( slot < 0 || slot >= this.chars.length ) return false;
+
+		this.chars[slot].empty = true;
+		this.chars[slot].name = null;
+
+		return true;
+
+	}
+
+	/**
 	 * Recalculate point contributions from all chars.
 	 */
 	calcPoints() {
@@ -185,22 +201,6 @@ export default class Hall {
 
 		console.log('loaded points: ' + char.getPoints() );
 		console.log('CHAR UPDATES');
-
-	}
-
-	/**
-	 *
-	 * @param {*} slot
-	 * @returns {boolean} false on invalid slot.
-	 */
-	clearChar( slot ) {
-
-		if ( slot < 0 || slot >= this.chars.length ) return false;
-
-		this.chars[slot].empty = true;
-		this.chars[slot].name = null;
-
-		return true;
 
 	}
 

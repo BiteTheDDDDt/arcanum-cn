@@ -74,7 +74,7 @@ const vm = new Vue({
 
 		dismissChar(ind) {
 
-			console.log('DISMISS: ' + ind );
+			//console.log('DISMISS: ' + ind );
 			Profile.dismiss( ind );
 
 		},

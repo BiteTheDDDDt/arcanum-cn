@@ -122,7 +122,7 @@ export default {
 
 	dismiss( slot ) {
 
-		if ( this.hall.clearChar(slot) ) {
+		if ( this.hall.dismiss(slot) ) {
 
 			window.localStorage.setItem( this.charLoc(slot), null );
 			window.localStorage.setItem( this.settingsLoc(slot), null);

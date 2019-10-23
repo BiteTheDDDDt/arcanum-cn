@@ -50,8 +50,16 @@ export default class CharInfo {
 
 	constructor( vars=null ){
 
-		if ( vars ) Object.assign( this,vars );
-		if ( !this.name ) this.empty = true;
+		if ( vars ) {
+
+			Object.assign( this,vars );
+			if ( vars.empty || !vars.name )this.empty = true;
+			else this.empty = false;
+
+		} else {
+
+			this.empty = true;
+		}
 
 		if ( !this.points ) this.points = 0;
 		if ( !this.fame ) this.fame = 0;
