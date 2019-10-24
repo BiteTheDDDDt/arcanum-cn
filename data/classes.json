@@ -128,7 +128,7 @@
 	"desc":"You have no need of these dry tomes and musty old books.",
 	"buyname":"Forgo Studies",
 	"tags":"t_tier0",
-	"require":"g.study.value==0&&g.neophyte>0",
+	"require":"g.study.valueOf()==0&&g.neophyte>0&&g.arcana>=5",
 	"cost":{
 		"arcana":7
 	},
@@ -137,10 +137,9 @@
 	},
 	"mod":{
 		"tier0":true,
-		"trickery":true,
 		"lore.max":-1,
 		"history.max":-1,
-		"lore.rate":-0.2,
+		"lore.rate":"-2%",
 		"research.rate":0.2,
 		"conjuration.max":1,
 		"mana.max":1,

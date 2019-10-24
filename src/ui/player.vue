@@ -5,6 +5,7 @@ import { floor, lowFixed, precise } from '../util/format';
 import AllUpgrades from './allupgrades.vue';
 import SlotPick from './components/slotpick.vue';
 import Hall from './hall/hall.vue';
+import Profile from '../modules/profile';
 
 export default {
 
@@ -35,16 +36,16 @@ export default {
 				this.pName = v;
 			}
 		},
+
+
+		hallUnlocked(){return true},
+		hallName(){
+			return Profile.hall.name;
+		},
+
 		title(){ return this.player.title; },
 		speed() {
-
-
-
-			let s = this.player.speed.value;
-			/** compat */
-			if ( typeof s === 'object') return s.value;
-			return s;
-
+			return this.player.speed.valueOf();
 		},
 		stamina() { return this.player.stamina; },
 		level() {return this.player.level.valueOf(); },
@@ -92,7 +93,7 @@ export default {
 		<tr><td>name</td><th class="text-entry">
 			<input class="fld-name" type="text" v-model="wizName"></th></tr>
 
-		<tr><td></td><th><button @click="openHall">Hall of Mages</button></th></tr>
+		<tr v-if="hallUnlocked"><td></td><th><button @click="openHall">{{ hallName }}</button></th></tr>
 
 		<tr @mouseenter.capture.stop="emit( 'itemover', $event,player.titles, 'Titles')"><td>title</td><th> {{ title}}</th></tr>
 		<tr><td>notoriety</td><th>{{ Math.floor(player.fame.valueOf() ) }}</th></tr>
@@ -111,10 +112,10 @@ export default {
 		<div>
 		<table>
 			<tr><td @mouseenter.capture.stop="emit( 'itemover', $event, hp)">life</td><th>
-			{{ floor( hp.value ) }} / {{ floor( hp.max.value ) }}</th></tr>
+			{{ floor( hp.valueOf() ) }} / {{ floor( hp.max.value ) }}</th></tr>
 
 			<tr><td>stamina</td><th>
-			{{ floor( stamina.value ) }} / {{ floor(stamina.max.value )}}</th></tr>
+			{{ floor( stamina.valueOf() ) }} / {{ floor(stamina.max.value )}}</th></tr>
 
 			<tr><td>defense</td><th>{{ defense }}</th></tr>
 			<tr><td>dodge</td><th>{{ dodge }}</th></tr>

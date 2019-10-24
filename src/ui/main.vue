@@ -44,6 +44,7 @@ export default {
 		warn:Warn,
 		'top-bar':TopBar,
 		settings:SettingsUI,
+		choice:()=>import( /* webpackChunkName: "choice-ui" */ './components/choice.vue' ),
 		skills:()=> import( /* webpackChunkName: "skills-ui" */ './sections/skills.vue' ),
 		equip:()=>import( /* webpackChunkName: "equip-ui" */ './sections/equip.vue'),
 		inventory:()=> import( /* webpackChunkName: "inv-ui" */ './sections/inventory.vue' ),
@@ -60,6 +61,9 @@ export default {
 	},
 	data(){
 
+		/**
+		 *
+		 */
 		return {
 			state:null,
 			overItem:null,
@@ -90,6 +94,12 @@ export default {
 
 		},
 
+		showChoice( items, onPick, elm ) {
+
+			this.$refs.choice.show( items, onPick, elm );
+
+		},
+
 		/**
 		 * Listen non-system events.
 		 */
@@ -97,6 +107,11 @@ export default {
 
 			this.add( 'itemover', this.itemOver );
 			this.add( 'itemout', this.itemOut );
+
+			/**
+			 * Special event to show choice dialog.
+			 */
+			this.add( 'choice', this.showChoice );
 
 			this.add( 'sell', this.onSell );
 			this.add( 'take', this.onTake );
@@ -312,6 +327,7 @@ export default {
 <!-- popups -->
 		<itempopup :item="overItem" :elm="overElm" :title="overTitle" />
 		<warn ref="warn" @confirmed="onConfirmed" />
+		<choice ref="choice" />
 		<settings />
 
 		<div v-if="state" class="game-main">

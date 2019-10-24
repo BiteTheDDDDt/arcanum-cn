@@ -9,17 +9,18 @@ if ( false ) {
 } else {
 
 	const cheatKeys = {
-		b: 'herbs',
-		g: 'gold',
-		s: 'scrolls',
-		e: 'exp',
-		t: 'stamina',
-		h: "hp",
-		k: 'sp',
-		m: 'mana',
-		c: 'codices',
-		a: 'arcana',
-		r: 'research'
+		b:'herbs',
+		g:'gold',
+		s:'scrolls',
+		e:'exp',
+		t:'stamina',
+		h:"hp",
+		k:'sp',
+		m:'mana',
+		c:'codices',
+		a:'arcana',
+		r:'research',
+		w:'wizardhall'
 	};
 
  cheats = {

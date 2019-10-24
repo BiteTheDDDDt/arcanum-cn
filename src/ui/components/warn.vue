@@ -12,9 +12,7 @@ export default {
 
 	},
 	updated() {
-		if ( this.item ) {
-			center( this.$el );
-		}
+		if ( this.item ) {center( this.$el );}
 	},
 	computed:{
 		msg(){

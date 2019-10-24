@@ -3,6 +3,7 @@ import Game from '../game';
 import { alphasort } from '../util/util';
 
 import ItemsBase from './itemsBase';
+import Choice from './components/choice.vue';
 import UpgradeView from './upgrades.vue';
 import FilterBox from './components/filterbox.vue';
 import { SET_SLOT } from '../events';
@@ -15,6 +16,7 @@ export default {
 	props:['state'],
 	mixins:[ItemsBase],
 	components:{
+		choice:Choice,
 		upgrades:UpgradeView,
 		filterbox:FilterBox
 	},
@@ -70,6 +72,13 @@ export default {
 
 		curHome() { return this.state.getSlot('home'); },
 
+		curPlane(){return this.state.getSlot('homeplane'); },
+
+		homePlanes(){ return this.state.filterItems(v=>v.slot==='homeplane');},
+		planesAvail(){
+			return this.homePlanes.filter(v=>v.owned);
+		},
+
 		homesAvail() {
 			return this.state.homes.filter( v=>!this.locked(v) );
 		},
@@ -99,10 +108,20 @@ export default {
 
 		<div class="cur-home">
 
-			<span @mouseenter.capture.stop="emit( 'itemover', $event, curHome )">home:<br>{{ curHome ? curHome.name : 'None'}}</span>
+			<div>
+			<span @mouseenter.capture.stop="emit( 'itemover', $event, curHome )">home: {{ curHome ? curHome.name : 'None'}}</span>
 			<div v-if="homesAvail.length>0">
 			<button @click="toggleSwitch">{{ switching ? 'Done' : 'Switch' }}</button>
 			<upgrades v-if="switching" class="homes-view" :items="homesAvail" :pick-event="SET_SLOT" />
+			</div>
+			</div>
+
+			<div>
+			<span @mouseenter.capture.stop="emit( 'itemover', $event, curPlane )">home plane: {{ curPlane ? curPlane.name : 'None'}}</span>
+			<div v-if="planesAvail.length>0">
+			<button @click="emit('choice', planesAvail )">{{ curPlane ? curPlane.name : 'None' }}</button>
+			</div>
+
 			</div>
 
 		</div>
@@ -178,7 +197,7 @@ div.home-view {
 div.cur-home {
 	margin-top:12px;
 	margin-right: 16px;
-	flex-basis: 110px;
+	flex-basis: 120px;
 }
 
 div.nospace {

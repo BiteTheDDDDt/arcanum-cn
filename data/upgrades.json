@@ -2007,12 +2007,10 @@
 		"id":"fireplane",
 		"slot":"homeplane",
 		"name":"",
-		"require":"g.tier5>0&&g.planeslore>=20&&g.firelore>=10",
+		"locked":false,
 		"buy":{
 
-			"flamerune":70,
-			"gold":15000,
-			"tomes":25
+			"gold":15
 
 		},
 		"mod":{

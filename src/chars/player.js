@@ -127,11 +127,6 @@ export default class Player extends Char {
 		}
 	}
 
-	get mount() { return this._mount; }
-	set mount(v) {
-		this._mount = v;
-	}
-
 	get alive() {return this._hp.value > 0; }
 
 	get defeated() {

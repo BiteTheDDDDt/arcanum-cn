@@ -10,22 +10,27 @@ export default {
 	data() {
 		return {
 			list:null,
+			elm:null,
 			item:null
 		}
 	},
+	created(){
+		this.cb = null;
+	},
 	updated() {
-		if ( this.item ) {
-			center( this.$el );
-		}
+		if ( this.item ) { center( this.elm || this.$el ); }
 	},
 	computed:{
 
+		/**
+		 * @property {gdata[]} choices - used to convert strings or tag string into choice objects.
+		 */
 		choices:{
 
-			get(){
-				return this.list;
-			},
+			get(){ return this.list; },
 			set(v){
+
+				if ( !v ) this.list = null;
 
 				if ( typeof v === 'string') {
 
@@ -51,14 +56,23 @@ export default {
 	},
 	methods:{
 
+		show( choices, cb=null, elm=null ) {
+
+			this.cb = cb;
+			this.elm = elm;
+
+			this.choices = choices;
+
+		},
+
 		/**
 		 * @method
 		 * @public
 		 * @property {Item|Array} it
 		 * @property {?Item[]|string[]|null} [choices] - choices. if not set,
-		 * it.choices or it is used, whichever is defined.
+		 * either it.choices or it is used, whichever is defined.
 		 */
-		choose( it, choices ){
+		itemChoices( it, choices ){
 
 			if ( choices ) {
 
@@ -77,17 +91,22 @@ export default {
 			}
 
 		},
-		choice( opt ){
-
-			let it = this.item;
+		choose( opt ){
 
 			this.item = null;
 			this.choices = null;
 
-			this.$emit( 'choice', opt, it );
+			if ( this.cb ) {
+
+				let cb = this.cb;
+				this.cb = null;
+				cb( opt );
+
+			}
 
 		},
 		cancel(){
+			this.cb = null;
 			this.item = null;
 			this.choices = null;
 		}
@@ -98,11 +117,10 @@ export default {
 </script>
 
 <template>
-	<div class="popup" v-if="list!=null">
+	<div class="popup" v-if="list!=null&&choices.length>0">
 
-		<div v-for="opt in choices" :key="opt.id" @click="choice(opt)">
-			{{opt.name}}
-		</div>
+		<button v-for="opt in choices" :key="opt.id" @click="choose(opt)"
+			@mouseenter.capture.stop="emit( 'itemover',$event,opt)">{{opt.name}}</button>
 
 		<div>
 			<button @click="cancel">Cancel</button>
