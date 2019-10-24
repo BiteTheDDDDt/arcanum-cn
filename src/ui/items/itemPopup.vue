@@ -62,7 +62,7 @@ div.pop-title {
 	min-width:200px;
 	max-width:280px;
 	position: absolute;
-	z-index:10000;
+	z-index: var(--md-high);
 	top:0;
 	opacity: 0.9;
 	background:inherit;

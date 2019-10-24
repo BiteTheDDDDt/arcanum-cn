@@ -94,12 +94,6 @@ export default {
 
 		},
 
-		showChoice( items, onPick, elm ) {
-
-			this.$refs.choice.show( items, onPick, elm );
-
-		},
-
 		/**
 		 * Listen non-system events.
 		 */
@@ -107,11 +101,6 @@ export default {
 
 			this.add( 'itemover', this.itemOver );
 			this.add( 'itemout', this.itemOut );
-
-			/**
-			 * Special event to show choice dialog.
-			 */
-			this.add( 'choice', this.showChoice );
 
 			this.add( 'sell', this.onSell );
 			this.add( 'take', this.onTake );
@@ -327,7 +316,7 @@ export default {
 <!-- popups -->
 		<itempopup :item="overItem" :elm="overElm" :title="overTitle" />
 		<warn ref="warn" @confirmed="onConfirmed" />
-		<choice ref="choice" />
+		<choice />
 		<settings />
 
 		<div v-if="state" class="game-main">

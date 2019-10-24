@@ -1,6 +1,8 @@
 <script>
 import Game from '../../game';
-import {center} from './popups.js';
+import { center, positionAt } from './popups.js';
+
+import ItemsBase from '../itemsBase.js';
 
 /**
  * @emits choice
@@ -11,14 +13,35 @@ export default {
 		return {
 			list:null,
 			elm:null,
-			item:null
+			item:null,
+			open:false
 		}
 	},
+	mixins:[ItemsBase],
 	created(){
+
 		this.cb = null;
+
+		this.listen('game-loaded', ()=>{
+
+			/**
+			 * Special event to show choice dialog.
+			*/
+			this.add( 'choice', this.show, this );
+
+		} );
+
+
+
+
 	},
 	updated() {
-		if ( this.item ) { center( this.elm || this.$el ); }
+
+		if (this.open===false) return;
+
+		if ( this.elm) positionAt( this.$el, this.elm );
+		else center( this.$el );
+
 	},
 	computed:{
 
@@ -58,10 +81,12 @@ export default {
 
 		show( choices, cb=null, elm=null ) {
 
+			console.log('showing choices');
 			this.cb = cb;
 			this.elm = elm;
 
 			this.choices = choices;
+			this.open=true;
 
 		},
 
@@ -106,6 +131,7 @@ export default {
 
 		},
 		cancel(){
+			this.open=false;
 			this.cb = null;
 			this.item = null;
 			this.choices = null;
@@ -117,18 +143,41 @@ export default {
 </script>
 
 <template>
-	<div class="popup" v-if="list!=null&&choices.length>0">
+<div class="popup" v-if="choices!=null&&choices.length>0">
+	<div class="content">
 
-		<button v-for="opt in choices" :key="opt.id" @click="choose(opt)"
-			@mouseenter.capture.stop="emit( 'itemover',$event,opt)">{{opt.name}}</button>
+		<span class="action-btn" v-for="it in choices" :key="it.id"
+			@mouseenter.capture.stop="emit( 'itemover', $event,it)">
 
-		<div>
-			<button @click="cancel">Cancel</button>
-		</div>
+		<button
+			class="wrapped-btn"
+			:disabled="!usable(it)"
+			@click="emit( pEvent, it)">{{ it.name }}</button>
+		</span>
+
+		<button class="close-btn" @click="cancel">Cancel</button>
 
 	</div>
+</div>
+
 </template>
 
 <style scoped>
+
+.popup {
+	z-index: var(--md-depth);
+}
+.content {
+	display:flex;
+	flex-flow: column nowrap;
+}
+
+button.close-btn {
+	height:100%;
+	padding: 8px 4px;
+	font-size:0.9em;
+	min-width:118px;
+}
+
 
 </style>
