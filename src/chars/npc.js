@@ -57,6 +57,9 @@ export default class Npc extends Char {
 	get maxHp() { return this._hp.max; }
 	set maxHp(v) {}
 
+	/**
+	 * @property {MaxStat} hp
+	 */
 	get hp() { return this._hp; }
 	set hp(v) {
 
@@ -65,6 +68,9 @@ export default class Npc extends Char {
 
 	}
 
+	/**
+	 * @property {object|string|object[]}
+	 */
 	get loot() { return this._loot; }
 	set loot( loot ){
 
@@ -155,6 +161,10 @@ export default class Npc extends Char {
 		this.hp = 1;
 	}
 
+	/**
+	 *
+	 * @param {number} dt
+	 */
 	rest(dt) {
 		this.hp += ( 0.01*this.hp.max.value*dt );
 	}

@@ -71,7 +71,7 @@ export default class Hall {
 	}
 
 	/**
-	 * @property {number} max - maximum char slots.
+	 * @property {Stat} max - maximum char slots.
 	 */
 	get max() {return this._max; }
 	set max(v) {
@@ -80,6 +80,10 @@ export default class Hall {
 
 	}
 
+	/**
+	 *
+	 * @param {object} vars
+	 */
 	constructor(vars=null ){
 
 		if ( vars ) Object.assign(this, vars);
@@ -101,13 +105,8 @@ export default class Hall {
 			this.prestige = it;
 		}
 
-		console.log('PRES MAX: ' + this.prestige.max );
-		console.log( typeof this.prestige.max );
-		if ( this.prestige.max ) {
-			console.log( 'PRESTIGE MAX NAME: ' + this.prestige.max.constructor.name );
-		}
+		console.log('HALL LOADED. PRESTIGE: ' + this.prestige.max );
 
-		console.log('HALL LOADED');
 		this.initChars();
 
 	}

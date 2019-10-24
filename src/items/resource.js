@@ -25,9 +25,7 @@ export default class Resource extends GData {
 	get current() { return this.unit ? Math.floor(super.value.valueOf() ) : super.value.valueOf(); }
 
 	get val(){ return super.value; }
-	set val(v){
-		super.value = v;
-	}
+	set val(v){ super.value = v; }
 
 	/**
 	 * @property {number} value
@@ -88,11 +86,11 @@ export default class Resource extends GData {
 		 */
 		if ( this.unit === null || this.unit === undefined ) this.unit = true;
 
-		if ( this.rate === null || this.rate === undefined ) this._rate = new Stat(0);
+		if ( this.rate === null || this.rate === undefined ) this.rate = new Stat(0);
 
 		this._lastValue = super.value.valueOf();
 
-		this._type = this._type || 'resource';
+		this.type = this.type || 'resource';
 
 		this._delta = 0;
 

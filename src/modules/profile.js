@@ -18,6 +18,9 @@ const SAVE_DIR = __SAVE ? __SAVE + '/' : '';
  */
 export default {
 
+	/**
+	 * @property {Hall} hall
+	 */
 	hall:null,
 
 	/**
@@ -28,6 +31,7 @@ export default {
 
 	/**
 	 * Load data files for hall.
+	 * @param {object} save - save data of hall.
 	 */
 	loadHallData( save ) {
 

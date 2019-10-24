@@ -327,7 +327,7 @@
 {
 	"id":"bonemonger",
 	"tags":"t_tier2",
-	"desc":"extend your life with the spare parts of the dead.",
+	"desc":"extend your life with spare parts from the dead.",
 	"require":"g.tier1>0&&g.reanimator>=1&&g.evil>0",
 	"cost":{
 		"research":700,
@@ -352,7 +352,7 @@
 {
 	"id":"thanophage",
 	"tags":"t_tier3",
-	"desc":"extend your life with the spare parts of the dead.",
+	"desc":"drain corpses of their lingering life-force to prolong your bleak existence.",
 	"require":"g.tier2>0&&g.evil>0",
 	"cost":{
 		"research":1000,
@@ -362,7 +362,6 @@
 		"arcana":10
 	},
 	"effect":{
-
 		"sp":2
 	},
 	"mod":{
