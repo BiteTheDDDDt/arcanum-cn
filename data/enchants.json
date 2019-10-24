@@ -323,6 +323,26 @@
 		}
 	},
 	{
+		"id":"en_scraft",
+		"name":"spellcraft",
+		"adj":"of spells",
+		"desc":"increases your spellcrafting power.",
+		"level":3,
+		"buy":{
+			"gold":100,
+			"research":700,
+			"codices":10
+		},
+		"length":20,
+		"cost":{
+			"managem":15,
+			"mana":5
+		},
+		"mod":{
+			"mod.scraft":1
+		}
+	},
+	{
 		"id":"en_courage",
 		"name":"courage",
 		"targets":"waist",
@@ -381,11 +401,32 @@
 		}
 	},
 	{
+		"id":"en_scraft2",
+		"name":"spellcraft",
+		"adj":"of spells",
+		"desc":"increases your spellcrafting power",
+		"require":"g.en_scraft>0&&g.enchanting>=6",
+		"level":6,
+		"buy":{
+			"gold":500,
+			"research":700,
+			"tomes":5
+		},
+		"length":30,
+		"cost":{
+			"managem":15,
+			"spiritgem":15
+		},
+		"mod":{
+			"mod.scraft":2
+		}
+	},
+	{
 		"id":"en_decep",
 		"name":"deception",
 		"targets":"back",
 		"adj":"of deception",
-		"desc":"a cloak to confuse the mind.",
+		"desc":"a cloak to confuse your enemies.",
 		"level":9,
 		"buy":{
 			"tomes":4,
@@ -397,6 +438,32 @@
 		},
 		"mod":{
 			"mod.trickery":2
+		}
+	},
+	{
+		"id":"en_prisma",
+		"name":"prismatic ring",
+		"targets":"ring",
+		"adj":"of colors",
+		"desc":"restores energies of all kinds.",
+		"level":8,
+		"buy":{
+			"tomes":5,
+			"research":5000
+		},
+		"length":20,
+		"cost":{
+			"managem":10,
+			"airgem":10,
+			"watergem":10,
+			"earthgem":10,
+			"firegem":10,
+			"lightgem":10,
+			"shadowgem":10,
+			"spiritgem":10
+		},
+		"mod":{
+			"mod.manas.rate":0.5
 		}
 	},
 	{

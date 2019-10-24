@@ -133,7 +133,7 @@ export default {
 		},
 
 		maxLevels() {
-			return Math.floor( this.scraft.value );
+			return Math.floor( this.scraft.valueOf() );
 		}
 
 	}

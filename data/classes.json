@@ -1223,7 +1223,7 @@
 			"tier6":true,
 			"research.max":"-14%",
 			"lore.max":1,
-			"spellcraft.max":2,
+			"spellcraft.max":1,
 			"embalming.max":1,
 			"necromancy.max":3,
 			"necromancy.rate":"10%",
@@ -1277,7 +1277,7 @@
 		},
 		"mod":{
 			"tier6":true,
-			"spellcraft.max":2,
+			"spellcraft.max":1,
 			"firelore.max":1,
 			"waterlore.max":1,
 			"waterlore.rate":"1%",

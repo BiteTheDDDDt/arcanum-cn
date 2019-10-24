@@ -12,8 +12,12 @@ const levelReq = ( g, s ) => {
 /**
  * Create a school unlock function.
  * @param {*} s
+ * @param {number} lvl - spell level.
+ * @param {number} ratio - multiply spell level before test.
  */
-const schoolUnlock = (s,lvl) => {
+const schoolUnlock = (s, lvl=1, ratio=1 ) => {
+
+	lvl *= ratio;
 
 	if ( typeof s === 'string') {
 
@@ -88,7 +92,7 @@ export default class Spell extends Action {
 		if ( this.locked !== false ) {
 
 			if ( this.school ) {
-				let req = schoolUnlock( this.school, this.level );
+				let req = schoolUnlock( this.school, this.level, this.ratio );
 				if ( req ) this.addRequire( req );
 				else this.addRequire( levelReq );
 			}

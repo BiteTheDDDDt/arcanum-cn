@@ -924,6 +924,7 @@
 		"length":75,
 		"repeat":false,
 		"cost":{
+			"research":400,
 			"codices":10
 		},
 		"run":{
@@ -933,6 +934,24 @@
 			"player.damage":2,
 			"player.tohit":1
 		},"flavor":"what he lacked in depth, karnivex made up for with sheer destructive force"
+
+	},
+	{
+
+		"id":"markhulcodex",
+		"name":"markhul's codex",
+		"desc":"A dusty codex from the genezereth library.",
+		"repeat":false,
+		"length":75,
+		"cost":{
+			"tomes":5,
+			"managem":10,
+			"research":1000
+		},
+		"mod":{
+			"spellcraft.max":1,
+			"spellcraft.rate":0.1
+		}
 
 	},
 	{

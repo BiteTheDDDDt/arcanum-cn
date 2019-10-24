@@ -151,6 +151,20 @@ export default class Player extends Char {
 		this._points = v instanceof Stat ? v : new Stat(v);
 	}
 
+	get bonuses(){ return this._bonuses ? this._bonuses : (this._bonuses = {}) }
+	set bonuses(v){ this._bonuses = {}; }
+
+	set lightb(v){ this.bonuses.light = v; }
+	set shadowb(v){ this.bonuses.shadow = v; }
+	set manab(v){ this.bonuses.mana = v; }
+	set spiritb(v){ this.bonuses.spirit = v; }
+	set fireb(v){ this.bonuses.fire = v; }
+	set earthb(v){ this.bonuses.earth = v; }
+	set airb(v){ this.bonuses.air = v; }
+	set waterb(v){ this.bonuses.water = v; }
+
+
+
 	/**
 	 * NOTE: Elements that are themselves Items are not encoded,
 	 * since they are encoded in the Item array.
@@ -272,6 +286,7 @@ export default class Player extends Char {
 
 		// copy in stressors to test player defeats.
 		this.stressors = state.stressors;
+
 
 	}
 

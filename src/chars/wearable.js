@@ -128,12 +128,15 @@ export default class Wearable extends Item {
 
 			mergeSafe( this, this.template );
 
-		} else console.log('wearable template not found: ' + this.template );
+		} else console.log('template not found: ' + this.template );
 
-		if ( this.level === null || this.level === undefined || isNaN(this.level)) this.level = 0;
+		if ( this.level === null || this.level === undefined || isNaN(this.level)) this.level = 1;
 
 		if ( this.mod ) this.mod = ParseMods( this.mod, this.id );
 
+		console.log('WEARABLE LEVEL: ' + this.level );
+		console.log('MAT: '+ this.material ? this.material.level : 0 );
+		console.log('base: ' + this.template ? this.template.level : 0 );
 	}
 
 	applyMaterial( mat ) {

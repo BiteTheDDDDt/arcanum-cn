@@ -4,6 +4,7 @@
 	"name":"musty library",
 	"level":1,
 	"length":10,
+	"sym":"📖",
 	"require":"apprentice",
 	"desc":"a good apprentice spends all their free time in the library. after doing chores, of course.",
 	"run":{
@@ -185,6 +186,7 @@
 	"id":"hallofmirrors",
 	"level":300,
 	"length":10,
+	"sym":"📖",
 	"desc":"",
 	"run":{
 		"stamina":0.2
@@ -209,6 +211,7 @@
 	"name":"fazbit's workshop",
 	"level":9,
 	"length":50,
+	"sym":"📖",
 	"require":"g.alchemy>=7||g.scrying>=9",
 	"desc":"You could spend a century in Fazbit's lost workshop and still not exhaust its creations.",
 	"loot":{
@@ -232,10 +235,12 @@
 	"id":"genezereth",
 	"level":15,
 	"length":100,
-	"desc":"An ancient bridge and library spanning Markhul's gap.",
+	"sym":"📖",
+	"desc":"An ancient library at the bridge spanning Markhul's gap.",
 	"flavor":"third of the Four Weirs of Dhrune.",
 	"loot":{
-		"tomes":"3~5"
+		"tomes":"3~5",
+		"markhulcodex":true
 	},"encs":[
 		"enc_tapestry",
 		"enc_tome",

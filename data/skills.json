@@ -380,7 +380,7 @@
 
 		"id":"divination",
 		"desc":"the art of foretelling",
-		"require":["g.spiritlore>=6||g.mysticism>=5"],
+		"require":"g.spiritlore>=6||g.mysticism>=5",
 		"need":"spiritsource",
 		"school":"spirit",
 		"run":{

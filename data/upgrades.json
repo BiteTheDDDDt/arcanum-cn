@@ -2002,6 +2002,7 @@
 		}
 
 	},
+
 	{
 		"id":"fireplane",
 		"slot":"homeplane",
@@ -2009,7 +2010,7 @@
 		"require":"g.tier5>0&&g.planeslore>=20&&g.firelore>=10",
 		"buy":{
 
-			"flamerune":10,
+			"flamerune":70,
 			"gold":15000,
 			"tomes":25
 
@@ -2029,7 +2030,7 @@
 		"require":"g.tier5>0&&g.planeslore>=20&&g.waterlore>=10",
 		"buy":{
 
-			"waterrune":10,
+			"waterrune":70,
 			"gold":15000,
 			"tomes":25
 
@@ -2050,7 +2051,7 @@
 		"require":"g.tier5>0&&g.planeslore>=20&&g.earthlore>=10",
 		"buy":{
 
-			"earthrune":10,
+			"earthrune":70,
 			"gold":15000,
 			"tomes":25
 
@@ -2071,7 +2072,7 @@
 		"require":"g.tier5>0&&g.planeslore>=20&&g.airlore>=10",
 		"buy":{
 
-			"airrune":10,
+			"airrune":70,
 			"gold":15000,
 			"tomes":25
 
