@@ -96,16 +96,10 @@
 		button { color: var(--button-text-color); border: 1px solid #0006; }
 		button { outline: none; }
 		button:disabled { opacity: 0.3; color: unset; }
-		.action-btn { border: 2px solid transparent; padding: 1px; }
-		.action-btn.running { border: 2px dashed #000; }
-		body.darkmode .action-btn.running { border: 2px dashed var(--action-button-border-color); }
-		.checks > span { flex: 1; }
+
+
 
 		/*.items div.dot-view { display: flex; flex-flow: row; justify-content: flex-start; }*/
-
-
-
-
 
 		/* Top Bar */
 
@@ -134,14 +128,7 @@
 
 		.game-mid .menu-content .main-actions > div.action-list .runnable button:hover {background: var(--accent-color-hover); }
 		.game-mid .menu-content .main-actions > div.action-list .runnable button:active {background: var(--accent-color-active); }
-		.game-mid .menu-content .action-btn { margin: 0; max-width: unset; width: 100%; }
-		.game-mid .menu-content .action-btn:not(.locked) { display:flex; }
-		.game-mid .menu-content .action-btn button {
-			flex: 1; word-break: break-word; text-transform: capitalize;
-			min-height: 3em;
-		}
 
-		body.compact .game-mid .menu-content .action-btn button { min-height: 1em; }
 
 
 
@@ -165,10 +152,6 @@
 		body.compact div.bar .fill { border-radius: 0 4px 4px 0; }
 		body.compact div.bar { height: 14px; border-radius: 6px; }
 		body.compact div.bar .bar-text { font-size: 0.7rem; line-height: 10px; }
-
-		.wrapped-btn { margin: unset; min-width: unset; padding: 2px; }
-
-
 
 
 		/* Log */
