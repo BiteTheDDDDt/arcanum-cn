@@ -320,7 +320,7 @@ export default class Combat {
 	 */
 	tryHit( attacker, defender, attack ){
 
-		let tohit = attacker.tohit || 0;
+		let tohit = attacker.tohit.valueOf() || 0;
 
 		if ( attack && (attack != attacker) ) tohit += ( attack.tohit || 0 );
 

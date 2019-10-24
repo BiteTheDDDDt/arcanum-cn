@@ -88,7 +88,7 @@
 			"history.max":1,
 			"gold.rate":0.1,
 			"lore.rate":0.2
-		}
+		},"favor":"When I get a little money I buy books, and if any is left I buy food and clothes."
 	},
 {
 	"id":"neophyte",
@@ -122,7 +122,33 @@
 	"desc":"Your master behind you, you set off into the world alone. You had better find a new place to stay.",
 	"mod":"tier0"
 },
-
+{
+	"id":"savant",
+	"name":"mystic savant",
+	"desc":"You have no need of these dry tomes and musty old books.",
+	"buyname":"Forgo Studies",
+	"tags":"t_tier0",
+	"require":"g.study.value==0&&g.neophyte>0",
+	"cost":{
+		"arcana":7
+	},
+	"effect":{
+		"sp":2
+	},
+	"mod":{
+		"tier0":true,
+		"trickery":true,
+		"lore.max":-1,
+		"history.max":-1,
+		"lore.rate":-0.2,
+		"research.rate":0.2,
+		"conjuration.max":1,
+		"mana.max":1,
+		"spiritlore.max":1,
+		"mysticism.max":2,
+		"mysticism.rate":0.1
+	}
+},
 {
 	"id":"magician",
 	"tags":"t_tier1",

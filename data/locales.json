@@ -160,7 +160,7 @@
 	"name":"ruined crypt",
 	"level":4,
 	"length":30,
-	"require":"adept",
+	"require":"tier0",
 	"desc":"an ancient crypt of crumbling stone.",
 	"run":{
 		"stamina":0.2

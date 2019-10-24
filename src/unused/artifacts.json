@@ -11,33 +11,4 @@
 		"kind":"frost"
 
 	}}, "cost":20, "level":3
-
-
-
-	{
-		"id":"savant",
-		"name":"mystic savant",
-		"desc":"J.",
-		"buyname":"",
-		"tags":"t_tier1",
-		"require":"g.study.value==0&&g.tier0>0",
-		"cost":{
-			"research":50,
-			"gold":400,
-			"arcana":5
-		},
-		"effect":{
-			"sp":2
-		},
-		"mod":{
-			"tier1":true,
-			"lore.max":-1,
-			"lore.rate":-0.2,
-			"research.rate":0.2,
-			"conjuration.max":2,
-			"mana.max":2,
-			"spiritlore.max":2,
-			"mysticism.max":2,
-			"mysticism.rate":0.1
-		}
-	},
+}

@@ -34,7 +34,7 @@ export default {
 
 		<span class="separate" @mouseenter.capture.stop="emit( 'itemover', $event, skill )">
 			<span>{{ skill.name }}</span>&nbsp;
-			<span v-if="skill.owned">{{ 'lvl: ' + Math.floor(skill.value) + '/' + Math.floor(skill.max) }}<button class="train-btn"
+			<span v-if="skill.owned">{{ 'lvl: ' + Math.floor(skill.valueOf()) + '/' + Math.floor(skill.max.valueOf()) }}<button class="train-btn"
 			@click="$emit('train',skill)" :disabled="!this.usable(skill)">
 				{{ active ? 'Stop' : 'Train' }}</button></span>
 

@@ -15,29 +15,25 @@ export default class Stat {
 
 		};
 
-
-		/** @todo testing shouldn't need to save 'pos'  */
-		//if ( this.pos ) o.pos = true;
-
 		return o;
 
 	}
 
-	toString(){
-		return this._base + (this._mPct >= 0 ? '+' : '') + (100*this._mPct) + '%';
-	}
+	/*toString(){
+		return this._base + (this._pct >= 0 ? '+' : '') + (100*this._pct) + '%';
+	}*/
 
 	/**
 	 * @property {number} value
 	 */
 	get value() {
-		return this._pos ? Math.max( (this._base + this._bonus)*( 1 + this._mPct ),0) :
-		(this._base + this._bonus)*( 1 + this._mPct );
+		return this._pos ? Math.max( (this._base + this._bonus)*( 1 + this._pct + this._mPct ),0) :
+		(this._base + this._bonus)*( 1 + this._pct + this._mPct );
 	}
 	set value(v){}
 
-	valueOf() {return this._pos ? Math.max( (this._base + this._bonus)*( 1 + this._mPct ),0) :
-		(this._base + this._bonus)*( 1 + this._mPct );}
+	valueOf() {return this._pos ? Math.max( (this._base + this._bonus)*( 1 + this._pct + this._mPct ),0) :
+		(this._base + this._bonus)*( 1 + this._pct + this._mPct );}
 
 	get base() { return this._base; }
 	set base(v) { this._base = v; }

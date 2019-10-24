@@ -209,7 +209,7 @@
 		"name":"tend animals",
 		"desc":"tend to sick and wounded animals in the wild",
 		"verb":"tending",
-		"require":"adept",
+		"require":"tier0",
 		"perpetual":true,
 		"at":{
 
@@ -736,7 +736,7 @@
 		"perpetual":true,
 		"verb":"pacing",
 		"desc":"Pace your home as you comtemplate the arcane.",
-		"require":"adept",
+		"require":"tier0",
 		"run":{
 			"stamina":0.4
 		},
@@ -764,7 +764,7 @@
 	},
 	{
 		"id":"buyscroll",
-		"name":"Buy scroll",
+		"name":"buy scroll",
 		"require":"g.gold>=10",
 		"cost":{
 			"gold":10
@@ -777,7 +777,7 @@
 	},
 	{
 		"id":"scribescroll",
-		"name":"Scribe Scroll",
+		"name":"scribe scroll",
 		"require":"g.crafting>=1&&g.lore>=1",
 		"cost":{
 			"research":10,
@@ -1327,7 +1327,7 @@
 	{
 		"id":"sellscroll",
 		"name":"sell scroll",
-		"require":"g.scribescroll&&g.scrolls>=5",
+		"require":"g.scribescroll>0&&g.scrolls>=5",
 		"cost":{
 			"scrolls":1
 		},

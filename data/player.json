@@ -127,61 +127,6 @@
 		"stat":true,
 		"desc":"Your reputation in the world",
 		"val":0
-	},
-	{
-		"id":"manab",
-		"name":"arcane bonus",
-		"hidden":true,
-		"stat":true,
-		"locked":false
-	},
-	{
-		"id":"fireb",
-		"name":"fire bonus",
-		"hidden":true,
-		"stat":true,
-		"locked":false
-	},
-	{
-		"id":"earthb",
-		"name":"earth bonus",
-		"hidden":true,
-		"stat":true,
-		"locked":false
-	},
-	{
-		"id":"airb",
-		"name":"wind bonus",
-		"hidden":true,
-		"stat":true,
-		"locked":false
-	},
-	{
-		"id":"waterb",
-		"name":"water bonus",
-		"hidden":true,
-		"stat":true,
-		"locked":false
-	},
-	{
-		"id":"lightb",
-		"name":"light bonus",
-		"hidden":true,
-		"stat":true,
-		"locked":false
-	},
-	{
-		"id":"shadowb",
-		"name":"shadow bonus",
-		"hidden":true,
-		"stat":true,
-		"locked":false
-	},
-	{
-		"id":"spiritb",
-		"name":"spirit bonus",
-		"hidden":true,
-		"stat":true,
-		"locked":false
 	}
+
 ]

@@ -144,7 +144,7 @@ export default class GData {
 		 */
 		this.locks = 0;
 
-		if ( !this.value ) this.val = 0;
+		if ( this._value === null || this._value === undefined ) this.val = 0;
 
 		defineExcept( this, null,
 			['require', 'rate', 'current', 'need', 'value', 'buy', 'max', 'cost', 'id', 'name', 'warn', 'effect', 'slot' ]);

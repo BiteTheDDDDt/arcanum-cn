@@ -4,7 +4,7 @@ import Events, { ACT_DONE, ACT_IMPROVED, EXP_MAX } from '../events';
 
 export default class Action extends GData {
 
-	valueOf(){ return this.locked ? 0 : this._value; }
+	valueOf(){ return this.locked ? 0 : this.value.valueOf(); }
 
 	get level() {return this._level;}
 	set level(v) { this._level = v;}
@@ -38,9 +38,7 @@ export default class Action extends GData {
 	get running() { return this._running; }
 	set running(v) { this._running = v;}
 
-	percent() {
-		return 100*(this._exp / this._length );
-	}
+	percent() { return 100*(this._exp / this._length ); }
 
 	constructor( vars=null ){
 
@@ -60,7 +58,7 @@ export default class Action extends GData {
 
 	applyImproves() {
 
-		let v = this._value;
+		let v = this.valueOf();
 		if ( this.at ) {
 
 			for( let p in this.at) {
@@ -91,7 +89,7 @@ export default class Action extends GData {
 	 * @param {number} dt - elapsed time.
 	 */
 	update( dt ) {
-		this.exp += ( this._rate ? this._rate.value : 1 )*dt;
+		this.exp += ( this._rate ? this._rate.valueOf() : 1 )*dt;
 	}
 
 	/**
@@ -100,8 +98,8 @@ export default class Action extends GData {
 	complete() {
 
 		if ( this.log ) Game.doLog( this.log );
-		if ( this.result ) Game.applyEffect( this.result );
 		if ( this.mod ) Game.addMod( this.mod );
+		if ( this.result ) Game.applyEffect( this.result );
 
 		this.value++;
 
@@ -135,7 +133,7 @@ export default class Action extends GData {
 
 		if ( this.at ) {
 
-			let cur = this.at[this.value];
+			let cur = this.at[this.valueOf()];
 			if ( cur ) {
 
 				improve = true;
@@ -145,9 +143,10 @@ export default class Action extends GData {
 
 		} else if ( this.every ) {
 
+			let v = this.valueOf();
 			for( let p in this.every ) {
 
-				if ( this.value % p === 0 ) {
+				if ( v % p === 0 ) {
 
 					improve = true;
 					this.applyMods( this.every[p] );

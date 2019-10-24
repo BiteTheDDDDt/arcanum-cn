@@ -300,7 +300,7 @@
 		"tags":"manas",
 		"desc":"raw magical energy",
 		"unit":false,
-		"require":"g.arcana>=1",
+		"require":"lore",
 		"name":"mana",
 		"max":5
 	},

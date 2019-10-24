@@ -15,7 +15,7 @@ export default class Resource extends GData {
 	 * require from 'unlock'. messy and bad.
 	* @returns {boolean} true if resource value is positive.
 	*/
-	positive(g,s) {
+	positive() {
 		return (super.value > 0 || (this._rate.value>0&&( (!this.max) ||this.max.value>0) ) );
 	}
 
@@ -35,12 +35,12 @@ export default class Resource extends GData {
 	get value() { return super.value; }
 	set value(v) {
 
-		if ( v > this._max ) {
+		if ( v > this.max ) {
 
 			if ( v < super.value ) super.value = v;
 
 			//
-			else super.value = Math.max( this._max.value, super.value.valueOf() );
+			else super.value = Math.max( this.max.value, super.value.valueOf() );
 
 		} else super.value = (v >= 0 ) ? v :0;
 
@@ -55,12 +55,12 @@ export default class Resource extends GData {
 	/**
 	 * @property {Stat} max - maximum resource value.
 	 */
-	get max() { return this._max; }
+	/*get max() { return this._max; }
 	set max(v) {
 
-		if ( this._max === null || this._max === undefined ) {
+		if ( super.max === null || super.max === undefined ) {
 
-			this._max = new Stat(v, 'max', true);
+			super.max = new Stat(v, 'max', true);
 
 		} else {
 
@@ -69,7 +69,7 @@ export default class Resource extends GData {
 
 		}
 
-	}
+	}*/
 
 	/**
 	 *
@@ -88,7 +88,7 @@ export default class Resource extends GData {
 		 */
 		if ( this.unit === null || this.unit === undefined ) this.unit = true;
 
-		if ( this._rate === null || this._rate === undefined ) this._rate = new Stat(0);
+		if ( this.rate === null || this.rate === undefined ) this._rate = new Stat(0);
 
 		this._lastValue = super.value.valueOf();
 
@@ -103,7 +103,7 @@ export default class Resource extends GData {
 	 */
 	maxed() {
 
-		return this.max ? (this._value >= this.max) : false;
+		return this.max ? (this.value >= this.max) : false;
 
 	}
 
@@ -114,12 +114,12 @@ export default class Resource extends GData {
 	 */
 	update( dt ) {
 
-		if ( this._rate.value ) {
+		if ( this._rate.value !== 0 ) {
 
 			let cur = super.value.base;
 			let v = cur + this._rate.value*dt;
 
-			if ( this._max && v > this._max.value ) v = this._max.value;
+			if ( this.max && v > this.max.value ) v = this.max.value;
 			else if ( v < 0 ) v = 0;
 
 			this._delta = v - this._lastValue;

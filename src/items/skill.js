@@ -23,12 +23,6 @@ export default class Skill extends Action {
 	}
 
 	/**
-	 * @deprecated - deprecation intended.
-	 */
-	get level() { return this.value; }
-	set level(v) { this.value = v; }
-
-	/**
 	 *
 	 * @param {?Object} [vars=null]
 	 */
@@ -44,7 +38,7 @@ export default class Skill extends Action {
 		/** @compatibility */
 		if ( this.value >= 1 ){
 
-			let len = (vars.template.length || 50)*Math.pow( (1+EXP_RATIO), this.value );
+			let len = (vars.template.length || 50)*Math.pow( (1+EXP_RATIO), this.value.valueOf() );
 			if ( this.length > len ) {
 				this.length = len;
 			}
@@ -53,7 +47,6 @@ export default class Skill extends Action {
 
 		if ( !this.buy ) this.buy = { "sp":1 };
 
-		if ( !this.value) this.value = 0;
 		if ( !this.rate ) this.rate = new Stat( 0.5, 'rate' );
 		else if ( !this.rate.base ) this.rate.base = 0.5;
 

@@ -520,7 +520,7 @@
 		"name":"cloud chamber",
 		"tags":"airsource",
 		"desc":"A chamber of swirling vapours for study.",
-		"require":"g.adept>0&&g.airlore>=5",
+		"require":"g.tier0>0&&g.airlore>=5",
 		"max":3,
 		"cost":{
 			"gold":500,
