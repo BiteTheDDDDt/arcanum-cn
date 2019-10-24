@@ -103,7 +103,6 @@ div.header .fld-name {
 }
 div.wizhall {
 	z-index: 5000;
-	background-color: var( --background-color);
  	min-width: 640px;
  	padding: var( --rg-padding );
 

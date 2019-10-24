@@ -1,5 +1,6 @@
 <script>
 import Game from '../../game';
+import { positionAt } from './popups';
 
 import ItemsBase from '../itemsBase.js';
 import { SET_SLOT } from '../../events';
@@ -57,7 +58,7 @@ export default {
 	<div class="inline" v-if="avail.length>0">
 	<button @click="toggleChange">{{ changing ? 'Done' : 'Choose' }}</button>
 
-	<div class="upgrade-list" v-if="changing">
+	<div v-if="changing" ref="choices" class="upgrade-list popup">
 
 		<span class="action-btn" v-for="it in avail" :key="it.id"
 			@mouseenter.capture.stop="emit( 'itemover', $event,it)">
@@ -68,6 +69,8 @@ export default {
 			@click="emit( pEvent, it)">{{ it.name || it.id }}</button>
 		</span>
 
+		<button class="close-btn" @click="changing=false">Cancel</button>
+
 	</div>
 
 	</div>
@@ -76,5 +79,11 @@ export default {
 </template>
 
 <style scoped>
+
+button.close-btn {
+	height:100%;
+	font-size:0.9em;
+	min-width:118px;
+}
 
 </style>

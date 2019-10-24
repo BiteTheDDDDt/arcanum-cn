@@ -12,6 +12,10 @@
 	--odd-list-color:#e5e5e5;
 	--action-btn-color: #fdc679;
 
+	--high-depth:20000;
+	--md-depth:10000;
+	--low-depth:100;
+
 	--sm-padding:4px;
 	--md-padding:8px;
 	--rg-padding:12px;
@@ -63,13 +67,14 @@ div.popup {
 	max-width:240px;
 	position: absolute;
 	opacity:1;
-	z-index:20000;
+	z-index:var(--high-depth);
 	left:50%;
 	top:20%;
 	align-self: center;
 	background:inherit;
 	background-clip: border-box;
 	padding:12px;
+	background-color: var( --background-color);
 	border: 1.5px solid rgb( 100, 100,100);
 	border-radius: 0.20rem;
 }
