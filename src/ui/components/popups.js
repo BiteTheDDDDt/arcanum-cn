@@ -29,8 +29,9 @@ export const center = elm => {
  *
  * @param {HTMLElement} elm - element being positioned
  * @param {HTMLElement} target - target being rolled over.
+ * @param {number} [pad=32] - padding distance between element and popup.
  */
-export const positionAt = (elm, target) =>{
+export const positionAt = (elm, target, pad=32 ) =>{
 
 	let style = elm.style;
 	let rect = target.getBoundingClientRect();
@@ -40,12 +41,12 @@ export const positionAt = (elm, target) =>{
 	if ( left < window.innerWidth/2 ) {
 
 			//	console.log('left: ' + left);
-		style['left'] = ( left + target.offsetWidth + 32 ) + 'px';
+		style['left'] = ( left + target.offsetWidth + pad ) + 'px';
 
 		} else {
 
 		//console.log('width: ' + myBox.width + ' , ' + myBox.right );
-		style['left'] = ( left- elm.offsetWidth - 32 ) + 'px';
+		style['left'] = ( left- elm.offsetWidth - pad ) + 'px';
 	}
 
 	style.top = getTop( elm, rect ) + 'px';

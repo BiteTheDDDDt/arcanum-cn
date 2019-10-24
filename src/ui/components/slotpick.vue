@@ -35,7 +35,7 @@ export default {
 
 				this.emit( SET_SLOT, p );
 
-			}, this.$el );
+			}, this.$el, this.title||this.pick );
 
 		}
 

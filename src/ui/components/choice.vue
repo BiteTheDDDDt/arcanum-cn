@@ -11,6 +11,7 @@ export default {
 
 	data() {
 		return {
+			title:null,
 			list:null,
 			elm:null,
 			item:null,
@@ -39,7 +40,7 @@ export default {
 
 		if (this.open===false) return;
 
-		if ( this.elm) positionAt( this.$el, this.elm );
+		if ( this.elm) positionAt( this.$el, this.elm, 0 );
 		else center( this.$el );
 
 	},
@@ -79,9 +80,10 @@ export default {
 	},
 	methods:{
 
-		show( choices, cb=null, elm=null ) {
+		show( choices, cb=null, elm=null, title=null) {
 
-			console.log('showing choices');
+			//console.log('showing choices');
+			this.title = title;
 			this.cb = cb;
 			this.elm = elm;
 
@@ -146,16 +148,19 @@ export default {
 <div class="popup" v-if="choices!=null&&choices.length>0">
 	<div class="content">
 
+		<span class="title" v-if="title">{{title}}</span>
+
+		<div class="items">
 		<span class="action-btn" v-for="it in choices" :key="it.id"
 			@mouseenter.capture.stop="emit( 'itemover', $event,it)">
 
-		<button
-			class="wrapped-btn"
+		<button class="wrapped-btn"
 			:disabled="!usable(it)"
 			@click="emit( pEvent, it)">{{ it.name }}</button>
 		</span>
+		</div>
 
-		<button class="close-btn" @click="cancel">Cancel</button>
+		<span><button class="close-btn" @click="cancel">Cancel</button></span>
 
 	</div>
 </div>
@@ -166,17 +171,41 @@ export default {
 
 .popup {
 	z-index: var(--md-depth);
+	max-width: 50vw;
 }
 .content {
 	display:flex;
 	flex-flow: column nowrap;
+	width: 100%;
+	min-height:200px;
+}
+
+.content .items {
+	display:flex;
+	flex-flow: row wrap;
+	flex-grow: 1;
+	width:auto;
+}
+
+.content .title {
+	font-weight: bold;
+	text-align: center;
+	margin-bottom: var(--sm-gap);
+}
+
+.action-btn {
+	width: 100%;
+}
+.action-btn button {
+
+	max-height: 2em;
+	width:100%;
 }
 
 button.close-btn {
-	height:100%;
-	padding: 8px 4px;
+	min-height: 2em;
+	width: 114px;
 	font-size:0.9em;
-	min-width:118px;
 }
 
 
