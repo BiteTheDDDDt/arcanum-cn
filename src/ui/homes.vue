@@ -3,7 +3,9 @@ import Game from '../game';
 import { alphasort } from '../util/util';
 
 import ItemsBase from './itemsBase';
-import Choice from './components/choice.vue';
+
+//import Choice from './components/choice.vue';
+import SlotPick from './components/slotpick.vue';
 import UpgradeView from './upgrades.vue';
 import FilterBox from './components/filterbox.vue';
 import { SET_SLOT } from '../events';
@@ -16,7 +18,7 @@ export default {
 	props:['state'],
 	mixins:[ItemsBase],
 	components:{
-		choice:Choice,
+		slotpick:SlotPick,
 		upgrades:UpgradeView,
 		filterbox:FilterBox
 	},
@@ -106,23 +108,13 @@ export default {
 
 	<div class="home-view">
 
-		<div class="cur-home">
+		<div class="pick-slots">
 
-			<div>
-			<span @mouseenter.capture.stop="emit( 'itemover', $event, curHome )">home: {{ curHome ? curHome.name : 'None'}}</span>
-			<div v-if="homesAvail.length>0">
-			<button @click="toggleSwitch">{{ switching ? 'Done' : 'Switch' }}</button>
-			<upgrades v-if="switching" class="homes-view" :items="homesAvail" :pick-event="SET_SLOT" />
-			</div>
-			</div>
+			<slotpick pick="home" />
+			<slotpick pick="homeplane" />
 
-			<div>
-			<span @mouseenter.capture.stop="emit( 'itemover', $event, curPlane )">home plane: {{ curPlane ? curPlane.name : 'None'}}</span>
-			<div v-if="planesAvail.length>0">
-			<button @click="emit('choice', planesAvail )">{{ curPlane ? curPlane.name : 'None' }}</button>
-			</div>
-
-			</div>
+			<!--<button @click="emit('choice', planesAvail, (p)=>emit( SET_SLOT, p), $event.target)">
+				{{ curPlane ? curPlane.name : 'None' }}</button>-->
 
 		</div>
 
@@ -194,7 +186,11 @@ div.home-view {
 	height:100%;
 }
 
-div.cur-home {
+div.pick-slots {
+
+	display:flex;
+	flex-flow: column nowrap;
+
 	margin-top:12px;
 	margin-right: 16px;
 	flex-basis: 120px;
