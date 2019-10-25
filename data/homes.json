@@ -230,7 +230,7 @@
 		"mod":{
 			"minions.max":10,
 			"space.max":110,
-			"runes.max":2,
+			"runelore.max":2,
 			"demonology.max":1,
 			"runes.rate":"10%",
 			"spiritlore.max":1,

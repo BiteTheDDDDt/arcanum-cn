@@ -134,7 +134,8 @@
 
 	},
 	{
-		"id":"runes",
+		"id":"runelore",
+		"alias":"runes",
 		"name":"runic lore",
 		"school":"arcane",
 		"verb":"translating",
@@ -393,7 +394,9 @@
 		},
 		"mod":{
 			"player.bonuses.slash":1,
-			"player.bonuses.pierce":1
+			"player.bonuses.pierce":1,
+			"player.hits.slash":1,
+			"player.hits.pierce":1
 		}
 
 	},
@@ -623,7 +626,7 @@
 	},
 	{
 		"id":"potions",
-		"require":"g.crafting>=3&&g.alchemy>=1&&g.herbalism>=2",
+		"require":"g.crafting>=3&&g.alchemy>=1",
 		"need":["workspace","potsource"],
 		"run":{
 			"stamina":0.5

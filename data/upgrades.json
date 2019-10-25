@@ -453,9 +453,9 @@
 		"name":"rune pouch",
 		"desc":"pouch for holding runes",
 		"require":"g.runes>=5",
-		"max":1,
+		"max":5,
 		"cost":{
-			"gems":10,
+			"gems":50,
 			"research":1000
 		},
 		"mod":{
@@ -1993,6 +1993,7 @@
 			"gold":10000
 		},
 		"mod":{
+			"t_runes.max":10,
 			"tomes.rate":0.003,
 			"sp.rate":0.0001,
 			"evt_hall":true
@@ -2004,17 +2005,20 @@
 		"id":"fireplane",
 		"slot":"homeplane",
 		"name":"",
-		"desc":"a world of fire",
-		"locked":false,
+		"tags":"t_runes",
+		"desc":"a world of ash and fire",
+		"require":"g.tier5>0&&g.planeslore>=20&&g.firelore>=10",
 		"buy":{
 
-			"gold":15
+			"firerune":50,
+			"gold":15000,
+			"tomes":50
 
 		},
 		"mod":{
 			"space.max":"30%",
 			"firelore.max":2,
-			"water.rate":"-5%",
+			"player.bonuses.water":-3,
 			"water.max":-2,
 			"player.resist.fire":"1+10%",
 			"player.bonuses.fire":5
@@ -2023,19 +2027,20 @@
 	{
 		"id":"waterplane",
 		"slot":"homeplane",
+		"tags":"t_runes",
 		"desc":"an endless sea",
 		"require":"g.tier5>0&&g.planeslore>=20&&g.waterlore>=10",
 		"buy":{
 
-			"waterrune":70,
+			"waterrune":50,
 			"gold":15000,
-			"tomes":25
+			"tomes":50
 
 		},
 		"mod":{
 			"space.max":"30%",
 			"waterlore.max":2,
-			"fire.rate":"-5%",
+			"player.bonuses.fire":-3,
 			"fire.max":-2,
 			"player.resist.water":"1+10%",
 			"player.bonuses.water":5
@@ -2044,20 +2049,21 @@
 	{
 		"id":"earthplane",
 		"name":"",
+		"tags":"t_runes",
 		"desc":"a harsh and rocky world",
 		"slot":"homeplane",
 		"require":"g.tier5>0&&g.planeslore>=20&&g.earthlore>=10",
 		"buy":{
 
-			"earthrune":70,
+			"earthrune":50,
 			"gold":15000,
-			"tomes":25
+			"tomes":50
 
 		},
 		"mod":{
 			"space.max":"30%",
-			"waterlore.max":2,
-			"fire.rate":"-5%",
+			"earthlore.max":2,
+			"player.bonuses.air":-3,
 			"air.max":-2,
 			"player.resist.earth":"1+10%",
 			"player.bonuses.earth":5
@@ -2066,20 +2072,21 @@
 	{
 		"id":"airplane",
 		"name":"",
+		"tags":"t_runes",
 		"desc":"a plane of endless sky",
 		"slot":"homeplane",
 		"require":"g.tier5>0&&g.planeslore>=20&&g.airlore>=10",
 		"buy":{
 
-			"airrune":70,
+			"airrune":50,
 			"gold":15000,
-			"tomes":25
+			"tomes":50
 
 		},
 		"mod":{
 			"space.max":"30%",
 			"airlore.max":2,
-			"earth.rate":"-5%",
+			"player.bonuses.earth":-3,
 			"earth.max":-2,
 			"player.resist.air":"1+10%",
 			"player.bonuses.air":5

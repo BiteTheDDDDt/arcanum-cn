@@ -65,11 +65,12 @@
 		"id":"runestones",
 		"name":"rune stones",
 		"desc":"runes carved on pieces of stone.",
+		"tags":"t_runes",
 		"max":10,
 		"mod":{
 			"research.max":"1%",
-			"runes.rate":0.1,
-			"runes.max":0.03
+			"runelore.rate":0.1,
+			"runelore.max":0.03
 		}, "flavor":""
 
 	},
@@ -77,6 +78,7 @@
 
 		"id":"firerune",
 		"name":"flame runes",
+		"tags":"rune",
 		"desc":"rune ingrained with lines of fire",
 		"max":10,
 		"mod":{

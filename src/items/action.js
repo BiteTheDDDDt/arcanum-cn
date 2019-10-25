@@ -12,7 +12,7 @@ export default class Action extends GData {
 	/**
 	 * @property {number} exp - alias ex data files.
 	 */
-	get exp() { return this._exp || 0; }
+	get exp() { return this._exp; }
 	set exp(v){
 
 		if ( this.locked || this.disabled ) return;
@@ -46,7 +46,7 @@ export default class Action extends GData {
 
 		this.repeat = this.repeat === false ? false : true;
 		this.type = 'action';
-		if ( this.length || this.perpetual ) this._exp = this._exp || 0;
+		if ( (this.length || this.perpetual) && !this._exp ) this._exp = 0;
 
 		this.running = this.running || false;
 

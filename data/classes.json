@@ -425,7 +425,7 @@
 	"name":"spell blade",
 	"tags":"t_tier3",
 	"desc":"",
-	"require":"g.virture>=200",
+	"require":"g.tier2>0&&g.enchanting>=7&&g.player.tohit>=10",
 	"cost":{
 		"research":3000,
 		"arcana":15,
@@ -662,7 +662,6 @@
 	"id":"pyromancer",
 	"desc":"shaper of fire",
 	"tags":"t_tier2",
-	"name":"pyromancy",
 	"actdesc":"Become a pyromancer.",
 	"require":"g.tier1>0&&g.firelore>=10",
 	"cost":{
@@ -687,7 +686,6 @@
 	"id":"hydromancer",
 	"desc":"master of water",
 	"tags":"t_tier2",
-	"name":"hydromancy",
 	"actdesc":"Become a hydromancer.",
 	"require":"g.tier1>0&&g.waterlore>=10",
 	"cost":{

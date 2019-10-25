@@ -221,14 +221,19 @@ export default {
 				} else if ( typeof mods[p] === 'object' ) {
 
 					if ( mods[p] instanceof Mod ) mods[p].applyTo( this, p, amt );
-					else {
+					else if ( typeof targ === 'number' ) {
+
+						this[p] += Number(mods[p])*amt;
+					} else {
 						console.log( mods + ' subapply: ' + p);
 						this.subeffect( this[p], mods[p], amt );
 					}
 
 				} else if ( this[p] !== undefined ) {
+
 					//console.log( this.id + ' adding vars: ' + p );
 					this[p] += Number(mods[p])*amt;
+
 				} else {
 					console.log('NEW SUB: ' + p );
 					this.newSub( this, p, mods[p], amt )
@@ -263,8 +268,8 @@ export default {
 
 				console.log( this.id + ' number apply to Stat/Mod: ' + mods );
 				targ.apply( mods, amt );
-			}
-			else if ( typeof targ === 'object') {targ.value = (targ.value || 0 ) + amt*mods; }
+
+			} else if ( typeof targ === 'object') {targ.value = (targ.value || 0 ) + amt*mods; }
 
 			else {
 				// nothing can be done if targ is a number. no parent object.

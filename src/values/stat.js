@@ -1,5 +1,7 @@
 import Mod from "./mod";
 
+import { precise } from '../util/format';
+
 /**
  * Stat with a list of modifiers.
  */
@@ -23,9 +25,7 @@ export default class Stat {
 		return this._base + (this._pct >= 0 ? '+' : '') + (100*this._pct) + '%';
 	}*/
 
-	toString(){
-		return this.value;
-	}
+	toString(){ return precise( this.value ); }
 
 	/**
 	 * @property {number} value
@@ -34,6 +34,7 @@ export default class Stat {
 		return this._pos ? Math.max( (this._base + this._bonus)*( 1 + this._pct + this._mPct ),0) :
 		(this._base + this._bonus)*( 1 + this._pct + this._mPct );
 	}
+	/** @todo */
 	set value(v){}
 
 	valueOf() {return this._pos ? Math.max( (this._base + this._bonus)*( 1 + this._pct + this._mPct ),0) :
@@ -93,11 +94,16 @@ export default class Stat {
 	 */
 	constructor( vars=null, path, pos ) {
 
-		if ( vars && typeof vars === 'object') {
+		if ( vars ) {
 
-			Object.assign( this, vars );
+			if ( typeof vars === 'object') {
 
-		} else if ( !isNaN(vars) ) this.base = Number(vars);
+				this.base = vars.base;
+				this.pct = vars.pct;
+
+			} else if ( !isNaN(vars) ) this.base = Number(vars);
+
+		}
 
 		if ( path ) this._path = path;
 		if ( pos ) this.pos = pos;
