@@ -170,6 +170,7 @@ export default class Npc extends Char {
 	}
 
 	/**
+	 * @param {string} kind - kind of attack damage.
 	 * @returns {number} the damage from a single attack by npc.
 	 */
 	getDamage() {

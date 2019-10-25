@@ -229,7 +229,7 @@ export default {
 
 				} else if ( typeof mods[p] === 'object' ) {
 
-					console.log('subassign: ' + p)
+					console.log('subapply: ' + p)
 					if ( mods[p] instanceof Mod ) mods[p].applyTo( this, p, amt );
 					else this.subeffect( this[p], mods[p], amt );
 
@@ -268,11 +268,10 @@ export default {
 
 		} else if ( typeof mods === 'number') {
 
-			if ( targ instanceof Stat || targ instanceof Mod ) targ.apply( mods, amt );
-			else if ( typeof targ === 'object') {
+			console.error( this.id + ' OUTDATED/ILLEGAL MOD: ' + mods );
 
-				targ.value = (targ.value || 0 ) + amt*mods;
-			}
+			/*if ( targ instanceof Stat || targ instanceof Mod ) targ.apply( mods, amt );
+			else if ( typeof targ === 'object') {targ.value = (targ.value || 0 ) + amt*mods; }*/
 
 			// nothing can be done if targ is just a number. no parent object.
 
@@ -363,10 +362,14 @@ export default {
 	 * @param {Object} mod - modify amount.
 	 * @param {number} amt - times modifier applied.
 	 */
-	newSub( obj, key, mod, amt ) {
+	newSub( obj, key, mod, amt=1 ) {
 
-		//console.log( this.id + ' adding KEY: ' + key );
-		obj[key] = amt*mod.value;
+		console.log( this.id + ' ADDING KEY: ' + key );
+		console.log( this.id + ' ' + key + ' stat value: ' + (amt*mod.value) );
+
+		let s = obj[key] = new Stat( 0, 'key' );
+		s.apply( mod, amt );
+
 	},
 
 	/**

@@ -2007,6 +2007,7 @@
 		"id":"fireplane",
 		"slot":"homeplane",
 		"name":"",
+		"desc":"a world of fire",
 		"locked":false,
 		"buy":{
 
@@ -2025,6 +2026,7 @@
 	{
 		"id":"waterplane",
 		"slot":"homeplane",
+		"desc":"an endless sea",
 		"require":"g.tier5>0&&g.planeslore>=20&&g.waterlore>=10",
 		"buy":{
 
@@ -2045,6 +2047,7 @@
 	{
 		"id":"earthplane",
 		"name":"",
+		"desc":"a harsh and rocky world",
 		"slot":"homeplane",
 		"require":"g.tier5>0&&g.planeslore>=20&&g.earthlore>=10",
 		"buy":{
@@ -2066,6 +2069,7 @@
 	{
 		"id":"airplane",
 		"name":"",
+		"desc":"a plane of endless sky",
 		"slot":"homeplane",
 		"require":"g.tier5>0&&g.planeslore>=20&&g.airlore>=10",
 		"buy":{

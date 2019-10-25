@@ -201,6 +201,19 @@ export default class Player extends Char {
 
 	}
 
+	/**
+	 * Get bonus damage for an attack type.
+	 * @param {string} kind
+	 */
+	getDamage( kind ){
+
+		let d = this.damage.valueOf();
+		if ( kind && this.bonuses.kind ) d += this.bonuses.kind.valueOf();
+
+		return d;
+
+	}
+
 	constructor( vars=null ){
 
 		super(vars);
@@ -232,6 +245,27 @@ export default class Player extends Char {
 
 	}
 
+	/**
+	 * Add new sub-object to this object.
+	 * Vue reactivity??
+	 * @todo
+	 * @param {Object} obj - parent object.
+	 * @param {string} key - prop key to set.
+	 * @param {Object} mod - modify amount.
+	 * @param {number} amt - times modifier applied.
+	 */
+	newSub( obj, key, mod, amt ) {
+
+		if ( key === 'bonuses' ){
+
+		} else {
+
+			//console.log( this.id + ' adding KEY: ' + key );
+			obj[key] = amt*mod.value;
+
+		}
+
+	}
 
 	setClass( gclass ) {
 

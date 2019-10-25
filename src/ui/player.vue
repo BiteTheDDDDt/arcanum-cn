@@ -142,7 +142,15 @@ export default {
 		</div>
 
 		<div>
+		<table class="bonuses">
+			<tr><th>bonus damage</th></tr>
+			<tr v-for="(r,k) in player.bonuses" :key="k">
+				<td v-if="r>0">{{k}}</td>
+			</tr>
+		</table>
+		</div>
 
+		<div>
 		<table class="immunities">
 			<tr><th>immunities</th></tr>
 			<tr v-for="(r,k) in player.immunities" :key="k">

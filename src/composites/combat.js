@@ -52,14 +52,14 @@ export function tryDamage(target, attack, attacker = null) {
 	}
 	if (attack.damage ) {
 
-		if ( !attack.getDamage){
-			console.error('NO DMG FUNC: ' + attack );
-		}
+		if ( !attack.getDamage){ console.error('NO DMG FUNC: ' + attack ); }
 		// add optional base damage from attacker.
 
-		let dmg = ( attack.getDamage ? attack.getDamage() : getDamage(attack.damage) ) +
-			((attacker && (attacker !== attack) && attacker.damage) ?
-				getDamage(attacker.damage) : 0);
+		/** @compat */
+		let dmg = attack.getDamage();
+		if ( (attacker && (attacker !== attack) && attacker.damage) ) {
+			dmg += attacker.getDamage( attack.kind );
+		}
 
 		let resist = target.getResist(attack.kind);
 		if (resist > 0) {
