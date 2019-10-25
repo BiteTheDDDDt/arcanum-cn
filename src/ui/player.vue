@@ -151,6 +151,15 @@ export default {
 		</div>
 
 		<div>
+		<table class="hits">
+			<tr><th>tohit bonus</th></tr>
+			<tr v-for="(r,k) in player.hits" :key="k">
+				<td v-if="r.valueOf()!==0">{{k}}: {{ r.valueOf() }}</td>
+			</tr>
+		</table>
+		</div>
+
+		<div>
 		<table class="immunities">
 			<tr><th>immunities</th></tr>
 			<tr v-for="(r,k) in player.immunities" :key="k">

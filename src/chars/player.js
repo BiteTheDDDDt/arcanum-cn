@@ -146,8 +146,19 @@ export default class Player extends Char {
 		this._points = v instanceof Stat ? v : new Stat(v);
 	}
 
+	/**
+	 * @property {.<string,Stat>} hits - tohit bonuses per damage kind.
+	 */
+	get hits(){ return this._hits ? this._hits : (this._hits = {}) }
+	set hits(v){
+		this._hits = v;
+	}
+
+	/**
+	 * @property {.<string,Stat>} bonuses - damage bonuses per damage kind.
+	 */
 	get bonuses(){ return this._bonuses ? this._bonuses : (this._bonuses = {}) }
-	set bonuses(v){ this._bonuses = {}; }
+	set bonuses(v){ this._bonuses = v; }
 
 	/**
 	 * NOTE: Elements that are themselves Items are not encoded,
@@ -176,6 +187,7 @@ export default class Player extends Char {
 		data.points = this.points;
 
 		data.bonuses = this.bonuses;
+		data.hits = this.hits;
 		data.immunities = this.immunities;
 		data.resist = this.resist;
 
@@ -200,6 +212,22 @@ export default class Player extends Char {
 		let d = this.damage.valueOf() + ( kind ? this.bonuses[kind] || 0 : 0 );
 		if ( kind && this.bonuses.kind ) {
 			console.log('BONUS DMG: ' + this.bonuses[kind].valueOf() )
+
+		}
+
+		return d;
+
+	}
+
+	/**
+	 * Get player hit bonus for damage type.
+	 * @param {*} kind
+	 */
+	getHit(kind){
+
+		let d = this.tohit.valueOf() + ( kind ? this.hits[kind] || 0 : 0 );
+		if ( kind && this.hits.kind ) {
+			console.log('TOHIT BONUS: ' + this.hits[kind].valueOf() )
 
 		}
 

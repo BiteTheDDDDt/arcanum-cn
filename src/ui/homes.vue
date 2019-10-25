@@ -72,18 +72,9 @@ export default {
 
 		space() { return this.state.getData('space'); },
 
-		curHome() { return this.state.getSlot('home'); },
-
 		curPlane(){return this.state.getSlot('homeplane'); },
-
 		homePlanes(){ return this.state.filterItems(v=>v.slot==='homeplane');},
-		planesAvail(){
-			return this.homePlanes.filter(v=>v.owned);
-		},
-
-		homesAvail() {
-			return this.state.homes.filter( v=>!this.locked(v) );
-		},
+		planesAvail(){ return this.homePlanes.filter(v=>v.owned); },
 
 		furniture(){
 
@@ -113,9 +104,6 @@ export default {
 			<slotpick title="home" pick="home" />
 
 			<slotpick title="plane" pick="homeplane" />
-
-			<!--<button @click="emit('choice', planesAvail, (p)=>emit( SET_SLOT, p), $event.target)">
-				{{ curPlane ? curPlane.name : 'None' }}</button>-->
 
 		</div>
 

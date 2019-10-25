@@ -309,21 +309,19 @@ export default class Combat {
 	 */
 	tryHit( attacker, defender, attack ){
 
-		let tohit = attacker.tohit.valueOf() || 0;
+		let tohit = attacker.getHit();
 
 		if ( attack && (attack != attacker) ) tohit += ( attack.tohit || 0 );
 
 		if ( this.dodgeRoll( defender.dodge, tohit )) {
 
 			Events.emit( DAMAGE_MISS, defender.name + ' dodges ' + (attack.name||attacker.name));
-			return false;
-		}
 
-		//if ( attacker == this.player) console.log( attacker.name + ': ' + (10+tohit) + '  vs: ' + (10+defender.defense) );
-		if ( Math.random()*( 10 + tohit ) >= Math.random()*(10 + defender.defense ) ) return true;
-		else {
+		} else if ( Math.random()*( 10 + tohit ) >= Math.random()*(10 + defender.defense ) ) {
+			return true;
+		} else {
+
 			Events.emit( DAMAGE_MISS, attacker.name + ' misses ' + defender.name );
-			return false;
 		}
 
 	}

@@ -262,6 +262,19 @@ export default class Char {
 
 	}
 
+	/**
+	 * @param {string} [kind=undefined]
+	 * @returns {number} tohit.
+	 */
+	getHit(kind) {
+		return this.tohit.valueOf();
+	}
+
+	/**
+	 *
+	 * @param {*} kind
+	 * @returns {number} 0-based resist percent.
+	 */
 	getResist(kind) {
 
 		return (this._resist[kind]||0)/100;
