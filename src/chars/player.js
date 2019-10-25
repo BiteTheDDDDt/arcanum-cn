@@ -7,6 +7,7 @@ import Char, { getDelay } from './char';
 import Events, { LEVEL_UP, NEW_TITLE, CHAR_TITLE, CHAR_NAME, CHAR_CLASS } from "../events";
 import Wearable from "./wearable";
 import GData from "../items/gdata";
+import { toStats } from "../util/dataUtil";
 
 
 const Fists = new Wearable({
@@ -151,14 +152,16 @@ export default class Player extends Char {
 	 */
 	get hits(){ return this._hits ? this._hits : (this._hits = {}) }
 	set hits(v){
-		this._hits = v;
+		this._hits = toStats(v);
 	}
 
 	/**
 	 * @property {.<string,Stat>} bonuses - damage bonuses per damage kind.
 	 */
 	get bonuses(){ return this._bonuses ? this._bonuses : (this._bonuses = {}) }
-	set bonuses(v){ this._bonuses = v; }
+	set bonuses(v){
+		this._bonuses = toStats(v);
+	}
 
 	/**
 	 * NOTE: Elements that are themselves Items are not encoded,

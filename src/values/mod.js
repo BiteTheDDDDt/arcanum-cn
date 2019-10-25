@@ -230,10 +230,10 @@ export default class Mod {
 
 		if ( targ instanceof Stat ) targ.addMod( this, amt );
 		else if ( targ instanceof Mod) targ.applySelf( this, amt );
-		else if ( targ === null || targ === undefined ){
+		else if ( targ === null || targ === undefined || typeof targ === 'number' ){
 
 			console.log('MOD.applyTo() CREATE NEW MOD AT TARGET: ' + p );
-			let s = obj[p] = new Stat( 0, p );
+			let s = obj[p] = new Stat( targ || 0, p );
 			s.apply( this, amt );
 
 		} else if ( typeof targ === 'object') {
@@ -243,9 +243,6 @@ export default class Mod {
 
 			// TODO? Percent all of obj?
 
-		} else if ( typeof targ === 'number' ) {
-			console.warn( this.id + ' Applying to Raw Number: ');
-			obj[p] = ( targ + amt*this._bonus )*(1 + amt*this._pct );
 		}
 
 	}

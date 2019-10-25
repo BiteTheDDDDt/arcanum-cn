@@ -67,6 +67,7 @@ export default {
 		toggleSwitch(){
 			this.switching = !this.switching;
 		}
+
 	},
 	computed:{
 

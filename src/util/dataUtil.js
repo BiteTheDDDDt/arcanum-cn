@@ -1,4 +1,5 @@
 import { clone } from "objecty";
+import Stat from "../values/stat";
 
 /**
  * Utilities specific to merging game data.
@@ -8,6 +9,21 @@ import { clone } from "objecty";
  * Use total values as mod values in cumulative stats?
  * Any stat can be used as a component in another aggregate stat?
  */
+
+/**
+ * Convert object entries to Stat-values.
+ * @param {object} obj
+ * @returns {object} the object.
+ */
+export const toStats = (obj) => {
+
+	for( let p in obj ) {
+		var s = obj[p];
+		obj[p] = s instanceof Stat ? s : new Stat( obj[p], p);
+	}
+	return obj;
+
+}
 
 /**
  * Create a new cost object with requirements from both.

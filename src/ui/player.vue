@@ -47,9 +47,22 @@ export default {
 		speed() {
 			return this.player.speed.valueOf();
 		},
+
+		/**
+		 * @note intentionally GData. make clearer.
+		 */
 		stamina() { return this.player.stamina; },
-		level() {return this.player.level.valueOf(); },
 		hp() {return this.player.hp; },
+
+		bonusNames(){
+			return Object.keys( this.player.bonuses );
+		},
+		hitNames(){
+			return Object.keys( this.player.hits );
+		},
+
+		level() {return this.player.level.valueOf(); },
+
 		defense() {return this.player.defense.valueOf(); },
 		dodge(){ return Math.floor(this.player.dodge.valueOf()) },
 		luck(){return Math.floor(this.player.luck.valueOf()) },
