@@ -160,6 +160,7 @@ export default class Player extends Char {
 	 */
 	get bonuses(){ return this._bonuses ? this._bonuses : (this._bonuses = {}) }
 	set bonuses(v){
+		console.log('setting bonuses');
 		this._bonuses = toStats(v);
 	}
 

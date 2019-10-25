@@ -20,7 +20,8 @@ export default {
 	mixins:[ItemsBase],
 	data(){
 		return {
-			pEvent:this.pickEvent||SET_SLOT
+			pEvent:this.pickEvent||SET_SLOT,
+			cur:Game.state.getSlot(this.pick)
 		};
 	},
 	methods:{
@@ -33,21 +34,16 @@ export default {
 			this.emit( 'choice', this.avail, (p)=>{
 
 				if ( p ) {
-					this.emit( SET_SLOT, p );
+					this.emit( this.pEvent, p );
+					this.cur = Game.state.getSlot(this.pick);
 				}
 
 			}, this.$el, this.title||this.pick );
 
 		}
 
-
 	},
 	computed:{
-
-		/**
-		 * Item currently in slot, or null.
-		 */
-		curItem(){ return Game.state.getSlot(this.pick); },
 
 		avail() {
 			return this.choices ? this.choices :
@@ -64,8 +60,8 @@ export default {
 
 	<span v-if="title">{{title}}:</span>
 
-		<span class="action-btn" @mouseenter.capture.stop="emit( 'itemover',$event,curItem)">
-		<button @click="select" v-if="avail.length>0">{{ curItem ? curItem.name : 'None'}}</button>
+		<span class="action-btn" @mouseenter.capture.stop="emit( 'itemover',$event,cur)">
+		<button @click="select" v-if="avail.length>0">{{ cur ? cur.name : 'None'}}</button>
 		</span>
 
 </div>

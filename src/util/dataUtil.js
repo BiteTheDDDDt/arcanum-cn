@@ -19,7 +19,8 @@ export const toStats = (obj) => {
 
 	for( let p in obj ) {
 		var s = obj[p];
-		obj[p] = s instanceof Stat ? s : new Stat( obj[p], p);
+		obj[p] = s instanceof Stat ? s : new Stat( s, p);
+		console.log('NEW STAT: ' + p + ': ' + s.valueOf() );
 	}
 	return obj;
 

@@ -67,7 +67,6 @@ export default {
 		toggleSwitch(){
 			this.switching = !this.switching;
 		}
-
 	},
 	computed:{
 
@@ -77,12 +76,17 @@ export default {
 		homePlanes(){ return this.state.filterItems(v=>v.slot==='homeplane');},
 		planesAvail(){ return this.homePlanes.filter(v=>v.owned); },
 
+		curHome(){return this.state.getSlot('home');},
+		homesAvail() {
+			return this.state.homes.filter( v=>!this.locked(v) );
+		},
+
 		furniture(){
 
-			let st = this.state;
+			let s = this.state;
 			return Game.filterItems( it=>
 
-				it.type ==='furniture' || st.typeCost(it.cost, 'space')>0
+				it.type ==='furniture' || s.typeCost(it.cost, 'space')>0
 
 			).sort(
 				alphasort

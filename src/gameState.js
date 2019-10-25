@@ -467,6 +467,14 @@ export default class GameState {
 	}*/
 
 	/**
+	 * Get state slots so they can be used with Vue reactivity.
+	 * @returns {object.<string,GData>}
+	 */
+	getSlots(){
+		return this.slots;
+	}
+
+	/**
 	 * Get item in named slot.
 	 * @param {string} id - slot id.
 	 * @param {string} type - item type for determining subslot (equip,home,etc)
