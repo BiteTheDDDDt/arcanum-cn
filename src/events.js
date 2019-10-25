@@ -286,11 +286,13 @@ export default {
 	 * @param {string} attack
 	 */
 	onHit( char, dmg, attack ) {
-		this.log.log( char.name + ' hit', ( attack ? (' by ' + attack + ': ' ) : '') + dmg.toFixed(1) );
+		this.log.log( '', char.name + ' hit' +
+		( attack ? (' by ' + attack + ': ' ) : '')
+		+ dmg.toFixed(1), LOG_COMBAT );
 	},
 
 	enemySlain( enemy, attacker ) {
-		this.log.log( '', enemy.name + ' slain' + ( attacker ? ' by ' + attacker.name : ''), LOG_COMBAT );
+		this.log.log( enemy.name + ' slain', ( attacker ? ' by ' + attacker.name : ''), LOG_COMBAT );
 	},
 
 	/**

@@ -110,8 +110,9 @@ export default {
 
 		<div class="pick-slots">
 
-			<slotpick pick="home" />
-			<slotpick pick="homeplane" />
+			<slotpick title="home" pick="home" />
+
+			<slotpick title="plane" pick="homeplane" />
 
 			<!--<button @click="emit('choice', planesAvail, (p)=>emit( SET_SLOT, p), $event.target)">
 				{{ curPlane ? curPlane.name : 'None' }}</button>-->

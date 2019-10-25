@@ -29,11 +29,12 @@ export default {
 
 		select(){
 
-			console.log('SELECTING ' +  this.pick);
 			// @todo messy to emit. hard to config with Vue.
 			this.emit( 'choice', this.avail, (p)=>{
 
-				this.emit( SET_SLOT, p );
+				if ( p ) {
+					this.emit( SET_SLOT, p );
+				}
 
 			}, this.$el, this.title||this.pick );
 
@@ -61,9 +62,11 @@ export default {
 <template>
 <div>
 
-	<span v-if="title">{{title}}:</span><span @mouseenter.capture.stop="emit( 'itemover',$event,curItem)">
+	<span v-if="title">{{title}}:</span>
+
+		<span class="action-btn" @mouseenter.capture.stop="emit( 'itemover',$event,curItem)">
 		<button @click="select" v-if="avail.length>0">{{ curItem ? curItem.name : 'None'}}</button>
-	</span>
+		</span>
 
 </div>
 </template>
