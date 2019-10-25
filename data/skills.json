@@ -392,7 +392,8 @@
 			"sp":0.05
 		},
 		"mod":{
-			"player.bonuses.slash":1
+			"player.bonuses.slash":1,
+			"player.bonuses.pierce":1
 		}
 
 	},

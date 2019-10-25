@@ -123,6 +123,24 @@
 	"mod":"tier0"
 },
 {
+
+	"id":"blueadept",
+	"name":"blue adept",
+	"desc":"Dedicate yourself to putting the world in order.",
+	"require":"g.virture>=200",
+	"cost":{
+		"arcana":7
+	},
+	"mod":{
+		"tier0":true,
+		"history.max":1,
+		"waterlore.max":1,
+		"airlore.max":1,
+		"dissection.max":-1,
+		"naturelore.max":-1
+	}
+},
+{
 	"id":"savant",
 	"name":"mystic savant",
 	"desc":"You have no need of these dry tomes and musty old books.",
@@ -133,7 +151,7 @@
 		"arcana":7
 	},
 	"effect":{
-		"sp":2
+		"sp":1
 	},
 	"mod":{
 		"tier0":true,
@@ -345,7 +363,7 @@
 		"reanimation.max":2,
 		"shadowlore.max":3,
 		"potions.max":2,
-		"spiritlore.max":2
+		"spiritlore.max":1
 	}, "flavor":"even the dead have their uses"
 },
 {
@@ -355,8 +373,8 @@
 	"require":"g.tier2>0&&g.evil>0",
 	"cost":{
 		"research":1000,
-		"bones":50,
-		"bodies":10,
+		"bones":100,
+		"bodies":50,
 		"bonedust":25,
 		"arcana":10
 	},
@@ -383,7 +401,7 @@
 	"actdesc":"Pursue the path of battle.",
 	"require":"g.tier1>0&&g.player.level>=10&&g.armory>0",
 	"cost":{
-		"research":750,
+		"research":1000,
 		"arcana":7,
 		"gold":400
 	},
@@ -402,6 +420,31 @@
 
 },
 {
+
+	"id":"spellblade",
+	"name":"spell blade",
+	"tags":"t_tier3",
+	"desc":"",
+	"require":"g.virture>=200",
+	"cost":{
+		"research":3000,
+		"arcana":15,
+		"gold":1000
+	},
+	"effect":{
+		"sp":2
+	},
+	"mod":{
+		"tier3":true,
+		"player.tohit":"15%",
+		"history.max":1,
+		"enchanting.max":2,
+		"bladelore.max":2,
+		"anatomy.max":1,
+		"arcanebody2.max":1
+	}
+},
+{
 	"id":"dreadlord",
 	"desc":"harbinger of destruction",
 	"tags":"t_tier3",
@@ -410,7 +453,7 @@
 		"research":1000,
 		"bones":100,
 		"bodies":50,
-		"arcana":10
+		"arcana":15
 	},
 	"effect":{
 
@@ -420,6 +463,7 @@
 		"tier3":true,
 		"player.tohit":"10%",
 		"hp.max":"10%",
+		"bladelore.max":1,
 		"shadowlore.max":2,
 		"shadowlore.rate":"1%",
 		"arcanebody.max":1,

@@ -1190,14 +1190,14 @@
 		"name":"dream catcher",
 		"desc":"you might not like what you catch.",
 		"tags":"spiritsource",
-		"require":"g.spirit>0&&g.crafting>=5",
+		"require":"g.crafting>=5",
+		"max":1,
 		"cost":{
 			"gold":50,
 			"research":50,
 			"spirit":2
 		},
 		"mod":{
-			"spirit.max":1,
 			"spirit.rate":0.01
 		}
 	},
@@ -1274,6 +1274,7 @@
 		},
 		"mod":{
 			"arcana.rate":0.0001,
+			"space.max":1,
 			"spirit.rate":0.01
 		}
 	},
