@@ -1,11 +1,9 @@
 import Base, {mergeClass} from '../items/base';
-import { mergeSafe } from 'objecty';
 import {tryDamage} from '../composites/combat';
 import Stat from '../values/stat';
 import Dot from './dot';
 import Attack from './attack';
 import GameState from '../gameState';
-import { mergeDefined, logObj } from '../util/util';
 
 
 /**

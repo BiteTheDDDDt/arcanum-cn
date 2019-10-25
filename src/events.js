@@ -62,8 +62,10 @@ const DEFEATED = 'defeated';
 const DAMAGE_MISS = 'damage_miss';
 export const IS_IMMUNE = 'dmg_immune';
 
-const ENEMY_HIT = 'enemy_hit';
-const PLAYER_HIT = 'player_hit';
+/**
+ * @event COMBAT_HIT (Char,number,attackName)
+ */
+export const COMBAT_HIT = 'char_hit';
 
 const ACT_CHANGED = 'actchanged';
 const ACT_IMPROVED = 'actimprove';
@@ -145,7 +147,7 @@ export { CHAR_TITLE, NEW_TITLE, LEVEL_UP, CHAR_NAME, CHAR_CLASS, CHAR_CHANGE };
 export { HALT_ACT, EVT_COMBAT, EVT_EVENT, EVT_UNLOCK, EXP_MAX, EVT_LOOT, ACT_DONE, ALLY_DIED, CHAR_DIED,
 	ENTER_LOC, EXIT_LOC, ITEM_ATTACK, STOP_ALL, DELETE_ITEM,
 	ACT_CHANGED, ACT_IMPROVED, ACT_BLOCKED,
-	DAMAGE_MISS, ENEMY_HIT, PLAYER_HIT, DEFEATED, ENEMY_SLAIN, COMBAT_DONE, ENC_START, ENC_DONE };
+	DAMAGE_MISS, DEFEATED, ENEMY_SLAIN, COMBAT_DONE, ENC_START, ENC_DONE };
 
 export default {
 
@@ -167,6 +169,8 @@ export default {
 		events.addListener( ACT_IMPROVED, this.actImproved, this );
 
 		events.addListener( EVT_COMBAT, this.onCombat, this );
+		events.addListener( COMBAT_HIT, this.onHit, this );
+
 		events.addListener( ENEMY_SLAIN, this.enemySlain, this );
 		events.addListener( DEFEATED, this.onDefeat, this );
 		events.addListener( DAMAGE_MISS, this.onMiss, this );
@@ -273,6 +277,16 @@ export default {
 
 	onCombat( title, msg) {
 		this.log.log( title, msg, LOG_COMBAT );
+	},
+
+	/**
+	 *
+	 * @param {Char} char
+	 * @param {number} dmg
+	 * @param {string} attack
+	 */
+	onHit( char, dmg, attack ) {
+		this.log.log( char.name + ' hit', ( attack ? (' by ' + attack + ': ' ) : '') + dmg.toFixed(1) );
 	},
 
 	enemySlain( enemy, attacker ) {

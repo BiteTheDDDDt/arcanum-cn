@@ -1,11 +1,11 @@
 import Game from '../game';
 import Range from '../values/range';
 import Dot from '../chars/dot';
-import Npc, { TEAM_ALLY } from '../chars/npc';
+import { TEAM_ALLY } from '../chars/npc';
 
 import Events, {
 	EVT_COMBAT, ENEMY_SLAIN, ALLY_DIED,
-	DAMAGE_MISS, CHAR_DIED, ACT_BLOCKED, IS_IMMUNE
+	DAMAGE_MISS, CHAR_DIED, ACT_BLOCKED, IS_IMMUNE, COMBAT_HIT
 } from '../events';
 
 import { itemRevive } from '../itemgen';
@@ -37,22 +37,19 @@ const TARGET_RAND = 'rand';
 * @param {Char} target
 * @param {Object} attack
 */
-export function tryDamage(target, attack, attacker = null) {
+export function tryDamage( target, attack, attacker = null) {
 
 	if ( !target || !target.alive ) return;
-	if (attack.kind) {
+	if ( target.isImmune(attack.kind) ) {
 
-		if (target.isImmune(attack.kind)) {
-
-			Events.emit(IS_IMMUNE, target.name + ' IMMUNE to ' + attack.kind);
-
-			return false;
-		}
-
+		Events.emit(IS_IMMUNE, target.name + ' IMMUNE to ' + attack.kind);
+		return false;
 	}
+
+
 	if (attack.damage ) {
 
-		if ( !attack.getDamage){ console.error('NO DMG FUNC: ' + attack ); }
+		if ( !attack.getDamage){ console.error( 'NO DMG FUNC: ' + attack ); }
 		// add optional base damage from attacker.
 
 		/** @compat */
@@ -62,23 +59,14 @@ export function tryDamage(target, attack, attacker = null) {
 		}
 
 		let resist = target.getResist(attack.kind);
-		if (resist > 0) {
-
-			dmg *= (1 - resist);
-		}
+		if (resist > 0) dmg *= (1 - resist);
 
 		target.hp -= dmg;
-		if ( target.hp <= 0 ) {
-			Events.emit( CHAR_DIED, target, attack );
-		}
+		if ( target.hp <= 0 ) { Events.emit( CHAR_DIED, target, attack ); }
 
-		var attackName = attack.name || (attacker ? attacker.name : '');
+		Events.emit( COMBAT_HIT, target, dmg, attack.name || (attacker ? attacker.name : '') );
 
-		Events.emit(EVT_COMBAT, null, target.name + ' hit' +
-			(attackName != null ? (' by ' + attackName ) : '') +
-			': ' + dmg.toFixed(1));
-
-		if (attack.leech && attacker) {
+		if ( attack.leech && attacker ) {
 			let amt = Math.floor(100 * attack.leech * dmg) / 100;
 			attacker.hp += amt;
 			Events.emit(EVT_COMBAT, null, attacker.name + ' steals ' + amt + ' life.');
@@ -266,6 +254,8 @@ export default class Combat {
 	 * @param {Char} targ
 	 */
 	doAttack( attacker, atk, targ ) {
+
+		if (!targ) return;
 
 		if ( this.tryHit( attacker, targ, atk ) ) {
 			tryDamage( targ, atk, attacker );
