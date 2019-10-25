@@ -5,6 +5,21 @@
 
 	"data":{
 
+		"upgrades":[
+
+			{
+				"id":"expandhall",
+				"name":"expanded halls",
+				"max":3,
+				"cost":{
+					"prestige":50
+				},
+				"mod":{
+					"hall.max":1
+				}
+			}
+
+		],
 		"stats":[
 
 			{

@@ -985,7 +985,27 @@
 			"codices.max":100,
 			"lore.rate":0.2,
 			"research.max":100,
-			"research.rate":0.05
+			"scrolls.rate":0.05
+		}
+
+	},
+	{
+		"id":"arcanestudy",
+		"name":"enchanted study",
+		"desc":"A study enchanted with magic.",
+		"require":"g.codices>=100&&g.enchanting>=6",
+		"cost":{
+			"study":1,
+			"gold":1000,
+			"research":1000,
+			"space":20
+		},
+		"mod":{
+			"tomes.rate":0.002,
+			"codices.rate":-0.001,
+			"starcharts.max":50,
+			"codices.max":100,
+			"scrolls.rate":0.05
 		}
 
 	},
@@ -1056,9 +1076,10 @@
 		"id":"starweb",
 		"desc":"Motes of stars fall daily from the sky. One need only collect them.",
 		"require":"tier5",
-		"max":1,
+		"max":5,
 		"cost":{
 			"research":10000,
+			"starcharts":25,
 			"arcana":20,
 			"space":5
 		},
@@ -1074,9 +1095,10 @@
 		"name":"star well",
 		"desc":"Pools of light congeal softly in the basin.",
 		"require":"tier5",
-		"max":1,
+		"max":3,
 		"cost":{
 			"research":30000,
+			"starcharts":50,
 			"arcana":30,
 			"space":10
 		},
@@ -1303,6 +1325,59 @@
 			"research.max":50,
 			"lore.rate":"0.3+5%",
 			"research.rate":0.1
+		}
+
+	},
+	{
+
+		"id":"lexyrinth",
+		"desc":"All libraries hold hidden doors into its halls. Unlocking them is the hard bit.",
+		"require":"g.library>0&&g.planeslore>=15",
+		"max":1,
+		"cost":{
+			"gate":1,
+			"gold":5000,
+			"research":10000,
+			"space":100
+		},
+		"mod":{
+			"tomes.rate":0.01,
+			"starcharts.max":50,
+			"codices.max":100,
+			"scrolls.max":100,
+			"tomes.max":100
+		},"flavor":"its shelves extend beyond all sight."
+
+	},
+	{
+		"id":"gate",
+		"desc":"dhrunic gate",
+		"require":"g.planeslore>=20&&g.tier4>0",
+		"max":3,
+		"cost":{
+			"gold":5000,
+			"tomes":25,
+			"runestones":10,
+			"space":25
+		},
+		"mod":{
+			"voidlore.max":1,
+			"planeslore.max":1
+		}
+
+	},
+	{
+		"id":"nexus",
+		"desc":"a nexus between all worlds",
+		"max":1,
+		"cost":{
+			"gate":3,
+			"tomes":50,
+			"runestones":25,
+			"space":50
+		},
+		"mod":{
+			"gem.rate":0.01
 		}
 
 	},

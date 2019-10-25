@@ -1565,10 +1565,10 @@
 		"id":"voidtouch",
 		"name":"touching the void",
 		"require":"g.voidlore>=7",
-		"desc":"Beyond the sphere of all known planes, lies a great void. Of its powers and dangers, the books are silent.",
+		"desc":"Beyond the sphere of the planes lies a great void. Of its powers and dangers, the books are silent.",
 		"cost":{
 			"research":10000,
-			"tomes":20
+			"tomes":30
 		},
 		"mod":{
 			"void.rate":0.01,
@@ -2007,12 +2007,13 @@
 		"name":"",
 		"tags":"t_runes",
 		"desc":"a world of ash and fire",
-		"require":"g.tier5>0&&g.planeslore>=20&&g.firelore>=10",
+		"require":"g.tier5>0&&g.gate>0&&g.firelore>=10",
 		"buy":{
 
 			"firerune":50,
 			"gold":15000,
-			"tomes":50
+			"tomes":50,
+			"gate":1
 
 		},
 		"mod":{
@@ -2029,12 +2030,13 @@
 		"slot":"homeplane",
 		"tags":"t_runes",
 		"desc":"an endless sea",
-		"require":"g.tier5>0&&g.planeslore>=20&&g.waterlore>=10",
+		"require":"g.tier5>0&&g.gate>0&&g.waterlore>=10",
 		"buy":{
 
 			"waterrune":50,
 			"gold":15000,
-			"tomes":50
+			"tomes":50,
+			"gate":1
 
 		},
 		"mod":{
@@ -2052,12 +2054,13 @@
 		"tags":"t_runes",
 		"desc":"a harsh and rocky world",
 		"slot":"homeplane",
-		"require":"g.tier5>0&&g.planeslore>=20&&g.earthlore>=10",
+		"require":"g.tier5>0&&g.gate>0&&g.earthlore>=10",
 		"buy":{
 
 			"earthrune":50,
 			"gold":15000,
-			"tomes":50
+			"tomes":50,
+			"gate":1
 
 		},
 		"mod":{
@@ -2075,12 +2078,13 @@
 		"tags":"t_runes",
 		"desc":"a plane of endless sky",
 		"slot":"homeplane",
-		"require":"g.tier5>0&&g.planeslore>=20&&g.airlore>=10",
+		"require":"g.tier5>0&&g.gate>0&&g.airlore>=10",
 		"buy":{
 
 			"airrune":50,
 			"gold":15000,
-			"tomes":50
+			"tomes":50,
+			"gate":1
 
 		},
 		"mod":{
