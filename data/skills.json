@@ -726,6 +726,29 @@
 
 	},
 	{
+		"id":"manalore2",
+		"name":"arcane mastery",
+		"desc":"a mastery of pure magic",
+		"require":"g.lore>=20",
+		"cost":{
+			"sp":5,
+			"tomes":30,
+			"runestones":10
+		},
+		"run":{
+			"stamina":1,
+			"mana":0.5
+		},
+		"mod":{
+			"manarune.max":2,
+			"mana.max":1,
+			"mana.rate":"1%",
+			"player.bonuses.mana":1,
+			"player.hits.mana":1
+		}
+
+	},
+	{
 
 		"id":"demonology",
 		"require":"tier1",

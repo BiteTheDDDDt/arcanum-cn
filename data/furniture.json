@@ -1059,10 +1059,9 @@
 		"name":"arcane alembic",
 		"require":"solidifier",
 		"desc":"a complex alchemical process drips arcane energy onto gemstones.",
-		"max":3,
 		"cost":{
 			"research":1000,
-			"gold":200,
+			"gold":500,
 			"space":5
 		},
 		"mod":{
@@ -1292,16 +1291,16 @@
 		"id":"workshop",
 		"tags":"workspace",
 		"desc":"A space suitable for crafting and enchanting items.",
-		"require":"g.space.max>=50",
+		"require":"g.space.max>=50&&(g.crafting>=7||g.enchanting>=7)",
 		"cost":{
 			"space":50,
 			"gold":500,
-			"research":25
+			"research":2500
 		},
 		"mod":{
 			"sp.rate":0.001,
 			"ichor.rate":0.0005,
-			"liquifier.max":4,
+			"liquifier.mod.gems.rate":"5%",
 			"enchanting.max":1,
 			"crafting.max":2,
 			"crafting.rate":0.4
