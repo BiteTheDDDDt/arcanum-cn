@@ -565,6 +565,167 @@
 
 	},
 	{
+		"id":"firelore2",
+		"name":"fire mastery",
+		"desc":"a mastery of fire",
+		"require":"g.firelore>=10",
+		"cost":{
+			"sp":5,
+			"tomes":30,
+			"runestones":10
+		},
+		"run":{
+			"stamina":1,
+			"fire":0.5
+		},
+		"mod":{
+			"firerune.max":2,
+			"fire.max":1,
+			"fire.rate":"1%",
+			"player.bonuses.fire":1,
+			"player.hits.fire":1
+		}, "flavor":"dry is good and wind is better"
+
+	},
+	{
+		"id":"waterlore2",
+		"name":"water mastery",
+		"desc":"a mastery of water",
+		"require":"g.waterlore>=10",
+		"cost":{
+			"sp":5,
+			"tomes":30,
+			"runestones":10
+		},
+		"run":{
+			"stamina":1,
+			"water":0.5
+		},
+		"mod":{
+			"waterrune.max":2,
+			"water.max":1,
+			"water.rate":"1%",
+			"player.bonuses.water":1,
+			"player.hits.water":1
+		}
+
+	},
+	{
+		"id":"airlore2",
+		"name":"air mastery",
+		"desc":"a mastery of air",
+		"require":"g.airlore>=10",
+		"cost":{
+			"sp":5,
+			"tomes":30,
+			"runestones":10
+		},
+		"run":{
+			"stamina":1,
+			"air":0.5
+		},
+		"mod":{
+			"airrune.max":2,
+			"air.max":1,
+			"air.rate":"1%",
+			"player.bonuses.air":1,
+			"player.hits.air":1
+		}
+
+	},
+	{
+		"id":"earthlore2",
+		"name":"earth mastery",
+		"desc":"a mastery of earth",
+		"require":"g.earthlore>=10",
+		"cost":{
+			"sp":5,
+			"tomes":30,
+			"runestones":10
+		},
+		"run":{
+			"stamina":1,
+			"earth":0.5
+		},
+		"mod":{
+			"earthrune.max":2,
+			"earth.max":1,
+			"earth.rate":"1%",
+			"player.bonuses.earth":1,
+			"player.hits.earth":1
+		}
+
+	},
+	{
+		"id":"shadowlore2",
+		"name":"shadow mastery",
+		"desc":"a mastery of shadow",
+		"require":"g.shadowlore>=10",
+		"cost":{
+			"sp":5,
+			"tomes":30,
+			"runestones":10
+		},
+		"run":{
+			"stamina":1,
+			"shadow":0.5
+		},
+		"mod":{
+			"shadowrune.max":2,
+			"shadow.max":1,
+			"shadow.rate":"1%",
+			"player.bonuses.shadow":1,
+			"player.hits.shadow":1
+		}
+
+	},
+	{
+		"id":"lightlore2",
+		"name":"light mastery",
+		"desc":"a mastery of light",
+		"require":"g.lightlore>=10",
+		"cost":{
+			"sp":5,
+			"tomes":30,
+			"runestones":10
+		},
+		"run":{
+			"stamina":1,
+			"light":0.5
+		},
+		"mod":{
+			"lightrune.max":2,
+			"light.max":1,
+			"light.rate":"1%",
+			"player.bonuses.light":1,
+			"player.hits.light":1
+		}
+
+	},
+	{
+		"id":"spiritlore2",
+		"name":"spirit mastery",
+		"desc":"a mastery of spirit",
+		"require":"g.spiritlore>=10",
+		"cost":{
+			"sp":5,
+			"tomes":30,
+			"runestones":10
+		},
+		"run":{
+			"stamina":1,
+			"spirit":0.5
+		},
+		"mod":{
+			"spiritrune.max":2,
+			"spirit.max":1,
+			"spirit.rate":"1%",
+			"player.bonuses.spirit":1,
+			"player.hits.spirit":1
+		}
+
+	},
+	{
 
 		"id":"demonology",
 		"require":"tier1",
