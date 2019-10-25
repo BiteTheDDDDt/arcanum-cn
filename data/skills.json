@@ -378,6 +378,26 @@
 	},
 	{
 
+		"id":"bladelore",
+		"desc":"Incorporate martial weapons into your magic.",
+		"require":"g.spellblade||g.battlemage||g.dreadlord",
+		"need":"armssource",
+		"cost":{
+			"sp":2
+		},
+		"run":{
+			"stamina":0.6
+		},
+		"result":{
+			"sp":0.05
+		},
+		"mod":{
+			"player.bonuses.slash":1
+		}
+
+	},
+	{
+
 		"id":"divination",
 		"desc":"the art of foretelling",
 		"require":"g.spiritlore>=6||g.mysticism>=5",

@@ -23,6 +23,10 @@ export default class Stat {
 		return this._base + (this._pct >= 0 ? '+' : '') + (100*this._pct) + '%';
 	}*/
 
+	toString(){
+		return this.value;
+	}
+
 	/**
 	 * @property {number} value
 	 */
