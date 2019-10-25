@@ -1695,9 +1695,7 @@
 			"arcana":1
 		},
 		"mod":{
-			"player.bonuses.fire":{
-				"damage":2
-			},
+			"player.bonuses.fire":2,
 			"firelore.max":1,
 			"firelore.rate":0.2,
 			"fire.rate":0.05
@@ -1739,9 +1737,7 @@
 			"arcana":5
 		},
 		"mod":{
-			"player.bonuses.earth":{
-				"damage":7
-			},
+			"player.bonuses.earth":7,
 			"stamina.max":1,
 			"earthlore.max":1,
 			"earthlore.rate":"10%",

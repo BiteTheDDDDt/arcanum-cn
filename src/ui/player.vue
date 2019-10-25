@@ -145,7 +145,7 @@ export default {
 		<table class="bonuses">
 			<tr><th>bonus damage</th></tr>
 			<tr v-for="(r,k) in player.bonuses" :key="k">
-				<td v-if="r>0">{{k}}</td>
+				<td v-if="r.valueOf()!==0">{{k}}: {{ r.valueOf() }}</td>
 			</tr>
 		</table>
 		</div>

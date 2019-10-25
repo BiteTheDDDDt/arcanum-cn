@@ -235,12 +235,11 @@ export default class Combat {
 	 */
 	spellAttack( it ) {
 
-		//console.log('spell attack');
 		if ( this._enemies.length===0 ) {
 
 			Events.emit(EVT_COMBAT, null, this.player.name + ' casts ' + it.name + ' at the darkness.' );
 
-		} else this.attack( this.player, it, this.enemies );
+		} else this.attack( this.player, it.attack, this.enemies );
 
 	}
 

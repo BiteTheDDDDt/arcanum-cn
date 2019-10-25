@@ -145,7 +145,11 @@ export default class Raid {
 	 * Player-casted spell or action attack.
 	 * @param {Item} it
 	 */
-	spellAttack( it ) { if ( this.locale && this.running ) this._combat.spellAttack(it); }
+	spellAttack( it ) {
+
+		if ( this.locale && this.running ) this._combat.spellAttack(it);
+
+	}
 
 	/**
 	 * Get next dungeon enemy.

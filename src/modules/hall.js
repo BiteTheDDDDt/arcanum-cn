@@ -193,7 +193,7 @@ export default class Hall {
 		char.level = p.level.valueOf();
 		char.title = p.title;
 		char.titles = p.titles.length;
-		char.fame = p.fame.value.value;
+		char.fame = p.fame.valueOf();
 		char.gclass = p.gclass;
 		char.empty = false;
 

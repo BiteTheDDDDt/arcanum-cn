@@ -149,17 +149,6 @@ export default class Player extends Char {
 	get bonuses(){ return this._bonuses ? this._bonuses : (this._bonuses = {}) }
 	set bonuses(v){ this._bonuses = {}; }
 
-	/*set lightb(v){ this.bonuses.light = v; }
-	set shadowb(v){ this.bonuses.shadow = v; }
-	set manab(v){ this.bonuses.mana = v; }
-	set spiritb(v){ this.bonuses.spirit = v; }
-	set fireb(v){ this.bonuses.fire = v; }
-	set earthb(v){ this.bonuses.earth = v; }
-	set airb(v){ this.bonuses.air = v; }
-	set waterb(v){ this.bonuses.water = v; }*/
-
-
-
 	/**
 	 * NOTE: Elements that are themselves Items are not encoded,
 	 * since they are encoded in the Item array.
@@ -207,8 +196,12 @@ export default class Player extends Char {
 	 */
 	getDamage( kind ){
 
-		let d = this.damage.valueOf();
-		if ( kind && this.bonuses.kind ) d += this.bonuses.kind.valueOf();
+		console.log('GETTING DAMAGE: ' + kind );
+		let d = this.damage.valueOf() + ( kind ? this.bonuses[kind] || 0 : 0 );
+		if ( kind && this.bonuses.kind ) {
+			console.log('BONUS DMG: ' + this.bonuses[kind].valueOf() )
+
+		}
 
 		return d;
 
@@ -242,28 +235,6 @@ export default class Player extends Char {
 		if ( this.damage === null || this.damage === undefined ) this.damage = 1;
 
 		if ( !this.weapon ) this.weapon = Fists;
-
-	}
-
-	/**
-	 * Add new sub-object to this object.
-	 * Vue reactivity??
-	 * @todo
-	 * @param {Object} obj - parent object.
-	 * @param {string} key - prop key to set.
-	 * @param {Object} mod - modify amount.
-	 * @param {number} amt - times modifier applied.
-	 */
-	newSub( obj, key, mod, amt ) {
-
-		if ( key === 'bonuses' ){
-
-		} else {
-
-			//console.log( this.id + ' adding KEY: ' + key );
-			obj[key] = amt*mod.value;
-
-		}
 
 	}
 

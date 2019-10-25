@@ -23,6 +23,7 @@ export default {
 
 		this.cb = null;
 
+		console.warn('CHOICE DIALOG CREATED');
 		this.listen('game-loaded', ()=>{
 
 			/**
@@ -120,6 +121,7 @@ export default {
 		},
 		choose( opt ){
 
+			this.open = false;
 			this.item = null;
 			this.choices = null;
 
@@ -156,7 +158,7 @@ export default {
 
 		<button class="wrapped-btn"
 			:disabled="!usable(it)"
-			@click="emit( pEvent, it)">{{ it.name }}</button>
+			@click="choose( it )">{{ it.name }}</button>
 		</span>
 		</div>
 

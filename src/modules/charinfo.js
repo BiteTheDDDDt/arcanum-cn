@@ -74,7 +74,13 @@ export default class CharInfo {
 	 */
 	getPoints(){
 		if ( this.empty ) return 0;
-		return this.points + this.fame + ( this.titles + this.levels ) /10;
+
+		if ( isNaN( this.points ) ) console.warn( this.name + 'points: NaN: ' + this.points );
+		if ( isNaN( this.fame ) ) console.warn( this.name + 'fame: NaN: ' + this.fame );
+		if ( isNaN( this.titles ) ) console.warn( this.name + 'titles: NaN: ' + this.titles );
+		if ( isNaN( this.level ) ) console.warn( this.name + 'level: NaN: ' + this.level );
+
+		return this.points + this.fame + ( this.titles + this.level ) /10;
 	}
 
 }

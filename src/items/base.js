@@ -220,9 +220,11 @@ export default {
 
 				} else if ( typeof mods[p] === 'object' ) {
 
-					console.log('subapply: ' + p)
 					if ( mods[p] instanceof Mod ) mods[p].applyTo( this, p, amt );
-					else this.subeffect( this[p], mods[p], amt );
+					else {
+						console.log( mods + ' subapply: ' + p);
+						this.subeffect( this[p], mods[p], amt );
+					}
 
 				} else if ( this[p] !== undefined ) {
 					//console.log( this.id + ' adding vars: ' + p );
@@ -257,12 +259,18 @@ export default {
 
 		} else if ( typeof mods === 'number') {
 
-			console.error( this.id + ' ERROR: MOD APPLIED TO NUMBER: ' + mods );
+			if ( targ instanceof Stat || targ instanceof Mod ) {
 
-			/*if ( targ instanceof Stat || targ instanceof Mod ) targ.apply( mods, amt );
-			else if ( typeof targ === 'object') {targ.value = (targ.value || 0 ) + amt*mods; }*/
+				console.log( this.id + ' number apply to Stat/Mod: ' + mods );
+				targ.apply( mods, amt );
+			}
+			else if ( typeof targ === 'object') {targ.value = (targ.value || 0 ) + amt*mods; }
 
-			// nothing can be done if targ is just a number. no parent object.
+			else {
+				// nothing can be done if targ is a number. no parent object.
+				console.error(this.id + ' invalid mod: ' + mod );
+			}
+
 
 		} else console.warn( this.id + ' unknown mod type: ' + mods );
 
@@ -303,8 +311,14 @@ export default {
 
 			} else if ( typeof m === 'number' ) {
 
-				if ( typeof subTarg === 'number') targ[p] += m*amt;
-				else this.applyMods( m, amt, subTarg);
+				if ( typeof subTarg === 'number') {
+
+					/// @todo stat switch?
+					console.warn('NEW STAT: ' + p + ' : ' + (m*amt ) );
+					targ[p] = new Stat( targ[p] + m*amt );
+					//targ[p] += m*amt;
+
+				} else this.applyMods( m, amt, subTarg);
 
 			} else {
 				console.warn( `UNKNOWN Mod applied to ${this.id}: ${p}:${m}`);
@@ -323,7 +337,7 @@ export default {
 	subeffect( obj, m, amt ) {
 
 		if ( typeof obj !== 'object' ) {
-			console.warn( 'invalid assign: ' + obj + ' = ' + m );
+			//console.warn( 'invalid assign: ' + obj + ' = ' + m );
 			return;
 		}
 
