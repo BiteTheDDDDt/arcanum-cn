@@ -63,10 +63,9 @@ export default class Hall {
 	get items() {return this._items;}
 	set items(v){
 
-		for( let p in v ){
+		/*for( let p in v ){
 			console.log( 'hall: ' + p);
-		}
-
+		}*/
 		this._items=v;
 	}
 

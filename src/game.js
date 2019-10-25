@@ -128,7 +128,6 @@ export default {
 			Events.add( SET_SLOT, this.setSlot, this );
 			Events.add( DELETE_ITEM, this.onDelete, this );
 
-			console.warn('GAME LOADED');
 			this.loaded = true;
 
 			return this;

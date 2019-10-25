@@ -194,7 +194,7 @@ export default class Module {
 
 			if ( !Array.isArray(dest)) {
 
-				console.warn( 'DEST NONARRAY: ' + p );
+				//console.warn( 'DEST NONARRAY: ' + p );
 				this.lists[p] = list.slice(0);
 				continue;
 

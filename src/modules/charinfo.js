@@ -64,10 +64,7 @@ export default class CharInfo {
 		if ( !this.points ) this.points = 0;
 		if ( !this.fame ) this.fame = 0;
 		if ( !this.titles ) this.titles = 0;
-		if (!this.levels ) {
-			console.log( ('empty: ' + this.empty ) + ' MISSING LEVEL: ' + this.name );
-			this.levels = 0;
-		}
+		if (!this.level ) {this.level = 0; }
 
 
 	}

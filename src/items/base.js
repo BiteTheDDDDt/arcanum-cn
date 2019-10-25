@@ -2,6 +2,7 @@ import {changes, jsonify, cloneClass } from 'objecty';
 import Game from '../game';
 import Stat from '../values/stat';
 import Mod from '../values/mod';
+import { logObj } from '../util/util';
 
 export function mergeClass( destClass, src ) {
 
@@ -162,11 +163,7 @@ export default {
 	 * @property {number} value
 	 */
 	get value() { return this._value; },
-	set value(v) {
-
-		this._value = v;
-
-	},
+	set value(v) { this._value = v; },
 	valueOf() { return this._value; },
 
 	/**
@@ -178,17 +175,11 @@ export default {
 
 		if ( typeof v === 'string') {
 			this._tags = v.split(',');
-		} else if ( !v ) this._tags = null;
-		else if ( typeof v === 'object' ) {
-			let a = [];
-			for( let p in v ) {
-				a.push( v[p] );
-			}
-			this._tags = a;
+		} else if ( Array.isArray(v) ) {
 
-		} else {
-			this._tags = null;
-		}
+			this._tags = v;
+
+		} else this._tags = null;
 
 	},
 
@@ -250,13 +241,11 @@ export default {
 
 	/**
 	 *
-	 * @param {*} mods
+	 * @param {Mod|Object} mods
 	 * @param {number} amt
 	 * @param {Object} [targ=null]
 	 */
-	applyMods( mods, amt=1, targ=null ) {
-
-		targ = targ || this;
+	applyMods( mods, amt=1, targ=this ) {
 
 		if ( mods instanceof Mod ) {
 
@@ -268,7 +257,7 @@ export default {
 
 		} else if ( typeof mods === 'number') {
 
-			console.error( this.id + ' OUTDATED/ILLEGAL MOD: ' + mods );
+			console.error( this.id + ' ERROR: MOD APPLIED TO NUMBER: ' + mods );
 
 			/*if ( targ instanceof Stat || targ instanceof Mod ) targ.apply( mods, amt );
 			else if ( typeof targ === 'object') {targ.value = (targ.value || 0 ) + amt*mods; }*/
@@ -298,8 +287,13 @@ export default {
 
 			if ( subTarg === undefined || subTarg === null ) {
 
-				subTarg = targ[p] = ( typeof m === 'number') ? m*amt : cloneClass( m );
-				console.log( mods + '["' + p + '"]:' + m + ' -> mod targ undefined' + ' -> ' + subTarg );
+				let s = targ[p] = new Stat( typeof m === 'number' ? m*amt : 0 );
+				if ( m instanceof Mod) {
+					s.apply(m, amt);
+				}
+				logObj(mods, 'mods parent');
+				logObj( m, p + ' mod');
+				console.log( mods + '["' + p + '"]:' + m + ' -> mod targ undefined' + ' -> ' + s.valueOf() );
 
 			} else if ( subTarg.applyMods ) subTarg.applyMods( m, amt, subTarg );
 			else if ( m instanceof Mod ) m.applyTo( targ, p, amt );
@@ -364,11 +358,10 @@ export default {
 	 */
 	newSub( obj, key, mod, amt=1 ) {
 
-		console.log( this.id + ' ADDING KEY: ' + key );
-		console.log( this.id + ' ' + key + ' stat value: ' + (amt*mod.value) );
+		console.warn( 'ADD SUB: ' + this.id + ' ' + key + ' stat value: ' + (amt*mod.value) );
 
-		let s = obj[key] = new Stat( 0, 'key' );
-		s.apply( mod, amt );
+		let s = obj[key] = new Stat( typeof mod === 'number' ? mod*amt : 0, 'key' );
+		if ( mod instanceof Mod ) s.apply( mod, amt );
 
 	},
 
@@ -379,6 +372,7 @@ export default {
 	 */
 	changeMod( mod, amt ) {
 
+		// @todo: why?
 		if ( this.equippable ) return;
 		//console.log( this.id + ': adding mod amt: ' + amt );
 
@@ -388,7 +382,7 @@ export default {
 	},
 
 	/**
-	 *
+	 * Add tag to object.
 	 * @param {string} tag
 	 */
 	addTag( tag ) {
@@ -429,7 +423,6 @@ export default {
 	 * @param {string} t - tag to test.
 	 * @returns {boolean}
 	 */
-	hasTag( t ) {
-		return (this.tags) && this._tags.includes(t); }
+	hasTag( t ) { return (this.tags) && this._tags.includes(t); }
 
 }
