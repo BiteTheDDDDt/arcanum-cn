@@ -78,8 +78,8 @@
 
 		"id":"firerune",
 		"name":"flame runes",
-		"tags":"rune",
-		"desc":"rune ingrained with lines of fire",
+		"tags":"t_runes",
+		"desc":"rune etched with lines of fire",
 		"max":10,
 		"mod":{
 			"research.max":10
@@ -90,7 +90,8 @@
 
 		"id":"waterrune",
 		"name":"water runes",
-		"desc":"rune etched in flowing water",
+		"tags":"t_runes",
+		"desc":"rune lined in flowing water",
 		"max":10,
 		"mod":{
 			"research.max":10
@@ -101,6 +102,7 @@
 
 		"id":"airrune",
 		"name":"air runes",
+		"tags":"t_runes",
 		"desc":"rune etched with solid air",
 		"max":10,
 		"mod":{
@@ -112,6 +114,7 @@
 
 		"id":"earthrune",
 		"name":"earth runes",
+		"tags":"t_runes",
 		"desc":"rune ingrained with moonstone",
 		"max":10,
 		"mod":{
@@ -264,6 +267,7 @@
 	{
 
 		"id":"sindel",
+		"name":"star shard",
 		"desc":"A glowing cinder of the stars.",
 		"flavor":"the pillars broke; the stars fell screaming from the sky",
 		"max":3,

@@ -232,7 +232,7 @@
 			"space.max":110,
 			"runelore.max":2,
 			"demonology.max":1,
-			"runes.rate":"10%",
+			"runelore.rate":"10%",
 			"spiritlore.max":1,
 			"spiritlore.rate":0.1,
 			"lore.rate":"10%"

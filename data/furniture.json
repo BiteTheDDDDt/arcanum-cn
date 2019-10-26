@@ -1108,6 +1108,22 @@
 		}
 	},
 	{
+		"id":"runechest",
+		"name":"rune chest",
+		"desc":"A box carved from idrasil to hold the most potent runes",
+		"require":"runelore>=5",
+		"cost":{
+			"space":5,
+			"gold":2000,
+			"research":5000,
+			"gems":75
+		},
+		"mod":{
+			"t_runes.max":3
+		}
+
+	},
+	{
 		"id":"latticefence",
 		"name":"lattice fence",
 		"desc":"latticed fence for growing vines",

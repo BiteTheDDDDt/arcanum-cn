@@ -452,7 +452,7 @@
 		"id":"runebag",
 		"name":"rune pouch",
 		"desc":"pouch for holding runes",
-		"require":"g.runes>=5",
+		"require":"g.runelore>=5",
 		"max":5,
 		"cost":{
 			"gems":50,
@@ -2004,9 +2004,8 @@
 	{
 		"id":"fireplane",
 		"slot":"homeplane",
-		"name":"",
-		"tags":"t_runes",
-		"desc":"a world of ash and fire",
+		"name":"fire werry",
+		"desc":"a hidden pocket of the plane of ash and fire",
 		"require":"g.tier5>0&&g.gate>0&&g.firelore>=10",
 		"buy":{
 
@@ -2027,9 +2026,9 @@
 	},
 	{
 		"id":"waterplane",
+		"name":"water werry",
 		"slot":"homeplane",
-		"tags":"t_runes",
-		"desc":"an endless sea",
+		"desc":"a pocket of the endless sea",
 		"require":"g.tier5>0&&g.gate>0&&g.waterlore>=10",
 		"buy":{
 
@@ -2050,9 +2049,8 @@
 	},
 	{
 		"id":"earthplane",
-		"name":"",
-		"tags":"t_runes",
-		"desc":"a harsh and rocky world",
+		"name":"earth werry",
+		"desc":"a space carved from the plane of earth",
 		"slot":"homeplane",
 		"require":"g.tier5>0&&g.gate>0&&g.earthlore>=10",
 		"buy":{
@@ -2074,9 +2072,8 @@
 	},
 	{
 		"id":"airplane",
-		"name":"",
-		"tags":"t_runes",
-		"desc":"an island floating in endless sky",
+		"name":"wind werry",
+		"desc":"an island floating in an endless sky",
 		"slot":"homeplane",
 		"require":"g.tier5>0&&g.gate>0&&g.airlore>=10",
 		"buy":{

@@ -539,7 +539,7 @@
 	},
 	{
 		"id":"enc_sindel",
-		"name":"sindel shrine",
+		"name":"star shrine",
 		"desc":"a glowing star cinder embedded in a shrine.",
 		"effect":{
 			"lightlore.exp":1,
