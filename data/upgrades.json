@@ -501,7 +501,7 @@
 	{
 		"id":"ghostcompiler",
 		"name":"ghost compiler",
-		"desc":"an invisible spirit binds your scrolls into codicils.",
+		"desc":"an invisible spirit binds your scrolls into codices.",
 		"require":"g.tier1>0&&g.unseenscribe>0",
 		"max":3,
 		"cost":{
@@ -1318,7 +1318,7 @@
 	{
 		"id":"specialization",
 		"desc":"specialize in a school of magic",
-		"require":"g.lore>100",
+		"require":"g.lore>=999",
 		"max":1,
 		"cost":{
 			"tomes":1,
@@ -1544,7 +1544,7 @@
 		"id":"voidtouch",
 		"name":"touching the void",
 		"locked":true,
-		"require":"g.voidlore>=40",
+		"require":"g.voidlore>=99",
 		"cost":{
 
 		},
