@@ -1424,7 +1424,7 @@
 		"id":"phylactory",
 		"actname":"craft phylactory",
 		"desc":"rip out of a piece of your soul and store it in a magic gem.",
-		"require":"g.crafting>=20&&g.necromancy>=30",
+		"require":"g.crafting>=20&&g.necromancy>=99",
 		"length":50,
 		"repeat":false,
 		"cost":{
@@ -1471,11 +1471,7 @@
 			"title":"lich"
 		},
 		"mod":{
-			"shadowlore.max":2,
-			"spiritlore.max":1,
-			"shadow.rate":"10%",
-			"spirit.rate":"5%",
-			"hp.rate":1
+			"lore.max":1
 		}
 
 	},
