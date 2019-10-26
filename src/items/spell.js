@@ -57,7 +57,6 @@ export default class Spell extends Action {
 		let data = super.toJSON();
 
 		if ( this.owned ) data.owned = this.owned;
-		if ( this.timer > 0 ) data.timer = this.timer;
 
 		return data;
 	}
@@ -65,8 +64,6 @@ export default class Spell extends Action {
 	constructor(vars=null) {
 
 		super(vars);
-
-		this.timer = this.timer || 0;
 
 		this.repeat = true;
 		this.type = 'spell';

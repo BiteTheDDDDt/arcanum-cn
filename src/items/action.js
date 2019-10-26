@@ -6,6 +6,15 @@ export default class Action extends GData {
 
 	valueOf(){ return this.locked ? 0 : this.value.valueOf(); }
 
+	toJSON(){
+
+		let d = super.toJSON();
+		if ( this.timer > 0 ) d.timer = this.timer;
+
+		return d;
+
+	}
+
 	get level() {return this._level;}
 	set level(v) { this._level = v;}
 
@@ -50,8 +59,6 @@ export default class Action extends GData {
 
 		this.running = this.running || false;
 
-		if ( this.cd ) this.timer = this.timer || 0;
-
 		this.applyImproves();
 
 	}
@@ -84,6 +91,12 @@ export default class Action extends GData {
 
 	}
 
+	canUse(g){
+		return (!this.cd || !this.timer ) && super.canUse(g);
+	}
+
+	canRun(g){ return (!this.cd || !this.timer ) && super.canRun(g);}
+
 	/**
 	 * Update a running action.
 	 * @param {number} dt - elapsed time.
@@ -108,12 +121,6 @@ export default class Action extends GData {
 
 	}
 
-	/*canUse() {
-		if ( this.maxed() ) return false;
-		if ( this.cd > 0 && this.timer > 0 ) return false;
-		return true;
-	}*/
-
 	/**
 	 * Action executed, whether runnable or one-time.
 	 * RESETS EXP
@@ -121,11 +128,7 @@ export default class Action extends GData {
 	 */
 	exec() {
 
-		if ( this.cd ) {
-
-			Game.addTimer( this );
-			this.timer = this.cd;
-		}
+		if ( this.cd ) Game.addTimer( this );
 
 		if ( this.loot ) Game.getLoot( this.loot );
 
@@ -165,21 +168,19 @@ export default class Action extends GData {
 	}
 
 	/**
-	 * Performs a timer tick.
+	 * Perform cd timer tick.
 	 * @param {number} dt - elapsed time.
 	 * @returns {boolean} true if timer is complete.
 	 */
-	tick( dt) {
+	tick(dt) {
 
-		if ( this.timer > 0 ) {
+		this.timer -= dt;
+		console.log('TIME TICK: ' + this.timer );
+		if ( this.timer < 0 ) {
 
 			//console.log('timer: ' + this.timer );
-			this.timer -= dt;
-			if ( this.timer > 0 ) return false;
-			else {
-				this.timer = 0;
-				return true;
-			}
+			this.timer = 0;
+			return true;
 
 		}
 		return false;

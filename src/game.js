@@ -54,8 +54,6 @@ export default {
 	 */
 	log:new Log(),
 
-	timers:[],
-
 	/**
 	 * @property {Runner} runner - runs active actions.
 	 */
@@ -66,10 +64,7 @@ export default {
 	 * @param {*} obj
 	 * @param {(number)=>boolean} obj.tick -tick function.
 	 */
-	addTimer( obj ){
-		console.log('adding timer: ' + obj.id );
-		this.timers.push(obj);
-	},
+	addTimer( obj ){ this.runner.addTimer(obj); },
 
 	/**
 	 * Clear game data.
@@ -79,8 +74,6 @@ export default {
 		this.loaded = false;
 		this.state = null;
 		this._items = null;
-		this.timers = [];
-
 
 		return this.load();
 
@@ -120,8 +113,6 @@ export default {
 
 			// initial fringe check.
 			techTree.forceCheck();
-
-			this.initTimers();
 
 			Events.add( ENTER_LOC, this.enterLoc, this );
 			Events.add( EXIT_LOC, this.enterLoc, this );
@@ -249,18 +240,6 @@ export default {
 
 	},
 
-	/**
-	 * Any item with a timer>0 should be added to timers.
-	 */
-	initTimers() {
-
-		let acts = this.state.actions;
-		for( let i = acts.length-1; i>= 0; i-- ) {
-			if ( acts[i].timer > 0) this.addTimer( acts[i]);
-		}
-
-	},
-
 	setSlot( it ) {
 
 		let cur = this.state.getSlot( it.slot );
@@ -307,14 +286,6 @@ export default {
 		this.doResources( this.state.resources, dt);
 		this.doResources( this.state.playerStats, dt );
 		this.doResources( this.state.stressors, dt );
-
-		if ( this.timers ) {
-
-			for( let i = this.timers.length-1; i>= 0; i-- ) {
-				if ( this.timers[i].tick(dt) ) quickSplice( this.timers, i );
-			}
-
-		}
 
 		techTree.checkFringe();
 

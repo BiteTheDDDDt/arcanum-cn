@@ -33,6 +33,11 @@ export default class Runner {
 		 */
 		this.waiting = this.waiting || null;
 
+		/**
+		 * @property {} timers - timers ticking.
+		 */
+		this.timers = this.timers || null;
+
 	}
 
 	toJSON() {
@@ -41,6 +46,7 @@ export default class Runner {
 			max:this.max,
 			waiting:this.waiting.map(v=> v.type === TYPE_RUN ? v : v.id),
 			actives:this.actives.map(v=> v.type === TYPE_RUN ? v : v.id),
+			timers:this.timers.length>0? this.timers.map(v=>v.id) : undefined
 
 			/**
 			 * @property {Runnable[]} runnables - running combinations of objects.
@@ -72,6 +78,12 @@ export default class Runner {
 			}
 
 		}
+	}
+
+	addTimer(obj){
+		console.log('ADDING TIMER: ' + obj.id );
+		obj.timer = obj.cd;
+		this.timers.push(obj);
 	}
 
 	/**
@@ -140,6 +152,8 @@ export default class Runner {
 		}
 
 		this.actives = this.reviveList( this.actives, gs, true );
+		if ( this.timers ) this.timers = gs.toData( this.timers );
+		else this.timers = [];
 
 		Events.add( ACT_DONE, this.actDone, this );
 		Events.add( HALT_ACT, this.haltAction, this );
@@ -172,7 +186,6 @@ export default class Runner {
 		for( let i = list.length-1; i >= 0; i-- ) {
 
 			var a = list[i] = this.reviveAct( list[i], gs, running);
-
 			if ( a == null ) list.splice(a,1);
 
 		}
@@ -509,6 +522,10 @@ export default class Runner {
 
 			this.doAction( this.actives[i], dt );
 
+		}
+
+		for( let i = this.timers.length-1; i>= 0; i-- ) {
+			if ( this.timers[i].tick(dt) ) quickSplice( this.timers, i );
 		}
 
 	}

@@ -208,8 +208,6 @@ export default class GData {
 		if ( this.slot && g.state.getSlot(this.slot, this.type ) === this) return false;
 		if ( this.maxed() ) return false;
 
-		if ( this.cd && this.timer > 0 ) return false;
-
 		if ( this.fill && g.filled( this.fill, this ) ) return false;
 
 		return !this.cost || g.canPay(this.cost);
