@@ -381,7 +381,7 @@
 
 		"id":"bladelore",
 		"desc":"Incorporate martial weapons into your magic.",
-		"require":"g.spellblade||g.battlemage||g.dreadlord",
+		"require":"g.spellblade>0||g.battlemage>0||g.dreadlord>0",
 		"need":"armssource",
 		"cost":{
 			"sp":2

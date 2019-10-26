@@ -250,6 +250,20 @@
 		"enc_history",
 		"enc_primer1"
 	]
+},
+{
+	"id":"loc_tenwick",
+	"name":"peregrination",
+	"desc":"Tenwick's trail runs a circuit about the notable areas of Dhrune. On foot it takes the better part of a year to complete.",
+	"length":10000,
+	"loot":{
+
+	},
+	"encs":[
+		"enc_statue2",
+		"sombersunset"
+	]
+
 }
 
 

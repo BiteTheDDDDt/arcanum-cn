@@ -415,7 +415,7 @@
 	{
 		"id":"sombersunset",
 		"name":"somber sunset",
-		"desc":"the lapping waves in the dying sun hint at secrets just beyond your reach.",
+		"desc":"lapping waves in the dying sun hint at secrets just beyond your reach.",
 		"effect":{
 			"rage":"-1~-2",
 			"weary":"-1~-2",

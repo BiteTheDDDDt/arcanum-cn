@@ -2076,7 +2076,7 @@
 		"id":"airplane",
 		"name":"",
 		"tags":"t_runes",
-		"desc":"a plane of endless sky",
+		"desc":"an island floating in endless sky",
 		"slot":"homeplane",
 		"require":"g.tier5>0&&g.gate>0&&g.airlore>=10",
 		"buy":{
