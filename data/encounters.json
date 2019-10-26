@@ -524,6 +524,61 @@
 		}
 	},
 	{
+		"id":"enc_statue4",
+		"name":"eldar statue",
+		"desc":"its weathered face has gazed upon the world since the Wind Age.",
+		"effect":{
+			"madness":1,
+			"bf":"3~7",
+			"unease":"3~7",
+			"history.exp":2
+		},
+		"result":{
+			"history.max":0.001
+		}
+	},
+	{
+		"id":"enc_sindel",
+		"name":"sindel shrine",
+		"desc":"a glowing star cinder embedded in a shrine.",
+		"effect":{
+			"lightlore.exp":1,
+			"bf":"2~5",
+			"unease":"1~5",
+			"history.exp":1
+		},
+		"result":{
+			"lightlore.max":0.001
+		},"flavor":"you can't seem to pry it loose."
+	},
+	{
+		"id":"enc_tenwick",
+		"name":"tenwick",
+		"desc":"Tenwick is often on the trail, but always glad to stop and trade tales.",
+		"effect":{
+			"scrying.exp":1,
+			"divination.exp":1,
+			"bf":"3~6",
+			"unease":"2~5"
+		},
+		"result":{
+		}
+	},
+	{
+		"id":"enc_wyrd",
+		"name":"wyrd sister",
+		"desc":"You meet the Wyrd sister Hecubah on the roadside.",
+		"effect":{
+			"scrying.exp":1,
+			"divination.exp":1,
+			"madness":2,
+			"bf":"3~7",
+			"unease":"2~4"
+		},
+		"result":{
+		},"flavor":"blank verse is always hard to interpret."
+	},
+	{
 		"id":"enc_gap",
 		"name":"markhul's gap",
 		"desc":"looking over the edge, you see no sign of a bottom",

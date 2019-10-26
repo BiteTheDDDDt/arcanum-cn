@@ -1325,6 +1325,91 @@
 
 	},
 	{
+		"id":"craftfirerune",
+		"name":"craft rune (fire)",
+		"require":"g.fire.max>=10&&g.tier4>0",
+		"fill":"firerune",
+		"length":10,
+		"cost":{
+			"runestones":1,
+			"firegem":10,
+			"tomes":1
+		},
+		"run":{
+			"stamina":1
+		},
+		"result":"firerune"
+
+	},
+	{
+		"id":"craftearthrune",
+		"name":"craft rune (earth)",
+		"require":"g.earth.max>=10&&g.tier4>0",
+		"fill":"earthrune",
+		"length":10,
+		"cost":{
+			"runestones":1,
+			"earthgem":10,
+			"tomes":1
+		},
+		"run":{
+			"stamina":1
+		},
+		"result":"earthrune"
+
+	},
+	{
+		"id":"craftairrune",
+		"name":"craft rune (air)",
+		"require":"g.air.max>=10&&g.tier4>0",
+		"fill":"airrune",
+		"length":10,
+		"cost":{
+			"runestones":1,
+			"airgem":10,
+			"tomes":1
+		},
+		"run":{
+			"stamina":1
+		},
+		"result":"airrune"
+
+	},
+	{
+		"id":"craftwaterrune",
+		"name":"craft rune (water)",
+		"require":"g.water.max>=10&&g.tier4>0",
+		"fill":"waterrune",
+		"length":10,
+		"cost":{
+			"runestones":1,
+			"watergem":10,
+			"tomes":1
+		},
+		"run":{
+			"stamina":1
+		},
+		"result":"waterrune"
+
+	},
+	{
+		"id":"craftspiritrune",
+		"name":"craft rune (spirit)",
+		"require":"g.spirit.max>=999&&g.tier4>0",
+		"fill":"spiritrune",
+		"length":10,
+		"cost":{
+			"runestones":1,
+			"spiritgem":10,
+			"tomes":1
+		},
+		"run":{
+			"stamina":1
+		},
+		"result":"spiritrune"
+
+	},
+	{
 		"id":"sellscroll",
 		"name":"sell scroll",
 		"require":"g.scribescroll>0&&g.scrolls>=5",
