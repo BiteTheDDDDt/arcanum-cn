@@ -38,7 +38,7 @@ export default {
 		},
 
 
-		hallUnlocked(){return true},
+		hallUnlocked(){return Game.state.getData('wizardhall')>0; },
 		hallName(){
 			return Profile.hall.name;
 		},

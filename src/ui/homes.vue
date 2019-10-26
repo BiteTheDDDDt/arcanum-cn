@@ -72,9 +72,9 @@ export default {
 
 		space() { return this.state.getData('space'); },
 
-		curPlane(){return this.state.getSlot('homeplane'); },
-		homePlanes(){ return this.state.filterItems(v=>v.slot==='homeplane');},
-		planesAvail(){ return this.homePlanes.filter(v=>v.owned); },
+		curPlane(){return this.state.getSlot('werry'); },
+		werrys(){ return this.state.filterItems(v=>v.slot==='werry');},
+		planesAvail(){ return this.werrys.filter(v=>v.owned); },
 
 		curHome(){return this.state.getSlot('home');},
 		homesAvail() {
@@ -108,7 +108,7 @@ export default {
 
 			<slotpick title="home" pick="home" />
 
-			<slotpick title="plane" pick="homeplane" />
+			<slotpick title="plane" pick="werry" />
 
 		</div>
 

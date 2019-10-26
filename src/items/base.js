@@ -225,7 +225,7 @@ export default {
 
 						this[p] += Number(mods[p])*amt;
 					} else {
-						console.log( mods + ' subapply: ' + p);
+						//console.log( mods + ' subapply: ' + p);
 						this.subeffect( this[p], mods[p], amt );
 					}
 
@@ -304,9 +304,9 @@ export default {
 				if ( m instanceof Mod) {
 					s.apply(m, amt);
 				}
-				logObj(mods, 'mods parent');
-				logObj( m, p + ' mod');
-				console.log( mods + '["' + p + '"]:' + m + ' -> mod targ undefined' + ' -> ' + s.valueOf() );
+				//logObj(mods, 'mods parent');
+				//logObj( m, p + ' mod');
+				//console.log( mods + '["' + p + '"]:' + m + ' -> mod targ undefined' + ' -> ' + s.valueOf() );
 
 			} else if ( subTarg.applyMods ) subTarg.applyMods( m, amt, subTarg );
 			else if ( m instanceof Mod ) m.applyTo( targ, p, amt );
@@ -348,7 +348,7 @@ export default {
 
 		for( let p in m ) {
 
-			console.log('SUBEFFECT(): ' + p + '=' + m[p]);
+			//console.log('SUBEFFECT(): ' + p + '=' + m[p]);
 
 			if ( typeof m[p] === 'object' ) {
 				this.subeffect( obj[p], m[p], amt );

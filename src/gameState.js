@@ -325,7 +325,7 @@ export default class GameState {
 	 */
 	setQuickSlot( it, slotNum ) {
 
-		console.log('QUICK: ' + it.name );
+		//console.log('QUICK: ' + it.name );
 
 		this.bars.active.setSlot(it, slotNum);
 	}

@@ -10,7 +10,7 @@ import Vitals from 'ui/vitals.vue';
 import DotView from './dotView.vue';
 import ItemPopup from './items/itemPopup.vue';
 import TopBar from './top-bar.vue';
-import SettingsUI from './settings.vue';
+import SettingsUI from './sections/settings.vue';
 
 
 import LogView from './outlog.vue';

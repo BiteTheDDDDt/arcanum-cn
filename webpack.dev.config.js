@@ -1,15 +1,9 @@
 const path = require( 'path' );
 const VueLoader = require('vue-loader/lib/plugin');
 const webpack = require('webpack');
+const { execSync } = require('child_process');
 
-const fs = require('fs');
-
-var versObj = fs.readFileSync( './vers.json');
-versObj = JSON.parse(versObj);
-const vers = versObj.dev;
-
-versObj.dev++;
-fs.writeFileSync( './vers.json', JSON.stringify(versObj ));
+var VERS_STR = execSync('git rev-list HEAD --count').toString()
 
 
 module.exports = {
@@ -36,7 +30,7 @@ module.exports = {
 		new webpack.DefinePlugin({
 			__SAVE:JSON.stringify('dev'),
 			__DIST:false,
-			__VERSION:vers
+			__VERSION:VERS_STR
 		})],
 	output:{
 

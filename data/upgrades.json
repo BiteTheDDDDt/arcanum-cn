@@ -395,7 +395,7 @@
 		"id":"pouch",
 		"desc":"Keep your money safe.",
 		"require":"g.gold>=5",
-		"max":2,
+		"max":3,
 		"cost":5,
 		"flavor":"seems a tad pricey for a bag.",
 		"mod":{
@@ -1082,6 +1082,10 @@
 		"name":"guiding star",
 		"require":"g.astronomy>=15&&g.good>0",
 		"desc":"a light in the heavens guides your way.",
+		"cost":{
+			"research":5000,
+			"arcana":15
+		},
 		"mod":{
 			"player.tohit":4,
 			"scrying.max":2,
@@ -2003,7 +2007,7 @@
 
 	{
 		"id":"fireplane",
-		"slot":"homeplane",
+		"slot":"werry",
 		"name":"fire werry",
 		"desc":"a hidden pocket of the plane of ash and fire",
 		"require":"g.tier5>0&&g.gate>0&&g.firelore>=10",
@@ -2027,7 +2031,7 @@
 	{
 		"id":"waterplane",
 		"name":"water werry",
-		"slot":"homeplane",
+		"slot":"werry",
 		"desc":"a pocket of the endless sea",
 		"require":"g.tier5>0&&g.gate>0&&g.waterlore>=10",
 		"buy":{
@@ -2051,7 +2055,7 @@
 		"id":"earthplane",
 		"name":"earth werry",
 		"desc":"a space carved from the plane of earth",
-		"slot":"homeplane",
+		"slot":"werry",
 		"require":"g.tier5>0&&g.gate>0&&g.earthlore>=10",
 		"buy":{
 
@@ -2074,7 +2078,7 @@
 		"id":"airplane",
 		"name":"wind werry",
 		"desc":"an island floating in an endless sky",
-		"slot":"homeplane",
+		"slot":"werry",
 		"require":"g.tier5>0&&g.gate>0&&g.airlore>=10",
 		"buy":{
 

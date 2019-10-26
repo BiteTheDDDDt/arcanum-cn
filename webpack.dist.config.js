@@ -1,14 +1,9 @@
 const path = require('path');
 const VueLoader = require('vue-loader/lib/plugin');
 const webpack = require('webpack');
-const fs = require('fs');
+const { execSync } = require('child_process');
 
-var versObj = fs.readFileSync( './vers.json');
-versObj = JSON.parse(versObj);
-const vers = versObj.vers;
-
-versObj.vers++;
-fs.writeFileSync( './vers.json', JSON.stringify(versObj ));
+var VERS_STR = execSync('git rev-list HEAD --count').toString()
 
 
 module.exports = {
@@ -40,7 +35,7 @@ module.exports = {
 		new webpack.DefinePlugin({
 		__DIST:true,
 		__SAVE:null,
-		__VERSION:vers
+		__VERSION:VERS_STR
 	})],
 
 	//devtool: 'source-map',

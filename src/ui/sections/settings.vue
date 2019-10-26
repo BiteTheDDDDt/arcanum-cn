@@ -1,7 +1,7 @@
 <script>
-import Settings from '../settings';
+import Settings from '../../settings';
 
-import { center } from './components/popups';
+import { center } from '../components/popups';
 
 export default {
 
@@ -73,7 +73,7 @@ export default {
 
 <template>
 
-<div :class="['settings', 'popup', closed ? 'hide' : '']">
+<div v-if="!closed" :class="['settings', 'popup']">
 
 	<div>
 	<label :for="elmId('auto-save')">auto-save</label>
@@ -123,11 +123,6 @@ button.close {
 	position:absolute;
 	bottom: 10px;
 	right:10px;
-}
-
-
-.hide {
-	display:none;
 }
 
 </style>
