@@ -168,7 +168,13 @@
 		"school":"mana",
 		"require":"g.lore>=35",
 		"desc":"The full weight of a wizard's gaze is often overpowering.",
-		"cd":100,
+		"cd":300,
+		"buy":{
+			"arcana":30
+		},
+		"cost":{
+			"mana":5
+		},
 		"attack":{
 			"targets":"enemies",
 			"dot":{

@@ -95,6 +95,13 @@ export default {
 	},
 
 	/**
+	 * @returns {.<string,GData>} special hall data items.
+	 */
+	getHallData(){
+		return this.hall.items;
+	},
+
+	/**
 	 * State of current player/game loaded.
 	 * @param {Game} game
 	 */
@@ -104,7 +111,6 @@ export default {
 		this.saveHall();
 
 		this.hall.calcPoints();
-		game.addData( this.hall.items );
 
 		Events.add( LEVEL_UP, this.updateChar, this );
 		Events.add( CHAR_NAME, this.updateChar, this );
@@ -112,6 +118,13 @@ export default {
 		Events.add( CHAR_CLASS, this.updateChar, this );
 
 
+	},
+
+	/**
+	 * Clear all stored data.
+	 */
+	clearAll(){
+		window.localStage.clear();
 	},
 
 	/**

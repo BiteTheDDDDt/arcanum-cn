@@ -187,7 +187,7 @@ const vm = new Vue({
 			try {
 
 				let obj = text ? JSON.parse( text ) : null;
-				this.game.load( obj ).then( this.gameLoaded,
+				this.game.load( obj, Profile.getHallData() ).then( this.gameLoaded,
 					e=>console.error( e.message + '\n' + e.stack ) );
 
 			} catch( err ) {
@@ -207,9 +207,9 @@ const vm = new Vue({
 
 			this.dispatch('pause');
 
-			Profile.clearActive();
+			Profile.clearAll();
 
-			this.game.reset().then( this.gameLoaded );
+			this.game.setStateJSON(null);
 
 		}
 

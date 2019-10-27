@@ -232,13 +232,13 @@ export default class Mod {
 		else if ( targ instanceof Mod) targ.applySelf( this, amt );
 		else if ( targ === null || targ === undefined || typeof targ === 'number' ){
 
-			console.log('MOD.applyTo() CREATE NEW MOD AT TARGET: ' + p );
+			//console.log('MOD.applyTo() CREATE NEW MOD AT TARGET: ' + p );
 			let s = obj[p] = new Stat( targ || 0, p );
 			s.apply( this, amt );
 
 		} else if ( typeof targ === 'object') {
 
-			console.warn( this.id + ' Generic Mod Target: ' + targ.id );
+			//console.warn( this.id + ' Generic Mod Target: ' + targ.id );
 			targ.value = ( ( Number(targ.value) || 0 ) + amt*this._bonus )*( 1 + amt*this._pct );
 
 			// TODO? Percent all of obj?

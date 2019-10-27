@@ -451,7 +451,7 @@
 			"pct":25
 		},
 		"resist":{
-			"arcane":10
+			"mana":10
 		}
 
 	},
@@ -1379,7 +1379,7 @@
             "dmg":"3~8"
 		},
 		"resist":{
-			"arcane":15
+			"mana":15
 		}
 
 	},
@@ -1999,7 +1999,7 @@
             "dmg":"8~15"
 		},
 		"resist":{
-			"arcane":30
+			"mana":30
 		},"immune":"light"
 
     },
@@ -2844,7 +2844,7 @@
 		},
 		"resist":{
 			"nature":20,
-			"arcane":20,
+			"mana":20,
 			"shadow":20,
 			"earth":20,
 			"physical":20,

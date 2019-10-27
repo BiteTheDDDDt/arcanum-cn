@@ -663,8 +663,7 @@
 			"bodies":1
 		},
 		"run":{
-			"stamina":0.4
-
+			"stamina":0.8
 		},
 		"effect":{
 			"arcana":0.001,
@@ -688,7 +687,7 @@
 			"light":5
 		},
 		"run":{
-			"stamina":0.5,
+			"stamina":1,
 			"hp":2
 		},
 		"effect":{
@@ -909,7 +908,7 @@
 			"lore.exp":1
 		},
 		"run":{
-			"stamina":0.4
+			"stamina":0.7
 		},
 		"result":{
 			"tomes":1
@@ -928,7 +927,8 @@
 			"codices":10
 		},
 		"run":{
-			"research":1
+			"research":1,
+			"stamina":2
 		},
 		"mod":{
 			"player.damage":2,
@@ -947,6 +947,9 @@
 			"tomes":5,
 			"managem":10,
 			"research":1000
+		},
+		"run":{
+			"stamina":2
 		},
 		"mod":{
 			"spellcraft.max":1,
@@ -1032,7 +1035,8 @@
 			"bones":10
 		},
 		"run":{
-			"research":5
+			"research":5,
+			"stamina":1.4
 		},
 		"mod":{
 			"languages.max":3,
@@ -1054,7 +1058,8 @@
 			"tomes":5
 		},
 		"run":{
-			"research":1
+			"research":1,
+			"stamina":2
 		},
 		"mod":{
 			"player.resist.shadow":10,
@@ -1076,7 +1081,8 @@
 			"codices":25
 		},
 		"run":{
-			"research":2
+			"research":2,
+			"stamina":1
 		},
 		"mod":{
 			"research.max":10,
@@ -1122,7 +1128,8 @@
 			"gems":10
 		},
 		"run":{
-			"research":10
+			"research":10,
+			"stamina":3
 		},
 		"mod":{
 			"lore.max":1,

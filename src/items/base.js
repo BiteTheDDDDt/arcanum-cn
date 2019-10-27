@@ -319,7 +319,7 @@ export default {
 				if ( typeof subTarg === 'number') {
 
 					/// @todo stat switch?
-					console.warn('NEW STAT: ' + p + ' : ' + (m*amt ) );
+					//console.warn('NEW STAT: ' + p + ' : ' + (m*amt ) );
 					targ[p] = new Stat( targ[p] + m*amt );
 					//targ[p] += m*amt;
 

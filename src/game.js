@@ -1,5 +1,5 @@
 import DataLoader from './dataLoader';
-import {quickSplice, logObj} from './util/util';
+import { logObj} from './util/util';
 import GData from './items/gdata';
 import Log from './log.js';
 import GameState, { REST_SLOT } from './gameState';
@@ -70,23 +70,20 @@ export default {
 	 * Clear game data.
 	 */
 	reset() {
-
 		this.loaded = false;
 		this.state = null;
 		this._items = null;
-
-		return this.load();
-
 	},
 
 	/**
 	 *
 	 * @param {*} saveData
+	 * @param {.<string,GData>} hallData - data items from wizard hall.
 	 * @returns {Promise.<GameState>}
 	 */
-	load( saveData=null ) {
+	load( saveData=null, hallData=null ) {
 
-		this.loaded = false;
+		this.reset();
 
 		this.log.clear();
 
@@ -104,6 +101,7 @@ export default {
 
 			this.runner = this.state.runner;
 
+			if ( hallData ) this.addData( hallData );
 			this.recheckTiers();
 			this.restoreMods();
 
@@ -223,24 +221,13 @@ export default {
 	 */
 	addData( data ) {
 
-		console.warn('HALL GAME DATA');
+		console.warn('HALL GAME DATA: ' + data );
 
 		for( let p in data ) {
 
-			//console.warn('ADDING DATA ITEM: ' + p );
 			let it = data[p];
+			console.warn('ADDING DATA ITEM: ' + p + ': '+ it.valueOf() );
 			this.state.addItem(it);
-
-			if ( !it.locked && !it.disabled ) {
-
-				if ( it.mod && it.value != 0 ) {
-					//console.log( it.id + ' ADDING MOD: ' + it.value );
-					this.addMod( it.mod, it.value );
-				}
-
-				if ( it.lock) this.lock( it.lock, it.value );
-			}
-
 		}
 
 	},

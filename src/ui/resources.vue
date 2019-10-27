@@ -9,7 +9,7 @@ export default {
 
 	computed:{
 		all(){
-			return this.items.filter( v=>!v.hasTag('manas')&&v.id!=='space')
+			return this.items.filter( v=>!v.hasTag('manas')&&v.id!=='space'&&!this.reslocked(v))
 		},
 	}
 
@@ -21,7 +21,7 @@ export default {
 <div class="res-list">
 
 		<div><button ref="btnHides" class="btnConfig">&#9881;</button></div>
-		<div v-show="!hide(it)" :class="{'rsrc':true, locked:reslocked(it) }" v-for="it in all"
+		<div v-show="!hide(it)" class="rsrc" v-for="it in all"
 			:data-key="it.id" :key="it.id" ref="hidables"
 			@mouseenter.capture.stop="emit( 'itemover',$event,it)">
 

@@ -307,7 +307,7 @@ export default class ItemGen {
 		if ( g ) {
 
 			let it = g.filterRand('level', level );
-			if (it ) return this.fromData( it, mat || maxLevel );
+			if (it ) return this.fromData( it, mat || level );
 
 		} else console.warn('No group: ' + type);
 

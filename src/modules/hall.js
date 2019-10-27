@@ -14,7 +14,8 @@ export default class Hall {
 
 			name:this.name,
 			chars:this.chars,
-			active:this.active
+			active:this.active,
+			items:this.items
 
 		}
 
@@ -103,8 +104,6 @@ export default class Hall {
 		} else {
 			this.prestige = it;
 		}
-
-		console.log('HALL LOADED. PRESTIGE: ' + this.prestige.max );
 
 		this.initChars();
 
