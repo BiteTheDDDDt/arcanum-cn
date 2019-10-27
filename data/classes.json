@@ -1356,7 +1356,7 @@
 
 	},
 	{
-		"id":"avatar",
+		"id":"c_avatar",
 		"desc":"An incarnation of raw, elemental forces.",
 		"tags":"t_tier6",
 		"require":"(g.highelemental+g.kell)>0",

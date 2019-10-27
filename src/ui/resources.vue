@@ -1,10 +1,11 @@
 <script>
-import ItemsBase from './itemsBase.js';
+import ItemsBase from './itemsBase';
+import UIMixin from './uiMixin';
 
 export default {
 
 	props:['items'],
-	mixins:[ItemsBase],
+	mixins:[ItemsBase, UIMixin],
 
 	computed:{
 		displayed(){
@@ -17,32 +18,40 @@ export default {
 
 
 <template>
-<div class="resource-list">
+<div class="res-list">
 
-		<tr :class="{'item-name':true, locked:reslocked(it)}" v-for="it in displayed" :key="it.id"
+		<div><button ref="btnHides" class="text-button">&#9881;</button></div>
+		<div :class="{'rsrc':true, locked:(reslocked(it)||hide(it)) }" v-for="it in displayed"
+			:data-key="it.id" :key="it.id" ref="hidables"
 			@mouseenter.capture.stop="emit( 'itemover',$event,it)">
 
-			<td>{{ it.name }}</td>
-			<td class="num-align">{{ floor( it.value ) + ( it.max && it.max.value>0 ? '/' + floor(it.max.value) : '' )}}</td>
+			<span class="item-name">{{ it.name }}</span>
+			<span class="num-align">{{ floor( it.value ) + ( it.max && it.max.value>0 ? '/' + floor(it.max.value) : '' )}}</span>
 			<!--<td>{{ it.delta != 0 ? '&nbsp;(' + it.delta.toFixed(2) + '/t )' : ''}}</td>-->
 
-		</tr>
+		</div>
 
 </div>
 </template>
 
 <style scoped>
 
-div.resource-list {
+div.res-list {
 	overflow-y:auto;
 	overflow-x:visible;
 	width: fit-content;
-	padding-right:4px;
-	padding-top:8px;
-	min-width: 160px;
+	margin: 0; padding: var(--sm-gap);
+	min-width: 200px;
 }
 
-tr td:first-child {
+div.res-list .rsrc {
+	display: flex;
+	padding: var(--tiny-gap);
+}
+
+.rsrc .item-name {
+	flex:1;
+	color:#999;
 	padding-right: 6px;
 }
 

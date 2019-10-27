@@ -17,13 +17,13 @@ export default {
 <div>
 
 	<span :class="{'action-btn':true, locked:(it.owned&&!it.repeat)||locked(it),
-		'running':it.running, runnable:it.perpetual||it.length>0 }" v-for="it in items" :key="it.id"
+		'running':it.running, runnable:it.perpetual||it.length>0 }" v-for="it in items" :key="it.id" ref="hidables"
 		@mouseenter.capture.stop="emit( 'itemover', $event,it)">
 
 	<button
 		class="wrapped-btn"
 		:disabled="!usable(it)"
-		@click="emit( pickEvent||'upgrade', it)">{{ showName(it) }}</button>
+		@click="emit( pickEvent||'upgrade', it)">{{ it.name }}</button>
 	</span>
 
 </div>

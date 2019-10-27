@@ -181,7 +181,9 @@ a {
 	display:inline-block;
 }
 
-
+.configHiding {
+	text-decoration: line-through;
+}
 
 
 body.compact .action-btn button { min-height: 1em; }

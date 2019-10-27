@@ -13,16 +13,8 @@ export default {
 
 		floor:floor,
 
-		showName(it) {
-			return it.actname || it.name || it.id;
-		},
-
 		usable(it) {
 			return (it.length || it.perpetual ) ? Game.canRun(it) : Game.canUse( it );
-		},
-
-		visible(it) {
-			return !it.locked && it.disabled === false;
 		},
 
 		buyable(it) { return it.canBuy(Game) },

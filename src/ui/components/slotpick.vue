@@ -16,7 +16,7 @@ export default {
 	 * for a matching slot property.
 	 * @property {?string} pickEvent - event to emit on item picked.
 	 */
-	props:['pick', 'title', 'choices', 'pickEvent'],
+	props:['pick', 'title', 'choices', 'pickEvent', 'hideEmpty'],
 	mixins:[ItemsBase],
 	data(){
 		return {
@@ -56,7 +56,7 @@ export default {
 </script>
 
 <template>
-<div>
+<div v-if="!hideEmpty||avail>0">
 
 	<span v-if="title">{{title}}:</span>
 
