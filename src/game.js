@@ -493,6 +493,9 @@ export default {
 		if ( it.isRecipe ) this.create( it, keep );
 		it.owned = true;
 
+		if ( it.slot && !this.state.getSlot(it.slot) ) this.setSlot(it);
+
+		return true;
 
 	},
 
@@ -527,7 +530,6 @@ export default {
 		} else if ( it.buy && !it.owned ) {
 
 			this.tryBuy(it);
-			if ( it.slot && !this.state.getSlot(it.slot)) this.setSlot(it);
 
 		} else {
 

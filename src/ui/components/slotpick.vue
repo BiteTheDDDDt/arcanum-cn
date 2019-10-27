@@ -47,7 +47,7 @@ export default {
 
 		avail() {
 			return this.choices ? this.choices :
-			Game.state.filterItems( v=>v.slot===this.pick&&!v.locked&&(!v.buy||v.owned) );
+			Game.state.filterItems( v=>v.slot===this.pick&&!v.locked&&(v.owned||!v.buy) );
 		}
 
 	}
@@ -56,7 +56,7 @@ export default {
 </script>
 
 <template>
-<div v-if="!hideEmpty||avail>0">
+<div v-if="!hideEmpty||avail.length>0">
 
 	<span v-if="title">{{title}}:</span>
 

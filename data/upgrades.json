@@ -1278,7 +1278,7 @@
 		},
 		"mod":{
 			"arcana.rate":0.0001,
-			"space.max":1,
+			"spirit.max":1,
 			"spirit.rate":0.01
 		}
 	},
