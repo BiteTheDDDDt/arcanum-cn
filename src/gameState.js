@@ -218,14 +218,13 @@ export default class GameState {
 
 				// need hasTag() func.
 				if ( it.hasTag('home')) {
-
 					it.need = this.homeTest;
-
 				}
 				count++;
 			}
 
 		}
+		console.log('Items Total: ' + count);
 
 	}
 

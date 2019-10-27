@@ -193,6 +193,7 @@ export default {
 		for( let p in items ) {
 
 			var it = items[p];
+			if ( it.slot && !it.instance && !this.state.getSlot(it.slot) ) this.setSlot(it);
 
 			if ( !it.locked && it.value >0 && !it.disabled ) {
 
@@ -501,6 +502,7 @@ export default {
 		if ( it.isRecipe ) this.create( it, keep );
 		it.owned = true;
 
+
 	},
 
 	/**
@@ -533,8 +535,8 @@ export default {
 
 		} else if ( it.buy && !it.owned ) {
 
-			console.log('BUY: ' + it.name );
 			this.tryBuy(it);
+			if ( it.slot && !this.state.getSlot(it.slot)) this.setSlot(it);
 
 		} else {
 
