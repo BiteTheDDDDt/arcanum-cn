@@ -209,7 +209,7 @@ const vm = new Vue({
 
 			Profile.clearAll();
 
-			this.game.setStateJSON(null);
+			this.setStateJSON(null);
 
 		}
 

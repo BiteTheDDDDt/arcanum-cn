@@ -47,7 +47,7 @@ export default {
 
 		avail() {
 			return this.choices ? this.choices :
-			Game.state.filterItems( v=>v.slot===this.pick&&!v.locked&&(v.owned||!v.buy) );
+			Game.state.filterItems( v=>v.slot===this.pick&&!v.disabled&&!v.locks&&!v.locked&&(v.owned||!v.buy) );
 		}
 
 	}

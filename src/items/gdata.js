@@ -317,7 +317,7 @@ export default class GData {
 
 		if ( this.max ) return this.value >= Math.floor( this.max.value);
 
-		return this.repeat !== true && this.value > 0;
+		return !(this.repeat||this.owned) && this.value > 0;
 
 	}
 

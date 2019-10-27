@@ -124,7 +124,7 @@ export default {
 	 * Clear all stored data.
 	 */
 	clearAll(){
-		window.localStage.clear();
+		window.localStorage.clear();
 	},
 
 	/**

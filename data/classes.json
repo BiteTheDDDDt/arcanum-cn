@@ -127,7 +127,8 @@
 	"id":"blueadept",
 	"name":"blue adept",
 	"desc":"Dedicate yourself to putting the world in order.",
-	"require":"g.virture>=200",
+	"require":"g.virtue>=200",
+	"tags":"t_tier0",
 	"cost":{
 		"arcana":7
 	},
