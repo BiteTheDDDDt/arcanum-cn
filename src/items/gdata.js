@@ -227,7 +227,7 @@ export default class GData {
 			if ( this.value <= 0 || amt === 0 ) return 0;
 			else if ( this.value + amt < 0 ) amt = -this.value.valueOf();
 
-			this.value += amt;
+			this.value.base += amt;
 
 			return amt;
 
