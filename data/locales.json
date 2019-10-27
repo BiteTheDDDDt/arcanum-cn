@@ -254,6 +254,7 @@
 {
 	"id":"loc_tenwick",
 	"name":"peregrination",
+	"level":20,
 	"desc":"Tenwick's trail runs a circuit about the notable areas of Dhrune. On foot it takes the better part of a year to complete.",
 	"length":10000,
 	"loot":{

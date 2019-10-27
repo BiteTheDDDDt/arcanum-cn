@@ -118,6 +118,7 @@ export default {
 					// check if sub-prop refers to an item.
 					let refItem = Game.getData(p);
 					if ( refItem ) subPath = refItem.name;
+					else subPath = this.stripTags( p );
 
 					subPath = propPath ? propPath + ' ' + subPath : subPath;
 

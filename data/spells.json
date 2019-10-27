@@ -1797,6 +1797,7 @@
 			"dot":{
 				"name":"blind",
 				"duration":5,
+				"damage":"7~15",
 				"mod":{
 					"tohit":-7
 				}
