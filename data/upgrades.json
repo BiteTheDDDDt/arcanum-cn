@@ -1993,8 +1993,8 @@
 		"buy":{
 			"research":50000,
 			"arcana":30,
-			"tomes":10,
-			"gold":10000
+			"tomes":50,
+			"gold":20000
 		},
 		"mod":{
 			"t_runes.max":10,

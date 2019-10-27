@@ -1451,6 +1451,7 @@
 	},
 	{
 		"id":"up_lich",
+		"name":"lich",
 		"actname":"rite of undeath",
 		"desc":"obtain immortality by becoming a lich",
 		"require":"g.crafting>=20&&g.necromancy>=8",

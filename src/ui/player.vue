@@ -38,7 +38,7 @@ export default {
 		},
 
 
-		hallUnlocked(){return Game.state.getData('wizardhall').owned; },
+		hallUnlocked(){ return Game.state.getData('evt_hall')>0; },
 		hallName(){
 			return Profile.hall.name;
 		},

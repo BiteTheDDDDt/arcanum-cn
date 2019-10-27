@@ -230,11 +230,6 @@
 	},
 	{
 
-		"id":"evt_hall",
-		"desc":"Across endless leagues and aeons, wizards gather in secluded strongholds to exchange lore and augment their powers."
-	},
-	{
-
 		"id":"good",
 		"name":"virtuous",
 		"require":"g.virtue>750&&g.evil==0",

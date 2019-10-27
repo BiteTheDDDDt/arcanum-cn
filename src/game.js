@@ -193,13 +193,17 @@ export default {
 		for( let p in items ) {
 
 			var it = items[p];
-			if ( it.slot && !it.instance && !this.state.getSlot(it.slot) ) this.setSlot(it);
 
-			if ( !it.locked && it.value >0 && !it.disabled ) {
+			if ( !it.locked && !it.disabled ) {
 
-				if ( it.mod ) this.addMod( it.mod, it.value );
-				if ( it.lock ) {
-					this.lock( it.lock, it.value );
+				if ( it.value > 0 ) {
+
+
+					if ( it.mod ) this.addMod( it.mod, it.value );
+					if ( it.lock ) {
+						this.lock( it.lock, it.value );
+					}
+
 				}
 
 			}

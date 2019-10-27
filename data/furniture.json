@@ -1111,7 +1111,8 @@
 		"id":"runechest",
 		"name":"rune chest",
 		"desc":"A box carved from idrasil to hold the most potent runes",
-		"require":"runelore>=5",
+		"require":"g.runelore>=5",
+		"repeat":true,
 		"cost":{
 			"space":5,
 			"gold":2000,
@@ -1119,7 +1120,7 @@
 			"gems":75
 		},
 		"mod":{
-			"t_runes.max":3
+			"t_runes.max":5
 		}
 
 	},

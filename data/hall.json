@@ -5,6 +5,14 @@
 
 	"data":{
 
+		"events":[
+			{
+
+				"id":"evt_hall",
+				"name":"Wizard's Hall",
+				"desc":"Across the aeons wizards gather in hidden halls to exchange lore and augment their powers."
+			}
+		],
 		"upgrades":[
 
 			{
@@ -25,6 +33,7 @@
 			{
 				"id":"prestige",
 				"name":"hall prestige",
+				"require":"evt_hall",
 				"stat":true,
 				"value":0,
 				"locked":false,

@@ -569,7 +569,7 @@
 		"name":"fire mastery",
 		"desc":"a mastery of fire",
 		"require":"g.firelore>=10",
-		"cost":{
+		"buy":{
 			"sp":5,
 			"tomes":30,
 			"runestones":10
@@ -592,7 +592,7 @@
 		"name":"water mastery",
 		"desc":"a mastery of water",
 		"require":"g.waterlore>=10",
-		"cost":{
+		"buy":{
 			"sp":5,
 			"tomes":30,
 			"runestones":10
@@ -615,7 +615,7 @@
 		"name":"air mastery",
 		"desc":"a mastery of air",
 		"require":"g.airlore>=10",
-		"cost":{
+		"buy":{
 			"sp":5,
 			"tomes":30,
 			"runestones":10
@@ -638,7 +638,7 @@
 		"name":"earth mastery",
 		"desc":"a mastery of earth",
 		"require":"g.earthlore>=10",
-		"cost":{
+		"buy":{
 			"sp":5,
 			"tomes":30,
 			"runestones":10
@@ -661,7 +661,7 @@
 		"name":"shadow mastery",
 		"desc":"a mastery of shadow",
 		"require":"g.shadowlore>=10",
-		"cost":{
+		"buy":{
 			"sp":5,
 			"tomes":30,
 			"runestones":10
@@ -684,7 +684,7 @@
 		"name":"light mastery",
 		"desc":"a mastery of light",
 		"require":"g.lightlore>=10",
-		"cost":{
+		"buy":{
 			"sp":5,
 			"tomes":30,
 			"runestones":10
@@ -707,7 +707,7 @@
 		"name":"spirit mastery",
 		"desc":"a mastery of spirit",
 		"require":"g.spiritlore>=10",
-		"cost":{
+		"buy":{
 			"sp":5,
 			"tomes":30,
 			"runestones":10
@@ -730,7 +730,7 @@
 		"name":"arcane mastery",
 		"desc":"a mastery of pure magic",
 		"require":"g.lore>=20",
-		"cost":{
+		"buy":{
 			"sp":5,
 			"tomes":30,
 			"runestones":10
