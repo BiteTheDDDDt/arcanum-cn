@@ -57,7 +57,7 @@ export default class StatData extends GData {
 	update( dt ) {
 
 		if ( this._rate.value ) {
-			this.value += this._rate.value*dt;;
+			this.value += this._rate.value*dt;
 		}
 
 	}

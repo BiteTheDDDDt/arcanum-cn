@@ -8,9 +8,9 @@ export default {
 	mixins:[ItemsBase, UIMixin],
 
 	computed:{
-		displayed(){
+		all(){
 			return this.items.filter( v=>!v.hasTag('manas')&&v.id!=='space')
-		}
+		},
 	}
 
 }
@@ -21,7 +21,7 @@ export default {
 <div class="res-list">
 
 		<div><button ref="btnHides" class="text-button">&#9881;</button></div>
-		<div :class="{'rsrc':true, locked:(reslocked(it)||hide(it)) }" v-for="it in displayed"
+		<div :class="{'rsrc':true, locked:reslocked(it)||hide(it) }" v-for="it in all"
 			:data-key="it.id" :key="it.id" ref="hidables"
 			@mouseenter.capture.stop="emit( 'itemover',$event,it)">
 

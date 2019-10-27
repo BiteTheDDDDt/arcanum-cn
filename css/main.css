@@ -218,6 +218,8 @@ body.darkmode .action-btn.running { border: 2px dashed var(--action-button-borde
 	padding: 1px;
 }
 
+.hide { display:none; }
+
 .locked { display:none;}
 
 div.log-item {

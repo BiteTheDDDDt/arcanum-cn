@@ -16,7 +16,6 @@ export default {
 
 			btnHides.addEventListener( 'click', ()=>{
 
-				console.log('togglign');
 				if ( this.togglingHides ) this.stopHides();
 				else this.beginHides();
 
@@ -28,11 +27,9 @@ export default {
 
 	methods: {
 
-		/**
-		 * Determine if element should be hidden in ui.
-		 * @param {GData} it
-		 */
-		hide(it){ return this.hides&&this.hides[it.id] === true; },
+		hide(it){
+			return !this.togglingHides&&this.hides[it.id] === true
+		},
 
 		beginHides(){
 
@@ -42,14 +39,14 @@ export default {
 			this.togglingHides = true;
 
 			/**
-			 * @property {(Event)=>null} toggleListener - listens to click events.
+			 * @property {(Event)=>null} onTogHide - listens to click events.
 			 */
-			this.toggleListener = (e)=>this.hideToggle(e);
+			this.onTogHide = (e)=>this.hideToggle(e);
 
 			for( let i = hideElms.length-1; i>= 0; i--) {
 
 				var h = hideElms[i];
-				h.addEventListener('click', this.toggleListener, true );
+				h.addEventListener('click', this.onTogHide, true );
 
 			}
 
@@ -69,12 +66,12 @@ export default {
 
 				var h = hideElms[i];
 
-				h.removeEventListener('click', this.toggleListener, true );
+				h.removeEventListener('click', this.onTogHide, true );
 				h.classList.remove('configHiding');
 
 			}
 
-			this.toggleListener = null;
+			this.onTogHide = null;
 			this.togglingHides = false;
 
 		},
@@ -88,10 +85,12 @@ export default {
 			let targ = e.currentTarget;
 			let id = targ.dataset.key;
 
-			if ( !id) return console.warn('no key found: ' + e.target );
+			if ( !id) return;
 
 			let v = this.hides[id];
-			if ( v === undefined ) this.$set( this.hides, id, true );
+			if ( v === undefined || v === null) {
+				this.$set( this.hides, id, true );
+			}
 			else this.hides[id] = !v;
 
 			if ( !v ) targ.classList.add('configHiding');
@@ -102,8 +101,7 @@ export default {
 		},
 
 		beforeDestroy() {
-			this.hideElems = null;
-			this.toggleListener = null;
+			this.onTogHide = null;
 		}
 
 	}

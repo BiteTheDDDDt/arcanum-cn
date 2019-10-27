@@ -89,7 +89,7 @@ export default {
 			<div class="stressors">
 			<div class="stress" v-for="s in stressors" :key="s.id" @mouseenter.capture.stop="emit( 'itemover', $event, s )">
 				<span>{{s.name}}</span>
-				<progbar :value="s.value" :max="s.max.value" />
+				<progbar :value="s.value.valueOf()" :max="s.max.value" />
 			</div>
 			</div>
 
