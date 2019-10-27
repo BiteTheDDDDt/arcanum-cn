@@ -53,7 +53,9 @@ export default {
 			for( let i = hideElms.length-1; i>= 0; i--) {
 
 				var h = hideElms[i];
-				h.classList.add('inConfig');
+				if ( this.hides[h.dataset.key] ) h.classList.add( 'inConfig', 'configHiding');
+				else h.classList.add('inConfig');
+
 				h.addEventListener('click', this.onTogHide, true );
 
 			}
@@ -81,6 +83,7 @@ export default {
 
 			this.onTogHide = null;
 			this.togglingHides = false;
+			this.$forceUpdate();
 
 		},
 
@@ -91,6 +94,7 @@ export default {
 		hideToggle( e ) {
 
 			e.preventDefault();
+			e.stopPropagation();
 
 			let targ = e.currentTarget;
 			let id = targ.dataset.key;
@@ -106,7 +110,7 @@ export default {
 			if ( !v ) targ.classList.add('configHiding');
 			else targ.classList.remove('configHiding');
 
-			e.stopPropagation();
+
 
 		},
 

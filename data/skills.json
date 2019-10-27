@@ -215,7 +215,7 @@
 		"id":"herbalism",
 		"school":"nature",
 		"require":"lore",
-		"need":"taggarden",
+		"need":"t_garden",
 		"run":{
 			"stamina":0.25
 		},

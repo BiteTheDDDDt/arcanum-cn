@@ -266,7 +266,7 @@ export default {
 
 			if ( targ instanceof Stat || targ instanceof Mod ) {
 
-				console.log( this.id + ' number apply to Stat/Mod: ' + mods );
+				//console.log( this.id + ' number apply to Stat/Mod: ' + mods );
 				targ.apply( mods, amt );
 
 			} else if ( typeof targ === 'object') {targ.value = (targ.value || 0 ) + amt*mods; }

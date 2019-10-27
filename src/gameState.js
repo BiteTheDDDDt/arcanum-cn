@@ -389,7 +389,6 @@ export default class GameState {
 	 */
 	addMax( id, amt=10) {
 
-		console.log('adding max');
 		let it = this.getData(id);
 		if ( !it) return;
 

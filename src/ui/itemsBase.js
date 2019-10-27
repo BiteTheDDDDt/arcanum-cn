@@ -23,10 +23,6 @@ export default {
 			return it.disabled === true || it.locks > 0 || it.locked !== false;
 		},
 
-		runnable(it) {
-			return it.perpetual || it.length>0;
-		},
-
 		locked(it) {
 
 			return (it.disabled === true) || it.maxed() || it.locks>0 || (it.locked !== false);
@@ -39,14 +35,9 @@ export default {
 		 */
 		stripTags( t ) {
 
-			if ( Array.isArray(t) ) { return t.map( this.stripTags, this ); }
+			if ( Array.isArray(t) ) return t.map( this.stripTags, this );
 
-			if ( typeof t === 'string' ) {
-
-				if ( t.substring(0,2) === 't_' ) t = t.slice(2);
-				else if ( t.substring(0,3) === 'tag') t = t.slice(3);
-
-			}
+			if ( typeof t === 'string' && t.substring(0,2) === 't_' ) return t.slice(2);
 
 			return t;
 

@@ -127,11 +127,9 @@ export default {
 
 		<div v-if="item.effect||item.mod||item.result||item.dot||item.use" class="note-text"><hr>effects:</div>
 
-
-
 		<dot v-if="item.dot" :dot="item.dot" />
 
-		<info v-if="item.effect" :info="item.effect" :rate="runnable(item)" />
+		<info v-if="item.effect" :info="item.effect" :rate="item.perpetual||item.length>0" />
 		<info v-if="item.mod" :info="item.mod" />
 		<info v-if="item.use" :info="item.use" />
 		<info v-if="item.result" :info="item.result" />

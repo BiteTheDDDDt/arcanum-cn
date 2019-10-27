@@ -320,7 +320,7 @@
 		"name":"potted milkweed",
 		"locked":false,
 		"desc":"Really brightens up the place.",
-		"tags":"taggarden",
+		"tags":"t_garden",
 		"repeat":true,
 		"cost":{
 			"gold":25,
@@ -335,7 +335,7 @@
 		"id":"creepingvine",
 		"name":"creeping vine",
 		"desc":"a quickly growing plant",
-		"tags":"taggarden",
+		"tags":"t_garden",
 		"require":"g.herbalism>=4",
 		"max":5,
 		"cost":{
@@ -995,7 +995,7 @@
 		"desc":"A study enchanted with magic.",
 		"require":"g.codices>=100&&g.enchanting>=6",
 		"cost":{
-			"study":1,
+			"studyroom":1,
 			"gold":1000,
 			"research":1000,
 			"space":20
@@ -1035,7 +1035,7 @@
 	{
 		"id":"garden",
 		"desc":"A small garden by your home.",
-		"tags":"naturesource,taggarden",
+		"tags":"naturesource,t_garden",
 		"require":"(g.witch+g.druid+g.fey+g.kell)>0",
 		"max":3,
 		"cost":{

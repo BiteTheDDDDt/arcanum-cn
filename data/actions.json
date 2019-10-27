@@ -534,7 +534,7 @@
 		"name":"gather herbs",
 		"desc":"Gather herbs used in potions and alchemy.",
 		"require":"g.herbalism>=2",
-		"need":"taggarden",
+		"need":"t_garden",
 		"cost":{
 			"stamina":0.3
 		},

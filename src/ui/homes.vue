@@ -6,7 +6,6 @@ import ItemsBase from './itemsBase';
 
 //import Choice from './components/choice.vue';
 import SlotPick from './components/slotpick.vue';
-import UpgradeView from './upgrades.vue';
 import FilterBox from './components/filterbox.vue';
 import { SET_SLOT } from '../events';
 
@@ -19,7 +18,6 @@ export default {
 	mixins:[ItemsBase],
 	components:{
 		slotpick:SlotPick,
-		upgrades:UpgradeView,
 		filterbox:FilterBox
 	},
 	data(){

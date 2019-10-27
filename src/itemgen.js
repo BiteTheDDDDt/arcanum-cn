@@ -212,10 +212,7 @@ export default class ItemGen {
 
 		}
 
-		if (!info) {
-			console.log('NULL gen.')
-			return null;
-		}
+		if (!info) return null;
 
 		if ( info.pct && (100*Math.random() > info.pct) ) return null;
 

@@ -183,6 +183,7 @@ a {
 
 .btnConfig.inConfig, .btnConfig.inConfig:hover {
 	background-color: var(--quiet-text-color);
+	display: unset;
 }
 
 .btnConfig {
