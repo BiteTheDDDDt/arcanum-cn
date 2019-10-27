@@ -14,10 +14,17 @@ export default {
 		let btnHides = this.$refs.btnHides;
 		if ( btnHides) {
 
-			btnHides.addEventListener( 'click', ()=>{
+			btnHides.addEventListener( 'click', (e)=>{
 
-				if ( this.togglingHides ) this.stopHides();
-				else this.beginHides();
+				e.preventDefault();
+				if ( this.togglingHides ) {
+					this.stopHides();
+					e.target.classList.remove('inConfig');
+				}
+				else {
+					this.beginHides();
+					if ( this.togglingHides) e.target.classList.add('inConfig');
+				}
 
 			});
 
@@ -46,6 +53,7 @@ export default {
 			for( let i = hideElms.length-1; i>= 0; i--) {
 
 				var h = hideElms[i];
+				h.classList.add('inConfig');
 				h.addEventListener('click', this.onTogHide, true );
 
 			}
@@ -67,7 +75,7 @@ export default {
 				var h = hideElms[i];
 
 				h.removeEventListener('click', this.onTogHide, true );
-				h.classList.remove('configHiding');
+				h.classList.remove('configHiding', 'inConfig');
 
 			}
 
@@ -81,6 +89,8 @@ export default {
 		 * @param {*} it
 		 */
 		hideToggle( e ) {
+
+			e.preventDefault();
 
 			let targ = e.currentTarget;
 			let id = targ.dataset.key;

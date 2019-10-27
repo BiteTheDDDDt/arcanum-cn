@@ -20,8 +20,8 @@ export default {
 <template>
 <div class="res-list">
 
-		<div><button ref="btnHides" class="text-button">&#9881;</button></div>
-		<div :class="{'rsrc':true, locked:reslocked(it)||hide(it) }" v-for="it in all"
+		<div><button ref="btnHides" class="btnConfig">&#9881;</button></div>
+		<div v-show="!hide(it)" :class="{'rsrc':true, locked:reslocked(it) }" v-for="it in all"
 			:data-key="it.id" :key="it.id" ref="hidables"
 			@mouseenter.capture.stop="emit( 'itemover',$event,it)">
 
@@ -35,6 +35,7 @@ export default {
 </template>
 
 <style scoped>
+
 
 div.res-list {
 	overflow-y:auto;

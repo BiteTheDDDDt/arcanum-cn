@@ -181,6 +181,22 @@ a {
 	display:inline-block;
 }
 
+.btnConfig.inConfig, .btnConfig.inConfig:hover {
+	background-color: var(--quiet-text-color);
+}
+
+.btnConfig {
+	font-size: 0.94em;
+	padding: 0;
+	border:none;
+	background:unset;
+}
+
+
+.inConfig:hover {
+	background-color: var(--progbar-light-text);
+	cursor: default;
+}
 .configHiding {
 	text-decoration: line-through;
 }
@@ -218,7 +234,7 @@ body.darkmode .action-btn.running { border: 2px dashed var(--action-button-borde
 	padding: 1px;
 }
 
-.hide { display:none; }
+.hide { display:hide; }
 
 .locked { display:none;}
 
