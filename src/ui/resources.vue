@@ -8,12 +8,26 @@ export default {
 	props:['items'],
 	mixins:[ItemsBase, UIMixin],
 
+	data(){
+
+		let ops = Settings.getVars('resview');
+		if (!ops.hide) ops.hide = {};
+
+		return {
+			hide:ops.hide
+		}
+
+	},
+
+	methods:{
+	},
+
 	computed:{
 		all(){
 			return this.items.filter( v=>!v.hasTag('manas')&&v.id!=='space'&&!this.reslocked(v))
 		},
 		shown(){
-			return this.all.filter(v=>!this.hide(v));
+			return this.all.filter(v=>this.show(v));
 		}
 	}
 
@@ -25,7 +39,7 @@ export default {
 <div class="res-list">
 
 		<div><button ref="btnHides" class="btnConfig">&#9881;</button></div>
-		<div class="rsrc" v-for="it in all"
+		<div v-show="show(it)" class="rsrc" v-for="it in all"
 			:data-key="it.id" :key="it.id" ref="hidables"
 			@mouseenter.capture.stop="emit( 'itemover',$event,it)">
 

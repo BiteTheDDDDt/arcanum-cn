@@ -49,6 +49,8 @@ const vm = new Vue({
 		this.listen('load', this.loadSave, this );
 		this.listen('reset', this.reset,this );
 
+		this.listen('save-settings', Profile.saveSettings, Profile );
+
 		this.listen('set-char', this.setChar, this );
 		this.listen('dismiss-char', this.dismissChar, this );
 
@@ -68,6 +70,7 @@ const vm = new Vue({
 		setChar( ind ){
 
 			Profile.setActive( ind, this.game.state );
+
 			this.loadSave();
 
 		},
@@ -112,9 +115,10 @@ const vm = new Vue({
 		gameLoaded( game ) {
 
 			console.log('GAMELOADED(): ' + game );
-			this.dispatch( 'game-loaded' );
 
 			Profile.loadSettings();
+			this.dispatch( 'game-loaded' );
+
 			Profile.gameLoaded( game );
 
 			this.dispatch('unpause');
@@ -199,7 +203,6 @@ const vm = new Vue({
 		save() {
 
 			if (!this.game.loaded ) return;
-
 			Profile.saveActive( this.game.state );
 
 		},

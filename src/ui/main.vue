@@ -20,6 +20,7 @@ import Cheats from '../modules/cheats';
 
 import { TRY_BUY, USE, TRY_USE } from '../events';
 import { TICK_TIME } from '../game';
+import profile from '../modules/profile';
 
 /**
  * @var {number} SAVE_TIME  - time in seconds between auto-saves.
@@ -88,7 +89,10 @@ export default {
 		gameLoaded() {
 
 			this.state = Game.state;
-			this.section = this.state.sections.find( v=>v.id==='sect_main');
+
+			let curview = Settings.get('curview') || 'sect_main';
+
+			this.section = this.state.sections.find( v=>v.id===curview );
 
 			this.initEvents();
 
@@ -147,7 +151,7 @@ export default {
 
 			if (!this.runner ) return;
 
-			if ( Settings.vars.autoSave && !this.saver ) {
+			if ( Settings.get('autoSave') && !this.saver ) {
 				//console.log('START AUTOSAVE');
 				this.saver = setInterval( ()=>this.dispatch('autosave'), 1000*SAVE_TIME );
 			}
@@ -285,14 +289,11 @@ export default {
 
 		section:{
 
-			get(){
-				return this.psection;
-			},
+			get(){ return this.psection; },
 			set(v){
 
 				this.psection=v;
-				Settings.save();
-
+				Settings.set('curview', v.id );
 			}
 		},
 		menuItems(){ return this.state.sections.filter( it=>!this.locked(it) ); }

@@ -194,6 +194,8 @@ export default {
 				store.setItem( this.activeLoc(), json );
 			}
 
+			this.saveSettings();
+
 			return true;
 
 		} catch(e) {

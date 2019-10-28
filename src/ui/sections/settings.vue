@@ -1,8 +1,14 @@
 <script>
+import Profile from 'modules/profile';
 import Settings from 'modules/settings';
 
 import { center } from '../components/popups';
 
+/**
+ * @listens open-settings
+ * @emits save-settings
+ * @emits setting
+ */
 export default {
 
 	data(){
@@ -18,7 +24,6 @@ export default {
 	created() {
 
 		this.listen('open-settings', this.show );
-		Settings.load();
 
 		for( let p in Settings.vars ) {
 			this.dispatch('setting', p, Settings.vars[p] );
@@ -28,7 +33,7 @@ export default {
 	methods:{
 
 		close() {
-			Settings.save();
+			this.dispatch('save-settings');
 			this.closed = true;
 		},
 

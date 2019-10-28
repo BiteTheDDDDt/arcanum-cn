@@ -34,8 +34,8 @@ export default {
 
 	methods: {
 
-		hide(it){
-			return !this.togglingHides&&this.hides[it.id] === true
+		show(it){
+			return this.togglingHides||!this.hide[it.id];
 		},
 
 		beginHides(){
@@ -53,7 +53,7 @@ export default {
 			for( let i = hideElms.length-1; i>= 0; i--) {
 
 				var h = hideElms[i];
-				if ( this.hides[h.dataset.key] ) h.classList.add( 'inConfig', 'configHiding');
+				if ( this.hide[h.dataset.key] ) h.classList.add( 'inConfig', 'configHiding');
 				else h.classList.add('inConfig');
 
 				h.addEventListener('click', this.onTogHide, true );
@@ -101,11 +101,11 @@ export default {
 
 			if ( !id) return;
 
-			let v = this.hides[id];
+			let v = this.hide[id];
 			if ( v === undefined || v === null) {
-				this.$set( this.hides, id, true );
+				this.$set( this.hide, id, true );
 			}
-			else this.hides[id] = !v;
+			else this.hide[id] = !v;
 
 			if ( !v ) targ.classList.add('configHiding');
 			else targ.classList.remove('configHiding');
