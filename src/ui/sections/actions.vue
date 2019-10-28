@@ -24,9 +24,8 @@ export default {
 	},
 	computed:{
 
-		state(){return Game.state;},
-		actions(){return this.state.actions.filter(v=>!v.perpetual&&!v.length)},
-		runnables(){return this.state.actions.filter(v=>v.perpetual||v.length>0)},
+		actions(){return Game.state.actions.filter(v=>!v.perpetual&&!v.length)},
+		runnables(){return Game.state.actions.filter(v=>v.perpetual||v.length>0)},
 
 		visActs(){return this.actions.filter(v=>this.show(v))},
 		visRuns(){ return this.runnables.filter(v=>this.show(v))},
@@ -35,7 +34,7 @@ export default {
 			return Game.state.upgrades.filter( v=>!this.locked(v)&&this.show(v) )
 		},
 		classes(){
-			return this.state.classes.filter(v=>!locked(v)&&this.show(v));
+			return Game.state.classes.filter(v=>!locked(v)&&this.show(v));
 		}
 
 	}
