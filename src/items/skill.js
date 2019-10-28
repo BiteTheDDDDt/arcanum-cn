@@ -3,18 +3,13 @@ import Stat from '../values/stat';
 
 const EXP_RATIO = 0.35;
 
+/**
+ * Starting length for skills of various level.
+ * @param {number} n
+ */
+const levLength = (n)=>{ return 50*Math.pow( (1+EXP_RATIO), n ) }
+
 export default class Skill extends Action {
-
-	toJSON(){
-
-		let data = super.toJSON();
-
-		// for skills, level is always equal to value.
-		data.level = undefined;
-
-		return data;
-
-	}
 
 	get exp() { return super.exp; }
 	set exp(v) {
@@ -31,14 +26,15 @@ export default class Skill extends Action {
 		super(vars);
 
 		this.type = 'skill';
-		this.length = this.length || 50;
+
+		if ( !this.length || this.value == 0 ) this.length = levLength( this.level || 0 );
 
 		this._exp = this._exp || 0;
 
 		/** @compatibility */
 		if ( this.value >= 1 ){
 
-			let len = (vars.template.length || 50)*Math.pow( (1+EXP_RATIO), this.value.valueOf() );
+			let len = (vars.template.length || 50)*levLength( this.level || this.value.valueOf() );
 			if ( this.length > len ) {
 				this.length = len;
 			}

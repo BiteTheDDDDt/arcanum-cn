@@ -134,7 +134,7 @@
 		},
 		"mod":{
 			"inv.max":1,
-			"gem.max":2,
+			"magicgems.max":2,
 			"gold.max":200,
 			"gems.max":10
 		}
@@ -150,7 +150,7 @@
 		},
 		"mod":{
 			"inv.max":2,
-			"gem.max":10,
+			"magicgems.max":10,
 			"gembox.max":5,
 			"gold.max":1800,
 			"gems.max":20
@@ -169,7 +169,7 @@
 		},
 		"mod":{
 			"inv.max":3,
-			"gem.max":20,
+			"magicgems.max":20,
 			"gembox.max":10,
 			"gold.max":4000,
 			"gems.max":50

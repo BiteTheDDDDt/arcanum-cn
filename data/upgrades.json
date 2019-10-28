@@ -411,7 +411,7 @@
 		"cost":300,
 		"flavor":"who prices these bags?!",
 		"mod":{
-			"gem.max":1,
+			"magicgems.max":1,
 			"gems.max":5
 		}
 	},
@@ -427,7 +427,7 @@
 			"gold":800
 		},
 		"mod":{
-			"gem.max":2,
+			"magicgems.max":2,
 			"gems.max":3
 		}
 	},
@@ -868,7 +868,7 @@
 			"inv.max":4,
 			"gold.max":100,
 			"gems.max":20,
-			"gem.max":5
+			"magicgems.max":5
 		},"flavor":"the research costs a little more than you expected..."
 
 	},
@@ -1199,7 +1199,7 @@
 		"cost":{
 			"gold":50,
 			"research":50,
-			"spirit":2
+			"mana":2
 		},
 		"mod":{
 			"spirit.rate":0.01
@@ -1339,7 +1339,7 @@
 	{
 		"id":"specialization",
 		"desc":"specialize in a school of magic",
-		"require":"g.lore>100",
+		"require":"g.lore>999",
 		"max":1,
 		"cost":{
 			"tomes":1,
