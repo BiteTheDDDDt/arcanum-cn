@@ -181,6 +181,16 @@ a {
 	display:inline-block;
 }
 
+div.config {
+	margin:0;
+	padding: 0;
+	max-height: 14px;
+}
+
+.float{
+	position:absolute;
+}
+
 .btnConfig.inConfig, .btnConfig.inConfig:hover {
 	background-color: var(--quiet-text-color);
 	display: unset;
@@ -188,7 +198,8 @@ a {
 
 .btnConfig {
 	font-size: 0.94em;
-	padding: 0;
+	padding: 0px;
+	margin:0px;
 	border:none;
 	background:unset;
 }

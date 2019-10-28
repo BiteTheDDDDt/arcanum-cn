@@ -19,9 +19,6 @@ export default {
 
 	},
 
-	methods:{
-	},
-
 	computed:{
 		all(){
 			return this.items.filter( v=>!v.hasTag('manas')&&v.id!=='space'&&!this.reslocked(v))
@@ -38,9 +35,9 @@ export default {
 <template>
 <div class="res-list">
 
-		<div><button ref="btnHides" class="btnConfig">&#9881;</button></div>
-		<div v-show="show(it)" class="rsrc" v-for="it in all"
-			:data-key="it.id" :key="it.id" ref="hidables"
+		<div class="config"><button ref="btnHides" class="btnConfig">&#9881;</button></div>
+		<div class="rsrc hidable" v-for="it in shown"
+			:data-key="it.id" :key="it.id"
 			@mouseenter.capture.stop="emit( 'itemover',$event,it)">
 
 			<span class="item-name">{{ it.name }}</span>

@@ -5,6 +5,7 @@ export default {
 
 	data(){
 		return {
+			togglingHides:false,
 			hides:{}
 		}
 	},
@@ -18,12 +19,19 @@ export default {
 
 				e.preventDefault();
 				if ( this.togglingHides ) {
+
 					this.stopHides();
 					e.target.classList.remove('inConfig');
+
 				}
 				else {
-					this.beginHides();
-					if ( this.togglingHides) e.target.classList.add('inConfig');
+
+					this.togglingHides = true;
+					e.target.classList.add('inConfig');
+
+					this.$nextTick( ()=>this.configHides());
+
+
 				}
 
 			});
@@ -38,12 +46,12 @@ export default {
 			return this.togglingHides||!this.hide[it.id];
 		},
 
-		beginHides(){
+		configHides(){
 
-			var hideElms = this.$refs.hidables;
-			if ( !hideElms) return;
-
-			this.togglingHides = true;
+			var hideElms = this.$el.querySelectorAll('.hidable');
+			if ( !hideElms) {
+				return;
+			}
 
 			/**
 			 * @property {(Event)=>null} onTogHide - listens to click events.
@@ -68,7 +76,7 @@ export default {
 		 */
 		stopHides(){
 
-			var hideElms = this.$refs.hidables;
+			var hideElms = this.$el.querySelectorAll('.hidable');
 			if (!hideElms) return;
 
 			// remove event listeners.
@@ -83,7 +91,6 @@ export default {
 
 			this.onTogHide = null;
 			this.togglingHides = false;
-			this.$forceUpdate();
 
 		},
 

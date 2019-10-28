@@ -1815,7 +1815,7 @@
 		"name":"thunderstrike",
 		"level":12,
 		"desc":"a blinding storm of lightning.",
-		"require":"g.airlore>=12>=3&&elec2>0",
+		"require":"g.airlore>=12&&g.elec2>0",
 		"school":"air",
 		"buy":{
 

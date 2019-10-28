@@ -3,7 +3,10 @@ import ProgBar from 'ui/components/progbar.vue';
 import Running from './running.vue';
 //import Mood from './items/mood.vue';
 
+import Settings from 'modules/settings';
+
 import Game from '../game';
+import UIMixin from './uiMixin';
 import ItemBase from './itemsBase';
 import { STOP_ALL } from '../events';
 
@@ -13,11 +16,21 @@ import { STOP_ALL } from '../events';
 export default {
 
 	props:['state'],
-	mixins:[ItemBase],
+	mixins:[ItemBase, UIMixin],
 	components:{
 		progbar:ProgBar,
 		//mood:Mood,
 		running:Running
+	},
+	data(){
+
+		let ops = Settings.getVars('vitals');
+		if (!ops.hide) ops.hide = {};
+
+		return {
+			hide:ops.hide
+		}
+
 	},
 	created(){
 
@@ -28,7 +41,10 @@ export default {
 
 		hp(){return this.state.getData('hp');},
 		focus() { return this.state.getData('focus'); },
+
 		manaList() { return this.state.filterItems( it=>it.hasTag('manas') && !it.locked)},
+		visMana(){return this.manaList.filter(v=>this.show(v))},
+
 		resting() {
 			return this.state.restAction.running;
 		},
@@ -57,20 +73,19 @@ export default {
 
 		<running :runner="state.runner" />
 
+		<div class="config"><button ref="btnHides" class="btnConfig">&#9881;</button></div>
+
 		<!-- anything not a table is a headache -->
 		<table class="bars">
 
-		<tr><td>stamina</td>
-		<td colspan="2"><progbar class="stamina" :value="stamina.valueOf()" :max="stamina.max.value"
+		<tr class="hidable" data-key="stamina" v-show="show(stamina)"><td>stamina</td><td colspan="2"><progbar class="stamina" :value="stamina.valueOf()" :max="stamina.max.value"
 			@mouseenter.capture.stop.native="emit( 'itemover',$event,stamina)"/></td></tr>
 
-		<tr><td>hp</td>
-		<td colspan="2"><progbar class="hp" :value="hp.valueOf()" :max="hp.max.value"
+		<tr class="hidable" data-key="hp" v-show="show(hp)"><td>hp</td><td colspan="2"><progbar class="hp" :value="hp.valueOf()" :max="hp.max.value"
 			@mouseenter.capture.stop.native="emit( 'itemover',$event,hp)"/></td></tr>
 
-		<tr v-for="it in manaList" :key="it.key">
-			<td>{{it.name}}</td>
-		<td colspan="2"><progbar :value="it.valueOf()" :class="it.id" :max="it.max.value"
+		<tr class="hidable" v-for="it in visMana" :key="it.key" :data-key="it.id">
+			<td>{{it.name}}</td><td colspan="2"><progbar :value="it.valueOf()" :class="it.id" :max="it.max.value"
 			@mouseenter.native.capture.stop="emit( 'itemover',$event,it)"/></td></tr>
 
 		<!--<tr><td>mood</td><td><mood :state="state" /></td></tr>-->
