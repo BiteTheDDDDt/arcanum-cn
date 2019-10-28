@@ -15,7 +15,7 @@ import SettingsUI from './sections/settings.vue';
 
 import LogView from './outlog.vue';
 
-import Settings from '../settings';
+import Settings from 'modules/settings';
 import Cheats from '../modules/cheats';
 
 import { TRY_BUY, USE, TRY_USE } from '../events';

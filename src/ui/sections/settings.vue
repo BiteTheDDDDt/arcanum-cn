@@ -1,5 +1,5 @@
 <script>
-import Settings from '../../settings';
+import Settings from 'modules/settings';
 
 import { center } from '../components/popups';
 

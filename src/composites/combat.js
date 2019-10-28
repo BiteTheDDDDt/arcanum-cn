@@ -198,6 +198,7 @@ export default class Combat {
 		for( let i = this._allies.length-1; i >= 0; i-- ) {
 
 			e = this._allies[i];
+			e.update(dt);
 			if ( e.alive === false ) {
 				continue;
 			}
@@ -209,6 +210,7 @@ export default class Combat {
 		for( let i = this._enemies.length-1; i >= 0; i-- ) {
 
 			e = this._enemies[i];
+			e.update(dt);
 			if ( e.alive === false ) { this._enemies.splice(i,1); continue;}
 			action = e.combat(dt);
 			if ( action ) this.attack( e, action, this._allies );

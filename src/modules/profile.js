@@ -1,5 +1,5 @@
 import Hall from "./hall";
-import Settings from '../settings';
+import Settings from './settings';
 import Events, { LEVEL_UP, CHAR_NAME, CHAR_TITLE, CHAR_CLASS } from "../events";
 
 import Module from "./gmodule";

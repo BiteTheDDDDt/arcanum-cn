@@ -2,7 +2,7 @@
 import Game from '../../game';
 import ItemBase from '../itemsBase';
 import SkillView from '../items/skill.vue';
-import Settings from '../../settings';
+import Settings from 'modules/settings';
 import {lowFixed} from '../../util/format';
 import {alphasort} from '../../util/util';
 

@@ -1,6 +1,7 @@
 <script>
 import ItemsBase from './itemsBase';
 import UIMixin from './uiMixin';
+import Settings from 'modules/settings';
 
 export default {
 
@@ -11,6 +12,9 @@ export default {
 		all(){
 			return this.items.filter( v=>!v.hasTag('manas')&&v.id!=='space'&&!this.reslocked(v))
 		},
+		shown(){
+			return this.all.filter(v=>!this.hide(v));
+		}
 	}
 
 }
@@ -21,7 +25,7 @@ export default {
 <div class="res-list">
 
 		<div><button ref="btnHides" class="btnConfig">&#9881;</button></div>
-		<div v-show="!hide(it)" class="rsrc" v-for="it in all"
+		<div class="rsrc" v-for="it in all"
 			:data-key="it.id" :key="it.id" ref="hidables"
 			@mouseenter.capture.stop="emit( 'itemover',$event,it)">
 

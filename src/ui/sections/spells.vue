@@ -1,6 +1,6 @@
 <script>
 import Game from '../../game';
-import Settings from '../../settings';
+import Settings from 'modules/settings';
 import {logObj} from '../../util/util';
 import ItemBase from '../itemsBase';
 

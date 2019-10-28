@@ -55,6 +55,7 @@ module.exports = {
 		],
 
 		alias: {
+			'modules':'modules',
 			'config': 'config',
 			"data": "../data",
 			'ui': 'ui'
