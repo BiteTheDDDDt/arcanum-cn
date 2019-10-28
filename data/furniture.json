@@ -1057,6 +1057,7 @@
 	{
 		"id":"liquifier",
 		"name":"arcane alembic",
+		"repeat":true,
 		"require":"solidifier",
 		"desc":"a complex alchemical process drips arcane energy onto gemstones.",
 		"cost":{
@@ -1317,7 +1318,7 @@
 		"mod":{
 			"sp.rate":0.001,
 			"ichor.rate":0.0005,
-			"liquifier.mod.gems.rate":"5%",
+			"liquifier.mod.gems.rate":"10%",
 			"enchanting.max":1,
 			"crafting.max":2,
 			"crafting.rate":0.4

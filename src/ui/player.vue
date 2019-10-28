@@ -211,8 +211,7 @@ div.player-tables div {
 	flex-basis: 50%;
 }
 
-div.player-view input[type=text].fld-name {
-	margin: 0; }
+div.player-view input[type=text].fld-name { margin: 0; }
 
 
 
