@@ -48,10 +48,9 @@ export default {
 
 		configHides(){
 
-			var hideElms = this.$el.querySelectorAll('.hidable');
-			if ( !hideElms) {
-				return;
-			}
+			var sel = this.$refs.hidables || this.$el;
+			var hideElms = sel.querySelectorAll('.hidable');
+			if ( !hideElms) return;
 
 			/**
 			 * @property {(Event)=>null} onTogHide - listens to click events.
@@ -76,7 +75,8 @@ export default {
 		 */
 		stopHides(){
 
-			var hideElms = this.$el.querySelectorAll('.hidable');
+			var sel = this.$refs.hidables || this.$el;
+			var hideElms = sel.querySelectorAll('.hidable');
 			if (!hideElms) return;
 
 			// remove event listeners.

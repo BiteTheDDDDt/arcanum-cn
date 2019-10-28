@@ -2,7 +2,7 @@
 import Game from '../game';
 import Menu from './components/menu.vue';
 import ResoucesView from './resources.vue';
-import Upgrades from './upgrades.vue';
+import Actions from './sections/actions.vue';
 import Quickbar from './quickbar.vue';
 import ItemsBase from './itemsBase';
 import Warn from './components/warn.vue';
@@ -11,7 +11,6 @@ import DotView from './dotView.vue';
 import ItemPopup from './items/itemPopup.vue';
 import TopBar from './top-bar.vue';
 import SettingsUI from './sections/settings.vue';
-
 
 import LogView from './outlog.vue';
 
@@ -36,7 +35,7 @@ export default {
 	mixins:[ItemsBase,Cheats],
 	components:{
 		resources:ResoucesView,
-		upgrades:Upgrades,
+		actions:Actions,
 		itempopup:ItemPopup,
 		vitals:Vitals,
 		log:LogView,
@@ -327,14 +326,7 @@ export default {
 		<vue-menu class="game-mid" :items="menuItems" v-model="section">
 
 		<template slot="sect_main">
-
-		<div class="main-actions">
-		<upgrades class="action-list" :items="state.actions.filter(v=>!v.perpetual&&!v.length)" />
-		<upgrades class="action-list" :items="state.actions.filter(v=>v.perpetual||v.length>0)" />
-		<upgrades class="upgrade-list" :items="state.upgrades" />
-		<upgrades class="upgrade-list" :items="state.classes" />
-		</div>
-
+		<actions class="main-actions" />
 		</template>
 
 		<template slot="sect_skills"><skills :state="state"></skills></template>

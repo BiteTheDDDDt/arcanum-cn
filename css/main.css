@@ -204,9 +204,13 @@ a {
 }
 
 div.config {
+	display:flex;
+	flex-flow: row-reverse nowrap;
+	position:sticky;
+	position: -webkit-sticky;
+	top:-2px;
 	margin:0;
 	padding: 0;
-	max-height: 14px;
 }
 
 .float{

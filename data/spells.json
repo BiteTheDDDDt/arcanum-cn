@@ -1720,6 +1720,7 @@
 			}
 		}
 	},
+
 	{
 		"id":"elec1",
 		"name":"lightning",
@@ -1932,6 +1933,30 @@
 				"player.damage":10
 			}
 		},"flavor":"don't lose your way"
+	},
+	{
+		"id":"unearth",
+		"desc":"raise precious stones from the ground.",
+		"school":"earth",
+		"level":3,
+		"buy":{
+
+			"research":300,
+			"codices":5,
+			"earthgem":5
+
+		},
+		"cost":{
+			"scrolls":1,
+			"earth":7
+		},
+		"dot":{
+			"duration":120,
+			"mod":{
+				"gems.rate":0.25
+			}
+		},"flavor":"hi-ho, hi-ho"
+
 	},
 	{
 		"id":"ironskin",

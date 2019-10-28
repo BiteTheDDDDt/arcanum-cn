@@ -56,13 +56,8 @@ div.res-list {
 	overflow-y:auto;
 	overflow-x:visible;
 	width: fit-content;
-	margin: 0; padding: var(--sm-gap);
+	margin: 0; padding: 0 var(--tiny-gap);
 	min-width: 200px;
-}
-
-div.res-list .rsrc {
-	display: flex;
-	padding: var(--tiny-gap);
 }
 
 .rsrc .item-name {

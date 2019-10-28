@@ -49,9 +49,7 @@ export default {
 		minLevel:{
 
 			get(){ return this.min; },
-			set(v){
-				this.min = Settings.setVar( 'spells', 'min', Number(v) );
-			}
+			set(v){ this.min = Settings.setVar( 'spells', 'min', Number(v) ); }
 
 		},
 
