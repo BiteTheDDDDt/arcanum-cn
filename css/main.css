@@ -4,13 +4,23 @@
 	--action-button-border-color: #000C;
 	--quiet-text-color: #888;
 	--very-quiet-text-color: #AAA;
-	--separator-color: #d8d8d8;
 	--accent-color-hover: #Dba659;
 	--accent-color-active: #797979;
 	--progbar-dark-text:#222;
 	--progbar-light-text:#555;
 	--odd-list-color:#e5e5e5;
 	--action-btn-color: #fdc679;
+
+	--action-button-width: 128px;
+	--separator-color: #AAA;
+	--list-entry-background: #00000007;
+	--list-entry-border-radius: 8px;
+	--header-background-color: #EEE;
+	--compact-small-font: 1.0em;
+	--compact-medium-font: 1.0em;
+	--popup-background-color: #FAFAFAEE;
+	--popup-border: 2px solid #646464;
+	--subtle-border-radius: 4px;
 
 	--high-depth:30000;
 	--md-high:20000;
@@ -38,6 +48,19 @@
 	--separator-color: #555;
 	--odd-list-color:#222;
 }
+
+:root body.compact {
+	--comfy-gap: 0;
+	--tiny-gap: 0.1em;
+	--sm-gap: 0.25em;
+	--md-gap: 0.4em;
+	--lg-gap: 0.5em;
+	--compact-small-font: 0.75em;
+	--compact-small-font: 0.9em;
+}
+
+
+* { box-sizing: border-box; }
 
 body {
 	font-family: 'Open Sans', sans-serif;
@@ -119,9 +142,7 @@ input[type="button"]:hover, button:hover, .text-button:hover {
 	background: var(--action-btn-color);
 }
 
-.runnable button:hover {
-	background:#Dba659;
-}
+.runnable button:hover { background: #dba659; }
 
 .darkmode .runnable button:hover {
 	background:rgb(197, 150, 79)
@@ -158,10 +179,11 @@ ul {
 }
 
 div.div-hr {
-	border-bottom: 1px solid black;
-	margin-bottom: 6px;
-	padding-bottom:2px;
+	background: var(--header-background-color); padding: var(--sm-gap);
+	border: none; margin: 0;
 }
+.table-head { border: none; }
+
 
 a {
 	color:inherit;

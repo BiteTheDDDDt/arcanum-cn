@@ -33,47 +33,8 @@
 @author         gokiburikin
 */
 
-:root {
-        --action-button-width: 128px;
-        --background-color: #FAFAFA;
-        --button-text-color: #000C;
-        --action-button-border-color: #000C;
-        --accent-color-hover: #Dba659;
-        --accent-color-active: #797979;
-        --quiet-text-color: #888;
-        --very-quiet-text-color: #AAA;
-        --separator-color: #AAA;
-        --list-entry-background: #00000007;
-        --list-entry-border-radius: 8px;
-        --header-background-color: #EEE;
-        --compact-small-font: 1.0em;
-        --compact-medium-font: 1.0em;
-        --popup-background-color: #FAFAFAEE;
-        --popup-border: 2px solid #646464;
-        --subtle-border-radius: 4px;
-    }
-    :root body.darkmode {
-        --button-text-color: #FFF;
-        --action-button-border-color: #FFF;
-    }
-    :root body.compact {
-        --comfy-gap: 0;
-        --tiny-gap: 0.1em;
-        --sm-gap: 0.25em;
-        --md-gap: 0.4em;
-        --lg-gap: 0.5em;
-        --compact-small-font: 0.75em;
-        --compact-small-font: 0.9em;
-    }
-
-    * { box-sizing: border-box; }
-
-
-
     /* General Changes */
 
-    div.div-hr { border: none; margin: 0; }
-    .table-head { border: none; }
 
 
     /* Main Layout */
@@ -326,10 +287,6 @@
     .full div.vitals .bars tr:not(:first-child) { padding: var(--sm-gap) var(--sm-gap); }
     .full div.vitals .bars tr td:nth-child(1) { flex-basis: 50%; }
 
-    .runnable button:hover { background: #dba659; }
-    .text-button:hover { background-color: rgb(194, 194, 194); }
-    .text-button:active { background-color: rgb(121, 121, 121); }
-
 
     .skill div:last-child { color: #999; text-align: center; }
     body.compact .skill div:last-child { display: flex; }
@@ -386,20 +343,11 @@
     .full div.spellbook div.filters div.checks { margin: 0; padding: 0 0.5em; flex-basis: unset; }
 
 
-
-
-
     /* Beastiary */
 
     .game-mid .menu-content > div.bestiary { padding: 0; margin: 0; }
     .game-mid .menu-content > div.bestiary .char-list { padding: 0; margin: 0; }
 
-    /* Minions */
-
-    div.bestiary[data-v-ee7d6c4a] {
-        display: flex;
-        flex-flow: column;
-    }
 
 </style>
 
