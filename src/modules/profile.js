@@ -207,6 +207,7 @@ export default {
 
 	/**
 	 * Load settings for active wizard.
+	 * @returns {object}
 	 */
 	loadSettings() {
 
@@ -216,6 +217,8 @@ export default {
 			let data = JSON.parse( str );
 
 			Settings.setSettings( data );
+
+			return Settings.getAll();
 
 		} catch (e ) {
 			console.error( e.message + '\n' + e.stack );

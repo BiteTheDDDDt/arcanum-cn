@@ -38,6 +38,8 @@ export default {
 
 	},
 
+	getAll(){return this.vars;},
+
 	/**
 	 * Set value of a subkeyed object.
 	 * @param {string} type

@@ -420,7 +420,7 @@
 		"id":"gembox",
 		"name":"gem box",
 		"desc":"Finely crafted box for storing magic gems.",
-		"require":["tier0","gem"],
+		"require":["tier0","magicgems"],
 		"max":5,
 		"cost":{
 			"gems":15,

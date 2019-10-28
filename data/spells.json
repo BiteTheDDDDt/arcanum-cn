@@ -1521,12 +1521,13 @@
 		"level":4,
 		"require":"trickster",
 		"desc":"curse all enemies with a streak of bad luck.",
+		"school":"chaos",
 		"buy":{
 			"research":1000,
 			"codices":10
 		},
 		"cost":{
-			"mana":3
+			"chaos":1
 		},
 		"attack":{
 			"targets":"enemies",
@@ -1692,7 +1693,7 @@
 
 		},
 		"cost":{
-			"air":1
+			"air":2
 		},
 		"at":{
 			"30":{
@@ -2036,13 +2037,54 @@
 
 	},
 	{
-		"id":"earthquake",
-		"desc":"the earth shakes beneath your feet.",
-		"school":"earth",
-		"require":{
-			"earthlore":12
-		},
+		"id":"tremor",
 		"level":5,
+		"desc":"The earth shakes beneath your enemies' feet",
+		"require":"mud",
+		"school":"earth",
+		"buy":{
+
+			"research":100,
+			"codices":30,
+			"earthgem":5
+
+		},
+		"cost":{
+			"earth":5
+		},
+		"at":{
+			"30":{
+				"attack.toHit":1
+			},
+			"100":{
+				"attack.damage.max":1,
+				"attack.toHit":2
+			},
+			"300":{
+				"attack.damage.max":2,
+				"attack.damage.min":1,
+				"attack.toHit":2
+			}
+		},
+		"attack":{
+			"tohit":2,
+			"targets":"enemies",
+			"kind":"earth",
+			"dot":{
+				"dmg":"2~3",
+				"duration":3,
+				"mod":{
+					"speed":-10
+				}
+			}
+		}
+	},
+	{
+		"id":"quake",
+		"alias":"earthquake",
+		"desc":"the earth shakes at your command",
+		"school":"earth",
+		"level":9,
 		"buy":{
 
 			"sp":1,
@@ -2097,7 +2139,8 @@
 	},
 	{
 
-		"id":"magnificence",
+		"id":"splendor",
+		"alias":"magnificence",
 		"level":7,
 		"school":"light",
 		"desc":"",
@@ -2196,6 +2239,46 @@
 
 	},
 	{
+
+		"id":"hightide",
+		"name":"high tide",
+		"school":"water",
+		"level":6,
+		"desc":"flood the field of battle",
+		"cd":40,
+		"buy":{
+
+			"research":400,
+			"watergem":10,
+			"tomes":5
+
+		},
+		"cost":{
+			"water":5
+		},
+		"attack":{
+			"dot":{
+				"kind":"water",
+				"targets":"enemies",
+				"dmg":"3~7",
+				"duration":30,
+				"mod":{
+					"speed":-5,
+					"dodge":-10
+				}
+			}
+		},
+		"dot":{
+			"targets":"allies",
+			"duration":30,
+			"mod":{
+				"player.resist.water":50
+			}
+
+		}
+
+	},
+	{
 		"id":"cordyceps",
 		"level":7,
 		"school":"nature",
@@ -2242,6 +2325,41 @@
 		"effect":{
 			"hp":200
 		}
+	},
+	{
+
+		"id":"forceten",
+		"name":"force ten",
+		"school":"water",
+		"level":10,
+		"desc":"The storm before the calm.",
+		"buy":{
+
+			"research":4000,
+			"watergem":25,
+			"tomes":20
+
+		},
+		"cost":{
+			"water":8
+		},
+		"attack":{
+			"dot":{
+				"kind":"water",
+				"targets":"all",
+				"dmg":"20~30",
+				"duration":30
+			}
+		},
+		"dot":{
+			"targets":"allies",
+			"duration":30,
+			"mod":{
+				"player.resist.water":75
+			}
+
+		},"flavor":"the force without form"
+
 	},
 	{
 

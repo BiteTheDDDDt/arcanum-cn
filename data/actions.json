@@ -692,8 +692,8 @@
 		},
 		"effect":{
 			"arcana":0.001,
-			"virtue":1,
-			"notoriety":1,
+			"virtue":0.1,
+			"notoriety":0.002,
 			"history.max":0.001,
 			"history.exp":1,
 			"lightlore.max":0.001,
@@ -807,7 +807,7 @@
 
 		"id":"craftrune",
 		"name":"craft rune",
-		"require":"g.crafting>=14&&g.runes>=3",
+		"require":"g.crafting>=14&&g.runelore>=3",
 		"length":10,
 		"cost":{
 			"tomes":1,

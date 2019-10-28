@@ -34,7 +34,7 @@ export default {
 			return Game.state.upgrades.filter( v=>!this.locked(v)&&this.show(v) )
 		},
 		classes(){
-			return Game.state.classes.filter(v=>!locked(v)&&this.show(v));
+			return Game.state.classes.filter(v=>!this.locked(v)&&this.show(v));
 		}
 
 	}
@@ -47,8 +47,8 @@ export default {
 		<div class="config"><button ref="btnHides" class="btnConfig">&#9881;</button></div>
 		<upgrades class="action-list" :items="visActs" />
 		<upgrades class="action-list" :items="visRuns" />
-		<upgrades class="upgrade-list" :items="state.upgrades" />
-		<upgrades class="upgrade-list" :items="state.classes" />
+		<upgrades class="upgrade-list" :items="ups" />
+		<upgrades class="upgrade-list" :items="classes" />
 	</div>
 </template>
 

@@ -116,13 +116,27 @@ const vm = new Vue({
 
 			console.log('GAMELOADED(): ' + game );
 
-			Profile.loadSettings();
+			let settings = Profile.loadSettings();
+			this.onSettings( settings );
+
 			this.dispatch( 'game-loaded' );
 
 			Profile.gameLoaded( game );
 
 			this.dispatch('unpause');
 
+		},
+
+		/**
+		 * Call on settings loaded.
+		 * @param {*} vars
+		 */
+		onSettings(vars){
+
+			if (!vars) return;
+
+			this.onSetting( 'darkMode', vars.darkMode );
+			this.onSetting( 'compactMode', vars.compact );
 		},
 
 		onSetting( setting, v ) {

@@ -287,7 +287,11 @@ export default class GData {
 		if ( this.effect ) g.applyEffect(this.effect, count );
 		if ( this.mod ) g.addMod( this.mod, count );
 		if ( this.lock ) g.lock( this.lock );
-		if ( this.dot ) g.state.player.addDot( new Dot(this.dot, this.id, this.name) );
+		if ( this.dot ) {
+
+			g.state.player.addDot( new Dot(this.dot, this.id, this.name) );
+
+		}
 
 		if ( this.disable ) g.disable( this.disable );
 

@@ -383,7 +383,7 @@
 		"desc":"Incorporate martial weapons into your magic.",
 		"require":"g.spellblade>0||g.battlemage>0||g.dreadlord>0",
 		"need":"armssource",
-		"cost":{
+		"buy":{
 			"sp":2
 		},
 		"run":{
