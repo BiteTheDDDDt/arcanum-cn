@@ -90,6 +90,8 @@ export default {
 			this.state = Game.state;
 
 			let curview = Settings.get('curview') || 'sect_main';
+			console.warn('VIEW CHANGE: ' +  curview );
+
 
 			this.section = this.state.sections.find( v=>v.id===curview );
 

@@ -11,6 +11,7 @@ import {center} from '../components/popups.js';
  *
  * @emits set-char
  * @emits dismiss-char
+ * @emits close
  */
 export default {
 
@@ -33,6 +34,7 @@ export default {
 
 		load( slot ) {
 
+			this.$emit('close');
 			this.dispatch('set-char', slot );
 
 		},

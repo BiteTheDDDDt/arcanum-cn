@@ -1831,6 +1831,22 @@
 
 	},
 	{
+		"id":"wildmarket",
+		"name":"goblin market",
+		"require":"(g.druid+g.fey+g.kell)>0",
+		"desc":"Sell your bounty to a magic market in the wild",
+		"cost":{
+			"herbs":50,
+			"research":3000,
+			"naturegem":10
+		},
+		"mod":{
+			"herbs.rate":-0.5,
+			"gold.rate":0.2
+		}
+
+	},
+	{
 		"id":"crucible",
 		"name":"fine crucible",
 		"desc":"resiliant vessel for melting substances",

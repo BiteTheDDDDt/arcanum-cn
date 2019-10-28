@@ -609,7 +609,7 @@
 		"desc":"commune with natural forces",
 		"perpetual":true,
 		"require":"g.naturelore>=12",
-		"fill":[ "nature", "hp", "mana", "stamina","stress"],
+		"fill":[ "hp", "manas", "stamina","stress"],
 		"effect":{
 			"stress":-1.4,
 			"manas":{
@@ -633,7 +633,7 @@
 		"require":"(g.witch+g.thanophage)>0",
 		"need":"cauldron",
 		"desc":"how could you!?!",
-		"fill":[ "shadow", "hp", "mana", "stamina", "spirit", "stress" ],
+		"fill":[ "hp", "manas", "stamina", "stress" ],
 		"every":{
 			"100":{
 				"effect.hp":0.5,
