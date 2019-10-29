@@ -62,6 +62,7 @@
 		"name":"Solitary Magic",
 		"desc":"Some say the study of magic doesn't truly begin until apprenticeship ends. People say a lot of things.",
 		"disable":["study", "chores","errands","leavemaster","slaymaster", "pestcontrol", "alcove", "atticbedroom"],
+		"lock":"t_tier0",
 		"effect":{
 			"innroom":true,
 			"sp":1,
