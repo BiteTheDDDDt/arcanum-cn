@@ -13,6 +13,20 @@ export const setModCounts = ( m, v)=>{
 
 }
 
+/**
+ * Initialize object's mods with count === Value stat.
+ * @param {*} m
+ * @param {Stat} v
+ */
+export const initMods = ( m, v)=>{
+
+	if ( m instanceof Mod ) m.count = v;
+	else if ( typeof m ==='object') {
+		for( let p in m ){ initMods(m[p], v); }
+	}
+
+}
+
 export function mergeClass( destClass, src ) {
 
 	let proto = destClass.prototype || destClass;
@@ -291,14 +305,12 @@ export default {
 	},
 
 	/**
-	 * Apply a mod when the mod is an object.
+	 * Apply a mod when the mod is recursive object.
 	 * @param {Object} mod
 	 * @param {number} amt - percent of mod added.
 	 * @param {Object} targ - target of mods.
 	 */
 	applyObj( mods, amt, targ ) {
-
-		if ( mods.mod ) { Game.addMod( this.mod, -this.value.valueOf() ); }
 
 		for( let p in mods ) {
 
@@ -340,10 +352,7 @@ export default {
 
 		}
 
-		if ( mods.mod ) {
-			Game.addMod( this.mod, this.value.valueOf() );
-		}
-
+		if ( mods.mod ) { Game.addMod( this.mod, this.value ); }
 
 	},
 

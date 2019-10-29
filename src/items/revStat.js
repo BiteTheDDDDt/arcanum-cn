@@ -11,7 +11,7 @@ export default class RevStat extends Resource {
 		super(vars);
 
 		if ( !this._max ) this.max = 0;
-		this._value = this._value || 0;
+		//if (!this.value ) this.value = 0;
 
 	}
 

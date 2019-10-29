@@ -85,7 +85,11 @@ export default class Mod extends Stat {
 	 * @property {number} [count=0] - number of times mod is applied.
 	 */
 	get count() { return this._count; }
-	set count(v) { this._count = v; }
+	set count(v) {
+		if ( !(v instanceof Stat)) console.warn(this.id + ' COUNT NOT STAT: ' + v );
+		else console.log( this.id + ' SETTING COUNT: ' + v.valueOf() );
+		this._count = v;
+	}
 
 	/**
 	 * @property {number} bonus - total flat bonus of mod.
@@ -95,18 +99,6 @@ export default class Mod extends Stat {
 	 * @property {number} pct - total percent bonus of mod.
 	 */
 	get pct(){return this.basePct * (1+ this.mPct); }
-
-	/**
-	 * @property {number} [pct=0] - pct as decimal.
-	 */
-	//get pct() { return this._pct; }
-	//set pct(v) { this._pct = v; }
-
-	/**
-	 * @property {number} [bonus=0] - base modifier. (constant added bonus)
-	 */
-	//get base() { return this._base; }
-	//set base(v) { this._base = v; }
 
 	get value() { return super.value; }
 	set value(v) {
@@ -151,10 +143,11 @@ export default class Mod extends Stat {
 		if ( typeof vars === 'number') this.base = vars;
 		else if ( typeof vars === 'string') this.value = vars;
 		else if ( vars ) {
-		 Object.assign( this, vars );
+			Object.assign( this, vars );
 		}
 
-		this._count = this._count || 0;
+		if(!this._count) this._count = 0;
+
 		this.base = this.base || 0;
 		this.basePct = this.basePct || 0;
 
@@ -164,42 +157,6 @@ export default class Mod extends Stat {
 	}
 
 	clone() { return new Mod({base:this.base, basePct:this.basePct, count:1}, this.id ); }
-
-	/**
-	 * Update the modifier with additional values.
-	 * @param {number|Percent|Object} mod
-	 * @param {number} [amt=1]
-	 */
-	add( mod, amt=1 ) {
-
-		//console.warn('CHANGING MOD: ' + this.id + ' by mod: ' + (mod.id||typeof mod) );
-
-		let typ = typeof mod;
-		if ( typ === 'number') {
-
-			this.base += amt*mod;
-
-		} else if ( mod instanceof Percent ) {
-
-			this.mPct += amt*mod.pct;
-
-
-		} else if ( typ === 'object') {
-
-			this.mBase += amt*mod.bonus || 0;
-			this.mPct += amt*mod.pct || 0;
-
-			if ( this.id === 'liquifier') {
-
-				console.log('OBJ MOD LIQ: ' + amt + ' bonus: ' + mod.bonus + ' pct: ' + mod.pct + ' VAL: ' + this.value );
-
-			}
-
-		}
-
-		//this.emit('change', this);
-
-	}
 
 	/**
 	 * Apply this modifier to a given target.
@@ -218,11 +175,11 @@ export default class Mod extends Stat {
 
 			console.log('MOD.applyTo() CREATE NEW MOD AT TARGET: ' + p );
 			let s = obj[p] = new Stat( targ || 0, p );
-			s.apply( this, amt );
+			s.addMod( this, amt );
 
 		} else if ( typeof targ === 'object') {
 
-			console.warn( this.id + ' Generic Mod Target: ' + targ.id );
+			console.warn( this.id + ' !!!!Generic Mod Target: ' + targ.id );
 			targ.value = ( ( Number(targ.value) || 0 ) + amt*this.bonus )*( 1 + amt*this.pct );
 
 			// TODO? Percent all of obj?

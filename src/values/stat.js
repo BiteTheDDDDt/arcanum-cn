@@ -156,9 +156,9 @@ export default class Stat {
 	/**
 	 * Add a modifier to the stat.
 	 * @param {Mod} mod
-	 * @param {number} [del=1] - amount by which mod increased.
+	 * @param {number} [amt=1] - amount by which mod increased.
 	 */
-	addMod( mod, del=1 ) {
+	/*addMod( mod, del=1 ) {
 
 		this._mPct += del*mod.pct;
 		this._mBase += del*mod.bonus;
@@ -176,9 +176,34 @@ export default class Stat {
 		}
 
 
-	}
+	}*/
 
-	setMod( mod ) {
+	/**
+	 *
+	 * @param {Mod} mod
+	 * @param {number} amt
+	 */
+	addMod( mod, amt=1 ) {
+
+		//this._mPct += amt*mod.pct;
+		//this._mBase += amt*mod.bonus;
+
+		this.mods[mod.id] = mod;
+		this.recalc();
+
+		/*let cur = this.mods[ mod.id ];
+		if ( cur === undefined ) {
+			cur = this.mods[mod.id] = mod;
+		}*/
+		if ( this.id === 'liquifier') {
+
+			console.log('ADDMOD LIQ: ' + amt + ' bonus: ' + mod.bonus + ' pct: ' + mod.pct + ' :vAL: ' + this.value);
+			console.log('FINAL MOD LIQ: '  + ' bonus: ' + this.bonus + ' pct: ' + this.pct + ' :basePct: ' + this.basePct);
+		} else if ( mod.id ==='liquifier' && this.id.includes('managem')){
+			console.log( this.id + ' aPPLY LIQ: ' + amt + ' bonus: ' + mod.bonus + ' ' + mod.pct+'%  this val: ' +  this.value );
+		}
+
+
 	}
 
 	removeMod( mod ){

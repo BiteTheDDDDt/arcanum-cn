@@ -1,6 +1,6 @@
 import { defineExcept, clone } from 'objecty';
 import Stat from '../values/stat';
-import Base, {mergeClass} from './base';
+import Base, {mergeClass, setModCounts, initMods} from './base';
 import { arrayMerge, assignPublic, logObj } from '../util/util';
 import Events, { ITEM_ATTACK, EVT_EVENT, EVT_UNLOCK } from '../events';
 import Dot from '../chars/dot';
@@ -112,20 +112,25 @@ export default class GData {
 
 		if ( v instanceof Stat ) {
 
-			this._value = v;
+			if ( this._value === null || this._value === undefined ) this._value = v;
+			else if ( v !== this._value ) {
+
+				console.warn('SETTING NEW STAT VAL FOR: ' + this.id );
+				this._value.base = v.base;
+				this._value.basePct = v.basePct;
+
+			}
 
 		} else if ( this._value !== undefined ) {
 
 			this._value.base = (typeof v === 'object') ? v.value : v;
 
-		} else this._value = new Stat(v );
+		} else this._value = new Stat( v, this.id );
 
 	}
 
 	get val() { return this.value; }
-	set val(v) {
-		this.value = v;
-	}
+	set val(v) { this.value = v; }
 
 	valueOf(){ return this._value.valueOf(); }
 
@@ -156,6 +161,10 @@ export default class GData {
 
 		defineExcept( this, null,
 			['require', 'rate', 'current', 'need', 'value', 'buy', 'max', 'cost', 'id', 'name', 'warn', 'effect', 'slot' ]);
+
+		if ( this.mod ) {
+			initMods( this.mod, this.value );
+		}
 
 	}
 
@@ -293,7 +302,9 @@ export default class GData {
 
 		if ( this.title ) g.state.player.setTitle( this.title );
 		if ( this.effect ) g.applyEffect(this.effect, count );
-		if ( this.mod ) g.addMod( this.mod, count );
+		if ( this.mod ) {
+			g.addMod( this.mod );
+		}
 		if ( this.lock ) g.lock( this.lock );
 		if ( this.dot ) {
 

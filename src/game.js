@@ -906,6 +906,7 @@ export default {
 			let t = this.getData(mod);
 			if ( t ) {
 
+				console.warn('!!!!!!!!!!!!!!ADDING NUMBER MOD: ' + mod );
 				t.amount( this, 1 );
 
 			} else {
