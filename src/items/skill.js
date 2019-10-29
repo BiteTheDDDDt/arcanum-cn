@@ -29,14 +29,14 @@ export default class Skill extends Action {
 
 		this.type = 'skill';
 
-		if ( !this.length || this.value == 0 ) this.length = levLength( this.level || 0 );
+		if ( !this.length || this.value == 0 ) this.length = levLength( this.level +this.value.valueOf() );
 
 		this._exp = this._exp || 0;
 
 		/** @compatibility */
 		if ( this.value >= 1 ){
 
-			let len = (vars.template.length || 50)*levLength( this.level || this.value.valueOf() );
+			let len = levLength( this.level + this.value.valueOf() );
 			if ( this.length > len ) {
 				this.length = len;
 			}
