@@ -871,41 +871,6 @@ export default {
 	},
 
 	/**
-	 * Set/replace modifier values.
-	 * @param {object||object[]} mod
-	 * @param {*} amt
-	 */
-	setMod( mod, amt ) {
-
-		if ( !mod ) return;
-
-		if ( Array.isArray(mod)  ) for( let m of mod ) this.setMod(m, amt);
-		else if ( typeof mod === 'object' ) {
-
-			for( let p in mod ) {
-
-				var target = this.getData( p );
-
-				if ( target === undefined ) continue;// this.modTag( p, mod[p], amt );
-				else if ( mod[p] === true ){
-
-					target.doUnlock(this);
-
-				} else {
-
-					if ( target.applyMods) {
-						target.setMods( mod[p], amt );
-						target.dirty = true;
-					} else console.warn( 'no applyMods func: ' + target );
-
-				}
-			}
-
-		}
-
-	},
-
-	/**
 	 * Apply a mod.
 	 * @param {Array|Object} mod
 	 * @param {number} amt - amount added.

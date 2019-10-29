@@ -32,7 +32,7 @@ export default class StatData extends GData {
 		 */
 		if ( this.unit === null || this.unit === undefined ) this.unit = true;
 
-		if ( this._rate === null || this.rate === undefined ) this._rate = new Stat(0);
+		if ( this._rate === null || this.rate === undefined ) this.rate = 0;
 
 		this._type = this._type || 'resource';
 

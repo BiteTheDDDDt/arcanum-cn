@@ -146,6 +146,11 @@ export default class Stat {
 
 		}
 
+		if ( this.id === 'liquifier') {
+
+			console.log('APPLYMOD LIQ: ' + del + ' bonus: ' + mod.bonus + ' pct: ' + mod.pct );
+		}
+
 	}
 
 	/**
@@ -162,7 +167,18 @@ export default class Stat {
 		if ( cur === undefined ) {
 			cur = this.mods[mod.id] = mod;
 		}
+		if ( this.id === 'liquifier') {
 
+			console.log('ADDMOD LIQ: ' + del + ' bonus: ' + mod.bonus + ' pct: ' + mod.pct + ' :vAL: ' + this.value);
+			console.log('FINAL MOD LIQ: '  + ' bonus: ' + this.bonus + ' pct: ' + this.pct + ' :basePct: ' + this.basePct);
+		} else if ( mod.id ==='liquifier' && this.id.includes('managem')){
+			console.log( this.id + ' aPPLY LIQ: ' + del + ' bonus: ' + mod.bonus + ' ' + mod.pct+'%  this val: ' +  this.value );
+		}
+
+
+	}
+
+	setMod( mod ) {
 	}
 
 	removeMod( mod ){
@@ -170,8 +186,8 @@ export default class Stat {
 		let cur = this.mods[mod.id];
 		if ( cur === undefined) return;
 
-		this._mPct -= mod.pctTot;
-		this._mBase -= mod.bonusTotal;
+		this.mPct -= mod.pctTot;
+		this.mBase -= mod.bonusTotal;
 
 		this.mods[mod.id] = undefined;
 

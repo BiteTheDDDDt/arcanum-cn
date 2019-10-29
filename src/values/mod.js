@@ -54,7 +54,7 @@ export default class Mod extends Stat {
 	toJSON(){
 
 		var val = this._basePct === 0 ? this.base : (
-			(this.base || '') + (( this._basePct > 0 ? '+' : '') + (100*this._basePct)  + '%')
+			(this.base || '') + (( this._basePct > 0 ? '+' : '') + (100*this.basePct)  + '%')
 		);
 
 		//console.log('mod save val: ' + val );
@@ -73,10 +73,10 @@ export default class Mod extends Stat {
 		: '' );
 
 
-		if ( this._basePct !== 0 ) {
+		if ( this.basePct !== 0 ) {
 
 			if ( this.base !== 0 ) s += ', ';
-			s += ( this._basePct > 0 ? '+' : '' ) + (100*this._basePct) + '%';
+			s += ( this.basePct > 0 ? '+' : '' ) + (100*this.basePct) + '%';
 		}
 		return s;
 	}
@@ -90,11 +90,11 @@ export default class Mod extends Stat {
 	/**
 	 * @property {number} bonus - total flat bonus of mod.
 	 */
-	get bonus(){return this._base + this.mBase; }
+	get bonus(){return (this.base + this.mBase)*(1+this.mPct); }
 	/**
 	 * @property {number} pct - total percent bonus of mod.
 	 */
-	get pct(){return this._basePct + this.mPct; }
+	get pct(){return this.basePct * (1+ this.mPct); }
 
 	/**
 	 * @property {number} [pct=0] - pct as decimal.
@@ -151,9 +151,7 @@ export default class Mod extends Stat {
 		if ( typeof vars === 'number') this.base = vars;
 		else if ( typeof vars === 'string') this.value = vars;
 		else if ( vars ) {
-
-			if ( vars.bonus )logObj(vars, id);
-			else Object.assign( this, vars );
+		 Object.assign( this, vars );
 		}
 
 		this._count = this._count || 0;
@@ -162,6 +160,7 @@ export default class Mod extends Stat {
 
 		this.id = id || this.id || DEFAULT_MOD;
 
+		if ( this.id === 'liquifier' ) console.log('LIQ BASE PCT: ' + this.basePct );
 	}
 
 	clone() { return new Mod({base:this.base, basePct:this.basePct, count:1}, this.id ); }
@@ -182,17 +181,19 @@ export default class Mod extends Stat {
 
 		} else if ( mod instanceof Percent ) {
 
-			this.basePct += amt*mod.pct;
+			this.mPct += amt*mod.pct;
+
 
 		} else if ( typ === 'object') {
 
+			this.mBase += amt*mod.bonus || 0;
+			this.mPct += amt*mod.pct || 0;
+
 			if ( this.id === 'liquifier') {
 
-				console.log('MOD LIQ: ' + amt + ' bonus: ' + mod.bonus + ' pct: ' + mod.pct );
-			}
+				console.log('OBJ MOD LIQ: ' + amt + ' bonus: ' + mod.bonus + ' pct: ' + mod.pct + ' VAL: ' + this.value );
 
-			this.base += amt*mod.bonus || 0;
-			this.basePct += amt*mod.pct || 0;
+			}
 
 		}
 

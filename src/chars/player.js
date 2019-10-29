@@ -151,18 +151,13 @@ export default class Player extends Char {
 	 * @property {.<string,Stat>} hits - tohit bonuses per damage kind.
 	 */
 	get hits(){ return this._hits ? this._hits : (this._hits = {}) }
-	set hits(v){
-		this._hits = toStats(v);
-	}
+	set hits(v){ this._hits = toStats(v); }
 
 	/**
 	 * @property {.<string,Stat>} bonuses - damage bonuses per damage kind.
 	 */
 	get bonuses(){ return this._bonuses ? this._bonuses : (this._bonuses = {}) }
-	set bonuses(v){
-		console.log('setting bonuses');
-		this._bonuses = toStats(v);
-	}
+	set bonuses(v){ this._bonuses = toStats(v); }
 
 	/**
 	 * NOTE: Elements that are themselves Items are not encoded,

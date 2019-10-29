@@ -50,13 +50,17 @@ export default class GData {
 	get rate() { return this._rate; }
 	set rate(v){
 
-		if ( v instanceof Stat ) this._rate = v;
-		else if ( this._rate ) {
+		if ( v instanceof Stat ) {
+
+			v.id = this.id + '.rate';
+			this._rate = v;
+
+		} else if ( this._rate ) {
 
 			if ( typeof v === 'object' ) Object.assign( this._rate, v);
 			else this._rate.base = v;
 
-		} else this._rate = new Stat(v);
+		} else this._rate = new Stat( v, this.id + '.rate' );
 
 	}
 
@@ -132,7 +136,11 @@ export default class GData {
 	constructor( vars=null, defaults=null ){
 
 		if ( vars ) {
-			if ( typeof vars === 'object') assignPublic( this, vars );
+
+			if ( typeof vars === 'object'){
+				if ( vars.id ) this.id = vars.id;	// used to assign sub-ids.
+				assignPublic( this, vars );
+			}
 			else if ( !isNaN(vars) ) this.val = vars;
 		}
 		if ( defaults ) this.setDefaults( defaults );

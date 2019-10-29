@@ -1,8 +1,17 @@
-import {changes, jsonify, cloneClass } from 'objecty';
+import {changes, jsonify } from 'objecty';
 import Game from '../game';
 import Stat from '../values/stat';
 import Mod from '../values/mod';
 import { logObj } from '../util/util';
+
+export const setModCounts = ( m, v)=>{
+
+	if ( m instanceof Mod ) m.count = v;
+	else if ( typeof m ==='object') {
+		for( let p in m ){ setModCounts(m[p], v); }
+	}
+
+}
 
 export function mergeClass( destClass, src ) {
 
@@ -289,9 +298,7 @@ export default {
 	 */
 	applyObj( mods, amt, targ ) {
 
-		if ( mods.mod ) {
-			Game.addMod( this.mod, -this.value.valueOf() );
-		}
+		if ( mods.mod ) { Game.addMod( this.mod, -this.value.valueOf() ); }
 
 		for( let p in mods ) {
 

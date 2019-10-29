@@ -67,7 +67,6 @@ export default class Item {
 
 		this.value = this._value || 1;
 
-		if ( this.id && this.id.includes('apple')) console.warn('count: ' + this.value );
 		if ( this.consume === null || this.consume === undefined ) this.consume = this.defaults.consume;
 		if ( this.stack === null || this.stack === undefined ) this.stack = this.defaults.stack;
 
