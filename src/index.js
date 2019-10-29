@@ -39,6 +39,11 @@ Vue.mixin({
 const vm = new Vue({
 	el: '#vueRoot',
 	components:{ Main },
+	data(){
+		return {
+			renderKey:1
+		}
+	},
 	created(){
 
 		this.lastSave = null;
@@ -93,6 +98,7 @@ const vm = new Vue({
 		 * Load the save for the active wizard.
 		 */
 		loadSave() {
+
 
 			try {
 
@@ -211,7 +217,7 @@ const vm = new Vue({
 			} catch( err ) {
 				console.error(  err.message + '\n' + err.stack );
 			}
-
+this.renderKey++;
 		},
 
 		save() {
@@ -232,7 +238,7 @@ const vm = new Vue({
 
 	},
 	render( createElm ) {
-		return createElm(Main, { props:{} } );
+		return createElm(Main, { key:this.renderKey } );
 	}
 
 });

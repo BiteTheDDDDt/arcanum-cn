@@ -17,6 +17,8 @@ export default class Skill extends Action {
 		super.exp = v;
 	}
 
+	showLevel(){return Math.floor( this.value.valueOf() ); }
+
 	/**
 	 *
 	 * @param {?Object} [vars=null]

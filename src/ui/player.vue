@@ -17,23 +17,19 @@ export default {
 	data(){
 
 		return {
-			hallOpen:false,
-			pName:this.player.name
+			hallOpen:false
 		}
 
 	},
-	beforeCreate(){
-		this.player = Game.state.player;
-		this.pName = this.player.name;
-	},
 	computed:{
 
+		player() { return Game.state.player},
+
 		wizName:{
-			get(){ return this.pName },
+			get(){ return this.player.name },
 			set(v){
 
 				if ( v ) this.player.setName(v);
-				this.pName = v;
 			}
 		},
 

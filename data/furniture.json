@@ -1318,7 +1318,7 @@
 		"mod":{
 			"sp.rate":0.001,
 			"ichor.rate":0.0005,
-			"liquifier.mod.gems.rate":"10%",
+			"liquifier.mod.managem.rate":"10%",
 			"enchanting.max":1,
 			"crafting.max":2,
 			"crafting.rate":0.4
@@ -1394,7 +1394,7 @@
 			"space":50
 		},
 		"mod":{
-			"gem.rate":0.01
+			"magicgem.rate":0.01
 		}
 
 	},

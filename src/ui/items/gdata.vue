@@ -99,7 +99,8 @@ export default {
 
 
 		<span class="separate">
-			<span v-if="item.level&&item.type!=='action'">lvl: {{item.level}}</span>
+			<span v-if="item.showLevel">lvl: {{item.showLevel()}}</span>
+			<span v-else-if="item.level">lvl: {{item.level}}</span>
 			<span v-if="item.slot">slot: {{ item.slot }}</span>
 		</span>
 		<span v-if="item.at&&(nextAt>0)" class="note-text">

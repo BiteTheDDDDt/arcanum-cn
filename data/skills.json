@@ -801,6 +801,7 @@
 
 		"id":"demonology",
 		"require":"tier1",
+		"level":4,
 		"buy":{
 			"sp":2
 		},
