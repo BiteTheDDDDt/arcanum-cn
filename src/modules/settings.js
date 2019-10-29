@@ -47,7 +47,7 @@ export default {
 	 * @param {*} val
 	 * @returns {*} the value set, for chaining.
 	 */
-	setVar( type, key, val) {
+	setSubVar( type, key, val) {
 
 		let p = this.vars[type];
 		if ( !p ) this.vars[type] = p = {};
@@ -71,7 +71,7 @@ export default {
 	 * Get vars sub-object.
 	 * @param {*} type
 	 */
-	getVars( type ) {
+	getSubVars( type ) {
 
 		let vars = this.vars[type];
 		if ( vars === undefined ) vars = this.vars[type] = {};

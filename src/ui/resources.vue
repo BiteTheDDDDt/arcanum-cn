@@ -10,7 +10,7 @@ export default {
 
 	data(){
 
-		let ops = Settings.getVars('resview');
+		let ops = Settings.getSubVars('resview');
 		if (!ops.hide) ops.hide = {};
 
 		return {

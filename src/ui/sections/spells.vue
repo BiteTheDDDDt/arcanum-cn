@@ -12,7 +12,7 @@ export default {
 
 	data(){
 
-		let spellOps = Settings.getVars( 'spells');
+		let spellOps = Settings.getSubVars( 'spells');
 
 		return Object.assign( {
 			showList:false,
@@ -34,7 +34,7 @@ export default {
 	methods:{
 
 		toggle(){
-			this.showList = Settings.setVar( 'spells', 'showList', !this.showList );
+			this.showList = Settings.setSubVar( 'spells', 'showList', !this.showList );
 		}
 
 	}, computed:{
@@ -49,7 +49,7 @@ export default {
 		minLevel:{
 
 			get(){ return this.min; },
-			set(v){ this.min = Settings.setVar( 'spells', 'min', Number(v) ); }
+			set(v){ this.min = Settings.setSubVar( 'spells', 'min', Number(v) ); }
 
 		},
 
@@ -61,7 +61,7 @@ export default {
 			set(v){
 
 				this.schools = v;
-				Settings.setVar( 'spells', 'schools', this.schools.concat() );
+				Settings.setSubVar( 'spells', 'schools', this.schools.concat() );
 
 			}
 

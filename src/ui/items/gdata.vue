@@ -25,6 +25,10 @@ export default {
 		name(){return this.item.sname || this.item.name; },
 		sellPrice(){ return Game.sellPrice(this.item);},
 
+		nextImprove(){
+			return this.nextAt > 0 ? this.nextAt : this.nextEvery;
+		},
+
 		/**
 		 * Occurance of next 'every' improvement relative to cur value.
 		 */

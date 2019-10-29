@@ -24,7 +24,7 @@ export default {
 	},
 	data(){
 
-		let ops = Settings.getVars('vitals');
+		let ops = Settings.getSubVars('vitals');
 		if (!ops.hide) ops.hide = {};
 
 		return {

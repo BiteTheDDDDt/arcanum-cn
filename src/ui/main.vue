@@ -69,7 +69,8 @@ export default {
 			overItem:null,
 			overTitle:null,
 			overElm:null,
-			psection:null
+			psection:null,
+			warnItem:null
 		};
 
 	},
@@ -257,7 +258,10 @@ export default {
 
 		onRest(){ Game.toggleAction( this.state.restAction ); },
 
-		onConfirmed(it) { Game.tryItem(it); },
+		onConfirmed(it) {
+			this.warnItem = null;
+			Game.tryItem(it);
+		},
 
 		tryUse( it ) { Game.tryItem(it ) },
 
@@ -274,8 +278,12 @@ export default {
 		 */
 		onItem(item) {
 
-			if ( item.warn ) this.$refs.warn.warn( item );
-			else Game.tryItem(item);
+			if ( item.warn ) {
+
+				this.warnItem = item;
+				//this.$refs.warn.warn( item );
+
+			} else Game.tryItem(item);
 
 		},
 
@@ -317,7 +325,7 @@ export default {
 
 <!-- popups -->
 		<itempopup :item="overItem" :elm="overElm" :title="overTitle" />
-		<warn ref="warn" @confirmed="onConfirmed" />
+		<warn :item="warnItem" @confirmed="onConfirmed" />
 		<choice />
 		<settings />
 

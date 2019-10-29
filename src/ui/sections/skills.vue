@@ -18,7 +18,7 @@ export default {
 	},
 	data() {
 
-		let ops = Settings.getVars('skills');
+		let ops = Settings.getSubVars('skills');
 
 		return Object.assign({
 			/**
@@ -33,7 +33,7 @@ export default {
 		chkHide:{
 			get(){return this.hideMaxed;},
 			set(v){
-				this.hideMaxed = Settings.setVar( 'skills', 'hideMaxed', v );
+				this.hideMaxed = Settings.setSubVar( 'skills', 'hideMaxed', v );
 			}
 		},
 		sp() { return lowFixed( this.state.getData('sp').value ); },
