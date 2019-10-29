@@ -141,7 +141,7 @@ const vm = new Vue({
 			if (!vars) return;
 
 			this.onSetting( 'darkMode', vars.darkMode );
-			this.onSetting( 'compactMode', vars.compact );
+			this.onSetting( 'compactMode', vars.compactMode );
 		},
 
 		onSetting( setting, v ) {

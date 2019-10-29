@@ -32,7 +32,6 @@ export default {
 
 <div class="dot">
 
-	<hr>
 	<div class="note-text">{{ title || 'dot'}}:</div>
 	<div>
 		<div><span>duration: </span><span>{{ dot.duration || 'infinity' }}</span></div>

@@ -34,8 +34,10 @@ export default {
 
 <div class="attack">
 
+	<div class="popup-sect">attack</div>
+
 	<div>hit bonus: {{ item.tohit || 0 }}</div>
-	<div v-if="item.hands>1">Two Handed</div>
+	<div v-if="item.hands>1">Two-Handed</div>
 	<div class="damage" v-if="damage!==null">damage: {{ damage }}</div>
 	<div>kind: {{ item.kind }}</div>
 	<dot v-if="item.dot" :dot="item.dot" />

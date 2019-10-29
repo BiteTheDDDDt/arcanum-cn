@@ -330,11 +330,18 @@ div.homes-view {
 	margin: 4px 0px;
 	color:rgb(216, 8, 8);
 }
-.note-text {
+
+.note-text, .popup-sect {
 	padding:0px;
 	margin:6px 0px;
 	font-style: italic;
 	font-size: 0.85em;
+}
+
+.popup-sect {
+	width:100%;
+	border-top: 2px solid var(--separator-color);
+	padding-top: var(--sm-gap);
 }
 
 div.stamina-bar {

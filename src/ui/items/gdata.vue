@@ -130,7 +130,7 @@ export default {
 
 		<attack v-if="item.attack" :item="item.attack" />
 
-		<div v-if="item.effect||item.mod||item.result||item.dot||item.use" class="note-text"><hr>effects:</div>
+		<div v-if="item.effect||item.mod||item.result||item.dot||item.use" class="popup-sect">effects:</div>
 
 		<dot v-if="item.dot" :dot="item.dot" />
 
@@ -139,7 +139,7 @@ export default {
 		<info v-if="item.use" :info="item.use" />
 		<info v-if="item.result" :info="item.result" />
 
-		<div v-if="item.lock||item.disable" class="note-text"><hr>locks:</div>
+		<div v-if="item.lock||item.disable" class="popup-sect">locks:</div>
 		<info v-if="item.lock" :info="item.lock" />
 		<info v-if="item.disable" :info="item.disable" />
 
@@ -154,10 +154,6 @@ export default {
 .tight {
 	margin:0;
 	padding:0;
-}
-
-hr {
-margin-bottom: 4px;
 }
 
 div.item-desc {

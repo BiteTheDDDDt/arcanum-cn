@@ -235,7 +235,7 @@
 	{
 
 		"id":"weaving",
-		"require":"loom",
+		"need":"loom",
 		"run":{
 			"stamina":0.5
 		},
