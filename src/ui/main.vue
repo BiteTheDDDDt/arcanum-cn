@@ -84,6 +84,14 @@ export default {
 
 
 	},
+	beforeDestroy(){
+
+		this.removeListener('game-loaded', this.gameLoaded );
+		this.removeListener('setting', this.onSetting );
+		this.removeListener('pause', this.pause );
+		this.removeListener('unpause', this.unpause );
+
+	},
 	methods:{
 
 		gameLoaded() {
@@ -256,7 +264,7 @@ export default {
 
 		},
 
-		onRest(){ Game.toggleAction( this.state.restAction ); },
+		onRest(){Game.toggleAction( this.state.restAction ); },
 
 		onConfirmed(it) {
 			this.warnItem = null;

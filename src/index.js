@@ -22,6 +22,7 @@ Vue.mixin({
 		 */
 		listen:Events.listen,
 		dispatch:Events.dispatch,
+		removeListener:Events.removeListener,
 
 		/**
 		 * Game-level events.
@@ -75,7 +76,6 @@ const vm = new Vue({
 		setChar( ind ){
 
 			Profile.setActive( ind, this.game.state );
-
 			this.loadSave();
 
 		},
@@ -98,7 +98,6 @@ const vm = new Vue({
 		 * Load the save for the active wizard.
 		 */
 		loadSave() {
-
 
 			try {
 
@@ -210,6 +209,8 @@ const vm = new Vue({
 
 			try {
 
+				if ( this.game.loaded ) this.renderKey++;
+
 				let obj = text ? JSON.parse( text ) : null;
 				this.game.load( obj, Profile.getHallData() ).then( this.gameLoaded,
 					e=>console.error( e.message + '\n' + e.stack ) );
@@ -217,7 +218,6 @@ const vm = new Vue({
 			} catch( err ) {
 				console.error(  err.message + '\n' + err.stack );
 			}
-this.renderKey++;
 		},
 
 		save() {

@@ -63,8 +63,7 @@ export default {
 			<button class="btn-sm" @click="emit(STOP_ALL)">Stop All</button>
 
 			<button class="btn-sm" @click="emit('rest')" :disabled="resting"
-			@mouseenter.capture.stop="emit( 'itemover',$event, state.restAction )">
-			{{ state.restAction.name }}</button>
+			@mouseenter.capture.stop="emit( 'itemover',$event, state.restAction )">{{ state.restAction.name }}</button>
 
 			<button v-if="!focus.locked" class="btn-sm" @mouseenter.capture.stop="emit( 'itemover',$event, focus )"
 				:disabled="!usable(focus)"

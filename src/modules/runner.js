@@ -278,9 +278,7 @@ export default class Runner {
 
 			this.stopAction(ind, false);
 
-
 		} else {
-
 			this.setAction(a);
 
 		}

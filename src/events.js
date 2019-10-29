@@ -323,6 +323,9 @@ export default {
 		sys.addListener(evt,f,context);
 	},
 
+	removeListener(evt,f){
+		sys.removeListener(evt,f);
+	},
 	/**
 	 * Dispatch a system-level event.
 	 * pause,save,reload,etc.
