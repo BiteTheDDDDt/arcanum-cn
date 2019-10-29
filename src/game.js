@@ -416,6 +416,8 @@ export default {
 	/**
 	 * Attempt to sell one unit of an item.
 	 * @param {GData} it
+	 * @param {Inventory}
+	 * @param {number} count - positive count of number to sell.
 	 * @returns {boolean}
 	 */
 	trySell( it, inv, count=1 ) {
@@ -423,7 +425,12 @@ export default {
 		if ( it.value < 1 && !it.instance ) {
 			return false; }
 
-		if ( count > it.value ) count = it.value;
+		if ( count > it.value ) {
+
+			count = it.valueOf();
+			it.value = 0;
+
+		} else it.value -= count;
 
 		let sellObj = it.sell || it.cost;
 		let goldPrice = count*this.sellPrice(it);
@@ -435,7 +442,6 @@ export default {
 
 		if ( it.slot && this.state.getSlot(it.slot) === it ) this.state.setSlot(it.slot,null);
 
-		it.value -= count;
 		if ( inv && it.instance ) {
 
 			console.log('remainig: ' + it.value );
@@ -443,7 +449,7 @@ export default {
 
 		} else {
 
-			if ( it.mod ) this.removeMod( it.mod, count );
+			if ( it.mod ) this.addMod( it.mod, -count );
 
 		}
 
@@ -858,6 +864,41 @@ export default {
 
 				this.listGet( this.getTagList(effect), dt );
 
+			}
+
+		}
+
+	},
+
+	/**
+	 * Set/replace modifier values.
+	 * @param {object||object[]} mod
+	 * @param {*} amt
+	 */
+	setMod( mod, amt ) {
+
+		if ( !mod ) return;
+
+		if ( Array.isArray(mod)  ) for( let m of mod ) this.setMod(m, amt);
+		else if ( typeof mod === 'object' ) {
+
+			for( let p in mod ) {
+
+				var target = this.getData( p );
+
+				if ( target === undefined ) continue;// this.modTag( p, mod[p], amt );
+				else if ( mod[p] === true ){
+
+					target.doUnlock(this);
+
+				} else {
+
+					if ( target.applyMods) {
+						target.setMods( mod[p], amt );
+						target.dirty = true;
+					} else console.warn( 'no applyMods func: ' + target );
+
+				}
 			}
 
 		}

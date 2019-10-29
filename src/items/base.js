@@ -289,7 +289,9 @@ export default {
 	 */
 	applyObj( mods, amt, targ ) {
 
-		if ( mods.mod ) this.changeMod( mods.mod, amt );
+		if ( mods.mod ) {
+			Game.addMod( this.mod, -this.value.valueOf() );
+		}
 
 		for( let p in mods ) {
 
@@ -330,6 +332,11 @@ export default {
 			}
 
 		}
+
+		if ( mods.mod ) {
+			Game.addMod( this.mod, this.value.valueOf() );
+		}
+
 
 	},
 
@@ -391,7 +398,7 @@ export default {
 	 */
 	changeMod( mod, amt ) {
 
-		// @todo: why?
+		// @todo: why? assume not currently worn?
 		if ( this.equippable ) return;
 		//console.log( this.id + ': adding mod amt: ' + amt );
 

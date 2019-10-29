@@ -2,6 +2,8 @@ import Percent from './percent';
 import Stat from './stat';
 import { splitKeyPath } from '../util/util';
 
+//import Emitter from 'eventemitter3';
+
 export const ModTest = /^([\+\-]?\d+\.?\d*\b)?(?:([\+\-]?\d+\.?\d*)\%)?$/i;
 
 /**
@@ -47,12 +49,12 @@ export const ParseMods = ( mods, id ) => {
 
 }
 
-export default class Mod {
+export default class Mod extends Stat {
 
 	toJSON(){
 
-		var val = this._pct === 0 ? this.bonus : (
-			(this.bonus || '') + (( this._pct > 0 ? '+' : '') + (100*this._pct)  + '%')
+		var val = this._basePct === 0 ? this.base : (
+			(this.base || '') + (( this._basePct > 0 ? '+' : '') + (100*this._basePct)  + '%')
 		);
 
 		//console.log('mod save val: ' + val );
@@ -66,15 +68,15 @@ export default class Mod {
 
 	toString() {
 
-		let s = ( this.bonus !== 0 ?
-			this.bonus.toString()
+		let s = ( this.base !== 0 ?
+			this.base.toString()
 		: '' );
 
 
-		if ( this._pct !== 0 ) {
+		if ( this._basePct !== 0 ) {
 
-			if ( this.bonus !== 0 ) s += ', ';
-			s += ( this._pct > 0 ? '+' : '' ) + (100*this._pct) + '%';
+			if ( this.base !== 0 ) s += ', ';
+			s += ( this._basePct > 0 ? '+' : '' ) + (100*this._basePct) + '%';
 		}
 		return s;
 	}
@@ -92,18 +94,18 @@ export default class Mod {
 	set count(v) { this._count = v; }
 
 	/**
-	 * @property {number} [pct=0] - pct as a decimal.
+	 * @property {number} [pct=0] - pct as decimal.
 	 */
-	get pct() { return this._pct; }
-	set pct(v) { this._pct = v; }
+	//get pct() { return this._pct; }
+	//set pct(v) { this._pct = v; }
 
 	/**
 	 * @property {number} [bonus=0] - base modifier. (constant added bonus)
 	 */
-	get bonus() { return this._bonus; }
-	set bonus(v) { this._bonus = v; }
+	//get base() { return this._base; }
+	//set base(v) { this._base = v; }
 
-	get value() { return this.bonus; }
+	get value() { return super.value; }
 	set value(v) {
 
 		//console.log('assinging to mod: ' + this.id + ' val: ' + v );
@@ -115,22 +117,25 @@ export default class Mod {
 			if ( res ) {
 
 				//res.forEach((v,i)=>console.log('reg['+i+']: ' + v ));
-				this.bonus = Number(res[1]) || 0;
-				this.pct = Number(res[2])/100 || 0;
+				this.base = Number(res[1]) || 0;
+				this.basePct = Number(res[2])/100 || 0;
 
 			} else console.log( this.id + ' no mod regex: ' + v );
 
 
 		} else if ( v instanceof Percent ) {
 
-			this.pct = v.value;
+			this.basePct = v.value;
 
 		} else if ( !isNaN(v) ) {
 
-			this.bonus = v;
+			this.base = v;
 		}
 
 	}
+
+	get pctTot(){return this.pct*this._count;}
+	get bonusTot(){return this.bonus*this._count;}
 
 	/**
 	 *
@@ -138,20 +143,22 @@ export default class Mod {
 	 */
 	constructor( vars=null, id=null ){
 
-		if ( typeof vars === 'number') this._bonus = vars;
+		super( null, id );
+
+		if ( typeof vars === 'number') this.base = vars;
 		else if ( typeof vars === 'string') this.value = vars;
 		else if ( vars ) Object.assign( this, vars );
 
 		this._count = this._count || 0;
-		this._bonus = this._bonus || 0;
-		this._pct = this._pct || 0;
+		this.base = this.base || 0;
+		this.basePct = this.basePct || 0;
 
 		this.id = id || this.id || DEFAULT_MOD;
 
 	}
 
 	clone() {
-		return new Mod({bonus:this._bonus, pct:this._pct, count:1}, this.id );
+		return new Mod({base:this.base, pct:this.basePct, count:1}, this.id );
 	}
 
 	/**
@@ -162,32 +169,40 @@ export default class Mod {
 	 * @param {*} mod
 	 * @param {*} amt
 	 */
-	applySelf( mod, amt=1) {
+	/*applySelf( mod, amt=1) {
 
 		let typ = typeof mod;
 		if ( typ === 'number') {
 
-			this.bonus += amt*mod;
+			this.base += amt*mod;
 
 		} else if ( mod instanceof Percent ) {
 
-			this.bonus *= ( 1+ amt*mod.pct );
+			this.base *= ( 1+ amt*mod.pct );
 			this.pct *= (1+ amt*mod.pct);
 
 		} else if ( typ === 'object') {
 
 			//console.log( 'apply: ' +  mod.toString() );
-			this.bonus += amt*mod.bonus || 0;
+			this.base += amt*mod.bonus || 0;
 
 			if ( mod.pct ) {
+
+
 				let pctMod = 1 + amt*( mod.pct );
-				this.bonus += pctMod;
+				this.base *= pctMod;
 				this.pct *= pctMod;
+				if ( this.id === 'liquifier') {
+					console.log('SELF MOD LIQ: ' + amt + ' bonus: ' + mod.bonus + ' pct: ' + mod.pct );
+					console.log('NEW VALS: ' + this.base + ' pct: '+ this.pct );
+				}
 			}
 
 		}
 
-	}
+		//this.emit('change', this );
+
+	}*/
 
 	/**
 	 * Update the modifier with additional values.
@@ -201,19 +216,25 @@ export default class Mod {
 		let typ = typeof mod;
 		if ( typ === 'number') {
 
-			this.bonus += amt*mod;
+			this.base += amt*mod;
 
 		} else if ( mod instanceof Percent ) {
 
-			this.pct += amt*mod.pct;
+			this.basePct += amt*mod.pct;
 
 		} else if ( typ === 'object') {
 
-			this.bonus += amt*mod.bonus || 0;
-			this.pct += amt*mod.pct || 0;
+			if ( this.id === 'liquifier') {
+
+				console.log('MOD LIQ: ' + amt + ' bonus: ' + mod.bonus + ' pct: ' + mod.pct );
+			}
+
+			this.base += amt*mod.bonus || 0;
+			this.basePct += amt*mod.pct || 0;
 
 		}
 
+		//this.emit('change', this);
 
 	}
 
@@ -229,17 +250,17 @@ export default class Mod {
 		let targ = obj[p];
 
 		if ( targ instanceof Stat ) targ.addMod( this, amt );
-		else if ( targ instanceof Mod) targ.applySelf( this, amt );
+		//else if ( targ instanceof Mod) targ.applySelf( this, amt ); ///// NO LONGER HAPPENS. superclass.
 		else if ( targ === null || targ === undefined || typeof targ === 'number' ){
 
-			//console.log('MOD.applyTo() CREATE NEW MOD AT TARGET: ' + p );
+			console.log('MOD.applyTo() CREATE NEW MOD AT TARGET: ' + p );
 			let s = obj[p] = new Stat( targ || 0, p );
 			s.apply( this, amt );
 
 		} else if ( typeof targ === 'object') {
 
-			//console.warn( this.id + ' Generic Mod Target: ' + targ.id );
-			targ.value = ( ( Number(targ.value) || 0 ) + amt*this._bonus )*( 1 + amt*this._pct );
+			console.warn( this.id + ' Generic Mod Target: ' + targ.id );
+			targ.value = ( ( Number(targ.value) || 0 ) + amt*this.base )*( 1 + amt*this._basePct );
 
 			// TODO? Percent all of obj?
 

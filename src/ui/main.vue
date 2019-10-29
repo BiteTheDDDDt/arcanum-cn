@@ -333,7 +333,7 @@ export default {
 
 <!-- popups -->
 		<itempopup :item="overItem" :elm="overElm" :title="overTitle" />
-		<warn :item="warnItem" @confirmed="onConfirmed" />
+		<warn :item="warnItem" @confirmed="onConfirmed" @cancel="warnItem=null" />
 		<choice />
 		<settings />
 

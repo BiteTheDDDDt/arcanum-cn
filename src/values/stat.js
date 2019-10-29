@@ -9,11 +9,11 @@ export default class Stat {
 
 	toJSON(){
 
-		if ( this._pct === 0 ) return this._base;
+		if ( this._basePct === 0 ) return this._base;
 
 		let o = {
 			base: this._base,
-			pct:this._pct
+			pct:this._basePct
 
 		};
 
@@ -21,46 +21,45 @@ export default class Stat {
 
 	}
 
-	/*toString(){
-		return this._base + (this._pct >= 0 ? '+' : '') + (100*this._pct) + '%';
-	}*/
-
 	toString(){ return precise( this.value ); }
 
 	/**
 	 * @property {number} value
 	 */
 	get value() {
-		return this._pos ? Math.max( (this._base + this._bonus)*( 1 + this._pct + this._mPct ),0) :
-		(this._base + this._bonus)*( 1 + this._pct + this._mPct );
+		return this._pos ? Math.max( (this._base + this._mBase)*( 1 + this._basePct + this._mPct ),0) :
+		(this._base + this._mBase)*( 1 + this._basePct + this._mPct );
 	}
 	/** @todo */
 	set value(v){}
 
-	valueOf() {return this._pos ? Math.max( (this._base + this._bonus)*( 1 + this._pct + this._mPct ),0) :
-		(this._base + this._bonus)*( 1 + this._pct + this._mPct );}
+	valueOf() {return this._pos ? Math.max( (this._base + this._mBase)*( 1 + this._basePct + this._mPct ),0) :
+		(this._base + this._mBase)*( 1 + this._basePct + this._mPct );}
 
 	get base() { return this._base; }
 	set base(v) { this._base = v; }
 
 	/**
-	 * @todo: most likely remove this.pct
+	 * @property {number} pct - decimal percent
 	 */
-	get pct() { return this._pct; }
-	set pct(v) {
-		if ( v != 0 ) console.warn('NONZERO PERCENT: ' + this.path );
-		this._pct = v;
-	}
+	get basePct() { return this._basePct; }
+	set basePct(v) { this._basePct = v; }
 
 	/**
 	 * @property {number} bonus - total bonus to base, computed from mods.
 	 */
-	get bonus(){return this._bonus; }
+	get mBase(){return this._mBase; }
 
 	/**
 	 * @property {number} pct - mod pct bonuses, as decimal.
 	 */
 	get mPct() { return this._mPct };
+
+	/**
+	 * @property {number} percent - total percent of stat.
+	 */
+	get bonus(){return this._base + this.mBase; }
+	get pct(){return this._basePct + this.mPct; }
 
 	/**
 	 * @property {Object.<string,Mod>} mods - mods applied to object.
@@ -99,7 +98,7 @@ export default class Stat {
 			if ( typeof vars === 'object') {
 
 				this.base = vars.base;
-				this.pct = vars.pct;
+				this.basePct = vars.pct;
 
 			} else if ( !isNaN(vars) ) this.base = Number(vars);
 
@@ -109,7 +108,7 @@ export default class Stat {
 		if ( pos ) this.pos = pos;
 
 		if ( !this.base ) this.base = 0;
-		if ( !this.pct ) this.pct = 0;
+		if ( !this.basePct ) this.basePct = 0;
 
 		if ( !this.mods ) this.mods = {};
 
@@ -118,20 +117,17 @@ export default class Stat {
 	}
 
 	/**
-	 *
+	 * @todo
 	 * @param {number} v
 	 */
-	set(v) {
-		this._base = v;
-	}
+	set(v) { this._base = v; }
 
 	/**
 	 * Add amount to base stat.
+	 * @todo
 	 * @param {number} amt
 	 */
-	add( amt ) {
-		this._base += amt;
-	}
+	add( amt ) { this._base += amt; }
 
 	/**
 	 * Add a nonstandard modifier with no id.
@@ -152,7 +148,7 @@ export default class Stat {
 
 			/**@todo support for percents/ranges in general. */
 			this.base += amt*( mod.bonus || 0 );
-			this.pct += amt*( mod.pct || 0 );
+			this.basePct += amt*( mod.pct || 0 );
 
 		}
 
@@ -161,19 +157,31 @@ export default class Stat {
 	/**
 	 * Add a modifier to the stat.
 	 * @param {Mod} mod
-	 * @param {number} [amt=1] - amount by which mod increased.
+	 * @param {number} [del=1] - amount by which mod increased.
 	 */
-	addMod( mod, amt=1 ) {
+	addMod( mod, del=1 ) {
 
-		this._mPct += amt*mod.pct;
-		this._bonus += amt*mod.bonus;
+		this._mPct += del*mod.pct;
+		this._mBase += del*mod.bonus;
 
 		let cur = this.mods[ mod.id ];
 		if ( cur === undefined ) {
 			cur = this.mods[mod.id] = mod;
 		}
 
-		cur.count += amt;
+		cur.count += del;
+
+	}
+
+	removeMod( mod ){
+
+		let cur = this.mods[mod.id];
+		if ( cur === undefined) return;
+
+		this._mPct -= mod.pctTot;
+		this._mBase -= mod.bonusTotal;
+
+		this.mods[mod.id] = undefined;
 
 	}
 
@@ -184,7 +192,7 @@ export default class Stat {
 	 * @param {number} amt
 	 */
 	canApply( mod, amt ) {
-		return this.delValue( amt*(mod.bonus||0), amt*(mod.pct||0) )>=0;
+		return this.delValue( amt*(mod.mBase||0), amt*(mod.basePct||0) )>=0;
 	}
 
 	/**
@@ -195,7 +203,7 @@ export default class Stat {
 	 * @returns {number} - new stat value.
 	 */
 	delValue( delBonus=0, delPct=0 ) {
-		return ( this._base + this._bonus + delBonus )*( 1 + this._pct + this._mPct + delPct );
+		return ( this._base + this._mBase + delBonus )*( 1 + this._basePct + this._mPct + delPct );
 	}
 
 	/**
@@ -215,7 +223,7 @@ export default class Stat {
 		}
 
 		this._mPct = pct;
-		this._bonus = bonus;
+		this._mBase = bonus;
 
 	}
 

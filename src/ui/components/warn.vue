@@ -24,7 +24,7 @@ export default {
 			if ( it ) this.$emit('confirmed', it );
 
 		},
-		cancel(){ this.item = null; }
+		cancel(){ this.$emit('cancel') }
 
 	}
 

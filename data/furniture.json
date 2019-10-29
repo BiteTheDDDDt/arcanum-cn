@@ -1312,7 +1312,7 @@
 		"require":"g.space.max>=50&&(g.crafting>=7||g.enchanting>=7)",
 		"cost":{
 			"space":50,
-			"gold":500,
+			"gold":1000,
 			"research":2500
 		},
 		"mod":{
