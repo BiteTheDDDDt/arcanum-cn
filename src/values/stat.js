@@ -1,6 +1,5 @@
-import Mod from "./mod";
-
 import { precise } from '../util/format';
+import { logObj } from "../util/util";
 
 /**
  * Stat with a list of modifiers.
@@ -22,6 +21,12 @@ export default class Stat {
 	}
 
 	toString(){ return precise( this.value ); }
+
+	/**
+	 * @property {string} [id=DEFAULT_MOD]
+	 */
+	get id() { return this._id; }
+	set id(v) { this._id = v; }
 
 	/**
 	 * @property {number} value
@@ -56,12 +61,6 @@ export default class Stat {
 	get mPct() { return this._mPct };
 
 	/**
-	 * @property {number} percent - total percent of stat.
-	 */
-	get bonus(){return this._base + this.mBase; }
-	get pct(){return this._basePct + this.mPct; }
-
-	/**
 	 * @property {Object.<string,Mod>} mods - mods applied to object.
 	 */
 	get mods() { return this._mods; }
@@ -82,12 +81,6 @@ export default class Stat {
 	set pos(v) { this._pos = v;}
 
 	/**
-	 * @property {string} path - path or id.
-	 */
-	get path() { return this._path; }
-	set path(v) { this._path = v;}
-
-	/**
 	 *
 	 * @param {Object|number} vars
 	 */
@@ -104,7 +97,7 @@ export default class Stat {
 
 		}
 
-		if ( path ) this._path = path;
+		if ( path ) this.id = path;
 		if ( pos ) this.pos = pos;
 
 		if ( !this.base ) this.base = 0;
@@ -139,13 +132,14 @@ export default class Stat {
 	 */
 	apply( mod, amt=1 ) {
 
-		if ( mod instanceof Mod ) return this.addMod( mod, amt );
+		if ( mod instanceof Stat ) return this.addMod( mod, amt );
 
 		else if ( !isNaN(mod) ) {
 			this.base += amt*mod;
 			return;
 		} else if ( typeof mod === 'object') {
 
+			console.error( 'RAW OBJECT MOD STAT: ' + logObj(mod) );
 			/**@todo support for percents/ranges in general. */
 			this.base += amt*( mod.bonus || 0 );
 			this.basePct += amt*( mod.pct || 0 );
@@ -169,8 +163,6 @@ export default class Stat {
 			cur = this.mods[mod.id] = mod;
 		}
 
-		cur.count += del;
-
 	}
 
 	removeMod( mod ){
@@ -191,9 +183,7 @@ export default class Stat {
 	 * @param {Mod} mod
 	 * @param {number} amt
 	 */
-	canApply( mod, amt ) {
-		return this.delValue( amt*(mod.mBase||0), amt*(mod.basePct||0) )>=0;
-	}
+	canApply( mod, amt ) { return this.delValue( amt*(mod.bonus||0), amt*(mod.pct||0) )>=0; }
 
 	/**
 	 * Get the new stat value if base and percent are changed

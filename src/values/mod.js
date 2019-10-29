@@ -1,6 +1,6 @@
 import Percent from './percent';
 import Stat from './stat';
-import { splitKeyPath } from '../util/util';
+import { splitKeyPath, logObj } from '../util/util';
 
 //import Emitter from 'eventemitter3';
 
@@ -40,7 +40,7 @@ export const ParseMods = ( mods, id ) => {
 		else if ( typ === 'object') {
 
 			if ( val.id ) mods[s] = new Mod( val );
-			else if ( val.value || val.bonus ) mods[s] = new Mod(val, id );
+			else if ( val.value || val.base ) mods[s] = new Mod(val, id );
 			else ParseMods( val, id );
 		}
 
@@ -82,16 +82,19 @@ export default class Mod extends Stat {
 	}
 
 	/**
-	 * @property {string} [id=DEFAULT_MOD]
-	 */
-	get id() { return this._id; }
-	set id(v) { this._id = v; }
-
-	/**
 	 * @property {number} [count=0] - number of times mod is applied.
 	 */
 	get count() { return this._count; }
 	set count(v) { this._count = v; }
+
+	/**
+	 * @property {number} bonus - total flat bonus of mod.
+	 */
+	get bonus(){return this._base + this.mBase; }
+	/**
+	 * @property {number} pct - total percent bonus of mod.
+	 */
+	get pct(){return this._basePct + this.mPct; }
 
 	/**
 	 * @property {number} [pct=0] - pct as decimal.
@@ -147,7 +150,11 @@ export default class Mod extends Stat {
 
 		if ( typeof vars === 'number') this.base = vars;
 		else if ( typeof vars === 'string') this.value = vars;
-		else if ( vars ) Object.assign( this, vars );
+		else if ( vars ) {
+
+			if ( vars.bonus )logObj(vars, id);
+			else Object.assign( this, vars );
+		}
 
 		this._count = this._count || 0;
 		this.base = this.base || 0;
@@ -157,52 +164,7 @@ export default class Mod extends Stat {
 
 	}
 
-	clone() {
-		return new Mod({base:this.base, pct:this.basePct, count:1}, this.id );
-	}
-
-	/**
-	 * Apply a modifier to this modifier.
-	 * @todo: Can't safely apply a pct mod to a mod without adding support for recursive mods.
-	 * Otherwise the pct+/- is based on the current value of the mod, so won't be constant when
-	 * added/removed.
-	 * @param {*} mod
-	 * @param {*} amt
-	 */
-	/*applySelf( mod, amt=1) {
-
-		let typ = typeof mod;
-		if ( typ === 'number') {
-
-			this.base += amt*mod;
-
-		} else if ( mod instanceof Percent ) {
-
-			this.base *= ( 1+ amt*mod.pct );
-			this.pct *= (1+ amt*mod.pct);
-
-		} else if ( typ === 'object') {
-
-			//console.log( 'apply: ' +  mod.toString() );
-			this.base += amt*mod.bonus || 0;
-
-			if ( mod.pct ) {
-
-
-				let pctMod = 1 + amt*( mod.pct );
-				this.base *= pctMod;
-				this.pct *= pctMod;
-				if ( this.id === 'liquifier') {
-					console.log('SELF MOD LIQ: ' + amt + ' bonus: ' + mod.bonus + ' pct: ' + mod.pct );
-					console.log('NEW VALS: ' + this.base + ' pct: '+ this.pct );
-				}
-			}
-
-		}
-
-		//this.emit('change', this );
-
-	}*/
+	clone() { return new Mod({base:this.base, basePct:this.basePct, count:1}, this.id ); }
 
 	/**
 	 * Update the modifier with additional values.
@@ -260,7 +222,7 @@ export default class Mod extends Stat {
 		} else if ( typeof targ === 'object') {
 
 			console.warn( this.id + ' Generic Mod Target: ' + targ.id );
-			targ.value = ( ( Number(targ.value) || 0 ) + amt*this.base )*( 1 + amt*this._basePct );
+			targ.value = ( ( Number(targ.value) || 0 ) + amt*this.bonus )*( 1 + amt*this.pct );
 
 			// TODO? Percent all of obj?
 
