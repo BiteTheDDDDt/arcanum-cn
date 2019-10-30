@@ -244,7 +244,7 @@ export default class GameState {
 	}
 
 	/**
-	 *
+	 * Test if a home can fit the current used capacity.
 	 * @param {Object.<string,Items>} g - all game data.
 	 * @param {GData} i - item being tested.
 	 * @param {*} gs
@@ -252,8 +252,10 @@ export default class GameState {
 	homeTest( g, i, gs ) {
 
 		var cur = gs.slots.home;
-		return g.space.used <=
+		return g.space.valueOf()<=
 			g.space.max.delValue( i.mod.space.max.bonus - ( cur ? cur.mod.space.max.bonus : 0) );
+		/*return g.space.used <=
+			g.space.max.delValue( i.mod.space.max.bonus - ( cur ? cur.mod.space.max.bonus : 0) );*/
 
 	}
 

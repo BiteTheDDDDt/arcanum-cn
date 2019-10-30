@@ -23,7 +23,7 @@ export default class ZeroSum extends Resource {
 
 	}
 
-	valueOf() { return this.value; }
+	valueOf() { return this.value.valueOf(); }
 
 	/**
 	 * Adding value => more space left.
@@ -42,14 +42,14 @@ export default class ZeroSum extends Resource {
 	}
 	get value(){
 
-		//console.log( 'getval: ' + (super.value === this._value) );
-
-		return this.max.value - this._used;
+		return super.value;
+		//return this.max.value - this._used;
 	}
 
 	get used() { return this._used; }
 	set used(v) {
-		this._used = v; }
+		this._used = v;
+	}
 
 	/**
 	 * @property {number} unused - amount of resource still available.

@@ -4,6 +4,7 @@ import Base, {mergeClass, setModCounts, initMods} from './base';
 import { arrayMerge, assignPublic, logObj } from '../util/util';
 import Events, { ITEM_ATTACK, EVT_EVENT, EVT_UNLOCK } from '../events';
 import Dot from '../chars/dot';
+import { TICK_LEN } from '../game';
 
 /**
  * @typedef {Object} Effect
@@ -168,7 +169,6 @@ export default class GData {
 
 	}
 
-
 	canBuy(g){
 
 		if ( this.disabled || this.locked || this.locks > 0 ) return false;
@@ -185,7 +185,7 @@ export default class GData {
 	 * @param {number} dt - minimum length of time item would run.
 	 * @returns {boolean}
 	 */
-	canRun( g, dt=1 ) {
+	canRun( g, dt=TICK_LEN ) {
 
 		if ( this.disabled || this.maxed() || (this.need && !g.unlockTest( this.need, this )) ) return false;
 
@@ -205,9 +205,8 @@ export default class GData {
 	 * Made a function for reverseStats, among other things.
 	 * @param {number} amt
 	 */
-	canPay( amt ) {
-		return this.value >= amt;
-	}
+	canPay( amt ) { return this.value >= amt; }
+	remove( amt ) { this.value.base -= amt; }
 
 	/**
 	 * Determine if an item can be used. Ongoing/perpetual actions

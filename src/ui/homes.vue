@@ -110,12 +110,12 @@ export default {
 
 		<span class="separate">
 		<filterbox class="inline" v-model="filtered" :prop="searchIt" :items="viewable" />
-		<span class="space">Space: {{ Math.floor(space.valueOf() ) }} / {{ Math.floor(space.max.value) }}</span>
+		<span class="space">Space: {{ Math.floor(space.free() ) }} / {{ Math.floor(space.max.value) }}</span>
 		</span>
 
 			<div class="warn-text"
 			style="text-align:center"
-			v-if="state.items.space.value===0">No space remaining. Sell items or find a new Home.
+			v-if="state.items.space.empty()">No space remaining. Sell items or find a new Home.
 			<span v-if="homesAvail.length>0">If your max gold is not enough to buy a new home, free space for more chests.</span></div>
 
 		<table class="furniture item-table">

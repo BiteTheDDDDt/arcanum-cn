@@ -21,6 +21,11 @@ var techTree;
 export const TICK_TIME = 200;
 
 /**
+ * @constant {number} TICK_LEN - time between frames in seconds.
+ */
+export const TICK_LEN = TICK_TIME/1000;
+
+/**
  * @constant {number} EVT_TIME - time for checking randomized events.
  */
 export const EVT_TIME = 1000;
@@ -403,62 +408,6 @@ export default {
 		}
 	},
 
-	sellPrice( it ) {
-
-		let sellObj = it.sell || it.cost || (5*it.level) || 5;
-
-		if ( typeof sellObj === 'object' ) {
-			sellObj = sellObj.gold || it.level || 1;
-		}
-		return Math.ceil( sellObj*this.state.sellRate );
-
-
-	},
-
-	/**
-	 * Attempt to sell one unit of an item.
-	 * @param {GData} it
-	 * @param {Inventory}
-	 * @param {number} count - positive count of number to sell.
-	 * @returns {boolean}
-	 */
-	trySell( it, inv, count=1 ) {
-
-		if ( it.value < 1 && !it.instance ) {
-			return false; }
-
-		if ( count > it.value ) {
-
-			count = it.valueOf();
-			it.value = 0;
-
-		} else it.value -= count;
-
-		let sellObj = it.sell || it.cost;
-		let goldPrice = count*this.sellPrice(it);
-
-		if ( sellObj && typeof sellObj === 'object' ) {
-			if ( sellObj.space ) this.getData('space').value += count*sellObj.space;
-		}
-		this.getData('gold').value += goldPrice;
-
-		if ( it.slot && this.state.getSlot(it.slot) === it ) this.state.setSlot(it.slot,null);
-
-		if ( inv && it.instance ) {
-
-			console.log('remainig: ' + it.value );
-			if ( !it.stack || it.value <= 0 ) inv.remove( it );
-
-		} else {
-
-			if ( it.mod ) this.addMod( it.mod, -count );
-
-		}
-
-		return true;
-
-	},
-
 	/**
 	 * Remove all quantity of an item.
 	 * @param {string|string[]|GData|GData[]} it
@@ -687,6 +636,46 @@ export default {
 		Events.emit( EVT_EVENT, logItem );
 	},
 
+	sellPrice( it ) {
+
+		let sellObj = it.sell || it.cost || (5*it.level) || 5;
+
+		if ( typeof sellObj === 'object' ) {
+			sellObj = sellObj.gold || it.level || 1;
+		}
+		return Math.ceil( sellObj*this.state.sellRate );
+
+
+	},
+
+	/**
+	 * Attempt to sell one unit of an item.
+	 * @param {GData} it
+	 * @param {Inventory}
+	 * @param {number} count - positive count of number to sell.
+	 * @returns {boolean}
+	 */
+	trySell( it, inv, count=1 ) {
+
+		if ( it.value < 1 && !it.instance ) { return false; }
+
+		if ( count > it.value ) count = it.valueOf();
+
+		this.getData('gold').value += count*this.sellPrice(it);
+
+		if ( it.instance ) {
+
+			it.value -= count;
+
+			console.log('remainig: ' + it.value );
+			if ( inv && !it.stack || it.value <= 0 ) inv.remove( it );
+
+		} else this.remove(it,count);
+
+		return true;
+
+	},
+
 	/**
 	 * Remove amount of a non-inventory item.
 	 * If a tag list is specified, the amount will only be removed
@@ -705,14 +694,12 @@ export default {
 
 		}
 
-		if ( it.slot ) {
-			if ( this.state.getSlot(it.slot) === it ) this.state.setSlot(it.slot, null);
-		}
+		if ( it.slot ) { if ( this.state.getSlot(it.slot) === it ) this.state.setSlot(it.slot, null); }
 
-		if ( it.cost && it.cost.space ) this.getData('space').value += amt*it.cost.space;
+		if ( it.cost && it.cost.space ) this.getData('space').value.add( -amt*it.cost.space );
 
-		it.value -= amt;
-		if ( it.mod ) this.removeMod( it.mod, amt );
+		it.remove(amt);
+		if ( it.mod ) this.addMod( it.mod, -amt );
 		if ( it.lock ) this.unlock( it.lock, amt );
 
 		it.dirty = true;
@@ -994,7 +981,7 @@ export default {
 	canRun( it ) {
 
 		if ( !it.canRun ) console.error( it.id + ' missing canRun()');
-		else return it.canRun( this, TICK_TIME/1000 );
+		else return it.canRun( this, TICK_LEN );
 
 	},
 
@@ -1088,9 +1075,8 @@ export default {
 				var sub = cost[p];
 
 				res = this.state.getData(p);
-				if ( !res ) {
-					return false;
-				} else if ( res.instance || res.isRecipe ) {
+				if ( !res ) return false;
+				else if ( res.instance || res.isRecipe ) {
 
 					res = this.state.inventory.findMatch( res );
 					if (!res) return false;
@@ -1099,7 +1085,8 @@ export default {
 
 				if ( !isNaN(sub) || sub instanceof Stat ) {
 
-					if ( res.value < sub*amt ) return false;
+					if (!res.canPay(sub)) return false;
+					//if ( res.value < sub*amt ) return false;
 
 				} else {
 

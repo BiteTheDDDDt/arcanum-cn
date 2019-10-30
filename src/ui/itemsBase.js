@@ -3,7 +3,7 @@
  */
 import { floor, precise } from '../util/format';
 
-import Game from '../game';
+import Game, { TICK_LEN } from '../game';
 import Skill from '../items/skill';
 import Stat from '../values/stat';
 
@@ -14,7 +14,7 @@ export default {
 		floor:floor,
 
 		usable(it) {
-			return (it.length || it.perpetual ) ? Game.canRun(it) : it.canUse(Game );
+			return (it.length || it.perpetual ) ? it.canRun( Game, TICK_LEN) : it.canUse(Game );
 		},
 
 		buyable(it) { return it.canBuy(Game) },
