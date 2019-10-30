@@ -116,7 +116,7 @@ export default class Minions extends Inventory {
 			if ( m.active ) {
 
 				used += m.level;
-				/** @todo can't test vs. maxAllies here because mods havent been applied yet. */
+				/** @note can't test vs. maxAllies here because mods havent been applied yet. */
 				this._active.push(m);
 
 			}

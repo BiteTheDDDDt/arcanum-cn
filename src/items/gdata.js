@@ -294,8 +294,6 @@ export default class GData {
 		if ( this.topoff ) count = this.topoff(count);
 		if ( count === 0 ) return;
 
-
-
 		if ( this.isRecipe ) {
 			return g.create( this );
 		}

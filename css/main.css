@@ -300,11 +300,6 @@ div.log-item {
 	border-color: rgb(100,100,100);
 }
 
-div.homes-view {
-	display:flex;
-	flex-direction: column;
-}
-
 .table-head {
 	border-bottom: 1px solid black;
 	padding-bottom: 4px;

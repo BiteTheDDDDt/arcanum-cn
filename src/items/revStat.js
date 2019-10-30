@@ -1,5 +1,4 @@
 import Resource from "./resource";
-import Stat from "../values/stat";
 
 /**
  * A reversed Resource is 'filled' at 0 and empty at max.
@@ -11,7 +10,6 @@ export default class RevStat extends Resource {
 		super(vars);
 
 		if ( !this._max ) this.max = 0;
-		if ( !this.value || this.value <0 ) this.value = 0;
 
 	}
 
@@ -20,9 +18,7 @@ export default class RevStat extends Resource {
 	 * Made a function for reverseStats, among other things.
 	 * @param {number} amt
 	 */
-	canPay( amt ) {
-		return this.value + amt <= this.max.value;
-	}
+	canPay( amt ) { return this.value + amt <= this.max.value; }
 
 	/**
 	 * Determine whether the item is filled relative to a filling rate.

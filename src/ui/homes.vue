@@ -127,7 +127,8 @@ export default {
 
 			<td class="space">{{ it.cost.space }}</td>
 			<td class="name">{{ it.name }}</td> <td class="count">{{ it.value.valueOf() }}</td>
-			<td><button type="button" :disabled="!usable(it)" class="buy-btn"
+
+			<td><span v-if="it.maxed()" class="sm">Max</span><button v-else type="button" :disabled="!usable(it)" class="buy-btn"
 				@click="emit('upgrade',it)">Buy</button></td>
 
 			<td><button type="button" :disabled="it.value<=0" class="sell-btn" @click="emit('sell',it)">Sell</button></td>
@@ -146,24 +147,13 @@ export default {
 
 <style scoped>
 
-/* div.home-view .homes-view { flex-flow: row wrap; display: flex; }
-div.home-view .homes-view span {
-	flex-basis: 20%; margin: 0; padding: 0; box-sizing: border-box; display: flex;
-	}*/
-div.home-view .homes-view span button {
-	flex: 1; font-size: 0.75em;
-	}
-/*div.home-view .homes-view {
-			position: absolute; z-index: 4; top: 100; left : 0; margin: var(--md-gap);
-			display: flex; flex-flow: row wrap;
-			background: var(--popup-background-color);
-			border: 2px solid var(--separator-color); border-radius: var(--subtle-border-radius);
-			padding: var(--md-gap);
-		}
-*/
 span.space {
 	text-align: center;
 	margin: 0px 18px;
+}
+
+span.sm {
+	margin: var(--sm-gap);
 }
 div.home-view {
 	overflow-y:auto;

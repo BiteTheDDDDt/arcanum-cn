@@ -44,7 +44,6 @@ export function mergeClass( destClass, src ) {
 }
 
 
- // TODO: restore 'tags' later if tags become dynamic.
  /**
   * @todo shorten list by implementing better base/defaults logic.
   * @const {string[]} JSONIgnore - ignore these properties by default when saving.

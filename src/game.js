@@ -993,7 +993,7 @@ export default {
 	 */
 	canRun( it ) {
 
-		if ( !it.canRun ) console.warn( it.id + ' missing canRun()');
+		if ( !it.canRun ) console.error( it.id + ' missing canRun()');
 		else return it.canRun( this, TICK_TIME/1000 );
 
 	},
@@ -1004,7 +1004,7 @@ export default {
 	 * @param {GData} it
 	 */
 	canUse( it ){
-		if ( !it.canUse ) console.warn( it.id + ' missing canUse()');
+		if ( !it.canUse ) console.error( it.id + ' missing canUse()');
 		else return it.canUse( this );
 	},
 
@@ -1110,9 +1110,7 @@ export default {
 
 				// @todo: recursive mod test.
 				/*let mod = res.mod;
-				if ( mod ) {
-
-				}*/
+				if ( mod ) {}*/
 
 			}
 
@@ -1188,13 +1186,10 @@ export default {
 
 			if ( Array.isArray(res) ) res.forEach(v=>{
 
-					if ( typeof v === 'boolean') return;
-					v.unequip( this );
+				if ( typeof v !== 'boolean' ) v.unequip( this );
 
-				});
-			else {
-				res.unequip( this );
-			}
+			});
+			else { res.unequip( this ); }
 			this.state.inventory.add(res);
 
 		}
@@ -1220,7 +1215,7 @@ export default {
 				res.unequip(this);
 			}
 
-		} else console.log('no reuslt');
+		} else console.log('no result');
 
 	},
 

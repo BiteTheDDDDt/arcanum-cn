@@ -14,7 +14,7 @@ export default {
 		floor:floor,
 
 		usable(it) {
-			return (it.length || it.perpetual ) ? Game.canRun(it) : Game.canUse( it );
+			return (it.length || it.perpetual ) ? Game.canRun(it) : it.canUse(Game );
 		},
 
 		buyable(it) { return it.canBuy(Game) },
