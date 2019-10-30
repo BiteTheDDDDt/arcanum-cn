@@ -2,12 +2,11 @@ import {changes, jsonify } from 'objecty';
 import Game from '../game';
 import Stat from '../values/stat';
 import Mod from '../values/mod';
-import { logObj } from '../util/util';
+import { logObj, cloneClass } from '../util/util';
 
 export const setModCounts = ( m, v)=>{
 
 	if ( m instanceof Mod ) {
-		console.log( m.id + ' SETTING MOD COUNT: ' + v );
 		m.count = v;
 	}
 	else if ( typeof m ==='object') {
@@ -209,6 +208,44 @@ export default {
 
 	},
 
+	permVars( mods, targ=this) {
+
+		console.log( 'PERM VARS: ' + typeof mods);
+		console.log('eNC TARG: ' + typeof targ);
+		if ( typeof targ === 'number') {
+
+			// error.
+
+		} else if ( typeof mods === 'object') {
+
+			console.log('MODS IS OBJECT');
+
+			for( let p in mods ) {
+
+				console.log('submod: ' + p );
+
+				var sub = targ[p];
+
+				if ( sub === undefined ) {
+
+					targ[p] = cloneClass( mods[p]);
+
+				} else if ( sub instanceof Stat ) sub.perm( mods[p] );
+
+				else if ( !sub || typeof sub === 'number') {
+
+					targ[p] = (sub||0) + mods[p].valueOf();
+
+				} else if ( typeof sub ==='object') this.permVars( mods[p], sub);
+				else console.log( this.id + ' UNKNOWN PERM VAR: ' + p + ' typ: ' + (typeof sub ));
+
+
+			}
+
+		}
+
+	},
+
 	/**
 	 *
 	 * @param {Object} mods - effect/mod description.
@@ -217,7 +254,7 @@ export default {
 	 */
 	applyVars( mods, amt=1 ) {
 
-		if ( typeof mods === 'number') { this.value += mods*amt; }
+		if ( typeof mods === 'number') { this.value.base += mods*amt; }
 		else if ( typeof mods === 'object' ) {
 
 			if ( mods instanceof Mod ) {
@@ -292,7 +329,7 @@ export default {
 
 			if ( targ instanceof Stat || targ instanceof Mod ) {
 
-				//console.log( this.id + ' number apply to Stat/Mod: ' + mods );
+				//console.error( this.id + ' number apply to Stat/Mod: ' + mods );
 				targ.apply( mods, amt );
 
 			} else if ( typeof targ === 'object') {targ.value = (targ.value || 0 ) + amt*mods; }

@@ -49,17 +49,4 @@ export default class StatData extends GData {
 	 */
 	filled() { return false; }
 
-
-	/**
-	 * Not currently used.
-	 * @param {} dt
-	 */
-	update( dt ) {
-
-		if ( this._rate.value ) {
-			this.value += this._rate.value*dt;
-		}
-
-	}
-
 }

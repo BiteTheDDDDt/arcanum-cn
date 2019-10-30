@@ -259,7 +259,7 @@ export default class GData {
 		if ( this.max && (this.value + amt) >= this.max.value ) amt = this.max.value - this.value;
 		if ( amt === 0 ) return 0;
 
-		this.value += amt;
+		this.value.base += amt;
 
 		return amt;
 
@@ -291,8 +291,15 @@ export default class GData {
 	 */
 	amount( g, count=1 ) {
 
+		/*if ( this.id ==='virtue' && Math.random() < 0.1 ) {
+			console.warn( count + ' virt: ' + this.value.valueOf() );
+			console.warn('rate: ' + this._rate.valueOf());
+		}*/
+
 		if ( this.topoff ) count = this.topoff(count);
 		if ( count === 0 ) return;
+
+
 
 		if ( this.isRecipe ) {
 			return g.create( this );

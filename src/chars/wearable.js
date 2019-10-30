@@ -1,4 +1,4 @@
-import Base, {mergeClass} from '../items/base';
+import Base, {mergeClass, setModCounts} from '../items/base';
 import Range from "../values/range";
 import Attack from './attack';
 
@@ -182,17 +182,30 @@ export default class Wearable extends Item {
 
 	}
 
-	equip( player ) {
+	equip( g ) {
 
-		if ( this.armor ) player.defense += this.armor;
-		if ( this.type === 'weapon' ) player.weapon = this;
+		let p = g.state.player;
 
+		if ( this.armor ) p.defense.add( this.armor );
+		if ( this.type === 'weapon' ) p.weapon = this;
+
+		if ( this.mod ) {
+			setModCounts( this.mod, 1);
+			g.addMod( this.mod );
+		}
 	}
 
-	unequip( player ) {
+	unequip( g ) {
 
-		if ( this.armor ) player.defense -= this.armor;
-		if ( player.weapon == this ) player.weapon = null;
+		let p = g.state.player;
+
+		if ( this.armor ) p.defense.add( -this.armor );
+		if ( p.weapon === this ) p.weapon = null;
+
+		if ( this.mod ) {
+			setModCounts( this.mod, 0);
+			g.addMod( this.mod );
+		}
 
 	}
 

@@ -89,7 +89,7 @@ export default class Mod extends Stat {
 
 		return {
 			value:val,
-			count:this.count
+			count:this.count.valueOf()
 		};
 
 	}

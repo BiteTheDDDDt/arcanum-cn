@@ -207,14 +207,11 @@ export default class Player extends Char {
 	 */
 	getDamage( kind ){
 
-		console.log('GETTING DAMAGE: ' + kind );
-		let d = this.damage.valueOf() + ( kind ? this.bonuses[kind] || 0 : 0 );
-		if ( kind && this.bonuses.kind ) {
+		return this.damage.valueOf() + ( kind ? this.bonuses[kind] || 0 : 0 );
+		/*if ( kind && this.bonuses[kind] ) {
 			console.log('BONUS DMG: ' + this.bonuses[kind].valueOf() )
-
 		}
-
-		return d;
+		return d;*/
 
 	}
 
@@ -224,13 +221,13 @@ export default class Player extends Char {
 	 */
 	getHit(kind){
 
-		let d = this.tohit.valueOf() + ( kind ? this.hits[kind] || 0 : 0 );
-		if ( kind && this.hits.kind ) {
+		return this.tohit.valueOf() + ( kind ? this.hits[kind] || 0 : 0 );
+
+		/*if ( kind && this.hits[kind] ) {
 			console.log('TOHIT BONUS: ' + this.hits[kind].valueOf() )
 
 		}
-
-		return d;
+		return d;*/
 
 	}
 

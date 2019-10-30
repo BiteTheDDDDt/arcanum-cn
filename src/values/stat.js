@@ -135,6 +135,7 @@ export default class Stat {
 		if ( mod instanceof Stat ) return this.addMod( mod, amt );
 
 		else if ( !isNaN(mod) ) {
+
 			this.base += amt*mod;
 			return;
 		} else if ( typeof mod === 'object') {
@@ -149,6 +150,24 @@ export default class Stat {
 		/*if ( this.id === 'liquifier') {
 			console.log('APPLYMOD LIQ: ' + del + ' bonus: ' + mod.bonus + ' pct: ' + mod.pct );
 		}*/
+
+	}
+
+	/**
+	 * Apply permanent modifier to stat.
+	 * Used for instances.
+	 * @param {*} mod
+	 */
+	perm( mod ) {
+
+		if ( mod instanceof Mod ){
+			this.base += mod.bonusTot;
+			this.basePct += mod.pctTot;
+		} else if ( typeof mod === 'number') {
+			this.base += mod;
+		} else {
+
+		}
 
 	}
 
@@ -169,13 +188,6 @@ export default class Stat {
 		if ( cur === undefined ) {
 			cur = this.mods[mod.id] = mod;
 		}*/
-		if ( this.id === 'player.defense') {
-
-			console.log('ADDMOD DEFENSE: ' + amt + ' bonus: ' + mod.bonus + ' pct: ' + mod.pct + ' :vAL: ' + this.value);
-			console.log('FINAL MOD dEF: '  + ' bonus: ' + this.bonus + ' pct: ' + this.pct + ' :basePct: ' + this.basePct);
-		} else if ( mod.id ==='armory'){
-			console.log( this.id + ' aPPLY ARMORY: ' + amt + ' bonus: ' + mod.bonus + ' ' + mod.pct+'%  this val: ' +  this.value );
-		}
 
 
 	}

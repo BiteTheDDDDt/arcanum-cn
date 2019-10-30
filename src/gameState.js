@@ -386,9 +386,9 @@ export default class GameState {
 	 * @param {string} id
 	 * @param {number} amt
 	 */
-	addMax( id, amt=10) {
+	addMax( id, amt=50) {
 
-		let it = this.getData(id);
+		let it = typeof id === 'string' ? this.getData(id) : id;
 		if ( !it) return;
 
 		it.max.base += amt;

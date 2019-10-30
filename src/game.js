@@ -59,6 +59,8 @@ export default {
 	 */
 	runner:null,
 
+	get player(){return this.state.player},
+
 	/**
 	 *
 	 * @param {*} obj
@@ -293,7 +295,7 @@ export default {
 		for( let i = len-1; i >= 0; i-- ) {
 
 			stat = stats[i];
-			if ( stat.locked === false ) {
+			if ( stat.locked === false && !stat.disabled ) {
 
 				if  ( stat.rate.value !== 0 ) {
 
@@ -665,8 +667,8 @@ export default {
 
 		console.log('USING: ' + it.id  + ' with ' + targ.id );
 
-		if ( it.mod ) targ.applyMods( it.mod, 1 );
-		if ( it.effect ) targ.applyVars( it.effect, 1 );
+		if ( it.mod ) targ.permVars( it.mod );
+		if ( it.effect ) targ.permVars( it.effect );
 
 	},
 
@@ -871,6 +873,15 @@ export default {
 	},
 
 	/**
+	 *
+	 * @param {Object} mod
+	 * @param {number} amt
+	 */
+	removeMod( mod, amt=1 ) {
+		this.addMod( mod, -amt);
+	},
+
+	/**
 	 * Apply a mod.
 	 * @param {Array|Object} mod
 	 * @param {number} amt - amount added.
@@ -973,15 +984,6 @@ export default {
 
 		}
 
-	},
-
-	/**
-	 *
-	 * @param {Object} mod
-	 * @param {number} amt
-	 */
-	removeMod( mod, amt=1 ) {
-		this.addMod( mod, -amt);
 	},
 
 	/**
@@ -1186,20 +1188,17 @@ export default {
 			if ( Array.isArray(res) ) res.forEach(v=>{
 
 					if ( typeof v === 'boolean') return;
-					v.unequip(this.state.player);
-					if ( v.mod ) this.removeMod( v.mod );
+					v.unequip( this );
 
 				});
 			else {
-				res.unequip( this.state.player );
-				if ( res.mod ) this.removeMod( res.mod );
+				res.unequip( this );
 			}
 			this.state.inventory.add(res);
 
 		}
-		if ( it.mod) this.addMod(it.mod);
 
-		it.equip( this.state.player );
+		it.equip( this );
 
 
 	},
@@ -1214,14 +1213,10 @@ export default {
 			this.state.inventory.add(res);
 
 			if (  Array.isArray(res) ) res.forEach(v=>{
-				v.unequip(this.state.player);
-				if ( v.mod ) this.removeMod( v.mod );
-				//this.remove(v);
+				v.unequip(this);
 			});
 			else {
-				res.unequip(this.state.player);
-				if ( res.mod ) this.removeMod( res.mod );
-				//this.remove(res);
+				res.unequip(this);
 			}
 
 		} else console.log('no reuslt');
