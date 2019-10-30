@@ -609,7 +609,6 @@
 			"id":"hal_baroness",
 			"name":"bloody baroness",
 			"level":18,
-			"unique":true,
 			"kind":"human",
 			"desc":"A devotee of the immortal Night Queen, the bloody baroness extends her own life with harvests of blood.",
 			"hp":1000,

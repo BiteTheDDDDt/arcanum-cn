@@ -1,5 +1,6 @@
 <script>
 import Game from '../game';
+import Settings from '../modules/settings';
 import { alphasort } from '../util/util';
 
 import ItemsBase from './itemsBase';
@@ -22,7 +23,15 @@ export default {
 	},
 	data(){
 
+		let opts = Settings.getSubVars('home');
+
 		return {
+
+			/**
+			 * @property {boolean} hideMaxed
+			 */
+			hideMaxed:opts.hideMaxed||false,
+
 			/**
 			 * @property {boolean} switching - true when switching homes.
 			 */
@@ -31,6 +40,7 @@ export default {
 			 * @property {Item[]} filtered - items after text-search filtering.
 			 */
 			filtered:null
+
 		}
 
 	},
@@ -68,26 +78,37 @@ export default {
 	},
 	computed:{
 
+		chkHideMax:{
+			get(){return this.hideMaxed;},
+			set(v){
+				this.hideMaxed = Settings.setSubVar( 'skills', 'hideMaxed', v );
+			}
+		},
+
 		space() { return this.state.getData('space'); },
 
 		curHome(){return this.state.getSlot('home');},
-		homesAvail() {
-			return this.state.homes.filter( v=>!this.locked(v) );
-		},
+		homesAvail() { return this.state.homes.filter( v=>!this.locked(v) ); },
 
+		/**
+		 * @property {GData[]} furniture - ALL furniture, alpha sorted.
+		 */
 		furniture(){
 
 			let s = this.state;
 			return Game.filterItems( it=>
-
 				it.type ==='furniture' || s.typeCost(it.cost, 'space')>0
-
 			).sort(
 				alphasort
 				//(a,b)=> a.name < b.name ? -1 : 1
 			);
 		},
-		viewable() { return this.furniture.filter( it=>!this.reslocked(it)); }
+		viewable() {
+
+			if ( this.hideMaxed ) return this.furniture.filter(it=>!it.maxed()&&!this.reslocked(it) );
+			return this.furniture.filter( it=>!this.reslocked(it));
+
+		}
 
 	}
 
@@ -101,7 +122,6 @@ export default {
 		<div class="pick-slots">
 
 			<slotpick title="home" pick="home" />
-
 			<slotpick title="werry" hide-empty="true" pick="werry" />
 
 		</div>
@@ -110,6 +130,10 @@ export default {
 
 		<span class="separate">
 		<filterbox class="inline" v-model="filtered" :prop="searchIt" :items="viewable" />
+
+		<span><input :id="elmId('hideMax')" type="checkbox" v-model="chkHideMax">
+			<label :for="elmId('hideMax')">Hide Maxed</label></span>
+
 		<span class="space">Space: {{ Math.floor(space.free() ) }} / {{ Math.floor(space.max.value) }}</span>
 		</span>
 
@@ -179,8 +203,25 @@ div.nospace {
 }
 
 div.furniture {
+	flex-grow: 1;
 	margin-bottom: 4px;
 }
+
+div.home-view .furniture .item-table {
+     text-transform: capitalize; overflow-y: scroll;
+	 flex-grow: 1;
+     flex: 1; min-height: 0; width: 100%; max-width: 400px;
+     display: flex; flex-direction: column;
+}
+div.home-view .furniture .item-table tr { display: flex; padding: var(--sm-gap); }
+ div.home-view .furniture .item-table tr:first-child {
+        position: sticky; top: 0; background: var(--header-background-color); z-index: 1;
+    }
+ div.home-view .furniture .item-table tr > *:nth-child(1) { flex-basis: 20%; }
+ div.home-view .furniture .item-table tr > *:nth-child(2) { flex-basis: 40%; }
+ div.home-view .furniture .item-table tr > *:nth-child(3) { flex-basis: 20%; }
+div.home-view .furniture .item-table tr button { margin: 0; font-size: 0.75em; }
+
 
 table .count, table .space {
 	text-align: center;

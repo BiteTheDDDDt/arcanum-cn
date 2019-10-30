@@ -831,7 +831,7 @@ export default {
 				} else {
 
 					if ( typeof e === 'number' || e instanceof Range ) {
-						if ( p ==='stamina') console.log( 'STAM ASSIGN: ' +e );
+
 						target.amount( this, e*dt );
 					} else if ( e === true ) {
 

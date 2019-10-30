@@ -33,8 +33,6 @@ export default class Resource extends GData {
 	get value() { return super.value; }
 	set value(v) {
 
-		if ( this.id ==='stamina') console.log( 'STAM ASSIGN: ' + typeof (v ) + ' :val: ' + v );
-
 		if ( v > this.max ) {
 
 			if ( v < super.value ) super.value = v;
@@ -83,11 +81,7 @@ export default class Resource extends GData {
 	 * @returns {boolean} true if an unlocked item is at maximum value.
 	 */
 	maxed() {
-
-		if ( this.id ==='stamina') console.log( 'STAM MAX?: ' + this.value.valueOf() + ' / ' + this.max.valueOf() );
-
 		return this.max ? (this.value >= this.max) : false;
-
 	}
 
 

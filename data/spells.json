@@ -1955,13 +1955,14 @@
 		"dot":{
 			"duration":60,
 			"mod":{
-				"stamina.max":50,
-				"stamina":50,
+				"stamina.max":40,
+				"stamina":40,
 				"stamina.rate":-2,
-				"player.tohit":15,
+				"dodge":15,
+				"player.tohit":10,
 				"player.damage":5
 			}
-		},"flavor":""
+		},"flavor":"Kanna danced with the devil in the pale moonlight, blades gleaming and blurring like a single streak of silver"
 	},
 	{
 		"id":"unearth",
