@@ -3,6 +3,9 @@ import Game from '../game';
 import Settings from '../modules/settings';
 import { alphasort } from '../util/util';
 
+import Hall from './hall/hall.vue';
+import Profile from '../modules/profile';
+
 import ItemsBase from './itemsBase';
 
 //import Choice from './components/choice.vue';
@@ -19,7 +22,8 @@ export default {
 	mixins:[ItemsBase],
 	components:{
 		slotpick:SlotPick,
-		filterbox:FilterBox
+		filterbox:FilterBox,
+		hall:Hall
 	},
 	data(){
 
@@ -27,15 +31,13 @@ export default {
 
 		return {
 
+			hallOpen:false,
+
 			/**
 			 * @property {boolean} hideMaxed
 			 */
 			hideMaxed:opts.hideMaxed||false,
 
-			/**
-			 * @property {boolean} switching - true when switching homes.
-			 */
-			switching:false,
 			/**
 			 * @property {Item[]} filtered - items after text-search filtering.
 			 */
@@ -48,6 +50,10 @@ export default {
 		this.SET_SLOT = SET_SLOT;
 	},
 	methods:{
+
+		openHall(){ this.hallOpen = true; },
+
+		closeHall(){this.hallOpen = false;},
 
 		searchIt(it, t){
 
@@ -71,23 +77,23 @@ export default {
 			return false;
 
 
-		},
-		toggleSwitch(){
-			this.switching = !this.switching;
 		}
+
 	},
 	computed:{
+
+		hallUnlocked(){ return Game.state.getData('evt_hall')>0; },
+		hallName(){ return Profile.hall.name; },
 
 		chkHideMax:{
 			get(){return this.hideMaxed;},
 			set(v){
-				this.hideMaxed = Settings.setSubVar( 'skills', 'hideMaxed', v );
+				this.hideMaxed = Settings.setSubVar( 'home', 'hideMaxed', v );
 			}
 		},
 
 		space() { return this.state.getData('space'); },
 
-		curHome(){return this.state.getSlot('home');},
 		homesAvail() { return this.state.homes.filter( v=>!this.locked(v) ); },
 
 		/**
@@ -119,7 +125,10 @@ export default {
 
 	<div class="home-view">
 
+<hall v-if="hallOpen" @close="closeHall" />
 		<div class="pick-slots">
+
+			<div v-if="hallUnlocked"><button class="btnHall" @click="openHall">{{ hallName }}</button></div>
 
 			<slotpick title="home" pick="home" />
 			<slotpick title="werry" hide-empty="true" pick="werry" />
@@ -170,6 +179,10 @@ export default {
 </template>
 
 <style scoped>
+
+div.home-view .btnHall {
+width:90%;
+}
 
 span.space {
 	text-align: center;

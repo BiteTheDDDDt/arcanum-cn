@@ -35,9 +35,7 @@ export default {
 
 
 		hallUnlocked(){ return Game.state.getData('evt_hall')>0; },
-		hallName(){
-			return Profile.hall.name;
-		},
+		hallName(){ return Profile.hall.name; },
 
 		title(){ return this.player.title; },
 		speed() {
