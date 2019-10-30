@@ -90,7 +90,7 @@ export default {
 
 			// items prepped separately so template can be written over, then prep, then template assigned.
 			if ( p === 'items') continue;
-			saveData[p] = prepData( saveData[p] );
+			saveData[p] = prepData( saveData[p], p );
 
 		}
 
@@ -178,7 +178,7 @@ export default {
 
 			mergeSafe( saveObj, templates[p] );
 
-			saveItems[p] = prepData( saveObj );
+			saveItems[p] = prepData( saveObj, p );
 			saveObj.template = templates[p];
 
 		}
@@ -321,11 +321,12 @@ export const freezeData = ( obj ) => {
 
 }
 
-export const prepData = ( sub ) => {
+export const prepData = ( sub, id='' ) => {
+
 
 	if (Array.isArray(sub) ) {
 
-		for( let i = sub.length-1; i >= 0; i-- ) sub[i] = prepData( sub[i] );
+		for( let i = sub.length-1; i >= 0; i-- ) sub[i] = prepData( sub[i], id );
 
 	} else if ( sub instanceof Object ) {
 
@@ -333,7 +334,7 @@ export const prepData = ( sub ) => {
 
 			if ( p === 'mod') {
 
-				sub[p] = ParseMods( sub[p], sub.id );
+				sub[p] = ParseMods( sub[p], sub.id || id );
 				continue;
 			} else if ( p === 'require' || p === 'need' ) {
 
@@ -357,7 +358,7 @@ export const prepData = ( sub ) => {
 				}
 				else if ( p === 'damage' || p === 'dmg') sub[p] = makeDmgFunc(obj);
 
-			} else if ( typeof obj === 'object' ) prepData(obj);
+			} else if ( typeof obj === 'object' ) prepData(obj, id);
 
 			if ( p.includes('.')) splitKeyPath( sub, p );
 

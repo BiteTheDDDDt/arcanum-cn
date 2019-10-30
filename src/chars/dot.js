@@ -1,5 +1,6 @@
 import Range from "../values/range";
 import {ParseMods } from "../values/mod";
+import { setModCounts } from "../items/base";
 
 export default class Dot {
 
@@ -54,7 +55,7 @@ export default class Dot {
 		if ( !this.name ) this.name = name || ( source ? source.name : '' );
 		this.id = this.id || this.name || (source ? source.id || source.name : '');
 
-		if ( !this.id ) console.warn('BAD DOT ID: ' + this.name );
+		if ( !this.id ) console.error('BAD DOT ID: ' + this.name );
 
 		if ( !this.duration) this.duration = 10;
 
@@ -95,6 +96,11 @@ export default class Dot {
 
 			this.acc--;
 			this.duration--;
+
+			if ( this.duration <= 0) {
+				if (this.mod) setModCounts( this.mod, 0 );
+			}
+
 			return 1;
 
 		}

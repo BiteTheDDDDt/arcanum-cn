@@ -115,7 +115,7 @@ export default class GData {
 			if ( this._value === null || this._value === undefined ) this._value = v;
 			else if ( v !== this._value ) {
 
-				console.warn('SETTING NEW STAT VAL FOR: ' + this.id );
+				console.warn('!!!!!!!!!SET NEW STAT VAL FOR: ' + this.id );
 				this._value.base = v.base;
 				this._value.basePct = v.basePct;
 

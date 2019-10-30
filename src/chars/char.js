@@ -24,7 +24,7 @@ export default class Char {
 
 		if ( v instanceof Stat) this._defense = v;
 		else if ( this._defense ) this._defense.base = v;
-		else this._defense = new Stat(v);
+		else this._defense = new Stat( v, this.id+'.defense');
 
 
 	}

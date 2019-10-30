@@ -17,31 +17,59 @@ export const DEFAULT_MOD = 'all';
  */
 export const ParseMods = ( mods, id ) => {
 
-	/**
-	 * @todo confusingly this is a string for the complete Mods object.
-	 * this woudl indicate some sort of event trigger.
-	 */
-	if ( typeof mods === 'string' ) return mods;
-	else if ( typeof mods === 'number') return new Mod( mods, id );
+	if ( !mods ) return null;
 
-	for( let s in mods ){
-		if ( s.includes('.')) splitKeyPath( mods, s );
+	if (!id) logObj(mods, 'unknown mod id');
+
+	if ( typeof mods === 'object'){
+		for( let s in mods ){
+			if ( s.includes('.')) splitKeyPath( mods, s );
+		}
 	}
+
+	return SubMods(mods, id);
+
+}
+
+/**
+ *
+ */
+export const SubMods = (mods, id)=>{
+
+	if ( !mods ) return null;
+
+	if ( typeof mods === 'string' ) {
+
+		if ( ModTest.test(mods) ) return new Mod(mods, id );
+		return mods;
+
+	} else if ( typeof mods === 'number') return new Mod( mods, id );
 
 	for( let s in mods ) {
 
-		var val = mods[s];
-		var typ = typeof val;
-		if ( typ === 'number' || (typ === 'string' && ModTest.test(val)) ) {
+		let val = mods[s];
+		let typ = typeof val;
 
-			val = mods[s] = new Mod(val, id);
+		if ( typ === 'string') {
 
-		} else if ( val instanceof Mod ) continue;
-		else if ( typ === 'object') {
+			if( ModTest.test(val) ) {
+				mods[s] = new Mod( val, id );
+			}
 
-			if ( val.id ) mods[s] = new Mod( val );
-			else if ( val.value || val.base ) mods[s] = new Mod(val, id );
-			else ParseMods( val, id );
+		} else if ( typ === 'number' ) {
+
+			mods[s] = new Mod(val, id);
+
+		} else if ( val instanceof Mod ) {
+			//console.log('ALREADY A MOD: '+ s );
+			if (id ) val.id = id;
+		} else if ( typ === 'object') {
+
+			if ( val.id || val.value || val.base ) mods[s] = new Mod(val, id );
+			else mods[s] = SubMods( val, id );
+
+		} else {
+			//logObj( mods, id + ' INVALID MOD ' + (typ) );
 		}
 
 	}
@@ -85,11 +113,7 @@ export default class Mod extends Stat {
 	 * @property {number} [count=0] - number of times mod is applied.
 	 */
 	get count() { return this._count; }
-	set count(v) {
-		if ( !(v instanceof Stat)) console.warn(this.id + ' COUNT NOT STAT: ' + v );
-		else console.log( this.id + ' SETTING COUNT: ' + v.valueOf() );
-		this._count = v;
-	}
+	set count(v) { this._count = v; }
 
 	/**
 	 * @property {number} bonus - total flat bonus of mod.
@@ -115,7 +139,7 @@ export default class Mod extends Stat {
 				this.base = Number(res[1]) || 0;
 				this.basePct = Number(res[2])/100 || 0;
 
-			} else console.log( this.id + ' no mod regex: ' + v );
+			} else console.error( this.id + ' no mod regex: ' + v );
 
 
 		} else if ( v instanceof Percent ) {
@@ -146,14 +170,13 @@ export default class Mod extends Stat {
 			Object.assign( this, vars );
 		}
 
-		if(!this._count) this._count = 0;
+		if( this._count === undefined ) this._count = 1;
 
 		this.base = this.base || 0;
 		this.basePct = this.basePct || 0;
 
 		this.id = id || this.id || DEFAULT_MOD;
 
-		if ( this.id === 'liquifier' ) console.log('LIQ BASE PCT: ' + this.basePct );
 	}
 
 	clone() { return new Mod({base:this.base, basePct:this.basePct, count:1}, this.id ); }

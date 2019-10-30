@@ -61,7 +61,7 @@ export default class Stat {
 	get mPct() { return this._mPct };
 
 	/**
-	 * @property {Object.<string,Mod>} mods - mods applied to object.
+	 * @property {.<string,Mod>} mods - mods applied to object.
 	 */
 	get mods() { return this._mods; }
 	set mods(v) {
@@ -146,37 +146,11 @@ export default class Stat {
 
 		}
 
-		if ( this.id === 'liquifier') {
-
+		/*if ( this.id === 'liquifier') {
 			console.log('APPLYMOD LIQ: ' + del + ' bonus: ' + mod.bonus + ' pct: ' + mod.pct );
-		}
+		}*/
 
 	}
-
-	/**
-	 * Add a modifier to the stat.
-	 * @param {Mod} mod
-	 * @param {number} [amt=1] - amount by which mod increased.
-	 */
-	/*addMod( mod, del=1 ) {
-
-		this._mPct += del*mod.pct;
-		this._mBase += del*mod.bonus;
-
-		let cur = this.mods[ mod.id ];
-		if ( cur === undefined ) {
-			cur = this.mods[mod.id] = mod;
-		}
-		if ( this.id === 'liquifier') {
-
-			console.log('ADDMOD LIQ: ' + del + ' bonus: ' + mod.bonus + ' pct: ' + mod.pct + ' :vAL: ' + this.value);
-			console.log('FINAL MOD LIQ: '  + ' bonus: ' + this.bonus + ' pct: ' + this.pct + ' :basePct: ' + this.basePct);
-		} else if ( mod.id ==='liquifier' && this.id.includes('managem')){
-			console.log( this.id + ' aPPLY LIQ: ' + del + ' bonus: ' + mod.bonus + ' ' + mod.pct+'%  this val: ' +  this.value );
-		}
-
-
-	}*/
 
 	/**
 	 *
@@ -195,12 +169,12 @@ export default class Stat {
 		if ( cur === undefined ) {
 			cur = this.mods[mod.id] = mod;
 		}*/
-		if ( this.id === 'liquifier') {
+		if ( this.id === 'player.defense') {
 
-			console.log('ADDMOD LIQ: ' + amt + ' bonus: ' + mod.bonus + ' pct: ' + mod.pct + ' :vAL: ' + this.value);
-			console.log('FINAL MOD LIQ: '  + ' bonus: ' + this.bonus + ' pct: ' + this.pct + ' :basePct: ' + this.basePct);
-		} else if ( mod.id ==='liquifier' && this.id.includes('managem')){
-			console.log( this.id + ' aPPLY LIQ: ' + amt + ' bonus: ' + mod.bonus + ' ' + mod.pct+'%  this val: ' +  this.value );
+			console.log('ADDMOD DEFENSE: ' + amt + ' bonus: ' + mod.bonus + ' pct: ' + mod.pct + ' :vAL: ' + this.value);
+			console.log('FINAL MOD dEF: '  + ' bonus: ' + this.bonus + ' pct: ' + this.pct + ' :basePct: ' + this.basePct);
+		} else if ( mod.id ==='armory'){
+			console.log( this.id + ' aPPLY ARMORY: ' + amt + ' bonus: ' + mod.bonus + ' ' + mod.pct+'%  this val: ' +  this.value );
 		}
 
 
@@ -211,10 +185,9 @@ export default class Stat {
 		let cur = this.mods[mod.id];
 		if ( cur === undefined) return;
 
-		this.mPct -= mod.pctTot;
-		this.mBase -= mod.bonusTotal;
-
 		this.mods[mod.id] = undefined;
+
+		this.recalc();
 
 	}
 
@@ -247,6 +220,7 @@ export default class Stat {
 		for( let p in this._mods ) {
 
 			var mod = this._mods[p];
+			if (mod === undefined ) continue;
 
 			pct += mod.count*mod.pct;
 			bonus += mod.count*mod.bonus;

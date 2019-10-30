@@ -51,25 +51,6 @@ export default class Resource extends GData {
 	set delta(v) { this._delta = v; }
 
 	/**
-	 * @property {Stat} max - maximum resource value.
-	 */
-	/*get max() { return this._max; }
-	set max(v) {
-
-		if ( super.max === null || super.max === undefined ) {
-
-			super.max = new Stat(v, 'max', true);
-
-		} else {
-
-			if ( v instanceof Stat ) this._max = v;
-			else this._max.base = v;
-
-		}
-
-	}*/
-
-	/**
 	 *
 	 * @param {?Object} [vars=null]
 	 */

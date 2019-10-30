@@ -6,7 +6,10 @@ import { logObj } from '../util/util';
 
 export const setModCounts = ( m, v)=>{
 
-	if ( m instanceof Mod ) m.count = v;
+	if ( m instanceof Mod ) {
+		console.log( m.id + ' SETTING MOD COUNT: ' + v );
+		m.count = v;
+	}
 	else if ( typeof m ==='object') {
 		for( let p in m ){ setModCounts(m[p], v); }
 	}
@@ -323,7 +326,7 @@ export default {
 
 				let s = targ[p] = new Stat( typeof m === 'number' ? m*amt : 0 );
 				if ( m instanceof Mod) {
-					s.apply(m, amt);
+					s.addMod(m, amt);
 				}
 				//logObj(mods, 'mods parent');
 				//logObj( m, p + ' mod');
@@ -347,7 +350,8 @@ export default {
 				} else this.applyMods( m, amt, subTarg);
 
 			} else {
-				console.warn( `UNKNOWN Mod applied to ${this.id}: ${p}:${m}`);
+
+				console.warn( `UNKNOWN Mod applied to ${this.id}.${p}: ${m}` + '  ' + typeof m);
 			}
 
 		}
