@@ -6,7 +6,6 @@ import Percent, {PercentTest} from './values/percent';
 import {ParseMods } from './values/mod';
 
 import Resource from './items/resource';
-import ZeroSum from './items/zerosum';
 import RevStat from './items/revStat';
 import StatData from './items/statData';
 import Skill from './items/skill';
@@ -259,7 +258,6 @@ export default {
 
 			if ( def.reverse) dataList[i] = def = new RevStat(def);
 			else if ( def.stat ) dataList[i] = def = new StatData(def);
-			else if ( def.zerosum ) dataList[i] = def = new ZeroSum(def);
 			else dataList[i] = def = new UseClass( def );
 
 			if ( tag ) def.addTag( tag );
@@ -287,7 +285,7 @@ export default {
 		let res;
 		for( let def of stats ) {
 
-			res = vars[ def.id ] = def.zerosum === true ? new ZeroSum(def) :
+			res = vars[ def.id ] =
 				( def.stat === true ? new StatData(def) :
 				( def.reverse === true ? new RevStat(def) : new Resource( def ) )
 			);

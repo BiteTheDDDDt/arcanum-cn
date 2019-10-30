@@ -198,8 +198,12 @@ export default class Runner {
 
 		if (!a) return;
 
-		if ( typeof a === 'string' ) a = gs.getData( a);
-		else if ( typeof a === 'object') {
+		if ( typeof a === 'string' ) {
+
+			a = gs.getData( a);
+			if ( !a ) return null;
+
+		} else if ( typeof a === 'object') {
 
 			a = new Runnable( a );
 			if ( typeof a.revive === 'function' ) a.revive(gs);
