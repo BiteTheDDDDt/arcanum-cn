@@ -60,6 +60,11 @@ div.res-list {
 	min-width: 200px;
 }
 
+.rsrc {
+	display:flex;
+	justify-content: space-between;
+}
+
 .rsrc .item-name {
 	flex:1;
 	color:#999;
