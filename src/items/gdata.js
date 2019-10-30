@@ -291,11 +291,6 @@ export default class GData {
 	 */
 	amount( g, count=1 ) {
 
-		/*if ( this.id ==='virtue' && Math.random() < 0.1 ) {
-			console.warn( count + ' virt: ' + this.value.valueOf() );
-			console.warn('rate: ' + this._rate.valueOf());
-		}*/
-
 		if ( this.topoff ) count = this.topoff(count);
 		if ( count === 0 ) return;
 

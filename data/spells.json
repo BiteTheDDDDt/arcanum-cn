@@ -1936,6 +1936,34 @@
 		},"flavor":"don't lose your way"
 	},
 	{
+		"id":"kannadance",
+		"level":7,
+		"name":"kanna's dervish dance",
+		"school":"bladelore",
+		"require":"spellblade",
+		"desc":"",
+		"buy":{
+
+			"research":500,
+			"tomes":1,
+			"airgem":10
+
+		},
+		"cost":{
+			"air":8
+		},
+		"dot":{
+			"duration":60,
+			"mod":{
+				"stamina.max":50,
+				"stamina":50,
+				"stamina.rate":-2,
+				"player.tohit":15,
+				"player.damage":5
+			}
+		},"flavor":""
+	},
+	{
 		"id":"unearth",
 		"desc":"raise precious stones from the ground.",
 		"school":"earth",

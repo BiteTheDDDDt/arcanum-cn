@@ -11,6 +11,7 @@ export default class RevStat extends Resource {
 		super(vars);
 
 		if ( !this._max ) this.max = 0;
+		if ( !this.value || this.value <0 ) this.value = 0;
 
 	}
 
@@ -29,8 +30,8 @@ export default class RevStat extends Resource {
 	 * it is considered filled to avoid getting stuck.
 	 * @param {number} rate
 	 */
-	filled( rate=0 ) { return this._value <= 0 || (this.rate && (this.rate+rate) >=0); }
+	filled( rate=0 ) { return this.value <= 0 || (this.rate && (this.rate+rate) >=0); }
 
-	maxed() { return this._value <= 0; }
+	maxed() { return this.value <= 0; }
 
 }

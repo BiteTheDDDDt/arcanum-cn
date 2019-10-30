@@ -843,8 +843,9 @@ export default {
 
 				} else {
 
-					if ( typeof e === 'number' || e instanceof Range ) target.amount( this, e*dt );
-					else if ( e === true ) {
+					if ( typeof e === 'number' || e instanceof Range ) {
+						target.amount( this, e*dt );
+					} else if ( e === true ) {
 
 						target.doUnlock(this);
 						target.onUse( this );
@@ -867,6 +868,28 @@ export default {
 				this.listGet( this.getTagList(effect), dt );
 
 			}
+
+		}
+
+	},
+
+	/**
+	 * Apply an effect or mod to all Items with given tag.
+	 * @param {string} tag - item tag.
+	 * @param {object} eff - object effect.
+	 * @param {number} dt - time or percent of mod to apply.
+	 */
+	applyToTag( tag, eff, dt ) {
+
+		let target = this.state.getTagList(tag);
+
+		if ( target ) {
+
+			for( let i = target.length-1; i>=0; i--) {
+				target[i].applyVars( eff, dt);
+				target[i].dirty = true;
+			}
+
 
 		}
 
@@ -960,28 +983,6 @@ export default {
 				target[i].applyMods( mods, dt);
 				target[i].dirty = true;
 			}
-		}
-
-	},
-
-	/**
-	 * Apply an effect or mod to all Items with given tag.
-	 * @param {string} tag - item tag.
-	 * @param {Object} obj - object mod.
-	 * @param {number} dt - time or percent of mod to apply.
-	 */
-	applyToTag( tag, obj, dt ) {
-
-		let target = this.state.getTagList(tag);
-
-		if ( target ) {
-
-			for( let i = target.length-1; i>=0; i--) {
-				target[i].applyVars( obj, dt);
-				target[i].dirty = true;
-			}
-
-
 		}
 
 	},

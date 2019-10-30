@@ -210,8 +210,8 @@ export default {
 
 	permVars( mods, targ=this) {
 
-		console.log( 'PERM VARS: ' + typeof mods);
-		console.log('eNC TARG: ' + typeof targ);
+		//console.log( 'PERM VARS: ' + typeof mods);
+		//console.log('eNC TARG: ' + typeof targ);
 		if ( typeof targ === 'number') {
 
 			// error.
@@ -254,16 +254,16 @@ export default {
 	 */
 	applyVars( mods, amt=1 ) {
 
-		if ( typeof mods === 'number') { this.value.base += mods*amt; }
-		else if ( typeof mods === 'object' ) {
+		if ( typeof mods === 'number') {
 
-			if ( mods instanceof Mod ) {
+			this.amount( Game, mods*amt );
+			//this.value.base += mods*amt;
 
-				// this is possible by one mod adding a new effect to an existing item,
-				// causing the mod to be cloned into the effect.
-				// coals: mod->rest.effect.fire:0.1
-				// use rest: apply effect to fire: 0.1 is now a mod.
-				mods.applyTo( this, 'value', amt);
+		} else if ( typeof mods === 'object' ) {
+
+			if ( mods instanceof Stat ) {
+
+				this.value.base += mods.value;
 				return;
 
 			}

@@ -140,7 +140,7 @@ export default class Stat {
 			return;
 		} else if ( typeof mod === 'object') {
 
-			console.error( 'RAW OBJECT MOD STAT: ' + logObj(mod) );
+			console.warn( 'RAW OBJECT MOD STAT: ' +this.id );//+ logObj(mod) );
 			/**@todo support for percents/ranges in general. */
 			this.base += amt*( mod.bonus || 0 );
 			this.basePct += amt*( mod.pct || 0 );
