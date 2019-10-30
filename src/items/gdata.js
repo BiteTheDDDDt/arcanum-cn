@@ -116,13 +116,13 @@ export default class GData {
 			if ( this._value === null || this._value === undefined ) this._value = v;
 			else if ( v !== this._value ) {
 
-				console.warn('!!!!!!!!!SET NEW STAT VAL FOR: ' + this.id );
 				this._value.base = v.base;
 				this._value.basePct = v.basePct;
 
 			}
 
 		} else if ( this._value !== undefined ) {
+
 
 			this._value.base = (typeof v === 'object') ? v.value : v;
 
@@ -255,7 +255,10 @@ export default class GData {
 			return 0;
 		}
 
-		if ( this.max && (this.value + amt) >= this.max.value ) amt = this.max.value - this.value;
+		if ( this.max && (this.value + amt) >= this.max.value ) {
+			amt = this.max.value - this.value;
+
+		}
 		if ( amt === 0 ) return 0;
 
 		this.value.base += amt;

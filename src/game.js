@@ -344,20 +344,20 @@ export default {
 			return true;
 		}
 
-		let fill = this.getData(v);
-		if (fill === undefined ) {
+		let item = this.getData(v);
+		if (item === undefined ) {
 
-			fill = this.state.getTagList( v );
-			return fill === undefined ? true : this.filled(fill, a, v );
+			item = this.state.getTagList( v );
+			return item === undefined ? true : this.filled(item, a, v );
 
 		}
 
-		if ( !fill.rate || !a.effect || fill.rate.value >= 0 ) return fill.maxed();
+		if ( !item.rate || !a.effect || item.rate.value >= 0 ) return item.maxed();
 
 		// actual filling rate.
 		tag = a.effect[ tag || v ];
 
-		return ( !tag || fill.filled(tag ) );
+		return ( !tag || item.filled(tag ) );
 
 	},
 
@@ -831,6 +831,7 @@ export default {
 				} else {
 
 					if ( typeof e === 'number' || e instanceof Range ) {
+						if ( p ==='stamina') console.log( 'STAM ASSIGN: ' +e );
 						target.amount( this, e*dt );
 					} else if ( e === true ) {
 

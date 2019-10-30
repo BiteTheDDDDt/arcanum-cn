@@ -262,7 +262,7 @@ export default {
 
 			if ( mods instanceof Stat ) {
 
-				this.value.base += mods.value;
+				this.value += mods.value;
 				return;
 
 			}
