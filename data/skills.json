@@ -693,7 +693,6 @@
 			"shadow":0.5
 		},
 		"mod":{
-			"shadowrune.max":2,
 			"shadow.max":1,
 			"shadow.rate":"1%",
 			"player.bonuses.shadow":1,
@@ -717,7 +716,6 @@
 			"light":0.5
 		},
 		"mod":{
-			"lightrune.max":2,
 			"light.max":1,
 			"light.rate":"1%",
 			"player.bonuses.light":1,
@@ -741,7 +739,6 @@
 			"spirit":0.5
 		},
 		"mod":{
-			"spiritrune.max":2,
 			"spirit.max":1,
 			"spirit.rate":"1%",
 			"player.bonuses.spirit":1,
@@ -765,7 +762,6 @@
 			"mana":0.5
 		},
 		"mod":{
-			"manarune.max":2,
 			"mana.max":1,
 			"mana.rate":"1%",
 			"player.bonuses.mana":1,
@@ -789,7 +785,6 @@
 			"nature":0.5
 		},
 		"mod":{
-			"naturerune.max":2,
 			"nature.max":1,
 			"nature.rate":"1%",
 			"player.bonuses.nature":1,
@@ -840,7 +835,7 @@
 	{
 
 		"id":"necromancy",
-		"require":"g.evil>0&&g.reanimation>=7&&g.souls.max>0",
+		"require":"g.evil>0&&g.reanimation>=7&&g.souls.max>3",
 		"school":"shadow",
 		"desc":"forbidden death magic.",
 		"buy":{

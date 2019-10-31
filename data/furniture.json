@@ -1486,6 +1486,24 @@
 
 	},
 	{
+
+		"id":"crypt",
+		"require":"g.necromancy>0&&g.ruinedcrypt>0",
+		"tags":"prison",
+		"cost":{
+			"research":5000,
+			"space":30
+		},
+		"mod":{
+			"bodies.max":25,
+			"bones.max":30,
+			"bonedust.max":20,
+			"necromancy.max":2,
+			"embalming.max":1,
+			"reanimation.max":1
+		}
+	},
+	{
 		"id":"dungeon",
 		"desc":"A vast complex to lock away hazardous experiments, deadly creatures, and all those who displease you.",
 		"tags":"prison",
