@@ -358,8 +358,8 @@ export default {
 		<template slot="sect_equip">
 
 			<div class="inv-equip">
-			<equip :equip="state.equip" />
-			<inventory :inv="state.inventory" />
+				<equip :equip="state.equip" />
+				<inventory :inv="state.inventory" />
 			</div>
 
 		</template>

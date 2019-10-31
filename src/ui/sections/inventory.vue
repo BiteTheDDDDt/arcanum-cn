@@ -15,9 +15,7 @@ export default {
 			filtered:null
 		}
 	},
-	created() {
-		this.USE = USE;
-	},
+	created() { this.USE = USE; },
 	components:{
 		filterbox:FilterBox
 	},
@@ -66,8 +64,8 @@ export default {
 
 
 <template>
-<div>
-	<filterbox v-if="!nosearch" v-model="filtered" :items="inv.items" min-items="10" />
+<div class="inv-equip">
+	<filterbox v-if="!nosearch" v-model="filtered" :items="inv.items" min-items="7" />
 
 	<div class="flex-row">
 		<div v-if="inv.max > 0">{{ inv.items.length + ' / ' + Math.floor(inv.max.value ) + ' Used' }}</div>
@@ -106,7 +104,7 @@ export default {
 div.inv-equip .item-table {
 		/*display: flex; flex-flow: column;*/
 		overflow-y: auto;
-        margin: 0; padding: var(--md-gap);
+        margin: 0; padding: var(--tiny-gap);
         display: grid; grid-template-columns: repeat( auto-fit, minmax( 256px, 1fr )); grid-auto-rows: 1fr;
         grid-column: 1/3;
     }
@@ -126,6 +124,7 @@ div.inv-equip > div:nth-child(2) {
 .flex-row {
 	align-items:center;
 	justify-content: flex-start;
+	padding-left: var(--sm-gap);
 }
 .flex-row div {
 	margin-right: 12px;

@@ -110,7 +110,7 @@ export default {
 
 	<div class="raid-bottom">
 
-		<inv class="inv" :inv="drops" take=true nosearch=true />
+		<inv class="inv" :inv="drops" take=true />
 		<div class="log">
 			<span v-if="exploring">Exploring...<br></span>
 
