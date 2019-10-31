@@ -1380,6 +1380,7 @@
 		"mod":{
 			"tomes.rate":0.01,
 			"starcharts.max":50,
+			"tomes.mod.research.max":"5%",
 			"codices.max":100,
 			"scrolls.max":100,
 			"tomes.max":100

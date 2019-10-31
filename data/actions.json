@@ -1224,7 +1224,7 @@
 			"gems":1,
 			"nature":5
 		},
-		"effect":{
+		"result":{
 			"naturegem":1
 		}
 	},
@@ -1238,7 +1238,7 @@
 			"gems":1,
 			"mana":5
 		},
-		"effect":{
+		"result":{
 			"managem":1
 		}
 	},
@@ -1254,7 +1254,7 @@
 			"water":1,
 			"hp":20
 		},
-		"effect":"bloodgem"
+		"result":"bloodgem"
 	},
 	{
 		"id":"imbuefiregem",
@@ -1266,7 +1266,7 @@
 			"gems":1,
 			"fire":5
 		},
-		"effect":"firegem"
+		"result":"firegem"
 	},
 	{
 		"id":"imbueairgem",
@@ -1278,7 +1278,7 @@
 			"gems":1,
 			"air":5
 		},
-		"effect":"airgem"
+		"result":"airgem"
 	},
 	{
 		"id":"imbueearthgem",
@@ -1290,7 +1290,7 @@
 			"gems":1,
 			"earth":5
 		},
-		"effect":"earthgem"
+		"result":"earthgem"
 	},
 	{
 		"id":"imbuewatergem",
@@ -1302,7 +1302,7 @@
 			"gems":1,
 			"water":5
 		},
-		"effect":"watergem"
+		"result":"watergem"
 	},
 	{
 		"id":"imbuelightgem",
@@ -1314,7 +1314,7 @@
 			"gems":1,
 			"light":5
 		},
-		"effect":"lightgem"
+		"result":"lightgem"
 	},
 	{
 		"id":"imbueshadowgem",
@@ -1326,7 +1326,7 @@
 			"gems":1,
 			"shadow":5
 		},
-		"effect":"shadowgem"
+		"result":"shadowgem"
 	},
 	{
 		"id":"imbuespiritgem",
@@ -1338,7 +1338,7 @@
 			"gems":1,
 			"spirit":5
 		},
-		"effect":"spiritgem"
+		"result":"spiritgem"
 
 	},
 	{
