@@ -574,7 +574,7 @@
 		"name":"basin",
 		"tags":"watersource",
 		"desc":"Basin of water.",
-		"require":"evt_helper",
+		"require":"apprentice",
 		"repeat":true,
 		"cost":{
 			"gold":50,
@@ -921,6 +921,26 @@
 			"shadow.rate":0.05,
 			"shadow.max":1
 		}
+	},
+	{
+		"id":"baneanvil",
+		"name":"bloodbane's anvil",
+		"require":"g.crafting>=14",
+		"need":"workshop",
+		"desc":"Great spells are often forged on iron.",
+		"sym":"⭐",
+		"cost":{
+			"space":5,
+			"research":10000,
+			"tomes":10
+		},
+		"mod":{
+			"spellcraft.max":2,
+			"spellcraft.rate":"5%",
+			"enchanting.max":2
+		},
+		"flavor":"Forsaking war and violence, Bloodbane devoted himself to crafting new forms of magic."
+
 	},
 	{
 		"id":"casket",
