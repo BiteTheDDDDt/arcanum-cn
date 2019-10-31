@@ -450,6 +450,9 @@ div.inv-equip {
 	padding: 0; display: grid; grid-template-rows: 50% 50%; grid-auto-columns: 1fr;
 }
 
+div.inv-equip > div:nth-child(2) {
+        border-top: 1px solid var(--separator-color);
+	}
 
 div.bot-bar {
 	background: inherit;
