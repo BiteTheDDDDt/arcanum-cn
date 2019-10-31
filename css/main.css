@@ -217,6 +217,10 @@ div.config button:after, button.config:after {
 	content:"\2699\00a0";
 }
 
+.inConfig button[disabled], .inConfig button {
+	pointer-events: none;
+}
+
 .float{
 	position:absolute;
 }

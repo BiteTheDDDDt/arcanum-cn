@@ -1941,7 +1941,7 @@
 		"name":"kanna's dervish dance",
 		"school":"bladelore",
 		"require":"spellblade",
-		"desc":"",
+		"desc":"Kanna's dance was strenuous or a mage, but deadly to enemies.",
 		"buy":{
 
 			"research":500,
@@ -1962,7 +1962,7 @@
 				"player.tohit":10,
 				"player.damage":5
 			}
-		},"flavor":"Kanna danced with the devil in the pale moonlight, blades gleaming and blurring like a single streak of silver"
+		},"flavor":"she danced with the devil in the pale moonlight, blades gleaming and blurring like a single streak of silver"
 	},
 	{
 		"id":"unearth",

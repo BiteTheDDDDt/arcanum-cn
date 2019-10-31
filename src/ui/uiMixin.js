@@ -63,7 +63,7 @@ export default {
 				if ( this.hide[h.dataset.key] ) h.classList.add( 'inConfig', 'configHiding');
 				else h.classList.add('inConfig');
 
-				h.addEventListener('click', this.onTogHide, true );
+				h.addEventListener('pointerdown', this.onTogHide, true );
 
 			}
 
@@ -84,7 +84,7 @@ export default {
 
 				var h = hideElms[i];
 
-				h.removeEventListener('click', this.onTogHide, true );
+				h.removeEventListener('pointerdown', this.onTogHide, true );
 				h.classList.remove('configHiding', 'inConfig');
 
 			}
