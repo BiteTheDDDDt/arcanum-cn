@@ -265,6 +265,7 @@ export default class Player extends Char {
 	setClass( gclass ) {
 
 		this.gclass = gclass;
+		this.setTitle( gclass );
 		Events.emit( CHAR_CLASS, this );
 
 	}

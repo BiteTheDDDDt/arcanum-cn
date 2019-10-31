@@ -54,9 +54,7 @@ export default {
 	computed:{
 
 		playerInv(){ return this.inv === Game.state.inventory; },
-		playerFull(){
-			return Game.state.inventory.full();
-		}
+		playerFull(){ return Game.state.inventory.full(); }
 	}
 
 }
@@ -98,7 +96,7 @@ export default {
 	</tr>
 </div>
 
-<div v-if="playerFull" class="warn-text">Player inventory full</div>
+<div v-if="playerFull" class="warn-text">Inventory Full</div>
 </div>
 </template>
 
