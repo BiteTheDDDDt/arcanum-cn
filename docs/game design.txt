@@ -1,3 +1,24 @@
+EMOJIS:
+
+
+ U+1F5FB 🗻
+ U+1F3D4 🏔 MOUNTAIN
+
+Volcano:
+U+1F30B
+
+
+U+1F3D5 🏕 CAMPING
+
+
+U+1F3DB 	🏛 BUILDING
+
+U+2B50 	⭐
+U+2697 	⚗
+
+U+1F6CF 	🛏  BED
+U+26B0 	⚰ CASKET
+
 star cinder
 star well
 cloak of ashes
@@ -5,6 +26,7 @@ amulet of xulang
 living fire
 zavid's compass
 tenwick's walking stick
+
 
 
 oubliette

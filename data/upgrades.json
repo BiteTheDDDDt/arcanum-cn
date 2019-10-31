@@ -907,17 +907,35 @@
 	},
 	{
 		"id":"gemcraft",
-		"name":"gem craft",
 		"require":"g.tier4>0&&g.crafting>=16",
 		"warn":true,
 		"cost":{
 			"research":7500,
 			"tomes":10,
-			"arcana":15
+			"arcana":15,
+			"sp":5
 		},
-		"desc":"craft gems continuously without effort",
+		"desc":"Imbue gems continuously as your current activity.",
 		"mod":{
-			"gemimbue.perpetual":true
+			"gemimbue.perpetual":true,
+			"gemimbue.length":5
+		}
+
+	},
+	{
+		"id":"advgems",
+		"name":"advanced gemcraft",
+		"require":"g.gemcraft>0&&g.crafting>=18",
+		"warn":true,
+		"cost":{
+			"research":10000,
+			"tomes":10,
+			"arcana":15,
+			"sp":10
+		},
+		"desc":"Improve the speed of your gem enchanting.",
+		"mod":{
+			"gemimbue.length":"-75%"
 		}
 
 	},
@@ -1147,11 +1165,13 @@
 		"cost":{
 			"research":1000,
 			"tomes":5,
-			"bloodgem":5
+			"bloodgem":10,
+			"arcana":5,
+			"sp":1
 		},
 		"mod":{
 			"research.rate":-0.2,
-			"hp.rate":0.7
+			"hp.rate":0.5
 		}
 
 	},

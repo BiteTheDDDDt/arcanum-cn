@@ -1940,6 +1940,7 @@
 		"level":7,
 		"name":"kanna's dervish dance",
 		"school":"bladelore",
+		"sym":"⭐",
 		"require":"spellblade",
 		"desc":"Kanna's dance was strenuous or a mage, but deadly to enemies.",
 		"buy":{
