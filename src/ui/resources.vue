@@ -31,7 +31,7 @@ export default {
 <template>
 <div class="res-list">
 
-		<div class="config"><button ref="btnHides" class="btnConfig">&#9881;</button></div>
+		<div class="config"><button ref="btnHides" class="btnConfig"></button></div>
 		<div class="rsrc hidable" v-for="it in shown"
 			:data-key="it.id" :key="it.id"
 			@mouseenter.capture.stop="emit( 'itemover',$event,it)">

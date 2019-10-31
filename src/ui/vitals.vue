@@ -72,7 +72,7 @@ export default {
 
 		<running :runner="state.runner" />
 
-		<div class="config"><button ref="btnHides" class="btnConfig">&#9881;</button></div>
+		<div class="config"><button ref="btnHides" class="btnConfig"></button></div>
 
 		<!-- anything not a table is a headache -->
 		<table class="bars">

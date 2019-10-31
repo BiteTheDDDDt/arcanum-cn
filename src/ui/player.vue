@@ -79,7 +79,19 @@ export default {
 
 		openHall(){ this.hallOpen = true; },
 
-		closeHall(){this.hallOpen = false;}
+		closeHall(){this.hallOpen = false;},
+
+		pickTitle($evt){
+
+			this.emit( 'choice', this.player.titles, (p)=>{
+
+				if ( p ) {
+					this.player.setTitle(p);
+				}
+
+			}, $evt.target, '', true );
+
+		}
 
 	}
 
@@ -102,7 +114,8 @@ export default {
 
 		<tr v-if="hallUnlocked"><td></td><th><button @click="openHall">{{ hallName }}</button></th></tr>
 
-		<tr @mouseenter.capture.stop="emit( 'itemover', $event,player.titles, 'Titles')"><td>title</td><th> {{ title}}</th></tr>
+		<tr @mouseenter.capture.stop="emit( 'itemover', $event,player.titles, 'Titles')">
+			<td><span v-if="player.titles.length>0"><button class="config" @click="pickTitle($event)"></button></span>title</td><th> {{ title}}</th></tr>
 		<tr><td>notoriety</td><th>{{ Math.floor(player.fame.valueOf() ) }}</th></tr>
 		<tr><td>level</td><th> {{ level }}</th></tr>
 		<tr><td>exp</td><th> {{ exp }} / {{ next }} </th></tr>

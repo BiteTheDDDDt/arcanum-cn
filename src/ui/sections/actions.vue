@@ -44,7 +44,7 @@ export default {
 
 <template>
 	<div class="main-actions" ref="hidables">
-		<div class="config"><button ref="btnHides" class="btnConfig">&#9881;</button></div>
+		<div class="config"><button ref="btnHides" class="btnConfig"></button></div>
 		<upgrades class="action-list" :items="visActs" />
 		<upgrades class="action-list" :items="visRuns" />
 		<upgrades class="upgrade-list" :items="ups" />

@@ -213,6 +213,10 @@ div.config {
 	padding: 0;
 }
 
+div.config button:after, button.config:after {
+	content:"\2699\00a0";
+}
+
 .float{
 	position:absolute;
 }
@@ -222,8 +226,8 @@ div.config {
 	display: unset;
 }
 
-.btnConfig {
-	font-size: 0.94em;
+.btnConfig, button.config {
+	font-size: 0.94rem;
 	padding: 0px;
 	margin:0px;
 	border:none;

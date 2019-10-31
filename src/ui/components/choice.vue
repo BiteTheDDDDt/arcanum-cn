@@ -3,6 +3,7 @@ import Game from '../../game';
 import { center, positionAt } from './popups.js';
 
 import ItemsBase from '../itemsBase.js';
+import GData from '../../items/gdata';
 
 /**
  * @emits choice
@@ -15,7 +16,8 @@ export default {
 			list:null,
 			elm:null,
 			item:null,
-			open:false
+			open:false,
+			strings:false
 		}
 	},
 	mixins:[ItemsBase],
@@ -23,19 +25,22 @@ export default {
 
 		this.cb = null;
 
-		console.warn('CHOICE DIALOG CREATED');
-		this.listen('game-loaded', ()=>{
+		this.plisten = ()=>{
 
 			/**
 			 * Special event to show choice dialog.
 			*/
 			this.add( 'choice', this.show, this );
 
-		} );
+		};
 
+		this.listen('game-loaded', this.plisten );
 
-
-
+	},
+	beforeDestroy(){
+		this.removeListener( 'game-loaded', this.plisten );
+		this.plisten = null;
+		this.cancel();
 	},
 	updated() {
 
@@ -63,14 +68,17 @@ export default {
 
 				} else if ( Array.isArray(v ) ) {
 
-					var a = [];
-					for( let i = v.length-1; i>= 0; i-- ) {
+					if ( this.strings ) this.list = v;
+					else {
+						var a = [];
+						for( let i = v.length-1; i>= 0; i-- ) {
 
-						var it = Game.state.findData( v[i] );
-						if ( it ) a.push(it);
+							var it = Game.state.findData( v[i] );
+							if ( it ) a.push(it);
+						}
+
+						this.list = a;
 					}
-
-					this.list = a;
 
 				} else this.list = null;
 
@@ -81,12 +89,16 @@ export default {
 	},
 	methods:{
 
-		show( choices, cb=null, elm=null, title=null) {
+		/**
+		 * @param {boolean}strings - data are raw strings.
+		 */
+		show( choices, cb=null, elm=null, title=null, strings=false) {
 
 			//console.log('showing choices');
 			this.title = title;
 			this.cb = cb;
 			this.elm = elm;
+			this.strings = strings;
 
 			this.choices = choices;
 			this.open=true;
@@ -124,6 +136,7 @@ export default {
 			this.open = false;
 			this.item = null;
 			this.choices = null;
+			this.elm = null;
 
 			if ( this.cb ) {
 
@@ -139,6 +152,7 @@ export default {
 			this.cb = null;
 			this.item = null;
 			this.choices = null;
+			this.elm = null;
 		}
 
 	}
@@ -153,12 +167,11 @@ export default {
 		<span class="title" v-if="title">{{title}}</span>
 
 		<div class="items">
-		<span class="action-btn" v-for="it in choices" :key="it.id"
-			@mouseenter.capture.stop="emit( 'itemover', $event,it)">
+		<span class="action-btn" v-for="it in choices" :key="strings?it:it.id"
+			@mouseenter.capture.stop="!strings ? emit( 'itemover', $event,it):''">
 
-		<button class="wrapped-btn"
-			:disabled="!usable(it)"
-			@click="choose( it )">{{ it.name }}</button>
+		<button class="wrapped-btn" :disabled="!strings&&!usable(it)"
+			@click="choose( it )">{{ strings ? it : it.name }}</button>
 		</span>
 		</div>
 
