@@ -24,7 +24,7 @@ export default class Action extends GData {
 	get exp() { return this._exp; }
 	set exp(v){
 
-		if ( this.locked || this.disabled || this.maxed() ) return;
+		if ( this.locked || this.disabled ) return;
 
 		if ( v < 0 ) {
 			console.warn( this.id + ' exp neg: ' + v );
@@ -34,7 +34,6 @@ export default class Action extends GData {
 		this._exp = v;
 		if ( (this._length&& (v>=this._length) )
 			|| (!this._length && this.perpetual && v >= 1 ) ) {
-
 			Events.emit( EXP_MAX, this );
 
 		}
@@ -102,7 +101,7 @@ export default class Action extends GData {
 	 * @param {number} dt - elapsed time.
 	 */
 	update( dt ) {
-		this.exp += ( this._rate ? this._rate.valueOf() : 1 )*dt;
+		this.exp += ( this.rate ? this.rate.valueOf() : 1 )*dt;
 	}
 
 	/**
@@ -110,12 +109,17 @@ export default class Action extends GData {
 	 */
 	complete() {
 
+		/**
+		 * @note @todo messy: with mod changes, value has to be incremented first
+		 * so the applied mods sees the current value.
+		 */
+		this.value++;
+
 		if ( this.log ) Game.doLog( this.log );
 		if ( this.mod ) Game.addMod( this.mod );
 		if ( this.result ) Game.applyEffect( this.result );
 
-		this.value++;
-
+		if ( this.id ==='hal_rite') console.log('RITE VAL: ' + this.value.valueOf() );
 		if ( this.exec ) this.exec();
 		Events.emit( ACT_DONE, this );
 

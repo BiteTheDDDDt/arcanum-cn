@@ -168,7 +168,6 @@ export default class Runner {
 	 * @param {*} it
 	 */
 	expMax( it ) {
-		//console.log('EXP. COMPLETE: ' + it.id );
 		if ( it.complete && (typeof it.complete) === 'function') it.complete();
 
 	}
@@ -549,6 +548,7 @@ export default class Runner {
 	doAction(a, dt) {
 
 		if ( a.maxed() ) {
+			if ( a.id ==='hal_rite') console.log('RITE MAX');
 			this.stopAction(a);
 			this.tryAdd( Game.state.restAction );
 			return;
