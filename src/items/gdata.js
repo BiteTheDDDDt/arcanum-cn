@@ -169,16 +169,6 @@ export default class GData {
 
 	}
 
-	canBuy(g){
-
-		if ( this.disabled || this.locked || this.locks > 0 ) return false;
-
-		if ( this.buy && !g.canPay(this.buy) ) return false;
-
-		return this.maxed() === false;
-
-	}
-
 	/**
 	 * Determines whether an item can be run as a continuous action.
 	 * @param {Game} g
@@ -227,6 +217,16 @@ export default class GData {
 		if ( this.fill && g.filled( this.fill, this ) ) return false;
 
 		return !this.cost || g.canPay(this.cost);
+	}
+
+	canBuy(g){
+
+		if ( this.disabled || this.locked || this.locks > 0 ) return false;
+
+		if ( this.buy && !g.canPay(this.buy) ) return false;
+
+		return this.maxed() === false;
+
 	}
 
 	/**

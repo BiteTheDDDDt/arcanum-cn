@@ -37,6 +37,9 @@ export default {
 			 * @property {boolean} hideMaxed
 			 */
 			hideMaxed:opts.hideMaxed||false,
+			hideOwned:opts.hideOwned||false,
+			hideBlocked:opts.hideBlocked||false,
+			hideUnowned:opts.hideUnowned||false,
 
 			/**
 			 * @property {Item[]} filtered - items after text-search filtering.
@@ -87,9 +90,15 @@ export default {
 
 		chkHideMax:{
 			get(){return this.hideMaxed;},
-			set(v){
-				this.hideMaxed = Settings.setSubVar( 'home', 'hideMaxed', v );
-			}
+			set(v){ this.hideMaxed = Settings.setSubVar( 'home', 'hideMaxed', v ); }
+		},
+		chkHideOwned:{
+			get(){return this.hideOwned;},
+			set(v){ this.hideOwned = Settings.setSubVar( 'home', 'hideOwned', v ); }
+		},
+		chkHideBlocked:{
+			get(){return this.hideBlocked;},
+			set(v){ this.hideBlocked = Settings.setSubVar( 'home', 'hideBlocked', v ); }
 		},
 
 		space() { return this.state.getData('space'); },
@@ -111,8 +120,13 @@ export default {
 		},
 		viewable() {
 
-			if ( this.hideMaxed ) return this.furniture.filter(it=>!it.maxed()&&!this.reslocked(it) );
-			return this.furniture.filter( it=>!this.reslocked(it));
+			let o = this.hideOwned;
+			let b = this.hideBlocked;
+			let m = this.hideMaxed;
+
+			return this.furniture.filter( it=>!this.reslocked(it) &&
+				(!o||it.value==0) &&(!b||this.usable(it))&&(!m||!it.maxed())
+			);
 
 		}
 
@@ -125,7 +139,22 @@ export default {
 
 	<div class="home-view">
 
-<hall v-if="hallOpen" @close="closeHall" />
+		<div class="top separate">
+
+		<span class="opt"><input :id="elmId('hideMax')" type="checkbox" v-model="chkHideMax">
+			<label :for="elmId('hideMax')">Hide Maxed</label></span>
+		<span class="opt"><input :id="elmId('hideOwn')" type="checkbox" v-model="chkHideOwned">
+			<label :for="elmId('hideOwn')">Hide Owned</label></span>
+		<span class="opt"><input :id="elmId('hideBlock')" type="checkbox" v-model="chkHideBlocked">
+			<label :for="elmId('hideBlock')">Hide Blocked</label></span>
+
+<filterbox class="inline" v-model="filtered" :prop="searchIt" :items="viewable" />
+		<span class="space">Space: {{ Math.floor(space.free() ) }} / {{ Math.floor(space.max.value) }}</span>
+		</div>
+
+		<div class="content">
+
+		<hall v-if="hallOpen" @close="closeHall" />
 		<div class="pick-slots">
 
 			<div v-if="hallUnlocked"><button class="btnHall" @click="openHall">{{ hallName }}</button></div>
@@ -136,15 +165,6 @@ export default {
 		</div>
 
 		<div class="furniture">
-
-		<span class="separate">
-		<filterbox class="inline" v-model="filtered" :prop="searchIt" :items="viewable" />
-
-		<span><input :id="elmId('hideMax')" type="checkbox" v-model="chkHideMax">
-			<label :for="elmId('hideMax')">Hide Maxed</label></span>
-
-		<span class="space">Space: {{ Math.floor(space.free() ) }} / {{ Math.floor(space.max.value) }}</span>
-		</span>
 
 			<div class="warn-text"
 			style="text-align:center"
@@ -172,6 +192,7 @@ export default {
 
 		</div>
 
+		</div>
 
 
 	</div>
@@ -179,10 +200,6 @@ export default {
 </template>
 
 <style scoped>
-
-div.home-view .btnHall {
-width:90%;
-}
 
 span.space {
 	text-align: center;
@@ -193,12 +210,36 @@ span.sm {
 	margin: var(--sm-gap);
 }
 div.home-view {
-	overflow-y:auto;
 	display: flex;
+	flex-flow: column nowrap;
 	padding-left:16px;
 	padding-right:15px;
-	flex-direction: row;
 	height:100%;
+}
+
+div.home-view div.top {
+	font-size: 0.8em;
+	border-bottom: 1px solid var(--separator-color );
+	padding: 0 var(--tiny-gap);
+}
+
+div.home-view div.top > input {
+	max-width: 120px;
+	width:10em;
+}
+
+div.home-view .content {
+	overflow-y:auto;
+	display: flex;
+	flex-direction: row;
+	width: 100%;
+	height:100%;
+	padding-top: var(--tiny-gap);
+}
+
+
+div.home-view .btnHall {
+	width:90%;
 }
 
 div.pick-slots {
@@ -208,7 +249,7 @@ div.pick-slots {
 
 	margin-top:12px;
 	margin-right: 16px;
-	flex-basis: 120px;
+	flex-basis: 140px;
 }
 
 div.nospace {
@@ -216,14 +257,14 @@ div.nospace {
 }
 
 div.furniture {
-	flex-grow: 1;
+	width: 100%;
 	margin-bottom: 4px;
 }
 
 div.home-view .furniture .item-table {
      text-transform: capitalize; overflow-y: scroll;
 	 flex-grow: 1;
-     flex: 1; min-height: 0; width: 100%; max-width: 400px;
+     flex: 1; min-height: 0; width: 100%; max-width: 420px;
      display: flex; flex-direction: column;
 }
 div.home-view .furniture .item-table tr { display: flex; padding: var(--sm-gap); }

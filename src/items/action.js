@@ -119,7 +119,6 @@ export default class Action extends GData {
 		if ( this.mod ) Game.addMod( this.mod );
 		if ( this.result ) Game.applyEffect( this.result );
 
-		if ( this.id ==='hal_rite') console.log('RITE VAL: ' + this.value.valueOf() );
 		if ( this.exec ) this.exec();
 		Events.emit( ACT_DONE, this );
 
