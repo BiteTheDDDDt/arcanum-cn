@@ -141,12 +141,12 @@ export default {
 
 		<div class="top separate">
 
-		<span class="opt"><input :id="elmId('hideMax')" type="checkbox" v-model="chkHideMax">
-			<label :for="elmId('hideMax')">Hide Maxed</label></span>
-		<span class="opt"><input :id="elmId('hideOwn')" type="checkbox" v-model="chkHideOwned">
-			<label :for="elmId('hideOwn')">Hide Owned</label></span>
-		<span class="opt"><input :id="elmId('hideBlock')" type="checkbox" v-model="chkHideBlocked">
-			<label :for="elmId('hideBlock')">Hide Blocked</label></span>
+			<span>
+		<span>Hide:</span>
+		<span class="opt"><input :id="elmId('hideMax')" type="checkbox" v-model="chkHideMax"><label :for="elmId('hideMax')">Maxed</label></span>
+		<span class="opt"><input :id="elmId('hideOwn')" type="checkbox" v-model="chkHideOwned"><label :for="elmId('hideOwn')">Owned</label></span>
+		<span class="opt"><input :id="elmId('hideBlock')" type="checkbox" v-model="chkHideBlocked"><label :for="elmId('hideBlock')">Blocked</label></span>
+		</span>
 
 <filterbox class="inline" v-model="filtered" :prop="searchIt" :items="viewable" />
 		<span class="space">Space: {{ Math.floor(space.free() ) }} / {{ Math.floor(space.max.value) }}</span>
@@ -157,7 +157,7 @@ export default {
 		<hall v-if="hallOpen" @close="closeHall" />
 		<div class="pick-slots">
 
-			<div v-if="hallUnlocked"><button class="btnHall" @click="openHall">{{ hallName }}</button></div>
+			<div class="action-btn" v-if="hallUnlocked"><button class="btnHall" @click="openHall">{{ hallName }}</button></div>
 
 			<slotpick title="home" pick="home" />
 			<slotpick title="werry" hide-empty="true" pick="werry" />
@@ -225,7 +225,7 @@ div.home-view div.top {
 
 div.home-view div.top > input {
 	max-width: 120px;
-	width:10em;
+	width:8em;
 }
 
 div.home-view .content {

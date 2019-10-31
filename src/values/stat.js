@@ -122,36 +122,6 @@ export default class Stat {
 	 */
 	add( amt ) { this._base += amt; }
 
-	/**
-	 * Add a nonstandard modifier with no id.
-	 * The modifiers are applied to the default base/pct values.
-	 * The default modifier keeps a count of '1' since there is no
-	 * standard amount for its bonus/pct amounts.
-	 * @param {Mod|number|Percent|Object} mod
-	 * @param {number} [amt=1]
-	 */
-	apply( mod, amt=1 ) {
-
-		if ( mod instanceof Stat ) return this.addMod( mod, amt );
-
-		else if ( !isNaN(mod) ) {
-
-			this.base += amt*mod;
-			return;
-		} else if ( typeof mod === 'object') {
-
-			console.warn( 'RAW OBJECT MOD STAT: ' +this.id );//+ logObj(mod) );
-			/**@todo support for percents/ranges in general. */
-			this.base += amt*( mod.bonus || 0 );
-			this.basePct += amt*( mod.pct || 0 );
-
-		}
-
-		/*if ( this.id === 'liquifier') {
-			console.log('APPLYMOD LIQ: ' + del + ' bonus: ' + mod.bonus + ' pct: ' + mod.pct );
-		}*/
-
-	}
 
 	/**
 	 * Apply permanent modifier to stat.
@@ -171,12 +141,57 @@ export default class Stat {
 
 	}
 
+
+	/**
+	 * Add a nonstandard modifier with no id.
+	 * The modifiers are applied to the default base/pct values.
+	 * The default modifier keeps a count of '1' since there is no
+	 * standard amount for its bonus/pct amounts.
+	 * @param {Mod|number|Percent|Object} mod
+	 * @param {number} [amt=1]
+	 */
+	apply( mod, amt=1 ) {
+
+		if ( (mod instanceof Stat) && mod.id ) return this.addMod( mod, amt );
+
+		else if ( typeof mod ==='number' ) {
+
+			//console.log('OLD BASE: ' + this.base );
+			this.base += amt*mod;
+			//console.log( this.base + ' NEW base: ' + this.value );
+
+			return;
+
+		} else if ( typeof mod === 'object') {
+
+			/// when an object has no id, must apply to base.
+
+			//console.log('OLD BASE: ' + this.base );
+			/**@todo support for percents/ranges in general. */
+			this.base += amt*( mod.bonus || 0 );
+			this.basePct += amt*( mod.pct || 0 );
+
+			//console.log( this.base + ' base; NEW VLAUE: ' + this.value );
+
+			//console.log( 'base type: ' + typeof this.base );
+
+		} else {
+
+			console.log('UNKNOWN MOD: ' + (typeof mod) );
+			logObj(mod);
+		}
+
+
+	}
+
 	/**
 	 *
 	 * @param {Mod} mod
 	 * @param {number} amt
 	 */
 	addMod( mod, amt=1 ) {
+
+		if ( !mod.id ) { this.apply(mod, amt );console.log( 'No id: ' + mod.id ); }
 
 		//this._mPct += amt*mod.pct;
 		//this._mBase += amt*mod.bonus;
