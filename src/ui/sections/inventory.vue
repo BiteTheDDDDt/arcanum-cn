@@ -65,16 +65,16 @@ export default {
 
 <template>
 <div class="inventory">
-	<div>
-	<filterbox v-if="!nosearch" v-model="filtered" :items="inv.items" min-items="7" />
 
-	<span class="flex-row">
-		<div v-if="inv.max > 0">{{ inv.items.length + ' / ' + Math.floor(inv.max.value ) + ' Used' }}</div>
+	<span class="top">
+	<filterbox v-if="!nosearch" v-model="filtered" :items="inv.items" min-items="7" />
+	<span>
+		<span v-if="inv.max > 0">{{ inv.items.length + ' / ' + Math.floor(inv.max.value ) + ' Used' }}</span>
 		<button v-if="inv.count>0" @click="sellAll">Sell All</button>
 	</span>
-	</div>
-	<div class="item-table">
+	</span>
 
+	<div class="item-table">
 
 	<tr class="separate" v-for="it in ( nosearch ? inv.items : filtered )" :key="it.id">
 		<td @mouseenter.capture.stop="emit( 'itemover',$event,it)">{{ it.name + count(it) }}</td>
@@ -110,6 +110,15 @@ div.inventory {
 	flex-direction: column;
 	width:100%;
 	height:100%;
+}
+
+div.inventory .top {
+	padding: var(--sm-gap);
+}
+
+div.inventory .filter-box {
+	display:inline;
+	font-size: 0.9rem;
 }
 
 div.inventory .table-div {
