@@ -1217,6 +1217,7 @@
 		"id":"imbuelifegem",
 		"name":"imbue lifegem",
 		"require":"g.naturelore>=6&&g.enchanting>0",
+		"tags":"gemimbue",
 		"fill":"naturegem",
 		"cost":{
 			"herbs":10,
@@ -1232,6 +1233,7 @@
 		"name":"imbue gem (arcane)",
 		"require":"g.mana.max>=5&&g.enchanting>0",
 		"fill":"managem",
+		"tags":"gemimbue",
 		"cost":{
 			"gems":1,
 			"mana":5
@@ -1245,6 +1247,7 @@
 		"name":"coagulate gem",
 		"require":"g.alchemy>=5&&g.anatomy>=5",
 		"fill":"bloodgem",
+		"tags":"gemimbue",
 		"cost":{
 			"gems":1,
 			"earth":1,
@@ -1258,6 +1261,7 @@
 		"name":"imbue gem (fire)",
 		"require":"g.fire.max>=4&&g.enchanting>2",
 		"fill":"firegem",
+		"tags":"gemimbue",
 		"cost":{
 			"gems":1,
 			"fire":5
@@ -1269,6 +1273,7 @@
 		"name":"imbue gem (air)",
 		"require":"g.air.max>=4&&g.enchanting>2",
 		"fill":"airgem",
+		"tags":"gemimbue",
 		"cost":{
 			"gems":1,
 			"air":5
@@ -1280,6 +1285,7 @@
 		"name":"imbue stone",
 		"require":"g.earth.max>=4&&g.enchanting>2",
 		"fill":"earthgem",
+		"tags":"gemimbue",
 		"cost":{
 			"gems":1,
 			"earth":5
@@ -1291,6 +1297,7 @@
 		"name":"imbue gem (water)",
 		"require":"g.water.max>=4&&g.enchanting>2",
 		"fill":"watergem",
+		"tags":"gemimbue",
 		"cost":{
 			"gems":1,
 			"water":5
@@ -1302,6 +1309,7 @@
 		"name":"imbue gem (light)",
 		"require":"g.light.max>=4&&g.enchanting>2",
 		"fill":"lightgem",
+		"tags":"gemimbue",
 		"cost":{
 			"gems":1,
 			"light":5
@@ -1313,6 +1321,7 @@
 		"name":"imbue gem (shadow)",
 		"require":"g.shadow.max>=4&&g.enchanting>2",
 		"fill":"shadowgem",
+		"tags":"gemimbue",
 		"cost":{
 			"gems":1,
 			"shadow":5
@@ -1324,6 +1333,7 @@
 		"name":"imbue gem (spirit)",
 		"require":"g.spirit.max>=4&&g.enchanting>2",
 		"fill":"spiritgem",
+		"tags":"gemimbue",
 		"cost":{
 			"gems":1,
 			"spirit":5

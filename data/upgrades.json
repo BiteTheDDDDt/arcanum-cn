@@ -862,7 +862,8 @@
 		"max":1,
 		"cost":{
 			"gold":1000,
-			"research":1000
+			"research":1000,
+			"arcana":1
 		},
 		"mod":{
 			"inv.max":4,
@@ -901,6 +902,22 @@
 		},
 		"mod":{
 			"player.retreat":1
+		}
+
+	},
+	{
+		"id":"gemcraft",
+		"name":"gem craft",
+		"require":"g.tier4>0&&g.crafting>=16",
+		"warn":true,
+		"cost":{
+			"research":7500,
+			"tomes":10,
+			"arcana":15
+		},
+		"desc":"craft gems continuously without effort",
+		"mod":{
+			"gemimbue.perpetual":true
 		}
 
 	},
@@ -1930,7 +1947,7 @@
 		"desc":"Increase the size of your existing cellars.",
 		"require":"cellar",
 		"cost":{
-			"gold":500
+			"gold":700
 		},
 		"mod":{
 			"cellar.mod.space.max":5
@@ -1963,7 +1980,8 @@
 		"cost":{
 			"space":5,
 			"gold":300,
-			"research":500
+			"tomes":1,
+			"research":1000
 		},
 		"mod":{
 			"gold.rate":0.1,
@@ -1979,8 +1997,8 @@
 		"require":"g.tier1>0&&g.earthlore>=3",
 		"max":1,
 		"cost":{
-			"gold":200,
-			"research":200
+			"gold":1000,
+			"research":500
 		},
 		"mod":{
 			"space.max":"25%"
@@ -1993,7 +2011,7 @@
 		"desc":"You see things before they happen",
 		"cost":{
 			"research":300,
-			"tomes":1
+			"arcana":5
 		},
 		"mod":{
 			"dodge":1
