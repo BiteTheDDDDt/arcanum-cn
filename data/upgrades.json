@@ -1133,7 +1133,7 @@
 
 	{
 		"id":"wishingwells",
-		"name":"Wishing wells",
+		"name":"wishing wells",
 		"require":"g.divination>=4&&g.fountain>0",
 		"cost":{
 			"gold":500,

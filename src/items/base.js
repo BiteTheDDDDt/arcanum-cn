@@ -284,7 +284,7 @@ export default {
 
 				} else if ( typeof mods[p] === 'object' ) {
 
-					if ( mods[p] instanceof Stat ) {
+					if ( mods[p] instanceof Mod ) {
 
 						mods[p].applyTo( this, p, amt );
 

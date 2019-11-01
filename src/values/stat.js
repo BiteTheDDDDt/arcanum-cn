@@ -166,7 +166,6 @@ export default class Stat {
 
 			/// when an object has no id, must apply to base.
 
-			//console.log('OLD BASE: ' + this.base );
 			/**@todo support for percents/ranges in general. */
 			this.base += amt*( mod.bonus || mod.value || 0 );
 			this.basePct += amt*( mod.pct || 0 );
