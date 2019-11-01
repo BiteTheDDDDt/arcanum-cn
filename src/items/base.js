@@ -264,7 +264,8 @@ export default {
 
 			if ( mods instanceof Stat ) {
 
-				this.value += mods.value;
+				//if ( Math.random()<0.1&& this.id ==='stamina') console.log('ADD STAM: ' + (mods*amt));
+				this.value.base += mods.value*amt;
 				return;
 
 			}

@@ -396,7 +396,7 @@
 		"name":"hold seance",
 		"verb":"holding seance",
 		"desc":"channel spirits for a small fee.",
-		"require":["divination","spiritsource","adept"],
+		"require":["divination","spiritsource","tier0"],
 		"perpetual":true,
 		"length":10,
 		"run":{
