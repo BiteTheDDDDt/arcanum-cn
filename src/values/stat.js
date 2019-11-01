@@ -168,7 +168,7 @@ export default class Stat {
 
 			//console.log('OLD BASE: ' + this.base );
 			/**@todo support for percents/ranges in general. */
-			this.base += amt*( mod.bonus || 0 );
+			this.base += amt*( mod.bonus || mod.value || 0 );
 			this.basePct += amt*( mod.pct || 0 );
 
 			//console.log( this.base + ' base; NEW VLAUE: ' + this.value );

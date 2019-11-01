@@ -590,7 +590,7 @@
 		"owned":true,
 		"slot":"rest",
 		"length":10,
-		"need":"g.lightlore>=5&&g.evil==0",
+		"need":"g.lightlore>=5&&g.evil<=0",
 		"fill":[ "stamina", "hp", "manas", "stress"],
 		"effect":{
 			"virtue":1,

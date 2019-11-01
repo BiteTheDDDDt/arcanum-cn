@@ -2327,7 +2327,6 @@
 		"attack":{
 			"targets":"enemies",
 			"dot":{
-				"id":"venom",
 				"kind":"poison",
 				"duration":45,
 				"damage":"7~11"

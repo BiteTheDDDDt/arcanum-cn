@@ -233,7 +233,7 @@
 
 		"id":"good",
 		"name":"virtuous",
-		"require":"g.virtue>750&&g.evil==0",
+		"require":"g.virtue>750&&g.evil<=0",
 		"desc":"Your actions have shown you to be a virtuous wizard.",
 		"mod":{
 			"light.max":1,

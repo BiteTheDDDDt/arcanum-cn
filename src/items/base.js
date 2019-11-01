@@ -284,8 +284,11 @@ export default {
 
 				} else if ( typeof mods[p] === 'object' ) {
 
-					if ( mods[p] instanceof Mod ) mods[p].applyTo( this, p, amt );
-					else if ( typeof targ === 'number' ) {
+					if ( mods[p] instanceof Stat ) {
+
+						mods[p].applyTo( this, p, amt );
+
+					} else if ( typeof targ === 'number' ) {
 
 						this[p] += Number(mods[p])*amt;
 					} else {

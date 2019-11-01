@@ -1827,7 +1827,7 @@
 	{
 		"id":"mendicant",
 		"desc":"Sacrifice luxury for higher attainments.",
-		"need":"g.evil==0&&g.tier1>0&&g.gold.max>1000&&g.light.max>5",
+		"need":"g.evil<=0&&g.tier1>0&&g.gold.max>1000&&g.light.max>5",
 		"warn":true,
 		"cost":{
 		},
