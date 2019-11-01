@@ -615,7 +615,6 @@ export default {
 		it.value++;
 
 		console.log('USING: ' + it.id  + ' with ' + targ.id );
-
 		if ( it.mod ) targ.permVars( it.mod );
 		if ( it.effect ) targ.permVars( it.effect );
 

@@ -715,10 +715,12 @@
 		"cost":{
 			"herbs":4,
 			"nature":4,
-			"research":100
+			"research":100,
+			"arcana":1
 		},
 		"mod":{
-			"dodge":1
+			"dodge":1,
+			"luck":1
 		}
 
 	},

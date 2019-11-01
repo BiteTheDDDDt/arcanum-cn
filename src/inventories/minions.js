@@ -110,9 +110,14 @@ export default class Minions extends Inventory {
 
 		let used = 0;
 
-		for( let p in this.items ) {
+		for( let i = this.items.length-1; i>=0; i-- ) {
 
-			var m = this.items[p];
+			var m = this.items[i];
+			if ( m.type !== 'npc') {
+				this.items.splice( i, 1 );
+				continue;
+			}
+
 			if ( m.active ) {
 
 				used += m.level;
@@ -125,6 +130,8 @@ export default class Minions extends Inventory {
 			m.team = TEAM_ALLY;
 
 		}
+
+		this.calcUsed();
 
 		this.allyTotal = used;
 

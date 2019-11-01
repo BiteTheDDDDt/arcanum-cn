@@ -1,7 +1,7 @@
 import {changes, jsonify } from 'objecty';
 import Game from '../game';
 import Stat from '../values/stat';
-import Mod from '../values/mod';
+import Mod, { SetModIds } from '../values/mod';
 import { logObj, cloneClass } from '../util/util';
 
 export const setModCounts = ( m, v)=>{
@@ -217,21 +217,19 @@ export default {
 
 		} else if ( typeof mods === 'object') {
 
-			console.log('MODS IS OBJECT');
-
 			for( let p in mods ) {
-
-				console.log('submod: ' + p );
 
 				var sub = targ[p];
 
 				if ( sub === undefined ) {
 
-					targ[p] = cloneClass( mods[p]);
+					sub = targ[p] = cloneClass( mods[p]);
 
-				} else if ( sub instanceof Stat ) sub.perm( mods[p] );
+				} else if ( sub instanceof Stat ) {
 
-				else if ( !sub || typeof sub === 'number') {
+					sub.perm( mods[p] );
+
+				} else if ( !sub || typeof sub === 'number') {
 
 					targ[p] = (sub||0) + mods[p].valueOf();
 
@@ -239,6 +237,10 @@ export default {
 				else console.log( this.id + ' UNKNOWN PERM VAR: ' + p + ' typ: ' + (typeof sub ));
 
 
+			}
+
+			if ( typeof targ === 'object' && targ && targ.mod ) {
+				SetModIds( targ.mod, targ.id );
 			}
 
 		}

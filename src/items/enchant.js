@@ -52,13 +52,6 @@ export default class Enchant extends Action {
 
 		} else if ( !targ.name.includes('Enchanted') ) targ.name = 'Enchanted ' + targ.name;
 
-		/**
-		 * reassign mod ids.
-		 */
-		if ( targ && targ.mod ) {
-			SetModIds( targ, targ.id +'_'+this.id);
-		}
-
 		targ.busy = false;
 
 		this.exec();

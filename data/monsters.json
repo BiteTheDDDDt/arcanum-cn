@@ -3119,7 +3119,8 @@
 		"kind":"humanoid",
         "hp":1500,
         "tohit":25,
-        "defense":100,
+		"defense":100,
+		"unique":true,
         "attack":[
 			{
 				"name":"red haze",
@@ -3150,7 +3151,8 @@
 		"desc":"",
 		"kind":"humanoid",
         "hp":2000,
-        "tohit":50,
+		"tohit":50,
+		"unique":true,
         "defense":150,
         "attack":[
 			{
@@ -3228,6 +3230,7 @@
 	},
 	{
 		"id":"m_avatar",
+		"alias":"avatar",
         "level":23,
         "kind":"diety",
         "desc":"incarnation of a god",
