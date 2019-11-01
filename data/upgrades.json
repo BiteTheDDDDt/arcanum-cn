@@ -1117,7 +1117,7 @@
 	{
 		"id":"guidingstar",
 		"name":"guiding star",
-		"require":"g.astronomy>=15&&g.good>0",
+		"require":"g.astronomy>=15&&g.evil<=0",
 		"desc":"a light in the heavens guides your way.",
 		"cost":{
 			"research":5000,
@@ -1997,7 +1997,7 @@
 		"id":"up_runecrafter",
 		"name":"Hire Runecrafter",
 		"desc":"Hire a dwarf to craft runestones for you.",
-		"require":"g.good>0&&g.runelore>=5&&g.tier3>0",
+		"require":"g.evil<=0&&g.runelore>=5&&g.tier3>0",
 		"max":5,
 		"cost":{
 			"gems":100,

@@ -685,7 +685,7 @@
 
 		"id":"geas",
 		"desc":"undertake a quest to subdue a great evil.",
-		"require":"g.tier2>0&&g.good>0",
+		"require":"g.tier2>0&&g.evil<=0",
 		"length":100,
 		"cd":777,
 		"cost":{

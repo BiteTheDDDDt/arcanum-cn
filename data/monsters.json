@@ -3089,6 +3089,7 @@
 		"desc":"the weakest of the Archlocks built his reputation upon sheer slaughter.",
 		"flavor":"subtlety was lost on karnivex.",
 		"kind":"humanoid",
+		"unique":true,
         "hp":1200,
         "tohit":20,
         "defense":110,

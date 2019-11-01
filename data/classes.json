@@ -1085,7 +1085,7 @@
 	"id":"wizard",
 	"desc":"raw magic power",
 	"tags":"t_tier4",
-	"require":"g.good>0&&g.tier3>0&&g.lore>=25",
+	"require":"g.evil<=0&&g.tier3>0&&g.lore>=25",
 	"cost":{
 		"research":5000,
 		"arcana":25,
