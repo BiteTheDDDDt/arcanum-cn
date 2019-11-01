@@ -1221,7 +1221,7 @@
 	},
 	{
 		"id":"imbuelifegem",
-		"name":"imbue lifegem",
+		"name":"imbue lifegem (nature)",
 		"require":"g.naturelore>=6&&g.enchanting>0",
 		"tags":"gemimbue",
 		"fill":"naturegem",
@@ -1250,7 +1250,7 @@
 	},
 	{
 		"id":"imbuebloodgem",
-		"name":"coagulate gem",
+		"name":"coagulate gem (blood)",
 		"require":"g.alchemy>=5&&g.anatomy>=5",
 		"fill":"bloodgem",
 		"tags":"gemimbue",
@@ -1288,7 +1288,7 @@
 	},
 	{
 		"id":"imbueearthgem",
-		"name":"imbue stone",
+		"name":"imbue stone (earth)",
 		"require":"g.earth.max>=4&&g.enchanting>2",
 		"fill":"earthgem",
 		"tags":"gemimbue",
