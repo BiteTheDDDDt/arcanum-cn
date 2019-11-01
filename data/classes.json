@@ -127,7 +127,7 @@
 	"id":"blueadept",
 	"name":"blue adept",
 	"desc":"Dedicate yourself to putting the world in order.",
-	"require":"g.virtue>=200",
+	"require":"g.neophyte>0&&g.virtue>=200",
 	"tags":"t_tier0",
 	"cost":{
 		"arcana":7
@@ -1012,7 +1012,6 @@
 	},
 	"mod":{
 		"tier4":true,
-		"research.max":"-5%",
 		"waterlore.max":2,
 		"earthlore.max":2,
 		"airlore.max":2,
@@ -1070,7 +1069,6 @@
 	},
 	"mod":{
 		"tier4":true,
-		"research.max":"50-2%",
 		"embalming.max":1,
 		"reanimation.max":2,
 		"reanimation.rate":"10%",
@@ -1099,7 +1097,6 @@
 	},
 	"mod":{
 		"tier4":true,
-		"research.max":"40-5%",
 		"languages.max":2,
 		"conjuration.max":1,
 		"crafting.max":1,
@@ -1125,7 +1122,6 @@
 	},
 	"mod":{
 		"tier5":true,
-		"research.max":"-25%",
 		"languages.max":2,
 		"firelore.max":1,
 		"firelore.rate":"1%",
@@ -1154,7 +1150,6 @@
 	"mod":{
 		"tier5":true,
 		"lore.max":2,
-		"research.max":"-17%",
 		"lore.rate":"10%",
 		"airlore.max":2,
 		"airlore.rate":"10%",
@@ -1182,7 +1177,6 @@
 	},
 	"mod":{
 		"tier5":true,
-		"research.max":"-14%",
 		"lore.max":2,
 		"lore.rate":"10%",
 		"embalming.max":2,
@@ -1211,7 +1205,6 @@
 		},"mod":{
 			"tier5":true,
 			"lore.max":2,
-			"research.max":"-14%",
 			"lore.rate":"10%",
 			"firelore.max":3,
 			"firelore.rate":"20%",
@@ -1237,7 +1230,6 @@
 		},
 		"mod":{
 			"tier5":true,
-			"research.max":"-5%",
 			"spiritlore.max":3,
 			"spiritlore.rate":"12%",
 			"divination.max":3,
@@ -1257,7 +1249,7 @@
 			"research":15000,
 			"naturegem":50,
 			"herbs":75,
-			"arcana":25,
+			"arcana":35,
 			"waterrune":15,
 			"runestones":15
 		},
@@ -1284,13 +1276,12 @@
 			"bones":100,
 			"bodies":50,
 			"souls":100,
-			"arcana":10,
+			"arcana":25,
 			"earthrune":10,
 			"runestones":10
 		},
 		"mod":{
 			"tier6":true,
-			"research.max":"-14%",
 			"lore.max":1,
 			"spellcraft.max":1,
 			"embalming.max":1,
@@ -1311,11 +1302,11 @@
 		"tags":"t_tier6",
 		"require":"g.phylactory>0",
 		"cost":{
-			"research":30000,
+			"research":20000,
 			"souls":100,
 			"bodies":100,
 			"tomes":50,
-			"arcana":30,
+			"arcana":60,
 			"firerune":10,
 			"runestones":20
 		},
@@ -1339,8 +1330,8 @@
 		"tags":"t_tier6",
 		"require":"g.tier5>0&&g.lore>=35&&g.spellcraft>=10",
 		"cost":{
-			"research":30000,
-			"arcana":35,
+			"research":20000,
+			"arcana":75,
 			"tomes":50,
 			"sindel":3,
 			"runestones":10
@@ -1366,7 +1357,7 @@
 		"tags":"t_tier6",
 		"require":"g.tier5>0&&(g.highelemental+g.kell+g.heresiarch+g.thaumaturge)>0",
 		"cost":{
-			"research":30000,
+			"research":20000,
 			"sindel":3,
 			"managem":70,
 			"airgem":40,
@@ -1374,7 +1365,7 @@
 			"firegem":40,
 			"watergem":40,
 			"sp":10,
-			"arcana":25,
+			"arcana":35,
 			"runestones":15
 		},
 		"mod":{

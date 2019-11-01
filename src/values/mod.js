@@ -12,6 +12,16 @@ export const ModTest = /^([\+\-]?\d+\.?\d*\b)?(?:([\+\-]?\d+\.?\d*)\%)?$/i;
  */
 export const DEFAULT_MOD = 'all';
 
+export const SetModIds = (mods, id ) => {
+
+	if ( mods instanceof Mod ) mods.id = id;
+	else if ( typeof mods === 'object') {
+		for( let p in mods ) {
+			SetModIds( mods[p], id);
+		}
+	}
+}
+
 /**
  * Parse object into modifiers.
  * @param {} mods

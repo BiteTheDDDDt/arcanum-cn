@@ -1992,6 +1992,21 @@
 
 	},
 	{
+		"id":"up_runecrafter",
+		"name":"Hire Runecrafter",
+		"desc":"Hire a dwarf to craft runestones for you.",
+		"require":"g.good>0&&g.runelore>=5&&g.tier3>0",
+		"max":5,
+		"cost":{
+			"gems":100,
+			"space":5
+		},
+		"mod":{
+			"gold.rate":-0.5,
+			"runestones.rate":0.01
+		}
+	},
+	{
 
 		"id":"up_apprentice",
 		"name":"apprentice",

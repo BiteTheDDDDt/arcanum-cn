@@ -1397,6 +1397,7 @@
 			"gold":5000,
 			"tomes":25,
 			"runestones":10,
+			"arcana":10,
 			"space":25
 		},
 		"mod":{
@@ -1427,7 +1428,8 @@
 		"cost":{
 			"gold":300,
 			"research":4000,
-			"space":100
+			"space":100,
+			"arcana":5
 		},
 		"mod":{
 			"voidlore.max":1,
@@ -1494,7 +1496,8 @@
 		"tags":"prison",
 		"cost":{
 			"research":5000,
-			"space":30
+			"space":30,
+			"arcana":5
 		},
 		"mod":{
 			"bodies.max":25,

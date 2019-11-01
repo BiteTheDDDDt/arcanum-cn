@@ -1,6 +1,7 @@
 import Action from './action';
 import GData from './gdata';
 import { setModCounts } from './base';
+import { SetModIds } from '../values/mod';
 
 const defaults = {
 	verb:'enchanting'
@@ -50,6 +51,13 @@ export default class Enchant extends Action {
 			targ.name += ' ' + this.adj;
 
 		} else if ( !targ.name.includes('Enchanted') ) targ.name = 'Enchanted ' + targ.name;
+
+		/**
+		 * reassign mod ids.
+		 */
+		if ( targ && targ.mod ) {
+			SetModIds( targ, targ.id +'_'+this.id);
+		}
 
 		targ.busy = false;
 

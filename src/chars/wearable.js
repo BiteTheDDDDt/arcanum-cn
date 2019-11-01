@@ -213,11 +213,10 @@ export default class Wearable extends Item {
 
 		let t = typeof v;
 		if ( v instanceof Mod ) {
-			console.log('ALREADY MOD: ' + v );
 			return v;
 		}
 
-		console.log('CONVERTING MOD: ' + this.id );
+		console.log('CONVERT MOD: ' + this.id );
 		if ( t === 'object') {
 
 			if ( v.id ) {
