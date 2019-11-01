@@ -668,7 +668,7 @@ export default {
 			it.value -= count;
 
 			console.log('remainig: ' + it.value );
-			if ( inv && !it.stack || it.value <= 0 ) inv.remove( it );
+			if ( inv && (!it.stack || it.value <= 0) ) inv.remove( it );
 
 		} else this.remove(it,count);
 

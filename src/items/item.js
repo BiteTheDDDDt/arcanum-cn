@@ -39,6 +39,7 @@ export default class Item {
 	}
 
 	get instance() { return true; }
+	set instance(v){}
 
 	/**
 	 * @property {string} recipe - id of item template used to instance this item.

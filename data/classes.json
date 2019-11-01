@@ -350,7 +350,7 @@
 	"cost":{
 		"research":700,
 		"bones":10,
-		"bonedust":10,
+		"bonedust":15,
 		"arcana":7
 	},
 	"effect":{

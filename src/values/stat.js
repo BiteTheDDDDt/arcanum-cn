@@ -130,7 +130,7 @@ export default class Stat {
 	 */
 	perm( mod ) {
 
-		if ( mod instanceof Mod ){
+		if ( mod.bonusTot || mod.pctTot ){
 			this.base += mod.bonusTot;
 			this.basePct += mod.pctTot;
 		} else if ( typeof mod === 'number') {
@@ -191,7 +191,7 @@ export default class Stat {
 	 */
 	addMod( mod, amt=1 ) {
 
-		if ( !mod.id ) { this.apply(mod, amt );console.log( 'No id: ' + mod.id ); }
+		if ( !mod.id ) { this.apply(mod, amt );console.warn( 'NO ID: ' + mod.id ); }
 
 		//this._mPct += amt*mod.pct;
 		//this._mBase += amt*mod.bonus;

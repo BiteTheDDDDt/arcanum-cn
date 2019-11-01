@@ -474,8 +474,9 @@
 		"mod":{
 			"starcharts.max":1,
 			"codices":{
-				"mod.research.max":0.5,
-				"max":15
+				"max":15,
+				"mod.research.max":0.5
+
 			},
 			"tomes.max":1
 		}

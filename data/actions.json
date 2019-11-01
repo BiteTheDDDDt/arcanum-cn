@@ -310,6 +310,11 @@
 			"stamina":0.5,
 			"shadow":0.2
 		},
+		"effect":{
+			"anatomy.exp":1,
+			"embalming.exp":1,
+			"reanimation.exp":1
+		},
 		"at":{
 			"10":{
 				"result.bones.max":1
@@ -323,6 +328,7 @@
 			}
 		},
 		"result":{
+			"bonedust":1,
 			"evilamt":1,
 			"bones":"2~5"
 		}

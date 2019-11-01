@@ -353,8 +353,6 @@ export default {
 
 		for( let p in mods ) {
 
-			//console.log('MOD NAME: ' + p);
-
 			var m = mods[p];
 			var subTarg = targ[p];
 
@@ -364,13 +362,13 @@ export default {
 				if ( m instanceof Mod) {
 					s.addMod(m, amt);
 				}
-				//logObj(mods, 'mods parent');
-				//logObj( m, p + ' mod');
 				//console.log( mods + '["' + p + '"]:' + m + ' -> mod targ undefined' + ' -> ' + s.valueOf() );
 
 			} else if ( subTarg.applyMods ) subTarg.applyMods( m, amt, subTarg );
-			else if ( m instanceof Mod ) m.applyTo( targ, p, amt );
-			else if ( typeof m === 'object' ) {
+			else if ( subTarg instanceof Stat) subTarg.apply( m, amt );
+			else if ( m instanceof Mod ) {
+				m.applyTo( targ, p, amt );
+			} else if ( typeof m === 'object' ) {
 
 				this.applyObj( m, amt, subTarg );
 

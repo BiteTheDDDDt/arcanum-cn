@@ -1,6 +1,7 @@
 import Percent from './percent';
 import Stat from './stat';
 import { splitKeyPath, logObj } from '../util/util';
+import { precise } from '../util/format';
 
 //import Emitter from 'eventemitter3';
 
@@ -18,14 +19,7 @@ export const DEFAULT_MOD = 'all';
 export const ParseMods = ( mods, id ) => {
 
 	if ( !mods ) return null;
-
 	if (!id) logObj(mods, 'unknown mod id');
-
-	if ( typeof mods === 'object'){
-		for( let s in mods ){
-			if ( s.includes('.')) splitKeyPath( mods, s );
-		}
-	}
 
 	return SubMods(mods, id);
 
@@ -44,6 +38,12 @@ export const SubMods = (mods, id)=>{
 		return mods;
 
 	} else if ( typeof mods === 'number') return new Mod( mods, id );
+
+	if ( typeof mods === 'object'){
+		for( let s in mods ){
+			if ( s.includes('.')) splitKeyPath( mods, s );
+		}
+	}
 
 	for( let s in mods ) {
 
@@ -96,15 +96,15 @@ export default class Mod extends Stat {
 
 	toString() {
 
-		let s = ( this.base !== 0 ?
-			this.base.toString()
+		let s = ( this.bonus !== 0 ?
+		 precise( this.bonus.toString() )
 		: '' );
 
 
-		if ( this.basePct !== 0 ) {
+		if ( this.pct !== 0 ) {
 
-			if ( this.base !== 0 ) s += ', ';
-			s += ( this.basePct > 0 ? '+' : '' ) + (100*this.basePct) + '%';
+			if ( this.bonus !== 0 ) s += ', ';
+			s += ( this.pct > 0 ? '+' : '' ) + precise(100*this.pct) + '%';
 		}
 		return s;
 	}
