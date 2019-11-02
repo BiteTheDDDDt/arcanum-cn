@@ -15,6 +15,7 @@ import Group from './composites/group';
 import UserSpells from './inventories/userSpells';
 import Quickbars from './composites/quickbars';
 import Stat from './values/stat';
+import { WEARABLE } from './values/consts';
 
 export const REST_SLOT = 'rest';
 
@@ -480,7 +481,7 @@ export default class GameState {
 	 * @param {string} type - item type for determining subslot (equip,home,etc)
 	 */
 	getSlot( id, type) {
-		if ( type === 'wearable' || type === 'armor' || type ==='weapon' ) return null;
+		if ( type === WEARABLE || type === 'armor' || type ==='weapon' ) return null;
 		return this.slots[id];
 	}
 
@@ -490,7 +491,7 @@ export default class GameState {
 	 * @param {?GData} v - item to place in slot, or null.
 	 */
 	setSlot(slot,v) {
-		if ( v && (v.type === 'wearable') ) return;
+		if ( v && (v.type === WEARABLE) ) return;
 		this.slots[slot] = v;
 
 		if ( slot === REST_SLOT ) this.restAction = v;

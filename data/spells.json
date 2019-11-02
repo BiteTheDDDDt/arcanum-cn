@@ -613,6 +613,7 @@
 		"id":"mk_zombie",
 		"name":"raise zombie",
 		"school":"shadow",
+		"require":"g.shadowlore>0&&g.reanimation>0",
 		"level":2,
 		"buy":{
 			"research":30,

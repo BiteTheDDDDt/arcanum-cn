@@ -1,4 +1,4 @@
-import Base, {mergeClass, setModCounts} from '../items/base';
+import Base, { setModCounts} from '../items/base';
 import Range from "../values/range";
 import Attack from './attack';
 
@@ -6,6 +6,7 @@ import {mergeSafe} from "objecty";
 import Mod, { ParseMods } from '../values/mod';
 import { assignNoFunc } from '../util/util';
 import Item from '../items/item';
+import { WEARABLE } from '../values/consts';
 
 
 export default class Wearable extends Item {
@@ -103,7 +104,7 @@ export default class Wearable extends Item {
 
 		//if ( vars ) logObj( vars, 'vars');
 		//if( vars.template ) logObj( vars.template, ' template' );
-		if ( !this.type ) { this.type = 'wearable'; }
+		if ( !this.type ) { this.type = WEARABLE; }
 
 		if ( this._attack && !this._attack.name ) this._attack.name = this.name;
 

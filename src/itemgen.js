@@ -9,7 +9,7 @@ import GenGroup from './genGroup';
 import { pushNonNull, logObj } from './util/util';
 import GData from './items/gdata';
 import events, { EVT_UNLOCK } from './events';
-import { ENCOUNTER } from './values/consts';
+import { ENCOUNTER, WEARABLE } from './values/consts';
 
 /**
  * Revive a prototyped item based on an item template.
@@ -35,7 +35,7 @@ export function itemRevive(gs, it ) {
 		}
 		it.template = orig;
 
-		if ( type === 'armor' || type === 'weapon' || type === 'wearable') {
+		if ( type === 'armor' || type === 'weapon' || type === WEARABLE) {
 
 			it = new Wearable(it);
 
@@ -217,7 +217,7 @@ export default class ItemGen {
 
 		if ( info.pct && (100*Math.random() > info.pct) ) return null;
 
-		if ( info.type === 'wearable' || info.type === 'weapon'
+		if ( info.type === WEARABLE || info.type === 'weapon'
 				|| info.type ==='armor') return this.fromData( info, info.level );
 
 		else if ( info.instance || info.isRecipe ) {

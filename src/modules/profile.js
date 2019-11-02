@@ -111,12 +111,9 @@ export default {
 
 		let p = game.state.player;
 		let slot = this.hall.hidSlot( p.hid );
-		console.log('player id: ' + p.hid );
-		console.log('NEW SLOT: ' + slot );
 
 		if ( slot >= 0 ) {
 
-			console.log('SWITCHING TO SLOT: ' + slot );
 			this.hall.setActive( slot );
 
 		}

@@ -28,5 +28,6 @@ const RESOURCE = 'resource';
 const NPC = 'npc';
 const SKILL = 'skill';
 const ENCOUNTER = 'enc';
+const WEARABLE = 'wearable';
 
-export { RESOURCE, NPC, SKILL, ENCOUNTER };
+export { RESOURCE, NPC, SKILL, ENCOUNTER, WEARABLE };

@@ -5,6 +5,7 @@ import { arrayMerge, assignPublic, logObj } from '../util/util';
 import Events, { ITEM_ATTACK, EVT_EVENT, EVT_UNLOCK } from '../events';
 import Dot from '../chars/dot';
 import { TICK_LEN } from '../game';
+import { WEARABLE } from '../values/consts';
 
 /**
  * @typedef {Object} Effect
@@ -321,7 +322,7 @@ export default class GData {
 		if ( this.log ) Events.emit( EVT_EVENT, this.log );
 
 		if ( this.attack ) {
-			if (this.type !== 'wearable' && this.type !== 'weapon') Events.emit( ITEM_ATTACK, this );
+			if (this.type !== WEARABLE && this.type !== 'weapon') Events.emit( ITEM_ATTACK, this );
 		}
 
 		this.dirty = true;

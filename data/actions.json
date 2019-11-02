@@ -685,7 +685,7 @@
 
 		"id":"geas",
 		"desc":"undertake a quest to subdue a great evil.",
-		"require":"g.tier2>0&&g.evil<=0",
+		"need":"g.tier2>0&&g.evil<=0",
 		"length":100,
 		"cd":777,
 		"cost":{
@@ -712,7 +712,7 @@
 		"perpetual":true,
 		"verb":"travelling",
 		"desc":"Travel the wide world.",
-		"require":"g.wagon>0||g.mendicant>0||g.camp>0",
+		"need":"g.wagon>0||g.mendicant>0||g.camp>0",
 		"run":{
 			"stamina":0.4
 		},
