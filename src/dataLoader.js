@@ -30,7 +30,7 @@ import Loader from './util/jsonLoader';
 import { splitKeyPath, logObj } from './util/util';
 import GClass from './items/gclass';
 import Module from './modules/gmodule';
-import { SKILL, ENCOUNTER } from './values/consts';
+import { SKILL, ENCOUNTER, MONSTER, ARMOR, WEAPON, HOME } from './values/consts';
 
 const DataDir = './data/';
 const DataFiles = [ 'resources', 'upgrades', 'actions', 'homes', 'furniture', 'items', 'skills',
@@ -201,8 +201,8 @@ export default {
 		if ( lists.upgrades ) inst.upgrades = this.initItems( items, lists['upgrades'], GData, null, 'upgrade' );
 
 		if ( lists.homes ) {
-			inst.homes = this.initItems( items, lists['homes'], GData, 'home', 'home' );
-			inst.homes.forEach( v=>v.slot='home');
+			inst.homes = this.initItems( items, lists['homes'], GData, HOME, HOME );
+			inst.homes.forEach( v=>v.slot=HOME);
 		}
 
 		if ( lists.furniture ) this.initItems( items, lists['furniture'], GData, 'furniture', 'furniture' );
@@ -210,7 +210,7 @@ export default {
 		if ( lists.skills ) inst.skills = this.initItems( items, lists['skills'], Skill, SKILL );
 
 		if ( lists.encounters ) inst.encounters = this.initItems( items, lists['encounters'], Encounter, ENCOUNTER, ENCOUNTER);
-		if ( lists.monsters ) inst.monsters = this.initItems( items, lists['monsters'], Monster, 'monster', 'monster' );
+		if ( lists.monsters ) inst.monsters = this.initItems( items, lists['monsters'], Monster, MONSTER, MONSTER );
 
 		if ( lists.locales ) this.initItems( items, lists['locales'], Locale );
 		if ( lists.dungeons ) this.initItems( items, lists['dungeons'], Dungeon );
@@ -222,13 +222,13 @@ export default {
 		this.initItems( items, lists['items'], Item, 'item', 'item');
 
 		if ( lists.armors ) {
-			inst.armors = this.initItems( items, lists['armors'], ProtoItem, 'armor','armor' );
-			inst.armors.forEach( v=>v.kind = v.kind || 'armor' );
+			inst.armors = this.initItems( items, lists['armors'], ProtoItem, ARMOR,ARMOR );
+			inst.armors.forEach( v=>v.kind = v.kind || ARMOR );
 		}
 
 		if ( lists.weapons ) {
-			inst.weapons = this.initItems( items, lists['weapons'], ProtoItem, 'weapon', 'weapon' );
-			inst.weapons.forEach(v=>v.kind=v.kind ||'weapon');
+			inst.weapons = this.initItems( items, lists['weapons'], ProtoItem, WEAPON, WEAPON );
+			inst.weapons.forEach(v=>v.kind=v.kind ||WEAPON);
 		}
 
 		if ( lists.potions ) inst.potions = this.initItems( items, lists['potions'], Potion, 'potion', 'potion' );
@@ -343,7 +343,8 @@ export const prepData = ( sub, id='' ) => {
 			}
 
 			var obj = sub[p];
-			if ( typeof obj === 'string' ){
+			var typ = typeof obj;
+			if ( typ === 'string' ){
 
 				if ( PercentTest.test(obj) ) {
 
@@ -357,7 +358,11 @@ export const prepData = ( sub, id='' ) => {
 				}
 				else if ( p === 'damage' || p === 'dmg') sub[p] = makeDmgFunc(obj);
 
-			} else if ( typeof obj === 'object' ) prepData(obj, id);
+			} else if ( typ === 'object' ) prepData(obj, id);
+			else if (typ === 'number') {
+
+
+			}
 
 			if ( p.includes('.')) splitKeyPath( sub, p );
 

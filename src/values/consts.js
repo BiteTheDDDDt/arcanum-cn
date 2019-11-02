@@ -29,5 +29,8 @@ const NPC = 'npc';
 const SKILL = 'skill';
 const ENCOUNTER = 'enc';
 const WEARABLE = 'wearable';
+const MONSTER = 'monster';
+const HOME = 'home';
+const ARMOR = 'armor', WEAPON = 'weapon';
 
-export { RESOURCE, NPC, SKILL, ENCOUNTER, WEARABLE };
+export { HOME, RESOURCE, NPC, SKILL, ENCOUNTER, WEARABLE, MONSTER, ARMOR, WEAPON };

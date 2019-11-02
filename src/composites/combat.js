@@ -198,7 +198,7 @@ export default class Combat {
 		for( let i = this._allies.length-1; i >= 0; i-- ) {
 
 			e = this._allies[i];
-			e.update(dt);
+			if ( e !==this.player) e.update(dt);
 			if ( e.alive === false ) {
 				continue;
 			}

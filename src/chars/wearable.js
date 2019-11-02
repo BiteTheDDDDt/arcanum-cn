@@ -6,7 +6,7 @@ import {mergeSafe} from "objecty";
 import Mod, { ParseMods } from '../values/mod';
 import { assignNoFunc } from '../util/util';
 import Item from '../items/item';
-import { WEARABLE } from '../values/consts';
+import { WEARABLE, ARMOR } from '../values/consts';
 
 
 export default class Wearable extends Item {
@@ -116,7 +116,9 @@ export default class Wearable extends Item {
 
 		if ( typeof this.material === 'string') this.material = state.getMaterial( this.material );
 
-		if ( typeof this.template === 'string' ) this.template = state.getData( this.template );
+		if ( typeof this.recipe === 'string' ) this.template = state.getData(this.recipe );
+		else if ( typeof this.template === 'string' ) this.template = state.getData( this.template );
+
 		if ( this.template ) {
 
 			if ( this.armor === null || this.armor === undefined ) this.armor = this.template.armor;
@@ -129,9 +131,18 @@ export default class Wearable extends Item {
 
 			mergeSafe( this, this.template );
 
-		} else console.log('template not found: ' + this.template );
+		} else console.log('bad template: ' + this.template );
 
-		if ( this.level === null || this.level === undefined || isNaN(this.level)) this.level = 1;
+		if ( !this.level || (this.template && this.level <= this.template.level)) {
+
+			if ( this.template && this.template.level ) this.level = this.template.level.valueOf() || 1;
+			else this.level = 1;
+
+			if ( this.material && this.material.level ) {
+				this.level += this.material.level.valueOf() || 0;
+			}
+
+		}
 
 		if ( this.mod ) this.mod = ParseMods( this.mod, this.id );
 
@@ -144,7 +155,9 @@ export default class Wearable extends Item {
 		if (!mat) return;
 
 		this.material = mat;
-		if ( this.armor !== null && this.armor !== undefined ) this.applyBonus( this, 'armor', mat.bonus );
+		this.level +=  this.material.level || 0;
+
+		if ( this.armor !== null && this.armor !== undefined ) this.applyBonus( this, ARMOR, mat.bonus );
 
 		if ( this.attack ) {
 

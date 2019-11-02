@@ -12,6 +12,7 @@ import ItemsBase from './itemsBase';
 import SlotPick from './components/slotpick.vue';
 import FilterBox from './components/filterbox.vue';
 import { SET_SLOT } from '../events';
+import { HOME } from '../values/consts';
 
 /**
  * @emits sell
@@ -27,7 +28,7 @@ export default {
 	},
 	data(){
 
-		let opts = Settings.getSubVars('home');
+		let opts = Settings.getSubVars(HOME);
 
 		return {
 
@@ -90,15 +91,15 @@ export default {
 
 		chkHideMax:{
 			get(){return this.hideMaxed;},
-			set(v){ this.hideMaxed = Settings.setSubVar( 'home', 'hideMaxed', v ); }
+			set(v){ this.hideMaxed = Settings.setSubVar( HOME, 'hideMaxed', v ); }
 		},
 		chkHideOwned:{
 			get(){return this.hideOwned;},
-			set(v){ this.hideOwned = Settings.setSubVar( 'home', 'hideOwned', v ); }
+			set(v){ this.hideOwned = Settings.setSubVar( HOME, 'hideOwned', v ); }
 		},
 		chkHideBlocked:{
 			get(){return this.hideBlocked;},
-			set(v){ this.hideBlocked = Settings.setSubVar( 'home', 'hideBlocked', v ); }
+			set(v){ this.hideBlocked = Settings.setSubVar( HOME, 'hideBlocked', v ); }
 		},
 
 		space() { return this.state.getData('space'); },

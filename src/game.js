@@ -12,6 +12,7 @@ import Resource from './items/resource';
 import Skill from './items/skill';
 import Stat from './values/stat';
 import { TEAM_ALLY } from './chars/npc';
+import { MONSTER } from './values/consts';
 
 var techTree;
 
@@ -555,7 +556,7 @@ export default {
 		 * create monster and add to inventory.
 		 * @todo this is hacky.
 		*/
-		if ( it.type === 'monster' ) {
+		if ( it.type === MONSTER ) {
 
 			if ( it.onCreate ) it.onCreate( this, TEAM_ALLY, keep );
 

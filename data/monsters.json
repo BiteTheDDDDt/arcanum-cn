@@ -1192,7 +1192,7 @@
         "kind":"humanoid",
         "evil":13,
         "desc":"She doesn't look harpy to see you.",
-        "tohit":5,
+        "tohit":9,
         "hp":17,
         "defense":22,
         "attack":{
@@ -2007,7 +2007,6 @@
         "id":"phoenix",
         "level":7,
         "desc":"It's more fire than bird.",
-        "tohit":4,
         "kind":"magicbeast",
         "evil":-13,
         "hp":47,
@@ -2040,7 +2039,6 @@
         "id":"roc",
         "level":8,
         "desc":"An avian terror of mythic repute.",
-        "tohit":7,
         "kind":"magicbeast",
         "hp":41,
         "defense":32,
@@ -2060,7 +2058,7 @@
         "evil":17,
         "kind":"demon",
         "desc":"You could bounce a coin off those abs.",
-        "tohit":3,
+        "tohit":10,
         "hp":33,
         "defense":33,
         "attack":{
@@ -2078,7 +2076,7 @@
 		"desc":"Kind of ugly.",
 		"kind":"humanoid",
         "evil":20,
-        "tohit":2,
+        "tohit":7,
         "hp":56,
         "defense":40,
         "attack":{
@@ -2096,7 +2094,7 @@
         "kind":"humanoid",
         "desc":"The strongest orc in the whole tribe!",
         "hp":73,
-        "tohit":9,
+        "tohit":10,
         "defense":40,
         "attack":{
             "name":"broadsword",
@@ -2138,7 +2136,7 @@
             "kind":"drain",
             "dmg":"6~16"
         },"resist":{
-			"shadow":20
+			"shadow":25
 		}
 
 	},
@@ -3188,6 +3186,7 @@
 		"name":"Narz, the Black Spindle",
         "level":27,
 		"desc":"",
+		"unique":true,
 		"kind":"humanoid",
         "hp":1700,
         "tohit":50,

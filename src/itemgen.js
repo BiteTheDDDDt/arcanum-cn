@@ -8,8 +8,7 @@ import Npc from './chars/npc';
 import GenGroup from './genGroup';
 import { pushNonNull, logObj } from './util/util';
 import GData from './items/gdata';
-import events, { EVT_UNLOCK } from './events';
-import { ENCOUNTER, WEARABLE } from './values/consts';
+import { ENCOUNTER, WEARABLE, MONSTER, ARMOR, WEAPON } from './values/consts';
 
 /**
  * Revive a prototyped item based on an item template.
@@ -35,15 +34,15 @@ export function itemRevive(gs, it ) {
 		}
 		it.template = orig;
 
-		if ( type === 'armor' || type === 'weapon' || type === WEARABLE) {
+		if ( type === ARMOR || type === WEAPON || type === WEARABLE) {
 
 			it = new Wearable(it);
 
-		} else if ( type === 'monster') {
+		} else if ( type === MONSTER) {
 
 			it = new Npc( orig, it );
 
-		} else if ( type === 'enc') {
+		} else if ( type === ENCOUNTER) {
 
 			// encounter.
 			it = new Encounter( orig, it );
@@ -76,11 +75,11 @@ export default class ItemGen {
 
 		this.luck = state.getData('luck');
 
-		this.initGroup( 'armor', state.armors );
-		this.initGroup( 'weapon', state.weapons );
+		this.initGroup( ARMOR, state.armors );
+		this.initGroup( WEAPON, state.weapons );
 		this.initGroup( 'materials', state.materials );
 
-		let g = this.initGroup('monster', state.monsters );
+		let g = this.initGroup( MONSTER, state.monsters );
 		g.makeFilter( 'biome' );
 		g.makeFilter( 'kind' );
 
@@ -135,7 +134,7 @@ export default class ItemGen {
 
 		let it;
 
-		if ( proto.type === 'armor' || proto.type === 'weapon' || proto.type === 'wearable' ) {
+		if ( proto.type === ARMOR || proto.type === WEAPON || proto.type === WEARABLE ) {
 
 			//console.log('instance wearable: ' + proto.id );
 			return this.itemClone( proto, this.matForItem(proto ));
@@ -152,7 +151,7 @@ export default class ItemGen {
 
 			it = new Item( proto );
 
-		} else if ( proto.type === 'monster') return this.npc(proto);
+		} else if ( proto.type === MONSTER ) return this.npc(proto);
 
 		if ( it === undefined ) return null;
 
@@ -217,8 +216,8 @@ export default class ItemGen {
 
 		if ( info.pct && (100*Math.random() > info.pct) ) return null;
 
-		if ( info.type === WEARABLE || info.type === 'weapon'
-				|| info.type ==='armor') return this.fromData( info, info.level );
+		if ( info.type === WEARABLE || info.type === WEAPON
+				|| info.type ===ARMOR) return this.fromData( info, info.level );
 
 		else if ( info.instance || info.isRecipe ) {
 			return this.instance( info );
@@ -228,6 +227,11 @@ export default class ItemGen {
 
 	}
 
+	/**
+	 * Hacky implementation of flatMap since stupid browsers don't support.
+	 * @param {*} p
+	 * @param {*} t
+	 */
 	flatMap( p, t ){
 
 		let a = [];
@@ -384,15 +388,17 @@ export default class ItemGen {
 	 * Pick wearable type.
 	 * @returns {string}
 	 */
-	wearableType() { return Math.random() < 0.65 ? 'armor' : 'weapon'; }
+	wearableType() { return Math.random() < 0.65 ? ARMOR : WEAPON; }
 
 	itemClone( data, material ) {
 
 		data = new Wearable(data);
 
 		if ( material ) {
+
 			data.applyMaterial( material );
 			data.name = material.id + ' ' + data.name;
+
 		} else data.name = data.name;
 
 		data.id = data.id + this.state.nextIdNum();

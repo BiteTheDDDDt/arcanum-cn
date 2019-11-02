@@ -356,7 +356,7 @@ export default class Player extends Char {
 			if ( !dot.tick(dt) ) continue;
 
 			// ignore any remainder beyond 0.
-			// NOTE: dots tick at second-intervals.
+			// @note: dots tick at second-intervals, => no dt.
 			if ( dot.effect ) Game.applyEffect( dot.effect, 1 );
 			if ( dot.damage ) tryDamage( this, dot, dot.source );
 

@@ -15,7 +15,7 @@ import Group from './composites/group';
 import UserSpells from './inventories/userSpells';
 import Quickbars from './composites/quickbars';
 import Stat from './values/stat';
-import { WEARABLE } from './values/consts';
+import { WEARABLE, ARMOR, WEAPON, HOME } from './values/consts';
 
 export const REST_SLOT = 'rest';
 
@@ -218,7 +218,7 @@ export default class GameState {
 			} else {
 
 				// need hasTag() func.
-				if ( it.hasTag('home')) {
+				if ( it.hasTag(HOME)) {
 					it.need = this.homeTest;
 				}
 				count++;
@@ -238,7 +238,7 @@ export default class GameState {
 		this.slots = this.slots || {};
 
 		// all must be defined for Vue. slots could be missing from save.
-		ensure( this.slots, ['home', 'mount', 'bed', REST_SLOT]);
+		ensure( this.slots, [HOME, 'mount', 'bed', REST_SLOT]);
 
 		if ( !this.slots[REST_SLOT] ) this.slots[REST_SLOT] = this.getData('rest');
 
@@ -471,9 +471,7 @@ export default class GameState {
 	 * Get state slots so they can be used with Vue reactivity.
 	 * @returns {object.<string,GData>}
 	 */
-	getSlots(){
-		return this.slots;
-	}
+	getSlots(){ return this.slots; }
 
 	/**
 	 * Get item in named slot.
@@ -481,7 +479,7 @@ export default class GameState {
 	 * @param {string} type - item type for determining subslot (equip,home,etc)
 	 */
 	getSlot( id, type) {
-		if ( type === WEARABLE || type === 'armor' || type ==='weapon' ) return null;
+		if ( type === WEARABLE || type === ARMOR || type ===WEAPON ) return null;
 		return this.slots[id];
 	}
 
@@ -529,9 +527,7 @@ export default class GameState {
 
 	}
 
-	getData(id) {
-		return this.items[id] || this[id];
-	}
+	getData(id) { return this.items[id] || this[id]; }
 
 	getMaterial(id) { return this.matsById[id]; }
 
