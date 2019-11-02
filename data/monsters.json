@@ -604,7 +604,7 @@
         "desc":"For the Horde!",
         "hp":10,
         "defense":8,
-        "tohit":1,
+        "tohit":3,
         "attack":{
             "name":"spear",
             "kind":"pierce",
@@ -895,7 +895,7 @@
         "desc":"",
         "hp":17,
         "defense":15,
-        "tohit":2,
+        "tohit":6,
         "attack":{
             "name":"orc hammer",
             "kind":"blunt",

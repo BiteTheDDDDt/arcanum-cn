@@ -427,7 +427,9 @@ export default class Combat {
 	 */
 	dodgeRoll( dodge, tohit ) {
 
-		let x = ( tohit > dodge ? 1 : dodge - tohit )/10;
+		// higher x === better dodge.
+		let x = ( tohit > dodge ? 1 : dodge - tohit )/16;
+
 		return Math.random() > ( Math.exp( -x*x ) );
 
 	}
