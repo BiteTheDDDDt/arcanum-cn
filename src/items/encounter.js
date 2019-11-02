@@ -1,6 +1,7 @@
 import GData from "./gdata";
 import Game from '../game';
 import Events, { ENC_DONE } from "../events";
+import { ENCOUNTER } from "../values/consts";
 
 const defaults = {
 
@@ -9,7 +10,6 @@ const defaults = {
 
 };
 
-export const ENCOUNTER = 'enc';
 
 /**
  * Sublocation of a Locale

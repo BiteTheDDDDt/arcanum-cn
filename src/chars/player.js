@@ -24,6 +24,14 @@ const Fists = new Wearable({
 });
 
 /**
+* Create a hall id so players can be unique per hall.
+* @returns {string}
+ */
+const makeHallId = () => {
+	return Math.random().toString(36);
+}
+
+/**
  * @constant {number} EXP_RATE
  */
 const EXP_RATE = 0.125;
@@ -46,9 +54,7 @@ export default class Player extends Char {
 	 * @property {string} title
 	 */
 	get title() { return this._title; }
-	set title(v) {
-		this._title =v;
-	}
+	set title(v) { this._title =v; }
 
 	/**
 	 * @property {string[]} titles
@@ -159,6 +165,9 @@ export default class Player extends Char {
 	get bonuses(){ return this._bonuses ? this._bonuses : (this._bonuses = {}) }
 	set bonuses(v){ this._bonuses = toStats(v); }
 
+	get hallId(){return this._hid;}
+	set hallId(v){this._hid=v;}
+
 	/**
 	 * NOTE: Elements that are themselves Items are not encoded,
 	 * since they are encoded in the Item array.
@@ -167,6 +176,8 @@ export default class Player extends Char {
 	toJSON() {
 
 		let data = {};
+
+		data.hallId = this.hallId;
 
 		data.defense = ( this.defense );
 		data.tohit = ( this.tohit );
@@ -231,12 +242,15 @@ export default class Player extends Char {
 
 	}
 
+
 	constructor( vars=null ){
 
 		super(vars);
 
 		this.id = this.type = "player";
 		if ( !vars || !vars.name) this.name = 'wizrobe';
+
+		if ( !this.hallId ) this.hallId = makeHallId();
 
 		//if ( vars ) Object.assign( this, vars );
 

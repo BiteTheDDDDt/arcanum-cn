@@ -23,13 +23,14 @@ import Material from './chars/material';
 import Enchant from './items/enchant';
 import Item from './items/item';
 import Potion from './items/potion';
-import Encounter, { ENCOUNTER } from './items/encounter';
+import Encounter from './items/encounter';
 import GEvent from './items/gevent';
 
 import Loader from './util/jsonLoader';
 import { splitKeyPath, logObj } from './util/util';
 import GClass from './items/gclass';
 import Module from './modules/gmodule';
+import { SKILL, ENCOUNTER } from './values/consts';
 
 const DataDir = './data/';
 const DataFiles = [ 'resources', 'upgrades', 'actions', 'homes', 'furniture', 'items', 'skills',
@@ -206,7 +207,7 @@ export default {
 
 		if ( lists.furniture ) this.initItems( items, lists['furniture'], GData, 'furniture', 'furniture' );
 
-		if ( lists.skills ) inst.skills = this.initItems( items, lists['skills'], Skill, 'skill' );
+		if ( lists.skills ) inst.skills = this.initItems( items, lists['skills'], Skill, SKILL );
 
 		if ( lists.encounters ) inst.encounters = this.initItems( items, lists['encounters'], Encounter, ENCOUNTER, ENCOUNTER);
 		if ( lists.monsters ) inst.monsters = this.initItems( items, lists['monsters'], Monster, 'monster', 'monster' );

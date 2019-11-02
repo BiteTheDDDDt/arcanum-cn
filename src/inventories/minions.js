@@ -2,6 +2,7 @@ import Inventory from "./inventory";
 import { TEAM_ALLY } from "../chars/npc";
 import Events, { ALLY_DIED, ACT_CHANGED } from '../events';
 import Stat from "../values/stat";
+import { NPC } from "../values/consts";
 
 export default class Minions extends Inventory {
 
@@ -113,7 +114,7 @@ export default class Minions extends Inventory {
 		for( let i = this.items.length-1; i>=0; i-- ) {
 
 			var m = this.items[i];
-			if ( m.type !== 'npc') {
+			if ( m.type !== NPC ) {
 				this.items.splice( i, 1 );
 				continue;
 			}
