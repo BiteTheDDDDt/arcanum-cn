@@ -147,7 +147,7 @@
 	"desc":"You have no need of these dry tomes and musty old books.",
 	"buyname":"Forgo Studies",
 	"tags":"t_tier0",
-	"require":"g.study.valueOf()==0&&g.neophyte>0&&g.arcana>=5",
+	"require":"g.study<=0&&g.neophyte>0&&g.arcana>=5",
 	"cost":{
 		"arcana":7
 	},
