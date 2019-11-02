@@ -5,18 +5,13 @@ const WARN_MSG = 'This action is not reversible. Continue?';
 
 export default {
 
-	data() {
-		return {
-			item:null
-		}
-
-	},
+	props:['item'],
 	updated() {
 		if ( this.item ) {center( this.$el );}
 	},
 	computed:{
 		msg(){
-			return this.item.warnMsg || WARN_MSG;
+			return this.item? this.item.warnMsg || WARN_MSG : '';
 		}
 	},
 	methods:{
@@ -24,12 +19,12 @@ export default {
 			this.item = it;
 		},
 		confirm(){
+
 			let it = this.item;
-			this.item = null;
 			if ( it ) this.$emit('confirmed', it );
 
 		},
-		cancel(){ this.item = null; }
+		cancel(){ this.$emit('cancel') }
 
 	}
 
@@ -37,7 +32,7 @@ export default {
 </script>
 
 <template>
-	<div class="popup" v-if="item!=null">
+	<div class="popup" v-if="item">
 
 		<div>{{ item.name }}</div>
 		<div>{{item.desc }}</div>

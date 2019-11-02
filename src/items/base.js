@@ -1,8 +1,33 @@
-import {changes, jsonify, cloneClass } from 'objecty';
+import {changes, jsonify } from 'objecty';
 import Game from '../game';
 import Stat from '../values/stat';
-import Mod from '../values/mod';
-import { logObj } from '../util/util';
+import Mod, { SetModIds } from '../values/mod';
+import { logObj, cloneClass } from '../util/util';
+
+export const setModCounts = ( m, v)=>{
+
+	if ( m instanceof Mod ) {
+		m.count = v;
+	}
+	else if ( typeof m ==='object') {
+		for( let p in m ){ setModCounts(m[p], v); }
+	}
+
+}
+
+/**
+ * Initialize object's mods with count === Value stat.
+ * @param {*} m
+ * @param {Stat} v
+ */
+export const initMods = ( m, v)=>{
+
+	if ( m instanceof Mod ) m.count = v;
+	else if ( typeof m ==='object') {
+		for( let p in m ){ initMods(m[p], v); }
+	}
+
+}
 
 export function mergeClass( destClass, src ) {
 
@@ -19,7 +44,6 @@ export function mergeClass( destClass, src ) {
 }
 
 
- // TODO: restore 'tags' later if tags become dynamic.
  /**
   * @todo shorten list by implementing better base/defaults logic.
   * @const {string[]} JSONIgnore - ignore these properties by default when saving.
@@ -183,6 +207,46 @@ export default {
 
 	},
 
+	permVars( mods, targ=this) {
+
+		//console.log( 'PERM VARS: ' + typeof mods);
+		//console.log('eNC TARG: ' + typeof targ);
+		if ( typeof targ === 'number') {
+
+			// error.
+
+		} else if ( typeof mods === 'object') {
+
+			for( let p in mods ) {
+
+				var sub = targ[p];
+
+				if ( sub === undefined ) {
+
+					sub = targ[p] = cloneClass( mods[p]);
+
+				} else if ( sub instanceof Stat ) {
+
+					sub.perm( mods[p] );
+
+				} else if ( !sub || typeof sub === 'number') {
+
+					targ[p] = (sub||0) + mods[p].valueOf();
+
+				} else if ( typeof sub ==='object') this.permVars( mods[p], sub);
+				else console.log( this.id + ' UNKNOWN PERM VAR: ' + p + ' typ: ' + (typeof sub ));
+
+
+			}
+
+			if ( typeof targ === 'object' && targ && targ.mod ) {
+				SetModIds( targ.mod, targ.id );
+			}
+
+		}
+
+	},
+
 	/**
 	 *
 	 * @param {Object} mods - effect/mod description.
@@ -191,16 +255,17 @@ export default {
 	 */
 	applyVars( mods, amt=1 ) {
 
-		if ( typeof mods === 'number') { this.value += mods*amt; }
-		else if ( typeof mods === 'object' ) {
+		if ( typeof mods === 'number') {
 
-			if ( mods instanceof Mod ) {
+			//this.amount( Game, mods*amt );
+			this.value = this.value.base + mods*amt;
 
-				// this is possible by one mod adding a new effect to an existing item,
-				// causing the mod to be cloned into the effect.
-				// coals: mod->rest.effect.fire:0.1
-				// use rest: apply effect to fire: 0.1 is now a mod.
-				mods.applyTo( this, 'value', amt);
+		} else if ( typeof mods === 'object' ) {
+
+			if ( mods instanceof Stat ) {
+
+				//if ( Math.random()<0.1&& this.id ==='stamina') console.log('ADD STAM: ' + (mods*amt));
+				this.value = this.value.base + mods.value*amt;
 				return;
 
 			}
@@ -215,17 +280,20 @@ export default {
 				var targ = this[p];
 				if ( targ instanceof Stat || targ instanceof Mod ) {
 
-					//console.log('applying mod to stat: '+ p);
+					//console.log('APPLY ' + mods[p].id + ' to stat: '+ this.id + '.'+ p + ': ' + amt*mods[p] + ' : ' + (typeof mods[p]) );
 					targ.apply( mods[p], amt );
 
 				} else if ( typeof mods[p] === 'object' ) {
 
-					if ( mods[p] instanceof Mod ) mods[p].applyTo( this, p, amt );
-					else if ( typeof targ === 'number' ) {
+					if ( mods[p] instanceof Mod ) {
+
+						mods[p].applyTo( this, p, amt );
+
+					} else if ( typeof targ === 'number' ) {
 
 						this[p] += Number(mods[p])*amt;
 					} else {
-						console.log( mods + ' subapply: ' + p);
+						//console.log( mods + ' subapply: ' + p);
 						this.subeffect( this[p], mods[p], amt );
 					}
 
@@ -266,7 +334,7 @@ export default {
 
 			if ( targ instanceof Stat || targ instanceof Mod ) {
 
-				console.log( this.id + ' number apply to Stat/Mod: ' + mods );
+				//console.error( this.id + ' number apply to Stat/Mod: ' + mods );
 				targ.apply( mods, amt );
 
 			} else if ( typeof targ === 'object') {targ.value = (targ.value || 0 ) + amt*mods; }
@@ -282,18 +350,14 @@ export default {
 	},
 
 	/**
-	 * Apply a mod when the mod is an object.
+	 * Apply a mod when the mod is recursive object.
 	 * @param {Object} mod
 	 * @param {number} amt - percent of mod added.
 	 * @param {Object} targ - target of mods.
 	 */
 	applyObj( mods, amt, targ ) {
 
-		if ( mods.mod ) this.changeMod( mods.mod, amt );
-
 		for( let p in mods ) {
-
-			//console.log('MOD NAME: ' + p);
 
 			var m = mods[p];
 			var subTarg = targ[p];
@@ -302,15 +366,15 @@ export default {
 
 				let s = targ[p] = new Stat( typeof m === 'number' ? m*amt : 0 );
 				if ( m instanceof Mod) {
-					s.apply(m, amt);
+					s.addMod(m, amt);
 				}
-				logObj(mods, 'mods parent');
-				logObj( m, p + ' mod');
-				console.log( mods + '["' + p + '"]:' + m + ' -> mod targ undefined' + ' -> ' + s.valueOf() );
+				//console.log( mods + '["' + p + '"]:' + m + ' -> mod targ undefined' + ' -> ' + s.valueOf() );
 
 			} else if ( subTarg.applyMods ) subTarg.applyMods( m, amt, subTarg );
-			else if ( m instanceof Mod ) m.applyTo( targ, p, amt );
-			else if ( typeof m === 'object' ) {
+			else if ( subTarg instanceof Stat) subTarg.apply( m, amt );
+			else if ( m instanceof Mod ) {
+				m.applyTo( targ, p, amt );
+			} else if ( typeof m === 'object' ) {
 
 				this.applyObj( m, amt, subTarg );
 
@@ -319,17 +383,20 @@ export default {
 				if ( typeof subTarg === 'number') {
 
 					/// @todo stat switch?
-					console.warn('NEW STAT: ' + p + ' : ' + (m*amt ) );
+					//console.warn('NEW STAT: ' + p + ' : ' + (m*amt ) );
 					targ[p] = new Stat( targ[p] + m*amt );
 					//targ[p] += m*amt;
 
 				} else this.applyMods( m, amt, subTarg);
 
 			} else {
-				console.warn( `UNKNOWN Mod applied to ${this.id}: ${p}:${m}`);
+
+				console.warn( `UNKNOWN Mod applied to ${this.id}.${p}: ${m}` + '  ' + typeof m);
 			}
 
 		}
+
+		if ( mods.mod ) { Game.addMod( this.mod, this.value ); }
 
 	},
 
@@ -348,7 +415,7 @@ export default {
 
 		for( let p in m ) {
 
-			console.log('SUBEFFECT(): ' + p + '=' + m[p]);
+			//console.log('SUBEFFECT(): ' + p + '=' + m[p]);
 
 			if ( typeof m[p] === 'object' ) {
 				this.subeffect( obj[p], m[p], amt );
@@ -391,7 +458,7 @@ export default {
 	 */
 	changeMod( mod, amt ) {
 
-		// @todo: why?
+		// @todo: why? assume not currently worn?
 		if ( this.equippable ) return;
 		//console.log( this.id + ': adding mod amt: ' + amt );
 

@@ -15,9 +15,7 @@ export default {
 			filtered:null
 		}
 	},
-	created() {
-		this.USE = USE;
-	},
+	created() { this.USE = USE; },
 	components:{
 		filterbox:FilterBox
 	},
@@ -56,9 +54,7 @@ export default {
 	computed:{
 
 		playerInv(){ return this.inv === Game.state.inventory; },
-		playerFull(){
-			return Game.state.inventory.full();
-		}
+		playerFull(){ return Game.state.inventory.full(); }
 	}
 
 }
@@ -66,16 +62,19 @@ export default {
 
 
 <template>
-<div>
-	<filterbox v-if="!nosearch" v-model="filtered" :items="inv.items" min-items="10" />
+<div class="inventory">
 
-	<div class="flex-row">
-		<div v-if="inv.max > 0">{{ inv.items.length + ' / ' + Math.floor(inv.max.value ) + ' Used' }}</div>
+	<span class="top">
+	<filterbox v-if="!nosearch" v-model="filtered" :items="inv.items" min-items="7" />
+	<span>
+		<span v-if="inv.max > 0">{{ inv.items.length + ' / ' + Math.floor(inv.max.value ) + ' Used' }}</span>
 		<button v-if="inv.count>0" @click="sellAll">Sell All</button>
-	</div>
-<table class="inv item-table">
+	</span>
+	</span>
 
-	<tr v-for="it in ( nosearch ? inv.items : filtered )" :key="it.id">
+	<div class="item-table">
+
+	<tr class="separate" v-for="it in ( nosearch ? inv.items : filtered )" :key="it.id">
 		<td @mouseenter.capture.stop="emit( 'itemover',$event,it)">{{ it.name + count(it) }}</td>
 
 
@@ -95,44 +94,61 @@ export default {
 			<td><button :disabled="it.busy" @click="$emit('input', it)">Select</button></td>
 		</template>
 	</tr>
-</table>
-<div v-if="playerFull" class="warn-text">Player inventory full</div>
+</div>
+
+<div v-if="playerFull" class="warn-text">Inventory Full</div>
 </div>
 </template>
 
 
 <style scoped>
 
-div.inv-equip .item-table {
-		/*display: flex; flex-flow: column;*/
+div.inventory {
+	display:flex;
+	flex-direction: column;
+	width:100%;
+	height:100%;
+}
+
+div.inventory .top {
+	padding: var(--sm-gap);
+}
+
+div.inventory .filter-box {
+	display:inline;
+	font-size: 0.9rem;
+}
+
+div.inventory .table-div {
+	display: grid; grid-template-columns: 1fr 1fr;
+	flex-grow: 1;
+	height:100%;
+}
+div.inventory .item-table {
+	flex-grow: 1;
 		overflow-y: auto;
-        margin: 0; padding: var(--md-gap);
-        display: grid; grid-template-columns: repeat( auto-fit, minmax( 256px, 1fr )); grid-auto-rows: 1fr;
-        grid-column: 1/3;
+		margin: 0;
+		display: grid; grid-template-columns: repeat( auto-fit, minmax( 256px, 1fr ));
+		 grid-auto-rows: min-content;
+
     }
-div.inv-equip .item-table tr {
-        display: flex; flex-flow: row; justify-content: flex-end;
+div.inventory .item-table tr {
         padding: var(--sm-gap); align-items: center;
     }
-div.inv-equip .item-table tr :first-child { flex: 1; }
-div.inv-equip .item-table tr button { margin: var(--tiny-gap); }
-div.inv-equip .item-table td { display: flex; padding: 0; }
-div.inv-equip > div:nth-child(2) {
-        border-top: 1px solid var(--separator-color);
-        /*display: flex; flex-flow: column;*/
-        display: grid; grid-template-columns: 1fr 1fr;
-	}
+div.inventory .item-table tr :first-child { flex: 1; }
+div.inventory .item-table tr button { margin: var(--tiny-gap); }
+div.inventory .item-table td { display: flex; padding: 0; }
+
+
 
 .flex-row {
 	align-items:center;
 	justify-content: flex-start;
+	padding-left: var(--sm-gap);
+	padding-top: var(--tiny-gap);
 }
 .flex-row div {
 	margin-right: 12px;
-}
-
-.inv {
-	width:auto;
 }
 
 

@@ -23,6 +23,14 @@ export default {
 				//console.log( this.item.damage.min);
 			}
 
+		},
+		bonus(){
+
+			let bonus = this.item.bonus;
+			if ( bonus == 0 ) return 0;
+			if ( bonus > 0) return ' (+' + bonus + ')';
+			else return ' (' + bonus + ')';
+
 		}
 
 	}
@@ -34,9 +42,12 @@ export default {
 
 <div class="attack">
 
+	<div class="popup-sect">attack</div>
+
 	<div>hit bonus: {{ item.tohit || 0 }}</div>
-	<div v-if="item.hands>1">Two Handed</div>
-	<div class="damage" v-if="damage!==null">damage: {{ damage }}</div>
+	<div v-if="item.hands>1">Two-Handed</div>
+	<div class="damage" v-if="damage!==null">
+		<span>damage: {{ damage }}</span><span v-if="bonus">{{ bonus }}</span></div>
 	<div>kind: {{ item.kind }}</div>
 	<dot v-if="item.dot" :dot="item.dot" />
 

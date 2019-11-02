@@ -1,5 +1,4 @@
 import { itemRevive } from "../itemgen";
-import Wearable from "./wearable";
 import Item from "../items/item";
 
 /**

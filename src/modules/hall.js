@@ -14,7 +14,8 @@ export default class Hall {
 
 			name:this.name,
 			chars:this.chars,
-			active:this.active
+			active:this.active,
+			items:this.items
 
 		}
 
@@ -104,8 +105,6 @@ export default class Hall {
 			this.prestige = it;
 		}
 
-		console.log('HALL LOADED. PRESTIGE: ' + this.prestige.max );
-
 		this.initChars();
 
 	}
@@ -121,6 +120,7 @@ export default class Hall {
 
 		this.chars[slot].empty = true;
 		this.chars[slot].name = null;
+		this.chars[slot].hid = null;
 
 		return true;
 
@@ -188,17 +188,7 @@ export default class Hall {
 		let char = this.getSlot(slot);
 
 		if ( !char ) char = this.chars[ (slot < 0 ? this.active : slot)  ] = new CharInfo();
-
-		char.name = p.name;
-		char.level = p.level.valueOf();
-		char.title = p.title;
-		char.titles = p.titles.length;
-		char.fame = p.fame.valueOf();
-		char.gclass = p.gclass;
-		char.empty = false;
-
-		console.log('loaded points: ' + char.getPoints() );
-		console.log('CHAR UPDATES');
+		char.update( p );
 
 	}
 
@@ -216,6 +206,12 @@ export default class Hall {
 
 	}
 
+	/**
+	 * @param {number} hid - character hid to search for.
+	 * @returns {number} slot of character with given hid, or -1.
+	 */
+	hidSlot( hid ){ return this.chars.findIndex( v=>v.hid==hid); }
+
 	setTitle( title, slot=-1 ){
 		let char = this.getSlot(slot);
 		if ( char) char.title = title;
@@ -225,9 +221,7 @@ export default class Hall {
 		return this.chars[ slot < 0 ? this.active : slot ];
 	}
 
-	findSlot(p) {
-		return this.chars.findIndex(p);
-	}
+	findSlot(p) { return this.chars.findIndex(p); }
 
 	/**
 	 * Get slot index by name.

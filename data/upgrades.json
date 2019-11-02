@@ -183,7 +183,7 @@
 			"gold":400,
 			"bones":10,
 			"shadowgem":2,
-			"bonedust":20
+			"bonedust":25
 		},
 		"mod":{
 			"dist":270
@@ -395,7 +395,7 @@
 		"id":"pouch",
 		"desc":"Keep your money safe.",
 		"require":"g.gold>=5",
-		"max":2,
+		"max":3,
 		"cost":5,
 		"flavor":"seems a tad pricey for a bag.",
 		"mod":{
@@ -411,7 +411,7 @@
 		"cost":300,
 		"flavor":"who prices these bags?!",
 		"mod":{
-			"gem.max":1,
+			"magicgems.max":1,
 			"gems.max":5
 		}
 	},
@@ -420,14 +420,14 @@
 		"id":"gembox",
 		"name":"gem box",
 		"desc":"Finely crafted box for storing magic gems.",
-		"require":["tier0","gem"],
+		"require":["tier0","magicgems"],
 		"max":5,
 		"cost":{
 			"gems":15,
 			"gold":800
 		},
 		"mod":{
-			"gem.max":2,
+			"magicgems.max":2,
 			"gems.max":3
 		}
 	},
@@ -715,10 +715,12 @@
 		"cost":{
 			"herbs":4,
 			"nature":4,
-			"research":100
+			"research":100,
+			"arcana":1
 		},
 		"mod":{
-			"dodge":1
+			"dodge":1,
+			"luck":1
 		}
 
 	},
@@ -862,13 +864,14 @@
 		"max":1,
 		"cost":{
 			"gold":1000,
-			"research":1000
+			"research":1000,
+			"arcana":1
 		},
 		"mod":{
 			"inv.max":4,
 			"gold.max":100,
 			"gems.max":20,
-			"gem.max":5
+			"magicgems.max":5
 		},"flavor":"the research costs a little more than you expected..."
 
 	},
@@ -901,6 +904,40 @@
 		},
 		"mod":{
 			"player.retreat":1
+		}
+
+	},
+	{
+		"id":"gemcraft",
+		"require":"g.tier4>0&&g.crafting>=16",
+		"warn":true,
+		"cost":{
+			"research":7500,
+			"tomes":10,
+			"arcana":15,
+			"sp":5
+		},
+		"desc":"Imbue gems continuously as your current activity.",
+		"mod":{
+			"gemimbue.perpetual":true,
+			"gemimbue.length":5
+		}
+
+	},
+	{
+		"id":"advgems",
+		"name":"advanced gemcraft",
+		"require":"g.gemcraft>0&&g.crafting>=18",
+		"warn":true,
+		"cost":{
+			"research":10000,
+			"tomes":10,
+			"arcana":15,
+			"sp":10
+		},
+		"desc":"Improve the speed of your gem enchanting.",
+		"mod":{
+			"gemimbue.length":"-75%"
 		}
 
 	},
@@ -1080,8 +1117,12 @@
 	{
 		"id":"guidingstar",
 		"name":"guiding star",
-		"require":"g.astronomy>=15&&g.good>0",
+		"require":"g.astronomy>=15&&g.evil<=0",
 		"desc":"a light in the heavens guides your way.",
+		"cost":{
+			"research":5000,
+			"arcana":15
+		},
 		"mod":{
 			"player.tohit":4,
 			"scrying.max":2,
@@ -1092,7 +1133,7 @@
 
 	{
 		"id":"wishingwells",
-		"name":"Wishing wells",
+		"name":"wishing wells",
 		"require":"g.divination>=4&&g.fountain>0",
 		"cost":{
 			"gold":500,
@@ -1126,11 +1167,13 @@
 		"cost":{
 			"research":1000,
 			"tomes":5,
-			"bloodgem":5
+			"bloodgem":10,
+			"arcana":5,
+			"sp":1
 		},
 		"mod":{
 			"research.rate":-0.2,
-			"hp.rate":0.7
+			"hp.rate":0.5
 		}
 
 	},
@@ -1195,7 +1238,7 @@
 		"cost":{
 			"gold":50,
 			"research":50,
-			"spirit":2
+			"mana":2
 		},
 		"mod":{
 			"spirit.rate":0.01
@@ -1274,7 +1317,7 @@
 		},
 		"mod":{
 			"arcana.rate":0.0001,
-			"space.max":1,
+			"spirit.max":1,
 			"spirit.rate":0.01
 		}
 	},
@@ -1335,7 +1378,7 @@
 	{
 		"id":"specialization",
 		"desc":"specialize in a school of magic",
-		"require":"g.lore>=999",
+		"require":"g.lore>999",
 		"max":1,
 		"cost":{
 			"tomes":1,
@@ -1784,7 +1827,7 @@
 	{
 		"id":"mendicant",
 		"desc":"Sacrifice luxury for higher attainments.",
-		"need":"g.evil==0&&g.tier1>0&&g.gold.max>1000&&g.light.max>5",
+		"need":"g.evil<=0&&g.tier1>0&&g.gold.max>1000&&g.light.max>5",
 		"warn":true,
 		"cost":{
 		},
@@ -1823,6 +1866,22 @@
 		"mod":{
 			"gems.rate":0.02,
 			"gold.rate":-0.1
+		}
+
+	},
+	{
+		"id":"wildmarket",
+		"name":"goblin market",
+		"require":"(g.druid+g.fey+g.kell)>0",
+		"desc":"Sell your bounty to a magic market in the wild",
+		"cost":{
+			"herbs":50,
+			"research":3000,
+			"naturegem":10
+		},
+		"mod":{
+			"herbs.rate":-0.5,
+			"gold.rate":0.2
 		}
 
 	},
@@ -1910,7 +1969,7 @@
 		"desc":"Increase the size of your existing cellars.",
 		"require":"cellar",
 		"cost":{
-			"gold":500
+			"gold":700
 		},
 		"mod":{
 			"cellar.mod.space.max":5
@@ -1927,12 +1986,27 @@
 		},
 		"mod":{
 			"fame":1,
-			"allies.max":4,
+			"minions.maxAllies":4,
 			"minions.max":2,
 			"lightlore.max":2,
 			"lightlore.rate":"10%"
 		}
 
+	},
+	{
+		"id":"up_runecrafter",
+		"name":"Hire Runecrafter",
+		"desc":"Hire a dwarf to craft runestones for you.",
+		"require":"g.evil<=0&&g.runelore>=5&&g.tier3>0",
+		"max":5,
+		"cost":{
+			"gems":100,
+			"space":5
+		},
+		"mod":{
+			"gold.rate":-0.5,
+			"runestones.rate":0.01
+		}
 	},
 	{
 
@@ -1943,7 +2017,8 @@
 		"cost":{
 			"space":5,
 			"gold":300,
-			"research":500
+			"tomes":1,
+			"research":1000
 		},
 		"mod":{
 			"gold.rate":0.1,
@@ -1959,8 +2034,8 @@
 		"require":"g.tier1>0&&g.earthlore>=3",
 		"max":1,
 		"cost":{
-			"gold":200,
-			"research":200
+			"gold":1000,
+			"research":500
 		},
 		"mod":{
 			"space.max":"25%"
@@ -1973,7 +2048,7 @@
 		"desc":"You see things before they happen",
 		"cost":{
 			"research":300,
-			"tomes":1
+			"arcana":5
 		},
 		"mod":{
 			"dodge":1
@@ -1989,8 +2064,8 @@
 		"buy":{
 			"research":50000,
 			"arcana":30,
-			"tomes":10,
-			"gold":10000
+			"tomes":50,
+			"gold":20000
 		},
 		"mod":{
 			"t_runes.max":10,
@@ -2003,7 +2078,7 @@
 
 	{
 		"id":"fireplane",
-		"slot":"homeplane",
+		"slot":"werry",
 		"name":"fire werry",
 		"desc":"a hidden pocket of the plane of ash and fire",
 		"require":"g.tier5>0&&g.gate>0&&g.firelore>=10",
@@ -2027,7 +2102,7 @@
 	{
 		"id":"waterplane",
 		"name":"water werry",
-		"slot":"homeplane",
+		"slot":"werry",
 		"desc":"a pocket of the endless sea",
 		"require":"g.tier5>0&&g.gate>0&&g.waterlore>=10",
 		"buy":{
@@ -2051,7 +2126,7 @@
 		"id":"earthplane",
 		"name":"earth werry",
 		"desc":"a space carved from the plane of earth",
-		"slot":"homeplane",
+		"slot":"werry",
 		"require":"g.tier5>0&&g.gate>0&&g.earthlore>=10",
 		"buy":{
 
@@ -2074,7 +2149,7 @@
 		"id":"airplane",
 		"name":"wind werry",
 		"desc":"an island floating in an endless sky",
-		"slot":"homeplane",
+		"slot":"werry",
 		"require":"g.tier5>0&&g.gate>0&&g.airlore>=10",
 		"buy":{
 

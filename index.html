@@ -33,47 +33,8 @@
 @author         gokiburikin
 */
 
-:root {
-        --action-button-width: 128px;
-        --background-color: #FAFAFA;
-        --button-text-color: #000C;
-        --action-button-border-color: #000C;
-        --accent-color-hover: #Dba659;
-        --accent-color-active: #797979;
-        --quiet-text-color: #888;
-        --very-quiet-text-color: #AAA;
-        --separator-color: #AAA;
-        --list-entry-background: #00000007;
-        --list-entry-border-radius: 8px;
-        --header-background-color: #EEE;
-        --compact-small-font: 1.0em;
-        --compact-medium-font: 1.0em;
-        --popup-background-color: #FAFAFAEE;
-        --popup-border: 2px solid #646464;
-        --subtle-border-radius: 4px;
-    }
-    :root body.darkmode {
-        --button-text-color: #FFF;
-        --action-button-border-color: #FFF;
-    }
-    :root body.compact {
-        --comfy-gap: 0;
-        --tiny-gap: 0.1em;
-        --sm-gap: 0.25em;
-        --md-gap: 0.4em;
-        --lg-gap: 0.5em;
-        --compact-small-font: 0.75em;
-        --compact-small-font: 0.9em;
-    }
-
-    * { box-sizing: border-box; }
-
-
-
     /* General Changes */
 
-    div.div-hr { border: none; margin: 0; }
-    .table-head { border: none; }
 
 
     /* Main Layout */
@@ -181,25 +142,6 @@
         max-height: unset; flex: 1; font-size: var(--compact-small-font);
     }
 
-
-
-
-    /* Home */
-
-    .full div.home-view .furniture .item-table {
-        text-transform: capitalize; overflow-y: scroll;
-        flex: 1; min-height: 0; width: 100%; max-width: 400px;
-        display: flex; flex-direction: column;
-    }
-    .full div.home-view .furniture .item-table tr { display: flex; padding: var(--sm-gap); }
-    .full div.home-view .furniture .item-table tr:first-child {
-        position: sticky; top: 0; background: var(--header-background-color); z-index: 1;
-    }
-    .full div.home-view .furniture .item-table tr > *:nth-child(1) { flex-basis: 20%; }
-    .full div.home-view .furniture .item-table tr > *:nth-child(2) { flex-basis: 40%; }
-    .full div.home-view .furniture .item-table tr > *:nth-child(3) { flex-basis: 20%; }
-    .full div.home-view .furniture .item-table tr button { margin: 0; font-size: 0.75em; }
-
     /* Main */
 
 
@@ -298,11 +240,9 @@
         font-size: 0.75em; position: relative; text-align: right; display: flex; flex: 1;  align-items: center;
     }
     .full div.subs div.skill > div > div { flex: 1; }
-    .full div.subs div.skill .separate { display: flex; }
     .full div.subs div.skill .separate span:first-child { text-overflow: ellipsis; white-space: nowrap; overflow:hidden;}
     .full div.subs div.skill .separate span:nth-child(2) {
-        flex-basis: 50%; display: flex;
-        align-items: center; justify-content: space-between;
+        flex-basis: 50%;
         color: var(--quiet-text-color);
     }
 
@@ -325,10 +265,6 @@
     .full div.vitals .bars tr:first-child { min-height: 4em; }
     .full div.vitals .bars tr:not(:first-child) { padding: var(--sm-gap) var(--sm-gap); }
     .full div.vitals .bars tr td:nth-child(1) { flex-basis: 50%; }
-
-    .runnable button:hover { background: #dba659; }
-    .text-button:hover { background-color: rgb(194, 194, 194); }
-    .text-button:active { background-color: rgb(121, 121, 121); }
 
 
     .skill div:last-child { color: #999; text-align: center; }
@@ -355,61 +291,11 @@
         display: flex; flex-flow: column; text-indent: 1em;
     }
 
-
-
-    /* Player */
-
-
-
-    /* Spellbook */
-
-
-
-    .full div.spellbook .filters {
-        order: 1; flex-flow: row wrap; display: flex; text-align: center;
-        border-bottom: 1px solid var(--separator-color);
-        margin: 0; padding: var(--sm-gap); line-height: 2em; justify-content: flex-start;
-    }
-    .full div.spellbook div.filters div { box-sizing: border-box; margin: 0; }
-    .full div.spellbook div.filters div:nth-child(1),
-    .full div.spellbook div.filters div:nth-child(2) {
-        flex-basis: 50%;
-    }
-    .full div.spellbook div.filters input[type=text] { padding: var(--sm-gap) 0 var(--sm-gap) 0; }
-    .full div.spellbook div.filters > div input[type=text],
-    .full div.spellbook div.filters > div input[type=number] {
-        flex: 1; margin-right: 1em; margin-left: 1em; min-width: unset; max-width: unset; width: 0;
-    }
-    .full div.spellbook div.filters > div { display: flex; align-items: center; }
-    .full div.spellbook div.filters > div label { flex-basis: 20%; }
-    .full div.spellbook div.filters > div input { min-width: 0; padding: 0; text-indent: var(--sm-gap); }
-    .full div.spellbook div.filters div.checks { margin: 0; padding: 0 0.5em; flex-basis: unset; }
-
-
-
-
-
     /* Beastiary */
 
     .game-mid .menu-content > div.bestiary { padding: 0; margin: 0; }
     .game-mid .menu-content > div.bestiary .char-list { padding: 0; margin: 0; }
 
-    /* Minions */
-
-    div.bestiary[data-v-ee7d6c4a] {
-        display: flex;
-        flex-flow: column;
-    }
-
-    /* Resources */
-
-
-    .game-main div.resource-list { margin: 0; padding: var(--sm-gap); min-width: 200px; max-width: unset; }
-    .game-main div.resource-list .item-name:not(.locked) { display: flex; }
-    .game-main div.resource-list .item-name td:first-child { flex: 1; }
-    .game-main div.resource-list tr { padding: var(--tiny-gap);}
-    .game-main div.resource-list tr td:first-child { color:  #999; }
-    .game-main div.resource-list tr td:last-child { text-align: right; }
 
 </style>
 

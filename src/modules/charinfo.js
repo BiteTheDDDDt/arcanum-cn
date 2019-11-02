@@ -9,6 +9,7 @@ export default class CharInfo {
 
 		return {
 			name:this.name,
+			hid:this.hid,
 			level:this.level,
 			gclass:this.gclass,
 			title:this.title||undefined,
@@ -23,6 +24,9 @@ export default class CharInfo {
 
 	get name() { return this._name; }
 	set name(v) { this._name =v;}
+
+	get hid(){ return this._hid;}
+	set hid(v){this._hid=v;}
 
 	get level(){return this._level;}
 	set level(v) {this._level=v;}
@@ -66,6 +70,26 @@ export default class CharInfo {
 		if ( !this.titles ) this.titles = 0;
 		if (!this.level ) {this.level = 0; }
 
+
+	}
+
+	/**
+	 * Update player information.
+	 * @param {Player} p
+	 */
+	update( p ) {
+
+		this.name = p.name;
+		this.level = p.level.valueOf();
+		this.hid = p.hid;
+
+		this.title = p.title;
+		this.titles = p.titles.length;
+		this.fame = p.fame.valueOf();
+		this.gclass = p.gclass;
+		this.empty = false;
+
+		console.log('chr pts: ' + this.getPoints() );
 
 	}
 

@@ -6,7 +6,6 @@ import Percent, {PercentTest} from './values/percent';
 import {ParseMods } from './values/mod';
 
 import Resource from './items/resource';
-import ZeroSum from './items/zerosum';
 import RevStat from './items/revStat';
 import StatData from './items/statData';
 import Skill from './items/skill';
@@ -24,13 +23,14 @@ import Material from './chars/material';
 import Enchant from './items/enchant';
 import Item from './items/item';
 import Potion from './items/potion';
-import Encounter, { ENCOUNTER } from './items/encounter';
+import Encounter from './items/encounter';
 import GEvent from './items/gevent';
 
 import Loader from './util/jsonLoader';
 import { splitKeyPath, logObj } from './util/util';
 import GClass from './items/gclass';
 import Module from './modules/gmodule';
+import { SKILL, ENCOUNTER, MONSTER, ARMOR, WEAPON, HOME } from './values/consts';
 
 const DataDir = './data/';
 const DataFiles = [ 'resources', 'upgrades', 'actions', 'homes', 'furniture', 'items', 'skills',
@@ -90,7 +90,7 @@ export default {
 
 			// items prepped separately so template can be written over, then prep, then template assigned.
 			if ( p === 'items') continue;
-			saveData[p] = prepData( saveData[p] );
+			saveData[p] = prepData( saveData[p], p );
 
 		}
 
@@ -178,7 +178,7 @@ export default {
 
 			mergeSafe( saveObj, templates[p] );
 
-			saveItems[p] = prepData( saveObj );
+			saveItems[p] = prepData( saveObj, p );
 			saveObj.template = templates[p];
 
 		}
@@ -201,16 +201,16 @@ export default {
 		if ( lists.upgrades ) inst.upgrades = this.initItems( items, lists['upgrades'], GData, null, 'upgrade' );
 
 		if ( lists.homes ) {
-			inst.homes = this.initItems( items, lists['homes'], GData, 'home', 'home' );
-			inst.homes.forEach( v=>v.slot='home');
+			inst.homes = this.initItems( items, lists['homes'], GData, HOME, HOME );
+			inst.homes.forEach( v=>v.slot=HOME);
 		}
 
 		if ( lists.furniture ) this.initItems( items, lists['furniture'], GData, 'furniture', 'furniture' );
 
-		if ( lists.skills ) inst.skills = this.initItems( items, lists['skills'], Skill, 'skill' );
+		if ( lists.skills ) inst.skills = this.initItems( items, lists['skills'], Skill, SKILL );
 
 		if ( lists.encounters ) inst.encounters = this.initItems( items, lists['encounters'], Encounter, ENCOUNTER, ENCOUNTER);
-		if ( lists.monsters ) inst.monsters = this.initItems( items, lists['monsters'], Monster, 'monster', 'monster' );
+		if ( lists.monsters ) inst.monsters = this.initItems( items, lists['monsters'], Monster, MONSTER, MONSTER );
 
 		if ( lists.locales ) this.initItems( items, lists['locales'], Locale );
 		if ( lists.dungeons ) this.initItems( items, lists['dungeons'], Dungeon );
@@ -222,13 +222,13 @@ export default {
 		this.initItems( items, lists['items'], Item, 'item', 'item');
 
 		if ( lists.armors ) {
-			inst.armors = this.initItems( items, lists['armors'], ProtoItem, 'armor','armor' );
-			inst.armors.forEach( v=>v.kind = v.kind || 'armor' );
+			inst.armors = this.initItems( items, lists['armors'], ProtoItem, ARMOR,ARMOR );
+			inst.armors.forEach( v=>v.kind = v.kind || ARMOR );
 		}
 
 		if ( lists.weapons ) {
-			inst.weapons = this.initItems( items, lists['weapons'], ProtoItem, 'weapon', 'weapon' );
-			inst.weapons.forEach(v=>v.kind=v.kind ||'weapon');
+			inst.weapons = this.initItems( items, lists['weapons'], ProtoItem, WEAPON, WEAPON );
+			inst.weapons.forEach(v=>v.kind=v.kind ||WEAPON);
 		}
 
 		if ( lists.potions ) inst.potions = this.initItems( items, lists['potions'], Potion, 'potion', 'potion' );
@@ -259,7 +259,6 @@ export default {
 
 			if ( def.reverse) dataList[i] = def = new RevStat(def);
 			else if ( def.stat ) dataList[i] = def = new StatData(def);
-			else if ( def.zerosum ) dataList[i] = def = new ZeroSum(def);
 			else dataList[i] = def = new UseClass( def );
 
 			if ( tag ) def.addTag( tag );
@@ -287,7 +286,7 @@ export default {
 		let res;
 		for( let def of stats ) {
 
-			res = vars[ def.id ] = def.zerosum === true ? new ZeroSum(def) :
+			res = vars[ def.id ] =
 				( def.stat === true ? new StatData(def) :
 				( def.reverse === true ? new RevStat(def) : new Resource( def ) )
 			);
@@ -321,11 +320,12 @@ export const freezeData = ( obj ) => {
 
 }
 
-export const prepData = ( sub ) => {
+export const prepData = ( sub, id='' ) => {
+
 
 	if (Array.isArray(sub) ) {
 
-		for( let i = sub.length-1; i >= 0; i-- ) sub[i] = prepData( sub[i] );
+		for( let i = sub.length-1; i >= 0; i-- ) sub[i] = prepData( sub[i], id );
 
 	} else if ( sub instanceof Object ) {
 
@@ -333,7 +333,7 @@ export const prepData = ( sub ) => {
 
 			if ( p === 'mod') {
 
-				sub[p] = ParseMods( sub[p], sub.id );
+				sub[p] = ParseMods( sub[p], sub.id || id );
 				continue;
 			} else if ( p === 'require' || p === 'need' ) {
 
@@ -343,7 +343,8 @@ export const prepData = ( sub ) => {
 			}
 
 			var obj = sub[p];
-			if ( typeof obj === 'string' ){
+			var typ = typeof obj;
+			if ( typ === 'string' ){
 
 				if ( PercentTest.test(obj) ) {
 
@@ -357,7 +358,11 @@ export const prepData = ( sub ) => {
 				}
 				else if ( p === 'damage' || p === 'dmg') sub[p] = makeDmgFunc(obj);
 
-			} else if ( typeof obj === 'object' ) prepData(obj);
+			} else if ( typ === 'object' ) prepData(obj, id);
+			else if (typ === 'number') {
+
+
+			}
 
 			if ( p.includes('.')) splitKeyPath( sub, p );
 

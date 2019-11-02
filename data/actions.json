@@ -310,6 +310,11 @@
 			"stamina":0.5,
 			"shadow":0.2
 		},
+		"effect":{
+			"anatomy.exp":1,
+			"embalming.exp":1,
+			"reanimation.exp":1
+		},
 		"at":{
 			"10":{
 				"result.bones.max":1
@@ -323,6 +328,7 @@
 			}
 		},
 		"result":{
+			"bonedust":1,
 			"evilamt":1,
 			"bones":"2~5"
 		}
@@ -390,7 +396,7 @@
 		"name":"hold seance",
 		"verb":"holding seance",
 		"desc":"channel spirits for a small fee.",
-		"require":["divination","spiritsource","adept"],
+		"require":["divination","spiritsource","tier0"],
 		"perpetual":true,
 		"length":10,
 		"run":{
@@ -534,7 +540,7 @@
 		"name":"gather herbs",
 		"desc":"Gather herbs used in potions and alchemy.",
 		"require":"g.herbalism>=2",
-		"need":"taggarden",
+		"need":"t_garden",
 		"cost":{
 			"stamina":0.3
 		},
@@ -584,7 +590,7 @@
 		"owned":true,
 		"slot":"rest",
 		"length":10,
-		"need":"g.lightlore>=5&&g.good>0",
+		"need":"g.lightlore>=5&&g.evil<=0",
 		"fill":[ "stamina", "hp", "manas", "stress"],
 		"effect":{
 			"virtue":1,
@@ -609,7 +615,7 @@
 		"desc":"commune with natural forces",
 		"perpetual":true,
 		"require":"g.naturelore>=12",
-		"fill":[ "nature", "hp", "mana", "stamina","stress"],
+		"fill":[ "hp", "manas", "stamina","stress"],
 		"effect":{
 			"stress":-1.4,
 			"manas":{
@@ -633,7 +639,7 @@
 		"require":"(g.witch+g.thanophage)>0",
 		"need":"cauldron",
 		"desc":"how could you!?!",
-		"fill":[ "shadow", "hp", "mana", "stamina", "spirit", "stress" ],
+		"fill":[ "hp", "manas", "stamina", "stress" ],
 		"every":{
 			"100":{
 				"effect.hp":0.5,
@@ -663,8 +669,7 @@
 			"bodies":1
 		},
 		"run":{
-			"stamina":0.4
-
+			"stamina":0.8
 		},
 		"effect":{
 			"arcana":0.001,
@@ -680,7 +685,7 @@
 
 		"id":"geas",
 		"desc":"undertake a quest to subdue a great evil.",
-		"require":"g.tier2>0&&g.good>0",
+		"need":"g.tier2>0&&g.evil<=0",
 		"length":100,
 		"cd":777,
 		"cost":{
@@ -688,13 +693,13 @@
 			"light":5
 		},
 		"run":{
-			"stamina":0.5,
+			"stamina":1,
 			"hp":2
 		},
 		"effect":{
 			"arcana":0.001,
-			"virtue":1,
-			"notoriety":1,
+			"virtue":0.1,
+			"notoriety":0.002,
 			"history.max":0.001,
 			"history.exp":1,
 			"lightlore.max":0.001,
@@ -707,7 +712,7 @@
 		"perpetual":true,
 		"verb":"travelling",
 		"desc":"Travel the wide world.",
-		"require":"g.wagon>0||g.mendicant>0||g.camp>0",
+		"need":"g.wagon>0||g.mendicant>0||g.camp>0",
 		"run":{
 			"stamina":0.4
 		},
@@ -808,7 +813,7 @@
 
 		"id":"craftrune",
 		"name":"craft rune",
-		"require":"g.crafting>=14&&g.runes>=3",
+		"require":"g.crafting>=14&&g.runelore>=3",
 		"length":10,
 		"cost":{
 			"tomes":1,
@@ -909,7 +914,7 @@
 			"lore.exp":1
 		},
 		"run":{
-			"stamina":0.4
+			"stamina":0.7
 		},
 		"result":{
 			"tomes":1
@@ -928,7 +933,8 @@
 			"codices":10
 		},
 		"run":{
-			"research":1
+			"research":1,
+			"stamina":2
 		},
 		"mod":{
 			"player.damage":2,
@@ -947,6 +953,9 @@
 			"tomes":5,
 			"managem":10,
 			"research":1000
+		},
+		"run":{
+			"stamina":2
 		},
 		"mod":{
 			"spellcraft.max":1,
@@ -1032,7 +1041,8 @@
 			"bones":10
 		},
 		"run":{
-			"research":5
+			"research":5,
+			"stamina":1.4
 		},
 		"mod":{
 			"languages.max":3,
@@ -1054,7 +1064,8 @@
 			"tomes":5
 		},
 		"run":{
-			"research":1
+			"research":1,
+			"stamina":2
 		},
 		"mod":{
 			"player.resist.shadow":10,
@@ -1076,7 +1087,8 @@
 			"codices":25
 		},
 		"run":{
-			"research":2
+			"research":2,
+			"stamina":1
 		},
 		"mod":{
 			"research.max":10,
@@ -1122,7 +1134,8 @@
 			"gems":10
 		},
 		"run":{
-			"research":10
+			"research":10,
+			"stamina":3
 		},
 		"mod":{
 			"lore.max":1,
@@ -1208,15 +1221,16 @@
 	},
 	{
 		"id":"imbuelifegem",
-		"name":"imbue lifegem",
+		"name":"imbue lifegem (nature)",
 		"require":"g.naturelore>=6&&g.enchanting>0",
+		"tags":"gemimbue",
 		"fill":"naturegem",
 		"cost":{
 			"herbs":10,
 			"gems":1,
 			"nature":5
 		},
-		"effect":{
+		"result":{
 			"naturegem":1
 		}
 	},
@@ -1225,103 +1239,112 @@
 		"name":"imbue gem (arcane)",
 		"require":"g.mana.max>=5&&g.enchanting>0",
 		"fill":"managem",
+		"tags":"gemimbue",
 		"cost":{
 			"gems":1,
 			"mana":5
 		},
-		"effect":{
+		"result":{
 			"managem":1
 		}
 	},
 	{
 		"id":"imbuebloodgem",
-		"name":"coagulate gem",
+		"name":"coagulate gem (blood)",
 		"require":"g.alchemy>=5&&g.anatomy>=5",
 		"fill":"bloodgem",
+		"tags":"gemimbue",
 		"cost":{
 			"gems":1,
 			"earth":1,
 			"water":1,
 			"hp":20
 		},
-		"effect":"bloodgem"
+		"result":"bloodgem"
 	},
 	{
 		"id":"imbuefiregem",
 		"name":"imbue gem (fire)",
 		"require":"g.fire.max>=4&&g.enchanting>2",
 		"fill":"firegem",
+		"tags":"gemimbue",
 		"cost":{
 			"gems":1,
 			"fire":5
 		},
-		"effect":"firegem"
+		"result":"firegem"
 	},
 	{
 		"id":"imbueairgem",
 		"name":"imbue gem (air)",
 		"require":"g.air.max>=4&&g.enchanting>2",
 		"fill":"airgem",
+		"tags":"gemimbue",
 		"cost":{
 			"gems":1,
 			"air":5
 		},
-		"effect":"airgem"
+		"result":"airgem"
 	},
 	{
 		"id":"imbueearthgem",
-		"name":"imbue stone",
+		"name":"imbue stone (earth)",
 		"require":"g.earth.max>=4&&g.enchanting>2",
 		"fill":"earthgem",
+		"tags":"gemimbue",
 		"cost":{
 			"gems":1,
 			"earth":5
 		},
-		"effect":"earthgem"
+		"result":"earthgem"
 	},
 	{
 		"id":"imbuewatergem",
 		"name":"imbue gem (water)",
 		"require":"g.water.max>=4&&g.enchanting>2",
 		"fill":"watergem",
+		"tags":"gemimbue",
 		"cost":{
 			"gems":1,
 			"water":5
 		},
-		"effect":"watergem"
+		"result":"watergem"
 	},
 	{
 		"id":"imbuelightgem",
 		"name":"imbue gem (light)",
 		"require":"g.light.max>=4&&g.enchanting>2",
 		"fill":"lightgem",
+		"tags":"gemimbue",
 		"cost":{
 			"gems":1,
 			"light":5
 		},
-		"effect":"lightgem"
+		"result":"lightgem"
 	},
 	{
 		"id":"imbueshadowgem",
 		"name":"imbue gem (shadow)",
 		"require":"g.shadow.max>=4&&g.enchanting>2",
 		"fill":"shadowgem",
+		"tags":"gemimbue",
 		"cost":{
 			"gems":1,
 			"shadow":5
 		},
-		"effect":"shadowgem"
+		"result":"shadowgem"
 	},
 	{
 		"id":"imbuespiritgem",
 		"name":"imbue gem (spirit)",
 		"require":"g.spirit.max>=4&&g.enchanting>2",
 		"fill":"spiritgem",
+		"tags":"gemimbue",
 		"cost":{
 			"gems":1,
 			"spirit":5
 		},
-		"effect":"spiritgem"
+		"result":"spiritgem"
 
 	},
 	{
@@ -1451,6 +1474,7 @@
 	},
 	{
 		"id":"up_lich",
+		"name":"lich",
 		"actname":"rite of undeath",
 		"desc":"obtain immortality by becoming a lich",
 		"require":"g.crafting>=20&&g.necromancy>=8",

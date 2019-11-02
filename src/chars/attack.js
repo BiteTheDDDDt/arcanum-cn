@@ -1,5 +1,6 @@
 import Range from "../values/range";
 import { assignPublic } from "../util/util";
+import Stat from "../values/stat";
 
 export default class Attack {
 
@@ -34,8 +35,14 @@ export default class Attack {
 
 	get bonus() { return this._bonus; }
 	set bonus(v) {
+
 		/** @todo mod apply bug. **/
-		this._bonus = ( typeof v === 'object') ? (v.value || 0) : v;
+		if ( this._bonus ) {
+
+			this._bonus.base = v instanceof Stat ? v.base : v;
+
+		} else this._bonus = new Stat( v );
+
 	}
 
 	set dmg(v) { this.damage = v; }

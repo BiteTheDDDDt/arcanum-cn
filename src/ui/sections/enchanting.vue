@@ -91,6 +91,10 @@ div.enchants .enchant-list {
 	flex:1;
 }
 
+div.enchants .separate {
+	align-items:flex-start;
+}
+
 div.enchants .filtered {
 	display:flex;
 	flex-flow: column;

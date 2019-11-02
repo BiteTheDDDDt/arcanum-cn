@@ -1,9 +1,11 @@
 import { defineExcept, clone } from 'objecty';
 import Stat from '../values/stat';
-import Base, {mergeClass} from './base';
+import Base, {mergeClass, setModCounts, initMods} from './base';
 import { arrayMerge, assignPublic, logObj } from '../util/util';
 import Events, { ITEM_ATTACK, EVT_EVENT, EVT_UNLOCK } from '../events';
 import Dot from '../chars/dot';
+import { TICK_LEN } from '../game';
+import { WEARABLE } from '../values/consts';
 
 /**
  * @typedef {Object} Effect
@@ -41,7 +43,7 @@ export default class GData {
 			if ( v instanceof Stat ) this._max = v;
 			else if ( !isNaN(v) ) this._max.base = v;
 
-		} else this._max = v instanceof Stat ? v : new Stat(v, 'max', true);
+		} else this._max = v instanceof Stat ? v : new Stat(v, this.id + '.max', true);
 	}
 
 	/**
@@ -50,13 +52,17 @@ export default class GData {
 	get rate() { return this._rate; }
 	set rate(v){
 
-		if ( v instanceof Stat ) this._rate = v;
-		else if ( this._rate ) {
+		if ( v instanceof Stat ) {
+
+			v.id = this.id + '.rate';
+			this._rate = v;
+
+		} else if ( this._rate ) {
 
 			if ( typeof v === 'object' ) Object.assign( this._rate, v);
 			else this._rate.base = v;
 
-		} else this._rate = new Stat(v);
+		} else this._rate = new Stat( v, this.id + '.rate' );
 
 	}
 
@@ -108,20 +114,25 @@ export default class GData {
 
 		if ( v instanceof Stat ) {
 
-			this._value = v;
+			if ( this._value === null || this._value === undefined ) this._value = v;
+			else if ( v !== this._value ) {
+
+				this._value.base = v.base;
+				this._value.basePct = v.basePct;
+
+			}
 
 		} else if ( this._value !== undefined ) {
 
+
 			this._value.base = (typeof v === 'object') ? v.value : v;
 
-		} else this._value = new Stat(v );
+		} else this._value = new Stat( v, this.id );
 
 	}
 
 	get val() { return this.value; }
-	set val(v) {
-		this.value = v;
-	}
+	set val(v) { this.value = v; }
 
 	valueOf(){ return this._value.valueOf(); }
 
@@ -132,7 +143,11 @@ export default class GData {
 	constructor( vars=null, defaults=null ){
 
 		if ( vars ) {
-			if ( typeof vars === 'object') assignPublic( this, vars );
+
+			if ( typeof vars === 'object'){
+				if ( vars.id ) this.id = vars.id;	// used to assign sub-ids.
+				assignPublic( this, vars );
+			}
 			else if ( !isNaN(vars) ) this.val = vars;
 		}
 		if ( defaults ) this.setDefaults( defaults );
@@ -149,16 +164,9 @@ export default class GData {
 		defineExcept( this, null,
 			['require', 'rate', 'current', 'need', 'value', 'buy', 'max', 'cost', 'id', 'name', 'warn', 'effect', 'slot' ]);
 
-	}
-
-
-	canBuy(g){
-
-		if ( this.disabled || this.locked || this.locks > 0 ) return false;
-
-		if ( this.buy && !g.canPay(this.buy) ) return false;
-
-		return this.maxed() === false;
+		if ( this.mod ) {
+			initMods( this.mod, this.value );
+		}
 
 	}
 
@@ -168,7 +176,7 @@ export default class GData {
 	 * @param {number} dt - minimum length of time item would run.
 	 * @returns {boolean}
 	 */
-	canRun( g, dt=1 ) {
+	canRun( g, dt=TICK_LEN ) {
 
 		if ( this.disabled || this.maxed() || (this.need && !g.unlockTest( this.need, this )) ) return false;
 
@@ -188,9 +196,8 @@ export default class GData {
 	 * Made a function for reverseStats, among other things.
 	 * @param {number} amt
 	 */
-	canPay( amt ) {
-		return this.value >= amt;
-	}
+	canPay( amt ) { return this.value >= amt; }
+	remove( amt ) { this.value.base -= amt; }
 
 	/**
 	 * Determine if an item can be used. Ongoing/perpetual actions
@@ -208,11 +215,19 @@ export default class GData {
 		if ( this.slot && g.state.getSlot(this.slot, this.type ) === this) return false;
 		if ( this.maxed() ) return false;
 
-		if ( this.cd && this.timer > 0 ) return false;
-
 		if ( this.fill && g.filled( this.fill, this ) ) return false;
 
 		return !this.cost || g.canPay(this.cost);
+	}
+
+	canBuy(g){
+
+		if ( this.disabled || this.locked || this.locks > 0 ) return false;
+
+		if ( this.buy && !g.canPay(this.buy) ) return false;
+
+		return this.maxed() === false;
+
 	}
 
 	/**
@@ -226,10 +241,10 @@ export default class GData {
 
 		if ( amt <= 0 ) {
 
-			if ( this.value < 0 ) return 0;
-			else if ( this.value + amt < 0 ) amt = -this.value;
+			if ( this.value <= 0 || amt === 0 ) return 0;
+			else if ( this.value + amt < 0 ) amt = -this.value.valueOf();
 
-			this.value += amt;
+			this.value.base += amt;
 
 			return amt;
 
@@ -241,10 +256,13 @@ export default class GData {
 			return 0;
 		}
 
-		if ( this.max && (this.value + amt) >= this.max.value ) amt = this.max.value - this.value;
+		if ( this.max && (this.value + amt) >= this.max.value ) {
+			amt = this.max.value - this.value;
+
+		}
 		if ( amt === 0 ) return 0;
 
-		this.value += amt;
+		this.value.base += amt;
 
 		return amt;
 
@@ -287,16 +305,24 @@ export default class GData {
 
 		if ( this.title ) g.state.player.setTitle( this.title );
 		if ( this.effect ) g.applyEffect(this.effect, count );
-		if ( this.mod ) g.addMod( this.mod, count );
+		if ( this.result ) g.applyEffect( this.result, count );
+
+		if ( this.mod ) {
+			g.addMod( this.mod );
+		}
 		if ( this.lock ) g.lock( this.lock );
-		if ( this.dot ) g.state.player.addDot( new Dot(this.dot, this.id, this.name) );
+		if ( this.dot ) {
+
+			g.state.player.addDot( new Dot(this.dot, this.id, this.name) );
+
+		}
 
 		if ( this.disable ) g.disable( this.disable );
 
 		if ( this.log ) Events.emit( EVT_EVENT, this.log );
 
 		if ( this.attack ) {
-			if (this.type !== 'wearable' && this.type !== 'weapon') Events.emit( ITEM_ATTACK, this );
+			if (this.type !== WEARABLE && this.type !== 'weapon') Events.emit( ITEM_ATTACK, this );
 		}
 
 		this.dirty = true;
@@ -317,10 +343,9 @@ export default class GData {
 	*/
 	maxed() {
 
-		return this.max ? (this.value >= Math.floor(this.max.value) ) :
-			( this.repeat !== true &&
-				this._value > 0 &&
-				(!this.buy || this.owned===true) );
+		if ( this.max ) return this.value >= Math.floor( this.max.value);
+
+		return !(this.repeat||this.owned) && this.value > 0;
 
 	}
 

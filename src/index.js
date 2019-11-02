@@ -22,6 +22,7 @@ Vue.mixin({
 		 */
 		listen:Events.listen,
 		dispatch:Events.dispatch,
+		removeListener:Events.removeListener,
 
 		/**
 		 * Game-level events.
@@ -39,6 +40,11 @@ Vue.mixin({
 const vm = new Vue({
 	el: '#vueRoot',
 	components:{ Main },
+	data(){
+		return {
+			renderKey:1
+		}
+	},
 	created(){
 
 		this.lastSave = null;
@@ -48,6 +54,8 @@ const vm = new Vue({
 		this.listen('load-file', this.loadFile, this );
 		this.listen('load', this.loadSave, this );
 		this.listen('reset', this.reset,this );
+
+		this.listen('save-settings', Profile.saveSettings, Profile );
 
 		this.listen('set-char', this.setChar, this );
 		this.listen('dismiss-char', this.dismissChar, this );
@@ -111,14 +119,29 @@ const vm = new Vue({
 		 */
 		gameLoaded( game ) {
 
-			console.log('GAMELOADED(): ' + game );
+			if ( !game ) console.warn('gameloaded(): NULL' );
+
+			let settings = Profile.loadSettings();
+			this.onSettings( settings );
+
 			this.dispatch( 'game-loaded' );
 
-			Profile.loadSettings();
 			Profile.gameLoaded( game );
 
 			this.dispatch('unpause');
 
+		},
+
+		/**
+		 * Call on settings loaded.
+		 * @param {*} vars
+		 */
+		onSettings(vars){
+
+			if (!vars) return;
+
+			this.onSetting( 'darkMode', vars.darkMode );
+			this.onSetting( 'compactMode', vars.compactMode );
 		},
 
 		onSetting( setting, v ) {
@@ -186,20 +209,20 @@ const vm = new Vue({
 
 			try {
 
+				if ( this.game.loaded ) this.renderKey++;
+
 				let obj = text ? JSON.parse( text ) : null;
-				this.game.load( obj ).then( this.gameLoaded,
+				this.game.load( obj, Profile.getHallData() ).then( this.gameLoaded,
 					e=>console.error( e.message + '\n' + e.stack ) );
 
 			} catch( err ) {
 				console.error(  err.message + '\n' + err.stack );
 			}
-
 		},
 
 		save() {
 
 			if (!this.game.loaded ) return;
-
 			Profile.saveActive( this.game.state );
 
 		},
@@ -207,15 +230,15 @@ const vm = new Vue({
 
 			this.dispatch('pause');
 
-			Profile.clearActive();
+			Profile.clearAll();
 
-			this.game.reset().then( this.gameLoaded );
+			this.setStateJSON(null);
 
 		}
 
 	},
 	render( createElm ) {
-		return createElm(Main, { props:{} } );
+		return createElm(Main, { key:this.renderKey } );
 	}
 
 });

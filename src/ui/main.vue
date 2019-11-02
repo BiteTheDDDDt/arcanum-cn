@@ -2,7 +2,7 @@
 import Game from '../game';
 import Menu from './components/menu.vue';
 import ResoucesView from './resources.vue';
-import Upgrades from './upgrades.vue';
+import Actions from './sections/actions.vue';
 import Quickbar from './quickbar.vue';
 import ItemsBase from './itemsBase';
 import Warn from './components/warn.vue';
@@ -10,16 +10,16 @@ import Vitals from 'ui/vitals.vue';
 import DotView from './dotView.vue';
 import ItemPopup from './items/itemPopup.vue';
 import TopBar from './top-bar.vue';
-import SettingsUI from './settings.vue';
-
+import SettingsUI from './sections/settings.vue';
 
 import LogView from './outlog.vue';
 
-import Settings from '../settings';
+import Settings from 'modules/settings';
 import Cheats from '../modules/cheats';
 
 import { TRY_BUY, USE, TRY_USE } from '../events';
 import { TICK_TIME } from '../game';
+import profile from '../modules/profile';
 
 /**
  * @var {number} SAVE_TIME  - time in seconds between auto-saves.
@@ -35,7 +35,7 @@ export default {
 	mixins:[ItemsBase,Cheats],
 	components:{
 		resources:ResoucesView,
-		upgrades:Upgrades,
+		actions:Actions,
 		itempopup:ItemPopup,
 		vitals:Vitals,
 		log:LogView,
@@ -69,7 +69,8 @@ export default {
 			overItem:null,
 			overTitle:null,
 			overElm:null,
-			psection:null
+			psection:null,
+			warnItem:null
 		};
 
 	},
@@ -83,12 +84,25 @@ export default {
 
 
 	},
+	beforeDestroy(){
+
+		this.removeListener('game-loaded', this.gameLoaded );
+		this.removeListener('setting', this.onSetting );
+		this.removeListener('pause', this.pause );
+		this.removeListener('unpause', this.unpause );
+
+	},
 	methods:{
 
 		gameLoaded() {
 
 			this.state = Game.state;
-			this.section = this.state.sections.find( v=>v.id==='sect_main');
+
+			let curview = Settings.get('curview') || 'sect_main';
+			console.warn('VIEW CHANGE: ' +  curview );
+
+
+			this.section = this.state.sections.find( v=>v.id===curview );
 
 			this.initEvents();
 
@@ -147,7 +161,7 @@ export default {
 
 			if (!this.runner ) return;
 
-			if ( Settings.vars.autoSave && !this.saver ) {
+			if ( Settings.get('autoSave') && !this.saver ) {
 				//console.log('START AUTOSAVE');
 				this.saver = setInterval( ()=>this.dispatch('autosave'), 1000*SAVE_TIME );
 			}
@@ -250,9 +264,12 @@ export default {
 
 		},
 
-		onRest(){ Game.toggleAction( this.state.restAction ); },
+		onRest(){Game.toggleAction( this.state.restAction ); },
 
-		onConfirmed(it) { Game.tryItem(it); },
+		onConfirmed(it) {
+			this.warnItem = null;
+			Game.tryItem(it);
+		},
 
 		tryUse( it ) { Game.tryItem(it ) },
 
@@ -269,8 +286,12 @@ export default {
 		 */
 		onItem(item) {
 
-			if ( item.warn ) this.$refs.warn.warn( item );
-			else Game.tryItem(item);
+			if ( item.warn ) {
+
+				this.warnItem = item;
+				//this.$refs.warn.warn( item );
+
+			} else Game.tryItem(item);
 
 		},
 
@@ -285,14 +306,11 @@ export default {
 
 		section:{
 
-			get(){
-				return this.psection;
-			},
+			get(){ return this.psection; },
 			set(v){
 
 				this.psection=v;
-				Settings.save();
-
+				Settings.set('curview', v.id );
 			}
 		},
 		menuItems(){ return this.state.sections.filter( it=>!this.locked(it) ); }
@@ -315,7 +333,7 @@ export default {
 
 <!-- popups -->
 		<itempopup :item="overItem" :elm="overElm" :title="overTitle" />
-		<warn ref="warn" @confirmed="onConfirmed" />
+		<warn :item="warnItem" @confirmed="onConfirmed" @cancel="warnItem=null" />
 		<choice />
 		<settings />
 
@@ -326,14 +344,7 @@ export default {
 		<vue-menu class="game-mid" :items="menuItems" v-model="section">
 
 		<template slot="sect_main">
-
-		<div class="main-actions">
-		<upgrades class="action-list" :items="state.actions.filter(v=>!v.perpetual&&!v.length)" />
-		<upgrades class="action-list" :items="state.actions.filter(v=>v.perpetual||v.length>0)" />
-		<upgrades class="upgrade-list" :items="state.upgrades" />
-		<upgrades class="upgrade-list" :items="state.classes" />
-		</div>
-
+		<actions class="main-actions" />
 		</template>
 
 		<template slot="sect_skills"><skills :state="state"></skills></template>
@@ -347,8 +358,8 @@ export default {
 		<template slot="sect_equip">
 
 			<div class="inv-equip">
-			<equip :equip="state.equip" />
-			<inventory :inv="state.inventory" />
+				<equip :equip="state.equip" />
+				<inventory :inv="state.inventory" />
 			</div>
 
 		</template>
@@ -439,6 +450,9 @@ div.inv-equip {
 	padding: 0; display: grid; grid-template-rows: 50% 50%; grid-auto-columns: 1fr;
 }
 
+div.inv-equip > div:nth-child(2) {
+        border-top: 1px solid var(--separator-color);
+	}
 
 div.bot-bar {
 	background: inherit;

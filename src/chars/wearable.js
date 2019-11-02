@@ -1,4 +1,4 @@
-import Base, {mergeClass} from '../items/base';
+import Base, { setModCounts} from '../items/base';
 import Range from "../values/range";
 import Attack from './attack';
 
@@ -6,6 +6,7 @@ import {mergeSafe} from "objecty";
 import Mod, { ParseMods } from '../values/mod';
 import { assignNoFunc } from '../util/util';
 import Item from '../items/item';
+import { WEARABLE, ARMOR } from '../values/consts';
 
 
 export default class Wearable extends Item {
@@ -103,7 +104,7 @@ export default class Wearable extends Item {
 
 		//if ( vars ) logObj( vars, 'vars');
 		//if( vars.template ) logObj( vars.template, ' template' );
-		if ( !this.type ) { this.type = 'wearable'; }
+		if ( !this.type ) { this.type = WEARABLE; }
 
 		if ( this._attack && !this._attack.name ) this._attack.name = this.name;
 
@@ -115,7 +116,9 @@ export default class Wearable extends Item {
 
 		if ( typeof this.material === 'string') this.material = state.getMaterial( this.material );
 
-		if ( typeof this.template === 'string' ) this.template = state.getData( this.template );
+		if ( typeof this.recipe === 'string' ) this.template = state.getData(this.recipe );
+		else if ( typeof this.template === 'string' ) this.template = state.getData( this.template );
+
 		if ( this.template ) {
 
 			if ( this.armor === null || this.armor === undefined ) this.armor = this.template.armor;
@@ -128,14 +131,23 @@ export default class Wearable extends Item {
 
 			mergeSafe( this, this.template );
 
-		} else console.log('template not found: ' + this.template );
+		} else console.log('bad template: ' + this.template );
 
-		if ( this.level === null || this.level === undefined || isNaN(this.level)) this.level = 1;
+		if ( !this.level || (this.template && this.level <= this.template.level)) {
+
+			if ( this.template && this.template.level ) this.level = this.template.level.valueOf() || 1;
+			else this.level = 1;
+
+			if ( this.material && this.material.level ) {
+				this.level += this.material.level.valueOf() || 0;
+			}
+
+		}
 
 		if ( this.mod ) this.mod = ParseMods( this.mod, this.id );
 
-		console.log('WEARABLE LEVEL: ' + this.level + ' MAT: '+ (this.material ? this.material.level : 0 )
-		 + ' base: ' + (this.template ? this.template.level : 0 ) );
+		/*console.log('WEARABLE LEVEL: ' + this.level + ' MAT: '+ (this.material ? this.material.level : 0 )
+		 + ' base: ' + (this.template ? this.template.level : 0 ) );*/
 	}
 
 	applyMaterial( mat ) {
@@ -143,7 +155,9 @@ export default class Wearable extends Item {
 		if (!mat) return;
 
 		this.material = mat;
-		if ( this.armor !== null && this.armor !== undefined ) this.applyBonus( this, 'armor', mat.bonus );
+		this.level +=  this.material.level || 0;
+
+		if ( this.armor !== null && this.armor !== undefined ) this.applyBonus( this, ARMOR, mat.bonus );
 
 		if ( this.attack ) {
 
@@ -182,17 +196,30 @@ export default class Wearable extends Item {
 
 	}
 
-	equip( player ) {
+	equip( g ) {
 
-		if ( this.armor ) player.defense += this.armor;
-		if ( this.type === 'weapon' ) player.weapon = this;
+		let p = g.state.player;
 
+		if ( this.armor ) p.defense.add( this.armor );
+		if ( this.type === 'weapon' ) p.weapon = this;
+
+		if ( this.mod ) {
+			setModCounts( this.mod, 1);
+			g.addMod( this.mod );
+		}
 	}
 
-	unequip( player ) {
+	unequip( g ) {
 
-		if ( this.armor ) player.defense -= this.armor;
-		if ( player.weapon == this ) player.weapon = null;
+		let p = g.state.player;
+
+		if ( this.armor ) p.defense.add( -this.armor );
+		if ( p.weapon === this ) p.weapon = null;
+
+		if ( this.mod ) {
+			setModCounts( this.mod, 0);
+			g.addMod( this.mod );
+		}
 
 	}
 
@@ -200,11 +227,10 @@ export default class Wearable extends Item {
 
 		let t = typeof v;
 		if ( v instanceof Mod ) {
-			console.log('ALREADY MOD: ' + v );
 			return v;
 		}
 
-		console.log('CONVERTING MOD: ' + this.id );
+		console.log('CONVERT MOD: ' + this.id );
 		if ( t === 'object') {
 
 			if ( v.id ) {

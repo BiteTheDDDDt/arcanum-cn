@@ -1,5 +1,5 @@
 import Hall from "./hall";
-import Settings from '../settings';
+import Settings from './settings';
 import Events, { LEVEL_UP, CHAR_NAME, CHAR_TITLE, CHAR_CLASS } from "../events";
 
 import Module from "./gmodule";
@@ -84,6 +84,8 @@ export default {
 	/**
 	 * set active player index.
 	 * @param {number} slot - slot to load.
+	 * @param {GameState} state - current state, for saving current.
+	 * sort of stupid to have this here?
 	 */
 	setActive( slot, state ) {
 
@@ -95,16 +97,30 @@ export default {
 	},
 
 	/**
+	 * @returns {.<string,GData>} special hall data items.
+	 */
+	getHallData(){
+		return this.hall.items;
+	},
+
+	/**
 	 * State of current player/game loaded.
 	 * @param {Game} game
 	 */
 	gameLoaded(game) {
 
-		this.hall.updateChar( game.state.player );
-		this.saveHall();
+		let p = game.state.player;
+		let slot = this.hall.hidSlot( p.hid );
 
+		if ( slot >= 0 ) {
+
+			this.hall.setActive( slot );
+
+		}
+		this.hall.updateChar( p );
+
+		this.saveHall();
 		this.hall.calcPoints();
-		game.addData( this.hall.items );
 
 		Events.add( LEVEL_UP, this.updateChar, this );
 		Events.add( CHAR_NAME, this.updateChar, this );
@@ -112,6 +128,13 @@ export default {
 		Events.add( CHAR_CLASS, this.updateChar, this );
 
 
+	},
+
+	/**
+	 * Clear all stored data.
+	 */
+	clearAll(){
+		window.localStorage.clear();
 	},
 
 	/**
@@ -181,6 +204,8 @@ export default {
 				store.setItem( this.activeLoc(), json );
 			}
 
+			this.saveSettings();
+
 			return true;
 
 		} catch(e) {
@@ -192,6 +217,7 @@ export default {
 
 	/**
 	 * Load settings for active wizard.
+	 * @returns {object}
 	 */
 	loadSettings() {
 
@@ -201,6 +227,8 @@ export default {
 			let data = JSON.parse( str );
 
 			Settings.setSettings( data );
+
+			return Settings.getAll();
 
 		} catch (e ) {
 			console.error( e.message + '\n' + e.stack );

@@ -127,7 +127,8 @@
 	"id":"blueadept",
 	"name":"blue adept",
 	"desc":"Dedicate yourself to putting the world in order.",
-	"require":"g.virture>=200",
+	"require":"g.neophyte>0&&g.virtue>=200",
+	"tags":"t_tier0",
 	"cost":{
 		"arcana":7
 	},
@@ -146,7 +147,7 @@
 	"desc":"You have no need of these dry tomes and musty old books.",
 	"buyname":"Forgo Studies",
 	"tags":"t_tier0",
-	"require":"g.study.valueOf()==0&&g.neophyte>0&&g.arcana>=5",
+	"require":"g.study<=0&&g.neophyte>0&&g.arcana>=5",
 	"cost":{
 		"arcana":7
 	},
@@ -349,7 +350,7 @@
 	"cost":{
 		"research":700,
 		"bones":10,
-		"bonedust":10,
+		"bonedust":15,
 		"arcana":7
 	},
 	"effect":{
@@ -1011,7 +1012,6 @@
 	},
 	"mod":{
 		"tier4":true,
-		"research.max":"-5%",
 		"waterlore.max":2,
 		"earthlore.max":2,
 		"airlore.max":2,
@@ -1069,7 +1069,6 @@
 	},
 	"mod":{
 		"tier4":true,
-		"research.max":"50-2%",
 		"embalming.max":1,
 		"reanimation.max":2,
 		"reanimation.rate":"10%",
@@ -1086,7 +1085,7 @@
 	"id":"wizard",
 	"desc":"raw magic power",
 	"tags":"t_tier4",
-	"require":"g.good>0&&g.tier3>0&&g.lore>=25",
+	"require":"g.evil<=0&&g.tier3>0&&g.lore>=25",
 	"cost":{
 		"research":5000,
 		"arcana":25,
@@ -1098,7 +1097,6 @@
 	},
 	"mod":{
 		"tier4":true,
-		"research.max":"40-5%",
 		"languages.max":2,
 		"conjuration.max":1,
 		"crafting.max":1,
@@ -1124,7 +1122,6 @@
 	},
 	"mod":{
 		"tier5":true,
-		"research.max":"-25%",
 		"languages.max":2,
 		"firelore.max":1,
 		"firelore.rate":"1%",
@@ -1153,7 +1150,6 @@
 	"mod":{
 		"tier5":true,
 		"lore.max":2,
-		"research.max":"-17%",
 		"lore.rate":"10%",
 		"airlore.max":2,
 		"airlore.rate":"10%",
@@ -1181,7 +1177,6 @@
 	},
 	"mod":{
 		"tier5":true,
-		"research.max":"-14%",
 		"lore.max":2,
 		"lore.rate":"10%",
 		"embalming.max":2,
@@ -1210,7 +1205,6 @@
 		},"mod":{
 			"tier5":true,
 			"lore.max":2,
-			"research.max":"-14%",
 			"lore.rate":"10%",
 			"firelore.max":3,
 			"firelore.rate":"20%",
@@ -1236,7 +1230,6 @@
 		},
 		"mod":{
 			"tier5":true,
-			"research.max":"-5%",
 			"spiritlore.max":3,
 			"spiritlore.rate":"12%",
 			"divination.max":3,
@@ -1251,12 +1244,13 @@
 		"name":"high kell",
 		"desc":"the ranks of the kell range from the lesser fey and forest delki, to ancient spirits, old and indominable.",
 		"tags":"t_tier6",
-		"require":"(g.fey+g.kell)>0",
+		"require":"g.tier5>0&&(g.fey+g.kell)>0",
 		"cost":{
 			"research":15000,
 			"naturegem":50,
 			"herbs":75,
-			"arcana":25,
+			"arcana":35,
+			"waterrune":15,
 			"runestones":15
 		},
 		"mod":{
@@ -1269,7 +1263,7 @@
 			"animals.rate":"10%",
 			"earthlore.max":1,
 			"earthlore.rate":"15%"
-		},"flavor":"'It's of no consequence to me,' replied Jora. 'I do not die, and there are few things in this world that could do the trick."
+		},"flavor":"'It's of no consequence to me,' replied Jora. 'I do not die Trill, and there are few things in this world that could do the trick."
 	},
 	{
 		"id":"necro3",
@@ -1282,12 +1276,12 @@
 			"bones":100,
 			"bodies":50,
 			"souls":100,
-			"arcana":10,
+			"arcana":25,
+			"earthrune":10,
 			"runestones":10
 		},
 		"mod":{
 			"tier6":true,
-			"research.max":"-14%",
 			"lore.max":1,
 			"spellcraft.max":1,
 			"embalming.max":1,
@@ -1299,20 +1293,21 @@
 			"shadowlore.rate":"5%",
 			"spiritlore.max":2,
 			"spiritlore.rate":"10%"
-		},"flavor":"He was simply 'The Necromancer', and the greys bowed their heads in fear."
+		},"flavor":"The greys bowed their heads in fear."
 	},
 	{
 		"id":"deathlock",
 		"name":"death lock",
 		"desc":"an unholy synthesis of wizardry and demonology.",
 		"tags":"t_tier6",
-		"require":"g.phylactory>0",
+		"require":"g.tier5>0&&g.phylactory>0",
 		"cost":{
-			"research":30000,
+			"research":20000,
 			"souls":100,
 			"bodies":100,
 			"tomes":50,
-			"arcana":30,
+			"arcana":60,
+			"firerune":10,
 			"runestones":20
 		},
 		"mod":{
@@ -1325,18 +1320,18 @@
 			"shadowlore.rate":"0.1+5%",
 			"demonology.max":5,
 			"demonology.rate":"20%"
-		},"flavor":"Narz, Bodias, Vezial. Among even the Archlocks, some names were held in abject terror."
+		},"flavor":"Narz, Bodias, Vezial. Even among the Archlocks, some names stood in abject terror."
 
 	},
 	{
 		"id":"wizard3",
 		"name":"mythic wizard",
-		"desc":"their figures reappear throughout the ages, crashing on the stage at the pivitol juncture, then fading from history for another thousand years.",
+		"desc":"Their names reappear throughout the ages, and few believe they ever existed.",
 		"tags":"t_tier6",
 		"require":"g.tier5>0&&g.lore>=35&&g.spellcraft>=10",
 		"cost":{
-			"research":30000,
-			"arcana":35,
+			"research":20000,
+			"arcana":75,
 			"tomes":50,
 			"sindel":3,
 			"runestones":10
@@ -1352,16 +1347,17 @@
 			"history.max":1,
 			"potions.max":1,
 			"alchemy.max":1
-		},"flavor":"It couldn't possibly be... I haven't heard that name since the Wind Age."
+		}
 
 	},
 	{
-		"id":"avatar",
+		"id":"c_avatar",
+		"name":"avatar",
 		"desc":"An incarnation of raw, elemental forces.",
 		"tags":"t_tier6",
-		"require":"(g.highelemental+g.kell)>0",
+		"require":"g.tier5>0&&(g.highelemental+g.kell+g.heresiarch+g.thaumaturge)>0",
 		"cost":{
-			"research":30000,
+			"research":20000,
 			"sindel":3,
 			"managem":70,
 			"airgem":40,
@@ -1369,7 +1365,7 @@
 			"firegem":40,
 			"watergem":40,
 			"sp":10,
-			"arcana":25,
+			"arcana":35,
 			"runestones":15
 		},
 		"mod":{

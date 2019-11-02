@@ -62,6 +62,7 @@
 		"name":"Solitary Magic",
 		"desc":"Some say the study of magic doesn't truly begin until apprenticeship ends. People say a lot of things.",
 		"disable":["study", "chores","errands","leavemaster","slaymaster", "pestcontrol", "alcove", "atticbedroom"],
+		"lock":"t_tier0",
 		"effect":{
 			"innroom":true,
 			"sp":1,
@@ -230,14 +231,9 @@
 	},
 	{
 
-		"id":"evt_hall",
-		"desc":"Across endless leagues and aeons, wizards gather in secluded strongholds to exchange lore and augment their powers."
-	},
-	{
-
 		"id":"good",
 		"name":"virtuous",
-		"require":"g.virtue>750&&g.evil==0",
+		"require":"g.virtue>750&&g.evil<=0",
 		"desc":"Your actions have shown you to be a virtuous wizard.",
 		"mod":{
 			"light.max":1,

@@ -168,7 +168,13 @@
 		"school":"mana",
 		"require":"g.lore>=35",
 		"desc":"The full weight of a wizard's gaze is often overpowering.",
-		"cd":100,
+		"cd":300,
+		"buy":{
+			"arcana":30
+		},
+		"cost":{
+			"mana":5
+		},
 		"attack":{
 			"targets":"enemies",
 			"dot":{
@@ -607,6 +613,7 @@
 		"id":"mk_zombie",
 		"name":"raise zombie",
 		"school":"shadow",
+		"require":"g.shadowlore>0&&g.reanimation>0",
 		"level":2,
 		"buy":{
 			"research":30,
@@ -948,7 +955,7 @@
 			"tomes":1
 		},
 		"cost":{
-			"mana":15
+			"mana":10
 		},
 		"effect":"hobgoblin"
 	},
@@ -966,6 +973,21 @@
 		},
 		"effect":"raven"
 
+	},
+	{
+		"id":"mk_blade",
+		"name":"summon blade",
+		"school":"blade",
+		"require":"(g.battlemage+g.spellblade+g.dreadlord)>0",
+		"level":7,
+		"buy":{
+			"research":5000,
+			"tomes":5
+		},
+		"cost":{
+			"mana":12
+		},
+		"effect":"magicblade"
 	},
 	{
 		"id":"mk_murder",
@@ -1515,12 +1537,13 @@
 		"level":4,
 		"require":"trickster",
 		"desc":"curse all enemies with a streak of bad luck.",
+		"school":"chaos",
 		"buy":{
 			"research":1000,
 			"codices":10
 		},
 		"cost":{
-			"mana":3
+			"chaos":1
 		},
 		"attack":{
 			"targets":"enemies",
@@ -1686,7 +1709,7 @@
 
 		},
 		"cost":{
-			"air":1
+			"air":2
 		},
 		"at":{
 			"30":{
@@ -1714,6 +1737,7 @@
 			}
 		}
 	},
+
 	{
 		"id":"elec1",
 		"name":"lightning",
@@ -1797,6 +1821,7 @@
 			"dot":{
 				"name":"blind",
 				"duration":5,
+				"damage":"7~15",
 				"mod":{
 					"tohit":-7
 				}
@@ -1808,7 +1833,7 @@
 		"name":"thunderstrike",
 		"level":12,
 		"desc":"a blinding storm of lightning.",
-		"require":"g.airlore>=12>=3&&elec2>0",
+		"require":"g.airlore>=12&&g.elec2>0",
 		"school":"air",
 		"buy":{
 
@@ -1927,6 +1952,60 @@
 		},"flavor":"don't lose your way"
 	},
 	{
+		"id":"kannadance",
+		"level":7,
+		"name":"kanna's dervish dance",
+		"school":"bladelore",
+		"sym":"⭐",
+		"require":"spellblade",
+		"desc":"Kanna's dance was strenuous or a mage, but deadly to enemies.",
+		"buy":{
+
+			"research":500,
+			"tomes":1,
+			"airgem":10
+
+		},
+		"cost":{
+			"air":8
+		},
+		"dot":{
+			"duration":60,
+			"mod":{
+				"stamina.max":40,
+				"stamina":40,
+				"stamina.rate":-2,
+				"dodge":15,
+				"player.tohit":10,
+				"player.damage":5
+			}
+		},"flavor":"she danced with the devil in the pale moonlight, blades gleaming and blurring like a single streak of silver"
+	},
+	{
+		"id":"unearth",
+		"desc":"raise precious stones from the ground.",
+		"school":"earth",
+		"level":3,
+		"buy":{
+
+			"research":300,
+			"codices":5,
+			"earthgem":5
+
+		},
+		"cost":{
+			"scrolls":1,
+			"earth":7
+		},
+		"dot":{
+			"duration":120,
+			"mod":{
+				"gems.rate":0.25
+			}
+		},"flavor":"hi-ho, hi-ho"
+
+	},
+	{
 		"id":"ironskin",
 		"name":"iron skin",
 		"desc":"hardens the skin of the caster.",
@@ -2004,13 +2083,54 @@
 
 	},
 	{
-		"id":"earthquake",
-		"desc":"the earth shakes beneath your feet.",
-		"school":"earth",
-		"require":{
-			"earthlore":12
-		},
+		"id":"tremor",
 		"level":5,
+		"desc":"The earth shakes beneath your enemies' feet",
+		"require":"mud",
+		"school":"earth",
+		"buy":{
+
+			"research":100,
+			"codices":30,
+			"earthgem":5
+
+		},
+		"cost":{
+			"earth":5
+		},
+		"at":{
+			"30":{
+				"attack.toHit":1
+			},
+			"100":{
+				"attack.damage.max":1,
+				"attack.toHit":2
+			},
+			"300":{
+				"attack.damage.max":2,
+				"attack.damage.min":1,
+				"attack.toHit":2
+			}
+		},
+		"attack":{
+			"tohit":2,
+			"targets":"enemies",
+			"kind":"earth",
+			"dot":{
+				"dmg":"2~3",
+				"duration":3,
+				"mod":{
+					"speed":-10
+				}
+			}
+		}
+	},
+	{
+		"id":"quake",
+		"alias":"earthquake",
+		"desc":"the earth shakes at your command",
+		"school":"earth",
+		"level":9,
 		"buy":{
 
 			"sp":1,
@@ -2065,7 +2185,8 @@
 	},
 	{
 
-		"id":"magnificence",
+		"id":"splendor",
+		"alias":"magnificence",
 		"level":7,
 		"school":"light",
 		"desc":"",
@@ -2164,6 +2285,46 @@
 
 	},
 	{
+
+		"id":"hightide",
+		"name":"high tide",
+		"school":"water",
+		"level":6,
+		"desc":"flood the field of battle",
+		"cd":40,
+		"buy":{
+
+			"research":400,
+			"watergem":10,
+			"tomes":5
+
+		},
+		"cost":{
+			"water":5
+		},
+		"attack":{
+			"dot":{
+				"kind":"water",
+				"targets":"enemies",
+				"dmg":"3~7",
+				"duration":30,
+				"mod":{
+					"speed":-5,
+					"dodge":-10
+				}
+			}
+		},
+		"dot":{
+			"targets":"allies",
+			"duration":30,
+			"mod":{
+				"player.resist.water":50
+			}
+
+		}
+
+	},
+	{
 		"id":"cordyceps",
 		"level":7,
 		"school":"nature",
@@ -2182,7 +2343,6 @@
 		"attack":{
 			"targets":"enemies",
 			"dot":{
-				"id":"venom",
 				"kind":"poison",
 				"duration":45,
 				"damage":"7~11"
@@ -2210,6 +2370,41 @@
 		"effect":{
 			"hp":200
 		}
+	},
+	{
+
+		"id":"forceten",
+		"name":"force ten",
+		"school":"water",
+		"level":10,
+		"desc":"The storm before the calm.",
+		"buy":{
+
+			"research":4000,
+			"watergem":25,
+			"tomes":20
+
+		},
+		"cost":{
+			"water":8
+		},
+		"attack":{
+			"dot":{
+				"kind":"water",
+				"targets":"all",
+				"dmg":"20~30",
+				"duration":30
+			}
+		},
+		"dot":{
+			"targets":"allies",
+			"duration":30,
+			"mod":{
+				"player.resist.water":75
+			}
+
+		},"flavor":"the force without form"
+
 	},
 	{
 

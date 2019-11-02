@@ -7,7 +7,8 @@ export default {
 
 	data(){
 		return {
-			filtered:null
+			filtered:null,
+			minions:Game.state.minions
 		};
 	},
 	components:{
@@ -16,8 +17,6 @@ export default {
 	computed:{
 
 		inRaid() { return Game.state.raid.running },
-
-		minions(){ return Game.state.minions; },
 
 		items(){ return this.minions.filter( v=>v.value>=1 ); },
 

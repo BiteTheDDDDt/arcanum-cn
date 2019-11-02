@@ -2,6 +2,9 @@ import { mergeCosts, addValues } from "../util/dataUtil";
 import { logObj } from "../util/util";
 import Base, { mergeClass } from "../items/base";
 
+/**
+ * Currently used to make custom user spells.
+ */
 export default class Group {
 
 	toJSON(){
@@ -115,8 +118,6 @@ export default class Group {
 	}
 
 	onUse(g) {
-
-		g.payCost( this.cost );
 
 		for( let i = this.items.length-1; i>=0; i--) {
 

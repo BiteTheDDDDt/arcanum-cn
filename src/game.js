@@ -1,5 +1,5 @@
 import DataLoader from './dataLoader';
-import {quickSplice, logObj} from './util/util';
+import { logObj} from './util/util';
 import GData from './items/gdata';
 import Log from './log.js';
 import GameState, { REST_SLOT } from './gameState';
@@ -12,6 +12,7 @@ import Resource from './items/resource';
 import Skill from './items/skill';
 import Stat from './values/stat';
 import { TEAM_ALLY } from './chars/npc';
+import { MONSTER } from './values/consts';
 
 var techTree;
 
@@ -19,6 +20,11 @@ var techTree;
  * @constant {number} TICK_TIME - time in milliseconds between updates.
  */
 export const TICK_TIME = 200;
+
+/**
+ * @constant {number} TICK_LEN - time between frames in seconds.
+ */
+export const TICK_LEN = TICK_TIME/1000;
 
 /**
  * @constant {number} EVT_TIME - time for checking randomized events.
@@ -54,46 +60,38 @@ export default {
 	 */
 	log:new Log(),
 
-	timers:[],
-
 	/**
 	 * @property {Runner} runner - runs active actions.
 	 */
 	runner:null,
+
+	get player(){return this.state.player},
 
 	/**
 	 *
 	 * @param {*} obj
 	 * @param {(number)=>boolean} obj.tick -tick function.
 	 */
-	addTimer( obj ){
-		console.log('adding timer: ' + obj.id );
-		this.timers.push(obj);
-	},
+	addTimer( obj ){ this.runner.addTimer(obj); },
 
 	/**
 	 * Clear game data.
 	 */
 	reset() {
-
 		this.loaded = false;
 		this.state = null;
 		this._items = null;
-		this.timers = [];
-
-
-		return this.load();
-
 	},
 
 	/**
 	 *
 	 * @param {*} saveData
+	 * @param {.<string,GData>} hallData - data items from wizard hall.
 	 * @returns {Promise.<GameState>}
 	 */
-	load( saveData=null ) {
+	load( saveData=null, hallData=null ) {
 
-		this.loaded = false;
+		this.reset();
 
 		this.log.clear();
 
@@ -111,6 +109,7 @@ export default {
 
 			this.runner = this.state.runner;
 
+			if ( hallData ) this.addData( hallData );
 			this.recheckTiers();
 			this.restoreMods();
 
@@ -120,8 +119,6 @@ export default {
 
 			// initial fringe check.
 			techTree.forceCheck();
-
-			this.initTimers();
 
 			Events.add( ENTER_LOC, this.enterLoc, this );
 			Events.add( EXIT_LOC, this.enterLoc, this );
@@ -203,11 +200,16 @@ export default {
 
 			var it = items[p];
 
-			if ( !it.locked && it.value >0 && !it.disabled ) {
+			if ( !it.locked && !it.disabled ) {
 
-				if ( it.mod ) this.addMod( it.mod, it.value );
-				if ( it.lock ) {
-					this.lock( it.lock, it.value );
+				if ( it.value > 0 ) {
+
+
+					if ( it.mod ) this.addMod( it.mod, it.value );
+					if ( it.lock ) {
+						this.lock( it.lock, it.value );
+					}
+
 				}
 
 			}
@@ -227,36 +229,13 @@ export default {
 	 */
 	addData( data ) {
 
-		console.warn('HALL GAME DATA');
+		console.warn('HALL GAME DATA: ' + data );
 
 		for( let p in data ) {
 
-			//console.warn('ADDING DATA ITEM: ' + p );
 			let it = data[p];
+			console.warn('ADDING DATA ITEM: ' + p + ': '+ it.valueOf() );
 			this.state.addItem(it);
-
-			if ( !it.locked && !it.disabled ) {
-
-				if ( it.mod && it.value != 0 ) {
-					//console.log( it.id + ' ADDING MOD: ' + it.value );
-					this.addMod( it.mod, it.value );
-				}
-
-				if ( it.lock) this.lock( it.lock, it.value );
-			}
-
-		}
-
-	},
-
-	/**
-	 * Any item with a timer>0 should be added to timers.
-	 */
-	initTimers() {
-
-		let acts = this.state.actions;
-		for( let i = acts.length-1; i>= 0; i-- ) {
-			if ( acts[i].timer > 0) this.addTimer( acts[i]);
 		}
 
 	},
@@ -308,14 +287,6 @@ export default {
 		this.doResources( this.state.playerStats, dt );
 		this.doResources( this.state.stressors, dt );
 
-		if ( this.timers ) {
-
-			for( let i = this.timers.length-1; i>= 0; i-- ) {
-				if ( this.timers[i].tick(dt) ) quickSplice( this.timers, i );
-			}
-
-		}
-
 		techTree.checkFringe();
 
 	},
@@ -330,7 +301,7 @@ export default {
 		for( let i = len-1; i >= 0; i-- ) {
 
 			stat = stats[i];
-			if ( stat.locked === false ) {
+			if ( stat.locked === false && !stat.disabled ) {
 
 				if  ( stat.rate.value !== 0 ) {
 
@@ -374,20 +345,20 @@ export default {
 			return true;
 		}
 
-		let fill = this.getData(v);
-		if (fill === undefined ) {
+		let item = this.getData(v);
+		if (item === undefined ) {
 
-			fill = this.state.getTagList( v );
-			return fill === undefined ? true : this.filled(fill, a, v );
+			item = this.state.getTagList( v );
+			return item === undefined ? true : this.filled(item, a, v );
 
 		}
 
-		if ( !fill.rate || !a.effect || fill.rate.value >= 0 ) return fill.maxed();
+		if ( !item.rate || !a.effect || item.rate.value >= 0 ) return item.maxed();
 
 		// actual filling rate.
 		tag = a.effect[ tag || v ];
 
-		return ( !tag || fill.filled(tag ) );
+		return ( !tag || item.filled(tag ) );
 
 	},
 
@@ -438,56 +409,6 @@ export default {
 		}
 	},
 
-	sellPrice( it ) {
-
-		let sellObj = it.sell || it.cost || (5*it.level) || 5;
-
-		if ( typeof sellObj === 'object' ) {
-			sellObj = sellObj.gold || it.level || 1;
-		}
-		return Math.ceil( sellObj*this.state.sellRate );
-
-
-	},
-
-	/**
-	 * Attempt to sell one unit of an item.
-	 * @param {GData} it
-	 * @returns {boolean}
-	 */
-	trySell( it, inv, count=1 ) {
-
-		if ( it.value < 1 && !it.instance ) {
-			return false; }
-
-		if ( count > it.value ) count = it.value;
-
-		let sellObj = it.sell || it.cost;
-		let goldPrice = count*this.sellPrice(it);
-
-		if ( sellObj && typeof sellObj === 'object' ) {
-			if ( sellObj.space ) this.getData('space').value += count*sellObj.space;
-		}
-		this.getData('gold').value += goldPrice;
-
-		if ( it.slot && this.state.getSlot(it.slot) === it ) this.state.setSlot(it.slot,null);
-
-		it.value -= count;
-		if ( inv && it.instance ) {
-
-			console.log('remainig: ' + it.value );
-			if ( !it.stack || it.value <= 0 ) inv.remove( it );
-
-		} else {
-
-			if ( it.mod ) this.removeMod( it.mod, count );
-
-		}
-
-		return true;
-
-	},
-
 	/**
 	 * Remove all quantity of an item.
 	 * @param {string|string[]|GData|GData[]} it
@@ -530,6 +451,10 @@ export default {
 		if ( it.isRecipe ) this.create( it, keep );
 		it.owned = true;
 
+		if ( it.slot && !this.state.getSlot(it.slot) ) this.setSlot(it);
+
+		return true;
+
 	},
 
 	/**
@@ -562,7 +487,6 @@ export default {
 
 		} else if ( it.buy && !it.owned ) {
 
-			console.log('BUY: ' + it.name );
 			this.tryBuy(it);
 
 		} else {
@@ -632,7 +556,7 @@ export default {
 		 * create monster and add to inventory.
 		 * @todo this is hacky.
 		*/
-		if ( it.type === 'monster' ) {
+		if ( it.type === MONSTER ) {
 
 			if ( it.onCreate ) it.onCreate( this, TEAM_ALLY, keep );
 
@@ -692,9 +616,8 @@ export default {
 		it.value++;
 
 		console.log('USING: ' + it.id  + ' with ' + targ.id );
-
-		if ( it.mod ) targ.applyMods( it.mod, 1 );
-		if ( it.effect ) targ.applyVars( it.effect, 1 );
+		if ( it.mod ) targ.permVars( it.mod );
+		if ( it.effect ) targ.permVars( it.effect );
 
 	},
 
@@ -711,6 +634,46 @@ export default {
 
 	doLog( logItem ) {
 		Events.emit( EVT_EVENT, logItem );
+	},
+
+	sellPrice( it ) {
+
+		let sellObj = it.sell || it.cost || (5*it.level) || 5;
+
+		if ( typeof sellObj === 'object' ) {
+			sellObj = sellObj.gold || it.level || 1;
+		}
+		return Math.ceil( sellObj*this.state.sellRate );
+
+
+	},
+
+	/**
+	 * Attempt to sell one unit of an item.
+	 * @param {GData} it
+	 * @param {Inventory}
+	 * @param {number} count - positive count of number to sell.
+	 * @returns {boolean}
+	 */
+	trySell( it, inv, count=1 ) {
+
+		if ( it.value < 1 && !it.instance ) { return false; }
+
+		if ( count > it.value ) count = it.valueOf();
+
+		this.getData('gold').value += count*this.sellPrice(it);
+
+		if ( it.instance ) {
+
+			it.value -= count;
+
+			console.log('remainig: ' + it.value );
+			if ( inv && (!it.stack || it.value <= 0) ) inv.remove( it );
+
+		} else this.remove(it,count);
+
+		return true;
+
 	},
 
 	/**
@@ -731,14 +694,12 @@ export default {
 
 		}
 
-		if ( it.slot ) {
-			if ( this.state.getSlot(it.slot) === it ) this.state.setSlot(it.slot, null);
-		}
+		if ( it.slot ) { if ( this.state.getSlot(it.slot) === it ) this.state.setSlot(it.slot, null); }
 
-		if ( it.cost && it.cost.space ) this.getData('space').value += amt*it.cost.space;
+		if ( it.cost && it.cost.space ) this.getData('space').value.add( -amt*it.cost.space );
 
-		it.value -= amt;
-		if ( it.mod ) this.removeMod( it.mod, amt );
+		it.remove(amt);
+		if ( it.mod ) this.addMod( it.mod, -amt );
 		if ( it.lock ) this.unlock( it.lock, amt );
 
 		it.dirty = true;
@@ -869,8 +830,10 @@ export default {
 
 				} else {
 
-					if ( typeof e === 'number' || e instanceof Range ) target.amount( this, e*dt );
-					else if ( e === true ) {
+					if ( typeof e === 'number' || e instanceof Range ) {
+
+						target.amount( this, e*dt );
+					} else if ( e === true ) {
 
 						target.doUnlock(this);
 						target.onUse( this );
@@ -896,6 +859,37 @@ export default {
 
 		}
 
+	},
+
+	/**
+	 * Apply an effect or mod to all Items with given tag.
+	 * @param {string} tag - item tag.
+	 * @param {object} eff - object effect.
+	 * @param {number} dt - time or percent of mod to apply.
+	 */
+	applyToTag( tag, eff, dt ) {
+
+		let target = this.state.getTagList(tag);
+
+		if ( target ) {
+
+			for( let i = target.length-1; i>=0; i--) {
+				target[i].applyVars( eff, dt);
+				target[i].dirty = true;
+			}
+
+
+		}
+
+	},
+
+	/**
+	 *
+	 * @param {Object} mod
+	 * @param {number} amt
+	 */
+	removeMod( mod, amt=1 ) {
+		this.addMod( mod, -amt);
 	},
 
 	/**
@@ -934,6 +928,7 @@ export default {
 			let t = this.getData(mod);
 			if ( t ) {
 
+				console.warn('!!!!!!!!!!!!!!ADDING NUMBER MOD: ' + mod );
 				t.amount( this, 1 );
 
 			} else {
@@ -981,44 +976,13 @@ export default {
 	},
 
 	/**
-	 * Apply an effect or mod to all Items with given tag.
-	 * @param {string} tag - item tag.
-	 * @param {Object} obj - object mod.
-	 * @param {number} dt - time or percent of mod to apply.
-	 */
-	applyToTag( tag, obj, dt ) {
-
-		let target = this.state.getTagList(tag);
-
-		if ( target ) {
-
-			for( let i = target.length-1; i>=0; i--) {
-				target[i].applyVars( obj, dt);
-				target[i].dirty = true;
-			}
-
-
-		}
-
-	},
-
-	/**
-	 *
-	 * @param {Object} mod
-	 * @param {number} amt
-	 */
-	removeMod( mod, amt=1 ) {
-		this.addMod( mod, -amt);
-	},
-
-	/**
 	 * Determines whether an item can be run as a continuous action.
 	 * @returns {boolean}
 	 */
 	canRun( it ) {
 
-		if ( !it.canRun ) console.warn( it.id + ' missing canRun()');
-		else return it.canRun( this, TICK_TIME/1000 );
+		if ( !it.canRun ) console.error( it.id + ' missing canRun()');
+		else return it.canRun( this, TICK_LEN );
 
 	},
 
@@ -1028,7 +992,7 @@ export default {
 	 * @param {GData} it
 	 */
 	canUse( it ){
-		if ( !it.canUse ) console.warn( it.id + ' missing canUse()');
+		if ( !it.canUse ) console.error( it.id + ' missing canUse()');
 		else return it.canUse( this );
 	},
 
@@ -1112,9 +1076,8 @@ export default {
 				var sub = cost[p];
 
 				res = this.state.getData(p);
-				if ( !res ) {
-					return false;
-				} else if ( res.instance || res.isRecipe ) {
+				if ( !res ) return false;
+				else if ( res.instance || res.isRecipe ) {
 
 					res = this.state.inventory.findMatch( res );
 					if (!res) return false;
@@ -1123,7 +1086,8 @@ export default {
 
 				if ( !isNaN(sub) || sub instanceof Stat ) {
 
-					if ( res.value < sub*amt ) return false;
+					if (!res.canPay(sub)) return false;
+					//if ( res.value < sub*amt ) return false;
 
 				} else {
 
@@ -1134,9 +1098,7 @@ export default {
 
 				// @todo: recursive mod test.
 				/*let mod = res.mod;
-				if ( mod ) {
-
-				}*/
+				if ( mod ) {}*/
 
 			}
 
@@ -1212,21 +1174,15 @@ export default {
 
 			if ( Array.isArray(res) ) res.forEach(v=>{
 
-					if ( typeof v === 'boolean') return;
-					v.unequip(this.state.player);
-					if ( v.mod ) this.removeMod( v.mod );
+				if ( typeof v !== 'boolean' ) v.unequip( this );
 
-				});
-			else {
-				res.unequip( this.state.player );
-				if ( res.mod ) this.removeMod( res.mod );
-			}
+			});
+			else { res.unequip( this ); }
 			this.state.inventory.add(res);
 
 		}
-		if ( it.mod) this.addMod(it.mod);
 
-		it.equip( this.state.player );
+		it.equip( this );
 
 
 	},
@@ -1241,17 +1197,13 @@ export default {
 			this.state.inventory.add(res);
 
 			if (  Array.isArray(res) ) res.forEach(v=>{
-				v.unequip(this.state.player);
-				if ( v.mod ) this.removeMod( v.mod );
-				//this.remove(v);
+				v.unequip(this);
 			});
 			else {
-				res.unequip(this.state.player);
-				if ( res.mod ) this.removeMod( res.mod );
-				//this.remove(res);
+				res.unequip(this);
 			}
 
-		} else console.log('no reuslt');
+		} else console.log('no result');
 
 	},
 

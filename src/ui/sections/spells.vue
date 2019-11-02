@@ -1,6 +1,6 @@
 <script>
 import Game from '../../game';
-import Settings from '../../settings';
+import Settings from 'modules/settings';
 import {logObj} from '../../util/util';
 import ItemBase from '../itemsBase';
 
@@ -12,7 +12,7 @@ export default {
 
 	data(){
 
-		let spellOps = Settings.getVars( 'spells');
+		let spellOps = Settings.getSubVars( 'spells');
 
 		return Object.assign( {
 			showList:false,
@@ -34,7 +34,7 @@ export default {
 	methods:{
 
 		toggle(){
-			this.showList = Settings.setVar( 'spells', 'showList', !this.showList );
+			this.showList = Settings.setSubVar( 'spells', 'showList', !this.showList );
 		}
 
 	}, computed:{
@@ -49,9 +49,7 @@ export default {
 		minLevel:{
 
 			get(){ return this.min; },
-			set(v){
-				this.min = Settings.setVar( 'spells', 'min', Number(v) );
-			}
+			set(v){ this.min = Settings.setSubVar( 'spells', 'min', Number(v) ); }
 
 		},
 
@@ -63,7 +61,7 @@ export default {
 			set(v){
 
 				this.schools = v;
-				Settings.setVar( 'spells', 'schools', this.schools.concat() );
+				Settings.setSubVar( 'spells', 'schools', this.schools.concat() );
 
 			}
 
@@ -185,17 +183,13 @@ div.spells .spelllist {
 	flex-shrink: 1;
 }
 
-div.spells .filters {
-       flex-flow: row wrap; display: flex;
-        border-bottom: 1px solid var(--separator-color);
-        margin: 0; padding: 4px; line-height: 2em;
-    }
 div.spells div.filters div { box-sizing: border-box; margin: 0; }
 div.spells div.filters div:nth-child(1),
 div.spells div.filters div:nth-child(2) {
         flex-basis: 50%;
-    }
-div.spells div.filters input[type=text] { padding: 4px 0 4px 0; }
+	}
+
+
 div.spells div.filters > div input[type=text],
 div.spells div.filters > div input[type=number] {
 
@@ -206,31 +200,20 @@ div.spells div.filters > div input[type=number] {
 		max-width: unset;
 		padding: 4px 0;
 		font-size: 105%;
-		width: 0;
 }
-div.spells div.filters > div { display: flex; align-items: center; }
-div.spells div.filters > div label { flex-basis: 20%; }
-div.spells div.filters > div input { min-width: 0; padding: 0; text-indent: 4px; }
-div.spells div.filters div.checks { margin: 0; flex-basis: 16%; }
 
-		/*div.spellbook .filters {
-			order: 1; flex-flow: row wrap; display: flex; text-align: center;
-			border-bottom: 1px solid var(--separator-color);
-			margin: 0; padding: var(--sm-gap); line-height: 2em; justify-content: flex-start;
-		}
-		.div.spellbook div.filters div { box-sizing: border-box; margin: 0; }
-		div.spellbook div.filters div:nth-child(1),
-		div.spellbook div.filters div:nth-child(2) {
-			flex-basis: 50%;
-		}
-		div.spellbook div.filters input[type=text] { padding: var(--sm-gap) 0 var(--sm-gap) 0; }
-		div.spellbook div.filters > div input[type=text],
-		div.spellbook div.filters > div input[type=number] {
-			flex: 1; margin-right: 1em; margin-left: 1em; min-width: unset; max-width: unset; width: 0;
-		}
-		div.spellbook div.filters > div { display: flex; align-items: center; }
-		div.spellbook div.filters > div label { flex-basis: 20%; }
-		div.spellbook div.filters > div input { min-width: 0; padding: 0; text-indent: var(--sm-gap); }
-		div.spellbook div.filters div.checks { margin: 0; padding: 0 0.5em; flex-basis: unset; }*/
+div.spells div.filters > div input { min-width: 0; padding: 0; text-indent: var(--sm-gap); }
+
+
+div.spells .filters {
+        flex-flow: row wrap; display: flex; text-align: center;
+        border-bottom: 1px solid var(--separator-color);
+        margin: 0; padding: var(--sm-gap); line-height: 2em; justify-content: flex-start;
+    }
+
+
+ div.spells div.filters div.checks { margin: 0; padding: 0 0.5em; flex-basis: unset; }
+
+
 
 </style>

@@ -1,5 +1,6 @@
 import Range from "../values/range";
 import {ParseMods } from "../values/mod";
+import { setModCounts } from "../items/base";
 
 export default class Dot {
 
@@ -45,6 +46,8 @@ export default class Dot {
 
 	}
 
+	valueOf(){return this.duration > 0 ? 1 : 0; }
+
 	constructor( vars, source, name ){
 
 		Object.assign( this, vars );
@@ -54,7 +57,7 @@ export default class Dot {
 		if ( !this.name ) this.name = name || ( source ? source.name : '' );
 		this.id = this.id || this.name || (source ? source.id || source.name : '');
 
-		if ( !this.id ) console.warn('BAD DOT ID: ' + this.name );
+		if ( !this.id ) console.error('BAD DOT ID: ' + this.name );
 
 		if ( !this.duration) this.duration = 10;
 
@@ -62,7 +65,10 @@ export default class Dot {
 		 * @property {boolean} stack - ability of dot to stack.
 		 */
 
-		if ( this.mod ) ParseMods( this.mod, this.id );
+		if ( this.mod ){
+			ParseMods( this.mod, this.id );
+			setModCounts( this.mod, this );
+		}
 
 		/**
 		 * @private {number} acc - integer accumulator
@@ -95,6 +101,7 @@ export default class Dot {
 
 			this.acc--;
 			this.duration--;
+
 			return 1;
 
 		}

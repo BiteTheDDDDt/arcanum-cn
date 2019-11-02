@@ -63,7 +63,11 @@ export default class Npc extends Char {
 	get hp() { return this._hp; }
 	set hp(v) {
 
-		if ( this._hp === undefined || typeof v === 'object' ) this._hp = v instanceof MaxStat ? v : new MaxStat(v);
+		if ( this._hp === undefined || this._hp === null ||
+			 typeof v === 'object' ) {
+				 this._hp = v instanceof MaxStat ? v : new MaxStat(v);
+
+			 }
 		else this._hp.value = v;
 
 	}
@@ -145,6 +149,10 @@ export default class Npc extends Char {
 		 * @compat
 		 */
 		if ( vars.maxHp) this.hp.max = vars.maxHp;
+
+		if (!this.hp ) {
+			this.hp = 1;
+		}
 
 		//console.log( this.id + ' const() : ' + this.hp.value );
 

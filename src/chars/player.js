@@ -24,6 +24,14 @@ const Fists = new Wearable({
 });
 
 /**
+* Create a hall id so players can be unique per hall.
+* @returns {string}
+ */
+const makeHallId = () => {
+	return Math.random().toString(36);
+}
+
+/**
  * @constant {number} EXP_RATE
  */
 const EXP_RATE = 0.125;
@@ -46,9 +54,7 @@ export default class Player extends Char {
 	 * @property {string} title
 	 */
 	get title() { return this._title; }
-	set title(v) {
-		this._title =v;
-	}
+	set title(v) { this._title =v; }
 
 	/**
 	 * @property {string[]} titles
@@ -151,18 +157,16 @@ export default class Player extends Char {
 	 * @property {.<string,Stat>} hits - tohit bonuses per damage kind.
 	 */
 	get hits(){ return this._hits ? this._hits : (this._hits = {}) }
-	set hits(v){
-		this._hits = toStats(v);
-	}
+	set hits(v){ this._hits = toStats(v); }
 
 	/**
 	 * @property {.<string,Stat>} bonuses - damage bonuses per damage kind.
 	 */
 	get bonuses(){ return this._bonuses ? this._bonuses : (this._bonuses = {}) }
-	set bonuses(v){
-		console.log('setting bonuses');
-		this._bonuses = toStats(v);
-	}
+	set bonuses(v){ this._bonuses = toStats(v); }
+
+	get hid(){return this._hid;}
+	set hid(v){this._hid=v;}
 
 	/**
 	 * NOTE: Elements that are themselves Items are not encoded,
@@ -172,6 +176,8 @@ export default class Player extends Char {
 	toJSON() {
 
 		let data = {};
+
+		data.hid = this.hid;
 
 		data.defense = ( this.defense );
 		data.tohit = ( this.tohit );
@@ -212,14 +218,11 @@ export default class Player extends Char {
 	 */
 	getDamage( kind ){
 
-		console.log('GETTING DAMAGE: ' + kind );
-		let d = this.damage.valueOf() + ( kind ? this.bonuses[kind] || 0 : 0 );
-		if ( kind && this.bonuses.kind ) {
+		return this.damage.valueOf() + ( kind ? this.bonuses[kind] || 0 : 0 );
+		/*if ( kind && this.bonuses[kind] ) {
 			console.log('BONUS DMG: ' + this.bonuses[kind].valueOf() )
-
 		}
-
-		return d;
+		return d;*/
 
 	}
 
@@ -229,15 +232,16 @@ export default class Player extends Char {
 	 */
 	getHit(kind){
 
-		let d = this.tohit.valueOf() + ( kind ? this.hits[kind] || 0 : 0 );
-		if ( kind && this.hits.kind ) {
+		return this.tohit.valueOf() + ( kind ? this.hits[kind] || 0 : 0 );
+
+		/*if ( kind && this.hits[kind] ) {
 			console.log('TOHIT BONUS: ' + this.hits[kind].valueOf() )
 
 		}
-
-		return d;
+		return d;*/
 
 	}
+
 
 	constructor( vars=null ){
 
@@ -245,6 +249,8 @@ export default class Player extends Char {
 
 		this.id = this.type = "player";
 		if ( !vars || !vars.name) this.name = 'wizrobe';
+
+		if ( !this.hid ) this.hid = makeHallId();
 
 		//if ( vars ) Object.assign( this, vars );
 
@@ -273,6 +279,7 @@ export default class Player extends Char {
 	setClass( gclass ) {
 
 		this.gclass = gclass;
+		this.setTitle( gclass );
 		Events.emit( CHAR_CLASS, this );
 
 	}
@@ -349,7 +356,7 @@ export default class Player extends Char {
 			if ( !dot.tick(dt) ) continue;
 
 			// ignore any remainder beyond 0.
-			// NOTE: dots tick at second-intervals.
+			// @note: dots tick at second-intervals, => no dt.
 			if ( dot.effect ) Game.applyEffect( dot.effect, 1 );
 			if ( dot.damage ) tryDamage( this, dot, dot.source );
 

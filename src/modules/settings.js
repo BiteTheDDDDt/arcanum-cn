@@ -4,6 +4,7 @@ const Defaults = {
 	saveTime:30,
 	darkMode:false,
 	compactMode:false,
+	curview:null,
 	spells:{
 
 	},
@@ -37,14 +38,16 @@ export default {
 
 	},
 
+	getAll(){return this.vars;},
+
 	/**
 	 * Set value of a subkeyed object.
-	 * @param {*} type
-	 * @param {*} key
+	 * @param {string} type
+	 * @param {string} key
 	 * @param {*} val
 	 * @returns {*} the value set, for chaining.
 	 */
-	setVar( type, key, val) {
+	setSubVar( type, key, val) {
 
 		let p = this.vars[type];
 		if ( !p ) this.vars[type] = p = {};
@@ -56,11 +59,25 @@ export default {
 	},
 
 	/**
+	 * Set base setting.
+	 * @param {string} key
+	 * @param {*} val
+	 */
+	set( key, val) { this.vars[key] = val; },
+
+	get(key){ return this.vars[key] },
+
+	/**
 	 * Get vars sub-object.
 	 * @param {*} type
 	 */
-	getVars( type ) {
-		return this.vars[type];
+	getSubVars( type ) {
+
+		let vars = this.vars[type];
+		if ( vars === undefined ) vars = this.vars[type] = {};
+
+		return vars;
+
 	},
 
 	/**
@@ -73,38 +90,6 @@ export default {
 
 		for ( let p in data ) {
 			this.vars[p] = data[p];
-		}
-
-	},
-
-	load() {
-
-		/** @todo: access from global point. */
-		let str = window.localStorage.getItem( this.saveLoc() );
-
-		if ( str ) {
-
-			let data = JSON.parse( str );
-			for ( let p in data ) {
-				this.vars[p] = data[p];
-			}
-
-		}
-
-	},
-
-	saveLoc() {
-		(__SAVE ? __SAVE + '/' : '' ) + 'gameSettings'
-	},
-
-	save(){
-
-		let store = window.localStorage;
-		if ( store ) {
-
-			let json = JSON.stringify( this.vars );
-			store.setItem( this.saveLoc(), json );
-
 		}
 
 	}

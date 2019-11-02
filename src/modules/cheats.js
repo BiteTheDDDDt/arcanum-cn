@@ -53,11 +53,16 @@ if ( false ) {
 			let targ = cheatKeys[key];
 
 			if (key === 'p') {
+
 				this.state.getData('runner').autoProgress();
 				e.stopPropagation();
-			}
 
-			if ( targ ) {
+			} else if ( key ==='f') {
+
+				this.fillAll();
+				e.stopPropagation();
+
+			} else if ( targ ) {
 				if (e.shiftKey) this.state.addMax( targ );
 				else {
 					let it = this.state.getData( targ );
@@ -67,6 +72,15 @@ if ( false ) {
 				e.stopPropagation();
 			}
 
+		},
+		fillAll(){
+
+			let res = this.state.resources;
+			for( let p in res ){
+				if ( p!== 'space' && !res[p].locked ){
+					Game.fillItem( res[p] )
+				}
+			}
 		},
 		testUnlock(key){
 

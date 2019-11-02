@@ -1,5 +1,6 @@
 import Stat from '../values/stat';
 import GData from './gdata';
+import { RESOURCE } from '../values/consts';
 
 
 export default class Resource extends GData {
@@ -16,7 +17,7 @@ export default class Resource extends GData {
 	* @returns {boolean} true if resource value is positive.
 	*/
 	positive() {
-		return (super.value > 0 || (this._rate.value>0&&( (!this.max) ||this.max.value>0) ) );
+		return (super.value > 0 || (this.rate.value>0&&( !this.max ||this.max.value>0) ) );
 	}
 
 	/**
@@ -51,25 +52,6 @@ export default class Resource extends GData {
 	set delta(v) { this._delta = v; }
 
 	/**
-	 * @property {Stat} max - maximum resource value.
-	 */
-	/*get max() { return this._max; }
-	set max(v) {
-
-		if ( super.max === null || super.max === undefined ) {
-
-			super.max = new Stat(v, 'max', true);
-
-		} else {
-
-			if ( v instanceof Stat ) this._max = v;
-			else this._max.base = v;
-
-		}
-
-	}*/
-
-	/**
 	 *
 	 * @param {?Object} [vars=null]
 	 */
@@ -86,11 +68,11 @@ export default class Resource extends GData {
 		 */
 		if ( this.unit === null || this.unit === undefined ) this.unit = true;
 
-		if ( this.rate === null || this.rate === undefined ) this.rate = new Stat(0);
+		if ( this.rate === null || this.rate === undefined ) this.rate = 0;
 
 		this._lastValue = super.value.valueOf();
 
-		this.type = this.type || 'resource';
+		this.type = this.type || RESOURCE;
 
 		this._delta = 0;
 
@@ -100,9 +82,7 @@ export default class Resource extends GData {
 	 * @returns {boolean} true if an unlocked item is at maximum value.
 	 */
 	maxed() {
-
 		return this.max ? (this.value >= this.max) : false;
-
 	}
 
 

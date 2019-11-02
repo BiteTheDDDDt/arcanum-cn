@@ -17,31 +17,25 @@ export default {
 	data(){
 
 		return {
-			hallOpen:false,
-			pName:this.player.name
+			hallOpen:false
 		}
 
 	},
-	beforeCreate(){
-		this.player = Game.state.player;
-		this.pName = this.player.name;
-	},
 	computed:{
 
+		player() { return Game.state.player},
+
 		wizName:{
-			get(){ return this.pName },
+			get(){ return this.player.name },
 			set(v){
 
 				if ( v ) this.player.setName(v);
-				this.pName = v;
 			}
 		},
 
 
-		hallUnlocked(){return true},
-		hallName(){
-			return Profile.hall.name;
-		},
+		hallUnlocked(){ return Game.state.getData('evt_hall')>0; },
+		hallName(){ return Profile.hall.name; },
 
 		title(){ return this.player.title; },
 		speed() {
@@ -85,7 +79,19 @@ export default {
 
 		openHall(){ this.hallOpen = true; },
 
-		closeHall(){this.hallOpen = false;}
+		closeHall(){this.hallOpen = false;},
+
+		pickTitle($evt){
+
+			this.emit( 'choice', this.player.titles, (p)=>{
+
+				if ( p ) {
+					this.player.setTitle(p);
+				}
+
+			}, $evt.target, '', true );
+
+		}
 
 	}
 
@@ -108,7 +114,8 @@ export default {
 
 		<tr v-if="hallUnlocked"><td></td><th><button @click="openHall">{{ hallName }}</button></th></tr>
 
-		<tr @mouseenter.capture.stop="emit( 'itemover', $event,player.titles, 'Titles')"><td>title</td><th> {{ title}}</th></tr>
+		<tr @mouseenter.capture.stop="emit( 'itemover', $event,player.titles, 'Titles')">
+			<td><span v-if="player.titles.length>0"><button class="config" @click="pickTitle($event)"></button></span>title</td><th> {{ title}}</th></tr>
 		<tr><td>notoriety</td><th>{{ Math.floor(player.fame.valueOf() ) }}</th></tr>
 		<tr><td>level</td><th> {{ level }}</th></tr>
 		<tr><td>exp</td><th> {{ exp }} / {{ next }} </th></tr>
@@ -211,8 +218,7 @@ div.player-tables div {
 	flex-basis: 50%;
 }
 
-div.player-view input[type=text].fld-name {
-	margin: 0; }
+div.player-view input[type=text].fld-name { margin: 0; }
 
 
 

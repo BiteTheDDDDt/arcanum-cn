@@ -114,7 +114,7 @@
 		"require":"g.tier0>0&&g.crafting>=9",
 		"mod":{
 			"minions.max":2,
-			"gem.max":1,
+			"magicgems.max":1,
 			"space.max":25,
 			"gold.rate":0.2,
 			"gold.max":25,

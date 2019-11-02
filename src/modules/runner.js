@@ -4,6 +4,7 @@ import Events, {ACT_DONE, ACT_CHANGED, HALT_ACT, ACT_BLOCKED, EXP_MAX, STOP_ALL 
 import Stat from '../values/stat';
 import Base, {mergeClass} from '../items/base';
 import Runnable, { TYPE_RUN } from '../composites/runnable';
+import { SKILL } from '../values/consts';
 
 const REST_TAG = 't_rest';
 const DUNGEON = 'dungeon';
@@ -33,6 +34,11 @@ export default class Runner {
 		 */
 		this.waiting = this.waiting || null;
 
+		/**
+		 * @property {} timers - timers ticking.
+		 */
+		this.timers = this.timers || null;
+
 	}
 
 	toJSON() {
@@ -41,6 +47,7 @@ export default class Runner {
 			max:this.max,
 			waiting:this.waiting.map(v=> v.type === TYPE_RUN ? v : v.id),
 			actives:this.actives.map(v=> v.type === TYPE_RUN ? v : v.id),
+			timers:this.timers.length>0? this.timers.map(v=>v.id) : undefined
 
 			/**
 			 * @property {Runnable[]} runnables - running combinations of objects.
@@ -56,7 +63,7 @@ export default class Runner {
 	get exp() {
 		for( let i = this.actives.length-1; i>= 0;i-- ) {
 			var a = this.actives[i];
-			if ( a.type === 'skill' ) return a.exp;
+			if ( a.type === SKILL ) return a.exp;
 		}
 		return 0;
 	}
@@ -66,12 +73,17 @@ export default class Runner {
 		for( let i = this.actives.length-1; i>= 0;i-- ) {
 
 			var a = this.actives[i];
-			if ( a.type === 'skill' ) {
+			if ( a.type === SKILL ) {
 				a.exp = v;
 				return;
 			}
 
 		}
+	}
+
+	addTimer(obj){
+		obj.timer = obj.cd;
+		this.timers.push(obj);
 	}
 
 	/**
@@ -140,6 +152,8 @@ export default class Runner {
 		}
 
 		this.actives = this.reviveList( this.actives, gs, true );
+		if ( this.timers ) this.timers = gs.toData( this.timers );
+		else this.timers = [];
 
 		Events.add( ACT_DONE, this.actDone, this );
 		Events.add( HALT_ACT, this.haltAction, this );
@@ -154,7 +168,6 @@ export default class Runner {
 	 * @param {*} it
 	 */
 	expMax( it ) {
-		//console.log('EXP. COMPLETE: ' + it.id );
 		if ( it.complete && (typeof it.complete) === 'function') it.complete();
 
 	}
@@ -172,7 +185,6 @@ export default class Runner {
 		for( let i = list.length-1; i >= 0; i-- ) {
 
 			var a = list[i] = this.reviveAct( list[i], gs, running);
-
 			if ( a == null ) list.splice(a,1);
 
 		}
@@ -185,8 +197,12 @@ export default class Runner {
 
 		if (!a) return;
 
-		if ( typeof a === 'string' ) a = gs.getData( a);
-		else if ( typeof a === 'object') {
+		if ( typeof a === 'string' ) {
+
+			a = gs.getData( a);
+			if ( !a ) return null;
+
+		} else if ( typeof a === 'object') {
 
 			a = new Runnable( a );
 			if ( typeof a.revive === 'function' ) a.revive(gs);
@@ -265,9 +281,7 @@ export default class Runner {
 
 			this.stopAction(ind, false);
 
-
 		} else {
-
 			this.setAction(a);
 
 		}
@@ -509,6 +523,10 @@ export default class Runner {
 
 			this.doAction( this.actives[i], dt );
 
+		}
+
+		for( let i = this.timers.length-1; i>= 0; i-- ) {
+			if ( this.timers[i].tick(dt) ) quickSplice( this.timers, i );
 		}
 
 	}
