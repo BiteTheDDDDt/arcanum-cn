@@ -165,8 +165,8 @@ export default class Player extends Char {
 	get bonuses(){ return this._bonuses ? this._bonuses : (this._bonuses = {}) }
 	set bonuses(v){ this._bonuses = toStats(v); }
 
-	get hallId(){return this._hid;}
-	set hallId(v){this._hid=v;}
+	get hid(){return this._hid;}
+	set hid(v){this._hid=v;}
 
 	/**
 	 * NOTE: Elements that are themselves Items are not encoded,
@@ -177,7 +177,7 @@ export default class Player extends Char {
 
 		let data = {};
 
-		data.hallId = this.hallId;
+		data.hid = this.hid;
 
 		data.defense = ( this.defense );
 		data.tohit = ( this.tohit );
@@ -250,7 +250,7 @@ export default class Player extends Char {
 		this.id = this.type = "player";
 		if ( !vars || !vars.name) this.name = 'wizrobe';
 
-		if ( !this.hallId ) this.hallId = makeHallId();
+		if ( !this.hid ) this.hid = makeHallId();
 
 		//if ( vars ) Object.assign( this, vars );
 

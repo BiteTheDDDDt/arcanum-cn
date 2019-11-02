@@ -81,7 +81,7 @@ export default class CharInfo {
 
 		this.name = p.name;
 		this.level = p.level.valueOf();
-		this.hid = p.hallId;
+		this.hid = p.hid;
 
 		this.title = p.title;
 		this.titles = p.titles.length;

@@ -524,7 +524,7 @@
 	},
 	{
 		"id":"waterlore",
-		"name":"hydromancy",
+		"name":"water lore",
 		"desc":"the study of water",
 		"verb":"studying water",
 		"tags":"elemental,t_school",
@@ -544,7 +544,7 @@
 	},
 	{
 		"id":"airlore",
-		"name":"aeromancy",
+		"name":"wind lore",
 		"desc":"the study of air",
 		"verb":"studying air",
 		"tags":"elemental,t_school",
