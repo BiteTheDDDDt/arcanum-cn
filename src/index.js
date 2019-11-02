@@ -119,7 +119,7 @@ const vm = new Vue({
 		 */
 		gameLoaded( game ) {
 
-			console.log('GAMELOADED(): ' + game );
+			if ( !game ) console.warn('gameloaded(): NULL' );
 
 			let settings = Profile.loadSettings();
 			this.onSettings( settings );

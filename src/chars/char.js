@@ -4,6 +4,7 @@ import Stat from '../values/stat';
 import Dot from './dot';
 import Attack from './attack';
 import GameState from '../gameState';
+import { NPC } from '../values/consts';
 
 
 /**
@@ -117,7 +118,7 @@ export default class Char {
 			this[p] = vars[p];
 		}
 
-		this.type = 'npc';
+		this.type = NPC;
 
 		this.states = this.states || {};
 		this.immunities = this.immunities || {};

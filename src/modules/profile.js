@@ -84,6 +84,8 @@ export default {
 	/**
 	 * set active player index.
 	 * @param {number} slot - slot to load.
+	 * @param {GameState} state - current state, for saving current.
+	 * sort of stupid to have this here?
 	 */
 	setActive( slot, state ) {
 
@@ -107,9 +109,15 @@ export default {
 	 */
 	gameLoaded(game) {
 
-		this.hall.updateChar( game.state.player );
-		this.saveHall();
+		let p = game.state.player;
+		let slot = this.hall.hidSlot( p.hid );
+		if ( slot >= 0 ) {
 
+			this.hall.setActive( slot );
+
+		} else this.hall.updateChar( game.state.player );
+
+		this.saveHall();
 		this.hall.calcPoints();
 
 		Events.add( LEVEL_UP, this.updateChar, this );

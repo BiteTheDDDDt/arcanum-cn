@@ -1,5 +1,6 @@
 import Stat from '../values/stat';
 import GData from './gdata';
+import { RESOURCE } from '../values/consts';
 
 
 export default class Resource extends GData {
@@ -71,7 +72,7 @@ export default class Resource extends GData {
 
 		this._lastValue = super.value.valueOf();
 
-		this.type = this.type || 'resource';
+		this.type = this.type || RESOURCE;
 
 		this._delta = 0;
 

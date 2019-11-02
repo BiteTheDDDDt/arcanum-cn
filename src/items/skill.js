@@ -1,5 +1,6 @@
 import Action from './action';
 import Stat from '../values/stat';
+import { SKILL } from '../values/consts';
 
 const EXP_RATIO = 0.35;
 
@@ -27,7 +28,7 @@ export default class Skill extends Action {
 
 		super(vars);
 
-		this.type = 'skill';
+		this.type = SKILL;
 
 		if ( !this.length || this.value == 0 ) this.length = levLength( this.level +this.value.valueOf() );
 

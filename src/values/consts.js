@@ -22,3 +22,11 @@ const schoolNames = {
 export const getSchool = (s)=>{ return schoolMap[s] || s; }
 
 export const schoolName = (s)=> { return schoolNames[s] || s; }
+
+
+const RESOURCE = 'resource';
+const NPC = 'npc';
+const SKILL = 'skill';
+const ENCOUNTER = 'enc';
+
+export { RESOURCE, NPC, SKILL, ENCOUNTER };

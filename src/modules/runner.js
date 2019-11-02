@@ -4,6 +4,7 @@ import Events, {ACT_DONE, ACT_CHANGED, HALT_ACT, ACT_BLOCKED, EXP_MAX, STOP_ALL 
 import Stat from '../values/stat';
 import Base, {mergeClass} from '../items/base';
 import Runnable, { TYPE_RUN } from '../composites/runnable';
+import { SKILL } from '../values/consts';
 
 const REST_TAG = 't_rest';
 const DUNGEON = 'dungeon';
@@ -62,7 +63,7 @@ export default class Runner {
 	get exp() {
 		for( let i = this.actives.length-1; i>= 0;i-- ) {
 			var a = this.actives[i];
-			if ( a.type === 'skill' ) return a.exp;
+			if ( a.type === SKILL ) return a.exp;
 		}
 		return 0;
 	}
@@ -72,7 +73,7 @@ export default class Runner {
 		for( let i = this.actives.length-1; i>= 0;i-- ) {
 
 			var a = this.actives[i];
-			if ( a.type === 'skill' ) {
+			if ( a.type === SKILL ) {
 				a.exp = v;
 				return;
 			}
@@ -81,7 +82,6 @@ export default class Runner {
 	}
 
 	addTimer(obj){
-		console.log('ADDING TIMER: ' + obj.id );
 		obj.timer = obj.cd;
 		this.timers.push(obj);
 	}

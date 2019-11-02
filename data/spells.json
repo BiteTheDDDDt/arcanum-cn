@@ -954,7 +954,7 @@
 			"tomes":1
 		},
 		"cost":{
-			"mana":15
+			"mana":10
 		},
 		"effect":"hobgoblin"
 	},
@@ -972,6 +972,21 @@
 		},
 		"effect":"raven"
 
+	},
+	{
+		"id":"mk_blade",
+		"name":"summon blade",
+		"school":"blade",
+		"require":"(g.battlemage+g.spellblade+g.dreadlord)>0",
+		"level":7,
+		"buy":{
+			"research":5000,
+			"tomes":5
+		},
+		"cost":{
+			"mana":12
+		},
+		"effect":"magicblade"
 	},
 	{
 		"id":"mk_murder",
