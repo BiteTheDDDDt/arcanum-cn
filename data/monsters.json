@@ -3231,7 +3231,7 @@
 	},
 	{
 		"id":"m_avatar",
-		"alias":"avatar",
+		"name":"avatar",
         "level":23,
         "kind":"diety",
         "desc":"incarnation of a god",
