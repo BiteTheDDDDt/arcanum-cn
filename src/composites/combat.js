@@ -198,10 +198,11 @@ export default class Combat {
 		for( let i = this._allies.length-1; i >= 0; i-- ) {
 
 			e = this._allies[i];
-			if ( e !==this.player) e.update(dt);
 			if ( e.alive === false ) {
 				continue;
 			}
+
+			if ( e !==this.player) e.update(dt);
 			action = e.combat(dt);
 			if ( action ) this.attack( e, action, this._enemies );
 

@@ -3285,6 +3285,36 @@
 
 	},
 	{
+		"id":"strativax1",
+		"name":"strativax slumbering",
+        "level":27,
+		"desc":"",
+		"unique":true,
+		"kind":"dragon",
+        "hp":100000,
+        "defense":200,
+		"loot":{
+			"max":27
+		}
+
+	},
+	{
+		"id":"strativax2",
+		"name":"strativax the ancient",
+        "level":27,
+		"desc":"",
+		"unique":true,
+		"kind":"dragon",
+        "hp":100000,
+        "tohit":50,
+        "defense":200,
+		"attack":"",
+		"loot":{
+			"max":27
+		}
+
+    },
+	{
 		"id":"gorborung",
 		"name":"The Gorborung",
 		"level":25,

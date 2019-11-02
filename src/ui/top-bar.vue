@@ -63,7 +63,7 @@ export default {
 
 		<span class="link-bar">
 			<a href="https://discord.gg/bCABC96" target="_blank">discord/guide</a>
-			<a href="http://lerpinglemur.com/dhrune/index.php?title=Main_Page" target="_blank">wiki</a>
+			<a href="http://wiki.lerpinglemur.com/dhrune" target="_blank">wiki</a>
 			<a href="https://www.patreon.com/theoryofmagic" target="_blank">patreon</a>
 			<a href="https://www.reddit.com/r/wizrobe/" target="_blank">reddit</a>
 			<span class="vers">build# {{ VERSION }}</span>
