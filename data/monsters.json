@@ -1631,12 +1631,12 @@
 		"flavor":"Ever wonder how orcs would look if they were three times as large?",
 		"kind":"giant",
         "hp":45,
-        "tohit":8,
+        "tohit":10,
         "defense":20,
         "attack":{
             "name":"spiked club",
             "kind":"blunt",
-            "dmg":"5~15"
+            "dmg":"8~17"
         }
 
 	},
@@ -1841,7 +1841,7 @@
         "evil":-11,
         "desc":"He's looking for a six-fingered man.",
         "hp":35,
-        "tohit":10,
+        "tohit":14,
         "defense":35,
         "attack":{
             "name":"longsword",
@@ -2254,13 +2254,12 @@
         "biome":["hills","mountains"],
 		"flavor":"they have a cave troll...",
         "hp":90,
-        "tohit":4,
 		"defense":35,
 		"regen":2,
         "attack":{
             "name":"club",
             "kind":"blunt",
-            "dmg":"10~22"
+            "dmg":"15~27"
         }
 
     },
@@ -2577,7 +2576,6 @@
 		"name":"blood golem",
 		"level":12,
 		"desc":"a creature of pure blood.",
-		"tohit":10,
 		"hp":90,
 		"defense":45,
 		"attack":{
@@ -3046,7 +3044,7 @@
         "evil":20,
         "desc":"",
         "hp":350,
-        "tohit":20,
+        "tohit":25,
         "defense":90,
         "attack":{
             "name":"fire breath",

@@ -9,10 +9,10 @@
     { "id":"iron", "kind":"metal", "weight":2, "priceMod":10, "tohit":2, "bonus":2, "level":3 },
     { "id":"steel", "kind":"metal", "weight":2, "priceMod":20, "bonus":3,"tohit":4, "level":4 },
     { "id":"quicksteel", "kind":"metal", "weight":2, "priceMod":25, "bonus":5, "tohit":7, "level":5 },
-    { "id":"mithril", "kind":"metal", "weight":1, "priceMod":100, "bonus":7, "tohit":10, "level":7 },
-	{ "id":"ebonwood", "kind":"natural", "weight":1, "priceMod":100, "bonus":7, "tohit":11, "level":8 },
-	{ "id":"idrasil", "kind":"natural", "weight":1, "priceMod":100, "bonus":7, "tohit":11, "level":8 },
+    { "id":"mithril", "kind":"metal", "weight":1, "priceMod":100, "bonus":8, "tohit":10, "level":7 },
+	{ "id":"ebonwood", "kind":"natural", "weight":1, "priceMod":100, "bonus":6, "tohit":12, "level":8 },
+	{ "id":"idrasil", "kind":"natural", "weight":1, "priceMod":100, "bonus":7, "tohit":9, "level":8 },
 	{ "id":"ethereal", "kind":"ethereal", "weight":0, "priceMod":2000, "bonus":5, "tohit":15, "level":8 },
-    { "id":"adamant", "kind":"metal", "adj":"adamantine", "priceMod":1000, "bonus":10, "tohit":20, "level":9 }
+    { "id":"adamant", "kind":"metal", "adj":"adamantine", "priceMod":1000, "bonus":10, "tohit":12, "level":9 }
 
 ]

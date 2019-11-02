@@ -1,6 +1,7 @@
 <script>
 import Game from '../game';
 import {HALT_ACT} from '../events';
+import { SKILL } from '../values/consts';
 
 export default {
 
@@ -8,9 +9,15 @@ export default {
 	methods:{
 
 		actionStr( a ){
-			return (a.verb || a.name) +
-				( ( a.length ) ? ' ' + a.percent().toFixed(0) + '%': '' );
+
+			return (a.verb || a.name) + (a.length ?
+				( ' ' + a.percent().toFixed(0) + '%' ) : '');
+
 		},
+		levelStr(a){
+			return ' (' + Math.floor( a.valueOf() ) + '/' + Math.floor(a.max.valueOf() ) +')';
+		},
+
 		halt(a) { this.emit( HALT_ACT, a); }
 
 	}
@@ -22,7 +29,7 @@ export default {
 <div class='running'>
 
 	<div v-for="v in runner.actives" :key="v.id">
-		<button @click="halt(v)">Stop</button><span>{{ actionStr(v) }}</span>
+		<button @click="halt(v)">Stop</button><span>{{ actionStr(v) }}</span><span v-if="v.type==='skill'">{{levelStr(v)}}</span>
 	</div>
 
 </div>
