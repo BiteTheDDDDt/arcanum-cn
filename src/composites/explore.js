@@ -143,7 +143,7 @@ export default class Explore {
 			}
 
 			this.enc.update( dt );
-			if ( this.player.defeated ) {
+			if ( this.player.defeated() ) {
 
 				Events.emit( DEFEATED, this );
 				Events.emit( ACT_BLOCKED, this, true );

@@ -456,7 +456,7 @@ div.inv-equip > div:nth-child(2) {
 
 div.bot-bar {
 	background: inherit;
-	border-top: 1px solid var(--separator-color); padding: var(--lg-gap);
+	border-top: 1px solid var(--separator-color); padding: var(--md-gap);
 }
 
 </style>

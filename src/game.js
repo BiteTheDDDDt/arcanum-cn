@@ -1086,7 +1086,7 @@ export default {
 
 				if ( !isNaN(sub) || sub instanceof Stat ) {
 
-					if (!res.canPay(sub)) return false;
+					if ( !res.canPay(sub*amt) ) return false;
 					//if ( res.value < sub*amt ) return false;
 
 				} else {

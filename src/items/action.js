@@ -91,10 +91,10 @@ export default class Action extends GData {
 	}
 
 	canUse(g){
-		return (!this.cd || !this.timer ) && super.canUse(g);
+		return (!this.timer ) && super.canUse(g);
 	}
 
-	canRun(g){ return (!this.cd || !this.timer ) && super.canRun(g);}
+	canRun(g){ return (!this.timer ) && super.canRun(g);}
 
 	/**
 	 * Update a running action.

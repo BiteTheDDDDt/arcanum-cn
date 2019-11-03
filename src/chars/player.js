@@ -136,18 +136,6 @@ export default class Player extends Char {
 
 	get alive() {return this._hp.value > 0; }
 
-	get defeated() {
-
-		if ( this._hp.value <= 0 ) return true;
-		for( let i = this.stressors.length-1; i>=0; i--){
-
-			var s = this.stressors[i];
-			if ( s.value >= s.max.value ) return true;
-		}
-		return false;
-
-	}
-
 	get points(){ return this._points; }
 	set points(v){
 		this._points = v instanceof Stat ? v : new Stat(v);
@@ -338,6 +326,18 @@ export default class Player extends Char {
 		for( let i = this.dots.length-1; i>=0; i-- ){
 			if ( this.dots[i].mod) Game.addMod( this.dots[i].mod, 1 );
 		}
+
+	}
+
+	defeated() {
+
+		if ( this._hp.value <= 0 || this.stamina.value < 0 ) return true;
+		for( let i = this.stressors.length-1; i>=0; i--){
+
+			var s = this.stressors[i];
+			if ( s.value >= s.max.value ) return true;
+		}
+		return false;
 
 	}
 

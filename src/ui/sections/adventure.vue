@@ -228,7 +228,9 @@ div.locales {
 	justify-content: space-between;
 	overflow-y: auto;
 	min-height: 50%;
-	height:100%;
+
+	max-height:100%;
+	padding-bottom: var(--lg-gap);
 		padding: var(--sm-gap);
 	border-bottom: 1px solid var(--separator-color);
 

@@ -10,7 +10,7 @@ export default {
 	props:['value', 'items', 'prop', 'minItems'],
 	data() {
 		return {
-			text:this.value||'',
+			text:'',
 			pprop:this.prop||'name'
 		}
 	},

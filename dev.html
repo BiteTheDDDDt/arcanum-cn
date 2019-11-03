@@ -33,31 +33,6 @@
 	@author         gokiburikin
 	*/
 
-		/* Main Layout */
-
-		div.full:first-child { display: flex; margin: 0; }
-		body div.full div.top-bar { border-bottom: 1px solid var(--separator-color); margin: 0; padding:0;}
-		body div.full div.top-bar .load-opts { display: flex; align-items: center; width: unset; }
-		body div.full div.game-main { flex: 1; margin-top: 0; max-height: unset; min-height: 0; }
-		body div.full div.game-mid { border-left: 1px solid var(--separator-color); border-right: 1px solid var(--separator-color); margin: 0; }
-		body div.full div.game-mid .menu-content {
-			margin: 0; min-height: 0; max-height: unset; overflow-y: auto;
-			border-top: none;
-		}
-		body div.full div.game-mid .menu-items { border-bottom: 1px solid var(--separator-color); margin: 0; padding: var(--sm-gap); text-transform: capitalize; }
-		body { overflow: hidden; margin: 0; background: var(--background-color); }
-		.game-mid .menu-content { padding:0; }
-
-		.full .item-popup {
-			position: fixed; /*background: var(--popup-background-color);*/
-			border: var(--popup-border); border-radius: var(--subtle-border-radius);
-			opacity: 1.0;
-		}
-		.top-bar { min-height: 60px; }
-		button { color: var(--button-text-color); border: 1px solid #0006; }
-		button { outline: none; }
-		button:disabled { opacity: 0.3; color: unset; }
-
 
 
 		/*.items div.dot-view { display: flex; flex-flow: row; justify-content: flex-start; }*/

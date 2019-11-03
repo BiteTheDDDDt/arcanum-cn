@@ -22,6 +22,8 @@
 	--popup-border: 2px solid #646464;
 	--subtle-border-radius: 4px;
 
+	--quickbar-height:52px;
+
 	--high-depth:30000;
 	--md-high:20000;
 	--md-depth:10000;
@@ -73,6 +75,12 @@ body.darkmode {
 
 	color: #D7DADC;
 }
+
+
+button { color: var(--button-text-color); border: 1px solid #0006; }
+button { outline: none; }
+button:disabled { opacity: 0.3; color: unset; }
+
 
 input[type="button"], button, div.text-button {
 	background-color: rgb(231, 229, 229);
@@ -158,6 +166,21 @@ input[type=text].fld-name {
 .darkmode .fld-name {
 	color: var( --button-text-color);
 }
+
+div.full:first-child { display: flex; margin: 0; }
+    body div.full div.top-bar { border-bottom: 1px solid var(--separator-color); margin: 0; padding:0;}
+    body div.full div.top-bar .load-opts { display: flex; align-items: center; width: unset; }
+    body div.full div.game-main { flex: 1; margin-top: 0; max-height: unset; min-height: 0; }
+    div.full div.game-mid { border-left: 1px solid var(--separator-color); border-right: 1px solid var(--separator-color); margin: 0; }
+    div.full div.game-mid .menu-content {
+        margin: 0; min-height: 0; max-height: unset; overflow-y: auto;
+        border-top: none;
+    }
+    body div.full div.game-mid .menu-items { border-bottom: 1px solid var(--separator-color); margin: 0; padding: var(--sm-gap); text-transform: capitalize; }
+    body { overflow: hidden; margin: 0; background: var(--background-color); }
+    .game-mid .menu-content { padding:0; }
+
+	.top-bar { min-height: 60px; }
 
 .inv {
 	overflow-y: auto;
@@ -286,6 +309,20 @@ body.darkmode .action-btn.running { border: 2px dashed var(--action-button-borde
 
 div.log-item {
 	padding: 4px; margin: 1px 0; border-bottom: 1px dotted var(--quiet-text-color);
+}
+
+.item-popup {
+	position:fixed;
+	border: var(--popup-border); border-radius: var(--subtle-border-radius);
+	height:auto;
+	opacity: 1.0;
+	min-height:100px;
+	min-width:200px;
+	max-width:280px;
+	z-index: var(--md-high);
+	top:0;
+	background:inherit;
+	border-radius: 0.20rem;
 }
 
 .log-title {

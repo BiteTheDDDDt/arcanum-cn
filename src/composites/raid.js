@@ -113,10 +113,14 @@ export default class Raid {
 			Events.emit( EVT_COMBAT, 'Lucky Recovery', this.player.name + ' has a close call.' );
 		}
 
+		this.emitDefeat();
+
+	}
+
+	emitDefeat(){
 		Events.emit( DEFEATED, null );
 		Events.emit( ACT_BLOCKED, this,
 			this.locale && this.player.level>this.locale.level && this.player.retreat>0 );
-
 	}
 
 	update(dt) {
@@ -127,6 +131,10 @@ export default class Raid {
 
 			this.advance();
 			if ( !this.done ) this.nextEnc();
+
+		} else if ( this.player.defeated() ) {
+
+			this.emitDefeat();
 
 		} else this._combat.update(dt);
 

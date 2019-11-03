@@ -56,19 +56,6 @@ div.pop-title {
 
 }
 
-.item-popup {
-	height:auto;
-	min-height:100px;
-	min-width:200px;
-	max-width:280px;
-	position: absolute;
-	z-index: var(--md-high);
-	top:0;
-	opacity: 0.9;
-	background:inherit;
-	border: 1.5px solid rgb( 100, 100,100);
-	border-radius: 0.20rem;
-}
 .popup-content {
 	padding: 10px;
 }
