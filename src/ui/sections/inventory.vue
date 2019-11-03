@@ -107,10 +107,12 @@ div.inventory {
 	flex-direction: column;
 	width:100%;
 	height:100%;
+	min-height: 0;
 }
 
 div.inventory .top {
-	padding: var(--sm-gap);
+	min-height:0;
+	padding: 0 var(--sm-gap);
 }
 
 div.inventory .filter-box {
@@ -125,30 +127,26 @@ div.inventory .table-div {
 }
 div.inventory .item-table {
 	flex-grow: 1;
+	flex-shrink: 1;
 		overflow-y: auto;
+		min-height: 0;
 		margin: 0;
+		padding:0;
 		display: grid; grid-template-columns: repeat( auto-fit, minmax( 256px, 1fr ));
 		 grid-auto-rows: min-content;
 
     }
+
+    .adventure .inv.item-table tr td:first-child { flex: 1; }
+    .adventure .inv.item-table tr td button { margin: var(--tiny-gap); padding: var(--sm-gap) 0.5em;  }
+    .adventure .inv.item-table:empty { display: none; }
+
 div.inventory .item-table tr {
         padding: var(--sm-gap); align-items: center;
     }
 div.inventory .item-table tr :first-child { flex: 1; }
 div.inventory .item-table tr button { margin: var(--tiny-gap); }
 div.inventory .item-table td { display: flex; padding: 0; }
-
-
-
-.flex-row {
-	align-items:center;
-	justify-content: flex-start;
-	padding-left: var(--sm-gap);
-	padding-top: var(--tiny-gap);
-}
-.flex-row div {
-	margin-right: 12px;
-}
 
 
 </style>

@@ -206,7 +206,9 @@ div.adventure {
 }
 
 div.adventure .content {
-	height:100%;
+	flex-basis: 70%;
+	flex-grow: 1;
+	overflow: hidden;
 }
 
 div.top {
@@ -271,16 +273,15 @@ div.raid-bottom {
 	display:flex;
 	flex-flow: row nowrap;
 	justify-content: space-between;
-	flex-grow: 1;
 	flex-shrink: 1;
 	padding: 0;
+	min-height: 0;
 	width:100%;
-	flex-basis: 30%;
 	overflow-y:auto;
 }
 
-		.menu-content div.adventure .log span { padding: var(--sm-gap); }
-		.menu-content div.adventure .log .outlog { overflow-y: auto; overflow-x: hidden; }
+.menu-content div.adventure .log span { padding: var(--sm-gap); }
+.menu-content div.adventure .log .outlog { overflow-y: auto; overflow-x: hidden; }
 
 .raid-bottom .log {
 	flex: 1; font-size: var(--compact-small-font); border-left: 1px solid var(--separator-color);
@@ -308,16 +309,6 @@ div.dungeon {
 .bar {
 	align-self: stretch;
 }
-
-    /* Combat */
-
-    .adventure .inv.item-table { overflow-y: auto; min-height: 0; display: flex; flex-direction: column; margin: 0; padding: var(--sm-gap); }
-    .adventure .inv.item-table tr { display:flex; padding: 0.1em; }
-    .adventure .inv.item-table tr td { padding: 0; }
-    .adventure .inv.item-table tr td:first-child { flex: 1; }
-    .adventure .inv.item-table tr td button { margin: var(--tiny-gap); padding: var(--sm-gap) 0.5em;  }
-    .adventure .inv.item-table:empty { display: none; }
-
 
 
 </style>
