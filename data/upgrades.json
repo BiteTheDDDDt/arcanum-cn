@@ -1996,7 +1996,7 @@
 	{
 		"id":"up_runecrafter",
 		"actname":"Hire Runecrafter",
-		"name":"Runecrafter",
+		"name":"runecrafter",
 		"desc":"Hire a dwarf to craft runestones for you.",
 		"require":"g.evil<=0&&g.runelore>=5&&g.tier3>0",
 		"max":5,

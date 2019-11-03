@@ -39,6 +39,7 @@ export default {
 			 */
 			hideMaxed:opts.hideMaxed||false,
 			hideOwned:opts.hideOwned||false,
+			hideNone:opts.hideNone||false,
 			hideBlocked:opts.hideBlocked||false,
 			hideUnowned:opts.hideUnowned||false,
 
@@ -97,6 +98,10 @@ export default {
 			get(){return this.hideOwned;},
 			set(v){ this.hideOwned = Settings.setSubVar( HOME, 'hideOwned', v ); }
 		},
+		chkHideNone:{
+			get(){return this.hideNone;},
+			set(v){ this.hideNone = Settings.setSubVar( HOME, 'hideNone', v ); }
+		},
 		chkHideBlocked:{
 			get(){return this.hideBlocked;},
 			set(v){ this.hideBlocked = Settings.setSubVar( HOME, 'hideBlocked', v ); }
@@ -122,11 +127,12 @@ export default {
 		viewable() {
 
 			let o = this.hideOwned;
+			let n = this.hideNone;
 			let b = this.hideBlocked;
 			let m = this.hideMaxed;
 
 			return this.furniture.filter( it=>!this.reslocked(it) &&
-				(!o||it.value==0) &&(!b||this.usable(it))&&(!m||!it.maxed())
+				(!o||it.value==0) &&(!b||this.usable(it))&&(!m||!it.maxed())&&(!n||it.value>0)
 			);
 
 		}
@@ -142,10 +148,11 @@ export default {
 
 		<div class="top separate">
 
-			<span>
+		<span>
 		<span>Hide:</span>
 		<span class="opt"><input :id="elmId('hideMax')" type="checkbox" v-model="chkHideMax"><label :for="elmId('hideMax')">Maxed</label></span>
 		<span class="opt"><input :id="elmId('hideOwn')" type="checkbox" v-model="chkHideOwned"><label :for="elmId('hideOwn')">Owned</label></span>
+		<span class="opt"><input :id="elmId('hideNone')" type="checkbox" v-model="chkHideNone"><label :for="elmId('hideNone')">Unowned</label></span>
 		<span class="opt"><input :id="elmId('hideBlock')" type="checkbox" v-model="chkHideBlocked"><label :for="elmId('hideBlock')">Blocked</label></span>
 		</span>
 
@@ -212,10 +219,10 @@ span.sm {
 }
 div.home-view {
 	display: flex;
+	height:100%;
 	flex-flow: column nowrap;
 	padding-left:16px;
 	padding-right:15px;
-	height:100%;
 }
 
 div.home-view div.top {
@@ -230,11 +237,11 @@ div.home-view div.top > input {
 }
 
 div.home-view .content {
-	overflow-y:auto;
 	display: flex;
+	overflow-y: hidden;
+	height:100%;
 	flex-direction: row;
 	width: 100%;
-	height:100%;
 	padding-top: var(--tiny-gap);
 }
 
@@ -259,11 +266,13 @@ div.nospace {
 
 div.furniture {
 	width: 100%;
+	overflow-y: auto;
+	height:100%;
 	margin-bottom: 4px;
 }
 
 div.home-view .furniture .item-table {
-     text-transform: capitalize; overflow-y: scroll;
+	 text-transform: capitalize;
 	 flex-grow: 1;
      flex: 1; min-height: 0; width: 100%; max-width: 420px;
      display: flex; flex-direction: column;
