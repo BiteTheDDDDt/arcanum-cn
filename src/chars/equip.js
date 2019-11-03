@@ -1,5 +1,4 @@
 import Slot from './slot';
-import Wearable from './wearable';
 import SlotGroup from './slotgroup';
 
 export default class Equip extends SlotGroup {
@@ -99,20 +98,24 @@ export default class Equip extends SlotGroup {
 	}
 
 	/**
+	 * @returns {Wearable|null} equipped weapon, or null.
+	 */
+	getWeapon() {
+		return ( this.slots.right.empty() ===false) ? this.slots.right.item :this.slots.left.item;
+	}
+
+	/**
 	 *
 	 * @param {*} it
 	 * @returns {Item|Item[]|true}
 	 */
 	equipWeap( it ) {
 
-		console.log('equipping weapon...');
-
 		let right = this.slots.right;
 		let left = this.slots.left;
 
 		if ( it.hands === 2 ) {
 
-			console.log( 'Setting two handed weapon.');
 			let rightItem = right.equip( it );
 			let leftItem = left.remove();
 
@@ -123,21 +126,21 @@ export default class Equip extends SlotGroup {
 
 			if ( right.empty() ) {
 
-				console.log('setting right hand.');
+				console.log('setting right.');
 
 				right.equip( it );
 				return ( left.hands() > 1 ) ? left.remove() : true;
 
 			} else if ( left.empty() ) {
 
-				console.log('setting left hand.');
+				console.log('setting left.');
 
 				left.equip( it );
 				return ( right.hands() > 1 ) ? right.remove() : true;
 
 			} else {
 
-				console.log('neither empty. passing off hands.');
+				console.log('NEITHER EMPTY. switch hands.');
 
 				let res = right.equip( left.equip(it) );
 				return res;

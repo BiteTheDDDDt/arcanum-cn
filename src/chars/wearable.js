@@ -1,4 +1,4 @@
-import Base, { setModCounts} from '../items/base';
+import { setModCounts} from '../items/base';
 import Range from "../values/range";
 import Attack from './attack';
 
@@ -212,6 +212,8 @@ export default class Wearable extends Item {
 	unequip( g ) {
 
 		let p = g.state.player;
+
+		console.log('UNEQUIP: ' + g.id );
 
 		if ( this.armor ) p.defense.add( -this.armor );
 		if ( p.weapon === this ) p.weapon = null;

@@ -128,7 +128,7 @@ export default class Player extends Char {
 
 		if ( v ){
 			this._weapon = v;
-			if ( !(v instanceof Wearable) ) console.log('NON WEAPON SOURCE');
+			if ( !(v instanceof Wearable) ) console.log('NON WEAPON: ' + v);
 		} else {
 			this._weapon = Fists;
 		}

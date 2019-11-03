@@ -1170,20 +1170,28 @@ export default {
 
 		(inv || this.state.inventory).remove(it);
 
-		if ( typeof res === 'object') {
-
-			if ( Array.isArray(res) ) res.forEach(v=>{
-
-				if ( typeof v !== 'boolean' ) v.unequip( this );
-
-			});
-			else { res.unequip( this ); }
-			this.state.inventory.add(res);
-
-		}
+		this.onUnequip(res);
 
 		it.equip( this );
 
+	},
+
+	/**
+	 * Item was unequipped.
+	 * @param {*} it
+	 */
+	onUnequip( it ) {
+
+		if ( !it || typeof it ==='boolean') return;
+		this.state.inventory.add( it );
+
+		if ( Array.isArray(it) ) {
+
+			it.forEach(v=>this.onUnequip(v));
+
+		} else {
+			it.unequip(this);
+		}
 
 	},
 
@@ -1191,19 +1199,11 @@ export default {
 
 		if ( this.state.inventory.full() ) return false;
 
-		let res = this.state.equip.remove( it, slot );
-		if ( res ) {
+		let weap = this.state.player.weapon;
+		this.onUnequip( this.state.equip.remove( it, slot ) );
 
-			this.state.inventory.add(res);
-
-			if (  Array.isArray(res) ) res.forEach(v=>{
-				v.unequip(this);
-			});
-			else {
-				res.unequip(this);
-			}
-
-		} else console.log('no result');
+		// old weap must first be removed from equip.
+		if ( it === weap ) this.player.weapon = this.state.equip.getWeapon();
 
 	},
 
