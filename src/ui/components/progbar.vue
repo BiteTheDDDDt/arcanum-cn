@@ -18,7 +18,7 @@ export default {
 
 <template>
 
-<div style="container">
+<div class="container">
 	<label v-if="label" :for="elmId('bar')">{{label}}</label>
 	<div class="bar" :id="elmId('bar')">
 		<div class="fill" :style="'width:'+ width">
@@ -43,6 +43,9 @@ div.bar .bar-text {
 
 div.container {
 	display:inline-block;
+	margin-bottom: var(--md-gap);
+	height:100%;
+	width: 100%;
 }
 div.bar {
 
@@ -53,6 +56,7 @@ div.bar {
 	margin:4px 4px 0px 2px;
 	padding:2px;
 	min-height:18px;
+	height:100%;
 	width:-webkit-fill-available;
 	width:-moz-available;
 	border-radius: 10px;
@@ -60,7 +64,7 @@ div.bar {
 div.bar > div {
 	background:orange;
 	border-radius: 8px;
-	max-height: 100%;
+	height:100%;
 	min-width:0px;
 	width:0px;
 }

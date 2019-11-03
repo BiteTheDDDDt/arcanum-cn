@@ -451,8 +451,8 @@ div.inv-equip {
 }
 
 div.inv-equip > div:nth-child(2) {
-        border-top: 1px solid var(--separator-color);
-	}
+    border-top: 1px solid var(--separator-color);
+}
 
 div.bot-bar {
 	background: inherit;

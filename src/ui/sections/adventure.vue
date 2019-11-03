@@ -150,7 +150,7 @@ export default {
 			</div>
 			<div class="locales">
 
-				<div class="dungeon" v-for="d in filtered" :key="d.id">
+				<div class="locale" v-for="d in filtered" :key="d.id">
 
 					<span class="separate">
 						<!-- EVENT MUST BE ON OUTER SPAN - CHROME -->
@@ -162,7 +162,7 @@ export default {
 					<span class="sym">{{ d.sym }}</span>
 					</span>
 
-					<span class="bar"><progbar :value="d.exp.valueOf()" :max="d.length" /></span>
+					<progbar :value="d.exp.valueOf()" :max="d.length" />
 
 				</div>
 
@@ -226,33 +226,25 @@ div.top .hides > span {
 }
 
 div.locales {
-	display:flex;
-	align-items:flex-start;
+
+	display: grid;
+	grid-template-columns: repeat( auto-fit, 256px ); grid-gap: 0; grid-auto-rows: min-content;
 	flex-grow:1;
-	flex-flow: row wrap;
 	justify-content: space-between;
 	overflow-y: auto;
 	min-height: 50%;
+	height:100%;
 
-	max-height:100%;
-	padding-bottom: var(--lg-gap);
-		padding: var(--sm-gap);
-	border-bottom: 1px solid var(--separator-color);
+	padding: var(--tiny-gap) var(--md-gap);
 
 }
 
+body.compact div.adventure > div.locales { grid-template-columns: minmax( 200px, 1fr) repeat( auto-fit, minmax( 200px, 1fr) ); }
+body.compact div.adventure > div.locales .locale { background: var(--list-entry-background); }
+body.compact div.adventure > div.locales .locale .bar { border: none;}
 
 		div.filter-box{ margin: 0; padding: var(--sm-gap); display: flex; align-items: center; }
 
-
-
-		div.adventure > div.locales {
-			/*display: flex; flex-flow: row wrap; justify-content: space-around;*/
-			display: grid;
-			grid-template-columns: repeat( auto-fit, 256px ); grid-gap: var(--sm-gap); grid-auto-rows: min-content;
-			padding: var(--md-gap);
-			border-top: 1px solid var(--separator-color);
-		}
 		div.adventure > div.locales .locale {
 			padding: var(--md-gap);
 			border-radius: var(--list-entry-border-radius);
@@ -262,20 +254,16 @@ div.locales {
 			display: flex; flex-flow: row; justify-content: space-between; flex: 1;
 		}
 
-		body.compact div.adventure > div.locales { grid-template-columns: minmax( 200px, 1fr) repeat( auto-fit, minmax( 200px, 1fr) ); }
-		body.compact div.adventure > div.locales .locale { background: var(--list-entry-background); }
-		body.compact div.adventure > div.locales .locale .bar { border: none;}
-
-
 
 
 div.raid-bottom {
 	display:flex;
 	flex-flow: row nowrap;
 	justify-content: space-between;
+	border-top: 1px solid var(--separator-color);
 	flex-shrink: 1;
-	padding: 0;
 	min-height: 0;
+	max-height: 35%;
 	width:100%;
 	overflow-y:auto;
 }
@@ -299,16 +287,5 @@ div.raid-bottom {
 	flex-direction:column;
 
 }
-
-div.dungeon {
-	display:flex;
-	flex-basis: 40%;
-	flex-flow: column nowrap;
-}
-
-.bar {
-	align-self: stretch;
-}
-
 
 </style>
