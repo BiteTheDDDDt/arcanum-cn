@@ -255,20 +255,12 @@ export default {
 	 */
 	applyVars( mods, amt=1 ) {
 
-		if ( typeof mods === 'number') {
+		if ( typeof mods === 'number' || mods instanceof Stat ) {
 
 			//this.amount( Game, mods*amt );
 			this.value = this.value.base + mods*amt;
 
 		} else if ( typeof mods === 'object' ) {
-
-			if ( mods instanceof Stat ) {
-
-				//if ( Math.random()<0.1&& this.id ==='stamina') console.log('ADD STAM: ' + (mods*amt));
-				this.value = this.value.base + mods.value*amt;
-				return;
-
-			}
 
 			if ( mods.mod ) this.changeMod( mods.mod, amt );
 

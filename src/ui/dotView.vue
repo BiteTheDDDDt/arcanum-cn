@@ -35,6 +35,7 @@ export default {
 <style scoped>
 
 	div.dot-view {
+		max-width: 100%;
 		position:relative;
 		display: flex;
 		flex-direction: row;
@@ -49,6 +50,8 @@ export default {
 	}
 
 	div.dot {
+		overflow-x:visible;
+		overflow-y: visible;
 		max-height:40px;
 		text-align: center;
 		padding:4px;

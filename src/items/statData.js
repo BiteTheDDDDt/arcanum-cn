@@ -25,7 +25,7 @@ export default class StatData extends GData {
 		/**
 		 * @compat. statData is a pure stat with no max value.
 		 */
-		this.max = undefined;
+		this._max = undefined;
 
 		/**
 		 * @property {boolean} unit - true if current value is reported in integer amounts.
