@@ -128,7 +128,7 @@ export default {
 		<!-- also contains combat -->
 		<explore v-if="exploring" :explore="explore" />
 
-		<div v-else>
+		<div class="content" v-else>
 			<div class="top">
 
 				<span class="hides">
@@ -202,6 +202,10 @@ div.adventure {
 	height:100%;
 }
 
+div.adventure .content {
+	height:100%;
+}
+
 div.top {
 	padding-left: var(--md-gap);
 	justify-content: center;
@@ -224,6 +228,8 @@ div.locales {
 	justify-content: space-between;
 	overflow-y: auto;
 	min-height: 50%;
+	height:100%;
+		padding: var(--sm-gap);
 	border-bottom: 1px solid var(--separator-color);
 
 }
