@@ -106,11 +106,9 @@ export default {
 	display:flex;
 	flex-flow: column;
 	overflow-y: hidden;
-	margin: 5px;
 	padding: var( --md-gap);
 	flex-basis:50%;
 	flex-grow: 2;
-	border-top: 1px solid var(--separator-color); border-bottom: 1px solid var(--separator-color);
 }
 
 div.explore div.stressors {

@@ -169,7 +169,7 @@ export default {
 			</div>
 		</div>
 
-	<div class="raid-bottom">
+	<div class="raid-bottom" v-if="exploring||drops.count>0">
 
 		<inv class="inv" :inv="drops" take=true />
 		<div class="log">
