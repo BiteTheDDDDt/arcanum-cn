@@ -10,17 +10,18 @@ export default {
 	props:['value', 'items', 'prop', 'minItems'],
 	data() {
 		return {
-			text:'',
+			text:this.value||'',
 			pprop:this.prop||'name'
 		}
 	},
 	watch:{
-		items(newVal,oldVal){
-			this.findText = this.findText;
-		}
+		items(newVal,oldVal){ this.findText = this.findText; }
 	},
 	created(){
 		this.findText = this.text;
+	},
+	methods:{
+		clear(){ this.text = ''; }
 	},
 	computed:{
 
@@ -58,7 +59,7 @@ export default {
 
 
 <template>
-	<div class="filter-box" v-if="!this.minItems||(this.items.length>=this.minItems)">
+	<div class="filter-box" v-if="!this.minItems||text||(this.items.length>=this.minItems)">
 		<label :for="elmId('filter')">Find</label>
 		<input :id="elmId('filter')" v-model="findText" type="text">
 	</div>

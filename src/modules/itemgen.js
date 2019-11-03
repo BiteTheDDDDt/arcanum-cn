@@ -1,14 +1,14 @@
-import Game from './game';
-import Wearable from "./chars/wearable";
+import Game from '../game';
+import Wearable from "../chars/wearable";
 import { includesAny} from 'objecty';
-import Percent from './values/percent';
-import Item from './items/item';
-import Encounter from './items/encounter';
-import Npc from './chars/npc';
-import GenGroup from './genGroup';
-import { pushNonNull, logObj } from './util/util';
-import GData from './items/gdata';
-import { ENCOUNTER, WEARABLE, MONSTER, ARMOR, WEAPON } from './values/consts';
+import Percent from '../values/percent';
+import Item from '../items/item';
+import Encounter from '../items/encounter';
+import Npc from '../chars/npc';
+import GenGroup from '../genGroup';
+import { pushNonNull, logObj } from '../util/util';
+import GData from '../items/gdata';
+import { ENCOUNTER, WEARABLE, MONSTER, ARMOR, WEAPON } from '../values/consts';
 
 /**
  * Revive a prototyped item based on an item template.
@@ -263,8 +263,10 @@ export default class ItemGen {
 	 */
 	randLoot( info, amt ) {
 
-		if ( info.level ) return this.fromLevel( info.level, info.type, info.material );
-		else if ( info.max ) return this.randBelow( info.max, info.type, info.material );
+		if ( (100+this.luck/2)*Math.random() < 50 ) return null;
+
+		if ( info.level ) return this.fromLevel( info.level/2, info.type, info.material );
+		else if ( info.max ) return this.randBelow( info.max/2, info.type, info.material );
 
 		let items = [];
 		for( let p in info ) {

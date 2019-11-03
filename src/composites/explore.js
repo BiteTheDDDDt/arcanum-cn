@@ -4,7 +4,7 @@ import { getDelay } from "../chars/char";
 
 import Game from '../game';
 import Encounter from "../items/encounter";
-import { itemRevive } from "../itemgen";
+import { itemRevive } from "../modules/itemgen";
 
 /**
  * Explore locations of arcane importance.

@@ -2,7 +2,7 @@ import Stat from "../values/stat";
 import Base, {mergeClass} from '../items/base';
 import Item from "../items/item";
 
-import { itemRevive } from "../itemgen";
+import { itemRevive } from "../modules/itemgen";
 
 export default class Inventory {
 

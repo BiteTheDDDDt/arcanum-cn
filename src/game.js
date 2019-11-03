@@ -4,7 +4,7 @@ import GData from './items/gdata';
 import Log from './log.js';
 import GameState, { REST_SLOT } from './gameState';
 import Range from './values/range';
-import ItemGen from './itemgen';
+import ItemGen from './modules/itemgen';
 import TechTree from './techTree';
 
 import Events, {EVT_UNLOCK, EVT_EVENT, EVT_LOOT, ENTER_LOC, EXIT_LOC, SET_SLOT, TRY_USE, DELETE_ITEM } from './events';
@@ -667,7 +667,7 @@ export default {
 
 			it.value -= count;
 
-			console.log('remainig: ' + it.value );
+			//console.log('remainig: ' + it.value );
 			if ( inv && (!it.stack || it.value <= 0) ) inv.remove( it );
 
 		} else this.remove(it,count);

@@ -23,10 +23,11 @@ export default {
 
 		sellAll(){
 
-			let items = this.inv.removeAll();
+			let items = this.filtered;// this.inv.removeAll();
 			for( let i = items.length-1; i>=0; i-- ){
-				this.emit( 'sell', items[i], null, items[i].value);
+				this.emit( 'sell', items[i], this.inv, items[i].value);
 			}
+			//this.$refs.filter.clear();
 
 		},
 
@@ -65,7 +66,7 @@ export default {
 <div class="inventory">
 
 	<span class="top">
-	<filterbox v-if="!nosearch" v-model="filtered" :items="inv.items" min-items="7" />
+	<filterbox ref="filter" v-if="!nosearch" v-model="filtered" :items="inv.items" min-items="7" />
 	<span>
 		<span v-if="inv.max > 0">{{ inv.items.length + ' / ' + Math.floor(inv.max.value ) + ' Used' }}</span>
 		<button v-if="inv.count>0" @click="sellAll">Sell All</button>

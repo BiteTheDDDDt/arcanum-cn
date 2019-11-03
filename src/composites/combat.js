@@ -8,7 +8,7 @@ import Events, {
 	DAMAGE_MISS, CHAR_DIED, ACT_BLOCKED, IS_IMMUNE, COMBAT_HIT
 } from '../events';
 
-import { itemRevive } from '../itemgen';
+import { itemRevive } from '../modules/itemgen';
 import { getDelay } from '../chars/char';
 
 /**
