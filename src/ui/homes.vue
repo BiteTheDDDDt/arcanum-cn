@@ -225,17 +225,6 @@ div.home-view {
 	padding-right:15px;
 }
 
-div.home-view div.top {
-	font-size: 0.8em;
-	border-bottom: 1px solid var(--separator-color );
-	padding: 0 var(--tiny-gap);
-}
-
-div.home-view div.top > input {
-	max-width: 120px;
-	width:8em;
-}
-
 div.home-view .content {
 	display: flex;
 	overflow-y: hidden;

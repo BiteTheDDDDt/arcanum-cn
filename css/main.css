@@ -390,9 +390,21 @@ table.item-table tr, table.item-table th {
 	justify-content: center;
 }
 
-button.btn-sm {
-	padding:3px 8px;
+div.top {
+	font-size: 0.8em;
+	border-bottom: 1px solid var(--separator-color );
+	padding: 0 var(--tiny-gap);
+	display:flex;
+	flex-direction: row;
+	align-items: center;
 }
+
+div.top > input {
+	max-width: 120px;
+	width:8em;
+}
+
+button.btn-sm { padding:3px 8px; }
 
 div.bgfill {
 	position: absolute;
