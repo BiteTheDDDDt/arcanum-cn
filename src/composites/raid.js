@@ -43,7 +43,7 @@ export default class Raid {
 	percent() { return this.locale ? this.locale.percent() : 0; }
 	maxed() { return !this.locale || this.locale.maxed(); }
 
-	canRun() { return this.locale != null; }
+	canRun(g) { return this.locale != null && this.locale.canRun(g) }
 	canUse() { return this.locale && !this.locale.maxed(); }
 
 	/**
@@ -131,10 +131,6 @@ export default class Raid {
 
 			this.advance();
 			if ( !this.done ) this.nextEnc();
-
-		} else if ( this.player.defeated() ) {
-
-			this.emitDefeat();
 
 		} else this._combat.update(dt);
 

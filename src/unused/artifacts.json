@@ -12,3 +12,22 @@
 
 	}}, "cost":20, "level":3
 }
+
+
+{
+	"id":"tenwickstick",
+	"name":"tenwick's walking stick",
+	"level":5,
+	"unique":true,
+	"recipe":true,
+	"mod":{
+		"unease.rate":"-5%",
+		"weary.rate":"-10%",
+		"dist":"5%"
+	},
+	"attack":{
+		"dmg":"5~10",
+		"type":"blunt"
+	}
+
+}

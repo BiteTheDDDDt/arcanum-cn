@@ -200,7 +200,7 @@ export default {
 
 			var it = items[p];
 
-			if ( !it.locked && !it.disabled ) {
+			if ( !it.locked && !it.disabled && !(it.instance||it.isRecipe) ) {
 
 				if ( it.value > 0 ) {
 
@@ -448,7 +448,7 @@ export default {
 		if ( this.canPay(it.buy) === false ) return false;
 		this.payCost( it.buy );
 
-		if ( it.isRecipe ) this.create( it, keep );
+		if ( it.isRecipe ) this.create( it, 1, keep );
 		it.owned = true;
 
 		if ( it.slot && !this.state.getSlot(it.slot) ) this.setSlot(it);
@@ -550,7 +550,7 @@ export default {
 	 * Create an item whose cost has been met ( or been provided by an effect )
 	 * @param {*} it
 	 */
-	create( it, keep=false ) {
+	create( it, count=1, keep=false ) {
 
 		/**
 		 * create monster and add to inventory.

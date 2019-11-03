@@ -27,18 +27,16 @@ export default {
 .combat {
 	display:flex;
 	justify-content: space-between;
-	width:98%;
+	overflow-y: auto;
+    flex-flow: row;
 }
 
-.group {
 
-	width:45%;
-	max-width:45%;
+.combat	.group {
+
+	margin: 0; padding: var(--sm-gap);
+	width:48%;
 	min-height:120px;
-	border: 2px solid black;
-	border-radius: 8px;
-	padding: 12px;
-	margin: 10px;
 
 }
 

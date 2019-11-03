@@ -298,7 +298,7 @@ export default class GData {
 		if ( count === 0 ) return;
 
 		if ( this.isRecipe ) {
-			return g.create( this );
+			return g.create( this, count );
 		}
 
 		if ( this.exec ) this.exec();

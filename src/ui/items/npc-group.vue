@@ -37,8 +37,11 @@ export default {
 	justify-content: space-between;
 }
 
+.npc-group > div { margin: var(--sm-gap); }
+
 .title {
 	font-weight: bold;
+	border-bottom: 1px solid var(--separator-color);
 }
 
 </style>

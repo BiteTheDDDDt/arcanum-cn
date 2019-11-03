@@ -77,7 +77,7 @@ export default {
 		<span class="bar"><progbar :value="explore.exp" :max="explore.length" /></span>
 
 		<template v-if="type==='raid'">
-			<combat class="combat" :combat="explore.combat" :player="player" />
+			<combat :combat="explore.combat" :player="player" />
 		</template>
 		<template v-else>
 
@@ -103,7 +103,14 @@ export default {
 <style scoped>
 
 .explore {
+	display:flex;
+	flex-flow: column;
+	overflow-y: hidden;
 	margin: 5px;
+	padding: var( --md-gap);
+	flex-basis:50%;
+	flex-grow: 2;
+	border-top: 1px solid var(--separator-color); border-bottom: 1px solid var(--separator-color);
 }
 
 div.explore div.stressors {
@@ -123,11 +130,6 @@ div.explore .active-title {
 
 div.explore .active-title > span {
 	margin-right:16px;
-}
-
-
-.combat {
-	overflow-y: auto;
 }
 
 </style>

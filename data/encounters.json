@@ -589,7 +589,7 @@
 		"effect":{
 			"madness":0.5,
 			"weary":"4~7",
-			"rag":"2~7"
+			"rage":"2~7"
 		},
 		"result":{
 			"dist":0.01

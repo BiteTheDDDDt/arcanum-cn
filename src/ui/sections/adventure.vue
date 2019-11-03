@@ -198,8 +198,11 @@ div.adventure {
 	display:flex;
 	padding:0px 15px;
 	align-self: flex-start;
-	flex-flow: column nowrap;
-	height:100%;
+	flex-flow: column;
+	padding: 0; margin: 0;
+	height: 100%;
+	overflow-y:hidden;
+
 }
 
 div.adventure .content {
@@ -236,23 +239,60 @@ div.locales {
 
 }
 
+
+		div.filter-box{ margin: 0; padding: var(--sm-gap); display: flex; align-items: center; }
+
+
+
+		div.adventure > div.locales {
+			/*display: flex; flex-flow: row wrap; justify-content: space-around;*/
+			display: grid;
+			grid-template-columns: repeat( auto-fit, 256px ); grid-gap: var(--sm-gap); grid-auto-rows: min-content;
+			padding: var(--md-gap);
+			border-top: 1px solid var(--separator-color);
+		}
+		div.adventure > div.locales .locale {
+			padding: var(--md-gap);
+			border-radius: var(--list-entry-border-radius);
+			display: flex; flex-flow: column; height: 100%;
+		}
+		div.adventure > div.locales .locale > span:nth-child(1) {
+			display: flex; flex-flow: row; justify-content: space-between; flex: 1;
+		}
+
+		body.compact div.adventure > div.locales { grid-template-columns: minmax( 200px, 1fr) repeat( auto-fit, minmax( 200px, 1fr) ); }
+		body.compact div.adventure > div.locales .locale { background: var(--list-entry-background); }
+		body.compact div.adventure > div.locales .locale .bar { border: none;}
+
+
+
+
 div.raid-bottom {
 	display:flex;
 	flex-flow: row nowrap;
 	justify-content: space-between;
-	padding-top:8px;
+	flex-grow: 1;
+	flex-shrink: 1;
+	padding: 0;
 	width:100%;
+	flex-basis: 30%;
 	overflow-y:auto;
 }
 
-.adventure .log {
-	flex-basis:48%;
+		.menu-content div.adventure .log span { padding: var(--sm-gap); }
+		.menu-content div.adventure .log .outlog { overflow-y: auto; overflow-x: hidden; }
+
+.raid-bottom .log {
+	flex: 1; font-size: var(--compact-small-font); border-left: 1px solid var(--separator-color);
+	display:  flex; flex-direction: column;
+	flex-basis:50%;
 	flex-grow:1;
-	margin: 0px 0px 10px 20px;
+	margin: 0;
 }
 
 .active-dungeon {
 	display:flex;
+	padding: var(--sm-gap);
 	flex-basis:40%;
 	min-width:222px;
 	flex-direction:column;
@@ -268,4 +308,16 @@ div.dungeon {
 .bar {
 	align-self: stretch;
 }
+
+    /* Combat */
+
+    .adventure .inv.item-table { overflow-y: auto; min-height: 0; display: flex; flex-direction: column; margin: 0; padding: var(--sm-gap); }
+    .adventure .inv.item-table tr { display:flex; padding: 0.1em; }
+    .adventure .inv.item-table tr td { padding: 0; }
+    .adventure .inv.item-table tr td:first-child { flex: 1; }
+    .adventure .inv.item-table tr td button { margin: var(--tiny-gap); padding: var(--sm-gap) 0.5em;  }
+    .adventure .inv.item-table:empty { display: none; }
+
+
+
 </style>

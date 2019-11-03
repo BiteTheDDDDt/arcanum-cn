@@ -32,14 +32,17 @@ export default class Stat {
 	 * @property {number} value
 	 */
 	get value() {
-		return this._pos ? Math.max( (this._base + this._mBase)*( 1 + this._basePct + this._mPct ),0) :
-		(this._base + this._mBase)*( 1 + this._basePct + this._mPct );
+		if ( this._pos ===true) return Math.max( (this._base + this._mBase)*( 1 + this._basePct + this._mPct ),0);
+		else return (this._base + this._mBase)*( 1 + this._basePct + this._mPct );
 	}
 	/** @todo */
 	set value(v){}
 
-	valueOf() {return this._pos ? Math.max( (this._base + this._mBase)*( 1 + this._basePct + this._mPct ),0) :
-		(this._base + this._mBase)*( 1 + this._basePct + this._mPct );}
+	valueOf() {
+
+		if ( this._pos === true ) return Math.max( (this._base + this._mBase)*( 1 + this._basePct + this._mPct ),0);
+		else return (this._base + this._mBase)*( 1 + this._basePct + this._mPct );
+	}
 
 	get base() { return this._base; }
 	set base(v) { this._base = v; }

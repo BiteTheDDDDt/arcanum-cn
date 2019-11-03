@@ -86,7 +86,6 @@ div.quickbar {
 }
 
 div.quickslot {
-	z-index: 100;
 	min-width: 52px;
 	min-height:52px;
 	cursor: pointer;

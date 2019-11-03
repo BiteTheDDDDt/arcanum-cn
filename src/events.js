@@ -33,9 +33,6 @@ export const LogTypes = {
 	'combat':LOG_COMBAT
 };
 
-const COMBAT_DONE = 'combat_done';
-const ENEMY_SLAIN = 'slain';
-
 /**
  * BASIC ITEM EVENTS
  */
@@ -53,6 +50,10 @@ export const SET_SLOT = 'set_slot';
 const CHAR_DIED = 'char_died';
 
 const ALLY_DIED = 'ally_died';
+
+const COMBAT_DONE = 'combat_done';
+const ENEMY_SLAIN = 'slain';
+
 
 /**
  * player defeated by some stat.

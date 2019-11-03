@@ -37,6 +37,10 @@ export default class Monster extends GData {
 
 	}
 
+	amount( g, count=1 ) {
+		g.create(this, count );
+	}
+
 	/**
 	 *
 	 * @param {Game} g
