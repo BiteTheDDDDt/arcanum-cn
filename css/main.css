@@ -121,7 +121,7 @@ div.text-button {
 	border-color: rgb(100,100,100);
 	color:#D7DADC;
 }
-.darkmode input[type="button"]:hover, .darkmode button:hover, .darkmode .text-button:hover {
+.darkmode input[type="button"]:hover, .darkmode button:hover, .darkmode .hilite, .darkmode .text-button:hover {
 	background-color: rgb(95, 95, 95);
 }
 

@@ -32,9 +32,7 @@ export default {
 		},
 
 		count(it) { return it.value > 1 ? ' (' + Math.floor(it.value) + ')': ''; },
-		drop( it ){
-			this.inv.remove(it);
-		},
+		drop( it ){ this.inv.remove(it); },
 
 		/**
 		 * Test if item can be added to inventory.
