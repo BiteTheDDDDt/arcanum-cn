@@ -1,17 +1,17 @@
-import Inventory from "../inventories/inventory";
 import Events, { DEFEATED, ACT_DONE,ACT_BLOCKED, ENC_START } from "../events";
 import { getDelay } from "../chars/char";
 
 import Game from '../game';
 import Encounter from "../items/encounter";
 import { itemRevive } from "../modules/itemgen";
+import { EXPLORE } from "../values/consts";
 
 /**
  * Explore locations of arcane importance.
  */
 export default class Explore {
 
-	get id() { return 'explore';}
+	get id() { return EXPLORE;}
 
 	toJSON() {
 
@@ -80,7 +80,7 @@ export default class Explore {
 
 		this.running = this.running || false;
 
-		this.type = 'explore';
+		this.type = EXPLORE;
 		this._enc = this._enc || null;
 
 		/**
@@ -248,6 +248,6 @@ export default class Explore {
 
 	}
 
-	hasTag(t) { return t==='explore'; }
+	hasTag(t) { return t===EXPLORE; }
 
 }

@@ -1,4 +1,5 @@
 import Action from "./action";
+import { LOCALE } from "../values/consts";
 
 /**
  * Default dist per level function. Also currently used by dungeon.
@@ -35,7 +36,7 @@ export default class Locale extends Action {
 
 		if ( this.level === null || this.level === undefined ) this.level = 1;
 
-		this.type = 'locale';
+		this.type = LOCALE;
 
 		/**
 		 * @property {number} progress

@@ -7,7 +7,7 @@ import Range from './values/range';
 import ItemGen from './modules/itemgen';
 import TechTree from './techTree';
 
-import Events, {EVT_UNLOCK, EVT_EVENT, EVT_LOOT, ENTER_LOC, EXIT_LOC, SET_SLOT, TRY_USE, DELETE_ITEM } from './events';
+import Events, {EVT_UNLOCK, EVT_EVENT, EVT_LOOT, ENTER_LOC, EXIT_LOC, SET_SLOT, DELETE_ITEM } from './events';
 import Resource from './items/resource';
 import Skill from './items/skill';
 import Stat from './values/stat';
@@ -1223,6 +1223,8 @@ export default {
 	 */
 	getLoot(it, inv=null) {
 
+		if ( !it) return null;
+
 		inv = inv || this.state.inventory;
 
 		/** @todo this won't work right */
@@ -1238,6 +1240,8 @@ export default {
 
 		let res = this.itemGen.getLoot(it);
 		if ( res === null || res === undefined ) return;
+
+		if ( Array.isArray(res))res = res.filter(v=>v!==null&&v!==undefined);
 
 		Events.emit( EVT_LOOT, res );
 

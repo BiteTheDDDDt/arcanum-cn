@@ -4,6 +4,7 @@ import Game from '../game';
 import Inventory from '../inventories/inventory';
 import Combat from './combat';
 import { getDelay } from '../chars/char';
+import { RAID } from '../values/consts';
 
 
 /**
@@ -11,7 +12,7 @@ import { getDelay } from '../chars/char';
  */
 export default class Raid {
 
-	get id() { return 'raid';}
+	get id() { return RAID;}
 
 	toJSON() {
 
@@ -78,7 +79,7 @@ export default class Raid {
 
 		this.running = this.running || false;
 
-		this.type = 'raid';
+		this.type = RAID;
 
 		/**
 		 * @property {Dungeon} locale - current dungeon.
@@ -234,5 +235,5 @@ export default class Raid {
 
 	}
 
-	hasTag(t) { return t==='raid'; }
+	hasTag(t) { return t === RAID; }
 }

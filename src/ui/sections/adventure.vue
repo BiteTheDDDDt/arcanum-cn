@@ -10,6 +10,7 @@ import FilterBox from '../components/filterbox.vue';
 import Explore from '../items/explore.vue';
 
 import { ENTER_LOC, LOG_COMBAT } from '../../events';
+import { EXPLORE, DUNGEON, LOCALE } from '../../values/consts';
 
 const MAX_ITEMS = 7;
 
@@ -22,7 +23,7 @@ export default {
 	mixins:[ItemBase],
 	data(){
 
-		let ops = Settings.getSubVars('explore');
+		let ops = Settings.getSubVars(EXPLORE);
 
 		return {
 			hideDone:ops.hideDone||false,
@@ -48,21 +49,21 @@ export default {
 		chkHideDone:{
 			get(){return this.hideDone;},
 			set(v){
-				this.hideDone = Settings.setSubVar( 'explore', 'hideDone', v );
+				this.hideDone = Settings.setSubVar( EXPLORE, 'hideDone', v );
 			}
 		},
 
 		chkHideRaid:{
 			get(){return this.hideRaid;},
 			set(v){
-				this.hideRaid = Settings.setSubVar( 'explore', 'hideRaid', v );
+				this.hideRaid = Settings.setSubVar( EXPLORE, 'hideRaid', v );
 			}
 		},
 
 		chkHideLocale:{
 			get(){return this.hideLocale;},
 			set(v){
-				this.hideLocale = Settings.setSubVar( 'explore', 'hideLocale', v );
+				this.hideLocale = Settings.setSubVar( EXPLORE, 'hideLocale', v );
 			}
 		},
 
@@ -99,7 +100,7 @@ export default {
 		 */
 		allLocs(){
 			return this.state.filterItems(
-				it=>(it.type==='dungeon'||it.type==='locale')
+				it=>(it.type===DUNGEON||it.type===LOCALE)
 			).sort( alphasort );
 		},
 
@@ -110,7 +111,9 @@ export default {
 			let l = this.hideLocale;
 
 			return this.allLocs.filter(
-				it=>!this.locked(it) && (!d||it.value<=0) && (!r||it.type!=='dungeon') &&(!l||it.type!=='locale')
+				it=>!this.locked(it) && (!d||it.value<=0) &&
+				( !r||it.type!==DUNGEON ) &&
+				( !l || it.type !==LOCALE )
 			);
 
 		}

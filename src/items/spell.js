@@ -20,7 +20,7 @@ const schoolUnlock = ( s, level )=>{
 
 	} else if ( Array.isArray(s) ) {
 
-		let a = s.map( v=>'('+schoolUnlock(s,level)+')').join('&&');
+		let a = s.map( v=>'('+schoolUnlock(v,level)+')').join('&&');
 
 	}
 

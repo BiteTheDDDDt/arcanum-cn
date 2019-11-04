@@ -1,4 +1,3 @@
-import Stat from '../values/stat';
 import GData from './gdata';
 
 /**
@@ -33,8 +32,6 @@ export default class StatData extends GData {
 		if ( this.unit === null || this.unit === undefined ) this.unit = true;
 
 		if ( this._rate === null || this.rate === undefined ) this.rate = 0;
-
-		this._type = this._type || 'resource';
 
 	}
 

@@ -1,4 +1,5 @@
 import QuickSlot from "./quickslot";
+import { RESOURCE } from "../values/consts";
 
 export const MAX_SLOTS = 10;
 
@@ -81,7 +82,7 @@ export default class Quickbar {
 
 	setSlot( it, num ) {
 
-		if ( it && it.type === 'resource') return;
+		if ( it && it.type === RESOURCE ) return;
 
 		// NOTE: using splice for Vue reactivity.
 		if ( num >= 0 && num <=9 ) {

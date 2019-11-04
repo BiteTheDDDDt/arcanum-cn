@@ -71,9 +71,6 @@ export default class GameState {
 
 		this.initSlots();
 
-		/**
-		 * @compat
-		 */
 		this.bars = new Quickbars(
 
 			baseData.bars ||

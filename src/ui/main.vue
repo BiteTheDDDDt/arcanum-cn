@@ -395,7 +395,6 @@ div.full {
 	min-width:500px;
 	max-height:100vh;
 	height:100vh;
-	margin: 0px 8px;
 }
 
 div.game-main {

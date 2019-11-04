@@ -1,4 +1,3 @@
-import Stat from '../values/stat';
 import GData from './gdata';
 import { RESOURCE } from '../values/consts';
 

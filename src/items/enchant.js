@@ -1,11 +1,7 @@
 import Action from './action';
 import GData from './gdata';
 import { setModCounts } from './base';
-import { SetModIds } from '../values/mod';
 
-const defaults = {
-	verb:'enchanting'
-};
 
 export default class Enchant extends Action {
 
@@ -24,7 +20,7 @@ export default class Enchant extends Action {
 
 		this.verb = this.verb || 'enchanting';
 
-		this.level = this.level || 0;
+		this.level = this.level || 1;
 		this.need = this.need || 'enchantsource';
 
 		if ( this.mod ) setModCounts( this.mod, 1);

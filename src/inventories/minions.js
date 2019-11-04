@@ -127,7 +127,7 @@ export default class Minions extends Inventory {
 
 			}
 
-			/** @compatibiltiy */
+			/** @compat */
 			m.team = TEAM_ALLY;
 
 		}

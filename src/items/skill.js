@@ -34,7 +34,7 @@ export default class Skill extends Action {
 
 		this._exp = this._exp || 0;
 
-		/** @compatibility */
+		/** @compat */
 		if ( this.value >= 1 ){
 
 			let len = levLength( this.level + this.value.valueOf() );

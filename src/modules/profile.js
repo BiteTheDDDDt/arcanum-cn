@@ -173,7 +173,7 @@ export default {
 			/** @compat attempt load from legacy save. */
 			if ( !str && this.hall.active === 0 ) {
 
-				console.log('NO 1st Char. USING LEGACY');
+				console.log('NO Char. USING LEGACY');
 				str = store.getItem( this.legacySave() );
 
 			}

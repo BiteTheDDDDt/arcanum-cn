@@ -236,7 +236,7 @@ export default class Wearable extends Item {
 		if ( t === 'object') {
 
 			if ( v.id ) {
-				console.log('creating mod: ' );
+				console.log('create mod: ' );
 				for( let p in v ) console.log( p + ' -> ' + v[p]);
 				return new Mod( v );
 			} else {

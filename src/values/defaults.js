@@ -1,7 +1,7 @@
 /**
  * Default unlock test for potions.
- * @param {*} g
- * @param {*} i
+ * @param {GameState} g
+ * @param {GameData} i
  */
 export const potUnlock = ( g, i) => {
 	return g.potions.level >= i.level || g.herbalism.level/2 >=i.level;
@@ -10,21 +10,25 @@ export const potUnlock = ( g, i) => {
 
 export default {
 
-	spell:{
+	"class":{
+		warn:true,
+		repeat:false
+	},
 
-		timer:0,
-		repeat:true,
+	enc:{
 		level:1,
-		owned:false
+		locked:false
+	},
+
+	enchant:{
+
+		level:1,
+		verb:'enchanting',
+		need:'enchantsource'
 
 	},
 
 	event:{
-		repeat:false
-	},
-
-	"class":{
-		warn:true,
 		repeat:false
 	},
 
@@ -42,25 +46,36 @@ export default {
 
 	},
 
-	enc:{
-		level:1,
-		locked:false
-	},
-
 	potion:{
 
+		level:1,
+		repeat:true,
+		stack:true,
 		require:potUnlock
 
 	},
 
-	enchant:{
 
-		level:0,
-		verb:'enchanting',
-		need:'enchantsource'
+	resource:{
+
+		repeat:true
+	},
+
+	skill:{
+		rate:0.5,
+		buy:{
+			sp:1
+		},
+		max:5
+	},
+
+	spell:{
+
+		timer:0,
+		repeat:true,
+		level:1,
+		owned:false
 
 	}
-
-
 
 }

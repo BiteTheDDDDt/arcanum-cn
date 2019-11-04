@@ -3,6 +3,7 @@ import Action from './action';
 import Game from '../game';
 import { getDist } from './locale';
 import { mapNonNull } from '../util/util';
+import { DUNGEON } from '../modules/runner';
 
 /**
  * @type {Object} Enemy
@@ -39,7 +40,7 @@ export default class Dungeon extends Action {
 
 		this.level = this.level !== undefined ? this.level : 1;
 
-		this.type = 'dungeon';
+		this.type = DUNGEON;
 
 		/**
 		 * @property {number} progress
