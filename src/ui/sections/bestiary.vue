@@ -21,9 +21,7 @@ export default {
 	},
 	methods:{
 
-		showHp(m) {
-			return this.totalLore >= 4*m.level;
-		},
+		showHp(m) { return this.totalLore >= 4*m.level; },
 
 		toNum(v) {
 			return ( typeof v === 'object' ?
@@ -65,8 +63,8 @@ export default {
 		<tr><th>Creature</th><th>Level</th><th>Slain</th><th class="num-align">Hp</th></tr>
 		<tr v-for="b in filtered" :key="b.id" @mouseenter.capture.stop="emit( 'itemover',$event,b)">
 			<th class="sm-name">{{ b.name }}</th>
-			<td class="num-align">{{ b.level }}</td>
-			<td class="num-align">{{ b.value }}</td>
+			<td class="num-align">{{ Math.floor( b.level ) }}</td>
+			<td class="num-align">{{ Math.floor( b.value ) }}</td>
 			<td class="num-align">{{ showHp(b) ? toNum(b.hp) : '???' }}</td>
 			<td><button @click="emit( TRY_BUY,b)" :disabled="b.unique||!buyable(b)||minions.freeSpace()==0||b.value<10">Buy</button></td>
 		</tr>
