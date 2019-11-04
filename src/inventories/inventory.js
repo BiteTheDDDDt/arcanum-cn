@@ -110,7 +110,7 @@ export default class Inventory {
 					return;
 				}
 
-			} else if ( this.find(it.id ) ) return false;
+			} else if ( it.instance && this.find(it.id ) ) return false;
 
 			this.items.push( it );
 			this.used += this.spaceProp ? ( it[ this.spaceProp ] || 0 ) : 1;
