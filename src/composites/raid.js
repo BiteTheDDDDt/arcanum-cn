@@ -1,7 +1,7 @@
 import Events, { ENEMY_SLAIN, ACT_DONE, ITEM_ATTACK, CHAR_DIED, DEFEATED, ACT_BLOCKED, EVT_COMBAT } from '../events';
 
 import Game from '../game';
-import Inventory from './inventory';
+import Inventory from '../inventories/inventory';
 import Combat from './combat';
 import { getDelay } from '../chars/char';
 

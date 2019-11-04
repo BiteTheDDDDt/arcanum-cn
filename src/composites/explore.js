@@ -1,4 +1,4 @@
-import Inventory from "./inventory";
+import Inventory from "../inventories/inventory";
 import Events, { DEFEATED, ACT_DONE,ACT_BLOCKED, ENC_START } from "../events";
 import { getDelay } from "../chars/char";
 

@@ -111,8 +111,8 @@ export default {
 					subPath = propPath;
 					subRate = true;
 
-					let baseItem = propPath.split('.')[0];
-					if ( Game.getData(baseItem).type === SKILL ) subPath = 'train ' + subPath + ' rate';
+					let baseItem = Game.getData( propPath.split('.')[0] );
+					if ( baseItem && baseItem.type === SKILL ) subPath = 'train ' + subPath + ' rate';
 
 				} else {
 

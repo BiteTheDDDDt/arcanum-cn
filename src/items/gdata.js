@@ -378,6 +378,7 @@ export default class GData {
 
 	/**
 	 * Perform cost scaling based on current value.
+	 * @todo @unused
 	 * @param {*} s
 	 */
 	scaleCost( s ) {

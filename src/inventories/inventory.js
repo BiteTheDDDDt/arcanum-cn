@@ -62,6 +62,9 @@ export default class Inventory {
 
 	revive(state){
 
+		// used ids.
+		var ids = {};
+
 		for( let i = this.items.length-1; i>= 0; i-- ) {
 
 			var it = this.items[i];
@@ -72,8 +75,11 @@ export default class Inventory {
 			} else if ( typeof it === 'string') it = state.getData(it);
 
 
-			if ( it == null ) this.items.splice( i, 1 );
-			else this.items[i] = it;
+			if ( it == null || !it.id || ids[it.id]===true ) this.items.splice( i, 1 );
+			else {
+				ids[it.id] = true;
+				this.items[i] = it;
+			}
 
 		}
 		this.calcUsed();
@@ -86,7 +92,9 @@ export default class Inventory {
 	 */
 	add(it){
 
-		if ( it === null || it === undefined || typeof it === 'boolean' || typeof it === 'string' || this.full() ) return false;
+		if ( it === null || it === undefined || typeof it === 'boolean'
+			|| typeof it === 'string' || this.full() ) return false;
+
 		if ( Array.isArray(it) ) {
 
 			for( let i = it.length-1; i>=0; i-- ) {
@@ -102,7 +110,7 @@ export default class Inventory {
 					return;
 				}
 
-			}
+			} else if ( this.find(it.id ) ) return false;
 
 			this.items.push( it );
 			this.used += this.spaceProp ? ( it[ this.spaceProp ] || 0 ) : 1;

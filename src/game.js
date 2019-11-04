@@ -1183,13 +1183,13 @@ export default {
 	onUnequip( it ) {
 
 		if ( !it || typeof it ==='boolean') return;
-		this.state.inventory.add( it );
 
 		if ( Array.isArray(it) ) {
 
-			it.forEach(v=>this.onUnequip(v));
+			for( let i = it.length-1; i>=0;i--) {this.onUnequip(it[i])}
 
 		} else {
+			this.state.inventory.add( it );
 			it.unequip(this);
 		}
 
@@ -1203,7 +1203,7 @@ export default {
 		this.onUnequip( this.state.equip.remove( it, slot ) );
 
 		// old weap must first be removed from equip.
-		if ( it === weap ) this.player.weapon = this.state.equip.getWeapon();
+		if ( it && (it === weap) ) this.player.weapon = this.state.equip.getWeapon();
 
 	},
 
