@@ -14,11 +14,32 @@ export const precise = (v, n=2) => {
 	if ( Number.isNaN(r) ) return v;
 
 	if ( r === Math.floor(r) ) return r;
+
+	let d = Math.pow(10,n);
+
+	let c = 0;
+	while ( r !== Math.floor(r) && r < d ) {
+
+		r *= 10;
+		c++;
+
+	}
+	return Math.round(r)/Math.pow(10,c);
+
+}
+
+/*export const decimal = (v, n=2) => {
+
+	let r = Number(v);
+	if ( Number.isNaN(r) ) return v;
+
+	if ( r === Math.floor(r) ) return r;
 	if ( Math.abs(r)>=1 || r === 0) return r.toPrecision(n);
 
 	if ( Math.pow(10,n)*r < 1 ) n += 2;
 	return r.toFixed(n);
-}
+
+}*/
 
 /**
  * Returns abbreviation of an item based on first letters.

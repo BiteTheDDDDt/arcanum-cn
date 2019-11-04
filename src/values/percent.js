@@ -1,3 +1,5 @@
+import { precise } from "../util/format";
+
 export const PercentTest = /^(\d+(?:\.?\d+)?)\%$/i
 
 /**
@@ -26,7 +28,7 @@ export default class Percent {
 		return 100*Math.random() < this.pct*( 100 + mod );
 	}
 
-	toString() { return (100*this.pct) + '%';}
+	toString() { return  precise(100*this.pct) + '%';}
 
 	constructor( val ) {
 

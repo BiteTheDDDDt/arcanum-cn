@@ -6,6 +6,7 @@ import { floor, precise } from '../util/format';
 import Game, { TICK_LEN } from '../game';
 import Skill from '../items/skill';
 import Stat from '../values/stat';
+import { SKILL } from '../values/consts';
 
 export default {
 
@@ -56,7 +57,7 @@ export default {
 			if ( type === 'number') {
 
 				// gold is default.
-				results.gold = obj;
+				results.gold = precise( obj );
 
 			} else if ( type === 'string') {
 
@@ -111,7 +112,7 @@ export default {
 					subRate = true;
 
 					let baseItem = propPath.split('.')[0];
-					if ( Game.getData(baseItem) instanceof Skill ) subPath = 'train ' + subPath + ' rate';
+					if ( Game.getData(baseItem).type === SKILL ) subPath = 'train ' + subPath + ' rate';
 
 				} else {
 
