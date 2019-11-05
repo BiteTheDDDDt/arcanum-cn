@@ -274,8 +274,7 @@ export default {
 
 			if ( item.warn ) {
 
-				this.warnItem = item;
-				//this.$refs.warn.warn( item );
+				this.$refs.warn.show( item );
 
 			} else Game.tryItem(item);
 
