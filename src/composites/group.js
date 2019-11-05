@@ -1,5 +1,4 @@
 import { mergeCosts, addValues } from "../util/dataUtil";
-import { logObj } from "../util/util";
 import Base, { mergeClass } from "../items/base";
 
 /**

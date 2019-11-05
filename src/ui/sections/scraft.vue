@@ -66,6 +66,8 @@ export default {
 
 			this.list.push(s);
 			this.craft.level += s.level;
+			if ( this.list.length > 1 ) this.craft.level += 1;
+
 			this.craft.buy = spellCost( this.list );
 
 		},
@@ -76,23 +78,14 @@ export default {
 		removeAt(i) {
 
 			let s = this.list[i];
-			if ( s ) this.craft.level -= s.level;
+
+			if ( s ) {
+				this.craft.level -= s.level;
+				if ( this.list.length > 1 ) this.craft.level -= 1;
+			}
 
 			this.list.splice(i,1);
 			this.craft.buy = spellCost( this.list );
-
-		},
-
-		remove(s) {
-
-			let ind = this.list.indexOf(s);
-			if ( ind >= 0 ) {
-
-				this.list.splice( ind, 1 );
-				this.craft.level -= s.level;
-				this.craft.buy = spellCost( this.list );
-
-			}
 
 		}
 
