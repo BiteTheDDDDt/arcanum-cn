@@ -11,7 +11,9 @@ export default {
 	mixins:[ItemBase],
 	data(){
 		return {
-			filtered:null
+			filtered:null,
+			sortBy:'level',
+			sortOrder:1
 		};
 	},
 	components:{
@@ -27,6 +29,14 @@ export default {
 		toNum(v) {
 			return ( typeof v === 'object' ?
 				( v instanceof Range ? v.max : v.value ) : v ).toFixed(0);
+		},
+
+		setSort( by ) {
+
+			if ( this.sortBy === by ) {
+				this.sortOrder = -this.sortOrder;
+			} else this.sortBy = by;
+
 		}
 
 	},
@@ -43,14 +53,8 @@ export default {
 		demonology() { return Game.state.getData('demonology');},
 
 		allItems(){
-			return Game.state.monsters.sort(
-				(a,b)=>a.level - b.level
-			);
-		},
 
-		items(){
-
-			let all = this.allItems;
+			let all = Game.state.monsters;
 			var a = [];
 
 			for( let i = all.length-1; i>=0; i-- ) {
@@ -64,7 +68,28 @@ export default {
 
 			return a;
 
+		},
+
+		sorted(){
+
+			let by = this.sortBy;
+			let order = this.sortOrder;
+			let v1,v2;
+
+			return ( this.filtered || this.allItems ).sort(
+				(a,b)=> {
+
+					v1 = a[by];
+					v2 = b[by];
+					if ( v1 > v2 ) return order;
+					else if ( v2 > v1 ) return -order;
+					else return 0;
+
+				}
+
+			);
 		}
+
 
 	}
 
@@ -75,12 +100,12 @@ export default {
 
 <div class="bestiary">
 
-	<filterbox v-model="filtered" :items="items" min-items="14" />
+	<filterbox v-model="filtered" :items="allItems" min-items="14" />
 
 	<div class="char-list">
 	<table class="bestiary">
-		<tr><th>Creature</th><th>Level</th><th>Slain</th><th class="num-align">Hp</th></tr>
-		<tr v-for="b in filtered" :key="b.id" @mouseenter.capture.stop="emit( 'itemover',$event,b)">
+		<tr><th @click="setSort('name')">Creature</th><th @click="setSort('level')">Level</th><th @click="setSort('value')">Slain</th><th class="num-align" @click="setSort('hp')">Hp</th></tr>
+		<tr v-for="b in sorted" :key="b.id" @mouseenter.capture.stop="emit( 'itemover',$event,b)">
 			<th class="sm-name">{{ b.name }}</th>
 			<td class="num-align">{{ Math.floor( b.level ) }}</td>
 			<td class="num-align">{{ Math.floor( b.value ) }}</td>
@@ -95,6 +120,14 @@ export default {
 </template>
 
 <style scoped>
+
+tr th {
+	cursor: pointer;
+	text-decoration: underline;
+	user-select: none;
+	-moz-user-select: none;
+	-webkit-user-select: none;
+}
 
 div.bestiary {
 display:flex;

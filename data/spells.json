@@ -975,6 +975,28 @@
 
 	},
 	{
+
+		"id":"reanimate",
+		"level":3,
+		"targets":"undead",
+		"school":"shadow",
+		"tags":"rez",
+		"cost":{
+			"bonedust":5
+		}
+
+	},
+	{
+		"id":"revive",
+		"targets":"humanoid",
+		"level":3,
+		"school":"spirit",
+		"tags":"rez",
+		"cost":{
+			"scrolls":10
+		}
+	},
+	{
 		"id":"mk_blade",
 		"name":"summon blade",
 		"school":"blade",

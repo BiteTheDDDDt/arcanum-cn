@@ -16,7 +16,7 @@ export const npcBuy = (m)=>{
 
 	let buy = {
 
-		gold:75*lvl*lvl
+		gold:100*Math.ceil( Math.pow(lvl, 1.7 ) )
 
 	};
 
