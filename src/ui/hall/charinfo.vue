@@ -45,12 +45,13 @@ export default {
 
 	<div class="buttons">
 
-	<button class="enter" v-if="!active" @click="$emit('load', char)" warn="true"
+	<button class="enter" v-if="!active" @click="$emit('load', char)"
 		@mouseenter.capture.stop="emit( 'itemover', $event, rollOver )">
 		<span v-if="empty">Begin</span><span v-else>Awaken</span>
 		</button>
 
-	<button class="dismiss" v-if="!active&&!empty" @click="$emit('dismiss', char)" warn="true">Dismiss</button>
+	<button class="dismiss" v-if="!active&&!empty"
+		@click="$emit('dismiss', char)">Dismiss</button>
 
 	</div>
 

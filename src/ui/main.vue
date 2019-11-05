@@ -69,8 +69,7 @@ export default {
 			overItem:null,
 			overTitle:null,
 			overElm:null,
-			psection:null,
-			warnItem:null
+			psection:null
 		};
 
 	},
@@ -129,6 +128,8 @@ export default {
 			this.add('unequip', this.onUnequip );
 			this.add('enchant', this.onEnchant );
 			this.add('craft', this.onCraft );
+			// display warn dialog.
+			this.add('warn', this.onWarn );
 
 			this.add( TRY_USE, this.tryUse )
 			this.add( USE, this.onUse );
@@ -266,21 +267,6 @@ export default {
 
 		onRest(){Game.toggleAction( this.state.restAction ); },
 
-		onConfirmed(it) {
-			this.warnItem = null;
-			Game.tryItem(it);
-		},
-
-		tryUse( it ) { Game.tryItem(it ) },
-
-		/**
-		 * Warning should trigger.
-		 * @param {string} msg - warning message
-		 * @param {{boolean})=>{null}} res - resolver to call with result.
-		 */
-		onWarn( msg, res ) {
-		},
-
 		/**
 		 * Item clicked.
 		 */
@@ -294,6 +280,21 @@ export default {
 			} else Game.tryItem(item);
 
 		},
+
+		onConfirmed(it) {
+			if ( typeof it !== 'string' ) Game.tryItem(it);
+		},
+
+		/**
+		 * Warning should trigger.
+		 * @param {string} msg - warning message
+		 * @param {()=>{}} res - success callback.
+		 */
+		onWarn( msg, res ) {
+			this.$refs.warn.show( msg, res );
+		},
+
+		tryUse( it ) { Game.tryItem(it ) },
 
 		/**
 		 * Buy a spell or item without casting/using the item or its mods.
@@ -333,7 +334,7 @@ export default {
 
 <!-- popups -->
 		<itempopup :item="overItem" :elm="overElm" :title="overTitle" />
-		<warn :item="warnItem" @confirmed="onConfirmed" @cancel="warnItem=null" />
+		<warn ref="warn" @confirmed="onConfirmed" />
 		<choice />
 		<settings />
 

@@ -39,8 +39,14 @@ export default {
 
 		},
 
-		dismiss(slot){
-			this.dispatch('dismiss-char', slot );
+		dismiss(slot, name ){
+
+			this.emit( 'warn', `Dismiss ${name}`, ()=>{
+
+				this.dispatch('dismiss-char', slot );
+
+			});
+
 		},
 
 		warnDone( okay, slot ) {
@@ -75,7 +81,7 @@ export default {
 
 	<div class="chars">
 	<info v-for="(c,i) in chars" :char="c" :active="i==hall.active"
-		:key="i" @load="load( i)" @dismiss="dismiss(i)" />
+		:key="i" @load="load( i)" @dismiss="dismiss(i,c.name)" />
 	</div>
 
 	<div class="btn-close"><button class="btn-close" @click="$emit('close')">X</button></div>
