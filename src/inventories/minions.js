@@ -2,14 +2,28 @@ import Inventory from "./inventory";
 import { TEAM_ALLY } from "../chars/npc";
 import Events, { ALLY_DIED, ACT_CHANGED } from '../events';
 import Stat from "../values/stat";
-import { NPC } from "../values/consts";
+import { NPC, getSchool, schoolResource, getTier, addCost, tierLevel } from "../values/consts";
+import { schoolCost } from "../craft";
 
 export const npcBuy = (m)=>{
 
-	let buy = {};
+	let buy = {
+
+		gold:200*m.level
+
+	};
+
+	let tier = getTier( m.level );
+
+	//levels above tier start.
+	let dt = m.level - tierLevel + 1;
 
 	if ( m.kind) npcKindBuy( m, buy );
 	if ( m.biome ) biomeBuy( m, buy );
+
+	if ( m.regen ) {
+		addCost( buy, 'bloodgem', tier*5 );
+	}
 
 	return buy;
 
@@ -34,6 +48,10 @@ export const npcKindBuy = (m, buy={}, kind=null)=>{
 
 	} else {
 
+		let school = getSchool( kind );
+		let res = schoolResource( school );
+
+		buy[res] = schoolCost( school, m.level );
 
 	}
 

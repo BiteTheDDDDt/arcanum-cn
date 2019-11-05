@@ -14,20 +14,25 @@ export default {
 
 		damage(){
 
-			let dmg = this.item.damage;
+			let dmg = this.item.damage || this.item.dmg;
 			if( typeof dmg === 'number') return dmg;
 			else if ( dmg instanceof Range ) return dmg.toString();
 			else if ( dmg ) {
-				//console.log('unknown damage:' + this.item.damage );
+				console.log('unknown damage:' + this.item.damage );
+				return dmg.toString();
 				//console.log( typeof this.item.damage );
 				//console.log( this.item.damage.min);
 			}
 
 		},
+		hitBonus(){
+			return this.item.tohit || 0;
+		},
 		bonus(){
 
 			let bonus = this.item.bonus;
-			if ( bonus == 0 ) return 0;
+			if ( !bonus ) return 0;
+
 			if ( bonus > 0) return ' (+' + bonus + ')';
 			else return ' (' + bonus + ')';
 
@@ -44,7 +49,7 @@ export default {
 
 	<div class="popup-sect">attack</div>
 
-	<div>hit bonus: {{ item.tohit || 0 }}</div>
+	<div v-if="hitBonus">hit bonus: {{ hitBonus }}</div>
 	<div v-if="item.hands>1">Two-Handed</div>
 	<div class="damage" v-if="damage!==null">
 		<span>damage: {{ damage }}</span><span v-if="bonus">{{ bonus }}</span></div>

@@ -55,11 +55,32 @@ export const SchoolTable = {
 	town:[ 'blood', 'mana'],
 	humanoid:'blood',
 	undead:'shadow',
+	construct:'crafting',
 	dragon:'fire',
 	beast:'nature',
 	magicbeast:['mana','nature']
 
 };
+
+export const addCost = ( buy, type, amt ) => {
+
+	let e = buy[type];
+	buy[type] = e ? e + amt : amt;
+
+};
+
+/**
+ * get level when given tier begins.
+ * @param {number} tier
+ * @returns {number}
+ */
+export const tierLevel = (tier)=>{
+
+	if ( tier === 0 ) return 0;
+	if ( tier === 1 ) return 3;
+	if ( tier === 2 ) return 6;
+	return 11;
+}
 
 /**
  * Get loot tier/general item tier for level.
@@ -96,9 +117,11 @@ export const schoolName = (s)=> { return schoolNames[s] || s; }
 /**
  * base resource to buy item by school/kind.
  * @param {string} school
- * @param {number} [tier=1]
+ * @param {number} tier
  */
-export const getSchoolResource = ( school, tier=1 ) =>{
+export const schoolResource = ( school, lvl ) =>{
+
+	lvl = getTier(lvl);
 
 	let table = SchoolCostTable[school];
 	if ( table ) {
