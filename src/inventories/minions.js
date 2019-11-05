@@ -2,83 +2,8 @@ import Inventory from "./inventory";
 import { TEAM_ALLY } from "../chars/npc";
 import Events, { ALLY_DIED, ACT_CHANGED } from '../events';
 import Stat from "../values/stat";
-import { NPC, getSchool, schoolResource, getTier, addCost, tierLevel } from "../values/consts";
-import { schoolCost } from "../craft";
+import { NPC } from "../values/consts";
 
-export const npcBuy = (m)=>{
-
-	let buy = {
-
-		gold:200*m.level
-
-	};
-
-	let tier = getTier( m.level );
-
-	//levels above tier start.
-	let dt = m.level - tierLevel + 1;
-
-	if ( m.kind) npcKindBuy( m, buy );
-	if ( m.biome ) biomeBuy( m, buy );
-
-	if ( m.regen ) {
-		addCost( buy, 'bloodgem', tier*5 );
-	}
-
-	return buy;
-
-}
-
-/**
- * kind cost for npc.
- * @param {Npc} m - npc
- * @param {object} [buy={}] existing buy cost.
- * @param {string} kind - current kind being processed. (for arr recursion)
- */
-export const npcKindBuy = (m, buy={}, kind=null)=>{
-
-	kind = kind || m.kind;
-
-	if ( !kind ) {
-
-		if ( Array.isArray(kind) ) {
-			/// check prevents null kind -> m.kind loop.
-			for( let i = kind.length-1; i>=0; i--) if(kind[i]) npcKindBuy( m, buy, kind[i]);
-		}
-
-	} else {
-
-		let school = getSchool( kind );
-		let res = schoolResource( school );
-
-		buy[res] = schoolCost( school, m.level );
-
-	}
-
-}
-
-/**
- * Biome cost for npc.
- * @param {Npc} m - npc
- * @param {object} [buy={}] existing buy cost.
- */
-export const biomeBuy = (m, buy={}, biome=null)=>{
-
-	biome = biome || m.biome;
-
-	if ( !biome ) {
-
-		if ( Array.isArray(biome) ) {
-			/// check prevents null kind -> m.kind loop.
-			for( let i = biome.length-1; i>=0; i--) if(biome[i]) biomeBuy( m, buy, biome[i]);
-		}
-
-	} else {
-
-
-	}
-
-}
 
 export default class Minions extends Inventory {
 

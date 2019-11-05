@@ -40,6 +40,11 @@ export { RAID, DUNGEON, EXPLORE, LOCALE };
 export { HOME, RESOURCE, NPC, SKILL, ENCOUNTER, WEARABLE, MONSTER, ARMOR, WEAPON };
 
 /**
+ * @const {number[]} TierTable - levels when given tiers start.
+ */
+const TierTable = [0, 3, 6, 11, 20];
+
+/**
  * @const {.<string,string|string[]>} SchoolTable - converts string to associated school.
  */
 export const SchoolTable = {
@@ -62,12 +67,6 @@ export const SchoolTable = {
 
 };
 
-export const addCost = ( buy, type, amt ) => {
-
-	let e = buy[type];
-	buy[type] = e ? e + amt : amt;
-
-};
 
 /**
  * get level when given tier begins.
@@ -76,10 +75,24 @@ export const addCost = ( buy, type, amt ) => {
  */
 export const tierLevel = (tier)=>{
 
-	if ( tier === 0 ) return 0;
-	if ( tier === 1 ) return 3;
-	if ( tier === 2 ) return 6;
-	return 11;
+	if ( tier >= TierTable.length ) return TierTable[ TierTable.length-1 ];
+	else if ( tier <= 0 ) return 0;
+
+	return TierTable[tier];
+
+}
+
+/**
+ * Returns number of levels over tier start
+ * a given level is.
+ * For assigning higher counters within a tier.
+ * @param {number} lvl
+ */
+export const tierDelta = (lvl)=>{
+
+	for( let i = TierTable.length-1; i>=0; i-- ) {
+		if ( lvl >= TierTable[i] ) return lvl - TierTable[i];
+	}
 }
 
 /**
@@ -88,11 +101,9 @@ export const tierLevel = (tier)=>{
  */
 export const getTier = (lvl=1) =>{
 
-	if ( lvl <= 2 ) return 0;
-	if ( lvl <= 5 ) return 1;
-	if ( lvl <= 10 ) return 2;
-
-	return 3;
+	for( let i = TierTable.length-1; i>=0; i-- ) {
+		if ( lvl >= TierTable[i] ) return i;
+	}
 
 }
 
