@@ -465,16 +465,16 @@ export default class Player extends Char {
 
 	levelUp() {
 
-		this._level.value++;
+		this._level.add(1);
 
 		this.dirty = true;
-		if ( this._level % 3 === 0 ) this.sp.value++;
-		if ( this._level % 5 === 0 ) Game.getData('minions').maxAllies.value++;
-		if ( this._level % 4 === 0 ) Game.getData('speed').value++;
+		if ( this._level % 3 === 0 ) this.sp.add(1);
+		if ( this._level % 5 === 0 ) Game.getData('minions').maxAllies.base += 1;
+		if ( this._level % 4 === 0 ) Game.getData('speed').add(1);
 
-		Game.getData('spelllist').max += 1;
+		Game.getData('spelllist').max.base += 1;
 
-		this.tohit++;
+		this.tohit.base += 1;
 		this.hp.max.base += 2;
 		this.stamina.max.base += 1;
 

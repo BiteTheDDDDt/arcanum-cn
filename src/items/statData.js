@@ -12,6 +12,14 @@ export default class StatData extends GData {
 	get current() { return this.unit ? Math.floor(this.value) : this._value; }
 
 	/**
+	 * Add to base value.
+	 * @param {number} v
+	 */
+	add( v ) {
+		this.value.base += v;
+	}
+
+	/**
 	 *
 	 * @param {?Object} [vars=null]
 	 */
