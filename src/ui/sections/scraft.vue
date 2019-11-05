@@ -21,7 +21,7 @@ export default {
 			 */
 			craft:{
 
-				name:'new spell',
+				name:'crafted spell',
 				level:0,
 				buy:null
 			}
@@ -61,6 +61,7 @@ export default {
 
 		/**
 		 * Add spell to the current crafting group.
+		 * Crafted level = list total levels + list.length - 1
 		 */
 		add(s) {
 

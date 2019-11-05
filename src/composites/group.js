@@ -1,4 +1,4 @@
-import { mergeCosts, addValues } from "../util/dataUtil";
+import { addValues } from "../util/dataUtil";
 import Base, { mergeClass } from "../items/base";
 
 /**
@@ -112,9 +112,7 @@ export default class Group {
 
 	}
 
-	canUse( g ) {
-		return g.canPay( this.cost );
-	}
+	canUse( g ) { return g.canPay( this.cost ); }
 
 	onUse(g) {
 
