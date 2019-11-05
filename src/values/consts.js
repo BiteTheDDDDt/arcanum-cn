@@ -23,6 +23,8 @@ const POTION = 'potion';
 const ITEM = 'item';
 const NPC = 'npc';
 
+export { POTION, ITEM };
+
 const RESOURCE = 'resource';
 const SKILL = 'skill';
 const ENCOUNTER = 'enc';
@@ -53,6 +55,7 @@ export const SchoolTable = {
 	swamp:['shadow','water'],
 	plains:'light',
 	woods:'nature',
+	holy:'light',
 	mountains:['fire','earth','air'],
 	hills:['earth','air'],
 	cave:['shadow','earth'],
@@ -81,14 +84,14 @@ export const canTarget = (targs, it ) => {
 		for( let i = targs.length-1; i >= 0; i-- ) {
 
 			var t = targs[i];
-			if ( t && t == it.type || t === it.kind || t === it.slot ) return true;
+			if ( t && t == it.type || t === it.kind || t === it.slot || it.hasTag(t) ) return true;
 
 		}
 		return false;
 
 	}
 
-	return targs === it.type || targs === it.kind || targs === it.slot;
+	return targs === it.type || targs === it.kind || targs === it.slot || it.hasTag(targ);
 
 }
 

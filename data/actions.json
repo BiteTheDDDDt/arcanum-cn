@@ -1536,7 +1536,7 @@
 	{
 		"id":"animalfriend",
 		"name":"animal companion",
-		"require":"(g.druid+g.witch)>0",
+		"require":"(g.druid+g.warden)>0",
 		"need":"outdoors",
 		"desc":"create a magic link with a wild animal.",
 		"repeat":false,

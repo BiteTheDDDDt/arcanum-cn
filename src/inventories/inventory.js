@@ -48,6 +48,12 @@ export default class Inventory {
 		this._max = v instanceof Stat ? v : new Stat(v, 'max', true);
 	}
 
+	/**
+	 * @property {boolean} removeDupes - whether to remove duplicate ids from inventory.
+	 */
+	get removeDupes(){ return this._removeDupes; }
+	set removeDupes(v){this._removeDupes = v;}
+
 	constructor(vars=null){
 
 		if ( vars ) Object.assign(this,vars);
@@ -75,7 +81,7 @@ export default class Inventory {
 			} else if ( typeof it === 'string') it = state.getData(it);
 
 
-			if ( it == null || !it.id || ids[it.id]===true ) this.items.splice( i, 1 );
+			if ( it == null || !it.id || ( this.removeDupes&& ids[it.id]===true) ) this.items.splice( i, 1 );
 			else {
 				ids[it.id] = true;
 				this.items[i] = it;
@@ -110,7 +116,7 @@ export default class Inventory {
 					return;
 				}
 
-			} else if ( it.instance && this.find(it.id ) ) return false;
+			} else if ( this.removeDupes && this.find(it.id ) ) return false;
 
 			this.items.push( it );
 			this.used += this.spaceProp ? ( it[ this.spaceProp ] || 0 ) : 1;

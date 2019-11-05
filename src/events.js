@@ -293,7 +293,8 @@ export default {
 	},
 
 	enemySlain( enemy, attacker ) {
-		this.log.log( enemy.name + ' slain', ( attacker ? ' by ' + attacker.name : ''), LOG_COMBAT );
+		this.log.log( enemy.name + ' slain',
+			( attacker && attacker.name ? ' by ' + attacker.name : ''), LOG_COMBAT );
 	},
 
 	/**

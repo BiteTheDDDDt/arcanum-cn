@@ -1035,6 +1035,23 @@
 
 	},
 	{
+		"id":"mk_unicorn",
+		"name":"summon unicorn",
+		"require":"g.evil==0&&(g.seer+g.oracle+g.summoner)>0&&g.magicbeasts>=5",
+		"level":5,
+		"cd":150,
+		"buy":{
+			"research":1000,
+			"tomes":10,
+			"lightgem":5
+		},
+		"cost":{
+			"light":10
+		},
+		"effect":"unicorn"
+
+	},
+	{
 		"id":"prolight",
 		"name":"protection: light",
 		"school":"shadow",

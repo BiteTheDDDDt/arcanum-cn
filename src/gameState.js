@@ -81,6 +81,7 @@ export default class GameState {
 
 		this.inventory = new Inventory( this.items.inv || baseData.inventory || {max:3} );
 		this.items.inv = this.inventory;
+		this.inventory.removeDupes = true;
 
 		this.drops = new Inventory();
 

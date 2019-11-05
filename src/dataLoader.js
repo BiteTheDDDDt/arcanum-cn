@@ -30,7 +30,7 @@ import Loader from './util/jsonLoader';
 import { splitKeyPath, logObj } from './util/util';
 import GClass from './items/gclass';
 import Module from './modules/gmodule';
-import { SKILL, ENCOUNTER, MONSTER, ARMOR, WEAPON, HOME } from './values/consts';
+import { SKILL, ENCOUNTER, MONSTER, ARMOR, WEAPON, HOME, POTION, ITEM } from './values/consts';
 
 const DataDir = './data/';
 const DataFiles = [ 'resources', 'upgrades', 'actions', 'homes', 'furniture', 'items', 'skills',
@@ -219,7 +219,7 @@ export default {
 		if ( lists.stats ) this.initItems( items, lists['stats'], StatData, 'stat', 'stat' );
 
 
-		this.initItems( items, lists['items'], Item, 'item', 'item');
+		this.initItems( items, lists['items'], Item, ITEM, ITEM);
 
 		if ( lists.armors ) {
 			inst.armors = this.initItems( items, lists['armors'], ProtoItem, ARMOR,ARMOR );
@@ -231,7 +231,7 @@ export default {
 			inst.weapons.forEach(v=>v.kind=v.kind ||WEAPON);
 		}
 
-		if ( lists.potions ) inst.potions = this.initItems( items, lists['potions'], Potion, 'potion', 'potion' );
+		if ( lists.potions ) inst.potions = this.initItems( items, lists['potions'], Potion, POTION, POTION );
 
 		if ( lists.materials ) inst.materials = this.initItems( items, lists['materials'], Material, 'material', 'material ');
 

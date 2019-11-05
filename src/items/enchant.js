@@ -1,6 +1,7 @@
 import Action from './action';
 import GData from './gdata';
 import { setModCounts } from './base';
+import { canTarget } from '../values/consts';
 
 
 export default class Enchant extends Action {
@@ -82,8 +83,7 @@ export default class Enchant extends Action {
 		let itLevel = targ.level || 1;
 		if ( targ.enchants + this.level > itLevel || targ.busy ) return false;
 
-		return !this._targets ||
-			this._targets.some(t=> targ.type === t || targ.kind === t || targ.slot === t || targ.hasTag(t) );
+		return !this._targets || canTarget( this._targets, targ );
 
 	}
 

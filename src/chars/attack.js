@@ -7,6 +7,7 @@ export default class Attack {
 	toJSON(){
 
 		return {
+			name:this.name,
 			dmg:this._damage,
 			tohit:this.tohit||undefined,
 			bonus:this.bonus||undefined,
@@ -16,6 +17,9 @@ export default class Attack {
 		};
 
 	}
+
+	get name() {return this._name; }
+	set name(v) { this._name = v;}
 
 	get kind(){ return this._kind; }
 	set kind(k){
@@ -58,6 +62,7 @@ export default class Attack {
 
 	clone(){
 		let a = new Attack({
+			name:this.name,
 			damage:this.damage,
 			bonus:this.bonus,
 			tohit:this.tohit,
