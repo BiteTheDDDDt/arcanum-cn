@@ -1,6 +1,6 @@
 import Attack from '../chars/attack';
 import Action from './action';
-import { schoolSkill } from '../values/consts';
+import { schoolSkill, canTarget } from '../values/consts';
 
 /**
  * Default require function for spells.
@@ -77,6 +77,15 @@ const schoolFunc = (s, lvl=1 ) => {
 
 export default class Spell extends Action {
 
+	/**
+	 * @property {string} target - target type, name, kind, or tag, to which
+	 * the enchantment can be applied.
+	 */
+	get targets(){return this._targets;}
+	set targets(v){
+		this._targets = typeof v === 'string' ? v.split(',') : v;
+	}
+
 	toJSON(){
 
 		let data = super.toJSON();
@@ -123,5 +132,18 @@ export default class Spell extends Action {
 		}
 
 	}
+
+	/**
+	 *
+	 * @param {*} targ
+	 */
+	canUseOn(targ) {
+
+		if ( targ.level && this.level < 2*targ.level ) return false;
+
+		return !this.targets || canTarget( this.targets, targ );
+
+	}
+
 
 };

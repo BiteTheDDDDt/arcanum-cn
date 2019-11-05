@@ -1995,6 +1995,7 @@
 		"id":"kannadance",
 		"level":7,
 		"name":"kanna's dervish dance",
+		"tags":"patron",
 		"school":"bladelore",
 		"sym":"⭐",
 		"require":"spellblade",

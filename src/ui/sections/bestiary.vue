@@ -104,7 +104,11 @@ export default {
 
 	<div class="char-list">
 	<table class="bestiary">
-		<tr><th @click="setSort('name')">Creature</th><th @click="setSort('level')">Level</th><th @click="setSort('value')">Slain</th><th class="num-align" @click="setSort('hp')">Hp</th></tr>
+		<tr>
+			<th @click="setSort('name')">Creature</th>
+			<th @click="setSort('level')">Level</th>
+			<th @click="setSort('value')">Slain</th>
+			<th class="num-align" @click="setSort('hp')">Hp</th></tr>
 		<tr v-for="b in sorted" :key="b.id" @mouseenter.capture.stop="emit( 'itemover',$event,b)">
 			<th class="sm-name">{{ b.name }}</th>
 			<td class="num-align">{{ Math.floor( b.level ) }}</td>

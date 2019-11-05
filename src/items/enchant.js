@@ -78,7 +78,7 @@ export default class Enchant extends Action {
 	 * Test if enchantment can be applied to target item.
 	 * @param {Item} targ
 	 */
-	canApply( targ ) {
+	canUseOn( targ ) {
 
 		let itLevel = targ.level || 1;
 		if ( targ.enchants + this.level > itLevel || targ.busy ) return false;

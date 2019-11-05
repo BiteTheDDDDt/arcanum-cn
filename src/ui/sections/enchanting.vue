@@ -30,8 +30,8 @@ export default {
 	},
 	methods:{
 
-		canApply( it, targ ) {
-			return targ&&it.canApply(targ)&& this.usable(it);
+		canUseOn( it, targ ) {
+			return targ&&it.canUseOn(targ)&& this.usable(it);
 		}
 
 	},
@@ -69,7 +69,7 @@ export default {
 			<button v-if="it.buy&&!it.owned" :disabled="!buyable(it)"
 				@click="emit('buy', it)">Unlock</button>
 
-			<button v-else :disabled="!canApply(it,target)"
+			<button v-else :disabled="!canUseOn(it,target)"
 				@click="emit( 'enchant', it, target )">Enchant</button>
 
 		</div>

@@ -111,7 +111,7 @@ export default class Hall {
 
 	/**
 	 *
-	 * @param {*} slot
+	 * @param {string} slot
 	 * @returns {boolean} false on invalid slot.
 	 */
 	dismiss( slot ) {

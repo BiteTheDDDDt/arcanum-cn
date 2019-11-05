@@ -1,6 +1,7 @@
 <script>
 import Game from '../../game';
 
+import ItemsBase from '../itemsBase';
 import FilterBox from '../components/filterbox.vue';
 
 export default {
@@ -11,6 +12,7 @@ export default {
 			minions:Game.state.minions
 		};
 	},
+	mixins:[ItemsBase],
 	components:{
 		filterbox:FilterBox
 	},
@@ -24,6 +26,14 @@ export default {
 
 	},
 	methods:{
+
+		/**
+		 * Use resurrect spell on minion.
+		 * @param {Spell}
+		 * @param {Npc}
+		 */
+		useRez( rez, b) {
+		},
 
 		levelCap(b){
 			return b.level + this.minions.allyTotal > this.minions.maxAllies;
@@ -73,6 +83,9 @@ export default {
 			</td>
 
 			<td><confirm @confirm="dismiss(b)">{{ 'Dismiss'}}</confirm></td>
+
+			<td v-for="r in rezList" :key="r.id"><button @click="useRez(r,b)">{{ r.name }}</button></td>
+
 		</tr>
 	</table>
 	</div>

@@ -1241,7 +1241,7 @@ export default {
 		let res = this.itemGen.getLoot(it);
 		if ( res === null || res === undefined ) return;
 
-		if ( Array.isArray(res))res = res.filter(v=>v!==null&&v!==undefined);
+		if ( Array.isArray(res))res = res.filter(v=>v!==null&&v!==undefined && v.id != null);
 
 		Events.emit( EVT_LOOT, res );
 
@@ -1304,28 +1304,5 @@ export default {
 	 * @returns {GData|undefined}
 	 */
 	getData(id) { return this._items[id] || this.state[id]; },
-
-		/**
-	 * Test if a mod can be applied without making value
-	 * become negative.
-	 * @todo: not implemented.
-	 * @param {Array|Object} mod
-	 * @param {number} amt
-	 */
-	/*canMod( mod, amt ) {
-
-		if ( Array.isArray(mod)  ) for( let m of mod ) if ( !this.canMod(m, amt) ) return false;
-		else if ( typeof mod === 'object' ) {
-
-			for( let p in mod ) {
-
-				var target = this.getData( p );
-				if ( target !== undefined ) return target.canApply( mod[p], amt );
-
-			}
-
-		}
-
-	},*/
 
 }
