@@ -19,10 +19,6 @@ const schoolNames = {
 	mana:'arcane'
 }
 
-export const getSchool = (s)=>{ return schoolMap[s] || s; }
-
-export const schoolName = (s)=> { return schoolNames[s] || s; }
-
 const POTION = 'potion';
 const ITEM = 'item';
 const NPC = 'npc';
@@ -57,13 +53,45 @@ export const SchoolTable = {
 	cave:['shadow','earth'],
 	sea:'water',
 	town:[ 'blood', 'mana'],
-	humanoid:'mana',
+	humanoid:'blood',
 	undead:'shadow',
 	dragon:'fire',
 	beast:'nature',
 	magicbeast:['mana','nature']
 
 };
+
+/**
+ * Get loot tier/general item tier for level.
+ * @param {number} [lvl=1]
+ */
+export const getTier = (lvl=1) =>{
+
+	if ( lvl <= 2 ) return 0;
+	if ( lvl <= 5 ) return 1;
+	if ( lvl <= 10 ) return 2;
+
+	return 3;
+
+}
+
+/**
+ * Return book-type-resource cost for school.
+ * @param {*} s
+ */
+export const getBookCost = (s)=>{ return BookCostTable[s]; }
+
+/**
+ * Get school associated with a string.
+ * @param {string} s
+ */
+export const getSchool = (s)=>{ return schoolMap[s] || s; }
+
+/**
+ * Get display name for a school.
+ * @param {string} s
+ */
+export const schoolName = (s)=> { return schoolNames[s] || s; }
 
 /**
  * base resource to buy item by school/kind.
@@ -87,73 +115,83 @@ export const getSchoolResource = ( school, tier=1 ) =>{
 }
 
 /**
+ * @const {.<number,string>} BookCostTable - cost of basic research item, per tier.
+ */
+const BookCostTable = {
+
+	0:'scrolls',
+	1:'codices',
+	2:'tomes',
+	3:'runestones'
+
+}
+
+/**
  * @const SchoolCostTable School-> Loot Tier-> Base Resource Cost.
  */
 export const SchoolCostTable = {
 
 	shadow:{
 
-		0:'gems',
-		1:'shadowgem'
-
-	},
-	mana:{
-
-		0:'gems',
-		1:'managem'
+		0:'bonedust',
+		1:'bones',
+		2:'shadowgem'
 
 	},
 	nature:{
 
-		0:'gems',
-		1:'managem'
+		0:'herbs',
+		1:'naturegem'
 
 	},
 	fire:{
 
-		0:'gems',
-		1:'managem'
+		1:'firegem',
+		5:'firerune'
 
 	},
 	earth:{
 
-		0:'gems',
-		1:'managem'
+		1:'earthgem',
+		5:'earthrune'
 
 	},
 	water:{
 
-		0:'gems',
-		1:'managem'
+		1:'watergem',
+		5:'waterrune'
 
 	},
 	air:{
 
-		0:'gems',
-		1:'managem'
+		1:'airgem',
+		5:'airrune'
 
 	},
 	spirit:{
 
-		0:'gems',
-		1:'managem'
+		1:'bonedust',
+		2:'spiritgem',
+		3:'souls'
 
 	},
 	light:{
-		0:'gems',
-		1:'managem'
+		1:'lightgem'
 
 	},
 	blood:{
 
-		0:'gems',
-		1:'managem'
+		2:'bloodgem',
+		3:'souls',
+		5:'ichor'
 
 	},
 	other:{
-		0:'gems',
-		1:'managem',
-		2:'runestones'
+
+		0:'gold',
+		1:'gems',
+		2:'managem',
+		3:'runestones'
 	}
 
 

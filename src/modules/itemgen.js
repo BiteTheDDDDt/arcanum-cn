@@ -173,7 +173,7 @@ export default class ItemGen {
 		//console.log('wearable from data');
 		if ( data === null || data === undefined ) return null;
 
-		let mat = material || data.material;
+		let mat = data.material || material;
 		if ( (typeof mat ==='number') || !mat ) mat = this.matForItem( data, mat );
 
 		if ( typeof mat === 'string' ) mat = this.state.getData( mat );
