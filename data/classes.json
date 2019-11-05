@@ -1270,7 +1270,7 @@
 		"name":"vile necromancer",
 		"tags":"t_tier6",
 		"desc":"In every epoch, Death appoints her viceroy.",
-		"require":"g.tier5>0&&g.evil>0&&g.spiritlore>=15&&g.shadowlore>=24",
+		"require":"g.tier5>0&&g.phylactory>0&&g.spiritlore>=15&&g.shadowlore>=24",
 		"cost":{
 			"research":17000,
 			"bones":100,

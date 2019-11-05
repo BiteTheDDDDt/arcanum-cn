@@ -68,6 +68,29 @@ export const SchoolTable = {
 
 };
 
+/**
+ * Determine if the given target allows targetting of item.
+ * @param {string|string[]} targs
+ * @param {GData} it
+ * @returns {boolean} true if targs can target it.
+ */
+export const canTarget = (targs, it ) => {
+
+	if ( Array.isArray(targs) ) {
+
+		for( let i = targs.length-1; i >= 0; i-- ) {
+
+			var t = targs[i];
+			if ( t && t == it.type || t === it.kind || t === it.slot ) return true;
+
+		}
+		return false;
+
+	}
+
+	return targs === it.type || targs === it.kind || targs === it.slot;
+
+}
 
 /**
  * get level when given tier begins.
