@@ -50,6 +50,7 @@ export default {
 	}
 
 	div.dot {
+		position: relative;
 		overflow-x:visible;
 		overflow-y: visible;
 		max-height:40px;
