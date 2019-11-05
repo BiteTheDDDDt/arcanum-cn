@@ -111,7 +111,6 @@ div.inventory {
 }
 
 div.inventory .top {
-	min-height:0;
 	padding: 0 var(--sm-gap);
 }
 

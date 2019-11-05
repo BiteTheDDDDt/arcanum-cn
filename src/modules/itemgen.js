@@ -18,44 +18,44 @@ import { ENCOUNTER, WEARABLE, MONSTER, ARMOR, WEAPON } from '../values/consts';
  */
 export function itemRevive(gs, it ) {
 
-		if ( !it ) {
-			console.warn('Missing gen item: ' + it );
-			return null;
-		}
+	if ( !it ) {
+		console.warn('Missing gen item: ' + it );
+		return null;
+	}
 
-		var orig = it.template || it.recipe;
-		if ( typeof orig === 'string') orig = gs.getData( orig );
+	var orig = it.template || it.recipe;
+	if ( typeof orig === 'string') orig = gs.getData( orig );
 
-		var type = orig ? orig.type : it.type;
+	var type = orig ? orig.type : it.type;
 
-		if ( !type) {
-			console.warn('gen unknown: ' + it.id + ' -> ' + it.template + ' -> ' + it.recipe );
-			type = 'item';
-		}
-		it.template = orig;
+	if ( !type) {
+		console.warn('gen unknown: ' + it.id + ' -> ' + it.template + ' -> ' + it.recipe );
+		type = 'item';
+	}
+	it.template = orig;
 
-		if ( type === ARMOR || type === WEAPON || type === WEARABLE) {
+	if ( type === ARMOR || type === WEAPON || type === WEARABLE) {
 
-			it = new Wearable(it);
+		it = new Wearable(it);
 
-		} else if ( type === MONSTER) {
+	} else if ( type === MONSTER) {
 
-			it = new Npc( orig, it );
+		it = new Npc( orig, it );
 
-		} else if ( type === ENCOUNTER) {
+	} else if ( type === ENCOUNTER) {
 
-			// encounter.
-			it = new Encounter( orig, it );
+		// encounter.
+		it = new Encounter( orig, it );
 
-		} else {
-			//console.log('default revive: ' + it.id );
-			it = new Item(it);
-		}
-		it.owned = true;
+	} else {
+		//console.log('default revive: ' + it.id );
+		it = new Item(it);
+	}
+	it.owned = true;
 
-		it.revive( gs );
+	it.revive( gs );
 
-		return it;
+	return it;
 
 }
 

@@ -4,6 +4,7 @@ import ItemBase from '../itemsBase';
 import Range from '../../values/range';
 import FilterBox from '../components/filterbox.vue';
 import { TRY_BUY } from '../../events';
+import { npcBuy } from '../../craft';
 
 export default {
 
@@ -41,10 +42,28 @@ export default {
 
 		demonology() { return Game.state.getData('demonology');},
 
-		items(){
-			return Game.state.monsters.filter( v=>v.value>=1 ).sort(
+		allItems(){
+			return Game.state.monsters.sort(
 				(a,b)=>a.level - b.level
 			);
+		},
+
+		items(){
+
+			let all = this.allItems;
+			var a = [];
+
+			for( let i = all.length-1; i>=0; i-- ) {
+
+				var it = all[i];
+				if ( it.value <= 0 ) continue;
+				if ( !it.buy ) it.buy = npcBuy( it );
+				a.push(it);
+
+			}
+
+			return a;
+
 		}
 
 	}

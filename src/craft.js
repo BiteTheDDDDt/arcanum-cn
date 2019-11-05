@@ -1,4 +1,4 @@
-import { getTier, getSchool, schoolResource, tierLevel } from "./values/consts";
+import { getTier, getSchool, schoolResource, tierLevel, tierDelta } from "./values/consts";
 
 /**
  * Functions for crafting/buying items.
@@ -20,12 +20,11 @@ export const npcBuy = (m)=>{
 
 	};
 
-	if ( m.kind) npcKindBuy( m, buy );
-	if ( m.biome ) biomeBuy( m, buy );
+	if ( m.kind) schoolBuy( m.kind, buy, lvl );
+	if ( m.biome ) schoolBuy( m.biome, buy, lvl );
 
 	if ( m.regen ) {
-		let tier = getTier( lvl );
-		addCost( buy, 'bloodgem', tier*5 );
+		addCost( buy, 'bloodgem', getTier( lvl )*5 );
 	}
 
 	return buy;
@@ -54,7 +53,7 @@ export const npcKindBuy = (m, buy={}, kind=null)=>{
 		let school = getSchool( kind );
 		let res = schoolResource( school );
 
-		addCost( buy, res, m.level - tierStart(m.level) + 1 );
+		addCost( buy, res, m.level - tierDelta(m.level) + 1 );
 
 	}
 
@@ -80,6 +79,34 @@ export const biomeBuy = (m, buy={}, biome=null)=>{
 
 
 	}
+
+}
+
+/**
+ * Buy object for a school
+ * @param {Npc} m - object containing school.
+ * @param {object} [buy={}] existing buy cost.
+ * @param {string} kind - current kind being processed. (for arr recursion)
+ */
+export const schoolBuy = (school, buy={}, level=1 )=>{
+
+	if ( !school ) {
+
+		if ( Array.isArray(school) ) {
+			/// check prevents null kind -> m.kind loop.
+			for( let i = school.length-1; i>=0; i--) if( school[i] ) schoolBuy( school[i], buy, level );
+		}
+
+	} else {
+
+		school = getSchool( school );
+		let res = schoolResource( school, level );
+
+		addCost( buy, res, level - tierDelta( level) + 1 );
+
+	}
+
+	return buy;
 
 }
 

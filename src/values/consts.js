@@ -87,6 +87,7 @@ export const tierLevel = (tier)=>{
  * a given level is.
  * For assigning higher counters within a tier.
  * @param {number} lvl
+ * @returns {number}
  */
 export const tierDelta = (lvl)=>{
 
@@ -98,8 +99,9 @@ export const tierDelta = (lvl)=>{
 /**
  * Get loot tier/general item tier for level.
  * @param {number} [lvl=1]
+ * @returns {number}
  */
-export const getTier = (lvl=1) =>{
+export const getTier = (lvl=1) => {
 
 	for( let i = TierTable.length-1; i>=0; i-- ) {
 		if ( lvl >= TierTable[i] ) return i;
@@ -137,14 +139,14 @@ export const schoolResource = ( school, lvl ) =>{
 	let table = SchoolCostTable[school];
 	if ( table ) {
 
-		table = table[tier];
+		table = table[lvl];
 		if ( table ) return table;
 
 	}
 
 	// default
 	table = SchoolCostTable['other'];
-	return table[tier] || 'gems';
+	return table[lvl] || 'gems';
 
 }
 

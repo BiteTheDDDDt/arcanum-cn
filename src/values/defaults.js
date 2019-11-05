@@ -41,7 +41,6 @@ export default {
 	monster:{
 
 		level:1,
-		buy:(it)=>new Stat(200*( it.level||1) ),
 		locked:false
 
 	},

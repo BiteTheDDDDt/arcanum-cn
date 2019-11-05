@@ -1,12 +1,10 @@
 import GData from "./gdata";
-import Stat from "../values/stat";
 import { TEAM_ALLY } from "../chars/npc";
 import { MONSTER } from "../values/consts";
 
 const defaults = {
 
 	level:1,
-	buy:(it)=>new Stat(200*( it.level||1) ),
 	locked:false
 
 };
@@ -27,6 +25,8 @@ export default class Monster extends GData {
 		super(vars, defaults );
 
 		this.type = MONSTER;
+
+		if ( !super.buy ) super.buy = null;
 
 		this.hp = this.hp || (2*this.level);
 		this.speed = this.speed || this.level;
