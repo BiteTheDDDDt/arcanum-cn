@@ -1,6 +1,6 @@
 import Attack from '../chars/attack';
 import Action from './action';
-import { getSchool } from '../values/consts';
+import { schoolSkill } from '../values/consts';
 
 /**
  * Default require function for spells.
@@ -14,7 +14,7 @@ const schoolUnlock = ( s, level )=>{
 
 	if ( typeof s === 'string') {
 
-		s = getSchool(s);
+		s = schoolSkill(s);
 		if ( typeof s === 'object' ) return reqStr( s.name, level*(s.ratio || 1) );
 		return schoolFunc(s, level );
 

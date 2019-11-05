@@ -1,4 +1,4 @@
-import { getTier, getSchool, schoolResource, tierLevel, tierDelta } from "./values/consts";
+import { getTier, schoolSkill, schoolResource, tierLevel, tierDelta, getSchool } from "./values/consts";
 
 /**
  * Functions for crafting/buying items.
@@ -16,7 +16,7 @@ export const npcBuy = (m)=>{
 
 	let buy = {
 
-		gold:100*lvl*lvl
+		gold:75*lvl*lvl
 
 	};
 
@@ -50,7 +50,7 @@ export const npcKindBuy = (m, buy={}, kind=null)=>{
 
 	} else {
 
-		let school = getSchool( kind );
+		let school = schoolSkill( kind );
 		let res = schoolResource( school );
 
 		addCost( buy, res, m.level - tierDelta(m.level) + 1 );

@@ -1,14 +1,14 @@
 /**
- * @property {object.<string,string|object>} - maps school to skill/data determining school level.
+ * @property {object.<string,string|object>} - maps school to skill determining school level.
  */
-const schoolMap = {
+const skillMap = {
 	mana:{
 		id:'lore',
 		reqs:2	// requirements doubled when unlocking with skill
 	}
 }
 
-schoolMap.arcane = schoolMap.lore = schoolMap.mana;
+skillMap.arcane = skillMap.lore = skillMap.mana;
 
 
 
@@ -45,7 +45,7 @@ export { HOME, RESOURCE, NPC, SKILL, ENCOUNTER, WEARABLE, MONSTER, ARMOR, WEAPON
 const TierTable = [0, 3, 6, 11, 20];
 
 /**
- * @const {.<string,string|string[]>} SchoolTable - converts string to associated school.
+ * @const {.<string,string|string[]>} SchoolTable - converts type/kind to associated school.
  */
 export const SchoolTable = {
 
@@ -60,7 +60,8 @@ export const SchoolTable = {
 	town:[ 'blood', 'mana'],
 	humanoid:'blood',
 	undead:'shadow',
-	construct:'crafting',
+	ghost:'spirit',
+	construct:'craft',
 	dragon:'fire',
 	beast:'nature',
 	magicbeast:['mana','nature']
@@ -116,10 +117,18 @@ export const getTier = (lvl=1) => {
 export const getBookCost = (s)=>{ return BookCostTable[s]; }
 
 /**
- * Get school associated with a string.
+ * Get skill associated with a school.
  * @param {string} s
+ * @returns {string|object}
  */
-export const getSchool = (s)=>{ return schoolMap[s] || s; }
+export const schoolSkill = (s)=>{ return skillMap[s] || s; }
+
+/**
+ *
+ * @param {string} s
+ * @returns {string|string[]}
+ */
+export const getSchool = s=>{ return SchoolTable[s] || s; }
 
 /**
  * Get display name for a school.
@@ -171,7 +180,8 @@ export const SchoolCostTable = {
 
 		0:'bonedust',
 		1:'bones',
-		2:'shadowgem'
+		2:'shadowgem',
+		3:'bodies'
 
 	},
 	nature:{
@@ -212,7 +222,8 @@ export const SchoolCostTable = {
 
 	},
 	light:{
-		1:'lightgem'
+		1:'lightgem',
+		4:'sindel'
 
 	},
 	blood:{
