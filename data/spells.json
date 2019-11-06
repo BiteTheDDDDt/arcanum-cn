@@ -2584,6 +2584,31 @@
 
 	},
 	{
+		"id":"cyrilsling",
+		"name":"cyril's celestial sling",
+		"tags":"patron",
+		"level":7,
+		"desc":"",
+		"require":"g.tier5>0&&g.chaos>=3",
+		"buy":{
+			"firerune":7,
+			"waterrune":7,
+			"airrune":7,
+			"earthrune":7,
+			"runestones":7
+		},
+		"cost":{
+			"sindel":1,
+			"chaos":1
+		},
+		"attack":{
+			"kind":"pierce",
+			"dmg":2,
+			"tohit":50
+		},"flavor":""
+
+	},
+	{
 		"id":"angelofdeath",
 		"name":"angel of death",
 		"desc":"a black spirit arises, to reap souls for your work.",
