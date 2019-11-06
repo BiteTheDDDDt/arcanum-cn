@@ -139,8 +139,9 @@ export default class Spell extends Action {
 	 */
 	canUseOn(targ) {
 
-		if ( targ.level && this.level < 2*targ.level ) return false;
+		if ( targ.level && ( 2*this.level < targ.level) ) return false;
 
+	//	console.log( this.id + ' target: ' + targ.id + ': ' + canTarget(this.targets, targ ));
 		return !this.targets || canTarget( this.targets, targ );
 
 	}

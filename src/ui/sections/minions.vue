@@ -22,10 +22,18 @@ export default {
 
 		items(){ return this.minions.filter( v=>v.value>=1 ); },
 
-		rezList(){return Game.state.getTagList('rez').filter(v=>v.owned);}
+		rezList(){return Game.state.getTagList('rez').filter(v=>v.owned&&!v.disabled);}
 
 	},
 	methods:{
+
+		/**
+		 * Get list of ressurect spells which can be applied to b.
+		 * @param {Npc}
+		 */
+		rezzes(b){
+			return this.rezList.filter(v=>v.canUseOn(b) );
+		},
 
 		/**
 		 * Use resurrect spell on minion.
@@ -33,6 +41,10 @@ export default {
 		 * @param {Npc}
 		 */
 		useRez( rez, b) {
+
+			Game.tryItem(rez);
+			b.hp =1;
+
 		},
 
 		levelCap(b){
@@ -72,19 +84,22 @@ export default {
 
 	<div class="char-list">
 	<table>
-		<tr><th>Creature</th><th class="num-align">Hp</th><th>active</th></tr>
+		<tr><th>Creature</th><th class="num-align">Hp</th><th>active</th><th>actions</th></tr>
 		<tr class="char-row" v-for="b in filtered" :key="b.id" @mouseenter.capture.stop="emit( 'itemover',$event,b)">
 			<th><input class="fld-name" type="text" v-model="b.name"></th>
 			<td class="num-align">{{ toNum(b.hp) }} / {{ toNum( b.hp.max ) }}</td>
 
-			<td v-if="!b.alive">Dead</td>
+			<td v-if="!b.alive">
+				<span>Dead</span>
+
+			</td>
 			<td v-else>
 				<button @click="toggleActive(b)" :disabled="inRaid||( levelCap(b)&&!b.active )">{{ b.active === true ? 'Rest' : 'Activate' }}</button>
 			</td>
-
-			<td><confirm @confirm="dismiss(b)">{{ 'Dismiss'}}</confirm></td>
-
-			<td v-for="r in rezList" :key="r.id"><button @click="useRez(r,b)">{{ r.name }}</button></td>
+			<td v-if="!b.alive">
+				<button v-for="r in rezzes(b)" :key="r.id" :disabled="!usable(r)" @click="useRez(r,b)">{{ r.name }}</button>
+				<confirm @confirm="dismiss(b)">{{ 'Dismiss'}}</confirm>
+			</td>
 
 		</tr>
 	</table>
