@@ -1498,6 +1498,10 @@
 		},
 		"mod":{
 			"lore.max":1,
+			"hp.rate":0.2,
+			"player.bonuses.shadow":3,
+			"player.hits.shadow":3,
+			"player.resist.shadow":"5%",
 			"resist.light":-100
 		}
 

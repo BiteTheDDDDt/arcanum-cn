@@ -14,6 +14,7 @@ const schoolUnlock = ( s, level )=>{
 
 	if ( typeof s === 'string') {
 
+		console.log('CREATING SCHOOL UNLOCK: ' + s.id );
 		s = schoolSkill(s);
 		if ( typeof s === 'object' ) return reqStr( s.name, level*(s.ratio || 1) );
 		return schoolFunc(s, level );

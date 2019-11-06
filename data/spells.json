@@ -2144,6 +2144,30 @@
 
 	},
 	{
+		"id":"starfall",
+		"desc":"You can't escape the sky.",
+		"school":"astral",
+		"require":"g.tier5>0&&(g.astralseer+g.wizard3+g.sorcerer)>=0&&g.astronomy>=15&&g.evil==0",
+		"cd":77,
+		"buy":{
+			"research":2000,
+			"tomes":15,
+			"arcana":10,
+			"managem":15
+		},
+		"cost":{
+			"managem":1
+		},
+		"attack":{
+			"duration":30,
+			"targets":"enemies",
+			"dot":{
+				"kind":"astral",
+				"dmg":"20~30"
+			}
+		}
+	},
+	{
 		"id":"adamantshell",
 		"name":"adamant shell",
 		"desc":"your skin becomes adamant.",
@@ -2462,7 +2486,8 @@
 		"id":"forceten",
 		"name":"force ten",
 		"school":"water",
-		"level":10,
+		"cd":50,
+		"level":15,
 		"desc":"The storm before the calm.",
 		"buy":{
 
@@ -2489,7 +2514,42 @@
 				"player.resist.water":75
 			}
 
-		},"flavor":"the force without form"
+		},"flavor":"force without form"
+
+	},
+	{
+
+		"id":"firestorm",
+		"school":"fire",
+		"level":17,
+		"desc":"rain hell from above",
+		"cd":120,
+		"buy":{
+
+			"research":4000,
+			"firegem":25,
+			"tomes":20
+
+		},
+		"cost":{
+			"fire":8
+		},
+		"attack":{
+			"dot":{
+				"kind":"fire",
+				"targets":"all",
+				"dmg":"30~50",
+				"duration":30
+			}
+		},
+		"dot":{
+			"targets":"allies",
+			"duration":30,
+			"mod":{
+				"player.resist.fire":80
+			}
+
+		},"flavor":""
 
 	},
 	{

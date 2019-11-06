@@ -2469,7 +2469,7 @@
         "hp":87,
         "tohit":10,
 		"defense":42,
-		"regen":3,
+		"regen":2,
         "attack":{
             "name":"bite",
             "kind":"drain",
@@ -2875,7 +2875,7 @@
         "hp":120,
         "tohit":15,
 		"defense":70,
-		"regen":10,
+		"regen":5,
         "attack":{
             "name":"bite",
             "kind":"drain",
@@ -2934,7 +2934,7 @@
         "hp":150,
         "tohit":20,
 		"defense":71,
-		"regen":10,
+		"regen":5,
         "attack":{
             "name":"death touch",
             "kind":"drain",
@@ -2972,7 +2972,7 @@
         "hp":150,
         "tohit":25,
 		"defense":75,
-		"regen":15,
+		"regen":7,
         "attack":{
             "name":"bite",
             "kind":"shadow",
@@ -3081,7 +3081,7 @@
         "hp":175,
         "tohit":25,
 		"defense":110,
-		"regen":15,
+		"regen":10,
         "attack":{
             "name":"bite",
             "kind":"shadow",
@@ -3290,7 +3290,7 @@
         "desc":"Not one lich in a hundred live to reach such heights.",
         "hp":550,
 		"tohit":27,
-		"regen":25,
+		"regen":15,
         "defense":120,
         "attack":{
             "name":"death touch",

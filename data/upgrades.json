@@ -1447,7 +1447,7 @@
 			"research.max":50
 		},
 		"mod":{
-			"hp.rate":0.5
+			"hp.rate":0.25
 		},"flavor":"magic over matter"
 
 	},
