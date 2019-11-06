@@ -24,11 +24,9 @@ export default class Percent {
 	 * @param {number} mod - 100-based percent.
 	 * @returns {boolean} - true if roll succeeds.
 	 */
-	roll( mod ) {
-		return 100*Math.random() < this.pct*( 100 + mod );
-	}
+	roll( mod ) { return 100*Math.random() < this.pct*( 100 + mod ); }
 
-	toString() { return  precise(100*this.pct) + '%';}
+	toString() { return  precise( 100*this.pct ) + '%';}
 
 	constructor( val ) {
 

@@ -322,7 +322,6 @@ export const freezeData = ( obj ) => {
 
 export const prepData = ( sub, id='' ) => {
 
-
 	if (Array.isArray(sub) ) {
 
 		for( let i = sub.length-1; i >= 0; i-- ) sub[i] = prepData( sub[i], id );
@@ -335,7 +334,13 @@ export const prepData = ( sub, id='' ) => {
 
 				sub[p] = ParseMods( sub[p], sub.id || id );
 				continue;
-			} else if ( p === 'require' || p === 'need' ) {
+			}
+			/*else if ( p ==='effect') {
+
+				sub[p] = ParseEffects( sub[p] );
+
+			}*/
+			else if ( p === 'require' || p === 'need' ) {
 
 				sub[p] = parseRequire( sub[p] );
 
@@ -379,11 +384,36 @@ export const prepData = ( sub, id='' ) => {
 
 }
 
+export const ParseEffects = ( effects ) => {
+
+	if ( Array.isArray(effects) ) {
+
+		for( let i = effects.length-1; i>= 0; i-- ){
+			effects[i] = ParseEffects( effects[i]);
+		}
+
+	} else if ( typeof effects === 'string') return effects;
+	else if ( typeof effects === 'object' ) {
+
+		for( let p in effects ) {
+
+			if ( adfs) {
+
+			}
+
+		}
+
+	}
+
+	return effects;
+
+}
+
 /**
  * Parse a requirement-type object.
  * currently: 'require' or 'need'
  */
-export function parseRequire( sub ){
+export const parseRequire = ( sub ) => {
 
 	// REQUIRE
 	if ( sub === null || sub === undefined || sub === false || sub === '') return undefined;

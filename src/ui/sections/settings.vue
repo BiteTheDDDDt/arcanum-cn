@@ -32,6 +32,10 @@ export default {
 	},
 	methods:{
 
+		clear(){
+
+		},
+
 		close() {
 			this.dispatch('save-settings');
 			this.closed = true;
@@ -94,6 +98,13 @@ export default {
 	<label :for="elmId('compact-mode')">compact mode</label>
 	<input type="checkbox" :id="elmId('compact-mode')" v-model="compactMode">
 	</div>
+
+	<!--<div><button @click="clear">Clear Settings</button></div>-->
+	<!--<div class="nowarn">
+
+		<div v-for="it in nowarns" :key="it"><span>{{it}}</span><button @click="clearWarn">Delete</button></div>
+
+	</div>-->
 
 	<div class="note-text sm">thanks to:<br>
 		kermit tears<br>

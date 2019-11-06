@@ -59,6 +59,20 @@ export default {
 	},
 
 	/**
+	 * Get subkeyed variable value.
+	 * @param {string} type
+	 * @param {string} key,
+	 * @returns {*}
+	 */
+	getSubVar( type, key ) {
+
+		let p = this.vars[type];
+		if (!p )return null;
+		return p[key];
+
+	},
+
+	/**
 	 * Set base setting.
 	 * @param {string} key
 	 * @param {*} val

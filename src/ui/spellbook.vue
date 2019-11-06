@@ -36,7 +36,7 @@ export default {
 
 				<button v-if="s.owned" @click="emit('spell', s)" :disabled="!s.canUse(game)">Cast</button>
 
-				<button v-else @click="emit('buy', s)" :disabled="!s.canUse(game)">Learn</button>
+				<button v-else @click="emit('buy', s)" :disabled="!s.canBuy(game)">Learn</button>
 
 			</td>
 

@@ -272,7 +272,7 @@ export default {
 		 */
 		onItem(item) {
 
-			if ( item.warn ) {
+			if ( item.warn ) { //&& !Settings.getSubVar('nowarn', item.id)) {
 
 				this.$refs.warn.show( item );
 
@@ -280,8 +280,15 @@ export default {
 
 		},
 
-		onConfirmed(it) {
-			if ( typeof it !== 'string' ) Game.tryItem(it);
+		onConfirmed(it, nowarn) {
+
+			if ( typeof it !== 'string' ) {
+
+				//if ( nowarn ) Settings.setSubVar( 'nowarn', it.id, true );
+				it.warn = !nowarn;
+				Game.tryItem(it);
+			}
+
 		},
 
 		/**
