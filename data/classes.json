@@ -497,6 +497,7 @@
 		"lore.rate":"10%",
 		"lore.max":2,
 		"firelore.max":1,
+		"necromancy.max":1,
 		"firelore.rate":0.2,
 		"shadowlore.max":2,
 		"demonology.max":3
@@ -1208,6 +1209,7 @@
 		},"mod":{
 			"tier5":true,
 			"lore.max":2,
+			"necromancy.max":1,
 			"lore.rate":"10%",
 			"firelore.max":3,
 			"firelore.rate":"20%",

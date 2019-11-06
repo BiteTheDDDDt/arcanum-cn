@@ -353,6 +353,7 @@
 		"desc":"grind bones into dust",
 		"require":"g.dissection>=3",
 		"length":10,
+		"fill":"bonedust",
 		"cost":{
 			"bones":1
 		},

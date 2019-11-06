@@ -1239,7 +1239,7 @@ export default {
 		}
 
 		let res = this.itemGen.getLoot(it);
-		if ( res === null || res === undefined ) return;
+		if ( res === null || res === undefined || (typeof res ==='object' && !res.id) ) return;
 
 		if ( Array.isArray(res))res = res.filter(v=>v!==null&&v!==undefined && v.id != null);
 

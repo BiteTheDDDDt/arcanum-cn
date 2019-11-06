@@ -101,8 +101,8 @@ export default class Explore {
 		if ( this._enc ) {
 			this.enc = itemRevive( state, this._enc );
 		}
-		if ( !(this.enc instanceof Encounter ) ){
-			console.warn('wrong encounter: ' + ( this.enc ? this.enc.id : this.enc ) );
+		if ( this.enc && !(this.enc instanceof Encounter ) ){
+			console.warn('bad encounter: ' + ( this.enc ? this.enc.id : this.enc ) );
 			this.enc = null;
 		}
 

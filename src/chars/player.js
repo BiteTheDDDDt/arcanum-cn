@@ -264,6 +264,10 @@ export default class Player extends Char {
 
 	}
 
+	/**
+	 *
+	 * @param {string} gclass - name of class added
+	 */
 	setClass( gclass ) {
 
 		this.gclass = gclass;
