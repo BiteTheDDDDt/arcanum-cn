@@ -980,6 +980,7 @@
 		"level":3,
 		"targets":"undead",
 		"school":"shadow",
+		"desc":"reanimate minor undead.",
 		"tags":"rez",
 		"buy":{
 			"research":50,
@@ -995,6 +996,7 @@
 
 		"id":"reanimate2",
 		"name":"greater reanimate",
+		"desc":"reanimate stronger undead.",
 		"level":5,
 		"targets":"undead",
 		"school":"shadow",
@@ -1015,6 +1017,7 @@
 		"targets":"humanoid,goblinoid",
 		"level":3,
 		"school":"spirit",
+		"desc":"call the weak back to life.",
 		"tags":"rez",
 		"buy":{
 			"research":100,
@@ -1031,6 +1034,7 @@
 		"targets":"beast",
 		"level":3,
 		"school":"nature",
+		"desc":"revive minor creatures of the wilds.",
 		"tags":"rez",
 		"buy":{
 			"research":100,
@@ -2147,8 +2151,8 @@
 		"id":"starfall",
 		"desc":"You can't escape the sky.",
 		"school":"astral",
-		"require":"g.tier5>0&&(g.astralseer+g.wizard3+g.sorcerer)>=0&&g.astronomy>=15&&g.evil==0",
-		"cd":77,
+		"require":"g.tier5>0&&(g.astralseer+g.wizard3+g.wizard2)>=0&&g.astronomy>=15&&g.evil==0",
+		"cd":55,
 		"buy":{
 			"research":2000,
 			"tomes":15,
@@ -2159,9 +2163,9 @@
 			"managem":1
 		},
 		"attack":{
-			"duration":30,
 			"targets":"enemies",
 			"dot":{
+				"duration":30,
 				"kind":"astral",
 				"dmg":"20~30"
 			}
@@ -2523,7 +2527,7 @@
 		"school":"fire",
 		"level":17,
 		"desc":"rain hell from above",
-		"cd":120,
+		"cd":66,
 		"buy":{
 
 			"research":4000,
