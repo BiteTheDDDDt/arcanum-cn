@@ -31,8 +31,24 @@ export default {
 		spelllist:SpellList
 
 	},
+	created(){
+
+		// remove schools not in allSchools.
+		let all = this.allSchools;
+		let a = [];
+
+		for( let i = this.schools.length-1; i>=0; i-- ) {
+			if ( all[this.schools[i] ] ) a.push(this.schools[i] );
+		}
+
+		this.schools = a;
+
+	},
 	methods:{
 
+		/**
+		 * toggle memorized list.
+		 */
 		toggle(){
 			this.showList = Settings.setSubVar( 'spells', 'showList', !this.showList );
 		}
@@ -56,6 +72,8 @@ export default {
 		viewSchools:{
 
 			get(){
+
+
 				return this.schools;
 			},
 			set(v){
@@ -68,7 +86,7 @@ export default {
 		},
 
 		/**
-		 * @property {Object.<string,string>} schools - schools of all unlocked spells.
+		 * @property {.<string,string>} schools - schools of all unlocked spells.
 		 */
 		allSchools() {
 
