@@ -97,7 +97,7 @@ export default {
 				<button @click="toggleActive(b)" :disabled="inRaid||( levelCap(b)&&!b.active )">{{ b.active === true ? 'Rest' : 'Activate' }}</button>
 			</td>
 			<td v-if="!b.alive">
-				<button v-for="r in rezzes(b)" :key="r.id" :disabled="!usable(r)" @click="useRez(r,b)">{{ r.name }}</button>
+				<button class="rez" v-for="r in rezzes(b)" :key="r.id" :disabled="!usable(r)" @click="useRez(r,b)">{{ r.name }}</button>
 				<confirm @confirm="dismiss(b)">{{ 'Dismiss'}}</confirm>
 			</td>
 
@@ -110,6 +110,10 @@ export default {
 </template>
 
 <style scoped>
+
+div.minions .rez {
+	text-transform: capitalize;
+}
 
 div.minions .minion-title {
 	display:flex;

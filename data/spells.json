@@ -965,8 +965,8 @@
 		"school":"nature",
 		"level":3,
 		"buy":{
-			"research":50,
-			"scrolls":25
+			"research":100,
+			"scrolls":20
 		},
 		"cost":{
 			"nature":4
@@ -981,19 +981,64 @@
 		"targets":"undead",
 		"school":"shadow",
 		"tags":"rez",
+		"buy":{
+			"research":50,
+			"scrolls":25
+		},
 		"cost":{
-			"bonedust":5
+			"bonedust":5,
+			"shadow":5
+		}
+
+	},
+	{
+
+		"id":"reanimate2",
+		"name":"greater reanimate",
+		"level":5,
+		"targets":"undead",
+		"school":"shadow",
+		"tags":"rez",
+		"buy":{
+			"codices":10,
+			"research":500
+		},
+		"cost":{
+			"bonedust":10,
+			"bones":3,
+			"shadow":5
 		}
 
 	},
 	{
 		"id":"revive",
-		"targets":"humanoid",
+		"targets":"humanoid,goblinoid",
 		"level":3,
 		"school":"spirit",
 		"tags":"rez",
+		"buy":{
+			"research":100,
+			"scrolls":20
+		},
 		"cost":{
-			"scrolls":10
+			"scrolls":5,
+			"mana":5
+		}
+	},
+	{
+		"id":"tend",
+		"name":"magic tending",
+		"targets":"beast",
+		"level":3,
+		"school":"nature",
+		"tags":"rez",
+		"buy":{
+			"research":100,
+			"scrolls":20
+		},
+		"cost":{
+			"herbs":5,
+			"nature":5
 		}
 	},
 	{
