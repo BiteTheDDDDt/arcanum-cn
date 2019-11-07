@@ -1,0 +1,80 @@
+{
+
+
+	"module":"patrons",
+	"sym":"⭐",
+
+	"data":{
+
+
+		"encounters":[
+
+			{
+				"id":"enc_kanna",
+				"name":"spar with Kanna",
+				"desc":"",
+				"effect":{
+					"rage":"1~5",
+					"weary":"2~5",
+					"research":1
+				},
+				"result":{
+				}
+
+			},
+
+			{
+				"id":"enc_mrwild",
+				"name":"wild",
+				"desc":"",
+				"effect":{
+					"rage":"1~5",
+					"weary":"2~5",
+					"research":1
+				},
+				"result":{
+				}
+
+			},
+			{
+				"id":"enc_cyril",
+				"name":"view stars with cyril",
+				"desc":"",
+				"effect":{
+					"rage":"1~5",
+					"weary":"2~5",
+					"research":1
+				},
+				"result":{
+				}
+
+			},
+			{
+				"id":"enc_kanna",
+				"name":"spar with Kanna",
+				"desc":"",
+				"effect":{
+					"rage":"1~5",
+					"weary":"2~5",
+					"research":1
+				},
+				"result":{
+				}
+
+			}
+
+		],
+		"locales":[
+
+			{
+				"id":"loc_ageshall",
+				"name":"hall of ages",
+				"require":"g.player.level>=999"
+
+			}
+
+		]
+
+	}
+
+}

@@ -314,7 +314,7 @@
 		"id":"fire",
 		"require":"firelore",
 		"unit":false,
-		"tags":"manas,elemental",
+		"tags":"manas,element",
 		"desc":"Fire Mana",
 		"max":0
 	},
@@ -322,14 +322,14 @@
 		"id":"air",
 		"require":"airlore",
 		"unit":false,
-		"tags":"manas,elemental",
+		"tags":"manas,element",
 		"desc":"Air Mana",
 		"max":0
 	},
 	{
 		"id":"earth",
 		"unit":false,
-		"tags":"manas,elemental",
+		"tags":"manas,element",
 		"require":"earthlore",
 		"desc":"Earth Mana",
 		"max":0
@@ -337,7 +337,7 @@
 	{
 		"id":"water",
 		"unit":false,
-		"tags":"manas,elemental",
+		"tags":"manas,element",
 		"desc":"Water Mana",
 		"require":"waterlore",
 		"max":0
