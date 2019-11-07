@@ -290,6 +290,7 @@ export default {
 				( def.stat === true ? new StatData(def) :
 				( def.reverse === true ? new RevStat(def) : new Resource( def ) )
 			);
+			res.type = 'resource';
 			items[def.id] = res;
 
 		}

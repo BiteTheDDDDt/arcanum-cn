@@ -2103,13 +2103,13 @@
 
 		},
 		"cost":{
-			"scrolls":1,
-			"earth":7
+			"scrolls":2,
+			"earth":5
 		},
 		"dot":{
 			"duration":120,
 			"mod":{
-				"gems.rate":0.25
+				"gems.rate":0.1
 			}
 		},"flavor":"hi-ho, hi-ho"
 
