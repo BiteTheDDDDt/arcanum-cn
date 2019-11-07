@@ -98,7 +98,7 @@ export default class Mod extends Stat {
 		//console.log('mod save val: ' + val );
 
 		return {
-			value:val,
+			str:val,
 			count:this.count.valueOf()
 		};
 
@@ -134,8 +134,8 @@ export default class Mod extends Stat {
 	 */
 	get pct(){return this.basePct * (1+ this.mPct); }
 
-	get value() { return super.value; }
-	set value(v) {
+	get str() { return super.value; }
+	set str(v) {
 
 		//console.log('assinging to mod: ' + this.id + ' val: ' + v );
 
@@ -175,9 +175,16 @@ export default class Mod extends Stat {
 		super( null, id );
 
 		if ( typeof vars === 'number') this.base = vars;
-		else if ( typeof vars === 'string') this.value = vars;
+		else if ( typeof vars === 'string') this.str = vars;
 		else if ( vars ) {
+
 			Object.assign( this, vars );
+			if ( vars.value ) {
+				/** @compat */
+				this.str = vars.value;
+			}
+
+
 		}
 
 		if( this._count === undefined ) this._count = 1;
