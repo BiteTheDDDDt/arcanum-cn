@@ -230,6 +230,9 @@ export default class Player extends Char {
 
 	}
 
+	get sp(){return this._sp;}
+	set sp(v) { this._sp = v;}
+
 
 	constructor( vars=null ){
 
