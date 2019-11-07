@@ -129,7 +129,7 @@ export default class Mod extends Stat {
 		 * @compat temp. for introduced bug.
 		 */
 		if ( v && (typeof v === 'object') && v.str) {
-			this._count = v.str;
+			this.count = v.str;
 		} else this._count = v;
 	}
 
@@ -173,7 +173,7 @@ export default class Mod extends Stat {
 			 * @compat temp. for introduced bug.
 			 */
 			if ( v && (typeof v === 'object') && v.str) {
-				this.base = v.str;
+				this.str = v.str;
 			}
 
 		}
