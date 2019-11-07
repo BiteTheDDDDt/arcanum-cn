@@ -18,10 +18,10 @@ export default {
 			return this.skill.rate.value.toFixed(1);
 		},
 		exp(){
-			return this.skill.exp.toFixed(0);
+			return Math.floor( this.skill.exp );
 		},
 		length(){
-			return this.skill.length.toFixed(0);
+			return Math.floor( this.skill.length );
 		}
 	}
 

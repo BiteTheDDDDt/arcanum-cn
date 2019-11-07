@@ -1,6 +1,7 @@
 import GData from './gdata';
 import Game from '../game';
 import Events, { ACT_DONE, ACT_IMPROVED, EXP_MAX } from '../events';
+import Stat from '../values/stat';
 
 export default class Action extends GData {
 
@@ -41,12 +42,17 @@ export default class Action extends GData {
 	}
 
 	get length() { return this._length; }
-	set length(v) { this._length = v;}
+	set length(v) {
+
+		if ( v === null || v === undefined ) this._length = null;
+		else this._length = v instanceof Stat ? v : new Stat(v);
+
+	}
 
 	get running() { return this._running; }
 	set running(v) { this._running = v;}
 
-	percent() { return 100*(this._exp / this._length ); }
+	percent() { return 100*( this._exp / this._length ); }
 
 	constructor( vars=null ){
 

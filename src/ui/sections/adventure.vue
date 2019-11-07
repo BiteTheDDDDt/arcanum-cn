@@ -165,7 +165,7 @@ export default {
 					<span class="sym">{{ d.sym }}</span>
 					</span>
 
-					<progbar :value="d.exp.valueOf()" :max="d.length" />
+					<progbar :value="d.exp.valueOf()" :max="Number(d.length)" />
 
 				</div>
 

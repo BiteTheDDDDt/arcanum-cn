@@ -347,8 +347,9 @@ export default {
 	 * @param {Object} mod
 	 * @param {number} amt - percent of mod added.
 	 * @param {Object} targ - target of mods.
+	 * @param {boolean} isMod - whether target is subobject of a mod object.
 	 */
-	applyObj( mods, amt, targ ) {
+	applyObj( mods, amt, targ, isMod ) {
 
 		for( let p in mods ) {
 
@@ -359,8 +360,11 @@ export default {
 
 				if (typeof m === 'number' || m instanceof Mod || m instanceof Stat ) {
 
-					let s = targ[p] = new Mod( typeof m === 'number' ? m*amt :0 );
-					s.count = this.value;
+					let s = targ[p] = isMod ? new Mod( typeof m === 'number' ? m*amt :0 )
+						: new Stat( typeof m === 'number' ? m*amt : 0 );
+
+					if ( isMod ) s.count = this.value;
+
 					if ( m instanceof Mod) {
 						s.addMod(m, amt);
 					}
@@ -369,16 +373,19 @@ export default {
 
 				} else {
 					targ[p] = {};
-					this.applyObj( m, amt, targ[p] );
+					this.applyObj( m, amt, targ[p], isMod || (p==='mod') );
 				}
 
 			} else if ( subTarg.applyMods ) subTarg.applyMods( m, amt, subTarg );
-			else if ( subTarg instanceof Stat) subTarg.apply( m, amt );
-			else if ( m instanceof Mod ) {
+			else if ( subTarg instanceof Stat) {
+
+				subTarg.apply( m, amt );
+
+			} else if ( m instanceof Mod ) {
 				m.applyTo( targ, p, amt );
 			} else if ( typeof m === 'object' ) {
 
-				this.applyObj( m, amt, subTarg );
+				this.applyObj( m, amt, subTarg, isMod || (p==='mod'));
 
 			} else if ( typeof m === 'number' ) {
 
