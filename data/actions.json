@@ -256,7 +256,7 @@
 				"effect.research":0.1,
 				"effect.herbalism.max":0.0005,
 				"effect.naturelore.max":0.0015,
-				"effect.naturelore.rate":0.001,
+				"effect.naturelore.rate":0.001
 			}
 		},
 		"effect":{
@@ -266,11 +266,13 @@
 		}
 	},
 	{
-		"id":"chronoscopy",
+		"id":"act_scry",
+		"name":"scry",
 		"perpetual":true,
 		"verb":"peering",
 		"desc":"knowledge for those who look.",
-		"require":"(g.oracle+g.seer+g.astralseer)>0&&chronomancy>=3",
+		"require":"(g.oracle+g.seer+g.astralseer)>0&&g.chronomancy>=3&&g.scrying>=5",
+		"length":5,
 		"run":{
 			"stamina":0.5,
 			"mana":0.3,
@@ -278,18 +280,18 @@
 		},
 		"at":{
 			"60":{
-				"effect.research":5
+				"result.research":5
 			},
 			"240":{
-				"effect.research":5,
-				"arcana":0.005
+				"result.research":5,
+				"result.arcana":0.005
 			},
 			"600":{
-				"effect.research":10,
-				"arcana":0.02
+				"result.research":10,
+				"result.arcana":0.02
 			}
 		},
-		"effect":{
+		"result":{
 			"research":10,
 			"arcana":0.005
 		}
@@ -343,8 +345,8 @@
 		"name":"Attune (elements)",
 		"perpetual":true,
 		"verb":"attuning",
-		"desc":"uncover the fundamental nature of the elements.",
-		"require":"(g.alchemist+g.elementalist+g.pyromancer+g.hydromancer+g.windmage+g.geomancer)>0",
+		"desc":"attune to primal forces of the world.",
+		"require":"(g.kell+g.elementalist+g.highelemental)>0",
 		"run":{
 			"stamina":0.5,
 			"fire":0.05,
