@@ -322,6 +322,7 @@ export default {
 		} else if ( typeof mods === 'object') {
 
 			this.applyObj( mods, amt, targ );
+			if ( mods.mod ) this.changeMod( mods.mod, this.value );
 
 		} else if ( typeof mods === 'number') {
 
@@ -357,11 +358,20 @@ export default {
 
 			if ( subTarg === undefined || subTarg === null ) {
 
-				let s = targ[p] = new Stat( typeof m === 'number' ? m*amt : 0 );
-				if ( m instanceof Mod) {
-					s.addMod(m, amt);
+				if (typeof m === 'number' || m instanceof Mod || m instanceof Stat ) {
+
+					let s = targ[p] = new Mod( typeof m === 'number' ? m*amt :0 );
+					s.count = this.value;
+					if ( m instanceof Mod) {
+						s.addMod(m, amt);
+					}
+					console.log( this.id + 'mod ' + mods + '["' + p + '"]:' + m + ' -> mod targ undefined' + ' -> ' + s.valueOf() );
+
+
+				} else {
+					targ[p] = {};
+					this.applyObj( m, amt, targ[p] );
 				}
-				//console.log( mods + '["' + p + '"]:' + m + ' -> mod targ undefined' + ' -> ' + s.valueOf() );
 
 			} else if ( subTarg.applyMods ) subTarg.applyMods( m, amt, subTarg );
 			else if ( subTarg instanceof Stat) subTarg.apply( m, amt );
