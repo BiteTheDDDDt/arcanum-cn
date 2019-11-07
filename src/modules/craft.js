@@ -6,6 +6,9 @@ import game from "../game";
  */
 export const addCost = ( buy, type, amt ) => {
 
+
+	if (!game.state.exists(type)) return;
+
 	let e = buy[type];
 	buy[type] = e ? e + amt : amt;
 
@@ -140,8 +143,10 @@ export const spellCost = (list) => {
 export const schoolCost = ( school, level=1, res={} ) => {
 
 	if ( Array.isArray(school) ) {
+
 		for( let i = school.length-1; i>=0; i--) schoolCost(school[i],level,res);
-	} else if ( school != null && game.state.exists(school) ) {
+
+	} else if ( school != null ) {
 
 		addCost( res, school + 'gem', level*level );
 
