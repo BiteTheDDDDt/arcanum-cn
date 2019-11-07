@@ -1,7 +1,7 @@
 <script>
 import ItemBase from '../itemsBase';
 
-import {spellCost} from '../../modules/craft';
+import {spellCost} from 'modules/craft';
 import Game from '../../game';
 
 export default {

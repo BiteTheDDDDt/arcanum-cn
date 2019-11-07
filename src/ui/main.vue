@@ -22,7 +22,7 @@ import { TICK_TIME } from '../game';
 import profile from '../modules/profile';
 
 /**
- * @var {number} SAVE_TIME  - time in seconds between auto-saves.
+ * @const {number} SAVE_TIME  - time in seconds between auto-saves.
  */
 const SAVE_TIME = 30;
 
@@ -98,9 +98,7 @@ export default {
 			this.state = Game.state;
 
 			let curview = Settings.get('curview') || 'sect_main';
-			console.warn('VIEW CHANGE: ' +  curview );
-
-
+			//console.warn('VIEW CHANGE: ' +  curview );
 			this.section = this.state.sections.find( v=>v.id===curview );
 
 			this.initEvents();
@@ -223,6 +221,9 @@ export default {
 
 		},
 
+		/**
+		 *
+		 */
 		doQuickslot(it) {
 
 			 Game.tryItem( it.getTarget( Game ) );
