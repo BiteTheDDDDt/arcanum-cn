@@ -75,7 +75,7 @@ export const SubMods = (mods, id)=>{
 			if (id ) val.id = id;
 		} else if ( typ === 'object') {
 
-			if ( val.id || val.value || val.base ) mods[s] = new Mod(val, id );
+			if ( val.id || val.value || val.base || val.str ) mods[s] = new Mod(val, id );
 			else mods[s] = SubMods( val, id );
 
 		} else {
@@ -123,7 +123,15 @@ export default class Mod extends Stat {
 	 * @property {number} [count=0] - number of times mod is applied.
 	 */
 	get count() { return this._count; }
-	set count(v) { this._count = v; }
+	set count(v) {
+
+		/**
+		 * @compat temp. for introduced bug.
+		 */
+		if ( v && (typeof v === 'object') && v.str) {
+			this._count = v.str;
+		} else this._count = v;
+	}
 
 	/**
 	 * @property {number} bonus - total flat bonus of mod.
@@ -134,10 +142,10 @@ export default class Mod extends Stat {
 	 */
 	get pct(){return this.basePct * (1+ this.mPct); }
 
-	get str() { return super.value; }
+	get str() { return this.value; }
 	set str(v) {
 
-		//console.log('assinging to mod: ' + this.id + ' val: ' + v );
+		console.log('assinging to mod: ' + this.id + ' val: ' + v );
 
 		if ( typeof v ==='string' ){
 
@@ -159,6 +167,15 @@ export default class Mod extends Stat {
 		} else if ( !isNaN(v) ) {
 
 			this.base = v;
+		} else if ( typeof v === 'object') {
+
+			/**
+			 * @compat temp. for introduced bug.
+			 */
+			if ( v && (typeof v === 'object') && v.str) {
+				this.base = v.str;
+			}
+
 		}
 
 	}
@@ -178,16 +195,16 @@ export default class Mod extends Stat {
 		else if ( typeof vars === 'string') this.str = vars;
 		else if ( vars ) {
 
-			Object.assign( this, vars );
 			if ( vars.value ) {
 				/** @compat */
 				this.str = vars.value;
-			}
+				this.count = vars.count;
+			} else Object.assign( this, vars );
 
 
 		}
 
-		if( this._count === undefined ) this._count = 1;
+		if( this._count === undefined || this._count === null ) this._count = 1;
 
 		this.base = this.base || 0;
 		this.basePct = this.basePct || 0;
