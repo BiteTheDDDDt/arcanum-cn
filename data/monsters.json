@@ -2777,10 +2777,12 @@
         "desc":"It was a wizard, once.",
         "hp":166,
         "tohit":20,
-        "defense":68,
+		"defense":68,
+		"regen":3,
         "attack":{
             "name":"death touch",
-            "kind":"drain",
+			"kind":"drain",
+			"leech":0.1,
             "dmg":"26~36"
         }, "loot":{ "ichor":"2%"}
 
@@ -2934,12 +2936,12 @@
         "hp":150,
         "tohit":20,
 		"defense":71,
-		"regen":5,
+		"regen":7,
         "attack":{
             "name":"death touch",
             "kind":"drain",
 			"dmg":"30~40",
-			"leech":0.2
+			"leech":0.1
         }, "loot":{}
 
 	},
@@ -3295,8 +3297,16 @@
         "attack":{
             "name":"death touch",
             "kind":"shadow",
-            "dmg":"80~120"
-        }, "loot":{"ichor":"10%"}
+			"dmg":"80~120",
+			"leech":0.1
+		},
+		"resist":{
+			"shadow":50,
+			"mana":25,
+			"water":40,
+			"spirit":25
+		},
+		"loot":{"ichor":"10%"}
 
 	},
 	{

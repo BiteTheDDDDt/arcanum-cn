@@ -2156,7 +2156,7 @@
 
 		},
 		"cost":{
-			"earth":10
+			"earth":7
 		},
 		"dot":{
 			"duration":120,
@@ -2227,7 +2227,7 @@
 
 		},
 		"cost":{
-			"earth":7
+			"earth":10
 		},
 		"dot":{
 			"duration":180,
