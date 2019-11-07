@@ -2678,6 +2678,27 @@
 			}
 		}
 
+	},
+	{
+		"id":"disdream",
+		"name":"dispersal dream",
+		"school":"void",
+		"desc":"",
+		"buy":{
+			"voidgem":10
+		},
+		"cost":"voidgem",
+		"attack":{
+			"targets":"all",
+			"dot":{
+				"duration":30,
+				"effect":{
+					"dmg":"200-300",
+					"kind":"void"
+				}
+			}
+		}
+
 	}
 
 ]
