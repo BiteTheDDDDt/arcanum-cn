@@ -4,7 +4,7 @@ import ItemBase from '../itemsBase';
 import Range from '../../values/range';
 import FilterBox from '../components/filterbox.vue';
 import { TRY_BUY } from '../../events';
-import { npcBuy } from '../../craft';
+import { npcBuy } from 'modules/craft';
 
 export default {
 

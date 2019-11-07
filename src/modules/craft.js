@@ -1,4 +1,5 @@
-import { getTier, schoolSkill, schoolResource, tierLevel, tierDelta, getSchool } from "./values/consts";
+import { getTier, schoolSkill, schoolResource, tierLevel, tierDelta, getSchool } from "../values/consts";
+import game from "../game";
 
 /**
  * Functions for crafting/buying items.
@@ -140,7 +141,7 @@ export const schoolCost = ( school, level=1, res={} ) => {
 
 	if ( Array.isArray(school) ) {
 		for( let i = school.length-1; i>=0; i--) schoolCost(school[i],level,res);
-	} else if ( school != null ) {
+	} else if ( school != null && game.state.exists(school) ) {
 
 		addCost( res, school + 'gem', level*level );
 

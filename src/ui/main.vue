@@ -240,7 +240,7 @@ export default {
 		/**
 		 * Use instanced item.
 		 */
-		onUse(it) { Game.use(it); },
+		onUse( it, inv ) { Game.use(it, inv); },
 
 		/**
 		 * @param {Enchant} e - enchantment

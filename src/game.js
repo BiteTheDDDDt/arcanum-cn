@@ -461,9 +461,9 @@ export default {
 	 * Use inventory or equip item.
 	 * @param {*} it
 	 */
-	use( it, targ, inv=null ) {
+	use( it, inv=null ) {
 
-		it.onUse( this );
+		it.onUse( this, inv || this.state.inventory );
 
 	},
 
@@ -483,7 +483,7 @@ export default {
 
 		if ( it.instance ){
 
-			it.onUse( this);
+			it.onUse( this, this.state.inventory );
 
 		} else if ( it.buy && !it.owned ) {
 
@@ -1227,7 +1227,7 @@ export default {
 
 		inv = inv || this.state.inventory;
 
-		/** @todo this won't work right */
+		/** @todo this won't work right. huh? why not, later lemur asks. */
 		if ( typeof it === 'object' && it.stack ) {
 
 			let inst = inv.findMatch( it );

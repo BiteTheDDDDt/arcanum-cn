@@ -502,6 +502,8 @@ export default class GameState {
 		return this.inventory.find(id, true) || this.equip.find(id, true );
 	}
 
+	exists(id){ return this.items.hasOwnProperty(id);}
+
 	/**
 	 * Find item in base items, equip, or inventory.
 	 * @param {string} id
