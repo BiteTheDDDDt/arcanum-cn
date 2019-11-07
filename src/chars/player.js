@@ -231,7 +231,12 @@ export default class Player extends Char {
 	}
 
 	get sp(){return this._sp;}
-	set sp(v) { this._sp = v;}
+	set sp(v) {
+
+		if ( v instanceof GData ) this._sp = v;
+		else this._sp.value = v;
+
+	}
 
 
 	constructor( vars=null ){
@@ -244,7 +249,6 @@ export default class Player extends Char {
 		if ( !this.hid ) this.hid = makeHallId();
 
 		//if ( vars ) Object.assign( this, vars );
-
 		if ( !this.level ) this.level = 0;
 		this._title = this._title || 'waif';
 

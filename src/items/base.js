@@ -255,10 +255,12 @@ export default {
 	 */
 	applyVars( mods, amt=1 ) {
 
+
 		if ( typeof mods === 'number' || mods instanceof Stat ) {
 
 			//this.amount( Game, mods*amt );
 			this.value = this.value.base + mods*amt;
+
 
 		} else if ( typeof mods === 'object' ) {
 
