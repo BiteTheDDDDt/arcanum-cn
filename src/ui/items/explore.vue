@@ -74,7 +74,7 @@ export default {
 		@mouseenter.capture.stop="emit( 'itemover', $event, explore.locale )">Flee</button>
 		</span>
 
-		<span class="bar"><progbar :value="explore.exp" :max="explore.length" /></span>
+		<span class="bar"><progbar :value="explore.exp" :max="Number(explore.length)" /></span>
 
 		<template v-if="type==='raid'">
 			<combat :combat="explore.combat" :player="player" />
