@@ -15,7 +15,7 @@ export default {
 
 
 <template>
-<div>
+<div class="upgrades">
 
 	<!--<div><button ref="btnHides" class="btnConfig">&#9881;</button></div>-->
 

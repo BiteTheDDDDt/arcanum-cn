@@ -1660,7 +1660,7 @@
 		"need":"g.runner.hasType('skill')",
 		"every":{
 			"25":{
-				"effect.runner.exp":0.01
+				"effect.runner.exp":0.02
 			}
 		},
 		"cost":{

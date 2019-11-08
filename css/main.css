@@ -116,6 +116,8 @@ div.text-button {
 	font-size: 0.9em;
 }
 .text-button a {
+	max-height: unset;
+	text-decoration: none;
 	margin:0px;
 	padding:0px;
 }

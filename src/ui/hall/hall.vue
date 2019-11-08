@@ -3,7 +3,7 @@
 import Profile from '../../modules/profile';
 
 import Info from './charinfo.vue';
-
+import Upgrades from '../upgrades.vue';
 import {center} from '../components/popups.js';
 
 /**
@@ -16,7 +16,8 @@ import {center} from '../components/popups.js';
 export default {
 
 	components:{
-		info:Info
+		info:Info,
+		upgrades:Upgrades
 	},
 	data(){
 		return {
@@ -84,6 +85,8 @@ export default {
 		:key="i" @load="load( i)" @dismiss="dismiss(i,c.name)" />
 	</div>
 
+	<upgrades :items="hall.upgrades" />
+
 	<div class="btn-close"><button class="btn-close" @click="$emit('close')">X</button></div>
 
 </div>
@@ -96,6 +99,11 @@ div.header {
 	display:flex;
 	justify-content:center;
 	margin: var(--md-padding);
+}
+
+div.wizhall .upgrades {
+	display:flex;
+	flex-flow: row wrap;
 }
 
 div.wizhall div.power {

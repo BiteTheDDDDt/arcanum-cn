@@ -51,6 +51,7 @@ const vm = new Vue({
 		this.game = Game;
 
 		this.listen('save-file', this.saveFile, this );
+		this.listen('save-hall', this.saveHall, this );
 		this.listen('load-file', this.loadFile, this );
 		this.listen('load', this.loadSave, this );
 		this.listen('reset', this.reset,this );
@@ -180,6 +181,10 @@ const vm = new Vue({
 			} catch(ex) {
 				console.error( ex.message + '\n' + ex.stack );
 			}
+
+		},
+
+		saveHall(e){
 
 		},
 

@@ -18,6 +18,7 @@
 			{
 				"id":"expandhall",
 				"name":"expanded halls",
+				"require":"tier5",
 				"max":3,
 				"cost":{
 					"prestige":50
@@ -28,10 +29,10 @@
 			},
 			{
 				"id":"timewell",
+				"require":"tier5",
 				"max":1,
 				"cost":{
-					"prestige":50,
-					"timerune":3
+					"prestige":20
 				},
 				"mod":{
 					"runner.max":1

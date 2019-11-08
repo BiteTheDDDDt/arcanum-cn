@@ -19,6 +19,11 @@ const schoolNames = {
 	mana:'arcane'
 }
 
+/**
+ * @const PCT - object key to indicate a percentile in the given effect/result.
+ */
+export const PCT = '%';
+
 const POTION = 'potion';
 const ITEM = 'item';
 const NPC = 'npc';

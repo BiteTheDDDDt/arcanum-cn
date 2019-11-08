@@ -32,6 +32,7 @@ export default {
 	/**
 	 * Load data files for hall.
 	 * @param {object} save - save data of hall.
+	 * @returns {Promise.<>}
 	 */
 	loadHallData( save ) {
 
@@ -129,6 +130,8 @@ export default {
 
 
 	},
+
+	hasHall() { return this.hall.owned() },
 
 	/**
 	 * Clear all stored data.

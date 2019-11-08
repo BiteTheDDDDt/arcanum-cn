@@ -92,6 +92,19 @@
 
 			},
 			{
+				"id":"enc_notowiz",
+				"name":"tainted",
+				"desc":"",
+				"effect":{
+					"rage":"1~5",
+					"weary":"2~5",
+					"research":1
+				},
+				"result":{
+				}
+
+			},
+			{
 				"id":"vondrey",
 				"name":"",
 				"desc":"",

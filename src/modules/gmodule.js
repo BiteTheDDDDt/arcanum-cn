@@ -213,6 +213,7 @@ export default class Module {
 	/**
 	 * Use module templates to create instanced data and instanced data lists.
 	 * @param {object} saveData
+	 * @returns {object} - game data, items, standard loaded lists.
 	 */
 	instance( saveData={} ){
 		return dataLoader.instance( this.templates, this.lists, saveData );

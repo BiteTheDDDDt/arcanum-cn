@@ -82,7 +82,8 @@ export default class Hall {
 
 	/**
 	 *
-	 * @param {object} vars
+	 * @param {object} vars - merged hall saved and module data,
+	 * all hall items, and standard hall lists.
 	 */
 	constructor(vars=null ){
 
@@ -93,21 +94,21 @@ export default class Hall {
 
 		if ( !this.name ) this.name = "Wizard's Hall";
 
+
 		/** @todo: change default to 1 */
 		//if ( !this.max ) this.max = 3;
 		this.max = 3;
 
-		let it = this.items.prestige;
-		if ( !it ){
-			console.warn('cannot find prestige data');
-			this.prestige = new StatData(0);
-		} else {
-			this.prestige = it;
-		}
+		this.prestige = this.items.prestige;
 
 		this.initChars();
 
 	}
+
+	/**
+	 * @returns {boolean} true if hall is owned.
+	 */
+	owned() { return this.items.evt_hall > 0; }
 
 	/**
 	 *

@@ -1,8 +1,11 @@
 <script>
+import Profile from 'modules/profile';
+
 export default {
 
 	computed:{
-		VERSION(){return __VERSION; }
+		VERSION(){return __VERSION; },
+		hasHall(){ return Profile.hasHall() }
 	},
 	methods:{
 
@@ -49,8 +52,12 @@ export default {
 		<button @click="dispatch('save')">save</button>
 		<button @click="dispatch('load')">load</button>
 
-		<div class="text-button"><a class="text-button" id="save-file" href="" download
+		<div class="text-button"><a id="save-file" href="" download
 			@click.self="dispatch('save-file',$event )" type="text/json">get save</a></div>
+
+		<div v-if="hasHall" class="text-button"><a id="save-hall" href="" download
+			@click.self="dispatch('save-hall',$event )" type="text/json">hall save</a></div>
+
 			<!--<input type="file" name="[File]" accept="text/json" @change="fileDrop">-->
 		<button id="drop-file" @click="$refs.fileInput.click()" @drop="fileDrop" @dragover="fileDrag" @dragleave.capture.stop="dragOut" name="[Drop Save]">[Drop Save]</button>
 			<input ref="fileInput" type="file" @change="fileSelect" accept="text/json text/*">
@@ -81,10 +88,6 @@ span.vers {
 	font-size: 0.9em;
 	align-self: center;
 	margin-bottom: 4px;
-}
-
-#save-file {
-	text-decoration: none;
 }
 
 input[type="file"] {
