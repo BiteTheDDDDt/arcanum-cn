@@ -1241,9 +1241,6 @@ export default {
 		let res = this.itemGen.getLoot(it);
 		if ( res === null || res === undefined ) return;
 
-		if ( Array.isArray(res))res = res.filter(v=>v!==null&&v!==undefined && v.id != null);
-		else if (!res.id) return;
-
 		Events.emit( EVT_LOOT, res );
 
 		inv.add( res );
