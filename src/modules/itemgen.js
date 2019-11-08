@@ -395,18 +395,18 @@ export default class ItemGen {
 
 	itemClone( data, material ) {
 
-		data = new Wearable(data);
+		let item = new Wearable(data);
 
 		if ( material ) {
 
-			data.applyMaterial( material );
-			data.name = material.id + ' ' + data.name;
+			item.applyMaterial( material );
+			item.name = material.id + ' ' + ( data.name || data.id );
 
-		} else data.name = data.name;
+		}
 
-		data.id = data.id + this.state.nextIdNum();
+		item.id = data.id + this.state.nextIdNum();
 
-		return data;
+		return item;
 	}
 
 
