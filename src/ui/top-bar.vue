@@ -83,7 +83,7 @@ span.vers {
 	margin-bottom: 4px;
 }
 
-#save-file {
+div.text-button a {
 	text-decoration: none;
 }
 
@@ -102,7 +102,7 @@ div.top-bar {
 	justify-items: flex-start;
 	align-items: center;
 	align-content: center;
-	min-height:52px;
+	min-height:56px;
 	max-width:100%;
 	overflow:hidden;
 	padding: 0px 14px 4px;

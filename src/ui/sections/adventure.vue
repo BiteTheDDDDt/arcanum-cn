@@ -264,7 +264,6 @@ div.raid-bottom {
 	flex-flow: row nowrap;
 	justify-content: space-between;
 	border-top: 1px solid var(--separator-color);
-	flex-shrink: 1;
 	min-height: 0;
 	max-height: 35%;
 	width:100%;

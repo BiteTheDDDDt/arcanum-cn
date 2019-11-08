@@ -111,7 +111,8 @@ div.inventory {
 }
 
 div.inventory .top {
-	padding: 0 var(--sm-gap);
+	padding: var(--tiny-gap);
+	padding-top: var(--sm-gap);
 }
 
 div.inventory .filter-box {
