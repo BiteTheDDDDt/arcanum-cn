@@ -193,6 +193,32 @@ export default {
 	},
 
 	/**
+	 * Get JSON for complete save of hall and all wizrobes in it.
+	 * @returns {object}
+	 */
+	getHallSave(){
+
+		let data = {
+			hall:this.hall,
+			chars:[]
+		};
+
+		let max = Math.floor( this.hall.max );
+		let store = window.localStorage;
+
+		let chars = data.chars;
+		for( let i = 0; i < max; i++ ) {
+
+			let char = store.getItem( this.charLoc(i) );
+			chars.push( char || null );
+
+		}
+
+		return data;
+
+	},
+
+	/**
 	 * Save GameState of active wizard.
 	 * @param {GameState} state
 	 */
@@ -289,15 +315,6 @@ export default {
 
 		}
 
-	},
-
-	setName(name){
-	},
-
-	setLevel(level) {
-	},
-
-	setTitle(title){
 	}
 
 }

@@ -49,7 +49,8 @@ const vm = new Vue({
 		this.game = Game;
 
 		this.listen('save-file', this.saveFile, this );
-		this.listen('save-hall', this.saveHall, this );
+		this.listen('hall-file', this.hallFile, this );
+
 		this.listen('load-file', this.loadFile, this );
 		this.listen('load', this.loadSave, this );
 		this.listen('reset', this.reset,this );
@@ -102,13 +103,9 @@ const vm = new Vue({
 
 				console.warn('LOADING SAVE');
 				let str = Profile.loadActive();
-				if ( !str ) console.log('no data saved.');
+				this.setStateJSON( JSON.parse(str) );
 
-				this.setStateJSON( str );
-
-			} catch (e ) {
-				console.error( e.message + '\n' + e.stack );
-			}
+			} catch (e ) { console.error( e.message + '\n' + e.stack ); }
 
 		},
 
@@ -168,9 +165,7 @@ const vm = new Vue({
 				if ( this.saveLink ) URL.revokeObjectURL( this.saveLink );
 
 				let state = this.game.state;
-				let json = JSON.stringify( state );
-
-				this.saveLink = this.makeLink( json, e.target, state.player.name );
+				this.saveLink = this.makeLink( state, e.target, state.player.name );
 
 			} catch(ex) {
 				console.error( ex.message + '\n' + ex.stack );
@@ -178,14 +173,18 @@ const vm = new Vue({
 
 		},
 
-		saveHall(e){
+		hallFile(e){
 
 			if ( !e ) return;
+
+			this.save();		// save game first.
 
 			try {
 
 				if ( this.hallLink) URL.revokeObjectURL( this.hallLink );
 
+				let data = Profile.getHallSave();
+				this.saveLink = this.makeLink( data, e.target, 'hall');
 
 			} catch(ex){
 				console.error( ex.message + '\n' + ex.stack );
@@ -195,12 +194,13 @@ const vm = new Vue({
 
 		/**
 		 * Create URL link for data.
-		 * @param {*} data
+		 * @param {object} data
 		 * @param {HTMLElement} targ - link target.
 		 * @returns {DOMString}
 		 */
 		makeLink( data, targ, saveName='arcanum' ) {
 
+			let json = JSON.stringify(data);
 			let file = new File( [json], saveName + '.json', {type:"text/json;charset=utf-8"} );
 
 			targ.title = file.name;
@@ -216,7 +216,15 @@ const vm = new Vue({
 			const reader = new FileReader();
 			reader.onload = (e)=>{
 
-				this.setStateJSON( e.target.result );
+				try {
+
+					let data = JSON.parse( e.target.result );
+
+					this.setStateJSON( e.target.result );
+
+				} catch(ex){
+					console.error(  err.message + '\n' + err.stack );
+				}
 
 			}
 			reader.readAsText( file );
@@ -224,11 +232,18 @@ const vm = new Vue({
 		},
 
 		/**
+		 * Set JSON for hall and all associated wizards.
+		 * @param {object} data
+		 */
+		setHallJSON( data ) {
+		},
+
+		/**
 		 * Set wizard-state game data in the form of a json
 		 * text string.
-		 * @param {string} text
+		 * @param {object} obj - raw game data.
 		 */
-		setStateJSON( text ){
+		setStateJSON( obj=null ){
 
 			this.dispatch('pause');
 
@@ -236,7 +251,6 @@ const vm = new Vue({
 
 				if ( this.game.loaded ) this.renderKey++;
 
-				let obj = text ? JSON.parse( text ) : null;
 				this.game.load( obj, Profile.getHallData() ).then( this.gameLoaded,
 					e=>console.error( e.message + '\n' + e.stack ) );
 

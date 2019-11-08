@@ -22,7 +22,7 @@ export default class Hall {
 	}
 
 	/**
-	 * @property {number} active - slot of active char.
+	 * @property {number} active - zero-indexed slot of active char.
 	 */
 	get active() { return this._active; }
 	set active(v) { this._active = v;}
@@ -72,6 +72,7 @@ export default class Hall {
 
 	/**
 	 * @property {Stat} max - maximum char slots.
+	 * slots are zero-based indices.
 	 */
 	get max() {return this._max; }
 	set max(v) {
