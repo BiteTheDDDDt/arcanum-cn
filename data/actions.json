@@ -1659,8 +1659,8 @@
 		"require":"mana",
 		"need":"g.runner.hasType('skill')",
 		"every":{
-			"100":{
-				"effect.runner.exp":0.004
+			"25":{
+				"effect.runner.exp":0.01
 			}
 		},
 		"cost":{
