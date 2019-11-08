@@ -89,8 +89,6 @@ export default class CharInfo {
 		this.gclass = p.gclass;
 		this.empty = false;
 
-		console.log('chr pts: ' + this.getPoints() );
-
 	}
 
 	/**

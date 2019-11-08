@@ -6,7 +6,7 @@ import Module from "./gmodule";
 
 const CHARS_DIR = 'chars/';
 const SETTINGS_DIR = 'settings/';
-const HALL_FILE = 'hall';
+export const HALL_FILE = 'hall';
 
 /**
 * @const {string} SAVE_DIR - global save directory.
@@ -37,7 +37,10 @@ export default {
 	loadHallData( save ) {
 
 		let module = new Module();
-		return module.load( 'hall').then( ()=>module.instance( save ));
+
+		if ( save ) console.log('SAVE CHARS: ' + save.chars.length );
+
+		return module.load( HALL_FILE ).then( ()=>module.instance( save ));
 
 	},
 
@@ -49,9 +52,10 @@ export default {
 
 		if ( !data ) {
 
-			window.localStorage.getItem( this.hallLoc() );
+			data = window.localStorage.getItem( this.hallLoc() );
 
 			if ( data ) {
+				console.log('LOADING HALL FROM STORAGE');
 				try { data = JSON.parse(data);
 				} catch(e) {console.error( e.message + '\n' + e.stack ); }
 			}
@@ -133,25 +137,6 @@ export default {
 
 	},
 
-	hasHall() { return this.hall.owned() },
-
-	/**
-	 * Clear all stored data.
-	 */
-	clearAll(){
-		window.localStorage.clear();
-	},
-
-	/**
-	 * Wipe current player data.
-	 */
-	clearActive(){
-
-		// clear hall char.
-		window.localStorage.setItem( this.activeLoc(), null );
-
-	},
-
 	dismiss( slot ) {
 
 		if ( this.hall.dismiss(slot) ) {
@@ -201,7 +186,7 @@ export default {
 	getHallSave(){
 
 		let data = {
-			type:'hall',
+			type:HALL_FILE,
 			hall:this.hall,
 			chars:[]
 		};
@@ -232,6 +217,7 @@ export default {
 	setHallSave( data ) {
 
 		this.setCharDatas( data.chars );
+		console.log('STORING HALL DATA');
 		window.localStorage.setItem( this.hallLoc(), JSON.stringify(data.hall) );
 
 	},
@@ -243,6 +229,8 @@ export default {
 		let store = window.localStorage;
 		for( let i = chars.length-1; i >= 0; i-- ) {
 
+			if ( chars[i] ) console.log( `HALL SAVE ${i}: ${chars[i].name}` );
+			else console.log('HALL SAVE EMPTY: ' + i );
 			store.setItem( this.charLoc(i), JSON.stringify( chars[i] ) );
 
 		}
@@ -318,8 +306,23 @@ export default {
 	 * Save loc for Active wizard.
 	 * @returns {string} - save location for current char file.
 	 */
-	activeLoc() {
-		return SAVE_DIR + CHARS_DIR + this.hall.active;
+	activeLoc() { return SAVE_DIR + CHARS_DIR + this.hall.active; },
+
+	hasHall() { return this.hall && this.hall.owned() },
+
+	/**
+	 * Clear all stored data.
+	 */
+	clearAll:()=>window.localStorage.clear(),
+
+	/**
+	 * Wipe current player data.
+	 */
+	clearActive(){
+
+		// clear hall char.
+		window.localStorage.setItem( this.activeLoc(), null );
+
 	},
 
 	charLoc:( ind ) =>SAVE_DIR + CHARS_DIR + ind,
@@ -332,6 +335,7 @@ export default {
 
 	saveHall(){
 
+		console.log('SAVING HALL DATA');
 		try {
 
 			let json = JSON.stringify( this.hall );

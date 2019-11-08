@@ -70,6 +70,13 @@ const vm = new Vue({
 	},
 	methods:{
 
+		loadProfile(){
+
+			console.warn('LOADING PROFILE');
+			Profile.loadHall().then( ()=>this.loadSave() );
+
+		},
+
 		/**
 		 * Set current character.
 		 */
@@ -84,13 +91,6 @@ const vm = new Vue({
 
 			//console.log('DISMISS: ' + ind );
 			Profile.dismiss( ind );
-
-		},
-
-		loadProfile(){
-
-			console.warn('LOADING PROFILE');
-			Profile.loadHall().then( ()=>this.loadSave() );
 
 		},
 
@@ -232,7 +232,7 @@ const vm = new Vue({
 					}
 
 
-				} catch(ex){
+				} catch(err){
 					console.error(  err.message + '\n' + err.stack );
 				}
 
@@ -248,7 +248,7 @@ const vm = new Vue({
 		setHallJSON( data ) {
 
 			Profile.setHallSave( data );
-			this.loadHall();	// load the hall data back. bit wasteful but organized.
+			this.loadProfile();	// load the hall data back. bit wasteful but organized.
 
 		},
 
@@ -283,7 +283,7 @@ const vm = new Vue({
 
 			Profile.clearAll();
 
-			this.setStateJSON(null);
+			this.loadProfile();
 
 		}
 

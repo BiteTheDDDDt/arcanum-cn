@@ -56,7 +56,7 @@ export default {
 			@click.self="dispatch('save-file',$event )" type="text/json">get save</a></div>
 
 		<div v-if="hasHall" class="text-button"><a id="hall-file" href="" download
-			@click.self="dispatch('save-hall',$event )" type="text/json">hall save</a></div>
+			@click.self="dispatch('hall-file',$event )" type="text/json">hall save</a></div>
 
 			<!--<input type="file" name="[File]" accept="text/json" @change="fileDrop">-->
 		<button id="drop-file" @click="$refs.fileInput.click()" @drop="fileDrop" @dragover="fileDrag" @dragleave.capture.stop="dragOut" name="[Drop Save]">[Drop Save]</button>

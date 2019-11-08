@@ -51,9 +51,7 @@ export default class Hall {
 	 * @property {StatData} prestige
 	 */
 	get prestige() { return this._prestige; }
-	set prestige(v) {
-
-		this._prestige = v;
+	set prestige(v) { this._prestige = v;
 
 	}
 
@@ -95,6 +93,9 @@ export default class Hall {
 
 		if ( !this.name ) this.name = "Wizard's Hall";
 
+		if ( this.items ) {
+			console.log( 'EVT HALL: ' + this.items.evt_hall.value );
+		} else console.warn('HALL NOT YET OWNED');
 
 		/** @todo: change default to 1 */
 		//if ( !this.max ) this.max = 3;
@@ -153,7 +154,9 @@ export default class Hall {
 			var c = this.chars[i];
 			if ( c === undefined ) {
 				this.chars.push( new CharInfo() );
+				console.log( i + ': NO CHAR DEFINED');
 			} else {
+				console.log( i + ': ' + c.name );
 				total += c.getPoints();
 			}
 
