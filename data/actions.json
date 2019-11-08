@@ -333,7 +333,7 @@
 			"alchemy.exp": 0.2,
 			"potions.exp": 1
 		},
-		"loot":{
+		"result":{
 			"gold":2,
 			"pot_heal1":"5%",
 			"pot_stam1":"5%",

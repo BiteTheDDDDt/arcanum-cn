@@ -77,7 +77,7 @@ if ( false ) {
 
 			let res = this.state.resources;
 			for( let p in res ){
-				if ( p!== 'space' && !res[p].locked ){
+				if ( p !== 'space' && !res[p].locked ){
 					Game.fillItem( res[p] )
 				}
 			}

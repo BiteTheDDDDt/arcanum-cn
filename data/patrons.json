@@ -9,6 +9,31 @@
 
 		"encounters":[
 
+
+			{
+				"id":"jeremy",
+				"name":"spar with Kanna",
+				"desc":"",
+				"effect":{
+					"rage":"1~5",
+					"weary":"2~5",
+					"research":1
+				},
+				"result":{
+				}
+			},
+			{
+				"id":"stags",
+				"name":"spar with Kanna",
+				"desc":"",
+				"effect":{
+					"rage":"1~5",
+					"weary":"2~5",
+					"research":1
+				},
+				"result":{
+				}
+			},
 			{
 				"id":"enc_kanna",
 				"name":"spar with Kanna",
@@ -51,7 +76,24 @@
 			},
 			{
 				"id":"enc_kanna",
-				"name":"spar with Kanna",
+				"name":"Study under Kanna",
+				"desc":"",
+				"effect":{
+					"bf":"1~5",
+					"weary":"2~5",
+					"bladelore":3,
+					"enchanting":3
+				},
+				"result":{
+
+					"bladelore.max":0.003
+
+				},"flavor":"Half-woman, half-fox, Kanna was ever adept with a blade."
+
+			},
+			{
+				"id":"vondrey",
+				"name":"",
 				"desc":"",
 				"effect":{
 					"rage":"1~5",
@@ -60,7 +102,30 @@
 				},
 				"result":{
 				}
-
+			},
+			{
+				"id":"sinae",
+				"name":"",
+				"desc":"",
+				"effect":{
+					"rage":"1~5",
+					"weary":"2~5",
+					"research":1
+				},
+				"result":{
+				}
+			},
+			{
+				"id":"tjoker",
+				"name":"",
+				"desc":"",
+				"effect":{
+					"rage":"1~5",
+					"weary":"2~5",
+					"research":1
+				},
+				"result":{
+				}
 			}
 
 		],
