@@ -45,6 +45,20 @@ export default class StatData extends GData {
 	}
 
 	/**
+	 * Not currently used any more.
+	 * @param {} dt
+	 */
+	/*update( dt ) {
+
+		if ( this._rate.value !== 0 ) {
+
+			this.value = this.value.base + this._rate.value*dt;
+
+		} else this._delta = 0;
+
+	}*/
+
+	/**
 	 * @returns {false} true if an unlocked item is at maximum value.
 	 */
 	maxed() { return false; }

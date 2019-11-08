@@ -11,7 +11,7 @@ export default {
 		actionStr( a ){
 
 			return (a.verb || a.name) + (a.length ?
-				( ' ' + a.percent().toFixed(0) + '%' ) : '');
+				( ' ' + Math.floor(a.percent()) + '%' ) : '');
 
 		},
 		levelStr(a){

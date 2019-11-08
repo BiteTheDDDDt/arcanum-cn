@@ -141,7 +141,7 @@ export default {
 			<tr><td>dodge</td><th>{{ dodge }}</th></tr>
 			<tr><td>luck</td><th>{{ luck }}</th></tr>
 			<tr><td>damage bonus</td><th>{{ damage }}</th></tr>
-			<tr><td>hit bonus</td><th>{{ tohit }}</th></tr>
+			<tr><td>hit bonus</td><th>{{ precise( tohit ) }}</th></tr>
 
 			<tr><td>speed</td><th>{{ speed.toFixed(2) }}</th></tr>
 

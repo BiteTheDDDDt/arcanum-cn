@@ -260,6 +260,7 @@ export default {
 			//this.amount( Game, mods*amt );
 			this.value = this.value.base + mods*amt;
 
+
 		} else if ( typeof mods === 'object' ) {
 
 			if ( mods.mod ) this.changeMod( mods.mod, amt );

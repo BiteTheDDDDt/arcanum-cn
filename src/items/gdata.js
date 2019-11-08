@@ -260,6 +260,7 @@ export default class GData {
 			amt = this.max.value - this.value;
 
 		}
+
 		if ( amt === 0 ) return 0;
 
 		this.value.base += amt;
