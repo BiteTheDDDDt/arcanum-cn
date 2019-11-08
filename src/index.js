@@ -12,9 +12,7 @@ import Profile from './modules/profile';
 
 Vue.mixin({
 
-	components:{
-		confirm:Confirm
-	},
+	components:{ confirm:Confirm },
 	methods: {
 
 		/**
@@ -47,7 +45,7 @@ const vm = new Vue({
 	},
 	created(){
 
-		this.lastSave = null;
+		this.saveLink = null;
 		this.game = Game;
 
 		this.listen('save-file', this.saveFile, this );
@@ -167,16 +165,12 @@ const vm = new Vue({
 			if (!e )return;
 			try {
 
-				if ( this.lastSave ) URL.revokeObjectURL( this.lastSave );
+				if ( this.saveLink ) URL.revokeObjectURL( this.saveLink );
 
 				let state = this.game.state;
 				let json = JSON.stringify( state );
 
-				this.lastSave = new File( [json],
-					(state.player.name || 'arcanum') + '.json', {type:"text/json;charset=utf-8"} );
-
-				e.target.title = this.lastSave.name;
-				e.target.href = URL.createObjectURL( this.lastSave );
+				this.saveLink = this.makeLink( json, e.target, state.player.name );
 
 			} catch(ex) {
 				console.error( ex.message + '\n' + ex.stack );
@@ -185,6 +179,32 @@ const vm = new Vue({
 		},
 
 		saveHall(e){
+
+			if ( !e ) return;
+
+			try {
+
+				if ( this.hallLink) URL.revokeObjectURL( this.hallLink );
+
+
+			} catch(ex){
+				console.error( ex.message + '\n' + ex.stack );
+			}
+
+		},
+
+		/**
+		 * Create URL link for data.
+		 * @param {*} data
+		 * @param {HTMLElement} targ - link target.
+		 * @returns {DOMString}
+		 */
+		makeLink( data, targ, saveName='arcanum' ) {
+
+			let file = new File( [json], saveName + '.json', {type:"text/json;charset=utf-8"} );
+
+			targ.title = file.name;
+			return targ.href = URL.createObjectURL( file );
 
 		},
 
