@@ -32,7 +32,7 @@ export default {
 	/**
 	 * Load data files for hall.
 	 * @param {object} save - save data of hall.
-	 * @returns {Promise.<>}
+	 * @returns {Promise.<HallData>}
 	 */
 	loadHallData( save ) {
 
@@ -49,7 +49,7 @@ export default {
 
 		if ( !data ) {
 
-			window.localStorage.getItem( SAVE_DIR + HALL_FILE );
+			window.localStorage.getItem( this.hallLoc() );
 
 			if ( data ) {
 				try { data = JSON.parse(data);
@@ -104,9 +104,7 @@ export default {
 	/**
 	 * @returns {.<string,GData>} special hall data items.
 	 */
-	getHallData(){
-		return this.hall.items;
-	},
+	getHallItems(){ return this.hall.items; },
 
 	/**
 	 * State of current player/game loaded.
@@ -215,11 +213,39 @@ export default {
 		for( let i = 0; i < max; i++ ) {
 
 			let char = store.getItem( this.charLoc(i) );
+
+			// parse to avoid double string encoding.
+			if ( char ) char = JSON.parse(char);
+
 			chars.push( char || null );
 
 		}
 
 		return data;
+
+	},
+
+	/**
+	 * Set the complete hall data from data file.
+	 * @param {FullHall} data
+	 */
+	setHallSave( data ) {
+
+		this.setCharDatas( data.chars );
+		window.localStorage.setItem( this.hallLoc(), JSON.stringify(data.hall) );
+
+	},
+
+	setCharDatas( chars ) {
+
+		if ( !chars ) return;
+
+		let store = window.localStorage;
+		for( let i = chars.length-1; i >= 0; i-- ) {
+
+			store.setItem( this.charLoc(i), JSON.stringify( chars[i] ) );
+
+		}
 
 	},
 
@@ -296,13 +322,13 @@ export default {
 		return SAVE_DIR + CHARS_DIR + this.hall.active;
 	},
 
-	charLoc( ind ) {
-		return SAVE_DIR + CHARS_DIR + ind;
-	},
+	charLoc:( ind ) =>SAVE_DIR + CHARS_DIR + ind,
 
 	settingsLoc( ind ){
 		return SAVE_DIR + SETTINGS_DIR + ( ind === undefined ? this.hall.active : ind );
 	},
+
+	hallLoc:()=>SAVE_DIR + HALL_FILE,
 
 	saveHall(){
 
@@ -310,8 +336,7 @@ export default {
 
 			let json = JSON.stringify( this.hall );
 			if ( json ) {
-
-				window.localStorage.setItem( SAVE_DIR + HALL_FILE, json );
+				window.localStorage.setItem( this.hallLoc(), json );
 			}
 
 		} catch(e){

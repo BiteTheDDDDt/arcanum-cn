@@ -101,7 +101,7 @@ const vm = new Vue({
 
 			try {
 
-				console.warn('LOADING SAVE');
+				this.dispatch('pause');
 				let str = Profile.loadActive();
 				this.setStateJSON( JSON.parse(str) );
 
@@ -213,6 +213,8 @@ const vm = new Vue({
 			const file = files[0];
 			if ( !file) return;
 
+			this.dispatch('pause');
+
 			const reader = new FileReader();
 			reader.onload = (e)=>{
 
@@ -245,7 +247,8 @@ const vm = new Vue({
 		 */
 		setHallJSON( data ) {
 
-			Profile.setCharDatas( data.chars );
+			Profile.setHallSave( data );
+			this.loadHall();	// load the hall data back. bit wasteful but organized.
 
 		},
 
@@ -256,13 +259,11 @@ const vm = new Vue({
 		 */
 		setStateJSON( obj=null ){
 
-			this.dispatch('pause');
-
 			try {
 
 				if ( this.game.loaded ) this.renderKey++;
 
-				this.game.load( obj, Profile.getHallData() ).then( this.gameLoaded,
+				this.game.load( obj, Profile.getHallItems() ).then( this.gameLoaded,
 					e=>console.error( e.message + '\n' + e.stack ) );
 
 			} catch( err ) {
