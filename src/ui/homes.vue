@@ -3,7 +3,6 @@ import Game from '../game';
 import Settings from '../modules/settings';
 import { alphasort } from '../util/util';
 
-import Hall from './hall/hall.vue';
 import Profile from '../modules/profile';
 
 import ItemsBase from './itemsBase';
@@ -24,7 +23,7 @@ export default {
 	components:{
 		slotpick:SlotPick,
 		filterbox:FilterBox,
-		hall:Hall
+		hall:()=>import( /* webpackChunkName: "hall-ui" */ './hall/hall.vue')
 	},
 	data(){
 

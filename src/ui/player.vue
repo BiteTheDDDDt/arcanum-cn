@@ -4,7 +4,6 @@ import { floor, lowFixed, precise } from '../util/format';
 
 import AllUpgrades from './allupgrades.vue';
 import SlotPick from './components/slotpick.vue';
-import Hall from './hall/hall.vue';
 import Profile from '../modules/profile';
 
 export default {
@@ -12,7 +11,7 @@ export default {
 	components:{
 		upgrades:AllUpgrades,
 		slotpick:SlotPick,
-		hall:Hall
+		hall:()=>import( /* webpackChunkName: "hall-ui" */ './hall/hall.vue')
 	},
 	data(){
 
