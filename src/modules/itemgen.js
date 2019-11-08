@@ -204,6 +204,7 @@ export default class ItemGen {
 		if ( typeof info === 'string' ) {
 
 			info = this.state.getData(info);
+
 			if ( info instanceof GData && !info.isRecipe && !info.instance) {
 
 				return this.getGData( info, amt );
