@@ -43,15 +43,19 @@ export default {
 
 	/**
 	 * Load Hall information.
+	 * @param {object} data - optional data loaded from file.
 	 */
-	async loadHall(){
+	async loadHall( data=null ){
 
-		let data = window.localStorage.getItem( SAVE_DIR + HALL_FILE );
+		if ( !data ) {
 
-		if ( data ) {
-			try {
-				data = JSON.parse(data);
-			} catch(e) {console.error( e.message + '\n' + e.stack ); }
+			window.localStorage.getItem( SAVE_DIR + HALL_FILE );
+
+			if ( data ) {
+				try { data = JSON.parse(data);
+				} catch(e) {console.error( e.message + '\n' + e.stack ); }
+			}
+
 		}
 
 		data = await this.loadHallData( data );
@@ -199,6 +203,7 @@ export default {
 	getHallSave(){
 
 		let data = {
+			type:'hall',
 			hall:this.hall,
 			chars:[]
 		};

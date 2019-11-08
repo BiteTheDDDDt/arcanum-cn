@@ -219,8 +219,16 @@ const vm = new Vue({
 				try {
 
 					let data = JSON.parse( e.target.result );
+					if ( data.type ==='hall') {
 
-					this.setStateJSON( e.target.result );
+						this.setHallJSON( data );
+
+					} else {
+
+						this.setStateJSON( data );
+
+					}
+
 
 				} catch(ex){
 					console.error(  err.message + '\n' + err.stack );
@@ -232,10 +240,13 @@ const vm = new Vue({
 		},
 
 		/**
-		 * Set JSON for hall and all associated wizards.
+		 * Set JSON for complete hall-file with all associated wizards.
 		 * @param {object} data
 		 */
 		setHallJSON( data ) {
+
+			Profile.setCharDatas( data.chars );
+
 		},
 
 		/**
