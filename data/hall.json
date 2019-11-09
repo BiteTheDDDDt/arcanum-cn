@@ -28,20 +28,22 @@
 				}
 			},
 			{
-				"id":"timewell",
+				"id":"dreamchamber",
+				"name":"dream chamber",
+				"desc":"In some time and place, even your dreams have happened before.",
 				"require":"tier5",
 				"max":1,
 				"cost":{
-					"prestige":20
-				},
-				"mod":{
-					"runner.max":1
+					"prestige":40
 				}
 			},
 			{
-				"id":"dreamchamber",
-				"name":"dream chamber",
+				"id":"timewell",
+				"require":"tier6",
 				"max":1,
+				"cost":{
+					"prestige":75
+				},
 				"mod":{
 					"runner.max":1
 				}
@@ -51,10 +53,19 @@
 		"stats":[
 
 			{
+				"id":"hallPoints",
+				"hidden":true,
+				"locked":false,
+				"value":0,
+				"mod":{
+					"prestige":1
+				}
+
+			},
+			{
 				"id":"prestige",
 				"name":"hall prestige",
 				"require":"evt_hall",
-				"stat":true,
 				"value":0,
 				"locked":false,
 				"mod":{

@@ -202,8 +202,8 @@ export default {
 
 			if ( !it.locked && !it.disabled && !(it.instance||it.isRecipe) ) {
 
+				if ( it.id ==='points') console.log('POINTS VAL: '+ it.value );
 				if ( it.value > 0 ) {
-
 
 					if ( it.mod ) this.addMod( it.mod, it.value );
 					if ( it.lock ) {

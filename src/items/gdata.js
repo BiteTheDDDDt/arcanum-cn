@@ -18,6 +18,12 @@ import { WEARABLE } from '../values/consts';
 export default class GData {
 
 	/**
+	 * @property {string} module - source module.
+	 */
+	get module(){return this._module;}
+	set module(v){this._module =v;}
+
+	/**
 	 * @property {boolean} disabled - whether the item has been
 	 * disabled / is no longer available.
 	 */

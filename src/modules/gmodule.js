@@ -154,6 +154,7 @@ export default class Module {
 	parseList( arr ){
 
 		let sym = this.sym;
+		let modName = this.name;
 
 		for( let i = arr.length-1; i >= 0; i-- ) {
 
@@ -162,6 +163,7 @@ export default class Module {
 				console.warn('missing id: ' + it.name );
 				continue;
 			}
+			if ( modName ) it.module = modName;
 			if ( sym ) it.sym = it.sym || sym;
 
 			this.templates[ it.id ] = freezeData( it );

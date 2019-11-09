@@ -1955,14 +1955,14 @@
 		},
 		"at":{
 			"30":{
-				"attack.dot.damage.max":3
+				"attack.dot.dmg.max":3
 			},
 			"100":{
-				"attack.dot.damage.min":3
+				"attack.dot.dmg.min":3
 			},
 			"300":{
-				"attack.dot.damage.max":4,
-				"attack.dot.damage.min":4,
+				"attack.dot.dmg.max":4,
+				"attack.dot.dmg.min":4,
 				"attack.toHit":5
 			}
 		},

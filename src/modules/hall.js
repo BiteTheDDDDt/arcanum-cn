@@ -56,6 +56,11 @@ export default class Hall {
 	}
 
 	/**
+	 * @property {StatData} points - player point total.
+	 */
+	get points(){return this._points;}
+	set points(v){this._points=v;}
+	/**
 	 * GData specific to hall.
 	 * @property {Object.<string,GData>} items
 	 */
@@ -101,7 +106,9 @@ export default class Hall {
 		//if ( !this.max ) this.max = 3;
 		this.max = 3;
 
+		this.points = this.items.hallPoints;
 		this.prestige = this.items.prestige;
+		console.warn('START PRESTIGE: ' + this.prestige.value );
 
 		this.initChars();
 
@@ -141,7 +148,7 @@ export default class Hall {
 
 		}
 
-		this.prestige.value = p;
+		this.points.value = p;
 
 	}
 
@@ -156,13 +163,14 @@ export default class Hall {
 				this.chars.push( new CharInfo() );
 				console.log( i + ': NO CHAR DEFINED');
 			} else {
-				console.log( i + ': ' + c.name );
+				//console.log( i + ': ' + c.name );
 				total += c.getPoints();
 			}
 
 		}
 
-		this.prestige.value = total;
+		this.points.value = total;
+		console.log('CHAR POINTS: ' + this.points.value);
 
 	}
 

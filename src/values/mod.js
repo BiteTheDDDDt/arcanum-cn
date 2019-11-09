@@ -228,7 +228,7 @@ export default class Mod extends Stat {
 		//else if ( targ instanceof Mod) targ.applySelf( this, amt ); ///// NO LONGER HAPPENS. superclass.
 		else if ( targ === null || targ === undefined || typeof targ === 'number' ){
 
-			console.log('MOD.applyTo() CREATE NEW MOD AT TARGET: ' + p );
+			//console.log('MOD.applyTo() CREATE NEW MOD AT TARGET: ' + p );
 			let s = obj[p] = new Stat( targ || 0, p );
 			s.addMod( this, amt );
 

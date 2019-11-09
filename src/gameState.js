@@ -32,7 +32,7 @@ export default class GameState {
 
 			version:__VERSION,
 			name:this.player.name,
-			items:( this.items ),
+			items:this.saveItems,
 			bars:this.bars,
 			slots:slotIds,
 			equip:( this.equip ),
@@ -63,6 +63,12 @@ export default class GameState {
 	constructor( baseData ){
 
 		Object.assign( this, baseData );
+
+		/**
+		 * @property {.<string,GData} saveItems - items actually saved.
+		 * does not include hall items.
+		 */
+		this.saveItems = {};
 
 		/**
 		 * Next item id.
@@ -212,9 +218,9 @@ export default class GameState {
 				console.warn( p + ' -> ' + this.items[p].id + ' missing hasTag(). Removing.');
 				delete this.items[p];
 
-
 			} else {
 
+				this.saveItems[p] = it;
 				// need hasTag() func.
 				if ( it.hasTag(HOME)) {
 					it.need = this.homeTest;
@@ -429,8 +435,19 @@ export default class GameState {
 	 */
 	addItem( it ) {
 
-		if ( this.items[it.id] ) return false;
+		if ( this.items[it.id] ) console.warn('OVERWRITE ID: ' + it.id);
+
+		if ( !it.hasTag ) {
+			console.log('MISSING HASTAG: ' + it.id );
+			return false;
+		}
+
 		this.items[it.id] = it;
+
+		if ( it.module !== 'hall') {
+			console.log('ADDING SAVE ITEM: ' + it.id );
+			this.saveItems[it.id] = it;
+		}
 
 		return true;
 
@@ -443,6 +460,7 @@ export default class GameState {
 	 */
 	deleteItem( it ) {
 		delete this.items[it.id];
+		delete this.saveItems[it.id];
 	}
 
 	/**

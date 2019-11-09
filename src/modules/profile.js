@@ -3,6 +3,7 @@ import Settings from './settings';
 import Events, { LEVEL_UP, CHAR_NAME, CHAR_TITLE, CHAR_CLASS } from "../events";
 
 import Module from "./gmodule";
+import { logObj } from "../util/util";
 
 const CHARS_DIR = 'chars/';
 const SETTINGS_DIR = 'settings/';
@@ -55,8 +56,9 @@ export default {
 			data = window.localStorage.getItem( this.hallLoc() );
 
 			if ( data ) {
-				console.log('LOADING HALL FROM STORAGE');
+				console.log('LOAD HALL FROM STORAGE');
 				try { data = JSON.parse(data);
+					logObj(data, 'HALL SAVE DATA');
 				} catch(e) {console.error( e.message + '\n' + e.stack ); }
 			}
 

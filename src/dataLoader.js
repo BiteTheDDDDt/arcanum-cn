@@ -33,9 +33,9 @@ import Module from './modules/gmodule';
 import { SKILL, ENCOUNTER, MONSTER, ARMOR, WEAPON, HOME, POTION, ITEM } from './values/consts';
 
 const DataDir = './data/';
-const DataFiles = [ 'resources', 'upgrades', 'actions', 'homes', 'furniture', 'items', 'skills',
+const DataFiles = [ 'resources', 'upgrades', 'actions', 'homes', 'furniture', 'skills',
 	'player', 'spells', 'monsters', 'dungeons', 'events', 'classes', 'armors', 'weapons',
-	'materials', 'enchants', 'sections', 'potions', 'encounters', 'locales','stressors', 'seasonal' ];
+	'materials', 'enchants', 'sections', 'potions', 'encounters', 'locales','stressors' ];
 
 /**
  * @const {RegEx} IdTest - Test for a simple id name.
