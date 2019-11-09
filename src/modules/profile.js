@@ -54,11 +54,8 @@ export default {
 
 			if ( data ) {
 
-				try { data = JSON.parse(data);
-
-					//logObj(data, 'HALL SAVE DATA');
-					console.log('SAVE PRESTIGE: ' + data.items.prestige );
-
+				try {
+					data = JSON.parse(data);
 				} catch(e) {console.error( e.message + '\n' + e.stack ); }
 			}
 

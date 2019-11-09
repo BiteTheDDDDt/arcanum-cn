@@ -107,13 +107,11 @@ export default class Hall {
 		//if ( !this.max ) this.max = 3;
 		this.max = 3;
 
-		for( let p in this.items ) {
-			console.log('HALL ITEM: ' + p );
-		}
+		//for( let p in this.items ) console.log('HALL ITEM: ' + p );
 
 		this.points = this.items.hallPoints;
 		this.prestige = this.items.prestige;
-		console.warn('!!!!START PRESTIGE: ' + this.prestige.value );
+		//console.warn('!!!!START PRESTIGE: ' + this.prestige.value );
 
 		this.initChars();
 

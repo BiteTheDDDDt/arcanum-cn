@@ -91,10 +91,6 @@ export default {
 			vars.locked = this.locked;
 		}
 
-		if ( this.id === 'prestige') {
-			logObj( vars, 'PRESTIGE SAVE');
-		}
-
 		return vars || undefined;
 
 	},
