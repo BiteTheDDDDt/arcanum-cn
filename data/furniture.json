@@ -786,7 +786,7 @@
 		"mod": {
 			"mana.rate": 0.5,
 			"arcana.rate": -0.002,
-			"element.rate":-1
+			"element.rate":-0.75
 		}
 	},
 	{
@@ -805,7 +805,7 @@
 			"earthgem": 25
 		},
 		"mod": {
-			"mana.rate": -4,
+			"mana.rate": -2,
 			"arcana.rate": -0.002,
 			"element.rate":0.25
 		}

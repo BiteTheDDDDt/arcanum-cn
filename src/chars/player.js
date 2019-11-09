@@ -441,7 +441,7 @@ export default class Player extends Char {
 		let id = dot.id;
 
 		let cur = id ? this.dots.find( d=>d.id===id) : undefined;
-		if ( cur !== undefined ) {
+		if ( cur !== undefined && cur.duration < dot.duration ) {
 			cur.duration = dot.duration;
 		}
 		else {

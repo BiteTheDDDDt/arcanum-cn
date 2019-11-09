@@ -99,7 +99,7 @@ export default class Inventory {
 	add(it){
 
 		if ( it === null || it === undefined || typeof it === 'boolean'
-			|| typeof it === 'string' || this.full() || !it.id ) return false;
+			|| typeof it === 'string' || this.full() ) return false;
 
 		if ( Array.isArray(it) ) {
 
@@ -108,6 +108,8 @@ export default class Inventory {
 			}
 
 		} else {
+
+			if ( !it.id ) return false;
 
 			if ( it.stack ) {
 				let inst = this.findMatch( it );
