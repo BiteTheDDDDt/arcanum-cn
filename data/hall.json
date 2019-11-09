@@ -35,6 +35,9 @@
 				"max":1,
 				"cost":{
 					"prestige":40
+				},"mod":{
+					"dreams.rate":0.0001,
+					"dreams.max":5
 				}
 			},
 			{

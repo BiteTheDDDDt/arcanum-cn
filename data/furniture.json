@@ -88,6 +88,10 @@
 			"space":4
 		},
 		"mod":{
+			"dreams":{
+				"skipLocked":true,
+				"rate":0.0001
+			},
 			"rest":{
 				"effect":{
 					"stamina":0.4,

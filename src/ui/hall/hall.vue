@@ -61,6 +61,10 @@ export default {
 
 		hall(){ return Profile.hall; },
 
+		availChars(){
+			return Profile.hall.getChars();
+		},
+
 		prestige(){
 
 			let p = this.hall.prestige.valueOf();
@@ -92,7 +96,7 @@ export default {
 	<div class="header"><input class="fld-name text-entry" type="text" v-model="hallName"></div>
 
 	<div class="chars">
-	<info v-for="(c,i) in chars" :char="c" :active="i==hall.active"
+	<info v-for="(c,i) in availChars" :char="c" :active="i==hall.active"
 		:key="i" @load="load( i)" @dismiss="dismiss(i,c.name)" />
 	</div>
 

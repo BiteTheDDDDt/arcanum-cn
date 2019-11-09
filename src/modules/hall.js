@@ -164,7 +164,6 @@ export default class Hall {
 			var c = this.chars[i];
 			if ( c === undefined ) {
 				this.chars.push( new CharInfo() );
-				console.log( i + ': NO CHAR DEFINED');
 			} else {
 				//console.log( i + ': ' + c.name );
 				total += c.getPoints();
@@ -174,6 +173,28 @@ export default class Hall {
 
 		this.points.value = total;
 		console.log('CHAR POINTS: ' + this.points.value);
+
+	}
+
+	/**
+	 * Checks that current char array is bounded to max, and returns chars.
+	 * Also creates new CharInfo for uninstantiated seats.
+	 * @returns {CharInfo[]} available chars.
+	 */
+	getChars(){
+
+		let max = this.max.value;
+		for( let i = 0; i < max; i++ ) {
+
+			if ( this.chars[i] === undefined ) {
+				this.chars.push( new CharInfo() );
+			}
+
+		}
+
+		if ( this.chars.length > max ) this.chars = this.chars.slice( 0, Math.floor(max) );
+
+		return this.chars;
 
 	}
 
