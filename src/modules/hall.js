@@ -9,6 +9,8 @@ export default class Hall {
 
 	toJSON(){
 
+		//for( let p in this.items ) console.log('SAVING HALL ITEM: '+ p);
+
 		return {
 
 			name:this.name,
@@ -97,17 +99,21 @@ export default class Hall {
 
 		if ( !this.name ) this.name = "Wizard's Hall";
 
-		if ( this.items ) {
+		/*if ( this.items ) {
 			console.log( 'EVT HALL: ' + this.items.evt_hall.value );
-		} else console.warn('HALL NOT YET OWNED');
+		} else console.warn('HALL NOT YET OWNED');*/
 
 		/** @todo: change default to 1 */
 		//if ( !this.max ) this.max = 3;
 		this.max = 3;
 
+		for( let p in this.items ) {
+			console.log('HALL ITEM: ' + p );
+		}
+
 		this.points = this.items.hallPoints;
 		this.prestige = this.items.prestige;
-		console.warn('START PRESTIGE: ' + this.prestige.value );
+		console.warn('!!!!START PRESTIGE: ' + this.prestige.value );
 
 		this.initChars();
 

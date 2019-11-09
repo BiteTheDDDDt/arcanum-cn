@@ -54,9 +54,10 @@
 
 			{
 				"id":"hallPoints",
+				"alias":"points",
 				"hidden":true,
 				"locked":false,
-				"value":0,
+				"val":0,
 				"mod":{
 					"prestige":1
 				}
@@ -66,7 +67,7 @@
 				"id":"prestige",
 				"name":"hall prestige",
 				"require":"evt_hall",
-				"value":0,
+				"val":0,
 				"locked":false,
 				"mod":{
 					"skill.rate":"0.1%",

@@ -118,8 +118,10 @@ export default {
 		// Merge and ensure game data item for every template item.
 		saveData.items = this.mergeItems( items, templates );
 
+		// replace original data list items with saveData items.
 		let gameLists = this.buildLists( saveData.items, dataLists );
 
+		console.log('after lists prestige: ' + saveData.items.prestige );
 		return this.initInstance( saveData, gameLists );
 
 	},
@@ -170,15 +172,20 @@ export default {
 		 */
 		for( let p in templates ) {
 
+			if ( p ==='prestige' )console.log('FIRST PRESTIGE: ' + saveItems[p] );
 			var saveObj = saveItems[p] || {};
 
 			if ( typeof saveObj === 'number') {
 				saveObj = { val:saveObj };
 			}
-
 			mergeSafe( saveObj, templates[p] );
 
 			saveItems[p] = prepData( saveObj, p );
+
+			if ( p === 'prestige') {
+				console.log('PRESTIGE PREPPED: ' + saveItems + ' : ' + saveItems.val );
+			}
+
 			saveObj.template = templates[p];
 
 		}

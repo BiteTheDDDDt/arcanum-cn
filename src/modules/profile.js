@@ -38,9 +38,6 @@ export default {
 	loadHallData( save ) {
 
 		let module = new Module();
-
-		if ( save ) console.log('SAVE CHARS: ' + save.chars.length );
-
 		return module.load( HALL_FILE ).then( ()=>module.instance( save ));
 
 	},
@@ -56,9 +53,12 @@ export default {
 			data = window.localStorage.getItem( this.hallLoc() );
 
 			if ( data ) {
-				console.log('LOAD HALL FROM STORAGE');
+
 				try { data = JSON.parse(data);
-					logObj(data, 'HALL SAVE DATA');
+
+					//logObj(data, 'HALL SAVE DATA');
+					console.log('SAVE PRESTIGE: ' + data.items.prestige );
+
 				} catch(e) {console.error( e.message + '\n' + e.stack ); }
 			}
 
@@ -219,7 +219,7 @@ export default {
 	setHallSave( data ) {
 
 		this.setCharDatas( data.chars );
-		console.log('STORING HALL DATA');
+		logObj( data.hall, 'STORE HALl DATA');
 		window.localStorage.setItem( this.hallLoc(), JSON.stringify(data.hall) );
 
 	},
@@ -327,17 +327,16 @@ export default {
 
 	},
 
-	charLoc:( ind ) =>SAVE_DIR + CHARS_DIR + ind,
+	charLoc:( ind ) =>(SAVE_DIR + CHARS_DIR + ind),
 
 	settingsLoc( ind ){
 		return SAVE_DIR + SETTINGS_DIR + ( ind === undefined ? this.hall.active : ind );
 	},
 
-	hallLoc:()=>SAVE_DIR + HALL_FILE,
+	hallLoc:()=>(SAVE_DIR + HALL_FILE),
 
 	saveHall(){
 
-		console.log('SAVING HALL DATA');
 		try {
 
 			let json = JSON.stringify( this.hall );

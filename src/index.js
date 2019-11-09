@@ -8,8 +8,6 @@ import Profile from './modules/profile';
 kongregateAPI.loadAPI( function(){
 
 	window.kong = kongregateAPI.getAPI();
-	console.warn('KONGREGATE API LOADED');
-
 	// You can now access the Kongregate API with:
 	// kongregate.services.getUsername()
 
@@ -296,6 +294,7 @@ const vm = new Vue({
 
 			if (!this.game.loaded ) return;
 			Profile.saveActive( this.game.state );
+			Profile.saveHall();
 
 		},
 		reset() {
