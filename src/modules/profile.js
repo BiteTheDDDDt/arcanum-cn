@@ -73,7 +73,7 @@ export default {
 	 */
 	onCharLevel( player, lvl ) {
 
-		this.hall.updateChar( player );
+		this.hall.setLevel( player, lvl );
 		this.saveHall();
 
 	},
