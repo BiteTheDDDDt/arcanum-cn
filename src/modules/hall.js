@@ -156,6 +156,10 @@ export default class Hall {
 
 		}
 
+		if ( this.chars.length > this.max ) {
+			this.chars = this.chars.slice( 0, Math.floor(max) );
+		}
+
 		this.prestige.value = total;
 
 	}
