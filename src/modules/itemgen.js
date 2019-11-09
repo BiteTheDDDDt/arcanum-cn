@@ -402,7 +402,7 @@ export default class ItemGen {
 			item.applyMaterial( material );
 			if ( material.id ) item.name = material.id + ' ' + ( data.name || data.id );
 
-		}
+		} else item.name = (data.name || data.id );
 
 		item.id = data.id + this.state.nextIdNum();
 

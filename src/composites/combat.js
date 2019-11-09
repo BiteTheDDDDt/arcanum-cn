@@ -9,7 +9,7 @@ import Events, {
 } from '../events';
 
 import { itemRevive } from '../modules/itemgen';
-import { getDelay } from '../chars/char';
+import { getDelay, Dying } from '../chars/char';
 
 /**
  * @const {string} TARGET_ENEMIES - target all enemies.
@@ -199,7 +199,13 @@ export default class Combat {
 
 			e = this._allies[i];
 			if ( e.alive === false ) {
+
+				e.hp -= dt;
+				if ( e.hp < -5 ) {
+					this._allies.splice(i,1);
+				}
 				continue;
+
 			}
 
 			if ( e !==this.player) e.update(dt);

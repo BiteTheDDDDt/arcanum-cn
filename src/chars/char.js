@@ -6,6 +6,14 @@ import Attack from './attack';
 import GameState from '../gameState';
 import { NPC } from '../values/consts';
 
+export const Dying = {
+
+	id:"dying",
+	name:"dying",
+	kind:"death",
+	dmg:1
+
+}
 
 /**
  * @constant {number} DELAY_RATE - speed to attack delay conversion constant.
@@ -170,19 +178,22 @@ export default class Char {
 
 	/**
 	 * Base item of dot.
-	 * @param {Dot} it
+	 * @param {Dot} dot
 	 */
-	addDot( it ) {
+	addDot( dot ) {
 
-		let id = it.id;
+		let id = dot.id;
 
 		let cur = id ? this.dots.find( d=>d.id===id) : undefined;
-		if ( cur !== undefined ) cur.duration = it.duration;
-		else {
+		if ( cur !== undefined ) {
 
-			this.dots.push( it instanceof Dot ? it : new Dot(it) );
-			if ( it.mod ) {
-				this.applyMods( it.mod, 1 );
+			if ( cur.duration < dot.duration ) cur.duration = dot.duration;
+
+		} else {
+
+			this.dots.push( dot instanceof Dot ? dot : new Dot(dot) );
+			if ( dot.mod ) {
+				this.applyMods( dot.mod, 1 );
 			}
 
 

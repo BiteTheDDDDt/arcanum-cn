@@ -71,6 +71,17 @@ export default {
 	 * active player info changed.
 	 * update and save hall data.
 	 */
+	onCharLevel( player, lvl ) {
+
+		this.hall.updateChar( player );
+		this.saveHall();
+
+	},
+
+	/**
+	 * active player info changed.
+	 * update and save hall data.
+	 */
 	updateChar( player, slot=-1 ) {
 
 		this.hall.updateChar( player, slot );
@@ -128,7 +139,7 @@ export default {
 		this.saveHall();
 		this.hall.calcPoints();
 
-		Events.add( LEVEL_UP, this.updateChar, this );
+		Events.add( LEVEL_UP, this.onCharLevel, this );
 		Events.add( CHAR_NAME, this.updateChar, this );
 		Events.add( CHAR_TITLE, this.updateChar, this );
 		Events.add( CHAR_CLASS, this.updateChar, this );

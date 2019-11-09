@@ -306,9 +306,8 @@ export default class Player extends Char {
 
 		if ( !this._titles.includes(title) ) {
 
-			Events.emit( NEW_TITLE, title, this._titles.length );
-
 			this._titles.push(title);
+			Events.emit( NEW_TITLE, title, this._titles.length );
 
 		}
 
@@ -443,9 +442,10 @@ export default class Player extends Char {
 
 		let cur = id ? this.dots.find( d=>d.id===id) : undefined;
 		if ( cur !== undefined ) {
-			cur.duration = dot.duration;
-		}
-		else {
+
+			if (cur.duration < dot.duration ) cur.duration = dot.duration;
+
+		} else {
 
 			if ( !dot.id ) {
 
