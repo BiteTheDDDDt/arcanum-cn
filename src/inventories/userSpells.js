@@ -38,6 +38,7 @@ export default class UserSpells extends Inventory {
 
 		let g = new Group();
 
+		g.school = 'crafted';
 		g.items = list;
 		g.id = this.state.nextId('spell');
 		g.type = 'spell';
