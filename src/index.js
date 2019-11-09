@@ -82,12 +82,10 @@ const vm = new Vue({
 	},
 	methods:{
 
-		doStat( evt, val, ...params ) {
-
-			console.log('EVENT: ' + evt );
+		doStat( evt, val ) {
 
 			if ( window.kong ) {
-				console.log('SENDING KONG EVENT: ' + evt );
+				//console.log('SENDING KONG EVENT: ' + evt );
 				window.kong.stats.submit( evt, val );
 			}
 
