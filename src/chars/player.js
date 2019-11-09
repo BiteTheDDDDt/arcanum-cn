@@ -306,9 +306,8 @@ export default class Player extends Char {
 
 		if ( !this._titles.includes(title) ) {
 
-			Events.emit( NEW_TITLE, title, this._titles.length );
-
 			this._titles.push(title);
+			Events.emit( NEW_TITLE, title, this._titles.length );
 
 		}
 

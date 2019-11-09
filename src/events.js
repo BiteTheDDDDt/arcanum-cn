@@ -249,11 +249,16 @@ export default {
 	actionDone(it){
 	},
 
-	onNewTitle(t) {
+	/**
+	 *
+	 * @param {*} t
+	 * @param {number} len - new title number.
+	 */
+	onNewTitle(t, len ) {
 
 		this.log.log( 'Title Earned: ' + uppercase(t), null, LOG_UNLOCK );
 
-		this.dispatch( EVT_STAT, 'titles', this._titles.length );
+		this.dispatch( EVT_STAT, 'titles', len );
 
 	},
 
