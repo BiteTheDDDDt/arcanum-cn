@@ -349,10 +349,10 @@
 		"require":"(g.kell+g.elementalist+g.highelemental)>0",
 		"run":{
 			"stamina":0.5,
-			"fire":0.05,
-			"water":0.05,
-			"air":0.05,
-			"earth":0.05
+			"fire":0.1,
+			"water":0.1,
+			"air":0.1,
+			"earth":0.1
 		},
 		"at":{
 			"30":{
