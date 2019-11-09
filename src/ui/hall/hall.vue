@@ -5,6 +5,7 @@ import Profile from '../../modules/profile';
 import Info from './charinfo.vue';
 import Upgrades from '../upgrades.vue';
 import {center} from '../components/popups.js';
+import { EVT_STAT } from '../../events';
 
 /**
  * Hall of Wizards
@@ -60,6 +61,16 @@ export default {
 
 		hall(){ return Profile.hall; },
 
+		prestige(){
+
+			let p = this.hall.prestige.valueOf();
+
+			this.dispatch( EVT_STAT, 'prestige', p );
+
+			return Math.floor(p);
+
+		},
+
 		hallName:{
 			get() { return this.hName; },
 			set(v) {
@@ -76,7 +87,7 @@ export default {
 
 <div class="popup wizhall">
 
-	<div class="power" @mouseenter.capture.stop="emit( 'itemover', $event, hall.prestige )">Hall Prestige: {{ Math.floor(hall.prestige.valueOf()) }}</div>
+	<div class="power" @mouseenter.capture.stop="emit( 'itemover', $event, hall.prestige )">Hall Prestige: {{ prestige }}</div>
 
 	<div class="header"><input class="fld-name text-entry" type="text" v-model="hallName"></div>
 

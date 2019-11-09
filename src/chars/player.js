@@ -4,7 +4,7 @@ import Game from '../game';
 import { tryDamage } from '../composites/combat';
 
 import Char, { getDelay } from './char';
-import Events, { LEVEL_UP, NEW_TITLE, CHAR_TITLE, CHAR_NAME, CHAR_CLASS } from "../events";
+import Events, { LEVEL_UP, NEW_TITLE, CHAR_TITLE, CHAR_NAME, CHAR_CLASS, EVT_STAT } from "../events";
 import Wearable from "./wearable";
 import GData from "../items/gdata";
 import { toStats } from "../util/dataUtil";
@@ -306,7 +306,8 @@ export default class Player extends Char {
 
 		if ( !this._titles.includes(title) ) {
 
-			Events.emit( NEW_TITLE, title );
+			Events.emit( NEW_TITLE, title, this._titles.length );
+
 			this._titles.push(title);
 
 		}
@@ -492,7 +493,7 @@ export default class Player extends Char {
 		this._exp.value -= this._next;
 		this._next = Math.floor( this._next * ( 1 + EXP_RATE ) );
 
-		Events.emit( LEVEL_UP, this );
+		Events.emit( LEVEL_UP, this, this._level.valueOf() );
 
 	}
 

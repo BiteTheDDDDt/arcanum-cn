@@ -67,7 +67,6 @@ export default {
 
 			this.list.push(s);
 			this.craft.level += s.level;
-			if ( this.list.length > 1 ) this.craft.level += 1;
 
 			this.craft.buy = spellCost( this.list );
 
@@ -82,7 +81,6 @@ export default {
 
 			if ( s ) {
 				this.craft.level -= s.level;
-				if ( this.list.length > 1 ) this.craft.level -= 1;
 			}
 
 			this.list.splice(i,1);

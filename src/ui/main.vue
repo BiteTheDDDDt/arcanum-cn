@@ -17,7 +17,7 @@ import LogView from './outlog.vue';
 import Settings from 'modules/settings';
 import Cheats from '../modules/cheats';
 
-import { TRY_BUY, USE, TRY_USE } from '../events';
+import { TRY_BUY, USE, TRY_USE, EVT_STAT } from '../events';
 import { TICK_TIME } from '../game';
 import profile from '../modules/profile';
 
@@ -135,6 +135,11 @@ export default {
 			this.add('quickslot', this.doQuickslot);
 
 			this.add( TRY_BUY, this.onBuy );
+
+			// dispatch start stats.
+			this.dispatch( EVT_STAT, 'titles', this.state.player.titles.length );
+			this.dispatch( EVT_STAT, 'level', this.state.getData('level').valueOf() );
+			this.dispatch( EVT_STAT, 'prestige', this.state.getData('prestige').valueOf() );
 
 		},
 

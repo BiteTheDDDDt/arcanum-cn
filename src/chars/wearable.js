@@ -155,6 +155,7 @@ export default class Wearable extends Item {
 		if (!mat) return;
 
 		this.material = mat;
+
 		this.level +=  this.material.level || 0;
 
 		if ( this.armor !== null && this.armor !== undefined ) this.applyBonus( this, ARMOR, mat.bonus );

@@ -400,7 +400,7 @@ export default class ItemGen {
 		if ( material ) {
 
 			item.applyMaterial( material );
-			item.name = material.id + ' ' + ( data.name || data.id );
+			if ( material.id ) item.name = material.id + ' ' + ( data.name || data.id );
 
 		}
 

@@ -143,6 +143,11 @@ const CHAR_CLASS = 'charclass';
  */
 const CHAR_CHANGE = 'charchange';
 
+/**
+ * @const {string} EVT_STAT - statistic event to send to server (kong).
+ */
+export const EVT_STAT = 'stat';
+
 export { CHAR_TITLE, NEW_TITLE, LEVEL_UP, CHAR_NAME, CHAR_CLASS, CHAR_CHANGE };
 
 export { HALT_ACT, EVT_COMBAT, EVT_EVENT, EVT_UNLOCK, EXP_MAX, EVT_LOOT, ACT_DONE, ALLY_DIED, CHAR_DIED,
@@ -245,7 +250,11 @@ export default {
 	},
 
 	onNewTitle(t) {
+
 		this.log.log( 'Title Earned: ' + uppercase(t), null, LOG_UNLOCK );
+
+		this.dispatch( EVT_STAT, 'titles', this._titles.length );
+
 	},
 
 	actImproved(it) {
@@ -253,8 +262,12 @@ export default {
 		this.log.log( it.name + ' Improved', null, LOG_UNLOCK );
 	},
 
-	onLevel( player ) {
+	onLevel( player, lvl ) {
+
 		this.log.log( player.name + ' Level Up!', null, LOG_EVENT );
+
+		this.dispatch( EVT_STAT, 'level', lvl );
+
 	},
 
 	onDefeat( locale ) {
