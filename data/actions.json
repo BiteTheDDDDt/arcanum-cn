@@ -314,18 +314,17 @@
 		"at":{
 			"30":{
 				"effect.research":0.05,
-				"alchemy.exp": 0.05,
-				"potions.exp": 0.2
+				"effect.alchemy.exp": 0.05,
+				"effect.potions.exp": 0.2
 			},
 			"120":{
 				"effect.research":0.05,
-				"potions.exp": 0.3,
-				"loot.gold":0.5,
-				"loot.pot_ironskin":"2%"
+				"effect.potions.exp": 0.3,
+				"result.gold":0.5
 			},
 			"500":{
 				"effect.research":0.1,
-				"potions.max": 0.0001
+				"effect.potions.max": 0.0001
 			}
 		},
 		"effect":{

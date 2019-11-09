@@ -13,6 +13,7 @@ import Skill from './items/skill';
 import Stat from './values/stat';
 import { TEAM_ALLY } from './chars/npc';
 import { MONSTER } from './values/consts';
+import Percent from './values/percent';
 
 var techTree;
 
@@ -828,7 +829,7 @@ export default {
 
 				} else {
 
-					if ( typeof e === 'number' || e instanceof Range ) {
+					if ( typeof e === 'number' || e instanceof Range || e instanceof Percent ) {
 
 						target.amount( this, e*dt );
 					} else if ( e === true ) {
