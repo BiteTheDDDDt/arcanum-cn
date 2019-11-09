@@ -945,7 +945,7 @@
 
 		"id":"bindcodex",
 		"name":"bind codex",
-		"require":"g.research.max>=30&&g.crafting>=2",
+		"require":"g.research.max>=30&&g.crafting>=2&&g.lore>=1",
 		"cost":{
 			"scrolls":10,
 			"research":20,
