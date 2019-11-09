@@ -1623,6 +1623,19 @@
 		}
 	},
 	{
+
+		"id":"somnambulist",
+		"desc":"A wizard's dreams are as full as waking hours.",
+		"cost":{
+			"dreams":1,
+			"tempus":5
+		},
+		"mod":{
+			"dreams.rate":0.0001,
+			"bed.mod.runner.max":1
+		},"flavor":"Every second of the night I live another life."
+	},
+	{
 		"id":"demonicpact",
 		"name":"demonic pact",
 		"require":"g.demonology>4",
