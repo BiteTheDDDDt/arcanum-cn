@@ -428,7 +428,9 @@ export default class GameState {
 	 */
 	addItem( it ) {
 
-		if ( this.items[it.id] ) return false;
+		//if ( this.items[it.id] ) return false;
+		if ( !it.hasTag ) return false;
+
 		this.items[it.id] = it;
 
 		return true;

@@ -5,6 +5,16 @@ import Game from './game';
 import Events from './events';
 import Profile from './modules/profile';
 
+kongregateAPI.loadAPI( function(){
+
+	window.kong = kongregateAPI.getAPI();
+	console.warn('KONGREGATE API LOADED');
+
+	// You can now access the Kongregate API with:
+	// kongregate.services.getUsername()
+
+});
+
 /**
  * Global dispatch.
  */
@@ -55,6 +65,8 @@ const vm = new Vue({
 		this.listen('load', this.loadSave, this );
 		this.listen('reset', this.reset,this );
 
+		this.listen('stat', this.doStat, this );
+
 		this.listen('save-settings', Profile.saveSettings, Profile );
 
 		this.listen('set-char', this.setChar, this );
@@ -69,6 +81,17 @@ const vm = new Vue({
 
 	},
 	methods:{
+
+		doStat( evt, val, ...params ) {
+
+			console.log('EVENT: ' + evt );
+
+			if ( window.kong ) {
+				console.log('SENDING KONG EVENT: ' + evt );
+				window.kong.stats.submit( evt, val );
+			}
+
+		},
 
 		/**
 		 * Set current character.

@@ -229,12 +229,10 @@ export default {
 	 */
 	addData( data ) {
 
-		console.warn('HALL GAME DATA: ' + data );
-
 		for( let p in data ) {
 
 			let it = data[p];
-			console.warn('ADDING DATA ITEM: ' + p + ': '+ it.valueOf() );
+			//console.warn('ADDING DATA ITEM: ' + p + ': '+ it.valueOf() );
 			this.state.addItem(it);
 		}
 

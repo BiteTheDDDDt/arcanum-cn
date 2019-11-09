@@ -145,7 +145,7 @@ export default class Mod extends Stat {
 	get str() { return this.value; }
 	set str(v) {
 
-		console.log('assinging to mod: ' + this.id + ' val: ' + v );
+		//console.log('assinging to mod: ' + this.id + ' val: ' + v );
 
 		if ( typeof v ==='string' ){
 
