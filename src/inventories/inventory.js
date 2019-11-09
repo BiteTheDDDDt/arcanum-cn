@@ -99,7 +99,7 @@ export default class Inventory {
 	add(it){
 
 		if ( it === null || it === undefined || typeof it === 'boolean'
-			|| typeof it === 'string' || this.full() ) return false;
+			|| typeof it === 'string' || this.full() || !it.id ) return false;
 
 		if ( Array.isArray(it) ) {
 
