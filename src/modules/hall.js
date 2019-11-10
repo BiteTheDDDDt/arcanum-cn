@@ -68,9 +68,7 @@ export default class Hall {
 	get items() {return this._items;}
 	set items(v){
 
-		/*for( let p in v ){
-			console.log( 'hall: ' + p);
-		}*/
+		/*for( let p in v ){ console.log( 'hall: ' + p); }*/
 		this._items=v;
 	}
 
@@ -79,11 +77,7 @@ export default class Hall {
 	 * slots are zero-based indices.
 	 */
 	get max() {return this._max; }
-	set max(v) {
-
-		this._max = v;
-
-	}
+	set max(v) { this._max = v; }
 
 	/**
 	 *
