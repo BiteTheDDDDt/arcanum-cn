@@ -81,7 +81,7 @@ export default class Hall {
 	get max() {return this._max; }
 	set max(v) {
 
-		this._max = v instanceof Stat ? v : new Stat(v);
+		this._max = v;
 
 	}
 
@@ -105,9 +105,9 @@ export default class Hall {
 
 		/** @todo: change default to 1 */
 		//if ( !this.max ) this.max = 3;
-		this.max = 3;
+		this.max = this.items.hallSize;
 
-		//for( let p in this.items ) console.log('HALL ITEM: ' + p );
+		console.log('HALL SIZE: ' + this.max.value );
 
 		this.points = this.items.hallPoints;
 		this.prestige = this.items.prestige;

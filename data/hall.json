@@ -24,13 +24,13 @@
 					"prestige":50
 				},
 				"mod":{
-					"hall.max":1
+					"hallSize":1
 				}
 			},
 			{
 				"id":"dreamchamber",
 				"name":"dream chamber",
-				"desc":"In some time and place, even your dreams have happened before.",
+				"desc":"In some time and place, even dreams have happened before.",
 				"require":"tier5",
 				"max":1,
 				"cost":{
@@ -55,6 +55,11 @@
 		],
 		"stats":[
 
+			{
+				"id":"hallSize",
+				"locked":false,
+				"val":3
+			},
 			{
 				"id":"hallPoints",
 				"alias":"points",
