@@ -65,6 +65,7 @@ div.char-info {
 	display:flex;
 	flex-flow: column nowrap;
 	border: 1px solid var(--separator-color);
+	margin: var(--sm-gap);
 	padding: var(--rg-padding);
 	border-radius: 4px;
 	min-height: 12em;
