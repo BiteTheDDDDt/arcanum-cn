@@ -19,7 +19,7 @@ export default {
 			let dmg = this.dot.damage;
 			if( typeof dmg === 'number') {
 				return dmg;
-			} else if ( dmg instanceof Range ) return dmg.toString();
+			} else if ( dmg ) return dmg.toString();
 
 		}
 

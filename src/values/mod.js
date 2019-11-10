@@ -160,7 +160,7 @@ export default class Mod extends Stat {
 
 		} else if ( v instanceof Percent ) {
 
-			this.basePct = v.value;
+			this.basePct = v.pct;
 
 		} else if ( !isNaN(v) ) {
 

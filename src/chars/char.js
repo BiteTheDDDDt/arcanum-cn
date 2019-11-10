@@ -162,7 +162,6 @@ export default class Char {
 
 			if ( !this.attack ) console.warn('NO ATTACK: ' + this.id );
 			if ( !this.name ) this._name = it.name;
-			//if ( this.hp instanceof Range ) this.hp = this.hp.value;
 
 		}
 

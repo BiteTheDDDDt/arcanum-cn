@@ -54,9 +54,8 @@ export default class Attack {
 	get damage() { return this._damage; }
 	set damage(v) {
 
-		if ( v instanceof Range || typeof v === 'string' || typeof v ==='object') this._damage = new Range(v);
+		if (typeof v === 'string' || typeof v ==='object') this._damage = new Range(v);
 		else if ( !isNaN(v) ) this._damage = Number(v);
-		else if ( typeof v === 'string' || typeof v === 'object') this._damage = new Range(v);
 
 	}
 

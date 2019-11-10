@@ -20,9 +20,13 @@ const schoolNames = {
 }
 
 /**
- * @const PCT - object key to indicate a percentile in the given effect/result.
+ * @const TYP_PCT - object key to indicate a percentile in the given effect/result.
+ * Also 'type' of a Percent type object.
  */
-export const PCT = '%';
+export const TYP_PCT = '%';
+export const TYP_RANGE = 'range;'
+export const TYP_STAT = 'stat';
+export const TYP_MOD = 'mod';
 
 const POTION = 'potion';
 const ITEM = 'item';

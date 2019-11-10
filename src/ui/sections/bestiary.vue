@@ -5,6 +5,7 @@ import Range from '../../values/range';
 import FilterBox from '../components/filterbox.vue';
 import { TRY_BUY } from '../../events';
 import { npcBuy } from 'modules/craft';
+import { TYP_RANGE } from '../../values/consts';
 
 export default {
 
@@ -28,7 +29,7 @@ export default {
 
 		toNum(v) {
 			return ( typeof v === 'object' ?
-				( v instanceof Range ? v.max : v.value ) : v ).toFixed(0);
+				( v.type === TYP_RANGE ? v.max : v.value ) : v ).toFixed(0);
 		},
 
 		setSort( by ) {

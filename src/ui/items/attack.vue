@@ -16,9 +16,7 @@ export default {
 
 			let dmg = this.item.damage || this.item.dmg;
 			if( typeof dmg === 'number') return dmg;
-			else if ( dmg instanceof Range ) return dmg.toString();
 			else if ( dmg ) {
-				console.log('unknown damage:' + this.item.damage );
 				return dmg.toString();
 				//console.log( typeof this.item.damage );
 				//console.log( this.item.damage.min);

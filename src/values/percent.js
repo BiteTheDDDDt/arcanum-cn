@@ -1,4 +1,5 @@
 import { precise } from "../util/format";
+import { TYP_PCT } from "./consts";
 
 export const PercentTest = /^(\d+(?:\.?\d+)?)\%$/i
 
@@ -26,7 +27,7 @@ export default class Percent {
 	 */
 	roll( mod ) { return 100*Math.random() < this.pct*( 100 + mod ); }
 
-	get type() { return '%' }
+	get type() { return TYP_PCT }
 
 	toString() { return  precise( 100*this.pct ) + '%';}
 
