@@ -22,95 +22,6 @@ export const SetModIds = (mods, id ) => {
 	}
 }
 
-/**
- * Parse object into modifiers.
- * @param {} mods
- * @returns {Object} parsed modifiers.
- */
-export const ParseMods = ( mods, id ) => {
-
-	if ( !mods ) return null;
-	if (!id) logObj(mods, 'no mod id');
-
-	mods = SubMods(mods, id);
-
-	if ( typeof mods === 'object'){
-
-		for( let s in mods ){
-
-			if ( s.includes('.')){
-				splitKeyPath( mods, s );
-
-			}
-
-		}
-	}
-
-	if ( id.includes('kanna') ) {
-		//logObj(mods, 'FINAL KANNA MODS');
-		for( let p in mods){
-			console.log( p + ": " + mods[p] );
-			if ( typeof mods[p] === 'object'){
-				for( let c in mods[p]) {
-					if ( mods[p][c] instanceof Mod ) console.log(c + ' IS MOD');
-				}
-			}
-		}
-	}
-
-	return mods;
-
-}
-
-/**
- *
- */
-export const SubMods = (mods, id)=>{
-
-	if ( !mods ) return null;
-
-	if ( typeof mods === 'string' ) {
-
-		if ( ModTest.test(mods) ) return new Mod(mods, id );
-		return mods;
-
-	} else if ( typeof mods === 'number') return new Mod( mods, id );
-
-	let keys = Object.keys(mods);
-	for( let s of keys ) {
-
-		let val = mods[s];
-		let typ = typeof val;
-
-		if ( typ === 'string') {
-
-			if( ModTest.test(val) ) {
-				mods[s] = new Mod( val, id );
-			}
-
-		} else if ( typ === 'number' ) {
-
-			mods[s] = new Mod(val, id);
-
-		} else if ( val instanceof Mod ) {
-
-			//mods[s] = val.clone();
-			if ( id ) val.id = id;
-
-		} else if ( typ === 'object') {
-
-			if ( val.id || val.value || val.base || val.str ) mods[s] = new Mod(val, id );
-			else mods[s] = SubMods( val, id );
-
-		} else {
-			//logObj( mods, id + ' INVALID MOD ' + (typ) );
-		}
-
-	}
-	return mods;
-
-}
-
 export default class Mod extends Stat {
 
 	toJSON(){
@@ -268,5 +179,82 @@ export default class Mod extends Stat {
 		}
 
 	}
+
+}
+
+
+/**
+ * Parse object into modifiers.
+ * @param {} mods
+ * @returns {Object} parsed modifiers.
+ */
+export const ParseMods = ( mods, id ) => {
+
+	if ( !mods ) return null;
+	if (!id) logObj(mods, 'no mod id');
+
+	mods = SubMods(mods, id);
+
+	if ( typeof mods === 'object'){
+
+		for( let s in mods ){
+
+			if ( s.includes('.')){
+				splitKeyPath( mods, s );
+
+			}
+
+		}
+	}
+
+	return mods;
+
+}
+
+/**
+ *
+ */
+export const SubMods = (mods, id)=>{
+
+	if ( mods === null || mods === undefined ) return null;
+
+	if ( typeof mods === 'string' ) {
+
+		if ( ModTest.test(mods) ) return new Mod(mods, id );
+		return mods;
+
+	} else if ( typeof mods === 'number') return new Mod( mods, id );
+
+	for( let s in mods ) {
+
+		let val = mods[s];
+		let typ = typeof val;
+
+		if ( val instanceof Mod ) {
+
+			//mods[s] = val.clone();
+			if ( id ) val.id = id;
+
+		} else if ( typ === 'string') {
+
+			if( ModTest.test(val) ) {
+				mods[s] = new Mod( val, id );
+			}
+
+		} else if ( typ === 'number' ) {
+
+			mods[s] = new Mod(val, id);
+
+		} else if ( typ === 'object') {
+
+			if ( val.id || val.base || val.str ) mods[s] = new Mod(val, id );
+			else mods[s] = SubMods( val, id );
+
+		} else {
+			//logObj( mods, id + ' INVALID MOD ' + (typ) );
+		}
+
+	}
+	return mods;
 
 }

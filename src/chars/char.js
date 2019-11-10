@@ -187,8 +187,9 @@ export default class Char {
 
 		let id = dot.id;
 		if ( !id ) id = dot.id = name || (source ? source.id || source.name : '');
+		if ( !id) return;
 
-		let cur = id ? this.dots.find( d=>d.id===id) : undefined;
+		let cur = this.dots.find( d=>d.id===id);
 		if ( cur !== undefined ) {
 
 			if ( cur.duration < dot.duration ) cur.duration = dot.duration;
@@ -196,8 +197,6 @@ export default class Char {
 		} else {
 
 			if ( !(dot instanceof Dot)) dot = new Dot( cloneClass(dot), source, name );
-
-			if ( !dot.id ) return;
 
 			this.dots.push( dot );
 			if ( dot.mod ) this.applyDot( dot );

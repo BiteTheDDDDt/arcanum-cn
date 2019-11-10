@@ -1,5 +1,4 @@
 import Base, {mergeClass} from './base';
-import Dot from '../chars/dot';
 import { cloneClass } from '../util/util';
 import { ParseMods } from '../values/mod';
 

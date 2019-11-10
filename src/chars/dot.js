@@ -1,7 +1,6 @@
 import Range from "../values/range";
 import {ParseMods } from "../values/mod";
 import { setModCounts } from "../items/base";
-import { logObj, cloneClass } from "../util/util";
 
 export default class Dot {
 
@@ -64,7 +63,6 @@ export default class Dot {
 		/**
 		 * @property {boolean} stack - ability of dot to stack.
 		 */
-
 		if ( this.mod ){
 
 			this.mod = ParseMods( this.mod, this.id );
