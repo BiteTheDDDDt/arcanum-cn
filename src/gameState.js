@@ -484,8 +484,8 @@ export default class GameState {
 	}*/
 
 	/**
-	 * Get state slots so they can be used with Vue reactivity.
-	 * @returns {object.<string,GData>}
+	 * Get state slots so they can be modified for Vue reactivity.
+	 * @returns {.<string,GData>}
 	 */
 	getSlots(){ return this.slots; }
 
@@ -493,6 +493,7 @@ export default class GameState {
 	 * Get item in named slot.
 	 * @param {string} id - slot id.
 	 * @param {string} type - item type for determining subslot (equip,home,etc)
+	 * @returns {?GData}
 	 */
 	getSlot( id, type) {
 		if ( type === WEARABLE || type === ARMOR || type ===WEAPON ) return null;
@@ -505,6 +506,7 @@ export default class GameState {
 	 * @param {?GData} v - item to place in slot, or null.
 	 */
 	setSlot(slot,v) {
+
 		if ( v && (v.type === WEARABLE) ) return;
 		this.slots[slot] = v;
 

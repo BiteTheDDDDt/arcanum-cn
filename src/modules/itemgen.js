@@ -14,7 +14,7 @@ import { ENCOUNTER, WEARABLE, MONSTER, ARMOR, WEAPON } from '../values/consts';
  * Revive a prototyped item based on an item template.
  * converts template string to actual template object before instancing/revive.
  * @param {GameState} gs
- * @param {object|string} it
+ * @param {object} it
  */
 export function itemRevive(gs, it ) {
 
@@ -25,10 +25,12 @@ export function itemRevive(gs, it ) {
 
 	var orig = it.template || it.recipe;
 	if ( typeof orig === 'string') orig = gs.getData( orig );
-
 	var type = orig ? orig.type : it.type;
 
 	if ( !type) {
+
+		if ( !it.id ) return null;
+
 		console.warn('gen unknown: ' + it.id + ' -> ' + it.template + ' -> ' + it.recipe );
 		type = 'item';
 	}
