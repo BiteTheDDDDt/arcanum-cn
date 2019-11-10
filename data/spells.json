@@ -2082,8 +2082,8 @@
 			"duration":60,
 			"mod":{
 				"stamina.max":50,
+				"stamina.rate":-0.8,
 				"stamina":50,
-				"stamina.rate":-1,
 				"dodge":15,
 				"player.tohit":10,
 				"player.damage":5

@@ -328,7 +328,7 @@ export const prepData = ( sub, id='' ) => {
 
 		for( let i = sub.length-1; i >= 0; i-- ) sub[i] = prepData( sub[i], id );
 
-	} else if ( sub instanceof Object ) {
+	} else if ( typeof sub === 'object' ) {
 
 		for( let p in sub ) {
 
@@ -371,8 +371,11 @@ export const prepData = ( sub, id='' ) => {
 
 			}
 
-			if ( p.includes('.')) splitKeyPath( sub, p );
+		}
 
+		// split AFTER parse so items can be made into full classes first.
+		for( let p in sub ) {
+			if ( p.includes('.')) splitKeyPath( sub, p );
 		}
 
 	} else if ( typeof sub === 'string') {

@@ -13,7 +13,7 @@ export default class Dot {
 
 		return {
 
-			id:this.id || undefined,
+			id:this.id,
 			kind:this.kind || undefined,
 			name:this.name || undefined,
 			dmg:this.damage || undefined,
@@ -55,7 +55,6 @@ export default class Dot {
 		this.source = this.source || source || null;
 
 		if ( !this.name ) this.name = name || ( source ? source.name : '' );
-		this.id = this.id || this.name || (source ? source.id || source.name : '');
 
 		if ( !this.id ) console.error('BAD DOT ID: ' + this.name );
 
@@ -64,9 +63,10 @@ export default class Dot {
 		/**
 		 * @property {boolean} stack - ability of dot to stack.
 		 */
-
 		if ( this.mod ){
-			ParseMods( this.mod, this.id );
+
+			this.mod = ParseMods( this.mod, this.id );
+
 			setModCounts( this.mod, this );
 		}
 
@@ -84,7 +84,7 @@ export default class Dot {
 		//console.log('DOT DUR: ' + this.duration );
 		//console.log('ACC: ' + this.acc );
 
-		//if ( this.mod ) this.mod = this.reviveMod(this.mod);
+		//if ( this.mod ) this.mod = ParseMods(this.mod, this.id);
 
 	}
 
@@ -109,21 +109,5 @@ export default class Dot {
 		return 0;
 
 	}
-
-	/*reviveMod( m ){
-
-		if ( typeof m === 'object' && !(m instanceof Mod) ) {
-
-
-			if ( m.id ) return new Mod(m);
-
-			for( let p in m ) {
-				m[p] = this.reviveMod( m[p] );
-			}
-
-		}
-		return m;
-
-	}*/
 
 }

@@ -1,5 +1,4 @@
 import Base, {mergeClass} from './base';
-import Dot from '../chars/dot';
 import { cloneClass } from '../util/util';
 import { ParseMods } from '../values/mod';
 
@@ -89,7 +88,7 @@ export default class Item {
 		if ( this.use ) {
 
 			if (this.use.dot ) {
-				g.state.player.addDot( new Dot( this.use.dot, this.id, this.name) );
+				g.state.player.addDot( this.use.dot, this.id, this.name );
 			}
 			g.applyEffect( this.use );
 

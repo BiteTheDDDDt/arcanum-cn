@@ -75,7 +75,7 @@ export function tryDamage( target, attack, attacker = null) {
 	}
 
 	if (attack.dot) {
-		target.addDot(new Dot(attack.dot, attacker, attack.name));
+		target.addDot( attack.dot, attacker, attack.name );
 	}
 
 	return true;

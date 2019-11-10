@@ -241,17 +241,15 @@ export const assignNoFunc = ( dest, src ) => {
 
 	/**
 	 * For an object variable path key, the key is expanded
-	 * into subojects, each with a single property of the next
-	 * part of the variable path.
+	 * into subojects with keys from the split key path.
 	 * This is done to allow object props to represent variable paths
 	 * without changing all the code to use Maps (with VarPath keys) and not Objects.
 	 * @param {Object} obj - object containing the key to expand.
-	 * @param {string} prop
+	 * @param {string} prop - key being split into subobjects.
 	 */
 	export const splitKeyPath = ( obj, prop ) => {
 
 		let val = obj[prop];
-
 		delete obj[prop];
 
 		let keys = prop.split('.');
@@ -262,10 +260,11 @@ export const assignNoFunc = ( dest, src ) => {
 		for( let i = 0; i < max; i++ ) {
 
 			var cur = obj[ keys[i] ];
-			if ( cur === null || cur === undefined ) cur = {};
-			else if ( typeof cur !== 'object') cur = { value:cur };
 
-			obj = obj[ keys[i] ] = cur;
+			if ( cur === null || cur === undefined ) cur = {};
+			else if ( (typeof cur) !== 'object' || cur.constructor.name !=='Object' ) cur = { value:cur };
+
+			obj = (obj[ keys[i] ] = cur);
 
 		}
 

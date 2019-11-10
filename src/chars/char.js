@@ -5,6 +5,7 @@ import Dot from './dot';
 import Attack from './attack';
 import GameState from '../gameState';
 import { NPC } from '../values/consts';
+import { cloneClass } from '../util/util';
 
 export const Dying = {
 
@@ -178,26 +179,34 @@ export default class Char {
 	/**
 	 * Base item of dot.
 	 * @param {Dot} dot
+	 * @param {object} source
+	 * @param {string} name
 	 */
-	addDot( dot ) {
+	addDot( dot, source, name ) {
 
 		let id = dot.id;
+		if ( !id ) id = dot.id = name || (source ? source.id || source.name : '');
+		if ( !id) return;
 
-		let cur = id ? this.dots.find( d=>d.id===id) : undefined;
+		let cur = this.dots.find( d=>d.id===id);
 		if ( cur !== undefined ) {
 
 			if ( cur.duration < dot.duration ) cur.duration = dot.duration;
 
 		} else {
 
-			this.dots.push( dot instanceof Dot ? dot : new Dot(dot) );
-			if ( dot.mod ) {
-				this.applyMods( dot.mod, 1 );
-			}
+			if ( !(dot instanceof Dot)) dot = new Dot( cloneClass(dot), source, name );
+
+			this.dots.push( dot );
+			if ( dot.mod ) this.applyDot( dot );
 
 
 		}
 
+	}
+
+	applyDot( dot ) {
+		this.applyMods( dot.mod, 1 );
 	}
 
 	rmDot( i ){
