@@ -1834,6 +1834,7 @@
 		"cost":{
 		},
 		"mod":{
+			"fame":10,
 			"virtue":2,
 			"gold.max":"-10%",
 			"spiritlore.max":2,
@@ -2068,10 +2069,15 @@
 			"research":35000,
 			"arcana":30,
 			"gems":50,
-			"arcanegem":20,
+			"managem":25,
+			"airgem":15,
+			"firegem":15,
+			"earthgem":15,
+			"watergem":15,
+			"spiritgem":15,
 			"runestones":30,
 			"tomes":50,
-			"gold":20000
+			"gold":15000
 		},
 		"mod":{
 			"t_runes.max":10,
