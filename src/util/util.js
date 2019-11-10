@@ -239,6 +239,29 @@ export const assignNoFunc = ( dest, src ) => {
 
 }
 
+/**
+ * Only split NON-class keys. Classes shouldn't be
+ * grouped into key-paths.
+ * @param {*} obj
+ */
+export const splitKeys = (obj)=>{
+
+	if ( typeof obj !== 'object' ) return;
+
+	for( let s in obj ){
+
+		var sub = obj[s];
+		if ( s.includes('.')){
+			splitKeyPath( obj, s );
+		}
+		if ( typeof sub === 'object' && (
+			Object.getPrototypeOf(sub) === Object.prototype )
+		) splitKeys( sub );
+
+	}
+
+}
+
 	/**
 	 * For an object variable path key, the key is expanded
 	 * into subojects with keys from the split key path.
@@ -262,7 +285,7 @@ export const assignNoFunc = ( dest, src ) => {
 			var cur = obj[ keys[i] ];
 
 			if ( cur === null || cur === undefined ) cur = {};
-			else if ( (typeof cur) !== 'object' || cur.constructor.name !=='Object' ) cur = { value:cur };
+			else if ( (typeof cur) !== 'object' || Object.getPrototypeOf(cur) !== Object.prototype ) cur = { value:cur };
 
 			obj = (obj[ keys[i] ] = cur);
 

@@ -77,9 +77,12 @@ if ( false ) {
 
 			let res = this.state.resources;
 			for( let p in res ){
-				if ( p !== 'space' && !res[p].locked ){
-					Game.fillItem( res[p] )
+
+				var r = res[p];
+				if ( !r.locked && r.id !== 'space' ){
+					Game.fillItem( r )
 				}
+
 			}
 		},
 		testUnlock(key){
