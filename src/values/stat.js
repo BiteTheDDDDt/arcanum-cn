@@ -198,6 +198,7 @@ export default class Stat {
 		//this._mPct += amt*mod.pct;
 		//this._mBase += amt*mod.bonus;
 
+		if ( mod.id === 'kannadance' ) console.log('ADDING KANA BONUS: ' + mod.bonus );
 		this.mods[mod.id] = mod;
 		this.recalc();
 

@@ -89,7 +89,7 @@ export default class Item {
 		if ( this.use ) {
 
 			if (this.use.dot ) {
-				g.state.player.addDot( new Dot( this.use.dot, this.id, this.name) );
+				g.state.player.addDot( this.use.dot, this.id, this.name );
 			}
 			g.applyEffect( this.use );
 

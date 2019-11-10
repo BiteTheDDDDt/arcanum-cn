@@ -8,6 +8,8 @@ import Events, { LEVEL_UP, NEW_TITLE, CHAR_TITLE, CHAR_NAME, CHAR_CLASS, EVT_STA
 import Wearable from "./wearable";
 import GData from "../items/gdata";
 import { toStats } from "../util/dataUtil";
+import { cloneClass } from "../util/util";
+import Dot from "./dot";
 
 
 const Fists = new Wearable({
@@ -433,31 +435,10 @@ export default class Player extends Char {
 	}
 
 	/**
-	 *
-	 * @param {Dot} dot - dot to add.
+	 * Override char applyDot to apply to Game.
 	 */
-	addDot( dot ) {
-
-		let id = dot.id;
-
-		let cur = id ? this.dots.find( d=>d.id===id) : undefined;
-		if ( cur !== undefined ) {
-
-			if (cur.duration < dot.duration ) cur.duration = dot.duration;
-
-		} else {
-
-			if ( !dot.id ) {
-
-				console.warn('MISSING DOT ID: ' + dot );
-				return;
-
-			}
-			this.dots.push( dot );
-			if ( dot.mod ) Game.addMod( dot.mod, 1 );
-
-		}
-
+	applyDot( dot ){
+		Game.addMod( dot.mod, 1 );
 	}
 
 	/* getResist( kind ) {

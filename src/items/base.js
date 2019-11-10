@@ -373,6 +373,7 @@ export default {
 
 
 				} else {
+					/// create new subobject.
 					targ[p] = {};
 					this.applyObj( m, amt, targ[p], isMod || (p==='mod') );
 				}
@@ -380,6 +381,7 @@ export default {
 			} else if ( subTarg.applyMods ) subTarg.applyMods( m, amt, subTarg );
 			else if ( subTarg instanceof Stat) {
 
+				if ( this.id === 'stamina' ) console.log('APPLYING STAM MOD: ' + m );
 				subTarg.apply( m, amt );
 
 			} else if ( m instanceof Mod ) {

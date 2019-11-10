@@ -40,7 +40,7 @@ export default class GData {
 
 		if ( this._max ) {
 
-			if ( v instanceof Stat ) this._max = v;
+			if ( v instanceof Stat ) this._max.base = v.base;
 			else if ( !isNaN(v) ) this._max.base = v;
 
 		} else this._max = v instanceof Stat ? v : new Stat(v, this.id + '.max', true);
@@ -314,7 +314,7 @@ export default class GData {
 		if ( this.lock ) g.lock( this.lock );
 		if ( this.dot ) {
 
-			g.state.player.addDot( new Dot(this.dot, this.id, this.name) );
+			g.state.player.addDot( this.dot, this.id, this.name );
 
 		}
 

@@ -25,13 +25,40 @@ export const SetModIds = (mods, id ) => {
 /**
  * Parse object into modifiers.
  * @param {} mods
+ * @returns {Object} parsed modifiers.
  */
 export const ParseMods = ( mods, id ) => {
 
 	if ( !mods ) return null;
-	if (!id) logObj(mods, 'unknown mod id');
+	if (!id) logObj(mods, 'no mod id');
 
-	return SubMods(mods, id);
+	mods = SubMods(mods, id);
+
+	if ( typeof mods === 'object'){
+
+		for( let s in mods ){
+
+			if ( s.includes('.')){
+				splitKeyPath( mods, s );
+
+			}
+
+		}
+	}
+
+	if ( id.includes('kanna') ) {
+		//logObj(mods, 'FINAL KANNA MODS');
+		for( let p in mods){
+			console.log( p + ": " + mods[p] );
+			if ( typeof mods[p] === 'object'){
+				for( let c in mods[p]) {
+					if ( mods[p][c] instanceof Mod ) console.log(c + ' IS MOD');
+				}
+			}
+		}
+	}
+
+	return mods;
 
 }
 
@@ -49,13 +76,8 @@ export const SubMods = (mods, id)=>{
 
 	} else if ( typeof mods === 'number') return new Mod( mods, id );
 
-	if ( typeof mods === 'object'){
-		for( let s in mods ){
-			if ( s.includes('.')) splitKeyPath( mods, s );
-		}
-	}
-
-	for( let s in mods ) {
+	let keys = Object.keys(mods);
+	for( let s of keys ) {
 
 		let val = mods[s];
 		let typ = typeof val;
@@ -71,8 +93,10 @@ export const SubMods = (mods, id)=>{
 			mods[s] = new Mod(val, id);
 
 		} else if ( val instanceof Mod ) {
-			//console.log('ALREADY A MOD: '+ s );
-			if (id ) val.id = id;
+
+			//mods[s] = val.clone();
+			if ( id ) val.id = id;
+
 		} else if ( typ === 'object') {
 
 			if ( val.id || val.value || val.base || val.str ) mods[s] = new Mod(val, id );
