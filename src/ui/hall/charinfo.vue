@@ -67,7 +67,7 @@ div.char-info {
 	border: 1px solid var(--separator-color);
 	padding: var(--rg-padding);
 	border-radius: 4px;
-	min-height: 220px;
+	min-height: 12em;
 	width:175px;
 
 	justify-content: space-between;

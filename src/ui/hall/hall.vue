@@ -134,7 +134,9 @@ div.header .fld-name {
 }
 div.wizhall {
 	z-index: 5000;
- 	min-width: 640px;
+	 min-width: 640px;
+	 max-width: 80vw;
+	 max-height: 90vh;
  	padding: var( --rg-padding );
 
 }
