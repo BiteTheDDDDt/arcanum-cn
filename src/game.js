@@ -563,6 +563,7 @@ export default {
 
 			var inst = this.itemGen.instance( it );
 			if ( inst ) this.state.inventory.add( inst );
+			Events.emit( EVT_LOOT, inst );
 
 		}
 
@@ -829,13 +830,16 @@ export default {
 
 				} else {
 
-					if ( typeof e === 'number' || e.type === TYP_RANGE || e.type === TYP_PCT ) {
-
+					if ( typeof e === 'number' || e.type === TYP_RANGE  ) {
 						target.amount( this, e*dt );
 					} else if ( e === true ) {
 
 						target.doUnlock(this);
 						target.onUse( this );
+
+					} else if ( e.type === TYP_PCT ) {
+
+						if ( e.roll( this.getData('luck').valueOf() ) ) target.amount( this, 1 );
 
 					} else target.applyVars(e,dt);
 
