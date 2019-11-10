@@ -369,7 +369,7 @@ export default {
 					if ( m instanceof Mod) {
 						s.addMod(m, amt);
 					}
-					console.log( this.id + 'mod["' + p + '"]:' + m + ': targ null: ' + s.valueOf() );
+					console.log( this.id + '.[' + p + ']:' + m + ': targ null: ' + s.valueOf() + ' isMod? ' + isMod );
 
 
 				} else {

@@ -1,6 +1,6 @@
 import Percent from './percent';
 import Stat from './stat';
-import { splitKeyPath, logObj } from '../util/util';
+import { splitKeyPath, logObj, splitKeys } from '../util/util';
 import { precise } from '../util/format';
 
 //import Emitter from 'eventemitter3';
@@ -165,13 +165,13 @@ export default class Mod extends Stat {
 		//else if ( targ instanceof Mod) targ.applySelf( this, amt ); ///// NO LONGER HAPPENS. superclass.
 		else if ( targ === null || targ === undefined || typeof targ === 'number' ){
 
-			console.log('MOD.applyTo() CREATE NEW MOD AT TARGET: ' + p );
+			console.log('MOD.applyTo() NEW AT: ' + p );
 			let s = obj[p] = new Stat( targ || 0, p );
 			s.addMod( this, amt );
 
 		} else if ( typeof targ === 'object') {
 
-			console.warn( this.id + ' !!!!Generic Mod Target: ' + targ.id );
+			console.warn( this.id + ' !!Generic Mod Targ: ' + targ.id );
 			targ.value = ( ( Number(targ.value) || 0 ) + amt*this.bonus )*( 1 + amt*this.pct );
 
 			// TODO? Percent all of obj?
@@ -195,17 +195,7 @@ export const ParseMods = ( mods, id ) => {
 
 	mods = SubMods(mods, id);
 
-	if ( typeof mods === 'object'){
-
-		for( let s in mods ){
-
-			if ( s.includes('.')){
-				splitKeyPath( mods, s );
-
-			}
-
-		}
-	}
+	splitKeys(mods);
 
 	return mods;
 

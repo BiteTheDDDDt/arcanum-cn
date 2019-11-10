@@ -193,12 +193,14 @@ export default class Stat {
 	 */
 	addMod( mod, amt=1 ) {
 
-		if ( !mod.id ) { this.apply(mod, amt );console.warn( 'NO ID: ' + mod.id ); }
+		if ( !mod.id ) {
+			this.apply(mod, amt );
+			return;
+		}
 
 		//this._mPct += amt*mod.pct;
 		//this._mBase += amt*mod.bonus;
 
-		if ( mod.id === 'kannadance' ) console.log('ADDING KANA BONUS: ' + mod.bonus );
 		this.mods[mod.id] = mod;
 		this.recalc();
 
