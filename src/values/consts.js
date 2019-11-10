@@ -28,6 +28,9 @@ export const TYP_RANGE = 'range;'
 export const TYP_STAT = 'stat';
 export const TYP_MOD = 'mod';
 
+export const P_TITLE = 'title';
+export const P_LOG = 'log';
+
 const POTION = 'potion';
 const ITEM = 'item';
 const NPC = 'npc';

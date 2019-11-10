@@ -2,6 +2,7 @@ import Percent from './percent';
 import Stat from './stat';
 import { splitKeyPath, logObj } from '../util/util';
 import { precise } from '../util/format';
+import { TYP_MOD } from './consts';
 
 //import Emitter from 'eventemitter3';
 
@@ -116,6 +117,8 @@ export default class Mod extends Stat {
 	get pctTot(){return this.pct*this._count;}
 	get bonusTot(){return this.bonus*this._count;}
 
+	get type(){ return TYP_MOD }
+
 	/**
 	 *
 	 * @param {?Object} [vars=null]
@@ -160,7 +163,6 @@ export default class Mod extends Stat {
 		let targ = obj[p];
 
 		if ( targ instanceof Stat ) targ.addMod( this, amt );
-		//else if ( targ instanceof Mod) targ.applySelf( this, amt ); ///// NO LONGER HAPPENS. superclass.
 		else if ( targ === null || targ === undefined || typeof targ === 'number' ){
 
 			//console.log('MOD.applyTo() CREATE NEW MOD AT TARGET: ' + p );

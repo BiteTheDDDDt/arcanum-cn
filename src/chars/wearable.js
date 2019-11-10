@@ -1,5 +1,4 @@
 import { setModCounts} from '../items/base';
-import Range from "../values/range";
 import Attack from './attack';
 
 import {mergeSafe} from "objecty";
@@ -187,7 +186,7 @@ export default class Wearable extends Item {
 
 		let cur = obj[prop];
 		if ( cur === null || cur === undefined ) {
-			console.log('item tohit undefined. assign: ' + amt );
+			console.log('no item tohit. make: ' + amt );
 			obj[prop] = amt;
 		}
 		else if ( typeof cur === 'number') {
@@ -214,7 +213,7 @@ export default class Wearable extends Item {
 
 		let p = g.state.player;
 
-		console.log('UNEQUIP: ' + g.id );
+		console.log('UNEQP: ' + g.id );
 
 		if ( this.armor ) p.defense.add( -this.armor );
 		if ( p.weapon === this ) p.weapon = null;
@@ -229,16 +228,14 @@ export default class Wearable extends Item {
 	convertMods(v) {
 
 		let t = typeof v;
-		if ( v instanceof Mod ) {
-			return v;
-		}
+		if ( v instanceof Mod ) return v;
 
-		console.log('CONVERT MOD: ' + this.id );
+		console.log('WORN MOD: ' + this.id );
 		if ( t === 'object') {
 
 			if ( v.id ) {
-				console.log('create mod: ' );
-				for( let p in v ) console.log( p + ' -> ' + v[p]);
+				console.log('new mod: ' +this.id);
+				//for( let p in v ) console.log( p + ' -> ' + v[p]);
 				return new Mod( v );
 			} else {
 

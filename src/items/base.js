@@ -2,7 +2,8 @@ import {changes, jsonify } from 'objecty';
 import Game from '../game';
 import Stat from '../values/stat';
 import Mod, { SetModIds } from '../values/mod';
-import { logObj, cloneClass } from '../util/util';
+import { cloneClass } from '../util/util';
+import { TYP_MOD } from '../values/consts';
 
 export const setModCounts = ( m, v)=>{
 
@@ -29,7 +30,7 @@ export const initMods = ( m, v)=>{
 
 }
 
-export function mergeClass( destClass, src ) {
+export const mergeClass = ( destClass, src ) => {
 
 	let proto = destClass.prototype || destClass;
 	let descs = Object.getOwnPropertyDescriptors(src);
@@ -271,14 +272,14 @@ export default {
 				if (  p === 'skipLocked' || p === 'value') continue;
 
 				var targ = this[p];
-				if ( targ instanceof Stat || targ instanceof Mod ) {
+				if ( targ instanceof Stat ) {
 
 					//console.log('APPLY ' + mods[p].id + ' to stat: '+ this.id + '.'+ p + ': ' + amt*mods[p] + ' : ' + (typeof mods[p]) );
 					targ.apply( mods[p], amt );
 
 				} else if ( typeof mods[p] === 'object' ) {
 
-					if ( mods[p] instanceof Mod ) {
+					if ( mods[p].type === TYP_MOD ) {
 
 						mods[p].applyTo( this, p, amt );
 
@@ -326,7 +327,7 @@ export default {
 
 		} else if ( typeof mods === 'number') {
 
-			if ( targ instanceof Stat || targ instanceof Mod ) {
+			if ( targ instanceof Stat ) {
 
 				//console.error( this.id + ' number apply to Stat/Mod: ' + mods );
 				targ.apply( mods, amt );
@@ -359,7 +360,7 @@ export default {
 
 			if ( subTarg === undefined || subTarg === null ) {
 
-				if (typeof m === 'number' || m instanceof Mod || m instanceof Stat ) {
+				if (typeof m === 'number' || m instanceof Stat ) {
 
 					let s = targ[p] = isMod ? new Mod( typeof m === 'number' ? m*amt :0 )
 						: new Stat( typeof m === 'number' ? m*amt : 0 );
@@ -455,7 +456,7 @@ export default {
 	 */
 	newSub( obj, key, mod, amt=1 ) {
 
-		console.warn( 'ADD SUB: ' + this.id + ' ' + key + ' stat value: ' + (amt*mod.value) );
+		console.warn( 'ADD SUB: ' + this.id + ' ' + key + ' stat: ' + (amt*mod.value) );
 
 		let s = obj[key] = new Stat( typeof mod === 'number' ? mod*amt : 0, 'key' );
 		if ( mod instanceof Mod ) s.apply( mod, amt );

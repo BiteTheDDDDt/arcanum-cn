@@ -7,7 +7,7 @@ export default class Dot {
 	toJSON(){
 
 		if ( !this.id ) {
-			console.warn('MISSING DOT ID: ' + this );
+			console.warn('NO DOT ID: ' + this );
 			return undefined;
 		}
 
@@ -80,10 +80,6 @@ export default class Dot {
 	revive(state) {
 
 		if ( this.source && typeof this.source === 'string') this.source = state.getData( this.source );
-
-		//console.log('DOT DUR: ' + this.duration );
-		//console.log('ACC: ' + this.acc );
-
 		//if ( this.mod ) this.mod = ParseMods(this.mod, this.id);
 
 	}

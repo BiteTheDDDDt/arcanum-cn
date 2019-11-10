@@ -12,7 +12,7 @@ import Resource from './items/resource';
 import Skill from './items/skill';
 import Stat from './values/stat';
 import { TEAM_ALLY } from './chars/npc';
-import { MONSTER, TYP_PCT, TYP_RANGE } from './values/consts';
+import { MONSTER, TYP_PCT, TYP_RANGE, P_TITLE, P_LOG } from './values/consts';
 import Percent from './values/percent';
 
 var techTree;
@@ -824,8 +824,8 @@ export default {
 
 				if ( target === undefined || target === null ) {
 
-					if ( p === 'title') this.state.player.addTitle( e );
-					else if ( p === 'log') Events.emit( EVT_EVENT, e );
+					if ( p === P_TITLE ) this.state.player.addTitle( e );
+					else if ( p === P_LOG ) Events.emit( EVT_EVENT, e );
 					else this.applyToTag( p, e, dt );
 
 				} else {

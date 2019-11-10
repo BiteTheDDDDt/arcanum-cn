@@ -1,5 +1,5 @@
 import { precise } from '../util/format';
-import { logObj } from "../util/util";
+import { TYP_STAT } from './consts';
 
 /**
  * Stat with a list of modifiers.
@@ -82,6 +82,8 @@ export default class Stat {
 	 */
 	get pos(){return this._pos; }
 	set pos(v) { this._pos = v;}
+
+	get type(){ return TYP_STAT }
 
 	/**
 	 *
@@ -180,7 +182,7 @@ export default class Stat {
 		} else {
 
 			console.log('UNKNOWN MOD: ' + (typeof mod) );
-			logObj(mod);
+			//logObj(mod);
 		}
 
 
