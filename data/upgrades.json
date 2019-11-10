@@ -2068,7 +2068,8 @@
 			"research":35000,
 			"arcana":30,
 			"gems":50,
-			"arcanegem":10,
+			"arcanegem":20,
+			"runestones":30,
 			"tomes":50,
 			"gold":20000
 		},
