@@ -8,6 +8,8 @@ export default class Range {
 
 	toString() { return this.min + ' ' + SPLIT_CHAR + ' ' + this.max; }
 
+	get type(){ return 'range'; }
+
 	/**
 	 * @property {number} value - getting a range value
 	 * returns a random number in the range, inclusive.
