@@ -207,7 +207,6 @@ export default {
 
 	onLoot( loot ) {
 
-		if ( !loot ) return;
 		let text = this.getDisplay(loot);
 
 		if ( !text || Number.isNaN(text) ) return;
@@ -223,6 +222,8 @@ export default {
 	 * @returns {string}
 	 */
 	getDisplay( it ) {
+
+		if ( !it ) return null;
 
 		if ( typeof it === 'object') {
 
