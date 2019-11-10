@@ -2065,8 +2065,10 @@
 		"require":"g.tier5>0",
 		"desc":"Construct a Wizard's Hall.",
 		"buy":{
-			"research":50000,
+			"research":35000,
 			"arcana":30,
+			"gems":50,
+			"arcanegem":10,
 			"tomes":50,
 			"gold":20000
 		},
