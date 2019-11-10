@@ -1047,9 +1047,8 @@
 	},
 	{
 		"id":"wildtend",
-		"name":"wild's tending",
-		"tags":"patron,rez",
-		"sym":"⭐",
+		"name":"wild tending",
+		"tags":"rez",
 		"targets":"beast",
 		"require":"(g.druid+g.warden+g.kell+g.fey)>0",
 		"level":5,
