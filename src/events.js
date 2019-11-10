@@ -210,7 +210,7 @@ export default {
 		if ( !loot ) return;
 		let text = this.getDisplay(loot);
 
-		if ( !text || Number.isNaN(test) ) return;
+		if ( !text || Number.isNaN(text) ) return;
 
 		this.log.log( 'LOOT', text, LOG_LOOT );
 
