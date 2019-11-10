@@ -209,7 +209,8 @@ export default {
 
 		if ( !loot ) return;
 		let text = this.getDisplay(loot);
-		if ( !text) return;
+
+		if ( !text || Number.isNaN(text) ) return;
 
 		this.log.log( 'LOOT', text, LOG_LOOT );
 
@@ -227,22 +228,21 @@ export default {
 
 			if ( Array.isArray(it) ) {
 
-				let i=0, len = it.length;
+				let s, res = [];
+				for( let i = it.length-1; i >= 0; i--) {
 
-				while ( i < len && it[i] == null ) i++;
-				if ( i >= len ) return '';
+					s = this.getDisplay(it[i] );
+					if ( s ) res.push(s);
 
-				let text = this.getDisplay(it[i]);
-				while ( ++i < len ) {
-					if ( it[i]) text += ', ' + this.getDisplay(it[i]);
 				}
 
-				return text;
+				if ( res.length > 0) return res.join( ', ');
 
 			} else return it.name;
-		}
 
-		return it;
+		} else if ( typeof it === 'string') return it;
+
+		return null;
 
 	},
 
