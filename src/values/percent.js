@@ -26,6 +26,8 @@ export default class Percent {
 	 */
 	roll( mod ) { return 100*Math.random() < this.pct*( 100 + mod ); }
 
+	get type() { return '%' }
+
 	toString() { return  precise( 100*this.pct ) + '%';}
 
 	constructor( val ) {
