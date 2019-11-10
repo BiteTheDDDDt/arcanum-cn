@@ -2185,7 +2185,7 @@
             "name":"broadsword",
             "kind":"slash",
             "dmg":"12~17"
-        }, "loot":{ "level":8, "pct":80}
+        }, "loot":{ "max":8, "pct":80}
 
 	},
 	{
