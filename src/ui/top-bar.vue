@@ -52,10 +52,10 @@ export default {
 		<button @click="dispatch('save')">save</button>
 		<button @click="dispatch('load')">load</button>
 
-		<div class="text-button"><a id="save-file" href="" download
+		<div class="text-button"><a href="" download
 			@click.self="dispatch('save-file',$event )" type="text/json">get save</a></div>
 
-		<div v-if="hasHall" class="text-button"><a id="hall-file" href="" download
+		<div v-if="hasHall" class="text-button"><a href="" download
 			@click.self="dispatch('hall-file',$event )" type="text/json">hall save</a></div>
 
 			<!--<input type="file" name="[File]" accept="text/json" @change="fileDrop">-->

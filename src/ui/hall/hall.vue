@@ -93,7 +93,10 @@ export default {
 
 	<div class="power" @mouseenter.capture.stop="emit( 'itemover', $event, hall.prestige )">Hall Prestige: {{ prestige }}</div>
 
-	<div class="header"><input class="fld-name text-entry" type="text" v-model="hallName"></div>
+	<div class="header"><input class="fld-name text-entry" type="text" v-model="hallName">
+			<div class="text-button"><a href="" download
+			@click.self="dispatch('hall-file',$event )" type="text/json">hall save</a></div>
+			</div>
 
 	<div class="chars">
 	<info v-for="(c,i) in availChars" :char="c" :active="i==hall.active"
