@@ -921,7 +921,7 @@ export default {
 					if ( target.applyMods) {
 						target.applyMods( mod[p], amt );
 						target.dirty = true;
-					} else console.warn( 'no applyMods func: ' + target );
+					} else console.warn( 'no applyMods(): ' + target );
 
 				}
 			}
@@ -931,7 +931,7 @@ export default {
 			let t = this.getData(mod);
 			if ( t ) {
 
-				console.warn('!!!!!!!!!!!!!!ADDING NUMBER MOD: ' + mod );
+				console.warn('!!!!!ADDING NUMBER MOD: ' + mod );
 				t.amount( this, 1 );
 
 			} else {

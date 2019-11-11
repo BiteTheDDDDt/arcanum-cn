@@ -1,19 +1,23 @@
 {
 
-
 	"module":"patrons",
 	"sym":"⭐",
 
 	"data":{
 
+		"homes":[],
+
+		"spells":[
+
+		],
 
 		"encounters":[
 
 
 			{
 				"id":"jeremy",
-				"name":"spar with Kanna",
-				"desc":"",
+				"name":"jeremy",
+				"desc":"Nothing is known about this personage.",
 				"effect":{
 					"rage":"1~5",
 					"weary":"2~5",
@@ -152,7 +156,10 @@
 			{
 				"id":"loc_ageshall",
 				"name":"hall of ages",
-				"require":"g.player.level>=999"
+				"require":"g.player.level>=999",
+				"encs":[
+
+				]
 
 			}
 

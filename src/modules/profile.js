@@ -121,7 +121,7 @@ export default {
 	getHallItems(){ return this.hall.items; },
 
 	/**
-	 * State of current player/game loaded.
+	 * Game of current player/game loaded.
 	 * @param {Game} game
 	 */
 	gameLoaded(game) {
@@ -130,14 +130,12 @@ export default {
 		let slot = this.hall.hidSlot( p.hid );
 
 		if ( slot >= 0 ) {
-
 			this.hall.setActive( slot );
-
 		}
 		this.hall.updateChar( p );
 
 		this.saveHall();
-		this.hall.calcPoints();
+		this.hall.calcPoints( game );
 
 		Events.add( LEVEL_UP, this.onCharLevel, this );
 		Events.add( CHAR_NAME, this.updateChar, this );

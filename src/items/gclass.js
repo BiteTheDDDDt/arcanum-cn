@@ -16,9 +16,15 @@ export default class GClass extends GData {
 
 	}
 
+	/**
+	 *
+	 * @param {*} g
+	 * @param {*} amt
+	 * @returns {boolean}
+	 */
 	amount( g, amt ) {
 
-		if ( !super.amount(g,amt) ) return;
+		if ( !super.amount(g,amt) ) return false;
 
 		g.state.player.setClass( this.name );
 		if ( this.loot ) g.getLoot( this.loot );
@@ -26,6 +32,8 @@ export default class GClass extends GData {
 		this.locked = false;
 
 		Events.emit( EVT_EVENT, this );
+
+		return true;
 
 	}
 

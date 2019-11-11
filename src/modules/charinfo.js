@@ -86,6 +86,7 @@ export default class CharInfo {
 		this.title = p.title;
 		this.titles = p.titles.length;
 		this.fame = p.fame.valueOf();
+		this.points = p.points.valueOf() || 0;
 		this.gclass = p.gclass;
 		this.empty = false;
 

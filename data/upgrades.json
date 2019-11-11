@@ -1530,6 +1530,7 @@
 		"require":"tier1",
 		"desc":"ancient spellcasters often move with preternatural speed.",
 		"max":3,
+		"warn":true,
 		"cost":{
 			"sp":2,
 			"research":500
@@ -1615,6 +1616,7 @@
 			"research":10000,
 			"tomes":30
 		},
+		"warn":true,
 		"mod":{
 			"void.rate":0.01,
 			"stamina.rate":-0.5,

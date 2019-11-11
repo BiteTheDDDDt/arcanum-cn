@@ -135,38 +135,47 @@ export default class Hall {
 
 	/**
 	 * Recalculate point contributions from all chars.
+	 * @property {?Game} g - current game.
 	 */
-	calcPoints() {
+	calcPoints( g ) {
 
 		let p = 0;
-		for( let i = this.chars.length-1; i>= 0; i--) {
+
+		let max = Math.floor( this.max.value );
+
+		for( let i = 0; i < max; i++ ) {
+
+			//var t = this.chars[i].getPoints();
+			//console.log( this.chars[i].name + " POINTS: " + t );
 
 			p += this.chars[i].getPoints();
 
 		}
 
-		this.points.value = p;
+		if ( g ) {
+			this.points.setBase( g, p)
+		} else this.points.value = p;
+
+		console.log('RECALC POINTS: '+ this.points.valueOf() );
+		console.log('PRESTIGE: ' + this.prestige.valueOf() );
 
 	}
 
+	/**
+	 * Creates char objects and calculates points.
+	 */
 	initChars(){
 
-		let total = 0;
 		let max = this.max.value;
 		for( let i = 0; i < max; i++ ) {
 
 			var c = this.chars[i];
 			if ( c === undefined ) {
 				this.chars.push( new CharInfo() );
-			} else {
-				//console.log( i + ': ' + c.name );
-				total += c.getPoints();
 			}
 
 		}
-
-		this.points.value = total;
-		console.log('CHAR POINTS: ' + this.points.value);
+		this.calcPoints();
 
 	}
 

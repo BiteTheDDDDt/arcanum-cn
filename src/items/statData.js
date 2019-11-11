@@ -12,11 +12,29 @@ export default class StatData extends GData {
 	get current() { return this.unit ? Math.floor(this.value) : this._value; }
 
 	/**
-	 * Add to base value.
-	 * @param {number} v
+	 * Add amount to base value.
+	 * @param {number} amt - base amount being added.
+	 * @returns {number} actual change in value.
 	 */
-	add( v ) {
-		this.value.base += v;
+	add(amt) {
+
+		let prev = this.value.valueOf();
+		this.value.base += amt;
+
+		return this.value.valueOf() - prev;
+
+	}
+
+	/**
+	 * Set the StatData base value and apply all change mods.
+	 * @param {Game} g - game instance, for mods stuff. ( @todo use event instead?)
+	 * @param {number} amt
+	 */
+	setBase( g, amt ) {
+
+		let del = this.add( amt - this.value.base );
+		this.change( g, del );
+
 	}
 
 	/**

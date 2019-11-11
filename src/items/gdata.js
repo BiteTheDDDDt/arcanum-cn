@@ -1,9 +1,8 @@
 import { defineExcept, clone } from 'objecty';
 import Stat from '../values/stat';
-import Base, {mergeClass, setModCounts, initMods} from './base';
-import { arrayMerge, assignPublic, logObj } from '../util/util';
+import Base, {mergeClass, initMods} from './base';
+import { arrayMerge, assignPublic } from '../util/util';
 import Events, { ITEM_ATTACK, EVT_EVENT, EVT_UNLOCK } from '../events';
-import Dot from '../chars/dot';
 import { TICK_LEN } from '../game';
 import { WEARABLE } from '../values/consts';
 
@@ -238,40 +237,81 @@ export default class GData {
 
 	/**
 	 * Add or remove amount from Item, after min/max bounds are taken into account.
-	 * Returns the amount actually added or removed.
-	 *
 	 * @param {number} amt
-	 * @returns {number}
+	 * @returns {number} - change in final value.
 	 */
-	topoff( amt ) {
+	add( amt ) {
+
+		let prev = this.value.valueOf();
 
 		if ( amt <= 0 ) {
 
 			if ( this.value <= 0 || amt === 0 ) return 0;
-			else if ( this.value + amt < 0 ) amt = -this.value.valueOf();
+			else if ( this.value + amt < 0 ) amt = -this.value.valueOf(); /** @todo **/
 
-			this.value.base += amt;
+		} else {
 
-			return amt;
+			if ( this.repeat !== true && !this.max &&
+				this.value > 1 &&
+				(!this.buy || this.owned===true) ) {
+				return 0;
+			}
 
-		}
-
-		if ( this.repeat !== true && !this.max &&
-			this.value > 1 &&
-			(!this.buy || this.owned===true) ) {
-			return 0;
-		}
-
-		if ( this.max && (this.value + amt) >= this.max.value ) {
-			amt = this.max.value - this.value;
+			if ( this.max && (this.value + amt) >= this.max.value ) {
+				amt = this.max.value - this.value;
+			}
 
 		}
-
-		if ( amt === 0 ) return 0;
 
 		this.value.base += amt;
+		return this.value.valueOf() - prev;
 
-		return amt;
+	}
+
+	/**
+	 * Get or lose quantity.
+	 * @param {Game} g
+	 * @returns {boolean} true if some amount was actually added.
+	 */
+	amount( g, count=1 ) {
+
+		count = this.add(count);
+		if ( count === 0 ) return false;
+
+		this.change( g, count );
+		return true;
+
+	}
+
+	/**
+	 * Process an actual change amount in data. This is after Stat Mods
+	 * have been applied to the base value.
+	 * @param {number} count - new total value.
+	 */
+	change( g, count) {
+
+		if ( this.isRecipe ) { return g.create( this, count ); }
+
+		if ( this.exec ) this.exec();
+
+		if ( this.title ) g.state.player.setTitle( this.title );
+		if ( this.effect ) g.applyEffect(this.effect, count );
+		if ( this.result ) g.applyEffect( this.result, count );
+
+		if ( this.mod ) { g.addMod( this.mod ); }
+		if ( this.lock ) g.lock( this.lock );
+		if ( this.dot ) {
+			g.state.player.addDot( this.dot, this.id, this.name );
+		}
+
+		if ( this.disable ) g.disable( this.disable );
+
+		if ( this.log ) Events.emit( EVT_EVENT, this.log );
+
+		if ( this.attack ) {
+			if (this.type !== WEARABLE && this.type !== 'weapon') Events.emit( ITEM_ATTACK, this );
+		}
+		this.dirty = true;
 
 	}
 
@@ -292,48 +332,6 @@ export default class GData {
 
 		if ( this.slot ) g.setSlot( this );
 		else this.amount( g, 1 );
-
-	}
-
-	/**
-	 * Get or lose quantity.
-	 * @param {Game} g
-	 */
-	amount( g, count=1 ) {
-
-		if ( this.topoff ) count = this.topoff(count);
-		if ( count === 0 ) return;
-
-		if ( this.isRecipe ) {
-			return g.create( this, count );
-		}
-
-		if ( this.exec ) this.exec();
-
-		if ( this.title ) g.state.player.setTitle( this.title );
-		if ( this.effect ) g.applyEffect(this.effect, count );
-		if ( this.result ) g.applyEffect( this.result, count );
-
-		if ( this.mod ) {
-			g.addMod( this.mod );
-		}
-		if ( this.lock ) g.lock( this.lock );
-		if ( this.dot ) {
-
-			g.state.player.addDot( this.dot, this.id, this.name );
-
-		}
-
-		if ( this.disable ) g.disable( this.disable );
-
-		if ( this.log ) Events.emit( EVT_EVENT, this.log );
-
-		if ( this.attack ) {
-			if (this.type !== WEARABLE && this.type !== 'weapon') Events.emit( ITEM_ATTACK, this );
-		}
-
-		this.dirty = true;
-		return true;
 
 	}
 

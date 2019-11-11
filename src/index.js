@@ -129,7 +129,7 @@ const vm = new Vue({
 		},
 
 		/**
-		 * GameState was revived from JSON.
+		 * Game was revived from JSON.
 		 * @param {Game} game
 		 */
 		gameLoaded( game ) {
