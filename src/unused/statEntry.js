@@ -1,5 +1,3 @@
-import Stat from '../stat';
-
 /**
  * Facilitates updates of stats.
  */
@@ -27,7 +25,7 @@ export default class StatEntry {
 		 * @property {Number} prev - combined value from previous frame.
 		 */
 		this.prev = stat.value;
-	
+
 		this.nextPct = stat.pct;
 		this.nextBase = stat.base;
 

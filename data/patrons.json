@@ -35,20 +35,6 @@
 				}
 			},
 			{
-				"id":"enc_kanna",
-				"name":"spar with Kanna",
-				"desc":"",
-				"effect":{
-					"rage":"1~5",
-					"weary":"2~5",
-					"research":1
-				},
-				"result":{
-				}
-
-			},
-
-			{
 				"id":"enc_mrwild",
 				"name":"wild",
 				"desc":"",
@@ -138,6 +124,25 @@
 					"research":1
 				},
 				"result":{
+				}
+			},
+			{
+				"id":"agetablet1",
+				"name":"ancient tablet",
+				"desc":"A tablet on a dais displays a glowing list of names.",
+				"flavor":"Chazza, Jiopaba, Kamianya, Alyx, Man of Smoke",
+				"effect":{
+
+				}
+
+			},
+			{
+				"id":"agetablet2",
+				"name":"weathered tablet",
+				"desc":"A tablet on the wall displays a list of names.",
+				"flavor":"Chazza, Jiopaba, Kamianya, Alyx, Man of Smoke",
+				"effect":{
+
 				}
 			}
 

@@ -660,7 +660,7 @@
 			],
 			"loot":[
 				{
-					"pct":"10%",
+					"%":"10%",
 					"id":"vorpal",
 					"name":"vorpal blade",
 					"level":10,

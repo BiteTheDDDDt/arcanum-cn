@@ -8,7 +8,7 @@ import Npc from '../chars/npc';
 import GenGroup from '../genGroup';
 import { pushNonNull, logObj } from '../util/util';
 import GData from '../items/gdata';
-import { ENCOUNTER, WEARABLE, MONSTER, ARMOR, WEAPON } from '../values/consts';
+import { ENCOUNTER, WEARABLE, MONSTER, ARMOR, WEAPON, TYP_PCT } from '../values/consts';
 
 /**
  * Revive a prototyped item based on an item template.
@@ -217,7 +217,7 @@ export default class ItemGen {
 
 		if (!info) return null;
 
-		if ( info.pct && (100*Math.random() > info.pct) ) return null;
+		if ( info[TYP_PCT] && (100*Math.random() > info[TYP_PCT]) ) return null;
 
 		if ( info.type === WEARABLE || info.type === WEAPON
 				|| info.type ===ARMOR) return this.fromData( info, info.level );
