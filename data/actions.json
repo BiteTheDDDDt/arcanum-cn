@@ -376,6 +376,46 @@
 	},
 	{
 
+		"id":"dreamweaver",
+		"desc":"Spin your dreams upon a tapestry.",
+		"verb":"dream weaving",
+		"require":"g.dreams>0&&g.weaving>=5",
+		"perpetual":true,
+		"length":10,
+		"run":{
+			"stamina":0.7,
+			"mana":1,
+			"gold":5,
+			"arcana":0.02
+		},
+		"at":{
+
+			"500":{ "effect.dreams":0.0001 },
+			"2000":{ "effect.gold":0.0001 },
+			"5000":{ "effect.gold":0.0001 }
+
+		},
+		"effect":{
+			"dreams":0.0005
+		},"flavor":"we are the dream-makers"
+
+	},
+	{
+
+		"id":"starwish",
+		"desc":"Turn sindels into dreams.",
+		"require":"g.astrallore>=5&&g.divination>=10",
+		"cost":{
+			"arcana":1,
+			"sindel":1
+		},
+		"effect":{
+			"dreams":1
+		},"flavor":"star-light, star-bright..."
+
+	},
+	{
+
 		"id":"spingold",
 		"name":"spin gold",
 		"desc":"Spin straw into gold",
