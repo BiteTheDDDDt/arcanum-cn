@@ -529,7 +529,7 @@
 		},
 		"attack":{
 			"damage":"1.5~2.5",
-			"kind":"arcane",
+			"kind":"mana",
 			"tohit":2
 		}
 	},
@@ -563,7 +563,7 @@
 		"attack":{
 			"targets":"enemies",
 			"damage":"0.75~1",
-			"kind":"arcane",
+			"kind":"mana",
 			"tohit":1
 		}
 	},
@@ -1479,7 +1479,7 @@
 		},
 		"attack":{
 			"damage":"10~20",
-			"kind":"arcane",
+			"kind":"mana",
 			"tohit":10
 		}
 	},
