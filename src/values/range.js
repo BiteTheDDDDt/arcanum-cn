@@ -1,3 +1,5 @@
+import { TYP_RANGE } from "./consts";
+
 export const RangeTest = /^\-?\d+\.?\d*\~\-?\d+\.?\d*$/i;
 
 const SPLIT_CHAR = '~';
@@ -8,7 +10,7 @@ export default class Range {
 
 	toString() { return this.min + ' ' + SPLIT_CHAR + ' ' + this.max; }
 
-	get type(){ return 'range'; }
+	get type(){ return TYP_RANGE; }
 
 	/**
 	 * @property {number} value - getting a range value

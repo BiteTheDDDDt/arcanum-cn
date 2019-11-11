@@ -24,7 +24,7 @@ const schoolNames = {
  * Also 'type' of a Percent type object.
  */
 export const TYP_PCT = '%';
-export const TYP_RANGE = 'range;'
+export const TYP_RANGE = 'range';
 export const TYP_STAT = 'stat';
 export const TYP_MOD = 'mod';
 
