@@ -131,6 +131,31 @@
 				}
 			},
 			{
+				"id":"enc_tainted",
+				"name":"Tainted, Archon of the Void",
+				"desc":"A violent echo still wanders the halls it never walked",
+				"effect":{
+					"madness":"2~4",
+					"unease":"2~4",
+					"tempus":-1,
+					"chronomancy.exp":"1~5",
+					"voidlore.exp":"1~5"
+				},
+				"result":{
+					"chronomancy.max":0.01,
+					"voidlore.max":0.001
+				},
+				"loot":{
+					"voidrune":"1%",
+					"voidgem":"1%",
+					"timerune":"1%",
+					"timegem":"1%"
+
+				}, "flavor":"Did that actually happen?"
+
+			},
+
+			{
 				"id":"agetablet1",
 				"name":"ancient tablet",
 				"desc":"A tablet on a dais displays a glowing list of names.",
