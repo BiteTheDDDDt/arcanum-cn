@@ -145,7 +145,7 @@ export default class Hall {
 
 		for( let i = 0; i < max; i++ ) {
 
-			//var t = this.chars[i].getPoints();
+			var t = this.chars[i].getPoints();
 			//console.log( this.chars[i].name + " POINTS: " + t );
 
 			p += this.chars[i].getPoints();
@@ -156,8 +156,8 @@ export default class Hall {
 			this.points.setBase( g, p)
 		} else this.points.value = p;
 
-		console.log('RECALC POINTS: '+ this.points.valueOf() );
-		console.log('PRESTIGE: ' + this.prestige.valueOf() );
+		//console.log('RECALC POINTS: '+ this.points.valueOf() );
+		//console.log('PRESTIGE: ' + this.prestige.valueOf() );
 
 	}
 

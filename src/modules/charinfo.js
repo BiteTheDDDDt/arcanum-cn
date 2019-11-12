@@ -79,14 +79,19 @@ export default class CharInfo {
 	 */
 	update( p ) {
 
+		if ( !p ) {
+			this.empty = true;
+			return;
+		}
+
 		this.name = p.name;
-		this.level = p.level.valueOf();
+		this.level = p.level ? p.level.valueOf() : 0;
 		this.hid = p.hid;
 
 		this.title = p.title;
-		this.titles = p.titles.length;
-		this.fame = p.fame.valueOf();
-		this.points = p.points.valueOf() || 0;
+		this.titles = p.titles ? p.titles.length : 0;
+		this.fame = p.fame ? p.fame.valueOf() : 0;
+		this.points = p.points ? p.points.valueOf() : 0;
 		this.gclass = p.gclass;
 		this.empty = false;
 
@@ -101,7 +106,10 @@ export default class CharInfo {
 		if ( isNaN( this.points ) ) console.warn( this.name + 'points: NaN: ' + this.points );
 		if ( isNaN( this.fame ) ) console.warn( this.name + 'fame: NaN: ' + this.fame );
 		if ( isNaN( this.titles ) ) console.warn( this.name + 'titles: NaN: ' + this.titles );
-		if ( isNaN( this.level ) ) console.warn( this.name + 'level: NaN: ' + this.level );
+		if ( isNaN( this.level ) ) {
+			console.warn( this.name + 'level: NaN: ' + this.level );
+			this.level = 0;
+		}
 
 		return this.points + this.fame + ( this.titles + this.level ) /10;
 	}
