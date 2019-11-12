@@ -1,4 +1,5 @@
 <script>
+import { precise } from '../../util/format';
 
 /**
  * Display of CharInfo stub.
@@ -22,7 +23,8 @@ export default {
 		name(){ return this.char.name; },
 		level() { return this.char.level },
 		title() { return this.char.title },
-		gclass(){return this.char.gclass }
+		gclass(){return this.char.gclass },
+		fame(){return precise( this.char.fame );}
 
 	}
 
@@ -36,7 +38,7 @@ export default {
 	<span class="fld-name">{{ name }} the {{ title }}</span>
 	<span v-if="gclass">{{ gclass }}</span>
 	<span v-if="level>0">level {{ level }}</span>
-	<span v-if="char.fame>0">notoriety: {{ char.fame }}</span>
+	<span v-if="char.fame>0">notoriety: {{ fame }}</span>
 	<span v-if="char.titles>0">titles: {{ char.titles }}</span>
 	</div>
 	<div v-else class="char-stats">

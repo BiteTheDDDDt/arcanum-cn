@@ -23,6 +23,43 @@ export const SetModIds = (mods, id ) => {
 	}
 }
 
+/**
+ * Parse string into mod value.
+ * @compat includes a recursive check for former bug.
+ */
+/*export const ParseString = (v)=>{
+
+	if ( typeof v ==='string' ){
+
+		let res = ModTest.exec( v);
+
+		if ( res ) {
+
+			//res.forEach((v,i)=>console.log('reg['+i+']: ' + v ));
+			this.base = Number(res[1]) || 0;
+			this.basePct = Number(res[2])/100 || 0;
+
+		} else console.error( this.id + ' no mod regex: ' + v );
+
+
+	} else if ( v instanceof Percent ) {
+
+		this.basePct = v.pct;
+
+	} else if ( !isNaN(v) ) {
+
+		return v;
+
+	} else if ( typeof v === 'object') {
+/
+		if ( v && (typeof v === 'object') && v.str) {
+			return ParseString(v.str);
+		}
+
+	}
+
+}*/
+
 export default class Mod extends Stat {
 
 	toJSON(){

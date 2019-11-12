@@ -926,7 +926,7 @@
 	},
 	{
 		"id":"astronomy",
-		"require":"starsource",
+		"need":"starsource",
 		"run":{
 			"stamina":0.5
 		},

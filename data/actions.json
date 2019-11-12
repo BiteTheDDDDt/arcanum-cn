@@ -778,6 +778,7 @@
 		"desc":"The deepest sleep guards the greatest insights.",
 		"require":"dreamchamber",
 		"tags":"t_rest",
+		"slot":"rest",
 		"verb":"sleeping",
 		"perpetual":true,
 		"buy":{
