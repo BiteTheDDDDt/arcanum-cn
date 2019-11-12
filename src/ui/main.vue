@@ -69,7 +69,8 @@ export default {
 			overItem:null,
 			overTitle:null,
 			overElm:null,
-			psection:null
+			psection:null,
+			profile:profile
 		};
 
 	},
@@ -337,7 +338,7 @@ export default {
 
 	<div class="full" @mouseover.capture.stop="emit('itemout')">
 
-		<top-bar>
+		<top-bar :has-hall="profile.hasHall()">
 			<template slot="center">
 			<span class="load-message" v-if="!state">LOADING DATA...</span>
 			<dots v-if="state" :dots="state.player.dots" />

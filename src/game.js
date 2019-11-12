@@ -111,11 +111,11 @@ export default {
 			this.runner = this.state.runner;
 
 			if ( hallData ) this.addData( hallData );
+
 			this.recheckTiers();
 			this.restoreMods();
 
 			techTree = new TechTree( this._items );
-
 			Events.add( EVT_UNLOCK, techTree.unlocked, techTree );
 
 			// initial fringe check.

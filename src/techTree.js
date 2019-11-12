@@ -188,10 +188,10 @@ export default class TechTree {
 
 	/**
 	 * Mark unlock links from a requirement function.
-	 * @param {Item} item - item being unlocked.
+	 * @param {Item} targ - item being unlocked.
 	 * @param {function} func - function testing if item can be unlocked.
 	 */
-	markFunc( item, func ) {
+	markFunc( targ, func ) {
 
 		let text = func.toString();
 		let results;
@@ -203,33 +203,33 @@ export default class TechTree {
 
 			let sub = results[1].split('.')[0];
 			if ( sub === 'mod' || sub === 'slot' ) continue;
-			this.markUnlocker( sub, item );
+			this.markUnlocker( sub, targ );
 
 		}
-		if ( text.includes('this') || text.includes('s.') ) this.markUnlocker( item.id, item );
+		if ( text.includes('this') || text.includes('s.') ) this.markUnlocker( targ.id, targ );
 
 	}
 
 	/**
-	 * Map src as a potential unlocker of item.
+	 * Map src as a potential unlocker of targ.
 	 * @param {string} src
-	 * @param {GData} item
+	 * @param {GData} targ
 	 */
-	markUnlocker( src, item ) {
+	markUnlocker( src, targ ) {
 
 		if ( !src) return;
 		let it = this.items[src];
 
 		if ( it === undefined ) {
 			it = Game.state.getTagList( src );
-			if ( it ) it.forEach( v=>this.markUnlocker(v.id,item) );
+			if ( it ) it.forEach( v=>this.markUnlocker(v.id,targ) );
 			//else console.warn('unlocker not found: ' + src );
 			return;
 		}
 
 		let map = this.unlocks[src];
 		if ( map === undefined ) this.unlocks[src] = map = [];
-		if ( !map.includes( item.id ) ) map.push( item.id );
+		if ( !map.includes( targ.id ) ) map.push( targ.id );
 
 	}
 

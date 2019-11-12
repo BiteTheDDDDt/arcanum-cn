@@ -1,11 +1,12 @@
 <script>
 import Profile from 'modules/profile';
-
+import Game from '../game';
 export default {
 
+	props:['hasHall'],
 	computed:{
-		VERSION(){return __VERSION; },
-		hasHall(){ return Profile.hasHall() }
+
+		VERSION(){return __VERSION; }
 	},
 	methods:{
 

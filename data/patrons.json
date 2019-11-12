@@ -126,13 +126,12 @@
 			{
 				"id":"enc_mrwild",
 				"name":"wild",
-				"desc":"",
+				"desc":"A mage of the wilds makes a perplexing teacher.",
 				"effect":{
-					"rage":"1~5",
+					"madness":"1~5",
 					"weary":"2~5",
-					"research":1
-				},
-				"result":{
+					"naturelore.exp":2,
+					"animals.exp":2
 				}
 
 			},
@@ -161,9 +160,7 @@
 					"enchanting.exp":3
 				},
 				"result":{
-
-					"bladelore.max":0.003
-
+					"bladelore.max":0.001
 				}
 
 			},
@@ -177,8 +174,6 @@
 					"weary":"2~5",
 					"concentrate.exp":1,
 					"composure.exp":1
-				},
-				"result":{
 				}
 			},
 			{
@@ -189,14 +184,12 @@
 					"rage":"1~5",
 					"weary":"2~5",
 					"research":1
-				},
-				"result":{
 				}
 			},
 			{
 				"id":"enc_tjoker",
 				"name":"A Joker",
-				"desc":"His crafty expression suggests trouble.",
+				"desc":"A crafty expression suggests trouble.",
 				"effect":{
 					"rage":"1~5",
 					"bf":"2~5",
