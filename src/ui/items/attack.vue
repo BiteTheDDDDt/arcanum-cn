@@ -29,7 +29,7 @@ export default {
 		bonus(){
 
 			let bonus = this.item.bonus;
-			if ( !bonus ) return 0;
+			if ( !bonus || bonus.valueOf() == 0 ) return 0;
 
 			if ( bonus > 0) return ' (+' + bonus + ')';
 			else return ' (' + bonus + ')';

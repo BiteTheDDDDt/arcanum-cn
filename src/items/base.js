@@ -103,6 +103,7 @@ export default {
 		if ( this.mod ) data.mod = this.mod;
 		if ( this.slot ) data.slot = this.slot;
 		if ( this.effect) data.effect = this.effect;
+		if ( this.use ) data.use = this.use;
 		if ( data.template && typeof data.template === 'object' ) data.template = data.template.id;
 		if ( data.val ) data.value = undefined;
 		data.name = this._name;

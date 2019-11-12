@@ -101,9 +101,14 @@ export default class Mod extends Stat {
 		/**
 		 * @compat temp. for introduced bug.
 		 */
-		if ( v && (typeof v === 'object') && v.str) {
-			this.count = v.str;
+		if ( v && (typeof v === 'object') ) {
+
+			if ( v.str) this.count = v.str;
+			else this._count = v;
+			//else if ( v.value ) this.count = v.value;
+
 		} else this._count = v;
+
 	}
 
 	/**

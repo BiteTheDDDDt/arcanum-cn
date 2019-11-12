@@ -2593,7 +2593,8 @@
         "defense":50,
         "attack":{
             "name":"claws",
-            "dmg":"12~22"
+			"dmg":"12~22",
+			"type":"slash"
         }, "loot":{
 			"max":11
 		}

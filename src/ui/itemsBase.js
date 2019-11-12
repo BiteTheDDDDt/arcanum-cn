@@ -4,7 +4,6 @@
 import { floor, precise } from '../util/format';
 
 import Game, { TICK_LEN } from '../game';
-import Skill from '../items/skill';
 import Stat from '../values/stat';
 import { SKILL } from '../values/consts';
 
