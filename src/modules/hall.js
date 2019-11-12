@@ -232,9 +232,9 @@ export default class Hall {
 
 	}
 
-	setLevel( lvl, slot=-1 ){
+	setLevel( player, lvl ){
 
-		let char = this.getSlot(slot);
+		let char = this.getSlot( this.active );
 		if ( char) char.level = lvl;
 
 	}
