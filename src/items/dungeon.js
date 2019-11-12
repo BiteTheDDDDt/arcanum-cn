@@ -18,6 +18,12 @@ import { DUNGEON } from '../modules/runner';
 
 export default class Dungeon extends Action {
 
+	/**
+	 * @property {object|string} once - result to happen only once.
+	 */
+	get once() { return this._once; }
+	set once(v) { this._once = v; }
+
 	get enemies() { return this._enemies; }
 	set enemies(v) {
 

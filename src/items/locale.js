@@ -19,6 +19,12 @@ const levelTest = (g, s) => {
 
 export default class Locale extends Action {
 
+	/**
+	 * @property {object|string} once - result to happen only once.
+	 */
+	get once() { return this._once; }
+	set once(v) { this._once = v; }
+
 	get encs() { return this._encs; }
 	set encs(v) {
 

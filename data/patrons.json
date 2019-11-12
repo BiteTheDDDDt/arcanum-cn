@@ -100,7 +100,7 @@
 
 
 			{
-				"id":"jeremy",
+				"id":"enc_jeremy",
 				"name":"jeremy",
 				"desc":"Nothing is known about this personage.",
 				"effect":{
@@ -112,8 +112,8 @@
 				}
 			},
 			{
-				"id":"stags",
-				"name":"spar with Kanna",
+				"id":"enc_stags",
+				"name":"",
 				"desc":"",
 				"effect":{
 					"rage":"1~5",
@@ -152,35 +152,37 @@
 			{
 				"id":"enc_kanna",
 				"name":"Study under Kanna",
-				"desc":"",
+				"desc":"A fox-girl delightedly teaches you some practical ways to use your weapon more effectively",
 				"effect":{
-					"bf":"1~5",
+					"bf":"0~2",
 					"weary":"2~5",
-					"bladelore":3,
-					"enchanting":3
+					"rage":"2~5",
+					"bladelore.exp":3,
+					"enchanting.exp":3
 				},
 				"result":{
 
 					"bladelore.max":0.003
 
-				},"flavor":"Half-woman, half-fox, Kanna was ever adept with a blade."
-
-			},
-			{
-				"id":"enc_notowiz",
-				"name":"tainted",
-				"desc":"",
-				"effect":{
-					"rage":"1~5",
-					"weary":"2~5",
-					"research":1
-				},
-				"result":{
 				}
 
 			},
 			{
-				"id":"vondrey",
+				"id":"enc_vondrey",
+				"name":"",
+				"desc":"The mage does not appear inclined to speak.",
+				"effect":{
+					"bf":"1~5",
+					"rage":"1~5",
+					"weary":"2~5",
+					"concentrate.exp":1,
+					"composure.exp":1
+				},
+				"result":{
+				}
+			},
+			{
+				"id":"enc_sinae",
 				"name":"",
 				"desc":"",
 				"effect":{
@@ -192,28 +194,16 @@
 				}
 			},
 			{
-				"id":"sinae",
-				"name":"",
-				"desc":"",
+				"id":"enc_tjoker",
+				"name":"A Joker",
+				"desc":"His crafty expression suggests trouble.",
 				"effect":{
 					"rage":"1~5",
-					"weary":"2~5",
-					"research":1
-				},
-				"result":{
+					"bf":"2~5",
+					"trickery.exp":2,
+					"player.exp":1
 				}
-			},
-			{
-				"id":"tjoker",
-				"name":"",
-				"desc":"",
-				"effect":{
-					"rage":"1~5",
-					"weary":"2~5",
-					"research":1
-				},
-				"result":{
-				}
+
 			},
 			{
 				"id":"enc_tainted",
@@ -266,8 +256,22 @@
 			{
 				"id":"loc_ageshall",
 				"name":"hall of ages",
+				"desc":"A gathering place for mages and patrons of wide renown",
 				"require":"g.player.level>=999",
+				"title":"",
+				"once":{
+					"history.max":1
+				},
 				"encs":[
+					"enc_jeremy",
+					"enc_stags",
+					"enc_mrwild",
+					"enc_cyril",
+					"enc_kanna",
+					"enc_vondrey",
+					"enc_sinae",
+					"enc_tjoker",
+					"enc_tainted"
 
 				]
 

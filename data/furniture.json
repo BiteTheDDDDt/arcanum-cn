@@ -610,7 +610,7 @@
 	{
 		"id":"campfire",
 		"tags":"firesource",
-		"require":"outdoors",
+		"need":"outdoors",
 		"cost":{
 			"space":1
 		},
@@ -674,7 +674,7 @@
 		"id":"grotesque",
 		"tags":"earthsource",
 		"require":"g.tier1>0&&(g.earthlore>3||g.shadowlore>3)",
-		"desc":"a grim and disfigured stone statue",
+		"desc":"a grim, disfigured stone statue",
 		"max":4,
 		"cost":{
 			"gold":750,

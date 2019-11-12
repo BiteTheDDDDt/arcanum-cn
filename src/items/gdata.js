@@ -286,7 +286,7 @@ export default class GData {
 	/**
 	 * Process an actual change amount in data. This is after Stat Mods
 	 * have been applied to the base value.
-	 * @param {number} count - new total value.
+	 * @param {number} count - total change in value.
 	 */
 	change( g, count) {
 
@@ -297,8 +297,8 @@ export default class GData {
 		if ( this.title ) g.state.player.setTitle( this.title );
 		if ( this.effect ) g.applyEffect(this.effect, count );
 		if ( this.result ) g.applyEffect( this.result, count );
-
 		if ( this.mod ) { g.addMod( this.mod ); }
+
 		if ( this.lock ) g.lock( this.lock );
 		if ( this.dot ) {
 			g.state.player.addDot( this.dot, this.id, this.name );

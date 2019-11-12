@@ -219,6 +219,9 @@ export default class Explore {
 
 		if ( this.locale.loot ) Game.getLoot( this.locale.loot, Game.state.drops );
 		if ( this.locale.result ) Game.applyEffect( this.locale.result );
+
+		if ( this.locale.once && this.locale.value === 0 ) Game.applyEffect( this.locale.once );
+
 		this.locale.value++;
 
 		var del = Math.max( 1 + this.player.level - this.locale.level, 1 );
