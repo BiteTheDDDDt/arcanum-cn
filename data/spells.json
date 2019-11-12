@@ -2686,7 +2686,7 @@
 		"buy":{
 			"voidgem":10
 		},
-		"cost":"voidgem",
+		"cost":"dreams",
 		"attack":{
 			"targets":"all",
 			"dot":{

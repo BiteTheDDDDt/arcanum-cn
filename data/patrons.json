@@ -5,9 +5,94 @@
 
 	"data":{
 
-		"homes":[],
+		"furniture":[
+
+			{
+				"id":"baneanvil",
+				"name":"bloodbane's anvil",
+				"require":"g.crafting>=14",
+				"need":"workshop",
+				"desc":"Great spells are often forged on iron.",
+				"tags":"patron",
+				"cost":{
+					"space":5,
+					"research":10000,
+					"tomes":10
+				},
+				"mod":{
+					"spellcraft.max":2,
+					"spellcraft.rate":"5%",
+					"enchanting.max":2
+				},
+				"flavor":"Forsaking war and violence, Bloodbane devoted himself to crafting new forms of magic."
+
+			}
+
+		],
+
+		"homes":[
+
+			{
+
+				"id":"wildcamp",
+				"name":"wild's encampment",
+				"desc":"Deep in Delkin Wood, Master Wild kept his fabled camp.",
+				"require":"(g.warden+g.druid+g.fey+g.kell)>0&&g.tier2>0",
+				"tags":"outdoors,t_garden,t_pets,patron",
+				"cost":{
+					"gold":300,
+					"naturegem":20,
+					"herbs":50,
+					"research":1000
+				},
+				"mod":{
+					"space.max":40,
+					"lore.rate":-0.1,
+					"research.rate":-0.2,
+					"naturelore2.max":1,
+					"airlore.max":1,
+					"waterlore.max":1,
+					"naturelore.max":2,
+					"naturelore.rate":"5%",
+					"animals.max":1,
+					"animals.rate":0.1
+				}
+
+			}
+
+		],
 
 		"spells":[
+			{
+				"id":"kannadance",
+				"level":7,
+				"name":"kanna's dervish dance",
+				"tags":"patron",
+				"school":"bladelore",
+				"require":"spellblade",
+				"desc":"Kanna's dance was a strenuous one for a mage, and a deadly one to her enemies.",
+				"buy":{
+
+					"research":500,
+					"tomes":1,
+					"airgem":10
+
+				},
+				"cost":{
+					"air":8
+				},
+				"dot":{
+					"duration":60,
+					"mod":{
+						"stamina.max":50,
+						"stamina.rate":-0.8,
+						"stamina":50,
+						"dodge":15,
+						"player.tohit":10,
+						"player.damage":5
+					}
+				},"flavor":"she danced with the devil in the pale moonlight, blades gleaming and blurring like a single streak of silver"
+			}
 
 		],
 
