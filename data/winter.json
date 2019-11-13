@@ -9,7 +9,7 @@
       {
         "id":"snowman",
         "desc":"A moving snow Person",
-        "require":"emblemOfIce>=1",
+        "require":"g.emblemOfIce>=1",
         "max":5,
         "effect":{
           "frost.rate":1,
@@ -61,11 +61,12 @@
         "id":"makeSnowman",
         "name":"Making a moving Snowman",
         "desc":"Do you wanna make a snowman, seriously change this",
-        "locked":false,
-        "verb":"Building",
+        "require":"g.emblemOfIce>=1",
+        "verb":"building",
+			"length":10,
         "cost":{
           "livingsnow":10,
-          "soul":1
+          "souls":1
         },
         "run":{
           "stamina":0.5,
@@ -79,7 +80,7 @@
         "id":"meltSnowman",
         "name":"Melt snowman",
         "desc":"Liquifying the poor snowman",
-        "locked":false,
+        "locked":"g.snowman>=1",
         "verb":"Building",
         "cost":{
           "snowman":1,
@@ -143,16 +144,16 @@
     "skills":[
       {
         "id":"icelore",
-		"desc":"the study of ice",
-		"locked":false,
-        "buy":{
+        "desc":"the study of ice",
+				"require":"g.emblemOfIce>=1",
+				"buy":{
           "livingsnow":10
         },
         "run":{
           "stamina":0.5,
-          "frost":2
+          "frost":-2
         },
-        "result":{
+				"result":{
           "sp":0.1
         },
         "mod":{
@@ -167,7 +168,7 @@
     "dungeons":[
       {
       	"id":"snowyMountain",
-      	"name":"Mountain",
+      	"name":"mountain",
       	"desc":"The mountain is filled with the dangers of winter, but also with its fruits",
       	"level":3,
       	"length":20,
@@ -184,10 +185,10 @@
       		"max":5
       	},
       	"log":{
-      		"name":"Mountaineer",
+      		"name":"mountaineer",
       		"desc":"You have survived the chilly winds and monsters of the white"
       	},
-      	"boss":"Yeti",
+      	"boss":"yeti",
       	"enemies":[
       		["iceElemental","iceElemental","iceElemental"],
       		"avalanche",
@@ -268,10 +269,11 @@
             "fire.rate":-1
           }
         },
-        "loot":{
+        "result":{
         	"ice.rate":0.01,
           "icelore.max":0.1
-        }
+		}
+
       },
       {
         "id":"yeti",

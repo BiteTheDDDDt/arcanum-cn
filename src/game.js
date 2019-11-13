@@ -820,7 +820,9 @@ export default {
 				return;
 			}
 
-			let target, e;
+			let target, e = effect[TYP_PCT];
+			if ( e && !e.roll() ) return;
+
 			for( let p in effect ){
 
 				target = this.getData(p);
