@@ -56,7 +56,7 @@ export default class Module {
 	/**
 	 * Load module data file.
 	 * Resolves to the module on load.
-	 * @returns {Promise.<GModule>}
+	 * @returns {Promise.<GModule>} - this module.
 	 */
 	load( file ) {
 
@@ -77,7 +77,7 @@ export default class Module {
 	 * Separate module files loaded. Each file is a list of objects
 	 * of the same type.
 	 * @param {.<string,object[]>} files
-	 * @returns {Module} this module.
+	 * @returns {GModule} this module.
 	 */
 	typesLoaded(files) {
 
@@ -115,7 +115,7 @@ export default class Module {
 	/**
 	 * Single Module file loaded.
 	 * @param {object} mod
-	 * @returns {Module} this module.
+	 * @returns {GModule} this module.
 	 */
 	fileLoaded( mod ) {
 

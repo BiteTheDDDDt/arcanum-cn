@@ -27,12 +27,16 @@ import Encounter from './items/encounter';
 import GEvent from './items/gevent';
 
 import Loader from './util/jsonLoader';
-import { splitKeyPath, logObj } from './util/util';
+import { splitKeyPath } from './util/util';
 import GClass from './items/gclass';
 import Module from './modules/gmodule';
 import { SKILL, ENCOUNTER, MONSTER, ARMOR, WEAPON, HOME, POTION, ITEM } from './values/consts';
 
 const DataDir = './data/';
+
+// list of all files to load.
+const ModFiles = 'modules';
+
 const DataFiles = [ 'resources', 'upgrades', 'actions', 'homes', 'furniture', 'skills',
 	'player', 'spells', 'monsters', 'dungeons', 'events', 'classes', 'armors', 'weapons',
 	'materials', 'enchants', 'sections', 'potions', 'encounters', 'locales','stressors' ];
@@ -42,6 +46,12 @@ const DataFiles = [ 'resources', 'upgrades', 'actions', 'homes', 'furniture', 's
  */
 const IdTest = /^[A-Za-z_]+\w*$/;
 
+/**
+ *
+ * @param {*} fileList
+ * @param {*} dir
+ * @returns {Promise.<string,object>}
+ */
 export const loadFiles = ( fileList, dir=DataDir ) => {
 
 	let loader = new Loader( dir, fileList );
@@ -59,17 +69,30 @@ export default {
 	 */
 	main:null,
 
+	/**
+	 * Load the list of modules being used.
+	 * @param {string} srcList - name of file specifying mod list.
+	 */
+	async loadModList( srcList ) {
+
+		// load the local list of mod files then load all listed files.
+		return loadFiles( [srcList] ).then( list=>{
+			if (!list) throw new Error('Mod list not found.');
+			return list[srcList];
+		});
+
+	},
+
 	async loadGame( saveData ) {
 
 		if ( this.main === null ) {
 
-			this.main = new Module();
+			let files = await this.loadModList( ModFiles );
+			this.main = await new Module().load(files);
 
-			return this.main.load( DataFiles ).then((mod)=>{
-				return this.instance( mod.templates, mod.lists, saveData );
-			});
+		}
 
-		} else return this.instance( this.main.templates, this.main.lists, saveData );
+		return this.instance( this.main.templates, this.main.lists, saveData );
 
 	},
 
