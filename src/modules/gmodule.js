@@ -91,6 +91,7 @@ export default class Module {
 			var file = files[p];
 			if ( !file ) {
 				console.warn('no file: ' + p );
+
 			} else if ( file.module ) {
 
 				let mod = new Module();
@@ -119,7 +120,7 @@ export default class Module {
 	 */
 	fileLoaded( mod ) {
 
-		//console.log('File Loaded: ' + mod.module );
+		console.log('File Loaded: ' + mod.module );
 
 		this.templates = {};
 		this.lists = mod.data;
@@ -181,6 +182,8 @@ export default class Module {
 	 */
 	merge( mod ) {
 
+		console.log('merging module: ' + mod.name );
+
 		let items = mod.templates;
 		let dest = this.templates;
 
@@ -196,7 +199,7 @@ export default class Module {
 
 			if ( !Array.isArray(dest)) {
 
-				//console.warn( 'DEST NONARRAY: ' + p );
+				console.warn( 'DEST NONARRAY: ' + p );
 				this.lists[p] = list.slice(0);
 				continue;
 
