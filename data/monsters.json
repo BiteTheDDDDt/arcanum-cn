@@ -3480,6 +3480,34 @@
         },"flavor":"most agree it's best the gorborung resides in darkness."
 	},
 	{
+		"id":"reaper",
+		"level":30,
+		"evil":50,
+		"desc":"a raw manifestation of death is fleeting, but horrible beyond measure.",
+		"kind":"shade",
+		"hp":10000,
+		"tohit":50,
+		"defense":200,
+		"regen":-100,
+		"attack": [
+		  {
+			"name":"deathly presence",
+			"targets":"enemies",
+			"dot": {
+			  "kind":"death",
+			  "duration":500,
+			  "dmg":"50~80"
+			}
+		  },
+		  {
+			"name":"reap",
+			"tohit": 50,
+			"kind": "death",
+			"dmg": "150~300"
+		  }
+		]
+	  },
+	{
 		"id":"fetigern",
 		"level":50,
 		"unique":true,
