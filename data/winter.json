@@ -176,7 +176,7 @@
           "stamina":1
       	},
       	"result":{
-      		"emblemOfIce":"1",
+      		"emblemOfIce":1,
       		"title":"Explorer of the wintery mountain"
       	},
       	"loot":{
@@ -201,7 +201,7 @@
         "level":1,
         "kind":"elemental",
         "desc":"A spiral of deadly ice cones",
-        "hp":"20",
+        "hp":20,
         "defense":4,
         "attack":{
           "name":"icecones",
@@ -217,7 +217,7 @@
         "level":2,
         "kind":"hazard",
         "desc":"A mass snow seemingly aiming for you while falling down the mountain",
-        "hp":"100",
+        "hp":100,
         "defense":-10,
         "attack":{
           "name":"chilling",
@@ -238,7 +238,7 @@
         "level":3,
         "kind":"giant",
         "desc":"A huge dumb looking creature with a massive club",
-        "hp":"40",
+        "hp":40,
         "defense":10,
         "attack":{
           "name":"smash",
@@ -255,7 +255,7 @@
         "level":2,
         "kind":"hazard",
         "desc":"A chilling wind",
-        "hp":"30",
+        "hp":30,
         "defense":5,
         "immune":"blunt,slashing,pierce",
         "attack":{
@@ -277,7 +277,7 @@
         "level":5,
         "kind":"giant",
         "desc":"A mythical creature only in legends",
-        "hp":"200",
+        "hp":200,
         "defense":20,
         "speed":1,
         "attack":{
