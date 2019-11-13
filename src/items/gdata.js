@@ -188,7 +188,7 @@ export default class GData {
 		if ( this.buy && !this.owned && !g.canPay(this.buy ) ) return false;
 
 		// cost only paid at _start_ of runnable action.
-		if ( this.cost && (this.exp === 0) && !g.canPay(this.cost, dt) ) return false;
+		if ( this.cost && (this.exp === 0) && !g.canPay(this.cost ) ) return false;
 
 		if ( this.fill && g.filled( this.fill, this ) ) return false;
 
@@ -246,8 +246,12 @@ export default class GData {
 
 		if ( amt <= 0 ) {
 
-			if ( this.value <= 0 || amt === 0 ) return 0;
-			else if ( this.value + amt < 0 ) amt = -this.value.valueOf(); /** @todo **/
+			if ( prev <= 0 || amt === 0 ) return 0;
+			else if ( prev + amt <= 0 ) {
+				/** @todo **/
+				this.value.base = 0;
+				return -prev;
+			}
 
 		} else {
 
@@ -257,8 +261,8 @@ export default class GData {
 				return 0;
 			}
 
-			if ( this.max && (this.value + amt) >= this.max.value ) {
-				amt = this.max.value - this.value;
+			if ( this.max && (prev + amt) >= this.max.value ) {
+				amt = this.max.value - prev;
 			}
 
 		}

@@ -58,7 +58,7 @@ export default {
 		state() { return Game.state; },
 
 		/**
-		 * @property {SpellList} spelllist - spells in active use. (dungeons)
+		 * @property {DataList} spelllist - spells in active use. (dungeons)
 		 */
 		list() { return Game.state.spelllist; },
 

@@ -5,6 +5,7 @@ import Stat from '../values/stat';
 import Base, {mergeClass} from '../items/base';
 import Runnable, { TYPE_RUN } from '../composites/runnable';
 import { SKILL } from '../values/consts';
+import DataList from '../inventories/dataList';
 
 const REST_TAG = 't_rest';
 const DUNGEON = 'dungeon';
@@ -23,6 +24,8 @@ export default class Runner {
 
 		this.id = 'runner';
 		this.name = 'activity';
+
+		this.hobbies = new DataList( this.hobbies );
 
 		/**
 		 * @property {Action[]} actives - Actively running tasks.
@@ -144,6 +147,8 @@ export default class Runner {
 	revive( gs ) {
 
 		this.max = this._max || 1;
+
+		this.hobbies.revive(gs);
 
 		this.waiting = this.reviveList( this.waiting, gs, false );
 
@@ -367,10 +372,20 @@ export default class Runner {
 		this.actives.splice(i,1);
 
 		if ( tryResume ){//&& a.hasTag(REST_TAG) ){
-
 			this.tryResume();
-
 		}
+
+	}
+
+	/**
+	 * Attempt to run next hobby.
+	 */
+	tryHobby(){
+
+		let it = this.hobbies.getRunnable();
+
+		if ( !it ) return;
+		this.tryAdd( it );
 
 	}
 

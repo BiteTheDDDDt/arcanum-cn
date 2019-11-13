@@ -10,7 +10,7 @@ import Minions from './inventories/minions';
 import Runner from './modules/runner';
 import Explore from './composites/explore';
 import { ensure } from './util/util';
-import SpellList from './inventories/spelllist';
+import DataList from './inventories/dataList';
 import Group from './composites/group';
 import UserSpells from './inventories/userSpells';
 import Quickbars from './composites/quickbars';
@@ -108,7 +108,7 @@ export default class GameState {
 		this.prepItems();
 
 		this.userSpells = this.items.userSpells = new UserSpells( this.items.userSpells );
-		this.items.spelllist = this.spelllist = new SpellList( this.items.spelllist );
+		this.items.spelllist = this.spelllist = new DataList( this.items.spelllist );
 
 		this.revive();
 

@@ -4,7 +4,7 @@ import Game from '../game';
 import Inventory from '../inventories/inventory';
 import Combat from './combat';
 import { getDelay } from '../chars/char';
-import { RAID } from '../values/consts';
+import { RAID, TYP_PCT } from '../values/consts';
 
 
 /**
@@ -185,7 +185,7 @@ export default class Raid {
 
 		if ( enemy.result ) Game.applyEffect( enemy.result );
 		if ( enemy.loot ) Game.getLoot( enemy.loot, Game.state.drops );
-		else Game.getLoot( {max:enemy.level, pct:30}, Game.state.drops );
+		else Game.getLoot( {max:enemy.level, [TYP_PCT]:30}, Game.state.drops );
 
 	}
 

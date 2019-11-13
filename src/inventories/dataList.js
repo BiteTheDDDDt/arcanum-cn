@@ -1,5 +1,6 @@
 import Inventory from "./inventory";
 import events, { DELETE_ITEM } from "../events";
+import GData from "../items/gdata";
 
 /**
  * Always try spells in order from start.
@@ -8,7 +9,7 @@ export const ORDER = 'top';
 export const RANDOM = 'rand';
 export const LOOP = 'loop';
 
-export default class SpellList extends Inventory {
+export default class DataList extends Inventory {
 
 	toJSON(){
 
@@ -48,6 +49,44 @@ export default class SpellList extends Inventory {
 	}
 
 	/**
+	 * Get the next runnable data item, or null.
+	 * @param {Game} g
+	 * @returns {GData} Next runnable data, or null.
+	 */
+	getRunnable(g){
+
+		var len = this.items.length;
+
+		let start = this.nextInd();
+		let i = start;
+
+		do {
+
+			if ( this.items[i].canRun(g) ) return this.items[i];
+			if ( ++i >= len ) i = 0;
+
+		} while ( i !== start );
+
+		return null;
+
+	}
+
+	/**
+	 *
+	 * @param {Game} g
+	 * @returns {boolean}
+	 */
+	canRun(g) {
+
+		for( let i = this.items.length-1; i>=0; i-- ) {
+			if ( this.items[i].canRun(g) ) return true;
+		}
+
+		return false;
+
+	}
+
+	/**
 	 * usable if at least one spell can be cast.
 	 * @param {Game} g
 	 * @returns {boolean}
@@ -76,11 +115,13 @@ export default class SpellList extends Inventory {
 
 		do {
 
-			if ( this.items[i].canUse(g) ) {
+			var it = this.items[i];
 
-				g.payCost( this.items[i].cost );
+			if ( it.canUse(g) ) {
+
+				if ( it.cost ) g.payCost( it.cost );
 				//console.log('USING: ' + this.items[i].name );
-				this.items[i].onUse(g);
+				it.onUse(g);
 				this.lastInd = i;
 				return true;
 
@@ -124,7 +165,6 @@ export default class SpellList extends Inventory {
 	revive(gs){
 
 		super.revive(gs);
-		if (this.max.value === 0 ) this.max.value = gs.player.level;
 
 		events.add( DELETE_ITEM, this.dataDeleted, this );
 

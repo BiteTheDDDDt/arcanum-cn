@@ -44,6 +44,12 @@ export default class Resource extends GData {
 
 	}
 
+	remove( amt ) {
+		if ( amt >= this.value ) {
+			this.value.base = 0;
+		} else this.value.base -= amt;
+	}
+
 	/**
 	 * @property {number} delta - last change in value.
 	 */

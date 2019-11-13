@@ -323,6 +323,7 @@ export default class Player extends Char {
 		if ( this.weapon && (typeof this.weapon === 'string') ) this.weapon = state.equip.find( this.weapon );
 
 		this.spelllist = state.getData('spelllist');
+		if ( this.spelllist.max.value === 0 ) this.spelllist.max.value = this.level.valueOf();
 
 		// copy in stressors to test player defeats.
 		this.stressors = state.stressors;
@@ -410,10 +411,7 @@ export default class Player extends Char {
 	 * try casting spell from player spelllist.
 	 */
 	tryCast(){
-
-		if ( !this.spelllist.canUse(Game) ) return false;
-		return this.spelllist.onUse(Game);
-
+		if ( !this.spelllist.onUse(Game) ) return false;
 	}
 
 	/**
