@@ -37,10 +37,6 @@ const DataDir = './data/';
 // list of all files to load.
 const ModFiles = 'modules';
 
-const DataFiles = [ 'resources', 'upgrades', 'actions', 'homes', 'furniture', 'skills',
-	'player', 'spells', 'monsters', 'dungeons', 'events', 'classes', 'armors', 'weapons',
-	'materials', 'enchants', 'sections', 'potions', 'encounters', 'locales','stressors' ];
-
 /**
  * @const {RegEx} IdTest - Test for a simple id name.
  */
@@ -48,8 +44,8 @@ const IdTest = /^[A-Za-z_]+\w*$/;
 
 /**
  *
- * @param {*} fileList
- * @param {*} dir
+ * @param {string[]} fileList
+ * @param {string} [dir=DataDir]
  * @returns {Promise.<string,object>}
  */
 export const loadFiles = ( fileList, dir=DataDir ) => {
