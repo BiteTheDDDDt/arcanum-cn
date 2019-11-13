@@ -625,7 +625,11 @@ export default {
 	fillItem( id ) {
 
 		let it = this.getData(id);
-		if ( !it || !it.max ) return;
+		if ( !it ) return;
+		if ( !it.max ) {
+			it.amount( this, 1 );
+			return;
+		}
 
 		let del = it.max.value - it.value;
 		if ( del > 0) it.amount( this, it.max.value - it.value );
