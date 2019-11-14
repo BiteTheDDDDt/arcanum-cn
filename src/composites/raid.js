@@ -47,6 +47,9 @@ export default class Raid {
 	canRun(g) { return this.locale != null && this.locale.canRun(g) }
 	canUse() { return this.locale && !this.locale.maxed(); }
 
+	get effect() { return this.locale ? this.locale.effect : null; }
+	set effect(v){}
+
 	/**
 	 * @compat @deprecated
 	 */

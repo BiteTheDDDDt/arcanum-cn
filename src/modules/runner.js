@@ -586,11 +586,14 @@ export default class Runner {
 
 			this.actBlocked(a);
 
-		} else if ( a.update ) {
+		} else {
 
-			a.update(dt);
 			if ( a.effect) Game.applyEffect( a.effect, dt );
-			a.dirty = true;
+			if ( a.update ) {
+
+				a.update(dt);
+				a.dirty = true;
+			}
 
 		}
 
