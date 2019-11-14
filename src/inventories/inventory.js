@@ -121,15 +121,21 @@ export default class Inventory {
 			} else if ( this.removeDupes && this.find(it.id ) ) return false;
 
 			this.items.push( it );
-			this.used += this.spaceProp ? ( it[ this.spaceProp ] || 0 ) : 1;
+			this.used += this.spaceCost( it );
 
-			//console.warn('CUR USED: ' + this.used);
-			//console.warn('CUR MAX: ' + this.max.value );
+			//console.warn('CUR USED: ' + this.used + '/' + this.max.value );
 
 		}
 		this.dirty = true;
 
 	}
+
+	/**
+	 * Get the space cost of an item according to spaceProp.
+	 * @param {GData} it
+	 * @returns {number}
+	 */
+	spaceCost(it) { return this.spaceProp ? ( it[this.spaceProp] || 0) : 1; }
 
 	/**
 	 * Determine if item fits in inventory.
@@ -139,9 +145,7 @@ export default class Inventory {
 	canAdd(it) {
 
 		if ( !this.max || this.max.value === 0 ) return true;
-
-		let sp = this.spaceProp ? ( it[this.spaceProp] || 0 ) : 1;
-		return this.used + sp <= this.max.value;
+		return this.used + this.spaceCost(it) <= this.max.value;
 
 	}
 
@@ -176,8 +180,7 @@ export default class Inventory {
 	removeAt(ind) {
 
 		let it = this.items[ind];
-		this.used -= this.spaceProp ? ( it[this.spaceProp || 0 ] ) : 1;
-
+		this.used -= this.spaceCost(it);
 		this.items.splice(ind,1);
 
 	}

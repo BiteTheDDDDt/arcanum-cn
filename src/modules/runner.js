@@ -25,8 +25,6 @@ export default class Runner {
 		this.id = 'runner';
 		this.name = 'activity';
 
-		this.hobbies = new DataList( this.hobbies );
-
 		/**
 		 * @property {Action[]} actives - Actively running tasks.
 		 */
@@ -148,7 +146,7 @@ export default class Runner {
 
 		this.max = this._max || 1;
 
-		this.hobbies.revive(gs);
+		this.hobbies = gs.getData( 'hobbies');
 
 		this.waiting = this.reviveList( this.waiting, gs, false );
 
