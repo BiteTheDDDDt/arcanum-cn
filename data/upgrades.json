@@ -1626,13 +1626,15 @@
 	},
 	{
 		"id":"pursuit",
+		"name":"idle pursuit",
 		"desc":"Mark an activity as a pursuit to return to in idle moments.",
-		"require":"",
+		"require":"g.tier2>0",
 		"cost":{
-
+			"research":3000,
+			"arcana":10
 		},
 		"mod":{
-
+			"pursuits.max":1
 		},
 		"flavor":"monomaniacal pursuits are characteristic of all true masters."
 	},

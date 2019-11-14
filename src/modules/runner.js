@@ -146,7 +146,7 @@ export default class Runner {
 
 		this.max = this._max || 1;
 
-		this.hobbies = gs.getData( 'hobbies');
+		this.pursuits = gs.getData( 'pursuits');
 
 		this.waiting = this.reviveList( this.waiting, gs, false );
 
@@ -380,7 +380,7 @@ export default class Runner {
 	 */
 	tryHobby(){
 
-		let it = this.hobbies.getRunnable();
+		let it = this.pursuits.getRunnable();
 
 		if ( !it ) return;
 		this.tryAdd( it );

@@ -113,7 +113,8 @@ export default class GameState {
 		this.spelllist.spaceProp = 'level';
 		this.spelllist.name = this.spelllist.id = 'spelllist';
 
-		this.items.hobbies = new DataList( this.items.hobbies );
+		this.items.pursuits = new DataList( this.items.pursuits );
+		this.items.pursuits.id = 'pursuits';
 
 		this.revive();
 

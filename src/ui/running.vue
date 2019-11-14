@@ -18,9 +18,25 @@ export default {
 			return ' (' + Math.floor( a.valueOf() ) + '/' + Math.floor(a.max.valueOf() ) +')';
 		},
 
-		halt(a) { this.emit( HALT_ACT, a); }
+		halt(a) { this.emit( HALT_ACT, a); },
+
+		toggleHobby(a) {
+
+			if ( this.pursuits.includes(a) ) {
+				this.pursuits.remove(a);
+			} else {
+				this.pursuits.cycleAdd(a);
+			}
+
+		}
+
+	},
+	computed:{
+
+		pursuits(){return this.state.getData('pursuits')}
 
 	}
+
 }
 </script>
 

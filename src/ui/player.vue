@@ -80,14 +80,6 @@ export default {
 
 		closeHall(){this.hallOpen = false;},
 
-		pickHobbies($evt){
-
-			this.emit( 'choice', this.runnables, (p)=>{
-
-			});
-
-		},
-
 		pickTitle($evt){
 
 			this.emit( 'choice', this.player.titles, (p)=>{
