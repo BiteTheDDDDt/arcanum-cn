@@ -22,9 +22,13 @@ export default {
 
 		toggleHobby(a) {
 
+			console.log('max pursuits: ' + this.pursuits.max.valueOf() );
+
 			if ( this.pursuits.includes(a) ) {
+				console.log('REMOVING PURSUIT: ' + a.id );
 				this.pursuits.remove(a);
 			} else {
+				console.log('ADDING PURSUIT: '+a.id);
 				this.pursuits.cycleAdd(a);
 			}
 
@@ -33,7 +37,7 @@ export default {
 	},
 	computed:{
 
-		pursuits(){return this.state.getData('pursuits')}
+		pursuits(){return Game.state.getData('pursuits')}
 
 	}
 
@@ -44,8 +48,10 @@ export default {
 
 <div class='running'>
 
-	<div v-for="v in runner.actives" :key="v.id">
+	<div class="relative" v-for="v in runner.actives" :key="v.id">
 		<button @click="halt(v)">Stop</button><span>{{ actionStr(v) }}</span><span v-if="v.type==='skill'">{{levelStr(v)}}</span>
+		<button :class="['pursuit', pursuits.includes(v) ? 'current' : '']"
+			@click="toggleHobby(v)">Chk</button>
 	</div>
 
 </div>
@@ -57,6 +63,25 @@ export default {
 div.running {
 	display:flex;
 	flex-flow: column nowrap;
+}
+
+div.running .relative {
+	position: relative;
+}
+
+button.pursuit {
+	position: absolute;
+	background: rgb(22, 219, 22);
+	top:0px;
+	right:0px;
+	opacity: 0.75;
+}
+
+button.pursuit.current {
+	position: absolute;
+	top:0px;
+	right:0px;
+	opacity: 0.8;
 }
 
 </style>

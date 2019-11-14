@@ -1470,7 +1470,7 @@
 	},
 	{
 		"id":"imbuelifegem",
-		"name":"imbue lifegem (nature)",
+		"name":"imbue gem (nature)",
 		"require":"g.naturelore>=6&&g.enchanting>0",
 		"tags":"gemimbue",
 		"fill":"naturegem",
