@@ -103,8 +103,7 @@ export default class Inventory {
 
 		if ( Array.isArray(it) ) {
 
-			for( let i = it.length-1; i>=0; i-- ) {
-				this.add(it[i]);
+			for( let i = it.length-1; i>=0; i-- ) { this.add(it[i]);
 			}
 
 		} else {
@@ -127,6 +126,26 @@ export default class Inventory {
 
 		}
 		this.dirty = true;
+
+	}
+
+	/**
+	 * Force-add an item if possible by removing existing items.
+	 * @param {GData} it
+	 * @returns {boolean}
+	 */
+	cycleAdd(it) {
+
+		const cost = this.spaceCost(it);
+
+		if ( this.max && (cost > this.max) ) return false;
+
+		while ( this.items.length > 0 && (this.used + cost > this.max) ) {
+			this.removeAt(0);
+		}
+
+		return this.add(it);
+
 
 	}
 
@@ -164,7 +183,6 @@ export default class Inventory {
 	 * @returns {boolean} true if inventory full.
 	 */
 	full(){
-
 		return this.max >0 && this.used >= Math.floor(this.max.value );
 	}
 

@@ -390,7 +390,7 @@ export default class Runner {
 	/**
 	 * Attempt to add an action, while avoiding any conflicting action types.
 	 * @public
-	 * @param {*} a
+	 * @param {GData} a
 	 */
 	tryAdd( a ) {
 
