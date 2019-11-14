@@ -9,7 +9,7 @@ import Events, {
 } from '../events';
 
 import { itemRevive } from '../modules/itemgen';
-import { getDelay, Dying } from '../chars/char';
+import { getDelay } from '../chars/char';
 
 /**
  * @const {string} TARGET_ENEMIES - target all enemies.
