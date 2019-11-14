@@ -1,5 +1,6 @@
 import Emitter from 'eventemitter3';
 import {uppercase} from './util/util';
+import { TYP_PCT } from './values/consts';
 
 /**
  * @const {Emitter} events - emitter for in-game events.
@@ -193,10 +194,12 @@ export default {
 
 	/**
 	 * Event item event.
-	 * @param {Item} it
+	 * @param {Item|Log} it
 	 */
 	onEvent( it ) {
 		if ( it.hidden) return;
+		if ( it[TYP_PCT] && !it[TYP_PCT].roll() ) return;
+
 		this.log.log( it.name, it.desc, LOG_EVENT );
 	},
 

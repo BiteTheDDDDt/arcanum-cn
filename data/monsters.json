@@ -3226,6 +3226,10 @@
 				"targets":"enemies",
 				"dot":{
 					"kind":"fire",
+					"log":{
+						"%":"10%",
+						"desc":"I have no equals!"
+					},
 					"duration":20,
 					"dmg":"20~40"
 				}
@@ -3233,6 +3237,10 @@
 			{
 				"name":"fire bolt",
 				"tohit":10,
+				"log":{
+					"%":"10%",
+					"desc":"I will not be mocked!"
+				},
 				"kind":"fire",
 				"dmg":"70~100"
 			}
@@ -3246,7 +3254,7 @@
 		"name":"Desilla the Vicious",
         "level":20,
         "evil":27,
-		"desc":"Among the warlocks, desilla was more inclined to indulgence than conquest.",
+		"desc":"Among the Archlocks, desilla was more inclined to indulgence than conquest.",
 		"kind":"humanoid",
         "hp":1500,
         "tohit":27,
@@ -3255,6 +3263,10 @@
         "attack":[
 			{
 				"name":"red haze",
+				"log":{
+					"%":"10%",
+					"desc":"Don't be clouded by desires."
+				},
 				"targets":"enemies",
 				"dot":{
 					"id":"redhaze",
@@ -3267,6 +3279,10 @@
 			{
             	"name":"red bolt",
 				"dmg":"90~123",
+				"log":{
+					"%":"10%",
+					"desc":"Now for some fun."
+				},
 				"kind":"demon"
 			}
 		], "loot":{
@@ -3276,7 +3292,7 @@
 	},
 	{
 		"id":"bodias",
-		"name":"Bodias the Deathlock",
+		"name":"Bodias the Grim",
         "level":25,
         "evil":27,
 		"desc":"",
@@ -3290,6 +3306,10 @@
 				"name":"quake",
 				"targets":"enemies",
 				"kind":"earth",
+				"log":{
+					"%":"10%",
+					"desc":"Does Dhruze still slumber?"
+				},
 				"dot":{
 					"id":"quake",
 					"duration":30,
@@ -3301,8 +3321,12 @@
 			},
 			{
 				"name":"disintegrate",
-				"dmg":"80~130",
-				"kind":"demonic"
+				"dmg":"100~150",
+				"log":{
+					"%":"10%",
+					"desc":"You are dismissed."
+				},
+				"kind":"earth"
 			}
 		], "loot":{
 			"max":25
@@ -3323,6 +3347,10 @@
 			{
 				"name":"void shroud",
 				"targets":"enemies",
+				"log":{
+					"%":"10%",
+					"desc":"Even Dhruze feared the void."
+				},
 				"dot":{
 					"kind":"void",
 					"duration":20,

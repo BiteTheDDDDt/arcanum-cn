@@ -371,19 +371,22 @@ export default class Runner {
 
 		if ( tryResume ){//&& a.hasTag(REST_TAG) ){
 			this.tryResume();
-		}
+		} else this.tryHobby();
 
 	}
 
 	/**
 	 * Attempt to run next hobby.
+	 * @returns {boolean} true if pursuit was started.
 	 */
 	tryHobby(){
 
-		let it = this.pursuits.getRunnable();
+		if ( this.free <= 0 ) return false;
 
-		if ( !it ) return;
-		this.tryAdd( it );
+		let it = this.pursuits.getRunnable( Game );
+		if ( !it ) return false;
+
+		return this.tryAdd( it );
 
 	}
 
@@ -526,6 +529,7 @@ export default class Runner {
 
 		}
 
+		if ( this.tryHobby() ) return;
 		if ( avail > 0 && !norest ) this.tryAdd( Game.state.restAction );
 
 	}

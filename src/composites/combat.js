@@ -5,7 +5,7 @@ import { TEAM_ALLY } from '../chars/npc';
 
 import Events, {
 	EVT_COMBAT, ENEMY_SLAIN, ALLY_DIED,
-	DAMAGE_MISS, CHAR_DIED, ACT_BLOCKED, IS_IMMUNE, COMBAT_HIT
+	DAMAGE_MISS, CHAR_DIED, ACT_BLOCKED, IS_IMMUNE, COMBAT_HIT, EVT_EVENT
 } from '../events';
 
 import { itemRevive } from '../modules/itemgen';
@@ -247,6 +247,10 @@ export default class Combat {
 	 * @param {Char[]} targs - potential targets.
 	 */
 	attack( attacker, atk, targs ) {
+
+		if ( atk && atk.log ) {
+			Events.emit( EVT_EVENT, atk.log );
+		}
 
 		if ( atk && atk.targets === TARGET_ENEMIES ) {
 
