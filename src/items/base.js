@@ -338,11 +338,12 @@ export default {
 				targ.apply( mods, amt );
 
 			} else if ( typeof targ === 'object') {targ.value = (targ.value || 0 ) + amt*mods; }
-
 			else {
 				// nothing can be done if targ is a number. no parent object.
 				console.error(this.id + ' invalid mod: ' + mod );
 			}
+			if ( this.mod ) Game.addMod( this.mod, this.value );
+
 		} else console.warn( this.id + ' unknown mod type: ' + mods );
 
 	},
