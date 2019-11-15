@@ -220,13 +220,6 @@ export default {
 			if ( e.mod ) this.addMod( e.mod, 1 );
 		}
 
-		console.log('RUNNERS: ' + this.runner.max.valueOf() );
-		let s = this.runner.max.mods;
-		for( let p in s ) {
-			var m = s[p];
-			console.log( p + ' val: ' + this.state.getData(p).valueOf() + ' amt: ' + m.value );
-		}
-
 	},
 
 	/**
@@ -710,7 +703,6 @@ export default {
 		if ( it.mod ) this.addMod( it.mod, -amt );
 		if ( it.lock ) this.unlock( it.lock, amt );
 
-		if ( it.slot === 'bed') console.log('runner max: ' + this.runner.max );
 		it.dirty = true;
 
 	},
