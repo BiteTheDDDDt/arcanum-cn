@@ -323,6 +323,7 @@ export default {
 		if ( mods instanceof Mod ) {
 
 			mods.applyTo( targ, 'value', amt );
+			if ( this.mod ) Game.addMod( this.mod, this.value );
 
 		} else if ( typeof mods === 'object') {
 
@@ -342,8 +343,6 @@ export default {
 				// nothing can be done if targ is a number. no parent object.
 				console.error(this.id + ' invalid mod: ' + mod );
 			}
-
-
 		} else console.warn( this.id + ' unknown mod type: ' + mods );
 
 	},
@@ -372,7 +371,7 @@ export default {
 					if ( isMod ) {
 						s.count = this.value;
 						s.id = this.id;
-						console.log(this.id + ' mod count: ' + s.count + ' Modbase: ' + (m*amt) );
+						//console.log(this.id + ' mod count: ' + s.count + ' Modbase: ' + (m*amt) );
 					}/* else {
 						console.log( this.id + ' new stat: ' + s.id )
 					}*/
@@ -380,7 +379,7 @@ export default {
 					if ( m instanceof Mod) {
 						s.addMod(m, amt);
 					}
-					console.log( this.id + '[' + p + ']:' + m + ': targ null: ' + s.valueOf() + ' isMod? ' + isMod );
+					//console.log( this.id + '[' + p + ']:' + m + ': targ null: ' + s.valueOf() + ' isMod? ' + isMod );
 
 
 				} else {
@@ -405,7 +404,7 @@ export default {
 				if ( typeof subTarg === 'number') {
 
 					/// @todo stat switch?
-					console.warn('NEW STAT: ' + p + ' : ' + (m*amt ) );
+					//console.warn('NEW STAT: ' + p + ' : ' + (m*amt ) );
 					targ[p] = new Stat( targ[p] + m*amt );
 					//targ[p] += m*amt;
 

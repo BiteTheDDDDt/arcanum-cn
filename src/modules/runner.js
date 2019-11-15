@@ -139,8 +139,6 @@ export default class Runner {
 	revive( gs ) {
 
 		this.max = this._max || 1;
-
-		console.log('RUNNER MAX: ' + this.max.valueOf() );
 		this.pursuits = gs.getData( 'pursuits');
 
 		this.waiting = this.reviveList( this.waiting, gs, false );
@@ -438,6 +436,8 @@ export default class Runner {
 	}
 
 	haltAction( act ) {
+
+		if ( act.proxy ) act = Game.state.getData(act.proxy);
 
 		// absolute rest stop if no actions waiting.
 		if ( this.waiting.length === 0 && act.hasTag( REST_TAG ) ) this.stopAction(act,false);
