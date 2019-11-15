@@ -200,9 +200,9 @@ export default {
 			if ( !it.locked && !it.disabled && !(it.instance||it.isRecipe) ) {
 
 				if ( it.id ==='points') console.log('POINTS VAL: '+ it.value );
-				if ( it.value > 0 ) {
+				if ( it.value != 0 ) {
 
-					if ( it.mod ) this.addMod( it.mod, it.value );
+					if ( it.mod ) this.addMod( it.mod, it.value, it.id);
 					if ( it.lock ) {
 						this.lock( it.lock, it.value );
 					}
@@ -681,6 +681,7 @@ export default {
 		if ( it.cost && it.cost.space ) this.getData('space').value.add( -amt*it.cost.space );
 
 		it.remove(amt);
+
 		if ( it.mod ) this.addMod( it.mod, -amt );
 		if ( it.lock ) this.unlock( it.lock, amt );
 
@@ -884,12 +885,13 @@ export default {
 	 * @param {Array|Object} mod
 	 * @param {number} amt - amount added.
 	 */
-	addMod( mod, amt=1 ) {
+	addMod( mod, amt=1, src ) {
 
 		if ( !mod ) return;
 
-		if ( Array.isArray(mod)  ) for( let m of mod ) this.addMod(m, amt);
-		else if ( typeof mod === 'object' ) {
+		if ( Array.isArray(mod)  ) {
+			for( let m of mod ) this.addMod(m, amt);
+		} else if ( typeof mod === 'object' ) {
 
 			for( let p in mod ) {
 

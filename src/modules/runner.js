@@ -329,8 +329,6 @@ export default class Runner {
 
 			}
 
-
-
 		}
 
 
@@ -476,7 +474,7 @@ export default class Runner {
 
 		} else if ( repeatable ) {
 
-			if ( Game.canRun(act) ) {
+			if ( Game.canRun(act) && this.actives.length <= this.max.value ) {
 
 				this.setAction(act);
 

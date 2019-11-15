@@ -327,7 +327,7 @@ export default {
 		} else if ( typeof mods === 'object') {
 
 			this.applyObj( mods, amt, targ );
-			if ( mods.mod ) this.changeMod( mods.mod, this.value );
+			//if ( mods.mod ) this.changeMod( mods.mod, this.value );
 
 		} else if ( typeof mods === 'number') {
 
@@ -369,12 +369,18 @@ export default {
 					let s = targ[p] = isMod ? new Mod( typeof m === 'number' ? m*amt :0 )
 						: new Stat( typeof m === 'number' ? m*amt : 0 );
 
-					if ( isMod ) s.count = this.value;
+					if ( isMod ) {
+						s.count = this.value;
+						s.id = this.id;
+						console.log(this.id + ' mod count: ' + s.count + ' Modbase: ' + (m*amt) );
+					}/* else {
+						console.log( this.id + ' new stat: ' + s.id )
+					}*/
 
 					if ( m instanceof Mod) {
 						s.addMod(m, amt);
 					}
-					console.log( this.id + '.[' + p + ']:' + m + ': targ null: ' + s.valueOf() + ' isMod? ' + isMod );
+					console.log( this.id + '[' + p + ']:' + m + ': targ null: ' + s.valueOf() + ' isMod? ' + isMod );
 
 
 				} else {
@@ -399,7 +405,7 @@ export default {
 				if ( typeof subTarg === 'number') {
 
 					/// @todo stat switch?
-					//console.warn('NEW STAT: ' + p + ' : ' + (m*amt ) );
+					console.warn('NEW STAT: ' + p + ' : ' + (m*amt ) );
 					targ[p] = new Stat( targ[p] + m*amt );
 					//targ[p] += m*amt;
 
@@ -412,7 +418,9 @@ export default {
 
 		}
 
-		if ( mods.mod ) { Game.addMod( this.mod, this.value ); }
+		if ( mods.mod ) {
+			Game.addMod( this.mod, this.value );
+		}
 
 	},
 
@@ -476,7 +484,6 @@ export default {
 
 		// @todo: why? assume not currently worn?
 		if ( this.equippable ) return;
-		//console.log( this.id + ': adding mod amt: ' + amt );
 
 		// apply change to modifier for existing item amount.
 		Game.addMod( mod, amt*this.value );
