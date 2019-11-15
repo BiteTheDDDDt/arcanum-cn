@@ -51,11 +51,6 @@ export default class Raid {
 	set effect(v){}
 
 	/**
-	 * @compat @deprecated
-	 */
-	set dungeon(v) {this.locale = v;}
-
-	/**
 	 * @property {number} length - length of dungeon in progress.
 	 */
 	get length() { return this.locale ? this.locale.length : 0; }

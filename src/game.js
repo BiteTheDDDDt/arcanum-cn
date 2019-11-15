@@ -3,7 +3,6 @@ import { logObj} from './util/util';
 import GData from './items/gdata';
 import Log from './log.js';
 import GameState, { REST_SLOT } from './gameState';
-import Range from './values/range';
 import ItemGen from './modules/itemgen';
 import TechTree from './techTree';
 
@@ -13,7 +12,6 @@ import Skill from './items/skill';
 import Stat from './values/stat';
 import { TEAM_ALLY } from './chars/npc';
 import { MONSTER, TYP_PCT, TYP_RANGE, P_TITLE, P_LOG } from './values/consts';
-import Percent from './values/percent';
 
 var techTree;
 
@@ -42,9 +40,9 @@ export default {
 	state:null,
 
 	/**
-	 * @property {Object.<string,Item>} items
+	 * @property {Object.<string,Item>} gdata
 	 */
-	get items() { return this._items; },
+	get gdata() { return this._gdata; },
 
 	/**
 	 * Not really used any more.
@@ -81,7 +79,7 @@ export default {
 	reset() {
 		this.loaded = false;
 		this.state = null;
-		this._items = null;
+		this._gdata = null;
 	},
 
 	/**
@@ -106,7 +104,7 @@ export default {
 			this.state = new GameState( allData, saveData );
 			this.itemGen = new ItemGen( this.state );
 
-			this._items = this.state.items;
+			this._gdata = this.state.items;
 
 			this.runner = this.state.runner;
 
@@ -115,7 +113,7 @@ export default {
 			this.recheckTiers();
 			this.restoreMods();
 
-			techTree = new TechTree( this._items );
+			techTree = new TechTree( this.gdata );
 			Events.add( EVT_UNLOCK, techTree.unlocked, techTree );
 
 			// initial fringe check.
@@ -191,13 +189,13 @@ export default {
 	 */
 	restoreMods() {
 
-		let items = this.state.items;
+		let gdata = this.state.items;
 
 		this.state.player.begin();
 
-		for( let p in items ) {
+		for( let p in gdata ) {
 
-			var it = items[p];
+			var it = gdata[p];
 
 			if ( !it.locked && !it.disabled && !(it.instance||it.isRecipe) ) {
 
@@ -213,11 +211,6 @@ export default {
 
 			}
 
-		}
-
-		let s = this.runner.max;
-		for( let p in s.mods) {
-			console.log( p + ' -> ' + s.mods[p].id + ': ' + s.mods[p]);
 		}
 
 		for( let e of this.state.equip ) {
@@ -736,7 +729,7 @@ export default {
 
 		//console.log('trying unlock: ' + item.id );
 		let type = typeof test;
-		if ( type === 'function') return test( this._items, item, this.state );
+		if ( type === 'function') return test( this._gdata, item, this.state );
 
 		else if ( type === 'string') {
 
@@ -1283,9 +1276,9 @@ export default {
 	 */
 	filterItems( pred ) {
 		let a = [];
-		let items = this._items;
-		for( let p in items ) {
-			if ( pred( items[p] ) ) a.push( items[p] );
+		let gdata = this._gdata;
+		for( let p in gdata ) {
+			if ( pred( gdata[p] ) ) a.push( gdata[p] );
 		}
 		return a;
 	},
@@ -1295,6 +1288,6 @@ export default {
 	 * @param {string} id
 	 * @returns {GData|undefined}
 	 */
-	getData(id) { return this._items[id] || this.state[id]; },
+	getData(id) { return this._gdata[id] || this.state[id]; },
 
 }
