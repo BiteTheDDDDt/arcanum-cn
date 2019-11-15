@@ -45,6 +45,8 @@ const MONSTER = 'monster';
 const HOME = 'home';
 const ARMOR = 'armor', WEAPON = 'weapon';
 
+export const REST_TAG = 't_rest';
+
 const DUNGEON = 'dungeon';
 const LOCALE = 'locale';
 const EXPLORE = 'explore';

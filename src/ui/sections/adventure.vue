@@ -9,7 +9,7 @@ import FilterBox from '../components/filterbox.vue';
 
 import Explore from '../items/explore.vue';
 
-import { ENTER_LOC, LOG_COMBAT } from '../../events';
+import { LOG_COMBAT } from '../../events';
 import { EXPLORE, DUNGEON, LOCALE } from '../../values/consts';
 
 const MAX_ITEMS = 7;
@@ -35,7 +35,6 @@ export default {
 
 	},
 	beforeCreate(){
-		this.ENTER_LOC = ENTER_LOC;
 		this.game = Game;
 	},
 	components:{
@@ -159,7 +158,7 @@ export default {
 						<!-- EVENT MUST BE ON OUTER SPAN - CHROME -->
 					<span @mouseenter.capture.stop="emit( 'itemover', $event, d )"><span>{{ d.sname }}</span>
 
-					<button class="raid-btn" :disabled="!game.canRun(d)" @click="emit( ENTER_LOC, d, true )">Enter</button></span>
+					<button class="raid-btn" :disabled="!game.canRun(d)" @click="emit( 'action', d )">Enter</button></span>
 
 
 					<span class="sym">{{ d.sym }}</span>

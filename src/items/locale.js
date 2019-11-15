@@ -36,6 +36,11 @@ export default class Locale extends Action {
 		this._encs = a;
 	}
 
+	/**
+	 * @property {string} proxy - id of actual runner.
+	 */
+	get proxy(){return LOCALE }
+
 	constructor(vars=null) {
 
 		super(vars);

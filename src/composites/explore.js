@@ -235,7 +235,7 @@ export default class Explore {
 
 	}
 
-	enter( d ) {
+	runWith( d ) {
 
 		this.player.timer = this.player.delay;
 

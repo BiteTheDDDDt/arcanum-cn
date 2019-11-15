@@ -220,7 +220,7 @@ export default class Raid {
 	 * enter dungeon
 	 * @param {*} d
 	 */
-	enter( d ) {
+	runWith( d ) {
 
 		this.player.timer = this.player.delay;
 

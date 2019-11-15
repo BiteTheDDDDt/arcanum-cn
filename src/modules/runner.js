@@ -4,14 +4,8 @@ import Events, {ACT_DONE, ACT_CHANGED, HALT_ACT, ACT_BLOCKED, EXP_MAX, STOP_ALL 
 import Stat from '../values/stat';
 import Base, {mergeClass} from '../items/base';
 import Runnable, { TYPE_RUN } from '../composites/runnable';
-import { SKILL } from '../values/consts';
+import { SKILL, DUNGEON, REST_TAG } from '../values/consts';
 import DataList from '../inventories/dataList';
-
-const REST_TAG = 't_rest';
-const DUNGEON = 'dungeon';
-const LOCALE = 'locale';
-
-export { LOCALE, DUNGEON, REST_TAG };
 
 /**
  * Tracks running/perpetual actions.
@@ -113,10 +107,10 @@ export default class Runner {
 	get running(){return this.actives.length; }
 
 	/**
-	 * @property {number} available - number of available run slots.
+	 * @property {number} free - number of available run slots.
 	 */
 	get free(){
-		return this.max.value - this.actives.length;
+		return Math.floor( this.max.valueOf() ) - this.actives.length;
 	}
 
 	get max() { return this._max; }
@@ -146,6 +140,7 @@ export default class Runner {
 
 		this.max = this._max || 1;
 
+		console.log('RUNNER MAX: ' + this.max.valueOf() );
 		this.pursuits = gs.getData( 'pursuits');
 
 		this.waiting = this.reviveList( this.waiting, gs, false );
@@ -301,14 +296,26 @@ export default class Runner {
 
 		if ( !a) return;
 
+		if ( a.proxy ) {
+			/// a is proxied by another object. (raid/explore)
+			let p = Game.state.getData( a.proxy );
+			if (!p) return false;
+			p.runWith(a);
+			a = p;
+		}
+
 		if ( a.cost && (a.exp === 0) ) {
 			Game.payCost( a.cost);
 		}
 
 		if ( !this.has(a) ) {
 
+			// action already in running list.
+			Events.emit( ACT_CHANGED );
+			this.runAction(a);
+
 			// free space for action. actions.length is a double check.
-			if ( this.actives.length > 0 && this.free <= 0 ) {
+			while ( this.actives.length > Math.floor(this.max.valueOf()) ) {
 
 				let i = 0;
 
@@ -322,9 +329,7 @@ export default class Runner {
 
 			}
 
-			// action already in running list.
-			Events.emit( ACT_CHANGED );
-			this.runAction(a);
+
 
 		}
 
@@ -360,18 +365,19 @@ export default class Runner {
 
 		if ( typeof i !== 'number') {
 			i = this.actives.indexOf(i);
-			if ( i < 0 ) return;
+			if ( i < 0 ) {return;}
 		}
 
 		let a = this.actives[i];
-		//console.log('STOPPING: ' + a.name );
 
 		a.running = false;
 		this.actives.splice(i,1);
 
-		if ( tryResume ){//&& a.hasTag(REST_TAG) ){
+		if ( tryResume ){
+
 			this.tryResume();
-		} else this.tryHobby();
+		}
+		this.tryHobby();
 
 	}
 
@@ -398,6 +404,7 @@ export default class Runner {
 	tryAdd( a ) {
 
 		if ( !this.free ) return false;
+		if ( a.fill && Game.filled(a.fill,a) ) return false;
 
 		this.setAction(a);
 
@@ -464,12 +471,10 @@ export default class Runner {
 	actDone( act, repeatable=true ){
 
 		if ( act.running === false ) {
-			// skills cant be completed without actually running.
+			// skills cant complete when not running.
 			this.stopAction(act);
-			return;
-		}
 
-		if ( repeatable ) {
+		} else if ( repeatable ) {
 
 			if ( Game.canRun(act) ) {
 
@@ -477,24 +482,18 @@ export default class Runner {
 
 			} else if ( act.hasTag(REST_TAG )) {
 
-				this.stopAction( act, true );
+				this.stopAction( act );
 
 			} else {
 
 				this.stopAction( act );
 				this.addWait(act);
 
-				// attempt to resume any waiting actions.
-				this.tryResume();
-
 			}
 
 		} else {
 
 			this.stopAction( act );
-
-			// attempt to resume any waiting actions.
-			this.tryResume();
 
 		}
 
@@ -529,7 +528,6 @@ export default class Runner {
 
 		}
 
-		if ( this.tryHobby() ) return;
 		if ( avail > 0 && !norest ) this.tryAdd( Game.state.restAction );
 
 	}
@@ -604,6 +602,7 @@ export default class Runner {
 	 * @param {*} a
 	 */
 	runAction(a) {
+
 		a.running=true;
 		this.actives.push(a);
 	}

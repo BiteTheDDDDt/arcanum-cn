@@ -7,7 +7,7 @@ import Range from './values/range';
 import ItemGen from './modules/itemgen';
 import TechTree from './techTree';
 
-import Events, {EVT_UNLOCK, EVT_EVENT, EVT_LOOT, ENTER_LOC, EXIT_LOC, SET_SLOT, DELETE_ITEM } from './events';
+import Events, {EVT_UNLOCK, EVT_EVENT, EVT_LOOT, SET_SLOT, DELETE_ITEM } from './events';
 import Resource from './items/resource';
 import Skill from './items/skill';
 import Stat from './values/stat';
@@ -121,8 +121,6 @@ export default {
 			// initial fringe check.
 			techTree.forceCheck();
 
-			Events.add( ENTER_LOC, this.enterLoc, this );
-			Events.add( EXIT_LOC, this.enterLoc, this );
 			Events.add( SET_SLOT, this.setSlot, this );
 			Events.add( DELETE_ITEM, this.onDelete, this );
 
@@ -216,6 +214,12 @@ export default {
 			}
 
 		}
+
+		let s = this.runner.max;
+		for( let p in s.mods) {
+			console.log( p + ' -> ' + s.mods[p].id + ': ' + s.mods[p]);
+		}
+
 		for( let e of this.state.equip ) {
 			if ( e.mod ) this.addMod( e.mod, 1 );
 		}
@@ -248,23 +252,6 @@ export default {
 
 		this.payCost( it.cost );
 		return it.amount( this );
-
-	},
-
-	enterLoc( locale, enter=true ) {
-
-		let control = locale.type === 'dungeon' ? this.state.raid : this.state.explore;
-		if ( enter ) {
-
-			control.enter( locale );
-			this.setAction( control );
-
-		} else {
-
-			control.locale = null;
-			this.haltAction( control );
-
-		}
 
 	},
 
@@ -475,8 +462,6 @@ export default {
 	tryItem(it) {
 
 		if ( !it) return;
-
-		if ( it.type ==='dungeon' || it.type === 'locale') return this.enterLoc(it);
 
 		if ( !this.canUse(it) ) return false;
 

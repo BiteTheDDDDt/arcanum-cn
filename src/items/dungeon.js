@@ -3,7 +3,7 @@ import Action from './action';
 import Game from '../game';
 import { getDist } from './locale';
 import { mapNonNull } from '../util/util';
-import { DUNGEON } from '../modules/runner';
+import { DUNGEON, RAID } from '../values/consts';
 
 /**
  * @type {Object} Enemy
@@ -35,6 +35,8 @@ export default class Dungeon extends Action {
 		}
 		this._enemies=a;
 	}
+
+	get proxy(){return RAID}
 
 	/**
 	 *

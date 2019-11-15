@@ -113,8 +113,6 @@ const DELETE_ITEM = 'delitem';
  */
 const ENC_DONE = 'enc_done';
 const ENC_START = 'enc_start'
-const ENTER_LOC = 'enter_loc';
-const EXIT_LOC = 'exit_loc';
 
 
 /**
@@ -149,10 +147,14 @@ const CHAR_CHANGE = 'charchange';
  */
 export const EVT_STAT = 'stat';
 
+/**
+ * @property {string} TOGGLE - toggle an action on/off.
+ */
+export const TOGGLE = 'toggle';
+
 export { CHAR_TITLE, NEW_TITLE, LEVEL_UP, CHAR_NAME, CHAR_CLASS, CHAR_CHANGE };
 
-export { HALT_ACT, EVT_COMBAT, EVT_EVENT, EVT_UNLOCK, EXP_MAX, EVT_LOOT, ACT_DONE, ALLY_DIED, CHAR_DIED,
-	ENTER_LOC, EXIT_LOC, ITEM_ATTACK, STOP_ALL, DELETE_ITEM,
+export { HALT_ACT, EVT_COMBAT, EVT_EVENT, EVT_UNLOCK, EXP_MAX, EVT_LOOT, ACT_DONE, ALLY_DIED, CHAR_DIED, ITEM_ATTACK, STOP_ALL, DELETE_ITEM,
 	ACT_CHANGED, ACT_IMPROVED, ACT_BLOCKED,
 	DAMAGE_MISS, DEFEATED, ENEMY_SLAIN, COMBAT_DONE, ENC_START, ENC_DONE };
 

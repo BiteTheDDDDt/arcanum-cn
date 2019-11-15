@@ -1,7 +1,7 @@
 <script>
 import Game from '../game';
 import {HALT_ACT} from '../events';
-import { SKILL } from '../values/consts';
+import { SKILL, DUNGEON, RAID, EXPLORE } from '../values/consts';
 
 export default {
 
@@ -20,9 +20,14 @@ export default {
 
 		halt(a) { this.emit( HALT_ACT, a); },
 
+		baseAction(a) {
+			return ( a.type === RAID || a.type === EXPLORE ) ? a.locale : a;
+		},
+
 		toggleHobby(a) {
 
-			console.log('max pursuits: ' + this.pursuits.max.valueOf() );
+			a = this.baseAction(a);
+			if ( !a) return;
 
 			if ( this.pursuits.includes(a) ) {
 				console.log('REMOVING PURSUIT: ' + a.id );
@@ -49,9 +54,9 @@ export default {
 <div class='running'>
 
 	<div class="relative" v-for="v in runner.actives" :key="v.id">
-		<button @click="halt(v)">Stop</button><span>{{ actionStr(v) }}</span><span v-if="v.type==='skill'">{{levelStr(v)}}</span>
-		<button :class="['pursuit', pursuits.includes(v) ? 'current' : '']"
-			@click="toggleHobby(v)">Chk</button>
+		<button class="stop" @click="halt(v)">&nbsp;X&nbsp;</button><span>{{ actionStr(v) }}</span><span v-if="v.type==='skill'">{{levelStr(v)}}</span>
+		<button :class="['pursuit', pursuits.includes( baseAction(v) ) ? 'current' : '']"
+			@click="toggleHobby(v)"> F </button>
 	</div>
 
 </div>
@@ -69,19 +74,23 @@ div.running .relative {
 	position: relative;
 }
 
+button.stop {
+	background: rgb(211, 89, 89);
+}
+
 button.pursuit {
 	position: absolute;
 	background: rgb(22, 219, 22);
 	top:0px;
 	right:0px;
-	opacity: 0.75;
+	opacity: 0.2;
 }
 
 button.pursuit.current {
 	position: absolute;
 	top:0px;
 	right:0px;
-	opacity: 0.8;
+	opacity: 0.7;
 }
 
 </style>

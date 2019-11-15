@@ -272,6 +272,8 @@ export default {
 
 		},
 
+		onToggle(it) { Game.toggleAction(it) },
+
 		onRest(){Game.toggleAction( this.state.restAction ); },
 
 		/**
