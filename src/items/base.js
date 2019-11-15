@@ -321,6 +321,7 @@ export default {
 		if ( mods instanceof Mod ) {
 
 			mods.applyTo( targ, 'value', amt );
+			if ( this.mod ) Game.addMod( this.mod, this.value );
 
 		} else if ( typeof mods === 'object') {
 
@@ -403,7 +404,7 @@ export default {
 				if ( typeof subTarg === 'number') {
 
 					/// @todo stat switch?
-					console.warn('NEW STAT: ' + p + ' : ' + (m*amt ) );
+					//console.warn('NEW STAT: ' + p + ' : ' + (m*amt ) );
 					targ[p] = new Stat( targ[p] + m*amt );
 					//targ[p] += m*amt;
 
