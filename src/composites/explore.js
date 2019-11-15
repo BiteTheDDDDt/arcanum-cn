@@ -81,6 +81,8 @@ export default class Explore {
 		this.running = this.running || false;
 
 		this.type = EXPLORE;
+
+		// reactivity.
 		this._enc = this._enc || null;
 
 		/**
@@ -99,11 +101,13 @@ export default class Explore {
 		if ( typeof this.locale === 'string') this.locale = state.getData(this.locale);
 
 		if ( this._enc ) {
+
 			this.enc = itemRevive( state, this._enc );
-		}
-		if ( this.enc && !(this.enc instanceof Encounter ) ){
-			console.warn('bad encounter: ' + ( this.enc ? this.enc.id : this.enc ) );
-			this.enc = null;
+			if ( this.enc && !(this.enc instanceof Encounter ) ){
+				console.warn('bad enc: ' + (this.enc.id || this.enc) );
+				this.enc = null;
+			}
+
 		}
 
 		if ( !this.locale) this.running = false;
@@ -125,10 +129,7 @@ export default class Explore {
 		if ( this.locale == null || this.done ) return;
 
 		if ( !this.enc ) this.nextEnc();
-
-		// done by runner.
-		/*if ( this.locale.effect ) { Game.applyEffect( this.locale.effect, dt ); }*/
-		if ( this.enc ) {
+		else {
 
 			this.player.timer -= dt;
 			if ( this.player.timer <= 0 ) {
@@ -162,7 +163,7 @@ export default class Explore {
 
 		if ( !this.locale ) return;
 		// get random encounter.
-		this.player.delay = getDelay( this.player.speed );
+		this.player.timer = getDelay( this.player.speed );
 		var e = this.locale.getEnc();
 
 		if ( typeof e === 'string') {
@@ -237,7 +238,7 @@ export default class Explore {
 
 	runWith( d ) {
 
-		this.player.timer = this.player.delay;
+		this.player.timer = getDelay( this.player.speed );
 
 		if ( d != null ) {
 

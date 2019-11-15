@@ -1,11 +1,10 @@
 import Game from '../game';
 import Range from '../values/range';
-import Dot from '../chars/dot';
 import { TEAM_ALLY } from '../chars/npc';
 
 import Events, {
 	EVT_COMBAT, ENEMY_SLAIN, ALLY_DIED,
-	DAMAGE_MISS, CHAR_DIED, ACT_BLOCKED, IS_IMMUNE, COMBAT_HIT, EVT_EVENT
+	DAMAGE_MISS, CHAR_DIED, IS_IMMUNE, COMBAT_HIT, EVT_EVENT
 } from '../events';
 
 import { itemRevive } from '../modules/itemgen';
@@ -371,26 +370,29 @@ export default class Combat {
 	 */
 	setTimers() {
 
-		let minDelay = this.player.delay;
+		let minDelay = this.player.timer = getDelay( this.player.speed );
 
+		var t;
 		for( let i = this.enemies.length-1; i >= 0; i-- ) {
-			if ( this.enemies[i].delay < minDelay) minDelay = this.enemies[i].delay;
+			t = this.enemies[i].timer = getDelay( this.enemies[i].speed );
+			if ( t < minDelay ) minDelay = t;
 		}
 		for( let i = this.allies.length-1; i >= 0; i-- ) {
-			if ( this.allies[i].delay < minDelay) minDelay = this.allies[i].delay;
+			t = this.allies[i].timer = getDelay( this.allies[i].speed );
+			if ( t < minDelay ) minDelay = t;
 		}
 
 		// +1 initial encounter delay.
 		minDelay -= 1;
 
-		this.player.timer = this.player.delay - minDelay;
+		this.player.timer -= minDelay;
 
 
 		for( let i = this.enemies.length-1; i >= 0; i-- ) {
-			this.enemies[i].timer = this.enemies[i].delay - minDelay;
+			this.enemies[i].timer -= minDelay;
 		}
 		for( let i = this.allies.length-1; i >= 0; i-- ) {
-			this.allies[i].timer = this.allies[i].delay - minDelay;
+			this.allies[i].timer -= minDelay;
 		}
 
 	}

@@ -162,7 +162,6 @@ export default class Raid {
 		/**
 		 * @todo: maket this happen automatically.
 		 */
-		this.player.delay = getDelay( this.player.speed );
 		this.combat.setEnemies( this.locale.getEnemy(), this.exp/this.length );
 
 	}
@@ -217,7 +216,7 @@ export default class Raid {
 	 */
 	runWith( d ) {
 
-		this.player.timer = this.player.delay;
+		this.player.timer = getDelay(this.player.speed);
 
 		if ( d != null ) {
 

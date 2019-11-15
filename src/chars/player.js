@@ -8,9 +8,6 @@ import Events, { LEVEL_UP, NEW_TITLE, CHAR_TITLE, CHAR_NAME, CHAR_CLASS, EVT_STA
 import Wearable from "./wearable";
 import GData from "../items/gdata";
 import { toStats } from "../util/dataUtil";
-import { cloneClass } from "../util/util";
-import Dot from "./dot";
-
 
 const Fists = new Wearable({
 
@@ -115,10 +112,6 @@ export default class Player extends Char {
 
 		if ( this._speed ) this._speed.value = v;
 		else if ( v instanceof GData ) this._speed = v;
-
-		if ( this._speed ) {
-			this.delay = getDelay( this._speed.value );
-		} else console.warn('no speed: ' + this.id );
 
 	}
 

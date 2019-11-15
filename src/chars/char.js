@@ -53,10 +53,7 @@ export default class Char {
 
 	get speed() { return this._speed; }
 	set speed(v) {
-
 		this._speed = v instanceof Stat ? v : new Stat(v);
-		this.delay = getDelay(v);
-
 	}
 
 	get immunities(){
@@ -143,7 +140,7 @@ export default class Char {
 		/**
 		 * @property {number} timer
 		 */
-		this.timer = this.timer || this.delay;
+		this.timer = this.timer || 0;
 
 	}
 
@@ -156,8 +153,6 @@ export default class Char {
 		for( let i = this.dots.length-1; i>=0; i--) {
 			this.dots[i].revive(state);
 		}
-
-		this.delay = getDelay( this.speed );
 
 		if ( this.template ) {
 
