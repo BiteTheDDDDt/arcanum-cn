@@ -314,7 +314,7 @@ export default class Runner {
 			this.runAction(a);
 
 			// free space for action. actions.length is a double check.
-			if ( this.actives.length >Math.floor(this.max.valueOf() ) ) {
+			while ( this.actives.length > Math.floor(this.max.valueOf() ) ) {
 
 				let i = 0;
 
@@ -470,7 +470,7 @@ export default class Runner {
 
 		if ( repeatable ) {
 
-			if ( Game.canRun(act) ) {
+			if ( Game.canRun(act) && this.actives.length <= this.max.value ) {
 
 				this.setAction(act);
 

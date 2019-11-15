@@ -161,7 +161,6 @@ export default class Stat {
 
 		else if ( typeof mod ==='number' ) {
 
-			//console.log('OLD BASE: ' + this.base );
 			this.base += amt*mod;
 			//console.log( this.base + ' NEW base: ' + this.value );
 
@@ -176,8 +175,6 @@ export default class Stat {
 			this.basePct += amt*( mod.pct || 0 );
 
 			//console.log( this.base + ' base; NEW VLAUE: ' + this.value );
-
-			//console.log( 'base type: ' + typeof this.base );
 
 		} else {
 
