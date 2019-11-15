@@ -60,7 +60,8 @@ export default class Inventory {
 
 		if ( !this.items ) this.items = [];
 
-		this.type = this.id = 'inventory';
+		this.type = 'inventory';
+		if (!this.id) this.id = this.type;
 
 		this.max = this._max || 0;
 
@@ -103,7 +104,8 @@ export default class Inventory {
 
 		if ( Array.isArray(it) ) {
 
-			for( let i = it.length-1; i>=0; i-- ) { this.add(it[i]);
+			for( let i = it.length-1; i>=0; i-- ) {
+				this.add(it[i]);
 			}
 
 		} else {
@@ -195,6 +197,17 @@ export default class Inventory {
 		return this.items.splice(0, this.items.length);
 	}
 
+	/**
+	 *
+	 * @param {Item} it
+	 */
+	remove( it ){
+
+		let ind = this.items.indexOf( it );
+		if ( ind < 0 ) return;
+		this.removeAt(ind);
+	}
+
 	removeAt(ind) {
 
 		let it = this.items[ind];
@@ -214,17 +227,6 @@ export default class Inventory {
 		it.value -= count;
 		if ( it.value <= 0 )this.remove(it);
 
-	}
-
-	/**
-	 *
-	 * @param {Item} it
-	 */
-	remove( it ){
-
-		let ind = this.items.indexOf( it );
-		if ( ind < 0 ) return;
-		this.removeAt(ind);
 	}
 
 	/**

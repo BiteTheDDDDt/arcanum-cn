@@ -2,7 +2,7 @@ import Stat from "./stat";
 
 /**
  * @class
- * Combines Stat with maximum value.
+ * Combines Stat with a max value.
  */
 export default class MaxStat {
 
@@ -76,34 +76,28 @@ export default class MaxStat {
 	 */
 	constructor(vars=null){
 
-		if ( vars ) {
 
-			if ( typeof vars === 'object') {
+		if ( vars && typeof vars === 'object') {
 
-				if ( vars.max ) this.max = vars.max;
-				else if ( vars.v) this.max = vars.v;
-				else this.max = 0;
+			if ( vars.max ) this.max = vars.max;
+			else if ( vars.v) this.max = vars.v;
+			else this.max = 0;
 
-				if ( vars.v ) this.value = vars.v;
-				else if ( vars.max ) this.value = vars.max;
-				else this.value = 0;
+			if ( vars.v ) this.value = vars.v;
+			else if ( vars.max ) this.value = vars.max;
+			else this.value = 0;
 
-			} else if ( typeof vars === 'number') {
+		} else if ( typeof vars === 'number') {
 
-				this.max = vars;
-				this.value = vars;
-
-			} else {
-
-				console.warn( vars + ' invalid type: ' + (typeof vars) );
-				this.value = 0;
-				this.max = 0;
-			}
+			this.max = vars;
+			this.value = vars;
 
 		} else {
 
+			console.warn( vars + ' wrong type: ' + (typeof vars) );
 			this.value = 0;
 			this.max = 0;
+
 		}
 
 	}
