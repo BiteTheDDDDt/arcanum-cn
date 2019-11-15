@@ -309,8 +309,12 @@ export default class Runner {
 
 		if ( !this.has(a) ) {
 
+			// action already in running list.
+			Events.emit( ACT_CHANGED );
+			this.runAction(a);
+
 			// free space for action. actions.length is a double check.
-			if ( this.actives.length > 0 && this.free <= 0 ) {
+			if ( this.actives.length >Math.floor(this.max.valueOf() ) ) {
 
 				let i = 0;
 
@@ -323,10 +327,6 @@ export default class Runner {
 				}
 
 			}
-
-			// action already in running list.
-			Events.emit( ACT_CHANGED );
-			this.runAction(a);
 
 		}
 
