@@ -223,11 +223,14 @@
 		"school":"nature",
 		"require":"lore",
 		"need":"t_garden",
+		"buy":{
+			"research":25
+		},
 		"run":{
 			"stamina":0.25
 		},
 		"result":{
-			"sp":0.05
+			"sp":0.01
 		},
 		"mod":{
 			"research.max":2,

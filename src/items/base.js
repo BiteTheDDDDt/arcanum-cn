@@ -152,7 +152,7 @@ export default {
 		if ( v&&this.sym ) {
 
 			let i = v.indexOf( this.sym );
-			if ( i>= 0 ) this._name = v.slice(0, i );
+			if ( i>= 0 ) this._name = v.slice(0, i ) + v.slice( i + this.sym.length );
 			else this._name = v;
 
 		} else this._name = v;

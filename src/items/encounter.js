@@ -49,8 +49,8 @@ export default class Encounter extends GData {
 
 		this._exp = this._exp || 0;
 
-		this.level = this.level || 1;
-		this.length = this.length || 5*this.level;
+		if ( !this.level ) this.level = 1;
+		if ( !this.length ) this.length = 5*this.level;
 
 	}
 

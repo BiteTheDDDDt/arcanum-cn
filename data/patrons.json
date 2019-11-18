@@ -149,8 +149,8 @@
 			},
 			{
 				"id":"enc_jeremy",
-				"name":"jeremy",
-				"desc":"Nothing is known about this personage.",
+				"name":"jeremi",
+				"desc":"Nothing is known about this mage.",
 				"effect":{
 					"rage":"1~5",
 					"weary":"2~5",
@@ -160,7 +160,8 @@
 				}
 			},
 			{
-				"id":"phrenesis",
+				"id":"enc_phrenesis",
+				"name":"phrenesis",
 				"desc":"Phrenesis is forever preoccupied with the cycles of death and rebirth.",
 				"effect":{
 
@@ -168,20 +169,8 @@
 
 			},
 			{
-				"id":"enc_vondrey",
-				"name":"",
-				"desc":"The mage does not appear inclined to speak.",
-				"effect":{
-					"bf":"1~5",
-					"rage":"1~5",
-					"weary":"2~5",
-					"concentrate.exp":1,
-					"composure.exp":1
-				}
-			},
-			{
 				"id":"enc_sinae",
-				"name":"",
+				"name":"sinae",
 				"desc":"",
 				"effect":{
 					"rage":"1~5",
@@ -191,8 +180,8 @@
 			},
 			{
 				"id":"enc_stags",
-				"name":"",
-				"desc":"",
+				"name":"stags",
+				"desc":"Nothing is known about the enigmatic mage.",
 				"effect":{
 					"rage":"1~5",
 					"weary":"2~5",
@@ -227,7 +216,7 @@
 			},
 			{
 				"id":"enc_tjoker",
-				"name":"A Joker",
+				"name":"a joker",
 				"desc":"A crafty expression suggests trouble.",
 				"effect":{
 					"rage":"1~5",
@@ -236,6 +225,18 @@
 					"player.exp":1
 				}
 
+			},
+			{
+				"id":"enc_vondrey",
+				"name":"vondrey",
+				"desc":"The mage does not appear inclined to speak.",
+				"effect":{
+					"bf":"1~5",
+					"rage":"1~5",
+					"weary":"2~5",
+					"concentrate.exp":1,
+					"composure.exp":1
+				}
 			},
 			{
 				"id":"enc_mrwild",
@@ -257,21 +258,22 @@
 				"id":"loc_ageshall",
 				"name":"hall of ages",
 				"desc":"The lost Hall of Ages was a gathering place of great and powerful patron mages.",
-				"require":"g.player.level>=999",
-				"title":"",
+				"require":"g.tier2>0",
+				"title":"Mark of Ages",
 				"once":{
 					"history.max":1
 				},
 				"encs":[
-					"enc_jeremy",
-					"enc_stags",
-					"enc_mrwild",
 					"enc_cyril",
+					"enc_jeremy",
 					"enc_kanna",
-					"enc_vondrey",
+					"enc_phrenesis",
 					"enc_sinae",
+					"enc_stags",
+					"enc_tainted",
 					"enc_tjoker",
-					"enc_tainted"
+					"enc_vondrey",
+					"enc_mrwild"
 
 				],
 				"flavor":"the knowledge within may be beyond price."
