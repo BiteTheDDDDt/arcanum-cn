@@ -2059,37 +2059,6 @@
 		},"flavor":"don't lose your way"
 	},
 	{
-		"id":"kannadance",
-		"level":7,
-		"name":"kanna's dervish dance",
-		"tags":"patron",
-		"school":"bladelore",
-		"sym":"⭐",
-		"require":"spellblade",
-		"desc":"Kanna's dance was a strenuous one for a mage, and a deadly one to her enemies.",
-		"buy":{
-
-			"research":500,
-			"tomes":1,
-			"airgem":10
-
-		},
-		"cost":{
-			"air":8
-		},
-		"dot":{
-			"duration":60,
-			"mod":{
-				"stamina.max":50,
-				"stamina.rate":-0.8,
-				"stamina":50,
-				"dodge":15,
-				"player.tohit":10,
-				"player.damage":5
-			}
-		},"flavor":"she danced with the devil in the pale moonlight, blades gleaming and blurring like a single streak of silver"
-	},
-	{
 		"id":"unearth",
 		"desc":"raise precious stones from the ground.",
 		"school":"earth",

@@ -990,7 +990,7 @@
 		},
 		"mod":{
 			"sindel.rate":0.0001,
-			"sindel.max":1
+			"sindel.max":0.4
 		}
 
 	},

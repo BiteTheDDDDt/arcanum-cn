@@ -1823,7 +1823,7 @@
 	{
 		"id":"airglobe",
 		"name":"swirling globe",
-		"tags":"airsupply",
+		"tags":"airsource",
 		"desc":"an unending supply of air.",
 		"flavor":"out of nothing at all",
 		"require":"g.air.max>=5",
