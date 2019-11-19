@@ -1081,6 +1081,7 @@
 	{
 		"id":"mk_murder",
 		"name":"summon murder",
+		"school":"nature",
 		"require":"summoner",
 		"level":5,
 		"cd":150,
@@ -1104,6 +1105,7 @@
 	{
 		"id":"mk_unicorn",
 		"name":"summon unicorn",
+		"school":"light",
 		"require":"g.evil==0&&(g.seer+g.oracle+g.summoner)>0&&g.magicbeasts>=5",
 		"level":5,
 		"cd":150,
@@ -2136,9 +2138,9 @@
 	},
 	{
 		"id":"apiary",
-		"name":"bulm's apiary",
+		"name":"dbulm's apiary",
 		"desc":"",
-		"require":"g.tier5>0&&(g.conjuration>=5&&g.summoning>=10)",
+		"require":"g.tier5>0&&g.conjuration>=5&&g.summoning>=10",
 		"school":"conjuration",
 		"level":10,
 		"cd":200,
@@ -2154,7 +2156,7 @@
 		"dot":{
 			"duration":10,
 			"effect":"stingybee"
-		},"flavor":"beeeees"
+		},"flavor":"BEEEEES"
 	},
 	{
 		"id":"starfall",

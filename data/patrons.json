@@ -38,7 +38,7 @@
 				"name":"wild's encampment",
 				"desc":"Deep in Delkin Wood, Master Wild kept his fabled camp.",
 				"require":"(g.warden+g.druid+g.fey+g.kell)>0&&g.tier2>0",
-				"tags":"outdoors,t_garden,t_pets,patron",
+				"tags":"outdoors,plantsource,t_pets,patron",
 				"cost":{
 					"gold":300,
 					"naturegem":20,

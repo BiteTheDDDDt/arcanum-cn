@@ -188,7 +188,7 @@
         "tohit":2,
         "attack":{
             "name":"magic missile",
-            "kind":"arcane",
+            "kind":"mana",
             "dmg":"2~4"
         },"biome":["town","plains","hills"],
 		"loot":{
@@ -484,7 +484,7 @@
 		"attack": {
 			"name": "psychic blast",
             "dmg": "1~2",
-            "kind": "arcane"
+            "kind": "mana"
         },
 		"resist":{
 			"mana":20
@@ -615,7 +615,7 @@
 		"attack": {
 			"name":"magic missle",
             "dmg":"5~9",
-            "kind":"arcane"
+            "kind":"mana"
         },
 		"loot":{
 			"cap":"20%",
