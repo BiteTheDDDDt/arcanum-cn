@@ -144,13 +144,15 @@ export default {
 	/**
 	 * @property {string} name - displayed name.
 	 */
-	get name() { return (( this._actname && this._value < 1 ) ? this.actname : (this._name||this.id)) + (this.sym||''); },
+	get name() { return (( this._actname && this._value < 1 ) ? this.actname
+		: (this.sym||'') + (this._name||this.id));
+	},
 	set name(v) {
 
 		if ( v&&this.sym ) {
 
 			let i = v.indexOf( this.sym );
-			if ( i>= 0 ) this._name = v.slice(0, i );
+			if ( i>= 0 ) this._name = v.slice(0, i ) + v.slice( i + this.sym.length );
 			else this._name = v;
 
 		} else this._name = v;
@@ -336,12 +338,11 @@ export default {
 				targ.apply( mods, amt );
 
 			} else if ( typeof targ === 'object') {targ.value = (targ.value || 0 ) + amt*mods; }
-
 			else {
 				// nothing can be done if targ is a number. no parent object.
 				console.error(this.id + ' invalid mod: ' + mod );
 			}
-
+			if ( this.mod ) Game.addMod( this.mod, this.value );
 
 		} else console.warn( this.id + ' unknown mod type: ' + mods );
 
@@ -371,7 +372,7 @@ export default {
 					if ( isMod ) {
 						s.count = this.value;
 						s.id = this.id;
-						console.log(this.id + ' mod count: ' + s.count + ' Modbase: ' + (m*amt) );
+						//console.log(this.id + ' mod count: ' + s.count + ' Modbase: ' + (m*amt) );
 					}/* else {
 						console.log( this.id + ' new stat: ' + s.id )
 					}*/
@@ -379,7 +380,7 @@ export default {
 					if ( m instanceof Mod) {
 						s.addMod(m, amt);
 					}
-					console.log( this.id + '[' + p + ']:' + m + ': targ null: ' + s.valueOf() + ' isMod? ' + isMod );
+					//console.log( this.id + '[' + p + ']:' + m + ': targ null: ' + s.valueOf() + ' isMod? ' + isMod );
 
 
 				} else {

@@ -38,11 +38,7 @@ export default class DataList extends Inventory {
 
 		super(vars);
 
-		this.name = this.id = 'spelllist';
-
 		this.lastInd = this.lastInd || 0;
-
-		this.spaceProp = 'level';
 
 		this.order = this.order || LOOP;
 
@@ -56,6 +52,8 @@ export default class DataList extends Inventory {
 	getRunnable(g){
 
 		var len = this.items.length;
+
+		if ( len === 0) return null;
 
 		let start = this.nextInd();
 		let i = start;

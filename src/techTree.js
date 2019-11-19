@@ -132,7 +132,7 @@ export default class TechTree {
 
 			it = this.items[ links[i] ];
 			if ( !it ) {
-				console.warn('BAD UNLOCK LINK: ' + id );
+				console.warn('BAD UNLOCK: ' + id );
 				quickSplice( links, i );
 			} else if ( it.locked === false || it.disabled === true || Game.tryUnlock(it) ) {
 
@@ -154,7 +154,7 @@ export default class TechTree {
 
 	/**
 	 * Mark all Items which might potentially unlock this item.
-	 * @param {Item} item
+	 * @param {GData} item
 	 */
 	mapUnlockers( item ) {
 
@@ -167,7 +167,7 @@ export default class TechTree {
 
 	/**
 	 * Mark the links that unlock item.
-	 * @param {*} item
+	 * @param {GData} item
 	 * @param {*} need
 	 */
 	markLinks( item, need ) {
@@ -188,7 +188,7 @@ export default class TechTree {
 
 	/**
 	 * Mark unlock links from a requirement function.
-	 * @param {Item} targ - item being unlocked.
+	 * @param {GData} targ - item being unlocked.
 	 * @param {function} func - function testing if item can be unlocked.
 	 */
 	markFunc( targ, func ) {

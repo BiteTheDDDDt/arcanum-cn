@@ -1,7 +1,7 @@
 <script>
 import Game from '../game';
 import {HALT_ACT} from '../events';
-import { SKILL } from '../values/consts';
+import { SKILL, DUNGEON, RAID, EXPLORE } from '../values/consts';
 
 export default {
 
@@ -18,9 +18,34 @@ export default {
 			return ' (' + Math.floor( a.valueOf() ) + '/' + Math.floor(a.max.valueOf() ) +')';
 		},
 
-		halt(a) { this.emit( HALT_ACT, a); }
+		halt(a) { this.emit( HALT_ACT, a); },
+
+		baseAction(a) {
+			return ( a.type === RAID || a.type === EXPLORE ) ? a.locale : a;
+		},
+
+		toggleHobby(a) {
+
+			a = this.baseAction(a);
+			if ( !a) return;
+
+			if ( this.pursuits.includes(a) ) {
+				console.log('REMOVING PURSUIT: ' + a.id );
+				this.pursuits.remove(a);
+			} else {
+				console.log('ADDING PURSUIT: '+a.id);
+				this.pursuits.cycleAdd(a);
+			}
+
+		}
+
+	},
+	computed:{
+
+		pursuits(){return Game.state.getData('pursuits')}
 
 	}
+
 }
 </script>
 
@@ -28,8 +53,10 @@ export default {
 
 <div class='running'>
 
-	<div v-for="v in runner.actives" :key="v.id">
-		<button @click="halt(v)">Stop</button><span>{{ actionStr(v) }}</span><span v-if="v.type==='skill'">{{levelStr(v)}}</span>
+	<div class="relative" v-for="v in runner.actives" :key="v.id">
+		<button class="stop" @click="halt(v)">&nbsp;X&nbsp;</button><span>{{ actionStr(v) }}</span><span v-if="v.type==='skill'">{{levelStr(v)}}</span>
+		<button v-if="pursuits.max>0" :class="['pursuit', pursuits.includes( baseAction(v) ) ? 'current' : '']"
+			@click="toggleHobby(v)"> F </button>
 	</div>
 
 </div>
@@ -41,6 +68,29 @@ export default {
 div.running {
 	display:flex;
 	flex-flow: column nowrap;
+}
+
+div.running .relative {
+	position: relative;
+}
+
+button.stop {
+	background: rgb(211, 89, 89);
+}
+
+button.pursuit {
+	position: absolute;
+	background: rgb(22, 219, 22);
+	top:0px;
+	right:0px;
+	opacity: 0.2;
+}
+
+button.pursuit.current {
+	position: absolute;
+	top:0px;
+	right:0px;
+	opacity: 0.7;
 }
 
 </style>

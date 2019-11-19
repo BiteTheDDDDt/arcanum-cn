@@ -33,9 +33,7 @@ export default {
 
 	},
 	created(){
-
 		this.STOP_ALL = STOP_ALL;
-
 	},
 	computed:{
 

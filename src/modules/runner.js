@@ -4,14 +4,8 @@ import Events, {ACT_DONE, ACT_CHANGED, HALT_ACT, ACT_BLOCKED, EXP_MAX, STOP_ALL 
 import Stat from '../values/stat';
 import Base, {mergeClass} from '../items/base';
 import Runnable, { TYPE_RUN } from '../composites/runnable';
-import { SKILL } from '../values/consts';
+import { SKILL, DUNGEON, REST_TAG } from '../values/consts';
 import DataList from '../inventories/dataList';
-
-const REST_TAG = 't_rest';
-const DUNGEON = 'dungeon';
-const LOCALE = 'locale';
-
-export { LOCALE, DUNGEON, REST_TAG };
 
 /**
  * Tracks running/perpetual actions.
@@ -24,8 +18,6 @@ export default class Runner {
 
 		this.id = 'runner';
 		this.name = 'activity';
-
-		this.hobbies = new DataList( this.hobbies );
 
 		/**
 		 * @property {Action[]} actives - Actively running tasks.
@@ -115,10 +107,10 @@ export default class Runner {
 	get running(){return this.actives.length; }
 
 	/**
-	 * @property {number} available - number of available run slots.
+	 * @property {number} free - number of available run slots.
 	 */
 	get free(){
-		return this.max.value - this.actives.length;
+		return Math.floor( this.max.valueOf() ) - this.actives.length;
 	}
 
 	get max() { return this._max; }
@@ -147,8 +139,7 @@ export default class Runner {
 	revive( gs ) {
 
 		this.max = this._max || 1;
-
-		this.hobbies.revive(gs);
+		this.pursuits = gs.getData( 'pursuits');
 
 		this.waiting = this.reviveList( this.waiting, gs, false );
 
@@ -303,6 +294,14 @@ export default class Runner {
 
 		if ( !a) return;
 
+		if ( a.proxy ) {
+			/// a is proxied by another object. (raid/explore)
+			let p = Game.state.getData( a.proxy );
+			if (!p) return false;
+			p.runWith(a);
+			a = p;
+		}
+
 		if ( a.cost && (a.exp === 0) ) {
 			Game.payCost( a.cost);
 		}
@@ -314,7 +313,7 @@ export default class Runner {
 			this.runAction(a);
 
 			// free space for action. actions.length is a double check.
-			while ( this.actives.length > Math.floor(this.max.valueOf() ) ) {
+			while ( this.actives.length > Math.floor(this.max.valueOf()) ) {
 
 				let i = 0;
 
@@ -362,41 +361,46 @@ export default class Runner {
 
 		if ( typeof i !== 'number') {
 			i = this.actives.indexOf(i);
-			if ( i < 0 ) return;
+			if ( i < 0 ) {return;}
 		}
 
 		let a = this.actives[i];
-		//console.log('STOPPING: ' + a.name );
 
 		a.running = false;
 		this.actives.splice(i,1);
 
-		if ( tryResume ){//&& a.hasTag(REST_TAG) ){
+		if ( tryResume ){
+
 			this.tryResume();
 		}
+		this.tryHobby();
 
 	}
 
 	/**
 	 * Attempt to run next hobby.
+	 * @returns {boolean} true if pursuit was started.
 	 */
 	tryHobby(){
 
-		let it = this.hobbies.getRunnable();
+		if ( this.free <= 0 ) return false;
 
-		if ( !it ) return;
-		this.tryAdd( it );
+		let it = this.pursuits.getRunnable( Game );
+		if ( !it ) return false;
+
+		return this.tryAdd( it );
 
 	}
 
 	/**
 	 * Attempt to add an action, while avoiding any conflicting action types.
 	 * @public
-	 * @param {*} a
+	 * @param {GData} a
 	 */
 	tryAdd( a ) {
 
 		if ( !this.free ) return false;
+		if ( a.fill && Game.filled(a.fill,a) ) return false;
 
 		this.setAction(a);
 
@@ -433,6 +437,8 @@ export default class Runner {
 
 	haltAction( act ) {
 
+		if ( act.proxy ) act = Game.state.getData(act.proxy);
+
 		// absolute rest stop if no actions waiting.
 		if ( this.waiting.length === 0 && act.hasTag( REST_TAG ) ) this.stopAction(act,false);
 
@@ -463,12 +469,10 @@ export default class Runner {
 	actDone( act, repeatable=true ){
 
 		if ( act.running === false ) {
-			// skills cant be completed without actually running.
+			// skills cant complete when not running.
 			this.stopAction(act);
-			return;
-		}
 
-		if ( repeatable ) {
+		} else if ( repeatable ) {
 
 			if ( Game.canRun(act) && this.actives.length <= this.max.value ) {
 
@@ -476,24 +480,18 @@ export default class Runner {
 
 			} else if ( act.hasTag(REST_TAG )) {
 
-				this.stopAction( act, true );
+				this.stopAction( act );
 
 			} else {
 
 				this.stopAction( act );
 				this.addWait(act);
 
-				// attempt to resume any waiting actions.
-				this.tryResume();
-
 			}
 
 		} else {
 
 			this.stopAction( act );
-
-			// attempt to resume any waiting actions.
-			this.tryResume();
 
 		}
 
@@ -584,11 +582,14 @@ export default class Runner {
 
 			this.actBlocked(a);
 
-		} else if ( a.update ) {
+		} else {
 
-			a.update(dt);
 			if ( a.effect) Game.applyEffect( a.effect, dt );
-			a.dirty = true;
+			if ( a.update ) {
+
+				a.update(dt);
+				a.dirty = true;
+			}
 
 		}
 
@@ -599,6 +600,7 @@ export default class Runner {
 	 * @param {*} a
 	 */
 	runAction(a) {
+
 		a.running=true;
 		this.actives.push(a);
 	}

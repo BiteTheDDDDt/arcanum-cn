@@ -1,5 +1,5 @@
 import Action from "./action";
-import { LOCALE } from "../values/consts";
+import { EXPLORE, LOCALE } from "../values/consts";
 
 /**
  * Default dist per level function. Also currently used by dungeon.
@@ -9,11 +9,11 @@ export const getDist = (lvl)=> {
 	return Math.ceil( 4.4*Math.exp( 0.30*lvl ) );
 };
 
-const distTest = ( g, s) => {
+export const distTest = ( g, s) => {
 	return g.dist >= s.dist;
 }
 
-const levelTest = (g, s) => {
+export const levelTest = (g, s) => {
 	return g.player.level >= (s.level-1);
 }
 
@@ -36,6 +36,11 @@ export default class Locale extends Action {
 		this._encs = a;
 	}
 
+	/**
+	 * @property {string} proxy - id of actual runner.
+	 */
+	get proxy(){return EXPLORE }
+
 	constructor(vars=null) {
 
 		super(vars);
@@ -54,7 +59,7 @@ export default class Locale extends Action {
 		if ( !this.require ) this.require = levelTest;
 		if ( !this.need ) this.need = distTest;
 
-		this.dist = ( this.dist === undefined || this.dist === null ) ? getDist(this.level) : this.dist;
+		if ( this.dist === undefined || this.dist === null ) this.dist = getDist(this.level);
 
 		if (!this.sym) this.sym = '🌳';
 		if ( this._encs == null ) this._encs = [];
@@ -74,9 +79,6 @@ export default class Locale extends Action {
 	/**
 	 * Catch complete() to prevent default action. ugly.
 	*/
-	complete() {
-	}
-
-	lockReq() { return false;}
+	complete() {}
 
 }

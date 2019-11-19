@@ -427,9 +427,9 @@
 		},
 		"at":{
 
-			"500":{ "effect.dreams":0.0001 },
-			"2000":{ "effect.dreams":0.0001 },
-			"5000":{ "effect.dreams":0.0001 }
+			"500":{ "effect.dreams":0.0002 },
+			"2000":{ "effect.dreams":0.0002 },
+			"5000":{ "effect.dreams":0.0002 }
 
 		},
 		"effect":{
@@ -888,10 +888,18 @@
 		"need":"cauldron",
 		"desc":"how could you!?!",
 		"fill":[ "hp", "manas", "stamina", "stress" ],
-		"every":{
+		"at":{
 			"100":{
 				"effect.hp":0.5,
 				"effect.shadow":0.05
+			},
+			"500":{
+				"effect.hp":1,
+				"effect.shadow":0.1
+			},
+			"1000":{
+				"effect.hp":1,
+				"effect.shadow":0.1
 			}
 		},
 		"effect":{
@@ -1470,7 +1478,7 @@
 	},
 	{
 		"id":"imbuelifegem",
-		"name":"imbue lifegem (nature)",
+		"name":"imbue gem (nature)",
 		"require":"g.naturelore>=6&&g.enchanting>0",
 		"tags":"gemimbue",
 		"fill":"naturegem",

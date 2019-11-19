@@ -63,7 +63,8 @@ export default {
 		<button id="drop-file" @click="$refs.fileInput.click()" @drop="fileDrop" @dragover="fileDrag" @dragleave.capture.stop="dragOut" name="[Drop Save]">[Drop Save]</button>
 			<input ref="fileInput" type="file" @change="fileSelect" accept="text/json text/*">
 
-			<confirm @confirm="dispatch('reset')">reset</confirm>
+			<confirm @confirm="dispatch('reset')">reset wizard</confirm>
+			<confirm v-if="hasHall" @confirm="dispatch('resetHall')">reset hall</confirm>
 
 		</span>
 

@@ -3,6 +3,7 @@ import ItemBase from '../itemsBase';
 
 import {spellCost} from 'modules/craft';
 import Game from '../../game';
+import { alphasort } from '../../util/util';
 
 export default {
 
@@ -114,7 +115,7 @@ export default {
 		 * @property {Spell[]} spells - all spells in game.
 		 */
 		spells() {
-			return Game.state.filterItems( v=>v.type === 'spell'&&!this.locked(v)&&v.owned);
+			return Game.state.filterItems( v=>v.type === 'spell'&&!this.locked(v)&&v.owned).sort( alphasort );
 		},
 
 		/**
@@ -179,7 +180,7 @@ export default {
 </div>
 <div class="allspells">
 
-	<div v-for="(s) in spells" :key="s.id"  @mouseenter.capture.stop="emit( 'itemover',$event,s)">
+	<div class="separate" v-for="(s) in spells" :key="s.id"  @mouseenter.capture.stop="emit( 'itemover',$event,s)">
 		<span>{{s.name}}</span><button @click="add(s)" :disabled="!canAdd(s)">Add</button>
 	</div>
 

@@ -4,7 +4,7 @@ import Game from '../../game';
 import Combat from './combat.vue';
 import ProgBar from '../components/progbar.vue';
 
-import {EXIT_LOC} from '../../events';
+import {HALT_ACT} from '../../events';
 
 export default {
 
@@ -14,7 +14,7 @@ export default {
 		progbar:ProgBar
 	},
 	created(){
-		this.EXIT_LOC = EXIT_LOC;
+		this.HALT_ACT = HALT_ACT;
 	},
 	methods:{
 
@@ -70,7 +70,7 @@ export default {
 
 	<span class="active-title">
 		<span>{{ explore.name }}</span><button class="raid-btn"
-		@click="emit( EXIT_LOC, explore.locale, false )"
+		@click="emit( HALT_ACT, explore.locale, false )"
 		@mouseenter.capture.stop="emit( 'itemover', $event, explore.locale )">Flee</button>
 		</span>
 

@@ -271,6 +271,18 @@ export default {
 
 	},
 
+
+	/**
+	 * Wipe current player data and settings.
+	 */
+	clearActive(){
+
+		// clear hall char.
+		window.localStorage.setItem( this.activeLoc(), null );
+		window.localStorage.setItem( this.settingsLoc(), null );
+
+	},
+
 	/**
 	 * Load settings for active wizard.
 	 * @returns {object}
@@ -322,16 +334,6 @@ export default {
 	 * Clear all stored data.
 	 */
 	clearAll:()=>window.localStorage.clear(),
-
-	/**
-	 * Wipe current player data.
-	 */
-	clearActive(){
-
-		// clear hall char.
-		window.localStorage.setItem( this.activeLoc(), null );
-
-	},
 
 	charLoc:( ind ) =>(SAVE_DIR + CHARS_DIR + ind),
 

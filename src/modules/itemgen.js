@@ -47,6 +47,7 @@ export function itemRevive(gs, it ) {
 	} else if ( type === ENCOUNTER) {
 
 		// encounter.
+		console.log('NEW COUNECNTER: ' + orig.name );
 		it = new Encounter( orig, it );
 
 	} else {

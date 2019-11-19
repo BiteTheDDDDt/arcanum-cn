@@ -60,7 +60,8 @@ export default class Inventory {
 
 		if ( !this.items ) this.items = [];
 
-		this.type = this.id = 'inventory';
+		this.type = 'inventory';
+		if (!this.id) this.id = this.type;
 
 		this.max = this._max || 0;
 
@@ -121,15 +122,41 @@ export default class Inventory {
 			} else if ( this.removeDupes && this.find(it.id ) ) return false;
 
 			this.items.push( it );
-			this.used += this.spaceProp ? ( it[ this.spaceProp ] || 0 ) : 1;
+			this.used += this.spaceCost( it );
 
-			//console.warn('CUR USED: ' + this.used);
-			//console.warn('CUR MAX: ' + this.max.value );
+			//console.warn('CUR USED: ' + this.used + '/' + this.max.value );
 
 		}
 		this.dirty = true;
 
 	}
+
+	/**
+	 * Force-add an item if possible by removing existing items.
+	 * @param {GData} it
+	 * @returns {boolean}
+	 */
+	cycleAdd(it) {
+
+		const cost = this.spaceCost(it);
+
+		if ( this.max && (cost > this.max) ) return false;
+
+		while ( this.items.length > 0 && (this.used + cost > this.max) ) {
+			this.removeAt(0);
+		}
+
+		return this.add(it);
+
+
+	}
+
+	/**
+	 * Get the space cost of an item according to spaceProp.
+	 * @param {GData} it
+	 * @returns {number}
+	 */
+	spaceCost(it) { return this.spaceProp ? ( it[this.spaceProp] || 0) : 1; }
 
 	/**
 	 * Determine if item fits in inventory.
@@ -139,9 +166,7 @@ export default class Inventory {
 	canAdd(it) {
 
 		if ( !this.max || this.max.value === 0 ) return true;
-
-		let sp = this.spaceProp ? ( it[this.spaceProp] || 0 ) : 1;
-		return this.used + sp <= this.max.value;
+		return this.used + this.spaceCost(it) <= this.max.value;
 
 	}
 
@@ -160,7 +185,6 @@ export default class Inventory {
 	 * @returns {boolean} true if inventory full.
 	 */
 	full(){
-
 		return this.max >0 && this.used >= Math.floor(this.max.value );
 	}
 
@@ -173,11 +197,21 @@ export default class Inventory {
 		return this.items.splice(0, this.items.length);
 	}
 
+	/**
+	 *
+	 * @param {Item} it
+	 */
+	remove( it ){
+
+		let ind = this.items.indexOf( it );
+		if ( ind < 0 ) return;
+		this.removeAt(ind);
+	}
+
 	removeAt(ind) {
 
 		let it = this.items[ind];
-		this.used -= this.spaceProp ? ( it[this.spaceProp || 0 ] ) : 1;
-
+		this.used -= this.spaceCost(it);
 		this.items.splice(ind,1);
 
 	}
@@ -193,17 +227,6 @@ export default class Inventory {
 		it.value -= count;
 		if ( it.value <= 0 )this.remove(it);
 
-	}
-
-	/**
-	 *
-	 * @param {Item} it
-	 */
-	remove( it ){
-
-		let ind = this.items.indexOf( it );
-		if ( ind < 0 ) return;
-		this.removeAt(ind);
 	}
 
 	/**

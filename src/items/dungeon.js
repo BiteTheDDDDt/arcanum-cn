@@ -1,9 +1,9 @@
 import Monster from './monster';
 import Action from './action';
 import Game from '../game';
-import { getDist } from './locale';
+import { getDist, distTest, levelTest } from './locale';
 import { mapNonNull } from '../util/util';
-import { DUNGEON } from '../modules/runner';
+import { DUNGEON, RAID } from '../values/consts';
 
 /**
  * @type {Object} Enemy
@@ -36,6 +36,8 @@ export default class Dungeon extends Action {
 		this._enemies=a;
 	}
 
+	get proxy(){return RAID}
+
 	/**
 	 *
 	 * @param {?Object} [vars=null]
@@ -55,7 +57,7 @@ export default class Dungeon extends Action {
 		if (!this.length) this.length = 10*this.level;
 
 		// default require for dungeon is player-level.
-		this.require = this.require || this.levelTest;
+		this.require = this.require || levelTest;
 
 		this.dist = ( this.dist === undefined || this.dist === null ) ? getDist(this.level) : this.dist;
 		//this.addRequire( 'dist', this.dist );
@@ -64,7 +66,7 @@ export default class Dungeon extends Action {
 
 		//console.log(this.id + ' dist: ' + this.dist );
 
-		if ( this.need == null ) this.need = this.distTest;
+		if ( this.need == null ) this.need = distTest;
 
 		/**
 		 * Total of all enemy weights, used to roll which
@@ -122,14 +124,6 @@ export default class Dungeon extends Action {
 	 * Catch complete() to prevent default action. ugly.
 	 */
 	complete() {
-	}
-
-	distTest( g, s) {
-		return g.dist >= s.dist;
-	}
-
-	levelTest(g, s) {
-		return g.player.level >= (s.level-1);
 	}
 
 	/**

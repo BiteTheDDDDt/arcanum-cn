@@ -47,10 +47,8 @@ export default class Raid {
 	canRun(g) { return this.locale != null && this.locale.canRun(g) }
 	canUse() { return this.locale && !this.locale.maxed(); }
 
-	/**
-	 * @compat @deprecated
-	 */
-	set dungeon(v) {this.locale = v;}
+	get effect() { return this.locale ? this.locale.effect : null; }
+	set effect(v){}
 
 	/**
 	 * @property {number} length - length of dungeon in progress.
@@ -164,7 +162,6 @@ export default class Raid {
 		/**
 		 * @todo: maket this happen automatically.
 		 */
-		this.player.delay = getDelay( this.player.speed );
 		this.combat.setEnemies( this.locale.getEnemy(), this.exp/this.length );
 
 	}
@@ -217,9 +214,9 @@ export default class Raid {
 	 * enter dungeon
 	 * @param {*} d
 	 */
-	enter( d ) {
+	runWith( d ) {
 
-		this.player.timer = this.player.delay;
+		this.player.timer = getDelay(this.player.speed);
 
 		if ( d != null ) {
 

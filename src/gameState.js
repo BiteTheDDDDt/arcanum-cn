@@ -108,7 +108,13 @@ export default class GameState {
 		this.prepItems();
 
 		this.userSpells = this.items.userSpells = new UserSpells( this.items.userSpells );
+
 		this.items.spelllist = this.spelllist = new DataList( this.items.spelllist );
+		this.spelllist.spaceProp = 'level';
+		this.spelllist.name = this.spelllist.id = 'spelllist';
+
+		this.items.pursuits = new DataList( this.items.pursuits );
+		this.items.pursuits.id = 'pursuits';
 
 		this.revive();
 
