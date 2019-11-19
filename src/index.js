@@ -62,6 +62,7 @@ const vm = new Vue({
 		this.listen('load-file', this.loadFile, this );
 		this.listen('load', this.loadSave, this );
 		this.listen('reset', this.reset,this );
+		this.listen('resetHall', this.resetHall, this );
 
 		this.listen('stat', this.doStat, this );
 
@@ -297,7 +298,16 @@ const vm = new Vue({
 			Profile.saveHall();
 
 		},
-		reset() {
+
+		reset(){
+
+			this.dispatch('pause');
+			Profile.clearActive();
+			this.setStateJSON(null);
+
+
+		},
+		resetHall() {
 
 			this.dispatch('pause');
 
