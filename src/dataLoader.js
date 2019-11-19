@@ -30,7 +30,7 @@ import Loader from './util/jsonLoader';
 import { splitKeyPath } from './util/util';
 import GClass from './items/gclass';
 import Module from './modules/gmodule';
-import { SKILL, ENCOUNTER, MONSTER, ARMOR, WEAPON, HOME, POTION, ITEM } from './values/consts';
+import { SKILL, ENCOUNTER, MONSTER, ARMOR, WEAPON, HOME, POTION, ITEM, RESOURCE } from './values/consts';
 
 const DataDir = './data/';
 
@@ -310,7 +310,7 @@ export default {
 				( def.stat === true ? new StatData(def) :
 				( def.reverse === true ? new RevStat(def) : new Resource( def ) )
 			);
-			res.type = 'resource';
+			res.type = RESOURCE;
 			items[def.id] = res;
 
 		}

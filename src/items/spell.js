@@ -10,28 +10,10 @@ const levelReq = ( g, s ) => {
 	return ( g.player.level >= 2*s.level );
 }
 
-const schoolUnlock = ( s, level )=>{
-
-	if ( typeof s === 'string') {
-
-		console.log('CREATING SCHOOL UNLOCK: ' + s.id );
-		s = schoolSkill(s);
-		if ( typeof s === 'object' ) return reqStr( s.name, level*(s.ratio || 1) );
-		return schoolFunc(s, level );
-
-	} else if ( Array.isArray(s) ) {
-
-		let a = s.map( v=>'('+schoolUnlock(v,level)+')').join('&&');
-
-	}
-
-
-}
-
 /**
  * Single requirement substring.
- * @param {*} s
- * @param {*} lvl
+ * @param {string} s - GData/Idable id.
+ * @param {number} lvl
  */
 const reqStr = (s,lvl=1)=>{
 	return '!g.' + s + '||g.' + s + '>=' + lvl;
@@ -39,7 +21,7 @@ const reqStr = (s,lvl=1)=>{
 
 /**
  * Create a school unlock function.
- * @param {*} s
+ * @param {string|string[]} s
  * @param {number} lvl - spell level.
  * @param {number} ratio - multiply spell level before test.
  */

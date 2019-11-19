@@ -137,7 +137,7 @@ export default class Combat {
 	get allies() { return this._allies; }
 	set allies(v) { this._allies = v; }
 
-	get complete() { return this._enemies.length === 0; }
+	get done() { return this._enemies.length === 0; }
 
 	constructor(vars = null) {
 

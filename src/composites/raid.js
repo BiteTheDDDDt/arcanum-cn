@@ -126,7 +126,7 @@ export default class Raid {
 
 		if ( this.locale == null || this.done ) return;
 
-		if ( this._combat.complete ) {
+		if ( this._combat.done ) {
 
 			this.advance();
 			if ( !this.done ) this.nextEnc();
@@ -212,7 +212,7 @@ export default class Raid {
 
 	/**
 	 * enter dungeon
-	 * @param {*} d
+	 * @param {Dungeon} d
 	 */
 	runWith( d ) {
 
@@ -230,7 +230,7 @@ export default class Raid {
 		}
 
 		this.locale = d;
-		if ( this.combat.complete ) this.nextEnc();
+		if ( this.combat.done ) this.nextEnc();
 
 	}
 
