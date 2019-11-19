@@ -3,8 +3,8 @@ import {quickSplice, findRemove} from '../util/util';
 import Events, {ACT_DONE, ACT_CHANGED, HALT_ACT, ACT_BLOCKED, EXP_MAX, STOP_ALL } from '../events';
 import Stat from '../values/stat';
 import Base, {mergeClass} from '../items/base';
-import Runnable, { TYPE_RUN } from '../composites/runnable';
-import { SKILL, DUNGEON, REST_TAG } from '../values/consts';
+import Runnable from '../composites/runnable';
+import { SKILL, DUNGEON, REST_TAG, TYP_RUN } from '../values/consts';
 import DataList from '../inventories/dataList';
 
 /**
@@ -40,8 +40,8 @@ export default class Runner {
 
 		return {
 			max:this.max,
-			waiting:this.waiting.map(v=> v.type === TYPE_RUN ? v : v.id),
-			actives:this.actives.map(v=> v.type === TYPE_RUN ? v : v.id),
+			waiting:this.waiting.map(v=> v.type === TYP_RUN ? v : v.id),
+			actives:this.actives.map(v=> v.type === TYP_RUN ? v : v.id),
 			timers:this.timers.length>0? this.timers.map(v=>v.id) : undefined
 
 			/**
@@ -226,7 +226,7 @@ export default class Runner {
 		let t = targ.id;
 
 		let run = findRemove( this.waiting, (v)=>{
-			return (v.type === TYPE_RUN )&&(id===v.item.id && t === v.target.id )
+			return (v.type === TYP_RUN )&&(id===v.item.id && t === v.target.id )
 		});
 
 		if ( !run ) {
@@ -252,7 +252,7 @@ export default class Runner {
 		for( let i = this.waiting.length-1; i>=0; i--) {
 
 			var a = this.waiting[i];
-			if ( a.type === TYPE_RUN ) {
+			if ( a.type === TYP_RUN ) {
 
 				if ( a.item === it && a.target === targ ) return true;
 
@@ -320,7 +320,7 @@ export default class Runner {
 				let cur = this.actives[i];
 				this.stopAction( i, false );
 
-				if ( (cur.type === TYPE_RUN ) ){
+				if ( (cur.type === TYP_RUN ) ){
 					console.log('WAIT RUNNABLE');
 					this.addWait(cur);
 				}
@@ -401,6 +401,7 @@ export default class Runner {
 
 		if ( !this.free ) return false;
 		if ( a.fill && Game.filled(a.fill,a) ) return false;
+		if ( !a.canRun(Game) ) return false;
 
 		this.setAction(a);
 
@@ -421,7 +422,7 @@ export default class Runner {
 		while ( remove > 0 ) {
 
 			a = this.waiting[i];
-			if ( a.type !== TYPE_RUN ) {
+			if ( a.type !== TYP_RUN ) {
 
 				this.waiting.splice( i, 1 );
 
@@ -443,7 +444,7 @@ export default class Runner {
 		if ( this.waiting.length === 0 && act.hasTag( REST_TAG ) ) this.stopAction(act,false);
 
 		else {
-			if ( act.type === TYPE_RUN ) this.addWait(act);
+			if ( act.type === TYP_RUN ) this.addWait(act);
 			this.stopAction( act );
 		}
 
@@ -468,6 +469,7 @@ export default class Runner {
 	 */
 	actDone( act, repeatable=true ){
 
+
 		if ( act.running === false ) {
 			// skills cant complete when not running.
 			this.stopAction(act);
@@ -490,6 +492,7 @@ export default class Runner {
 			}
 
 		} else {
+
 
 			this.stopAction( act );
 
@@ -517,7 +520,7 @@ export default class Runner {
 
 				quickSplice(this.waiting,i);
 
-			} else if ( Game.canRun(a) && this.tryAdd(a) ) {
+			} else if ( this.tryAdd(a) ) {
 
 				quickSplice(this.waiting,i);
 				if ( --avail <= 0 ) return;

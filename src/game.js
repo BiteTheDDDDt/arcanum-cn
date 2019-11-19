@@ -970,8 +970,10 @@ export default {
 	 */
 	canRun( it ) {
 
-		if ( !it.canRun ) console.error( it.id + ' missing canRun()');
-		else return it.canRun( this, TICK_LEN );
+		if ( !it.canRun ) {
+			console.error( it.id + ' no canRun()');
+			return false;
+		} else return it.canRun( this, TICK_LEN );
 
 	},
 

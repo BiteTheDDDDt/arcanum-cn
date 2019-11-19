@@ -81,7 +81,7 @@ export default class Enchant extends Action {
 	canUseOn( targ ) {
 
 		let itLevel = targ.level || 1;
-		if ( targ.enchants + this.level > itLevel || targ.busy ) return false;
+		if ( (targ.enchants + this.level > itLevel) || targ.busy ) return false;
 
 		return !this._targets || canTarget( this._targets, targ );
 
