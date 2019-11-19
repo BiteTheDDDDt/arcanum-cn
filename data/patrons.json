@@ -198,8 +198,8 @@
 					"madness":"2~4",
 					"unease":"2~4",
 					"tempus":-1,
-					"chronomancy.exp":"1~5",
-					"voidlore.exp":"1~5"
+					"chronomancy.exp":1,
+					"voidlore.exp":1
 				},
 				"result":{
 					"chronomancy.max":0.01,
