@@ -2228,12 +2228,12 @@
 				"attack.toHit":1
 			},
 			"100":{
-				"attack.damage.max":1,
+				"attack.dot.damage.max":1,
 				"attack.toHit":2
 			},
 			"300":{
-				"attack.damage.max":2,
-				"attack.damage.min":1,
+				"attack.dot.damage.max":2,
+				"attack.dot.damage.min":1,
 				"attack.toHit":2
 			}
 		},
@@ -2272,7 +2272,7 @@
 			"targets":"enemies",
 			"dot":{
 				"duration":30,
-				"dmg":"5~10",
+				"dmg":"5~12",
 				"mod":{
 					"speed":-7
 				}

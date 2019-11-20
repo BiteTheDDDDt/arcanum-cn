@@ -26,6 +26,7 @@ export default class Dot {
 
 	}
 
+	get dmg(){return this.damage;}
 	set dmg(v) { this.damage = v; }
 
 	get damage() { return this._damage; }

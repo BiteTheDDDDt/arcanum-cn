@@ -49,6 +49,7 @@ export default class Attack {
 
 	}
 
+	get dmg() { return this.damage;}
 	set dmg(v) { this.damage = v; }
 
 	get damage() { return this._damage; }
