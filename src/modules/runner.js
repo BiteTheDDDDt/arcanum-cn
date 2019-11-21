@@ -233,7 +233,6 @@ export default class Runner {
 
 			if ( targ.running === true || it.running === true ) return false;
 
-			console.log('CREATE RUNNABLE');
 			run = new Runnable( it, targ );
 			if ( it.beginUseOn ) it.beginUseOn( targ );
 

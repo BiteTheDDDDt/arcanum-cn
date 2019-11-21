@@ -162,9 +162,10 @@
 			{
 				"id":"enc_phrenesis",
 				"name":"phrenesis",
-				"desc":"Phrenesis is forever preoccupied with the cycles of death and rebirth.",
+				"desc":"Phrenesis was forever preoccupied with the cycles of death and rebirth.",
 				"effect":{
-
+					"stress":-0.1,
+					"hp":-4
 				}
 
 			},
