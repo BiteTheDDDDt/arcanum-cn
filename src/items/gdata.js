@@ -345,7 +345,9 @@ export default class GData {
 	 * it is considered filled to avoid getting stuck.
 	 * @param {number} rate
 	 */
-	filled( rate=0 ) { return (this.max && this.value>=this.max.value) || (this.rate && (this.rate+rate) <= 0); }
+	filled( rate=0 ) {
+		return (this.max && this.value >= this.max.value) ||
+		(this.rate && (this.rate + rate.valueOf() ) <= 0); }
 
 	/**
 	 * @returns {boolean} true if an unlocked item is at maximum value.

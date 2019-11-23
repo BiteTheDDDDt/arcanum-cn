@@ -35,7 +35,7 @@ export default class Resource extends GData {
 
 		if ( v > this.max ) {
 
-			if ( v < super.value ) super.value = v;
+			if ( v < super.value.base ) super.value = v;
 
 			//
 			else super.value = Math.max( this.max.value, super.value.valueOf() );

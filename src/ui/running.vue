@@ -19,7 +19,7 @@ export default {
 		},
 
 		canHobby(a){
-			return a.type !== DUNGEON && a.type !== LOCALE && a.type !== TYP_RUN;
+			return a.type !== TYP_RUN;
 		},
 
 		halt(a) { this.emit( HALT_ACT, a); },

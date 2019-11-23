@@ -80,7 +80,8 @@ export default class Runnable extends Proxy {
 
 			if ( this.target ) Game.useOn( this.item, this.target );
 			Events.emit( ACT_DONE, this, this.repeat );
-			this.exp = 0;
+			this.target = null;
+
 		}
 
 	}

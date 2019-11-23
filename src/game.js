@@ -332,7 +332,7 @@ export default {
 
 		}
 
-		if ( !item.rate || !a.effect || item.rate.value >= 0 ) return item.maxed();
+		if ( !item.rate || !a.effect || item.rate >= 0 ) return item.maxed();
 
 		// actual filling rate.
 		tag = a.effect[ tag || v ];
