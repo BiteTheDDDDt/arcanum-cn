@@ -438,7 +438,7 @@
 
 	"desc":"You have taken your training further, weaving magic and steel with a flourish of magical grace.",
 
-	"require":"g.tier3>0&&g.spellblade>0&&g.tier3==0",
+	"require":"g.tier3>0&&g.spellblade>0&&g.tier4==0",
 
 	"cost":{
 
@@ -498,7 +498,7 @@
 
 	"desc":"Your skills with blade and magic blend together in a blur, each stroke seeming like a step in a dance.",
 
-	"require":"g.tier4>0&&g.spellblade>0&&g.tier4==0",
+	"require":"g.tier4>0&&g.spellblade>0&&g.tier5==0",
 
 	"cost":{
 
@@ -558,7 +558,7 @@
 
 	"desc":"You have reached the pinnacle of blending steel and sorcery, and your sword strokes seem to cleave the air itself.",
 
-	"require":"g.tier5>0&&g.spellblade>0&&g.tier5==0",
+	"require":"g.tier5>0&&g.spellblade>0&&g.tier6==0",
 
 	"cost":{
 
