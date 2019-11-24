@@ -226,12 +226,12 @@ export default class Runner {
 		let t = targ.id;
 
 		let run = findRemove( this.waiting, (v)=>{
-			return (v.type === TYP_RUN )&&(id===v.item.id && t === v.target.id )
+			return (v.type === TYP_RUN )&&(id===v.item.id && v.target && t === v.target.id )
 		});
 
 		if ( !run ) {
 
-			if ( targ.running === true || it.running === true ) return false;
+			if ( targ.running === true ) return false;
 
 			run = new Runnable( it, targ );
 			if ( it.beginUseOn ) it.beginUseOn( targ );
