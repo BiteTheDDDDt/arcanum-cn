@@ -1,0 +1,11 @@
+{
+	"short_name": "Theory of Magic",
+	"name": "Theory of Magic",
+	"icons": [
+
+
+	],
+	"start_url": ".",
+	"display": "standalone",
+	"background_color": "#ffffff"
+}
