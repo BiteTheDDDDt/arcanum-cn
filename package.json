@@ -4,9 +4,9 @@
   "description": "theory of magic",
   "main": "index.js",
   "scripts": {
-    "dev": "webpack --watch --config webpack.dev.config.js",
-    "test": "webpack --watch --config webpack.test.config.js",
-    "build": "webpack --watch --config webpack.dist.config.js"
+    "dev": "webpack --watch --output-path=dev/",
+    "test": "webpack --watch",
+    "build": "webpack --watch --env.production --output-path=dist/"
   },
   "repository": {
     "type": "git",
@@ -23,7 +23,9 @@
     "vue-loader": "^15.7.2",
     "vue-template-compiler": "^2.6.10",
     "webpack": "^4.40.2",
-    "webpack-cli": "^3.3.9"
+    "webpack-cli": "^3.3.9",
+    "workbox-build": "^4.3.1",
+    "workbox-webpack-plugin": "^4.3.1"
   },
   "dependencies": {
     "eventemitter3": "^3.1.2",

@@ -1,5 +1,7 @@
 importScripts('https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js');
 
+workbox.precaching.precacheAndRoute( self.__precacheManifest || [] );
+
 workbox.routing.registerRoute( /\.(?:js|json)$/,
 	new workbox.strategies.NetworkFirst()
 );
