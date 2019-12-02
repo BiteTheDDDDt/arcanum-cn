@@ -6,34 +6,37 @@
 	<link href="./css/main.css" rel="stylesheet" type="text/css">
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link rel="manifest" href="./manifest.json">
+	<link rel="manifest" href="/manifest.webmanifest">
+
+	<script>
+		if ( 'serviceWorker' in navigator) {
+
+			window.addEventListener( 'load', ()=>{
+				navigator.serviceWorker.register('./sw.js');
+			});
+
+		}
+
+		let installPrompt;
+		window.addEventListener( 'beforeinstallprompt', e=>{
+			console.log('BEFORE INSTALL PROMPT FIRED');
+			e.preventDefault();
+			installPrompt = e;
+		});
+
+	</script>
 
 	<meta name="keywords" content="idle, clicker, idle clicker, game, wizard, arcane, rpg, fun, browser, javascript" />
 	<meta name="description" content="magic idle clicker for rpg enthusiasts" />
 	<meta name="author" content="lerping lemur" />
 
-	<script src='https://cdn1.kongregate.com/javascripts/kongregate_api.js'></script>
+	<!--<script src='https://cdn1.kongregate.com/javascripts/kongregate_api.js'></script>-->
 
 	<link href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap" rel="stylesheet">
 
 </head>
 
 <body>
-	<script>
-		if ( 'serviceWorker' in navigator) {
-			if ( !navigator.serviceWorker.controller ){
-				navigator.serviceWorker.register('./sw.js');
-			}
-		}
-
-		/*let installPrompt;
-		window.addEventListener( 'beforeinstallprompt', e=>{
-			e.preventDefault();
-			installPrompt = e;
-		});*/
-
-	</script>
-
 	<div id="vueRoot"></div>
 </body>
 <script src="dist/wizrobe.js"></script>

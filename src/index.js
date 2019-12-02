@@ -5,11 +5,17 @@ import Game from './game';
 import Events from './events';
 import Profile from './modules/profile';
 
-kongregateAPI.loadAPI( function(){
+/**kongregateAPI.loadAPI( function(){
 
 	window.kong = kongregateAPI.getAPI();
 	// You can now access the Kongregate API with:
 	// kongregate.services.getUsername()
+
+});*/
+
+window.addEventListener('beforeinstallprompt', e=>{
+
+	console.log('ARCANUM BEFOREINSTALL PROMPT');
 
 });
 
@@ -91,10 +97,9 @@ const vm = new Vue({
 
 		doStat( evt, val ) {
 
-			if ( window.kong ) {
-				//console.log('SENDING KONG EVENT: ' + evt );
+			/*if ( window.kong ) {
 				window.kong.stats.submit( evt, val );
-			}
+			}*/
 		},
 
 		/**

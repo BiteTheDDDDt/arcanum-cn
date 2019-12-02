@@ -2,6 +2,8 @@ importScripts('https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox
 
 workbox.precaching.precacheAndRoute( self.__precacheManifest || [] );
 
+console.log('SERVICE WORKER LOADED');
+
 workbox.routing.registerRoute( /\.(?:js|json)$/,
 	new workbox.strategies.NetworkFirst()
 );

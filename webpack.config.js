@@ -10,7 +10,7 @@ var VERS_STR = execSync('git rev-list HEAD --count').toString()
 
 module.exports = (env, argv)=>{ return {
 
-	mode: "production",
+	mode: env.production ? "production" : 'development',
 	entry: {
 		wizrobe: "./src/index.js"
 	},
@@ -41,10 +41,12 @@ module.exports = (env, argv)=>{ return {
 	}),
 	new WorkboxPlugin.InjectManifest({
 		swSrc:'src/sw.js',
+		swDest:'../sw.js',
 		importsDirectory:'wb-assets',
+		globDirectory:'.',
 		globIgnores:['src/**', 'node_modules/**/*', 'docs/**', 'dev/**',
 			'\.vscode/**'],
-		globPatterns:['data/*', 'dist/**/*.{js,css,html}']
+		globPatterns:['data/*', argv['output-path'] + '/**/*.{js,css,html}', 'index.html', '/**/*.css' ]
 	})],
 
 	//devtool: 'source-map',
