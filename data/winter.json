@@ -54,8 +54,8 @@
   	"resources":[
       {
         "id":"snowman",
-        "name":"frost golem",
-        "desc":"A Golem of living ice",
+        "name":"snomunculus",
+        "desc":"A being of living snow",
         "require":"g.snowman>=1",
         "max":5,
         "mod":{
@@ -332,7 +332,8 @@
 		"spells":[
       {
       	"id":"snowminion",
-      	"name":"Arm Frost Golem",
+		"name":"frost golem",
+		"desc":"transform a minor snow being into a lumbering hulk of ice.",
       	"level":5,
       	"require":"g.snowman>=1",
       	"school":"ice",
@@ -481,7 +482,7 @@
     "furniture":[
       {
         "id":"hearth",
-        "desc":"A warm fireplace, the more you have the more gems are required to create them.",
+        "desc":"A warm fireplace; the more you have the more gems you require to create them.",
         "require":"g.frost>=10",
         "repeat":true,
         "cost":{
@@ -536,8 +537,8 @@
     "dungeons":[
       {
       	"id":"snowymountain",
-      	"name":"Mountain",
-      	"desc":"The mountain is filled with the dangers of winter, but also with its fruits",
+      	"name":"thandhrune cavern",
+      	"desc":"The mountain is filled with the dangers of winter, but also with its treasures",
       	"level":3,
       	"length":20,
         "require":"g.firelore>=5",
@@ -550,7 +551,7 @@
         },
       	"result":{
       		"emblemofice":1,
-      		"title":"Explorer of the wintery mountain"
+      		"title":"explorer of the wintery mountain"
       	},
       	"loot":{
       		"max":5
@@ -650,8 +651,9 @@
         "speed":1,
         "attack":{
           "name":"icybreath",
-          "kind":"ice",
-          "dmg":"15~25"
+		  "kind":"ice",
+		  "targets":"enemies",
+          "dmg":"35~55"
         },
         "loot":{
         	"snowman":1
@@ -659,15 +661,15 @@
       },
 			{
         "id":"snowmanmonster",
-        "name":"snow golem",
+        "name":"frost golem",
         "level":1,
-        "desc":"A Snow Golem ready for combat",
+        "desc":"A hulking Golem of ice",
         "hp":50,
         "defense":8,
         "speed":10,
         "regen":2,
         "attack":{
-          "name":"Snowball",
+          "name":"snowball",
           "kind":"ice",
           "dmg":"3~5"
         },
