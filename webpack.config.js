@@ -13,7 +13,6 @@ module.exports = (env, argv)=>{
 
 	const buildpath = argv['buildpath'];
 	const absPath = path.resolve( __dirname, buildpath );
-	const jsDir = path.join( buildpath, 'js' );
 
 	return {
 
@@ -55,11 +54,11 @@ module.exports = (env, argv)=>{
 		},
 		{
 			from:'data',
-			to:path.join( absPath, 'data')
+			to:path.resolve( absPath, 'data')
 		},
 		{
 			from:'css',
-			to:path.join( absPath, 'css' )
+			to:path.resolve( absPath, 'css' )
 		}
 	]),
 	new WorkboxPlugin.InjectManifest({
@@ -76,8 +75,8 @@ module.exports = (env, argv)=>{
 
 		filename: "[name].js",
 		chunkFilename: "[name].bundle.js",
-		path:path.resolve(__dirname, jsDir ),
-		publicPath:jsDir,
+		path:path.resolve(__dirname, buildpath, 'js/' ),
+		publicPath:'js/',
 		library: "[name]"
 	},
 	resolve: {
