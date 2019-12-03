@@ -11,9 +11,9 @@ var VERS_STR = execSync('git rev-list HEAD --count').toString()
 
 module.exports = (env, argv)=>{
 
-	const outDir = argv['output-path'];
-	const jsDir = path.join( outDir, 'js' );
-	const dataDir = path.join( outDir, 'data');
+	const buildpath = argv['buildpath'];
+	const absPath = path.resolve( __dirname, buildpath );
+	const jsDir = path.join( buildpath, 'js' );
 
 	return {
 
@@ -48,27 +48,26 @@ module.exports = (env, argv)=>{
 		__VERSION:VERS_STR
 	}),
 	new CopyPlugin([
+
 		{
 			from:'index.html',
-			to:path.join( outDir, 'index.html' )
+			to:absPath
 		},
 		{
 			from:'data',
-			to:dataDir
+			to:path.join( absPath, 'data')
 		},
 		{
 			from:'css',
-			to:path.join(outDir, 'css')
+			to:path.join( absPath, 'css' )
 		}
 	]),
 	new WorkboxPlugin.InjectManifest({
 		swSrc:'src/sw.js',
 		swDest:'sw.js',
-		globFollow:false,
-		globDirectory:'.',
 		importsDirectory:'wb-assets',
-		globIgnores:['src/**', 'node_modules/**', 'docs/**', 'dev/**'],
-		globPatterns:[ dataDir + '*', outDir + '**/*.{js,css,html}' ]
+		//globIgnores:['src/**', 'node_modules/**', 'docs/**', 'dev/**'],
+		//globPatterns:[ dataDir + '*', outDir + '**/*.{js,css,html}' ]
 	})],
 
 	//devtool: 'source-map',
@@ -77,6 +76,7 @@ module.exports = (env, argv)=>{
 
 		filename: "[name].js",
 		chunkFilename: "[name].bundle.js",
+		path:path.resolve(__dirname, jsDir ),
 		publicPath:jsDir,
 		library: "[name]"
 	},
