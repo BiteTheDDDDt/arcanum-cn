@@ -11,8 +11,8 @@
       },
       {
         "id":"evt_snowcopy",
-        "name":"snow copy",
-        "desc":"From living snow a true copy of yourself arises. You feel its limbs like you feel your own arms."
+        "name":"snow double",
+        "desc":"A copy of yourself arises from living snow. You feel its limbs like you feel your own arms."
       },
       {
         "id":"iceshard0",
@@ -61,7 +61,8 @@
         "mod":{
           "frost.rate":1,
           "icelore.max":0.5
-        }
+		},
+		"flavor":"It's not a snowman. Why would you say that?"
       },
       {
         "id":"livingsnow",
@@ -141,11 +142,11 @@
       },
 			{
         "id":"mk_snowman",
-		"name":"raise fost golem",
-		"desc":"craft a golem of frost",
+		"name":"build snomunculus",
+		"desc":"Build a homunculus from snow",
         "flavor":"It's not a snowman. Why would you say that?",
         "require":"g.emblemofice>=1",
-        "verb":"Building",
+        "verb":"building",
 				"length":10,
         "cost":{
           "livingsnow":10,
@@ -161,7 +162,7 @@
       },
       {
         "id":"makesnowman",
-        "name":"melt frost golem",
+        "name":"melt snomunculus",
         "desc":"Liquify your cold creation.",
         "locked":"g.snowman>=1",
         "verb":"Melting",
@@ -177,9 +178,9 @@
       },
       {
         "id":"icystudy",
-        "name":"<ice wizard name> study",
+        "name":"nixifer's study",
         "require":"g.artictower>0",
-        "desc":"<ice wizard name> notes on the magic properties of ice.",
+        "desc":"Nixifer's notes on the magical properties of ice.",
         "length":75,
         "repeat":false,
         "cost":{
@@ -200,9 +201,10 @@
 			{
         "id":"w_multitask",
         "name":"workforce",
-        "desc":"Use your Snow Copy as an extension of yourself",
+        "desc":"Use your Snow Double as an extension of yourself",
         "cost":{"gold":1},
-        "require":"g.evt_snowcopy>=1",
+		"require":"g.evt_snowcopy>=1",
+		"warn":true,
         "disable":["w_fame","w_scholar"],
         "mod":{
           "runner.max":1,
@@ -212,8 +214,9 @@
       {
         "id":"w_fame",
         "name":"donate copy",
-        "desc":"Donate your Snow Copy to the wizard academy",
-        "cost":{"gold":1},
+        "desc":"Donate your Snow Double to a wizard's academy",
+		"cost":{"gold":1},
+		"warn":true,
         "require":"g.evt_snowcopy>=1",
         "disable":["w_multitask","w_scholar"],
         "result":{
@@ -225,9 +228,10 @@
       },
       {
         "id":"w_scholar",
-        "name":"For your study",
-        "desc":"Studying the Snow Copy for yourself",
-        "cost":{"gold":1},
+        "name":"cold calculation",
+        "desc":"Dedicate your Snow Double to arcane studies.",
+		"cost":{"gold":1},
+		"warn":true,
         "require":"g.evt_snowcopy>=1",
         "disable":["w_fame","w_multitask"],
         "mod":{
@@ -252,7 +256,7 @@
         "name":"dew of icy fire",
         "need":"potsource",
         "require":"((g.icystudy+g.alchemist)>0&&(g.firelore+g.icelore)>=15&&g.potions>=7)||g.cheatunlock>=1",
-        "desc":"An old way to combat freesing cold, that, howewer will influence magical powers. And stop most of the power of cold",
+        "desc":"A sure way to combat the freezing cold. It will however, render many of your icy spells useless.",
         "disable":["iceshard","iceshard0","iceshard1","iceshard2"],
         "warn":true,
         "cost":{
@@ -272,8 +276,7 @@
         "id":"cheatunlock",
         "name":"Cheating unlocks",
         "tags":["cheat"],
-        "desc":"Should open up most locales/dungeons for the event",
-        "locked":false
+        "desc":"Should open up most locales/dungeons for the event"
       },
       {
         "id":"preparetree",
@@ -333,7 +336,7 @@
       {
       	"id":"snowminion",
 		"name":"frost golem",
-		"desc":"transform a minor snow being into a lumbering hulk of ice.",
+		"desc":"transform a minor construct into a lumbering hulk of ice.",
       	"level":5,
       	"require":"g.snowman>=1",
       	"school":"ice",
