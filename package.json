@@ -4,8 +4,8 @@
   "description": "theory of magic",
   "main": "index.js",
   "scripts": {
-    "dev": "webpack --watch --output-path=dev/",
-    "test": "webpack --watch",
+    "dev": "webpack --watch --env --output-path=dev/",
+    "kong": "webpack --watch --env.production --env.kong --output-path=kong/",
     "build": "webpack --watch --env.production --output-path=dist/"
   },
   "repository": {
@@ -17,6 +17,7 @@
     "url": "https://github.com/lerpinglemur/webpack-template/issues"
   },
   "devDependencies": {
+    "copy-webpack-plugin": "^5.0.5",
     "css-loader": "^3.2.0",
     "jszip": "^3.2.2",
     "style-loader": "^0.23.1",

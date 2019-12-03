@@ -1,6 +1,4 @@
-importScripts('https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js');
-
-workbox.precaching.precacheAndRoute( self.__precacheManifest || [] );
+workbox.precaching.precacheAndRoute( (self.__precacheManifest || []).concat(['./index.html', './manifest.webmanifest']) );
 
 console.log('SERVICE WORKER LOADED');
 

@@ -1,7 +1,7 @@
 {
 	"short_name": "Theory of Magic",
 	"name": "Theory of Magic",
-	"start_url": ".",
+	"start_url": "index.html",
 	"lang": "en",
 	"dir": "ltr",
 	"icons": [
