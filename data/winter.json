@@ -141,7 +141,8 @@
       },
 			{
         "id":"mk_snowman",
-        "name":"raise fost golem",
+		"name":"raise fost golem",
+		"desc":"craft a golem of frost",
         "flavor":"It's not a snowman. Why would you say that?",
         "require":"g.emblemofice>=1",
         "verb":"Building",
@@ -159,7 +160,7 @@
         }
       },
       {
-        "id":"meltSnowman",
+        "id":"makesnowman",
         "name":"melt frost golem",
         "desc":"Liquify your cold creation.",
         "locked":"g.snowman>=1",
@@ -175,34 +176,10 @@
         }
       },
       {
-        "id":"cheatfiregem",
-        "name":"Cheat Fire gems",
-        "desc":"getting firegems for testing hearth",
-        "locked":false,
-        "tags":["cheat"],
-        "verb":"Cheating",
-        "perpetual":true,
-        "effect":{
-          "firegem":1
-        }
-      },
-      {
-        "id":"cheatice",
-        "name":"Cheating icerate",
-        "desc":"Gives enough ice and emblem of ice",
-        "tags":["cheat"],
-        "locked":false,
-        "repeat":false,
-        "result":{
-          "ice.rate":50,
-          "emblemofice":1
-        }
-      },
-      {
         "id":"icystudy",
         "name":"<ice wizard name> study",
         "require":"g.artictower>0",
-        "desc":"<ice wizard name> notes onto powers of ice.",
+        "desc":"<ice wizard name> notes on the magic properties of ice.",
         "length":75,
         "repeat":false,
         "cost":{
@@ -217,35 +194,13 @@
           "icelore.max":2,
           "ice.rate":0.1
         }
-      },
-      {
-        "id":"cheatsnowman",
-        "name":"Cheat Snow Golem",
-        "desc":"getting Snow Golem for testing hearth",
-        "locked":false,
-        "tags":["cheat"],
-        "verb":"Cheating",
-        "result":{
-          "snowman":1
-        }
-      },
-      {
-        "id":"cheatOrb",
-        "name":"Cheat Orb of winter",
-        "desc":"Here you go Nekodoom",
-        "locked":false,
-        "tags":["cheat"],
-        "verb":"Cheating",
-        "result":{
-          "iceorb":1
-        }
       }
 		],
 		"upgrades":[
 			{
         "id":"w_multitask",
-        "name":"Workforce",
-        "desc":"Use your Snow Copy as an extention of yourself",
+        "name":"workforce",
+        "desc":"Use your Snow Copy as an extension of yourself",
         "cost":{"gold":1},
         "require":"g.evt_snowcopy>=1",
         "disable":["w_fame","w_scholar"],
@@ -256,8 +211,8 @@
       },
       {
         "id":"w_fame",
-        "name":"Donating",
-        "desc":"Donating the Snow Copy to the wizard academy",
+        "name":"donate copy",
+        "desc":"Donate your Snow Copy to the wizard academy",
         "cost":{"gold":1},
         "require":"g.evt_snowcopy>=1",
         "disable":["w_multitask","w_scholar"],
@@ -282,8 +237,8 @@
       },
       {
 				"id":"hearthexpansion",
-				"name":"expanded Hearth",
-				"desc":"Doubles the effectivity of your Heasrths",
+				"name":"expanded hearth",
+				"desc":"Doubles the effectiveness of your Hearths",
 				"require":"g.frost.rate>0&&g.hearth>=5",
 				"cost":{
 					"firegem":10
@@ -336,7 +291,7 @@
       },
       {
         "id":"good_sacrifice",
-        "name":"Mystical Fog (good)",
+        "name":"mystical fog (good)",
         "desc":"You enter a fog that doesn't relent no matter what you throw at it, then you find a altar requiring a sacrifice",
         "disable":"evil_sacrifice",
         "warn":true,
@@ -356,7 +311,7 @@
       },
       {
         "id":"evil_sacrifice",
-        "name":"Mystical Fog (evil)",
+        "name":"mystical fog (evil)",
         "desc":"You enter a fog that doesn't relent no matter what you throw at it, then you find a altar requiring a sacrifice. You think you know the solution",
         "disable":"good_sacrifice",
         "require":"(g.good==0&&g.evt_w_legend>=1)||(g.evil==1&&g.good==1&&g.evt_w_legend>=1)",
@@ -376,8 +331,8 @@
     ],
 		"spells":[
       {
-      	"id":"snowManMinion",
-      	"name":"Arm Snow Golem",
+      	"id":"snowminion",
+      	"name":"Arm Frost Golem",
       	"level":5,
       	"require":"g.snowman>=1",
       	"school":"ice",
@@ -388,13 +343,13 @@
       		"snowman":1
       	},
       	"effect":{
-          "snowmanMonster":1,
+          "snowmanmonster":1,
           "frost":10
         }
       },
       {
         "id":"iceflame",
-        "name":"Icy Flame",
+        "name":"icy flame",
         "level":3,
         "require":"(g.icelore>=10&&g.firelore>=10)||g.warmpotion",
         "school":"ice",
@@ -432,7 +387,7 @@
       },
       {
         "id":"warmfield",
-        "name":"Field of heat",
+        "name":"field of heat",
         "level":5,
         "require":"g.firelore>=5",
         "school":"fire",
@@ -463,7 +418,7 @@
       },
 			{
         "id":"iceshard",
-        "name":"Ice Shard",
+        "name":"ice shard",
         "level":3,
         "require":"g.ice>=3",
         "school":"ice",
@@ -526,7 +481,7 @@
     "furniture":[
       {
         "id":"hearth",
-        "desc":"A warm fireplace, it seems to cost more per furniture",
+        "desc":"A warm fireplace, the more you have the more gems are required to create them.",
         "require":"g.frost>=10",
         "repeat":true,
         "cost":{
@@ -557,7 +512,7 @@
     "skills":[
       {
         "id":"icelore",
-        "name":"Cryomancy",
+        "name":"cryomancy",
         "desc":"the study of ice",
 				"require":"g.emblemofice>=1",
 				"buy":{
@@ -580,7 +535,7 @@
     ],
     "dungeons":[
       {
-      	"id":"snowyMountain",
+      	"id":"snowymountain",
       	"name":"Mountain",
       	"desc":"The mountain is filled with the dangers of winter, but also with its fruits",
       	"level":3,
@@ -606,7 +561,7 @@
       	},
       	"boss":"iceyeti",
       	"enemies":[
-          ["iceElemental","iceElemental","iceElemental"],
+          ["frostelemental","frostelemental","frostelemental"],
       		"avalanche",
       		"w_troll",
       		"icywinds"
@@ -615,15 +570,15 @@
     ],
     "monsters":[
       {
-        "id":"iceElemental",
-        "name":"Ice Elemental",
+        "id":"frostelemental",
+        "name":"frost elemental",
         "level":1,
         "kind":"elemental",
-        "desc":"A spiral of deadly ice cones",
+        "desc":"A spiral of deadly icicles",
         "hp":20,
         "defense":4,
         "attack":{
-          "name":"icecones",
+          "name":"icicles",
           "kind":"ice",
           "dmg":"5~8"
         },
@@ -633,7 +588,6 @@
       },
       {
         "id":"avalanche",
-        "name":"Avalanche",
         "level":2,
         "kind":"hazard",
         "desc":"A mass snow seemingly aiming for you while falling down the mountain",
@@ -650,10 +604,10 @@
       },
       {
         "id":"w_troll",
-        "name":"Troll",
+        "name":"ice troll",
         "level":3,
         "kind":"giant",
-        "desc":"A huge dumb looking creature with a massive club",
+        "desc":"A huge dumb looking creature with a club of ice",
         "hp":40,
         "defense":10,
         "attack":{
@@ -668,7 +622,7 @@
       },
       {
         "id":"icywinds",
-        "name":"Icy Winds",
+        "name":"icy winds",
         "level":2,
         "kind":"hazard",
         "desc":"A chilling wind",
@@ -704,8 +658,8 @@
         }
       },
 			{
-        "id":"snowmanMonster",
-        "name":"Snow Golem",
+        "id":"snowmanmonster",
+        "name":"snow golem",
         "level":1,
         "desc":"A Snow Golem ready for combat",
         "hp":50,
@@ -726,7 +680,7 @@
     "locales":[
       {
         "id":"winter_village",
-        "name":"Winter Village",
+        "name":"winter village",
         "level":2,
         "length":50,
         "require":"g.emblemofice>=1",
@@ -754,7 +708,7 @@
       },
       {
         "id":"icelake",
-        "name":"Ice lake",
+        "name":"ice lake",
         "level":3,
         "length":50,
         "require":"g.emblemofice>=1",
@@ -769,7 +723,7 @@
           "movingsnow",
           "chillingatmosphere",
           "heatstowe",
-          "dripingwater",
+          "drippingwater",
           "frozenloam",
           "w_crystalsocket",
           "enc_chest3",
@@ -864,7 +818,7 @@
       },
       {
         "id":"enc_w_kidsplaying",
-        "name":"Playing in the snow",
+        "name":"playing in the snow",
         "desc":"with the local kids",
         "level":2,
         "effect":{
@@ -880,7 +834,7 @@
       },
       {
         "id":"enc_w_windbarrier",
-        "name":"Windbarrier",
+        "name":"windbarrier",
         "desc":"Setting up a barrier to stop the harsh winds",
         "effect":{
           "weary":"1~2",
@@ -893,7 +847,7 @@
       },
       {
         "id":"enc_w_conjuring",
-        "name":"Conjuring",
+        "name":"conjuring",
         "desc":"conjuring a fire elemental at the magical circle, to help stave away the cold",
         "effect":{
           "mana":"0.5~1",
@@ -910,7 +864,7 @@
       },
       {
         "id":"enc_w_candles",
-        "name":"Crafting candles",
+        "name":"crafting candles",
         "desc":"Crafting everlasting candles",
         "effect":{
           "unease":"1~2",
@@ -924,7 +878,7 @@
       },
       {
         "id":"enc_w_legends",
-        "name":"Stories",
+        "name":"stories",
         "desc":"Listening to the elderly talk about winter legends.",
         "effect":{
           "bf":"1~2",
@@ -939,7 +893,7 @@
       },
       {
         "id":"chillingatmosphere",
-        "name":"Chilling atmosphere",
+        "name":"chilling atmosphere",
         "desc":"Sudden gust of wind chills you down to your bone.",
         "effect":{
           "weary":"-1~3",
@@ -962,9 +916,9 @@
         }
       },
       {
-        "id":"dripingwater",
-        "name":"Water source",
-        "desc":"Seems like internal heat melted some of the ice.",
+        "id":"drippingwater",
+        "name":"water source",
+        "desc":"Seems like internal heat melted some of the ice here.",
         "effect":{
           "madness":"1~2",
           "frost":"-1~0",
@@ -975,7 +929,7 @@
       },
       {
         "id":"frozenloam",
-        "name":"Patch of herbs",
+        "name":"patch of herbs",
         "level":3,
         "effect":{
           "rage":"1~3",
@@ -1042,7 +996,7 @@
     "rares":[
       {
         "id": "iceorb",
-        "name": "Orb of Winters",
+        "name": "orb of winters",
         "desc": "A snowglobe that has somehow gained magical powers. It reminds you of colder days.",
         "level": 10,
         "material": "water",
