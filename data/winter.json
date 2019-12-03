@@ -6,18 +6,18 @@
 			{
 				"id":"evt_mountain",
 				"require":"evt_helper",
-				"name":"Winter times",
-				"desc":"The winter is colder than ever, and the horrors of winter and its fruits have appeared. A trip to the mountain might be useful, its cold so you need fire to prepare (firelore 5)"
+				"name":"wintertide",
+				"desc":"The winter is colder than ever, are new horrors have appeared with the chill. The gales from Thandhrun groan more loudly each day and bear investigation. Knowledge of fire should help you prepare. (firelore 5)"
       },
       {
         "id":"evt_snowcopy",
-        "name":"Snow Copy",
-        "desc":"A true copy of you forms out of snow. You can feel it like you feel your arms."
+        "name":"snow copy",
+        "desc":"From living snow a true copy of yourself arises. You feel its limbs like you feel your own arms."
       },
       {
         "id":"iceshard0",
-        "name":"Ice Shard",
-        "desc":"After just testing the spells the first times, you feel the potential in it.",
+        "name":"ice shard",
+        "desc":"After a few preliminary tests of the spell, you feel the potential in it.",
         "require":"g.iceshard>=10",
         "mod":{
           "frost.rate":2,
@@ -26,8 +26,8 @@
       },
       {
         "id":"iceshard1",
-        "name":"Ice Shard",
-        "desc":"for each Ice Shard cast you feel your power rise, but with it your warmth is starting to fade",
+        "name":"ice shard",
+        "desc":"With each Ice Shard cast you feel your power grow, but your warmth begins to fade as well.",
         "require":"g.iceshard>=100",
         "mod":{
           "frost.rate":5,
@@ -36,8 +36,8 @@
       },
       {
         "id":"iceshard2",
-        "name":"Ice mastery",
-        "desc":"Your power is immeasrable, with ice as your partner, but something feels wrong. The warmth is gone",
+        "name":"ice mastery",
+        "desc":"Your power is immeasrable, with ice as your partner. Yet something feels wrong. The warmth is gone",
         "require":"g.iceshard>=1000",
         "mod":{
           "hearth.mod.frost.rate":"-100%",
@@ -47,15 +47,15 @@
       },
       {
         "id":"evt_w_legend",
-        "name":"Legends tell",
+        "name":"legends tell",
         "desc":"of a tree standing in the middle of the icy wasteland, which contains ancient powers"
       }
     ],
   	"resources":[
       {
         "id":"snowman",
-        "name":"Snow Golem",
-        "desc":"A moving Snow Golem",
+        "name":"frost golem",
+        "desc":"A Golem of living ice",
         "require":"g.snowman>=1",
         "max":5,
         "mod":{
@@ -65,18 +65,18 @@
       },
       {
         "id":"livingsnow",
-        "desc":"Snow that pulsates and beats like a heart, it melts away slowly",
+        "desc":"Snow that pulsates and beats like a heart; it melts away slowly",
         "require":"g.livingsnow>=1",
         "max":20,
         "mod":{
           "icelore.rate":0.1,
           "livingsnow.rate":-0.0001,
           "water.rate":0.01
-        }
+        },"flavor":"there's a metaphor here somewhere."
       },
       {
         "id":"frost",
-        "desc":"Its chilling and it reduces your effectivity",
+        "desc":"Its chill reduces your effectiveness",
         "require":"g.frost>=1",
         "max":80,
         "reverse":true,
@@ -88,10 +88,10 @@
         }
       },
       {
-        "id":"emblemOfIce",
-        "name":"Emblem of Ice",
-        "desc":"A ancient rune engraved in never melting ice",
-        "locked":"g.emblemOfIce>=1",
+        "id":"emblemofice",
+        "name":"emblem of ice",
+        "desc":"An ancient rune engraved in unmelting ice",
+        "locked":"g.emblemofice>=1",
         "max":1,
         "mod":{
           "ice.rate":0.2
@@ -99,7 +99,7 @@
       },
       {
         "id":"ice",
-        "desc":"Ice Mana",
+        "desc":"ice mana",
         "require":"g.icelore>=1",
         "max":0,
         "tags":"manas"
@@ -108,7 +108,7 @@
         "id":"snowdrop",
         "name":"snowdrop",
         "tags":"herb,reagent",
-        "desc":"little white flower that start to grow despite the colds",
+        "desc":"a little white flower that starts to bloom despite the cold",
         "require":"snowdrop>=1",
         "max":5,
         "mod":{
@@ -118,9 +118,9 @@
     ],
     "actions":[
 			{
-        "id":"restInCottage",
-        "name":"Warming yourself",
-        "desc":"Warm yourself by the fire",
+        "id":"restincottage",
+        "name":"warm yourself",
+        "desc":"Warm yourself by a fire",
         "require":"g.frost>=10",
         "verb":"Warming Hands",
         "tags":"t_rest",
@@ -140,10 +140,10 @@
 				}
       },
 			{
-        "id":"makeSnowman",
-        "name":"Making a moving Snow Golem",
-        "desc":"Do you wanna make a snowman, seriously change this",
-        "require":"g.emblemOfIce>=1",
+        "id":"mk_snowman",
+        "name":"raise fost golem",
+        "flavor":"It's not a snowman. Why would you say that?",
+        "require":"g.emblemofice>=1",
         "verb":"Building",
 				"length":10,
         "cost":{
@@ -160,8 +160,8 @@
       },
       {
         "id":"meltSnowman",
-        "name":"Melt Snow Golem",
-        "desc":"Liquifying the poor snowman",
+        "name":"melt frost golem",
+        "desc":"Liquify your cold creation.",
         "locked":"g.snowman>=1",
         "verb":"Melting",
         "cost":{
@@ -195,7 +195,7 @@
         "repeat":false,
         "result":{
           "ice.rate":50,
-          "emblemOfIce":1
+          "emblemofice":1
         }
       },
       {
@@ -206,7 +206,7 @@
         "length":75,
         "repeat":false,
         "cost":{
-          "emblemOfIce":1,
+          "emblemofice":1,
           "tomes":1
         },
         "run":{
@@ -438,7 +438,7 @@
         "school":"fire",
         "buy":{
           "firegem":4,
-          "arcana":1  
+          "arcana":1
         },
         "cost":{
           "fire":2
@@ -559,7 +559,7 @@
         "id":"icelore",
         "name":"Cryomancy",
         "desc":"the study of ice",
-				"require":"g.emblemOfIce>=1",
+				"require":"g.emblemofice>=1",
 				"buy":{
           "livingsnow":10
         },
@@ -594,7 +594,7 @@
           "frost":2
         },
       	"result":{
-      		"emblemOfIce":1,
+      		"emblemofice":1,
       		"title":"Explorer of the wintery mountain"
       	},
       	"loot":{
@@ -729,7 +729,7 @@
         "name":"Winter Village",
         "level":2,
         "length":50,
-        "require":"g.emblemOfIce>=1",
+        "require":"g.emblemofice>=1",
         "desc":"Now that you command the power of winter, the villagers asks you to help with their preparations",
         "run":{
           "stamina":0.4
@@ -757,7 +757,7 @@
         "name":"Ice lake",
         "level":3,
         "length":50,
-        "require":"g.emblemOfIce>=1",
+        "require":"g.emblemofice>=1",
         "desc":"At the bottom of the frozen lake, numerous caves can be found, full of curiosities",
         "run":{
           "stamina":0.5
