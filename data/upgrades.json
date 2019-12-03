@@ -1373,7 +1373,7 @@
 			"anatomy.max":2,
 			"arcanebody.max":3,
 			"minions.max":2,
-			"allies.max":1
+			"minions.maxAllies":1
 		}
 
 	},

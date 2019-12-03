@@ -7,7 +7,7 @@
 				"id":"evt_mountain",
 				"require":"evt_helper",
 				"name":"wintertide",
-				"desc":"The winter is colder than ever, are new horrors have appeared with the chill. The gales from Thandhrun groan more loudly each day and bear investigation. Knowledge of fire should help you prepare. (firelore 5)"
+				"desc":"The winter is colder than ever, are new horrors have appeared with the chill. The gales from Thandhrun groan more loudly each day and bear investigation. Knowledge of fire should help you prepare."
       },
       {
         "id":"evt_snowcopy",
@@ -128,19 +128,19 @@
         "slot":"rest",
         "perpetual":true,
         "fill":["stamina","manas","hp","stress"],
-				"effect":{
-					"manas":{
-						"skipLocked":true,
-						"value":0.5
-					},
-					"fire":0.5,
-					"stamina":0.5,
+		"effect":{
+			"manas":{
+				"skipLocked":true,
+				"value":0.5
+			},
+			"fire":0.5,
+			"stamina":0.5,
           "hp":0.75,
           "frost":-10,
           "stress":-0.5
-				}
+		}
       },
-			{
+	{
         "id":"mk_snowman",
 		"name":"build snomunculus",
 		"desc":"Build a homunculus from snow",
@@ -240,16 +240,16 @@
         }
       },
       {
-				"id":"hearthexpansion",
-				"name":"expanded hearth",
-				"desc":"Doubles the effectiveness of your Hearths",
-				"require":"g.frost.rate>0&&g.hearth>=5",
-				"cost":{
-					"firegem":10
-				},
-				"mod":{
-					"hearth.mod.frost.rate":-1
-				}
+		"id":"hearthexpansion",
+		"name":"expanded hearth",
+		"desc":"Doubles the effectiveness of your Hearths",
+		"require":"g.frost.rate>0&&g.hearth>=5",
+		"cost":{
+			"firegem":10
+		},
+		"mod":{
+			"hearth.mod.frost.rate":-1
+		}
       },
       {
         "id":"warmpotion",
@@ -273,16 +273,10 @@
         }
       },
       {
-        "id":"cheatunlock",
-        "name":"Cheating unlocks",
-        "tags":["cheat"],
-        "desc":"Should open up most locales/dungeons for the event"
-      },
-      {
         "id":"preparetree",
-        "name":"Preparation",
+        "name":"preparation",
         "desc":"preparing to enter the tree",
-        "require":"g.evil_sacrifice>=1||g.good_sacrifice>=1||g.cheatunlock>=1",
+        "require":"g.evil_sacrifice>=1||g.good_sacrifice>=1",
         "cost":{
           "bloodgem":2,
           "watergem":5,
@@ -518,7 +512,7 @@
       {
         "id":"icelore",
         "name":"cryomancy",
-        "desc":"the study of ice",
+        "desc":"The study of ice",
 				"require":"g.emblemofice>=1",
 				"buy":{
           "livingsnow":10
@@ -542,7 +536,7 @@
       {
       	"id":"snowymountain",
       	"name":"thandhrune cavern",
-      	"desc":"The mountain is filled with the dangers of winter, but also with its treasures",
+      	"desc":"The mountain is filled with the perils of winter, but also with its treasures",
       	"level":3,
       	"length":20,
         "require":"g.firelore>=5",
@@ -567,7 +561,8 @@
       	"boss":"iceyeti",
       	"enemies":[
           ["frostelemental","frostelemental","frostelemental"],
-      		"avalanche",
+			  "avalanche",
+			["iceelemental","iceelemental"],
       		"w_troll",
       		"icywinds"
       	]
@@ -595,13 +590,14 @@
         "id":"avalanche",
         "level":2,
         "kind":"hazard",
-        "desc":"A mass snow seemingly aiming for you while falling down the mountain",
+        "desc":"The mass of snow seems to aim directly for you as it tumbles down the mountain",
         "hp":100,
         "defense":-10,
         "attack":{
           "name":"chilling",
-          "kind":"ice",
-          "damage":"1~3"
+		  "kind":"ice",
+		  "targets":"enemies",
+          "damage":"2~5"
         },
         "loot":{
         	"livingsnow":3
@@ -667,7 +663,7 @@
         "id":"snowmanmonster",
         "name":"frost golem",
         "level":1,
-        "desc":"A hulking Golem of ice",
+        "desc":"A hulking Golem sculpted in ice",
         "hp":50,
         "defense":8,
         "speed":10,
@@ -679,7 +675,7 @@
         },
         "loot":{
         	"livingsnow":1,
-					"watergem":1
+			"watergem":1
         }
       }
     ],
@@ -690,7 +686,7 @@
         "level":2,
         "length":50,
         "require":"g.emblemofice>=1",
-        "desc":"Now that you command the power of winter, the villagers asks you to help with their preparations",
+        "desc":"Now that you command the power of winter, the villagers ask you to help with their preparations",
         "run":{
           "stamina":0.4
         },
@@ -718,7 +714,7 @@
         "level":3,
         "length":50,
         "require":"g.emblemofice>=1",
-        "desc":"At the bottom of the frozen lake, numerous caves can be found, full of curiosities",
+        "desc":"At the bottom of the frozen lake, numerous caves can be found, full of curiosities and wonders.",
         "run":{
           "stamina":0.5
         },
@@ -728,7 +724,7 @@
         "encs":[
           "movingsnow",
           "enc_w_coldsnap",
-		  "heatstowe",
+		  "enc_emberstone",
 		  "enc_w_coldsnap",
           "drippingwater",
           "frozenloam",
@@ -744,7 +740,7 @@
         "level":5,
         "length":30,
         "require":"g.preparetree>=1",
-        "desc":"one old fir, standing alone in middle of clearing. You can feel mystic powers flowing within it.",
+        "desc":"A fir older than the mountains stands alone in the midst of a clearing. You can feel the mystic powers flowing within it.",
         "run":{
           "stamina":0.5
         },
@@ -768,7 +764,7 @@
       {
         "id":"enc_w_castblood",
         "name":"drawing your blood",
-        "desc":"sealing the pact requires some blood being spilled",
+        "desc":"Sealing the pact requires some blood being spilled",
         "level":2,
         "run":{
           "life":2
@@ -792,7 +788,7 @@
       {
         "id":"enc_w_placegems",
         "name":"placing gems",
-        "desc":"magical gems will focus the power of the tree of rites.",
+        "desc":"Magical gems will focus the power of the tree of rites.",
         "level":2,
         "effect":{
           "unease":"0~2",
@@ -802,7 +798,7 @@
       {
         "id":"enc_w_setfocus",
         "name":"connecting focal points",
-        "desc":"snow golems will serve well for this purpose.",
+        "desc":"Snow golems will serve well for this purpose.",
         "level":2,
         "effect":{
           "weary":"0~2",
@@ -813,7 +809,7 @@
       {
         "id":"enc_w_attune",
         "name":"attuning to local magic",
-        "desc":"attuning to magic of the tree, before the rite proceeds.",
+        "desc":"Attuning to magic of the tree, before the rite proceeds.",
         "level":2,
         "effect":{
           "madness":"1~2",
@@ -912,7 +908,7 @@
         }
       },
       {
-        "id":"heatstowe",
+        "id":"enc_emberstone",
         "name":"emberstone",
         "desc":"Some latent heat springs here from the ground.",
         "effect":{
@@ -938,7 +934,7 @@
       {
         "id":"frozenloam",
 		"name":"frozen herbs",
-		"desc":"in the cold loam, a few herbs still survive.",
+		"desc":"A few herbs still survive in the frozen loam.",
         "level":3,
         "effect":{
           "rage":"1~3",
@@ -971,7 +967,7 @@
       {
         "id":"icegrave",
         "name":"ice grave",
-        "desc":"A person here was frozen alive. The body may still be of use.",
+        "desc":"A traveller here was frozen alive. The body may still be of use.",
         "effect":{
           "madness":"2~3",
           "weary":"1~4",

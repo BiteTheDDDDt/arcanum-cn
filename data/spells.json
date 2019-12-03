@@ -2270,6 +2270,7 @@
 		"attack":{
 
 			"targets":"enemies",
+			"kind":"earth",
 			"dot":{
 				"duration":30,
 				"dmg":"5~12",
