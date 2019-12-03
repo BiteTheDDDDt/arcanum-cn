@@ -723,8 +723,9 @@
         },
         "encs":[
           "movingsnow",
-          "chillingatmosphere",
-          "heatstowe",
+          "enc_w_coldsnap",
+		  "heatstowe",
+		  "enc_w_coldsnap",
           "drippingwater",
           "frozenloam",
           "w_crystalsocket",
@@ -755,7 +756,7 @@
           "enc_w_drawscheme",
           "enc_w_placegems",
           "enc_w_setfocus",
-          "enc_w_attune"
+		  "enc_w_attune"
         ]
       }
     ],
@@ -837,7 +838,7 @@
       {
         "id":"enc_w_windbarrier",
         "name":"windbarrier",
-        "desc":"Setting up a barrier to stop the harsh winds",
+        "desc":"Building a barrier against the harsh winds",
         "effect":{
           "weary":"1~2",
           "airlore.exp":2
@@ -850,7 +851,7 @@
       {
         "id":"enc_w_conjuring",
         "name":"conjuring",
-        "desc":"conjuring a fire elemental at the magical circle, to help stave away the cold",
+        "desc":"conjuring a fire elemental at the magic circle, to help stave away the cold",
         "effect":{
           "mana":"0.5~1",
           "firelore.exp":3,
@@ -881,7 +882,7 @@
       {
         "id":"enc_w_legends",
         "name":"stories",
-        "desc":"Listening to the elderly talk about winter legends.",
+        "desc":"Listening to elders recite their winter legends.",
         "effect":{
           "bf":"1~2",
           "unease":"0~2",
@@ -893,27 +894,28 @@
           "history.max":0.01
         }
       },
-      {
-        "id":"chillingatmosphere",
-        "name":"chilling atmosphere",
-        "desc":"Sudden gust of wind chills you down to your bone.",
+	  {
+        "id":"enc_w_coldsnap",
+        "name":"cold snap",
+        "desc":"A sudden burst of icy winds chills you to the bone.",
         "effect":{
-          "weary":"-1~3",
-          "unease":"-1~3",
-          "frost":"1~2",
-          "icelore.exp":"1~3"
+		"weary":"-1~3",
+		"unease":"-1~3",
+		"frost":"1~2",
+		"icelore.exp":"1~3",
+        "hp":"-2~-4",
+        "fire":"-0.2~-0.3"
         }
       },
       {
         "id":"heatstowe",
-        "name":"Heat spot",
+        "name":"heat spot",
         "desc":"Ground where it is unusually hot.",
         "effect":{
           "madness":"1~2",
           "hp":"-1~-2",
           "frost":"-2~-3",
           "fire":"0.2~0.3",
-          "icelore.exp":"0~2",
           "firelore.max":0.001
         }
       },
@@ -948,7 +950,7 @@
       {
         "id":"w_crystalsocket",
         "name":"sparkling crystals",
-        "desc":"a vein of crystals embedded in the cave wall, sparkling in the dark.",
+        "desc":"A vein of crystals embedded in the cave wall, sparkling in the dark.",
         "level":3,
         "effect":{
           "rage":"1~3",
@@ -964,7 +966,7 @@
       {
         "id":"icegrave",
         "name":"ice grave",
-        "desc":"Where someone was frozen alive.",
+        "desc":"A body here was frozen alive.",
         "effect":{
           "madness":"2~3",
           "weary":"1~4",
@@ -983,7 +985,7 @@
       {
         "id":"icesculpture",
         "name":"ice sculpture",
-        "desc":"Humanoid figure that formed out of ice and snow, ready to be used.",
+        "desc":"Humanoid figure formed from ice and snow. The right enchantment could give it life.",
         "level":2,
         "effect":{
           "weary":"1~4",
@@ -999,7 +1001,7 @@
       {
         "id": "iceorb",
         "name": "orb of winters",
-        "desc": "A snowglobe that has somehow gained magical powers. It reminds you of colder days.",
+        "desc": "A snowglobe with magical powers. It reminds you of colder days.",
         "level": 10,
         "material": "water",
         "unique": true,
