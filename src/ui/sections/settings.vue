@@ -107,10 +107,8 @@ export default {
 	</div>-->
 
 	<div class="note-text sm">thanks to:<br>
-		kermit tears<br>
 		dbulm2<br>
-		mathias<br>
-		vondrey
+		mathias
 	</div>
 
 	<button class="close" @click="close">close</button>

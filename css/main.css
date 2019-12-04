@@ -74,6 +74,30 @@ body.darkmode {
 	color: #D7DADC;
 }
 
+    /*div.bar { border: 2px solid #000; overflow: hidden; padding: unset; position: relative; background: #000A; }*/
+    div.bar {
+        position: relative;
+        border: 2px solid #000; box-sizing: content-box;
+        margin: 0;
+        overflow: hidden; padding: unset; background: #0001; height: 24px; min-height: unset;
+    }
+    div.bar .bar-text {
+        font-size: 1.0rem; position: absolute; top:50%; right: var(--tiny-gap); transform: translate( 0, -50% );
+        text-align: right; padding: 0 0.5em; color: #000; background: #FFF8; border-radius: 4px;
+        line-height: 16px;
+    }
+
+	.darkmode div.bar .bar-text {
+	color: var( --progbar-dark-text );
+}
+
+    body.compact div.bar .fill { border-radius: 0 4px 4px 0; }
+    body.compact div.bar { height: 14px; border-radius: 6px; }
+    body.compact div.bar .bar-text { font-size: 0.7rem; line-height: 10px; }
+
+button { color: var(--button-text-color); border: 1px solid #0006; }
+button { outline: none; }
+button:disabled { opacity: 0.3; color: unset; }
 
 button { color: var(--button-text-color); border: 1px solid #0006; }
 button { outline: none; }

@@ -93,16 +93,22 @@ export default {
 
 <style scoped>
 
-div.vitals {
-	margin:4px 8px;
-	flex-basis: 19%;
-	min-width: 200px;
-}
+    div.vitals {
+        text-transform: capitalize;
+        margin: 0; padding: 0;
+        min-width: 200px; overflow-y :auto; overflow-x: hidden;
+    }
+	div.vitals .bars {
+		display: flex; flex-flow: column;
+		width: -moz-available;
+		width:-webkit-fill-available;
+	}
 
-div.vitals .bars {
-	width: -moz-available;
-	width:-webkit-fill-available;
-}
+    div.vitals .bars tr { display: flex; align-items: center; }
+    div.vitals .bars tr td:nth-child(2) div { display: flex; flex-flow: column; justify-content: center; }
+    div.vitals .bars tr:first-child { min-height: 4em; }
+    div.vitals .bars tr:not(:first-child) { padding: var(--sm-gap) var(--sm-gap); }
+	div.vitals .bars tr td:nth-child(1) { flex-basis: 50%; }
 
 table .td-prog {
 	columns: 2;

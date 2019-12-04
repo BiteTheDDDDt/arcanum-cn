@@ -106,45 +106,43 @@ export default {
 
 <style scoped>
 
-div.outlog {
-	display:flex;
-	flex-flow: column nowrap;
-	overflow-y:auto;
-	max-height: 82vh;
-}
 
-div.log-view {
-	border-left:1px solid var(--very-quiet-text-color);
-	display:flex;
-	flex-flow: column nowrap;
-	margin-left: 8px;
-	flex-basis:20%;
-	max-width: 250px;
-	max-height: inherit;
-}
+    div.log-view {
+		border-left:1px solid var(--very-quiet-text-color);
+		display:flex;
+		flex-flow: column nowrap;
+		margin-left: 8px;
+		flex-basis:20%;
+		max-width: 250px;
+		max-height: inherit;
+        min-width: 200px;
+        margin: 0;
+	}
 
-div.top-span {
-	max-height:64px;
-	display:flex;
-	flex-flow: row nowrap;
-	margin: 2px 8px 5px;
-	padding-bottom: 2px;
-	border-bottom: 1px solid rgb(88, 87, 87);
+    div.log-view div.top-span {
+		max-height: unset;
+		margin: 0;
+		border-bottom: 1px solid var(--separator-color);
+		display:flex;
+		flex-flow: row nowrap;
+		margin: 2px 8px 5px;
+		padding-bottom: 2px;
+	}
 
-}
+    div.log-view div.top-span .checks {
+        display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr;
+        height: 50px; align-items: center;
+		font-size: 0.8em;
+		display:flex;
+		flex-flow: row wrap;
+		align-items: flex-start;
+    }
+    div.log-view div.top-span .checks span { flex-basis: 50%; overflow: hidden; white-space: nowrap; }
 
-span.checks {
-	display:flex;
-	flex-flow: row wrap;
-	align-items: flex-start;
-}
-
-.checks span { flex-basis: 50%; }
-
-/*div.log-item {
-	display:flex;
-	flex-direction: column;
-	margin: 8px 0px;
-}*/
+	div.log-view .outlog {
+		display:flex;
+        overflow-y: auto; flex-direction: column;
+        max-height: unset; flex: 1; font-size: var(--compact-small-font);
+	}
 
 </style>

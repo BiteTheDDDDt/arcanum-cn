@@ -138,11 +138,13 @@ div.bestiary {
 display:flex;
 flex-direction: column;
 margin-left:12px;
-height:100%;
+padding:0;
+margin:0;
 }
 
 .char-list {
 	width:100%;
+	padding: 0; margin: 0;
 	overflow-y:auto;
 	margin-bottom:14px;
 }

@@ -78,10 +78,6 @@ export default {
 
 <style scoped>
 
-.separate {
-	width:90%;
-}
-
 div.skills .title > span {
 	align-self:center
 }
@@ -90,22 +86,41 @@ div.skills {
 	height:100%;
 	width:(100% - 40px );
 	max-width:( 100% - 40px );
-	padding-left:16px;
+	padding: 0;
 	display:flex;
 	flex-flow: column nowrap;
 	align-items: center;
 }
 
+    body.compact div.subs { justify-content: center;}
+	body.compact div.subs div.skill { background: var(--list-entry-background); }
+	body.compact div.subs div.skill > div > div .bar { max-height: 6px; background: #0001; border: none; margin: 0.5em }
 
-div.subs {
-	margin: 14px 0px;
-	padding-right:16px;
-	overflow-y: auto;
-}
+    div.subs {
+		overflow-y: auto;
+        display: grid; grid-template-columns: repeat( auto-fit, minmax( 256px, 1fr) );
+        margin: 0; padding: var(--md-gap); overflow-x: hidden; gap: var(--sm-gap);
+        width: 100%; justify-content: space-between;
+    }
 
-div.skill {
-	margin-bottom: 20px;
-	width:40%;
+    div.subs div.skill {
+        margin-bottom: 0; width: unset; flex-basis: 45%; box-sizing: border-box;
+        padding: var(--md-gap); text-transform: capitalize; font-size: var(--compact-small-font);
+         border-radius: var(--list-entry-border-radius);
+    }
+    div.sub div.skill button { font-size: 0.75em; }
+    div.sub div.skill > div {
+        font-size: 0.75em; position: relative; text-align: right; display: flex; flex: 1;  align-items: center;
+    }
+    div.subs div.skill > div > div { flex: 1; }
+    div.subs div.skill .separate span:first-child { text-overflow: ellipsis; white-space: nowrap; overflow:hidden;}
+    div.subs div.skill .separate span:nth-child(2) {
+        flex-basis: 50%;
+        color: var(--quiet-text-color);
+	}
+
+.separate {
+	width:90%;
 }
 
 </style>
