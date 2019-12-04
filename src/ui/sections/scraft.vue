@@ -215,7 +215,7 @@ div.spells .custom {
 }
 
 .crafting .options {
-	padding-bottom: 4px;
+	padding-bottom: var(--tiny-gap);
 }
 
 div.spellcraft .bottom {

@@ -256,13 +256,13 @@ div.furniture {
 	width: 100%;
 	overflow-y: auto;
 	height:100%;
-	margin-bottom: 4px;
+	margin-bottom:var(--md-gap);
 }
 
 div.home-view .furniture .item-table {
 	 text-transform: capitalize;
 	 flex-grow: 1;
-     flex: 1; min-height: 0; width: 100%; max-width: 420px;
+     flex: 1; min-height: 0; width: 100%; max-width: 20rem;
      display: flex; flex-direction: column;
 }
 div.home-view .furniture .item-table tr { display: flex; padding: var(--sm-gap); }
@@ -279,7 +279,7 @@ table .count, table .space {
 	text-align: center;
 }
 table .name {
-	padding: 0px 8px 0px 12px;
+	padding: 0 var(--md-gap) 0 0.9rem;
 	min-width:120px;
 	text-align: left;
 }

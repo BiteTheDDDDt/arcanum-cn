@@ -89,7 +89,7 @@ export default {
 span.vers {
 	font-size: 0.9em;
 	align-self: center;
-	margin-bottom: 4px;
+	margin-bottom: var(--sm-gap);
 }
 
 div.text-button a {
@@ -101,7 +101,7 @@ input[type="file"] {
 }
 
 #drop-file {
-	border: 1.75px dashed rgb(117, 117, 117);
+	border: var(--tiny-gap) dashed var(--popup-border);
 }
 
 div.top-bar {
@@ -111,17 +111,17 @@ div.top-bar {
 	justify-items: flex-start;
 	align-items: center;
 	align-content: center;
-	min-height:56px;
+	min-height:var(--topbar-height);
 	max-width:100%;
 	overflow:hidden;
-	padding: 0px 14px 4px;
+	padding: 0 1rem var(--sm-gap);
 	border-bottom: 1px solid var(--separator-color);
 }
 
 
 .top-bar .items {
 	display:flex;
-	margin-left:20px;
+	margin-left:var(--lg-gap);
 }
 
 .load-opts {
@@ -134,7 +134,7 @@ div.top-bar {
 	max-height:29px;
 }
 .load-opts .text-button {
-	max-height:21px;
+	max-height:var(--lg-gap);
 }
 
 .link-bar {
@@ -146,12 +146,12 @@ div.top-bar {
 }
 
 .link-bar a {
-	margin:0px 10px 4px;
+	margin:0 var(--md-gap) var(--sm-gap);
 	align-self:center;
 }
 
 span.load-message {
-	padding: 8px 8px 2px;
+	padding: var(--md-gap) var(--md-gap) var(--tiny-gap);
 }
 
 </style>

@@ -75,7 +75,7 @@ export default {
 <style scoped>
 
 .mood {
-	border: 2px solid black;
+	border:var(--tiny-gap) solid black;
 	width:42px;
 	height: 42px;
 }

@@ -63,7 +63,7 @@ span.separate {
 }
 button {
 	max-height:2.1rem;
-	margin-top:4px;
-	padding:3px;
+	margin-top:var(--sm-gap);
+	padding:var(--sm-gap);
 }
 </style>

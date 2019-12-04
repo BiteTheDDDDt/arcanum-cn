@@ -201,7 +201,7 @@ div.player-view {
 	display:flex;
 	flex-direction: row;
 	height:100%;
-	padding-left:14px;
+	padding-left:1rem;
 	justify-content: space-between;
 }
 
@@ -213,7 +213,7 @@ div.player-view div.player-tables {
 }
 
 div.player-tables div {
-	margin-top:10px;
+	margin-top:var(--md-gap);
 	flex-basis: 50%;
 }
 
@@ -226,7 +226,7 @@ div.player-view input[type=text] {
 }
 
 td, th {
-	padding: 2px 4px;
+	padding:var(--tiny-gap) var(--sm-gap);
 	vertical-align: text-top;
 }
 

@@ -179,7 +179,7 @@ div.spells {
 
 	display:flex;
 	flex-flow: column nowrap;
-	padding: 8px 14px;
+	padding: var(--sm-gap) var(--md-gap);
 	height:100%;
 
 }
@@ -196,7 +196,7 @@ div.spells .spellbook {
 
 div.spells .spelllist {
 	border-left: 1px solid var( --separator-color );
-	width:140px;
+	width:5rem;
 	padding: var( --tiny-gap );
 	flex-shrink: 1;
 }
@@ -216,7 +216,7 @@ div.spells div.filters > div input[type=number] {
 		margin-left: 1em;
 		min-width: unset;
 		max-width: unset;
-		padding: 4px 0;
+		padding:var(--tiny-gap) 0;
 		font-size: 105%;
 }
 

@@ -137,7 +137,7 @@ tr th {
 div.bestiary {
 display:flex;
 flex-direction: column;
-margin-left:12px;
+margin-left:0.9em;
 padding:0;
 margin:0;
 }
@@ -146,19 +146,19 @@ margin:0;
 	width:100%;
 	padding: 0; margin: 0;
 	overflow-y:auto;
-	margin-bottom:14px;
+	margin-bottom:1rem;
 }
 
 table {
-	border-spacing: 4px 0px;
+	border-spacing: var(--sm-gap) 0;
 	border-collapse: collapse;
-	row-gap: 4px;
-	column-gap: 10px;
+	row-gap: var(--sm-gap);
+	column-gap: var(--md-gap);
 }
 
 tr:first-child th {
 	border-bottom: 1pt solid black;
-	margin: 4px 4px;
+	margin:var(--sm-gap);
 }
 
 tr > th:first-of-type {
@@ -166,11 +166,11 @@ tr > th:first-of-type {
 }
 
 th {
-	padding: 4px 10px;
+	padding: var(--sm-gap) var(--md-gap);
 }
 
 td.num-align {
-	padding: 8px;
+	padding: var(--md-gap);
 }
 
 </style>

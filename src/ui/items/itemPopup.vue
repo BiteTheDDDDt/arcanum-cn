@@ -52,12 +52,12 @@ div.pop-title {
 
 	font-weight: bold;
 	border-bottom: 1px solid black;
-	margin-bottom: 8px;
+	margin-bottom: var(--md-gap);
 
 }
 
 .popup-content {
-	padding: 10px;
+	padding: var(--md-gap);
 }
 
 </style>

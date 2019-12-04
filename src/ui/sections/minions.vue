@@ -117,7 +117,7 @@ div.minions .rez {
 
 div.minions .minion-title {
 	display:flex;
-	width: 380px;
+	width: 12rem;
 	justify-content: space-between;
 }
 
@@ -125,7 +125,7 @@ div.minions .warn-text {
 	margin-bottom: var( --sm-gap );
 }
 div.minions {
-	padding-left:16px;
+	padding-left:1rem;
 	padding-top: var( --tiny-gap );
 	height:100%;
 }
@@ -136,16 +136,16 @@ div.minions {
 }
 
 table {
-	border-spacing: 4px 0px;
+	border-spacing: var(--sm-gap) 0;
 	border-collapse: collapse;
-	row-gap: 4px;
-	column-gap: 10px;
+	row-gap: var(--sm-gap);
+	column-gap: var(--md-gap);
 
 }
 
 tr:first-child th {
 	border-bottom: 1pt solid black;
-	margin: 4px 4px;
+	margin: var(--sm-gap);
 }
 
 tr > th:first-of-type {
@@ -153,11 +153,11 @@ tr > th:first-of-type {
 }
 
 th {
-	padding: 4px 10px;
+	padding: var(--sm-gap) var(--md-gap);
 }
 
 td.num-align {
-	padding: 8px;
+	padding: var(--md-gap);
 }
 
 </style>

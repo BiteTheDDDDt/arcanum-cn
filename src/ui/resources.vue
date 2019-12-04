@@ -53,7 +53,7 @@ div.res-list {
 	overflow-x:visible;
 	width: fit-content;
 	margin: 0; padding: 0 var(--tiny-gap);
-	min-width: 200px;
+	min-width: 11rem;
 }
 
 .rsrc {
@@ -64,7 +64,7 @@ div.res-list {
 .rsrc .item-name {
 	flex:1;
 	color:#999;
-	padding-right: 6px;
+	padding-right: var(--sm-gap);
 }
 
 </style>

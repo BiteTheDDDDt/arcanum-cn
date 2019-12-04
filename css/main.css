@@ -1,7 +1,7 @@
 :root {
 	--background-color: #FAFAFA;
-	--button-text-color: #000C;
-	--action-button-border-color: #000C;
+	--button-text-color: #000000cc;
+	--dark-border-color:#181818;
 	--quiet-text-color: #888;
 	--very-quiet-text-color: #AAA;
 	--accent-color-hover: #Dba659;
@@ -23,6 +23,7 @@
 	--subtle-border-radius: 4px;
 
 	--quickbar-height:52px;
+	--topbar-height:56px;
 
 	--high-depth:30000;
 	--md-high:20000;

@@ -92,16 +92,23 @@ div.skills {
 	align-items: center;
 }
 
-    .skill div:last-child { color: #999; text-align: center; }
+	.skill div:last-child {
+		color: var(--quiet-text-color);
+		text-align: center; }
 	body.compact .skill div:last-child { display: flex; }
 
     body.compact div.subs { justify-content: center;}
 	body.compact div.subs div.skill { background: var(--list-entry-background); }
-	body.compact div.subs div.skill > div > div .bar { max-height: 6px; background: #0001; border: none; margin: 0.5em }
+	body.compact div.subs div.skill > div > div .bar {
+		max-height: var(--md-gap);
+		background: var(--list-entry-background);
+		border: none;
+		margin: 0.5em
+	}
 
     div.subs {
 		overflow-y: auto;
-        display: grid; grid-template-columns: repeat( auto-fit, minmax( 256px, 1fr) );
+        display: grid; grid-template-columns: repeat( auto-fit, minmax( 10rem, 1fr) );
         margin: 0; padding: var(--md-gap); overflow-x: hidden; gap: var(--sm-gap);
         width: 100%; justify-content: space-between;
     }
