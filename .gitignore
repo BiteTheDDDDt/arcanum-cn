@@ -1,6 +1,7 @@
 test/**
 dist/**
 dev/**
+kong/**
 vers.json
 dist/wizrobe.dev.bundle.js
 arcanum.zip

@@ -30,7 +30,7 @@ import Loader from './util/jsonLoader';
 import { splitKeyPath } from './util/util';
 import GClass from './items/gclass';
 import Module from './modules/gmodule';
-import { SKILL, ENCOUNTER, MONSTER, ARMOR, WEAPON, HOME, POTION, ITEM } from './values/consts';
+import { SKILL, ENCOUNTER, MONSTER, ARMOR, WEAPON, HOME, POTION, ITEM, RESOURCE } from './values/consts';
 
 const DataDir = './data/';
 
@@ -232,6 +232,8 @@ export default {
 		if ( lists.encounters ) inst.encounters = this.initItems( items, lists['encounters'], Encounter, ENCOUNTER, ENCOUNTER);
 		if ( lists.monsters ) inst.monsters = this.initItems( items, lists['monsters'], Monster, MONSTER, MONSTER );
 
+		if ( lists.rares ) inst.rares = this.initItems( items, lists['rares'], Item );
+
 		if ( lists.locales ) this.initItems( items, lists['locales'], Locale );
 		if ( lists.dungeons ) this.initItems( items, lists['dungeons'], Dungeon );
 		if ( lists.spells ) this.initItems( items, lists['spells'], Spell );
@@ -310,7 +312,7 @@ export default {
 				( def.stat === true ? new StatData(def) :
 				( def.reverse === true ? new RevStat(def) : new Resource( def ) )
 			);
-			res.type = 'resource';
+			res.type = RESOURCE;
 			items[def.id] = res;
 
 		}

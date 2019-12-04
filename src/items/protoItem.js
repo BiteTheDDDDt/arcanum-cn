@@ -1,5 +1,4 @@
 import GData from "./gdata";
-import { logObj, logPublic } from "../util/util";
 
 /**
  * Generic prototype for a wearable item.

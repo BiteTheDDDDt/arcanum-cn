@@ -184,7 +184,7 @@ export default class Explore {
 
 	/**
 	 * encounter complete.
-	 * @param {*} enc
+	 * @param {Encounter} enc
 	 */
 	encDone( enc ) {
 

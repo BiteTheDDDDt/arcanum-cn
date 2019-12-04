@@ -382,7 +382,7 @@
 		{
 			"id":"f_pumppatch",
 			"name":"pumpkin patch",
-			"tags":"t_garden,naturesource,spiritsource",
+			"tags":"plantsource,naturesource,spiritsource",
 			"desc":"a furrowed plot for growing pumpkins",
 			"require":"tier0",
 			"max":5,

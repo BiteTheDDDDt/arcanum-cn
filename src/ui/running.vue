@@ -1,7 +1,7 @@
 <script>
 import Game from '../game';
 import {HALT_ACT} from '../events';
-import { SKILL, DUNGEON, RAID, EXPLORE } from '../values/consts';
+import { SKILL, DUNGEON, RAID, EXPLORE, LOCALE, TYP_RUN } from '../values/consts';
 
 export default {
 
@@ -16,6 +16,10 @@ export default {
 		},
 		levelStr(a){
 			return ' (' + Math.floor( a.valueOf() ) + '/' + Math.floor(a.max.valueOf() ) +')';
+		},
+
+		canHobby(a){
+			return a.type !== TYP_RUN;
 		},
 
 		halt(a) { this.emit( HALT_ACT, a); },
@@ -55,7 +59,7 @@ export default {
 
 	<div class="relative" v-for="v in runner.actives" :key="v.id">
 		<button class="stop" @click="halt(v)">&nbsp;X&nbsp;</button><span>{{ actionStr(v) }}</span><span v-if="v.type==='skill'">{{levelStr(v)}}</span>
-		<button v-if="pursuits.max>0" :class="['pursuit', pursuits.includes( baseAction(v) ) ? 'current' : '']"
+		<button v-if="pursuits.max>0&&canHobby(v)" :class="['pursuit', pursuits.includes( baseAction(v) ) ? 'current' : '']"
 			@click="toggleHobby(v)"> F </button>
 	</div>
 

@@ -5,7 +5,7 @@ import { SKILL } from '../values/consts';
 const EXP_RATIO = 0.35;
 
 /**
- * Starting length for skills of various level.
+ * Starting exp length for skills of various level.
  * @param {number} n
  */
 const levLength = (n)=>{ return 50*Math.pow( (1+EXP_RATIO), n ) }

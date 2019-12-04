@@ -1,38 +1,87 @@
 {
 	"module":"winter",
-
 	"sym":"❄️",
-
 	"data":{
-
-  	"resources":[
+		"events":[
+			{
+				"id":"evt_mountain",
+				"require":"evt_helper",
+				"name":"wintertide",
+				"desc":"The winter is colder than ever, are new horrors have appeared with the chill. The gales from Thandhrun groan more loudly each day and bear investigation. Knowledge of fire should help you prepare."
+      },
       {
-        "id":"snowman",
-        "desc":"A moving snow Person",
-        "require":"g.emblemOfIce>=1",
-        "max":5,
-        "effect":{
-          "frost.rate":1,
-          "icelore.max":0.5
+        "id":"evt_snowcopy",
+        "name":"snow double",
+        "desc":"A copy of yourself arises from living snow. You feel its limbs like you feel your own arms."
+      },
+      {
+        "id":"iceshard0",
+        "name":"ice shard",
+        "desc":"After a few preliminary tests of the spell, you feel the potential in it.",
+        "require":"g.iceshard>=10",
+        "mod":{
+          "frost.rate":2,
+          "icelore.max":1
         }
       },
       {
+        "id":"iceshard1",
+        "name":"ice shard",
+        "desc":"With each Ice Shard cast you feel your power grow, but your warmth begins to fade as well.",
+        "require":"g.iceshard>=100",
+        "mod":{
+          "frost.rate":5,
+          "icelore.max":1
+        }
+      },
+      {
+        "id":"iceshard2",
+        "name":"ice mastery",
+        "desc":"Your power is immeasrable, with ice as your partner. Yet something feels wrong. The warmth is gone",
+        "require":"g.iceshard>=1000",
+        "mod":{
+          "hearth.mod.frost.rate":"-100%",
+          "icelore.max":4,
+          "frost.mod.hp.rate":"-200%"
+        }
+      },
+      {
+        "id":"evt_w_legend",
+        "name":"legends tell",
+        "desc":"of a tree standing in the middle of the icy wasteland, which contains ancient powers"
+      }
+    ],
+  	"resources":[
+      {
+        "id":"snowman",
+        "name":"snomunculus",
+        "desc":"A being of living snow",
+        "require":"g.snowman>=1",
+        "max":5,
+        "mod":{
+          "frost.rate":1,
+          "icelore.max":0.5
+		},
+		"flavor":"It's not a snowman. Why would you say that?"
+      },
+      {
         "id":"livingsnow",
-        "desc":"Snow that pulsates and beats like a heart",
-        "locked":false,
+        "desc":"Snow that pulsates and beats like a heart; it melts away slowly",
+        "require":"g.livingsnow>=1",
         "max":20,
         "mod":{
           "icelore.rate":0.1,
           "livingsnow.rate":-0.0001,
           "water.rate":0.01
-        }
+        },"flavor":"there's a metaphor here somewhere."
       },
       {
         "id":"frost",
-        "desc":"Its chilling and it reduces your effectivity",
-        "locked":false,
-        "max":100,
-        "effect":{
+        "desc":"Its chill reduces your effectiveness",
+        "require":"g.frost>=1",
+        "max":80,
+        "reverse":true,
+        "mod":{
           "hp.rate":"-1%",
           "fire.rate":"-1%",
           "water.rate":"-1%",
@@ -40,9 +89,10 @@
         }
       },
       {
-        "id":"emblemOfIce",
-        "desc":"A ancient rune engraved in never melting ice",
-        "locked":false,
+        "id":"emblemofice",
+        "name":"emblem of ice",
+        "desc":"An ancient rune engraved in unmelting ice",
+        "locked":"g.emblemofice>=1",
         "max":1,
         "mod":{
           "ice.rate":0.2
@@ -50,20 +100,54 @@
       },
       {
         "id":"ice",
-        "desc":"Ice Mana",
-        "locked":false,
+        "desc":"ice mana",
+        "require":"g.icelore>=1",
         "max":0,
         "tags":"manas"
+      },
+      {
+        "id":"snowdrop",
+        "name":"snowdrop",
+        "tags":"herb,reagent",
+        "desc":"a little white flower that starts to bloom despite the cold",
+        "require":"snowdrop>=1",
+        "max":5,
+        "mod":{
+          "nature.rate":0.1
+        }
       }
     ],
     "actions":[
-      {
-        "id":"makeSnowman",
-        "name":"Making a moving Snowman",
-        "desc":"Do you wanna make a snowman, seriously change this",
-        "require":"g.emblemOfIce>=1",
+			{
+        "id":"restincottage",
+        "name":"warm yourself",
+        "desc":"Warm yourself by a fire",
+        "require":"g.frost>=10",
+        "verb":"Warming Hands",
+        "tags":"t_rest",
+        "slot":"rest",
+        "perpetual":true,
+        "fill":["stamina","manas","hp","stress"],
+		"effect":{
+			"manas":{
+				"skipLocked":true,
+				"value":0.5
+			},
+			"fire":0.5,
+			"stamina":0.5,
+          "hp":0.75,
+          "frost":-10,
+          "stress":-0.5
+		}
+      },
+	{
+        "id":"mk_snowman",
+		"name":"build snomunculus",
+		"desc":"Build a homunculus from snow",
+        "flavor":"It's not a snowman. Why would you say that?",
+        "require":"g.emblemofice>=1",
         "verb":"building",
-			"length":10,
+				"length":10,
         "cost":{
           "livingsnow":10,
           "souls":1
@@ -77,11 +161,11 @@
         }
       },
       {
-        "id":"meltSnowman",
-        "name":"Melt snowman",
-        "desc":"Liquifying the poor snowman",
+        "id":"makesnowman",
+        "name":"melt snomunculus",
+        "desc":"Liquify your cold creation.",
         "locked":"g.snowman>=1",
-        "verb":"Building",
+        "verb":"Melting",
         "cost":{
           "snowman":1,
           "fire":5
@@ -93,28 +177,310 @@
         }
       },
       {
-      	"id":"snowManMinion",
-      	"name":"snowman enlisted",
+        "id":"icystudy",
+        "name":"nixifer's study",
+        "require":"g.artictower>0",
+        "desc":"Nixifer's notes on the magical properties of ice.",
+        "length":75,
+        "repeat":false,
+        "cost":{
+          "emblemofice":1,
+          "tomes":1
+        },
+        "run":{
+          "research":2,
+          "ice":0.5
+        },
+        "result":{
+          "icelore.max":2,
+          "ice.rate":0.1
+        }
+      }
+		],
+		"upgrades":[
+			{
+        "id":"w_multitask",
+        "name":"workforce",
+        "desc":"Use your Snow Double as an extension of yourself",
+        "cost":{"gold":1},
+		"require":"g.evt_snowcopy>=1",
+		"warn":true,
+        "disable":["w_fame","w_scholar"],
+        "mod":{
+          "runner.max":1,
+          "stamina.rate":-0.6
+        }
+      },
+      {
+        "id":"w_fame",
+        "name":"donate copy",
+        "desc":"Donate your Snow Double to a wizarding academy",
+		"cost":{"gold":1},
+		"warn":true,
+        "require":"g.evt_snowcopy>=1",
+        "disable":["w_multitask","w_scholar"],
+        "result":{
+          "prestige":10
+        },
+        "mod":{
+          "gold.rate":0.5
+        }
+      },
+      {
+        "id":"w_scholar",
+        "name":"cold calculation",
+        "desc":"Dedicate your Snow Double to arcane studies.",
+		"cost":{"gold":1},
+		"warn":true,
+        "require":"g.evt_snowcopy>=1",
+        "disable":["w_fame","w_multitask"],
+        "mod":{
+          "skill.rate":"20%",
+          "focus.effect.runner.exp":"20%"
+        }
+      },
+      {
+		"id":"hearthexpansion",
+		"name":"expanded hearth",
+		"desc":"Doubles the effectiveness of your Hearths",
+		"require":"g.frost.rate>0&&g.hearth>=5",
+		"cost":{
+			"firegem":10
+		},
+		"mod":{
+			"hearth.mod.frost.rate":-1
+		}
+      },
+      {
+        "id":"warmpotion",
+        "name":"dew of icy fire",
+        "need":"potsource",
+        "require":"((g.icystudy+g.alchemist)>0&&(g.firelore+g.icelore)>=15&&g.potions>=7)||g.cheatunlock>=1",
+        "desc":"A sure way to combat the freezing cold. It will however, render many of your icy spells useless.",
+        "disable":["iceshard","iceshard0","iceshard1","iceshard2"],
+        "warn":true,
+        "cost":{
+          "ice":5,
+          "fire":10,
+          "firegem":1,
+          "watergem":1,
+          "snowdrop":2
+        },
+        "result":{
+          "icelore.mod.frost.rate":-0.3,
+          "hearth.mod.frost.rate":-1,
+          "snowman.mod.frost.rate":-0.8
+        }
+      },
+      {
+        "id":"preparetree",
+        "name":"preparation",
+        "desc":"preparing to enter the tree",
+        "require":"g.evil_sacrifice>=1||g.good_sacrifice>=1",
+        "cost":{
+          "bloodgem":2,
+          "watergem":5,
+          "livingsnow":15,
+          "gold":200,
+          "research":500,
+          "gems":20
+        }
+      },
+      {
+        "id":"good_sacrifice",
+        "name":"winter fog",
+        "desc":"You enter a relentless fog which the strongest spells do not disperse. At their center you find an altar of sacrifice. A small offering should do.",
+        "disable":"evil_sacrifice",
+        "warn":true,
+        "require":"g.evt_w_legend>1&&(g.evil==0||g.good==1)",
+        "cost":{
+          "gems":10,
+          "gold":200
+        },
+        "mod":{
+          "virtue":20,
+          "fire.rate":0.5,
+          "firelore.max":2,
+          "lightlore.max":1,
+          "light.rate":0.2,
+          "frost.rate":-1
+        }
+      },
+      {
+        "id":"evil_sacrifice",
+        "name":"winter fog",
+        "desc":"You enter a relentless fog which the strongest spells do not disperse. At their center you find an altar of sacrifice. Inwardly you smile, for you know just the thing.",
+        "disable":"good_sacrifice",
+        "require":"g.evt_w_legend>=1&&(g.good==0||g.evil==1)",
+        "warn":true,
+        "cost":{
+          "bodies":5,
+          "skulls":2
+        },
+        "mod":{
+          "evilamt":20,
+          "ice.rate":0.5,
+          "icelore.max":2,
+          "shadowlore.max":1,
+          "shadow.rate":0.2
+        }
+      }
+    ],
+		"spells":[
+      {
+      	"id":"snowminion",
+		"name":"frost golem",
+		"desc":"Transform a minor construct into a lumbering hulk of ice.",
       	"level":5,
       	"require":"g.snowman>=1",
-      	"school":"event",
+      	"school":"ice",
       	"buy":{
       		"frost.rate":-5
       	},
       	"cost":{
-      		"snowman":1,
-          "frost":-10
+      		"snowman":1
       	},
       	"effect":{
-          "snowmanMonster":1,
-          "frost":5
+          "snowmanmonster":1,
+          "frost":10
+        }
+      },
+      {
+        "id":"iceflame",
+        "name":"icy flame",
+		"level":3,
+		"desc":"A contradiction sustained by magic.",
+        "require":"(g.icelore>=10&&g.firelore>=10)||g.warmpotion",
+        "school":"ice",
+        "buy":{
+          "frost.rate":-2
+        },
+        "cost":{
+          "ice":3,
+          "fire":1
+        },
+        "at":{
+          "100":{
+            "attack.dot.effect.dmg.min":2,
+            "attack.dot.effect.dmg.max":5,
+            "attack.tohit":1,
+            "attack.dot.duration":5
+          },
+          "1000":{
+            "attack.dot.effect.dmg.min":5,
+            "attack.dot.effect.dmg.max":10,
+            "attack.tohit":2,
+            "attack.dot.duration":10
+          }
+        },
+        "attack":{
+          "damage":"5~10",
+          "tohit":7,
+          "dot":{
+            "duration":5,
+            "effect":{
+              "dmg":"3~5"
+            }
+          }
+        }
+      },
+      {
+        "id":"warmfield",
+        "name":"field of heat",
+        "level":5,
+        "require":"g.firelore>=5",
+        "school":"fire",
+        "buy":{
+          "firegem":4,
+          "arcana":1
+        },
+        "cost":{
+          "fire":2
+        },
+        "at":{
+          "30":{
+            "dot.duration":60
+          },
+          "100":{
+            "dot.duration":120
+          }
+        },
+        "dot":{
+          "duration":60,
+          "effect":{
+            "frost":"-2"
+          },
+          "mod":{
+            "player.resist.ice":20
+          }
+        }
+      },
+			{
+        "id":"iceshard",
+        "name":"ice shard",
+        "level":3,
+        "require":"g.ice>=3",
+        "school":"ice",
+        "buy":{
+            "frost.rate":-2,
+            "watergem":3
+        },
+        "cost":{
+            "ice":1
+        },
+        "at":{
+          "10":{
+            "attack.damage.min":2,
+            "attack.damage.max":4,
+            "attack.tohit":2,
+            "iceshard0":1
+          },
+          "50":{
+            "attack.damage.min":3,
+            "attack.damage.max":5
+          },
+          "100":{
+            "iceshard1":1,
+            "attack.damage.min":2,
+            "attack.damage.max":4,
+            "attack.tohit":2
+          },
+          "200":{
+            "attack.damage.min":2,
+            "attack.damage.max":4
+          },
+          "500":{
+            "attack.damage.min":2,
+            "attack.damage.max":3
+          },
+          "1000":{
+            "attack.damage.min":2,
+            "attack.damage.max":4,
+            "attack.tohit":2,
+            "iceshard2":1
+          },
+          "2000":{
+            "attack.damage.min":3,
+            "attack.damage.max":5
+          },
+          "10000":{
+            "attack.damage.min":3,
+            "attack.damage.max":5
+          }
+        },
+        "effect":{
+          "frost":2
+        },
+        "attack":{
+          "damage":"6~9",
+          "tohit":5
         }
       }
     ],
     "furniture":[
       {
         "id":"hearth",
-        "desc":"A warm fireplace",
+        "desc":"A warm fireplace; the more you have the more gems you require to create them.",
         "require":"g.frost>=10",
         "repeat":true,
         "cost":{
@@ -122,7 +488,8 @@
         },
         "mod":{
           "hearth.cost.firegem":1,
-          "frost.rate":-1
+          "frost.rate":-1,
+          "fire.rate":0.1
         }
       },
       {
@@ -144,14 +511,14 @@
     "skills":[
       {
         "id":"icelore",
-        "desc":"the study of ice",
-				"require":"g.emblemOfIce>=1",
+        "name":"cryomancy",
+        "desc":"The study of ice",
+				"require":"g.emblemofice>=1",
 				"buy":{
           "livingsnow":10
         },
         "run":{
-          "stamina":0.5,
-          "frost":-2
+          "stamina":0.5
         },
 				"result":{
           "sp":0.1
@@ -167,46 +534,51 @@
     ],
     "dungeons":[
       {
-      	"id":"snowyMountain",
-      	"name":"mountain",
-      	"desc":"The mountain is filled with the dangers of winter, but also with its fruits",
+      	"id":"snowymountain",
+      	"name":"thandhrune cavern",
+      	"desc":"The mountain is filled with the perils of winter, but also with its treasures",
       	"level":3,
       	"length":20,
-        "locked":false,
+        "require":"g.firelore>=5",
       	"run":{
       		"fire":0.2,
           "stamina":1
-      	},
+        },
+        "effect":{
+          "frost":2
+        },
       	"result":{
-      		"emblemOfIce":1,
-      		"title":"Explorer of the wintery mountain"
+      		"emblemofice":1,
+      		"title":"winter's heart"
       	},
       	"loot":{
       		"max":5
       	},
       	"log":{
-      		"name":"mountaineer",
+      		"name":"Mountaineer",
       		"desc":"You have survived the chilly winds and monsters of the white"
       	},
-      	"boss":"yeti",
+      	"boss":"iceyeti",
       	"enemies":[
-      		["iceElemental","iceElemental","iceElemental"],
-      		"avalanche",
-      		"troll",
-      		"icyWinds"
+          ["frostelemental","frostelemental","frostelemental"],
+			  "avalanche",
+			["iceelemental","iceelemental"],
+      		"w_troll",
+      		"icywinds"
       	]
       }
     ],
     "monsters":[
       {
-        "id":"iceElemental",
+        "id":"frostelemental",
+        "name":"frost elemental",
         "level":1,
         "kind":"elemental",
-        "desc":"A spiral of deadly ice cones",
+        "desc":"A spiral of deadly icicles",
         "hp":20,
         "defense":4,
         "attack":{
-          "name":"icecones",
+          "name":"icicles",
           "kind":"ice",
           "dmg":"5~8"
         },
@@ -218,33 +590,30 @@
         "id":"avalanche",
         "level":2,
         "kind":"hazard",
-        "desc":"A mass snow seemingly aiming for you while falling down the mountain",
+        "desc":"The mass of snow seems to aim directly for you as it tumbles down the mountain",
         "hp":100,
         "defense":-10,
         "attack":{
           "name":"chilling",
-          "kind":"ice",
-          "damage":"1~3",
-          "dot":{
-            "name":"submerged in snow",
-            "duration":3,
-            "frost":10
-          }
+		  "kind":"ice",
+		  "targets":"enemies",
+          "damage":"2~5"
         },
         "loot":{
         	"livingsnow":3
         }
       },
       {
-        "id":"troll",
+        "id":"w_troll",
+        "name":"ice troll",
         "level":3,
         "kind":"giant",
-        "desc":"A huge dumb looking creature with a massive club",
+        "desc":"A huge dumb looking creature with a club of ice",
         "hp":40,
         "defense":10,
         "attack":{
           "name":"smash",
-          "kind":"physical",
+          "kind":"blunt",
           "dmg":"10~15"
         },
         "loot":{
@@ -254,6 +623,7 @@
       },
       {
         "id":"icywinds",
+        "name":"icy winds",
         "level":2,
         "kind":"hazard",
         "desc":"A chilling wind",
@@ -263,37 +633,403 @@
         "attack":{
           "name":"Icy winds",
           "kind":"ice",
-          "dmg":"2~3",
-          "dot":{
-            "frost":5,
-            "fire.rate":-1
-          }
+          "dmg":"2~3"
         },
-        "result":{
+        "loot":{
         	"ice.rate":0.01,
           "icelore.max":0.1
-		}
-
+        }
       },
       {
-        "id":"yeti",
+        "id":"iceyeti",
+        "name":"Yeti",
         "level":5,
         "kind":"giant",
-        "desc":"A mythical creature only in legends",
+        "desc":"A mythical creature, found only in legends",
         "hp":200,
         "defense":20,
         "speed":1,
         "attack":{
           "name":"icybreath",
-          "kind":"ice",
-          "dmg":"15~25",
-          "effect":{
-            "frost":10
-          }
+		  "kind":"ice",
+		  "targets":"enemies",
+          "dmg":"35~55"
         },
         "loot":{
-        	"livingsnow":5,
-          "snowman":1
+        	"snowman":1
+        }
+      },
+			{
+        "id":"snowmanmonster",
+        "name":"frost golem",
+        "level":1,
+        "desc":"A hulking Golem sculpted in ice",
+        "hp":50,
+        "defense":8,
+        "speed":10,
+        "regen":2,
+        "attack":{
+          "name":"snowball",
+          "kind":"ice",
+          "dmg":"3~5"
+        },
+        "loot":{
+        	"livingsnow":1,
+			"watergem":1
+        }
+      }
+    ],
+    "locales":[
+      {
+        "id":"winter_village",
+        "name":"winter village",
+        "level":2,
+        "length":50,
+        "require":"g.emblemofice>=1",
+        "desc":"Now that you command the power of winter, the villagers ask you to help with their preparations",
+        "run":{
+          "stamina":0.4
+        },
+        "effect":{
+          "fire":0.2
+        },
+        "result":{
+          "icelore.max":0.5,
+          "livingsnow":10
+        },
+        "loot":{
+          "snowman":"1~2"
+        },
+        "encs":[
+          "enc_w_kidsplaying",
+          "enc_w_windbarrier",
+          "enc_w_conjuring",
+          "enc_w_candles",
+          "enc_w_legends"
+        ]
+      },
+      {
+        "id":"icelake",
+        "name":"ice lake",
+        "level":3,
+        "length":50,
+        "require":"g.emblemofice>=1",
+        "desc":"At the bottom of the frozen lake, numerous caves can be found, full of curiosities and wonders.",
+        "run":{
+          "stamina":0.5
+        },
+        "effect":{
+          "frost":2
+        },
+        "encs":[
+          "movingsnow",
+          "enc_w_coldsnap",
+		  "enc_emberstone",
+		  "enc_w_coldsnap",
+          "drippingwater",
+          "frozenloam",
+          "w_crystalsocket",
+          "enc_chest3",
+          "icegrave",
+          "icesculpture"
+        ]
+      },
+      {
+        "id":"treeofrites",
+        "name":"tree of rites",
+        "level":5,
+        "length":30,
+        "require":"g.preparetree>=1",
+        "desc":"A fir older than the mountains stands alone in the midst of a clearing. You can feel the mystic powers flowing within it.",
+        "run":{
+          "stamina":0.5
+        },
+        "effect":{
+          "frost":1
+        },
+        "result":{
+          "icelore.max":0.5,
+          "evt_snowcopy":1
+        },
+        "encs":[
+          "enc_w_castblood",
+          "enc_w_drawscheme",
+          "enc_w_placegems",
+          "enc_w_setfocus",
+		  "enc_w_attune"
+        ]
+      }
+    ],
+    "encounters":[
+      {
+        "id":"enc_w_castblood",
+        "name":"drawing your blood",
+        "desc":"Sealing the pact requires some blood being spilled",
+        "level":2,
+        "run":{
+          "life":2
+        },
+        "effect":{
+          "weary":"1~3",
+          "frost":"0~1"
+        }
+      },
+      {
+        "id":"enc_w_drawscheme",
+        "name":"drawing mystic schemes",
+        "desc":"the patterns must be layed precisely to direct the magic weaves.",
+        "level":2,
+        "effect":{
+          "madness":"1~2",
+          "bf":"1~3",
+          "frost":"0~1"
+        }
+      },
+      {
+        "id":"enc_w_placegems",
+        "name":"placing gems",
+        "desc":"Magical gems will focus the power of the tree of rites.",
+        "level":2,
+        "effect":{
+          "unease":"0~2",
+          "frost":"0~1"
+        }
+      },
+      {
+        "id":"enc_w_setfocus",
+        "name":"connecting focal points",
+        "desc":"Snow golems will serve well for this purpose.",
+        "level":2,
+        "effect":{
+          "weary":"0~2",
+          "rage":"0~1",
+          "frost":"0~2"
+        }
+      },
+      {
+        "id":"enc_w_attune",
+        "name":"attuning to local magic",
+        "desc":"Attuning to magic of the tree, before the rite proceeds.",
+        "level":2,
+        "effect":{
+          "madness":"1~2",
+          "frost":"0.5~2"
+        },
+        "result":{
+          "icelore.max":0.1
+        }
+      },
+      {
+        "id":"enc_w_kidsplaying",
+        "name":"playing in the snow",
+        "desc":"The children seem to enjoy the snowballs you conjuure from the air.",
+        "level":2,
+        "effect":{
+          "weary":"1~2",
+          "rage":"-1~0",
+          "befuddlement":"-1~-2",
+          "icelore.exp":3
+        },
+        "result":{
+          "livingsnow":"1~3",
+          "charm.max":0.01
+        }
+      },
+      {
+        "id":"enc_w_windbarrier",
+        "name":"windbarrier",
+        "desc":"Building a barrier against the harsh winds",
+        "effect":{
+          "weary":"1~2",
+          "airlore.exp":2
+        },
+        "level":2,
+        "result":{
+          "airlore.max":0.01
+        }
+      },
+      {
+        "id":"enc_w_conjuring",
+        "name":"conjuring",
+        "desc":"Conjuring a fire elemental at the magic circle. That should stave away the cold!",
+        "effect":{
+          "mana":"0.5~1",
+          "firelore.exp":3,
+          "conjuring.exp":5,
+          "madness":"2~3"
+        },
+        "level":2,
+        "result":{
+          "firelore.max":0.01,
+          "conjuring.max":0.02,
+          "frost.rate":-0.1
+        }
+      },
+      {
+        "id":"enc_w_candles",
+        "name":"crafting candles",
+        "desc":"Crafting everburning candles",
+        "effect":{
+          "unease":"1~2",
+          "crafting.exp":3
+        },
+        "level":2,
+        "result":{
+          "candle.max":0.05,
+          "crafting.max":0.01
+        }
+      },
+      {
+        "id":"enc_w_legends",
+        "name":"stories",
+        "desc":"Listening to elders recite their winter legends.",
+        "effect":{
+          "bf":"1~2",
+          "unease":"0~2",
+          "history.exp":3
+        },
+        "level":2,
+        "result":{
+          "evt_w_legend":"10%",
+          "history.max":0.01
+        }
+      },
+	  {
+        "id":"enc_w_coldsnap",
+        "name":"cold snap",
+        "desc":"A sudden burst of icy winds chills you to the bone.",
+        "effect":{
+		"weary":"-1~3",
+		"unease":"-1~3",
+		"frost":"1~2",
+		"icelore.exp":"1~3",
+        "hp":"-2~-4",
+        "fire":"-0.2~-0.3"
+        }
+      },
+      {
+        "id":"enc_emberstone",
+        "name":"emberstone",
+        "desc":"Some latent heat springs here from the ground.",
+        "effect":{
+          "madness":"1~2",
+          "hp":"-1~-2",
+          "frost":"-2~-3",
+          "fire":"0.2~0.3",
+          "firelore.max":0.001
+        }
+      },
+      {
+        "id":"drippingwater",
+        "name":"water source",
+        "desc":"Some of the ice here is melting. How it fights the cold is a mystery.",
+        "effect":{
+          "madness":"1~2",
+          "frost":"-1~0",
+          "water":"0.2~0.3",
+          "icelore.max":0.01,
+          "waterlore.max":0.002
+        }
+      },
+      {
+        "id":"frozenloam",
+		"name":"frozen herbs",
+		"desc":"A few herbs still survive in the frozen loam.",
+        "level":3,
+        "effect":{
+          "rage":"1~3",
+          "weary":"1~4",
+          "herbology.max":0.005
+        },
+        "loot":{
+          "herbs":"2~5",
+          "snowdrop":"20%",
+          "icethorn":"10%",
+          "manabell":"1%"
+        }
+      },
+      {
+        "id":"w_crystalsocket",
+        "name":"sparkling crystals",
+        "desc":"A vein of crystals embedded in the cave wall, sparkling in the dark.",
+        "level":3,
+        "effect":{
+          "rage":"1~3",
+          "weary":"1~4",
+          "earthlore.exp":"3~4"
+        },
+        "loot":{
+          "gems":"1~3",
+          "watergem":"0~1",
+          "firegem":"20%"
+        }
+      },
+      {
+        "id":"icegrave",
+        "name":"ice grave",
+        "desc":"A traveller here was frozen alive. The body may still be of use.",
+        "effect":{
+          "madness":"2~3",
+          "weary":"1~4",
+          "frost":"1~2",
+          "earthlore.max":0.001
+        },
+        "loot":{
+          "body":"4%",
+          "bones":{
+            "val":"0~2",
+            "pct":"40%"
+          },
+          "bloodgem":"5%"
+        }
+      },
+      {
+        "id":"icesculpture",
+        "name":"ice sculpture",
+        "desc":"Humanoid figure formed from ice and snow. The right enchantment will give it life.",
+        "level":2,
+        "effect":{
+          "weary":"1~4",
+          "ice":"-0.4",
+          "icelore.max":0.001
+        },
+        "loot":{
+          "snowman":"1"
+        }
+      }
+    ],
+    "rares":[
+      {
+        "id": "iceorb",
+        "name": "orb of winters",
+        "desc": "A snowglobe with magical powers. It reminds you of colder days.",
+        "level": 10,
+        "material": "water",
+        "unique": true,
+        "type": "weapon",
+        "tohit": 5,
+        "cost": 1,
+        "attack": {
+          "name": "blizzard",
+          "targets":"enemies",
+          "dot": {
+            "duration":20,
+            "kind": "water",
+            "dmg":"5~12",
+            "mod": {
+              "speed":-3
+            }
+          }
+        },
+        "mod": {
+          "ice.rate": "20%",
+          "ice.max": "20%",
+          "icelore.rate": 2,
+          "water.rate": "20%",
+          "water.max": "20%",
+          "waterlore.rate": 2,
+          "fire.rate": "-80%",
+          "fire.max": "-80%"
         }
       }
     ]

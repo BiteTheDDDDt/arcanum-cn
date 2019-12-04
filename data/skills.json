@@ -222,7 +222,7 @@
 		"id":"herbalism",
 		"school":"nature",
 		"require":"lore",
-		"need":"t_garden",
+		"need":"plantsource",
 		"buy":{
 			"research":25
 		},

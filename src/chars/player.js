@@ -8,6 +8,7 @@ import Events, { LEVEL_UP, NEW_TITLE, CHAR_TITLE, CHAR_NAME, CHAR_CLASS, EVT_STA
 import Wearable from "./wearable";
 import GData from "../items/gdata";
 import { toStats } from "../util/dataUtil";
+import { RESOURCE } from "../values/consts";
 
 const Fists = new Wearable({
 
@@ -417,7 +418,7 @@ export default class Player extends Char {
 		for( let p in this ) {
 
 			var obj = this[p];
-			if ( obj !== null && typeof obj === 'object' && obj.type === 'resource') res.push(obj);
+			if ( obj !== null && typeof obj === 'object' && obj.type === RESOURCE) res.push(obj);
 
 		}
 

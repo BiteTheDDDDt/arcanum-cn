@@ -235,7 +235,7 @@
 		"perpetual":true,
 		"verb":"botanicalizing",
 		"desc":"study plants and herbs.",
-		"need":"t_garden",
+		"need":"plantsource",
 		"require":"(g.witch+g.druid+g.alchemist+g.warden)>0",
 		"run":{
 			"stamina":0.3,
@@ -345,7 +345,7 @@
 		"perpetual":true,
 		"verb":"attuning",
 		"desc":"attune to primal forces of the world.",
-		"require":"(g.kell+g.elementalist+g.highelemental+g.avatar)>0",
+		"require":"(g.kell+g.elementalist+g.highelemental+g.c_avatar)>0",
 		"run":{
 			"stamina":0.5,
 			"fire":0.1,
@@ -559,13 +559,14 @@
 		"id":"dissect",
 		"name":"dissect cadaver",
 		"require":"g.dissection>=4",
+		"fill":["skulls", "bones"],
 		"desc":"dissect a body for components. only the best pieces will serve.",
 		"length":10,
 		"cost":{
 			"bodies":1
 		},
 		"result":{
-			"skull":1,
+			"skulls":1,
 			"bones":"2~4"
 		}
 	},
@@ -750,7 +751,7 @@
 			"trickery.exp":2,
 			"conjuration.exp":2,
 			"bones":"14%",
-			"skull":"5%",
+			"skulls":"5%",
 			"gems":"20%",
 			"bodies":"1%",
 			"managem":"7%",
@@ -767,7 +768,7 @@
 		"name":"gather herbs",
 		"desc":"Gather herbs used in potions and alchemy.",
 		"require":"g.herbalism>=2",
-		"need":"t_garden",
+		"need":"plantsource",
 		"cost":{
 			"stamina":0.3
 		},
@@ -810,6 +811,36 @@
 			"stress":-1
 		}
 	},
+	{
+
+        "id":"indulge",
+        "tags":"t_rest",
+        "verb":"indulging",
+        "owned":true,
+		"slot":"rest",
+		"require":"g.player.level>=9999",
+        "length":10,
+        "need":"g.tier2>0",
+        "fill":[ "stamina", "hp", "manas", "stress"],
+
+        "run":{
+
+			"gold":25,
+			"research":20
+
+        },
+        "effect":{
+
+            "stress":-2,
+            "manas":{
+                "skipLocked":true,
+                "value":1
+            },
+            "stamina":1.2,
+            "hp":2
+        }
+
+    },
 	{
 		"id":"slumber",
 		"desc":"The deepest sleep guards the greatest insights.",
@@ -1115,6 +1146,31 @@
 			"arcana":1
 		}
 
+	},
+	{
+		"id":"timesiphon",
+		"name":"time siphon",
+		"perpetual":true,
+		"desc":"Draw back that which was lost.",
+		"tags":"t_rest",
+		"slot":"rest",
+		"require":"timegem",
+		"run":{
+			"timegem":0.1
+		},
+		"effect":{
+			"stamina":5,
+			"tomes":3,
+			"codices":10,
+			"scrolls":20,
+			"gold":100,
+			"research":200,
+			"gem":1,
+			"managem":1,
+			"manas":2,
+			"hp":20
+		},
+		"flavor":"if I could turn back time"
 	},
 	{
 		"id":"mapstars",

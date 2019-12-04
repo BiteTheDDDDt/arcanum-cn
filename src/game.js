@@ -11,7 +11,7 @@ import Resource from './items/resource';
 import Skill from './items/skill';
 import Stat from './values/stat';
 import { TEAM_ALLY } from './chars/npc';
-import { MONSTER, TYP_PCT, TYP_RANGE, P_TITLE, P_LOG } from './values/consts';
+import { MONSTER, TYP_PCT, TYP_RANGE, P_TITLE, P_LOG, RESOURCE } from './values/consts';
 
 var techTree;
 
@@ -332,7 +332,7 @@ export default {
 
 		}
 
-		if ( !item.rate || !a.effect || item.rate.value >= 0 ) return item.maxed();
+		if ( !item.rate || !a.effect || item.rate >= 0 ) return item.maxed();
 
 		// actual filling rate.
 		tag = a.effect[ tag || v ];
@@ -750,7 +750,7 @@ export default {
 			}
 
 			// don't need to actually use an action or resource to mark it unlocked.
-			return ( it.type === 'resource' || it.type === 'action') ?
+			return ( it.type === RESOURCE || it.type === 'action') ?
 				(it.locked === false) : it.value > 0;
 
 		} else if (  Array.isArray(test) ) {
@@ -762,7 +762,7 @@ export default {
 			/**
 			 * @todo: quick patch in case it was a data item.
 			 */
-			if ( test.id ) return ( test.type === 'resource' || test.type === 'action') ?
+			if ( test.id ) return ( test.type === RESOURCE || test.type === 'action') ?
 			(test.locked === false) : test.value > 0;
 
 			// @todo: take recursive values into account.
@@ -779,7 +779,7 @@ export default {
 
 		} else if ( test.type != null ) {
 
-			return ( test.type === 'resource' || test.type === 'action') ? !test.locked : test.value > 0;
+			return ( test.type === RESOURCE || test.type === 'action') ? !test.locked : test.value > 0;
 
 		} //else console.warn( 'unknown test: ' + test.id || test );
 
@@ -970,8 +970,10 @@ export default {
 	 */
 	canRun( it ) {
 
-		if ( !it.canRun ) console.error( it.id + ' missing canRun()');
-		else return it.canRun( this, TICK_LEN );
+		if ( !it.canRun ) {
+			console.error( it.id + ' no canRun()');
+			return false;
+		} else return it.canRun( this, TICK_LEN );
 
 	},
 

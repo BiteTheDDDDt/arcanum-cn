@@ -1,8 +1,8 @@
 import Game from '../game';
 import Events, {ACT_DONE} from '../events';
 import Proxy from './proxy';
+import { TYP_RUN } from '../values/consts';
 
-export const TYPE_RUN = 'runnable';
 
 /**
  * Wraps an action in progress with an action target, and possible
@@ -19,7 +19,7 @@ export default class Runnable extends Proxy {
 		};
 	}
 
-	get type() { return TYPE_RUN; }
+	get type() { return TYP_RUN; }
 
 	/**
 	 * @property {?GData} target - target of the running item.
@@ -40,14 +40,15 @@ export default class Runnable extends Proxy {
 		if ( this._target) this._target.running=v;
 	}
 
-	get repeatable() { return this._item && this._item.repeatable || false; }
+	get repeat() { return (this._item && this._item.repeat) || false; }
 
 	percent() { return this._length ? 100*this._exp / this._length : 0; }
 
 	get length() { return this._length; }
 	set length(v) { this._length = v;}
 
-	complete() { return this._exp < this._length; }
+	canRun( g ) { return !this.done && this._item && this._target && this._item.canUseOn( this._target ) }
+	get done() { return this._exp >= this._length; }
 
 	/**
 	 * If target is supplied, first element MUST be the item
@@ -76,8 +77,11 @@ export default class Runnable extends Proxy {
 		this.exp += dt;
 
 		if ( this.exp > this.length ) {
+
 			if ( this.target ) Game.useOn( this.item, this.target );
-			Events.emit( ACT_DONE, this, this.repeatable );
+			Events.emit( ACT_DONE, this, this.repeat );
+			this.target = null;
+
 		}
 
 	}
