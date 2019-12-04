@@ -1,7 +1,7 @@
 import { precise } from "../util/format";
 import { TYP_PCT } from "./consts";
 
-export const PercentTest = /^(\d+(?:\.?\d+)?)\%$/i
+export const PercentTest = /^(\d+(?:\.\d+)?)\%$/i
 
 /**
  * Represents a percentage probability.
