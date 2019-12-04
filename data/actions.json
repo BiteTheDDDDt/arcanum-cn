@@ -559,13 +559,14 @@
 		"id":"dissect",
 		"name":"dissect cadaver",
 		"require":"g.dissection>=4",
+		"fill":["skulls", "bones"],
 		"desc":"dissect a body for components. only the best pieces will serve.",
 		"length":10,
 		"cost":{
 			"bodies":1
 		},
 		"result":{
-			"skull":1,
+			"skulls":1,
 			"bones":"2~4"
 		}
 	},
@@ -750,7 +751,7 @@
 			"trickery.exp":2,
 			"conjuration.exp":2,
 			"bones":"14%",
-			"skull":"5%",
+			"skulls":"5%",
 			"gems":"20%",
 			"bodies":"1%",
 			"managem":"7%",
