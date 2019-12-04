@@ -99,11 +99,6 @@ button { color: var(--button-text-color); border: 1px solid #0006; }
 button { outline: none; }
 button:disabled { opacity: 0.3; color: unset; }
 
-button { color: var(--button-text-color); border: 1px solid #0006; }
-button { outline: none; }
-button:disabled { opacity: 0.3; color: unset; }
-
-
 input[type="button"], button, div.text-button {
 	background-color: rgb(231, 229, 229);
 	border-radius: 2px;

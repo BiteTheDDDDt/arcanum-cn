@@ -280,13 +280,4 @@ div.raid-bottom {
 	margin: 0;
 }
 
-.active-dungeon {
-	display:flex;
-	padding: var(--sm-gap);
-	flex-basis:40%;
-	min-width:222px;
-	flex-direction:column;
-
-}
-
 </style>

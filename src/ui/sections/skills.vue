@@ -92,6 +92,9 @@ div.skills {
 	align-items: center;
 }
 
+    .skill div:last-child { color: #999; text-align: center; }
+	body.compact .skill div:last-child { display: flex; }
+
     body.compact div.subs { justify-content: center;}
 	body.compact div.subs div.skill { background: var(--list-entry-background); }
 	body.compact div.subs div.skill > div > div .bar { max-height: 6px; background: #0001; border: none; margin: 0.5em }
