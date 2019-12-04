@@ -127,7 +127,7 @@ div.explore .active-title {
 }
 
 div.explore .active-title > span {
-	margin-right:16px;
+	margin-right:1rem;
 }
 
 </style>

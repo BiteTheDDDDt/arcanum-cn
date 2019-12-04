@@ -62,7 +62,7 @@ span.separate {
 	align-items: center;
 }
 button {
-	max-height:36px;
+	max-height:2.1rem;
 	margin-top:4px;
 	padding:3px;
 }

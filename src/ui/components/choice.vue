@@ -192,7 +192,7 @@ export default {
 	display:flex;
 	flex-flow: column nowrap;
 	width: 100%;
-	min-height:200px;
+	min-height:5rem;
 }
 
 .content .items {
@@ -219,7 +219,7 @@ export default {
 
 button.close-btn {
 	min-height: 2em;
-	width: 114px;
+	width: 5em;
 	font-size:0.9em;
 }
 

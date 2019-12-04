@@ -116,7 +116,7 @@ export default {
 div.header {
 	display:flex;
 	justify-content:center;
-	margin: var(--md-padding);
+	margin: var(--md-gap);
 }
 
 div.wizhall .upgrades {
@@ -137,10 +137,10 @@ div.header .fld-name {
 }
 div.wizhall {
 	z-index: 5000;
-	 min-width: 640px;
+	 min-width: 40vw;
 	 max-width: 80vw;
 	 max-height: 90vh;
- 	padding: var( --rg-padding );
+ 	padding: var( --rg-gap );
 
 }
 

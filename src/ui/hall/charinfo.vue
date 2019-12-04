@@ -68,8 +68,8 @@ div.char-info {
 	flex-flow: column nowrap;
 	border: 1px solid var(--separator-color);
 	margin: var(--sm-gap);
-	padding: var(--rg-padding);
-	border-radius: 4px;
+	padding: var(--rg-gap);
+	border-radius:var(--sm-gap);
 	min-height: 12em;
 	width:175px;
 
@@ -81,7 +81,7 @@ div.char-info .fld-name {
 	text-align: center;
 	width:100%;
 	font-size: 1.02rem;
-	margin-bottom: var(--md-padding );
+	margin-bottom: var(--md-gap );
 }
 
 div.char-info div.buttons {

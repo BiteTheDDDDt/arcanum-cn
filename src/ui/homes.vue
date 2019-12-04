@@ -210,7 +210,7 @@ export default {
 
 span.space {
 	text-align: center;
-	margin: 0px 18px;
+	margin: 0px var(--lg-gap);
 }
 
 span.sm {
@@ -220,8 +220,8 @@ div.home-view {
 	display: flex;
 	height:100%;
 	flex-flow: column nowrap;
-	padding-left:16px;
-	padding-right:15px;
+	padding-left:1rem;
+	padding-right:1rem;
 }
 
 div.home-view .content {
@@ -243,9 +243,9 @@ div.pick-slots {
 	display:flex;
 	flex-flow: column nowrap;
 
-	margin-top:12px;
-	margin-right: 16px;
-	flex-basis: 140px;
+	margin-top:0.9em;
+	margin-right: 1rem;
+	flex-basis: 5rem;
 }
 
 div.nospace {

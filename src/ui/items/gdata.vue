@@ -157,7 +157,7 @@ export default {
 }
 
 div.item-desc {
-	margin: 5px 0px 10px;
+	margin: 0.6em 0 0.9em;
 	font-size: 0.96em;
 }
 

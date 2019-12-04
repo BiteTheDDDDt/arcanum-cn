@@ -62,7 +62,7 @@ export default {
 
 div.potions .potion-col {
 	display:grid;
-	grid-template-columns: repeat( auto-fit, minmax(256px, 0.5fr));
+	grid-template-columns: repeat( auto-fit, minmax(10rem, 0.5fr));
 	column-gap: var(--lg-gap);
 	overflow-x:hidden;
 	width:100%;
@@ -73,7 +73,7 @@ div.flex-col .separate {
 }
 
 div.potions {
-	padding: 0px 16px;
+	padding: 0 1rem;
 
 }
 

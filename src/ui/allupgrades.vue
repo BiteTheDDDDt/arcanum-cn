@@ -45,7 +45,7 @@ div.allupgrades {
 	height:100%;
 }
 div.up-list {
-	margin-bottom:14px;
+	margin-bottom:1rem;
 	overflow-x:visible;
 }
 

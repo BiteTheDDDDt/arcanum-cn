@@ -83,7 +83,7 @@ div.skip {
 }
 
 div.popup div {
-	margin:6px 0px;
+	margin:var(--sm-gap) 0;
 }
 
 </style>

@@ -53,20 +53,20 @@ div.bar {
 	display:inline-block;
 	background: #333;
 	overflow:hidden;
-	margin:4px 4px 0px 2px;
-	padding:2px;
-	min-height:18px;
+	margin:var(--sm-gap) var(--sm-gap) 0 var(--tiny-gap);
+	padding:var(--tiny-gap);
+	min-height:1.5rem;
 	height:100%;
 	width:-webkit-fill-available;
 	width:-moz-available;
-	border-radius: 10px;
+	border-radius: var(--sm-gap);
 }
 div.bar > div {
 	background:orange;
-	border-radius: 8px;
+	border-radius: var(--md-gap);
 	height:100%;
-	min-width:0px;
-	width:0px;
+	min-width:0;
+	width:0;
 }
 
 </style>

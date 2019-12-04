@@ -11,10 +11,10 @@
 	--odd-list-color:#e5e5e5;
 	--action-btn-color: #fdc679;
 
-	--action-button-width: 128px;
+	--action-button-width: 5rem;
 	--separator-color: #AAA;
 	--list-entry-background: #00000007;
-	--list-entry-border-radius: 8px;
+	--list-entry-border-radius: 0.5em;
 	--header-background-color: #EEE;
 	--compact-small-font: 1.0em;
 	--compact-medium-font: 1.0em;
@@ -29,9 +29,7 @@
 	--md-depth:10000;
 	--low-depth:100;
 
-	--sm-padding:4px;
-	--md-padding:8px;
-	--rg-padding:12px;
+	--rg-gap:1em;
 
 	--tiny-gap: 0.1em;
 	--sm-gap: 0.35em;

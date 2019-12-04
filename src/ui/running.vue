@@ -85,15 +85,15 @@ button.stop {
 button.pursuit {
 	position: absolute;
 	background: rgb(22, 219, 22);
-	top:0px;
-	right:0px;
+	top:0;
+	right:0;
 	opacity: 0.2;
 }
 
 button.pursuit.current {
 	position: absolute;
-	top:0px;
-	right:0px;
+	top:0;
+	right:0;
 	opacity: 0.7;
 }
 

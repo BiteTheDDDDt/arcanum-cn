@@ -53,16 +53,16 @@ export default {
 		position: relative;
 		overflow-x:visible;
 		overflow-y: visible;
-		max-height:40px;
+		max-height:2em;
 		text-align: center;
-		padding:4px;
+		padding:var(--sm-gap);
 		background: unset;
 		border: 1px solid black;
 	}
 
 	div.mini {
-		height:22px;
-		width: 22px;
+		height:var(--lg-gap);
+		width:var(--lg-gap);
 		font-size: 0.7em;
 		padding:0;
 	}

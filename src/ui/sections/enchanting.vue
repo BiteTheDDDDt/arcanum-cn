@@ -108,13 +108,13 @@ div.enchants .enchant-list > div.enchant {
 
 div.enchants .enchant-list  .ench-name {
 	flex-basis: 25%;
-	min-width: 132px;
+	min-width: 5rem;
 }
 
 div.enchants {
 	display:flex;
 	flex-direction: column;
-	padding:0px 16px;
+	padding:0 1rem;
 	overflow-y:auto;
 	height:100%;
 }

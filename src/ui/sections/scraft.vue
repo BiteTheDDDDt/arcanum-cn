@@ -201,7 +201,7 @@ div.spellcraft {
 div.spellcraft .userspells {
 	display:flex;
 	flex-direction: column;
-	padding: 8px;
+	padding: var(--md-gap);
 	border-bottom: 1pt solid var( --separator-color );
 }
 
@@ -211,7 +211,7 @@ div.userspells .spells {
 }
 
 div.spells .custom {
-	margin-right:20px;
+	margin-right:1.2rem;
 }
 
 .crafting .options {
@@ -222,8 +222,8 @@ div.spellcraft .bottom {
 	display:flex;
 	flex-direction: row;
 	justify-content: space-between;
-	padding-top: 8px;
-	padding-left: 8px;
+	padding-top:var(--md-gap);
+	padding-left:var(--md-gap);
 }
 
 div.spellcraft .crafting, div.spellcraft .allspells {

@@ -198,7 +198,7 @@ export default {
 }
 div.adventure {
 	display:flex;
-	padding:0px 15px;
+	padding:0 1rem;
 	align-self: flex-start;
 	flex-flow: column;
 	padding: 0; margin: 0;
@@ -230,7 +230,7 @@ div.top .hides > span {
 div.locales {
 
 	display: grid;
-	grid-template-columns: repeat( auto-fit, 256px ); grid-gap: 0; grid-auto-rows: min-content;
+	grid-template-columns: repeat( auto-fit, 10rem); grid-gap: 0; grid-auto-rows: min-content;
 	flex-grow:1;
 	justify-content: space-between;
 	overflow-y: auto;
@@ -241,7 +241,7 @@ div.locales {
 
 }
 
-body.compact div.adventure > div.locales { grid-template-columns: minmax( 200px, 1fr) repeat( auto-fit, minmax( 200px, 1fr) ); }
+body.compact div.adventure > div.locales { grid-template-columns: minmax( 9rem, 1fr) repeat( auto-fit, minmax( 9rem, 1fr) ); }
 body.compact div.adventure > div.locales .locale { background: var(--list-entry-background); }
 body.compact div.adventure > div.locales .locale .bar { border: none;}
 

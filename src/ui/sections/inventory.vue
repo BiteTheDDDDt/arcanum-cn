@@ -132,7 +132,7 @@ div.inventory .item-table {
 		min-height: 0;
 		margin: 0;
 		padding:0;
-		display: grid; grid-template-columns: repeat( auto-fit, minmax( 256px, 1fr ));
+		display: grid; grid-template-columns: repeat( auto-fit, minmax( 10rem, 1fr ));
 		 grid-auto-rows: min-content;
 
     }

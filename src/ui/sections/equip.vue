@@ -39,7 +39,7 @@ export default {
 
 .equip {
     overflow-y: auto;
-    display: grid; grid-template-columns: repeat( auto-fill, minmax(220px,1fr)); grid-gap: var(--sm-gap); padding: var(--tiny-gap);
+    display: grid; grid-template-columns: repeat( auto-fill, minmax(11rem,1fr)); grid-gap: var(--sm-gap); padding: var(--tiny-gap);
 
  }
 .equip .equip-slot {
@@ -56,12 +56,12 @@ export default {
 
 .equip-slot {
 	display:flex;
-	margin: 2px 0px;
+	margin: var(--tiny-gap) 0;
 }
 
 .equip-slot button {
-	margin-left: 10px;
-	padding: 6px;
+	margin-left: var(--sm-gap);
+	padding: 0.4em;
 }
 
 
