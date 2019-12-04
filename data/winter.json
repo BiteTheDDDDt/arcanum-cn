@@ -594,9 +594,39 @@
 			  "avalanche",
 			["iceelemental","iceelemental"],
       		"w_troll",
-      		"icywinds"
+			  "icywinds",
+			  ["frixie","frixie","frixie"]
       	]
-      }
+	  },
+	  {
+		"id": "w_chillforge",
+		"name": "chilled forge",
+		"desc": "An old place of power, where wizards have created powerful artifacts from snow and ice.",
+		"require": "evt_w_chillforge>0&&g.winterlore>=7",
+		"level": 8,
+		"run": {
+			"stamina": 2
+		},
+		"effect": {
+			"frost": 1
+		},
+		"length": 100,
+		"result":"iceorb",
+		"boss":"frostgiant",
+		"enemies": [
+			"w_blizzardguardian",
+			["icywinds", "w_blizzardguardian", "icywinds"],
+			["frostelemental", "iceelemental", "frostelemental"],
+			"frostelemental",
+			"w_troll",
+			["frixie","elf","elf","frixie","frixie"],
+			"poltergeist",
+			"iceelemental",
+			["elf","elf","frixie"],
+			"yeti",
+			["icewalker","icewalker","icewalker","icewalker"]
+		]
+	}
     ],
     "monsters":[
       {
@@ -1129,7 +1159,7 @@
 		"bonus": 7,
 		"level": 5
 	}, {
-		"id": "permafrost",
+		"id":"permafrost",
 		"priceMod": 80,
 		"bonus": 10,
 		"tohit": 11,
@@ -1142,8 +1172,9 @@
         "id": "iceorb",
         "name": "orb of winters",
         "desc": "A snowglobe with magical powers. It reminds you of colder days.",
-        "level": 10,
-        "material": "water",
+		"level": 10,
+		"save":true,
+        "material": "permafrost",
         "unique": true,
         "type": "weapon",
         "tohit": 5,
@@ -1153,7 +1184,7 @@
           "targets":"enemies",
           "dot": {
             "duration":20,
-            "kind": "water",
+            "kind": "ice",
             "dmg":"5~12",
             "mod": {
               "speed":-3
