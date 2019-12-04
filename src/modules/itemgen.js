@@ -224,9 +224,24 @@ export default class ItemGen {
 
 		else if ( info.instance || info.isRecipe ) {
 			return this.instance( info );
+		} else if ( info.level || info.max ) return this.randLoot( info, amt );
+
+		return this.objLoot( info );
+
+	}
+
+	objLoot( info ){
+
+		let items = [];
+		for( let p in info ) {
+			//console.log('GETTING SUB LOOT: ' + p);
+			var it = this.getLoot( p, info[p] );
+			if ( !it ) continue;
+			else if ( Array.isArray(it)) items = pushNonNull( items, it );
+			else items.push(it );
 		}
 
-		return this.randLoot( info, amt );
+		return items;
 
 	}
 
@@ -271,17 +286,6 @@ export default class ItemGen {
 		if ( info.level ) return this.fromLevel( info.level/2, info.type, info.material );
 		else if ( info.max ) return this.randBelow( info.max/2, info.type, info.material );
 
-		let items = [];
-		for( let p in info ) {
-			//console.log('GETTING SUB LOOT: ' + p);
-			var it = this.getLoot( p, info[p] );
-			if (!it) continue;
-			else if ( Array.isArray(it)) items = pushNonNull( items, it );
-			else items.push(it );
-		}
-
-		return items;
-
 	}
 
 	/**
@@ -293,7 +297,7 @@ export default class ItemGen {
 
 		if ( typeof amt === 'number' || typeof amt === 'boolean') {
 
-			if ( it.type === 'upgrade' || it.type === 'action' || it.type === 'furniture') it.doUnlock( Game );
+			if ( it.type === 'upgrade' || it.type === 'action' || it.type === 'furniture' || it.type === 'event') it.doUnlock( Game );
 			else it.amount( Game, amt );
 			if ( amt > 0 ) return it.name;
 
