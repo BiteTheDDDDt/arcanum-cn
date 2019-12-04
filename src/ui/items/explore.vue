@@ -123,7 +123,7 @@ div.stressors .stress {
 
 div.explore .active-title {
 	display:flex;
-	min-width: 400px;
+	min-width: 20rem;
 }
 
 div.explore .active-title > span {

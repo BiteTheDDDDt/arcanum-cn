@@ -36,7 +36,7 @@ export default {
 
 	margin: 0; padding: var(--sm-gap);
 	width:48%;
-	min-height:120px;
+	min-height:10em;
 
 }
 

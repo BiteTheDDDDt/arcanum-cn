@@ -122,13 +122,13 @@ export default {
 .settings {
 	height:auto;
 	min-height:5.5rem;
-	min-width:8rem;
-	max-width:11rem;
+	min-width:30%;
+	max-width:60%;
 	position: absolute;
 	z-index:10000;
 	top:3rem;
 	background:inherit;
-	border: var(--tiny-gap) solid var(--popup-border);
+	border: var(--popup-border);
 	border-radius: 0.20rem;
 	padding:var(--md-gap);
 }

@@ -49,20 +49,18 @@ div.container {
 }
 div.bar {
 
-	padding:unset;
 	display:inline-block;
 	background: #333;
 	overflow:hidden;
-	margin:var(--sm-gap) var(--sm-gap) 0 var(--tiny-gap);
-	padding:var(--tiny-gap);
+	padding:0;
 	min-height:1.5rem;
 	width:-webkit-fill-available;
 	width:-moz-available;
-	border-radius: var(--md-gap);
+	border-radius: var(--lg-radius);
 }
-div.bar > div {
+div.bar .fill {
 	background:orange;
-	border-radius: var(--md-gap);
+	border-radius: var(--rg-radius);
 	height:100%;
 	min-width:0;
 	width:0;

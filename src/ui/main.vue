@@ -408,7 +408,7 @@ div.full {
 	display:flex;
 	background:inherit;
 	flex-direction: column;
-	min-width:500px;
+	min-width:50vw;
 	max-height:100vh;
 	height:100vh;
 }

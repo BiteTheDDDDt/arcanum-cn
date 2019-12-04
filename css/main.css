@@ -18,9 +18,9 @@
 	--header-background-color: #EEE;
 	--compact-small-font: 1.0em;
 	--compact-medium-font: 1.0em;
+	--light-border-color: #646464;
 	--popup-background-color: #FAFAFAEE;
 	--popup-border: 2px solid #646464;
-	--subtle-border-radius: 4px;
 
 	--quickbar-height:52px;
 	--topbar-height:56px;
@@ -29,6 +29,12 @@
 	--md-high:20000;
 	--md-depth:10000;
 	--low-depth:100;
+
+	--tiny-radius:2px;
+	--sm-radius:4px;
+	--md-radius:6px;
+	--rg-radius:8px;
+	--lg-radius:10px;
 
 	--rg-gap:1em;
 
@@ -73,12 +79,11 @@ body.darkmode {
 	color: #D7DADC;
 }
 
-    /*div.bar { border: 2px solid #000; overflow: hidden; padding: unset; position: relative; background: #000A; }*/
     div.bar {
         position: relative;
-        border: var(--tiny-gap) solid #000; box-sizing: content-box;
+        border: 2px solid #000; box-sizing: content-box;
         margin: 0;
-		overflow: hidden; padding: unset; background: #0001;
+		overflow: hidden; background: #0001;
 		height: 1.5rem;
 		min-height: unset;
     }
@@ -86,7 +91,8 @@ body.darkmode {
 		font-size: 1.0rem; position: absolute;
 		top:50%; right: var(--tiny-gap);
 		transform: translate( 0, -50% );
-        text-align: right; padding: 0 0.5em; color: #000; background: #FFF8; border-radius: var(--sm-gap);
+		text-align: right; padding: 0 0.5em; color: #000; background: #FFF8;
+		border-radius: var(--sm-gap);
         line-height: 1em;
     }
 
@@ -95,8 +101,8 @@ body.darkmode {
 }
 
     body.compact div.bar .fill { border-radius: 0 var(--sm-gap) var(--sm-gap) 0; }
-    body.compact div.bar { height: 14px; border-radius: 6px; }
-    body.compact div.bar .bar-text { font-size: 0.7rem; line-height: 10px; }
+    body.compact div.bar { height: 1em; border-radius: var(--md-radius); }
+    body.compact div.bar .bar-text { font-size: 0.7rem; line-height: 0.8em; }
 
 button { color: var(--button-text-color); border: 1px solid #0006; }
 button { outline: none; }
@@ -104,7 +110,7 @@ button:disabled { opacity: 0.3; color: unset; }
 
 input[type="button"], button, div.text-button {
 	background-color: #e7e5e5;
-	border-radius: var(--tiny-gap);
+	border-radius: var(--sm-radius);
 	border: 1px solid #0006;
 	padding: var(--sm-gap);
 	margin: var(--sm-gap);
@@ -127,7 +133,7 @@ div.popup {
 	background-clip: border-box;
 	padding:var(--md-gap);
 	background-color: var( --background-color);
-	border: 1.5px solid var(--popup-border);
+	border:var(--popup-border);
 	border-radius: 0.20rem;
 }
 
@@ -333,11 +339,13 @@ body.compact .action-btn button { min-height: 1em; }
 .action-btn button {
 	flex: 1; word-break: break-word; text-transform: capitalize;
 	min-height: 3em;
-	padding: 2px;
+	padding: var(--tiny-gap);
 	font-size:0.9em;
 }
 
-body.darkmode .action-btn.running { border: 2px dashed var(--action-button-border-color); }
+body.darkmode .action-btn.running {
+	border: var(--tiny-gap) dashed var(--action-button-border-color);
+}
 .checks > span { flex: 1; }
 
 .action-btn.darkmode {
@@ -353,12 +361,15 @@ body.darkmode .action-btn.running { border: 2px dashed var(--action-button-borde
 .locked { display:none;}
 
 div.log-item {
-	padding: var(--sm-gap); margin: 1px 0; border-bottom: 1px dotted var(--quiet-text-color);
+	padding: var(--sm-gap);
+	margin: 1px 0;
+	border-bottom: 1px dotted var(--quiet-text-color);
 }
 
 .item-popup {
 	position:fixed;
-	border: var(--popup-border); border-radius: var(--subtle-border-radius);
+	border: var(--popup-border);
+	border-radius: var(--sm-radius);
 	height:auto;
 	opacity: 1.0;
 	min-height:100px;
@@ -418,7 +429,7 @@ div.log-item {
 }
 
 .note-text, .popup-sect {
-	padding:0px;
+	padding:0;
 	margin:var(--comfy-gap) 0;
 	font-style: italic;
 	font-size: 0.85em;
@@ -456,7 +467,7 @@ table.item-table tr, table.item-table th {
 .menu-content {
 	border-top: 1px solid var( --separator-color );
 	margin-top:var(--sm-gap);
-	padding-top: 8px;
+	padding-top: var(--md-gap);
 	max-height: 90%;
 	height:100%;
 }
@@ -489,7 +500,7 @@ div.top > input {
 	width:8em;
 }
 
-button.btn-sm { padding:3px 8px; }
+button.btn-sm { padding:var(--sm-gap) var(--md-gap); }
 
 div.bgfill {
 	position: absolute;

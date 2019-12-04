@@ -280,7 +280,7 @@ table .count, table .space {
 }
 table .name {
 	padding: 0 var(--md-gap) 0 0.9rem;
-	min-width:120px;
+	min-width:10em;
 	text-align: left;
 }
 

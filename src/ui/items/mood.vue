@@ -64,9 +64,6 @@ export default {
 
 <div class="mood" :style="'background:hsl('+hsl+')'">
 	&nbsp;
-	<!--<span>--{{h}}</span>
-	<span>-{{s}}</span>
-	<span>-{{l}}</span>-->
 </div>
 
 </template>
@@ -76,7 +73,7 @@ export default {
 
 .mood {
 	border:var(--tiny-gap) solid black;
-	width:42px;
-	height: 42px;
+	width:3em;
+	height:3em;
 }
 </style>

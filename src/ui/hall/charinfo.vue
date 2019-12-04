@@ -71,7 +71,7 @@ div.char-info {
 	padding: var(--rg-gap);
 	border-radius:var(--sm-gap);
 	min-height: 12em;
-	width:175px;
+	width:10em;
 
 	justify-content: space-between;
 
