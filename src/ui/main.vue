@@ -442,7 +442,7 @@ div.action-list, div.upgrade-list {
 	min-height:0;
 	flex-flow: row wrap;
 	flex-direction: row;
-	padding:0px 6px;
+	padding:0px var(--sm-gap);
 	text-transform: capitalize;
 }
 
@@ -451,13 +451,13 @@ div.action-list {
 }
 
 div.upgrade-list, div.action-list {
-	margin: 8px 2px 2px 8px;
+	margin: var(--md-gap) var(--tiny-gap) var(--tiny-gap) var(--md-gap);
 }
 
 div.upgrade-list {
 	min-height:0;
 	/*border-top: 1px solid var( --separator-color );*/
-	margin-top:4px;
+	margin-top:var(--sm-gap);
 }
 
 div.inv-equip {

@@ -57,7 +57,8 @@ export default {
     .main-actions > div.action-list,
     .main-actions > div.upgrade-list {
         margin: 0; padding: var(--md-gap);
-        display: grid; grid-template-columns: repeat( auto-fit, var(--action-button-width) );
+		display: grid;
+		grid-template-columns: repeat( auto-fit, var(--action-button-width) );
     }
 
     .main-actions > div.action-list .runnable button:hover {background: var(--accent-color-hover); }

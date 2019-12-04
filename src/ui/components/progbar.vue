@@ -56,10 +56,9 @@ div.bar {
 	margin:var(--sm-gap) var(--sm-gap) 0 var(--tiny-gap);
 	padding:var(--tiny-gap);
 	min-height:1.5rem;
-	height:100%;
 	width:-webkit-fill-available;
 	width:-moz-available;
-	border-radius: var(--sm-gap);
+	border-radius: var(--md-gap);
 }
 div.bar > div {
 	background:orange;

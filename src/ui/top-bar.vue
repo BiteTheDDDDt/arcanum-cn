@@ -129,9 +129,9 @@ div.top-bar {
 }
 
 .load-opts button {
-	min-height:29px;
-	height:29px;
-	max-height:29px;
+	min-height:1.5rem;
+	height:1.5rem;
+	max-height:1.5rem;
 }
 .load-opts .text-button {
 	max-height:var(--lg-gap);

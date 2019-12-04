@@ -113,9 +113,9 @@ export default {
 		flex-flow: column nowrap;
 		margin-left: var(--md-gap);
 		flex-basis:20%;
-		max-width: 250px;
+		max-width: 12em;
 		max-height: inherit;
-        min-width: 200px;
+        min-width: 8em;
         margin: 0;
 	}
 
@@ -131,7 +131,7 @@ export default {
 
     div.log-view div.top-span .checks {
         display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr;
-        height: 50px; align-items: center;
+        height: 4em; align-items: center;
 		font-size: 0.8em;
 		display:flex;
 		flex-flow: row wrap;
