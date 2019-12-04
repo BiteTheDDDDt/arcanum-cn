@@ -1,6 +1,6 @@
 import Emitter from 'eventemitter3';
 import {uppercase} from './util/util';
-import { TYP_PCT } from './values/consts';
+import { TYP_PCT, EVENT } from './values/consts';
 
 /**
  * @const {Emitter} events - emitter for in-game events.
@@ -206,7 +206,7 @@ export default {
 	},
 
 	onUnlock( it ) {
-		if ( it.hidden || it.type === 'event' ) return;
+		if ( it.hidden || it.type === EVENT ) return;
 		this.log.log( uppercase(it.type) + ' Unlocked: ' + it.name, null, LOG_UNLOCK );
 	},
 

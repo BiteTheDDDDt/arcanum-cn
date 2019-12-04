@@ -49,7 +49,9 @@ export default class GEvent extends GData {
 	 * @param {*} amt
 	 */
 	amount( g, amt ) {
+
 		this.doUnlock(g);
+
 	}
 
 }

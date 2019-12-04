@@ -4,19 +4,24 @@ import Events, {ACT_DONE, ACT_CHANGED, HALT_ACT, ACT_BLOCKED, EXP_MAX, STOP_ALL 
 import Stat from '../values/stat';
 import Base, {mergeClass} from '../items/base';
 import Runnable from '../composites/runnable';
-import { SKILL, DUNGEON, REST_TAG, TYP_RUN } from '../values/consts';
-import DataList from '../inventories/dataList';
+import { SKILL, DUNGEON, REST_TAG, TYP_RUN, PURSUITS } from '../values/consts';
 
 /**
  * Tracks running/perpetual actions.
  */
 export default class Runner {
 
+	/**
+	 * @item compat.
+	 */
+	get type() { return 'runner' }
+	hasTag() { return false; }
+
 	constructor(vars=null ){
 
 		if ( vars ) Object.assign(this,vars);
 
-		this.id = 'runner';
+		this.id = this.type;
 		this.name = 'activity';
 
 		/**
@@ -89,17 +94,11 @@ export default class Runner {
 		for( let i = 0; i < this.actives.length; i ++ ) {
 			var a = this.actives[i];
 
-			if ( a.length ) a.exp = a.length - 0.01;
+			if ( a.length ) a.exp = a.length - 0.001;
 
 		}
 
 	}
-
-	/**
-	 * @item compat.
-	 */
-	get type() { return 'runner'; }
-	hasTag() { return false; }
 
 	/**
 	 * @property {number} running - number currently running.
@@ -139,7 +138,7 @@ export default class Runner {
 	revive( gs ) {
 
 		this.max = this._max || 1;
-		this.pursuits = gs.getData( 'pursuits');
+		this.pursuits = gs.getData( PURSUITS );
 
 		this.waiting = this.reviveList( this.waiting, gs, false );
 

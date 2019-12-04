@@ -30,7 +30,7 @@ import Loader from './util/jsonLoader';
 import { splitKeyPath } from './util/util';
 import GClass from './items/gclass';
 import Module from './modules/gmodule';
-import { SKILL, ENCOUNTER, MONSTER, ARMOR, WEAPON, HOME, POTION, ITEM, RESOURCE } from './values/consts';
+import { SKILL, ENCOUNTER, MONSTER, ARMOR, WEAPON, HOME, POTION, ITEM, RESOURCE, EVENT } from './values/consts';
 
 const DataDir = './data/';
 
@@ -257,7 +257,7 @@ export default {
 
 		if ( lists.materials ) inst.materials = this.initItems( items, lists['materials'], Material, 'material', 'material ');
 
-		if ( lists.events ) inst.events = this.initItems( items, lists['events'], GEvent, 'event', 'event' );
+		if ( lists.events ) inst.events = this.initItems( items, lists['events'], GEvent, EVENT, EVENT );
 		if ( lists.classes ) inst.classes = this.initItems( items, lists['classes'], GClass, 'class', 'class' );
 
 		if ( lists.actions ) inst.actions = this.initItems( items, lists['actions'], Action, null, 'action' );

@@ -15,7 +15,7 @@ import Group from './composites/group';
 import UserSpells from './inventories/userSpells';
 import Quickbars from './composites/quickbars';
 import Stat from './values/stat';
-import { WEARABLE, ARMOR, WEAPON, HOME } from './values/consts';
+import { WEARABLE, ARMOR, WEAPON, HOME, PURSUITS } from './values/consts';
 
 export const REST_SLOT = 'rest';
 
@@ -114,7 +114,7 @@ export default class GameState {
 		this.spelllist.name = this.spelllist.id = 'spelllist';
 
 		this.items.pursuits = new DataList( this.items.pursuits );
-		this.items.pursuits.id = 'pursuits';
+		this.items.pursuits.id = PURSUITS;
 
 		this.revive();
 

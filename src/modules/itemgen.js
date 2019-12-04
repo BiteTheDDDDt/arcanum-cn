@@ -8,7 +8,7 @@ import Npc from '../chars/npc';
 import GenGroup from '../genGroup';
 import { pushNonNull, logObj } from '../util/util';
 import GData from '../items/gdata';
-import { ENCOUNTER, WEARABLE, MONSTER, ARMOR, WEAPON, TYP_PCT } from '../values/consts';
+import { ENCOUNTER, WEARABLE, MONSTER, ARMOR, WEAPON, TYP_PCT, EVENT } from '../values/consts';
 
 /**
  * Revive a prototyped item based on an item template.
@@ -276,10 +276,10 @@ export default class ItemGen {
 
 	/**
 	 * Return loot from an object of rand parameters.
-	 * @param {*} info
+	 * @param {object} info
 	 * @param {*} amt
 	 */
-	randLoot( info, amt ) {
+	randLoot( info ) {
 
 		if ( (100+this.luck/2)*Math.random() < 50 ) return null;
 
@@ -297,11 +297,13 @@ export default class ItemGen {
 
 		if ( typeof amt === 'number' || typeof amt === 'boolean') {
 
-			if ( it.type === 'upgrade' || it.type === 'action' || it.type === 'furniture' || it.type === 'event') it.doUnlock( Game );
-			else it.amount( Game, amt );
-			if ( amt > 0 ) return it.name;
+			if ( it.type === 'upgrade' || it.type === 'action' || it.type === 'furniture' || it.type === EVENT) it.doUnlock( Game );
+			else {
+				it.amount( Game, amt );
+				if ( amt > 0 ) return it.name;
+			}
 
-		} else console.warn('unknown amount: '+ it + ' -> ' + amt );
+		} else console.warn('bad amount: '+ it + ' -> ' + amt );
 
 		return null;
 	}
