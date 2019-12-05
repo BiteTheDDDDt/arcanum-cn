@@ -1,0 +1,9 @@
+[
+
+	{
+		"id":"asleep",
+		"canAttack":false,
+		"canDefend":false
+
+	}
+]

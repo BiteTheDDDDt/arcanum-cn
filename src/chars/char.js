@@ -106,6 +106,24 @@ export default class Char {
 
 	}
 
+	/**
+	 * @property {number} canAttack
+	 */
+	get canAttack(){return this._canAttack;}
+	set canAttack(v) { this._canAttack = v;}
+
+	/**
+	 * @property {number} canDefend
+	 */
+	get canDefend(){return this._canDefend;}
+	set canDefend(v) { this._canDefend = v;}
+
+	/**
+	 * @property {number} canAct
+	 */
+	get canAct(){return this._canAct;}
+	set canAct(v) { this._canAct = v;}
+
 	get instance() { return true; }
 	set instance(v) {}
 
@@ -202,6 +220,18 @@ export default class Char {
 
 	applyDot( dot ) {
 		this.applyMods( dot.mod, 1 );
+	}
+
+	applyStates() {
+
+		let len = this.states.length;
+		for( let i = 0; i < len; i++ ) {
+
+			var s = this.states[i];
+			s.applyTo( this );
+
+		}
+
 	}
 
 	rmDot( i ){
