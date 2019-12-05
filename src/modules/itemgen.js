@@ -206,6 +206,10 @@ export default class ItemGen {
 
 			info = this.state.getData(info);
 
+			if ( Game.state.hasUnique(info) ) {
+				return null;
+			}
+
 			if ( info instanceof GData && !info.isRecipe && !info.instance) {
 
 				return this.getGData( info, amt );
