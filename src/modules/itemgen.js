@@ -8,7 +8,7 @@ import Npc from '../chars/npc';
 import GenGroup from '../genGroup';
 import { pushNonNull, logObj } from '../util/util';
 import GData from '../items/gdata';
-import { ENCOUNTER, WEARABLE, MONSTER, ARMOR, WEAPON, TYP_PCT } from '../values/consts';
+import { ENCOUNTER, WEARABLE, MONSTER, ARMOR, WEAPON, TYP_PCT, EVENT } from '../values/consts';
 
 /**
  * Revive a prototyped item based on an item template.
@@ -224,9 +224,24 @@ export default class ItemGen {
 
 		else if ( info.instance || info.isRecipe ) {
 			return this.instance( info );
+		} else if ( info.level || info.max ) return this.randLoot( info, amt );
+
+		return this.objLoot( info );
+
+	}
+
+	objLoot( info ){
+
+		let items = [];
+		for( let p in info ) {
+			//console.log('GETTING SUB LOOT: ' + p);
+			var it = this.getLoot( p, info[p] );
+			if ( !it ) continue;
+			else if ( Array.isArray(it)) items = pushNonNull( items, it );
+			else items.push(it );
 		}
 
-		return this.randLoot( info, amt );
+		return items;
 
 	}
 
@@ -261,26 +276,15 @@ export default class ItemGen {
 
 	/**
 	 * Return loot from an object of rand parameters.
-	 * @param {*} info
+	 * @param {object} info
 	 * @param {*} amt
 	 */
-	randLoot( info, amt ) {
+	randLoot( info ) {
 
 		if ( (100+this.luck/2)*Math.random() < 50 ) return null;
 
 		if ( info.level ) return this.fromLevel( info.level/2, info.type, info.material );
 		else if ( info.max ) return this.randBelow( info.max/2, info.type, info.material );
-
-		let items = [];
-		for( let p in info ) {
-			//console.log('GETTING SUB LOOT: ' + p);
-			var it = this.getLoot( p, info[p] );
-			if (!it) continue;
-			else if ( Array.isArray(it)) items = pushNonNull( items, it );
-			else items.push(it );
-		}
-
-		return items;
 
 	}
 
@@ -293,11 +297,13 @@ export default class ItemGen {
 
 		if ( typeof amt === 'number' || typeof amt === 'boolean') {
 
-			if ( it.type === 'upgrade' || it.type === 'action' || it.type === 'furniture') it.doUnlock( Game );
-			else it.amount( Game, amt );
-			if ( amt > 0 ) return it.name;
+			if ( it.type === 'upgrade' || it.type === 'action' || it.type === 'furniture' || it.type === EVENT) it.doUnlock( Game );
+			else {
+				it.amount( Game, amt );
+				if ( amt > 0 ) return it.name;
+			}
 
-		} else console.warn('unknown amount: '+ it + ' -> ' + amt );
+		} else console.warn('bad amount: '+ it + ' -> ' + amt );
 
 		return null;
 	}
