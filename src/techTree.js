@@ -27,8 +27,13 @@ export default class TechTree {
 		 */
 		this.unlocks = {};
 
+		/**
+		 * @property {.<string,Array>} needs - item id to Items which might 'need' the item.
+		 */
+		this.needs = {};
+
 		for( let p in this.items ) {
-			this.mapUnlockers( this.items[p]);
+			this.mapUnlocks( this.items[p]);
 		}
 
 		/**
@@ -156,33 +161,33 @@ export default class TechTree {
 	 * Mark all Items which might potentially unlock this item.
 	 * @param {GData} item
 	 */
-	mapUnlockers( item ) {
+	mapUnlocks( item ) {
 
 		if ( !item.locked || item.disabled ) return;
 
-		if ( item.require ) this.markLinks( item, item.require );
-		if ( item.need ) this.markLinks( item, item.need );
+		if ( item.require ) this.mapRequirement( item, item.require, this.unlocks );
+		if ( item.need ) this.mapRequirement( item, item.need, this.unlocks );
 
 	}
 
 	/**
-	 * Mark the links that unlock item.
+	 * Mark an item's possible requirements.
 	 * @param {GData} item
-	 * @param {*} need
+	 * @param {string|function|Array} requires
 	 */
-	markLinks( item, need ) {
+	mapRequirement( item, requires, graph ) {
 
-		let type = typeof need;
+		let type = typeof requires;
 
 		if ( type === 'string') {
 
-			this.markUnlocker( need, item );
+			this.mapUnlock( requires, item, graph );
 
 		} else if ( type === 'function' ) {
 
-			this.markFunc( item, need );
+			this.mapFuncRequirement( item, requires, graph );
 
-		} else if (  Array.isArray(need) ) return need.forEach( v=>this.markLinks(item,v), this );
+		} else if (  Array.isArray(requires) ) return requires.forEach( v=>this.mapRequirement(item,v, graph), this );
 
 	}
 
@@ -191,7 +196,7 @@ export default class TechTree {
 	 * @param {GData} targ - item being unlocked.
 	 * @param {function} func - function testing if item can be unlocked.
 	 */
-	markFunc( targ, func ) {
+	mapFuncRequirement( targ, func, graph ) {
 
 		let text = func.toString();
 		let results;
@@ -203,10 +208,10 @@ export default class TechTree {
 
 			let sub = results[1].split('.')[0];
 			if ( sub === 'mod' || sub === 'slot' ) continue;
-			this.markUnlocker( sub, targ );
+			this.mapUnlock( sub, targ, graph );
 
 		}
-		if ( text.includes('this') || text.includes('s.') ) this.markUnlocker( targ.id, targ );
+		if ( text.includes('this') || text.includes('s.') ) this.mapUnlock( targ.id, targ, graph );
 
 	}
 
@@ -214,21 +219,22 @@ export default class TechTree {
 	 * Map src as a potential unlocker of targ.
 	 * @param {string} src
 	 * @param {GData} targ
+	 * @param {object} graph - the tech tree being mapped, needs or unlocks.
 	 */
-	markUnlocker( src, targ ) {
+	mapUnlock( src, targ, graph ) {
 
 		if ( !src) return;
 		let it = this.items[src];
 
 		if ( it === undefined ) {
 			it = Game.state.getTagList( src );
-			if ( it ) it.forEach( v=>this.markUnlocker(v.id,targ) );
+			if ( it ) it.forEach( v=>this.mapUnlock(v.id,targ) );
 			//else console.warn('unlocker not found: ' + src );
 			return;
 		}
 
-		let map = this.unlocks[src];
-		if ( map === undefined ) this.unlocks[src] = map = [];
+		let map = graph[src];
+		if ( map === undefined ) graph[src] = map = [];
 		if ( !map.includes( targ.id ) ) map.push( targ.id );
 
 	}

@@ -7,15 +7,6 @@ import GameState from '../gameState';
 import { NPC } from '../values/consts';
 import { cloneClass } from '../util/util';
 
-export const Dying = {
-
-	id:"dying",
-	name:"dying",
-	kind:"death",
-	dmg:1
-
-}
-
 /**
  * @constant {number} DELAY_RATE - speed to attack delay conversion constant.
  */
@@ -56,6 +47,9 @@ export default class Char {
 		this._speed = v instanceof Stat ? v : new Stat(v);
 	}
 
+	/**
+	 * @property {.<string,Stat>} immunities
+	 */
 	get immunities(){
 		return this._immunities;
 	}
@@ -168,18 +162,27 @@ export default class Char {
 	 */
 	revive( state ){
 
+		if ( this.template ) {
+			if ( !this.name ) this._name = it.name;
+		}
+
+		this.reviveDots();
+		this.reviveStates();
+
+	}
+
+	reviveDots() {
 		for( let i = this.dots.length-1; i>=0; i--) {
 			this.dots[i].revive(state);
 		}
+	}
 
-		if ( this.template ) {
+	reviveStates() {
 
-			if ( !this.attack ) console.warn('NO ATTACK: ' + this.id );
-			if ( !this.name ) this._name = it.name;
-
+		for( let i = this.states.length-1; i >= 0; i-- ) {
+			this.states[i].applyTo(this);
 		}
 
-		//console.log( this.id + ' THIS HP: ' + this.hp.value );
 	}
 
 	/**
@@ -220,18 +223,6 @@ export default class Char {
 
 	applyDot( dot ) {
 		this.applyMods( dot.mod, 1 );
-	}
-
-	applyStates() {
-
-		let len = this.states.length;
-		for( let i = 0; i < len; i++ ) {
-
-			var s = this.states[i];
-			s.applyTo( this );
-
-		}
-
 	}
 
 	rmDot( i ){
