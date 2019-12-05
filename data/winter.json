@@ -497,7 +497,7 @@
         "id":"hearth",
         "desc":"A warm fireplace; the more you have the more gems you require to create them.",
         "require":"g.frost>=10",
-		"repeat":true,
+		"max":20,
         "cost":{
           "firegem":1
         },

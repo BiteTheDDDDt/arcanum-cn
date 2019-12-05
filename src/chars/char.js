@@ -7,15 +7,6 @@ import GameState from '../gameState';
 import { NPC } from '../values/consts';
 import { cloneClass } from '../util/util';
 
-export const Dying = {
-
-	id:"dying",
-	name:"dying",
-	kind:"death",
-	dmg:1
-
-}
-
 /**
  * @constant {number} DELAY_RATE - speed to attack delay conversion constant.
  */
