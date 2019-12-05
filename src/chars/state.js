@@ -17,8 +17,14 @@ export default class State {
 		this._effect = v;
 	}
 
+	/**
+	 * @property {boolean} stack
+	 */
 	get stack() { return this._stack;}
 	set stack(v) { this._stack = v; }
+
+	get canAct(){return this._canAct;}
+	set canAct(v) { this._canAct = v;}
 
 	get canAttack(){return this._canAttack;}
 	set canAttack(v) { this._canAttack = v;}
@@ -30,6 +36,25 @@ export default class State {
 
 		if ( vars ) Object.assign(this, vars);
 
+	}
+
+	/**
+	 * Apply state to char.
+	 * @param {Char} char
+	 * @param {Game} g
+	 */
+	applyTo( char, g ) {
+
+		if ( this.mod ) char.applyMods( this.mod, g );
+
+	}
+
+	/**
+	 * Remove state from char.
+	 * @param {Char} char
+	 * @param {Game} g
+	 */
+	remove( char, g ) {
 	}
 
 }

@@ -10,6 +10,8 @@ import Events, {
 import { itemRevive } from '../modules/itemgen';
 import { getDelay } from '../chars/char';
 
+const TARGET_ALL = 'all';
+
 /**
  * @const {string} TARGET_ENEMIES - target all enemies.
  */
@@ -179,6 +181,10 @@ export default class Combat {
 
 	}
 
+	/**
+	 * Add an Npc to the combat
+	 * @param {Npc} it
+	 */
 	addNpc( it ){
 
 		it.timer = getDelay( it.speed );

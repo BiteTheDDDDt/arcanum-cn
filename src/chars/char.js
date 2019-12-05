@@ -103,7 +103,15 @@ export default class Char {
 	/**
 	 * @property {number} canAttack
 	 */
-	get canAttack(){return this._canAttack;}
+	get canAttack(){
+
+		for( let i = this.states.length-1; i>=0; i--){
+			if ( this.states[i].canAttack ) return false;
+		}
+
+		return this._canAttack;
+	}
+
 	set canAttack(v) { this._canAttack = v;}
 
 	/**
@@ -262,7 +270,7 @@ export default class Char {
 
 	/**
 	 * Get Combat action.
-	 * @param {*} dt
+	 * @param {number} dt
 	 */
 	combat(dt) {
 
@@ -272,6 +280,8 @@ export default class Char {
 		if ( this.timer <= 0 ) {
 
 			this.timer += getDelay( this.speed );
+
+			if ( !this.canAct || !this.canAttack ) return null;
 			return this.getAttack();
 
 		}

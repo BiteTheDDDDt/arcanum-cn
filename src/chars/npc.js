@@ -149,10 +149,7 @@ export default class Npc extends Char {
 		 * @compat
 		 */
 		if ( vars.maxHp) this.hp.max = vars.maxHp;
-
-		if (!this.hp ) {
-			this.hp = 1;
-		}
+		if (!this.hp ) { this.hp = 1; }
 
 		//console.log( this.id + ' const() : ' + this.hp.value );
 
