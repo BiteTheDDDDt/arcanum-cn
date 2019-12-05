@@ -45,6 +45,8 @@ const ENCOUNTER = 'enc';
 const WEARABLE = 'wearable';
 const MONSTER = 'monster';
 const HOME = 'home';
+const EVENT = 'event';
+const PURSUITS = 'pursuits';
 const ARMOR = 'armor', WEAPON = 'weapon';
 
 export const REST_TAG = 't_rest';
@@ -55,7 +57,7 @@ const EXPLORE = 'explore';
 const RAID = 'raid';
 
 export { RAID, DUNGEON, EXPLORE, LOCALE };
-export { HOME, RESOURCE, NPC, SKILL, ENCOUNTER, WEARABLE, MONSTER, ARMOR, WEAPON };
+export { HOME, RESOURCE, NPC, SKILL, ENCOUNTER, WEARABLE, MONSTER, ARMOR, WEAPON, PURSUITS, EVENT };
 
 /**
  * @const {number[]} TierTable - levels when given tiers start.

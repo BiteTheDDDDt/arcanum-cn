@@ -251,6 +251,7 @@ export default class Inventory {
 	 * @param {string} id,
 	 * @param {boolean} proto - whether to find any item instanced from the prototype id.
 	 * If false, only an exact id match is returned.
+	 * @returns {?object}
 	 */
 	find(id, proto=false ) {
 

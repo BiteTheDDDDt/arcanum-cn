@@ -1,7 +1,6 @@
 import Events, { ENEMY_SLAIN, ACT_DONE, ITEM_ATTACK, CHAR_DIED, DEFEATED, ACT_BLOCKED, EVT_COMBAT } from '../events';
 
 import Game from '../game';
-import Inventory from '../inventories/inventory';
 import Combat from './combat';
 import { getDelay } from '../chars/char';
 import { RAID, TYP_PCT } from '../values/consts';
@@ -18,7 +17,6 @@ export default class Raid {
 
 		return {
 			locale:this.locale ? this.locale.id : undefined,
-			drops:this.drops,
 			combat:this.combat
 		}
 
@@ -71,8 +69,6 @@ export default class Raid {
 
 		if ( vars ) Object.assign( this, vars);
 
-		this.drops = this._drops || new Inventory();
-
 		this._combat =  this._combat || new Combat();
 
 		this.running = this.running || false;
@@ -99,6 +95,7 @@ export default class Raid {
 
 		if ( !this.locale) this.running = false;
 
+		this.drops = gameState.drops;
 		this._combat.revive( gameState );
 
 	}
@@ -181,8 +178,8 @@ export default class Raid {
 		}
 
 		if ( enemy.result ) Game.applyEffect( enemy.result );
-		if ( enemy.loot ) Game.getLoot( enemy.loot, Game.state.drops );
-		else Game.getLoot( {max:enemy.level, [TYP_PCT]:30}, Game.state.drops );
+		if ( enemy.loot ) Game.getLoot( enemy.loot, this.drops );
+		else Game.getLoot( {max:enemy.level, [TYP_PCT]:30}, this.drops );
 
 	}
 
@@ -195,7 +192,7 @@ export default class Raid {
 		this.locale.exp = this.locale.length;
 		this.locale.dirty = true;
 
-		if ( this.locale.loot ) Game.getLoot( this.locale.loot, Game.state.drops );
+		if ( this.locale.loot ) Game.getLoot( this.locale.loot, this.drops );
 		if ( this.locale.result ) Game.applyEffect( this.locale.result );
 		if ( this.locale.once && this.locale.value == 0 ) Game.applyEffect( this.locale.once );
 

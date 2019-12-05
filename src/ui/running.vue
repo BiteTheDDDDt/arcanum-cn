@@ -1,7 +1,7 @@
 <script>
 import Game from '../game';
 import {HALT_ACT} from '../events';
-import { SKILL, DUNGEON, RAID, EXPLORE, LOCALE, TYP_RUN } from '../values/consts';
+import { SKILL, DUNGEON, RAID, EXPLORE, LOCALE, TYP_RUN, PURSUITS } from '../values/consts';
 
 export default {
 
@@ -46,7 +46,7 @@ export default {
 	},
 	computed:{
 
-		pursuits(){return Game.state.getData('pursuits')}
+		pursuits(){return Game.state.getData(PURSUITS)}
 
 	}
 

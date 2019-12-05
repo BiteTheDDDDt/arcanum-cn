@@ -15,7 +15,7 @@ import Group from './composites/group';
 import UserSpells from './inventories/userSpells';
 import Quickbars from './composites/quickbars';
 import Stat from './values/stat';
-import { WEARABLE, ARMOR, WEAPON, HOME } from './values/consts';
+import { WEARABLE, ARMOR, WEAPON, HOME, PURSUITS } from './values/consts';
 
 export const REST_SLOT = 'rest';
 
@@ -114,7 +114,7 @@ export default class GameState {
 		this.spelllist.name = this.spelllist.id = 'spelllist';
 
 		this.items.pursuits = new DataList( this.items.pursuits );
-		this.items.pursuits.id = 'pursuits';
+		this.items.pursuits.id = PURSUITS;
 
 		this.revive();
 
@@ -533,11 +533,31 @@ export default class GameState {
 	/**
 	 * Find item in base items, equip, or inventory.
 	 * @param {string} id
-	 * @param {boolean} [any=false] - whether to return any matching type.
+	 * @param {boolean} [any=false] - whether to return any matching instanced item.
 	 */
 	findData(id, any=false) {
 
 		return this.getData(id) || this.inventory.find(id, any) || this.equip.find(id, any );
+	}
+
+	/**
+	 * Check if an item is unique and already exists, or been
+	 * instanced.
+	 * @param {string|GData} it
+	 */
+	hasUnique(it) {
+
+		if ( typeof it ==='string') it = this.getData(it);
+
+		if ( it === undefined || !it.unique ) return false;
+
+		if ( it.isRecipe || it.instance ) {
+
+			return this.inventory.find(it.id,true) != null ||
+			this.drops.find(it.id,true) != null || this.equip.find(it.id,true) != null;
+
+		} else return it.value > 0;
+
 	}
 
 	/**
