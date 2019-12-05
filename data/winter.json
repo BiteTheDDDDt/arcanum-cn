@@ -99,6 +99,12 @@
           "water.rate":"-1%",
           "ice.rate":"1%"
         }
+	  },
+	  {
+        "id":"winteressence",
+		"name":"essence of winter",
+        "desc":"As you go deeper into the winter, understanding dawns.",
+        "max":10000
       },
       {
         "id":"emblemofice",
@@ -261,6 +267,111 @@
 		},
 		"mod":{
 			"hearth.mod.frost.rate":-1
+		}
+	  },
+	  {
+        "id":"winterboon",
+        "name":"Winter's boon",
+        "desc":"A small piece of winter finds a home within you",
+        "require":"g.winteressence>=1",
+        "cost":{
+          "livingsnow":10
+        },
+        "mod":{
+          "waterlore2.max":1,
+		  "icelore.max":2
+        }
+      },
+      {
+        "id":"winteraward",
+        "name":"Winter's reward",
+        "desc":"You can feel the chill spreading",
+        "require":"g.winteressence>=10",
+        "cost":{
+          "livingsnow":30,
+		  "snowman":15
+        },
+        "mod":{
+          "waterlore2.max":3,
+		  "icelore.rate":50
+        }
+      },
+      {
+        "id":"winterhowl",
+        "name":"Winter's howl",
+        "desc":"A howling wind surrounds you, always",
+        "require":"g.winteressence>=100",
+        "cost":{
+          "livingsnow":70,
+		  "snowman":30
+        },
+        "mod":{
+          "ice.max":10,
+		  "ice.rate":2
+        }
+      },
+      {
+        "id":"winterchill",
+        "name":"Winter's chill",
+        "desc":"People around you shiver uncontrollably",
+        "require":"g.winteressence>=500",
+        "cost":{
+          "livingsnow":100,
+		  "snowman":50,
+		  "waterrune":10
+        },
+        "mod":{
+          "waterlore2.max":3,
+		  "icelore.rate":"200%"
+        }
+      },
+      {
+        "id":"winterbreath",
+        "name":"Winter's breath",
+        "desc":"Your very presence is enough to turn the warmest summer to coldest winter",
+        "require":"g.winteressence>=1000",
+        "cost":{
+          "livingsnow":100,
+		  "snowman":50,
+		  "watergem":250,
+		  "waterrune":30
+        },
+        "mod":{
+          "icelore.max":10,
+		  "icelore.rate":"200%"
+        }
+      },
+      {
+        "id":"winterenvoy",
+        "name":"Winter's envoy",
+        "desc":"You spread the joy of the cold far and wide, for the winter has come",
+        "require":"g.winteressence>=5000",
+        "cost":{
+          "livingsnow":150,
+		  "snowman":800,
+		  "watergem":350,
+		  "waterrune":50
+        },
+        "mod":{
+          "iceshard.attack.damage.min":10,
+          "iceshard.attack.damage.max":15,
+		  "iceshard.cost.ice":6,
+          "iceflame.attack.dot.effect.dmg.min":20,
+          "iceflame.attack.dot.effect.dmg.max":30,
+		  "iceflame.cost.ice":6,
+		  "iceflame.cost.fire":2
+        }
+      },
+      {
+        "id":"wintermastery",
+        "name":"Master of winter",
+        "desc":"You braved every blizzard and stayed cool throughout. Congratulations!",
+        "require":"g.winteressence>=10000",
+        "cost":{
+          "livingsnow":100
+        },
+        "effect":{
+			"title":"master of winter"
 		}
       },
       {
@@ -643,7 +754,8 @@
           "dmg":"5~8"
         },
         "loot":{
-        	"livingsnow":"30%"
+			"livingsnow":"30%",
+			"winteressence":0.1
         }
       },
       {
@@ -660,6 +772,7 @@
           "damage":"2~5"
         },
         "loot":{
+			"winteressence":0.1,
         	"livingsnow":3
         }
       },
@@ -677,7 +790,8 @@
           "dmg":"10~15"
         },
         "loot":{
-        	"bloodgem":1,
+			"bloodgem":1,
+			"winteressence":0.1,
           "livingsnow":1
         }
 	  },
@@ -697,7 +811,8 @@
 			"dmg":"10~20"
 		},
 		"loot": {
-			"livingsnow": "0~5"
+			"livingsnow": "0~5",
+			"winteressence":0.1
 		},
 		"immune": "ice,water,air"
 	},
@@ -716,7 +831,8 @@
           "dmg":"2~3"
         },
         "loot":{
-        	"ice.rate":0.01,
+			"ice.rate":0.01,
+			"winteressence":0.1,
           "icelore.max":0.1
         }
       },
@@ -736,6 +852,7 @@
           "dmg":"35~55"
         },
         "loot":{
+			"winteressence":0.1,
         	"snowman":1
         }
       },
@@ -754,6 +871,7 @@
           "dmg":"3~5"
         },
         "loot":{
+			"winteressence":0.1,
         	"livingsnow":1,
 			"watergem":1
         }
@@ -897,6 +1015,7 @@
 			"icelore.max": 0.001
 		},
 		"result":{
+			"winteressence":0.1,
 			"evt_w_chillforge": "10%"
 
 		}
@@ -910,6 +1029,7 @@
 			"winterlore.rate": 0.04
 		},
 		"loot": {
+			"winteressence":0.1,
 			"codices": "80%",
 			"evt_w_chillforge": "15%"
 		}
@@ -925,6 +1045,7 @@
 			"icelore.exp": "0~2"
 		},
 		"loot": {
+			"winteressence":0.1,
 			"codices": "2~5",
 			"tomes": "20%"
 		}
@@ -971,6 +1092,7 @@
           "frost":"0.5~2"
         },
         "result":{
+			"winteressence":0.1,
           "icelore.max":0.1
         }
       },
@@ -986,6 +1108,7 @@
           "icelore.exp":3
         },
         "result":{
+			"winteressence":0.1,
           "livingsnow":"1~3",
           "charm.max":0.01
         }
@@ -1000,6 +1123,7 @@
         },
         "level":2,
         "result":{
+			"winteressence":0.1,
           "airlore.max":0.01
         }
       },
@@ -1030,6 +1154,7 @@
         },
         "level":2,
         "result":{
+			"winteressence":0.1,
           "candle.max":0.05,
           "crafting.max":0.01
         }
@@ -1045,6 +1170,7 @@
         },
         "level":2,
         "result":{
+			"winteressence":0.1,
           "evt_w_legend":"10%",
           "history.max":0.01
         }
@@ -1097,6 +1223,7 @@
           "herbology.max":0.005
         },
         "loot":{
+			"winteressence":0.1,
           "herbs":"2~5",
           "snowdrop":"20%",
           "icethorn":"10%",
@@ -1130,6 +1257,7 @@
           "earthlore.max":0.001
         },
         "loot":{
+			"winteressence":0.1,
           "body":"4%",
           "bones":{
             "val":"0~2",
@@ -1149,6 +1277,7 @@
           "icelore.max":0.001
         },
         "loot":{
+			"winteressence":0.1,
           "snowman":"1"
         }
       }
