@@ -1,6 +1,7 @@
 import Range from "../values/range";
 import { assignPublic } from "../util/util";
 import Stat from "../values/stat";
+import { ParseMods } from "../values/mod";
 
 export default class Attack {
 
@@ -18,6 +19,11 @@ export default class Attack {
 
 	}
 
+	get dot(){ return this._dot; }
+	set dot(v) {
+		this._dot =v;
+		if ( v.mod ) v.mod = ParseMods( v.mod, this.dot.id || this.id );
+	}
 	get name() {return this._name; }
 	set name(v) { this._name = v;}
 
