@@ -232,7 +232,7 @@ export default {
 		if ( lists.encounters ) inst.encounters = this.initItems( items, lists['encounters'], Encounter, ENCOUNTER, ENCOUNTER);
 		if ( lists.monsters ) inst.monsters = this.initItems( items, lists['monsters'], Monster, MONSTER, MONSTER );
 
-		if ( lists.rares ) inst.rares = this.initItems( items, lists['rares'], Item );
+		if ( lists.rares ) inst.rares = this.initItems( items, lists['rares'], ProtoItem );
 
 		if ( lists.locales ) this.initItems( items, lists['locales'], Locale );
 		if ( lists.dungeons ) this.initItems( items, lists['dungeons'], Dungeon );

@@ -8,7 +8,7 @@ import Npc from '../chars/npc';
 import GenGroup from '../genGroup';
 import { pushNonNull, logObj } from '../util/util';
 import GData from '../items/gdata';
-import { ENCOUNTER, WEARABLE, MONSTER, ARMOR, WEAPON, TYP_PCT, EVENT } from '../values/consts';
+import { ENCOUNTER, WEARABLE, MONSTER, ARMOR, WEAPON, TYP_PCT, EVENT, ITEM, POTION } from '../values/consts';
 
 /**
  * Revive a prototyped item based on an item template.
@@ -138,18 +138,18 @@ export default class ItemGen {
 
 		if ( proto.type === ARMOR || proto.type === WEAPON || proto.type === WEARABLE ) {
 
-			//console.log('instance wearable: ' + proto.id );
-			return this.itemClone( proto, this.matForItem(proto ));
+			console.log('INSTANCE wearable: ' + proto.id );
+			return this.makeWearable( proto, this.matForItem(proto ));
 
 		} else if ( proto.type === ENCOUNTER ) {
 
 			it = new Encounter(proto);
 
-		} else if ( proto.type === 'potion' ) {
+		} else if ( proto.type === POTION ) {
 
 			it = new Item(proto);
 
-		} else if ( proto.type === 'item') {
+		} else if ( proto.type === ITEM) {
 
 			it = new Item( proto );
 
@@ -176,11 +176,10 @@ export default class ItemGen {
 		if ( data === null || data === undefined ) return null;
 
 		let mat = data.material || material;
-		if ( (typeof mat ==='number') || !mat ) mat = this.matForItem( data, mat );
-
+		if ( typeof mat ==='number' ) mat = this.matForItem( data, mat );
 		if ( typeof mat === 'string' ) mat = this.state.getData( mat );
 
-		return this.itemClone( data, mat );
+		return this.makeWearable( data, mat );
 
 	}
 
@@ -220,7 +219,7 @@ export default class ItemGen {
 		if ( info[TYP_PCT] && (100*Math.random() > info[TYP_PCT]) ) return null;
 
 		if ( info.type === WEARABLE || info.type === WEAPON
-				|| info.type ===ARMOR) return this.fromData( info, info.level );
+				|| info.type ===ARMOR) return this.fromData( info, info.material );
 
 		else if ( info.instance || info.isRecipe ) {
 			return this.instance( info );
@@ -401,7 +400,7 @@ export default class ItemGen {
 	 */
 	wearableType() { return Math.random() < 0.65 ? ARMOR : WEAPON; }
 
-	itemClone( data, material ) {
+	makeWearable( data, material ) {
 
 		let item = new Wearable(data);
 

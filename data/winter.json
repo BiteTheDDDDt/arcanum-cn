@@ -1183,7 +1183,6 @@
         "desc": "A snowglobe with magical powers. It reminds you of colder days.",
 		"level": 10,
 		"save":true,
-        "material": "permafrost",
         "unique": true,
         "type": "weapon",
         "tohit": 5,
