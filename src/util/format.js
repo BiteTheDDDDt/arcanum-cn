@@ -19,7 +19,7 @@ export const precise = (v, n=2) => {
 
 	let abs = Math.abs(r);
 	let c = 1;
-	while ( abs !== Math.floor(abs) && abs < d ) {
+	while ( (abs < d) && abs !== Math.floor(abs) ) {
 
 		abs *= 10;
 		c *= 10;
@@ -27,7 +27,7 @@ export const precise = (v, n=2) => {
 	}
 
 	abs = Math.round(abs)/c;
-	return r > 0 ? abs : -abs;
+	return r >= 0 ? abs : -abs;
 
 }
 
