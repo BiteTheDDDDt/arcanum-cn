@@ -301,7 +301,6 @@
 				"desc": "A letter from a few centuries ago, requesting the aid of Fazbit in producing a large amount of items for an unknown festivity. The designs are supposed to be enclosed, but are clearly missing.",
 				"require": "g.w_fazbitknowledge>=400000",
 				"mod": {
-					"history.rate": 100,
 					"history.rate": "100%",
 					"history.max": 5
 				}
@@ -399,7 +398,7 @@
         "desc":"You can feel the chill spreading",
         "require":"g.winteressence>=10",
         "cost":{
-          "livingsnow"30,
+          "livingsnow":30,
 		  "snowman":10
         },
         "mod":{
