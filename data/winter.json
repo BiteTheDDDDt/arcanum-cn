@@ -231,7 +231,7 @@
 				"require": "g.w_fazbitknowledge>=500",
 				"mod": {
 					"crafting.max": 1,
-					"gems.max": 20,
+					"magicgems.max": 20,
 					"gem.max": 10
 				}
 			},
@@ -399,8 +399,8 @@
         "desc":"You can feel the chill spreading",
         "require":"g.winteressence>=10",
         "cost":{
-          "livingsnow":30,
-		  "snowman":15
+          "livingsnow"30,
+		  "snowman":10
         },
         "mod":{
           "waterlore2.max":1,
@@ -413,8 +413,8 @@
         "desc":"A howling wind surrounds you, always",
         "require":"g.winteressence>=100",
         "cost":{
-          "livingsnow":70,
-		  "snowman":30
+          "livingsnow":40,
+		  "snowman":15
         },
         "mod":{
           "ice.max":10,
@@ -427,9 +427,9 @@
         "desc":"People around you start to shiver uncontrollably.",
         "require":"g.winteressence>=500",
         "cost":{
-          "livingsnow":100,
-		  "snowman":50,
-		  "waterrune":10
+          "livingsnow":50,
+		  "snowman":20,
+		  "watergem": 75
         },
         "mod":{
           "waterlore2.max":1,
@@ -442,10 +442,10 @@
         "desc":"Your mere presence is enough to turn the warmest summer to a winter night.",
         "require":"g.winteressence>=1000",
         "cost":{
-          "livingsnow":100,
-		  "snowman":50,
-		  "watergem":250,
-		  "waterrune":30
+          "livingsnow":60,
+		  "snowman":25,
+		  "watergem": 100,
+		  "waterrune": 20
         },
         "mod":{
           "icelore.max":10,
@@ -458,10 +458,10 @@
         "desc":"You spread the joy of the cold far and wide, for the winter has come",
         "require":"g.winteressence>=5000",
         "cost":{
-          "livingsnow":150,
-		  "snowman":800,
-		  "watergem":350,
-		  "waterrune":50
+		  "livingsnow": 80,
+		  "snowman": 30,
+		  "watergem": 150,
+		  "waterrune": 25
         },
         "mod":{
           "iceshard.attack.damage.min":10,
@@ -1042,8 +1042,8 @@
 		"run": {
 			"stamina": 2
 		},
-		"effect": {
-			"w_fazbitknowledge": 20
+		"result": {
+					"w_fazbitknowledge": 200
 		},
 		"encs": [
 			"enc_w_faz_nothingthere",
@@ -1162,7 +1162,7 @@
 		"desc": "Nothing there.",
 		"effect": {
 			"madness": "2~3",
-			"unease": "4~6"
+			"unease": "3~5"
 		},
 		"result": {
 			"w_fazbitknowledge": "1~3",
@@ -1175,7 +1175,7 @@
 		"desc": "Tiny, malformed metal skeletons litter the floor.",
 		"effect": {
 			"weary": "2~3",
-			"unease": "4~6"
+			"unease": "3~5"
 		},
 		"result": {
 			"w_fazbitknowledge": "1~3",
@@ -1189,7 +1189,7 @@
 		"desc": "the machine throws chunks of metal into a cauldron. Round, bouncy balls emerge.",
 		"effect": {
 			"bf": "2~3",
-			"unease": "4~6"
+			"unease": "3~5"
 		},
 		"result": {
 			"w_fazbitknowledge": "1~3",
@@ -1203,7 +1203,7 @@
 		"desc": "As you clear your eyes, you realize you've been meticulously covered in magical paint.",
 		"effect": {
 			"bf": "2~3",
-			"unease": "4~6"
+			"unease": "3~5"
 		},
 		"result": {
 			"w_fazbitknowledge": "1~3",
@@ -1217,7 +1217,7 @@
 		"desc": "tangled metal skeletons hover behind you.",
 		"effect": {
 			"bf": "2~3",
-			"unease": "4~6"
+			"unease": "3~5"
 		},
 		"result": {
 			"w_fazbitknowledge": "1~3",
@@ -1227,10 +1227,10 @@
 	{
 		"id": "enc_w_faz_boominglaugh",
 		"name": "booming laugh",
-		"desc": "Deep, mettalic laugh echoes through the facility.",
+		"desc": "Deep, metallic laugh echoes through the facility.",
 		"effect": {
 			"madness": "2~3",
-			"unease": "4~6"
+			"unease": "3~5"
 		},
 		"result": {
 			"w_fazbitknowledge": "1~3",
@@ -1243,7 +1243,7 @@
 		"desc": "A hysterical, repeating laugh fills the halls.",
 		"effect": {
 			"madness": "2~3",
-			"unease": "4~6"
+			"unease": "3~5"
 		},
 		"result": {
 			"w_fazbitknowledge": "1~3",
@@ -1256,7 +1256,7 @@
 		"desc": "the crumbling pages reveal little.",
 		"effect": {
 			"rage": "2~3",
-			"unease": "4~6"
+			"unease": "3~5"
 		},
 		"result": {
 			"w_fazbitknowledge": "1~3",
@@ -1270,7 +1270,7 @@
 		"desc": "A calmly sitting skeleton suddenly reaches for you, screeching.",
 		"effect": {
 			"madness": "2~3",
-			"unease": "4~6"
+			"unease": "3~5"
 		},
 		"result": {
 			"w_fazbitknowledge": "1~3",
@@ -1283,7 +1283,7 @@
 		"name": "materials stockpile",
 		"desc": "You happen upon a store of valuable materials.",
 		"effect": {
-			"unease": "5~8"
+			"unease": "4~6"
 		},
 		"result": {
 			"w_fazbitknowledge": "1~3",
@@ -1595,37 +1595,39 @@
 ],
     "rares":[
       {
-        "id": "iceorb",
-        "name": "orb of endless winter",
-        "desc": "A snowglobe with magical powers. It reminds you of colder days.",
+		"id": "iceorb",
+		"name": "orb of winters",
+		"desc": "A snowglobe with magical powers. It reminds you of colder days.",
 		"level": 10,
-		"save":true,
-        "unique": true,
-        "type": "weapon",
-        "tohit": 5,
-        "cost": 1,
-        "attack": {
-          "name": "blizzard",
-          "targets":"enemies",
-          "dot": {
-            "duration":20,
-            "kind": "ice",
-            "dmg":"5~12",
-            "mod": {
-              "speed":-3
-            }
-          }
-        },
-        "mod": {
-          "ice.rate": "20%",
-          "ice.max": "20%",
-          "icelore.rate": 2,
-          "water.rate": "20%",
-          "water.max": "20%",
-          "waterlore.rate": 2,
-          "fire.rate": "-80%",
-          "fire.max": "-80%"
-        }
+		"save": true,
+		"unique": true,
+		"type": "weapon",
+		"tohit": 5,
+		"cost": 100,
+		"attack": {
+			"name": "blizzard",
+			"damage": "5~12",
+			"kind": "water",
+			"targets": "enemies",
+			"dot": {
+				"duration": 20,
+				"kind": "water",
+				"damage": "5~12",
+				"mod": {
+					"speed": -5
+				}
+			}
+		},
+		"mod": {
+			"ice.rate": "20%",
+			"ice.max": "20%",
+			"icelore.rate": 2,
+			"water.rate": "20%",
+			"water.max": "20%",
+			"waterlore.rate": 2,
+			"fire.rate": "-80%",
+			"fire.max": "-80%"
+		}
       }
     ]
   }
