@@ -17,14 +17,17 @@ export const precise = (v, n=2) => {
 
 	let d = Math.pow(10,n);
 
-	let c = 0;
-	while ( r !== Math.floor(r) && r < d ) {
+	let abs = Math.abs(r);
+	let c = 1;
+	while ( abs !== Math.floor(abs) && abs < d ) {
 
-		r *= 10;
-		c++;
+		abs *= 10;
+		c *= 10;
 
 	}
-	return Math.round(r)/Math.pow(10,c);
+
+	abs = Math.round(abs)/c;
+	return r > 0 ? abs : -abs;
 
 }
 
