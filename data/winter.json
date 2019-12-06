@@ -314,7 +314,7 @@
       {
         "id":"winterchill",
         "name":"winter's chill",
-        "desc":"People around you shiver uncontrollably",
+        "desc":"People around you start to shiver uncontrollably.",
         "require":"g.winteressence>=500",
         "cost":{
           "livingsnow":100,
@@ -322,14 +322,14 @@
 		  "waterrune":10
         },
         "mod":{
-          "waterlore2.max":3,
+          "waterlore2.max":1,
 		  "icelore.rate":"200%"
         }
       },
       {
         "id":"winterbreath",
         "name":"winter's breath",
-        "desc":"Your very presence is enough to turn the warmest summer to coldest winter",
+        "desc":"Your mere presence is enough to turn the warmest summer to a winter night.",
         "require":"g.winteressence>=1000",
         "cost":{
           "livingsnow":100,
@@ -365,7 +365,7 @@
       },
       {
         "id":"wintermastery",
-        "name":"Master of winter",
+        "name":"master of winter",
         "desc":"You braved every blizzard and stayed cool throughout. Congratulations!",
         "require":"g.winteressence>=10000",
         "cost":{
@@ -836,7 +836,7 @@
       },
       {
         "id":"iceyeti",
-        "name":"Yeti",
+        "name":"yeti",
         "level":5,
         "kind":"giant",
         "desc":"A mythical creature, found only in legends",
