@@ -1,5 +1,5 @@
 import Game from './game';
-import { quickSplice } from './util/util';
+import { quickSplice } from './util/array';
 
 /**
  * @const {RegExp} FuncRE - regular expression to find tree relationships

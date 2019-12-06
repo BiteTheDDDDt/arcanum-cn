@@ -1,5 +1,5 @@
 import Game from '../game';
-import {quickSplice} from '../util/util';
+import {quickSplice} from '../util/array';
 
 export default {
 

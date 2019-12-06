@@ -1,7 +1,7 @@
 import Action from './action';
 import Game from '../game';
 import { getDist, distTest, levelTest } from './locale';
-import { mapNonNull } from '../util/util';
+import { mapNonNull } from '../util/array';
 import { DUNGEON, RAID } from '../values/consts';
 
 /**

@@ -1,7 +1,8 @@
 import { defineExcept, clone } from 'objecty';
 import Stat from '../values/stat';
 import Base, {mergeClass, initMods} from './base';
-import { arrayMerge, assignPublic } from '../util/util';
+import {arrayMerge} from '../util/array';
+import { assignPublic } from '../util/util';
 import Events, { ITEM_ATTACK, EVT_EVENT, EVT_UNLOCK } from '../events';
 import { TICK_LEN } from '../game';
 import { WEARABLE } from '../values/consts';

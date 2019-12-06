@@ -1,5 +1,5 @@
 import Game from '../game';
-import {quickSplice, findRemove} from '../util/util';
+import {quickSplice, findRemove} from '../util/array';
 import Events, {ACT_DONE, ACT_CHANGED, HALT_ACT, ACT_BLOCKED, EXP_MAX, STOP_ALL } from '../events';
 import Stat from '../values/stat';
 import Base, {mergeClass} from '../items/base';

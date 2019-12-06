@@ -1,6 +1,6 @@
 import Percent from './percent';
 import Stat from './stat';
-import { splitKeyPath, logObj, splitKeys } from '../util/util';
+import { logObj, splitKeys } from '../util/util';
 import { precise } from '../util/format';
 import { TYP_MOD } from './consts';
 

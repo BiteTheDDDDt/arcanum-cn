@@ -1,11 +1,11 @@
-import {randElm} from './util/util';
+import {randElm, randFrom, mapNonNull} from './util/array';
 
 /**
  * Category to assign items with no property value
  * on the filter dimension.
- * e.g. filters['biome'] = { any:[npcs without biomes] }
+ * e.g. filters['biome'] = { none:[npcs without biomes] }
  */
-const DEFAULT_CATEGORY = 'any';
+const BLANK_CATEGORY = 'none';
 
 /**
  * Item generation group for a given item type.
@@ -69,13 +69,48 @@ export default class GenGroup {
 	 * Get a filtered sublist.
 	 * @param {string} filter - filter type 'level', 'biome' etc.
 	 * @param {string} match - property value to match.
+	 * @param {boolean} allowBlank - accept items with null value on property. e.g. biome:null
+	 * @returns {Array}
 	 */
-	filtered( filter, match ) {
+	filtered( filter, match, allowBlank=false ) {
 
 		let f = this.filterBy[filter];
-		if ( f !== undefined ) return f[match];
 
-		return null;
+		let res = f[match] || [];
+		if ( allowBlank && f.hasOwnProperty(BLANK_CATEGORY) ) return res.concat( f[BLANK_CATEGORY ] );
+
+		return res;
+
+	}
+
+	/**
+	 * Get an array of categories under a filter.
+	 * @param {string} filter
+	 * @param {string|string[]} matches
+	 * @param {boolean} allowBlank
+	 * @returns {Array[]}
+	 */
+	getCategories( filter, matches, allowBlank ) {
+
+		const subs = this.filterBy[filter];
+		let res = [];
+
+		if ( subs === undefined ) return res;
+		if ( allowBlank && subs.hasOwnProperty(BLANK_CATEGORY)) res.push( subs[BLANK_CATEGORY]);
+		if ( typeof matches === 'string') {
+
+			if ( subs.hasOwnProperty(matches) ) res.push( subs[matches]);
+
+		} else if ( Array.isArray(matches)) {
+
+			for( let i = matches.length-1; i>= 0; i--) {
+				var sub = subs[matches[i] ];
+				if ( sub ) res.push(sub);
+			}
+
+		}
+
+		return res;
 
 	}
 
@@ -83,16 +118,22 @@ export default class GenGroup {
 	 * Get a random item from a filtered subcategory.
 	 * @param {string} filter - level/biome, etc.
 	 * @param {string} matches - valid property matches.
+	 * @param {boolean} allowBlank - accept items with no prop value on filter. e.g. biome:null
 	 */
-	randBy( filter, matches ) {
+	randBy( filter, matches, allowBlank=false ) {
 
-		var o = this.filterBy[filter];
-		if ( o===undefined) return null;
+		var subs = this.filterBy[filter];
+		if ( subs === undefined ) return null;
 
-		o = filter[matches];
-		if ( o===undefined || o.length === 0) return null;
+		if ( Array.isArray( matches ) ) {
 
-		return o[ Math.floor( Math.random()*o.length) ];
+			return randFrom( this.getCategories(filter, matches, allowBlank) );
+
+		} else {
+
+			return randElm( this.filtered( filter, matches, allowBlank) );
+
+		}
 
 	}
 
@@ -110,7 +151,7 @@ export default class GenGroup {
 		for( let i = this.items.length-1; i>= 0; i-- ) {
 
 			var it = this.items[i];
-			var cat = it[prop] || DEFAULT_CATEGORY;
+			var cat = it[prop] || BLANK_CATEGORY;
 
 			var list = group[ cat ];
 			if ( list === undefined ) {

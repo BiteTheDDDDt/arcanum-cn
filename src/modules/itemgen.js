@@ -6,7 +6,7 @@ import Item from '../items/item';
 import Encounter from '../items/encounter';
 import Npc from '../chars/npc';
 import GenGroup from '../genGroup';
-import { pushNonNull, logObj } from '../util/util';
+import { pushNonNull } from '../util/array';
 import GData from '../items/gdata';
 import { ENCOUNTER, WEARABLE, MONSTER, ARMOR, WEAPON, TYP_PCT, EVENT, ITEM, POTION } from '../values/consts';
 
