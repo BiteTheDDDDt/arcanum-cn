@@ -1,8 +1,17 @@
 <script>
 export default {
 
-	props:['value', 'max', 'label', 'hideStats'],
+	props:['value', 'max', 'label', 'hideStats', 'color'],
 	computed:{
+
+		style(){
+
+			let s = 'width:' + this.width;
+			if ( this.color ) s += ';background:' + this.color;
+
+			return s;
+
+		},
 
 		width(){
 			let val = Math.floor( 100*(this.value/this.max) );
@@ -21,7 +30,7 @@ export default {
 <div class="container">
 	<label v-if="label" :for="elmId('bar')">{{label}}</label>
 	<div class="bar" :id="elmId('bar')">
-		<div class="fill" :style="'width:'+ width">
+		<div class="fill" :style="style">
 			<span class="bar-text" v-if="!hideStats">{{ (this.value||0).toFixed(1) + '/' + max.toFixed(1) }}</span>
 			<span v-else>&nbsp;</span>
 		</div>

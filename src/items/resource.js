@@ -57,6 +57,12 @@ export default class Resource extends GData {
 	set delta(v) { this._delta = v; }
 
 	/**
+	 * @property {string} color - optional color override.
+	 */
+	get color(){return this._color; }
+	set color(v) {this._color=v;}
+
+	/**
 	 *
 	 * @param {?Object} [vars=null]
 	 */
