@@ -182,14 +182,14 @@ export default class Char {
 			if ( !this.name ) this._name = it.name;
 		}
 
-		this.reviveDots();
+		this.reviveDots(gs);
 		this.reviveStates();
 
 	}
 
-	reviveDots() {
+	reviveDots(gs) {
 		for( let i = this.dots.length-1; i>=0; i--) {
-			this.dots[i].revive(state);
+			this.dots[i].revive(gs);
 		}
 	}
 

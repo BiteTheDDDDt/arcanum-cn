@@ -96,7 +96,7 @@ export default {
     div.vitals {
         text-transform: capitalize;
         margin: 0; padding: 0;
-        min-width: 11rem; overflow-y :auto; overflow-x: hidden;
+        min-width: 15rem; overflow-y :auto; overflow-x: hidden;
     }
 	div.vitals .bars {
 		display: flex; flex-flow: column;

@@ -514,6 +514,14 @@ div.bgfill {
 	width:100%;
 }
 
+div.bar .fill {
+	background:orange;
+	border-radius: var(--rg-radius);
+	height:100%;
+	min-width:0;
+	width:0;
+}
+
 div.hp .fill, div.hp .bgfill {
 	background:#ac0404;
 }

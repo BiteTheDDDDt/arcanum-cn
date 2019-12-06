@@ -427,7 +427,7 @@ div.game-mid {
 	border-left: 1px solid var(--separator-color); border-right: 1px solid var(--separator-color);
 	max-height: 100%;
 	height:100%;
-	flex-basis:48%;
+	flex-basis:45%;
 	flex-grow:1;
 	align-content: space-around;
 }

@@ -168,7 +168,7 @@ export default class GenGroup {
 		// sort all lists.
 		if ( sortBy && sortBy !== prop) {
 
-			for( let p of group ) {
+			for( let p in group ) {
 				propSort( group[p], sortBy );
 			}
 

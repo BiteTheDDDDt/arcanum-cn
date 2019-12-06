@@ -67,12 +67,6 @@ div.bar {
 	width:-moz-available;
 	border-radius: var(--lg-radius);
 }
-div.bar .fill {
-	background:orange;
-	border-radius: var(--rg-radius);
-	height:100%;
-	min-width:0;
-	width:0;
-}
+
 
 </style>
