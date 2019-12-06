@@ -72,7 +72,7 @@
         "max":5,
         "mod":{
           "frost.rate":1,
-          "icelore.max":0.5
+          "icelore.max":0.2
 		},
 		"flavor":"It's not a snowman. Why would you say that?"
       },
@@ -145,7 +145,7 @@
         "tags":"t_rest",
         "slot":"rest",
         "perpetual":true,
-        "fill":["stamina","manas","hp","stress"],
+        "fill":["stamina","manas","hp","stress","frost"],
 		"effect":{
 			"manas":{
 				"skipLocked":true,
@@ -203,7 +203,7 @@
         "length":75,
         "repeat":false,
         "cost":{
-          "emblemofice":1,
+          "arcana":1,
           "tomes":1
         },
         "run":{
@@ -391,7 +391,7 @@
           "snowdrop":2
         },
         "result":{
-          "icelore.mod.frost.rate":-0.3,
+          "icelore.mod.frost.rate":-0.15,
           "hearth.mod.frost.rate":-1,
           "snowman.mod.frost.rate":-0.8
         }
@@ -420,7 +420,7 @@
         "desc":"You enter a relentless fog which the strongest spells do not disperse. At their center you find an altar of sacrifice. A small offering should do.",
         "disable":"evil_sacrifice",
         "warn":true,
-        "require":"g.evt_w_legend>0&&(g.evil==0||g.good==1)",
+        "require":"g.winterlore>=5&&(g.evil==0||g.good==1)",
         "cost":{
           "gems":10,
           "gold":200
@@ -438,7 +438,7 @@
         "name":"winter fog",
         "desc":"You enter a relentless fog which the strongest spells do not disperse. At their center you find an altar of sacrifice. Inwardly you smile; you know just the thing.",
         "disable":"good_sacrifice",
-        "require":"g.evt_w_legend>0&&(g.good==0||g.evil==1)",
+        "require":"g.winterlore>=5&&(g.good==0||g.evil==1)",
         "warn":true,
         "cost":{
           "bodies":5,
@@ -534,10 +534,8 @@
         },
         "dot":{
           "duration":60,
-          "effect":{
-            "frost":"-2"
-          },
-          "mod":{
+		  "mod":{
+			"frost.rate":-2,
             "player.resist.ice":20
           }
         }
@@ -833,7 +831,7 @@
         "loot":{
 			"ice.rate":0.01,
 			"winteressence":0.1,
-          "icelore.max":0.1
+          "icelore.max":0.02
         }
       },
       {
@@ -898,7 +896,7 @@
           "livingsnow":10
         },
         "loot":{
-          "snowman":"1~2"
+          "snowman":"0~2"
         },
         "encs":[
           "enc_w_kidsplaying",
@@ -1155,7 +1153,6 @@
         "level":2,
         "result":{
 			"winteressence":0.1,
-          "candle.max":0.05,
           "crafting.max":0.01
         }
       },
