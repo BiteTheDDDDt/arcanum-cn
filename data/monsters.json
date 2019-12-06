@@ -107,7 +107,8 @@
 	{
         "id":"bat",
         "level":1,
-        "kind":"beast",
+		"kind":"beast",
+		"biome":["hills","cave","woods"],
         "hp":3,
         "tohit":3,
         "defense":1,
