@@ -215,7 +215,7 @@ export default {
 
 		if ( lists.stressors ) {
 			inst.stressors = this.initItems( items, lists['stressors'], Resource, 'stress', 'stress' );
-			inst.stressors.forEach(v=>v.hidden=true);
+			inst.stressors.forEach(v=>v.hide=true);
 		}
 
 		if ( lists.upgrades ) inst.upgrades = this.initItems( items, lists['upgrades'], GData, null, 'upgrade' );

@@ -20,7 +20,7 @@ export default {
 	},
 
 	computed:{
-		all(){ return this.items.filter( v=>!v.hasTag('manas')&&v.id!=='space'&&!this.reslocked(v)) },
+		all(){ return this.items.filter( v=>!v.hasTag('manas')&&v.hide!==true&&v.id!=='space'&&!this.reslocked(v)) },
 		shown(){ return this.all.filter(v=>this.show(v)); }
 	}
 
