@@ -272,7 +272,7 @@
 	  },
 	  {
         "id":"winterboon",
-        "name":"Winter's boon",
+        "name":"winter's boon",
         "desc":"A small piece of winter finds a home within you",
         "require":"g.winteressence>=1",
         "cost":{
@@ -285,7 +285,7 @@
       },
       {
         "id":"winteraward",
-        "name":"Winter's reward",
+        "name":"winter's reward",
         "desc":"You can feel the chill spreading",
         "require":"g.winteressence>=10",
         "cost":{
@@ -293,13 +293,13 @@
 		  "snowman":15
         },
         "mod":{
-          "waterlore2.max":3,
+          "waterlore2.max":1,
 		  "icelore.rate":50
         }
       },
       {
         "id":"winterhowl",
-        "name":"Winter's howl",
+        "name":"winter's howl",
         "desc":"A howling wind surrounds you, always",
         "require":"g.winteressence>=100",
         "cost":{
@@ -313,7 +313,7 @@
       },
       {
         "id":"winterchill",
-        "name":"Winter's chill",
+        "name":"winter's chill",
         "desc":"People around you shiver uncontrollably",
         "require":"g.winteressence>=500",
         "cost":{
@@ -328,7 +328,7 @@
       },
       {
         "id":"winterbreath",
-        "name":"Winter's breath",
+        "name":"winter's breath",
         "desc":"Your very presence is enough to turn the warmest summer to coldest winter",
         "require":"g.winteressence>=1000",
         "cost":{
@@ -344,7 +344,7 @@
       },
       {
         "id":"winterenvoy",
-        "name":"Winter's envoy",
+        "name":"winter's envoy",
         "desc":"You spread the joy of the cold far and wide, for the winter has come",
         "require":"g.winteressence>=5000",
         "cost":{
@@ -1011,7 +1011,7 @@
 		"desc":"A detailed study of the properties of ice.",
 		"effect": {
 			"bf": "1~3",
-			"icelore.exp": "1~3",
+			"icelore.exp": 1,
 			"icelore.max": 0.001
 		},
 		"result":{
@@ -1042,7 +1042,7 @@
 			"fire":-0.1,
 			"weary": "1~3",
 			"frost": "0~2",
-			"icelore.exp": "0~2"
+			"icelore.exp": 0.5
 		},
 		"loot": {
 			"winteressence":0.1,
@@ -1180,12 +1180,12 @@
         "name":"cold snap",
         "desc":"A sudden burst of icy winds chills you to the bone.",
         "effect":{
-		"weary":"-1~3",
-		"unease":"-1~3",
-		"frost":"1~2",
-		"icelore.exp":"1~3",
-        "hp":"-2~-4",
-        "fire":"-0.2~-0.3"
+			"weary":"-1~3",
+			"unease":"-1~3",
+			"frost":"1~2",
+			"icelore.exp":1.5,
+        	"hp":"-2~-4",
+        	"fire":"-0.2~-0.3"
         }
       },
       {
