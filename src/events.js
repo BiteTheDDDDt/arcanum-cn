@@ -199,14 +199,14 @@ export default {
 	 * @param {Item|Log} it
 	 */
 	onEvent( it ) {
-		if ( it.hidden) return;
+		if ( it.hide) return;
 		if ( it[TYP_PCT] && !it[TYP_PCT].roll() ) return;
 
 		this.log.log( it.name, it.desc, LOG_EVENT );
 	},
 
 	onUnlock( it ) {
-		if ( it.hidden || it.type === EVENT ) return;
+		if ( it.hide || it.type === EVENT ) return;
 		this.log.log( uppercase(it.type) + ' Unlocked: ' + it.name, null, LOG_UNLOCK );
 	},
 

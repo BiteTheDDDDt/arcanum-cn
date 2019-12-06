@@ -65,6 +65,13 @@
 	}
     ],
   	"resources":[
+		{
+			"id": "w_fazbitknowledge",
+			"name": "fazbit's knowledge",
+			"desc": "A story of fazbit's workshop",
+			"hide":true,
+			"max": 1000000
+		},
       {
         "id":"snowman",
         "name":"snomunculus",
@@ -217,6 +224,109 @@
       }
 		],
 		"upgrades":[
+			{
+				"id": "w_fazbit1",
+				"name": "old forms",
+				"desc": "A dusty log detailing the ordering of materials for production. It appears this place required a LOT of materials to run",
+				"require": "g.w_fazbitknowledge>=500",
+				"mod": {
+					"crafting.max": 1,
+					"gems.max": 20,
+					"gem.max": 10
+				}
+			},
+			{
+				"id": "w_fazbit2",
+				"name": "withered designs",
+				"desc": "An anatomycal drawing of a human with unnaturally large eyes. The skeleton is wrong.",
+				"require": "g.w_fazbitknowledge>=5000",
+				"mod": {
+					"crafting.rate": 50,
+					"anatomy.max": 2
+				}
+			},
+			{
+				"id": "w_fazbit3",
+				"name": "cheerful recording",
+				"desc": "An old crystal, still holding a clear recording of a man's laughter. Just hearing it makes you smile.",
+				"require": "g.w_fazbitknowledge>=15000",
+				"mod": {
+					"crafting.rate": "50%",
+					"spiritlore.max": 2
+				}
+			},
+			{
+				"id": "w_fazbit4",
+				"name": "alchemical formula",
+				"desc": "A formula for producing a thick, firm, yet easily yielding coating.",
+				"require": "g.w_fazbitknowledge>=50000",
+				"mod": {
+					"alchemy.max": 2,
+					"potions.max": 2
+				}
+			},
+			{
+				"id": "w_fazbit5",
+				"name": "battered ledger",
+				"desc": "A ledger detailing the payments for shipments. It appears the products were shipped out to arrive at a specific date.",
+				"require": "g.w_fazbitknowledge>=100000",
+				"mod": {
+					"concentration.max": 1,
+					"history.max": 2
+				}
+			},
+			{
+				"id": "w_fazbit6",
+				"name": "odd spellchart",
+				"desc": "A spellchart detailing a superbly efficient spell for animating a small golem. Multiple flaws prevent the golem from applying any dangerous force.",
+				"require": "g.w_fazbitknowledge>=150000",
+				"mod": {
+					"summoning.max": 1,
+					"conjuration.max": 2
+				}
+			},
+			{
+				"id": "w_fazbit7",
+				"name": "transportation sigils",
+				"desc": "Your investigation reveals multiple sigils woven into the walls and floors of the workshop. They appear to be designed to transport materials in an automated fashion. Warning spells are included, to compel anyone in the way to step aside.",
+				"require": "g.w_fazbitknowledge>=250000",
+				"mod": {
+					"summoning.max": 1,
+					"runelore.max": 2
+				}
+			},
+			{
+				"id": "w_fazbit8",
+				"name": "letter of request",
+				"desc": "A letter from a few centuries ago, requesting the aid of Fazbit in producing a large amount of items for an unknown festivity. The designs are supposed to be enclosed, but are clearly missing.",
+				"require": "g.w_fazbitknowledge>=400000",
+				"mod": {
+					"history.rate": 100,
+					"history.rate": "100%",
+					"history.max": 5
+				}
+			},
+			{
+				"id": "w_fazbit9",
+				"name": "discarded missives",
+				"desc": "A large bin full of paper dust. There are traces of long-decayed ink and paint.",
+				"require": "g.w_fazbitknowledge>=600000",
+				"mod": {
+					"lore.rate": "100%",
+					"history.max": 5
+				}
+			},
+			{
+				"id": "w_fazbit10",
+				"name": "the purpose",
+				"desc": "The entire facility was created by Fazbit to provide large amounts of what must be animated toys for multiple settlements, to be used in an unknown festivity. Perhaps, one day, this tradition may be revived.",
+				"require": "g.w_fazbitknowledge>=1000000",
+				"mod": {
+					"crafting.max": 5,
+					"history.max": 5,
+					"minions.maxallies": 25
+				}
+			},
 			{
         "id":"w_multitask",
         "name":"workforce",
@@ -616,7 +726,23 @@
           "frost.rate":-1,
           "fire.rate":0.1
         }
-      },
+	  },
+	  {
+		"id": "fazbithearth",
+		"desc": "Originally used to warm the entire workshop, can be repurposed for home use.",
+		"require": "g.w_fazbit9",
+		"max": 1,
+		"cost": {
+			"firegem": 100,
+			"firerune": 25
+		},
+		"mod": {
+			"frost.rate": -100,
+			"fire.rate": 0.5,
+			"firelore.max": 5,
+			"iceflame.attack.dot.duration": 5
+		}
+	},
       {
         "id":"freezer",
         "desc":"A place to store the melting snow.",
@@ -905,7 +1031,34 @@
           "enc_w_candles",
           "enc_w_legends"
         ]
-      },
+	  },
+	  {
+		"id": "w_fazbitshop",
+		"name": "fazbit's workshop?",
+		"level": 3,
+		"length": 100,
+		"require": "g.fazbitshop>0&&g.tier3>0",
+		"desc": "Travelers have reported unusual activity in the long-abandoned workshop. Deep, unsettling laughing and the loud clanking of metal can be heard throughout the day.",
+		"run": {
+			"stamina": 2
+		},
+		"effect": {
+			"w_fazbitknowledge": 20
+		},
+		"encs": [
+			"enc_w_faz_nothingthere",
+			"enc_w_faz_tinyskeletons",
+			"enc_w_faz_blobs",
+			"enc_w_faz_paint",
+			"enc_w_faz_somethingthere",
+			"enc_w_faz_boominglaugh",
+			"enc_w_faz_creepylaugh",
+			"enc_w_faz_auditlog",
+			"enc_w_faz_prototype",
+			"enc_w_faz_stockpile",
+			"enc_chest3"
+		]
+	},
       {
         "id":"icelake",
         "name":"ice lake",
@@ -1003,6 +1156,144 @@
           "frost":"0~1"
         }
 	  },
+	  {
+		"id": "enc_w_faz_nothingthere",
+		"name": "behind you",
+		"desc": "Nothing there.",
+		"effect": {
+			"madness": "2~3",
+			"unease": "4~6"
+		},
+		"result": {
+			"w_fazbitknowledge": "1~3",
+			"winteressence": 0.1
+		}
+	},
+	{
+		"id": "enc_w_faz_tinyskeletons",
+		"name": "tiny skeletons",
+		"desc": "Tiny, malformed metal skeletons litter the floor.",
+		"effect": {
+			"weary": "2~3",
+			"unease": "4~6"
+		},
+		"result": {
+			"w_fazbitknowledge": "1~3",
+			"crafting.max": 0.01,
+			"winteressence": 0.1
+		}
+	},
+	{
+		"id": "enc_w_faz_blobs",
+		"name": "blob maker",
+		"desc": "the machine throws chunks of metal into a cauldron. Round, bouncy balls emerge.",
+		"effect": {
+			"bf": "2~3",
+			"unease": "4~6"
+		},
+		"result": {
+			"w_fazbitknowledge": "1~3",
+			"winteressence": 0.1,
+			"alchemy.max": 0.01
+		}
+	},
+	{
+		"id": "enc_w_faz_paint",
+		"name": "sudden blindness",
+		"desc": "As you clear your eyes, you realize you've been meticulously covered in magical paint.",
+		"effect": {
+			"bf": "2~3",
+			"unease": "4~6"
+		},
+		"result": {
+			"w_fazbitknowledge": "1~3",
+			"winteressence": 0.1,
+			"charms.max": 0.01
+		}
+	},
+	{
+		"id": "enc_w_faz_somethingthere",
+		"name": "behind you",
+		"desc": "tangled metal skeletons hover behind you.",
+		"effect": {
+			"bf": "2~3",
+			"unease": "4~6"
+		},
+		"result": {
+			"w_fazbitknowledge": "1~3",
+			"winteressence": 0.1
+		}
+	},
+	{
+		"id": "enc_w_faz_boominglaugh",
+		"name": "booming laugh",
+		"desc": "Deep, mettalic laugh echoes through the facility.",
+		"effect": {
+			"madness": "2~3",
+			"unease": "4~6"
+		},
+		"result": {
+			"w_fazbitknowledge": "1~3",
+			"winteressence": 0.1
+		}
+	},
+	{
+		"id": "enc_w_faz_creepylaugh",
+		"name": "creepy laugh",
+		"desc": "A hysterical, repeating laugh fills the halls.",
+		"effect": {
+			"madness": "2~3",
+			"unease": "4~6"
+		},
+		"result": {
+			"w_fazbitknowledge": "1~3",
+			"winteressence": 0.1
+		}
+	},
+	{
+		"id": "enc_w_faz_auditlog",
+		"name": "audit log",
+		"desc": "the crumbling pages reveal little.",
+		"effect": {
+			"rage": "2~3",
+			"unease": "4~6"
+		},
+		"result": {
+			"w_fazbitknowledge": "1~3",
+			"winteressence": 0.1,
+			"history.max": 0.01
+		}
+	},
+	{
+		"id": "enc_w_faz_prototype",
+		"name": "screeching skeleton",
+		"desc": "A calmly sitting skeleton suddenly reaches for you, screeching.",
+		"effect": {
+			"madness": "2~3",
+			"unease": "4~6"
+		},
+		"result": {
+			"w_fazbitknowledge": "1~3",
+			"winteressence": 0.1,
+			"crafting.max": 0.01
+		}
+	},
+	{
+		"id": "enc_w_faz_stockpile",
+		"name": "materials stockpile",
+		"desc": "You happen upon a store of valuable materials.",
+		"effect": {
+			"unease": "5~8"
+		},
+		"result": {
+			"w_fazbitknowledge": "1~3",
+			"winteressence": 0.1
+		},
+		"loot": {
+			"gems": "2~5",
+			"gold": "100~250"
+		}
+	},
 	  {
 		"id": "enc_icestudy",
 		"name": "ebin's notes",
