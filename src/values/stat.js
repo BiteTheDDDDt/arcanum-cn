@@ -33,7 +33,7 @@ export default class Stat {
 	 */
 	get value() {
 
-		let abs = Math.abs( this._base + this._mBase );
+		//let abs = Math.abs( this._base + this._mBase );
 
 		if ( this._pos ===true) {
 			return Math.max( (this._base + this._mBase)*( 1 + this._basePct + this._mPct ),0);
@@ -235,8 +235,7 @@ export default class Stat {
 	}
 
 	/**
-	 * Test if a mod can be applied to this stat without value becoming
-	 * negative.
+	 * Test if a mod can be applied to this stat without value becoming negative.
 	 * @param {Mod} mod
 	 * @param {number} amt
 	 */
@@ -255,6 +254,7 @@ export default class Stat {
 
 	/**
 	 * Recalculate the total bonus and percent applied to stat.
+	 * @protected
 	 */
 	recalc(){
 
