@@ -39,7 +39,7 @@
 			"name": "fazbit's knowledge",
 			"desc": "A story of fazbit's workshop",
 			"hide":true,
-			"max": 1000000
+			"max": 100000
 		},
       {
         "id":"snowman",
@@ -202,7 +202,7 @@
 				"id": "w_fazbit1",
 				"name": "old forms",
 				"desc": "A dusty log detailing the ordering of materials for production. It appears this place required a LOT of materials to run",
-				"require": "g.w_fazbitknowledge>=500",
+				"require": "g.w_fazbitknowledge>=50",
 				"mod": {
 					"crafting.max": 1,
 					"magicgems.max": 20,
@@ -212,8 +212,8 @@
 			{
 				"id": "w_fazbit2",
 				"name": "withered designs",
-				"desc": "An anatomycal drawing of a human with unnaturally large eyes. The skeleton is wrong.",
-				"require": "g.w_fazbitknowledge>=5000",
+				"desc": "An anatomical drawing of a human with unnaturally large eyes. The skeleton is wrong.",
+				"require": "g.w_fazbitknowledge>=500",
 				"mod": {
 					"crafting.rate": 50,
 					"anatomy.max": 2
@@ -223,7 +223,7 @@
 				"id": "w_fazbit3",
 				"name": "cheerful recording",
 				"desc": "An old crystal, still holding a clear recording of a man's laughter. Just hearing it makes you smile.",
-				"require": "g.w_fazbitknowledge>=15000",
+				"require": "g.w_fazbitknowledge>=1500",
 				"mod": {
 					"crafting.rate": "50%",
 					"spiritlore.max": 2
@@ -233,7 +233,7 @@
 				"id": "w_fazbit4",
 				"name": "alchemical formula",
 				"desc": "A formula for producing a thick, firm, yet easily yielding coating.",
-				"require": "g.w_fazbitknowledge>=50000",
+				"require": "g.w_fazbitknowledge>=5000",
 				"mod": {
 					"alchemy.max": 2,
 					"potions.max": 2
@@ -243,7 +243,7 @@
 				"id": "w_fazbit5",
 				"name": "battered ledger",
 				"desc": "A ledger detailing the payments for shipments. It appears the products were shipped out to arrive at a specific date.",
-				"require": "g.w_fazbitknowledge>=100000",
+				"require": "g.w_fazbitknowledge>=10000",
 				"mod": {
 					"concentration.max": 1,
 					"history.max": 2
@@ -253,7 +253,7 @@
 				"id": "w_fazbit6",
 				"name": "odd spellchart",
 				"desc": "A spellchart detailing a superbly efficient spell for animating a small golem. Multiple flaws prevent the golem from applying any dangerous force.",
-				"require": "g.w_fazbitknowledge>=150000",
+				"require": "g.w_fazbitknowledge>=15000",
 				"mod": {
 					"summoning.max": 1,
 					"conjuration.max": 2
@@ -263,7 +263,7 @@
 				"id": "w_fazbit7",
 				"name": "transportation sigils",
 				"desc": "Your investigation reveals multiple sigils woven into the walls and floors of the workshop. They appear to be designed to transport materials in an automated fashion. Warning spells are included, to compel anyone in the way to step aside.",
-				"require": "g.w_fazbitknowledge>=250000",
+				"require": "g.w_fazbitknowledge>=25000",
 				"mod": {
 					"summoning.max": 1,
 					"runelore.max": 2
@@ -273,7 +273,7 @@
 				"id": "w_fazbit8",
 				"name": "letter of request",
 				"desc": "A letter from a few centuries ago, requesting the aid of Fazbit in producing a large amount of items for an unknown festivity. The designs are supposed to be enclosed, but are clearly missing.",
-				"require": "g.w_fazbitknowledge>=400000",
+				"require": "g.w_fazbitknowledge>=40000",
 				"mod": {
 					"history.rate": 100,
 					"history.rate": "100%",
@@ -284,7 +284,7 @@
 				"id": "w_fazbit9",
 				"name": "discarded missives",
 				"desc": "A large bin full of paper dust. There are traces of long-decayed ink and paint.",
-				"require": "g.w_fazbitknowledge>=600000",
+				"require": "g.w_fazbitknowledge>=60000",
 				"mod": {
 					"lore.rate": "100%",
 					"history.max": 5
@@ -294,7 +294,7 @@
 				"id": "w_fazbit10",
 				"name": "the purpose",
 				"desc": "The entire facility was created by Fazbit to provide large amounts of what must be animated toys for multiple settlements, to be used in an unknown festivity. Perhaps, one day, this tradition may be revived.",
-				"require": "g.w_fazbitknowledge>=1000000",
+				"require": "g.w_fazbitknowledge>=100000",
 				"mod": {
 					"crafting.max": 5,
 					"history.max": 5,
@@ -1077,7 +1077,7 @@
 			"stamina": 2
 		},
 		"result": {
-					"w_fazbitknowledge": 200
+			"w_fazbitknowledge": 200
 		},
 		"encs": [
 			"enc_w_faz_nothingthere",
