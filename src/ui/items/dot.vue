@@ -16,7 +16,7 @@ export default {
 
 		damage(){
 
-			let dmg = this.dot.damage;
+			let dmg = this.dot.damage || this.dot.dmg;
 			if( typeof dmg === 'number') {
 				return dmg;
 			} else if ( dmg ) return dmg.toString();
@@ -35,7 +35,7 @@ export default {
 	<div class="note-text">{{ title || 'dot'}}:</div>
 	<div>
 		<div><span>duration: </span><span>{{ dot.duration || 'infinity' }}</span></div>
-		<div v-if="dot.damage"><span>dmg: </span><span>{{damage}}</span></div>
+		<div v-if="dot.damage||dot.dmg"><span>damage: </span><span>{{damage}}</span></div>
 		<div v-if="dot.kind"><span>kind: </span><span>{{dot.kind}}</span></div>
 	</div>
 
