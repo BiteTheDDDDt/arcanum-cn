@@ -50,6 +50,14 @@ export default class Range {
 	}
 
 	/**
+	 * Return a percent of the range value.
+	 * @param {number} pct - decimal percent.
+	 */
+	percent( pct ) {
+		return this.min + pct*( this.max - this.min );
+	}
+
+	/**
 	 * Add amount to range.
 	 * @param {number|Range} amt
 	 */

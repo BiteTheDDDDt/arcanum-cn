@@ -1270,12 +1270,12 @@
         "level":2,
         "effect":{
           "weary":"1~4",
-          "ice":"-0.4",
+          "ice":-0.4,
           "icelore.max":0.001
         },
         "loot":{
 			"winteressence":0.1,
-          "snowman":"1"
+          "snowman":1
         }
       }
 	],

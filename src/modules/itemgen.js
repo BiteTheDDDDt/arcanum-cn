@@ -8,7 +8,7 @@ import Npc from '../chars/npc';
 import GenGroup from '../genGroup';
 import { pushNonNull } from '../util/array';
 import GData from '../items/gdata';
-import { ENCOUNTER, WEARABLE, MONSTER, ARMOR, WEAPON, TYP_PCT, EVENT, ITEM, POTION } from '../values/consts';
+import { ENCOUNTER, WEARABLE, MONSTER, ARMOR, WEAPON, TYP_PCT, EVENT, ITEM, POTION, TYP_RANGE } from '../values/consts';
 
 /**
  * Revive a prototyped item based on an item template.
@@ -105,26 +105,40 @@ export default class ItemGen {
 	 */
 	randEnemy( data, biome, pct=1 ) {
 
-		var level;
+		if ( biome ) {
+			return randByBiome( data, biome, pct );
+		}
 
-		if ( data.level ) {
+		var level = data.level || 1;
+		if ( typeof level ==='object') {
 
-			level = data.level;
+			if ( data.scale ) {
 
-			if ( level instanceof Object ) level =  level.value;
-			if ( data.scale ) level *= pct;
+				if ( level.type === TYP_RANGE ) level = level.percent(pct);
+				else level = level.value*pct;
 
-		} else if ( data.min && data.max ) {
+			} else {
+				level = level.value;
+			}
 
-			level = data.min + pct*(data.max - data.min);
-
-		} else level = 1;
+		}
 
 		if ( data.range ) level += (data.range*( -1 + 2*Math.random() ) );
 		level = Math.ceil(level);
 
 		let npc = this.groups.monster.randBelow( level );
 		return npc ? this.npc(npc) : null;
+
+	}
+
+	/**
+	 *
+	 * @param {object} data
+	 * @param {string|string[]} biome
+	 * @param {number} level
+	 */
+	randByBiome( data, biome, level ) {
+
 
 	}
 

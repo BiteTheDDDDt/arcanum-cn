@@ -24,6 +24,18 @@ export const randFrom = (arrs)=>{
 
 }
 
+/**
+ * Return random array element between two indices.
+ * @param {array} a
+ * @param {number} i - lower inclusive limit of random.
+ * @param {number} j - upper exclusive limit of random.
+ * @returns {*}
+ */
+export const randBetween = (a,i,j)=>{
+
+	return a[ Math.floor( i + Math.random()(j-i)) ]
+
+}
 
 /**
  * Map Array into non-null elements of a predicate.
@@ -143,5 +155,51 @@ export const arrayMerge = ( a, b ) => {
 		return b;
 
 	} else return [a,b];
+
+}
+
+/**
+ * sort array by numeric by numeric property values
+ * of object entries. null entries are treated as 0.
+ * array entries must be objects.
+ * @param {object[]} arr
+ * @param {string} prop - numeric property to sort on.
+ */
+export const propSort = (arr,prop) => {
+
+	arr.sort( (a,b)=>{
+		return ( a[prop] || 0 ) - ( b[prop] || 0 );
+	});
+
+}
+
+/**
+ * Binary search array when values at prop are numeric.
+ * @param {object[]} arr
+ * @param {string} prop
+ */
+export const binarySearch = (arr, prop, v ) => {
+
+	let min = 0;
+	let max = arr.length;
+
+	while ( min < max ) {
+
+		let mid = Math.floor(min+max)/2;
+		let cur = arr[mid][prop];
+
+		if ( v < cur ) {
+
+			max = mid;
+
+		} else if ( v > cur ) {
+
+			min = mid + 1;
+
+		} else return arr[mid];
+
+	}
+
+	return null;
 
 }

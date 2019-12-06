@@ -1,4 +1,4 @@
-import {randElm, randFrom, mapNonNull} from './util/array';
+import {randElm, randFrom, mapNonNull, propSort} from './util/array';
 
 /**
  * Category to assign items with no property value
@@ -142,10 +142,11 @@ export default class GenGroup {
 	 * of the items.
 	 * @param {string} name - category name.
 	 * @param {?string} prop - prop to sort on. defaults to name.
+	 * @param {?string} [sortBy=level] property to sort filtered lists by.
 	 */
-	makeFilter( name, prop) {
+	makeFilter( name, prop, sortBy='level') {
 
-		let group = this.filterBy[name] = {};
+		const group = this.filterBy[name] = {};
 		prop = prop || name;
 
 		for( let i = this.items.length-1; i>= 0; i-- ) {
@@ -163,6 +164,16 @@ export default class GenGroup {
 			}
 
 		}
+
+		// sort all lists.
+		if ( sortBy && sortBy !== prop) {
+
+			for( let p of group ) {
+				propSort( group[p], sortBy );
+			}
+
+		}
+
 
 	}
 

@@ -445,10 +445,9 @@
 		},
 		"biome":["cave","mountain"],
 		"enemies":{
-			"min":8,
-			"max":25,
-			"range":2,
-			"scale":true
+			"level":"8~25",
+			"scale":true,
+			"range":2
 		},"flavor":"day and night the dark gates stand open to all... but to return to the open air... that is the task, that is the labor"
 
 	},
