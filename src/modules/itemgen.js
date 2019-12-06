@@ -99,12 +99,13 @@ export default class ItemGen {
 
 	/**
 	 * Generate an enemy from rand definition.
-	 * @param {*} data
-	 * @param {number} [pct=1] level modifier
+	 * @param {object} data
+	 * @param {string|string[]} biome
+	 * @param {number} [pct=1] level modifier / progress within dungeon.
 	 */
-	randEnemy( data, pct=1 ) {
+	randEnemy( data, biome, pct=1 ) {
 
-		var level = 1;
+		var level;
 
 		if ( data.level ) {
 
@@ -117,7 +118,7 @@ export default class ItemGen {
 
 			level = data.min + pct*(data.max - data.min);
 
-		}
+		} else level = 1;
 
 		if ( data.range ) level += (data.range*( -1 + 2*Math.random() ) );
 		level = Math.ceil(level);
@@ -325,7 +326,7 @@ export default class ItemGen {
 
 		if ( g ) {
 
-			let it = g.filterRand('level', level );
+			let it = g.randBy('level', level );
 			if (it ) return this.fromData( it, mat || level );
 
 		} else console.warn('No group: ' + type);

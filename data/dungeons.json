@@ -444,12 +444,12 @@
 			"gold":"1000~2000"
 		},
 		"biome":["cave","mountain"],
-		"enemies":[{
+		"enemies":{
 			"min":8,
 			"max":25,
 			"range":2,
 			"scale":true
-		}],"flavor":"day and night the dark gates stand open to all... but to return to the open air... that is the task, that is the labor"
+		},"flavor":"day and night the dark gates stand open to all... but to return to the open air... that is the task, that is the labor"
 
 	},
 	{

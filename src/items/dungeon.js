@@ -1,4 +1,3 @@
-import Monster from './monster';
 import Action from './action';
 import Game from '../game';
 import { getDist, distTest, levelTest } from './locale';
@@ -79,7 +78,7 @@ export default class Dungeon extends Action {
 
 	/**
 	 * Get next enemy.
-	 * @returns {string|Monster|Object}
+	 * @returns {string|string[]|object}
 	 */
 	getEnemy() {
 		return this.hasBoss( this.exp ) ? this.getBoss( this.boss ) : this.getMob();
@@ -87,10 +86,18 @@ export default class Dungeon extends Action {
 
 	/**
 	 * Return a random non-boss mob. (Used to exclude dead/locked uniques)
-	 * @returns {Monster|null}
+	 * @returns {?string}
 	 */
 	getMob() {
-		return this._enemies[ Math.floor( Math.random()*this._enemies.length ) ];
+
+		if ( Array.isArray( this._enemies ) ) {
+			return this._enemies[ Math.floor( Math.random()*this._enemies.length ) ];
+		} else {
+
+			return this._enemies;
+
+		}
+
 	}
 
 	/**

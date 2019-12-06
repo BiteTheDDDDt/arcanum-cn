@@ -19,7 +19,12 @@ export default class GenGroup {
 	constructor( items ){
 
 		this.items= items.filter( v=>!v.unique );
-		this.filters = {};
+
+		/**
+		 * Data split/grouped by a variable/subcategory of the data
+		 * @property {.<string,<string,Array>>} groupBy
+		 */
+		this.filterBy = {};
 
 	}
 
@@ -31,7 +36,7 @@ export default class GenGroup {
 	 */
 	randBelow( level=1, pred) {
 
-		let levels = this.filters.level;
+		let levels = this.filterBy.level;
 
 		let st = 1 + Math.floor( Math.random()*level );
 		let i = st;
@@ -52,7 +57,7 @@ export default class GenGroup {
 	}
 
 	/**
-	 * Get a random item without any restriction
+	 * Get random item with no restriction.
 	 * @returns {object}
 	 */
 	rand(){
@@ -63,11 +68,11 @@ export default class GenGroup {
 	/**
 	 * Get a filtered sublist.
 	 * @param {string} filter - filter type 'level', 'biome' etc.
-	 * @param {string} match
+	 * @param {string} match - property value to match.
 	 */
 	filtered( filter, match ) {
 
-		let f = this.filters[filter];
+		let f = this.filterBy[filter];
 		if ( f !== undefined ) return f[match];
 
 		return null;
@@ -76,15 +81,15 @@ export default class GenGroup {
 
 	/**
 	 * Get a random item from a filtered subcategory.
-	 * @param {string} filter
-	 * @param {string} match - filter category.
+	 * @param {string} filter - level/biome, etc.
+	 * @param {string} matches - valid property matches.
 	 */
-	filterRand( filter, match ) {
+	randBy( filter, matches ) {
 
-		var o = this.filters[filter];
+		var o = this.filterBy[filter];
 		if ( o===undefined) return null;
 
-		o = filter[match];
+		o = filter[matches];
 		if ( o===undefined || o.length === 0) return null;
 
 		return o[ Math.floor( Math.random()*o.length) ];
@@ -95,11 +100,11 @@ export default class GenGroup {
 	 * Create a new named item category based on the 'prop' property
 	 * of the items.
 	 * @param {string} name - category name.
-	 * @param {string} prop - prop to sort on. equal to name by default.
+	 * @param {?string} prop - prop to sort on. defaults to name.
 	 */
-	makeFilter( name, prop='') {
+	makeFilter( name, prop) {
 
-		let filter = this.filters[name] = {};
+		let group = this.filterBy[name] = {};
 		prop = prop || name;
 
 		for( let i = this.items.length-1; i>= 0; i-- ) {
@@ -107,10 +112,10 @@ export default class GenGroup {
 			var it = this.items[i];
 			var cat = it[prop] || DEFAULT_CATEGORY;
 
-			var list = filter[ cat ];
+			var list = group[ cat ];
 			if ( list === undefined ) {
 
-				filter[ cat ] = [ it ];
+				group[ cat ] = [ it ];
 
 			} else {
 				list.push( it );

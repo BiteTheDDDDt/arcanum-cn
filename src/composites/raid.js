@@ -182,10 +182,7 @@ export default class Raid {
 
 		}
 
-		if ( enemies.length>0 && enemies[0]) Events.emit( EVT_COMBAT, enemies[0].name + ' Encountered' );
-
-		this.enemies = enemies;
-		this.setTimers();
+		this.combat.setEnemies( enemies );
 
 	}
 
