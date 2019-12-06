@@ -82,7 +82,7 @@ export default {
 			@mouseenter.capture.stop.native="emit( 'itemover',$event,hp)"/></td></tr>
 
 		<tr class="hidable" v-for="it in visMana" :key="it.key" :data-key="it.id">
-			<td>{{it.name}}</td><td colspan="2"><progbar :value="it.valueOf()" :class="it.id" :max="it.max.value"
+			<td>{{it.name}}</td><td colspan="2"><progbar :value="it.valueOf()" :class="it.id" :max="it.max.value" :color="it.color"
 			@mouseenter.native.capture.stop="emit( 'itemover',$event,it)"/></td></tr>
 
 		<!--<tr><td>mood</td><td><mood :state="state" /></td></tr>-->

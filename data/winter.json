@@ -119,7 +119,8 @@
         "id":"ice",
         "desc":"ice mana",
         "require":"g.icelore>=1",
-        "max":0,
+		"max":0,
+		"color":"#44beeb",
         "tags":"manas"
       },
       {
@@ -654,7 +655,6 @@
         "name":"cryomancy",
         "desc":"The study of cold incarnate.",
 		"require":"g.emblemofice>=1",
-		"save":true,
 		"buy":{
         	"livingsnow":10
         },
