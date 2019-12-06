@@ -2380,7 +2380,7 @@
         "level":9,
 		"evil":15,
 		"kind":"giant",
-        "biome":["hills","mountains"],
+        "biome":["hills","mountains","cave"],
 		"flavor":"they have a cave troll...",
         "hp":90,
 		"defense":35,

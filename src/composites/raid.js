@@ -159,7 +159,54 @@ export default class Raid {
 		/**
 		 * @todo: maket this happen automatically.
 		 */
-		this.combat.setEnemies( this.locale.getEnemy(), this.exp/this.length );
+		this.setEnemies( this.locale.getEnemy(), this.exp/this.length );
+
+	}
+
+	setEnemies( enemy, pct ) {
+
+		var enemies = [];
+		var e;
+
+		if (  Array.isArray(enemy)){
+
+			for( let i = enemy.length-1; i >=0; i-- ) {
+				e = this.makeEnemy( enemy[i], pct);
+				if ( e ) enemies.push(e);
+			}
+
+		} else {
+
+			e = this.makeEnemy(enemy, pct);
+			if ( e ) enemies.push(e);
+
+		}
+
+		if ( enemies.length>0 && enemies[0]) Events.emit( EVT_COMBAT, enemies[0].name + ' Encountered' );
+
+		this.enemies = enemies;
+		this.setTimers();
+
+	}
+
+	/**
+	 * Retrieve enemy template data from enemy string or build object.
+	 */
+	makeEnemy( e, pct=1 ) {
+
+		if ( typeof e === 'string' ) {
+
+			e = Game.getData(e);
+			if ( e ) return Game.itemGen.npc(e);
+
+		}
+		if ( !e ) return null;
+
+		// generate enemy from parameters.
+		e = Game.itemGen.randEnemy( e, pct );
+		if ( !e) {console.warn( 'Missing Enemy: ') }
+
+		return e;
 
 	}
 

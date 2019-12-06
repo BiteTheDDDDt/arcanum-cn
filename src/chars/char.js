@@ -6,6 +6,7 @@ import Attack from './attack';
 import GameState from '../gameState';
 import { NPC } from '../values/consts';
 import { cloneClass } from '../util/util';
+import Act from './act';
 
 /**
  * @constant {number} DELAY_RATE - speed to attack delay conversion constant.
@@ -112,6 +113,12 @@ export default class Char {
 		return this._canAttack;
 	}
 
+	/**
+	 * @property {Act} act - action to take in locale.
+	 */
+	get act(){return this._act; }
+	set act(v) { this._act = v; }
+
 	set canAttack(v) { this._canAttack = v;}
 
 	/**
@@ -150,6 +157,7 @@ export default class Char {
 		this.immunities = this.immunities || {};
 		this._resist = this._resist || {};
 
+		this._act = new Act();
 		//console.log( this.id + ' tohit: ' + this.tohit );
 
 		/**
@@ -166,9 +174,9 @@ export default class Char {
 
 	/**
 	 * Revive from data after Game state restored.
-	 * @param {GameState} state
+	 * @param {GameState} gs
 	 */
-	revive( state ){
+	revive( gs ){
 
 		if ( this.template ) {
 			if ( !this.name ) this._name = it.name;

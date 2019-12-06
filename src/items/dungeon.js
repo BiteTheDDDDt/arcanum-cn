@@ -82,41 +82,59 @@ export default class Dungeon extends Action {
 	 * @returns {string|Monster|Object}
 	 */
 	getEnemy() {
-
-		return this.getBoss( this.boss ) || this._enemies[ Math.floor( Math.random()*this._enemies.length ) ];
-
+		return this.hasBoss( this.exp ) ? this.getBoss( this.boss ) : this.getMob();
 	}
 
 	/**
 	 * Return a random non-boss mob. (Used to exclude dead/locked uniques)
+	 * @returns {Monster|null}
 	 */
 	getMob() {
 		return this._enemies[ Math.floor( Math.random()*this._enemies.length ) ];
 	}
 
+	/**
+	 * Checks if there is a boss at the given position in dungeon.
+	 * @param {string|object|Array} boss
+	 * @param {number} at
+	 * @returns {boolean}
+	 */
+	hasBoss( boss, at ) {
+
+		if ( !boss ) return false;
+		if ( typeof boss === 'object' && boss.hasOwnProperty(at) ) {
+			return true;
+		}
+		// last enemy in dungeon.
+		return (at === this.length-1);
+
+	}
+
+	/**
+	 *
+	 * @param {string|string[]|object} boss
+	 * @returns {string|string[]|null}
+	 */
 	getBoss( boss ) {
 
 		if ( !boss ) return null;
 
-		if ( typeof boss === 'string' ) {
+		if ( typeof boss === 'string') {
 
-			if ( this.exp !== this.length-1) return null;
+			if ( Game.state.hasUnique( boss ) ) return null;
+			return boss;
 
 		} else if ( Array.isArray(boss) ) {
 
-			if ( this.exp !== this.length-1) return null;
 			var a = mapNonNull( boss, v=>{
 				return this.getBoss(v)
 			});
 			return a.length > 0 ? a : null;
 
-		} else if ( boss.hasOwnProperty( (this.exp+1) ) ) {
+		} else if ( boss.hasOwnProperty( (this.exp) ) ) {
 			// mid-level boss
-			boss = boss[this.exp+1];
+			return this.getBoss( boss[this.exp] );
 		}
-
-		boss = Game.state.getUnique( boss );
-		return boss ? boss.id : null;
 
 	}
 

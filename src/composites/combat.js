@@ -344,28 +344,20 @@ export default class Combat {
 
 	}
 
-	setEnemies( enemy, pct ) {
+	/**
+	 *
+	 * @param {Npc[]} enemies
+	 */
+	setEnemies( enemies ) {
 
-		var enemies = [];
-		var e;
+		this.enemies = enemies;
+		if ( enemies.length>0 ){
 
-		if (  Array.isArray(enemy)){
-
-			for( let i = enemy.length-1; i >=0; i-- ) {
-				e = this.makeEnemy( enemy[i], pct);
-				if ( e ) enemies.push(e);
-			}
-
-		} else {
-
-			e = this.makeEnemy(enemy, pct);
-			if ( e ) enemies.push(e);
+			if ( enemies[0] ) Events.emit( EVT_COMBAT, enemies[0].name + ' Encountered' );
+			else console.warn('No valid enemy');
 
 		}
 
-		if ( enemies.length>0 && enemies[0]) Events.emit( EVT_COMBAT, enemies[0].name + ' Encountered' );
-
-		this.enemies = enemies;
 		this.setTimers();
 
 	}
@@ -400,27 +392,6 @@ export default class Combat {
 		for( let i = this.allies.length-1; i >= 0; i-- ) {
 			this.allies[i].timer -= minDelay;
 		}
-
-	}
-
-	/**
-	 * Retrieve enemy template data from enemy string or build object.
-	 */
-	makeEnemy( e, pct=1 ) {
-
-		if ( typeof e === 'string' ) {
-
-			e = Game.getData(e);
-			if ( e ) return Game.itemGen.npc(e);
-
-		}
-		if ( !e ) return null;
-
-		// generate enemy from parameters.
-		e = Game.itemGen.randEnemy( e, pct );
-		if ( !e) {console.warn( 'Missing Enemy: ') }
-
-		return e;
 
 	}
 
