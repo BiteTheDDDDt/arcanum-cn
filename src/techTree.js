@@ -228,7 +228,7 @@ export default class TechTree {
 
 		if ( it === undefined ) {
 			it = Game.state.getTagList( src );
-			if ( it ) it.forEach( v=>this.mapUnlock(v.id,targ) );
+			if ( it ) it.forEach( v=>this.mapUnlock(v.id,targ, graph) );
 			//else console.warn('unlocker not found: ' + src );
 			return;
 		}
