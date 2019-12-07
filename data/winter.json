@@ -1220,7 +1220,7 @@
 	{
 		"id": "enc_w_faz_blobs",
 		"name": "blob maker",
-		"desc": "the machine throws chunks of metal into a cauldron. Round, bouncy balls emerge.",
+		"desc": "The machine throws chunks of metal into a cauldron. Round, bouncy balls emerge.",
 		"effect": {
 			"bf": "2~3",
 			"unease": "3~5"
@@ -1248,7 +1248,7 @@
 	{
 		"id": "enc_w_faz_somethingthere",
 		"name": "behind you",
-		"desc": "tangled metal skeletons hover behind you.",
+		"desc": "Tangled metal skeletons hover behind you.",
 		"effect": {
 			"bf": "2~3",
 			"unease": "3~5"
@@ -1287,7 +1287,7 @@
 	{
 		"id": "enc_w_faz_auditlog",
 		"name": "audit log",
-		"desc": "the crumbling pages reveal little.",
+		"desc": "The crumbling pages reveal little.",
 		"effect": {
 			"rage": "2~3",
 			"unease": "3~5"
