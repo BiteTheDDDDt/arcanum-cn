@@ -756,7 +756,6 @@
 },
 {
 	"id": "geomancer",
-	"name": "geomancer",
 	"desc": "Lord of rocks.",
 	"tags": "t_tier2",
 	"actdesc": "Become a geomancer, a master of perseverance.",
