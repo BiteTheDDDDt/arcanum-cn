@@ -1433,7 +1433,7 @@
         "result":{
 			"winteressence":0.1,
           "livingsnow":"1~3",
-          "charm.max":0.01
+          "charms.max":0.01
         }
       },
       {
@@ -1457,13 +1457,13 @@
         "effect":{
           "mana":"0.5~1",
           "firelore.exp":3,
-          "conjuring.exp":5,
+          "conjuration.exp":5,
           "madness":"2~3"
         },
         "level":2,
         "result":{
           "firelore.max":0.01,
-          "conjuring.max":0.02,
+          "conjuration.max":0.02,
           "frost.rate":-0.1
         }
       },
