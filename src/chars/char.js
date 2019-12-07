@@ -285,11 +285,12 @@ export default class Char {
 		if ( !this.alive ) return;
 
 		this.timer -= dt;
+
 		if ( this.timer <= 0 ) {
 
 			this.timer += getDelay( this.speed );
 
-			if ( !this.canAct || !this.canAttack ) return null;
+		//	if ( !this.canAct || !this.canAttack ) return null;
 			return this.getAttack();
 
 		}
