@@ -245,7 +245,7 @@
 				"desc": "A ledger detailing the payments for shipments. It appears the products were shipped out to arrive at a specific date.",
 				"require": "g.w_fazbitknowledge>=10000",
 				"mod": {
-					"concentration.max": 1,
+					"concentrate.max": 1,
 					"history.max": 2
 				}
 			},
