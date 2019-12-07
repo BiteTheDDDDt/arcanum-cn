@@ -1,0 +1,502 @@
+{
+	"module": "geomancer",
+	"data": {
+		"skills": [
+			{
+				"id": "hammerlore",
+				"desc": "The anvil or the skull, it makes no difference.",
+				"require": "g.geomancer>0||g.earthshaker>0||g.titan>0",
+				"need": "armssource",
+				"level": 3,
+				"buy": {
+					"sp": 2
+				},
+				"run": {
+					"stamina": 0.6
+				},
+				"result": {
+					"sp": 0.05
+				},
+				"mod": {
+					"player.bonuses.blunt": 1,
+					"player.hits.blunt": 1
+				}
+			},
+			{
+				"id": "geosculpting",
+				"desc": "Shape the earth.",
+				"require": "g.geomancer>0||g.earthshaker>0",
+				"level": 3,
+				"buy": {
+					"sp": 2
+				},
+				"run": {
+					"stamina": 0.6
+				},
+				"result": {
+					"sp": 0.05
+				},
+				"mod": {
+					"player.defense": 1,
+					"player.dodge": -1,
+					"earthspire.mod.space.max": 1
+				}
+			}
+		],
+		"actions": [
+			{
+				"id": "terraform",
+				"name": "Shape landscape",
+				"desc": "Improve the conditions of local countryside",
+				"verb": "terraforming",
+				"require": "g.geosculpting>0",
+				"length": 15,
+				"at": {
+					"10": {
+						"effect.gems.max": 0.0002,
+						"effect.magicgem.max": 0.0002
+					},
+					"50": {
+						"effect.earthgem": 0.01
+					},
+					"100": {
+						"effect.gems.max": 0.0002,
+						"effect.magicgem.max": 0.0002
+					},
+					"250": {
+						"effect.earthgem": 0.01
+					}
+				},
+				"run": {
+					"stamina": 1,
+					"earth": 1
+				},
+				"effect": {
+					"earthgem": 0.01,
+					"gems.max": 0.0002,
+					"magicgem.max": 0.0002
+				},
+				"result": {
+					"geosculpting.max": 0.01
+				}
+			},
+			{
+				"id": "maketitanhammer",
+				"name": "Titan's hammer",
+				"desc": "The powers of creation and destruction, in your very hands",
+				"verb": "Creating masterpiece",
+				"require": "g.titan>0&&g.mythicanvil>0",
+				"length": 180,
+				"cost": {
+					"earthgem": 300,
+					"earthrune": 80,
+					"sindel": 5,
+					"ichor": 5
+				},
+				"run": {
+					"stamina": 4,
+					"earth": 3
+				},
+				"result": {
+					"titanhammer": 1
+				}
+			}
+		],
+		"upgrades": [
+			{
+				"id": "earthworks",
+				"desc": "Strong walls around your home, to deter unwise attackers",
+				"require": "g.geosculpting>=5",
+				"max": 2,
+				"cost": {
+					"gold": 300,
+					"research": 250
+				},
+				"mod": {
+					"geosculpting.max": 1,
+					"player.defense": 5
+				},
+				"flavor": "Doubles as a burial mound"
+			},
+			{
+				"id": "coretap",
+				"name": "Core tap",
+				"desc": "tap the world's core for infinite heat",
+				"require": "g.earthshaker>0&&g.geosculpting>=6",
+				"max": 1,
+				"cost": {
+					"gold": 5000,
+					"research": 4000,
+					"earthrune": 5
+				},
+				"mod": {
+					"firelore.max": 3,
+					"earthlore.max": 3,
+					"geosculpting.max": 1,
+					"earth.rate": 0.2,
+					"fire.rate": 0.2
+				}
+			},
+			{
+				"id": "tamedroads",
+				"name": "tamed pathway",
+				"require": "g.geomancer>0&&g.dist>=200",
+				"desc": "Train roads around your home to behave.",
+				"cost": {
+					"gold": 3000,
+					"earthgem": 5,
+					"earth": 10
+				},
+				"mod": {
+					"dist": 100
+				},
+				"flavor": "those good boys are perfect for keeping unwanted guests away"
+			},
+			{
+				"id": "hiddenchamber",
+				"name": "hidden chamber",
+				"desc": "A place to meditate, deep under the earth",
+				"require": "g.geosculpting>0",
+				"max": 1,
+				"cost": {
+					"gold": 500,
+					"research": 500,
+					"earthgem": 5
+				},
+				"mod": {
+					"concentration.max": 1
+				}
+			},
+			{
+				"id": "rockcollection",
+				"name": "Minerals collection",
+				"desc": "Sorted by hardness.",
+				"require": "(g.geomancer)>0",
+				"max": 3,
+				"cost": {
+					"gold": 500,
+					"research": 1000
+				},
+				"mod": {
+					"hammerlore.max": 1
+				},
+				"flavor": "A fantastic way to test your strength"
+			},
+			{
+				"id": "artificialmountain",
+				"name": "raise mountain",
+				"desc": "Leave your mark on this world",
+				"require": "g.earthshaker>0",
+				"max": 1,
+				"cost": {
+					"gold": 5000,
+					"research": 7500,
+					"earthrune": 10
+				},
+				"mod": {
+					"gems.rate": 0.1,
+					"act_mine.effect.gems": 0.1,
+					"player.fame": 5,
+					"hammerlore.max": 2,
+					"geosculpting.max": 2
+				}
+			},
+			{
+				"id": "constructquarry",
+				"name": "magic quarry",
+				"desc": "A rocky escarpment to conduct your excavations more efficiently.",
+				"require": "g.geosculpting>0",
+				"max": 3,
+				"cost": {
+					"gold": 1500,
+					"research": 2000,
+					"earthgem": 20
+				},
+				"mod": {
+					"act_mine.effect.gems": 0.1,
+					"hammerlore.max": 1
+				}
+			},
+			{
+				"id": "mythicanvil",
+				"name": "mythic anvil",
+				"desc": "Made of mythical metals, this anvil can withstand even a titan's power",
+				"require": "g.titan>0",
+				"max": 1,
+				"cost": {
+					"gold": 10000,
+					"research": 15000,
+					"tomes": 100,
+					"earthrune": 50
+				},
+				"mod": {
+					"hammerlore.max": 2,
+					"geosculpting.max": 2,
+					"crafting.max": 2
+				}
+			},
+			{
+				"id": "undertunnels",
+				"name": "subterranean pathways",
+				"desc": "A twisting maze of indistinguishable passages spanning your domain.",
+				"require": "g.geosculpting>=10",
+				"max": 1,
+				"cost": {
+					"gold": 5000,
+					"research": 10000,
+					"earthrune": 1
+				},
+				"mod": {
+					"dist": "25%"
+				}
+			}
+		],
+		"spells": [
+			{
+				"id": "tosand",
+				"name": "to sand",
+				"desc": "Transform your body into fine-grained sand.",
+				"school": "earth",
+				"require": "g.titan>0&&g.geosculpting>11",
+				"level": 15,
+				"buy": {
+					"research": 8000,
+					"tomes": 25,
+					"earthrune": 25
+				},
+				"cost": {
+					"earth": 15
+				},
+				"dot": {
+					"duration": 10,
+					"mod": {
+						"player.defense": 200
+					}
+				}
+			},
+			{
+				"id": "quicksand",
+				"desc": "Command the earth to swallow the enemy",
+				"school": "earth",
+				"require": "g.geosculpting>7",
+				"level": 15,
+				"buy": {
+					"sp": 1,
+					"research": 8000,
+					"tomes": 25,
+					"earthrune": 25
+				},
+				"cost": {
+					"earth": 15
+				},
+				"attack": {
+					"targets": "enemies",
+					"dot": {
+						"duration": 15,
+						"dmg": "15~25",
+						"mod": {
+							"speed": -12
+						}
+					}
+				}
+			},
+			{
+				"id": "entomb",
+				"desc": "Bury your enemies deep beneath the ground.",
+				"school": "earth",
+				"require": "g.titan>0",
+				"level": 25,
+				"buy": {
+					"sp": 15,
+					"research": 30000,
+					"tomes": 200,
+					"codices": 700,
+					"earthrune": 60,
+					"earthgem": 350
+				},
+				"cost": {
+					"earth": 25,
+					"sindel": 2
+				},
+				"attack": {
+					"targets": "enemies",
+					"dot": {
+						"duration": 30,
+						"dmg": "50~75",
+						"mod": {
+							"speed": -25
+						}
+					}
+				}
+			},
+			{
+				"id": "smite",
+				"school": "earth",
+				"require": "g.hammerlore>=5",
+				"level": 2,
+				"buy": {
+					"research": 500
+				},
+				"cost": {
+					"earth": 2,
+					"stamina": 1
+				},
+				"attack": {
+					"damage": 30,
+					"tohit": 3,
+					"kind": "earth"
+				}
+			},
+			{
+				"id": "fissure",
+				"desc": "Crack the earth beneath the feet of your enemy.",
+				"cd": 200,
+				"school": "earth",
+				"require": "g.hammerlore>=10",
+				"level": 5,
+				"buy": {
+					"research": 12000
+				},
+				"cost": {
+					"earth": 8,
+					"stamina": 12
+				},
+				"attack": {
+					"damage": 50,
+					"tohit": -5,
+					"kind": "earth",
+					"dot": {
+						"kind": "earth",
+						"duration": 2,
+						"mod": {
+							"speed": -500
+						}
+					}
+				}
+			}
+		],
+		"homes": [
+			{
+				"id": "earthspire",
+				"name": "earthen spire",
+				"desc": "An impervious spire of metal and stone.",
+				"cost": {
+					"research": 3000,
+					"gold": 3000,
+					"codices": 50
+				},
+				"require": "g.geosculpting>=5",
+				"mod": {
+					"minions.max": 10,
+					"space.max": 300,
+					"earthlore.max": 5,
+					"geosculpting.max": 3,
+					"earth.max": 5,
+					"earth.rate": 0.5
+				},"flavor":"A monument to your geosculpting mastery."
+			}
+		],
+		"classes": [
+			{
+				"id": "geomancer",
+				"name": "geomancer",
+				"desc": "Lord of rocks.",
+				"tags": "t_tier2",
+				"actdesc": "Become a geomancer, a master of perseverance.",
+				"require": "g.tier1>0&&g.earthlore>=10&&g.tier2==0",
+				"cost": {
+					"research": 1000,
+					"arcana": 15,
+					"tomes": 10,
+					"earthgem": 10
+				},
+				"effect": {
+					"sp": 2
+				},
+				"mod": {
+					"tier2": true,
+					"earthlore.max": 2,
+					"geosculpting.max": 2,
+					"stamina.max": "10%",
+					"mana.max": 2,
+					"earthspire.mod.space.max": 50
+				},
+				"flavor": "Your empire of dirt"
+			},
+			{
+				"id": "earthshaker",
+				"desc": "master of the tectonics.",
+				"tags": "t_tier4",
+				"actdesc": "Become an earthshaker.",
+				"require": "g.tier3>0&&g.earthlore>=20&&g.tier4==0",
+				"cost": {
+					"research": 4000,
+					"arcana": 25,
+					"tomes": 30,
+					"earthgem": 50
+				},
+				"effect": {
+					"sp": 2
+				},
+				"mod": {
+					"tier4": true,
+					"earthlore.max": 3,
+					"player.defense": 15,
+					"stamina.max": "20%",
+					"earth.rate": 0.5,
+					"earthspire.mod.space.max": 50
+				},
+				"flavor": "Finally, a subduction license!"
+			},
+			{
+				"id": "titan",
+				"desc": "A mantle of metal and stone.",
+				"tags": "t_tier6",
+				"actdesc": "Become a titan.",
+				"require": "g.tier5>0&&(g.earthshaker+g.geomancer)>0&&g.hammerlore>=10&&g.geosculpting>=10&&g.tier6==0",
+				"cost": {
+					"research": 10000,
+					"arcana": 50,
+					"tomes": 40,
+					"earthgem": 100,
+					"earthrune": 20
+				},
+				"effect": {
+					"sp": 2
+				},
+				"mod": {
+					"tier6": true,
+					"earthlore.max": 3,
+					"player.defense": 30,
+					"stamina.max": "20%",
+					"hammerlore.max": 3,
+					"earthspire.mod.space.max": 100
+				},
+				"flavor": "No stone left unturned"
+			}
+		],
+		"rares": [
+			{
+				"id": "titanhammer",
+				"name": "Titan's hammer",
+				"desc": "Wrought from the hardest of metals, it hums with the energies of the earth.",
+				"save": true,
+				"type": "weapon",
+				"unique": true,
+				"attack": {
+					"kind": "blunt",
+					"damage": "40~50"
+				},
+				"mod": {
+					"earth.rate": 0.5,
+					"earth.max": 10,
+					"player.defense": 30
+				},
+				"hands": 2,
+				"kind": "hammer",
+				"level": 15,
+				"cost": 5000
+			}
+		]
+	}
+}
