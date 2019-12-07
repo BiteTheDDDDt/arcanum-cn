@@ -190,7 +190,7 @@
         "id":"makesnowman",
         "name":"melt snomunculus",
         "desc":"Liquify your cold creation.",
-        "locked":"g.snowman>=1",
+        "require":"g.snowman>=1",
         "verb":"Melting",
         "cost":{
           "snowman":1,
@@ -1398,7 +1398,7 @@
         "result":{
 			"winteressence":0.1,
           "livingsnow":"1~3",
-          "charm.max":0.01
+          "charms.max":0.01
         }
       },
       {
@@ -1422,7 +1422,7 @@
         "effect":{
           "mana":"0.5~1",
           "firelore.exp":3,
-          "conjuring.exp":5,
+          "conjuration.exp":5,
           "madness":"2~3"
         },
         "level":2,
