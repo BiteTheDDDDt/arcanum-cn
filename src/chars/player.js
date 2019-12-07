@@ -1,7 +1,7 @@
 import Stat from "../values/stat";
 import Resource from "../items/resource";
 import Game from '../game';
-import { tryDamage } from '../composites/combat';
+import { applyAttack } from '../composites/combat';
 
 import Char, { getDelay } from './char';
 import Events, { LEVEL_UP, NEW_TITLE, CHAR_TITLE, CHAR_NAME, CHAR_CLASS, EVT_STAT } from "../events";
@@ -380,7 +380,7 @@ export default class Player extends Char {
 			// ignore any remainder beyond 0.
 			// @note: dots tick at second-intervals, => no dt.
 			if ( dot.effect ) Game.applyEffect( dot.effect, 1 );
-			if ( dot.damage ) tryDamage( this, dot, dot.source );
+			if ( dot.damage ) applyAttack( this, dot, dot.source );
 
 			if ( dot.duration <= dt ) {
 

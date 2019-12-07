@@ -34,11 +34,12 @@ const TARGET_RAND = 'rand';
 
 
 /**
-* Attempt to damage a target. Made external for use by dots, other code.
+* Apply an attack. Attack is already assumed to have hit, but immunities,
+* resistances, can still be applied.
 * @param {Char} target
 * @param {Object} attack
 */
-export function tryDamage( target, attack, attacker = null) {
+export function applyAttack( target, attack, attacker = null) {
 
 	if ( !target || !target.alive ) return;
 	if ( target.isImmune(attack.kind) ) {
@@ -276,7 +277,7 @@ export default class Combat {
 		if (!targ) return;
 
 		if ( this.tryHit( attacker, targ, atk ) ) {
-			tryDamage( targ, atk, attacker );
+			applyAttack( targ, atk, attacker );
 		}
 
 	}

@@ -1824,7 +1824,7 @@
 		"id": "rockcollection",
 		"name": "minerals collection",
 		"desc": "Sorted by hardness.",
-		"require": "(g.geomancer)>0",
+		"require": "geomancer",
 		"max": 3,
 		"cost": {
 			"gold": 500,
@@ -1839,7 +1839,7 @@
 		"id": "artificialmountain",
 		"name": "raise mountain",
 		"desc": "Leave your mark on this world",
-		"require": "g.earthshaker>0",
+		"require": "earthshaker",
 		"max": 1,
 		"cost": {
 			"gold": 5000,
@@ -1858,7 +1858,7 @@
 		"id": "constructquarry",
 		"name": "magic quarry",
 		"desc": "A rocky escarpment to conduct your excavations more efficiently.",
-		"require": "g.geosculpting>0",
+		"require": "geosculpting",
 		"max": 3,
 		"cost": {
 			"gold": 1500,
@@ -1874,7 +1874,7 @@
 		"id": "mythicanvil",
 		"name": "mythic anvil",
 		"desc": "Made of mythical metals, this anvil can withstand even a titan's power",
-		"require": "g.titan>0",
+		"require": "g.titan",
 		"max": 1,
 		"cost": {
 			"gold": 10000,

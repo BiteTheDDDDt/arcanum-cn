@@ -1,5 +1,5 @@
 import Base, {mergeClass} from '../items/base';
-import {tryDamage} from '../composites/combat';
+import {applyAttack} from '../composites/combat';
 import Stat from '../values/stat';
 import Dot from './dot';
 import Attack from './attack';
@@ -265,7 +265,7 @@ export default class Char {
 					this.rmDot(i);
 				}
 				if ( dot.damage ) {
-					tryDamage( this, dot, dot.source );
+					applyAttack( this, dot, dot.source );
 				}
 
 			}
