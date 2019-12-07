@@ -14,37 +14,6 @@
         "name":"snow double",
         "desc":"A copy of yourself arises from the quickened snow. You feel its limbs like you feel your own arms."
       },
-      {
-        "id":"iceshard0",
-        "name":"ice shard",
-        "desc":"After a few preliminary tests of the spell, you feel the potential in it.",
-        "require":"g.iceshard>=10",
-        "mod":{
-          "frost.rate":2,
-          "icelore.max":1
-        }
-      },
-      {
-        "id":"iceshard1",
-        "name":"ice shard",
-        "desc":"With each Ice Shard cast you feel your power grow, but your warmth begins to fade as well.",
-        "require":"g.iceshard>=100",
-        "mod":{
-          "frost.rate":5,
-          "icelore.max":1
-        }
-      },
-      {
-        "id":"iceshard2",
-        "name":"ice mastery",
-        "desc":"Your power is immeasrable, you veins suffused with cold. But something feels wrong. The warmth is gone",
-        "require":"g.iceshard>=1000",
-        "mod":{
-          "hearth.mod.frost.rate":"-100%",
-          "icelore.max":4,
-          "frost.mod.hp.rate":"-200%"
-        }
-	  },
 	  {
 		"id":"evt_sacrifice",
 		"name":"the path opens",
@@ -70,7 +39,7 @@
 			"name": "fazbit's knowledge",
 			"desc": "A story of fazbit's workshop",
 			"hide":true,
-			"max": 1000000
+			"max": 100000
 		},
       {
         "id":"snowman",
@@ -166,7 +135,7 @@
 		}
       },
 	{
-        "id":"mk_snowman",
+        "id":"makesnowman",
 		"name":"build snomunculus",
 		"desc":"Build a homunculus from snow",
         "flavor":"It's not a snowman. Why would you say that?",
@@ -187,7 +156,7 @@
         }
       },
       {
-        "id":"makesnowman",
+        "id":"meltsnowman",
         "name":"melt snomunculus",
         "desc":"Liquify your cold creation.",
         "require":"g.snowman>=1",
@@ -196,6 +165,11 @@
           "snowman":1,
           "fire":5
         },
+		"fill": [
+			"watergem",
+			"water",
+			"frost"
+		],
         "result":{
           "watergem":2,
           "water":10,
@@ -210,7 +184,7 @@
         "length":75,
         "repeat":false,
         "cost":{
-          "arcana":1,
+          "arcana":5,
           "tomes":1
         },
         "run":{
@@ -228,7 +202,7 @@
 				"id": "w_fazbit1",
 				"name": "old forms",
 				"desc": "A dusty log detailing the ordering of materials for production. It appears this place required a LOT of materials to run",
-				"require": "g.w_fazbitknowledge>=500",
+				"require": "g.w_fazbitknowledge>=50",
 				"mod": {
 					"crafting.max": 1,
 					"magicgems.max": 20,
@@ -238,8 +212,8 @@
 			{
 				"id": "w_fazbit2",
 				"name": "withered designs",
-				"desc": "An anatomycal drawing of a human with unnaturally large eyes. The skeleton is wrong.",
-				"require": "g.w_fazbitknowledge>=5000",
+				"desc": "An anatomical drawing of a human with unnaturally large eyes. The skeleton is wrong.",
+				"require": "g.w_fazbitknowledge>=500",
 				"mod": {
 					"crafting.rate": 50,
 					"anatomy.max": 2
@@ -249,7 +223,7 @@
 				"id": "w_fazbit3",
 				"name": "cheerful recording",
 				"desc": "An old crystal, still holding a clear recording of a man's laughter. Just hearing it makes you smile.",
-				"require": "g.w_fazbitknowledge>=15000",
+				"require": "g.w_fazbitknowledge>=1500",
 				"mod": {
 					"crafting.rate": "50%",
 					"spiritlore.max": 2
@@ -259,7 +233,7 @@
 				"id": "w_fazbit4",
 				"name": "alchemical formula",
 				"desc": "A formula for producing a thick, firm, yet easily yielding coating.",
-				"require": "g.w_fazbitknowledge>=50000",
+				"require": "g.w_fazbitknowledge>=5000",
 				"mod": {
 					"alchemy.max": 2,
 					"potions.max": 2
@@ -269,9 +243,9 @@
 				"id": "w_fazbit5",
 				"name": "battered ledger",
 				"desc": "A ledger detailing the payments for shipments. It appears the products were shipped out to arrive at a specific date.",
-				"require": "g.w_fazbitknowledge>=100000",
+				"require": "g.w_fazbitknowledge>=10000",
 				"mod": {
-					"concentration.max": 1,
+					"concentrate.max": 1,
 					"history.max": 2
 				}
 			},
@@ -279,7 +253,7 @@
 				"id": "w_fazbit6",
 				"name": "odd spellchart",
 				"desc": "A spellchart detailing a superbly efficient spell for animating a small golem. Multiple flaws prevent the golem from applying any dangerous force.",
-				"require": "g.w_fazbitknowledge>=150000",
+				"require": "g.w_fazbitknowledge>=15000",
 				"mod": {
 					"summoning.max": 1,
 					"conjuration.max": 2
@@ -289,7 +263,7 @@
 				"id": "w_fazbit7",
 				"name": "transportation sigils",
 				"desc": "Your investigation reveals multiple sigils woven into the walls and floors of the workshop. They appear to be designed to transport materials in an automated fashion. Warning spells are included, to compel anyone in the way to step aside.",
-				"require": "g.w_fazbitknowledge>=250000",
+				"require": "g.w_fazbitknowledge>=25000",
 				"mod": {
 					"summoning.max": 1,
 					"runelore.max": 2
@@ -299,7 +273,7 @@
 				"id": "w_fazbit8",
 				"name": "letter of request",
 				"desc": "A letter from a few centuries ago, requesting the aid of Fazbit in producing a large amount of items for an unknown festivity. The designs are supposed to be enclosed, but are clearly missing.",
-				"require": "g.w_fazbitknowledge>=400000",
+				"require": "g.w_fazbitknowledge>=40000",
 				"mod": {
 					"history.rate": "100%",
 					"history.max": 5
@@ -309,7 +283,7 @@
 				"id": "w_fazbit9",
 				"name": "discarded missives",
 				"desc": "A large bin full of paper dust. There are traces of long-decayed ink and paint.",
-				"require": "g.w_fazbitknowledge>=600000",
+				"require": "g.w_fazbitknowledge>=60000",
 				"mod": {
 					"lore.rate": "100%",
 					"history.max": 5
@@ -319,7 +293,7 @@
 				"id": "w_fazbit10",
 				"name": "the purpose",
 				"desc": "The entire facility was created by Fazbit to provide large amounts of what must be animated toys for multiple settlements, to be used in an unknown festivity. Perhaps, one day, this tradition may be revived.",
-				"require": "g.w_fazbitknowledge>=1000000",
+				"require": "g.w_fazbitknowledge>=100000",
 				"mod": {
 					"crafting.max": 5,
 					"history.max": 5,
@@ -330,7 +304,10 @@
         "id":"w_multitask",
         "name":"workforce",
         "desc":"Use your Snow Double as an extension of yourself",
-        "cost":{"gold":1},
+        "cost":{
+				"ice": 2,
+				"frost.rate": 0.5
+				},
 		"require":"g.evt_snowcopy>=1",
 		"warn":true,
         "disable":["w_fame","w_scholar"],
@@ -343,7 +320,7 @@
         "id":"w_fame",
         "name":"donate copy",
         "desc":"Donate your Snow Double to a wizarding academy",
-		"cost":{"gold":1},
+		"cost":{"gold": 100},
 		"warn":true,
         "require":"g.evt_snowcopy>=1",
         "disable":["w_multitask","w_scholar"],
@@ -358,7 +335,7 @@
         "id":"w_scholar",
         "name":"cold calculation",
         "desc":"Dedicate your Snow Double to arcane studies.",
-		"cost":{"gold":1},
+		"cost":{"arcana": 2},
 		"warn":true,
         "require":"g.evt_snowcopy>=1",
         "disable":["w_fame","w_multitask"],
@@ -447,7 +424,7 @@
 		  "waterrune": 20
         },
         "mod":{
-          "icelore.max":10,
+          "icelore.max": 10,
 		  "icelore.rate":"200%"
         }
       },
@@ -559,8 +536,68 @@
           "icelore.max":2,
           "shadow.rate":0.2
         }
-      }
-    ],
+      },
+	  {
+		"id": "iceshard0",
+		"name": "improve ice shard",
+		"desc": "After a few preliminary tests of the spell, you feel the potential in it.",
+		"require": "g.iceshard>=10",
+		"cost": {
+			"ice": 2,
+			"research": 100
+		},
+		"mod": {
+			"frost.rate": 2,
+			"icelore.max": 1,
+			"player.bonuses.ice": 0.5,
+			"player.hits.ice": 0.5
+		}
+	  },
+	  {
+		"id": "iceshard1",
+		"name": "ice proficiency",
+		"desc": "As you use ice magic more and more, it starts to resonate with you. Maybe, you can push it little further",
+		"require": "g.iceshard>=100&&g.iceshard0>0",
+		"cost": {
+			"ice": 3,
+			"research": 250
+		},
+		"mod": {
+			"frost.rate": 5,
+			"icelore.max": 1,
+			"player.bonuses.ice": 1.5,
+			"player.hits.ice": 1.5
+		},
+		"log": {
+			"name": "ice shard proficiency",
+			"desc": "With each Ice Shard cast you feel your power grow, but your warmth begins to fade as well."
+		}
+	  },
+	  {
+		"id": "iceshard2",
+		"name": "ice mastery",
+		"desc": "You feel like imbuing yourself with Ice can push your power even further.",
+		"require": "g.iceshard>=1000&&g.iceshard1>0",
+		"warn": true,
+		"cost": {
+			"ice": 10,
+			"frost": 40,
+			"sp": 2,
+			"arcana": 5
+		},
+		"mod": {
+			"hearth.mod.frost.rate": "-100%",
+			"icelore.max": 4,
+			"frost.mod.hp.rate": "-200%",
+			"player.bonuses.ice": 3,
+			"player.hits.ice": 3
+		},
+		"log": {
+			"name": "heart of ice",
+			"desc": "Your power is immeasurable, your veins suffused with cold. But something feels wrong. The warmth is gone."
+		}
+	  }
+	],
 		"spells":[
       {
       	"id":"snowminion",
@@ -666,15 +703,13 @@
           "10":{
             "attack.damage.min":2,
             "attack.damage.max":4,
-            "attack.tohit":2,
-            "iceshard0":1
+            "attack.tohit":2
           },
           "50":{
             "attack.damage.min":3,
             "attack.damage.max":5
           },
           "100":{
-            "iceshard1":1,
             "attack.damage.min":2,
             "attack.damage.max":4,
             "attack.tohit":2
@@ -690,8 +725,7 @@
           "1000":{
             "attack.damage.min":2,
             "attack.damage.max":4,
-            "attack.tohit":2,
-            "iceshard2":1
+            "attack.tohit":2
           },
           "2000":{
             "attack.damage.min":3,
@@ -813,7 +847,8 @@
         },
       	"result":{
       		"emblemofice":1,
-      		"title":"winter's heart"
+      		"title":"winter's heart",
+			"winteressence": 5
       	},
       	"loot":{
       		"max":5
@@ -844,6 +879,9 @@
 		"effect": {
 			"frost": 1
 		},
+      	"result":{
+			"winteressence": 10
+      	},
 		"length": 100,
 		"loot":"iceorb",
 		"boss":"frostgiant",
@@ -878,7 +916,7 @@
         },
         "loot":{
 			"livingsnow":"30%",
-			"winteressence":0.1
+			"winteressence":0.03
         }
       },
       {
@@ -895,7 +933,7 @@
           "damage":"2~5"
         },
         "loot":{
-			"winteressence":0.1,
+			"winteressence":0.03,
         	"livingsnow":3
         }
       },
@@ -914,7 +952,7 @@
         },
         "loot":{
 			"bloodgem":1,
-			"winteressence":0.1,
+			"winteressence":0.03,
           "livingsnow":1
         }
 	  },
@@ -935,7 +973,7 @@
 		},
 		"loot": {
 			"livingsnow": "0~5",
-			"winteressence":0.1
+			"winteressence":0.03
 		},
 		"immune": "ice,water,air"
 	},
@@ -955,7 +993,7 @@
         },
         "loot":{
 			"ice.rate":0.01,
-			"winteressence":0.1,
+			"winteressence":0.03,
           "icelore.max":0.02
         }
       },
@@ -975,7 +1013,7 @@
           "dmg":"35~55"
         },
         "loot":{
-			"winteressence":0.1,
+			"winteressence":0.03,
         	"snowman":1
         }
       },
@@ -994,7 +1032,7 @@
           "dmg":"3~5"
         },
         "loot":{
-			"winteressence":0.1,
+			"winteressence":0.03,
         	"livingsnow":1,
 			"watergem":1
         }
@@ -1018,7 +1056,8 @@
 			"icelore.max":"1%"
 		},
         "result":{
-          "livingsnow":10
+          "livingsnow":10,
+		  "winteressence": 5
         },
         "loot":{
           "snowman":"0~2"
@@ -1042,7 +1081,7 @@
 			"stamina": 2
 		},
 		"result": {
-					"w_fazbitknowledge": 200
+			"w_fazbitknowledge": 200
 		},
 		"encs": [
 			"enc_w_faz_nothingthere",
@@ -1071,6 +1110,9 @@
         "effect":{
           "frost":1
         },
+        "result":{
+		  "winteressence": 5
+        },
         "encs":[
           "movingsnow",
           "enc_w_coldsnap",
@@ -1097,6 +1139,9 @@
 		"effect": {
 			"frost": 1
 		},
+        "result":{
+		  "winteressence": 5
+        },
 		"title":"nixifer's disciple",
 		"encs": [
 			"enc_w_coldsnap",
@@ -1185,7 +1230,7 @@
 	{
 		"id": "enc_w_faz_blobs",
 		"name": "blob maker",
-		"desc": "the machine throws chunks of metal into a cauldron. Round, bouncy balls emerge.",
+		"desc": "The machine throws chunks of metal into a cauldron. Round, bouncy balls emerge.",
 		"effect": {
 			"bf": "2~3",
 			"unease": "3~5"
@@ -1213,7 +1258,7 @@
 	{
 		"id": "enc_w_faz_somethingthere",
 		"name": "behind you",
-		"desc": "tangled metal skeletons hover behind you.",
+		"desc": "Tangled metal skeletons hover behind you.",
 		"effect": {
 			"bf": "2~3",
 			"unease": "3~5"
@@ -1252,7 +1297,7 @@
 	{
 		"id": "enc_w_faz_auditlog",
 		"name": "audit log",
-		"desc": "the crumbling pages reveal little.",
+		"desc": "The crumbling pages reveal little.",
 		"effect": {
 			"rage": "2~3",
 			"unease": "3~5"
@@ -1428,7 +1473,7 @@
         "level":2,
         "result":{
           "firelore.max":0.01,
-          "conjuring.max":0.02,
+          "conjuration.max":0.02,
           "frost.rate":-0.1
         }
       },
