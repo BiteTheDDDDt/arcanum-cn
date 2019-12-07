@@ -1391,6 +1391,63 @@
 
 	},
 	{
+		"id": "terraform",
+		"name": "warp landscape",
+		"desc": "Improve the conditions of your local countryside",
+		"verb": "terraforming",
+		"require": "g.geosculpting>0",
+		"length": 15,
+		"at": {
+			"10": {
+				"effect.gems.max": 0.0002,
+				"effect.magicgem.max": 0.0002
+			},
+			"50": {
+				"effect.earthgem": 0.01
+			},
+			"100": {
+				"effect.gems.max": 0.0002,
+				"effect.magicgem.max": 0.0002
+			},
+			"250": {
+				"effect.earthgem": 0.01
+			}
+		},
+		"run": {
+			"stamina": 1,
+			"earth": 1
+		},
+		"effect": {
+			"earthgem": 0.01,
+			"gems.max": 0.0002,
+			"magicgem.max": 0.0002
+		},
+		"result": {
+			"geosculpting.max": 0.01
+		}
+	},
+	{
+		"id": "maketitanhammer",
+		"name": "titan's hammer",
+		"desc": "The powers of creation and destruction, locked in your grip.",
+		"verb": "Creating Masterpiece",
+		"require": "g.titan>0&&g.mythicanvil>0",
+		"length": 180,
+		"cost": {
+			"earthgem": 300,
+			"earthrune": 80,
+			"sindel": 5,
+			"ichor": 5
+		},
+		"run": {
+			"stamina": 4,
+			"earth": 3
+		},
+		"loot": {
+			"titanhammer": 1
+		}
+	},
+	{
 		"id":"fazbitfixate",
 		"name":"fazbit's fixations",
 		"desc":"scribe a copy the seminal text in practical alchemy",
