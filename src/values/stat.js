@@ -1,10 +1,10 @@
-import { precise } from '../util/format';
-import { TYP_STAT } from './consts';
+import { TYP_STAT, TYP_RVAL } from './consts';
+import RValue from './rvalue';
 
 /**
  * Stat with a list of modifiers.
  */
-export default class Stat {
+export default class Stat extends RValue {
 
 	toJSON(){
 
@@ -20,13 +20,6 @@ export default class Stat {
 
 	}
 
-	toString(){ return precise( this.value ); }
-
-	/**
-	 * @property {string} [id=DEFAULT_MOD]
-	 */
-	get id() { return this._id; }
-	set id(v) { this._id = v; }
 
 	/**
 	 * @property {number} value
@@ -46,6 +39,9 @@ export default class Stat {
 	/** @todo */
 	set value(v){}
 
+	/**
+	 * @returns {number}
+	 */
 	valueOf() {
 
 		if ( this._pos === true ) {
@@ -103,12 +99,18 @@ export default class Stat {
 	 */
 	constructor( vars=null, path, pos ) {
 
+		super();
+
 		if ( vars ) {
 
 			if ( typeof vars === 'object') {
 
-				this.base = vars.base;
-				this.basePct = vars.pct;
+				if ( vars.type === TYP_RVAL ) {
+					this.base = vars.value;
+				} else {
+					this.base = vars.base;
+					this.basePct = vars.pct;
+				}
 
 			} else if ( !isNaN(vars) ) this.base = Number(vars);
 

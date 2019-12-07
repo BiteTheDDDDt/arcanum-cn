@@ -82,7 +82,10 @@ export default class Attack {
 
 	constructor( vars=null ){
 
-		if ( vars ) assignPublic(this,vars); //Object.assign(this,vars);
+		if ( vars ) {
+			this.id = vars.id;
+			assignPublic(this,vars); //Object.assign(this,vars);
+		}
 
 		this.damage = this.damage || 0;
 		this.bonus = this.bonus || 0;

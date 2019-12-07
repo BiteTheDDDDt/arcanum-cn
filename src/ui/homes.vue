@@ -178,7 +178,7 @@ export default {
 			v-if="state.items.space.empty()">No space remaining. Sell items or find a new Home.
 			<span v-if="homesAvail.length>0">If your max gold is not enough to buy a new home, free space for more chests.</span></div>
 
-		<table class="furniture item-table">
+		<table class="furniture">
 
 		<tr><th>Space</th><th class="name">Furnishing</th><th>Owned</th><th/><th/></tr>
 
@@ -259,20 +259,21 @@ div.furniture {
 	margin-bottom:var(--md-gap);
 }
 
-div.home-view .furniture .item-table {
+div.home-view .furniture table {
 	 text-transform: capitalize;
 	 flex-grow: 1;
+	 border-spacing: 0;
      flex: 1; min-height: 0; width: 100%; max-width: 20rem;
      display: flex; flex-direction: column;
 }
-div.home-view .furniture .item-table tr { display: flex; padding: var(--sm-gap); }
- div.home-view .furniture .item-table tr:first-child {
+div.home-view .furniture table tr { display: flex; padding: var(--sm-gap); }
+ div.home-view .furniture table tr:first-child {
         position: sticky; top: 0; background: var(--header-background-color); z-index: 1;
     }
- div.home-view .furniture .item-table tr > *:nth-child(1) { flex-basis: 20%; }
- div.home-view .furniture .item-table tr > *:nth-child(2) { flex-basis: 40%; }
- div.home-view .furniture .item-table tr > *:nth-child(3) { flex-basis: 20%; }
-div.home-view .furniture .item-table tr button { margin: 0; font-size: 0.75em; }
+ div.home-view .furniture table tr > *:nth-child(1) { flex-basis: 20%; }
+ div.home-view .furniture table tr > *:nth-child(2) { flex-basis: 40%; }
+ div.home-view .furniture table tr > *:nth-child(3) { flex-basis: 20%; }
+div.home-view .furniture table tr button { margin: 0; font-size: 0.75em; }
 
 
 table .count, table .space {

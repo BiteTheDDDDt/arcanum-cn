@@ -200,7 +200,7 @@ export default class Raid {
 		if ( !e ) return null;
 
 		// generate enemy from parameters.
-		e = Game.itemGen.randEnemy( e, pct );
+		e = Game.itemGen.randEnemy( e, null, pct );
 		if ( !e) {console.warn( 'Missing Enemy: ') }
 
 		return e;

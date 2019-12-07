@@ -1,6 +1,7 @@
 import Percent from "./percent";
 import Range from "./range";
 import { TYP_RVAL } from "./consts";
+import { precise } from '../util/format';
 
 export const PercentTest = /^(\d+(?:\.?\d+)?)\%$/i
 export const RangeTest = /^\-?\d+\.?\d*\~\-?\d+\.?\d*$/i;
@@ -19,37 +20,42 @@ export default class RValue {
 	/**
 	 * @property {string} id
 	 */
-	get id(){return this._id; }
-	set id(v) { this._id = v;}
+	get id() { return this._id; }
+	set id(v) { this._id = v; }
 
-	get value() { return this._value; }
-	set value(v) { this._value = v; }
+	/**
+	 * @property {number} value
+	 */
+	get value() { return this._base; }
+	set value(v) { this._base = v; }
 
+	/**
+	 * @property {string} type
+	 */
 	get type(){ return TYP_RVAL }
 
+	/**
+	 * @returns {string}
+	 */
+	toString(){ return precise( this.value ); }
+
+	/**
+	 * @returns {number}
+	 */
 	valueOf(){
-		return ( typeof this._value === 'object') ? this._value.value : this._value;
+		return ( typeof this._base === 'object') ? this._base.value : this._base;
 	}
 
 	constructor( vars=null ){
 
-		if ( typeof vars === 'string') {
-
-		}
+		if ( typeof vars === 'number') {
+			this.value = vars;
+		} else this.value = 0;
 
 	}
 
-	add(v) { this.value += v}
-	set(v){this.value = v;}
-
-	/**
-	 * Apply an unknown modifier.
-	 * @param {*} mod
-	 * @param {number} amt
-	 */
-	apply(mod, amt) {
-		// base rvalue does not accept modifiers.
-	}
+	add(v) { this.value += v }
+	set(v){ this.value = v; }
 
 	/**
 	 * Apply standard modifier.
@@ -61,6 +67,15 @@ export default class RValue {
 	}
 
 	/**
+	 * Apply an unknown modifier.
+	 * @param {*} mod
+	 * @param {number} amt
+	 */
+	apply(mod, amt) {
+		// base rvalue does not accept modifiers.
+	}
+
+	/**
 	 * Get the new value if base and percent are changed
 	 * by the given amounts.
 	 * @param {number} delBonus - delta base.
@@ -68,7 +83,7 @@ export default class RValue {
 	 * @returns {number} - new stat value.
 	 */
 	delValue( delBonus=0 ) {
-		return this._value + delBonus;
+		return this._base + delBonus;
 	}
 
 	/**
