@@ -96,8 +96,10 @@ export default class Spell extends Action {
 
 		if ( this.attack ) {
 
-			if ( !(this.attack instanceof Attack) ) this.attack = new Attack(this.attack);
-			this.attack.name = this.name;
+			if ( !(this.attack instanceof Attack) ) {
+				this.attack = new Attack(this.attack);
+			}
+			if ( !this.attack.name ) this.attack.name = this.name;
 			if (!this.attack.kind) this.attack.kind = this.school;
 
 		}

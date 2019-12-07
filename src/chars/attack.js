@@ -22,7 +22,7 @@ export default class Attack {
 	get dot(){ return this._dot; }
 	set dot(v) {
 		this._dot =v;
-		if ( v.mod ) v.mod = ParseMods( v.mod, this.dot.id || this.id );
+		if ( v.mod ) v.mod = ParseMods( v.mod, this.dot.id || this.dot.name || this.name );
 	}
 	get name() {return this._name; }
 	set name(v) { this._name = v;}
@@ -68,6 +68,7 @@ export default class Attack {
 
 	clone(){
 		let a = new Attack({
+			id:this.id||undefined,
 			name:this.name,
 			damage:this.damage,
 			bonus:this.bonus,

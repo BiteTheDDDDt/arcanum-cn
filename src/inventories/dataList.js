@@ -3,7 +3,8 @@ import events, { DELETE_ITEM } from "../events";
 import GData from "../items/gdata";
 
 /**
- * Always try spells in order from start.
+ * List of GData items to attempt to use/cast.
+ * Spelllists and pursuits, currently.
  */
 export const ORDER = 'top';
 export const RANDOM = 'rand';

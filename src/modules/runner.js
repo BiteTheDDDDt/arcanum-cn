@@ -371,7 +371,7 @@ export default class Runner {
 
 			this.tryResume();
 		}
-		this.tryHobby();
+		this.tryPursuit();
 
 	}
 
@@ -379,9 +379,9 @@ export default class Runner {
 	 * Attempt to run next hobby.
 	 * @returns {boolean} true if pursuit was started.
 	 */
-	tryHobby(){
+	tryPursuit(){
 
-		if ( this.free <= 0 ) return false;
+		if ( this.free <= 0 || !Game.state.player.rested() ) return false;
 
 		let it = this.pursuits.getRunnable( Game );
 		if ( !it ) return false;

@@ -42,7 +42,7 @@ export default class Raid {
 	percent() { return this.locale ? this.locale.percent() : 0; }
 	maxed() { return !this.locale || this.locale.maxed(); }
 
-	canRun(g) { return this.locale != null && this.locale.canRun(g) }
+	canRun(g) { return this.locale && this.player.alive && this.locale.canRun(g) }
 	canUse() { return this.locale && !this.locale.maxed(); }
 
 	get effect() { return this.locale ? this.locale.effect : null; }

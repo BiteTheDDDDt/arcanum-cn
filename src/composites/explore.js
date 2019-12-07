@@ -55,7 +55,7 @@ export default class Explore {
 	maxed() { return !this.locale || this.locale.maxed(); }
 
 	canUse() { return this.locale && !this.locale.maxed(); }
-	canRun(g) { return this.locale && this.locale.canRun(g); }
+	canRun(g) { return this.locale && !this.player.defeated() && this.locale.canRun(g); }
 
 
 	get encs() { return this.locale ? this.locale.encs : null; }
@@ -92,17 +92,17 @@ export default class Explore {
 
 	}
 
-	revive( state ) {
+	revive( gs ) {
 
-		this.state = state;
-		this.player = state.player;
-		this.spelllist = state.getData('spelllist');
+		this.state = gs;
+		this.player = gs.player;
+		this.spelllist = gs.getData('spelllist');
 
-		if ( typeof this.locale === 'string') this.locale = state.getData(this.locale);
+		if ( typeof this.locale === 'string') this.locale = gs.getData(this.locale);
 
 		if ( this._enc ) {
 
-			this.enc = itemRevive( state, this._enc );
+			this.enc = itemRevive( gs, this._enc );
 			if ( this.enc && !(this.enc instanceof Encounter ) ){
 				console.warn('bad enc: ' + (this.enc.id || this.enc) );
 				this.enc = null;
@@ -111,6 +111,22 @@ export default class Explore {
 		}
 
 		if ( !this.locale) this.running = false;
+
+	}
+
+	runWith( d ) {
+
+		this.player.timer = getDelay( this.player.speed );
+
+		if ( d != null ) {
+
+			if ( d != this.locale ) this.enc = null;
+			if ( d.exp >= d.length ) {
+				d.exp = 0;
+			}
+		}
+
+		this.locale = d;
 
 	}
 
@@ -233,22 +249,6 @@ export default class Explore {
 
 		Events.emit( ACT_DONE, this, false );
 		this.locale = null;
-
-	}
-
-	runWith( d ) {
-
-		this.player.timer = getDelay( this.player.speed );
-
-		if ( d != null ) {
-
-			if ( d != this.locale ) this.enc = null;
-			if ( d.exp >= d.length ) {
-				d.exp = 0;
-			}
-		}
-
-		this.locale = d;
 
 	}
 

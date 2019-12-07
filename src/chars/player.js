@@ -337,6 +337,20 @@ export default class Player extends Char {
 
 	}
 
+	/**
+	 * Determine if player has fully rested and can re-enter a locale.
+	 */
+	rested() {
+
+		if ( !this.hp.maxed() && this.stamina.maxed()) return false;
+		for( let i = this.stressors.length-1; i>=0; i--){
+
+			if ( !this.stressors[i].maxed() ) return false;
+		}
+		return true;
+
+	}
+
 	defeated() {
 
 		if ( this._hp.value <= 0 || this.stamina.value < 0 ) return true;
