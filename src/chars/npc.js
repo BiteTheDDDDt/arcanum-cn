@@ -3,6 +3,7 @@ import Range, { RangeTest } from '../values/range';
 import Stat from '../values/stat';
 import Percent, { PercentTest } from '../values/percent';
 import MaxStat from '../values/maxStat';
+import { ParseDmg } from './attack';
 
 /**
  * @const {number} ALLY - team constant for allies.
@@ -108,16 +109,7 @@ export default class Npc extends Char {
 	get damage() { return this._damage; }
 	set damage(v) {
 
-		if ( v && !(v instanceof Range) ) {
-
-			if ( typeof v === 'string' || typeof v === 'object') this._damage = new Range( v );
-			else {
-
-				this._damage = Number( v );
-			}
-
-		} else this._damage = v;
-
+		this._damage = ParseDmg(v);
 	}
 
 	/**

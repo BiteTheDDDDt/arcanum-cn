@@ -1,6 +1,7 @@
 import Range from "../values/range";
 import {ParseMods } from "../values/mod";
 import { setModCounts } from "../items/base";
+import { ParseDmg } from "./attack";
 
 export default class Dot {
 
@@ -31,11 +32,7 @@ export default class Dot {
 
 	get damage() { return this._damage; }
 	set damage(v) {
-
-		if ( v instanceof Range ) this._damage = v;
-		else if ( !isNaN(v) ) this._damage = Number(v);
-		else if ( typeof v === 'string' || typeof v === 'object') this._damage = new Range(v);
-
+		this._damage = ParseDmg(v);
 	}
 
 	/**

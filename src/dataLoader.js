@@ -32,6 +32,7 @@ import GClass from './items/gclass';
 import Module from './modules/gmodule';
 import { SKILL, ENCOUNTER, MONSTER, ARMOR, WEAPON, HOME, POTION, ITEM, RESOURCE, EVENT } from './values/consts';
 import RValue from './values/rvalue';
+import { MakeDmgFunc } from './chars/attack';
 
 const DataDir = './data/';
 
@@ -387,7 +388,7 @@ export const prepData = ( sub, id='' ) => {
 					//console.warn('store numeric data as number.');
 					//sub[p] = Number(obj);
 				}
-				else if ( p === 'damage' || p === 'dmg') sub[p] = makeDmgFunc(obj);
+				else if ( p === 'damage' || p === 'dmg') sub[p] = MakeDmgFunc(obj);
 
 			} else if ( typ === 'object' ) prepData(obj, id);
 			else if (typ === 'number') {
@@ -488,12 +489,4 @@ export function makeTestFunc( text ) {
  */
 export function makeEffectFunc( text ) {
 	return new Function( 'g', 't', 'dt', text );
-}
-
-/**
- * Create a damage-value function for an attack.
- * @param {*} text
- */
-export function makeDmgFunc(text){
-	return new Function( 'g', 'p', 't', 'return ' + text );
 }

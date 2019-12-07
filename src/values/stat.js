@@ -96,10 +96,11 @@ export default class Stat extends RValue {
 	/**
 	 *
 	 * @param {Object|number} vars
+	 * @param {string} path
 	 */
 	constructor( vars=null, path, pos ) {
 
-		super();
+		super( null, path );
 
 		if ( vars ) {
 
@@ -116,7 +117,6 @@ export default class Stat extends RValue {
 
 		}
 
-		if ( path ) this.id = path;
 		if ( pos ) this.pos = pos;
 
 		if ( !this.base ) this.base = 0;

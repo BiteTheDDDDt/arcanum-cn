@@ -1,7 +1,35 @@
-import Range from "../values/range";
+import Range, { RangeTest } from "../values/range";
 import { assignPublic } from "../util/util";
 import Stat from "../values/stat";
 import { ParseMods } from "../values/mod";
+import RValue from "../values/rvalue";
+
+/**
+ * Create a function that returns a numeric damage value.
+ * function has format: (a)ctor, (t)arget, (c)ombat, (g)ameState
+ * @param {string} s
+ * @returns {(a,t,c,g)=>number}
+ */
+export const MakeDmgFunc = (s)=>{
+
+	console.log('CREATING DAMAGE FUNC: ' + s );
+	return new Function( 'a', 't', 'c', 'g', 'return ' + s );
+
+};
+
+export const ParseDmg = (v)=>{
+
+	if ( v instanceof Range ) return v;
+	else if ( !isNaN(v) ) return new RValue(v);
+	else if ( typeof v === 'string' ) {
+
+		if ( RangeTest.test(v) ) return new Range(v);
+		return MakeDmgFunc(v);
+
+	} else if ( typeof v === 'object') return new Range(v);
+	return v;
+
+}
 
 export default class Attack {
 
@@ -60,10 +88,7 @@ export default class Attack {
 
 	get damage() { return this._damage; }
 	set damage(v) {
-
-		if (typeof v === 'string' || typeof v ==='object') this._damage = new Range(v);
-		else if ( !isNaN(v) ) this._damage = Number(v);
-
+		this._damage = ParseDmg(v);
 	}
 
 	clone(){

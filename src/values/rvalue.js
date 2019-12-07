@@ -46,11 +46,17 @@ export default class RValue {
 		return ( typeof this._base === 'object') ? this._base.value : this._base;
 	}
 
-	constructor( vars=null ){
+	/**
+	 *
+	 * @param {number} vars
+	 * @param {?string} path
+	 */
+	constructor( vars=null, path ){
 
+		this.id = path;
 		if ( typeof vars === 'number') {
 			this.value = vars;
-		} else this.value = 0;
+		} else this._base = 0;
 
 	}
 
