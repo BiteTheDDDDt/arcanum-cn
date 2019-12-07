@@ -848,7 +848,8 @@
         },
       	"result":{
       		"emblemofice":1,
-      		"title":"winter's heart"
+      		"title":"winter's heart",
+			"winteressence": 5
       	},
       	"loot":{
       		"max":5
@@ -879,6 +880,9 @@
 		"effect": {
 			"frost": 1
 		},
+      	"result":{
+			"winteressence": 10
+      	},
 		"length": 100,
 		"loot":"iceorb",
 		"boss":"frostgiant",
@@ -913,7 +917,7 @@
         },
         "loot":{
 			"livingsnow":"30%",
-			"winteressence":0.1
+			"winteressence":0.03
         }
       },
       {
@@ -930,7 +934,7 @@
           "damage":"2~5"
         },
         "loot":{
-			"winteressence":0.1,
+			"winteressence":0.03,
         	"livingsnow":3
         }
       },
@@ -949,7 +953,7 @@
         },
         "loot":{
 			"bloodgem":1,
-			"winteressence":0.1,
+			"winteressence":0.03,
           "livingsnow":1
         }
 	  },
@@ -970,7 +974,7 @@
 		},
 		"loot": {
 			"livingsnow": "0~5",
-			"winteressence":0.1
+			"winteressence":0.03
 		},
 		"immune": "ice,water,air"
 	},
@@ -990,7 +994,7 @@
         },
         "loot":{
 			"ice.rate":0.01,
-			"winteressence":0.1,
+			"winteressence":0.03,
           "icelore.max":0.02
         }
       },
@@ -1010,7 +1014,7 @@
           "dmg":"35~55"
         },
         "loot":{
-			"winteressence":0.1,
+			"winteressence":0.03,
         	"snowman":1
         }
       },
@@ -1029,7 +1033,7 @@
           "dmg":"3~5"
         },
         "loot":{
-			"winteressence":0.1,
+			"winteressence":0.03,
         	"livingsnow":1,
 			"watergem":1
         }
@@ -1053,7 +1057,8 @@
 			"icelore.max":"1%"
 		},
         "result":{
-          "livingsnow":10
+          "livingsnow":10,
+		  "winteressence": 5
         },
         "loot":{
           "snowman":"0~2"
@@ -1106,6 +1111,9 @@
         "effect":{
           "frost":1
         },
+        "result":{
+		  "winteressence": 5
+        },
         "encs":[
           "movingsnow",
           "enc_w_coldsnap",
@@ -1132,6 +1140,9 @@
 		"effect": {
 			"frost": 1
 		},
+        "result":{
+		  "winteressence": 5
+        },
 		"title":"nixifer's disciple",
 		"encs": [
 			"enc_w_coldsnap",
