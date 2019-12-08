@@ -1570,7 +1570,7 @@
         "effect":{
           "rage":"1~3",
           "weary":"1~4",
-          "earthlore.exp":"3~4"
+          "earthlore.exp":3
         },
         "loot":{
           "gems":"1~3",

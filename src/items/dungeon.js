@@ -27,12 +27,12 @@ export default class Dungeon extends Action {
 	set enemies(v) {
 
 		// json data not true arrays.
-		let a = [];
+		/*let a = [];
 
 		for( let p in v) {
 			a.push( v[p]);
-		}
-		this._enemies=a;
+		}*/
+		this._enemies=v;
 	}
 
 	get proxy(){return RAID}
@@ -81,7 +81,7 @@ export default class Dungeon extends Action {
 	 * @returns {string|string[]|object}
 	 */
 	getEnemy() {
-		return this.hasBoss( this.exp ) ? this.getBoss( this.boss ) : this.getMob();
+		return this.hasBoss( this.boss, this.exp ) ? this.getBoss( this.boss ) : this.getMob();
 	}
 
 	/**
