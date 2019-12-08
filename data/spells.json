@@ -1,5 +1,22 @@
 [
 	{
+
+		"id":"bloodshot",
+		"level":1,
+		"require":"water",
+		"school":"water",
+		"buy":{
+			"gold":2
+		},
+		"cost":{
+			"water":1
+		},
+		"attack":{
+			"kind":"blood",
+			"dmg":"a.hp"
+		}
+	},
+	{
 		"id":"stam1",
 		"name":"minor fount",
 		"level":1,

@@ -5,6 +5,7 @@ import Dot from './dot';
 import Attack from './attack';
 import GameState from '../gameState';
 import { NPC } from '../values/consts';
+import { toStats } from "../util/dataUtil";
 import { cloneClass } from '../util/util';
 import Act from './act';
 

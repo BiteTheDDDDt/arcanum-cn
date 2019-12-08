@@ -49,7 +49,7 @@ export function applyAttack( target, attack, attacker = null) {
 		return false;
 	}
 
-	this.applyDamage( target, attack, attacker );
+	applyDamage( target, attack, attacker );
 
 	if (attack.dot) {
 		target.addDot( attack.dot, attacker, attack.name );
