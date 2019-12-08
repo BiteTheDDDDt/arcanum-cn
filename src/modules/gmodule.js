@@ -40,9 +40,12 @@ export default class Module {
 
 	/**
 	 *
-	 * @param {?object} [data=null]
 	 */
 	constructor() {
+
+		this.templates = {};
+		this.lists = {};
+
 	}
 
 	/**
@@ -56,18 +59,20 @@ export default class Module {
 	/**
 	 * Load module data file.
 	 * Resolves to the module on load.
+	 * @property {string|string[]} file
+	 * @property {string} dir - loading subdirectory.
 	 * @returns {Promise.<GModule>} - this module.
 	 */
-	load( file ) {
+	load( file, dir ) {
 
 		if ( Array.isArray(file) ) {
 
-			return loadFiles( file ).then( (v)=>this.typesLoaded(v) );
+			return loadFiles( file, dir ).then( (v)=>this.typesLoaded(v) );
 
 		} else {
 			this.name = file;
 			// files returned as string->file data mapping. get the file data itself.
-			return loadFiles( [ file ] ).then( (v)=>this.fileLoaded( v[file] ) );
+			return loadFiles( [ file ], dir ).then( (v)=>this.fileLoaded( v[file] ) );
 
 		}
 
@@ -80,9 +85,6 @@ export default class Module {
 	 * @returns {GModule} this module.
 	 */
 	typesLoaded(files) {
-
-		this.templates = {};
-		this.lists = {};
 
 		// modules can only be merged after all lists have been made.
 		let modules = [];
@@ -121,8 +123,6 @@ export default class Module {
 	fileLoaded( mod ) {
 
 		//console.log('File Loaded: ' + mod.module );
-
-		this.templates = {};
 		this.lists = mod.data;
 
 		this.name = mod.module || this.name;
@@ -137,7 +137,7 @@ export default class Module {
 	}
 
 	/**
-	 *
+	 * Parse named lists of objects.
 	 * @param {.<string,object[]} lists
 	 */
 	parseLists( lists ){

@@ -67,10 +67,11 @@ export default {
 	main:null,
 
 	/**
-	 * Load the list of modules being used.
+	 * Load information on all available data files.
 	 * @param {string} srcList - name of file specifying mod list.
+	 * @returns {object}
 	 */
-	async loadModList( srcList ) {
+	async loadModInfo( srcList ) {
 
 		// load the local list of mod files then load all listed files.
 		return loadFiles( [srcList] ).then( list=>{
@@ -84,8 +85,12 @@ export default {
 
 		if ( this.main === null ) {
 
-			let files = await this.loadModList( ModFiles );
-			this.main = await new Module().load(files);
+			let files = await this.loadModInfo( ModFiles );
+			this.main = await new Module().load( files.core );
+
+			if ( files.modules ) {
+				await this.main.load( files.modules, DataDir + 'modules' );
+			}
 
 		}
 
