@@ -980,7 +980,7 @@
 		"level":3,
 		"targets":"undead",
 		"school":"shadow",
-		"desc":"reanimate minor undead.",
+		"desc":"reanimate a weak undead minion.",
 		"tags":"rez",
 		"buy":{
 			"research":50,
@@ -996,7 +996,7 @@
 
 		"id":"reanimate2",
 		"name":"greater reanimate",
-		"desc":"reanimate stronger undead.",
+		"desc":"reanimate a stronger undead minion.",
 		"level":5,
 		"targets":"undead",
 		"school":"shadow",
