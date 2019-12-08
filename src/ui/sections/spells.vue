@@ -163,9 +163,8 @@ export default {
 <div class="bottom">
 
 <book class="spellbook" :viewing="viewing" />
-<div v-show="showList">
-<spelllist class="spelllist" :list="list" />
-</div>
+
+<spelllist v-show="showList" class="spelllist" :list="list" />
 
 </div>
 
@@ -196,8 +195,8 @@ div.spells .spellbook {
 
 div.spells .spelllist {
 	border-left: 1px solid var( --separator-color );
-	width:5rem;
-	padding: var( --tiny-gap );
+	padding: var( --sm-gap );
+	width:10em;
 	flex-shrink: 1;
 }
 
