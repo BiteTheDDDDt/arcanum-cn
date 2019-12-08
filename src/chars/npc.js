@@ -3,7 +3,7 @@ import Range, { RangeTest } from '../values/range';
 import Stat from '../values/stat';
 import Percent, { PercentTest } from '../values/percent';
 import MaxStat from '../values/maxStat';
-import { ParseDmg } from './attack';
+import Attack, { ParseDmg } from './attack';
 
 /**
  * @const {number} ALLY - team constant for allies.
@@ -107,10 +107,7 @@ export default class Npc extends Char {
 	}
 
 	get damage() { return this._damage; }
-	set damage(v) {
-
-		this._damage = ParseDmg(v);
-	}
+	set damage(v) { this._damage = ParseDmg(v); }
 
 	/**
 	 * @property {number} team - side in combat.
@@ -148,6 +145,10 @@ export default class Npc extends Char {
 		this.tohit = this.tohit || 0;
 
 		if ( this.dmg && (this.damage===null||this.damage===undefined) ) this.damage = this.dmg;
+		if ( !this.attack ) {
+			this.attack = new Attack( this.damage );
+			this.damage = 0;
+		}
 
 	}
 
@@ -164,16 +165,6 @@ export default class Npc extends Char {
 	 */
 	rest(dt) {
 		this.hp += ( 0.01*this.hp.max.value*dt );
-	}
-
-	/**
-	 * @param {string} kind - kind of attack damage.
-	 * @returns {number} the damage from a single attack by npc.
-	 */
-	getDamage() {
-		return this.attack ? this.attack.getDamage() : (
-			(typeof this._damage === 'number') ? this._damage : this._damage.value
-		);
 	}
 
 }

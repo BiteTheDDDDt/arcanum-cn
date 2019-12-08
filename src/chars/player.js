@@ -143,12 +143,6 @@ export default class Player extends Char {
 	get hits(){ return this._hits ? this._hits : (this._hits = {}) }
 	set hits(v){ this._hits = toStats(v); }
 
-	/**
-	 * @property {.<string,Stat>} bonuses - damage bonuses per damage kind.
-	 */
-	get bonuses(){ return this._bonuses ? this._bonuses : (this._bonuses = {}) }
-	set bonuses(v){ this._bonuses = toStats(v); }
-
 	get hid(){return this._hid;}
 	set hid(v){this._hid=v;}
 
@@ -193,20 +187,6 @@ export default class Player extends Char {
 		if ( this.weapon ) data.weapon = this.weapon.id;
 
 		return data;
-
-	}
-
-	/**
-	 * Get bonus damage for an attack type.
-	 * @param {string} kind
-	 */
-	getDamage( kind ){
-
-		return this.damage.valueOf() + ( kind ? this.bonuses[kind] || 0 : 0 );
-		/*if ( kind && this.bonuses[kind] ) {
-			console.log('BONUS DMG: ' + this.bonuses[kind].valueOf() )
-		}
-		return d;*/
 
 	}
 

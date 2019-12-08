@@ -6,14 +6,14 @@ import RValue from "../values/rvalue";
 
 /**
  * Create a function that returns a numeric damage value.
- * function has format: (a)ctor, (t)arget, (c)ombat, (g)ameState
+ * function has format: (a)ctor, (t)arget, (g)ameState
  * @param {string} s
  * @returns {(a,t,c,g)=>number}
  */
 export const MakeDmgFunc = (s)=>{
 
-	console.log('CREATING DAMAGE FUNC: ' + s );
-	return new Function( 'a', 't', 'c', 'g', 'return ' + s );
+	console.log('NEW DAMAGE FUNC: ' + s );
+	return new Function( 'a', 't', 'g', 'return ' + s );
 
 };
 
@@ -117,13 +117,6 @@ export default class Attack {
 		this.bonus = this.bonus || 0;
 
 		this.tohit = this.tohit || 0;
-
-	}
-
-	getDamage() {
-
-		return this.bonus +
-		( ( typeof this._damage === 'number') ? this._damage : this._damage.value );
 
 	}
 

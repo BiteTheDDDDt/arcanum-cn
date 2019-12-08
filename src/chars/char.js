@@ -66,6 +66,12 @@ export default class Char {
 		this._immunities=v;
 	}
 
+	/**
+	 * @property {.<string,Stat>} bonuses - damage bonuses per damage kind.
+	 */
+	get bonuses(){ return this._bonuses }
+	set bonuses(v){ this._bonuses = toStats(v); }
+
 	get attack() { return this._attack; }
 	set attack(v) {
 
@@ -156,6 +162,7 @@ export default class Char {
 		this.states = this.states || {};
 		this.immunities = this.immunities || {};
 		this._resist = this._resist || {};
+		if ( !this.bonuses ) this.bonuses = {};
 
 		this._act = new Act();
 		//console.log( this.id + ' tohit: ' + this.tohit );
@@ -241,6 +248,15 @@ export default class Char {
 		this.applyMods( dot.mod, 1 );
 	}
 
+	/**
+	 * Get bonus damage for the damage type.
+	 * @param {string} kind
+	 * @returns {number}
+	 */
+	getBonus(kind) {
+		return this.bonuses[kind] || 0;
+	}
+
 	rmDot( i ){
 
 		let dot = this.dots[i];
@@ -289,7 +305,7 @@ export default class Char {
 
 			this.timer += getDelay( this.speed );
 
-			if ( !this.canAct || !this.canAttack ) return null;
+			//if ( !this.canAct || !this.canAttack ) return null;
 			return this.getAttack();
 
 		}

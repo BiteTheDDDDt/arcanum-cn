@@ -9,6 +9,7 @@ import Events, {
 
 import { itemRevive } from '../modules/itemgen';
 import { getDelay } from '../chars/char';
+import Stat from '../values/stat';
 
 const TARGET_ALL = 'all';
 
@@ -48,33 +49,7 @@ export function applyAttack( target, attack, attacker = null) {
 		return false;
 	}
 
-
-	if (attack.damage ) {
-
-		if ( !attack.getDamage){ console.error( 'NO DMG FUNC: ' + attack ); }
-		// add optional base damage from attacker.
-
-		/** @compat */
-		let dmg = attack.getDamage();
-		if ( (attacker && (attacker !== attack) && attacker.damage) ) {
-			dmg += attacker.getDamage( attack.kind );
-		}
-
-		let resist = target.getResist(attack.kind);
-		if (resist > 0) dmg *= (1 - resist);
-
-		target.hp -= dmg;
-		if ( target.hp <= 0 ) { Events.emit( CHAR_DIED, target, attack ); }
-
-		Events.emit( COMBAT_HIT, target, dmg, attack.name || (attacker ? attacker.name : '') );
-
-		if ( attack.leech && attacker ) {
-			let amt = Math.floor(100 * attack.leech * dmg) / 100;
-			attacker.hp += amt;
-			Events.emit(EVT_COMBAT, null, attacker.name + ' steals ' + amt + ' life.');
-		}
-
-	}
+	this.applyDamage( target, attack, attacker );
 
 	if (attack.dot) {
 		target.addDot( attack.dot, attacker, attack.name );
@@ -84,18 +59,53 @@ export function applyAttack( target, attack, attacker = null) {
 
 }
 
-export function applyDamage(target, attack, attacker = null) {
+export function applyDamage( target, attack, attacker = null) {
+
+	let dmg = attack.damage;
+	if ( !dmg) return;
+
+	if ( typeof dmg === 'function') dmg = dmg( attacker, target, Game.state );
+	else dmg = dmg.value;
+
+	if ( attacker ) dmg += attacker.getBonus( attack.kind );
+	if ( attack.bonus ) dmg += bonus;
+
+	let resist = target.getResist(attack.kind);
+	if (resist > 0) dmg *= (1 - resist);
+
+	target.hp -= dmg;
+	if ( target.hp <= 0 ) { Events.emit( CHAR_DIED, target, attack ); }
+
+	Events.emit( COMBAT_HIT, target, dmg, attack.name || (attacker ? attacker.name : '') );
+
+	if ( attack.leech && attacker ) {
+		let amt = Math.floor(100 * attack.leech * dmg) / 100;
+		attacker.hp += amt;
+		Events.emit(EVT_COMBAT, null, attacker.name + ' steals ' + amt + ' life.');
+	}
+
+
+
 }
 
 /**
 * Convert damage object to raw damage value.
-* @param {number|function|Range|Attack} dmg /
+* @param {number|function|Range} dmg /
 */
-export function getDamage(dmg) {
+export function getDamage( dmg ) {
+
+	let typ = typeof dmg;
+
+	if ( typ === 'object') return dmg.value;
+	else if ( typ === 'number') return dmg;
+	else if ( typ === 'function') return ;
 
 	if (dmg instanceof Range) return dmg.value;
-	else if (!isNaN(dmg)) return Number(dmg);
-	console.log('Damage undefined: ' + dmg);
+	else if ( !isNaN(dmg) || dmg instanceof Stat ) return Number(dmg);
+	else if ( typeof dmg === 'function') {
+	}
+
+	console.warn('Invalid damage: ' + dmg);
 	return 0;
 
 	// TODO: invalid

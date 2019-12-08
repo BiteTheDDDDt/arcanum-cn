@@ -35,15 +35,6 @@ export default class Dot {
 		this._damage = ParseDmg(v);
 	}
 
-	/**
-	 * Get a damage value for the dot.
-	 */
-	getDamage() {
-
-		return (typeof this._damage === 'number') ? this._damage : this._damage.value;
-
-	}
-
 	valueOf(){return this.duration > 0 ? 1 : 0; }
 
 	constructor( vars, source, name ){
