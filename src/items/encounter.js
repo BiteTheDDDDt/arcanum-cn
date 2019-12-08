@@ -1,15 +1,6 @@
 import GData from "./gdata";
 import Game from '../game';
-import Events, { ENC_DONE } from "../events";
-
-const defaults = {
-
-	level:1,
-	locked:false
-
-};
-
-export const ENCOUNTER = 'enc';
+import { ENCOUNTER } from "../values/consts";
 
 /**
  * Sublocation of a Locale
@@ -58,12 +49,8 @@ export default class Encounter extends GData {
 
 		this._exp = this._exp || 0;
 
-		this.level = this.level || 1;
-		this.length = this.length || 5*this.level;
-
-		/*for( let p in this.effect ) {
-			console.log( p + ' -> ' + (typeof this.effect[p] ) + ': ' + this.effect[p] );
-		}*/
+		if ( !this.level ) this.level = 1;
+		if ( !this.length ) this.length = 5*this.level;
 
 	}
 

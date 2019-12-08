@@ -1,3 +1,6 @@
+import { TYP_RANGE } from "./consts";
+import { precise } from "../util/format";
+
 export const RangeTest = /^\-?\d+\.?\d*\~\-?\d+\.?\d*$/i;
 
 const SPLIT_CHAR = '~';
@@ -6,7 +9,9 @@ export default class Range {
 
 	toJSON() { return this.min + SPLIT_CHAR + this.max; }
 
-	toString() { return this.min + ' ' + SPLIT_CHAR + ' ' + this.max; }
+	toString() { return precise( this.min ) + ' ' + SPLIT_CHAR + ' ' + precise(this.max ); }
+
+	get type(){ return TYP_RANGE; }
 
 	/**
 	 * @property {number} value - getting a range value
@@ -16,6 +21,8 @@ export default class Range {
 		return this.min + Math.random()*( this.max - this.min );
 	}
 
+	valueOf(){ return this.value; }
+
 	/**
 	 *
 	 * @param {Object|number|string} min
@@ -23,15 +30,14 @@ export default class Range {
 	 */
 	constructor(min=0, max=undefined) {
 
-		let type = typeof min;
-		if ( type === 'object' ) Object.assign( this, min );
-		else if ( type === 'string') {
+		if ( typeof min === 'string' ) {
 
 			let parts = min.split( SPLIT_CHAR );
 			this.min = Number( parts[0] );
 			this.max = Number( parts[1] );
 
-		} else {
+		} else if ( typeof min ==='object') Object.assign( this, min );
+		else {
 
 			this.min = Number( min );
 			this.max = Number( max === undefined ? min : max );
@@ -41,6 +47,14 @@ export default class Range {
 		//console.log('min: ' + this.min + ' -> ' + this.max );
 
 
+	}
+
+	/**
+	 * Return a percent of the range value.
+	 * @param {number} pct - decimal percent.
+	 */
+	percent( pct ) {
+		return this.min + pct*( this.max - this.min );
 	}
 
 	/**

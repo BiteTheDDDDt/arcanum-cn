@@ -2,7 +2,7 @@
 
 	{
 		"id":"sunnyfield",
-		"name":"Sunny Field",
+		"name":"sunny field",
 		"level":1,
 		"length":10,
 		"require":"evt_helper",
@@ -15,6 +15,7 @@
 		"loot":{
 			"max":1
 		},
+		"boss":"kakapo",
 		"enemies":[
 			["newt","newt","newt"],
 			"lgmouse",
@@ -27,7 +28,7 @@
 	},
 	{
 		"id":"placidgrove",
-		"name":"Placid Grove",
+		"name":"placid grove",
 		"level":2,
 		"length":12,
 		"run":{
@@ -66,7 +67,7 @@
 			"sp":1,
 			"gold":"15~20",
 			"player.exp":10,
-			"title":"Master of the Cellar"
+			"title":"master of the cellar"
 		},
 		"loot":{
 			"max":4
@@ -81,13 +82,13 @@
 			"lgrat",
 			"badexperiment",
 			"ratskeleton",
-			"homonculus",
+			"homunculus",
 			"gremlin"
 		]
 	},
 	{
 		"id":"hills",
-		"name":"Stony Hills",
+		"name":"stony hills",
 		"level":3,
 		"length":15,
 		"run":{
@@ -99,6 +100,7 @@
 		"loot":{
 			"max":3
 		},
+		"biome":"hills",
 		"enemies":[
 
 			"coyote",
@@ -428,7 +430,7 @@
 	{
 		"id":"catacrypts",
 		"name":"the catacrypts",
-		"desc":"Old Mirthemgnar dug its dungeons til they joined the hollows beneath the world. In terror they sealed them forever.",
+		"desc":"Old Mirthemgnar dug its dungeons til they joined the hollows beneath the world. In terror they sealed them forever. Or so they tried.",
 		"require":["mtgorborung", "tier3"],
 		"level":15,
 		"run":{
@@ -437,15 +439,16 @@
 		"length":10000,
 		"result":{
 			"title":"twice born",
+			"fame":3,
 			"gems":"30~50",
 			"gold":"1000~2000"
 		},
-		"enemies":[{
-			"min":8,
-			"max":25,
-			"range":2,
-			"scale":true
-		}],"flavor":"day and night the dark gates stand open to all... but to return to the open air... that is the task, that is the labor"
+		"biome":["cave","mountain"],
+		"enemies":{
+			"level":"8~25",
+			"scale":true,
+			"range":2
+		},"flavor":"day and night the dark gates stand open to all... but to return to the open air... that is the task, that is the labor"
 
 	},
 	{
@@ -477,7 +480,7 @@
 		"desc":"Veldran never did manage to carve a kingdom from the wreck of bodias' reign. But he did accrue a sizeable hoard.",
 		"level":12,
 		"run":{
-			"stamina":1.5
+			"stamina":2
 		},
 		"length":30,
 		"result":{
@@ -503,7 +506,7 @@
 		"require":"g.player.dist>=500",
 		"level":15,
 		"run":{
-			"stamina":2
+			"stamina":2.5
 		},
 		"length":75,
 		"result":{
@@ -530,13 +533,14 @@
 	{
 		"id":"charredkeep",
 		"name":"charred keep",
-		"desc":"its smouldering ruins have once more begun to burn.",
+		"desc":"its smouldering ruins once more begin to burn.",
 		"level":18,
 		"run":{
-			"stamina":2.5
+			"stamina":3
 		},
 		"length":100,
 		"result":{
+			"title":"lock slayer",
 			"gold":"300~500",
 			"ichor":3
 		},
@@ -563,6 +567,8 @@
 		"desc":"they say the roots of the mountain extend deeper than its heights.",
 		"level":25,
 		"length":100,
+		"require":"g.player.level>20&&g.mtgorborung>0",
+		"dist":1200,
 		"run":{
 			"stamina":3
 		},
@@ -573,8 +579,8 @@
 			"tomes":2
 		},
 		"boss":{
-			"cthulhu":50,
-			"gorborung":100
+			"50":"cthulhu",
+			"100":"gorborung"
 		},
 		"enemies":[
 			["stonegolem","stonegolem"],
@@ -597,6 +603,20 @@
 		]
 	},
 	{
+
+		"id":"temple of strativax",
+		"desc":"His acolytes fed the beast on offerings from a thousand leagues.",
+		"flavor":"Strativax curled up to nap. His temple fell to ruins, and the ages fled like leaves.",
+		"require":"g.player.level>999",
+		"level":20,
+		"boss":{
+			"0":"strativax1",
+			"1":"strativax2",
+			"2":"strativax3"
+		}
+
+	},
+	{
 		"id":"holyhall",
 		"name":"hall of the holy",
 		"desc":"Various divine spirits watch over the world. And the greatest have their halls and kingdoms.",
@@ -604,9 +624,10 @@
 		"level":17,
 		"length":50,
 		"run":{
-			"stamina":1
+			"stamina":2
 		},
 		"result":{
+			"title":"holy defiler",
 			"evilamt":10,
 			"gold":"150~275"
 		},

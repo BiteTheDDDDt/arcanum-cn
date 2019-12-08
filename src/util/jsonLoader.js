@@ -40,8 +40,8 @@ export default class JSONLoader {
 	/**
 	 *
 	 * @param {?string[]} [files=null]
-	 * @returns {Promise.<object.<string,object>} - Promise with an object where each key
-	 * is a file name mapping to the loaded json.
+	 * @returns {Promise.<object.<string,object>} - Promise with an object with fileName
+	 * keys mapping to loaded JSON objects.
 	 */
 	load( files=null ) {
 
@@ -69,19 +69,11 @@ export default class JSONLoader {
 
 		}
 
-		return this._promise = Promise.all( promiseArr ).then( ()=>loads, err=>{ console.error(err); });
+		return this._promise = Promise.all( promiseArr ).then( ()=>loads, e=>{
+			console.error( e.message + '\n' + e.stack );
+		});
 
 	}
-
-	/**
-	 * All promises in the loads object have loaded.
-	 * Convert promises to their json data.
-	 * @param {*} loads
-	 */
-	/*_loaded( loads ){
-		for( let p in loads ) {
-		}
-	}*/
 
 	/**
 	 * Build JSON request info for making the fetch request.

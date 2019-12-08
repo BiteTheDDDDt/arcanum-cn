@@ -1,7 +1,8 @@
-import Monster from './monster';
 import Action from './action';
 import Game from '../game';
-import { getDist } from './locale';
+import { getDist, distTest, levelTest } from './locale';
+import { mapNonNull } from '../util/array';
+import { DUNGEON, RAID } from '../values/consts';
 
 /**
  * @type {Object} Enemy
@@ -16,17 +17,25 @@ import { getDist } from './locale';
 
 export default class Dungeon extends Action {
 
+	/**
+	 * @property {object|string} once - result to happen only once.
+	 */
+	get once() { return this._once; }
+	set once(v) { this._once = v; }
+
 	get enemies() { return this._enemies; }
 	set enemies(v) {
 
 		// json data not true arrays.
-		let a = [];
+		/*let a = [];
 
 		for( let p in v) {
 			a.push( v[p]);
-		}
-		this._enemies=a;
+		}*/
+		this._enemies=v;
 	}
+
+	get proxy(){return RAID}
 
 	/**
 	 *
@@ -38,7 +47,7 @@ export default class Dungeon extends Action {
 
 		this.level = this.level !== undefined ? this.level : 1;
 
-		this.type = 'dungeon';
+		this.type = DUNGEON;
 
 		/**
 		 * @property {number} progress
@@ -47,14 +56,16 @@ export default class Dungeon extends Action {
 		if (!this.length) this.length = 10*this.level;
 
 		// default require for dungeon is player-level.
-		this.require = this.require || this.levelTest;
+		this.require = this.require || levelTest;
 
 		this.dist = ( this.dist === undefined || this.dist === null ) ? getDist(this.level) : this.dist;
 		//this.addRequire( 'dist', this.dist );
 
+		if (!this.sym) this.sym = '⚔';
+
 		//console.log(this.id + ' dist: ' + this.dist );
 
-		if ( this.need == null ) this.need = this.distTest;
+		if ( this.need == null ) this.need = distTest;
 
 		/**
 		 * Total of all enemy weights, used to roll which
@@ -67,38 +78,70 @@ export default class Dungeon extends Action {
 
 	/**
 	 * Get next enemy.
-	 * @returns {string|Monster|Object}
+	 * @returns {string|string[]|object}
 	 */
 	getEnemy() {
-
-		return this.getBoss() || this._enemies[ Math.floor( Math.random()*this._enemies.length ) ];
-
+		return this.hasBoss( this.boss, this.exp ) ? this.getBoss( this.boss ) : this.getMob();
 	}
 
 	/**
 	 * Return a random non-boss mob. (Used to exclude dead/locked uniques)
+	 * @returns {?string}
 	 */
 	getMob() {
-		return this._enemies[ Math.floor( Math.random()*this._enemies.length ) ];
-	}
 
-	getBoss() {
+		if ( Array.isArray( this._enemies ) ) {
+			return this._enemies[ Math.floor( Math.random()*this._enemies.length ) ];
+		} else {
 
-		var boss = this.boss;
-		if ( !boss ) return null;
+			return this._enemies;
 
-		if ( typeof boss === 'string' ) {
-
-			if ( this.exp !== this.length-1) return null;
-
-		} else if ( boss.hasOwnProperty( (this.exp+1) ) ) {
-			// mid-level boss
-			boss = boss[this.exp+1];
 		}
 
-		boss = Game.state.getData( boss );
-		if ( !boss || (boss.unique && boss.value>= 1) ) return null;
-		return boss.id;
+	}
+
+	/**
+	 * Checks if there is a boss at the given position in dungeon.
+	 * @param {string|object|Array} boss
+	 * @param {number} at
+	 * @returns {boolean}
+	 */
+	hasBoss( boss, at ) {
+
+		if ( !boss ) return false;
+		if ( typeof boss === 'object' && boss.hasOwnProperty(at) ) {
+			return true;
+		}
+		// last enemy in dungeon.
+		return (at === this.length-1);
+
+	}
+
+	/**
+	 *
+	 * @param {string|string[]|object} boss
+	 * @returns {string|string[]|null}
+	 */
+	getBoss( boss ) {
+
+		if ( !boss ) return null;
+
+		if ( typeof boss === 'string') {
+
+			if ( Game.state.hasUnique( boss ) ) return null;
+			return boss;
+
+		} else if ( Array.isArray(boss) ) {
+
+			var a = mapNonNull( boss, v=>{
+				return this.getBoss(v)
+			});
+			return a.length > 0 ? a : null;
+
+		} else if ( boss.hasOwnProperty( (this.exp) ) ) {
+			// mid-level boss
+			return this.getBoss( boss[this.exp] );
+		}
 
 	}
 
@@ -106,14 +149,6 @@ export default class Dungeon extends Action {
 	 * Catch complete() to prevent default action. ugly.
 	 */
 	complete() {
-	}
-
-	distTest( g, s) {
-		return g.dist >= s.dist;
-	}
-
-	levelTest(g, s) {
-		return g.player.level >= (s.level-1);
 	}
 
 	/**

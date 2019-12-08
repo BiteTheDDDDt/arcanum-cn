@@ -1,5 +1,5 @@
 import Game from './game';
-import { quickSplice } from './util/util';
+import { quickSplice } from './util/array';
 
 /**
  * @const {RegExp} FuncRE - regular expression to find tree relationships
@@ -27,8 +27,13 @@ export default class TechTree {
 		 */
 		this.unlocks = {};
 
+		/**
+		 * @property {.<string,Array>} needs - item id to Items which might 'need' the item.
+		 */
+		this.needs = {};
+
 		for( let p in this.items ) {
-			this.mapUnlockers( this.items[p]);
+			this.mapUnlocks( this.items[p]);
 		}
 
 		/**
@@ -38,8 +43,9 @@ export default class TechTree {
 
 		for( let p in this.items ) {
 
-			if ( !this.items[p].locked && this.unlocks[p] ) this.fringe.push( this.items[p] );
-			else {
+			if ( !this.items[p].locked && this.unlocks[p] ) {
+				this.fringe.push( this.items[p] );
+			} else {
 
 				// check cyclic unlock. resources unlock themselves with any amount;
 				// these must be added to fringe without being unlocked.
@@ -49,6 +55,20 @@ export default class TechTree {
 				}
 
 			}
+
+		}
+
+	}
+
+	/**
+	 * Force an initial check of possible unlocks.
+	 */
+	forceCheck() {
+
+		for( let p in this.items ) {
+
+			let it = this.items[p];
+			if ( !it.disabled ) this.changed(p);
 
 		}
 
@@ -117,7 +137,7 @@ export default class TechTree {
 
 			it = this.items[ links[i] ];
 			if ( !it ) {
-				console.warn('BAD UNLOCK LINK: ' + id );
+				console.warn('BAD UNLOCK: ' + id );
 				quickSplice( links, i );
 			} else if ( it.locked === false || it.disabled === true || Game.tryUnlock(it) ) {
 
@@ -139,44 +159,44 @@ export default class TechTree {
 
 	/**
 	 * Mark all Items which might potentially unlock this item.
-	 * @param {Item} item
+	 * @param {GData} item
 	 */
-	mapUnlockers( item ) {
+	mapUnlocks( item ) {
 
 		if ( !item.locked || item.disabled ) return;
 
-		if ( item.require ) this.markLinks( item, item.require );
-		if ( item.need ) this.markLinks( item, item.need );
+		if ( item.require ) this.mapRequirement( item, item.require, this.unlocks );
+		if ( item.need ) this.mapRequirement( item, item.need, this.unlocks );
 
 	}
 
 	/**
-	 * Mark the links that unlock item.
-	 * @param {*} item
-	 * @param {*} need
+	 * Mark an item's possible requirements.
+	 * @param {GData} item
+	 * @param {string|function|Array} requires
 	 */
-	markLinks( item, need ) {
+	mapRequirement( item, requires, graph ) {
 
-		let type = typeof need;
+		let type = typeof requires;
 
 		if ( type === 'string') {
 
-			this.markUnlocker( need, item );
+			this.mapUnlock( requires, item, graph );
 
 		} else if ( type === 'function' ) {
 
-			this.markFunc( item, need );
+			this.mapFuncRequirement( item, requires, graph );
 
-		} else if (  Array.isArray(need) ) return need.forEach( v=>this.markLinks(item,v), this );
+		} else if (  Array.isArray(requires) ) return requires.forEach( v=>this.mapRequirement(item,v, graph), this );
 
 	}
 
 	/**
 	 * Mark unlock links from a requirement function.
-	 * @param {Item} item - item being unlocked.
+	 * @param {GData} targ - item being unlocked.
 	 * @param {function} func - function testing if item can be unlocked.
 	 */
-	markFunc( item, func ) {
+	mapFuncRequirement( targ, func, graph ) {
 
 		let text = func.toString();
 		let results;
@@ -188,33 +208,34 @@ export default class TechTree {
 
 			let sub = results[1].split('.')[0];
 			if ( sub === 'mod' || sub === 'slot' ) continue;
-			this.markUnlocker( sub, item );
+			this.mapUnlock( sub, targ, graph );
 
 		}
-		if ( text.includes('this') || text.includes('s.') ) this.markUnlocker( item.id, item );
+		if ( text.includes('this') || text.includes('s.') ) this.mapUnlock( targ.id, targ, graph );
 
 	}
 
 	/**
-	 * Map src as a potential unlocker of item.
+	 * Map src as a potential unlocker of targ.
 	 * @param {string} src
-	 * @param {GData} item
+	 * @param {GData} targ
+	 * @param {object} graph - the tech tree being mapped, needs or unlocks.
 	 */
-	markUnlocker( src, item ) {
+	mapUnlock( src, targ, graph ) {
 
 		if ( !src) return;
 		let it = this.items[src];
 
 		if ( it === undefined ) {
 			it = Game.state.getTagList( src );
-			if ( it ) it.forEach( v=>this.markUnlocker(v.id,item) );
+			if ( it ) it.forEach( v=>this.mapUnlock(v.id,targ, graph) );
 			//else console.warn('unlocker not found: ' + src );
 			return;
 		}
 
-		let map = this.unlocks[src];
-		if ( map === undefined ) this.unlocks[src] = map = [];
-		if ( !map.includes( item.id ) ) map.push( item.id );
+		let map = graph[src];
+		if ( map === undefined ) graph[src] = map = [];
+		if ( !map.includes( targ.id ) ) map.push( targ.id );
 
 	}
 

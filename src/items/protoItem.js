@@ -1,5 +1,4 @@
 import GData from "./gdata";
-import { logObj, logPublic } from "../util/util";
 
 /**
  * Generic prototype for a wearable item.
@@ -8,7 +7,7 @@ export default class ProtoItem extends GData {
 
 	toJSON() {
 
-		return this.value > 0 ? { value:this.value } : undefined;
+		return this.value > 0 ? this.value : undefined;
 
 	}
 
@@ -40,6 +39,7 @@ export default class ProtoItem extends GData {
 
 		if ( this.attack ) {
 			if ( !this.attack.damage ) this.attack.damage = this.attack.dmg;
+			this.attack.dmg = undefined;
 		}
 
 

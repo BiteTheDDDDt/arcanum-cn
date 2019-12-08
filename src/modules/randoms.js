@@ -1,6 +1,5 @@
 import Game from '../game';
-import Events from '../events';
-import {quickSplice} from '../util/util';
+import {quickSplice} from '../util/array';
 
 export default {
 

@@ -2,11 +2,12 @@ import Char from './char';
 import Range, { RangeTest } from '../values/range';
 import Stat from '../values/stat';
 import Percent, { PercentTest } from '../values/percent';
+import MaxStat from '../values/maxStat';
 
 /**
  * @const {number} ALLY - team constant for allies.
  */
-export const ALLY = 1;
+export const TEAM_ALLY = 1;
 
 /**
  * Class for specific Enemies/Minions in game.
@@ -31,25 +32,49 @@ export default class Npc extends Char {
 
 		} else data.name = this._name;
 
+		data.keep = this.keep;
+
+		/**
+		 * @compat
+		 */
+		data.maxHp = undefined;
+
 		//data.died = this.died||undefined;
 
 		return data;
 
 	}
 
-	get maxHp() { return this._maxHp; }
-	set maxHp(v) {
-		this._maxHp = v instanceof Stat ? v : new Stat(v, 'maxHp', true);
-	}
+	/**
+	 * @property {boolean} keep - whether to keep ally after combat.
+	 */
+	get keep(){return this._keep;}
+	set keep(v) { this._keep = v;}
 
+	/**
+	 * @compat changed from Stat to sub Stat of hp MaxStat.
+	 */
+	get maxHp() { return this._hp.max; }
+	set maxHp(v) {}
+
+	/**
+	 * @property {MaxStat} hp
+	 */
 	get hp() { return this._hp; }
 	set hp(v) {
 
-		if ( this._maxHp && v > this._maxHp ) this._hp = this._maxHp.value;
-		else this._hp = v;
+		if ( this._hp === undefined || this._hp === null ||
+			 typeof v === 'object' ) {
+				 this._hp = v instanceof MaxStat ? v : new MaxStat(v);
+
+			 }
+		else this._hp.value = v;
 
 	}
 
+	/**
+	 * @property {object|string|object[]}
+	 */
 	get loot() { return this._loot; }
 	set loot( loot ){
 
@@ -117,11 +142,18 @@ export default class Npc extends Char {
 
 		this.active = this.active === undefined || this.active === null ? false : this.active;
 
-		if ( typeof this.hp === 'string' || typeof this.hp === 'object') this.hp = new Range(this.hp);
-		if ( this.hp instanceof Range ) this.hp = this.hp.value;
+		if ( typeof this.hp === 'string' ) this.hp = new Range(this.hp).value;
+		else if ( this.hp instanceof Range ) this.hp = this.hp.value;
+
+		/**
+		 * @compat
+		 */
+		if ( vars.maxHp) this.hp.max = vars.maxHp;
+		if (!this.hp ) { this.hp = 1; }
+
+		//console.log( this.id + ' const() : ' + this.hp.value );
 
 		this.tohit = this.tohit || 0;
-		this.maxHp = this._maxHp || this._hp;
 
 		if ( this.dmg && (this.damage===null||this.damage===undefined) ) this.damage = this.dmg;
 
@@ -134,11 +166,16 @@ export default class Npc extends Char {
 		this.hp = 1;
 	}
 
+	/**
+	 *
+	 * @param {number} dt
+	 */
 	rest(dt) {
-		this.hp += 0.01*this.maxHp.value*dt;
+		this.hp += ( 0.01*this.hp.max.value*dt );
 	}
 
 	/**
+	 * @param {string} kind - kind of attack damage.
 	 * @returns {number} the damage from a single attack by npc.
 	 */
 	getDamage() {

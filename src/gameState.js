@@ -10,10 +10,12 @@ import Minions from './inventories/minions';
 import Runner from './modules/runner';
 import Explore from './composites/explore';
 import { ensure } from './util/util';
-import SpellList from './inventories/spelllist';
+import DataList from './inventories/dataList';
 import Group from './composites/group';
 import UserSpells from './inventories/userSpells';
 import Quickbars from './composites/quickbars';
+import Stat from './values/stat';
+import { WEARABLE, ARMOR, WEAPON, HOME, PURSUITS } from './values/consts';
 
 export const REST_SLOT = 'rest';
 
@@ -28,7 +30,9 @@ export default class GameState {
 
 		let data = {
 
-			items:( this.items ),
+			version:__VERSION,
+			name:this.player.name,
+			items:this.saveItems,
 			bars:this.bars,
 			slots:slotIds,
 			equip:( this.equip ),
@@ -56,9 +60,15 @@ export default class GameState {
 	 *
 	 * @param {Object} baseData - base game data.
 	 */
-	constructor( baseData, restore=false ){
+	constructor( baseData ){
 
 		Object.assign( this, baseData );
+
+		/**
+		 * @property {.<string,GData} saveItems - items actually saved.
+		 * does not include hall items.
+		 */
+		this.saveItems = {};
 
 		/**
 		 * Next item id.
@@ -67,9 +77,6 @@ export default class GameState {
 
 		this.initSlots();
 
-		/**
-		 * @compat
-		 */
 		this.bars = new Quickbars(
 
 			baseData.bars ||
@@ -80,6 +87,7 @@ export default class GameState {
 
 		this.inventory = new Inventory( this.items.inv || baseData.inventory || {max:3} );
 		this.items.inv = this.inventory;
+		this.inventory.removeDupes = true;
 
 		this.drops = new Inventory();
 
@@ -90,11 +98,7 @@ export default class GameState {
 
 		this.equip = new Equip( baseData.equip );
 
-		/**
- 		* @property {number} sellRate - percent of initial cost
- 		* items sell for.
- 		*/
-		this.sellRate = this.sellRate || 0.5;
+		this.initStats();
 
 		this.raid = new Raid( baseData.raid );
 		this.explore = new Explore( baseData.explore );
@@ -104,7 +108,13 @@ export default class GameState {
 		this.prepItems();
 
 		this.userSpells = this.items.userSpells = new UserSpells( this.items.userSpells );
-		this.items.spelllist = this.spelllist = new SpellList( this.items.spelllist );
+
+		this.items.spelllist = this.spelllist = new DataList( this.items.spelllist );
+		this.spelllist.spaceProp = 'level';
+		this.spelllist.name = this.spelllist.id = 'spelllist';
+
+		this.items.pursuits = new DataList( this.items.pursuits );
+		this.items.pursuits.id = PURSUITS;
 
 		this.revive();
 
@@ -125,6 +135,19 @@ export default class GameState {
 		 * makes upgrading/referencing by tag easier.
 		*/
 		this.tagLists = this.makeLists( this.items );
+
+	}
+
+	/**
+	 * Game-wide stats.
+	 */
+	initStats() {
+
+		/**
+ 		* @property {number} sellRate - percent of initial cost
+ 		* items sell for.
+ 		*/
+		 this.sellRate = this.sellRate || new Stat(0.5, 'sellRate');
 
 	}
 
@@ -201,19 +224,18 @@ export default class GameState {
 				console.warn( p + ' -> ' + this.items[p].id + ' missing hasTag(). Removing.');
 				delete this.items[p];
 
-
 			} else {
 
+				this.saveItems[p] = it;
 				// need hasTag() func.
-				if ( it.hasTag('home')) {
-
+				if ( it.hasTag(HOME)) {
 					it.need = this.homeTest;
-
 				}
 				count++;
 			}
 
 		}
+		console.log('Items Total: ' + count);
 
 	}
 
@@ -226,14 +248,14 @@ export default class GameState {
 		this.slots = this.slots || {};
 
 		// all must be defined for Vue. slots could be missing from save.
-		ensure( this.slots, ['home', 'mount', 'bed', REST_SLOT]);
+		ensure( this.slots, [HOME, 'mount', 'bed', REST_SLOT]);
 
 		if ( !this.slots[REST_SLOT] ) this.slots[REST_SLOT] = this.getData('rest');
 
 	}
 
 	/**
-	 *
+	 * Test if a home can fit the current used capacity.
 	 * @param {Object.<string,Items>} g - all game data.
 	 * @param {GData} i - item being tested.
 	 * @param {*} gs
@@ -241,8 +263,10 @@ export default class GameState {
 	homeTest( g, i, gs ) {
 
 		var cur = gs.slots.home;
-		return g.space.used <=
+		return g.space.valueOf()<=
 			g.space.max.delValue( i.mod.space.max.bonus - ( cur ? cur.mod.space.max.bonus : 0) );
+		/*return g.space.used <=
+			g.space.max.delValue( i.mod.space.max.bonus - ( cur ? cur.mod.space.max.bonus : 0) );*/
 
 	}
 
@@ -313,7 +337,7 @@ export default class GameState {
 	 */
 	setQuickSlot( it, slotNum ) {
 
-		console.log('QUICK: ' + it.name );
+		//console.log('QUICK: ' + it.name );
 
 		this.bars.active.setSlot(it, slotNum);
 	}
@@ -333,6 +357,8 @@ export default class GameState {
 	 * @returns - the original array.
 	 */
 	toData(a) {
+
+		if (!a) return [];
 
 		for( let i = a.length-1; i >= 0; i-- ) {
 
@@ -373,10 +399,9 @@ export default class GameState {
 	 * @param {string} id
 	 * @param {number} amt
 	 */
-	addMax( id, amt=10) {
+	addMax( id, amt=50) {
 
-		console.log('adding max');
-		let it = this.getData(id);
+		let it = typeof id === 'string' ? this.getData(id) : id;
 		if ( !it) return;
 
 		it.max.base += amt;
@@ -416,8 +441,19 @@ export default class GameState {
 	 */
 	addItem( it ) {
 
-		if ( this.items[it.id] ) return false;
+		if ( this.items[it.id] ) console.warn('OVERWRITE ID: ' + it.id);
+
+		if ( !it.hasTag ) {
+			console.log('MISSING HASTAG: ' + it.id );
+			return false;
+		}
+
 		this.items[it.id] = it;
+
+		if ( it.module !== 'hall') {
+			console.log('ADDING SAVE ITEM: ' + it.id );
+			this.saveItems[it.id] = it;
+		}
 
 		return true;
 
@@ -430,6 +466,7 @@ export default class GameState {
 	 */
 	deleteItem( it ) {
 		delete this.items[it.id];
+		delete this.saveItems[it.id];
 	}
 
 	/**
@@ -453,12 +490,19 @@ export default class GameState {
 	}*/
 
 	/**
+	 * Get state slots so they can be modified for Vue reactivity.
+	 * @returns {.<string,GData>}
+	 */
+	getSlots(){ return this.slots; }
+
+	/**
 	 * Get item in named slot.
 	 * @param {string} id - slot id.
 	 * @param {string} type - item type for determining subslot (equip,home,etc)
+	 * @returns {?GData}
 	 */
 	getSlot( id, type) {
-		if ( type === 'wearable' || type === 'armor' || type ==='weapon' ) return null;
+		if ( type === WEARABLE || type === ARMOR || type ===WEAPON ) return null;
 		return this.slots[id];
 	}
 
@@ -468,7 +512,8 @@ export default class GameState {
 	 * @param {?GData} v - item to place in slot, or null.
 	 */
 	setSlot(slot,v) {
-		if ( v && (v.type === 'wearable') ) return;
+
+		if ( v && (v.type === WEARABLE) ) return;
 		this.slots[slot] = v;
 
 		if ( slot === REST_SLOT ) this.restAction = v;
@@ -483,19 +528,52 @@ export default class GameState {
 		return this.inventory.find(id, true) || this.equip.find(id, true );
 	}
 
+	exists(id){ return this.items.hasOwnProperty(id);}
+
 	/**
 	 * Find item in base items, equip, or inventory.
 	 * @param {string} id
-	 * @param {boolean} [any=false] - whether to return any matching type.
+	 * @param {boolean} [any=false] - whether to return any matching instanced item.
 	 */
 	findData(id, any=false) {
 
 		return this.getData(id) || this.inventory.find(id, any) || this.equip.find(id, any );
 	}
 
-	getData(id) {
-		return this.items[id] || this[id];
+	/**
+	 * Check if an item is unique and already exists, or been
+	 * instanced.
+	 * @param {string|GData} it
+	 */
+	hasUnique(it) {
+
+		if ( typeof it ==='string') it = this.getData(it);
+
+		if ( it === undefined || !it.unique ) return false;
+
+		if ( it.isRecipe || it.instance ) {
+
+			return this.inventory.find(it.id,true) != null ||
+			this.drops.find(it.id,true) != null || this.equip.find(it.id,true) != null;
+
+		} else return it.value > 0;
+
 	}
+
+	/**
+	 * Return item, excluding uniques with value > 0.
+	 * @param {string} id
+	 */
+	getUnique(id) {
+
+		let it = this.items[id];
+		return ( it === undefined || !it.unique ) ? it : (
+			it.value>0 ? null : it
+		);
+
+	}
+
+	getData(id) { return this.items[id] || this[id]; }
 
 	getMaterial(id) { return this.matsById[id]; }
 

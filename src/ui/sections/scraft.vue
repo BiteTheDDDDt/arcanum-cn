@@ -1,8 +1,9 @@
 <script>
 import ItemBase from '../itemsBase';
 
-import {spellCost} from '../../craft';
+import {spellCost} from 'modules/craft';
 import Game from '../../game';
+import { alphasort } from '../../util/util';
 
 export default {
 
@@ -21,7 +22,7 @@ export default {
 			 */
 			craft:{
 
-				name:'new spell',
+				name:'crafted spell',
 				level:0,
 				buy:null
 			}
@@ -47,6 +48,8 @@ export default {
 		 */
 		create() {
 
+			if (!this.list || this.list.length === 0 ) return;
+
 			Game.payCost( this.craft.buy );
 
 			this.userSpells.create( this.list, this.craft.name );
@@ -59,11 +62,13 @@ export default {
 
 		/**
 		 * Add spell to the current crafting group.
+		 * Crafted level = list total levels + list.length - 1
 		 */
 		add(s) {
 
 			this.list.push(s);
 			this.craft.level += s.level;
+
 			this.craft.buy = spellCost( this.list );
 
 		},
@@ -74,23 +79,13 @@ export default {
 		removeAt(i) {
 
 			let s = this.list[i];
-			if ( s ) this.craft.level -= s.level;
+
+			if ( s ) {
+				this.craft.level -= s.level;
+			}
 
 			this.list.splice(i,1);
 			this.craft.buy = spellCost( this.list );
-
-		},
-
-		remove(s) {
-
-			let ind = this.list.indexOf(s);
-			if ( ind >= 0 ) {
-
-				this.list.splice( ind, 1 );
-				this.craft.level -= s.level;
-				this.craft.buy = spellCost( this.list );
-
-			}
 
 		}
 
@@ -120,7 +115,7 @@ export default {
 		 * @property {Spell[]} spells - all spells in game.
 		 */
 		spells() {
-			return Game.state.filterItems( v=>v.type === 'spell'&&!this.locked(v)&&v.owned);
+			return Game.state.filterItems( v=>v.type === 'spell'&&!this.locked(v)&&v.owned).sort( alphasort );
 		},
 
 		/**
@@ -131,7 +126,7 @@ export default {
 		},
 
 		maxLevels() {
-			return Math.floor( this.scraft.value );
+			return Math.floor( this.scraft.valueOf() );
 		}
 
 	}
@@ -185,7 +180,7 @@ export default {
 </div>
 <div class="allspells">
 
-	<div v-for="(s) in spells" :key="s.id"  @mouseenter.capture.stop="emit( 'itemover',$event,s)">
+	<div class="separate" v-for="(s) in spells" :key="s.id"  @mouseenter.capture.stop="emit( 'itemover',$event,s)">
 		<span>{{s.name}}</span><button @click="add(s)" :disabled="!canAdd(s)">Add</button>
 	</div>
 
@@ -206,7 +201,7 @@ div.spellcraft {
 div.spellcraft .userspells {
 	display:flex;
 	flex-direction: column;
-	padding: 8px;
+	padding: var(--md-gap);
 	border-bottom: 1pt solid var( --separator-color );
 }
 
@@ -216,19 +211,19 @@ div.userspells .spells {
 }
 
 div.spells .custom {
-	margin-right:20px;
+	margin-right:1.2rem;
 }
 
 .crafting .options {
-	padding-bottom: 4px;
+	padding-bottom: var(--tiny-gap);
 }
 
 div.spellcraft .bottom {
 	display:flex;
 	flex-direction: row;
 	justify-content: space-between;
-	padding-top: 8px;
-	padding-left: 8px;
+	padding-top:var(--md-gap);
+	padding-left:var(--md-gap);
 }
 
 div.spellcraft .crafting, div.spellcraft .allspells {

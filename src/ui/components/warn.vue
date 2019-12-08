@@ -5,33 +5,47 @@ const WARN_MSG = 'This action is not reversible. Continue?';
 
 export default {
 
-	data() {
+	data(){
 		return {
-			item:null
+			item:null,
+			cb:null,
+			nowarn:false
 		}
-
 	},
 	updated() {
-		if ( this.item ) {
-			center( this.$el );
-		}
+		if ( this.item ) {center( this.$el );}
 	},
 	computed:{
 		msg(){
+			if ( typeof this.item === 'string') return WARN_MSG;
 			return this.item.warnMsg || WARN_MSG;
 		}
 	},
 	methods:{
-		warn(it){
+		show( it, cb=null ){
 			this.item = it;
+			this.cb = cb;
+			this.nowarn=false;
 		},
 		confirm(){
+
 			let it = this.item;
+			let f = this.cb;
+			let nowarn = this.nowarn;
+
 			this.item = null;
-			if ( it ) this.$emit('confirmed', it );
+			this.cb = null;
+			this.nowarn=false;
+
+			if ( it ) this.$emit('confirmed', it, nowarn );
+			if (f ) f();
 
 		},
-		cancel(){ this.item = null; }
+		cancel(){
+			this.cb = null;
+			this.nowarn=false;
+			this.item = null;
+		}
 
 	}
 
@@ -39,11 +53,20 @@ export default {
 </script>
 
 <template>
-	<div class="popup" v-if="item!=null">
+	<div class="popup" v-if="item">
 
-		<div>{{ item.name }}</div>
-		<div>{{item.desc }}</div>
+		<div v-if="typeof item ==='string'">
+			<div>{{item }}</div>
+			<div>{{ msg }}</div>
+		</div>
+		<div v-else>
+		<div class="log-title">{{ item.name }}</div>
+		<div>{{ item.desc }}</div>
 		<div>{{ msg }}</div>
+		<div class="skip"><label :for="elmId('nowarn')">Skip Warning</label>
+		<input type="checkbox" v-model="nowarn" :id="elmId('nowarn')"></div>
+		</div>
+
 		<div>
 		<button @click="confirm">Confirm</button>
 		<button @click="cancel">Cancel</button>
@@ -54,8 +77,13 @@ export default {
 
 <style scoped>
 
+div.skip {
+	margin-top:1em;
+	font-size: 0.9em;
+}
+
 div.popup div {
-	margin:6px 0px;
+	margin:var(--sm-gap) 0;
 }
 
 </style>

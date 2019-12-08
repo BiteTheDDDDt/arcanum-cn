@@ -1,10 +1,23 @@
 <script>
+import Profile from 'modules/profile';
+import Game from '../game';
 export default {
 
+	props:['hasHall'],
 	computed:{
+
 		VERSION(){return __VERSION; }
 	},
 	methods:{
+
+		fileSelect(e) {
+
+			e.stopPropagation();
+			e.preventDefault();
+
+			this.dispatch( 'load-file', e.target.files );
+
+		},
 
 		fileDrop(e){
 			e.stopPropagation();
@@ -40,24 +53,30 @@ export default {
 		<button @click="dispatch('save')">save</button>
 		<button @click="dispatch('load')">load</button>
 
-		<div class="text-button"><a class="text-button" id="save-file" href="" download
+		<div class="text-button"><a href="" download
 			@click.self="dispatch('save-file',$event )" type="text/json">get save</a></div>
-			<!--<input type="file" name="[File]" accept="text/json" @change="fileDrop">-->
-		<button id="drop-file" @drop="fileDrop"
-			@dragover="fileDrag" @dragleave.capture.stop="dragOut">[Drop Save]</button>
 
-			<confirm @confirm="dispatch('reset')">reset</confirm>
+		<div v-if="hasHall" class="text-button"><a href="" download
+			@click.self="dispatch('hall-file',$event )" type="text/json">hall save</a></div>
+
+			<!--<input type="file" name="[File]" accept="text/json" @change="fileDrop">-->
+		<button id="drop-file" @click="$refs.fileInput.click()" @drop="fileDrop" @dragover="fileDrag" @dragleave.capture.stop="dragOut" name="[Drop Save]">[Drop Save]</button>
+			<input ref="fileInput" type="file" @change="fileSelect" accept="text/json text/*">
+
+			<confirm @confirm="dispatch('reset')">reset wizard</confirm>
+			<confirm v-if="hasHall" @confirm="dispatch('resetHall')">reset hall</confirm>
 
 		</span>
 
 		<span class="items"><slot name="center"></slot></span>
 
 		<span class="link-bar">
-			<button class="text-button" @click="dispatch('open-settings')">&#9881;</button>
-			<span class="vers">build# {{ VERSION }}</span>
-			<a href="https://discord.gg/4dB2ZE5" target="_blank">discord/guide</a>
+			<a href="https://discord.gg/bCABC96" target="_blank">discord/guide</a>
+			<a href="http://wiki.lerpinglemur.com/dhrune" target="_blank">wiki</a>
 			<a href="https://www.patreon.com/theoryofmagic" target="_blank">patreon</a>
 			<a href="https://www.reddit.com/r/wizrobe/" target="_blank">reddit</a>
+			<span class="vers">build# {{ VERSION }}</span>
+			<button class="text-button" @click="dispatch('open-settings')">&#9881;</button>
 		</span>
 
 	</div>
@@ -70,14 +89,19 @@ export default {
 span.vers {
 	font-size: 0.9em;
 	align-self: center;
-	margin-bottom: 4px;
+	margin-bottom: var(--sm-gap);
 }
 
-#save-file {
+div.text-button a {
 	text-decoration: none;
 }
+
+input[type="file"] {
+	display:none;
+}
+
 #drop-file {
-	border: 1.75px dashed rgb(117, 117, 117);
+	border: var(--tiny-gap) dashed var(--popup-border);
 }
 
 div.top-bar {
@@ -87,17 +111,17 @@ div.top-bar {
 	justify-items: flex-start;
 	align-items: center;
 	align-content: center;
-	min-height:52px;
+	min-height:var(--topbar-height);
 	max-width:100%;
 	overflow:hidden;
-	padding: 0px 14px 4px;
+	padding: 0 1rem var(--sm-gap);
 	border-bottom: 1px solid var(--separator-color);
 }
 
 
 .top-bar .items {
 	display:flex;
-	margin-left:20px;
+	margin-left:var(--lg-gap);
 }
 
 .load-opts {
@@ -105,29 +129,29 @@ div.top-bar {
 }
 
 .load-opts button {
-	min-height:29px;
-	height:29px;
-	max-height:29px;
+	min-height:1.5rem;
+	height:1.5rem;
+	max-height:1.5rem;
 }
 .load-opts .text-button {
-	max-height:21px;
+	max-height:var(--lg-gap);
 }
 
 .link-bar {
 	justify-self: flex-end;
 	display:flex;
 	flex-grow: 1;
-	flex-flow: row-reverse nowrap;
+	flex-flow: row nowrap;
 	font-size: 0.90em;
 }
 
 .link-bar a {
-	margin:0px 10px 4px;
+	margin:0 var(--md-gap) var(--sm-gap);
 	align-self:center;
 }
 
 span.load-message {
-	padding: 8px 8px 2px;
+	padding: var(--md-gap) var(--md-gap) var(--tiny-gap);
 }
 
 </style>

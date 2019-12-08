@@ -15,12 +15,13 @@ export default {
 		}
 	},
 	watch:{
-		items(newVal,oldVal){
-			this.findText = this.findText;
-		}
+		items(newVal,oldVal){ this.findText = this.findText; }
 	},
 	created(){
 		this.findText = this.text;
+	},
+	methods:{
+		clear(){ this.text = ''; }
 	},
 	computed:{
 
@@ -58,7 +59,7 @@ export default {
 
 
 <template>
-	<div class="filter-box" v-if="!this.minItems||(this.items.length>=this.minItems)">
+	<div class="filter-box" v-if="!this.minItems||text||(this.items.length>=this.minItems)">
 		<label :for="elmId('filter')">Find</label>
 		<input :id="elmId('filter')" v-model="findText" type="text">
 	</div>
@@ -67,17 +68,17 @@ export default {
 
 <style scoped>
 label {
-	margin-right:8px;
+	margin-right:var(--md-gap);
 }
 div.filter-box {
 	font-size: 105%;
 	vertical-align: middle;
 	line-height: 1.2em;
-	margin: 8px 4px 8px 12px;
+	margin: var(--md-gap) var(--sm-gap) var(--md-gap) 1em;
 }
 
 .filter-box input[type=text] {
-	padding: 4px;
+	padding: var(--sm-gap);
 	font-size: 105%;
 }
 </style>

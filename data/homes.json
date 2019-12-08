@@ -9,6 +9,25 @@
 		}
 	},
 	{
+		"id": "earthspire",
+		"name": "earthen spire",
+		"desc": "An impervious spire of metal and stone.",
+		"cost": {
+			"research": 3000,
+			"gold": 3000,
+			"codices": 50
+		},
+		"require": "g.geosculpting>=5",
+		"mod": {
+			"minions.max": 10,
+			"space.max": 300,
+			"earthlore.max": 5,
+			"geosculpting.max": 3,
+			"earth.max": 5,
+			"earth.rate": 0.5
+		},"flavor":"A monument to your geosculpting mastery."
+	},
+	{
 		"id":"atticbedroom",
 		"name":"Attic Bedroom",
 		"desc":"Noting your progress, your master begrudgingly offers you some space in the attic.",
@@ -73,6 +92,7 @@
 		"name":"tinker's wagon",
 		"desc":"wheeled carriage for a nomadic lifestyle.",
 		"require":"g.tier0>0&&g.naturelore>=5",
+		"disable":"innroom",
 		"tags":"outdoors",
 		"cost":150,
 		"mod":{
@@ -111,10 +131,10 @@
 		"id":"shop",
 		"desc":"A small shop in a bustling city.",
 		"cost":850,
-		"require":"g.tier0&&g.arcana.max>=12",
+		"require":"g.tier0>0&&g.crafting>=9",
 		"mod":{
-			"minions.max":1,
-			"gem.max":1,
+			"minions.max":2,
+			"magicgems.max":1,
 			"space.max":25,
 			"gold.rate":0.2,
 			"gold.max":25,
@@ -126,7 +146,7 @@
 		"id":"inn",
 		"desc":"A quiet inn for hosting wayfarers.",
 		"cost":2000,
-		"require":"g.tier0&&g.languages>=7",
+		"require":"g.tier0>0&&g.languages>=7",
 		"mod":{
 			"minions.max":5,
 			"space.max":50,
@@ -142,7 +162,7 @@
 		"cost":950,
 		"require":"g.tier0>0&&g.naturelore>=7",
 		"mod":{
-			"minions.max":7,
+			"minions.max":5,
 			"space.max":30,
 			"nature.max":1,
 			"nature.rate":0.1
@@ -155,7 +175,7 @@
 		"cost":2000,
 		"require":"g.tier1>0&&g.arcana>=10",
 		"mod":{
-			"minions.max":10,
+			"minions.max":5,
 			"space.max":65
 		}
 	},
@@ -163,10 +183,10 @@
 		"id":"halftimber",
 		"name":"half-timber house",
 		"desc":"A vast home of rustic design",
-		"cost":2750,
+		"cost":3000,
 		"require":"g.tier1>0&&g.arcana>=10",
 		"mod":{
-			"minions.max":12,
+			"minions.max":7,
 			"space.max":75
 		}
 	},
@@ -230,9 +250,9 @@
 		"mod":{
 			"minions.max":10,
 			"space.max":110,
-			"runes.max":2,
+			"runelore.max":2,
 			"demonology.max":1,
-			"runes.rate":"10%",
+			"runelore.rate":"10%",
 			"spiritlore.max":1,
 			"spiritlore.rate":0.1,
 			"lore.rate":"10%"
@@ -266,7 +286,7 @@
 	},
 	{
 		"id":"cataract",
-		"desc":"A secret cavern behind a waterfall.",
+		"desc":"A deep hollow hidden behind a waterfall.",
 		"require":"g.water>=15&&g.naturelore>=10",
 		"cost":{
 			"gold":1000,
@@ -275,14 +295,14 @@
 		"mod":{
 			"minions.max":4,
 			"space.max":70,
-			"research.rate":-0.7,
+			"research.rate":"-10%",
 			"waterlore.max":2,
 			"waterlore.rate":0.2,
 			"naturelore.max":1,
 			"naturelore.rate":0.1,
 			"earthlore.max":1,
-			"lightlore.max":-1,
-			"lightlore.rate":"-2%"
+			"lightlore.max":-2,
+			"lightlore.rate":"-5%"
 		},
 		"lock":["latticewindow"]
 
@@ -316,13 +336,13 @@
 	},
 	{
 		"id":"temple",
-		"desc":"Sanctum of meditation and insight.",
+		"desc":"Sanctum of meditation and solitude.",
 		"cost":10000,
-		"require":"g.arcana>=10&&g.virtue>10",
+		"require":"(g.oracle+g.seer)>0",
 		"mod":{
 			"virtue.rate":0.001,
 			"arcana.rate":0.001,
-			"minions.max":10,
+			"minions.max":8,
 			"lightlore.max":1,
 			"space.max":200,
 			"shadow.max":-3,
@@ -330,9 +350,31 @@
 		}
 	},
 	{
+		"id":"magetower",
+		"name":"mage tower",
+		"desc":"Nothing is more iconic to the craft than the wizard in a tower.",
+		"require":"g.tier3>0&&(g.magician+g.mage+g.highmage+g.wizard+g.wizard2+g.wizard3)>1",
+		"cost":{
+			"gold":7000,
+			"research":5000,
+			"managem":30,
+			"tomes":20
+		},
+		"mod":{
+			"minions.max":10,
+			"space.max":420,
+			"mysticism.max":1,
+			"manas.rate":0.05,
+			"history.max":1,
+			"arcana.rate":0.0001
+		}
+	},
+	{
 
-		"id":"idrasil tree",
-		"desc":"a seedling of Yggdrasil is a tree to rival mountains.",
+		"id":"sm_idrasil",
+		"alias":"idrasil tree",
+		"name":"idrasil seedling",
+		"desc":"The seedlings of Yggdrasil become trees to rival mountains.",
 		"tags":"outdoors",
 		"cost":{
 			"gems":30,
@@ -342,14 +384,15 @@
 		"mod":{
 			"minions.max":10,
 			"space.max":300,
-			"naturelore.max":2,
+			"naturelore.max":3,
+			"naturelore.rate":"2%",
 			"airlore.max":1,
 			"fire.rate":"-3%"
 		}
 	},
 	{
 		"id":"palace",
-		"desc":"luxurious, spawling estate to advance your studies in maximum comfort.",
+		"desc":"luxurious, sprawling estate to advance your studies in maximum comfort.",
 		"cost":10000,
 		"require":"tier2",
 		"mod":{
@@ -379,7 +422,7 @@
 		"id":"cove",
 		"tags":"outdoors",
 		"desc":"Hidden Cove",
-		"require":"enchanter",
+		"require":"g.tier3>0&&g.enchanter>0",
 		"cost":3000,
 		"mod":{
 			"minions.max":20,
@@ -420,7 +463,7 @@
 	{
 		"id":"cavern",
 		"desc":"A wide and yawning cavern, deep beneath the earth",
-		"require":"g.tier1>0&&g.earthlore>=10",
+		"require":"g.tier2>0&&g.earthlore>=10",
 		"cost":{
 			"research":500,
 			"gold":3000,
@@ -448,7 +491,7 @@
 		"name":"Enchanted Grove",
 		"desc":"Enchanted Grove",
 		"tags":"outdoors",
-		"require":"g.enchanter>0||g.druid>0||g.witch>0",
+		"require":"g.tier3>0&&(g.enchanter+g.druid+g.witch)>0",
 		"cost":{
 			"gold":5000,
 			"research":2000,
@@ -457,6 +500,7 @@
 		"mod":{
 			"minions.max":20,
 			"space.max":420,
+			"naturelore.max":1,
 			"enchanting.max":2,
 			"enchanting.rate":"10%"
 		}
@@ -466,7 +510,7 @@
 		"name":"Shrouded Isle",
 		"tags":"outdoors",
 		"desc":"A lonely isle at sea",
-		"require":"g.enchanter>0||g.druid>0||g.witch>0",
+		"require":"g.tier3>0&&(g.enchanter+g.druid+g.witch)>0",
 		"cost":{
 			"gold":5000,
 			"gems":50,

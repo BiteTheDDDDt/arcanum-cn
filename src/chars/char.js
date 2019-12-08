@@ -1,12 +1,12 @@
 import Base, {mergeClass} from '../items/base';
-import { mergeSafe } from 'objecty';
 import {tryDamage} from '../composites/combat';
 import Stat from '../values/stat';
 import Dot from './dot';
 import Attack from './attack';
 import GameState from '../gameState';
-import { mergeDefined } from '../util/util';
-
+import { NPC } from '../values/consts';
+import { cloneClass } from '../util/util';
+import Act from './act';
 
 /**
  * @constant {number} DELAY_RATE - speed to attack delay conversion constant.
@@ -23,11 +23,22 @@ export default class Char {
 
 	get defense() { return this._defense; }
 	set defense(v) {
-		this._defense = v instanceof Stat ? v : new Stat(v);
+
+		if ( v instanceof Stat) this._defense = v;
+		else if ( this._defense ) this._defense.base = v;
+		else this._defense = new Stat( v, this.id+'.defense');
+
+
 	}
 
 	get tohit() { return this._tohit; }
-	set tohit(v) { this._tohit = v instanceof Stat ? v : new Stat(v); }
+	set tohit(v) {
+
+		if ( v instanceof Stat) this._tohit = v;
+		else if ( this._tohit ) this._tohit.base = v;
+		else this._tohit = new Stat(v);
+
+	}
 
 	get resist() { return this._resist };
 	set resist(v) { this._resist = v; }
@@ -35,9 +46,11 @@ export default class Char {
 	get speed() { return this._speed; }
 	set speed(v) {
 		this._speed = v instanceof Stat ? v : new Stat(v);
-		this.delay = getDelay(v);
 	}
 
+	/**
+	 * @property {.<string,Stat>} immunities
+	 */
 	get immunities(){
 		return this._immunities;
 	}
@@ -88,6 +101,38 @@ export default class Char {
 
 	}
 
+	/**
+	 * @property {number} canAttack
+	 */
+	get canAttack(){
+
+		for( let i = this.states.length-1; i>=0; i--){
+			if ( this.states[i].canAttack ) return false;
+		}
+
+		return this._canAttack;
+	}
+
+	/**
+	 * @property {Act} act - action to take in locale.
+	 */
+	get act(){return this._act; }
+	set act(v) { this._act = v; }
+
+	set canAttack(v) { this._canAttack = v;}
+
+	/**
+	 * @property {number} canDefend
+	 */
+	get canDefend(){return this._canDefend;}
+	set canDefend(v) { this._canDefend = v;}
+
+	/**
+	 * @property {number} canAct
+	 */
+	get canAct(){return this._canAct;}
+	set canAct(v) { this._canAct = v;}
+
 	get instance() { return true; }
 	set instance(v) {}
 
@@ -97,7 +142,7 @@ export default class Char {
 	/*get died() { return this._died; }
 	set died(v) { this._died = v; }*/
 
-	get alive() { return this.hp > 0; }
+	get alive() { return this.hp.value > 0; }
 	set alive(v) {}
 
 	constructor( vars ){
@@ -106,12 +151,13 @@ export default class Char {
 			this[p] = vars[p];
 		}
 
-		this.type = 'npc';
+		this.type = NPC;
 
 		this.states = this.states || {};
 		this.immunities = this.immunities || {};
 		this._resist = this._resist || {};
 
+		this._act = new Act();
 		//console.log( this.id + ' tohit: ' + this.tohit );
 
 		/**
@@ -122,31 +168,35 @@ export default class Char {
 		/**
 		 * @property {number} timer
 		 */
-		this.timer = this.timer || this.delay;
+		this.timer = this.timer || 0;
 
 	}
 
 	/**
 	 * Revive from data after Game state restored.
-	 * @param {GameState} state
+	 * @param {GameState} gs
 	 */
-	revive( state ){
-
-		for( let i = this.dots.length-1; i>=0; i--) {
-			this.dots[i].revive(state);
-		}
-
-		this.delay = getDelay( this.speed );
+	revive( gs ){
 
 		if ( this.template ) {
-
-			//let it = state.getData( this.template );
-			//if ( it ) mergeDefined( this, it );
-
-			if ( !this.attack ) console.warn('NO ATTACK: ' + this.id );
 			if ( !this.name ) this._name = it.name;
-			//if ( this.hp instanceof Range ) this.hp = this.hp.value;
+		}
 
+		this.reviveDots(gs);
+		this.reviveStates();
+
+	}
+
+	reviveDots(gs) {
+		for( let i = this.dots.length-1; i>=0; i--) {
+			this.dots[i].revive(gs);
+		}
+	}
+
+	reviveStates() {
+
+		for( let i = this.states.length-1; i >= 0; i-- ) {
+			this.states[i].applyTo(this);
 		}
 
 	}
@@ -160,24 +210,35 @@ export default class Char {
 
 	/**
 	 * Base item of dot.
-	 * @param {Dot} it
+	 * @param {Dot} dot
+	 * @param {object} source
+	 * @param {string} name
 	 */
-	addDot( it ) {
+	addDot( dot, source, name ) {
 
-		let id = it.id;
+		let id = dot.id;
+		if ( !id ) id = dot.id = name || (source ? source.id || source.name : '');
+		if ( !id) return;
 
-		let cur = id ? this.dots.find( d=>d.id===id) : undefined;
-		if ( cur !== undefined ) cur.duration = it.duration;
-		else {
+		let cur = this.dots.find( d=>d.id===id);
+		if ( cur !== undefined ) {
 
-			this.dots.push( it instanceof Dot ? it : new Dot(it) );
-			if ( it.mod ) {
-				this.applyMods( it.mod, 1 );
-			}
+			if ( cur.duration < dot.duration ) cur.duration = dot.duration;
+
+		} else {
+
+			if ( !(dot instanceof Dot)) dot = new Dot( cloneClass(dot), source, name );
+
+			this.dots.push( dot );
+			if ( dot.mod ) this.applyDot( dot );
 
 
 		}
 
+	}
+
+	applyDot( dot ) {
+		this.applyMods( dot.mod, 1 );
 	}
 
 	rmDot( i ){
@@ -211,12 +272,25 @@ export default class Char {
 
 		}
 
+		if ( this.regen ) this.hp += ( this.regen*dt );
+
+	}
+
+	/**
+	 * Get Combat action.
+	 * @param {number} dt
+	 */
+	combat(dt) {
+
 		if ( !this.alive ) return;
 
 		this.timer -= dt;
+
 		if ( this.timer <= 0 ) {
 
-			this.timer += this.delay;
+			this.timer += getDelay( this.speed );
+
+		//	if ( !this.canAct || !this.canAttack ) return null;
 			return this.getAttack();
 
 		}
@@ -224,7 +298,6 @@ export default class Char {
 	}
 
 	getAttack(){
-
 
 		if ( Array.isArray(this.attack) ) return this.attack[ Math.floor( Math.random()*this.attack.length ) ];
 		return this.attack || this;
@@ -244,6 +317,19 @@ export default class Char {
 
 	}
 
+	/**
+	 * @param {string} [kind=undefined]
+	 * @returns {number} tohit.
+	 */
+	getHit(kind) {
+		return this.tohit.valueOf();
+	}
+
+	/**
+	 *
+	 * @param {*} kind
+	 * @returns {number} 0-based resist percent.
+	 */
 	getResist(kind) {
 
 		return (this._resist[kind]||0)/100;

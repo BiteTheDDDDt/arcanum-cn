@@ -20,6 +20,7 @@ witch
 medium
 kester - higher tier wizard specialty in spirits/demons
 acolyte <-- probably not.
+dark acolyte
 summoner
 keeper
 artificier

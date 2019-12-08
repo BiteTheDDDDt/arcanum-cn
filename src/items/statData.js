@@ -1,4 +1,3 @@
-import Stat from '../values/stat';
 import GData from './gdata';
 
 /**
@@ -12,29 +11,31 @@ export default class StatData extends GData {
 	 */
 	get current() { return this.unit ? Math.floor(this.value) : this._value; }
 
-	get val() { return this.value; }
-	set val(v) {
-		this.value = v;
+	/**
+	 * Add amount to base value.
+	 * @param {number} amt - base amount being added.
+	 * @returns {number} actual change in value.
+	 */
+	add(amt) {
+
+		let prev = this.value.valueOf();
+		this.value.base += amt;
+
+		return this.value.valueOf() - prev;
+
 	}
 
 	/**
-	 * @property {number} value
+	 * Set the StatData base value and apply all change mods.
+	 * @param {Game} g - game instance, for mods stuff. ( @todo use event instead?)
+	 * @param {number} amt
 	 */
-	get value() { return this._value; }
-	set value(v) {
+	setBase( g, amt ) {
 
-		if ( v instanceof Stat ) {
-
-			this._value = v;
-
-		} else if ( this._value ) {
-
-			this._value.base = (typeof v === 'object') ? v.value : v;
-
-		} else this._value = new Stat(v );
+		let del = this.add( amt - this.value.base );
+		this.change( g, del );
 
 	}
-	valueOf(){ return this._value.value; }
 
 	/**
 	 *
@@ -44,45 +45,46 @@ export default class StatData extends GData {
 
 		super(vars);
 
-		if ( !this.value ) this.value = 0;
+		if ( this.value === undefined ) this.value = 0;
 
 		/**
 		 * @compat. statData is a pure stat with no max value.
 		 */
-		this.max = undefined;
+		this._max = undefined;
+		this.repeat = true;
 
 		/**
 		 * @property {boolean} unit - true if current value is reported in integer amounts.
 		 */
 		if ( this.unit === null || this.unit === undefined ) this.unit = true;
 
-		if ( this._rate === null || this.rate === undefined ) this._rate = new Stat(0);
-
-		this._type = this._type || 'resource';
+		if ( this._rate === null || this.rate === undefined ) this.rate = 0;
 
 	}
-
-	/**
-	 * @returns {boolean} true if an unlocked item is at maximum value.
-	 */
-	maxed() {
-		return false;
-	}
-
 
 	/**
 	 * Not currently used any more.
 	 * @param {} dt
 	 */
-	update( dt ) {
+	/*update( dt ) {
 
-		if ( this._rate.value ) {
+		if ( this._rate.value !== 0 ) {
 
-			let v = this._value + this._rate.value*dt;
-			this.value = v;
+			this.value = this.value.base + this._rate.value*dt;
 
-		}
+		} else this._delta = 0;
 
-	}
+	}*/
+
+	/**
+	 * @returns {false} true if an unlocked item is at maximum value.
+	 */
+	maxed() { return false; }
+
+	/**
+	 * Pure stat cannot be filled.
+	 * @returns {false}
+	 */
+	filled() { return false; }
 
 }

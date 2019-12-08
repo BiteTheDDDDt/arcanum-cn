@@ -1,10 +1,17 @@
 <script>
 import Game from '../game';
+import Settings from '../modules/settings';
+import { alphasort } from '../util/util';
+
+import Profile from '../modules/profile';
 
 import ItemsBase from './itemsBase';
-import UpgradeView from './upgrades.vue';
+
+//import Choice from './components/choice.vue';
+import SlotPick from './components/slotpick.vue';
 import FilterBox from './components/filterbox.vue';
 import { SET_SLOT } from '../events';
+import { HOME } from '../values/consts';
 
 /**
  * @emits sell
@@ -14,20 +21,32 @@ export default {
 	props:['state'],
 	mixins:[ItemsBase],
 	components:{
-		upgrades:UpgradeView,
-		filterbox:FilterBox
+		slotpick:SlotPick,
+		filterbox:FilterBox,
+		hall:()=>import( /* webpackChunkName: "hall-ui" */ './hall/hall.vue')
 	},
 	data(){
 
+		let opts = Settings.getSubVars(HOME);
+
 		return {
+
+			hallOpen:false,
+
 			/**
-			 * @property {boolean} switching - true when switching homes.
+			 * @property {boolean} hideMaxed
 			 */
-			switching:false,
+			hideMaxed:opts.hideMaxed||false,
+			hideOwned:opts.hideOwned||false,
+			hideNone:opts.hideNone||false,
+			hideBlocked:opts.hideBlocked||false,
+			hideUnowned:opts.hideUnowned||false,
+
 			/**
 			 * @property {Item[]} filtered - items after text-search filtering.
 			 */
 			filtered:null
+
 		}
 
 	},
@@ -35,6 +54,10 @@ export default {
 		this.SET_SLOT = SET_SLOT;
 	},
 	methods:{
+
+		openHall(){ this.hallOpen = true; },
+
+		closeHall(){this.hallOpen = false;},
 
 		searchIt(it, t){
 
@@ -47,37 +70,71 @@ export default {
 				}
 
 			}
+			if ( it.mod && typeof it.mod === 'object') {
+
+				for( let p in it.mod) {
+					if ( p.includes(t) ) return true;
+				}
+
+			}
 
 			return false;
 
 
-		},
-		toggleSwitch(){
-			this.switching = !this.switching;
 		}
+
 	},
 	computed:{
 
+		hallUnlocked(){ return Game.state.getData('evt_hall')>0; },
+		hallName(){ return Profile.hall.name; },
+
+		chkHideMax:{
+			get(){return this.hideMaxed;},
+			set(v){ this.hideMaxed = Settings.setSubVar( HOME, 'hideMaxed', v ); }
+		},
+		chkHideOwned:{
+			get(){return this.hideOwned;},
+			set(v){ this.hideOwned = Settings.setSubVar( HOME, 'hideOwned', v ); }
+		},
+		chkHideNone:{
+			get(){return this.hideNone;},
+			set(v){ this.hideNone = Settings.setSubVar( HOME, 'hideNone', v ); }
+		},
+		chkHideBlocked:{
+			get(){return this.hideBlocked;},
+			set(v){ this.hideBlocked = Settings.setSubVar( HOME, 'hideBlocked', v ); }
+		},
+
 		space() { return this.state.getData('space'); },
 
-		curHome() { return this.state.getSlot('home'); },
+		homesAvail() { return this.state.homes.filter( v=>!this.locked(v) ); },
 
-		homesAvail() {
-			return this.state.homes.filter( v=>!this.locked(v) );
-		},
-
+		/**
+		 * @property {GData[]} furniture - ALL furniture, alpha sorted.
+		 */
 		furniture(){
 
-			let st = this.state;
+			let s = this.state;
 			return Game.filterItems( it=>
-
-				it.type ==='furniture' || st.typeCost(it.cost, 'space')>0
-
+				it.type ==='furniture' || s.typeCost(it.cost, 'space')>0
 			).sort(
-				(a,b)=> a.name < b.name ? -1 : 1
+				alphasort
+				//(a,b)=> a.name < b.name ? -1 : 1
 			);
 		},
-		viewable() { return this.furniture.filter( it=>!this.reslocked(it)); }
+		viewable() {
+
+			let o = this.hideOwned;
+			let n = this.hideNone;
+			let b = this.hideBlocked;
+			let m = this.hideMaxed;
+
+			return this.furniture.filter( it=>!this.reslocked(it) &&
+				(!o||it.value==0) &&(!b||this.usable(it))&&(!m||!it.maxed())&&(!n||it.value>0)
+			);
+
+		}
 
 	}
 
@@ -88,29 +145,40 @@ export default {
 
 	<div class="home-view">
 
-		<div class="cur-home">
+		<div class="top separate">
 
-			<span @mouseenter.capture.stop="emit( 'itemover', $event, curHome )">home:<br>{{ curHome ? curHome.name : 'None'}}</span>
-			<div v-if="homesAvail.length>0">
-			<button @click="toggleSwitch">{{ switching ? 'Done' : 'Switch' }}</button>
-			<upgrades v-if="switching" class="homes-view" :items="homesAvail" :pick-event="SET_SLOT" />
-			</div>
+		<span>
+		<span>Hide:</span>
+		<span class="opt"><input :id="elmId('hideMax')" type="checkbox" v-model="chkHideMax"><label :for="elmId('hideMax')">Maxed</label></span>
+		<span class="opt"><input :id="elmId('hideOwn')" type="checkbox" v-model="chkHideOwned"><label :for="elmId('hideOwn')">Owned</label></span>
+		<span class="opt"><input :id="elmId('hideNone')" type="checkbox" v-model="chkHideNone"><label :for="elmId('hideNone')">Unowned</label></span>
+		<span class="opt"><input :id="elmId('hideBlock')" type="checkbox" v-model="chkHideBlocked"><label :for="elmId('hideBlock')">Blocked</label></span>
+		</span>
+
+<filterbox class="inline" v-model="filtered" :prop="searchIt" :items="viewable" />
+		<span class="space">Space: {{ Math.floor(space.free() ) }} / {{ Math.floor(space.max.value) }}</span>
+		</div>
+
+		<div class="content">
+
+		<hall v-if="hallOpen" @close="closeHall" />
+		<div class="pick-slots">
+
+			<div class="action-btn" v-if="hallUnlocked"><button class="btnHall" @click="openHall">{{ hallName }}</button></div>
+
+			<slotpick title="home" pick="home" />
+			<slotpick title="werry" hide-empty="true" pick="werry" />
 
 		</div>
 
 		<div class="furniture">
 
-		<span class="separate">
-		<filterbox class="inline" v-model="filtered" :prop="searchIt" :items="viewable" />
-		<span class="space">Space: {{ Math.floor(space.value) }} / {{ Math.floor(space.max.value) }}</span>
-		</span>
-
 			<div class="warn-text"
 			style="text-align:center"
-			v-if="state.items.space.value===0">No space remaining. Sell items or find a new Home.
+			v-if="state.items.space.empty()">No space remaining. Sell items or find a new Home.
 			<span v-if="homesAvail.length>0">If your max gold is not enough to buy a new home, free space for more chests.</span></div>
 
-		<table class="furniture item-table">
+		<table class="furniture">
 
 		<tr><th>Space</th><th class="name">Furnishing</th><th>Owned</th><th/><th/></tr>
 
@@ -118,11 +186,12 @@ export default {
 		<tr v-for="it in filtered" :key="it.id" @mouseenter.capture.stop="emit( 'itemover', $event, it )">
 
 			<td class="space">{{ it.cost.space }}</td>
-			<td class="name">{{ it.name }}</td> <td class="count">{{ it.value || 0 }}</td>
-			<td><button type="button" :disabled="!usable(it)" class="buy-btn"
+			<td class="name">{{ it.name }}</td> <td class="count">{{ it.value.valueOf() }}</td>
+
+			<td><span v-if="it.maxed()" class="sm">Max</span><button v-else type="button" :disabled="!usable(it)" class="buy-btn"
 				@click="emit('upgrade',it)">Buy</button></td>
 
-			<td><button type="button" :disabled="!it.value || it.value<=0" class="sell-btn" @click="emit('sell',it)">Sell</button></td>
+			<td><button type="button" :disabled="it.value<=0" class="sell-btn" @click="emit('sell',it)">Sell</button></td>
 
 		</tr>
 
@@ -130,6 +199,7 @@ export default {
 
 		</div>
 
+		</div>
 
 
 	</div>
@@ -138,38 +208,44 @@ export default {
 
 <style scoped>
 
-/* div.home-view .homes-view { flex-flow: row wrap; display: flex; }
-div.home-view .homes-view span {
-	flex-basis: 20%; margin: 0; padding: 0; box-sizing: border-box; display: flex;
-	}*/
-div.home-view .homes-view span button {
-	flex: 1; font-size: 0.75em;
-	}
-/*div.home-view .homes-view {
-			position: absolute; z-index: 4; top: 100; left : 0; margin: var(--medium-gap);
-			display: flex; flex-flow: row wrap;
-			background: var(--popup-background-color);
-			border: 2px solid var(--separator-color); border-radius: var(--subtle-border-radius);
-			padding: var(--medium-gap);
-		}
-*/
 span.space {
 	text-align: center;
-	margin: 0px 18px;
-}
-div.home-view {
-	overflow-y:auto;
-	display: flex;
-	padding-left:16px;
-	padding-right:15px;
-	flex-direction: row;
-	height:100%;
+	margin: 0px var(--lg-gap);
 }
 
-div.cur-home {
-	margin-top:12px;
-	margin-right: 16px;
-	flex-basis: 110px;
+span.sm {
+	margin: var(--sm-gap);
+}
+div.home-view {
+	display: flex;
+	height:100%;
+	flex-flow: column nowrap;
+	padding-left:1rem;
+	padding-right:1rem;
+}
+
+div.home-view .content {
+	display: flex;
+	overflow-y: hidden;
+	height:100%;
+	flex-direction: row;
+	width: 100%;
+	padding-top: var(--tiny-gap);
+}
+
+
+div.home-view .btnHall {
+	width:90%;
+}
+
+div.pick-slots {
+
+	display:flex;
+	flex-flow: column nowrap;
+
+	margin-top:0.9em;
+	margin-right: 1rem;
+	flex-basis: 5rem;
 }
 
 div.nospace {
@@ -177,15 +253,35 @@ div.nospace {
 }
 
 div.furniture {
-	margin-bottom: 4px;
+	width: 100%;
+	overflow-y: auto;
+	height:100%;
+	margin-bottom:var(--md-gap);
 }
+
+div.home-view .furniture table {
+	 text-transform: capitalize;
+	 flex-grow: 1;
+	 border-spacing: 0;
+     flex: 1; min-height: 0; width: 100%; max-width: 20rem;
+     display: flex; flex-direction: column;
+}
+div.home-view .furniture table tr { display: flex; padding: var(--sm-gap); }
+ div.home-view .furniture table tr:first-child {
+        position: sticky; top: 0; background: var(--header-background-color); z-index: 1;
+    }
+ div.home-view .furniture table tr > *:nth-child(1) { flex-basis: 20%; }
+ div.home-view .furniture table tr > *:nth-child(2) { flex-basis: 40%; }
+ div.home-view .furniture table tr > *:nth-child(3) { flex-basis: 20%; }
+div.home-view .furniture table tr button { margin: 0; font-size: 0.75em; }
+
 
 table .count, table .space {
 	text-align: center;
 }
 table .name {
-	padding: 0px 8px 0px 12px;
-	min-width:120px;
+	padding: 0 var(--md-gap) 0 0.9rem;
+	min-width:10em;
 	text-align: left;
 }
 

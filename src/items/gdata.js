@@ -1,9 +1,11 @@
 import { defineExcept, clone } from 'objecty';
 import Stat from '../values/stat';
-import Base, {mergeClass} from './base';
-import { arrayMerge, assignPublic, logObj } from '../util/util';
-import Events, { ITEM_ATTACK, EVT_EVENT } from '../events';
-import Dot from '../chars/dot';
+import Base, {mergeClass, initMods} from './base';
+import {arrayMerge} from '../util/array';
+import { assignPublic } from '../util/util';
+import Events, { ITEM_ATTACK, EVT_EVENT, EVT_UNLOCK } from '../events';
+import { TICK_LEN } from '../game';
+import { WEARABLE } from '../values/consts';
 
 /**
  * @typedef {Object} Effect
@@ -14,6 +16,12 @@ import Dot from '../chars/dot';
  * Game Data base class.
  */
 export default class GData {
+
+	/**
+	 * @property {string} module - source module.
+	 */
+	get module(){return this._module;}
+	set module(v){this._module =v;}
 
 	/**
 	 * @property {boolean} disabled - whether the item has been
@@ -34,12 +42,14 @@ export default class GData {
 	get max() { return this._max; }
 	set max(v) {
 
+		if ( v === null || v === undefined ) return;
+
 		if ( this._max ) {
 
-			if ( v instanceof Stat ) this._max = v;
+			if ( v instanceof Stat ) this._max.base = v.base;
 			else if ( !isNaN(v) ) this._max.base = v;
 
-		} else this._max = v instanceof Stat ? v : new Stat(v, 'max', true);
+		} else this._max = v instanceof Stat ? v : new Stat(v, this.id + '.max', true);
 	}
 
 	/**
@@ -48,13 +58,17 @@ export default class GData {
 	get rate() { return this._rate; }
 	set rate(v){
 
-		if ( v instanceof Stat ) this._rate = v;
-		else if ( this._rate ) {
+		if ( v instanceof Stat ) {
+
+			v.id = this.id + '.rate';
+			this._rate = v;
+
+		} else if ( this._rate ) {
 
 			if ( typeof v === 'object' ) Object.assign( this._rate, v);
 			else this._rate.base = v;
 
-		} else this._rate = new Stat(v);
+		} else this._rate = new Stat( v, this.id + '.rate' );
 
 	}
 
@@ -99,12 +113,49 @@ export default class GData {
 	set owned(v) { this._owned = v; }
 
 	/**
+	 * @property {Stat} value
+	 */
+	get value() { return this._value; }
+	set value(v) {
+
+		if ( v instanceof Stat ) {
+
+			if ( this._value === null || this._value === undefined ) this._value = v;
+			else if ( v !== this._value ) {
+
+				this._value.base = v.base;
+				this._value.basePct = v.basePct;
+
+			}
+
+		} else if ( this._value !== undefined ) {
+
+
+			this._value.base = (typeof v === 'object') ? v.value : v;
+
+		} else this._value = new Stat( v, this.id );
+
+	}
+
+	get val() { return this.value; }
+	set val(v) { this.value = v; }
+
+	valueOf(){ return this._value.valueOf(); }
+
+	/**
 	 *
 	 * @param {?Object} [vars=null]
 	 */
 	constructor( vars=null, defaults=null ){
 
-		if ( vars ) assignPublic( this, vars );
+		if ( vars ) {
+
+			if ( typeof vars === 'object'){
+				if ( vars.id ) this.id = vars.id;	// used to assign sub-ids.
+				assignPublic( this, vars );
+			}
+			else if ( !isNaN(vars) ) this.val = vars;
+		}
 		if ( defaults ) this.setDefaults( defaults );
 
 		if ( this._locked === undefined || this._locked === null ) this.locked = true;
@@ -114,18 +165,14 @@ export default class GData {
 		 */
 		this.locks = 0;
 
-		this._value = this._value || 0;
+		if ( this._value === null || this._value === undefined ) this.val = 0;
 
-		if ( vars.nomax ) {
-			this._max = null;
-		}
-
-		//if ( this.owned && !this.buy && !this.value ) this._value = 1;
-		//if ( this.owned) console.log('owned: ' + this.owned + ' id: ' + this.id);
-
-		//if ( this.slot ) console.log( this.id + ' slot: ' + this.slot );
 		defineExcept( this, null,
-			['require', 'rate', 'need', 'value', 'buy', 'max', 'cost', 'id', 'name', 'warn', 'effect', 'slot' ]);
+			['require', 'rate', 'current', 'need', 'value', 'buy', 'max', 'cost', 'id', 'name', 'warn', 'effect', 'slot' ]);
+
+		if ( this.mod ) {
+			initMods( this.mod, this.value );
+		}
 
 	}
 
@@ -135,14 +182,14 @@ export default class GData {
 	 * @param {number} dt - minimum length of time item would run.
 	 * @returns {boolean}
 	 */
-	canRun( g, dt=1 ) {
+	canRun( g, dt=TICK_LEN ) {
 
 		if ( this.disabled || this.maxed() || (this.need && !g.unlockTest( this.need, this )) ) return false;
 
-		if ( this.buy && !this.owned && !g.canPay(this.buy) ) return false;
+		if ( this.buy && !this.owned && !g.canPay(this.buy ) ) return false;
 
 		// cost only paid at _start_ of runnable action.
-		if ( this.cost && (this.exp === 0) && !g.canPay(this.cost) ) return false;
+		if ( this.cost && (this.exp === 0) && !g.canPay(this.cost ) ) return false;
 
 		if ( this.fill && g.filled( this.fill, this ) ) return false;
 
@@ -155,9 +202,8 @@ export default class GData {
 	 * Made a function for reverseStats, among other things.
 	 * @param {number} amt
 	 */
-	canPay( amt ) {
-		return this.value >= amt;
-	}
+	canPay( amt ) { return this.value >= amt; }
+	remove( amt ) { this.value.base -= amt; }
 
 	/**
 	 * Determine if an item can be used. Ongoing/perpetual actions
@@ -175,50 +221,116 @@ export default class GData {
 		if ( this.slot && g.state.getSlot(this.slot, this.type ) === this) return false;
 		if ( this.maxed() ) return false;
 
-		if ( this.cd && this.timer > 0 ) return false;
-
 		if ( this.fill && g.filled( this.fill, this ) ) return false;
 
 		return !this.cost || g.canPay(this.cost);
 	}
 
-	/**
-	 * Add or remove amount from Item, after min/max bounds are taken into account.
-	 * Returns the amount actually added or removed.
-	 *
-	 * @param {number} amt
-	 * @returns {number}
-	 */
-	topoff( amt ) {
+	canBuy(g){
 
-		if ( amt <= 0 ) {
+		if ( this.disabled || this.locked || this.locks > 0 ) return false;
 
-			if ( this.value < 0 ) return 0;
-			else if ( this.value + amt < 0 ) amt = -this.value;
+		if ( this.buy && !g.canPay(this.buy) ) return false;
 
-			this.value += amt;
-
-			return amt;
-
-		}
-
-		if ( this.repeat !== true && !this.max &&
-			this.value > 1 &&
-			(!this.buy || this.owned===true) ) {
-			return 0;
-		}
-
-		if ( this.max && (this.value + amt) >= this.max.value ) amt = this.max.value - this.value;
-		if ( amt === 0 ) return 0;
-
-		this.value += amt;
-
-		return amt;
+		return this.maxed() === false;
 
 	}
 
 	/**
-	 * Default implementation of onUse()) is to add 1.
+	 * Add or remove amount from Item, after min/max bounds are taken into account.
+	 * @param {number} amt
+	 * @returns {number} - change in final value.
+	 */
+	add( amt ) {
+
+		let prev = this.value.valueOf();
+
+		if ( amt <= 0 ) {
+
+			if ( prev <= 0 || amt === 0 ) return 0;
+			else if ( prev + amt <= 0 ) {
+				/** @todo **/
+				this.value.base = 0;
+				return -prev;
+			}
+
+		} else {
+
+			if ( this.repeat !== true && !this.max &&
+				this.value > 1 &&
+				(!this.buy || this.owned===true) ) {
+				return 0;
+			}
+
+			if ( this.max && (prev + amt) >= this.max.value ) {
+				amt = this.max.value - prev;
+			}
+
+		}
+
+		this.value.base += amt;
+		return this.value.valueOf() - prev;
+
+	}
+
+	/**
+	 * Get or lose quantity.
+	 * @param {Game} g
+	 * @returns {boolean} true if some amount was actually added.
+	 */
+	amount( g, count=1 ) {
+
+		count = this.add(count);
+		if ( count === 0 ) return false;
+
+		this.change( g, count );
+		return true;
+
+	}
+
+	/**
+	 * Process an actual change amount in data. This is after Stat Mods
+	 * have been applied to the base value.
+	 * @param {number} count - total change in value.
+	 */
+	change( g, count) {
+
+		if ( this.isRecipe ) { return g.create( this, count ); }
+
+		if ( this.exec ) this.exec();
+
+		if ( this.title ) g.state.player.setTitle( this.title );
+		if ( this.effect ) g.applyEffect(this.effect, count );
+		if ( this.result ) g.applyEffect( this.result, count );
+		if ( this.mod ) { g.addMod( this.mod ); }
+
+		if ( this.lock ) g.lock( this.lock );
+		if ( this.dot ) {
+			g.state.player.addDot( this.dot, this.id, this.name );
+		}
+
+		if ( this.disable ) g.disable( this.disable );
+
+		if ( this.log ) Events.emit( EVT_EVENT, this.log );
+
+		if ( this.attack ) {
+			if (this.type !== WEARABLE && this.type !== 'weapon') Events.emit( ITEM_ATTACK, this );
+		}
+		this.dirty = true;
+
+	}
+
+	doUnlock(){
+
+		if ( this.disabled || this.locked === false || this.locks>0 ) return;
+
+		this.locked = false;
+		Events.emit( EVT_UNLOCK, this );
+		this.dirty = true;
+	}
+
+	/**
+	 * Default implementation of onUse() is to add 1.
 	 * @param {Game} g
 	 */
 	onUse( g ) {
@@ -229,56 +341,23 @@ export default class GData {
 	}
 
 	/**
-	 * Get or lose quantity.
-	 * @param {Game} g
-	 */
-	amount( g, count=1 ) {
-
-		if ( this.topoff ) count = this.topoff(count);
-		if ( count === 0 ) return;
-
-		if ( this.isRecipe ) {
-			return g.create( this, true );
-		}
-
-		if ( this.exec ) this.exec();
-
-		if ( this.title ) g.state.player.title = this.title;
-		if ( this.effect ) g.applyEffect(this.effect, count );
-		if ( this.mod ) g.addMod( this.mod, count );
-		if ( this.lock ) g.lock( this.lock );
-		if ( this.dot ) g.state.player.addDot( new Dot(this.dot, this.id, this.name) );
-
-		if ( this.disable ) g.disable( this.disable );
-
-		if ( this.log ) Events.emit( EVT_EVENT, this.log );
-
-		if ( this.attack ) {
-			if (this.type !== 'wearable' && this.type !== 'weapon') Events.emit( ITEM_ATTACK, this );
-		}
-
-		this.dirty = true;
-		return true;
-
-	}
-
-	/**
 	 * Determine whether the item is filled relative to a filling rate.
 	 * if the filling rate + natural item rate can't fill the item
 	 * it is considered filled to avoid getting stuck.
 	 * @param {number} rate
 	 */
-	filled( rate=0 ) { return (this.max && this.value>=this.max.value) || (this.rate && (this.rate+rate) <= 0); }
+	filled( rate=0 ) {
+		return (this.max && this.value >= this.max.value) ||
+		(this.rate && (this.rate + rate.valueOf() ) <= 0); }
 
 	/**
 	 * @returns {boolean} true if an unlocked item is at maximum value.
 	*/
 	maxed() {
 
-		return this.max ? (this.value >= Math.floor(this.max.value) ) :
-			( this.repeat !== true &&
-				this._value > 0 &&
-				(!this.buy || this.owned===true) );
+		if ( this.max ) return this.value >= Math.floor( this.max.value);
+
+		return !(this.repeat||this.owned) && this.value > 0;
 
 	}
 
@@ -311,6 +390,7 @@ export default class GData {
 
 	/**
 	 * Perform cost scaling based on current value.
+	 * @todo @unused
 	 * @param {*} s
 	 */
 	scaleCost( s ) {

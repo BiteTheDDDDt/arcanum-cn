@@ -3,6 +3,24 @@ import Main from 'ui/main.vue';
 import Confirm from 'ui/components/confirm.vue';
 import Game from './game';
 import Events from './events';
+import Profile from './modules/profile';
+
+if ( __KONG ) {
+
+	kongregateAPI.loadAPI( function(){
+
+	window.kong = kongregateAPI.getAPI();
+	// You can now access the Kongregate API with:
+	// kongregate.services.getUsername()
+
+	});
+}
+
+window.addEventListener('beforeinstallprompt', e=>{
+
+	console.log('ARCANUM BEFOREINSTALL PROMPT');
+
+});
 
 /**
  * Global dispatch.
@@ -11,9 +29,7 @@ import Events from './events';
 
 Vue.mixin({
 
-	components:{
-		confirm:Confirm
-	},
+	components:{ confirm:Confirm },
 	methods: {
 
 		/**
@@ -21,6 +37,7 @@ Vue.mixin({
 		 */
 		listen:Events.listen,
 		dispatch:Events.dispatch,
+		removeListener:Events.removeListener,
 
 		/**
 		 * Game-level events.
@@ -35,40 +52,120 @@ Vue.mixin({
 
 });
 
-var vm = new Vue({
+const vm = new Vue({
 	el: '#vueRoot',
 	components:{ Main },
+	data(){
+		return {
+			renderKey:1
+		}
+	},
 	created(){
 
-		this.lastSave = null;
+		this.saveLink = null;
 		this.game = Game;
 
-		this.listen('save-file', this.saveFile );
-		this.listen('load-file', this.loadFile );
-		this.listen('load', this.loadSave );
-		this.listen('reset', this.reset );
+		this.listen('save-file', this.saveFile, this );
+		this.listen('hall-file', this.hallFile, this );
+
+		this.listen('load-file', this.loadFile, this );
+		this.listen('load', this.loadSave, this );
+		this.listen('reset', this.reset,this );
+		this.listen('resetHall', this.resetHall, this );
+
+		this.listen('stat', this.doStat, this );
+
+		this.listen('save-settings', Profile.saveSettings, Profile );
+
+		this.listen('set-char', this.setChar, this );
+		this.listen('dismiss-char', this.dismissChar, this );
 
 		this.listen('save', this.save );
-		this.listen('autosave', this.autosave );
+		this.listen('autosave', this.save );
 
-		this.listen( 'setting', this.onSetting );
+		this.listen( 'setting', this.onSetting, this );
 
-		this.loadSave();
-
-	},
-	computed:{
-
-		saveloc(){
-			return (__SAVE ? __SAVE + '/' : '' ) + 'gameData';
-		}
+		this.loadProfile();
 
 	},
 	methods:{
 
-		gameLoaded() {
-			console.log('gameLoaded()');
+		loadProfile(){
+
+			console.warn('LOADING PROFILE');
+			Profile.loadHall().then( ()=>this.loadSave() );
+
+
+		},
+
+		doStat( evt, val ) {
+
+			if ( window.kong ) {
+				window.kong.stats.submit( evt, val );
+			}
+		},
+
+		/**
+		 * Set current character.
+		 */
+		setChar( ind ){
+
+			Profile.setActive( ind, this.game.state );
+			this.loadSave();
+
+		},
+
+		dismissChar(ind) {
+
+			//console.log('DISMISS: ' + ind );
+			Profile.dismiss( ind );
+
+		},
+
+		/**
+		 * Load the save for the active wizard.
+		 */
+		loadSave() {
+
+			try {
+
+				this.dispatch('pause');
+				let str = Profile.loadActive();
+				this.setStateJSON( JSON.parse(str) );
+
+			} catch (e ) { console.error( e.message + '\n' + e.stack ); }
+
+		},
+
+		/**
+		 * Game was revived from JSON.
+		 * @param {Game} game
+		 */
+		gameLoaded( game ) {
+
+			if ( !game ) console.warn('gameloaded(): NULL' );
+
+			let settings = Profile.loadSettings();
+			this.onSettings( settings );
+
 			this.dispatch( 'game-loaded' );
+
+			Profile.gameLoaded( game );
+
 			this.dispatch('unpause');
+
+		},
+
+		/**
+		 * Call on settings loaded.
+		 * @param {*} vars
+		 */
+		onSettings(vars){
+
+			if (!vars) return;
+
+			this.onSetting( 'darkMode', vars.darkMode );
+			this.onSetting( 'compactMode', vars.compactMode );
 		},
 
 		onSetting( setting, v ) {
@@ -87,25 +184,55 @@ var vm = new Vue({
 
 		},
 
-		saveFile(e, name='arcanum'){
+		saveFile(e ){
+
+			// event shouldnt be null but sometimes is.
+			if (!e )return;
+			try {
+
+				if ( this.saveLink ) URL.revokeObjectURL( this.saveLink );
+
+				let state = this.game.state;
+				this.saveLink = this.makeLink( state, e.target, state.player.name );
+
+			} catch(ex) {
+				console.error( ex.message + '\n' + ex.stack );
+			}
+
+		},
+
+		hallFile(e){
+
+			if ( !e ) return;
+
+			this.save();		// save game first.
 
 			try {
 
-				if ( this.lastSave ) URL.revokeObjectURL( this.lastSave );
+				if ( this.hallLink) URL.revokeObjectURL( this.hallLink );
 
-				let state = this.game.state;
-				let json = JSON.stringify( state );
+				let data = Profile.getHallSave();
+				this.saveLink = this.makeLink( data, e.target, 'hall');
 
-
-				this.lastSave = new File( [json],
-					(state.player.name || 'arcanum') + '.json', {type:"text/json;charset=utf-8"} );
-
-				e.target.title = this.lastSave.name;
-				e.target.href = URL.createObjectURL( this.lastSave );
-
-			} catch(ex) {
-				console.error(ex);
+			} catch(ex){
+				console.error( ex.message + '\n' + ex.stack );
 			}
+
+		},
+
+		/**
+		 * Create URL link for data.
+		 * @param {object} data
+		 * @param {HTMLElement} targ - link target.
+		 * @returns {DOMString}
+		 */
+		makeLink( data, targ, saveName='arcanum' ) {
+
+			let json = JSON.stringify(data);
+			let file = new File( [json], saveName + '.json', {type:"text/json;charset=utf-8"} );
+
+			targ.title = file.name;
+			return targ.href = URL.createObjectURL( file );
 
 		},
 
@@ -114,88 +241,93 @@ var vm = new Vue({
 			const file = files[0];
 			if ( !file) return;
 
+			this.dispatch('pause');
+
 			const reader = new FileReader();
 			reader.onload = (e)=>{
 
-				this.loadData( e.target.result );
+				try {
+
+					let data = JSON.parse( e.target.result );
+					if ( data.type ==='hall') {
+
+						this.setHallJSON( data );
+
+					} else {
+
+						this.setStateJSON( data );
+
+					}
+
+
+				} catch(err){
+					console.error(  err.message + '\n' + err.stack );
+				}
 
 			}
 			reader.readAsText( file );
 
 		},
 
-		loadSave() {
+		/**
+		 * Set JSON for complete hall-file with all associated wizards.
+		 * @param {object} data
+		 */
+		setHallJSON( data ) {
 
-			let str = window.localStorage.getItem( this.saveloc);
-			if ( !str ) console.log('no data saved.');
-
-			try {
-				this.loadData( str );
-			} catch (e ) { console.error(e);}
-
-		},
-
-		loadData( text ){
-
-			this.dispatch('pause');
-
-			let obj = text ? JSON.parse( text ) : null;
-			this.game.load( obj ).then( this.gameLoaded,
-				e=>console.error(e) );
+			Profile.setHallSave( data );
+			this.loadProfile();	// load the hall data back. bit wasteful but organized.
 
 		},
 
 		/**
-		 * No console output.
+		 * Set wizard-state game data in the form of a json
+		 * text string.
+		 * @param {object} obj - raw game data.
 		 */
-		autosave(){
+		setStateJSON( obj=null ){
 
-			let store = window.localStorage;
 			try {
 
-				let json = JSON.stringify( this.game.state );
-				store.setItem( this.saveloc, json );
+				if ( this.game.loaded ) this.renderKey++;
 
-			} catch(e) {
-				console.error(e);
+				this.game.load( obj, Profile.getHallItems() ).then( this.gameLoaded,
+					e=>console.error( e.message + '\n' + e.stack ) );
+
+			} catch( err ) {
+				console.error(  err.message + '\n' + err.stack );
 			}
-
 		},
 
 		save() {
 
-			console.log('saving...');
-			let store = window.localStorage;
+			if (!this.game.loaded ) return;
+			Profile.saveActive( this.game.state );
+			Profile.saveHall();
 
-			try {
+		},
 
-				let json = JSON.stringify( this.game.state );
-				console.log( json )
-				store.setItem( this.saveloc, json );
+		reset(){
 
-			} catch(e) {
-				console.error(e);
-			}
+			this.dispatch('pause');
+			Profile.clearActive();
+			this.setStateJSON(null);
 
 
 		},
-		reset() {
+		resetHall() {
 
 			this.dispatch('pause');
 
-			// clear all save data.
-			let store = window.localStorage;
-			store.setItem( this.saveloc, null );
+			Profile.clearAll();
 
-			//store.clear();
-
-			this.game.reset().then( this.gameLoaded );
+			this.loadProfile();
 
 		}
 
 	},
 	render( createElm ) {
-		return createElm(Main, { props:{} } );
+		return createElm(Main, { key:this.renderKey } );
 	}
 
 });

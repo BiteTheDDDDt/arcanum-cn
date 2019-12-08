@@ -39,7 +39,7 @@ export default {
 		<div class="menu-items">
 
 		<div class="menu-item" v-for="(it) in items" :key="it.id">
-			
+
 			<span v-if="it != value" @click="setActive(it)" :key="itemTitle(it)"> <u> {{ itemTitle(it) }} </u></span>
 			<span v-else :key="itemTitle(it)"> {{ itemTitle(it) }} </span>
 
@@ -53,3 +53,11 @@ export default {
 
 	</div>
 </template>
+
+<style scoped>
+    .menu-items .menu-item { color: #000; }
+    body.darkmode .menu-items .menu-item { color: #FFF; }
+    .menu-items .menu-item u { color: #999; }
+	.menu-items .menu-item:hover, .menu-items .menu-item u:hover { color: #33F; }
+
+</style>

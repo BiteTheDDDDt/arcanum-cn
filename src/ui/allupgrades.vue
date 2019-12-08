@@ -1,5 +1,6 @@
 <script>
 import Game from '../game';
+import {alphasort} from '../util/util';
 
 export default {
 
@@ -14,10 +15,10 @@ export default {
 			return Game.state.classes.filter(v=>!v.disabled&&v.value>=1);
 		},
 		actions() {
-			return Game.state.actions.filter(v=>!v.repeat&&!v.disabled&&v.value>=1);
+			return Game.state.actions.filter(v=>!v.repeat&&!v.disabled&&v.value>=1).sort(alphasort);
 		},
 		upgrades(){
-			return Game.state.upgrades.filter(v=>!v.disabled&&v.value>=1);
+			return Game.state.upgrades.filter(v=>!v.disabled&&v.value>=1).sort(alphasort);
 		}
 	}
 
@@ -44,10 +45,8 @@ div.allupgrades {
 	height:100%;
 }
 div.up-list {
-	margin-bottom:14px;
+	margin-bottom:1rem;
 	overflow-x:visible;
 }
-
-div.allupgrades .div-hr { background: var(--header-background-color); padding: var(--small-gap); }
 
 </style>

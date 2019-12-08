@@ -3,9 +3,9 @@
  */
 import { floor, precise } from '../util/format';
 
-import Game from '../game';
-import Skill from '../items/skill';
+import Game, { TICK_LEN } from '../game';
 import Stat from '../values/stat';
+import { SKILL } from '../values/consts';
 
 export default {
 
@@ -13,26 +13,14 @@ export default {
 
 		floor:floor,
 
-		showName(it) {
-			return it.actname || it.name || it.id;
-		},
-
 		usable(it) {
-			return (it.length || it.perpetual ) ? Game.canRun(it) : Game.canUse( it );
+			return (it.length || it.perpetual ) ? it.canRun( Game, TICK_LEN) : it.canUse(Game );
 		},
 
-		visible(it) {
-			return !it.locked && it.disabled === false;
-		},
-
-		buyable(it) { return Game.canBuy(it)},
+		buyable(it) { return it.canBuy(Game) },
 
 		reslocked( it ) {
 			return it.disabled === true || it.locks > 0 || it.locked !== false;
-		},
-
-		runnable(it) {
-			return it.perpetual || it.length>0;
 		},
 
 		locked(it) {
@@ -47,14 +35,9 @@ export default {
 		 */
 		stripTags( t ) {
 
-			if ( Array.isArray(t) ) { return t.map( this.stripTags, this ); }
+			if ( Array.isArray(t) ) return t.map( this.stripTags, this );
 
-			if ( typeof t === 'string' ) {
-
-				if ( t.substring(0,2) === 't_' ) t = t.slice(2);
-				else if ( t.substring(0,3) === 'tag') t = t.slice(3);
-
-			}
+			if ( typeof t === 'string' && t.substring(0,2) === 't_' ) return t.slice(2);
 
 			return t;
 
@@ -73,7 +56,7 @@ export default {
 			if ( type === 'number') {
 
 				// gold is default.
-				results.gold = obj;
+				results.gold = precise( obj );
 
 			} else if ( type === 'string') {
 
@@ -127,14 +110,15 @@ export default {
 					subPath = propPath;
 					subRate = true;
 
-					let baseItem = propPath.split('.')[0];
-					if ( Game.getData(baseItem) instanceof Skill ) subPath = 'train ' + subPath + ' rate';
+					let baseItem = Game.getData( propPath.split('.')[0] );
+					if ( baseItem && baseItem.type === SKILL ) subPath = 'train ' + subPath + ' rate';
 
 				} else {
 
 					// check if sub-prop refers to an item.
 					let refItem = Game.getData(p);
 					if ( refItem ) subPath = refItem.name;
+					else subPath = this.stripTags( p );
 
 					subPath = propPath ? propPath + ' ' + subPath : subPath;
 

@@ -1,22 +1,29 @@
 import Action from "./action";
+import { EXPLORE, LOCALE } from "../values/consts";
 
 /**
  * Default dist per level function. Also currently used by dungeon.
  * @param {number} lvl
  */
 export const getDist = (lvl)=> {
-	return Math.ceil( 4.4*Math.exp( 0.32*lvl ) );
+	return Math.ceil( 4.4*Math.exp( 0.30*lvl ) );
 };
 
-const distTest = ( g, s) => {
+export const distTest = ( g, s) => {
 	return g.dist >= s.dist;
 }
 
-const levelTest = (g, s) => {
+export const levelTest = (g, s) => {
 	return g.player.level >= (s.level-1);
 }
 
 export default class Locale extends Action {
+
+	/**
+	 * @property {object|string} once - result to happen only once.
+	 */
+	get once() { return this._once; }
+	set once(v) { this._once = v; }
 
 	get encs() { return this._encs; }
 	set encs(v) {
@@ -29,13 +36,18 @@ export default class Locale extends Action {
 		this._encs = a;
 	}
 
+	/**
+	 * @property {string} proxy - id of actual runner.
+	 */
+	get proxy(){return EXPLORE }
+
 	constructor(vars=null) {
 
 		super(vars);
 
 		if ( this.level === null || this.level === undefined ) this.level = 1;
 
-		this.type = 'locale';
+		this.type = LOCALE;
 
 		/**
 		 * @property {number} progress
@@ -47,8 +59,9 @@ export default class Locale extends Action {
 		if ( !this.require ) this.require = levelTest;
 		if ( !this.need ) this.need = distTest;
 
-		this.dist = ( this.dist === undefined || this.dist === null ) ? getDist(this.level) : this.dist;
+		if ( this.dist === undefined || this.dist === null ) this.dist = getDist(this.level);
 
+		if (!this.sym) this.sym = '🌳';
 		if ( this._encs == null ) this._encs = [];
 
 		//console.log(this.id + ' dist: ' + this.dist );
@@ -66,9 +79,6 @@ export default class Locale extends Action {
 	/**
 	 * Catch complete() to prevent default action. ugly.
 	*/
-	complete() {
-	}
-
-	lockReq() { return false;}
+	complete() {}
 
 }

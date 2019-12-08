@@ -4,26 +4,29 @@
   "description": "theory of magic",
   "main": "index.js",
   "scripts": {
-    "dev": "webpack --watch --config webpack.dev.config.js",
-	"test": "webpack --watch --config webpack.test.config.js",
-    "build": "webpack --watch --config webpack.dist.config.js"
+    "dev": "webpack --watch --env --buildpath=dev/",
+    "kong": "webpack --watch --env.production --env.kong --buildpath=kong/",
+    "build": "webpack --watch --env.production --buildpath=dist/"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/lerpinglemur/webpack-template.git"
   },
   "author": "",
-  "license": "ISC",
   "bugs": {
     "url": "https://github.com/lerpinglemur/webpack-template/issues"
   },
   "devDependencies": {
+    "copy-webpack-plugin": "^5.0.5",
     "css-loader": "^3.2.0",
+    "jszip": "^3.2.2",
     "style-loader": "^0.23.1",
-    "vue-loader": "^15.7.1",
+    "vue-loader": "^15.7.2",
     "vue-template-compiler": "^2.6.10",
     "webpack": "^4.40.2",
-    "webpack-cli": "^3.3.9"
+    "webpack-cli": "^3.3.9",
+    "workbox-build": "^4.3.1",
+    "workbox-webpack-plugin": "^4.3.1"
   },
   "dependencies": {
     "eventemitter3": "^3.1.2",

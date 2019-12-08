@@ -2,7 +2,7 @@ import Stat from "../values/stat";
 import Base, {mergeClass} from '../items/base';
 import Item from "../items/item";
 
-import { itemRevive } from "../itemgen";
+import { itemRevive } from "../modules/itemgen";
 
 export default class Inventory {
 
@@ -48,19 +48,29 @@ export default class Inventory {
 		this._max = v instanceof Stat ? v : new Stat(v, 'max', true);
 	}
 
+	/**
+	 * @property {boolean} removeDupes - whether to remove duplicate ids from inventory.
+	 */
+	get removeDupes(){ return this._removeDupes; }
+	set removeDupes(v){this._removeDupes = v;}
+
 	constructor(vars=null){
 
 		if ( vars ) Object.assign(this,vars);
 
 		if ( !this.items ) this.items = [];
 
-		this.type = this.id = 'inventory';
+		this.type = 'inventory';
+		if (!this.id) this.id = this.type;
 
 		this.max = this._max || 0;
 
 	}
 
 	revive(state){
+
+		// used ids.
+		var ids = {};
 
 		for( let i = this.items.length-1; i>= 0; i-- ) {
 
@@ -72,8 +82,11 @@ export default class Inventory {
 			} else if ( typeof it === 'string') it = state.getData(it);
 
 
-			if ( it == null ) this.items.splice( i, 1 );
-			else this.items[i] = it;
+			if ( it == null || !it.id || ( this.removeDupes&& ids[it.id]===true) ) this.items.splice( i, 1 );
+			else {
+				ids[it.id] = true;
+				this.items[i] = it;
+			}
 
 		}
 		this.calcUsed();
@@ -86,7 +99,9 @@ export default class Inventory {
 	 */
 	add(it){
 
-		if ( it === null || it === undefined || typeof it === 'boolean' || typeof it === 'string' || this.full() ) return false;
+		if ( it === null || it === undefined || typeof it === 'boolean'
+			|| typeof it === 'string' || this.full() ) return false;
+
 		if ( Array.isArray(it) ) {
 
 			for( let i = it.length-1; i>=0; i-- ) {
@@ -95,6 +110,8 @@ export default class Inventory {
 
 		} else {
 
+			if ( !it.id ) return false;
+
 			if ( it.stack ) {
 				let inst = this.findMatch( it );
 				if ( inst ){
@@ -102,18 +119,44 @@ export default class Inventory {
 					return;
 				}
 
-			}
+			} else if ( this.removeDupes && this.find(it.id ) ) return false;
 
 			this.items.push( it );
-			this.used += this.spaceProp ? ( it[ this.spaceProp ] || 0 ) : 1;
+			this.used += this.spaceCost( it );
 
-			//console.warn('CUR USED: ' + this.used);
-			//console.warn('CUR MAX: ' + this.max.value );
+			//console.warn('CUR USED: ' + this.used + '/' + this.max.value );
 
 		}
 		this.dirty = true;
 
 	}
+
+	/**
+	 * Force-add an item if possible by removing existing items.
+	 * @param {GData} it
+	 * @returns {boolean}
+	 */
+	cycleAdd(it) {
+
+		const cost = this.spaceCost(it);
+
+		if ( this.max && (cost > this.max) ) return false;
+
+		while ( this.items.length > 0 && (this.used + cost > this.max) ) {
+			this.removeAt(0);
+		}
+
+		return this.add(it);
+
+
+	}
+
+	/**
+	 * Get the space cost of an item according to spaceProp.
+	 * @param {GData} it
+	 * @returns {number}
+	 */
+	spaceCost(it) { return this.spaceProp ? ( it[this.spaceProp] || 0) : 1; }
 
 	/**
 	 * Determine if item fits in inventory.
@@ -123,9 +166,7 @@ export default class Inventory {
 	canAdd(it) {
 
 		if ( !this.max || this.max.value === 0 ) return true;
-
-		let sp = this.spaceProp ? ( it[this.spaceProp] || 0 ) : 1;
-		return this.used + sp <= this.max.value;
+		return this.used + this.spaceCost(it) <= this.max.value;
 
 	}
 
@@ -144,7 +185,6 @@ export default class Inventory {
 	 * @returns {boolean} true if inventory full.
 	 */
 	full(){
-
 		return this.max >0 && this.used >= Math.floor(this.max.value );
 	}
 
@@ -157,11 +197,21 @@ export default class Inventory {
 		return this.items.splice(0, this.items.length);
 	}
 
+	/**
+	 *
+	 * @param {Item} it
+	 */
+	remove( it ){
+
+		let ind = this.items.indexOf( it );
+		if ( ind < 0 ) return;
+		this.removeAt(ind);
+	}
+
 	removeAt(ind) {
 
 		let it = this.items[ind];
-		this.used -= this.spaceProp ? ( it[this.spaceProp || 0 ] ) : 1;
-
+		this.used -= this.spaceCost(it);
 		this.items.splice(ind,1);
 
 	}
@@ -177,17 +227,6 @@ export default class Inventory {
 		it.value -= count;
 		if ( it.value <= 0 )this.remove(it);
 
-	}
-
-	/**
-	 *
-	 * @param {Item} it
-	 */
-	remove( it ){
-
-		let ind = this.items.indexOf( it );
-		if ( ind < 0 ) return;
-		this.removeAt(ind);
 	}
 
 	/**
@@ -212,6 +251,7 @@ export default class Inventory {
 	 * @param {string} id,
 	 * @param {boolean} proto - whether to find any item instanced from the prototype id.
 	 * If false, only an exact id match is returned.
+	 * @returns {?object}
 	 */
 	find(id, proto=false ) {
 

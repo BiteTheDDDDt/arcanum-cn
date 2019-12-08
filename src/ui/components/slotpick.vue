@@ -11,38 +11,43 @@ export default {
 
 	/**
 	 * @property {string} pick - slot to pick item for. (slot is Vue reserved)
-	 * @property {?string} slotName - name to display to user. defaults to slot.
+	 * @property {?string} title - name to display to user. defaults to pick.
 	 * @property {?Item[]} choices - list of items to filter. if not set, all game items are tested
 	 * for a matching slot property.
 	 * @property {?string} pickEvent - event to emit on item picked.
 	 */
-	props:['pick', 'slotName', 'choices', 'pickEvent'],
+	props:['pick', 'title', 'choices', 'pickEvent', 'hideEmpty'],
 	mixins:[ItemsBase],
 	data(){
 		return {
-			changing:false,
-			pEvent:this.pickEvent||SET_SLOT
+			pEvent:this.pickEvent||SET_SLOT,
+			cur:Game.state.getSlot(this.pick)
 		};
 	},
 	methods:{
 
-		toggleChange(){
-			this.changing = !this.changing;
+		toggleChange(){ this.changing = !this.changing; },
+
+		select(){
+
+			// @todo messy to emit. hard to config with Vue.
+			this.emit( 'choice', this.avail, (p)=>{
+
+				if ( p ) {
+					this.emit( this.pEvent, p );
+					this.cur = Game.state.getSlot(this.pick);
+				}
+
+			}, this.$el, this.title||this.pick );
+
 		}
 
 	},
 	computed:{
 
-		/**
-		 * Item currently in slot, or null.
-		 */
-		curItem(){
-			return Game.state.getSlot(this.pick);
-		},
-
 		avail() {
 			return this.choices ? this.choices :
-			Game.state.filterItems( v=>v.slot===this.pick&&!v.locked&&(!v.buy||v.owned) );
+			Game.state.filterItems( v=>v.slot===this.pick&&!v.disabled&&!v.locks&&!v.locked&&(v.owned||!v.buy) );
 		}
 
 	}
@@ -51,26 +56,13 @@ export default {
 </script>
 
 <template>
-<div>
+<div v-if="!hideEmpty||avail.length>0">
 
-	<span v-if="slotName">{{slotName}}:</span><span @mouseenter.capture.stop="emit( 'itemover',$event,curItem)">{{ curItem ? curItem.name : 'None'}}</span>
-	<div class="inline" v-if="avail.length>0">
-	<button @click="toggleChange">{{ changing ? 'Done' : 'Choose' }}</button>
+	<span v-if="title">{{title}}:</span>
 
-	<div class="upgrade-list" v-if="changing">
-
-		<span class="action-btn" v-for="it in avail" :key="it.id"
-			@mouseenter.capture.stop="emit( 'itemover', $event,it)">
-
-		<button
-			class="wrapped-btn"
-			:disabled="!usable(it)"
-			@click="emit( pEvent, it)">{{ it.name || it.id }}</button>
+		<span class="action-btn" @mouseenter.capture.stop="emit( 'itemover',$event,cur)">
+		<button @click="select" v-if="avail.length>0">{{ cur ? cur.name : 'None'}}</button>
 		</span>
-
-	</div>
-
-	</div>
 
 </div>
 </template>

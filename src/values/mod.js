@@ -1,6 +1,10 @@
 import Percent from './percent';
 import Stat from './stat';
-import { splitKeyPath } from '../util/util';
+import { logObj, splitKeys } from '../util/util';
+import { precise } from '../util/format';
+import { TYP_MOD } from './consts';
+
+//import Emitter from 'eventemitter3';
 
 export const ModTest = /^([\+\-]?\d+\.?\d*\b)?(?:([\+\-]?\d+\.?\d*)\%)?$/i;
 
@@ -9,53 +13,66 @@ export const ModTest = /^([\+\-]?\d+\.?\d*\b)?(?:([\+\-]?\d+\.?\d*)\%)?$/i;
  */
 export const DEFAULT_MOD = 'all';
 
-/**
- * Parse object into modifiers.
- * @param {} mods
- */
-export const ParseMods = ( mods, id ) => {
+export const SetModIds = (mods, id ) => {
 
-	if ( typeof mods === 'string' ) return mods;
-	else if ( typeof mods === 'number') return new Mod( mods, id );
-
-	for( let s in mods ){
-		if ( s.includes('.')) splitKeyPath( mods, s );
+	if ( mods instanceof Mod ) mods.id = id;
+	else if ( typeof mods === 'object') {
+		for( let p in mods ) {
+			SetModIds( mods[p], id);
+		}
 	}
+}
 
-	for( let s in mods ) {
+/**
+ * Parse string into mod value.
+ * @compat includes a recursive check for former bug.
+ */
+/*export const ParseString = (v)=>{
 
-		var val = mods[s];
-		var typ = typeof val;
-		if ( typ === 'number' || (typ === 'string' && ModTest.test(val)) ) {
+	if ( typeof v ==='string' ){
 
-			val = mods[s] = new Mod(val, id);
+		let res = ModTest.exec( v);
 
-		} else if ( val instanceof Mod ) continue;
-		else if ( typ === 'object') {
+		if ( res ) {
 
-			if ( val.id ) mods[s] = new Mod( val );
-			else if ( val.value || val.bonus ) mods[s] = new Mod(val, id );
-			else ParseMods( val, id );
+			//res.forEach((v,i)=>console.log('reg['+i+']: ' + v ));
+			this.base = Number(res[1]) || 0;
+			this.basePct = Number(res[2])/100 || 0;
+
+		} else console.error( this.id + ' no mod regex: ' + v );
+
+
+	} else if ( v instanceof Percent ) {
+
+		this.basePct = v.pct;
+
+	} else if ( !isNaN(v) ) {
+
+		return v;
+
+	} else if ( typeof v === 'object') {
+/
+		if ( v && (typeof v === 'object') && v.str) {
+			return ParseString(v.str);
 		}
 
 	}
-	return mods;
 
-}
+}*/
 
-export default class Mod {
+export default class Mod extends Stat {
 
 	toJSON(){
 
-		var val = this._pct === 0 ? this.bonus : (
-			(this.bonus || '') + (( this._pct > 0 ? '+' : '') + (100*this._pct)  + '%')
+		var val = this._basePct === 0 ? this.base : (
+			(this.base || '') + (( this._basePct > 0 ? '+' : '') + (100*this.basePct)  + '%')
 		);
 
 		//console.log('mod save val: ' + val );
 
 		return {
-			value:val,
-			count:this.count
+			str:val,
+			count:this.count.valueOf()
 		};
 
 	}
@@ -63,46 +80,48 @@ export default class Mod {
 	toString() {
 
 		let s = ( this.bonus !== 0 ?
-			this.bonus.toString()
+		 precise( this.bonus.toString() )
 		: '' );
 
 
-		if ( this._pct !== 0 ) {
+		if ( this.pct !== 0 ) {
 
 			if ( this.bonus !== 0 ) s += ', ';
-			s += ( this._pct > 0 ? '+' : '' ) + (100*this._pct) + '%';
+			s += ( this.pct > 0 ? '+' : '' ) + precise(100*this.pct) + '%';
 		}
 		return s;
 	}
 
 	/**
-	 * @property {string} [id=DEFAULT_MOD]
-	 */
-	get id() { return this._id; }
-	set id(v) { this._id = v; }
-
-	/**
 	 * @property {number} [count=0] - number of times mod is applied.
 	 */
 	get count() { return this._count; }
-	set count(v) { this._count = v; }
+	set count(v) {
+
+		/**
+		 * @compat temp. for introduced bug.
+		 */
+		if ( v && (typeof v === 'object') ) {
+
+			if ( v.str) this.count = v.str;
+			else this._count = v;
+			//else if ( v.value ) this.count = v.value;
+
+		} else this._count = v;
+
+	}
 
 	/**
-	 * @property {number} [pct=0] - pct as a decimal.
+	 * @property {number} bonus - total flat bonus of mod.
 	 */
-	get pct() { return this._pct; }
-	set pct(v) { this._pct = v; }
-
+	get bonus(){return (this.base + this.mBase)*(1+this.mPct); }
 	/**
-	 * @property {number} [bonus=0] - base modifier. (constant added bonus)
+	 * @property {number} pct - total percent bonus of mod.
 	 */
-	get bonus() { return this._bonus; }
-	set bonus(v) { this._bonus = v; }
+	get pct(){return this.basePct * (1+ this.mPct); }
 
-	get value() { return this.bonus; }
-	set value(v) {
-
-		//console.log('assinging to mod: ' + this.id + ' val: ' + v );
+	get str() { return this.value; }
+	set str(v) {
 
 		if ( typeof v ==='string' ){
 
@@ -111,24 +130,36 @@ export default class Mod {
 			if ( res ) {
 
 				//res.forEach((v,i)=>console.log('reg['+i+']: ' + v ));
-				this.bonus = Number(res[1]) || 0;
-				this.pct = Number(res[2])/100 || 0;
+				this.base = Number(res[1]) || 0;
+				this.basePct = Number(res[2])/100 || 0;
 
-				//console.log( this.id + 'mod regex: ' + this.bonus + ' + ' + this.pct );
-
-			} else console.log( this.id + ' no mod regex: ' + v );
+			} else console.error( this.id + ' no mod regex: ' + v );
 
 
 		} else if ( v instanceof Percent ) {
 
-			this.pct = v.value;
+			this.basePct = v.pct;
 
 		} else if ( !isNaN(v) ) {
 
-			this.bonus = v;
+			this.base = v;
+		} else if ( typeof v === 'object') {
+
+			/**
+			 * @compat temp. for introduced bug.
+			 */
+			if ( v && (typeof v === 'object') && v.str) {
+				this.str = v.str;
+			}
+
 		}
 
 	}
+
+	get pctTot(){return this.pct*this._count;}
+	get bonusTot(){return this.bonus*this._count;}
+
+	get type(){ return TYP_MOD }
 
 	/**
 	 *
@@ -136,85 +167,31 @@ export default class Mod {
 	 */
 	constructor( vars=null, id=null ){
 
-		if ( typeof vars === 'number') this._bonus = vars;
-		else if ( typeof vars === 'string') this.value = vars;
-		else if ( vars ) Object.assign( this, vars );
+		super( null, id );
 
-		this._count = this._count || 0;
-		this._bonus = this._bonus || 0;
-		this._pct = this._pct || 0;
+		if ( typeof vars === 'number') this.base = vars;
+		else if ( typeof vars === 'string') this.str = vars;
+		else if ( vars ) {
+
+			if ( vars.value ) {
+				/** @compat */
+				this.str = vars.value;
+				this.count = vars.count;
+			} else Object.assign( this, vars );
+
+
+		}
+
+		if( this._count === undefined || this._count === null ) this._count = 1;
+
+		this.base = this.base || 0;
+		this.basePct = this.basePct || 0;
 
 		this.id = id || this.id || DEFAULT_MOD;
 
-		//console.log(this.id + ' mod created: ' + this.bonus + ' +' +this.pct+'%');
 	}
 
-	clone() {
-		return new Mod({bonus:this._bonus, pct:this._pct, count:1}, this.id );
-	}
-
-	/**
-	 * Apply a modifier to this modifier.
-	 * @todo: Can't safely apply a pct mod to a mod without adding support for recursive mods.
-	 * Otherwise the pct+/- is based on the current value of the mod, so won't be constant when
-	 * added/removed.
-	 * @param {*} mod
-	 * @param {*} amt
-	 */
-	applySelf( mod, amt=1) {
-
-		let typ = typeof mod;
-		if ( typ === 'number') {
-
-			this.bonus += amt*mod;
-
-		} else if ( mod instanceof Percent ) {
-
-			this.bonus *= ( 1+ amt*mod.pct );
-			this.pct *= (1+ amt*mod.pct);
-
-		} else if ( typ === 'object') {
-
-			//console.log( 'apply: ' +  mod.toString() );
-			this.bonus += amt*mod.bonus || 0;
-
-			if ( mod.pct ) {
-				let pctMod = 1 + amt*( mod.pct );
-				this.bonus += pctMod;
-				this.pct *= pctMod;
-			}
-
-		}
-
-	}
-
-	/**
-	 * Update the modifier with additional values.
-	 * @param {number|Percent|Object} mod
-	 * @param {number} [amt=1]
-	 */
-	add( mod, amt=1 ) {
-
-		//console.warn('CHANGING MOD: ' + this.id + ' by mod: ' + (mod.id||typeof mod) );
-
-		let typ = typeof mod;
-		if ( typ === 'number') {
-
-			this.bonus += amt*mod;
-
-		} else if ( mod instanceof Percent ) {
-
-			this.pct += amt*mod.pct;
-
-		} else if ( typ === 'object') {
-
-			this.bonus += amt*mod.bonus || 0;
-			this.pct += amt*mod.pct || 0;
-
-		}
-
-
-	}
+	clone() { return new Mod({base:this.base, basePct:this.basePct, count:1}, this.id ); }
 
 	/**
 	 * Apply this modifier to a given target.
@@ -228,22 +205,88 @@ export default class Mod {
 		let targ = obj[p];
 
 		if ( targ instanceof Stat ) targ.addMod( this, amt );
-		else if ( targ instanceof Mod) targ.applySelf( this, amt );
-		else if ( targ === null || targ === undefined ){
+		else if ( targ === null || targ === undefined || typeof targ === 'number' ){
 
 			//console.log('MOD.applyTo() CREATE NEW MOD AT TARGET: ' + p );
-			obj[p] = new Mod( amt*this.bonus );
+			let s = obj[p] = new Stat( targ || 0, p );
+			s.addMod( this, amt );
 
 		} else if ( typeof targ === 'object') {
 
-			targ.value = ( ( Number(targ.value) || 0 ) + amt*this._bonus )*( 1 + amt*this._pct );
+			console.warn( this.id + ' !!Generic Mod Targ: ' + targ.id );
+			targ.value = ( ( Number(targ.value) || 0 ) + amt*this.bonus )*( 1 + amt*this.pct );
 
 			// TODO? Percent all of obj?
 
-		} else if ( typeof targ === 'number' ) {
-			obj[p] = ( targ + amt*this._bonus )*(1 + amt*this._pct );
 		}
 
 	}
+
+}
+
+
+/**
+ * Parse object into modifiers.
+ * @param {} mods
+ * @returns {Object} parsed modifiers.
+ */
+export const ParseMods = ( mods, id ) => {
+
+	if ( !mods ) return null;
+	if (!id) logObj(mods, 'no mod id');
+
+	mods = SubMods(mods, id);
+
+	splitKeys(mods);
+
+	return mods;
+
+}
+
+/**
+ *
+ */
+export const SubMods = (mods, id)=>{
+
+	if ( mods === null || mods === undefined ) return null;
+
+	if ( typeof mods === 'string' ) {
+
+		if ( ModTest.test(mods) ) return new Mod(mods, id );
+		return mods;
+
+	} else if ( typeof mods === 'number') return new Mod( mods, id );
+
+	for( let s in mods ) {
+
+		let val = mods[s];
+		let typ = typeof val;
+
+		if ( val instanceof Mod ) {
+
+			//mods[s] = val.clone();
+			if ( id ) val.id = id;
+
+		} else if ( typ === 'string') {
+
+			if( ModTest.test(val) ) {
+				mods[s] = new Mod( val, id );
+			}
+
+		} else if ( typ === 'number' ) {
+
+			mods[s] = new Mod(val, id);
+
+		} else if ( typ === 'object') {
+
+			if ( val.id || val.base || val.str ) mods[s] = new Mod(val, id );
+			else mods[s] = SubMods( val, id );
+
+		} else {
+			//logObj( mods, id + ' INVALID MOD ' + (typ) );
+		}
+
+	}
+	return mods;
 
 }

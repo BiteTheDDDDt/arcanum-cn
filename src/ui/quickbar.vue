@@ -68,7 +68,7 @@ export default {
 <style scoped>
 
 p.use-msg {
-	font-size:20px;
+	font-size:1.2em;
 	line-height: 1.4em;
 	margin-left: 10%;
 }
@@ -77,7 +77,7 @@ p.use-msg {
 div.quickbar {
 
 	display:flex;
-	flex-basis: 72px;
+	flex-basis:3em;
 	width:100%;
 	flex-direction: row;
 	justify-self: flex-end;
@@ -86,32 +86,31 @@ div.quickbar {
 }
 
 div.quickslot {
-	z-index: 100;
-	min-width: 52px;
-	min-height:52px;
+	min-width:2em;
+	min-height:2em;
 	cursor: pointer;
 	text-transform: capitalize;
-	margin: 2px 6px 4px 4px;
-	padding:2px;
+	margin:var(--tiny-gap) var(--sm-gap) var(--sm-gap) var(--sm-gap);
+	padding:var(--tiny-gap);
 	text-align: center;
 	/** relative so remove button correctly placed. **/
 	position: relative;
 	font-size:xx-large;
-	border: 1px solid #181818;
+	border: 1px solid var(--dark-border-color);
 }
 
 div.remove {
 	position:absolute;
-	border: 1px solid #181818;
-	top:0px;
-	right:0px;
-	margin: 0px;
-	padding: 0px;
+	border: 1px solid var(--dark-border-color);
+	top:0;
+	right:0;
+	margin: 0;
+	padding: 0;
 	background:white;
 	opacity:0.65;
 	z-index: 10;
-	min-height:12px;
-	min-width: 12px;
+	min-height:0.9em;
+	min-width:0.9em;
 	font-size: 0.8rem;
 }
 

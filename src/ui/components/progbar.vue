@@ -1,8 +1,17 @@
 <script>
 export default {
 
-	props:['value', 'max', 'label', 'hideStats'],
+	props:['value', 'max', 'label', 'hideStats', 'color'],
 	computed:{
+
+		style(){
+
+			let s = 'width:' + this.width;
+			if ( this.color ) s += ';background:' + this.color;
+
+			return s;
+
+		},
 
 		width(){
 			let val = Math.floor( 100*(this.value/this.max) );
@@ -18,10 +27,10 @@ export default {
 
 <template>
 
-<div style="container">
+<div class="container">
 	<label v-if="label" :for="elmId('bar')">{{label}}</label>
 	<div class="bar" :id="elmId('bar')">
-		<div class="fill" :style="'width:'+ width">
+		<div class="fill" :style="style">
 			<span class="bar-text" v-if="!hideStats">{{ (this.value||0).toFixed(1) + '/' + max.toFixed(1) }}</span>
 			<span v-else>&nbsp;</span>
 		</div>
@@ -43,26 +52,21 @@ div.bar .bar-text {
 
 div.container {
 	display:inline-block;
+	margin-bottom: var(--md-gap);
+	height:100%;
+	width: 100%;
 }
 div.bar {
 
-	padding:unset;
 	display:inline-block;
 	background: #333;
 	overflow:hidden;
-	margin:4px 4px 0px 2px;
-	padding:2px;
-	min-height:18px;
+	padding:0;
+	min-height:1.5rem;
 	width:-webkit-fill-available;
 	width:-moz-available;
-	border-radius: 10px;
+	border-radius: var(--lg-radius);
 }
-div.bar > div {
-	background:orange;
-	border-radius: 8px;
-	max-height: 100%;
-	min-width:0px;
-	width:0px;
-}
+
 
 </style>

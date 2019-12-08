@@ -43,9 +43,9 @@ export default class Proxy {
 
 	isProxy() { return true; }
 
-	maxed() { return this.item ? this.item.maxed() : true; }
-	canUse( g ) { return this.item ? this.item.canUse( g ) : false; }
-	canRun( g ) { return this.item ? this.item.canRun( g ) : false; }
+	maxed() { return !this.item || this.item.maxed(); }
+	canUse( g ) { return this._item && this._item.canUse( g ) }
+	canRun( g ) { return this._item && this._item.canRun( g ) }
 
 	constructor( vars=null ){
 

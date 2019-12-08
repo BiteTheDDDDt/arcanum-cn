@@ -1,5 +1,6 @@
 import Emitter from 'eventemitter3';
 import {uppercase} from './util/util';
+import { TYP_PCT, EVENT } from './values/consts';
 
 /**
  * @const {Emitter} events - emitter for in-game events.
@@ -25,7 +26,6 @@ const LOG_EVENT = 1;
 const LOG_UNLOCK = 2;
 const LOG_LOOT = 4;
 export const LOG_COMBAT = 8;
-const LOG_DISABLED = 16;
 
 export const LogTypes = {
 	'event':LOG_EVENT,
@@ -34,16 +34,13 @@ export const LogTypes = {
 	'combat':LOG_COMBAT
 };
 
-const COMBAT_DONE = 'combat_done';
-const ENEMY_SLAIN = 'slain';
-
 /**
  * BASIC ITEM EVENTS
  */
 export const TRY_BUY = 'buy';
 export const TRY_USE = 'tryuse';
 export const TRY_SELL = 'trysell';
-export const TRY_USE_WITH = 'tryusewith';
+export const TRY_USE_WITH = 'tryUseOn';
 export const USE = 'use';
 
 export const SET_SLOT = 'set_slot';
@@ -55,6 +52,10 @@ const CHAR_DIED = 'char_died';
 
 const ALLY_DIED = 'ally_died';
 
+const COMBAT_DONE = 'combat_done';
+const ENEMY_SLAIN = 'slain';
+
+
 /**
  * player defeated by some stat.
  */
@@ -63,9 +64,10 @@ const DEFEATED = 'defeated';
 const DAMAGE_MISS = 'damage_miss';
 export const IS_IMMUNE = 'dmg_immune';
 
-const ENEMY_HIT = 'enemy_hit';
-const PLAYER_HIT = 'player_hit';
-const LEVEL_UP = 'levelup'
+/**
+ * @event COMBAT_HIT (Char,number,attackName)
+ */
+export const COMBAT_HIT = 'char_hit';
 
 const ACT_CHANGED = 'actchanged';
 const ACT_IMPROVED = 'actimprove';
@@ -111,15 +113,50 @@ const DELETE_ITEM = 'delitem';
  */
 const ENC_DONE = 'enc_done';
 const ENC_START = 'enc_start'
-const ENTER_LOC = 'enter_loc';
-const EXIT_LOC = 'exit_loc';
 
+
+/**
+ * New character title set.
+ */
+const CHAR_TITLE = 'chartitle';
+/**
+ * New title added but not necessarily set as main.
+ */
 const NEW_TITLE = 'newtitle';
 
-export { HALT_ACT, EVT_COMBAT, EVT_EVENT, EVT_UNLOCK, EXP_MAX, EVT_LOOT, ACT_DONE, ALLY_DIED, CHAR_DIED,
-	ENTER_LOC, EXIT_LOC, ITEM_ATTACK, STOP_ALL, DELETE_ITEM,
-	ACT_CHANGED, ACT_IMPROVED, ACT_BLOCKED, NEW_TITLE,
-	DAMAGE_MISS, ENEMY_HIT, PLAYER_HIT, DEFEATED, ENEMY_SLAIN, COMBAT_DONE, ENC_START, ENC_DONE, LEVEL_UP };
+/**
+ * Character name changed.
+ */
+const CHAR_NAME = 'charname';
+
+const LEVEL_UP = 'levelup'
+
+/**
+ * Character class changed.
+ */
+const CHAR_CLASS = 'charclass';
+
+/**
+ * Player's character changed in some way
+ * not covered by other events.
+ */
+const CHAR_CHANGE = 'charchange';
+
+/**
+ * @const {string} EVT_STAT - statistic event to send to server (kong).
+ */
+export const EVT_STAT = 'stat';
+
+/**
+ * @property {string} TOGGLE - toggle an action on/off.
+ */
+export const TOGGLE = 'toggle';
+
+export { CHAR_TITLE, NEW_TITLE, LEVEL_UP, CHAR_NAME, CHAR_CLASS, CHAR_CHANGE };
+
+export { HALT_ACT, EVT_COMBAT, EVT_EVENT, EVT_UNLOCK, EXP_MAX, EVT_LOOT, ACT_DONE, ALLY_DIED, CHAR_DIED, ITEM_ATTACK, STOP_ALL, DELETE_ITEM,
+	ACT_CHANGED, ACT_IMPROVED, ACT_BLOCKED,
+	DAMAGE_MISS, DEFEATED, ENEMY_SLAIN, COMBAT_DONE, ENC_START, ENC_DONE };
 
 export default {
 
@@ -141,6 +178,8 @@ export default {
 		events.addListener( ACT_IMPROVED, this.actImproved, this );
 
 		events.addListener( EVT_COMBAT, this.onCombat, this );
+		events.addListener( COMBAT_HIT, this.onHit, this );
+
 		events.addListener( ENEMY_SLAIN, this.enemySlain, this );
 		events.addListener( DEFEATED, this.onDefeat, this );
 		events.addListener( DAMAGE_MISS, this.onMiss, this );
@@ -157,23 +196,25 @@ export default {
 
 	/**
 	 * Event item event.
-	 * @param {Item} it
+	 * @param {Item|Log} it
 	 */
 	onEvent( it ) {
-		if ( it.hidden) return;
+		if ( it.hide) return;
+		if ( it[TYP_PCT] && !it[TYP_PCT].roll() ) return;
+
 		this.log.log( it.name, it.desc, LOG_EVENT );
 	},
 
 	onUnlock( it ) {
-		if ( it.hidden || it.type === 'event' ) return;
+		if ( it.hide || it.type === EVENT ) return;
 		this.log.log( uppercase(it.type) + ' Unlocked: ' + it.name, null, LOG_UNLOCK );
 	},
 
 	onLoot( loot ) {
 
-		if ( !loot ) return;
 		let text = this.getDisplay(loot);
-		if ( !text) return;
+
+		if ( !text || Number.isNaN(text) ) return;
 
 		this.log.log( 'LOOT', text, LOG_LOOT );
 
@@ -187,34 +228,44 @@ export default {
 	 */
 	getDisplay( it ) {
 
+		if ( !it ) return null;
+
 		if ( typeof it === 'object') {
 
 			if ( Array.isArray(it) ) {
 
-				let i=0, len = it.length;
+				let s, res = [];
+				for( let i = it.length-1; i >= 0; i--) {
 
-				while ( i < len && it[i] == null ) i++;
-				if ( i >= len ) return '';
+					s = this.getDisplay(it[i] );
+					if ( s ) res.push(s);
 
-				let text = this.getDisplay(it[i]);
-				while ( ++i < len ) {
-					if ( it[i]) text += ', ' + this.getDisplay(it[i]);
 				}
 
-				return text;
+				if ( res.length > 0) return res.join( ', ');
 
 			} else return it.name;
-		}
 
-		return it;
+		} else if ( typeof it === 'string') return it;
+
+		return null;
 
 	},
 
 	actionDone(it){
 	},
 
-	onNewTitle(t) {
+	/**
+	 *
+	 * @param {*} t
+	 * @param {number} len - new title number.
+	 */
+	onNewTitle(t, len ) {
+
 		this.log.log( 'Title Earned: ' + uppercase(t), null, LOG_UNLOCK );
+
+		this.dispatch( EVT_STAT, 'titles', len );
+
 	},
 
 	actImproved(it) {
@@ -222,8 +273,12 @@ export default {
 		this.log.log( it.name + ' Improved', null, LOG_UNLOCK );
 	},
 
-	onLevel( player ) {
+	onLevel( player, lvl ) {
+
 		this.log.log( player.name + ' Level Up!', null, LOG_EVENT );
+
+		this.dispatch( EVT_STAT, 'level', lvl );
+
 	},
 
 	onDefeat( locale ) {
@@ -249,8 +304,21 @@ export default {
 		this.log.log( title, msg, LOG_COMBAT );
 	},
 
+	/**
+	 *
+	 * @param {Char} char
+	 * @param {number} dmg
+	 * @param {string} attack
+	 */
+	onHit( char, dmg, attack ) {
+		this.log.log( '', char.name + ' hit' +
+		( attack ? (' by ' + attack + ': ' ) : '')
+		+ dmg.toFixed(1), LOG_COMBAT );
+	},
+
 	enemySlain( enemy, attacker ) {
-		this.log.log( '', enemy.name + ' slain' + ( attacker ? ' by ' + attacker.name : ''), LOG_COMBAT );
+		this.log.log( enemy.name + ' slain',
+			( attacker && attacker.name ? ' by ' + attacker.name : ''), LOG_COMBAT );
 	},
 
 	/**
@@ -281,6 +349,9 @@ export default {
 		sys.addListener(evt,f,context);
 	},
 
+	removeListener(evt,f){
+		sys.removeListener(evt,f);
+	},
 	/**
 	 * Dispatch a system-level event.
 	 * pause,save,reload,etc.

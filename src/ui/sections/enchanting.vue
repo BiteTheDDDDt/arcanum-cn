@@ -26,6 +26,14 @@ export default {
 	},
 	beforeCreate(){
 		this.state = Game.state;
+		this.runner = this.state.runner;
+	},
+	methods:{
+
+		canUseOn( it, targ ) {
+			return targ&&it.canUseOn(targ)&& this.usable(it);
+		}
+
 	},
 	computed:{
 
@@ -61,7 +69,7 @@ export default {
 			<button v-if="it.buy&&!it.owned" :disabled="!buyable(it)"
 				@click="emit('buy', it)">Unlock</button>
 
-			<button v-else :disabled="!target||!it.canApply(target)||!usable(it)"
+			<button v-else :disabled="!canUseOn(it,target)"
 				@click="emit( 'enchant', it, target )">Enchant</button>
 
 		</div>
@@ -83,6 +91,10 @@ div.enchants .enchant-list {
 	flex:1;
 }
 
+div.enchants .separate {
+	align-items:flex-start;
+}
+
 div.enchants .filtered {
 	display:flex;
 	flex-flow: column;
@@ -96,13 +108,13 @@ div.enchants .enchant-list > div.enchant {
 
 div.enchants .enchant-list  .ench-name {
 	flex-basis: 25%;
-	min-width: 132px;
+	min-width: 5rem;
 }
 
 div.enchants {
 	display:flex;
 	flex-direction: column;
-	padding:0px 16px;
+	padding:0 1rem;
 	overflow-y:auto;
 	height:100%;
 }

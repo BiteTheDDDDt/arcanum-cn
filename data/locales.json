@@ -4,6 +4,7 @@
 	"name":"musty library",
 	"level":1,
 	"length":10,
+	"sym":"📖",
 	"require":"apprentice",
 	"desc":"a good apprentice spends all their free time in the library. after doing chores, of course.",
 	"run":{
@@ -107,6 +108,7 @@
 	"id":"pidwigcove",
 	"name":"pidwig's cove",
 	"level":9,
+	"require":"g.history>=3",
 	"length":25,
 	"desc":"The half-goblin Pidwig has sailed the waters around his bay for hundreds of years. In that time he has collected a myriad of interesting artifacts.",
 	"run":{
@@ -137,6 +139,7 @@
 	"id":"rithel",
 	"level":14,
 	"desc":"this tiny outpost in the center of thangmor outlasted even the pillars",
+	"require":"g.evil<=0&&g.history>=5",
 	"run":{
 		"stamina":0.2
 	},
@@ -149,6 +152,7 @@
 	},
 	"encs":[
 		"enc_chest2",
+		"enc_gnome",
 		"enc_primer2",
 		"enc_delki",
 		"brightvista"
@@ -159,7 +163,7 @@
 	"name":"ruined crypt",
 	"level":4,
 	"length":30,
-	"require":"adept",
+	"require":"tier0",
 	"desc":"an ancient crypt of crumbling stone.",
 	"run":{
 		"stamina":0.2
@@ -177,14 +181,16 @@
 		"sarcophagus",
 		"enc_rats",
 		"strangebones",
-		"enc_embalm4",
+		"enc_embalm1",
 		"enc_chest2"
 	]
 },
 {
 	"id":"hallofmirrors",
-	"level":300,
+	"level":12,
+	"require":"g.scrying>=999",
 	"length":10,
+	"sym":"📖",
 	"desc":"",
 	"run":{
 		"stamina":0.2
@@ -209,6 +215,7 @@
 	"name":"fazbit's workshop",
 	"level":9,
 	"length":50,
+	"sym":"📖",
 	"require":"g.alchemy>=7||g.scrying>=9",
 	"desc":"You could spend a century in Fazbit's lost workshop and still not exhaust its creations.",
 	"loot":{
@@ -231,11 +238,14 @@
 {
 	"id":"genezereth",
 	"level":15,
+	"require":"g.history>=6",
 	"length":100,
-	"desc":"An ancient bridge and library spanning Markhul's gap.",
+	"sym":"📖",
+	"desc":"An ancient library at the bridge spanning Markhul's gap.",
 	"flavor":"third of the Four Weirs of Dhrune.",
 	"loot":{
-		"tomes":"3~5"
+		"tomes":"3~5",
+		"markhulcodex":true
 	},"encs":[
 		"enc_tapestry",
 		"enc_tome",
@@ -245,6 +255,40 @@
 		"enc_history",
 		"enc_primer1"
 	]
+},
+{
+	"id":"loc_tenwick",
+	"name":"peregrination",
+	"level":20,
+	"desc":"Tenwick's trail runs a circuit about the notable areas of Dhrune. On foot it takes the better part of a year to complete.",
+	"length":10000,
+	"run":{
+		"stamina":2
+	},
+	"loot":{
+
+	},
+	"result":{
+		"title":"Dhrunic Wayfarer"
+	},
+	"encs":[
+		"enc_statue2",
+		"enc_battle1",
+		"enc_oldstone",
+		"strangebones",
+		"enc_gibber",
+		"hauntedglade",
+		"enc_statue4",
+		"brightvista",
+		"enc_mtpass",
+		"hiddencache",
+		"murkywater",
+		"sombersunset",
+		"enc_wyrd",
+		"enc_sindel"
+
+	]
+
 }
 
 

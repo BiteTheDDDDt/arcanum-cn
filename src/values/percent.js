@@ -1,4 +1,7 @@
-export const PercentTest = /^(\d+(?:\.?\d+)?)\%$/i
+import { precise } from "../util/format";
+import { TYP_PCT } from "./consts";
+
+export const PercentTest = /^(\d+(?:\.\d+)?)\%$/i
 
 /**
  * Represents a percentage probability.
@@ -19,14 +22,14 @@ export default class Percent {
 
 	/**
 	 * Perform a percent roll with a percent-percent modifier.
-	 * @param {number} mod - 100-based percent.
+	 * @param {number} [mod=0] - 100-based percent.
 	 * @returns {boolean} - true if roll succeeds.
 	 */
-	roll( mod ) {
-		return 100*Math.random() < this.pct*( 100 + mod );
-	}
+	roll( mod=0 ) { return 100*Math.random() < this.pct*( 100 + mod ); }
 
-	toString() { return (100*this.pct) + '%';}
+	get type() { return TYP_PCT }
+
+	toString() { return  precise( 100*this.pct ) + '%';}
 
 	constructor( val ) {
 

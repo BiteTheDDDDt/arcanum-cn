@@ -21,7 +21,7 @@ export default {
 
 	<button class="wrapped-btn"
 		:disabled="!usable(it)"
-		@click.stop="emit( evt, it)">{{ showName(it) }}</button>
+		@click.stop="emit( evt, it)">{{ it.name }}</button>
 </span>
 
 

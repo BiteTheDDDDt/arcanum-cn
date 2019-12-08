@@ -3,21 +3,46 @@ const postfixes = [
 	'k', 'm', 'b'
 ]
 
+export const toInt = Math.floor;
+
 /**
  * Formatting helpers for HTML/Display.
  */
 export const precise = (v, n=2) => {
 
-	if ( isNaN(v) ) return v;
-	else v = Number(v);
+	let r = Number(v);
+	if ( Number.isNaN(r) ) return v;
 
-	if ( v > 1 ) return v.toFixed(n);
-	let b = Math.floor(v);
-	if ( v === b ) return b;
+	if ( r === Math.floor(r) ) return r;
 
-	if ( Math.pow(10,n)*v < 1 ) n += 2;
-	return v.toFixed(n);
+	let d = Math.pow(10,n);
+
+	let abs = Math.abs(r);
+	let c = 1;
+	while ( (abs < d) && abs !== Math.floor(abs) ) {
+
+		abs *= 10;
+		c *= 10;
+
+	}
+
+	abs = Math.round(abs)/c;
+	return r >= 0 ? abs : -abs;
+
 }
+
+/*export const decimal = (v, n=2) => {
+
+	let r = Number(v);
+	if ( Number.isNaN(r) ) return v;
+
+	if ( r === Math.floor(r) ) return r;
+	if ( Math.abs(r)>=1 || r === 0) return r.toPrecision(n);
+
+	if ( Math.pow(10,n)*r < 1 ) n += 2;
+	return r.toFixed(n);
+
+}*/
 
 /**
  * Returns abbreviation of an item based on first letters.

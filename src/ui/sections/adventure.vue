@@ -1,28 +1,40 @@
 <script>
 import Game from '../../game';
 import ItemBase from '../itemsBase.js';
+import { alphasort } from '../../util/util';
+import Settings from '../../modules/settings';
 
 import ProgBar from '../components/progbar.vue';
 import FilterBox from '../components/filterbox.vue';
 
 import Explore from '../items/explore.vue';
 
-import { ENTER_LOC, LOG_COMBAT } from '../../events';
+import { LOG_COMBAT } from '../../events';
+import { EXPLORE, DUNGEON, LOCALE } from '../../values/consts';
 
 const MAX_ITEMS = 7;
 
+/**
+ * Handles display of both Dungeons/Locales.
+ */
 export default {
 
 	props:['state'],
 	mixins:[ItemBase],
 	data(){
+
+		let ops = Settings.getSubVars(EXPLORE);
+
 		return {
+			hideDone:ops.hideDone||false,
+			hideRaid:ops.hideRaid||false,
+			hideLocale:ops.hideLocale||false,
 			log:Game.log,
 			filtered:null
 		}
+
 	},
 	beforeCreate(){
-		this.ENTER_LOC = ENTER_LOC;
 		this.game = Game;
 	},
 	components:{
@@ -32,6 +44,27 @@ export default {
 		inv:()=>import( /* webpackChunkName: "inv-ui" */ './inventory.vue')
 	},
 	computed:{
+
+		chkHideDone:{
+			get(){return this.hideDone;},
+			set(v){
+				this.hideDone = Settings.setSubVar( EXPLORE, 'hideDone', v );
+			}
+		},
+
+		chkHideRaid:{
+			get(){return this.hideRaid;},
+			set(v){
+				this.hideRaid = Settings.setSubVar( EXPLORE, 'hideRaid', v );
+			}
+		},
+
+		chkHideLocale:{
+			get(){return this.hideLocale;},
+			set(v){
+				this.hideLocale = Settings.setSubVar( EXPLORE, 'hideLocale', v );
+			}
+		},
 
 		drops() { return Game.state.drops; },
 
@@ -61,10 +94,27 @@ export default {
 
 		exploring() { return this.explore && this.explore.running; },
 
-		locales(){
+		/**
+		 * Only sort once.
+		 */
+		allLocs(){
 			return this.state.filterItems(
-				it=>(it.type==='dungeon'||it.type==='locale') && !this.locked(it)
+				it=>(it.type===DUNGEON||it.type===LOCALE)
+			).sort( alphasort );
+		},
+
+		locales(){
+
+			let d = this.hideDone;
+			let r = this.hideRaid;
+			let l = this.hideLocale;
+
+			return this.allLocs.filter(
+				it=>!this.locked(it) && (!d||it.value<=0) &&
+				( !r||it.type!==DUNGEON ) &&
+				( !l || it.type !==LOCALE )
 			);
+
 		}
 
 	}
@@ -77,29 +127,53 @@ export default {
 
 <div class="adventure">
 
+		<!-- also contains combat -->
 		<explore v-if="exploring" :explore="explore" />
 
-		<!--<filterbox v-model="filtered" :items="locales" min-items="8" />-->
-		<div class="locales" v-else>
-		<div class="dungeon" v-for="d in locales" :key="d.id">
+		<div class="content" v-else>
+			<div class="top">
 
-			<span>
-			<span>{{ d.name }}</span>
+				<span class="hides">
 
-			<!-- EVENT MUST BE ON OUTER SPAN - CHROME -->
-			<span @mouseenter.capture.stop="emit( 'itemover', $event, d )"><button class="raid-btn" :disabled="!game.canRun(d)"
-				@click="emit( ENTER_LOC, d, true )">
-				Enter</button></span>
+				<span>Hide:</span>
+				<span class="opt"><input :id="elmId('hideDone')" type="checkbox" v-model="chkHideDone">
+				<label :for="elmId('hideDone')">Complete</label></span>
+				<span class="opt"><input :id="elmId('hideRaid')" type="checkbox" v-model="chkHideRaid">
+				<label :for="elmId('hideRaid')">Dungeon</label></span>
+				<span class="opt"><input :id="elmId('hideLocale')" type="checkbox" v-model="chkHideLocale">
+				<label :for="elmId('hideLocale')">Explore</label></span>
+
+
 				</span>
 
-			<span class="bar"><progbar :value="d.exp" :max="d.length" /></span>
+				<filterbox class="inline" v-model="filtered" :items="locales" min-items="8" />
+
+
+			</div>
+			<div class="locales">
+
+				<div class="locale" v-for="d in filtered" :key="d.id">
+
+					<span class="separate">
+						<!-- EVENT MUST BE ON OUTER SPAN - CHROME -->
+					<span @mouseenter.capture.stop="emit( 'itemover', $event, d )"><span>{{ d.sname }}</span>
+
+					<button class="raid-btn" :disabled="!game.canRun(d)" @click="emit( 'action', d )">Enter</button></span>
+
+
+					<span class="sym">{{ d.sym }}</span>
+					</span>
+
+					<progbar :value="d.exp.valueOf()" :max="Number(d.length)" />
+
+				</div>
 
 			</div>
 		</div>
 
-	<div class="raid-bottom">
+	<div class="raid-bottom" v-if="exploring||drops.count>0">
 
-		<inv class="inv" :inv="drops" take=true nosearch=true />
+		<inv class="inv" :inv="drops" take=true />
 		<div class="log">
 			<span v-if="exploring">Exploring...<br></span>
 
@@ -119,56 +193,91 @@ export default {
 
 <style scoped>
 
+.sym {
+	align-self:center;
+}
 div.adventure {
 	display:flex;
-	padding:0px 15px;
+	padding:0 1rem;
 	align-self: flex-start;
-	flex-flow: column nowrap;
-	height:100%;
+	flex-flow: column;
+	padding: 0; margin: 0;
+	height: 100%;
+	overflow-y:hidden;
+
+}
+
+div.adventure .content {
+	flex-basis: 70%;
+	flex-grow: 1;
+	overflow: hidden;
+}
+
+div.top {
+	padding-left: var(--md-gap);
+	justify-content: center;
+}
+
+div.top .hides {
+	display:flex;
+	padding: 0 var(--sm-gap);
+}
+
+div.top .hides > span {
+	padding: 0 var(--sm-gap);
 }
 
 div.locales {
-	display:flex;
-	align-items:flex-start;
+
+	display: grid;
+	grid-template-columns: repeat( auto-fit, 10rem); grid-gap: 0; grid-auto-rows: min-content;
 	flex-grow:1;
-	flex-flow: row wrap;
 	justify-content: space-between;
 	overflow-y: auto;
 	min-height: 50%;
-	border-bottom: 1px solid var(--separator-color);
+	height:100%;
+
+	padding: var(--tiny-gap) var(--md-gap);
 
 }
+
+body.compact div.adventure > div.locales { grid-template-columns: minmax( 9rem, 1fr) repeat( auto-fit, minmax( 9rem, 1fr) ); }
+body.compact div.adventure > div.locales .locale { background: var(--list-entry-background); }
+body.compact div.adventure > div.locales .locale .bar { border: none;}
+
+		div.filter-box{ margin: 0; padding: var(--sm-gap); display: flex; align-items: center; }
+
+		div.adventure > div.locales .locale {
+			padding: var(--md-gap);
+			border-radius: var(--list-entry-border-radius);
+			display: flex; flex-flow: column; height: 100%;
+		}
+		div.adventure > div.locales .locale > span:nth-child(1) {
+			display: flex; flex-flow: row; justify-content: space-between; flex: 1;
+		}
+
+
 
 div.raid-bottom {
 	display:flex;
 	flex-flow: row nowrap;
 	justify-content: space-between;
-	padding-top:8px;
+	border-top: 1px solid var(--separator-color);
+	min-height: 0;
+	max-height: 35%;
 	width:100%;
 	overflow-y:auto;
 }
 
-.adventure .log {
-	flex-basis:48%;
+.menu-content div.adventure .log span { padding: var(--sm-gap); }
+.menu-content div.adventure .log .outlog { overflow-y: auto; overflow-x: hidden; }
+
+.raid-bottom .log {
+	flex: 1; font-size: var(--compact-small-font); border-left: 1px solid var(--separator-color);
+	display:  flex; flex-direction: column;
+	flex-basis:50%;
 	flex-grow:1;
-	margin: 0px 0px 10px 20px;
+	margin: 0;
 }
 
-.active-dungeon {
-	display:flex;
-	flex-basis:40%;
-	min-width:222px;
-	flex-direction:column;
-
-}
-
-div.dungeon {
-	display:flex;
-	flex-basis: 40%;
-	flex-flow: column nowrap;
-}
-
-.bar {
-	align-self: stretch;
-}
 </style>

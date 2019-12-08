@@ -35,6 +35,8 @@ export default {
 <style scoped>
 
 	div.dot-view {
+		max-width: 100%;
+		position:relative;
 		display: flex;
 		flex-direction: row;
 		justify-content: space-around;
@@ -48,16 +50,19 @@ export default {
 	}
 
 	div.dot {
-		max-height:40px;
-		margin:0px 2px;
+		position: relative;
+		overflow-x:visible;
+		overflow-y: visible;
+		max-height:2em;
 		text-align: center;
-		padding:4px;
+		padding:var(--sm-gap);
+		background: unset;
 		border: 1px solid black;
 	}
 
 	div.mini {
-		height:22px;
-		width: 22px;
+		height:var(--lg-gap);
+		width:var(--lg-gap);
 		font-size: 0.7em;
 		padding:0;
 	}

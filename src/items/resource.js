@@ -1,5 +1,5 @@
-import Stat from '../values/stat';
 import GData from './gdata';
+import { RESOURCE } from '../values/consts';
 
 
 export default class Resource extends GData {
@@ -15,30 +15,39 @@ export default class Resource extends GData {
 	 * require from 'unlock'. messy and bad.
 	* @returns {boolean} true if resource value is positive.
 	*/
-	positive(g,s) {
-		return (this._value > 0 || (this._rate.value>0&&( (!this.max) ||this.max.value>0) ) );
+	positive() {
+		return (super.value > 0 || (this.rate.value>0&&( !this.max ||this.max.value>0) ) );
 	}
 
 	/**
 	 * @property {number} current - identical to value except uses floor of values.
 	 */
-	get current() { return this.unit ? Math.floor(this.value) : this._value; }
+	get current() { return this.unit ? Math.floor(super.value.valueOf() ) : super.value.valueOf(); }
+
+	get val(){ return super.value; }
+	set val(v){ super.value = v; }
 
 	/**
 	 * @property {number} value
 	 */
-	get value() { return this._value; }
+	get value() { return super.value; }
 	set value(v) {
 
-		if ( this._max && v > this._max ) {
+		if ( v > this.max ) {
 
-			if ( v < this._value ) this._value = v;
+			if ( v < super.value.base ) super.value = v;
 
 			//
-			else this._value = Math.max( this._max.value, this._value );
+			else super.value = Math.max( this.max.value, super.value.valueOf() );
 
-		} else this._value = (v >= 0 ) ? v :0;
+		} else super.value = (v >= 0 ) ? v :0;
 
+	}
+
+	remove( amt ) {
+		if ( amt >= this.value ) {
+			this.value.base = 0;
+		} else this.value.base -= amt;
 	}
 
 	/**
@@ -48,23 +57,10 @@ export default class Resource extends GData {
 	set delta(v) { this._delta = v; }
 
 	/**
-	 * @property {Stat} max - maximum resource value.
+	 * @property {string} color - optional color override.
 	 */
-	get max() { return this._max; }
-	set max(v) {
-
-		if ( this._max === null || this._max === undefined ) {
-
-			this._max = new Stat(v, 'max', true);
-
-		} else {
-
-			if ( v instanceof Stat ) this._max = v;
-			else this._max.base = v;
-
-		}
-
-	}
+	get color(){return this._color; }
+	set color(v) {this._color=v;}
 
 	/**
 	 *
@@ -76,8 +72,6 @@ export default class Resource extends GData {
 
 		//if ( this._value != vars.val ) console.log( 'this.valu: ' + this._value );
 
-		this._value = this._value || 0;
-
 		if ( this.repeat !== false ) this.repeat = true;
 
 		/**
@@ -85,11 +79,11 @@ export default class Resource extends GData {
 		 */
 		if ( this.unit === null || this.unit === undefined ) this.unit = true;
 
-		if ( this._rate === null || this._rate === undefined ) this._rate = new Stat(0);
+		if ( this.rate === null || this.rate === undefined ) this.rate = 0;
 
-		this._lastValue = this._value;
+		this._lastValue = super.value.valueOf();
 
-		this._type = this._type || 'resource';
+		this.type = this.type || RESOURCE;
 
 		this._delta = 0;
 
@@ -99,9 +93,7 @@ export default class Resource extends GData {
 	 * @returns {boolean} true if an unlocked item is at maximum value.
 	 */
 	maxed() {
-
-		return this.max ? (this._value >= this.max) : false;
-
+		return this.max ? (this.value >= this.max) : false;
 	}
 
 
@@ -111,16 +103,17 @@ export default class Resource extends GData {
 	 */
 	update( dt ) {
 
-		if ( this._rate.value ) {
+		if ( this._rate.value !== 0 ) {
 
-			let v = this._value + this._rate.value*dt;
+			let cur = super.value.base;
+			let v = cur + this._rate.value*dt;
 
-			if ( this._max && v > this._max.value ) v = this._max.value;
+			if ( this.max && v > this.max.value ) v = this.max.value;
 			else if ( v < 0 ) v = 0;
 
 			this._delta = v - this._lastValue;
 
-			this._value = this._lastValue = v;
+			super.value = this._lastValue = v;
 
 		} else this._delta = 0;
 

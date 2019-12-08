@@ -1,8 +1,8 @@
 import Action from './action';
+import GData from './gdata';
+import { setModCounts } from './base';
+import { canTarget } from '../values/consts';
 
-const defaults = {
-	verb:'enchanting'
-};
 
 export default class Enchant extends Action {
 
@@ -21,28 +21,51 @@ export default class Enchant extends Action {
 
 		this.verb = this.verb || 'enchanting';
 
-		this.level = this.level || 0;
+		this.level = this.level || 1;
 		this.need = this.need || 'enchantsource';
+
+		if ( this.mod ) setModCounts( this.mod, 1);
 
 	}
 
 	/**
-	 * Called when enchant is being used on target.
-	 * @param {*} it
+	 * Begin using Enchant on item. Increase item level immediately.
+	 * @param {GData} targ
 	 */
-	usingWith( it ) {
+	beginUseOn( targ ) {
+		targ.enchants = (targ.enchants || 0) + this.level;
+		targ.busy = true;
+	}
 
-		console.log( this.id + ' enchant: ' + it.id );
-		if ( this.adj && !it.name.includes(this.adj) ) {
+	/**
+	 * Called when enchant is being used on target.
+	 * @param {*} targ
+	 */
+	useOn( targ ) {
 
-			it.name += ' ' + this.adj;
+		if ( this.adj && !targ.name.includes(this.adj) ) {
 
-		} else if ( !it.name.includes('Enchanted') ) it.name = 'Enchanted ' + it.name;
+			targ.name += ' ' + this.adj;
 
-		it.enchants = (it.enchants || 0) + this.level;
+		} else if ( !targ.name.includes('Enchanted') ) targ.name = 'Enchanted ' + targ.name;
+
+		targ.busy = false;
 
 		this.exec();
 
+	}
+
+	/**
+	 * Called when enchant stopped.
+	 * @param {*} targ
+	 */
+	onStop(targ){
+
+		if ( targ) {
+			targ.busy = false;
+			targ.enchants -= this.level;
+
+		}
 	}
 
 	/**
@@ -53,14 +76,14 @@ export default class Enchant extends Action {
 
 	/**
 	 * Test if enchantment can be applied to target item.
-	 * @param {Item} it
+	 * @param {Item} targ
 	 */
-	canApply( it ) {
+	canUseOn( targ ) {
 
-		if ( it.enchants + this.level > it.level ) return false;
+		let itLevel = targ.level || 1;
+		if ( (targ.enchants + this.level > itLevel) || targ.busy ) return false;
 
-		return !this._targets ||
-			this._targets.some(t=> it.type === t || it.kind === t || it.slot === t || it.hasTag(t) );
+		return !this._targets || canTarget( this._targets, targ );
 
 	}
 

@@ -1,17 +1,17 @@
-import Inventory from "./inventory";
 import Events, { DEFEATED, ACT_DONE,ACT_BLOCKED, ENC_START } from "../events";
 import { getDelay } from "../chars/char";
 
 import Game from '../game';
 import Encounter from "../items/encounter";
-import { itemRevive } from "../itemgen";
+import { itemRevive } from "../modules/itemgen";
+import { EXPLORE } from "../values/consts";
 
 /**
  * Explore locations of arcane importance.
  */
 export default class Explore {
 
-	get id() { return 'explore';}
+	get id() { return EXPLORE;}
 
 	toJSON() {
 
@@ -55,7 +55,7 @@ export default class Explore {
 	maxed() { return !this.locale || this.locale.maxed(); }
 
 	canUse() { return this.locale && !this.locale.maxed(); }
-	canRun(g) { return this.locale && this.locale.canRun(g); }
+	canRun(g) { return this.locale && !this.player.defeated() && this.locale.canRun(g); }
 
 
 	get encs() { return this.locale ? this.locale.encs : null; }
@@ -80,7 +80,9 @@ export default class Explore {
 
 		this.running = this.running || false;
 
-		this.type = 'explore';
+		this.type = EXPLORE;
+
+		// reactivity.
 		this._enc = this._enc || null;
 
 		/**
@@ -90,22 +92,51 @@ export default class Explore {
 
 	}
 
-	revive( state ) {
+	revive( gs ) {
 
-		this.state = state;
-		this.player = state.player;
+		this.state = gs;
+		this.player = gs.player;
+		this.spelllist = gs.getData('spelllist');
 
-		if ( typeof this.locale === 'string') this.locale = state.getData(this.locale);
+		if ( typeof this.locale === 'string') this.locale = gs.getData(this.locale);
 
 		if ( this._enc ) {
-			this.enc = itemRevive( state, this._enc );
-		}
-		if ( !(this.enc instanceof Encounter ) ){
-			console.warn('wrong encounter: ' + ( this.enc ? this.enc.id : this.enc ) );
-			this.enc = null;
+
+			this.enc = itemRevive( gs, this._enc );
+			if ( this.enc && !(this.enc instanceof Encounter ) ){
+				console.warn('bad enc: ' + (this.enc.id || this.enc) );
+				this.enc = null;
+			}
+
 		}
 
 		if ( !this.locale) this.running = false;
+
+	}
+
+	runWith( d ) {
+
+		this.player.timer = getDelay( this.player.speed );
+
+		if ( d != null ) {
+
+			if ( d != this.locale ) this.enc = null;
+			if ( d.exp >= d.length ) {
+				d.exp = 0;
+			}
+		}
+
+		this.locale = d;
+
+	}
+
+	/**
+	 * try casting spell from player spelllist.
+	*/
+	tryCast(){
+
+		if ( !this.spelllist.canUse(Game) ) return false;
+		return this.spelllist.onUse(Game);
 
 	}
 
@@ -114,13 +145,22 @@ export default class Explore {
 		if ( this.locale == null || this.done ) return;
 
 		if ( !this.enc ) this.nextEnc();
+		else {
 
-		// done by runner.
-		/*if ( this.locale.effect ) { Game.applyEffect( this.locale.effect, dt ); }*/
-		if ( this.enc ) {
+			this.player.timer -= dt;
+			if ( this.player.timer <= 0 ) {
+
+				this.player.timer += getDelay( this.player.speed )
+
+				// attempt to use cast spell first.
+				if ( this.spelllist.count > 0 ) {
+					this.tryCast();
+				}
+
+			}
 
 			this.enc.update( dt );
-			if ( this.player.defeated ) {
+			if ( this.player.defeated() ) {
 
 				Events.emit( DEFEATED, this );
 				Events.emit( ACT_BLOCKED, this, true );
@@ -139,7 +179,7 @@ export default class Explore {
 
 		if ( !this.locale ) return;
 		// get random encounter.
-		this.player.delay = getDelay( this.player.speed );
+		this.player.timer = getDelay( this.player.speed );
 		var e = this.locale.getEnc();
 
 		if ( typeof e === 'string') {
@@ -160,7 +200,7 @@ export default class Explore {
 
 	/**
 	 * encounter complete.
-	 * @param {*} enc
+	 * @param {Encounter} enc
 	 */
 	encDone( enc ) {
 
@@ -196,6 +236,9 @@ export default class Explore {
 
 		if ( this.locale.loot ) Game.getLoot( this.locale.loot, Game.state.drops );
 		if ( this.locale.result ) Game.applyEffect( this.locale.result );
+
+		if ( this.locale.once && this.locale.value === 0 ) Game.applyEffect( this.locale.once );
+
 		this.locale.value++;
 
 		var del = Math.max( 1 + this.player.level - this.locale.level, 1 );
@@ -209,22 +252,6 @@ export default class Explore {
 
 	}
 
-	enter( d ) {
-
-		this.player.timer = this.player.delay;
-
-		if ( d != null ) {
-
-			if ( d != this.locale ) this.enc = null;
-			if ( d.exp >= d.length ) {
-				d.exp = 0;
-			}
-		}
-
-		this.locale = d;
-
-	}
-
-	hasTag(t) { return t==='explore'; }
+	hasTag(t) { return t===EXPLORE; }
 
 }

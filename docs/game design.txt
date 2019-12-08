@@ -1,3 +1,24 @@
+EMOJIS:
+
+
+ U+1F5FB 🗻
+ U+1F3D4 🏔 MOUNTAIN
+
+Volcano:
+U+1F30B
+
+
+U+1F3D5 🏕 CAMPING
+
+
+U+1F3DB 	🏛 BUILDING
+
+U+2B50 	⭐
+U+2697 	⚗
+
+U+1F6CF 	🛏  BED
+U+26B0 	⚰ CASKET
+
 star cinder
 star well
 cloak of ashes
@@ -5,6 +26,51 @@ amulet of xulang
 living fire
 zavid's compass
 tenwick's walking stick
+
+
+
+oubliette
+
+paragon
+
+
+The Archlocks:
+
+Narz/Nargril
+Bodias
+Vezial
+Caladar
+Mog
+Desilla
+Karnivex
+
+eras:
+
+primordial/primal? era before death
+
+era of death / great dying?
+
+the dawning
+
+the wind age
+
+reign of the pillars
+
+the rending
+
+age of silence
+
+war of the locks
+
+
+
+
+HIGH TIER FURNISHINGS
+dimensional library
+deeper dungeon? name?
+dream woods
+
+everflame
 
 
 staff of the dryad
@@ -17,7 +83,7 @@ sirith tal
 
 ellister's boots of bounding
 
-sindel
+sindel - star cinder?
 
 epiphany
 
@@ -138,3 +204,9 @@ lesser
 greater
 major?
 superior
+
+So I have little interest in counting out the motes of dust you take for a lineage,
+and piling them up like shivering dunes of sand,
+to be scattered away with the faintest breeze.
+A hundred of your generations are but a passing day to me,
+and now you come, asking to be forgiven at evening for the mistakes you made this very afternoon.”

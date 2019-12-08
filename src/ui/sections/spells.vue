@@ -1,6 +1,6 @@
 <script>
 import Game from '../../game';
-import Settings from '../../settings';
+import Settings from 'modules/settings';
 import {logObj} from '../../util/util';
 import ItemBase from '../itemsBase';
 
@@ -12,7 +12,7 @@ export default {
 
 	data(){
 
-		let spellOps = Settings.getVars( 'spells');
+		let spellOps = Settings.getSubVars( 'spells');
 
 		return Object.assign( {
 			showList:false,
@@ -31,11 +31,26 @@ export default {
 		spelllist:SpellList
 
 	},
+	created(){
+
+		// remove schools not in allSchools.
+		let all = this.allSchools;
+		let a = [];
+
+		for( let i = this.schools.length-1; i>=0; i-- ) {
+			if ( all[this.schools[i] ] ) a.push(this.schools[i] );
+		}
+
+		this.schools = a;
+
+	},
 	methods:{
 
+		/**
+		 * toggle memorized list.
+		 */
 		toggle(){
-			this.showList = !this.showList;
-			Settings.setVar( 'spells', 'showList', this.showList );
+			this.showList = Settings.setSubVar( 'spells', 'showList', !this.showList );
 		}
 
 	}, computed:{
@@ -43,36 +58,35 @@ export default {
 		state() { return Game.state; },
 
 		/**
-		 * @property {SpellList} spelllist - spells in active use. (dungeons)
+		 * @property {DataList} spelllist - spells in active use. (dungeons)
 		 */
 		list() { return Game.state.spelllist; },
 
 		minLevel:{
 
 			get(){ return this.min; },
-			set(v){
-				this.min = Number(v);
-				Settings.setVar( 'spells', 'min', this.min );
-			}
+			set(v){ this.min = Settings.setSubVar( 'spells', 'min', Number(v) ); }
 
 		},
 
 		viewSchools:{
 
 			get(){
+
+
 				return this.schools;
 			},
 			set(v){
 
 				this.schools = v;
-				Settings.setVar( 'spells', 'schools', this.schools.concat() );
+				Settings.setSubVar( 'spells', 'schools', this.schools.concat() );
 
 			}
 
 		},
 
 		/**
-		 * @property {Object.<string,string>} schools - schools of all unlocked spells.
+		 * @property {.<string,string>} schools - schools of all unlocked spells.
 		 */
 		allSchools() {
 
@@ -149,9 +163,8 @@ export default {
 <div class="bottom">
 
 <book class="spellbook" :viewing="viewing" />
-<div v-show="showList">
-<spelllist class="spelllist" :list="list" />
-</div>
+
+<spelllist v-show="showList" class="spelllist" :list="list" />
 
 </div>
 
@@ -165,7 +178,7 @@ div.spells {
 
 	display:flex;
 	flex-flow: column nowrap;
-	padding: 8px 14px;
+	padding: var(--sm-gap) var(--md-gap);
 	height:100%;
 
 }
@@ -182,22 +195,18 @@ div.spells .spellbook {
 
 div.spells .spelllist {
 	border-left: 1px solid var( --separator-color );
-	width:140px;
-	padding: var( --tiny-gap );
+	padding: var( --sm-gap );
+	width:10em;
 	flex-shrink: 1;
 }
 
-div.spells .filters {
-       flex-flow: row wrap; display: flex;
-        border-bottom: 1px solid var(--separator-color);
-        margin: 0; padding: 4px; line-height: 2em;
-    }
 div.spells div.filters div { box-sizing: border-box; margin: 0; }
 div.spells div.filters div:nth-child(1),
 div.spells div.filters div:nth-child(2) {
         flex-basis: 50%;
-    }
-div.spells div.filters input[type=text] { padding: 4px 0 4px 0; }
+	}
+
+
 div.spells div.filters > div input[type=text],
 div.spells div.filters > div input[type=number] {
 
@@ -206,33 +215,22 @@ div.spells div.filters > div input[type=number] {
 		margin-left: 1em;
 		min-width: unset;
 		max-width: unset;
-		padding: 4px 0;
+		padding:var(--tiny-gap) 0;
 		font-size: 105%;
-		width: 0;
 }
-div.spells div.filters > div { display: flex; align-items: center; }
-div.spells div.filters > div label { flex-basis: 20%; }
-div.spells div.filters > div input { min-width: 0; padding: 0; text-indent: 4px; }
-div.spells div.filters div.checks { margin: 0; flex-basis: 16%; }
 
-		/*div.spellbook .filters {
-			order: 1; flex-flow: row wrap; display: flex; text-align: center;
-			border-bottom: 1px solid var(--separator-color);
-			margin: 0; padding: var(--small-gap); line-height: 2em; justify-content: flex-start;
-		}
-		.div.spellbook div.filters div { box-sizing: border-box; margin: 0; }
-		div.spellbook div.filters div:nth-child(1),
-		div.spellbook div.filters div:nth-child(2) {
-			flex-basis: 50%;
-		}
-		div.spellbook div.filters input[type=text] { padding: var(--small-gap) 0 var(--small-gap) 0; }
-		div.spellbook div.filters > div input[type=text],
-		div.spellbook div.filters > div input[type=number] {
-			flex: 1; margin-right: 1em; margin-left: 1em; min-width: unset; max-width: unset; width: 0;
-		}
-		div.spellbook div.filters > div { display: flex; align-items: center; }
-		div.spellbook div.filters > div label { flex-basis: 20%; }
-		div.spellbook div.filters > div input { min-width: 0; padding: 0; text-indent: var(--small-gap); }
-		div.spellbook div.filters div.checks { margin: 0; padding: 0 0.5em; flex-basis: unset; }*/
+div.spells div.filters > div input { min-width: 0; padding: 0; text-indent: var(--sm-gap); }
+
+
+div.spells .filters {
+        flex-flow: row wrap; display: flex; text-align: center;
+        border-bottom: 1px solid var(--separator-color);
+        margin: 0; padding: var(--sm-gap); line-height: 2em; justify-content: flex-start;
+    }
+
+
+ div.spells div.filters div.checks { margin: 0; padding: 0 0.5em; flex-basis: unset; }
+
+
 
 </style>

@@ -1,34 +1,11 @@
 import {getPropDesc, clone} from 'objecty';
 
 /**
- *
- * @param {array} a
- * @param {array} b
+ * alphabetical sort.
+ * @param {*} a
+ * @param {*} b
  */
-export const pushNonNull = (a,b) => {
-
-	let len = b.length;
-	for( let i = 0; i < len; i++ ) {
-		var e = b[i];
-		if ( e !== null && e !== undefined ) a.push( e );
-	}
-	return a;
-
-}
-
-/**
- * Return first non-null element of array.
- * @param {Array} a
- */
-export const first = (a) =>{
-
-	let len = a.length;
-	for( let i = 0; i < len; i++) {
-		var e = a[i];
-		if ( e !== null && e !== undefined ) return i;
-	}
-
-}
+export const alphasort = (a,b)=> a.name < b.name ? -1 : 1;
 
 /**
  * Ensure the existence of props on an object.
@@ -110,28 +87,6 @@ export const assignOwn = (dest, src ) => {
 
 }
 
-/**
- * Find an item in an array matching predicate, remove and return it.
- * @param {Array} a
- * @param {*} pred
- * @returns {object|null} Item removed or null.
- */
-export const findRemove = (a,pred) => {
-
-	for( let i = a.length-1; i>= 0; i-- ) {
-
-		if ( pred(a[i] ) ) {
-
-			let res = a[i];
-			a.splice( i, 1 );
-			return res;
-
-		}
-
-	}
-	return null;
-
-}
 
 /**
  * Log all public properties.
@@ -212,19 +167,40 @@ export const assignNoFunc = ( dest, src ) => {
 
 }
 
+/**
+ * Only split NON-class keys. Classes shouldn't be
+ * grouped into key-paths.
+ * @param {*} obj
+ */
+export const splitKeys = (obj)=>{
+
+	if ( typeof obj !== 'object' ) return;
+
+	for( let s in obj ){
+
+		var sub = obj[s];
+		if ( s.includes('.')){
+			splitKeyPath( obj, s );
+		}
+		if ( typeof sub === 'object' && (
+			Object.getPrototypeOf(sub) === Object.prototype )
+		) splitKeys( sub );
+
+	}
+
+}
+
 	/**
 	 * For an object variable path key, the key is expanded
-	 * into subojects, each with a single property of the next
-	 * part of the variable path.
+	 * into subojects with keys from the split key path.
 	 * This is done to allow object props to represent variable paths
 	 * without changing all the code to use Maps (with VarPath keys) and not Objects.
 	 * @param {Object} obj - object containing the key to expand.
-	 * @param {string} prop
+	 * @param {string} prop - key being split into subobjects.
 	 */
 	export const splitKeyPath = ( obj, prop ) => {
 
 		let val = obj[prop];
-
 		delete obj[prop];
 
 		let keys = prop.split('.');
@@ -235,10 +211,11 @@ export const assignNoFunc = ( dest, src ) => {
 		for( let i = 0; i < max; i++ ) {
 
 			var cur = obj[ keys[i] ];
-			if ( cur === null || cur === undefined ) cur = {};
-			else if ( typeof cur !== 'object') cur = { value:cur };
 
-			obj = obj[ keys[i] ] = cur;
+			if ( cur === null || cur === undefined ) cur = {};
+			else if ( (typeof cur) !== 'object' || Object.getPrototypeOf(cur) !== Object.prototype ) cur = { value:cur };
+
+			obj = (obj[ keys[i] ] = cur);
 
 		}
 
@@ -302,12 +279,6 @@ export const logObj = ( obj, msg='' ) => {
 	console.log( (msg ? msg + ': ' : '' ) + showObj(obj) );
 }
 
-export const randElm = (arr)=>{
-	if ( arr === null || arr === undefined ) return null;
-
-	const ind = Math.floor( Math.random()*(arr.length));
-	return arr[ind];
-}
 
 /**
  * Returns a random number between [min,max]
@@ -323,51 +294,12 @@ export const uppercase = (s) => {
 	return !s ? '' : (s.length > 1 ? s[0].toUpperCase() + s.slice(1) : s[0].toUpperCase());
 }
 
-/**
- * NOTE: Not reactive with Vue.
- * @param {*} a
- * @param {*} i
- */
-export const quickSplice = ( a, i ) => {
 
-	a[i] = a[ a.length-1 ];
-	a.pop();
-
-}
 
 
 export const indexAfter = ( s, k ) => {
 
 	let i = s.indexOf(k);
 	return i >= 0 ? i + k.length : i;
-
-}
-
-/**
- * Merge two items which may or may not be arrays,
- * and return a ray containing the flattened result of both.
- * If either a or b is already an array, it will be used to join
- * the results in-place.
- * @param {*} a
- * @param {*} b
- * @return {Array}
- */
-export const arrayMerge = ( a, b ) => {
-
-	if ( Array.isArray(a) ) {
-
-		if ( Array.isArray(b) ) return a.concat(b);
-
-		a.push(b);
-
-		return a;
-
-	} else if ( Array.isArray(b) ) {
-
-		// a is not array:
-		b.push(a);
-		return b;
-
-	} else return [a,b];
 
 }

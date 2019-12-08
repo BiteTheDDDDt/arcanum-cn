@@ -2,27 +2,27 @@
 import Game from '../game';
 import Menu from './components/menu.vue';
 import ResoucesView from './resources.vue';
-import Upgrades from './upgrades.vue';
+import Actions from './sections/actions.vue';
 import Quickbar from './quickbar.vue';
 import ItemsBase from './itemsBase';
 import Warn from './components/warn.vue';
 import Vitals from 'ui/vitals.vue';
 import DotView from './dotView.vue';
-import ItemPopup from './itemPopup.vue';
+import ItemPopup from './items/itemPopup.vue';
 import TopBar from './top-bar.vue';
-import SettingsUI from './settings.vue';
-
+import SettingsUI from './sections/settings.vue';
 
 import LogView from './outlog.vue';
 
-import Settings from '../settings';
-import Cheats from '../cheats';
+import Settings from 'modules/settings';
+import Cheats from '../modules/cheats';
 
-import { TRY_BUY, USE, TRY_USE } from '../events';
+import { TRY_BUY, USE, TRY_USE, EVT_STAT } from '../events';
 import { TICK_TIME } from '../game';
+import profile from '../modules/profile';
 
 /**
- * @var {number} SAVE_TIME  - time in seconds between auto-saves.
+ * @const {number} SAVE_TIME  - time in seconds between auto-saves.
  */
 const SAVE_TIME = 30;
 
@@ -35,7 +35,7 @@ export default {
 	mixins:[ItemsBase,Cheats],
 	components:{
 		resources:ResoucesView,
-		upgrades:Upgrades,
+		actions:Actions,
 		itempopup:ItemPopup,
 		vitals:Vitals,
 		log:LogView,
@@ -44,6 +44,7 @@ export default {
 		warn:Warn,
 		'top-bar':TopBar,
 		settings:SettingsUI,
+		choice:()=>import( /* webpackChunkName: "choice-ui" */ './components/choice.vue' ),
 		skills:()=> import( /* webpackChunkName: "skills-ui" */ './sections/skills.vue' ),
 		equip:()=>import( /* webpackChunkName: "equip-ui" */ './sections/equip.vue'),
 		inventory:()=> import( /* webpackChunkName: "inv-ui" */ './sections/inventory.vue' ),
@@ -60,21 +61,20 @@ export default {
 	},
 	data(){
 
+		/**
+		 *
+		 */
 		return {
 			state:null,
 			overItem:null,
 			overTitle:null,
 			overElm:null,
-			psection:null
+			psection:null,
+			profile:profile
 		};
 
 	},
 	created(){
-
-		/**
-	 	* @property {Game} game
-	 	*/
-		this.game = Game;
 
 		this.listen('game-loaded', this.gameLoaded );
 		this.listen('setting', this.onSetting );
@@ -84,12 +84,23 @@ export default {
 
 
 	},
+	beforeDestroy(){
+
+		this.removeListener('game-loaded', this.gameLoaded );
+		this.removeListener('setting', this.onSetting );
+		this.removeListener('pause', this.pause );
+		this.removeListener('unpause', this.unpause );
+
+	},
 	methods:{
 
 		gameLoaded() {
 
 			this.state = Game.state;
-			this.section = this.state.sections.find( v=>v.id==='sect_main');
+
+			let curview = Settings.get('curview') || 'sect_main';
+			//console.warn('VIEW CHANGE: ' +  curview );
+			this.section = this.state.sections.find( v=>v.id===curview );
 
 			this.initEvents();
 
@@ -116,6 +127,8 @@ export default {
 			this.add('unequip', this.onUnequip );
 			this.add('enchant', this.onEnchant );
 			this.add('craft', this.onCraft );
+			// display warn dialog.
+			this.add('warn', this.onWarn );
 
 			this.add( TRY_USE, this.tryUse )
 			this.add( USE, this.onUse );
@@ -123,6 +136,11 @@ export default {
 			this.add('quickslot', this.doQuickslot);
 
 			this.add( TRY_BUY, this.onBuy );
+
+			// dispatch start stats.
+			this.dispatch( EVT_STAT, 'titles', this.state.player.titles.length );
+			this.dispatch( EVT_STAT, 'level', this.state.getData('level').valueOf() );
+			this.dispatch( EVT_STAT, 'prestige', this.state.getData('prestige').valueOf() );
 
 		},
 
@@ -146,7 +164,9 @@ export default {
 
 		startAutoSave() {
 
-			if ( Settings.vars.autoSave && !this.saver ) {
+			if (!this.runner ) return;
+
+			if ( Settings.get('autoSave') && !this.saver ) {
 				//console.log('START AUTOSAVE');
 				this.saver = setInterval( ()=>this.dispatch('autosave'), 1000*SAVE_TIME );
 			}
@@ -168,11 +188,11 @@ export default {
 		},
 		unpause() {
 
-			if ( this.game.loaded ) {
+			if ( Game.loaded ) {
 
+				Game.lastUpdate = Date.now();
 				if ( !this.runner ) {
-					this.game.lastUpdate = Date.now();
-					this.runner = setInterval( ()=>this.game.update(), TICK_TIME );
+					this.runner = setInterval( ()=>Game.update(), TICK_TIME );
 				}
 
 				this.keyListen = evt=>{
@@ -207,34 +227,37 @@ export default {
 
 		},
 
+		/**
+		 *
+		 */
 		doQuickslot(it) {
 
-			 this.game.tryItem( it.getTarget( this.game ) );
+			 Game.tryItem( it.getTarget( Game ) );
 
 		},
 
-		onEquip( it, inv ) { this.game.equip( it,inv ); },
+		onEquip( it, inv ) { Game.equip( it,inv ); },
 
-		onUnequip(slot, it){ this.game.unequip(slot, it) },
+		onUnequip(slot, it){ Game.unequip(slot, it) },
 
-		onTake(it) { this.game.take(it); },
+		onTake(it) { Game.take(it); },
 
-		onCraft(it) { this.game.craft(it); },
+		onCraft(it) { Game.craft(it); },
 
 		/**
 		 * Use instanced item.
 		 */
-		onUse(it) { this.game.use(it); },
+		onUse( it, inv ) { Game.use(it, inv); },
 
 		/**
 		 * @param {Enchant} e - enchantment
 		 * @param {Item} targ - enchant target.
 		 */
 		onEnchant( e, targ ) {
-			this.game.tryUseWith( e, targ );
+			Game.tryUseOn( e, targ );
 		},
 
-		onSell( it, inv, count ) { this.game.trySell( it, inv, count ); },
+		onSell( it, inv, count ) { Game.trySell( it, inv, count ); },
 
 		itemOver(evt, it, title) {
 			this.overItem = it;
@@ -249,41 +272,61 @@ export default {
 
 		},
 
-		onRest(){ this.game.toggleAction( this.state.restAction ); },
+		onToggle(it) { Game.toggleAction(it) },
 
-		onConfirmed(it) { this.game.tryItem(it); },
-
-		tryUse( it ) { this.game.tryItem(it ) },
+		onRest(){Game.toggleAction( this.state.restAction ); },
 
 		/**
 		 * Item clicked.
 		 */
 		onItem(item) {
 
-			if ( item.warn ) this.$refs.warn.warn( item );
-			else this.game.tryItem(item);
+			if ( item.warn ) { //&& !Settings.getSubVar('nowarn', item.id)) {
+
+				this.$refs.warn.show( item );
+
+			} else Game.tryItem(item);
 
 		},
+
+		onConfirmed(it, nowarn) {
+
+			if ( typeof it !== 'string' ) {
+
+				//if ( nowarn ) Settings.setSubVar( 'nowarn', it.id, true );
+				it.warn = !nowarn;
+				Game.tryItem(it);
+			}
+
+		},
+
+		/**
+		 * Warning should trigger.
+		 * @param {string} msg - warning message
+		 * @param {()=>{}} res - success callback.
+		 */
+		onWarn( msg, res ) {
+			this.$refs.warn.show( msg, res );
+		},
+
+		tryUse( it ) { Game.tryItem(it ) },
 
 		/**
 		 * Buy a spell or item without casting/using the item or its mods.
 		 * @property {Item} item - item to buy.
 		 */
-		onBuy(item) { this.game.tryBuy(item); }
+		onBuy(item) { Game.tryBuy( item, true ); }
 
 	},
 	computed:{
 
 		section:{
 
-			get(){
-				return this.psection;
-			},
+			get(){ return this.psection; },
 			set(v){
 
 				this.psection=v;
-				Settings.save();
-
+				Settings.set('curview', v.id );
 			}
 		},
 		menuItems(){ return this.state.sections.filter( it=>!this.locked(it) ); }
@@ -297,7 +340,7 @@ export default {
 
 	<div class="full" @mouseover.capture.stop="emit('itemout')">
 
-		<top-bar>
+		<top-bar :has-hall="profile.hasHall()">
 			<template slot="center">
 			<span class="load-message" v-if="!state">LOADING DATA...</span>
 			<dots v-if="state" :dots="state.player.dots" />
@@ -307,6 +350,7 @@ export default {
 <!-- popups -->
 		<itempopup :item="overItem" :elm="overElm" :title="overTitle" />
 		<warn ref="warn" @confirmed="onConfirmed" />
+		<choice />
 		<settings />
 
 		<div v-if="state" class="game-main">
@@ -316,13 +360,7 @@ export default {
 		<vue-menu class="game-mid" :items="menuItems" v-model="section">
 
 		<template slot="sect_main">
-
-		<div class="main-actions">
-		<upgrades class="action-list" :items="state.actions" />
-		<upgrades class="upgrade-list" :items="state.upgrades" />
-		<upgrades class="upgrade-list" :items="state.classes" />
-		</div>
-
+		<actions class="main-actions" />
 		</template>
 
 		<template slot="sect_skills"><skills :state="state"></skills></template>
@@ -336,8 +374,8 @@ export default {
 		<template slot="sect_equip">
 
 			<div class="inv-equip">
-			<equip :equip="state.equip" />
-			<inventory :inv="state.inventory" />
+				<equip :equip="state.equip" />
+				<inventory :inv="state.inventory" />
 			</div>
 
 		</template>
@@ -353,7 +391,7 @@ export default {
 		<template slot="sect_enchant"><enchanting /></template>
 		</vue-menu>
 
-		<vitals :player="state.player" :state="state" />
+		<vitals :state="state" />
 
 		<log />
 
@@ -370,10 +408,9 @@ div.full {
 	display:flex;
 	background:inherit;
 	flex-direction: column;
-	min-width:500px;
+	min-width:50vw;
 	max-height:100vh;
 	height:100vh;
-	margin: 0px 8px;
 }
 
 div.game-main {
@@ -390,7 +427,7 @@ div.game-mid {
 	border-left: 1px solid var(--separator-color); border-right: 1px solid var(--separator-color);
 	max-height: 100%;
 	height:100%;
-	flex-basis:48%;
+	flex-basis:45%;
 	flex-grow:1;
 	align-content: space-around;
 }
@@ -405,7 +442,7 @@ div.action-list, div.upgrade-list {
 	min-height:0;
 	flex-flow: row wrap;
 	flex-direction: row;
-	padding:0px 6px;
+	padding:0px var(--sm-gap);
 	text-transform: capitalize;
 }
 
@@ -414,13 +451,13 @@ div.action-list {
 }
 
 div.upgrade-list, div.action-list {
-	margin: 8px 2px 2px 8px;
+	margin: var(--md-gap) var(--tiny-gap) var(--tiny-gap) var(--md-gap);
 }
 
 div.upgrade-list {
 	min-height:0;
 	/*border-top: 1px solid var( --separator-color );*/
-	margin-top:4px;
+	margin-top:var(--sm-gap);
 }
 
 div.inv-equip {
@@ -428,10 +465,13 @@ div.inv-equip {
 	padding: 0; display: grid; grid-template-rows: 50% 50%; grid-auto-columns: 1fr;
 }
 
+div.inv-equip > div:nth-child(2) {
+    border-top: 1px solid var(--separator-color);
+}
 
 div.bot-bar {
 	background: inherit;
-	border-top: 1px solid var(--separator-color); padding: var(--large-gap);
+	border-top: 1px solid var(--separator-color); padding: var(--md-gap);
 }
 
 </style>

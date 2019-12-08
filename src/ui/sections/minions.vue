@@ -1,15 +1,18 @@
 <script>
 import Game from '../../game';
 
+import ItemsBase from '../itemsBase';
 import FilterBox from '../components/filterbox.vue';
 
 export default {
 
 	data(){
 		return {
-			filtered:null
+			filtered:null,
+			minions:Game.state.minions
 		};
 	},
+	mixins:[ItemsBase],
 	components:{
 		filterbox:FilterBox
 	},
@@ -17,12 +20,32 @@ export default {
 
 		inRaid() { return Game.state.raid.running },
 
-		minions(){ return Game.state.minions; },
-
 		items(){ return this.minions.filter( v=>v.value>=1 ); },
+
+		rezList(){return Game.state.getTagList('rez').filter(v=>v.owned&&!v.disabled);}
 
 	},
 	methods:{
+
+		/**
+		 * Get list of ressurect spells which can be applied to b.
+		 * @param {Npc}
+		 */
+		rezzes(b){
+			return this.rezList.filter(v=>v.canUseOn(b) );
+		},
+
+		/**
+		 * Use resurrect spell on minion.
+		 * @param {Spell}
+		 * @param {Npc}
+		 */
+		useRez( rez, b) {
+
+			Game.tryItem(rez);
+			b.hp =1;
+
+		},
 
 		levelCap(b){
 			return b.level + this.minions.allyTotal > this.minions.maxAllies;
@@ -37,8 +60,10 @@ export default {
 		},
 
 		toNum(v) {
-			if ( v === undefined ) return 0;
-			return ( (v && typeof v === 'object') ? v.value : v ).toFixed(1);
+
+			if ( v === undefined || v=== null ) return 0;
+			return ( (typeof v === 'object') ? v.value : v ).toFixed(1);
+
 		}
 
 	}
@@ -52,24 +77,30 @@ export default {
 
 	<filterbox v-model="filtered" :items="items" min-items="10" />
 
-	<span v-if="inRaid" class="warn-text">Cannot change active minions while adventuring</span>
+	<div v-if="inRaid" class="warn-text">Cannot change active minions while adventuring</div>
 	<div class="minion-title">
 		<span>{{ minions.count + ' / ' + Math.floor(minions.max) + ' Used' }}</span>
 		<span>Allies Power: {{ minions.allyTotal.toFixed(2) + ' / ' + Math.floor( minions.maxAllies.value ) }}</span></div>
 
 	<div class="char-list">
 	<table>
-		<tr><th>Creature</th><th class="num-align">Hp</th><th>active</th></tr>
+		<tr><th>Creature</th><th class="num-align">Hp</th><th>active</th><th>actions</th></tr>
 		<tr class="char-row" v-for="b in filtered" :key="b.id" @mouseenter.capture.stop="emit( 'itemover',$event,b)">
 			<th><input class="fld-name" type="text" v-model="b.name"></th>
-			<td class="num-align">{{ toNum(b.hp) }} / {{ toNum( b.maxHp ) }}</td>
+			<td class="num-align">{{ toNum(b.hp) }} / {{ toNum( b.hp.max ) }}</td>
 
-			<td v-if="!b.alive">Dead</td>
+			<td v-if="!b.alive">
+				<span>Dead</span>
+
+			</td>
 			<td v-else>
 				<button @click="toggleActive(b)" :disabled="inRaid||( levelCap(b)&&!b.active )">{{ b.active === true ? 'Rest' : 'Activate' }}</button>
 			</td>
+			<td v-if="!b.alive">
+				<button class="rez" v-for="r in rezzes(b)" :key="r.id" :disabled="!usable(r)" @click="useRez(r,b)">{{ r.name }}</button>
+				<confirm @confirm="dismiss(b)">{{ 'Dismiss'}}</confirm>
+			</td>
 
-			<td><confirm @confirm="dismiss(b)">{{ 'Dismiss'}}</confirm></td>
 		</tr>
 	</table>
 	</div>
@@ -80,14 +111,22 @@ export default {
 
 <style scoped>
 
+div.minions .rez {
+	text-transform: capitalize;
+}
+
 div.minions .minion-title {
 	display:flex;
-	width: 380px;
+	width: 12rem;
 	justify-content: space-between;
 }
 
+div.minions .warn-text {
+	margin-bottom: var( --sm-gap );
+}
 div.minions {
-	padding-left:16px;
+	padding-left:1rem;
+	padding-top: var( --tiny-gap );
 	height:100%;
 }
 
@@ -97,16 +136,16 @@ div.minions {
 }
 
 table {
-	border-spacing: 4px 0px;
+	border-spacing: var(--sm-gap) 0;
 	border-collapse: collapse;
-	row-gap: 4px;
-	column-gap: 10px;
+	row-gap: var(--sm-gap);
+	column-gap: var(--md-gap);
 
 }
 
 tr:first-child th {
 	border-bottom: 1pt solid black;
-	margin: 4px 4px;
+	margin: var(--sm-gap);
 }
 
 tr > th:first-of-type {
@@ -114,11 +153,11 @@ tr > th:first-of-type {
 }
 
 th {
-	padding: 4px 10px;
+	padding: var(--sm-gap) var(--md-gap);
 }
 
 td.num-align {
-	padding: 8px;
+	padding: var(--md-gap);
 }
 
 </style>

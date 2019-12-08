@@ -1,18 +1,19 @@
 import Range from "../values/range";
 import {ParseMods } from "../values/mod";
+import { setModCounts } from "../items/base";
 
 export default class Dot {
 
 	toJSON(){
 
 		if ( !this.id ) {
-			console.warn('MISSING DOT ID: ' + this );
+			console.warn('NO DOT ID: ' + this );
 			return undefined;
 		}
 
 		return {
 
-			id:this.id || undefined,
+			id:this.id,
 			kind:this.kind || undefined,
 			name:this.name || undefined,
 			dmg:this.damage || undefined,
@@ -25,6 +26,7 @@ export default class Dot {
 
 	}
 
+	get dmg(){return this.damage;}
 	set dmg(v) { this.damage = v; }
 
 	get damage() { return this._damage; }
@@ -45,6 +47,8 @@ export default class Dot {
 
 	}
 
+	valueOf(){return this.duration > 0 ? 1 : 0; }
+
 	constructor( vars, source, name ){
 
 		Object.assign( this, vars );
@@ -52,15 +56,20 @@ export default class Dot {
 		this.source = this.source || source || null;
 
 		if ( !this.name ) this.name = name || ( source ? source.name : '' );
-		this.id = this.id || this.name || (source ? source.id || source.name : '');
 
-		if ( !this.id ) console.warn('BAD DOT ID: ' + this.name );
+		if ( !this.id ) console.error('BAD DOT ID: ' + this.name );
+
+		if ( !this.duration) this.duration = 10;
 
 		/**
 		 * @property {boolean} stack - ability of dot to stack.
 		 */
+		if ( this.mod ){
 
-		if ( this.mod ) ParseMods( this.mod, this.id );
+			this.mod = ParseMods( this.mod, this.id );
+
+			setModCounts( this.mod, this );
+		}
 
 		/**
 		 * @private {number} acc - integer accumulator
@@ -72,11 +81,7 @@ export default class Dot {
 	revive(state) {
 
 		if ( this.source && typeof this.source === 'string') this.source = state.getData( this.source );
-
-		console.log('DOT DUR: ' + this.duration );
-		console.log('ACC: ' + this.acc );
-
-		//if ( this.mod ) this.mod = this.reviveMod(this.mod);
+		//if ( this.mod ) this.mod = ParseMods(this.mod, this.id);
 
 	}
 
@@ -93,6 +98,7 @@ export default class Dot {
 
 			this.acc--;
 			this.duration--;
+
 			return 1;
 
 		}
@@ -100,21 +106,5 @@ export default class Dot {
 		return 0;
 
 	}
-
-	/*reviveMod( m ){
-
-		if ( typeof m === 'object' && !(m instanceof Mod) ) {
-
-
-			if ( m.id ) return new Mod(m);
-
-			for( let p in m ) {
-				m[p] = this.reviveMod( m[p] );
-			}
-
-		}
-		return m;
-
-	}*/
 
 }

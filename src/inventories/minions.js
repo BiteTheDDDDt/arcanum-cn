@@ -1,7 +1,9 @@
 import Inventory from "./inventory";
-import { ALLY } from "../chars/npc";
+import { TEAM_ALLY } from "../chars/npc";
 import Events, { ALLY_DIED, ACT_CHANGED } from '../events';
 import Stat from "../values/stat";
+import { NPC } from "../values/consts";
+
 
 export default class Minions extends Inventory {
 
@@ -52,7 +54,7 @@ export default class Minions extends Inventory {
 
 		super.add(m);
 
-		m.team = ALLY;
+		m.team = TEAM_ALLY;
 
 		if ( m.active ) {
 			this.setActive(m)
@@ -110,21 +112,28 @@ export default class Minions extends Inventory {
 
 		let used = 0;
 
-		for( let p in this.items ) {
+		for( let i = this.items.length-1; i>=0; i-- ) {
 
-			var m = this.items[p];
+			var m = this.items[i];
+			if ( m.type !== NPC ) {
+				this.items.splice( i, 1 );
+				continue;
+			}
+
 			if ( m.active ) {
 
 				used += m.level;
-				/** @todo can't test vs. maxAllies here because mods havent been applied yet. */
+				/** @note can't test vs. maxAllies here because mods havent been applied yet. */
 				this._active.push(m);
 
 			}
 
-			/** @compatibiltiy */
-			m.team = ALLY;
+			/** @compat */
+			m.team = TEAM_ALLY;
 
 		}
+
+		this.calcUsed();
 
 		this.allyTotal = used;
 

@@ -1,11 +1,14 @@
 import Range from "../values/range";
 import { assignPublic } from "../util/util";
+import Stat from "../values/stat";
+import { ParseMods } from "../values/mod";
 
 export default class Attack {
 
 	toJSON(){
 
 		return {
+			name:this.name,
 			dmg:this._damage,
 			tohit:this.tohit||undefined,
 			bonus:this.bonus||undefined,
@@ -15,6 +18,14 @@ export default class Attack {
 		};
 
 	}
+
+	get dot(){ return this._dot; }
+	set dot(v) {
+		this._dot =v;
+		if ( v.mod ) v.mod = ParseMods( v.mod, this.dot.id || this.dot.name || this.name );
+	}
+	get name() {return this._name; }
+	set name(v) { this._name = v;}
 
 	get kind(){ return this._kind; }
 	set kind(k){
@@ -27,30 +38,38 @@ export default class Attack {
 	}
 
 	/**
-	 * @property {'all'|'self'|'allies'} targets - target of attack.
+	 * @property {string} targets - target of attack.
 	 */
 	get targets() { return this._targets; }
 	set targets(v) { this._targets=v;}
 
 	get bonus() { return this._bonus; }
 	set bonus(v) {
+
 		/** @todo mod apply bug. **/
-		this._bonus = ( typeof v === 'object') ? (v.value || 0) : v;
+		if ( this._bonus ) {
+
+			this._bonus.base = v instanceof Stat ? v.base : v;
+
+		} else this._bonus = new Stat( v );
+
 	}
 
+	get dmg() { return this.damage;}
 	set dmg(v) { this.damage = v; }
 
 	get damage() { return this._damage; }
 	set damage(v) {
 
-		if ( v instanceof Range || typeof v === 'string' || typeof v ==='object') this._damage = new Range(v);
+		if (typeof v === 'string' || typeof v ==='object') this._damage = new Range(v);
 		else if ( !isNaN(v) ) this._damage = Number(v);
-		else if ( typeof v === 'string' || typeof v === 'object') this._damage = new Range(v);
 
 	}
 
 	clone(){
 		let a = new Attack({
+			id:this.id||undefined,
+			name:this.name,
 			damage:this.damage,
 			bonus:this.bonus,
 			tohit:this.tohit,
@@ -64,7 +83,10 @@ export default class Attack {
 
 	constructor( vars=null ){
 
-		if ( vars ) assignPublic(this,vars); //Object.assign(this,vars);
+		if ( vars ) {
+			this.id = vars.id;
+			assignPublic(this,vars); //Object.assign(this,vars);
+		}
 
 		this.damage = this.damage || 0;
 		this.bonus = this.bonus || 0;

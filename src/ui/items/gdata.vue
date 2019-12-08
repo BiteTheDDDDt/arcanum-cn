@@ -22,7 +22,12 @@ export default {
 	},
 	computed:{
 
+		name(){return this.item.sname || this.item.name; },
 		sellPrice(){ return Game.sellPrice(this.item);},
+
+		nextImprove(){
+			return this.nextAt > 0 ? this.nextAt : this.nextEvery;
+		},
 
 		/**
 		 * Occurance of next 'every' improvement relative to cur value.
@@ -82,12 +87,13 @@ export default {
 
 <div class="item-info">
 	<span class="separate">
-		<span class="item-name">{{item.name}}</span>
+		<span class="item-name">{{name}}</span>
 
-			<span v-if="item.type==='resource'">{{
-				item.current.toFixed(0) + ( item.max ? (' / ' + Math.floor(item.max.value ) ) :'' ) }}</span>
+			<span v-if="item.type==='resource'||item.type==='stat'">{{ item.current.toFixed(0) + ( item.max ? (' / ' + Math.floor(item.max.value ) ) :'' ) }}</span>
 			<span v-else-if="item.type==='furniture'">max: {{
 				item.max ? Math.floor(item.max.value ) : ( (item.repeat) ? '&infin;' : 1) }}</span>
+
+			<span v-if="item.sym">{{item.sym}}</span>
 
 
 	</span>
@@ -97,7 +103,8 @@ export default {
 
 
 		<span class="separate">
-			<span v-if="item.level&&item.type!=='action'">lvl: {{item.level}}</span>
+			<span v-if="item.showLevel">lvl: {{item.showLevel()}}</span>
+			<span v-else-if="item.level">lvl: {{item.level}}</span>
 			<span v-if="item.slot">slot: {{ item.slot }}</span>
 		</span>
 		<span v-if="item.at&&(nextAt>0)" class="note-text">
@@ -123,18 +130,16 @@ export default {
 
 		<attack v-if="item.attack" :item="item.attack" />
 
-		<div v-if="item.effect||item.mod||item.result||item.dot||item.use" class="note-text"><hr>effects:</div>
-
-
+		<div v-if="item.effect||item.mod||item.result||item.dot||item.use" class="popup-sect">effects:</div>
 
 		<dot v-if="item.dot" :dot="item.dot" />
 
-		<info v-if="item.effect" :info="item.effect" :rate="runnable(item)" />
+		<info v-if="item.effect" :info="item.effect" :rate="item.perpetual||item.length>0" />
 		<info v-if="item.mod" :info="item.mod" />
 		<info v-if="item.use" :info="item.use" />
 		<info v-if="item.result" :info="item.result" />
 
-		<div v-if="item.lock||item.disable" class="note-text"><hr>locks:</div>
+		<div v-if="item.lock||item.disable" class="popup-sect">locks:</div>
 		<info v-if="item.lock" :info="item.lock" />
 		<info v-if="item.disable" :info="item.disable" />
 
@@ -151,17 +156,17 @@ export default {
 	padding:0;
 }
 
-hr {
-margin-bottom: 4px;
-}
-
 div.item-desc {
-	margin: 5px 0px 10px;
+	margin: 0.6em 0 0.9em;
 	font-size: 0.96em;
 }
 
 .item-name {
 	font-weight: bold;
+}
+
+.separate > span {
+	margin-left:var(--small-gap);
 }
 .flavor {
 	font-style: italic;

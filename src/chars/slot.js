@@ -1,5 +1,4 @@
-import { itemRevive } from "../itemgen";
-import Wearable from "./wearable";
+import { itemRevive } from "../modules/itemgen";
 import Item from "../items/item";
 
 /**
@@ -70,26 +69,14 @@ export default class Slot {
 	 */
 	equip( it ){
 
-		let spaces = it.numslots ? it.numslots : 1;
+		let spaces = it.numslots || 1;
 
 		// won't fit in slot.
 		if ( spaces > this.max ) return false;
 
 		if ( this.multi === true ) {
 
-
-			this.item.push(it);
-			for( let i = this.item.length-2; i >= 0; i-- ) {
-
-				spaces += (this.item[i].numslots || 1);
-				if ( spaces > this.max ) {
-
-					return this.item.splice( 0, i+1);
-
-				}
-
-			}
-			return true;
+			return this.addMult( it, spaces );
 
 		} else if ( !this.item ) {
 
@@ -104,6 +91,31 @@ export default class Slot {
 			return tmp;
 
 		}
+
+	}
+
+	/**
+	 * Add item when items is array.
+	 * @param {*} it
+	 * @param {number} spaces - used spaces.
+	 */
+	addMult( it, spaces ){
+
+		if ( this.item.find(v=>v.id===it.id) ) return false;
+
+		this.item.push(it);
+		for( let i = this.item.length-2; i >= 0; i-- ) {
+
+			spaces += (this.item[i].numslots || 1);
+			if ( spaces > this.max ) {
+
+				return this.item.splice( 0, i+1);
+
+			}
+
+		}
+		return true;
+
 
 	}
 
@@ -165,13 +177,22 @@ export default class Slot {
 		if ( this.item === null || this.item === undefined ) return;
 		if ( Array.isArray( this.item) ) {
 
-			for( let i = this.item.length-1; i>= 0; i-- ) {
+			let ids = {};
 
-				var it = itemRevive(state, this.item[i]);
-				if (!it) {
+			let all = this.item;
+			for( let i = all.length-1; i>= 0; i-- ) {
 
-					this.item.splice(i,1);
-				} else this.item[i] = it;
+				var it = itemRevive(state, all[i]);
+
+				if ( !it || ids[it.id]===true) {
+
+					all.splice(i,1);
+
+				} else {
+					all[i] = it;
+					ids[ it.id ] = true;
+				}
+
 			}
 
 		} else this.item = itemRevive(state, this.item );

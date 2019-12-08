@@ -36,7 +36,7 @@ export default {
 
 				<button v-if="s.owned" @click="emit('spell', s)" :disabled="!s.canUse(game)">Cast</button>
 
-				<button v-else @click="emit('buy', s)" :disabled="!s.canUse(game)">Learn</button>
+				<button v-else @click="emit('buy', s)" :disabled="!s.canBuy(game)">Learn</button>
 
 			</td>
 
@@ -49,10 +49,10 @@ export default {
 <style scoped>
 
 .spellbook {
-	padding: 4px;
+	padding: var(--sm-gap);
 	overflow-y: auto;
 	height:100%;
-	margin-bottom: 20px;
+	margin-bottom: 1.2rem;
 }
 .spellbook table { display: flex; flex-flow: row wrap; justify-content: space-between; }
 .spellbook table tr { display:flex; flex-basis: 48%; }
@@ -63,13 +63,13 @@ export default {
 .spellbook table td { display: flex; }
 
  div.spellbook { flex-direction: column; padding: 0; }
-div.spellbook { margin: 0; padding: var(--medium-gap); }
+div.spellbook { margin: 0; padding: var(--md-gap); }
 
  div.spellbook table {
-        display: grid; grid-template-columns: minmax( 256px, 1fr ) repeat( auto-fit, minmax( 256px, 1fr ));
+        display: grid; grid-template-columns: minmax( 10rem, 1fr ) repeat( auto-fit, minmax( 10rem, 1fr ));
         grid-auto-rows:  1fr;
     }
-    div.spellbook  table tr { padding: var(--small-gap); display:flex; align-items:center; }
+    div.spellbook  table tr { padding: var(--sm-gap); display:flex; align-items:center; }
     div.spellbook  table tr td:nth-child(1),
     div.spellbook  table tr td:nth-child(2){ flex: 1; }
     div.spellbook  table tr td:nth-child(2){ flex: 2; }

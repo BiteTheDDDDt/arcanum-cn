@@ -18,10 +18,10 @@ export default {
 			return this.skill.rate.value.toFixed(1);
 		},
 		exp(){
-			return this.skill.exp.toFixed(0);
+			return Math.floor( this.skill.exp );
 		},
 		length(){
-			return this.skill.length.toFixed(0);
+			return Math.floor( this.skill.length );
 		}
 	}
 
@@ -34,7 +34,7 @@ export default {
 
 		<span class="separate" @mouseenter.capture.stop="emit( 'itemover', $event, skill )">
 			<span>{{ skill.name }}</span>&nbsp;
-			<span v-if="skill.owned">{{ 'lvl: ' + Math.floor(skill.value) + '/' + Math.floor(skill.max) }}<button class="train-btn"
+			<span v-if="skill.owned">{{ 'lvl: ' + Math.floor(skill.valueOf()) + '/' + Math.floor(skill.max.valueOf()) }}<button class="train-btn"
 			@click="$emit('train',skill)" :disabled="!this.usable(skill)">
 				{{ active ? 'Stop' : 'Train' }}</button></span>
 
@@ -62,8 +62,8 @@ span.separate {
 	align-items: center;
 }
 button {
-	max-height:36px;
-	margin-top:4px;
-	padding:3px;
+	max-height:2.1rem;
+	margin-top:var(--sm-gap);
+	padding:var(--sm-gap);
 }
 </style>

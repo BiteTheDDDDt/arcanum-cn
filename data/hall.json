@@ -1,0 +1,103 @@
+{
+
+	"module":"hall",
+	"sym":"🏰",
+
+	"data":{
+
+		"events":[
+			{
+
+				"id":"evt_hall",
+				"name":"Wizard's Hall",
+				"desc":"Across the aeons wizards gather in hidden halls to exchange lore and augment their powers."
+			}
+		],
+		"upgrades":[
+
+			{
+				"id":"expandhall",
+				"name":"expanded halls",
+				"require":"tier5",
+				"max":3,
+				"cost":{
+					"prestige":50
+				},
+				"mod":{
+					"hallSize":1
+				}
+			},
+			{
+				"id":"spellspire",
+				"max":3,
+				"require":"tier6",
+				"desc":"A conduit for magic energy.",
+				"cost":{
+					"prestige":15
+				},
+				"mod":{
+					"spellcraft.max":"20%"
+				}
+
+			},
+			{
+				"id":"dreamchamber",
+				"name":"dream chamber",
+				"desc":"In some time and place, even dreams have happened before.",
+				"require":"tier5",
+				"max":1,
+				"cost":{
+					"prestige":40
+				},"mod":{
+					"dreams.rate":0.0001,
+					"dreams.max":5
+				}
+			},
+			{
+				"id":"timewell",
+				"require":"tier6",
+				"max":1,
+				"cost":{
+					"prestige":75
+				},
+				"mod":{
+					"runner.max":1
+				}
+			}
+
+		],
+		"stats":[
+
+			{
+				"id":"hallSize",
+				"locked":false,
+				"val":3
+			},
+			{
+				"id":"hallPoints",
+				"alias":"points",
+				"hide":true,
+				"locked":false,
+				"val":0,
+				"mod":{
+					"prestige":1
+				}
+
+			},
+			{
+				"id":"prestige",
+				"name":"hall prestige",
+				"require":"evt_hall",
+				"val":0,
+				"locked":false,
+				"mod":{
+					"skill.rate":"0.1%",
+					"stress.max":"0.1%"
+				}
+			}
+
+		]
+	}
+
+
+}

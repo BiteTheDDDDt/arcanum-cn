@@ -4,10 +4,11 @@ import Game from '../game';
 import { tryDamage } from '../composites/combat';
 
 import Char, { getDelay } from './char';
-import Events, { LEVEL_UP, NEW_TITLE } from "../events";
+import Events, { LEVEL_UP, NEW_TITLE, CHAR_TITLE, CHAR_NAME, CHAR_CLASS, EVT_STAT } from "../events";
 import Wearable from "./wearable";
-import events from "../events";
-
+import GData from "../items/gdata";
+import { toStats } from "../util/dataUtil";
+import { RESOURCE } from "../values/consts";
 
 const Fists = new Wearable({
 
@@ -23,6 +24,14 @@ const Fists = new Wearable({
 });
 
 /**
+* Create a hall id so players can be unique per hall.
+* @returns {string}
+ */
+const makeHallId = () => {
+	return Math.random().toString(36);
+}
+
+/**
  * @constant {number} EXP_RATE
  */
 const EXP_RATE = 0.125;
@@ -32,8 +41,12 @@ export default class Player extends Char {
 	get level() { return this._level; }
 	set level(v) {
 
-		if ( this._level && (typeof v === 'number') ) this._level.value = v;
-		else this._level = v;
+		if ( this._level && (typeof v === 'number') ) {
+
+			this._level.value = v;
+
+		} else this._level = v;
+
 	}
 
 	/**
@@ -41,10 +54,7 @@ export default class Player extends Char {
 	 * @property {string} title
 	 */
 	get title() { return this._title; }
-	set title(v) {
-		this._title =v;
-		if ( !this.titles.includes(v) ) this.titles.push(v);
-	}
+	set title(v) { this._title =v; }
 
 	/**
 	 * @property {string[]} titles
@@ -69,8 +79,11 @@ export default class Player extends Char {
 		}
 	}
 
-	get className() { return this._className; }
-	set className(v) { this._className = v; }
+	/**
+	 * @property {string} gclass - name of last game class attained.
+	 */
+	get gclass() { return this._gclass; }
+	set gclass(v) { this._gclass = v; }
 
 	/**
 	 * @property {number} next - exp to level up.
@@ -82,8 +95,24 @@ export default class Player extends Char {
 	set hp(v) {
 
 		if ( this._hp ) this._hp.value = v;
-		else if ( v instanceof Resource ) this._hp = v;
-		else this._hp = new Resource( {value:v} );
+		else if ( v instanceof GData ) this._hp = v;
+		else console.error('Invalid Hp: ' + v );
+	}
+
+	get damage(){ return this._damage; }
+	set damage(v) {
+		this._damage = v instanceof Stat ? v : new Stat(v)
+	}
+
+	/**
+	 * @property {Resource} speed
+	 * speed normalized to an average of level=speed.
+	 */
+	get speed() { return this._speed; }
+	set speed(v) {
+
+		if ( this._speed ) this._speed.value = v;
+		else if ( v instanceof GData ) this._speed = v;
 
 	}
 
@@ -95,42 +124,33 @@ export default class Player extends Char {
 
 		if ( v ){
 			this._weapon = v;
-			if ( !(v instanceof Wearable) ) console.log('NON WEAPON SOURCE');
+			if ( !(v instanceof Wearable) ) console.log('NON WEAPON: ' + v);
 		} else {
 			this._weapon = Fists;
 		}
 	}
 
-	/**
-	 * @property {Resource} speed
-	 * speed normalized to an average of level=speed.
-	 */
-	get speed() { return this._speed; }
-	set speed(v) {
-
-		this._speed = v;
-		this.delay = getDelay( this._speed.value );
-
-	}
-
-	get mount() { return this._mount; }
-	set mount(v) {
-		this._mount = v;
-	}
-
 	get alive() {return this._hp.value > 0; }
 
-	get defeated() {
-
-		if ( this._hp.value <= 0 ) return true;
-		for( let i = this.stressors.length-1; i>=0; i--){
-
-			var s = this.stressors[i];
-			if ( s.value >= s.max.value ) return true;
-		}
-		return false;
-
+	get points(){ return this._points; }
+	set points(v){
+		this._points = v instanceof Stat ? v : new Stat(v);
 	}
+
+	/**
+	 * @property {.<string,Stat>} hits - tohit bonuses per damage kind.
+	 */
+	get hits(){ return this._hits ? this._hits : (this._hits = {}) }
+	set hits(v){ this._hits = toStats(v); }
+
+	/**
+	 * @property {.<string,Stat>} bonuses - damage bonuses per damage kind.
+	 */
+	get bonuses(){ return this._bonuses ? this._bonuses : (this._bonuses = {}) }
+	set bonuses(v){ this._bonuses = toStats(v); }
+
+	get hid(){return this._hid;}
+	set hid(v){this._hid=v;}
 
 	/**
 	 * NOTE: Elements that are themselves Items are not encoded,
@@ -140,6 +160,8 @@ export default class Player extends Char {
 	toJSON() {
 
 		let data = {};
+
+		data.hid = this.hid;
 
 		data.defense = ( this.defense );
 		data.tohit = ( this.tohit );
@@ -156,14 +178,17 @@ export default class Player extends Char {
 		data.damage = ( this.damage );
 		data.dots = ( this.dots );
 
+		data.points = this.points;
+
 		data.bonuses = this.bonuses;
+		data.hits = this.hits;
 		data.immunities = this.immunities;
 		data.resist = this.resist;
 
 		data.retreat = this.retreat||undefined;
 
 		data.states = this.states;
-		data.className = this.className;
+		data.gclass = this.gclass;
 
 		if ( this.weapon ) data.weapon = this.weapon.id;
 
@@ -171,14 +196,55 @@ export default class Player extends Char {
 
 	}
 
+	/**
+	 * Get bonus damage for an attack type.
+	 * @param {string} kind
+	 */
+	getDamage( kind ){
+
+		return this.damage.valueOf() + ( kind ? this.bonuses[kind] || 0 : 0 );
+		/*if ( kind && this.bonuses[kind] ) {
+			console.log('BONUS DMG: ' + this.bonuses[kind].valueOf() )
+		}
+		return d;*/
+
+	}
+
+	/**
+	 * Get player hit bonus for damage type.
+	 * @param {*} kind
+	 */
+	getHit(kind){
+
+		return this.tohit.valueOf() + ( kind ? this.hits[kind] || 0 : 0 );
+
+		/*if ( kind && this.hits[kind] ) {
+			console.log('TOHIT BONUS: ' + this.hits[kind].valueOf() )
+
+		}
+		return d;*/
+
+	}
+
+	get sp(){return this._sp;}
+	set sp(v) {
+
+		if ( v instanceof GData ) this._sp = v;
+		else this._sp.value = v;
+
+	}
+
+
 	constructor( vars=null ){
 
 		super(vars);
 
 		this.id = this.type = "player";
+		if ( !vars || !vars.name) this.name = 'wizrobe';
+
+		if ( !this.hid ) this.hid = makeHallId();
 
 		//if ( vars ) Object.assign( this, vars );
-
 		if ( !this.level ) this.level = 0;
 		this._title = this._title || 'waif';
 
@@ -188,9 +254,240 @@ export default class Player extends Char {
 
 		this.retreat = this.retreat || 0;
 
+		this.initStates();
+
 		if ( !this.tohit) this.tohit = 1;
 		if ( !this.defense ) this.defense = 0;
 
+		this.alignment = this.alignment || 'neutral';
+
+		if ( this.damage === null || this.damage === undefined ) this.damage = 1;
+
+		if ( !this.weapon ) this.weapon = Fists;
+
+	}
+
+	/**
+	 *
+	 * @param {string} gclass - name of class added
+	 */
+	setClass( gclass ) {
+
+		this.gclass = gclass;
+		this.setTitle( gclass );
+		Events.emit( CHAR_CLASS, this );
+
+	}
+
+	setName( name ) {
+
+		if ( !name ) return;
+		this.name = name;
+		Events.emit( CHAR_NAME, this );
+
+	}
+
+	setTitle( title ) {
+
+		if ( !title ) return;
+
+		this.title = title;
+		this.addTitle(title);
+
+		Events.emit( CHAR_TITLE, this );
+
+	}
+
+	addTitle( title ){
+
+		if ( !this._titles.includes(title) ) {
+
+			this._titles.push(title);
+			Events.emit( NEW_TITLE, title, this._titles.length );
+
+		}
+
+	}
+
+
+	revive( state ) {
+
+		super.revive(state);
+
+		if ( this.weapon && (typeof this.weapon === 'string') ) this.weapon = state.equip.find( this.weapon );
+
+		this.spelllist = state.getData('spelllist');
+		if ( this.spelllist.max.value === 0 ) this.spelllist.max.value = this.level.valueOf();
+
+		// copy in stressors to test player defeats.
+		this.stressors = state.stressors;
+
+
+	}
+
+	/**
+	 * Called once game actually begins. Dot-mods can't be applied
+	 * before game start because they can trigger game functions.
+	 */
+	begin() {
+
+		for( let i = this.dots.length-1; i>=0; i-- ){
+			if ( this.dots[i].mod) Game.addMod( this.dots[i].mod, 1 );
+		}
+
+	}
+
+	/**
+	 * Determine if player has fully rested and can re-enter a locale.
+	 */
+	rested() {
+
+		if ( !this.hp.maxed() && this.stamina.maxed()) return false;
+		for( let i = this.stressors.length-1; i>=0; i--){
+
+			if ( !this.stressors[i].maxed() ) return false;
+		}
+		return true;
+
+	}
+
+	defeated() {
+
+		if ( this._hp.value <= 0 || this.stamina.value < 0 ) return true;
+		for( let i = this.stressors.length-1; i>=0; i--){
+
+			var s = this.stressors[i];
+			if ( s.value >= s.max.value ) return true;
+		}
+		return false;
+
+	}
+
+	/**
+	 * Perform update effects.
+	 * @param {number} dt - elapsed time.
+	 */
+	update( dt ) {
+
+		let updates = this.dots;
+		let dot;
+
+		for( let i = updates.length-1; i >= 0; i-- ) {
+
+			dot = updates[i];
+			if ( !dot.tick(dt) ) continue;
+
+			// ignore any remainder beyond 0.
+			// @note: dots tick at second-intervals, => no dt.
+			if ( dot.effect ) Game.applyEffect( dot.effect, 1 );
+			if ( dot.damage ) tryDamage( this, dot, dot.source );
+
+			if ( dot.duration <= dt ) {
+
+				updates.splice( i, 1 );
+				if ( dot.mod ) Game.addMod( dot.mod, -1 );
+
+			}
+
+
+		}
+		if ( this.regen ) this.hp += this.regen*dt;
+
+	}
+
+	/**
+	 * Get combat action.
+	 * @param {*} dt
+	 */
+	combat(dt) {
+
+		this.timer -= dt;
+		if ( this.timer <= 0 ) {
+
+			this.timer += getDelay(this.speed);
+
+			// attempt to use spell first.
+			if ( this.spelllist.count === 0 || !this.tryCast() ) {
+				return this.weapon.attack;
+			}
+
+		}
+
+	}
+
+	/**
+	 * try casting spell from player spelllist.
+	 */
+	tryCast(){
+		if ( !this.spelllist.onUse(Game) ) return false;
+	}
+
+	/**
+	 * @returns {Resource[]} - list of all resources defined by Player.
+	 */
+	getResources() {
+
+		let res =[];
+
+		for( let p in this ) {
+
+			var obj = this[p];
+			if ( obj !== null && typeof obj === 'object' && obj.type === RESOURCE) res.push(obj);
+
+		}
+
+		return res;
+
+	}
+
+	/**
+	 * Override char applyDot to apply to Game.
+	 */
+	applyDot( dot ){
+		Game.addMod( dot.mod, 1 );
+	}
+
+	/* getResist( kind ) {
+		return this._resist[kind].value / 100;
+	}*/
+
+	removeResist( kind, amt ) {
+		if ( this._resist[kind] ) this._resist[kind].base -= amt;
+	}
+
+	addResist( kind, amt ) {
+
+		if ( !this._resist[kind] ) this._resist[kind] = new Stat( amt );
+		else this._resist[kind].base += amt;
+
+	}
+
+	levelUp() {
+
+		this._level.add(1);
+
+		this.dirty = true;
+		if ( this._level % 3 === 0 ) this.sp.add(1);
+		if ( this._level % 5 === 0 ) Game.getData('minions').maxAllies.base += 1;
+		if ( this._level % 4 === 0 ) Game.getData('speed').add(1);
+
+		Game.getData('spelllist').max.base += 1;
+
+		this.tohit.base += 1;
+		this.hp.max.base += 2;
+		this.stamina.max.base += 1;
+
+		this._exp.value -= this._next;
+		this._next = Math.floor( this._next * ( 1 + EXP_RATE ) );
+
+		Events.emit( LEVEL_UP, this, this._level.valueOf() );
+
+	}
+
+	/**
+	 * Init immunities, resists, etc.
+	 */
+	initStates(){
 		this._resist = this._resist || {};
 		for( let p in this._resist ) {
 			this._resist[p] = new Stat( this._resist[p]);
@@ -224,166 +521,6 @@ export default class Player extends Char {
 
 		if ( !this.bonuses ) this.bonuses = {
 		}
-
-		this.alignment = this.alignment || 'neutral';
-
-		if ( this.damage === null || this.damage === undefined ) this.damage = 1;
-
-		if ( !this.weapon ) this.weapon = Fists;
-
-		this._name = this._name || 'wizrobe';
-
-	}
-
-	addTitle( title ){
-
-		if ( !this._titles.includes(title) ) {
-
-			events.emit( NEW_TITLE, title );
-			this._titles.push(title);
-
-		}
-
-	}
-
-
-	revive( state ) {
-
-		super.revive(state);
-
-		if ( this.weapon && (typeof this.weapon === 'string') ) this.weapon = state.equip.find( this.weapon );
-
-		this.spelllist = state.getData('spelllist');
-
-		// copy in stressors to test player defeats.
-		this.stressors = state.stressors;
-
-	}
-
-	/**
-	 * Called once game actually begins. Dot-mods can't be applied
-	 * before game start because they can trigger game functions.
-	 */
-	begin() {
-
-		/*for( let i = this.dots.length-1; i>=0; i-- ){
-			if ( this.dots[i].mod) Game.addMod( this.dots[i].mod, 1 );
-		}*/
-
-	}
-
-	/**
-	 * Perform update effects.
-	 * @param {number} dt - elapsed time.
-	 */
-	update( dt ) {
-
-		let updates = this.dots;
-		let dot;
-
-		for( let i = updates.length-1; i >= 0; i-- ) {
-
-			dot = updates[i];
-			if ( !dot.tick(dt) ) continue;
-
-			// ignore any remainder beyond 0.
-			// NOTE: dots tick at second-intervals.
-			if ( dot.effect ) Game.applyEffect( dot.effect, 1 );
-			if ( dot.damage ) tryDamage( this, dot, dot.source );
-
-			if ( dot.duration <= dt ) {
-
-				updates.splice( i, 1 );
-				if ( dot.mod ) Game.addMod( dot.mod, -1 );
-
-			} else dot.duration -= dt;
-
-
-		}
-		if ( this.regen ) this.hp += this.regen*dt;
-
-	}
-
-	/**
-	 * @returns {Resource[]} - list of all resources defined by Player.
-	 */
-	getResources() {
-
-		let res =[];
-
-		for( let p in this ) {
-
-			var obj = this[p];
-			if ( obj !== null && typeof obj === 'object' && obj.type === 'resource') res.push(obj);
-
-		}
-
-		return res;
-
-	}
-
-	/**
-	 *
-	 * @param {Dot} dot - dot to add.
-	 */
-	addDot( dot ) {
-
-		let id = dot.id;
-
-		let cur = id ? this.dots.find( d=>d.id===id) : undefined;
-		if ( cur !== undefined ) {
-			cur.duration = dot.duration;
-		}
-		else {
-
-			if ( !dot.id ) {
-
-				console.warn('MISSING DOT ID: ' + dot );
-				return;
-
-			}
-			this.dots.push( dot );
-			if ( dot.mod ) Game.addMod( dot.mod, 1 );
-
-		}
-
-	}
-
-	/* getResist( kind ) {
-		return this._resist[kind].value / 100;
-	}*/
-
-	removeResist( kind, amt ) {
-		if ( this._resist[kind] ) this._resist[kind].base -= amt;
-	}
-
-	addResist( kind, amt ) {
-
-		if ( !this._resist[kind] ) this._resist[kind] = new Stat( amt );
-		else this._resist[kind].base += amt;
-
-	}
-
-	levelUp() {
-
-		this._level.value++;
-
-		this.dirty = true;
-		if ( this._level % 3 === 0 ) this.sp.value++;
-		if ( this._level % 5 === 0 ) Game.getData('minions').maxAllies.value++;
-		if ( this._level % 4 === 0 ) Game.getData('speed').value++;
-
-		Game.getData('spelllist').max += 1;
-
-		this.tohit++;
-		this.hp.max.base += 2;
-		this.stamina.max.base += 1;
-
-		this._exp.value -= this._next;
-		this._next = Math.floor( this._next * ( 1 + EXP_RATE ) );
-
-		Events.emit( LEVEL_UP, this );
-
 	}
 
 }

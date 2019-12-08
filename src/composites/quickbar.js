@@ -1,4 +1,5 @@
 import QuickSlot from "./quickslot";
+import { RESOURCE } from "../values/consts";
 
 export const MAX_SLOTS = 10;
 
@@ -54,6 +55,23 @@ export default class Quickbar {
 	}
 
 	/**
+	 * Remove/Clear quickslot by id.
+	 * @param {string} id
+	 */
+	remove( id ) {
+
+		for( let p in this.slots ) {
+
+			var s = this.slots[p];
+			if ( s && s.item && s.id === id ) {
+				this.clear(p);
+			}
+
+		}
+
+	}
+
+	/**
 	 * Clear item at slot at index.
 	 * Index is actual slot index, not keypad number.
 	 * @param {number} ind
@@ -64,7 +82,7 @@ export default class Quickbar {
 
 	setSlot( it, num ) {
 
-		if ( it && it.type === 'resource') return;
+		if ( it && it.type === RESOURCE ) return;
 
 		// NOTE: using splice for Vue reactivity.
 		if ( num >= 0 && num <=9 ) {

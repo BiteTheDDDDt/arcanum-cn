@@ -1,22 +1,79 @@
 import Attack from '../chars/attack';
 import Action from './action';
+import { schoolSkill, canTarget } from '../values/consts';
 
-	/**
-	 * Default require function for spells.
-	 * @param {Object} g - items
-	 */
-const spellRequire = ( g, s ) => {
+/**
+ * Default require function for spells.
+ * @param {Object} g - items
+ */
+const levelReq = ( g, s ) => {
 	return ( g.player.level >= 2*s.level );
 }
 
+/**
+ * Single requirement substring.
+ * @param {string} s - GData/Idable id.
+ * @param {number} lvl
+ */
+const reqStr = (s,lvl=1)=>{
+	return '!g.' + s + '||g.' + s + '>=' + lvl;
+}
+
+/**
+ * Create a school unlock function.
+ * @param {string|string[]} s
+ * @param {number} lvl - spell level.
+ * @param {number} ratio - multiply spell level before test.
+ */
+const schoolFunc = (s, lvl=1 ) => {
+
+	if ( typeof s === 'string') {
+
+		s = 'g.' + s;
+		// @note: test school existence first.
+		return new Function( 'g', 'return !' + s + '||' +
+									s + '>=' + lvl );
+
+	} else if ( Array.isArray(s) ) {
+
+		if ( s.length === 1 ) return schoolFunc(s[0]);
+
+		// total string.
+		var t = 'return ';
+
+		for( let i = s.length-1; i >= 0; i-- ) {
+
+			var d = 'g.' + s[i];
+			t += ('!' + d + '||' + d + '>=' + lvl);
+
+			if (i>0) t += '&&';
+
+		}
+
+		return new Function( 'g', t );
+
+	}
+
+	return null;
+
+}
+
 export default class Spell extends Action {
+
+	/**
+	 * @property {string} target - target type, name, kind, or tag, to which
+	 * the enchantment can be applied.
+	 */
+	get targets(){return this._targets;}
+	set targets(v){
+		this._targets = typeof v === 'string' ? v.split(',') : v;
+	}
 
 	toJSON(){
 
 		let data = super.toJSON();
 
 		if ( this.owned ) data.owned = this.owned;
-		if ( this.timer > 0 ) data.timer = this.timer;
 
 		return data;
 	}
@@ -24,8 +81,6 @@ export default class Spell extends Action {
 	constructor(vars=null) {
 
 		super(vars);
-
-		this.timer = this.timer || 0;
 
 		this.repeat = true;
 		this.type = 'spell';
@@ -41,16 +96,40 @@ export default class Spell extends Action {
 
 		if ( this.attack ) {
 
-			if ( !(this.attack instanceof Attack) ) this.attack = new Attack(this.attack);
-			this.attack.name = this.name;
+			if ( !(this.attack instanceof Attack) ) {
+				this.attack = new Attack(this.attack);
+			}
+			if ( !this.attack.name ) this.attack.name = this.name;
 			if (!this.attack.kind) this.attack.kind = this.school;
 
 		}
 
 
-		if ( this.locked ) this.addRequire( spellRequire );
-		if ( this.school ) this.addRequire( this.school );
+		if ( this.locked !== false ) {
+
+			if ( this.school ) {
+				let req = schoolFunc( this.school, this.level, this.ratio );
+				if ( req ) this.addRequire( req );
+				else this.addRequire( levelReq );
+			}
+			else this.addRequire( levelReq );
+
+		}
 
 	}
+
+	/**
+	 *
+	 * @param {*} targ
+	 */
+	canUseOn(targ) {
+
+		if ( targ.level && ( 2*this.level < targ.level) ) return false;
+
+	//	console.log( this.id + ' target: ' + targ.id + ': ' + canTarget(this.targets, targ ));
+		return !this.targets || canTarget( this.targets, targ );
+
+	}
+
 
 };

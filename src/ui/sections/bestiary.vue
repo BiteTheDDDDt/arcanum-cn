@@ -4,13 +4,17 @@ import ItemBase from '../itemsBase';
 import Range from '../../values/range';
 import FilterBox from '../components/filterbox.vue';
 import { TRY_BUY } from '../../events';
+import { npcBuy } from 'modules/craft';
+import { TYP_RANGE } from '../../values/consts';
 
 export default {
 
 	mixins:[ItemBase],
 	data(){
 		return {
-			filtered:null
+			filtered:null,
+			sortBy:'level',
+			sortOrder:1
 		};
 	},
 	components:{
@@ -21,13 +25,19 @@ export default {
 	},
 	methods:{
 
-		showHp(m) {
-			return this.totalLore >= 4*m.level;
-		},
+		showHp(m) { return this.totalLore >= 4*m.level; },
 
 		toNum(v) {
 			return ( typeof v === 'object' ?
-				( v instanceof Range ? v.max : v.value ) : v ).toFixed(0);
+				( v.type === TYP_RANGE ? v.max : v.value ) : v ).toFixed(0);
+		},
+
+		setSort( by ) {
+
+			if ( this.sortBy === by ) {
+				this.sortOrder = -this.sortOrder;
+			} else this.sortBy = by;
+
 		}
 
 	},
@@ -43,11 +53,44 @@ export default {
 
 		demonology() { return Game.state.getData('demonology');},
 
-		items(){
-			return Game.state.monsters.filter( v=>v.value>=1 ).sort(
-				(a,b)=>a.level - b.level
+		allItems(){
+
+			let all = Game.state.monsters;
+			var a = [];
+
+			for( let i = all.length-1; i>=0; i-- ) {
+
+				var it = all[i];
+				if ( it.value <= 0 ) continue;
+				if ( !it.buy ) it.buy = npcBuy( it );
+				a.push(it);
+
+			}
+
+			return a;
+
+		},
+
+		sorted(){
+
+			let by = this.sortBy;
+			let order = this.sortOrder;
+			let v1,v2;
+
+			return ( this.filtered || this.allItems ).sort(
+				(a,b)=> {
+
+					v1 = a[by];
+					v2 = b[by];
+					if ( v1 > v2 ) return order;
+					else if ( v2 > v1 ) return -order;
+					else return 0;
+
+				}
+
 			);
 		}
+
 
 	}
 
@@ -58,16 +101,20 @@ export default {
 
 <div class="bestiary">
 
-	<filterbox v-model="filtered" :items="items" min-items="14" />
+	<filterbox v-model="filtered" :items="allItems" min-items="14" />
 
 	<div class="char-list">
 	<table class="bestiary">
-		<tr><th>Creature</th><th>Level</th><th>Slain</th><th class="num-align">Hp</th></tr>
-		<tr v-for="b in filtered" :key="b.id" @mouseenter.capture.stop="emit( 'itemover',$event,b)">
+		<tr>
+			<th @click="setSort('name')">Creature</th>
+			<th @click="setSort('level')">Level</th>
+			<th @click="setSort('value')">Slain</th>
+			<th class="num-align" @click="setSort('hp')">Hp</th></tr>
+		<tr v-for="b in sorted" :key="b.id" @mouseenter.capture.stop="emit( 'itemover',$event,b)">
 			<th class="sm-name">{{ b.name }}</th>
-			<td class="num-align">{{ b.level }}</td>
-			<td class="num-align">{{ b.value }}</td>
-			<td class="num-align">{{ showHp(b) ? toNum(b.hp) : '??' }}</td>
+			<td class="num-align">{{ Math.floor( b.level ) }}</td>
+			<td class="num-align">{{ Math.floor( b.value ) }}</td>
+			<td class="num-align">{{ showHp(b) ? toNum(b.hp) : '???' }}</td>
 			<td><button @click="emit( TRY_BUY,b)" :disabled="b.unique||!buyable(b)||minions.freeSpace()==0||b.value<10">Buy</button></td>
 		</tr>
 	</table>
@@ -79,29 +126,39 @@ export default {
 
 <style scoped>
 
+tr th {
+	cursor: pointer;
+	text-decoration: underline;
+	user-select: none;
+	-moz-user-select: none;
+	-webkit-user-select: none;
+}
+
 div.bestiary {
 display:flex;
 flex-direction: column;
-margin-left:12px;
-height:100%;
+margin-left:0.9em;
+padding:0;
+margin:0;
 }
 
 .char-list {
 	width:100%;
+	padding: 0; margin: 0;
 	overflow-y:auto;
-	margin-bottom:14px;
+	margin-bottom:1rem;
 }
 
 table {
-	border-spacing: 4px 0px;
+	border-spacing: var(--sm-gap) 0;
 	border-collapse: collapse;
-	row-gap: 4px;
-	column-gap: 10px;
+	row-gap: var(--sm-gap);
+	column-gap: var(--md-gap);
 }
 
 tr:first-child th {
 	border-bottom: 1pt solid black;
-	margin: 4px 4px;
+	margin:var(--sm-gap);
 }
 
 tr > th:first-of-type {
@@ -109,11 +166,11 @@ tr > th:first-of-type {
 }
 
 th {
-	padding: 4px 10px;
+	padding: var(--sm-gap) var(--md-gap);
 }
 
 td.num-align {
-	padding: 8px;
+	padding: var(--md-gap);
 }
 
 </style>

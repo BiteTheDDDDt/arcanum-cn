@@ -26,6 +26,7 @@
 	{
 		"id":"age",
 		"val":"15~25",
+		"stat":"true",
 		"locked":false
 	},
 	{
@@ -34,11 +35,6 @@
 		"desc":"Maximum travel distance.",
 		"val":10,
 		"stat":true,
-		"locked":false
-	},
-	{
-		"id":"sight",
-		"val":0,
 		"locked":false
 	},
 	{
@@ -51,6 +47,7 @@
 		"id":"sp",
 		"name":"skill points",
 		"desc":"Spend to unlock new skills",
+		"stat":true,
 		"val":0,
 		"locked":false
 	},
@@ -74,7 +71,7 @@
 		"desc":"affinity for fortune",
 		"val":0,
 		"stat":true,
-		"unit":"false",
+		"unit":false,
 		"locked":false,
 		"flavor":"let's keep this party polite"
 	},
@@ -90,28 +87,44 @@
 		"id":"DR",
 		"name":"Damage reduction",
 		"desc":"Amount of damage subtracted from total.",
-		"val":5,
-		"max":5,
+		"val":0,
+		"stat":true,
 		"unit":false,
 		"locked":false
 	},
 	{
+		"id":"points",
+		"desc":"hall points",
+		"hide":true,
+		"stat":true,
+		"val":0
+	},
+	{
 		"id":"virtue",
-		"hidden":"true",
-		"tags":"Tendency to good",
+		"hide":"true",
+		"locked":false,
+		"desc":"Tendency to good",
+		"stat":true,
 		"val":0
 	},
 	{
 		"id":"evilamt",
 		"name":"evil",
-		"hidden":true,
+		"hide":true,
+		"locked":false,
+		"stat":true,
 		"desc":"Tendency to evil",
 		"val":0
 	},
+
 	{
-		"id":"notoriety",
-		"hidden":"true",
-		"tags":"Your reputation in the world",
+		"id":"fame",
+		"name":"notoriety",
+		"hide":true,
+		"locked":false,
+		"stat":true,
+		"desc":"Your reputation in the world",
 		"val":0
 	}
+
 ]

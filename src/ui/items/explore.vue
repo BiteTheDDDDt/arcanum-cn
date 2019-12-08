@@ -4,7 +4,7 @@ import Game from '../../game';
 import Combat from './combat.vue';
 import ProgBar from '../components/progbar.vue';
 
-import {EXIT_LOC} from '../../events';
+import {HALT_ACT} from '../../events';
 
 export default {
 
@@ -14,7 +14,7 @@ export default {
 		progbar:ProgBar
 	},
 	created(){
-		this.EXIT_LOC = EXIT_LOC;
+		this.HALT_ACT = HALT_ACT;
 	},
 	methods:{
 
@@ -70,14 +70,14 @@ export default {
 
 	<span class="active-title">
 		<span>{{ explore.name }}</span><button class="raid-btn"
-		@click="emit( EXIT_LOC, explore.locale, false )"
+		@click="emit( HALT_ACT, explore.locale, false )"
 		@mouseenter.capture.stop="emit( 'itemover', $event, explore.locale )">Flee</button>
 		</span>
 
-		<span class="bar"><progbar :value="explore.exp" :max="explore.length" /></span>
+		<span class="bar"><progbar :value="explore.exp" :max="Number(explore.length)" /></span>
 
 		<template v-if="type==='raid'">
-			<combat class="combat" :combat="explore.combat" :player="player" />
+			<combat :combat="explore.combat" :player="player" />
 		</template>
 		<template v-else>
 
@@ -89,7 +89,7 @@ export default {
 			<div class="stressors">
 			<div class="stress" v-for="s in stressors" :key="s.id" @mouseenter.capture.stop="emit( 'itemover', $event, s )">
 				<span>{{s.name}}</span>
-				<progbar :value="s.value" :max="s.max.value" />
+				<progbar :value="s.value.valueOf()" :max="s.max.value" />
 			</div>
 			</div>
 
@@ -103,7 +103,12 @@ export default {
 <style scoped>
 
 .explore {
-	margin: 5px;
+	display:flex;
+	flex-flow: column;
+	overflow-y: hidden;
+	padding: var( --md-gap);
+	flex-basis:50%;
+	flex-grow: 2;
 }
 
 div.explore div.stressors {
@@ -118,16 +123,11 @@ div.stressors .stress {
 
 div.explore .active-title {
 	display:flex;
-	min-width: 400px;
+	min-width: 20rem;
 }
 
 div.explore .active-title > span {
-	margin-right:16px;
-}
-
-
-.combat {
-	overflow-y: auto;
+	margin-right:1rem;
 }
 
 </style>

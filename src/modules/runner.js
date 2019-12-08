@@ -1,32 +1,28 @@
 import Game from '../game';
-import {quickSplice, findRemove} from '../util/util';
+import {quickSplice, findRemove} from '../util/array';
 import Events, {ACT_DONE, ACT_CHANGED, HALT_ACT, ACT_BLOCKED, EXP_MAX, STOP_ALL } from '../events';
 import Stat from '../values/stat';
 import Base, {mergeClass} from '../items/base';
 import Runnable from '../composites/runnable';
-
-const REST_TAG = 't_rest';
-const DUNGEON = 'dungeon';
-const LOCALE = 'locale';
-
-export { LOCALE, DUNGEON, REST_TAG };
+import { SKILL, DUNGEON, REST_TAG, TYP_RUN, PURSUITS } from '../values/consts';
 
 /**
  * Tracks running/perpetual actions.
  */
 export default class Runner {
 
+	/**
+	 * @item compat.
+	 */
+	get type() { return 'runner' }
+	hasTag() { return false; }
+
 	constructor(vars=null ){
 
 		if ( vars ) Object.assign(this,vars);
 
-		this.id = 'runner';
+		this.id = this.type;
 		this.name = 'activity';
-
-		/**
-		 * @property {Runnable[]} runnables - use-with object combinations.
-		 */
-		//runnables:null,
 
 		/**
 		 * @property {Action[]} actives - Actively running tasks.
@@ -38,14 +34,20 @@ export default class Runner {
 		 */
 		this.waiting = this.waiting || null;
 
+		/**
+		 * @property {} timers - timers ticking.
+		 */
+		this.timers = this.timers || null;
+
 	}
 
 	toJSON() {
 
 		return {
 			max:this.max,
-			waiting:this.waiting.map(v=> v instanceof Runnable ? v : v.id),
-			actives:this.actives.map(v=> v instanceof Runnable ? v : v.id),
+			waiting:this.waiting.map(v=> v.type === TYP_RUN ? v : v.id),
+			actives:this.actives.map(v=> v.type === TYP_RUN ? v : v.id),
+			timers:this.timers.length>0? this.timers.map(v=>v.id) : undefined
 
 			/**
 			 * @property {Runnable[]} runnables - running combinations of objects.
@@ -61,7 +63,7 @@ export default class Runner {
 	get exp() {
 		for( let i = this.actives.length-1; i>= 0;i-- ) {
 			var a = this.actives[i];
-			if ( a.type === 'skill' ) return a.exp;
+			if ( a.type === SKILL ) return a.exp;
 		}
 		return 0;
 	}
@@ -71,12 +73,17 @@ export default class Runner {
 		for( let i = this.actives.length-1; i>= 0;i-- ) {
 
 			var a = this.actives[i];
-			if ( a.type === 'skill' ) {
+			if ( a.type === SKILL ) {
 				a.exp = v;
 				return;
 			}
 
 		}
+	}
+
+	addTimer(obj){
+		obj.timer = obj.cd;
+		this.timers.push(obj);
 	}
 
 	/**
@@ -87,17 +94,11 @@ export default class Runner {
 		for( let i = 0; i < this.actives.length; i ++ ) {
 			var a = this.actives[i];
 
-			if ( a.length ) a.exp = a.length - 0.01;
+			if ( a.length ) a.exp = a.length - 0.001;
 
 		}
 
 	}
-
-	/**
-	 * @item compat.
-	 */
-	get type() { return 'runner'; }
-	hasTag() { return false; }
 
 	/**
 	 * @property {number} running - number currently running.
@@ -105,10 +106,10 @@ export default class Runner {
 	get running(){return this.actives.length; }
 
 	/**
-	 * @property {number} available - number of available run slots.
+	 * @property {number} free - number of available run slots.
 	 */
 	get free(){
-		return this.max.value - this.actives.length;
+		return Math.floor( this.max.valueOf() ) - this.actives.length;
 	}
 
 	get max() { return this._max; }
@@ -137,6 +138,7 @@ export default class Runner {
 	revive( gs ) {
 
 		this.max = this._max || 1;
+		this.pursuits = gs.getData( PURSUITS );
 
 		this.waiting = this.reviveList( this.waiting, gs, false );
 
@@ -145,6 +147,8 @@ export default class Runner {
 		}
 
 		this.actives = this.reviveList( this.actives, gs, true );
+		if ( this.timers ) this.timers = gs.toData( this.timers );
+		else this.timers = [];
 
 		Events.add( ACT_DONE, this.actDone, this );
 		Events.add( HALT_ACT, this.haltAction, this );
@@ -159,7 +163,6 @@ export default class Runner {
 	 * @param {*} it
 	 */
 	expMax( it ) {
-		//console.log('EXP. COMPLETE: ' + it.id );
 		if ( it.complete && (typeof it.complete) === 'function') it.complete();
 
 	}
@@ -177,7 +180,6 @@ export default class Runner {
 		for( let i = list.length-1; i >= 0; i-- ) {
 
 			var a = list[i] = this.reviveAct( list[i], gs, running);
-
 			if ( a == null ) list.splice(a,1);
 
 		}
@@ -190,8 +192,12 @@ export default class Runner {
 
 		if (!a) return;
 
-		if ( typeof a === 'string' ) a = gs.getData( a);
-		else if ( typeof a === 'object') {
+		if ( typeof a === 'string' ) {
+
+			a = gs.getData( a);
+			if ( !a ) return null;
+
+		} else if ( typeof a === 'object') {
 
 			a = new Runnable( a );
 			if ( typeof a.revive === 'function' ) a.revive(gs);
@@ -213,28 +219,46 @@ export default class Runner {
 	 * @param {*} it
 	 * @param {*} targ
 	 */
-	useWith( it, targ ) {
+	useOn( it, targ ) {
 
 		let id = it.id;
 		let t = targ.id;
 
-		let p = (v)=>{
-			return (v instanceof Runnable)&&(id===v.item.id && t === v.target.id );
-		};
-
-		let run = findRemove( this.waiting, p);
+		let run = findRemove( this.waiting, (v)=>{
+			return (v.type === TYP_RUN )&&(id===v.item.id && v.target && t === v.target.id )
+		});
 
 		if ( !run ) {
 
-			//run = findRemove( this.runnables, p );
+			if ( targ.running === true ) return false;
 
-			if ( !run ) {
-				console.log('CREATING NEW RUNNABLE');
-				run = new Runnable( it, targ );
-			}
+			run = new Runnable( it, targ );
+			if ( it.beginUseOn ) it.beginUseOn( targ );
 
 		}
 		this.setAction( run );
+
+	}
+
+	/**
+	 * Check if item/target combination is in wait queue.
+	 * @param {GData} it
+	 * @param {GData} targ
+	 */
+	isWaiting( it, targ ){
+
+		for( let i = this.waiting.length-1; i>=0; i--) {
+
+			var a = this.waiting[i];
+			if ( a.type === TYP_RUN ) {
+
+				if ( a.item === it && a.target === targ ) return true;
+
+			} else if ( a === it ) return true;
+
+		}
+
+		return false;
 
 	}
 
@@ -251,9 +275,7 @@ export default class Runner {
 
 			this.stopAction(ind, false);
 
-
 		} else {
-
 			this.setAction(a);
 
 		}
@@ -270,32 +292,38 @@ export default class Runner {
 
 		if ( !a) return;
 
+		if ( a.proxy ) {
+			/// a is proxied by another object. (raid/explore)
+			let p = Game.state.getData( a.proxy );
+			if (!p) return false;
+			p.runWith(a);
+			a = p;
+		}
+
 		if ( a.cost && (a.exp === 0) ) {
-			console.warn('PAY START');
 			Game.payCost( a.cost);
 		}
 
 		if ( !this.has(a) ) {
 
+			// action already in running list.
+			Events.emit( ACT_CHANGED );
+			this.runAction(a);
+
 			// free space for action. actions.length is a double check.
-			if ( this.actives.length > 0 && this.free <= 0 ) {
+			while ( this.actives.length > Math.floor(this.max.valueOf()) ) {
 
 				let i = 0;
 
-				console.log('Force Stop: ' + this.actives[i].id);
 				let cur = this.actives[i];
 				this.stopAction( i, false );
 
-				if ( (cur instanceof Runnable) ){
-					console.log('WAITING RUNNABLE');
+				if ( (cur.type === TYP_RUN ) ){
+					console.log('WAIT RUNNABLE');
 					this.addWait(cur);
 				}
 
 			}
-
-			// action already in running list.
-			Events.emit( ACT_CHANGED );
-			this.runAction(a);
 
 		}
 
@@ -331,33 +359,49 @@ export default class Runner {
 
 		if ( typeof i !== 'number') {
 			i = this.actives.indexOf(i);
-			if ( i < 0 ) return;
+			if ( i < 0 ) {return;}
 		}
 
 		let a = this.actives[i];
-		//console.log('STOPPING: ' + a.name );
 
 		a.running = false;
 		this.actives.splice(i,1);
 
-		if ( tryResume ){//&& a.hasTag(REST_TAG) ){
+		if ( tryResume ){
 
 			this.tryResume();
-
 		}
+		this.tryPursuit();
+
+	}
+
+	/**
+	 * Attempt to run next hobby.
+	 * @returns {boolean} true if pursuit was started.
+	 */
+	tryPursuit(){
+
+		if ( this.free <= 0 || !Game.state.player.rested() ) return false;
+
+		let it = this.pursuits.getRunnable( Game );
+		if ( !it ) return false;
+
+		return this.tryAdd( it );
 
 	}
 
 	/**
 	 * Attempt to add an action, while avoiding any conflicting action types.
 	 * @public
-	 * @param {*} a
+	 * @param {GData} a
 	 */
 	tryAdd( a ) {
 
-		if ( !this.free || this.hasType(a) ) return false;
+		if ( !this.free ) return false;
+		if ( a.fill && Game.filled(a.fill,a) ) return false;
+		if ( !a.canRun(Game) ) return false;
 
-		this.runAction(a);
+		this.setAction(a);
 
 		return true;
 
@@ -376,7 +420,7 @@ export default class Runner {
 		while ( remove > 0 ) {
 
 			a = this.waiting[i];
-			if ( !(a instanceof Runnable ) ) {
+			if ( a.type !== TYP_RUN ) {
 
 				this.waiting.splice( i, 1 );
 
@@ -392,11 +436,13 @@ export default class Runner {
 
 	haltAction( act ) {
 
+		if ( act.proxy ) act = Game.state.getData(act.proxy);
+
 		// absolute rest stop if no actions waiting.
 		if ( this.waiting.length === 0 && act.hasTag( REST_TAG ) ) this.stopAction(act,false);
 
 		else {
-			if ( act instanceof Runnable ) this.addWait(act);
+			if ( act.type === TYP_RUN ) this.addWait(act);
 			this.stopAction( act );
 		}
 
@@ -405,7 +451,10 @@ export default class Runner {
 	stopAll() {
 
 		for( let i = this.actives.length-1; i>=0; i--) {
+
+			if ( this.actives[i].onStop ) this.actives[i].onStop();
 			this.stopAction( i, false );
+
 		}
 		this.clearWaits();
 
@@ -418,38 +467,32 @@ export default class Runner {
 	 */
 	actDone( act, repeatable=true ){
 
+
 		if ( act.running === false ) {
-			// skills cant be completed without actually running.
+			// skills cant complete when not running.
 			this.stopAction(act);
-			return;
-		}
 
-		if ( repeatable ) {
+		} else if ( repeatable ) {
 
-			if ( Game.canRun(act) ) {
+			if ( Game.canRun(act) && this.actives.length <= this.max.value ) {
 
 				this.setAction(act);
 
 			} else if ( act.hasTag(REST_TAG )) {
 
-				this.stopAction( act, true );
+				this.stopAction( act );
 
 			} else {
 
 				this.stopAction( act );
 				this.addWait(act);
 
-				// attempt to resume any waiting actions.
-				this.tryResume();
-
 			}
 
 		} else {
 
-			this.stopAction( act );
 
-			// attempt to resume any waiting actions.
-			this.tryResume();
+			this.stopAction( act );
 
 		}
 
@@ -475,7 +518,7 @@ export default class Runner {
 
 				quickSplice(this.waiting,i);
 
-			} else if ( Game.canRun(a) && this.tryAdd(a) ) {
+			} else if ( this.tryAdd(a) ) {
 
 				quickSplice(this.waiting,i);
 				if ( --avail <= 0 ) return;
@@ -494,6 +537,10 @@ export default class Runner {
 
 			this.doAction( this.actives[i], dt );
 
+		}
+
+		for( let i = this.timers.length-1; i>= 0; i-- ) {
+			if ( this.timers[i].tick(dt) ) quickSplice( this.timers, i );
 		}
 
 	}
@@ -536,11 +583,14 @@ export default class Runner {
 
 			this.actBlocked(a);
 
-		} else if ( a.update ) {
+		} else {
 
-			a.update(dt);
 			if ( a.effect) Game.applyEffect( a.effect, dt );
-			a.dirty = true;
+			if ( a.update ) {
+
+				a.update(dt);
+				a.dirty = true;
+			}
 
 		}
 
@@ -551,6 +601,7 @@ export default class Runner {
 	 * @param {*} a
 	 */
 	runAction(a) {
+
 		a.running=true;
 		this.actives.push(a);
 	}

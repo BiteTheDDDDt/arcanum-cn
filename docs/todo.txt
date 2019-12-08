@@ -1,3 +1,15 @@
+
+PATRONS:
+
+Mr. Wild needs a custom.
+
+Kahn Bloodbane: Want's a forge or anvil.
+
+Jeremy: needs custom item.
+
+
+FIX SPEED/DELAY numbers.
+
 resistances
 
 optional dot stacking

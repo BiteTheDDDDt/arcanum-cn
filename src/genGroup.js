@@ -1,11 +1,11 @@
-import {randElm} from './util/util';
+import {randElm, randFrom, mapNonNull, propSort} from './util/array';
 
 /**
  * Category to assign items with no property value
  * on the filter dimension.
- * e.g. filters['biome'] = { any:[npcs without biomes] }
+ * e.g. filters['biome'] = { none:[npcs without biomes] }
  */
-const DEFAULT_CATEGORY = 'any';
+const BLANK_CATEGORY = 'none';
 
 /**
  * Item generation group for a given item type.
@@ -19,7 +19,12 @@ export default class GenGroup {
 	constructor( items ){
 
 		this.items= items.filter( v=>!v.unique );
-		this.filters = {};
+
+		/**
+		 * Data split/grouped by a variable/subcategory of the data
+		 * @property {.<string,<string,Array>>} groupBy
+		 */
+		this.filterBy = {};
 
 	}
 
@@ -31,7 +36,7 @@ export default class GenGroup {
 	 */
 	randBelow( level=1, pred) {
 
-		let levels = this.filters.level;
+		let levels = this.filterBy.level;
 
 		let st = 1 + Math.floor( Math.random()*level );
 		let i = st;
@@ -52,7 +57,7 @@ export default class GenGroup {
 	}
 
 	/**
-	 * Get a random item without any restriction
+	 * Get random item with no restriction.
 	 * @returns {object}
 	 */
 	rand(){
@@ -63,31 +68,72 @@ export default class GenGroup {
 	/**
 	 * Get a filtered sublist.
 	 * @param {string} filter - filter type 'level', 'biome' etc.
-	 * @param {string} match
+	 * @param {string} match - property value to match.
+	 * @param {boolean} allowBlank - accept items with null value on property. e.g. biome:null
+	 * @returns {Array}
 	 */
-	filtered( filter, match ) {
+	filtered( filter, match, allowBlank=false ) {
 
-		let f = this.filters[filter];
-		if ( f !== undefined ) return f[match];
+		let f = this.filterBy[filter];
 
-		return null;
+		let res = f[match] || [];
+		if ( allowBlank && f.hasOwnProperty(BLANK_CATEGORY) ) return res.concat( f[BLANK_CATEGORY ] );
+
+		return res;
+
+	}
+
+	/**
+	 * Get an array of categories under a filter.
+	 * @param {string} filter
+	 * @param {string|string[]} matches
+	 * @param {boolean} allowBlank
+	 * @returns {Array[]}
+	 */
+	getCategories( filter, matches, allowBlank ) {
+
+		const subs = this.filterBy[filter];
+		let res = [];
+
+		if ( subs === undefined ) return res;
+		if ( allowBlank && subs.hasOwnProperty(BLANK_CATEGORY)) res.push( subs[BLANK_CATEGORY]);
+		if ( typeof matches === 'string') {
+
+			if ( subs.hasOwnProperty(matches) ) res.push( subs[matches]);
+
+		} else if ( Array.isArray(matches)) {
+
+			for( let i = matches.length-1; i>= 0; i--) {
+				var sub = subs[matches[i] ];
+				if ( sub ) res.push(sub);
+			}
+
+		}
+
+		return res;
 
 	}
 
 	/**
 	 * Get a random item from a filtered subcategory.
-	 * @param {string} filter
-	 * @param {string} match - filter category.
+	 * @param {string} filter - level/biome, etc.
+	 * @param {string} matches - valid property matches.
+	 * @param {boolean} allowBlank - accept items with no prop value on filter. e.g. biome:null
 	 */
-	filterRand( filter, match ) {
+	randBy( filter, matches, allowBlank=false ) {
 
-		var o = this.filters[filter];
-		if ( o===undefined) return null;
+		var subs = this.filterBy[filter];
+		if ( subs === undefined ) return null;
 
-		o = filter[match];
-		if ( o===undefined || o.length === 0) return null;
+		if ( Array.isArray( matches ) ) {
 
-		return o[ Math.floor( Math.random()*o.length) ];
+			return randFrom( this.getCategories(filter, matches, allowBlank) );
+
+		} else {
+
+			return randElm( this.filtered( filter, matches, allowBlank) );
+
+		}
 
 	}
 
@@ -95,28 +141,39 @@ export default class GenGroup {
 	 * Create a new named item category based on the 'prop' property
 	 * of the items.
 	 * @param {string} name - category name.
-	 * @param {string} prop - prop to sort on. equal to name by default.
+	 * @param {?string} prop - prop to sort on. defaults to name.
+	 * @param {?string} [sortBy=level] property to sort filtered lists by.
 	 */
-	makeFilter( name, prop='') {
+	makeFilter( name, prop, sortBy='level') {
 
-		let filter = this.filters[name] = {};
+		const group = this.filterBy[name] = {};
 		prop = prop || name;
 
 		for( let i = this.items.length-1; i>= 0; i-- ) {
 
 			var it = this.items[i];
-			var cat = it[prop] || DEFAULT_CATEGORY;
+			var cat = it[prop] || BLANK_CATEGORY;
 
-			var list = filter[ cat ];
+			var list = group[ cat ];
 			if ( list === undefined ) {
 
-				filter[ cat ] = [ it ];
+				group[ cat ] = [ it ];
 
 			} else {
 				list.push( it );
 			}
 
 		}
+
+		// sort all lists.
+		if ( sortBy && sortBy !== prop) {
+
+			for( let p in group ) {
+				propSort( group[p], sortBy );
+			}
+
+		}
+
 
 	}
 

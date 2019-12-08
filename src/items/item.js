@@ -1,5 +1,4 @@
 import Base, {mergeClass} from './base';
-import Dot from '../chars/dot';
 import { cloneClass } from '../util/util';
 import { ParseMods } from '../values/mod';
 
@@ -39,6 +38,7 @@ export default class Item {
 	}
 
 	get instance() { return true; }
+	set instance(v){}
 
 	/**
 	 * @property {string} recipe - id of item template used to instance this item.
@@ -67,17 +67,18 @@ export default class Item {
 
 		this.value = this._value || 1;
 
-		if ( this.id && this.id.includes('apple')) console.warn('count: ' + this.value );
 		if ( this.consume === null || this.consume === undefined ) this.consume = this.defaults.consume;
 		if ( this.stack === null || this.stack === undefined ) this.stack = this.defaults.stack;
 
 	}
 
+	canPay(cost) { return this.value >= cost; }
+
 	canUse(g) {
 		return this.consume || this.use;
 	}
 
-	onUse( g, targ, inv=null ) {
+	onUse( g, inv ) {
 
 		if ( this.consume === true ) {
 			this.value--;
@@ -87,7 +88,7 @@ export default class Item {
 		if ( this.use ) {
 
 			if (this.use.dot ) {
-				g.state.player.addDot( new Dot( this.use.dot, this.id, this.name) );
+				g.state.player.addDot( this.use.dot, this.id, this.name );
 			}
 			g.applyEffect( this.use );
 
