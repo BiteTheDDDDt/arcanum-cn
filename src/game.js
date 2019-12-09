@@ -1003,22 +1003,31 @@ export default {
 			for( let p in cost ) {
 
 				res = this.getData(p);
-				if ( res ) {
 
-					if ( res.instance || res.isRecipe ) {
-						this.payInst( p, cost[p]*unit );
-						continue;
+				if ( !res ) {
+
+					this.payInst( p, cost[p] );
+
+				} else if ( res.instance || res.isRecipe ) {
+					this.payInst( p, cost[p]*unit );
+
+				} else {
+
+					var targ = cost[p];
+
+					if ( !isNaN(targ) ) this.remove( res, targ*unit );
+					else if ( typeof targ === 'object' ) res.applyVars( targ, -unit );
+					else if ( typeof targ === 'function') {
+							this.remove( res, unit*targ(this.state, this.player) )
 					}
 
-					if ( !isNaN(cost[p]) ) this.remove( res, cost[p]*unit );
-					else res.applyVars( cost[p], -unit );
 					res.dirty = true;
+				}
 
-				} else this.payInst(p, cost[p] );
 
 			}
 
-		} else if ( typeof cost === 'boolean') return;
+		}
 
 	},
 

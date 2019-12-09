@@ -365,17 +365,19 @@ export const prepData = ( sub, id='' ) => {
 
 				sub[p] = ParseMods( sub[p], sub.id || id );
 				continue;
-			}
-			/*else if ( p ==='effect') {
+			} else if ( p ==='effect' || p === 'result' ) {
 
-				sub[p] = ParseEffects( sub[p] );
+				sub[p] = ParseEffects( sub[p], makeEffectFunc );
 
-			}*/
-			else if ( p === 'require' || p === 'need' ) {
+			} else if ( p === 'cost' || p === 'buy' ) {
 
-				sub[p] = parseRequire( sub[p] );
+					sub[p] = ParseEffects( sub[p], makeCostFunc );
 
+			} else if ( p === 'require' || p === 'need' ) {
+
+				sub[p] = ParseRequire( sub[p] );
 				continue;
+
 			}
 
 			if ( p.includes('.')) splitKeyPath( sub, p );
@@ -421,28 +423,31 @@ export const prepData = ( sub, id='' ) => {
 
 }
 
-export const ParseEffects = ( effects ) => {
+/**
+ *
+ * @param {object|string|Array|Number} effects
+ * @param {Function} funcMaker - Function that returns a function for function RValues.
+ */
+export const ParseEffects = ( effects, funcMaker ) => {
 
 	if ( Array.isArray(effects) ) {
 
 		for( let i = effects.length-1; i>= 0; i-- ){
-			effects[i] = ParseEffects( effects[i]);
+			effects[i] = ParseEffects( effects[i], funcMaker );
 		}
 
 	} else if ( typeof effects === 'string') {
 
 		if ( RangeTest.test(effects) ) return new Range(effects);
 		else if ( PercentTest.test(effects) ) return new Percent(effects);
-		else if ( effects.includes( '.' ) ) return makeEffectFunc(effects);
+		else if ( effects.includes( '.' ) ) return funcMaker(effects);
 
 		return effects;
 
 	} else if ( typeof effects === 'object' ) {
 
 		for( let p in effects ) {
-
-			effects[p] = ParseEffects( effects[p] );
-
+			effects[p] = ParseEffects( effects[p], funcMaker );
 		}
 
 	} else if ( typeof effects === 'number' ) return new Stat( effects );
@@ -455,13 +460,13 @@ export const ParseEffects = ( effects ) => {
  * Parse a requirement-type object.
  * currently: 'require' or 'need'
  */
-export const parseRequire = ( sub ) => {
+export const ParseRequire = ( sub ) => {
 
 	// REQUIRE
 	if ( sub === null || sub === undefined || sub === false || sub === '') return undefined;
 	if ( Array.isArray(sub) ) {
 
-		for( let i = sub.length-1; i>= 0; i-- )sub[i] = parseRequire( sub[i] );
+		for( let i = sub.length-1; i>= 0; i-- )sub[i] = ParseRequire( sub[i] );
 
 	} else if ( typeof sub === 'string' && !IdTest.test(sub )) return makeTestFunc( sub );
 
@@ -492,12 +497,19 @@ export function makeTestFunc( text ) {
 }
 
 /**
+ * Cost function. params: GameState, Actor.
+ * @param {*} text
+ */
+export function makeCostFunc(text) {
+	return new Function( 'g,a', 'return ' + text );
+}
+
+/**
  * Create a function which performs an arbitrary effect.
  * player and target params are given for simplicity.
  * target is the current target (of a dot), if any.
- * dt is the elapsed time.
  * @param {string} text
  */
 export function makeEffectFunc( text ) {
-	return new Function( 'g', 't', 'dt', 'return ' + text );
+	return new Function( 'g,t,a', 'return ' + text );
 }

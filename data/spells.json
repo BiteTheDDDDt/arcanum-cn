@@ -9,7 +9,7 @@
 			"gold":2
 		},
 		"cost":{
-			"water":1
+			"hp":"a.hp/2"
 		},
 		"attack":{
 			"kind":"blood",
