@@ -109,7 +109,7 @@ export default class Dungeon extends Action {
 	hasBoss( boss, at ) {
 
 		if ( !boss ) return false;
-		if ( typeof boss === 'object' && boss.hasOwnProperty(at) ) {
+		if ( typeof boss === 'object' && !Array.isArray(boss) && boss.hasOwnProperty(at) ) {
 			return true;
 		}
 		// last enemy in dungeon.
