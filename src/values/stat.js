@@ -100,7 +100,7 @@ export default class Stat extends RValue {
 	 */
 	constructor( vars=null, path, pos ) {
 
-		super( null, path );
+		super( 0, path );
 
 		if ( vars ) {
 

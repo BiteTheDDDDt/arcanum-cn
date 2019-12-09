@@ -10,6 +10,7 @@ import Events, {
 import { itemRevive } from '../modules/itemgen';
 import { getDelay } from '../chars/char';
 import Stat from '../values/stat';
+import { TYP_FUNC } from '../values/consts';
 
 const TARGET_ALL = 'all';
 
@@ -64,11 +65,14 @@ export function applyDamage( target, attack, attacker = null) {
 	let dmg = attack.damage;
 	if ( !dmg) return;
 
-	if ( typeof dmg === 'function') dmg = dmg( attacker, target, Game.state );
+	if ( dmg.type === TYP_FUNC ) {
+		//let f = dmg.fn;
+		dmg = dmg.fn( attacker, target, Game.state );
+	}
 	else dmg = dmg.value;
 
 	if ( attacker ) dmg += attacker.getBonus( attack.kind );
-	if ( attack.bonus ) dmg += bonus;
+	if ( attack.bonus ) dmg += attack.bonus;
 
 	let resist = target.getResist(attack.kind);
 	if (resist > 0) dmg *= (1 - resist);

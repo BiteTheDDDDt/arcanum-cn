@@ -3,6 +3,7 @@ import { assignPublic } from "../util/util";
 import Stat from "../values/stat";
 import { ParseMods } from "../values/mod";
 import RValue from "../values/rvalue";
+import FValue from "../values/fvalue";
 
 /**
  * Create a function that returns a numeric damage value.
@@ -13,7 +14,7 @@ import RValue from "../values/rvalue";
 export const MakeDmgFunc = (s)=>{
 
 	console.log('NEW DAMAGE FUNC: ' + s );
-	return new Function( 'a', 't', 'g', 'return ' + s );
+	return new FValue( 'a,t,g', s );
 
 };
 

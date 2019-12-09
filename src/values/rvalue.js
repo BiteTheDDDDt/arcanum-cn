@@ -6,16 +6,16 @@ import { precise } from '../util/format';
 export const PercentTest = /^(\d+(?:\.?\d+)?)\%$/i
 export const RangeTest = /^\-?\d+\.?\d*\~\-?\d+\.?\d*$/i;
 
+/*Parse(str){
+
+	if ( PercentTest.test(str) ) return new Percent(str);
+	else if ( RangeTest.test(str) ) return new Range(str);
+
+	return new RValue( str );
+
+}*/
+
 export default class RValue {
-
-	Parse(str){
-
-		if ( PercentTest.test(str) ) return new Percent(str);
-		else if ( RangeTest.test(str) ) return new Range(str);
-
-		return new RValue( str );
-
-	}
 
 	/**
 	 * @property {string} id
@@ -43,7 +43,7 @@ export default class RValue {
 	 * @returns {number}
 	 */
 	valueOf(){
-		return ( typeof this._base === 'object') ? this._base.value : this._base;
+		return this._base;
 	}
 
 	/**
@@ -51,12 +51,10 @@ export default class RValue {
 	 * @param {number} vars
 	 * @param {?string} path
 	 */
-	constructor( vars=null, path ){
+	constructor( vars=0, path=null ){
 
 		this.id = path;
-		if ( typeof vars === 'number') {
-			this.value = vars;
-		} else this._base = 0;
+		this._base = vars;
 
 	}
 
