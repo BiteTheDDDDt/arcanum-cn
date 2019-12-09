@@ -66,7 +66,7 @@ export default {
 div.spellbook { margin: 0; padding: var(--md-gap); }
 
  div.spellbook table {
-        display: grid; grid-template-columns: minmax( 10rem, 1fr ) repeat( auto-fit, minmax( 10rem, 1fr ));
+        grid-template-columns: minmax( 10rem, 1fr ) repeat( auto-fit, minmax( 10rem, 1fr ));
         grid-auto-rows:  1fr;
     }
     div.spellbook  table tr { padding: var(--sm-gap); display:flex; align-items:center; }
