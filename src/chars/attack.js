@@ -14,7 +14,9 @@ import FValue from "../values/fvalue";
 export const MakeDmgFunc = (s)=>{
 
 	console.log('NEW DAMAGE FUNC: ' + s );
-	return new FValue( 'a,t,g', s );
+	let t = new FValue( 'a,t,g', s );
+	console.log('NEW TYP: ' + t.type );
+	return t;
 
 };
 
