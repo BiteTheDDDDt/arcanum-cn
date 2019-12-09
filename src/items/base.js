@@ -2,7 +2,7 @@ import {changes, jsonify } from 'objecty';
 import Game from '../game';
 import Stat from '../values/stat';
 import Mod, { SetModIds } from '../values/mod';
-import { cloneClass } from '../util/util';
+import { cloneClass, deprec } from '../util/util';
 import { TYP_MOD } from '../values/consts';
 
 export const setModCounts = ( m, v)=>{
@@ -260,10 +260,15 @@ export default {
 	 */
 	applyVars( mods, amt=1 ) {
 
-		if ( typeof mods === 'number' || mods instanceof Stat ) {
+		if ( typeof mods === 'number') {
+
+			//deprec( this.id + ' mod: ' + mods );
+			this.value = this.value.base + mods*amt;
+
+		} else if ( mods.isRVal ) {
 
 			//this.amount( Game, mods*amt );
-			this.value = this.value.base + mods*amt;
+			this.value = this.value.base + mods.getEffect( Game.state, this );
 
 
 		} else if ( typeof mods === 'object' ) {
@@ -289,6 +294,7 @@ export default {
 
 					} else if ( typeof targ === 'number' ) {
 
+						deprec( this.id + ' targ: ' + p + ': ' + targ );
 						this[p] += Number(mods[p])*amt;
 					} else {
 						//console.log( mods + ' subapply: ' + p);
@@ -306,7 +312,7 @@ export default {
 				}
 
 			}
-			if ( mods.value ) this.value += Number(mods.value)*amt;
+			if ( mods.value ) this.value += (mods.value)*amt;
 
 		}
 

@@ -1,6 +1,6 @@
 import Percent from './percent';
 import Stat from './stat';
-import { logObj, splitKeys } from '../util/util';
+import { splitKeys, logObj } from '../util/util';
 import { precise } from '../util/format';
 import { TYP_MOD } from './consts';
 
@@ -233,7 +233,7 @@ export default class Mod extends Stat {
 export const ParseMods = ( mods, id ) => {
 
 	if ( !mods ) return null;
-	if (!id) logObj(mods, 'no mod id');
+	if (!id)logObj( mods, 'invalid mod: ' + id );
 
 	mods = SubMods(mods, id);
 

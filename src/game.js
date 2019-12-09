@@ -1,5 +1,4 @@
 import DataLoader from './dataLoader';
-import { logObj} from './util/util';
 import GData from './items/gdata';
 import Log from './log.js';
 import GameState, { REST_SLOT } from './gameState';
@@ -140,9 +139,9 @@ export default {
 		if ( !s ) console.warn('STAT MISSING: '+id);
 		else {
 
-			if ( full ) logObj(s,'LOG STAT' );
-			console.warn( id + ' value: ' + s.value );
-			console.log( s.constructor.name );
+			//if ( full ) logObj(s,'LOG STAT' );
+			console.dir( s );
+			console.warn( id + ' value: ' + s.value + '  type: ' + s.constructor.name );
 
 		}
 	},
@@ -1001,13 +1000,6 @@ export default {
 		let res;
 		if ( typeof cost === 'object' ){
 
-			if ( cost instanceof Stat ) {
-				var g = this.getData('gold');
-				g.value -= cost.value*unit;
-				g.dirty = true;
-				return;
-			}
-
 			for( let p in cost ) {
 
 				res = this.getData(p);
@@ -1027,13 +1019,6 @@ export default {
 			}
 
 		} else if ( typeof cost === 'boolean') return;
-	 	else if ( !isNaN(cost ) ) {
-
-			res = this.getData('gold');
-			res.value -= cost*unit;
-			res.dirty = true;
-
-		}
 
 	},
 

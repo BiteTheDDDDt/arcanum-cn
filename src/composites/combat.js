@@ -60,7 +60,7 @@ export function applyAttack( target, attack, attacker = null) {
 
 }
 
-export function applyDamage( target, attack, attacker = null) {
+export const applyDamage = ( target, attack, attacker ) => {
 
 	let dmg = attack.damage;
 	if ( !dmg) return;
@@ -87,8 +87,6 @@ export function applyDamage( target, attack, attacker = null) {
 		attacker.hp += amt;
 		Events.emit(EVT_COMBAT, null, attacker.name + ' steals ' + amt + ' life.');
 	}
-
-
 
 }
 

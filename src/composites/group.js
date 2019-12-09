@@ -108,7 +108,6 @@ export default class Group {
 
 		this.effect = this.items.map( v=> typeof v === 'string' ? v : v.name );
 		this.cost = cost;
-		//logObj( this.cost, 'COST');
 
 	}
 

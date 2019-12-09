@@ -12,17 +12,12 @@ import FValue from "../values/fvalue";
  * @returns {(a,t,c,g)=>number}
  */
 export const MakeDmgFunc = (s)=>{
-
-	console.log('NEW DAMAGE FUNC: ' + s );
-	let t = new FValue( 'a,t,g', s );
-	console.log('NEW TYP: ' + t.type );
-	return t;
-
+	return new FValue( 'a,t,g', s );
 };
 
 export const ParseDmg = (v)=>{
 
-	if ( v instanceof Range ) return v;
+	if ( typeof v === 'object' ) return v;
 	else if ( !isNaN(v) ) return new RValue(v);
 	else if ( typeof v === 'string' ) {
 

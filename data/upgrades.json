@@ -373,7 +373,9 @@
 		"flavor":"You no take candle!",
 		"max":1,
 		"require":"mana",
-		"cost":10,
+		"cost":{
+			"gold":10
+		},
 		"mod":{
 			"mana.rate":0.02
 		}
@@ -398,7 +400,9 @@
 		"desc":"Keep your money safe.",
 		"require":"g.gold>=5",
 		"max":3,
-		"cost":5,
+		"cost":{
+			"gold":5
+		},
 		"flavor":"seems a tad pricey for a bag.",
 		"mod":{
 			"gold.max":10
@@ -410,7 +414,9 @@
 		"desc":"Small bag keeps gems safe without scratching.",
 		"require":"g.gems>=5",
 		"max":2,
-		"cost":300,
+		"cost":{
+			"gold":300
+		},
 		"flavor":"who prices these bags?!",
 		"mod":{
 			"magicgems.max":1,
@@ -780,7 +786,9 @@
 		"desc":"Common way to carry coins.",
 		"require":"g.gold>=20",
 		"max":2,
-		"cost":15,
+		"cost":{
+			"gold":15
+		},
 		"mod":{
 			"gold.max":20
 		}
@@ -1154,7 +1162,9 @@
 		"desc":"Carry more scrolls.",
 		"require":"g.scrolls>=10",
 		"scale":2,
-		"cost":50,
+		"cost":{
+			"gold":50
+		},
 		"max":1,
 		"mod":{
 			"scrolls.max":15
@@ -1254,7 +1264,9 @@
 		"max":2,
 		"flavor":"Spare a little candle, save some light for me.",
 		"require":"g.mana.max>=50",
-		"cost":35,
+		"cost":{
+			"gold":35
+		},
 		"mod":{
 			"fire.max":0.04,
 			"fire.rate":0.01
@@ -1268,7 +1280,9 @@
 		"max":2,
 		"require":"g.light.max>=10",
 		"flavor":"It is better to light one candle than to curse the darkness.",
-		"cost":75,
+		"cost":{
+			"gold":75
+		},
 		"mod":{
 			"light.max":0.2,
 			"light.rate":0.01
@@ -1283,7 +1297,9 @@
 		"max":2,
 		"require":"g.shadow.max>=10",
 		"flavor":"darkness, darkness.",
-		"cost":75,
+		"cost":{
+			"gold":75
+		},
 		"mod":{
 			"shadow.max":0.2,
 			"shadow.rate":0.01

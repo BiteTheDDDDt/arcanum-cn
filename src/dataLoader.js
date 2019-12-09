@@ -30,9 +30,10 @@ import Loader from './util/jsonLoader';
 import { splitKeyPath } from './util/util';
 import GClass from './items/gclass';
 import Module from './modules/gmodule';
-import { SKILL, ENCOUNTER, MONSTER, ARMOR, WEAPON, HOME, POTION, ITEM, RESOURCE, EVENT } from './values/consts';
-import RValue from './values/rvalue';
+import { SKILL, ENCOUNTER, MONSTER, ARMOR, WEAPON, HOME, POTION, ITEM, RESOURCE, EVENT, RAID } from './values/consts';
 import { MakeDmgFunc } from './chars/attack';
+import RValue from './values/rvalue';
+import Stat from './values/stat';
 
 const DataDir = './data/';
 
@@ -428,18 +429,23 @@ export const ParseEffects = ( effects ) => {
 			effects[i] = ParseEffects( effects[i]);
 		}
 
-	} else if ( typeof effects === 'string') return effects;
-	else if ( typeof effects === 'object' ) {
+	} else if ( typeof effects === 'string') {
+
+		if ( RangeTest.test(effects) ) return new Range(effects);
+		else if ( PercentTest.test(effects) ) return new Percent(effects);
+		else if ( effects.includes( '.' ) ) return makeEffectFunc(effects);
+
+		return effects;
+
+	} else if ( typeof effects === 'object' ) {
 
 		for( let p in effects ) {
 
-			if ( adfs) {
-
-			}
+			effects[p] = ParseEffects( effects[p] );
 
 		}
 
-	}
+	} else if ( typeof effects === 'number' ) return new Stat( effects );
 
 	return effects;
 
@@ -488,10 +494,10 @@ export function makeTestFunc( text ) {
 /**
  * Create a function which performs an arbitrary effect.
  * player and target params are given for simplicity.
- * target is the current enemy, if any.
+ * target is the current target (of a dot), if any.
  * dt is the elapsed time.
- * @param {*} text
+ * @param {string} text
  */
 export function makeEffectFunc( text ) {
-	return new Function( 'g', 't', 'dt', text );
+	return new Function( 'g', 't', 'dt', 'return ' + text );
 }

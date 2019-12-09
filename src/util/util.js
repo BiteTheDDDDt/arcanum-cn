@@ -252,6 +252,14 @@ export const assignPublic = ( dest, src ) => {
 }
 
 
+/**
+ * Log deprecation warning.
+ * @param {*} msg
+ */
+export const deprec = ( msg ) => {
+	console.trace( 'deprecated: ' + msg );
+}
+
 export const showObj = (obj) => {
 
 	if ( Array.isArray(obj)){

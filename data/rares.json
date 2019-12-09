@@ -22,7 +22,9 @@
 			"name":"frosty",
 			"kind":"frost"
 
-		}}, "cost":20, "level":3
+		}}, "cost":{
+			"gold":20
+		}, "level":3
 	},
 	{
 		"id":"tenwickstick",

@@ -1,5 +1,6 @@
 import { TYP_STAT, TYP_RVAL } from './consts';
 import RValue from './rvalue';
+import { deprec } from '../util/util';
 
 /**
  * Stat with a list of modifiers.
@@ -176,6 +177,7 @@ export default class Stat extends RValue {
 		else if ( typeof mod ==='number' ) {
 
 			this.base += amt*mod;
+			//deprec( this.id + ' mod: ' + mod );
 			//console.log( this.base + ' NEW base: ' + this.value );
 
 			return;
@@ -192,8 +194,7 @@ export default class Stat extends RValue {
 
 		} else {
 
-			console.log('UNKNOWN MOD: ' + (typeof mod) );
-			//logObj(mod);
+			console.dir( mod, 'unknown mod: ' + typeof mod );
 		}
 
 

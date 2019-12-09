@@ -101,8 +101,6 @@ export default class Wearable extends Item {
 
 		this.value = this.val = 1;
 
-		//if ( vars ) logObj( vars, 'vars');
-		//if( vars.template ) logObj( vars.template, ' template' );
 		if ( !this.type ) { this.type = WEARABLE; }
 
 		if ( this._attack && !this._attack.name ) this._attack.name = this.name;

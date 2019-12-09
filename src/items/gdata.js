@@ -76,7 +76,10 @@ export default class GData {
 	 * @property {number|Object.<string,number>} cost
 	 */
 	get cost() { return this._cost; }
-	set cost(v) { this._cost=v;}
+	set cost(v) {
+
+		this._cost=v;
+	}
 
 	/**
 	 * @property {string|Object}
@@ -416,12 +419,10 @@ export default class GData {
 
 			this.require = item;
 
-		} else {
-
-			if ( this.require === item ||
+		} else if ( this.require === item ||
 				(Array.isArray(this.require) && this.require.includes(item)) ) {
 					return;
-			}
+		} else {
 			this.require = arrayMerge( this.require, item );
 		}
 

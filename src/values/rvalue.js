@@ -18,6 +18,11 @@ export const RangeTest = /^\-?\d+\.?\d*\~\-?\d+\.?\d*$/i;
 export default class RValue {
 
 	/**
+	 * @property {boolean} isRVal - simple test for RVal interface.
+	 */
+	get isRVal(){return true;}
+
+	/**
 	 * @property {string} id
 	 */
 	get id() { return this._id; }
@@ -68,6 +73,14 @@ export default class RValue {
 	 */
 	addMod( mod, amt ){
 		// base rvalue does not accept modifiers.
+	}
+
+	/**
+	 * Get amount when applied as an effect.
+	 * @param {}
+	 */
+	getEffect() {
+		return this.value;
 	}
 
 	/**

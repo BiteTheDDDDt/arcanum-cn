@@ -3,7 +3,6 @@ import Settings from './settings';
 import Events, { LEVEL_UP, CHAR_NAME, CHAR_TITLE, CHAR_CLASS } from "../events";
 
 import Module from "./gmodule";
-import { logObj } from "../util/util";
 
 const CHARS_DIR = 'chars/';
 const SETTINGS_DIR = 'settings/';
@@ -225,7 +224,7 @@ export default {
 	setHallSave( data ) {
 
 		this.setCharDatas( data.chars );
-		logObj( data.hall, 'STORE HALl DATA');
+		console.dir( data.hall );
 		window.localStorage.setItem( this.hallLoc(), JSON.stringify(data.hall) );
 
 	},

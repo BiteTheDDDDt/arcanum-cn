@@ -1647,7 +1647,9 @@
 		"unique": true,
 		"type": "weapon",
 		"tohit": 5,
-		"cost": 100,
+		"cost": {
+			"gold":100
+		},
 		"attack": {
 			"name": "blizzard",
 			"damage": "5~12",

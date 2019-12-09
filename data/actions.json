@@ -1433,11 +1433,11 @@
 		"verb": "Creating Masterpiece",
 		"require": "g.titan>0&&g.mythicanvil>0",
 		"length": 180,
-		"cost": {
-			"earthgem": 300,
-			"earthrune": 80,
-			"sindel": 5,
-			"ichor": 5
+		"cost":{
+			"earthgem":300,
+			"earthrune":80,
+			"sindel":5,
+			"ichor":5
 		},
 		"run": {
 			"stamina": 4,
@@ -1556,7 +1556,9 @@
 		"id":"buygem",
 		"name":"purchase gem",
 		"require":"g.tier0>0&&g.gold>100",
-		"cost":100,
+		"cost":{
+			"gold":100
+		},
 		"fill":"gems",
 		"effect":{
 			"gems":1

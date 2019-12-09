@@ -3,6 +3,16 @@ import Stat from "./stat";
 import { TYP_FUNC } from "./consts";
 
 /**
+ * Create a function that returns a cost.
+ * function params are g (GameState), a (Actor), c (Context)
+ * @param {*} s
+ * @returns {FValue.<(g,a,c)=>number>}
+ */
+export const MkCostFunc = s => {
+	return new FValue( 'g,a,c', s );
+}
+
+/**
  * Wraps a function in an object so modifiers can be applied.
  */
 export default class FValue extends RValue {
@@ -36,4 +46,12 @@ export default class FValue extends RValue {
 		return this._fn.apply( null, params );
 	}
 
+	/**
+	 * Get value of a result or effect.
+	 * @param {*} gs
+	 * @param {*} targ
+	 */
+	getEffect( gs, targ ) {
+		return this._fn( gs, targ );
+	}
 }
