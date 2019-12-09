@@ -91,7 +91,7 @@ export default {
 			this.main = await new Module().load( files.core );
 
 			if ( files.modules ) {
-				await this.main.load( files.modules, DataDir + 'modules' );
+				await this.main.load( files.modules, DataDir + 'modules/' );
 			}
 
 		}
