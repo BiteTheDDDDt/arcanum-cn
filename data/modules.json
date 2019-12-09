@@ -3,7 +3,7 @@
 	"core":[
 		"resources", "upgrades", "actions", "homes", "furniture", "skills",
 		"player", "spells", "monsters", "dungeons", "events", "classes", "armors", "weapons",
-		"materials", "enchants", "sections", "potions", "encounters", "locales","stressors"
+		"materials", "enchants", "sections", "potions", "encounters", "locales","stressors", "rares"
 	],
 	"modules":[
 		"patrons", "winter"

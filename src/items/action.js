@@ -124,7 +124,6 @@ export default class Action extends GData {
 		if ( this.log ) Game.doLog( this.log );
 		if ( this.mod ) Game.addMod( this.mod );
 		if ( this.result ) Game.applyEffect( this.result );
-		if ( this.loot ) Game.getLoot( this.loot );
 
 		if ( this.exec ) this.exec();
 		Events.emit( ACT_DONE, this );

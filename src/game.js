@@ -1217,6 +1217,7 @@ export default {
 		if ( !it) return null;
 
 		inv = inv || this.state.inventory;
+		if ( inv.full() ) inv = this.state.drops;
 
 		/** @todo this won't work right. huh? why not, later lemur asks. */
 		if ( typeof it === 'object' && it.stack ) {
