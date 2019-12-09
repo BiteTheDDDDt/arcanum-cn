@@ -1045,8 +1045,6 @@ export default {
 
 		if ( typeof cost === 'object' ){
 
-			if ( cost instanceof Stat ) { return this.getData('gold').value >= cost.value*amt; }
-
 			for( let p in cost ) {
 
 				var sub = cost[p];
@@ -1080,13 +1078,6 @@ export default {
 
 
 		} else if ( typeof cost === 'boolean') return true;
-		else if (!isNaN(cost) ) {
-
-			res = this.getData('gold');
-			if ( !res) console.error('Error: Gold is missing');
-			return res.value >= cost*amt;
-
-		}
 
 		return true;
 	},

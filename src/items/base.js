@@ -268,7 +268,7 @@ export default {
 		} else if ( mods.isRVal ) {
 
 			//this.amount( Game, mods*amt );
-			this.value = this.value.base + mods.getEffect( Game.state, this );
+			this.value = this.value.base + amt*mods.getEffect( Game.state, this );
 
 
 		} else if ( typeof mods === 'object' ) {
@@ -346,7 +346,7 @@ export default {
 			} else if ( typeof targ === 'object') {targ.value = (targ.value || 0 ) + amt*mods; }
 			else {
 				// nothing can be done if targ is a number. no parent object.
-				console.error(this.id + ' invalid mod: ' + mod );
+				console.error( this.id + ' !!invalid mod: ' + mods );
 			}
 			if ( this.mod ) Game.addMod( this.mod, this.value );
 

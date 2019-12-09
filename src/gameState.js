@@ -388,9 +388,7 @@ export default class GameState {
 	typeCost( cost, type ) {
 
 		if ( !cost ) return 0;
-
-		if ( !isNaN( cost) ) return type === 'gold' ? cost : 0;
-		return ( cost.hasOwnProperty(type) ) ? cost[type] : 0;
+		return cost[type] || 0;
 	}
 
 	/**
