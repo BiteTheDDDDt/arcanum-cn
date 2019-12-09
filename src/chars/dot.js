@@ -33,8 +33,8 @@ export default class Dot {
 	set damage(v) {
 
 		if ( v instanceof Range ) this._damage = v;
-		else if ( !isNaN(v) ) this._damage = Number(v);
 		else if ( typeof v === 'string' || typeof v === 'object') this._damage = new Range(v);
+		else if ( !isNaN(v) ) this._damage = Number(v);
 
 	}
 
