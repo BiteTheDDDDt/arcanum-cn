@@ -18,7 +18,7 @@ export default class GenGroup {
 	 */
 	constructor( items ){
 
-		this.items= items.filter( v=>!v.unique );
+		this.items= items.filter( v=>!v.unique&&!v.noproc );
 
 		/**
 		 * Data split/grouped by a variable/subcategory of the data
