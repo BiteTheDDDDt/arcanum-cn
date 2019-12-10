@@ -624,7 +624,7 @@
 		"cost":{
 			"spirit":5
 		},
-		"effect":"wisp"
+		"result":"wisp"
 	},
 	{
 		"id":"mk_zombie",
@@ -640,7 +640,7 @@
 		"cost":{
 			"shadow":7
 		},
-		"effect":"zombie"
+		"result":"zombie"
 
 	},
 	{
@@ -974,7 +974,7 @@
 		"cost":{
 			"mana":10
 		},
-		"effect":"hobgoblin"
+		"result":"hobgoblin"
 	},
 	{
 		"id":"mk_raven",
@@ -988,7 +988,7 @@
 		"cost":{
 			"nature":4
 		},
-		"effect":"raven"
+		"result":"raven"
 
 	},
 	{
@@ -1111,7 +1111,7 @@
 		"cost":{
 			"mana":12
 		},
-		"effect":"magicblade"
+		"result":"magicblade"
 	},
 	{
 		"id":"mk_murder",
@@ -1128,7 +1128,7 @@
 		"cost":{
 			"mana":7
 		},
-		"effect":[
+		"result":[
 			"raven",
 			"raven",
 			"raven",
@@ -1152,7 +1152,7 @@
 		"cost":{
 			"light":10
 		},
-		"effect":"unicorn"
+		"result":"unicorn"
 
 	},
 	{
@@ -1427,7 +1427,7 @@
 		"cost":{
 			"light":5
 		},
-		"effect":{
+		"result":{
 			"hp":20
 		}
 	},
@@ -1933,7 +1933,7 @@
 		"cost":{
 			"light":5
 		},
-		"effect":{
+		"result":{
 			"hp":75
 		}
 	},
@@ -2650,7 +2650,7 @@
 		"cost":{
 			"light":7
 		},
-		"effect":{
+		"result":{
 			"hp":200
 		}
 	},
