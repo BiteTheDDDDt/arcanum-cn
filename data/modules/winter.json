@@ -762,8 +762,9 @@
 	  },
 	  {
 		"id": "fazbithearth",
+		"name":"fazbit's hearth",
 		"desc": "Originally used to warm the entire workshop, can be repurposed for home use.",
-		"require": "g.w_fazbit9",
+		"require": "w_fazbit9",
 		"max": 1,
 		"cost": {
 			"firegem": 100,
