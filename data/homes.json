@@ -274,7 +274,7 @@
 		"id":"lighthouse",
 		"desc":"A lighted tower on the shore of the ocean.",
 		"cost":3000,
-		"require":"g.magician>0&&g.arcana>=20",
+		"require":"(g.magician+g.darkmagician+g.mage+g.elementalist+g.windmage+g.hydromancer)>0&&g.arcana>=20",
 		"mod":{
 			"minions.max":5,
 			"space.max":80,
