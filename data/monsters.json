@@ -4,7 +4,7 @@
         "id":"newt",
         "level":0.2,
         "kind":"beast",
-        "desc":"Wriggly.",
+        "flavor":"Wriggly.",
         "hp":"1~2",
         "defense":1,
         "attack":{

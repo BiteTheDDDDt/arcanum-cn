@@ -426,7 +426,7 @@ export default {
 		if ( this.canPay(it.buy) === false ) return false;
 		this.payCost( it.buy );
 
-		if ( it.isRecipe ) this.create( it, 1, keep );
+		if ( it.isRecipe ) this.create( it, keep );
 		it.owned = true;
 
 		if ( it.slot && !this.state.getSlot(it.slot) ) this.setSlot(it);
@@ -489,20 +489,6 @@ export default {
 	},
 
 	/**
-	 * Craft an item by paying its cost, then instantiating it.
-	 * Note that a crafted item does not use any of its effects or abilities.
-	 * @param {*} it
-	 */
-	craft( it ) {
-
-		if ( !this.canPay( it.cost ) ) return false;
-		this.payCost( it.cost );
-
-		this.create( it );
-
-	},
-
-	/**
 	 * Custom item deleted from game.
 	 * @param {*} it
 	 */
@@ -523,10 +509,24 @@ export default {
 	},
 
 	/**
+	 * Craft an item by paying its cost, then instantiating it.
+	 * Note that a crafted item does not use any of its effects or abilities.
+	 * @param {GData} it
+	 */
+	craft( it ) {
+
+		if ( !this.canPay( it.cost ) ) return false;
+		this.payCost( it.cost );
+
+		this.create( it, true );
+
+	},
+
+	/**
 	 * Create an item whose cost has been met ( or been provided by an effect )
 	 * @param {*} it
 	 */
-	create( it, count=1, keep=false ) {
+	create( it, keep=false ) {
 
 		/**
 		 * create monster and add to inventory.

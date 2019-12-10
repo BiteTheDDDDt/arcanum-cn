@@ -119,7 +119,7 @@ export default class Spell extends Action {
 
 	/**
 	 *
-	 * @param {*} targ
+	 * @param {GData} targ
 	 */
 	canUseOn(targ) {
 
