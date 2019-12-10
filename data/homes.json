@@ -62,9 +62,7 @@
 		"desc":"A remote hut in the woods.",
 		"disable":"innroom",
 		"require":"tier0",
-		"cost":{
-			"gold":150
-		},
+		"cost":150,
 		"mod":{
 			"space.max":15
 		}
@@ -76,9 +74,7 @@
 		"require":"g.tier0>0&&g.naturelore>=5",
 		"tags":"outdoors",
 		"disable":"innroom",
-		"cost":{
-			"gold":75
-		},
+		"cost":75,
 		"mod":{
 			"space.max":14,
 			"lore.rate":-0.1,
@@ -98,9 +94,7 @@
 		"require":"g.tier0>0&&g.naturelore>=5",
 		"disable":"innroom",
 		"tags":"outdoors",
-		"cost":{
-			"gold":150
-		},
+		"cost":150,
 		"mod":{
 			"space.max":12,
 			"naturelore.max":2,
@@ -116,9 +110,7 @@
 		"desc":"Cozy and quaint.",
 		"require":"tier0",
 		"disable":"innroom",
-		"cost":{
-			"gold":400
-		},
+		"cost":400,
 		"mod":{
 			"minions.max":1,
 			"space.max":20
@@ -127,9 +119,7 @@
 	{
 		"id":"house",
 		"desc":"A modest house in a small town.",
-		"cost":{
-			"gold":900
-		},
+		"cost":900,
 		"disable":"innroom",
 		"require":"g.tier0>0&&g.arcana.max>=8",
 		"mod":{
@@ -140,9 +130,7 @@
 	{
 		"id":"shop",
 		"desc":"A small shop in a bustling city.",
-		"cost":{
-			"gold":850
-		},
+		"cost":850,
 		"require":"g.tier0>0&&g.crafting>=9",
 		"mod":{
 			"minions.max":2,
@@ -157,9 +145,7 @@
 	{
 		"id":"inn",
 		"desc":"A quiet inn for hosting wayfarers.",
-		"cost":{
-			"gold":2000
-		},
+		"cost":2000,
 		"require":"g.tier0>0&&g.languages>=7",
 		"mod":{
 			"minions.max":5,
@@ -173,9 +159,7 @@
 	{
 		"id":"lodge",
 		"desc":"A rugged lodge in the woods.",
-		"cost":{
-			"gold":950
-		},
+		"cost":950,
 		"require":"g.tier0>0&&g.naturelore>=7",
 		"mod":{
 			"minions.max":5,
@@ -188,9 +172,7 @@
 		"id":"gabledhouse",
 		"name":"gabled mansion",
 		"desc":"A spacious house with many gabled windows.",
-		"cost":{
-			"gold":2000
-		},
+		"cost":2000,
 		"require":"g.tier1>0&&g.arcana>=10",
 		"mod":{
 			"minions.max":5,
@@ -201,9 +183,7 @@
 		"id":"halftimber",
 		"name":"half-timber house",
 		"desc":"A vast home of rustic design",
-		"cost":{
-			"gold":3000
-		},
+		"cost":3000,
 		"require":"g.tier1>0&&g.arcana>=10",
 		"mod":{
 			"minions.max":7,
@@ -214,9 +194,7 @@
 		"id":"cave",
 		"desc":"A primitive dwelling well-suited to particular areas of study. Others less so.",
 		"require":"g.tier0>0&&(g.shadow+g.earth+g.nature)>0",
-		"cost":{
-			"gold":150
-		},
+		"cost":150,
 		"mod":{
 			"minions.max":2,
 			"space.max":25,
@@ -253,9 +231,7 @@
 		"id":"hauntedmanse",
 		"name":"haunted manse",
 		"desc":"legends of this mansion speak of ghosts and horrors",
-		"cost":{
-			"gold":2500
-		},
+		"cost":2500,
 		"require":"hauntedmanor",
 		"mod":{
 			"space.max":75,
@@ -269,9 +245,7 @@
 		"id":"ancientruins",
 		"name":"ancient ruins",
 		"desc":"A rambling fortress of crumbled stone.",
-		"cost":{
-			"gold":5000
-		},
+		"cost":5000,
 		"require":"g.spirit>=15&&g.arcana>=12",
 		"mod":{
 			"minions.max":10,
@@ -287,9 +261,7 @@
 	{
 		"id":"tower",
 		"desc":"A stone tower in which to conduct your arcane investigations.",
-		"cost":{
-			"gold":2500
-		},
+		"cost":2500,
 		"require":"g.magician>0&&g.arcana>=20",
 		"mod":{
 			"minions.max":5,
@@ -301,10 +273,8 @@
 	{
 		"id":"lighthouse",
 		"desc":"A lighted tower on the shore of the ocean.",
-		"cost":{
-			"gold":3000
-		},
-		"require":"g.magician>0&&g.arcana>=20",
+		"cost":3000,
+		"require":"(g.magician+g.darkmagician+g.mage+g.elementalist+g.windmage+g.hydromancer)>0&&g.arcana>=20",
 		"mod":{
 			"minions.max":5,
 			"space.max":80,
@@ -340,10 +310,8 @@
 	{
 		"id":"citadel",
 		"desc":"A stronghold to defend you from the petty forces of the world.",
-		"cost":{
-			"gold":5000
-		},
-		"require":"g.magician>0&&g.arcana>=20",
+		"cost":5000,
+		"require":"(g.magician+g.darkmagician+g.battlemage+g.dreadlord)>0&&g.arcana>=20",
 		"mod":{
 			"minions.max":15,
 			"space.max":200,
@@ -369,9 +337,7 @@
 	{
 		"id":"temple",
 		"desc":"Sanctum of meditation and solitude.",
-		"cost":{
-			"gold":10000
-		},
+		"cost":10000,
 		"require":"(g.oracle+g.seer)>0",
 		"mod":{
 			"virtue.rate":0.001,
@@ -427,9 +393,7 @@
 	{
 		"id":"palace",
 		"desc":"luxurious, sprawling estate to advance your studies in maximum comfort.",
-		"cost":{
-			"gold":10000
-		},
+		"cost":10000,
 		"require":"tier2",
 		"mod":{
 			"minions.max":20,
@@ -445,9 +409,7 @@
 		"id":"castle",
 		"desc":"A vast and practical fortress, for the magic user with enemies.",
 		"require":"tier2",
-		"cost":{
-			"gold":10000
-		},
+		"cost":10000,
 		"mod":{
 			"minions.max":20,
 			"space.max":400,
@@ -461,9 +423,7 @@
 		"tags":"outdoors",
 		"desc":"Hidden Cove",
 		"require":"g.tier3>0&&g.enchanter>0",
-		"cost":{
-			"gold":3000
-		},
+		"cost":3000,
 		"mod":{
 			"minions.max":20,
 			"space.max":350,
