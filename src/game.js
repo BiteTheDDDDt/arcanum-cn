@@ -9,7 +9,7 @@ import Events, {EVT_UNLOCK, EVT_EVENT, EVT_LOOT, SET_SLOT, DELETE_ITEM } from '.
 import Resource from './items/resource';
 import Skill from './items/skill';
 import Stat from './values/stat';
-import { TEAM_ALLY } from './chars/npc';
+import { TEAM_PLAYER } from './chars/npc';
 import { MONSTER, TYP_PCT, TYP_RANGE, P_TITLE, P_LOG, RESOURCE } from './values/consts';
 
 var techTree;
@@ -549,7 +549,7 @@ export default {
 			*/
 			if ( it.type === MONSTER ) {
 
-				if ( it.onCreate ) it.onCreate( this, TEAM_ALLY, keep );
+				if ( it.onCreate ) it.onCreate( this, TEAM_PLAYER, keep );
 
 			} else {
 

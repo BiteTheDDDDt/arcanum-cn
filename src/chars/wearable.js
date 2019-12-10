@@ -49,6 +49,10 @@ export default class Wearable extends Item {
 		return !this.busy;
 	}
 
+	get damage() {
+		return this._attack ? this._attack.damage : undefined;
+	}
+
 	/**
 	 * @property {number} enchants - total level of all enchantments applied.
 	 */

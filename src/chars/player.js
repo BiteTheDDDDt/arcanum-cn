@@ -9,6 +9,7 @@ import Events, { LEVEL_UP, NEW_TITLE, CHAR_TITLE, CHAR_NAME, CHAR_CLASS, EVT_STA
 import Wearable from "./wearable";
 import GData from "../items/gdata";
 import { RESOURCE } from "../values/consts";
+import { TEAM_PLAYER } from "./npc";
 
 const Fists = new Wearable({
 
@@ -48,6 +49,8 @@ export default class Player extends Char {
 		} else this._level = v;
 
 	}
+
+	get team(){ return TEAM_PLAYER; }
 
 	/**
 	 * currently active title.

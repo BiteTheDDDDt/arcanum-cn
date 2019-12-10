@@ -8,7 +8,7 @@ import Attack, { ParseDmg } from './attack';
 /**
  * @const {number} ALLY - team constant for allies.
  */
-export const TEAM_ALLY = 1;
+export const TEAM_PLAYER = 1;
 
 /**
  * Class for specific Enemies/Minions in game.

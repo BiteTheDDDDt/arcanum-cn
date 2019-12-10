@@ -1081,10 +1081,28 @@
 		}
 	},
 	{
+		"id":"flamestrike",
+		"school":"water",
+		"require":"water",
+		"buy":{
+			"tomes":1
+		},
+		"cost":{
+			"fire":2,
+			"hp":5
+		},
+		"attack":{
+			"kind":"fire",
+			"bonus":10,
+			"dmg":"a.weapon.damage+a.getBonus( a.weapon.kind )"
+		}
+
+	},
+	{
 		"id":"mk_blade",
 		"name":"summon blade",
 		"school":"blade",
-		"require":"(g.battlemage+g.spellblade+g.dreadlord)>0",
+		"require":"(g.battlemage+g.spellblade+g.dreadlord+g.summoner)>0",
 		"level":7,
 		"buy":{
 			"research":5000,

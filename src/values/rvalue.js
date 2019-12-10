@@ -80,7 +80,7 @@ export default class RValue {
 	 * @param {}
 	 */
 	getEffect() {
-		console.log( this.id + ' getEffect: ' + this.value );
+		//console.log( this.id + ' getEffect: ' + this.value );
 		return this.value;
 	}
 

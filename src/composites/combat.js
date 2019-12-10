@@ -1,6 +1,6 @@
 import Game from '../game';
 import Range from '../values/range';
-import { TEAM_ALLY as TEAM_PLAYER } from '../chars/npc';
+import { TEAM_PLAYER } from '../chars/npc';
 
 import Events, {
 	EVT_COMBAT, ENEMY_SLAIN, ALLY_DIED,

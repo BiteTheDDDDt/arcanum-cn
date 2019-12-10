@@ -1,5 +1,5 @@
 import GData from "./gdata";
-import { TEAM_ALLY } from "../chars/npc";
+import { TEAM_PLAYER } from "../chars/npc";
 import { MONSTER } from "../values/consts";
 
 const defaults = {
@@ -47,7 +47,7 @@ export default class Monster extends GData {
 	 * @param {number} team
 	 * @param {boolean} keep
 	 */
-	onCreate( g, team = TEAM_ALLY, keep=false ){
+	onCreate( g, team = TEAM_PLAYER, keep=false ){
 
 		let it = g.itemGen.npc( this );
 		it.team = team;
