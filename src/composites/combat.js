@@ -1,6 +1,6 @@
 import Game from '../game';
 import Range from '../values/range';
-import { TEAM_ALLY } from '../chars/npc';
+import { TEAM_ALLY as TEAM_PLAYER } from '../chars/npc';
 
 import Events, {
 	EVT_COMBAT, ENEMY_SLAIN, ALLY_DIED,
@@ -23,6 +23,11 @@ const TARGET_ENEMIES = 'enemies';
  * @const {string} TARGET_ALLIES - target all allies.
  */
 const TARGET_ALLIES = 'allies';
+
+/**
+ * @const {string} TARGET_ALLY - target single ally.
+ */
+const TARGET_ALLY = 'ally';
 
 /**
  * @const {string} TARGET_SELF - target self.
@@ -202,7 +207,7 @@ export default class Combat {
 
 		it.timer = getDelay( it.speed );
 
-		if ( it.team === TEAM_ALLY ) {
+		if ( it.team === TEAM_PLAYER ) {
 			this._allies.push( it)
 		} else this._enemies.push(it);
 
@@ -210,7 +215,7 @@ export default class Combat {
 
 	update(dt) {
 
-		if ( this._enemies.length === 0 || this.player.alive === false ) return;
+		if ( this.player.alive === false ) return;
 
 		var e, action;
 		for( let i = this._allies.length-1; i >= 0; i-- ) {
@@ -218,6 +223,7 @@ export default class Combat {
 			e = this._allies[i];
 			if ( e.alive === false ) {
 
+				/** @todo messy minion removal. */
 				e.hp -= dt;
 				if ( e.hp < -5 ) {
 					this._allies.splice(i,1);
@@ -228,7 +234,7 @@ export default class Combat {
 
 			if ( e !==this.player) e.update(dt);
 			action = e.combat(dt);
-			if ( action ) this.attack( e, action, this._enemies );
+			if ( action ) this.attack( e, action );
 
 		}
 
@@ -238,7 +244,7 @@ export default class Combat {
 			e.update(dt);
 			if ( e.alive === false ) { this._enemies.splice(i,1); continue;}
 			action = e.combat(dt);
-			if ( action ) this.attack( e, action, this._allies );
+			if ( action ) this.attack( e, action );
 
 		}
 
@@ -254,7 +260,7 @@ export default class Combat {
 
 			Events.emit(EVT_COMBAT, null, this.player.name + ' casts ' + it.name + ' at the darkness.' );
 
-		} else this.attack( this.player, it.attack, this.enemies );
+		} else this.attack( this.player, it.attack );
 
 	}
 
@@ -262,19 +268,23 @@ export default class Combat {
 	 * Attack a target.
 	 * @param {Char} attacker - enemy attacking.
 	 * @param {Object|Char} atk - attack object.
-	 * @param {Char[]} targs - potential targets.
 	 */
-	attack( attacker, atk, targs ) {
+	attack( attacker, atk ) {
 
-		if ( atk && atk.log ) {
+		if ( atk.log ) {
 			Events.emit( EVT_EVENT, atk.log );
 		}
 
-		if ( atk && atk.targets === TARGET_ENEMIES ) {
+		let targ = this.getTarget( attacker, atk.targets );
+		if ( !targ) return;
 
-			targs.forEach( v => v.alive? this.doAttack(attacker, atk, v):null );
+		else if ( Array.isArray(targ)) {
 
-		} else this.doAttack( attacker, atk, this.nextTarget( targs ) );
+			for( let i = targ.length-1; i>= 0; i-- ) {
+				this.doAttack( attacker, atk, targ[i]);
+			}
+
+		} else this.doAttack( attacker, atk, targ );
 
 	}
 
@@ -295,7 +305,6 @@ export default class Combat {
 	}
 
 	/**
-	 *
 	 * @param {Char} char
 	 * @param {string} targets
 	 * @returns {Char|Char[]|null}
@@ -304,18 +313,27 @@ export default class Combat {
 
 		if ( !targets ) {
 
-			return char.team === TEAM_ALLY ? this.nextTarget( this._enemies ) : this.nextTarget( this.allies );
+			return char.team === TEAM_PLAYER ? this.nextTarget( this._enemies ) : this.nextTarget( this.allies );
 
 		} else if ( targets === TARGET_ENEMIES ) {
 
-			return char.team === TEAM_ALLY ? this._enemies : this.allies;
+			return char.team === TEAM_PLAYER ? this._enemies : this.allies;
 
 		} else if ( targets === TARGET_SELF ) return char;
+		else if ( targets === TARGET_ALLIES ) return char.team === TEAM_PLAYER ? this.allies : this.enemies;
 		else if ( targets === TARGET_RAND ) {
 
 			let r = Math.floor( Math.random()*( this._allies.length + this._enemies.length ) );
 			return ( r < this.allies.length ) ? this.nextTarget( this.allies ) : this.nextTarget( this.enemies );
 
+		} else if ( targets === TARGET_ALL ) {
+
+			/** @todo bad. */
+			return this.allies.concat( this.enemies );
+
+		} else if ( targets === TARGET_ALLY ) {
+
+			return char.team === TEAM_PLAYER ? this.nextTarget( this.allies ) : this.nextTarget( this.enemies );
 		}
 
 	}
@@ -440,7 +458,7 @@ export default class Combat {
 	charDied( char, attacker ) {
 
 		if ( char === this.player ) return;
-		else if ( char.team === TEAM_ALLY ) {
+		else if ( char.team === TEAM_PLAYER ) {
 
 			Events.emit( ALLY_DIED, char );
 

@@ -2655,9 +2655,9 @@
 			"water":8
 		},
 		"attack":{
+			"targets":"all",
 			"dot":{
 				"kind":"water",
-				"targets":"all",
 				"dmg":"20~30",
 				"duration":30
 			}
