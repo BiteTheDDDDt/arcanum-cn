@@ -8,7 +8,7 @@
 		"cost":{
 			"stamina":0.08
 		},
-		"effect":{
+		"result":{
 			"gold":0.2
 		}, "flavor":"it's stable employment"
 	},
@@ -20,16 +20,16 @@
 		"require":"apprentice",
 		"at":{
 			"50":{
-				"effect.gold":0.1
+				"result.gold":0.1
 			},
 			"250":{
-				"effect.gold":0.1
+				"result.gold":0.1
 			}
 		},
 		"cost":{
 			"stamina":0.17
 		},
-		"effect":{
+		"result":{
 			"virtue":0.03,
 			"gold":0.3
 		}
@@ -113,7 +113,7 @@
 			"mana":0.1,
 			"research":0.5
 		},
-		"effect":{
+		"result":{
 			"gold":0.5,
 			"trickery.exp":0.1,
 			"evilamt":0.01,
@@ -446,7 +446,7 @@
 			"arcana":1,
 			"sindel":1
 		},
-		"effect":{
+		"result":{
 			"dreams":1
 		},"flavor":"star-light, star-bright..."
 
@@ -678,13 +678,13 @@
 		},
 		"at":{
 
-			"50":{ "effect.gold":0.1 },
-			"150":{ "effect.gold":0.2 },
-			"500":{ "effect.gold":0.5 },
-			"1500":{ "effect.gold":1 }
+			"50":{ "result.gold":0.1 },
+			"150":{ "result.gold":0.2 },
+			"500":{ "result.gold":0.5 },
+			"1500":{ "result.gold":1 }
 
 		},
-		"effect":{
+		"result":{
 			"virtue":0.1,
 			"evilamt":-0.1,
 			"gold":0.4
@@ -703,13 +703,13 @@
 		},
 		"at":{
 
-			"50":{ "effect.gold":0.15 },
-			"150":{ "effect.gold":0.2 },
-			"500":{ "effect.gold":0.5 },
-			"1500":{ "effect.gold":1 }
+			"50":{ "result.gold":0.15 },
+			"150":{ "result.gold":0.2 },
+			"500":{ "result.gold":0.5 },
+			"1500":{ "result.gold":1 }
 
 		},
-		"effect":{
+		"result":{
 			"gold":0.55,
 			"divination.exp":0.3
 		}
@@ -724,13 +724,13 @@
 		},
 		"at":{
 
-			"50":{ "effect.gold":0.1 },
-			"150":{ "effect.gold":0.1 },
-			"500":{ "effect.gold":0.3 },
-			"1500":{ "effect.gold":0.5 }
+			"50":{ "result.gold":0.1 },
+			"150":{ "result.gold":0.1 },
+			"500":{ "result.gold":0.3 },
+			"1500":{ "result.gold":0.5 }
 
 		},
-		"effect":{
+		"result":{
 			"virtue":0.1,
 			"evilamt":-0.01,
 			"gold":0.35
@@ -747,7 +747,7 @@
 			"stamina":4,
 			"gold":50
 		},
-		"effect":{
+		"result":{
 			"trickery.exp":2,
 			"conjuration.exp":2,
 			"bones":"14%",
@@ -772,7 +772,7 @@
 		"cost":{
 			"stamina":0.3
 		},
-		"effect":{
+		"result":{
 			"herbalism.exp":0.5,
 			"herbs":0.2
 		}
@@ -786,7 +786,7 @@
 		"cost":{
 			"herbs":1
 		},
-		"effect":{
+		"result":{
 			"gold":2
 		}
 
@@ -1063,7 +1063,7 @@
 			"gold":10
 		},
 		"fill":"scrolls",
-		"effect":{
+		"result":{
 			"scrolls":1,
 			"evt_scroll":true
 		}
@@ -1077,7 +1077,7 @@
 			"mana":1
 		},
 		"fill":"scrolls",
-		"effect":{
+		"result":{
 			"scrolls":1
 		}
 	},
@@ -1092,7 +1092,7 @@
 			"mana":3
 		},
 		"fill":"codices",
-		"effect":{
+		"result":{
 			"codices":1
 		}
 
@@ -1129,19 +1129,19 @@
 		},
 		"at":{
 			"10":{
-				"effect.research.max":5,
-				"effect.arcana":0.3
+				"result.research.max":5,
+				"result.arcana":0.3
 			},
 			"50":{
-				"effect.research.max":5,
-				"effect.arcana":0.7
+				"result.research.max":5,
+				"result.arcana":0.7
 			},
 			"100":{
-				"effect.research.max":10,
-				"effect.arcana":1
+				"result.research.max":10,
+				"result.arcana":1
 			}
 		},
-		"effect":{
+		"result":{
 			"research.max":10,
 			"arcana":1
 		}
@@ -1560,7 +1560,7 @@
 			"gold":100
 		},
 		"fill":"gems",
-		"effect":{
+		"result":{
 			"gems":1
 		}
 	},
@@ -1587,7 +1587,7 @@
 		"cost":{
 			"gems":1
 		},
-		"effect":{
+		"result":{
 			"gold":35
 		}
 	},
@@ -1811,7 +1811,7 @@
 		"cost":{
 			"scrolls":1
 		},
-		"effect":{
+		"result":{
 			"gold":5
 		}
 	},
@@ -1884,13 +1884,13 @@
 		"need":"g.runner.hasType('skill')",
 		"every":{
 			"25":{
-				"effect.runner.exp":0.02
+				"result.runner.exp":0.02
 			}
 		},
 		"cost":{
 			"mana":0.1
 		},
-		"effect":{
+		"result":{
 			"runner.exp":0.2
 		}
 
@@ -1902,7 +1902,7 @@
 		"cost":{
 			"mana":0.15
 		},
-		"effect":{
+		"result":{
 			"research.max":0.05,
 			"research":0.05
 		}

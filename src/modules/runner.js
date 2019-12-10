@@ -319,7 +319,7 @@ export default class Runner {
 				this.stopAction( i, false );
 
 				if ( (cur.type === TYP_RUN ) ){
-					console.log('WAIT RUNNABLE');
+					//console.log('WAIT RUNNABLE');
 					this.addWait(cur);
 				}
 

@@ -15,7 +15,7 @@
 			"research":10,
 			"gold":20
 		},
-		"effect":{
+		"result":{
 			"research.max":10,
 			"player.exp":5,
 			"sp":1
@@ -32,7 +32,7 @@
 			"research":100,
 			"arcana":1
 		},
-		"effect":{
+		"result":{
 			"sp":1.25,
 			"player.exp":10
 		},
@@ -55,7 +55,7 @@
 			"research":100,
 			"arcana":1
 		},
-		"effect":{
+		"result":{
 			"evt_helper":true,
 			"sp":1.5,
 			"player.exp":10
@@ -77,7 +77,7 @@
 			"research":100,
 			"arcana":1
 		},
-		"effect":{
+		"result":{
 			"evt_helper":true,
 			"sp":1
 		},
@@ -104,7 +104,7 @@
 		"research":175,
 		"arcana":3
 	},
-	"effect":{
+	"result":{
 		"sp":1,
 		"player.exp":10
 	},
@@ -151,7 +151,7 @@
 	"cost":{
 		"arcana":7
 	},
-	"effect":{
+	"result":{
 		"sp":1
 	},
 	"mod":{
@@ -179,7 +179,7 @@
 		"arcana":11,
 		"gold":500
 	},
-	"effect":{
+	"result":{
 		"sp":1
 	},
 	"mod":{
@@ -206,7 +206,7 @@
 		"gold":300,
 		"bones":10
 	},
-	"effect":{
+	"result":{
 
 		"sp":1
 	},
@@ -235,7 +235,7 @@
 		"bonedust":10,
 		"arcana":7
 	},
-	"effect":{
+	"result":{
 		"sp":2
 	},
 	"locks":"pace",
@@ -266,7 +266,7 @@
 		"arcana":9
 	},
 	"disable":[],
-	"effect":{
+	"result":{
 
 		"sp":2
 
@@ -299,7 +299,7 @@
 		"arcana":5
 	},
 	"locks":"pace",
-	"effect":{
+	"result":{
 
 		"sp":3
 	},
@@ -333,7 +333,7 @@
 		"gold":777,
 		"arcana":7
 	},
-	"effect":{
+	"result":{
 		"sp":3
 	},
 	"mod":{
@@ -360,7 +360,7 @@
 		"bonedust":15,
 		"arcana":7
 	},
-	"effect":{
+	"result":{
 		"sp":2
 	},
 	"mod":{
@@ -386,7 +386,7 @@
 		"bonedust":25,
 		"arcana":15
 	},
-	"effect":{
+	"result":{
 		"sp":2
 	},
 	"mod":{
@@ -414,7 +414,7 @@
 		"gold":800,
 		"gems":20
 	},
-	"effect":{
+	"result":{
 		"sp":1
 	},
 	"mod":{
@@ -446,7 +446,7 @@
 		"watergem":5
 	},
 
-	"effect":{
+	"result":{
 		"sp":2
 	},
 
@@ -483,7 +483,7 @@
 		"watergem":10
 	},
 
-	"effect":{
+	"result":{
 		"sp":2
 	},
 	"mod":{
@@ -518,7 +518,7 @@
 
 	},
 
-	"effect":{
+	"result":{
 		"sp":2
 	},
 
@@ -548,7 +548,7 @@
 		"arcana":20,
 		"gold":1000
 	},
-	"effect":{
+	"result":{
 		"sp":2
 	},
 	"mod":{
@@ -572,7 +572,7 @@
 		"bodies":50,
 		"arcana":20
 	},
-	"effect":{
+	"result":{
 
 		"sp":1
 	},
@@ -600,7 +600,7 @@
 		"tomes":10,
 		"runestones":5
 	},
-	"effect":{
+	"result":{
 
 		"sp":1
 	},
@@ -630,7 +630,7 @@
 		"gold":700,
 		"bloodgem":20
 	},
-	"effect":{
+	"result":{
 
 		"sp":1
 	},
@@ -659,7 +659,7 @@
 		"arcana":20,
 		"tomes":5
 	},
-	"effect":{
+	"result":{
 
 		"sp":1
 	},
@@ -688,7 +688,7 @@
 		"herbs":50,
 		"arcana":15
 	},
-	"effect":{
+	"result":{
 		"sp":1
 	},
 	"mod":{
@@ -713,7 +713,7 @@
 		"earthgem":2,
 		"arcana":20
 	},
-	"effect":{
+	"result":{
 		"sp":3
 	},
 	"mod":{
@@ -740,7 +740,7 @@
 		"tomes":5,
 		"arcana":20
 	},
-	"effect":{
+	"result":{
 		"sp":2
 	},
 	"mod":{
@@ -766,7 +766,7 @@
 		"tomes": 10,
 		"earthgem": 10
 	},
-	"effect": {
+	"result": {
 		"sp": 2
 	},
 	"mod": {
@@ -791,7 +791,7 @@
 		"tomes": 30,
 		"earthgem": 50
 	},
-	"effect": {
+	"result": {
 		"sp": 2
 	},
 	"mod": {
@@ -817,7 +817,7 @@
 		"earthgem": 100,
 		"earthrune": 20
 	},
-	"effect": {
+	"result": {
 		"sp": 2
 	},
 	"mod": {
@@ -842,7 +842,7 @@
 		"tomes":10,
 		"firegem":10
 	},
-	"effect":{
+	"result":{
 		"sp":2
 	},
 	"mod":{
@@ -866,7 +866,7 @@
 		"tomes":10,
 		"watergem":10
 	},
-	"effect":{
+	"result":{
 
 		"sp":2
 	},
@@ -892,7 +892,7 @@
 		"tomes":10,
 		"airgem":10
 	},
-	"effect":{
+	"result":{
 
 		"sp":2
 	},
@@ -916,7 +916,7 @@
 		"watergem":20,
 		"tomes":10
 	},
-	"effect":{
+	"result":{
 
 		"sp":1
 	},
@@ -942,7 +942,7 @@
 		"codices":20,
 		"gems":10
 	},
-	"effect":{
+	"result":{
 
 		"sp":1
 	},
@@ -967,7 +967,7 @@
 		"watergem":15,
 		"arcana":25
 	},
-	"effect":{
+	"result":{
 
 		"sp":1
 	},
@@ -994,7 +994,7 @@
 		"herbs":50,
 		"arcana":20
 	},
-	"effect":{
+	"result":{
 
 		"sp":1
 	},
@@ -1022,7 +1022,7 @@
 		"earthgem":20,
 		"watergem":20
 	},
-	"effect":{
+	"result":{
 
 		"sp":2
 	},
@@ -1048,7 +1048,7 @@
 		"codices":20,
 		"arcana":5
 	},
-	"effect":{
+	"result":{
 
 		"sp":2
 	},
@@ -1077,7 +1077,7 @@
 		"arcana":10,
 		"research":2000
 	},
-	"effect":{
+	"result":{
 
 		"sp":2
 	},
@@ -1102,7 +1102,7 @@
 		"arcana":15,
 		"tomes":5
 	},
-	"effect":{
+	"result":{
 
 		"sp":2
 	},
@@ -1127,7 +1127,7 @@
 		"arcana":20,
 		"tomes":10
 	},
-	"effect":{
+	"result":{
 		"sp":2
 	},
 	"mod":{
@@ -1152,7 +1152,7 @@
 		"tomes":7,
 		"spiritgem":15
 	},
-	"effect":{
+	"result":{
 		"sp":2
 	},
 	"mod":{
@@ -1179,7 +1179,7 @@
 		"arcana":15,
 		"runestones":5
 	},
-	"effect":{
+	"result":{
 
 		"sp":1
 	},
@@ -1208,7 +1208,7 @@
 		"spiritgem":20,
 		"runestones":5
 	},
-	"effect":{
+	"result":{
 		"sp":2
 	},
 	"mod":{
@@ -1237,7 +1237,7 @@
 		"arcana":10,
 		"runestones":5
 	},
-	"effect":{
+	"result":{
 		"sp":2
 	},
 	"mod":{
@@ -1265,7 +1265,7 @@
 		"tomes":20,
 		"runestones":5
 	},
-	"effect":{
+	"result":{
 		"sp":2
 	},
 	"mod":{
@@ -1399,7 +1399,7 @@
 			"spiritgem":50,
 			"runestones":10
 		},
-		"effect":{
+		"result":{
 			"sp":2
 		},
 		"mod":{
