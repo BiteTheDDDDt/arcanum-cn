@@ -418,10 +418,10 @@ export default {
 	/**
 	 * Attempt to pay the cost to permanently buy an item.
 	 * @param {GData} it
-	 * @param {boolean} keep
+	 * @param {boolean} [keep=true]
 	 * @returns {boolean}
 	 */
-	tryBuy( it, keep=false ) {
+	tryBuy( it, keep=true ) {
 
 		if ( this.canPay(it.buy) === false ) return false;
 		this.payCost( it.buy );
@@ -463,7 +463,7 @@ export default {
 
 		} else if ( it.buy && !it.owned ) {
 
-			this.tryBuy(it);
+			this.tryBuy( it, false );
 
 		} else {
 
@@ -518,29 +518,46 @@ export default {
 		if ( !this.canPay( it.cost ) ) return false;
 		this.payCost( it.cost );
 
-		this.create( it, true );
+		this.create( it );
 
 	},
 
 	/**
 	 * Create an item whose cost has been met ( or been provided by an effect )
-	 * @param {*} it
+	 * @param {GData} it
+	 * @param {boolean} [keep=true] whether the item should be kept after effect.
+	 * ( currently used for npcs )
+	 * @param {number} [count=1]
 	 */
-	create( it, keep=false ) {
+	create( it, keep=true, count=1 ) {
 
-		/**
-		 * create monster and add to inventory.
-		 * @todo this is hacky.
-		*/
-		if ( it.type === MONSTER ) {
+		if ( typeof it === 'string') it = this.state.getData(it);
+		else if ( Array.isArray(it) ) {
+			for( let i = it.length-1; i>=0; i--) {
+				this.create(it[i], keep, count);
+			}
+			return;
+		}
 
-			if ( it.onCreate ) it.onCreate( this, TEAM_ALLY, keep );
+		if (!it ) return;
 
-		} else {
+		for( let i = count; i >0; i--) {
 
-			var inst = this.itemGen.instance( it );
-			if ( inst ) this.state.inventory.add( inst );
-			Events.emit( EVT_LOOT, inst );
+			/**
+			 * create monster and add to inventory.
+			 * @todo this is hacky.
+			*/
+			if ( it.type === MONSTER ) {
+
+				if ( it.onCreate ) it.onCreate( this, TEAM_ALLY, keep );
+
+			} else {
+
+				var inst = this.itemGen.instance( it );
+				if ( inst ) this.state.inventory.add( inst );
+				Events.emit( EVT_LOOT, inst );
+
+			}
 
 		}
 

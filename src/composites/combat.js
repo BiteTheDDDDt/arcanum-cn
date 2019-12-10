@@ -80,7 +80,7 @@ export const applyDamage = ( target, attack, attacker ) => {
 	if ( attack.bonus ) dmg += attack.bonus;
 
 	let resist = target.getResist(attack.kind);
-	if (resist > 0) dmg *= (1 - resist);
+	if (resist !== 0) dmg *= (1 - resist);
 
 	target.hp -= dmg;
 	if ( target.hp <= 0 ) { Events.emit( CHAR_DIED, target, attack ); }

@@ -298,12 +298,13 @@ export default class GData {
 	 */
 	change( g, count) {
 
-		if ( this.isRecipe ) { return g.create( this, count ); }
+		if ( this.isRecipe ) { return g.create( this, true, count ); }
 
 		if ( this.exec ) this.exec();
 
 		if ( this.title ) g.state.player.setTitle( this.title );
 		if ( this.result ) g.applyEffect( this.result, count );
+		if ( this.create ) g.create( this.create );
 		if ( this.mod ) { g.addMod( this.mod ); }
 
 		if ( this.lock ) g.lock( this.lock );

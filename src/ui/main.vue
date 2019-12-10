@@ -315,7 +315,7 @@ export default {
 		 * Buy a spell or item without casting/using the item or its mods.
 		 * @property {Item} item - item to buy.
 		 */
-		onBuy(item) { Game.tryBuy( item, true ); }
+		onBuy(item) { Game.tryBuy( item ); }
 
 	},
 	computed:{

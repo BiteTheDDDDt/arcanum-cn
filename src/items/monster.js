@@ -38,11 +38,7 @@ export default class Monster extends GData {
 	}
 
 	amount( g, count=1 ) {
-
-		for( let i = count; i > 0; i--) {
-			g.create( this );
-		}
-
+		g.create( this, false, count );
 	}
 
 	/**
