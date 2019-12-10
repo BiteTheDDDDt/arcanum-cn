@@ -3,6 +3,7 @@ import Base, { mergeClass } from "../items/base";
 
 /**
  * Currently used to make custom user spells.
+ * Groups multiple GData items into a single item.
  */
 export default class Group {
 

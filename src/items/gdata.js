@@ -73,7 +73,7 @@ export default class GData {
 	}
 
 	/**
-	 * @property {number|Object.<string,number>} cost
+	 * @property {number|.<string,number>} cost
 	 */
 	get cost() { return this._cost; }
 	set cost(v) {

@@ -11,6 +11,12 @@ import Attack, { ParseDmg } from './attack';
 export const TEAM_PLAYER = 1;
 
 /**
+ * @const {number} TEAM_NPC - constant for NPC team.
+ * Might allow additional teams in future.
+ */
+export const TEAM_NPC = 0;
+
+/**
  * Class for specific Enemies/Minions in game.
  */
 export default class Npc extends Char {
@@ -141,6 +147,7 @@ export default class Npc extends Char {
 		if (!this.hp ) { this.hp = 1; }
 
 		//console.log( this.id + ' const() : ' + this.hp.value );
+		if (!this.team) this.team = TEAM_NPC;
 
 		this.tohit = this.tohit || 0;
 
