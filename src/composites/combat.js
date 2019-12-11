@@ -4,7 +4,7 @@ import { TEAM_PLAYER } from '../chars/npc';
 
 import Events, {
 	EVT_COMBAT, ENEMY_SLAIN, ALLY_DIED,
-	DAMAGE_MISS, CHAR_DIED, IS_IMMUNE, COMBAT_HIT, EVT_EVENT
+	DAMAGE_MISS, CHAR_DIED, IS_IMMUNE, COMBAT_HIT, EVT_EVENT, STATE_BLOCK
 } from '../events';
 
 import { itemRevive } from '../modules/itemgen';
@@ -234,7 +234,9 @@ export default class Combat {
 
 			if ( e !==this.player) e.update(dt);
 			action = e.combat(dt);
-			if ( action ) this.attack( e, action );
+			if ( action.blocked ) {
+				Events.emit( STATE_BLOCK, e, action );
+			} else if ( action ) this.attack( e, action );
 
 		}
 
@@ -244,7 +246,9 @@ export default class Combat {
 			e.update(dt);
 			if ( e.alive === false ) { this._enemies.splice(i,1); continue;}
 			action = e.combat(dt);
-			if ( action ) this.attack( e, action );
+			if ( action.blocked ){
+				Events.emit( STATE_BLOCK, e, action );
+			} else if ( action ) this.attack( e, action );
 
 		}
 
@@ -346,7 +350,6 @@ export default class Combat {
 		for( let i = a.length-1; i>=0; i-- ) {
 			if ( a[i].alive ) return a[i];
 		}
-
 	}
 
 	/**

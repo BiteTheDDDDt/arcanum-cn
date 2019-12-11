@@ -19,8 +19,8 @@ export function getDelay(s) {
 
 export default class Char {
 
-	get states() { return this._states; }
-	set states(v) { this._states = v; }
+	/*get states() { return this._states; }
+	set states(v) { this._states = v; }*/
 
 	get defense() { return this._defense; }
 	set defense(v) {
@@ -111,7 +111,7 @@ export default class Char {
 	/**
 	 * @property {number} canAttack
 	 */
-	get canAttack(){
+	/*get canAttack(){
 
 		for( let i = this.states.length-1; i>=0; i--){
 			if ( this.states[i].canAttack ) return false;
@@ -119,6 +119,7 @@ export default class Char {
 
 		return this._canAttack;
 	}
+	set canAttack(v) { this._canAttack = v;}*/
 
 	/**
 	 * @property {Act} act - action to take in locale.
@@ -126,22 +127,15 @@ export default class Char {
 	get act(){return this._act; }
 	set act(v) { this._act = v; }
 
-	set canAttack(v) { this._canAttack = v;}
 
 	/**
 	 * @property {number} canDefend
 	 */
-	get canDefend(){return this._canDefend;}
-	set canDefend(v) { this._canDefend = v;}
+	/*get canDefend(){return this._canDefend;}
+	set canDefend(v) { this._canDefend = v;}*/
 
-	/**
-	 * @property {number} canAct
-	 */
-	get canAct(){return this._canAct;}
-	set canAct(v) { this._canAct = v;}
 
 	get instance() { return true; }
-	set instance(v) {}
 
 	get regen() { return this._regen; }
 	set regen(v) { this._regen = ( v instanceof Stat ) ? v : new Stat(v); }
@@ -150,7 +144,6 @@ export default class Char {
 	set died(v) { this._died = v; }*/
 
 	get alive() { return this.hp.value > 0; }
-	set alive(v) {}
 
 	constructor( vars ){
 
@@ -160,13 +153,14 @@ export default class Char {
 
 		this.type = NPC;
 
-		this.states = this.states || {};
+		//this.states = this.states || {};
 		this.immunities = this.immunities || {};
 		this._resist = this._resist || {};
 		if ( !this.bonuses ) this.bonuses = {};
 
-		this._act = new Act();
 		//console.log( this.id + ' tohit: ' + this.tohit );
+
+		this._act = new Act();
 
 		/**
 		 * @property {Object[]} dots - timed/ongoing effects.
@@ -307,10 +301,23 @@ export default class Char {
 
 			this.timer += getDelay( this.speed );
 
-			//if ( !this.canAct || !this.canAttack ) return null;
-			return this.getAttack();
+			return this.attackOverride() || this.getAttack();
 
 		}
+
+	}
+
+	attackOverride() {
+
+		for( let i = this.dots.length-1; i>= 0; i-- ) {
+
+			if ( !dots[i].canAttack() ) {
+				this._act.set( dots[i], true );
+				return this._act;
+			}
+
+		}
+		return null;
 
 	}
 

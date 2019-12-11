@@ -221,7 +221,7 @@ export default class GameState {
 
 			if ( !it.hasTag ) {
 
-				console.warn( p + ' -> ' + this.items[p].id + ' missing hasTag(). Removing.');
+				console.warn( p + ': ' + this.items[p].id + ' missing hasTag(). Removing.');
 				delete this.items[p];
 
 			} else {
@@ -239,21 +239,6 @@ export default class GameState {
 
 	}
 
-	initSlots(){
-
-		/**
-		 * @property {Object.<string,Item>} slots - slots for items which can only have
-		 * a single active at a given time.
-		 */
-		this.slots = this.slots || {};
-
-		// all must be defined for Vue. slots could be missing from save.
-		ensure( this.slots, [HOME, 'mount', 'bed', REST_SLOT]);
-
-		if ( !this.slots[REST_SLOT] ) this.slots[REST_SLOT] = this.getData('rest');
-
-	}
-
 	/**
 	 * Test if a home can fit the current used capacity.
 	 * @param {Object.<string,Items>} g - all game data.
@@ -267,6 +252,22 @@ export default class GameState {
 			g.space.max.delValue( i.mod.space.max.bonus - ( cur ? cur.mod.space.max.bonus : 0) );
 		/*return g.space.used <=
 			g.space.max.delValue( i.mod.space.max.bonus - ( cur ? cur.mod.space.max.bonus : 0) );*/
+
+	}
+
+
+	initSlots(){
+
+		/**
+		 * @property {Object.<string,Item>} slots - slots for items which can only have
+		 * a single active at a given time.
+		 */
+		this.slots = this.slots || {};
+
+		// all must be defined for Vue. slots could be missing from save.
+		ensure( this.slots, [HOME, 'mount', 'bed', REST_SLOT]);
+
+		if ( !this.slots[REST_SLOT] ) this.slots[REST_SLOT] = this.getData('rest');
 
 	}
 

@@ -2,8 +2,23 @@
 
 	{
 		"id":"asleep",
-		"canAttack":false,
-		"canDefend":false
-
+		"noact":true
+	},
+	{
+		"id":"silenced",
+		"nospells":true
+	},
+	{
+		"id":"afraid",
+		"noattack":true
+	},
+	{
+		"id":"rooted",
+		"noattack":true
+	},
+	{
+		"id":"enraged",
+		"nodefend":true
 	}
+
 ]

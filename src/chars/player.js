@@ -389,6 +389,9 @@ export default class Player extends Char {
 
 			this.timer += getDelay(this.speed);
 
+			let a = this.attackOverride();
+			if ( a ) return a;
+
 			// attempt to use spell first.
 			if ( this.spelllist.count === 0 || !this.tryCast() ) {
 				return this.weapon.attack;

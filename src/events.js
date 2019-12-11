@@ -55,6 +55,10 @@ const ALLY_DIED = 'ally_died';
 const COMBAT_DONE = 'combat_done';
 const ENEMY_SLAIN = 'slain';
 
+/**
+ * @const {string} STATE_BLOCK - action was blocked due to char state.
+ */
+export const STATE_BLOCK = 'blocked';
 
 /**
  * player defeated by some stat.
@@ -179,6 +183,7 @@ export default {
 
 		events.addListener( EVT_COMBAT, this.onCombat, this );
 		events.addListener( COMBAT_HIT, this.onHit, this );
+		events.addListener( STATE_BLOCK, this.onStateBlock, this );
 
 		events.addListener( ENEMY_SLAIN, this.enemySlain, this );
 		events.addListener( DEFEATED, this.onDefeat, this );
@@ -314,6 +319,12 @@ export default {
 		this.log.log( '', char.name + ' hit' +
 		( attack ? (' by ' + attack + ': ' ) : '')
 		+ dmg.toFixed(1), LOG_COMBAT );
+	},
+
+	onStateBlock( char, act ) {
+
+		this.log.log( act.cause.veb, char.name + ' is ' + act.cause.verb, LOG_COMBAT )
+
 	},
 
 	enemySlain( enemy, attacker ) {
