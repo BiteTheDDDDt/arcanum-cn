@@ -10,12 +10,14 @@
 
     install_dependencies:
       stage: install
+      only: master
       script:
         - npm install
-      artifacts:
-        paths:
-          - node_modules/
 
     main_build:
       stage: ci-dev
+      only: master
       script: npm ci-dev
+      artifacts:
+        paths:
+          - dev/
