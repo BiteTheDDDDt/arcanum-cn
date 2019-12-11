@@ -10,6 +10,7 @@
 
     install_dependencies:
       stage: install
+      only: master
       script:
         - npm install
       artifacts:
@@ -18,4 +19,5 @@
 
     main_build:
       stage: ci-dev
+      only: master
       script: npm ci-dev
