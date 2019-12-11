@@ -50,7 +50,7 @@ export const mergeClass = ( destClass, src ) => {
   * @const {string[]} JSONIgnore - ignore these properties by default when saving.
   */
  const JSONIgnore = { 'template':true, 'id':true, 'type':true, 'defaults':true, 'module':true, 'sname':true, 'sym':true,
- 	'name':true, 'desc':true, 'running':true, 'current':true, 'warnMsg':true, "once":true,'cost':true,
+ 	'name':true, 'desc':true, 'running':true, 'current':true, 'warnMsg':true, "once":true,
 	 'locked':true, 'locks':true, 'value':true, 'exp':true, 'delta':true, 'tags':true, 'mod':true,
 	 'effect':true, 'progress':true,'need':true, 'require':true };
 

@@ -17,6 +17,8 @@ export const RangeTest = /^\-?\d+\.?\d*\~\-?\d+\.?\d*$/i;
 
 export default class RValue {
 
+	toJSON(){return this._base;}
+
 	/**
 	 * @property {boolean} isRVal - simple test for RVal interface.
 	 */

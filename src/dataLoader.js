@@ -34,6 +34,7 @@ import { SKILL, ENCOUNTER, MONSTER, ARMOR, WEAPON, HOME, POTION, ITEM, RESOURCE,
 import { MakeDmgFunc } from './chars/attack';
 import RValue from './values/rvalue';
 import Stat from './values/stat';
+import State from './chars/state';
 
 const DataDir = './data/';
 
@@ -241,6 +242,7 @@ export default {
 		if ( lists.monsters ) inst.monsters = this.initItems( items, lists['monsters'], Monster, MONSTER, MONSTER );
 
 		if ( lists.rares ) inst.rares = this.initItems( items, lists['rares'], ProtoItem );
+		if ( lists.states ) inst.states = this.initItems( states, list['states'], State, 'state', 'state' )
 
 		if ( lists.locales ) this.initItems( items, lists['locales'], Locale );
 		if ( lists.dungeons ) this.initItems( items, lists['dungeons'], Dungeon );

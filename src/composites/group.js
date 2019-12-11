@@ -116,7 +116,8 @@ export default class Group {
 
 	onUse(g) {
 
-		for( let i = this.items.length-1; i>=0; i--) {
+		let len = this.items.length;
+		for( let i = 0; i < len; i++ ) {
 
 			this.items[i].onUse(g);
 
@@ -137,7 +138,8 @@ export default class Group {
 	 */
 	amount( g, amt ) {
 
-		for( let i = this.items.length-1; i>= 0;i--) {
+		let len = this.items.length;
+		for( let i = 0; i < len; i++ ) {
 			this.items[i].amount( g, amt );
 		}
 
@@ -145,7 +147,8 @@ export default class Group {
 
 	exec() {
 
-		for( let i = this.items.length-1; i>= 0;i--) {
+		let len = this.items.length;
+		for( let i = 0; i <len; i++ ) {
 
 			this.items[i].exec();
 

@@ -1,3 +1,5 @@
+import Base, {mergeClass} from '../items/base';
+
 export default class State {
 
 	get id() { return this._id; }
@@ -22,15 +24,6 @@ export default class State {
 	 */
 	get stack() { return this._stack;}
 	set stack(v) { this._stack = v; }
-
-	get canAct(){return this._canAct;}
-	set canAct(v) { this._canAct = v;}
-
-	get canAttack(){return this._canAttack;}
-	set canAttack(v) { this._canAttack = v;}
-
-	get canDefend(){return this._canDefend;}
-	set canDefend(v) { this._canDefend = v;}
 
 	constructor( vars){
 
@@ -58,3 +51,5 @@ export default class State {
 	}
 
 }
+
+mergeClass( State, Base );
