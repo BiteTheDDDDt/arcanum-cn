@@ -49,37 +49,15 @@ export const mergeClass = ( destClass, src ) => {
   * @todo shorten list by implementing better base/defaults logic.
   * @const {string[]} JSONIgnore - ignore these properties by default when saving.
   */
- const JSONIgnore = [ 'template', 'id', 'type', 'defaults', 'module', 'sname', 'sym', 'name',
- 'desc', 'running', 'current', 'warnMsg', "once",'cost',
- 	'locked', 'locks', 'value', 'exp', 'delta', 'tags', 'mod', 'effect', 'progress','need', 'require'];
+ const JSONIgnore = { 'template':true, 'id':true, 'type':true, 'defaults':true, 'module':true, 'sname':true, 'sym':true,
+ 	'name':true, 'desc':true, 'running':true, 'current':true, 'warnMsg':true, "once":true,'cost':true,
+	 'locked':true, 'locks':true, 'value':true, 'exp':true, 'delta':true, 'tags':true, 'mod':true,
+	 'effect':true, 'progress':true,'need':true, 'require':true };
 
 /**
  * Base class of all Game Objects.
  */
 export default {
-
-	/**
-	 * Get JSON for a sub-class with additional properties excluded.
-	 * @param {string[]} [excludes=null]
-	*/
-	excludeJSON( excludes ) {
-
-		if ( this.save && (this.value>0||this.owned)) return this.forceSave();
-
-		excludes = excludes ? JSONIgnore.concat( excludes ) : JSONIgnore;
-
-		let vars = changes( jsonify(this, excludes ), this.template || {} );
-
-
-		if ( this.locked === false && this.template && this.template.locked !== false ){
-			vars = vars || {};
-			vars.locked = this.locked;
-		}
-
-		return vars || undefined;
-
-	},
-
 
 	toJSON() {
 

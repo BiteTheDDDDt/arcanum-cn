@@ -234,9 +234,10 @@ export default class Combat {
 
 			if ( e !==this.player) e.update(dt);
 			action = e.combat(dt);
-			if ( action.blocked ) {
+			if ( !action ) continue;
+			else if ( action.blocked ) {
 				Events.emit( STATE_BLOCK, e, action );
-			} else if ( action ) this.attack( e, action );
+			} else this.attack( e, action );
 
 		}
 
@@ -246,9 +247,10 @@ export default class Combat {
 			e.update(dt);
 			if ( e.alive === false ) { this._enemies.splice(i,1); continue;}
 			action = e.combat(dt);
-			if ( action.blocked ){
+			if (!action) continue;
+			else if ( action.blocked ){
 				Events.emit( STATE_BLOCK, e, action );
-			} else if ( action ) this.attack( e, action );
+			} else this.attack( e, action );
 
 		}
 

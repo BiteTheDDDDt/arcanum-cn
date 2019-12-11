@@ -21,7 +21,7 @@ export default class Item {
 
 	toJSON() {
 
-		let data = this.excludeJSON() || {};
+		let data = super.toJSON() || {};
 
 		if ( !this.template && !this.recipe ) {
 

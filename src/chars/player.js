@@ -184,7 +184,7 @@ export default class Player extends Char {
 
 		data.retreat = this.retreat||undefined;
 
-		data.states = this.states;
+		//data.states = this.states;
 		data.gclass = this.gclass;
 
 		if ( this.weapon ) data.weapon = this.weapon.id;

@@ -12,8 +12,9 @@ export default class Wearable extends Item {
 
 	toJSON() {
 
-		let data = this.excludeJSON( ['material', 'kind'] ) || {};
+		let data = super.toJSON() || {};
 
+		if ( !this.save ) data.material = data.kind = undefined;
 		data.id = this.id;
 
 		if ( !this.template ) {

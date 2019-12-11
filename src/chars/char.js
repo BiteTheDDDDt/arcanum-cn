@@ -187,7 +187,7 @@ export default class Char {
 		}
 
 		this.reviveDots(gs);
-		this.reviveStates();
+		//this.reviveStates();
 
 	}
 
@@ -197,13 +197,13 @@ export default class Char {
 		}
 	}
 
-	reviveStates() {
+	/*reviveStates() {
 
 		for( let i = this.states.length-1; i >= 0; i-- ) {
 			this.states[i].applyTo(this);
 		}
 
-	}
+	}*/
 
 	/**
 	 * Called once game actually begins. Dot-mods can't be applied

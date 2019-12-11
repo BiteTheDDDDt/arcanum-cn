@@ -4,6 +4,7 @@ import Stat from '../values/stat';
 import Percent, { PercentTest } from '../values/percent';
 import MaxStat from '../values/maxStat';
 import Attack, { ParseDmg } from './attack';
+import { assign } from 'objecty';
 
 /**
  * @const {number} ALLY - team constant for allies.
@@ -131,7 +132,7 @@ export default class Npc extends Char {
 
 		super( vars );
 
-		if ( save ) Object.assign( this, save );
+		if ( save ) assign( this, save );
 
 		this.dodge = this.dodge || this.level/2;
 
