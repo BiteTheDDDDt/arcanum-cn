@@ -323,7 +323,7 @@ export default {
 
 	onStateBlock( char, act ) {
 
-		this.log.log( act.cause.veb, char.name + ' is ' + act.cause.verb, LOG_COMBAT )
+		this.log.log( act.cause.adj, char.name + ' is ' + act.cause.adj, LOG_COMBAT )
 
 	},
 

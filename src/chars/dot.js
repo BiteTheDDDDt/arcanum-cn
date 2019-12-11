@@ -2,6 +2,7 @@ import Range from "../values/range";
 import {ParseMods } from "../values/mod";
 import { setModCounts } from "../items/base";
 import { ParseDmg } from "./attack";
+import game from "../game";
 
 export const NO_ACT = 7;
 export const NO_ATTACK = 1;
@@ -42,8 +43,8 @@ export default class Dot {
 	/**
 	 * @property {string} verb - verb for dots that define state, e.g. sleeping.
 	 */
-	get verb() { return this._verb || this._name || this._id; }
-	set verb(v) { this._verb = v; }
+	get adj() { return this._adj || this._name || this._id; }
+	set adj(v) { this._adj = v; }
 
 	get dmg(){return this.damage;}
 	set dmg(v) { this.damage = v; }
@@ -74,6 +75,10 @@ export default class Dot {
 
 		if ( !this.id ) console.error('BAD DOT ID: ' + this.name );
 
+		if ( vars.states ) {
+			this.copyStates( vars.states );
+		}
+
 		if ( !this.duration) this.duration = NaN;
 
 		/**
@@ -93,6 +98,39 @@ export default class Dot {
 		 */
 		this.acc = this.acc || 0;
 
+	}
+
+	/**
+	 *
+	 * @param {string|string[]} s
+	 */
+	copyStates(s) {
+
+		var st;
+		if ( typeof s === 'string' ) {
+
+			st = game.state.getData(s);
+			if ( st ) Object.assign( this, st );
+
+		} else if ( Array.isArray(s) ) {
+
+			for( let i = s.length-1; i>= 0; i--) {
+				st = game.state.getData(s[i]);
+				if ( st ) Object.assign( this, st );
+			}
+		}
+	}
+
+	/**
+	 * Extend duration to the given number of seconds.
+	 * @param {number|NaN} duration
+	 */
+	extend( duration ) {
+
+		if ( Number.isNaN(duration) || Number.isNaN(this.duration ) ) this.duration = NaN;
+		else if ( duration > this._duration ) {
+			this._duration = duration;
+		}
 	}
 
 	setFlags(vars) {

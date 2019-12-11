@@ -4,6 +4,8 @@ import Stat from '../values/stat';
 import Dot from './dot';
 import Attack from './attack';
 import GameState from '../gameState';
+import Game from '../game';
+
 import { NPC } from '../values/consts';
 import { toStats } from "../util/dataUtil";
 import { cloneClass } from '../util/util';
@@ -225,7 +227,7 @@ export default class Char {
 		let cur = this.dots.find( d=>d.id===id);
 		if ( cur !== undefined ) {
 
-			if ( cur.duration < dot.duration ) cur.duration = dot.duration;
+			cur.extend( dot.duration );
 
 		} else {
 

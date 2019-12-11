@@ -1,23 +1,28 @@
 [
 
 	{
-		"id":"asleep",
+		"id":"sleep",
+		"adj":"asleep",
 		"noact":true
 	},
 	{
-		"id":"silenced",
+		"id":"silence",
+		"adj":"silenced",
 		"nospells":true
 	},
 	{
-		"id":"afraid",
+		"id":"fear",
+		"adj":"afraid",
 		"noattack":true
 	},
 	{
-		"id":"rooted",
+		"id":"entangle",
+		"adj":"entangled",
 		"noattack":true
 	},
 	{
-		"id":"enraged",
+		"id":"rage",
+		"adj":"enraged",
 		"nodefend":true
 	}
 
