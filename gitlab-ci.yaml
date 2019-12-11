@@ -2,7 +2,7 @@
 
     stages:
       - install
-      - dev
+      - ci-dev
 
     cache:
       paths:
@@ -17,5 +17,5 @@
           - node_modules/
 
     main_build:
-      stage: dev
-      script: npm dev
+      stage: ci-dev
+      script: npm ci-dev
