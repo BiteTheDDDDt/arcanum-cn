@@ -76,10 +76,6 @@ export default class Dot {
 
 		if ( !this.id ) console.error('BAD DOT ID: ' + this.name );
 
-		if ( vars.state ) {
-			this.copyStates( vars.state );
-		}
-
 		if ( !this.duration) this.duration = NaN;
 
 		/**

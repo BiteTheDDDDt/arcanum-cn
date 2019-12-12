@@ -390,7 +390,6 @@ export default class Player extends Char {
 			this.timer += getDelay(this.speed);
 
 			let a = this.attackOverride();
-			if ( a ) console.log('ATTACK OVERIDDEN');
 
 			if ( a ) return a;
 
