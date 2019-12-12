@@ -147,6 +147,11 @@ export default class Char {
 
 	get alive() { return this.hp.value > 0; }
 
+	/**
+	 * @property {Object} dotContext - context for applying mods.
+	 */
+	get dotContext(){return this;}
+
 	constructor( vars ){
 
 		for( let p in vars ) {
@@ -245,8 +250,8 @@ export default class Char {
 
 	}
 
-	applyDot( dot ) {
-		this.applyMods( dot.mod, 1 );
+	applyDot( dot, amt=1 ) {
+		this.applyMods( dot.mod, amt );
 	}
 
 	/**
@@ -263,9 +268,7 @@ export default class Char {
 		let dot = this.dots[i];
 		this.dots.splice(i,1);
 
-		if ( dot.mod ) {
-			this.applyMods( dot.mod, -1 );
-		}
+		this.applyDot( dot, -1 );
 
 	}
 

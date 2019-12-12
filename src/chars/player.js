@@ -217,6 +217,7 @@ export default class Player extends Char {
 
 	}
 
+	get dotContext() { return Game; }
 
 	constructor( vars=null ){
 
@@ -315,7 +316,7 @@ export default class Player extends Char {
 	begin() {
 
 		for( let i = this.dots.length-1; i>=0; i-- ){
-			if ( this.dots[i].mod) Game.addMod( this.dots[i].mod, 1 );
+			if ( this.dots[i].mod) Game.applyMods( this.dots[i].mod, 1 );
 		}
 
 	}
@@ -352,12 +353,12 @@ export default class Player extends Char {
 	 */
 	update( dt ) {
 
-		let updates = this.dots;
+		let dots = this.dots;
 		let dot;
 
-		for( let i = updates.length-1; i >= 0; i-- ) {
+		for( let i = dots.length-1; i >= 0; i-- ) {
 
-			dot = updates[i];
+			dot = dots[i];
 			if ( !dot.tick(dt) ) continue;
 
 			// ignore any remainder beyond 0.
@@ -367,8 +368,8 @@ export default class Player extends Char {
 
 			if ( dot.duration <= dt ) {
 
-				updates.splice( i, 1 );
-				if ( dot.mod ) Game.addMod( dot.mod, -1 );
+				dots.splice( i, 1 );
+				if ( dot.mod ) Game.applyMods( dot.mod, -1 );
 
 			}
 
@@ -403,6 +404,13 @@ export default class Player extends Char {
 	}
 
 	/**
+	 * Override char applyDot to apply to Game.
+	 */
+	applyDot( dot ){
+		Game.applyMods( dot.mod, 1 );
+	}
+
+	/**
 	 * try casting spell from player spelllist.
 	 */
 	tryCast(){
@@ -425,13 +433,6 @@ export default class Player extends Char {
 
 		return res;
 
-	}
-
-	/**
-	 * Override char applyDot to apply to Game.
-	 */
-	applyDot( dot ){
-		Game.addMod( dot.mod, 1 );
 	}
 
 	/* getResist( kind ) {

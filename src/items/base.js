@@ -307,7 +307,7 @@ export default {
 		if ( mods instanceof Mod ) {
 
 			mods.applyTo( targ, 'value', amt );
-			if ( this.mod ) Game.addMod( this.mod, this.value );
+			if ( this.mod ) Game.applyMods( this.mod, this.value );
 
 		} else if ( typeof mods === 'object') {
 
@@ -326,7 +326,7 @@ export default {
 				// nothing can be done if targ is a number. no parent object.
 				console.error( this.id + ' !!invalid mod: ' + mods );
 			}
-			if ( this.mod ) Game.addMod( this.mod, this.value );
+			if ( this.mod ) Game.applyMods( this.mod, this.value );
 
 		} else console.warn( this.id + ' unknown mod type: ' + mods );
 
@@ -403,7 +403,7 @@ export default {
 		}
 
 		if ( mods.mod ) {
-			Game.addMod( this.mod, this.value );
+			Game.applyMods( this.mod, this.value );
 		}
 
 	},
@@ -470,7 +470,7 @@ export default {
 		if ( this.equippable ) return;
 
 		// apply change to modifier for existing item amount.
-		Game.addMod( mod, amt*this.value );
+		Game.applyMods( mod, amt*this.value );
 
 	},
 

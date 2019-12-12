@@ -305,7 +305,7 @@ export default class GData {
 		if ( this.title ) g.state.player.setTitle( this.title );
 		if ( this.result ) g.applyEffect( this.result, count );
 		if ( this.create ) g.create( this.create );
-		if ( this.mod ) { g.addMod( this.mod ); }
+		if ( this.mod ) { g.applyMods( this.mod ); }
 
 		if ( this.lock ) g.lock( this.lock );
 		if ( this.dot ) {

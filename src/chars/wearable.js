@@ -208,7 +208,7 @@ export default class Wearable extends Item {
 
 		if ( this.mod ) {
 			setModCounts( this.mod, 1);
-			g.addMod( this.mod );
+			g.applyMods( this.mod );
 		}
 	}
 
@@ -223,7 +223,7 @@ export default class Wearable extends Item {
 
 		if ( this.mod ) {
 			setModCounts( this.mod, 0);
-			g.addMod( this.mod );
+			g.applyMods( this.mod );
 		}
 
 	}

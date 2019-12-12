@@ -97,6 +97,12 @@ export default class Dot {
 
 	}
 
+	applyTo( targ ) {
+
+		targ.applyMods( this.mods, 1 );
+
+	}
+
 	/**
 	 *
 	 * @param {string|string[]} s

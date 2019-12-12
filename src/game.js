@@ -201,7 +201,7 @@ export default {
 				if ( it.id ==='points') console.log('POINTS VAL: '+ it.value );
 				if ( it.value != 0 ) {
 
-					if ( it.mod ) this.addMod( it.mod, it.value, it.id);
+					if ( it.mod ) this.applyMods( it.mod, it.value, it.id);
 					if ( it.lock ) {
 						this.lock( it.lock, it.value );
 					}
@@ -213,7 +213,7 @@ export default {
 		}
 
 		for( let e of this.state.equip ) {
-			if ( e.mod ) this.addMod( e.mod, 1 );
+			if ( e.mod ) this.applyMods( e.mod, 1 );
 		}
 
 	},
@@ -698,7 +698,7 @@ export default {
 
 		it.remove(amt);
 
-		if ( it.mod ) this.addMod( it.mod, -amt );
+		if ( it.mod ) this.applyMods( it.mod, -amt );
 		if ( it.lock ) this.unlock( it.lock, amt );
 
 		it.dirty = true;
@@ -893,7 +893,7 @@ export default {
 	 * @param {number} amt
 	 */
 	removeMod( mod, amt=1 ) {
-		this.addMod( mod, -amt);
+		this.applyMods( mod, -amt);
 	},
 
 	/**
@@ -901,12 +901,12 @@ export default {
 	 * @param {Array|Object} mod
 	 * @param {number} amt - amount added.
 	 */
-	addMod( mod, amt=1, src ) {
+	applyMods( mod, amt=1 ) {
 
 		if ( !mod ) return;
 
 		if ( Array.isArray(mod)  ) {
-			for( let m of mod ) this.addMod(m, amt);
+			for( let m of mod ) this.applyMods(m, amt);
 		} else if ( typeof mod === 'object' ) {
 
 			for( let p in mod ) {
@@ -939,7 +939,7 @@ export default {
 			} else {
 
 				let list = this.getTagList(mod);
-				if ( list ) list.forEach( this.addMod, this );
+				if ( list ) list.forEach( this.applyMods, this );
 
 			}
 
