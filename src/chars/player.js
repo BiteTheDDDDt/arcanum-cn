@@ -1,7 +1,6 @@
 import Stat from "../values/stat";
 import Resource from "../items/resource";
 import Game from '../game';
-import { applyAttack } from '../composites/combat';
 import { toStats } from "../util/dataUtil";
 
 import Char, { getDelay } from './char';
@@ -184,7 +183,6 @@ export default class Player extends Char {
 
 		data.retreat = this.retreat||undefined;
 
-		//data.states = this.states;
 		data.gclass = this.gclass;
 
 		if ( this.weapon ) data.weapon = this.weapon.id;

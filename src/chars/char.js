@@ -10,6 +10,7 @@ import { NPC } from '../values/consts';
 import { toStats } from "../util/dataUtil";
 import { cloneClass } from '../util/util';
 import events, { CHAR_STATE } from '../events';
+import States from './states';
 
 /**
  * @constant {number} DELAY_RATE - speed to attack delay conversion constant.
@@ -111,40 +112,31 @@ export default class Char {
 	}
 
 	/**
+	 * Get cause of a state-flag being set.
+	 * @param {number} flag
+	 */
+	getCause(flag){return this._states.getCause()}
+
+	/**
 	 * @returns {boolean} canAttack
 	 */
 	canAttack(){
-
-		for( let i = this.dots.length-1; i>=0; i--){
-			if ( !this.dots[i].canAttack() ) return false;
-		}
-		return true;
-
+		return this._states.canAttack();
 	}
 
 	canDefend(){
-
-		for( let i = this.dots.length-1; i>=0; i--){
-			if ( !this.dots[i].canDefend() ) return false;
-		}
-		return true;
-
+		return this._states.canDefend();
 	}
 
 	canCast(){
-
-		for( let i = this.dots.length-1; i>=0; i--){
-			if ( !this.dots[i].canCast() ) return false;
-		}
-		return true;
-
+		return this._states.canCast();
 	}
 
 	/**
-	 * @property {Act} act - action to take in locale.
+	 * @property {States} states - action to take in locale.
 	 */
-	//get act(){return this._act; }
-	//set act(v) { this._act = v; }
+	get states(){return this._states; }
+	set states(v) { this._states = v; }
 
 
 	get instance() { return true; }
@@ -179,7 +171,7 @@ export default class Char {
 
 		//console.log( this.id + ' tohit: ' + this.tohit );
 
-		//this._act = new Act();
+		this._states = new States();
 
 		/**
 		 * @property {Object[]} dots - timed/ongoing effects.

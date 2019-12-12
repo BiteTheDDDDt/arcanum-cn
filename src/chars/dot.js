@@ -4,30 +4,8 @@ import { setModCounts } from "../items/base";
 import { ParseDmg } from "./attack";
 import Game from "../game";
 import {mergeSafe} from 'objecty';
+import { ParseFlags, NO_SPELLS, NO_ATTACK, NO_DEFEND } from "./states";
 
-export const NO_ACT = 7;
-export const NO_ATTACK = 1;
-export const NO_DEFEND = 2;
-export const NO_SPELLS = 4;
-
-export const ParseFlags = (list)=>{
-
-	if ( typeof list === 'string') list = list.split(',');
-
-	let f = 0;
-
-	for( let i = list.length-1; i >= 0; i-- ) {
-
-		var v = list[i];
-		if ( v === 'noact') f |= NO_ACT;
-		else if ( v === 'noattack') f |= NO_ATTACK;
-		else if ( v === 'nodefend' ) f |= NO_DEFEND;
-		else if ( v === 'nocast') f |= NO_SPELLS;
-
-	}
-	return f;
-
-}
 
 export default class Dot {
 
