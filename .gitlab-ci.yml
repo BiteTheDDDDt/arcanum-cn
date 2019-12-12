@@ -21,7 +21,7 @@ make_dev:
     paths:
       - dev/
 
-copy_pages:
+pages:
   stage: copy_pages
   only:
     - master
