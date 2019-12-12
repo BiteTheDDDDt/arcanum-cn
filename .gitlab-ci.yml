@@ -8,7 +8,7 @@ cache:
 before_script:
   - npm install
 
-main_build:
+dev_build:
   only:
     - master
   script: npm run-script ci-dev
