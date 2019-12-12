@@ -1,5 +1,9 @@
 image: node:latest
 
+stages:
+  - make_dev
+  - copy_pages
+
 cache:
   key: ${CI_COMMIT_REF_SLUG}
   paths:
@@ -8,10 +12,21 @@ cache:
 before_script:
   - npm install
 
-dev_build:
+make_dev:
+  stage: make_dev
   only:
     - master
   script: npm run-script ci-dev
   artifacts:
     paths:
       - dev/
+
+pages:
+  stage: copy_pages
+  only:
+    - master
+  script:
+    - cp -r dev public
+  artifacts:
+    paths:
+      - public
