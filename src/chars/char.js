@@ -227,11 +227,15 @@ export default class Char {
 		let cur = this.dots.find( d=>d.id===id);
 		if ( cur !== undefined ) {
 
+			console.log('DOT FOUND');
 			cur.extend( dot.duration );
 
 		} else {
 
-			if ( !(dot instanceof Dot)) dot = new Dot( cloneClass(dot), source, name );
+			if ( !(dot instanceof Dot)) {
+				console.log('Creating NEW dot: ' + id );
+				dot = new Dot( cloneClass(dot), source, name );
+			}
 
 			this.dots.push( dot );
 			if ( dot.mod ) this.applyDot( dot );
@@ -309,12 +313,15 @@ export default class Char {
 
 	}
 
+	/**
+	 * @returns {Act|null}
+	 */
 	attackOverride() {
 
 		for( let i = this.dots.length-1; i>= 0; i-- ) {
 
-			if ( !dots[i].canAttack() ) {
-				this._act.set( dots[i], true );
+			if ( !this.dots[i].canAttack() ) {
+				this._act.set( this.dots[i], true );
 				return this._act;
 			}
 

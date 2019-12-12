@@ -33,6 +33,7 @@
 			"water":1
 		},
 		"dot":{
+			"state":"sleep",
 			"duration":30,
 			"effect":{
 				"stamina":0.3

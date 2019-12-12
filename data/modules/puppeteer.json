@@ -877,7 +877,7 @@
 						"dot": {
 							"kind": "Bleed",
 							"duration": 30,
-							"dmg": "20"
+							"dmg": 20
 						}
 					},
 					{

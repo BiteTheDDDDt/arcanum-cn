@@ -8,7 +8,7 @@
 	{
 		"id":"silence",
 		"adj":"silenced",
-		"nospells":true
+		"nocast":true
 	},
 	{
 		"id":"fear",

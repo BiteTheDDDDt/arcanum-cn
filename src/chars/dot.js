@@ -62,6 +62,7 @@ export default class Dot {
 
 	valueOf(){ return ( this.duration > 0 || Number.isNaN(this.duration) ) ? 1 : 0; }
 
+	canCast() { return (this._flags & NO_SPELLS) === 0 }
 	canAttack() { return (this._flags & NO_ATTACK) === 0 }
 	canDefend() { return (this._flags & NO_DEFEND ) === 0 }
 
@@ -75,8 +76,8 @@ export default class Dot {
 
 		if ( !this.id ) console.error('BAD DOT ID: ' + this.name );
 
-		if ( vars.states ) {
-			this.copyStates( vars.states );
+		if ( vars.state ) {
+			this.copyStates( vars.state );
 		}
 
 		if ( !this.duration) this.duration = NaN;
@@ -91,7 +92,7 @@ export default class Dot {
 			setModCounts( this.mod, this );
 		}
 
-		this.setFlags(vars);
+		this.setFlags();
 
 		/**
 		 * @private {number} acc - integer accumulator
@@ -106,19 +107,29 @@ export default class Dot {
 	 */
 	copyStates(s) {
 
+		console.log('state from: ' + s );
+
 		var st;
 		if ( typeof s === 'string' ) {
-
-			st = game.state.getData(s);
-			if ( st ) Object.assign( this, st );
-
-		} else if ( Array.isArray(s) ) {
-
-			for( let i = s.length-1; i>= 0; i--) {
-				st = game.state.getData(s[i]);
-				if ( st ) Object.assign( this, st );
-			}
+			s = s.split(',');
 		}
+
+		// restore id after state overwrites.
+		let id = this.id;
+
+		for( let i = s.length-1; i>= 0; i--) {
+
+			var st = game.state.getData(s[i]);
+
+			if ( st ) {
+				console.log('merging state: ' + s[i] );
+				Object.assign( this, st );
+			}
+
+		}
+
+		this.id = id;
+
 	}
 
 	/**
@@ -133,16 +144,18 @@ export default class Dot {
 		}
 	}
 
-	setFlags(vars) {
+	setFlags() {
 
-		let f = 0;
+		let f = this._flags || 0;
 
-		if ( vars.noact ) f |= NO_ACT;
+		if ( this.noact ) f |= NO_ACT;
 		else {
-			if ( vars.noattack ) f |= NO_ATTACK;
-			if ( vars.nodefend ) f |= NO_DEFEND;
-			if ( vars.nospells ) f |= NO_SPELLS;
+			if ( this.noattack ) f |= NO_ATTACK;
+			if ( this.nodefend ) f |= NO_DEFEND;
+			if ( this.nocast ) f |= NO_SPELLS;
 		}
+
+		console.log('dot flags: ' + f );
 
 		this._flags = f;
 
