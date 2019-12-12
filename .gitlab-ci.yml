@@ -27,3 +27,6 @@ copy_pages:
     - master
   script:
     - cp -r dev public
+  artifacts:
+    paths:
+      - public
