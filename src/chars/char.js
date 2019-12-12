@@ -148,7 +148,9 @@ export default class Char {
 	get alive() { return this.hp.value > 0; }
 
 	/**
-	 * @property {Object} dotContext - context for applying mods.
+	 * @property {Object} dotContext - context for dot mods/effects.
+	 * Required since Player mods actually affect Game.
+	 * @todo: allow Player applyMods to work naturally.
 	 */
 	get dotContext(){return this;}
 
@@ -222,37 +224,61 @@ export default class Char {
 	 * @param {Dot} dot
 	 * @param {object} source
 	 * @param {string} name
+	 * @param {number} duration - duration override
 	 */
-	addDot( dot, source, name ) {
+	addDot( dot, source, name, duration=0 ) {
 
 		let id = dot.id;
-		if ( !id ) id = dot.id = name || (source ? source.id || source.name : '');
-		if ( !id) return;
+		if ( !id ) {
+			id = dot.id = name || (source ? source.id || source.name : '');
+			if ( !id) return;
+		}
+
+		if ( duration === 0 ) duration = dot.duration;
 
 		let cur = this.dots.find( d=>d.id===id);
 		if ( cur !== undefined ) {
 
-			console.log('DOT FOUND');
-			cur.extend( dot.duration );
+			cur.extend( duration );
 
 		} else {
 
 			if ( !(dot instanceof Dot)) {
-				console.log('Creating NEW dot: ' + id );
+				console.log('NEW dot: ' + id );
 				dot = new Dot( cloneClass(dot), source, name );
+				dot.duration = duration;
 			}
 
 			this.dots.push( dot );
-			if ( dot.mod ) this.applyDot( dot );
-
+			this.applyDot( dot );
 
 		}
 
 	}
 
-	applyDot( dot, amt=1 ) {
+	applyDot( dot ) {
 
-		if ( dot.mod ) this.dotContext.applyMods( dot.mod, amt );
+		if ( dot.mod ) this.dotContext.applyMods( dot.mod, 1 );
+
+		let time = dot.duration;
+
+		let states = dot.state;
+		if ( states ) {
+
+			if ( typeof states === 'string') {
+				states = states.split(',');
+			}
+			for( let i = states.length-1; i>= 0; i-- ){
+
+				var s = Game.state.getData( states[i] );
+				if ( s ) {
+					console.log('ADDING DOT STATE: ' + states[i] );
+					this.addDot( s, dot.source, s.name, time );
+				}
+
+			}
+
+		}
 
 	}
 
@@ -261,11 +287,11 @@ export default class Char {
 		let dot = this.dots[i];
 		this.dots.splice(i,1);
 
-		this.applyDot( dot, -1 );
+		if ( dot.mod ) this.dotContext.applyMods( dot.mod, -1 );
 
 	}
 
-		/**
+	/**
 	 * Perform update effects.
 	 * @param {number} dt - elapsed time.
 	 */
@@ -280,18 +306,12 @@ export default class Char {
 
 			// ignore any remainder beyond 0.
 			// @note: dots tick at second-intervals, => no dt.
-			if ( dot.effect ) Game.applyVars( dot.effect, 1 );
+			if ( dot.effect ) this.dotContext.applyVars( dot.effect, 1 );
 			if ( dot.damage ) applyAttack( this, dot, dot.source );
 
 			if ( dot.duration <= dt ) {
-
 				this.rmDot(i);
-
-				dots.splice( i, 1 );
-				if ( dot.mod ) this.dotContext.applyMods( dot.mod, -1 );
-
 			}
-
 
 		}
 		if ( this.regen ) this.hp += this.regen*dt;

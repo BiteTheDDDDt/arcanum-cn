@@ -372,13 +372,6 @@ export default class Player extends Char {
 	}
 
 	/**
-	 * Override char applyDot to apply to Game.
-	 */
-	applyDot( dot ){
-		Game.applyMods( dot.mod, 1 );
-	}
-
-	/**
 	 * try casting spell from player spelllist.
 	 */
 	tryCast(){

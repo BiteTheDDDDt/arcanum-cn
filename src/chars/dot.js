@@ -27,6 +27,7 @@ export default class Dot {
 			effect:this.effect||undefined,
 			mod:this.mod||undefined,
 			acc:this.acc||undefined,
+			state:this.state||undefined,
 			flags:this._flags!== 0 ? this._flags : undefined,
 			duration:this.duration,
 			source:this.source ? ( typeof this.source === 'string' ? this.source : this.source.id ) : undefined
@@ -100,37 +101,6 @@ export default class Dot {
 	applyTo( targ ) {
 
 		targ.applyMods( this.mods, 1 );
-
-	}
-
-	/**
-	 *
-	 * @param {string|string[]} s
-	 */
-	copyStates(s) {
-
-		console.log('state from: ' + s );
-
-		var st;
-		if ( typeof s === 'string' ) {
-			s = s.split(',');
-		}
-
-		// restore id after state overwrites.
-		let id = this.id;
-
-		for( let i = s.length-1; i>= 0; i--) {
-
-			var st = game.state.getData(s[i]);
-
-			if ( st ) {
-				console.log('merging state: ' + s[i] );
-				Object.assign( this, st );
-			}
-
-		}
-
-		this.id = id;
 
 	}
 
