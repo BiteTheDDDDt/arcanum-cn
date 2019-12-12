@@ -27,7 +27,7 @@ make_dev:
 pages:
   stage: copy_pages
   only:
-    - ${PAGES_BRANCH}
+    - $PAGES_BRANCH
   script:
     - cp -r dev public
   artifacts:
