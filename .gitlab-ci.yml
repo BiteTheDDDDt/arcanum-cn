@@ -19,7 +19,7 @@ main_build:
   stage: ci-dev
   only:
     - master
-  script: npm ci-dev
+  script: npm run-script ci-dev
   artifacts:
     paths:
       - dev/
