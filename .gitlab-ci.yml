@@ -1,0 +1,17 @@
+image: node:latest
+
+cache:
+  key: ${CI_COMMIT_REF_SLUG}
+  paths:
+  - node_modules/
+
+before_script:
+  - npm install
+
+dev_build:
+  only:
+    - master
+  script: npm run-script ci-dev
+  artifacts:
+    paths:
+      - dev/
