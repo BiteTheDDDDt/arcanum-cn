@@ -9,7 +9,6 @@ import Game from '../game';
 import { NPC } from '../values/consts';
 import { toStats } from "../util/dataUtil";
 import { cloneClass } from '../util/util';
-import Act from './act';
 import events, { CHAR_STATE } from '../events';
 
 /**
@@ -132,11 +131,20 @@ export default class Char {
 
 	}
 
+	canCast(){
+
+		for( let i = this.dots.length-1; i>=0; i--){
+			if ( !this.dots[i].canCast() ) return false;
+		}
+		return true;
+
+	}
+
 	/**
 	 * @property {Act} act - action to take in locale.
 	 */
-	get act(){return this._act; }
-	set act(v) { this._act = v; }
+	//get act(){return this._act; }
+	//set act(v) { this._act = v; }
 
 
 	get instance() { return true; }
@@ -171,7 +179,7 @@ export default class Char {
 
 		//console.log( this.id + ' tohit: ' + this.tohit );
 
-		this._act = new Act();
+		//this._act = new Act();
 
 		/**
 		 * @property {Object[]} dots - timed/ongoing effects.
@@ -225,19 +233,18 @@ export default class Char {
 	 * Base item of dot.
 	 * @param {Dot|object|Array} dot
 	 * @param {object} source
-	 * @param {string} name
 	 * @param {number} duration - duration override
 	 */
-	addDot( dot, source, name, duration=0 ) {
+	addDot( dot, source, duration=0 ) {
 
 		if ( Array.isArray(dot)) {
-			dot.forEach(v=>this.addDot(v,source,name,duration));
+			dot.forEach(v=>this.addDot(v,source,duration));
 			return;
 		}
 
 		let id = dot.id;
 		if ( !id ) {
-			id = dot.id = name || (source ? source.id || source.name : '');
+			id = dot.id = (source ? source.id || source.name : null );
 			if ( !id) return;
 		}
 
@@ -250,11 +257,7 @@ export default class Char {
 
 		} else {
 
-			if ( !(dot instanceof Dot)) {
-				console.log('NEW dot: ' + id );
-				dot = new Dot( cloneClass(dot), source, name );
-				dot.duration = duration;
-			}
+			if ( !(dot instanceof Dot) ) dot = Dot.Create( dot, source, duration );
 
 			this.dots.push( dot );
 			this.applyDot( dot );
@@ -282,7 +285,7 @@ export default class Char {
 				var s = Game.state.getData( states[i] );
 				if ( s ) {
 					console.log('ADDING DOT STATE: ' + states[i] );
-					this.addDot( s, dot.source, s.name, time );
+					this.addDot( s, dot.source, time );
 				}
 
 			}
@@ -348,15 +351,14 @@ export default class Char {
 	}
 
 	/**
-	 * @returns {Act|null}
+	 * @returns {Dot|null}
 	 */
 	attackOverride() {
 
 		for( let i = this.dots.length-1; i>= 0; i-- ) {
 
 			if ( !this.dots[i].canAttack() ) {
-				this._act.set( this.dots[i], true );
-				return this._act;
+				return this._dots[i];
 			}
 
 		}

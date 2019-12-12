@@ -10,7 +10,45 @@ export const NO_ATTACK = 1;
 export const NO_DEFEND = 2;
 export const NO_SPELLS = 4;
 
+export const ParseFlags = (list)=>{
+
+	if ( typeof list === 'string') list = list.split(',');
+
+	let f = 0;
+
+	for( let i = list.length-1; i >= 0; i-- ) {
+
+		var v = list[i];
+		if ( v === 'noact') f |= NO_ACT;
+		else if ( v === 'noattack') f |= NO_ATTACK;
+		else if ( v === 'nodefend' ) f |= NO_DEFEND;
+		else if ( v === 'nocast') f |= NO_SPELLS;
+
+	}
+	return f;
+
+}
+
 export default class Dot {
+
+	/**
+	 * @static
+	 * @param {object} dot
+	 * @param {object} source
+	 * @param {number} [duration=0]
+	 * @returns {Dot}
+	 */
+	static Create( dot, source, duration=0 ) {
+
+		console.log('NEW dot: ' + id );
+		dot = new Dot( cloneClass(dot), source );
+
+		let st = Game.getData(dot.id);
+		if ( st ) dot.mergeDot(st);
+
+		dot.duration = duration;
+
+	}
 
 	toJSON(){
 
@@ -60,14 +98,15 @@ export default class Dot {
 	}
 
 	/**
-	 * @property {string} flags
+	 * @property {number} flags
 	 */
 	get flags(){return this._flags;}
 	set flags(v) {
 
-		if ( typeof v === 'string') {
-			this.setFlags( v.split(','));
-		} else this._flags = v;
+		this._flags = 0;
+
+		if ( isNaN(v) ) this._flags = ParseFlags(v);
+		else this._flags = v;
 
 	}
 
@@ -113,12 +152,6 @@ export default class Dot {
 
 	}
 
-	applyTo( targ ) {
-
-		targ.applyMods( this.mods, 1 );
-
-	}
-
 	/**
 	 * Extend duration to the given number of seconds.
 	 * @param {number} duration
@@ -135,38 +168,15 @@ export default class Dot {
 		}
 	}
 
-	/*mergeDots(v) {
+	/**
+	 * Merge state or dot into this one.
+	 * @param {Dot} st
+	 */
+	mergeDot( st ) {
 
-		let st = Game.getData(v);
-		if ( st ) {
-
-			let f = this.flags;
-			mergeSafe( this, st );
-
-			if ( f ) {
-				this.flags = st.flags;
-				this._flags |= f;
-			}
-
-		}
-
-	}*/
-
-	setFlags( list ) {
-
-		let f = 0;
-
-		for( let i = list.length-1; i >= 0; i-- ) {
-
-			var v = list[i];
-			if ( v === 'noact') f |= NO_ACT;
-			else if ( v === 'noattack') f |= NO_ATTACK;
-			else if ( v === 'nodefend' ) f |= NO_DEFEND;
-			else if ( v === 'nocast') f |= NO_SPELLS;
-
-		}
-
-		this._flags = f;
+		console.log('merging dot: ' + st.id );
+		mergeSafe( this, st );
+		this._flags = this._flags | st.flags;
 
 	}
 

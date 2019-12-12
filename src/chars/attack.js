@@ -92,6 +92,11 @@ export default class Attack {
 		this._damage = ParseDmg(v);
 	}
 
+	/**
+	 * Messy, work on dot/state interface.
+	 */
+	canAttack(){return true;}
+
 	clone(){
 		let a = new Attack({
 			id:this.id||undefined,

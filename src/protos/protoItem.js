@@ -1,4 +1,4 @@
-import GData from "./gdata";
+import GData from "../items/gdata";
 
 /**
  * Generic prototype for a wearable item.

@@ -309,7 +309,7 @@ export default class GData {
 
 		if ( this.lock ) g.lock( this.lock );
 		if ( this.dot ) {
-			g.state.player.addDot( this.dot, this.id, this.name );
+			g.state.player.addDot( this.dot, this.id );
 		}
 
 		if ( this.disable ) g.disable( this.disable );

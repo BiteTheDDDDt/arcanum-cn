@@ -1,7 +1,7 @@
 import Emitter from 'eventemitter3';
 import {uppercase} from './util/util';
 import { TYP_PCT, EVENT } from './values/consts';
-import Act from './chars/act';
+import States from './chars/states';
 
 /**
  * @const {Emitter} events - emitter for in-game events.
@@ -329,10 +329,10 @@ export default {
 	/**
 	 * Action blocked by state/reason.
 	 * @param {Char} char
-	 * @param {Act} act
+	 * @param {Dot} state
 	 */
-	onStateBlock( char, act ) {
-		this.log.log( act.cause.adj, char.name + ' is ' + act.cause.adj, LOG_COMBAT )
+	onStateBlock( char, state ) {
+		this.log.log( state.adj, char.name + ' is ' + state.adj, LOG_COMBAT )
 	},
 
 	/**

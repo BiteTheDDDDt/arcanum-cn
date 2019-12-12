@@ -18,7 +18,7 @@ import Spell from './items/spell.js';
 import Action from './items/action';
 
 import { mergeSafe } from 'objecty';
-import ProtoItem from './items/protoItem';
+import ProtoItem from './protos/protoItem';
 import Material from './chars/material';
 import Enchant from './items/enchant';
 import Item from './items/item';

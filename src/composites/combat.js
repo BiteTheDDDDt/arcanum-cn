@@ -58,7 +58,7 @@ export function applyAttack( target, attack, attacker = null) {
 	applyDamage( target, attack, attacker );
 
 	if (attack.dot) {
-		target.addDot( attack.dot, attacker, attack.name );
+		target.addDot( attack.dot, attacker );
 	}
 
 	return true;
@@ -235,7 +235,8 @@ export default class Combat {
 			if ( e !==this.player) e.update(dt);
 			action = e.combat(dt);
 			if ( !action ) continue;
-			else if ( action.blocked ) {
+
+			else if ( !action.canAttack() ) {
 				Events.emit( STATE_BLOCK, e, action );
 			} else this.attack( e, action );
 
@@ -248,7 +249,8 @@ export default class Combat {
 			if ( e.alive === false ) { this._enemies.splice(i,1); continue;}
 			action = e.combat(dt);
 			if (!action) continue;
-			else if ( action.blocked ){
+
+			else if ( !action.canAttack() ){
 				Events.emit( STATE_BLOCK, e, action );
 			} else this.attack( e, action );
 
@@ -261,6 +263,8 @@ export default class Combat {
 	 * @param {Item} it
 	 */
 	spellAttack( it ) {
+
+		if ( !this.player.canCast() ) Events.emit( STATE_BLOCK, this.player );
 
 		if ( this._enemies.length===0 ) {
 
