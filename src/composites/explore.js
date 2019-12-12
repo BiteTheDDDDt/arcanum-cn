@@ -1,4 +1,4 @@
-import Events, { DEFEATED, ACT_DONE,ACT_BLOCKED, ENC_START } from "../events";
+import Events, { DEFEATED, ACT_DONE, ENC_START, ACT_BLOCKED } from "../events";
 import { getDelay } from "../chars/char";
 
 import Game from '../game';

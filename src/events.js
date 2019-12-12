@@ -1,6 +1,7 @@
 import Emitter from 'eventemitter3';
 import {uppercase} from './util/util';
 import { TYP_PCT, EVENT } from './values/consts';
+import Act from './chars/act';
 
 /**
  * @const {Emitter} events - emitter for in-game events.
@@ -56,8 +57,10 @@ const COMBAT_DONE = 'combat_done';
 const ENEMY_SLAIN = 'slain';
 
 /**
- * @const {string} STATE_BLOCK - action was blocked due to char state.
+ * @const {string} CHAR_STATE - inform current char state.
  */
+export const CHAR_STATE = 'charstate';
+
 export const STATE_BLOCK = 'blocked';
 
 /**
@@ -183,6 +186,8 @@ export default {
 
 		events.addListener( EVT_COMBAT, this.onCombat, this );
 		events.addListener( COMBAT_HIT, this.onHit, this );
+
+		events.addListener( CHAR_STATE, this.onCharState, this );
 		events.addListener( STATE_BLOCK, this.onStateBlock, this );
 
 		events.addListener( ENEMY_SLAIN, this.enemySlain, this );
@@ -321,9 +326,23 @@ export default {
 		+ dmg.toFixed(1), LOG_COMBAT );
 	},
 
+	/**
+	 * Action blocked by state/reason.
+	 * @param {Char} char
+	 * @param {Act} act
+	 */
 	onStateBlock( char, act ) {
-
 		this.log.log( act.cause.adj, char.name + ' is ' + act.cause.adj, LOG_COMBAT )
+	},
+
+	/**
+	 * Char has entered state.
+	 * @param {Char} char
+	 * @param {Dot} state
+	 */
+	onCharState( char, state ) {
+
+		this.log.log( state.adj, char.name + ' is ' + state.adj, LOG_COMBAT )
 
 	},
 

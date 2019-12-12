@@ -2,7 +2,8 @@ import Range from "../values/range";
 import {ParseMods } from "../values/mod";
 import { setModCounts } from "../items/base";
 import { ParseDmg } from "./attack";
-import game from "../game";
+import Game from "../game";
+import {mergeSafe} from 'objecty';
 
 export const NO_ACT = 7;
 export const NO_ATTACK = 1;
@@ -28,6 +29,7 @@ export default class Dot {
 			mod:this.mod||undefined,
 			acc:this.acc||undefined,
 			state:this.state||undefined,
+			adj:this.adj||undefined,
 			flags:this._flags!== 0 ? this._flags : undefined,
 			duration:this.duration,
 			source:this.source ? ( typeof this.source === 'string' ? this.source : this.source.id ) : undefined
@@ -36,7 +38,9 @@ export default class Dot {
 	}
 
 	get id() { return this._id; }
-	set id(v) { this._id =v;}
+	set id(v) {
+		this._id =v;
+	}
 
 	get mod() { return this._mod; }
 	set mod(v) { this._mod = v; }
@@ -59,9 +63,21 @@ export default class Dot {
 	 * @property {string} flags
 	 */
 	get flags(){return this._flags;}
-	set flags(v) { this._flags = v;}
+	set flags(v) {
 
-	valueOf(){ return ( this.duration > 0 || Number.isNaN(this.duration) ) ? 1 : 0; }
+		if ( typeof v === 'string') {
+			this.setFlags( v.split(','));
+		} else this._flags = v;
+
+	}
+
+	/**
+	 * @property {boolean} perm - dot is permanent.
+	 */
+	get perm(){return this._perm;}
+	set perm(v) { this._perm =v}
+
+	valueOf(){ return ( this.perm || this.duration > 0 ) ? 1 : 0; }
 
 	canCast() { return (this._flags & NO_SPELLS) === 0 }
 	canAttack() { return (this._flags & NO_ATTACK) === 0 }
@@ -77,7 +93,7 @@ export default class Dot {
 
 		if ( !this.id ) console.error('BAD DOT ID: ' + this.name );
 
-		if ( !this.duration) this.duration = NaN;
+		if ( !this.duration) this.duration = 10;
 
 		/**
 		 * @property {boolean} stack - ability of dot to stack.
@@ -88,8 +104,7 @@ export default class Dot {
 
 			setModCounts( this.mod, this );
 		}
-
-		this.setFlags();
+		if ( !this.flags ) this.flags = 0;
 
 		/**
 		 * @private {number} acc - integer accumulator
@@ -106,28 +121,50 @@ export default class Dot {
 
 	/**
 	 * Extend duration to the given number of seconds.
-	 * @param {number|NaN} duration
+	 * @param {number} duration
 	 */
 	extend( duration ) {
 
-		if ( Number.isNaN(duration) || Number.isNaN(this.duration ) ) this.duration = NaN;
-		else if ( duration > this._duration ) {
+		if ( duration === 0|| this.perm ) {
+
+			this.perm = true;;
+			this.duration = 0;
+
+		} else if ( duration > this._duration ) {
 			this._duration = duration;
 		}
 	}
 
-	setFlags() {
+	/*mergeDots(v) {
 
-		let f = this._flags || 0;
+		let st = Game.getData(v);
+		if ( st ) {
 
-		if ( this.noact ) f |= NO_ACT;
-		else {
-			if ( this.noattack ) f |= NO_ATTACK;
-			if ( this.nodefend ) f |= NO_DEFEND;
-			if ( this.nocast ) f |= NO_SPELLS;
+			let f = this.flags;
+			mergeSafe( this, st );
+
+			if ( f ) {
+				this.flags = st.flags;
+				this._flags |= f;
+			}
+
 		}
 
-		console.log('dot flags: ' + f );
+	}*/
+
+	setFlags( list ) {
+
+		let f = 0;
+
+		for( let i = list.length-1; i >= 0; i-- ) {
+
+			var v = list[i];
+			if ( v === 'noact') f |= NO_ACT;
+			else if ( v === 'noattack') f |= NO_ATTACK;
+			else if ( v === 'nodefend' ) f |= NO_DEFEND;
+			else if ( v === 'nocast') f |= NO_SPELLS;
+
+		}
 
 		this._flags = f;
 
@@ -152,7 +189,7 @@ export default class Dot {
 		if ( this.acc >= 1 ) {
 
 			this.acc--;
-			if ( !Number.isNaN(this.duration ) ) this.duration--;
+			if ( !this.perm ) this.duration--;
 
 			return 1;
 

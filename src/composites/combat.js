@@ -304,7 +304,7 @@ export default class Combat {
 
 		if (!targ) return;
 
-		if ( this.tryHit( attacker, targ, atk ) ) {
+		if ( !targ.canDefend() || this.tryHit( attacker, targ, atk ) ) {
 			applyAttack( targ, atk, attacker );
 		}
 

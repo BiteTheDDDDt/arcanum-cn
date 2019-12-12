@@ -45,6 +45,9 @@ export default class Attack {
 
 	}
 
+	/**
+	 * @property {object|object[]}
+	 */
 	get dot(){ return this._dot; }
 	set dot(v) {
 		this._dot =v;

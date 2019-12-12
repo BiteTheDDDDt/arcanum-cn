@@ -2,28 +2,28 @@
 
 	{
 		"id":"sleep",
-		"adj":"asleep",
-		"noact":true
+		"adj":"sleeping",
+		"flags":"noact"
 	},
 	{
 		"id":"silence",
 		"adj":"silenced",
-		"nocast":true
+		"flags":"nocast"
 	},
 	{
 		"id":"fear",
 		"adj":"afraid",
-		"noattack":true
+		"flags":"noattack"
 	},
 	{
 		"id":"entangle",
 		"adj":"entangled",
-		"noattack":true
+		"flags":"noattack"
 	},
 	{
 		"id":"rage",
 		"adj":"enraged",
-		"nodefend":true
+		"flags":"nodefend"
 	}
 
 ]

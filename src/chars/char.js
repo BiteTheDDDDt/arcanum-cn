@@ -10,6 +10,7 @@ import { NPC } from '../values/consts';
 import { toStats } from "../util/dataUtil";
 import { cloneClass } from '../util/util';
 import Act from './act';
+import events, { CHAR_STATE } from '../events';
 
 /**
  * @constant {number} DELAY_RATE - speed to attack delay conversion constant.
@@ -111,30 +112,31 @@ export default class Char {
 	}
 
 	/**
-	 * @property {number} canAttack
+	 * @returns {boolean} canAttack
 	 */
-	/*get canAttack(){
+	canAttack(){
 
-		for( let i = this.states.length-1; i>=0; i--){
-			if ( this.states[i].canAttack ) return false;
+		for( let i = this.dots.length-1; i>=0; i--){
+			if ( !this.dots[i].canAttack() ) return false;
 		}
+		return true;
 
-		return this._canAttack;
 	}
-	set canAttack(v) { this._canAttack = v;}*/
+
+	canDefend(){
+
+		for( let i = this.dots.length-1; i>=0; i--){
+			if ( !this.dots[i].canDefend() ) return false;
+		}
+		return true;
+
+	}
 
 	/**
 	 * @property {Act} act - action to take in locale.
 	 */
 	get act(){return this._act; }
 	set act(v) { this._act = v; }
-
-
-	/**
-	 * @property {number} canDefend
-	 */
-	/*get canDefend(){return this._canDefend;}
-	set canDefend(v) { this._canDefend = v;}*/
 
 
 	get instance() { return true; }
@@ -221,12 +223,17 @@ export default class Char {
 
 	/**
 	 * Base item of dot.
-	 * @param {Dot} dot
+	 * @param {Dot|object|Array} dot
 	 * @param {object} source
 	 * @param {string} name
 	 * @param {number} duration - duration override
 	 */
 	addDot( dot, source, name, duration=0 ) {
+
+		if ( Array.isArray(dot)) {
+			dot.forEach(v=>this.addDot(v,source,name,duration));
+			return;
+		}
 
 		let id = dot.id;
 		if ( !id ) {
@@ -259,6 +266,8 @@ export default class Char {
 	applyDot( dot ) {
 
 		if ( dot.mod ) this.dotContext.applyMods( dot.mod, 1 );
+
+		if ( dot.adj) events.emit( CHAR_STATE, this, dot );
 
 		let time = dot.duration;
 
