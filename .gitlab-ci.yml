@@ -28,7 +28,7 @@ pages:
   stage: copy_pages
   rules:
     - if: '$CI_COMMIT_REF_NAME == $PAGES_BRANCH'
-    - when: always
+      when: always
     - when: manual
   script:
     - cp -r dev public
