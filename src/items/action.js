@@ -123,7 +123,7 @@ export default class Action extends GData {
 
 		if ( this.log ) Game.doLog( this.log );
 		if ( this.mod ) Game.applyMods( this.mod );
-		if ( this.result ) Game.applyEffect( this.result );
+		if ( this.result ) Game.applyVars( this.result );
 
 		if ( this.exec ) this.exec();
 		Events.emit( ACT_DONE, this );
@@ -140,7 +140,7 @@ export default class Action extends GData {
 		if ( this.cd ) Game.addTimer( this );
 		if ( this.loot ) Game.getLoot( this.loot );
 
-		if ( this.once && this.valueOf() === 1 ) Game.applyEffect( this.once );
+		if ( this.once && this.valueOf() === 1 ) Game.applyVars( this.once );
 
 		var improve = false;
 

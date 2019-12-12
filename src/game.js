@@ -806,12 +806,12 @@ export default {
 	 * @param {GData} effect
 	 * @param {number} dt - time elapsed.
 	 */
-	applyEffect( effect, dt=1 ) {
+	applyVars( effect, dt=1 ) {
 
 		if ( typeof effect === 'object' ) {
 
 			if (  Array.isArray(effect) ) {
-				for( let e of effect ) { this.applyEffect( e,dt); }
+				for( let e of effect ) { this.applyVars( e,dt); }
 				return;
 			}
 

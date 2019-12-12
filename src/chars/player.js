@@ -348,38 +348,6 @@ export default class Player extends Char {
 	}
 
 	/**
-	 * Perform update effects.
-	 * @param {number} dt - elapsed time.
-	 */
-	update( dt ) {
-
-		let dots = this.dots;
-		let dot;
-
-		for( let i = dots.length-1; i >= 0; i-- ) {
-
-			dot = dots[i];
-			if ( !dot.tick(dt) ) continue;
-
-			// ignore any remainder beyond 0.
-			// @note: dots tick at second-intervals, => no dt.
-			if ( dot.effect ) Game.applyEffect( dot.effect, 1 );
-			if ( dot.damage ) applyAttack( this, dot, dot.source );
-
-			if ( dot.duration <= dt ) {
-
-				dots.splice( i, 1 );
-				if ( dot.mod ) Game.applyMods( dot.mod, -1 );
-
-			}
-
-
-		}
-		if ( this.regen ) this.hp += this.regen*dt;
-
-	}
-
-	/**
 	 * Get combat action.
 	 * @param {*} dt
 	 */

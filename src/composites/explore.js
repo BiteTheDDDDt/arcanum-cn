@@ -215,7 +215,7 @@ export default class Explore {
 
 		} else enc.value++;
 
-		if ( enc.result ) Game.applyEffect( enc.result );
+		if ( enc.result ) Game.applyVars( enc.result );
 		if ( enc.loot ) Game.getLoot( enc.loot, Game.state.drops );
 
 		this.enc = null;
@@ -235,9 +235,9 @@ export default class Explore {
 		this.locale.dirty = true;
 
 		if ( this.locale.loot ) Game.getLoot( this.locale.loot, Game.state.drops );
-		if ( this.locale.result ) Game.applyEffect( this.locale.result );
+		if ( this.locale.result ) Game.applyVars( this.locale.result );
 
-		if ( this.locale.once && this.locale.value === 0 ) Game.applyEffect( this.locale.once );
+		if ( this.locale.once && this.locale.value === 0 ) Game.applyVars( this.locale.once );
 
 		this.locale.value++;
 

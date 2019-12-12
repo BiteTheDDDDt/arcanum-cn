@@ -251,16 +251,9 @@ export default class Char {
 	}
 
 	applyDot( dot, amt=1 ) {
-		this.applyMods( dot.mod, amt );
-	}
 
-	/**
-	 * Get bonus damage for the damage type.
-	 * @param {string} kind
-	 * @returns {number}
-	 */
-	getBonus(kind) {
-		return this.bonuses[kind] || 0;
+		if ( dot.mod ) this.dotContext.applyMods( dot.mod, amt );
+
 	}
 
 	rmDot( i ){
@@ -272,27 +265,36 @@ export default class Char {
 
 	}
 
-	update(dt) {
+		/**
+	 * Perform update effects.
+	 * @param {number} dt - elapsed time.
+	 */
+	update( dt ) {
 
-		for( let i = this.dots.length-1; i >= 0; i-- ) {
+		let dots = this.dots;
 
-			var dot = this.dots[i];
-			let dotTime = dot.tick(dt);
+		for( let i = dots.length-1; i >= 0; i-- ) {
 
-			if ( dotTime ) {
+			var dot = dots[i];
+			if ( !dot.tick(dt) ) continue;
 
-				if ( dot.duration <= 0 ) {
-					this.rmDot(i);
-				}
-				if ( dot.damage ) {
-					applyAttack( this, dot, dot.source );
-				}
+			// ignore any remainder beyond 0.
+			// @note: dots tick at second-intervals, => no dt.
+			if ( dot.effect ) Game.applyVars( dot.effect, 1 );
+			if ( dot.damage ) applyAttack( this, dot, dot.source );
+
+			if ( dot.duration <= dt ) {
+
+				this.rmDot(i);
+
+				dots.splice( i, 1 );
+				if ( dot.mod ) this.dotContext.applyMods( dot.mod, -1 );
 
 			}
 
-		}
 
-		if ( this.regen ) this.hp += ( this.regen*dt );
+		}
+		if ( this.regen ) this.hp += this.regen*dt;
 
 	}
 
@@ -331,6 +333,15 @@ export default class Char {
 		}
 		return null;
 
+	}
+
+	/**
+	 * Get bonus damage for the damage type.
+	 * @param {string} kind
+	 * @returns {number}
+	 */
+	getBonus(kind) {
+		return this.bonuses[kind] || 0;
 	}
 
 	getAttack(){

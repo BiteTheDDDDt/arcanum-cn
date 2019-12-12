@@ -53,7 +53,7 @@ export default class Encounter extends GData {
 
 		this._exp += dt;
 		if ( this.effect ) {
-			Game.applyEffect( this.effect, dt );
+			Game.applyVars( this.effect, dt );
 		}
 
 	}

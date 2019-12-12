@@ -221,7 +221,7 @@ export default class Raid {
 			}
 		}
 
-		if ( enemy.result ) Game.applyEffect( enemy.result );
+		if ( enemy.result ) Game.applyVars( enemy.result );
 		if ( enemy.loot ) Game.getLoot( enemy.loot, this.drops );
 		else Game.getLoot( {max:enemy.level, [TYP_PCT]:30}, this.drops );
 
@@ -237,8 +237,8 @@ export default class Raid {
 		this.locale.dirty = true;
 
 		if ( this.locale.loot ) Game.getLoot( this.locale.loot, this.drops );
-		if ( this.locale.result ) Game.applyEffect( this.locale.result );
-		if ( this.locale.once && this.locale.value == 0 ) Game.applyEffect( this.locale.once );
+		if ( this.locale.result ) Game.applyVars( this.locale.result );
+		if ( this.locale.once && this.locale.value == 0 ) Game.applyVars( this.locale.once );
 
 		this.locale.value++;
 

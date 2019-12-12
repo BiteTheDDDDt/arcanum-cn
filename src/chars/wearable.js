@@ -199,6 +199,10 @@ export default class Wearable extends Item {
 
 	}
 
+	/**
+	 *
+	 * @param {Game} g
+	 */
 	equip( g ) {
 
 		let p = g.state.player;
@@ -212,6 +216,10 @@ export default class Wearable extends Item {
 		}
 	}
 
+	/**
+	 *
+	 * @param {Game} g
+	 */
 	unequip( g ) {
 
 		let p = g.state.player;
