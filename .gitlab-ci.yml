@@ -1,5 +1,8 @@
 image: node:latest
 
+variables:
+  PAGES_BRANCH: master
+
 stages:
   - make_dev
   - copy_pages
@@ -23,8 +26,10 @@ make_dev:
 
 pages:
   stage: copy_pages
-  only:
-    - master
+  rules:
+    - if: '$CI_COMMIT_REF_NAME == $PAGES_BRANCH'
+      when: always
+    - when: manual
   script:
     - cp -r dev public
   artifacts:
