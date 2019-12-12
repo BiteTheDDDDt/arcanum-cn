@@ -1,4 +1,4 @@
- image: node:latest
+image: node:latest
 
 stages:
   - install
@@ -10,14 +10,16 @@ cache:
 
 install_dependencies:
   stage: install
-  only: master
+  only:
+    - master
   script:
   - npm install
 
 main_build:
   stage: ci-dev
-  only: master
+  only:
+    - master
   script: npm ci-dev
   artifacts:
-  paths:
-    - dev/
+    paths:
+      - dev/
