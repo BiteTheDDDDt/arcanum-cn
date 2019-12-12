@@ -17,7 +17,7 @@ before_script:
 
 make_dev:
   stage: make_dev
- rules:
+  rules:
     - if: '$CI_COMMIT_REF_NAME == $PAGES_BRANCH'
       when: always
     - if: '$CI_COMMIT_REF_NAME == master'
