@@ -11,6 +11,7 @@ import { itemRevive } from '../modules/itemgen';
 import { getDelay } from '../chars/char';
 import Stat from '../values/stat';
 import { TYP_FUNC } from '../values/consts';
+import { NO_SPELLS } from '../chars/states';
 
 const TARGET_ALL = 'all';
 
@@ -264,13 +265,20 @@ export default class Combat {
 	 */
 	spellAttack( it ) {
 
-		if ( !this.player.canCast() ) Events.emit( STATE_BLOCK, this.player );
-
 		if ( this._enemies.length===0 ) {
 
 			Events.emit(EVT_COMBAT, null, this.player.name + ' casts ' + it.name + ' at the darkness.' );
 
-		} else this.attack( this.player, it.attack );
+		} else {
+
+			let a = this.player.getCause( NO_SPELLS);
+			if ( a ) {
+
+				Events.emit( STATE_BLOCK, this.player, a );
+
+			} else this.attack( this.player, it.attack );
+
+		}
 
 	}
 

@@ -71,9 +71,10 @@ export default class States {
 	/**
 	 * Blame each bit-flag in flags on cause.
 	 * @param {Dot} cause
-	 * @param {Number} flags
 	 */
-	blameAll( cause, flags ) {
+	blameAll( cause ) {
+
+		let flags = cause.flags;
 
 		let i = 1;
 		while ( i < flags ) {
@@ -101,7 +102,7 @@ export default class States {
 
 			var d = dots[i];
 			if ( d.flags ) {
-				this.blameAll( d, d.flags);
+				this.blameAll( d );
 			}
 
 		}

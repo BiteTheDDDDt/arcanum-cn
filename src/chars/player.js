@@ -9,6 +9,7 @@ import Wearable from "./wearable";
 import GData from "../items/gdata";
 import { RESOURCE } from "../values/consts";
 import { TEAM_PLAYER } from "./npc";
+import { NO_ATTACK } from "./states";
 
 const Fists = new Wearable({
 
@@ -356,8 +357,7 @@ export default class Player extends Char {
 
 			this.timer += getDelay(this.speed);
 
-			let a = this.attackOverride();
-
+			let a = this.getCause( NO_ATTACK );
 			if ( a ) return a;
 
 			// attempt to use spell first.

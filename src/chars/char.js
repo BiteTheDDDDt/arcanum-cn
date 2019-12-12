@@ -196,7 +196,7 @@ export default class Char {
 		}
 
 		this.reviveDots(gs);
-		//this.reviveStates();
+		this._states.refresh(this._dots);
 
 	}
 
@@ -205,14 +205,6 @@ export default class Char {
 			this.dots[i].revive(gs);
 		}
 	}
-
-	/*reviveStates() {
-
-		for( let i = this.states.length-1; i >= 0; i-- ) {
-			this.states[i].applyTo(this);
-		}
-
-	}*/
 
 	/**
 	 * Called once game actually begins. Dot-mods can't be applied
@@ -251,6 +243,7 @@ export default class Char {
 
 			if ( !(dot instanceof Dot) ) dot = Dot.Create( dot, source, duration );
 
+			this._states.blameAll( dot );
 			this.dots.push( dot );
 			this.applyDot( dot );
 
@@ -292,6 +285,7 @@ export default class Char {
 		this.dots.splice(i,1);
 
 		if ( dot.mod ) this.dotContext.applyMods( dot.mod, -1 );
+		this._states.refresh( this._dots );
 
 	}
 
