@@ -1,5 +1,8 @@
 image: node:latest
 
+variables:
+  PAGES_BRANCH: "master"
+
 stages:
   - make_dev
   - copy_pages
@@ -24,7 +27,7 @@ make_dev:
 pages:
   stage: copy_pages
   only:
-    - master
+    - ${PAGES_BRANCH}
   script:
     - cp -r dev public
   artifacts:
