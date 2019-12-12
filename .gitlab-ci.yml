@@ -1,22 +1,14 @@
 image: node:latest
 
-stages:
-  - install
-  - ci-dev
-
 cache:
+  key: ${CI_COMMIT_REF_SLUG}
   paths:
   - node_modules/
 
-install_dependencies:
-  stage: install
-  only:
-    - master
-  script:
+before_script:
   - npm install
 
 main_build:
-  stage: ci-dev
   only:
     - master
   script: npm run-script ci-dev
