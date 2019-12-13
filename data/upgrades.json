@@ -1890,7 +1890,7 @@
 		"id": "mythicanvil",
 		"name": "mythic anvil",
 		"desc": "Made of mythical metals, this anvil can withstand even a titan's power",
-		"require": "g.titan",
+		"require": "titan",
 		"max": 1,
 		"cost": {
 			"gold": 10000,

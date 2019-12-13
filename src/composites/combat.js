@@ -364,6 +364,10 @@ export default class Combat {
 			/** @todo bad. */
 			return this.allies.concat( this.enemies );
 
+		} else if ( targets === TARGET_RANDG ) {
+
+			return Math.random() < 0.5 ? this.allies : this.enemies;
+
 		} else if ( targets === TARGET_ALLY ) {
 
 			return char.team === TEAM_PLAYER ? this.nextTarget( this.allies ) : this.nextTarget( this.enemies );
