@@ -63,9 +63,9 @@ export default class Spell extends Action {
 	 * @property {string} target - target type, name, kind, or tag, to which
 	 * the enchantment can be applied.
 	 */
-	get targets(){return this._targets;}
-	set targets(v){
-		this._targets = typeof v === 'string' ? v.split(',') : v;
+	get only(){return this._only;}
+	set only(v){
+		this._only = typeof v === 'string' ? v.split(',') : v;
 	}
 
 	toJSON(){
@@ -130,7 +130,7 @@ export default class Spell extends Action {
 		if ( targ.level && ( 2*this.level < targ.level) ) return false;
 
 	//	console.log( this.id + ' target: ' + targ.id + ': ' + canTarget(this.targets, targ ));
-		return !this.targets || canTarget( this.targets, targ );
+		return !this.only || canTarget( this.only, targ );
 
 	}
 

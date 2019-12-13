@@ -4,7 +4,7 @@ import Attack from './attack';
 
 import Dot from './dot';
 
-import { NPC, getDelay } from '../values/consts';
+import { NPC, getDelay, TYP_PCT } from '../values/consts';
 import { toStats } from "../util/dataUtil";
 import events, { CHAR_STATE } from '../events';
 import States, { NO_ATTACK } from './states';
@@ -231,6 +231,10 @@ export default class Char {
 
 		if ( Array.isArray(dot)) {
 			dot.forEach(v=>this.addDot(v,source,duration));
+			return;
+		}
+
+		if ( dot[ TYP_PCT ] && !dot[TYPE_PCT].roll() ) {
 			return;
 		}
 
