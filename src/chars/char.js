@@ -192,6 +192,13 @@ export default class Char {
 
 	}
 
+	/**
+	 * Cure dot with the given state.
+	 * @param {string} state
+	 */
+	cure( state ) {
+	}
+
 	reviveDots(gs) {
 		for( let i = this.dots.length-1; i>=0; i--) {
 			this.dots[i].revive(gs);

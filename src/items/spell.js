@@ -93,6 +93,10 @@ export default class Spell extends Action {
 
 		}
 
+		if ( this.dot && !this.dot.id) {
+			this.dot.id = this.dot.name || this.name;
+		}
+
 		if ( this.attack ) {
 
 			if ( !(this.attack instanceof Attack) ) {

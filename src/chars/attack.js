@@ -118,6 +118,11 @@ export default class Attack {
 			assignPublic(this,vars); //Object.assign(this,vars);
 		}
 
+		if ( this.dot && !this.dot.id ) {
+			if ( this.dot.name ) this.dot.id = this.dot.name;
+			else this.dot.id = this.dot.name = this.name || this.id;
+		}
+
 		this.damage = this.damage || 0;
 		this.bonus = this.bonus || 0;
 

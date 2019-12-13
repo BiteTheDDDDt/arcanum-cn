@@ -271,6 +271,7 @@ export default class Combat {
 
 		} else {
 
+			console.log('spell attack');
 			let a = this.player.getCause( NO_SPELLS);
 			if ( a ) {
 
