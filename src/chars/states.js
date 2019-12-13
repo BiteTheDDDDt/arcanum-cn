@@ -1,3 +1,5 @@
+import { quickSplice } from "../util/array";
+
 export const NO_ACT = 7;
 export const NO_ATTACK = 1;
 export const NO_DEFEND = 2;
@@ -28,7 +30,7 @@ export const ParseFlags = (list)=>{
 export default class States {
 
 	/**
-	 * @property {.<number,Dot>} causes - causes of each state flag.
+	 * @property {.<number,Dot[]>} causes - causes of each state flag.
 	 */
 	get causes(){return this._causes; }
 	set causes(v) { this._causes = v; }
@@ -54,18 +56,9 @@ export default class States {
 	 * @returns {Dot|null}
 	 */
 	getCause(flag) {
-		return this._causes[flag];
-	}
 
-	/**
-	 * Mark a cause of a state-flag being set.
-	 * @param {number} flag - state flag.
-	 * @param {Dot|State} cause - dot setting the flag.
-	 */
-	blame( flag, cause ) {
-
-		this._causes[flag] = cause;
-		this._flags |= flag;
+		let a = this._causes[flag];
+		return a && a.length > 0 ? a[0] : null;
 
 	}
 
@@ -73,20 +66,59 @@ export default class States {
 	 * Blame each bit-flag in flags on cause.
 	 * @param {Dot} cause
 	 */
-	blameAll( cause ) {
+	add( cause ) {
 
 		if ( !cause ) console.warn('no cause: ' + cause );
 
 		let flags = cause.flags;
 
-		let i = 1;
-		while ( i < flags ) {
+		let f = 1;
+		while ( f < flags ) {
 
-			if ( (flags & i) > 0 ) this._causes[i] = cause;
-			i *= 2;
+			if ( (flags & f) > 0 ) this._addCause( f, cause );
+			f *= 2;
 
 		}
 		this._flags |= flags;
+
+	}
+
+	remove( dot ) {
+
+		if ( !dot ) return;
+
+		let flags = dot.flags;
+		let f = 1;
+
+		while ( f < flags ) {
+
+			if ( (flags & f) > 0 ) this._rmCause( f, dot );
+			f *= 2;
+
+		}
+
+	}
+
+	_rmCause( flag, cause ) {
+
+		let a = this._causes[flag];
+		if ( !a ) return;
+
+		let ind = a.indexOf(cause);
+		if ( ind >= 0 ) {
+
+			quickSplice( a, ind );
+			if ( a.length === 0 ) this.flags ^= flag;
+
+		}
+
+	}
+
+	_addCause( flag, cause ) {
+
+		let a = this._causes[flag];
+		if ( !a ) a = this._causes[flag] = [cause]
+		else a.push( cause );
 
 	}
 
@@ -105,7 +137,7 @@ export default class States {
 
 			var d = dots[i];
 			if ( d.flags ) {
-				this.blameAll( d );
+				this.add( d );
 			}
 
 		}

@@ -197,6 +197,13 @@ export default class Char {
 	 * @param {string} state
 	 */
 	cure( state ) {
+
+		for( let i = this.dots.length-1; i>= 0; i-- ) {
+			if ( this.dots[i].id === state) {
+				this.rmDot(i);
+				return;
+			}
+		}
 	}
 
 	reviveDots(gs) {
@@ -245,7 +252,7 @@ export default class Char {
 				dot = this.mkDot( dot, source, duration );
 			}
 
-			this._states.blameAll( dot );
+			this._states.add( dot );
 			this.dots.push( dot );
 			this.applyDot( dot );
 
@@ -307,7 +314,7 @@ export default class Char {
 		this.dots.splice(i,1);
 
 		if ( dot.mod ) this.dotContext.applyMods( dot.mod, -1 );
-		this._states.refresh( this._dots );
+		this._states.remove( dot );
 
 	}
 
