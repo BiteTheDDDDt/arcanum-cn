@@ -1,14 +1,13 @@
-import Game from '../game';
+import Npc from '../chars/npc';
 import Wearable from "../chars/wearable";
 import { includesAny} from 'objecty';
 import Percent from '../values/percent';
 import Item from '../items/item';
 import Encounter from '../items/encounter';
-import Npc from '../chars/npc';
 import GenGroup from '../genGroup';
 import { pushNonNull } from '../util/array';
 import GData from '../items/gdata';
-import { ENCOUNTER, WEARABLE, MONSTER, ARMOR, WEAPON, TYP_PCT, EVENT, ITEM, POTION, TYP_RANGE } from '../values/consts';
+import { ENCOUNTER, WEARABLE, MONSTER, ARMOR, WEAPON, TYP_PCT, EVENT, ITEM, POTION, TYP_RANGE, NPC } from '../values/consts';
 
 /**
  * Revive a prototyped item based on an item template.
@@ -16,7 +15,7 @@ import { ENCOUNTER, WEARABLE, MONSTER, ARMOR, WEAPON, TYP_PCT, EVENT, ITEM, POTI
  * @param {GameState} gs
  * @param {object} it
  */
-export function itemRevive(gs, it ) {
+export function itemRevive( gs, it ) {
 
 	if ( !it ) {
 		console.warn('Missing gen item: ' + it );
@@ -40,8 +39,9 @@ export function itemRevive(gs, it ) {
 
 		it = new Wearable(it);
 
-	} else if ( type === MONSTER) {
+	} else if ( type === MONSTER || type === NPC ) {
 
+		console.log('NEW NPC');
 		it = new Npc( orig, it );
 
 	} else if ( type === ENCOUNTER) {
@@ -66,22 +66,23 @@ export function itemRevive(gs, it ) {
  */
 export default class ItemGen {
 
-	constructor( state ){
+	constructor( game ){
 
-		this.state = state;
+		this.game = game;
+		this.state = game.state;
 
 		/**
 		 * Groups of item types to generate. 'armor', 'weapon', 'monster' etc.
 		 */
 		this.groups = {};
 
-		this.luck = state.getData('luck');
+		this.luck = this.state.getData('luck');
 
-		this.initGroup( ARMOR, state.armors );
-		this.initGroup( WEAPON, state.weapons );
-		this.initGroup( 'materials', state.materials );
+		this.initGroup( ARMOR, this.state.armors );
+		this.initGroup( WEAPON, this.state.weapons );
+		this.initGroup( 'materials', this.state.materials );
 
-		let g = this.initGroup( MONSTER, state.monsters );
+		let g = this.initGroup( MONSTER, this.state.monsters );
 		g.makeFilter( 'biome' );
 		g.makeFilter( 'kind' );
 
@@ -221,7 +222,7 @@ export default class ItemGen {
 
 			info = this.state.getData(info);
 
-			if ( Game.state.hasUnique(info) ) {
+			if ( this.state.hasUnique(info) ) {
 				return null;
 			}
 
@@ -315,9 +316,9 @@ export default class ItemGen {
 
 		if ( typeof amt === 'number' || typeof amt === 'boolean') {
 
-			if ( it.type === 'upgrade' || it.type === 'action' || it.type === 'furniture' || it.type === EVENT) it.doUnlock( Game );
+			if ( it.type === 'upgrade' || it.type === 'action' || it.type === 'furniture' || it.type === EVENT) it.doUnlock( this.game );
 			else {
-				it.amount( Game, amt );
+				it.amount( this.game, amt );
 				if ( amt > 0 ) return it.name;
 			}
 

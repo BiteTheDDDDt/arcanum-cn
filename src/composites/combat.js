@@ -1,6 +1,5 @@
 import Game from '../game';
 import Range from '../values/range';
-import { TEAM_PLAYER } from '../chars/npc';
 
 import Events, {
 	EVT_COMBAT, ENEMY_SLAIN, ALLY_DIED,
@@ -8,10 +7,11 @@ import Events, {
 } from '../events';
 
 import { itemRevive } from '../modules/itemgen';
-import { getDelay } from '../chars/char';
 import Stat from '../values/stat';
-import { TYP_FUNC } from '../values/consts';
 import { NO_SPELLS } from '../chars/states';
+
+import { TYP_FUNC, TEAM_PLAYER, getDelay } from '../values/consts';
+
 
 const TARGET_ALL = 'all';
 
@@ -184,8 +184,6 @@ export default class Combat {
 
 		}
 
-		Events.add( CHAR_DIED, this.charDied, this );
-
 		for( let i = this._allies.length-1; i>=0; i-- ) {
 
 			var it = this._allies[i];
@@ -197,6 +195,8 @@ export default class Combat {
 		}
 
 		this._allies.unshift( this.player );
+
+		Events.add( CHAR_DIED, this.charDied, this );
 
 	}
 
@@ -274,6 +274,7 @@ export default class Combat {
 			let a = this.player.getCause( NO_SPELLS);
 			if ( a ) {
 
+				console.log('spells blocked: ' + a );
 				Events.emit( STATE_BLOCK, this.player, a );
 
 			} else this.attack( this.player, it.attack );

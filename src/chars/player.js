@@ -1,14 +1,14 @@
+import Game from '../game';
 import Stat from "../values/stat";
 import Resource from "../items/resource";
-import Game from '../game';
 import { toStats } from "../util/dataUtil";
 
-import Char, { getDelay } from './char';
-import Events, { LEVEL_UP, NEW_TITLE, CHAR_TITLE, CHAR_NAME, CHAR_CLASS, EVT_STAT } from "../events";
+import Events, { LEVEL_UP, NEW_TITLE, CHAR_TITLE, CHAR_NAME, CHAR_CLASS } from "../events";
 import Wearable from "./wearable";
 import GData from "../items/gdata";
-import { RESOURCE } from "../values/consts";
-import { TEAM_PLAYER } from "./npc";
+import Char from './char';
+import { RESOURCE, TEAM_PLAYER, getDelay } from "../values/consts";
+
 import { NO_ATTACK } from "./states";
 
 const Fists = new Wearable({
@@ -435,22 +435,13 @@ export default class Player extends Char {
 	 * Init immunities, resists, etc.
 	 */
 	initStates(){
+
 		this._resist = this._resist || {};
 		for( let p in this._resist ) {
 			this._resist[p] = new Stat( this._resist[p]);
 		}
 
 		this.regen = this.regen || 0;
-
-		this._states = this._states || {
-			fly:0,
-			sleep:0,
-			swim:0,
-			immortal:0,
-			paralyzed:0,
-			stoned:0,
-			confused:0
-		};
 
 		if ( !this.immunities ) this.immunities = {
 			fire:0,

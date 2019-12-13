@@ -1,21 +1,10 @@
 import Char from './char';
 import Range, { RangeTest } from '../values/range';
-import Stat from '../values/stat';
 import Percent, { PercentTest } from '../values/percent';
 import MaxStat from '../values/maxStat';
 import Attack, { ParseDmg } from './attack';
 import { assign } from 'objecty';
-
-/**
- * @const {number} ALLY - team constant for allies.
- */
-export const TEAM_PLAYER = 1;
-
-/**
- * @const {number} TEAM_NPC - constant for NPC team.
- * Might allow additional teams in future.
- */
-export const TEAM_NPC = 0;
+import { TEAM_NPC } from '../values/consts';
 
 /**
  * Class for specific Enemies/Minions in game.

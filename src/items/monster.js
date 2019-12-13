@@ -1,6 +1,5 @@
 import GData from "./gdata";
-import { TEAM_PLAYER } from "../chars/npc";
-import { MONSTER } from "../values/consts";
+import { MONSTER, TEAM_PLAYER } from "../values/consts";
 
 const defaults = {
 

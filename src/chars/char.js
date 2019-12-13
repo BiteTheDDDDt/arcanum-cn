@@ -1,24 +1,16 @@
 import Base, {mergeClass} from '../items/base';
-import {applyAttack} from '../composites/combat';
 import Stat from '../values/stat';
-import Dot from './dot';
 import Attack from './attack';
-import GameState from '../gameState';
-import Game from '../game';
 
-import { NPC } from '../values/consts';
+import Dot from './dot';
+
+import { NPC, getDelay } from '../values/consts';
 import { toStats } from "../util/dataUtil";
-import { cloneClass } from '../util/util';
 import events, { CHAR_STATE } from '../events';
 import States from './states';
+import { cloneClass } from '../util/util';
 
-/**
- * @constant {number} DELAY_RATE - speed to attack delay conversion constant.
- */
-export const DELAY_RATE = 3.5;
-export function getDelay(s) {
-	return 0.5 + DELAY_RATE*Math.exp(-s/8);
-}
+import {applyAttack} from '../composites/combat';
 
 export default class Char {
 
@@ -115,7 +107,7 @@ export default class Char {
 	 * Get cause of a state-flag being set.
 	 * @param {number} flag
 	 */
-	getCause(flag){return this._states.getCause()}
+	getCause(flag){return this._states.getCause(flag)}
 
 	/**
 	 * @returns {boolean} canAttack
@@ -136,7 +128,7 @@ export default class Char {
 	 * @property {States} states - action to take in locale.
 	 */
 	get states(){return this._states; }
-	set states(v) { this._states = v; }
+	set states(v) { this._states = new States(); }
 
 
 	get instance() { return true; }
@@ -164,14 +156,13 @@ export default class Char {
 
 		this.type = NPC;
 
-		//this.states = this.states || {};
+		this._states = new States();
+
 		this.immunities = this.immunities || {};
 		this._resist = this._resist || {};
 		if ( !this.bonuses ) this.bonuses = {};
 
 		//console.log( this.id + ' tohit: ' + this.tohit );
-
-		this._states = new States();
 
 		/**
 		 * @property {Object[]} dots - timed/ongoing effects.
@@ -194,6 +185,7 @@ export default class Char {
 		if ( this.template ) {
 			if ( !this.name ) this._name = it.name;
 		}
+		this._gs = gs;
 
 		this.reviveDots(gs);
 		this._states.refresh(this._dots);
@@ -237,17 +229,40 @@ export default class Char {
 		let cur = this.dots.find( d=>d.id===id);
 		if ( cur !== undefined ) {
 
+			console.log('DOT FOUND: ' + cur.id );
 			cur.extend( duration );
 
 		} else {
 
-			if ( !(dot instanceof Dot) ) dot = Dot.Create( dot, source, duration );
+			if ( !(dot instanceof Dot) ) {
+				dot = this.mkDot( dot, source, duration );
+			}
 
 			this._states.blameAll( dot );
 			this.dots.push( dot );
 			this.applyDot( dot );
 
 		}
+
+	}
+
+	/**
+	 * @static
+	 * @param {object} dot
+	 * @param {object} source
+	 * @param {number} [duration=0]
+	 * @returns {Dot}
+	 */
+	mkDot( dot, source, duration=0 ){
+
+		dot = new Dot( cloneClass(dot), source );
+
+		let st = this._gs.getData(dot.id);
+		if ( st ) dot.mergeDot(st);
+
+		dot.duration = duration;
+
+		return dot;
 
 	}
 
@@ -267,7 +282,7 @@ export default class Char {
 			}
 			for( let i = states.length-1; i>= 0; i-- ){
 
-				var s = Game.state.getData( states[i] );
+				var s = this._gs.getData( states[i] );
 				if ( s ) {
 					console.log('ADDING DOT STATE: ' + states[i] );
 					this.addDot( s, dot.source, time );

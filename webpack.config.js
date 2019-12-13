@@ -61,13 +61,12 @@ module.exports = (env, argv)=>{
 			to:path.resolve( absPath, 'css' )
 		}
 	]),
-	new WorkboxPlugin.InjectManifest({
+	/*new WorkboxPlugin.InjectManifest({
 		swSrc:'src/sw.js',
 		swDest:'sw.js',
 		importsDirectory:'wb-assets',
-		//globIgnores:['src/**', 'node_modules/**', 'docs/**', 'dev/**'],
-		//globPatterns:[ dataDir + '*', outDir + '**/*.{js,css,html}' ]
-	})],
+
+	})*/],
 
 	//devtool: 'source-map',
 

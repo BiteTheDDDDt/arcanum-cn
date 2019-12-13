@@ -2,8 +2,7 @@ import Events, { ENEMY_SLAIN, ACT_DONE, ITEM_ATTACK, CHAR_DIED, DEFEATED, ACT_BL
 
 import Game from '../game';
 import Combat from './combat';
-import { getDelay } from '../chars/char';
-import { RAID, TYP_PCT } from '../values/consts';
+import { RAID, TYP_PCT, getDelay } from '../values/consts';
 
 
 /**

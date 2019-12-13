@@ -42,6 +42,7 @@ export default class States {
 
 	constructor(){
 
+		this._causes = {};
 		this._flags = 0;
 
 	}
@@ -73,6 +74,8 @@ export default class States {
 	 * @param {Dot} cause
 	 */
 	blameAll( cause ) {
+
+		if ( !cause ) console.warn('no cause: ' + cause );
 
 		let flags = cause.flags;
 

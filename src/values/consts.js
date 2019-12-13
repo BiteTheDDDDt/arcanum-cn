@@ -58,6 +58,17 @@ const LOCALE = 'locale';
 const EXPLORE = 'explore';
 const RAID = 'raid';
 
+/**
+ * @const {number} TEAM_PLAYER - team constant for allies.
+ */
+export const TEAM_PLAYER = 1;
+
+/**
+ * @const {number} TEAM_NPC - constant for NPC team.
+ * Might allow additional teams in future.
+ */
+export const TEAM_NPC = 0;
+
 export { RAID, DUNGEON, EXPLORE, LOCALE };
 export { HOME, RESOURCE, NPC, SKILL, ENCOUNTER, WEARABLE, MONSTER, ARMOR, WEAPON, PURSUITS, EVENT };
 
@@ -90,6 +101,14 @@ export const SchoolTable = {
 	magicbeast:['mana','nature']
 
 };
+
+/**
+ * @constant {number} DELAY_RATE - speed to attack delay conversion constant.
+ */
+export const DELAY_RATE = 3.5;
+export function getDelay(s) {
+	return 0.5 + DELAY_RATE*Math.exp(-s/8);
+}
 
 /**
  * Determine if the given target allows targetting of item.

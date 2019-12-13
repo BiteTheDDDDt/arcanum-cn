@@ -1,16 +1,17 @@
-import DataLoader from './dataLoader';
 import GData from './items/gdata';
 import Log from './log.js';
 import GameState, { REST_SLOT } from './gameState';
 import ItemGen from './modules/itemgen';
 import TechTree from './techTree';
-
-import Events, {EVT_UNLOCK, EVT_EVENT, EVT_LOOT, SET_SLOT, DELETE_ITEM } from './events';
 import Resource from './items/resource';
 import Skill from './items/skill';
 import Stat from './values/stat';
-import { TEAM_PLAYER } from './chars/npc';
-import { MONSTER, TYP_PCT, TYP_RANGE, P_TITLE, P_LOG, RESOURCE } from './values/consts';
+
+import DataLoader from './dataLoader';
+
+import Events, {EVT_UNLOCK, EVT_EVENT, EVT_LOOT, SET_SLOT, DELETE_ITEM } from './events';
+
+import { MONSTER, TYP_PCT, TYP_RANGE, P_TITLE, P_LOG, RESOURCE, TEAM_PLAYER } from './values/consts';
 
 var techTree;
 
@@ -101,7 +102,7 @@ export default {
 		return this.loader = DataLoader.loadGame( saveData ).then( allData=>{
 
 			this.state = new GameState( allData, saveData );
-			this.itemGen = new ItemGen( this.state );
+			this.itemGen = new ItemGen( this );
 
 			this._gdata = this.state.items;
 
@@ -133,7 +134,7 @@ export default {
 	 *
 	 * @param {string} id
 	 */
-	logStat( id, full ) {
+	logStat( id ) {
 
 		let s = this.getData(id);
 		if ( !s ) console.warn('STAT MISSING: '+id);

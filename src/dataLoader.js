@@ -1,5 +1,4 @@
 import GData from './items/gdata';
-import Player from './chars/player';
 
 import Range, {RangeTest} from './values/range';
 import Percent, {PercentTest} from './values/percent';
@@ -25,6 +24,8 @@ import Item from './items/item';
 import Potion from './items/potion';
 import Encounter from './items/encounter';
 import GEvent from './items/gevent';
+
+import Player from './chars/player';
 
 import Loader from './util/jsonLoader';
 import { splitKeyPath } from './util/util';

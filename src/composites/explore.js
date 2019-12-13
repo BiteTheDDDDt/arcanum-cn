@@ -1,10 +1,9 @@
 import Events, { DEFEATED, ACT_DONE, ENC_START, ACT_BLOCKED } from "../events";
-import { getDelay } from "../chars/char";
 
 import Game from '../game';
 import Encounter from "../items/encounter";
 import { itemRevive } from "../modules/itemgen";
-import { EXPLORE } from "../values/consts";
+import { EXPLORE, getDelay } from "../values/consts";
 
 /**
  * Explore locations of arcane importance.

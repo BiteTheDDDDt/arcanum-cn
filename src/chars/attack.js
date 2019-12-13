@@ -1,7 +1,6 @@
 import Range, { RangeTest } from "../values/range";
 import { assignPublic } from "../util/util";
 import Stat from "../values/stat";
-import { ParseMods } from "../values/mod";
 import RValue from "../values/rvalue";
 import FValue from "../values/fvalue";
 

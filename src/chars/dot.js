@@ -1,32 +1,11 @@
-import Range from "../values/range";
 import {ParseMods } from "../values/mod";
 import { setModCounts } from "../items/base";
 import { ParseDmg } from "./attack";
-import Game from "../game";
 import {mergeSafe} from 'objecty';
 import { ParseFlags, NO_SPELLS, NO_ATTACK, NO_DEFEND } from "./states";
 
 
 export default class Dot {
-
-	/**
-	 * @static
-	 * @param {object} dot
-	 * @param {object} source
-	 * @param {number} [duration=0]
-	 * @returns {Dot}
-	 */
-	static Create( dot, source, duration=0 ) {
-
-		console.log('NEW dot: ' + id );
-		dot = new Dot( cloneClass(dot), source );
-
-		let st = Game.getData(dot.id);
-		if ( st ) dot.mergeDot(st);
-
-		dot.duration = duration;
-
-	}
 
 	toJSON(){
 

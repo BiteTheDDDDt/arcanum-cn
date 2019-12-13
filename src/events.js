@@ -1,7 +1,6 @@
 import Emitter from 'eventemitter3';
 import {uppercase} from './util/util';
 import { TYP_PCT, EVENT } from './values/consts';
-import States from './chars/states';
 
 /**
  * @const {Emitter} events - emitter for in-game events.
