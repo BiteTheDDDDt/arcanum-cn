@@ -31,6 +31,11 @@ export const TARGET_ENEMIES = 'enemies';
 export const TARGET_ALLIES = 'allies';
 
 /**
+ * @const TARGET_RANDG - target random group.
+ */
+export const TARGET_RANDG = 'randgroup';
+
+/**
  * @const {string} TARGET_ALLY - target single ally.
  */
 export const TARGET_ALLY = 'ally';
