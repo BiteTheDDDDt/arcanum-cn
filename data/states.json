@@ -6,6 +6,18 @@
 		"flags":"noact"
 	},
 	{
+		"id":"paralyzed",
+		"flags":"noact"
+	},
+	{
+		"id":"sick",
+		"duration":10,
+		"mod":{
+			"tohit":-5,
+			"defense":-5
+		}
+	},
+	{
 		"id":"silence",
 		"adj":"silenced",
 		"flags":"nocast"
@@ -13,7 +25,10 @@
 	{
 		"id":"fear",
 		"adj":"afraid",
-		"flags":"noattack"
+		"flags":"noattack",
+		"mod":{
+			"defense":-3
+		}
 	},
 	{
 		"id":"entangle",
@@ -24,6 +39,11 @@
 		"id":"rage",
 		"adj":"enraged",
 		"flags":"nodefend"
+	},
+	{
+		"id":"disgust",
+		"adj":"disgusted",
+		"flags":"noattack"
 	}
 
 ]

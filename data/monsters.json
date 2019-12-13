@@ -57,7 +57,13 @@
         "attack":{
             "name":"shiver",
             "kind":"spirit",
-            "dmg":"0.2~1"
+			"dmg":"0.2~1",
+			"dot":{
+				"%":"20%",
+				"adj":"shivering",
+				"flags":"noattack",
+				"duration":3
+			}
         }
 
 	},
@@ -187,11 +193,19 @@
         "hp":"3~6",
         "defense":4,
         "tohit":2,
-        "attack":{
+        "attack":[{
             "name":"magic missile",
             "kind":"mana",
             "dmg":"2~4"
-        },"biome":["town","plains","hills"],
+		},
+		{
+			"dot":{
+				"id":"sleep",
+				"duration":5
+			}
+
+		}],
+		"biome":["town","plains","hills"],
 		"loot":{
 			"scrolls":1,
 			"boots":"15%" },
@@ -258,7 +272,11 @@
 		"attack": {
             "name":"slime",
             "kind":"nature",
-            "dmg":"1~3"
+			"dmg":"1~3",
+			"dot":{
+				"id":"disgust",
+				"duration":3
+			}
         },
 		"speed":-1,
 		"loot":{
@@ -646,15 +664,20 @@
 		"tohit":5,
 		"defense":5,
 		"attack":{
-		"name": "bite",
+			"name": "bite",
             "kind": "pierce",
             "dmg": "4~7",
-            "dot": {
+            "dot":[{
                 "kind": "poison",
                 "name": "venom",
                 "dmg": "1~3",
                 "duration": 5
-            }
+			},
+			{
+				"%":"10%",
+				"id":"paralyzed",
+				"duration":5
+			}]
 		}
 	},
     {
@@ -694,11 +717,16 @@
 		"hp":10,
 		"tohit":5,
 		"defense":5,
-		"attack": {
+		"attack": [{
             "name":"curse",
             "kind":"shadow",
             "dmg":"4~8"
-        },"resist":{"shadow":20}
+        },{
+			"dot":{
+				"id":"silence",
+				"duration":10
+			}
+		}],"resist":{"shadow":20}
 	},
 	{
 		"id":"orcchief",
@@ -768,11 +796,16 @@
         "hp":8,
         "tohit":1,
         "defense":10,
-        "attack":{
+        "attack":[{
             "name":"bow",
             "kind":"pierce",
             "dmg":"1~6"
-        }, "loot":{
+        },{
+			"dot":{
+				"id":"entangle",
+				"duration":10
+			}
+		}], "loot":{
 			"ring":"2%",
 			"cloak":"3%",
 			"belt":"3%"
@@ -1139,7 +1172,11 @@
         "attack":{
             "name":"bite",
             "kind":"physical",
-            "dmg":"2~3"
+			"dmg":"2~3",
+			"dot":{
+				"id":"sick",
+				"duration":10
+			}
 		},
 		"resist":{
 			"shadow":20
@@ -1182,7 +1219,11 @@
         "attack":{
             "name":"claws",
             "kind":"slash",
-            "dmg":"3~6"
+			"dmg":"3~6",
+			"dot":{
+				"id":"sick",
+				"duration":15
+			}
 		},
 		"resist":{
 			"shadow":25
@@ -1355,11 +1396,17 @@
         "hp":13,
 		"defense":30,
 		"regen":1,
-        "attack":{
+        "attack":[{
             "name":"claws",
             "kind":"slash",
         	"dmg":"4~7"
 		},
+		{
+			"dot":{
+				"id":"silence",
+				"duration":10
+			}
+		}],
 		"resist":{
 			"fire":20
 		},
@@ -1524,7 +1571,11 @@
         "attack":{
             "name":"death touch",
             "kind":"drain",
-            "dmg":"3~9"
+			"dmg":"3~9",
+			"dot":{
+				"id":"fear",
+				"duration":10
+			}
 		},
 		"resist":{
 			"spirit":20

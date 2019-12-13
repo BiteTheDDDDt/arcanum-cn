@@ -3,7 +3,7 @@
 
 		"id":"bloodshot",
 		"level":1,
-		"require":"water",
+		"require":"g.player.level>999",
 		"school":"water",
 		"buy":{
 			"gold":2
@@ -33,7 +33,6 @@
 			"water":1
 		},
 		"dot":{
-			"state":"sleep",
 			"duration":30,
 			"effect":{
 				"stamina":0.3

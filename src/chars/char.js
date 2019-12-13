@@ -314,7 +314,7 @@ export default class Char {
 		this.dots.splice(i,1);
 
 		if ( dot.mod ) this.dotContext.applyMods( dot.mod, -1 );
-		this._states.remove( dot );
+		if ( dot.flags ) this._states.remove( dot );
 
 	}
 
