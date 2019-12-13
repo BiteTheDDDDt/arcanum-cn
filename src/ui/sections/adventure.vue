@@ -229,19 +229,26 @@ div.top .hides > span {
 
 div.locales {
 
-	display: grid;
-	grid-template-columns: repeat( auto-fit, 10rem); grid-gap: 0; grid-auto-rows: min-content;
+	display: flex;
+	flex-flow: row wrap;
+	grid-gap: 0;
 	flex-grow:1;
 	justify-content: space-between;
 	overflow-y: auto;
 	min-height: 50%;
 	height:100%;
-
 	padding: var(--tiny-gap) var(--md-gap);
 
 }
+div.locales .locale {
+	flex-basis: 48%;
+}
 
-body.compact div.adventure > div.locales { grid-template-columns: minmax( 9rem, 1fr) repeat( auto-fit, minmax( 9rem, 1fr) ); }
+
+body.compact div.adventure > div.locales {
+	display:grid;
+	grid-template-columns: minmax( 9rem, 1fr) repeat( auto-fit, minmax( 9rem, 1fr) );
+}
 body.compact div.adventure > div.locales .locale { background: var(--list-entry-background); }
 body.compact div.adventure > div.locales .locale .bar { border: none;}
 

@@ -5,7 +5,7 @@ variables:
 
 stages:
   - make_dev
-  - copy_pages
+  - pages
 
 cache:
   key: ${CI_COMMIT_REF_SLUG}
@@ -17,15 +17,19 @@ before_script:
 
 make_dev:
   stage: make_dev
-  only:
-    - master
+  rules:
+    - if: '$CI_COMMIT_REF_NAME == $PAGES_BRANCH'
+      when: always
+    - if: '$CI_COMMIT_REF_NAME == "master"'
+      when: always
+    - when: manual
   script: npm run-script ci-dev
   artifacts:
     paths:
       - dev/
 
 pages:
-  stage: copy_pages
+  stage: pages
   rules:
     - if: '$CI_COMMIT_REF_NAME == $PAGES_BRANCH'
       when: always
