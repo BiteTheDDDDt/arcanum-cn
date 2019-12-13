@@ -8,37 +8,42 @@ import Events, {
 
 import { itemRevive } from '../modules/itemgen';
 import Stat from '../values/stat';
-import { NO_SPELLS } from '../chars/states';
+import { NO_SPELLS, CONFUSED, CHARMED } from '../chars/states';
 
 import { TYP_FUNC, TEAM_PLAYER, getDelay } from '../values/consts';
 
 
-const TARGET_ALL = 'all';
+export const TARGET_ALL = 'all';
+
+/**
+ * @const {string} TARGET_ENEMY - target one enemy.
+ */
+export const TARGET_ENEMY = 'enemy';
 
 /**
  * @const {string} TARGET_ENEMIES - target all enemies.
  */
-const TARGET_ENEMIES = 'enemies';
+export const TARGET_ENEMIES = 'enemies';
 
 /**
  * @const {string} TARGET_ALLIES - target all allies.
  */
-const TARGET_ALLIES = 'allies';
+export const TARGET_ALLIES = 'allies';
 
 /**
  * @const {string} TARGET_ALLY - target single ally.
  */
-const TARGET_ALLY = 'ally';
+export const TARGET_ALLY = 'ally';
 
 /**
  * @const {string} TARGET_SELF - target self.
  */
-const TARGET_SELF = 'self';
+export const TARGET_SELF = 'self';
 
 /**
  * @const {string} TARGET_RAND - random target.
  */
-const TARGET_RAND = 'rand';
+export const TARGET_RAND = 'rand';
 
 
 /**
@@ -330,6 +335,9 @@ export default class Combat {
 	 * @returns {Char|Char[]|null}
 	 */
 	getTarget( char, targets ) {
+
+		// retarget based on state.
+		targets = char.getTarget(targets);
 
 		if ( !targets ) {
 

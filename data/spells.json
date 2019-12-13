@@ -995,7 +995,7 @@
 
 		"id":"reanimate",
 		"level":3,
-		"targets":"undead",
+		"only":"undead",
 		"school":"shadow",
 		"desc":"reanimate a weak undead minion.",
 		"tags":"rez",
@@ -1015,7 +1015,7 @@
 		"name":"greater reanimate",
 		"desc":"reanimate a stronger undead minion.",
 		"level":5,
-		"targets":"undead",
+		"only":"undead",
 		"school":"shadow",
 		"tags":"rez",
 		"buy":{
@@ -1031,7 +1031,7 @@
 	},
 	{
 		"id":"revive",
-		"targets":"humanoid,goblinoid",
+		"only":"humanoid,goblinoid",
 		"level":3,
 		"school":"spirit",
 		"desc":"call the weak back to life.",
@@ -1048,7 +1048,7 @@
 	{
 		"id":"tend",
 		"name":"magic tending",
-		"targets":"beast",
+		"only":"beast",
 		"level":3,
 		"school":"nature",
 		"desc":"revive minor creatures of the wilds.",
@@ -1066,7 +1066,7 @@
 		"id":"wildtend",
 		"name":"wild tending",
 		"tags":"rez",
-		"targets":"beast",
+		"only":"beast",
 		"require":"(g.druid+g.warden+g.kell+g.fey)>0",
 		"level":5,
 		"school":"nature",

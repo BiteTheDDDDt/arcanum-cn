@@ -112,7 +112,7 @@ export function getDelay(s) {
 
 /**
  * Determine if the given target allows targetting of item.
- * @param {string|string[]} targs
+ * @param {string|string[]} targs - tags, names, or or id list.
  * @param {GData} it
  * @returns {boolean} true if targs can target it.
  */

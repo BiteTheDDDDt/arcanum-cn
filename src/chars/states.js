@@ -1,9 +1,12 @@
 import { quickSplice } from "../util/array";
+import { TARGET_ALLIES, TARGET_ENEMIES, TARGET_ENEMY, TARGET_ALLY, TARGET_SELF, TARGET_RAND } from "../composites/combat";
 
 export const NO_ACT = 7;
 export const NO_ATTACK = 1;
 export const NO_DEFEND = 2;
 export const NO_SPELLS = 4;
+export const CONFUSED = 8;
+export const CHARMED = 16;
 
 export const ParseFlags = (list)=>{
 
@@ -18,11 +21,23 @@ export const ParseFlags = (list)=>{
 		else if ( v === 'noattack') f |= NO_ATTACK;
 		else if ( v === 'nodefend' ) f |= NO_DEFEND;
 		else if ( v === 'nocast') f |= NO_SPELLS;
+		else if ( v === 'confused') f |= CONFUSED;
+		else if ( v === 'charmed') f |= CHARMED;
 
 	}
 	return f;
 
 }
+
+const ConfuseTargets = {
+	allies:TARGET
+}
+const CharmTargets = {
+	[TARGET_ALLIES]:TARGET_ENEMIES,
+	[TARGET_ENEMIES]:TARGET_ALLIES,
+	[TARGET_ENEMY]:TARGET_ALLY,
+	[TARGET_ALLY]:null,
+};
 
 /**
  * State information about a character.
@@ -42,10 +57,43 @@ export default class States {
 	canAttack() { return (this._flags & NO_ATTACK) === 0 }
 	canDefend() { return (this._flags & NO_DEFEND ) === 0 }
 
+	/**
+	 *
+	 * @param {string} flag
+	 * @returns {boolean}
+	 */
+	has( flag ) {
+
+		var a = this._causes[flag];
+		return a && a.length > 0;
+
+	}
+
 	constructor(){
 
 		this._causes = {};
 		this._flags = 0;
+
+	}
+
+	/**
+	 * Retarget based on flags.
+	 * @param {string} targ
+	 */
+	getTarget( targ ){
+
+		if ( (this.flags & CONFUSED) > 0 ) {
+
+			if ( !targ ) return TARGET_RAND;
+			return ConfuseTargets[targ];
+
+		} else if ( (this.flags & CHARMED) > 0) {
+
+			if ( !targ ) return TARGET_ALLY;
+			return CharmTargets[targ];
+
+		}
+		return targ;
 
 	}
 

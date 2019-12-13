@@ -7,12 +7,12 @@ import { canTarget } from '../values/consts';
 export default class Enchant extends Action {
 
 	/**
-	 * @property {string} target - target type, name, kind, or tag, to which
+	 * @property {string} only - limit target type by name, kind, or tag, to which
 	 * the enchantment can be applied.
 	 */
-	get targets(){return this._targets;}
-	set targets(v){
-		this._targets = typeof v === 'string' ? v.split(',') : v;
+	get only(){return this._only;}
+	set only(v){
+		this._only = typeof v === 'string' ? v.split(',') : v;
 	}
 
 	constructor(vars){
@@ -83,7 +83,7 @@ export default class Enchant extends Action {
 		let itLevel = targ.level || 1;
 		if ( (targ.enchants + this.level > itLevel) || targ.busy ) return false;
 
-		return !this._targets || canTarget( this._targets, targ );
+		return !this._only || canTarget( this._only, targ );
 
 	}
 

@@ -7,7 +7,7 @@ import Dot from './dot';
 import { NPC, getDelay } from '../values/consts';
 import { toStats } from "../util/dataUtil";
 import events, { CHAR_STATE } from '../events';
-import States from './states';
+import States, { NO_ATTACK } from './states';
 import { cloneClass } from '../util/util';
 
 import {applyAttack} from '../composites/combat';
@@ -108,6 +108,8 @@ export default class Char {
 	 * @param {number} flag
 	 */
 	getCause(flag){return this._states.getCause(flag)}
+
+	hasState( flag ) { return this._states.has(flag); }
 
 	/**
 	 * @returns {boolean} canAttack
@@ -359,25 +361,9 @@ export default class Char {
 
 			this.timer += getDelay( this.speed );
 
-			return this.attackOverride() || this.getAttack();
+			return this.getCause(NO_ATTACK) || this.getAttack();
 
 		}
-
-	}
-
-	/**
-	 * @returns {Dot|null}
-	 */
-	attackOverride() {
-
-		for( let i = this.dots.length-1; i>= 0; i-- ) {
-
-			if ( !this.dots[i].canAttack() ) {
-				return this._dots[i];
-			}
-
-		}
-		return null;
 
 	}
 
