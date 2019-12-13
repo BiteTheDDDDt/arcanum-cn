@@ -728,6 +728,10 @@ export default {
 	 */
 	unlockTest( test, item=null ) {
 
+		if ( !test ) {
+			console.warn('test not found: ' + test + ' : ' + item );
+			return true;
+		}
 		//console.log('trying unlock: ' + item.id );
 		let type = typeof test;
 		if ( type === 'function') return test( this._gdata, item, this.state );
