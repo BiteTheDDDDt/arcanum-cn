@@ -28,12 +28,13 @@ export default class Stat extends RValue {
 
 		//let abs = Math.abs( this._base + this._mBase );
 
-		if ( this._pos ===true) {
-			return Math.max( (this._base + this._mBase)*( 1 + this._basePct + this._mPct ),0);
-		}
-		else {
-			return (this._base + this._mBase)*( 1 + this._basePct + this._mPct );
-		}
+		let bTot = this._base + this._mBase;
+
+		if ( this._pos === true ) {
+
+			return Math.max( bTot + Math.abs(bTot)*(this._basePct + this._mPct ),0);
+
+		} else return bTot + Math.abs(bTot)*(this._basePct + this._mPct);
 
 	}
 	/** @todo */
@@ -44,11 +45,13 @@ export default class Stat extends RValue {
 	 */
 	valueOf() {
 
+		let bTot = this._base + this._mBase;
+
 		if ( this._pos === true ) {
 
-			return Math.max( (this._base + this._mBase)*( 1 + this._basePct + this._mPct ),0);
+			return Math.max( bTot + Math.abs(bTot)*(this._basePct + this._mPct ),0);
 
-		} else return (this._base + this._mBase)*( 1 + this._basePct + this._mPct );
+		} else return bTot + Math.abs(bTot)*(this._basePct + this._mPct);
 
 	}
 
