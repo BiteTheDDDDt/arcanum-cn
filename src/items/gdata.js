@@ -189,7 +189,7 @@ export default class GData {
 		if ( this.buy && !this.owned && !g.canPay(this.buy ) ) return false;
 
 		// cost only paid at _start_ of runnable action.
-		if ( this.cost && (this.exp.value == 0) && !g.canPay(this.cost ) ) return false;
+		if ( this.cost && (this.exp == 0) && !g.canPay(this.cost ) ) return false;
 
 		if ( this.fill && g.filled( this.fill, this ) ) return false;
 
