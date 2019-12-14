@@ -32,6 +32,9 @@
 			"naturelore.exp":1,
 			"waterlore.exp":1,
 			"arcana":0.001
+		},
+		"result":{
+			"watergem":"25%"
 		}
 	},
 	{
@@ -43,6 +46,9 @@
 			"bf":"-1~2",
 			"naturelore.exp":2,
 			"herbalism.exp":1
+		},
+		"result":{
+			"managem":"25%"
 		}
 	},
 	{
@@ -123,7 +129,7 @@
 			"gold":"0~300",
 			"managem":"10%",
 			"gems":"0~5",
-			"tomes":"0~1"
+			"tomes":"50%"
 		}
 	},
 	{
@@ -138,6 +144,7 @@
 			"languages.exp":1
 		},
 		"result":{
+			"codices":"10%",
 			"research":1,
 			"arcana":0.02
 		}
@@ -169,6 +176,7 @@
 			"lore.exp":1
 		},
 		"result":{
+			"naturegem":"10%",
 			"arcana":0.01
 		}
 
@@ -200,6 +208,7 @@
 			"research":1
 		},
 		"result":{
+			"shadowgem":"5%",
 			"arcana":0.01
 		},"flavor":"legend tells of a massive gibbering, who will answer any question in return for a murder."
 
@@ -219,10 +228,10 @@
 			"anatomy.max":0.001
 		},
 		"loot":{
-			"gold":"0~300",
-			"managem":"10%",
-			"gems":"0~5",
-			"tomes":"30%"
+			"gold":"0~100",
+			"bonedust":"0~2",
+			"gems":"0~2",
+			"bodies":"30%"
 		}
 	},
 	{
@@ -235,7 +244,7 @@
 			"anatomy.exp":1
 		},
 		"result":{
-			"anatomy.max":0.001
+			"bones":"0~2"
 		}
 	},
 	{
@@ -247,6 +256,9 @@
 			"unease":"0~2",
 			"reanimation.exp":1,
 			"embalming.exp":2
+		},
+		"result":{
+			"bonedust":"0~3"
 		}
 	},
 	{
@@ -260,7 +272,7 @@
 			"embalming.exp":2
 		},
 		"result":{
-			"gems":"0~4",
+			"gems":"0~2",
 			"shadowgem":"30%",
 			"spiritgem":"30%",
 			"bloodgem":"50%"
@@ -565,6 +577,7 @@
 			"history.exp":2
 		},
 		"result":{
+			"runestones":"10%",
 			"history.max":0.001
 		}
 	},
@@ -659,6 +672,7 @@
 			"airlore.exp":2
 		},
 		"result":{
+			"airgem":"10%",
 			"airlore.max":0.001
 		}
 	}
