@@ -1389,7 +1389,7 @@
 			"anatomy.max":2,
 			"arcanebody.max":3,
 			"minions.max":2,
-			"minions.maxAllies":1
+			"allies.max":1
 		}
 
 	},
@@ -2182,7 +2182,7 @@
 		},
 		"mod":{
 			"fame":1,
-			"minions.maxAllies":4,
+			"allies.max":4,
 			"minions.max":2,
 			"lightlore.max":2,
 			"lightlore.rate":"10%"

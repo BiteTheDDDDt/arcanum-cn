@@ -7,24 +7,28 @@ import { NPC, TEAM_PLAYER} from "../values/consts";
 export default class Minions extends Inventory {
 
 	/**
+	 * @deprecated - use allies.max
 	 * @property {Stat} allies - level max allies taken into battle.
 	 */
-	get maxAllies() { return this._maxAllies; }
+	get maxAllies() { return this._allies.max; }
 	set maxAllies(v) {
 		this._maxAllies = v instanceof Stat ? v : new Stat(v, 'maxAllies', true);
 	}
 
 	/**
+	 * @deprecated - use allies.used
 	 * @property {number} allyTotal - sum of all allies levels.
 	 */
-	get allyTotal() { return this._allyTotal; }
-	set allyTotal(v) { this._allyTotal = v;}
+	get allyTotal() {
+		return this._allies.used;
+	}
+	set allyTotal(v) {}
 
 	/**
-	 * @property {Npc[]}
+	 * @property {Inventory} - minions active in combat.
 	 */
-	get active() { return this._active; }
-	set active(v) { this._active = v; }
+	get allies() { return this._allies; }
+	set allies(v) { this._allies = v; }
 
 	constructor(vars=null){
 
@@ -34,7 +38,8 @@ export default class Minions extends Inventory {
 
 		if ( !this.max ) this.max = 0;
 
-		this._active = [];
+		this._allies = new Inventory( vars.allies );
+		this._allies.spaceProp = 'level';
 
 	}
 
@@ -74,26 +79,18 @@ export default class Minions extends Inventory {
 
 		if ( active === true ) {
 
-			if ( !b.alive || b.level + this.allyTotal > this.maxAllies ) {
+			if ( !b.alive || !this.allies.canAdd(b) ) {
 				b.active = false;
 				return false;
 			}
-			if ( !this.active.includes(b) ) {
-
-				this.allyTotal += b.level;
-				this.active.push(b);
+			if ( !this.allies.includes(b) ) {
+				this.allies.add(b);
 
 			}
 
 		} else {
 
-			let ind = this.active.indexOf(b);
-			if ( ind >= 0 ) {
-
-				this.allyTotal -= b.level;
-				this.active.splice(ind,1);
-
-			}
+			this.allies.remove(b);
 
 		}
 
@@ -109,8 +106,6 @@ export default class Minions extends Inventory {
 			this.maxAllies = Math.floor( state.player.level / 5 );
 		}
 
-		let used = 0;
-
 		for( let i = this.items.length-1; i>=0; i-- ) {
 
 			var m = this.items[i];
@@ -120,11 +115,7 @@ export default class Minions extends Inventory {
 			}
 
 			if ( m.active ) {
-
-				used += m.level;
-				/** @note can't test vs. maxAllies here because mods havent been applied yet. */
-				this._active.push(m);
-
+				this._allies.push(m);
 			}
 
 			/** @compat */
@@ -133,8 +124,6 @@ export default class Minions extends Inventory {
 		}
 
 		this.calcUsed();
-
-		this.allyTotal = used;
 
 		Events.add( ALLY_DIED, this.died, this );
 		Events.add( ACT_CHANGED, this.resetActives, this );
@@ -147,10 +136,13 @@ export default class Minions extends Inventory {
 	 */
 	resetActives() {
 
-		for( let i = this.active.length-1; i>=0; i-- ) {
+		/** @todo dangerous order referencing. */
+		let allies = this.allies.items;
 
-			if ( !this.active[i].active || !this.active[i].alive ) {
-				this.setActive( this.active[i], false );
+		for( let i = allies.length-1; i>=0; i-- ) {
+
+			if ( !allies[i].active || !allies[i].alive ) {
+				this.setActive( allies[i], false );
 			}
 
 		}

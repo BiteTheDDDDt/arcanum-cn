@@ -16,7 +16,7 @@
 				"mod": {
 					"minions.puppet.hp": "1%",
 					"minions.puppet.dmg": "1%",
-					"minions.maxAllies": 0.25,
+					"allies.max": 0.25,
 					"research.max": 5
 				}
 			},
@@ -35,7 +35,7 @@
 					"minions.puppet.dmg": "1%",
 					"minions.machina.dmg": "1%",
 					"puppetry.max": 0.2,
-					"minions.maxAllies": 0.25,
+					"allies.max": 0.25,
 					"research.max": 5
 				}
 			},
@@ -56,7 +56,7 @@
 					"minions.machina.dmg": "1%",
 					"puppetry.max": 0.2,
 					"animation.max": 0.2,
-					"minions.maxAllies": 0.25,
+					"allies.max": 0.25,
 					"research.max": 5
 				}
 			},
@@ -100,7 +100,7 @@
 					"puppetry.max": 0.2,
 					"animation.max": 0.2,
 					"machinacreation.max": 0.2,
-					"minions.maxAllies": 0.25,
+					"allies.max": 0.25,
 					"research.max": 5
 				}
 			}
@@ -940,7 +940,7 @@
 					"tier1": true,
 					"puppetry.max": 2,
 					"animation.max": 1,
-					"minions.maxAllies": 5,
+					"allies.max": 5,
 					"clockworkhome.mod.space.max": 50
 				},
 				"flavor": "No matter what, the strings would not break."
@@ -963,7 +963,7 @@
 					"puppetry.max": 1,
 					"animation.max": 2,
 					"machinacreation.max": 2,
-					"minions.maxAllies": 5,
+					"allies.max": 5,
 					"clockworkhome.mod.space.max": 100
 				},
 				"flavor": "What is a man? An inefficient form of labor."
@@ -986,7 +986,7 @@
 					"animation.max": 1,
 					"machinacreation.max": 2,
 					"automatasculpting.max": 3,
-					"minions.maxAllies": 5,
+					"allies.max": 5,
 					"clockworkhome.mod.space.max": 150
 				},
 				"flavor": "If you want a better future, make better people."

@@ -198,7 +198,7 @@
 		},
 		"mod":{
 			"animals.rate":"1%",
-			"minions.maxAllies":0.25,
+			"allies.max":0.25,
 			"research.max":5
 		}
 
@@ -215,7 +215,7 @@
 		},"mod":{
 			"research.max":1,
 			"minions.max":"10%",
-			"minions.maxAllies":1
+			"allies.max":1
 		}
 	},
 	{
@@ -366,7 +366,7 @@
 			"stamina":0.7
 		},
 		"mod":{
-			"minions.maxAllies":1,
+			"allies.max":1,
 			"research.max":5,
 			"minions.max":0.5
 		}
@@ -893,7 +893,7 @@
 		},
 		"mod":{
 			"shadow.rate":0.01,
-			"minions.maxAllies":0.2,
+			"allies.max":0.2,
 			"necromancy.rate":"1%"
 		}
 

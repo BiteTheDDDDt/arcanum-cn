@@ -297,7 +297,7 @@
 				"mod": {
 					"crafting.max": 5,
 					"history.max": 5,
-					"minions.maxallies": 25
+					"allies.max": 25
 				}
 			},
 			{
