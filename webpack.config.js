@@ -1,6 +1,6 @@
 const path = require('path');
 const VueLoader = require('vue-loader/lib/plugin');
-const WorkboxPlugin = require( 'workbox-webpack-plugin');
+//const WorkboxPlugin = require( 'workbox-webpack-plugin');
 const CopyPlugin = require( 'copy-webpack-plugin');
 
 const webpack = require('webpack');
@@ -60,12 +60,11 @@ module.exports = (env, argv)=>{
 			from:'css',
 			to:path.resolve( absPath, 'css' )
 		}
-	]),
+	])
 	/*new WorkboxPlugin.InjectManifest({
 		swSrc:'src/sw.js',
 		swDest:'sw.js',
-		importsDirectory:'wb-assets',
-
+		importsDirectory:'wb-assets'
 	})*/],
 
 	//devtool: 'source-map',

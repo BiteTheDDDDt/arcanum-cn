@@ -262,6 +262,8 @@ export default class Raid {
 
 			if ( d != this.locale ) {
 				this.combat.begin();
+			} else {
+				this.combat.reenter();
 			}
 
 			if ( d.exp >= d.length ) {

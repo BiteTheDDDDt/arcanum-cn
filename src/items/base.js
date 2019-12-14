@@ -70,6 +70,7 @@ export default {
 			vars = vars || {};
 			vars.locked = this.locked;
 		}
+		if ( vars && vars.name ) vars.name = this.sname;
 
 		return vars || undefined;
 
@@ -84,7 +85,7 @@ export default {
 		if ( this.use ) data.use = this.use;
 		if ( data.template && typeof data.template === 'object' ) data.template = data.template.id;
 		if ( data.val ) data.value = undefined;
-		data.name = this._name;
+		data.name = this.sname;
 
 		return data;
 
@@ -129,9 +130,7 @@ export default {
 
 		if ( v&&this.sym ) {
 
-			let i = v.indexOf( this.sym );
-			if ( i>= 0 ) this._name = v.slice(0, i ) + v.slice( i + this.sym.length );
-			else this._name = v;
+			this._name = v.split(this.sym).join( '').trim();
 
 		} else this._name = v;
 

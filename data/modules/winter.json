@@ -651,9 +651,7 @@
 		  "kind":"fire",
           "dot":{
             "duration":5,
-            "effect":{
-              "dmg":"3~5"
-            }
+            "dmg":"3~5"
           }
         }
       },
