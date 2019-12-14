@@ -12,6 +12,47 @@ import { NO_SPELLS } from '../chars/states';
 
 import { TYP_FUNC, TEAM_PLAYER, getDelay } from '../values/consts';
 
+/**
+ * @const {object.<string,string>} Targets - targetting constants.
+ */
+export const Targets = {
+
+	ALL:'all',
+
+	/**
+	 * @property {string} ENEMY - target one enemy.
+ 	 */
+	ENEMY:'enemy',
+	/**
+	 * @const {string} ENEMIES - target all enemies.
+	 */
+	ENEMIES:'enemies',
+	/**
+	* @const {string} ALLIES - target all allies.
+	 */
+	ALLIES:'allies',
+
+	/**
+ 	* @const TARGET_RANDG - target random group.
+	 */
+	RANDG:'randgroup',
+
+	 /**
+ 	* @const {string} TARGET_RAND - random target.
+ 	*/
+	RAND:'rand',
+
+	/**
+ 	* @const {string} TARGET_ALLY - target single ally.
+ 	*/
+	ALLY:'ally',
+
+	/**
+ 	* @const {string} TARGET_SELF - target self.
+ 	*/
+	SELF:'self'
+
+};
 
 export const TARGET_ALL = 'all';
 
@@ -125,9 +166,6 @@ export function getDamage( dmg ) {
 
 	console.warn('Invalid damage: ' + dmg);
 	return 0;
-
-	// TODO: invalid
-	//else return dmg( this.state, this.player, this.enemy );
 
 }
 
@@ -466,7 +504,7 @@ export default class Combat {
 	 * Reenter same dungeon.
 	 */
 	reenter() {
-		this.allies = this.state.minions.active.slice(0);
+		this.allies = this.state.minions.allies.items.slice(0);
 		this.allies.unshift( this.player );
 	}
 
@@ -477,7 +515,7 @@ export default class Combat {
 
 		this._enemies = [];
 
-		this.allies = this.state.minions.active.slice(0);
+		this.allies = this.state.minions.allies.items.slice(0);
 		this.allies.unshift( this.player );
 
 	}

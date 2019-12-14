@@ -195,6 +195,16 @@ export default class Char {
 	}
 
 	/**
+	 * Use current states to map requested target
+	 * to new target.
+	 * @param {?string} targ
+	 * @returns {string}
+	 */
+	getTarget( targ ){
+		return this._states.getTarget(targ);
+	}
+
+	/**
 	 * Cure dot with the given state.
 	 * @param {string} state
 	 */

@@ -52,6 +52,16 @@ export default class Inventory {
 	}
 
 	/**
+	 * @property {Array} items
+	 */
+	get items(){return this._items;}
+	/**
+	 * @protected
+	 * @property {Array} items
+	 */
+	set items(v){this._items = v}
+
+	/**
 	 * @property {boolean} saveIds - if true, only save item ids, and not
 	 */
 	get saveIds(){ return this._saveIds }
