@@ -88,6 +88,13 @@ export default class Attack {
 			assignPublic(this,vars); //Object.assign(this,vars);
 		}
 
+		if ( this.dot ) {
+			if ( this.dot.dmg || this.dot.damage ) {
+				if ( !this.dot.damage ) this.dot.damage = this.dot.dmg;
+				else this.dot.dmg = this.dot.damage;
+			}
+		}
+
 		this.damage = this.damage || 0;
 		this.bonus = this.bonus || 0;
 

@@ -2787,7 +2787,7 @@
 			"targets":"all",
 			"dot":{
 				"duration":30,
-				"dmg":"200-300",
+				"dmg":"200~300",
 				"kind":"void"
 			}
 		}
