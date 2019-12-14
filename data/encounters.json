@@ -113,7 +113,7 @@
 		"loot":{
 			"gold":"0~50",
 			"gems":"2~5",
-			"scrolls":"2~5",
+			"runestones":"0~2",
 			"codices":"0~4"
 		}
 	},
@@ -127,8 +127,10 @@
 		},
 		"loot":{
 			"gold":"0~300",
-			"managem":"10%",
-			"gems":"0~5",
+			"firerune":"5%",
+			"earthrune":"5%",
+			"waterrune":"5%",
+			"airrune":"5%",
 			"tomes":"50%"
 		}
 	},
@@ -145,7 +147,7 @@
 		},
 		"result":{
 			"codices":"10%",
-			"research":1,
+			"research":10,
 			"arcana":0.02
 		}
 	},
@@ -244,7 +246,7 @@
 			"anatomy.exp":1
 		},
 		"result":{
-			"bones":"0~2"
+			"bones":"1~4"
 		}
 	},
 	{
@@ -271,11 +273,11 @@
 			"reanimation.exp":2,
 			"embalming.exp":2
 		},
-		"result":{
-			"gems":"0~2",
+		"loot":{
+			"runestones":"10%",
 			"shadowgem":"30%",
 			"spiritgem":"30%",
-			"bloodgem":"50%"
+			"bodies":"50%"
 		}
 	},
 	{
