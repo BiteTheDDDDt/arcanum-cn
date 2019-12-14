@@ -207,7 +207,7 @@ div.spellcraft .userspells {
 
 div.userspells .spells {
 	display:flex;
-	flex-direction:row;
+	flex-flow: row wrap;
 }
 
 div.spells .custom {
