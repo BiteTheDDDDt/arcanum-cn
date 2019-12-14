@@ -107,7 +107,7 @@ export default class Action extends GData {
 	 */
 	update( dt ) {
 
-		this.exp += ( this.rate != 0 ? this.rate.valueOf() : 1 )*dt;
+		this.exp += ( this.rate && this.rate != 0 ? this.rate.valueOf() : 1 )*dt;
 	}
 
 	/**

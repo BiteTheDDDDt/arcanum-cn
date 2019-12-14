@@ -69,7 +69,7 @@ export default {
 		excludes = excludes ? JSONIgnore.concat( excludes ) : JSONIgnore;
 
 		let vars = changes( jsonify(this, excludes ), this.template || {} );
-
+		if ( vars && vars.name ) vars.name = this.sname;
 
 		if ( this.locked === false && this.template && this.template.locked !== false ){
 			vars = vars || {};
@@ -92,6 +92,7 @@ export default {
 			vars = vars || {};
 			vars.locked = this.locked;
 		}
+		if ( vars && vars.name ) vars.name = this.sname;
 
 		return vars || undefined;
 
@@ -151,9 +152,7 @@ export default {
 
 		if ( v&&this.sym ) {
 
-			let i = v.indexOf( this.sym );
-			if ( i>= 0 ) this._name = v.slice(0, i ) + v.slice( i + this.sym.length );
-			else this._name = v;
+			this._name = v.split(this.sym).join( '').trim();
 
 		} else this._name = v;
 
