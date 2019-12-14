@@ -31,7 +31,6 @@ export default class Action extends GData {
 			console.warn( this.id + ' exp neg: ' + v );
 			return;
 		}
-
 		this._exp = v;
 		if ( (this._length&& (v>=this._length) )
 			|| (!this._length && this.perpetual && v >= 1 ) ) {
@@ -107,7 +106,8 @@ export default class Action extends GData {
 	 * @param {number} dt - elapsed time.
 	 */
 	update( dt ) {
-		this.exp += ( this.rate ? this.rate.valueOf() : 1 )*dt;
+
+		this.exp += ( this.rate != 0 ? this.rate.valueOf() : 1 )*dt;
 	}
 
 	/**
