@@ -28,6 +28,11 @@ export default class GameState {
 			if ( this.slots[p] ) slotIds[p] = this.slots[p].id;
 		}
 
+		/**
+		 * Force no save allies. @todo: messy.
+		 */
+		this.saveItems.allies = undefined;
+
 		let data = {
 
 			version:__VERSION,

@@ -15,6 +15,9 @@ export default class Inventory {
 
 	toJSON(){
 		return {
+			/**
+			 * @todo saveIds?
+			 */
 			items:this.items.map(v=>v.instance ? v : v.id ),
 			max:(this.max),
 			name:this.name||undefined,
@@ -49,6 +52,12 @@ export default class Inventory {
 	}
 
 	/**
+	 * @property {boolean} saveIds - if true, only save item ids, and not
+	 */
+	get saveIds(){ return this._saveIds }
+	set saveIds(v){ this._saveIds=v; }
+
+	/**
 	 * @property {boolean} removeDupes - whether to remove duplicate ids from inventory.
 	 */
 	get removeDupes(){ return this._removeDupes; }
@@ -63,7 +72,7 @@ export default class Inventory {
 		this.type = 'inventory';
 		if (!this.id) this.id = this.type;
 
-		this.max = this._max || 0;
+		if ( !this.max ) this.max = 0;
 
 	}
 

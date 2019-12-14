@@ -1,6 +1,5 @@
 import Inventory from "./inventory";
 import Events, { ALLY_DIED, ACT_CHANGED } from '../events';
-import Stat from "../values/stat";
 import { NPC, TEAM_PLAYER} from "../values/consts";
 
 
@@ -8,21 +7,11 @@ export default class Minions extends Inventory {
 
 	/**
 	 * @deprecated - use allies.max
-	 * @property {Stat} allies - level max allies taken into battle.
+	 * @property {Stat} maxAllies - level max allies taken into battle.
 	 */
 	get maxAllies() { return this._allies.max; }
-	set maxAllies(v) {
-		this._maxAllies = v instanceof Stat ? v : new Stat(v, 'maxAllies', true);
+	set maxAllies(v) { this._allies.max = v;
 	}
-
-	/**
-	 * @deprecated - use allies.used
-	 * @property {number} allyTotal - sum of all allies levels.
-	 */
-	get allyTotal() {
-		return this._allies.used;
-	}
-	set allyTotal(v) {}
 
 	/**
 	 * @property {Inventory} - minions active in combat.
@@ -38,8 +27,7 @@ export default class Minions extends Inventory {
 
 		if ( !this.max ) this.max = 0;
 
-		this._allies = new Inventory( vars.allies );
-		this._allies.spaceProp = 'level';
+		this._allies = new Inventory( {id:'allies', spaceProp:'level'} );
 
 	}
 
@@ -102,9 +90,9 @@ export default class Minions extends Inventory {
 
 		super.revive(state);
 
-		if ( !this.maxAllies ) {
-			this.maxAllies = Math.floor( state.player.level / 5 );
-		}
+		if ( !this.allies.max ) { this.allies.max = Math.floor( state.player.level / 5 ); }
+
+		var actives = [];
 
 		for( let i = this.items.length-1; i>=0; i-- ) {
 
@@ -114,14 +102,15 @@ export default class Minions extends Inventory {
 				continue;
 			}
 
-			if ( m.active ) {
-				this._allies.push(m);
-			}
+			if ( m.active ) { actives.push(m); }
 
 			/** @compat */
 			m.team = TEAM_PLAYER;
 
 		}
+
+		this.allies.items = actives;
+		this.allies.calcUsed();
 
 		this.calcUsed();
 
