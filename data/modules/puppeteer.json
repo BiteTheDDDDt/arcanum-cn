@@ -6,7 +6,7 @@
 				"id": "puppetry",
 				"require": "g.crafting>=8&&g.spiritlore>=5",
 				"desc": "Creating and animating magical puppets",
-				"level": 3,
+				"level": 1,
 				"run": {
 					"stamina": 0.4
 				},
@@ -24,7 +24,7 @@
 				"id": "animation",
 				"require": "g.puppetry>=5&&g.spiritlore>=10",
 				"desc": "Imbuing objects with movement",
-				"level": 5,
+				"level": 3,
 				"run": {
 					"stamina": 0.7
 				},
@@ -44,7 +44,7 @@
 				"name": "mechanical construction",
 				"require": "g.crafting>=12&&g.puppetry>=6&&g.animation>=5&&g.tier2>0",
 				"desc": "Assembling magical machines",
-				"level": 5,
+				"level": 3,
 				"run": {
 					"stamina": 0.7
 				},
@@ -65,7 +65,7 @@
 				"name": "magiphysics",
 				"require": "g.lore>=25&&g.planeslore>=15&&g.tier4>0",
 				"desc": "The universe is just an equation to solve.",
-				"level": 5,
+				"level": 12,
 				"run": {
 					"stamina": 0.7
 				},
@@ -83,7 +83,7 @@
 				"name": "automata sculpting",
 				"require": "g.crafting>=18&&g.puppetry>=8&&g.animation>=6&&g.magiphysics>=5&&(g.mechanist+g.mechamancer)>0",
 				"desc": "They think, therefore they are.",
-				"level": 15,
+				"level": 13,
 				"run": {
 					"stamina": 1
 				},
@@ -620,14 +620,14 @@
 				"mod": {
 					"assembleautomata.result.automatas": 1,
 					"assembleautomata.length": -5,
-					"assembleautomata.result.automatasculpting.max": 0.001
+					"assembleautomata.cost.runestones": -1
 				}
 			}
 		],
 		"spells": [
 			{
 				"id": "mk_puppet",
-				"name": "animate puppet",
+				"name": "animate puppet attacker",
 				"school": "animation",
 				"require": "g.puppetry>=5",
 				"level": 1,
@@ -636,14 +636,14 @@
 					"puppets": 5
 				},
 				"cost": {
-					"puppets": 1,
+					"puppets": 5,
 					"spirit": 10
 				},
 				"result": "puppetattacker"
 			},
 			{
 				"id": "mk_charger",
-				"name": "assemble charger",
+				"name": "assemble mecha-charger",
 				"school": "animation",
 				"require": "g.machinacreation>=5",
 				"level": 1,
@@ -652,13 +652,13 @@
 					"machinae": 10
 				},
 				"cost": {
-					"machinae": 1
+					"machinae": 5
 				},
-				"result": "charger"
+				"result": "mechacharger"
 			},
 			{
 				"id": "mk_autoslayer",
-				"name": "Shape autoslayer",
+				"name": "shape autoslayer",
 				"school": "animation",
 				"require": "g.automatasculpting>=5",
 				"level": 1,
@@ -667,9 +667,55 @@
 					"automatas": 20
 				},
 				"cost": {
-					"automatas": 2
+					"automatas": 5
 				},
 				"result": "autoslayer"
+			},
+			{
+				"id": "mk_puppetD",
+				"name": "animate puppet defender",
+				"school": "animation",
+				"require": "g.puppetry>=5&&g.puppeteer>0",
+				"level": 1,
+				"buy": {
+					"research": 500,
+					"puppets": 5
+				},
+				"cost": {
+					"puppets": 5,
+					"spirit": 10
+				},
+				"result": "puppetdefender"
+			},
+			{
+				"id": "mk_mender",
+				"name": "assemble mecha-mender",
+				"school": "animation",
+				"require": "g.machinacreation>=5&&g.mechanist>0",
+				"level": 1,
+				"buy": {
+					"research": 8000,
+					"machinae": 10
+				},
+				"cost": {
+					"machinae": 5
+				},
+				"result": "mechamender"
+			},
+			{
+				"id": "mk_autocaster",
+				"name": "shape autocaster",
+				"school": "animation",
+				"require": "g.automatasculpting>=5&&g.mechamancer>0",
+				"level": 1,
+				"buy": {
+					"research": 8000,
+					"automatas": 20
+				},
+				"cost": {
+					"automatas": 5
+				},
+				"result": "autocaster"
 			}
 		],
 		"homes": [
@@ -818,7 +864,7 @@
 				"level": 10,
 				"evil": 50,
 				"kind": "puppet",
-				"noproc":true,
+				"noproc": true,
 				"hp": 200,
 				"tohit": 10,
 				"defense": 20,
@@ -831,9 +877,9 @@
 				]
 			},
 			{
-				"id": "charger",
+				"id": "mechacharger",
 				"tags": "machina",
-				"name": "Charger",
+				"name": "mecha-charger",
 				"level": 20,
 				"evil": 50,
 				"kind": "machina",
@@ -853,7 +899,7 @@
 						"dot": {
 							"duration": 10,
 							"mod": {
-								"defense": -150
+								"a.defense": -150
 							}
 						}
 					}
@@ -866,7 +912,7 @@
 				"level": 30,
 				"evil": 50,
 				"kind": "automata",
-				"noproc":true,
+				"noproc": true,
 				"hp": 700,
 				"tohit": 20,
 				"defense": 50,
@@ -883,35 +929,41 @@
 					{
 						"name": "Slice",
 						"tohit": 10,
+						"targets": "enemy",
 						"kind": "slash",
 						"dmg": "80~100"
 					},
 					{
 						"name": "Dice",
 						"tohit": 50,
+						"targets": "enemy",
 						"kind": "slash",
 						"dmg": "60~70"
 					},
 					{
 						"name": "Mince",
 						"tohit": -10,
+						"targets": "enemy",
 						"kind": "slash",
 						"dmg": "90~110"
 					},
 					{
 						"name": "Chop",
 						"tohit": -20,
+						"targets": "enemy",
 						"kind": "slash",
 						"dmg": "100~120"
 					},
 					{
 						"name": "Stab",
 						"tohit": 100,
+						"targets": "enemy",
 						"kind": "pierce",
 						"dmg": "50~60"
 					},
 					{
 						"name": "Mash",
+						"targets": "enemy",
 						"kind": "blunt",
 						"dmg": "0-200"
 					},
@@ -920,6 +972,171 @@
 						"targets": "self",
 						"result": {
 							"hp": 250
+						}
+					}
+				]
+			},
+			{
+				"id": "puppetdefender",
+				"tags": "puppet",
+				"name": "defender",
+				"level": 10,
+				"evil": 50,
+				"kind": "puppet",
+				"noproc": true,
+				"hp": 200,
+				"tohit": 10,
+				"defense": 20,
+				"attack": [
+					{
+						"name": "Bash",
+						"kind": "blunt",
+						"dmg": "10~15"
+					},
+					{
+						"name": "Protect",
+						"targets": "ally",
+						"dot": {
+							"duration": 10,
+							"mod": {
+								"t.defense": 15
+							}
+						}
+					},
+					{
+						"name": "Stand tall",
+						"targets": "self",
+						"result": {
+							"hp": 20
+						},
+						"dot": {
+							"duration": 10,
+							"mod": {
+								"t.defense": 25
+							}
+						}
+					}
+				]
+			},
+			{
+				"id": "mechamender",
+				"tags": "machina",
+				"name": "mecha-mender",
+				"level": 20,
+				"evil": 50,
+				"kind": "machina",
+				"hp": 500,
+				"tohit": 20,
+				"defense": 100,
+				"attack": [
+					{
+						"name": "Mend",
+						"targets": "ally",
+						"result": {
+							"hp": 40
+						}
+					},
+					{
+						"name": "Recover",
+						"targets": "allies",
+						"dot": {
+							"duration": 10,
+							"mod": {
+								"hp": 4
+							}
+						}
+					},
+					{
+						"name": "Align",
+						"targets": "ally",
+						"dot": {
+							"duration": 10,
+							"mod": {
+								"t.tohit": 10
+							}
+						}
+					}
+				]
+			},
+			{
+				"id": "autocaster",
+				"tags": "automata",
+				"name": "autocaster",
+				"level": 30,
+				"evil": 50,
+				"kind": "automata",
+				"noproc": true,
+				"hp": 500,
+				"tohit": 20,
+				"defense": 100,
+				"regen": 10,
+				"attack": [
+					{
+						"name": "Winter's chill",
+						"targets": "enemies",
+						"dot": {
+							"kind": "water",
+							"duration": 10,
+							"dmg": 20
+						}
+					},
+					{
+						"name": "Flamestrike",
+						"targets": "enemies",
+						"dot": {
+							"kind": "fire",
+							"duration": 10,
+							"dmg": 20
+						}
+					},
+					{
+						"name": "Buffeting winds",
+						"targets": "enemies",
+						"dot": {
+							"kind": "air",
+							"duration": 10,
+							"dmg": 20
+						}
+					},
+					{
+						"name": "Trembling earth",
+						"targets": "enemies",
+						"dot": {
+							"kind": "earth",
+							"duration": 10,
+							"dmg": 20
+						}
+					},
+					{
+						"name": "Disengage",
+						"targets": "self",
+						"dot": {
+							"duration": 10,
+							"mod": {
+								"t.defense": 50,
+								"hp": 5
+							}
+						}
+					},
+					{
+						"name": "Arcane blast",
+						"targets": "enemy",
+						"kind": "mana",
+						"dmg": "100-250"
+					},
+					{
+						"name": "Rare air",
+						"targets": "enemy",
+						"t.state": "silence"
+					},
+					{
+						"name": "Jetstream",
+						"targets": "allies",
+						"dot": {
+							"duration": 10,
+							"mod": {
+								"t.speed": 10
+							}
 						}
 					}
 				]
