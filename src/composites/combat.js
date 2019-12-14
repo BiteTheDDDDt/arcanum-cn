@@ -8,7 +8,7 @@ import Events, {
 
 import { itemRevive } from '../modules/itemgen';
 import Stat from '../values/stat';
-import { NO_SPELLS, CONFUSED, CHARMED } from '../chars/states';
+import { NO_SPELLS } from '../chars/states';
 
 import { TYP_FUNC, TEAM_PLAYER, getDelay } from '../values/consts';
 
