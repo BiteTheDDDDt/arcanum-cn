@@ -22,7 +22,7 @@ export default class Minions extends Inventory {
 	set allyTotal(v) { this._allyTotal = v;}
 
 	/**
-	 * @property {string[]}
+	 * @property {Npc[]}
 	 */
 	get active() { return this._active; }
 	set active(v) { this._active = v; }

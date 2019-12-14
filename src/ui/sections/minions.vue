@@ -51,6 +51,9 @@ export default {
 			return b.level + this.minions.allyTotal > this.minions.maxAllies;
 		},
 
+		/**
+		 * Toggle whether or not minion is an active ally.
+		 */
 		toggleActive(b) {
 			this.minions.setActive( b, !b.active );
 		},
