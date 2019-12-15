@@ -2,7 +2,7 @@ import {changes, jsonify } from 'objecty';
 import Game from '../game';
 import Stat from '../values/stat';
 import Mod, { SetModIds } from '../values/mod';
-import { cloneClass } from '../util/util';
+import { cloneClass, deprec } from '../util/util';
 import { TYP_MOD } from '../values/consts';
 
 export const setModCounts = ( m, v)=>{
@@ -49,37 +49,15 @@ export const mergeClass = ( destClass, src ) => {
   * @todo shorten list by implementing better base/defaults logic.
   * @const {string[]} JSONIgnore - ignore these properties by default when saving.
   */
- const JSONIgnore = [ 'template', 'id', 'type', 'defaults', 'module', 'sname', 'sym', 'name',
- 'desc', 'running', 'current', 'warnMsg', "once",
- 	'locked', 'locks', 'value', 'exp', 'delta', 'tags', 'mod', 'effect', 'progress','need', 'require'];
+ const JSONIgnore = { 'template':true, 'id':true, 'type':true, 'defaults':true, 'module':true, 'sname':true, 'sym':true,
+ 	'name':true, 'desc':true, 'running':true, 'current':true, 'warnMsg':true, "once":true,
+	 'locked':true, 'locks':true, 'value':true, 'exp':true, 'delta':true, 'tags':true, 'mod':true,
+	 'effect':true, 'progress':true,'need':true, 'require':true };
 
 /**
  * Base class of all Game Objects.
  */
 export default {
-
-	/**
-	 * Get JSON for a sub-class with additional properties excluded.
-	 * @param {string[]} [excludes=null]
-	*/
-	excludeJSON( excludes ) {
-
-		if ( this.save && (this.value>0||this.owned)) return this.forceSave();
-
-		excludes = excludes ? JSONIgnore.concat( excludes ) : JSONIgnore;
-
-		let vars = changes( jsonify(this, excludes ), this.template || {} );
-		if ( vars && vars.name ) vars.name = this.sname;
-
-		if ( this.locked === false && this.template && this.template.locked !== false ){
-			vars = vars || {};
-			vars.locked = this.locked;
-		}
-
-		return vars || undefined;
-
-	},
-
 
 	toJSON() {
 
@@ -107,7 +85,7 @@ export default {
 		if ( this.use ) data.use = this.use;
 		if ( data.template && typeof data.template === 'object' ) data.template = data.template.id;
 		if ( data.val ) data.value = undefined;
-		data.name = this._name;
+		data.name = this.sname;
 
 		return data;
 
@@ -259,10 +237,15 @@ export default {
 	 */
 	applyVars( mods, amt=1 ) {
 
-		if ( typeof mods === 'number' || mods instanceof Stat ) {
+		if ( typeof mods === 'number') {
+
+			//deprec( this.id + ' mod: ' + mods );
+			this.value = this.value.base + mods*amt;
+
+		} else if ( mods.isRVal ) {
 
 			//this.amount( Game, mods*amt );
-			this.value = this.value.base + mods*amt;
+			this.value = this.value.base + amt*mods.getEffect( Game.state, this );
 
 
 		} else if ( typeof mods === 'object' ) {
@@ -288,6 +271,7 @@ export default {
 
 					} else if ( typeof targ === 'number' ) {
 
+						//deprec( this.id + ' targ: ' + p + ': ' + targ );
 						this[p] += Number(mods[p])*amt;
 					} else {
 						//console.log( mods + ' subapply: ' + p);
@@ -305,7 +289,7 @@ export default {
 				}
 
 			}
-			if ( mods.value ) this.value += Number(mods.value)*amt;
+			if ( mods.value ) this.value += (mods.value)*amt;
 
 		}
 
@@ -322,7 +306,7 @@ export default {
 		if ( mods instanceof Mod ) {
 
 			mods.applyTo( targ, 'value', amt );
-			if ( this.mod ) Game.addMod( this.mod, this.value );
+			if ( this.mod ) Game.applyMods( this.mod, this.value );
 
 		} else if ( typeof mods === 'object') {
 
@@ -339,9 +323,9 @@ export default {
 			} else if ( typeof targ === 'object') {targ.value = (targ.value || 0 ) + amt*mods; }
 			else {
 				// nothing can be done if targ is a number. no parent object.
-				console.error(this.id + ' invalid mod: ' + mod );
+				console.error( this.id + ' !!invalid mod: ' + mods );
 			}
-			if ( this.mod ) Game.addMod( this.mod, this.value );
+			if ( this.mod ) Game.applyMods( this.mod, this.value );
 
 		} else console.warn( this.id + ' unknown mod type: ' + mods );
 
@@ -418,7 +402,7 @@ export default {
 		}
 
 		if ( mods.mod ) {
-			Game.addMod( this.mod, this.value );
+			Game.applyMods( this.mod, this.value );
 		}
 
 	},
@@ -485,7 +469,7 @@ export default {
 		if ( this.equippable ) return;
 
 		// apply change to modifier for existing item amount.
-		Game.addMod( mod, amt*this.value );
+		Game.applyMods( mod, amt*this.value );
 
 	},
 

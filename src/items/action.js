@@ -31,6 +31,7 @@ export default class Action extends GData {
 			console.warn( this.id + ' exp neg: ' + v );
 			return;
 		}
+
 		this._exp = v;
 		if ( (this._length&& (v>=this._length) )
 			|| (!this._length && this.perpetual && v >= 1 ) ) {
@@ -95,6 +96,14 @@ export default class Action extends GData {
 
 	}
 
+	/**
+	 * Test whether item succeeds when tested as a game requirement.
+	 * @returns {boolean}
+	 */
+	test(){
+		return this.locked === false;
+	}
+
 	canUse(g){
 		return (!this.timer ) && super.canUse(g);
 	}
@@ -106,8 +115,7 @@ export default class Action extends GData {
 	 * @param {number} dt - elapsed time.
 	 */
 	update( dt ) {
-
-		this.exp += ( this.rate && this.rate != 0 ? this.rate.valueOf() : 1 )*dt;
+		this.exp += ( this.rate ? this.rate.valueOf() : 1 )*dt;
 	}
 
 	/**
@@ -122,8 +130,8 @@ export default class Action extends GData {
 		this.value++;
 
 		if ( this.log ) Game.doLog( this.log );
-		if ( this.mod ) Game.addMod( this.mod );
-		if ( this.result ) Game.applyEffect( this.result );
+		if ( this.mod ) Game.applyMods( this.mod );
+		if ( this.result ) Game.applyVars( this.result );
 
 		if ( this.exec ) this.exec();
 		Events.emit( ACT_DONE, this );
@@ -140,7 +148,7 @@ export default class Action extends GData {
 		if ( this.cd ) Game.addTimer( this );
 		if ( this.loot ) Game.getLoot( this.loot );
 
-		if ( this.once && this.valueOf() === 1 ) Game.applyEffect( this.once );
+		if ( this.once && this.valueOf() === 1 ) Game.applyVars( this.once );
 
 		var improve = false;
 

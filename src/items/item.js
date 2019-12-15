@@ -21,7 +21,7 @@ export default class Item {
 
 	toJSON() {
 
-		let data = this.excludeJSON() || {};
+		let data = Base.toJSON.call(this);
 
 		if ( !this.template && !this.recipe ) {
 
@@ -88,9 +88,9 @@ export default class Item {
 		if ( this.use ) {
 
 			if (this.use.dot ) {
-				g.state.player.addDot( this.use.dot, this.id, this.name );
+				g.state.player.addDot( this.use.dot, this.id );
 			}
-			g.applyEffect( this.use );
+			g.applyVars( this.use );
 
 		}
 
