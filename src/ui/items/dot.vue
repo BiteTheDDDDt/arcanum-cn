@@ -20,6 +20,7 @@ export default {
 			if( typeof dmg === 'number') {
 				return dmg;
 			} else if ( dmg ) return dmg.toString();
+			else console.warn('no damage found: ' + this.dot.name );
 
 		}
 

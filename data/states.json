@@ -36,7 +36,7 @@
 		"flags":"noattack"
 	},
 	{
-		"id":"rage",
+		"id":"enrage",
 		"adj":"enraged",
 		"flags":"nodefend"
 	},

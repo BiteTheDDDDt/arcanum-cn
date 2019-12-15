@@ -98,6 +98,9 @@ export default {
 				var sub = obj[p];
 				var subRate = rate;
 
+				if ( p == 'dmg' || p === 'damage') {
+					console.log('dmg prop: ' + (obj.dmg||obj.damage));
+				}
 				if ( p === 'skipLocked') continue;
 				else if ( p === 'mod' || p === 'effect') subPath = propPath;
 				else if ( p === 'max' ) {
@@ -125,7 +128,7 @@ export default {
 				}
 
 				if ( typeof sub !== 'object' ) results[subPath] = precise(sub) + ( subRate ? '/s' : '');
-				else if ( typeof sub === 'function' ) {}
+				//else if ( typeof sub === 'function' ) {}
 				else {
 
 					if ( sub.skipLocked ) {

@@ -44,6 +44,9 @@ export default class Explore {
 	get exp(){ return this.locale ? this.locale.exp : 0; }
 	set exp(v){
 
+		console.log('new exp: ' + v );
+		console.log('typeof: ' + (typeof v));
+
 		if ( v >= this.locale.length ) {
 			this.complete();
 		} else this.locale.exp=v;
