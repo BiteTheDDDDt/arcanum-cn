@@ -585,7 +585,7 @@ export default class Runner {
 
 		} else {
 
-			if ( a.effect) Game.applyEffect( a.effect, dt );
+			if ( a.effect) Game.applyVars( a.effect, dt );
 			if ( a.update ) {
 
 				a.update(dt);

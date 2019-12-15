@@ -242,7 +242,7 @@ export default {
 			//deprec( this.id + ' mod: ' + mods );
 			this.value = this.value.base + mods*amt;
 
-		} else if ( mods.isRVal ) {
+		} else if ( mods instanceof Stat ) {
 
 			//this.amount( Game, mods*amt );
 			this.value = this.value.base + amt*mods.getEffect( Game.state, this );
