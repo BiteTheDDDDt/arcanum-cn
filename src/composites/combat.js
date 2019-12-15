@@ -244,6 +244,8 @@ export default class Combat {
 
 		this._allies.unshift( this.player );
 
+		this.refreshAllTargs();
+
 		Events.add( CHAR_DIED, this.charDied, this );
 
 	}
@@ -364,7 +366,7 @@ export default class Combat {
 	 */
 	doAttack( attacker, atk, targ ) {
 
-		if (!targ) return;
+		if (!targ || !targ.alive ) return;
 
 		if ( !targ.canDefend() || this.tryHit( attacker, targ, atk ) ) {
 			applyAttack( targ, atk, attacker );
@@ -399,8 +401,7 @@ export default class Combat {
 
 		} else if ( targets === TARGET_ALL ) {
 
-			/** @todo bad. */
-			return this.allies.concat( this.enemies );
+			return this.allTargs;
 
 		} else if ( targets === TARGET_RANDG ) {
 
@@ -464,6 +465,33 @@ export default class Combat {
 		}
 
 		this.setTimers();
+		this.refreshAllTargs();
+
+	}
+
+	refreshAllTargs() {
+		this.allTargs = this._allies.concat(this._enemies);
+	}
+
+	/**
+	 * Reenter same dungeon.
+	 */
+	reenter() {
+		this.allies = this.state.minions.allies.items.slice(0);
+		this.allies.unshift( this.player );
+		this.refreshAllTargs();
+	}
+
+	/**
+	 * Begin new combat encounter.
+	 */
+	begin() {
+
+		this._enemies = [];
+
+		this.allies = this.state.minions.allies.items.slice(0);
+		this.allies.unshift( this.player );
+		this.refreshAllTargs();
 
 	}
 
@@ -497,26 +525,6 @@ export default class Combat {
 		for( let i = this.allies.length-1; i >= 0; i-- ) {
 			this.allies[i].timer -= minDelay;
 		}
-
-	}
-
-	/**
-	 * Reenter same dungeon.
-	 */
-	reenter() {
-		this.allies = this.state.minions.allies.items.slice(0);
-		this.allies.unshift( this.player );
-	}
-
-	/**
-	 * Begin new combat encounter.
-	 */
-	begin() {
-
-		this._enemies = [];
-
-		this.allies = this.state.minions.allies.items.slice(0);
-		this.allies.unshift( this.player );
 
 	}
 

@@ -24,6 +24,9 @@ export default class Group {
 	get id() { return this._id; }
 	set id(v) { this._id = v;}
 
+	/**
+	 * @property {Array} items
+	 */
 	get items() { return this._items; }
 	set items(v) {
 

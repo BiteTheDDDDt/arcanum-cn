@@ -133,14 +133,13 @@ export default class Stat extends RValue {
 	}
 
 	/**
-	 * @todo
+	 * @todo set modded value to match exactly?
 	 * @param {number} v
 	 */
 	set(v) { this._base = v; }
 
 	/**
 	 * Add amount to base stat.
-	 * @todo
 	 * @param {number} amt
 	 */
 	add( amt ) { this._base += amt; }
@@ -188,8 +187,6 @@ export default class Stat extends RValue {
 		} else if ( typeof mod === 'object') {
 
 			/// when an object has no id, must apply to base.
-
-			/**@todo support for percents/ranges in general. */
 			this.base += amt*( mod.bonus || mod.value || 0 );
 			this.basePct += amt*( mod.pct || 0 );
 

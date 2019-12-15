@@ -114,12 +114,11 @@ export default class Inventory {
 
 	/**
 	 * Add item to inventory
-	 * @param {*} it
+	 * @param {object} it
 	 */
 	add(it){
 
-		if ( it === null || it === undefined || typeof it === 'boolean'
-			|| typeof it === 'string' ) return false;
+		if ( it === null || it === undefined || typeof it !== 'object' ) return false;
 
 		if ( Array.isArray(it) ) {
 
@@ -238,7 +237,7 @@ export default class Inventory {
 	 * @param {Item} it
 	 * @param {number} count
 	 */
-	removeQuant( it, count) {
+	removeCount( it, count) {
 
 		it.value -= count;
 		if ( it.value <= 0 )this.remove(it);
@@ -251,6 +250,18 @@ export default class Inventory {
 	 */
 	filter(p) {
 		return this.items.filter(p);
+	}
+
+	/**
+	 * Determine if quantity of item is available.
+	 * @param {GData} it
+	 * @param {number} count
+	 */
+	hasCount( it, count ) {
+
+		it = this.findMatch(it);
+		if ( !it ) return false;
+		return count === 1 || ( it.stack && it.value >= count );
 	}
 
 	/**

@@ -1052,7 +1052,7 @@ export default {
 	payInst( p, amt ){
 
 		var res = this.state.inventory.find( p,true );
-		if ( res ) this.state.inventory.removeQuant(res,amt);
+		if ( res ) this.state.inventory.removeCount(res,amt);
 		else console.warn('QUANT NOT FOUND: ' + p );
 
 	},
@@ -1060,7 +1060,6 @@ export default {
 	/**
 	 * Determine if an object cost can be paid before the pay attempt
 	 * is actually made.
-	 * @todo: this is incorrect for multicosts.
 	 * @param {Array|Object} cost
 	 * @returns {boolean} true if cost can be paid.
 	 */
@@ -1080,12 +1079,10 @@ export default {
 				if ( !res ) return false;
 				else if ( res.instance || res.isRecipe ) {
 
-					res = this.state.inventory.findMatch( res );
-					if (!res) return false;
+					/* @todo: ensure correct inventory used. map type-> default inventory? */
+					return this.state.inventory.hasCount( res, amt );
 
-				}
-
-				if ( !isNaN(sub) || sub instanceof Stat ) {
+				} else if ( !isNaN(sub) || sub instanceof Stat ) {
 
 					if ( !res.canPay(sub*amt) ) return false;
 					//if ( res.value < sub*amt ) return false;
@@ -1097,14 +1094,9 @@ export default {
 
 				}
 
-				// @todo: recursive mod test.
-				/*let mod = res.mod;
-				if ( mod ) {}*/
-
 			}
 
-
-		} else if ( typeof cost === 'boolean') return true;
+		}
 
 		return true;
 	},

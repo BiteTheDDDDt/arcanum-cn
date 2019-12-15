@@ -195,7 +195,7 @@ export default class Module {
 		let dest = this.templates;
 
 		for( let p in items ) {
-			/**@todo maybe safeMerge in future. */
+			/** @note merge overwrites */
 			dest[p] = items[p];
 		}
 
