@@ -18,11 +18,11 @@ if ( __KONG ) {
 	});
 }
 
-window.addEventListener('beforeinstallprompt', e=>{
+/*window.addEventListener('beforeinstallprompt', e=>{
 
 	console.log('ARCANUM BEFOREINSTALL PROMPT');
 
-});
+});*/
 
 /**
  * Global dispatch.

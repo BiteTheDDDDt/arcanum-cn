@@ -1,11 +1,26 @@
 import {getPropDesc, clone} from 'objecty';
 
 /**
- * alphabetical sort.
+ * alphabetical sort by name property.
  * @param {*} a
  * @param {*} b
  */
 export const alphasort = (a,b)=> a.name < b.name ? -1 : 1;
+
+/**
+ * sort by level property.
+ * @param {*} a
+ * @param {*} b
+ */
+export const levelsort = (a,b)=>{
+
+	let v = a.level - b.level;
+	if ( v === 0 ) {
+		return a.name < b.name ? -1 : 1;
+	}
+	return v;
+
+};
 
 /**
  * Ensure the existence of props on an object.

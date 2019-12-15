@@ -1,7 +1,7 @@
 <script>
 import Game from '../../game';
 import ItemBase from '../itemsBase.js';
-import { alphasort } from '../../util/util';
+import { alphasort, levelsort } from '../../util/util';
 import Settings from '../../modules/settings';
 
 import ProgBar from '../components/progbar.vue';
@@ -29,6 +29,7 @@ export default {
 			hideDone:ops.hideDone||false,
 			hideRaid:ops.hideRaid||false,
 			hideLocale:ops.hideLocale||false,
+			lvlSort:ops.lvlSort,
 			log:Game.log,
 			filtered:null
 		}
@@ -45,6 +46,12 @@ export default {
 	},
 	computed:{
 
+		chkLevelSort:{
+			get(){ return this.lvlSort; },
+			set(v){
+				this.lvlSort = Settings.setSubVar( EXPLORE, 'lvlSort', v );
+			}
+		},
 		chkHideDone:{
 			get(){return this.hideDone;},
 			set(v){
@@ -100,7 +107,7 @@ export default {
 		allLocs(){
 			return this.state.filterItems(
 				it=>(it.type===DUNGEON||it.type===LOCALE)
-			).sort( alphasort );
+			).sort( this.lvlSort ? levelsort : alphasort );
 		},
 
 		locales(){
@@ -134,6 +141,9 @@ export default {
 			<div class="top">
 
 				<span class="hides">
+
+				<span class="opt"><input :id="elmId('lvlSort')" type="checkbox" v-model="chkLevelSort">
+				<label :for="elmId('lvlSort')">Sort Level</label></span>
 
 				<span>Hide:</span>
 				<span class="opt"><input :id="elmId('hideDone')" type="checkbox" v-model="chkHideDone">
