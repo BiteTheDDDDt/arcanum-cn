@@ -780,13 +780,10 @@ export default {
 
 		} else if ( type === 'object' ) {
 
-			/**
-			 * @todo: quick patch in case it was a data item.
-			 */
-			if ( test.id ) return ( test.type === RESOURCE || test.type === 'action') ?
-			(test.locked === false) : test.value > 0;
+			if ( test.id ) return test.test();
 
 			// @todo: take recursive values into account.
+			// @todo allow tag tests.
 			let limit, it;
 			for( let p in test ) {
 
@@ -800,8 +797,7 @@ export default {
 
 		} else if ( test.type != null ) {
 
-			return ( test.type === RESOURCE || test.type === 'action') ? !test.locked : test.value > 0;
-
+			return test.test();
 		} //else console.warn( 'unknown test: ' + test.id || test );
 
 	},
@@ -1226,12 +1222,10 @@ export default {
 		inv = inv || this.state.inventory;
 		if ( inv.full() ) inv = this.state.drops;
 
-		/** @todo this won't work right. huh? why not, later lemur asks. */
 		if ( typeof it === 'object' && it.stack ) {
 
-			let inst = inv.findMatch( it );
-			if ( inst ) {
-				inst.value++;
+			if ( inv.addStack( it ) ) {
+				Events.emit( EVT_LOOT, it );
 				return;
 			}
 

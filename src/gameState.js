@@ -4,9 +4,6 @@ import GData from './items/gdata';
 import Equip from './chars/equip';
 import Minions from './inventories/minions';
 
-/**
- * @todo violation of principle.
- */
 import Runner from './modules/runner';
 import Explore from './composites/explore';
 import { ensure } from './util/util';

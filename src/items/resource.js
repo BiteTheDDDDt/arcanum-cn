@@ -98,6 +98,15 @@ export default class Resource extends GData {
 
 
 	/**
+	 * Test whether item succeeds when tested as a game requirement.
+	 * @returns {boolean}
+	 */
+	test(){
+		return this.locked === false;
+	}
+
+
+	/**
 	 * Not currently used any more.
 	 * @param {} dt
 	 */

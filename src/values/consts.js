@@ -29,6 +29,7 @@ export const TYP_STAT = 'stat';
 export const TYP_MOD = 'mod';
 export const TYP_RVAL = 'rval';
 export const TYP_FUNC = 'func';
+export const TYP_DOT = 'dot';
 
 export const TYP_RUN = 'runnable';
 

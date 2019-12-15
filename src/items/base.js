@@ -271,7 +271,7 @@ export default {
 
 					} else if ( typeof targ === 'number' ) {
 
-						deprec( this.id + ' targ: ' + p + ': ' + targ );
+						//deprec( this.id + ' targ: ' + p + ': ' + targ );
 						this[p] += Number(mods[p])*amt;
 					} else {
 						//console.log( mods + ' subapply: ' + p);

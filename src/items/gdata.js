@@ -209,6 +209,17 @@ export default class GData {
 	remove( amt ) { this.value.base -= amt; }
 
 	/**
+	 * Test whether item succeeds when tested as a game requirement.
+	 * @returns {boolean}
+	 */
+	test(){
+		/**
+		 * @todo must be unlocked as well?
+		 */
+		return this.value > 0;
+	}
+
+	/**
 	 * Determine if an item can be used. Ongoing/perpetual actions
 	 * test with 'canRun' instead.
 	 * @param {Game} g

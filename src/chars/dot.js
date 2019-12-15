@@ -3,6 +3,7 @@ import { setModCounts } from "../items/base";
 import { ParseDmg } from "./attack";
 import {mergeSafe} from 'objecty';
 import { ParseFlags, NO_SPELLS, NO_ATTACK, NO_DEFEND } from "./states";
+import { TYP_DOT } from "../values/consts";
 
 
 export default class Dot {
@@ -73,6 +74,8 @@ export default class Dot {
 	get perm(){return this._perm;}
 	set perm(v) { this._perm =v}
 
+	get type(){ return TYP_DOT}
+
 	valueOf(){ return ( this.perm || this.duration > 0 ) ? 1 : 0; }
 
 	canCast() { return (this._flags & NO_SPELLS) === 0 }
@@ -101,6 +104,10 @@ export default class Dot {
 			setModCounts( this.mod, this );
 		}
 		if ( !this.flags ) this.flags = 0;
+
+		for( let p in this ) {
+			if ( p === 'damage' || p =='dmg') console.log('DOT HAS DAMAGE');
+		}
 
 		/**
 		 * @private {number} acc - integer accumulator

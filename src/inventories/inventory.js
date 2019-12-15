@@ -131,13 +131,8 @@ export default class Inventory {
 
 			if ( !it.id ) return false;
 
-			if ( it.stack ) {
-				let inst = this.findMatch( it );
-				if ( inst ){
-					inst.value += it.value;
-					return;
-				}
-
+			if ( it.stack && this.addStack(it) ) {
+				return;
 			} else if ( this.removeDupes && this.find(it.id ) ) return false;
 
 			this.items.push( it );
@@ -254,6 +249,24 @@ export default class Inventory {
 	 */
 	filter(p) {
 		return this.items.filter(p);
+	}
+
+	/**
+	 * Add count to stackable item, if found.
+	 * @param {GData} it
+	 * @param {number} [count=1]
+	 * @returns {?GData} item found, or null.
+	 */
+	addStack(it, count=1) {
+
+		let orig = this.findMatch(it);
+		if ( orig) {
+			orig.value += count;
+			return orig;
+		}
+
+		return null;
+
 	}
 
 	findMatch(it){

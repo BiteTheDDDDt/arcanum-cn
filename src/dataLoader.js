@@ -478,19 +478,6 @@ export const ParseRequire = ( sub ) => {
 }
 
 /**
- * Create a testing function that accepts when
- * the level of the given data item exceeds the level
- * of the item to be unlocked.
- * @todo: doesn't work. unlock test too abstract to detect in code.
- * @param {string} unlocker - name of item that unlocks the item.
- * @returns {function}
- */
-export function levelTestFunc( unlocker ) {
-	return (g,i)=>{
-		g[unlocker].level >= i.level; };
-}
-
-/**
  * Create a boolean testing function from a data string.
  * @param {string} text - function text.
  */
