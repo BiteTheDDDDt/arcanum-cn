@@ -119,7 +119,7 @@ export default class Inventory {
 	add(it){
 
 		if ( it === null || it === undefined || typeof it === 'boolean'
-			|| typeof it === 'string' || this.full() ) return false;
+			|| typeof it === 'string' ) return false;
 
 		if ( Array.isArray(it) ) {
 
@@ -133,7 +133,9 @@ export default class Inventory {
 
 			if ( it.stack && this.addStack(it) ) {
 				return;
-			} else if ( this.removeDupes && this.find(it.id ) ) return false;
+			} else if ( this.full() ) return false;
+			else if ( this.removeDupes && this.find(it.id ) ) return false;
+
 
 			this.items.push( it );
 			this.used += this.spaceCost( it );
