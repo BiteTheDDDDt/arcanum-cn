@@ -29,7 +29,7 @@ export default {
 			hideDone:ops.hideDone||false,
 			hideRaid:ops.hideRaid||false,
 			hideLocale:ops.hideLocale||false,
-			lvlSort:ops.lvlSort||true,
+			lvlSort:ops.lvlSort,
 			log:Game.log,
 			filtered:null
 		}
