@@ -134,9 +134,11 @@ export default class Stat extends RValue {
 
 	/**
 	 * @todo set modded value to match exactly?
-	 * @param {number} v
+	 * @param {number|Stat} v
 	 */
-	set(v) { this._base = v; }
+	set(v) {
+		if ( v !== this ) this.base = v;
+	}
 
 	/**
 	 * Add amount to base stat.

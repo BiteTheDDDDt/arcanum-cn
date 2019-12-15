@@ -31,11 +31,6 @@ export default class Npc extends Char {
 
 		data.keep = this.keep;
 
-		/**
-		 * @compat
-		 */
-		data.maxHp = undefined;
-
 		//data.died = this.died||undefined;
 
 		return data;
@@ -49,23 +44,14 @@ export default class Npc extends Char {
 	set keep(v) { this._keep = v;}
 
 	/**
-	 * @compat changed from Stat to sub Stat of hp MaxStat.
-	 */
-	get maxHp() { return this._hp.max; }
-	set maxHp(v) {}
-
-	/**
 	 * @property {MaxStat} hp
 	 */
 	get hp() { return this._hp; }
 	set hp(v) {
 
-		if ( this._hp === undefined || this._hp === null ||
-			 typeof v === 'object' ) {
-				 this._hp = v instanceof MaxStat ? v : new MaxStat(v);
-
-			 }
-		else this._hp.value = v;
+		if ( this._hp === undefined || this._hp === null ) {
+			 this._hp = new MaxStat(v);
+		} else this._hp.set( v );
 
 	}
 
@@ -130,16 +116,9 @@ export default class Npc extends Char {
 		if ( typeof this.hp === 'string' ) this.hp = new Range(this.hp).value;
 		else if ( this.hp instanceof Range ) this.hp = this.hp.value;
 
-		/**
-		 * @compat
-		 */
-		if ( vars.maxHp) this.hp.max = vars.maxHp;
 		if (!this.hp ) { this.hp = 1; }
-
-		//console.log( this.id + ' const() : ' + this.hp.value );
-		if (!this.team) this.team = TEAM_NPC;
-
-		this.tohit = this.tohit || 0;
+		if ( !this.team) this.team = TEAM_NPC;
+		if ( !this.tohit ) this.tohit = 0;
 
 		if ( this.dmg && (this.damage===null||this.damage===undefined) ) this.damage = this.dmg;
 		if ( !this.attack ) {
@@ -161,7 +140,7 @@ export default class Npc extends Char {
 	 * @param {number} dt
 	 */
 	rest(dt) {
-		this.hp += ( 0.01*this.hp.max.value*dt );
+		this.hp += ( 0.01*this.hp.max*dt );
 	}
 
 }

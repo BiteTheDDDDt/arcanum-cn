@@ -74,11 +74,8 @@ export default class Attack {
 	get bonus() { return this._bonus; }
 	set bonus(v) {
 
-		/** @todo mod apply bug. **/
 		if ( this._bonus ) {
-
-			this._bonus.base = v instanceof Stat ? v.base : v;
-
+			this._bonus.set(v);
 		} else this._bonus = new Stat( v );
 
 	}

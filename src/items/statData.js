@@ -46,11 +46,6 @@ export default class StatData extends GData {
 		super(vars);
 
 		if ( this.value === undefined ) this.value = 0;
-
-		/**
-		 * @compat. statData is a pure stat with no max value.
-		 */
-		this._max = undefined;
 		this.repeat = true;
 
 		/**

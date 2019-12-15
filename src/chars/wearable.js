@@ -6,6 +6,7 @@ import Mod, { ParseMods } from '../values/mod';
 import { assignNoFunc } from '../util/util';
 import Item from '../items/item';
 import { WEARABLE, ARMOR, TYP_RANGE } from '../values/consts';
+import Stat from '../values/stat';
 
 
 export default class Wearable extends Item {
@@ -43,12 +44,13 @@ export default class Wearable extends Item {
 
 	}
 
+	/**
+	 * @property {number}
+	 */
 	get busy(){return this._busy;}
-	set busy(b){ this._busy=b;}
+	set busy(v){ this._busy=v;}
 
-	get equippable() {
-		return !this.busy;
-	}
+	get equippable() { return !this.busy; }
 
 	get damage() {
 		return this._attack ? this._attack.damage : undefined;
@@ -64,10 +66,18 @@ export default class Wearable extends Item {
 	set material(v) { this._material=v;}
 
 	/**
-	 * @property {} armor
+	 * @property {Stat} armor
 	 */
 	get armor(){ return this._armor; }
-	set armor(v) { this._armor = v; }
+	set armor(v) {
+
+		if ( this._armor ) {
+			this._armor.base = v;
+		} else {
+			this._armor = new Stat(v);
+		}
+
+	}
 
 	get attack() { return this._attack; }
 	set attack(v) {
@@ -80,6 +90,16 @@ export default class Wearable extends Item {
 
 	}
 
+	/**
+	 * @todo not implemented.
+	 * @property {boolean} worn
+	 */
+	get worn(){ return this._worn; }
+	set worn(v) { this._worn = v;}
+
+	/**
+	 * @property {string} slot
+	 */
 	get slot(){return this._slot; }
 	set slot(v){this._slot=v;}
 
@@ -89,18 +109,13 @@ export default class Wearable extends Item {
 	get kind() { return this._kind; }
 	set kind(v) { this._kind = v; }
 
-	/*get mod() { return this._mod; }
-	set mod(v) {
-		this._mod = this.convertMods(v);
-	}*/
-
 	constructor(vars=null){
 
 		super();
 
 		this.stack = false;
 		this.consume = false;
-		this.busy = this.busy || false;
+		this.busy = this.busy || 0;
 
 		if ( vars ) assignNoFunc(this,vars );// Object.assign(this,vars);
 

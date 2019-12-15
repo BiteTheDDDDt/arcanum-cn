@@ -103,8 +103,6 @@ export default class Minions extends Inventory {
 			}
 
 			if ( m.active ) { actives.push(m); }
-
-			/** @compat */
 			m.team = TEAM_PLAYER;
 
 		}

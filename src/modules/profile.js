@@ -24,12 +24,6 @@ export default {
 	hall:null,
 
 	/**
-	 * @returns {string} old save location.
-	 * @compat
-	 */
-	legacySave(){ return SAVE_DIR + 'gameData'; },
-
-	/**
 	 * Load data files for hall.
 	 * @param {object} save - save data of hall.
 	 * @returns {Promise.<HallData>}
@@ -169,10 +163,7 @@ export default {
 
 			/** @compat attempt load from legacy save. */
 			if ( !str && this.hall.active === 0 ) {
-
-				console.log('NO Char. USING LEGACY');
 				str = store.getItem( this.legacySave() );
-
 			}
 
 			return str;
@@ -185,6 +176,12 @@ export default {
 		}
 
 	},
+
+	/**
+	 * @returns {string} old save location.
+	 * @compat
+	 */
+	legacySave(){ return SAVE_DIR + 'gameData'; },
 
 	/**
 	 * Get JSON for complete save of hall and all wizrobes in it.

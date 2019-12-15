@@ -20,19 +20,19 @@ export default class Char {
 	get defense() { return this._defense; }
 	set defense(v) {
 
-		if ( v instanceof Stat) this._defense = v;
-		else if ( this._defense ) this._defense.base = v;
-		else this._defense = new Stat( v, this.id+'.defense');
-
+		if ( !this._defense ) {
+			this._defense = new Stat(v, this.id + '.defense');
+		} else {
+			this._defense.set(v);
+		}
 
 	}
 
 	get tohit() { return this._tohit; }
 	set tohit(v) {
 
-		if ( v instanceof Stat) this._tohit = v;
-		else if ( this._tohit ) this._tohit.base = v;
-		else this._tohit = new Stat(v);
+		if ( !this._tohit){this._tohit = new Stat(v, this.id + '.tohit');
+		} else { this._tohit.set(v); }
 
 	}
 
@@ -41,7 +41,8 @@ export default class Char {
 
 	get speed() { return this._speed; }
 	set speed(v) {
-		this._speed = v instanceof Stat ? v : new Stat(v);
+		if (!this._speed) this._speed = new Stat(v, this.id + '.speed');
+		else this._speed.set(v);
 	}
 
 	/**

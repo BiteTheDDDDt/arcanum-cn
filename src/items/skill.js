@@ -18,7 +18,7 @@ export default class Skill extends Action {
 		super.exp = v;
 	}
 
-	showLevel(){return Math.floor( this.value.valueOf() ); }
+	showLevel(){return Math.floor( this.value ); }
 
 	/**
 	 *
@@ -30,26 +30,22 @@ export default class Skill extends Action {
 
 		this.type = SKILL;
 
-		if ( !this.length || this.value == 0 ) this.length = levLength( this.level +this.value.valueOf() );
+		if ( !this.length || this.value == 0 ) this.length = levLength( this.level +this.value );
+		else if ( this.value >= 1 ){
 
-		this._exp = this._exp || 0;
-
-		/** @compat */
-		if ( this.value >= 1 ){
-
-			let len = levLength( this.level + this.value.valueOf() );
-			if ( this.length > len ) {
-				this.length = len;
-			}
+			// recheck percent lengths. (allow percent formula to change.)
+			let len = levLength( this.level + this.value );
+			if ( this.length > len ) this.length = len;
 
 		}
 
+		if (!super.exp ) super.exp = 0;
 		if ( !this.buy ) this.buy = { "sp":1 };
 
-		if ( !this.rate ) this.rate = new Stat( 0.5, 'rate' );
+		if ( !this.rate ) this.rate = new Stat( 0.5, this.id + '.rate' );
 		else if ( !this.rate.base ) this.rate.base = 0.5;
 
-		if (  !this.max ) this.max = new Stat(5, 'max', true);
+		if (  !this.max ) this.max = new Stat(5, this.id + '.max', true );
 
 	}
 

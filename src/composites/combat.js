@@ -148,8 +148,10 @@ export const applyDamage = ( target, attack, attacker ) => {
 }
 
 /**
-* Convert damage object to raw damage value.
-* @param {number|function|Range} dmg /
+ * @note currently unused.
+ * Convert damage object to raw damage value.
+ * @param {number|function|Range} dmg
+ * @returns {number}
 */
 export function getDamage( dmg ) {
 
@@ -157,10 +159,6 @@ export function getDamage( dmg ) {
 
 	if ( typ === 'object') return dmg.value;
 	else if ( typ === 'number') return dmg;
-	else if ( typ === 'function') return ;
-
-	if (dmg instanceof Range) return dmg.value;
-	else if ( !isNaN(dmg) || dmg instanceof Stat ) return Number(dmg);
 	else if ( typeof dmg === 'function') {
 	}
 
