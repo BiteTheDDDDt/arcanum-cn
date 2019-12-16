@@ -33,9 +33,12 @@ export default class Action extends GData {
 		}
 
 		this._exp = v;
-		if ( (this._length&& (v>=this._length) )
+		if ( (this._length && v>=this._length )
 			|| (!this._length && this.perpetual && v >= 1 ) ) {
+
+			// does nothing currently.
 			Events.emit( EXP_MAX, this );
+			this.complete( Game );
 
 		}
 
@@ -121,34 +124,26 @@ export default class Action extends GData {
 	/**
 	 * completion of ongoing action.
 	 */
-	complete() {
+	complete(g=Game) {
 
 		/**
-		 * @note @todo messy: with mod changes, value has to be incremented first
-		 * so the applied mods sees the current value.
+		 * @note value has to be incremented first
+		 * so the applied mods see the current value.
 		 */
 		this.value++;
+		this.change(g, 1);
 
-		if ( this.log ) Game.doLog( this.log );
-		if ( this.mod ) Game.applyMods( this.mod );
-		if ( this.result ) Game.applyVars( this.result );
-
-		if ( this.exec ) this.exec();
 		Events.emit( ACT_DONE, this );
 
 	}
 
 	/**
-	 * Action executed, whether runnable or one-time.
-	 * RESETS EXP
+	 * Action value changed.
 	 * No value increment because that is currently done by game (@todo fix)
 	 */
-	exec( g ) {
+	change( g, count ) {
 
-		if ( this.cd ) g.addTimer( this );
-		if ( this.loot ) g.getLoot( this.loot );
-
-		if ( this.once && this.valueOf() === 1 ) g.applyVars( this.once );
+		super(g,count);
 
 		var improve = false;
 

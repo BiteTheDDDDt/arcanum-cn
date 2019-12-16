@@ -311,7 +311,10 @@ export default class GData {
 
 		if ( this.isRecipe ) { return g.create( this, true, count ); }
 
-		if ( this.exec ) this.exec();
+		if ( this.once && this.valueOf() === 1 ) g.applyVars( this.once );
+
+		if ( this.cd ) g.addTimer( this );
+		if ( this.loot ) g.getLoot( this.loot );
 
 		if ( this.title ) g.state.player.setTitle( this.title );
 		if ( this.result ) g.applyVars( this.result, count );

@@ -38,6 +38,12 @@ export default class Enchant extends Action {
 	}
 
 	/**
+	 * Catch complete
+	 */
+	complete(){
+	}
+
+	/**
 	 * Called when enchant is being used on target.
 	 * @param {*} targ
 	 * @param {Context} g - execution context, Game.
@@ -52,8 +58,6 @@ export default class Enchant extends Action {
 
 		targ.busy = false;
 
-		this.exec(g);
-
 	}
 
 	/**
@@ -67,12 +71,6 @@ export default class Enchant extends Action {
 			targ.enchants -= this.level;
 
 		}
-	}
-
-	/**
-	 * Catch complete
-	 */
-	complete(){
 	}
 
 	/**

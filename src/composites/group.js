@@ -148,17 +148,6 @@ export default class Group {
 
 	}
 
-	exec(g) {
-
-		let len = this.items.length;
-		for( let i = 0; i <len; i++ ) {
-
-			this.items[i].exec(g);
-
-		}
-
-	}
-
 	/**
 	 *
 	 * @param {GameState} gs

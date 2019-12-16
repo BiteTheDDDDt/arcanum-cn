@@ -153,7 +153,7 @@ export default class Runner {
 		Events.add( ACT_DONE, this.actDone, this );
 		Events.add( HALT_ACT, this.haltAction, this );
 		Events.add( ACT_BLOCKED, this.actBlocked, this );
-		Events.add( EXP_MAX, this.expMax, this );
+		//Events.add( EXP_MAX, this.expMax, this );
 		Events.add( STOP_ALL, this.stopAll, this );
 
 	}
@@ -162,10 +162,9 @@ export default class Runner {
 	 * Item reached max exp value.
 	 * @param {*} it
 	 */
-	expMax( it ) {
+	/*expMax( it ) {
 		if ( it.complete && (typeof it.complete) === 'function') it.complete();
-
-	}
+	}*/
 
 	/**
 	 * Revive a list, removing Runnable elements that can't revive (missing items, etc.)

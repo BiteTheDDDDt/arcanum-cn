@@ -63,7 +63,7 @@ export default class Skill extends Action {
 
 	}
 
-	exec(g) {
+	change(g) {
 
 		if ( this.value > Math.floor(this._max.value) ) {
 			this.value = Math.floor(this.max.value);
@@ -74,7 +74,7 @@ export default class Skill extends Action {
 
 		this.dirty = true;
 
-		super.exec(g);
+		super.change(g);
 
 	}
 
