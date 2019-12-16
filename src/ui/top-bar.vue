@@ -104,26 +104,6 @@ input[type="file"] {
 	border: var(--tiny-gap) dashed var(--popup-border);
 }
 
-div.top-bar {
-	display:flex;
-	flex-flow: row nowrap;
-	justify-content: flex-start;
-	justify-items: flex-start;
-	align-items: center;
-	align-content: center;
-	min-height:var(--topbar-height);
-	max-width:100%;
-	overflow:hidden;
-	padding: 0 1rem var(--sm-gap);
-	border-bottom: 1px solid var(--separator-color);
-}
-
-
-.top-bar .items {
-	display:flex;
-	margin-left:var(--lg-gap);
-}
-
 .load-opts {
 	display:flex;
 }

@@ -23,7 +23,7 @@
 	--popup-border: 2px solid #646464;
 
 	--quickbar-height:52px;
-	--topbar-height:56px;
+	--topbar-height:64px;
 
 	--high-depth:30000;
 	--md-high:20000;
@@ -197,21 +197,42 @@ input[type=text].fld-name {
 
 div.full:first-child { display: flex; margin: 0; }
 
-div.top-bar { border-bottom: 1px solid var(--separator-color);
+div.top-bar {
+	display:flex;
+	flex-flow: row nowrap;
+	justify-content: flex-start;
+	justify-items: flex-start;
+	align-items: center;
+	align-content: center;
+	min-height:var(--topbar-height);
+	max-width:100%;
+	border-bottom: 1px solid var(--separator-color);
 	margin: 0;
 	padding: var(--comfy-gap);
 }
+
 div.top-bar .load-opts { display: flex; align-items: center; width: unset; }
 
-div.top-bar .items { margin: 0; flex: 1; }
+div.top-bar .items {
+	flex: 1;
+	display:flex;
+	margin-left:var(--lg-gap);
+	height:100%;
+	align-items: center;
+}
+
 div.top-bar .items div.dot-view {
-	display: grid; grid-auto-columns: 1fr;
-	grid-template-rows: 1fr;  grid-auto-flow: column;
-	grid-gap: 1px; margin: var(--sm-gap);
+	display:flex;
+	flex-flow: row nowrap;
+	align-items: center;
+	height:100%;
 }
 div.top-bar .items div.dot-view .dot {
-	flex: 1; margin: 0; padding: var(--tiny-gap); font-size: 0.75em; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
-	border: none; outline: 1px solid var(--very-quiet-text-color);
+	flex: 1; margin: 0; font-size: 0.75em; text-overflow: ellipsis; white-space: nowrap;
+	border: none;
+	overflow:hidden;
+	max-height: var(--topbar-height);
+	outline: 1px solid var(--very-quiet-text-color);
 }
 div.top-bar .load-opts .text-button { max-height: unset; }
 div.top-bar .link-bar { margin: 0; flex-grow: unset; }
