@@ -3,8 +3,8 @@
 		"id":"hp",
 		"name":"life",
 		"desc":"Wizard life-force",
-		"val":10,
-		"max":10,
+		"val":5,
+		"max":5,
 		"unit":false,
 		"locked":false
 	},
