@@ -118,7 +118,7 @@ export default class Action extends GData {
 	 * @param {number} dt - elapsed time.
 	 */
 	update( dt ) {
-		this.exp += ( this.rate ? this.rate.valueOf() : 1 )*dt;
+		this.exp += ( this.rate > 0 ? this.rate.valueOf() : 1 )*dt;
 	}
 
 	/**
@@ -143,7 +143,7 @@ export default class Action extends GData {
 	 */
 	change( g, count ) {
 
-		super(g,count);
+		super.change(g,count);
 
 		var improve = false;
 

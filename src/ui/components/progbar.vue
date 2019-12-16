@@ -4,6 +4,14 @@ export default {
 	props:['value', 'max', 'label', 'hideStats', 'color'],
 	computed:{
 
+		curVal(){
+			if ( typeof this.value !== 'number' ) {
+				console.log('cur val: ' + (typeof this.value) + ': ' + this.value );
+				return 0;
+			}
+			return this.value;
+		},
+
 		style(){
 
 			let s = 'width:' + this.width;
@@ -31,7 +39,7 @@ export default {
 	<label v-if="label" :for="elmId('bar')">{{label}}</label>
 	<div class="bar" :id="elmId('bar')">
 		<div class="fill" :style="style">
-			<span class="bar-text" v-if="!hideStats">{{ (this.value||0).toFixed(1) + '/' + max.toFixed(1) }}</span>
+			<span class="bar-text" v-if="!hideStats">{{ curVal.toFixed(1) + '/' + max.toFixed(1) }}</span>
 			<span v-else>&nbsp;</span>
 		</div>
 	</div>

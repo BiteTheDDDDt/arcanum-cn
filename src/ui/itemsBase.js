@@ -52,7 +52,10 @@ export default {
 			let type = typeof obj;
 			let results = {};
 
-			if ( type === 'string') {
+			if ( type === 'number') {
+
+				console.warn('effect type is number');
+			} else if ( type === 'string') {
 
 				let it = Game.getData(obj);
 				results[ it ? it.name : this.stripTags(obj) ] = true;
@@ -91,7 +94,11 @@ export default {
 				var sub = obj[p];
 				var subRate = rate;
 
-				if ( p === 'skipLocked') continue;
+				if ( sub === null || sub === undefined ) {
+
+					console.warn('Sub null: ' + propPath + ': ' + p );
+					continue;
+				} else if ( p === 'skipLocked') continue;
 				else if ( p === 'mod' || p === 'effect') subPath = propPath;
 				else if ( p === 'max' ) {
 
@@ -118,7 +125,7 @@ export default {
 				}
 
 				if ( typeof sub !== 'object' ) results[subPath] = precise(sub) + ( subRate ? '/s' : '');
-				//else if ( typeof sub === 'function' ) {}
+				else if ( typeof sub === 'function' ) {}
 				else {
 
 					if ( sub.skipLocked ) {

@@ -21,7 +21,7 @@ export default {
 	<span class="title" v-if="label">{{ label }}</span>
 	<div v-for="p in npcs" :key="p.id">
 		<span class="name-span"><span @mouseenter.capture.stop="emit( 'itemover', $event, p )">{{p.name }}</span><dots class="inline" mini=true :dots="p.dots" /></span>
-		<prog class="hp" :value="p.hp.valueOf()" :max="p.hp.max.valueOf()" @mouseenter.capture.stop="emit( 'itemover', $event, p )" />
+		<prog class="hp" :value="p.hp.value.valueOf()" :max="p.hp.max.valueOf()" @mouseenter.capture.stop="emit( 'itemover', $event, p )" />
 	</div>
 
 </div>
