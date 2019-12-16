@@ -50,7 +50,7 @@ export default class Npc extends Char {
 	set hp(v) {
 
 		if ( this._hp === undefined || this._hp === null || typeof v === 'object') {
-			 this._hp = new MaxStat(v);
+			 this._hp = v instanceof MaxStat ? v : new MaxStat(v);
 		} else this._hp.set( v );
 
 	}

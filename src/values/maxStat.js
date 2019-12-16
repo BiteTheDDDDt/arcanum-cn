@@ -38,7 +38,6 @@ export default class MaxStat {
 		if ( this._value ) {
 			this._value.set(v);
 		} else {
-			console.log('new Stat value: ' + v + '  ' + typeof(v) );
 			this._value = v instanceof Stat ? v : new Stat( v, this.path + '.value' );
 		}
 

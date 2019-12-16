@@ -41,7 +41,6 @@ export function itemRevive( gs, it ) {
 
 	} else if ( type === MONSTER || type === NPC ) {
 
-		console.log('NEW NPC');
 		it = new Npc( orig, it );
 
 	} else if ( type === ENCOUNTER) {
