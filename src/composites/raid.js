@@ -68,7 +68,7 @@ export default class Raid {
 
 		if ( vars ) Object.assign( this, vars);
 
-		this._combat =  this._combat || new Combat();
+		if ( !this._combat ) this.combat = new Combat();
 
 		this.running = this.running || false;
 

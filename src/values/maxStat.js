@@ -14,8 +14,8 @@ export default class MaxStat {
 		if ( v === m ) return v;
 
 		return {
-			v:v,
-			max:m
+			v:this._value,
+			max:this.max
 		};
 
 	}
@@ -38,6 +38,7 @@ export default class MaxStat {
 		if ( this._value ) {
 			this._value.set(v);
 		} else {
+			console.log('new Stat value: ' + v + '  ' + typeof(v) );
 			this._value = v instanceof Stat ? v : new Stat( v, this.path + '.value' );
 		}
 
@@ -104,7 +105,6 @@ export default class MaxStat {
 
 		} else {
 
-			console.warn( vars + ' wrong type: ' + (typeof vars) );
 			this.value = 0;
 			this.max = 0;
 

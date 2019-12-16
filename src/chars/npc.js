@@ -49,7 +49,7 @@ export default class Npc extends Char {
 	get hp() { return this._hp; }
 	set hp(v) {
 
-		if ( this._hp === undefined || this._hp === null ) {
+		if ( this._hp === undefined || this._hp === null || typeof v === 'object') {
 			 this._hp = new MaxStat(v);
 		} else this._hp.set( v );
 
