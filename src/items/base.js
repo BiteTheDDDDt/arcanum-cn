@@ -244,8 +244,8 @@ export default {
 
 		} else if ( mods instanceof Stat ) {
 
-			//this.amount( Game, mods*amt );
-			this.value = this.value.base + amt*mods.getEffect( Game.state, this );
+			this.amount( Game, mods*amt );
+			//this.value = this.value.base + amt*mods;
 
 
 		} else if ( typeof mods === 'object' ) {
