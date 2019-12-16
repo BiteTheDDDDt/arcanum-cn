@@ -584,12 +584,12 @@ export default {
 			if ( !it.length ) {
 
 				this.payCost( it.cost );
-				this.useOn( it, targ );
+				this.useOn( it, targ, this );
 
 			} else {
 
 				// runner will handle costs.
-				this.runner.useOn( it, targ );
+				this.runner.beginUseOn( it, targ );
 
 			}
 		}
@@ -607,7 +607,7 @@ export default {
 
 		if ( targ === null || targ === undefined ) return;
 
-		if ( typeof it.useOn === 'function') it.useOn( targ );
+		if ( typeof it.useOn === 'function') it.useOn( targ, this );
 		it.value++;
 
 		console.log('USING: ' + it.id  + ' with ' + targ.id );

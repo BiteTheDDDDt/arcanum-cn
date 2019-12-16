@@ -216,7 +216,7 @@ export default class Player extends Char {
 
 	}
 
-	get dotContext() { return Game; }
+	get context() { return Game; }
 
 	constructor( vars=null ){
 
@@ -299,8 +299,8 @@ export default class Player extends Char {
 
 		if ( this.weapon && (typeof this.weapon === 'string') ) this.weapon = state.equip.find( this.weapon );
 
-		this.spelllist = state.getData('spelllist');
-		if ( this.spelllist.max.value === 0 ) this.spelllist.max.value = this.level.valueOf();
+		this.spells = state.getData('spelllist');
+		if ( this.spells.max.value === 0 ) this.spells.max.value = this.level.valueOf();
 
 		// copy in stressors to test player defeats.
 		this.stressors = state.stressors;
@@ -361,7 +361,7 @@ export default class Player extends Char {
 			if ( a ) return a;
 
 			// attempt to use spell first.
-			if ( this.spelllist.count === 0 || !this.tryCast() ) {
+			if ( this.spells.count === 0 || !this.tryCast() ) {
 				return this.weapon.attack;
 			}
 
@@ -373,7 +373,7 @@ export default class Player extends Char {
 	 * try casting spell from player spelllist.
 	 */
 	tryCast(){
-		if ( !this.spelllist.onUse(Game) ) return false;
+		if ( !this.spells.onUse(Game) ) return false;
 	}
 
 	/**

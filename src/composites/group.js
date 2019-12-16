@@ -148,12 +148,12 @@ export default class Group {
 
 	}
 
-	exec() {
+	exec(g) {
 
 		let len = this.items.length;
 		for( let i = 0; i <len; i++ ) {
 
-			this.items[i].exec();
+			this.items[i].exec(g);
 
 		}
 

@@ -1082,8 +1082,7 @@
 	},
 	{
 		"id":"flamestrike",
-		"school":"water",
-		"require":"water",
+		"school":"fire",
 		"buy":{
 			"tomes":1
 		},

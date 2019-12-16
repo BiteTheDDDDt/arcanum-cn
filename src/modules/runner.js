@@ -219,7 +219,7 @@ export default class Runner {
 	 * @param {*} it
 	 * @param {*} targ
 	 */
-	useOn( it, targ ) {
+	beginUseOn( it, targ ) {
 
 		let id = it.id;
 		let t = targ.id;

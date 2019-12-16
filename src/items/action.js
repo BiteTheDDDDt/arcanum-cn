@@ -143,12 +143,12 @@ export default class Action extends GData {
 	 * RESETS EXP
 	 * No value increment because that is currently done by game (@todo fix)
 	 */
-	exec() {
+	exec( g ) {
 
-		if ( this.cd ) Game.addTimer( this );
-		if ( this.loot ) Game.getLoot( this.loot );
+		if ( this.cd ) g.addTimer( this );
+		if ( this.loot ) g.getLoot( this.loot );
 
-		if ( this.once && this.valueOf() === 1 ) Game.applyVars( this.once );
+		if ( this.once && this.valueOf() === 1 ) g.applyVars( this.once );
 
 		var improve = false;
 

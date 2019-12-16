@@ -1,15 +1,45 @@
 
 /**
- * Context for applying item upgrades? Maybe.
+ * Alternate context for a data item (NPC spellcaster, etc.)
  */
-export const Context = {
+export default class Context {
+
+	get state(){return this._state;}
+	set state(v) { this._state=v}
+
+	constructor( stateObj ) {
+
+		this.state = stateObj;
+
+	}
 
 	/**
-	 * @property {Context} child - child context, if any.
+	 * Not implemented.
+	 * @param {*} it
 	 */
-	child:null,
+	addTimer(it){
+	}
 
-	update(dt){
+	/**
+	 * Not implemented
+	 */
+	getLoot(){
+	}
+	/**
+	 * Test if item can be paid for.
+	 * @param {*} it
+	 */
+	canPay(it) {
+	}
+
+	canUse(it) {
+
+	}
+
+	applyMods(it) {
+	}
+
+	applyVars(it) {
 	}
 
 }

@@ -582,6 +582,7 @@
 		"hp":5,
 		"tohit":5,
 		"defense":5,
+		"spells":"heal1",
 		"attack": {
 			"name":"club",
             "dmg":"2~4",
@@ -1648,7 +1649,8 @@
         "desc":"He worships evil.",
         "hp":45,
         "defense":32,
-        "tohit":5,
+		"tohit":5,
+		"spells":"blast",
         "attack":{
             "name":"harm",
             "kind":"evil",
@@ -1740,6 +1742,7 @@
         "hp":22,
 		"defense":30,
 		"regen":1,
+		"spells":"searingbolt",
         "attack":{
             "name":"claws",
             "kind":"slash",

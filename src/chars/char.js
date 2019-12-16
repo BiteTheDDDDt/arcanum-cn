@@ -11,6 +11,7 @@ import States, { NO_ATTACK } from './states';
 import { cloneClass } from '../util/util';
 
 import {applyAttack} from '../composites/combat';
+import Context from '../context';
 
 export default class Char {
 
@@ -43,6 +44,16 @@ export default class Char {
 	set speed(v) {
 		if (!this._speed) this._speed = new Stat(v, this.id + '.speed');
 		else this._speed.set(v);
+	}
+
+	/**
+	 * @property {string[]} spells - list of spells char can cast.
+	 */
+	get spells(){ return this._spells; }
+	set spells(v) {
+		if ( typeof v === 'string') {
+			this._spells = v.split(',');
+		} else this._spells=v;
 	}
 
 	/**
@@ -145,11 +156,12 @@ export default class Char {
 	get alive() { return this.hp.value > 0; }
 
 	/**
-	 * @property {Object} dotContext - context for dot mods/effects.
-	 * Required since Player mods actually affect Game.
+	 * @property {Object} dotContext - context for dot mods/effects,
+	 * spells.
 	 * @todo: allow Player applyMods to work naturally.
 	 */
-	get dotContext(){return this;}
+	get context(){ return this._context; }
+	set context(v) { this._context = v;}
 
 	constructor( vars ){
 
@@ -160,6 +172,10 @@ export default class Char {
 		this.type = NPC;
 
 		this._states = new States();
+
+		if ( this._spells ) {
+			this._context = new Context(this);
+		}
 
 		this.immunities = this.immunities || {};
 		this._resist = this._resist || {};
@@ -217,6 +233,15 @@ export default class Char {
 				return;
 			}
 		}
+	}
+
+	/**
+	 *
+	 * @param {GData} spell
+	 */
+	cast( spell ) {
+
+
 	}
 
 	reviveDots(gs) {
@@ -299,7 +324,7 @@ export default class Char {
 
 	applyDot( dot ) {
 
-		if ( dot.mod ) this.dotContext.applyMods( dot.mod, 1 );
+		if ( dot.mod ) this.context.applyMods( dot.mod, 1 );
 
 		if ( dot.adj) events.emit( CHAR_STATE, this, dot );
 
@@ -330,7 +355,7 @@ export default class Char {
 		let dot = this.dots[i];
 		this.dots.splice(i,1);
 
-		if ( dot.mod ) this.dotContext.applyMods( dot.mod, -1 );
+		if ( dot.mod ) this.context.applyMods( dot.mod, -1 );
 		if ( dot.flags ) this._states.remove( dot );
 
 	}
@@ -350,7 +375,7 @@ export default class Char {
 
 			// ignore any remainder beyond 0.
 			// @note: dots tick at second-intervals, => no dt.
-			if ( dot.effect ) this.dotContext.applyVars( dot.effect, 1 );
+			if ( dot.effect ) this.context.applyVars( dot.effect, 1 );
 			if ( dot.damage ) applyAttack( this, dot, dot.source );
 
 			if ( dot.duration <= dt ) {

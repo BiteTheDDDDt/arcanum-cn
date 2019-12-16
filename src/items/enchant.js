@@ -40,8 +40,9 @@ export default class Enchant extends Action {
 	/**
 	 * Called when enchant is being used on target.
 	 * @param {*} targ
+	 * @param {Context} g - execution context, Game.
 	 */
-	useOn( targ ) {
+	useOn( targ, g ) {
 
 		if ( this.adj && !targ.name.includes(this.adj) ) {
 
@@ -51,7 +52,7 @@ export default class Enchant extends Action {
 
 		targ.busy = false;
 
-		this.exec();
+		this.exec(g);
 
 	}
 
