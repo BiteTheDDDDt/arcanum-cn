@@ -6,6 +6,7 @@ import { assignPublic } from '../util/util';
 import Events, { ITEM_ATTACK, EVT_EVENT, EVT_UNLOCK } from '../events';
 import { TICK_LEN } from '../game';
 import { WEARABLE, WEAPON } from '../values/consts';
+import RValue from '../values/rvalue';
 
 /**
  * @typedef {Object} Effect
@@ -78,7 +79,11 @@ export default class GData {
 	get cost() { return this._cost; }
 	set cost(v) {
 
-		this._cost=v;
+		if ( typeof v !== 'object' || v instanceof RValue ) {
+			this._cost = {
+				gold:v
+			}
+		} else this._cost=v;
 	}
 
 	/**
