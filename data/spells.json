@@ -1,21 +1,5 @@
 [
-	{
 
-		"id":"bloodshot",
-		"level":1,
-		"require":"g.player.level>999",
-		"school":"water",
-		"buy":{
-			"gold":2
-		},
-		"cost":{
-			"hp":"a.hp/2"
-		},
-		"attack":{
-			"kind":"blood",
-			"dmg":"a.hp"
-		}
-	},
 	{
 		"id":"stam1",
 		"name":"minor fount",
@@ -2215,6 +2199,24 @@
 				"player.damage":10
 			}
 		},"flavor":"don't lose your way"
+	},
+	{
+
+		"id":"bloodshot",
+		"level":8,
+		"school":"blood",
+		"buy":{
+			"research":1000,
+			"tomes":5,
+			"bloodgem":15
+		},
+		"cost":{
+			"hp":"a.hp/4"
+		},
+		"attack":{
+			"kind":"blood",
+			"dmg":"a.hp"
+		}
 	},
 	{
 		"id":"unearth",

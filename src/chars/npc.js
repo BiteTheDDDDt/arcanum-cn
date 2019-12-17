@@ -2,9 +2,10 @@ import Char from './char';
 import Range, { RangeTest } from '../values/range';
 import Percent, { PercentTest } from '../values/percent';
 import MaxStat from '../values/maxStat';
-import Attack, { ParseDmg } from './attack';
+import Attack from './attack';
+import { ParseDmg } from 'values/combat'
 import { assign } from 'objecty';
-import { TEAM_NPC } from '../values/consts';
+import { TEAM_NPC } from 'values/consts';
 
 /**
  * Class for specific Enemies/Minions in game.

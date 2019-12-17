@@ -265,11 +265,9 @@
 	"run":{
 		"stamina":2
 	},
-	"loot":{
-
-	},
 	"result":{
-		"title":"Dhrunic Wayfarer"
+		"title":"Dhrunic Wayfarer",
+		"tenwickstick":true
 	},
 	"encs":[
 		"enc_statue2",

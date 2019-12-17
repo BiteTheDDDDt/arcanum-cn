@@ -1,33 +1,6 @@
-import Range, { RangeTest } from "../values/range";
 import { assignPublic } from "../util/util";
 import Stat from "../values/stat";
-import RValue from "../values/rvalue";
-import FValue from "../values/fvalue";
-import { TARGET_ALLIES, TARGET_ALLY, TARGET_SELF, ParseTarget } from "../composites/combat";
-
-/**
- * Create a function that returns a numeric damage value.
- * function has format: (a)ctor, (t)arget, (g)ameState
- * @param {string} s
- * @returns {(a,t,c,g)=>number}
- */
-export const MakeDmgFunc = (s)=>{
-	return new FValue( 'a,t,g', s );
-};
-
-export const ParseDmg = (v)=>{
-
-	if ( typeof v === 'object' ) return v;
-	else if ( !isNaN(v) ) return new RValue(v);
-	else if ( typeof v === 'string' ) {
-
-		if ( RangeTest.test(v) ) return new Range(v);
-		return MakeDmgFunc(v);
-
-	} else if ( typeof v === 'object') return new Range(v);
-	return v;
-
-}
+import { TARGET_ALLIES, TARGET_ALLY, TARGET_SELF, ParseTarget } from "values/combat";
 
 export default class Attack {
 

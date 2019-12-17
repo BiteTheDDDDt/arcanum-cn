@@ -1,5 +1,5 @@
 import { quickSplice } from "../util/array";
-import { TARGET_ALLIES, TARGET_ENEMIES, TARGET_ENEMY, TARGET_ALLY, TARGET_SELF, TARGET_RAND, TARGET_RANDG } from "../composites/combat";
+import { TARGET_ALLIES, TARGET_ENEMIES, TARGET_ENEMY, TARGET_ALLY, TARGET_SELF, TARGET_RAND, TARGET_RANDG } from "values/combat";
 
 
 export const NO_ATTACK = 1;
