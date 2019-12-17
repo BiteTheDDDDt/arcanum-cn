@@ -12,84 +12,100 @@ import { NO_SPELLS } from '../chars/states';
 
 import { TYP_FUNC, TEAM_PLAYER, getDelay } from '../values/consts';
 
+export const TARGET_ALL = 'all';
+
+/**
+ * @const {string} TARGET_SELF - target self.
+ */
+export const TARGET_SELF = 1;
+
+/**
+ * @const {string} TARGET_ENEMY - target one enemy.
+ */
+export const TARGET_ENEMY = 2;
+
+/**
+ * @const {string} TARGET_ALLY - target single ally.
+ */
+export const TARGET_ALLY = 4;
+
+/**
+ * @const {string} TARGET_RAND - random target.
+ */
+export const TARGET_RAND = 8;
+
+export const TARGET_GROUP = 16;
+
+
+/**
+ * @const {string} TARGET_ENEMIES - target all enemies.
+ */
+export const TARGET_ENEMIES = TARGET_GROUP + TARGET_ENEMY;
+
+/**
+ * @const {string} TARGET_ALLIES - target all allies.
+ */
+export const TARGET_ALLIES = TARGET_GROUP + TARGET_ALLY;
+
+/**
+ * @const TARGET_RANDG - target random group.
+ */
+export const TARGET_RANDG = TARGET_RAND + TARGET_GROUP;
+
+
 /**
  * @const {object.<string,string>} Targets - targetting constants.
  */
 export const Targets = {
 
-	ALL:'all',
-
-	/**
-	 * @property {string} ENEMY - target one enemy.
- 	 */
-	ENEMY:'enemy',
-	/**
-	 * @const {string} ENEMIES - target all enemies.
-	 */
-	ENEMIES:'enemies',
-	/**
-	* @const {string} ALLIES - target all allies.
-	 */
-	ALLIES:'allies',
-
-	/**
- 	* @const TARGET_RANDG - target random group.
-	 */
-	RANDG:'randgroup',
-
-	 /**
- 	* @const {string} TARGET_RAND - random target.
- 	*/
-	RAND:'rand',
-
-	/**
- 	* @const {string} TARGET_ALLY - target single ally.
- 	*/
-	ALLY:'ally',
+	all:TARGET_ALL,
 
 	/**
  	* @const {string} TARGET_SELF - target self.
  	*/
-	SELF:'self'
+	self:TARGET_SELF,
+
+	/**
+	 * @property {string} ENEMY - target one enemy.
+ 	 */
+	enemy:TARGET_ENEMY,
+
+	/**
+	 * @const {string} ENEMIES - target all enemies.
+	 */
+	enemies:TARGET_ENEMIES,
+	/**
+	* @const {string} ALLIES - target all allies.
+	 */
+	allies:TARGET_ALLIES,
+
+	/**
+ 	* @const TARGET_RANDG - target random group.
+	 */
+	randgroup:TARGET_RANDG,
+
+	 /**
+ 	* @const {string} TARGET_RAND - random target.
+ 	*/
+	rand:TARGET_RAND,
+
+	/**
+ 	* @const {string} TARGET_ALLY - target single ally.
+ 	*/
+	ally:TARGET_ALLY,
 
 };
 
-export const TARGET_ALL = 'all';
-
 /**
- * @const {string} TARGET_ENEMY - target one enemy.
+ * Parse string target into integer target for flag checking.
+ * @param {string|string[]} s
  */
-export const TARGET_ENEMY = 'enemy';
+export const ParseTarget = (s)=>{
 
-/**
- * @const {string} TARGET_ENEMIES - target all enemies.
- */
-export const TARGET_ENEMIES = 'enemies';
+	let f = Targets[s] || Targets.enemy;
+	return f;
 
-/**
- * @const {string} TARGET_ALLIES - target all allies.
- */
-export const TARGET_ALLIES = 'allies';
-
-/**
- * @const TARGET_RANDG - target random group.
- */
-export const TARGET_RANDG = 'randgroup';
-
-/**
- * @const {string} TARGET_ALLY - target single ally.
- */
-export const TARGET_ALLY = 'ally';
-
-/**
- * @const {string} TARGET_SELF - target self.
- */
-export const TARGET_SELF = 'self';
-
-/**
- * @const {string} TARGET_RAND - random target.
- */
-export const TARGET_RAND = 'rand';
+}
 
 
 /**
@@ -107,11 +123,10 @@ export function applyAttack( target, attack, attacker = null) {
 		return false;
 	}
 
-	applyDamage( target, attack, attacker );
+	if ( attack.damage ) applyDamage( target, attack, attacker );
+	if ( attack.cure ) target.cure( attack.cure );
 
-	if (attack.dot) {
-		target.addDot( attack.dot, attacker );
-	}
+	if (attack.dot) { target.addDot( attack.dot, attacker ); }
 
 	return true;
 
@@ -366,7 +381,7 @@ export default class Combat {
 
 		if (!targ || !targ.alive ) return;
 
-		if ( !targ.canDefend() || this.tryHit( attacker, targ, atk ) ) {
+		if ( atk.harmless || !targ.canDefend() || this.tryHit( attacker, targ, atk ) ) {
 			applyAttack( targ, atk, attacker );
 		}
 

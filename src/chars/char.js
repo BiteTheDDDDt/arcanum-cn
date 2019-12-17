@@ -223,9 +223,16 @@ export default class Char {
 
 	/**
 	 * Cure dot with the given state.
-	 * @param {string} state
+	 * @param {string||string[]} state
 	 */
 	cure( state ) {
+
+		if ( Array.isArray(state )) {
+			for( let i = state.length-1; i>=0; i-- ) {
+				this.cure(state[i]);
+			}
+			return;
+		}
 
 		for( let i = this.dots.length-1; i>= 0; i-- ) {
 			if ( this.dots[i].id === state) {
@@ -376,7 +383,7 @@ export default class Char {
 			// ignore any remainder beyond 0.
 			// @note: dots tick at second-intervals, => no dt.
 			if ( dot.effect ) this.context.applyVars( dot.effect, 1 );
-			if ( dot.damage ) applyAttack( this, dot, dot.source );
+			if ( dot.damage || dot.cure ) applyAttack( this, dot, dot.source );
 
 			if ( dot.duration <= dt ) {
 				this.rmDot(i);

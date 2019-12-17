@@ -3,6 +3,7 @@ import { assignPublic } from "../util/util";
 import Stat from "../values/stat";
 import RValue from "../values/rvalue";
 import FValue from "../values/fvalue";
+import { TARGET_ALLIES, TARGET_ALLY, TARGET_SELF, ParseTarget } from "../composites/combat";
 
 /**
  * Create a function that returns a numeric damage value.
@@ -66,10 +67,22 @@ export default class Attack {
 	}
 
 	/**
+	 * @property {string[]} cure - states to cure/remove from target.
+	 */
+	get cure(){ return this._cure; }
+	set cure(v){
+		if ( typeof v === 'string') this._cure = v.split(',');
+		else this._cure = v;
+	}
+
+	/**
 	 * @property {string} targets - target of attack.
 	 */
 	get targets() { return this._targets; }
-	set targets(v) { this._targets=v;}
+	set targets(v) {
+		if ( typeof v === 'string') this._targets = ParseTarget(v);
+		else this._targets = v;
+	}
 
 	get bonus() { return this._bonus; }
 	set bonus(v) {
@@ -87,6 +100,9 @@ export default class Attack {
 	set damage(v) {
 		this._damage = ParseDmg(v);
 	}
+
+	get harmless(){ return this._harmless; }
+	set harmless(v) { this._harmless = v;}
 
 	/**
 	 * Messy, work on dot/state interface.
@@ -126,6 +142,11 @@ export default class Attack {
 				else this.dot.dmg = this.dot.damage;
 			}
 
+		}
+
+		if ( this._harmless === null || this._harmless === undefined ) {
+			this.harmless = this.targets === TARGET_SELF ||
+				this.targets === TARGET_ALLY || this.targets === TARGET_ALLIES;
 		}
 
 		this.damage = this.damage || 0;

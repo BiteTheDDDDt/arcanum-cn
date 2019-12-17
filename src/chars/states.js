@@ -1,12 +1,15 @@
 import { quickSplice } from "../util/array";
 import { TARGET_ALLIES, TARGET_ENEMIES, TARGET_ENEMY, TARGET_ALLY, TARGET_SELF, TARGET_RAND, TARGET_RANDG } from "../composites/combat";
 
-export const NO_ACT = 7;
+
 export const NO_ATTACK = 1;
 export const NO_DEFEND = 2;
 export const NO_SPELLS = 4;
 export const CONFUSED = 8;
 export const CHARMED = 16;
+
+export const NO_ACT = NO_ATTACK + NO_DEFEND + NO_SPELLS;
+export const IMMOBILE = NO_ATTACK + 32;
 
 export const ParseFlags = (list)=>{
 
