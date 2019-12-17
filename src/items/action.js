@@ -1,6 +1,6 @@
 import GData from './gdata';
 import Game from '../game';
-import Events, { ACT_DONE, ACT_IMPROVED, EXP_MAX } from '../events';
+import Events, { ACT_DONE, ACT_IMPROVED } from '../events';
 import Stat from '../values/stat';
 
 export default class Action extends GData {
@@ -37,7 +37,6 @@ export default class Action extends GData {
 			|| (!this._length && this.perpetual && v >= 1 ) ) {
 
 			// does nothing currently.
-			Events.emit( EXP_MAX, this );
 			this.complete( Game );
 
 		}
@@ -132,6 +131,7 @@ export default class Action extends GData {
 		 */
 		this.value++;
 		this.change(g, 1);
+		this._exp = 0;
 
 		Events.emit( ACT_DONE, this );
 
@@ -175,8 +175,6 @@ export default class Action extends GData {
 		}
 
 		if ( improve ) Events.emit( ACT_IMPROVED, this );
-
-		this._exp = 0;
 
 	}
 
