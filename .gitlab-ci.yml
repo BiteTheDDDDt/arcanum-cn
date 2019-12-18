@@ -25,7 +25,7 @@ make_dev:
 subpage:
   stage: pages
   rules:
-    - if: '$CI_COMMIT_REF_NAME != $PAGES_BRANCH'
+    - if: '$CI_COMMIT_REF_NAME == $PAGES_BRANCH'
       when: never
     - when: always
   script:
