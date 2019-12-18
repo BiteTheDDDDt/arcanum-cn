@@ -17,23 +17,29 @@ before_script:
 
 make_dev:
   stage: make_dev
-  rules:
-    - if: '$CI_COMMIT_REF_NAME == $PAGES_BRANCH'
-      when: always
-    - if: '$CI_COMMIT_REF_NAME == "master"'
-      when: always
-    - when: manual
   script: npm run-script ci-dev
   artifacts:
     paths:
-      - dev/
+      - dev
+
+subpage:
+  stage: pages
+  rules:
+    - if: '$CI_COMMIT_REF_NAME != $PAGES_BRANCH'
+      when: never
+    - when: always
+  script:
+    - cp -r dev "public/${CI_COMMIT_REF_SLUG}"
+  artifacts:
+    paths:
+      - public/${CI_COMMIT_REF_SLUG}
 
 pages:
   stage: pages
   rules:
     - if: '$CI_COMMIT_REF_NAME == $PAGES_BRANCH'
       when: always
-    - when: manual
+    - when: never
   script:
     - cp -r dev public
   artifacts:
