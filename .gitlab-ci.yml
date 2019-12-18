@@ -39,7 +39,7 @@ pages:
   rules:
     - if: '$CI_COMMIT_REF_NAME == $PAGES_BRANCH'
       when: always
-    - when: manual
+    - when: never
   script:
     - cp -r dev public
   artifacts:
