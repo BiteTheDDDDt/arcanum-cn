@@ -144,7 +144,9 @@ export default class Stat extends RValue {
 	 * Add amount to base stat.
 	 * @param {number} amt
 	 */
-	add( amt ) { this._base += amt; }
+	add( amt ) {
+		this._base = this._base + amt;
+	}
 
 
 	/**

@@ -113,7 +113,7 @@ export default class States {
 	getCause(flag) {
 
 		let a = this._causes[flag];
-		return a && a.length > 0 ? a[0] : null;
+		return (a && a.length > 0) ? a[0] : null;
 
 	}
 
@@ -126,9 +126,10 @@ export default class States {
 		if ( !cause ) console.warn('no cause: ' + cause );
 
 		let flags = cause.flags;
+		if ( flags === 0 ) return;
 
 		let f = 1;
-		while ( f < flags ) {
+		while ( f <= flags ) {
 
 			if ( (flags & f) > 0 ) this._addCause( f, cause );
 			f *= 2;

@@ -12,6 +12,7 @@ import { cloneClass } from '../util/util';
 
 import {applyAttack} from '../composites/combat';
 import Context from '../context';
+import Game from '../game';
 
 export default class Char {
 
@@ -204,7 +205,6 @@ export default class Char {
 		if ( this.template ) {
 			if ( !this.name ) this._name = it.name;
 		}
-		this._gs = gs;
 
 		this.reviveDots(gs);
 		this._states.refresh(this._dots);
@@ -292,13 +292,13 @@ export default class Char {
 		let cur = this.dots.find( d=>d.id===id);
 		if ( cur !== undefined ) {
 
-			console.log('DOT FOUND: ' + cur.id );
+			console.log('DUPE DOT: ' + cur.id );
 			cur.extend( duration );
 
 		} else {
 
 			if ( !(dot instanceof Dot) ) {
-				dot = this.mkDot( dot, source, duration );
+				dot = Game.state.mkDot( dot, source, duration );
 			}
 
 			this._states.add( dot );
@@ -309,31 +309,11 @@ export default class Char {
 
 	}
 
-	/**
-	 * @static
-	 * @param {object} dot
-	 * @param {object} source
-	 * @param {number} [duration=0]
-	 * @returns {Dot}
-	 */
-	mkDot( dot, source, duration=0 ){
-
-		dot = new Dot( cloneClass(dot), source );
-
-		let st = this._gs.getData(dot.id);
-		if ( st ) dot.mergeDot(st);
-
-		dot.duration = duration;
-
-		return dot;
-
-	}
-
 	applyDot( dot ) {
 
 		if ( dot.mod ) this.context.applyMods( dot.mod, 1 );
 
-		if ( dot.adj) events.emit( CHAR_STATE, this, dot );
+		if ( dot.flags ) events.emit( CHAR_STATE, this, dot );
 
 		let time = dot.duration;
 

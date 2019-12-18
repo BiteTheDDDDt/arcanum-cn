@@ -63,7 +63,7 @@ export default class Dot {
 
 		this._flags = 0;
 
-		if ( isNaN(v) ) this._flags = ParseFlags(v);
+		if ( typeof v !== 'number' ) this._flags = ParseFlags(v);
 		else this._flags = v;
 
 	}

@@ -6,13 +6,14 @@ import Minions from './inventories/minions';
 
 import Runner from './modules/runner';
 import Explore from './composites/explore';
-import { ensure } from './util/util';
+import { ensure, cloneClass } from './util/util';
 import DataList from './inventories/dataList';
 import Group from './composites/group';
 import UserSpells from './inventories/userSpells';
 import Quickbars from './composites/quickbars';
 import Stat from './values/stat';
 import { WEARABLE, ARMOR, WEAPON, HOME, PURSUITS } from './values/consts';
+import Dot from './chars/dot';
 
 export const REST_SLOT = 'rest';
 
@@ -301,6 +302,26 @@ export default class GameState {
 			} else Object.assign( dest[p], src[p] );
 
 		}
+
+	}
+
+	/**
+	 * @static
+	 * @param {object} dot
+	 * @param {object} source
+	 * @param {number} [duration=0]
+	 * @returns {Dot}
+	 */
+	mkDot( dot, source, duration=0 ) {
+
+		dot = new Dot( cloneClass(dot), source );
+
+		let st = this.getData(dot.id);
+		if ( st ) dot.mergeDot(st);
+
+		dot.duration = duration;
+
+		return dot;
 
 	}
 

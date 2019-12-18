@@ -5,7 +5,7 @@ import {mergeSafe} from "objecty";
 import Mod, { ParseMods } from '../values/mod';
 import { assignNoFunc } from '../util/util';
 import Item from '../items/item';
-import { WEARABLE, ARMOR, TYP_RANGE } from '../values/consts';
+import { WEARABLE, ARMOR, TYP_RANGE, TYP_STAT } from '../values/consts';
 import Stat from '../values/stat';
 
 
@@ -210,7 +210,9 @@ export default class Wearable extends Item {
 		else if ( typeof cur === 'number') {
 			 obj[prop] = cur + amt;
 		}
-		else if ( cur.type === TYP_RANGE ) cur.add( amt );
+		else if ( cur.type === TYP_RANGE || cur.type === TYP_STAT ) {
+			cur.add( amt );
+		}
 
 	}
 
