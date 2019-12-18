@@ -1043,7 +1043,7 @@
 			},
 			"500":{
 				"effect.research":0.2,
-				"effect.arcana.max":0.002
+				"effect.arcana.max":0.001
 			}
 		},
 		"effect":{

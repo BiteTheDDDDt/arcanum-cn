@@ -25,6 +25,7 @@ make_dev:
 pages:
   stage: pages
   script:
+    - mkdir "public/${CI_COMMIT_REF_SLUG}"
     - cp -r dev "public/${CI_COMMIT_REF_SLUG}"
   artifacts:
     paths:

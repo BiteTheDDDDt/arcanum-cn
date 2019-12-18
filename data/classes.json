@@ -176,7 +176,7 @@
 	"require":"g.tier0>0&&g.lore>=10",
 	"cost":{
 		"research":700,
-		"arcana":11,
+		"arcana":15,
 		"gold":500
 	},
 	"result":{
@@ -202,7 +202,7 @@
 	"require":"g.tier0>0&&(g.evilamt>=10||g.evil>0)",
 	"cost":{
 		"research":400,
-		"arcana":10,
+		"arcana":13,
 		"gold":300,
 		"bones":10
 	},
@@ -230,10 +230,10 @@
 	"desc":"Create and ressurect living materials.",
 	"require":"g.tier0>0&&g.reanimation>2",
 	"cost":{
-		"research":300,
+		"research":500,
 		"bones":10,
 		"bonedust":10,
-		"arcana":7
+		"arcana":11
 	},
 	"result":{
 		"sp":2
@@ -263,7 +263,7 @@
 	"cost":{
 		"research":350,
 		"gold":200,
-		"arcana":9
+		"arcana":13
 	},
 	"disable":[],
 	"result":{
