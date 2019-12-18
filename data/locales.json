@@ -260,6 +260,7 @@
 	"id":"loc_tenwick",
 	"name":"peregrination",
 	"level":20,
+	"need":"g.travel>=15",
 	"desc":"Tenwick's trail runs a circuit about the notable areas of Dhrune. On foot it takes the better part of a year to complete.",
 	"length":10000,
 	"run":{
@@ -267,7 +268,8 @@
 	},
 	"result":{
 		"title":"Dhrunic Wayfarer",
-		"tenwickstick":true
+		"tenwickstick":true,
+		"fame":1
 	},
 	"encs":[
 		"enc_statue2",

@@ -1,8 +1,6 @@
 import FValue from "./fvalue";
 import RValue from "./rvalue";
-import Range from "./range";
-
-export const TARGET_ALL = 'all';
+import Range, { RangeTest } from "./range";
 
 /**
  * @const {string} TARGET_SELF - target self.
@@ -26,6 +24,7 @@ export const TARGET_RAND = 8;
 
 export const TARGET_GROUP = 16;
 
+export const TARGET_ALL = TARGET_GROUP + TARGET_ALLY + TARGET_ENEMY;
 
 /**
  * @const {string} TARGET_ENEMIES - target all enemies.

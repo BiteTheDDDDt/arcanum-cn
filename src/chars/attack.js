@@ -1,6 +1,7 @@
 import { assignPublic } from "../util/util";
 import Stat from "../values/stat";
-import { TARGET_ALLIES, TARGET_ALLY, TARGET_SELF, ParseTarget } from "values/combat";
+import { TARGET_ALLIES, TARGET_ALLY, TARGET_SELF,
+		ParseTarget, ParseDmg} from "values/combat";
 
 export default class Attack {
 

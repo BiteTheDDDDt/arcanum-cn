@@ -52,7 +52,7 @@
 			"desc":"You are now living at a local inn, losing precious coins to pay the rent."
 		},
 		"mod":{
-			"space.max":10,
+			"space.max":12,
 			"gold.rate":-0.25
 		}
 

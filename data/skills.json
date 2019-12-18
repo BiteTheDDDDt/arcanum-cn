@@ -280,7 +280,7 @@
 	{
 		"id":"history",
 		"name":"world lore",
-		"require":"g.languages>=7",
+		"require":"g.languages>=6",
 		"desc":"the knowledge of what has come before reveals what is yet possible.",
 		"verb":"historicizing",
 		"run":{
@@ -967,6 +967,7 @@
 			"research.max":2
 		}
 	},
+
 	{
 		"id":"astronomy",
 		"need":"starsource",
@@ -995,6 +996,19 @@
 		}
 	},
 	{
+		"id":"travel",
+		"level":2,
+		"require":"(g.languages+g.history)>=10",
+		"desc":"Travel offers a growing wizard new avenues of research and new sources of research.",
+		"run":{
+			"stamina":0.5
+		},
+		"mod":{
+			"dist":"5%"
+		}
+
+	},
+	{
 
 		"id":"planeslore",
 		"name":"planes lore",
@@ -1010,7 +1024,7 @@
 			"mana":0.1
 		},
 		"mod":{
-			"dist":"5%",
+			"dist":"1%",
 			"arcana.max":1,
 			"research.max":1
 		}, "flavor":"there is no safe distance"

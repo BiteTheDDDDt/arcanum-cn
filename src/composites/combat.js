@@ -7,7 +7,6 @@ import Events, {
 } from '../events';
 
 import { itemRevive } from '../modules/itemgen';
-import Stat from '../values/stat';
 import { NO_SPELLS } from '../chars/states';
 
 import { TYP_FUNC, TEAM_PLAYER, getDelay } from '../values/consts';
@@ -304,7 +303,7 @@ export default class Combat {
 		// retarget based on state.
 		targets = char.getTarget(targets);
 
-		if ( !targets ) {
+		if ( !targets || targets === TARGET_ENEMY ) {
 
 			return char.team === TEAM_PLAYER ? this.nextTarget( this._enemies ) : this.nextTarget( this.allies );
 
