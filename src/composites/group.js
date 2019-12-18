@@ -150,6 +150,35 @@ export default class Group {
 
 	/**
 	 *
+	 * @param {Object} mods - effect/mod description.
+	 * @param {number} amt - factor of base amount added
+	 * ( fractions of full amount due to tick time. )
+	 */
+	applyVars( mods, amt=1 ) {
+
+		let len = this.items.length;
+		for( let i = 0; i < len; i++ ) {
+			this.items[i].applyVars( mods, amt );
+		}
+	}
+
+	/**
+	 * Apply mod to every data of group.
+	 * @param {Mod|Object} mods
+	 * @param {number} amt
+	 * @param {Object} [targ=null]
+	 */
+	applyMods( mods, amt=1, targ=this ) {
+
+		let len = this.items.length;
+		for( let i = 0; i < len; i++ ) {
+			this.items[i].applyMods( mods, amt, targ );
+		}
+
+	}
+
+	/**
+	 *
 	 * @param {GameState} gs
 	 */
 	revive(gs){

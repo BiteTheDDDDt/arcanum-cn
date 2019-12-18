@@ -4,6 +4,7 @@ import Stat from '../values/stat';
 import Mod, { SetModIds } from '../values/mod';
 import { cloneClass, deprec } from '../util/util';
 import { TYP_MOD } from '../values/consts';
+import MinData from './mindata';
 
 export const setModCounts = ( m, v)=>{
 
@@ -483,6 +484,13 @@ export default {
 	},
 
 	/**
+	 *
+	 * @param {string} t - tag to test.
+	 * @returns {boolean}
+	 */
+	hasTag( t ) { return (this.tags) && this._tags.includes(t); },
+
+	/**
 	 * Test if item has every tag in list.
 	 * @param {string[]} a - array of tags to test.
 	 * @returns {boolean}
@@ -501,20 +509,13 @@ export default {
 	 * @param {string[]} a - array of tags to test.
 	 * @returns {boolean}
 	 */
-	anyTag( a ) {
+	/*anyTag( a ) {
 
 		if ( !this._tags ) return false;
 		for( let i = a.length-1; i >= 0; i-- ) if ( !this._tags.includes(a[i]) ) return true;
 
 		return false;
 
-	},
-
-	/**
-	 *
-	 * @param {string} t - tag to test.
-	 * @returns {boolean}
-	 */
-	hasTag( t ) { return (this.tags) && this._tags.includes(t); }
+	},*/
 
 }

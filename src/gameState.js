@@ -494,15 +494,16 @@ export default class GameState {
 
 	/**
 	 * Assign all items passing the predicate test the given tag.
+	 * Dyanamic tagging not supported.
 	 * @param {Predicate} test
 	 * @param {string} tag
 	 */
-	tagItems( test, tag ) {
+	/*tagItems( test, tag ) {
 		let items = this.items;
 		for( let p in items ) {
 			if ( test( items[p] ) ) items[p].addTag(tag);
 		}
-	}
+	}*/
 
 	/**
 	 * Get an item on an item-id varpath.
