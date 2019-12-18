@@ -142,7 +142,9 @@ export default class Stat extends RValue {
 	 * @todo
 	 * @param {number} amt
 	 */
-	add( amt ) { this._base += amt; }
+	add( amt ) {
+		this._base = this._base + amt;
+	}
 
 
 	/**
