@@ -50,10 +50,10 @@ export const mergeClass = ( destClass, src ) => {
   * @todo shorten list by implementing better base/defaults logic.
   * @const {string[]} JSONIgnore - ignore these properties by default when saving.
   */
- const JSONIgnore = { 'template':true, 'id':true, 'type':true, 'defaults':true, 'module':true, 'sname':true, 'sym':true,
- 	'name':true, 'desc':true, 'running':true, 'current':true, 'warnMsg':true, "once":true,
-	 'locked':true, 'locks':true, 'value':true, 'exp':true, 'delta':true, 'tags':true, 'mod':true,
-	 'effect':true, 'progress':true,'need':true, 'require':true };
+ const JSONIgnore = new Set( ['template', 'id', 'type', 'defaults', 'module', 'sname', 'sym',
+ 	'name', 'desc', 'running', 'current', 'warnMsg', 'once', 'context',
+	 'locked', 'locks', 'value', 'exp', 'delta', 'tags', 'mod',
+	 'effect', 'progress','need', 'require' ]);
 
 /**
  * Base class of all Game Objects.

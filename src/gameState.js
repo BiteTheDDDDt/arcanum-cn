@@ -318,6 +318,9 @@ export default class GameState {
 
 		let st = this.getData(dot.id);
 		if ( st ) dot.mergeDot(st);
+		if ( st == dot ) {
+			console.log('Dot equals state: ' + st);
+		}
 
 		dot.duration = duration;
 

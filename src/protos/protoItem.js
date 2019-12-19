@@ -41,10 +41,6 @@ export default class ProtoItem extends GData {
 			if ( !this.attack.damage ) this.attack.damage = this.attack.dmg;
 		}
 
-		if ( this._attack ) {
-			console.log('attack dmg: ' + this._attack.damage);
-		}
-
 	}
 
 }
