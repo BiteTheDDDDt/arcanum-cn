@@ -113,14 +113,7 @@ export default {
 			if ( hallData ) this.addData( hallData );
 
 			this.recheckTiers();
-
-			console.log('HOUSE: ' + this.getData('house').value);
-			console.log('INN: ' + this.getData('innroom').value);
-
 			this.restoreMods();
-
-			console.log('HOUSE: ' + this.getData('house').value);
-			console.log('INN: ' + this.getData('innroom').value);
 
 			techTree = new TechTree( this.gdata );
 			Events.add( EVT_UNLOCK, techTree.unlocked, techTree );
@@ -335,6 +328,8 @@ export default {
 		}
 
 		let item = this.getData(v);
+		if ( !item) return true;
+
 		if ( !item.rate || !a.effect || item.rate >= 0 ) return item.maxed();
 
 		// actual filling rate.

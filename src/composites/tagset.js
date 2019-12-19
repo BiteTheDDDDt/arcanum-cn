@@ -16,6 +16,8 @@ export default class TagSet {
 		this._items = v;
 	}
 
+	[Symbol.iterator](){return this._items[Symbol.iterator]}
+
 	/**
 	 * @property {string} type - type might need to be a standard type
 	 * in order to mimic a default item in item lists.
@@ -45,14 +47,18 @@ export default class TagSet {
 		return g.canPay( this.cost );
 	}
 
-	filled(){
-		console.warn('TagSet filled() not implemented');
+	filled( rate ){
+		for( let it of this.items ) {
+			if ( !it.filled(rate) ) return false;
+		}
+		return true;
 	}
 
 	maxed(){
 		for( let it of this.items ) {
 			if ( !it.maxed() ) return false;
 		}
+		return true;
 	}
 
 	remove(){
