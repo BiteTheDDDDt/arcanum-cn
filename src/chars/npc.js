@@ -6,6 +6,8 @@ import Attack from './attack';
 import { ParseDmg } from 'values/combat'
 import { assign } from 'objecty';
 import { TEAM_NPC } from 'values/consts';
+import { mergeClass } from '../items/base';
+import Instance from '../items/instance';
 
 /**
  * Class for specific Enemies/Minions in game.
@@ -146,3 +148,5 @@ export default class Npc extends Char {
 	}
 
 }
+
+mergeClass( Npc, Instance )

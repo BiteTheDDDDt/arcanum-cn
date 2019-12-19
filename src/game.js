@@ -12,8 +12,6 @@ import DataLoader from './dataLoader';
 import Events, {EVT_UNLOCK, EVT_EVENT, EVT_LOOT, SET_SLOT, DELETE_ITEM } from './events';
 
 import { MONSTER, TYP_PCT, TYP_RANGE, P_TITLE, P_LOG, RESOURCE, TEAM_PLAYER } from './values/consts';
-import Dot from './chars/dot';
-import { cloneClass } from './util/util';
 
 var techTree;
 
@@ -948,7 +946,7 @@ export default {
 
 		var res = this.state.inventory.find( p,true );
 		if ( res ) this.state.inventory.removeCount(res,amt);
-		else console.warn('QUANT NOT FOUND: ' + p );
+		else console.warn('Insufficient: ' + p );
 
 	},
 

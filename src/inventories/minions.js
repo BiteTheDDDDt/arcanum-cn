@@ -19,6 +19,14 @@ export default class Minions extends Inventory {
 	get allies() { return this._allies; }
 	set allies(v) { this._allies = v; }
 
+	/**
+	 * @property {Map.<object,string>} mods - mods applied to added minions
+	 * by kind,tag,name, etc.
+	 * the mod/path object has to map to the mod tag, since tags are not unique.
+	 */
+	get mods(){ return this._mods; }
+	set mods(v){this._mods =v;}
+
 	constructor(vars=null){
 
 		super(vars);
@@ -28,6 +36,7 @@ export default class Minions extends Inventory {
 		if ( !this.max ) this.max = 0;
 
 		this._allies = new Inventory( {id:'allies', spaceProp:'level'} );
+		this.mods = new Map();
 
 	}
 
@@ -114,6 +123,35 @@ export default class Minions extends Inventory {
 
 		Events.add( ALLY_DIED, this.died, this );
 		Events.add( ACT_CHANGED, this.resetActives, this );
+
+	}
+
+	/**
+	 *
+	 * @param {object} mods
+	 */
+	applyMods( mods, amt ){
+
+		for( let p of mods ){
+
+			var mod = mods[p];
+
+			if ( this[p] ) this[p].applyMods( mod );
+			else if ( this.mods.has(mod) ) continue;
+			else {
+
+				this.mods.set( mod, p );
+				for( let it of this.items ) {
+
+					if ( it.is(p) ) {
+						it.applyMods( mod, amt );
+					}
+
+				}
+
+			}
+
+		}
 
 	}
 
