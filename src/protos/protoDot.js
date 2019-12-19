@@ -1,4 +1,6 @@
 import Base, {mergeClass} from '../items/base';
+import {assign} from 'objecty';
+
 
 export default class ProtoDot {
 
@@ -27,7 +29,7 @@ export default class ProtoDot {
 
 	constructor( vars){
 
-		if ( vars ) Object.assign(this, vars);
+		if ( vars ) assign(this, vars);
 
 	}
 

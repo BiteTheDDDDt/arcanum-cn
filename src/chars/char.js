@@ -8,7 +8,7 @@ import { NPC, getDelay, TYP_PCT } from '../values/consts';
 import { toStats } from "../util/dataUtil";
 import events, { CHAR_STATE } from '../events';
 import States, { NO_ATTACK } from './states';
-import { cloneClass } from '../util/util';
+import {assign} from 'objecty';
 
 import {applyAttack} from '../composites/combat';
 import Context from '../context';
@@ -166,9 +166,7 @@ export default class Char {
 
 	constructor( vars ){
 
-		for( let p in vars ) {
-			this[p] = vars[p];
-		}
+		if ( vars ) assign( this, vars );
 
 		this.type = NPC;
 

@@ -1,4 +1,5 @@
 import Base, {mergeClass} from './base';
+import {assign} from 'objecty';
 import { cloneClass } from '../util/util';
 import { ParseMods } from '../values/mod';
 import Instance from './instance';
@@ -56,7 +57,7 @@ export default class Item {
 
 	constructor( vars=null ) {
 
-		if ( vars ) Object.assign( this, vars );
+		if ( vars ) assign( this, vars );
 
 		this.value = this._value || 1;
 
