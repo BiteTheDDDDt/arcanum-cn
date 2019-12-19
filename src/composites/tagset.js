@@ -44,15 +44,26 @@ export default class TagSet {
 		return g.canPay( this.cost );
 	}
 
-	onUse(g) {
+	filled(){
+		console.warn('TagSet filled() not implemented');
+	}
 
-		let len = this.items.length;
-		for( let i = 0; i < len; i++ ) {
-
-			this.items[i].onUse(g);
-
+	maxed(){
+		for( let it of this.items ) {
+			if ( !it.maxed() ) return false;
 		}
+	}
 
+	remove(){
+		console.warn('TagSet remove() not implemented');
+	}
+
+	/**
+	 * Not implemented.
+	 * @param {*} g
+	 */
+	onUse(g) {
+		console.warn('TagSet onUse() not implemented');
 	}
 
 	add( it ) {
@@ -72,6 +83,15 @@ export default class TagSet {
 
 	}
 
+	disable(){
+	}
+
+	lock( amt=1 ){
+		for( let it of this.items ) {
+			it.lock( amt );
+		}
+	}
+
 	/**
 	 *
 	 * @param {Object} mods - effect/mod description.
@@ -82,6 +102,7 @@ export default class TagSet {
 
 		for( let it of this.items ) {
 			it.applyVars( mods, amt );
+			it.dirty = true;
 		}
 
 	}
@@ -96,8 +117,24 @@ export default class TagSet {
 
 		for( let it of this.items ) {
 			it.applyMods( mods, amt, targ );
+			it.dirty = true;
 		}
 
+	}
+
+	/**
+	 *
+	 * @param {*} p
+	 */
+	filter(p){
+	}
+
+	/**
+	 * Wrap items forEach()
+	 * @param {*} p
+	 */
+	forEach(p){
+		return this.items.forEach(p);
 	}
 
 }

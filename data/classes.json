@@ -175,7 +175,7 @@
 	"actdesc":"Pursue the path of pure magic.",
 	"require":"g.tier0>0&&g.lore>=10",
 	"cost":{
-		"research":700,
+		"research":500,
 		"arcana":15,
 		"gold":500
 	},
@@ -204,7 +204,8 @@
 		"research":400,
 		"arcana":13,
 		"gold":300,
-		"bones":10
+		"bones":10,
+		"gems":10
 	},
 	"result":{
 
@@ -682,6 +683,7 @@
 	"desc":"a keeper of the forests, mountains, and hills",
 	"tags":"t_tier2",
 	"require":"g.tier1>0&&g.naturelore>=12",
+	"need":"(g.outdoors+g.lodge)>0",
 	"cost":{
 		"research":1500,
 		"naturegem":15,

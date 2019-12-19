@@ -14,6 +14,7 @@ import Quickbars from './composites/quickbars';
 import Stat from './values/stat';
 import { WEARABLE, ARMOR, WEAPON, HOME, PURSUITS } from './values/consts';
 import Dot from './chars/dot';
+import TagSet from './composites/tagset';
 
 export const REST_SLOT = 'rest';
 
@@ -25,11 +26,6 @@ export default class GameState {
 		for( let p in this.slots ) {
 			if ( this.slots[p] ) slotIds[p] = this.slots[p].id;
 		}
-
-		/**
-		 * Force no save allies. @todo: messy.
-		 */
-		this.saveItems.allies = undefined;
 
 		let data = {
 
@@ -135,10 +131,11 @@ export default class GameState {
 		this.playerStats = this.player.getResources();
 
 		/**
-		 * @property {Object.<string,Item[]>} tagLists - tag to array of items with tag.
+		 * @property {Map.<string,TagSet>} tagsets - tag to array of items with tag.
 		 * makes upgrading/referencing by tag easier.
 		*/
-		this.tagLists = this.makeLists( this.items );
+		this.tagSets = this.makeTagSets( this.items );
+		this.saveItems.allies = undefined;
 
 	}
 
@@ -330,12 +327,12 @@ export default class GameState {
 
 	/**
 	 * Create lists of tagged items.
-	 * @param {Object.<string,GData>} items
-	 * @returns {Object.<string,GData[]>} lists
+	 * @param {.<string,GData>} items
+	 * @returns {Map.<string,GData[]>} lists
 	 */
-	makeLists( items ) {
+	makeTagSets( items ) {
 
-		var lists = {};
+		var tagSets = new Map();
 
 		for( let p in items ) {
 
@@ -345,16 +342,18 @@ export default class GameState {
 
 			for( var t of tags ){
 
-				//console.log('adding list: ' + t );
-				var list = lists[t];
-				if ( !list ) lists[t] = list = [];
-				list.push( it );
+				var list = tagSets[t];
+				if ( !list ) {
+					items[t] = tagSets[t] = list = new TagSet();
+				}
+
+				list.add( it );
 
 			}
 
 		}
 
-		return lists;
+		return tagSets;
 
 	}
 
@@ -403,8 +402,8 @@ export default class GameState {
 	 * @param {string} tag
 	 * @returns {GData[]|undefined}
 	 */
-	getTagList( tag ) {
-		return this.tagLists[tag];
+	getTagSet( tag ) {
+		return this.tagSets[tag];
 	}
 
 	/**

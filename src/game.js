@@ -156,7 +156,7 @@ export default {
 		let n = -1;
 		while ( ++n <= 5 ) {
 
-			var list = this.state.getTagList('t_tier'+n);
+			var list = this.state.getTagSet('t_tier'+n);
 			var evt = this.state.getData('tier'+n);
 
 			var hasEvent = false;
@@ -327,13 +327,6 @@ export default {
 		}
 
 		let item = this.getData(v);
-		if (item === undefined ) {
-
-			item = this.state.getTagList( v );
-			return item === undefined ? true : this.filled(item, a, v );
-
-		}
-
 		if ( !item.rate || !a.effect || item.rate >= 0 ) return item.maxed();
 
 		// actual filling rate.
@@ -355,15 +348,8 @@ export default {
 
 			if ( typeof it === 'string' ) {
 
-				let item = this.getData( it );
-				if ( !item ) {
-
-					let list = this.state.getTagList(it);
-					if ( list ) for( let v of list ) this.disable(v);
-					return;
-
-				} else it = item;
-
+				it = this.getData( it );
+				if ( !it ) return;
 			}
 
 			if ( it && !it.disabled ) {
@@ -407,12 +393,6 @@ export default {
 
 			let item = this.getData( it );
 			if ( item ) this.remove( it, it.value );
-			else {
-
-				item = this.state.getTagList( it );
-				if ( item ) item.forEach( this.removeAll, this );
-
-			}
 
 		}
 
@@ -687,14 +667,6 @@ export default {
 
 		let it = typeof id === 'string' ? this.getData(id) : id;
 
-		if ( !it ) {
-
-			it = this.state.getTagList(id);
-			it = it ? it.find( v=>!v.disabled&& v.value>=amt ) : null;
-			if ( !it ) return;
-
-		}
-
 		if ( it.slot ) { if ( this.state.getSlot(it.slot) === it ) this.state.setSlot(it.slot, null); }
 
 		if ( it.cost && it.cost.space ) this.getData('space').value.add( -amt*it.cost.space );
@@ -759,18 +731,7 @@ export default {
 
 			// test that another item is unlocked.
 			let it = this.getData(test);
-			if ( it === undefined || it === null ) {
-
-				// tag test - if any item with the tag is unlocked, test passes.
-				it = this.state.getTagList(test);
-
-				//if ( !it ) console.warn('undefined: ' + test );
-				//console.log('testing tag list: ' + test );
-				//it.forEach( v=>console.log(v.id));
-
-				return it ? it.some( this.unlockTest, this ) : false;
-
-			}
+			if ( it === undefined ) return false;
 
 			// don't need to actually use an action or resource to mark it unlocked.
 			return ( it.type === RESOURCE || it.type === 'action') ?
@@ -830,7 +791,6 @@ export default {
 
 					if ( p === P_TITLE ) this.state.player.addTitle( e );
 					else if ( p === P_LOG ) Events.emit( EVT_EVENT, e );
-					else this.applyToTag( p, e, dt );
 
 				} else {
 
@@ -855,36 +815,8 @@ export default {
 
 			let target = this.getData(effect);
 			if ( target !== undefined ) {
-
 				target.amount( this, dt );
-
-			} else {
-
-				this.listGet( this.getTagList(effect), dt );
-
 			}
-
-		}
-
-	},
-
-	/**
-	 * Apply an effect or mod to all Items with given tag.
-	 * @param {string} tag - item tag.
-	 * @param {object} eff - object effect.
-	 * @param {number} dt - time or percent of mod to apply.
-	 */
-	applyToTag( tag, eff, dt ) {
-
-		let target = this.state.getTagList(tag);
-
-		if ( target ) {
-
-			for( let i = target.length-1; i>=0; i--) {
-				target[i].applyVars( eff, dt);
-				target[i].dirty = true;
-			}
-
 
 		}
 
@@ -915,8 +847,7 @@ export default {
 			for( let p in mod ) {
 
 				var target = this.getData( p );
-
-				if ( target === undefined ) this.modTag( p, mod[p], amt );
+				if ( target === undefined ) continue;
 				else if ( mod[p] === true ){
 
 					target.doUnlock(this);
@@ -936,49 +867,11 @@ export default {
 			let t = this.getData(mod);
 			if ( t ) {
 
-				console.warn('!!!!!ADDING NUMBER MOD: ' + mod );
+				console.warn('!!!ADDED NUMBER MOD: ' + mod );
 				t.amount( this, 1 );
 
-			} else {
-
-				let list = this.getTagList(mod);
-				if ( list ) list.forEach( this.applyMods, this );
-
 			}
 
-		}
-
-	},
-
-	/**
-	 * Give a given quantity of item to all elements of an array.
-	 * @param {GData[]} a
-	 * @param {*} amt
-	 */
-	listGet( a, amt=1 ) {
-
-		if ( !a ) return;
-
-		for( let i = a.length-1; i>= 0; i-- ) {
-			a[i].amount(this, amt);
-		}
-
-	},
-
-	/**
-	 * Apply an effect or mod to all Items with given tag.
-	 * @param {string} tag - item tag.
-	 * @param {Object} mods - object mod.
-	 * @param {number} dt - time or percent of mod to apply.
-	 */
-	modTag( tag, mods, dt ) {
-
-		let target = this.state.getTagList(tag);
-		if ( target ) {
-			for( let i = target.length-1; i>=0; i--) {
-				target[i].applyMods( mods, dt);
-				target[i].dirty = true;
-			}
 		}
 
 	},
@@ -1258,12 +1151,6 @@ export default {
 			let it = this.getData(id);
 			if ( it ) {
 				this.lock(it);
-
-			} else {
-
-				it = this.state.getTagList(id);
-				if ( it ) it.forEach( v=>this.lock(v, amt ), this );
-
 			}
 
 		}

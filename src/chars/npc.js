@@ -18,6 +18,7 @@ export default class Npc extends Char {
 		data.id = this.id;
 
 		data.cost = undefined;
+		data.context = undefined;
 		data.team = this.team||undefined;
 
 		data.timer = this.timer;

@@ -292,7 +292,7 @@ export default class Char {
 		let cur = this.dots.find( d=>d.id===id);
 		if ( cur !== undefined ) {
 
-			console.log('DUPE DOT: ' + cur.id );
+			//console.log('DUPE DOT: ' + cur.id );
 			cur.extend( duration );
 
 		} else {
