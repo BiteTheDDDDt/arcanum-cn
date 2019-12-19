@@ -996,7 +996,9 @@
 
 	},
 	{
-		"id":"travel",
+		"id":"a_travel",
+		"alias":"travel",
+		"name":"travel",
 		"perpetual":true,
 		"verb":"travelling",
 		"desc":"Travel the wide world.",

@@ -996,7 +996,8 @@
 		}
 	},
 	{
-		"id":"travel",
+		"id":"s_travel",
+		"name":"travel",
 		"level":2,
 		"require":"(g.languages+g.history)>=10",
 		"desc":"Travel offers a growing wizard new avenues of research and new sources of research.",
