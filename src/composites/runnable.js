@@ -6,7 +6,7 @@ import { TYP_RUN } from '../values/consts';
 
 /**
  * Wraps an action in progress with an action target, and possible
- * extra instance data.
+ * extra.instanced data.
  */
 export default class Runnable extends Proxy {
 

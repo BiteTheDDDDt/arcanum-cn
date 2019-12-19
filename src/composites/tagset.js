@@ -26,8 +26,8 @@ export default class TagSet {
 	set name(v) { this._name = v; }
 
 
-	/*get instance() { return true; }
-	set instance(v){}*/
+	/*get.instanced() { return true; }
+	set.instanced(v){}*/
 
 	get locked() { return false;}
 	get owned(){return true;}

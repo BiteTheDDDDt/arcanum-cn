@@ -197,7 +197,7 @@ export default {
 
 			var it = gdata[p];
 
-			if ( !it.locked && !it.disabled && !(it.instance||it.isRecipe) ) {
+			if ( !it.locked && !it.disabled && !(it.instanced||it.isRecipe) ) {
 
 				if ( it.id ==='points') console.log('POINTS VAL: '+ it.value );
 				if ( it.value != 0 ) {
@@ -438,7 +438,7 @@ export default {
 
 		if ( !this.canUse(it) ) return false;
 
-		if ( it.instance ){
+		if ( it.instanced ){
 
 			it.onUse( this, this.state.inventory );
 
@@ -636,13 +636,13 @@ export default {
 	 */
 	trySell( it, inv, count=1 ) {
 
-		if ( it.value < 1 && !it.instance ) { return false; }
+		if ( it.value < 1 && !it.instanced ) { return false; }
 
 		if ( count > it.value ) count = it.valueOf();
 
 		this.getData('gold').value += count*this.sellPrice(it);
 
-		if ( it.instance ) {
+		if ( it.instanced ) {
 
 			it.value -= count;
 
@@ -919,7 +919,7 @@ export default {
 
 					this.payInst( p, cost[p] );
 
-				} else if ( res.instance || res.isRecipe ) {
+				} else if ( res.instanced || res.isRecipe ) {
 					this.payInst( p, cost[p]*unit );
 
 				} else {
@@ -970,7 +970,7 @@ export default {
 
 				res = this.state.getData(p);
 				if ( !res ) return false;
-				else if ( res.instance || res.isRecipe ) {
+				else if ( res.instanced || res.isRecipe ) {
 
 					/* @todo: ensure correct inventory used. map type-> default inventory? */
 					return this.state.inventory.hasCount( res, amt );

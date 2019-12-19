@@ -169,7 +169,7 @@ export default class GameState {
 				//console.warn('CUSTOM: ' + it.id + ' name: ' + it.name );
 				this.items[p] = new Group( it );
 
-			} else if ( it.instance ) {
+			} else if ( it.instanced ) {
 
 			}
 
@@ -577,7 +577,7 @@ export default class GameState {
 
 		if ( it === undefined || !it.unique ) return false;
 
-		if ( it.isRecipe || it.instance ) {
+		if ( it.isRecipe || it.instanced ) {
 
 			return this.inventory.find(it.id,true) != null ||
 			this.drops.find(it.id,true) != null || this.equip.find(it.id,true) != null;

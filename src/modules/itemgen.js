@@ -225,7 +225,7 @@ export default class ItemGen {
 				return null;
 			}
 
-			if ( info instanceof GData && !info.isRecipe && !info.instance) {
+			if ( info instanceof GData && !info.isRecipe && !info.instanced) {
 
 				return this.getGData( info, amt );
 
@@ -240,7 +240,7 @@ export default class ItemGen {
 		if ( info.type === WEARABLE || info.type === WEAPON
 				|| info.type ===ARMOR) return this.fromData( info, info.material );
 
-		else if ( info.instance || info.isRecipe ) {
+		else if ( info.instanced || info.isRecipe ) {
 			return this.instance( info );
 		} else if ( info.level || info.max ) return this.randLoot( info, amt );
 

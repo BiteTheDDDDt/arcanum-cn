@@ -1,6 +1,7 @@
 import Base, {mergeClass} from './base';
 import { cloneClass } from '../util/util';
 import { ParseMods } from '../values/mod';
+import instance from './instance';
 
 const ItemDefaults = {
 	stack:true,
@@ -37,8 +38,7 @@ export default class Item {
 
 	}
 
-	get instance() { return true; }
-	set instance(v){}
+
 
 	/**
 	 * @property {string} recipe - id of item template used to instance this item.
@@ -126,3 +126,4 @@ export default class Item {
 }
 
 mergeClass( Item, Base );
+mergeClass( Item, instance );
