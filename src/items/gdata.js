@@ -14,6 +14,12 @@ import RValue from '../values/rvalue';
  */
 
 /**
+ * @const {Set} NoDefine - properties not to set to default values.
+ */
+const NoDefine = new Set( ['require', 'rate', 'current', 'need', 'value', 'buy', 'max',
+	'cost', 'id', 'name', 'warn', 'effect', 'slot' ] )
+
+/**
  * Game Data base class.
  */
 export default class GData {
@@ -175,8 +181,7 @@ export default class GData {
 
 		if ( this._value === null || this._value === undefined ) this.val = 0;
 
-		defineExcept( this, null,
-			['require', 'rate', 'current', 'need', 'value', 'buy', 'max', 'cost', 'id', 'name', 'warn', 'effect', 'slot' ]);
+		defineExcept( this, null, NoDefine );
 
 		if ( this.mod ) {
 			initMods( this.mod, this.value );
