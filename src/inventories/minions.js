@@ -1,6 +1,7 @@
 import Inventory from "./inventory";
 import Events, { ALLY_DIED, ACT_CHANGED } from '../events';
 import { NPC, TEAM_PLAYER} from "../values/consts";
+import RValue from "../values/rvalue";
 
 
 export default class Minions extends Inventory {
@@ -133,7 +134,7 @@ export default class Minions extends Inventory {
 
 		this.calcUsed();
 
-		Events.add( ALLY_DIED, this.died, this );
+		//Events.add( ALLY_DIED, this.died, this );
 		Events.add( ACT_CHANGED, this.resetActives, this );
 
 	}
@@ -144,12 +145,14 @@ export default class Minions extends Inventory {
 	 */
 	applyMods( mods, amt ){
 
-		for( let p of mods ){
+		for( let p in mods ){
 
 			var mod = mods[p];
 
-			if ( this[p] ) this[p].applyMods( mod );
-			else if ( this.mods.has(mod) ) continue;
+			if ( this[p] ) {
+				if ( this[p] instanceof RValue ) this[p].addMod(mod);
+				else this[p].applyMods( mod );
+			} else if ( this.mods.has(mod) ) continue;
 			else {
 
 				this.mods.set( mod, p );
@@ -186,19 +189,26 @@ export default class Minions extends Inventory {
 
 	}
 
+	/**
+	 *
+	 * @param {Npc} m
+	 */
 	remove( m ) {
 
 		super.remove(m);
 
 		console.log('removing minion: ' + m.id );
+		// @note mods are not removed here.
 		this.setActive( m, false );
 
 	}
 
+	/**
+	 * Apparently does nothing.
+	 * @param {Npc} m
+	 */
 	died( m ) {
-
 		//m.active = false;
-
 	}
 
 }

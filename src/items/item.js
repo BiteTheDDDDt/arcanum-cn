@@ -1,7 +1,7 @@
 import Base, {mergeClass} from './base';
 import { cloneClass } from '../util/util';
 import { ParseMods } from '../values/mod';
-import instance from './instance';
+import Instance from './instance';
 
 const ItemDefaults = {
 	stack:true,
@@ -38,13 +38,6 @@ export default class Item {
 
 	}
 
-
-
-	/**
-	 * @property {string} recipe - id of item template used to instance this item.
-	 */
-	get recipe() { return this.template?  this.template.id : this._id; }
-	set recipe(v) {}
 
 	/**
 	 * @property {boolean} consume - whether the item is consumed when used.
@@ -126,4 +119,4 @@ export default class Item {
 }
 
 mergeClass( Item, Base );
-mergeClass( Item, instance );
+mergeClass( Item, Instance );

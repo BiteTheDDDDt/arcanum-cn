@@ -64,8 +64,8 @@ export default {
 
 		if ( this.save && (this.value>0||this.owned)) return this.forceSave();
 
-		let vars = changes( jsonify(this, JSONIgnore ),
-			this.template || {} );
+		let vars = jsonify(this, JSONIgnore );
+		if ( this.template ) vars = changes( vars, this.template );
 
 		if ( this.locked === false && this.template && this.template.locked !== false ){
 			vars = vars || {};
@@ -84,6 +84,7 @@ export default {
 		if ( this.slot ) data.slot = this.slot;
 		if ( this.effect) data.effect = this.effect;
 		if ( this.use ) data.use = this.use;
+
 		if ( data.template && typeof data.template === 'object' ) data.template = data.template.id;
 		if ( data.val ) data.value = undefined;
 		data.name = this.sname;
@@ -116,10 +117,7 @@ export default {
 	/**
 	 * Simple name without symbol.
 	 */
-	get sname(){
-		return this._name || this.id;
-	},
-	set sname(v){},
+	get sname(){ return this._name || this.id; },
 
 	/**
 	 * @property {string} name - displayed name.
@@ -152,7 +150,6 @@ export default {
 	 * @property {number} current - displayable value; override in subclass for auto rounding, floor, etc.
 	 */
 	get current() { return this.value },
-	set current(v) {},
 
 	/**
 	 * @property {number} ex - save/load alias for exp with no triggers.

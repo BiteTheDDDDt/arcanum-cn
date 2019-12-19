@@ -1,3 +1,5 @@
+import { assign } from 'objecty';
+
 /**
  * @class TagList to allow referencing tagged items by id.
  */
@@ -34,7 +36,7 @@ export default class TagSet {
 
 	constructor(vars=null ) {
 
-		if( vars) Object.assign( this, vars );
+		if( vars) assign( this, vars );
 
 		if (!this.items ) this.items = null;
 

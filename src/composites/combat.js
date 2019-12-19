@@ -1,5 +1,6 @@
 import Game from '../game';
 import Range from '../values/range';
+import { assign } from 'objecty';
 
 import Events, {
 	EVT_COMBAT, ENEMY_SLAIN, ALLY_DIED,
@@ -129,7 +130,7 @@ export default class Combat {
 
 	constructor(vars = null) {
 
-		if (vars) Object.assign(this, vars);
+		if (vars) assign(this, vars);
 
 		if (!this._enemies) this._enemies = [];
 		if ( !this.allies) this.allies = [];

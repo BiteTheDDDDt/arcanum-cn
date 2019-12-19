@@ -3,7 +3,7 @@ import Stat from './stat';
 import { splitKeys, logObj } from '../util/util';
 import { precise } from '../util/format';
 import { TYP_MOD } from './consts';
-
+import { assign } from 'objecty';
 //import Emitter from 'eventemitter3';
 
 export const ModTest = /^([\+\-]?\d+\.?\d*\b)?(?:([\+\-]?\d+\.?\d*)\%)?$/i;
@@ -142,7 +142,7 @@ export default class Mod extends Stat {
 				/** @compat */
 				this.str = vars.value;
 				this.count = vars.count;
-			} else Object.assign( this, vars );
+			} else assign( this, vars );
 
 
 		}

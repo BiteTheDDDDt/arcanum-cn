@@ -1,5 +1,5 @@
 import Events, { DEFEATED, ACT_DONE, ENC_START, ACT_BLOCKED } from "../events";
-
+import { assign } from 'objecty';
 import Game from '../game';
 import Encounter from "../items/encounter";
 import { itemRevive } from "../modules/itemgen";
@@ -75,7 +75,7 @@ export default class Explore {
 	 */
 	constructor( vars=null ) {
 
-		if ( vars ) Object.assign( this, vars);
+		if ( vars ) assign( this, vars);
 
 		this.running = this.running || false;
 

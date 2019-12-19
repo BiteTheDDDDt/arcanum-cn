@@ -1,7 +1,7 @@
 import {ParseMods } from "../values/mod";
 import { setModCounts } from "../items/base";
 import { ParseDmg } from "values/combat";
-import {mergeSafe} from 'objecty';
+import { assign, mergeSafe } from 'objecty';
 import { ParseFlags, NO_SPELLS, NO_ATTACK, NO_DEFEND } from "./states";
 import { TYP_DOT } from "../values/consts";
 
@@ -84,7 +84,7 @@ export default class Dot {
 
 	constructor( vars, source, name ){
 
-		Object.assign( this, vars );
+		assign( this, vars );
 
 		this.source = this.source || source || null;
 

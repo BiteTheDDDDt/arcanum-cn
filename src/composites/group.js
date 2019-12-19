@@ -1,5 +1,6 @@
 import { addValues } from "../util/dataUtil";
 import Base, { mergeClass } from "../items/base";
+import { assign } from 'objecty';
 
 /**
  * Currently used to make custom user spells.
@@ -87,7 +88,7 @@ export default class Group {
 
 	constructor(vars=null ) {
 
-		if( vars) Object.assign( this, vars );
+		if( vars) assign( this, vars );
 
 		if (!this.items ) this.items = null;
 

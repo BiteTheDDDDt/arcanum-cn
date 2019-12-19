@@ -5,6 +5,7 @@ import Stat from '../values/stat';
 import Base, {mergeClass} from '../items/base';
 import Runnable from '../composites/runnable';
 import { SKILL, DUNGEON, REST_TAG, TYP_RUN, PURSUITS } from '../values/consts';
+import { assign } from 'objecty';
 
 /**
  * Tracks running/perpetual actions.
@@ -19,7 +20,7 @@ export default class Runner {
 
 	constructor(vars=null ){
 
-		if ( vars ) Object.assign(this,vars);
+		if ( vars ) assign(this,vars);
 
 		this.id = this.type;
 		this.name = 'activity';

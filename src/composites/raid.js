@@ -1,5 +1,5 @@
 import Events, { ENEMY_SLAIN, ACT_DONE, ITEM_ATTACK, CHAR_DIED, DEFEATED, ACT_BLOCKED, EVT_COMBAT } from '../events';
-
+import { assign } from 'objecty';
 import Game from '../game';
 import Combat from './combat';
 import { RAID, TYP_PCT, getDelay } from '../values/consts';
@@ -66,7 +66,7 @@ export default class Raid {
 	 */
 	constructor( vars=null ) {
 
-		if ( vars ) Object.assign( this, vars);
+		if ( vars ) assign( this, vars);
 
 		if ( !this._combat ) this.combat = new Combat();
 
