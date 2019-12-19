@@ -13,7 +13,7 @@ export default class TagSet {
 	 */
 	get items() { return this._items; }
 	set items(v) {
-		this._items = new Set( v );
+		this._items = v;
 	}
 
 	/**
@@ -34,11 +34,11 @@ export default class TagSet {
 	get locked() { return false;}
 	get owned(){return true;}
 
-	constructor(vars=null ) {
+	constructor(tag ) {
 
-		if( vars) assign( this, vars );
+		this.id = tag;
 
-		if (!this.items ) this.items = null;
+		this.items = new Set();
 
 	}
 	canUse( g ) {
@@ -89,7 +89,7 @@ export default class TagSet {
 
 	lock( amt=1 ){
 		for( let it of this.items ) {
-			it.lock( amt );
+			it.lock(amt);
 		}
 	}
 

@@ -347,6 +347,11 @@ export default class GData {
 
 	}
 
+	lock(amt){
+		this.locks += amt;
+		this.dirty = true;
+	}
+
 	doUnlock(){
 
 		if ( this.disabled || this.locked === false || this.locks>0 ) return;

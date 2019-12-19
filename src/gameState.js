@@ -265,9 +265,10 @@ export default class GameState {
 		 */
 		this.slots = this.slots || {};
 
-		// all must be defined for Vue. slots could be missing from save.
+		// must be defined for Vue. slots could be missing from save.
 		ensure( this.slots, [HOME, 'mount', 'bed', REST_SLOT]);
 
+		console.log('HOME SLOT: ' + this.slots[HOME] );
 		if ( !this.slots[REST_SLOT] ) this.slots[REST_SLOT] = this.getData('rest');
 
 	}
@@ -344,7 +345,7 @@ export default class GameState {
 
 				var list = tagSets[t];
 				if ( !list ) {
-					items[t] = tagSets[t] = list = new TagSet();
+					items[t] = tagSets[t] = list = new TagSet(t);
 				}
 
 				list.add( it );

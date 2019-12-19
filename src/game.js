@@ -12,6 +12,8 @@ import DataLoader from './dataLoader';
 import Events, {EVT_UNLOCK, EVT_EVENT, EVT_LOOT, SET_SLOT, DELETE_ITEM } from './events';
 
 import { MONSTER, TYP_PCT, TYP_RANGE, P_TITLE, P_LOG, RESOURCE, TEAM_PLAYER } from './values/consts';
+import { logObj } from './util/util';
+import TagSet from './composites/tagset';
 
 var techTree;
 
@@ -111,7 +113,14 @@ export default {
 			if ( hallData ) this.addData( hallData );
 
 			this.recheckTiers();
+
+			console.log('HOUSE: ' + this.getData('house').value);
+			console.log('INN: ' + this.getData('innroom').value);
+
 			this.restoreMods();
+
+			console.log('HOUSE: ' + this.getData('house').value);
+			console.log('INN: ' + this.getData('innroom').value);
 
 			techTree = new TechTree( this.gdata );
 			Events.add( EVT_UNLOCK, techTree.unlocked, techTree );
@@ -196,10 +205,11 @@ export default {
 		for( let p in gdata ) {
 
 			var it = gdata[p];
+			if ( it instanceof TagSet) continue;
 
 			if ( !it.locked && !it.disabled && !(it.instanced||it.isRecipe) ) {
 
-				if ( it.id ==='points') console.log('POINTS VAL: '+ it.value );
+				//if ( it.id ==='points') console.log('POINTS VAL: '+ it.value );
 				if ( it.value != 0 ) {
 
 					if ( it.mod ) this.applyMods( it.mod, it.value, it.id);
@@ -1137,19 +1147,16 @@ export default {
 	 */
 	lock(id, amt=1 ) {
 
-		if (  Array.isArray(id)) {
+		if ( Array.isArray(id)) {
 			id.forEach( v=>this.lock(v, amt ), this );
 		} else if ( typeof id === 'object' ) {
 
-			id.locks += amt;
-			id.dirty =true;
+			id.lock(amt);
 
 		} else {
 
 			let it = this.getData(id);
-			if ( it ) {
-				this.lock(it);
-			}
+			if ( it ) it.lock(amt);
 
 		}
 
