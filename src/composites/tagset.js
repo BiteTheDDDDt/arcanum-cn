@@ -31,7 +31,6 @@ export default class TagSet {
 
 	get locked() { return false;}
 	get owned(){return true;}
-	maxed(){ return false; }
 
 	constructor(vars=null ) {
 
@@ -108,7 +107,7 @@ export default class TagSet {
 	}
 
 	/**
-	 * Apply mod to every data of group.
+	 * Apply mod to every tagged item.
 	 * @param {Mod|Object} mods
 	 * @param {number} amt
 	 * @param {Object} [targ=null]
@@ -122,16 +121,36 @@ export default class TagSet {
 
 	}
 
+	hasTag(t){ return t === 'tagset'}
+
 	/**
-	 *
-	 * @param {*} p
+	 * Get raw array of tagged items.
+	 * @returns {GData[]}
 	 */
-	filter(p){
+	toArray(){
+		return Array.from(this.items);
 	}
 
 	/**
-	 * Wrap items forEach()
-	 * @param {*} p
+	 * Filter tagged items.
+	 * @param {v=>boolean} p
+	 * @returns {GData[]}
+	 */
+	filter(p){
+
+		let a = [];
+
+		for( let it of this.items ) {
+			if ( p(it) ) a.push(it);
+		}
+
+		return a;
+
+	}
+
+	/**
+	 * Wrap Set forEach()
+	 * @param {*=>*} p
 	 */
 	forEach(p){
 		return this.items.forEach(p);

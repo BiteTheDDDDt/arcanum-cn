@@ -64,7 +64,7 @@ export default {
 
 				if ( typeof v === 'string') {
 
-					this.list = Game.state.getTagSet( v );
+					this.list = Game.state.getTagSet( v ).toArray();
 
 				} else if ( Array.isArray(v ) ) {
 

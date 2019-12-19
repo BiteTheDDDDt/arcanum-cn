@@ -1,5 +1,6 @@
 import Game from './game';
 import { quickSplice } from './util/array';
+import TagSet from './composites/tagset';
 
 /**
  * @const {RegExp} FuncRE - regular expression to find tree relationships
@@ -163,7 +164,7 @@ export default class TechTree {
 	 */
 	mapUnlocks( item ) {
 
-		if ( !item.locked || item.disabled ) return;
+		if ( !item.locked || item.disabled || item instanceof TagSet ) return;
 
 		if ( item.require ) this.mapRequirement( item, item.require, this.unlocks );
 		if ( item.need ) this.mapRequirement( item, item.need, this.unlocks );
@@ -225,12 +226,9 @@ export default class TechTree {
 
 		if ( !src) return;
 		let it = this.items[src];
-
-		if ( it === undefined ) {
-			it = Game.state.getTagSet( src );
-			if ( it ) it.forEach( v=>this.mapUnlock(v.id,targ, graph) );
-			//else console.warn('unlocker not found: ' + src );
-			return;
+		if ( it === undefined ) return;
+		else if ( it instanceof TagSet ) {
+			return it.forEach( v=>this.mapUnlock(v.id,targ, graph) );
 		}
 
 		let map = graph[src];
