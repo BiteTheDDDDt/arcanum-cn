@@ -29,6 +29,22 @@ export default class Scaler extends RValue {
 
 	}
 
+	/**
+	 * Set value with no scaling.
+	 * @param {number} v
+	 */
+	set(v){
+		super.value = v;
+	}
+
+	/**
+	 * add value without delta scaling.
+	 * @param {*} v
+	 */
+	addUnscaled(v) {
+		super.value += v;
+	}
+
 	apply(v) {
 		this.value += v;
 	}

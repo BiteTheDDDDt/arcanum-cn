@@ -1,0 +1,124 @@
+{
+	"module":"sackmakers",
+	"data":{
+
+		"dungeons":[
+			{
+				"id":"sackguild",
+				"name":"guild of the sack makers",
+				"level":20,
+				"run":{
+					"stamina":5
+				},
+				"length":100,
+				"enemies":[
+					"sackweaver",
+					"pouchmerchant"
+				]
+
+			}
+
+		],
+		"monsters":[
+			{
+				"id":"sackthug",
+				"name":"guild thug",
+				"desc":"The guild's policies on outsiders crafting pouches is quite severe.",
+				"flavor":"",
+				"level":10,
+				"attack":{
+
+					"dmg":"10~20"
+				}
+
+			},
+			{
+				"id":"sackenforcer",
+				"name":"guild enforcer",
+				"desc":"",
+				"flavor":"",
+				"level":17
+			},
+			{
+				"id":"gemmerchant",
+				"name":"gem merchant",
+				"level":18,
+				"desc":"",
+				"hp":400,
+				"attack":[
+
+				]
+			},
+			{
+				"id":"pouchmerchant",
+				"name":"pouch merchant",
+				"desc":"The guild hires them to drain gold from others' pouches.",
+				"level":15,
+				"speed":20,
+				"hp":300,
+				"attack":{
+					"name":"transfer gold",
+					"gold":"-100~-200"
+				}
+
+			},
+			{
+				"id":"burlapgolem",
+				"name":"burlap golem",
+				"desc":"Woven golem filled with heavy sand",
+				"level":14,
+				"hp":500,
+				"attack":{
+					"name":"punch",
+					"dmg":"20~30"
+				}
+
+			},
+			{
+				"id":"sackweaver",
+				"level":19,
+				"hp":400,
+				"attack":[
+
+					{
+						"dot":{
+							"id":"sacked",
+							"name":"weave sack",
+							"duration":10,
+							"mod":{
+								"tohit":-10
+							}
+						}
+					},
+					{
+						"name":"club",
+						"dmg":"20~30"
+					}
+				],
+				"desc":"they use magic to weave strands of fabric into sacks.",
+				"flavor":""
+			}
+
+		],
+		"spells":[
+
+			{
+				"id":"mk_burlapgolem",
+				"name":"create burlap golem",
+				"school":"crafting",
+				"level":19,
+				"buy":{
+					"arcana":10,
+					"tomes":10
+				},
+				"cost":{
+					"mana":20
+				},
+				"result":"burlapgolem"
+			}
+
+		]
+
+	}
+
+}

@@ -57,6 +57,25 @@ export default class GenGroup {
 	}
 
 	/**
+	 *
+	 * @param {number} level
+	 * @param {boolean} fallback - if item of given level not found,
+	 * fall back to a lower level.
+	 */
+	randAt( level, fallback=true ) {
+
+		let levels = this.filterBy.level;
+		let a = levels[level];
+
+		if ( !a || a.length===0 ) {
+			return fallback ? this.randBelow(level-1) : null;
+		}
+
+		return randElm(a);
+
+	}
+
+	/**
 	 * Get random item with no restriction.
 	 * @returns {object}
 	 */

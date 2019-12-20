@@ -712,7 +712,7 @@
 			"arcana":0.5
 		},
 		"mod":{
-			"lore.scale":"5%",
+			"lore.rate":"5%",
 			"mana.rate":"3%",
 			"research.rate":"2%",
 			"arcana.rate":"1%"

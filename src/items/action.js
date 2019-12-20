@@ -35,21 +35,22 @@ export default class Action extends GData {
 
 		this._exp.value = v;
 
-		if ( (this._length && v>=this._length )
-			|| (!this._length && this.perpetual && v >= 1 ) ) {
+		this.checkComplete();
 
-			// does nothing currently.
-			this.complete( Game );
-
-		}
 
 	}
 
-	get scale(){
-		if ( !(this.exp instanceof Scaler) ) {
-			this.initExp( this._exp );
+	get rate(){
+		if (!this.exp) this.initExp(this._exp);
+		return this._rate;
+	}
+	set rate(v){
+
+		if (!this._rate ){
+			if (!this.exp) this.initExp(this._exp);
 		}
-		return this._exp.scale;
+		this._rate.set(v);
+
 	}
 
 	get length() { return this._length; }
@@ -71,6 +72,7 @@ export default class Action extends GData {
 	 */
 	initExp(v) {
 		this._exp = new Scaler( v||0, this.id + '.exp' );
+		this._rate = this._exp.scale;
 	}
 
 	constructor( vars=null ){
@@ -132,12 +134,25 @@ export default class Action extends GData {
 
 	canRun(g){ return (!this.timer ) && super.canRun(g);}
 
+	checkComplete() {
+
+		if ( (this._length && this._exp>=this._length )
+			|| (!this._length && this.perpetual && this._exp >= 1 ) ) {
+
+			// does nothing currently.
+			this.complete( Game );
+
+		}
+
+	}
+
 	/**
 	 * Update a running action.
 	 * @param {number} dt - elapsed time.
 	 */
 	update( dt ) {
-		//this.exp += this.rate*dt;
+		this.exp.addUnscaled( this.rate*dt );
+		this.checkComplete();
 	}
 
 	/**
@@ -151,7 +166,7 @@ export default class Action extends GData {
 		 */
 		this.value++;
 		this.change(g, 1);
-		this._exp = 0;
+		this._exp.set(0);
 
 		Events.emit( ACT_DONE, this );
 

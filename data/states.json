@@ -44,6 +44,10 @@
 		"id":"disgust",
 		"adj":"disgusted",
 		"flags":"noattack"
+	},
+	{
+		"id":"sacked",
+		"flags":"noattack,nodefend"
 	}
 
 ]

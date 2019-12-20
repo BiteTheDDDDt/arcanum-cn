@@ -126,7 +126,7 @@ export default class ItemGen {
 		if ( data.range ) level += (data.range*( -1 + 2*Math.random() ) );
 		level = Math.ceil(level);
 
-		let npc = this.groups.monster.randBelow( level );
+		let npc = this.groups.monster.randAt( level );
 		return npc ? this.npc(npc) : null;
 
 	}

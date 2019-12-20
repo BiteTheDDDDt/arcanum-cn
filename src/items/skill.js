@@ -40,7 +40,7 @@ export default class Skill extends Action {
 
 		}
 
-		if ( !this.buy ) this.buy = { "sp":1 };
+		if ( !this.buy ) this.buy = { sp:1 };
 
 		if ( !this.rate ) this.rate = new Stat( 0.5, this.id + '.rate' );
 		else if ( !this.rate.base ) this.rate.base = 0.5;
