@@ -151,7 +151,7 @@ export default class Action extends GData {
 	 * @param {number} dt - elapsed time.
 	 */
 	update( dt ) {
-		this.exp.addUnscaled( this.rate*dt );
+		this.exp.set( this._exp + this.rate*dt );
 		this.checkComplete();
 	}
 
