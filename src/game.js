@@ -1146,12 +1146,17 @@ export default {
 			id.forEach( v=>this.lock(v, amt ), this );
 		} else if ( typeof id === 'object' ) {
 
-			id.lock(amt);
+			if ( typeof id.lock !== 'function') {
+
+				console.log('no lock func: ' + id );
+
+			} else id.lock(amt);
 
 		} else {
 
 			let it = this.getData(id);
-			if ( it ) it.lock(amt);
+			if ( it && typeof it.lock !== 'function') console.log('no lock func: ' + id );
+			else if ( it ) it.lock(amt);
 
 		}
 

@@ -5,6 +5,7 @@ import Mod, { SetModIds } from '../values/mod';
 import { cloneClass, deprec } from '../util/util';
 import { TYP_MOD } from '../values/consts';
 import MinData from './mindata';
+import RValue from '../values/rvalue';
 
 export const setModCounts = ( m, v)=>{
 
@@ -152,7 +153,7 @@ export default {
 	get current() { return this.value },
 
 	/**
-	 * @property {number} ex - save/load alias for exp with no triggers.
+	 * @property {number} ex - save/load alias for exp without triggers.
 	 */
 	get ex(){return this._exp; },
 	set ex(v) { this._exp = v;},
@@ -256,7 +257,7 @@ export default {
 				if (  p === 'skipLocked' || p === 'value') continue;
 
 				var targ = this[p];
-				if ( targ instanceof Stat ) {
+				if ( targ instanceof RValue ) {
 
 					//console.log('APPLY ' + mods[p].id + ' to stat: '+ this.id + '.'+ p + ': ' + amt*mods[p] + ' : ' + (typeof mods[p]) );
 					targ.apply( mods[p], amt );

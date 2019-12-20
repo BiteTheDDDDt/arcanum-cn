@@ -68,6 +68,10 @@ export default class RValue {
 	add(v) { this.value += v }
 	set(v){ this.value = v; }
 
+	apply(mod,amt=1){
+		this.add(mod.value*amt);
+	}
+
 	/**
 	 * Apply standard modifier.
 	 * @param {Mod} mod

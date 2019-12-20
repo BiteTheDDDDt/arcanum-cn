@@ -2,6 +2,7 @@ import GData from './gdata';
 import Game from '../game';
 import Events, { ACT_DONE, ACT_IMPROVED } from '../events';
 import Stat from '../values/stat';
+import Scaler from '../values/scaler';
 
 export default class Action extends GData {
 
@@ -32,7 +33,8 @@ export default class Action extends GData {
 			return;
 		}
 
-		this._exp = v;
+		this._exp.value = v;
+
 		if ( (this._length && v>=this._length )
 			|| (!this._length && this.perpetual && v >= 1 ) ) {
 
@@ -41,6 +43,13 @@ export default class Action extends GData {
 
 		}
 
+	}
+
+	get scale(){
+		if ( !(this.exp instanceof Scaler) ) {
+			this.initExp( this._exp );
+		}
+		return this._exp.scale;
 	}
 
 	get length() { return this._length; }
@@ -56,13 +65,24 @@ export default class Action extends GData {
 
 	percent() { return 100*( this._exp / this._length ); }
 
+	/**
+	 * Initialize experience scaler.
+	 * @param {number} v
+	 */
+	initExp(v) {
+		this._exp = new Scaler( v||0, this.id + '.exp' );
+	}
+
 	constructor( vars=null ){
 
 		super(vars);
 
 		this.repeat = this.repeat === false ? false : true;
 		this.type = 'action';
-		if ( (this.length || this.perpetual) && !this._exp ) this._exp = 0;
+
+		if ( (this.length || this.perpetual)) {
+			this.initExp( this._exp );
+		}
 
 		this.running = this.running || false;
 
@@ -117,7 +137,7 @@ export default class Action extends GData {
 	 * @param {number} dt - elapsed time.
 	 */
 	update( dt ) {
-		this.exp += ( this.rate > 0 ? this.rate.valueOf() : 1 )*dt;
+		//this.exp += this.rate*dt;
 	}
 
 	/**

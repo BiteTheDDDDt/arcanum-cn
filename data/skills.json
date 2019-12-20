@@ -701,7 +701,7 @@
 	},
 	{
 		"id":"wizlore",
-		"name":"Wizard Lore",
+		"name":"wizard Lore",
 		"require":"(g.mage+g.highmage+g.wizard+g.wizard2+g.wizard3)>=2",
 		"school":"arcane",
 		"desc":"Many ask 'how?' Few think to ask, 'why?'",
@@ -712,7 +712,7 @@
 			"arcana":0.5
 		},
 		"mod":{
-			"lore.rate":"5%",
+			"lore.scale":"5%",
 			"mana.rate":"3%",
 			"research.rate":"2%",
 			"arcana.rate":"1%"

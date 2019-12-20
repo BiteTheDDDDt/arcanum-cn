@@ -255,7 +255,7 @@
 			"runelore.rate":"10%",
 			"spiritlore.max":1,
 			"spiritlore.rate":0.1,
-			"lore.rate":"10%"
+			"lore.scale":"10%"
 		}
 	},
 	{

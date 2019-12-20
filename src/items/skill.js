@@ -1,6 +1,7 @@
 import Action from './action';
 import Stat from '../values/stat';
 import { SKILL } from '../values/consts';
+import Scaler from '../values/scaler';
 
 const EXP_RATIO = 0.35;
 
@@ -39,11 +40,12 @@ export default class Skill extends Action {
 
 		}
 
-		if (!super.exp ) super.exp = 0;
 		if ( !this.buy ) this.buy = { "sp":1 };
 
 		if ( !this.rate ) this.rate = new Stat( 0.5, this.id + '.rate' );
 		else if ( !this.rate.base ) this.rate.base = 0.5;
+
+		if ( !(this.exp instanceof Scaler) ) this.initExp( this._exp );
 
 		if (  !this.max ) this.max = new Stat(5, this.id + '.max', true );
 
