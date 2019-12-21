@@ -52,9 +52,7 @@ export default class Locale extends Action {
 		/**
 		 * @property {number} progress
 		 */
-		console.log('pre ex: ' + this.ex + ' _exp: ' + this._exp );
 		this.ex = this.ex || 0;
-		console.log( this.id + ' ex: ' + this.exp + ' : ' + this.exp.value );
 		this._length = this._length || 100;
 
 		// default require for dungeon is player-level.

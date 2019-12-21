@@ -15,7 +15,7 @@ export default class Range {
 
 	/**
 	 * @property {number} value - getting a range value
-	 * returns a random number in the range, inclusive.
+	 * returns a random number in the range, max exclusive.
 	 */
 	get value() {
 		return this.min + Math.random()*( this.max - this.min );
