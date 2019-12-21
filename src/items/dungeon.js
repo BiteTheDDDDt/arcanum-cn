@@ -49,10 +49,7 @@ export default class Dungeon extends Action {
 
 		this.type = DUNGEON;
 
-		/**
-		 * @property {number} progress
-		 */
-		this._exp = this._exp || 0;
+		this.ex = this.ex || 0;
 		if (!this.length) this.length = 10*this.level;
 
 		// default require for dungeon is player-level.

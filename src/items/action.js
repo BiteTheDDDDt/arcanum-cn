@@ -20,6 +20,13 @@ export default class Action extends GData {
 	get level() {return this._level;}
 	set level(v) { this._level = v;}
 
+	get ex(){
+		return this._exp;
+	}
+	set ex(v){
+		this._exp = v instanceof Scaler ? v : new Scaler( v, this.id + ' .exp');
+	}
+
 	/**
 	 * @property {number} exp - alias ex data files.
 	 */
@@ -33,24 +40,17 @@ export default class Action extends GData {
 			return;
 		}
 
-		this._exp.value = v;
 
 		this.checkComplete();
 
 
 	}
 
-	get rate(){
-		if (!this.exp) this.initExp(this._exp);
-		return this._rate;
-	}
+	get rate(){ return this._rate; }
 	set rate(v){
 
-		if (!this._rate ){
-			if (!this.exp) this.initExp(this._exp);
-		}
-		this._rate.set(v);
-
+		this.ex = this.ex || 0;
+		this._rate = this._exp.scale = v instanceof Stat ? v : new Stat(v, this.id + '.rate' );
 	}
 
 	get length() { return this._length; }
@@ -66,15 +66,6 @@ export default class Action extends GData {
 
 	percent() { return 100*( this._exp / this._length ); }
 
-	/**
-	 * Initialize experience scaler.
-	 * @param {number} v
-	 */
-	initExp(v) {
-		this._exp = new Scaler( v||0, this.id + '.exp' );
-		this._rate = this._exp.scale;
-	}
-
 	constructor( vars=null ){
 
 		super(vars);
@@ -83,7 +74,9 @@ export default class Action extends GData {
 		this.type = 'action';
 
 		if ( (this.length || this.perpetual)) {
-			this.initExp( this._exp );
+
+			this.ex = this.ex || 0;
+
 		}
 
 		this.running = this.running || false;
@@ -151,7 +144,7 @@ export default class Action extends GData {
 	 * @param {number} dt - elapsed time.
 	 */
 	update( dt ) {
-		this.exp.set( this._exp + this.rate*dt );
+		this.exp.set( this._exp + (this.rate||1)*dt );
 		this.checkComplete();
 	}
 

@@ -23,7 +23,7 @@
 			{
 				"id":"sackthug",
 				"name":"guild thug",
-				"desc":"The guild's policies on outsiders crafting pouches is quite severe.",
+				"desc":"The guild's policies on outsiders selling pouches are strictly enforced.",
 				"flavor":"",
 				"level":10,
 				"attack":{

@@ -28,6 +28,9 @@ export default class GenGroup {
 
 	}
 
+	subgroup(){
+	}
+
 	/**
 	 * Get a random item at or below the given level.
 	 * @property {number} level - max item level.

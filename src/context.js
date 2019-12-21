@@ -7,6 +7,12 @@ export default class Context {
 	get state(){return this._state;}
 	set state(v) { this._state=v}
 
+	/**
+	 * @property {Char} caster - caster/user of any spell/action.
+	 */
+	get caster(){return this._caster;}
+	set caster(v){this._caster = v}
+
 	constructor( stateObj ) {
 
 		this.state = stateObj;

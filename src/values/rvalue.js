@@ -61,7 +61,7 @@ export default class RValue {
 	constructor( vars=0, path=null ){
 
 		this.id = path;
-		this._base = vars;
+		this._base = vars || 0;
 
 	}
 

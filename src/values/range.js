@@ -50,6 +50,15 @@ export default class Range {
 	}
 
 	/**
+	 * Test if a number is within the range, endpoints included.
+	 * @param {number} v
+	 * @returns {boolean}
+	 */
+	contains(v) {
+		return v >= this.min && v <= this.max;
+	}
+
+	/**
 	 * Return a percent of the range value.
 	 * @param {number} pct - decimal percent.
 	 */
