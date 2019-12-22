@@ -20,6 +20,19 @@ export default class RValue {
 	toJSON(){return this._base;}
 
 	/**
+	 * @property {object} owner - object that defines the value,
+	 * if any.
+	 */
+	get owner(){return this._owner;}
+	set owner(v) { this._owner = v;}
+
+	/**
+	 * @property {object} target - target modified.
+	 */
+	get target(){return this._target;}
+	set target(v){this._target=v}
+
+	/**
 	 * @property {boolean} isRVal - simple test for RVal interface.
 	 */
 	get isRVal(){return true;}
@@ -85,8 +98,8 @@ export default class RValue {
 	 * Get amount when applied as an effect.
 	 * @param {}
 	 */
-	getEffect() {
-		//console.log( this.id + ' getEffect: ' + this.value );
+	getApply() {
+		//console.log( this.id + ' getApply: ' + this.value );
 		return this.value;
 	}
 

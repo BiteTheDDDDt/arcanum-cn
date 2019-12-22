@@ -157,10 +157,38 @@ export default class GData {
 	valueOf(){ return this._value.valueOf(); }
 
 	/**
+	 * Set owner property of all RValue subs to this.
+	 */
+	initRVals(obj=this){
+
+		for( let p in obj ) {
+
+			var s = this[p];
+			if ( !s ) continue;
+			if ( Array.isArray(s) ) {
+
+				for( let i = s.length-1; i>= 0; i-- ) {
+					if ( typeof s === 'object') this.initRVals(s);
+				}
+
+			} else if ( typeof s === 'object') {
+
+				if ( s.isRVal ) s.owner = this;
+				else this.initRVals( s );
+
+			}
+
+		}
+
+	}
+
+	/**
 	 *
 	 * @param {?Object} [vars=null]
 	 */
 	constructor( vars=null, defaults=null ){
+
+		this.initRVals();
 
 		if ( vars ) {
 

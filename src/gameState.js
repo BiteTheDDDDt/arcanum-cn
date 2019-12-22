@@ -485,6 +485,10 @@ export default class GameState {
 
 	}
 
+	makeDataList(list) {
+		return new DataList(list);
+	}
+
 	/**
 	 * Should only be used for custom items.
 	 * Call from Game so DELETE_ITEM event called.

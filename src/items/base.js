@@ -229,28 +229,28 @@ export default {
 
 	/**
 	 *
-	 * @param {Object} mods - effect/mod description.
+	 * @param {Object} vars - values to change/add.
 	 * @param {number} amt - factor of base amount added
 	 * ( fractions of full amount due to tick time. )
 	 */
-	applyVars( mods, amt=1 ) {
+	applyVars( vars, amt=1 ) {
 
-		if ( typeof mods === 'number') {
+		if ( typeof vars === 'number') {
 
 			//deprec( this.id + ' mod: ' + mods );
-			this.value = this.value.base + mods*amt;
+			this.value = this.value.base + vars*amt;
 
-		} else if ( mods.isRVal ) {
+		} else if ( vars.isRVal ) {
 
 			//this.amount( Game, mods*amt );
-			this.value = this.value.base + amt*mods.getEffect( Game.state, this );
+			this.value = this.value.base + amt*vars.getApply( Game.state, this );
 
 
-		} else if ( typeof mods === 'object' ) {
+		} else if ( typeof vars === 'object' ) {
 
-			if ( mods.mod ) this.changeMod( mods.mod, amt );
+			if ( vars.mod ) this.changeMod( vars.mod, amt );
 
-			for( let p in mods ) {
+			for( let p in vars ) {
 
 				// add any final value last.
 				if (  p === 'skipLocked' || p === 'value') continue;
@@ -259,35 +259,35 @@ export default {
 				if ( targ instanceof RValue ) {
 
 					//console.log('APPLY ' + mods[p].id + ' to stat: '+ this.id + '.'+ p + ': ' + amt*mods[p] + ' : ' + (typeof mods[p]) );
-					targ.apply( mods[p], amt );
+					targ.apply( vars[p], amt );
 
-				} else if ( typeof mods[p] === 'object' ) {
+				} else if ( typeof vars[p] === 'object' ) {
 
-					if ( mods[p].type === TYP_MOD ) {
+					if ( vars[p].type === TYP_MOD ) {
 
-						mods[p].applyTo( this, p, amt );
+						vars[p].applyTo( this, p, amt );
 
 					} else if ( typeof targ === 'number' ) {
 
 						//deprec( this.id + ' targ: ' + p + ': ' + targ );
-						this[p] += Number(mods[p])*amt;
+						this[p] += Number(vars[p])*amt;
 					} else {
 						//console.log( mods + ' subapply: ' + p);
-						this.subeffect( this[p], mods[p], amt );
+						this.subeffect( this[p], vars[p], amt );
 					}
 
 				} else if ( this[p] !== undefined ) {
 
 					//console.log( this.id + ' adding vars: ' + p );
-					this[p] += Number(mods[p])*amt;
+					this[p] += Number(vars[p])*amt;
 
 				} else {
 					console.log('NEW SUB: ' + p );
-					this.newSub( this, p, mods[p], amt )
+					this.newSub( this, p, vars[p], amt )
 				}
 
 			}
-			if ( mods.value ) this.value += (mods.value)*amt;
+			if ( vars.value ) this.value += (vars.value)*amt;
 
 		}
 

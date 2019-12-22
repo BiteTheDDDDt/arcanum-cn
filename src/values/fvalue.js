@@ -51,7 +51,7 @@ export default class FValue extends RValue {
 	 * @param {GameState} gs
 	 * @param {*} targ
 	 */
-	getEffect( gs, targ ) {
+	getApply( gs, targ ) {
 		return this._fn( gs, targ );
 	}
 }

@@ -17,6 +17,20 @@ export default class Modulus extends RValue {
 
 		super( 0, id );
 
+		if ( typeof vars === 'number') this.value = vars;
+		else if ( typeof vars === 'string') {
+
+			if ( vars.length >= 0 && vars[0] === '%'){
+				this.value = Number(vars.slice(1));
+			} else {
+				console.warn('Invalid modulus: ' + vars );
+				this.value = 0;
+			}
+
+		} else {
+			this.value = Number(vars);
+		}
+
 	}
 
 	/**
@@ -24,8 +38,8 @@ export default class Modulus extends RValue {
 	 * @param {*} gs
 	 * @param {*} targ
 	 */
-	getEffect(gs, targ) {
-		return (targ.value % this.value ) === 0 ? 1 : 0;
+	getApply(gs, targ) {
+		return (this.owner && ( this.owner.value % this.value  === 0 ) ) ? 1 : 0;
 	}
 
 
