@@ -31,14 +31,7 @@ export default class Mod extends Stat {
 			(this.base || '') + (( this._basePct > 0 ? '+' : '') + (100*this.basePct)  + '%')
 		);
 
-		/**
-		 * @todo maybe save as (val)xcount
-		 * count might not even be relevant any more.
-		 */
-		return {
-			str:val,
-			count:this.count.valueOf()
-		};
+		return val;
 
 	}
 
@@ -60,7 +53,7 @@ export default class Mod extends Stat {
 	/**
 	 * @property {number} [count=0] - number of times mod is applied.
 	 */
-	get count() { return this._count; }
+	get count() { return this._count || (this.owner?this.owner.value : 1); }
 	set count(v) {
 
 		/**
@@ -121,8 +114,8 @@ export default class Mod extends Stat {
 
 	}
 
-	get pctTot(){return this.pct*this._count;}
-	get bonusTot(){return this.bonus*this._count;}
+	get pctTot(){return this.pct*this.count;}
+	get bonusTot(){return this.bonus*this.count;}
 
 	get type(){ return TYP_MOD }
 
@@ -141,13 +134,10 @@ export default class Mod extends Stat {
 			if ( vars.value ) {
 				/** @compat */
 				this.str = vars.value;
-				this.count = vars.count;
 			} else assign( this, vars );
 
 
 		}
-
-		if( this._count === undefined || this._count === null ) this._count = 1;
 
 		this.base = this.base || 0;
 		this.basePct = this.basePct || 0;
@@ -156,7 +146,7 @@ export default class Mod extends Stat {
 
 	}
 
-	clone() { return new Mod({base:this.base, basePct:this.basePct, count:1}, this.id ); }
+	clone() { return new Mod({base:this.base, basePct:this.basePct }, this.id ); }
 
 	/**
 	 * Apply this modifier to a given target.
