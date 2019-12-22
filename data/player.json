@@ -13,7 +13,19 @@
 		"val":0,
 		"unit":true,
 		"stat":true,
-		"locked":false
+		"locked":false,
+		"mod":{
+			"spelllist.max":1,
+			"stamina.max":1,
+			"tohit":1,
+			"hp.max":1,
+			"allies.max":"/5",
+			"speed":"/4"
+		},
+		"result":{
+			"sp":"%3"
+		}
+
 	},
 	{
 

@@ -38,14 +38,21 @@ export default class Context {
 	canPay(it) {
 	}
 
+	/**
+	 * Default will do nothing for now.
+	 * @param {*} cost
+	 */
+	payCost(cost) {
+	}
+
 	canUse(it) {
 
 	}
 
-	applyMods(it) {
+	applyMods( it, amt=1) {
 	}
 
-	applyVars(it) {
+	applyVars( it, amt ) {
 	}
 
 }

@@ -13,6 +13,7 @@ import {assign} from 'objecty';
 import {applyAttack} from '../composites/combat';
 import Context from '../context';
 import Game from '../game';
+import DataList from '../inventories/dataList';
 
 export default class Char {
 
@@ -53,7 +54,7 @@ export default class Char {
 	get spells(){ return this._spells; }
 	set spells(v) {
 		if ( typeof v === 'string') {
-			this._spells = v.split(',');
+			this._spells = new DataList(v);
 		} else this._spells=v;
 	}
 
@@ -241,10 +242,17 @@ export default class Char {
 	}
 
 	/**
+	 * try casting spell from player spelllist.
+	 */
+	tryCast(){
+		return ( this.spells && this.spells.onUse(this.context) );
+	}
+
+	/**
 	 *
 	 * @param {GData} spell
 	 */
-	cast( spell ) {
+	tryCast( spell ) {
 
 
 	}

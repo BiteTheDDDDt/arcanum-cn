@@ -4,7 +4,6 @@ import Stat from '../values/stat';
 import Mod, { SetModIds } from '../values/mod';
 import { cloneClass, deprec } from '../util/util';
 import { TYP_MOD } from '../values/consts';
-import MinData from './mindata';
 import RValue from '../values/rvalue';
 
 export const setModCounts = ( m, v)=>{

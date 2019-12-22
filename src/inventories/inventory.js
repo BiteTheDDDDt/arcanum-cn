@@ -75,7 +75,16 @@ export default class Inventory {
 
 	constructor(vars=null){
 
-		if ( vars ) Object.assign(this,vars);
+		if ( vars ) {
+
+			if ( typeof vars === 'string') {
+				this.items = vars.split(',');
+			} else if ( Array.isArray(vars)){
+				this.items = vars;
+			}
+			else Object.assign(this,vars);
+
+		}
 
 		if ( !this.items ) this.items = [];
 

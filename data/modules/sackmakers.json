@@ -21,6 +21,18 @@
 		],
 		"monsters":[
 			{
+				"id":"sackapprentice",
+				"name":"sackmaker apprentice",
+				"desc":"They have no respect for wizard apprentices.",
+				"level":2,
+				"hp":50,
+				"attack":{
+					"name":"sewing needle",
+					"dmg":"5~10"
+				}
+
+			},
+			{
 				"id":"sackthug",
 				"name":"guild thug",
 				"desc":"The guild's policies on outsiders selling pouches are strictly enforced.",
@@ -34,7 +46,7 @@
 			},
 			{
 				"id":"sackenforcer",
-				"name":"guild enforcer",
+				"name":"sack guild enforcer",
 				"desc":"",
 				"flavor":"",
 				"level":17
@@ -75,6 +87,18 @@
 
 			},
 			{
+				"id":"sackjman",
+				"name":"sack-maker journeyman",
+				"desc":"",
+				"level":16,
+				"hp":50,
+				"attack":{
+					"name":"punch",
+					"dmg":"40~50"
+				}
+
+			},
+			{
 				"id":"sackweaver",
 				"level":19,
 				"hp":400,
@@ -97,6 +121,18 @@
 				],
 				"desc":"they use magic to weave strands of fabric into sacks.",
 				"flavor":""
+			},
+			{
+				"id":"sacklodge",
+				"name":"sackmaker's lodge master",
+				"desc":"",
+				"level":20,
+				"hp":900,
+				"attack":{
+					"name":"punch",
+					"dmg":"20~30"
+				}
+
 			}
 
 		],

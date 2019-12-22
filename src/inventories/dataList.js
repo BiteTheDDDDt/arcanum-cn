@@ -15,7 +15,7 @@ export default class DataList extends Inventory {
 	toJSON(){
 
 		let data = super.toJSON();
-		data.order = this.order;
+		if ( data.order !== LOOP ) data.order = this.order;
 		data.lastInd = this.lastInd || undefined;
 
 		return data;

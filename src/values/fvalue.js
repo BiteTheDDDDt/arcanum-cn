@@ -48,7 +48,7 @@ export default class FValue extends RValue {
 
 	/**
 	 * Get value of a result or effect.
-	 * @param {*} gs
+	 * @param {GameState} gs
 	 * @param {*} targ
 	 */
 	getEffect( gs, targ ) {

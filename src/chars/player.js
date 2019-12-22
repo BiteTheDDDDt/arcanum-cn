@@ -216,11 +216,11 @@ export default class Player extends Char {
 
 	}
 
-	get context() { return Game; }
-
 	constructor( vars=null ){
 
 		super(vars);
+
+		this.context = Game;
 
 		this.id = this.type = "player";
 		if ( !vars || !vars.name) this.name = 'wizrobe';
@@ -315,7 +315,7 @@ export default class Player extends Char {
 	begin() {
 
 		for( let i = this.dots.length-1; i>=0; i-- ){
-			if ( this.dots[i].mod) Game.applyMods( this.dots[i].mod, 1 );
+			if ( this.dots[i].mod) this.context.applyMods( this.dots[i].mod, 1 );
 		}
 
 	}
@@ -370,13 +370,6 @@ export default class Player extends Char {
 	}
 
 	/**
-	 * try casting spell from player spelllist.
-	 */
-	tryCast(){
-		if ( !this.spells.onUse(Game) ) return false;
-	}
-
-	/**
 	 * @returns {Resource[]} - list of all resources defined by Player.
 	 */
 	getResources() {
@@ -417,8 +410,6 @@ export default class Player extends Char {
 		if ( this._level % 3 === 0 ) this.sp.add(1);
 		if ( this._level % 5 === 0 ) Game.getData('minions').allies.base += 1;
 		if ( this._level % 4 === 0 ) Game.getData('speed').add(1);
-
-		Game.getData('spelllist').max.base += 1;
 
 		this.tohit.base += 1;
 		this.hp.max.base += 2;
