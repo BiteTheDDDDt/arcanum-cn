@@ -3,6 +3,7 @@ import Game from '../game';
 import { getDist, distTest, levelTest } from './locale';
 import { mapNonNull } from '../util/array';
 import { DUNGEON, RAID } from '../values/consts';
+import Spawns from '../composites/spawner';
 
 /**
  * @type {Object} Enemy
@@ -23,16 +24,16 @@ export default class Dungeon extends Action {
 	get once() { return this._once; }
 	set once(v) { this._once = v; }
 
-	get enemies() { return this._enemies; }
-	set enemies(v) {
+	/**
+	 * @compat
+	 */
+	set enemies(){return this._spawns;}
 
-		// json data not true arrays.
-		/*let a = [];
+	get spawns() { return this._spawns; }
+	set spawns(v) {
 
-		for( let p in v) {
-			a.push( v[p]);
-		}*/
-		this._enemies=v;
+		this._spawns = v instanceof Spawns ? v : new Spawns(v);
+
 	}
 
 	get proxy(){return RAID}
@@ -90,11 +91,11 @@ export default class Dungeon extends Action {
 	 */
 	getMob() {
 
-		if ( Array.isArray( this._enemies ) ) {
-			return this._enemies[ Math.floor( Math.random()*this._enemies.length ) ];
+		if ( Array.isArray( this._spawns ) ) {
+			return this._spawns[ Math.floor( Math.random()*this._spawns.length ) ];
 		} else {
 
-			return this._enemies;
+			return this._spawns;
 
 		}
 
