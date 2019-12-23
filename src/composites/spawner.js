@@ -17,6 +17,7 @@ export default class Spawns {
 	 */
 	get weightTot(){ return this._weightTot; }
 	set weightTot(v) { this._weightTot = v}
+
 	constructor(vars){
 
 		if ( Array.isArray(vars) ) {
@@ -25,6 +26,7 @@ export default class Spawns {
 
 		} else if ( vars ) {
 
+			Object.assign( this, vars );
 
 		}
 
@@ -32,8 +34,34 @@ export default class Spawns {
 
 	/**
 	 * Get a random spawn group.
+	 * @note faster would be sorted groups and binary search.
+	 * @returns {SpawnGroup}
 	 */
-	getRand() {
+	random() {
+
+		if ( this._groups ) return this.randGroup();
+
+	}
+
+	/**
+	 * Get random group from groups list.
+	 */
+	randGroup(){
+
+		let p = Math.random()*this.weightTot;
+		let tot = 0;
+
+		let len = this.groups.length;
+		for( let i =0; i < len; i++ ) {
+
+			tot += this.groups[i].weight;
+			if ( p <= tot ) return this.groups[i];
+
+		}
+
+		// shouldn't happen.
+		return len > 0 ? this.groups[0] : null;
+
 	}
 
 	initGroups( list ){

@@ -4,6 +4,7 @@ import { getDist, distTest, levelTest } from './locale';
 import { mapNonNull } from '../util/array';
 import { DUNGEON, RAID } from '../values/consts';
 import Spawns from '../composites/spawner';
+import SpawnGroup from '../composites/spawngroup';
 
 /**
  * @type {Object} Enemy
@@ -79,25 +80,15 @@ export default class Dungeon extends Action {
 
 	/**
 	 * Get next enemy.
-	 * @returns {string|string[]|object}
+	 * @returns {string|string[]|object|SpawnGroup}
 	 */
-	getEnemy() {
-		return this.hasBoss( this.boss, this.exp ) ? this.getBoss( this.boss ) : this.getMob();
-	}
+	getSpawn() {
 
-	/**
-	 * Return a random non-boss mob. (Used to exclude dead/locked uniques)
-	 * @returns {?string}
-	 */
-	getMob() {
+		if ( this.hasBoss( this.boss, this.exp ) ) return this.getBoss( this.boss );
 
-		if ( Array.isArray( this._spawns ) ) {
-			return this._spawns[ Math.floor( Math.random()*this._spawns.length ) ];
-		} else {
+		if ( this.spawns ) return this.spawns.random();
 
-			return this._spawns;
-
-		}
+		return null;
 
 	}
 

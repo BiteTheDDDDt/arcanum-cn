@@ -4,6 +4,7 @@ import Game from '../game';
 import Combat from './combat';
 import { getDelay } from '../chars/char';
 import { RAID, TYP_PCT } from '../values/consts';
+import SpawnGroup from './spawngroup';
 
 
 /**
@@ -159,53 +160,22 @@ export default class Raid {
 		/**
 		 * @todo: maket this happen automatically.
 		 */
-		this.setEnemies( this.locale.getEnemy(), this.exp/this.length );
+		this.setSpawns( this.locale.getSpawn(), this.exp/this.length );
 
 	}
 
-	setEnemies( enemy, pct ) {
+	setSpawns( spawns, pct ) {
 
-		var enemies = [];
-		var e;
+		if ( spawns instanceof SpawnGroup ) {
 
-		if (  Array.isArray(enemy)){
-
-			for( let i = enemy.length-1; i >=0; i-- ) {
-				e = this.makeEnemy( enemy[i], pct);
-				if ( e ) enemies.push(e);
-			}
+			this.combat.setEnemies( spawns.instantiate(pct) );
 
 		} else {
 
-			e = this.makeEnemy(enemy, pct);
-			if ( e ) enemies.push(e);
-
 		}
-
-		this.combat.setEnemies( enemies );
 
 	}
 
-	/**
-	 * Retrieve enemy template data from enemy string or build object.
-	 */
-	makeEnemy( e, pct=1 ) {
-
-		if ( typeof e === 'string' ) {
-
-			e = Game.getData(e);
-			if ( e ) return Game.itemGen.npc(e);
-
-		}
-		if ( !e ) return null;
-
-		// generate enemy from parameters.
-		e = Game.itemGen.randEnemy( e, null, pct );
-		if ( !e) {console.warn( 'Missing Enemy: ') }
-
-		return e;
-
-	}
 
 	enemyDied( enemy, attacker ) {
 
