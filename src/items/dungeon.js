@@ -28,7 +28,8 @@ export default class Dungeon extends Action {
 	/**
 	 * @compat
 	 */
-	set enemies(){return this._spawns;}
+	get enemies(){return this.spawns;}
+	set enemies(v){this._spawns = v }
 
 	get spawns() { return this._spawns; }
 	set spawns(v) {
