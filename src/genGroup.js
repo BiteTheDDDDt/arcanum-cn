@@ -18,7 +18,7 @@ export default class GenGroup {
 	 */
 	constructor( items ){
 
-		this.items= items.filter( v=>!v.unique );
+		this.items= items.filter( v=>!v.unique&&!v.noproc );
 
 		/**
 		 * Data split/grouped by a variable/subcategory of the data
@@ -26,6 +26,9 @@ export default class GenGroup {
 		 */
 		this.filterBy = {};
 
+	}
+
+	subgroup(){
 	}
 
 	/**
@@ -53,6 +56,25 @@ export default class GenGroup {
 		} while ( --level >= 0 );
 
 		return it;
+
+	}
+
+	/**
+	 *
+	 * @param {number} level
+	 * @param {boolean} fallback - if item of given level not found,
+	 * fall back to a lower level.
+	 */
+	randAt( level, fallback=true ) {
+
+		let levels = this.filterBy.level;
+		let a = levels[level];
+
+		if ( !a || a.length===0 ) {
+			return fallback ? this.randBelow(level-1) : null;
+		}
+
+		return randElm(a);
 
 	}
 
