@@ -113,7 +113,7 @@ export default class Item {
 			cloneClass( this.template, this );
 		}
 
-		if ( this.mod ) this.mod = ParseMods( this.mod, this.id );
+		if ( this.mod ) this.mod = ParseMods( this, this.mod, this.id );
 
 	}
 

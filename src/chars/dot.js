@@ -99,7 +99,7 @@ export default class Dot {
 		 */
 		if ( this.mod ){
 
-			this.mod = ParseMods( this.mod, this.id );
+			this.mod = ParseMods( this, this.mod, this.id );
 
 			setModCounts( this.mod, this );
 		}
@@ -145,10 +145,7 @@ export default class Dot {
 	}
 
 	revive(state) {
-
 		if ( this.source && typeof this.source === 'string') this.source = state.getData( this.source );
-		//if ( this.mod ) this.mod = ParseMods(this.mod, this.id);
-
 	}
 
 	/**

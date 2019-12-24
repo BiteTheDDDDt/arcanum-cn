@@ -247,15 +247,6 @@ export default class Char {
 		return ( this.spells && this.spells.onUse(this.context) );
 	}
 
-	/**
-	 *
-	 * @param {GData} spell
-	 */
-	tryCast( spell ) {
-
-
-	}
-
 	reviveDots(gs) {
 		for( let i = this.dots.length-1; i>=0; i--) {
 			this.dots[i].revive(gs);

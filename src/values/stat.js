@@ -59,6 +59,12 @@ export default class Stat extends RValue {
 	set base(v) { this._base = v; }
 
 	/**
+	 * @property {number} pct - decimal percent
+	 */
+	get basePct() { return this._basePct; }
+	set basePct(v) { this._basePct = v; }
+
+	/**
 	 * @property {number} pct - total decimal percent, both modified and base.
 	 * This is the percent-added and does not include the initial '1' percent.
 	 */
@@ -69,12 +75,6 @@ export default class Stat extends RValue {
 	 * @property {number} baseTot - total base before percents applied.
 	 */
 	get baseTot(){ return this._base + this._mBase;}
-
-	/**
-	 * @property {number} pct - decimal percent
-	 */
-	get basePct() { return this._basePct; }
-	set basePct(v) { this._basePct = v; }
 
 	/**
 	 * @property {number} bonus - total bonus to base, computed from mods.
@@ -253,13 +253,6 @@ export default class Stat extends RValue {
 	}
 
 	/**
-	 * Test if a mod can be applied to this stat without value becoming negative.
-	 * @param {Mod} mod
-	 * @param {number} amt
-	 */
-	canApply( mod, amt ) { return this.delValue( amt*(mod.bonus||0), amt*(mod.pct||0) )>=0; }
-
-	/**
 	 * Get the new stat value if base and percent are changed
 	 * by the given amounts.
 	 * @param {number} delBonus - delta base.
@@ -283,8 +276,8 @@ export default class Stat extends RValue {
 			var mod = this._mods[p];
 			if (mod === undefined ) continue;
 
-			pct += mod.count*mod.pct;
-			bonus += mod.count*mod.bonus;
+			pct += mod.pctTot;
+			bonus += mod.bonusTot;
 
 		}
 

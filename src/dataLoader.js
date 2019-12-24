@@ -365,7 +365,7 @@ export const prepData = ( sub, id='' ) => {
 
 			if ( p === 'mod') {
 
-				sub[p] = ParseMods( sub[p], sub.id || id );
+				sub[p] = ParseMods( null, sub[p], id );
 				continue;
 			} else if ( p ==='effect' || p === 'result' ) {
 

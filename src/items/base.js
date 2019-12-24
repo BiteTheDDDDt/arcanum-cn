@@ -4,7 +4,7 @@ import Stat from '../values/stat';
 import Mod, { SetModIds } from '../values/mod';
 import { cloneClass, deprec } from '../util/util';
 import { TYP_MOD } from '../values/consts';
-import RValue from '../values/rvalue';
+import RValue, { SubPath } from '../values/rvalue';
 
 export const setModCounts = ( m, v)=>{
 
@@ -387,7 +387,7 @@ export default {
 
 					/// @todo stat switch?
 					//console.warn('NEW STAT: ' + p + ' : ' + (m*amt ) );
-					targ[p] = new Stat( targ[p] + m*amt );
+					targ[p] = new Stat( targ[p] + m*amt, SubPath(this.id, p) );
 					//targ[p] += m*amt;
 
 				} else this.applyMods( m, amt, subTarg);

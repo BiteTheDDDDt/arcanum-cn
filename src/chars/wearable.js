@@ -161,7 +161,7 @@ export default class Wearable extends Item {
 
 		}
 
-		if ( this.mod ) this.mod = ParseMods( this.mod, this.id );
+		if ( this.mod ) this.mod = ParseMods( this, this.mod, this.id );
 
 		/*console.log('WEARABLE LEVEL: ' + this.level + ' MAT: '+ (this.material ? this.material.level : 0 )
 		 + ' base: ' + (this.template ? this.template.level : 0 ) );*/

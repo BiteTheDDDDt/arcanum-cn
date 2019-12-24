@@ -4,6 +4,7 @@ import { splitKeys, logObj } from '../util/util';
 import { precise } from '../util/format';
 import { TYP_MOD } from './consts';
 import { assign } from 'objecty';
+import { SubPath } from './rvalue';
 //import Emitter from 'eventemitter3';
 
 export const ModTest = /^([\+\-]?\d+\.?\d*\b)?(?:([\+\-]?\d+\.?\d*)\%)?$/i;
@@ -27,9 +28,9 @@ export default class Mod extends Stat {
 
 	toJSON(){
 
-		var val = this._basePct === 0 ? this.base : (
-			(this.base || '') + (( this._basePct > 0 ? '+' : '') + (100*this.basePct)  + '%')
-		);
+		if ( this._basePct === 0 ) return this.base;
+
+		var val = (this.base || '') + (( this._basePct > 0 ? '+' : '') + (100*this.basePct)  + '%');
 
 		return val;
 
@@ -70,14 +71,29 @@ export default class Mod extends Stat {
 	}
 
 	/**
-	 * @property {number} bonus - total flat bonus of mod.
+	 * @property {number} bonus - base bonus of mod.
 	 */
 	get bonus(){return (this.base + this.mBase)*(1+this.mPct); }
 	/**
-	 * @property {number} pct - total percent bonus of mod.
+	 * @property {number} pct - base percent bonus of mod.
 	 */
 	get pct(){return this.basePct * (1+ this.mPct); }
 
+	/**
+	 * @property {number} pctTot - base percent multiplied by number of times
+	 * mod is applied.
+	 */
+	get pctTot(){return this.pct*this.count;}
+
+	/**
+	 * @property {number} pctTot - base bonus multiplied by number of times
+	 * mod is applied.
+	 */
+	get bonusTot(){return this.bonus*this.count;}
+
+	/**
+	 * @compat
+	 */
 	get str() { return this.value; }
 	set str(v) {
 
@@ -114,19 +130,17 @@ export default class Mod extends Stat {
 
 	}
 
-	get pctTot(){return this.pct*this.count;}
-	get bonusTot(){return this.bonus*this.count;}
-
 	get type(){ return TYP_MOD }
 
 	/**
 	 *
 	 * @param {?Object} [vars=null]
 	 */
-	constructor( vars=null, id=null ){
+	constructor( vars=null, id=null, owner=null ){
 
 		super( null, id );
 
+		this.owner = owner;
 		if ( typeof vars === 'number') this.base = vars;
 		else if ( typeof vars === 'string') this.str = vars;
 		else if ( vars ) {
@@ -185,13 +199,20 @@ export default class Mod extends Stat {
  * @param {} mods
  * @returns {Object} parsed modifiers.
  */
-export const ParseMods = ( mods, id ) => {
+export const ParseMods = ( owner, mods, id ) => {
 
 	if ( !mods ) return null;
-	if (!id)logObj( mods, 'invalid mod: ' + id );
+	if (!id) {
+		if ( owner ) id = owner.id;
+		if ( !id ) {
+			id = '';
+			logObj( mods, 'invalid mod: ' + id );
+		}
+	}
 
-	mods = SubMods(mods, id);
+	mods = SubMods(owner, mods, id);
 
+	// @todo: no more key splitting. item tables?
 	splitKeys(mods);
 
 	return mods;
@@ -201,45 +222,35 @@ export const ParseMods = ( mods, id ) => {
 /**
  *
  */
-export const SubMods = (mods, id)=>{
+export const SubMods = ( owner, mods, id)=>{
 
 	if ( mods === null || mods === undefined ) return null;
 
 	if ( typeof mods === 'string' ) {
 
-		if ( ModTest.test(mods) ) return new Mod(mods, id );
+		if ( ModTest.test(mods) ) return new Mod( mods, id, owner );
 		return mods;
 
-	} else if ( typeof mods === 'number') return new Mod( mods, id );
+	} else if ( typeof mods === 'number') return new Mod( mods, id, owner );
+	else if ( typeof mods !== 'object' ) return mods;
+
+	// @note str is @compat
+	if ( mods.id || mods.base || mods.str ) return new Mod( mods, id, owner );
 
 	for( let s in mods ) {
 
 		let val = mods[s];
-		let typ = typeof val;
+		if ( !val) continue;
 
 		if ( val instanceof Mod ) {
 
-			//mods[s] = val.clone();
-			if ( id ) val.id = id;
+			if ( id ) val.id = SubPath(id, s);
+			val.owner = owner;
+			continue;
 
-		} else if ( typ === 'string') {
-
-			if( ModTest.test(val) ) {
-				mods[s] = new Mod( val, id );
-			}
-
-		} else if ( typ === 'number' ) {
-
-			mods[s] = new Mod(val, id);
-
-		} else if ( typ === 'object') {
-
-			if ( val.id || val.base || val.str ) mods[s] = new Mod(val, id );
-			else mods[s] = SubMods( val, id );
-
-		} else {
-			//logObj( mods, id + ' INVALID MOD ' + (typ) );
 		}
+
+		mods[s] = SubMods( owner, val, SubPath(id, s) );
 
 	}
 	return mods;

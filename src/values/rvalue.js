@@ -6,6 +6,16 @@ import { precise } from '../util/format';
 export const PercentTest = /^(\d+(?:\.?\d+)?)\%$/i
 export const RangeTest = /^\-?\d+\.?\d*\~\-?\d+\.?\d*$/i;
 
+/**
+ * Form sub-path.
+ * @param {string} id
+ * @param {string} child
+ * @returns {string}
+ */
+export const SubPath = ( id, child ) => {
+	return id + '.' + child;
+}
+
 /*Parse(str){
 
 	if ( PercentTest.test(str) ) return new Percent(str);
