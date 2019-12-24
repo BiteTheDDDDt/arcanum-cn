@@ -6,7 +6,7 @@
 		"cost":{
 			"stamina":0.4
 		},
-		"enemies":[
+		"spawns":[
 
 			{
 				"name":"Large Dummy",

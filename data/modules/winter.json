@@ -857,7 +857,7 @@
       		"desc":"You have survived the chilly winds and monsters of the white"
       	},
       	"boss":"iceyeti",
-      	"enemies":[
+      	"spawns":[
           ["frostelemental","frostelemental","frostelemental"],
 			  "avalanche",
 			["iceelemental","iceelemental"],
@@ -884,7 +884,7 @@
 		"length": 100,
 		"loot":"iceorb",
 		"boss":"frostgiant",
-		"enemies": [
+		"spawns": [
 			"w_blizzardguardian",
 			["icywinds", "w_blizzardguardian", "icywinds"],
 			["frostelemental", "iceelemental", "frostelemental"],

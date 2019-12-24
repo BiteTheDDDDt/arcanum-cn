@@ -453,7 +453,7 @@
 				"hp":0.1
 			},
 			"boss":"hal_baroness",
-			"enemies":[
+			"spawns":[
 				["undeadcrow","nec_ghast","nec_ghast"],
 				["nec_zombie","nec_zombie","nec_zombie"],
 				"nec_ghoul",
@@ -485,7 +485,7 @@
 			"loot":{
 				"hal_charger":"15%"
 			},
-			"enemies":[
+			"spawns":[
 				["hal_wight","hal_wight"],
 				["nec_ghost","nec_ghost","nec_ghost"]
 			]
@@ -528,7 +528,7 @@
 				"desc":"The graveyard is once more at rest. For now."
 			},
 			"boss":"m_pumpkin",
-			"enemies":[
+			"spawns":[
 				["undeadcrow","undeadcrow","undeadcrow"],
 				"nec_zombie",
 				"nec_ghoul",
