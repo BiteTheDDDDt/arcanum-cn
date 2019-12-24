@@ -1,4 +1,29 @@
 import SpawnGroup from "./spawngroup";
+import Game from "../game";
+
+
+/**
+ * Create Npc from string or SpawnInfo object.
+ * @param {*} e
+ * @param {number} [pct=1]
+ */
+export const MakeNpc = ( e, pct=1 ) => {
+
+	if ( typeof e === 'string' ) {
+
+		e = Game.getData(e);
+		if ( e ) return Game.itemGen.npc(e);
+
+	}
+	if ( !e ) return null;
+
+	// generate enemy from parameters.
+	e = Game.itemGen.randEnemy( e, null, pct );
+	if ( !e) {console.warn( 'Missing Enemy: ') }
+
+	return e;
+
+}
 
 /**
  * Describes possible spawns for a dungeon.
@@ -10,6 +35,15 @@ export default class Spawns {
 	 */
 	get groups(){return this._groups;}
 	set groups(v){this._groups =v;}
+
+	/**
+	 * @property {object} info - spawnInfo object. describes spawning information.
+	 * e.g. catacrytps.
+	 */
+	get info(){
+		return this._info;
+	}
+	set info(v) { this._info=v;}
 
 	/**
 	 * @private
@@ -24,9 +58,9 @@ export default class Spawns {
 
 			this.initGroups(vars);
 
-		} else if ( vars ) {
+		} else if ( typeof vars === 'object' ) {
 
-			Object.assign( this, vars );
+			this.info = vars;
 
 		}
 
@@ -39,7 +73,15 @@ export default class Spawns {
 	 */
 	random() {
 
-		if ( this._groups ) return this.randGroup();
+		if ( this.groups ) {
+
+			console.log('group()');
+			return this.randGroup();
+
+		} else {
+			console.log('return spawn info');
+			return this.info;
+		}
 
 	}
 

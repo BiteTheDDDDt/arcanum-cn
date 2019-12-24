@@ -160,19 +160,7 @@ export default class Raid {
 		/**
 		 * @todo: maket this happen automatically.
 		 */
-		this.setSpawns( this.locale.getSpawn(), this.exp/this.length );
-
-	}
-
-	setSpawns( spawns, pct ) {
-
-		if ( spawns instanceof SpawnGroup ) {
-
-			this.combat.setEnemies( spawns.instantiate(pct) );
-
-		} else {
-
-		}
+		this.combat.setEnemies( this.locale.getSpawn(), this.exp/this.length );
 
 	}
 

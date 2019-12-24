@@ -1,4 +1,4 @@
-import Game from "../game";
+import { MakeNpc } from "./spawner";
 
 export default class SpawnGroup {
 
@@ -43,33 +43,12 @@ export default class SpawnGroup {
 
 		for ( let i = 0; i < this.spawns.length; i++ ) {
 
-			var e = this.makeNpc( this.spawns[i], pct );
+			var e = MakeNpc( this.spawns[i], pct );
 			if ( e ) a.push(e);
 
 		}
 
 		return a;
-
-	}
-
-		/**
-	 * Retrieve enemy template data from enemy string or build object.
-	 */
-	makeNpc( e, pct=1 ) {
-
-		if ( typeof e === 'string' ) {
-
-			e = Game.getData(e);
-			if ( e ) return Game.itemGen.npc(e);
-
-		}
-		if ( !e ) return null;
-
-		// generate enemy from parameters.
-		e = Game.itemGen.randEnemy( e, null, pct );
-		if ( !e) {console.warn( 'Missing Enemy: ') }
-
-		return e;
 
 	}
 

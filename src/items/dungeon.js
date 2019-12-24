@@ -3,7 +3,7 @@ import Game from '../game';
 import { getDist, distTest, levelTest } from './locale';
 import { mapNonNull } from '../util/array';
 import { DUNGEON, RAID } from '../values/consts';
-import Spawns from '../composites/spawner';
+import Spawns, { MakeNpc } from '../composites/spawner';
 import SpawnGroup from '../composites/spawngroup';
 
 /**
@@ -80,14 +80,23 @@ export default class Dungeon extends Action {
 	}
 
 	/**
-	 * Get next enemy.
-	 * @returns {string|string[]|object|SpawnGroup}
+	 * Get next group of enemies.
+	 * @returns {?Npc[]}
 	 */
 	getSpawn() {
 
-		if ( this.hasBoss( this.boss, this.exp ) ) return this.getBoss( this.boss );
+		let spawn;
 
-		if ( this.spawns ) return this.spawns.random();
+		if ( this.hasBoss( this.boss, this.exp ) ) spawn = this.getBoss( this.boss );
+		else if ( this.spawns ) spawn = this.spawns.random();
+
+		if ( spawn instanceof SpawnGroup ) return spawn.instantiate( this.percent()/100 );
+		else if ( spawn ) {
+
+			let npc = MakeNpc( spawn, this.percent()/100);
+			if ( npc ) return [npc];
+
+		}
 
 		return null;
 
