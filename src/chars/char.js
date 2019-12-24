@@ -133,8 +133,8 @@ export default class Char {
 	get canAct(){return this._canAct;}
 	set canAct(v) { this._canAct = v;}
 
-	get instance() { return true; }
-	set instance(v) {}
+	get instanced() { return true; }
+	set instanced(v) {}
 
 	get regen() { return this._regen; }
 	set regen(v) { this._regen = ( v instanceof Stat ) ? v : new Stat(v); }

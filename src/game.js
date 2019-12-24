@@ -102,7 +102,7 @@ export default {
 		return this.loader = DataLoader.loadGame( saveData ).then( allData=>{
 
 			this.state = new GameState( allData, saveData );
-			this.itemGen = new ItemGen( this.state );
+			this.itemGen = new ItemGen( this );
 
 			this._gdata = this.state.items;
 
@@ -458,7 +458,7 @@ export default {
 
 		if ( !this.canUse(it) ) return false;
 
-		if ( it.instance ){
+		if ( it.instanced ){
 
 			it.onUse( this, this.state.inventory );
 
@@ -639,13 +639,13 @@ export default {
 	 */
 	trySell( it, inv, count=1 ) {
 
-		if ( it.value < 1 && !it.instance ) { return false; }
+		if ( it.value < 1 && !it.instanced ) { return false; }
 
 		if ( count > it.value ) count = it.valueOf();
 
 		this.getData('gold').value += count*this.sellPrice(it);
 
-		if ( it.instance ) {
+		if ( it.instanced ) {
 
 			it.value -= count;
 
@@ -1017,7 +1017,7 @@ export default {
 				res = this.getData(p);
 				if ( res ) {
 
-					if ( res.instance || res.isRecipe ) {
+					if ( res.instanced || res.isRecipe ) {
 						this.payInst( p, cost[p]*unit );
 						continue;
 					}
@@ -1072,7 +1072,7 @@ export default {
 
 				res = this.state.getData(p);
 				if ( !res ) return false;
-				else if ( res.instance || res.isRecipe ) {
+				else if ( res.instanced || res.isRecipe ) {
 
 					res = this.state.inventory.findMatch( res );
 					if (!res) return false;
