@@ -426,6 +426,7 @@ const prepData = ( sub, id='' ) => {
 
 		if ( RangeTest.test(sub) ) return new Range(sub);
 		else if ( PercentTest.test(sub)) return new Percent(sub);
+		else if ( IsPerValue(sub)) return new PerValue( sub, id );
 
 	}
 

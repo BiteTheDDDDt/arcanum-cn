@@ -1,7 +1,7 @@
 import Mod from "./mod";
 
 const PER_SYM = '/';
-const PerRegEx = /^(\d+)?\/(\d+)$/ig;
+const PerRegEx = /^(\d*)\/(\d+)$/;
 
 /**
  *
@@ -48,9 +48,9 @@ export default class PerValue extends Mod {
 
 			let parts = vars.split( PER_SYM );
 
-			if ( parts.length >= 2 ) {
+			if ( parts.length === 2 ) {
 
-				this.value =  isNaN(parts[0]) ? 1 : Number(parts[0]);
+				this.value =  Number(parts[0]) || 1
 				this.per = Number(parts[1]) || 1;
 
 			} else {

@@ -37,13 +37,19 @@ export const SubMods = ( mods, id, owner )=>{
 	if ( mods === null || mods === undefined ) return null;
 
 	if ( typeof mods === 'string' ) {
+		//console.log('testing mod: ' + mods );
+		if ( ModTest.test(mods) ) {
+			return new Mod( mods, id, owner );
+		} else if ( IsPerValue(mods)) {
+			return new PerValue( mods, id, owner );
+		}
 
-		if ( ModTest.test(mods) ) return new Mod( mods, id, owner );
-		else if ( IsPerValue(mods)) return new PerValue( mods, id, owner );
+		console.warn('invalid str mod: ' + mods );
 		return mods;
 
-	} else if ( typeof mods === 'number') return new Mod( mods, id, owner );
-	else if ( typeof mods !== 'object' ) return mods;
+	} else if ( typeof mods === 'number') {
+		return new Mod( mods, id, owner );
+	} else if ( typeof mods !== 'object' ) return mods;
 
 	// @note str is @compat
 	if ( mods.id || mods.base || mods.str ) return new Mod( mods, id, owner );

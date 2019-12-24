@@ -5,7 +5,7 @@ import { TYP_MOD } from './consts';
 import { assign } from 'objecty';
 //import Emitter from 'eventemitter3';
 
-export const ModTest = /^([\+\-]?\d+\.?\d*)|(?:([\+\-]?\d+\.?\d*\b)?(?:([\+\-]?\d+\.?\d*)\%))$/i;
+export const ModTest = /^(?:([\+\-]?\d+\.?\d*)|(?:([\+\-]?\d+\.?\d*\b)?(?:([\+\-]?\d+\.?\d*)\%)))$/i;
 
 /**
  * Modifier for mod without id.
@@ -104,9 +104,16 @@ export default class Mod extends Stat {
 
 			if ( res ) {
 
-				//res.forEach((v,i)=>console.log('reg['+i+']: ' + v ));
-				this.base = Number(res[1]) || 0;
-				this.basePct = Number(res[2])/100 || 0;
+				if ( res.length === 3 ) {
+					console.log('res len 3: ' + v );
+					//res.forEach((v,i)=>console.log('reg['+i+']: ' + v ));
+					this.base = Number(res[1]) || 0;
+					this.basePct = Number(res[2])/100 || 0;
+				} else if ( res.length === 2 ) {
+					console.log('RES LEN IS 2: ' + v );
+					this.base = res[1] || 0;
+					this.basePct = 0;
+				}
 
 			} else console.error( this.id + ' no mod regex: ' + v );
 
