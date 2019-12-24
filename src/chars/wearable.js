@@ -2,7 +2,8 @@ import { setModCounts} from '../items/base';
 import Attack from './attack';
 
 import {mergeSafe} from "objecty";
-import Mod, { ParseMods } from '../values/mod';
+import Mod from '../values/mod';
+import { ParseMods } from 'modules/parsing';
 import { assignNoFunc } from '../util/util';
 import Item from '../items/item';
 import { WEARABLE, ARMOR, TYP_RANGE, TYP_STAT } from '../values/consts';

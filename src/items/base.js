@@ -2,7 +2,7 @@ import {changes, jsonify } from 'objecty';
 import Game from '../game';
 import Stat from '../values/stat';
 import Mod, { SetModIds } from '../values/mod';
-import { cloneClass, deprec } from '../util/util';
+import { cloneClass } from '../util/util';
 import { TYP_MOD } from '../values/consts';
 import RValue, { SubPath } from '../values/rvalue';
 
@@ -17,19 +17,6 @@ export const setModCounts = ( m, v)=>{
 
 }
 
-/**
- * Initialize object's mods with count === Value stat.
- * @param {*} m
- * @param {Stat} v
- */
-export const initMods = ( m, v)=>{
-
-	if ( m instanceof Mod ) m.count = v;
-	else if ( typeof m ==='object') {
-		for( let p in m ){ initMods(m[p], v); }
-	}
-
-}
 
 export const mergeClass = ( destClass, src ) => {
 

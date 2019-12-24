@@ -1,4 +1,3 @@
-import RValue from "./rvalue";
 import Mod from "./mod";
 
 const PER_SYM = '/';
@@ -34,12 +33,18 @@ export default class PerValue extends Mod {
 	get per(){return this._per;}
 	set per(v){this._per = v;}
 
+	toString(){ return this.value + PER_SYM + this.per }
+
 	constructor(vars, id, owner ) {
 
 		super( 0, id, owner );
 
-		if ( typeof vars === 'number') this.value = vars;
-		else if ( typeof vars === 'string') {
+		if ( typeof vars === 'number') {
+
+			this.value = 1;
+			this.per = vars;
+
+		} else if ( typeof vars === 'string') {
 
 			let parts = vars.split( PER_SYM );
 
@@ -53,9 +58,11 @@ export default class PerValue extends Mod {
 			}
 
 		} else {
+			console.log('unexpected per: ' + vars );
 			this.value = Number(vars);
 		}
 
+		console.log( this.id + ' PERVAL: ' + this.toString() );
 	}
 
 	/**

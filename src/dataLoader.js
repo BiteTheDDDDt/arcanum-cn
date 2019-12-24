@@ -2,7 +2,7 @@ import GData from './items/gdata';
 
 import Range, {RangeTest} from './values/range';
 import Percent, {PercentTest} from './values/percent';
-import {ParseMods } from './values/mod';
+import {ParseMods } from './modules/parsing';
 
 import Resource from './items/resource';
 import RevStat from './items/revStat';
@@ -355,7 +355,12 @@ export const freezeData = ( obj ) => {
 
 }
 
-export const prepData = ( sub, id='' ) => {
+/**
+ * Prepared data is instance-level data, but classes have not been instantiated.
+ * @param {*} sub
+ * @param {*} id
+ */
+const prepData = ( sub, id='' ) => {
 
 	if (Array.isArray(sub) ) {
 
@@ -371,11 +376,11 @@ export const prepData = ( sub, id='' ) => {
 				continue;
 			} else if ( p ==='effect' || p === 'result' ) {
 
-				sub[p] = ParseEffects( sub[p], makeEffectFunc );
+				sub[p] = ParseEffects( sub[p], MakeEffectFunc );
 
 			} else if ( p === 'cost' || p === 'buy' ) {
 
-					sub[p] = ParseEffects( sub[p], makeCostFunc );
+					sub[p] = ParseEffects( sub[p], MakeCostFunc );
 
 			} else if ( p === 'require' || p === 'need' ) {
 
@@ -473,7 +478,7 @@ export const ParseRequire = ( sub ) => {
 
 		for( let i = sub.length-1; i>= 0; i-- )sub[i] = ParseRequire( sub[i] );
 
-	} else if ( typeof sub === 'string' && !IdTest.test(sub )) return makeTestFunc( sub );
+	} else if ( typeof sub === 'string' && !IdTest.test(sub )) return MakeTestFunc( sub );
 
 	return sub;
 
@@ -483,7 +488,7 @@ export const ParseRequire = ( sub ) => {
  * Create a boolean testing function from a data string.
  * @param {string} text - function text.
  */
-export function makeTestFunc( text ) {
+export function MakeTestFunc( text ) {
 
 	return new Function( "g", 'i', 's', 'return ' + text );
 }
@@ -492,7 +497,7 @@ export function makeTestFunc( text ) {
  * Cost function. params: GameState, Actor.
  * @param {*} text
  */
-export function makeCostFunc(text) {
+export function MakeCostFunc(text) {
 	return new Function( 'g,a', 'return ' + text );
 }
 
@@ -502,6 +507,6 @@ export function makeCostFunc(text) {
  * target is the current target (of a dot), if any.
  * @param {string} text
  */
-export function makeEffectFunc( text ) {
+export function MakeEffectFunc( text ) {
 	return new Function( 'g,t,a', 'return ' + text );
 }

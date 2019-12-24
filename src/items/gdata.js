@@ -1,6 +1,6 @@
 import { defineExcept, clone } from 'objecty';
 import Stat from '../values/stat';
-import Base, {mergeClass, initMods} from './base';
+import Base, {mergeClass } from './base';
 import {arrayMerge} from '../util/array';
 import { assignPublic } from '../util/util';
 import Events, { ITEM_ATTACK, EVT_EVENT, EVT_UNLOCK } from '../events';
@@ -210,10 +210,6 @@ export default class GData {
 		if ( this._value === null || this._value === undefined ) this.val = 0;
 
 		defineExcept( this, null, NoDefine );
-
-		if ( this.mod ) {
-			initMods( this.mod, this.value );
-		}
 
 	}
 

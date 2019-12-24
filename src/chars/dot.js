@@ -1,4 +1,4 @@
-import {ParseMods } from "../values/mod";
+import {ParseMods } from "modules/parsing";
 import { setModCounts } from "../items/base";
 import { ParseDmg } from "values/combat";
 import { assign, mergeSafe } from 'objecty';

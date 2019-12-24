@@ -1,7 +1,7 @@
 import Base, {mergeClass} from './base';
 import {assign} from 'objecty';
 import { cloneClass } from '../util/util';
-import { ParseMods } from '../values/mod';
+import { ParseMods } from 'modules/parsing';
 import Instance from './instance';
 
 const ItemDefaults = {
