@@ -316,10 +316,14 @@ export default {
 			if ( targ instanceof Stat ) {
 
 				//console.error( this.id + ' number apply to Stat/Mod: ' + mods );
-				targ.apply( mods, amt );
+				targ.add( mods*amt );
 
-			} else if ( typeof targ === 'object') {targ.value = (targ.value || 0 ) + amt*mods; }
-			else {
+			} else if ( typeof targ === 'object') {
+
+				console.warn('Target is raw Object: ' + mods );
+				targ.value = (targ.value || 0 ) + amt*mods;
+
+			} else {
 				// nothing can be done if targ is a number. no parent object.
 				console.error( this.id + ' !!invalid mod: ' + mods );
 			}

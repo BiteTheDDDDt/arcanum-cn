@@ -5,6 +5,7 @@ import { precise } from '../util/format';
 import { TYP_MOD } from './consts';
 import { assign } from 'objecty';
 import { SubPath } from './rvalue';
+import PerValue, { IsPerValue } from './pervalue';
 //import Emitter from 'eventemitter3';
 
 export const ModTest = /^([\+\-]?\d+\.?\d*\b)?(?:([\+\-]?\d+\.?\d*)\%)?$/i;
@@ -58,6 +59,7 @@ export default class Mod extends Stat {
 	set count(v) {
 
 		/**
+		 * @compat only
 		 * @note - rare recursive save bug. count:{ str:{ str:{str:""}}
 		 */
 		if ( v && (typeof v === 'object') ) {
@@ -229,6 +231,7 @@ export const SubMods = ( owner, mods, id)=>{
 	if ( typeof mods === 'string' ) {
 
 		if ( ModTest.test(mods) ) return new Mod( mods, id, owner );
+		else if ( IsPerValue(mods)) return new PerValue( mods, id, owner );
 		return mods;
 
 	} else if ( typeof mods === 'number') return new Mod( mods, id, owner );

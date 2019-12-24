@@ -1,6 +1,5 @@
 import { TYP_STAT, TYP_RVAL } from './consts';
 import RValue from './rvalue';
-import { deprec } from '../util/util';
 
 /**
  * Stat with a list of modifiers.
@@ -159,11 +158,43 @@ export default class Stat extends RValue {
 		this._base = this._base + amt;
 	}
 
+	/**
+	 * Apply a modifier to Stat, if the applied value can be a modifier.
+	 * If not, the stat is permanently modified by the mod value.
+	 * @param {Mod|number|Percent|Object} val
+	 * @param {number} [amt=1]
+	 */
+	apply( val, amt=1 ) {
+
+		if ( (val instanceof Stat) && val.id ) return this.addMod( val, amt );
+
+		else if ( typeof val ==='number' ) {
+
+			this.base += amt*val;
+			//deprec( this.id + ' mod: ' + mod );
+			//console.log( this.base + ' NEW base: ' + this.value );
+
+			return;
+
+		} else if ( typeof val === 'object') {
+
+			/// when an object has no id, must apply to base.
+			this.base += amt*( val.bonus || val.value || 0 );
+			this.basePct += amt*( val.pct || 0 );
+
+			//console.log( this.base + ' base; NEW VLAUE: ' + this.value );
+
+		} else {
+			console.dir( val, 'unknown mod: ' + typeof val );
+		}
+
+
+	}
 
 	/**
 	 * Apply permanent modifier to stat.
 	 * Used for instances.
-	 * @param {*} mod
+	 * @param {Stat} mod
 	 */
 	perm( mod ) {
 
@@ -175,43 +206,6 @@ export default class Stat extends RValue {
 		} else {
 
 		}
-
-	}
-
-
-	/**
-	 * Add a nonstandard modifier with no id.
-	 * The modifiers are applied to the default base/pct values.
-	 * The default modifier keeps a count of '1' since there is no
-	 * standard amount for its bonus/pct amounts.
-	 * @param {Mod|number|Percent|Object} mod
-	 * @param {number} [amt=1]
-	 */
-	apply( mod, amt=1 ) {
-
-		if ( (mod instanceof Stat) && mod.id ) return this.addMod( mod, amt );
-
-		else if ( typeof mod ==='number' ) {
-
-			this.base += amt*mod;
-			//deprec( this.id + ' mod: ' + mod );
-			//console.log( this.base + ' NEW base: ' + this.value );
-
-			return;
-
-		} else if ( typeof mod === 'object') {
-
-			/// when an object has no id, must apply to base.
-			this.base += amt*( mod.bonus || mod.value || 0 );
-			this.basePct += amt*( mod.pct || 0 );
-
-			//console.log( this.base + ' base; NEW VLAUE: ' + this.value );
-
-		} else {
-
-			console.dir( mod, 'unknown mod: ' + typeof mod );
-		}
-
 
 	}
 

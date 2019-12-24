@@ -1,6 +1,8 @@
 import RValue from "./rvalue";
+import Mod from "./mod";
 
-const PerRegEx = /^\/(\d+)$/ig;
+const PER_SYM = '/';
+const PerRegEx = /^(\d+)?\/(\d+)$/ig;
 
 /**
  *
@@ -14,9 +16,9 @@ export const IsPerValue = (v)=>{
 /**
  * Apply result only on value%modulus === 0
  */
-export default class PerValue extends RValue {
+export default class PerValue extends Mod {
 
-	toJSON(){ return '/' + this.value; }
+	toJSON(){ return PER_SYM + this.value; }
 
 	/**
 	 * @property {number} count - apply modulus mod once per modulus factor.
@@ -25,18 +27,29 @@ export default class PerValue extends RValue {
 		return Math.floor(this.owner.value / this.value );
 	}
 
-	constructor(vars, id ) {
+	/**
+	 * @property {number} per - value applied only once for every per unit
+	 * of count.
+	 */
+	get per(){return this._per;}
+	set per(v){this._per = v;}
 
-		super( 0, id );
+	constructor(vars, id, owner ) {
+
+		super( 0, id, owner );
 
 		if ( typeof vars === 'number') this.value = vars;
 		else if ( typeof vars === 'string') {
 
-			if ( vars.length >= 0 && vars[0] === '/'){
-				this.value = Number(vars.slice(1));
+			let parts = vars.split( PER_SYM );
+
+			if ( parts.length >= 2 ) {
+				this.value = Number(parts[0]) || 1;
+				this.per = Number(parts[1]) || 1;
 			} else {
 				console.warn('Invalid modulus: ' + vars );
 				this.value = 0;
+				this.per = 1;
 			}
 
 		} else {
@@ -51,7 +64,7 @@ export default class PerValue extends RValue {
 	 * @param {*} targ
 	 */
 	getApply(gs, targ) {
-		return (this.owner && ( this.owner.value % this.value  === 0 ) ) ? 1 : 0;
+		return ( this.count % this.per ) === 0 ? this.value : 0;
 	}
 
 

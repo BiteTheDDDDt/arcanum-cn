@@ -35,6 +35,8 @@ import { SKILL, ENCOUNTER, MONSTER, ARMOR, WEAPON, HOME, POTION, ITEM, RESOURCE,
 import { MakeDmgFunc } from 'values/combat';
 import Stat from './values/stat';
 import State from './chars/state';
+import PerValue, { IsPerValue } from './values/pervalue';
+import { SubPath } from './values/rvalue';
 
 const DataDir = './data/';
 
@@ -393,6 +395,7 @@ export const prepData = ( sub, id='' ) => {
 					sub[p] = new Percent(obj);
 
 				} else if ( RangeTest.test(obj) ) sub[p] = new Range(obj);
+				else if ( IsPerValue(obj) ) sub[p] = new PerValue( obj, SubPath(id,p) );
 				else if ( !isNaN(obj) ) {
 					if ( obj !== null && obj !== undefined && obj !== '' ) console.warn('string used as Number: ' + p + ' -> ' + obj );
 					//console.warn('store numeric data as number.');
