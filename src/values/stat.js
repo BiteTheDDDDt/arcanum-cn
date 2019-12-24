@@ -37,7 +37,9 @@ export default class Stat extends RValue {
 
 	}
 	/** @todo */
-	set value(v){}
+	set value(v){
+		this._base = v;
+	}
 
 	/**
 	 * @returns {number}
@@ -135,6 +137,8 @@ export default class Stat extends RValue {
 
 		if ( !this.base ) this.base = 0;
 		if ( !this.basePct ) this.basePct = 0;
+
+		this._mBase = this._mPct = 0;
 
 		if ( !this.mods ) this.mods = {};
 

@@ -372,7 +372,7 @@ const prepData = ( sub, id='' ) => {
 
 			if ( p === 'mod') {
 
-				sub[p] = ParseMods( null, sub[p], id );
+				sub[p] = ParseMods( sub[p], id );
 				continue;
 			} else if ( p ==='effect' || p === 'result' ) {
 
@@ -450,6 +450,7 @@ export const ParseEffects = ( effects, funcMaker ) => {
 
 		if ( RangeTest.test(effects) ) return new Range(effects);
 		else if ( PercentTest.test(effects) ) return new Percent(effects);
+		else if ( IsPerValue(effects ) ) return new PerValue( effects );
 		else if ( effects.includes( '.' ) ) return funcMaker(effects);
 
 		return effects;

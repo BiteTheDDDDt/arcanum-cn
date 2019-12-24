@@ -8,7 +8,7 @@ import { SubPath } from '../values/rvalue';
  * @param {} mods
  * @returns {Object} parsed modifiers.
  */
-export const ParseMods = ( owner, mods, id ) => {
+export const ParseMods = ( mods, id, owner ) => {
 
 	if ( !mods ) return null;
 	if (!id) {
@@ -19,7 +19,7 @@ export const ParseMods = ( owner, mods, id ) => {
 		}
 	}
 
-	mods = SubMods(owner, mods, id);
+	mods = SubMods( mods, id, owner );
 
 	// @todo: no more key splitting. item tables?
 	splitKeys(mods);
@@ -31,7 +31,7 @@ export const ParseMods = ( owner, mods, id ) => {
 /**
  *
  */
-export const SubMods = ( owner, mods, id)=>{
+export const SubMods = ( mods, id, owner )=>{
 
 	if ( mods === null || mods === undefined ) return null;
 

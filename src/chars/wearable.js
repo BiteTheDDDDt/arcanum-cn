@@ -162,7 +162,7 @@ export default class Wearable extends Item {
 
 		}
 
-		if ( this.mod ) this.mod = ParseMods( this, this.mod, this.id );
+		if ( this.mod ) this.mod = ParseMods( this.mod, this.id, this );
 
 		/*console.log('WEARABLE LEVEL: ' + this.level + ' MAT: '+ (this.material ? this.material.level : 0 )
 		 + ' base: ' + (this.template ? this.template.level : 0 ) );*/
@@ -266,7 +266,7 @@ export default class Wearable extends Item {
 			if ( v.id ) {
 				console.log('new mod: ' +this.id);
 				//for( let p in v ) console.log( p + ' -> ' + v[p]);
-				return new Mod( v );
+				return new Mod( v, v.id, this );
 			} else {
 
 				for( let p in v ) {
@@ -275,7 +275,7 @@ export default class Wearable extends Item {
 
 			}
 
-		} else if ( t === 'string' || t==='number') return new Mod(v, this.id);
+		} else if ( t === 'string' || t==='number') return new Mod(v, this.id, this );
 
 		return v;
 

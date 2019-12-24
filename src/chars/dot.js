@@ -99,7 +99,7 @@ export default class Dot {
 		 */
 		if ( this.mod ){
 
-			this.mod = ParseMods( this, this.mod, this.id );
+			this.mod = ParseMods( this.mod, this.id, this );
 
 			setModCounts( this.mod, this );
 		}

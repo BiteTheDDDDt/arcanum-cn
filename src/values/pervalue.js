@@ -17,13 +17,13 @@ export const IsPerValue = (v)=>{
  */
 export default class PerValue extends Mod {
 
-	toJSON(){ return PER_SYM + this.value; }
+	toJSON(){ return this.value + PER_SYM + this.per; }
 
 	/**
 	 * @property {number} count - apply modulus mod once per modulus factor.
 	 */
 	get count(){
-		return Math.floor(this.owner.value / this.value );
+		return this.owner ? Math.floor(this.owner.value / this.value ) : 0;
 	}
 
 	/**
@@ -49,8 +49,10 @@ export default class PerValue extends Mod {
 			let parts = vars.split( PER_SYM );
 
 			if ( parts.length >= 2 ) {
-				this.value = Number(parts[0]) || 1;
+
+				this.value =  isNaN(parts[0]) ? 1 : Number(parts[0]);
 				this.per = Number(parts[1]) || 1;
+
 			} else {
 				console.warn('Invalid modulus: ' + vars );
 				this.value = 0;

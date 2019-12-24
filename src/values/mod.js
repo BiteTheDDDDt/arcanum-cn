@@ -5,7 +5,7 @@ import { TYP_MOD } from './consts';
 import { assign } from 'objecty';
 //import Emitter from 'eventemitter3';
 
-export const ModTest = /^([\+\-]?\d+\.?\d*\b)?(?:([\+\-]?\d+\.?\d*)\%)?$/i;
+export const ModTest = /^([\+\-]?\d+\.?\d*)|(?:([\+\-]?\d+\.?\d*\b)?(?:([\+\-]?\d+\.?\d*)\%)?)$/i;
 
 /**
  * Modifier for mod without id.
@@ -52,7 +52,9 @@ export default class Mod extends Stat {
 	/**
 	 * @property {number} [count=0] - number of times mod is applied.
 	 */
-	get count() { return this._count || (this.owner?this.owner.value : 1); }
+	get count() { return this._count ||
+		( this.owner ? this.owner.value : 1 );
+	}
 	set count(v) {
 
 		/**
