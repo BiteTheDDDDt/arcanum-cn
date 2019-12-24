@@ -52,11 +52,11 @@ export default {
 		encName(){
 			return this.enc ? this.enc.name : '';
 		},
-		encVal(){
-			return this.enc ? this.enc.exp : 0;
+		encProg(){
+			return this.enc ? this.enc.exp.valueOf() : 0;
 		},
 		encLen(){
-			return this.enc ? this.enc.length : 10;
+			return this.enc ? this.enc.length.valueOf() : 0;
 		}
 
 	}
@@ -74,7 +74,7 @@ export default {
 		@mouseenter.capture.stop="emit( 'itemover', $event, explore.locale )">Flee</button>
 		</span>
 
-		<span class="bar"><progbar :value="explore.exp" :max="Number(explore.length)" /></span>
+		<span class="bar"><progbar :value="explore.exp.valueOf()" :max="Number(explore.length)" /></span>
 
 		<template v-if="type==='raid'">
 			<combat :combat="explore.combat" :player="player" />
@@ -83,7 +83,7 @@ export default {
 
 			<div @mouseenter.capture.stop="encOver($event)">
 			<span>{{ encName }}</span>
-			<progbar :value="encVal" :max="encLen" />
+			<progbar :value="encProg" :max="encLen" />
 			</div>
 
 			<div class="stressors">

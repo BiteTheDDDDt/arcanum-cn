@@ -174,7 +174,7 @@ export default class Char {
 
 		if ( this._spells ) {
 			this._context = new Context(this);
-		}
+		} else this._context = Game;
 
 		this.immunities = this.immunities || {};
 		this._resist = this._resist || {};
