@@ -5,7 +5,7 @@ import { TYP_MOD } from './consts';
 import { assign } from 'objecty';
 //import Emitter from 'eventemitter3';
 
-export const ModTest = /^([\+\-]?\d+\.?\d*)|(?:([\+\-]?\d+\.?\d*\b)?(?:([\+\-]?\d+\.?\d*)\%)?)$/i;
+export const ModTest = /^([\+\-]?\d+\.?\d*)|(?:([\+\-]?\d+\.?\d*\b)?(?:([\+\-]?\d+\.?\d*)\%))$/i;
 
 /**
  * Modifier for mod without id.

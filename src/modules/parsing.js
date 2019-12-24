@@ -20,6 +20,7 @@ export const ParseMods = ( mods, id, owner ) => {
 	}
 
 	mods = SubMods( mods, id, owner );
+	if ( !mods ) console.warn('mods is null: ' + id );
 
 	// @todo: no more key splitting. item tables?
 	splitKeys(mods);
@@ -60,7 +61,7 @@ export const SubMods = ( mods, id, owner )=>{
 
 		}
 
-		mods[s] = SubMods( owner, val, SubPath(id, s) );
+		mods[s] = SubMods( val, SubPath(id, s), owner );
 
 	}
 	return mods;
