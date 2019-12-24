@@ -3,6 +3,8 @@ import Game from '../game';
 import { getDist, distTest, levelTest } from './locale';
 import { mapNonNull } from '../util/array';
 import { DUNGEON, RAID } from '../values/consts';
+import Spawns, { MakeNpc } from '../composites/spawner';
+import SpawnGroup from '../composites/spawngroup';
 
 /**
  * @type {Object} Enemy
@@ -23,16 +25,17 @@ export default class Dungeon extends Action {
 	get once() { return this._once; }
 	set once(v) { this._once = v; }
 
-	get enemies() { return this._enemies; }
-	set enemies(v) {
+	/**
+	 * @compat
+	 */
+	get enemies(){return this.spawns;}
+	set enemies(v){this.spawns = v }
 
-		// json data not true arrays.
-		/*let a = [];
+	get spawns() { return this._spawns; }
+	set spawns(v) {
 
-		for( let p in v) {
-			a.push( v[p]);
-		}*/
-		this._enemies=v;
+		this._spawns = v instanceof Spawns ? v : new Spawns(v);
+
 	}
 
 	get proxy(){return RAID}
@@ -74,26 +77,25 @@ export default class Dungeon extends Action {
 	}
 
 	/**
-	 * Get next enemy.
-	 * @returns {string|string[]|object}
+	 * Get next group of enemies.
+	 * @returns {?Npc[]}
 	 */
-	getEnemy() {
-		return this.hasBoss( this.boss, this.exp ) ? this.getBoss( this.boss ) : this.getMob();
-	}
+	getSpawn() {
 
-	/**
-	 * Return a random non-boss mob. (Used to exclude dead/locked uniques)
-	 * @returns {?string}
-	 */
-	getMob() {
+		let spawn;
 
-		if ( Array.isArray( this._enemies ) ) {
-			return this._enemies[ Math.floor( Math.random()*this._enemies.length ) ];
-		} else {
+		if ( this.hasBoss( this.boss, this.exp ) ) spawn = this.getBoss( this.boss );
+		else if ( this.spawns ) spawn = this.spawns.random();
 
-			return this._enemies;
+		if ( spawn instanceof SpawnGroup ) return spawn.instantiate( this.percent()/100 );
+		else if ( spawn ) {
+
+			let npc = MakeNpc( spawn, this.percent()/100);
+			if ( npc ) return [npc];
 
 		}
+
+		return null;
 
 	}
 

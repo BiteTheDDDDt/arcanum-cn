@@ -13,6 +13,9 @@ import RValue from '../values/rvalue';
  * @property {?number} duration
  */
 
+ const NoDefine = new Set(['require', 'rate', 'current', 'need', 'value', 'buy',
+	 'max', 'cost', 'id', 'name', 'warn', 'effect', 'slot' ]);
+
 /**
  * @const {Set} NoDefine - properties not to set to default values.
  */

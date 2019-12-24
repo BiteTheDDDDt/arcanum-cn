@@ -87,6 +87,10 @@ export default class ItemGen {
 
 	}
 
+	/**
+	 * Create npc from monster prototype or save object.
+	 * @param {*} proto
+	 */
 	npc( proto ) {
 
 		let it = new Npc( proto );

@@ -115,7 +115,7 @@ export default class Wearable extends Item {
 
 		this.stack = false;
 		this.consume = false;
-		this.busy = this.busy || 0;
+		this.busy = this.busy || false;
 
 		if ( vars ) assignNoFunc(this,vars );// Object.assign(this,vars);
 
