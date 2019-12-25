@@ -37,6 +37,10 @@ export default class Enchant extends Action {
 		targ.busy = true;
 	}
 
+	resumeUseOn(targ) {
+		if (targ ) targ.busy = true;
+	}
+
 	/**
 	 * Called when enchant is being used on target.
 	 * @param {*} targ

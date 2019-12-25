@@ -239,8 +239,6 @@ export default class Wearable extends Item {
 
 		let p = g.state.player;
 
-		console.log('UNEQP: ' + g.id );
-
 		if ( this.armor ) p.defense.add( -this.armor );
 		if ( p.weapon === this ) p.weapon = null;
 

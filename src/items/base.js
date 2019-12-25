@@ -51,7 +51,7 @@ export const mergeClass = ( destClass, src ) => {
   */
  const JSONIgnore = new Set( ['template', 'id', 'type', 'defaults', 'module', 'sname', 'sym',
  	'name', 'desc', 'running', 'current', 'warnMsg', 'once', 'enemies', 'spawns',
-	 'locked', 'locks', 'value', 'exp', 'delta', 'tags', 'mod',
+	 'locked', 'locks', 'value', 'exp', 'delta', 'tags', 'mod', 'busy',
 	 'effect', 'progress','need', 'require' ]);
 
 /**

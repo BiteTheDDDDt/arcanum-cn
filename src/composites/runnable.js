@@ -96,7 +96,10 @@ export default class Runnable extends Proxy {
 
 		if ( typeof this._target === 'string') this._target = state.findData(this._target);
 
-		if ( this.item ) this._length = this.item.length;
+		if ( this.item ) {
+			this._length = this.item.length;
+			if ( this.item.resumeUseOn ) this.item.resumeUseOn(this.target );
+		}
 
 	}
 

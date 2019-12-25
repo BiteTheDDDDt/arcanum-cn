@@ -364,6 +364,7 @@ export default class Runner {
 
 		let a = this.actives[i];
 
+		if ( a.onStop ) a.onStop();
 		a.running = false;
 		this.actives.splice(i,1);
 
@@ -452,7 +453,6 @@ export default class Runner {
 
 		for( let i = this.actives.length-1; i>=0; i--) {
 
-			if ( this.actives[i].onStop ) this.actives[i].onStop();
 			this.stopAction( i, false );
 
 		}
