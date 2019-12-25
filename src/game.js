@@ -439,7 +439,7 @@ export default {
 	 */
 	tryItem(it) {
 
-		if ( !it) return;
+		if ( !it ) return;
 
 		if ( !this.canUse(it) ) return false;
 

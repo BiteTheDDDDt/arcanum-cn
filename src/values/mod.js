@@ -5,7 +5,7 @@ import { TYP_MOD } from './consts';
 import { assign } from 'objecty';
 //import Emitter from 'eventemitter3';
 
-export const ModTest = /^(?:([\+\-]?\d+\.?\d*)|(?:([\+\-]?\d+\.?\d*\b)?(?:([\+\-]?\d+\.?\d*)\%)))$/i;
+export const ModTest = /^(?:([\+\-]?\d+\.?\d*)|(?:([\+\-]?\d+\.?\d*\b)?(?:([\+\-]?\d+\.?\d*)\%)))$/;
 
 /**
  * Modifier for mod without id.
@@ -52,8 +52,15 @@ export default class Mod extends Stat {
 	/**
 	 * @property {number} [count=0] - number of times mod is applied.
 	 */
-	get count() { return this._count ||
-		( this.owner ? this.owner.value : 1 );
+	get count() {
+		if ( this._count ) {
+			console.log(this.id + ' count: ' + this._count );
+			return this._count;
+		}
+
+		if ( this.source === null || this.source === undefined ) console.log(this.id+ ' No Source');
+		return this._count || ( this.source ? this.source.value : 1 );
+
 	}
 	set count(v) {
 
@@ -68,6 +75,7 @@ export default class Mod extends Stat {
 			//else if ( v.value ) this.count = v.value;
 
 		} else this._count = v;
+	//	console.log(this.id + ' Setting Count: ' + v );
 
 	}
 
@@ -144,11 +152,11 @@ export default class Mod extends Stat {
 	 *
 	 * @param {?Object} [vars=null]
 	 */
-	constructor( vars=null, id=null, owner=null ){
+	constructor( vars=null, id=null, source=null ){
 
 		super( null, id );
 
-		this.owner = owner;
+		this.source = source;
 		if ( typeof vars === 'number') this.base = vars;
 		else if ( typeof vars === 'string') this.str = vars;
 		else if ( vars ) {
@@ -168,7 +176,9 @@ export default class Mod extends Stat {
 
 	}
 
-	clone() { return new Mod({base:this.base, basePct:this.basePct }, this.id ); }
+	clone() {
+		console.log('cloning: ' + this.id );
+		return new Mod({base:this.base, basePct:this.basePct }, this.id, this.source ); }
 
 	/**
 	 * Apply this modifier to a given target.

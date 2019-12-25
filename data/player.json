@@ -20,7 +20,7 @@
 			"tohit":1,
 			"hp.max":1,
 			"allies.max":"/5",
-			"speed":"11/4"
+			"speed":"/4"
 		},
 		"result":{
 			"sp":"/3"

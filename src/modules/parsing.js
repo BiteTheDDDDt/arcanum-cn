@@ -8,18 +8,18 @@ import { SubPath } from '../values/rvalue';
  * @param {} mods
  * @returns {Object} parsed modifiers.
  */
-export const ParseMods = ( mods, id, owner ) => {
+export const ParseMods = ( mods, id, source ) => {
 
 	if ( !mods ) return null;
 	if (!id) {
-		if ( owner ) id = owner.id;
+		if ( source ) id = source.id;
 		if ( !id ) {
 			id = '';
 			logObj( mods, 'invalid mod: ' + id );
 		}
 	}
 
-	mods = SubMods( mods, id, owner );
+	mods = SubMods( mods, id, source );
 	if ( !mods ) console.warn('mods is null: ' + id );
 
 	// @todo: no more key splitting. item tables?
@@ -32,27 +32,27 @@ export const ParseMods = ( mods, id, owner ) => {
 /**
  *
  */
-export const SubMods = ( mods, id, owner )=>{
+export const SubMods = ( mods, id, source )=>{
 
 	if ( mods === null || mods === undefined ) return null;
 
 	if ( typeof mods === 'string' ) {
 		//console.log('testing mod: ' + mods );
 		if ( ModTest.test(mods) ) {
-			return new Mod( mods, id, owner );
+			return new Mod( mods, id, source );
 		} else if ( IsPerValue(mods)) {
-			return new PerValue( mods, id, owner );
+			return new PerValue( mods, id, source );
 		}
 
 		console.warn('invalid str mod: ' + mods );
 		return mods;
 
 	} else if ( typeof mods === 'number') {
-		return new Mod( mods, id, owner );
+		return new Mod( mods, id, source );
 	} else if ( typeof mods !== 'object' ) return mods;
 
 	// @note str is @compat
-	if ( mods.id || mods.base || mods.str ) return new Mod( mods, id, owner );
+	if ( mods.id || mods.base || mods.str ) return new Mod( mods, id, source );
 
 	for( let s in mods ) {
 
@@ -62,12 +62,12 @@ export const SubMods = ( mods, id, owner )=>{
 		if ( val instanceof Mod ) {
 
 			if ( id ) val.id = SubPath(id, s);
-			val.owner = owner;
+			val.source = source;
 			continue;
 
 		}
 
-		mods[s] = SubMods( val, SubPath(id, s), owner );
+		mods[s] = SubMods( val, SubPath(id, s), source );
 
 	}
 	return mods;

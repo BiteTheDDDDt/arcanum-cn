@@ -30,11 +30,11 @@ export default class RValue {
 	toJSON(){return this._base;}
 
 	/**
-	 * @property {object} owner - object that defines the value,
+	 * @property {object} source - object that defines the value,
 	 * if any.
 	 */
-	get owner(){return this._owner;}
-	set owner(v) { this._owner = v;}
+	get source(){return this._source;}
+	set source(v) { this._source = v;}
 
 	/**
 	 * @property {object} target - target modified.

@@ -23,7 +23,7 @@ export default class PerValue extends Mod {
 	 * @property {number} count - apply modulus mod once per modulus factor.
 	 */
 	get count(){
-		return this.owner ? Math.floor(this.owner.value / this.value ) : 0;
+		return this.source ? Math.floor(this.source.value / this.value ) : 0;
 	}
 
 	/**
@@ -35,9 +35,9 @@ export default class PerValue extends Mod {
 
 	toString(){ return this.value + PER_SYM + this.per }
 
-	constructor(vars, id, owner ) {
+	constructor(vars, id, source ) {
 
-		super( 0, id, owner );
+		super( 0, id, source );
 
 		if ( typeof vars === 'number') {
 

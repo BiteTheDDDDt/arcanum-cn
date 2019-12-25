@@ -282,6 +282,8 @@ export default class Stat extends RValue {
 		this._mPct = pct;
 		this._mBase = bonus;
 
+		if ( this.id === 'gold.max' ) console.log( 'recalc(): ' + this.id  + ' : ' + this.value );
+
 	}
 
 }

@@ -1,8 +1,8 @@
-import { defineExcept, clone } from 'objecty';
+import { defineExcept, clone, getProps } from 'objecty';
 import Stat from '../values/stat';
 import Base, {mergeClass } from './base';
 import {arrayMerge} from '../util/array';
-import { assignPublic } from '../util/util';
+import { assignPublic, logObj } from '../util/util';
 import Events, { ITEM_ATTACK, EVT_EVENT, EVT_UNLOCK } from '../events';
 import { TICK_LEN } from '../game';
 import { WEARABLE, WEAPON } from '../values/consts';
@@ -104,6 +104,9 @@ export default class GData {
 	get warnMsg(){return this._warnMsg; }
 	set warnMsg(v) { this._warnMsg = v; }
 
+	get mod(){return this._mod;}
+	set mod(v){this._mod=v;}
+
 	/**
 	 * @property {Object|Array|string|function} effect
 	 */
@@ -157,38 +160,10 @@ export default class GData {
 	valueOf(){ return this._value.valueOf(); }
 
 	/**
-	 * Set owner property of all RValue subs to this.
-	 */
-	initRVals(obj=this){
-
-		for( let p in obj ) {
-
-			var s = this[p];
-			if ( !s ) continue;
-			if ( Array.isArray(s) ) {
-
-				for( let i = s.length-1; i>= 0; i-- ) {
-					if ( typeof s === 'object') this.initRVals(s);
-				}
-
-			} else if ( typeof s === 'object') {
-
-				if ( s.isRVal ) s.owner = this;
-				else this.initRVals( s );
-
-			}
-
-		}
-
-	}
-
-	/**
 	 *
 	 * @param {?Object} [vars=null]
 	 */
 	constructor( vars=null, defaults=null ){
-
-		this.initRVals();
 
 		if ( vars ) {
 
@@ -210,6 +185,38 @@ export default class GData {
 		if ( this._value === null || this._value === undefined ) this.val = 0;
 
 		defineExcept( this, null, NoDefine );
+
+		this.initRVals( this );
+
+	}
+
+	/**
+	 * Set source property of all RValue subs to this.
+	 */
+	initRVals( obj=this, recur=new Set() ){
+
+		recur.add(obj);
+
+		for( let p in obj ) {
+
+			var s = obj[p];
+			if ( s === null || s=== undefined ) continue;
+			if ( Array.isArray(s) ) {
+
+				for( let i = s.length-1; i>= 0; i-- ) {
+					var t = s[i];
+					if ( typeof t === 'object' && !recur.has(t)) this.initRVals( t, recur);
+				}
+
+			} else if ( typeof s === 'object' && !recur.has(s)) {
+
+				if ( s.isRVal ) {
+					s.source = this;
+				} else this.initRVals( s, recur );
+
+			}
+
+		}
 
 	}
 
