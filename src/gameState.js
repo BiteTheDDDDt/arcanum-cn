@@ -343,6 +343,7 @@ export default class GameState {
 
 				var list = tagSets[t];
 				if ( !list ) {
+					console.log('new tagset: ' + t );
 					items[t] = tagSets[t] = list = new TagSet(t);
 				}
 

@@ -253,7 +253,7 @@ export default class GData {
 	 * Test whether item succeeds when tested as a game requirement.
 	 * @returns {boolean}
 	 */
-	test(){
+	fillsRequire(){
 		/**
 		 * @todo must be unlocked as well?
 		 */
@@ -445,6 +445,8 @@ export default class GData {
 	}
 
 	/**
+	 * @note currently unused.
+	 * @unused
 	 * shorthand for locked||disabled||locks>0
 	 */
 	blocked() {

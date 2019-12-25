@@ -30,6 +30,7 @@ export const TYP_MOD = 'mod';
 export const TYP_RVAL = 'rval';
 export const TYP_FUNC = 'func';
 export const TYP_DOT = 'dot';
+export const TYP_TAG = 'tagset';
 
 export const TYP_RUN = 'runnable';
 
@@ -43,6 +44,7 @@ const NPC = 'npc';
 export { POTION, ITEM };
 
 const RESOURCE = 'resource';
+const ACTION = 'action';
 const SKILL = 'skill';
 const ENCOUNTER = 'enc';
 const WEARABLE = 'wearable';
@@ -71,7 +73,7 @@ export const TEAM_PLAYER = 1;
 export const TEAM_NPC = 0;
 
 export { RAID, DUNGEON, EXPLORE, LOCALE };
-export { HOME, RESOURCE, NPC, SKILL, ENCOUNTER, WEARABLE, MONSTER, ARMOR, WEAPON, PURSUITS, EVENT };
+export { HOME, RESOURCE, NPC, SKILL, ACTION, ENCOUNTER, WEARABLE, MONSTER, ARMOR, WEAPON, PURSUITS, EVENT };
 
 /**
  * @const {number[]} TierTable - levels when given tiers start.

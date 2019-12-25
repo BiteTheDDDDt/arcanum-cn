@@ -11,7 +11,7 @@ import DataLoader from './dataLoader';
 
 import Events, {EVT_UNLOCK, EVT_EVENT, EVT_LOOT, SET_SLOT, DELETE_ITEM } from './events';
 
-import { MONSTER, TYP_PCT, TYP_RANGE, P_TITLE, P_LOG, RESOURCE, TEAM_PLAYER } from './values/consts';
+import { MONSTER, TYP_PCT, TYP_RANGE, P_TITLE, P_LOG, RESOURCE, TEAM_PLAYER, TYP_TAG } from './values/consts';
 import { logObj } from './util/util';
 import TagSet from './composites/tagset';
 
@@ -690,6 +690,8 @@ export default {
 	 */
 	tryUnlock( it ) {
 
+		if ( it.id ==='crafting') console.log('ATTEMPTING UNLOCK: ' + it.id );
+
 		if ( it.disabled || it.locks > 0 ) return false;
 
 		let test = it.require || it.need;
@@ -737,8 +739,7 @@ export default {
 			if ( it === undefined ) return false;
 
 			// don't need to actually use an action or resource to mark it unlocked.
-			return ( it.type === RESOURCE || it.type === 'action') ?
-				(it.locked === false) : it.value > 0;
+			return it.fillsRequire();
 
 		} else if (  Array.isArray(test) ) {
 
@@ -746,7 +747,7 @@ export default {
 
 		} else if ( type === 'object' ) {
 
-			if ( test.id ) return test.test();
+			if ( test.id ) return test.fillsRequire();
 
 			// @todo: take recursive values into account.
 			// @todo allow tag tests.
@@ -761,10 +762,7 @@ export default {
 			}
 			return true;
 
-		} else if ( test.type != null ) {
-
-			return test.test();
-		} //else console.warn( 'unknown test: ' + test.id || test );
+		}
 
 	},
 

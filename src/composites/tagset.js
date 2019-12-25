@@ -1,4 +1,5 @@
 import { assign } from 'objecty';
+import { TYP_TAG } from '../values/consts';
 
 /**
  * @class TagList to allow referencing tagged items by id.
@@ -9,7 +10,7 @@ export default class TagSet {
 	set id(v) { this._id = v;}
 
 	/**
-	 * @property {Set} items
+	 * @property {Set.<GData>} items
 	 */
 	get items() { return this._items; }
 	set items(v) {
@@ -19,9 +20,7 @@ export default class TagSet {
 	[Symbol.iterator](){return this._items[Symbol.iterator]}
 
 	/**
-	 * @property {string} type - type might need to be a standard type
-	 * in order to mimic a default item in item lists.
-	 * 'custom' can distinguish as group.
+	 * @property {string} type - type might need to be a standard type.
 	 */
 	get type() { return this._type; }
 	set type(v) { this._type = v; }
@@ -33,16 +32,35 @@ export default class TagSet {
 	/*get.instanced() { return true; }
 	set.instanced(v){}*/
 
-	get locked() { return false;}
+	/**
+	 * @todo save value and make reactive?
+	 */
+	get locked() {
+
+		for( let it of this.items ) {
+			if ( it.locked === false ) return false;
+		}
+		return true;
+
+	}
 	get owned(){return true;}
 
 	constructor(tag ) {
 
 		this.id = tag;
+		this.type = TYP_TAG;
 
 		this.items = new Set();
 
 	}
+
+	fillsRequire(){
+		for( let it of this.items ) {
+			if ( it.fillsRequire() ) return true;
+		}
+		return true;
+	}
+
 	canUse( g ) {
 		return g.canPay( this.cost );
 	}

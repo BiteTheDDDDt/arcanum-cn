@@ -117,7 +117,7 @@ export default class Action extends GData {
 	 * Test whether item succeeds when tested as a game requirement.
 	 * @returns {boolean}
 	 */
-	test(){
+	fillsRequire(){
 		return this.locked === false;
 	}
 
