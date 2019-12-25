@@ -225,6 +225,7 @@ export default class Stat extends RValue {
 			return;
 		}
 
+		if ( mod.id.includes('scrolls')) console.log('add scroll mod: ' +mod.id);
 		//this._mPct += amt*mod.pct;
 		//this._mBase += amt*mod.bonus;
 
@@ -282,7 +283,7 @@ export default class Stat extends RValue {
 		this._mPct = pct;
 		this._mBase = bonus;
 
-		if ( this.id === 'gold.max' ) console.log( 'recalc(): ' + this.id  + ' : ' + this.value );
+		if ( this.id ==='research.rate' ) console.log( 'recalc(): ' + this.id  + ' : ' + this.value );
 
 	}
 

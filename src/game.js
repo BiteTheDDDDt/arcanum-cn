@@ -690,8 +690,6 @@ export default {
 	 */
 	tryUnlock( it ) {
 
-		if ( it.id ==='crafting') console.log('ATTEMPTING UNLOCK: ' + it.id );
-
 		if ( it.disabled || it.locks > 0 ) return false;
 
 		let test = it.require || it.need;
@@ -773,12 +771,10 @@ export default {
 	 */
 	applyVars( effect, dt=1 ) {
 
-		if ( typeof effect === 'object' ) {
+		if (  Array.isArray(effect) ) {
+			for( let e of effect ) { this.applyVars( e,dt); }
 
-			if (  Array.isArray(effect) ) {
-				for( let e of effect ) { this.applyVars( e,dt); }
-				return;
-			}
+		} else if ( typeof effect === 'object' ) {
 
 			let target, e = effect[TYP_PCT];
 			if ( e && !e.roll() ) return;
@@ -795,7 +791,8 @@ export default {
 
 				} else {
 
-					if ( typeof e === 'number' || e.type === TYP_RANGE  ) {
+					if ( typeof e === 'number' || e.type === TYP_RANGE || e.isRVal ) {
+
 						target.amount( this, e*dt );
 					} else if ( e === true ) {
 

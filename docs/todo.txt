@@ -1,10 +1,10 @@
 LevelUp:
 
-No crafting.
-
 No scribe scroll.
 
-Incorrect research rate from scrolls.
+Progress cheat no longer working.
+
+Incorrect research rate from scrolls. Works after refresh?
 
 Rest effect tooltip incorrect. TagSet error?
 

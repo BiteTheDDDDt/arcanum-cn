@@ -288,6 +288,7 @@ export default {
 	 */
 	applyMods( mods, amt=1, targ=this ) {
 
+		if ( this.id === 'research') console.log('applying research mod: ' + mods );
 		if ( mods instanceof Mod ) {
 
 			mods.applyTo( targ, 'value', amt );
@@ -329,6 +330,7 @@ export default {
 	 */
 	applyObj( mods, amt, targ, isMod ) {
 
+		if ( this.id === 'research') console.log('applying research mod: ' + mods );
 		for( let p in mods ) {
 
 			var m = mods[p];
@@ -341,15 +343,12 @@ export default {
 					let s = targ[p] = isMod ? new Mod( typeof m === 'number' ? m*amt :0 )
 						: new Stat( typeof m === 'number' ? m*amt : 0 );
 
-					if ( isMod ) {
-						s.count = this.value;
-						s.id = this.id;
-						//console.log(this.id + ' mod count: ' + s.count + ' Modbase: ' + (m*amt) );
-					}/* else {
-						console.log( this.id + ' new stat: ' + s.id )
-					}*/
+					s.owner = this;
+					//@todo use more accurate subpath.
+					s.id = SubPath(this.id, p );
 
 					if ( m instanceof Mod) {
+						console.log('Add mod to nonexistant target: ' + SubPath(this.id,p));
 						s.addMod(m, amt);
 					}
 					//console.log( this.id + '[' + p + ']:' + m + ': targ null: ' + s.valueOf() + ' isMod? ' + isMod );

@@ -336,6 +336,7 @@ export default class GData {
 	amount( g, count=1 ) {
 
 		count = this.add(count);
+		if ( this.id === 'scrolls') console.log('addign scrolls: '+ count);
 		if ( count === 0 ) return false;
 
 		this.change( g, count );
@@ -360,6 +361,8 @@ export default class GData {
 		if ( this.title ) g.state.player.setTitle( this.title );
 		if ( this.result ) g.applyVars( this.result, count );
 		if ( this.create ) g.create( this.create );
+
+		if ( this.id === 'scrolls') console.warn('applying scroll mods: ' + this.mod );
 		if ( this.mod ) { g.applyMods( this.mod ); }
 
 		if ( this.lock ) g.lock( this.lock );
