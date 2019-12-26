@@ -6,6 +6,7 @@ import Base, {mergeClass} from '../items/base';
 import Runnable from '../composites/runnable';
 import { SKILL, DUNGEON, REST_TAG, TYP_RUN, PURSUITS } from '../values/consts';
 import { iterableMap, iterableFind, setReplace } from '../util/dataUtil';
+import ArraySet from '../values/arrayset';
 
 /**
  * Tracks running/perpetual actions.
@@ -26,9 +27,9 @@ export default class Runner {
 		this.name = 'activity';
 
 		/**
-		 * @property {Set.<Action>} actives - Actively running tasks.
+		 * @property {ArraySet.<Action>} actives - Actively running tasks.
 		 */
-		this.actives = new Set( this.actives || null );
+		this.actives = new ArraySet( this.actives || null );
 
 		/**
 		 * @property {Action[]} waiting - actions waiting to run once rest is complete.
