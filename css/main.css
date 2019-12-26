@@ -104,8 +104,7 @@ body.darkmode {
     body.compact div.bar { height: 1em; border-radius: var(--md-radius); }
     body.compact div.bar .bar-text { font-size: 0.7rem; line-height: 0.8em; }
 
-button { color: var(--button-text-color); border: 1px solid #0006; }
-button { outline: none; }
+button { color: var(--button-text-color); border: 1px solid #0006; outline:none; }
 button:disabled { opacity: 0.3; color: unset; }
 
 input[type="button"], button, div.text-button {
@@ -277,8 +276,6 @@ div.div-hr {
 	background: var(--header-background-color); padding: var(--sm-gap);
 	border: none; margin: 0;
 }
-.table-head { border: none; }
-
 
 a {
 	color:inherit;
@@ -400,7 +397,6 @@ div.log-item {
 	z-index: var(--md-high);
 	top:0;
 	background:inherit;
-	border-radius: 0.20rem;
 }
 
 .log-title {
@@ -424,6 +420,7 @@ div.log-item {
 }
 
 .table-head {
+	border:none;
 	border-bottom: 1px solid black;
 	padding-bottom: var(--sm-gap);
 }
