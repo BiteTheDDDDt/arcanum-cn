@@ -116,8 +116,12 @@ export default class GameState {
 		this.items.pursuits = new DataList( this.items.pursuits );
 		this.items.pursuits.id = PURSUITS;
 
-		this.revive();
+		this.enchantslots = new Inventory();
+		this.enchantslots.id = this.enchantslots.name = 'enchantSlots';
+		this.enchantslots.spaceProp = 'level';
 
+
+		this.revive();
 		this.readyItems();
 
 		// circular problem. spelllist has to be revived after created spells

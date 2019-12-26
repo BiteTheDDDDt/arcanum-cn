@@ -37,6 +37,10 @@ export default {
 	},
 	computed:{
 
+		enchantSlots(){
+			return this.state.getData('enchantSlots');
+		},
+
 		enchants(){
 			return this.state.filterItems( it=>it.type==='enchant' && !this.locked(it) );
 		}
