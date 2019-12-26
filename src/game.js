@@ -68,7 +68,7 @@ export default {
 
 	/**
 	 *
-	 * @param {*} obj
+	 * @param {object} obj
 	 * @param {(number)=>boolean} obj.tick -tick function.
 	 */
 	addTimer( obj ){ this.runner.addTimer(obj); },

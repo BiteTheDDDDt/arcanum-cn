@@ -53,7 +53,7 @@ export default class Runnable extends Proxy {
 	/**
 	 * If target is supplied, first element MUST be the item
 	 * being used with target.
-	 * @param {*} vars
+	 * @param {object|GData} vars - runnable variables OR runner item.
 	 * @param {*} targ
 	 */
 	constructor( vars=null, targ=null ) {

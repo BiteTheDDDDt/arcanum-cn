@@ -16,6 +16,7 @@ import UserSpells from './inventories/userSpells';
 import Quickbars from './composites/quickbars';
 import Stat from './values/stat';
 import { WEARABLE, ARMOR, WEAPON, HOME, PURSUITS } from './values/consts';
+import EnchantSlots from './inventories/enchantslots';
 
 export const REST_SLOT = 'rest';
 
@@ -116,9 +117,7 @@ export default class GameState {
 		this.items.pursuits = new DataList( this.items.pursuits );
 		this.items.pursuits.id = PURSUITS;
 
-		this.enchantslots = new Inventory();
-		this.enchantslots.id = this.enchantslots.name = 'enchantSlots';
-		this.enchantslots.spaceProp = 'level';
+		this.enchantslots = new EnchantSlots( this.items.enchantslots );
 
 
 		this.revive();

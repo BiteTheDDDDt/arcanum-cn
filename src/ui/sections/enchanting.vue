@@ -1,6 +1,7 @@
 <script>
 import Game from '../../game';
 
+import EnchantSlots from '../items/enchantslots.vue';
 import FilterBox from '../components/filterbox.vue';
 import ItemsBase from '../itemsBase';
 
@@ -8,6 +9,7 @@ export default {
 
 	mixins:[ItemsBase],
 	components:{
+		eslots:EnchantSlots,
 		filterbox:FilterBox,
 		inv:()=>import( /* webpackChunkName: "inv-ui" */ './inventory.vue')
 	},
@@ -59,6 +61,8 @@ export default {
 		</div>
 		<span class="note-text">Items can only be enchanted with enchantments of equal or lower level.</span>
 		</div>
+
+		<eslots :eslots="state.enchantSlots" :inv="state.inventory" />
 
 		<div class="separate">
 

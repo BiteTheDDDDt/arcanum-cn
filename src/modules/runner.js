@@ -5,7 +5,7 @@ import Stat from '../values/stat';
 import Base, {mergeClass} from '../items/base';
 import Runnable from '../composites/runnable';
 import { SKILL, DUNGEON, REST_TAG, TYP_RUN, PURSUITS } from '../values/consts';
-import { iterableMap, iterableFind, setReplace } from '../util/dataUtil';
+import { iterableMap, iterableFind, setReplace, mapSet } from '../util/dataUtil';
 import ArraySet from '../values/arrayset';
 
 /**
@@ -39,7 +39,7 @@ export default class Runner {
 		/**
 		 * @property {} timers - timers ticking.
 		 */
-		this.timers = this.timers || null;
+		this.timers = new Set( this.timers || null );
 
 	}
 
@@ -49,7 +49,7 @@ export default class Runner {
 			max:this.max,
 			waiting:this.waiting.map(v=> v.type === TYP_RUN ? v : v.id),
 			actives:iterableMap( this.actives, v=> v.type === TYP_RUN ? v : v.id ),
-			timers:this.timers.length>0? this.timers.map(v=>v.id) : undefined
+			timers:this.timers.size > 0 ? iterableMap( this.timers, v=>v.id ) : undefined
 		};
 
 	}
@@ -67,9 +67,13 @@ export default class Runner {
 		if ( a ) a.exp =v;
 	}
 
+	/**
+	 *
+	 * @param {object} obj
+	 * @param {(number)=>boolean} obj.tick -tick function.
+	 */
 	addTimer(obj){
-		obj.timer = obj.cd;
-		this.timers.push(obj);
+		this.timers.add(obj);
 	}
 
 	/**
@@ -131,8 +135,7 @@ export default class Runner {
 
 		setReplace( this.actives, this.reviveList( this.actives, gs, true ) );
 
-		if ( this.timers ) this.timers = gs.toData( this.timers );
-		else this.timers = [];
+		this.timers = mapSet( this.timers, v=>gs.getData(v) );
 
 		Events.add( ACT_DONE, this.actDone, this );
 		Events.add( HALT_ACT, this.haltAction, this );
@@ -185,7 +188,7 @@ export default class Runner {
 		} else if ( typeof a === 'object') {
 
 			a = new Runnable( a );
-			if ( typeof a.revive === 'function' ) a.revive(gs);
+			a.revive(gs);
 			if ( a.target == null || a.item == null ) return null;
 
 		}
@@ -533,8 +536,8 @@ export default class Runner {
 			this.doAction( a, dt );
 		}
 
-		for( let i = this.timers.length-1; i>= 0; i-- ) {
-			if ( this.timers[i].tick(dt) ) quickSplice( this.timers, i );
+		for( let a of this.timers ) {
+			if ( a.tick(dt) ) this.timers.delete(a);
 		}
 
 	}

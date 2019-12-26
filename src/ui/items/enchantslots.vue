@@ -39,6 +39,8 @@ export default {
 <span class="item-name">s.target.name</span>
 <span class="enchant-name">s.item.name</span>
 </span>
+<span>s.percent()</span>
+
 <button class="btn-take">{{ s.done ? 'take' : 'cancel' }}</button>
 
 </div>
@@ -48,5 +50,13 @@ export default {
 </template>
 
 <style scoped>
+
+.item-name {
+	font-size: 0.9em;
+}
+
+.enchant-name {
+	font-size: 0.8em;
+}
 
 </style>
