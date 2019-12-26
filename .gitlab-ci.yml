@@ -22,26 +22,12 @@ make_dev:
     paths:
       - dev
 
-subpage:
+pages:
   stage: pages
-  rules:
-    - if: '$CI_COMMIT_REF_NAME != $PAGES_BRANCH'
-      when: never
-    - when: always
   script:
+    - mkdir public
     - cp -r dev "public/${CI_COMMIT_REF_SLUG}"
   artifacts:
     paths:
-      - public/${CI_COMMIT_REF_SLUG}
-
-pages:
-  stage: pages
-  rules:
-    - if: '$CI_COMMIT_REF_NAME == $PAGES_BRANCH'
-      when: always
-    - when: never
-  script:
-    - cp -r dev public
-  artifacts:
-    paths:
       - public
+      - public/${CI_COMMIT_REF_SLUG}
