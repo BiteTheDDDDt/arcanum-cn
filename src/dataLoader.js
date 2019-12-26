@@ -388,9 +388,7 @@ export const prepData = ( sub, id='' ) => {
 
 				} else if ( RangeTest.test(obj) ) sub[p] = new Range(obj);
 				else if ( !isNaN(obj) ) {
-					if ( obj !== null && obj !== undefined && obj !== '' ) console.warn('string used as Number: ' + p + ' -> ' + obj );
-					//console.warn('store numeric data as number.');
-					//sub[p] = Number(obj);
+					console.warn('string used as Number: ' + p + ' -> ' + obj );
 				}
 				else if ( p === 'damage' || p === 'dmg') sub[p] = makeDmgFunc(obj);
 
@@ -416,31 +414,6 @@ export const prepData = ( sub, id='' ) => {
 	}
 
 	return sub;
-
-}
-
-export const ParseEffects = ( effects ) => {
-
-	if ( Array.isArray(effects) ) {
-
-		for( let i = effects.length-1; i>= 0; i-- ){
-			effects[i] = ParseEffects( effects[i]);
-		}
-
-	} else if ( typeof effects === 'string') return effects;
-	else if ( typeof effects === 'object' ) {
-
-		for( let p in effects ) {
-
-			if ( adfs) {
-
-			}
-
-		}
-
-	}
-
-	return effects;
 
 }
 
@@ -472,7 +445,7 @@ export const parseRequire = ( sub ) => {
  */
 export function levelTestFunc( unlocker ) {
 	return (g,i)=>{
-		g[unlocker].level >= i.level; };
+		return g[unlocker].level >= i.level; };
 }
 
 /**

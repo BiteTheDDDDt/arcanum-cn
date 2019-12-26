@@ -24,12 +24,12 @@ make_dev:
 
 pages:
   stage: pages
+  rules:
+    - if: '$CI_COMMIT_REF_NAME == $PAGES_BRANCH'
+      when: always
+    - when: never
   script:
-    - mkdir public
-    - cp -r dev "public/${CI_COMMIT_REF_SLUG}"
-  cache:
-    paths:
-      - public/
+    - cp -r dev public
   artifacts:
     paths:
       - public/${CI_COMMIT_REF_SLUG}
