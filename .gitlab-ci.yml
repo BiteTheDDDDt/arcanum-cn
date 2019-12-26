@@ -32,4 +32,4 @@ pages:
     - cp -r dev public
   artifacts:
     paths:
-      - public
+      - public/${CI_COMMIT_REF_SLUG}
