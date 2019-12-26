@@ -102,19 +102,11 @@ export default class Runner {
 	get max() { return this._max; }
 	set max(v) {
 
-		if ( v instanceof Stat ) {
-
-			this._max =v;
-
-		} else if ( !this._max ) {
-
-			this._max = new Stat(v, 'max', true);
-		} else if ( typeof v === 'number' ) {
-
-
-			this._max.base = v;
-
-		} else this._max = new Stat(v, 'max', true);
+		if ( !this._max ) {
+			this._max = v instanceof Stat ? v : new Stat(v, 'max', true);
+		} else {
+			this._max.base = v instanceof Stat ? v.base : v;
+		}
 
 	}
 
