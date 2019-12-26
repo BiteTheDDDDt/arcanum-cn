@@ -29,7 +29,7 @@ pages:
     - cp -r dev "public/${CI_COMMIT_REF_SLUG}"
   cache:
     paths:
-      -public/
+      - public/
   artifacts:
     paths:
       - public/${CI_COMMIT_REF_SLUG}
