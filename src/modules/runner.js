@@ -5,6 +5,7 @@ import Stat from '../values/stat';
 import Base, {mergeClass} from '../items/base';
 import Runnable from '../composites/runnable';
 import { SKILL, DUNGEON, REST_TAG, TYP_RUN, PURSUITS } from '../values/consts';
+import { iterableMap, iterableFind, setReplace } from '../util/dataUtil';
 
 /**
  * Tracks running/perpetual actions.
@@ -25,9 +26,9 @@ export default class Runner {
 		this.name = 'activity';
 
 		/**
-		 * @property {Action[]} actives - Actively running tasks.
+		 * @property {Set.<Action>} actives - Actively running tasks.
 		 */
-		this.actives = this.actives || null;
+		this.actives = new Set( this.actives || null );
 
 		/**
 		 * @property {Action[]} waiting - actions waiting to run once rest is complete.
@@ -46,13 +47,8 @@ export default class Runner {
 		return {
 			max:this.max,
 			waiting:this.waiting.map(v=> v.type === TYP_RUN ? v : v.id),
-			actives:this.actives.map(v=> v.type === TYP_RUN ? v : v.id),
+			actives:iterableMap( this.actives, v=> v.type === TYP_RUN ? v : v.id ),
 			timers:this.timers.length>0? this.timers.map(v=>v.id) : undefined
-
-			/**
-			 * @property {Runnable[]} runnables - running combinations of objects.
-			 */
-			//runnables:this.runnables
 		};
 
 	}
@@ -61,24 +57,13 @@ export default class Runner {
 	 * @todo : Messy for Focus skill.
 	 */
 	get exp() {
-		for( let i = this.actives.length-1; i>= 0;i-- ) {
-			var a = this.actives[i];
-			if ( a.type === SKILL ) return a.exp;
-		}
-		return 0;
+		let a = iterableFind(this.actives, v=>v.type===SKILL);
+		return a ? a.exp : 0;
 	}
 
 	set exp(v) {
-
-		for( let i = this.actives.length-1; i>= 0;i-- ) {
-
-			var a = this.actives[i];
-			if ( a.type === SKILL ) {
-				a.exp = v;
-				return;
-			}
-
-		}
+		let a = iterableFind(this.actives, v=>v.type===SKILL);
+		if ( a ) a.exp =v;
 	}
 
 	addTimer(obj){
@@ -91,25 +76,22 @@ export default class Runner {
 	 */
 	autoProgress(){
 
-		for( let i = 0; i < this.actives.length; i ++ ) {
-			var a = this.actives[i];
-
-			if ( a.length ) a.exp = a.length - 0.001;
-
-		}
+		this.actives.forEach(v=>{
+			if ( v.length ) v.exp = v.length - 0.001;
+		});
 
 	}
 
 	/**
 	 * @property {number} running - number currently running.
 	 */
-	get running(){return this.actives.length; }
+	get running(){return this.actives.size; }
 
 	/**
 	 * @property {number} free - number of available run slots.
 	 */
 	get free(){
-		return Math.floor( this.max.valueOf() ) - this.actives.length;
+		return Math.floor( this.max.valueOf() ) - this.actives.size;
 	}
 
 	get max() { return this._max; }
@@ -146,7 +128,8 @@ export default class Runner {
 			this.waiting = this.waiting.slice( this.waiting.length - this.max );
 		}
 
-		this.actives = this.reviveList( this.actives, gs, true );
+		setReplace( this.actives, this.reviveList( this.actives, gs, true ) );
+
 		if ( this.timers ) this.timers = gs.toData( this.timers );
 		else this.timers = [];
 
@@ -168,23 +151,24 @@ export default class Runner {
 	}
 
 	/**
-	 * Revive a list, removing Runnable elements that can't revive (missing items, etc.)
-	 * @param {object[]} list
+	 * Revive a list, removing elements that can't revive (missing items, etc.)
+	 * @param {Iterable} list
 	 * @param {GameState} gs
 	 * @param {boolean} [running=false] - whether the items in list are running.
 	 */
 	reviveList( list, gs, running=false ) {
 
-		if ( !list ) return [];
+		let res = [];
+		if ( !list ) return res;
 
-		for( let i = list.length-1; i >= 0; i-- ) {
+		for( let a of list ) {
 
-			var a = list[i] = this.reviveAct( list[i], gs, running);
-			if ( a == null ) list.splice(a,1);
+			a = this.reviveAct( a, gs, running);
+			if ( a ) res.push(a);
 
 		}
 
-		return list;
+		return res;
 
 	}
 
@@ -269,17 +253,9 @@ export default class Runner {
 	 */
 	toggleAct( a ) {
 
-		let ind = this.actives.indexOf(a);
-
-		if ( ind >= 0 ) {
-
-			this.stopAction(ind, false);
-
-		} else {
-			this.setAction(a);
-
-		}
-
+		if ( this.actives.has(a) ) {
+			this.stopAction(a, false);
+		} else this.setAction(a);
 
 	}
 
@@ -308,31 +284,36 @@ export default class Runner {
 
 			// action already in running list.
 			Events.emit( ACT_CHANGED );
+
 			this.runAction(a);
-
-			// free space for action. actions.length is a double check.
-			while ( this.actives.length > Math.floor(this.max.valueOf()) ) {
-
-				let i = 0;
-
-				let cur = this.actives[i];
-				this.stopAction( i, false );
-
-				if ( (cur.type === TYP_RUN ) ){
-					console.log('WAIT RUNNABLE');
-					this.addWait(cur);
-				}
-
-			}
+			this.trimActives(a);
 
 		}
-
-
 
 	}
 
 	/**
-	 *
+	 * stop activities to make the available space.
+	 * @param {number} free - activity spaces to free.
+	 */
+	trimActives( not=null ){
+
+		var remove = this.actives.size - Math.floor(this.max.valueOf());
+		if ( remove <= 0 ) return;
+
+		for( let a of this.actives ) {
+
+			if ( a === not ) continue;
+			this.stopAction(a, false );
+			if ( a.type === TYP_RUN ) this.addWait(a);
+
+			if ( --remove <= 0 ) return;
+		}
+
+	}
+
+	/**
+	 * @private
 	 * @param {Action} act
 	 */
 	actBlocked( act, resume=true ) {
@@ -352,27 +333,19 @@ export default class Runner {
 
 	/**
 	 * UNIQUE ACCESS POINT for removing active action.
-	 * @param {number|Action} i
-	 * @param {boolean} tryResume - whether can attempt to resume another action.
+	 * @param {Action} i
+	 * @param {boolean} [tryResume=true] - whether can attempt to resume another action.
 	 */
-	stopAction( i, tryResume=true ){
-
-		if ( typeof i !== 'number') {
-			i = this.actives.indexOf(i);
-			if ( i < 0 ) {return;}
-		}
-
-		let a = this.actives[i];
+	stopAction( a, tryResume=true ){
 
 		if ( a.onStop ) a.onStop();
 		a.running = false;
-		this.actives.splice(i,1);
+		this.actives.delete(a);
 
 		if ( tryResume ){
-
 			this.tryResume();
+			this.tryPursuit();
 		}
-		this.tryPursuit();
 
 	}
 
@@ -404,6 +377,30 @@ export default class Runner {
 
 		this.setAction(a);
 
+		return true;
+
+	}
+
+	/**
+	 * Remove action entirely from Runner, whether active
+	 * or waiting.
+	 * @param {GData} a
+	 */
+	removeAct( a ){
+
+	}
+
+	/**
+	 * Attempt to remain an action from waiting list.
+	 * @param {GData} a
+	 * @returns {boolean} true if action was found and removed.
+	 */
+	removeWait(a) {
+
+		let ind = this.waiting.indexOf(a);
+		if ( ind < 0 ) return false;
+
+		this.waiting.splice(ind, 1);
 		return true;
 
 	}
@@ -449,17 +446,6 @@ export default class Runner {
 
 	}
 
-	stopAll() {
-
-		for( let i = this.actives.length-1; i>=0; i--) {
-
-			this.stopAction( i, false );
-
-		}
-		this.clearWaits();
-
-	}
-
 	/**
 	 * Action is done, but could be perpetual/ongoing.
 	 * Attempt to repay cost and keep action.
@@ -474,7 +460,7 @@ export default class Runner {
 
 		} else if ( repeatable ) {
 
-			if ( Game.canRun(act) && this.actives.length <= this.max.value ) {
+			if ( Game.canRun(act) && this.actives.size <= this.max.value ) {
 
 				this.setAction(act);
 
@@ -495,6 +481,15 @@ export default class Runner {
 			this.stopAction( act );
 
 		}
+
+	}
+
+	stopAll() {
+
+		for( let a of this.actives ) {
+			this.stopAction(a, false);
+		}
+		this.clearWaits();
 
 	}
 
@@ -533,10 +528,8 @@ export default class Runner {
 
 	update(dt) {
 
-		for( let i = this.actives.length-1; i>= 0; i-- ) {
-
-			this.doAction( this.actives[i], dt );
-
+		for( let a of this.actives ) {
+			this.doAction( a, dt );
 		}
 
 		for( let i = this.timers.length-1; i>= 0; i-- ) {
@@ -603,7 +596,10 @@ export default class Runner {
 	runAction(a) {
 
 		a.running=true;
-		this.actives.push(a);
+		this.actives.add(a);
+
+		this.removeWait(a);
+
 	}
 
 	/**
@@ -612,28 +608,7 @@ export default class Runner {
 	 * @returns {boolean}
 	 */
 	has(a) {
-		return this.actives.includes(a);
-	}
-
-	/**
-	 * Get index of a running action matching the type of the given action.
-	 * This is used to replace actions in progress.
-	 * @param {Action|Runnable} it
-	 * @returns {number}
-	 */
-	typeIndex( it ) {
-
-		let t = it.type;
-
-		for( let i = this.actives.length-1; i>= 0; i-- ) {
-
-			var a = this.actives[i];
-			if ( a.type === t && a != it ) return i;
-
-		}
-
-		return -1;
-
+		return this.actives.has(a);
 	}
 
 	/**
@@ -645,15 +620,7 @@ export default class Runner {
 	hasType( it ) {
 
 		let t = typeof it ==='string'? it : it.type;
-
-		for( let i = this.actives.length-1; i>= 0; i-- ) {
-
-			var a = this.actives[i];
-			if ( a.type === t ) return true;
-
-		}
-
-		return false;
+		return iterableFind( this.actives, a=>a.type===t) !== null;
 
 	}
 
