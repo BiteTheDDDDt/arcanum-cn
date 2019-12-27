@@ -102,24 +102,3 @@ export const addValues = (obj, vals) => {
 	}
 
 }
-
-/*const addKeyVal = ( obj, k, v ) => {
-
-	let cur = obj[k];
-	if ( !cur ) obj[k] = v;
-	else if ( typeof cur === 'object' ) {
-
-
-
-	} else {
-
-		if ( typeof v === 'object') {
-
-			obj[k] = clone( v );
-			obj[k].value = ( obj[k].value || 0 ) + cur;
-
-		} else obj[k] = cur + v;
-
-	}
-
-}*/

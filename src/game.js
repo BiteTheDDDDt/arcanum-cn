@@ -6,7 +6,8 @@ import GameState, { REST_SLOT } from './gameState';
 import ItemGen from './modules/itemgen';
 import TechTree from './techTree';
 
-import Events, {EVT_UNLOCK, EVT_EVENT, EVT_LOOT, SET_SLOT, DELETE_ITEM } from './events';
+import Events, {EVT_UNLOCK, EVT_EVENT, EVT_LOOT,
+	DROP_ITEM, SET_SLOT, DELETE_ITEM } from './events';
 import Resource from './items/resource';
 import Skill from './items/skill';
 import Stat from './values/stat';
@@ -119,6 +120,7 @@ export default {
 			// initial fringe check.
 			techTree.forceCheck();
 
+			Events.add( DROP_ITEM, this.state.deleteInstance, this.state );
 			Events.add( SET_SLOT, this.setSlot, this );
 			Events.add( DELETE_ITEM, this.onDelete, this );
 
@@ -1044,8 +1046,12 @@ export default {
 	payInst( p, amt ){
 
 		var res = this.state.inventory.find( p,true );
-		if ( res ) this.state.inventory.removeQuant(res,amt);
-		else console.warn('QUANT NOT FOUND: ' + p );
+		if ( res ) {
+
+			this.state.inventory.removeQuant(res,amt);
+			if ( res.value <= 0 ) Events.emit( DROP_ITEM, res );
+
+		} else console.warn('QUANT NOT FOUND: ' + p );
 
 	},
 

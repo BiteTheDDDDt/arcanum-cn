@@ -23,12 +23,6 @@ export default class Encounter extends GData {
 		else return undefined;
 	}
 
-	clone() {
-		let e = new Encounter( this );
-		e.exp = 0;
-		return e;
-	}
-
 	get done() { return this._exp >= this.length; }
 
 	constructor( vars=null, save=null ) {
