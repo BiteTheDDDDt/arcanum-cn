@@ -23,8 +23,6 @@ export default class Encounter extends GData {
 
 	}
 
-	get isRecipe() { return true; }
-
 	get exp() { return this._exp;}
 	set exp(v) { this._exp = v;}
 
