@@ -47,8 +47,8 @@ export default class Runner {
 
 		return {
 			max:this.max,
-			waiting:this.waiting.map(v=> v.type === TYP_RUN ? v : v.id),
-			actives:iterableMap( this.actives, v=> v.type === TYP_RUN ? v : v.id ),
+			waiting:this.waiting.map(v=>v.id),
+			actives:iterableMap( this.actives, v=> v.id ),
 			timers:this.timers.size > 0 ? iterableMap( this.timers, v=>v.id ) : undefined
 		};
 

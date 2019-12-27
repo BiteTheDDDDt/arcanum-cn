@@ -6,13 +6,15 @@ export default class Proxy {
 	/**
 	 * @property {string} id - maybe a bad idea.
 	 */
-	get id() { return ( this.item ? this.item.id : '' ); }
+	get id() { return 'proxy_' + ( this.item ? this.item.id : '' ); }
 
 	/**
 	 * @property {string} name
 	 */
 	get name() { return this.item ? this.item.name : ''; }
 	set name(v){}
+
+	get instanced(){return true;}
 
 	set count(v){}
 
