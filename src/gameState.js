@@ -77,6 +77,8 @@ export default class GameState {
 
 		this.initSlots();
 
+		this.instances = {};
+
 		this.bars = new Quickbars(
 
 			baseData.bars ||
@@ -395,7 +397,7 @@ export default class GameState {
 
 	/**
 	 * Add to maximum value of resource.
-	 * Used for implementing testing cheats.
+	 * Used to implement cheats.
 	 * @param {string} id
 	 * @param {number} amt
 	 */
@@ -436,60 +438,6 @@ export default class GameState {
 	}
 
 	/**
-	 * Add created item to items list.
-	 * @param {GData} it
-	 */
-	addItem( it ) {
-
-		if ( this.items[it.id] ) console.warn('OVERWRITE ID: ' + it.id);
-
-		if ( !it.hasTag ) {
-			console.log('MISSING HASTAG: ' + it.id );
-			return false;
-		}
-
-		this.items[it.id] = it;
-
-		if ( it.module !== 'hall') {
-			console.log('ADDING SAVE ITEM: ' + it.id );
-			this.saveItems[it.id] = it;
-		}
-
-		return true;
-
-	}
-
-	/**
-	 * Should only be used for custom items.
-	 * Call from Game so DELETE_ITEM event called.
-	 * @param {GData} it
-	 */
-	deleteItem( it ) {
-		delete this.items[it.id];
-		delete this.saveItems[it.id];
-	}
-
-	/**
-	 * Assign all items passing the predicate test the given tag.
-	 * @param {Predicate} test
-	 * @param {string} tag
-	 */
-	tagItems( test, tag ) {
-		let items = this.items;
-		for( let p in items ) {
-			if ( test( items[p] ) ) items[p].addTag(tag);
-		}
-	}
-
-	/**
-	 * Get an item on an item-id varpath.
-	 * @param {VarPath} v
-	 */
-	/*getPathItem(v){
-		return v.readVar( this._items );
-	}*/
-
-	/**
 	 * Get state slots so they can be modified for Vue reactivity.
 	 * @returns {.<string,GData>}
 	 */
@@ -520,15 +468,117 @@ export default class GameState {
 
 	}
 
+	exists(id){ return this.items.hasOwnProperty(id);}
+
+	/**
+	 * Add created item to items list.
+	 * @param {GData} it
+	 */
+	addItem( it ) {
+
+		if ( this.items[it.id] ) console.warn('OVERWRITE ID: ' + it.id);
+
+		if ( !it.hasTag ) {
+			console.log('MISSING HASTAG: ' + it.id );
+			return false;
+		}
+
+		this.items[it.id] = it;
+
+		if ( it.module !== 'hall') {
+			console.log('ADDING SAVE ITEM: ' + it.id );
+			this.saveItems[it.id] = it;
+		}
+
+		return true;
+
+	}
+
+	/**
+	 * Get id for instance
+	 * @param {string} id - base id.
+	 */
+	instanceId( id ) {
+
+		let i = 0;
+
+		while ( this.instances.hasOwnProperty( (id + ++i )));
+
+		return id+i;
+
+	}
+
+	/**
+	 * Add instanced item to instances data.
+	 * @param {*} it
+	 */
+	addInstance( it ) {
+
+		it.id = this.instanceId( it.id );
+		//if ( this.instances[it.id] ) console.warn('OVERWRITE ID: ' + it.id);
+		this.instances[it.id] = it;
+
+	}
+
+	getInstance(id) { return this.instances[id];}
+
+	/**
+	 * @param {*} it
+	 */
+	deleteInstance( it ){
+
+		if ( typeof it === 'string') {
+			it = this.instances[it];
+		}
+		if ( it ) {
+			it.value = 0;
+			this.instances[it.id] = undefined;
+		}
+
+	}
+
+
 	/**
 	 * Find an item instantiated from given item proto/recipe.
 	 * @param {string} id
+	 * @returns {GData|null} - instance found.
 	 */
 	findInstance( id ) {
-		return this.inventory.find(id, true) || this.equip.find(id, true );
+
+		var it = this.instances[id];
+		if ( it ) return it;
+
+		for( let p in this.instances ) {
+
+			var it = this.instances[p];
+			if ( it.id === id || it.recipe === id ) return it
+
+		}
+		return null;
+
 	}
 
-	exists(id){ return this.items.hasOwnProperty(id);}
+	/**
+	 * Should only be used for custom items.
+	 * Call from Game so DELETE_ITEM event called.
+	 * @param {GData} it
+	 */
+	deleteItem( it ) {
+		delete this.items[it.id];
+		delete this.saveItems[it.id];
+	}
+
+	/**
+	 * Assign all items passing the predicate test the given tag.
+	 * @param {Predicate} test
+	 * @param {string} tag
+	 */
+	tagItems( test, tag ) {
+		let items = this.items;
+		for( let p in items ) {
+			if ( test( items[p] ) ) items[p].addTag(tag);
+		}
+	}
 
 	/**
 	 * Find item in base items, equip, or inventory.
@@ -537,7 +587,8 @@ export default class GameState {
 	 */
 	findData(id, any=false) {
 
-		return this.getData(id) || this.inventory.find(id, any) || this.equip.find(id, any );
+		return this.getData(id) ||
+			( any ? this.findInstance(id) : this.getInstance(id) );
 	}
 
 	/**

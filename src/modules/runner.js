@@ -45,8 +45,8 @@ export default class Runner {
 
 		return {
 			max:this.max,
-			waiting:this.waiting.map(v=> v.type === TYP_RUN ? v : v.id),
-			actives:this.actives.map(v=> v.type === TYP_RUN ? v : v.id),
+			waiting:this.waiting.map(v=>v.id),
+			actives:this.actives.map(v=>v.id),
 			timers:this.timers.length>0? this.timers.map(v=>v.id) : undefined
 
 			/**

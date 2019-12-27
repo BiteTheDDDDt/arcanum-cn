@@ -168,11 +168,11 @@ export default class ItemGen {
 
 			it = new Item( proto );
 
-		} else if ( proto.type === MONSTER ) return this.npc(proto);
+		} else if ( proto.type === MONSTER || proto.type === NPC ) return this.npc(proto);
 
 		if ( it === undefined ) return null;
 
-		it.id = proto.id + this.state.nextIdNum();
+		this.state.addInstance(it);
 		it.value = 1;
 		it.owned = true;
 
@@ -181,6 +181,7 @@ export default class ItemGen {
 	}
 
 	/**
+	 * @private
 	 * Generate a new item from a template item.
 	 * @param {Wearable} data
 	 * @param {string|Material|number} material - material or material level.
@@ -419,6 +420,11 @@ export default class ItemGen {
 	 */
 	wearableType() { return Math.random() < 0.65 ? ARMOR : WEAPON; }
 
+	/**
+	 * @private
+	 * @param {} data
+	 * @param {*} material
+	 */
 	makeWearable( data, material ) {
 
 		let item = new Wearable(data);
@@ -430,7 +436,7 @@ export default class ItemGen {
 
 		} else item.name = (data.name || data.id );
 
-		item.id = data.id + this.state.nextIdNum();
+		this.state.addInstance( item );
 
 		return item;
 	}
