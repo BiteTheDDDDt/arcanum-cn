@@ -131,7 +131,7 @@ export default class GameState {
 		this.playerStats = this.player.getResources();
 
 		/**
-		 * @property {Object.<string,Item[]>} tagLists - tag to array of items with tag.
+		 * @property {.<string,Item[]>} tagLists - tag to array of items with tag.
 		 * makes upgrading/referencing by tag easier.
 		*/
 		this.tagLists = this.makeLists( this.items );
