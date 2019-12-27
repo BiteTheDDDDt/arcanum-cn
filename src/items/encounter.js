@@ -7,7 +7,23 @@ import { ENCOUNTER } from "../values/consts";
  */
 export default class Encounter extends GData {
 
-	get isRecipe() {return true; }
+	toJSON(){
+
+		if ( this.exp != 0 ) {
+
+			return {
+				value:this.value,
+				exp:this.exp
+			}
+
+		} else {
+
+			return this.value > 0 ? { value:this.value } : undefined;
+		}
+
+	}
+
+	get isRecipe() { return true; }
 
 	get exp() { return this._exp;}
 	set exp(v) { this._exp = v;}
@@ -17,17 +33,6 @@ export default class Encounter extends GData {
 	 */
 	get length() { return this._length; }
 	set length(v) { this._length = v;}
-
-	toJSON() {
-		if ( this.value > 0 ) return { value:this.value };
-		else return undefined;
-	}
-
-	clone() {
-		let e = new Encounter( this );
-		e.exp = 0;
-		return e;
-	}
 
 	get done() { return this._exp >= this.length; }
 
@@ -44,9 +49,6 @@ export default class Encounter extends GData {
 		if ( !this.level ) this.level = 1;
 		if ( !this.length ) this.length = 5*this.level;
 
-	}
-
-	revive(gs) {
 	}
 
 	update( dt ){
