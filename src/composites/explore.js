@@ -23,11 +23,7 @@ export default class Explore {
 				id:enc.id,
 				exp:enc.exp,
 				recipe:enc.recipe,
-				template:( enc.template ?
-
-					( typeof enc.template === 'string') ? enc.template : enc.template.id :
-					undefined
-				)
+				template:( enc.template ? enc.template.id : undefined )
 
 			} : undefined
 		}

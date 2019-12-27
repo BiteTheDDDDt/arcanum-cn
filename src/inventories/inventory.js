@@ -15,7 +15,7 @@ export default class Inventory {
 
 	toJSON(){
 		return {
-			items:this.items.map(v=>v.instanced ? v : v.id ),
+			items:this.items.map(v=>v.id),
 			max:(this.max),
 			name:this.name||undefined,
 			id:(this.id !== 'inventory') ? this.id : undefined
@@ -77,6 +77,7 @@ export default class Inventory {
 			var it = this.items[i];
 			if ( typeof it === 'object' ) {
 
+				/** @compat items now stored in instances data. */
 				it = itemRevive( state, it );
 
 			} else if ( typeof it === 'string') it = state.getData(it);
