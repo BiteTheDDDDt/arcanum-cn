@@ -12,12 +12,45 @@ export default class EnchantSlots extends Inventory {
 	get runner(){return this._runner;}
 	set runner(v) { this._runner = v;}
 
+	get exp(){
+		return this._exp;
+	}
+	/**
+	 * @private
+	 * @property {number} exp
+	 */
+	set exp(v){
+		this._exp = v;
+	}
+
+	/**
+	 * @property {number} length
+	 */
+	get length(){
+		return this._length;
+	}
+	/**
+	 * @private
+	 * @property {number} length
+	 */
+	set length(v){
+		this._length=v;
+	}
+	percent(){
+		return this._length>0 ? Math.round(100*this.exp/this.length) : 0;
+	}
+
 	constructor( vars ) {
 
 		super(vars);
 
-		this.enchantslots.id = this.enchantslots.name = ENCHANTSLOTS;
+		this.id = this.name = ENCHANTSLOTS;
 		this.spaceProp = 'level';
+
+		this.max = this._max || 1;
+
+		this._exp = 0;
+		this._length = 0;
 
 	}
 
@@ -34,16 +67,25 @@ export default class EnchantSlots extends Inventory {
 
 		this.runner = gs.runner;
 
+		let ltot = 0;
+		let extot = 0;
+
 		for( let i = this.items.length-1; i >= 0; i--) {
 
 			var it = new Enchanting( this.items[i] );
 			it.revive(gs);
 			if ( a.target === null || a.item === null ) {
 				this.items.splice(i,1);
+			} else {
+				ltot += it.length;
+				extot += it.exp;
 			}
 
 
 		}
+
+		this.exp = extot;
+		this.length = ltot;
 
 		this.calcUsed();
 
@@ -51,14 +93,24 @@ export default class EnchantSlots extends Inventory {
 
 	update(dt) {
 
+		let ltot = 0;
+		let extot = 0;
+
 		for( let i = this.items.length-1; i >= 0; i--) {
 
 			var it = this.items[i];
 			if ( !it.done ) {
+
 				it.update(dt);
+				ltot += it.length;
+				extot += it.exp;
+
 			}
 
 		}
+
+		this.exp = extot;
+		this.length = ltot;
 
 	}
 
