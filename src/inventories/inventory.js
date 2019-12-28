@@ -15,7 +15,7 @@ export default class Inventory {
 
 	toJSON(){
 		return {
-			items:this.items.map(v=>v.id),
+			items:this.items.map(v=>v.instanced ? v : v.id),
 			max:(this.max),
 			name:this.name||undefined,
 			id:(this.id !== 'inventory') ? this.id : undefined
