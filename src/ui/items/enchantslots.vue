@@ -33,7 +33,7 @@ export default {
 
 <div class="enchant-slots">
 
-<div class="enchant-slot" v-for="s in eslots" :key="s.id">
+<div class="enchant-slot" v-for="s in eslots.items" :key="s.id">
 
 <span class="enchant-desc">
 <span class="item-name">s.target.name</span>

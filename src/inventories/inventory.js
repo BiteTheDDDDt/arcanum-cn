@@ -48,6 +48,10 @@ export default class Inventory {
 		this._max = v instanceof Stat ? v : new Stat(v, 'max', true);
 	}
 
+	[Symbol.iterator](){
+		return this.items[Symbol.iterator]();
+	}
+
 	/**
 	 * @property {boolean} removeDupes - whether to remove duplicate ids from inventory.
 	 */

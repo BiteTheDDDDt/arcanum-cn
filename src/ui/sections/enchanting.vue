@@ -1,6 +1,6 @@
 <script>
-import Game from '../../game';
-
+import Game from 'game';
+import {ENCHANTSLOTS} from 'values/consts';
 import EnchantSlots from '../items/enchantslots.vue';
 import FilterBox from '../components/filterbox.vue';
 import ItemsBase from '../itemsBase';

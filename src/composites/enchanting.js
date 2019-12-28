@@ -41,7 +41,7 @@ export default class Enchanting extends Proxy {
 
 	get exp(){ return this._exp; }
 	set exp(v) {
-		this._exp = v < this.length ? v : this.length.value;
+		this._exp = v;
 	}
 
 	get repeat() { return (this._item && this._item.repeat) || false; }

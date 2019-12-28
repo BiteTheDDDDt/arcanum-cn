@@ -388,7 +388,7 @@ export const prepData = ( sub, id='' ) => {
 
 				} else if ( RangeTest.test(obj) ) sub[p] = new Range(obj);
 				else if ( !isNaN(obj) ) {
-					console.warn('string used as Number: ' + p + ' -> ' + obj );
+					if ( obj !== '') console.warn('string used as Number: ' + p + ' -> ' + obj );
 				}
 				else if ( p === 'damage' || p === 'dmg') sub[p] = makeDmgFunc(obj);
 

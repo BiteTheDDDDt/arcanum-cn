@@ -44,7 +44,8 @@ export default class EnchantSlots extends Inventory {
 
 		super(vars);
 
-		this.id = this.name = ENCHANTSLOTS;
+		this.id = ENCHANTSLOTS;
+		this.name = 'enchanting';
 		this.spaceProp = 'level';
 
 		this.max = this._max || 1;
@@ -74,7 +75,7 @@ export default class EnchantSlots extends Inventory {
 
 			var it = new Enchanting( this.items[i] );
 			it.revive(gs);
-			if ( a.target === null || a.item === null ) {
+			if ( it.target === null || it.item === null ) {
 				this.items.splice(i,1);
 			} else {
 				ltot += it.length;
