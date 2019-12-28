@@ -1,10 +1,10 @@
 import Game from '../game';
-import {quickSplice, findRemove} from '../util/array';
+import {quickSplice} from '../util/array';
 import Events, {ACT_DONE, ACT_CHANGED, HALT_ACT, ACT_BLOCKED, EXP_MAX, STOP_ALL } from '../events';
 import Stat from '../values/stat';
 import Base, {mergeClass} from '../items/base';
 import Runnable from '../composites/runnable';
-import { SKILL, DUNGEON, REST_TAG, TYP_RUN, PURSUITS } from '../values/consts';
+import { SKILL, REST_TAG, TYP_RUN, PURSUITS } from '../values/consts';
 import { iterableMap, iterableFind, setReplace, mapSet } from '../util/dataUtil';
 import ArraySet from '../values/arrayset';
 
@@ -177,16 +177,11 @@ export default class Runner {
 			a = gs.getData( a);
 			if ( !a ) return null;
 
-		} else if ( typeof a === 'object') {
-
-			a = new Runnable( a );
-			a.revive(gs);
-			if ( a.target == null || a.item == null ) return null;
-
 		}
-		if ( a.type === DUNGEON ) return gs.raid;
 
 		a.running=running;
+		if ( a.controller ) return gs.getData(a.controller);
+
 
 		return a;
 
@@ -201,44 +196,14 @@ export default class Runner {
 	 */
 	useOn( it, targ ) {
 
-		let id = it.id;
-		let t = targ.id;
-
-		let run = findRemove( this.waiting, (v)=>{
-			return (v.type === TYP_RUN )&&(id===v.item.id && v.target && t === v.target.id )
-		});
-
-		if ( !run ) {
-
-			if ( targ.running === true ) return false;
-
+		var run;
+		if ( it.beginUseOn ) {
+			run = it.beginUseOn( targ );
+		} else {
 			run = new Runnable( it, targ );
-			if ( it.beginUseOn ) it.beginUseOn( targ );
-
 		}
+
 		this.setAction( run );
-
-	}
-
-	/**
-	 * Check if item/target combination is in wait queue.
-	 * @param {GData} it
-	 * @param {GData} targ
-	 */
-	isWaiting( it, targ ){
-
-		for( let i = this.waiting.length-1; i>=0; i--) {
-
-			var a = this.waiting[i];
-			if ( a.type === TYP_RUN ) {
-
-				if ( a.item === it && a.target === targ ) return true;
-
-			} else if ( a === it ) return true;
-
-		}
-
-		return false;
 
 	}
 
@@ -264,9 +229,9 @@ export default class Runner {
 
 		if ( !a) return;
 
-		if ( a.proxy ) {
+		if ( a.controller ) {
 			/// a is proxied by another object. (raid/explore)
-			let p = Game.state.getData( a.proxy );
+			let p = Game.state.getData( a.controller );
 			if (!p) return false;
 			p.runWith(a);
 			a = p;
@@ -409,34 +374,20 @@ export default class Runner {
 		this.waiting.push(a);
 
 		let remove = this.waiting.length - this.max.value;
-		let i = 0;
-
-		while ( remove > 0 ) {
-
-			a = this.waiting[i];
-			if ( a.type !== TYP_RUN ) {
-
-				this.waiting.splice( i, 1 );
-
-			} else {
-				i++;
-			}
-
-			remove--;
-
+		if ( remove > 0 ) {
+			this.waiting.splice(0, remove );
 		}
 
 	}
 
 	haltAction( act ) {
 
-		if ( act.proxy ) act = Game.state.getData(act.proxy);
+		if ( act.controller ) act = Game.state.getData(act.controller);
 
 		// absolute rest stop if no actions waiting.
 		if ( this.waiting.length === 0 && act.hasTag( REST_TAG ) ) this.stopAction(act,false);
 
 		else {
-			if ( act.type === TYP_RUN ) this.addWait(act);
 			this.stopAction( act );
 		}
 

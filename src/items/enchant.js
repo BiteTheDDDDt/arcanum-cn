@@ -2,6 +2,8 @@ import Action from './action';
 import GData from './gdata';
 import { setModCounts } from './base';
 import { canTarget } from '../values/consts';
+import Runnable from '../composites/runnable';
+import Enchanting from '../composites/enchanting';
 
 
 export default class Enchant extends Action {
@@ -31,18 +33,14 @@ export default class Enchant extends Action {
 	/**
 	 * Begin using Enchant on item. Increase item level immediately.
 	 * @param {GData} targ
+	 * @returns {Runnable}
 	 */
 	beginUseOn( targ ) {
-		targ.enchants = (targ.enchants || 0) + this.level;
-		targ.busy = true;
-	}
-
-	resumeUseOn(targ) {
-		if (targ ) targ.busy = true;
+		return new Enchanting( this, targ );
 	}
 
 	/**
-	 * Called when enchant is being used on target.
+	 * Called when enchant completes on a target.
 	 * @param {*} targ
 	 */
 	useOn( targ ) {
@@ -68,7 +66,6 @@ export default class Enchant extends Action {
 		if ( targ) {
 			targ.busy = false;
 			targ.enchants -= this.level;
-
 		}
 	}
 

@@ -15,7 +15,7 @@ import Group from './composites/group';
 import UserSpells from './inventories/userSpells';
 import Quickbars from './composites/quickbars';
 import Stat from './values/stat';
-import { WEARABLE, ARMOR, WEAPON, HOME, PURSUITS } from './values/consts';
+import { WEARABLE, ARMOR, WEAPON, HOME, PURSUITS, ENCHANTSLOTS } from './values/consts';
 import EnchantSlots from './inventories/enchantslots';
 
 export const REST_SLOT = 'rest';
@@ -76,6 +76,8 @@ export default class GameState {
 		 */
 		this.NEXT_ID = this.NEXT_ID || 0;
 
+		this.instances = this.instances || {};
+
 		this.initSlots();
 
 		this.bars = new Quickbars(
@@ -91,6 +93,7 @@ export default class GameState {
 		this.inventory.removeDupes = true;
 
 		this.drops = new Inventory();
+
 
 		/**
 		 * @property {Minions} minions
@@ -117,7 +120,7 @@ export default class GameState {
 		this.items.pursuits = new DataList( this.items.pursuits );
 		this.items.pursuits.id = PURSUITS;
 
-		this.enchantslots = new EnchantSlots( this.items.enchantslots );
+		this.items[ENCHANTSLOTS] = new EnchantSlots( this.items[ENCHANTSLOTS] );
 
 
 		this.revive();
@@ -521,6 +524,14 @@ export default class GameState {
 
 		if ( slot === REST_SLOT ) this.restAction = v;
 
+	}
+
+	/**
+	 * Cache instance for global access.
+	 * @param {GData} it
+	 */
+	cacheInstance( it ) {
+		this.instances[it.id] = it;
 	}
 
 	/**

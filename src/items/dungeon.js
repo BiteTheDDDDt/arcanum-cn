@@ -38,7 +38,7 @@ export default class Dungeon extends Action {
 
 	}
 
-	get proxy(){return RAID}
+	get controller() {return RAID}
 
 	/**
 	 *
