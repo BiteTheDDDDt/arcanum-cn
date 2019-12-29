@@ -39,7 +39,7 @@ export default {
 <span class="item-name">{{s.target.name}}</span>
 <span class="enchant-name">{{s.item.name}}</span>
 </span>
-<span>s.percent()</span>
+<span>{{ s.percent()}}</span>
 
 <button class="btn-take" :disabled="!canTake(s)" @click="onTake(s)">{{ s.done ? 'take' : 'cancel' }}</button>
 
