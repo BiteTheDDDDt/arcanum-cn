@@ -229,16 +229,16 @@ export default class Runner {
 
 		if ( !a) return;
 
+		if ( a.cost && (a.exp === 0) ) {
+			Game.payCost( a.cost);
+		}
+
 		if ( a.controller ) {
 			/// a is proxied by another object. (raid/explore)
 			let p = Game.state.getData( a.controller );
 			if (!p) return false;
 			p.runWith(a);
 			a = p;
-		}
-
-		if ( a.cost && (a.exp === 0) ) {
-			Game.payCost( a.cost);
 		}
 
 		if ( !this.has(a) ) {

@@ -29,9 +29,19 @@ export default {
 	beforeCreate(){
 		this.state = Game.state;
 		this.runner = this.state.runner;
+		this.inv = this.state.getData('inventory');
 		this.enchantSlots = this.state.getData(ENCHANTSLOTS);
 	},
 	methods:{
+
+		begin(it,target ) {
+
+			/** @note test here for successful add to enchants? */
+			this.emit('enchant', it, target )
+
+			this.inv.remove(target);
+
+		},
 
 		canUseOn( it, targ ) {
 			return targ&&it.canUseOn(targ)&& this.enchantSlots.canAdd(it)&&this.usable(it);
@@ -59,7 +69,7 @@ export default {
 		<span class="note-text">Items can only be enchanted with enchantments of equal or lower level.</span>
 		</div>
 
-		<eslots :eslots="state.enchantSlots" :inv="state.inventory" />
+		<eslots :eslots="enchantSlots" :inv="inv" />
 
 		<div class="separate">
 
@@ -75,7 +85,7 @@ export default {
 				@click="emit('buy', it)">Unlock</button>
 
 			<button v-else :disabled="!canUseOn(it,target)"
-				@click="emit('enchant', it, target)">Enchant</button>
+				@click="begin(it,target)">Enchant</button>
 
 		</div>
 		</div>

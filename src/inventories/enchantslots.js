@@ -48,6 +48,7 @@ export default class EnchantSlots extends Inventory {
 		this.name = 'enchanting';
 		this.spaceProp = 'level';
 
+		this.removeDupes = true;
 		this.max = this._max || 1;
 
 		this._exp = 0;
@@ -74,13 +75,19 @@ export default class EnchantSlots extends Inventory {
 		for( let i = this.items.length-1; i >= 0; i--) {
 
 			var it = new Enchanting( this.items[i] );
+			if ( !it ) {
+				console.warn('invalid enchanting: ' + i );
+				this.items.splice(i,1);
+				continue;
+			}
 			it.revive(gs);
-			if ( it.target === null || it.item === null ) {
+			if ( !it || it.target === null || it.item === null ) {
 				this.items.splice(i,1);
 			} else {
 				ltot += it.length;
 				extot += it.exp;
 			}
+			this.items[i] = it;
 
 
 		}

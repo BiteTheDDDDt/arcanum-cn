@@ -12,14 +12,14 @@ export default {
 	methods:{
 
 		canTake(it){
-			return this.inv.canAdd(it);
+			return it.target && this.inv.canAdd(it.target);
 		},
 
 		onTake( it ){
 
-			if ( !this.inv.canAdd(it) )return;
+			if ( !this.inv.canAdd(it.target) ) return;
 
-			this.inv.add(it);
+			this.inv.add(it.target);
 			this.eslots.remove(it);
 
 		}
@@ -36,12 +36,12 @@ export default {
 <div class="enchant-slot" v-for="s in eslots.items" :key="s.id">
 
 <span class="enchant-desc">
-<span class="item-name">s.target.name</span>
-<span class="enchant-name">s.item.name</span>
+<span class="item-name">{{s.target.name}}</span>
+<span class="enchant-name">{{s.item.name}}</span>
 </span>
 <span>s.percent()</span>
 
-<button class="btn-take">{{ s.done ? 'take' : 'cancel' }}</button>
+<button class="btn-take" :disabled="!canTake(s)" @click="onTake(s)">{{ s.done ? 'take' : 'cancel' }}</button>
 
 </div>
 
