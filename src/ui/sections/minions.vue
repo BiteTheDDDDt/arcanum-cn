@@ -18,11 +18,13 @@ export default {
 	},
 	computed:{
 
+		allies() { return this.minions.allies;},
+
 		inRaid() { return Game.state.raid.running },
 
 		items(){ return this.minions.filter( v=>v.value>=1 ); },
 
-		rezList(){return Game.state.getData('rez').filter(v=>v.owned&&!v.disabled);}
+		rezList(){return Game.state.getTagSet('rez').filter(v=>v.owned&&!v.disabled);}
 
 	},
 	methods:{
@@ -45,10 +47,6 @@ export default {
 			Game.tryItem(rez);
 			b.hp =1;
 
-		},
-
-		levelCap(b){
-			return b.level + this.minions.allyTotal > this.minions.maxAllies;
 		},
 
 		/**
@@ -83,7 +81,7 @@ export default {
 	<div v-if="inRaid" class="warn-text">Cannot change active minions while adventuring</div>
 	<div class="minion-title">
 		<span>{{ minions.count + ' / ' + Math.floor(minions.max) + ' Used' }}</span>
-		<span>Allies Power: {{ minions.allyTotal.toFixed(2) + ' / ' + Math.floor( minions.maxAllies.value ) }}</span></div>
+		<span>Allies Power: {{ allies.used.toFixed(2) + ' / ' + Math.floor( allies.max.value ) }}</span></div>
 
 	<div class="char-list">
 	<table>
@@ -97,7 +95,7 @@ export default {
 
 			</td>
 			<td v-else>
-				<button @click="toggleActive(b)" :disabled="inRaid||( levelCap(b)&&!b.active )">{{ b.active === true ? 'Rest' : 'Activate' }}</button>
+				<button @click="toggleActive(b)" :disabled="inRaid||( allies.canAdd(b)&&!b.active )">{{ b.active === true ? 'Rest' : 'Activate' }}</button>
 			</td>
 			<td v-if="!b.alive">
 				<button class="rez" v-for="r in rezzes(b)" :key="r.id" :disabled="!usable(r)" @click="useRez(r,b)">{{ r.name }}</button>

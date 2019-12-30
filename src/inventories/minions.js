@@ -1,31 +1,32 @@
 import Inventory from "./inventory";
-import { TEAM_ALLY } from "../chars/npc";
 import Events, { ALLY_DIED, ACT_CHANGED } from '../events';
-import Stat from "../values/stat";
-import { NPC } from "../values/consts";
+import { NPC, TEAM_PLAYER} from "../values/consts";
+import RValue from "../values/rvalue";
 
 
 export default class Minions extends Inventory {
 
 	/**
-	 * @property {Stat} allies - level max allies taken into battle.
+	 * @deprecated - use allies.max
+	 * @property {Stat} maxAllies - level max allies taken into battle.
 	 */
-	get maxAllies() { return this._maxAllies; }
-	set maxAllies(v) {
-		this._maxAllies = v instanceof Stat ? v : new Stat(v, 'maxAllies', true);
+	get maxAllies() { return this._allies.max; }
+	set maxAllies(v) { this._allies.max = v;
 	}
 
 	/**
-	 * @property {number} allyTotal - sum of all allies levels.
+	 * @property {Inventory} - minions active in combat.
 	 */
-	get allyTotal() { return this._allyTotal; }
-	set allyTotal(v) { this._allyTotal = v;}
+	get allies() { return this._allies; }
+	set allies(v) { this._allies = v; }
 
 	/**
-	 * @property {Npc[]}
+	 * @property {Map.<object,string>} mods - mods applied to added minions
+	 * by kind,tag,name, etc.
+	 * the mod/path object has to map to the mod tag, since tags are not unique.
 	 */
-	get active() { return this._active; }
-	set active(v) { this._active = v; }
+	get mods(){ return this._mods; }
+	set mods(v){this._mods =v;}
 
 	constructor(vars=null){
 
@@ -35,7 +36,8 @@ export default class Minions extends Inventory {
 
 		if ( !this.max ) this.max = 0;
 
-		this._active = [];
+		this._allies = new Inventory( {id:'allies', spaceProp:'level'} );
+		this.mods = new Map();
 
 	}
 
@@ -50,14 +52,26 @@ export default class Minions extends Inventory {
 
 	}
 
+	/**
+	 * Unique access point for adding minion.
+	 * @param {*} m
+	 */
 	add(m ) {
 
 		super.add(m);
 
-		m.team = TEAM_ALLY;
+		m.team = TEAM_PLAYER;
 
 		if ( m.active ) {
 			this.setActive(m)
+		}
+
+		for( let pair of this.mods ) {
+
+			if ( m.is(pair[1] ) ) {
+				m.applyMod(pair[0]);
+			}
+
 		}
 
 
@@ -75,26 +89,18 @@ export default class Minions extends Inventory {
 
 		if ( active === true ) {
 
-			if ( !b.alive || b.level + this.allyTotal > this.maxAllies ) {
+			if ( !b.alive || !this.allies.canAdd(b) ) {
 				b.active = false;
 				return false;
 			}
-			if ( !this.active.includes(b) ) {
-
-				this.allyTotal += b.level;
-				this.active.push(b);
+			if ( !this.allies.includes(b) ) {
+				this.allies.add(b);
 
 			}
 
 		} else {
 
-			let ind = this.active.indexOf(b);
-			if ( ind >= 0 ) {
-
-				this.allyTotal -= b.level;
-				this.active.splice(ind,1);
-
-			}
+			this.allies.remove(b);
 
 		}
 
@@ -106,11 +112,9 @@ export default class Minions extends Inventory {
 
 		super.revive(state);
 
-		if ( !this.maxAllies ) {
-			this.maxAllies = Math.floor( state.player.level / 5 );
-		}
+		if ( !this.allies.max ) { this.allies.max = Math.floor( state.player.level / 5 ); }
 
-		let used = 0;
+		var actives = [];
 
 		for( let i = this.items.length-1; i>=0; i-- ) {
 
@@ -120,25 +124,49 @@ export default class Minions extends Inventory {
 				continue;
 			}
 
-			if ( m.active ) {
-
-				used += m.level;
-				/** @note can't test vs. maxAllies here because mods havent been applied yet. */
-				this._active.push(m);
-
-			}
-
-			/** @compat */
-			m.team = TEAM_ALLY;
+			if ( m.active ) { actives.push(m); }
+			m.team = TEAM_PLAYER;
 
 		}
 
+		this.allies.items = actives;
+		this.allies.calcUsed();
+
 		this.calcUsed();
 
-		this.allyTotal = used;
-
-		Events.add( ALLY_DIED, this.died, this );
+		//Events.add( ALLY_DIED, this.died, this );
 		Events.add( ACT_CHANGED, this.resetActives, this );
+
+	}
+
+	/**
+	 *
+	 * @param {object} mods
+	 */
+	applyMods( mods, amt ){
+
+		for( let p in mods ){
+
+			var mod = mods[p];
+
+			if ( this[p] ) {
+				if ( this[p] instanceof RValue ) this[p].addMod(mod);
+				else this[p].applyMods( mod );
+			} else if ( this.mods.has(mod) ) continue;
+			else {
+
+				this.mods.set( mod, p );
+				for( let it of this.items ) {
+
+					if ( it.is(p) ) {
+						it.applyMods( mod, amt );
+					}
+
+				}
+
+			}
+
+		}
 
 	}
 
@@ -148,29 +176,39 @@ export default class Minions extends Inventory {
 	 */
 	resetActives() {
 
-		for( let i = this.active.length-1; i>=0; i-- ) {
+		/** @todo dangerous order referencing. */
+		let allies = this.allies.items;
 
-			if ( !this.active[i].active || !this.active[i].alive ) {
-				this.setActive( this.active[i], false );
+		for( let i = allies.length-1; i>=0; i-- ) {
+
+			if ( !allies[i].active || !allies[i].alive ) {
+				this.setActive( allies[i], false );
 			}
 
 		}
 
 	}
 
+	/**
+	 *
+	 * @param {Npc} m
+	 */
 	remove( m ) {
 
 		super.remove(m);
 
 		console.log('removing minion: ' + m.id );
+		// @note mods are not removed here.
 		this.setActive( m, false );
 
 	}
 
+	/**
+	 * Apparently does nothing.
+	 * @param {Npc} m
+	 */
 	died( m ) {
-
 		//m.active = false;
-
 	}
 
 }
