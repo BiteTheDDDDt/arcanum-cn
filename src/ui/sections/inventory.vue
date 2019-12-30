@@ -8,8 +8,9 @@ export default {
 	/**
 	 * @property {Inventory} inv - the inventory object.
 	 * @property {boolean} take - whether to display take button.
+	 * @property {boolean} selecting - inventory is selection only. sell-all & size information hidden.
 	 */
-	props:['inv', 'take', 'value', 'selecting', 'nosearch'],
+	props:['inv', 'take', 'value', 'selecting', 'nosearch', 'hideSpace'],
 	data() {
 		return {
 			filtered:null
@@ -65,8 +66,8 @@ export default {
 
 	<span class="top">
 	<filterbox ref="filter" v-if="!nosearch" v-model="filtered" :items="inv.items" min-items="7" />
-	<span>
-		<span v-if="inv.max > 0">{{ inv.items.length + ' / ' + Math.floor(inv.max.value ) + ' Used' }}</span>
+	<span v-if="!selecting">
+		<span v-if="inv.max>0&&!hideSpace">{{ inv.items.length + ' / ' + Math.floor(inv.max.value ) + ' Used' }}</span>
 		<button v-if="inv.count>0" @click="sellAll">Sell All</button>
 	</span>
 	</span>

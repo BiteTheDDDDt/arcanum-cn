@@ -262,8 +262,6 @@ body.compact div.adventure > div.locales {
 body.compact div.adventure > div.locales .locale { background: var(--list-entry-background); }
 body.compact div.adventure > div.locales .locale .bar { border: none;}
 
-		div.filter-box{ margin: 0; padding: var(--sm-gap); display: flex; align-items: center; }
-
 		div.adventure > div.locales .locale {
 			padding: var(--md-gap);
 			border-radius: var(--list-entry-border-radius);

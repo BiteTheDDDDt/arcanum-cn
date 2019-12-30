@@ -31,6 +31,8 @@ export default {
 		this.runner = this.state.runner;
 		this.inv = this.state.getData('inventory');
 		this.enchantSlots = this.state.getData(ENCHANTSLOTS);
+		console.log( 'max: ' + this.enchantSlots.max );
+
 	},
 	methods:{
 
@@ -91,7 +93,7 @@ export default {
 		</div>
 		</div>
 
-		<inv selecting=true :inv="state.inventory" v-model="target" />
+		<inv selecting=true :inv="state.inventory" v-model="target" hide-space="true" />
 		</div>
 
 	</div>

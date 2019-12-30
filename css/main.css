@@ -277,6 +277,16 @@ div.div-hr {
 	border: none; margin: 0;
 }
 
+div.filter-box {
+	vertical-align: middle;
+	line-height: 1.2em;
+	margin: 0; padding: var(--sm-gap); display: flex; align-items: center;
+}
+
+.filter-box input[type=text] {
+	padding: var(--sm-gap);
+}
+
 a {
 	color:inherit;
 }

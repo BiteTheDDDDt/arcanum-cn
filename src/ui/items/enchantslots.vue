@@ -32,14 +32,15 @@ export default {
 <template>
 
 <div class="enchant-slots">
-
+<span>{{ Math.round(eslots.used) }} / {{ Math.floor( eslots.max) }} Slot-levels used. </span>
 <div class="enchant-slot" v-for="s in eslots.items" :key="s.id">
-
 <span class="enchant-desc">
+<span>Level {{ s.item.level }}</span>
 <span class="item-name">{{s.target.name}}</span>
 <span class="enchant-name">{{s.item.name}}</span>
+
 </span>
-<span>{{ s.percent()}}</span>
+<span>{{ s.percent() + '%'}}</span>
 
 <button class="btn-take" :disabled="!canTake(s)" @click="onTake(s)">{{ s.done ? 'take' : 'cancel' }}</button>
 
@@ -51,12 +52,16 @@ export default {
 
 <style scoped>
 
-.item-name {
+.enchant-slots span {
 	font-size: 0.9em;
+
+}
+
+/*.item-name {
 }
 
 .enchant-name {
-	font-size: 0.8em;
-}
+	font-size: 0.9em;
+}*/
 
 </style>

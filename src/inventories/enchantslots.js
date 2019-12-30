@@ -49,7 +49,6 @@ export default class EnchantSlots extends Inventory {
 		this.spaceProp = 'level';
 
 		this.removeDupes = true;
-		this.max = this._max || 1;
 
 		this._exp = 0;
 		this._length = 0;
