@@ -8,7 +8,7 @@
 			{
 				"id":"puppetry",
 				"require":"g.crafting>=8&&g.spiritlore>=5",
-				"desc":"Creating and animating magical puppets",
+				"desc":"Create and animate magical puppets",
 				"level": 1,
 				"run": {
 					"stamina": 0.4
@@ -26,7 +26,7 @@
 			{
 				"id":"animation",
 				"require":"g.puppetry>=5&&g.spiritlore>=10",
-				"desc":"Imbuing objects with movement",
+				"desc":"Imbue objects with the power of motion",
 				"level": 3,
 				"run": {
 					"stamina": 0.7
@@ -44,9 +44,9 @@
 			},
 			{
 				"id":"machinacreation",
-				"name":"mechanical construction",
+				"name":"mechanical magic",
 				"require":"g.crafting>=12&&g.puppetry>=6&&g.animation>=5&&g.tier2>0",
-				"desc":"Assembling magical machines",
+				"desc":"Assemble magic constructs",
 				"level": 3,
 				"run": {
 					"stamina": 0.7
@@ -113,7 +113,7 @@
 				"id":"puppetshow",
 				"name":"puppet show",
 				"desc":"Put on a show with animated puppets",
-				"verb":"Puppeteering",
+				"verb":"puppeteering",
 				"require":"g.puppeteer>0",
 				"length": 15,
 				"at": {
@@ -542,10 +542,6 @@
 				},
 				"mod": {
 					"research.rate": 50,
-					"lore.rate": 200,
-					"history.rate": 200,
-					"languages.rate": 200,
-					"charms.rate": 200,
 					"lore.rate":"50%",
 					"history.rate":"50%",
 					"languages.rate":"50%",
@@ -772,7 +768,7 @@
 				"id":"puppetautomation",
 				"name":"puppet assembly line",
 				"desc":"A dedicated assembly line for automated production of puppets.",
-				"require":"g.puppeteer>0",
+				"require":"puppeteer",
 				"max": 2,
 				"cost": {
 					"gold": 500,
@@ -806,7 +802,7 @@
 				"id":"machinaautomation",
 				"name":"machina assembly line",
 				"desc":"A dedicated assembly line for automated production of machina.",
-				"require":"g.mechanist>0",
+				"require":"mechanist",
 				"max": 2,
 				"cost": {
 					"gold": 1500,
@@ -822,7 +818,7 @@
 				"id":"shapinglab",
 				"name":"shaping laboratory",
 				"desc":"A facility for growing mind-crystals and pre-formed automata bodies.",
-				"require":"g.mechamancer>0",
+				"require":"mechamancer",
 				"max": 2,
 				"cost": {
 					"gold": 800,
@@ -834,27 +830,27 @@
 					"assembleautomata.cost.gold": -100,
 					"assembleautomata.cost.research": -100,
 					"assembleautomata.cost.runestones": -5
-				}
+				},"flavor":"This was a triumph. I'm making a note here, 'huge success.'"
 			}
 		],
 		"resources": [
 			{
 				"id":"puppets",
-				"desc":"Easily controlled, yet inert.",
+				"desc":"Easily controlled, yet fundamentally inert.",
 				"max": 20,
 				"flavor":"A skilled user could put on a marvellous show"
 			},
 			{
 				"id":"machinae",
 				"name":"machinae",
-				"desc":"Towering hulks of metal, capable of anything it's owner would want it to do.",
+				"desc":"Towering hulks of metal, ready to do their master's bidding.",
 				"max": 20,
-				"flavor":"Beep boop."
+				"flavor":"beep boop."
 			},
 			{
 				"id":"automatas",
 				"name":"automata",
-				"desc":"Made of translucent crystal. Smart and capable of learning.",
+				"desc":"Constructs of translucent crystal; they possess a pristine intellect for learning.",
 				"max": 20,
 				"flavor":"It's not smarter than you, surely."
 			}
@@ -873,7 +869,7 @@
 				"defense": 20,
 				"attack": [
 					{
-						"name":"Stab",
+						"name":"stab",
 						"kind":"pierce",
 						"dmg":"20~30"
 					}
@@ -891,18 +887,18 @@
 				"defense": 200,
 				"attack": [
 					{
-						"name":"Charge",
+						"name":"charge",
 						"targets":"enemies",
 						"dmg":"50~70"
 					},
 					{
-						"name":"Recoil",
+						"name":"recoil",
 						"targets":"self",
 						"dmg": 50,
 						"dot": {
 							"duration": 10,
 							"mod": {
-								"a.defense": -150
+								"defense": -150
 							}
 						}
 					}
@@ -911,7 +907,7 @@
 			{
 				"id":"autoslayer",
 				"tags":"t_automata",
-				"name":"Autoslayer",
+				"name":"autoslayer",
 				"level": 30,
 				"evil": 50,
 				"kind":"automata",
@@ -921,57 +917,51 @@
 				"defense": 50,
 				"attack": [
 					{
-						"name":"Bleed dry",
+						"name":"bleed dry",
 						"targets":"enemies",
 						"dot": {
-							"kind":"Bleed",
+							"kind":"bleed",
 							"duration": 30,
 							"dmg": 20
 						}
 					},
 					{
-						"name":"Slice",
+						"name":"slice",
 						"tohit": 10,
-						"targets":"enemy",
 						"kind":"slash",
 						"dmg":"80~100"
 					},
 					{
-						"name":"Dice",
+						"name":"dice",
 						"tohit": 50,
-						"targets":"enemy",
 						"kind":"slash",
 						"dmg":"60~70"
 					},
 					{
-						"name":"Mince",
+						"name":"mince",
 						"tohit": -10,
-						"targets":"enemy",
 						"kind":"slash",
 						"dmg":"90~110"
 					},
 					{
-						"name":"Chop",
+						"name":"chop",
 						"tohit": -20,
-						"targets":"enemy",
 						"kind":"slash",
 						"dmg":"100~120"
 					},
 					{
-						"name":"Stab",
+						"name":"stab",
 						"tohit": 100,
-						"targets":"enemy",
 						"kind":"pierce",
 						"dmg":"50~60"
 					},
 					{
-						"name":"Mash",
-						"targets":"enemy",
+						"name":"mash",
 						"kind":"blunt",
-						"dmg":"0-200"
+						"dmg":"0~200"
 					},
 					{
-						"name":"Recover",
+						"name":"recover",
 						"targets":"self",
 						"result": {
 							"hp": 250
@@ -1002,12 +992,12 @@
 						"dot": {
 							"duration": 10,
 							"mod": {
-								"t.defense": 15
+								"defense": 15
 							}
 						}
 					},
 					{
-						"name":"Stand tall",
+						"name":"stand tall",
 						"targets":"self",
 						"result": {
 							"hp": 20
@@ -1015,7 +1005,7 @@
 						"dot": {
 							"duration": 10,
 							"mod": {
-								"t.defense": 25
+								"defense": 25
 							}
 						}
 					}
@@ -1055,7 +1045,7 @@
 						"dot": {
 							"duration": 10,
 							"mod": {
-								"t.tohit": 10
+								"tohit": 10
 							}
 						}
 					}
@@ -1116,21 +1106,22 @@
 						"dot": {
 							"duration": 10,
 							"mod": {
-								"t.defense": 50,
+								"defense": 50,
 								"hp": 5
 							}
 						}
 					},
 					{
 						"name":"arcane blast",
-						"targets":"enemy",
 						"kind":"mana",
-						"dmg":"100-250"
+						"dmg":"100~250"
 					},
 					{
 						"name":"rare air",
-						"targets":"enemy",
-						"t.state":"silence"
+						"dot":{
+							"id":"silence",
+							"duration":20
+						}
 					},
 					{
 						"name":"jetstream",
@@ -1138,7 +1129,7 @@
 						"dot": {
 							"duration": 10,
 							"mod": {
-								"t.speed": 10
+								"speed": 10
 							}
 						}
 					}
@@ -1148,7 +1139,7 @@
 		"classes": [
 			{
 				"id":"puppeteer",
-				"desc":"Assemble and control your own minions",
+				"desc":"Assemble and control mechanical minions.",
 				"tags":"t_tier1",
 				"require":"g.tier0>0&&g.puppetry>=5&&g.tier1==0",
 				"cost": {
@@ -1191,14 +1182,14 @@
 			{
 				"id":"mechamancer",
 				"name":"mechamancer",
-				"desc":"Master of the magical constructs",
+				"desc":"Master of magical constructs",
 				"tags":"t_tier5",
 				"require":"g.tier4>0&&g.magiphysics>=5&&g.machinacreation>=9&&(g.puppeteer+g.mechanist)>0&&g.tier5==0",
 				"cost": {
 					"research": 20000,
-					"arcana": 30,
+					"arcana": 27,
 					"tomes": 30,
-					"runestones": 10
+					"runestones": 30
 				},
 				"mod": {
 					"tier5": true,
