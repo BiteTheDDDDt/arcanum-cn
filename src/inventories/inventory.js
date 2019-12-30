@@ -48,6 +48,28 @@ export default class Inventory {
 		this._max = v instanceof Stat ? v : new Stat(v, 'max', true);
 	}
 
+	get items(){
+		return this._items;
+	}
+	set items(v){
+
+		if ( v ) {
+
+			for( let i = v.length-1; i>= 0; i--) {
+				if ( v[i] === null || v[i] === undefined ) {
+					v.splice(i,1);
+				}
+			}
+		}
+
+		this._items = v;
+
+	}
+
+	[Symbol.iterator](){
+		return this.items[Symbol.iterator]();
+	}
+
 	/**
 	 * @property {boolean} removeDupes - whether to remove duplicate ids from inventory.
 	 */
@@ -67,7 +89,7 @@ export default class Inventory {
 
 	}
 
-	revive(state){
+	revive( gs ){
 
 		// used ids.
 		var ids = {};
@@ -77,10 +99,9 @@ export default class Inventory {
 			var it = this.items[i];
 			if ( typeof it === 'object' ) {
 
-				/** @compat items now stored in instances data. */
-				it = itemRevive( state, it );
+				it = itemRevive( gs, it );
 
-			} else if ( typeof it === 'string') it = state.getData(it);
+			} else if ( typeof it === 'string') it = gs.getData(it);
 
 
 			if ( it == null || !it.id || ( this.removeDupes&& ids[it.id]===true) ) this.items.splice( i, 1 );
@@ -273,7 +294,8 @@ export default class Inventory {
 		for( let i = this.items.length-1; i >= 0; i-- ) {
 
 			var it = this.items[i];
-			used += prop ? ( it[prop] || 0 ) : 1;
+			if ( !it ) console.warn( this.id + ' null Item in Inv: ' + it );
+			else used += prop ? ( it[prop] || 0 ) : 1;
 
 		}
 

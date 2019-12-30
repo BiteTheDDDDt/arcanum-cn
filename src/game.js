@@ -69,7 +69,7 @@ export default {
 
 	/**
 	 *
-	 * @param {*} obj
+	 * @param {object} obj
 	 * @param {(number)=>boolean} obj.tick -tick function.
 	 */
 	addTimer( obj ){ this.runner.addTimer(obj); },
@@ -460,7 +460,11 @@ export default {
 
 		if ( !this.canUse(it) ) return false;
 
-		if ( it.instanced ){
+		if ( it.perpetual || it.length > 0 ) {
+
+			this.setAction(it);
+
+		}  else if ( it.instanced ){
 
 			it.onUse( this, this.state.inventory );
 
@@ -473,10 +477,6 @@ export default {
 			if ( it.isRecipe ) {
 
 				this.craft(it );
-
-			} else if ( it.perpetual || it.length > 0 ) {
-
-				this.setAction(it);
 
 			} else {
 
@@ -557,12 +557,14 @@ export default {
 	 */
 	tryUseOn( it, targ ) {
 
-		if ( targ === null || targ === undefined ) return;
+		if ( targ === null || targ === undefined ) return false;
 
 		if ( it.buy && !it.owned ) {
 
 			this.payCost( it.buy );
 			it.owned = true;
+
+			return true;
 
 		} else {
 
@@ -571,13 +573,17 @@ export default {
 				this.payCost( it.cost );
 				this.useOn( it, targ );
 
+				return true;
+
 			} else {
 
 				// runner will handle costs.
-				this.runner.useOn( it, targ );
+				return this.runner.useOn( it, targ );
 
 			}
 		}
+
+		return false;
 
 	},
 

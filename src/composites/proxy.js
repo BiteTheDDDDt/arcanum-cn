@@ -6,13 +6,16 @@ export default class Proxy {
 	/**
 	 * @property {string} id - maybe a bad idea.
 	 */
-	get id() { return ( this.item ? this.item.id : '' ); }
+	get id() { return 'prox_' + ( this.item ? this.item.id : '' ) + '_' +
+		(this.target ? this.target.id : ''); }
 
 	/**
 	 * @property {string} name
 	 */
 	get name() { return this.item ? this.item.name : ''; }
 	set name(v){}
+
+	get instanced(){return true;}
 
 	set count(v){}
 
@@ -23,6 +26,8 @@ export default class Proxy {
 	get cost() { return this.item ? this.item.cost : null; }
 	get run() { return this.item ? this.item.run : null; }
 	get effect() { return this.item ? this.item.effect : null; }
+
+	get level(){return this.item ? this.item.level: 0;}
 
 	get length () {return this.item ? this.item.length : null }
 	get perpetual() { return this._item ? this._item.perpetual : false }

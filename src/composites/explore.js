@@ -19,13 +19,7 @@ export default class Explore {
 
 		return {
 			locale:this.locale ? this.locale.id : undefined,
-			enc:enc ? {
-				id:enc.id,
-				exp:enc.exp,
-				recipe:enc.recipe,
-				template:( enc.template ? enc.template.id : undefined )
-
-			} : undefined
+			enc:enc ? enc.id : undefined
 		}
 
 	}
@@ -98,10 +92,10 @@ export default class Explore {
 
 		if ( this._enc ) {
 
-			this.enc = itemRevive( gs, this._enc );
-			if ( this.enc && !(this.enc instanceof Encounter ) ){
-				console.warn('bad enc: ' + (this.enc.id || this.enc) );
-				this.enc = null;
+			if ( typeof this._enc === 'string' ) this.enc = gs.getData(this._enc);
+			else {
+				/** @compat */
+				this.enc = gs.getData( this.enc.id );
 			}
 
 		}
@@ -180,7 +174,7 @@ export default class Explore {
 
 		if ( typeof e === 'string') {
 
-			var it = Game.instance(e);
+			var it = this.state.getData(e);
 
 			if ( it ){
 
@@ -204,16 +198,12 @@ export default class Explore {
 
 		//console.log('ENEMY templ: ' + (typeof enemy.template) );
 
-		if ( enc.template && enc.template.id ) {
-
-			let tmp = this.state.getData(enc.template.id );
-			if ( tmp ) tmp.value++;
-
-		} else enc.value++;
+		enc.value++;
 
 		if ( enc.result ) Game.applyVars( enc.result );
 		if ( enc.loot ) Game.getLoot( enc.loot, Game.state.drops );
 
+		enc.exp = 0;
 		this.enc = null;
 
 	}

@@ -43,11 +43,6 @@ export function itemRevive( gs, it ) {
 
 		it = new Npc( orig, it );
 
-	} else if ( type === ENCOUNTER) {
-
-		// encounter.
-		it = new Encounter( orig, it );
-
 	} else {
 		//console.log('default revive: ' + it.id );
 		it = new Item(it);
@@ -155,10 +150,6 @@ export default class ItemGen {
 
 			console.log('INSTANCE wearable: ' + proto.id );
 			return this.makeWearable( proto, this.matForItem(proto ));
-
-		} else if ( proto.type === ENCOUNTER ) {
-
-			it = new Encounter(proto);
 
 		} else if ( proto.type === POTION ) {
 

@@ -30,6 +30,7 @@ export const TYP_MOD = 'mod';
 export const TYP_RVAL = 'rval';
 
 export const TYP_RUN = 'runnable';
+export const ENCHANTSLOTS = 'enchantslots';
 
 export const P_TITLE = 'title';
 export const P_LOG = 'log';

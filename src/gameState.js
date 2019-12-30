@@ -15,7 +15,8 @@ import Group from './composites/group';
 import UserSpells from './inventories/userSpells';
 import Quickbars from './composites/quickbars';
 import Stat from './values/stat';
-import { WEARABLE, ARMOR, WEAPON, HOME, PURSUITS } from './values/consts';
+import { WEARABLE, ARMOR, WEAPON, HOME, PURSUITS, ENCHANTSLOTS } from './values/consts';
+import EnchantSlots from './inventories/enchantslots';
 
 export const REST_SLOT = 'rest';
 
@@ -77,8 +78,6 @@ export default class GameState {
 
 		this.initSlots();
 
-		this.instances = {};
-
 		this.bars = new Quickbars(
 
 			baseData.bars ||
@@ -92,6 +91,7 @@ export default class GameState {
 		this.inventory.removeDupes = true;
 
 		this.drops = new Inventory();
+
 
 		/**
 		 * @property {Minions} minions
@@ -118,8 +118,10 @@ export default class GameState {
 		this.items.pursuits = new DataList( this.items.pursuits );
 		this.items.pursuits.id = PURSUITS;
 
-		this.revive();
+		this.items[ENCHANTSLOTS] = new EnchantSlots( this.items[ENCHANTSLOTS] );
 
+
+		this.revive();
 		this.readyItems();
 
 		// circular problem. spelllist has to be revived after created spells
@@ -559,9 +561,16 @@ export default class GameState {
 	}
 
 	/**
-	 * Should only be used for custom items.
-	 * Call from Game so DELETE_ITEM event called.
+	 * Cache instance for global access.
 	 * @param {GData} it
+	 */
+	cacheInstance( it ) {
+		this.instances[it.id] = it;
+	}
+
+	/**
+	 * Find an item instantiated from given item proto/recipe.
+	 * @param {string} id
 	 */
 	deleteItem( it ) {
 		delete this.items[it.id];

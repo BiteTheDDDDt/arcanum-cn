@@ -3,7 +3,7 @@ import Game from '../game';
 import { getDist, distTest, levelTest } from './locale';
 import { mapNonNull } from '../util/array';
 import { DUNGEON, RAID } from '../values/consts';
-import Spawns, { MakeNpc } from '../composites/spawner';
+import Spawns, { MakeNpc } from '../composites/spawns';
 import SpawnGroup from '../composites/spawngroup';
 
 /**
@@ -38,7 +38,7 @@ export default class Dungeon extends Action {
 
 	}
 
-	get proxy(){return RAID}
+	get controller() {return RAID}
 
 	/**
 	 *

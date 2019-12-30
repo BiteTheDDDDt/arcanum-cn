@@ -944,7 +944,8 @@
 			"research":1
 		},
 		"mod":{
-			"charms.rate":"1%"
+			"charms.rate":"1%",
+			"enchantslots.max":1
 		},
 		"result":{
 			"sp":0.05,

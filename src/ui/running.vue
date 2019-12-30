@@ -57,7 +57,7 @@ export default {
 
 <div class='running'>
 
-	<div class="relative" v-for="v in runner.actives" :key="v.id">
+	<div class="relative" v-for="v of runner.actives" :key="v.id">
 		<button class="stop" @click="halt(v)">&nbsp;X&nbsp;</button><span>{{ actionStr(v) }}</span><span v-if="v.type==='skill'">{{levelStr(v)}}</span>
 		<button v-if="pursuits.max>0&&canHobby(v)" :class="['pursuit', pursuits.includes( baseAction(v) ) ? 'current' : '']"
 			@click="toggleHobby(v)"> F </button>

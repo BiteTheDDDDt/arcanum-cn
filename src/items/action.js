@@ -145,7 +145,11 @@ export default class Action extends GData {
 	 */
 	exec() {
 
-		if ( this.cd ) Game.addTimer( this );
+		if ( this.cd ) {
+			this.timer = this.cd.valueOf();
+			Game.addTimer( this );
+		}
+
 		if ( this.loot ) Game.getLoot( this.loot );
 
 		if ( this.once && this.valueOf() === 1 ) Game.applyVars( this.once );
