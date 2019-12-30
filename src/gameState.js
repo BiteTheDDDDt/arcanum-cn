@@ -15,6 +15,7 @@ import Stat from './values/stat';
 import { WEARABLE, ARMOR, WEAPON, HOME, PURSUITS } from './values/consts';
 import Dot from './chars/dot';
 import TagSet from './composites/tagset';
+import EnchantSlots from './inventories/enchantslots';
 
 export const REST_SLOT = 'rest';
 
@@ -90,6 +91,7 @@ export default class GameState {
 
 		this.drops = new Inventory();
 
+		this.items[ENCHANTSLOTS] = new EnchantSlots( this.items[ENCHANTSLOTS] );
 		/**
 		 * @property {Minions} minions
 		 */
@@ -161,6 +163,11 @@ export default class GameState {
 
 			var it = this.items[p];
 
+			if ( !it ) {
+				console.warn('prepItems() item undefined: ' + p );
+				delete this.items[p];
+				continue;
+			}
 			/**
 			 * special instanced item.
 			 */

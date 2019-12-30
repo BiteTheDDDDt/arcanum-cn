@@ -46,6 +46,11 @@ export const USE = 'use';
 export const SET_SLOT = 'set_slot';
 
 /**
+ * @event DROP_ITEM - permanently remove an instanced item.
+ */
+export const DROP_ITEM = 'dropitem';
+
+/**
  * Any character died by damage.
  */
 const CHAR_DIED = 'char_died';

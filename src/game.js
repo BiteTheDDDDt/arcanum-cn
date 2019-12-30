@@ -10,9 +10,7 @@ import Stat from './values/stat';
 import DataLoader from './dataLoader';
 
 import Events, {EVT_UNLOCK, EVT_EVENT, EVT_LOOT, SET_SLOT, DELETE_ITEM } from './events';
-
 import { MONSTER, TYP_PCT, TYP_RANGE, P_TITLE, P_LOG, RESOURCE, TEAM_PLAYER } from './values/consts';
-import { logObj } from './util/util';
 import TagSet from './composites/tagset';
 
 var techTree;
@@ -70,7 +68,7 @@ export default {
 
 	/**
 	 *
-	 * @param {*} obj
+	 * @param {object} obj
 	 * @param {(number)=>boolean} obj.tick -tick function.
 	 */
 	addTimer( obj ){ this.runner.addTimer(obj); },
@@ -121,6 +119,7 @@ export default {
 			// initial fringe check.
 			techTree.forceCheck();
 
+			//Events.add( DROP_ITEM, this.state.deleteInstance, this.state );
 			Events.add( SET_SLOT, this.setSlot, this );
 			Events.add( DELETE_ITEM, this.onDelete, this );
 
@@ -161,16 +160,15 @@ export default {
 
 			var hasEvent = false;
 
-			for( var i = list.length-1; i>= 0; i-- ) {
+			for( var s of list ) {
 
-				if ( list[i].value > 0) {
+				if ( s.value > 0) {
 
-					highClass = list[i].name;
-					if ( evt.locked ) evt.locked = false;
-					else if ( evt.value == 0 ) {
+					highClass = s.name;
+					if ( evt.value == 0 ) {
 
 						evt.doUnlock(this);
-					}
+					} else if ( evt.locked ) evt.locked = false;
 					hasEvent = true;
 					break;
 				}
@@ -350,9 +348,7 @@ export default {
 		} else {
 
 			if ( typeof it === 'string' ) {
-
 				it = this.getData( it );
-				if ( !it ) return;
 			}
 
 			if ( it && !it.disabled ) {
@@ -443,7 +439,11 @@ export default {
 
 		if ( !this.canUse(it) ) return false;
 
-		if ( it.instanced ){
+		if ( it.perpetual || it.length > 0 ) {
+
+			this.setAction(it);
+
+		}  else if ( it.instanced ){
 
 			it.onUse( this, this.state.inventory );
 
@@ -456,10 +456,6 @@ export default {
 			if ( it.isRecipe ) {
 
 				this.craft(it );
-
-			} else if ( it.perpetual || it.length > 0 ) {
-
-				this.setAction(it);
 
 			} else {
 
@@ -557,12 +553,14 @@ export default {
 	 */
 	tryUseOn( it, targ ) {
 
-		if ( targ === null || targ === undefined ) return;
+		if ( targ === null || targ === undefined ) return false;
 
 		if ( it.buy && !it.owned ) {
 
 			this.payCost( it.buy );
 			it.owned = true;
+
+			return true;
 
 		} else {
 
@@ -571,13 +569,17 @@ export default {
 				this.payCost( it.cost );
 				this.useOn( it, targ, this );
 
+				return true;
+
 			} else {
 
 				// runner will handle costs.
-				this.runner.beginUseOn( it, targ );
+				return this.runner.useOn( it, targ );
 
 			}
 		}
+
+		return false;
 
 	},
 
@@ -669,6 +671,10 @@ export default {
 	remove( id, amt=1 ){
 
 		let it = typeof id === 'string' ? this.getData(id) : id;
+		if ( !it ) {
+			console.warn('missing remove id: ' + id );
+			return;
+		}
 
 		if ( it.slot ) { if ( this.state.getSlot(it.slot) === it ) this.state.setSlot(it.slot, null); }
 
@@ -734,11 +740,9 @@ export default {
 
 			// test that another item is unlocked.
 			let it = this.getData(test);
-			if ( it === undefined ) return false;
+			if ( !it ) return false;
 
-			// don't need to actually use an action or resource to mark it unlocked.
-			return ( it.type === RESOURCE || it.type === 'action') ?
-				(it.locked === false) : it.value > 0;
+			return it.fillsRequire();
 
 		} else if (  Array.isArray(test) ) {
 
@@ -746,7 +750,10 @@ export default {
 
 		} else if ( type === 'object' ) {
 
-			if ( test.id ) return test.test();
+			/**
+			 * @todo: quick patch in case it was a data item.
+			 */
+			if ( test.id ) return test.fillsRequire();
 
 			// @todo: take recursive values into account.
 			// @todo allow tag tests.
@@ -761,10 +768,7 @@ export default {
 			}
 			return true;
 
-		} else if ( test.type != null ) {
-
-			return test.test();
-		} //else console.warn( 'unknown test: ' + test.id || test );
+		}
 
 	},
 
@@ -920,11 +924,7 @@ export default {
 
 				res = this.getData(p);
 
-				if ( !res ) {
-
-					this.payInst( p, cost[p] );
-
-				} else if ( res.instanced || res.isRecipe ) {
+				if ( !res || res.instanced || res.isRecipe ) {
 					this.payInst( p, cost[p]*unit );
 
 				} else {
@@ -1142,22 +1142,10 @@ export default {
 	 */
 	lock(id, amt=1 ) {
 
-		if ( Array.isArray(id)) {
-			id.forEach( v=>this.lock(v, amt ), this );
+		if ( typeof id === 'object' && id[Symbol.iterator] ) {
+			for( let v of id ) this.lock(v,amt);
 		} else if ( typeof id === 'object' ) {
-
-			if ( typeof id.lock !== 'function') {
-
-				console.log('no lock func: ' + id );
-
-			} else id.lock(amt);
-
-		} else {
-
-			let it = this.getData(id);
-			if ( it && typeof it.lock !== 'function') console.log('no lock func: ' + id );
-			else if ( it ) it.lock(amt);
-
+			id.locks += amt;
 		}
 
 	},

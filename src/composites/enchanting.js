@@ -1,51 +1,53 @@
 import Game from '../game';
-import Events, {ACT_DONE} from '../events';
 import Proxy from './proxy';
-import { TYP_RUN } from '../values/consts';
-
+import { TYP_RUN, ENCHANTSLOTS } from '../values/consts';
+import Stat from '../values/stat';
+import { itemRevive } from '../modules/itemgen';
+import {assign } from 'objecty';
 
 /**
- * Wraps an action in progress with an action target, and possible
- * extra.instanced data.
+ * An enchantment in progress.
+ * @note item is the enchantment, since the enchanment sets the base
+ * cost, level, requirements, etc.
  */
-export default class Runnable extends Proxy {
+export default class Enchanting extends Proxy {
 
 	toJSON(){
 
 		return {
-			item:this.item ? this.item.id : undefined,
-			target:this.target ? this.target.id : undefined,
+			item:this.item.id,
+			target:this.target,
 			exp:this._exp
 		};
 	}
 
 	get type() { return TYP_RUN; }
 
+	get controller() { return ENCHANTSLOTS; }
+
 	/**
 	 * @property {?GData} target - target of the running item.
 	 * may be undefined if not applicable.
 	 */
 	get target() { return this._target;}
-	set target(v) { this._target = v; }
+	set target(v) {
+
+		this._target = v;
+		if ( this._target ) {
+			this._target.busy =  true;
+		}
+
+	}
 
 	get exp(){ return this._exp; }
 	set exp(v) { this._exp = v; }
 
-	get running(){
-		if ( this._item) return this._item.running;
-		return false;
-	}
-	set running(v){
-		if ( this._item)this._item.running=v;
-		if ( this._target) this._target.running=v;
-	}
-
 	get repeat() { return (this._item && this._item.repeat) || false; }
 
-	percent() { return this._length ? 100*this._exp / this._length : 0; }
+	percent() { return this._length ? Math.round(100*this._exp / this._length) : 0; }
 
 	get length() { return this._length; }
-	set length(v) { this._length = v;}
+	set length(v) { this._length = new Stat(v);}
 
 	canRun( g ) { return !this.done && this._item && this._target && this._item.canUseOn( this._target ) }
 	get done() { return this._exp >= this._length; }
@@ -65,7 +67,7 @@ export default class Runnable extends Proxy {
 			this.target = targ;
 			this.item = vars;
 
-		} else if (vars) Object.assign( this, vars );
+		} else if (vars) assign( this, vars );
 
 		this.length = ( typeof this.item === 'object') ? this.item.length || 0 : 0;
 		this.exp = this._exp || 0;
@@ -76,29 +78,33 @@ export default class Runnable extends Proxy {
 
 		this.exp += dt;
 
-		if ( this.exp > this.length ) {
-
+		if ( this.exp >= this.length ) {
 			if ( this.target ) Game.useOn( this.item, this.target );
-			Events.emit( ACT_DONE, this, this.repeat );
-			this.target = null;
-
 		}
 
 	}
 
 	onStop(){
-		if ( this.item.onStop ) this.item.onStop( this.target );
+
+		if ( !this.done && this.target ) {
+			this.target.busy = false;
+			this.target.enchants -= this.level;
+		}
+
 	}
 
-	revive( state ) {
+	revive( gs ) {
 
-		super.revive(state);
+		super.revive(gs);
 
-		if ( typeof this._target === 'string') this._target = state.findData(this._target);
+		if ( typeof this._target === 'string') this.target = gs.findData(this._target);
+		else if ( typeof this._target === 'object') {
+
+			this._target = itemRevive( gs, this._target );
+		}
 
 		if ( this.item ) {
 			this._length = this.item.length;
-			if ( this.item.resumeUseOn ) this.item.resumeUseOn(this.target );
 		}
 
 	}

@@ -1,5 +1,3 @@
-import { assign } from 'objecty';
-
 /**
  * @class TagList to allow referencing tagged items by id.
  */
@@ -16,7 +14,7 @@ export default class TagSet {
 		this._items = v;
 	}
 
-	[Symbol.iterator](){return this._items[Symbol.iterator]}
+	[Symbol.iterator](){return this._items[Symbol.iterator]()}
 
 	/**
 	 * @property {string} type - type might need to be a standard type
@@ -26,7 +24,7 @@ export default class TagSet {
 	get type() { return this._type; }
 	set type(v) { this._type = v; }
 
-	get name() {return this._name; }
+	get name() {return this._name || this._id; }
 	set name(v) { this._name = v; }
 
 
@@ -45,6 +43,23 @@ export default class TagSet {
 	}
 	canUse( g ) {
 		return g.canPay( this.cost );
+	}
+
+	lock( amt=1 ){
+		for( let it of this.items ) {
+			it.lock(amt);
+		}
+	}
+
+	/**
+	 * Tests whether item fills unlock requirement.
+	 * @returns {boolean}
+	 */
+	fillsRequire(){
+		for( let it of this.items ) {
+			if ( it.fillsRequire()) return true;
+		}
+		return false;
 	}
 
 	filled( rate ){
@@ -91,12 +106,6 @@ export default class TagSet {
 	}
 
 	disable(){
-	}
-
-	lock( amt=1 ){
-		for( let it of this.items ) {
-			it.lock(amt);
-		}
 	}
 
 	/**

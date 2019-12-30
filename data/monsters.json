@@ -141,7 +141,7 @@
 		"attack":{
 			"name":"nibble",
 			"kind":"pierce",
-			"damage":"0.2~0.7",
+			"dmg":"0.2~0.7",
 			"leech":0.2
 		},
 		"loot":{
@@ -160,7 +160,7 @@
 		"attack":{
 			"name":"sting",
 			"kind":"poison",
-			"damage":"0.5~1.5"
+			"dmg":"0.5~1.5"
 		},
 		"loot":{
 			"max":1
@@ -375,7 +375,7 @@
 		"attack":{
 			"kind":"pierce",
 			"name":"peck",
-			"damage":"1~2"
+			"dmg":"1~2"
 		},"flavor":"like a writing desk."
 	},
 
@@ -1888,12 +1888,12 @@
 		"tohit":6,
 		"defense":5,
 		"attack":{
-			"damage":"3~5",
+			"dmg":"3~5",
 			"dot":{
 				"name":"venom",
 				"duration":30,
 				"kind":"poison",
-				"damage":"3~5"
+				"dmg":"3~5"
 			}
 		}
 	},

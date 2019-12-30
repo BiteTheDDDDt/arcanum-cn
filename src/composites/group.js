@@ -79,8 +79,8 @@ export default class Group {
 	get cost() { return this._cost; }
 	set cost(v) { this._cost = v;}
 
-	/*get.instanced() { return true; }
-	set.instanced(v){}*/
+	/*get instanced() { return true; }
+	set instanced(v){}*/
 
 	get locked() { return false;}
 	get owned(){return true;}

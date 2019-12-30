@@ -146,7 +146,8 @@ export default class Char {
 	set states(v) { this._states = new States(); }
 
 
-	get instance() { return true; }
+	get instanced() { return true; }
+	set instanced(v) {}
 
 	get regen() { return this._regen; }
 	set regen(v) { this._regen = ( v instanceof Stat ) ? v : new Stat(v); }

@@ -394,9 +394,7 @@ export const prepData = ( sub, id='' ) => {
 
 				} else if ( RangeTest.test(obj) ) sub[p] = new Range(obj);
 				else if ( !isNaN(obj) ) {
-					if ( obj !== null && obj !== undefined && obj !== '' ) console.warn('string used as Number: ' + p + ' -> ' + obj );
-					//console.warn('store numeric data as number.');
-					//sub[p] = Number(obj);
+					if ( obj !== '') console.warn('string used as Number: ' + p + ' -> ' + obj );
 				}
 				else if ( p === 'damage' || p === 'dmg') sub[p] = MakeDmgFunc(obj);
 

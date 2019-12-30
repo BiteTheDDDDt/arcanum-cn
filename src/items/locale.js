@@ -39,7 +39,7 @@ export default class Locale extends Action {
 	/**
 	 * @property {string} proxy - id of actual runner.
 	 */
-	get proxy(){return EXPLORE }
+	get controller() {return EXPLORE }
 
 	constructor(vars=null) {
 
