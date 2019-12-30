@@ -1,5 +1,6 @@
 import Game from './game';
 import { quickSplice } from './util/array';
+import TagSet from './composites/tagset';
 
 /**
  * @const {RegExp} FuncRE - regular expression to find tree relationships
@@ -43,15 +44,18 @@ export default class TechTree {
 
 		for( let p in this.items ) {
 
-			if ( !this.items[p].locked && this.unlocks[p] ) {
-				this.fringe.push( this.items[p] );
+			var it = this.items[p];
+			if ( it instanceof TagSet) continue;
+
+			if ( !it.locked && this.unlocks[p] ) {
+				this.fringe.push( it );
 			} else {
 
 				// check cyclic unlock. resources unlock themselves with any amount;
 				// these must be added to fringe without being unlocked.
 				let links = this.unlocks[p];
 				if ( links && links.includes(p) ) {
-					this.fringe.push( this.items[p] );
+					this.fringe.push( it );
 				}
 
 			}
@@ -68,6 +72,7 @@ export default class TechTree {
 		for( let p in this.items ) {
 
 			let it = this.items[p];
+			if ( it instanceof TagSet ) continue;
 			if ( !it.disabled ) this.changed(p);
 
 		}
@@ -163,7 +168,7 @@ export default class TechTree {
 	 */
 	mapUnlocks( item ) {
 
-		if ( !item.locked || item.disabled ) return;
+		if ( !item.locked || item.disabled || item instanceof TagSet ) return;
 
 		if ( item.require ) this.mapRequirement( item, item.require, this.unlocks );
 		if ( item.need ) this.mapRequirement( item, item.need, this.unlocks );
@@ -206,9 +211,9 @@ export default class TechTree {
 			//var varPath = results[1];
 			//console.log( item.id + 'require: ' + varPath );
 
-			let sub = results[1].split('.')[0];
-			if ( sub === 'mod' || sub === 'slot' ) continue;
-			this.mapUnlock( sub, targ, graph );
+			let unlocker = results[1].split('.')[0];
+			if ( unlocker === 'mod' || unlocker === 'slot' ) continue;
+			this.mapUnlock( unlocker, targ, graph );
 
 		}
 		if ( text.includes('this') || text.includes('s.') ) this.mapUnlock( targ.id, targ, graph );
@@ -217,24 +222,21 @@ export default class TechTree {
 
 	/**
 	 * Map src as a potential unlocker of targ.
-	 * @param {string} src
+	 * @param {string} unlocker
 	 * @param {GData} targ
 	 * @param {object} graph - the tech tree being mapped, needs or unlocks.
 	 */
-	mapUnlock( src, targ, graph ) {
+	mapUnlock( unlocker, targ, graph ) {
 
-		if ( !src) return;
-		let it = this.items[src];
-
-		if ( it === undefined ) {
-			it = Game.state.getTagList( src );
-			if ( it ) it.forEach( v=>this.mapUnlock(v.id,targ, graph) );
-			//else console.warn('unlocker not found: ' + src );
-			return;
+		if ( !unlocker) return;
+		let it = this.items[unlocker];
+		if ( it === undefined ) return;
+		else if ( it instanceof TagSet ) {
+			return it.forEach( v=>this.mapUnlock(v.id,targ, graph) );
 		}
 
-		let map = graph[src];
-		if ( map === undefined ) graph[src] = map = [];
+		let map = graph[unlocker];
+		if ( map === undefined ) graph[unlocker] = map = [];
 		if ( !map.includes( targ.id ) ) map.push( targ.id );
 
 	}
