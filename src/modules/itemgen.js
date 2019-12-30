@@ -232,7 +232,7 @@ export default class ItemGen {
 		if ( info.type === WEARABLE || info.type === WEAPON
 				|| info.type ===ARMOR) return this.fromData( info, info.material );
 
-		else if ( info.instancedd || info.isRecipe ) {
+		else if ( info.instanced || info.isRecipe ) {
 			return this.instance( info );
 		} else if ( info.level || info.max ) return this.randLoot( info, amt );
 

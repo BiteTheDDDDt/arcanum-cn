@@ -199,7 +199,7 @@ export default {
 
 			var it = gdata[p];
 
-			if ( !it.locked && !it.disabled && !(it.instance||it.isRecipe) ) {
+			if ( !it.locked && !it.disabled && !(it.instanced||it.isRecipe) ) {
 
 				if ( it.id ==='points') console.log('POINTS VAL: '+ it.value );
 				if ( it.value != 0 ) {
