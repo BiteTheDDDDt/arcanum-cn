@@ -6,8 +6,7 @@ import GameState, { REST_SLOT } from './gameState';
 import ItemGen from './modules/itemgen';
 import TechTree from './techTree';
 
-import Events, {EVT_UNLOCK, EVT_EVENT, EVT_LOOT,
-	DROP_ITEM, SET_SLOT, DELETE_ITEM } from './events';
+import Events, {EVT_UNLOCK, EVT_EVENT, EVT_LOOT, SET_SLOT, DELETE_ITEM } from './events';
 import Resource from './items/resource';
 import Skill from './items/skill';
 import Stat from './values/stat';
@@ -326,6 +325,10 @@ export default {
 		}
 
 		let item = this.getData(v);
+		if (!item) {
+			console.warn('missing fill item: ' + v );
+			return true;
+		}
 		if ( !item.rate || !a.effect || item.rate >= 0 ) return item.maxed();
 
 		// actual filling rate.
@@ -719,9 +722,7 @@ export default {
 
 			// test that another item is unlocked.
 			let it = this.getData(test);
-			if ( !it ) return false;
-
-			return it.fillsRequire();
+			return it && it.fillsRequire();
 
 		} else if (  Array.isArray(test) ) {
 
@@ -824,7 +825,7 @@ export default {
 	 * @param {Array|Object} mod
 	 * @param {number} amt - amount added.
 	 */
-	applyMods( mod, amt=1, src ) {
+	applyMods( mod, amt=1 ) {
 
 		if ( !mod ) return;
 
@@ -860,21 +861,6 @@ export default {
 
 			}
 
-		}
-
-	},
-
-	/**
-	 * Give a given quantity of item to all elements of an array.
-	 * @param {GData[]} a
-	 * @param {*} amt
-	 */
-	listGet( a, amt=1 ) {
-
-		if ( !a ) return;
-
-		for( let i = a.length-1; i>= 0; i-- ) {
-			a[i].amount(this, amt);
 		}
 
 	},
