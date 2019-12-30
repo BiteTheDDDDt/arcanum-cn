@@ -12,9 +12,10 @@ import Group from './composites/group';
 import UserSpells from './inventories/userSpells';
 import Quickbars from './composites/quickbars';
 import Stat from './values/stat';
-import { WEARABLE, ARMOR, WEAPON, HOME, PURSUITS } from './values/consts';
+import { WEARABLE, ARMOR, WEAPON, HOME, PURSUITS, ENCHANTSLOTS } from './values/consts';
 import Dot from './chars/dot';
 import TagSet from './composites/tagset';
+import EnchantSlots from './inventories/enchantslots';
 
 export const REST_SLOT = 'rest';
 
@@ -90,6 +91,7 @@ export default class GameState {
 
 		this.drops = new Inventory();
 
+		this.items[ENCHANTSLOTS] = new EnchantSlots( this.items[ENCHANTSLOTS] );
 		/**
 		 * @property {Minions} minions
 		 */
