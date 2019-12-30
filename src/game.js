@@ -159,18 +159,19 @@ export default {
 			var list = this.state.getData('t_tier'+n);
 			var evt = this.state.getData('tier'+n);
 
+			console.log('test TIER: ' + n );
 			var hasEvent = false;
 
 			for( var s of list ) {
 
 				if ( s.value > 0) {
 
+					console.log('has tier: ' + n);
 					highClass = s.name;
-					if ( evt.locked ) evt.locked = false;
-					else if ( evt.value == 0 ) {
+					if ( evt.value == 0 ) {
 
 						evt.doUnlock(this);
-					}
+					} else if ( evt.locked ) evt.locked = false;
 					hasEvent = true;
 					break;
 				}
@@ -1171,8 +1172,8 @@ export default {
 	 */
 	lock(id, amt=1 ) {
 
-		if (  Array.isArray(id)) {
-			id.forEach( v=>this.lock(v, amt ), this );
+		if ( typeof id === 'object' && id[Symbol.iterator] ) {
+			for( let v of id ) this.lock(v,amt);
 		} else if ( typeof id === 'object' ) {
 
 			id.locks += amt;
