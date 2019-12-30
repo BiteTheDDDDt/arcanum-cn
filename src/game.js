@@ -10,7 +10,7 @@ import Stat from './values/stat';
 import DataLoader from './dataLoader';
 
 import Events, {EVT_UNLOCK, EVT_EVENT, EVT_LOOT, SET_SLOT, DELETE_ITEM } from './events';
-import { MONSTER, TYP_PCT, TYP_RANGE, P_TITLE, P_LOG, RESOURCE, TEAM_PLAYER } from './values/consts';
+import { MONSTER, TYP_PCT, TYP_RANGE, P_TITLE, P_LOG, TEAM_PLAYER } from './values/consts';
 import TagSet from './composites/tagset';
 
 var techTree;
@@ -326,8 +326,10 @@ export default {
 		}
 
 		let item = this.getData(v);
-		if ( !item) return true;
-
+		if (!item) {
+			console.warn('missing fill item: ' + v );
+			return true;
+		}
 		if ( !item.rate || !a.effect || item.rate >= 0 ) return item.maxed();
 
 		// actual filling rate.
@@ -740,9 +742,7 @@ export default {
 
 			// test that another item is unlocked.
 			let it = this.getData(test);
-			if ( !it ) return false;
-
-			return it.fillsRequire();
+			return it && it.fillsRequire();
 
 		} else if (  Array.isArray(test) ) {
 
