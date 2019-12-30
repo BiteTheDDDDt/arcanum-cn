@@ -24,7 +24,7 @@ export default class TagSet {
 	get type() { return this._type; }
 	set type(v) { this._type = v; }
 
-	get name() {return this._name || this._id; }
+	get name() {return this._name }
 	set name(v) { this._name = v; }
 
 
@@ -37,8 +37,13 @@ export default class TagSet {
 	constructor(tag ) {
 
 		this.id = tag;
-
 		this.items = new Set();
+
+		let ind = tag.indexOf('t_');
+		if ( ind < 0) this.name = tag;
+		else {
+			this.name = tag.slice(ind+2);
+		}
 
 	}
 	canUse( g ) {
@@ -129,10 +134,10 @@ export default class TagSet {
 	 * @param {number} amt
 	 * @param {Object} [targ=null]
 	 */
-	applyMods( mods, amt=1, targ=this ) {
+	applyMods( mods, amt=1 ) {
 
 		for( let it of this.items ) {
-			it.applyMods( mods, amt, targ );
+			it.applyMods( mods, amt, it );
 			it.dirty = true;
 		}
 
