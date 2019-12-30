@@ -9,13 +9,17 @@ import Enchanting from '../composites/enchanting';
 export default class Enchant extends Action {
 
 	/**
-	 * @property {string} target - target type, name, kind, or tag, to which
+	 * @compat @deprecated
+	 */
+	get targets(){return this.only}
+	set targets(v){ this.only =v; }
+
+	/**
+	 * @property {string} only - target type, name, kind, or tag, to which
 	 * the enchantment can be applied.
 	 */
-	get targets(){return this._targets;}
-	set targets(v){
-		this._targets = typeof v === 'string' ? v.split(',') : v;
-	}
+	get only(){return this._only;}
+	set only(v){this._only = typeof v === 'string' ? v.split(',') : v;}
 
 	constructor(vars){
 
@@ -87,7 +91,7 @@ export default class Enchant extends Action {
 		let itLevel = targ.level || 1;
 		if ( (targ.enchants + this.level > itLevel) || targ.busy ) return false;
 
-		return !this._targets || canTarget( this._targets, targ );
+		return !this.only || canTarget( this.only, targ );
 
 	}
 
