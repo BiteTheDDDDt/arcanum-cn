@@ -159,14 +159,12 @@ export default {
 			var list = this.state.getData('t_tier'+n);
 			var evt = this.state.getData('tier'+n);
 
-			console.log('test TIER: ' + n );
 			var hasEvent = false;
 
 			for( var s of list ) {
 
 				if ( s.value > 0) {
 
-					console.log('has tier: ' + n);
 					highClass = s.name;
 					if ( evt.value == 0 ) {
 
