@@ -45,6 +45,10 @@ export default class Enchant extends Action {
 	 */
 	useOn( targ ) {
 
+		if ( !targ) return;
+
+		targ.enchants += this.level;
+
 		if ( this.adj && !targ.name.includes(this.adj) ) {
 
 			targ.name += ' ' + this.adj;
@@ -65,7 +69,6 @@ export default class Enchant extends Action {
 
 		if ( targ) {
 			targ.busy = false;
-			targ.enchants -= this.level;
 		}
 	}
 
