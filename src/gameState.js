@@ -139,6 +139,7 @@ export default class GameState {
 		this.tagSets = this.makeTagSets( this.items );
 		this.saveItems.allies = undefined;
 
+		this.saveItems.allies = undefined;
 	}
 
 	/**

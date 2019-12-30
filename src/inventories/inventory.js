@@ -51,9 +51,13 @@ export default class Inventory {
 		this._max = v instanceof Stat ? v : new Stat(v, 'max', true);
 	}
 
-	get items(){
-		return this._items;
-	}
+	/**
+	 * @property {boolean} removeDupes - whether to remove duplicate ids from inventory.
+	 */
+	get removeDupes(){ return this._removeDupes; }
+	set removeDupes(v){this._removeDupes = v;}
+
+	get items(){ return this._items; }
 	set items(v){
 
 		if ( v ) {
@@ -69,31 +73,17 @@ export default class Inventory {
 
 	}
 
-	[Symbol.iterator](){
-		return this.items[Symbol.iterator]();
-	}
-
-	/**
-	 * @property {Array} items
-	 */
-	get items(){return this._items;}
-	/**
-	 * @protected
-	 * @property {Array} items
-	 */
-	set items(v){this._items = v}
-
 	/**
 	 * @property {boolean} saveIds - if true, only save item ids, and not
 	 */
 	get saveIds(){ return this._saveIds }
 	set saveIds(v){ this._saveIds=v; }
 
-	/**
-	 * @property {boolean} removeDupes - whether to remove duplicate ids from inventory.
-	 */
-	get removeDupes(){ return this._removeDupes; }
-	set removeDupes(v){this._removeDupes = v;}
+	[Symbol.iterator](){
+		return this.items[Symbol.iterator]();
+	}
+
+	toArray(){return this._items.slice(0)}
 
 	constructor(vars=null){
 

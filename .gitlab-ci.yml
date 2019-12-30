@@ -30,4 +30,3 @@ pages:
   artifacts:
     paths:
       - public
-      - public/${CI_COMMIT_REF_SLUG}

@@ -448,6 +448,24 @@ export default class Combat {
 	}
 
 	/**
+	 * Reenter same dungeon.
+	 */
+	reenter() {
+		this.allies = this.state.minions.allies.toArray();
+		this.allies.unshift( this.player );
+	}
+
+	/**
+	 * Begin new dungeon.
+	 */
+	begin() {
+
+		this._enemies = [];
+		this.reenter();
+
+	}
+
+	/**
 	 * exponentially decreasing function. Lower is better.
 	 * e^(-1/100) approx 99% (not to dodge)
 	 * 1/e = 37% - might be too low.

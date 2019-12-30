@@ -81,8 +81,8 @@ export default {
 
 	<div v-if="inRaid" class="warn-text">Cannot change active minions while adventuring</div>
 	<div class="minion-title">
-		<span>{{ minions.count + ' / ' + Math.floor(minions.max) + ' Used' }}</span>
-		<span>Allies Power: {{ allies.used.toFixed(2) + ' / ' + Math.floor( allies.max.value ) }}</span></div>
+		<span>Total Minions: {{ minions.count + ' / ' + Math.floor(minions.max) }}</span>
+		<span>Allies Power: {{ Math.floor(allies.used) + ' / ' + Math.floor( allies.max.value ) }}</span></div>
 
 	<div class="char-list">
 	<table>
@@ -96,7 +96,8 @@ export default {
 
 			</td>
 			<td v-else>
-				<button @click="toggleActive(b)" :disabled="inRaid||( allies.canAdd(b)&&!b.active )">{{ b.active === true ? 'Rest' : 'Activate' }}</button>
+				<button v-if="b.active" @click="toggleActive(b)" :disabled="inRaid">Rest</button>
+				<button v-else @click="toggleActive(b)" :disabled="inRaid||!allies.canAdd(b)">Activate</button>
 			</td>
 			<td v-if="!b.alive">
 				<button class="rez" v-for="r in rezzes(b)" :key="r.id" :disabled="!usable(r)" @click="useRez(r,b)">{{ r.name }}</button>
@@ -119,7 +120,8 @@ div.minions .rez {
 
 div.minions .minion-title {
 	display:flex;
-	width: 12rem;
+	min-width: 12rem;
+	max-width: 50%;
 	justify-content: space-between;
 }
 

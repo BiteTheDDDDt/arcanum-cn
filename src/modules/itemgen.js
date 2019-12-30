@@ -163,7 +163,7 @@ export default class ItemGen {
 
 		if ( it === undefined ) return null;
 
-		this.state.addInstance(it);
+		//this.state.addInstance(it);
 		it.value = 1;
 		it.owned = true;
 
@@ -427,7 +427,7 @@ export default class ItemGen {
 
 		} else item.name = (data.name || data.id );
 
-		this.state.addInstance( item );
+		//this.state.addInstance( item );
 
 		return item;
 	}
