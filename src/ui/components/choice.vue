@@ -64,7 +64,16 @@ export default {
 
 				if ( typeof v === 'string') {
 
-					this.list = Game.state.getData( v );
+					let a = [];
+					let it = Game.state.getData( v );
+					if ( !it || !it.items ) this.list = a;
+					else {
+
+						for( let c of it.items ) a.push(c);
+						this.list = a;
+
+					}
+
 
 				} else if ( Array.isArray(v ) ) {
 

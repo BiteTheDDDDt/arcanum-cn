@@ -1,5 +1,3 @@
-import { assign } from 'objecty';
-
 /**
  * @class TagList to allow referencing tagged items by id.
  */
@@ -16,7 +14,7 @@ export default class TagSet {
 		this._items = v;
 	}
 
-	[Symbol.iterator](){return this._items[Symbol.iterator]}
+	[Symbol.iterator](){return this._items[Symbol.iterator]()}
 
 	/**
 	 * @property {string} type - type might need to be a standard type

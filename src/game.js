@@ -120,7 +120,7 @@ export default {
 			// initial fringe check.
 			techTree.forceCheck();
 
-			Events.add( DROP_ITEM, this.state.deleteInstance, this.state );
+			//Events.add( DROP_ITEM, this.state.deleteInstance, this.state );
 			Events.add( SET_SLOT, this.setSlot, this );
 			Events.add( DELETE_ITEM, this.onDelete, this );
 
@@ -836,8 +836,7 @@ export default {
 			for( let p in mod ) {
 
 				var target = this.getData( p );
-
-				if ( target === undefined ) this.modTag( p, mod[p], amt );
+				if ( target === undefined ) continue;
 				else if ( mod[p] === true ){
 
 					target.doUnlock(this);
@@ -960,7 +959,7 @@ export default {
 		if ( res ) {
 
 			this.state.inventory.removeQuant(res,amt);
-			if ( res.value <= 0 ) Events.emit( DROP_ITEM, res );
+			//if ( res.value <= 0 ) Events.emit( DROP_ITEM, res );
 
 		} else console.warn('QUANT NOT FOUND: ' + p );
 

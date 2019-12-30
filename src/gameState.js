@@ -161,6 +161,11 @@ export default class GameState {
 
 			var it = this.items[p];
 
+			if ( !it ) {
+				console.warn('prepItems() item undefined: ' + p );
+				delete this.items[p];
+				continue;
+			}
 			/**
 			 * special instanced item.
 			 */
