@@ -31,8 +31,19 @@ export default class TagSet {
 	/*get.instanced() { return true; }
 	set.instanced(v){}*/
 
-	get locked() { return false;}
-	get owned(){return true;}
+	get locked() {
+		for( let it of this.items ) {
+			if ( it.locked === false ) return false;
+		}
+		return true;
+	}
+
+	get owned(){
+		for( let it of this.items ) {
+			if ( it.owned === true ) return true;
+		}
+		return false;
+	}
 
 	constructor(tag ) {
 
@@ -48,12 +59,6 @@ export default class TagSet {
 	}
 	canUse( g ) {
 		return g.canPay( this.cost );
-	}
-
-	lock( amt=1 ){
-		for( let it of this.items ) {
-			it.lock(amt);
-		}
 	}
 
 	/**
