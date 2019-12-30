@@ -71,7 +71,7 @@ export default {
 		<span class="note-text">Items can only be enchanted with enchantments of equal or lower level.</span>
 		</div>
 
-		<eslots :eslots="enchantSlots" :inv="inv" />
+		<eslots class="eslots" :eslots="enchantSlots" :inv="inv" />
 
 		<div class="separate">
 
@@ -102,6 +102,28 @@ export default {
 
 <style scoped>
 
+div.enchants {
+	display:flex;
+	flex-direction: column;
+	padding:0 1rem;
+	height:100%;
+	margin-top: var(--sm-gap);
+}
+
+div.enchants .eslots {
+	padding-bottom: var(--sm-gap);
+	border-bottom: 1pt solid var(--separator-color);
+}
+
+div.enchants .filtered {
+	padding-top: var(--sm-gap);
+	display:flex;
+	flex-flow: column;
+	margin-right: var(--md-gap);
+	border-right: 1px solid var(--separator-color);
+}
+
+
 div.enchants .enchant-list {
 	display:flex;
 	flex-flow: column nowrap;
@@ -110,12 +132,6 @@ div.enchants .enchant-list {
 
 div.enchants .separate {
 	align-items:flex-start;
-}
-
-div.enchants .filtered {
-	display:flex;
-	flex-flow: column;
-	margin-right: var(--sm-gap);
 }
 
 div.enchants .enchant-list > div.enchant {
@@ -129,12 +145,5 @@ div.enchants .enchant-list  .ench-name {
 	min-width: 5rem;
 }
 
-div.enchants {
-	display:flex;
-	flex-direction: column;
-	padding:0 1rem;
-	overflow-y:auto;
-	height:100%;
-}
 
-</style>}
+</style>
