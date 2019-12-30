@@ -47,6 +47,17 @@ export default class TagSet {
 		return g.canPay( this.cost );
 	}
 
+	/**
+	 * Tests whether item fills unlock requirement.
+	 * @returns {boolean}
+	 */
+	fillsRequire(){
+		for( let it of this.items ) {
+			if ( it.fillsRequire()) return true;
+		}
+		return false;
+	}
+
 	filled( rate ){
 		for( let it of this.items ) {
 			if ( !it.filled(rate) ) return false;

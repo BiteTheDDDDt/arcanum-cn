@@ -12,7 +12,7 @@ import Resource from './items/resource';
 import Skill from './items/skill';
 import Stat from './values/stat';
 import { TEAM_ALLY } from './chars/npc';
-import { MONSTER, TYP_PCT, TYP_RANGE, P_TITLE, P_LOG, RESOURCE } from './values/consts';
+import { MONSTER, TYP_PCT, TYP_RANGE, P_TITLE, P_LOG } from './values/consts';
 
 var techTree;
 
@@ -156,16 +156,16 @@ export default {
 		let n = -1;
 		while ( ++n <= 5 ) {
 
-			var list = this.state.getTagList('t_tier'+n);
+			var list = this.state.getData('t_tier'+n);
 			var evt = this.state.getData('tier'+n);
 
 			var hasEvent = false;
 
-			for( var i = list.length-1; i>= 0; i-- ) {
+			for( var s of list ) {
 
-				if ( list[i].value > 0) {
+				if ( s.value > 0) {
 
-					highClass = list[i].name;
+					highClass = s.name;
 					if ( evt.locked ) evt.locked = false;
 					else if ( evt.value == 0 ) {
 
@@ -722,9 +722,7 @@ export default {
 			let it = this.getData(test);
 			if ( !it ) return false;
 
-			// don't need to actually use an action or resource to mark it unlocked.
-			return ( it.type === RESOURCE || it.type === 'action') ?
-				(it.locked === false) : it.value > 0;
+			return it.fillsRequire();
 
 		} else if (  Array.isArray(test) ) {
 
@@ -735,8 +733,7 @@ export default {
 			/**
 			 * @todo: quick patch in case it was a data item.
 			 */
-			if ( test.id ) return ( test.type === RESOURCE || test.type === 'action') ?
-			(test.locked === false) : test.value > 0;
+			if ( test.id ) return test.fillsRequire();
 
 			// @todo: take recursive values into account.
 			let limit, it;
@@ -750,11 +747,7 @@ export default {
 			}
 			return true;
 
-		} else if ( test.type != null ) {
-
-			return ( test.type === RESOURCE || test.type === 'action') ? !test.locked : test.value > 0;
-
-		} //else console.warn( 'unknown test: ' + test.id || test );
+		}
 
 	},
 
