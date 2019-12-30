@@ -671,7 +671,7 @@
 				"result":"autoslayer"
 			},
 			{
-				"id":"mk_puppetD",
+				"id":"mk_puppetdef",
 				"name":"animate puppet defender",
 				"school":"animation",
 				"require":"g.puppetry>=5&&g.puppeteer>0",
