@@ -96,7 +96,7 @@ export default class GameState {
 		 * @property {Minions} minions
 		 */
 		this.minions = this.items.minions = new Minions( this.items.minions || null );
-		this.items.alliex = this.minions.allies;
+		this.items.allies = this.minions.allies;
 
 		this.equip = new Equip( baseData.equip );
 

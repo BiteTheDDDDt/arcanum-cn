@@ -399,19 +399,17 @@ export default class Combat {
 	 * Reenter same dungeon.
 	 */
 	reenter() {
-		this.allies = this.state.minions.active.slice(0);
+		this.allies = this.state.minions.allies.toArray();
 		this.allies.unshift( this.player );
 	}
 
 	/**
-	 * Begin new combat encounter.
+	 * Begin new dungeon.
 	 */
 	begin() {
 
 		this._enemies = [];
-
-		this.allies = this.state.minions.active.slice(0);
-		this.allies.unshift( this.player );
+		this.reenter();
 
 	}
 
