@@ -115,16 +115,17 @@ div.enchants .separate {
 div.enchants .filtered {
 	display:flex;
 	flex-flow: column;
+	margin-right: var(--sm-gap);
 }
 
 div.enchants .enchant-list > div.enchant {
 	display:flex;
 	width:100%;
+	justify-content: space-between;
 	flex-direction: row;
 }
 
 div.enchants .enchant-list  .ench-name {
-	flex-basis: 25%;
 	min-width: 5rem;
 }
 
