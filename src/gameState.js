@@ -4,18 +4,17 @@ import GData from './items/gdata';
 import Equip from './chars/equip';
 import Minions from './inventories/minions';
 
-/**
- * @todo violation of principle.
- */
 import Runner from './modules/runner';
 import Explore from './composites/explore';
-import { ensure } from './util/util';
+import { ensure, cloneClass } from './util/util';
 import DataList from './inventories/dataList';
 import Group from './composites/group';
 import UserSpells from './inventories/userSpells';
 import Quickbars from './composites/quickbars';
 import Stat from './values/stat';
 import { WEARABLE, ARMOR, WEAPON, HOME, PURSUITS, ENCHANTSLOTS } from './values/consts';
+import Dot from './chars/dot';
+import TagSet from './composites/tagset';
 import EnchantSlots from './inventories/enchantslots';
 
 export const REST_SLOT = 'rest';
@@ -92,11 +91,12 @@ export default class GameState {
 
 		this.drops = new Inventory();
 
-
+		this.items[ENCHANTSLOTS] = new EnchantSlots( this.items[ENCHANTSLOTS] );
 		/**
 		 * @property {Minions} minions
 		 */
 		this.minions = this.items.minions = new Minions( this.items.minions || null );
+		this.items.allies = this.minions.allies;
 
 		this.equip = new Equip( baseData.equip );
 
@@ -118,10 +118,8 @@ export default class GameState {
 		this.items.pursuits = new DataList( this.items.pursuits );
 		this.items.pursuits.id = PURSUITS;
 
-		this.items[ENCHANTSLOTS] = new EnchantSlots( this.items[ENCHANTSLOTS] );
-
-
 		this.revive();
+
 		this.readyItems();
 
 		// circular problem. spelllist has to be revived after created spells
@@ -135,10 +133,11 @@ export default class GameState {
 		this.playerStats = this.player.getResources();
 
 		/**
-		 * @property {.<string,Item[]>} tagLists - tag to array of items with tag.
+		 * @property {Map.<string,TagSet>} tagsets - tag to array of items with tag.
 		 * makes upgrading/referencing by tag easier.
 		*/
-		this.tagLists = this.makeLists( this.items );
+		this.tagSets = this.makeTagSets( this.items );
+		this.saveItems.allies = undefined;
 
 	}
 
@@ -164,6 +163,11 @@ export default class GameState {
 
 			var it = this.items[p];
 
+			if ( !it ) {
+				console.warn('prepItems() item undefined: ' + p );
+				delete this.items[p];
+				continue;
+			}
 			/**
 			 * special instanced item.
 			 */
@@ -225,7 +229,7 @@ export default class GameState {
 
 			if ( !it.hasTag ) {
 
-				console.warn( p + ' -> ' + this.items[p].id + ' missing hasTag(). Removing.');
+				console.warn( p + ': ' + this.items[p].id + ' missing hasTag(). Removing.');
 				delete this.items[p];
 
 			} else {
@@ -243,21 +247,6 @@ export default class GameState {
 
 	}
 
-	initSlots(){
-
-		/**
-		 * @property {Object.<string,Item>} slots - slots for items which can only have
-		 * a single active at a given time.
-		 */
-		this.slots = this.slots || {};
-
-		// all must be defined for Vue. slots could be missing from save.
-		ensure( this.slots, [HOME, 'mount', 'bed', REST_SLOT]);
-
-		if ( !this.slots[REST_SLOT] ) this.slots[REST_SLOT] = this.getData('rest');
-
-	}
-
 	/**
 	 * Test if a home can fit the current used capacity.
 	 * @param {Object.<string,Items>} g - all game data.
@@ -271,6 +260,23 @@ export default class GameState {
 			g.space.max.delValue( i.mod.space.max.bonus - ( cur ? cur.mod.space.max.bonus : 0) );
 		/*return g.space.used <=
 			g.space.max.delValue( i.mod.space.max.bonus - ( cur ? cur.mod.space.max.bonus : 0) );*/
+
+	}
+
+
+	initSlots(){
+
+		/**
+		 * @property {Object.<string,Item>} slots - slots for items which can only have
+		 * a single active at a given time.
+		 */
+		this.slots = this.slots || {};
+
+		// must be defined for Vue. slots could be missing from save.
+		ensure( this.slots, [HOME, 'mount', 'bed', REST_SLOT]);
+
+		console.log('HOME SLOT: ' + this.slots[HOME] );
+		if ( !this.slots[REST_SLOT] ) this.slots[REST_SLOT] = this.getData('rest');
 
 	}
 
@@ -305,13 +311,36 @@ export default class GameState {
 	}
 
 	/**
-	 * Create lists of tagged items.
-	 * @param {Object.<string,GData>} items
-	 * @returns {Object.<string,GData[]>} lists
+	 * @static
+	 * @param {object} dot
+	 * @param {object} source
+	 * @param {number} [duration=0]
+	 * @returns {Dot}
 	 */
-	makeLists( items ) {
+	mkDot( dot, source, duration=0 ) {
 
-		var lists = {};
+		dot = new Dot( cloneClass(dot), source );
+
+		let st = this.getData(dot.id);
+		if ( st ) dot.mergeDot(st);
+		if ( st == dot ) {
+			console.log('Dot equals state: ' + st);
+		}
+
+		dot.duration = duration;
+
+		return dot;
+
+	}
+
+	/**
+	 * Create lists of tagged items.
+	 * @param {.<string,GData>} items
+	 * @returns {Map.<string,GData[]>} lists
+	 */
+	makeTagSets( items ) {
+
+		var tagSets = new Map();
 
 		for( let p in items ) {
 
@@ -321,16 +350,18 @@ export default class GameState {
 
 			for( var t of tags ){
 
-				//console.log('adding list: ' + t );
-				var list = lists[t];
-				if ( !list ) lists[t] = list = [];
-				list.push( it );
+				var list = tagSets[t];
+				if ( !list ) {
+					items[t] = tagSets[t] = list = new TagSet(t);
+				}
+
+				list.add( it );
 
 			}
 
 		}
 
-		return lists;
+		return tagSets;
 
 	}
 
@@ -379,8 +410,8 @@ export default class GameState {
 	 * @param {string} tag
 	 * @returns {GData[]|undefined}
 	 */
-	getTagList( tag ) {
-		return this.tagLists[tag];
+	getTagSet( tag ) {
+		return this.tagSets[tag];
 	}
 
 	/**
@@ -392,14 +423,12 @@ export default class GameState {
 	typeCost( cost, type ) {
 
 		if ( !cost ) return 0;
-
-		if ( !isNaN( cost) ) return type === 'gold' ? cost : 0;
-		return ( cost.hasOwnProperty(type) ) ? cost[type] : 0;
+		return cost[type] || 0;
 	}
 
 	/**
 	 * Add to maximum value of resource.
-	 * Used to implement cheats.
+	 * Used for implementing testing cheats.
 	 * @param {string} id
 	 * @param {number} amt
 	 */
@@ -440,6 +469,65 @@ export default class GameState {
 	}
 
 	/**
+	 * Add created item to items list.
+	 * @param {GData} it
+	 */
+	addItem( it ) {
+
+		if ( this.items[it.id] ) console.warn('OVERWRITE ID: ' + it.id);
+
+		if ( !it.hasTag ) {
+			console.log('MISSING HASTAG: ' + it.id );
+			return false;
+		}
+
+		this.items[it.id] = it;
+
+		if ( it.module !== 'hall') {
+			console.log('ADDING SAVE ITEM: ' + it.id );
+			this.saveItems[it.id] = it;
+		}
+
+		return true;
+
+	}
+
+	makeDataList(list) {
+		return new DataList(list);
+	}
+
+	/**
+	 * Should only be used for custom items.
+	 * Call from Game so DELETE_ITEM event called.
+	 * @param {GData} it
+	 */
+	deleteItem( it ) {
+		delete this.items[it.id];
+		delete this.saveItems[it.id];
+	}
+
+	/**
+	 * Assign all items passing the predicate test the given tag.
+	 * Dyanamic tagging not supported.
+	 * @param {Predicate} test
+	 * @param {string} tag
+	 */
+	/*tagItems( test, tag ) {
+		let items = this.items;
+		for( let p in items ) {
+			if ( test( items[p] ) ) items[p].addTag(tag);
+		}
+	}*/
+
+	/**
+	 * Get an item on an item-id varpath.
+	 * @param {VarPath} v
+	 */
+	/*getPathItem(v){
+		return v.readVar( this._items );
+	}*/
+
+	/**
 	 * Get state slots so they can be modified for Vue reactivity.
 	 * @returns {.<string,GData>}
 	 */
@@ -470,124 +558,15 @@ export default class GameState {
 
 	}
 
-	exists(id){ return this.items.hasOwnProperty(id);}
-
-	/**
-	 * Add created item to items list.
-	 * @param {GData} it
-	 */
-	addItem( it ) {
-
-		if ( this.items[it.id] ) console.warn('OVERWRITE ID: ' + it.id);
-
-		if ( !it.hasTag ) {
-			console.log('MISSING HASTAG: ' + it.id );
-			return false;
-		}
-
-		this.items[it.id] = it;
-
-		if ( it.module !== 'hall') {
-			console.log('ADDING SAVE ITEM: ' + it.id );
-			this.saveItems[it.id] = it;
-		}
-
-		return true;
-
-	}
-
-	/**
-	 * Get id for instance
-	 * @param {string} id - base id.
-	 */
-	instanceId( id ) {
-
-		let i = 0;
-
-		while ( this.instances.hasOwnProperty( (id + ++i )));
-
-		return id+i;
-
-	}
-
-	/**
-	 * Add instanced item to instances data.
-	 * @param {*} it
-	 */
-	addInstance( it ) {
-
-		it.id = this.instanceId( it.id );
-		//if ( this.instances[it.id] ) console.warn('OVERWRITE ID: ' + it.id);
-		this.instances[it.id] = it;
-
-	}
-
-	getInstance(id) { return this.instances[id];}
-
-	/**
-	 * @param {*} it
-	 */
-	deleteInstance( it ){
-
-		if ( typeof it === 'string') {
-			it = this.instances[it];
-		}
-		if ( it ) {
-			it.value = 0;
-			this.instances[it.id] = undefined;
-		}
-
-	}
-
-
 	/**
 	 * Find an item instantiated from given item proto/recipe.
 	 * @param {string} id
-	 * @returns {GData|null} - instance found.
 	 */
 	findInstance( id ) {
-
-		var it = this.instances[id];
-		if ( it ) return it;
-
-		for( let p in this.instances ) {
-
-			var it = this.instances[p];
-			if ( it.id === id || it.recipe === id ) return it
-
-		}
-		return null;
-
+		return this.inventory.find(id, true) || this.equip.find(id, true );
 	}
 
-	/**
-	 * Cache instance for global access.
-	 * @param {GData} it
-	 */
-	cacheInstance( it ) {
-		this.instances[it.id] = it;
-	}
-
-	/**
-	 * Find an item instantiated from given item proto/recipe.
-	 * @param {string} id
-	 */
-	deleteItem( it ) {
-		delete this.items[it.id];
-		delete this.saveItems[it.id];
-	}
-
-	/**
-	 * Assign all items passing the predicate test the given tag.
-	 * @param {Predicate} test
-	 * @param {string} tag
-	 */
-	tagItems( test, tag ) {
-		let items = this.items;
-		for( let p in items ) {
-			if ( test( items[p] ) ) items[p].addTag(tag);
-		}
-	}
+	exists(id){ return this.items.hasOwnProperty(id);}
 
 	/**
 	 * Find item in base items, equip, or inventory.
@@ -596,8 +575,7 @@ export default class GameState {
 	 */
 	findData(id, any=false) {
 
-		return this.getData(id) ||
-			( any ? this.findInstance(id) : this.getInstance(id) );
+		return this.getData(id) || this.inventory.find(id, any) || this.equip.find(id, any );
 	}
 
 	/**

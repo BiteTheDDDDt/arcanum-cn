@@ -12,7 +12,7 @@ import Resource from './items/resource';
 import Skill from './items/skill';
 import Stat from './values/stat';
 import { TEAM_ALLY } from './chars/npc';
-import { MONSTER, TYP_PCT, TYP_RANGE, P_TITLE, P_LOG, RESOURCE } from './values/consts';
+import { MONSTER, TYP_PCT, TYP_RANGE, P_TITLE, P_LOG } from './values/consts';
 
 var techTree;
 
@@ -120,7 +120,7 @@ export default {
 			// initial fringe check.
 			techTree.forceCheck();
 
-			Events.add( DROP_ITEM, this.state.deleteInstance, this.state );
+			//Events.add( DROP_ITEM, this.state.deleteInstance, this.state );
 			Events.add( SET_SLOT, this.setSlot, this );
 			Events.add( DELETE_ITEM, this.onDelete, this );
 
@@ -156,16 +156,16 @@ export default {
 		let n = -1;
 		while ( ++n <= 5 ) {
 
-			var list = this.state.getTagList('t_tier'+n);
+			var list = this.state.getData('t_tier'+n);
 			var evt = this.state.getData('tier'+n);
 
 			var hasEvent = false;
 
-			for( var i = list.length-1; i>= 0; i-- ) {
+			for( var s of list ) {
 
-				if ( list[i].value > 0) {
+				if ( s.value > 0) {
 
-					highClass = list[i].name;
+					highClass = s.name;
 					if ( evt.locked ) evt.locked = false;
 					else if ( evt.value == 0 ) {
 
@@ -327,13 +327,6 @@ export default {
 		}
 
 		let item = this.getData(v);
-		if (item === undefined ) {
-
-			item = this.state.getTagList( v );
-			return item === undefined ? true : this.filled(item, a, v );
-
-		}
-
 		if ( !item.rate || !a.effect || item.rate >= 0 ) return item.maxed();
 
 		// actual filling rate.
@@ -353,18 +346,7 @@ export default {
 			this.disable(v);
 		} else {
 
-			if ( typeof it === 'string' ) {
-
-				let item = this.getData( it );
-				if ( !item ) {
-
-					let list = this.state.getTagList(it);
-					if ( list ) for( let v of list ) this.disable(v);
-					return;
-
-				} else it = item;
-
-			}
+			if ( typeof it === 'string' ) it = this.getData( it );
 
 			if ( it && !it.disabled ) {
 
@@ -407,12 +389,6 @@ export default {
 
 			let item = this.getData( it );
 			if ( item ) this.remove( it, it.value );
-			else {
-
-				item = this.state.getTagList( it );
-				if ( item ) item.forEach( this.removeAll, this );
-
-			}
 
 		}
 
@@ -675,13 +651,9 @@ export default {
 	remove( id, amt=1 ){
 
 		let it = typeof id === 'string' ? this.getData(id) : id;
-
 		if ( !it ) {
-
-			it = this.state.getTagList(id);
-			it = it ? it.find( v=>!v.disabled&& v.value>=amt ) : null;
-			if ( !it ) return;
-
+			console.warn('missing remove id: ' + id );
+			return;
 		}
 
 		if ( it.slot ) { if ( this.state.getSlot(it.slot) === it ) this.state.setSlot(it.slot, null); }
@@ -748,22 +720,9 @@ export default {
 
 			// test that another item is unlocked.
 			let it = this.getData(test);
-			if ( it === undefined || it === null ) {
+			if ( !it ) return false;
 
-				// tag test - if any item with the tag is unlocked, test passes.
-				it = this.state.getTagList(test);
-
-				//if ( !it ) console.warn('undefined: ' + test );
-				//console.log('testing tag list: ' + test );
-				//it.forEach( v=>console.log(v.id));
-
-				return it ? it.some( this.unlockTest, this ) : false;
-
-			}
-
-			// don't need to actually use an action or resource to mark it unlocked.
-			return ( it.type === RESOURCE || it.type === 'action') ?
-				(it.locked === false) : it.value > 0;
+			return it.fillsRequire();
 
 		} else if (  Array.isArray(test) ) {
 
@@ -774,8 +733,7 @@ export default {
 			/**
 			 * @todo: quick patch in case it was a data item.
 			 */
-			if ( test.id ) return ( test.type === RESOURCE || test.type === 'action') ?
-			(test.locked === false) : test.value > 0;
+			if ( test.id ) return test.fillsRequire();
 
 			// @todo: take recursive values into account.
 			let limit, it;
@@ -789,11 +747,7 @@ export default {
 			}
 			return true;
 
-		} else if ( test.type != null ) {
-
-			return ( test.type === RESOURCE || test.type === 'action') ? !test.locked : test.value > 0;
-
-		} //else console.warn( 'unknown test: ' + test.id || test );
+		}
 
 	},
 
@@ -851,33 +805,7 @@ export default {
 
 				target.amount( this, dt );
 
-			} else {
-
-				this.listGet( this.getTagList(effect), dt );
-
 			}
-
-		}
-
-	},
-
-	/**
-	 * Apply an effect or mod to all Items with given tag.
-	 * @param {string} tag - item tag.
-	 * @param {object} eff - object effect.
-	 * @param {number} dt - time or percent of mod to apply.
-	 */
-	applyToTag( tag, eff, dt ) {
-
-		let target = this.state.getTagList(tag);
-
-		if ( target ) {
-
-			for( let i = target.length-1; i>=0; i--) {
-				target[i].applyVars( eff, dt);
-				target[i].dirty = true;
-			}
-
 
 		}
 
@@ -908,8 +836,7 @@ export default {
 			for( let p in mod ) {
 
 				var target = this.getData( p );
-
-				if ( target === undefined ) this.modTag( p, mod[p], amt );
+				if ( target === undefined ) continue;
 				else if ( mod[p] === true ){
 
 					target.doUnlock(this);
@@ -932,11 +859,6 @@ export default {
 				console.warn('!!!!!ADDING NUMBER MOD: ' + mod );
 				t.amount( this, 1 );
 
-			} else {
-
-				let list = this.getTagList(mod);
-				if ( list ) list.forEach( this.applyMods, this );
-
 			}
 
 		}
@@ -954,24 +876,6 @@ export default {
 
 		for( let i = a.length-1; i>= 0; i-- ) {
 			a[i].amount(this, amt);
-		}
-
-	},
-
-	/**
-	 * Apply an effect or mod to all Items with given tag.
-	 * @param {string} tag - item tag.
-	 * @param {Object} mods - object mod.
-	 * @param {number} dt - time or percent of mod to apply.
-	 */
-	modTag( tag, mods, dt ) {
-
-		let target = this.state.getTagList(tag);
-		if ( target ) {
-			for( let i = target.length-1; i>=0; i--) {
-				target[i].applyMods( mods, dt);
-				target[i].dirty = true;
-			}
 		}
 
 	},
@@ -1055,7 +959,7 @@ export default {
 		if ( res ) {
 
 			this.state.inventory.removeQuant(res,amt);
-			if ( res.value <= 0 ) Events.emit( DROP_ITEM, res );
+			//if ( res.value <= 0 ) Events.emit( DROP_ITEM, res );
 
 		} else console.warn('QUANT NOT FOUND: ' + p );
 
@@ -1279,11 +1183,6 @@ export default {
 			let it = this.getData(id);
 			if ( it ) {
 				this.lock(it);
-
-			} else {
-
-				it = this.state.getTagList(id);
-				if ( it ) it.forEach( v=>this.lock(v, amt ), this );
 
 			}
 

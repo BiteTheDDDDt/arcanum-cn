@@ -68,6 +68,14 @@ export default class Action extends GData {
 
 	}
 
+	/**
+	 * Tests whether item fills unlock requirement.
+	 * @returns {boolean}
+	 */
+	fillsRequire(){
+		return this.locked === false && this.value > 0;
+	}
+
 	applyImproves() {
 
 		let v = this.valueOf();

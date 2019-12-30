@@ -179,6 +179,14 @@ export default class GData {
 	}
 
 	/**
+	 * Tests whether item fills unlock requirement.
+	 * @returns {boolean}
+	 */
+	fillsRequire(){
+		return this.locked === false;
+	}
+
+	/**
 	 * Determines whether an item can be run as a continuous action.
 	 * @param {Game} g
 	 * @param {number} dt - minimum length of time item would run.
