@@ -22,7 +22,7 @@ export default {
 
 		items(){ return this.minions.filter( v=>v.value>=1 ); },
 
-		rezList(){return Game.state.getTagList('rez').filter(v=>v.owned&&!v.disabled);}
+		rezList(){return Game.state.getData('rez').filter(v=>v.owned&&!v.disabled);}
 
 	},
 	methods:{

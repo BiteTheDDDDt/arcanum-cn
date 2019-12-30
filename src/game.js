@@ -327,13 +327,6 @@ export default {
 		}
 
 		let item = this.getData(v);
-		if (item === undefined ) {
-
-			item = this.state.getTagList( v );
-			return item === undefined ? true : this.filled(item, a, v );
-
-		}
-
 		if ( !item.rate || !a.effect || item.rate >= 0 ) return item.maxed();
 
 		// actual filling rate.
@@ -353,18 +346,7 @@ export default {
 			this.disable(v);
 		} else {
 
-			if ( typeof it === 'string' ) {
-
-				let item = this.getData( it );
-				if ( !item ) {
-
-					let list = this.state.getTagList(it);
-					if ( list ) for( let v of list ) this.disable(v);
-					return;
-
-				} else it = item;
-
-			}
+			if ( typeof it === 'string' ) it = this.getData( it );
 
 			if ( it && !it.disabled ) {
 
@@ -407,12 +389,6 @@ export default {
 
 			let item = this.getData( it );
 			if ( item ) this.remove( it, it.value );
-			else {
-
-				item = this.state.getTagList( it );
-				if ( item ) item.forEach( this.removeAll, this );
-
-			}
 
 		}
 
@@ -675,13 +651,9 @@ export default {
 	remove( id, amt=1 ){
 
 		let it = typeof id === 'string' ? this.getData(id) : id;
-
 		if ( !it ) {
-
-			it = this.state.getTagList(id);
-			it = it ? it.find( v=>!v.disabled&& v.value>=amt ) : null;
-			if ( !it ) return;
-
+			console.warn('missing remove id: ' + id );
+			return;
 		}
 
 		if ( it.slot ) { if ( this.state.getSlot(it.slot) === it ) this.state.setSlot(it.slot, null); }
@@ -748,18 +720,7 @@ export default {
 
 			// test that another item is unlocked.
 			let it = this.getData(test);
-			if ( it === undefined || it === null ) {
-
-				// tag test - if any item with the tag is unlocked, test passes.
-				it = this.state.getTagList(test);
-
-				//if ( !it ) console.warn('undefined: ' + test );
-				//console.log('testing tag list: ' + test );
-				//it.forEach( v=>console.log(v.id));
-
-				return it ? it.some( this.unlockTest, this ) : false;
-
-			}
+			if ( !it ) return false;
 
 			// don't need to actually use an action or resource to mark it unlocked.
 			return ( it.type === RESOURCE || it.type === 'action') ?
@@ -851,33 +812,7 @@ export default {
 
 				target.amount( this, dt );
 
-			} else {
-
-				this.listGet( this.getTagList(effect), dt );
-
 			}
-
-		}
-
-	},
-
-	/**
-	 * Apply an effect or mod to all Items with given tag.
-	 * @param {string} tag - item tag.
-	 * @param {object} eff - object effect.
-	 * @param {number} dt - time or percent of mod to apply.
-	 */
-	applyToTag( tag, eff, dt ) {
-
-		let target = this.state.getTagList(tag);
-
-		if ( target ) {
-
-			for( let i = target.length-1; i>=0; i--) {
-				target[i].applyVars( eff, dt);
-				target[i].dirty = true;
-			}
-
 
 		}
 
@@ -932,11 +867,6 @@ export default {
 				console.warn('!!!!!ADDING NUMBER MOD: ' + mod );
 				t.amount( this, 1 );
 
-			} else {
-
-				let list = this.getTagList(mod);
-				if ( list ) list.forEach( this.applyMods, this );
-
 			}
 
 		}
@@ -954,24 +884,6 @@ export default {
 
 		for( let i = a.length-1; i>= 0; i-- ) {
 			a[i].amount(this, amt);
-		}
-
-	},
-
-	/**
-	 * Apply an effect or mod to all Items with given tag.
-	 * @param {string} tag - item tag.
-	 * @param {Object} mods - object mod.
-	 * @param {number} dt - time or percent of mod to apply.
-	 */
-	modTag( tag, mods, dt ) {
-
-		let target = this.state.getTagList(tag);
-		if ( target ) {
-			for( let i = target.length-1; i>=0; i--) {
-				target[i].applyMods( mods, dt);
-				target[i].dirty = true;
-			}
 		}
 
 	},
@@ -1279,11 +1191,6 @@ export default {
 			let it = this.getData(id);
 			if ( it ) {
 				this.lock(it);
-
-			} else {
-
-				it = this.state.getTagList(id);
-				if ( it ) it.forEach( v=>this.lock(v, amt ), this );
 
 			}
 
