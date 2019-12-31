@@ -1,6 +1,6 @@
 const path = require('path');
 const VueLoader = require('vue-loader/lib/plugin');
-const WorkboxPlugin = require( 'workbox-webpack-plugin');
+//const WorkboxPlugin = require( 'workbox-webpack-plugin');
 const CopyPlugin = require( 'copy-webpack-plugin');
 
 const webpack = require('webpack');
@@ -41,6 +41,8 @@ module.exports = (env, argv)=>{
 			}
 		}),
 		new webpack.DefinePlugin({
+		__DEBUG:true,
+		__CHEATS:true,
 		__KONG:env.kong || false,
 		__DIST:true,
 		__SAVE:null,
