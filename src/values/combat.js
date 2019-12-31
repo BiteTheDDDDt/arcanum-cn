@@ -24,6 +24,8 @@ export const TARGET_RAND = 8;
 
 export const TARGET_GROUP = 16;
 
+export const TARGET_LEADER = 32;
+
 export const TARGET_ALL = TARGET_GROUP + TARGET_ALLY + TARGET_ENEMY;
 
 /**
@@ -77,6 +79,11 @@ export const Targets = {
  	* @const {string} TARGET_RAND - random target.
  	*/
 	rand:TARGET_RAND,
+
+	/**
+	 * @const {number} TARGET_LEADER - target enemy leader.
+	 */
+	leader:TARGET_LEADER,
 
 	/**
  	* @const {string} TARGET_ALLY - target single ally.

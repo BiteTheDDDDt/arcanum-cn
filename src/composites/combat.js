@@ -11,7 +11,7 @@ import { itemRevive } from '../modules/itemgen';
 import { NO_SPELLS } from '../chars/states';
 
 import { TYP_FUNC, TEAM_PLAYER, getDelay } from '../values/consts';
-import { TARGET_ALLIES, TARGET_ENEMIES, TARGET_ENEMY, TARGET_ALLY, TARGET_SELF, TARGET_RAND, TARGET_RANDG } from "../values/combat";
+import { TARGET_ALLIES, TARGET_ENEMIES, TARGET_ENEMY, TARGET_ALLY, TARGET_SELF, TARGET_RAND, TARGET_RANDG, TARGET_LEADER } from "../values/combat";
 
 
 
@@ -321,6 +321,10 @@ export default class Combat {
 		} else if ( targets === TARGET_ALL ) {
 
 			return this.allTargs;
+
+		} else if ( targets === TARGET_LEADER ) {
+
+			return char.team === TEAM_PLAYER ? this._allies[0] : this.enemies[0];
 
 		} else if ( targets === TARGET_RANDG ) {
 
