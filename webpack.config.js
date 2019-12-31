@@ -41,6 +41,8 @@ module.exports = (env, argv)=>{
 			}
 		}),
 		new webpack.DefinePlugin({
+		__DEBUG:true,
+		__CHEATS:true,
 		__KONG:env.kong || false,
 		__DIST:true,
 		__SAVE:null,

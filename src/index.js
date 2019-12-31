@@ -56,8 +56,11 @@ Vue.mixin({
 
 const vm = new Vue({
 	el: '#vueRoot',
-	components:{ Main },
+	components:{
+		Main
+	},
 	data(){
+		// hacky re-render force. used to rerender on game reload.
 		return {
 			renderKey:1
 		}

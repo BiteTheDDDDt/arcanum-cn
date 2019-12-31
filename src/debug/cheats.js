@@ -1,8 +1,9 @@
 import Game from '../game';
+import Debug from './debug';
 
 var cheats;
 
-if ( false ) {
+if ( !__CHEATS ) {
 
 	cheats = {};
 
@@ -26,6 +27,8 @@ if ( false ) {
  cheats = {
 
 	created() {
+
+		this.debug = window.debug || new Debug( Game );
 
 		window.addEventListener('keydown', e => {
 			if (e.repeat) return;
@@ -59,31 +62,17 @@ if ( false ) {
 
 			} else if ( key ==='f') {
 
-				this.fillAll();
+				this.debug.fillall();
 				e.stopPropagation();
 
 			} else if ( targ ) {
 				if (e.shiftKey) this.state.addMax( targ );
 				else {
-					let it = this.state.getData( targ );
-					if (it.locked) it.locked = false;
-					Game.fillItem( targ );
+					this.debug.fill(targ);
 				}
 				e.stopPropagation();
 			}
 
-		},
-		fillAll(){
-
-			let res = this.state.resources;
-			for( let p in res ){
-
-				var r = res[p];
-				if ( !r.locked && r.id !== 'space' ){
-					Game.fillItem( r )
-				}
-
-			}
 		},
 		testUnlock(key){
 
