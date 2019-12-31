@@ -586,9 +586,13 @@ export default {
 	},
 
 
+	/**
+	 *
+	 * @param {string} id
+	 */
 	fillItem( id ) {
 
-		let it = this.getData(id);
+		let it = typeof id === 'string' ? this.getData(id) : id;
 		if ( !it ) return;
 		if ( !it.max ) {
 			it.amount( this, 1 );

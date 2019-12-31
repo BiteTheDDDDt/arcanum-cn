@@ -74,11 +74,15 @@ export default class Debug {
 
 	fill( id) {
 
+		if ( id === ALL || id === ALL_ALT ) {
+			this.fillall();
+		}
+
 		let it = this.state.getData( id );
 		if ( !it ) return;
 
 		if (it.locked) it.locked = false;
-		this.game.fillItem( targ );
+		this.game.fillItem( it );
 
 	}
 
@@ -94,7 +98,7 @@ export default class Debug {
 
 			var r = res[p];
 			if ( !r.locked && r instanceof Resource ){
-				r.amount(this.game, amt||1)
+				this.get(r.id, amt );
 			}
 
 		}
@@ -118,7 +122,9 @@ export default class Debug {
 		let it = this.state.getData( id );
 		if ( !it ) return;
 
-		it.amount( this.game, amt || 1 );
+		let newval = it.value + amt;
+		if ( newval > it.max ) it.max = newval;
+		it.amount( this.game, Number(amt) || 1 );
 
 	}
 

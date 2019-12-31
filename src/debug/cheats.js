@@ -28,7 +28,7 @@ if ( !__CHEATS ) {
 
 	created() {
 
-		if ( !window.debug ) this.debug = new Debug( Game );
+		this.debug = window.debug || new Debug( Game );
 
 		window.addEventListener('keydown', e => {
 			if (e.repeat) return;
@@ -62,7 +62,7 @@ if ( !__CHEATS ) {
 
 			} else if ( key ==='f') {
 
-				this.debug.fillAll();
+				this.debug.fillall();
 				e.stopPropagation();
 
 			} else if ( targ ) {
