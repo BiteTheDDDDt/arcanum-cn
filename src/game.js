@@ -777,7 +777,7 @@ export default {
 
 					if ( p === P_TITLE ) this.state.player.addTitle( e );
 					else if ( p === P_LOG ) Events.emit( EVT_EVENT, e );
-					else this.applyToTag( p, e, dt );
+					else console.warn('missing effect target: ' + e );
 
 				} else {
 

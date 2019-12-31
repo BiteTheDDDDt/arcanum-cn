@@ -1436,7 +1436,7 @@
         "effect":{
           "weary":"1~2",
           "rage":"-1~0",
-          "befuddlement":"-1~-2",
+          "bf":"-1~-2",
           "icelore.exp":3
         },
         "result":{
