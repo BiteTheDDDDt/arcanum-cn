@@ -13,7 +13,7 @@ export default class CmdLine {
 		if ( line == null ) return false;
 
 		let parts = line.split(' ');;
-		return this.exec( parts, line );
+		console.log( this.exec( parts, line ) );
 
 
 	}
@@ -32,15 +32,14 @@ export default class CmdLine {
 
 			var p = parts[i];
 			if ( p === undefined || p === null ) {
-				console.log('Invalid Command: ' + path );
-				return false ;
+				return ('Invalid Command: ' + path );
 			}
+			p = this.getValue( p, context );
 			var sub = context[p];
 
 			if ( sub === null || sub === undefined ) {
 
-				console.log('Not found: ' + path);
-				return false;
+				return ('Not found: ' + path);
 
 			} if ( typeof sub === 'function') {
 
@@ -67,13 +66,12 @@ export default class CmdLine {
 	 * Get raw parameter value, or value of variable at the path specified.
 	 * @param {*} path
 	 */
-	getValue( path ) {
+	getValue( path, context=window ) {
 
 		if ( !isNaN(path)) return Number(path);
 
 		// attempt to split into path parts.
 		let parts = path.split('.');
-		let context = window;
 
 		let len = parts.length;
 		for( let i = 0; i < len; i++ ) {

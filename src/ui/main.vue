@@ -16,7 +16,7 @@ import LogView from './outlog.vue';
 
 import Settings from 'modules/settings';
 import Cheats from 'debug/cheats';
-import Debug from 'debug/debug';
+import DevConsole from 'debug/devconsole.vue';
 
 import { TRY_BUY, USE, TRY_USE, EVT_STAT } from '../events';
 import { TICK_TIME } from '../game';
@@ -35,6 +35,7 @@ export default {
 	//mixins:__DIST ? [ItemsBase] : [ItemsBase,Cheats],\
 	mixins:[ItemsBase,Cheats],
 	components:{
+		devconsole:DevConsole,
 		resources:ResoucesView,
 		actions:Actions,
 		itempopup:ItemPopup,
@@ -341,6 +342,7 @@ export default {
 
 	<div class="full" @mouseover.capture.stop="emit('itemout')">
 
+		<devconsole />
 		<top-bar :has-hall="profile.hasHall()">
 			<template slot="center">
 			<span class="load-message" v-if="!state">LOADING DATA...</span>

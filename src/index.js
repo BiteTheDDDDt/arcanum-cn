@@ -68,10 +68,6 @@ const vm = new Vue({
 		this.saveLink = null;
 		this.game = Game;
 
-		if ( __DEBUG ) {
-			this.debug = new Debug( Game );
-		}
-
 		this.listen('save-file', this.saveFile, this );
 		this.listen('hall-file', this.hallFile, this );
 

@@ -1,0 +1,59 @@
+<script>
+import CmdLine from './cmdline';
+import Game from '../game';
+
+const TOGGLE_KEY = 192;
+
+export default {
+
+	data(){
+		return {
+			open:false
+		}
+	},
+	created(){
+
+		window.game = Game;
+		this.cmdLine = new CmdLine();
+
+		window.addEventListener( 'keydown', this.onkey );
+
+	},
+	updated(){
+		if ( this.$refs.cmdInput ) {
+			this.$refs.cmdInput.focus();
+		}
+	},
+	methods:{
+
+		toggleView(){
+			this.open = !this.open;
+		},
+
+		onkey(e) {
+			if ( e.keyCode === TOGGLE_KEY ) {
+				this.toggleView();
+				e.preventDefault();
+			}
+		},
+
+		doCmd( line ) {
+			this.cmdLine.parse(line);
+		},
+
+		onpress(e) {
+			if ( e.keyCode === 13) {
+				let line = e.target.value;
+				e.target.value = '';
+				this.doCmd( line );
+			}
+		}
+
+	}
+
+}
+</script>
+
+<template>
+<input v-if="open" ref="cmdInput" type="text" @keydown="onpress">
+</template>
