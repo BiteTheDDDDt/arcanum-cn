@@ -6,7 +6,7 @@ export default class CmdLine {
 	 * @param {object} context - starting execution context for all commands.
 	 */
 	constructor( context ){
-		this.context = contxt;
+		this.context = context;
 	}
 
 	/**
@@ -17,6 +17,7 @@ export default class CmdLine {
 
 		if ( line == null ) return false;
 
+		line = line.toLowerCase();
 		let parts = line.split(' ');;
 		console.log( this.exec( parts, line ) );
 
@@ -30,7 +31,7 @@ export default class CmdLine {
 	 */
 	exec( parts, path='' ) {
 
-		var context = window;
+		var context = this.context;
 		let len = parts.length;
 
 		for( let i = 0; i < len; i++ ) {
@@ -70,7 +71,7 @@ export default class CmdLine {
 	 * Get raw parameter value, or value of variable at the path specified.
 	 * @param {*} path
 	 */
-	getValue( path, context=window ) {
+	getValue( path, context=this.context ) {
 
 		if ( !isNaN(path)) return Number(path);
 

@@ -17,7 +17,9 @@ export default {
 	created(){
 
 		window.game = Game;
-		this.cmdLine = new CmdLine( new Debug(Game) );
+
+		let debug = window.debug || new Debug(Game);
+		this.cmdLine = new CmdLine( debug );
 
 		window.addEventListener( 'keydown', this.onkey );
 
