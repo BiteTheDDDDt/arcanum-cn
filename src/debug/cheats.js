@@ -2,7 +2,7 @@ import Game from '../game';
 
 var cheats;
 
-if ( false ) {
+if ( !__CHEATS ) {
 
 	cheats = {};
 

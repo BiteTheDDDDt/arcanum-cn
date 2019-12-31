@@ -5,8 +5,6 @@ import Game from './game';
 import Events from './events';
 import Profile from './modules/profile';
 
-import Debug from 'modules/debug';
-
 if ( __KONG ) {
 
 	kongregateAPI.loadAPI( function(){
@@ -56,8 +54,11 @@ Vue.mixin({
 
 const vm = new Vue({
 	el: '#vueRoot',
-	components:{ Main },
+	components:{
+		Main
+	},
 	data(){
+		// hacky re-render force. used to rerender on game reload.
 		return {
 			renderKey:1
 		}

@@ -15,7 +15,8 @@ import SettingsUI from './sections/settings.vue';
 import LogView from './outlog.vue';
 
 import Settings from 'modules/settings';
-import Cheats from '../modules/cheats';
+import Cheats from 'debug/cheats';
+import Debug from 'debug/debug';
 
 import { TRY_BUY, USE, TRY_USE, EVT_STAT } from '../events';
 import { TICK_TIME } from '../game';
