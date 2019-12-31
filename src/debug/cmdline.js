@@ -1,7 +1,12 @@
 export default class CmdLine {
 
 
-	constructor(){
+	/**
+	 *
+	 * @param {object} context - starting execution context for all commands.
+	 */
+	constructor( context ){
+		this.context = contxt;
 	}
 
 	/**
@@ -34,8 +39,7 @@ export default class CmdLine {
 			if ( p === undefined || p === null ) {
 				return ('Invalid Command: ' + path );
 			}
-			p = this.getValue( p, context );
-			var sub = context[p];
+			var sub = this.getValue( p, context );
 
 			if ( sub === null || sub === undefined ) {
 
@@ -46,10 +50,10 @@ export default class CmdLine {
 				// call function with remainder of the parameters.
 				return this.callFunc( context, sub, parts.slice(i+1) );
 
-			} else if ( typeof sub !== 'object' ) {
-				return sub;
-			} else {
+			} else if ( typeof sub === 'object' ) {
 				context = sub;
+			} else {
+				return sub;
 			}
 
 		}

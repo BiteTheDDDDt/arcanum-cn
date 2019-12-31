@@ -9,6 +9,9 @@ export default class Debug {
 
 	}
 
+	unlockAll() {
+	}
+
 	unlock( str ){
 
 		let data = this.game.state.getData(str);

@@ -3,6 +3,8 @@ import CmdLine from './cmdline';
 import Game from '../game';
 
 const TOGGLE_KEY = 192;
+// france
+const FALLBACK_KEY = 222;
 
 export default {
 
@@ -31,7 +33,7 @@ export default {
 		},
 
 		onkey(e) {
-			if ( e.keyCode === TOGGLE_KEY ) {
+			if ( e.keyCode === TOGGLE_KEY || e.keyCode === FALLBACK_KEY ) {
 				this.toggleView();
 				e.preventDefault();
 			}
