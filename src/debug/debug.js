@@ -40,6 +40,24 @@ export default class Debug {
 
 	}
 
+	ids(type) {
+
+		if ( type ) {
+
+			var list = this.state[type];
+			if ( !list) return 'no such list';
+			return list.map(v=>v.id).join(', ');
+
+		} else {
+
+			let a = [];
+			for( let p in this.items ) a.push(p);
+			return a.join(', ');
+
+		}
+
+	}
+
 	fillall(){
 
 		let res = this.resources;
@@ -115,14 +133,18 @@ export default class Debug {
 	unlock( str ){
 
 		if ( str === ALL || str === ALL_ALT ) {
-			this.unlockall();
+			for( let p in this.items ){
+				this.unlock(p);
+			}
 			return;
 		}
 
 		let data = this.game.state.getData(str);
 		if ( data ) {
 
-			game.state.getData(str).locked = false;
+			try {
+				data.locked = false;
+			} catch(e){return false;}
 			return true;
 
 		}
