@@ -110,7 +110,7 @@ export default class TagSet {
 	amount( g, amt ) {
 
 		for( let it of this.items ) {
-			it.amount( g, amt );
+			if ( typeof it.amount === 'function' ) it.amount( g, amt );
 		}
 
 	}

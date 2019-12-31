@@ -58,6 +58,49 @@ export default class Debug {
 
 	}
 
+	/**
+	 * Apply function to object with id.
+	 * @param {string} id
+	 * @param {GData=>*} f
+	 */
+	apply( id, f ){
+
+		if ( id === ALL || id === ALL_ALT ) {
+
+			for( let p in this.items ) {
+				f( this.items[p] );
+			}
+
+		} else {
+
+			let data = this.state.getData(id);
+			if ( data ) {
+
+				f( data );
+				return true;
+
+			}
+		}
+
+		return false;
+
+	}
+
+	emptyall(){
+		for( let p in this.items) {
+			let it = this.items[p];
+			if ( it && (typeof it.amount === 'function') ) {
+				it.amount( this.game, -it.value );
+			}
+		}
+	}
+
+	empty( id ) {
+		this.apply(id, it=>{
+			if ( typeof it.amount ==='function' ) it.amount( this.game, -it.value );
+		});
+	}
+
 	fillall(){
 
 		let res = this.resources;
@@ -73,17 +116,10 @@ export default class Debug {
 	}
 
 	fill( id) {
-
-		if ( id === ALL || id === ALL_ALT ) {
-			this.fillall();
-		}
-
-		let it = this.state.getData( id );
-		if ( !it ) return;
-
-		if (it.locked) it.locked = false;
-		this.game.fillItem( it );
-
+		return this.apply( id, it=>{
+			it.locked = false;
+			this.game.fillItem(it);
+		});
 	}
 
 	addall(amt){
@@ -128,6 +164,10 @@ export default class Debug {
 
 	}
 
+	lock( id ){
+		return this.apply( id, it=>this.game.lock(it) );
+	}
+
 	unlockall() {
 
 		for( let p in this.items ){
@@ -136,26 +176,15 @@ export default class Debug {
 
 	}
 
+
 	unlock( str ){
 
-		if ( str === ALL || str === ALL_ALT ) {
-			for( let p in this.items ){
-				this.unlock(p);
-			}
-			return;
-		}
-
-		let data = this.game.state.getData(str);
-		if ( data ) {
-
+		return this.apply( str, it=>{
 			try {
-				data.locked = false;
-			} catch(e){return false;}
+				it.locked=false;
+			} catch(e) { return false;}
 			return true;
-
-		}
-
-		return false;
+		});
 
 	}
 
