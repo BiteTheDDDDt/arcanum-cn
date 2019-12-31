@@ -14,6 +14,11 @@ export default class Debug {
 
 	unlock( str ){
 
+		if ( str === '*' || str === 'all' ) {
+			this.unlockAll();
+			return;
+		}
+
 		let data = this.game.state.getData(str);
 		if ( data ) {
 

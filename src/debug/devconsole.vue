@@ -1,6 +1,7 @@
 <script>
 import CmdLine from './cmdline';
 import Game from '../game';
+import Debug from './debug';
 
 const TOGGLE_KEY = 192;
 // france
@@ -16,7 +17,7 @@ export default {
 	created(){
 
 		window.game = Game;
-		this.cmdLine = new CmdLine();
+		this.cmdLine = new CmdLine( new Debug(Game) );
 
 		window.addEventListener( 'keydown', this.onkey );
 
