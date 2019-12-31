@@ -50,7 +50,7 @@
 	{
 
 		"id":"starcharts",
-		"desc":"a map of the stars",
+		"desc":"A map of the stars",
 		"max":10,
 		"mod":{
 			"research.max":1,
@@ -65,7 +65,7 @@
 
 		"id":"runestones",
 		"name":"rune stones",
-		"desc":"runes carved on pieces of stone.",
+		"desc":"Runes carved on pieces of stone.",
 		"tags":"t_runes",
 		"max":10,
 		"mod":{
@@ -80,7 +80,7 @@
 		"id":"firerune",
 		"name":"flame runes",
 		"tags":"t_runes",
-		"desc":"rune etched with lines of fire",
+		"desc":"Rune etched with lines of fire",
 		"max":10,
 		"mod":{
 			"research.max":10
@@ -92,7 +92,19 @@
 		"id":"waterrune",
 		"name":"water runes",
 		"tags":"t_runes",
-		"desc":"rune lined in flowing water",
+		"desc":"Rune lined in flowing water",
+		"max":10,
+		"mod":{
+			"research.max":10
+		}, "flavor":""
+
+	},
+	{
+
+		"id":"spiritrune",
+		"name":"spirit runes",
+		"tags":"t_runes",
+		"desc":"A Runestone carved in bone; it seems to whisper.",
 		"max":10,
 		"mod":{
 			"research.max":10
