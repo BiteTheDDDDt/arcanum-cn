@@ -1551,7 +1551,7 @@
         "effect":{
           "rage":"1~3",
           "weary":"1~4",
-          "herbology.max":0.005
+          "herbalism.max":0.005
         },
         "loot":{
 			"winteressence":0.1,
