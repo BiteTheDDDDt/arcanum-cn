@@ -32,6 +32,8 @@ export const TYP_FUNC = 'func';
 export const TYP_DOT = 'dot';
 
 export const TYP_RUN = 'runnable';
+export const TYP_STATE = 'state';
+
 export const ENCHANTSLOTS = 'enchantslots';
 
 export const P_TITLE = 'title';

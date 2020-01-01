@@ -1,7 +1,11 @@
 import Base, {mergeClass} from '../items/base';
 import { assign } from 'objecty';
+import { TYP_STATE } from '../values/consts';
 
 export default class State {
+
+	get type() { return TYP_STATE }
+	set type(v){}
 
 	get id() { return this._id; }
 	set id(v) { this._id =v;}

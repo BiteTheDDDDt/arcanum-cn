@@ -653,7 +653,7 @@
 {
 	"id":"summoner",
 	"tags":"t_tier3",
-	"desc":"alone or in company, the summoner is never without an army.",
+	"desc":"Alone or with friends, a summoner is never without an army.",
 	"require":"g.minions>4&&g.tier2>0&&g.lore>=20",
 	"cost":{
 		"research":2000,

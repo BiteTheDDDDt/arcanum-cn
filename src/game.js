@@ -155,7 +155,7 @@ export default {
 		let n = -1;
 		while ( ++n <= 5 ) {
 
-			var list = this.state.getTagSet('t_tier'+n);
+			var list = this.state.getData('t_tier'+n);
 			var evt = this.state.getData('tier'+n);
 
 			var hasEvent = false;
@@ -168,6 +168,7 @@ export default {
 					if ( evt.value == 0 ) {
 
 						evt.doUnlock(this);
+
 					} else if ( evt.locked ) evt.locked = false;
 					hasEvent = true;
 					break;
@@ -200,7 +201,6 @@ export default {
 
 			if ( !it.locked && !it.disabled && !(it.instanced||it.isRecipe) ) {
 
-				//if ( it.id ==='points') console.log('POINTS VAL: '+ it.value );
 				if ( it.value != 0 ) {
 
 					if ( it.mod ) this.applyMods( it.mod, it.value, it.id);
@@ -1148,10 +1148,22 @@ export default {
 	lock(id, amt=1 ) {
 
 		if ( typeof id === 'object' && id[Symbol.iterator] ) {
+
 			for( let v of id ) this.lock(v,amt);
+
 		} else if ( typeof id === 'object' ) {
+
 			id.locks += amt;
+
+		} else {
+
+			let it = this.getData(id);
+			if ( it ) {
+				this.lock(it, amt);
+			}
+
 		}
+
 
 	},
 

@@ -12,7 +12,7 @@ import Group from './composites/group';
 import UserSpells from './inventories/userSpells';
 import Quickbars from './composites/quickbars';
 import Stat from './values/stat';
-import { WEARABLE, ARMOR, WEAPON, HOME, PURSUITS, ENCHANTSLOTS } from './values/consts';
+import { WEARABLE, ARMOR, WEAPON, HOME, PURSUITS, ENCHANTSLOTS, TYP_STATE } from './values/consts';
 import Dot from './chars/dot';
 import TagSet from './composites/tagset';
 import EnchantSlots from './inventories/enchantslots';
@@ -323,7 +323,7 @@ export default class GameState {
 		dot = new Dot( cloneClass(dot), source );
 
 		let st = this.getData(dot.id);
-		if ( st ) dot.mergeDot(st);
+		if ( st && st.type === TYP_STATE ) dot.mergeDot(st);
 		if ( st == dot ) {
 			console.log('Dot equals state: ' + st);
 		}

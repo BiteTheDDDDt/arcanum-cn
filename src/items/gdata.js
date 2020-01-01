@@ -115,7 +115,9 @@ export default class GData {
 	 * being used or unlocked.
 	 */
 	get locks() { return this._locks||0;}
-	set locks(v) { this._locks = v;}
+	set locks(v) {
+		this._locks = v;
+	}
 
 	/**
 	 * @property {boolean} locked
@@ -383,7 +385,7 @@ export default class GData {
 
 	}
 
-	lock(amt){
+	doLock(amt){
 		this.locks += amt;
 		this.dirty = true;
 	}
