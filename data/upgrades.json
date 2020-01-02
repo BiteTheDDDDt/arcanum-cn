@@ -1397,6 +1397,7 @@
 		"id":"specialization",
 		"desc":"specialize in a school of magic",
 		"require":"g.lore>999",
+		"unused":true,
 		"max":1,
 		"cost":{
 			"tomes":1,

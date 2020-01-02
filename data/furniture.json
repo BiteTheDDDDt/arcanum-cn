@@ -758,7 +758,6 @@
 		"tags":"shadowsource,spiritsource",
 		"require":"evil",
 		"max":4,
-		"repeat":true,
 		"cost":{
 			"gold":300,
 			"bones":5,
