@@ -83,7 +83,9 @@ export default class Runner {
 	autoProgress(){
 
 		this.actives.forEach(v=>{
-			if ( v.length ) v.exp = v.length - 0.001;
+			if ( v.length ) {
+				v.exp = v.length - 0.001;
+			}
 		});
 
 	}

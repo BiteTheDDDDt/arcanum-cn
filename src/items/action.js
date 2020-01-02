@@ -39,6 +39,7 @@ export default class Action extends GData {
 			console.warn( this.id + ' exp neg: ' + v );
 			return;
 		}
+		this._exp.set(v);
 
 
 		this.checkComplete();
