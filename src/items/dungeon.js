@@ -111,11 +111,13 @@ export default class Dungeon extends Action {
 	hasBoss( boss, at ) {
 
 		if ( !boss ) return false;
+
+		at = Math.floor(at + 1 );
 		if ( typeof boss === 'object' && !Array.isArray(boss) && boss.hasOwnProperty(at) ) {
 			return true;
 		}
 		// last enemy in dungeon.
-		return (at === this.length-1);
+		return (at === this.length);
 
 	}
 
@@ -140,9 +142,13 @@ export default class Dungeon extends Action {
 			});
 			return a.length > 0 ? a : null;
 
-		} else if ( boss.hasOwnProperty( Number(this.exp) ) ) {
-			// mid-level boss
-			return this.getBoss( boss[this.exp.valueOf()] );
+		} else {
+
+			let ind = Math.floor( this.exp + 1 );
+			if ( boss.hasOwnProperty( ind ) ) {
+				// mid-level boss
+				return this.getBoss( boss[ind] );
+			}
 		}
 
 	}
