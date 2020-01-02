@@ -209,6 +209,9 @@
 				"need":"workspace",
 				"desc":"Assemble a machina.",
 				"length": 10,
+				"fill":[
+					"machinae"
+				],
 				"cost": {
 					"gems": 5,
 					"gold": 250,
@@ -253,6 +256,9 @@
 				"need":"workspace",
 				"desc":"Create an automata.",
 				"length": 10,
+				"fill":[
+					"automatas"
+				],
 				"cost": {
 					"gold": 1000,
 					"research": 1000,
@@ -462,7 +468,7 @@
 			{
 				"id":"lubricant",
 				"name":"oil of slipping",
-				"desc":"Adapt a common magical item as a lubricant for your machina.",
+				"desc":"Adapt a common magical item as a lubricant for your machinae.",
 				"require":"g.machinacreation>=7",
 				"max": 1,
 				"cost": {
@@ -545,10 +551,10 @@
 				},
 				"mod": {
 					"research.rate": 50,
-					"lore.rate":"50%",
-					"history.rate":"50%",
-					"languages.rate":"50%",
-					"charms.rate":"50%"
+					"lore.rate":"100+50%",
+					"history.rate":"100+50%",
+					"languages.rate":"100+50%",
+					"charms.rate":"100+50%"
 				},
 				"flavor":"A most singular enterprise"
 			},
@@ -786,7 +792,7 @@
 			{
 				"id":"machinagarage",
 				"name":"machina garage",
-				"desc":"A place to tinker with your machina.",
+				"desc":"A place to tinker with your machinae.",
 				"require":"g.machinacreation>=7",
 				"max": 2,
 				"cost": {
@@ -804,7 +810,7 @@
 			{
 				"id":"machinaautomation",
 				"name":"machina assembly line",
-				"desc":"A dedicated assembly line for automated production of machina.",
+				"desc":"A dedicated assembly line for automated production of machinae.",
 				"require":"mechanist",
 				"max": 2,
 				"cost": {
@@ -916,7 +922,7 @@
 				"kind":"automata",
 				"noproc": true,
 				"hp": 700,
-				"tohit": 20,
+				"tohit": 15,
 				"defense": 50,
 				"attack": [
 					{
@@ -930,9 +936,9 @@
 					},
 					{
 						"name":"slice",
-						"tohit": 10,
+						"tohit": 5,
 						"kind":"slash",
-						"dmg":"80~100"
+						"dmg":"70~90"
 					},
 					{
 						"name":"dice",
@@ -942,15 +948,14 @@
 					},
 					{
 						"name":"mince",
-						"tohit": -10,
 						"kind":"slash",
-						"dmg":"90~110"
+						"dmg":"80~100"
 					},
 					{
 						"name":"chop",
-						"tohit": -20,
+						"tohit": -5,
 						"kind":"slash",
-						"dmg":"100~120"
+						"dmg":"90~110"
 					},
 					{
 						"name":"stab",
