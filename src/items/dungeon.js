@@ -140,9 +140,9 @@ export default class Dungeon extends Action {
 			});
 			return a.length > 0 ? a : null;
 
-		} else if ( boss.hasOwnProperty( (this.exp) ) ) {
+		} else if ( boss.hasOwnProperty( Number(this.exp) ) ) {
 			// mid-level boss
-			return this.getBoss( boss[this.exp] );
+			return this.getBoss( boss[this.exp.valueOf()] );
 		}
 
 	}
