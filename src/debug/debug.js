@@ -101,6 +101,22 @@ export default class Debug {
 		});
 	}
 
+	removeall(){
+		for( let p in this.items) {
+			let it = this.items[p];
+			if ( it && it instanceof Resource ) {
+				this.game.remove(it,Number(it.value));
+			}
+		}
+	}
+
+	remove(id, amt){
+		return this.apply(id,it=>{
+			this.game.remove(it, Number(amt));
+		});
+	}
+
+
 	fillall(){
 
 		let res = this.resources;
