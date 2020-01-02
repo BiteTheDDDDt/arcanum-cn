@@ -3566,7 +3566,7 @@
 		"name":"The Gorborung",
 		"level":25,
 		"unique":true,
-        "evil":100,
+        "evilamt":100,
         "desc":"The gargantuan entity in the depths of Mr. Gorbu never seen by mortal eyes.",
         "hp":5000,
 		"tohit":34,

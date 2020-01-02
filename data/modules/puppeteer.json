@@ -152,6 +152,9 @@
 				"require":"g.puppetry>=1",
 				"need":"workspace",
 				"desc":"Assemble a puppet.",
+				"fill":[
+					"puppet"
+				],
 				"length": 10,
 				"cost": {
 					"spiritgem": 1,
