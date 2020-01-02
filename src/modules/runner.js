@@ -222,7 +222,7 @@ export default class Runner {
 
 		if ( !a) return;
 
-		if ( a.cost && (a.exp === 0) ) {
+		if ( a.cost && (a.exp.valueOf() === 0) ) {
 			Game.payCost( a.cost);
 		}
 

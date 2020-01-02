@@ -153,7 +153,7 @@
 				"need":"workspace",
 				"desc":"Assemble a puppet.",
 				"fill":[
-					"puppet"
+					"puppets"
 				],
 				"length": 10,
 				"cost": {
