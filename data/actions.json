@@ -566,6 +566,7 @@
 			"bodies":1
 		},
 		"result":{
+			"research":5,
 			"skulls":1,
 			"bones":"2~4"
 		}

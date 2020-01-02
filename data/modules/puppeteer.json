@@ -724,7 +724,7 @@
 			{
 				"id":"clockworkhome",
 				"name":"clockwork home",
-				"desc":"A large house capable of reshaping itself under the influence of it's inhabitant",
+				"desc":"A house of gears and levers, constantly adjusting to the requirements of its occupant.",
 				"cost": {
 					"research": 3000,
 					"gold": 3000,
