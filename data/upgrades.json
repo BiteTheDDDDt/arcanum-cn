@@ -99,7 +99,7 @@
 	},
 	{
 		"id":"timesplit",
-		"desc":"perform actions of different types simultaneously.",
+		"desc":"perform tasks of different types simultaneously.",
 		"require":"chronomancy",
 		"cost":{
 			"arcana":10,
@@ -1253,6 +1253,7 @@
 			"mana":2
 		},
 		"mod":{
+			"spiritlore.max":1,
 			"spirit.rate":0.01
 		}
 	},
@@ -1286,6 +1287,23 @@
 		"mod":{
 			"light.max":0.2,
 			"light.rate":0.01
+		}
+	},
+	{
+		"id":"sombercandle",
+		"name":"somber candle",
+		"tags":"candle",
+		"desc":"Its faint light stirs the restless spirits.",
+		"repeat":true,
+		"max":5,
+		"require":"g.spiritlore.max>=7",
+		"cost":{
+			"gold":150,
+			"bonedust":10
+		},
+		"mod":{
+			"spiritlore.max":0.2,
+			"spirit.rate":0.01
 		}
 	},
 	{

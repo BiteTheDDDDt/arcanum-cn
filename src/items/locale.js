@@ -1,4 +1,4 @@
-import Action from "./action";
+import Task from "./task";
 import { EXPLORE, LOCALE } from "../values/consts";
 
 /**
@@ -17,7 +17,7 @@ export const levelTest = (g, s) => {
 	return g.player.level >= (s.level-1);
 }
 
-export default class Locale extends Action {
+export default class Locale extends Task {
 
 	/**
 	 * @property {object|string} once - result to happen only once.
@@ -77,7 +77,7 @@ export default class Locale extends Action {
 	}
 
 	/**
-	 * Catch complete() to prevent default action. ugly.
+	 * Catch complete() to prevent task default. ugly.
 	*/
 	complete() {}
 

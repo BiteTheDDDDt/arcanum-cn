@@ -108,7 +108,7 @@
 				}
 			}
 		],
-		"actions": [
+		"tasks": [
 			{
 				"id":"puppetshow",
 				"name":"puppet show",
@@ -880,7 +880,7 @@
 				"noproc": true,
 				"hp": 200,
 				"tohit": 10,
-				"defense": 20,
+				"defense": 15,
 				"attack": [
 					{
 						"name":"stab",

@@ -80,11 +80,11 @@ export const IS_IMMUNE = 'dmg_immune';
  */
 export const COMBAT_HIT = 'char_hit';
 
-const ACT_CHANGED = 'actchanged';
-const ACT_IMPROVED = 'actimprove';
+const TASK_CHANGED = 'taskchanged';
+const TASK_IMPROVED = 'taskimprove';
 
 /**
- * stop all running actions.
+ * stop all running tasks.
  */
 const STOP_ALL = 'stopall';
 
@@ -92,17 +92,17 @@ const STOP_ALL = 'stopall';
  * Dispatched by a Runnable when it has completed.
  * It is the job of the runnable to determine when it has completed.
  */
-const ACT_DONE = 'act_done';
+const TASK_DONE = 'task_done';
 
 /**
  * Action should be stopped by runner.
  */
-const HALT_ACT = 'halt_act';
+const HALT_TASK = 'halt_task';
 
 /**
  * Action blocked or failed.
  */
-const ACT_BLOCKED = 'act_blocked';
+const TASK_BLOCKED = 'task_blocked';
 
 /**
  * Item with attack used. Typically spell; could be something else.
@@ -154,14 +154,15 @@ const CHAR_CHANGE = 'charchange';
 export const EVT_STAT = 'stat';
 
 /**
- * @property {string} TOGGLE - toggle an action on/off.
+ * @property {string} TOGGLE - toggle a task on/off.
  */
 export const TOGGLE = 'toggle';
 
 export { CHAR_TITLE, NEW_TITLE, LEVEL_UP, CHAR_NAME, CHAR_CLASS, CHAR_CHANGE };
 
-export { HALT_ACT, EVT_COMBAT, EVT_EVENT, EVT_UNLOCK, EVT_LOOT, ACT_DONE, ALLY_DIED, CHAR_DIED, ITEM_ATTACK, STOP_ALL, DELETE_ITEM,
-	ACT_CHANGED, ACT_IMPROVED, ACT_BLOCKED,
+export { HALT_TASK, EVT_COMBAT, EVT_EVENT, EVT_UNLOCK, EVT_LOOT, TASK_DONE,
+	ALLY_DIED, CHAR_DIED, ITEM_ATTACK, STOP_ALL, DELETE_ITEM,
+	TASK_CHANGED, TASK_IMPROVED, TASK_BLOCKED,
 	DAMAGE_MISS, DEFEATED, ENEMY_SLAIN, COMBAT_DONE, ENC_START, ENC_DONE };
 
 export default {
@@ -181,7 +182,7 @@ export default {
 		events.addListener( LEVEL_UP, this.onLevel, this );
 		events.addListener( NEW_TITLE, this.onNewTitle, this );
 
-		events.addListener( ACT_IMPROVED, this.actImproved, this );
+		events.addListener( TASK_IMPROVED, this.actImproved, this );
 
 		events.addListener( EVT_COMBAT, this.onCombat, this );
 		events.addListener( COMBAT_HIT, this.onHit, this );
@@ -259,9 +260,6 @@ export default {
 
 		return null;
 
-	},
-
-	actionDone(it){
 	},
 
 	/**

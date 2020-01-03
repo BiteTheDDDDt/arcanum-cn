@@ -1,5 +1,5 @@
 import Attack from '../chars/attack';
-import Action from './action';
+import Task from './task';
 import { canTarget } from '../values/consts';
 
 /**
@@ -57,7 +57,7 @@ function schoolFunc(s, lvl=1 ) {
 
 }
 
-export default class Spell extends Action {
+export default class Spell extends Task {
 
 	/**
 	 * @property {string} only - target type, name, kind, or tag, to which

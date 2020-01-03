@@ -87,12 +87,13 @@ export default class Attack {
 		let a = new Attack({
 			id:this.id||undefined,
 			name:this.name,
-			damage:this.damage,
-			bonus:this.bonus,
-			tohit:this.tohit,
-			kind:this.kind,
-			targets:this.targets,
-			dot:this.dot
+			cure:this.cure||undefined,
+			damage:this.damage||undefined,
+			bonus:this.bonus||undefined,
+			tohit:this.tohit||undefined,
+			kind:this.kind||undefined,
+			targets:this.targets||undefined,
+			dot:this.dot||undefined
 		});
 
 		return a;

@@ -49,7 +49,7 @@ export default {
 	methods:{
 
 		train(skill){
-			Game.toggleAction( skill );
+			Game.toggleTask( skill );
 		}
 
 	}

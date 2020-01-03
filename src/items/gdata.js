@@ -228,7 +228,7 @@ export default class GData {
 	}
 
 	/**
-	 * Determines whether an item can be run as a continuous action.
+	 * Determines whether an item can be run as a continuous task.
 	 * @param {Game} g
 	 * @param {number} dt - minimum length of time item would run.
 	 * @returns {boolean}
@@ -239,7 +239,7 @@ export default class GData {
 
 		if ( this.buy && !this.owned && !g.canPay(this.buy ) ) return false;
 
-		// cost only paid at _start_ of runnable action.
+		// cost only paid at _start_ of runnable task.
 		if ( this.cost && (this.exp == 0) && !g.canPay(this.cost ) ) return false;
 
 		if ( this.fill && g.filled( this.fill, this ) ) return false;
@@ -268,7 +268,7 @@ export default class GData {
 	}
 
 	/**
-	 * Determine if an item can be used. Ongoing/perpetual actions
+	 * Determine if an item can be used. Ongoing/perpetual tasks
 	 * test with 'canRun' instead.
 	 * @param {Game} g
 	 */
@@ -378,7 +378,7 @@ export default class GData {
 
 		if ( this.log ) Events.emit( EVT_EVENT, this.log );
 
-		if ( this.attack ) {
+		if ( this.attack || this.action ) {
 			if (this.type !== WEARABLE && this.type !== WEAPON ) Events.emit( ITEM_ATTACK, this );
 		}
 		this.dirty = true;

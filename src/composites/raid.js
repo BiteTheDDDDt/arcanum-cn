@@ -1,4 +1,4 @@
-import Events, { ENEMY_SLAIN, ACT_DONE, ITEM_ATTACK, CHAR_DIED, DEFEATED, ACT_BLOCKED, EVT_COMBAT } from '../events';
+import Events, { ENEMY_SLAIN, TASK_DONE, ITEM_ATTACK, CHAR_DIED, DEFEATED, TASK_BLOCKED, EVT_COMBAT } from '../events';
 import { assign } from 'objecty';
 import Game from '../game';
 import Combat from './combat';
@@ -114,7 +114,7 @@ export default class Raid {
 
 	emitDefeat(){
 		Events.emit( DEFEATED, null );
-		Events.emit( ACT_BLOCKED, this,
+		Events.emit( TASK_BLOCKED, this,
 			this.locale && this.player.level>this.locale.level && this.player.retreat>0 );
 	}
 
@@ -141,12 +141,12 @@ export default class Raid {
 	}
 
 	/**
-	 * Player-casted spell or action attack.
+	 * Player-casted spell or attack action.
 	 * @param {Item} it
 	 */
 	spellAttack( it ) {
 
-		if ( this.locale && this.running ) this._combat.spellAttack(it);
+		if ( this.running ) this._combat.spellAttack(it);
 
 	}
 
@@ -202,7 +202,7 @@ export default class Raid {
 
 		this.player.exp +=	(this.locale.level)*( 15 + this.locale.length )/( 0.8*del );
 
-		Events.emit( ACT_DONE, this, false );
+		Events.emit( TASK_DONE, this, false );
 		this.locale = null;
 
 	}

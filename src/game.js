@@ -60,7 +60,7 @@ export default {
 	log:new Log(),
 
 	/**
-	 * @property {Runner} runner - runs active actions.
+	 * @property {Runner} runner - runs active tasks.
 	 */
 	runner:null,
 
@@ -296,24 +296,24 @@ export default {
 	},
 
 	/**
-	 * Toggles an action on or off.
+	 * Toggles an task on or off.
 	 * @param {GData} a
 	 */
-	toggleAction(a) { this.runner.toggleAct(a); },
+	toggleTask(a) { this.runner.toggleAct(a); },
 
 	/**
 	 * Wrapper for Runner rest
 	 */
 	doRest() { this.runner.tryAdd( this.state.getSlot(REST_SLOT) ) },
 
-	haltAction(a) { this.runner.stopAction(a);},
+	haltTask(a) { this.runner.stopTask(a);},
 
-	setAction( a ) { this.runner.setAction(a); },
+	setTask( a ) { this.runner.setTask(a); },
 
 	/**
-	 * Tests if an action has effectively filled a resource.
+	 * Tests if a task has effectively filled a resource.
 	 * @param {string|string[]} v - data or datas to fill.
-	 * @param {GData} a - action doing the filling.
+	 * @param {GData} a - task doing the filling.
 	 * @param {string} - name of relavant filling effect ( for tag-item fills)
 	 */
 	filled( v, a, tag ) {
@@ -361,7 +361,7 @@ export default {
 					this.remove( it, 1 );
 				}
 
-				if ( it.running ) this.runner.stopAction(it);
+				if ( it.running ) this.runner.stopTask(it);
 				if ( it == this.state.raid.dungeon ) this.state.raid.setDungeon(null);
 
 				if ( it instanceof Resource || it instanceof Skill ) {
@@ -443,7 +443,7 @@ export default {
 
 		if ( it.perpetual || it.length > 0 ) {
 
-			this.setAction(it);
+			this.setTask(it);
 
 		}  else if ( it.instanced ){
 
@@ -777,7 +777,7 @@ export default {
 	},
 
 	/**
-	 * Perform the one-time effect of an action, resource, or upgrade.
+	 * Perform the one-time effect of an task, resource, or upgrade.
 	 * @param {GData} effect
 	 * @param {number} dt - time elapsed.
 	 */
@@ -889,7 +889,7 @@ export default {
 	},
 
 	/**
-	 * Determines whether an item can be run as a continuous action.
+	 * Determines whether an item can be run as a continuous task.
 	 * @returns {boolean}
 	 */
 	canRun( it ) {
@@ -902,7 +902,7 @@ export default {
 	},
 
 	/**
-	 * Determine if a one-use item can be used. Ongoing/perpetual actions
+	 * Determine if a one-use item can be used. Ongoing/perpetual tasks
 	 * test with 'canRun' instead.
 	 * @param {GData} it
 	 */
@@ -912,7 +912,7 @@ export default {
 	},
 
 	/**
-	 * Attempts to pay the cost to perform an action, buy an upgrade, etc.
+	 * Attempts to pay the cost to perform an task, buy an upgrade, etc.
 	 * Before calling this function, ensure cost can be met with canPay()
 	 *
 	 * @param {Array|Object} cost
@@ -1106,7 +1106,7 @@ export default {
 	},
 
 	/**
-	 * Get loot from an action, monster, or dungeon.
+	 * Get loot from a task, monster, or dungeon.
 	 * @param {string|Wearable|Object|Array} it
 	 * @param {?Inventory} inv - inventory to place looted item.
 	 */

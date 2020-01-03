@@ -1,4 +1,4 @@
-import Events, { DEFEATED, ACT_DONE, ENC_START, ACT_BLOCKED } from "../events";
+import Events, { DEFEATED, TASK_DONE, ENC_START, TASK_BLOCKED } from "../events";
 import { assign } from 'objecty';
 import Game from '../game';
 import Encounter from "../items/encounter";
@@ -152,7 +152,7 @@ export default class Explore {
 			if ( this.player.defeated() ) {
 
 				Events.emit( DEFEATED, this );
-				Events.emit( ACT_BLOCKED, this, true );
+				Events.emit( TASK_BLOCKED, this, true );
 
 			} else if ( this.enc.done ) {
 
@@ -232,7 +232,7 @@ export default class Explore {
 
 		this.enc = null;
 
-		Events.emit( ACT_DONE, this, false );
+		Events.emit( TASK_DONE, this, false );
 		this.locale = null;
 
 	}

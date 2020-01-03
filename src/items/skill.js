@@ -1,4 +1,4 @@
-import Action from './action';
+import Task from './task';
 import Stat from '../values/stat';
 import { SKILL } from '../values/consts';
 import Scaler from '../values/scaler';
@@ -11,7 +11,7 @@ const EXP_RATIO = 0.35;
  */
 const levLength = (n)=>{ return 50*Math.pow( (1+EXP_RATIO), n ) }
 
-export default class Skill extends Action {
+export default class Skill extends Task {
 
 	get exp() { return super.exp; }
 	set exp(v) {

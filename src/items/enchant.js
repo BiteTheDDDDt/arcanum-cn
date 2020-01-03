@@ -1,4 +1,4 @@
-import Action from './action';
+import Task from './task';
 import GData from './gdata';
 import { setModCounts } from './base';
 import { canTarget } from '../values/consts';
@@ -6,7 +6,7 @@ import Runnable from '../composites/runnable';
 import Enchanting from '../composites/enchanting';
 
 
-export default class Enchant extends Action {
+export default class Enchant extends Task {
 
 	/**
 	 * @property {string} only - limit target type by name, kind, or tag, to which

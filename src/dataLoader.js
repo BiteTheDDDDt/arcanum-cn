@@ -14,7 +14,7 @@ import Dungeon from './items/dungeon';
 import Locale from './items/locale';
 
 import Spell from './items/spell.js';
-import Action from './items/action';
+import Task from './items/task';
 
 import { mergeSafe } from 'objecty';
 import ProtoItem from './protos/protoItem';
@@ -270,7 +270,7 @@ export default {
 		if ( lists.events ) inst.events = this.initItems( items, lists['events'], GEvent, EVENT, EVENT );
 		if ( lists.classes ) inst.classes = this.initItems( items, lists['classes'], GClass, 'class', 'class' );
 
-		if ( lists.actions ) inst.actions = this.initItems( items, lists['actions'], Action, null, 'action' );
+		if ( lists.actions || lists.tasks ) inst.tasks = this.initItems( items, lists['tasks'], Task, null, 'task' );
 
 		if ( lists.enchants ) inst.enchants =this.initItems( items, lists['enchants'], Enchant, null, 'enchant' );
 		if ( lists.sections ) inst.sections = this.initItems( items, lists['sections']);

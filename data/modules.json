@@ -1,7 +1,7 @@
 {
 
 	"core":[
-		"resources", "upgrades", "actions", "homes", "furniture", "skills", "states",
+		"resources", "upgrades", "actions", "tasks", "homes", "furniture", "skills", "states",
 		"player", "spells", "monsters", "dungeons", "events", "classes", "armors", "weapons",
 		"materials", "enchants", "sections", "potions", "encounters", "locales","stressors", "rares"
 	],

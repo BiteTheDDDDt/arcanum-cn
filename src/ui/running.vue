@@ -1,6 +1,6 @@
 <script>
 import Game from '../game';
-import {HALT_ACT} from '../events';
+import {HALT_TASK} from '../events';
 import { SKILL, DUNGEON, RAID, EXPLORE, LOCALE, TYP_RUN, PURSUITS } from '../values/consts';
 
 export default {
@@ -8,7 +8,7 @@ export default {
 	props:['runner'],
 	methods:{
 
-		actionStr( a ){
+		taskStr( a ){
 
 			return (a.verb || a.name) + (a.length ?
 				( ' ' + Math.floor(a.percent()) + '%' ) : '');
@@ -22,15 +22,15 @@ export default {
 			return a.type !== TYP_RUN;
 		},
 
-		halt(a) { this.emit( HALT_ACT, a); },
+		halt(a) { this.emit( HALT_TASK, a); },
 
-		baseAction(a) {
+		baseTask(a) {
 			return ( a.type === RAID || a.type === EXPLORE ) ? a.locale : a;
 		},
 
 		toggleHobby(a) {
 
-			a = this.baseAction(a);
+			a = this.baseTask(a);
 			if ( !a) return;
 
 			if ( this.pursuits.includes(a) ) {
@@ -58,8 +58,8 @@ export default {
 <div class='running'>
 
 	<div class="relative" v-for="v of runner.actives" :key="v.id">
-		<button class="stop" @click="halt(v)">&nbsp;X&nbsp;</button><span>{{ actionStr(v) }}</span><span v-if="v.type==='skill'">{{levelStr(v)}}</span>
-		<button v-if="pursuits.max>0&&canHobby(v)" :class="['pursuit', pursuits.includes( baseAction(v) ) ? 'current' : '']"
+		<button class="stop" @click="halt(v)">&nbsp;X&nbsp;</button><span>{{ taskStr(v) }}</span><span v-if="v.type==='skill'">{{levelStr(v)}}</span>
+		<button v-if="pursuits.max>0&&canHobby(v)" :class="['pursuit', pursuits.includes( baseTask(v) ) ? 'current' : '']"
 			@click="toggleHobby(v)"> F </button>
 	</div>
 

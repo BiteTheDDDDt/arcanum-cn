@@ -140,7 +140,7 @@ export default class Char {
 	}
 
 	/**
-	 * @property {States} states - action to take in locale.
+	 * @property {States} states - current states.
 	 */
 	get states(){return this._states; }
 	set states(v) { this._states = new States(); }

@@ -26,14 +26,14 @@ export function applyAttack( target, attack, attacker = null) {
 	if ( !target || !target.alive ) return;
 	if ( target.isImmune(attack.kind) ) {
 
-		Events.emit(IS_IMMUNE, target.name + ' IMMUNE to ' + attack.kind);
+		Events.emit( IS_IMMUNE, target.name + ' IMMUNE to ' + attack.kind );
 		return false;
 	}
 
 	if ( attack.damage ) applyDamage( target, attack, attacker );
 	if ( attack.cure ) target.cure( attack.cure );
 
-	if (attack.dot) { target.addDot( attack.dot, attacker ); }
+	if ( attack.dot ) { target.addDot( attack.dot, attacker ); }
 
 	return true;
 
