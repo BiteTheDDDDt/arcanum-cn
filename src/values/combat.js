@@ -142,7 +142,7 @@ export const ParseDmg = (v)=>{
 * @param {Char} target
 * @param {Object} attack
 */
-export const CharAction = ( target, attack, attacker = null) => {
+export const ApplyAction = ( target, attack, attacker = null) => {
 
 	if ( !target || !target.alive ) return;
 	if ( target.isImmune(attack.kind) ) {

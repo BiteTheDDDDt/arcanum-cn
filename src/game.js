@@ -12,7 +12,7 @@ import DataLoader from './dataLoader';
 import Events, {EVT_UNLOCK, EVT_EVENT, EVT_LOOT, SET_SLOT, DELETE_ITEM, ITEM_ACTION } from './events';
 import { MONSTER, TYP_PCT, TYP_RANGE, P_TITLE, P_LOG, TEAM_PLAYER } from './values/consts';
 import TagSet from './composites/tagset';
-import { TARGET_SELF, TARGET_ALLY, CharAction } from './values/combat';
+import { TARGET_SELF, TARGET_ALLY, ApplyAction } from './values/combat';
 
 var techTree;
 
@@ -924,12 +924,12 @@ export default {
 
 		if ( act.target & TARGET_SELF > 0 ) {
 
-			CharAction( char, act, char );
+			ApplyAction( char, act, char );
 
 		} else if ( act.target & TARGET_ALLY ) {
 
 			let ally = this.allies.randItem();
-			if ( ally ) CharAction( ally, act, char );
+			if ( ally ) ApplyAction( ally, act, char );
 
 		}
 

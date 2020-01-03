@@ -9,7 +9,7 @@ import { itemRevive } from '../modules/itemgen';
 import { NO_SPELLS } from '../chars/states';
 
 import { TEAM_PLAYER, getDelay } from '../values/consts';
-import { TARGET_ALLIES, TARGET_ENEMIES, TARGET_ENEMY, TARGET_ALLY, TARGET_SELF, TARGET_RAND, TARGET_RANDG, TARGET_LEADER, CharAction } from "../values/combat";
+import { TARGET_ALLIES, TARGET_ENEMIES, TARGET_ENEMY, TARGET_ALLY, TARGET_SELF, TARGET_RAND, TARGET_RANDG, TARGET_LEADER, ApplyAction } from "../values/combat";
 
 
 export default class Combat {
@@ -211,7 +211,7 @@ export default class Combat {
 		if (!targ || !targ.alive ) return;
 
 		if ( atk.harmless || !targ.canDefend() || this.tryHit( attacker, targ, atk ) ) {
-			CharAction( targ, atk, attacker );
+			ApplyAction( targ, atk, attacker );
 		}
 
 	}

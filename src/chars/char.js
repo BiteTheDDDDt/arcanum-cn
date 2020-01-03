@@ -10,7 +10,6 @@ import events, { CHAR_STATE } from '../events';
 import States, { NO_ATTACK } from './states';
 import {assign} from 'objecty';
 
-import {applyAttack} from '../composites/combat';
 import Context from '../context';
 import Game from '../game';
 
@@ -378,7 +377,7 @@ export default class Char {
 			// ignore any remainder beyond 0.
 			// @note: dots tick at second-intervals, => no dt.
 			if ( dot.effect ) this.context.applyVars( dot.effect, 1 );
-			if ( dot.damage || dot.cure ) applyAttack( this, dot, dot.source );
+			if ( dot.damage || dot.cure ) ApplyAction( this, dot, dot.source );
 
 			if ( dot.duration <= dt ) {
 				this.rmDot(i);
