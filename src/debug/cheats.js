@@ -46,8 +46,10 @@ if ( !__CHEATS ) {
 
 			if (!this.runner) return;
 
-			let key = e.key.toLowerCase();
+			let active = document.activeElement;
+			if ( active && active.tagName.toLowerCase() === 'input') return;
 
+			let key = e.key.toLowerCase();
 			if ( !this.enabled ) {
 				this.testUnlock(key);
 				return;
