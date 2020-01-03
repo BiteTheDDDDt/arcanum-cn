@@ -577,7 +577,7 @@
 			{
 				"id":"autoagents",
 				"name":"automata agents",
-				"desc":"Those agents are capable of indepentent completion of any desired task",
+				"desc":"Agents capable of indepentent completion of any desired task",
 				"require":"g.automatasculpting>=10",
 				"max": 1,
 				"cost": {
@@ -681,13 +681,14 @@
 			},
 			{
 				"id":"mk_puppetdef",
-				"name":"animate puppet defender",
+				"name":"animate bulwark",
 				"school":"animation",
+				"desc":"A sturdy puppet lurches between you and danger.",
 				"require":"g.puppetry>=5&&g.puppeteer>0",
-				"level": 1,
+				"level": 5,
 				"buy": {
-					"research": 500,
-					"puppets": 5
+					"research": 5000,
+					"puppets": 40
 				},
 				"cost": {
 					"puppets": 5,
@@ -791,17 +792,20 @@
 			},
 			{
 				"id":"machinagarage",
-				"name":"machina garage",
+				"name":"machina workshop",
 				"desc":"A place to tinker with your machinae.",
 				"require":"g.machinacreation>=7",
+				"tags":"workspace",
 				"max": 2,
 				"cost": {
-					"gold": 800,
-					"research": 1000,
+					"gold": 3000,
+					"research": 2000,
 					"space": 55,
 					"gems": 30
 				},
 				"mod": {
+					"crafting.max":1,
+					"crafting.rate":"5%",
 					"assemblemachina.cost.gold": 100,
 					"assemblemachina.cost.research": 150,
 					"assemblemachina.result.machinae": 1
@@ -809,13 +813,14 @@
 			},
 			{
 				"id":"machinaautomation",
-				"name":"machina assembly line",
-				"desc":"A dedicated assembly line for automated production of machinae.",
+				"name":"machina assembly",
+				"desc":"A complex mechanism for automating the production of machinae.",
 				"require":"mechanist",
 				"max": 2,
 				"cost": {
-					"gold": 1500,
-					"research": 1200,
+					"gold": 2500,
+					"research": 3000,
+					"puppets":20,
 					"space": 30,
 					"gems": 50
 				},
@@ -827,11 +832,12 @@
 				"id":"shapinglab",
 				"name":"shaping laboratory",
 				"desc":"A facility for growing mind-crystals and pre-formed automata bodies.",
+				"tags":"workspace",
 				"require":"mechamancer",
 				"max": 2,
 				"cost": {
-					"gold": 800,
-					"research": 1000,
+					"gold": 5000,
+					"research": 5000,
 					"space": 70,
 					"gems": 30
 				},
@@ -870,7 +876,6 @@
 				"tags":"t_puppet",
 				"name":"aggressor",
 				"level": 10,
-				"evil": 50,
 				"kind":"puppet",
 				"noproc": true,
 				"hp": 200,
@@ -889,7 +894,6 @@
 				"tags":"t_machina",
 				"name":"mecha-charger",
 				"level": 20,
-				"evil": 50,
 				"kind":"machina",
 				"hp": 500,
 				"tohit": 20,
@@ -918,7 +922,6 @@
 				"tags":"t_automata",
 				"name":"autoslayer",
 				"level": 30,
-				"evil": 50,
 				"kind":"automata",
 				"noproc": true,
 				"hp": 700,
@@ -980,13 +983,12 @@
 			{
 				"id":"puppetdefender",
 				"tags":"t_puppet",
-				"name":"defender",
+				"name":"poppet bulwark",
 				"level": 10,
-				"evil": 50,
 				"kind":"puppet",
 				"noproc": true,
-				"hp": 200,
-				"tohit": 10,
+				"hp": 300,
+				"tohit": 7,
 				"defense": 20,
 				"attack": [
 					{
@@ -1005,7 +1007,7 @@
 						}
 					},
 					{
-						"name":"stand tall",
+						"name":"fortify",
 						"targets":"self",
 						"result": {
 							"hp": 20
@@ -1024,7 +1026,6 @@
 				"tags":"t_machina",
 				"name":"mecha-mender",
 				"level": 20,
-				"evil": 50,
 				"kind":"machina",
 				"hp": 500,
 				"tohit": 20,
@@ -1064,7 +1065,6 @@
 				"tags":"automata",
 				"name":"autocaster",
 				"level": 30,
-				"evil": 50,
 				"kind":"automata",
 				"noproc": true,
 				"hp": 500,
