@@ -1,6 +1,8 @@
 import FValue from "./fvalue";
 import RValue from "./rvalue";
 import Range, { RangeTest } from "./range";
+import events, { IS_IMMUNE, CHAR_DIED, COMBAT_HIT, EVT_COMBAT } from "../events";
+import { TYP_FUNC } from "./consts";
 
 /**
  * @const {string} TARGET_SELF - target self.
@@ -43,6 +45,13 @@ export const TARGET_ALLIES = TARGET_GROUP + TARGET_ALLY;
  */
 export const TARGET_RANDG = TARGET_RAND + TARGET_GROUP;
 
+/**
+ * Determine if target can target type.
+ * @param {number} targs
+ */
+export const CanTarget = (targs, target ) => {
+	return targs & target > 0;
+}
 
 /**
  * @const {object.<string,string>} Targets - targetting constants.
@@ -124,5 +133,85 @@ export const ParseDmg = (v)=>{
 
 	} else if ( typeof v === 'object') return new Range(v);
 	return v;
+
+}
+
+/**
+* Apply an attack. Attack is already assumed to have hit, but immunities,
+* resistances, can still be applied.
+* @param {Char} target
+* @param {Object} attack
+*/
+export const CharAction = ( target, attack, attacker = null) => {
+
+	if ( !target || !target.alive ) return;
+	if ( target.isImmune(attack.kind) ) {
+
+		Events.emit( IS_IMMUNE, target.name + ' IMMUNE to ' + attack.kind );
+		return false;
+	}
+
+	if ( attack.damage ) ApplyDamage( target, attack, attacker );
+	if ( attack.cure ) {
+		console.log('CURE: ' + attack.cure );
+		target.cure( attack.cure );
+	}
+	if ( attack.state ) {
+		target.addDot( attack.state, attack );
+	}
+
+	if ( attack.dot ) { target.addDot( attack.dot, attacker ); }
+
+	return true;
+
+}
+
+export const ApplyDamage = ( target, attack, attacker ) => {
+
+	let dmg = attack.damage;
+	if ( !dmg) return;
+
+	if ( dmg.type === TYP_FUNC ) {
+		//let f = dmg.fn;
+		dmg = dmg.fn( attacker, target, target.context );
+	}
+	else dmg = dmg.value;
+
+	if ( attacker ) dmg += attacker.getBonus( attack.kind );
+	if ( attack.bonus ) dmg += attack.bonus;
+
+	let resist = target.getResist(attack.kind);
+	if (resist !== 0) dmg *= (1 - resist);
+
+	target.hp -= dmg;
+	if ( target.hp <= 0 ) { events.emit( CHAR_DIED, target, attack ); }
+
+	Events.emit( COMBAT_HIT, target, dmg, attack.name || (attacker ? attacker.name : '') );
+
+	if ( attack.leech && attacker ) {
+		let amt = Math.floor(100 * attack.leech * dmg) / 100;
+		attacker.hp += amt;
+		Events.emit(EVT_COMBAT, null, attacker.name + ' steals ' + amt + ' life.');
+	}
+
+}
+
+/**
+ * @note currently unused.
+ * Convert damage object to raw damage value.
+ * @param {number|function|Range} dmg
+ * @returns {number}
+*/
+export function getDamage( dmg ) {
+
+	let typ = typeof dmg;
+
+	if ( typ === 'object') return dmg.value;
+	else if ( typ === 'number') return dmg;
+	else if ( typeof dmg === 'function') {
+	}
+
+	console.warn('Invalid damage: ' + dmg);
+	return 0;
 
 }

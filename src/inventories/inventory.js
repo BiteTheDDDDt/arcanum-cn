@@ -225,6 +225,16 @@ export default class Inventory {
 	}
 
 	/**
+	 * @returns {GData} random item or null.
+	 */
+	randItem() {
+
+		if ( this.items.length <= 0 ) return null;
+		return this.items[ Math.floor( Math.random()*this.items.length) ];
+
+	}
+
+	/**
 	 * Remove all items from inventory.
 	 * splice is used for vue reactivity.
 	 */

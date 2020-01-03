@@ -283,6 +283,11 @@ export default class Char {
 			return;
 		}
 
+		if ( typeof dot === 'string') {
+			dot = Game.state.getData(dot);
+			if ( !dot ) return
+		}
+
 		if ( dot[ TYP_PCT ] && !dot[TYPE_PCT].roll() ) {
 			return;
 		}

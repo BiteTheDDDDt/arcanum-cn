@@ -92,7 +92,10 @@ export default class Dot {
 
 		if ( !this.id ) console.error('BAD DOT ID: ' + this.name );
 
-		if ( !this.duration) this.duration = 10;
+		if ( !this.duration) {
+			this.duration = 0;
+			this.perm = true;
+		}
 
 		/**
 		 * @property {boolean} stack - ability of dot to stack.
@@ -124,7 +127,7 @@ export default class Dot {
 
 		if ( duration === 0|| this.perm ) {
 
-			this.perm = true;;
+			this.perm = true;
 			this.duration = 0;
 
 		} else if ( duration > this._duration ) {

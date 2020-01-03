@@ -25,6 +25,17 @@
 
 	},
 	{
+
+		"id":"curesick",
+		"level":1,
+		"school":"light",
+		"action":{
+			"cure":"sick",
+			"targets":"ally,self"
+		}
+
+	},
+	{
 		"id":"stam2",
 		"name":"fount",
 		"level":5,

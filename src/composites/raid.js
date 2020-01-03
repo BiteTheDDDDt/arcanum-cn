@@ -1,4 +1,4 @@
-import Events, { ENEMY_SLAIN, TASK_DONE, ITEM_ATTACK, CHAR_DIED, DEFEATED, TASK_BLOCKED, EVT_COMBAT } from '../events';
+import Events, { ENEMY_SLAIN, TASK_DONE, ITEM_ACTION, CHAR_DIED, DEFEATED, TASK_BLOCKED, EVT_COMBAT } from '../events';
 import { assign } from 'objecty';
 import Game from '../game';
 import Combat from './combat';
@@ -87,7 +87,7 @@ export default class Raid {
 		this.player = gameState.player;
 
 		Events.add( ENEMY_SLAIN, this.enemyDied, this );
-		Events.add( ITEM_ATTACK, this.spellAttack, this );
+		Events.add( ITEM_ACTION, this.spellAttack, this );
 		Events.add( CHAR_DIED, this.charDied, this );
 
 		if ( typeof this.locale === 'string') this.locale = gameState.getData(this.locale);
@@ -145,9 +145,7 @@ export default class Raid {
 	 * @param {Item} it
 	 */
 	spellAttack( it ) {
-
 		if ( this.running ) this._combat.spellAttack(it);
-
 	}
 
 	/**

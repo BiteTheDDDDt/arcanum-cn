@@ -3,7 +3,7 @@ import Stat from '../values/stat';
 import Base, {mergeClass, initMods} from './base';
 import {arrayMerge} from '../util/array';
 import { assignPublic } from '../util/util';
-import Events, { ITEM_ATTACK, EVT_EVENT, EVT_UNLOCK } from '../events';
+import Events, { ITEM_ACTION, EVT_EVENT, EVT_UNLOCK } from '../events';
 import { TICK_LEN } from '../game';
 import { WEARABLE, WEAPON } from '../values/consts';
 import RValue from '../values/rvalue';
@@ -379,7 +379,7 @@ export default class GData {
 		if ( this.log ) Events.emit( EVT_EVENT, this.log );
 
 		if ( this.attack || this.action ) {
-			if (this.type !== WEARABLE && this.type !== WEAPON ) Events.emit( ITEM_ATTACK, this );
+			if (this.type !== WEARABLE && this.type !== WEAPON ) Events.emit( ITEM_ACTION, this );
 		}
 		this.dirty = true;
 
