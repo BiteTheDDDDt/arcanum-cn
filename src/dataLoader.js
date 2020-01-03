@@ -270,7 +270,12 @@ export default {
 		if ( lists.events ) inst.events = this.initItems( items, lists['events'], GEvent, EVENT, EVENT );
 		if ( lists.classes ) inst.classes = this.initItems( items, lists['classes'], GClass, 'class', 'class' );
 
-		if ( lists.actions || lists.tasks ) inst.tasks = this.initItems( items, lists['tasks'], Task, null, 'task' );
+		if ( lists.tasks ) inst.tasks = this.initItems( items, lists['tasks'], Task, null, 'task' );
+		if ( lists.actions ) {
+			var a = this.initItems( items, lists.actions, Task, null, 'task' );
+			if ( inst.tasks ) a = a.concat( inst.tasks );
+			inst.tasks = a;
+		}
 
 		if ( lists.enchants ) inst.enchants =this.initItems( items, lists['enchants'], Enchant, null, 'enchant' );
 		if ( lists.sections ) inst.sections = this.initItems( items, lists['sections']);
