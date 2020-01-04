@@ -13,6 +13,8 @@ export default class Attack {
 			tohit:this.tohit||undefined,
 			bonus:this.bonus||undefined,
 			kind:this.kind,
+			cure:this.cure||undefined,
+			state:this.state||undefined,
 			id:this.id,
 			dot:this.dot
 		};
@@ -38,6 +40,15 @@ export default class Attack {
 			if ( !this.dot.kind ) this.dot.kind = k;
 		}
 
+	}
+
+	/**
+	 * @property {string[]} state - states to cure/remove from target.
+	 */
+	get state(){return this._state;}
+	set state(v) {
+		if ( typeof v === 'string') this._state = v.split(',');
+		else this._state = v;
 	}
 
 	/**
@@ -87,12 +98,13 @@ export default class Attack {
 		let a = new Attack({
 			id:this.id||undefined,
 			name:this.name,
-			damage:this.damage,
-			bonus:this.bonus,
-			tohit:this.tohit,
-			kind:this.kind,
-			targets:this.targets,
-			dot:this.dot
+			cure:this.cure||undefined,
+			damage:this.damage||undefined,
+			bonus:this.bonus||undefined,
+			tohit:this.tohit||undefined,
+			kind:this.kind||undefined,
+			targets:this.targets||undefined,
+			dot:this.dot||undefined
 		});
 
 		return a;

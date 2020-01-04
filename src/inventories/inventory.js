@@ -52,14 +52,26 @@ export default class Inventory {
 	}
 
 	/**
-	 * @property {Array} items
+	 * @property {boolean} removeDupes - whether to remove duplicate ids from inventory.
 	 */
-	get items(){return this._items;}
-	/**
-	 * @protected
-	 * @property {Array} items
-	 */
-	set items(v){this._items = v}
+	get removeDupes(){ return this._removeDupes; }
+	set removeDupes(v){this._removeDupes = v;}
+
+	get items(){ return this._items; }
+	set items(v){
+
+		if ( v ) {
+
+			for( let i = v.length-1; i>= 0; i--) {
+				if ( v[i] === null || v[i] === undefined ) {
+					v.splice(i,1);
+				}
+			}
+		}
+
+		this._items = v;
+
+	}
 
 	/**
 	 * @property {boolean} saveIds - if true, only save item ids, and not
@@ -67,11 +79,11 @@ export default class Inventory {
 	get saveIds(){ return this._saveIds }
 	set saveIds(v){ this._saveIds=v; }
 
-	/**
-	 * @property {boolean} removeDupes - whether to remove duplicate ids from inventory.
-	 */
-	get removeDupes(){ return this._removeDupes; }
-	set removeDupes(v){this._removeDupes = v;}
+	[Symbol.iterator](){
+		return this.items[Symbol.iterator]();
+	}
+
+	toArray(){return this._items.slice(0)}
 
 	constructor(vars=null){
 
@@ -95,7 +107,7 @@ export default class Inventory {
 
 	}
 
-	revive(state){
+	revive( gs ){
 
 		// used ids.
 		var ids = {};
@@ -105,9 +117,9 @@ export default class Inventory {
 			var it = this.items[i];
 			if ( typeof it === 'object' ) {
 
-				it = itemRevive( state, it );
+				it = itemRevive( gs, it );
 
-			} else if ( typeof it === 'string') it = state.getData(it);
+			} else if ( typeof it === 'string') it = gs.getData(it);
 
 
 			if ( it == null || !it.id || ( this.removeDupes&& ids[it.id]===true) ) this.items.splice( i, 1 );
@@ -210,6 +222,16 @@ export default class Inventory {
 	 */
 	full(){
 		return this.max >0 && this.used >= Math.floor(this.max.value );
+	}
+
+	/**
+	 * @returns {GData} random item or null.
+	 */
+	randItem() {
+
+		if ( this.items.length <= 0 ) return null;
+		return this.items[ Math.floor( Math.random()*this.items.length) ];
+
 	}
 
 	/**
@@ -326,7 +348,8 @@ export default class Inventory {
 		for( let i = this.items.length-1; i >= 0; i-- ) {
 
 			var it = this.items[i];
-			used += prop ? ( it[prop] || 0 ) : 1;
+			if ( !it ) console.warn( this.id + ' null Item in Inv: ' + it );
+			else used += prop ? ( it[prop] || 0 ) : 1;
 
 		}
 

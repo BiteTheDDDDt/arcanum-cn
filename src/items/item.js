@@ -39,6 +39,14 @@ export default class Item {
 
 	}
 
+	get instanced() { return true; }
+	set instanced(v){}
+
+	/**
+	 * @property {string} recipe - id of item template used to instance this item.
+	 */
+	get recipe() { return this.template?  this.template.id : this._id; }
+	set recipe(v) {}
 
 	/**
 	 * @property {boolean} consume - whether the item is consumed when used.

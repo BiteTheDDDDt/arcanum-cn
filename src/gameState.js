@@ -12,9 +12,10 @@ import Group from './composites/group';
 import UserSpells from './inventories/userSpells';
 import Quickbars from './composites/quickbars';
 import Stat from './values/stat';
-import { WEARABLE, ARMOR, WEAPON, HOME, PURSUITS } from './values/consts';
+import { WEARABLE, ARMOR, WEAPON, HOME, PURSUITS, ENCHANTSLOTS, TYP_STATE } from './values/consts';
 import Dot from './chars/dot';
 import TagSet from './composites/tagset';
+import EnchantSlots from './inventories/enchantslots';
 
 export const REST_SLOT = 'rest';
 
@@ -90,6 +91,7 @@ export default class GameState {
 
 		this.drops = new Inventory();
 
+		this.items[ENCHANTSLOTS] = new EnchantSlots( this.items[ENCHANTSLOTS] );
 		/**
 		 * @property {Minions} minions
 		 */
@@ -137,6 +139,7 @@ export default class GameState {
 		this.tagSets = this.makeTagSets( this.items );
 		this.saveItems.allies = undefined;
 
+		this.saveItems.allies = undefined;
 	}
 
 	/**
@@ -161,6 +164,11 @@ export default class GameState {
 
 			var it = this.items[p];
 
+			if ( !it ) {
+				console.warn('prepItems() item undefined: ' + p );
+				delete this.items[p];
+				continue;
+			}
 			/**
 			 * special instanced item.
 			 */
@@ -313,7 +321,7 @@ export default class GameState {
 		dot = new Dot( cloneClass(dot), source );
 
 		let st = this.getData(dot.id);
-		if ( st ) dot.mergeDot(st);
+		if ( st && st.type === TYP_STATE ) dot.mergeDot(st);
 		if ( st == dot ) {
 			console.log('Dot equals state: ' + st);
 		}

@@ -10,7 +10,6 @@ import events, { CHAR_STATE } from '../events';
 import States, { NO_ATTACK } from './states';
 import {assign} from 'objecty';
 
-import {applyAttack} from '../composites/combat';
 import Context from '../context';
 import Game from '../game';
 
@@ -140,13 +139,14 @@ export default class Char {
 	}
 
 	/**
-	 * @property {States} states - action to take in locale.
+	 * @property {States} states - current states.
 	 */
 	get states(){return this._states; }
 	set states(v) { this._states = new States(); }
 
 
-	get instance() { return true; }
+	get instanced() { return true; }
+	set instanced(v) {}
 
 	get regen() { return this._regen; }
 	set regen(v) { this._regen = ( v instanceof Stat ) ? v : new Stat(v); }
@@ -273,6 +273,11 @@ export default class Char {
 			return;
 		}
 
+		if ( typeof dot === 'string') {
+			dot = Game.state.getData(dot);
+			if ( !dot ) return
+		}
+
 		if ( dot[ TYP_PCT ] && !dot[TYPE_PCT].roll() ) {
 			return;
 		}
@@ -363,7 +368,7 @@ export default class Char {
 			// ignore any remainder beyond 0.
 			// @note: dots tick at second-intervals, => no dt.
 			if ( dot.effect ) this.context.applyVars( dot.effect, 1 );
-			if ( dot.damage || dot.cure ) applyAttack( this, dot, dot.source );
+			if ( dot.damage || dot.cure ) ApplyAction( this, dot, dot.source );
 
 			if ( dot.duration <= dt ) {
 				this.rmDot(i);

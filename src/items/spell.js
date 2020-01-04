@@ -1,5 +1,5 @@
 import Attack from '../chars/attack';
-import Action from './action';
+import Task from './task';
 import { canTarget } from '../values/consts';
 
 /**
@@ -57,16 +57,14 @@ function schoolFunc(s, lvl=1 ) {
 
 }
 
-export default class Spell extends Action {
+export default class Spell extends Task {
 
 	/**
-	 * @property {string} target - target type, name, kind, or tag, to which
+	 * @property {string} only - target type, name, kind, or tag, to which
 	 * the enchantment can be applied.
 	 */
 	get only(){return this._only;}
-	set only(v){
-		this._only = typeof v === 'string' ? v.split(',') : v;
-	}
+	set only(v){this._only = typeof v === 'string' ? v.split(',') : v;}
 
 	toJSON(){
 
@@ -128,8 +126,6 @@ export default class Spell extends Action {
 	canUseOn(targ) {
 
 		if ( targ.level && ( 2*this.level < targ.level) ) return false;
-
-	//	console.log( this.id + ' target: ' + targ.id + ': ' + canTarget(this.targets, targ ));
 		return !this.only || canTarget( this.only, targ );
 
 	}

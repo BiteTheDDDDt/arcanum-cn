@@ -24,10 +24,10 @@ export default {
 	},
 	computed:{
 
-		actions(){return Game.state.actions.filter(v=>!v.perpetual&&!v.length)},
-		runnables(){return Game.state.actions.filter(v=>v.perpetual||v.length>0)},
+		tasks(){return Game.state.tasks.filter(v=>!v.perpetual&&!v.length)},
+		runnables(){return Game.state.tasks.filter(v=>v.perpetual||v.length>0)},
 
-		visActs(){return this.actions.filter(v=>this.show(v))},
+		visActs(){return this.tasks.filter(v=>this.show(v))},
 		visRuns(){ return this.runnables.filter(v=>this.show(v))},
 
 		ups(){
@@ -43,10 +43,10 @@ export default {
 </script>
 
 <template>
-	<div class="main-actions" ref="hidables">
+	<div class="main-tasks" ref="hidables">
 		<div class="config"><button ref="btnHides" class="btnConfig"></button></div>
-		<upgrades class="action-list" :items="visActs" />
-		<upgrades class="action-list" :items="visRuns" />
+		<upgrades class="task-list" :items="visActs" />
+		<upgrades class="task-list" :items="visRuns" />
 		<upgrades class="upgrade-list" :items="ups" />
 		<upgrades class="upgrade-list" :items="classes" />
 	</div>
@@ -54,15 +54,15 @@ export default {
 
 <style scoped>
 
-    .main-actions > div.action-list,
-    .main-actions > div.upgrade-list {
+    .main-tasks > div.task-list,
+    .main-tasks > div.upgrade-list {
         margin: 0; padding: var(--md-gap);
 		display: grid;
-		grid-template-columns: repeat( auto-fit, var(--action-button-width) );
+		grid-template-columns: repeat( auto-fit, var(--task-button-width) );
     }
 
-    .main-actions > div.action-list .runnable button:hover {background: var(--accent-color-hover); }
-    .main-actions > div.action-list .runnable button:active {background: var(--accent-color-active); }
+    .main-tasks > div.task-list .runnable button:hover {background: var(--accent-color-hover); }
+    .main-tasks > div.task-list .runnable button:active {background: var(--accent-color-active); }
 
 
 </style>

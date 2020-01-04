@@ -90,6 +90,14 @@ export default class Resource extends GData {
 	}
 
 	/**
+	 * Tests whether item fills unlock requirement.
+	 * @returns {boolean}
+	 */
+	fillsRequire(){
+		return this.locked === false && this.value > 0;
+	}
+
+	/**
 	 * @returns {boolean} true if an unlocked item is at maximum value.
 	 */
 	maxed() {

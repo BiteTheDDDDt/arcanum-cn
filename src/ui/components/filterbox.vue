@@ -70,15 +70,4 @@ export default {
 label {
 	margin-right:var(--md-gap);
 }
-div.filter-box {
-	font-size: 105%;
-	vertical-align: middle;
-	line-height: 1.2em;
-	margin: var(--md-gap) var(--sm-gap) var(--md-gap) 1em;
-}
-
-.filter-box input[type=text] {
-	padding: var(--sm-gap);
-	font-size: 105%;
-}
 </style>

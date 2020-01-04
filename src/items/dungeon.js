@@ -1,9 +1,9 @@
-import Action from './action';
+import Task from './task';
 import Game from '../game';
 import { getDist, distTest, levelTest } from './locale';
 import { mapNonNull } from '../util/array';
 import { DUNGEON, RAID } from '../values/consts';
-import Spawns, { MakeNpc } from '../composites/spawner';
+import Spawns, { MakeNpc } from '../composites/spawns';
 import SpawnGroup from '../composites/spawngroup';
 
 /**
@@ -17,7 +17,7 @@ import SpawnGroup from '../composites/spawngroup';
  * @property {number} hp
  */
 
-export default class Dungeon extends Action {
+export default class Dungeon extends Task {
 
 	/**
 	 * @property {object|string} once - result to happen only once.
@@ -38,7 +38,7 @@ export default class Dungeon extends Action {
 
 	}
 
-	get proxy(){return RAID}
+	get controller() {return RAID}
 
 	/**
 	 *
@@ -108,11 +108,13 @@ export default class Dungeon extends Action {
 	hasBoss( boss, at ) {
 
 		if ( !boss ) return false;
+
+		at = Math.floor(at + 1 );
 		if ( typeof boss === 'object' && !Array.isArray(boss) && boss.hasOwnProperty(at) ) {
 			return true;
 		}
 		// last enemy in dungeon.
-		return (at === this.length-1);
+		return (at === this.length);
 
 	}
 
@@ -137,15 +139,19 @@ export default class Dungeon extends Action {
 			});
 			return a.length > 0 ? a : null;
 
-		} else if ( boss.hasOwnProperty( (this.exp) ) ) {
-			// mid-level boss
-			return this.getBoss( boss[this.exp] );
+		} else {
+
+			let ind = Math.floor( this.exp + 1 );
+			if ( boss.hasOwnProperty( ind ) ) {
+				// mid-level boss
+				return this.getBoss( boss[ind] );
+			}
 		}
 
 	}
 
 	/**
-	 * Catch complete() to prevent default action. ugly.
+	 * Catch complete() to prevent default task. ugly.
 	 */
 	complete() {
 	}

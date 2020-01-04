@@ -2,8 +2,8 @@ import { defineExcept, clone, getProps } from 'objecty';
 import Stat from '../values/stat';
 import Base, {mergeClass } from './base';
 import {arrayMerge} from '../util/array';
-import { assignPublic, logObj } from '../util/util';
-import Events, { ITEM_ATTACK, EVT_EVENT, EVT_UNLOCK } from '../events';
+import { assignPublic } from '../util/util';
+import Events, { ITEM_ACTION, EVT_EVENT, EVT_UNLOCK } from '../events';
 import { TICK_LEN } from '../game';
 import { WEARABLE, WEAPON } from '../values/consts';
 import RValue from '../values/rvalue';
@@ -118,7 +118,9 @@ export default class GData {
 	 * being used or unlocked.
 	 */
 	get locks() { return this._locks||0;}
-	set locks(v) { this._locks = v;}
+	set locks(v) {
+		this._locks = v;
+	}
 
 	/**
 	 * @property {boolean} locked
@@ -221,7 +223,15 @@ export default class GData {
 	}
 
 	/**
-	 * Determines whether an item can be run as a continuous action.
+	 * Tests whether item fills unlock requirement.
+	 * @returns {boolean}
+	 */
+	fillsRequire(){
+		return this.locked === false;
+	}
+
+	/**
+	 * Determines whether an item can be run as a continuous task.
 	 * @param {Game} g
 	 * @param {number} dt - minimum length of time item would run.
 	 * @returns {boolean}
@@ -232,7 +242,7 @@ export default class GData {
 
 		if ( this.buy && !this.owned && !g.canPay(this.buy ) ) return false;
 
-		// cost only paid at _start_ of runnable action.
+		// cost only paid at _start_ of runnable task.
 		if ( this.cost && (this.exp == 0) && !g.canPay(this.cost ) ) return false;
 
 		if ( this.fill && g.filled( this.fill, this ) ) return false;
@@ -261,7 +271,7 @@ export default class GData {
 	}
 
 	/**
-	 * Determine if an item can be used. Ongoing/perpetual actions
+	 * Determine if an item can be used. Ongoing/perpetual tasks
 	 * test with 'canRun' instead.
 	 * @param {Game} g
 	 */
@@ -374,14 +384,14 @@ export default class GData {
 
 		if ( this.log ) Events.emit( EVT_EVENT, this.log );
 
-		if ( this.attack ) {
-			if (this.type !== WEARABLE && this.type !== WEAPON ) Events.emit( ITEM_ATTACK, this );
+		if ( this.attack || this.action ) {
+			if (this.type !== WEARABLE && this.type !== WEAPON ) Events.emit( ITEM_ACTION, this );
 		}
 		this.dirty = true;
 
 	}
 
-	lock(amt){
+	doLock(amt){
 		this.locks += amt;
 		this.dirty = true;
 	}

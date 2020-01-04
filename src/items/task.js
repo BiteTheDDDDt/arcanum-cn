@@ -1,10 +1,10 @@
 import GData from './gdata';
 import Game from '../game';
-import Events, { ACT_DONE, ACT_IMPROVED } from '../events';
+import Events, { TASK_DONE, TASK_IMPROVED } from '../events';
 import Stat from '../values/stat';
 import Scaler from '../values/scaler';
 
-export default class Action extends GData {
+export default class Task extends GData {
 
 	valueOf(){ return this.locked ? 0 : this.value.valueOf(); }
 
@@ -39,6 +39,7 @@ export default class Action extends GData {
 			console.warn( this.id + ' exp neg: ' + v );
 			return;
 		}
+		this._exp.set(v);
 
 
 		this.checkComplete();
@@ -71,7 +72,7 @@ export default class Action extends GData {
 		super(vars);
 
 		this.repeat = this.repeat === false ? false : true;
-		this.type = 'action';
+		this.type = 'task';
 
 		if ( (this.length || this.perpetual)) {
 
@@ -83,6 +84,14 @@ export default class Action extends GData {
 
 		this.applyImproves();
 
+	}
+
+	/**
+	 * Tests whether item fills unlock requirement.
+	 * @returns {boolean}
+	 */
+	fillsRequire(){
+		return this.locked === false && this.value > 0;
 	}
 
 	applyImproves() {
@@ -140,7 +149,7 @@ export default class Action extends GData {
 	}
 
 	/**
-	 * Update a running action.
+	 * Update a running task.
 	 * @param {number} dt - elapsed time.
 	 */
 	update( dt ) {
@@ -149,7 +158,7 @@ export default class Action extends GData {
 	}
 
 	/**
-	 * completion of ongoing action.
+	 * completion of ongoing task.
 	 */
 	complete(g=Game) {
 
@@ -161,12 +170,12 @@ export default class Action extends GData {
 		this.change(g, 1);
 		this._exp.set(0);
 
-		Events.emit( ACT_DONE, this );
+		Events.emit( TASK_DONE, this );
 
 	}
 
 	/**
-	 * Action value changed.
+	 * task value changed.
 	 * No value increment because that is currently done by game (@todo fix)
 	 */
 	change( g, count ) {
@@ -202,7 +211,7 @@ export default class Action extends GData {
 
 		}
 
-		if ( improve ) Events.emit( ACT_IMPROVED, this );
+		if ( improve ) Events.emit( TASK_IMPROVED, this );
 
 	}
 

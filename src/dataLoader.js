@@ -14,7 +14,7 @@ import Dungeon from './items/dungeon';
 import Locale from './items/locale';
 
 import Spell from './items/spell.js';
-import Action from './items/action';
+import Task from './items/task';
 
 import { mergeSafe } from 'objecty';
 import ProtoItem from './protos/protoItem';
@@ -272,7 +272,12 @@ export default {
 		if ( lists.events ) inst.events = this.initItems( items, lists['events'], GEvent, EVENT, EVENT );
 		if ( lists.classes ) inst.classes = this.initItems( items, lists['classes'], GClass, 'class', 'class' );
 
-		if ( lists.actions ) inst.actions = this.initItems( items, lists['actions'], Action, null, 'action' );
+		if ( lists.tasks ) inst.tasks = this.initItems( items, lists['tasks'], Task, null, 'task' );
+		if ( lists.actions ) {
+			var a = this.initItems( items, lists.actions, Task, null, 'task' );
+			if ( inst.tasks ) a = a.concat( inst.tasks );
+			inst.tasks = a;
+		}
 
 		if ( lists.enchants ) inst.enchants =this.initItems( items, lists['enchants'], Enchant, null, 'enchant' );
 		if ( lists.sections ) inst.sections = this.initItems( items, lists['sections']);
@@ -402,9 +407,7 @@ const prepData = ( sub, id='' ) => {
 				} else if ( RangeTest.test(obj) ) sub[p] = new Range(obj);
 				else if ( IsPerValue(obj) ) sub[p] = new PerValue( obj, SubPath(id,p) );
 				else if ( !isNaN(obj) ) {
-					if ( obj !== null && obj !== undefined && obj !== '' ) console.warn('string used as Number: ' + p + ' -> ' + obj );
-					//console.warn('store numeric data as number.');
-					//sub[p] = Number(obj);
+					if ( obj !== '') console.warn('string used as Number: ' + p + ' -> ' + obj );
 				}
 				else if ( p === 'damage' || p === 'dmg') sub[p] = MakeDmgFunc(obj);
 

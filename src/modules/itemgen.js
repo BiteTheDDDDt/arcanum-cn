@@ -7,7 +7,7 @@ import Encounter from '../items/encounter';
 import GenGroup from '../genGroup';
 import { pushNonNull } from '../util/array';
 import GData from '../items/gdata';
-import { ENCOUNTER, WEARABLE, MONSTER, ARMOR, WEAPON, TYP_PCT, EVENT, ITEM, POTION, TYP_RANGE, NPC } from '../values/consts';
+import { ENCOUNTER, WEARABLE, MONSTER, ARMOR, WEAPON, TYP_PCT, EVENT, ITEM, POTION, TYP_RANGE, NPC, TASK } from '../values/consts';
 
 /**
  * Revive a prototyped item based on an item template.
@@ -42,11 +42,6 @@ export function itemRevive( gs, it ) {
 	} else if ( type === MONSTER || type === NPC ) {
 
 		it = new Npc( orig, it );
-
-	} else if ( type === ENCOUNTER) {
-
-		// encounter.
-		it = new Encounter( orig, it );
 
 	} else {
 		//console.log('default revive: ' + it.id );
@@ -87,10 +82,6 @@ export default class ItemGen {
 
 	}
 
-	/**
-	 * Create npc from monster prototype or save object.
-	 * @param {*} proto
-	 */
 	npc( proto ) {
 
 		let it = new Npc( proto );
@@ -160,10 +151,6 @@ export default class ItemGen {
 			console.log('INSTANCE wearable: ' + proto.id );
 			return this.makeWearable( proto, this.matForItem(proto ));
 
-		} else if ( proto.type === ENCOUNTER ) {
-
-			it = new Encounter(proto);
-
 		} else if ( proto.type === POTION ) {
 
 			it = new Item(proto);
@@ -172,11 +159,13 @@ export default class ItemGen {
 
 			it = new Item( proto );
 
-		} else if ( proto.type === MONSTER ) return this.npc(proto);
+		} else if ( proto.type === MONSTER || proto.type === NPC ) return this.npc(proto);
 
 		if ( it === undefined ) return null;
 
-		it.id = proto.id + this.state.nextIdNum();
+		it.id = this.state.nextId(it.id);
+
+		//this.state.addInstance(it);
 		it.value = 1;
 		it.owned = true;
 
@@ -185,6 +174,7 @@ export default class ItemGen {
 	}
 
 	/**
+	 * @private
 	 * Generate a new item from a template item.
 	 * @param {Wearable} data
 	 * @param {string|Material|number} material - material or material level.
@@ -319,7 +309,7 @@ export default class ItemGen {
 
 		if ( typeof amt === 'number' || typeof amt === 'boolean') {
 
-			if ( it.type === 'upgrade' || it.type === 'action' || it.type === 'furniture' || it.type === EVENT) it.doUnlock( this.game );
+			if ( it.type === 'upgrade' || it.type === TASK || it.type === 'furniture' || it.type === EVENT) it.doUnlock( this.game );
 			else {
 				it.amount( this.game, amt );
 				if ( amt > 0 ) return it.name;
@@ -423,6 +413,11 @@ export default class ItemGen {
 	 */
 	wearableType() { return Math.random() < 0.65 ? ARMOR : WEAPON; }
 
+	/**
+	 * @private
+	 * @param {} data
+	 * @param {*} material
+	 */
 	makeWearable( data, material ) {
 
 		let item = new Wearable(data);
@@ -434,7 +429,8 @@ export default class ItemGen {
 
 		} else item.name = (data.name || data.id );
 
-		item.id = data.id + this.state.nextIdNum();
+		item.id = this.state.nextId(item.id);
+		//this.state.addInstance( item );
 
 		return item;
 	}

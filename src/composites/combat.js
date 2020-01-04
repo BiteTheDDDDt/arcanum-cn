@@ -1,93 +1,16 @@
-import Game from '../game';
-import Range from '../values/range';
 import { assign } from 'objecty';
 
 import Events, {
 	EVT_COMBAT, ENEMY_SLAIN, ALLY_DIED,
-	DAMAGE_MISS, CHAR_DIED, IS_IMMUNE, COMBAT_HIT, EVT_EVENT, STATE_BLOCK
+	DAMAGE_MISS, CHAR_DIED, EVT_EVENT, STATE_BLOCK
 } from '../events';
 
 import { itemRevive } from '../modules/itemgen';
 import { NO_SPELLS } from '../chars/states';
 
-import { TYP_FUNC, TEAM_PLAYER, getDelay } from '../values/consts';
-import { TARGET_ALLIES, TARGET_ENEMIES, TARGET_ENEMY, TARGET_ALLY, TARGET_SELF, TARGET_RAND, TARGET_RANDG } from "../values/combat";
+import { TEAM_PLAYER, getDelay } from '../values/consts';
+import { TARGET_ALLIES, TARGET_ENEMIES, TARGET_ENEMY, TARGET_ALLY, TARGET_SELF, TARGET_RAND, TARGET_RANDG, TARGET_LEADER, ApplyAction } from "../values/combat";
 
-
-
-/**
-* Apply an attack. Attack is already assumed to have hit, but immunities,
-* resistances, can still be applied.
-* @param {Char} target
-* @param {Object} attack
-*/
-export function applyAttack( target, attack, attacker = null) {
-
-	if ( !target || !target.alive ) return;
-	if ( target.isImmune(attack.kind) ) {
-
-		Events.emit(IS_IMMUNE, target.name + ' IMMUNE to ' + attack.kind);
-		return false;
-	}
-
-	if ( attack.damage ) applyDamage( target, attack, attacker );
-	if ( attack.cure ) target.cure( attack.cure );
-
-	if (attack.dot) { target.addDot( attack.dot, attacker ); }
-
-	return true;
-
-}
-
-export const applyDamage = ( target, attack, attacker ) => {
-
-	let dmg = attack.damage;
-	if ( !dmg) return;
-
-	if ( dmg.type === TYP_FUNC ) {
-		//let f = dmg.fn;
-		dmg = dmg.fn( attacker, target, Game.state );
-	}
-	else dmg = dmg.value;
-
-	if ( attacker ) dmg += attacker.getBonus( attack.kind );
-	if ( attack.bonus ) dmg += attack.bonus;
-
-	let resist = target.getResist(attack.kind);
-	if (resist !== 0) dmg *= (1 - resist);
-
-	target.hp -= dmg;
-	if ( target.hp <= 0 ) { Events.emit( CHAR_DIED, target, attack ); }
-
-	Events.emit( COMBAT_HIT, target, dmg, attack.name || (attacker ? attacker.name : '') );
-
-	if ( attack.leech && attacker ) {
-		let amt = Math.floor(100 * attack.leech * dmg) / 100;
-		attacker.hp += amt;
-		Events.emit(EVT_COMBAT, null, attacker.name + ' steals ' + amt + ' life.');
-	}
-
-}
-
-/**
- * @note currently unused.
- * Convert damage object to raw damage value.
- * @param {number|function|Range} dmg
- * @returns {number}
-*/
-export function getDamage( dmg ) {
-
-	let typ = typeof dmg;
-
-	if ( typ === 'object') return dmg.value;
-	else if ( typ === 'number') return dmg;
-	else if ( typeof dmg === 'function') {
-	}
-
-	console.warn('Invalid damage: ' + dmg);
-	return 0;
-
-}
 
 export default class Combat {
 
@@ -288,7 +211,7 @@ export default class Combat {
 		if (!targ || !targ.alive ) return;
 
 		if ( atk.harmless || !targ.canDefend() || this.tryHit( attacker, targ, atk ) ) {
-			applyAttack( targ, atk, attacker );
+			ApplyAction( targ, atk, attacker );
 		}
 
 	}
@@ -321,6 +244,10 @@ export default class Combat {
 		} else if ( targets === TARGET_ALL ) {
 
 			return this.allTargs;
+
+		} else if ( targets === TARGET_LEADER ) {
+
+			return char.team === TEAM_PLAYER ? this._allies[0] : this.enemies[0];
 
 		} else if ( targets === TARGET_RANDG ) {
 
@@ -444,6 +371,24 @@ export default class Combat {
 		for( let i = this.allies.length-1; i >= 0; i-- ) {
 			this.allies[i].timer -= minDelay;
 		}
+
+	}
+
+	/**
+	 * Reenter same dungeon.
+	 */
+	reenter() {
+		this.allies = this.state.minions.allies.toArray();
+		this.allies.unshift( this.player );
+	}
+
+	/**
+	 * Begin new dungeon.
+	 */
+	begin() {
+
+		this._enemies = [];
+		this.reenter();
 
 	}
 

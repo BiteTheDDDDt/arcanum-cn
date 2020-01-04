@@ -168,7 +168,7 @@ export default {
 						<!-- EVENT MUST BE ON OUTER SPAN - CHROME -->
 					<span @mouseenter.capture.stop="emit( 'itemover', $event, d )"><span>{{ d.sname }}</span>
 
-					<button class="raid-btn" :disabled="!game.canRun(d)" @click="emit( 'action', d )">Enter</button></span>
+					<button class="raid-btn" :disabled="!game.canRun(d)" @click="emit( 'task', d )">Enter</button></span>
 
 
 					<span class="sym">{{ d.sym }}</span>
@@ -261,8 +261,6 @@ body.compact div.adventure > div.locales {
 }
 body.compact div.adventure > div.locales .locale { background: var(--list-entry-background); }
 body.compact div.adventure > div.locales .locale .bar { border: none;}
-
-		div.filter-box{ margin: 0; padding: var(--sm-gap); display: flex; align-items: center; }
 
 		div.adventure > div.locales .locale {
 			padding: var(--md-gap);

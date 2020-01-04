@@ -1,14 +1,16 @@
 import Game from '../game';
-import {quickSplice, findRemove} from '../util/array';
-import Events, {ACT_DONE, ACT_CHANGED, HALT_ACT, ACT_BLOCKED, STOP_ALL } from '../events';
+import {quickSplice } from '../util/array';
+import Events, {TASK_DONE, TASK_CHANGED, HALT_TASK, TASK_BLOCKED, STOP_ALL } from '../events';
 import Stat from '../values/stat';
 import Base, {mergeClass} from '../items/base';
 import Runnable from '../composites/runnable';
-import { SKILL, DUNGEON, REST_TAG, TYP_RUN, PURSUITS } from '../values/consts';
+import { SKILL, REST_TAG, TYP_RUN, PURSUITS } from '../values/consts';
 import { assign } from 'objecty';
+import { iterableMap, iterableFind, setReplace, mapSet } from '../util/dataUtil';
+import ArraySet from '../values/arrayset';
 
 /**
- * Tracks running/perpetual actions.
+ * Tracks running/perpetual tasks.
  */
 export default class Runner {
 
@@ -26,19 +28,19 @@ export default class Runner {
 		this.name = 'activity';
 
 		/**
-		 * @property {Action[]} actives - Actively running tasks.
+		 * @property {ArraySet.<Task>} actives - Actively running tasks.
 		 */
-		this.actives = this.actives || null;
+		this.actives = new ArraySet( this.actives || null );
 
 		/**
-		 * @property {Action[]} waiting - actions waiting to run once rest is complete.
+		 * @property {Task[]} waiting - tasks waiting to run once rest is complete.
 		 */
 		this.waiting = this.waiting || null;
 
 		/**
 		 * @property {} timers - timers ticking.
 		 */
-		this.timers = this.timers || null;
+		this.timers = new Set( this.timers || null );
 
 	}
 
@@ -46,14 +48,9 @@ export default class Runner {
 
 		return {
 			max:this.max,
-			waiting:this.waiting.map(v=> v.type === TYP_RUN ? v : v.id),
-			actives:this.actives.map(v=> v.type === TYP_RUN ? v : v.id),
-			timers:this.timers.length>0? this.timers.map(v=>v.id) : undefined
-
-			/**
-			 * @property {Runnable[]} runnables - running combinations of objects.
-			 */
-			//runnables:this.runnables
+			waiting:this.waiting.map(v=>v.id),
+			actives:iterableMap( this.actives, v=> v.id ),
+			timers:this.timers.size > 0 ? iterableMap( this.timers, v=>v.id ) : undefined
 		};
 
 	}
@@ -62,29 +59,22 @@ export default class Runner {
 	 * @todo : Messy for Focus skill.
 	 */
 	get exp() {
-		for( let i = this.actives.length-1; i>= 0;i-- ) {
-			var a = this.actives[i];
-			if ( a.type === SKILL ) return a.exp;
-		}
-		return 0;
+		let a = iterableFind(this.actives, v=>v.type===SKILL);
+		return a ? a.exp : 0;
 	}
 
 	set exp(v) {
-
-		for( let i = this.actives.length-1; i>= 0;i-- ) {
-
-			var a = this.actives[i];
-			if ( a.type === SKILL ) {
-				a.exp = v;
-				return;
-			}
-
-		}
+		let a = iterableFind(this.actives, v=>v.type===SKILL);
+		if ( a ) a.exp =v;
 	}
 
+	/**
+	 *
+	 * @param {object} obj
+	 * @param {(number)=>boolean} obj.tick -tick function.
+	 */
 	addTimer(obj){
-		obj.timer = obj.cd;
-		this.timers.push(obj);
+		this.timers.add(obj);
 	}
 
 	/**
@@ -92,43 +82,34 @@ export default class Runner {
 	 */
 	autoProgress(){
 
-		for( let i = 0; i < this.actives.length; i ++ ) {
-			var a = this.actives[i];
-
-			if ( a.length ) a.exp = a.length - 0.001;
-
-		}
+		this.actives.forEach(v=>{
+			if ( v.length ) {
+				v.exp = v.length - 0.001;
+			}
+		});
 
 	}
 
 	/**
 	 * @property {number} running - number currently running.
 	 */
-	get running(){return this.actives.length; }
+	get running(){return this.actives.size; }
 
 	/**
 	 * @property {number} free - number of available run slots.
 	 */
 	get free(){
-		return Math.floor( this.max.valueOf() ) - this.actives.length;
+		return Math.floor( this.max.valueOf() ) - this.actives.size;
 	}
 
 	get max() { return this._max; }
 	set max(v) {
 
-		if ( v instanceof Stat ) {
-
-			this._max =v;
-
-		} else if ( !this._max ) {
-
-			this._max = new Stat(v, 'max', true);
-		} else if ( typeof v === 'number' ) {
-
-
-			this._max.base = v;
-
-		} else this._max = new Stat(v, 'max', true);
+		if ( !this._max ) {
+			this._max = v instanceof Stat ? v : new Stat(v, 'max', true);
+		} else {
+			this._max.base = v instanceof Stat ? v.base : v;
+		}
 
 	}
 
@@ -147,39 +128,40 @@ export default class Runner {
 			this.waiting = this.waiting.slice( this.waiting.length - this.max );
 		}
 
-		this.actives = this.reviveList( this.actives, gs, true );
-		if ( this.timers ) this.timers = gs.toData( this.timers );
-		else this.timers = [];
+		setReplace( this.actives, this.reviveList( this.actives, gs, true ) );
 
-		Events.add( ACT_DONE, this.actDone, this );
-		Events.add( HALT_ACT, this.haltAction, this );
-		Events.add( ACT_BLOCKED, this.actBlocked, this );
+		this.timers = mapSet( this.timers, v=>gs.getData(v) );
+
+		Events.add( TASK_DONE, this.actDone, this );
+		Events.add( HALT_TASK, this.haltTask, this );
+		Events.add( TASK_BLOCKED, this.actBlocked, this );
 		Events.add( STOP_ALL, this.stopAll, this );
 
 	}
 
 	/**
-	 * Revive a list, removing Runnable elements that can't revive (missing items, etc.)
-	 * @param {object[]} list
+	 * Revive a list, removing elements that can't revive (missing items, etc.)
+	 * @param {Iterable} list
 	 * @param {GameState} gs
 	 * @param {boolean} [running=false] - whether the items in list are running.
 	 */
 	reviveList( list, gs, running=false ) {
 
-		if ( !list ) return [];
+		let res = [];
+		if ( !list ) return res;
 
-		for( let i = list.length-1; i >= 0; i-- ) {
+		for( let a of list ) {
 
-			var a = list[i] = this.reviveAct( list[i], gs, running);
-			if ( a == null ) list.splice(a,1);
+			a = this.reviveTask( a, gs, running);
+			if ( a ) res.push(a);
 
 		}
 
-		return list;
+		return res;
 
 	}
 
-	reviveAct( a, gs, running=false ) {
+	reviveTask( a, gs, running=false ) {
 
 		if (!a) return;
 
@@ -188,23 +170,18 @@ export default class Runner {
 			a = gs.getData( a);
 			if ( !a ) return null;
 
-		} else if ( typeof a === 'object') {
-
-			a = new Runnable( a );
-			if ( typeof a.revive === 'function' ) a.revive(gs);
-			if ( a.target == null || a.item == null ) return null;
-
 		}
-		if ( a.type === DUNGEON ) return gs.raid;
 
 		a.running=running;
+		if ( a.controller ) return gs.getData(a.controller);
+
 
 		return a;
 
 	}
 
 	/**
-	 * setAction of two items combined.
+	 * setTask of two items combined.
 	 * Before using an item and target, check if any existing Runnable matches.
 	 * If no match, create a Runnable.
 	 * @param {*} it
@@ -212,123 +189,90 @@ export default class Runner {
 	 */
 	beginUseOn( it, targ ) {
 
-		let id = it.id;
-		let t = targ.id;
-
-		let run = findRemove( this.waiting, (v)=>{
-			return (v.type === TYP_RUN )&&(id===v.item.id && v.target && t === v.target.id )
-		});
-
-		if ( !run ) {
-
-			if ( targ.running === true ) return false;
-
+		var run;
+		if ( it.beginUseOn ) {
+			run = it.beginUseOn( targ );
+		} else {
 			run = new Runnable( it, targ );
-			if ( it.beginUseOn ) it.beginUseOn( targ );
-
 		}
-		this.setAction( run );
+
+		this.setTask( run );
 
 	}
 
 	/**
-	 * Check if item/target combination is in wait queue.
-	 * @param {GData} it
-	 * @param {GData} targ
-	 */
-	isWaiting( it, targ ){
-
-		for( let i = this.waiting.length-1; i>=0; i--) {
-
-			var a = this.waiting[i];
-			if ( a.type === TYP_RUN ) {
-
-				if ( a.item === it && a.target === targ ) return true;
-
-			} else if ( a === it ) return true;
-
-		}
-
-		return false;
-
-	}
-
-	/**
-	 * Toggle running state of action.
+	 * Toggle running state of task.
 	 * @public
-	 * @param {Action} a
+	 * @param {Task} a
 	 */
 	toggleAct( a ) {
 
-		let ind = this.actives.indexOf(a);
-
-		if ( ind >= 0 ) {
-
-			this.stopAction(ind, false);
-
-		} else {
-			this.setAction(a);
-
-		}
-
+		if ( this.actives.has(a) ) {
+			this.stopTask(a, false);
+		} else this.setTask(a);
 
 	}
 
 	/**
-	 * Add an action absolutely, removing a running action if necessary.
+	 * Add an task absolutely, removing a running task if necessary.
 	 * @public
 	 * @param {*} a
 	 */
-	setAction(a) {
+	setTask(a) {
 
 		if ( !a) return;
 
-		if ( a.proxy ) {
+		if ( a.cost && (a.exp.valueOf() === 0) ) {
+			Game.payCost( a.cost);
+		}
+
+		if ( a.controller ) {
 			/// a is proxied by another object. (raid/explore)
-			let p = Game.state.getData( a.proxy );
+			let p = Game.state.getData( a.controller );
 			if (!p) return false;
 			p.runWith(a);
 			a = p;
 		}
 
-		if ( a.cost && (a.exp === 0) ) {
-			Game.payCost( a.cost);
-		}
-
 		if ( !this.has(a) ) {
 
-			// action already in running list.
-			Events.emit( ACT_CHANGED );
-			this.runAction(a);
+			// task already in running list.
+			Events.emit( TASK_CHANGED );
 
-			// free space for action. actions.length is a double check.
-			while ( this.actives.length > Math.floor(this.max.valueOf()) ) {
-
-				let i = 0;
-
-				let cur = this.actives[i];
-				this.stopAction( i, false );
-
-				if ( (cur.type === TYP_RUN ) ){
-					//console.log('WAIT RUNNABLE');
-					this.addWait(cur);
-				}
-
-			}
+			this.runTask(a);
+			this.trimActives(a);
 
 		}
-
-
 
 	}
 
 	/**
-	 *
-	 * @param {Action} act
+	 * stop activities to make the available space.
+	 * @param {number} free - activity spaces to free.
+	 */
+	trimActives( not=null ){
+
+		var remove = this.actives.size - Math.floor(this.max.valueOf());
+		if ( remove <= 0 ) return;
+
+		for( let a of this.actives ) {
+
+			if ( a === not ) continue;
+			this.stopTask(a, false );
+			if ( a.type === TYP_RUN ) this.addWait(a);
+
+			if ( --remove <= 0 ) return;
+		}
+
+	}
+
+	/**
+	 * @private
+	 * @param {Task} act
 	 */
 	actBlocked( act, resume=true ) {
 
-		this.stopAction( act, false );
+		this.stopTask( act, false );
 		if ( act.hasTag(REST_TAG) ) {
 
 			this.tryResume( true );
@@ -342,27 +286,20 @@ export default class Runner {
 	}
 
 	/**
-	 * UNIQUE ACCESS POINT for removing active action.
-	 * @param {number|Action} i
-	 * @param {boolean} tryResume - whether can attempt to resume another action.
+	 * UNIQUE ACCESS POINT for removing active task.
+	 * @param {Task} i
+	 * @param {boolean} [tryResume=true] - whether can attempt to resume another task.
 	 */
-	stopAction( i, tryResume=true ){
+	stopTask( a, tryResume=true ){
 
-		if ( typeof i !== 'number') {
-			i = this.actives.indexOf(i);
-			if ( i < 0 ) {return;}
-		}
-
-		let a = this.actives[i];
-
+		if ( a.onStop ) a.onStop();
 		a.running = false;
-		this.actives.splice(i,1);
+		this.actives.delete(a);
 
 		if ( tryResume ){
-
 			this.tryResume();
+			this.tryPursuit();
 		}
-		this.tryPursuit();
 
 	}
 
@@ -382,7 +319,7 @@ export default class Runner {
 	}
 
 	/**
-	 * Attempt to add an action, while avoiding any conflicting action types.
+	 * Attempt to add an task, while avoiding any conflicting task types.
 	 * @public
 	 * @param {GData} a
 	 */
@@ -392,8 +329,32 @@ export default class Runner {
 		if ( a.fill && Game.filled(a.fill,a) ) return false;
 		if ( !a.canRun(Game) ) return false;
 
-		this.setAction(a);
+		this.setTask(a);
 
+		return true;
+
+	}
+
+	/**
+	 * Remove task entirely from Runner, whether active
+	 * or waiting.
+	 * @param {GData} a
+	 */
+	removeAct( a ){
+
+	}
+
+	/**
+	 * Attempt to remain an task from waiting list.
+	 * @param {GData} a
+	 * @returns {boolean} true if task was found and removed.
+	 */
+	removeWait(a) {
+
+		let ind = this.waiting.indexOf(a);
+		if ( ind < 0 ) return false;
+
+		this.waiting.splice(ind, 1);
 		return true;
 
 	}
@@ -406,54 +367,28 @@ export default class Runner {
 		this.waiting.push(a);
 
 		let remove = this.waiting.length - this.max.value;
-		let i = 0;
-
-		while ( remove > 0 ) {
-
-			a = this.waiting[i];
-			if ( a.type !== TYP_RUN ) {
-
-				this.waiting.splice( i, 1 );
-
-			} else {
-				i++;
-			}
-
-			remove--;
-
+		if ( remove > 0 ) {
+			this.waiting.splice(0, remove );
 		}
 
 	}
 
-	haltAction( act ) {
+	haltTask( act ) {
 
-		if ( act.proxy ) act = Game.state.getData(act.proxy);
+		if ( act.controller ) act = Game.state.getData(act.controller);
 
-		// absolute rest stop if no actions waiting.
-		if ( this.waiting.length === 0 && act.hasTag( REST_TAG ) ) this.stopAction(act,false);
+		// absolute rest stop if no tasks waiting.
+		if ( this.waiting.length === 0 && act.hasTag( REST_TAG ) ) this.stopTask(act,false);
 
 		else {
-			if ( act.type === TYP_RUN ) this.addWait(act);
-			this.stopAction( act );
+			this.stopTask( act );
 		}
-
-	}
-
-	stopAll() {
-
-		for( let i = this.actives.length-1; i>=0; i--) {
-
-			if ( this.actives[i].onStop ) this.actives[i].onStop();
-			this.stopAction( i, false );
-
-		}
-		this.clearWaits();
 
 	}
 
 	/**
-	 * Action is done, but could be perpetual/ongoing.
-	 * Attempt to repay cost and keep action.
+	 * Task is done, but could be perpetual/ongoing.
+	 * Attempt to repay cost and keep task.
 	 * @param {*} act
 	 */
 	actDone( act, repeatable=true ){
@@ -461,21 +396,21 @@ export default class Runner {
 
 		if ( act.running === false ) {
 			// skills cant complete when not running.
-			this.stopAction(act);
+			this.stopTask(act);
 
 		} else if ( repeatable ) {
 
-			if ( Game.canRun(act) && this.actives.length <= this.max.value ) {
+			if ( Game.canRun(act) && this.actives.size <= this.max.value ) {
 
-				this.setAction(act);
+				this.setTask(act);
 
 			} else if ( act.hasTag(REST_TAG )) {
 
-				this.stopAction( act );
+				this.stopTask( act );
 
 			} else {
 
-				this.stopAction( act );
+				this.stopTask( act );
 				this.addWait(act);
 
 			}
@@ -483,9 +418,18 @@ export default class Runner {
 		} else {
 
 
-			this.stopAction( act );
+			this.stopTask( act );
 
 		}
+
+	}
+
+	stopAll() {
+
+		for( let a of this.actives ) {
+			this.stopTask(a, false);
+		}
+		this.clearWaits();
 
 	}
 
@@ -494,8 +438,8 @@ export default class Runner {
 	}
 
 	/**
-	 * Attempt to resume any waiting actions.
-	 * @param {boolean} norest - disallow resting on free action.
+	 * Attempt to resume any waiting tasks.
+	 * @param {boolean} norest - disallow resting on free task.
 	 */
 	tryResume( norest=false) {
 
@@ -524,20 +468,18 @@ export default class Runner {
 
 	update(dt) {
 
-		for( let i = this.actives.length-1; i>= 0; i-- ) {
-
-			this.doAction( this.actives[i], dt );
-
+		for( let a of this.actives ) {
+			this.doTask( a, dt );
 		}
 
-		for( let i = this.timers.length-1; i>= 0; i-- ) {
-			if ( this.timers[i].tick(dt) ) quickSplice( this.timers, i );
+		for( let a of this.timers ) {
+			if ( a.tick(dt) ) this.timers.delete(a);
 		}
 
 	}
 
 	/**
-	 * Force-add a rest action.
+	 * Force-add a rest task.
 	 * @public
 	 */
 	doRest(){
@@ -545,15 +487,15 @@ export default class Runner {
 	}
 
 	/**
-	 * Update individual action. Called during update()
-	 * @param {Action} a
+	 * Update individual task. Called during update()
+	 * @param {Task} a
 	 * @param {number} dt
-	 * @returns {boolean} false if action should be halted.
+	 * @returns {boolean} false if task should be halted.
 	 */
-	doAction(a, dt) {
+	doTask(a, dt) {
 
 		if ( a.maxed() ) {
-			this.stopAction(a);
+			this.stopTask(a);
 			this.tryAdd( Game.state.restAction );
 			return;
 		}
@@ -561,7 +503,7 @@ export default class Runner {
 		if ( a.run ) {
 
 			if ( !Game.canPay( a.run, dt ) ) {
-				this.stopAction(a);
+				this.stopTask(a);
 				this.addWait(a);
 				this.tryAdd( Game.state.restAction );
 
@@ -588,63 +530,37 @@ export default class Runner {
 	}
 
 	/**
-	 * UNIQUE ACCESS POINT for pushing action active.
+	 * UNIQUE ACCESS POINT for pushing task active.
 	 * @param {*} a
 	 */
-	runAction(a) {
+	runTask(a) {
 
 		a.running=true;
-		this.actives.push(a);
+		this.actives.add(a);
+
+		this.removeWait(a);
+
 	}
 
 	/**
-	 * Tests if exact action is running.
-	 * @param {Action} a
+	 * Tests if exact task is running.
+	 * @param {Task} a
 	 * @returns {boolean}
 	 */
 	has(a) {
-		return this.actives.includes(a);
+		return this.actives.has(a);
 	}
 
 	/**
-	 * Get index of a running action matching the type of the given action.
-	 * This is used to replace actions in progress.
-	 * @param {Action|Runnable} it
-	 * @returns {number}
-	 */
-	typeIndex( it ) {
-
-		let t = it.type;
-
-		for( let i = this.actives.length-1; i>= 0; i-- ) {
-
-			var a = this.actives[i];
-			if ( a.type === t && a != it ) return i;
-
-		}
-
-		return -1;
-
-	}
-
-	/**
-	 * Tests if the runner already has a similar action in progress.
-	 * Only actives are tested. Waiting action will not resume if
+	 * Tests if the runner already has a similar task in progress.
+	 * Only actives are tested. Waiting task will not resume if
 	 * a new active takes its place.
-	 * @param {Action} a
+	 * @param {Task} a
 	 */
 	hasType( it ) {
 
 		let t = typeof it ==='string'? it : it.type;
-
-		for( let i = this.actives.length-1; i>= 0; i-- ) {
-
-			var a = this.actives[i];
-			if ( a.type === t ) return true;
-
-		}
-
-		return false;
+		return iterableFind( this.actives, a=>a.type===t) !== null;
 
 	}
 

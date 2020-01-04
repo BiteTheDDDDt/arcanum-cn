@@ -4,7 +4,7 @@ import Game from '../../game';
 import Combat from './combat.vue';
 import ProgBar from '../components/progbar.vue';
 
-import {HALT_ACT} from '../../events';
+import {HALT_TASK} from '../../events';
 
 export default {
 
@@ -14,7 +14,7 @@ export default {
 		progbar:ProgBar
 	},
 	created(){
-		this.HALT_ACT = HALT_ACT;
+		this.HALT_TASK = HALT_TASK;
 	},
 	methods:{
 
@@ -70,7 +70,7 @@ export default {
 
 	<span class="active-title">
 		<span>{{ explore.name }}</span><button class="raid-btn"
-		@click="emit( HALT_ACT, explore.locale, false )"
+		@click="emit( HALT_TASK, explore.locale, false )"
 		@mouseenter.capture.stop="emit( 'itemover', $event, explore.locale )">Flee</button>
 		</span>
 

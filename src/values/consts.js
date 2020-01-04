@@ -33,6 +33,9 @@ export const TYP_DOT = 'dot';
 export const TYP_TAG = 'tagset';
 
 export const TYP_RUN = 'runnable';
+export const TYP_STATE = 'state';
+
+export const ENCHANTSLOTS = 'enchantslots';
 
 export const P_TITLE = 'title';
 export const P_LOG = 'log';
@@ -56,6 +59,7 @@ const ARMOR = 'armor', WEAPON = 'weapon';
 
 export const REST_TAG = 't_rest';
 
+export const TASK = 'task';
 const DUNGEON = 'dungeon';
 const LOCALE = 'locale';
 const EXPLORE = 'explore';

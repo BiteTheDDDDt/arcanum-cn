@@ -43,6 +43,7 @@ export default class Context {
 	 * @param {*} cost
 	 */
 	payCost(cost) {
+		console.log('context.payCost()');
 	}
 
 	canUse(it) {

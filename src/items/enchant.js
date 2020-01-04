@@ -1,10 +1,12 @@
-import Action from './action';
+import Task from './task';
 import GData from './gdata';
 import { setModCounts } from './base';
 import { canTarget } from '../values/consts';
+import Runnable from '../composites/runnable';
+import Enchanting from '../composites/enchanting';
 
 
-export default class Enchant extends Action {
+export default class Enchant extends Task {
 
 	/**
 	 * @property {string} only - limit target type by name, kind, or tag, to which
@@ -31,10 +33,10 @@ export default class Enchant extends Action {
 	/**
 	 * Begin using Enchant on item. Increase item level immediately.
 	 * @param {GData} targ
+	 * @returns {Runnable}
 	 */
 	beginUseOn( targ ) {
-		targ.enchants = (targ.enchants || 0) + this.level;
-		targ.busy = true;
+		return new Enchanting( this, targ );
 	}
 
 	/**
@@ -49,6 +51,10 @@ export default class Enchant extends Action {
 	 * @param {Context} g - execution context, Game.
 	 */
 	useOn( targ, g ) {
+
+		if ( !targ) return;
+
+		targ.enchants += this.level;
 
 		if ( this.adj && !targ.name.includes(this.adj) ) {
 
@@ -68,8 +74,6 @@ export default class Enchant extends Action {
 
 		if ( targ) {
 			targ.busy = false;
-			targ.enchants -= this.level;
-
 		}
 	}
 
@@ -82,7 +86,7 @@ export default class Enchant extends Action {
 		let itLevel = targ.level || 1;
 		if ( (targ.enchants + this.level > itLevel) || targ.busy ) return false;
 
-		return !this._only || canTarget( this._only, targ );
+		return !this.only || canTarget( this.only, targ );
 
 	}
 

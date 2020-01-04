@@ -64,7 +64,16 @@ export default {
 
 				if ( typeof v === 'string') {
 
-					this.list = Game.state.getTagSet( v ).toArray();
+					let a = [];
+					let it = Game.state.getData( v );
+					if ( !it || !it.items ) this.list = a;
+					else {
+
+						for( let c of it.items ) a.push(c);
+						this.list = a;
+
+					}
+
 
 				} else if ( Array.isArray(v ) ) {
 
@@ -167,7 +176,7 @@ export default {
 		<span class="title" v-if="title">{{title}}</span>
 
 		<div class="items">
-		<span class="action-btn" v-for="it in choices" :key="strings?it:it.id"
+		<span class="task-btn" v-for="it in choices" :key="strings?it:it.id"
 			@mouseenter.capture.stop="!strings ? emit( 'itemover', $event,it):''">
 
 		<button class="wrapped-btn" :disabled="!strings&&!usable(it)"
@@ -208,10 +217,10 @@ export default {
 	margin-bottom: var(--sm-gap);
 }
 
-.action-btn {
+.task-btn {
 	width: 100%;
 }
-.action-btn button {
+.task-btn button {
 
 	max-height: 2em;
 	width:100%;
