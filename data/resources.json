@@ -353,6 +353,7 @@
 		"id":"space",
 		"name":"floor space",
 		"desc":"Space Available",
+		"hide":true,
 		"reverse":true,
 		"max":0
 
