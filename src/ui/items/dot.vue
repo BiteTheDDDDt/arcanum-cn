@@ -19,7 +19,18 @@ export default {
 			let dmg = this.dot.damage || this.dot.dmg;
 			if( typeof dmg === 'number') {
 				return dmg;
-			} else if ( dmg ) return dmg.toString();
+			} else if ( dmg ) {
+
+				if ( typeof dmg === 'object') {
+
+					if ( dmg.toString == Object.prototype.toString ) {
+						if ( dmg.min && dmg.max ) return dmg.min + '~' + dmg.max;
+					}
+
+				}
+				return dmg.toString();
+
+			}
 
 		}
 

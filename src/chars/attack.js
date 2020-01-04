@@ -1,5 +1,5 @@
 import Range from "../values/range";
-import { assignPublic } from "../util/util";
+import { assignPublic, cloneClass } from "../util/util";
 import Stat from "../values/stat";
 import { ParseMods } from "../values/mod";
 
@@ -21,7 +21,7 @@ export default class Attack {
 
 	get dot(){ return this._dot; }
 	set dot(v) {
-		this._dot =v;
+		this._dot = v;
 		//if ( v.mod ) v.mod = ParseMods( v.mod, this.dot.id || this.dot.name || this.name );
 	}
 	get name() {return this._name; }
@@ -63,6 +63,7 @@ export default class Attack {
 
 		if (typeof v === 'string' || typeof v ==='object') this._damage = new Range(v);
 		else if ( !isNaN(v) ) this._damage = Number(v);
+		else this._damage = v;
 
 	}
 
