@@ -773,7 +773,7 @@ export default {
 			for( let p in effect ){
 
 				target = this.getData(p);
-				e2 = effect[p];
+				let e2 = effect[p];
 
 				if ( target === undefined || target === null ) {
 
