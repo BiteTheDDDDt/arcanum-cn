@@ -18,6 +18,12 @@ export default class UserSpells extends Inventory {
 		super.revive(gs);
 		this.state = gs;
 
+		for( let s of this.items ) {
+
+			if ( !s.school ) s.school = 'crafted';
+
+		}
+
 	}
 
 	/**
