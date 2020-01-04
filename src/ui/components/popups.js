@@ -54,19 +54,5 @@ export const positionAt = (elm, target, pad=32 ) =>{
 };
 
 export const getChild = (targ) => {
-
-	/**
-	 * Give priority to buttons so popup wont be on click.
-	 */
-	if ( targ.children ) {
-
-		let c = targ.children[0];
-
-		for( let t of targ.children ) {
-
-		}
-	}
-
 	return targ;
-
 };

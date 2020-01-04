@@ -37,7 +37,7 @@ export default class GenGroup {
 	 * @property {function} [pred=null] - optional filter predicate.
 	 * @returns {GData}
 	 */
-	randBelow( level=1, pred) {
+	randBelow(pred, level=1) {
 
 		let levels = this.filterBy.level;
 

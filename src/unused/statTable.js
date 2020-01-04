@@ -4,7 +4,7 @@ import { EventEmitter } from 'events';
 export default class StatTable extends EventEmitter {
 
 	constructor( state ){
-
+		super();
 		this.state = state;
 		this.map = new Map();
 
@@ -40,7 +40,7 @@ export default class StatTable extends EventEmitter {
 		for( i = 0; i < len; i++ ) {
 
 			obj = obj[ parts[i] ];
-			if ( !obj instanceof Object ) {
+			if ( !(obj instanceof Object)) {
 				break;
 			}
 			prev = obj;

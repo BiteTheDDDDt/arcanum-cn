@@ -46,7 +46,9 @@ export default class CmdLine {
 
 				return ('Not found: ' + path);
 
-			} if ( typeof sub === 'function') {
+			}
+
+			if ( typeof sub === 'function') {
 
 				// call function with remainder of the parameters.
 				return this.callFunc( context, sub, parts.slice(i+1) );

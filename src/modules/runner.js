@@ -62,9 +62,9 @@ export default class Runner {
 		return a ? a.exp : 0;
 	}
 
-	set exp(v) {
-		let a = iterableFind(this.actives, v=>v.type===SKILL);
-		if ( a ) a.exp =v;
+	set exp(param) {
+		let a = iterableFind(this.actives, param=>v.type===SKILL);
+		if ( a ) a.exp =param;
 	}
 
 	/**

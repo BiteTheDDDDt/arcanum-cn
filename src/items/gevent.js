@@ -33,9 +33,7 @@ export default class GEvent extends GData {
 		if ( this.loot ) g.getLoot( this.loot );
 
 		// randomized event.
-		if ( this.rand ) {
-
-		} else super.amount( g, 1 );
+		if ( this.rand ) {super.amount( g, 1 );}
 
 		this.locked = false;
 

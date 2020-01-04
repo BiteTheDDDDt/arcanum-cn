@@ -180,7 +180,7 @@ export default {
 
 		<table class="furniture">
 
-		<tr><th>Space</th><th class="name">Furnishing</th><th>Owned</th><th/><th/></tr>
+		<tr><th id="furn_space">Space</th><th id="furn_name" class="name">Furnishing</th><th id="furn_owned">Owned</th><th/><th/></tr>
 
 
 		<tr v-for="it in filtered" :key="it.id" @mouseenter.capture.stop="emit( 'itemover', $event, it )">

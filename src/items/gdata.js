@@ -410,9 +410,7 @@ export default class GData {
 
 		let type = typeof cost;
 		if ( type === 'string') return;
-		else if ( !isNaN(type)) {
-
-		}
+		return
 
 	}
 
