@@ -3,7 +3,7 @@ import RValue from "./rvalue";
 const ModulusRegex = /^\%(\d+)$/ig;
 
 export const IsModulus = (v)=>{
-
+	return ModulusRegex.test(v);
 }
 
 /**
