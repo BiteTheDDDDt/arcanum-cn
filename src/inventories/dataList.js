@@ -1,6 +1,5 @@
 import Inventory from "./inventory";
 import events, { DELETE_ITEM } from "../events";
-import GData from "../items/gdata";
 
 /**
  * List of GData items to attempt to use/cast.

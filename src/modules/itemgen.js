@@ -3,11 +3,10 @@ import Wearable from "../chars/wearable";
 import { includesAny} from 'objecty';
 import Percent from '../values/percent';
 import Item from '../items/item';
-import Encounter from '../items/encounter';
 import GenGroup from '../genGroup';
 import { pushNonNull } from '../util/array';
 import GData from '../items/gdata';
-import { ENCOUNTER, WEARABLE, MONSTER, ARMOR, WEAPON, TYP_PCT, EVENT, ITEM, POTION, TYP_RANGE, NPC } from '../values/consts';
+import { WEARABLE, MONSTER, ARMOR, WEAPON, TYP_PCT, EVENT, ITEM, POTION, TYP_RANGE, NPC } from '../values/consts';
 
 /**
  * Revive a prototyped item based on an item template.

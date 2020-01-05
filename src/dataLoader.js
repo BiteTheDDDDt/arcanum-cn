@@ -31,7 +31,6 @@ import { splitKeyPath } from './util/util';
 import GClass from './items/gclass';
 import Module from './modules/gmodule';
 import { SKILL, ENCOUNTER, MONSTER, ARMOR, WEAPON, HOME, POTION, ITEM, RESOURCE, EVENT } from './values/consts';
-import RValue from './values/rvalue';
 import Furniture from './items/furniture';
 
 const DataDir = './data/';

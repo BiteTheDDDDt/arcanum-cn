@@ -18,7 +18,7 @@ export default class CmdLine {
 		if ( line == null ) return false;
 
 		line = line.toLowerCase();
-		let parts = line.split(' ');;
+		let parts = line.split(' ');
 		console.log( this.exec( parts, line ) );
 
 

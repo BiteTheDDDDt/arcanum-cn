@@ -1,6 +1,5 @@
 import DataLoader from './dataLoader';
 import { logObj} from './util/util';
-import GData from './items/gdata';
 import Log from './log.js';
 import GameState, { REST_SLOT } from './gameState';
 import ItemGen from './modules/itemgen';
