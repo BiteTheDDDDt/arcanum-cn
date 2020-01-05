@@ -718,7 +718,7 @@ export default {
 		}
 		//console.log('trying unlock: ' + item.id );
 		let type = typeof test;
-		console.log(type);
+
 		if ( type === 'function') return test( this._gdata, item, this.state );
 
 		else if ( type === 'string') {
@@ -728,7 +728,7 @@ export default {
 			return it && it.fillsRequire();
 
 		} else if (  Array.isArray(test) ) {
-
+			console.log('array tested:' + test);
 			return test.every( v=>this.unlockTest(v,item), this );
 
 		} else if ( type === 'object' ) {
