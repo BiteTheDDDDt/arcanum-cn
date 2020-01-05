@@ -1,4 +1,4 @@
-import { assignPublic } from "../util/util";
+import { assignPublic, cloneClass } from "../util/util";
 import Stat from "../values/stat";
 import { TARGET_ALLIES, TARGET_ALLY, TARGET_SELF,
 		ParseTarget, ParseDmg} from "values/combat";
@@ -95,19 +95,7 @@ export default class Attack {
 	canAttack(){return true;}
 
 	clone(){
-		let a = new Attack({
-			id:this.id||undefined,
-			name:this.name,
-			cure:this.cure||undefined,
-			damage:this.damage||undefined,
-			bonus:this.bonus||undefined,
-			tohit:this.tohit||undefined,
-			kind:this.kind||undefined,
-			targets:this.targets||undefined,
-			dot:this.dot||undefined
-		});
-
-		return a;
+		return cloneClass( this );
 	}
 
 	constructor( vars=null ){

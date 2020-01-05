@@ -29,6 +29,15 @@ export default class RValue {
 
 	toJSON(){return this._base;}
 
+	clone(){
+
+		let r = new RValue( this._value, this._id );
+		r.source = this.source;
+
+		return r;
+
+	}
+
 	/**
 	 * @property {object} source - object that defines the value,
 	 * if any.

@@ -120,6 +120,7 @@ export default class GameState {
 
 		this.revive();
 
+		console.log('ReADY ITEMS');
 		this.readyItems();
 
 		// circular problem. spelllist has to be revived after created spells
@@ -139,7 +140,6 @@ export default class GameState {
 		this.tagSets = this.makeTagSets( this.items );
 		this.saveItems.allies = undefined;
 
-		this.saveItems.allies = undefined;
 	}
 
 	/**
@@ -274,7 +274,7 @@ export default class GameState {
 		// must be defined for Vue. slots could be missing from save.
 		ensure( this.slots, [HOME, 'mount', 'bed', REST_SLOT]);
 
-		console.log('HOME SLOT: ' + this.slots[HOME] );
+		console.log('HOME: ' + this.slots[HOME] );
 		if ( !this.slots[REST_SLOT] ) this.slots[REST_SLOT] = this.getData('rest');
 
 	}
@@ -321,10 +321,9 @@ export default class GameState {
 		dot = new Dot( cloneClass(dot), source );
 
 		let st = this.getData(dot.id);
-		if ( st && st.type === TYP_STATE ) dot.mergeDot(st);
 		if ( st == dot ) {
-			console.log('Dot equals state: ' + st);
-		}
+			console.warn('Dot already state: ' + st);
+		} else if ( st && st.type === TYP_STATE ) dot.mergeDot(st);
 
 		dot.duration = duration;
 

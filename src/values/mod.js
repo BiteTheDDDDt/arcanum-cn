@@ -178,7 +178,6 @@ export default class Mod extends Stat {
 	}
 
 	clone() {
-		console.log('cloning: ' + this.id );
 		return new Mod({base:this.base, basePct:this.basePct }, this.id, this.source ); }
 
 	/**

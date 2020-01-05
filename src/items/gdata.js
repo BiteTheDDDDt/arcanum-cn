@@ -346,7 +346,6 @@ export default class GData {
 	amount( g, count=1 ) {
 
 		count = this.add(count);
-		if ( this.id === 'scrolls') console.log('addign scrolls: '+ count);
 		if ( count === 0 ) return false;
 
 		this.change( g, count );
@@ -437,7 +436,7 @@ export default class GData {
 
 	}
 
-	setDefaults( defaults ) {
+	setDefaults(defaults ) {
 
 		var obj;
 
@@ -448,7 +447,10 @@ export default class GData {
 
 				obj = defaults[p];
 				if ( typeof obj === 'function' ) this[p] = obj( this );
-				else if ( typeof obj === 'object' ) this[p] = clone( obj );
+				else if ( typeof obj === 'object' ) {
+					console.log('clone: ' + this.id );
+					this[p] = clone( obj );
+				}
 				else this[p] = obj;
 
 			}
