@@ -1,4 +1,3 @@
-import Stat from '../stat';
 import { EventEmitter } from 'events';
 
 export default class StatTable extends EventEmitter {
@@ -48,9 +47,6 @@ export default class StatTable extends EventEmitter {
 
 		// cache the path.
 		if ( prev ) this.map[path] = prev;
-
-		if ( i < len-1 ) let remainder = path.slice(i);
-
 		return prev;
 
 	}

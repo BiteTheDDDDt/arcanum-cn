@@ -1,6 +1,4 @@
 import CharInfo from "./charinfo";
-import Stat from "../values/stat";
-import StatData from "../items/statData";
 
 /**
  * Wizards hall.
