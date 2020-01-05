@@ -143,7 +143,7 @@ export default {
 
 		} else items = {};
 
-		// Merge and ensure game data item for every template item.
+		// Merge and ensure game data item for every template.
 		saveData.items = this.mergeItems( items, templates );
 
 		// replace original data list items with saveData items.

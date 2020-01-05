@@ -18,9 +18,33 @@ export default class UserSpells extends Inventory {
 
 	}
 
+	revive(gs) {
+
+		super.revive(gs);
+		this.state = gs;
+
+		for( let s of this.items ) {
+
+			if ( !s.school ) s.school = 'crafted';
+
+		}
+
+	}
+
+	/**
+	 *
+	 * @param {number} ind
+	 */
 	removeAt(ind) {
-		Events.emit( DELETE_ITEM, s );
-		super.removeAt(ind);
+
+		let it = this.items[ind];
+		if ( it ) {
+
+			Events.emit( DELETE_ITEM, it );
+			super.removeAt(ind);
+
+		}
+
 	}
 
 	/**
