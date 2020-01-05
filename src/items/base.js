@@ -2,7 +2,7 @@ import {changes, jsonify } from 'objecty';
 import Game from '../game';
 import Stat from '../values/stat';
 import Mod, { SetModIds } from '../values/mod';
-import { cloneClass } from '../util/util';
+import { cloneClass, deprec } from '../util/util';
 import { TYP_MOD } from '../values/consts';
 
 export const setModCounts = ( m, v)=>{

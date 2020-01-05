@@ -18,7 +18,7 @@ export default class CmdLine {
 		if ( line == null ) return false;
 
 		line = line.toLowerCase();
-		let parts = line.split(' ');
+		let parts = line.split(' ');;
 		console.log( this.exec( parts, line ) );
 
 
@@ -46,9 +46,7 @@ export default class CmdLine {
 
 				return ('Not found: ' + path);
 
-			}
-
-			if ( typeof sub === 'function') {
+			} if ( typeof sub === 'function') {
 
 				// call function with remainder of the parameters.
 				return this.callFunc( context, sub, parts.slice(i+1) );

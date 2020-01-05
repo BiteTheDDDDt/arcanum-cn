@@ -1,4 +1,5 @@
 import Inventory from "./inventory";
+import Runnable from "../composites/runnable";
 import { TYP_RUN, ENCHANTSLOTS } from "../values/consts";
 import Enchanting from "../composites/enchanting";
 

@@ -1,5 +1,6 @@
 import DataLoader from './dataLoader';
 import { logObj} from './util/util';
+import GData from './items/gdata';
 import Log from './log.js';
 import GameState, { REST_SLOT } from './gameState';
 import ItemGen from './modules/itemgen';
@@ -560,6 +561,8 @@ export default {
 			}
 		}
 
+		return false;
+
 	},
 
 	/**
@@ -772,28 +775,28 @@ export default {
 			for( let p in effect ){
 
 				target = this.getData(p);
-				let e2 = effect[p];
+				e = effect[p];
 
 				if ( target === undefined || target === null ) {
 
-					if ( p === P_TITLE ) this.state.player.addTitle( e2 );
-					else if ( p === P_LOG ) Events.emit( EVT_EVENT, e2 );
-					else console.warn('missing effect target: ' + e2 );
+					if ( p === P_TITLE ) this.state.player.addTitle( e );
+					else if ( p === P_LOG ) Events.emit( EVT_EVENT, e );
+					else console.warn('missing effect target: ' + e );
 
 				} else {
 
-					if ( typeof e2 === 'number' || e2.type === TYP_RANGE  ) {
-						target.amount( this, e2*dt );
-					} else if ( e2 === true ) {
+					if ( typeof e === 'number' || e.type === TYP_RANGE  ) {
+						target.amount( this, e*dt );
+					} else if ( e === true ) {
 
 						target.doUnlock(this);
 						target.onUse( this );
 
-					} else if ( e2.type === TYP_PCT ) {
+					} else if ( e.type === TYP_PCT ) {
 
-						if ( e2.roll( this.getData('luck').valueOf() ) ) target.amount( this, 1 );
+						if ( e.roll( this.getData('luck').valueOf() ) ) target.amount( this, 1 );
 
-					} else target.applyVars(e2,dt);
+					} else target.applyVars(e,dt);
 
 					target.dirty = true;
 				}

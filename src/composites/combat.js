@@ -1,3 +1,4 @@
+import Game from '../game';
 import Range from '../values/range';
 import { TEAM_ALLY } from '../chars/npc';
 

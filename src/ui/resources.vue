@@ -38,6 +38,7 @@ export default {
 
 			<span class="item-name">{{ it.name }}</span>
 			<span class="num-align">{{ floor( it.value ) + ( it.max && it.max.value>0 ? '/' + floor(it.max.value) : '' )}}</span>
+			<!--<td>{{ it.delta != 0 ? '&nbsp;(' + it.delta.toFixed(2) + '/t )' : ''}}</td>-->
 
 		</div>
 

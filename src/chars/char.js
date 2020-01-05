@@ -3,6 +3,7 @@ import {tryDamage} from '../composites/combat';
 import Stat from '../values/stat';
 import Dot from './dot';
 import Attack from './attack';
+import GameState from '../gameState';
 import { NPC } from '../values/consts';
 import { cloneClass } from '../util/util';
 import Act from './act';
@@ -39,7 +40,7 @@ export default class Char {
 
 	}
 
-	get resist() { return this._resist }
+	get resist() { return this._resist };
 	set resist(v) { this._resist = v; }
 
 	get speed() { return this._speed; }

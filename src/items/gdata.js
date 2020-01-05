@@ -183,7 +183,7 @@ export default class GData {
 	 * @returns {boolean}
 	 */
 	fillsRequire(){
-		return this.locked === false;
+		return this.locked === false && this.value > 0;
 	}
 
 	/**
@@ -410,7 +410,9 @@ export default class GData {
 
 		let type = typeof cost;
 		if ( type === 'string') return;
-		return
+		else if ( !isNaN(type)) {
+
+		}
 
 	}
 

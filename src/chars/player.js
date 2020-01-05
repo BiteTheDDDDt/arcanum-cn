@@ -1,9 +1,10 @@
 import Stat from "../values/stat";
+import Resource from "../items/resource";
 import Game from '../game';
 import { tryDamage } from '../composites/combat';
 
 import Char, { getDelay } from './char';
-import Events, { LEVEL_UP, NEW_TITLE, CHAR_TITLE, CHAR_NAME, CHAR_CLASS} from "../events";
+import Events, { LEVEL_UP, NEW_TITLE, CHAR_TITLE, CHAR_NAME, CHAR_CLASS, EVT_STAT } from "../events";
 import Wearable from "./wearable";
 import GData from "../items/gdata";
 import { toStats } from "../util/dataUtil";

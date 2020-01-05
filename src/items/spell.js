@@ -1,6 +1,6 @@
 import Attack from '../chars/attack';
 import Action from './action';
-import { canTarget } from '../values/consts';
+import { schoolSkill, canTarget } from '../values/consts';
 
 /**
  * Default require function for spells.

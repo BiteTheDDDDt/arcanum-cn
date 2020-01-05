@@ -1,5 +1,6 @@
 import Char from './char';
 import Range, { RangeTest } from '../values/range';
+import Stat from '../values/stat';
 import Percent, { PercentTest } from '../values/percent';
 import MaxStat from '../values/maxStat';
 

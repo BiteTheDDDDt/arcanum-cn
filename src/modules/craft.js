@@ -1,4 +1,4 @@
-import { getTier, schoolSkill, schoolResource, tierDelta, getSchool } from "../values/consts";
+import { getTier, schoolSkill, schoolResource, tierLevel, tierDelta, getSchool } from "../values/consts";
 import game from "../game";
 
 /**
@@ -79,6 +79,9 @@ export const biomeBuy = (m, buy={}, biome=null)=>{
 			for( let i = biome.length-1; i>=0; i--) if(biome[i]) biomeBuy( m, buy, biome[i]);
 		}
 
+	} else {
+
+
 	}
 
 }
@@ -148,7 +151,7 @@ export const schoolCost = ( school, level=1, res={} ) => {
 		addCost( res, school + 'gem', level*level );
 
 		if ( level <= 5 ) addCost( res, 'codices', level );
-		else addCost( res, 'tomes',5 );
+		else addCost( res, 'tomes', level = 5 );
 
 	}
 

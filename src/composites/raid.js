@@ -4,6 +4,7 @@ import Game from '../game';
 import Combat from './combat';
 import { getDelay } from '../chars/char';
 import { RAID, TYP_PCT } from '../values/consts';
+import SpawnGroup from './spawngroup';
 
 
 /**

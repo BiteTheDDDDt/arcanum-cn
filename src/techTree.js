@@ -149,6 +149,7 @@ export default class TechTree {
 				quickSplice( links, i );
 
 			}
+
 		}
 
 		if ( links.length === 0 ) {

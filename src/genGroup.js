@@ -1,4 +1,4 @@
-import {randElm, randFrom, propSort} from './util/array';
+import {randElm, randFrom, mapNonNull, propSort} from './util/array';
 
 /**
  * Category to assign items with no property value
@@ -37,7 +37,7 @@ export default class GenGroup {
 	 * @property {function} [pred=null] - optional filter predicate.
 	 * @returns {GData}
 	 */
-	randBelow(pred, level=1) {
+	randBelow( level=1, pred) {
 
 		let levels = this.filterBy.level;
 

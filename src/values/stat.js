@@ -72,7 +72,7 @@ export default class Stat extends RValue {
 	/**
 	 * @property {number} pct - mod pct bonuses, as decimal.
 	 */
-	get mPct() { return this._mPct }
+	get mPct() { return this._mPct };
 
 	/**
 	 * @property {.<string,Mod>} mods - mods applied to object.
@@ -100,7 +100,7 @@ export default class Stat extends RValue {
 	 *
 	 * @param {Object|number} vars
 	 */
-	constructor(path, pos, vars=null ) {
+	constructor( vars=null, path, pos ) {
 
 		super();
 
@@ -159,6 +159,8 @@ export default class Stat extends RValue {
 			this.basePct += mod.pctTot;
 		} else if ( typeof mod === 'number') {
 			this.base += mod;
+		} else {
+
 		}
 
 	}

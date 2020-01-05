@@ -59,6 +59,7 @@ export default {
 		<div v-if="hasHall" class="text-button"><a href="" download
 			@click.self="dispatch('hall-file',$event )" type="text/json">hall save</a></div>
 
+			<!--<input type="file" name="[File]" accept="text/json" @change="fileDrop">-->
 		<button id="drop-file" @click="$refs.fileInput.click()" @drop="fileDrop" @dragover="fileDrag" @dragleave.capture.stop="dragOut" name="[Drop Save]">[Drop Save]</button>
 			<input ref="fileInput" type="file" @change="fileSelect" accept="text/json text/*">
 
@@ -70,10 +71,10 @@ export default {
 		<span class="items"><slot name="center"></slot></span>
 
 		<span class="link-bar">
-			<a href="https://discord.gg/bCABC96" target="_blank" rel="noopener noreferrer">discord/guide</a>
-			<a href="http://wiki.lerpinglemur.com/dhrune" target="_blank" rel="noopener noreferrer">wiki</a>
-			<a href="https://www.patreon.com/theoryofmagic" target="_blank" rel="noopener noreferrer">patreon</a>
-			<a href="https://www.reddit.com/r/wizrobe/" target="_blank" rel="noopener noreferrer">reddit</a>
+			<a href="https://discord.gg/bCABC96" target="_blank">discord/guide</a>
+			<a href="http://wiki.lerpinglemur.com/dhrune" target="_blank">wiki</a>
+			<a href="https://www.patreon.com/theoryofmagic" target="_blank">patreon</a>
+			<a href="https://www.reddit.com/r/wizrobe/" target="_blank">reddit</a>
 			<span class="vers">build# {{ VERSION }}</span>
 			<button class="text-button" @click="dispatch('open-settings')">&#9881;</button>
 		</span>

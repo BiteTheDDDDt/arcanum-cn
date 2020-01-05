@@ -1,5 +1,5 @@
 import Inventory from "./inventory";
-import Events, { ACT_CHANGED } from '../events';
+import Events, { ALLY_DIED, ACT_CHANGED } from '../events';
 import { NPC, TEAM_PLAYER} from "../values/consts";
 import RValue from "../values/rvalue";
 

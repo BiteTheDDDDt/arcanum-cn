@@ -1,9 +1,10 @@
+import Stat from '../stat';
 import { EventEmitter } from 'events';
 
 export default class StatTable extends EventEmitter {
 
 	constructor( state ){
-		super();
+
 		this.state = state;
 		this.map = new Map();
 
@@ -35,10 +36,11 @@ export default class StatTable extends EventEmitter {
 		let prev = obj;
 
 		let len = parts.length;
-		for( let i = 0; i < len; i++ ) {
+		let i = 0;
+		for( i = 0; i < len; i++ ) {
 
 			obj = obj[ parts[i] ];
-			if ( !(obj instanceof Object)) {
+			if ( !obj instanceof Object ) {
 				break;
 			}
 			prev = obj;
@@ -47,6 +49,9 @@ export default class StatTable extends EventEmitter {
 
 		// cache the path.
 		if ( prev ) this.map[path] = prev;
+
+		if ( i < len-1 ) let remainder = path.slice(i);
+
 		return prev;
 
 	}

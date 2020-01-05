@@ -188,7 +188,10 @@ export default class Wearable extends Item {
 				this.applyBonus( this.attack, 'tohit', mat.tohit );
 			}
 
+		} else {
+
 		}
+
 	}
 
 	/**

@@ -1,4 +1,6 @@
 import CharInfo from "./charinfo";
+import Stat from "../values/stat";
+import StatData from "../items/statData";
 
 /**
  * Wizards hall.
@@ -142,6 +144,8 @@ export default class Hall {
 		let max = Math.floor( this.max.value );
 
 		for( let i = 0; i < max; i++ ) {
+
+			var t = this.chars[i].getPoints();
 			//console.log( this.chars[i].name + " POINTS: " + t );
 
 			p += this.chars[i].getPoints();

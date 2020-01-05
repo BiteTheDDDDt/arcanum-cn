@@ -1,4 +1,5 @@
 import { itemRevive } from "../modules/itemgen";
+import Item from "../items/item";
 
 /**
  * Equipment slot.
