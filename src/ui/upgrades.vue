@@ -17,8 +17,6 @@ export default {
 <template>
 <div class="upgrades">
 
-	<!--<div><button ref="btnHides" class="btnConfig">&#9881;</button></div>-->
-
 	<span :class="{'action-btn':true, locked:locked(it)||(it.owned&&!it.repeat), hidable:true,
 		running:it.running, runnable:it.perpetual||it.length>0 }" v-for="it in items"
 		:data-key="it.id" :key="it.id" @mouseenter.capture.stop="emit( 'itemover', $event,it)">

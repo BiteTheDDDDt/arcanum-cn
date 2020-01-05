@@ -36,8 +36,7 @@ export default class StatTable extends EventEmitter {
 		let prev = obj;
 
 		let len = parts.length;
-		let i = 0;
-		for( i = 0; i < len; i++ ) {
+		for( let i = 0; i < len; i++ ) {
 
 			obj = obj[ parts[i] ];
 			if ( !(obj instanceof Object)) {

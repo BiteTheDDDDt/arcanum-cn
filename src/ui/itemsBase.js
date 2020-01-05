@@ -94,6 +94,7 @@ export default {
 			for( let p in obj ) {
 
 				// displayed path to subitem.
+				var subPath;
 				var sub = obj[p];
 				var subRate = rate;
 

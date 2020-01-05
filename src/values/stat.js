@@ -159,8 +159,6 @@ export default class Stat extends RValue {
 			this.basePct += mod.pctTot;
 		} else if ( typeof mod === 'number') {
 			this.base += mod;
-		} else {
-
 		}
 
 	}
