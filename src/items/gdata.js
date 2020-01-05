@@ -227,7 +227,7 @@ export default class GData {
 	 * @returns {boolean}
 	 */
 	fillsRequire(){
-		return this.locked === false;
+		return this.locked === false && this.value > 0;
 	}
 
 	/**

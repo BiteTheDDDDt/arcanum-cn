@@ -73,7 +73,7 @@ export default class TechTree {
 
 			let it = this.items[p];
 			if ( it instanceof TagSet ) continue;
-			if ( !it.disabled ) this.changed(p);
+			if ( !it.disabled && !it.locked ) this.changed(p);
 
 		}
 
@@ -142,7 +142,6 @@ export default class TechTree {
 
 			it = this.items[ links[i] ];
 			if ( !it ) {
-				console.warn('BAD UNLOCK: ' + id );
 				quickSplice( links, i );
 			} else if ( it.locked === false || it.disabled === true || Game.tryUnlock(it) ) {
 

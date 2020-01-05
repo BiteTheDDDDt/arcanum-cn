@@ -37,6 +37,7 @@ import Stat from './values/stat';
 import State from './chars/state';
 import PerValue, { IsPerValue } from './values/pervalue';
 import { SubPath } from './values/rvalue';
+import { mergeInto } from './util/array';
 
 const DataDir = './data/';
 
@@ -145,7 +146,7 @@ export default {
 
 		} else items = {};
 
-		// Merge and ensure game data item for every template item.
+		// Merge and ensure game data item for every template.
 		saveData.items = this.mergeItems( items, templates );
 
 		// replace original data list items with saveData items.
@@ -274,9 +275,7 @@ export default {
 
 		if ( lists.tasks ) inst.tasks = this.initItems( items, lists['tasks'], Task, null, 'task' );
 		if ( lists.actions ) {
-			var a = this.initItems( items, lists.actions, Task, null, 'task' );
-			if ( inst.tasks ) a = a.concat( inst.tasks );
-			inst.tasks = a;
+			inst.tasks = this.mergeTasks( inst.tasks, this.initItems( items, lists.actions, Task, null, 'task' ) );
 		}
 
 		if ( lists.enchants ) inst.enchants =this.initItems( items, lists['enchants'], Enchant, null, 'enchant' );
@@ -286,6 +285,15 @@ export default {
 
 		return inst;
 
+	},
+
+	/**
+	 * Merge old action files with new ones, removing dupe ids.
+	 * @param {Task[]} a
+	 * @param {Task[]} b
+	 */
+	mergeTasks( a, b ) {
+		return mergeInto( a, b, v=> a.find(w=>w.id==v.id)===undefined );
 	},
 
 	initItems( items, dataList, UseClass=GData, tag=null, type=null ) {

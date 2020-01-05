@@ -26,7 +26,7 @@ export default class Attack {
 	 */
 	get dot(){ return this._dot; }
 	set dot(v) {
-		this._dot =v;
+		this._dot = v;
 		//if ( v.mod ) v.mod = ParseMods( v.mod, this.dot.id || this.dot.name || this.name );
 	}
 	get name() {return this._name; }
