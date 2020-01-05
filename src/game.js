@@ -561,8 +561,6 @@ export default {
 			}
 		}
 
-		return false;
-
 	},
 
 	/**
