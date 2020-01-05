@@ -1,7 +1,6 @@
 import Range from "../values/range";
-import { assignPublic, cloneClass } from "../util/util";
+import { assignPublic } from "../util/util";
 import Stat from "../values/stat";
-import { ParseMods } from "../values/mod";
 
 export default class Attack {
 

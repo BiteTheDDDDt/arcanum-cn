@@ -2,8 +2,6 @@ import Events, { DEFEATED, ACT_DONE,ACT_BLOCKED, ENC_START } from "../events";
 import { getDelay } from "../chars/char";
 
 import Game from '../game';
-import Encounter from "../items/encounter";
-import { itemRevive } from "../modules/itemgen";
 import { EXPLORE } from "../values/consts";
 
 /**

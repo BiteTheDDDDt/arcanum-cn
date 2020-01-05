@@ -1,6 +1,5 @@
 import Stat from "../values/stat";
 import Base, {mergeClass} from '../items/base';
-import Item from "../items/item";
 
 import { itemRevive } from "../modules/itemgen";
 
