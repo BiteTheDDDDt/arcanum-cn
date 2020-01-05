@@ -64,7 +64,7 @@ export default {
 				results[ it ? it.name : this.stripTags(obj) ] = true;
 
 			} else if ( Array.isArray(obj) ) obj.forEach(v=>this.effectList(v,results));
-		else if ( type === 'function' ) {/* future update*/}
+			else if ( type === 'function' ) {}
 			else if ( type === 'object') {
 
 				if ( obj instanceof Stat ) results.gold = obj.value;
@@ -94,6 +94,7 @@ export default {
 			for( let p in obj ) {
 
 				// displayed path to subitem.
+				var subPath = p;
 				var sub = obj[p];
 				var subRate = rate;
 
@@ -124,7 +125,7 @@ export default {
 				}
 
 				if ( typeof sub !== 'object' ) results[subPath] = precise(sub) + ( subRate ? '/s' : '');
-				else if ( typeof sub === 'function' ) {/* future update*/}
+				else if ( typeof sub === 'function' ) {}
 				else {
 
 					if ( sub.skipLocked ) {
