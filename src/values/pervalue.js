@@ -73,7 +73,7 @@ export default class PerValue extends Mod {
 	 * @param {*} targ
 	 */
 	getApply(gs, targ) {
-		return ( this.count % this.per ) === 0 ? this.value : 0;
+		return this.source && (( this.source.value % this.per ) === 0) ? this.value : 0;
 	}
 
 

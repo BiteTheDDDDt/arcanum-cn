@@ -223,6 +223,8 @@ export default {
 	 */
 	applyVars( vars, amt=1 ) {
 
+		if ( this.id === 'sp') console.log('sp 11mod: ' + vars);
+
 		if ( typeof vars === 'number') {
 
 			//deprec( this.id + ' mod: ' + mods );
@@ -231,6 +233,7 @@ export default {
 		} else if ( vars.isRVal ) {
 
 			//this.amount( Game, mods*amt );
+			if ( this.id === 'sp') console.log('sp mod: ' + vars.getApply(Game.state, this ) );
 			this.value = this.value.base + amt*vars.getApply( Game.state, this );
 
 
