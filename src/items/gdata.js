@@ -337,7 +337,7 @@ export default class GData {
 		count = this.add(count);
 		if ( count === 0 ) return false;
 
-		this.change( g, count );
+		this.changed( g, count );
 		return true;
 
 	}
@@ -347,7 +347,7 @@ export default class GData {
 	 * have been applied to the base value.
 	 * @param {number} count - total change in value.
 	 */
-	change( g, count) {
+	changed( g, count) {
 
 		if ( this.isRecipe ) { return g.create( this, true, count ); }
 

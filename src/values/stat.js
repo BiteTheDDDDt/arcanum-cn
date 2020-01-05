@@ -282,8 +282,6 @@ export default class Stat extends RValue {
 		this._mPct = pct;
 		this._mBase = bonus;
 
-		if ( this.id ==='research.rate' ) console.log( 'recalc(): ' + this.id  + ' : ' + this.value );
-
 	}
 
 }

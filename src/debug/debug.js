@@ -19,7 +19,6 @@ export default class Debug {
 	constructor( game ){
 
 		this.game = window.game = game;
-		console.log('old debug: ' + window.debug );
 
 		window.debug = this;
 

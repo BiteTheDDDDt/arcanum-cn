@@ -33,7 +33,7 @@ export default class StatData extends GData {
 	setBase( g, amt ) {
 
 		let del = this.add( amt - this.value.base );
-		this.change( g, del );
+		this.changed( g, del );
 
 	}
 

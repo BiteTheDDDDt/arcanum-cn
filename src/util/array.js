@@ -53,7 +53,7 @@ export const randFrom = (arrs)=>{
  */
 export const randBetween = (a,i,j)=>{
 
-	return a[ Math.floor( i + Math.random()(j-i)) ]
+	return a[ Math.floor( i + Math.random()*(j-i)) ]
 
 }
 

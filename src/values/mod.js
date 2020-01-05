@@ -59,7 +59,6 @@ export default class Mod extends Stat {
 		}
 
 		if ( this.source === null || this.source === undefined ) console.warn(this.id+ ' No Source');
-		if ( this.id && this.id.includes('research.rate')) console.warn('research rate count: ' + this.source );
 		return this._count || ( this.source ? this.source.value : 1 );
 
 	}

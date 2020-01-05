@@ -162,7 +162,7 @@ export default class Task extends GData {
 		 * so the applied mods see the current value.
 		 */
 		this.value++;
-		this.change(g, 1);
+		this.changed(g, 1);
 		this._exp.set(0);
 
 		Events.emit( TASK_DONE, this );
@@ -173,9 +173,9 @@ export default class Task extends GData {
 	 * task value changed.
 	 * No value increment because that is currently done by game (@todo fix)
 	 */
-	change( g, count ) {
+	changed( g, count ) {
 
-		super.change(g,count);
+		super.changed(g,count);
 
 		var improve = false;
 

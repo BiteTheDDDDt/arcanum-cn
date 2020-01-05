@@ -65,7 +65,7 @@ export default class Skill extends Task {
 
 	}
 
-	change(g) {
+	changed(g) {
 
 		if ( this.value > Math.floor(this._max.value) ) {
 			this.value = Math.floor(this.max.value);
@@ -76,7 +76,7 @@ export default class Skill extends Task {
 
 		this.dirty = true;
 
-		super.change(g);
+		super.changed(g);
 
 	}
 

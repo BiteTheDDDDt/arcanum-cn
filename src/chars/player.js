@@ -404,16 +404,11 @@ export default class Player extends Char {
 
 	levelUp() {
 
-		this._level.add(1);
+		this.level.amount( this.context, 1 );
+
+		console.log('level NEW: ' + this.level.value );
 
 		this.dirty = true;
-		if ( this._level % 3 === 0 ) this.sp.add(1);
-		if ( this._level % 5 === 0 ) Game.getData('allies').max.base += 1;
-		if ( this._level % 4 === 0 ) Game.getData('speed').add(1);
-
-		this.tohit.base += 1;
-		this.hp.max.base += 2;
-		this.stamina.max.base += 1;
 
 		this._exp.value -= this._next;
 		this._next = Math.floor( this._next * ( 1 + EXP_RATE ) );
