@@ -120,7 +120,6 @@ export default class GameState {
 
 		this.revive();
 
-		console.log('ReADY ITEMS');
 		this.readyItems();
 
 		// circular problem. spelllist has to be revived after created spells

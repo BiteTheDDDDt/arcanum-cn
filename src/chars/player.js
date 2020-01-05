@@ -406,8 +406,6 @@ export default class Player extends Char {
 
 		this.level.amount( this.context, 1 );
 
-		console.log('level NEW: ' + this.level.value );
-
 		this.dirty = true;
 
 		this._exp.value -= this._next;
