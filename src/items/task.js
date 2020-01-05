@@ -3,6 +3,7 @@ import Game from '../game';
 import Events, { TASK_DONE, TASK_IMPROVED } from '../events';
 import Stat from '../values/stat';
 import Scaler from '../values/scaler';
+import { TASK } from '../values/consts';
 
 export default class Task extends GData {
 
@@ -19,6 +20,8 @@ export default class Task extends GData {
 
 	get level() {return this._level;}
 	set level(v) { this._level = v;}
+
+	get typeName() { return this.type === TASK ? 'action' : this.type }
 
 	get ex(){
 		return this._exp;
@@ -120,14 +123,6 @@ export default class Task extends GData {
 
 		}
 
-	}
-
-	/**
-	 * Test whether item succeeds when tested as a game requirement.
-	 * @returns {boolean}
-	 */
-	fillsRequire(){
-		return this.locked === false;
 	}
 
 	canUse(g){

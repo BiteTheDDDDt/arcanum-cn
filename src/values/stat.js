@@ -225,7 +225,6 @@ export default class Stat extends RValue {
 			return;
 		}
 
-		if ( mod.id.includes('scrolls')) console.log('add scroll mod: ' +mod.id);
 		//this._mPct += amt*mod.pct;
 		//this._mBase += amt*mod.bonus;
 

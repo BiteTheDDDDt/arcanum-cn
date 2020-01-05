@@ -260,17 +260,6 @@ export default class GData {
 	remove( amt ) { this.value.base -= amt; }
 
 	/**
-	 * Test whether item succeeds when tested as a game requirement.
-	 * @returns {boolean}
-	 */
-	fillsRequire(){
-		/**
-		 * @todo must be unlocked as well?
-		 */
-		return this.value > 0;
-	}
-
-	/**
 	 * Determine if an item can be used. Ongoing/perpetual tasks
 	 * test with 'canRun' instead.
 	 * @param {Game} g
@@ -371,7 +360,6 @@ export default class GData {
 		if ( this.result ) g.applyVars( this.result, count );
 		if ( this.create ) g.create( this.create );
 
-		if ( this.id === 'scrolls') console.warn('applying scroll mods: ' + this.mod );
 		if ( this.mod ) { g.applyMods( this.mod ); }
 
 		if ( this.lock ) g.lock( this.lock );

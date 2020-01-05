@@ -182,7 +182,6 @@ export default class Wearable extends Item {
 
 
 			if ( this.attack.damage !== null && this.attack.damage !== undefined ) {
-				console.log('Applying damage bonus: ' + mat.bonus );
 				this.applyBonus( this.attack, 'damage', mat.bonus );
 			}
 			if ( mat.tohit ) {

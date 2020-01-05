@@ -37,7 +37,7 @@ export const mergeClass = ( destClass, src ) => {
   * @todo shorten list by implementing better base/defaults logic.
   * @const {Set.<string>} JSONIgnore - ignore these properties by default when saving.
   */
- const JSONIgnore = new Set( ['template', 'id', 'type', 'defaults', 'module', 'sname', 'sym',
+ const JSONIgnore = new Set( ['template', 'id', 'type', 'defaults', 'module', 'sname', 'sym', 'warn',
  	'name', 'desc', 'running', 'current', 'warnMsg', 'once', 'context', 'enemies', 'spawns',
 	 'locked', 'locks', 'value', 'exp', 'delta', 'tags', 'mod', 'busy', 'progress','need', 'require' ]);
 
@@ -94,6 +94,8 @@ export default {
 	 */
 	get type() { return this._type },
 	set type(v) { this._type =v;},
+
+	get typeName(){return this._type;},
 
 	/**
 	 * @property {string} id - internal id.
@@ -287,7 +289,6 @@ export default {
 	 */
 	applyMods( mods, amt=1, targ=this ) {
 
-		if ( this.id === 'research') console.log('applying research mod: ' + mods );
 		if ( mods instanceof Mod ) {
 
 			mods.applyTo( targ, 'value', amt );
@@ -329,7 +330,6 @@ export default {
 	 */
 	applyObj( mods, amt, targ, isMod ) {
 
-		if ( this.id === 'research') console.log('applying research mod: ' + mods );
 		for( let p in mods ) {
 
 			var m = mods[p];

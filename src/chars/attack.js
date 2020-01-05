@@ -94,9 +94,7 @@ export default class Attack {
 	 */
 	canAttack(){return true;}
 
-	clone(){
-		return cloneClass( this );
-	}
+	clone(){ return cloneClass( this ); }
 
 	constructor( vars=null ){
 

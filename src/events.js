@@ -217,7 +217,7 @@ export default {
 
 	onUnlock( it ) {
 		if ( it.hide || it.type === EVENT ) return;
-		this.log.log( uppercase(it.type) + ' Unlocked: ' + it.name, null, LOG_UNLOCK );
+		this.log.log( uppercase(it.typeName) + ' Unlocked: ' + it.name, null, LOG_UNLOCK );
 	},
 
 	onLoot( loot ) {

@@ -106,15 +106,6 @@ export default class Resource extends GData {
 
 
 	/**
-	 * Test whether item succeeds when tested as a game requirement.
-	 * @returns {boolean}
-	 */
-	fillsRequire(){
-		return this.locked === false;
-	}
-
-
-	/**
 	 * Not currently used any more.
 	 * @param {} dt
 	 */
