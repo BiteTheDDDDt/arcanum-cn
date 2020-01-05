@@ -18,7 +18,7 @@
 		"mod":{
 			"spelllist.max":1,
 			"stamina.max":1,
-			"tohit":1,
+			"player.tohit":1,
 			"hp.max":1,
 			"allies.max":"/5",
 			"speed":"/4"

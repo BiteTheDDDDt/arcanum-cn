@@ -23,7 +23,7 @@ export default class PerValue extends Mod {
 	 * @property {number} count - apply modulus mod once per modulus factor.
 	 */
 	get count(){
-		return this.source ? Math.floor(this.source.value / this.value ) : 0;
+		return this.source ? Math.floor(this.source.value / this.per ) : 0;
 	}
 
 	/**

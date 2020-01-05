@@ -98,7 +98,7 @@ export default class RValue {
 	}
 
 	add(v) { this.value += v }
-	set(v){ this.value = v; }
+	set(v){ this.value = Number(v); }
 
 	apply(mod,amt=1){
 		this.add(mod.value*amt);

@@ -34,7 +34,7 @@ export default class Scaler extends RValue {
 	 * @param {number} v
 	 */
 	set(v){
-		super.value = v;
+		super.value = Number(v);
 	}
 
 	/**
