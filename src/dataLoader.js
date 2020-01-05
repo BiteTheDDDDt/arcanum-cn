@@ -31,8 +31,6 @@ import { splitKeyPath } from './util/util';
 import GClass from './items/gclass';
 import Module from './modules/gmodule';
 import { SKILL, ENCOUNTER, MONSTER, ARMOR, WEAPON, HOME, POTION, ITEM, RESOURCE, EVENT } from './values/consts';
-import RValue from './values/rvalue';
-import Furniture from './items/furniture';
 
 const DataDir = './data/';
 
@@ -232,7 +230,7 @@ export default {
 			inst.homes.forEach( v=>v.slot=HOME);
 		}
 
-		if ( lists.furniture ) this.initItems( items, lists['furniture'], Furniture, 'furniture', 'furniture' );
+		if ( lists.furniture ) this.initItems( items, lists['furniture'], GData, 'furniture', 'furniture' );
 
 		if ( lists.skills ) inst.skills = this.initItems( items, lists['skills'], Skill, SKILL );
 

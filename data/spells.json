@@ -1425,7 +1425,7 @@
 		"id":"insight",
 		"name":"insight",
 		"level":3,
-		"desc":"all your studies seem to fall into place.",
+		"desc":"all your studies fall neatly into place.",
 		"flavor":"I know the pieces fit",
 		"school":"light",
 		"require":"g.player.level>=5&&g.lightlore>=5",
