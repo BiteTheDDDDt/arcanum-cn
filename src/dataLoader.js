@@ -275,7 +275,7 @@ export default {
 
 		if ( lists.tasks ) inst.tasks = this.initItems( items, lists['tasks'], Task, null, 'task' );
 		if ( lists.actions ) {
-			inst.tasks = this.mergeTasks( inst.tasks, this.initItems( items, lists.actions, Task, null, 'task' ) );
+				inst.tasks = this.mergeTasks( inst.tasks, this.initItems( items, lists.actions, Task, null, 'task' ) );
 		}
 
 		if ( lists.enchants ) inst.enchants =this.initItems( items, lists['enchants'], Enchant, null, 'enchant' );
@@ -292,7 +292,7 @@ export default {
 	 * @param {Task[]} a
 	 * @param {Task[]} b
 	 */
-	mergeTasks( a, b ) {
+	mergeTasks( a, b  ) {
 		return mergeInto( a, b, v=> a.find(w=>w.id==v.id)===undefined );
 	},
 

@@ -12,6 +12,7 @@ import {assign} from 'objecty';
 
 import Context from '../context';
 import Game from '../game';
+import { ApplyAction } from '../values/combat';
 
 export default class Char {
 

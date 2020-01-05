@@ -1,7 +1,7 @@
 import FValue from "./fvalue";
 import RValue from "./rvalue";
 import Range, { RangeTest } from "./range";
-import events, { IS_IMMUNE, CHAR_DIED, COMBAT_HIT, EVT_COMBAT } from "../events";
+import Events, { IS_IMMUNE, CHAR_DIED, COMBAT_HIT, EVT_COMBAT } from "../events";
 import { TYP_FUNC } from "./consts";
 
 /**
@@ -184,7 +184,7 @@ export const ApplyDamage = ( target, attack, attacker ) => {
 	if (resist !== 0) dmg *= (1 - resist);
 
 	target.hp -= dmg;
-	if ( target.hp <= 0 ) { events.emit( CHAR_DIED, target, attack ); }
+	if ( target.hp <= 0 ) { Events.emit( CHAR_DIED, target, attack ); }
 
 	Events.emit( COMBAT_HIT, target, dmg, attack.name || (attacker ? attacker.name : '') );
 
