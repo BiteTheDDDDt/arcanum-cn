@@ -87,6 +87,7 @@ export default {
 			<td>
 			<button @click="emit('sell',it,inv)" @mouseenter.capture.stop="emit( 'itemover',$event,it)">Sell</button>
 			<button v-if="it.value>1" @click="emit('sell',it,inv, it.value)" @mouseenter.capture.stop="emit( 'itemover',$event,it)">Sell All</button>
+			</td>
 
 		</template>
 		<template v-else>
