@@ -25,7 +25,7 @@ const reqStr = (s,lvl=1)=>{
  * @param {number} lvl - spell level.
  * @param {number} ratio - multiply spell level before test.
  */
-const schoolFunc = (s, lvl=1 ) => {
+const schoolFunc = (s, lvl=1, ratio=1) => {
 
 	if ( typeof s === 'string') {
 
