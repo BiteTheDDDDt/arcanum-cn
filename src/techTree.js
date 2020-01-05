@@ -141,8 +141,13 @@ export default class TechTree {
 		for( let i = links.length-1; i>= 0; i--) {
 
 			it = this.items[ links[i] ];
-			if ( !it || (it.locked === false || it.disabled === true || Game.tryUnlock(it))) {
+			if ( !it ) {
 				quickSplice( links, i );
+			} else if ( it.locked === false || it.disabled === true || Game.tryUnlock(it) ) {
+
+				// remove unlock link.
+				quickSplice( links, i );
+
 			}
 		}
 
