@@ -1,6 +1,7 @@
 import Stat from "../values/stat";
 
 /**
+ * CURRENTLY UNUSED.
  * @class Bonus - tohit and/or damage bonuses in combat.
  */
 export default class Bonus {

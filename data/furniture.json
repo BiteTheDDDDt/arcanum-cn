@@ -941,7 +941,7 @@
 	{
 		"id":"archive",
 		"name":"arcane archive",
-		"desc":"A good archive does the research for you.",
+		"desc":"A good archive does your research for you.",
 		"require":"g.lore.max>=15",
 		"max":3,
 		"cost":{

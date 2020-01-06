@@ -56,7 +56,6 @@ of the item is removed.
 
 in dots/Runnable actions, effects are applied continuously.
 Mods are applied at start of dot, and removed at the end.
-TODO: also allow runnable actions to add/remove mods.
 
 
 COSTS:

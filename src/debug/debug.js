@@ -1,4 +1,5 @@
 import Resource from "../items/resource";
+import RevStat from "../items/revStat";
 
 const ALL = 'all';
 const ALL_ALT = '*';
@@ -18,7 +19,6 @@ export default class Debug {
 	constructor( game ){
 
 		this.game = window.game = game;
-		console.log('old debug: ' + window.debug );
 
 		window.debug = this;
 
@@ -123,7 +123,7 @@ export default class Debug {
 		for( let p in res ){
 
 			var r = res[p];
-			if ( !r.locked && r instanceof Resource ){
+			if ( !r.locked && !(r instanceof RevStat) ){
 				this.game.fillItem( r )
 			}
 

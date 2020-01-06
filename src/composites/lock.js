@@ -10,6 +10,10 @@ export default class Lock {
 
 	set count(v){}
 
+	/**
+	 * @param {*} t
+	 * @returns {boolean}
+	 */
 	hasTag(t) { return this.item && this.item.hasTag(t); }
 	hasTags(t) { return this.item && this.items.hasTag(t); }
 
@@ -67,9 +71,6 @@ export default class Lock {
 		}
 		return false;
 
-	}
-
-	complete(){
 	}
 
 }

@@ -1,10 +1,9 @@
-import Events, { DEFEATED, ACT_DONE,ACT_BLOCKED, ENC_START } from "../events";
-import { getDelay } from "../chars/char";
-
+import Events, { DEFEATED, TASK_DONE, ENC_START, TASK_BLOCKED } from "../events";
+import { assign } from 'objecty';
 import Game from '../game';
 import Encounter from "../items/encounter";
 import { itemRevive } from "../modules/itemgen";
-import { EXPLORE } from "../values/consts";
+import { EXPLORE, getDelay } from "../values/consts";
 
 /**
  * Explore locations of arcane importance.
@@ -66,7 +65,7 @@ export default class Explore {
 	 */
 	constructor( vars=null ) {
 
-		if ( vars ) Object.assign( this, vars);
+		if ( vars ) assign( this, vars);
 
 		this.running = this.running || false;
 
@@ -153,7 +152,7 @@ export default class Explore {
 			if ( this.player.defeated() ) {
 
 				Events.emit( DEFEATED, this );
-				Events.emit( ACT_BLOCKED, this, true );
+				Events.emit( TASK_BLOCKED, this, true );
 
 			} else if ( this.enc.done ) {
 
@@ -233,7 +232,7 @@ export default class Explore {
 
 		this.enc = null;
 
-		Events.emit( ACT_DONE, this, false );
+		Events.emit( TASK_DONE, this, false );
 		this.locale = null;
 
 	}

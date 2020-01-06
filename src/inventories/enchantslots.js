@@ -150,7 +150,7 @@ export default class EnchantSlots extends Inventory {
 
 	/**
 	 *
-	 * @param {} e - running action or enchant target.
+	 * @param {} e - running task or enchant target.
 	 */
 	remove( e ){
 

@@ -1,17 +1,18 @@
-import DataLoader from './dataLoader';
-import { logObj} from './util/util';
 import GData from './items/gdata';
 import Log from './log.js';
 import GameState, { REST_SLOT } from './gameState';
 import ItemGen from './modules/itemgen';
 import TechTree from './techTree';
-
-import Events, {EVT_UNLOCK, EVT_EVENT, EVT_LOOT, SET_SLOT, DELETE_ITEM } from './events';
 import Resource from './items/resource';
 import Skill from './items/skill';
 import Stat from './values/stat';
-import { TEAM_ALLY } from './chars/npc';
-import { MONSTER, TYP_PCT, TYP_RANGE, P_TITLE, P_LOG } from './values/consts';
+
+import DataLoader from './dataLoader';
+
+import Events, {EVT_UNLOCK, EVT_EVENT, EVT_LOOT, SET_SLOT, DELETE_ITEM, ITEM_ACTION } from './events';
+import { MONSTER, TYP_PCT, TYP_RANGE, P_TITLE, P_LOG, TEAM_PLAYER } from './values/consts';
+import TagSet from './composites/tagset';
+import { TARGET_SELF, TARGET_ALLY, ApplyAction } from './values/combat';
 
 var techTree;
 
@@ -60,7 +61,7 @@ export default {
 	log:new Log(),
 
 	/**
-	 * @property {Runner} runner - runs active actions.
+	 * @property {Runner} runner - runs active tasks.
 	 */
 	runner:null,
 
@@ -115,6 +116,7 @@ export default {
 
 			techTree = new TechTree( this.gdata );
 			Events.add( EVT_UNLOCK, techTree.unlocked, techTree );
+			Events.add( ITEM_ACTION, this.onAction, this );
 
 			// initial fringe check.
 			techTree.forceCheck();
@@ -135,15 +137,15 @@ export default {
 	 *
 	 * @param {string} id
 	 */
-	logStat( id, full ) {
+	logStat( id ) {
 
 		let s = this.getData(id);
 		if ( !s ) console.warn('STAT MISSING: '+id);
 		else {
 
-			if ( full ) logObj(s,'LOG STAT' );
-			console.warn( id + ' value: ' + s.value );
-			console.log( s.constructor.name );
+			//if ( full ) logObj(s,'LOG STAT' );
+			console.dir( s );
+			console.warn( id + ' value: ' + s.value + '  type: ' + s.constructor.name );
 
 		}
 	},
@@ -168,6 +170,7 @@ export default {
 					if ( evt.value == 0 ) {
 
 						evt.doUnlock(this);
+
 					} else if ( evt.locked ) evt.locked = false;
 					hasEvent = true;
 					break;
@@ -196,11 +199,15 @@ export default {
 		for( let p in gdata ) {
 
 			var it = gdata[p];
+			if ( it instanceof TagSet) continue;
+
+			if ( it.id === 'level' ) console.log( 'level: ' + it.value + ' locked: ' + it.locked );
 
 			if ( !it.locked && !it.disabled && !(it.instanced||it.isRecipe) ) {
 
-				if ( it.id ==='points') console.log('POINTS VAL: '+ it.value );
 				if ( it.value != 0 ) {
+
+					if ( it.id === 'level') console.log(it.id + ' VALUE: ' + it.value );
 
 					if ( it.mod ) this.applyMods( it.mod, it.value, it.id);
 					if ( it.lock ) {
@@ -295,24 +302,24 @@ export default {
 	},
 
 	/**
-	 * Toggles an action on or off.
+	 * Toggles an task on or off.
 	 * @param {GData} a
 	 */
-	toggleAction(a) { this.runner.toggleAct(a); },
+	toggleTask(a) { this.runner.toggleAct(a); },
 
 	/**
 	 * Wrapper for Runner rest
 	 */
 	doRest() { this.runner.tryAdd( this.state.getSlot(REST_SLOT) ) },
 
-	haltAction(a) { this.runner.stopAction(a);},
+	haltTask(a) { this.runner.stopTask(a);},
 
-	setAction( a ) { this.runner.setAction(a); },
+	setTask( a ) { this.runner.setTask(a); },
 
 	/**
-	 * Tests if an action has effectively filled a resource.
+	 * Tests if a task has effectively filled a resource.
 	 * @param {string|string[]} v - data or datas to fill.
-	 * @param {GData} a - action doing the filling.
+	 * @param {GData} a - task doing the filling.
 	 * @param {string} - name of relavant filling effect ( for tag-item fills)
 	 */
 	filled( v, a, tag ) {
@@ -348,7 +355,9 @@ export default {
 			this.disable(v);
 		} else {
 
-			if ( typeof it === 'string' ) it = this.getData( it );
+			if ( typeof it === 'string' ) {
+				it = this.getData( it );
+			}
 
 			if ( it && !it.disabled ) {
 
@@ -358,7 +367,7 @@ export default {
 					this.remove( it, 1 );
 				}
 
-				if ( it.running ) this.runner.stopAction(it);
+				if ( it.running ) this.runner.stopTask(it);
 				if ( it == this.state.raid.dungeon ) this.state.raid.setDungeon(null);
 
 				if ( it instanceof Resource || it instanceof Skill ) {
@@ -399,15 +408,15 @@ export default {
 	/**
 	 * Attempt to pay the cost to permanently buy an item.
 	 * @param {GData} it
-	 * @param {boolean} keep
+	 * @param {boolean} [keep=true]
 	 * @returns {boolean}
 	 */
-	tryBuy( it, keep=false ) {
+	tryBuy( it, keep=true ) {
 
 		if ( this.canPay(it.buy) === false ) return false;
 		this.payCost( it.buy );
 
-		if ( it.isRecipe ) this.create( it, 1, keep );
+		if ( it.isRecipe ) this.create( it, keep );
 		it.owned = true;
 
 		if ( it.slot && !this.state.getSlot(it.slot) ) this.setSlot(it);
@@ -434,13 +443,13 @@ export default {
 	 */
 	tryItem(it) {
 
-		if ( !it) return;
+		if ( !it ) return;
 
 		if ( !this.canUse(it) ) return false;
 
 		if ( it.perpetual || it.length > 0 ) {
 
-			this.setAction(it);
+			this.setTask(it);
 
 		}  else if ( it.instanced ){
 
@@ -448,7 +457,7 @@ export default {
 
 		} else if ( it.buy && !it.owned ) {
 
-			this.tryBuy(it);
+			this.tryBuy( it, false );
 
 		} else {
 
@@ -466,20 +475,6 @@ export default {
 			}
 
 		}
-
-	},
-
-	/**
-	 * Craft an item by paying its cost, then instantiating it.
-	 * Note that a crafted item does not use any of its effects or abilities.
-	 * @param {*} it
-	 */
-	craft( it ) {
-
-		if ( !this.canPay( it.cost ) ) return false;
-		this.payCost( it.cost );
-
-		this.create( it );
 
 	},
 
@@ -504,24 +499,55 @@ export default {
 	},
 
 	/**
-	 * Create an item whose cost has been met ( or been provided by an effect )
-	 * @param {*} it
+	 * Craft an item by paying its cost, then instantiating it.
+	 * Note that a crafted item does not use any of its effects or abilities.
+	 * @param {GData} it
 	 */
-	create( it, count=1, keep=false ) {
+	craft( it ) {
 
-		/**
-		 * create monster and add to inventory.
-		 * @todo this is hacky.
-		*/
-		if ( it.type === MONSTER ) {
+		if ( !this.canPay( it.cost ) ) return false;
+		this.payCost( it.cost );
 
-			if ( it.onCreate ) it.onCreate( this, TEAM_ALLY, keep );
+		this.create( it );
 
-		} else {
+	},
 
-			var inst = this.itemGen.instance( it );
-			if ( inst ) this.state.inventory.add( inst );
-			Events.emit( EVT_LOOT, inst );
+	/**
+	 * Create an item whose cost has been met ( or been provided by an effect )
+	 * @param {GData} it
+	 * @param {boolean} [keep=true] whether the item should be kept after effect.
+	 * ( currently used for npcs )
+	 * @param {number} [count=1]
+	 */
+	create( it, keep=true, count=1 ) {
+
+		if ( typeof it === 'string') it = this.state.getData(it);
+		else if ( Array.isArray(it) ) {
+			for( let i = it.length-1; i>=0; i--) {
+				this.create(it[i], keep, count);
+			}
+			return;
+		}
+
+		if (!it ) return;
+
+		for( let i = count; i >0; i--) {
+
+			/**
+			 * create monster and add to inventory.
+			 * @todo this is hacky.
+			*/
+			if ( it.type === MONSTER ) {
+
+				if ( it.onCreate ) it.onCreate( this, TEAM_PLAYER, keep );
+
+			} else {
+
+				var inst = this.itemGen.instance( it );
+				if ( inst ) this.state.inventory.add( inst );
+				Events.emit( EVT_LOOT, inst );
+
+			}
 
 		}
 
@@ -549,7 +575,7 @@ export default {
 			if ( !it.length ) {
 
 				this.payCost( it.cost );
-				this.useOn( it, targ );
+				this.useOn( it, targ, this );
 
 				return true;
 
@@ -560,6 +586,8 @@ export default {
 
 			}
 		}
+
+		return false;
 
 	},
 
@@ -574,7 +602,7 @@ export default {
 
 		if ( targ === null || targ === undefined ) return;
 
-		if ( typeof it.useOn === 'function') it.useOn( targ );
+		if ( typeof it.useOn === 'function') it.useOn( targ, this );
 		it.value++;
 
 		console.log('USING: ' + it.id  + ' with ' + targ.id );
@@ -718,7 +746,6 @@ export default {
 		}
 		//console.log('trying unlock: ' + item.id );
 		let type = typeof test;
-
 		if ( type === 'function') return test( this._gdata, item, this.state );
 
 		else if ( type === 'string') {
@@ -728,16 +755,18 @@ export default {
 			return it && it.fillsRequire();
 
 		} else if (  Array.isArray(test) ) {
-			console.log('array tested:' + test);
+
 			return test.every( v=>this.unlockTest(v,item), this );
 
 		} else if ( type === 'object' ) {
+
 			/**
 			 * @todo: quick patch in case it was a data item.
 			 */
 			if ( test.id ) return test.fillsRequire();
 
 			// @todo: take recursive values into account.
+			// @todo allow tag tests.
 			let limit, it;
 			for( let p in test ) {
 
@@ -754,18 +783,16 @@ export default {
 	},
 
 	/**
-	 * Perform the one-time effect of an action, resource, or upgrade.
+	 * Perform the one-time effect of an task, resource, or upgrade.
 	 * @param {GData} effect
 	 * @param {number} dt - time elapsed.
 	 */
 	applyVars( effect, dt=1 ) {
 
-		if ( typeof effect === 'object' ) {
+		if (  Array.isArray(effect) ) {
+			for( let e of effect ) { this.applyVars( e,dt); }
 
-			if (  Array.isArray(effect) ) {
-				for( let e of effect ) { this.applyVars( e,dt); }
-				return;
-			}
+		} else if ( typeof effect === 'object' ) {
 
 			let target, e = effect[TYP_PCT];
 			if ( e && !e.roll() ) return;
@@ -783,8 +810,13 @@ export default {
 
 				} else {
 
-					if ( typeof e === 'number' || e.type === TYP_RANGE  ) {
+					if ( typeof e === 'number' || e.type === TYP_RANGE ) {
+
 						target.amount( this, e*dt );
+					} else if ( e.isRVal ) {
+						// messy code. this shouldn't be here. what's going on?!?!
+						target.amount( this, dt*e.getApply(this.state, target ) );
+
 					} else if ( e === true ) {
 
 						target.doUnlock(this);
@@ -804,9 +836,7 @@ export default {
 
 			let target = this.getData(effect);
 			if ( target !== undefined ) {
-
 				target.amount( this, dt );
-
 			}
 
 		}
@@ -858,7 +888,7 @@ export default {
 			let t = this.getData(mod);
 			if ( t ) {
 
-				console.warn('!!!!!ADDING NUMBER MOD: ' + mod );
+				console.warn('!!!ADDED NUMBER MOD: ' + mod );
 				t.amount( this, 1 );
 
 			}
@@ -868,7 +898,7 @@ export default {
 	},
 
 	/**
-	 * Determines whether an item can be run as a continuous action.
+	 * Determines whether an item can be run as a continuous task.
 	 * @returns {boolean}
 	 */
 	canRun( it ) {
@@ -881,7 +911,7 @@ export default {
 	},
 
 	/**
-	 * Determine if a one-use item can be used. Ongoing/perpetual actions
+	 * Determine if a one-use item can be used. Ongoing/perpetual tasks
 	 * test with 'canRun' instead.
 	 * @param {GData} it
 	 */
@@ -891,7 +921,29 @@ export default {
 	},
 
 	/**
-	 * Attempts to pay the cost to perform an action, buy an upgrade, etc.
+	 * Item action or attack
+	 * @param {Attack} act
+	 * @param {Char} char
+	 */
+	onAction( act, char=this.player ) {
+
+		if ( this.state.explore.running || this.state.raid.running ) return;
+
+		if ( act.target & TARGET_SELF > 0 ) {
+
+			ApplyAction( char, act, char );
+
+		} else if ( act.target & TARGET_ALLY ) {
+
+			let ally = this.allies.randItem();
+			if ( ally ) ApplyAction( ally, act, char );
+
+		}
+
+	},
+
+	/**
+	 * Attempts to pay the cost to perform an task, buy an upgrade, etc.
 	 * Before calling this function, ensure cost can be met with canPay()
 	 *
 	 * @param {Array|Object} cost
@@ -904,37 +956,28 @@ export default {
 		let res;
 		if ( typeof cost === 'object' ){
 
-			if ( cost instanceof Stat ) {
-				var g = this.getData('gold');
-				g.value -= cost.value*unit;
-				g.dirty = true;
-				return;
-			}
-
 			for( let p in cost ) {
 
 				res = this.getData(p);
-				if ( res ) {
 
-					if ( res.instanced || res.isRecipe ) {
-						this.payInst( p, cost[p]*unit );
-						continue;
+				if ( !res || res.instanced || res.isRecipe ) {
+					this.payInst( p, cost[p]*unit );
+
+				} else {
+
+					var targ = cost[p];
+
+					if ( !isNaN(targ) ) this.remove( res, targ*unit );
+					else if ( typeof targ === 'object' ) res.applyVars( targ, -unit );
+					else if ( typeof targ === 'function') {
+							this.remove( res, unit*targ(this.state, this.player) )
 					}
 
-					if ( !isNaN(cost[p]) ) this.remove( res, cost[p]*unit );
-					else res.applyVars( cost[p], -unit );
 					res.dirty = true;
+				}
 
-				} else this.payInst(p, cost[p] );
 
 			}
-
-		} else if ( typeof cost === 'boolean') return;
-	 	else if ( !isNaN(cost ) ) {
-
-			res = this.getData('gold');
-			res.value -= cost*unit;
-			res.dirty = true;
 
 		}
 
@@ -943,19 +986,14 @@ export default {
 	payInst( p, amt ){
 
 		var res = this.state.inventory.find( p,true );
-		if ( res ) {
-
-			this.state.inventory.removeQuant(res,amt);
-			//if ( res.value <= 0 ) Events.emit( DROP_ITEM, res );
-
-		} else console.warn('QUANT NOT FOUND: ' + p );
+		if ( res ) this.state.inventory.removeCount(res,amt);
+		else console.warn('Insufficient: ' + p );
 
 	},
 
 	/**
 	 * Determine if an object cost can be paid before the pay attempt
 	 * is actually made.
-	 * @todo: this is incorrect for multicosts.
 	 * @param {Array|Object} cost
 	 * @returns {boolean} true if cost can be paid.
 	 */
@@ -967,8 +1005,6 @@ export default {
 
 		if ( typeof cost === 'object' ){
 
-			if ( cost instanceof Stat ) { return this.getData('gold').value >= cost.value*amt; }
-
 			for( let p in cost ) {
 
 				var sub = cost[p];
@@ -977,12 +1013,10 @@ export default {
 				if ( !res ) return false;
 				else if ( res.instanced || res.isRecipe ) {
 
-					res = this.state.inventory.findMatch( res );
-					if (!res) return false;
+					/* @todo: ensure correct inventory used. map type-> default inventory? */
+					return this.state.inventory.hasCount( res, amt );
 
-				}
-
-				if ( !isNaN(sub) || sub instanceof Stat ) {
+				} else if ( !isNaN(sub) || sub instanceof Stat ) {
 
 					if ( !res.canPay(sub*amt) ) return false;
 					//if ( res.value < sub*amt ) return false;
@@ -994,19 +1028,7 @@ export default {
 
 				}
 
-				// @todo: recursive mod test.
-				/*let mod = res.mod;
-				if ( mod ) {}*/
-
 			}
-
-
-		} else if ( typeof cost === 'boolean') return true;
-		else if (!isNaN(cost) ) {
-
-			res = this.getData('gold');
-			if ( !res) console.error('Error: Gold is missing');
-			return res.value >= cost*amt;
 
 		}
 
@@ -1115,7 +1137,7 @@ export default {
 	},
 
 	/**
-	 * Get loot from an action, monster, or dungeon.
+	 * Get loot from a task, monster, or dungeon.
 	 * @param {string|Wearable|Object|Array} it
 	 * @param {?Inventory} inv - inventory to place looted item.
 	 */
@@ -1126,12 +1148,10 @@ export default {
 		inv = inv || this.state.inventory;
 		if ( inv.full() ) inv = this.state.drops;
 
-		/** @todo this won't work right. huh? why not, later lemur asks. */
 		if ( typeof it === 'object' && it.stack ) {
 
-			let inst = inv.findMatch( it );
-			if ( inst ) {
-				inst.value++;
+			if ( inv.addStack( it ) ) {
+				Events.emit( EVT_LOOT, it );
 				return;
 			}
 
@@ -1159,21 +1179,22 @@ export default {
 	lock(id, amt=1 ) {
 
 		if ( typeof id === 'object' && id[Symbol.iterator] ) {
+
 			for( let v of id ) this.lock(v,amt);
+
 		} else if ( typeof id === 'object' ) {
 
 			id.locks += amt;
-			id.dirty =true;
 
 		} else {
 
 			let it = this.getData(id);
 			if ( it ) {
-				this.lock(it);
-
+				this.lock(it, amt);
 			}
 
 		}
+
 
 	},
 

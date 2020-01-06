@@ -1,9 +1,17 @@
+LevelUp:
+
+No scribe scroll.
+
+Progress cheat no longer working.
+
+Incorrect research rate from scrolls. Works after refresh?
+
+Rest effect tooltip incorrect. TagSet error?
+
+Gold Rate not Applied.
+
 
 PATRONS:
-
-Mr. Wild needs a custom.
-
-Kahn Bloodbane: Want's a forge or anvil.
 
 Jeremy: needs custom item.
 

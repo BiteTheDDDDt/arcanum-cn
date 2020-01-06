@@ -1,4 +1,4 @@
-import Action from './action';
+import Task from './task';
 import Game from '../game';
 import { getDist, distTest, levelTest } from './locale';
 import { mapNonNull } from '../util/array';
@@ -17,7 +17,7 @@ import SpawnGroup from '../composites/spawngroup';
  * @property {number} hp
  */
 
-export default class Dungeon extends Action {
+export default class Dungeon extends Task {
 
 	/**
 	 * @property {object|string} once - result to happen only once.
@@ -52,10 +52,7 @@ export default class Dungeon extends Action {
 
 		this.type = DUNGEON;
 
-		/**
-		 * @property {number} progress
-		 */
-		this._exp = this._exp || 0;
+		this.ex = this.ex || 0;
 		if (!this.length) this.length = 10*this.level;
 
 		// default require for dungeon is player-level.
@@ -154,7 +151,7 @@ export default class Dungeon extends Action {
 	}
 
 	/**
-	 * Catch complete() to prevent default action. ugly.
+	 * Catch complete() to prevent default task. ugly.
 	 */
 	complete() {
 	}

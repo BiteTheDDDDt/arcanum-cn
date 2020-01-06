@@ -2,7 +2,8 @@ import { setModCounts} from '../items/base';
 import Attack from './attack';
 
 import {mergeSafe} from "objecty";
-import Mod, { ParseMods } from '../values/mod';
+import Mod from '../values/mod';
+import { ParseMods } from 'modules/parsing';
 import { assignNoFunc } from '../util/util';
 import Item from '../items/item';
 import { WEARABLE, ARMOR, TYP_RANGE, TYP_STAT } from '../values/consts';
@@ -83,7 +84,7 @@ export default class Wearable extends Item {
 	set attack(v) {
 
 		if ( v ) {
-			this._attack = v instanceof Attack ? v.clone() : new Attack(v);
+			this._attack = new Attack(v);
 		} else {
 			this._attack = null;
 		}
@@ -161,7 +162,7 @@ export default class Wearable extends Item {
 
 		}
 
-		if ( this.mod ) this.mod = ParseMods( this.mod, this.id );
+		if ( this.mod ) this.mod = ParseMods( this.mod, this.id, this );
 
 		/*console.log('WEARABLE LEVEL: ' + this.level + ' MAT: '+ (this.material ? this.material.level : 0 )
 		 + ' base: ' + (this.template ? this.template.level : 0 ) );*/
@@ -210,7 +211,9 @@ export default class Wearable extends Item {
 		else if ( typeof cur === 'number') {
 			 obj[prop] = cur + amt;
 		}
-		else if ( cur.type === TYP_RANGE || cur.type === TYP_STAT ) cur.add( amt );
+		else if ( cur.type === TYP_RANGE || cur.type === TYP_STAT ) {
+			cur.add( amt );
+		}
 
 	}
 
@@ -260,7 +263,7 @@ export default class Wearable extends Item {
 			if ( v.id ) {
 				console.log('new mod: ' +this.id);
 				//for( let p in v ) console.log( p + ' -> ' + v[p]);
-				return new Mod( v );
+				return new Mod( v, v.id, this );
 			} else {
 
 				for( let p in v ) {
@@ -269,7 +272,7 @@ export default class Wearable extends Item {
 
 			}
 
-		} else if ( t === 'string' || t==='number') return new Mod(v, this.id);
+		} else if ( t === 'string' || t==='number') return new Mod(v, this.id, this );
 
 		return v;
 

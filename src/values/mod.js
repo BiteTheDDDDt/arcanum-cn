@@ -1,12 +1,11 @@
 import Percent from './percent';
 import Stat from './stat';
-import { logObj, splitKeys } from '../util/util';
 import { precise } from '../util/format';
 import { TYP_MOD } from './consts';
-
+import { assign } from 'objecty';
 //import Emitter from 'eventemitter3';
 
-export const ModTest = /^([\+\-]?\d+\.?\d*\b)?(?:([\+\-]?\d+\.?\d*)\%)?$/i;
+export const ModTest = /^(?:([\+\-]?\d+\.?\d*)|(?:([\+\-]?\d+\.?\d*\b)?(?:([\+\-]?\d+\.?\d*)\%)))$/;
 
 /**
  * Modifier for mod without id.
@@ -23,57 +22,15 @@ export const SetModIds = (mods, id ) => {
 	}
 }
 
-/**
- * Parse string into mod value.
- * @compat includes a recursive check for former bug.
- */
-/*export const ParseString = (v)=>{
-
-	if ( typeof v ==='string' ){
-
-		let res = ModTest.exec( v);
-
-		if ( res ) {
-
-			//res.forEach((v,i)=>console.log('reg['+i+']: ' + v ));
-			this.base = Number(res[1]) || 0;
-			this.basePct = Number(res[2])/100 || 0;
-
-		} else console.error( this.id + ' no mod regex: ' + v );
-
-
-	} else if ( v instanceof Percent ) {
-
-		this.basePct = v.pct;
-
-	} else if ( !isNaN(v) ) {
-
-		return v;
-
-	} else if ( typeof v === 'object') {
-/
-		if ( v && (typeof v === 'object') && v.str) {
-			return ParseString(v.str);
-		}
-
-	}
-
-}*/
-
 export default class Mod extends Stat {
 
 	toJSON(){
 
-		var val = this._basePct === 0 ? this.base : (
-			(this.base || '') + (( this._basePct > 0 ? '+' : '') + (100*this.basePct)  + '%')
-		);
+		if ( this._basePct === 0 ) return this.base;
 
-		//console.log('mod save val: ' + val );
+		var val = (this.base || '') + (( this._basePct > 0 ? '+' : '') + (100*this.basePct)  + '%');
 
-		return {
-			str:val,
-			count:this.count.valueOf()
-		};
+		return val;
 
 	}
 
@@ -95,11 +52,21 @@ export default class Mod extends Stat {
 	/**
 	 * @property {number} [count=0] - number of times mod is applied.
 	 */
-	get count() { return this._count; }
+	get count() {
+		if ( this._count ) {
+			console.log(this.id + ' count: ' + this._count );
+			return this._count;
+		}
+
+		if ( this.source === null || this.source === undefined ) console.warn(this.id+ ' No Source');
+		return this._count || ( this.source ? this.source.value : 1 );
+
+	}
 	set count(v) {
 
 		/**
-		 * @compat temp. for introduced bug.
+		 * @compat only
+		 * @note - rare recursive save bug. count:{ str:{ str:{str:""}}
 		 */
 		if ( v && (typeof v === 'object') ) {
 
@@ -108,18 +75,34 @@ export default class Mod extends Stat {
 			//else if ( v.value ) this.count = v.value;
 
 		} else this._count = v;
+	//	console.log(this.id + ' Setting Count: ' + v );
 
 	}
 
 	/**
-	 * @property {number} bonus - total flat bonus of mod.
+	 * @property {number} bonus - base bonus of mod.
 	 */
 	get bonus(){return (this.base + this.mBase)*(1+this.mPct); }
 	/**
-	 * @property {number} pct - total percent bonus of mod.
+	 * @property {number} pct - base percent bonus of mod.
 	 */
 	get pct(){return this.basePct * (1+ this.mPct); }
 
+	/**
+	 * @property {number} pctTot - base percent multiplied by number of times
+	 * mod is applied.
+	 */
+	get pctTot(){return this.pct*this.count;}
+
+	/**
+	 * @property {number} pctTot - base bonus multiplied by number of times
+	 * mod is applied.
+	 */
+	get bonusTot(){return this.bonus*this.count;}
+
+	/**
+	 * @compat
+	 */
 	get str() { return this.value; }
 	set str(v) {
 
@@ -129,9 +112,16 @@ export default class Mod extends Stat {
 
 			if ( res ) {
 
-				//res.forEach((v,i)=>console.log('reg['+i+']: ' + v ));
-				this.base = Number(res[1]) || 0;
-				this.basePct = Number(res[2])/100 || 0;
+				if ( res.length === 3 ) {
+					console.log('res len 3: ' + v );
+					//res.forEach((v,i)=>console.log('reg['+i+']: ' + v ));
+					this.base = Number(res[1]) || 0;
+					this.basePct = Number(res[2])/100 || 0;
+				} else if ( res.length === 2 ) {
+					console.log('RES LEN IS 2: ' + v );
+					this.base = res[1] || 0;
+					this.basePct = 0;
+				}
 
 			} else console.error( this.id + ' no mod regex: ' + v );
 
@@ -146,7 +136,7 @@ export default class Mod extends Stat {
 		} else if ( typeof v === 'object') {
 
 			/**
-			 * @compat temp. for introduced bug.
+			 * @note check for recursive str assign.
 			 */
 			if ( v && (typeof v === 'object') && v.str) {
 				this.str = v.str;
@@ -156,19 +146,17 @@ export default class Mod extends Stat {
 
 	}
 
-	get pctTot(){return this.pct*this._count;}
-	get bonusTot(){return this.bonus*this._count;}
-
 	get type(){ return TYP_MOD }
 
 	/**
 	 *
 	 * @param {?Object} [vars=null]
 	 */
-	constructor( vars=null, id=null ){
+	constructor( vars=null, id=null, source=null ){
 
 		super( null, id );
 
+		this.source = source;
 		if ( typeof vars === 'number') this.base = vars;
 		else if ( typeof vars === 'string') this.str = vars;
 		else if ( vars ) {
@@ -176,13 +164,10 @@ export default class Mod extends Stat {
 			if ( vars.value ) {
 				/** @compat */
 				this.str = vars.value;
-				this.count = vars.count;
-			} else Object.assign( this, vars );
+			} else assign( this, vars );
 
 
 		}
-
-		if( this._count === undefined || this._count === null ) this._count = 1;
 
 		this.base = this.base || 0;
 		this.basePct = this.basePct || 0;
@@ -191,7 +176,8 @@ export default class Mod extends Stat {
 
 	}
 
-	clone() { return new Mod({base:this.base, basePct:this.basePct, count:1}, this.id ); }
+	clone() {
+		return new Mod({base:this.base, basePct:this.basePct }, this.id, this.source ); }
 
 	/**
 	 * Apply this modifier to a given target.
@@ -221,72 +207,5 @@ export default class Mod extends Stat {
 		}
 
 	}
-
-}
-
-
-/**
- * Parse object into modifiers.
- * @param {} mods
- * @returns {Object} parsed modifiers.
- */
-export const ParseMods = ( mods, id ) => {
-
-	if ( !mods ) return null;
-	if (!id) logObj(mods, 'no mod id');
-
-	mods = SubMods(mods, id);
-
-	splitKeys(mods);
-
-	return mods;
-
-}
-
-/**
- *
- */
-export const SubMods = (mods, id)=>{
-
-	if ( mods === null || mods === undefined ) return null;
-
-	if ( typeof mods === 'string' ) {
-
-		if ( ModTest.test(mods) ) return new Mod(mods, id );
-		return mods;
-
-	} else if ( typeof mods === 'number') return new Mod( mods, id );
-
-	for( let s in mods ) {
-
-		let val = mods[s];
-		let typ = typeof val;
-
-		if ( val instanceof Mod ) {
-
-			//mods[s] = val.clone();
-			if ( id ) val.id = id;
-
-		} else if ( typ === 'string') {
-
-			if( ModTest.test(val) ) {
-				mods[s] = new Mod( val, id );
-			}
-
-		} else if ( typ === 'number' ) {
-
-			mods[s] = new Mod(val, id);
-
-		} else if ( typ === 'object') {
-
-			if ( val.id || val.base || val.str ) mods[s] = new Mod(val, id );
-			else mods[s] = SubMods( val, id );
-
-		} else {
-			//logObj( mods, id + ' INVALID MOD ' + (typ) );
-		}
-
-	}
-	return mods;
 
 }

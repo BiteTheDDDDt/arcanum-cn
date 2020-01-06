@@ -48,6 +48,9 @@ export default class Percent {
 
 	}
 
-	clone() { return new Percent( 100*this.pct) }
+	clone() {
+		console.log('percent clone');
+		return new Percent( 100*this.pct);
+	}
 
 }

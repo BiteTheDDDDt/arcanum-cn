@@ -22,7 +22,9 @@
 			"name":"frosty",
 			"kind":"frost"
 
-		}}, "cost":20, "level":3
+		}}, "cost":{
+			"gold":20
+		}, "level":3
 	},
 	{
 		"id":"tenwickstick",
@@ -60,7 +62,9 @@
 		"hands": 2,
 		"kind": "hammer",
 		"level": 15,
-		"cost": 5000
+		"cost": {
+			"gold":5000
+		}
 	}
 
 ]

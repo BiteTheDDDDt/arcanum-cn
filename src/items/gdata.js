@@ -1,19 +1,23 @@
-import { defineExcept, clone } from 'objecty';
+import { defineExcept, clone, getProps } from 'objecty';
 import Stat from '../values/stat';
-import Base, {mergeClass, initMods} from './base';
+import Base, {mergeClass } from './base';
 import {arrayMerge} from '../util/array';
 import { assignPublic } from '../util/util';
-import Events, { ITEM_ATTACK, EVT_EVENT, EVT_UNLOCK } from '../events';
+import Events, { ITEM_ACTION, EVT_EVENT, EVT_UNLOCK } from '../events';
 import { TICK_LEN } from '../game';
-import { WEARABLE } from '../values/consts';
+import { WEARABLE, WEAPON } from '../values/consts';
+import RValue from '../values/rvalue';
 
 /**
  * @typedef {Object} Effect
  * @property {?number} duration
  */
 
- const NoDefine = new Set(['require', 'rate', 'current', 'need', 'value', 'buy',
-	 'max', 'cost', 'id', 'name', 'warn', 'effect', 'slot' ]);
+/**
+ * @const {Set} NoDefine - properties not to set to default values.
+ */
+const NoDefine = new Set( ['require', 'rate', 'current', 'need', 'value', 'buy', 'max',
+	'cost', 'id', 'name', 'warn', 'effect', 'slot', 'exp' ] )
 
 /**
  * Game Data base class.
@@ -76,10 +80,17 @@ export default class GData {
 	}
 
 	/**
-	 * @property {number|Object.<string,number>} cost
+	 * @property {.<string,number>} cost
 	 */
 	get cost() { return this._cost; }
-	set cost(v) { this._cost=v;}
+	set cost(v) {
+
+		if ( typeof v !== 'object' || v instanceof RValue ) {
+			this._cost = {
+				gold:v
+			}
+		} else this._cost=v;
+	}
 
 	/**
 	 * @property {string|Object}
@@ -93,6 +104,9 @@ export default class GData {
 	get warnMsg(){return this._warnMsg; }
 	set warnMsg(v) { this._warnMsg = v; }
 
+	get mod(){return this._mod;}
+	set mod(v){this._mod=v;}
+
 	/**
 	 * @property {Object|Array|string|function} effect
 	 */
@@ -104,7 +118,9 @@ export default class GData {
 	 * being used or unlocked.
 	 */
 	get locks() { return this._locks||0;}
-	set locks(v) { this._locks = v;}
+	set locks(v) {
+		this._locks = v;
+	}
 
 	/**
 	 * @property {boolean} locked
@@ -172,8 +188,36 @@ export default class GData {
 
 		defineExcept( this, null, NoDefine );
 
-		if ( this.mod ) {
-			initMods( this.mod, this.value );
+		this.initRVals( this );
+
+	}
+
+	/**
+	 * Set source property of all RValue subs to this.
+	 */
+	initRVals( obj=this, recur=new Set() ){
+
+		recur.add(obj);
+
+		for( let p in obj ) {
+
+			var s = obj[p];
+			if ( s === null || s=== undefined ) continue;
+			if ( Array.isArray(s) ) {
+
+				for( let i = s.length-1; i>= 0; i-- ) {
+					var t = s[i];
+					if ( typeof t === 'object' && !recur.has(t)) this.initRVals( t, recur);
+				}
+
+			} else if ( typeof s === 'object' && !recur.has(s)) {
+
+				if ( s.isRVal ) {
+					s.source = this;
+				} else this.initRVals( s, recur );
+
+			}
+
 		}
 
 	}
@@ -187,7 +231,7 @@ export default class GData {
 	}
 
 	/**
-	 * Determines whether an item can be run as a continuous action.
+	 * Determines whether an item can be run as a continuous task.
 	 * @param {Game} g
 	 * @param {number} dt - minimum length of time item would run.
 	 * @returns {boolean}
@@ -198,7 +242,7 @@ export default class GData {
 
 		if ( this.buy && !this.owned && !g.canPay(this.buy ) ) return false;
 
-		// cost only paid at _start_ of runnable action.
+		// cost only paid at _start_ of runnable task.
 		if ( this.cost && (this.exp == 0) && !g.canPay(this.cost ) ) return false;
 
 		if ( this.fill && g.filled( this.fill, this ) ) return false;
@@ -216,7 +260,7 @@ export default class GData {
 	remove( amt ) { this.value.base -= amt; }
 
 	/**
-	 * Determine if an item can be used. Ongoing/perpetual actions
+	 * Determine if an item can be used. Ongoing/perpetual tasks
 	 * test with 'canRun' instead.
 	 * @param {Game} g
 	 */
@@ -293,7 +337,7 @@ export default class GData {
 		count = this.add(count);
 		if ( count === 0 ) return false;
 
-		this.change( g, count );
+		this.changed( g, count );
 		return true;
 
 	}
@@ -303,31 +347,40 @@ export default class GData {
 	 * have been applied to the base value.
 	 * @param {number} count - total change in value.
 	 */
-	change( g, count) {
+	changed( g, count) {
 
-		if ( this.isRecipe ) { return g.create( this, count ); }
+		if ( this.isRecipe ) { return g.create( this, true, count ); }
 
-		if ( this.exec ) this.exec();
+		if ( this.once && this.valueOf() === 1 ) g.applyVars( this.once );
+
+		if ( this.cd ) g.addTimer( this );
+		if ( this.loot ) g.getLoot( this.loot );
 
 		if ( this.title ) g.state.player.setTitle( this.title );
-		if ( this.effect ) g.applyVars(this.effect, count );
 		if ( this.result ) g.applyVars( this.result, count );
+		if ( this.create ) g.create( this.create );
+
 		if ( this.mod ) { g.applyMods( this.mod ); }
 
 		if ( this.lock ) g.lock( this.lock );
 		if ( this.dot ) {
-			g.state.player.addDot( this.dot, this.id, this.name );
+			g.state.player.addDot( this.dot, this.id );
 		}
 
 		if ( this.disable ) g.disable( this.disable );
 
 		if ( this.log ) Events.emit( EVT_EVENT, this.log );
 
-		if ( this.attack ) {
-			if (this.type !== WEARABLE && this.type !== 'weapon') Events.emit( ITEM_ATTACK, this );
+		if ( this.attack || this.action ) {
+			if (this.type !== WEARABLE && this.type !== WEAPON ) Events.emit( ITEM_ACTION, this );
 		}
 		this.dirty = true;
 
+	}
+
+	doLock(amt){
+		this.locks += amt;
+		this.dirty = true;
 	}
 
 	doUnlock(){
@@ -371,7 +424,7 @@ export default class GData {
 
 	}
 
-	setDefaults( defaults ) {
+	setDefaults(defaults ) {
 
 		var obj;
 
@@ -382,7 +435,10 @@ export default class GData {
 
 				obj = defaults[p];
 				if ( typeof obj === 'function' ) this[p] = obj( this );
-				else if ( typeof obj === 'object' ) this[p] = clone( obj );
+				else if ( typeof obj === 'object' ) {
+					console.log('clone: ' + this.id );
+					this[p] = clone( obj );
+				}
 				else this[p] = obj;
 
 			}
@@ -392,6 +448,8 @@ export default class GData {
 	}
 
 	/**
+	 * @note currently unused.
+	 * @unused
 	 * shorthand for locked||disabled||locks>0
 	 */
 	blocked() {
@@ -426,12 +484,10 @@ export default class GData {
 
 			this.require = item;
 
-		} else {
-
-			if ( this.require === item ||
+		} else if ( this.require === item ||
 				(Array.isArray(this.require) && this.require.includes(item)) ) {
 					return;
-			}
+		} else {
 			this.require = arrayMerge( this.require, item );
 		}
 

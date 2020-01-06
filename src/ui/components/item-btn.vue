@@ -15,7 +15,7 @@ export default {
 
 <template>
 
-<span :class="{ 'action-btn':true, locked:locked(it), 'wrap-btn':true,
+<span :class="{ 'task-btn':true, locked:locked(it), 'wrap-btn':true,
 		'running':it.running, runnable:it.perpetual||it.length>0 }"
 		@mouseenter.capture.stop="emit( 'itemover', $event,it)">
 

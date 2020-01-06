@@ -1,6 +1,10 @@
-import Range from "../values/range";
-import {ParseMods } from "../values/mod";
+import {ParseMods } from "modules/parsing";
 import { setModCounts } from "../items/base";
+import { ParseDmg } from "values/combat";
+import { assign, mergeSafe } from 'objecty';
+import { ParseFlags, NO_SPELLS, NO_ATTACK, NO_DEFEND } from "./states";
+import { TYP_DOT } from "../values/consts";
+
 
 export default class Dot {
 
@@ -20,38 +24,67 @@ export default class Dot {
 			effect:this.effect||undefined,
 			mod:this.mod||undefined,
 			acc:this.acc||undefined,
+			state:this.state||undefined,
+			adj:this.adj||undefined,
+			flags:this._flags!== 0 ? this._flags : undefined,
 			duration:this.duration,
 			source:this.source ? ( typeof this.source === 'string' ? this.source : this.source.id ) : undefined
 		};
 
 	}
 
+	get id() { return this._id; }
+	set id(v) {
+		this._id =v;
+	}
+
+	get mod() { return this._mod; }
+	set mod(v) { this._mod = v; }
+
+	/**
+	 * @property {string} verb - verb for dots that define state, e.g. sleeping.
+	 */
+	get adj() { return this._adj || this._name || this._id; }
+	set adj(v) { this._adj = v; }
+
 	get dmg(){return this.damage;}
 	set dmg(v) { this.damage = v; }
 
 	get damage() { return this._damage; }
 	set damage(v) {
+		this._damage = ParseDmg(v);
+	}
 
-		if ( v instanceof Range ) this._damage = v;
-		else if ( typeof v === 'string' || typeof v === 'object') this._damage = new Range(v);
-		else if ( !isNaN(v) ) this._damage = Number(v);
+	/**
+	 * @property {number} flags
+	 */
+	get flags(){return this._flags;}
+	set flags(v) {
+
+		this._flags = 0;
+
+		if ( typeof v !== 'number' ) this._flags = ParseFlags(v);
+		else this._flags = v;
 
 	}
 
 	/**
-	 * Get a damage value for the dot.
+	 * @property {boolean} perm - dot is permanent.
 	 */
-	getDamage() {
+	get perm(){return this._perm;}
+	set perm(v) { this._perm =v}
 
-		return (typeof this._damage === 'number') ? this._damage : this._damage.value;
+	get type(){ return TYP_DOT}
 
-	}
+	valueOf(){ return ( this.perm || this.duration > 0 ) ? 1 : 0; }
 
-	valueOf(){return this.duration > 0 ? 1 : 0; }
+	canCast() { return (this._flags & NO_SPELLS) === 0 }
+	canAttack() { return (this._flags & NO_ATTACK) === 0 }
+	canDefend() { return (this._flags & NO_DEFEND ) === 0 }
 
 	constructor( vars, source, name ){
 
-		Object.assign( this, vars );
+		assign( this, vars );
 
 		this.source = this.source || source || null;
 
@@ -59,16 +92,24 @@ export default class Dot {
 
 		if ( !this.id ) console.error('BAD DOT ID: ' + this.name );
 
-		if ( !this.duration) this.duration = 10;
+		if ( !this.duration) {
+			this.duration = 0;
+			this.perm = true;
+		}
 
 		/**
 		 * @property {boolean} stack - ability of dot to stack.
 		 */
 		if ( this.mod ){
 
-			this.mod = ParseMods( this.mod, this.id );
+			this.mod = ParseMods( this.mod, this.id, this );
 
 			setModCounts( this.mod, this );
+		}
+		if ( !this.flags ) this.flags = 0;
+
+		for( let p in this ) {
+			if ( p === 'damage' || p =='dmg') console.log('DOT HAS DAMAGE');
 		}
 
 		/**
@@ -78,11 +119,36 @@ export default class Dot {
 
 	}
 
+	/**
+	 * Extend duration to the given number of seconds.
+	 * @param {number} duration
+	 */
+	extend( duration ) {
+
+		if ( duration === 0|| this.perm ) {
+
+			this.perm = true;
+			this.duration = 0;
+
+		} else if ( duration > this._duration ) {
+			this._duration = duration;
+		}
+	}
+
+	/**
+	 * Merge state or dot into this one.
+	 * @param {Dot} st
+	 */
+	mergeDot( st ) {
+
+		console.log('merge dot: ' + st.id );
+		mergeSafe( this, st );
+		this._flags = this._flags | st.flags;
+
+	}
+
 	revive(state) {
-
 		if ( this.source && typeof this.source === 'string') this.source = state.getData( this.source );
-		//if ( this.mod ) this.mod = ParseMods(this.mod, this.id);
-
 	}
 
 	/**
@@ -97,7 +163,7 @@ export default class Dot {
 		if ( this.acc >= 1 ) {
 
 			this.acc--;
-			this.duration--;
+			if ( !this.perm ) this.duration--;
 
 			return 1;
 

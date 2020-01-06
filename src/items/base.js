@@ -2,8 +2,9 @@ import {changes, jsonify } from 'objecty';
 import Game from '../game';
 import Stat from '../values/stat';
 import Mod, { SetModIds } from '../values/mod';
-import { cloneClass, deprec } from '../util/util';
+import { cloneClass } from '../util/util';
 import { TYP_MOD } from '../values/consts';
+import RValue, { SubPath } from '../values/rvalue';
 
 export const setModCounts = ( m, v)=>{
 
@@ -16,19 +17,6 @@ export const setModCounts = ( m, v)=>{
 
 }
 
-/**
- * Initialize object's mods with count === Value stat.
- * @param {*} m
- * @param {Stat} v
- */
-export const initMods = ( m, v)=>{
-
-	if ( m instanceof Mod ) m.count = v;
-	else if ( typeof m ==='object') {
-		for( let p in m ){ initMods(m[p], v); }
-	}
-
-}
 
 export const mergeClass = ( destClass, src ) => {
 
@@ -49,10 +37,9 @@ export const mergeClass = ( destClass, src ) => {
   * @todo shorten list by implementing better base/defaults logic.
   * @const {Set.<string>} JSONIgnore - ignore these properties by default when saving.
   */
- const JSONIgnore = new Set( ['template', 'id', 'type', 'defaults', 'module', 'sname', 'sym',
- 	'name', 'desc', 'running', 'current', 'warnMsg', 'once', 'enemies', 'spawns',
-	 'locked', 'locks', 'value', 'exp', 'delta', 'tags', 'mod', 'busy',
-	 'effect', 'progress','need', 'require' ]);
+ const JSONIgnore = new Set( ['template', 'id', 'type', 'defaults', 'module', 'sname', 'sym', 'warn',
+ 	'name', 'desc', 'running', 'current', 'warnMsg', 'once', 'context', 'enemies', 'spawns',
+	 'locked', 'locks', 'value', 'exp', 'delta', 'tags', 'mod', 'busy', 'progress','need', 'require' ]);
 
 /**
  * Base class of all Game Objects.
@@ -63,8 +50,8 @@ export default {
 
 		if ( this.save && (this.value>0||this.owned)) return this.forceSave();
 
-		let vars = changes( jsonify(this, JSONIgnore ),
-			this.template || {} );
+		let vars = jsonify(this, JSONIgnore );
+		if ( this.template ) vars = changes( vars, this.template );
 
 		if ( this.locked === false && this.template && this.template.locked !== false ){
 			vars = vars || {};
@@ -83,6 +70,7 @@ export default {
 		if ( this.slot ) data.slot = this.slot;
 		if ( this.effect) data.effect = this.effect;
 		if ( this.use ) data.use = this.use;
+
 		if ( data.template && typeof data.template === 'object' ) data.template = data.template.id;
 		if ( data.val ) data.value = undefined;
 		data.name = this.sname;
@@ -107,6 +95,8 @@ export default {
 	get type() { return this._type },
 	set type(v) { this._type =v;},
 
+	get typeName(){return this._type;},
+
 	/**
 	 * @property {string} id - internal id.
 	 */
@@ -115,10 +105,7 @@ export default {
 	/**
 	 * Simple name without symbol.
 	 */
-	get sname(){
-		return this._name || this.id;
-	},
-	set sname(v){},
+	get sname(){ return this._name || this.id; },
 
 	/**
 	 * @property {string} name - displayed name.
@@ -151,10 +138,9 @@ export default {
 	 * @property {number} current - displayable value; override in subclass for auto rounding, floor, etc.
 	 */
 	get current() { return this.value },
-	set current(v) {},
 
 	/**
-	 * @property {number} ex - save/load alias for exp with no triggers.
+	 * @property {number} ex - save/load alias for exp without triggers.
 	 */
 	get ex(){return this._exp; },
 	set ex(v) { this._exp = v;},
@@ -231,65 +217,65 @@ export default {
 
 	/**
 	 *
-	 * @param {Object} mods - effect/mod description.
+	 * @param {Object} vars - values to change/add.
 	 * @param {number} amt - factor of base amount added
 	 * ( fractions of full amount due to tick time. )
 	 */
-	applyVars( mods, amt=1 ) {
+	applyVars( vars, amt=1 ) {
 
-		if ( typeof mods === 'number') {
+		if ( typeof vars === 'number') {
 
 			//deprec( this.id + ' mod: ' + mods );
-			this.value = this.value.base + mods*amt;
+			this.value = this.value.base + vars*amt;
 
-		} else if ( mods instanceof Stat ) {
+		} else if ( vars.isRVal ) {
 
-			this.amount( Game, mods*amt );
-			//this.value = this.value.base + amt*mods;
+			//this.amount( Game, mods*amt );
+			this.value = this.value.base + amt*vars.getApply( Game.state, this );
 
 
-		} else if ( typeof mods === 'object' ) {
+		} else if ( typeof vars === 'object' ) {
 
-			if ( mods.mod ) this.changeMod( mods.mod, amt );
+			if ( vars.mod ) this.changeMod( vars.mod, amt );
 
-			for( let p in mods ) {
+			for( let p in vars ) {
 
 				// add any final value last.
 				if (  p === 'skipLocked' || p === 'value') continue;
 
 				var targ = this[p];
-				if ( targ instanceof Stat ) {
+				if ( targ instanceof RValue ) {
 
 					//console.log('APPLY ' + mods[p].id + ' to stat: '+ this.id + '.'+ p + ': ' + amt*mods[p] + ' : ' + (typeof mods[p]) );
-					targ.apply( mods[p], amt );
+					targ.apply( vars[p], amt );
 
-				} else if ( typeof mods[p] === 'object' ) {
+				} else if ( typeof vars[p] === 'object' ) {
 
-					if ( mods[p].type === TYP_MOD ) {
+					if ( vars[p].type === TYP_MOD ) {
 
-						mods[p].applyTo( this, p, amt );
+						vars[p].applyTo( this, p, amt );
 
 					} else if ( typeof targ === 'number' ) {
 
 						//deprec( this.id + ' targ: ' + p + ': ' + targ );
-						this[p] += Number(mods[p])*amt;
+						this[p] += Number(vars[p])*amt;
 					} else {
 						//console.log( mods + ' subapply: ' + p);
-						this.subeffect( this[p], mods[p], amt );
+						this.subeffect( this[p], vars[p], amt );
 					}
 
 				} else if ( this[p] !== undefined ) {
 
 					//console.log( this.id + ' adding vars: ' + p );
-					this[p] += Number(mods[p])*amt;
+					this[p] += Number(vars[p])*amt;
 
 				} else {
 					console.log('NEW SUB: ' + p );
-					this.newSub( this, p, mods[p], amt )
+					this.newSub( this, p, vars[p], amt )
 				}
 
 			}
-			if ( mods.value ) this.value += (mods.value)*amt;
+			if ( vars.value ) this.value += (vars.value)*amt;
 
 		}
 
@@ -318,10 +304,14 @@ export default {
 			if ( targ instanceof Stat ) {
 
 				//console.error( this.id + ' number apply to Stat/Mod: ' + mods );
-				targ.apply( mods, amt );
+				targ.add( mods*amt );
 
-			} else if ( typeof targ === 'object') {targ.value = (targ.value || 0 ) + amt*mods; }
-			else {
+			} else if ( typeof targ === 'object') {
+
+				console.warn('Target is raw Object: ' + mods );
+				targ.value = (targ.value || 0 ) + amt*mods;
+
+			} else {
 				// nothing can be done if targ is a number. no parent object.
 				console.error( this.id + ' !!invalid mod: ' + mods );
 			}
@@ -352,15 +342,12 @@ export default {
 					let s = targ[p] = isMod ? new Mod( typeof m === 'number' ? m*amt :0 )
 						: new Stat( typeof m === 'number' ? m*amt : 0 );
 
-					if ( isMod ) {
-						s.count = this.value;
-						s.id = this.id;
-						//console.log(this.id + ' mod count: ' + s.count + ' Modbase: ' + (m*amt) );
-					}/* else {
-						console.log( this.id + ' new stat: ' + s.id )
-					}*/
+					s.owner = this;
+					//@todo use more accurate subpath.
+					s.id = SubPath(this.id, p );
 
 					if ( m instanceof Mod) {
+						console.log('Add mod to nonexistant target: ' + SubPath(this.id,p));
 						s.addMod(m, amt);
 					}
 					//console.log( this.id + '[' + p + ']:' + m + ': targ null: ' + s.valueOf() + ' isMod? ' + isMod );
@@ -389,7 +376,7 @@ export default {
 
 					/// @todo stat switch?
 					//console.warn('NEW STAT: ' + p + ' : ' + (m*amt ) );
-					targ[p] = new Stat( targ[p] + m*amt );
+					targ[p] = new Stat( targ[p] + m*amt, SubPath(this.id, p) );
 					//targ[p] += m*amt;
 
 				} else this.applyMods( m, amt, subTarg);
@@ -483,6 +470,13 @@ export default {
 	},
 
 	/**
+	 *
+	 * @param {string} t - tag to test.
+	 * @returns {boolean}
+	 */
+	hasTag( t ) { return (this.tags) && this._tags.includes(t); },
+
+	/**
 	 * Test if item has every tag in list.
 	 * @param {string[]} a - array of tags to test.
 	 * @returns {boolean}
@@ -501,20 +495,13 @@ export default {
 	 * @param {string[]} a - array of tags to test.
 	 * @returns {boolean}
 	 */
-	anyTag( a ) {
+	/*anyTag( a ) {
 
 		if ( !this._tags ) return false;
 		for( let i = a.length-1; i >= 0; i-- ) if ( !this._tags.includes(a[i]) ) return true;
 
 		return false;
 
-	},
-
-	/**
-	 *
-	 * @param {string} t - tag to test.
-	 * @returns {boolean}
-	 */
-	hasTag( t ) { return (this.tags) && this._tags.includes(t); }
+	},*/
 
 }

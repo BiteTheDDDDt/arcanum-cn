@@ -3,6 +3,26 @@
  */
 
 /**
+ * Merges items from b into array a for all items in b
+ * passing predicate p.
+ * @param {array} a
+ * @param {array} b
+ * @param {*=>boolean} p - merge test.
+ * @returns {array} returns a
+ */
+export const mergeInto = ( a, b, p ) => {
+
+	if ( !b || !a ) return a;
+
+	for( let i = b.length-1; i>= 0; i-- ) {
+		if ( p(b[i]) ) a.push(b[i]);
+	}
+
+	return a;
+
+}
+
+/**
  * Return a random element from any of a number of arrays.
  * @param {Array[]} arrs - array of arrays.
  */
