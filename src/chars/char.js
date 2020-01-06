@@ -279,7 +279,7 @@ export default class Char {
 			if ( !dot ) return
 		}
 
-		if ( dot[ TYP_PCT ] && !dot[TYPE_PCT].roll() ) {
+		if ( dot[ TYP_PCT ] && !dot[TYP_PCT].roll() ) {
 			return;
 		}
 
