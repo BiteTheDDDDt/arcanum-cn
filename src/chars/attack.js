@@ -95,8 +95,11 @@ export default class Attack {
 		this._hits = v;
 		for( let i = v.length-1; i>=0;i--) {
 			var h = v[i];
-			if ( !h instanceof Attack ) h = v[i] = new Attack(h);
 			if (!h.id) h.id = this.id;
+			if ( !h.name ) h.name = this.name;
+			if (!h.kind)h.kind = this.kind;
+			if ( !h instanceof Attack ) h = v[i] = new Attack(h);
+
 		}
 	}
 
@@ -113,7 +116,12 @@ export default class Attack {
 	constructor( vars=null ){
 
 		if ( vars ) {
+
+			// necessary for sub id/name assignments.
 			this.id = vars.id;
+			this.name = vars.name;
+			this.kind = vars.kind;
+
 			assignPublic(this,vars); //Object.assign(this,vars);
 		}
 
