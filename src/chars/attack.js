@@ -30,8 +30,26 @@ export default class Attack {
 		this._dot = v;
 		//if ( v.mod ) v.mod = ParseMods( v.mod, this.dot.id || this.dot.name || this.name );
 	}
+
+	get id() {return this._name; }
+	set id(v) {
+		this._id = v;
+
+		if ( this._hits ) {
+			for( let i = this._hits.length-1; i>=0; i--) if ( !this._hits[i].id ) this._hits[i].id = v;
+		}
+
+	}
+
 	get name() {return this._name; }
-	set name(v) { this._name = v;}
+	set name(v) {
+		this._name = v;
+
+		if ( this._hits ) {
+			for( let i = this._hits.length-1; i>=0; i--) if ( !this._hits[i].name ) this._hits[i].name = v;
+		}
+
+	}
 
 	get kind(){ return this._kind; }
 	set kind(k){
