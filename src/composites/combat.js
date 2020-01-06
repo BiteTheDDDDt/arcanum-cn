@@ -8,9 +8,9 @@ import Events, {
 import { itemRevive } from '../modules/itemgen';
 import { NO_SPELLS } from '../chars/states';
 
-import { TEAM_PLAYER, getDelay } from '../values/consts';
+import { TEAM_PLAYER, getDelay, TEAM_NPC, TEAM_ALL } from '../values/consts';
 import { TARGET_ALLIES, TARGET_ENEMIES, TARGET_ENEMY, TARGET_ALLY, TARGET_SELF,
-	TARGET_RAND, TARGET_RANDG, TARGET_LEADER, ApplyAction } from "../values/combat";
+	TARGET_RAND, TARGET_RANDG, TARGET_PRIMARY, TARGET_LEADER, ApplyAction, TARGET_GROUP, TARGET_ANY } from "../values/combat";
 
 
 export default class Combat {
@@ -52,12 +52,19 @@ export default class Combat {
 
 	get done() { return this._enemies.length === 0; }
 
+	/**
+	 * @property {Char[][]} teams - maps team id to team list.
+	 */
+	get teams(){ return this._teams; }
+
 	constructor(vars = null) {
 
 		if (vars) assign(this, vars);
 
 		if (!this._enemies) this._enemies = [];
 		if ( !this.allies) this.allies = [];
+
+		this._teams = [];
 
 	}
 
@@ -88,7 +95,7 @@ export default class Combat {
 
 		this._allies.unshift( this.player );
 
-		this.refreshAllTargs();
+		this.refreshTeamArrays();
 
 		Events.add( CHAR_DIED, this.charDied, this );
 
@@ -227,38 +234,53 @@ export default class Combat {
 		// retarget based on state.
 		targets = char.getTarget(targets);
 
-		if ( !targets || targets === TARGET_ENEMY ) {
+		var group = this.getGroup( targets, char.team );
+		if ( targets & TARGET_GROUP ) return group;
 
-			return char.team === TEAM_PLAYER ? this.nextTarget( this._enemies ) : this.nextTarget( this.allies );
+		if ( !targets || targets === TARGET_ENEMY || targets === TARGET_ALLY ) {
+			return this.nextTarget(group);
+		} else if ( targets & TARGET_SELF ) return char;
 
-		} else if ( targets === TARGET_ENEMIES ) {
+		if ( targets & TARGET_PRIMARY) return this.primeTarget(group);
+		if ( targets & TARGET_RAND ) return this.randTarget(group);
 
-			return char.team === TEAM_PLAYER ? this._enemies : this.allies;
+	}
 
-		} else if ( targets === TARGET_SELF ) return char;
-		else if ( targets === TARGET_ALLIES ) return char.team === TEAM_PLAYER ? this.allies : this.enemies;
-		else if ( targets === TARGET_RAND ) {
+	/**
+	 * Get the Char group to which the target flags can apply.
+	 * Null or zero targets are assumed an enemy target.
+	 * @param {number} targets
+	 * @param {number} team - ally team.
+	 */
+	getGroup( targets, team ) {
 
-			let r = Math.floor( Math.random()*( this._allies.length + this._enemies.length ) );
-			return ( r < this.allies.length ) ? this.nextTarget( this.allies ) : this.nextTarget( this.enemies );
+		if ( !targets || (targets & TARGET_ENEMY) ) {
 
-		} else if ( targets === TARGET_ALL ) {
+			return team === TEAM_PLAYER ? this.enemies : this.allies;
 
-			return this.allTargs;
+		} else if ( targets & (TARGET_ALLY+TARGET_SELF) ) {
+			return this.teams[team];
 
-		} else if ( targets === TARGET_LEADER ) {
-
-			return char.team === TEAM_PLAYER ? this._allies[0] : this.enemies[0];
-
-		} else if ( targets === TARGET_RANDG ) {
-
+		} else if ( targets & TARGET_ANY ) return this.teams[TEAM_ALL];
+		else if ( targets & TARGET_RAND ) {
 			return Math.random() < 0.5 ? this.allies : this.enemies;
-
-		} else if ( targets === TARGET_ALLY ) {
-
-			return char.team === TEAM_PLAYER ? this.nextTarget( this.allies ) : this.nextTarget( this.enemies );
 		}
+		return null;
 
+	}
+
+	randTarget(a) {
+		return a[Math.floor( Math.random()*a.length)];
+	}
+
+	/**
+	 * Returns the most-primary ( lowest index) target.
+	 * @param {*} a
+	 */
+	primeTarget(a){
+		for( let i = 0; i<a.length; i++ ) {
+			if ( a[i].alive ) return a[i];
+		}
 	}
 
 	/**
@@ -312,21 +334,27 @@ export default class Combat {
 		}
 
 		this.setTimers();
-		this.refreshAllTargs();
+		this.refreshTeamArrays();
 
 	}
 
-	refreshAllTargs() {
-		this.allTargs = this._allies.concat(this._enemies);
+	refreshTeamArrays() {
+
+		this.teams[TEAM_PLAYER] = this._allies;
+		this.teams[TEAM_NPC] = this._enemies;
+		this.teams[TEAM_ALL] = this._allies.concat(this._enemies);
+
 	}
 
 	/**
 	 * Reenter same dungeon.
 	 */
 	reenter() {
+
 		this.allies = this.state.minions.allies.items.slice(0);
 		this.allies.unshift( this.player );
-		this.refreshAllTargs();
+
+		this.refreshTeamArrays();
 	}
 
 	/**
@@ -338,7 +366,7 @@ export default class Combat {
 
 		this.allies = this.state.minions.allies.items.slice(0);
 		this.allies.unshift( this.player );
-		this.refreshAllTargs();
+		this.refreshTeamArrays();
 
 	}
 

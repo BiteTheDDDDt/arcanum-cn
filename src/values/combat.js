@@ -5,38 +5,49 @@ import Events, { IS_IMMUNE, CHAR_DIED, COMBAT_HIT, EVT_COMBAT } from "../events"
 import { TYP_FUNC } from "./consts";
 
 /**
- * @const {string} TARGET_SELF - target self.
+ * @const {number} TARGET_SELF - target self.
  */
 export const TARGET_SELF = 1;
 
 /**
- * @const {string} TARGET_ENEMY - target one enemy.
+ * @const {number} TARGET_ENEMY - target one enemy.
  */
 export const TARGET_ENEMY = 2;
 
 /**
- * @const {string} TARGET_ALLY - target single ally.
+ * @const {number} TARGET_ALLY - target single ally.
  */
 export const TARGET_ALLY = 4;
 
 /**
- * @const {string} TARGET_RAND - random target.
+ * @const {number} TARGET_RAND - random target.
  */
 export const TARGET_RAND = 8;
 
 export const TARGET_GROUP = 16;
 
-export const TARGET_LEADER = 32;
+/**
+ * @const {number} TARGET_ANY - not necessarily useful but
+ * included for consistency with targetting flags.
+ */
+export const TARGET_ANY = 32;
 
-export const TARGET_ALL = TARGET_GROUP + TARGET_ALLY + TARGET_ENEMY;
+
+export const TARGET_ALL = TARGET_ANY + TARGET_GROUP;
+
+export const TARGET_PRIMARY = 64;
+
+
+export const TARGET_LEADER = TARGET_ALLY + TARGET_PRIMARY;
+
 
 /**
- * @const {string} TARGET_ENEMIES - target all enemies.
+ * @const {number} TARGET_ENEMIES - target all enemies.
  */
 export const TARGET_ENEMIES = TARGET_GROUP + TARGET_ENEMY;
 
 /**
- * @const {string} TARGET_ALLIES - target all allies.
+ * @const {number} TARGET_ALLIES - target all allies.
  */
 export const TARGET_ALLIES = TARGET_GROUP + TARGET_ALLY;
 
@@ -90,7 +101,12 @@ export const Targets = {
 	rand:TARGET_RAND,
 
 	/**
-	 * @const {number} TARGET_LEADER - target enemy leader.
+	 * @const {number} TARGET_PRIMARY - target opposing leader.
+	 */
+	primary:TARGET_PRIMARY,
+
+	/**
+	 * @const {number} TARGET_LEADER - target (same-team) leader.
 	 */
 	leader:TARGET_LEADER,
 
