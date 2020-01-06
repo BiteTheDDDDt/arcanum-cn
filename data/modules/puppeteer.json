@@ -681,93 +681,90 @@
 				}
 			},
 			{
-				"id":"prismaticmissile",
-				"name":"prismatic missile",
-				"level":15,
-				"school":"mana",
+				"id": "prismaticmissile",
+				"name": "prismatic missile",
+				"level": 15,
+				"school": "mana",
 				"require": "g.magiphysics>=5",
-				"desc":"a burst of chaotic magic inflicting damage to enemies.",
-				"buy":{
-
-					"research":6000,
-					"tomes":40
-
+				"desc": "a burst of chaotic magic inflicting damage to enemies.",
+				"buy": {
+					"research": 6000,
+					"tomes": 40
 				},
-				"at":{
-					"25":{
-						"attack.tohit":2,
-						"attack.damage.max":2
+				"at": {
+					"25": {
+						"attack.damage.max": 1
 					},
-					"100":{
-						"attack.tohit":3,
-						"attack.damage.min":2
+					"100": {
+						"attack.tohit": 1,
+						"attack.damage.min": 1
 					}
 				},
-				"cost":{
-					"mana":15
+				"cost": {
+					"mana": 15
 				},
-				"attack":{
-					"hits":[
-					{
-						"targets":"randenemy",
-						"damage":"2~3",
-						"kind":"mana",
-						"tohit":-5
-					},
-					{
-						"targets":"randenemy",
-						"damage":"2~3",
-						"kind":"fire",
-						"tohit":-5
-					},
-					{
-						"targets":"randenemy",
-						"damage":"2~3",
-						"kind":"water",
-						"tohit":-5
-					},
-					{
-						"targets":"randenemy",
-						"damage":"2~3",
-						"kind":"nature",
-						"tohit":-5
-					},
-					{
-						"targets":"randenemy",
-						"damage":"2~3",
-						"kind":"air",
-						"tohit":-5
-					},
-					{
-						"targets":"randenemy",
-						"damage":"2~3",
-						"kind":"chaos",
-						"tohit":-5
-					},
-					{
-						"targets":"randenemy",
-						"damage":"2~3",
-						"kind":"earth",
-						"tohit":-5
-					},
-					{
-						"targets":"randenemy",
-						"damage":"2~3",
-						"kind":"shadow",
-						"tohit":-5
-					},
-					{
-						"targets":"randenemy",
-						"damage":"2~3",
-						"kind":"light",
-						"tohit":-5
-					},
-					{
-						"targets":"randenemy",
-						"damage":"2~3",
-						"kind":"spirit",
-						"tohit":-5
-					}
+				"attack": {
+					"hits": [
+						{
+							"targets": "randenemy",
+							"damage": "2~3",
+							"kind": "mana",
+							"tohit": -5
+						},
+						{
+							"targets": "randenemy",
+							"damage": "2~3",
+							"kind": "fire",
+							"tohit": -5
+						},
+						{
+							"targets": "randenemy",
+							"damage": "2~3",
+							"kind": "water",
+							"tohit": -5
+						},
+						{
+							"targets": "randenemy",
+							"damage": "2~3",
+							"kind": "nature",
+							"tohit": -5
+						},
+						{
+							"targets": "randenemy",
+							"damage": "2~3",
+							"kind": "air",
+							"tohit": -5
+						},
+						{
+							"targets": "randenemy",
+							"damage": "2~3",
+							"kind": "chaos",
+							"tohit": -5
+						},
+						{
+							"targets": "randenemy",
+							"damage": "2~3",
+							"kind": "earth",
+							"tohit": -5
+						},
+						{
+							"targets": "randenemy",
+							"damage": "2~3",
+							"kind": "shadow",
+							"tohit": -5
+						},
+						{
+							"targets": "randenemy",
+							"damage": "2~3",
+							"kind": "light",
+							"tohit": -5
+						},
+						{
+							"targets": "randenemy",
+							"damage": "2~3",
+							"kind": "spirit",
+							"tohit": -5
+						}
 					]
 				}
 			},
@@ -1097,20 +1094,50 @@
 					},
 					{
 						"name": "slice",
-						"tohit": 5,
-						"kind": "slash",
-						"dmg": "50~70"
+						"hits": [
+							{
+								"tohit": 5,
+								"kind": "slash",
+								"dmg": "25~35"
+							},
+							{
+								"tohit": 5,
+								"kind": "slash",
+								"dmg": "25~35"
+							}
+						]
 					},
 					{
 						"name": "dice",
-						"tohit": 50,
-						"kind": "slash",
-						"dmg": "40~50"
+						"hits": [
+							{
+								"tohit": 50,
+								"kind": "slash",
+								"dmg": "20~25"
+							},
+							{
+								"tohit": 50,
+								"kind": "slash",
+								"dmg": "20~25"
+							}
+						]
 					},
 					{
 						"name": "mince",
-						"kind": "slash",
-						"dmg": "60~80"
+						"hits": [
+							{
+								"kind": "slash",
+								"dmg": "20~26"
+							},
+							{
+								"kind": "slash",
+								"dmg": "20~26"
+							},
+							{
+								"kind": "slash",
+								"dmg": "20~26"
+							}
+						]
 					},
 					{
 						"name": "chop",
@@ -1126,8 +1153,20 @@
 					},
 					{
 						"name": "mash",
-						"kind": "blunt",
-						"dmg": "0~150"
+						"hits": [
+							{
+								"kind": "blunt",
+								"dmg": "0~50"
+							},
+							{
+								"kind": "blunt",
+								"dmg": "0~50"
+							},
+							{
+								"kind": "blunt",
+								"dmg": "0~50"
+							}
+						]
 					},
 					{
 						"name": "recover",
