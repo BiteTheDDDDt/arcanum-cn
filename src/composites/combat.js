@@ -13,6 +13,11 @@ import { TARGET_ALLIES, TARGET_ENEMIES, TARGET_ENEMY, TARGET_ALLY, TARGET_SELF,
 	TARGET_RAND, TARGET_RANDG, TARGET_PRIMARY, TARGET_LEADER, ApplyAction, TARGET_GROUP, TARGET_ANY } from "../values/combat";
 
 
+/**
+ * @const {number} DEFENSE_RATE - rate defense is multiplied by before tohit computation.
+ */
+const DEFENSE_RATE = 0.4;
+
 export default class Combat {
 
 	toJSON() {
@@ -317,7 +322,7 @@ export default class Combat {
 
 			Events.emit( DAMAGE_MISS, defender.name + ' dodges ' + (attack.name||attacker.name));
 
-		} else if ( Math.random()*( 10 + tohit ) >= Math.random()*(10 + defender.defense ) ) {
+		} else if ( Math.random()*( 10 + tohit ) >= Math.random()*DEFENSE_RATE*(10 + defender.defense ) ) {
 			return true;
 		} else {
 
