@@ -26,16 +26,23 @@ export const TARGET_RAND = 8;
 
 export const TARGET_GROUP = 16;
 
+
 /**
  * @const {number} TARGET_ANY - not necessarily useful but
  * included for consistency with targetting flags.
  */
 export const TARGET_ANY = 32;
 
+/**
+ * @const {number} TARGET_PRIMARY - target leader of targetted group.
+ */
+export const TARGET_PRIMARY = 64;
 
 export const TARGET_ALL = TARGET_ANY + TARGET_GROUP;
 
-export const TARGET_PRIMARY = 64;
+
+export const TARG_RAND_ENEMY = TARGET_RAND + TARGET_ENEMY;
+
 
 
 export const TARGET_LEADER = TARGET_ALLY + TARGET_PRIMARY;
@@ -99,6 +106,8 @@ export const Targets = {
  	* @const {string} TARGET_RAND - random target.
  	*/
 	rand:TARGET_RAND,
+
+	randenemy:TARG_RAND_ENEMY,
 
 	/**
 	 * @const {number} TARGET_PRIMARY - target opposing leader.

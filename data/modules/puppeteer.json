@@ -685,7 +685,7 @@
 				"name":"prismatic missile",
 				"level":15,
 				"school":"mana",
-				"require": "g.magiphysics>=5"
+				"require": "g.magiphysics>=5",
 				"desc":"a burst of chaotic magic inflicting damage to enemies.",
 				"buy":{
 
@@ -709,66 +709,67 @@
 				"attack":{
 					"hits":[
 					{
-						"targets":"randomenemy",
+						"targets":"randenemy",
 						"damage":"2~3",
 						"kind":"mana",
 						"tohit":-5
 					},
 					{
-						"targets":"randomenemy",
+						"targets":"randenemy",
 						"damage":"2~3",
 						"kind":"fire",
 						"tohit":-5
 					},
 					{
-						"targets":"randomenemy",
+						"targets":"randenemy",
 						"damage":"2~3",
 						"kind":"water",
 						"tohit":-5
 					},
 					{
-						"targets":"randomenemy",
+						"targets":"randenemy",
 						"damage":"2~3",
 						"kind":"nature",
 						"tohit":-5
 					},
 					{
-						"targets":"randomenemy",
+						"targets":"randenemy",
 						"damage":"2~3",
 						"kind":"air",
 						"tohit":-5
 					},
 					{
-						"targets":"randomenemy",
+						"targets":"randenemy",
 						"damage":"2~3",
 						"kind":"chaos",
 						"tohit":-5
 					},
 					{
-						"targets":"randomenemy",
+						"targets":"randenemy",
 						"damage":"2~3",
 						"kind":"earth",
 						"tohit":-5
 					},
 					{
-						"targets":"randomenemy",
+						"targets":"randenemy",
 						"damage":"2~3",
 						"kind":"shadow",
 						"tohit":-5
 					},
 					{
-						"targets":"randomenemy",
+						"targets":"randenemy",
 						"damage":"2~3",
 						"kind":"light",
 						"tohit":-5
 					},
 					{
-						"targets":"randomenemy",
+						"targets":"randenemy",
 						"damage":"2~3",
 						"kind":"spirit",
 						"tohit":-5
-					},
-				]
+					}
+					]
+				}
 			},
 			{
 				"id": "mk_puppet",

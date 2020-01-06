@@ -218,6 +218,11 @@ export default class Combat {
 
 		if (!targ || !targ.alive ) return;
 
+		if ( atk.hits ) {
+			let len = atk.hits.length;
+			for( let i = 0; i < len; i++ ) this.doAttack( attacker, atk.hits[i], targ );
+		}
+
 		if ( atk.harmless || !targ.canDefend() || this.tryHit( attacker, targ, atk ) ) {
 			ApplyAction( targ, atk, attacker );
 		}

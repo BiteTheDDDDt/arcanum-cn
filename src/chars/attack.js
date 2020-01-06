@@ -13,6 +13,7 @@ export default class Attack {
 			tohit:this.tohit||undefined,
 			bonus:this.bonus||undefined,
 			kind:this.kind,
+			hits:this.hits||undefined,
 			cure:this.cure||undefined,
 			state:this.state||undefined,
 			id:this.id,
@@ -84,6 +85,19 @@ export default class Attack {
 	get damage() { return this._damage; }
 	set damage(v) {
 		this._damage = ParseDmg(v);
+	}
+
+	/**
+	 * @property {Attack[]} hits
+	 */
+	get hits(){ return this._hits; }
+	set hits(v){
+		this._hits = v;
+		for( let i = v.length-1; i>=0;i--) {
+			var h = v[i];
+			if ( !h instanceof Attack ) h = v[i] = new Attack(h);
+			if (!h.id) h.id = this.id;
+		}
 	}
 
 	get harmless(){ return this._harmless; }
