@@ -195,6 +195,13 @@ export default class Combat {
 			Events.emit( EVT_EVENT, atk.log );
 		}
 
+		if ( atk.hits ) {
+			let len = atk.hits.length;
+			for( let i = 0; i < len; i++ ) {
+				this.attack( attacker, atk.hits[i] );
+			}
+		}
+
 		let targ = this.getTarget( attacker, atk.targets );
 		if ( !targ) return;
 
@@ -217,11 +224,6 @@ export default class Combat {
 	doAttack( attacker, atk, targ ) {
 
 		if (!targ || !targ.alive ) return;
-
-		if ( atk.hits ) {
-			let len = atk.hits.length;
-			for( let i = 0; i < len; i++ ) this.doAttack( attacker, atk.hits[i], targ );
-		}
 
 		if ( atk.harmless || !targ.canDefend() || this.tryHit( attacker, targ, atk ) ) {
 			ApplyAction( targ, atk, attacker );
