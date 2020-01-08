@@ -1,10 +1,8 @@
 import { addValues } from "../util/dataUtil";
 import Base, { mergeClass } from "../items/base";
-import { assign } from 'objecty';
 
 /**
  * Currently used to make custom user spells.
- * Groups multiple GData items into a single item.
  */
 export default class Group {
 
@@ -25,9 +23,6 @@ export default class Group {
 	get id() { return this._id; }
 	set id(v) { this._id = v;}
 
-	/**
-	 * @property {Array} items
-	 */
 	get items() { return this._items; }
 	set items(v) {
 
@@ -88,7 +83,7 @@ export default class Group {
 
 	constructor(vars=null ) {
 
-		if( vars) assign( this, vars );
+		if( vars) Object.assign( this, vars );
 
 		if (!this.items ) this.items = null;
 
@@ -113,6 +108,7 @@ export default class Group {
 
 		this.effect = this.items.map( v=> typeof v === 'string' ? v : v.name );
 		this.cost = cost;
+		//logObj( this.cost, 'COST');
 
 	}
 
@@ -120,8 +116,7 @@ export default class Group {
 
 	onUse(g) {
 
-		let len = this.items.length;
-		for( let i = 0; i < len; i++ ) {
+		for( let i = this.items.length-1; i>=0; i--) {
 
 			this.items[i].onUse(g);
 
@@ -142,38 +137,18 @@ export default class Group {
 	 */
 	amount( g, amt ) {
 
-		let len = this.items.length;
-		for( let i = 0; i < len; i++ ) {
+		for( let i = this.items.length-1; i>= 0;i--) {
 			this.items[i].amount( g, amt );
 		}
 
 	}
 
-	/**
-	 *
-	 * @param {Object} mods - effect/mod description.
-	 * @param {number} amt - factor of base amount added
-	 * ( fractions of full amount due to tick time. )
-	 */
-	applyVars( mods, amt=1 ) {
+	exec() {
 
-		let len = this.items.length;
-		for( let i = 0; i < len; i++ ) {
-			this.items[i].applyVars( mods, amt );
-		}
-	}
+		for( let i = this.items.length-1; i>= 0;i--) {
 
-	/**
-	 * Apply mod to every data of group.
-	 * @param {Mod|Object} mods
-	 * @param {number} amt
-	 * @param {Object} [targ=null]
-	 */
-	applyMods( mods, amt=1, targ=this ) {
+			this.items[i].exec();
 
-		let len = this.items.length;
-		for( let i = 0; i < len; i++ ) {
-			this.items[i].applyMods( mods, amt, targ );
 		}
 
 	}

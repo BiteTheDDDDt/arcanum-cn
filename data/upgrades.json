@@ -12,7 +12,7 @@
 			"arcana":5,
 			"gold":200
 		},
-		"result":"adept"
+		"effect":"adept"
 
 	},
 	{
@@ -31,7 +31,7 @@
 			"name":"Master Slain",
 			"desc":"Your master was a fool. A quick murder in the dark put an end to their petty demands, and frees you to pursue your own grander designs."
 		},
-		"result":["adept","evil", {
+		"effect":["adept","evil", {
 			"bodies":1,
 			"player.exp":10
 		}]
@@ -99,7 +99,7 @@
 	},
 	{
 		"id":"timesplit",
-		"desc":"perform tasks of different types simultaneously.",
+		"desc":"perform actions of different types simultaneously.",
 		"require":"chronomancy",
 		"cost":{
 			"arcana":10,
@@ -373,9 +373,7 @@
 		"flavor":"You no take candle!",
 		"max":1,
 		"require":"mana",
-		"cost":{
-			"gold":10
-		},
+		"cost":10,
 		"mod":{
 			"mana.rate":0.02
 		}
@@ -400,9 +398,7 @@
 		"desc":"Keep your money safe.",
 		"require":"g.gold>=5",
 		"max":3,
-		"cost":{
-			"gold":5
-		},
+		"cost":5,
 		"flavor":"seems a tad pricey for a bag.",
 		"mod":{
 			"gold.max":10
@@ -414,9 +410,7 @@
 		"desc":"Small bag keeps gems safe without scratching.",
 		"require":"g.gems>=5",
 		"max":2,
-		"cost":{
-			"gold":300
-		},
+		"cost":300,
 		"flavor":"who prices these bags?!",
 		"mod":{
 			"magicgems.max":1,
@@ -702,7 +696,7 @@
 			"research":50,
 			"codices":1
 		},
-		"result":{
+		"effect":{
 			"sp":1
 		},
 		"mod":{
@@ -786,9 +780,7 @@
 		"desc":"Common way to carry coins.",
 		"require":"g.gold>=20",
 		"max":2,
-		"cost":{
-			"gold":15
-		},
+		"cost":15,
 		"mod":{
 			"gold.max":20
 		}
@@ -1162,9 +1154,7 @@
 		"desc":"Carry more scrolls.",
 		"require":"g.scrolls>=10",
 		"scale":2,
-		"cost":{
-			"gold":50
-		},
+		"cost":50,
 		"max":1,
 		"mod":{
 			"scrolls.max":15
@@ -1253,7 +1243,6 @@
 			"mana":2
 		},
 		"mod":{
-			"spiritlore.max":1,
 			"spirit.rate":0.01
 		}
 	},
@@ -1265,9 +1254,7 @@
 		"max":2,
 		"flavor":"Spare a little candle, save some light for me.",
 		"require":"g.mana.max>=50",
-		"cost":{
-			"gold":35
-		},
+		"cost":35,
 		"mod":{
 			"fire.max":0.04,
 			"fire.rate":0.01
@@ -1281,29 +1268,10 @@
 		"max":2,
 		"require":"g.light.max>=10",
 		"flavor":"It is better to light one candle than to curse the darkness.",
-		"cost":{
-			"gold":75
-		},
+		"cost":75,
 		"mod":{
 			"light.max":0.2,
 			"light.rate":0.01
-		}
-	},
-	{
-		"id":"sombercandle",
-		"name":"somber candle",
-		"tags":"candle",
-		"desc":"Its faint light stirs the restless spirits.",
-		"repeat":true,
-		"max":5,
-		"require":"g.spiritlore.max>=7",
-		"cost":{
-			"gold":150,
-			"bonedust":10
-		},
-		"mod":{
-			"spiritlore.max":0.2,
-			"spirit.rate":0.01
 		}
 	},
 	{
@@ -1315,9 +1283,7 @@
 		"max":2,
 		"require":"g.shadow.max>=10",
 		"flavor":"darkness, darkness.",
-		"cost":{
-			"gold":75
-		},
+		"cost":75,
 		"mod":{
 			"shadow.max":0.2,
 			"shadow.rate":0.01
@@ -1859,7 +1825,7 @@
 		"id": "rockcollection",
 		"name": "minerals collection",
 		"desc": "Sorted by hardness.",
-		"require": "geomancer",
+		"require": "(g.geomancer)>0",
 		"max": 3,
 		"cost": {
 			"gold": 500,
@@ -1874,7 +1840,7 @@
 		"id": "artificialmountain",
 		"name": "raise mountain",
 		"desc": "Leave your mark on this world",
-		"require": "earthshaker",
+		"require": "g.earthshaker>0",
 		"max": 1,
 		"cost": {
 			"gold": 5000,
@@ -1893,7 +1859,7 @@
 		"id": "constructquarry",
 		"name": "magic quarry",
 		"desc": "A rocky escarpment to conduct your excavations more efficiently.",
-		"require": "geosculpting",
+		"require": "g.geosculpting>0",
 		"max": 3,
 		"cost": {
 			"gold": 1500,

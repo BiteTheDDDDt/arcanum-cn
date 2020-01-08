@@ -1,6 +1,5 @@
 import { clone } from "objecty";
 import Stat from "../values/stat";
-import { cloneClass } from "./util";
 
 /**
  * Find and return first element of set matching predicate.
@@ -115,16 +114,16 @@ export const mergeCosts = ( c1, c2 ) => {
  * Write numeric values into a destination object.
  * If the destination target for a keyed number is an object,
  * the keyed number is added to the object's 'value' property.
- * @param {object} dest
+ * @param {object} obj
  * @param {*} vals
  */
-export const addValues = (dest, vals) => {
+export const addValues = (obj, vals) => {
 
 	if ( typeof vals === 'string') {
 
-		let cur = dest[vals];
-		if ( !cur) dest[vals] = 1;
-		else if ( !isNaN(cur)) dest[vals] = cur + 1;
+		let cur = obj[vals];
+		if ( !cur) obj[vals] = 1;
+		else if ( !isNaN(cur)) obj[vals] = cur + 1;
 		else if ( typeof cur === 'object') {
 			// NOTE: if cur.value is NaN there is no consistent merge strategy.
 			cur.value = (cur.value || 0) + 1;
@@ -134,29 +133,26 @@ export const addValues = (dest, vals) => {
 
 		for( let p in vals ) {
 
-			let cur = dest[p];
+			let cur = obj[p];
 			let src = vals[p];
 
 			if ( !cur ) {
 
-				dest[p] = !isNaN(src) ? src : cloneClass(src);
+				obj[p] = !isNaN(src) ? src : clone(src);
 
 			} else if ( typeof cur === 'object') {
 
-				if ( typeof src === 'object') {
-					cur = [ cur, cloneClass(src )];
-				}
-
+				if ( typeof src === 'object') addValues( cur, src);
 				else cur.value = (cur.value || 0 ) + src;
 
 			} else if ( typeof src === 'object') {
 
-				src = dest[p] = cloneClass(src);
+				src = obj[p] = clone(src);
 				src.value = (src.value||0) + cur;
 
 			} else {
 
-				dest[p] = (cur||0) + src;
+				obj[p] = (cur||0) + src;
 			}
 
 

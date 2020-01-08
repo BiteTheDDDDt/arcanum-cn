@@ -231,10 +231,7 @@ export default class TechTree {
 		let it = this.items[unlocker];
 		if ( it === undefined ) return;
 		else if ( it instanceof TagSet ) {
-			return it.forEach( v=>{
-				//console.log( it.id + ': ' +v.id + ' unlock: ' + targ.id );
-				this.mapUnlock(v.id, targ, graph)}
-			);
+			return it.forEach( v=>this.mapUnlock(v.id,targ, graph) );
 		}
 
 		let map = graph[unlocker];

@@ -26,7 +26,7 @@ classes of the same tier.
 
 FEATURES:
 
-Next task improvement % displayed in tooltip
+Next action improvement % displayed in tooltip
 
 Lowered wizard unlock requirement.
 
@@ -39,7 +39,7 @@ Heist/Thievery now give the propery skill exp
 
 Fixed bug preventing druid unlock
 
-Fixed bug preventing auto-resume task
+Fixed bug preventing auto-resume action
 
 Fixed bug preventing rest after failed dungeon.
 

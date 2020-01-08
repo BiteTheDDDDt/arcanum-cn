@@ -1,7 +1,6 @@
 <script>
 import ItemsBase from '../itemsBase.js';
 import Progress from '../components/progbar.vue';
-import { toLarge } from 'util/format'
 
 export default {
 
@@ -19,10 +18,10 @@ export default {
 			return this.skill.rate.value.toFixed(1);
 		},
 		exp(){
-			return toLarge( Math.floor( this.skill.exp ) );
+			return Math.floor( this.skill.exp );
 		},
 		length(){
-			return toLarge(Math.floor( this.skill.length ) );
+			return Math.floor( this.skill.length );
 		}
 	}
 

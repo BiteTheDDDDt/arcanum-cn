@@ -31,6 +31,8 @@ export default {
 		this.runner = this.state.runner;
 		this.inv = this.state.getData('inventory');
 		this.enchantSlots = this.state.getData(ENCHANTSLOTS);
+		console.log( 'max: ' + this.enchantSlots.max );
+
 	},
 	methods:{
 

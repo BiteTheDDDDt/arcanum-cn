@@ -1,32 +1,9 @@
-const PostFixes = [
-	'', 'K', 'M', 'B', 'T'
+const postfixes = [
+
+	'k', 'm', 'b'
 ]
 
 export const toInt = Math.floor;
-
-/**
- * Format a large number.
- * @param {number} v
- * @returns {string}
- */
-export const toLarge = (v) => {
-
-	let sgn = 1;
-	if ( v < 0 ) {
-		sgn = -1;
-		v = -v;
-	}
-	// log negative.
-	if ( v <= 1 ) return sgn;
-
-	// index cutoff is every multiple of 1000, plus 2 digits over the next higher.
-	// e.g. the 'hundreds' category extends to 99,999; K extends to 99,999K
-	let ex = Math.floor( (Math.log10(v)-1)/3 );
-	if ( ex < 1 ) return sgn*v;
-
-	return ( sgn*Math.round( v / Math.pow(10,3*ex) ) )+PostFixes[ex];
-
-}
 
 /**
  * Formatting helpers for HTML/Display.

@@ -1,5 +1,3 @@
-import { assign } from 'objecty';
-
 /**
  * @class Proxy - proxies an item to add functionality/different behavior.
  */
@@ -56,7 +54,7 @@ export default class Proxy {
 
 	constructor( vars=null ){
 
-		if (vars) assign( this, vars );
+		if (vars) Object.assign( this, vars );
 
 	}
 

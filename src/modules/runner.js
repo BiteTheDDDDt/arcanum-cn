@@ -1,16 +1,15 @@
 import Game from '../game';
-import {quickSplice } from '../util/array';
-import Events, {TASK_DONE, TASK_CHANGED, HALT_TASK, TASK_BLOCKED, STOP_ALL } from '../events';
+import {quickSplice} from '../util/array';
+import Events, {ACT_DONE, ACT_CHANGED, HALT_ACT, ACT_BLOCKED, EXP_MAX, STOP_ALL } from '../events';
 import Stat from '../values/stat';
 import Base, {mergeClass} from '../items/base';
 import Runnable from '../composites/runnable';
 import { SKILL, REST_TAG, TYP_RUN, PURSUITS } from '../values/consts';
-import { assign } from 'objecty';
 import { iterableMap, iterableFind, setReplace, mapSet } from '../util/dataUtil';
 import ArraySet from '../values/arrayset';
 
 /**
- * Tracks running/perpetual tasks.
+ * Tracks running/perpetual actions.
  */
 export default class Runner {
 
@@ -22,18 +21,18 @@ export default class Runner {
 
 	constructor(vars=null ){
 
-		if ( vars ) assign(this,vars);
+		if ( vars ) Object.assign(this,vars);
 
 		this.id = this.type;
 		this.name = 'activity';
 
 		/**
-		 * @property {ArraySet.<Task>} actives - Actively running tasks.
+		 * @property {ArraySet.<Action>} actives - Actively running tasks.
 		 */
 		this.actives = new ArraySet( this.actives || null );
 
 		/**
-		 * @property {Task[]} waiting - tasks waiting to run once rest is complete.
+		 * @property {Action[]} waiting - actions waiting to run once rest is complete.
 		 */
 		this.waiting = this.waiting || null;
 
@@ -83,9 +82,7 @@ export default class Runner {
 	autoProgress(){
 
 		this.actives.forEach(v=>{
-			if ( v.length ) {
-				v.exp = v.length - 0.001;
-			}
+			if ( v.length ) v.exp = v.length - 0.001;
 		});
 
 	}
@@ -132,10 +129,20 @@ export default class Runner {
 
 		this.timers = mapSet( this.timers, v=>gs.getData(v) );
 
-		Events.add( TASK_DONE, this.actDone, this );
-		Events.add( HALT_TASK, this.haltTask, this );
-		Events.add( TASK_BLOCKED, this.actBlocked, this );
+		Events.add( ACT_DONE, this.actDone, this );
+		Events.add( HALT_ACT, this.haltAction, this );
+		Events.add( ACT_BLOCKED, this.actBlocked, this );
+		Events.add( EXP_MAX, this.expMax, this );
 		Events.add( STOP_ALL, this.stopAll, this );
+
+	}
+
+	/**
+	 * Item reached max exp value.
+	 * @param {*} it
+	 */
+	expMax( it ) {
+		if ( it.complete && (typeof it.complete) === 'function') it.complete();
 
 	}
 
@@ -152,7 +159,7 @@ export default class Runner {
 
 		for( let a of list ) {
 
-			a = this.reviveTask( a, gs, running);
+			a = this.reviveAct( a, gs, running);
 			if ( a ) res.push(a);
 
 		}
@@ -161,7 +168,7 @@ export default class Runner {
 
 	}
 
-	reviveTask( a, gs, running=false ) {
+	reviveAct( a, gs, running=false ) {
 
 		if (!a) return;
 
@@ -181,13 +188,13 @@ export default class Runner {
 	}
 
 	/**
-	 * setTask of two items combined.
+	 * setAction of two items combined.
 	 * Before using an item and target, check if any existing Runnable matches.
 	 * If no match, create a Runnable.
 	 * @param {*} it
 	 * @param {*} targ
 	 */
-	beginUseOn( it, targ ) {
+	useOn( it, targ ) {
 
 		var run;
 		if ( it.beginUseOn ) {
@@ -196,33 +203,33 @@ export default class Runner {
 			run = new Runnable( it, targ );
 		}
 
-		this.setTask( run );
+		this.setAction( run );
 
 	}
 
 	/**
-	 * Toggle running state of task.
+	 * Toggle running state of action.
 	 * @public
-	 * @param {Task} a
+	 * @param {Action} a
 	 */
 	toggleAct( a ) {
 
 		if ( this.actives.has(a) ) {
-			this.stopTask(a, false);
-		} else this.setTask(a);
+			this.stopAction(a, false);
+		} else this.setAction(a);
 
 	}
 
 	/**
-	 * Add an task absolutely, removing a running task if necessary.
+	 * Add an action absolutely, removing a running action if necessary.
 	 * @public
 	 * @param {*} a
 	 */
-	setTask(a) {
+	setAction(a) {
 
 		if ( !a) return;
 
-		if ( a.cost && (a.exp.valueOf() === 0) ) {
+		if ( a.cost && (a.exp === 0) ) {
 			Game.payCost( a.cost);
 		}
 
@@ -236,10 +243,10 @@ export default class Runner {
 
 		if ( !this.has(a) ) {
 
-			// task already in running list.
-			Events.emit( TASK_CHANGED );
+			// action already in running list.
+			Events.emit( ACT_CHANGED );
 
-			this.runTask(a);
+			this.runAction(a);
 			this.trimActives(a);
 
 		}
@@ -258,7 +265,7 @@ export default class Runner {
 		for( let a of this.actives ) {
 
 			if ( a === not ) continue;
-			this.stopTask(a, false );
+			this.stopAction(a, false );
 			if ( a.type === TYP_RUN ) this.addWait(a);
 
 			if ( --remove <= 0 ) return;
@@ -268,11 +275,11 @@ export default class Runner {
 
 	/**
 	 * @private
-	 * @param {Task} act
+	 * @param {Action} act
 	 */
 	actBlocked( act, resume=true ) {
 
-		this.stopTask( act, false );
+		this.stopAction( act, false );
 		if ( act.hasTag(REST_TAG) ) {
 
 			this.tryResume( true );
@@ -286,11 +293,11 @@ export default class Runner {
 	}
 
 	/**
-	 * UNIQUE ACCESS POINT for removing active task.
-	 * @param {Task} i
-	 * @param {boolean} [tryResume=true] - whether can attempt to resume another task.
+	 * UNIQUE ACCESS POINT for removing active action.
+	 * @param {Action} i
+	 * @param {boolean} [tryResume=true] - whether can attempt to resume another action.
 	 */
-	stopTask( a, tryResume=true ){
+	stopAction( a, tryResume=true ){
 
 		if ( a.onStop ) a.onStop();
 		a.running = false;
@@ -319,7 +326,7 @@ export default class Runner {
 	}
 
 	/**
-	 * Attempt to add an task, while avoiding any conflicting task types.
+	 * Attempt to add an action, while avoiding any conflicting action types.
 	 * @public
 	 * @param {GData} a
 	 */
@@ -329,14 +336,14 @@ export default class Runner {
 		if ( a.fill && Game.filled(a.fill,a) ) return false;
 		if ( !a.canRun(Game) ) return false;
 
-		this.setTask(a);
+		this.setAction(a);
 
 		return true;
 
 	}
 
 	/**
-	 * Remove task entirely from Runner, whether active
+	 * Remove action entirely from Runner, whether active
 	 * or waiting.
 	 * @param {GData} a
 	 */
@@ -345,9 +352,9 @@ export default class Runner {
 	}
 
 	/**
-	 * Attempt to remain an task from waiting list.
+	 * Attempt to remain an action from waiting list.
 	 * @param {GData} a
-	 * @returns {boolean} true if task was found and removed.
+	 * @returns {boolean} true if action was found and removed.
 	 */
 	removeWait(a) {
 
@@ -373,22 +380,22 @@ export default class Runner {
 
 	}
 
-	haltTask( act ) {
+	haltAction( act ) {
 
 		if ( act.controller ) act = Game.state.getData(act.controller);
 
-		// absolute rest stop if no tasks waiting.
-		if ( this.waiting.length === 0 && act.hasTag( REST_TAG ) ) this.stopTask(act,false);
+		// absolute rest stop if no actions waiting.
+		if ( this.waiting.length === 0 && act.hasTag( REST_TAG ) ) this.stopAction(act,false);
 
 		else {
-			this.stopTask( act );
+			this.stopAction( act );
 		}
 
 	}
 
 	/**
-	 * Task is done, but could be perpetual/ongoing.
-	 * Attempt to repay cost and keep task.
+	 * Action is done, but could be perpetual/ongoing.
+	 * Attempt to repay cost and keep action.
 	 * @param {*} act
 	 */
 	actDone( act, repeatable=true ){
@@ -396,21 +403,21 @@ export default class Runner {
 
 		if ( act.running === false ) {
 			// skills cant complete when not running.
-			this.stopTask(act);
+			this.stopAction(act);
 
 		} else if ( repeatable ) {
 
 			if ( Game.canRun(act) && this.actives.size <= this.max.value ) {
 
-				this.setTask(act);
+				this.setAction(act);
 
 			} else if ( act.hasTag(REST_TAG )) {
 
-				this.stopTask( act );
+				this.stopAction( act );
 
 			} else {
 
-				this.stopTask( act );
+				this.stopAction( act );
 				this.addWait(act);
 
 			}
@@ -418,7 +425,7 @@ export default class Runner {
 		} else {
 
 
-			this.stopTask( act );
+			this.stopAction( act );
 
 		}
 
@@ -427,7 +434,7 @@ export default class Runner {
 	stopAll() {
 
 		for( let a of this.actives ) {
-			this.stopTask(a, false);
+			this.stopAction(a, false);
 		}
 		this.clearWaits();
 
@@ -438,8 +445,8 @@ export default class Runner {
 	}
 
 	/**
-	 * Attempt to resume any waiting tasks.
-	 * @param {boolean} norest - disallow resting on free task.
+	 * Attempt to resume any waiting actions.
+	 * @param {boolean} norest - disallow resting on free action.
 	 */
 	tryResume( norest=false) {
 
@@ -469,7 +476,7 @@ export default class Runner {
 	update(dt) {
 
 		for( let a of this.actives ) {
-			this.doTask( a, dt );
+			this.doAction( a, dt );
 		}
 
 		for( let a of this.timers ) {
@@ -479,7 +486,7 @@ export default class Runner {
 	}
 
 	/**
-	 * Force-add a rest task.
+	 * Force-add a rest action.
 	 * @public
 	 */
 	doRest(){
@@ -487,15 +494,15 @@ export default class Runner {
 	}
 
 	/**
-	 * Update individual task. Called during update()
-	 * @param {Task} a
+	 * Update individual action. Called during update()
+	 * @param {Action} a
 	 * @param {number} dt
-	 * @returns {boolean} false if task should be halted.
+	 * @returns {boolean} false if action should be halted.
 	 */
-	doTask(a, dt) {
+	doAction(a, dt) {
 
 		if ( a.maxed() ) {
-			this.stopTask(a);
+			this.stopAction(a);
 			this.tryAdd( Game.state.restAction );
 			return;
 		}
@@ -503,7 +510,7 @@ export default class Runner {
 		if ( a.run ) {
 
 			if ( !Game.canPay( a.run, dt ) ) {
-				this.stopTask(a);
+				this.stopAction(a);
 				this.addWait(a);
 				this.tryAdd( Game.state.restAction );
 
@@ -530,10 +537,10 @@ export default class Runner {
 	}
 
 	/**
-	 * UNIQUE ACCESS POINT for pushing task active.
+	 * UNIQUE ACCESS POINT for pushing action active.
 	 * @param {*} a
 	 */
-	runTask(a) {
+	runAction(a) {
 
 		a.running=true;
 		this.actives.add(a);
@@ -543,8 +550,8 @@ export default class Runner {
 	}
 
 	/**
-	 * Tests if exact task is running.
-	 * @param {Task} a
+	 * Tests if exact action is running.
+	 * @param {Action} a
 	 * @returns {boolean}
 	 */
 	has(a) {
@@ -552,10 +559,10 @@ export default class Runner {
 	}
 
 	/**
-	 * Tests if the runner already has a similar task in progress.
-	 * Only actives are tested. Waiting task will not resume if
+	 * Tests if the runner already has a similar action in progress.
+	 * Only actives are tested. Waiting action will not resume if
 	 * a new active takes its place.
-	 * @param {Task} a
+	 * @param {Action} a
 	 */
 	hasType( it ) {
 

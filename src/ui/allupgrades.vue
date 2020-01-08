@@ -14,8 +14,8 @@ export default {
 		classes() {
 			return Game.state.classes.filter(v=>!v.disabled&&v.value>=1);
 		},
-		tasks() {
-			return Game.state.tasks.filter(v=>!v.repeat&&!v.disabled&&v.value>=1).sort(alphasort);
+		actions() {
+			return Game.state.actions.filter(v=>!v.repeat&&!v.disabled&&v.value>=1).sort(alphasort);
 		},
 		upgrades(){
 			return Game.state.upgrades.filter(v=>!v.disabled&&v.value>=1).sort(alphasort);
@@ -31,7 +31,7 @@ export default {
 	<div class="div-hr">upgrades</div>
 	<div class="up-list">
 	<div v-for="it in classes" :key="it.id" @mouseenter.capture.stop="emit( 'itemover', $event,it)">{{it.name + count(it) }}</div>
-	<div v-for="it in tasks" :key="it.id" @mouseenter.capture.stop="emit( 'itemover', $event,it)">{{it.name + count(it) }}</div>
+	<div v-for="it in actions" :key="it.id" @mouseenter.capture.stop="emit( 'itemover', $event,it)">{{it.name + count(it) }}</div>
 	<div v-for="it in upgrades" :key="it.id" @mouseenter.capture.stop="emit( 'itemover', $event,it)">{{it.name + count(it) }}</div>
 	</div>
 </div>

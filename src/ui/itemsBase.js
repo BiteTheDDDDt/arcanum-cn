@@ -4,6 +4,7 @@
 import { floor, precise } from '../util/format';
 
 import Game, { TICK_LEN } from '../game';
+import Stat from '../values/stat';
 import { SKILL } from '../values/consts';
 
 export default {
@@ -53,7 +54,10 @@ export default {
 			let results = {};
 
 			if ( type === 'number') {
-				console.warn('effect type is number: ' + obj) ;
+
+				// gold is default.
+				results.gold = precise( obj );
+
 			} else if ( type === 'string') {
 
 				let it = Game.getData(obj);
@@ -63,7 +67,8 @@ export default {
 			else if ( type === 'function' ) {}
 			else if ( type === 'object') {
 
-				this.effectList( obj, results, '', rate );
+				if ( obj instanceof Stat ) results.gold = obj.value;
+				else this.effectList( obj, results, '', rate );
 
 			}
 
@@ -93,11 +98,7 @@ export default {
 				var sub = obj[p];
 				var subRate = rate;
 
-				if ( sub === null || sub === undefined ) {
-
-					console.warn('Sub null: ' + propPath + ': ' + p );
-					continue;
-				} else if ( p === 'skipLocked') continue;
+				if ( p === 'skipLocked') continue;
 				else if ( p === 'mod' || p === 'effect') subPath = propPath;
 				else if ( p === 'max' ) {
 

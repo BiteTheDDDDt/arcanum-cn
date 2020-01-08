@@ -7,7 +7,7 @@ export default class TagSet {
 	set id(v) { this._id = v;}
 
 	/**
-	 * @property {Set.<GData>} items
+	 * @property {Set} items
 	 */
 	get items() { return this._items; }
 	set items(v) {
@@ -17,7 +17,9 @@ export default class TagSet {
 	[Symbol.iterator](){return this._items[Symbol.iterator]()}
 
 	/**
-	 * @property {string} type - type might need to be a standard type.
+	 * @property {string} type - type might need to be a standard type
+	 * in order to mimic a default item in item lists.
+	 * 'custom' can distinguish as group.
 	 */
 	get type() { return this._type; }
 	set type(v) { this._type = v; }
@@ -55,14 +57,6 @@ export default class TagSet {
 		}
 
 	}
-
-	fillsRequire(){
-		for( let it of this.items ) {
-			if ( it.fillsRequire() ) return true;
-		}
-		return true;
-	}
-
 	canUse( g ) {
 		return g.canPay( this.cost );
 	}

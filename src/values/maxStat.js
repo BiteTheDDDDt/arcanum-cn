@@ -14,8 +14,8 @@ export default class MaxStat {
 		if ( v === m ) return v;
 
 		return {
-			v:this._value,
-			max:this.max
+			v:v,
+			max:m
 		};
 
 	}
@@ -35,11 +35,9 @@ export default class MaxStat {
 
 		if ( v > this._max.value ) v = this._max.value;
 
-		if ( this._value ) {
-			this._value.set(v);
-		} else {
-			this._value = v instanceof Stat ? v : new Stat( v, this.path + '.value' );
-		}
+		if ( v instanceof Stat ) this._value = v;
+		else if ( this._value === undefined || typeof v === 'object' ) this._value = new Stat(v,'value');
+		else this._value.base =v;
 
 	}
 
@@ -81,29 +79,22 @@ export default class MaxStat {
 
 		if ( vars && typeof vars === 'object') {
 
-			if ( vars.isRVal ) {
+			if ( vars.max ) this.max = vars.max;
+			else if ( vars.v) this.max = vars.v;
+			else this.max = 0;
 
-				this.max = vars;
-				this.value = this.max.value;
+			if ( vars.v ) this.value = vars.v;
+			else if ( vars.max ) this.value = vars.max;
+			else this.value = 0;
 
-			} else {
-
-				if ( vars.max ) this.max = vars.max;
-				else if ( vars.v) this.max = vars.v;
-				else this.max = 0;
-
-				if ( vars.v ) this.value = vars.v;
-				else if ( vars.max ) this.value = vars.max;
-				else this.value = 0;
-			}
-
-		} else if ( typeof vars === 'number' ) {
+		} else if ( typeof vars === 'number') {
 
 			this.max = vars;
 			this.value = vars;
 
 		} else {
 
+			console.warn( vars + ' wrong type: ' + (typeof vars) );
 			this.value = 0;
 			this.max = 0;
 

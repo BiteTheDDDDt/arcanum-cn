@@ -1,12 +1,12 @@
 import Game from '../game';
-import Events, {TASK_DONE} from '../events';
+import Events, {ACT_DONE} from '../events';
 import Proxy from './proxy';
 import { TYP_RUN } from '../values/consts';
 
 
 /**
- * Wraps a task in progress with a task target, and possible
- * extra.instanced data.
+ * Wraps an action in progress with an action target, and possible
+ * extra instance data.
  */
 export default class Runnable extends Proxy {
 
@@ -79,7 +79,7 @@ export default class Runnable extends Proxy {
 		if ( this.exp > this.length ) {
 
 			if ( this.target ) Game.useOn( this.item, this.target );
-			Events.emit( TASK_DONE, this, this.repeat );
+			Events.emit( ACT_DONE, this, this.repeat );
 			this.target = null;
 
 		}

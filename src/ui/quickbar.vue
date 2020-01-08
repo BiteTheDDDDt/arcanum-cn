@@ -23,7 +23,9 @@ export default {
 		},
 
 		hasItems(){
+
 			return this.slots.some(v=>v.item!=null);
+
 		}
 
 	}

@@ -1,5 +1,4 @@
 import Base, {mergeClass} from '../items/base';
-import { assign } from 'objecty';
 
 export default class Material {
 
@@ -7,7 +6,7 @@ export default class Material {
 
 	constructor(vars=null) {
 
-		if ( vars ) assign( this, vars);
+		if ( vars ) Object.assign( this, vars);
 
 	}
 

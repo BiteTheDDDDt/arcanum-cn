@@ -52,7 +52,7 @@ export default {
 
 			Game.payCost( this.craft.buy );
 
-			this.userSpells.create( this.list, Game.state, this.craft.name );
+			this.userSpells.create( this.list, this.craft.name );
 			this.list = [];
 
 			this.craft.level = 0;

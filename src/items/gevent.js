@@ -27,11 +27,9 @@ export default class GEvent extends GData {
 	 */
 	doUnlock(g) {
 
-
-		if ( this.disabled || (this.value>0 &&!this.repeat) ) {
-			return;
-		}
+		if ( this.disabled || (this.value>0 &&!this.repeat) ) return;
 		if ( this.locked ) Events.emit( EVT_UNLOCK, this );
+
 		if ( this.loot ) g.getLoot( this.loot );
 
 		// randomized event.

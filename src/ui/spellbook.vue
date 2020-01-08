@@ -54,7 +54,7 @@ export default {
 	height:100%;
 	margin-bottom: 1.2rem;
 }
-div.spellbook table { display: flex; flex-flow: row wrap; justify-content: space-between; }
+.spellbook table { display: flex; flex-flow: row wrap; justify-content: space-between; }
 .spellbook table tr { display:flex; flex-basis: 48%; }
 .spellbook table tr td:nth-child(1), .spellbook table tr td:nth-child(3) {
 	flex-basis: 20%; order: 3; }
@@ -65,6 +65,10 @@ div.spellbook table { display: flex; flex-flow: row wrap; justify-content: space
  div.spellbook { flex-direction: column; padding: 0; }
 div.spellbook { margin: 0; padding: var(--md-gap); }
 
+ div.spellbook table {
+        grid-template-columns: minmax( 10rem, 1fr ) repeat( auto-fit, minmax( 10rem, 1fr ));
+        grid-auto-rows:  1fr;
+    }
     div.spellbook  table tr { padding: var(--sm-gap); display:flex; align-items:center; }
     div.spellbook  table tr td:nth-child(1),
     div.spellbook  table tr td:nth-child(2){ flex: 1; }

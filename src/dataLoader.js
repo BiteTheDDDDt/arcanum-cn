@@ -1,8 +1,9 @@
 import GData from './items/gdata';
+import Player from './chars/player';
 
 import Range, {RangeTest} from './values/range';
 import Percent, {PercentTest} from './values/percent';
-import {ParseMods } from './modules/parsing';
+import {ParseMods } from './values/mod';
 
 import Resource from './items/resource';
 import RevStat from './items/revStat';
@@ -14,10 +15,10 @@ import Dungeon from './items/dungeon';
 import Locale from './items/locale';
 
 import Spell from './items/spell.js';
-import Task from './items/task';
+import Action from './items/action';
 
 import { mergeSafe } from 'objecty';
-import ProtoItem from './protos/protoItem';
+import ProtoItem from './items/protoItem';
 import Material from './chars/material';
 import Enchant from './items/enchant';
 import Item from './items/item';
@@ -25,19 +26,11 @@ import Potion from './items/potion';
 import Encounter from './items/encounter';
 import GEvent from './items/gevent';
 
-import Player from './chars/player';
-
 import Loader from './util/jsonLoader';
 import { splitKeyPath } from './util/util';
 import GClass from './items/gclass';
 import Module from './modules/gmodule';
-import { SKILL, ENCOUNTER, MONSTER, ARMOR, WEAPON, HOME, POTION, ITEM, RESOURCE, EVENT, RAID } from './values/consts';
-import { MakeDmgFunc } from 'values/combat';
-import Stat from './values/stat';
-import State from './chars/state';
-import PerValue, { IsPerValue } from './values/pervalue';
-import { SubPath } from './values/rvalue';
-import { mergeInto } from './util/array';
+import { SKILL, ENCOUNTER, MONSTER, ARMOR, WEAPON, HOME, POTION, ITEM, RESOURCE, EVENT } from './values/consts';
 
 const DataDir = './data/';
 
@@ -245,7 +238,6 @@ export default {
 		if ( lists.monsters ) inst.monsters = this.initItems( items, lists['monsters'], Monster, MONSTER, MONSTER );
 
 		if ( lists.rares ) inst.rares = this.initItems( items, lists['rares'], ProtoItem );
-		if ( lists.states ) inst.states = this.initItems( items, lists['states'], State, 'state', 'state' )
 
 		if ( lists.locales ) this.initItems( items, lists['locales'], Locale );
 		if ( lists.dungeons ) this.initItems( items, lists['dungeons'], Dungeon );
@@ -273,10 +265,7 @@ export default {
 		if ( lists.events ) inst.events = this.initItems( items, lists['events'], GEvent, EVENT, EVENT );
 		if ( lists.classes ) inst.classes = this.initItems( items, lists['classes'], GClass, 'class', 'class' );
 
-		if ( lists.tasks ) inst.tasks = this.initItems( items, lists['tasks'], Task, null, 'task' );
-		if ( lists.actions ) {
-				inst.tasks = this.mergeTasks( inst.tasks, this.initItems( items, lists.actions, Task, null, 'task' ) );
-		}
+		if ( lists.actions ) inst.actions = this.initItems( items, lists['actions'], Action, null, 'action' );
 
 		if ( lists.enchants ) inst.enchants =this.initItems( items, lists['enchants'], Enchant, null, 'enchant' );
 		if ( lists.sections ) inst.sections = this.initItems( items, lists['sections']);
@@ -285,15 +274,6 @@ export default {
 
 		return inst;
 
-	},
-
-	/**
-	 * Merge old action files with new ones, removing dupe ids.
-	 * @param {Task[]} a
-	 * @param {Task[]} b
-	 */
-	mergeTasks( a, b  ) {
-		return mergeInto( a, b, v=> a.find(w=>w.id==v.id)===undefined );
 	},
 
 	initItems( items, dataList, UseClass=GData, tag=null, type=null ) {
@@ -368,12 +348,7 @@ export const freezeData = ( obj ) => {
 
 }
 
-/**
- * Prepared data is instance-level data, but classes have not been instantiated.
- * @param {*} sub
- * @param {*} id
- */
-const prepData = ( sub, id='' ) => {
+export const prepData = ( sub, id='' ) => {
 
 	if (Array.isArray(sub) ) {
 
@@ -385,21 +360,19 @@ const prepData = ( sub, id='' ) => {
 
 			if ( p === 'mod') {
 
-				sub[p] = ParseMods( sub[p],  SubPath(id, p) );
+				sub[p] = ParseMods( sub[p], sub.id || id );
 				continue;
-			} else if ( p ==='effect' || p === 'result' ) {
+			}
+			/*else if ( p ==='effect') {
 
-				sub[p] = ParseEffects( sub[p], MakeEffectFunc );
+				sub[p] = ParseEffects( sub[p] );
 
-			} else if ( p === 'cost' || p === 'buy' ) {
+			}*/
+			else if ( p === 'require' || p === 'need' ) {
 
-					sub[p] = ParseEffects( sub[p], MakeCostFunc );
+				sub[p] = parseRequire( sub[p] );
 
-			} else if ( p === 'require' || p === 'need' ) {
-
-				sub[p] = ParseRequire( sub[p] );
 				continue;
-
 			}
 
 			if ( p.includes('.')) splitKeyPath( sub, p );
@@ -413,11 +386,10 @@ const prepData = ( sub, id='' ) => {
 					sub[p] = new Percent(obj);
 
 				} else if ( RangeTest.test(obj) ) sub[p] = new Range(obj);
-				else if ( IsPerValue(obj) ) sub[p] = new PerValue( obj, SubPath(id,p) );
 				else if ( !isNaN(obj) ) {
 					if ( obj !== '') console.warn('string used as Number: ' + p + ' -> ' + obj );
 				}
-				else if ( p === 'damage' || p === 'dmg') sub[p] = MakeDmgFunc(obj);
+				else if ( p === 'damage' || p === 'dmg') sub[p] = makeDmgFunc(obj);
 
 			} else if ( typ === 'object' ) prepData(obj, id);
 			else if (typ === 'number') {
@@ -437,7 +409,6 @@ const prepData = ( sub, id='' ) => {
 
 		if ( RangeTest.test(sub) ) return new Range(sub);
 		else if ( PercentTest.test(sub)) return new Percent(sub);
-		else if ( IsPerValue(sub)) return new PerValue( sub, id );
 
 	}
 
@@ -446,80 +417,60 @@ const prepData = ( sub, id='' ) => {
 }
 
 /**
- *
- * @param {object|string|Array|Number} effects
- * @param {Function} funcMaker - Function that returns a function for function RValues.
- */
-export const ParseEffects = ( effects, funcMaker ) => {
-
-	if ( Array.isArray(effects) ) {
-
-		for( let i = effects.length-1; i>= 0; i-- ){
-			effects[i] = ParseEffects( effects[i], funcMaker );
-		}
-
-	} else if ( typeof effects === 'string') {
-
-		if ( RangeTest.test(effects) ) return new Range(effects);
-		else if ( PercentTest.test(effects) ) return new Percent(effects);
-		else if ( IsPerValue(effects ) ) return new PerValue( effects );
-		else if ( effects.includes( '.' ) ) return funcMaker(effects);
-
-		return effects;
-
-	} else if ( typeof effects === 'object' ) {
-
-		for( let p in effects ) {
-			effects[p] = ParseEffects( effects[p], funcMaker );
-		}
-
-	} else if ( typeof effects === 'number' ) return new Stat( effects );
-
-	return effects;
-
-}
-
-/**
  * Parse a requirement-type object.
  * currently: 'require' or 'need'
  */
-export const ParseRequire = ( sub ) => {
+export const parseRequire = ( sub ) => {
 
 	// REQUIRE
 	if ( sub === null || sub === undefined || sub === false || sub === '') return undefined;
 	if ( Array.isArray(sub) ) {
 
-		for( let i = sub.length-1; i>= 0; i-- )sub[i] = ParseRequire( sub[i] );
+		for( let i = sub.length-1; i>= 0; i-- )sub[i] = parseRequire( sub[i] );
 
-	} else if ( typeof sub === 'string' && !IdTest.test(sub )) return MakeTestFunc( sub );
+	} else if ( typeof sub === 'string' && !IdTest.test(sub )) return makeTestFunc( sub );
 
 	return sub;
 
 }
 
 /**
+ * Create a testing function that accepts when
+ * the level of the given data item exceeds the level
+ * of the item to be unlocked.
+ * @todo: doesn't work. unlock test too abstract to detect in code.
+ * @param {string} unlocker - name of item that unlocks the item.
+ * @returns {function}
+ */
+export function levelTestFunc( unlocker ) {
+	return (g,i)=>{
+		return g[unlocker].level >= i.level; };
+}
+
+/**
  * Create a boolean testing function from a data string.
  * @param {string} text - function text.
  */
-export function MakeTestFunc( text ) {
+export function makeTestFunc( text ) {
 
 	return new Function( "g", 'i', 's', 'return ' + text );
 }
 
 /**
- * Cost function. params: GameState, Actor.
+ * Create a function which performs an arbitrary effect.
+ * player and target params are given for simplicity.
+ * target is the current enemy, if any.
+ * dt is the elapsed time.
  * @param {*} text
  */
-export function MakeCostFunc(text) {
-	return new Function( 'g,a', 'return ' + text );
+export function makeEffectFunc( text ) {
+	return new Function( 'g', 't', 'dt', text );
 }
 
 /**
- * Create a function which performs an arbitrary effect.
- * player and target params are given for simplicity.
- * target is the current target (of a dot), if any.
- * @param {string} text
+ * Create a damage-value function for an attack.
+ * @param {*} text
  */
-export function MakeEffectFunc( text ) {
-	return new Function( 'g,t,a', 'return ' + text );
+export function makeDmgFunc(text){
+	return new Function( 'g', 'p', 't', 'return ' + text );
 }

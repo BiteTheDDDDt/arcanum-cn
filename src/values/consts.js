@@ -28,13 +28,8 @@ export const TYP_RANGE = 'range';
 export const TYP_STAT = 'stat';
 export const TYP_MOD = 'mod';
 export const TYP_RVAL = 'rval';
-export const TYP_FUNC = 'func';
-export const TYP_DOT = 'dot';
-export const TYP_TAG = 'tagset';
 
 export const TYP_RUN = 'runnable';
-export const TYP_STATE = 'state';
-
 export const ENCHANTSLOTS = 'enchantslots';
 
 export const P_TITLE = 'title';
@@ -47,7 +42,6 @@ const NPC = 'npc';
 export { POTION, ITEM };
 
 const RESOURCE = 'resource';
-const ACTION = 'action';
 const SKILL = 'skill';
 const ENCOUNTER = 'enc';
 const WEARABLE = 'wearable';
@@ -59,7 +53,6 @@ const ARMOR = 'armor', WEAPON = 'weapon';
 
 export const REST_TAG = 't_rest';
 
-export const TASK = 'task';
 const DUNGEON = 'dungeon';
 const LOCALE = 'locale';
 const EXPLORE = 'explore';
@@ -77,7 +70,7 @@ export const TEAM_PLAYER = 1;
 export const TEAM_NPC = 0;
 
 export { RAID, DUNGEON, EXPLORE, LOCALE };
-export { HOME, RESOURCE, NPC, SKILL, ACTION, ENCOUNTER, WEARABLE, MONSTER, ARMOR, WEAPON, PURSUITS, EVENT };
+export { HOME, RESOURCE, NPC, SKILL, ENCOUNTER, WEARABLE, MONSTER, ARMOR, WEAPON, PURSUITS, EVENT };
 
 /**
  * @const {number[]} TierTable - levels when given tiers start.
@@ -110,16 +103,8 @@ export const SchoolTable = {
 };
 
 /**
- * @constant {number} DELAY_RATE - speed to attack delay conversion constant.
- */
-export const DELAY_RATE = 3.5;
-export function getDelay(s) {
-	return 0.5 + DELAY_RATE*Math.exp(-s/8);
-}
-
-/**
  * Determine if the given target allows targetting of item.
- * @param {string|string[]} targs - tags, names, or or id list.
+ * @param {string|string[]} targs
  * @param {GData} it
  * @returns {boolean} true if targs can target it.
  */

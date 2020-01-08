@@ -6,55 +6,16 @@ import { precise } from '../util/format';
 export const PercentTest = /^(\d+(?:\.?\d+)?)\%$/i
 export const RangeTest = /^\-?\d+\.?\d*\~\-?\d+\.?\d*$/i;
 
-/**
- * Form sub-path.
- * @param {string} id
- * @param {string} child
- * @returns {string}
- */
-export const SubPath = ( id, child ) => {
-	return id + '.' + child;
-}
-
-/*Parse(str){
-
-	if ( PercentTest.test(str) ) return new Percent(str);
-	else if ( RangeTest.test(str) ) return new Range(str);
-
-	return new RValue( str );
-
-}*/
-
 export default class RValue {
 
-	toJSON(){return this._base;}
+	Parse(str){
 
-	clone(){
+		if ( PercentTest.test(str) ) return new Percent(str);
+		else if ( RangeTest.test(str) ) return new Range(str);
 
-		let r = new RValue( this._value, this._id );
-		r.source = this.source;
-
-		return r;
+		return new RValue( str );
 
 	}
-
-	/**
-	 * @property {object} source - object that defines the value,
-	 * if any.
-	 */
-	get source(){return this._source;}
-	set source(v) { this._source = v;}
-
-	/**
-	 * @property {object} target - target modified.
-	 */
-	get target(){return this._target;}
-	set target(v){this._target=v}
-
-	/**
-	 * @property {boolean} isRVal - simple test for RVal interface.
-	 */
-	get isRVal(){return true;}
 
 	/**
 	 * @property {string} id
@@ -82,27 +43,19 @@ export default class RValue {
 	 * @returns {number}
 	 */
 	valueOf(){
-		return this._base;
+		return ( typeof this._base === 'object') ? this._base.value : this._base;
 	}
 
-	/**
-	 *
-	 * @param {number} vars
-	 * @param {?string} path
-	 */
-	constructor( vars=0, path=null ){
+	constructor( vars=null ){
 
-		this.id = path;
-		this._base = vars || 0;
+		if ( typeof vars === 'number') {
+			this.value = vars;
+		} else this.value = 0;
 
 	}
 
 	add(v) { this.value += v }
-	set(v){ this.value = Number(v); }
-
-	apply(mod,amt=1){
-		this.add(mod.value*amt);
-	}
+	set(v){ this.value = v; }
 
 	/**
 	 * Apply standard modifier.
@@ -111,15 +64,6 @@ export default class RValue {
 	 */
 	addMod( mod, amt ){
 		// base rvalue does not accept modifiers.
-	}
-
-	/**
-	 * Get amount when applied as an effect.
-	 * @param {}
-	 */
-	getApply() {
-		//console.log( this.id + ' getApply: ' + this.value );
-		return this.value;
 	}
 
 	/**

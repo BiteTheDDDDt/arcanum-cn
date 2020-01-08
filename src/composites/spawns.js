@@ -74,8 +74,12 @@ export default class Spawns {
 	random() {
 
 		if ( this.groups ) {
+
+			console.log('group()');
 			return this.randGroup();
+
 		} else {
+			console.log('return spawn info');
 			return this.info;
 		}
 

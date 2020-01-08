@@ -4,7 +4,7 @@ import Game from '../../game';
 import Combat from './combat.vue';
 import ProgBar from '../components/progbar.vue';
 
-import {HALT_TASK} from '../../events';
+import {HALT_ACT} from '../../events';
 
 export default {
 
@@ -14,7 +14,7 @@ export default {
 		progbar:ProgBar
 	},
 	created(){
-		this.HALT_TASK = HALT_TASK;
+		this.HALT_ACT = HALT_ACT;
 	},
 	methods:{
 
@@ -52,11 +52,11 @@ export default {
 		encName(){
 			return this.enc ? this.enc.name : '';
 		},
-		encProg(){
-			return this.enc ? this.enc.exp.valueOf() : 0;
+		encVal(){
+			return this.enc ? this.enc.exp : 0;
 		},
 		encLen(){
-			return this.enc ? this.enc.length.valueOf() : 0;
+			return this.enc ? this.enc.length : 10;
 		}
 
 	}
@@ -70,11 +70,11 @@ export default {
 
 	<span class="active-title">
 		<span>{{ explore.name }}</span><button class="raid-btn"
-		@click="emit( HALT_TASK, explore.locale, false )"
+		@click="emit( HALT_ACT, explore.locale, false )"
 		@mouseenter.capture.stop="emit( 'itemover', $event, explore.locale )">Flee</button>
 		</span>
 
-		<span class="bar"><progbar :value="explore.exp.valueOf()" :max="Number(explore.length)" /></span>
+		<span class="bar"><progbar :value="explore.exp" :max="Number(explore.length)" /></span>
 
 		<template v-if="type==='raid'">
 			<combat :combat="explore.combat" :player="player" />
@@ -83,7 +83,7 @@ export default {
 
 			<div @mouseenter.capture.stop="encOver($event)">
 			<span>{{ encName }}</span>
-			<progbar :value="encProg" :max="encLen" />
+			<progbar :value="encVal" :max="encLen" />
 			</div>
 
 			<div class="stressors">

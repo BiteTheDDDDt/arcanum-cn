@@ -1,6 +1,6 @@
 import Attack from '../chars/attack';
-import Task from './task';
-import { canTarget } from '../values/consts';
+import Action from './action';
+import { schoolSkill, canTarget } from '../values/consts';
 
 /**
  * Default require function for spells.
@@ -25,17 +25,18 @@ const reqStr = (s,lvl=1)=>{
  * @param {number} lvl - spell level.
  * @param {number} ratio - multiply spell level before test.
  */
-function schoolFunc(s, lvl=1 ) {
+const schoolFunc = (s, lvl=1 ) => {
 
 	if ( typeof s === 'string') {
 
 		s = 'g.' + s;
 		// @note: test school existence first.
-		return new Function( 'g', 'return !' + s + '||' + s + '>=' + lvl );
+		return new Function( 'g', 'return !' + s + '||' +
+									s + '>=' + lvl );
 
 	} else if ( Array.isArray(s) ) {
 
-		if ( s.length === 1 ) return schoolFunc( s[0] );
+		if ( s.length === 1 ) return schoolFunc(s[0]);
 
 		// total string.
 		var t = 'return ';
@@ -57,7 +58,7 @@ function schoolFunc(s, lvl=1 ) {
 
 }
 
-export default class Spell extends Task {
+export default class Spell extends Action {
 
 	/**
 	 * @property {string} only - target type, name, kind, or tag, to which
@@ -91,10 +92,6 @@ export default class Spell extends Task {
 
 		}
 
-		if ( this.dot && !this.dot.id) {
-			this.dot.id = this.dot.name || this.name;
-		}
-
 		if ( this.attack ) {
 
 			if ( !(this.attack instanceof Attack) ) {
@@ -109,7 +106,7 @@ export default class Spell extends Task {
 		if ( this.locked !== false ) {
 
 			if ( this.school ) {
-				let req = schoolFunc( this.school, this.level.value, this.ratio );
+				let req = schoolFunc( this.school, this.level, this.ratio );
 				if ( req ) this.addRequire( req );
 				else this.addRequire( levelReq );
 			}
@@ -121,7 +118,7 @@ export default class Spell extends Task {
 
 	/**
 	 *
-	 * @param {GData} targ
+	 * @param {*} targ
 	 */
 	canUseOn(targ) {
 

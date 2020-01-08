@@ -1,18 +1,17 @@
+import DataLoader from './dataLoader';
+import { logObj} from './util/util';
 import GData from './items/gdata';
 import Log from './log.js';
 import GameState, { REST_SLOT } from './gameState';
 import ItemGen from './modules/itemgen';
 import TechTree from './techTree';
+
+import Events, {EVT_UNLOCK, EVT_EVENT, EVT_LOOT, SET_SLOT, DELETE_ITEM } from './events';
 import Resource from './items/resource';
 import Skill from './items/skill';
 import Stat from './values/stat';
-
-import DataLoader from './dataLoader';
-
-import Events, {EVT_UNLOCK, EVT_EVENT, EVT_LOOT, SET_SLOT, DELETE_ITEM, ITEM_ACTION } from './events';
-import { MONSTER, TYP_PCT, TYP_RANGE, P_TITLE, P_LOG, TEAM_PLAYER } from './values/consts';
-import TagSet from './composites/tagset';
-import { TARGET_SELF, TARGET_ALLY, ApplyAction } from './values/combat';
+import { TEAM_ALLY } from './chars/npc';
+import { MONSTER, TYP_PCT, TYP_RANGE, P_TITLE, P_LOG } from './values/consts';
 
 var techTree;
 
@@ -61,7 +60,7 @@ export default {
 	log:new Log(),
 
 	/**
-	 * @property {Runner} runner - runs active tasks.
+	 * @property {Runner} runner - runs active actions.
 	 */
 	runner:null,
 
@@ -116,7 +115,6 @@ export default {
 
 			techTree = new TechTree( this.gdata );
 			Events.add( EVT_UNLOCK, techTree.unlocked, techTree );
-			Events.add( ITEM_ACTION, this.onAction, this );
 
 			// initial fringe check.
 			techTree.forceCheck();
@@ -137,15 +135,15 @@ export default {
 	 *
 	 * @param {string} id
 	 */
-	logStat( id ) {
+	logStat( id, full ) {
 
 		let s = this.getData(id);
 		if ( !s ) console.warn('STAT MISSING: '+id);
 		else {
 
-			//if ( full ) logObj(s,'LOG STAT' );
-			console.dir( s );
-			console.warn( id + ' value: ' + s.value + '  type: ' + s.constructor.name );
+			if ( full ) logObj(s,'LOG STAT' );
+			console.warn( id + ' value: ' + s.value );
+			console.log( s.constructor.name );
 
 		}
 	},
@@ -170,7 +168,6 @@ export default {
 					if ( evt.value == 0 ) {
 
 						evt.doUnlock(this);
-
 					} else if ( evt.locked ) evt.locked = false;
 					hasEvent = true;
 					break;
@@ -199,15 +196,11 @@ export default {
 		for( let p in gdata ) {
 
 			var it = gdata[p];
-			if ( it instanceof TagSet) continue;
-
-			if ( it.id === 'level' ) console.log( 'level: ' + it.value + ' locked: ' + it.locked );
 
 			if ( !it.locked && !it.disabled && !(it.instanced||it.isRecipe) ) {
 
+				if ( it.id ==='points') console.log('POINTS VAL: '+ it.value );
 				if ( it.value != 0 ) {
-
-					if ( it.id === 'level') console.log(it.id + ' VALUE: ' + it.value );
 
 					if ( it.mod ) this.applyMods( it.mod, it.value, it.id);
 					if ( it.lock ) {
@@ -302,24 +295,24 @@ export default {
 	},
 
 	/**
-	 * Toggles an task on or off.
+	 * Toggles an action on or off.
 	 * @param {GData} a
 	 */
-	toggleTask(a) { this.runner.toggleAct(a); },
+	toggleAction(a) { this.runner.toggleAct(a); },
 
 	/**
 	 * Wrapper for Runner rest
 	 */
 	doRest() { this.runner.tryAdd( this.state.getSlot(REST_SLOT) ) },
 
-	haltTask(a) { this.runner.stopTask(a);},
+	haltAction(a) { this.runner.stopAction(a);},
 
-	setTask( a ) { this.runner.setTask(a); },
+	setAction( a ) { this.runner.setAction(a); },
 
 	/**
-	 * Tests if a task has effectively filled a resource.
+	 * Tests if an action has effectively filled a resource.
 	 * @param {string|string[]} v - data or datas to fill.
-	 * @param {GData} a - task doing the filling.
+	 * @param {GData} a - action doing the filling.
 	 * @param {string} - name of relavant filling effect ( for tag-item fills)
 	 */
 	filled( v, a, tag ) {
@@ -355,9 +348,7 @@ export default {
 			this.disable(v);
 		} else {
 
-			if ( typeof it === 'string' ) {
-				it = this.getData( it );
-			}
+			if ( typeof it === 'string' ) it = this.getData( it );
 
 			if ( it && !it.disabled ) {
 
@@ -367,7 +358,7 @@ export default {
 					this.remove( it, 1 );
 				}
 
-				if ( it.running ) this.runner.stopTask(it);
+				if ( it.running ) this.runner.stopAction(it);
 				if ( it == this.state.raid.dungeon ) this.state.raid.setDungeon(null);
 
 				if ( it instanceof Resource || it instanceof Skill ) {
@@ -408,15 +399,15 @@ export default {
 	/**
 	 * Attempt to pay the cost to permanently buy an item.
 	 * @param {GData} it
-	 * @param {boolean} [keep=true]
+	 * @param {boolean} keep
 	 * @returns {boolean}
 	 */
-	tryBuy( it, keep=true ) {
+	tryBuy( it, keep=false ) {
 
 		if ( this.canPay(it.buy) === false ) return false;
 		this.payCost( it.buy );
 
-		if ( it.isRecipe ) this.create( it, keep );
+		if ( it.isRecipe ) this.create( it, 1, keep );
 		it.owned = true;
 
 		if ( it.slot && !this.state.getSlot(it.slot) ) this.setSlot(it);
@@ -443,13 +434,13 @@ export default {
 	 */
 	tryItem(it) {
 
-		if ( !it ) return;
+		if ( !it) return;
 
 		if ( !this.canUse(it) ) return false;
 
 		if ( it.perpetual || it.length > 0 ) {
 
-			this.setTask(it);
+			this.setAction(it);
 
 		}  else if ( it.instanced ){
 
@@ -457,7 +448,7 @@ export default {
 
 		} else if ( it.buy && !it.owned ) {
 
-			this.tryBuy( it, false );
+			this.tryBuy(it);
 
 		} else {
 
@@ -475,6 +466,20 @@ export default {
 			}
 
 		}
+
+	},
+
+	/**
+	 * Craft an item by paying its cost, then instantiating it.
+	 * Note that a crafted item does not use any of its effects or abilities.
+	 * @param {*} it
+	 */
+	craft( it ) {
+
+		if ( !this.canPay( it.cost ) ) return false;
+		this.payCost( it.cost );
+
+		this.create( it );
 
 	},
 
@@ -499,55 +504,24 @@ export default {
 	},
 
 	/**
-	 * Craft an item by paying its cost, then instantiating it.
-	 * Note that a crafted item does not use any of its effects or abilities.
-	 * @param {GData} it
-	 */
-	craft( it ) {
-
-		if ( !this.canPay( it.cost ) ) return false;
-		this.payCost( it.cost );
-
-		this.create( it );
-
-	},
-
-	/**
 	 * Create an item whose cost has been met ( or been provided by an effect )
-	 * @param {GData} it
-	 * @param {boolean} [keep=true] whether the item should be kept after effect.
-	 * ( currently used for npcs )
-	 * @param {number} [count=1]
+	 * @param {*} it
 	 */
-	create( it, keep=true, count=1 ) {
+	create( it, count=1, keep=false ) {
 
-		if ( typeof it === 'string') it = this.state.getData(it);
-		else if ( Array.isArray(it) ) {
-			for( let i = it.length-1; i>=0; i--) {
-				this.create(it[i], keep, count);
-			}
-			return;
-		}
+		/**
+		 * create monster and add to inventory.
+		 * @todo this is hacky.
+		*/
+		if ( it.type === MONSTER ) {
 
-		if (!it ) return;
+			if ( it.onCreate ) it.onCreate( this, TEAM_ALLY, keep );
 
-		for( let i = count; i >0; i--) {
+		} else {
 
-			/**
-			 * create monster and add to inventory.
-			 * @todo this is hacky.
-			*/
-			if ( it.type === MONSTER ) {
-
-				if ( it.onCreate ) it.onCreate( this, TEAM_PLAYER, keep );
-
-			} else {
-
-				var inst = this.itemGen.instance( it );
-				if ( inst ) this.state.inventory.add( inst );
-				Events.emit( EVT_LOOT, inst );
-
-			}
+			var inst = this.itemGen.instance( it );
+			if ( inst ) this.state.inventory.add( inst );
+			Events.emit( EVT_LOOT, inst );
 
 		}
 
@@ -575,7 +549,7 @@ export default {
 			if ( !it.length ) {
 
 				this.payCost( it.cost );
-				this.useOn( it, targ, this );
+				this.useOn( it, targ );
 
 				return true;
 
@@ -602,7 +576,7 @@ export default {
 
 		if ( targ === null || targ === undefined ) return;
 
-		if ( typeof it.useOn === 'function') it.useOn( targ, this );
+		if ( typeof it.useOn === 'function') it.useOn( targ );
 		it.value++;
 
 		console.log('USING: ' + it.id  + ' with ' + targ.id );
@@ -766,7 +740,6 @@ export default {
 			if ( test.id ) return test.fillsRequire();
 
 			// @todo: take recursive values into account.
-			// @todo allow tag tests.
 			let limit, it;
 			for( let p in test ) {
 
@@ -783,16 +756,18 @@ export default {
 	},
 
 	/**
-	 * Perform the one-time effect of an task, resource, or upgrade.
+	 * Perform the one-time effect of an action, resource, or upgrade.
 	 * @param {GData} effect
 	 * @param {number} dt - time elapsed.
 	 */
 	applyVars( effect, dt=1 ) {
 
-		if (  Array.isArray(effect) ) {
-			for( let e of effect ) { this.applyVars( e,dt); }
+		if ( typeof effect === 'object' ) {
 
-		} else if ( typeof effect === 'object' ) {
+			if (  Array.isArray(effect) ) {
+				for( let e of effect ) { this.applyVars( e,dt); }
+				return;
+			}
 
 			let target, e = effect[TYP_PCT];
 			if ( e && !e.roll() ) return;
@@ -810,13 +785,8 @@ export default {
 
 				} else {
 
-					if ( typeof e === 'number' || e.type === TYP_RANGE ) {
-
+					if ( typeof e === 'number' || e.type === TYP_RANGE  ) {
 						target.amount( this, e*dt );
-					} else if ( e.isRVal ) {
-						// messy code. this shouldn't be here. what's going on?!?!
-						target.amount( this, dt*e.getApply(this.state, target ) );
-
 					} else if ( e === true ) {
 
 						target.doUnlock(this);
@@ -836,7 +806,9 @@ export default {
 
 			let target = this.getData(effect);
 			if ( target !== undefined ) {
+
 				target.amount( this, dt );
+
 			}
 
 		}
@@ -888,7 +860,7 @@ export default {
 			let t = this.getData(mod);
 			if ( t ) {
 
-				console.warn('!!!ADDED NUMBER MOD: ' + mod );
+				console.warn('!!!!!ADDING NUMBER MOD: ' + mod );
 				t.amount( this, 1 );
 
 			}
@@ -898,7 +870,7 @@ export default {
 	},
 
 	/**
-	 * Determines whether an item can be run as a continuous task.
+	 * Determines whether an item can be run as a continuous action.
 	 * @returns {boolean}
 	 */
 	canRun( it ) {
@@ -911,7 +883,7 @@ export default {
 	},
 
 	/**
-	 * Determine if a one-use item can be used. Ongoing/perpetual tasks
+	 * Determine if a one-use item can be used. Ongoing/perpetual actions
 	 * test with 'canRun' instead.
 	 * @param {GData} it
 	 */
@@ -921,29 +893,7 @@ export default {
 	},
 
 	/**
-	 * Item action or attack
-	 * @param {Attack} act
-	 * @param {Char} char
-	 */
-	onAction( act, char=this.player ) {
-
-		if ( this.state.explore.running || this.state.raid.running ) return;
-
-		if ( act.target & TARGET_SELF > 0 ) {
-
-			ApplyAction( char, act, char );
-
-		} else if ( act.target & TARGET_ALLY ) {
-
-			let ally = this.allies.randItem();
-			if ( ally ) ApplyAction( ally, act, char );
-
-		}
-
-	},
-
-	/**
-	 * Attempts to pay the cost to perform an task, buy an upgrade, etc.
+	 * Attempts to pay the cost to perform an action, buy an upgrade, etc.
 	 * Before calling this function, ensure cost can be met with canPay()
 	 *
 	 * @param {Array|Object} cost
@@ -956,28 +906,37 @@ export default {
 		let res;
 		if ( typeof cost === 'object' ){
 
+			if ( cost instanceof Stat ) {
+				var g = this.getData('gold');
+				g.value -= cost.value*unit;
+				g.dirty = true;
+				return;
+			}
+
 			for( let p in cost ) {
 
 				res = this.getData(p);
+				if ( res ) {
 
-				if ( !res || res.instanced || res.isRecipe ) {
-					this.payInst( p, cost[p]*unit );
-
-				} else {
-
-					var targ = cost[p];
-
-					if ( !isNaN(targ) ) this.remove( res, targ*unit );
-					else if ( typeof targ === 'object' ) res.applyVars( targ, -unit );
-					else if ( typeof targ === 'function') {
-							this.remove( res, unit*targ(this.state, this.player) )
+					if ( res.instanced || res.isRecipe ) {
+						this.payInst( p, cost[p]*unit );
+						continue;
 					}
 
+					if ( !isNaN(cost[p]) ) this.remove( res, cost[p]*unit );
+					else res.applyVars( cost[p], -unit );
 					res.dirty = true;
-				}
 
+				} else this.payInst(p, cost[p] );
 
 			}
+
+		} else if ( typeof cost === 'boolean') return;
+	 	else if ( !isNaN(cost ) ) {
+
+			res = this.getData('gold');
+			res.value -= cost*unit;
+			res.dirty = true;
 
 		}
 
@@ -986,14 +945,19 @@ export default {
 	payInst( p, amt ){
 
 		var res = this.state.inventory.find( p,true );
-		if ( res ) this.state.inventory.removeCount(res,amt);
-		else console.warn('Insufficient: ' + p );
+		if ( res ) {
+
+			this.state.inventory.removeQuant(res,amt);
+			//if ( res.value <= 0 ) Events.emit( DROP_ITEM, res );
+
+		} else console.warn('QUANT NOT FOUND: ' + p );
 
 	},
 
 	/**
 	 * Determine if an object cost can be paid before the pay attempt
 	 * is actually made.
+	 * @todo: this is incorrect for multicosts.
 	 * @param {Array|Object} cost
 	 * @returns {boolean} true if cost can be paid.
 	 */
@@ -1005,6 +969,8 @@ export default {
 
 		if ( typeof cost === 'object' ){
 
+			if ( cost instanceof Stat ) { return this.getData('gold').value >= cost.value*amt; }
+
 			for( let p in cost ) {
 
 				var sub = cost[p];
@@ -1013,10 +979,12 @@ export default {
 				if ( !res ) return false;
 				else if ( res.instanced || res.isRecipe ) {
 
-					/* @todo: ensure correct inventory used. map type-> default inventory? */
-					return this.state.inventory.hasCount( res, amt );
+					res = this.state.inventory.findMatch( res );
+					if (!res) return false;
 
-				} else if ( !isNaN(sub) || sub instanceof Stat ) {
+				}
+
+				if ( !isNaN(sub) || sub instanceof Stat ) {
 
 					if ( !res.canPay(sub*amt) ) return false;
 					//if ( res.value < sub*amt ) return false;
@@ -1028,7 +996,19 @@ export default {
 
 				}
 
+				// @todo: recursive mod test.
+				/*let mod = res.mod;
+				if ( mod ) {}*/
+
 			}
+
+
+		} else if ( typeof cost === 'boolean') return true;
+		else if (!isNaN(cost) ) {
+
+			res = this.getData('gold');
+			if ( !res) console.error('Error: Gold is missing');
+			return res.value >= cost*amt;
 
 		}
 
@@ -1137,7 +1117,7 @@ export default {
 	},
 
 	/**
-	 * Get loot from a task, monster, or dungeon.
+	 * Get loot from an action, monster, or dungeon.
 	 * @param {string|Wearable|Object|Array} it
 	 * @param {?Inventory} inv - inventory to place looted item.
 	 */
@@ -1148,10 +1128,12 @@ export default {
 		inv = inv || this.state.inventory;
 		if ( inv.full() ) inv = this.state.drops;
 
+		/** @todo this won't work right. huh? why not, later lemur asks. */
 		if ( typeof it === 'object' && it.stack ) {
 
-			if ( inv.addStack( it ) ) {
-				Events.emit( EVT_LOOT, it );
+			let inst = inv.findMatch( it );
+			if ( inst ) {
+				inst.value++;
 				return;
 			}
 
@@ -1179,22 +1161,21 @@ export default {
 	lock(id, amt=1 ) {
 
 		if ( typeof id === 'object' && id[Symbol.iterator] ) {
-
 			for( let v of id ) this.lock(v,amt);
-
 		} else if ( typeof id === 'object' ) {
 
 			id.locks += amt;
+			id.dirty =true;
 
 		} else {
 
 			let it = this.getData(id);
 			if ( it ) {
-				this.lock(it, amt);
+				this.lock(it);
+
 			}
 
 		}
-
 
 	},
 

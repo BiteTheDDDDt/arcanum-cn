@@ -5,8 +5,6 @@ import Game from './game';
 import Events from './events';
 import Profile from './modules/profile';
 
-//window.localStorage.clear();
-
 if ( __KONG ) {
 
 	kongregateAPI.loadAPI( function(){
@@ -96,8 +94,6 @@ const vm = new Vue({
 	methods:{
 
 		loadProfile(){
-
-			//if ( forceClear ) this.reset();
 
 			console.warn('LOADING PROFILE');
 			Profile.loadHall().then( ()=>this.loadSave() );

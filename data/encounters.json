@@ -32,9 +32,6 @@
 			"naturelore.exp":1,
 			"waterlore.exp":1,
 			"arcana":0.001
-		},
-		"result":{
-			"watergem":"25%"
 		}
 	},
 	{
@@ -46,9 +43,6 @@
 			"bf":"-1~2",
 			"naturelore.exp":2,
 			"herbalism.exp":1
-		},
-		"result":{
-			"managem":"25%"
 		}
 	},
 	{
@@ -113,7 +107,7 @@
 		"loot":{
 			"gold":"0~50",
 			"gems":"2~5",
-			"runestones":"0~2",
+			"scrolls":"2~5",
 			"codices":"0~4"
 		}
 	},
@@ -127,11 +121,9 @@
 		},
 		"loot":{
 			"gold":"0~300",
-			"firerune":"5%",
-			"earthrune":"5%",
-			"waterrune":"5%",
-			"airrune":"5%",
-			"tomes":"50%"
+			"managem":"10%",
+			"gems":"0~5",
+			"tomes":"0~1"
 		}
 	},
 	{
@@ -146,8 +138,7 @@
 			"languages.exp":1
 		},
 		"result":{
-			"codices":"10%",
-			"research":10,
+			"research":1,
 			"arcana":0.02
 		}
 	},
@@ -178,7 +169,6 @@
 			"lore.exp":1
 		},
 		"result":{
-			"naturegem":"10%",
 			"arcana":0.01
 		}
 
@@ -210,7 +200,6 @@
 			"research":1
 		},
 		"result":{
-			"shadowgem":"5%",
 			"arcana":0.01
 		},"flavor":"legend tells of a massive gibbering, who will answer any question in return for a murder."
 
@@ -230,10 +219,10 @@
 			"anatomy.max":0.001
 		},
 		"loot":{
-			"gold":"0~100",
-			"bonedust":"0~2",
-			"gems":"0~2",
-			"bodies":"30%"
+			"gold":"0~300",
+			"managem":"10%",
+			"gems":"0~5",
+			"tomes":"30%"
 		}
 	},
 	{
@@ -246,7 +235,7 @@
 			"anatomy.exp":1
 		},
 		"result":{
-			"bones":"1~4"
+			"anatomy.max":0.001
 		}
 	},
 	{
@@ -258,9 +247,6 @@
 			"unease":"0~2",
 			"reanimation.exp":1,
 			"embalming.exp":2
-		},
-		"result":{
-			"bonedust":"0~3"
 		}
 	},
 	{
@@ -273,11 +259,11 @@
 			"reanimation.exp":2,
 			"embalming.exp":2
 		},
-		"loot":{
-			"runestones":"10%",
+		"result":{
+			"gems":"0~4",
 			"shadowgem":"30%",
 			"spiritgem":"30%",
-			"bodies":"50%"
+			"bloodgem":"50%"
 		}
 	},
 	{
@@ -579,7 +565,6 @@
 			"history.exp":2
 		},
 		"result":{
-			"runestones":"10%",
 			"history.max":0.001
 		}
 	},
@@ -674,7 +659,6 @@
 			"airlore.exp":2
 		},
 		"result":{
-			"airgem":"10%",
 			"airlore.max":0.001
 		}
 	}

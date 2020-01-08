@@ -1,4 +1,4 @@
-import Task from "./task";
+import Action from "./action";
 import { EXPLORE, LOCALE } from "../values/consts";
 
 /**
@@ -17,7 +17,7 @@ export const levelTest = (g, s) => {
 	return g.player.level >= (s.level-1);
 }
 
-export default class Locale extends Task {
+export default class Locale extends Action {
 
 	/**
 	 * @property {object|string} once - result to happen only once.
@@ -52,7 +52,7 @@ export default class Locale extends Task {
 		/**
 		 * @property {number} progress
 		 */
-		this.ex = this.ex || 0;
+		this._exp = this._exp || 0;
 		this._length = this._length || 100;
 
 		// default require for dungeon is player-level.
@@ -77,7 +77,7 @@ export default class Locale extends Task {
 	}
 
 	/**
-	 * Catch complete() to prevent task default. ugly.
+	 * Catch complete() to prevent default action. ugly.
 	*/
 	complete() {}
 

@@ -1,17 +1,106 @@
-import { assign } from 'objecty';
+import Game from '../game';
+import Range from '../values/range';
+import { TEAM_ALLY } from '../chars/npc';
 
 import Events, {
 	EVT_COMBAT, ENEMY_SLAIN, ALLY_DIED,
-	DAMAGE_MISS, CHAR_DIED, EVT_EVENT, STATE_BLOCK
+	DAMAGE_MISS, CHAR_DIED, IS_IMMUNE, COMBAT_HIT, EVT_EVENT
 } from '../events';
 
 import { itemRevive } from '../modules/itemgen';
-import { NO_SPELLS } from '../chars/states';
+import { getDelay } from '../chars/char';
 
-import { TEAM_PLAYER, getDelay } from '../values/consts';
-import { TARGET_ALLIES, TARGET_ENEMIES, TARGET_ENEMY, TARGET_ALLY, TARGET_SELF,
-	TARGET_RAND, TARGET_RANDG, TARGET_LEADER, ApplyAction } from "../values/combat";
+const TARGET_ALL = 'all';
 
+/**
+ * @const {string} TARGET_ENEMIES - target all enemies.
+ */
+const TARGET_ENEMIES = 'enemies';
+
+/**
+ * @const {string} TARGET_ALLIES - target all allies.
+ */
+const TARGET_ALLIES = 'allies';
+
+/**
+ * @const {string} TARGET_SELF - target self.
+ */
+const TARGET_SELF = 'self';
+
+/**
+ * @const {string} TARGET_RAND - random target.
+ */
+const TARGET_RAND = 'rand';
+
+
+/**
+* Attempt to damage a target. Made external for use by dots, other code.
+* @param {Char} target
+* @param {Object} attack
+*/
+export function tryDamage( target, attack, attacker = null) {
+
+	if ( !target || !target.alive ) return;
+	if ( target.isImmune(attack.kind) ) {
+
+		Events.emit(IS_IMMUNE, target.name + ' IMMUNE to ' + attack.kind);
+		return false;
+	}
+
+
+	if (attack.damage ) {
+
+		if ( !attack.getDamage){ console.error( 'NO DMG FUNC: ' + attack ); }
+		// add optional base damage from attacker.
+
+		/** @compat */
+		let dmg = attack.getDamage();
+		if ( (attacker && (attacker !== attack) && attacker.damage) ) {
+			dmg += attacker.getDamage( attack.kind );
+		}
+
+		let resist = target.getResist(attack.kind);
+		if (resist > 0) dmg *= (1 - resist);
+
+		target.hp -= dmg;
+		if ( target.hp <= 0 ) { Events.emit( CHAR_DIED, target, attack ); }
+
+		Events.emit( COMBAT_HIT, target, dmg, attack.name || (attacker ? attacker.name : '') );
+
+		if ( attack.leech && attacker ) {
+			let amt = Math.floor(100 * attack.leech * dmg) / 100;
+			attacker.hp += amt;
+			Events.emit(EVT_COMBAT, null, attacker.name + ' steals ' + amt + ' life.');
+		}
+
+	}
+
+	if (attack.dot) {
+		target.addDot( attack.dot, attacker, attack.name );
+	}
+
+	return true;
+
+}
+
+export function applyDamage(target, attack, attacker = null) {
+}
+
+/**
+* Convert damage object to raw damage value.
+* @param {number|function|Range|Attack} dmg /
+*/
+export function getDamage(dmg) {
+
+	if (dmg instanceof Range) return dmg.value;
+	else if (!isNaN(dmg)) return Number(dmg);
+	console.log('Damage undefined: ' + dmg);
+	return 0;
+
+	// TODO: invalid
+	//else return dmg( this.state, this.player, this.enemy );
+
+}
 
 export default class Combat {
 
@@ -54,7 +143,7 @@ export default class Combat {
 
 	constructor(vars = null) {
 
-		if (vars) assign(this, vars);
+		if (vars) Object.assign(this, vars);
 
 		if (!this._enemies) this._enemies = [];
 		if ( !this.allies) this.allies = [];
@@ -76,6 +165,8 @@ export default class Combat {
 
 		}
 
+		Events.add( CHAR_DIED, this.charDied, this );
+
 		for( let i = this._allies.length-1; i>=0; i-- ) {
 
 			var it = this._allies[i];
@@ -88,10 +179,6 @@ export default class Combat {
 
 		this._allies.unshift( this.player );
 
-		this.refreshAllTargs();
-
-		Events.add( CHAR_DIED, this.charDied, this );
-
 	}
 
 	/**
@@ -102,7 +189,7 @@ export default class Combat {
 
 		it.timer = getDelay( it.speed );
 
-		if ( it.team === TEAM_PLAYER ) {
+		if ( it.team === TEAM_ALLY ) {
 			this._allies.push( it)
 		} else this._enemies.push(it);
 
@@ -110,7 +197,7 @@ export default class Combat {
 
 	update(dt) {
 
-		if ( this.player.alive === false ) return;
+		if ( this._enemies.length === 0 || this.player.alive === false ) return;
 
 		var e, action;
 		for( let i = this._allies.length-1; i >= 0; i-- ) {
@@ -118,7 +205,6 @@ export default class Combat {
 			e = this._allies[i];
 			if ( e.alive === false ) {
 
-				/** @todo messy minion removal. */
 				e.hp -= dt;
 				if ( e.hp < -5 ) {
 					this._allies.splice(i,1);
@@ -129,11 +215,7 @@ export default class Combat {
 
 			if ( e !==this.player) e.update(dt);
 			action = e.combat(dt);
-			if ( !action ) continue;
-
-			else if ( !action.canAttack() ) {
-				Events.emit( STATE_BLOCK, e, action );
-			} else this.attack( e, action );
+			if ( action ) this.attack( e, action, this._enemies );
 
 		}
 
@@ -143,11 +225,7 @@ export default class Combat {
 			e.update(dt);
 			if ( e.alive === false ) { this._enemies.splice(i,1); continue;}
 			action = e.combat(dt);
-			if (!action) continue;
-
-			else if ( !action.canAttack() ){
-				Events.emit( STATE_BLOCK, e, action );
-			} else this.attack( e, action );
+			if ( action ) this.attack( e, action, this._allies );
 
 		}
 
@@ -163,17 +241,7 @@ export default class Combat {
 
 			Events.emit(EVT_COMBAT, null, this.player.name + ' casts ' + it.name + ' at the darkness.' );
 
-		} else {
-
-			let a = this.player.getCause( NO_SPELLS);
-			if ( a ) {
-
-				console.log('spells blocked: ' + a );
-				Events.emit( STATE_BLOCK, this.player, a );
-
-			} else this.attack( this.player, it.attack );
-
-		}
+		} else this.attack( this.player, it.attack, this.enemies );
 
 	}
 
@@ -181,23 +249,19 @@ export default class Combat {
 	 * Attack a target.
 	 * @param {Char} attacker - enemy attacking.
 	 * @param {Object|Char} atk - attack object.
+	 * @param {Char[]} targs - potential targets.
 	 */
-	attack( attacker, atk ) {
+	attack( attacker, atk, targs ) {
 
-		if ( atk.log ) {
+		if ( atk && atk.log ) {
 			Events.emit( EVT_EVENT, atk.log );
 		}
 
-		let targ = this.getTarget( attacker, atk.targets );
-		if ( !targ) return;
+		if ( atk && atk.targets === TARGET_ENEMIES ) {
 
-		else if ( Array.isArray(targ)) {
+			targs.forEach( v => v.alive? this.doAttack(attacker, atk, v):null );
 
-			for( let i = targ.length-1; i>= 0; i-- ) {
-				this.doAttack( attacker, atk, targ[i]);
-			}
-
-		} else this.doAttack( attacker, atk, targ );
+		} else this.doAttack( attacker, atk, this.nextTarget( targs ) );
 
 	}
 
@@ -209,54 +273,36 @@ export default class Combat {
 	 */
 	doAttack( attacker, atk, targ ) {
 
-		if (!targ || !targ.alive ) return;
+		if (!targ) return;
 
-		if ( atk.harmless || !targ.canDefend() || this.tryHit( attacker, targ, atk ) ) {
-			ApplyAction( targ, atk, attacker );
+		if ( this.tryHit( attacker, targ, atk ) ) {
+			tryDamage( targ, atk, attacker );
 		}
 
 	}
 
 	/**
+	 *
 	 * @param {Char} char
 	 * @param {string} targets
 	 * @returns {Char|Char[]|null}
 	 */
 	getTarget( char, targets ) {
 
-		// retarget based on state.
-		targets = char.getTarget(targets);
+		if ( !targets ) {
 
-		if ( !targets || targets === TARGET_ENEMY ) {
-
-			return char.team === TEAM_PLAYER ? this.nextTarget( this._enemies ) : this.nextTarget( this.allies );
+			return char.team === TEAM_ALLY ? this.nextTarget( this._enemies ) : this.nextTarget( this.allies );
 
 		} else if ( targets === TARGET_ENEMIES ) {
 
-			return char.team === TEAM_PLAYER ? this._enemies : this.allies;
+			return char.team === TEAM_ALLY ? this._enemies : this.allies;
 
 		} else if ( targets === TARGET_SELF ) return char;
-		else if ( targets === TARGET_ALLIES ) return char.team === TEAM_PLAYER ? this.allies : this.enemies;
 		else if ( targets === TARGET_RAND ) {
 
 			let r = Math.floor( Math.random()*( this._allies.length + this._enemies.length ) );
 			return ( r < this.allies.length ) ? this.nextTarget( this.allies ) : this.nextTarget( this.enemies );
 
-		} else if ( targets === TARGET_ALL ) {
-
-			return this.allTargs;
-
-		} else if ( targets === TARGET_LEADER ) {
-
-			return char.team === TEAM_PLAYER ? this._allies[0] : this.enemies[0];
-
-		} else if ( targets === TARGET_RANDG ) {
-
-			return Math.random() < 0.5 ? this.allies : this.enemies;
-
-		} else if ( targets === TARGET_ALLY ) {
-
-			return char.team === TEAM_PLAYER ? this.nextTarget( this.allies ) : this.nextTarget( this.enemies );
 		}
 
 	}
@@ -269,6 +315,7 @@ export default class Combat {
 		for( let i = a.length-1; i>=0; i-- ) {
 			if ( a[i].alive ) return a[i];
 		}
+
 	}
 
 	/**
@@ -312,33 +359,6 @@ export default class Combat {
 		}
 
 		this.setTimers();
-		this.refreshAllTargs();
-
-	}
-
-	refreshAllTargs() {
-		this.allTargs = this._allies.concat(this._enemies);
-	}
-
-	/**
-	 * Reenter same dungeon.
-	 */
-	reenter() {
-		this.allies = this.state.minions.allies.items.slice(0);
-		this.allies.unshift( this.player );
-		this.refreshAllTargs();
-	}
-
-	/**
-	 * Begin new combat encounter.
-	 */
-	begin() {
-
-		this._enemies = [];
-
-		this.allies = this.state.minions.allies.items.slice(0);
-		this.allies.unshift( this.player );
-		this.refreshAllTargs();
 
 	}
 
@@ -413,7 +433,7 @@ export default class Combat {
 	charDied( char, attacker ) {
 
 		if ( char === this.player ) return;
-		else if ( char.team === TEAM_PLAYER ) {
+		else if ( char.team === TEAM_ALLY ) {
 
 			Events.emit( ALLY_DIED, char );
 

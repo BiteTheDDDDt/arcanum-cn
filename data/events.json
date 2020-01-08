@@ -23,7 +23,7 @@
 		"name":"Promotion",
 		"desc":"In return for your new services, your master grants you a small allowance for your studies. The position does require of course, some initial fees...",
 		"lock":"t_job",
-		"result":{
+		"effect":{
 			"arcana.rate":0.0001,
 			"research.max":10,
 			"lore.max":1,
@@ -63,7 +63,7 @@
 		"desc":"Some say the study of magic doesn't truly begin until apprenticeship ends. People say a lot of things.",
 		"disable":["study", "chores","errands","leavemaster","slaymaster", "pestcontrol", "alcove", "atticbedroom"],
 		"lock":"t_tier0",
-		"result":{
+		"effect":{
 			"innroom":true,
 			"sp":1,
 			"player.exp":15
@@ -80,7 +80,7 @@
 		"desc":"Every province has its handful of runaway apprentices and failed Adepts. It's not uncommon for thieves and rangers to know a spell or two. They are nothing compared to the talents of a true professional.",
 		"disable":["treatailments","prestidigitation","buyscroll"],
 		"lock":["t_tier1", "t_tier0"],
-		"result":{
+		"effect":{
 			"sp":1,
 			"player.exp":15
 		},
@@ -98,7 +98,7 @@
 		"name":"Arcane Ascendant",
 		"desc":"The masses of arcane dabblers never reach such heights.",
 		"lock":"t_tier2",
-		"result":{
+		"effect":{
 			"player.exp":25
 		},
 		"mod":{
@@ -115,7 +115,7 @@
 		"name":"Magical Mastery",
 		"desc":"You are a master of your field of magic.",
 		"lock":"t_tier3",
-		"result":{
+		"effect":{
 			"sp":1,
 			"player.exp":50
 		},
@@ -134,7 +134,7 @@
 		"name":"Supreme Sorcery",
 		"desc":"Not even the masters could challenge you.",
 		"lock":"t_tier4",
-		"result":{
+		"effect":{
 			"sp":1,
 			"player.exp":75
 		},
@@ -153,7 +153,7 @@
 		"name":"Dhrunic Magic",
 		"desc":"Magic from a forgotten age.",
 		"lock":"t_tier5",
-		"result":{
+		"effect":{
 			"sp":1,
 			"player.exp":100
 		},
@@ -173,7 +173,7 @@
 		"name":"Ageless Magic",
 		"desc":"ages of the world come and go; only these endure.",
 		"lock":"t_tier6",
-		"result":{
+		"effect":{
 			"sp":1,
 			"player.exp":100
 		},
@@ -193,7 +193,7 @@
 		"name":"Dhrunic Pillar",
 		"desc":"a foundation of the world",
 		"lock":"t_tier7",
-		"result":{
+		"effect":{
 			"sp":1,
 			"player.exp":100
 		},

@@ -164,7 +164,7 @@ export default {
 		<hall v-if="hallOpen" @close="closeHall" />
 		<div class="pick-slots">
 
-			<div class="task-btn" v-if="hallUnlocked"><button class="btnHall" @click="openHall">{{ hallName }}</button></div>
+			<div class="action-btn" v-if="hallUnlocked"><button class="btnHall" @click="openHall">{{ hallName }}</button></div>
 
 			<slotpick title="home" pick="home" />
 			<slotpick title="werry" hide-empty="true" pick="werry" />

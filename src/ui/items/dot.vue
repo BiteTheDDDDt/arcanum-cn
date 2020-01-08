@@ -24,7 +24,6 @@ export default {
 				if ( typeof dmg === 'object') {
 
 					if ( dmg.toString == Object.prototype.toString ) {
-						console.warn('raw dot object dmg');
 						if ( dmg.min && dmg.max ) return dmg.min + '~' + dmg.max;
 					}
 

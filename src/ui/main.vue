@@ -2,7 +2,7 @@
 import Game from '../game';
 import Menu from './components/menu.vue';
 import ResoucesView from './resources.vue';
-import Tasks from './sections/tasks.vue';
+import Actions from './sections/actions.vue';
 import Quickbar from './quickbar.vue';
 import ItemsBase from './itemsBase';
 import Warn from './components/warn.vue';
@@ -21,7 +21,6 @@ import DevConsole from 'debug/devconsole.vue';
 import { TRY_BUY, USE, TRY_USE, EVT_STAT } from '../events';
 import { TICK_TIME } from '../game';
 import profile from '../modules/profile';
-import { TASK } from '../values/consts';
 
 /**
  * @const {number} SAVE_TIME  - time in seconds between auto-saves.
@@ -38,7 +37,7 @@ export default {
 	components:{
 		devconsole:DevConsole,
 		resources:ResoucesView,
-		tasks:Tasks,
+		actions:Actions,
 		itempopup:ItemPopup,
 		vitals:Vitals,
 		log:LogView,
@@ -121,7 +120,7 @@ export default {
 			this.add( 'take', this.onTake );
 
 			this.add( 'upgrade', this.onItem );
-			this.add( TASK, this.onItem );
+			this.add( 'action', this.onItem );
 			this.add( 'spell', this.onItem );
 
 			this.add( 'rest', this.onRest );
@@ -275,9 +274,9 @@ export default {
 
 		},
 
-		onToggle(it) { Game.toggleTask(it) },
+		onToggle(it) { Game.toggleAction(it) },
 
-		onRest(){Game.toggleTask( this.state.restAction ); },
+		onRest(){Game.toggleAction( this.state.restAction ); },
 
 		/**
 		 * Item clicked.
@@ -318,7 +317,7 @@ export default {
 		 * Buy a spell or item without casting/using the item or its mods.
 		 * @property {Item} item - item to buy.
 		 */
-		onBuy(item) { Game.tryBuy( item ); }
+		onBuy(item) { Game.tryBuy( item, true ); }
 
 	},
 	computed:{
@@ -364,7 +363,7 @@ export default {
 		<vue-menu class="game-mid" :items="menuItems" v-model="section">
 
 		<template slot="sect_main">
-		<tasks class="main-tasks" />
+		<actions class="main-actions" />
 		</template>
 
 		<template slot="sect_skills"><skills :state="state"></skills></template>
@@ -436,12 +435,12 @@ div.game-mid {
 	align-content: space-around;
 }
 
-div.game-mid div.main-tasks {
+div.game-mid div.main-actions {
 	overflow-y: auto;
 	height:100%;
 }
 
-div.task-list, div.upgrade-list {
+div.action-list, div.upgrade-list {
 	display:flex;
 	min-height:0;
 	flex-flow: row wrap;
@@ -450,11 +449,11 @@ div.task-list, div.upgrade-list {
 	text-transform: capitalize;
 }
 
-div.task-list {
+div.action-list {
 	justify-items: flex-start;
 }
 
-div.upgrade-list, div.task-list {
+div.upgrade-list, div.action-list {
 	margin: var(--md-gap) var(--tiny-gap) var(--tiny-gap) var(--md-gap);
 }
 

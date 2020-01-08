@@ -482,7 +482,7 @@
 		"run":{
 			"stamina":2
 		},
-		"length":50,
+		"length":30,
 		"result":{
 			"gems":"5~7",
 			"gold":"100~200"

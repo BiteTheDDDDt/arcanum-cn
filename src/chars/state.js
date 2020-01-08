@@ -1,11 +1,4 @@
-import Base, {mergeClass} from '../items/base';
-import { assign } from 'objecty';
-import { TYP_STATE } from '../values/consts';
-
 export default class State {
-
-	get type() { return TYP_STATE }
-	set type(v){}
 
 	get id() { return this._id; }
 	set id(v) { this._id =v;}
@@ -30,9 +23,18 @@ export default class State {
 	get stack() { return this._stack;}
 	set stack(v) { this._stack = v; }
 
+	get canAct(){return this._canAct;}
+	set canAct(v) { this._canAct = v;}
+
+	get canAttack(){return this._canAttack;}
+	set canAttack(v) { this._canAttack = v;}
+
+	get canDefend(){return this._canDefend;}
+	set canDefend(v) { this._canDefend = v;}
+
 	constructor( vars){
 
-		if ( vars ) assign(this, vars);
+		if ( vars ) Object.assign(this, vars);
 
 	}
 
@@ -56,5 +58,3 @@ export default class State {
 	}
 
 }
-
-mergeClass( State, Base );

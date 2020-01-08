@@ -1,4 +1,6 @@
 import CharInfo from "./charinfo";
+import Stat from "../values/stat";
+import StatData from "../items/statData";
 
 /**
  * Wizards hall.
@@ -94,6 +96,9 @@ export default class Hall {
 		/*if ( this.items ) {
 			console.log( 'EVT HALL: ' + this.items.evt_hall.value );
 		} else console.warn('HALL NOT YET OWNED');*/
+
+		/** @todo: change default to 1 */
+		//if ( !this.max ) this.max = 3;
 		this.max = this.items.hallSize;
 
 		console.log('HALL SIZE: ' + this.max.value );

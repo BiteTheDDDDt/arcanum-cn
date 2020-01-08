@@ -12,7 +12,7 @@ import Group from './composites/group';
 import UserSpells from './inventories/userSpells';
 import Quickbars from './composites/quickbars';
 import Stat from './values/stat';
-import { WEARABLE, ARMOR, WEAPON, HOME, PURSUITS, ENCHANTSLOTS, TYP_STATE } from './values/consts';
+import { WEARABLE, ARMOR, WEAPON, HOME, PURSUITS, ENCHANTSLOTS } from './values/consts';
 import Dot from './chars/dot';
 import TagSet from './composites/tagset';
 import EnchantSlots from './inventories/enchantslots';
@@ -137,8 +137,8 @@ export default class GameState {
 		 * makes upgrading/referencing by tag easier.
 		*/
 		this.tagSets = this.makeTagSets( this.items );
-		this.saveItems.allies = undefined;
 
+		this.saveItems.allies = undefined;
 	}
 
 	/**
@@ -251,13 +251,15 @@ export default class GameState {
 	 * Test if a home can fit the current used capacity.
 	 * @param {Object.<string,Items>} g - all game data.
 	 * @param {GData} i - item being tested.
-	 * @param {GameState} gs
+	 * @param {*} gs
 	 */
 	homeTest( g, i, gs ) {
 
 		var cur = gs.slots.home;
 		return g.space.valueOf()<=
 			g.space.max.delValue( i.mod.space.max.bonus - ( cur ? cur.mod.space.max.bonus : 0) );
+		/*return g.space.used <=
+			g.space.max.delValue( i.mod.space.max.bonus - ( cur ? cur.mod.space.max.bonus : 0) );*/
 
 	}
 
@@ -273,7 +275,7 @@ export default class GameState {
 		// must be defined for Vue. slots could be missing from save.
 		ensure( this.slots, [HOME, 'mount', 'bed', REST_SLOT]);
 
-		console.log('HOME: ' + this.slots[HOME] );
+		console.log('HOME SLOT: ' + this.slots[HOME] );
 		if ( !this.slots[REST_SLOT] ) this.slots[REST_SLOT] = this.getData('rest');
 
 	}
@@ -320,9 +322,10 @@ export default class GameState {
 		dot = new Dot( cloneClass(dot), source );
 
 		let st = this.getData(dot.id);
+		if ( st ) dot.mergeDot(st);
 		if ( st == dot ) {
-			console.warn('Dot already state: ' + st);
-		} else if ( st && st.type === TYP_STATE ) dot.mergeDot(st);
+			console.log('Dot equals state: ' + st);
+		}
 
 		dot.duration = duration;
 

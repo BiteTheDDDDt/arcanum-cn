@@ -189,7 +189,7 @@ export const assignNoFunc = ( dest, src ) => {
  */
 export const splitKeys = (obj)=>{
 
-	if ( !obj || typeof obj !== 'object' ) return;
+	if ( typeof obj !== 'object' ) return;
 
 	for( let s in obj ){
 
@@ -197,7 +197,7 @@ export const splitKeys = (obj)=>{
 		if ( s.includes('.')){
 			splitKeyPath( obj, s );
 		}
-		if ( sub && typeof sub === 'object' && (
+		if ( typeof sub === 'object' && (
 			Object.getPrototypeOf(sub) === Object.prototype )
 		) splitKeys( sub );
 
@@ -266,14 +266,6 @@ export const assignPublic = ( dest, src ) => {
 
 }
 
-
-/**
- * Log deprecation warning.
- * @param {*} msg
- */
-export const deprec = ( msg ) => {
-	console.trace( 'deprecated: ' + msg );
-}
 
 export const showObj = (obj) => {
 

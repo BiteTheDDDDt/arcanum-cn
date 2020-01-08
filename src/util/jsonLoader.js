@@ -17,8 +17,6 @@ export default class JSONLoader {
 	 */
 	constructor( baseDir, files ){
 
-		if ( baseDir && baseDir.length > 0 && baseDir[baseDir.length-1] !== '/' ) baseDir += '/';
-
 		this._dir = baseDir || '/';
 		if ( files ) this.setFiles(files);
 

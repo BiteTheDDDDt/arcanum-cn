@@ -176,7 +176,7 @@ export default {
 		<span class="title" v-if="title">{{title}}</span>
 
 		<div class="items">
-		<span class="task-btn" v-for="it in choices" :key="strings?it:it.id"
+		<span class="action-btn" v-for="it in choices" :key="strings?it:it.id"
 			@mouseenter.capture.stop="!strings ? emit( 'itemover', $event,it):''">
 
 		<button class="wrapped-btn" :disabled="!strings&&!usable(it)"
@@ -217,10 +217,10 @@ export default {
 	margin-bottom: var(--sm-gap);
 }
 
-.task-btn {
+.action-btn {
 	width: 100%;
 }
-.task-btn button {
+.action-btn button {
 
 	max-height: 2em;
 	width:100%;

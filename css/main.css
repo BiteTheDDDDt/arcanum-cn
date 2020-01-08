@@ -9,9 +9,9 @@
 	--progbar-dark-text:#222;
 	--progbar-light-text:#555;
 	--odd-list-color:#e5e5e5;
-	--task-btn-color: #fdc679;
+	--action-btn-color: #fdc679;
 
-	--task-button-width: 11rem;
+	--action-button-width: 11rem;
 	--separator-color: #AAA;
 	--list-entry-background: #00000007;
 	--list-entry-border-radius: 0.5em;
@@ -49,9 +49,9 @@
 	--header-background-color: #3a3a3a;
 	--background-color:#1a1a1a;
 	--button-text-color: #FFF;
-	--task-button-text-color:#aaa;
-	--task-button-border-color: #FFF;
-	--task-btn-color:#b37723;
+	--action-button-text-color:#aaa;
+	--action-button-border-color: #FFF;
+	--action-btn-color:#b37723;
 	--separator-color: #555;
 	--odd-list-color:#222;
 }
@@ -174,7 +174,7 @@ input[type="button"]:hover, button:hover, .text-button:hover {
 }
 
 .runnable button {
-	background: var(--task-btn-color);
+	background: var(--action-btn-color);
 }
 
 .runnable button:hover { background: #dba659; }
@@ -350,11 +350,11 @@ div.config button:after, button.config:after {
 }
 
 
-body.compact .task-btn button { min-height: 1em; }
+body.compact .action-btn button { min-height: 1em; }
 
-.task-btn.running { border: var(--tiny-gap) dashed #000; }
+.action-btn.running { border: var(--tiny-gap) dashed #000; }
 
-.task-btn {
+.action-btn {
 	text-transform: capitalize;
 	border: var(--tiny-gap) solid transparent;
 	margin: 0;
@@ -362,9 +362,9 @@ body.compact .task-btn button { min-height: 1em; }
 	width:100%;
 	max-width: 9rem;
 }
-.task-btn:not(.locked) { display:flex; }
+.action-btn:not(.locked) { display:flex; }
 
-.task-btn button {
+.action-btn button {
 	flex: 1; word-break: break-word; text-transform: capitalize;
 	min-height: 3em;
 	min-width: 6em;
@@ -372,13 +372,13 @@ body.compact .task-btn button { min-height: 1em; }
 	font-size:0.9em;
 }
 
-body.darkmode .task-btn.running {
-	border: 2px dashed var(--task-button-border-color);
+body.darkmode .action-btn.running {
+	border: 2px dashed var(--action-button-border-color);
 }
 .checks > span { flex: 1; }
 
-.task-btn.darkmode {
-	color: var(--task-button-text-color);
+.action-btn.darkmode {
+	color: var(--action-button-text-color);
 }
 .running {
 	border: 2px dashed #202020;

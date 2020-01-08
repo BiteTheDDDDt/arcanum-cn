@@ -1,5 +1,4 @@
 [
-
 	{
 		"id":"stam1",
 		"name":"minor fount",
@@ -21,17 +20,6 @@
 			"effect":{
 				"stamina":0.3
 			}
-		}
-
-	},
-	{
-
-		"id":"curesick",
-		"level":1,
-		"school":"light",
-		"action":{
-			"cure":"sick",
-			"targets":"ally,self"
 		}
 
 	},
@@ -619,7 +607,7 @@
 		"cost":{
 			"spirit":5
 		},
-		"result":"wisp"
+		"effect":"wisp"
 	},
 	{
 		"id":"mk_zombie",
@@ -635,7 +623,7 @@
 		"cost":{
 			"shadow":7
 		},
-		"result":"zombie"
+		"effect":"zombie"
 
 	},
 	{
@@ -969,7 +957,7 @@
 		"cost":{
 			"mana":10
 		},
-		"result":"hobgoblin"
+		"effect":"hobgoblin"
 	},
 	{
 		"id":"mk_raven",
@@ -983,7 +971,7 @@
 		"cost":{
 			"nature":4
 		},
-		"result":"raven"
+		"effect":"raven"
 
 	},
 	{
@@ -1076,27 +1064,10 @@
 		}
 	},
 	{
-		"id":"flamestrike",
-		"school":"fire",
-		"buy":{
-			"tomes":1
-		},
-		"cost":{
-			"fire":2,
-			"hp":5
-		},
-		"attack":{
-			"kind":"fire",
-			"bonus":10,
-			"dmg":"a.weapon.damage+a.getBonus( a.weapon.kind )"
-		}
-
-	},
-	{
 		"id":"mk_blade",
 		"name":"summon blade",
 		"school":"blade",
-		"require":"(g.battlemage+g.spellblade+g.dreadlord+g.summoner)>0",
+		"require":"(g.battlemage+g.spellblade+g.dreadlord)>0",
 		"level":7,
 		"buy":{
 			"research":5000,
@@ -1105,7 +1076,7 @@
 		"cost":{
 			"mana":12
 		},
-		"result":"magicblade"
+		"effect":"magicblade"
 	},
 	{
 		"id":"mk_murder",
@@ -1122,7 +1093,7 @@
 		"cost":{
 			"mana":7
 		},
-		"result":[
+		"effect":[
 			"raven",
 			"raven",
 			"raven",
@@ -1146,7 +1117,7 @@
 		"cost":{
 			"light":10
 		},
-		"result":"unicorn"
+		"effect":"unicorn"
 
 	},
 	{
@@ -1421,7 +1392,7 @@
 		"cost":{
 			"light":5
 		},
-		"result":{
+		"effect":{
 			"hp":20
 		}
 	},
@@ -1927,7 +1898,7 @@
 		"cost":{
 			"light":5
 		},
-		"result":{
+		"effect":{
 			"hp":75
 		}
 	},
@@ -2210,24 +2181,6 @@
 				"player.damage":10
 			}
 		},"flavor":"don't lose your way"
-	},
-	{
-
-		"id":"bloodshot",
-		"level":8,
-		"school":"blood",
-		"buy":{
-			"research":1000,
-			"tomes":5,
-			"bloodgem":15
-		},
-		"cost":{
-			"hp":"a.hp/4"
-		},
-		"attack":{
-			"kind":"blood",
-			"dmg":"a.hp"
-		}
 	},
 	{
 		"id":"unearth",
@@ -2662,7 +2615,7 @@
 		"cost":{
 			"light":7
 		},
-		"result":{
+		"effect":{
 			"hp":200
 		}
 	},
@@ -2685,9 +2638,9 @@
 			"water":8
 		},
 		"attack":{
-			"targets":"all",
 			"dot":{
 				"kind":"water",
+				"targets":"all",
 				"dmg":"20~30",
 				"duration":30
 			}

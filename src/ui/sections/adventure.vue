@@ -168,13 +168,13 @@ export default {
 						<!-- EVENT MUST BE ON OUTER SPAN - CHROME -->
 					<span @mouseenter.capture.stop="emit( 'itemover', $event, d )"><span>{{ d.sname }}</span>
 
-					<button class="raid-btn" :disabled="!game.canRun(d)" @click="emit( 'task', d )">Enter</button></span>
+					<button class="raid-btn" :disabled="!game.canRun(d)" @click="emit( 'action', d )">Enter</button></span>
 
 
 					<span class="sym">{{ d.sym }}</span>
 					</span>
 
-					<progbar :value="d.exp.valueOf()" :max="d.length.valueOf()" />
+					<progbar :value="d.exp.valueOf()" :max="Number(d.length)" />
 
 				</div>
 

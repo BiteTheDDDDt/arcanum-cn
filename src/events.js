@@ -60,12 +60,6 @@ const ALLY_DIED = 'ally_died';
 const COMBAT_DONE = 'combat_done';
 const ENEMY_SLAIN = 'slain';
 
-/**
- * @const {string} CHAR_STATE - inform current char state.
- */
-export const CHAR_STATE = 'charstate';
-
-export const STATE_BLOCK = 'blocked';
 
 /**
  * player defeated by some stat.
@@ -80,11 +74,11 @@ export const IS_IMMUNE = 'dmg_immune';
  */
 export const COMBAT_HIT = 'char_hit';
 
-const TASK_CHANGED = 'taskchanged';
-const TASK_IMPROVED = 'taskimprove';
+const ACT_CHANGED = 'actchanged';
+const ACT_IMPROVED = 'actimprove';
 
 /**
- * stop all running tasks.
+ * stop all running actions.
  */
 const STOP_ALL = 'stopall';
 
@@ -92,22 +86,27 @@ const STOP_ALL = 'stopall';
  * Dispatched by a Runnable when it has completed.
  * It is the job of the runnable to determine when it has completed.
  */
-const TASK_DONE = 'task_done';
+const ACT_DONE = 'act_done';
 
 /**
  * Action should be stopped by runner.
  */
-const HALT_TASK = 'halt_task';
+const HALT_ACT = 'halt_act';
 
 /**
  * Action blocked or failed.
  */
-const TASK_BLOCKED = 'task_blocked';
+const ACT_BLOCKED = 'act_blocked';
+
+/**
+ * Triggered when Action, Skill, or Dungeon reaches max experience.
+ */
+const EXP_MAX = 'exp_max';
 
 /**
  * Item with attack used. Typically spell; could be something else.
  */
-const ITEM_ACTION = 'item_atk';
+const ITEM_ATTACK = 'item_atk';
 
 /**
  * Completely delete item data. Use for Custom items only.
@@ -154,15 +153,14 @@ const CHAR_CHANGE = 'charchange';
 export const EVT_STAT = 'stat';
 
 /**
- * @property {string} TOGGLE - toggle a task on/off.
+ * @property {string} TOGGLE - toggle an action on/off.
  */
 export const TOGGLE = 'toggle';
 
 export { CHAR_TITLE, NEW_TITLE, LEVEL_UP, CHAR_NAME, CHAR_CLASS, CHAR_CHANGE };
 
-export { HALT_TASK, EVT_COMBAT, EVT_EVENT, EVT_UNLOCK, EVT_LOOT, TASK_DONE,
-	ALLY_DIED, CHAR_DIED, ITEM_ACTION, STOP_ALL, DELETE_ITEM,
-	TASK_CHANGED, TASK_IMPROVED, TASK_BLOCKED,
+export { HALT_ACT, EVT_COMBAT, EVT_EVENT, EVT_UNLOCK, EXP_MAX, EVT_LOOT, ACT_DONE, ALLY_DIED, CHAR_DIED, ITEM_ATTACK, STOP_ALL, DELETE_ITEM,
+	ACT_CHANGED, ACT_IMPROVED, ACT_BLOCKED,
 	DAMAGE_MISS, DEFEATED, ENEMY_SLAIN, COMBAT_DONE, ENC_START, ENC_DONE };
 
 export default {
@@ -182,13 +180,10 @@ export default {
 		events.addListener( LEVEL_UP, this.onLevel, this );
 		events.addListener( NEW_TITLE, this.onNewTitle, this );
 
-		events.addListener( TASK_IMPROVED, this.actImproved, this );
+		events.addListener( ACT_IMPROVED, this.actImproved, this );
 
 		events.addListener( EVT_COMBAT, this.onCombat, this );
 		events.addListener( COMBAT_HIT, this.onHit, this );
-
-		events.addListener( CHAR_STATE, this.onCharState, this );
-		events.addListener( STATE_BLOCK, this.onStateBlock, this );
 
 		events.addListener( ENEMY_SLAIN, this.enemySlain, this );
 		events.addListener( DEFEATED, this.onDefeat, this );
@@ -217,7 +212,7 @@ export default {
 
 	onUnlock( it ) {
 		if ( it.hide || it.type === EVENT ) return;
-		this.log.log( uppercase(it.typeName) + ' Unlocked: ' + it.name, null, LOG_UNLOCK );
+		this.log.log( uppercase(it.type) + ' Unlocked: ' + it.name, null, LOG_UNLOCK );
 	},
 
 	onLoot( loot ) {
@@ -260,6 +255,9 @@ export default {
 
 		return null;
 
+	},
+
+	actionDone(it){
 	},
 
 	/**
@@ -321,26 +319,6 @@ export default {
 		this.log.log( '', char.name + ' hit' +
 		( attack ? (' by ' + attack + ': ' ) : '')
 		+ dmg.toFixed(1), LOG_COMBAT );
-	},
-
-	/**
-	 * Action blocked by state/reason.
-	 * @param {Char} char
-	 * @param {Dot} state
-	 */
-	onStateBlock( char, state ) {
-		this.log.log( state.adj, char.name + ' is ' + state.adj, LOG_COMBAT )
-	},
-
-	/**
-	 * Char has entered state.
-	 * @param {Char} char
-	 * @param {Dot} state
-	 */
-	onCharState( char, state ) {
-
-		this.log.log( state.adj, char.name + ' is ' + state.adj, LOG_COMBAT )
-
 	},
 
 	enemySlain( enemy, attacker ) {

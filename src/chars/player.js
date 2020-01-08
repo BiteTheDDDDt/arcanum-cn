@@ -1,15 +1,14 @@
-import Game from '../game';
 import Stat from "../values/stat";
 import Resource from "../items/resource";
-import { toStats } from "../util/dataUtil";
+import Game from '../game';
+import { tryDamage } from '../composites/combat';
 
-import Events, { LEVEL_UP, NEW_TITLE, CHAR_TITLE, CHAR_NAME, CHAR_CLASS } from "../events";
+import Char, { getDelay } from './char';
+import Events, { LEVEL_UP, NEW_TITLE, CHAR_TITLE, CHAR_NAME, CHAR_CLASS, EVT_STAT } from "../events";
 import Wearable from "./wearable";
 import GData from "../items/gdata";
-import Char from './char';
-import { RESOURCE, TEAM_PLAYER, getDelay } from "../values/consts";
-
-import { NO_ATTACK } from "./states";
+import { toStats } from "../util/dataUtil";
+import { RESOURCE } from "../values/consts";
 
 const Fists = new Wearable({
 
@@ -49,8 +48,6 @@ export default class Player extends Char {
 		} else this._level = v;
 
 	}
-
-	get team(){ return TEAM_PLAYER; }
 
 	/**
 	 * currently active title.
@@ -146,6 +143,12 @@ export default class Player extends Char {
 	get hits(){ return this._hits ? this._hits : (this._hits = {}) }
 	set hits(v){ this._hits = toStats(v); }
 
+	/**
+	 * @property {.<string,Stat>} bonuses - damage bonuses per damage kind.
+	 */
+	get bonuses(){ return this._bonuses ? this._bonuses : (this._bonuses = {}) }
+	set bonuses(v){ this._bonuses = toStats(v); }
+
 	get hid(){return this._hid;}
 	set hid(v){this._hid=v;}
 
@@ -184,11 +187,26 @@ export default class Player extends Char {
 
 		data.retreat = this.retreat||undefined;
 
+		data.states = this.states;
 		data.gclass = this.gclass;
 
 		if ( this.weapon ) data.weapon = this.weapon.id;
 
 		return data;
+
+	}
+
+	/**
+	 * Get bonus damage for an attack type.
+	 * @param {string} kind
+	 */
+	getDamage( kind ){
+
+		return this.damage.valueOf() + ( kind ? this.bonuses[kind] || 0 : 0 );
+		/*if ( kind && this.bonuses[kind] ) {
+			console.log('BONUS DMG: ' + this.bonuses[kind].valueOf() )
+		}
+		return d;*/
 
 	}
 
@@ -216,11 +234,10 @@ export default class Player extends Char {
 
 	}
 
+
 	constructor( vars=null ){
 
 		super(vars);
-
-		this.context = Game;
 
 		this.id = this.type = "player";
 		if ( !vars || !vars.name) this.name = 'wizrobe';
@@ -299,8 +316,8 @@ export default class Player extends Char {
 
 		if ( this.weapon && (typeof this.weapon === 'string') ) this.weapon = state.equip.find( this.weapon );
 
-		this.spells = state.getData('spelllist');
-		if ( this.spells.max.value === 0 ) this.spells.max.value = this.level.valueOf();
+		this.spelllist = state.getData('spelllist');
+		if ( this.spelllist.max.value === 0 ) this.spelllist.max.value = this.level.valueOf();
 
 		// copy in stressors to test player defeats.
 		this.stressors = state.stressors;
@@ -315,7 +332,7 @@ export default class Player extends Char {
 	begin() {
 
 		for( let i = this.dots.length-1; i>=0; i-- ){
-			if ( this.dots[i].mod) this.context.applyMods( this.dots[i].mod, 1 );
+			if ( this.dots[i].mod) Game.applyMods( this.dots[i].mod, 1 );
 		}
 
 	}
@@ -347,6 +364,38 @@ export default class Player extends Char {
 	}
 
 	/**
+	 * Perform update effects.
+	 * @param {number} dt - elapsed time.
+	 */
+	update( dt ) {
+
+		let updates = this.dots;
+		let dot;
+
+		for( let i = updates.length-1; i >= 0; i-- ) {
+
+			dot = updates[i];
+			if ( !dot.tick(dt) ) continue;
+
+			// ignore any remainder beyond 0.
+			// @note: dots tick at second-intervals, => no dt.
+			if ( dot.effect ) Game.applyVars( dot.effect, 1 );
+			if ( dot.damage ) tryDamage( this, dot, dot.source );
+
+			if ( dot.duration <= dt ) {
+
+				updates.splice( i, 1 );
+				if ( dot.mod ) Game.applyMods( dot.mod, -1 );
+
+			}
+
+
+		}
+		if ( this.regen ) this.hp += this.regen*dt;
+
+	}
+
+	/**
 	 * Get combat action.
 	 * @param {*} dt
 	 */
@@ -357,16 +406,20 @@ export default class Player extends Char {
 
 			this.timer += getDelay(this.speed);
 
-			let a = this.getCause( NO_ATTACK );
-			if ( a ) return a;
-
 			// attempt to use spell first.
-			if ( this.spells.count === 0 || !this.tryCast() ) {
+			if ( this.spelllist.count === 0 || !this.tryCast() ) {
 				return this.weapon.attack;
 			}
 
 		}
 
+	}
+
+	/**
+	 * try casting spell from player spelllist.
+	 */
+	tryCast(){
+		if ( !this.spelllist.onUse(Game) ) return false;
 	}
 
 	/**
@@ -387,6 +440,13 @@ export default class Player extends Char {
 
 	}
 
+	/**
+	 * Override char applyDot to apply to Game.
+	 */
+	applyDot( dot ){
+		Game.applyMods( dot.mod, 1 );
+	}
+
 	/* getResist( kind ) {
 		return this._resist[kind].value / 100;
 	}*/
@@ -404,9 +464,18 @@ export default class Player extends Char {
 
 	levelUp() {
 
-		this.level.amount( this.context, 1 );
+		this._level.add(1);
 
 		this.dirty = true;
+		if ( this._level % 3 === 0 ) this.sp.add(1);
+		if ( this._level % 5 === 0 ) Game.getData('minions').allies.max.base += 1;
+		if ( this._level % 4 === 0 ) Game.getData('speed').add(1);
+
+		Game.getData('spelllist').max.base += 1;
+
+		this.tohit.base += 1;
+		this.hp.max.base += 2;
+		this.stamina.max.base += 1;
 
 		this._exp.value -= this._next;
 		this._next = Math.floor( this._next * ( 1 + EXP_RATE ) );
@@ -419,13 +488,22 @@ export default class Player extends Char {
 	 * Init immunities, resists, etc.
 	 */
 	initStates(){
-
 		this._resist = this._resist || {};
 		for( let p in this._resist ) {
 			this._resist[p] = new Stat( this._resist[p]);
 		}
 
 		this.regen = this.regen || 0;
+
+		this._states = this._states || {
+			fly:0,
+			sleep:0,
+			swim:0,
+			immortal:0,
+			paralyzed:0,
+			stoned:0,
+			confused:0
+		};
 
 		if ( !this.immunities ) this.immunities = {
 			fire:0,

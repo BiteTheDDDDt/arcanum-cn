@@ -31,7 +31,7 @@ export default {
 	<label v-if="label" :for="elmId('bar')">{{label}}</label>
 	<div class="bar" :id="elmId('bar')">
 		<div class="fill" :style="style">
-			<span class="bar-text" v-if="!hideStats">{{ value.toFixed(1) + '/' + max.toFixed(1) }}</span>
+			<span class="bar-text" v-if="!hideStats">{{ (this.value||0).toFixed(1) + '/' + max.toFixed(1) }}</span>
 			<span v-else>&nbsp;</span>
 		</div>
 	</div>

@@ -1,13 +1,13 @@
 import Char from './char';
 import Range, { RangeTest } from '../values/range';
+import Stat from '../values/stat';
 import Percent, { PercentTest } from '../values/percent';
 import MaxStat from '../values/maxStat';
-import Attack from './attack';
-import { ParseDmg } from 'values/combat'
-import { assign } from 'objecty';
-import { TEAM_NPC } from 'values/consts';
-import { mergeClass } from '../items/base';
-import Instance from '../items/instance';
+
+/**
+ * @const {number} ALLY - team constant for allies.
+ */
+export const TEAM_ALLY = 1;
 
 /**
  * Class for specific Enemies/Minions in game.
@@ -20,7 +20,6 @@ export default class Npc extends Char {
 		data.id = this.id;
 
 		data.cost = undefined;
-		data.context = undefined;
 		data.team = this.team||undefined;
 
 		data.timer = this.timer;
@@ -35,6 +34,11 @@ export default class Npc extends Char {
 
 		data.keep = this.keep;
 
+		/**
+		 * @compat
+		 */
+		data.maxHp = undefined;
+
 		//data.died = this.died||undefined;
 
 		return data;
@@ -48,14 +52,23 @@ export default class Npc extends Char {
 	set keep(v) { this._keep = v;}
 
 	/**
+	 * @compat changed from Stat to sub Stat of hp MaxStat.
+	 */
+	get maxHp() { return this._hp.max; }
+	set maxHp(v) {}
+
+	/**
 	 * @property {MaxStat} hp
 	 */
 	get hp() { return this._hp; }
 	set hp(v) {
 
-		if ( this._hp === undefined || this._hp === null || typeof v === 'object') {
-			 this._hp = v instanceof MaxStat ? v : new MaxStat(v);
-		} else this._hp.set( v );
+		if ( this._hp === undefined || this._hp === null ||
+			 typeof v === 'object' ) {
+				 this._hp = v instanceof MaxStat ? v : new MaxStat(v);
+
+			 }
+		else this._hp.value = v;
 
 	}
 
@@ -93,7 +106,19 @@ export default class Npc extends Char {
 	}
 
 	get damage() { return this._damage; }
-	set damage(v) { this._damage = ParseDmg(v); }
+	set damage(v) {
+
+		if ( v && !(v instanceof Range) ) {
+
+			if ( typeof v === 'string' || typeof v === 'object') this._damage = new Range( v );
+			else {
+
+				this._damage = Number( v );
+			}
+
+		} else this._damage = v;
+
+	}
 
 	/**
 	 * @property {number} team - side in combat.
@@ -111,7 +136,7 @@ export default class Npc extends Char {
 
 		super( vars );
 
-		if ( save ) assign( this, save );
+		if ( save ) Object.assign( this, save );
 
 		this.dodge = this.dodge || this.level/2;
 
@@ -120,15 +145,17 @@ export default class Npc extends Char {
 		if ( typeof this.hp === 'string' ) this.hp = new Range(this.hp).value;
 		else if ( this.hp instanceof Range ) this.hp = this.hp.value;
 
+		/**
+		 * @compat
+		 */
+		if ( vars.maxHp) this.hp.max = vars.maxHp;
 		if (!this.hp ) { this.hp = 1; }
-		if ( !this.team) this.team = TEAM_NPC;
-		if ( !this.tohit ) this.tohit = 0;
+
+		//console.log( this.id + ' const() : ' + this.hp.value );
+
+		this.tohit = this.tohit || 0;
 
 		if ( this.dmg && (this.damage===null||this.damage===undefined) ) this.damage = this.dmg;
-		if ( !this.attack ) {
-			this.attack = new Attack( this.damage );
-			this.damage = 0;
-		}
 
 	}
 
@@ -144,9 +171,17 @@ export default class Npc extends Char {
 	 * @param {number} dt
 	 */
 	rest(dt) {
-		this.hp += ( 0.01*this.hp.max*dt );
+		this.hp += ( 0.01*this.hp.max.value*dt );
+	}
+
+	/**
+	 * @param {string} kind - kind of attack damage.
+	 * @returns {number} the damage from a single attack by npc.
+	 */
+	getDamage() {
+		return this.attack ? this.attack.getDamage() : (
+			(typeof this._damage === 'number') ? this._damage : this._damage.value
+		);
 	}
 
 }
-
-mergeClass( Npc, Instance )

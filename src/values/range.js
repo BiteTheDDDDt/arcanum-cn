@@ -15,7 +15,7 @@ export default class Range {
 
 	/**
 	 * @property {number} value - getting a range value
-	 * returns a random number in the range, max exclusive.
+	 * returns a random number in the range, inclusive.
 	 */
 	get value() {
 		return this.min + Math.random()*( this.max - this.min );
@@ -47,15 +47,6 @@ export default class Range {
 		//console.log('min: ' + this.min + ' -> ' + this.max );
 
 
-	}
-
-	/**
-	 * Test if a number is within the range, endpoints included.
-	 * @param {number} v
-	 * @returns {boolean}
-	 */
-	contains(v) {
-		return v >= this.min && v <= this.max;
 	}
 
 	/**
