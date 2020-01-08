@@ -145,18 +145,18 @@
           "name":"mockery",
           "dmg":"0~2",
           "type":"slashing",
-          "log":{
+          "log":[{
       			"%":"10%",
       			"desc":"Having a spell in memorized and a weapon in hand is most effective"
       		},
-          "log":{
+      		{
       			"%":"10%",
       			"desc":"casting spells manually makes for a one sided combat"
       		},
-          "log":{
+      		{
       			"%":"10%",
       			"desc":"having a good combination of buffs and attack spells memorized increases survivability"
-      		},
+      		}]
         }
       },
       {
