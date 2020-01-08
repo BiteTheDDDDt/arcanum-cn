@@ -51,6 +51,8 @@ const CharmTargets = {
  */
 export default class States {
 
+	toJSON(){return undefined;}
+
 	/**
 	 * @property {.<number,Dot[]>} causes - causes of each state flag.
 	 */

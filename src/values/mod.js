@@ -95,7 +95,15 @@ export default class Mod extends Stat {
 	/**
 	 * @property {number} [count=0] - number of times mod is applied.
 	 */
-	get count() { return this._count; }
+	get count() {
+		if ( this._count ) {
+			return this._count;
+		}
+
+		if ( this.source === null || this.source === undefined ) console.warn(this.id+ ' No Source');
+		return this.source;
+
+	}
 	set count(v) {
 
 		/**

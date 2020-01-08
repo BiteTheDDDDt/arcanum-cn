@@ -310,15 +310,10 @@ export default {
 	},
 
 	/**
-	 *
-	 * @param {Char} char
-	 * @param {number} dmg
-	 * @param {string} attack
+	 * @param {string} msg
 	 */
-	onHit( char, dmg, attack ) {
-		this.log.log( '', char.name + ' hit' +
-		( attack ? (' by ' + attack + ': ' ) : '')
-		+ dmg.toFixed(1), LOG_COMBAT );
+	onHit(msg) {
+		this.log.log( '', msg, LOG_COMBAT);
 	},
 
 	enemySlain( enemy, attacker ) {

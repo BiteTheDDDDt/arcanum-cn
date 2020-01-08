@@ -214,7 +214,21 @@ export default class Char {
 	 * @param {object} source
 	 * @param {string} name
 	 */
-	addDot( dot, source, name ) {
+	addDot( dot, source, duration=0 ) {
+
+		if ( Array.isArray(dot)) {
+			dot.forEach(v=>this.addDot(v,source,duration));
+			return;
+		}
+
+		if ( typeof dot === 'string') {
+			dot = Game.state.getData(dot);
+			if ( !dot ) return
+		}
+
+		if ( dot[ TYP_PCT ] && !dot[TYP_PCT].roll() ) {
+			return;
+		}
 
 		let id = dot.id;
 		if ( !id ) id = dot.id = name || (source ? source.id || source.name : '');

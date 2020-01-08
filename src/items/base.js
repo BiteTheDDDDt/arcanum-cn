@@ -352,13 +352,9 @@ export default {
 					let s = targ[p] = isMod ? new Mod( typeof m === 'number' ? m*amt :0 )
 						: new Stat( typeof m === 'number' ? m*amt : 0 );
 
-					if ( isMod ) {
-						s.count = this.value;
-						s.id = this.id;
-						//console.log(this.id + ' mod count: ' + s.count + ' Modbase: ' + (m*amt) );
-					}/* else {
-						console.log( this.id + ' new stat: ' + s.id )
-					}*/
+					s.source = this;
+					//@todo use more accurate subpath.
+					s.id = SubPath(this.id, p );
 
 					if ( m instanceof Mod) {
 						s.addMod(m, amt);

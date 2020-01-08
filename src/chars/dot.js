@@ -30,7 +30,7 @@ export default class Dot {
 	set dmg(v) { this.damage = v; }
 
 	get damage() { return this._damage; }
-	set damage(v) {
+	set damage(v) { this._damage = ParseDmg(v); }
 
 		if ( v instanceof Range ) this._damage = v;
 		else if ( typeof v === 'string' || typeof v === 'object') this._damage = new Range(v);
@@ -78,11 +78,36 @@ export default class Dot {
 
 	}
 
-	revive(state) {
+	/**
+	 * Extend duration to the given number of seconds.
+	 * @param {number} duration
+	 */
+	extend( duration ) {
 
-		if ( this.source && typeof this.source === 'string') this.source = state.getData( this.source );
-		//if ( this.mod ) this.mod = ParseMods(this.mod, this.id);
+		if ( duration === 0|| this.perm ) {
 
+			this.perm = true;
+			this.duration = 0;
+
+		} else if ( duration > this._duration ) {
+			this._duration = duration;
+		}
+	}
+
+	/**
+	 * Merge state or dot into this one.
+	 * @param {Dot} st
+	 */
+	mergeDot( st ) {
+
+		console.log('merge dot: ' + st.id );
+		mergeSafe( this, st );
+		this._flags = this._flags | st.flags;
+
+	}
+
+	revive(gs) {
+		if ( this.source && typeof this.source === 'string') this.source = gs.getData( this.source );
 	}
 
 	/**
