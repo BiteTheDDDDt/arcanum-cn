@@ -64,7 +64,6 @@ export default {
 			<input ref="fileInput" type="file" @change="fileSelect" accept="text/json text/*">
 
 			<confirm @confirm="dispatch('reset')">reset wizard</confirm>
-			<confirm v-if="hasHall" @confirm="dispatch('resetHall')">reset hall</confirm>
 
 		</span>
 
