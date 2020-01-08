@@ -4,7 +4,7 @@
 		"id":"stam1",
 		"name":"minor fount",
 		"level":1,
-		"require":"g.spellbook.value>0&&water",
+		"require":"g.spellbook.value>0&&g.water>0",
 		"school":"water",
 		"buy":{
 
@@ -64,7 +64,7 @@
 		"id":"darkbolt",
 		"name":"dark bolt",
 		"level":1,
-		"require":"g.spellbook.value>0&&shadow",
+		"require":"g.spellbook.value>0&&g.shadow>0",
 		"school":"shadow",
 		"buy":{
 
@@ -266,7 +266,7 @@
 		"id":"poisonnettle",
 		"name":"poison nettle",
 		"level":1,
-		"require":"g.spellbook.value>0&&nature",
+		"require":"g.spellbook.value>0&&g.nature>0",
 		"school":"nature",
 		"buy":{
 
@@ -436,7 +436,7 @@
 
 		"id":"lightregen1",
 		"name":"pulsing light",
-		"require":"g.spellbook.value>0&&light",
+		"require":"g.spellbook.value>0&&g.light>0",
 		"school":"light",
 		"desc":"a small pulse of light zips around you, mending injuries.",
 		"level":1,
@@ -645,7 +645,7 @@
 		"id":"firedart",
 		"name":"fire dart",
 		"level":1,
-		"require":"g.spellbook.value>0&&fire",
+		"require":"g.spellbook.value>0&&g.fire>0",
 		"school":"fire",
 		"buy":{
 
@@ -1831,7 +1831,7 @@
 		"id":"copperskin",
 		"name":"copper skin",
 		"level":1,
-		"require":"g.spellbook.value>0&&earth",
+		"require":"g.spellbook.value>0&&g.earth>0",
 		"school":"earth",
 		"buy":{
 

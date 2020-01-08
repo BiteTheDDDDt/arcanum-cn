@@ -3,7 +3,7 @@
 		"id":"smchest",
 		"name":"small chest",
 		"desc":"A small wooden chest.",
-		"require":"apprentice&&g.gold.max>=50",
+		"require":"apprentice",
 		"repeat":true,
 		"cost":{
 			"gold":40,
@@ -437,7 +437,7 @@
 		"name":"scroll rack",
 		"repeat":true,
 		"desc":"latticed shelves for easy scroll storage.",
-		"require":"apprentice&&g.scrolls>=20",
+		"require":"g.apprentice>=0&&g.scrolls>=20",
 		"cost":{
 			"gold":75,
 			"research":100,
