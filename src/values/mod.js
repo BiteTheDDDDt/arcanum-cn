@@ -112,7 +112,7 @@ export default class Mod extends Stat {
 			if ( res ) {
 
 				if ( res.length === 3 ) {
-					console.log('res len 3: ' + v );
+					//console.log('res len 3: ' + v );
 					//res.forEach((v,i)=>console.log('reg['+i+']: ' + v ));
 					this.base = Number(res[1]) || 0;
 					this.basePct = Number(res[2])/100 || 0;

@@ -215,30 +215,12 @@ div.top-bar .items {
 	display:flex;
 	justify-self: flex-end;
 	margin-left:var(--md-gap);
-	border: 1px solid var(--very-quiet-text-color);
+
 	overflow-x: hidden;
 	overflow-y: visible;
 }
 
-div.top-bar .items div.dot-view {
-	display:flex;
-	position:relative;
-	flex-flow: row nowrap;
-	align-items: center;
-	justify-content: space-around;
-	overflow-x: hidden;
-	overflow-y: visible;
-	height:100%;
-}
-div.top-bar .items div.dot-view .dot {
-	flex: 1; margin: 0; font-size: 0.75em; text-overflow: ellipsis; white-space: nowrap;
-	border: none;
-	outline: 1px solid var(--very-quiet-text-color);
-	position: relative;
-	text-align: center;
-	padding:var(--sm-gap);
-	background: unset;
-}
+
 
 div.top-bar .link-bar {
 	justify-content: flex-end;

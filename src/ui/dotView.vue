@@ -34,6 +34,27 @@ export default {
 
 <style scoped>
 
+div.dot-view {
+	display:flex;
+	position:relative;
+	flex-flow: row nowrap;
+	align-items: center;
+	justify-content: space-around;
+	border: 1px solid var(--very-quiet-text-color);
+	overflow-x: hidden;
+	overflow-y: visible;
+	height:100%;
+}
+div.dot-view .dot {
+	flex: 1; margin: 0; font-size: 0.75em; text-overflow: ellipsis; white-space: nowrap;
+	border: none;
+	outline: 1px solid var(--very-quiet-text-color);
+	position: relative;
+	text-align: center;
+	padding:var(--sm-gap);
+	background: unset;
+}
+
 	div.dot-view span.mini {
 		display:flex;
 		flex-direction: row;
@@ -42,7 +63,6 @@ export default {
 	}
 
 	div.mini {
-		height:var(--lg-gap);
 		width:var(--lg-gap);
 		font-size: 0.7em;
 		padding:0;
