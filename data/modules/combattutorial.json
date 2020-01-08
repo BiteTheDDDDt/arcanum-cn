@@ -17,9 +17,7 @@
           "5":"armorydummy",
           "20":"squire"
         },
-        "spawns":{
-          "avgdummy"
-        }
+        "spawns":["dummy"]
       }
     ],
     "monsters":[
@@ -131,7 +129,7 @@
         },
         "attack":{
           "log":{
-            "title":"Use you hammer",
+            "title":"Use your hammer",
             "desc":"only the hammer could leave a dent at this iron chunk"
           }
         }
@@ -139,7 +137,7 @@
       {
         "id":"squire",
         "name":"instructur",
-        "desc":"is he playing with you",
+        "desc":"is he playing with you?",
         "dodge":4,
         "hp":50,
         "speed":3,
