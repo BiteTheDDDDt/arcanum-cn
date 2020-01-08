@@ -312,15 +312,30 @@ export default {
 	},
 
 	/**
-	 *
-	 * @param {Char} char
-	 * @param {number} dmg
-	 * @param {string} attack
+	 * @param {string} msg
 	 */
-	onHit( char, dmg, attack ) {
-		this.log.log( '', char.name + ' hit' +
-		( attack ? (' by ' + attack + ': ' ) : '')
-		+ dmg.toFixed(1), LOG_COMBAT );
+	onHit(msg) {
+		this.log.log( '', msg, LOG_COMBAT);
+	},
+
+	/**
+	 * Action blocked by state/reason.
+	 * @param {Char} char
+	 * @param {Dot} state
+	 */
+	onStateBlock( char, state ) {
+		this.log.log( state.adj, char.name + ' is ' + state.adj, LOG_COMBAT )
+	},
+
+	/**
+	 * Char has entered state.
+	 * @param {Char} char
+	 * @param {Dot} state
+	 */
+	onCharState( char, state ) {
+
+		this.log.log( state.adj, char.name + ' is ' + state.adj, LOG_COMBAT )
+
 	},
 
 	/**

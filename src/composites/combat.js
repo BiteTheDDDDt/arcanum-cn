@@ -322,11 +322,11 @@ export default class Combat {
 
 			Events.emit( DAMAGE_MISS, defender.name + ' dodges ' + (attack.name||attacker.name));
 
-		} else if ( Math.random()*( 10 + tohit ) >= Math.random()*DEFENSE_RATE*(10 + defender.defense ) ) {
+		} else if ( Math.random()*( 10 + tohit ) >= Math.random()*(10 + defender.defense * 0.25 ) ) { //25% of defense is used to parry
 			return true;
 		} else {
 
-			Events.emit( DAMAGE_MISS, attacker.name + ' misses ' + defender.name );
+			Events.emit( DAMAGE_MISS, defender.name + ' parries ' + (attack.name||attacker.name));
 		}
 
 	}
