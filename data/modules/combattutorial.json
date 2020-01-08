@@ -2,7 +2,7 @@
 	"module":"combat_tutorial",
 	"sym":"⚔️",
 	"data":{
-    "dungeon":[
+    "dungeons":[
       {
         "id":"traininggrounds",
         "name":"training Grounds",
