@@ -16,7 +16,7 @@ export default {
 
 <template>
 
-	<div class="dot-view">
+	<div class="dot-view" v-if="dots.length>0">
 
 		<div :class="['dot',d.kind, d.school, mini ? 'mini':'']" v-for="d in dots" :key="d.id"
 		@mouseenter.capture.stop="emit( 'itemover', $event,d)">

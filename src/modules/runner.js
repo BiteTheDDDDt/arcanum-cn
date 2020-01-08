@@ -426,7 +426,7 @@ export default class Runner {
 
 	stopAll() {
 
-		for( let a of this.actives ) {
+		for( let a of this.actives.values() ) {
 			this.stopTask(a, false);
 		}
 		this.clearWaits();
