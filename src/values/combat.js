@@ -149,6 +149,7 @@ export const MakeDmgFunc = (s)=>{
 
 export const ParseDmg = (v)=>{
 
+	if ( v === null || v === undefined || v === '' ) return null;
 	if ( typeof v === 'object' ) return v;
 	else if ( !isNaN(v) ) return new RValue(v);
 	else if ( typeof v === 'string' ) {

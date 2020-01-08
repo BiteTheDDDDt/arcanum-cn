@@ -161,7 +161,7 @@ export default class Attack {
 				this.targets === TARGET_ALLY || this.targets === TARGET_ALLIES;
 		}
 
-		this.damage = this.damage || 0;
+		//this.damage = this.damage || 0;
 		this.bonus = this.bonus || 0;
 
 		this.tohit = this.tohit || 0;
