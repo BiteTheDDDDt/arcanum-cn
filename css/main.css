@@ -204,7 +204,6 @@ div.top-bar {
 	align-items: center;
 	align-content: center;
 	min-height:var(--topbar-height);
-	max-width:100%;
 	border-bottom: 1px solid var(--separator-color);
 	margin: 0;
 	padding: var(--comfy-gap);
@@ -213,28 +212,50 @@ div.top-bar {
 div.top-bar .load-opts { display: flex; align-items: center; width: unset; }
 
 div.top-bar .items {
-	flex: 1;
 	display:flex;
-	margin-left:var(--lg-gap);
-	height:100%;
-	align-items: center;
+	justify-self: flex-end;
+	margin-left:var(--md-gap);
+	border: 1px solid var(--very-quiet-text-color);
+	overflow-x: hidden;
+	overflow-y: visible;
 }
 
 div.top-bar .items div.dot-view {
 	display:flex;
+	position:relative;
 	flex-flow: row nowrap;
 	align-items: center;
+	justify-content: space-around;
+	overflow-x: hidden;
+	overflow-y: visible;
 	height:100%;
 }
 div.top-bar .items div.dot-view .dot {
 	flex: 1; margin: 0; font-size: 0.75em; text-overflow: ellipsis; white-space: nowrap;
 	border: none;
-	overflow:hidden;
-	max-height: var(--topbar-height);
 	outline: 1px solid var(--very-quiet-text-color);
+	position: relative;
+	text-align: center;
+	padding:var(--sm-gap);
+	background: unset;
 }
+
+div.top-bar .link-bar {
+	justify-content: flex-end;
+	display:flex;
+	flex-shrink: 0;
+	flex-grow:1;
+	flex-flow: row nowrap;
+	font-size: 0.90em;
+}
+
+div.top-bar .link-bar a {
+	margin:0 var(--md-gap) var(--sm-gap);
+	align-self:center;
+}
+
+
 div.top-bar .load-opts .text-button { max-height: unset; }
-div.top-bar .link-bar { margin: 0; flex-grow: unset; }
 
 
 div.full div.game-main { flex: 1; margin-top: 0; max-height: unset; min-height: 0; }

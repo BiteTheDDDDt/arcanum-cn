@@ -34,30 +34,11 @@ export default {
 
 <style scoped>
 
-	div.dot-view {
-		max-width: 100%;
-		position:relative;
-		display: flex;
-		flex-direction: row;
-		justify-content: space-around;
-	}
-
 	div.dot-view span.mini {
 		display:flex;
 		flex-direction: row;
 		justify-content: space-around;
 		align-items: center;
-	}
-
-	div.dot {
-		position: relative;
-		overflow-x:visible;
-		overflow-y: visible;
-		max-height:2em;
-		text-align: center;
-		padding:var(--sm-gap);
-		background: unset;
-		border: 1px solid black;
 	}
 
 	div.mini {

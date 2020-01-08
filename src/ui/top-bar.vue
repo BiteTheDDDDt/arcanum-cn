@@ -71,7 +71,7 @@ export default {
 		<span class="items"><slot name="center"></slot></span>
 
 		<span class="link-bar">
-			<a href="https://discord.gg/bCABC96" target="_blank">discord/guide</a>
+			<a href="https://discord.gg/bCABC96" target="_blank">discord</a>
 			<a href="http://wiki.lerpinglemur.com/dhrune" target="_blank">wiki</a>
 			<a href="https://www.patreon.com/theoryofmagic" target="_blank">patreon</a>
 			<a href="https://www.reddit.com/r/wizrobe/" target="_blank">reddit</a>
@@ -101,7 +101,7 @@ input[type="file"] {
 }
 
 #drop-file {
-	border: var(--tiny-gap) dashed var(--popup-border);
+	border: var(--tiny-gap) dashed var(--quiet-text-color);
 }
 
 .load-opts {
@@ -109,25 +109,10 @@ input[type="file"] {
 }
 
 .load-opts button {
-	min-height:1.5rem;
-	height:1.5rem;
-	max-height:1.5rem;
+	height:100%;
 }
 .load-opts .text-button {
 	max-height:var(--lg-gap);
-}
-
-.link-bar {
-	justify-self: flex-end;
-	display:flex;
-	flex-grow: 1;
-	flex-flow: row nowrap;
-	font-size: 0.90em;
-}
-
-.link-bar a {
-	margin:0 var(--md-gap) var(--sm-gap);
-	align-self:center;
 }
 
 span.load-message {
