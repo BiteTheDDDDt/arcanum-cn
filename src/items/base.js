@@ -347,7 +347,7 @@ export default {
 					s.id = SubPath(this.id, p );
 
 					if ( m instanceof Mod) {
-						console.log('Add mod to nonexistant target: ' + SubPath(this.id,p));
+						//console.log('Add mod to nonexistant target: ' + SubPath(this.id,p));
 						s.addMod(m, amt);
 					}
 					//console.log( this.id + '[' + p + ']:' + m + ': targ null: ' + s.valueOf() + ' isMod? ' + isMod );
