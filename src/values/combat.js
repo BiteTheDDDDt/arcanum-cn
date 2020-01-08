@@ -211,15 +211,33 @@ export const ApplyDamage = ( target, attack, attacker ) => {
 		dmg *= (1 - resist);
 	}
 
+	// Adding a defense reduction system: the higher the attack compared to defense, the lower the reduction
+	let raw_dmg = dmg.toFixed(2);
+
+	let damage_reduction = 0
+	if (resist === 0 || resist < 1) { damage_reduction = 3*target.defense/(3*target.defense + 10*dmg*(attack.duration ? attack.duration : 1));}
+	dmg = (raw_dmg*(1-damage_reduction)).toFixed(2);
+	let total_reduc = resist + damage_reduction;
 	target.hp -= dmg;
 	if ( target.hp <= 0 ) { Events.emit( CHAR_DIED, target, attack ); }
 
-	Events.emit( COMBAT_HIT, target, dmg, attack.name || (attacker ? attacker.name : '') );
+	let dmg_source = (attack.name || (attacker ? attacker.name : ''));
+
+	let msg = "" + dmg_source + " hits ";
+	if (resist > 0) msg += "strongly ";
+	else if (resist < 0) msg += "weakly ";
+	else if (resist > 1) msg += " absorbed by ";
+	msg += target.name + ": "+ dmg;
+	if (total_reduc > 0) msg += " (reduced by: " + (total_reduc*100).toFixed(2) + "%)";
+	else if (total_reduc < 0) msg += " (augmented by: " + -(total_reduc*100).toFixed(2) + "%)";
+	else if (total_reduc < 0) msg += " (absorb: " + -((total_reduc-1)*100).toFixed(2) + "%)";
+
+	Events.emit( COMBAT_HIT, msg);
 
 	if ( attack.leech && attacker ) {
 		let amt = Math.floor(100 * attack.leech * dmg) / 100;
 		attacker.hp += amt;
-		Events.emit(EVT_COMBAT, null, attacker.name + ' steals ' + amt + ' life.');
+		Events.emit(EVT_COMBAT, null, attacker.name + ' steals ' + amt + ' life');
 	}
 
 }
