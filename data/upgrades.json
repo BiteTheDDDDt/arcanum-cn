@@ -927,7 +927,7 @@
 			"arcana":15,
 			"sp":5
 		},
-		"desc":"Imbue gems continuously as your current activity.",
+		"desc":"Allow you to imbue gems continuously as an activity.",
 		"mod":{
 			"gemimbue.perpetual":true,
 			"gemimbue.length":5
@@ -2135,7 +2135,7 @@
 		"name":"cauldron",
 		"desc":"Like a cooking pot, but larger.",
 		"tags":"potsource",
-		"require":["tier0","firesource"],
+		"require":["tier1","firesource"],
 		"disable":"pot",
 		"cost":{
 			"gold":150

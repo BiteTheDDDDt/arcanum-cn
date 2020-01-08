@@ -239,7 +239,7 @@
 	"result":{
 		"sp":2
 	},
-	"locks":"pace",
+	"disable":"pace",
 	"mod":{
 		"tier1":true,
 		"mana.max":1,
@@ -272,7 +272,7 @@
 		"sp":2
 
 	},
-	"locks":"pace",
+	"disable":"pace",
 	"mod":{
 		"tier1":true,
 		"witchcraft":true,
@@ -299,7 +299,7 @@
 		"gold":300,
 		"arcana":5
 	},
-	"locks":"pace",
+	"disable":"pace",
 	"result":{
 
 		"sp":3
