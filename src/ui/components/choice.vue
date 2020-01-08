@@ -1,6 +1,6 @@
 <script>
 import Game from '../../game';
-import { center, positionAt } from './popups.js';
+import { centerX, positionAt } from './popups.js';
 
 import ItemsBase from '../itemsBase.js';
 import GData from '../../items/gdata';
@@ -47,7 +47,7 @@ export default {
 		if (this.open===false) return;
 
 		if ( this.elm) positionAt( this.$el, this.elm, 0 );
-		else center( this.$el );
+		else centerX( this.$el );
 
 	},
 	computed:{

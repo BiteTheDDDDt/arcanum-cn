@@ -125,8 +125,6 @@ div.popup {
 	position: absolute;
 	opacity:1;
 	z-index:var(--high-depth);
-	left:50%;
-	top:20%;
 	align-self: center;
 	background:inherit;
 	background-clip: border-box;

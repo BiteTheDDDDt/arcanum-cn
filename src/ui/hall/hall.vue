@@ -4,7 +4,7 @@ import Profile from '../../modules/profile';
 
 import Info from './charinfo.vue';
 import Upgrades from '../upgrades.vue';
-import {center} from '../components/popups.js';
+import {centerXY} from '../components/popups.js';
 import { EVT_STAT } from '../../events';
 
 /**
@@ -27,10 +27,10 @@ export default {
 		}
 	},
 	mounted() {
-		center(this.$el);
+		centerXY(this.$el);
 	},
 	updated() {
-		center( this.$el );
+		centerXY( this.$el );
 	},
 	methods:{
 
@@ -113,6 +113,16 @@ export default {
 
 <style scoped>
 
+div.wizhall {
+	z-index: 5000;
+	 min-width: 40vw;
+	 max-width: 80vw;
+	 max-height: 90vh;
+	 padding: var( --rg-gap );
+	 	overflow:scroll;
+
+}
+
 div.header {
 	display:flex;
 	justify-content:center;
@@ -135,14 +145,7 @@ div.header .fld-name {
 	text-align: center;
 	font-size: 1.4em;
 }
-div.wizhall {
-	z-index: 5000;
-	 min-width: 40vw;
-	 max-width: 80vw;
-	 max-height: 90vh;
- 	padding: var( --rg-gap );
 
-}
 
 div.wizhall .chars {
 	display:flex;
