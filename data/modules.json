@@ -2,11 +2,11 @@
 
 	"core":[
 		"resources", "upgrades", "tasks", "homes", "furniture", "skills", "states",
-		"player", "monsters", "dungeons", "events", "classes", "armors", "weapons",
-		"materials", "enchants", "sections", "potions", "encounters", "stressors", "rares"
+		"player", "spells", "monsters", "dungeons", "events", "classes", "armors", "weapons",
+		"materials", "enchants", "sections", "potions", "encounters", "locales","stressors", "rares"
 	],
 	"modules":[
-		"patrons", "winter", "puppeteer","hermit"
+		"patrons", "winter", "puppeteer","hermit","combattutorial"
 	]
 
 }
