@@ -8,6 +8,7 @@ export default class Stat extends RValue {
 
 	toJSON(){
 
+
 		if ( this._basePct === 0 ) return this._base;
 
 		let o = {
@@ -281,6 +282,7 @@ export default class Stat extends RValue {
 
 		this._mPct = pct;
 		this._mBase = bonus;
+
 
 	}
 

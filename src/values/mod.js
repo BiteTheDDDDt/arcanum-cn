@@ -58,7 +58,7 @@ export default class Mod extends Stat {
 		}
 
 		if ( this.source === null || this.source === undefined ) console.warn(this.id+ ' No Source');
-		return this._count || ( this.source ? this.source.value : 1 );
+		return this.source;
 
 	}
 	set count(v) {

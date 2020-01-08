@@ -66,7 +66,7 @@ export default class GameState {
 
 		/**
 		 * @property {.<string,GData} saveItems - items actually saved.
-		 * does not include hall items.
+		 * does not include hall items, or TagSets.
 		 */
 		this.saveItems = {};
 

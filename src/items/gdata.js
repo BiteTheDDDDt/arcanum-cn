@@ -212,7 +212,7 @@ export default class GData {
 
 			} else if ( typeof s === 'object' && !recur.has(s)) {
 
-				if ( s.isRVal ) {
+				if ( s instanceof RValue ) {
 					s.source = this;
 				} else this.initRVals( s, recur );
 

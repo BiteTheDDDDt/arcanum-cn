@@ -342,7 +342,7 @@ export default {
 					let s = targ[p] = isMod ? new Mod( typeof m === 'number' ? m*amt :0 )
 						: new Stat( typeof m === 'number' ? m*amt : 0 );
 
-					s.owner = this;
+					s.source = this;
 					//@todo use more accurate subpath.
 					s.id = SubPath(this.id, p );
 

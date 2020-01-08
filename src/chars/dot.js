@@ -51,9 +51,7 @@ export default class Dot {
 	set dmg(v) { this.damage = v; }
 
 	get damage() { return this._damage; }
-	set damage(v) {
-		this._damage = ParseDmg(v);
-	}
+	set damage(v) { this._damage = ParseDmg(v); }
 
 	/**
 	 * @property {number} flags
@@ -147,8 +145,8 @@ export default class Dot {
 
 	}
 
-	revive(state) {
-		if ( this.source && typeof this.source === 'string') this.source = state.getData( this.source );
+	revive(gs) {
+		if ( this.source && typeof this.source === 'string') this.source = gs.getData( this.source );
 	}
 
 	/**

@@ -1,5 +1,3 @@
-import Percent from "./percent";
-import Range from "./range";
 import { TYP_RVAL } from "./consts";
 import { precise } from '../util/format';
 
@@ -43,7 +41,10 @@ export default class RValue {
 	 * if any.
 	 */
 	get source(){return this._source;}
-	set source(v) { this._source = v;}
+	set source(v) {
+		if ( !v ) this._source = null;
+		else this._source = v instanceof RValue ? v : v.value;
+	}
 
 	/**
 	 * @property {object} target - target modified.
