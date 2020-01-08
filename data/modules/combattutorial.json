@@ -8,6 +8,7 @@
         "name":"training Grounds",
         "title":"certified",
         "distance":1,
+        "length":20,
         "locked":false,
         "boss":{
           "1":"stddummy",
