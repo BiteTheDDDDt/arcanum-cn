@@ -12,6 +12,15 @@ export default {
 
 		floor:floor,
 
+		slottable(it){
+
+			if ( it.disabled || (it.need && !Game.unlockTest( it.need, it )) ) return false;
+			if ( it.buy && !it.owned && !Game.canPay(it.buy) ) return false;
+			if ( it.slot && Game.state.getSlot(it.slot, it.type ) === it) return false;
+			return true;
+
+		},
+
 		usable(it) {
 			return (it.length || it.perpetual ) ? it.canRun( Game, TICK_LEN) : it.canUse(Game );
 		},

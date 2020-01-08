@@ -179,7 +179,7 @@ export default {
 		<span class="task-btn" v-for="it in choices" :key="strings?it:it.id"
 			@mouseenter.capture.stop="!strings ? emit( 'itemover', $event,it):''">
 
-		<button class="wrapped-btn" :disabled="!strings&&!usable(it)"
+		<button class="wrapped-btn" :disabled="!strings&&!slottable(it)"
 			@click="choose( it )">{{ strings ? it : it.name }}</button>
 		</span>
 		</div>
