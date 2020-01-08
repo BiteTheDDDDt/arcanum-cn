@@ -51,20 +51,18 @@
             "desc":"use your magic missile, from spellpage bind as quickslot or add to memorized"
           }
         },
-        "loot":{
-          {
-            "id":"trainingdagger",
-            "name":"wood dagger",
-            "level":0,
-            "tohit":4,
-            "type":"weapon",
-            "material":"wood",
-      			"attack":{
-      				"kind":"slash",
-      				"dmg":"1~2"
-      			}
-          }
-        }
+        "loot":[{
+                    "id":"trainingdagger",
+                    "name":"wood dagger",
+                    "level":0,
+                    "tohit":4,
+                    "type":"weapon",
+                    "material":"wood",
+                    "attack":{
+                      "kind":"slash",
+                      "dmg":"1~2"
+                    }
+                  }]
       },
       {
         "id":"weapondummy",
@@ -80,21 +78,18 @@
             "desc":"Go to the tab Equip and find the wood dagger and equip it"
           }
         },
-        "loot":{
-          "gold":1,
-          {
-            "id":"trainingdart",
-            "name":"wood dagger",
-            "level":0,
-            "tohit":100,
-            "type":"weapon",
-            "material":"wood",
-      			"attack":{
-      				"kind":"piercing",
-      				"dmg":"1"
-      			}
-          }
-        }
+        "loot":[{
+                    "id":"trainingdart",
+                    "name":"wood dagger",
+                    "level":0,
+                    "tohit":100,
+                    "type":"weapon",
+                    "material":"wood",
+                    "attack":{
+                      "kind":"piercing",
+                      "dmg":"1"
+                    }
+                }]
       },
       {
         "id":"dodgydummy",
@@ -110,20 +105,18 @@
             "desc":"Use the homing dart to hit this obnoxious dummy"
           }
         },
-        "loot":{
-          {
-            "id":"traininghammer",
-            "name":"wood hammer",
-            "level":0,
-            "tohit":-10,
-            "type":"weapon",
-            "material":"wood",
-      			"attack":{
-      				"kind":"blunt",
-      				"dmg":"10~15"
-      			}
-          }
-        }
+        "loot":[{
+                      "id":"traininghammer",
+                      "name":"wood hammer",
+                      "level":0,
+                      "tohit":-10,
+                      "type":"weapon",
+                      "material":"wood",
+                      "attack":{
+                        "kind":"blunt",
+                        "dmg":"10~15"
+                      }
+                    }]
       },
       {
         "id":"armorydummy",
