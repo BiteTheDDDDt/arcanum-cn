@@ -3,6 +3,7 @@
 	{
 		"id":"pot_poisonward",
 		"name":"poison ward",
+		"require":"g.potions>0",
 		"level":1,
 		"buy":{
 			"gold":25,
@@ -16,6 +17,7 @@
 	{
 		"id":"pot_mana1",
 		"name":"draught of mana",
+		"require":"g.potions>0",
 		"buy":{
 			"gold":25,
 			"research":50
@@ -38,11 +40,13 @@
 			"herbs":10
 		},
 		"name":"minor healing",
+		"require":"g.potions>0",
 		"use":"heal1"
 	},
 	{
 		"id":"pot_stam1",
 		"name":"draught of stamina",
+		"require":"g.potions>0",
 		"level":1,
 		"buy":{
 			"gold":25,
@@ -60,6 +64,7 @@
 	{
 		"id":"pot_ironskin",
 		"name":"ironskin salve",
+		"require":"g.potions>0",
 		"level":2,
 		"buy":{
 			"gold":400,
@@ -111,6 +116,7 @@
 	{
 		"id":"pot_waterward",
 		"name":"water ward",
+		"require":"g.potions>0",
 		"level":2,
 		"buy":{
 			"gold":300,
