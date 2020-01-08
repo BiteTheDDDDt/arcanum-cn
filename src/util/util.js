@@ -49,6 +49,9 @@ export const cloneClass = ( src, dest=null ) => {
 	let o;
 
 	if ( !dest ) {
+
+		if ( src.clone && typeof src.clone === 'function') return src.clone.call(src);
+
 		let proto = Object.getPrototypeOf( src );
 		dest = Array.isArray(src) ? [] : ( proto ? Object.create( proto ) : {} );
 	}

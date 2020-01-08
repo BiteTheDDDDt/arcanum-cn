@@ -1,5 +1,3 @@
-import Percent from "./percent";
-import Range from "./range";
 import { TYP_RVAL } from "./consts";
 import { precise } from '../util/format';
 
@@ -16,6 +14,27 @@ export default class RValue {
 		return new RValue( str );
 
 	}
+
+	/**
+	 * @property {object} source - object that defines the value,
+	 * if any.
+	 */
+	get source(){return this._source;}
+	set source(v) {
+		if ( !v ) this._source = null;
+		else this._source = v instanceof RValue ? v : v.value;
+	}
+
+	/**
+	 * @property {object} target - target modified.
+	 */
+	get target(){return this._target;}
+	set target(v){this._target=v}
+
+	/**
+	 * @property {boolean} isRVal - simple test for RVal interface.
+	 */
+	get isRVal(){return true;}
 
 	/**
 	 * @property {string} id

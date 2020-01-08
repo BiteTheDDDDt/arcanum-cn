@@ -5,38 +5,56 @@ import Events, { IS_IMMUNE, CHAR_DIED, COMBAT_HIT, EVT_COMBAT } from "../events"
 import { TYP_FUNC } from "./consts";
 
 /**
- * @const {string} TARGET_SELF - target self.
+ * @const {number} TARGET_SELF - target self.
  */
 export const TARGET_SELF = 1;
 
 /**
- * @const {string} TARGET_ENEMY - target one enemy.
+ * @const {number} TARGET_ENEMY - target one enemy.
  */
 export const TARGET_ENEMY = 2;
 
 /**
- * @const {string} TARGET_ALLY - target single ally.
+ * @const {number} TARGET_ALLY - target single ally.
  */
 export const TARGET_ALLY = 4;
 
 /**
- * @const {string} TARGET_RAND - random target.
+ * @const {number} TARGET_RAND - random target.
  */
 export const TARGET_RAND = 8;
 
 export const TARGET_GROUP = 16;
 
-export const TARGET_LEADER = 32;
-
-export const TARGET_ALL = TARGET_GROUP + TARGET_ALLY + TARGET_ENEMY;
 
 /**
- * @const {string} TARGET_ENEMIES - target all enemies.
+ * @const {number} TARGET_ANY - not necessarily useful but
+ * included for consistency with targetting flags.
+ */
+export const TARGET_ANY = 32;
+
+/**
+ * @const {number} TARGET_PRIMARY - target leader of targetted group.
+ */
+export const TARGET_PRIMARY = 64;
+
+export const TARGET_ALL = TARGET_ANY + TARGET_GROUP;
+
+
+export const TARG_RAND_ENEMY = TARGET_RAND + TARGET_ENEMY;
+
+
+
+export const TARGET_LEADER = TARGET_ALLY + TARGET_PRIMARY;
+
+
+/**
+ * @const {number} TARGET_ENEMIES - target all enemies.
  */
 export const TARGET_ENEMIES = TARGET_GROUP + TARGET_ENEMY;
 
 /**
- * @const {string} TARGET_ALLIES - target all allies.
+ * @const {number} TARGET_ALLIES - target all allies.
  */
 export const TARGET_ALLIES = TARGET_GROUP + TARGET_ALLY;
 
@@ -89,8 +107,15 @@ export const Targets = {
  	*/
 	rand:TARGET_RAND,
 
+	randenemy:TARG_RAND_ENEMY,
+
 	/**
-	 * @const {number} TARGET_LEADER - target enemy leader.
+	 * @const {number} TARGET_PRIMARY - target opposing leader.
+	 */
+	primary:TARGET_PRIMARY,
+
+	/**
+	 * @const {number} TARGET_LEADER - target (same-team) leader.
 	 */
 	leader:TARGET_LEADER,
 
@@ -124,6 +149,7 @@ export const MakeDmgFunc = (s)=>{
 
 export const ParseDmg = (v)=>{
 
+	if ( v === null || v === undefined || v === '' ) return null;
 	if ( typeof v === 'object' ) return v;
 	else if ( !isNaN(v) ) return new RValue(v);
 	else if ( typeof v === 'string' ) {
@@ -183,15 +209,33 @@ export const ApplyDamage = ( target, attack, attacker ) => {
 	let resist = target.getResist(attack.kind);
 	if (resist !== 0) dmg *= (1 - resist);
 
+	// Adding a defense reduction system: the higher the attack compared to defense, the lower the reduction
+	let raw_dmg = dmg.toFixed(2);
+
+	let damage_reduction = 0
+	if (resist === 0 || resist < 1) { damage_reduction = 3*target.defense/(3*target.defense + 10*dmg*(attack.duration ? attack.duration : 1));}
+	dmg = (raw_dmg*(1-damage_reduction)).toFixed(2);
+	let total_reduc = resist + damage_reduction;
 	target.hp -= dmg;
 	if ( target.hp <= 0 ) { Events.emit( CHAR_DIED, target, attack ); }
 
-	Events.emit( COMBAT_HIT, target, dmg, attack.name || (attacker ? attacker.name : '') );
+	let dmg_source = (attack.name || (attacker ? attacker.name : ''));
+
+	let msg = "" + dmg_source + " hits ";
+	if (resist < 0) msg += "strongly ";
+	else if (resist > 0) msg += "weakly ";
+	else if (resist > 1) msg += " absorbed by ";
+	msg += target.name + ": "+ dmg;
+	if (total_reduc > 0) msg += " (reduced by: " + (total_reduc*100).toFixed(2) + "%)";
+	else if (total_reduc < 0) msg += " (augmented by: " + -(total_reduc*100).toFixed(2) + "%)";
+	else if (total_reduc < 0) msg += " (absorb: " + -((total_reduc-1)*100).toFixed(2) + "%)";
+
+	Events.emit( COMBAT_HIT, msg);
 
 	if ( attack.leech && attacker ) {
 		let amt = Math.floor(100 * attack.leech * dmg) / 100;
 		attacker.hp += amt;
-		Events.emit(EVT_COMBAT, null, attacker.name + ' steals ' + amt + ' life.');
+		Events.emit(EVT_COMBAT, null, attacker.name + ' steals ' + amt + ' life');
 	}
 
 }

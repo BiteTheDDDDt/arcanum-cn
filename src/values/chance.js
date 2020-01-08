@@ -2,6 +2,7 @@ import Percent from "./percent";
 
 /**
  * Percent with an associated object to trigger on successful roll.
+ * CURRENTLY UNUSED.
  */
 export default class Chance {
 

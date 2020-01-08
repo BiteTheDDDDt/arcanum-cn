@@ -10,7 +10,9 @@ import Events, {
 import { itemRevive } from '../modules/itemgen';
 import { getDelay } from '../chars/char';
 
-const TARGET_ALL = 'all';
+import { TEAM_PLAYER, getDelay, TEAM_NPC, TEAM_ALL } from '../values/consts';
+import { TARGET_ALLIES, TARGET_ENEMIES, TARGET_ENEMY, TARGET_ALLY, TARGET_SELF,
+	TARGET_RAND, TARGET_RANDG, TARGET_PRIMARY, TARGET_LEADER, ApplyAction, TARGET_GROUP, TARGET_ANY } from "../values/combat";
 
 /**
  * @const {string} TARGET_ENEMIES - target all enemies.
@@ -102,6 +104,11 @@ export function getDamage(dmg) {
 
 }
 
+/**
+ * @const {number} DEFENSE_RATE - rate defense is multiplied by before tohit computation.
+ */
+const DEFENSE_RATE = 0.4;
+
 export default class Combat {
 
 	toJSON() {
@@ -141,12 +148,19 @@ export default class Combat {
 
 	get done() { return this._enemies.length === 0; }
 
+	/**
+	 * @property {Char[][]} teams - maps team id to team list.
+	 */
+	get teams(){ return this._teams; }
+
 	constructor(vars = null) {
 
 		if (vars) Object.assign(this, vars);
 
 		if (!this._enemies) this._enemies = [];
 		if ( !this.allies) this.allies = [];
+
+		this._teams = [];
 
 	}
 
@@ -178,6 +192,10 @@ export default class Combat {
 		}
 
 		this._allies.unshift( this.player );
+
+		this.refreshTeamArrays();
+
+		Events.add( CHAR_DIED, this.charDied, this );
 
 	}
 
@@ -257,7 +275,15 @@ export default class Combat {
 			Events.emit( EVT_EVENT, atk.log );
 		}
 
-		if ( atk && atk.targets === TARGET_ENEMIES ) {
+		if ( atk.hits ) {
+			let len = atk.hits.length;
+			for( let i = 0; i < len; i++ ) {
+				this.attack( attacker, atk.hits[i] );
+			}
+		}
+
+		let targ = this.getTarget( attacker, atk.targets );
+		if ( !targ) return;
 
 			targs.forEach( v => v.alive? this.doAttack(attacker, atk, v):null );
 
@@ -289,22 +315,56 @@ export default class Combat {
 	 */
 	getTarget( char, targets ) {
 
-		if ( !targets ) {
+		// retarget based on state.
+		targets = char.getTarget(targets);
 
-			return char.team === TEAM_ALLY ? this.nextTarget( this._enemies ) : this.nextTarget( this.allies );
+		var group = this.getGroup( targets, char.team );
+		if ( targets & TARGET_GROUP ) return group;
 
-		} else if ( targets === TARGET_ENEMIES ) {
+		if ( !targets || targets === TARGET_ENEMY || targets === TARGET_ALLY ) {
+			return this.nextTarget(group);
+		} else if ( targets & TARGET_SELF ) return char;
 
-			return char.team === TEAM_ALLY ? this._enemies : this.allies;
+		if ( targets & TARGET_PRIMARY) return this.primeTarget(group);
+		if ( targets & TARGET_RAND ) return this.randTarget(group);
 
-		} else if ( targets === TARGET_SELF ) return char;
-		else if ( targets === TARGET_RAND ) {
+	}
 
-			let r = Math.floor( Math.random()*( this._allies.length + this._enemies.length ) );
-			return ( r < this.allies.length ) ? this.nextTarget( this.allies ) : this.nextTarget( this.enemies );
+	/**
+	 * Get the Char group to which the target flags can apply.
+	 * Null or zero targets are assumed an enemy target.
+	 * @param {number} targets
+	 * @param {number} team - ally team.
+	 */
+	getGroup( targets, team ) {
 
+		if ( !targets || (targets & TARGET_ENEMY) ) {
+
+			return team === TEAM_PLAYER ? this.enemies : this.allies;
+
+		} else if ( targets & (TARGET_ALLY+TARGET_SELF) ) {
+			return this.teams[team];
+
+		} else if ( targets & TARGET_ANY ) return this.teams[TEAM_ALL];
+		else if ( targets & TARGET_RAND ) {
+			return Math.random() < 0.5 ? this.allies : this.enemies;
 		}
+		return null;
 
+	}
+
+	randTarget(a) {
+		return a[Math.floor( Math.random()*a.length)];
+	}
+
+	/**
+	 * Returns the most-primary ( lowest index) target.
+	 * @param {*} a
+	 */
+	primeTarget(a){
+		for( let i = 0; i<a.length; i++ ) {
+			if ( a[i].alive ) return a[i];
+		}
 	}
 
 	/**
@@ -335,11 +395,11 @@ export default class Combat {
 
 			Events.emit( DAMAGE_MISS, defender.name + ' dodges ' + (attack.name||attacker.name));
 
-		} else if ( Math.random()*( 10 + tohit ) >= Math.random()*(10 + defender.defense ) ) {
+		} else if ( Math.random()*( 10 + tohit ) >= Math.random()*(10 + defender.defense * 0.25 ) ) { //25% of defense is used to parry
 			return true;
 		} else {
 
-			Events.emit( DAMAGE_MISS, attacker.name + ' misses ' + defender.name );
+			Events.emit( DAMAGE_MISS, defender.name + ' parries ' + (attack.name||attacker.name));
 		}
 
 	}
@@ -359,6 +419,39 @@ export default class Combat {
 		}
 
 		this.setTimers();
+		this.refreshTeamArrays();
+
+	}
+
+	refreshTeamArrays() {
+
+		this.teams[TEAM_PLAYER] = this._allies;
+		this.teams[TEAM_NPC] = this._enemies;
+		this.teams[TEAM_ALL] = this._allies.concat(this._enemies);
+
+	}
+
+	/**
+	 * Reenter same dungeon.
+	 */
+	reenter() {
+
+		this.allies = this.state.minions.allies.items.slice(0);
+		this.allies.unshift( this.player );
+
+		this.refreshTeamArrays();
+	}
+
+	/**
+	 * Begin new combat encounter.
+	 */
+	begin() {
+
+		this._enemies = [];
+
+		this.allies = this.state.minions.allies.items.slice(0);
+		this.allies.unshift( this.player );
+		this.refreshTeamArrays();
 
 	}
 

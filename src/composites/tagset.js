@@ -3,6 +3,11 @@
  */
 export default class TagSet {
 
+	/**
+	 * TagSets are internal and not meant to be saved.
+	 */
+	toJSON(){return undefined;}
+
 	get id() { return this._id; }
 	set id(v) { this._id = v;}
 

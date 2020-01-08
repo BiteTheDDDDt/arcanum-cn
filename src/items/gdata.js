@@ -172,8 +172,36 @@ export default class GData {
 
 		defineExcept( this, null, NoDefine );
 
-		if ( this.mod ) {
-			initMods( this.mod, this.value );
+		this.initRVals( this );
+
+	}
+
+	/**
+	 * Set source property of all RValue subs to this.
+	 */
+	initRVals( obj=this, recur=new Set() ){
+
+		recur.add(obj);
+
+		for( let p in obj ) {
+
+			var s = obj[p];
+			if ( s === null || s=== undefined ) continue;
+			if ( Array.isArray(s) ) {
+
+				for( let i = s.length-1; i>= 0; i-- ) {
+					var t = s[i];
+					if ( typeof t === 'object' && !recur.has(t)) this.initRVals( t, recur);
+				}
+
+			} else if ( typeof s === 'object' && !recur.has(s)) {
+
+				if ( s instanceof RValue ) {
+					s.source = this;
+				} else this.initRVals( s, recur );
+
+			}
+
 		}
 
 	}

@@ -69,6 +69,12 @@ export const TEAM_PLAYER = 1;
  */
 export const TEAM_NPC = 0;
 
+/**
+ * @const {number} TEAM_ALL - not an actual team; indicates
+ * an effect to apply to all teams.
+ */
+export const TEAM_ALL = 2;
+
 export { RAID, DUNGEON, EXPLORE, LOCALE };
 export { HOME, RESOURCE, NPC, SKILL, ENCOUNTER, WEARABLE, MONSTER, ARMOR, WEAPON, PURSUITS, EVENT };
 

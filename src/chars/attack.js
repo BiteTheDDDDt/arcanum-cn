@@ -13,6 +13,9 @@ export default class Attack {
 			tohit:this.tohit||undefined,
 			bonus:this.bonus||undefined,
 			kind:this.kind,
+			hits:this.hits||undefined,
+			cure:this.cure||undefined,
+			state:this.state||undefined,
 			id:this.id,
 			dot:this.dot
 		};
@@ -24,8 +27,26 @@ export default class Attack {
 		this._dot = v;
 		//if ( v.mod ) v.mod = ParseMods( v.mod, this.dot.id || this.dot.name || this.name );
 	}
+
+	get id() {return this._name; }
+	set id(v) {
+		this._id = v;
+
+		if ( this._hits ) {
+			for( let i = this._hits.length-1; i>=0; i--) if ( !this._hits[i].id ) this._hits[i].id = v;
+		}
+
+	}
+
 	get name() {return this._name; }
-	set name(v) { this._name = v;}
+	set name(v) {
+		this._name = v;
+
+		if ( this._hits ) {
+			for( let i = this._hits.length-1; i>=0; i--) if ( !this._hits[i].name ) this._hits[i].name = v;
+		}
+
+	}
 
 	get kind(){ return this._kind; }
 	set kind(k){
@@ -61,9 +82,24 @@ export default class Attack {
 	get damage() { return this._damage; }
 	set damage(v) {
 
-		if (typeof v === 'string' || typeof v ==='object') this._damage = new Range(v);
-		else if ( !isNaN(v) ) this._damage = Number(v);
-		else this._damage = v;
+	/**
+	 * @property {Attack[]} hits
+	 */
+	get hits(){ return this._hits; }
+	set hits(v){
+		this._hits = v;
+		for( let i = v.length-1; i>=0;i--) {
+			var h = v[i];
+			if (!h.id) h.id = this.id;
+			if ( !h.name ) h.name = this.name;
+			if (!h.kind)h.kind = this.kind;
+			if ( !h instanceof Attack ) h = v[i] = new Attack(h);
+
+		}
+	}
+
+	get harmless(){ return this._harmless; }
+	set harmless(v) { this._harmless = v;}
 
 	}
 
@@ -85,7 +121,12 @@ export default class Attack {
 	constructor( vars=null ){
 
 		if ( vars ) {
+
+			// necessary for sub id/name assignments.
 			this.id = vars.id;
+			this.name = vars.name;
+			this.kind = vars.kind;
+
 			assignPublic(this,vars); //Object.assign(this,vars);
 		}
 
@@ -96,9 +137,8 @@ export default class Attack {
 			}
 		}
 
-		this.damage = this.damage || 0;
+		//this.damage = this.damage || 0;
 		this.bonus = this.bonus || 0;
-
 		this.tohit = this.tohit || 0;
 
 	}

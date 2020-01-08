@@ -1,7 +1,9 @@
 import Base, {mergeClass} from '../items/base';
 import {assign} from 'objecty';
 
-
+/**
+ * Currently unused. Prototype for unapplied Dot.
+ */
 export default class ProtoDot {
 
 	get id() { return this._id; }
