@@ -163,7 +163,6 @@ export default class Attack {
 
 		//this.damage = this.damage || 0;
 		this.bonus = this.bonus || 0;
-
 		this.tohit = this.tohit || 0;
 
 	}

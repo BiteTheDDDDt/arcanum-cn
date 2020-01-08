@@ -54,7 +54,6 @@ export default class Mod extends Stat {
 	 */
 	get count() {
 		if ( this._count ) {
-			console.log(this.id + ' count: ' + this._count );
 			return this._count;
 		}
 
