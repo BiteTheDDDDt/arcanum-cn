@@ -1,108 +1,17 @@
-import Game from '../game';
-import Range from '../values/range';
-import { TEAM_ALLY } from '../chars/npc';
+import { assign } from 'objecty';
 
 import Events, {
 	EVT_COMBAT, ENEMY_SLAIN, ALLY_DIED,
-	DAMAGE_MISS, CHAR_DIED, IS_IMMUNE, COMBAT_HIT, EVT_EVENT
+	DAMAGE_MISS, CHAR_DIED, EVT_EVENT, STATE_BLOCK
 } from '../events';
 
 import { itemRevive } from '../modules/itemgen';
-import { getDelay } from '../chars/char';
+import { NO_SPELLS } from '../chars/states';
 
 import { TEAM_PLAYER, getDelay, TEAM_NPC, TEAM_ALL } from '../values/consts';
 import { TARGET_ALLIES, TARGET_ENEMIES, TARGET_ENEMY, TARGET_ALLY, TARGET_SELF,
 	TARGET_RAND, TARGET_RANDG, TARGET_PRIMARY, TARGET_LEADER, ApplyAction, TARGET_GROUP, TARGET_ANY } from "../values/combat";
 
-/**
- * @const {string} TARGET_ENEMIES - target all enemies.
- */
-const TARGET_ENEMIES = 'enemies';
-
-/**
- * @const {string} TARGET_ALLIES - target all allies.
- */
-const TARGET_ALLIES = 'allies';
-
-/**
- * @const {string} TARGET_SELF - target self.
- */
-const TARGET_SELF = 'self';
-
-/**
- * @const {string} TARGET_RAND - random target.
- */
-const TARGET_RAND = 'rand';
-
-
-/**
-* Attempt to damage a target. Made external for use by dots, other code.
-* @param {Char} target
-* @param {Object} attack
-*/
-export function tryDamage( target, attack, attacker = null) {
-
-	if ( !target || !target.alive ) return;
-	if ( target.isImmune(attack.kind) ) {
-
-		Events.emit(IS_IMMUNE, target.name + ' IMMUNE to ' + attack.kind);
-		return false;
-	}
-
-
-	if (attack.damage ) {
-
-		if ( !attack.getDamage){ console.error( 'NO DMG FUNC: ' + attack ); }
-		// add optional base damage from attacker.
-
-		/** @compat */
-		let dmg = attack.getDamage();
-		if ( (attacker && (attacker !== attack) && attacker.damage) ) {
-			dmg += attacker.getDamage( attack.kind );
-		}
-
-		let resist = target.getResist(attack.kind);
-		if (resist > 0) dmg *= (1 - resist);
-
-		target.hp -= dmg;
-		if ( target.hp <= 0 ) { Events.emit( CHAR_DIED, target, attack ); }
-
-		Events.emit( COMBAT_HIT, target, dmg, attack.name || (attacker ? attacker.name : '') );
-
-		if ( attack.leech && attacker ) {
-			let amt = Math.floor(100 * attack.leech * dmg) / 100;
-			attacker.hp += amt;
-			Events.emit(EVT_COMBAT, null, attacker.name + ' steals ' + amt + ' life.');
-		}
-
-	}
-
-	if (attack.dot) {
-		target.addDot( attack.dot, attacker, attack.name );
-	}
-
-	return true;
-
-}
-
-export function applyDamage(target, attack, attacker = null) {
-}
-
-/**
-* Convert damage object to raw damage value.
-* @param {number|function|Range|Attack} dmg /
-*/
-export function getDamage(dmg) {
-
-	if (dmg instanceof Range) return dmg.value;
-	else if (!isNaN(dmg)) return Number(dmg);
-	console.log('Damage undefined: ' + dmg);
-	return 0;
-
-	// TODO: invalid
-	//else return dmg( this.state, this.player, this.enemy );
-
-}
 
 /**
  * @const {number} DEFENSE_RATE - rate defense is multiplied by before tohit computation.
@@ -155,7 +64,7 @@ export default class Combat {
 
 	constructor(vars = null) {
 
-		if (vars) Object.assign(this, vars);
+		if (vars) assign(this, vars);
 
 		if (!this._enemies) this._enemies = [];
 		if ( !this.allies) this.allies = [];
@@ -178,8 +87,6 @@ export default class Combat {
 
 
 		}
-
-		Events.add( CHAR_DIED, this.charDied, this );
 
 		for( let i = this._allies.length-1; i>=0; i-- ) {
 
@@ -207,7 +114,7 @@ export default class Combat {
 
 		it.timer = getDelay( it.speed );
 
-		if ( it.team === TEAM_ALLY ) {
+		if ( it.team === TEAM_PLAYER ) {
 			this._allies.push( it)
 		} else this._enemies.push(it);
 
@@ -215,7 +122,7 @@ export default class Combat {
 
 	update(dt) {
 
-		if ( this._enemies.length === 0 || this.player.alive === false ) return;
+		if ( this.player.alive === false ) return;
 
 		var e, action;
 		for( let i = this._allies.length-1; i >= 0; i-- ) {
@@ -223,6 +130,7 @@ export default class Combat {
 			e = this._allies[i];
 			if ( e.alive === false ) {
 
+				/** @todo messy minion removal. */
 				e.hp -= dt;
 				if ( e.hp < -5 ) {
 					this._allies.splice(i,1);
@@ -233,7 +141,11 @@ export default class Combat {
 
 			if ( e !==this.player) e.update(dt);
 			action = e.combat(dt);
-			if ( action ) this.attack( e, action, this._enemies );
+			if ( !action ) continue;
+
+			else if ( !action.canAttack() ) {
+				Events.emit( STATE_BLOCK, e, action );
+			} else this.attack( e, action );
 
 		}
 
@@ -243,7 +155,11 @@ export default class Combat {
 			e.update(dt);
 			if ( e.alive === false ) { this._enemies.splice(i,1); continue;}
 			action = e.combat(dt);
-			if ( action ) this.attack( e, action, this._allies );
+			if (!action) continue;
+
+			else if ( !action.canAttack() ){
+				Events.emit( STATE_BLOCK, e, action );
+			} else this.attack( e, action );
 
 		}
 
@@ -259,7 +175,17 @@ export default class Combat {
 
 			Events.emit(EVT_COMBAT, null, this.player.name + ' casts ' + it.name + ' at the darkness.' );
 
-		} else this.attack( this.player, it.attack, this.enemies );
+		} else {
+
+			let a = this.player.getCause( NO_SPELLS);
+			if ( a ) {
+
+				console.log('spells blocked: ' + a );
+				Events.emit( STATE_BLOCK, this.player, a );
+
+			} else this.attack( this.player, it.attack );
+
+		}
 
 	}
 
@@ -267,11 +193,10 @@ export default class Combat {
 	 * Attack a target.
 	 * @param {Char} attacker - enemy attacking.
 	 * @param {Object|Char} atk - attack object.
-	 * @param {Char[]} targs - potential targets.
 	 */
-	attack( attacker, atk, targs ) {
+	attack( attacker, atk ) {
 
-		if ( atk && atk.log ) {
+		if ( atk.log ) {
 			Events.emit( EVT_EVENT, atk.log );
 		}
 
@@ -285,9 +210,13 @@ export default class Combat {
 		let targ = this.getTarget( attacker, atk.targets );
 		if ( !targ) return;
 
-			targs.forEach( v => v.alive? this.doAttack(attacker, atk, v):null );
+		else if ( Array.isArray(targ)) {
 
-		} else this.doAttack( attacker, atk, this.nextTarget( targs ) );
+			for( let i = targ.length-1; i>= 0; i-- ) {
+				this.doAttack( attacker, atk, targ[i]);
+			}
+
+		} else this.doAttack( attacker, atk, targ );
 
 	}
 
@@ -299,16 +228,15 @@ export default class Combat {
 	 */
 	doAttack( attacker, atk, targ ) {
 
-		if (!targ) return;
+		if (!targ || !targ.alive ) return;
 
-		if ( this.tryHit( attacker, targ, atk ) ) {
-			tryDamage( targ, atk, attacker );
+		if ( atk.harmless || !targ.canDefend() || this.tryHit( attacker, targ, atk ) ) {
+			ApplyAction( targ, atk, attacker );
 		}
 
 	}
 
 	/**
-	 *
 	 * @param {Char} char
 	 * @param {string} targets
 	 * @returns {Char|Char[]|null}
@@ -375,7 +303,6 @@ export default class Combat {
 		for( let i = a.length-1; i>=0; i-- ) {
 			if ( a[i].alive ) return a[i];
 		}
-
 	}
 
 	/**
@@ -526,7 +453,7 @@ export default class Combat {
 	charDied( char, attacker ) {
 
 		if ( char === this.player ) return;
-		else if ( char.team === TEAM_ALLY ) {
+		else if ( char.team === TEAM_PLAYER ) {
 
 			Events.emit( ALLY_DIED, char );
 

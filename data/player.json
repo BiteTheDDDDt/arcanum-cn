@@ -3,8 +3,8 @@
 		"id":"hp",
 		"name":"life",
 		"desc":"Wizard life-force",
-		"val":10,
-		"max":10,
+		"val":5,
+		"max":5,
 		"unit":false,
 		"locked":false
 	},
@@ -13,7 +13,20 @@
 		"val":0,
 		"unit":true,
 		"stat":true,
-		"locked":false
+		"locked":false,
+		"hide":true,
+		"mod":{
+			"spelllist.max":1,
+			"stamina.max":1,
+			"player.tohit":1,
+			"hp.max":1,
+			"allies.max":"/5",
+			"speed":"/4"
+		},
+		"result":{
+			"sp":"/3"
+		}
+
 	},
 	{
 

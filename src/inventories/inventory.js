@@ -71,6 +71,12 @@ export default class Inventory {
 
 	}
 
+	/**
+	 * @property {boolean} saveIds - if true, only save item ids, and not
+	 */
+	get saveIds(){ return this._saveIds }
+	set saveIds(v){ this._saveIds=v; }
+
 	[Symbol.iterator](){
 		return this.items[Symbol.iterator]();
 	}
@@ -79,14 +85,23 @@ export default class Inventory {
 
 	constructor(vars=null){
 
-		if ( vars ) Object.assign(this,vars);
+		if ( vars ) {
+
+			if ( typeof vars === 'string') {
+				this.items = vars.split(',');
+			} else if ( Array.isArray(vars)){
+				this.items = vars;
+			}
+			else Object.assign(this,vars);
+
+		}
 
 		if ( !this.items ) this.items = [];
 
 		this.type = 'inventory';
 		if (!this.id) this.id = this.type;
 
-		this.max = this._max || 0;
+		if ( !this.max ) this.max = 0;
 
 	}
 
@@ -118,12 +133,11 @@ export default class Inventory {
 
 	/**
 	 * Add item to inventory
-	 * @param {*} it
+	 * @param {object} it
 	 */
 	add(it){
 
-		if ( it === null || it === undefined || typeof it === 'boolean'
-			|| typeof it === 'string' || this.full() ) return false;
+		if ( it === null || it === undefined || typeof it !== 'object' ) return false;
 
 		if ( Array.isArray(it) ) {
 
@@ -135,14 +149,11 @@ export default class Inventory {
 
 			if ( !it.id ) return false;
 
-			if ( it.stack ) {
-				let inst = this.findMatch( it );
-				if ( inst ){
-					inst.value += it.value;
-					return;
-				}
+			if ( it.stack && this.addStack(it) ) {
+				return;
+			} else if ( this.full() ) return false;
+			else if ( this.removeDupes && this.find(it.id ) ) return false;
 
-			} else if ( this.removeDupes && this.find(it.id ) ) return false;
 
 			this.items.push( it );
 			this.used += this.spaceCost( it );
@@ -212,6 +223,16 @@ export default class Inventory {
 	}
 
 	/**
+	 * @returns {GData} random item or null.
+	 */
+	randItem() {
+
+		if ( this.items.length <= 0 ) return null;
+		return this.items[ Math.floor( Math.random()*this.items.length) ];
+
+	}
+
+	/**
 	 * Remove all items from inventory.
 	 * splice is used for vue reactivity.
 	 */
@@ -245,7 +266,7 @@ export default class Inventory {
 	 * @param {Item} it
 	 * @param {number} count
 	 */
-	removeQuant( it, count) {
+	removeCount( it, count) {
 
 		it.value -= count;
 		if ( it.value <= 0 )this.remove(it);
@@ -258,6 +279,36 @@ export default class Inventory {
 	 */
 	filter(p) {
 		return this.items.filter(p);
+	}
+
+	/**
+	 * Determine if quantity of item is available.
+	 * @param {GData} it
+	 * @param {number} count
+	 */
+	hasCount( it, count ) {
+
+		it = this.findMatch(it);
+		if ( !it ) return false;
+		return count === 1 || ( it.stack && it.value >= count );
+	}
+
+	/**
+	 * Add count to stackable item, if found.
+	 * @param {GData} it
+	 * @param {number} [count=1]
+	 * @returns {?GData} item found, or null.
+	 */
+	addStack(it, count=1) {
+
+		let orig = this.findMatch(it);
+		if ( orig) {
+			orig.value += count;
+			return orig;
+		}
+
+		return null;
+
 	}
 
 	findMatch(it){

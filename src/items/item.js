@@ -1,6 +1,8 @@
 import Base, {mergeClass} from './base';
+import {assign} from 'objecty';
 import { cloneClass } from '../util/util';
-import { ParseMods } from '../values/mod';
+import { ParseMods } from 'modules/parsing';
+import Instance from './instance';
 
 const ItemDefaults = {
 	stack:true,
@@ -63,7 +65,7 @@ export default class Item {
 
 	constructor( vars=null ) {
 
-		if ( vars ) Object.assign( this, vars );
+		if ( vars ) assign( this, vars );
 
 		this.value = this._value || 1;
 
@@ -88,7 +90,7 @@ export default class Item {
 		if ( this.use ) {
 
 			if (this.use.dot ) {
-				g.state.player.addDot( this.use.dot, this.id, this.name );
+				g.state.player.addDot( this.use.dot, this.id );
 			}
 			g.applyVars( this.use );
 
@@ -119,10 +121,11 @@ export default class Item {
 			cloneClass( this.template, this );
 		}
 
-		if ( this.mod ) this.mod = ParseMods( this.mod, this.id );
+		if ( this.mod ) this.mod = ParseMods( this.mod, this.id, this );
 
 	}
 
 }
 
 mergeClass( Item, Base );
+mergeClass( Item, Instance );

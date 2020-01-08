@@ -1,9 +1,53 @@
 [
 
 	{
-		"id":"asleep",
-		"canAttack":false,
-		"canDefend":false
-
+		"id":"sleep",
+		"adj":"asleep",
+		"flags":"noact"
+	},
+	{
+		"id":"paralyzed",
+		"flags":"noact"
+	},
+	{
+		"id":"sick",
+		"duration":10,
+		"mod":{
+			"tohit":-5,
+			"defense":-5
+		}
+	},
+	{
+		"id":"silence",
+		"adj":"silenced",
+		"flags":"nocast"
+	},
+	{
+		"id":"fear",
+		"adj":"afraid",
+		"flags":"noattack",
+		"mod":{
+			"defense":-3
+		}
+	},
+	{
+		"id":"entangle",
+		"adj":"entangled",
+		"flags":"noattack"
+	},
+	{
+		"id":"enrage",
+		"adj":"enraged",
+		"flags":"nodefend"
+	},
+	{
+		"id":"disgust",
+		"adj":"disgusted",
+		"flags":"noattack"
+	},
+	{
+		"id":"sacked",
+		"flags":"noattack,nodefend"
 	}
+
 ]

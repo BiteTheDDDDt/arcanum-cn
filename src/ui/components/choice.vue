@@ -1,6 +1,6 @@
 <script>
 import Game from '../../game';
-import { center, positionAt } from './popups.js';
+import { centerX, positionAt } from './popups.js';
 
 import ItemsBase from '../itemsBase.js';
 import GData from '../../items/gdata';
@@ -47,7 +47,7 @@ export default {
 		if (this.open===false) return;
 
 		if ( this.elm) positionAt( this.$el, this.elm, 0 );
-		else center( this.$el );
+		else centerX( this.$el );
 
 	},
 	computed:{
@@ -176,7 +176,7 @@ export default {
 		<span class="title" v-if="title">{{title}}</span>
 
 		<div class="items">
-		<span class="action-btn" v-for="it in choices" :key="strings?it:it.id"
+		<span class="task-btn" v-for="it in choices" :key="strings?it:it.id"
 			@mouseenter.capture.stop="!strings ? emit( 'itemover', $event,it):''">
 
 		<button class="wrapped-btn" :disabled="!strings&&!usable(it)"
@@ -217,10 +217,10 @@ export default {
 	margin-bottom: var(--sm-gap);
 }
 
-.action-btn {
+.task-btn {
 	width: 100%;
 }
-.action-btn button {
+.task-btn button {
 
 	max-height: 2em;
 	width:100%;

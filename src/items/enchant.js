@@ -1,4 +1,4 @@
-import Action from './action';
+import Task from './task';
 import GData from './gdata';
 import { setModCounts } from './base';
 import { canTarget } from '../values/consts';
@@ -6,20 +6,16 @@ import Runnable from '../composites/runnable';
 import Enchanting from '../composites/enchanting';
 
 
-export default class Enchant extends Action {
+export default class Enchant extends Task {
 
 	/**
-	 * @compat @deprecated
-	 */
-	get targets(){return this.only}
-	set targets(v){ this.only =v; }
-
-	/**
-	 * @property {string} only - target type, name, kind, or tag, to which
+	 * @property {string} only - limit target type by name, kind, or tag, to which
 	 * the enchantment can be applied.
 	 */
 	get only(){return this._only;}
-	set only(v){this._only = typeof v === 'string' ? v.split(',') : v;}
+	set only(v){
+		this._only = typeof v === 'string' ? v.split(',') : v;
+	}
 
 	constructor(vars){
 
@@ -44,10 +40,17 @@ export default class Enchant extends Action {
 	}
 
 	/**
-	 * Called when enchant completes on a target.
-	 * @param {*} targ
+	 * Catch complete
 	 */
-	useOn( targ ) {
+	complete(){
+	}
+
+	/**
+	 * Called when enchant is being used on target.
+	 * @param {*} targ
+	 * @param {Context} g - execution context, Game.
+	 */
+	useOn( targ, g ) {
 
 		if ( !targ) return;
 
@@ -61,8 +64,6 @@ export default class Enchant extends Action {
 
 		targ.busy = false;
 
-		this.exec();
-
 	}
 
 	/**
@@ -74,12 +75,6 @@ export default class Enchant extends Action {
 		if ( targ) {
 			targ.busy = false;
 		}
-	}
-
-	/**
-	 * Catch complete
-	 */
-	complete(){
 	}
 
 	/**

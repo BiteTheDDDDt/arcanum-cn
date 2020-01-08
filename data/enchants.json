@@ -351,6 +351,7 @@
 		"name":"spellcraft",
 		"adj":"of spells",
 		"desc":"increases your spellcrafting power.",
+		"only":"armor,weapon",
 		"level":3,
 		"buy":{
 			"gold":100,
@@ -428,6 +429,7 @@
 		"id":"en_scraft2",
 		"name":"spellcraft II",
 		"adj":"of spells",
+		"only":"armor,weapon",
 		"desc":"increases your spellcrafting power",
 		"require":"g.en_scraft>0&&g.enchanting>=6",
 		"level":6,

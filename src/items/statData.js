@@ -33,7 +33,7 @@ export default class StatData extends GData {
 	setBase( g, amt ) {
 
 		let del = this.add( amt - this.value.base );
-		this.change( g, del );
+		this.changed( g, del );
 
 	}
 
@@ -46,11 +46,6 @@ export default class StatData extends GData {
 		super(vars);
 
 		if ( this.value === undefined ) this.value = 0;
-
-		/**
-		 * @compat. statData is a pure stat with no max value.
-		 */
-		this._max = undefined;
 		this.repeat = true;
 
 		/**

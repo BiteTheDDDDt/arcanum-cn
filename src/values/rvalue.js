@@ -4,14 +4,35 @@ import { precise } from '../util/format';
 export const PercentTest = /^(\d+(?:\.?\d+)?)\%$/i
 export const RangeTest = /^\-?\d+\.?\d*\~\-?\d+\.?\d*$/i;
 
+/**
+ * Form sub-path.
+ * @param {string} id
+ * @param {string} child
+ * @returns {string}
+ */
+export const SubPath = ( id, child ) => {
+	return id + '.' + child;
+}
+
+/*Parse(str){
+
+	if ( PercentTest.test(str) ) return new Percent(str);
+	else if ( RangeTest.test(str) ) return new Range(str);
+
+	return new RValue( str );
+
+}*/
+
 export default class RValue {
 
-	Parse(str){
+	toJSON(){return this._base;}
 
-		if ( PercentTest.test(str) ) return new Percent(str);
-		else if ( RangeTest.test(str) ) return new Range(str);
+	clone(){
 
-		return new RValue( str );
+		let r = new RValue( this._value, this._id );
+		r.source = this.source;
+
+		return r;
 
 	}
 
@@ -62,19 +83,27 @@ export default class RValue {
 	 * @returns {number}
 	 */
 	valueOf(){
-		return ( typeof this._base === 'object') ? this._base.value : this._base;
+		return this._base;
 	}
 
-	constructor( vars=null ){
+	/**
+	 *
+	 * @param {number} vars
+	 * @param {?string} path
+	 */
+	constructor( vars=0, path=null ){
 
-		if ( typeof vars === 'number') {
-			this.value = vars;
-		} else this.value = 0;
+		this.id = path;
+		this._base = vars || 0;
 
 	}
 
 	add(v) { this.value += v }
-	set(v){ this.value = v; }
+	set(v){ this.value = Number(v); }
+
+	apply(mod,amt=1){
+		this.add(mod.value*amt);
+	}
 
 	/**
 	 * Apply standard modifier.
@@ -83,6 +112,15 @@ export default class RValue {
 	 */
 	addMod( mod, amt ){
 		// base rvalue does not accept modifiers.
+	}
+
+	/**
+	 * Get amount when applied as an effect.
+	 * @param {}
+	 */
+	getApply() {
+		//console.log( this.id + ' getApply: ' + this.value );
+		return this.value;
 	}
 
 	/**

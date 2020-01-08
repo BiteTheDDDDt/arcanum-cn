@@ -1,10 +1,8 @@
-import Events, { ENEMY_SLAIN, ACT_DONE, ITEM_ATTACK, CHAR_DIED, DEFEATED, ACT_BLOCKED, EVT_COMBAT } from '../events';
-
+import Events, { ENEMY_SLAIN, TASK_DONE, ITEM_ACTION, CHAR_DIED, DEFEATED, TASK_BLOCKED, EVT_COMBAT } from '../events';
+import { assign } from 'objecty';
 import Game from '../game';
 import Combat from './combat';
-import { getDelay } from '../chars/char';
-import { RAID, TYP_PCT } from '../values/consts';
-import SpawnGroup from './spawngroup';
+import { RAID, TYP_PCT, getDelay } from '../values/consts';
 
 
 /**
@@ -68,9 +66,9 @@ export default class Raid {
 	 */
 	constructor( vars=null ) {
 
-		if ( vars ) Object.assign( this, vars);
+		if ( vars ) assign( this, vars);
 
-		this._combat =  this._combat || new Combat();
+		if ( !this._combat ) this.combat = new Combat();
 
 		this.running = this.running || false;
 
@@ -89,7 +87,7 @@ export default class Raid {
 		this.player = gameState.player;
 
 		Events.add( ENEMY_SLAIN, this.enemyDied, this );
-		Events.add( ITEM_ATTACK, this.spellAttack, this );
+		Events.add( ITEM_ACTION, this.spellAttack, this );
 		Events.add( CHAR_DIED, this.charDied, this );
 
 		if ( typeof this.locale === 'string') this.locale = gameState.getData(this.locale);
@@ -116,7 +114,7 @@ export default class Raid {
 
 	emitDefeat(){
 		Events.emit( DEFEATED, null );
-		Events.emit( ACT_BLOCKED, this,
+		Events.emit( TASK_BLOCKED, this,
 			this.locale && this.player.level>this.locale.level && this.player.retreat>0 );
 	}
 
@@ -143,13 +141,11 @@ export default class Raid {
 	}
 
 	/**
-	 * Player-casted spell or action attack.
+	 * Player-casted spell or attack action.
 	 * @param {Item} it
 	 */
 	spellAttack( it ) {
-
-		if ( this.locale && this.running ) this._combat.spellAttack(it);
-
+		if ( this.running ) this._combat.spellAttack(it);
 	}
 
 	/**
@@ -204,7 +200,7 @@ export default class Raid {
 
 		this.player.exp +=	(this.locale.level)*( 15 + this.locale.length )/( 0.8*del );
 
-		Events.emit( ACT_DONE, this, false );
+		Events.emit( TASK_DONE, this, false );
 		this.locale = null;
 
 	}

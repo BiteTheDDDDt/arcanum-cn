@@ -1,6 +1,7 @@
-import Action from './action';
+import Task from './task';
 import Stat from '../values/stat';
 import { SKILL } from '../values/consts';
+import Scaler from '../values/scaler';
 
 const EXP_RATIO = 0.35;
 
@@ -10,7 +11,7 @@ const EXP_RATIO = 0.35;
  */
 const levLength = (n)=>{ return 50*Math.pow( (1+EXP_RATIO), n ) }
 
-export default class Skill extends Action {
+export default class Skill extends Task {
 
 	get exp() { return super.exp; }
 	set exp(v) {
@@ -18,7 +19,7 @@ export default class Skill extends Action {
 		super.exp = v;
 	}
 
-	showLevel(){return Math.floor( this.value.valueOf() ); }
+	showLevel(){return Math.floor( this.value ); }
 
 	/**
 	 *
@@ -30,26 +31,23 @@ export default class Skill extends Action {
 
 		this.type = SKILL;
 
-		if ( !this.length || this.value == 0 ) this.length = levLength( this.level +this.value.valueOf() );
+		if ( !this.length || this.value == 0 ) this.length = levLength( this.level +this.value );
+		else if ( this.value >= 1 ){
 
-		this._exp = this._exp || 0;
-
-		/** @compat */
-		if ( this.value >= 1 ){
-
-			let len = levLength( this.level + this.value.valueOf() );
-			if ( this.length > len ) {
-				this.length = len;
-			}
+			// recheck percent lengths. (allow percent formula to change.)
+			let len = levLength( this.level + this.value );
+			if ( this.length > len ) this.length = len;
 
 		}
 
-		if ( !this.buy ) this.buy = { "sp":1 };
+		if ( !this.buy ) this.buy = { sp:1 };
 
-		if ( !this.rate ) this.rate = new Stat( 0.5, 'rate' );
-		else if ( !this.rate.base ) this.rate.base = 0.5;
+		if ( !this.rate ) this.rate = new Stat( 0.5, this.id + '.rate' );
+		if ( !this.rate.base ) this.rate.base = 0.5;
 
-		if (  !this.max ) this.max = new Stat(5, 'max', true);
+		if ( !(this.exp instanceof Scaler) ) this.ex = 0;
+
+		if (  !this.max ) this.max = new Stat(5, this.id + '.max', true );
 
 	}
 
@@ -67,7 +65,7 @@ export default class Skill extends Action {
 
 	}
 
-	exec() {
+	changed(g) {
 
 		if ( this.value > Math.floor(this._max.value) ) {
 			this.value = Math.floor(this.max.value);
@@ -78,7 +76,7 @@ export default class Skill extends Action {
 
 		this.dirty = true;
 
-		super.exec();
+		super.changed(g);
 
 	}
 

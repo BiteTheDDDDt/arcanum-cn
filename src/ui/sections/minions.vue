@@ -60,6 +60,7 @@ export default {
 			this.minions.remove(b);
 		},
 
+		/** @todo: shared display funcs. */
 		toNum(v) {
 
 			if ( v === undefined || v=== null ) return 0;

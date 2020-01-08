@@ -1,7 +1,7 @@
-import Range from "../values/range";
 import { assignPublic, cloneClass } from "../util/util";
 import Stat from "../values/stat";
-import { ParseMods } from "../values/mod";
+import { TARGET_ALLIES, TARGET_ALLY, TARGET_SELF,
+		ParseTarget, ParseDmg} from "values/combat";
 
 export default class Attack {
 
@@ -22,6 +22,9 @@ export default class Attack {
 
 	}
 
+	/**
+	 * @property {object|object[]}
+	 */
 	get dot(){ return this._dot; }
 	set dot(v) {
 		this._dot = v;
@@ -59,19 +62,37 @@ export default class Attack {
 	}
 
 	/**
+	 * @property {string[]} state - states to cure/remove from target.
+	 */
+	get state(){return this._state;}
+	set state(v) {
+		if ( typeof v === 'string') this._state = v.split(',');
+		else this._state = v;
+	}
+
+	/**
+	 * @property {string[]} cure - states to cure/remove from target.
+	 */
+	get cure(){ return this._cure; }
+	set cure(v){
+		if ( typeof v === 'string') this._cure = v.split(',');
+		else this._cure = v;
+	}
+
+	/**
 	 * @property {string} targets - target of attack.
 	 */
 	get targets() { return this._targets; }
-	set targets(v) { this._targets=v;}
+	set targets(v) {
+		if ( typeof v === 'string') this._targets = ParseTarget(v);
+		else this._targets = v;
+	}
 
 	get bonus() { return this._bonus; }
 	set bonus(v) {
 
-		/** @todo mod apply bug. **/
 		if ( this._bonus ) {
-
-			this._bonus.base = v instanceof Stat ? v.base : v;
-
+			this._bonus.set(v);
 		} else this._bonus = new Stat( v );
 
 	}
@@ -81,6 +102,8 @@ export default class Attack {
 
 	get damage() { return this._damage; }
 	set damage(v) {
+		this._damage = ParseDmg(v);
+	}
 
 	/**
 	 * @property {Attack[]} hits
@@ -101,22 +124,12 @@ export default class Attack {
 	get harmless(){ return this._harmless; }
 	set harmless(v) { this._harmless = v;}
 
-	}
+	/**
+	 * Messy, work on dot/state interface.
+	 */
+	canAttack(){return true;}
 
-	clone(){
-		let a = new Attack({
-			id:this.id||undefined,
-			name:this.name,
-			damage:this.damage,
-			bonus:this.bonus,
-			tohit:this.tohit,
-			kind:this.kind,
-			targets:this.targets,
-			dot:this.dot
-		});
-
-		return a;
-	}
+	clone(){ return cloneClass( this ); }
 
 	constructor( vars=null ){
 
@@ -131,22 +144,26 @@ export default class Attack {
 		}
 
 		if ( this.dot ) {
+
+			if ( !this.dot.id ) {
+				if ( this.dot.name ) this.dot.id = this.dot.name;
+				else this.dot.id = this.dot.name = this.name || this.id;
+			}
 			if ( this.dot.dmg || this.dot.damage ) {
 				if ( !this.dot.damage ) this.dot.damage = this.dot.dmg;
 				else this.dot.dmg = this.dot.damage;
 			}
+
+		}
+
+		if ( this._harmless === null || this._harmless === undefined ) {
+			this.harmless = this.targets === TARGET_SELF ||
+				this.targets === TARGET_ALLY || this.targets === TARGET_ALLIES;
 		}
 
 		//this.damage = this.damage || 0;
 		this.bonus = this.bonus || 0;
 		this.tohit = this.tohit || 0;
-
-	}
-
-	getDamage() {
-
-		return this.bonus +
-		( ( typeof this._damage === 'number') ? this._damage : this._damage.value );
 
 	}
 

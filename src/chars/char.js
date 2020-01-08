@@ -1,42 +1,40 @@
 import Base, {mergeClass} from '../items/base';
-import {tryDamage} from '../composites/combat';
 import Stat from '../values/stat';
-import Dot from './dot';
 import Attack from './attack';
-import GameState from '../gameState';
-import { NPC } from '../values/consts';
-import { cloneClass } from '../util/util';
-import Act from './act';
 
-/**
- * @constant {number} DELAY_RATE - speed to attack delay conversion constant.
- */
-export const DELAY_RATE = 3.5;
-export function getDelay(s) {
-	return 0.5 + DELAY_RATE*Math.exp(-s/8);
-}
+import Dot from './dot';
+
+import { NPC, getDelay, TYP_PCT } from '../values/consts';
+import { toStats } from "../util/dataUtil";
+import events, { CHAR_STATE } from '../events';
+import States, { NO_ATTACK } from './states';
+import {assign} from 'objecty';
+
+import Context from '../context';
+import Game from '../game';
+import { ApplyAction } from '../values/combat';
 
 export default class Char {
 
-	get states() { return this._states; }
-	set states(v) { this._states = v; }
+	/*get states() { return this._states; }
+	set states(v) { this._states = v; }*/
 
 	get defense() { return this._defense; }
 	set defense(v) {
 
-		if ( v instanceof Stat) this._defense = v;
-		else if ( this._defense ) this._defense.base = v;
-		else this._defense = new Stat( v, this.id+'.defense');
-
+		if ( !this._defense ) {
+			this._defense = new Stat(v, this.id + '.defense');
+		} else {
+			this._defense.set(v);
+		}
 
 	}
 
 	get tohit() { return this._tohit; }
 	set tohit(v) {
 
-		if ( v instanceof Stat) this._tohit = v;
-		else if ( this._tohit ) this._tohit.base = v;
-		else this._tohit = new Stat(v);
+		if ( !this._tohit){this._tohit = new Stat(v, this.id + '.tohit');
+		} else { this._tohit.set(v); }
 
 	}
 
@@ -45,7 +43,18 @@ export default class Char {
 
 	get speed() { return this._speed; }
 	set speed(v) {
-		this._speed = v instanceof Stat ? v : new Stat(v);
+		if (!this._speed) this._speed = new Stat(v, this.id + '.speed');
+		else this._speed.set(v);
+	}
+
+	/**
+	 * @property {string[]} spells - list of spells char can cast.
+	 */
+	get spells(){ return this._spells; }
+	set spells(v) {
+		if ( typeof v === 'string') {
+			this._spells = Game.state.makeDataList(v);
+		} else this._spells=v;
 	}
 
 	/**
@@ -65,6 +74,12 @@ export default class Char {
 
 		this._immunities=v;
 	}
+
+	/**
+	 * @property {.<string,Stat>} bonuses - damage bonuses per damage kind.
+	 */
+	get bonuses(){ return this._bonuses }
+	set bonuses(v){ this._bonuses = toStats(v); }
 
 	get attack() { return this._attack; }
 	set attack(v) {
@@ -102,36 +117,34 @@ export default class Char {
 	}
 
 	/**
-	 * @property {number} canAttack
+	 * Get cause of a state-flag being set.
+	 * @param {number} flag
 	 */
-	get canAttack(){
+	getCause(flag){return this._states.getCause(flag)}
 
-		for( let i = this.states.length-1; i>=0; i--){
-			if ( this.states[i].canAttack ) return false;
-		}
+	hasState( flag ) { return this._states.has(flag); }
 
-		return this._canAttack;
+	/**
+	 * @returns {boolean} canAttack
+	 */
+	canAttack(){
+		return this._states.canAttack();
+	}
+
+	canDefend(){
+		return this._states.canDefend();
+	}
+
+	canCast(){
+		return this._states.canCast();
 	}
 
 	/**
-	 * @property {Act} act - action to take in locale.
+	 * @property {States} states - current states.
 	 */
-	get act(){return this._act; }
-	set act(v) { this._act = v; }
+	get states(){return this._states; }
+	set states(v) { this._states = new States(); }
 
-	set canAttack(v) { this._canAttack = v;}
-
-	/**
-	 * @property {number} canDefend
-	 */
-	get canDefend(){return this._canDefend;}
-	set canDefend(v) { this._canDefend = v;}
-
-	/**
-	 * @property {number} canAct
-	 */
-	get canAct(){return this._canAct;}
-	set canAct(v) { this._canAct = v;}
 
 	get instanced() { return true; }
 	set instanced(v) {}
@@ -143,21 +156,31 @@ export default class Char {
 	set died(v) { this._died = v; }*/
 
 	get alive() { return this.hp.value > 0; }
-	set alive(v) {}
+
+	/**
+	 * @property {Object} dotContext - context for dot mods/effects,
+	 * spells.
+	 * @todo: allow Player applyMods to work naturally.
+	 */
+	get context(){ return this._context; }
+	set context(v) { this._context = v;}
 
 	constructor( vars ){
 
-		for( let p in vars ) {
-			this[p] = vars[p];
-		}
+		if ( vars ) assign( this, vars );
 
 		this.type = NPC;
 
-		this.states = this.states || {};
+		this._states = new States();
+
+		if ( this._spells ) {
+			this._context = new Context(this);
+		} else this._context = Game;
+
 		this.immunities = this.immunities || {};
 		this._resist = this._resist || {};
+		if ( !this.bonuses ) this.bonuses = {};
 
-		this._act = new Act();
 		//console.log( this.id + ' tohit: ' + this.tohit );
 
 		/**
@@ -183,22 +206,52 @@ export default class Char {
 		}
 
 		this.reviveDots(gs);
-		this.reviveStates();
+		this._states.refresh(this._dots);
 
+	}
+
+	/**
+	 * Use current states to map requested target
+	 * to new target.
+	 * @param {?string} targ
+	 * @returns {string}
+	 */
+	getTarget( targ ){
+		return this._states.getTarget(targ);
+	}
+
+	/**
+	 * Cure dot with the given state.
+	 * @param {string||string[]} state
+	 */
+	cure( state ) {
+
+		if ( Array.isArray(state )) {
+			for( let i = state.length-1; i>=0; i-- ) {
+				this.cure(state[i]);
+			}
+			return;
+		}
+
+		for( let i = this.dots.length-1; i>= 0; i-- ) {
+			if ( this.dots[i].id === state) {
+				this.rmDot(i);
+				return;
+			}
+		}
+	}
+
+	/**
+	 * try casting spell from player spelllist.
+	 */
+	tryCast(){
+		return ( this.spells && this.spells.onUse(this.context) );
 	}
 
 	reviveDots(gs) {
 		for( let i = this.dots.length-1; i>=0; i--) {
 			this.dots[i].revive(gs);
 		}
-	}
-
-	reviveStates() {
-
-		for( let i = this.states.length-1; i >= 0; i-- ) {
-			this.states[i].applyTo(this);
-		}
-
 	}
 
 	/**
@@ -210,9 +263,9 @@ export default class Char {
 
 	/**
 	 * Base item of dot.
-	 * @param {Dot} dot
+	 * @param {Dot|object|Array} dot
 	 * @param {object} source
-	 * @param {string} name
+	 * @param {number} duration - duration override
 	 */
 	addDot( dot, source, duration=0 ) {
 
@@ -231,62 +284,99 @@ export default class Char {
 		}
 
 		let id = dot.id;
-		if ( !id ) id = dot.id = name || (source ? source.id || source.name : '');
-		if ( !id) return;
+		if ( !id ) {
+			id = dot.id = (source ? source.id || source.name : null );
+			if ( !id) return;
+		}
+
+		if ( duration === 0 ) duration = dot.duration;
 
 		let cur = this.dots.find( d=>d.id===id);
 		if ( cur !== undefined ) {
 
-			if ( cur.duration < dot.duration ) cur.duration = dot.duration;
+			//console.log('DUPE DOT: ' + cur.id );
+			cur.extend( duration );
 
 		} else {
 
-			if ( !(dot instanceof Dot)) dot = new Dot( cloneClass(dot), source, name );
+			if ( !(dot instanceof Dot) ) {
+				dot = Game.state.mkDot( dot, source, duration );
+			}
 
+			this._states.add( dot );
 			this.dots.push( dot );
-			if ( dot.mod ) this.applyDot( dot );
-
+			this.applyDot( dot );
 
 		}
 
 	}
 
 	applyDot( dot ) {
-		this.applyMods( dot.mod, 1 );
-	}
 
-	rmDot( i ){
+		if ( dot.mod ) this.context.applyMods( dot.mod, 1 );
 
-		let dot = this.dots[i];
-		this.dots.splice(i,1);
+		if ( dot.flags ) events.emit( CHAR_STATE, this, dot );
 
-		if ( dot.mod ) {
-			this.applyMods( dot.mod, -1 );
-		}
+		let time = dot.duration;
 
-	}
+		let states = dot.state;
+		if ( states ) {
 
-	update(dt) {
+			if ( typeof states === 'string') {
+				states = states.split(',');
+			}
+			for( let i = states.length-1; i>= 0; i-- ){
 
-		for( let i = this.dots.length-1; i >= 0; i-- ) {
-
-			var dot = this.dots[i];
-			let dotTime = dot.tick(dt);
-
-			if ( dotTime ) {
-
-				if ( dot.duration <= 0 ) {
-					this.rmDot(i);
-				}
-				if ( dot.damage ) {
-					tryDamage( this, dot, dot.source );
+				var s = this._gs.getData( states[i] );
+				if ( s ) {
+					console.log('ADD DOT STATE: ' + states[i] );
+					this.addDot( s, dot.source, time );
 				}
 
 			}
 
 		}
 
-		if ( this.regen ) this.hp += ( this.regen*dt );
+	}
+
+	/**
+	 * Remove dot by index.
+	 * @param {number} i
+	 */
+	rmDot( i ){
+
+		let dot = this.dots[i];
+		this.dots.splice(i,1);
+
+		if ( dot.mod ) this.context.applyMods( dot.mod, -1 );
+		if ( dot.flags ) this._states.remove( dot );
+
+	}
+
+	/**
+	 * Perform update effects.
+	 * @param {number} dt - elapsed time.
+	 */
+	update( dt ) {
+
+		let dots = this.dots;
+
+		for( let i = dots.length-1; i >= 0; i-- ) {
+
+			var dot = dots[i];
+			if ( !dot.tick(dt) ) continue;
+
+			// ignore any remainder beyond 0.
+			// @note: dots tick at second-intervals, => no dt.
+			if ( dot.effect ) this.context.applyVars( dot.effect, 1 );
+			if ( dot.damage || dot.cure ) ApplyAction( this, dot, dot.source );
+
+			if ( dot.duration <= dt ) {
+				this.rmDot(i);
+			}
+
+		}
+		if ( this.regen ) this.hp += this.regen*dt;
 
 	}
 
@@ -304,11 +394,19 @@ export default class Char {
 
 			this.timer += getDelay( this.speed );
 
-		//	if ( !this.canAct || !this.canAttack ) return null;
-			return this.getAttack();
+			return this.getCause(NO_ATTACK) || this.getAttack();
 
 		}
 
+	}
+
+	/**
+	 * Get bonus damage for the damage type.
+	 * @param {string} kind
+	 * @returns {number}
+	 */
+	getBonus(kind) {
+		return this.bonuses[kind] || 0;
 	}
 
 	getAttack(){

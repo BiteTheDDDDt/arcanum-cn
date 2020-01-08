@@ -52,8 +52,8 @@
 			"desc":"You are now living at a local inn, losing precious coins to pay the rent."
 		},
 		"mod":{
-			"space.max":10,
-			"gold.rate":-0.4
+			"space.max":12,
+			"gold.rate":-0.25
 		}
 
 	},
@@ -62,7 +62,7 @@
 		"desc":"A remote hut in the woods.",
 		"disable":"innroom",
 		"require":"tier0",
-		"cost":150,
+		"cost":300,
 		"mod":{
 			"space.max":15
 		}
@@ -110,7 +110,7 @@
 		"desc":"Cozy and quaint.",
 		"require":"tier0",
 		"disable":"innroom",
-		"cost":400,
+		"cost":500,
 		"mod":{
 			"minions.max":1,
 			"space.max":20

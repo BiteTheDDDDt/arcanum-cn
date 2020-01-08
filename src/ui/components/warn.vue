@@ -1,5 +1,5 @@
 <script>
-import {center} from './popups.js';
+import {centerX} from './popups.js';
 
 const WARN_MSG = 'This action is not reversible. Continue?';
 
@@ -13,7 +13,7 @@ export default {
 		}
 	},
 	updated() {
-		if ( this.item ) {center( this.$el );}
+		if ( this.item ) {centerX( this.$el );}
 	},
 	computed:{
 		msg(){

@@ -19,7 +19,7 @@ export default {
 	},
 	updated() {
 
-		if (!this.closed) center(this.$el);
+		if (!this.closed) centerX(this.$el);
 	},
 	created() {
 

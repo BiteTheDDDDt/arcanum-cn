@@ -1,5 +1,5 @@
 import Inventory from "./inventory";
-import Events, { ALLY_DIED, ACT_CHANGED } from '../events';
+import Events, { ALLY_DIED, TASK_CHANGED } from '../events';
 import { NPC, TEAM_PLAYER} from "../values/consts";
 import RValue from "../values/rvalue";
 
@@ -135,7 +135,7 @@ export default class Minions extends Inventory {
 		this.calcUsed();
 
 		//Events.add( ALLY_DIED, this.died, this );
-		Events.add( ACT_CHANGED, this.resetActives, this );
+		Events.add( TASK_CHANGED, this.resetActives, this );
 
 	}
 

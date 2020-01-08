@@ -32,6 +32,15 @@ export default class Module {
 	get sym(){return this._sym; }
 	set sym(v) {this._sym =v;}
 
+	get author() {return this._author;}
+	set author(v) { this._author=v;}
+
+	get email() {return this._email;}
+	set email(v) { this._email=v;}
+
+	get git() {return this._git;}
+	set git(v) { this._git=v;}
+
 	/**
 	 * @property {object.<string,GData>} items - index of instanced items.
 	 */
@@ -186,7 +195,7 @@ export default class Module {
 		let dest = this.templates;
 
 		for( let p in items ) {
-			/**@todo maybe safeMerge in future. */
+			/** @note merge overwrites */
 			dest[p] = items[p];
 		}
 
