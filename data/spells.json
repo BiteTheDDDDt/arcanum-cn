@@ -2115,7 +2115,7 @@
 			"300":{
 				"attack.dot.dmg.max":4,
 				"attack.dot.dmg.min":4,
-				"attack.toHit":5
+				"attack.tohit":5
 			}
 		},
 		"attack":{
@@ -2394,16 +2394,16 @@
 		},
 		"at":{
 			"30":{
-				"attack.toHit":1
+				"attack.tohit":1
 			},
 			"100":{
 				"attack.dot.damage.max":1,
-				"attack.toHit":2
+				"attack.tohit":2
 			},
 			"300":{
 				"attack.dot.damage.max":2,
 				"attack.dot.damage.min":1,
-				"attack.toHit":2
+				"attack.tohit":2
 			}
 		},
 		"attack":{

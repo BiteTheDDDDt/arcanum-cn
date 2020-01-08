@@ -123,7 +123,7 @@ export default class Debug {
 		for( let p in res ){
 
 			var r = res[p];
-			if ( !r.locked && !(r instanceof RevStat) ){
+			if ( !r.locked ){
 				this.game.fillItem( r )
 			}
 

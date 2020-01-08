@@ -3,6 +3,7 @@ import Resource from "./resource";
 /**
  * A reversed Resource is empty/used up at max, and 'filled' (usable)
  * at 0.
+ * this.value is the amount used out of max.
  */
 export default class RevStat extends Resource {
 
@@ -30,6 +31,10 @@ export default class RevStat extends Resource {
 		return this.value + amt <= this.max.value;
 	}
 	remove( amt ) { this.value.base += amt; }
+
+	fill(){
+		this.value = 0;
+	}
 
 	/**
 	 * Determine whether the item is filled relative to a filling rate.

@@ -38,7 +38,7 @@ export const mergeClass = ( destClass, src ) => {
   * @const {Set.<string>} JSONIgnore - ignore these properties by default when saving.
   */
  const JSONIgnore = new Set( ['template', 'id', 'type', 'defaults', 'module', 'sname', 'sym', 'warn',
- 	'name', 'desc', 'running', 'current', 'warnMsg', 'once', 'context', 'enemies', 'spawns',
+ 	'name', 'desc', 'running', 'current', 'warnMsg', 'once', 'context', 'enemies', 'spawns','targets','only',
 	 'locked', 'locks', 'value', 'exp', 'delta', 'tags', 'mod', 'busy', 'progress','need', 'require' ]);
 
 /**
