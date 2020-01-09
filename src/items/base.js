@@ -490,6 +490,8 @@ export default {
 
 	},
 
+	canUse(){return true;},
+
 	/**
 	 * Test if tag has any tag in the list.
 	 * @param {string[]} a - array of tags to test.

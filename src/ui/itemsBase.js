@@ -62,7 +62,8 @@ export default {
 			let results = {};
 
 			if ( type === 'number') {
-				console.warn('effect type is number: ' + obj) ;
+				//@todo these still happen.
+				//console.warn('effect type is number: ' + obj) ;
 			} else if ( type === 'string') {
 
 				let it = Game.getData(obj);

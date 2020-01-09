@@ -235,7 +235,7 @@ export default {
 		 */
 		doQuickslot(it) {
 
-			 Game.tryItem( it.getTarget( Game ) );
+			 Game.tryItem( it.slotTarget( Game ) );
 
 		},
 

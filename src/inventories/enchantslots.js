@@ -55,10 +55,15 @@ export default class EnchantSlots extends Inventory {
 
 	}
 
+	/**
+	 * Note: this is called by Runner to determine if enchants complete.
+	 */
 	maxed(){
 
 		for( let i = this.items.length-1; i>= 0; i--) {
-			if ( !this.items[i].done ) return false;
+			if ( !this.items[i].done ) {
+				return false;
+			}
 		}
 		return true;
 
@@ -127,7 +132,7 @@ export default class EnchantSlots extends Inventory {
 	 */
 	runWith( e ) {
 
-		if ( !this.includes(e) ) {
+		if ( !this.includes(e) && e instanceof Enchanting ) {
 			super.add(e);
 		}
 
@@ -139,7 +144,7 @@ export default class EnchantSlots extends Inventory {
 
 			super.add(item);
 
-		} else {
+		} else if ( item && enchant ) {
 
 			let r = new Enchanting( enchant, item );
 			super.add( r );

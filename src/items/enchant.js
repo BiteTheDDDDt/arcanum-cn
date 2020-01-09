@@ -1,7 +1,7 @@
 import Task from './task';
 import GData from './gdata';
 import { setModCounts } from './base';
-import { canTarget } from '../values/consts';
+import { canTarget, ENCHANTSLOTS } from '../values/consts';
 import Runnable from '../composites/runnable';
 import Enchanting from '../composites/enchanting';
 
@@ -16,6 +16,8 @@ export default class Enchant extends Task {
 	set only(v){
 		this._only = typeof v === 'string' ? v.split(',') : v;
 	}
+
+	get controller(){return ENCHANTSLOTS; }
 
 	constructor(vars){
 
