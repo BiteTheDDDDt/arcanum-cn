@@ -14,7 +14,7 @@ export const addCost = ( buy, type, amt ) => {
 
 };
 
-export const npcBuy = (m)=>{
+export const npcCost = (m)=>{
 
 	let lvl = m.level;
 

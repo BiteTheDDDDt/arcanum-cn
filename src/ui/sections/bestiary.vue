@@ -3,8 +3,8 @@ import Game from '../../game';
 import ItemBase from '../itemsBase';
 import Range from '../../values/range';
 import FilterBox from '../components/filterbox.vue';
-import { TRY_BUY } from '../../events';
-import { npcBuy } from 'modules/craft';
+import { TRY_USE } from '../../events';
+import { npcCost } from 'modules/craft';
 import { TYP_RANGE } from '../../values/consts';
 
 export default {
@@ -20,10 +20,11 @@ export default {
 	components:{
 		filterbox:FilterBox
 	},
-	created() {
-		this.TRY_BUY = TRY_BUY;
-	},
 	methods:{
+
+		tryUse(m){
+			this.emit( TRY_USE, m );
+		},
 
 		showHp(m) { return this.totalLore >= 4*m.level; },
 
@@ -62,7 +63,7 @@ export default {
 
 				var it = all[i];
 				if ( it.value <= 0 ) continue;
-				if ( !it.buy ) it.buy = npcBuy( it );
+				if ( !it.cost ) this.$set( it, 'cost', npcCost(it));
 				a.push(it);
 
 			}
@@ -115,7 +116,7 @@ export default {
 			<td class="num-align">{{ Math.floor( b.level ) }}</td>
 			<td class="num-align">{{ Math.floor( b.value ) }}</td>
 			<td class="num-align">{{ showHp(b) ? toNum(b.hp) : '???' }}</td>
-			<td><button @click="emit( TRY_BUY,b)" :disabled="b.unique||!buyable(b)||minions.freeSpace()==0||b.value<10">Buy</button></td>
+			<td><button @click="tryUse(b)" :disabled="b.unique||!usable(b)||minions.freeSpace()==0||b.value<10">Buy</button></td>
 		</tr>
 	</table>
 	</div>

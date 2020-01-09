@@ -25,8 +25,6 @@ export default class Monster extends GData {
 
 		this.type = MONSTER;
 
-		if ( !super.buy ) super.buy = null;
-
 		this.hp = this.hp || (2*this.level);
 		this.speed = this.speed || this.level;
 		this.tohit = this.tohit || this.level;
