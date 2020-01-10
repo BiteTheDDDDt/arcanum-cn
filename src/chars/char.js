@@ -213,7 +213,7 @@ export default class Char {
 
 	/**
 	 * Use current states to map requested target
-	 * to new target.
+	 * to new target type.
 	 * @param {?string} targ
 	 * @returns {string}
 	 */

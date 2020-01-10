@@ -1,6 +1,5 @@
 import Base, {mergeClass} from './base';
-import {assign} from 'objecty';
-import { cloneClass } from '../util/util';
+import {assign, cloneClass } from 'objecty';
 import { ParseMods } from 'modules/parsing';
 import Instance from './instance';
 
