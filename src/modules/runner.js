@@ -196,7 +196,7 @@ export default class Runner {
 			run = new Runnable( it, targ );
 		}
 
-		this.setTask( run );
+		return this.setTask( run );
 
 	}
 
@@ -217,10 +217,11 @@ export default class Runner {
 	 * Add an task absolutely, removing a running task if necessary.
 	 * @public
 	 * @param {*} a
+	 * @returns {boolean} true on success
 	 */
 	setTask(a) {
 
-		if ( !a) return;
+		if ( !a) return false;
 
 		if ( a.cost && (a.exp.valueOf() === 0) ) {
 			Game.payCost( a.cost);
@@ -243,6 +244,7 @@ export default class Runner {
 			this.trimActives(a);
 
 		}
+		return true;
 
 	}
 
@@ -275,7 +277,7 @@ export default class Runner {
 		this.stopTask( act, false );
 		if ( act.hasTag(REST_TAG) ) {
 
-			this.tryResume( true );
+			this.tryResume();
 
 		} else {
 
@@ -298,7 +300,6 @@ export default class Runner {
 
 		if ( tryResume ){
 			this.tryResume();
-			this.tryPursuit();
 		}
 
 	}
@@ -309,7 +310,9 @@ export default class Runner {
 	 */
 	tryPursuit(){
 
-		if ( this.free <= 0 || !Game.state.player.rested() ) return false;
+		if ( this.free <= 0 ){
+			return false;
+		}
 
 		let it = this.pursuits.getRunnable( Game );
 		if ( !it ) return false;
@@ -329,9 +332,8 @@ export default class Runner {
 		if ( a.fill && Game.filled(a.fill,a) ) return false;
 		if ( !a.canRun(Game) ) return false;
 
-		this.setTask(a);
-
-		return true;
+		console.log('STARTING: ' + a.id );
+		return this.setTask(a);
 
 	}
 
@@ -393,8 +395,9 @@ export default class Runner {
 	 */
 	actDone( act, repeatable=true ){
 
+		console.log('COMPLETE: ' + act.id );
 
-		if ( act.running === false ) {
+		if ( act.running === false || !repeatable ) {
 			// skills cant complete when not running.
 			this.stopTask(act);
 
@@ -404,21 +407,12 @@ export default class Runner {
 
 				this.setTask(act);
 
-			} else if ( act.hasTag(REST_TAG )) {
-
-				this.stopTask( act );
-
 			} else {
 
 				this.stopTask( act );
 				this.addWait(act);
 
 			}
-
-		} else {
-
-
-			this.stopTask( act );
 
 		}
 
@@ -439,11 +433,12 @@ export default class Runner {
 
 	/**
 	 * Attempt to resume any waiting tasks.
-	 * @param {boolean} norest - disallow resting on free task.
 	 */
-	tryResume( norest=false) {
+	tryResume() {
 
 		let avail = this.free;
+
+		console.log('tryResume() avail: ' + avail );
 
 		for( let i = this.waiting.length-1; i >= 0; i-- ) {
 
@@ -462,7 +457,12 @@ export default class Runner {
 
 		}
 
-		if ( avail > 0 && !norest ) this.tryAdd( Game.state.restAction );
+		if ( avail > 0 ) {
+			if ( !Game.state.player.rested() ) {
+				this.tryAdd( Game.state.restAction );
+			}
+			this.tryPursuit();
+		}
 
 	}
 

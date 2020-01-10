@@ -274,9 +274,6 @@ export default {
 			this.overItem = null;
 
 		},
-
-		onToggle(it) { Game.toggleTask(it) },
-
 		onRest(){Game.toggleTask( this.state.restAction ); },
 
 		/**
