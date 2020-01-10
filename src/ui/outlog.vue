@@ -113,7 +113,7 @@ export default {
 		flex-flow: column nowrap;
 		margin-left: var(--md-gap);
 		flex-basis:20%;
-		max-width: 12em;
+		max-width: 14em;
 		max-height: inherit;
         min-width: 8em;
         margin: 0;
@@ -121,11 +121,10 @@ export default {
 
     div.log-view div.top-span {
 		max-height: unset;
-		margin: 0;
 		border-bottom: 1px solid var(--separator-color);
 		display:flex;
 		flex-flow: row nowrap;
-		margin: var(--tiny-gap) var(--md-gap) var(--sm-gap);
+		margin: var(--tiny-gap) 0;
 		padding-bottom: var(--tiny-gap);
 	}
 
