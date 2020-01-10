@@ -4,6 +4,9 @@ import Range from '../../values/range';
 import ItemsBase from '../itemsBase';
 
 import InfoBlock from './info-block.vue';
+/**
+ * This is the rollOver dot item, as opposed to the Dot view in window.
+ */
 export default {
 
 	props:['dot', 'title'],
