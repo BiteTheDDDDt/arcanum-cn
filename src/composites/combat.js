@@ -11,6 +11,7 @@ import { NO_SPELLS } from '../chars/states';
 import { TEAM_PLAYER, getDelay, TEAM_NPC, TEAM_ALL } from '../values/consts';
 import { TARGET_ALLIES, TARGET_ENEMIES, TARGET_ENEMY, TARGET_ALLY, TARGET_SELF,
 	TARGET_RAND, TARGET_RANDG, TARGET_PRIMARY, TARGET_LEADER, ApplyAction, TARGET_GROUP, TARGET_ANY } from "../values/combat";
+import Npc from '../chars/npc';
 
 
 /**
@@ -44,10 +45,7 @@ export default class Combat {
 	 * @property {Npc[]} enemies - enemies in the combat.
 	 */
 	get enemies() { return this._enemies; }
-	set enemies(v) {
-
-		this._enemies = v;
-	}
+	set enemies(v) {this._enemies = v;}
 
 	/**
 	 * @property {Char[]} allies - player & allies.
@@ -66,7 +64,7 @@ export default class Combat {
 
 		if (vars) assign(this, vars);
 
-		if (!this._enemies) this._enemies = [];
+		if (!this.enemies) this.enemies = [];
 		if ( !this.allies) this.allies = [];
 
 		this._teams = [];
@@ -337,8 +335,6 @@ export default class Combat {
 	 */
 	setEnemies( enemies ) {
 
-		if ( !Array.isArray(enemies)) {console.error('ENEMIES NOT ARRAY: ' + enemies);}
-
 		this.enemies = enemies;
 
 		if ( enemies.length>0 ){
@@ -348,16 +344,16 @@ export default class Combat {
 
 		}
 
-		this.setTimers();
 		this.refreshTeamArrays();
+		this.setTimers();
 
 	}
 
 	refreshTeamArrays() {
 
-		this.teams[TEAM_PLAYER] = this._allies;
-		this.teams[TEAM_NPC] = this._enemies;
-		this.teams[TEAM_ALL] = this._allies.concat(this._enemies);
+		this.teams[TEAM_PLAYER] = this.allies;
+		this.teams[TEAM_NPC] = this.enemies;
+		this.teams[TEAM_ALL] = this.allies.concat(this.enemies);
 
 	}
 

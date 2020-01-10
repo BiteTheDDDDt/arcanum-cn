@@ -13,6 +13,7 @@ import {assign} from 'objecty';
 import Context from '../context';
 import Game from '../game';
 import { ApplyAction } from '../values/combat';
+import { assignNoFunc } from '../util/util';
 
 export default class Char {
 
@@ -167,7 +168,7 @@ export default class Char {
 
 	constructor( vars ){
 
-		if ( vars ) assign( this, vars );
+		if ( vars ) assignNoFunc( this, vars );
 
 		this.type = NPC;
 
@@ -186,7 +187,7 @@ export default class Char {
 		/**
 		 * @property {Object[]} dots - timed/ongoing effects.
 		*/
-		if ( !this.dots ) this.dots = [];
+		if ( !this.dots ) this._dots = [];
 
 		/**
 		 * @property {number} timer
@@ -270,8 +271,7 @@ export default class Char {
 	addDot( dot, source, duration=0 ) {
 
 		if ( Array.isArray(dot)) {
-			dot.forEach(v=>this.addDot(v,source,duration));
-			return;
+			return dot.forEach(v=>this.addDot(v,source,duration));
 		}
 
 		if ( typeof dot === 'string') {
