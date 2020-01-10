@@ -1,6 +1,7 @@
 import Emitter from 'eventemitter3';
 import {uppercase} from './util/util';
 import { TYP_PCT, EVENT } from './values/consts';
+import { precise } from './util/format';
 
 /**
  * @const {Emitter} events - emitter for in-game events.
@@ -13,7 +14,14 @@ const events = new Emitter();
  */
 const sys = new Emitter();
 
-const EVT_COMBAT = 'combat';
+export const EVT_COMBAT = 'combat';
+
+/**
+ * @event COMBAT_HIT (Char,number,attackName)
+ */
+export const COMBAT_HIT = 'char_hit';
+
+
 /**
  * Generic game event.
  */
@@ -74,11 +82,6 @@ const DEFEATED = 'defeated';
 
 const DAMAGE_MISS = 'damage_miss';
 export const IS_IMMUNE = 'dmg_immune';
-
-/**
- * @event COMBAT_HIT (Char,number,attackName)
- */
-export const COMBAT_HIT = 'char_hit';
 
 const TASK_CHANGED = 'taskchanged';
 const TASK_IMPROVED = 'taskimprove';
@@ -160,7 +163,7 @@ export const TOGGLE = 'toggle';
 
 export { CHAR_TITLE, NEW_TITLE, LEVEL_UP, CHAR_NAME, CHAR_CLASS, CHAR_CHANGE };
 
-export { HALT_TASK, EVT_COMBAT, EVT_EVENT, EVT_UNLOCK, EVT_LOOT, TASK_DONE,
+export { HALT_TASK, EVT_EVENT, EVT_UNLOCK, EVT_LOOT, TASK_DONE,
 	ALLY_DIED, CHAR_DIED, ITEM_ACTION, STOP_ALL, DELETE_ITEM,
 	TASK_CHANGED, TASK_IMPROVED, TASK_BLOCKED,
 	DAMAGE_MISS, DEFEATED, ENEMY_SLAIN, COMBAT_DONE, ENC_START, ENC_DONE };
@@ -314,8 +317,25 @@ export default {
 	/**
 	 * @param {string} msg
 	 */
-	onHit(msg) {
+	onHit( target, dmg, resist, reduce, source ) {
+
+		let msg = source + " hits ";
+		if (resist > 0) msg += "strongly ";
+		else if (resist < 0) msg += "weakly ";
+		else if (resist > 1) msg += " absorbed by ";
+		msg += target.name + ": "+ precise( dmg );
+
+		let tot_reduce = 100*(resist + reduce);
+		if (tot_reduce > 0) {
+
+			if ( tot_reduce <= 100 ) msg += " -" + (tot_reduce).toFixed(2) + "%)";
+			else msg += " (absorb: " + ( (tot_reduce-100).toFixed(2) ) + "%)";
+
+		} else if (tot_reduce < 0) msg += " +" + -(tot_reduce).toFixed(2) + "%)";
+
+
 		this.log.log( '', msg, LOG_COMBAT);
+
 	},
 
 	/**
