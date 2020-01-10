@@ -57,7 +57,7 @@ export default {
 			<div v-if="dot.effect||dot.mod">
 
 			<div v-if="dot.effect||dot.mod" class="note-text">effects:</div>
-			<info v-if="dot.effect" :info="dot.effect" runnable="true" />
+			<info v-if="dot.effect" :info="dot.effect" rate="true" />
 			<info v-if="dot.mod" :info="dot.mod" />
 
 

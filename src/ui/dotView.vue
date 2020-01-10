@@ -2,6 +2,9 @@
 import { seconds, abbr } from '../util/format.js';
 import ItemBase from 'ui/itemsBase';
 
+/**
+ * Actual dot display in combat/hud.
+ */
 export default {
 
 	props:['dots', 'mini'],

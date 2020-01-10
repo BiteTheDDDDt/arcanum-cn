@@ -29,7 +29,7 @@ export default class RValue {
 
 	clone(){
 
-		let r = new RValue( this._value, this._id );
+		let r = new RValue( this._base, this._id );
 		r.source = this.source;
 
 		return r;

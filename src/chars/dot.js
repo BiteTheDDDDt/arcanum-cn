@@ -44,6 +44,9 @@ export default class Dot {
 	get mod() { return this._mod; }
 	set mod(v) { this._mod = v; }
 
+	/*get effect(){return this._effect;}
+	set effect(v){this._effect = v;}*/
+
 	/**
 	 * @property {string} verb - verb for dots that define state, e.g. sleeping.
 	 */
@@ -85,7 +88,7 @@ export default class Dot {
 
 	constructor( vars, source, name ){
 
-		assign( this, vars );
+		if ( vars ) assign( this, vars );
 
 		this.source = this.source || source || null;
 
@@ -112,6 +115,7 @@ export default class Dot {
 		for( let p in this ) {
 			if ( p === 'damage' || p =='dmg') console.log('DOT HAS DAMAGE');
 		}
+
 
 		/**
 		 * @private {number} acc - integer accumulator
