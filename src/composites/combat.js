@@ -16,7 +16,7 @@ import { TARGET_ALLIES, TARGET_ENEMIES, TARGET_ENEMY, TARGET_ALLY, TARGET_SELF,
 /**
  * @const {number} DEFENSE_RATE - rate defense is multiplied by before tohit computation.
  */
-const DEFENSE_RATE = 0.4;
+const DEFENSE_RATE = 0.25;
 
 export default class Combat {
 
@@ -107,7 +107,7 @@ export default class Combat {
 	}
 
 	/**
-	 * Add an Npc to the combat
+	 * Add Npc to the combat
 	 * @param {Npc} it
 	 */
 	addNpc( it ){
@@ -322,7 +322,7 @@ export default class Combat {
 
 			Events.emit( DAMAGE_MISS, defender.name + ' dodges ' + (attack.name||attacker.name));
 
-		} else if ( Math.random()*( 10 + tohit ) >= Math.random()*(10 + defender.defense * 0.25 ) ) { //25% of defense is used to parry
+		} else if ( Math.random()*( 10 + tohit ) >= Math.random()*(10 + defender.defense * DEFENSE_RATE ) ) {
 			return true;
 		} else {
 
@@ -337,7 +337,10 @@ export default class Combat {
 	 */
 	setEnemies( enemies ) {
 
+		if ( !Array.isArray(enemies)) {console.error('ENEMIES NOT ARRAY: ' + enemies);}
+
 		this.enemies = enemies;
+
 		if ( enemies.length>0 ){
 
 			if ( enemies[0] ) Events.emit( EVT_COMBAT, enemies[0].name + ' Encountered' );
@@ -362,25 +365,21 @@ export default class Combat {
 	 * Reenter same dungeon.
 	 */
 	reenter() {
-
-		this.allies = this.state.minions.allies.items.slice(0);
+		this.allies = this.state.minions.allies.toArray();
 		this.allies.unshift( this.player );
-
 		this.refreshTeamArrays();
 	}
 
 	/**
-	 * Begin new combat encounter.
+	 * Begin new dungeon.
 	 */
 	begin() {
 
 		this._enemies = [];
-
-		this.allies = this.state.minions.allies.items.slice(0);
-		this.allies.unshift( this.player );
-		this.refreshTeamArrays();
+		this.reenter();
 
 	}
+
 
 	/**
 	 * readjust timers at combat start to the smallest delay.
@@ -412,24 +411,6 @@ export default class Combat {
 		for( let i = this.allies.length-1; i >= 0; i-- ) {
 			this.allies[i].timer -= minDelay;
 		}
-
-	}
-
-	/**
-	 * Reenter same dungeon.
-	 */
-	reenter() {
-		this.allies = this.state.minions.allies.toArray();
-		this.allies.unshift( this.player );
-	}
-
-	/**
-	 * Begin new dungeon.
-	 */
-	begin() {
-
-		this._enemies = [];
-		this.reenter();
 
 	}
 

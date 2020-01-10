@@ -158,7 +158,7 @@ export default class Stat extends RValue {
 	 * @param {number|Stat} v
 	 */
 	set(v) {
-		if ( v !== this ) this.base = v;
+		this.base = typeof v === 'number' ? v : v.base;
 	}
 
 	/**

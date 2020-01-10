@@ -64,7 +64,7 @@ export default {
 			if ( type === 'number') {
 				//@todo these still happen.
 				//console.warn('effect type is number: ' + obj) ;
-				return obj;
+				//return obj;
 
 			} else if ( type === 'string') {
 

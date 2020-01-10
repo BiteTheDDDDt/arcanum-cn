@@ -215,7 +215,7 @@ export const ApplyDamage = ( target, attack, attacker ) => {
 
 	let damage_reduction = 0
 	if (resist === 0 || resist < 1) { damage_reduction = 3*target.defense/(3*target.defense + 10*dmg*(attack.duration ? attack.duration : 1));}
-	dmg = (dmg*(1-damage_reduction)).toFixed(2);
+	dmg = (dmg*(1-damage_reduction));
 
 	let total_reduc = resist + damage_reduction;
 	target.hp -= dmg;
