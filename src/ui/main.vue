@@ -64,9 +64,6 @@ export default {
 	},
 	data(){
 
-		/**
-		 *
-		 */
 		return {
 			state:null,
 			overItem:null,
@@ -415,46 +412,11 @@ div.full {
 	height:100vh;
 }
 
-div.game-main {
-	display:flex;
-	max-height: calc( 100vh - 150px);
-	flex-direction: row;
-	flex-grow: 1;
-	justify-content: space-between;
-}
-
-div.game-mid {
-	display:flex;
-	flex-flow: column nowrap;
-	border-left: 1px solid var(--separator-color); border-right: 1px solid var(--separator-color);
-	max-height: 100%;
-	height:100%;
-	flex-basis:45%;
-	flex-grow:1;
-	align-content: space-around;
-}
-
 div.game-mid div.main-tasks {
 	overflow-y: auto;
 	height:100%;
 }
 
-div.task-list, div.upgrade-list {
-	display:flex;
-	min-height:0;
-	flex-flow: row wrap;
-	flex-direction: row;
-	padding:0px var(--sm-gap);
-	text-transform: capitalize;
-}
-
-div.task-list {
-	justify-items: flex-start;
-}
-
-div.upgrade-list, div.task-list {
-	margin: var(--md-gap) var(--tiny-gap) var(--tiny-gap) var(--md-gap);
-}
 
 div.upgrade-list {
 	min-height:0;

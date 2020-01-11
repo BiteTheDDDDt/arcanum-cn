@@ -192,8 +192,6 @@ input[type=text].fld-name {
 	color: var( --button-text-color);
 }
 
-div.full:first-child { display: flex; margin: 0; }
-
 div.top-bar {
 	display:flex;
 	flex-flow: row nowrap;
@@ -238,9 +236,28 @@ div.top-bar .link-bar a {
 div.top-bar .load-opts .text-button { max-height: unset; }
 
 
-div.full div.game-main { flex: 1; margin-top: 0; max-height: unset; min-height: 0; }
-div.full div.game-mid { border-left: 1px solid var(--separator-color);
-	border-right: 1px solid var(--separator-color); margin: 0; }
+div.full div.game-main {
+	display:flex;
+	flex: 1; margin-top: 0; min-height: 0;
+	max-height: calc( 100vh - 150px);
+	flex-direction: row;
+	justify-content: space-between;
+}
+
+
+div.full div.game-mid {
+	display:flex;
+	margin: 0;
+	flex-flow: column nowrap;
+	border-left: 1px solid var(--separator-color);
+	border-right: 1px solid var(--separator-color);
+	max-height: 100%;
+	height:100%;
+	flex-basis:45%;
+	flex-grow:1;
+	align-content: space-around;
+}
+
 div.full div.game-mid .menu-content {
     margin: 0; min-height: 0; max-height: unset; overflow-y: auto;
     border-top: none;
@@ -252,7 +269,7 @@ body div.full div.game-mid .menu-items {
 	text-transform: capitalize; }
 .game-mid .menu-content { padding:0; }
 
-	.top-bar { min-height: 60px; }
+.top-bar { min-height: 60px; }
 
 .inv {
 	overflow-y: auto;
