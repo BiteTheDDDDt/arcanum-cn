@@ -2,10 +2,9 @@
 import Profile from 'modules/profile';
 import Settings from 'modules/settings';
 
-import { center } from '../components/popups';
+import { centerX } from '../components/popups';
 
 /**
- * @listens open-settings
  * @emits save-settings
  * @emits setting
  */
@@ -13,17 +12,22 @@ export default {
 
 	data(){
 
+		let vars = Settings.vars;
+
+		console.log('initial dark mode: ' + vars.sDarkMode );
 		return {
-			closed:true
+			sCompactMode:vars.compactMode,
+			sDarkMode:vars.darkMode,
+			sAutoSave:vars.autoSave
 		};
+
+
+
 	},
 	updated() {
-
-		if (!this.closed) centerX(this.$el);
+		centerX(this.$el);
 	},
 	created() {
-
-		this.listen('open-settings', this.show );
 
 		for( let p in Settings.vars ) {
 			this.dispatch('setting', p, Settings.vars[p] );
@@ -38,39 +42,38 @@ export default {
 
 		close() {
 			this.dispatch('save-settings');
-			this.closed = true;
-		},
-
-		show() {
-			this.closed = false;
+			this.$emit('close-settings');
 		}
 
 	},
 	computed:{
 
 		compactMode: {
-			get() { return Settings.vars.compactMode; },
+			get() { return this.sCompactMode; },
 			set(v){
-				Settings.vars.compactMode=v;
+				Settings.set('compactMode', v);
+				this.sCompactMode = v;
 				this.dispatch('setting', 'compactMode', v);
 			}
 
 		},
 		autoSave:{
 			get(){
-				return Settings.vars.autoSave;
+				return this.sAutoSave;
 			},
 			set(v){
-				Settings.vars.autoSave = v;
+				Settings.set( 'autoSave', v );
+				this.sAutoSave = v;
 				this.dispatch('setting', 'autoSave', v );
 			}
 		},
 		darkMode:{
 			get(){
-				return Settings.vars.darkMode;
+				return this.sDarkMode;
 			},
 			set(v){
-				Settings.vars.darkMode = v;
+				Settings.set( 'darkMode', v);
+				this.sDarkMode = v;
 				this.dispatch('setting', 'darkMode', v );
 			}
 		}
@@ -82,7 +85,7 @@ export default {
 
 <template>
 
-<div v-if="!closed" :class="['settings', 'popup']">
+<div :class="['settings', 'popup']">
 
 	<div>
 	<label :for="elmId('auto-save')">auto-save</label>
@@ -105,11 +108,6 @@ export default {
 		<div v-for="it in nowarns" :key="it"><span>{{it}}</span><button @click="clearWarn">Delete</button></div>
 
 	</div>-->
-
-	<div class="note-text sm">thanks to:<br>
-		dbulm2<br>
-		mathias
-	</div>
 
 	<button class="close" @click="close">close</button>
 

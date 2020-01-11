@@ -73,7 +73,8 @@ export default {
 			overTitle:null,
 			overElm:null,
 			psection:null,
-			profile:profile
+			profile:profile,
+			showSettings:false
 		};
 
 	},
@@ -341,7 +342,7 @@ export default {
 	<div class="full" @mouseover.capture.stop="emit('itemout')">
 
 		<devconsole />
-		<top-bar :has-hall="profile.hasHall()">
+		<top-bar :has-hall="profile.hasHall()" @open-settings="showSettings=true">
 			<template slot="center">
 			<span class="load-message" v-if="!state">LOADING DATA...</span>
 			<dots v-if="state" :dots="state.player.dots" />
@@ -352,7 +353,7 @@ export default {
 		<itempopup :item="overItem" :elm="overElm" :title="overTitle" />
 		<warn ref="warn" @confirmed="onConfirmed" />
 		<choice />
-		<settings />
+		<settings v-if="showSettings" @close-settings="showSettings=false" />
 
 		<div v-if="state" class="game-main">
 

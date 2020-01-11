@@ -75,7 +75,7 @@ export default {
 			<a href="https://www.patreon.com/theoryofmagic" target="_blank">patreon</a>
 			<a href="https://www.reddit.com/r/wizrobe/" target="_blank">reddit</a>
 			<span class="vers">build# {{ VERSION }}</span>
-			<button class="text-button" @click="dispatch('open-settings')">&#9881;</button>
+			<button class="text-button" @click="$emit('open-settings')">&#9881;</button>
 		</span>
 
 	</div>
