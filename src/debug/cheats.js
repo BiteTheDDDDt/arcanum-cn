@@ -44,7 +44,7 @@ if ( !__CHEATS ) {
 
 		cheatKey(e) {
 
-			if (!this.runner) return;
+			if (!this.interval) return;
 
 			let active = document.activeElement;
 			if ( active && active.tagName.toLowerCase() === 'input') return;

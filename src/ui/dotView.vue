@@ -1,5 +1,5 @@
 <script>
-import { seconds, abbr } from '../util/format.js';
+import { abbr } from '../util/format.js';
 import ItemBase from 'ui/itemsBase';
 
 /**
@@ -10,7 +10,6 @@ export default {
 	props:['dots', 'mini'],
 	mixins:[ItemBase],
 	beforeCreate(){
-		this.seconds = seconds;
 		this.abbr = abbr;
 	}
 

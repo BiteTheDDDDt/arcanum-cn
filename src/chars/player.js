@@ -406,10 +406,10 @@ export default class Player extends Char {
 
 		this.level.amount( this.context, 1 );
 
-		this.dirty = true;
-
 		this._exp.value -= this._next;
 		this._next = Math.floor( this._next * ( 1 + EXP_RATE ) );
+
+		this.dirty = true;
 
 		Events.emit( LEVEL_UP, this, this._level.valueOf() );
 

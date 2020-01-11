@@ -100,6 +100,10 @@ export const lowFixed = (v, n=2) => {
 
 }
 
+/**
+ * Adds seconds 's' to number. Currently unused.
+ * @param {*} v
+ */
 export const seconds = (v) => {
 	return Math.ceil(v) + ' s';
 }

@@ -138,10 +138,6 @@ div.inventory .item-table {
 
     }
 
-    .adventure .inv.item-table tr td:first-child { flex: 1; }
-    .adventure .inv.item-table tr td button { margin: var(--tiny-gap); padding: var(--sm-gap) 0.5em;  }
-    .adventure .inv.item-table:empty { display: none; }
-
 div.inventory .item-table tr {
         padding: var(--sm-gap); align-items: center;
     }

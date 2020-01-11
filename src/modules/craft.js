@@ -1,4 +1,4 @@
-import { getTier, schoolSkill, schoolResource, tierLevel, tierDelta, getSchool } from "../values/consts";
+import { getTier, schoolSkill, schoolResource, tierDelta, getSchool } from "../values/consts";
 import game from "../game";
 
 /**

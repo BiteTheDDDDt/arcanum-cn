@@ -31,7 +31,6 @@ export default class VarPath {
 	 */
 	constructor(s) {
 
-		console.log('var path: ' + s );
 		this._parts = s.split('.');
 
 	}

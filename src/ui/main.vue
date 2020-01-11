@@ -165,7 +165,7 @@ export default {
 
 		startAutoSave() {
 
-			if (!this.runner ) return;
+			if (!this.interval ) return;
 
 			if ( Settings.get('autoSave') && !this.saver ) {
 				//console.log('START AUTOSAVE');
@@ -176,9 +176,9 @@ export default {
 
 		pause() {
 
-			if ( this.runner ) {
-				let int = this.runner;
-				this.runner = null;
+			if ( this.interval ) {
+				let int = this.interval;
+				this.interval = null;
 				clearInterval( int );
 			}
 			this.stopAutoSave();
@@ -192,8 +192,8 @@ export default {
 			if ( Game.loaded ) {
 
 				Game.lastUpdate = Date.now();
-				if ( !this.runner ) {
-					this.runner = setInterval( ()=>Game.update(), TICK_TIME );
+				if ( !this.interval ) {
+					this.interval = setInterval( ()=>Game.update(), TICK_TIME );
 				}
 
 				this.keyListen = evt=>{
@@ -210,7 +210,7 @@ export default {
 
 		keyDown( e ){
 
-			if ( !this.runner ) return;
+			if ( !this.interval ) return;
 
 			let slice = e.code.slice(0,-1);
 			if ( slice === 'Digit' || slice === 'Numpad' ) {
@@ -228,13 +228,8 @@ export default {
 
 		},
 
-		/**
-		 *
-		 */
 		doQuickslot(it) {
-
 			 Game.tryItem( it.slotTarget( Game ) );
-
 		},
 
 		onEquip( it, inv ) { Game.equip( it,inv ); },
@@ -290,8 +285,6 @@ export default {
 		onConfirmed(it, nowarn) {
 
 			if ( typeof it !== 'string' ) {
-
-				//if ( nowarn ) Settings.setSubVar( 'nowarn', it.id, true );
 				it.warn = !nowarn;
 				Game.tryItem(it);
 			}
@@ -396,7 +389,7 @@ export default {
 
 		</div>
 
-		<div v-if="state" class="bot-bar"><quickbar :bars="state.bars" /></div>
+		<quickbar v-if="state" class="bot-bar" :bars="state.bars" />
 
 	</div>
 </template>
