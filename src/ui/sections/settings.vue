@@ -14,7 +14,6 @@ export default {
 
 		let vars = Settings.vars;
 
-		console.log('initial dark mode: ' + vars.sDarkMode );
 		return {
 			sCompactMode:vars.compactMode,
 			sDarkMode:vars.darkMode,
