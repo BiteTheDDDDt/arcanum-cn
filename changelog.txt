@@ -1,3 +1,21 @@
+DOTS:
+
+Dots and spells can now apply statuses which can prevent player/monsters from attacking, blocking, casting spells,
+etc.
+
+New damage and defense computations by Harrygiel. Small percent of defense factors into tohit/miss roll, and
+damage reduction is applied according to defense.
+
+New Puppeteer class arc by Regallion. Multiple classes, spells, minions.
+
+Level up modifiers are now based on json data, not code, so previous level up bonuses will unfortunately be reapplied.
+
+Many, many, display, interface bug fixes.
+
+Enchanting items are now placed into enchant slots for clarity, and to prevent item locking. (previous update)
+
+
+
 VER 69:
 
 BUGFIX:
