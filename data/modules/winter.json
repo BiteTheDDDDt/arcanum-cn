@@ -581,9 +581,11 @@
 		"warn": true,
 		"cost": {
 			"ice": 10,
-			"frost": 40,
 			"sp": 2,
 			"arcana": 5
+		},
+		"result":{
+			"frost":40
 		},
 		"mod": {
 			"hearth.mod.frost.rate": "-100%",
@@ -1142,7 +1144,7 @@
       "title": "nixifer's disciple",
 		  "winteressence": 5
         },
-		
+
 		"encs": [
 			"enc_w_coldsnap",
 			"enc_w_coldsnap",
