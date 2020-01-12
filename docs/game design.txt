@@ -99,10 +99,7 @@ grove/glade?
 new sections:
 familiars,
 alchemy,
-crafting,
-enchanting,
-minions,
-potions
+crafting
 
 baffling
 befuddlement
@@ -113,33 +110,11 @@ cairn ( druid)
 obelisk
 
 astral projection
-lucky coin
 crocodile tears
 - as crocodiles do not cry, they are notoriously difficult to come by.
 
 weapons:
 Shillelagh
-
-
-Spell Types per Level Used:
-1:
-arcane
-nature,
-earth,
-air,
-water,
-fire
-2:
-arcane,
-earth,
-fire,
-light,
-air,
-shadow,
-spirit
-3:
-4:
-5:
 
 Types/Associations:
 
@@ -186,7 +161,6 @@ plane
 
 Dungeons:
 
-sunny grove
 misty grove
 bright forest
 dark forest

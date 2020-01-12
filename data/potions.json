@@ -60,7 +60,25 @@
 		}
 
 	},
+	{
+		"id":"pot_stam2",
+		"name":"potion of stamina",
+		"require":"g.potions>=5",
+		"level":5,
+		"buy":{
+			"gold":300,
+			"research":500,
+			"codices":30
+		},
+		"cost":{
+			"herbs":30,
+			"watergem":1
+		},
+		"use":{
+			"stamina":50
+		}
 
+	},
 	{
 		"id":"pot_ironskin",
 		"name":"ironskin salve",

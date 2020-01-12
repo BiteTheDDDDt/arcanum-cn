@@ -17,6 +17,7 @@
 			"water":1
 		},
 		"dot":{
+			"id":"fount",
 			"duration":30,
 			"effect":{
 				"stamina":0.3
@@ -48,14 +49,39 @@
 			"tomes":3
 
 		},
-		"flavor":"Come thou fount",
 		"cost":{
 			"water":1
 		},
 		"dot":{
+			"id":"fount",
 			"duration":60,
 			"effect":{
-				"stamina":0.5
+				"stamina":0.7
+			}
+		}
+
+	},
+	{
+		"id":"stam3",
+		"name":"greater fount",
+		"level":10,
+		"school":"water",
+		"buy":{
+
+			"watergem":10,
+			"waterrune":20,
+			"tomes":20
+
+		},
+		"flavor":"Come thou fount",
+		"cost":{
+			"water":1.5
+		},
+		"dot":{
+			"id":"fount",
+			"duration":90,
+			"effect":{
+				"stamina":2
 			}
 		}
 

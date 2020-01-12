@@ -212,6 +212,15 @@
 
 			},
 			{
+				"id":"enc_kaidi",
+				"name":"kaidi",
+				"desc":"",
+				"effect":{
+
+				},"flavor":""
+
+			},
+			{
 				"id":"enc_tjoker",
 				"name":"a joker",
 				"desc":"A crafty expression suggests trouble.",
@@ -269,10 +278,12 @@
 				"desc":"The lost Hall of Ages was a gathering place of great and powerful patron mages.",
 				"require":"g.tier3>0",
 				"title":"Mark of Ages",
+				"length":100,
 				"once":{
 					"history.max":1
 				},
 				"encs":[
+					"enc_kaidi",
 					"enc_cyril",
 					"enc_jeremy",
 					"enc_kanna",

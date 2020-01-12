@@ -405,6 +405,29 @@
 		}
 	},
 	{
+		"id":"en_stam1",
+		"name":"refreshment",
+		"verb":"enchanting",
+		"adj":"of refreshing",
+		"only":"ring",
+		"desc":"runed ring refreshes your stamina.",
+		"require":"g.enchanting>=7",
+		"level":7,
+		"buy":{
+			"arcana":1,
+			"research":5000,
+			"tomes":25
+		},
+		"length":30,
+		"cost":{
+			"waterrune":1,
+			"mana":5
+		},
+		"mod":{
+			"mod.stamina.rate":0.4
+		}
+	},
+	{
 		"id":"en_tohit1",
 		"name":"keen weapon",
 		"verb":"infusing weapon",
