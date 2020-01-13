@@ -135,11 +135,6 @@ export default class Player extends Char {
 
 	get alive() {return this._hp.value > 0; }
 
-	get points(){ return this._points; }
-	set points(v){
-		this._points = v instanceof Stat ? v : new Stat(v);
-	}
-
 	/**
 	 * @property {.<string,Stat>} hits - tohit bonuses per damage kind.
 	 */
@@ -162,7 +157,6 @@ export default class Player extends Char {
 
 		data.defense = ( this.defense );
 		data.tohit = ( this.tohit );
-		data.title = ( this.title );
 		data.name = ( this.name );
 
 		data.titles = this.titles;
@@ -174,8 +168,6 @@ export default class Player extends Char {
 		data.alignment = ( this.alignment );
 		data.damage = ( this.damage );
 		data.dots = ( this.dots );
-
-		data.points = this.points;
 
 		data.bonuses = this.bonuses;
 		data.hits = this.hits;
@@ -285,6 +277,7 @@ export default class Player extends Char {
 
 		if ( !this._titles.includes(title) ) {
 
+			this.context.applyVars( 'hallPoints', 1 );
 			this._titles.push(title);
 			Events.emit( NEW_TITLE, title, this._titles.length );
 

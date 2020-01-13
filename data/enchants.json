@@ -411,7 +411,7 @@
 		"adj":"of refreshing",
 		"only":"ring",
 		"desc":"runed ring refreshes your stamina.",
-		"require":"g.enchanting>=7",
+		"require":"g.enchanting>=10&&g.enchanter>0",
 		"level":7,
 		"buy":{
 			"arcana":1,
@@ -424,7 +424,7 @@
 			"mana":5
 		},
 		"mod":{
-			"mod.stamina.rate":0.4
+			"mod.stamina.rate":0.3
 		}
 	},
 	{
