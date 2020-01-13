@@ -34,10 +34,8 @@ export default {
 			if ( !a) return;
 
 			if ( this.pursuits.includes(a) ) {
-				console.log('REMOVING PURSUIT: ' + a.id );
 				this.pursuits.remove(a);
 			} else {
-				console.log('ADDING PURSUIT: '+a.id);
 				this.pursuits.cycleAdd(a);
 			}
 

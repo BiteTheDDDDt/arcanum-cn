@@ -47,6 +47,7 @@ export default class QuickSlot extends Proxy {
 	 * @property {string} recipe - recipe of the item, if any.
 	 * used to find a similar item if the original item reference
 	 * runs out.
+	 * @todo clean this up so recipes are reassigned to item automatically.
 	 */
 	get recipe() {return this._recipe;}
 	set recipe(v) {
@@ -87,13 +88,20 @@ export default class QuickSlot extends Proxy {
 	/**
 	 * @returns {GData} target of the quickSlot item.
 	 */
-	getTarget( g ) {
+	slotTarget( g ) {
 
 		// if the recipe.id === item.id then the recipe was being used as a representative stand-in until an item isntance
 		// could be found.
-		if ( this.item && (!this.recipe) ) return this.item;
-		else if ( this.item && this.item.value > 0 && (!this.recipe || this.recipe !== this.item.id )) return this.item;
-		else if ( this.recipe ) return g.state.findInstance( this.recipe, true );
+		if ( this.item && !this.recipe ) {
+
+			return this.item;
+
+		} else {
+
+			if ( this.item && this.item.value > 0 || (this.recipe !== this.item.id )) return this.item;
+			if ( this.recipe ) return g.state.findInstance( this.recipe, true );
+
+		}
 
 		return null;
 
@@ -105,7 +113,7 @@ export default class QuickSlot extends Proxy {
 	 */
 	onUse( g ) {
 
-		let targ = this.getTarget(g);
+		let targ = this.slotTarget(g);
 		if ( targ != null && targ.value >0 ) targ.onUse(g);
 
 	}

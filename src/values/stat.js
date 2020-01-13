@@ -1,12 +1,14 @@
 import { TYP_STAT, TYP_RVAL } from './consts';
 import RValue from './rvalue';
 
+import { precise } from '../util/format';
 /**
  * Stat with a list of modifiers.
  */
 export default class Stat extends RValue {
 
 	toJSON(){
+
 
 		if ( this._basePct === 0 ) return this._base;
 
@@ -110,6 +112,11 @@ export default class Stat extends RValue {
 	get type(){ return TYP_STAT }
 
 	/**
+	 * @returns {string}
+	 */
+	toString(){ return precise( this.value ); }
+
+	/**
 	 *
 	 * @param {Object|number} vars
 	 * @param {string} path
@@ -151,7 +158,7 @@ export default class Stat extends RValue {
 	 * @param {number|Stat} v
 	 */
 	set(v) {
-		if ( v !== this ) this.base = v;
+		this.base = typeof v === 'number' ? v : v.base;
 	}
 
 	/**
@@ -281,6 +288,7 @@ export default class Stat extends RValue {
 
 		this._mPct = pct;
 		this._mBase = bonus;
+
 
 	}
 

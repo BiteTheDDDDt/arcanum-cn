@@ -4,10 +4,11 @@ import Group from './npc-group.vue';
 
 export default {
 
-	props:[ 'player', 'combat'],
+	props:[ 'combat'],
 	components:{
 		'npc-group':Group
 	}
+
 }
 </script>
 
@@ -15,7 +16,7 @@ export default {
 
 <div class="combat">
 
-	<npc-group class="group" :player="player" :npcs="combat.allies" label="allies" />
+	<npc-group class="group" :npcs="combat.allies" label="allies" />
 	<npc-group class="group" :npcs="combat.enemies" label="enemies" />
 
 </div>

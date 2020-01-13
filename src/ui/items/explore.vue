@@ -77,7 +77,7 @@ export default {
 		<span class="bar"><progbar :value="explore.exp.valueOf()" :max="Number(explore.length)" /></span>
 
 		<template v-if="type==='raid'">
-			<combat :combat="explore.combat" :player="player" />
+			<combat :combat="explore.combat" />
 		</template>
 		<template v-else>
 

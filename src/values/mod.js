@@ -5,7 +5,7 @@ import { TYP_MOD } from './consts';
 import { assign } from 'objecty';
 //import Emitter from 'eventemitter3';
 
-export const ModTest = /^(?:([\+\-]?\d+\.?\d*)|(?:([\+\-]?\d+\.?\d*\b)?(?:([\+\-]?\d+\.?\d*)\%)))$/;
+export const ModTest = /^([\+\-]?\d+\.?\d*\b)?(?:([\+\-]?\d+\.?\d*)\%)?$/;
 
 /**
  * Modifier for mod without id.
@@ -54,12 +54,11 @@ export default class Mod extends Stat {
 	 */
 	get count() {
 		if ( this._count ) {
-			console.log(this.id + ' count: ' + this._count );
 			return this._count;
 		}
 
 		if ( this.source === null || this.source === undefined ) console.warn(this.id+ ' No Source');
-		return this._count || ( this.source ? this.source.value : 1 );
+		return this.source;
 
 	}
 	set count(v) {
@@ -113,7 +112,7 @@ export default class Mod extends Stat {
 			if ( res ) {
 
 				if ( res.length === 3 ) {
-					console.log('res len 3: ' + v );
+					//console.log('res len 3: ' + v );
 					//res.forEach((v,i)=>console.log('reg['+i+']: ' + v ));
 					this.base = Number(res[1]) || 0;
 					this.basePct = Number(res[2])/100 || 0;

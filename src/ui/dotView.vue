@@ -1,13 +1,15 @@
 <script>
-import { seconds, abbr } from '../util/format.js';
+import { abbr } from '../util/format.js';
 import ItemBase from 'ui/itemsBase';
 
+/**
+ * Actual dot display in combat/hud.
+ */
 export default {
 
 	props:['dots', 'mini'],
 	mixins:[ItemBase],
 	beforeCreate(){
-		this.seconds = seconds;
 		this.abbr = abbr;
 	}
 
@@ -16,7 +18,7 @@ export default {
 
 <template>
 
-	<div class="dot-view">
+	<div class="dot-view" v-if="dots.length>0">
 
 		<div :class="['dot',d.kind, d.school, mini ? 'mini':'']" v-for="d in dots" :key="d.id"
 		@mouseenter.capture.stop="emit( 'itemover', $event,d)">
@@ -34,13 +36,26 @@ export default {
 
 <style scoped>
 
-	div.dot-view {
-		max-width: 100%;
-		position:relative;
-		display: flex;
-		flex-direction: row;
-		justify-content: space-around;
-	}
+div.dot-view {
+	display:flex;
+	position:relative;
+	flex-flow: row nowrap;
+	align-items: center;
+	justify-content: space-around;
+	border: 1px solid var(--very-quiet-text-color);
+	overflow-x: hidden;
+	overflow-y: visible;
+	height:100%;
+}
+div.dot-view .dot {
+	flex: 1; margin: 0; font-size: 0.75em; text-overflow: ellipsis; white-space: nowrap;
+	border: none;
+	outline: 1px solid var(--very-quiet-text-color);
+	position: relative;
+	text-align: center;
+	padding:var(--sm-gap);
+	background: unset;
+}
 
 	div.dot-view span.mini {
 		display:flex;
@@ -49,19 +64,7 @@ export default {
 		align-items: center;
 	}
 
-	div.dot {
-		position: relative;
-		overflow-x:visible;
-		overflow-y: visible;
-		max-height:2em;
-		text-align: center;
-		padding:var(--sm-gap);
-		background: unset;
-		border: 1px solid black;
-	}
-
 	div.mini {
-		height:var(--lg-gap);
 		width:var(--lg-gap);
 		font-size: 0.7em;
 		padding:0;

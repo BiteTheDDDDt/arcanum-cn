@@ -66,7 +66,7 @@ export default {
 		<div><div @mouseenter.capture.stop="emit( 'itemover', $event, target )">
 			Target: {{ target ? target.name : 'None' }}
 		</div>
-		<span class="note-text">Items can only be enchanted with enchantments of equal or lower level.</span>
+		<span class="note-text">Total enchantment levels on an Item cannot exceed an Item's level.</span>
 		</div>
 
 		<eslots class="eslots" :eslots="enchantSlots" :inv="inv" />

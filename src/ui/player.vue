@@ -27,7 +27,6 @@ export default {
 		wizName:{
 			get(){ return this.player.name },
 			set(v){
-
 				if ( v ) this.player.setName(v);
 			}
 		},

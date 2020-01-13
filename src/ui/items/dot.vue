@@ -4,6 +4,9 @@ import Range from '../../values/range';
 import ItemsBase from '../itemsBase';
 
 import InfoBlock from './info-block.vue';
+/**
+ * This is the rollOver dot item, as opposed to the Dot view in window.
+ */
 export default {
 
 	props:['dot', 'title'],
@@ -54,7 +57,7 @@ export default {
 			<div v-if="dot.effect||dot.mod">
 
 			<div v-if="dot.effect||dot.mod" class="note-text">effects:</div>
-			<info v-if="dot.effect" :info="dot.effect" runnable="true" />
+			<info v-if="dot.effect" :info="dot.effect" rate="true" />
 			<info v-if="dot.mod" :info="dot.mod" />
 
 

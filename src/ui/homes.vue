@@ -34,13 +34,12 @@ export default {
 			hallOpen:false,
 
 			/**
-			 * @property {boolean} hideMaxed
+			 * @property {boolean} showMaxed
 			 */
-			hideMaxed:opts.hideMaxed||false,
-			hideOwned:opts.hideOwned||false,
-			hideNone:opts.hideNone||false,
-			hideBlocked:opts.hideBlocked||false,
-			hideUnowned:opts.hideUnowned||false,
+			showMaxed:opts.hasOwnProperty( 'showMaxed' ) ? opts.showMaxed : true,
+			showOwned:opts.hasOwnProperty( 'showOwned' ) ? opts.showOwned : true,
+			showUnowned:opts.hasOwnProperty( 'showUnowned' ) ? opts.showUnowned : true,
+			showBlocked:opts.hasOwnProperty( 'showBlocked' ) ? opts.showBlocked : true,
 
 			/**
 			 * @property {Item[]} filtered - items after text-search filtering.
@@ -89,21 +88,21 @@ export default {
 		hallUnlocked(){ return Game.state.getData('evt_hall')>0; },
 		hallName(){ return Profile.hall.name; },
 
-		chkHideMax:{
-			get(){return this.hideMaxed;},
-			set(v){ this.hideMaxed = Settings.setSubVar( HOME, 'hideMaxed', v ); }
+		chkShowMax:{
+			get(){return this.showMaxed;},
+			set(v){ this.showMaxed = Settings.setSubVar( HOME, 'showMaxed', v ); }
 		},
-		chkHideOwned:{
-			get(){return this.hideOwned;},
-			set(v){ this.hideOwned = Settings.setSubVar( HOME, 'hideOwned', v ); }
+		chkShowOwned:{
+			get(){return this.showOwned;},
+			set(v){ this.showOwned = Settings.setSubVar( HOME, 'showOwned', v ); }
 		},
-		chkHideNone:{
-			get(){return this.hideNone;},
-			set(v){ this.hideNone = Settings.setSubVar( HOME, 'hideNone', v ); }
+		chkShowUnowned:{
+			get(){return this.showUnowned;},
+			set(v){ this.showUnowned = Settings.setSubVar( HOME, 'showUnowned', v ); }
 		},
-		chkHideBlocked:{
-			get(){return this.hideBlocked;},
-			set(v){ this.hideBlocked = Settings.setSubVar( HOME, 'hideBlocked', v ); }
+		chkShowBlocked:{
+			get(){return this.showBlocked;},
+			set(v){ this.showBlocked = Settings.setSubVar( HOME, 'showBlocked', v ); }
 		},
 
 		space() { return this.state.getData('space'); },
@@ -125,13 +124,13 @@ export default {
 		},
 		viewable() {
 
-			let o = this.hideOwned;
-			let n = this.hideNone;
-			let b = this.hideBlocked;
-			let m = this.hideMaxed;
+			let o = this.showOwned;
+			let n = this.showUnowned;
+			let b = this.showBlocked;
+			let m = this.showMaxed;
 
 			return this.furniture.filter( it=>!this.reslocked(it) &&
-				(!o||it.value==0) &&(!b||this.usable(it))&&(!m||!it.maxed())&&(!n||it.value>0)
+				(o||it.value==0) &&(b||this.usable(it))&&(m||!it.maxed())&&(n||it.value>0)
 			);
 
 		}
@@ -148,11 +147,10 @@ export default {
 		<div class="top separate">
 
 		<span>
-		<span>Hide:</span>
-		<span class="opt"><input :id="elmId('hideMax')" type="checkbox" v-model="chkHideMax"><label :for="elmId('hideMax')">Maxed</label></span>
-		<span class="opt"><input :id="elmId('hideOwn')" type="checkbox" v-model="chkHideOwned"><label :for="elmId('hideOwn')">Owned</label></span>
-		<span class="opt"><input :id="elmId('hideNone')" type="checkbox" v-model="chkHideNone"><label :for="elmId('hideNone')">Unowned</label></span>
-		<span class="opt"><input :id="elmId('hideBlock')" type="checkbox" v-model="chkHideBlocked"><label :for="elmId('hideBlock')">Blocked</label></span>
+		<span class="opt"><input :id="elmId('showMax')" type="checkbox" v-model="chkShowMax"><label :for="elmId('showMax')">Maxed</label></span>
+		<span class="opt"><input :id="elmId('showOwn')" type="checkbox" v-model="chkShowOwned"><label :for="elmId('showOwn')">Owned</label></span>
+		<span class="opt"><input :id="elmId('showUnowned')" type="checkbox" v-model="chkShowUnowned"><label :for="elmId('showUnowned')">Unowned</label></span>
+		<span class="opt"><input :id="elmId('showBlock')" type="checkbox" v-model="chkShowBlocked"><label :for="elmId('showBlock')">Blocked</label></span>
 		</span>
 
 <filterbox class="inline" v-model="filtered" :prop="searchIt" :items="viewable" />

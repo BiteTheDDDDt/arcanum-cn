@@ -1139,9 +1139,10 @@
 			"frost": 1
 		},
         "result":{
+      "title": "nixifer's disciple",
 		  "winteressence": 5
         },
-		"title":"nixifer's disciple",
+
 		"encs": [
 			"enc_w_coldsnap",
 			"enc_w_coldsnap",

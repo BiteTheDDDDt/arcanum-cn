@@ -582,7 +582,7 @@ export default {
 			} else {
 
 				// runner will handle costs.
-				return this.runner.useOn( it, targ );
+				return this.runner.beginUseOn( it, targ );
 
 			}
 		}
@@ -620,13 +620,18 @@ export default {
 
 		let it = typeof id === 'string' ? this.getData(id) : id;
 		if ( !it ) return;
-		if ( !it.max ) {
-			it.amount( this, 1 );
-			return;
-		}
+		if ( typeof it.fill === 'function'){
+			it.fill();
+		} else {
 
-		let del = it.max.value - it.value;
-		if ( del > 0) it.amount( this, it.max.value - it.value );
+			if ( !it.max ) {
+				it.amount( this, 1 );
+				return;
+			}
+
+			let del = it.max.value - it.value;
+			if ( del > 0) it.amount( this, it.max.value - it.value );
+		}
 
 	},
 

@@ -38,18 +38,19 @@ export const precise = (v, n=2) => {
 
 	if ( r === Math.floor(r) ) return r;
 
-	let d = Math.pow(10,n);
+	let maxDivide = Math.pow(10,n);
 
 	let abs = Math.abs(r);
-	let c = 1;
-	while ( (abs < d) && abs !== Math.floor(abs) ) {
+
+	let divide = 1;
+	while ( (abs < maxDivide) && abs !== Math.floor(abs) ) {
 
 		abs *= 10;
-		c *= 10;
+		divide *= 10;
 
 	}
 
-	abs = Math.round(abs)/c;
+	abs = Math.round(abs)/divide;
 	return r >= 0 ? abs : -abs;
 
 }
@@ -99,6 +100,10 @@ export const lowFixed = (v, n=2) => {
 
 }
 
+/**
+ * Adds seconds 's' to number. Currently unused.
+ * @param {*} v
+ */
 export const seconds = (v) => {
 	return Math.ceil(v) + ' s';
 }

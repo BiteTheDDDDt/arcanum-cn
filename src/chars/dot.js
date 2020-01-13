@@ -33,6 +33,9 @@ export default class Dot {
 
 	}
 
+	get name(){return this._name || this._id}
+	set name(v){this._name =v;}
+
 	get id() { return this._id; }
 	set id(v) {
 		this._id =v;
@@ -40,6 +43,9 @@ export default class Dot {
 
 	get mod() { return this._mod; }
 	set mod(v) { this._mod = v; }
+
+	/*get effect(){return this._effect;}
+	set effect(v){this._effect = v;}*/
 
 	/**
 	 * @property {string} verb - verb for dots that define state, e.g. sleeping.
@@ -51,9 +57,7 @@ export default class Dot {
 	set dmg(v) { this.damage = v; }
 
 	get damage() { return this._damage; }
-	set damage(v) {
-		this._damage = ParseDmg(v);
-	}
+	set damage(v) { this._damage = ParseDmg(v); }
 
 	/**
 	 * @property {number} flags
@@ -84,7 +88,7 @@ export default class Dot {
 
 	constructor( vars, source, name ){
 
-		assign( this, vars );
+		if ( vars ) assign( this, vars );
 
 		this.source = this.source || source || null;
 
@@ -111,6 +115,7 @@ export default class Dot {
 		for( let p in this ) {
 			if ( p === 'damage' || p =='dmg') console.log('DOT HAS DAMAGE');
 		}
+
 
 		/**
 		 * @private {number} acc - integer accumulator
@@ -147,8 +152,8 @@ export default class Dot {
 
 	}
 
-	revive(state) {
-		if ( this.source && typeof this.source === 'string') this.source = state.getData( this.source );
+	revive(gs) {
+		if ( this.source && typeof this.source === 'string') this.source = gs.getData( this.source );
 	}
 
 	/**

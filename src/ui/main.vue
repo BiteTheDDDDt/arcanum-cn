@@ -64,16 +64,14 @@ export default {
 	},
 	data(){
 
-		/**
-		 *
-		 */
 		return {
 			state:null,
 			overItem:null,
 			overTitle:null,
 			overElm:null,
 			psection:null,
-			profile:profile
+			profile:profile,
+			showSettings:false
 		};
 
 	},
@@ -167,7 +165,7 @@ export default {
 
 		startAutoSave() {
 
-			if (!this.runner ) return;
+			if (!this.interval ) return;
 
 			if ( Settings.get('autoSave') && !this.saver ) {
 				//console.log('START AUTOSAVE');
@@ -178,9 +176,9 @@ export default {
 
 		pause() {
 
-			if ( this.runner ) {
-				let int = this.runner;
-				this.runner = null;
+			if ( this.interval ) {
+				let int = this.interval;
+				this.interval = null;
 				clearInterval( int );
 			}
 			this.stopAutoSave();
@@ -194,8 +192,8 @@ export default {
 			if ( Game.loaded ) {
 
 				Game.lastUpdate = Date.now();
-				if ( !this.runner ) {
-					this.runner = setInterval( ()=>Game.update(), TICK_TIME );
+				if ( !this.interval ) {
+					this.interval = setInterval( ()=>Game.update(), TICK_TIME );
 				}
 
 				this.keyListen = evt=>{
@@ -212,7 +210,7 @@ export default {
 
 		keyDown( e ){
 
-			if ( !this.runner ) return;
+			if ( !this.interval ) return;
 
 			let slice = e.code.slice(0,-1);
 			if ( slice === 'Digit' || slice === 'Numpad' ) {
@@ -230,13 +228,8 @@ export default {
 
 		},
 
-		/**
-		 *
-		 */
 		doQuickslot(it) {
-
-			 Game.tryItem( it.getTarget( Game ) );
-
+			 Game.tryItem( it.slotTarget( Game ) );
 		},
 
 		onEquip( it, inv ) { Game.equip( it,inv ); },
@@ -274,9 +267,6 @@ export default {
 			this.overItem = null;
 
 		},
-
-		onToggle(it) { Game.toggleTask(it) },
-
 		onRest(){Game.toggleTask( this.state.restAction ); },
 
 		/**
@@ -295,8 +285,6 @@ export default {
 		onConfirmed(it, nowarn) {
 
 			if ( typeof it !== 'string' ) {
-
-				//if ( nowarn ) Settings.setSubVar( 'nowarn', it.id, true );
 				it.warn = !nowarn;
 				Game.tryItem(it);
 			}
@@ -344,7 +332,7 @@ export default {
 	<div class="full" @mouseover.capture.stop="emit('itemout')">
 
 		<devconsole />
-		<top-bar :has-hall="profile.hasHall()">
+		<top-bar :has-hall="profile.hasHall()" @open-settings="showSettings=true">
 			<template slot="center">
 			<span class="load-message" v-if="!state">LOADING DATA...</span>
 			<dots v-if="state" :dots="state.player.dots" />
@@ -355,7 +343,7 @@ export default {
 		<itempopup :item="overItem" :elm="overElm" :title="overTitle" />
 		<warn ref="warn" @confirmed="onConfirmed" />
 		<choice />
-		<settings />
+		<settings v-if="showSettings" @close-settings="showSettings=false" />
 
 		<div v-if="state" class="game-main">
 
@@ -401,7 +389,7 @@ export default {
 
 		</div>
 
-		<div v-if="state" class="bot-bar"><quickbar :bars="state.bars" /></div>
+		<quickbar v-if="state" class="bot-bar" :bars="state.bars" />
 
 	</div>
 </template>
@@ -417,46 +405,11 @@ div.full {
 	height:100vh;
 }
 
-div.game-main {
-	display:flex;
-	max-height: calc( 100vh - 150px);
-	flex-direction: row;
-	flex-grow: 1;
-	justify-content: space-between;
-}
-
-div.game-mid {
-	display:flex;
-	flex-flow: column nowrap;
-	border-left: 1px solid var(--separator-color); border-right: 1px solid var(--separator-color);
-	max-height: 100%;
-	height:100%;
-	flex-basis:45%;
-	flex-grow:1;
-	align-content: space-around;
-}
-
 div.game-mid div.main-tasks {
 	overflow-y: auto;
 	height:100%;
 }
 
-div.task-list, div.upgrade-list {
-	display:flex;
-	min-height:0;
-	flex-flow: row wrap;
-	flex-direction: row;
-	padding:0px var(--sm-gap);
-	text-transform: capitalize;
-}
-
-div.task-list {
-	justify-items: flex-start;
-}
-
-div.upgrade-list, div.task-list {
-	margin: var(--md-gap) var(--tiny-gap) var(--tiny-gap) var(--md-gap);
-}
 
 div.upgrade-list {
 	min-height:0;

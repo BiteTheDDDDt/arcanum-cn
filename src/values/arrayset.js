@@ -32,7 +32,7 @@ export default class ArraySet {
 	}
 
 	values(){
-		return this._store;
+		return this._store.slice(0);
 	}
 
 	add( it ){

@@ -81,7 +81,7 @@ export default {
 		<template v-if="!selecting">
 
 			<td v-if="it.equippable"><button @click="emit('equip',it, inv)">Equip</button></td>
-			<td v-if="it.use"><button @click="emit( USE, it, inv)">Use</button></td>
+			<td v-if="it.use" @mouseenter.capture.stop="emit( 'itemover',$event,it)"><button @click="emit( USE, it, inv)">Use</button></td>
 			<td v-if="take&&canAdd(it)"><button @click="onTake(it)">Take</button></td>
 
 			<td>
@@ -137,10 +137,6 @@ div.inventory .item-table {
 		 grid-auto-rows: min-content;
 
     }
-
-    .adventure .inv.item-table tr td:first-child { flex: 1; }
-    .adventure .inv.item-table tr td button { margin: var(--tiny-gap); padding: var(--sm-gap) 0.5em;  }
-    .adventure .inv.item-table:empty { display: none; }
 
 div.inventory .item-table tr {
         padding: var(--sm-gap); align-items: center;

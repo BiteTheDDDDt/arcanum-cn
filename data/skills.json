@@ -320,6 +320,23 @@
 
 	},
 	{
+		"id":"vivification",
+		"require":"g.tier4>0&&g.anatomy>0&&g.spiritlore>=5",
+		"desc":"",
+		"level":3,
+		"run":{
+			"stamina":1
+		},
+		"result":{
+			"sp":0.01
+		},
+		"mod":{
+			"stamina.rate":0.1,
+			"anatomy.rate":"2%"
+		}
+
+	},
+	{
 
 		"id":"dissection",
 		"need":"g.anatomy>=3",

@@ -24,6 +24,7 @@
 			"speed":"/4"
 		},
 		"result":{
+			"hallPoints":0.1,
 			"sp":"/3"
 		}
 
@@ -106,13 +107,6 @@
 		"locked":false
 	},
 	{
-		"id":"points",
-		"desc":"hall points",
-		"hide":true,
-		"stat":true,
-		"val":0
-	},
-	{
 		"id":"virtue",
 		"hide":"true",
 		"locked":false,
@@ -137,6 +131,9 @@
 		"locked":false,
 		"stat":true,
 		"desc":"Your reputation in the world",
+		"result":{
+			"hallPoints":1
+		},
 		"val":0
 	}
 

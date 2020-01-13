@@ -75,6 +75,7 @@
 			},
 			{
 				"id":"hallPoints",
+				"name":"prestige",
 				"alias":"points",
 				"hide":true,
 				"locked":false,

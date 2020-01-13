@@ -3,10 +3,11 @@ import Raid from './composites/raid';
 import GData from './items/gdata';
 import Equip from './chars/equip';
 import Minions from './inventories/minions';
+import { cloneClass } from 'objecty';
 
 import Runner from './modules/runner';
 import Explore from './composites/explore';
-import { ensure, cloneClass } from './util/util';
+import { ensure } from './util/util';
 import DataList from './inventories/dataList';
 import Group from './composites/group';
 import UserSpells from './inventories/userSpells';
@@ -66,7 +67,7 @@ export default class GameState {
 
 		/**
 		 * @property {.<string,GData} saveItems - items actually saved.
-		 * does not include hall items.
+		 * does not include hall items, or TagSets.
 		 */
 		this.saveItems = {};
 

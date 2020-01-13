@@ -5,7 +5,9 @@ import ItemsBase from '../itemsBase.js';
 import { SET_SLOT } from '../../events';
 
 /**
- * Component to pick current slot item from all available slot items.
+ * Component to display a button to pick current slot item from all available slot items.
+ * Extremely convoluted; clicking the button then displays a choice dialog through events.
+ * @todo replace this entire component.
  */
 export default {
 
@@ -66,7 +68,3 @@ export default {
 
 </div>
 </template>
-
-<style scoped>
-
-</style>

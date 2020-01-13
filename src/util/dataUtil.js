@@ -1,4 +1,4 @@
-import { clone } from "objecty";
+import { clone, cloneClass } from "objecty";
 import Stat from "../values/stat";
 import { cloneClass } from "./util";
 

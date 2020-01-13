@@ -100,7 +100,11 @@ export default {
 				<button v-else @click="toggleActive(b)" :disabled="inRaid||!allies.canAdd(b)">Activate</button>
 			</td>
 			<td v-if="!b.alive">
+				<!-- note this is a separate section from the one above -->
 				<button class="rez" v-for="r in rezzes(b)" :key="r.id" :disabled="!usable(r)" @click="useRez(r,b)">{{ r.name }}</button>
+
+			</td>
+			<td>
 				<confirm @confirm="dismiss(b)">{{ 'Dismiss'}}</confirm>
 			</td>
 

@@ -97,16 +97,16 @@ export default {
 
 
 	</span>
-	<div class="tight note-text" v-if="item.tags">{{tags}}</div>
+	<div class="tight note-text" v-if="item.tags||item.hands"><span v-if="item.hands>1">two-handed </span>{{tags}}</div>
 		<span class="flex-right" v-if="item.rate&&item.rate.value!=0">{{ precise( item.rate.value ) }} /s</span>
 		<div>
-
 
 		<span class="separate">
 			<span v-if="item.showLevel">lvl: {{item.showLevel()}}</span>
 			<span v-else-if="item.level">lvl: {{item.level}}</span>
 			<span v-if="item.slot">slot: {{ item.slot }}</span>
 		</span>
+
 		<span v-if="item.at&&(nextAt>0)" class="note-text">
 			Next Improvement: {{ Math.round(100*item.value/nextAt)+'%'}}
 		</span>

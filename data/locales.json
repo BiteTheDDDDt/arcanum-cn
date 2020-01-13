@@ -5,7 +5,7 @@
 	"level":1,
 	"length":15,
 	"sym":"📖",
-	"require":"apprentice",
+	"require":"evt_helper",
 	"desc":"a good apprentice spends all their free time in the library. after doing chores, of course.",
 	"run":{
 		"stamina":0.2
@@ -30,7 +30,7 @@
 	"name":"lillit's spring",
 	"level":2,
 	"length":20,
-	"require":"apprentice",
+	"require":"evt_helper",
 	"desc":"tradition tells of a spring with enchanted waters. investigations might prove revealing.",
 	"run":{
 		"stamina":0.2

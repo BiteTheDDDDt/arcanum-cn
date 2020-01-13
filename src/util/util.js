@@ -38,43 +38,6 @@ export const ensure = ( obj, props ) => {
 }
 
 /**
- * Performs a deep-clone of an object, including class prototype
- * and class methods.
- * @param {Object} src
- * @param {?Object} [dest=null] - optional base object of the clone.
- * if set, root object will not be cloned, only subobjects.
- */
-export const cloneClass = ( src, dest=null ) => {
-
-	let o;
-
-	if ( !dest ) {
-		let proto = Object.getPrototypeOf( src );
-		dest = Array.isArray(src) ? [] : ( proto ? Object.create( proto ) : {} );
-	}
-
-	for( let p in src ) {
-
-		o = src[p];
-
-		var def = getPropDesc( dest, p );
-		if ( def && ( !def.writable || def.set === undefined ) ) continue;
-
-		if ( o === null || o === undefined ) dest[p] = o;
-		else if ( typeof o === 'object' ) {
-
-			if ( o.clone && typeof o.clone === 'function' ) dest[p] = o.clone.call( o );
-			else dest[p] = cloneClass( o );
-
-		} else dest[p] = o;
-
-	}
-
-	return dest;
-
-}
-
-/**
  * Only assign values already defined in dest's protochain.
  * @param {*} dest
  * @param {*} src

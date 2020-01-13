@@ -4,7 +4,7 @@ import Profile from '../../modules/profile';
 
 import Info from './charinfo.vue';
 import Upgrades from '../upgrades.vue';
-import {center} from '../components/popups.js';
+import {centerXY} from '../components/popups.js';
 import { EVT_STAT } from '../../events';
 
 /**
@@ -27,10 +27,10 @@ export default {
 		}
 	},
 	mounted() {
-		center(this.$el);
+		centerXY(this.$el);
 	},
 	updated() {
-		center( this.$el );
+		centerXY( this.$el );
 	},
 	methods:{
 
@@ -96,7 +96,11 @@ export default {
 	<div class="header"><input class="fld-name text-entry" type="text" v-model="hallName">
 			<div class="text-button"><a href="" download
 			@click.self="dispatch('hall-file',$event )" type="text/json">hall save</a></div>
+
+			<confirm @confirm="dispatch('resetHall')">reset hall</confirm>
+
 			</div>
+
 
 	<div class="chars">
 	<info v-for="(c,i) in availChars" :char="c" :active="i==hall.active"
@@ -112,6 +116,16 @@ export default {
 </template>
 
 <style scoped>
+
+div.wizhall {
+	z-index: 5000;
+	 min-width: 40vw;
+	 max-width: 80vw;
+	 max-height: 90vh;
+	 padding: var( --rg-gap );
+	 	overflow:auto;
+
+}
 
 div.header {
 	display:flex;
@@ -135,14 +149,7 @@ div.header .fld-name {
 	text-align: center;
 	font-size: 1.4em;
 }
-div.wizhall {
-	z-index: 5000;
-	 min-width: 40vw;
-	 max-width: 80vw;
-	 max-height: 90vh;
- 	padding: var( --rg-gap );
 
-}
 
 div.wizhall .chars {
 	display:flex;

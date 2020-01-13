@@ -8,10 +8,16 @@ import Events, {
 import { itemRevive } from '../modules/itemgen';
 import { NO_SPELLS } from '../chars/states';
 
-import { TEAM_PLAYER, getDelay } from '../values/consts';
+import { TEAM_PLAYER, getDelay, TEAM_NPC, TEAM_ALL } from '../values/consts';
 import { TARGET_ALLIES, TARGET_ENEMIES, TARGET_ENEMY, TARGET_ALLY, TARGET_SELF,
-	TARGET_RAND, TARGET_RANDG, TARGET_LEADER, ApplyAction } from "../values/combat";
+	TARGET_RAND, TARGET_RANDG, TARGET_PRIMARY, TARGET_LEADER, ApplyAction, TARGET_GROUP, TARGET_ANY } from "../values/combat";
+import Npc from '../chars/npc';
 
+
+/**
+ * @const {number} DEFENSE_RATE - rate defense is multiplied by before tohit computation.
+ */
+const DEFENSE_RATE = 0.25;
 
 export default class Combat {
 
@@ -39,10 +45,7 @@ export default class Combat {
 	 * @property {Npc[]} enemies - enemies in the combat.
 	 */
 	get enemies() { return this._enemies; }
-	set enemies(v) {
-
-		this._enemies = v;
-	}
+	set enemies(v) {this._enemies = v;}
 
 	/**
 	 * @property {Char[]} allies - player & allies.
@@ -52,12 +55,19 @@ export default class Combat {
 
 	get done() { return this._enemies.length === 0; }
 
+	/**
+	 * @property {Char[][]} teams - maps team id to team list.
+	 */
+	get teams(){ return this._teams; }
+
 	constructor(vars = null) {
 
 		if (vars) assign(this, vars);
 
-		if (!this._enemies) this._enemies = [];
+		if (!this.enemies) this.enemies = [];
 		if ( !this.allies) this.allies = [];
+
+		this._teams = [];
 
 	}
 
@@ -88,14 +98,14 @@ export default class Combat {
 
 		this._allies.unshift( this.player );
 
-		this.refreshAllTargs();
+		this.refreshTeamArrays();
 
 		Events.add( CHAR_DIED, this.charDied, this );
 
 	}
 
 	/**
-	 * Add an Npc to the combat
+	 * Add Npc to the combat
 	 * @param {Npc} it
 	 */
 	addNpc( it ){
@@ -188,6 +198,13 @@ export default class Combat {
 			Events.emit( EVT_EVENT, atk.log );
 		}
 
+		if ( atk.hits ) {
+			let len = atk.hits.length;
+			for( let i = 0; i < len; i++ ) {
+				this.attack( attacker, atk.hits[i] );
+			}
+		}
+
 		let targ = this.getTarget( attacker, atk.targets );
 		if ( !targ) return;
 
@@ -227,38 +244,53 @@ export default class Combat {
 		// retarget based on state.
 		targets = char.getTarget(targets);
 
-		if ( !targets || targets === TARGET_ENEMY ) {
+		var group = this.getGroup( targets, char.team );
+		if ( targets & TARGET_GROUP ) return group;
 
-			return char.team === TEAM_PLAYER ? this.nextTarget( this._enemies ) : this.nextTarget( this.allies );
+		if ( !targets || targets === TARGET_ENEMY || targets === TARGET_ALLY ) {
+			return this.nextTarget(group);
+		} else if ( targets & TARGET_SELF ) return char;
 
-		} else if ( targets === TARGET_ENEMIES ) {
+		if ( targets & TARGET_PRIMARY) return this.primeTarget(group);
+		if ( targets & TARGET_RAND ) return this.randTarget(group);
 
-			return char.team === TEAM_PLAYER ? this._enemies : this.allies;
+	}
 
-		} else if ( targets === TARGET_SELF ) return char;
-		else if ( targets === TARGET_ALLIES ) return char.team === TEAM_PLAYER ? this.allies : this.enemies;
-		else if ( targets === TARGET_RAND ) {
+	/**
+	 * Get the Char group to which the target flags can apply.
+	 * Null or zero targets are assumed an enemy target.
+	 * @param {number} targets
+	 * @param {number} team - ally team.
+	 */
+	getGroup( targets, team ) {
 
-			let r = Math.floor( Math.random()*( this._allies.length + this._enemies.length ) );
-			return ( r < this.allies.length ) ? this.nextTarget( this.allies ) : this.nextTarget( this.enemies );
+		if ( !targets || (targets & TARGET_ENEMY) ) {
 
-		} else if ( targets === TARGET_ALL ) {
+			return team === TEAM_PLAYER ? this.enemies : this.allies;
 
-			return this.allTargs;
+		} else if ( targets & (TARGET_ALLY+TARGET_SELF) ) {
+			return this.teams[team];
 
-		} else if ( targets === TARGET_LEADER ) {
-
-			return char.team === TEAM_PLAYER ? this._allies[0] : this.enemies[0];
-
-		} else if ( targets === TARGET_RANDG ) {
-
+		} else if ( targets & TARGET_ANY ) return this.teams[TEAM_ALL];
+		else if ( targets & TARGET_RAND ) {
 			return Math.random() < 0.5 ? this.allies : this.enemies;
-
-		} else if ( targets === TARGET_ALLY ) {
-
-			return char.team === TEAM_PLAYER ? this.nextTarget( this.allies ) : this.nextTarget( this.enemies );
 		}
+		return null;
 
+	}
+
+	randTarget(a) {
+		return a[Math.floor( Math.random()*a.length)];
+	}
+
+	/**
+	 * Returns the most-primary ( lowest index) target.
+	 * @param {*} a
+	 */
+	primeTarget(a){
+		for( let i = 0; i<a.length; i++ ) {
+			if ( a[i].alive ) return a[i];
+		}
 	}
 
 	/**
@@ -288,11 +320,11 @@ export default class Combat {
 
 			Events.emit( DAMAGE_MISS, defender.name + ' dodges ' + (attack.name||attacker.name));
 
-		} else if ( Math.random()*( 10 + tohit ) >= Math.random()*(10 + defender.defense ) ) {
+		} else if ( Math.random()*( 10 + tohit ) >= Math.random()*(10 + defender.defense * DEFENSE_RATE ) ) {
 			return true;
 		} else {
 
-			Events.emit( DAMAGE_MISS, attacker.name + ' misses ' + defender.name );
+			Events.emit( DAMAGE_MISS, defender.name + ' parries ' + (attack.name||attacker.name));
 		}
 
 	}
@@ -304,6 +336,7 @@ export default class Combat {
 	setEnemies( enemies ) {
 
 		this.enemies = enemies;
+
 		if ( enemies.length>0 ){
 
 			if ( enemies[0] ) Events.emit( EVT_COMBAT, enemies[0].name + ' Encountered' );
@@ -311,36 +344,38 @@ export default class Combat {
 
 		}
 
+		this.refreshTeamArrays();
 		this.setTimers();
-		this.refreshAllTargs();
 
 	}
 
-	refreshAllTargs() {
-		this.allTargs = this._allies.concat(this._enemies);
+	refreshTeamArrays() {
+
+		this.teams[TEAM_PLAYER] = this.allies;
+		this.teams[TEAM_NPC] = this.enemies;
+		this.teams[TEAM_ALL] = this.allies.concat(this.enemies);
+
 	}
 
 	/**
 	 * Reenter same dungeon.
 	 */
 	reenter() {
-		this.allies = this.state.minions.allies.items.slice(0);
+		this.allies = this.state.minions.allies.toArray();
 		this.allies.unshift( this.player );
-		this.refreshAllTargs();
+		this.refreshTeamArrays();
 	}
 
 	/**
-	 * Begin new combat encounter.
+	 * Begin new dungeon.
 	 */
 	begin() {
 
 		this._enemies = [];
-
-		this.allies = this.state.minions.allies.items.slice(0);
-		this.allies.unshift( this.player );
-		this.refreshAllTargs();
+		this.reenter();
 
 	}
+
 
 	/**
 	 * readjust timers at combat start to the smallest delay.
@@ -372,24 +407,6 @@ export default class Combat {
 		for( let i = this.allies.length-1; i >= 0; i-- ) {
 			this.allies[i].timer -= minDelay;
 		}
-
-	}
-
-	/**
-	 * Reenter same dungeon.
-	 */
-	reenter() {
-		this.allies = this.state.minions.allies.toArray();
-		this.allies.unshift( this.player );
-	}
-
-	/**
-	 * Begin new dungeon.
-	 */
-	begin() {
-
-		this._enemies = [];
-		this.reenter();
 
 	}
 

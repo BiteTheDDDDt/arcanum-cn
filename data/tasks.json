@@ -845,7 +845,7 @@
 	{
 		"id":"slumber",
 		"desc":"The deepest sleep guards the greatest insights.",
-		"require":"dreamchamber",
+		"require":"g.tier0>0&&g.dreamchamber>0",
 		"tags":"t_rest",
 		"slot":"rest",
 		"verb":"sleeping",

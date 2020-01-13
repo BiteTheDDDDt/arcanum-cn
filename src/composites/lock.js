@@ -1,5 +1,6 @@
 /**
  * Locks item for a time. (cooldown)
+ * CURRENTLY UNUSED
  */
 export default class Lock {
 

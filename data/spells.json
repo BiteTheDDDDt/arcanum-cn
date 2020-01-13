@@ -4,7 +4,7 @@
 		"id":"stam1",
 		"name":"minor fount",
 		"level":1,
-		"require":"water",
+		"require":"g.spellbook.value>0&&g.water>0",
 		"school":"water",
 		"buy":{
 
@@ -17,6 +17,7 @@
 			"water":1
 		},
 		"dot":{
+			"id":"fount",
 			"duration":30,
 			"effect":{
 				"stamina":0.3
@@ -28,6 +29,7 @@
 
 		"id":"curesick",
 		"level":1,
+		"require":"spellbook",
 		"school":"light",
 		"action":{
 			"cure":"sick",
@@ -47,14 +49,39 @@
 			"tomes":3
 
 		},
-		"flavor":"Come thou fount",
 		"cost":{
 			"water":1
 		},
 		"dot":{
+			"id":"fount",
 			"duration":60,
 			"effect":{
-				"stamina":0.5
+				"stamina":0.7
+			}
+		}
+
+	},
+	{
+		"id":"stam3",
+		"name":"greater fount",
+		"level":10,
+		"school":"water",
+		"buy":{
+
+			"watergem":10,
+			"waterrune":20,
+			"tomes":20
+
+		},
+		"flavor":"Come thou fount",
+		"cost":{
+			"water":1.5
+		},
+		"dot":{
+			"id":"fount",
+			"duration":90,
+			"effect":{
+				"stamina":2
 			}
 		}
 
@@ -63,7 +90,7 @@
 		"id":"darkbolt",
 		"name":"dark bolt",
 		"level":1,
-		"require":"shadow",
+		"require":"g.spellbook.value>0&&g.shadow>0",
 		"school":"shadow",
 		"buy":{
 
@@ -265,7 +292,7 @@
 		"id":"poisonnettle",
 		"name":"poison nettle",
 		"level":1,
-		"require":"nature",
+		"require":"g.spellbook.value>0&&g.nature>0",
 		"school":"nature",
 		"buy":{
 
@@ -289,6 +316,7 @@
 		"id":"whirl1",
 		"name":"whirling step",
 		"level":1,
+		"require":"g.spellbook.value>0",
 		"school":"air",
 		"buy":{
 
@@ -360,7 +388,7 @@
 		"id":"mana1",
 		"name":"minor mana",
 		"school":"mana",
-		"locked":false,
+		"require":"g.spellbook.value>0",
 		"level":1,
 		"buy":{
 
@@ -383,7 +411,6 @@
 		"id":"mana2",
 		"name":"lesser mana",
 		"school":"mana",
-		"locked":false,
 		"level":2,
 		"require":"mana1",
 		"buy":{
@@ -433,7 +460,7 @@
 
 		"id":"lightregen1",
 		"name":"pulsing light",
-		"require":"light",
+		"require":"g.spellbook.value>0&&g.light>0",
 		"school":"light",
 		"desc":"a small pulse of light zips around you, mending injuries.",
 		"level":1,
@@ -517,7 +544,7 @@
 		"name":"magic missile",
 		"level":1,
 		"school":"mana",
-		"locked":false,
+		"require":"g.spellbook.value>0",
 		"buy":{
 
 			"research":25,
@@ -551,7 +578,7 @@
 		"name":"prismatic spray",
 		"level":1,
 		"school":"mana",
-		"locked":false,
+		"require":"g.spellbook.value>0",
 		"desc":"lines of arcane energy damage all enemies.",
 		"buy":{
 
@@ -642,7 +669,7 @@
 		"id":"firedart",
 		"name":"fire dart",
 		"level":1,
-		"require":"fire",
+		"require":"g.spellbook.value>0&&g.fire>0",
 		"school":"fire",
 		"buy":{
 
@@ -832,6 +859,7 @@
 		"id":"frostbolt",
 		"name":"frost bolt",
 		"level":2,
+		"require":"g.spellbook.value>0",
 		"desc":"a sharp shard of ice.",
 		"school":"water",
 		"buy":{
@@ -903,6 +931,7 @@
 	{
 		"id":"poisonward",
 		"name":"poison ward",
+		"require":"g.spellbook.value>0",
 		"level":2,
 		"school":"nature",
 		"desc":"reduce the efficacy of common venoms",
@@ -961,6 +990,7 @@
 		"id":"mk_hobgoblin",
 		"name":"summon hobgoblin",
 		"school":"mana",
+		"desc":"In combat, summon an hobboblin to fight for you",
 		"level":6,
 		"buy":{
 			"research":100,
@@ -974,6 +1004,7 @@
 	{
 		"id":"mk_raven",
 		"name":"summon raven",
+		"desc":"In combat, summon a raven to fight for you",
 		"school":"nature",
 		"level":3,
 		"buy":{
@@ -992,7 +1023,7 @@
 		"level":3,
 		"only":"undead",
 		"school":"shadow",
-		"desc":"reanimate a weak undead minion.",
+		"desc":"Reanimate a weak ( up to lvl 6) undead minion. From the \"Minions\" tab only",
 		"tags":"rez",
 		"buy":{
 			"research":50,
@@ -1008,7 +1039,7 @@
 
 		"id":"reanimate2",
 		"name":"greater reanimate",
-		"desc":"reanimate a stronger undead minion.",
+		"desc":"Reanimate a stronger ( up to lvl 10) undead minion. From the \"Minions\" tab only",
 		"level":5,
 		"only":"undead",
 		"school":"shadow",
@@ -1029,7 +1060,7 @@
 		"only":"humanoid,goblinoid",
 		"level":3,
 		"school":"spirit",
-		"desc":"call the weak back to life.",
+		"desc":"call back to life a weak ( up to lvl 6) humanoid or goblinoid minion. From the \"Minions\" tab only",
 		"tags":"rez",
 		"buy":{
 			"research":100,
@@ -1046,7 +1077,7 @@
 		"only":"beast",
 		"level":3,
 		"school":"nature",
-		"desc":"revive minor creatures of the wilds.",
+		"desc":"Revive a weak ( up to lvl 6) beast minion. From the \"Minions\" tab only",
 		"tags":"rez",
 		"buy":{
 			"research":100,
@@ -1065,7 +1096,7 @@
 		"require":"(g.druid+g.warden+g.kell+g.fey)>0",
 		"level":5,
 		"school":"nature",
-		"desc":"revive creatures of the wilds.",
+		"desc":"Revive a stronger ( up to lvl 10) beast minion. From the \"Minions\" tab only",
 		"buy":{
 			"research":100,
 			"codices":25
@@ -1096,6 +1127,7 @@
 		"id":"mk_blade",
 		"name":"summon blade",
 		"school":"blade",
+		"desc":"In combat, summon a magical blade to fight for you",
 		"require":"(g.battlemage+g.spellblade+g.dreadlord+g.summoner)>0",
 		"level":7,
 		"buy":{
@@ -1111,6 +1143,7 @@
 		"id":"mk_murder",
 		"name":"summon murder",
 		"school":"nature",
+		"desc":"In combat, summon a squad of murdering raven to fight for you",
 		"require":"summoner",
 		"level":5,
 		"cd":150,
@@ -1135,6 +1168,7 @@
 		"id":"mk_unicorn",
 		"name":"summon unicorn",
 		"school":"light",
+		"desc":"In combat, summon an unicorn to fight for you",
 		"require":"g.evil==0&&(g.seer+g.oracle+g.summoner)>0&&g.magicbeasts>=5",
 		"level":5,
 		"cd":150,
@@ -1585,7 +1619,7 @@
 		"level":1,
 		"desc":"herbs sprout more quickly from the earth.",
 		"school":"nature",
-		"require":"g.herbalism>=3",
+		"require":"g.spellbook.value>0&&g.herbalism>=3",
 		"buy":{
 
 			"research":50,
@@ -1821,7 +1855,7 @@
 		"id":"copperskin",
 		"name":"copper skin",
 		"level":1,
-		"require":"earth",
+		"require":"g.spellbook.value>0&&g.earth>0",
 		"school":"earth",
 		"buy":{
 
@@ -2115,7 +2149,7 @@
 			"300":{
 				"attack.dot.dmg.max":4,
 				"attack.dot.dmg.min":4,
-				"attack.toHit":5
+				"attack.tohit":5
 			}
 		},
 		"attack":{
@@ -2308,7 +2342,7 @@
 	{
 		"id":"apiary",
 		"name":"dbulm's apiary",
-		"desc":"",
+		"desc":"In combat, summon a really angry bee to fight for you",
 		"require":"g.tier5>0&&g.conjuration>=5&&g.summoning>=10",
 		"school":"conjuration",
 		"level":10,
@@ -2394,16 +2428,16 @@
 		},
 		"at":{
 			"30":{
-				"attack.toHit":1
+				"attack.tohit":1
 			},
 			"100":{
 				"attack.dot.damage.max":1,
-				"attack.toHit":2
+				"attack.tohit":2
 			},
 			"300":{
 				"attack.dot.damage.max":2,
 				"attack.dot.damage.min":1,
-				"attack.toHit":2
+				"attack.tohit":2
 			}
 		},
 		"attack":{

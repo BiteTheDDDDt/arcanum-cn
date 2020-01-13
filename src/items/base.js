@@ -1,8 +1,7 @@
-import {changes, jsonify } from 'objecty';
+import {changes, jsonify, cloneClass  } from 'objecty';
 import Game from '../game';
 import Stat from '../values/stat';
 import Mod, { SetModIds } from '../values/mod';
-import { cloneClass } from '../util/util';
 import { TYP_MOD } from '../values/consts';
 import RValue, { SubPath } from '../values/rvalue';
 
@@ -38,7 +37,7 @@ export const mergeClass = ( destClass, src ) => {
   * @const {Set.<string>} JSONIgnore - ignore these properties by default when saving.
   */
  const JSONIgnore = new Set( ['template', 'id', 'type', 'defaults', 'module', 'sname', 'sym', 'warn',
- 	'name', 'desc', 'running', 'current', 'warnMsg', 'once', 'context', 'enemies', 'spawns',
+ 	'name', 'desc', 'running', 'current', 'warnMsg', 'once', 'context', 'enemies', 'spawns','targets','only',
 	 'locked', 'locks', 'value', 'exp', 'delta', 'tags', 'mod', 'busy', 'progress','need', 'require' ]);
 
 /**
@@ -342,12 +341,12 @@ export default {
 					let s = targ[p] = isMod ? new Mod( typeof m === 'number' ? m*amt :0 )
 						: new Stat( typeof m === 'number' ? m*amt : 0 );
 
-					s.owner = this;
+					s.source = this;
 					//@todo use more accurate subpath.
 					s.id = SubPath(this.id, p );
 
 					if ( m instanceof Mod) {
-						console.log('Add mod to nonexistant target: ' + SubPath(this.id,p));
+						//console.log('Add mod to nonexistant target: ' + SubPath(this.id,p));
 						s.addMod(m, amt);
 					}
 					//console.log( this.id + '[' + p + ']:' + m + ': targ null: ' + s.valueOf() + ' isMod? ' + isMod );
@@ -489,6 +488,8 @@ export default {
 		return true;
 
 	},
+
+	canUse(){return true;},
 
 	/**
 	 * Test if tag has any tag in the list.

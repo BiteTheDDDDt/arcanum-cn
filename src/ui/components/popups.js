@@ -18,10 +18,18 @@ const getTop = ( elm, targRect) => {
 
 }
 
-export const center = elm => {
+export const centerX = elm => {
 
 	let style = elm.style;
 	style.left = (( window.innerWidth - elm.offsetWidth )/2) + 'px'
+
+};
+
+export const centerXY = elm => {
+
+	let style = elm.style;
+	style.left = (( window.innerWidth - elm.offsetWidth )/2) + 'px'
+	style.top = ((window.innerHeight-elm.offsetHeight)/2) + 'px';
 
 };
 

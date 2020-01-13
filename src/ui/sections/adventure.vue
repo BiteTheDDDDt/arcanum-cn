@@ -26,9 +26,9 @@ export default {
 		let ops = Settings.getSubVars(EXPLORE);
 
 		return {
-			hideDone:ops.hideDone||false,
-			hideRaid:ops.hideRaid||false,
-			hideLocale:ops.hideLocale||false,
+			showDone:ops.hasOwnProperty('showDone') ? ops.showDone : true,
+			showRaid:ops.hasOwnProperty('showRaid') ? ops.showRaid : true,
+			showLocale:ops.hasOwnProperty('showLocale') ? ops.showLocale : true,
 			lvlSort:ops.lvlSort,
 			log:Game.log,
 			filtered:null
@@ -52,24 +52,24 @@ export default {
 				this.lvlSort = Settings.setSubVar( EXPLORE, 'lvlSort', v );
 			}
 		},
-		chkHideDone:{
-			get(){return this.hideDone;},
+		chkShowDone:{
+			get(){return this.showDone;},
 			set(v){
-				this.hideDone = Settings.setSubVar( EXPLORE, 'hideDone', v );
+				this.showDone = Settings.setSubVar( EXPLORE, 'showDone', v );
 			}
 		},
 
-		chkHideRaid:{
-			get(){return this.hideRaid;},
+		chkShowRaid:{
+			get(){return this.showRaid;},
 			set(v){
-				this.hideRaid = Settings.setSubVar( EXPLORE, 'hideRaid', v );
+				this.showRaid = Settings.setSubVar( EXPLORE, 'showRaid', v );
 			}
 		},
 
-		chkHideLocale:{
-			get(){return this.hideLocale;},
+		chkShowLocale:{
+			get(){return this.showLocale;},
 			set(v){
-				this.hideLocale = Settings.setSubVar( EXPLORE, 'hideLocale', v );
+				this.showLocale = Settings.setSubVar( EXPLORE, 'showLocale', v );
 			}
 		},
 
@@ -112,14 +112,14 @@ export default {
 
 		locales(){
 
-			let d = this.hideDone;
-			let r = this.hideRaid;
-			let l = this.hideLocale;
+			let d = this.showDone;
+			let r = this.showRaid;
+			let l = this.showLocale;
 
 			return this.allLocs.filter(
-				it=>!this.locked(it) && (!d||it.value<=0) &&
-				( !r||it.type!==DUNGEON ) &&
-				( !l || it.type !==LOCALE )
+				it=>!this.locked(it) && (d||it.value<=0) &&
+				( r||it.type!==DUNGEON ) &&
+				( l || it.type !==LOCALE )
 			);
 
 		}
@@ -140,21 +140,20 @@ export default {
 		<div class="content" v-else>
 			<div class="top">
 
-				<span class="hides">
-
+				<span>
 				<span class="opt"><input :id="elmId('lvlSort')" type="checkbox" v-model="chkLevelSort">
 				<label :for="elmId('lvlSort')">Sort Level</label></span>
-
-				<span>Hide:</span>
-				<span class="opt"><input :id="elmId('hideDone')" type="checkbox" v-model="chkHideDone">
-				<label :for="elmId('hideDone')">Complete</label></span>
-				<span class="opt"><input :id="elmId('hideRaid')" type="checkbox" v-model="chkHideRaid">
-				<label :for="elmId('hideRaid')">Dungeon</label></span>
-				<span class="opt"><input :id="elmId('hideLocale')" type="checkbox" v-model="chkHideLocale">
-				<label :for="elmId('hideLocale')">Explore</label></span>
-
-
 				</span>
+
+				<span>
+				<span class="opt"><input :id="elmId('showDone')" type="checkbox" v-model="chkShowDone">
+				<label :for="elmId('showDone')">Complete</label></span>
+				<span class="opt"><input :id="elmId('showRaid')" type="checkbox" v-model="chkShowRaid">
+				<label :for="elmId('showRaid')">Dungeon</label></span>
+				<span class="opt"><input :id="elmId('showLocale')" type="checkbox" v-model="chkShowLocale">
+				<label :for="elmId('showLocale')">Explore</label></span>
+				</span>
+
 
 				<filterbox class="inline" v-model="filtered" :items="locales" min-items="8" />
 
@@ -225,16 +224,8 @@ div.adventure .content {
 
 div.top {
 	padding-left: var(--md-gap);
-	justify-content: center;
-}
-
-div.top .hides {
-	display:flex;
-	padding: 0 var(--sm-gap);
-}
-
-div.top .hides > span {
-	padding: 0 var(--sm-gap);
+	width: 100%;
+	justify-content: space-evenly;
 }
 
 div.locales {
