@@ -49,6 +49,9 @@ export default class GameState {
 
 	}
 
+	get plugins(){return this._plugins}
+	set plugins(v){this._plugins = v;}
+
 	/**
 	 * Create unique string id.
 	 * @param {string} [s='']

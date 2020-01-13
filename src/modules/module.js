@@ -1,8 +1,7 @@
 import dataLoader, { loadFiles, freezeData } from '../dataLoader';
 
-
 /**
- * Class for loading and storing module json in a well-defined format.
+ * Class for loading and storing json plugin in a well-defined format.
  */
 export default class Module {
 

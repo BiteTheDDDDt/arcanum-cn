@@ -30,7 +30,7 @@ import Player from './chars/player';
 import Loader from './util/jsonLoader';
 import { splitKeyPath } from './util/util';
 import GClass from './items/gclass';
-import Module from './modules/gmodule';
+import Module from './modules/module';
 import { SKILL, ENCOUNTER, MONSTER, ARMOR, WEAPON, HOME, POTION, ITEM, RESOURCE, EVENT, RAID } from './values/consts';
 import { MakeDmgFunc } from 'values/combat';
 import Stat from './values/stat';
