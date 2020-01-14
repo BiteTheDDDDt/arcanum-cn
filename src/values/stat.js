@@ -10,10 +10,10 @@ export default class Stat extends RValue {
 	toJSON(){
 
 
-		if ( this._basePct === 0 ) return this._base;
+		if ( this._basePct === 0 ) return this._value;
 
 		let o = {
-			base: this._base,
+			base: this._value,
 			pct:this._basePct
 
 		};
@@ -29,7 +29,7 @@ export default class Stat extends RValue {
 
 		//let abs = Math.abs( this._base + this._mBase );
 
-		let bTot = this._base + this._mBase;
+		let bTot = this._value + this._mBase;
 
 		if ( this._pos === true ) {
 
@@ -40,7 +40,7 @@ export default class Stat extends RValue {
 	}
 	/** @todo */
 	set value(v){
-		this._base = v;
+		this._value = v;
 	}
 
 	/**
@@ -48,7 +48,7 @@ export default class Stat extends RValue {
 	 */
 	valueOf() {
 
-		let bTot = this._base + this._mBase;
+		let bTot = this._value + this._mBase;
 
 		if ( this._pos === true ) {
 
@@ -58,8 +58,8 @@ export default class Stat extends RValue {
 
 	}
 
-	get base() { return this._base; }
-	set base(v) { this._base = v; }
+	get base() { return this._value; }
+	set base(v) { this._value = v; }
 
 	/**
 	 * @property {number} pct - decimal percent
@@ -77,7 +77,7 @@ export default class Stat extends RValue {
 	/**
 	 * @property {number} baseTot - total base before percents applied.
 	 */
-	get baseTot(){ return this._base + this._mBase;}
+	get baseTot(){ return this._value + this._mBase;}
 
 	/**
 	 * @property {number} bonus - total bonus to base, computed from mods.
@@ -166,7 +166,7 @@ export default class Stat extends RValue {
 	 * @param {number} amt
 	 */
 	add( amt ) {
-		this._base = this._base + amt;
+		super.value += amt;
 	}
 
 	/**
@@ -265,7 +265,7 @@ export default class Stat extends RValue {
 	 * @returns {number} - new stat value.
 	 */
 	delValue( delBonus=0, delPct=0 ) {
-		return ( this._base + this._mBase + delBonus )*( 1 + this._basePct + this._mPct + delPct );
+		return ( this._value + this._mBase + delBonus )*( 1 + this._basePct + this._mPct + delPct );
 	}
 
 	/**

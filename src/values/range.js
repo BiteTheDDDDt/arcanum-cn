@@ -20,6 +20,15 @@ export default class Range {
 	get value() {
 		return this.min + Math.random()*( this.max - this.min );
 	}
+	set value(v){
+		this.min = this.max = v;
+	}
+
+	/**
+	 * @property {boolean} isRVal - simple test for RVal interface.
+	 * @todo rvalue as interface base object with no values?
+	 */
+	get isRVal(){return true;}
 
 	valueOf(){ return this.value; }
 
@@ -72,12 +81,21 @@ export default class Range {
 	 */
 	add( amt ) {
 
+		console.log('ADDING RANGE: ' + amt );
+
 		if ( typeof amt === 'number' ) {
 			this.min += amt;
 			this.max += amt;
-		} else if ( typeof amt ==='object') {
-			this.min += amt.min;
-			this.max += amt.max;
+		} else if ( amt && typeof amt ==='object') {
+
+			if ( amt instanceof Range ){
+				this.min += amt.min;
+				this.max += amt.max;
+			} else if ( amt.value ) {
+				this.min += amt.value;
+				this.max += amt.value;
+			}
+
 		}
 
 	}
