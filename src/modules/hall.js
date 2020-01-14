@@ -170,7 +170,7 @@ export default class Hall {
 			}
 
 		}
-		this.calcPoints();
+		//this.calcPoints();
 
 	}
 
