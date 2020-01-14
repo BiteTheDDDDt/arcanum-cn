@@ -25,11 +25,11 @@ export const SubPath = ( id, child ) => {
 
 export default class RValue {
 
-	toJSON(){return this._base;}
+	toJSON(){return this._value;}
 
 	clone(){
 
-		let r = new RValue( this._base, this._id );
+		let r = new RValue( this._value, this._id );
 		r.source = this.source;
 
 		return r;
@@ -66,8 +66,8 @@ export default class RValue {
 	/**
 	 * @property {number} value
 	 */
-	get value() { return this._base; }
-	set value(v) { this._base = v; }
+	get value() { return this._value; }
+	set value(v) { this._value = v; }
 
 	/**
 	 * @property {string} type
@@ -83,7 +83,7 @@ export default class RValue {
 	 * @returns {number}
 	 */
 	valueOf(){
-		return this._base;
+		return this._value;
 	}
 
 	/**
@@ -94,7 +94,7 @@ export default class RValue {
 	constructor( vars=0, path=null ){
 
 		this.id = path;
-		this._base = vars || 0;
+		this._value = vars || 0;
 
 	}
 
@@ -140,7 +140,7 @@ export default class RValue {
 	 * @returns {number} - new stat value.
 	 */
 	delValue( delBonus=0 ) {
-		return this._base + delBonus;
+		return this._value + delBonus;
 	}
 
 	/**

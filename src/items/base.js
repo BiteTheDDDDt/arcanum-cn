@@ -225,12 +225,12 @@ export default {
 		if ( typeof vars === 'number') {
 
 			//deprec( this.id + ' mod: ' + mods );
-			this.value = this.value.base + vars*amt;
+			this.value.add( vars*amt );
 
 		} else if ( vars.isRVal ) {
 
 			//this.amount( Game, mods*amt );
-			this.value = this.value.base + amt*vars.getApply( Game.state, this );
+			this.value.add( amt*vars.getApply( Game.state, this ) );
 
 
 		} else if ( typeof vars === 'object' ) {
