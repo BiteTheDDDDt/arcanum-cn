@@ -1,6 +1,5 @@
 import { clone, cloneClass } from "objecty";
 import Stat from "../values/stat";
-import { cloneClass } from "./util";
 
 /**
  * Find and return first element of set matching predicate.
