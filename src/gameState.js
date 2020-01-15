@@ -32,6 +32,11 @@ export default class GameState {
 		let data = {
 
 			version:__VERSION,
+
+			/**
+			 * database store id.
+			 */
+			_id:this._id,
 			name:this.player.name,
 			items:this.saveItems,
 			bars:this.bars,
