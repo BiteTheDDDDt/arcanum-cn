@@ -2,6 +2,8 @@ import {
 	Stitch,
 	RemoteMongoClient,
 	UserPasswordCredential,
+	UserPasswordAuthProviderClient,
+	AnonymousCredential,
 	BSON
 } from "mongodb-stitch-browser-sdk";
 
@@ -18,12 +20,29 @@ export class MongoRemote {
 		this.client = Stitch.initializeDefaultAppClient( APP_ID );
 		this.mongodb = this.client.getServiceClient( RemoteMongoClient.factory, "mongodb-atlas" );
 
+		console.log('INIT REMOTE');
+		this.anonLogin();
 
 	}
 
-	register( email, uname, pw ) {
+	anonLogin(){
 
-		this.client.auth.get
+		return this.client.auth.loginWithCredential( new AnonymousCredential() ).then(
+			user=>{console.dir(user, 'anon login')},
+			err=>console.error(err)
+		);
+
+	}
+
+	register( email, pw ) {
+
+		console.log('remote.register()');
+
+		const emailClient = Stitch.defaultAppClient.auth.getProviderClient( UserPasswordAuthProviderClient.factory );
+
+		return emailClient.registerWithEmail( email, pw ).then(
+			()=>console.warn('SENT CONFIRM'),
+			err=>console.error(err));
 	}
 
 	login( user, pw ){

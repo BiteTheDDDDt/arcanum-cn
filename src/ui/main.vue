@@ -45,6 +45,7 @@ export default {
 		warn:Warn,
 		topbar:TopBar,
 		settings:SettingsUI,
+		register:()=>import( /* webpackChunkName: "register.vue" */ './components/register.vue' ),
 		choice:()=>import( /* webpackChunkName: "choice-ui" */ './components/choice.vue' ),
 		skills:()=> import( /* webpackChunkName: "skills-ui" */ './sections/skills.vue' ),
 		equip:()=>import( /* webpackChunkName: "equip-ui" */ './sections/equip.vue'),
@@ -68,7 +69,8 @@ export default {
 			overTitle:null,
 			overElm:null,
 			psection:null,
-			showSettings:false
+			showSettings:false,
+			showRegister:false
 		};
 
 	},
@@ -80,6 +82,8 @@ export default {
 		this.listen('pause', this.pause );
 		this.listen('unpause', this.unpause );
 
+		this.listen('show-register', this.onShowRegister, this);
+
 
 	},
 	beforeDestroy(){
@@ -88,6 +92,8 @@ export default {
 		this.removeListener('setting', this.onSetting );
 		this.removeListener('pause', this.pause );
 		this.removeListener('unpause', this.unpause );
+
+		this.removeListener( 'show-register', this.onShowRegister, this );
 
 	},
 	methods:{
@@ -149,6 +155,10 @@ export default {
 				else this.stopAutoSave();
 			}
 
+		},
+
+		onShowRegister(){
+			this.showRegister=true;
 		},
 
 		stopAutoSave() {
@@ -340,6 +350,7 @@ export default {
 		<itempopup :item="overItem" :elm="overElm" :title="overTitle" />
 		<warn ref="warn" @confirmed="onConfirmed" />
 		<choice />
+		<register v-if="showRegister" @close="showRegister=false" />
 		<settings v-if="showSettings" @close-settings="showSettings=false" />
 
 		<div v-if="state" class="game-main">

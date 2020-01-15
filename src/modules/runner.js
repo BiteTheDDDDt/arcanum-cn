@@ -395,8 +395,6 @@ export default class Runner {
 	 */
 	actDone( act, repeatable=true ){
 
-		console.log('COMPLETE: ' + act.id );
-
 		if ( act.running === false || !repeatable ) {
 			// skills cant complete when not running.
 			this.stopTask(act);

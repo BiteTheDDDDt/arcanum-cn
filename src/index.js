@@ -95,6 +95,7 @@ const vm = new Vue({
 		this.listen( 'setting', this.onSetting, this );
 		this.listen( 'try-login', this.tryLogin, this );
 		this.listen( 'logout', this.logout, this );
+		this.listen( 'try-register', this.tryRegister, this );
 
 		this.loadProfile();
 
@@ -106,6 +107,19 @@ const vm = new Vue({
 			if (!this.remote) return;
 			this.remote.logout();
 			Profile.loggedIn=false;
+
+		},
+
+		tryRegister(email, pw ){
+
+			console.log('try register: ' + email );
+
+			if ( !this.remote ) this.remote = new MongoRemote();
+			this.remote.register(email,pw).then(
+				res=>{
+
+				}
+			);
 
 		},
 
