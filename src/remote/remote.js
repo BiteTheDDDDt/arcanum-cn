@@ -39,6 +39,13 @@ export class MongoRemote {
 
 	}
 
+	/**
+	 * Attempt login with api key.
+	 * @param {string} key
+	 */
+	keyLogin(key){
+	}
+
 	login( user, pw ){
 
 		return this.client.auth

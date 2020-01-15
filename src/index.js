@@ -30,6 +30,7 @@ if ( __KONG ) {
 /**
  * @fires {} register-error
  * @fires {} register-sent
+ * @fires {} logged-in
  */
 Vue.mixin({
 
@@ -64,6 +65,7 @@ const vm = new Vue({
 	data(){
 		// hacky re-render force. used to rerender on game reload.
 		return {
+			active:Profile.active,
 			renderKey:1
 		}
 	},
@@ -71,6 +73,8 @@ const vm = new Vue({
 
 		this.saveLink = null;
 		this.game = Game;
+
+		this.tryAutoLogin();
 
 		this.listen('save-file', this.saveFile, this );
 		this.listen('hall-file', this.hallFile, this );
@@ -99,6 +103,16 @@ const vm = new Vue({
 
 	},
 	methods:{
+
+		tryAutoLogin(){
+
+			// check mongo key.
+			let key = window.localStorage.getItem('user-key');
+			if ( key ) {
+				this.remote.keyLogin(key);
+			}
+
+		},
 
 		logout(){
 
@@ -135,6 +149,7 @@ const vm = new Vue({
 			this.remote.login(uname, pw).then(
 				res=>{
 					Profile.loggedIn = true;
+					this.dispatch('logged-in', res );
 				}
 			)
 

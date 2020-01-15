@@ -34,7 +34,7 @@ export default {
 		},
 
 		onRegister(){
-			this.err = 'Registration Sent';
+			this.err = 'Confirmation email sent.\nCheck any junk-mail folders.';
 		},
 
 		onError(err) {

@@ -23,8 +23,16 @@ export default {
 	 */
 	hall:null,
 
-	get loggedIn(){return this._loggedIn},
-	set loggedIn(v){this._loggedIn=v},
+	/**
+	 * @property {Object} active - reactive profile information for Vue.
+	 */
+	active:{
+		loggedIn:false
+	},
+
+	get loggedIn(){return this.active.loggedIn},
+	set loggedIn(v){this.active.loggedIn=v},
+
 	/**
 	 * Load data files for hall.
 	 * @param {object} save - save data of hall.
