@@ -1,12 +1,18 @@
 <script>
 import Profile from 'modules/profile';
 import Game from '../game';
+
+import Login from './components/login.vue';
+
 export default {
 
-	props:['hasHall'],
 	computed:{
 
-		VERSION(){return __VERSION; }
+		VERSION(){return __VERSION; },
+		hasHall(){return Profile.hasHall() }
+	},
+	components:{
+		login:Login
 	},
 	methods:{
 
@@ -50,6 +56,7 @@ export default {
 	<div class="top-bar">
 
 		<span class="load-opts">
+		<login :loggedIn="Profile.loggedIn()" />
 		<button @click="dispatch('save')">save</button>
 		<button @click="dispatch('load')">load</button>
 

@@ -11,7 +11,6 @@ import DotView from './dotView.vue';
 import ItemPopup from './items/itemPopup.vue';
 import TopBar from './top-bar.vue';
 import SettingsUI from './sections/settings.vue';
-
 import LogView from './outlog.vue';
 
 import Settings from 'modules/settings';
@@ -20,7 +19,6 @@ import DevConsole from 'debug/devconsole.vue';
 
 import { TRY_BUY, USE, TRY_USE, EVT_STAT } from '../events';
 import { TICK_TIME } from '../game';
-import profile from '../modules/profile';
 import { TASK } from '../values/consts';
 
 /**
@@ -45,7 +43,7 @@ export default {
 		quickbar:Quickbar,
 		dots:DotView,
 		warn:Warn,
-		'top-bar':TopBar,
+		topbar:TopBar,
 		settings:SettingsUI,
 		choice:()=>import( /* webpackChunkName: "choice-ui" */ './components/choice.vue' ),
 		skills:()=> import( /* webpackChunkName: "skills-ui" */ './sections/skills.vue' ),
@@ -70,7 +68,6 @@ export default {
 			overTitle:null,
 			overElm:null,
 			psection:null,
-			profile:profile,
 			showSettings:false
 		};
 
@@ -332,12 +329,12 @@ export default {
 	<div class="full" @mouseover.capture.stop="emit('itemout')">
 
 		<devconsole />
-		<top-bar :has-hall="profile.hasHall()" @open-settings="showSettings=true">
+		<topbar @open-settings="showSettings=true">
 			<template slot="center">
 			<span class="load-message" v-if="!state">LOADING DATA...</span>
 			<dots v-if="state" :dots="state.player.dots" />
 			</template>
-		</top-bar>
+		</topbar>
 
 <!-- popups -->
 		<itempopup :item="overItem" :elm="overElm" :title="overTitle" />

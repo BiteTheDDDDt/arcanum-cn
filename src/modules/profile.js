@@ -23,6 +23,8 @@ export default {
 	 */
 	hall:null,
 
+	get loggedIn(){return this._loggedIn},
+	set loggedIn(v){this._loggedIn=v},
 	/**
 	 * Load data files for hall.
 	 * @param {object} save - save data of hall.

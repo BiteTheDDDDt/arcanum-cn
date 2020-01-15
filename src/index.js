@@ -1,10 +1,15 @@
-import Vue from 'vue';
-import Main from 'ui/main.vue';
-import Confirm from 'ui/components/confirm.vue';
 import Game from './game';
 import Events from './events';
 import Profile from './modules/profile';
 
+
+import Vue from 'vue';
+import Main from 'ui/main.vue';
+import TopBar from 'ui/top-bar.vue';
+
+import Confirm from 'ui/components/confirm.vue';
+
+import MongoRemote from './modules/remote';
 //window.localStorage.clear();
 
 if ( __KONG ) {
@@ -89,11 +94,34 @@ const vm = new Vue({
 		this.listen('autosave', this.save );
 
 		this.listen( 'setting', this.onSetting, this );
+		this.listen( 'try-login', this.tryLogin, this );
+		this.listen( 'logout', this.logout, this );
 
 		this.loadProfile();
 
 	},
 	methods:{
+
+		logout(){
+
+			if (!this.remote) return;
+			this.remote.logout();
+			Profile.loggedIn=false;
+
+		},
+
+		tryLogin(uname, pw) {
+
+			if  (!this.remote ) {
+				this.remote = new MongoRemote();
+			}
+			this.remote.login(uname, pw).then(
+				res=>{
+					Profile.loggedIn = true;
+				}
+			)
+
+		},
 
 		loadProfile(){
 
@@ -334,7 +362,7 @@ const vm = new Vue({
 
 	},
 	render( createElm ) {
-		return createElm(Main, { key:this.renderKey } );
+		return createElm( Main, { key:this.renderKey } );
 	}
 
 });
