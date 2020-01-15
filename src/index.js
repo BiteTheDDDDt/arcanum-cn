@@ -8,7 +8,7 @@ import Main from 'ui/main.vue';
 
 import Confirm from 'ui/components/confirm.vue';
 
-import { MongoRemote } from 'modules/remote';
+import { MongoRemote } from './remote/remote';
 //window.localStorage.clear();
 
 if ( __KONG ) {

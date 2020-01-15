@@ -20,19 +20,18 @@ export class MongoRemote {
 		this.client = Stitch.initializeDefaultAppClient( APP_ID );
 		this.mongodb = this.client.getServiceClient( RemoteMongoClient.factory, "mongodb-atlas" );
 
-		console.log('INIT REMOTE');
-		this.anonLogin();
+		//this.anonLogin();
 
 	}
 
-	anonLogin(){
+	/*anonLogin(){
 
 		return this.client.auth.loginWithCredential( new AnonymousCredential() ).then(
 			user=>{console.dir(user, 'anon login')},
 			err=>console.error(err)
 		);
 
-	}
+	}*/
 
 	register( email, pw ) {
 
