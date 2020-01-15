@@ -3,7 +3,6 @@ import {
 	RemoteMongoClient,
 	UserPasswordCredential,
 	UserPasswordAuthProviderClient,
-	AnonymousCredential,
 	BSON
 } from "mongodb-stitch-browser-sdk";
 
@@ -35,13 +34,9 @@ export class MongoRemote {
 
 	register( email, pw ) {
 
-		console.log('remote.register()');
-
 		const emailClient = Stitch.defaultAppClient.auth.getProviderClient( UserPasswordAuthProviderClient.factory );
+		return emailClient.registerWithEmail( email, pw );
 
-		return emailClient.registerWithEmail( email, pw ).then(
-			()=>console.warn('SENT CONFIRM'),
-			err=>console.error(err));
 	}
 
 	login( user, pw ){

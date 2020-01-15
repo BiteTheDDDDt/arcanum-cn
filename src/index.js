@@ -22,17 +22,15 @@ if ( __KONG ) {
 	});
 }
 
-/*window.addEventListener('beforeinstallprompt', e=>{
-
-	console.log('ARCANUM BEFOREINSTALL PROMPT');
-
-});*/
-
 /**
  * Global dispatch.
  */
 //var dispatch = new Vue();
 
+/**
+ * @fires {} register-error
+ * @fires {} register-sent
+ */
 Vue.mixin({
 
 	components:{ confirm:Confirm },
@@ -116,8 +114,12 @@ const vm = new Vue({
 
 			if ( !this.remote ) this.remote = new MongoRemote();
 			this.remote.register(email,pw).then(
-				res=>{
-
+				()=>{
+					this.dispatch('register-sent');
+				},
+				err=>{
+					console.log('dispatch reg error');
+					this.dispatch('register-error', err );
 				}
 			);
 
