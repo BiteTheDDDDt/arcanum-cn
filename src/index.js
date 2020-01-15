@@ -71,6 +71,8 @@ const vm = new Vue({
 	},
 	created(){
 
+		this.remote = new MongoRemote();
+
 		this.saveLink = null;
 		this.game = Game;
 
@@ -106,12 +108,26 @@ const vm = new Vue({
 
 		tryAutoLogin(){
 
-			// check mongo key.
-			let key = window.localStorage.getItem('user-key');
-			if ( key ) {
-				this.remote.keyLogin(key);
+			if ( this.remote.loggedIn ) {
+
+				this.loggedIn();
+				return;
+
+			} else {
+
+				// check mongo key.
+				//let key = window.localStorage.getItem('user-key');
+				//if ( key ) {
+				//	this.remote.keyLogin(key);
+				//}
+
 			}
 
+		},
+
+		loggedIn(){
+			Profile.loggedIn = true;
+			this.dispatch('logged-in', res );
 		},
 
 		logout(){
@@ -148,8 +164,7 @@ const vm = new Vue({
 			}
 			this.remote.login(uname, pw).then(
 				res=>{
-					Profile.loggedIn = true;
-					this.dispatch('logged-in', res );
+					this.loggedIn();
 				}
 			)
 

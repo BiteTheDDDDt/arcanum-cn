@@ -3,6 +3,7 @@ import {
 	RemoteMongoClient,
 	UserPasswordCredential,
 	UserPasswordAuthProviderClient,
+	UserApiKeyCredential,
 	BSON
 } from "mongodb-stitch-browser-sdk";
 
@@ -18,6 +19,8 @@ export class MongoRemote {
 
 		this.client = Stitch.initializeDefaultAppClient( APP_ID );
 		this.mongodb = this.client.getServiceClient( RemoteMongoClient.factory, "mongodb-atlas" );
+
+		console.log('CUR LOGIN?: ' + this.client.auth.isLoggedIn );
 
 		//this.anonLogin();
 
@@ -44,6 +47,15 @@ export class MongoRemote {
 	 * @param {string} key
 	 */
 	keyLogin(key){
+
+		Stitch.defaultAppClient.auth.loginWithCredential( new UserApiKeyCredential(key) ).then(
+			keyid=>{
+
+			},err={
+
+			}
+		)
+
 	}
 
 	login( user, pw ){
