@@ -1,15 +1,14 @@
 import Game from './game';
 import Events from './events';
-import Profile from './modules/profile';
+import Profile from 'modules/profile';
 
 
 import Vue from 'vue';
 import Main from 'ui/main.vue';
-import TopBar from 'ui/top-bar.vue';
 
 import Confirm from 'ui/components/confirm.vue';
 
-import MongoRemote from './modules/remote';
+import { MongoRemote } from 'modules/remote';
 //window.localStorage.clear();
 
 if ( __KONG ) {
@@ -112,7 +111,9 @@ const vm = new Vue({
 
 		tryLogin(uname, pw) {
 
+			console.log('try login: ' + uname + ' ' + pw );
 			if  (!this.remote ) {
+				console.log('creating mongo');
 				this.remote = new MongoRemote();
 			}
 			this.remote.login(uname, pw).then(

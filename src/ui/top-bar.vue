@@ -9,7 +9,9 @@ export default {
 	computed:{
 
 		VERSION(){return __VERSION; },
-		hasHall(){return Profile.hasHall() }
+		hasHall(){return Profile.hasHall() },
+		loggedIn(){return Profile.loggedIn}
+
 	},
 	components:{
 		login:Login
@@ -56,7 +58,7 @@ export default {
 	<div class="top-bar">
 
 		<span class="load-opts">
-		<login :loggedIn="Profile.loggedIn()" />
+		<login :loggedIn="loggedIn" />
 		<button @click="dispatch('save')">save</button>
 		<button @click="dispatch('load')">load</button>
 

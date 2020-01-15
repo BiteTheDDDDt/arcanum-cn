@@ -1,6 +1,7 @@
 import {
 	Stitch,
 	RemoteMongoClient,
+	UserPasswordCredential,
 	BSON
 } from "mongodb-stitch-browser-sdk";
 
@@ -20,11 +21,21 @@ export class MongoRemote {
 
 	}
 
+	register( email, uname, pw ) {
+
+		this.client.auth.get
+	}
+
 	login( user, pw ){
-		this.client.auth
+
+		return this.client.auth
 		.loginWithCredential( new UserPasswordCredential( user, pw ) ).then(
 		user=>{
-			console.log('logged in: ' + user.id )
+			console.log('logged in: ' + user.id );
+			return user;
+		},
+		err=>{
+			console.error(err)
 		}
 	)
 
