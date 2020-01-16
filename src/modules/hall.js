@@ -122,7 +122,7 @@ export default class Hall {
 
 		this.chars[slot].empty = true;
 		this.chars[slot].name = null;
-		this.chars[slot].hid = null;
+		this.chars[slot].pid = null;
 
 		return true;
 

@@ -254,6 +254,7 @@ export default {
 	/**
 	 * Save GameState of active wizard.
 	 * @param {GameState} state
+	 * @returns {string} json save data.
 	 */
 	saveActive( state ){
 
@@ -268,11 +269,11 @@ export default {
 
 			this.saveSettings();
 
-			return true;
+			return json;
 
 		} catch(e) {
 			console.error( e.message + '\n' + e.stack );
-			return false;
+			return null;
 		}
 
 	},

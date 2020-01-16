@@ -11,36 +11,26 @@ const APP_ID = 'arcanum-yrpin';
 const DB = 'arcanum';
 const SAVES_TABLE = 'usersaves';
 
-export class MongoRemote {
+export const MongoRemote = {
 
-	loggedIn(){ return this.client.auth.isLoggedIn; }
+	get userid(){return this.client.auth.user.id },
+	get loggedIn(){ return this.client.auth.isLoggedIn; },
 
-	constructor(){
+	init() {
 
 		this.client = Stitch.initializeDefaultAppClient( APP_ID );
 		this.mongodb = this.client.getServiceClient( RemoteMongoClient.factory, "mongodb-atlas" );
 
-		console.log('CUR LOGIN?: ' + this.client.auth.isLoggedIn );
+		if ( this.loggedIn ) this.showUser();
 
-		//this.anonLogin();
-
-	}
-
-	/*anonLogin(){
-
-		return this.client.auth.loginWithCredential( new AnonymousCredential() ).then(
-			user=>{console.dir(user, 'anon login')},
-			err=>console.error(err)
-		);
-
-	}*/
+	},
 
 	register( email, pw ) {
 
 		const emailClient = Stitch.defaultAppClient.auth.getProviderClient( UserPasswordAuthProviderClient.factory );
 		return emailClient.registerWithEmail( email, pw );
 
-	}
+	},
 
 	/**
 	 * Attempt login with api key.
@@ -56,14 +46,14 @@ export class MongoRemote {
 			}
 		)
 
-	}
+	},
 
 	login( user, pw ){
 
 		return this.client.auth
 		.loginWithCredential( new UserPasswordCredential( user, pw ) ).then(
 		user=>{
-			console.log('logged in: ' + user.id );
+			this.showUser();
 			return user;
 		},
 		err=>{
@@ -71,30 +61,79 @@ export class MongoRemote {
 		}
 	)
 
-	}
+	},
+
+	showUser(){
+		console.dir( this.client.auth.user, 'user login' );
+	},
 
 	logout(){
 		this.client.auth.logout();
-	}
+	},
 
-	saveChar( save ){
+	/**
+	 *
+	 * @param {*} pid
+	 * @returns {Promise.<string>} resolves to game data or null.
+	 */
+	loadChar( pid ){
 
 		const saves = this.mongodb.db( DB ).collection( SAVES_TABLE );
-		saves.replaceOne( { _id:save._id }, save, {upsert:true} ).then( res=>{
+		let search = { userid:this.userid };
+		if ( pid ) search.pid = pid;
 
-			console.dir(res,'CHAR SAVED');
-			if ( res.upsertedId ) {
+		return saves.findOne( search ).then( res=>{
 
-				// new id.
+			if (res ) {
 
+				console.dir( res, 'DB CHAR LOADED');
+				if ( res.save ) return res.save;
+				return res;
+
+			} else {
+				console.warn('DB LOAD: NO MATCH FOUND' );
 			}
 
+			return null;
+
+		}, err=>null );
+
+	},
+
+	/**
+	 *
+	 * @param {*} json
+	 * @param {string} pid - player id.
+	 */
+	saveChar( json, pid ){
+
+		let doc = {
+			pid:pid,
+			save:json,
+			userid:this.client.auth.user.id
+		};
+
+		const saves = this.mongodb.db( DB ).collection( SAVES_TABLE );
+		saves.findOneAndUpdate( { pid:pid, userid:doc.userid }, doc, {upsert:true} ).then( res=>{
+
+			if ( res ) {
+				console.dir(res,'CHAR SAVED: ' + res.upsertedId );
+				if ( res.upsertedId ) {
+					return res.upsertedId;
+				}
+			}
+
+		},
+		err=>{
+			console.error( err );
 		});
 
-	}
+	},
 
 	delChar(_id){
 	}
 
 
-}
+};
+
+MongoRemote.init();

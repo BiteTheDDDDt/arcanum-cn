@@ -71,7 +71,7 @@ const vm = new Vue({
 	},
 	created(){
 
-		this.remote = new MongoRemote();
+		this.remote = MongoRemote;
 
 		this.saveLink = null;
 		this.game = Game;
@@ -110,7 +110,7 @@ const vm = new Vue({
 
 			if ( this.remote.loggedIn ) {
 
-				this.loggedIn();
+				this.dispatchLogin();
 				return;
 
 			} else {
@@ -125,7 +125,7 @@ const vm = new Vue({
 
 		},
 
-		loggedIn( res ){
+		dispatchLogin( res ){
 			Profile.loggedIn = true;
 			this.dispatch('logged-in', res );
 		},
@@ -142,7 +142,8 @@ const vm = new Vue({
 
 			console.log('try register: ' + email );
 
-			if ( !this.remote ) this.remote = new MongoRemote();
+			if ( !this.remote ) return;
+
 			this.remote.register(email,pw).then(
 				()=>{
 					this.dispatch('register-sent');
@@ -158,13 +159,11 @@ const vm = new Vue({
 		tryLogin(uname, pw) {
 
 			console.log('try login: ' + uname + ' ' + pw );
-			if  (!this.remote ) {
-				console.log('creating mongo');
-				this.remote = new MongoRemote();
-			}
+			if  (!this.remote ) return;
+
 			this.remote.login(uname, pw).then(
 				res=>{
-					this.loggedIn();
+					this.dispatchLogin();
 				}
 			)
 
@@ -212,8 +211,17 @@ const vm = new Vue({
 			try {
 
 				this.dispatch('pause');
-				let str = Profile.loadActive();
-				this.setStateJSON( JSON.parse(str) );
+
+				MongoRemote.loadChar().then(str=>{
+
+					console.warn('LOADED STR: ' + str );
+					this.setStateJSON( JSON.parse(str) );
+
+				});
+
+				//let str = Profile.loadActive();
+				//this.setStateJSON( JSON.parse(str) );
+
 
 			} catch (e ) { console.error( e.message + '\n' + e.stack ); }
 
@@ -384,8 +392,12 @@ const vm = new Vue({
 		save() {
 
 			if (!this.game.loaded ) return;
-			Profile.saveActive( this.game.state );
+			let charsave = Profile.saveActive( this.game.state );
 			Profile.saveHall();
+
+			if ( MongoRemote.loggedIn ) {
+				MongoRemote.saveChar( charsave, this.game.state.player.pid );
+			}
 
 		},
 

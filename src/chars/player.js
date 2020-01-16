@@ -141,8 +141,14 @@ export default class Player extends Char {
 	get hits(){ return this._hits ? this._hits : (this._hits = {}) }
 	set hits(v){ this._hits = toStats(v); }
 
-	get hid(){return this._hid;}
-	set hid(v){this._hid=v;}
+	/**
+	 * @compat
+	 */
+	get hid(){return this._pid;}
+	set hid(v){this._pid =v;}
+
+	get pid(){return this._pid;}
+	set pid(v){this._pid=v;}
 
 	/**
 	 * NOTE: Elements that are themselves Items are not encoded,
@@ -153,7 +159,7 @@ export default class Player extends Char {
 
 		let data = {};
 
-		data.hid = this.hid;
+		data.pid = this.pid;
 
 		data.defense = ( this.defense );
 		data.tohit = ( this.tohit );
@@ -217,7 +223,7 @@ export default class Player extends Char {
 		this.id = this.type = "player";
 		if ( !vars || !vars.name) this.name = 'wizrobe';
 
-		if ( !this.hid ) this.hid = makeHallId();
+		if ( !this.pid ) this.pid = makeHallId();
 
 		//if ( vars ) Object.assign( this, vars );
 		if ( !this.level ) this.level = 0;

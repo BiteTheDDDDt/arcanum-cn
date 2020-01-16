@@ -9,7 +9,7 @@ export default class CharInfo {
 
 		return {
 			name:this.name,
-			hid:this.hid,
+			pid:this.pid,
 			level:this.level,
 			gclass:this.gclass,
 			title:this.title||undefined,
@@ -25,8 +25,14 @@ export default class CharInfo {
 	get name() { return this._name; }
 	set name(v) { this._name =v;}
 
-	get hid(){ return this._hid;}
-	set hid(v){this._hid=v;}
+	/**
+	 * @deprecated @compat
+	 */
+	get hid(){return this._pid}
+	set hid(v){this.pid = v}
+
+	get pid(){ return this._pid;}
+	set pid(v){this._pid=v;}
 
 	get level(){return this._level;}
 	set level(v) {this._level=v;}
@@ -86,7 +92,7 @@ export default class CharInfo {
 
 		this.name = p.name;
 		this.level = p.level ? p.level.valueOf() : 0;
-		this.hid = p.hid;
+		this.pid = p.hid;
 
 		this.title = p.title;
 		this.titles = p.titles ? p.titles.length : 0;
