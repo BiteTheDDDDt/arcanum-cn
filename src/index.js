@@ -125,7 +125,7 @@ const vm = new Vue({
 
 		},
 
-		loggedIn(){
+		loggedIn( res ){
 			Profile.loggedIn = true;
 			this.dispatch('logged-in', res );
 		},
