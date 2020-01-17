@@ -1,7 +1,14 @@
 import * as firebase from "firebase/app";
 import "firebase/auth";
+import "firebase/storage";
+import { JSONLoad } from "../util/jsonLoader";
 
 window.firebase = firebase;
+
+/**
+ * @const {string} USERSAVES - storage path to user saves.
+ */
+const USERSAVES = 'usersaves';
 
 const firebaseConfig = {
 	apiKey: "AIzaSyDa2Qj2VQvTzhG0MwzxS-IhQy9LYpCgrRM",
@@ -18,13 +25,20 @@ const firebaseConfig = {
  */
 export const FBRemote = {
 
+	get userid() {
+		return this.auth.currentUser.uid;
+	},
 	get loggedIn(){
-		return false;
+		return this.auth.currentUser != null;
 	},
 
 	init(){
 
 		firebase.initializeApp( firebaseConfig );
+		this.auth = firebase.auth();
+
+		console.log('LOGGED IN? ' + this.loggedIn );
+
 	},
 
 	login(uname, pw ) {
@@ -33,10 +47,26 @@ export const FBRemote = {
 	register( email, pw ) {
 	},
 
-	loadChar(){
+	loadChar( pid='default'){
+
+		var store = firebase.storage().ref( USERSAVES + '/' + this.userid + '/' + pid );
+		return store.getDownloadURL().then( url=>JSONLoad(url, false) );
+
 	},
 
-	saveChar( save, pid ){
+	/**
+	 *
+	 * @param {string} save
+	 * @param {string} [pid='default']
+	 */
+	saveChar( save, pid='default' ){
+
+		var store = firebase.storage().ref( USERSAVES + '/' + this.userid + '/' + pid );
+		if (!store) console.warn('no data store: ' + store);
+		console.log('UPLOADING FILE DATA');
+
+		return store.putString(save);
+
 	}
 
 }

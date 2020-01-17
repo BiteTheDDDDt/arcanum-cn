@@ -1,3 +1,42 @@
+/**
+ * Build JSON request info for windows.fetch()
+*/
+export const RequestInfo = (creds) => {
+
+	let headers = new Headers();
+	headers.append( 'Content-Type', 'text/json');
+
+	return {
+		method:'GET',
+		headers:headers,
+		mode:'cors',
+
+		/**
+		 * send user credentials? 'omit', 'same-origin' or 'include'
+		 */
+		credentials: creds ? 'include' : 'same-origin'
+	};
+
+}
+
+/**
+ *
+ * @param {string} url
+ * @param {boolean} creds
+ */
+export const JSONLoad = (url, creds)=>{
+
+	return window.fetch( url, RequestInfo(creds) ).then( res=>{
+
+		if ( r.status !== 200 ) {
+			console.warn('Status: ' + r.status );
+			return null;
+		} else return r.json();
+
+	}, err=>null );
+
+}
+
 export default class JSONLoader {
 
 	get results() {
@@ -50,7 +89,7 @@ export default class JSONLoader {
 		if ( files ) this.setFiles(files);
 
 		let loads = this._loads;
-		let req = this.requestInfo();
+		let req = RequestInfo();
 
 		let promiseArr = [];
 		for( let p in loads ) {
@@ -75,22 +114,6 @@ export default class JSONLoader {
 			console.error( e.message + '\n' + e.stack );
 		});
 
-	}
-
-	/**
-	 * Build JSON request info for making the fetch request.
-	 */
-	requestInfo(){
-
-		let headers = new Headers();
-		headers.append( 'Content-Type', 'text/json');
-
-		return {
-			method:'GET',
-			headers:headers,
-			mode:'cors',
-			credentials:'same-origin'
-		};
 	}
 
 }
