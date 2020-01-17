@@ -4,6 +4,8 @@ import "firebase/storage";
 import { JSONLoad } from "../util/jsonLoader";
 import Events from '../events';
 
+const StringFormat = firebase.storage.StringFormat;
+
 window.firebase = firebase;
 
 /**
@@ -77,7 +79,7 @@ export const FBRemote = {
 		if (!store) console.warn('no data store: ' + store);
 		console.log('UPLOADING FILE DATA');
 
-		return store.putString(save);
+		return store.putString( save, StringFormat.RAW );
 
 	}
 
