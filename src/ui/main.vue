@@ -96,8 +96,8 @@ export default {
 		this.removeListener('pause', this.pause );
 		this.removeListener('unpause', this.unpause );
 
-		this.removeListener( 'show-register', this.onShowRegister, this );
-		this.remoteListener('show-login', this.onShowLogin, this);
+		this.removeListener( 'show-register', this.onShowRegister );
+		this.removeListener( 'show-login', this.onShowLogin );
 
 	},
 	methods:{

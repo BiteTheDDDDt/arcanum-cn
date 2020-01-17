@@ -1,0 +1,26 @@
+[
+	{
+		"origin": ["*"],
+		"responseHeader": ["Content-Type"],
+		"method": ["GET"],
+		"maxAgeSeconds": 3600
+	  },
+    {
+      "origin": ["http://www.lerpinglemur.com"],
+      "responseHeader": ["Content-Type"],
+      "method": ["GET", "HEAD", "DELETE"],
+      "maxAgeSeconds": 3600
+	},
+	{
+		"origin": ["*"],
+		"responseHeader": ["Content-Type"],
+		"method": ["GET", "HEAD", "DELETE"],
+		"maxAgeSeconds": 3600
+	  },
+	  {
+		"origin": ["http://localhost"],
+		"responseHeader": ["Content-Type"],
+		"method": ["GET", "HEAD", "DELETE"],
+		"maxAgeSeconds": 3600
+	  }
+]

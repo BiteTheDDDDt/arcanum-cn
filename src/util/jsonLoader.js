@@ -4,7 +4,9 @@
 export const RequestInfo = (creds) => {
 
 	let headers = new Headers();
-	headers.append( 'Content-Type', 'text/json');
+	//headers.append( 'Content-Type', 'text/plain');
+	//headers.append( 'Content-Type', 'application/octet-stream');
+	//headers.append( 'Origin', 'http://localhost');
 
 	return {
 		method:'GET',
@@ -26,7 +28,7 @@ export const RequestInfo = (creds) => {
  */
 export const JSONLoad = (url, creds)=>{
 
-	return window.fetch( url, RequestInfo(creds) ).then( res=>{
+	return window.fetch( url, RequestInfo(creds) ).then( r=>{
 
 		if ( r.status !== 200 ) {
 			console.warn('Status: ' + r.status );

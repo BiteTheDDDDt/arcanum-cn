@@ -2,7 +2,6 @@ import Game from './game';
 import Events from './events';
 import Profile from 'modules/profile';
 
-
 import Vue from 'vue';
 import Main from 'ui/main.vue';
 
@@ -21,6 +20,18 @@ if ( __KONG ) {
 
 	});
 }
+
+/**
+ * @const {number} MIN_UPLOAD_WAIT - minimum time in milliseconds for automatic
+ * save uploading.
+ */
+const MIN_UPLOAD_WAIT = 3*60*1000;
+
+/**
+ * @const {number} MANUAL_UPLOAD_WAIT - minimum wait time in milliseconds
+ * between manual save uploads.
+ */
+const MANUAL_UPLOAD_WAIT = 10*1000;
 
 /**
  * Global dispatch.
@@ -72,6 +83,7 @@ const vm = new Vue({
 	created(){
 
 		this.remote = FBRemote;
+		this.lastUpload = 0;
 
 		this.saveLink = null;
 		this.game = Game;
@@ -93,11 +105,12 @@ const vm = new Vue({
 		this.listen('set-char', this.setChar, this );
 		this.listen('dismiss-char', this.dismissChar, this );
 
-		this.listen('save', this.save );
+		this.listen('save', this.manualSave );
 		this.listen('autosave', this.save );
 
 		this.listen( 'setting', this.onSetting, this );
 		this.listen( 'logout', this.logout, this );
+		this.listen( 'login-changed', this.onLoginChanged, this );
 		this.listen( 'try-register', this.tryRegister, this );
 
 		this.loadProfile();
@@ -108,8 +121,6 @@ const vm = new Vue({
 		tryAutoLogin(){
 
 			if ( this.remote.loggedIn ) {
-
-				this.dispatchLogin();
 				return;
 
 			} else {
@@ -124,14 +135,12 @@ const vm = new Vue({
 
 		},
 
-		dispatchLogin( res ){
-			Profile.loggedIn = true;
-			this.dispatch('logged-in', res );
+		onLoginChanged( loggedIn ){
+			Profile.loggedIn = loggedIn;
 		},
 
 		logout(){
 
-			if (!this.remote) return;
 			this.remote.logout();
 			Profile.loggedIn=false;
 
@@ -201,15 +210,20 @@ const vm = new Vue({
 
 				this.dispatch('pause');
 
-				/*this.remote.loadChar().then(str=>{
+				if ( this.remote.loggedIn ) this.remote.loadChar().then(json=>{
 
-					console.warn('LOADED STR: ' + str );
+					console.warn('LOADED: ' + json );
+					this.setStateJSON( json );
+
+				err=>{
+					console.warn(err);
+					this.setStateJSON(null);
+				}});
+
+				else {
+					let str = Profile.loadActive();
 					this.setStateJSON( JSON.parse(str) );
-
-				});*/
-
-				let str = Profile.loadActive();
-				this.setStateJSON( JSON.parse(str) );
+				}
 
 
 			} catch (e ) { console.error( e.message + '\n' + e.stack ); }
@@ -378,14 +392,29 @@ const vm = new Vue({
 			}
 		},
 
-		save() {
+		manualSave(){
+			this.save(MANUAL_UPLOAD_WAIT);
+		},
+
+		autoSave(){
+		},
+
+		save( minWait=MIN_UPLOAD_WAIT ) {
 
 			if (!this.game.loaded ) return;
 			let charsave = Profile.saveActive( this.game.state );
 			Profile.saveHall();
 
-			if ( this.remote.loggedIn ) {
-				this.remote.saveChar( charsave, this.game.state.player.pid );
+			var t = Date.now();
+			if ( this.remote.loggedIn && (t-this.lastUpload) > minWait ) {
+
+				this.lastUpload = t;
+				this.remote.saveChar( charsave ).then( res=>{
+					console.log(res)
+				}, err=>{
+					console.warn(err);
+				});
+
 			}
 
 		},

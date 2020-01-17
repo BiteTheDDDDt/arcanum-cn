@@ -8,7 +8,13 @@ export default {
 
 		}
 	},
+	beforeDestroy(){
+		if ( this.ui ) this.ui.delete();
+		this.removeListener( 'login', this.emitClose );
+	},
 	mounted(){
+
+		this.listen('login', this.emitClose, this );
 
       var uiConfig = {
 		signInFlow:'popup',
@@ -48,7 +54,7 @@ export default {
 
 	},
 	methods:{
-
+		emitClose(){this.$emit('close')}
 	}
 
 }

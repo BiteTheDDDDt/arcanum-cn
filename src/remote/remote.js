@@ -2,6 +2,7 @@ import * as firebase from "firebase/app";
 import "firebase/auth";
 import "firebase/storage";
 import { JSONLoad } from "../util/jsonLoader";
+import Events from '../events';
 
 window.firebase = firebase;
 
@@ -19,6 +20,7 @@ const firebaseConfig = {
 	messagingSenderId: "347528879664",
 	appId: "1:347528879664:web:1ba41f1286d54923e317f5"
  };
+
 
 /**
  * Remote management using Google Firebase.
@@ -38,12 +40,14 @@ export const FBRemote = {
 		this.auth = firebase.auth();
 
 		this.auth.onAuthStateChanged( user=>{
-
 			console.log('AUTH STATE CHANGED: ' + user.uid );
+			Events.dispatch('login-changed', user!=null);
 		});
 
-		console.log('LOGGED IN? ' + this.loggedIn );
+	},
 
+	logout(){
+		return this.auth.signOut();
 	},
 
 	login(uname, pw ) {
@@ -55,7 +59,10 @@ export const FBRemote = {
 	loadChar( pid='default'){
 
 		var store = firebase.storage().ref( USERSAVES + '/' + this.userid + '/' + pid );
-		return store.getDownloadURL().then( url=>JSONLoad(url, false) );
+		return store.getDownloadURL().then( url=>JSONLoad(url, false), err=>{
+			console.warn(err);
+			return null;
+		});
 
 	},
 
