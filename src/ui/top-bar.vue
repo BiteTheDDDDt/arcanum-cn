@@ -2,7 +2,7 @@
 import Profile from 'modules/profile';
 import Game from '../game';
 
-import Login from './components/login.vue';
+import LoginStatus from './components/loginStatus.vue';
 
 export default {
 
@@ -13,7 +13,7 @@ export default {
 
 	},
 	components:{
-		login:Login
+		login:LoginStatus
 	},
 	methods:{
 

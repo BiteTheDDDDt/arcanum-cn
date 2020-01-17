@@ -45,7 +45,8 @@ export default {
 		warn:Warn,
 		topbar:TopBar,
 		settings:SettingsUI,
-		register:()=>import( /* webpackChunkName: "register.vue" */ './components/register.vue' ),
+		login:()=>import( /* webpackChunkName: "login.vue" */ './popups/login.vue' ),
+		register:()=>import( /* webpackChunkName: "login.vue" */ './components/register.vue' ),
 		choice:()=>import( /* webpackChunkName: "choice-ui" */ './components/choice.vue' ),
 		skills:()=> import( /* webpackChunkName: "skills-ui" */ './sections/skills.vue' ),
 		equip:()=>import( /* webpackChunkName: "equip-ui" */ './sections/equip.vue'),
@@ -70,7 +71,8 @@ export default {
 			overElm:null,
 			psection:null,
 			showSettings:false,
-			showRegister:false
+			showRegister:false,
+			showLogin:false
 		};
 
 	},
@@ -83,6 +85,7 @@ export default {
 		this.listen('unpause', this.unpause );
 
 		this.listen('show-register', this.onShowRegister, this);
+		this.listen('show-login', this.onShowLogin, this);
 
 
 	},
@@ -94,6 +97,7 @@ export default {
 		this.removeListener('unpause', this.unpause );
 
 		this.removeListener( 'show-register', this.onShowRegister, this );
+		this.remoteListener('show-login', this.onShowLogin, this);
 
 	},
 	methods:{
@@ -157,9 +161,8 @@ export default {
 
 		},
 
-		onShowRegister(){
-			this.showRegister=true;
-		},
+		onShowLogin(){this.showLogin=true;},
+		onShowRegister(){this.showRegister=true;},
 
 		stopAutoSave() {
 			if ( this.saver ) {
@@ -351,6 +354,7 @@ export default {
 		<warn ref="warn" @confirmed="onConfirmed" />
 		<choice />
 		<register v-if="showRegister" @close="showRegister=false" />
+		<login v-if="showLogin" @close="showLogin=false" />
 		<settings v-if="showSettings" @close-settings="showSettings=false" />
 
 		<div v-if="state" class="game-main">

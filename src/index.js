@@ -8,7 +8,7 @@ import Main from 'ui/main.vue';
 
 import Confirm from 'ui/components/confirm.vue';
 
-import { MongoRemote } from './remote/remote';
+import { FBRemote } from './remote/remote';
 //window.localStorage.clear();
 
 if ( __KONG ) {
@@ -71,7 +71,7 @@ const vm = new Vue({
 	},
 	created(){
 
-		this.remote = MongoRemote;
+		this.remote = FBRemote;
 
 		this.saveLink = null;
 		this.game = Game;
@@ -212,15 +212,15 @@ const vm = new Vue({
 
 				this.dispatch('pause');
 
-				MongoRemote.loadChar().then(str=>{
+				/*this.remote.loadChar().then(str=>{
 
 					console.warn('LOADED STR: ' + str );
 					this.setStateJSON( JSON.parse(str) );
 
-				});
+				});*/
 
-				//let str = Profile.loadActive();
-				//this.setStateJSON( JSON.parse(str) );
+				let str = Profile.loadActive();
+				this.setStateJSON( JSON.parse(str) );
 
 
 			} catch (e ) { console.error( e.message + '\n' + e.stack ); }
@@ -395,8 +395,8 @@ const vm = new Vue({
 			let charsave = Profile.saveActive( this.game.state );
 			Profile.saveHall();
 
-			if ( MongoRemote.loggedIn ) {
-				MongoRemote.saveChar( charsave, this.game.state.player.pid );
+			if ( this.remote.loggedIn ) {
+				this.remote.saveChar( charsave, this.game.state.player.pid );
 			}
 
 		},
