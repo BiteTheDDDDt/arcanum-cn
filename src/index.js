@@ -97,7 +97,6 @@ const vm = new Vue({
 		this.listen('autosave', this.save );
 
 		this.listen( 'setting', this.onSetting, this );
-		this.listen( 'try-login', this.tryLogin, this );
 		this.listen( 'logout', this.logout, this );
 		this.listen( 'try-register', this.tryRegister, this );
 
@@ -157,16 +156,6 @@ const vm = new Vue({
 		},
 
 		tryLogin(uname, pw) {
-
-			console.log('try login: ' + uname + ' ' + pw );
-			if  (!this.remote ) return;
-
-			this.remote.login(uname, pw).then(
-				res=>{
-					this.dispatchLogin();
-				}
-			)
-
 		},
 
 		loadProfile(){

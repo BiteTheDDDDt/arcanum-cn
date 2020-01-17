@@ -37,6 +37,11 @@ export const FBRemote = {
 		firebase.initializeApp( firebaseConfig );
 		this.auth = firebase.auth();
 
+		this.auth.onAuthStateChanged( user=>{
+
+			console.log('AUTH STATE CHANGED: ' + user.uid );
+		});
+
 		console.log('LOGGED IN? ' + this.loggedIn );
 
 	},
