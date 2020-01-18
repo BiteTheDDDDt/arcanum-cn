@@ -236,9 +236,11 @@ const vm = new Vue({
 		makeLink( data, targ, saveName='arcanum' ) {
 
 			let json = JSON.stringify(data);
+
 			let file = new File( [json], saveName + '.json', {type:"text/json;charset=utf-8"} );
 
-			targ.title = file.name;
+			//targ.type = 'text/json';
+			targ.download = targ.title =  file.name;
 			return targ.href = URL.createObjectURL( file );
 
 		},
