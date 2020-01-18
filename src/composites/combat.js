@@ -248,7 +248,7 @@ export default class Combat {
 		if ( targets & TARGET_GROUP ) return group;
 
 		if ( !targets || targets === TARGET_ENEMY || targets === TARGET_ALLY ) {
-			return this.nextTarget(group);
+			return this.randTarget(group);
 		} else if ( targets & TARGET_SELF ) return char;
 
 		if ( targets & TARGET_PRIMARY) return this.primeTarget(group);
