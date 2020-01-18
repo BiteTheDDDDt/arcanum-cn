@@ -1355,6 +1355,7 @@
 				"mod": {
 					"tier1": true,
 					"puppetry.max": 2,
+					"minions.keep":"puppet",
 					"magicalanimation.max": 1,
 					"allies.max": 5,
 					"clockworkhome.mod.space.max": 50
@@ -1377,6 +1378,7 @@
 				"mod": {
 					"tier3": true,
 					"puppetry.max": 1,
+					"minions.keep":"machina",
 					"magicalanimation.max": 2,
 					"machinacreation.max": 2,
 					"allies.max": 5,
@@ -1402,6 +1404,7 @@
 					"magicalanimation.max": 1,
 					"machinacreation.max": 2,
 					"automatasculpting.max": 3,
+					"minions.keep":"automata",
 					"allies.max": 5,
 					"clockworkhome.mod.space.max": 150
 				},

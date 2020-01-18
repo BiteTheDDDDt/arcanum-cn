@@ -83,7 +83,7 @@ export default class MaxStat {
 
 			if ( vars.isRVal ) {
 
-				this.max = vars;
+				this.max = vars.value;
 				this.value = this.max.value;
 
 			} else {

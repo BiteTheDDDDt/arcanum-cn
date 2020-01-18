@@ -21,6 +21,12 @@ export default class Minions extends Inventory {
 	set allies(v) { this._allies = v; }
 
 	/**
+	 * @property {Set<string>} - summons always kept.
+	 */
+	get keep(){ return this._keep; }
+	set keep(v){this._keep = v;}
+
+	/**
 	 * @property {Map.<object,string>} mods - mods applied to added minions
 	 * by kind,tag,name, etc.
 	 * the mod/path object has to map to the mod tag, since tags are not unique.
@@ -38,6 +44,25 @@ export default class Minions extends Inventory {
 
 		this._allies = new Inventory( {id:'allies', spaceProp:'level'} );
 		this.mods = new Map();
+		this.keep = new Set();
+
+	}
+
+	addKeep( mod ) {
+
+		if ( typeof mod === 'string') {
+			this.keep.add(mod);
+		} else if ( typeof mod ==='object') {
+			for( let p in mod) this.keep.add(p);
+		}
+
+	}
+
+	shouldKeep(it) {
+
+		if ( this.keep.has(it.id)||this.keep.has(it.kind) ) return true;
+		for( let p of it.tags ) if ( this.keep.has(p) ) return true;
+		return false;
 
 	}
 
@@ -150,8 +175,12 @@ export default class Minions extends Inventory {
 			var mod = mods[p];
 
 			if ( this[p] ) {
+
+				// own property.
 				if ( this[p] instanceof RValue ) this[p].addMod(mod);
+				else if ( p === 'keep' ) this.addKeep( mod );
 				else this[p].applyMods( mod );
+
 			} else if ( this.mods.has(mod) ) continue;
 			else {
 

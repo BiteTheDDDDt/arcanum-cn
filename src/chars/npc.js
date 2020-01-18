@@ -118,8 +118,10 @@ export default class Npc extends Char {
 		this.active = this.active === undefined || this.active === null ? false : this.active;
 
 		if ( typeof this.hp === 'string' ) this.hp = new Range(this.hp).value;
-		else if ( this.hp instanceof Range ) this.hp = this.hp.value;
+		else if ( this.hp instanceof Range ) {
 
+			this.hp = this.hp.value;
+		}
 		if (!this.hp ) { this.hp = 1; }
 		if ( !this.team) this.team = TEAM_NPC;
 		if ( !this.tohit ) this.tohit = 0;

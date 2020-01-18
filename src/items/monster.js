@@ -35,7 +35,10 @@ export default class Monster extends GData {
 	}
 
 	amount( g, count=1 ) {
-		g.create( this, false, count );
+
+		let minions = g.getData('minions');
+		g.create( this, minions.shouldKeep(this), count );
+
 	}
 
 	/**

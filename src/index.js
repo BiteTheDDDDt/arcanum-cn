@@ -315,12 +315,14 @@ const vm = new Vue({
 		 * @param {HTMLElement} targ - link target.
 		 * @returns {DOMString}
 		 */
-		makeLink( data, targ, saveName='arcanum' ) {
+		makeLink( data, targ, saveName ) {
 
 			let json = JSON.stringify(data);
-			let file = new File( [json], saveName + '.json', {type:"text/json;charset=utf-8"} );
 
-			targ.title = file.name;
+			let file = new Blob( [json], {type:"text/json;charset=utf-8"} );
+
+			//targ.type = 'text/json';
+			targ.download = targ.title = saveName + '.json';
 			return targ.href = URL.createObjectURL( file );
 
 		},
