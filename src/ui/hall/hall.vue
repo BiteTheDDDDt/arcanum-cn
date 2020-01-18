@@ -94,7 +94,7 @@ export default {
 	<div class="power" @mouseenter.capture.stop="emit( 'itemover', $event, hall.prestige )">Hall Prestige: {{ prestige }}</div>
 
 	<div class="header"><input class="fld-name text-entry" type="text" v-model="hallName">
-			<div class="text-button"><a href="" download
+			<div class="text-button"><a href=""
 			@click.self="dispatch('hall-file',$event )" type="text/json">hall save</a></div>
 
 			<confirm @confirm="dispatch('resetHall')">reset hall</confirm>
