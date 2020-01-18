@@ -9,11 +9,11 @@ const StringFormat = firebase.storage.StringFormat;
 window.firebase = firebase;
 
 /**
- * @const {string} USERSAVES - storage path to user saves.
+ * @const {string} USER_SAVES - storage path to user saves.
  */
-const USERSAVES = 'usersaves';
+const USER_SAVES = 'usersaves';
 
-const firebaseConfig = {
+const Config = {
 	apiKey: "AIzaSyDa2Qj2VQvTzhG0MwzxS-IhQy9LYpCgrRM",
 	authDomain: "theory-of-magic-49589.firebaseapp.com",
 	databaseURL: "https://theory-of-magic-49589.firebaseio.com",
@@ -29,16 +29,12 @@ const firebaseConfig = {
  */
 export const FBRemote = {
 
-	get userid() {
-		return this.auth.currentUser.uid;
-	},
-	get loggedIn(){
-		return this.auth.currentUser != null;
-	},
+	get userid() { return this.auth.currentUser.uid; },
+	get loggedIn(){ return this.auth.currentUser != null; },
 
 	init(){
 
-		firebase.initializeApp( firebaseConfig );
+		firebase.initializeApp( Config );
 		this.auth = firebase.auth();
 
 		this.auth.onAuthStateChanged( user=>{
@@ -48,9 +44,7 @@ export const FBRemote = {
 
 	},
 
-	logout(){
-		return this.auth.signOut();
-	},
+	logout(){ return this.auth.signOut(); },
 
 	login(uname, pw ) {
 	},
@@ -60,7 +54,7 @@ export const FBRemote = {
 
 	loadChar( pid='default'){
 
-		var store = firebase.storage().ref( USERSAVES + '/' + this.userid + '/' + pid );
+		var store = firebase.storage().ref( this.saveDir( this.userid, pid ) );
 		return store.getDownloadURL().then( url=>JSONLoad(url, false), err=>{
 			console.warn(err);
 			return null;
@@ -75,13 +69,15 @@ export const FBRemote = {
 	 */
 	saveChar( save, pid='default' ){
 
-		var store = firebase.storage().ref( USERSAVES + '/' + this.userid + '/' + pid );
+		var store = firebase.storage().ref( this.saveDir( this.userid, pid ) );
 		if (!store) console.warn('no data store: ' + store);
 		console.log('UPLOADING FILE DATA');
 
 		return store.putString( save, StringFormat.RAW );
 
-	}
+	},
+
+	saveDir:( uid, pid ) => { return USER_SAVES + '/' + uid + '/' + pid }
 
 }
 

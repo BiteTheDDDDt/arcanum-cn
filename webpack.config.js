@@ -89,7 +89,8 @@ module.exports = (env, argv)=>{
 			'modules':'modules',
 			'config': 'config',
 			"data": "../data",
-			'ui': 'ui'
+			'ui': 'ui',
+			'remote':'remote'
 		}
 	}
 

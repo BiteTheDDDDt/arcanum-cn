@@ -33,16 +33,7 @@ const MIN_UPLOAD_WAIT = 3*60*1000;
  */
 const MANUAL_UPLOAD_WAIT = 10*1000;
 
-/**
- * Global dispatch.
- */
-//var dispatch = new Vue();
 
-/**
- * @fires {} register-error
- * @fires {} register-sent
- * @fires {} logged-in
- */
 Vue.mixin({
 
 	components:{ confirm:Confirm },
@@ -68,6 +59,11 @@ Vue.mixin({
 
 });
 
+/**
+ * @fires {} register-error
+ * @fires {} register-sent
+ * @fires {} logged-in
+ */
 const vm = new Vue({
 	el: '#vueRoot',
 	components:{
@@ -394,9 +390,6 @@ const vm = new Vue({
 
 		manualSave(){
 			this.save(MANUAL_UPLOAD_WAIT);
-		},
-
-		autoSave(){
 		},
 
 		save( minWait=MIN_UPLOAD_WAIT ) {
