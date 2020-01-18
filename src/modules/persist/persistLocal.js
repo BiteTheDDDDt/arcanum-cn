@@ -1,3 +1,6 @@
+const CHARS_DIR = 'chars/';
+const HALL_FILE = 'hall';
+
 export class Local {
 
 	constructor(){
@@ -6,7 +9,14 @@ export class Local {
 	/**
 	 * Clear all stored data.
 	 */
-	clearAll(){ window.localStorage.clear(); }
+	deleteAll(){ window.localStorage.clear(); }
+
+	deleteChar() {
+
+		window.localStorage.setItem( this.charLoc(slot), null );
+		window.localStorage.setItem( this.settingsLoc(slot), null);
+
+	}
 
 	saveChar() {
 	}
@@ -14,16 +24,21 @@ export class Local {
 	loadChar(){
 	}
 
-	saveHall(){
+	/**
+	 *
+	 * @param {string} data
+	 */
+	saveHall( data ){
+		window.localStorage.setItem( this.hallLoc(), data );
+
 	}
 
 	loadHall(){
+		return window.localStorage.getItem( this.hallLoc() );
 	}
 
-	hallLoc(){
-	}
+	charLoc( ind ) { return SAVE_DIR + CHARS_DIR + ind }
 
-	charLoc(){
-	}
+	hallLoc(){ return (SAVE_DIR + HALL_FILE); }
 
 }

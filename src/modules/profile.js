@@ -3,15 +3,18 @@ import Settings from './settings';
 import Events, { LEVEL_UP, CHAR_NAME, CHAR_TITLE, CHAR_CLASS } from "../events";
 
 import Module from "./module";
+import { Local } from "./persist/persistLocal";
 
 const CHARS_DIR = 'chars/';
+const HALL_FILE = 'hall';
 const SETTINGS_DIR = 'settings/';
-export const HALL_FILE = 'hall';
 
 /**
 * @const {string} SAVE_DIR - global save directory.
 */
 const SAVE_DIR = __SAVE ? __SAVE + '/' : '';
+
+const local = new Local();
 
 /**
  * Control access to all local storage and profile information.
@@ -53,7 +56,7 @@ export default {
 
 		if ( !data ) {
 
-			data = window.localStorage.getItem( this.hallLoc() );
+			data = local.loadHall();
 
 			if ( data ) {
 
@@ -232,7 +235,8 @@ export default {
 
 		this.setCharDatas( data.chars );
 		console.dir( data.hall );
-		window.localStorage.setItem( this.hallLoc(), JSON.stringify(data.hall) );
+
+		local.saveHall( JSON.stringify(data.hall) );
 
 	},
 
@@ -337,16 +341,16 @@ export default {
 
 	hasHall() { return this.hall && this.hall.owned() },
 
+	settingsLoc( ind ){
+		return SAVE_DIR + SETTINGS_DIR + ( ind === undefined ? this.hall.active : ind );
+	},
+
 	/**
 	 * Clear all stored data.
 	 */
 	clearAll:()=>window.localStorage.clear(),
 
 	charLoc:( ind ) =>(SAVE_DIR + CHARS_DIR + ind),
-
-	settingsLoc( ind ){
-		return SAVE_DIR + SETTINGS_DIR + ( ind === undefined ? this.hall.active : ind );
-	},
 
 	hallLoc:()=>(SAVE_DIR + HALL_FILE),
 
@@ -356,7 +360,7 @@ export default {
 
 			let json = JSON.stringify( this.hall );
 			if ( json ) {
-				window.localStorage.setItem( this.hallLoc(), json );
+				local.saveHall(json);
 			}
 
 		} catch(e){

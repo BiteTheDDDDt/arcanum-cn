@@ -38,8 +38,10 @@ export const FBRemote = {
 		this.auth = firebase.auth();
 
 		this.auth.onAuthStateChanged( user=>{
-			console.log('AUTH STATE CHANGED: ' + user.uid );
+
+			if ( user ) console.log('AUTH CHANGED: ' + user.uid );
 			Events.dispatch('login-changed', user!=null);
+
 		});
 
 	},
@@ -52,6 +54,23 @@ export const FBRemote = {
 	register( email, pw ) {
 	},
 
+	/**
+	 * load player hall file, if any.
+	 */
+	loadHall(){
+
+		var store = firebase.storage().ref( this.hallDir( this.userid ) );
+		return store.getDownloadURL().then( url=>JSONLoad(url, false), err=>{
+			console.warn(err);
+			return null;
+		});
+	},
+
+	/**
+	 *
+	 * @param {} pid
+	 * @returns {Promise<object>} json save object, or null.
+	 */
 	loadChar( pid='default'){
 
 		var store = firebase.storage().ref( this.saveDir( this.userid, pid ) );
@@ -62,6 +81,10 @@ export const FBRemote = {
 
 	},
 
+	deleteChar( pid ) {
+		return firebase.storage().ref( this.saveDir(this.userid, pid ) ).delete();
+	},
+
 	/**
 	 *
 	 * @param {string} save
@@ -70,14 +93,13 @@ export const FBRemote = {
 	saveChar( save, pid='default' ){
 
 		var store = firebase.storage().ref( this.saveDir( this.userid, pid ) );
-		if (!store) console.warn('no data store: ' + store);
-		console.log('UPLOADING FILE DATA');
-
 		return store.putString( save, StringFormat.RAW );
 
 	},
 
-	saveDir:( uid, pid ) => { return USER_SAVES + '/' + uid + '/' + pid }
+	hallDir:( uid ) => { return USER_SAVES + '/' + uid + '/hall.json'; },
+
+	saveDir:( uid, pid ) => { return USER_SAVES + '/' + uid + '/' + pid + '.json' }
 
 }
 
