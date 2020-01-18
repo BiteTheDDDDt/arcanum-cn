@@ -17,7 +17,7 @@ export default {
 		return {
 			sCompactMode:vars.compactMode,
 			sDarkMode:vars.darkMode,
-			sAutoSave:vars.autoSave
+			saves:Object.assign( {}, Settings.getSubVars('saves') )
 		};
 
 
@@ -56,13 +56,21 @@ export default {
 			}
 
 		},
-		autoSave:{
+		localFirst:{
 			get(){
-				return this.sAutoSave;
+				return this.saves.localFirst;
 			},
 			set(v){
-				Settings.set( 'autoSave', v );
-				this.sAutoSave = v;
+				this.saves.localFirst = Settings.setSubVar( 'saves', 'localFirst', v );
+				this.dispatch('setting', 'localFirst', v );
+			}
+		},
+		autoSave:{
+			get(){
+				return this.saves.autoSave;
+			},
+			set(v){
+				this.saves.autoSave = Settings.setSubVar( 'saves', 'autoSave', v );
 				this.dispatch('setting', 'autoSave', v );
 			}
 		},

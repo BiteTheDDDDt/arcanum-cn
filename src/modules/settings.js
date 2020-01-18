@@ -1,7 +1,10 @@
 const Defaults = {
 
-	autoSave:true,
-	saveTime:30,
+	saves:{
+		autosave:true,
+		localfirst:true,
+		saveTime:30
+	},
 	darkMode:false,
 	compactMode:false,
 	curview:null,
@@ -28,8 +31,6 @@ export default {
 	 */
 	vars: {
 
-		autoSave:true,
-		saveTime:30,
 		darkMode:false,
 		compactMode:false,
 		spells:{

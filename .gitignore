@@ -3,17 +3,4 @@ dist/**
 dev/**
 kong/**
 vers.json
-dist/wizrobe.dev.bundle.js
 arcanum.zip
-dist/wizrobe.dist.bundle.js
-dist/wizrobe.dist.bundle.js
-dist/dist/bestiary-ui.bundle.js
-dist/dist/enchant-ui.bundle.js
-dist/dist/equip-ui.bundle.js
-dist/dist/homes-ui.bundle.js
-dist/dist/inv-ui.bundle.js
-dist/dist/minions-ui.bundle.js
-dist/dist/player-ui.bundle.js
-dist/dist/potions-ui.bundle.js
-dist/dist/raid-ui.bundle.js
-dist/dist/spells-ui.bundle.js
