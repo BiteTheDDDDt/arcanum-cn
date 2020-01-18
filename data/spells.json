@@ -31,6 +31,10 @@
 		"level":1,
 		"require":"spellbook",
 		"school":"light",
+		"desc":"Cure sickness on yourself or an ally.",
+		"cost":{
+			"light":1
+		},
 		"action":{
 			"cure":"sick",
 			"targets":"ally,self"
