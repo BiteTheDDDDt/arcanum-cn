@@ -11,17 +11,27 @@ export class Local {
 	 */
 	deleteAll(){ window.localStorage.clear(); }
 
-	deleteChar() {
+	deleteChar( charid ) {
 
-		window.localStorage.setItem( this.charLoc(slot), null );
-		window.localStorage.setItem( this.settingsLoc(slot), null);
+		window.localStorage.setItem( this.charLoc(charid), null );
+		window.localStorage.setItem( this.settingsLoc(charid), null);
 
 	}
 
-	saveChar() {
+	saveChar( charid, json ) {
+		window.localStorage.setItem( this.charLoc( charid ), json );
 	}
 
 	loadChar(){
+		return window.localStorage.getItem( this.charLoc( charid ) );
+	}
+
+	saveSettings(char) {
+		window.localStorage.setItem( this.settingsLoc(), data );
+	}
+
+	loadSettings(char){
+		return window.localStorage.getItem( this.settingsLoc() );
 	}
 
 	/**
@@ -36,6 +46,8 @@ export class Local {
 	loadHall(){
 		return window.localStorage.getItem( this.hallLoc() );
 	}
+
+	settingsLoc(char){}
 
 	charLoc( ind ) { return SAVE_DIR + CHARS_DIR + ind }
 

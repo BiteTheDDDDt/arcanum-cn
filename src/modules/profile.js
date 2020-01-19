@@ -155,8 +155,7 @@ export default {
 
 		if ( this.hall.dismiss(slot) ) {
 
-			window.localStorage.setItem( this.charLoc(slot), null );
-			window.localStorage.setItem( this.settingsLoc(slot), null);
+			local.deleteChar( slot );
 			this.saveHall();
 
 		}
@@ -174,11 +173,6 @@ export default {
 			let store = window.localStorage;
 			let str = store.getItem( this.activeLoc() );
 
-			/** @compat attempt load from legacy save. */
-			if ( !str && this.hall.active === 0 ) {
-				str = store.getItem( this.legacySave() );
-			}
-
 			return str;
 
 		} catch (e ) {
@@ -189,12 +183,6 @@ export default {
 		}
 
 	},
-
-	/**
-	 * @returns {string} old save location.
-	 * @compat
-	 */
-	legacySave(){ return SAVE_DIR + 'gameData'; },
 
 	/**
 	 * Get JSON for complete save of hall and all wizrobes in it.
@@ -209,12 +197,11 @@ export default {
 		};
 
 		let max = Math.floor( this.hall.max );
-		let store = window.localStorage;
 
 		let chars = data.chars;
 		for( let i = 0; i < max; i++ ) {
 
-			let char = store.getItem( this.charLoc(i) );
+			let char = local.loadChar( this.charLoc(i) );
 
 			// parse to avoid double string encoding.
 			if ( char ) char = JSON.parse(char);
@@ -244,12 +231,13 @@ export default {
 
 		if ( !chars ) return;
 
-		let store = window.localStorage;
 		for( let i = chars.length-1; i >= 0; i-- ) {
 
 			if ( chars[i] ) console.log( `HALL SAVE ${i}: ${chars[i].name}` );
 			else console.log('HALL SAVE EMPTY: ' + i );
-			store.setItem( this.charLoc(i), JSON.stringify( chars[i] ) );
+
+			var json = JSON.stringify(chars[i]);
+			local.saveChar( this.charLoc(i), json);
 
 		}
 
@@ -264,11 +252,10 @@ export default {
 
 		try {
 
-			let store = window.localStorage;
-
 			let json = JSON.stringify( state );
 			if ( json ) {
-				store.setItem( this.activeLoc(), json );
+				local.saveChar( json );
+
 			}
 
 			this.saveSettings();
@@ -289,8 +276,9 @@ export default {
 	clearActive(){
 
 		// clear hall char.
-		window.localStorage.setItem( this.activeLoc(), null );
-		window.localStorage.setItem( this.settingsLoc(), null );
+		local.deleteChar( this.activeLoc() );
+
+
 
 	},
 
@@ -302,7 +290,7 @@ export default {
 
 		try {
 
-			let str = window.localStorage.getItem( this.settingsLoc() );
+			let str = local.loadSettings();
 			let data = JSON.parse( str );
 
 			Settings.setSettings( data );
@@ -324,7 +312,7 @@ export default {
 
 			let data = JSON.stringify( Settings );
 			if ( data ) {
-				window.localStorage.setItem( this.settingsLoc(), data );
+				local.saveSettings();
 			}
 
 		} catch (e){
@@ -348,7 +336,9 @@ export default {
 	/**
 	 * Clear all stored data.
 	 */
-	clearAll:()=>window.localStorage.clear(),
+	clearAll(){
+		local.clearAll();
+	},
 
 	charLoc:( ind ) =>(SAVE_DIR + CHARS_DIR + ind),
 
