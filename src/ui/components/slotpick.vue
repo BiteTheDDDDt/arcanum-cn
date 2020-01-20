@@ -18,7 +18,7 @@ export default {
 	 * for a matching slot property.
 	 * @property {?string} pickEvent - event to emit on item picked.
 	 */
-	props:['pick', 'title', 'choices', 'pickEvent', 'hideEmpty'],
+	props:['pick', 'title', 'choices', 'pickEvent', 'hideEmpty', 'mustPay'],
 	mixins:[ItemsBase],
 	data(){
 		return {
@@ -33,14 +33,19 @@ export default {
 		select(){
 
 			// @todo messy to emit. hard to config with Vue.
-			this.emit( 'choice', this.avail, (p)=>{
+			this.emit( 'choice', this.avail, {
+				cb:(p)=>{
 
-				if ( p ) {
-					this.emit( this.pEvent, p );
-					this.cur = Game.state.getSlot(this.pick);
-				}
+					if ( p ) {
+						this.emit( this.pEvent, p );
+						this.cur = Game.state.getSlot(this.pick);
+					}
 
-			}, this.$el, this.title||this.pick );
+				},
+				elm:this.$el,
+				title:this.title||this.pick,
+				mustPay:this.mustPay
+			});
 
 		}
 
@@ -49,7 +54,8 @@ export default {
 
 		avail() {
 			return this.choices ? this.choices :
-			Game.state.filterItems( v=>v.slot===this.pick&&!v.disabled&&!v.locks&&!v.locked&&(v.owned||!v.buy) );
+			Game.state.filterItems( v=>v.slot===this.pick&&!v.disabled&&!v.locks&&!v.locked
+								&&(v.owned||!v.buy) );
 		}
 
 	}
