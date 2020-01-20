@@ -167,7 +167,7 @@ export default class Combat {
 	 * Player-casted spell or action attack.
 	 * @param {Item} it
 	 */
-	spellAttack( it ) {
+	spellAction( it ) {
 
 		if ( this._enemies.length===0 ) {
 
