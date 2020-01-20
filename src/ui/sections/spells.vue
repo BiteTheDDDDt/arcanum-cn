@@ -188,15 +188,14 @@ div.spells .bottom {
 }
 
 div.spells .spellbook {
-	flex-grow:1;
+	flex-basis: 80%;
+	flex-grow: 1;
 }
 
 
 div.spells .spelllist {
 	border-left: 1px solid var( --separator-color );
 	padding: var( --sm-gap );
-	width:10em;
-	flex-shrink: 1;
 }
 
 div.spells div.filters div { box-sizing: border-box; margin: 0; }
