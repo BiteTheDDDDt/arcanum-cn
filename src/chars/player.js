@@ -293,7 +293,12 @@ export default class Player extends Char {
 		if ( this.weapon && (typeof this.weapon === 'string') ) this.weapon = state.equip.find( this.weapon );
 
 		this.spells = state.getData('spelllist');
-		if ( this.spells.max.value === 0 ) this.spells.max.value = this.level.valueOf();
+		this.spells.max.value = 0;
+		this.stamina.max.base = 10;
+		this.tohit.base = 1;
+		state.getData('allies').max = 0;
+		this.speed.base = 1;
+		this.hp.max.base = 5;
 
 		// copy in stressors to test player defeats.
 		this.stressors = state.stressors;

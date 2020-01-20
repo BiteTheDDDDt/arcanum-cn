@@ -139,7 +139,7 @@ export default class DataList extends Inventory {
 	 */
 	onUse(g) {
 
-		var it = this.nextUsable();
+		var it = this.nextUsable(g);
 		if ( it ) {
 			it.onUse(g);
 			return true;
