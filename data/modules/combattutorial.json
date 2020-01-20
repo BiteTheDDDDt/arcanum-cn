@@ -31,7 +31,7 @@
         "hp":10,
         "attack":{
           "log":{
-            "title":"hit me!",
+            "name":"hit me!",
             "desc":"harder, HARDER I said"
           }
         }
@@ -46,11 +46,11 @@
         "immune":"physical",
         "attack":{
           "log":{
-            "title":"Spells",
+            "name":"Spells",
             "desc":"use your magic missile, from spellpage bind as quickslot or add to memorized"
           }
         },
-        "loot":[{
+        "loot":{
                     "id":"trainingdagger",
                     "name":"dagger",
                     "level":0,
@@ -61,7 +61,7 @@
                       "kind":"slash",
                       "dmg":"1~2"
                     }
-                  }]
+                  }
       },
       {
         "id":"weapondummy",
@@ -73,11 +73,11 @@
         "immune":"force,blunt",
         "attack":{
           "log":{
-            "title":"Use your weapon",
+            "name":"Use your weapon",
             "desc":"Go to the tab Equip and find the wood dagger and equip it"
           }
         },
-        "loot":[{
+        "loot":{
                     "id":"trainingdart",
                     "name":"homing dart",
                     "level":0,
@@ -88,7 +88,7 @@
                       "kind":"piercing",
                       "dmg":1
                     }
-                }]
+                }
       },
       {
         "id":"dodgydummy",
@@ -97,14 +97,14 @@
         "level":0,
         "hp":1,
         "speed":-10,
-        "dodge":15,
+        "dodge":30,
         "attack":{
           "log":{
-            "title":"Can't hit me",
+            "name":"Can't hit me",
             "desc":"Use the homing dart to hit this obnoxious dummy"
           }
         },
-        "loot":[{
+        "loot":{
                       "id":"traininghammer",
                       "name":"hammer",
                       "level":0,
@@ -115,7 +115,7 @@
                         "kind":"blunt",
                         "dmg":"10~15"
                       }
-                    }]
+                    }
       },
       {
         "id":"armorydummy",
@@ -130,7 +130,7 @@
         },
         "attack":{
           "log":{
-            "title":"Use your hammer",
+            "name":"Use your hammer",
             "desc":"only the hammer could leave a dent at this iron chunk"
           }
         }

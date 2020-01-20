@@ -195,7 +195,7 @@ export default class Combat {
 	attack( attacker, atk ) {
 
 		if ( atk.log ) {
-			Events.emit( EVT_EVENT, atk.log );
+			Events.emit( EVT_COMBAT, atk.log );
 		}
 
 		if ( atk.hits ) {
