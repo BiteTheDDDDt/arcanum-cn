@@ -218,7 +218,7 @@ export const ApplyDamage = ( target, attack, attacker ) => {
 	}
 
 	let dmg_reduce = 0
-	if (resist === 0 || resist < 1) {
+	if ( (resist === 0 || resist < 1) && !attack.nodefense ) {
 
 		dmg_reduce = target.defense/(target.defense + (10/3)*dmg*( attack.duration || 1 ) );
 		dmg *= ( 1 - dmg_reduce );
