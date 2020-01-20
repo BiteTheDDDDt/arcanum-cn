@@ -155,6 +155,10 @@ export const ParseDmg = (v)=>{
 	else if ( typeof v === 'string' ) {
 
 		if ( RangeTest.test(v) ) return new Range(v);
+		if (!isNaN(v)){
+			console.warn('Damage is str: ' + v );
+			return Number(v);
+		}
 		return MakeDmgFunc(v);
 
 	} else if ( typeof v === 'object') return new Range(v);
