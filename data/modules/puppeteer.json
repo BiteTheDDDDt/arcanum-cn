@@ -1046,6 +1046,7 @@
 							{
 								"name": "recoil",
 								"nomiss": true,
+								"nodefense": true,
 								"targets": "self",
 								"dmg":50,
 								"dot": {
