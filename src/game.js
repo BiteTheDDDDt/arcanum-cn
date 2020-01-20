@@ -201,13 +201,9 @@ export default {
 			var it = gdata[p];
 			if ( it instanceof TagSet) continue;
 
-			if ( it.id === 'level' ) console.log( 'level: ' + it.value + ' locked: ' + it.locked );
-
 			if ( !it.locked && !it.disabled && !(it.instanced||it.isRecipe) ) {
 
 				if ( it.value != 0 ) {
-
-					if ( it.id === 'level') console.log(it.id + ' VALUE: ' + it.value );
 
 					if ( it.mod ) this.applyMods( it.mod, it.value, it.id);
 					if ( it.lock ) {
