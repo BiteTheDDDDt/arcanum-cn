@@ -326,7 +326,7 @@ export default {
 
 		} else if ( typeof msg === 'object' ) {
 
-			this.log.log( it.name, it.desc, LOG_COMBAT );
+			this.log.log( msg.name||title, msg.desc, LOG_COMBAT );
 
 		} else this.log.log( title, msg, LOG_COMBAT );
 
