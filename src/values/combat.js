@@ -206,10 +206,10 @@ export const ApplyDamage = ( target, attack, attacker ) => {
 	if ( attacker ) dmg += attacker.getBonus( attack.kind );
 	if ( attack.bonus ) dmg += attack.bonus;
 
+
 	let resist = target.getResist(attack.kind);
 	if (resist !== 0) {
 		dmg *= (1 - resist);
-
 
 	}
 

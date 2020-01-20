@@ -1039,7 +1039,7 @@
 						"hits": [
 							{
 								"name": "charge",
-								"tohit": 10,
+								"tohit":10,
 								"targets": "enemies",
 								"dmg": "50~70"
 							},
@@ -1047,13 +1047,13 @@
 								"name": "recoil",
 								"nomiss": true,
 								"targets": "self",
-								"dmg": "50",
+								"dmg":50,
 								"dot": {
 									"name": "recoil",
 									"targets": "self",
-									"duration": 10,
+									"duration":10,
 									"mod": {
-										"defense": -100
+										"defense":-100
 									}
 								}
 							}

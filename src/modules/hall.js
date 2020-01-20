@@ -96,8 +96,6 @@ export default class Hall {
 		} else console.warn('HALL NOT YET OWNED');*/
 		this.max = this.items.hallSize;
 
-		console.log('HALL SIZE: ' + this.max.value );
-
 		this.points = this.items.hallPoints;
 		this.prestige = this.items.prestige;
 		//console.warn('!!!!START PRESTIGE: ' + this.prestige.value );
