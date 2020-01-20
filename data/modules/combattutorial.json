@@ -16,7 +16,7 @@
           "3":"weapondummy",
           "4":"dodgydummy",
           "5":"armorydummy",
-          "20":"squire"
+          "20":"instructor"
         },
         "spawns":["dummy"]
       }
@@ -52,7 +52,7 @@
         },
         "loot":[{
                     "id":"trainingdagger",
-                    "name":"wood dagger",
+                    "name":"dagger",
                     "level":0,
                     "tohit":4,
                     "type":"weapon",
@@ -79,7 +79,7 @@
         },
         "loot":[{
                     "id":"trainingdart",
-                    "name":"wood dagger",
+                    "name":"homing dart",
                     "level":0,
                     "tohit":100,
                     "type":"weapon",
@@ -97,7 +97,7 @@
         "level":0,
         "hp":1,
         "speed":-10,
-        "dodge":100,
+        "dodge":15,
         "attack":{
           "log":{
             "title":"Can't hit me",
@@ -106,7 +106,7 @@
         },
         "loot":[{
                       "id":"traininghammer",
-                      "name":"wood hammer",
+                      "name":"hammer",
                       "level":0,
                       "tohit":-10,
                       "type":"weapon",
@@ -136,9 +136,8 @@
         }
       },
       {
-        "id":"squire",
-        "name":"instructur",
-        "desc":"is he playing with you?",
+        "id":"instructor",
+        "desc":"Is he toying with you?",
         "dodge":4,
         "hp":50,
         "speed":3,
@@ -152,11 +151,11 @@
       		},
       		{
       			"%":"10%",
-      			"desc":"casting spells manually makes for a one sided combat"
+      			"desc":"casting spells manually makes for an easy combat"
       		},
       		{
       			"%":"10%",
-      			"desc":"having a good combination of buffs and attack spells memorized increases survivability"
+      			"desc":"memorizing a good combination of buffs and attack spells increases survivability"
       		}]
         }
       },

@@ -44,7 +44,7 @@ export const SubMods = ( mods, id, source )=>{
 			return new PerValue( mods, id, source );
 		}
 
-		console.warn('invalid str mod: ' + mods );
+		console.warn('raw str mod: ' + mods );
 		return mods;
 
 	} else if ( typeof mods === 'number') {
