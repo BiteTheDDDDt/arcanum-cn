@@ -53,9 +53,8 @@ export default class Char {
 	 */
 	get spells(){ return this._spells; }
 	set spells(v) {
-		if ( typeof v === 'string') {
-			this._spells = Game.state.makeDataList(v);
-		} else this._spells=v;
+		if ( typeof v === 'string') this._spells = v.split(',');
+		else this._spells=v;
 	}
 
 	/**
@@ -205,6 +204,8 @@ export default class Char {
 		if ( this.template ) {
 			if ( !this.name ) this._name = it.name;
 		}
+
+		if ( this.spells ) this.spells = gs.makeDataList(this.spells );
 
 		this.reviveDots(gs);
 		this._states.refresh(this._dots);
