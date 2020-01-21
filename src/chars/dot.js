@@ -28,6 +28,7 @@ export default class Dot {
 			adj:this.adj||undefined,
 			flags:this._flags!== 0 ? this._flags : undefined,
 			duration:this.duration,
+			/** @todo source should never be string. maybe on load? */
 			source:this.source ? ( typeof this.source === 'string' ? this.source : this.source.id ) : undefined
 		};
 

@@ -266,7 +266,7 @@ export default class Char {
 	/**
 	 * Base item of dot.
 	 * @param {Dot|object|Array} dot
-	 * @param {object} source
+	 * @param {?object} source
 	 * @param {number} duration - duration override
 	 */
 	addDot( dot, source, duration=0 ) {
