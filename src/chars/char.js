@@ -53,9 +53,8 @@ export default class Char {
 	 */
 	get spells(){ return this._spells; }
 	set spells(v) {
-		if ( typeof v === 'string') {
-			this._spells = Game.state.makeDataList(v);
-		} else this._spells=v;
+		if ( typeof v === 'string') this._spells = v.split(',');
+		else this._spells=v;
 	}
 
 	/**
@@ -206,6 +205,8 @@ export default class Char {
 			if ( !this.name ) this._name = it.name;
 		}
 
+		if ( this.spells ) this.spells = gs.makeDataList(this.spells );
+
 		this.reviveDots(gs);
 		this._states.refresh(this._dots);
 
@@ -294,7 +295,6 @@ export default class Char {
 		let cur = this.dots.find( d=>d.id===id);
 		if ( cur !== undefined ) {
 
-			//console.log('DUPE DOT: ' + cur.id );
 			cur.extend( duration );
 
 		} else {

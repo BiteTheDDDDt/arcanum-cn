@@ -81,13 +81,17 @@ export default {
 
 		pickTitle($evt){
 
-			this.emit( 'choice', this.player.titles, (p)=>{
+			this.emit( 'choice', this.player.titles, {
+				cb:(p)=>{
 
-				if ( p ) {
-					this.player.setTitle(p);
-				}
+					if ( p ) {
+						this.player.setTitle(p);
+					}
 
-			}, $evt.target, '', true );
+				},
+				elm:$evt.target,
+				strings:true
+			});
 
 		}
 

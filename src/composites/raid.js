@@ -87,7 +87,7 @@ export default class Raid {
 		this.player = gameState.player;
 
 		Events.add( ENEMY_SLAIN, this.enemyDied, this );
-		Events.add( ITEM_ACTION, this.spellAttack, this );
+		Events.add( ITEM_ACTION, this.spellAction, this );
 		Events.add( CHAR_DIED, this.charDied, this );
 
 		if ( typeof this.locale === 'string') this.locale = gameState.getData(this.locale);
@@ -144,8 +144,8 @@ export default class Raid {
 	 * Player-casted spell or attack action.
 	 * @param {Item} it
 	 */
-	spellAttack( it ) {
-		if ( this.running ) this._combat.spellAttack(it);
+	spellAction( it ) {
+		if ( this.running ) this._combat.spellAction(it);
 	}
 
 	/**

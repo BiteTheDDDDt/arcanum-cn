@@ -135,9 +135,10 @@ export default class Dot {
 			this.perm = true;
 			this.duration = 0;
 
-		} else if ( duration > this._duration ) {
-			this._duration = duration;
+		} else if ( duration > this.duration ) {
+			this.duration = duration;
 		}
+
 	}
 
 	/**

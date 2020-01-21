@@ -45,7 +45,7 @@ export default class Item {
 	 * @property {string} recipe - id of item template used to instance this item.
 	 */
 	get recipe() { return this.template?  this.template.id : this._id; }
-	set recipe(v) {}
+	set recipe(v) { if ( !this.template ) this.template = v}
 
 	/**
 	 * @property {boolean} consume - whether the item is consumed when used.
@@ -112,6 +112,8 @@ export default class Item {
 	 * does nothing.
 	 */
 	revive( state ){
+
+		console.log('item revive template: ' + this.template );
 
 		if ( typeof this.template ==='string' ) this.template = state.getData( this.template );
 		if ( this.template ) {

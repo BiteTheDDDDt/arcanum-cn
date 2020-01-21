@@ -6,6 +6,9 @@ import ItemsBase from '../itemsBase.js';
 import GData from '../../items/gdata';
 
 /**
+ * @note The Choice Mechanism is highly convoluted right now, due to Vue interactions
+ * and poor structure on my part. slotpick button emits an event to open the choice popup.
+ * It might be better to place choice as a component of slotpick?
  * @emits choice
  */
 export default {
@@ -17,6 +20,7 @@ export default {
 			elm:null,
 			item:null,
 			open:false,
+			mustPay:false,
 			strings:false
 		}
 	},
@@ -60,22 +64,10 @@ export default {
 			get(){ return this.list; },
 			set(v){
 
-				if ( !v ) this.list = null;
+				if ( typeof v === 'string') v = Game.state.getData( v );
 
-				if ( typeof v === 'string') {
-
-					let a = [];
-					let it = Game.state.getData( v );
-					if ( !it || !it.items ) this.list = a;
-					else {
-
-						for( let c of it.items ) a.push(c);
-						this.list = a;
-
-					}
-
-
-				} else if ( Array.isArray(v ) ) {
+				if ( v && v.items ) v = v.items;
+				if ( Array.isArray(v ) ) {
 
 					if ( this.strings ) this.list = v;
 					else {
@@ -99,47 +91,31 @@ export default {
 	methods:{
 
 		/**
-		 * @param {boolean}strings - data are raw strings.
+		 * @param {object} opts - dispaly options
+		 * @param {?HTMLElement} opts.elm - element to display relative to.
+		 * @param {?function} opts.cb - callback
+		 * @param {?string} opts.title - choice title.
+		 * @param {?boolean} opts.mustPay - must pay to select.
+		 * @param {?boolean} opts.strings - choices given as raw strings.
 		 */
-		show( choices, cb=null, elm=null, title=null, strings=false) {
+		show( choices, opts ) {
 
 			//console.log('showing choices');
-			this.title = title;
-			this.cb = cb;
-			this.elm = elm;
-			this.strings = strings;
+			this.title = opts.title;
+			this.cb = opts.cb;
+			this.elm = opts.elm;
+			this.strings = opts.strings;
+			this.mustPay = opts.mustPay;
 
 			this.choices = choices;
 			this.open=true;
 
 		},
 
-		/**
-		 * @method
-		 * @public
-		 * @property {Item|Array} it
-		 * @property {?Item[]|string[]|null} [choices] - choices. if not set,
-		 * either it.choices or it is used, whichever is defined.
-		 */
-		itemChoices( it, choices ){
-
-			if ( choices ) {
-
-				this.item = it;
-				this.choices = choices;
-
-			} else {
-
-				if ( it.choices ) {
-
-					this.item = it;
-					this.choices = it.choice;
-
-				} else this.choices = it;
-
-			}
-
+		cantPay(it) {
+			return it.cost&&!Game.canPay(it.cost);
 		},
+
 		choose( opt ){
 
 			this.open = false;
@@ -179,7 +155,7 @@ export default {
 		<span class="task-btn" v-for="it in choices" :key="strings?it:it.id"
 			@mouseenter.capture.stop="!strings ? emit( 'itemover', $event,it):''">
 
-		<button class="wrapped-btn" :disabled="!strings&&!slottable(it)"
+		<button class="wrapped-btn" :disabled="!strings&&!slottable(it)||(mustPay&&cantPay(it))"
 			@click="choose( it )">{{ strings ? it : it.name }}</button>
 		</span>
 		</div>

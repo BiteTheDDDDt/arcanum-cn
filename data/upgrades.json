@@ -1243,7 +1243,7 @@
 	{
 		"id":"dreamcatcher",
 		"name":"dream catcher",
-		"desc":"you might not like what you catch.",
+		"desc":"you may not like what you catch.",
 		"tags":"spiritsource",
 		"require":"g.crafting>=5",
 		"max":1,

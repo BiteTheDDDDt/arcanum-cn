@@ -1122,7 +1122,7 @@
 		},
 		"attack":{
 			"kind":"fire",
-			"bonus":10,
+			"bonus":7,
 			"dmg":"a.weapon.damage+a.getBonus( a.weapon.kind )"
 		}
 

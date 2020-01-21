@@ -180,6 +180,7 @@ export default class Wearable extends Item {
 
 		if ( this.attack ) {
 
+			console.log('APPLY MATERIAL: ' + mat );
 
 			if ( this.attack.damage !== null && this.attack.damage !== undefined ) {
 				this.applyBonus( this.attack, 'damage', mat.bonus );
@@ -205,7 +206,6 @@ export default class Wearable extends Item {
 
 		let cur = obj[prop];
 		if ( cur === null || cur === undefined ) {
-			console.log('no item tohit. make: ' + amt );
 			obj[prop] = amt;
 		}
 		else if ( typeof cur === 'number') {

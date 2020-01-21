@@ -64,7 +64,7 @@ export default class PerValue extends Mod {
 			this.value = Number(vars);
 		}
 
-		console.log( this.id + ' PERVAL: ' + this.toString() );
+		//console.log( this.id + ' PERVAL: ' + this.toString() );
 	}
 
 	/**

@@ -101,11 +101,12 @@ export default class DataList extends Inventory {
 	}
 
 	/**
-	 *
-	 * @param {Game} g
-	 * @returns {boolean} true if spell was successfully cast.
+	 * Get next usable item and return it.
+	 * Use index is advanced.
+	 * @param {*} g
+	 * @returns {?GData}
 	 */
-	onUse(g) {
+	nextUsable(g){
 
 		var len = this.items.length;
 
@@ -118,18 +119,31 @@ export default class DataList extends Inventory {
 
 			if ( it.canUse(g) ) {
 
-				if ( it.cost ) g.payCost( it.cost );
-				//console.log('USING: ' + this.items[i].name );
-				it.onUse(g);
+				if ( it.cost ) g.payCost(it.cost);
 				this.lastInd = i;
-				return true;
+				return it;
 
 			}
-
 			if ( ++i >= len ) i = 0;
 
 		} while ( i !== start );
 
+		return null;
+
+	}
+
+	/**
+	 *
+	 * @param {Game} g
+	 * @returns {boolean} true if spell was successfully cast.
+	 */
+	onUse(g) {
+
+		var it = this.nextUsable(g);
+		if ( it ) {
+			it.onUse(g);
+			return true;
+		}
 		return false;
 
 	}

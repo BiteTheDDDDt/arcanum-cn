@@ -155,6 +155,10 @@ export const ParseDmg = (v)=>{
 	else if ( typeof v === 'string' ) {
 
 		if ( RangeTest.test(v) ) return new Range(v);
+		if (!isNaN(v)){
+			console.warn('Damage is str: ' + v );
+			return Number(v);
+		}
 		return MakeDmgFunc(v);
 
 	} else if ( typeof v === 'object') return new Range(v);
@@ -186,7 +190,7 @@ export const ApplyAction = ( target, attack, attacker = null) => {
 		target.addDot( attack.state, attack );
 	}
 
-	if ( attack.dot ) { target.addDot( attack.dot, attacker ); }
+	if ( attack.dot ) { target.addDot( attack.dot, attack ); }
 
 	return true;
 
@@ -206,15 +210,15 @@ export const ApplyDamage = ( target, attack, attacker ) => {
 	if ( attacker ) dmg += attacker.getBonus( attack.kind );
 	if ( attack.bonus ) dmg += attack.bonus;
 
+
 	let resist = target.getResist(attack.kind);
 	if (resist !== 0) {
 		dmg *= (1 - resist);
 
-
 	}
 
 	let dmg_reduce = 0
-	if (resist === 0 || resist < 1) {
+	if ( (resist === 0 || resist < 1) && !attack.nodefense ) {
 
 		dmg_reduce = target.defense/(target.defense + (10/3)*dmg*( attack.duration || 1 ) );
 		dmg *= ( 1 - dmg_reduce );

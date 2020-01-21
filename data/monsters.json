@@ -581,8 +581,8 @@
 		"level":4,
 		"hp":5,
 		"tohit":5,
-		"defense":5,
 		"spells":"heal1",
+		"defense":5,
 		"attack": {
 			"name":"club",
             "dmg":"2~4",

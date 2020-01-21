@@ -5,7 +5,7 @@
     "dungeons":[
       {
         "id":"traininggrounds",
-        "name":"training Grounds",
+        "name":"training grounds",
         "title":"certified",
         "distance":1,
         "length":20,
@@ -16,7 +16,7 @@
           "3":"weapondummy",
           "4":"dodgydummy",
           "5":"armorydummy",
-          "20":"squire"
+          "20":"instructor"
         },
         "spawns":["dummy"]
       }
@@ -31,7 +31,7 @@
         "hp":10,
         "attack":{
           "log":{
-            "title":"hit me!",
+            "name":"hit me!",
             "desc":"harder, HARDER I said"
           }
         }
@@ -46,13 +46,13 @@
         "immune":"physical",
         "attack":{
           "log":{
-            "title":"Spells",
+            "name":"Spells",
             "desc":"use your magic missile, from spellpage bind as quickslot or add to memorized"
           }
         },
-        "loot":[{
+        "loot":{
                     "id":"trainingdagger",
-                    "name":"wood dagger",
+                    "name":"dagger",
                     "level":0,
                     "tohit":4,
                     "type":"weapon",
@@ -61,34 +61,34 @@
                       "kind":"slash",
                       "dmg":"1~2"
                     }
-                  }]
+                  }
       },
       {
         "id":"weapondummy",
         "name":"spellabsorber",
-        "desc":"use a weapon for this guy",
+        "desc":"Use a weapon for this guy",
         "level":0,
         "speed":-10,
         "hp":5,
         "immune":"force,blunt",
         "attack":{
           "log":{
-            "title":"Use your weapon",
+            "name":"Use your weapon",
             "desc":"Go to the tab Equip and find the wood dagger and equip it"
           }
         },
-        "loot":[{
+        "loot":{
                     "id":"trainingdart",
-                    "name":"wood dagger",
+                    "name":"homing dart",
                     "level":0,
-                    "tohit":100,
+                    "tohit":20,
                     "type":"weapon",
                     "material":"wood",
                     "attack":{
                       "kind":"piercing",
-                      "dmg":"1"
+                      "dmg":1
                     }
-                }]
+                }
       },
       {
         "id":"dodgydummy",
@@ -97,25 +97,25 @@
         "level":0,
         "hp":1,
         "speed":-10,
-        "dodge":100,
+        "dodge":30,
         "attack":{
           "log":{
-            "title":"Can't hit me",
+            "name":"Can't hit me",
             "desc":"Use the homing dart to hit this obnoxious dummy"
           }
         },
-        "loot":[{
+        "loot":{
                       "id":"traininghammer",
-                      "name":"wood hammer",
+                      "name":"hammer",
                       "level":0,
                       "tohit":-10,
                       "type":"weapon",
                       "material":"wood",
                       "attack":{
                         "kind":"blunt",
-                        "dmg":"10~15"
+                        "dmg":"2~3"
                       }
-                    }]
+                    }
       },
       {
         "id":"armorydummy",
@@ -124,21 +124,20 @@
         "dodge":-30,
         "hp":10,
         "speed":-10,
-        "defense":40,
+        "defense":20,
         "resist":{
           "blunt":-50
         },
         "attack":{
           "log":{
-            "title":"Use your hammer",
+            "name":"Use your hammer",
             "desc":"only the hammer could leave a dent at this iron chunk"
           }
         }
       },
       {
-        "id":"squire",
-        "name":"instructur",
-        "desc":"is he playing with you?",
+        "id":"instructor",
+        "desc":"Is he toying with you?",
         "dodge":4,
         "hp":50,
         "speed":3,
@@ -152,11 +151,11 @@
       		},
       		{
       			"%":"10%",
-      			"desc":"casting spells manually makes for a one sided combat"
+      			"desc":"casting spells manually makes for an easy combat"
       		},
       		{
       			"%":"10%",
-      			"desc":"having a good combination of buffs and attack spells memorized increases survivability"
+      			"desc":"memorizing a good combination of buffs and attack spells increases survivability"
       		}]
         }
       },

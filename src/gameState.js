@@ -261,6 +261,7 @@ export default class GameState {
 	homeTest( g, i, gs ) {
 
 		var cur = gs.slots.home;
+
 		return g.space.valueOf()<=
 			g.space.max.delValue( i.mod.space.max.bonus - ( cur ? cur.mod.space.max.bonus : 0) );
 

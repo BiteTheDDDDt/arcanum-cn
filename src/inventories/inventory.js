@@ -55,6 +55,9 @@ export default class Inventory {
 	get removeDupes(){ return this._removeDupes; }
 	set removeDupes(v){this._removeDupes = v;}
 
+	/**
+	 * @property {Object[]}
+	 */
 	get items(){ return this._items; }
 	set items(v){
 

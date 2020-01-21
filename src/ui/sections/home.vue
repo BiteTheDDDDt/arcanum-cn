@@ -1,17 +1,16 @@
 <script>
-import Game from '../game';
-import Settings from '../modules/settings';
-import { alphasort } from '../util/util';
+import Game from 'game';
+import Settings from 'modules/settings';
+import { alphasort } from 'util/util';
 
-import Profile from '../modules/profile';
+import Profile from 'modules/profile';
 
-import ItemsBase from './itemsBase';
+import ItemsBase from '../itemsBase';
 
 //import Choice from './components/choice.vue';
-import SlotPick from './components/slotpick.vue';
-import FilterBox from './components/filterbox.vue';
-import { SET_SLOT } from '../events';
-import { HOME } from '../values/consts';
+import SlotPick from '../components/slotpick.vue';
+import FilterBox from '../components/filterbox.vue';
+import { HOME } from 'values/consts';
 
 /**
  * @emits sell
@@ -23,7 +22,7 @@ export default {
 	components:{
 		slotpick:SlotPick,
 		filterbox:FilterBox,
-		hall:()=>import( /* webpackChunkName: "hall-ui" */ './hall/hall.vue')
+		hall:()=>import( /* webpackChunkName: "hall-ui" */ '../hall/hall.vue')
 	},
 	data(){
 
@@ -48,9 +47,6 @@ export default {
 
 		}
 
-	},
-	created() {
-		this.SET_SLOT = SET_SLOT;
 	},
 	methods:{
 
@@ -164,8 +160,8 @@ export default {
 
 			<div class="task-btn" v-if="hallUnlocked"><button class="btnHall" @click="openHall">{{ hallName }}</button></div>
 
-			<slotpick title="home" pick="home" />
-			<slotpick title="werry" hide-empty="true" pick="werry" />
+			<slotpick title="home" pick="home" must-pay=true />
+			<slotpick title="werry" hide-empty=true pick="werry" />
 
 		</div>
 

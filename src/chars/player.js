@@ -298,8 +298,19 @@ export default class Player extends Char {
 
 		if ( this.weapon && (typeof this.weapon === 'string') ) this.weapon = state.equip.find( this.weapon );
 
+		// @compat
+		// @todo at least link these to template defaults?
 		this.spells = state.getData('spelllist');
-		if ( this.spells.max.value === 0 ) this.spells.max.value = this.level.valueOf();
+		this.spells.max.value = 0;
+		this.stamina.max.base = 10;
+		this.tohit.base = 1;
+		state.getData('allies').max = 0;
+
+		// @todo can't set base directly because of stat type,
+		// base assignment will break things. bad.
+		this.speed.value.base = 1;
+
+		this.hp.max.base = 5;
 
 		// copy in stressors to test player defeats.
 		this.stressors = state.stressors;
@@ -360,9 +371,8 @@ export default class Player extends Char {
 			if ( a ) return a;
 
 			// attempt to use spell first.
-			if ( this.spells.count === 0 || !this.tryCast() ) {
-				return this.weapon.attack;
-			}
+			if ( this.spells.count !== 0 ) this.tryCast();
+			return this.weapon.attack;
 
 		}
 

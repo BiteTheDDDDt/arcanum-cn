@@ -52,7 +52,7 @@ export default {
 		equip:()=>import( /* webpackChunkName: "equip-ui" */ './sections/equip.vue'),
 		inventory:()=> import( /* webpackChunkName: "inv-ui" */ './sections/inventory.vue' ),
 		potions:()=> import( /* webpackChunkName: "potions-ui" */ './sections/potions.vue'),
-		homes:()=>import( /* webpackChunkName: "homes-ui" */ './homes.vue'),
+		home:()=>import( /* webpackChunkName: "home-ui" */ './sections/home.vue'),
 		player:()=>import( /* webpackChunkName: "player-ui" */'./player.vue'),
 		bestiary:()=>import(/* webpackChunkName: "bestiary-ui" */ './sections/bestiary.vue' ),
 		spells:()=>import( /* webpackChunkName: "spells-ui" */ './sections/spells.vue'),
@@ -327,7 +327,7 @@ export default {
 			set(v){
 
 				this.psection=v;
-				Settings.set('curview', v.id );
+				if ( v ) Settings.set('curview', v.id );
 			}
 		},
 		menuItems(){ return this.state.sections.filter( it=>!this.locked(it) ); }
@@ -371,7 +371,7 @@ export default {
 
 		<template slot="sect_player"><player /></template>
 
-		<template slot="sect_house"><homes :state="state" /></template>
+		<template slot="sect_home"><home :state="state" /></template>
 
 		<template slot="sect_raid"><adventure :state="state" /></template>
 

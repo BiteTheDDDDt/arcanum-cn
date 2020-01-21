@@ -167,7 +167,7 @@ export default class Combat {
 	 * Player-casted spell or action attack.
 	 * @param {Item} it
 	 */
-	spellAttack( it ) {
+	spellAction( it ) {
 
 		if ( this._enemies.length===0 ) {
 
@@ -195,7 +195,7 @@ export default class Combat {
 	attack( attacker, atk ) {
 
 		if ( atk.log ) {
-			Events.emit( EVT_EVENT, atk.log );
+			Events.emit( EVT_COMBAT, null, atk.log );
 		}
 
 		if ( atk.hits ) {

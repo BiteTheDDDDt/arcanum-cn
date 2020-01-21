@@ -311,7 +311,25 @@ export default {
 	},
 
 	onCombat( title, msg) {
-		this.log.log( title, msg, LOG_COMBAT );
+
+		if ( Array.isArray(msg)) {
+
+			for( let i = 0; i < msg.length; i++ ) {
+
+				var sub = msg[i];
+				if ( sub[TYP_PCT] && sub[TYP_PCT].roll() ) {
+					this.onCombat( title, sub );
+					return;
+				} else this.onCombat( title, sub );
+			}
+
+
+		} else if ( typeof msg === 'object' ) {
+
+			this.log.log( msg.name||title, msg.desc, LOG_COMBAT );
+
+		} else this.log.log( title, msg, LOG_COMBAT );
+
 	},
 
 	/**

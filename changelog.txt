@@ -1,5 +1,7 @@
 DOTS:
 
+New Combat Tutorial Dungeon by Mathias.
+
 Dots and spells can now apply statuses which can prevent player/monsters from attacking, blocking, casting spells,
 etc.
 

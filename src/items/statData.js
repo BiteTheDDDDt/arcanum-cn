@@ -26,7 +26,8 @@ export default class StatData extends GData {
 	}
 
 	/**
-	 * Set the StatData base value and apply all change mods.
+	 * Set the StatData base value and apply all change mods
+	 * @note This does trigger all game events, etc.
 	 * @param {Game} g - game instance, for mods stuff. ( @todo use event instead?)
 	 * @param {number} amt
 	 */
@@ -45,7 +46,7 @@ export default class StatData extends GData {
 
 		super(vars);
 
-		if ( this.value === undefined ) this.value = 0;
+		if ( this.value === undefined || this.value === null ) this.value = 0;
 		this.repeat = true;
 
 		/**
