@@ -166,8 +166,6 @@ export default class EnchantSlots extends Inventory {
 
 		}
 
-		if ( e.target ) e.target.busy = false;
-
 		super.remove( e );
 
 	}

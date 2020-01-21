@@ -45,17 +45,11 @@ export default class Wearable extends Item {
 
 	}
 
-	/**
-	 * @property {number}
-	 */
-	get busy(){return this._busy;}
-	set busy(v){ this._busy=v;}
-
-	get equippable() { return !this.busy; }
-
 	get damage() {
 		return this._attack ? this._attack.damage : undefined;
 	}
+
+	get equippable() { return true; }
 
 	/**
 	 * @property {number} enchants - total level of all enchantments applied.
@@ -116,7 +110,6 @@ export default class Wearable extends Item {
 
 		this.stack = false;
 		this.consume = false;
-		this.busy = this.busy || false;
 
 		if ( vars ) assignNoFunc(this,vars );// Object.assign(this,vars);
 

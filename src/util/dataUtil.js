@@ -121,13 +121,12 @@ export const addValues = (dest, vals) => {
 
 	if ( typeof vals === 'string') {
 
+		// value is one unit of id'd item.
 		let cur = dest[vals];
-		if ( !cur) dest[vals] = 1;
-		else if ( !isNaN(cur)) dest[vals] = cur + 1;
-		else if ( typeof cur === 'object') {
+		if ( typeof cur === 'object') {
 			// NOTE: if cur.value is NaN there is no consistent merge strategy.
 			cur.value = (cur.value || 0) + 1;
-		}
+		} else dest[vals] = (cur || 0 ) + 1;
 
 	} else if ( typeof vals === 'object') {
 

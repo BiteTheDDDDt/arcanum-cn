@@ -2,6 +2,7 @@ import Base, {mergeClass} from './base';
 import {assign, cloneClass } from 'objecty';
 import { ParseMods } from 'modules/parsing';
 import Instance from './instance';
+import { assignNoFunc } from '../util/util';
 
 const ItemDefaults = {
 	stack:true,
@@ -64,7 +65,7 @@ export default class Item {
 
 	constructor( vars=null ) {
 
-		if ( vars ) assign( this, vars );
+		if ( vars ) assignNoFunc(this,vars);
 
 		this.value = this._value || 1;
 
@@ -89,7 +90,7 @@ export default class Item {
 		if ( this.use ) {
 
 			if (this.use.dot ) {
-				g.state.player.addDot( this.use.dot, this.id );
+				g.state.player.addDot( this.use.dot, this );
 			}
 			g.applyVars( this.use );
 
