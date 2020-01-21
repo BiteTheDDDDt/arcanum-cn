@@ -239,8 +239,10 @@ export default class Wearable extends Item {
 		if ( p.weapon === this ) p.weapon = null;
 
 		if ( this.mod ) {
+
 			setModCounts( this.mod, 0);
 			g.applyMods( this.mod );
+
 		}
 
 	}

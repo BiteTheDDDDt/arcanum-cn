@@ -8,6 +8,7 @@ import RValue, { SubPath } from '../values/rvalue';
 export const setModCounts = ( m, v)=>{
 
 	if ( m instanceof Mod ) {
+		//console.log('setting mod count: ' + m.id + ' val: ' + v );
 		m.count = v;
 	}
 	else if ( typeof m ==='object') {

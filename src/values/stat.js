@@ -81,11 +81,13 @@ export default class Stat extends RValue {
 
 	/**
 	 * @property {number} bonus - total bonus to base, computed from mods.
+	 * @protected
 	 */
 	get mBase(){return this._mBase; }
 
 	/**
 	 * @property {number} pct - mod pct bonuses, as decimal.
+	 * @protected
 	 */
 	get mPct() { return this._mPct };
 
