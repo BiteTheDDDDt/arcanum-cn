@@ -190,7 +190,7 @@ export const ApplyAction = ( target, attack, attacker = null) => {
 		target.addDot( attack.state, attack );
 	}
 
-	if ( attack.dot ) { target.addDot( attack.dot, attacker ); }
+	if ( attack.dot ) { target.addDot( attack.dot, attack ); }
 
 	return true;
 
