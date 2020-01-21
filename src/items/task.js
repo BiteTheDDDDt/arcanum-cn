@@ -38,6 +38,8 @@ export default class Task extends GData {
 
 		if ( this.locked || this.disabled ) return;
 
+		if (!this._exp ) this.ex = v;
+
 		if ( v < 0 ) {
 			console.warn( this.id + ' exp neg: ' + v );
 			return;
