@@ -642,6 +642,7 @@ export default {
 		if ( typeof sellObj === 'object' ) {
 			sellObj = sellObj.gold || it.level || 1;
 		}
+
 		return Math.ceil( sellObj*this.state.sellRate );
 
 
