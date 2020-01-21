@@ -299,7 +299,11 @@ export default class Player extends Char {
 		this.stamina.max.base = 10;
 		this.tohit.base = 1;
 		state.getData('allies').max = 0;
-		this.speed.base = 1;
+
+		// @todo can't set base directly because of stat type,
+		// base assignment will break things. bad.
+		this.speed.value.base = 1;
+
 		this.hp.max.base = 5;
 
 		// copy in stressors to test player defeats.
