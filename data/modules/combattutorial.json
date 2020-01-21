@@ -81,7 +81,7 @@
                     "id":"trainingdart",
                     "name":"homing dart",
                     "level":0,
-                    "tohit":100,
+                    "tohit":20,
                     "type":"weapon",
                     "material":"wood",
                     "attack":{
@@ -113,7 +113,7 @@
                       "material":"wood",
                       "attack":{
                         "kind":"blunt",
-                        "dmg":"10~15"
+                        "dmg":"2~3"
                       }
                     }
       },
@@ -124,7 +124,7 @@
         "dodge":-30,
         "hp":10,
         "speed":-10,
-        "defense":40,
+        "defense":20,
         "resist":{
           "blunt":-50
         },

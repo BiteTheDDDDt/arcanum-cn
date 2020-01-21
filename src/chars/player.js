@@ -292,6 +292,8 @@ export default class Player extends Char {
 
 		if ( this.weapon && (typeof this.weapon === 'string') ) this.weapon = state.equip.find( this.weapon );
 
+		// @compat
+		// @todo at least link these to template defaults?
 		this.spells = state.getData('spelllist');
 		this.spells.max.value = 0;
 		this.stamina.max.base = 10;
