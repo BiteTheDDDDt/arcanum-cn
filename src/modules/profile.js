@@ -128,7 +128,7 @@ export default {
 		this.hall.updateChar( p );
 
 		this.saveHall();
-		this.hall.calcPoints( game );
+		//this.hall.calcPoints( game );
 
 		Events.add( LEVEL_UP, this.onCharLevel, this );
 		Events.add( CHAR_NAME, this.updateChar, this );

@@ -105,11 +105,15 @@ export default {
 			this.cb = opts.cb;
 			this.elm = opts.elm;
 			this.strings = opts.strings;
-			this.mustPay = opts.pay;
+			this.mustPay = opts.mustPay;
 
 			this.choices = choices;
 			this.open=true;
 
+		},
+
+		cantPay(it) {
+			return it.cost&&!Game.canPay(it.cost);
 		},
 
 		choose( opt ){
@@ -151,7 +155,7 @@ export default {
 		<span class="task-btn" v-for="it in choices" :key="strings?it:it.id"
 			@mouseenter.capture.stop="!strings ? emit( 'itemover', $event,it):''">
 
-		<button class="wrapped-btn" :disabled="!strings&&!slottable(it)||(mustPay&&it.cost&&!Game.canPay(it.cost))"
+		<button class="wrapped-btn" :disabled="!strings&&!slottable(it)||(mustPay&&cantPay(it))"
 			@click="choose( it )">{{ strings ? it : it.name }}</button>
 		</span>
 		</div>
