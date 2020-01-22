@@ -3,7 +3,7 @@ import Settings from './settings';
 import Events, { LEVEL_UP, CHAR_NAME, CHAR_TITLE, CHAR_CLASS } from "../events";
 
 import Module from "./module";
-import { Local } from "./persist/persistLocal";
+import { Persist } from "./persist/persist";
 
 const CHARS_DIR = 'chars/';
 const HALL_FILE = 'hall';
@@ -13,8 +13,6 @@ const SETTINGS_DIR = 'settings/';
 * @const {string} SAVE_DIR - global save directory.
 */
 const SAVE_DIR = __SAVE ? __SAVE + '/' : '';
-
-const local = new Local();
 
 /**
  * Control access to all local storage and profile information.
@@ -56,7 +54,7 @@ export default {
 
 		if ( !data ) {
 
-			data = local.loadHall();
+			data = Persist.loadHall();
 
 			if ( data ) {
 
@@ -159,7 +157,7 @@ export default {
 
 		if ( this.hall.dismiss(slot) ) {
 
-			local.deleteChar( slot );
+			Persist.deleteChar( slot );
 			this.saveHall();
 
 		}
@@ -205,7 +203,7 @@ export default {
 		let chars = data.chars;
 		for( let i = 0; i < max; i++ ) {
 
-			let char = local.loadChar( this.charLoc(i) );
+			let char = Persist.loadChar( this.charLoc(i) );
 
 			// parse to avoid double string encoding.
 			if ( char ) char = JSON.parse(char);
@@ -227,7 +225,7 @@ export default {
 		this.setCharDatas( data.chars );
 		console.dir( data.hall );
 
-		local.saveHall( JSON.stringify(data.hall) );
+		Persist.saveHall( JSON.stringify(data.hall) );
 
 	},
 
@@ -241,7 +239,7 @@ export default {
 			else console.log('HALL SAVE EMPTY: ' + i );
 
 			var json = JSON.stringify(chars[i]);
-			local.saveChar( this.charLoc(i), json);
+			Persist.saveChar( this.charLoc(i), json);
 
 		}
 
@@ -258,7 +256,7 @@ export default {
 
 			let json = JSON.stringify( state );
 			if ( json ) {
-				local.saveChar( json );
+				Persist.saveChar( json );
 
 			}
 
@@ -280,7 +278,7 @@ export default {
 	clearActive(){
 
 		// clear hall char.
-		local.deleteChar( this.activeLoc() );
+		Persist.deleteChar( this.activeLoc() );
 
 
 
@@ -294,7 +292,7 @@ export default {
 
 		try {
 
-			let str = local.loadSettings();
+			let str = Persist.loadSettings();
 			let data = JSON.parse( str );
 
 			Settings.setSettings( data );
@@ -316,7 +314,7 @@ export default {
 
 			let data = JSON.stringify( Settings );
 			if ( data ) {
-				local.saveSettings();
+				Persist.saveSettings();
 			}
 
 		} catch (e){
@@ -341,7 +339,7 @@ export default {
 	 * Clear all stored data.
 	 */
 	clearAll(){
-		local.clearAll();
+		Persist.clearAll();
 	},
 
 	charLoc:( ind ) =>(SAVE_DIR + CHARS_DIR + ind),
@@ -354,7 +352,7 @@ export default {
 
 			let json = JSON.stringify( this.hall );
 			if ( json ) {
-				local.saveHall(json);
+				Persist.saveHall(json);
 			}
 
 		} catch(e){

@@ -398,19 +398,24 @@ const vm = new Vue({
 
 			if (!this.game.loaded ) return;
 			let charsave = Profile.saveActive( this.game.state );
-			Profile.saveHall();
 
-			var t = Date.now();
-			if ( this.remote.loggedIn && (t-this.lastUpload) > minWait ) {
+			if ( charsave ) {
 
-				this.lastUpload = t;
-				this.remote.saveChar( charsave ).then( res=>{
-					console.log(res)
-				}, err=>{
-					console.warn(err);
-				});
+				Profile.saveHall();
 
-			}
+				var t = Date.now();
+				if ( this.remote.loggedIn && (t-this.lastUpload) > minWait ) {
+
+					this.lastUpload = t;
+					this.remote.saveChar( charsave ).then( res=>{
+						console.log(res)
+					}, err=>{
+						console.warn(err);
+					});
+
+				}
+
+			} else console.warn('ERR ON CHAR SAVE. NO SAVE.');
 
 		},
 

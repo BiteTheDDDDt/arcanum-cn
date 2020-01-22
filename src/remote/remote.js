@@ -56,6 +56,7 @@ export const FBRemote = {
 
 	/**
 	 * load player hall file, if any.
+	 * @returns {Promise.<object>}
 	 */
 	loadHall(){
 
@@ -68,12 +69,12 @@ export const FBRemote = {
 
 	/**
 	 *
-	 * @param {} pid
+	 * @param {} charid
 	 * @returns {Promise<object>} json save object, or null.
 	 */
-	loadChar( pid='default'){
+	loadChar( charid='default'){
 
-		var store = firebase.storage().ref( this.saveDir( this.userid, pid ) );
+		var store = firebase.storage().ref( this.saveDir( this.userid, charid ) );
 		return store.getDownloadURL().then( url=>JSONLoad(url, false), err=>{
 			console.warn(err);
 			return null;
@@ -81,18 +82,24 @@ export const FBRemote = {
 
 	},
 
-	deleteChar( pid ) {
-		return firebase.storage().ref( this.saveDir(this.userid, pid ) ).delete();
+	/**
+	 *
+	 * @param {string} charid
+	 * @returns {Promise.<object>}
+	 */
+	deleteChar( charid ) {
+		return firebase.storage().ref( this.saveDir(this.userid, charid ) ).delete();
 	},
 
 	/**
 	 *
 	 * @param {string} save
-	 * @param {string} [pid='default']
+	 * @param {string} [charid='default']
+	 * @returns {Promise.<object>}
 	 */
-	saveChar( save, pid='default' ){
+	saveChar( save, charid='default' ){
 
-		var store = firebase.storage().ref( this.saveDir( this.userid, pid ) );
+		var store = firebase.storage().ref( this.saveDir( this.userid, charid ) );
 		return store.putString( save, StringFormat.RAW );
 
 	},

@@ -11,32 +11,27 @@ export class Remote {
 
 	}
 
-	manualSave(){
-
-
-
-
+	manualSave( charid ){
+		return this.saveChar( charid, MANUAL_SAVE_WAIT );
 	}
 
-	save( minWait=MIN_SAVE_WAIT ) {
+	saveChar( charid, minWait=MIN_SAVE_WAIT ) {
 
 		var t = Date.now();
 		if ( t - this.lastSave < minWait ) return null;
 		this.lastSave = t;
 
+		return FBRemote.saveChar(charid );
 	}
 
-	saveChar(){
-
-		FBRemote.saveChar();
-
+	saveHall( charid ){
 	}
 
-	saveHall(){
-	}
-
-	loadChar(){
+	loadChar( charid ){
 		return FBRemote.loadChar();
+	}
+
+	loadHall( charid ){
 	}
 
 }
