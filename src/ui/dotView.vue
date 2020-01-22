@@ -23,7 +23,7 @@ export default {
 		<div :class="['dot',d.kind, d.school, mini ? 'mini':'']" v-for="d in dots" :key="d.id"
 		@mouseenter.capture.stop="emit( 'itemover', $event,d)">
 
-			<span>{{ Math.ceil( d.duration ) }}</span>
+			<span v-if="!d.perm">{{ Math.ceil( d.duration ) }}</span>
 			<span v-if="!mini"><br>{{ mini ? abbr( d ) : d.name }}</span>
 
 			<div v-if="d.kind||d.school" class="bgfill" >&nbsp;</div>
