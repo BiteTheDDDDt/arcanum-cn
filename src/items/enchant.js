@@ -64,8 +64,6 @@ export default class Enchant extends Task {
 
 		} else if ( !targ.name.includes('Enchanted') ) targ.name = 'Enchanted ' + targ.name;
 
-		targ.busy = false;
-
 	}
 
 	/**
@@ -73,10 +71,6 @@ export default class Enchant extends Task {
 	 * @param {*} targ
 	 */
 	onStop(targ){
-
-		if ( targ) {
-			targ.busy = false;
-		}
 	}
 
 	/**
@@ -86,7 +80,11 @@ export default class Enchant extends Task {
 	canUseOn( targ ) {
 
 		let itLevel = targ.level || 1;
-		if ( (targ.enchants + this.level > itLevel) || targ.busy ) return false;
+		if ( (targ.enchants + this.level > itLevel) ) {
+			return false;
+		}
+
+		//console.log('can target: ' + canTarget(this.only, targ));
 
 		return !this.only || canTarget( this.only, targ );
 

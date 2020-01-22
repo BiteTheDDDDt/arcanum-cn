@@ -266,7 +266,7 @@ export default class Char {
 	/**
 	 * Base item of dot.
 	 * @param {Dot|object|Array} dot
-	 * @param {object} source
+	 * @param {?object} source
 	 * @param {number} duration - duration override
 	 */
 	addDot( dot, source, duration=0 ) {
@@ -286,7 +286,7 @@ export default class Char {
 
 		let id = dot.id;
 		if ( !id ) {
-			id = dot.id = (source ? source.id || source.name : null );
+			id = dot.id = (source ? source.name || source.id : null );
 			if ( !id) return;
 		}
 

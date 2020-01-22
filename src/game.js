@@ -808,7 +808,7 @@ export default {
 
 					if ( p === P_TITLE ) this.state.player.addTitle( e );
 					else if ( p === P_LOG ) Events.emit( EVT_EVENT, e );
-					else console.warn('missing effect target: ' + e );
+					else console.warn( p + ' missing effect target: ' + e );
 
 				} else {
 
@@ -1086,7 +1086,7 @@ export default {
 
 		if ( !this.canEquip(it) ) return false;
 
-		console.log('equip:' + it.id  + ' it.type: ' + it.type + ' it.kind: ' + it.kind );
+		console.log('equip:' + it.id  + ' type: ' + it.type + ' kind: ' + it.kind );
 		let res = this.state.equip.equip( it );
 		if ( !res) return;
 

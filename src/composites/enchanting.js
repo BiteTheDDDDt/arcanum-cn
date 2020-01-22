@@ -31,11 +31,7 @@ export default class Enchanting extends Proxy {
 	 */
 	get target() { return this._target;}
 	set target(v) {
-
 		this._target = v;
-		if ( this._target ) {
-			this._target.busy =  true;
-		}
 
 	}
 
@@ -87,7 +83,6 @@ export default class Enchanting extends Proxy {
 	onStop(){
 
 		if ( !this.done && this.target ) {
-			this.target.busy = false;
 			this.target.enchants -= this.level;
 		}
 

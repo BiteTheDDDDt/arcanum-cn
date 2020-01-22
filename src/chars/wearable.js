@@ -45,17 +45,11 @@ export default class Wearable extends Item {
 
 	}
 
-	/**
-	 * @property {number}
-	 */
-	get busy(){return this._busy;}
-	set busy(v){ this._busy=v;}
-
-	get equippable() { return !this.busy; }
-
 	get damage() {
 		return this._attack ? this._attack.damage : undefined;
 	}
+
+	get equippable() { return true; }
 
 	/**
 	 * @property {number} enchants - total level of all enchantments applied.
@@ -116,7 +110,6 @@ export default class Wearable extends Item {
 
 		this.stack = false;
 		this.consume = false;
-		this.busy = this.busy || false;
 
 		if ( vars ) assignNoFunc(this,vars );// Object.assign(this,vars);
 
@@ -246,8 +239,10 @@ export default class Wearable extends Item {
 		if ( p.weapon === this ) p.weapon = null;
 
 		if ( this.mod ) {
+
 			setModCounts( this.mod, 0);
 			g.applyMods( this.mod );
+
 		}
 
 	}
@@ -257,11 +252,10 @@ export default class Wearable extends Item {
 		let t = typeof v;
 		if ( v instanceof Mod ) return v;
 
-		console.log('WORN MOD: ' + this.id );
 		if ( t === 'object') {
 
 			if ( v.id ) {
-				console.log('new mod: ' +this.id);
+				//console.log('new mod: ' +this.id);
 				//for( let p in v ) console.log( p + ' -> ' + v[p]);
 				return new Mod( v, v.id, this );
 			} else {

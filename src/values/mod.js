@@ -53,7 +53,7 @@ export default class Mod extends Stat {
 	 * @property {number} [count=0] - number of times mod is applied.
 	 */
 	get count() {
-		if ( this._count ) {
+		if ( this._count !== null && this._count !== undefined ) {
 			return this._count;
 		}
 
@@ -74,7 +74,7 @@ export default class Mod extends Stat {
 			//else if ( v.value ) this.count = v.value;
 
 		} else this._count = v;
-	//	console.log(this.id + ' Setting Count: ' + v );
+		//console.log(this.id + ' Setting Count: ' + v );
 
 	}
 
