@@ -1014,9 +1014,9 @@
 				"level": 10,
 				"kind": "puppet",
 				"noproc": true,
-				"hp": 200,
+				"hp": 75,
 				"tohit": 10,
-				"defense": 15,
+				"defense": 7,
 				"attack": [
 					{
 						"name": "stab",
