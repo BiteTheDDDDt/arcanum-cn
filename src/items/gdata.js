@@ -353,7 +353,10 @@ export default class GData {
 
 		if ( this.once && this.valueOf() === 1 ) g.applyVars( this.once );
 
-		if ( this.cd ) g.addTimer( this );
+		if ( this.cd ) {
+			this.timer = Number(this.cd );
+			g.addTimer( this );
+		}
 		if ( this.loot ) g.getLoot( this.loot );
 
 		if ( this.title ) g.state.player.setTitle( this.title );

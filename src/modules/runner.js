@@ -74,7 +74,9 @@ export default class Runner {
 	 * @param {(number)=>boolean} obj.tick -tick function.
 	 */
 	addTimer(obj){
+
 		this.timers.add(obj);
+
 	}
 
 	/**
