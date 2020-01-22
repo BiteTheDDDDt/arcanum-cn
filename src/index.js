@@ -311,8 +311,11 @@ const vm = new Vue({
 		save() {
 
 			if (!this.game.loaded ) return;
-			Profile.saveActive( this.game.state );
-			Profile.saveHall();
+			if ( Profile.saveActive( this.game.state ) ) {
+
+				Profile.saveHall();
+
+			} else console.warn('HALL NOT SAVED: COULD NOT SAVE CUR CHAR');
 
 		},
 

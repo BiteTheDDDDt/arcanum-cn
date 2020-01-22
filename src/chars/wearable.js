@@ -252,11 +252,10 @@ export default class Wearable extends Item {
 		let t = typeof v;
 		if ( v instanceof Mod ) return v;
 
-		console.log('WORN MOD: ' + this.id );
 		if ( t === 'object') {
 
 			if ( v.id ) {
-				console.log('new mod: ' +this.id);
+				//console.log('new mod: ' +this.id);
 				//for( let p in v ) console.log( p + ' -> ' + v[p]);
 				return new Mod( v, v.id, this );
 			} else {

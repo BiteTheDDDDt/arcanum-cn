@@ -102,10 +102,14 @@ export default {
 	setActive( slot, state ) {
 
 		this.hall.updateChar( state.player );
-		this.saveActive( state );
-		this.hall.setActive( slot );
 
-		this.saveHall();
+		if ( this.saveActive( state ) ) {
+
+			this.hall.setActive( slot );
+			this.saveHall();
+
+		} else console.error( 'CUR CHAR NOT SAVED');
+
 	},
 
 	/**
