@@ -416,6 +416,7 @@ const prepData = ( sub, id='' ) => {
 				else if ( IsPerValue(obj) ) sub[p] = new PerValue( obj, SubPath(id,p) );
 				else if ( !isNaN(obj) ) {
 					if ( obj !== '') console.warn('string used as Number: ' + p + ' -> ' + obj );
+					sub[p] = Number(obj);
 				}
 				else if ( p === 'damage' || p === 'dmg') sub[p] = MakeDmgFunc(obj);
 
