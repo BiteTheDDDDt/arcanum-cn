@@ -23,16 +23,9 @@ export default {
 	},
 	methods:{
 
-		/**
-		 * display activities manager.
-		 */
-		showManager(){
-		},
-
 		taskStr( a ){
 
-			return (a.verb || a.name) + (a.length ?
-				( ' ' + Math.floor(a.percent()) + '%' ) : '');
+			return (a.verb || a.name) + (a.length ? ( ' ' + Math.floor(a.percent()) + '%' ) : '');
 
 		},
 		levelStr(a){
@@ -66,7 +59,7 @@ export default {
 
 		<div class="relative" v-for="v of runner.actives" :key="v.id">
 			<button class="stop" @click="halt(v)">&nbsp;X&nbsp;</button><span>{{ taskStr(v) }}</span><span v-if="v.type==='skill'">{{levelStr(v)}}</span>
-			<button v-if="runner.canPursuit(v)" :class="['pursuit', pursuits.includes( baseTask(v) ) ? 'current' : '']"
+			<button v-if="runner.canPursuit(v)" :class="['pursuit', pursuits.includes( runner.baseTask(v) ) ? 'current' : '']"
 				@click="runner.togglePursuit(v)"> F </button>
 		</div>
 

@@ -4,7 +4,7 @@ import Events, {TASK_DONE, TASK_CHANGED, HALT_TASK, TASK_BLOCKED, STOP_ALL } fro
 import Stat from '../values/stat';
 import Base, {mergeClass} from '../items/base';
 import Runnable from '../composites/runnable';
-import { SKILL, REST_TAG, TYP_RUN, PURSUITS } from '../values/consts';
+import { SKILL, REST_TAG, TYP_RUN, PURSUITS, RAID, EXPLORE } from '../values/consts';
 import { assign } from 'objecty';
 import { iterableMap, iterableFind, setReplace, mapSet } from '../util/dataUtil';
 import ArraySet from '../values/arrayset';
@@ -318,6 +318,10 @@ export default class Runner {
 		return this.pursuits.max>0 && a.type !== TYP_RUN;
 	}
 
+	/**
+	 * Controller -> base task.
+	 * @param {*}
+	 */
 	baseTask(a) {
 		return ( a.type === RAID || a.type === EXPLORE ) ? a.locale : a;
 	}
@@ -368,7 +372,7 @@ export default class Runner {
 		if ( a.fill && Game.filled(a.fill,a) ) return false;
 		if ( !a.canRun(Game) ) return false;
 
-		console.log('STARTING: ' + a.id );
+		console.log('START: ' + a.id );
 		return this.setTask(a);
 
 	}

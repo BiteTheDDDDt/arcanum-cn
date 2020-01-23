@@ -26,13 +26,14 @@ export default {
 		 * reversed clone of pursuit items.
 		 */
 		pursuits(){
-			return this.runner.pursuits.reverse();
+			return this.runner.pursuits.items;
 		}
 
 	},
 	methods:{
 
-		removeWaiting(t){
+		removeWait(t){
+			this.runner.removeWait(t);
 		},
 
 		/**
@@ -56,14 +57,14 @@ export default {
 		 * Increase priority.
 		 */
 		incPursuits(t){
-			this.runner.waitingUp(t);
+			this.runner.pursuitUp(t);
 		},
 
 		/**
 		 * Decrease priority.
 		 */
 		decPursuits(t){
-			this.runner.waitingDown(t);
+			this.runner.pursuitDown(t);
 		}
 
 	}
@@ -77,7 +78,7 @@ export default {
 	<div>Waiting</div>
 	<div v-for="(t,ind) in waiting" :key="ind">
 
-		<button @click="removeWaiting(t)">X</button><span>{{ t.name }}</span>
+		<button @click="removeWait(t)">X</button><span>{{ t.name }}</span>
 		<button @click="inc(t)" :disabled="(ind+1)===waiting.length">+</button>
 		<button @click="dec(t)" :disabled="ind===0">-</button>
 	</div>
@@ -85,9 +86,9 @@ export default {
 	<div>Pursuits</div>
 	<div v-for="(t,ind) in pursuits" :key="ind">
 
-		<button @click="remove">X</button><span>{{ t.name }}</span>
-		<button @click="incPursuits(t)" :disabled="(ind+1)===waiting.length">+</button>
-		<button @click="decPursuits(t)" :disabled="ind===0">-</button>
+		<button @click="removePursuit(t)">X</button><span>{{ t.name }}</span>
+		<button v-if="runner.canPursuit(t)" :class="['pursuit', pursuits.includes( runner.baseTask(t) ) ? 'current' : '']"
+				@click="runner.togglePursuit(t)"> F </button>
 	</div>
 
 </div>
