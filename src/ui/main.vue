@@ -47,6 +47,7 @@ export default {
 		warn:Warn,
 		'top-bar':TopBar,
 		settings:SettingsUI,
+		activities:()=>import( /* webpackChunkName: "activities-ui" */ './popups/activities.vue' ),
 		choice:()=>import( /* webpackChunkName: "choice-ui" */ './components/choice.vue' ),
 		skills:()=> import( /* webpackChunkName: "skills-ui" */ './sections/skills.vue' ),
 		equip:()=>import( /* webpackChunkName: "equip-ui" */ './sections/equip.vue'),
@@ -71,7 +72,9 @@ export default {
 			overElm:null,
 			psection:null,
 			profile:profile,
-			showSettings:false
+			togSettings:false,
+			/** toggle activity manager */
+			togActivities:false
 		};
 
 	},
@@ -130,6 +133,9 @@ export default {
 			this.add('craft', this.onCraft );
 			// display warn dialog.
 			this.add('warn', this.onWarn );
+
+			this.add('showActivities', ()=>{this.togActivities=true} )
+
 
 			this.add( TRY_USE, this.tryUse )
 			this.add( USE, this.onUse );
@@ -332,7 +338,7 @@ export default {
 	<div class="full" @mouseover.capture.stop="emit('itemout')">
 
 		<devconsole />
-		<top-bar :has-hall="profile.hasHall()" @open-settings="showSettings=true">
+		<top-bar :has-hall="profile.hasHall()" @open-settings="togSettings=true">
 			<template slot="center">
 			<span class="load-message" v-if="!state">LOADING DATA...</span>
 			<dots v-if="state" :dots="state.player.dots" />
@@ -343,7 +349,10 @@ export default {
 		<itempopup :item="overItem" :elm="overElm" :title="overTitle" />
 		<warn ref="warn" @confirmed="onConfirmed" />
 		<choice />
-		<settings v-if="showSettings" @close-settings="showSettings=false" />
+		<settings v-if="togSettings" @close-settings="togSettings=false" />
+		<activities v-if="togActivities" />
+
+<!-- end popups -->
 
 		<div v-if="state" class="game-main">
 

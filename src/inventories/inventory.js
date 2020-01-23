@@ -84,6 +84,10 @@ export default class Inventory {
 		return this.items[Symbol.iterator]();
 	}
 
+	/**
+	 * @returns {Array} returns reversed Array of items.
+	 */
+	reverse(){ return this._items.reverse(); }
 	toArray(){return this._items.slice(0)}
 
 	constructor(vars=null){

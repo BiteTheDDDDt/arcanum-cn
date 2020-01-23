@@ -2,6 +2,16 @@
  * Array utilities.
  */
 
+export const swap = ( a, i, j ) => {
+
+	if ( i < 0 || j < 0 || i+1 >= a.length || j+1 >= a.length ) return;
+
+	let t = a[j];
+	a[j] = a[i];
+	a[i] = t;
+
+}
+
 /**
  * Merges items from b into array a for all items in b
  * passing predicate p.

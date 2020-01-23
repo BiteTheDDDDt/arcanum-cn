@@ -1,5 +1,5 @@
 import Game from '../game';
-import {quickSplice } from '../util/array';
+import {quickSplice, swap } from '../util/array';
 import Events, {TASK_DONE, TASK_CHANGED, HALT_TASK, TASK_BLOCKED, STOP_ALL } from '../events';
 import Stat from '../values/stat';
 import Base, {mergeClass} from '../items/base';
@@ -122,6 +122,10 @@ export default class Runner {
 	revive( gs ) {
 
 		this.max = this._max || 1;
+
+		/**
+		 * @property {DataList} pursuits
+		 */
 		this.pursuits = gs.getData( PURSUITS );
 
 		this.waiting = this.reviveList( this.waiting, gs, false );
@@ -339,6 +343,21 @@ export default class Runner {
 
 	}
 
+	waitingUp( t ){
+
+		let ind = this.waiting.indexOf(t);
+		swap( this.waiting, ind, ind+1);
+
+
+	}
+
+	waitingDown( t ){
+
+		let ind = this.waiting.indexOf(t);
+		swap( this.waiting, ind, ind-1);
+
+	}
+
 	/**
 	 * Remove task entirely from Runner, whether active
 	 * or waiting.
@@ -440,7 +459,7 @@ export default class Runner {
 
 		let avail = this.free;
 
-		console.log('tryResume() avail: ' + avail );
+		//console.log('tryResume() avail: ' + avail );
 
 		for( let i = this.waiting.length-1; i >= 0; i-- ) {
 

@@ -333,7 +333,7 @@ div.config {
 	padding: 0;
 }
 
-div.config button:after, button.config:after {
+button.btnConfig:after, button.config:after {
 	content:"\2699\00a0";
 }
 
@@ -389,6 +389,24 @@ body.compact .task-btn button { min-height: 1em; }
 	padding: var(--tiny-gap);
 	font-size:0.9em;
 }
+
+button.pursuit {
+	position: absolute;
+	background: rgb(22, 219, 22);
+	top:0;
+	right:0;
+	opacity: 0.2;
+}
+
+button.pursuit.current {
+	opacity: 0.7;
+}
+
+
+button.stop {
+	background: rgb(211, 89, 89);
+}
+
 
 body.darkmode .task-btn.running {
 	border: 2px dashed var(--task-button-border-color);
