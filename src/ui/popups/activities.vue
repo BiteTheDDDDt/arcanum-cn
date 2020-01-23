@@ -24,9 +24,10 @@ export default {
 		},
 		/**
 		 * reversed clone of pursuit items.
+		 * @property {DataList>Inventory}
 		 */
 		pursuits(){
-			return this.runner.pursuits.items;
+			return this.runner.pursuits;
 		}
 
 	},
@@ -51,6 +52,7 @@ export default {
 		},
 
 		removePursuit(t){
+			this.pursuits.remove(t);
 		},
 
 		/**
@@ -86,7 +88,7 @@ export default {
 	</div>
 
 	<div>Pursuits</div>
-	<div v-for="(t) in pursuits" :key="t.id">
+	<div v-for="(t) in pursuits.items" :key="t.id">
 
 		<button class="stop" @click="removePursuit(t)">X</button><span>{{ t.name }}</span>
 		<!--<button v-if="runner.canPursuit(t)" :class="['pursuit', pursuits.includes( runner.baseTask(t) ) ? 'current' : '']"

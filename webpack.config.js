@@ -25,11 +25,20 @@ module.exports = (env, argv)=>{
 		rules: [
 			{
 				test: /\.vue$/,
+				include:[ path.resolve( __dirname, 'src/ui'), path.resolve(__dirname, 'src/debug') ],
 				loader: 'vue-loader'
 			},
 			{
 				test: /\.css$/i,
+				include:[ path.resolve(__dirname, 'css'),
+					path.resolve(__dirname, 'src/ui'),
+					path.resolve(__dirname, 'src/debug') ],
 				use: ['style-loader', 'css-loader']
+			},
+			{
+				test:/\.tsx?$/,
+				use:"ts-loader",
+				exclude:"/node_modules/"
 			}
 		],
 	},
@@ -85,6 +94,7 @@ module.exports = (env, argv)=>{
 			"node_modules"
 		],
 
+		extensions:[ '.js', '.ts', '.tsx'],
 		alias: {
 			'modules':'modules',
 			'config': 'config',

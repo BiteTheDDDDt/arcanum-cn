@@ -1014,7 +1014,7 @@
 				"level": 10,
 				"kind": "puppet",
 				"noproc": true,
-				"hp": 100,
+				"hp": 75,
 				"tohit": 10,
 				"defense": 7,
 				"attack": [
