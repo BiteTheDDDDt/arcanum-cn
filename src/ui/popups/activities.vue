@@ -75,20 +75,22 @@ export default {
 <template>
 <div class="popup activities">
 
+	<div class="popup-close" @click="$emit('close')">X</div>
+
 	<div>Waiting</div>
 	<div v-for="(t,ind) in waiting" :key="ind">
 
-		<button @click="removeWait(t)">X</button><span>{{ t.name }}</span>
+		<button class="stop" @click="removeWait(t)">X</button><span>{{ t.name }}</span>
 		<button @click="inc(t)" :disabled="(ind+1)===waiting.length">+</button>
 		<button @click="dec(t)" :disabled="ind===0">-</button>
 	</div>
 
 	<div>Pursuits</div>
-	<div v-for="(t,ind) in pursuits" :key="ind">
+	<div v-for="(t) in pursuits" :key="t.id">
 
-		<button @click="removePursuit(t)">X</button><span>{{ t.name }}</span>
-		<button v-if="runner.canPursuit(t)" :class="['pursuit', pursuits.includes( runner.baseTask(t) ) ? 'current' : '']"
-				@click="runner.togglePursuit(t)"> F </button>
+		<button class="stop" @click="removePursuit(t)">X</button><span>{{ t.name }}</span>
+		<!--<button v-if="runner.canPursuit(t)" :class="['pursuit', pursuits.includes( runner.baseTask(t) ) ? 'current' : '']"
+				@click="runner.togglePursuit(t)"> F </button>-->
 	</div>
 
 </div>
