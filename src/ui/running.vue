@@ -51,7 +51,7 @@ export default {
 		<button v-if="!focus.locked" class="btn-sm" @mouseenter.capture.stop="emit( 'itemover',$event, focus )"
 			:disabled="!focus.canUse(game)"
 			@click="emit('task', focus)">Focus</button>
-		<button class="btnConfig" @click="emit('showActivities')"></button>
+		<button class="btnMenu" @click="emit('showActivities')"></button>
 	</div>
 
 	<div class='running'>
