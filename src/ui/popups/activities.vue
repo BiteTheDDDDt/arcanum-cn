@@ -126,7 +126,7 @@ export default {
 	</div>
 
 	<div class="section" :key="'w'+waitKey">
-		<header>Waiting</header>
+		<header>Waiting/Blocked</header>
 		<div v-if="waiting.length===0" class="note-text">None</div>
 		<div v-else>
 		<div v-for="(t,ind) in waiting" :key="'w'+ind" class="task-info">
