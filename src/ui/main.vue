@@ -350,7 +350,7 @@ export default {
 		<warn ref="warn" @confirmed="onConfirmed" />
 		<choice />
 		<settings v-if="togSettings" @close-settings="togSettings=false" />
-		<activities v-if="togActivities" />
+		<activities v-if="togActivities" @close="togActivities=false" />
 
 <!-- end popups -->
 

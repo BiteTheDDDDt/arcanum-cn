@@ -311,6 +311,36 @@ export default class Runner {
 	}
 
 	/**
+	 * Test if task can be a pursuit
+	 * @param {*} a
+	 */
+	canPursuit(a){
+		return this.pursuits.max>0 && a.type !== TYP_RUN;
+	}
+
+	baseTask(a) {
+		return ( a.type === RAID || a.type === EXPLORE ) ? a.locale : a;
+	}
+
+	/**
+	 * Add or remove existence of pursuit.
+	 * Does not toggle actual running state.
+	 * @param {*} a
+	 */
+	togglePursuit(a) {
+
+		a = this.baseTask(a);
+		if ( !a) return;
+
+		if ( this.pursuits.includes(a) ) {
+			this.pursuits.remove(a);
+		} else {
+			this.pursuits.cycleAdd(a);
+		}
+
+	}
+
+	/**
 	 * Attempt to run next hobby.
 	 * @returns {boolean} true if pursuit was started.
 	 */
