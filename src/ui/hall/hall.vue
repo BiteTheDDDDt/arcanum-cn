@@ -4,7 +4,7 @@ import Profile from '../../modules/profile';
 
 import Info from './charinfo.vue';
 import Upgrades from '../upgrades.vue';
-import {centerXY} from '../components/popups.js';
+import {centerXY} from '../popups/popups.js';
 import { EVT_STAT } from '../../events';
 
 /**

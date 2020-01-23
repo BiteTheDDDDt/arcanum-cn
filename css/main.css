@@ -176,8 +176,8 @@ input[type="button"]:hover, button:hover, .text-button:hover {
 .popup-close {
 	position: absolute;
 	cursor: default;
-	top: var(--md-gap);
-	right: var(--md-gap);
+	top: var(--sm-gap);
+	right: var(--sm-gap);
 }
 
 .runnable button {

@@ -48,11 +48,10 @@ export default {
 
 		<button class="btn-sm" @click="emit('rest')" :disabled="resting"
 		@mouseenter.capture.stop="emit( 'itemover',$event, restAction )">{{ restAction.name }}</button>
-
-		<button class="btnConfig" @click="emit('showActivities')"></button>
 		<button v-if="!focus.locked" class="btn-sm" @mouseenter.capture.stop="emit( 'itemover',$event, focus )"
 			:disabled="!focus.canUse(game)"
 			@click="emit('task', focus)">Focus</button>
+		<button class="btnConfig" @click="emit('showActivities')"></button>
 	</div>
 
 	<div class='running'>

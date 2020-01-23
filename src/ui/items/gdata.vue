@@ -4,7 +4,7 @@ import Game from '../../game';
 import ItemsBase from '../itemsBase.js';
 import InfoBlock from './info-block.vue';
 import Attack from './attack.vue';
-import Dot from './dot.vue';
+import Dot from './dot-block.vue';
 
 import {precise} from '../../util/format';
 

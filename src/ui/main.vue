@@ -5,12 +5,13 @@ import ResoucesView from './resources.vue';
 import Tasks from './sections/tasks.vue';
 import Quickbar from './quickbar.vue';
 import ItemsBase from './itemsBase';
-import Warn from './components/warn.vue';
 import Vitals from 'ui/vitals.vue';
 import DotView from './dotView.vue';
-import ItemPopup from './items/itemPopup.vue';
+import ItemPopup from './popups/itemPopup.vue';
 import TopBar from './top-bar.vue';
-import SettingsUI from './sections/settings.vue';
+
+import Warn from 'ui/popups/warn.vue';
+import SettingsUI from './popups/settings.vue';
 
 import LogView from './outlog.vue';
 
@@ -44,11 +45,11 @@ export default {
 		log:LogView,
 		quickbar:Quickbar,
 		dots:DotView,
-		warn:Warn,
 		'top-bar':TopBar,
 		settings:SettingsUI,
-		activities:()=>import( /* webpackChunkName: "activities-ui" */ './popups/activities.vue' ),
-		choice:()=>import( /* webpackChunkName: "choice-ui" */ './components/choice.vue' ),
+		warn:Warn,
+		activities:()=>import( /* webpackChunkName: "popups-ui" */ './popups/activities.vue' ),
+		choice:()=>import( /* webpackChunkName: "popups-ui" */ './popups/choice.vue' ),
 		skills:()=> import( /* webpackChunkName: "skills-ui" */ './sections/skills.vue' ),
 		equip:()=>import( /* webpackChunkName: "equip-ui" */ './sections/equip.vue'),
 		inventory:()=> import( /* webpackChunkName: "inv-ui" */ './sections/inventory.vue' ),
