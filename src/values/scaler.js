@@ -11,7 +11,8 @@ export default class Scaler extends RValue {
 
 	get value(){return super.value;}
 	set value(v){
-		super.value += (v - super.value)*(1+this.scale.pctTot);
+		/** super.value +  necessary for Edge. :/ */
+		super.value = super.value + (v - super.value)*(1+this.scale.pctTot);
 	}
 
 	/**
@@ -21,11 +22,11 @@ export default class Scaler extends RValue {
 	get scale(){return this._scale; }
 	set scale(v){this._scale =v}
 
-	constructor( vars=0, path ){
+	constructor( vars=0, path, scale=null ){
 
 		super( vars, path );
 
-		this.scale = new Stat( 0, this.id + '.scale' );
+		this.scale = scale || new Stat( 0, this.id + '.scale' );
 
 	}
 
@@ -34,7 +35,7 @@ export default class Scaler extends RValue {
 	 * @param {number} v
 	 */
 	set(v){
-		super.value = Number(v);
+		super.value = typeof v === 'number' ? v : v.valueOf();
 	}
 
 	/**
@@ -46,7 +47,7 @@ export default class Scaler extends RValue {
 	}
 
 	apply(v) {
-		this.value += v;
+		this.value = this.value + v;
 	}
 
 }
