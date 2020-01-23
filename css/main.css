@@ -120,8 +120,7 @@ input[type="button"], button, div.text-button, div.popup-close {
 div.popup {
 	height:auto;
 	min-height:100px;
-	min-width:200px;
-	max-width:240px;
+	min-width:240px;
 	position: absolute;
 	opacity:1;
 	z-index:var(--high-depth);
@@ -507,14 +506,14 @@ div.log-item {
 	color:#d80808;
 }
 
-.note-text, .popup-sect {
+.note-text, .info-sect {
 	padding:0;
 	margin:var(--comfy-gap) 0;
 	font-style: italic;
 	font-size: 0.85em;
 }
 
-.popup-sect {
+.info-sect {
 	width:100%;
 	border-top: var(--tiny-gap) solid var(--separator-color);
 	padding-top: var(--sm-gap);

@@ -45,7 +45,7 @@ export default {
 
 <div class="attack">
 
-	<div class="popup-sect">attack</div>
+	<div class="info-sect">attack</div>
 
 	<div v-if="hitBonus">hit bonus: {{ hitBonus }}</div>
 	<div class="damage" v-if="damage!==null">

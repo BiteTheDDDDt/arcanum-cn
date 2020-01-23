@@ -1,3 +1,5 @@
+import { swap } from "../util/array";
+
 /**
  * Implements Set class using Array for Vue reactivity.
  */
@@ -15,6 +17,10 @@ export default class ArraySet {
 	 */
 	constructor( a ) {
 
+		/**
+		 * @property {object[]} _store
+		 * @private
+		 */
 		this._store = [];
 
 		if ( a ) {
@@ -33,6 +39,16 @@ export default class ArraySet {
 
 	values(){
 		return this._store.slice(0);
+	}
+
+	inc(it){
+		let i = this._store.indexOf(it);
+		swap(this._store, i,i+1);
+	}
+
+	dec(it){
+		let i = this._store.indexOf(it);
+		swap(this._store, i,i-1);
 	}
 
 	add( it ){

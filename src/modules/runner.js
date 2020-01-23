@@ -296,15 +296,15 @@ export default class Runner {
 	/**
 	 * UNIQUE ACCESS POINT for removing active task.
 	 * @param {Task} i
-	 * @param {boolean} [tryResume=true] - whether can attempt to resume another task.
+	 * @param {boolean} [tryWaiting=true] - whether to attempt to resume other tasks.
 	 */
-	stopTask( a, tryResume=true ){
+	stopTask( a, tryWaiting=true ){
 
 		if ( a.onStop ) a.onStop();
 		a.running = false;
 		this.actives.delete(a);
 
-		if ( tryResume ){
+		if ( tryWaiting ){
 			this.tryResume();
 		}
 

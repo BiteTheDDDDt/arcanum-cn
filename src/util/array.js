@@ -4,7 +4,7 @@
 
 export const swap = ( a, i, j ) => {
 
-	if ( i < 0 || j < 0 || i+1 >= a.length || j+1 >= a.length ) return;
+	if ( i < 0 || j < 0 || i >= a.length || j >= a.length ) return;
 
 	let t = a[j];
 	a[j] = a[i];
