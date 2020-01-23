@@ -27,7 +27,7 @@ export default class Task extends GData {
 		return this._exp;
 	}
 	set ex(v){
-		this._exp = v instanceof Scaler ? v : new Scaler( v, this.id + ' .exp');
+		this._exp = v instanceof Scaler ? v : new Scaler( v, this.id + ' .exp', this._rate );
 	}
 
 	/**
@@ -38,7 +38,8 @@ export default class Task extends GData {
 
 		if ( this.locked || this.disabled ) return;
 
-		if (!this._exp ) this.ex = v;
+		//@compat only
+		if ( this._exp === null || this._exp === undefined ) this.ex = v;
 
 		if ( v < 0 ) {
 			console.warn( this.id + ' exp neg: ' + v );
@@ -55,8 +56,8 @@ export default class Task extends GData {
 	get rate(){ return this._rate; }
 	set rate(v){
 
-		this.ex = this.ex || 0;
-		this._rate = this._exp.scale = v instanceof Stat ? v : new Stat(v, this.id + '.rate' );
+		this._rate = ( v instanceof Stat ? v : new Stat(v, this.id + '.rate' ) );
+		if ( this.ex !== undefined ) this.ex.scale = this._rate;
 	}
 
 	get length() { return this._length; }
@@ -138,7 +139,6 @@ export default class Task extends GData {
 		if ( (this._length && this._exp>=this._length )
 			|| (!this._length && this.perpetual && this._exp >= 1 ) ) {
 
-			// does nothing currently.
 			this.complete( Game );
 
 		}

@@ -246,7 +246,9 @@ export default {
 				var targ = this[p];
 				if ( targ instanceof RValue ) {
 
-					//console.log('APPLY ' + mods[p].id + ' to stat: '+ this.id + '.'+ p + ': ' + amt*mods[p] + ' : ' + (typeof mods[p]) );
+					//console.log('APPLY ' + vars[p] + ' to stat: '+ this.id + '.'+ p + ': ' + amt*vars[p] + ' : ' + (typeof vars[p]) );
+					//if ( typeof (targ) === 'object') console.log('obj targ: ' + targ.constructor.name );
+
 					targ.apply( vars[p], amt );
 
 				} else if ( typeof vars[p] === 'object' ) {
