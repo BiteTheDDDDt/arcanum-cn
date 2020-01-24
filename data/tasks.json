@@ -1121,8 +1121,8 @@
 	},
 	{
 
-		"id":"draftschematic",
-		"name":"draft schematic",
+		"id":"craftschematic",
+		"name":"craft schematic",
 		"require":"g.tier6>0&&g.crafting.max>=23&&g.lore>=25",
 		"need":"workspace",
 		"length":3600,

@@ -20,6 +20,7 @@
 				"name":"great wing",
 				"max":3,
 				"desc":"A new wing of the Great Hall where Wizards can lodge in comfort.",
+				"require":"g.expandhall>=1",
 				"cost":{
 					"gold":10000,
 					"schematic":3,
