@@ -84,6 +84,30 @@
 
 		"spells":[
 			{
+				"id":"cyrilsling",
+				"level":7,
+				"school":"chaos",
+				"require":"g.tier5>0&&g.chaos.max>=3",
+				"desc":"Free a star and unleash the fury of the heavens on your foe. Hopefully your star won't turn on you...",
+				"buy":{
+					"research":7777,
+					"runstones":7,
+					"firerune":7,
+					"waterrune":7,
+					"airrune":7,
+					"earthrune":7
+				},
+				"cost":{
+					"chaos":3,
+					"sindel":1
+				},
+				"effect":[
+					{
+						"%":7
+					}
+				],"flavor":"If you're already star-crossed, why not make a few stars cross as well?"
+			},
+			{
 				"id":"kannadance",
 				"level":7,
 				"name":"kanna's dervish dance",

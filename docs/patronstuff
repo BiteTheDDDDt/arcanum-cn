@@ -1,3 +1,14 @@
+level: 7
+name: Cyril's Celestial Sling
+school: chaos
+require: t5, chaos.max>=3
+desc: "Free a star and unleash the fury of the heavens onto your foe. Hopefully the star you trapped doesn't turn onto you..."
+buy: 7777 research, 7 runestones, 7 of each elemental rune
+cost: 3 chaos, 1 sindel, 20 stamina
+effects: Forces a save after it's cast and the effects are decided. 77% chance of 2 blunt damage. 7% chance of a 7-second DoT of 77 astral damage on the enemy. 7% chance of a DoT being applied onto the player that drains 0.7 stamina per second for 7777 seconds. 7% chance of  dealing 777 damage to both the enemy and the player. 1.3% chance to gain 2 star shards. 0.7% chance to reduce maximum research by 77 but increase luck by 7.
+flavor: "If you're already star-crossed, why not make a few stars cross while you're at it?"
+
+
 "id":"enc_blasphemous_truths",
 "name":"This Isn't Right",
 "desc":"A bruised chartreuse sun vomits forth blasphemous truths that never were",
