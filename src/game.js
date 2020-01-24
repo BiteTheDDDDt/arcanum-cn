@@ -10,7 +10,7 @@ import Stat from './values/stat';
 import DataLoader from './dataLoader';
 
 import Events, {EVT_UNLOCK, EVT_EVENT, EVT_LOOT, SET_SLOT, DELETE_ITEM, ITEM_ACTION } from './events';
-import { MONSTER, TYP_PCT, TYP_RANGE, P_TITLE, P_LOG, TEAM_PLAYER } from './values/consts';
+import { MONSTER, TYP_PCT, TYP_RANGE, P_TITLE, P_LOG, TEAM_PLAYER, ENCHANTSLOTS } from './values/consts';
 import TagSet from './composites/tagset';
 import { TARGET_SELF, TARGET_ALLY, ApplyAction } from './values/combat';
 
@@ -194,7 +194,13 @@ export default {
 
 		let gdata = this.state.items;
 
-		this.state.player.begin();
+		/**
+		 * @todo: instance-table starting to look like a better idea.
+		 */
+		this.state.player.begin( this.state );
+		this.state.inventory.begin(this.state);
+		this.state.equip.begin(this.state);
+		gdata[ENCHANTSLOTS].begin(this.state);
 
 		for( let p in gdata ) {
 
@@ -603,7 +609,7 @@ export default {
 
 		console.log('USING: ' + it.id  + ' with ' + targ.id );
 		if ( it.mod ) targ.permVars( it.mod );
-		if ( it.effect ) targ.permVars( it.effect );
+		if ( it.result ) targ.permVars(it.result);
 
 	},
 

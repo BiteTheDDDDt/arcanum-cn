@@ -112,6 +112,17 @@ export default class Inventory {
 
 	}
 
+	/**
+	 * Call begin on any items once Game is loaded with data.
+	 * (Prior to restore mods.)
+	 * @param {*} gs
+	 */
+	begin(gs){
+		for( let i = this.items.length-1; i>= 0; i-- ) {
+			if ( typeof this.items[i].begin === 'function' ) this.items[i].begin(gs);
+		}
+	}
+
 	revive( gs ){
 
 		// used ids.

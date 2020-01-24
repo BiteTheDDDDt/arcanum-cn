@@ -172,7 +172,18 @@ export default class Slot {
 
 	}
 
-	revive( state ) {
+	begin(gs){
+		if ( this.item === null || this.item === undefined ) return;
+		if ( Array.isArray( this.item) ) {
+
+			for( let i = this.item.length-1; i>= 0; i-- ) {
+				if ( this.item[i].begin === 'function') this.item[i].begin(gs);
+			}
+
+		} else if ( typeof this.item.begin ==='function' ) this.item.begin( gs );
+	}
+
+	revive( gs ) {
 
 		if ( this.item === null || this.item === undefined ) return;
 		if ( Array.isArray( this.item) ) {
@@ -182,20 +193,22 @@ export default class Slot {
 			let all = this.item;
 			for( let i = all.length-1; i>= 0; i-- ) {
 
-				var it = itemRevive(state, all[i]);
+				var it = itemRevive(gs, all[i]);
 
 				if ( !it || ids[it.id]===true) {
 
 					all.splice(i,1);
 
 				} else {
+					// @note seems to be some sort of duplicate item check.
+					// this shouldn't occur but seems familiar as a previous bug.
 					all[i] = it;
 					ids[ it.id ] = true;
 				}
 
 			}
 
-		} else this.item = itemRevive(state, this.item );
+		} else this.item = itemRevive(gs, this.item );
 
 	}
 

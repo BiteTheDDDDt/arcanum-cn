@@ -33,7 +33,6 @@ export default class Wearable extends Item {
 		data.name = this._name;
 		data.attack = this.attack || undefined;
 
-		data.enchants = this.enchants || undefined;
 		if ( this.mod ) data.mod = this.mod;
 
 		if ( this.material ) {
@@ -52,10 +51,12 @@ export default class Wearable extends Item {
 	get equippable() { return true; }
 
 	/**
-	 * @property {number} enchants - total level of all enchantments applied.
+	 * @property {number} enchantTot - total level of all enchantments applied.
 	 */
-	get enchants() { return this._enchants || 0; }
-	set enchants(v) { this._enchants = v; }
+	get enchantTot(){return this._enchantTot}
+	set enchantTot(v){
+		this._enchantTot=v;
+	}
 
 	get material() { return this._material; }
 	set material(v) { this._material=v;}
@@ -125,12 +126,16 @@ export default class Wearable extends Item {
 
 	maxed() { return false; }
 
-	revive( state ) {
+	/**
+	 * @note super.revive() cannot be called here because the revive is too complex.
+	 * @param {GameState} gs
+	 */
+	revive( gs ) {
 
-		if ( typeof this.material === 'string') this.material = state.getMaterial( this.material );
+		if ( typeof this.material === 'string') this.material = gs.getMaterial( this.material );
 
-		if ( typeof this.recipe === 'string' ) this.template = state.getData(this.recipe );
-		else if ( typeof this.template === 'string' ) this.template = state.getData( this.template );
+		if ( typeof this.recipe === 'string' ) this.template = gs.getData(this.recipe );
+		else if ( typeof this.template === 'string' ) this.template = gs.getData( this.template );
 
 		if ( this.template ) {
 

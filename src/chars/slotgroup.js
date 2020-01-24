@@ -2,6 +2,9 @@ import Slot from './slot';
 
 export default class SlotGroup {
 
+	/**
+	 * @property {object.<string,Slot>} slots
+	 */
 	get slots() { return this._slots; }
 	set slots(v) {
 
@@ -75,9 +78,15 @@ export default class SlotGroup {
 
 	}
 
-	revive(state) {
+	begin(gs){
 		for( let p in this.slots ) {
-			this.slots[p].revive(state);
+			this.slots[p].begin(gs);
+		}
+	}
+
+	revive(gs) {
+		for( let p in this.slots ) {
+			this.slots[p].revive(gs);
 		}
 
 	}

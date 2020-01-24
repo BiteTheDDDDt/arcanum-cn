@@ -80,14 +80,6 @@ export default class Enchanting extends Proxy {
 
 	}
 
-	onStop(){
-
-		if ( !this.done && this.target ) {
-			this.target.enchants -= this.level;
-		}
-
-	}
-
 	revive( gs ) {
 
 		super.revive(gs);
