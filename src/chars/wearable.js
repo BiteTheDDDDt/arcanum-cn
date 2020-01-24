@@ -67,6 +67,8 @@ export default class Wearable extends Item {
 	set armor(v) {
 
 		if ( this._armor ) {
+			// NOTE: assign() copies _armor directly, so setter is never called. @todo fix this.
+			if ( typeof this._armor === 'number') this._armor = new Stat(this._armor);
 			this._armor.base = v;
 		} else {
 			this._armor = new Stat(v);
@@ -111,7 +113,7 @@ export default class Wearable extends Item {
 		this.stack = false;
 		this.consume = false;
 
-		if ( vars ) assign( this, vars, ['constructor'])
+		if ( vars ) assign( this, vars, ['constructor']);
 
 		this.value = this.val = 1;
 
