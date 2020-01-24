@@ -1,4 +1,7 @@
 import GData from "../items/gdata";
+import { ARMOR, WEAPON, WEARABLE } from "../values/consts";
+import Wearable from "../chars/wearable";
+import Item from "../items/item";
 
 /**
  * Generic prototype for a wearable item.
@@ -41,6 +44,14 @@ export default class ProtoItem extends GData {
 			if ( !this.attack.damage ) this.attack.damage = this.attack.dmg;
 		}
 
+	}
+
+	/**
+	 *
+	 */
+	instantiate(){
+		if ( this.type === ARMOR || this.type === WEAPON || this.type === WEARABLE ) return new Wearable( this.template );
+		else return new Item(this.template);
 	}
 
 }

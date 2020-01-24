@@ -10,7 +10,7 @@ import GData from '../items/gdata';
 import { ENCOUNTER, WEARABLE, MONSTER, ARMOR, WEAPON, TYP_PCT, EVENT, ITEM, POTION, TYP_RANGE, NPC, TASK } from '../values/consts';
 
 /**
- * Revive a prototyped item based on an item template.
+ * Revive an instanced item based on save data.
  * converts template string to actual template object before instancing/revive.
  * @param {GameState} gs
  * @param {object} it
@@ -149,7 +149,7 @@ export default class ItemGen {
 		if ( proto.type === ARMOR || proto.type === WEAPON || proto.type === WEARABLE ) {
 
 			console.log('itgen.inst() wearable: ' + proto.id );
-			return this.makeWearable( proto, this.matForItem(proto ));
+			it = this.fromProto(proto);
 
 		} else if ( proto.type === POTION ) {
 
@@ -179,7 +179,7 @@ export default class ItemGen {
 	 * @param {Wearable} data
 	 * @param {string|Material|number} material - material or material level.
 	 */
-	fromData( data, material=null ) {
+	fromProto( data, material=null ) {
 
 		//console.log('wearable from data');
 		if ( data === null || data === undefined ) return null;
@@ -230,12 +230,10 @@ export default class ItemGen {
 		if (!info) return null;
 
 		if ( info[TYP_PCT] && (100*Math.random() > info[TYP_PCT]) ) return null;
-
-		if ( info.type === WEARABLE || info.type === WEAPON
-				|| info.type ===ARMOR) return this.fromData( info, info.material );
-
 		else if ( info.instanced || info.isRecipe ) {
+
 			return this.instance( info );
+
 		} else if ( info.level || info.max ) return this.randLoot( info, amt );
 
 		return this.objLoot( info );
@@ -335,7 +333,7 @@ export default class ItemGen {
 		if ( g ) {
 
 			let it = g.randBy('level', level );
-			if (it ) return this.fromData( it, mat || level );
+			if (it ) return this.fromProto( it, mat || level );
 
 		} else console.warn('No group: ' + type);
 
@@ -358,7 +356,7 @@ export default class ItemGen {
 		maxLevel = Math.floor( 1 + Math.random()*maxLevel );
 
 		let it = g.randBelow( maxLevel );
-		return it ? this.fromData( it, mat || maxLevel ) : null;
+		return it ? this.fromProto( it, mat || maxLevel ) : null;
 
 	}
 
@@ -420,7 +418,7 @@ export default class ItemGen {
 	 */
 	makeWearable( data, material ) {
 
-		let item = new Wearable(data);
+		let item = new Wearable( data );
 
 		if ( material ) {
 

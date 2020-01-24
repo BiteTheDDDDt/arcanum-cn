@@ -33,7 +33,7 @@
   },
   "dependencies": {
     "eventemitter3": "^3.1.2",
-    "objecty": "^0.8.1",
+    "objecty": "^0.9.0",
     "vue": "^2.6.10"
   }
 }

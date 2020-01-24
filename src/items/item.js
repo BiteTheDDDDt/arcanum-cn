@@ -2,7 +2,6 @@ import Base, {mergeClass} from './base';
 import {assign, cloneClass } from 'objecty';
 import { ParseMods } from 'modules/parsing';
 import Instance from './instance';
-import { assignNoFunc } from '../util/util';
 
 const ItemDefaults = {
 	stack:true,
@@ -65,7 +64,7 @@ export default class Item {
 
 	constructor( vars=null ) {
 
-		if ( vars ) assignNoFunc(this,vars);
+		if ( vars ) assign(this,vars);
 
 		this.value = this._value || 1;
 

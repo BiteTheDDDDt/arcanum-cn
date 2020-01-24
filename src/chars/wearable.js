@@ -4,7 +4,7 @@ import Attack from './attack';
 import {mergeSafe} from "objecty";
 import Mod from '../values/mod';
 import { ParseMods } from 'modules/parsing';
-import { assignNoFunc } from '../util/util';
+import { assign, assignRecursive } from 'objecty';
 import Item from '../items/item';
 import { WEARABLE, ARMOR, TYP_RANGE, TYP_STAT } from '../values/consts';
 import Stat from '../values/stat';
@@ -111,7 +111,7 @@ export default class Wearable extends Item {
 		this.stack = false;
 		this.consume = false;
 
-		if ( vars ) assignNoFunc(this,vars );// Object.assign(this,vars);
+		if ( vars ) assign( this, vars, ['constructor'])
 
 		this.value = this.val = 1;
 
@@ -169,11 +169,13 @@ export default class Wearable extends Item {
 
 		this.level +=  this.material.level || 0;
 
-		if ( this.armor !== null && this.armor !== undefined ) this.applyBonus( this, ARMOR, mat.bonus );
+		if ( this.armor !== null && this.armor !== undefined ) {
+			this.applyBonus( this, ARMOR, mat.bonus );
+		}
 
 		if ( this.attack ) {
 
-			console.log('APPLY MATERIAL: ' + mat );
+			console.log('APPLY MAT: ' + (mat.id) );
 
 			if ( this.attack.damage !== null && this.attack.damage !== undefined ) {
 				this.applyBonus( this.attack, 'damage', mat.bonus );
