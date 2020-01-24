@@ -372,7 +372,7 @@ export default class Runner {
 		if ( a.fill && Game.filled(a.fill,a) ) return false;
 		if ( !a.canRun(Game) ) return false;
 
-		console.log('START: ' + a.id );
+		console.log('run: ' + a.id );
 		return this.setTask(a);
 
 	}

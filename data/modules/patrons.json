@@ -8,6 +8,26 @@
 		"furniture":[
 
 			{
+
+				"id":"nathanielshelter",
+				"name":"nathaniel's sanctuary",
+				"require":"g.tier3>0&&g.good>0",
+				"desc":"A sanctuary for vagrants and vagabonds.",
+				"tags":"patron",
+				"cost":{
+					"space":5,
+					"gold":100
+				},
+				"mod":{
+					"gold.rate":-0.2,
+					"virture.rate":0.0001,
+					"light.rate":0.1,
+					"notoriety.rate":0.00001
+
+				},
+				"flavor":"Nathaniel insisted magic be used for the benefit of the unfortunate."
+			},
+			{
 				"id":"baneanvil",
 				"name":"bloodbane's anvil",
 				"require":"g.crafting>=14",
