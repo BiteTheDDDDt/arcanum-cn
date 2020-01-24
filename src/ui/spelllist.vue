@@ -16,7 +16,7 @@ export default {
 	</span>
 
 	<div v-for="(it,ind) in list.items" :key="ind" @mouseenter.capture.stop="emit( 'itemover', $event, it )">
-		<button @click="list.removeAt(ind)">X</button><span>{{ it.name }}</span>
+		<button class="stop" @click="list.removeAt(ind)">X</button><span>{{ it.name }}</span>
 	</div>
 
 </div>

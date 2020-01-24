@@ -6,7 +6,7 @@
 		"materials", "enchants", "sections", "potions", "encounters", "locales","stressors", "rares"
 	],
 	"modules":[
-		"patrons", "winter", "puppeteer","hermit","combattutorial"
+		"patrons", "winter", "puppeteer","combattutorial"
 	]
 
 }

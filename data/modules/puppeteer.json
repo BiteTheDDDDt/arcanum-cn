@@ -575,18 +575,18 @@
 			{
 				"id": "autoagents",
 				"name": "automata agents",
-				"desc": "Agents capable of indepentent completion of any desired task",
+				"desc": "Agents capable of independent completion of any desired task",
 				"require": "g.automatasculpting>=10",
 				"max": 1,
 				"cost": {
-					"automata": 50,
-					"runestones": 100,
-					"firerune": 50,
-					"airrune": 50,
-					"earthrune": 50,
-					"waterrune": 50,
-					"timerune": 3,
-					"sindel": 5
+					"automatas":50,
+					"runestones":100,
+					"firerune":50,
+					"airrune":50,
+					"earthrune":50,
+					"waterrune":50,
+					"timerune":3,
+					"sindel":5
 				},
 				"mod": {
 					"runner.max": 1
@@ -1014,9 +1014,9 @@
 				"level": 10,
 				"kind": "puppet",
 				"noproc": true,
-				"hp": 200,
+				"hp": 75,
 				"tohit": 10,
-				"defense": 15,
+				"defense": 7,
 				"attack": [
 					{
 						"name": "stab",

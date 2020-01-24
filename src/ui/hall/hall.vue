@@ -4,7 +4,7 @@ import Profile from '../../modules/profile';
 
 import Info from './charinfo.vue';
 import Upgrades from '../upgrades.vue';
-import {centerXY} from '../components/popups.js';
+import {centerXY} from '../popups/popups.js';
 import { EVT_STAT } from '../../events';
 
 /**
@@ -109,7 +109,7 @@ export default {
 
 	<upgrades :items="hall.upgrades" />
 
-	<div class="btn-close"><button class="btn-close" @click="$emit('close')">X</button></div>
+	<div class="popup-close" @click="$emit('close')">X</div>
 
 </div>
 
@@ -157,10 +157,6 @@ div.wizhall .chars {
 	justify-content: space-evenly;
 }
 
-button.btn-close {
-	position: absolute;
-	top: var(--md-gap);
-	right: var(--md-gap);
-}
+
 
 </style>

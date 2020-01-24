@@ -8,7 +8,7 @@ import Settings from 'modules/settings';
 import Game from '../game';
 import UIMixin from './uiMixin';
 import ItemBase from './itemsBase';
-import { STOP_ALL } from '../events';
+
 
 /**
  * Player vital bars.
@@ -32,20 +32,14 @@ export default {
 		}
 
 	},
-	created(){
-		this.STOP_ALL = STOP_ALL;
-	},
+
 	computed:{
 
 		hp(){return this.state.getData('hp');},
-		focus() { return this.state.getData('focus'); },
 
 		manaList() { return this.state.filterItems( it=>it.hasTag('manas') && !it.locked)},
 		visMana(){return this.manaList.filter(v=>this.show(v))},
 
-		resting() {
-			return this.state.restAction.running;
-		},
 		stamina(){ return this.state.getData('stamina'); }
 	}
 
@@ -55,18 +49,6 @@ export default {
 <template>
 
 	<div class="vitals">
-
-		<div class="separate">
-
-			<button class="btn-sm" @click="emit(STOP_ALL)">Stop All</button>
-
-			<button class="btn-sm" @click="emit('rest')" :disabled="resting"
-			@mouseenter.capture.stop="emit( 'itemover',$event, state.restAction )">{{ state.restAction.name }}</button>
-
-			<button v-if="!focus.locked" class="btn-sm" @mouseenter.capture.stop="emit( 'itemover',$event, focus )"
-				:disabled="!usable(focus)"
-				@click="emit('task', focus)">Focus</button>
-		</div>
 
 		<running :runner="state.runner" />
 

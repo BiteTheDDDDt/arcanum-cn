@@ -207,7 +207,7 @@ export const ApplyDamage = ( target, attack, attacker ) => {
 	}
 	else dmg = dmg.value;
 
-	if ( attacker ) dmg += attacker.getBonus( attack.kind );
+	if ( attacker && attacker.getBonus ) dmg += attacker.getBonus( attack.kind );
 	if ( attack.bonus ) dmg += attack.bonus;
 
 

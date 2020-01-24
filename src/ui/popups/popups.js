@@ -25,11 +25,11 @@ export const centerX = elm => {
 
 };
 
-export const centerXY = elm => {
+export const centerXY = (elm, pctY) => {
 
 	let style = elm.style;
 	style.left = (( window.innerWidth - elm.offsetWidth )/2) + 'px'
-	style.top = ((window.innerHeight-elm.offsetHeight)/2) + 'px';
+	style.top = ( (pctY||0.5)*(window.innerHeight-elm.offsetHeight) ) + 'px';
 
 };
 

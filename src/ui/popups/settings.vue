@@ -2,7 +2,7 @@
 import Profile from 'modules/profile';
 import Settings from 'modules/settings';
 
-import { centerX } from '../components/popups';
+import { centerX } from './popups';
 
 /**
  * @emits save-settings

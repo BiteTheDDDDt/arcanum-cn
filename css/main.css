@@ -107,7 +107,7 @@ body.darkmode {
 button { color: var(--button-text-color); border: 1px solid #0006; outline:none; }
 button:disabled { opacity: 0.3; color: unset; }
 
-input[type="button"], button, div.text-button {
+input[type="button"], button, div.text-button, div.popup-close {
 	background-color: #e7e5e5;
 	border-radius: var(--sm-radius);
 	border: 1px solid #0006;
@@ -120,8 +120,7 @@ input[type="button"], button, div.text-button {
 div.popup {
 	height:auto;
 	min-height:100px;
-	min-width:200px;
-	max-width:240px;
+	min-width:240px;
 	position: absolute;
 	opacity:1;
 	z-index:var(--high-depth);
@@ -169,6 +168,15 @@ input[type="button"]:enabled:active, button:enabled:active, .hilite {
 
 input[type="button"]:hover, button:hover, .text-button:hover {
 	background-color: #c2c2c2;
+}
+
+
+/** button won't respect absolute position by itself **/
+.popup-close {
+	position: absolute;
+	cursor: default;
+	top: var(--sm-gap);
+	right: var(--sm-gap);
 }
 
 .runnable button {
@@ -323,6 +331,7 @@ a {
 	display:inline-block;
 }
 
+
 div.config {
 	display:flex;
 	flex-flow: row-reverse nowrap;
@@ -333,8 +342,12 @@ div.config {
 	padding: 0;
 }
 
-div.config button:after, button.config:after {
+button.btnConfig:after, button.config:after {
 	content:"\2699\00a0";
+}
+
+button.btnMenu:before {
+	content: "\2630";
 }
 
 .inConfig button[disabled], .inConfig button {
@@ -389,6 +402,24 @@ body.compact .task-btn button { min-height: 1em; }
 	padding: var(--tiny-gap);
 	font-size:0.9em;
 }
+
+button.pursuit {
+	position: absolute;
+	background: rgb(22, 219, 22);
+	top:0;
+	right:0;
+	opacity: 0.2;
+}
+
+button.pursuit.current {
+	opacity: 0.7;
+}
+
+
+button.stop {
+	background: rgb(211, 89, 89);
+}
+
 
 body.darkmode .task-btn.running {
 	border: 2px dashed var(--task-button-border-color);
@@ -475,14 +506,14 @@ div.log-item {
 	color:#d80808;
 }
 
-.note-text, .popup-sect {
+.note-text, .info-sect {
 	padding:0;
 	margin:var(--comfy-gap) 0;
 	font-style: italic;
 	font-size: 0.85em;
 }
 
-.popup-sect {
+.info-sect {
 	width:100%;
 	border-top: var(--tiny-gap) solid var(--separator-color);
 	padding-top: var(--sm-gap);

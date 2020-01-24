@@ -1,10 +1,10 @@
 import Game from '../game';
-import {quickSplice } from '../util/array';
+import {quickSplice, swap } from '../util/array';
 import Events, {TASK_DONE, TASK_CHANGED, HALT_TASK, TASK_BLOCKED, STOP_ALL } from '../events';
 import Stat from '../values/stat';
 import Base, {mergeClass} from '../items/base';
 import Runnable from '../composites/runnable';
-import { SKILL, REST_TAG, TYP_RUN, PURSUITS } from '../values/consts';
+import { SKILL, REST_TAG, TYP_RUN, PURSUITS, RAID, EXPLORE } from '../values/consts';
 import { assign } from 'objecty';
 import { iterableMap, iterableFind, setReplace, mapSet } from '../util/dataUtil';
 import ArraySet from '../values/arrayset';
@@ -74,7 +74,9 @@ export default class Runner {
 	 * @param {(number)=>boolean} obj.tick -tick function.
 	 */
 	addTimer(obj){
+
 		this.timers.add(obj);
+
 	}
 
 	/**
@@ -120,6 +122,10 @@ export default class Runner {
 	revive( gs ) {
 
 		this.max = this._max || 1;
+
+		/**
+		 * @property {DataList} pursuits
+		 */
 		this.pursuits = gs.getData( PURSUITS );
 
 		this.waiting = this.reviveList( this.waiting, gs, false );
@@ -290,16 +296,50 @@ export default class Runner {
 	/**
 	 * UNIQUE ACCESS POINT for removing active task.
 	 * @param {Task} i
-	 * @param {boolean} [tryResume=true] - whether can attempt to resume another task.
+	 * @param {boolean} [tryWaiting=true] - whether to attempt to resume other tasks.
 	 */
-	stopTask( a, tryResume=true ){
+	stopTask( a, tryWaiting=true ){
 
 		if ( a.onStop ) a.onStop();
 		a.running = false;
 		this.actives.delete(a);
 
-		if ( tryResume ){
+		if ( tryWaiting ){
 			this.tryResume();
+		}
+
+	}
+
+	/**
+	 * Test if task can be a pursuit
+	 * @param {*} a
+	 */
+	canPursuit(a){
+		return this.pursuits.max>0 && a.type !== TYP_RUN;
+	}
+
+	/**
+	 * Controller -> base task.
+	 * @param {*}
+	 */
+	baseTask(a) {
+		return ( a.type === RAID || a.type === EXPLORE ) ? a.locale : a;
+	}
+
+	/**
+	 * Add or remove existence of pursuit.
+	 * Does not toggle actual running state.
+	 * @param {*} a
+	 */
+	togglePursuit(a) {
+
+		a = this.baseTask(a);
+		if ( !a) return;
+
+		if ( this.pursuits.includes(a) ) {
+			this.pursuits.remove(a);
+		} else {
+			this.pursuits.cycleAdd(a);
 		}
 
 	}
@@ -332,7 +372,23 @@ export default class Runner {
 		if ( a.fill && Game.filled(a.fill,a) ) return false;
 		if ( !a.canRun(Game) ) return false;
 
+		console.log('run: ' + a.id );
 		return this.setTask(a);
+
+	}
+
+	waitingUp( t ){
+
+		let ind = this.waiting.indexOf(t);
+		swap( this.waiting, ind, ind+1);
+
+
+	}
+
+	waitingDown( t ){
+
+		let ind = this.waiting.indexOf(t);
+		swap( this.waiting, ind, ind-1);
 
 	}
 
@@ -435,7 +491,7 @@ export default class Runner {
 
 		let avail = this.free;
 
-		console.log('tryResume() avail: ' + avail );
+		//console.log('tryResume() avail: ' + avail );
 
 		for( let i = this.waiting.length-1; i >= 0; i-- ) {
 

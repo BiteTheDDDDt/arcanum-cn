@@ -5,12 +5,14 @@ import ResoucesView from './resources.vue';
 import Tasks from './sections/tasks.vue';
 import Quickbar from './quickbar.vue';
 import ItemsBase from './itemsBase';
-import Warn from './components/warn.vue';
 import Vitals from 'ui/vitals.vue';
 import DotView from './dotView.vue';
-import ItemPopup from './items/itemPopup.vue';
+import ItemPopup from './popups/itemPopup.vue';
 import TopBar from './top-bar.vue';
-import SettingsUI from './sections/settings.vue';
+
+import Warn from 'ui/popups/warn.vue';
+import SettingsUI from './popups/settings.vue';
+
 import LogView from './outlog.vue';
 
 import Settings from 'modules/settings';
@@ -47,7 +49,9 @@ export default {
 		settings:SettingsUI,
 		login:()=>import( /* webpackChunkName: "login.vue" */ './popups/login.vue' ),
 		register:()=>import( /* webpackChunkName: "login.vue" */ './components/register.vue' ),
-		choice:()=>import( /* webpackChunkName: "choice-ui" */ './components/choice.vue' ),
+		activities:()=>import( /* webpackChunkName: "popups-ui" */ './popups/activities.vue' ),
+		choice:()=>import( /* webpackChunkName: "popups-ui" */ './popups/choice.vue' ),
+
 		skills:()=> import( /* webpackChunkName: "skills-ui" */ './sections/skills.vue' ),
 		equip:()=>import( /* webpackChunkName: "equip-ui" */ './sections/equip.vue'),
 		inventory:()=> import( /* webpackChunkName: "inv-ui" */ './sections/inventory.vue' ),
@@ -70,9 +74,11 @@ export default {
 			overTitle:null,
 			overElm:null,
 			psection:null,
-			showSettings:false,
 			showRegister:false,
-			showLogin:false
+			showLogin:false,
+			togSettings:false,
+			/** toggle activity manager */
+			togActivities:false
 		};
 
 	},
@@ -137,6 +143,9 @@ export default {
 			this.add('craft', this.onCraft );
 			// display warn dialog.
 			this.add('warn', this.onWarn );
+
+			this.add('showActivities', ()=>{this.togActivities=true} )
+
 
 			this.add( TRY_USE, this.tryUse )
 			this.add( USE, this.onUse );
@@ -342,7 +351,7 @@ export default {
 	<div class="full" @mouseover.capture.stop="emit('itemout')">
 
 		<devconsole />
-		<topbar @open-settings="showSettings=true">
+		<topbar @open-settings="togSettings=true">
 			<template slot="center">
 			<span class="load-message" v-if="!state">LOADING DATA...</span>
 			<dots v-if="state" :dots="state.player.dots" />
@@ -355,7 +364,10 @@ export default {
 		<choice />
 		<register v-if="showRegister" @close="showRegister=false" />
 		<login v-if="showLogin" @close="showLogin=false" />
-		<settings v-if="showSettings" @close-settings="showSettings=false" />
+		<settings v-if="togSettings" @close-settings="togSettings=false" />
+		<activities v-if="togActivities" @close="togActivities=false" />
+
+<!-- end popups -->
 
 		<div v-if="state" class="game-main">
 

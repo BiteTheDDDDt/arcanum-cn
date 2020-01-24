@@ -1,6 +1,6 @@
 <script>
 import Range from '../../values/range';
-import Dot from './dot.vue';
+import Dot from './dot-block.vue';
 
 export default {
 
@@ -45,7 +45,7 @@ export default {
 
 <div class="attack">
 
-	<div class="popup-sect">attack</div>
+	<div class="info-sect">attack</div>
 
 	<div v-if="hitBonus">hit bonus: {{ hitBonus }}</div>
 	<div class="damage" v-if="damage!==null">

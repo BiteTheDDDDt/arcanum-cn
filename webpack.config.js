@@ -8,11 +8,14 @@ const { execSync } = require('child_process');
 
 var VERS_STR = execSync('git rev-list HEAD --count').toString()
 
+const UiDir = path.resolve( __dirname, 'src/ui');
+const DebugDir = path.resolve( __dirname, 'src/debug');
+
 
 module.exports = (env, argv)=>{
 
-	const buildpath = argv['buildpath'];
-	const absPath = path.resolve( __dirname, buildpath );
+	const BuildPath = argv['buildpath'] || 'dev';
+	const AbsBuildPath = path.resolve( __dirname, BuildPath );
 
 	return {
 
@@ -25,11 +28,20 @@ module.exports = (env, argv)=>{
 		rules: [
 			{
 				test: /\.vue$/,
+				include:[ UiDir, DebugDir ],
 				loader: 'vue-loader'
 			},
 			{
 				test: /\.css$/i,
+				include:[ path.resolve(__dirname, 'css'),
+					UiDir,
+					DebugDir ],
 				use: ['style-loader', 'css-loader']
+			},
+			{
+				test:/\.tsx?$/,
+				use:"ts-loader",
+				exclude:"/node_modules/"
 			}
 		],
 	},
@@ -45,22 +57,22 @@ module.exports = (env, argv)=>{
 		__CHEATS:true,
 		__KONG:env.kong || false,
 		__DIST:true,
-		__SAVE:null,
+		__CLOUD_SAVE:false,
 		__VERSION:VERS_STR
 	}),
 	new CopyPlugin([
 
 		{
 			from:'index.html',
-			to:absPath
+			to:AbsBuildPath
 		},
 		{
 			from:'data',
-			to:path.resolve( absPath, 'data')
+			to:path.resolve( AbsBuildPath, 'data')
 		},
 		{
 			from:'css',
-			to:path.resolve( absPath, 'css' )
+			to:path.resolve( AbsBuildPath, 'css' )
 		}
 	])
 	/*new WorkboxPlugin.InjectManifest({
@@ -75,7 +87,7 @@ module.exports = (env, argv)=>{
 
 		filename: "[name].js",
 		chunkFilename: "[name].bundle.js",
-		path:path.resolve(__dirname, buildpath, 'js/' ),
+		path:path.resolve( AbsBuildPath, 'js/' ),
 		publicPath:'js/',
 		library: "[name]"
 	},
@@ -85,6 +97,7 @@ module.exports = (env, argv)=>{
 			"node_modules"
 		],
 
+		extensions:[ '.js', '.ts', '.tsx'],
 		alias: {
 			'modules':'modules',
 			'config': 'config',

@@ -13,6 +13,15 @@ export default class Range {
 
 	get type(){ return TYP_RANGE; }
 
+	_min:any;
+	_max:any;
+
+	get min():any{return this._min;}
+	set min(v){this._min=v}
+
+	get max():any{return this._max}
+	set max(v){this._max=v;}
+
 	/**
 	 * @property {number} value - getting a range value
 	 * returns a random number in the range, max exclusive.
@@ -37,7 +46,7 @@ export default class Range {
 	 * @param {Object|number|string} min
 	 * @param {?number} max
 	 */
-	constructor(min=0, max=undefined) {
+	constructor(min:any, max:any) {
 
 		if ( typeof min === 'string' ) {
 
@@ -63,7 +72,7 @@ export default class Range {
 	 * @param {number} v
 	 * @returns {boolean}
 	 */
-	contains(v) {
+	contains(v:number):boolean {
 		return v >= this.min && v <= this.max;
 	}
 
@@ -71,7 +80,7 @@ export default class Range {
 	 * Return a percent of the range value.
 	 * @param {number} pct - decimal percent.
 	 */
-	percent( pct ) {
+	percent( pct:any ):number {
 		return this.min + pct*( this.max - this.min );
 	}
 
@@ -79,7 +88,7 @@ export default class Range {
 	 * Add amount to range.
 	 * @param {number|Range} amt
 	 */
-	add( amt ) {
+	add( amt:any ) {
 
 		console.log('ADDING RANGE: ' + amt );
 

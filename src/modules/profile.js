@@ -12,7 +12,7 @@ const SETTINGS_DIR = 'settings/';
 /**
 * @const {string} SAVE_DIR - global save directory.
 */
-const SAVE_DIR = __SAVE ? __SAVE + '/' : '';
+const SAVE_DIR = '';
 
 /**
  * Control access to all local storage and profile information.

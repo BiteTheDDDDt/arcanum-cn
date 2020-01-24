@@ -4,7 +4,7 @@ import Game from '../../game';
 import ItemsBase from '../itemsBase.js';
 import InfoBlock from './info-block.vue';
 import Attack from './attack.vue';
-import Dot from './dot.vue';
+import Dot from './dot-block.vue';
 
 import {precise} from '../../util/format';
 
@@ -114,7 +114,7 @@ export default {
 			Next Improvement: {{ Math.round(100*nextEvery)+'%'}}
 		</span>
 
-			<div v-if="item.cd&&item.timer>0">Cooldown: {{ item.timer.toFixed(2) }}</div>
+			<div v-if="item.cd&&item.timer>0" class="note-text">Cooldown: {{ item.timer.toFixed(2) }}</div>
 
 			<div v-if="item.dist">distance: {{item.dist}}</div>
 			<div v-if="item.armor">armor: {{ item.armor }}</div>
@@ -130,7 +130,7 @@ export default {
 
 		<attack v-if="item.attack" :item="item.attack" />
 
-		<div v-if="item.effect||item.mod||item.result||item.dot||item.use" class="popup-sect">effects:</div>
+		<div v-if="item.effect||item.mod||item.result||item.dot||item.use" class="info-sect">effects:</div>
 
 		<dot v-if="item.dot" :dot="item.dot" />
 
@@ -139,7 +139,7 @@ export default {
 		<info v-if="item.use" :info="item.use" />
 		<info v-if="item.result" :info="item.result" />
 
-		<div v-if="item.lock||item.disable" class="popup-sect">locks:</div>
+		<div v-if="item.lock||item.disable" class="info-sect">locks:</div>
 		<info v-if="item.lock" :info="item.lock" />
 		<info v-if="item.disable" :info="item.disable" />
 
