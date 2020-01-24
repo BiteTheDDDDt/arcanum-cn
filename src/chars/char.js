@@ -167,7 +167,7 @@ export default class Char {
 
 	constructor( vars ){
 
-		if ( vars ) assignNoFunc( this, vars );
+		if ( vars ) assign( this, vars );
 
 		this.type = NPC;
 
