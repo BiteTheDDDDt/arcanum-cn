@@ -1,3 +1,4 @@
+const SAVE_DIR = '';
 const CHARS_DIR = 'chars/';
 const HALL_FILE = 'hall';
 

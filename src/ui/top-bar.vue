@@ -7,10 +7,11 @@ import LoginStatus from './components/loginStatus.vue';
 export default {
 
 	computed:{
+		hasHall(){return Profile.hasHall() },
 
-		VERSION(){return __VERSION; },
-		hasHall(){return Profile.hasHall() }
-
+	},
+	created(){
+		this.Profile = Profile;
 	},
 	components:{
 		login:LoginStatus
@@ -57,7 +58,7 @@ export default {
 	<div class="top-bar">
 
 		<span class="load-opts">
-		<login />
+		<login v-if="Profile.CLOUD" />
 		<button @click="dispatch('save')">save</button>
 		<button @click="dispatch('load')">load</button>
 
@@ -82,7 +83,7 @@ export default {
 			<a href="http://wiki.lerpinglemur.com/dhrune" target="_blank">wiki</a>
 			<a href="https://www.patreon.com/theoryofmagic" target="_blank">patreon</a>
 			<a href="https://www.reddit.com/r/wizrobe/" target="_blank">reddit</a>
-			<span class="vers">build# {{ VERSION }}</span>
+			<span class="vers">build# {{ Profile.VERSION }}</span>
 			<button class="text-button" @click="$emit('open-settings')">&#9881;</button>
 		</span>
 

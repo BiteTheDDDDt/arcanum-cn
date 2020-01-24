@@ -4,10 +4,10 @@
   "description": "theory of magic",
   "main": "index.js",
   "scripts": {
-    "dev": "webpack --watch --env --buildpath=dev/",
+    "dev": "webpack --watch --env.cloud --buildpath=dev/",
     "ci-dev": "webpack --env --buildpath=dev/",
     "kong": "webpack --watch --env.production --env.kong --buildpath=kong/",
-    "build": "webpack --watch --env.production --buildpath=dist/"
+    "build": "webpack --watch --env.production --env.cloud --buildpath=dist/"
   },
   "repository": {
     "type": "git",

@@ -14,10 +14,21 @@ const SETTINGS_DIR = 'settings/';
 */
 const SAVE_DIR = '';
 
+
 /**
  * Control access to all local storage and profile information.
  */
 export default {
+
+	/**
+	 * @const {number}
+	 */
+	VERSION:__VERSION,
+
+	/**
+	 * @const {boolean}
+	 */
+	CLOUD:__CLOUD,
 
 	/**
 	 * @property {Hall} hall
@@ -331,10 +342,6 @@ export default {
 
 	hasHall() { return this.hall && this.hall.owned() },
 
-	settingsLoc( ind ){
-		return SAVE_DIR + SETTINGS_DIR + ( ind === undefined ? this.hall.active : ind );
-	},
-
 	/**
 	 * Clear all stored data.
 	 */
@@ -343,8 +350,6 @@ export default {
 	},
 
 	charLoc:( ind ) =>(SAVE_DIR + CHARS_DIR + ind),
-
-	hallLoc:()=>(SAVE_DIR + HALL_FILE),
 
 	saveHall(){
 

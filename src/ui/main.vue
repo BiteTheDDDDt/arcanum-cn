@@ -1,4 +1,5 @@
 <script>
+import Profile from 'modules/profile';
 import Game from '../game';
 import Menu from './components/menu.vue';
 import ResoucesView from './resources.vue';
@@ -83,6 +84,8 @@ export default {
 
 	},
 	created(){
+
+		this.Profile = Profile;
 
 		this.listen('game-loaded', this.gameLoaded );
 		this.listen('setting', this.onSetting );
@@ -362,8 +365,8 @@ export default {
 		<itempopup :item="overItem" :elm="overElm" :title="overTitle" />
 		<warn ref="warn" @confirmed="onConfirmed" />
 		<choice />
-		<register v-if="showRegister" @close="showRegister=false" />
-		<login v-if="showLogin" @close="showLogin=false" />
+		<register v-if="Profile.CLOUD&&showRegister" @close="showRegister=false" />
+		<login v-if="Profile.CLOUD&&showLogin" @close="showLogin=false" />
 		<settings v-if="togSettings" @close-settings="togSettings=false" />
 		<activities v-if="togActivities" @close="togActivities=false" />
 

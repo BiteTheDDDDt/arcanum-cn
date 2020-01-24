@@ -57,7 +57,7 @@ module.exports = (env, argv)=>{
 		__CHEATS:true,
 		__KONG:env.kong || false,
 		__DIST:true,
-		__CLOUD_SAVE:false,
+		__CLOUD:!env.kong && env.cloud,
 		__VERSION:VERS_STR
 	}),
 	new CopyPlugin([
