@@ -13,6 +13,7 @@ import {assign} from 'objecty';
 import Context from '../context';
 import Game from '../game';
 import { ApplyAction } from '../values/combat';
+import { assignNoFunc } from '../util/util';
 
 export default class Char {
 
@@ -166,7 +167,7 @@ export default class Char {
 
 	constructor( vars ){
 
-		if ( vars ) assign( this, vars );
+		if ( vars ) assignNoFunc( this, vars );
 
 		this.type = NPC;
 

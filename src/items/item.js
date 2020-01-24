@@ -175,7 +175,6 @@ export default class Item {
 			let data = gs.getData( enchants[i] );
 			if ( !data ) continue;
 
-			console.log( this.id + ' REENCHANT: ' + data.id );
 			if ( data.mod ) this.applyMods( data.mod );
 
 			tot += data.level || 0;
