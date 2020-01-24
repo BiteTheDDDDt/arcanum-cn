@@ -169,12 +169,12 @@
 	},
 	{
 		"id":"schematic",
-		"name":"schematic",
+		"name":"schematics",
 		"desc":" Schematic of Thurn the Artificer",
-		"flavor":"If only you could find an original.",
+		"max":3,
 		"mod":{
 			"crafting.max":0.1,
-			"crafting.rate":"1%"
+			"crafting.rate":"5%"
 		}
 	},
 	{
