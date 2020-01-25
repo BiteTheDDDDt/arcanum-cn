@@ -48,8 +48,8 @@ export default {
 		warn:Warn,
 		topbar:TopBar,
 		settings:SettingsUI,
-		login:()=>import( /* webpackChunkName: "login.vue" */ './popups/login.vue' ),
-		register:()=>import( /* webpackChunkName: "login.vue" */ './components/register.vue' ),
+		login:()=>import( /* webpackChunkName: "remote" */ './popups/login.vue' ),
+		register:()=>import( /* webpackChunkName: "remote" */ './components/register.vue' ),
 		activities:()=>import( /* webpackChunkName: "popups-ui" */ './popups/activities.vue' ),
 		choice:()=>import( /* webpackChunkName: "popups-ui" */ './popups/choice.vue' ),
 

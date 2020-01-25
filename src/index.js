@@ -7,7 +7,6 @@ import Main from 'ui/main.vue';
 
 import Confirm from 'ui/components/confirm.vue';
 
-import { FBRemote } from './remote/remote';
 //window.localStorage.clear();
 
 if ( __KONG ) {
@@ -20,19 +19,6 @@ if ( __KONG ) {
 
 	});
 }
-
-/**
- * @const {number} MIN_UPLOAD_WAIT - minimum time in milliseconds for automatic
- * save uploading.
- */
-const MIN_UPLOAD_WAIT = 3*60*1000;
-
-/**
- * @const {number} MANUAL_UPLOAD_WAIT - minimum wait time in milliseconds
- * between manual save uploads.
- */
-const MANUAL_UPLOAD_WAIT = 10*1000;
-
 
 Vue.mixin({
 
@@ -76,15 +62,25 @@ const vm = new Vue({
 			renderKey:1
 		}
 	},
+	beforeCreate(){
+
+		if ( __CLOUD ) {
+			import( /* webpackChunkName: "remote" */ './remote/remote' ).then(mod=>{
+				console.log('REMOTE CODE LOADED: ' + mod );
+				this.remote = mod.FBRemote;
+			});
+
+		}
+
+	},
 	created(){
 
-		this.remote = FBRemote;
 		this.lastUpload = 0;
 
 		this.saveLink = null;
 		this.game = Game;
 
-		this.tryAutoLogin();
+		//this.tryAutoLogin();
 
 		this.listen('save-file', this.saveFile, this );
 		this.listen('hall-file', this.hallFile, this );
@@ -101,8 +97,8 @@ const vm = new Vue({
 		this.listen('set-char', this.setChar, this );
 		this.listen('dismiss-char', this.dismissChar, this );
 
-		this.listen('save', this.manualSave );
-		this.listen('autosave', this.save );
+		this.listen('save', this.manualSave, this );
+		this.listen('autosave', this.save, this );
 
 		this.listen( 'setting', this.onSetting, this );
 		this.listen( 'logout', this.logout, this );
@@ -114,30 +110,13 @@ const vm = new Vue({
 	},
 	methods:{
 
-		tryAutoLogin(){
-
-			if ( this.remote.loggedIn ) {
-				return;
-
-			} else {
-
-				// check mongo key.
-				//let key = window.localStorage.getItem('user-key');
-				//if ( key ) {
-				//	this.remote.keyLogin(key);
-				//}
-
-			}
-
-		},
-
 		onLoginChanged( loggedIn ){
 			Profile.loggedIn = loggedIn;
 		},
 
 		logout(){
 
-			this.remote.logout();
+			if ( this.remote ) this.remote.logout();
 			Profile.loggedIn=false;
 
 		},
@@ -200,27 +179,14 @@ const vm = new Vue({
 		/**
 		 * Load the save for the active wizard.
 		 */
-		loadSave() {
+		async loadSave() {
 
 			try {
 
 				this.dispatch('pause');
 
-				if ( this.remote.loggedIn ) this.remote.loadChar().then(json=>{
-
-					console.warn('LOADED: ' + json );
-					this.setStateJSON( json );
-
-				err=>{
-					console.warn(err);
-					this.setStateJSON(null);
-				}});
-
-				else {
-					let str = Profile.loadActive();
-					this.setStateJSON( JSON.parse(str) );
-				}
-
+				let str = await Profile.loadActive();
+				this.setStateJSON( JSON.parse(str) );
 
 			} catch (e ) { console.error( e.message + '\n' + e.stack ); }
 
@@ -273,6 +239,11 @@ const vm = new Vue({
 
 		},
 
+		/**
+		 *
+		 * @param {*} e
+		 * @returns {void}
+		 */
 		saveFile(e ){
 
 			// event shouldnt be null but sometimes is.
@@ -290,7 +261,12 @@ const vm = new Vue({
 
 		},
 
-		hallFile(e){
+		/**
+		 *
+		 * @param {*} e
+		 * @returns {void}
+		 */
+		async hallFile(e){
 
 			if ( !e ) return;
 
@@ -300,7 +276,7 @@ const vm = new Vue({
 
 				if ( this.hallLink) URL.revokeObjectURL( this.hallLink );
 
-				let data = Profile.getHallSave();
+				let data = await Profile.getHallSave();
 				this.saveLink = this.makeLink( data, e.target, 'hall');
 
 			} catch(ex){
@@ -391,31 +367,19 @@ const vm = new Vue({
 		},
 
 		manualSave(){
-			this.save(MANUAL_UPLOAD_WAIT);
+			this.save();
 		},
 
-		save( minWait=MIN_UPLOAD_WAIT ) {
+		async save() {
 
 			if (!this.game.loaded ) return;
-			let charsave = Profile.saveActive( this.game.state );
+			let charsave = await Profile.saveActive( this.game.state );
 
 			if ( charsave ) {
 
 				Profile.saveHall();
 
-				var t = Date.now();
-				if ( this.remote.loggedIn && (t-this.lastUpload) > minWait ) {
-
-					this.lastUpload = t;
-					this.remote.saveChar( charsave ).then( res=>{
-						console.log(res)
-					}, err=>{
-						console.warn(err);
-					});
-
-				}
-
-			} else console.warn('ERR ON CHAR SAVE. NO SAVE.');
+			} else console.warn('ERR ON SAVE. NO SAVE.');
 
 		},
 
@@ -427,11 +391,11 @@ const vm = new Vue({
 
 
 		},
-		resetHall() {
+		async resetHall() {
 
 			this.dispatch('pause');
 
-			Profile.clearAll();
+			await Profile.clearAll();
 
 			this.loadProfile();
 

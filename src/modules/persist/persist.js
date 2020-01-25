@@ -1,5 +1,4 @@
 import { Local } from "./persistLocal";
-import { Remote } from './persistRemote';
 
 /**
  * @const {number} LOCAL_FAIL - error indicating local io failure.
@@ -10,6 +9,8 @@ export const LOCAL_FAIL = 1;
  */
 export const REMOTE_FAIL = 2;
 
+const SETTINGS_DIR = 'settings/';
+
 /**
  * Handles persisting data to various sources: local, remote, file.
  */
@@ -17,17 +18,17 @@ export const Persist = {
 
 	remoteFirst:false,
 
-	deleteAll(){
+	async clearAll(){
 
-		Local.deleteAll();
-		Remote.deleteAll();
+		Local.clearAll();
+		if ( Remote) return Remote.clearAll();
 
 	},
 
-	deleteChar( charid ) {
+	async deleteChar( charid ) {
 
 		Local.deleteChar(charid);
-		Remote.deleteChar(charid);
+		if ( Remote) return Remote.deleteChar(charid);
 
 	},
 
@@ -37,10 +38,10 @@ export const Persist = {
 	 * @param {*} json
 	 * @returns {Promise.<object>}
 	 */
-	saveChar( charid, json ) {
+	async saveChar( charid, json ) {
 
 		Local.saveChar( charid, json );
-		Remote.saveChar( charid, json );
+		if ( Remote) return Remote.saveChar( charid, json );
 
 	},
 
@@ -49,16 +50,16 @@ export const Persist = {
 	 *
 	 * @param {string} data
 	 */
-	saveHall( data ){
+	async saveHall( data ){
 
 		Local.saveHall(data);
-		Remote.saveHall(data);
+		if ( Remote) return Remote.saveHall(data);
 
 	},
 
 	async loadChar( charid ){
 
-		if ( this.remoteFirst) {
+		if ( this.remoteFirst && Remote ) {
 
 			let res = await Remote.loadChar( charid );
 			if (res ) return res;
@@ -67,7 +68,7 @@ export const Persist = {
 		} else {
 
 			let res = Local.loadChar( charid );
-			if ( res ) return res;
+			if ( res || !Remote ) return res;
 			return Remote.loadChar( charid );
 
 		}
@@ -80,7 +81,7 @@ export const Persist = {
 	 */
 	async loadHall(){
 
-		if ( this.remoteFirst ) {
+		if ( this.remoteFirst && Remote ) {
 
 			let res = await Remote.loadHall();
 			if ( res ) return res;
@@ -89,19 +90,30 @@ export const Persist = {
 		} else {
 
 			let res = Local.loadHall();
-			if ( res ) return res;
+			if ( res || !Remote ) return res;
 
 			return Remote.loadHall();
 		}
 
 	},
 
-	saveSettings(char) {
-		return Local.saveSettings(char);
+	settingsLoc(char){ return SETTINGS_DIR + '/'+char +'/' },
+
+	saveSettings(charid) {
+		window.localStorage.setItem( this.settingsLoc(charid), data );
 	},
 
-	loadSettings(char){
-		return Local.loadSettings(char);
+	loadSettings(charid){
+		return window.localStorage.getItem( this.settingsLoc(charid) );
 	}
 
 };
+
+var Remote = null;
+if ( __CLOUD ) {
+
+	import( /* webpackChunkName: "remote" */ './persistRemote' ).then( mod=>{
+		Remote = mod.Remote;
+	});
+
+}

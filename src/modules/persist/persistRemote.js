@@ -1,11 +1,23 @@
 import { FBRemote } from 'remote/remote';
 
+/**
+ * @const {number} MIN_SAVE_WAIT - minimum time in milliseconds for automatic
+ * save uploading.
+ */
 const MIN_SAVE_WAIT = 3*60*1000;
+
+/**
+ * @const {number} MANUAL_SAVE_WAIT - minimum wait time in milliseconds
+ * between manual save uploads.
+ */
 const MANUAL_SAVE_WAIT = 10*1000;
 
 export const Remote = {
 
 	lastSave:0,
+
+	clearAll(){
+	},
 
 	manualSave( charid ){
 		return this.saveChar( charid, MANUAL_SAVE_WAIT );
@@ -28,6 +40,7 @@ export const Remote = {
 	},
 
 	loadHall( charid ){
+		return null;
 	}
 
 }

@@ -7,7 +7,7 @@ export const Local = {
 	/**
 	 * Clear all stored data.
 	 */
-	deleteAll(){ window.localStorage.clear(); },
+	clearAll(){ window.localStorage.clear(); },
 
 	deleteChar( charid ) {
 
@@ -24,28 +24,18 @@ export const Local = {
 		return window.localStorage.getItem( this.charLoc( charid ) );
 	},
 
-	saveSettings(char) {
-		window.localStorage.setItem( this.settingsLoc(), data );
-	},
-
-	loadSettings(char){
-		return window.localStorage.getItem( this.settingsLoc() );
-	},
-
 	/**
 	 *
 	 * @param {string} data
 	 */
 	saveHall( data ){
 		window.localStorage.setItem( this.hallLoc(), data );
-
 	},
 
 	loadHall(){
 		return window.localStorage.getItem( this.hallLoc() );
 	},
 
-	settingsLoc(char){},
 
 	charLoc( ind ) { return SAVE_DIR + CHARS_DIR + ind },
 

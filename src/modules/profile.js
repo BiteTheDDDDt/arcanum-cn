@@ -7,7 +7,6 @@ import { Persist } from "./persist/persist";
 
 const CHARS_DIR = 'chars/';
 const HALL_FILE = 'hall';
-const SETTINGS_DIR = 'settings/';
 
 /**
 * @const {string} SAVE_DIR - global save directory.
@@ -46,18 +45,6 @@ export default {
 	set loggedIn(v){this.active.loggedIn=v},
 
 	/**
-	 * Load data files for hall.
-	 * @param {object} save - save data of hall.
-	 * @returns {Promise.<HallData>}
-	 */
-	loadHallData( save ) {
-
-		let module = new Module();
-		return module.load( HALL_FILE ).then( ()=>module.instance( save ));
-
-	},
-
-	/**
 	 * Load Hall information.
 	 * @param {object} data - optional data loaded from file.
 	 */
@@ -65,7 +52,7 @@ export default {
 
 		if ( !data ) {
 
-			data = Persist.loadHall();
+			data = await Persist.loadHall();
 
 			if ( data ) {
 
@@ -76,42 +63,57 @@ export default {
 
 		}
 
-		data = await this.loadHallData( data );
+		data = await this.initHallData( data );
 
 		this.hall = new Hall(data);
 
 	},
 
 	/**
-	 * active player info changed.
-	 * update and save hall data.
+	 * Load data files for hall.
+	 * @param {object} save - save data of hall.
+	 * @returns {Promise.<HallData>}
 	 */
-	onCharLevel( player, lvl ) {
+	initHallData( save ) {
 
-		this.hall.setLevel( player, lvl );
-		this.saveHall();
+		let module = new Module();
+		return module.load( HALL_FILE ).then( ()=>module.instance( save ));
 
 	},
 
 	/**
 	 * active player info changed.
 	 * update and save hall data.
+	 * @returns {Promise.<>}
+	 */
+	onCharLevel( player, lvl ) {
+
+		this.hall.setLevel( player, lvl );
+		return this.saveHall();
+
+	},
+
+	/**
+	 * active player info changed.
+	 * update and save hall data.
+	 * @returns {Promise}
 	 */
 	updateChar( player, slot=-1 ) {
 
 		this.hall.updateChar( player, slot );
-		this.saveHall();
+		return this.saveHall();
 
 	},
 
 	/**
 	 * Set name of Wizards hall.
 	 * @param {*} s
+	 * @returns {Promise}
 	 */
 	setHallName(s){
 
 		this.hall.name = s;
-		this.saveHall();
+		return this.saveHall();
 
 	},
 
@@ -201,7 +203,7 @@ export default {
 	 * Get JSON for complete save of hall and all wizrobes in it.
 	 * @returns {object}
 	 */
-	getHallSave(){
+	async getHallSave(){
 
 		let data = {
 			type:HALL_FILE,
@@ -214,7 +216,7 @@ export default {
 		let chars = data.chars;
 		for( let i = 0; i < max; i++ ) {
 
-			let char = Persist.loadChar( this.charLoc(i) );
+			let char = await Persist.loadChar( this.charLoc(i) );
 
 			// parse to avoid double string encoding.
 			if ( char ) char = JSON.parse(char);
@@ -228,15 +230,15 @@ export default {
 	},
 
 	/**
-	 * Set the complete hall data from data file.
-	 * @param {FullHall} data
+	 * Set the complete hall data from save file.
+	 * @param {FullHall} save
 	 */
-	setHallSave( data ) {
+	setHallSave( save ) {
 
-		this.setCharDatas( data.chars );
-		console.dir( data.hall );
+		this.setCharDatas( save.chars );
+		console.dir( save.hall );
 
-		Persist.saveHall( JSON.stringify(data.hall) );
+		Persist.saveHall( JSON.stringify(save.hall) );
 
 	},
 
@@ -261,14 +263,13 @@ export default {
 	 * @param {GameState} state
 	 * @returns {string} json save data.
 	 */
-	saveActive( state ){
+	async saveActive( state ){
 
 		try {
 
 			let json = JSON.stringify( state );
 			if ( json ) {
-				Persist.saveChar( json );
-
+				await Persist.saveChar( json );
 			}
 
 			this.saveSettings();
