@@ -335,7 +335,8 @@ export default class Combat {
 	 */
 	setEnemies( enemies ) {
 
-		this.enemies = enemies;
+		this.enemies.push.apply( this.enemies, enemies );
+		//	this.enemies.push.apply( this.enemies, enemies );
 
 		if ( enemies.length>0 ){
 
@@ -371,7 +372,7 @@ export default class Combat {
 	 */
 	begin() {
 
-		this._enemies = [];
+		this._enemies.splice(0, this.enemies.length);
 		this.reenter();
 
 	}

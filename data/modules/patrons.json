@@ -12,7 +12,7 @@
 				"id":"nathanielshelter",
 				"name":"nathaniel's sanctuary",
 				"require":"g.tier3>0&&g.good>0",
-				"desc":"A sanctuary for vagrants and vagabonds.",
+				"desc":"A sanctuary for orphans and paupers.",
 				"tags":"patron",
 				"cost":{
 					"space":5,

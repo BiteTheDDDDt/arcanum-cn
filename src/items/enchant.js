@@ -44,8 +44,7 @@ export default class Enchant extends Task {
 	/**
 	 * Catch complete
 	 */
-	complete(){
-	}
+	complete(){}
 
 	/**
 	 * Called when enchant is being used on target.
@@ -56,22 +55,22 @@ export default class Enchant extends Task {
 
 		if ( !targ) return;
 
-		targ.enchants += this.level;
+		targ.addEnchant( this );
 
 		if ( this.adj && !targ.name.includes(this.adj) ) {
 
 			targ.name += ' ' + this.adj;
 
-		} else if ( !targ.name.includes('Enchanted') ) targ.name = 'Enchanted ' + targ.name;
+		} else if ( !targ.name.includes('enchanted') ) targ.name = 'enchanted ' + targ.name;
 
 	}
 
 	/**
-	 * Called when enchant stopped.
+	 * Called when enchant stopped? Is it?
 	 * @param {*} targ
 	 */
-	onStop(targ){
-	}
+	/*onStop(targ){
+	}*/
 
 	/**
 	 * Test if enchantment can be applied to target item.
@@ -80,7 +79,7 @@ export default class Enchant extends Task {
 	canUseOn( targ ) {
 
 		let itLevel = targ.level || 1;
-		if ( (targ.enchants + this.level > itLevel) ) {
+		if ( (targ.enchantTot + this.level > itLevel) ) {
 			return false;
 		}
 

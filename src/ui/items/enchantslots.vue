@@ -32,7 +32,7 @@ export default {
 <template>
 
 <div class="enchant-slots">
-<span>{{ Math.round(eslots.used) }} / {{ Math.floor( eslots.max) }} Slot-levels used. </span>
+<span>{{ Math.floor(eslots.used) }} / {{ Math.floor( eslots.max) }} Slot-levels used. </span>
 <div class="enchant-slot" v-for="s in eslots.items" :key="s.id">
 <span class="enchant-desc">
 <span>Level {{ s.item.level }}</span>

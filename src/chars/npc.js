@@ -8,6 +8,7 @@ import { assign } from 'objecty';
 import { TEAM_NPC } from 'values/consts';
 import { mergeClass } from '../items/base';
 import Instance from '../items/instance';
+import { assignNoFunc } from '../util/util';
 
 /**
  * Class for specific Enemies/Minions in game.
@@ -111,7 +112,7 @@ export default class Npc extends Char {
 
 		super( vars );
 
-		if ( save ) assign( this, save );
+		if ( save ) assignNoFunc( this, save );
 
 		this.dodge = this.dodge || this.level/2;
 

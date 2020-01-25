@@ -36,10 +36,10 @@ export default {
 		drop( it ){ this.inv.remove(it); },
 
 		/**
-		 * Test if item can be added to inventory.
+		 * Test if item can be added to USER inventory.
 		 */
 		canAdd(it) {
-			return this.inv.canAdd(it);
+			return Game.state.inventory.canAdd(it);
 		},
 
 		onTake(it) {

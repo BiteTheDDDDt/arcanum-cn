@@ -16,6 +16,40 @@
 		"upgrades":[
 
 			{
+				"id":"greatwing",
+				"name":"great wing",
+				"max":3,
+				"desc":"A new wing of the Great Hall where Wizards can lodge in comfort.",
+				"require":"g.expandhall>=1",
+				"cost":{
+					"gold":10000,
+					"schematic":3,
+					"void":3,
+					"prestige":10
+				},
+				"mod":{
+					"expandhall.max":1
+				}
+			},
+
+			{
+				"id":"starchamber",
+				"name":"star chamber",
+				"require":"tier6",
+				"max":3,
+				"desc":"An expansive chamber for viewing the heavens.",
+				"cost":{
+					"sindel":3,
+					"prestige":10,
+					"dreams":3
+				},
+				"mod":{
+					"notoriety.rate":0.000001,
+					"sindel.rate":"10%"
+				}
+			},
+
+			{
 				"id":"expandhall",
 				"name":"expanded halls",
 				"require":"tier5",
@@ -56,6 +90,7 @@
 			{
 				"id":"timewell",
 				"require":"tier6",
+				"desc":"A deep pool of time incarnate.",
 				"max":1,
 				"cost":{
 					"prestige":75

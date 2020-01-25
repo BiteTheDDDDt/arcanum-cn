@@ -420,7 +420,7 @@
 		},
 		"length":30,
 		"cost":{
-			"waterrune":1,
+			"waterrune":3,
 			"mana":5
 		},
 		"mod":{
@@ -512,7 +512,7 @@
 			"spiritgem":10
 		},
 		"mod":{
-			"mod.manas.rate":0.5
+			"mod.prismatic.rate":0.5
 		}
 	}
 

@@ -31,6 +31,8 @@ export default class Item {
 
 		}
 
+		if ( this.enchants && this.enchants.length > 0 ) data.enchants = this.enchants.join(',');
+
 		data.id = this.id;
 		data.recipe = this.recipe;
 
@@ -46,6 +48,30 @@ export default class Item {
 	 */
 	get recipe() { return this.template?  this.template.id : this._id; }
 	set recipe(v) { if ( !this.template ) this.template = v}
+
+	/**
+	 * @property {string[]} enchants - ids of all enchantments applied.
+	 */
+	get enchants() {
+		return this._enchants;
+	}
+	set enchants(v) {
+
+		if ( typeof v === 'number') {
+			/**@compat */
+			this.enchantTot = v;
+
+		} else if ( typeof v === 'string' ){
+
+			this._enchants = v.split(',');
+
+		} else if ( Array.isArray(v)){
+
+			this._enchants = v;
+
+		} else console.warn('invalid enchants: ' + v );
+
+	}
 
 	/**
 	 * @property {boolean} consume - whether the item is consumed when used.
@@ -111,11 +137,9 @@ export default class Item {
 	/**
 	 * does nothing.
 	 */
-	revive( state ){
+	revive( gs ){
 
-		console.log('item revive template: ' + this.template );
-
-		if ( typeof this.template ==='string' ) this.template = state.getData( this.template );
+		if ( typeof this.template ==='string' ) this.template = gs.getData( this.template );
 		if ( this.template ) {
 			//console.log('it revive from: ' + this.template );
 			// STILL NECESSARY.
@@ -125,6 +149,44 @@ export default class Item {
 		if ( this.mod ) this.mod = ParseMods( this.mod, this.id, this );
 
 	}
+
+	addEnchant( e ) {
+
+		if ( !this.enchants ) this.enchants = [];
+		this.enchants.push(e);
+
+		this.enchantTot += e.level || 0;
+
+	}
+
+	/**
+	 *
+	 * @param {GameState} gs
+	 */
+	begin(gs) {
+
+		let tot = this.enchantTot || 0;
+
+		let enchants = this.enchants;
+		if ( enchants && Array.isArray(enchants) ) {
+
+			for( let i = enchants.length-1; i>= 0; i-- ) {
+
+				let data = gs.getData( enchants[i] );
+				if ( !data ) continue;
+
+				if ( data.mod ) this.applyMods( data.mod );
+
+				tot += data.level || 0;
+
+			}
+
+		}
+
+		this.enchantTot = tot;
+
+	}
+
 
 }
 

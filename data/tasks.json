@@ -1116,9 +1116,28 @@
 			"mana":1
 		},
 		"fill":"runestones",
-		"result":{
-			"runestones":1
-		}
+		"result":"runestones"
+
+	},
+	{
+
+		"id":"craftschematic",
+		"name":"craft schematic",
+		"require":"g.tier6>0&&g.crafting.max>=23&&g.lore>=25",
+		"need":"workspace",
+		"length":3600,
+		"cost":{
+			"tomes":100
+		},
+		"run":{
+			"research":100,
+			"runestones":0.1,
+			"gems":0.1,
+			"gold":2,
+			"stamina":1
+		},
+		"fill":"schematic",
+		"result":"schematic"
 
 	},
 	{

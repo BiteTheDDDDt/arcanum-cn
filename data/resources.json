@@ -169,12 +169,12 @@
 	},
 	{
 		"id":"schematic",
-		"name":"schematic",
+		"name":"schematics",
 		"desc":" Schematic of Thurn the Artificer",
-		"flavor":"If only you could find an original.",
+		"max":3,
 		"mod":{
 			"crafting.max":0.1,
-			"crafting.rate":"1%"
+			"crafting.rate":"5%"
 		}
 	},
 	{
@@ -359,7 +359,7 @@
 	},
 	{
 		"id":"mana",
-		"tags":"manas",
+		"tags":"manas,prismatic",
 		"desc":"raw magical energy",
 		"unit":false,
 		"require":"lore",
@@ -370,7 +370,7 @@
 		"id":"fire",
 		"require":"firelore",
 		"unit":false,
-		"tags":"manas,element",
+		"tags":"manas,element,prismatic",
 		"desc":"Fire Mana",
 		"max":0
 	},
@@ -378,14 +378,14 @@
 		"id":"air",
 		"require":"airlore",
 		"unit":false,
-		"tags":"manas,element",
+		"tags":"manas,element,prismatic",
 		"desc":"Air Mana",
 		"max":0
 	},
 	{
 		"id":"earth",
 		"unit":false,
-		"tags":"manas,element",
+		"tags":"manas,element,prismatic",
 		"require":"earthlore",
 		"desc":"Earth Mana",
 		"max":0
@@ -393,14 +393,14 @@
 	{
 		"id":"water",
 		"unit":false,
-		"tags":"manas,element",
+		"tags":"manas,element,prismatic",
 		"desc":"Water Mana",
 		"require":"waterlore",
 		"max":0
 	},
 	{
 		"id":"nature",
-		"tags":"manas",
+		"tags":"manas,prismatic",
 		"unit":false,
 		"require":"naturelore",
 		"desc":"Nature Mana",
@@ -409,7 +409,7 @@
 	{
 		"id":"shadow",
 		"name":"shadow",
-		"tags":"manas",
+		"tags":"manas,prismatic",
 		"unit":false,
 		"require":"shadowlore",
 		"desc":"Shadow mana",
@@ -417,7 +417,7 @@
 	},
 	{
 		"id":"light",
-		"tags":"manas",
+		"tags":"manas,prismatic",
 		"unit":false,
 		"require":"lightlore",
 		"desc":"Light mana",
@@ -426,7 +426,7 @@
 	{
 
 		"id":"spirit",
-		"tags":"manas",
+		"tags":"manas,prismatic",
 		"unit":false,
 		"desc":"Spirit mana",
 		"require":"spiritlore",

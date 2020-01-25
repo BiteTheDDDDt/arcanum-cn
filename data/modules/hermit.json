@@ -5,7 +5,7 @@
 		"events":[
 			{
 				"id":"evt_breakthrough0",
-				"name":"Breakthrough",
+				"name":"breakthrough",
 				"desc":"A breakthrough in your understanding of spirits! It seems so clear now",
 				"require":"g.spirit.max>19&&g.hermit>0",
 				"mod":{
@@ -14,7 +14,7 @@
 			},
 			{
 				"id":"evt_breakthrough1",
-				"name":"Breakthrough",
+				"name":"breakthrough",
 				"desc":"A breakthrough in your understanding of spirits! It seems so clear now",
 				"require":"g.tier5>0&&g.evt_breakthrough0>0",
 				"mod":{
@@ -23,7 +23,7 @@
 			},
 			{
 				"id":"evt_breakthrough2",
-				"name":"Breakthrough",
+				"name":"breakthrough",
 				"desc":"A breakthrough in your understanding of spirits! It seems so clear now",
 				"require":"g.tier6>0&&g.evt_breakthrough1>0",
 				"mod":{
@@ -32,7 +32,7 @@
 			},
 			{
 				"id":"evt_sworduse",
-				"name":"Mysterious Arts",
+				"name":"mysterious arts",
 				"desc":"Swords fly through the sky, your mastery has improved",
 				"require":"g.tier5>0&&g.sworduse>0",
 				"mod":{
@@ -41,7 +41,7 @@
 			},
 			{
 				"id":"evt_sworduse2",
-				"name":"Mysterious Arts",
+				"name":"mysterious arts",
 				"desc":"Swords fly through the sky, your mastery has improved",
 				"require":"g.tier6>0&&g.evt_sworduse>0",
 				"mod":{
@@ -79,7 +79,7 @@
 			},
 			{
 				"id": "soulflag",
-				"name": "Make a Soulflag",
+				"name": "craft soulflag",
 				"require": "g.spiritlore>12&&g.hermit>0",
 				"desc": "So many souls around, there has to be a way to keep them out of your way",
 				"length": 100,
@@ -95,7 +95,7 @@
 			},
 			{
 				"id": "soulflag2",
-				"name": "Improve the Soulflag",
+				"name": "improve soulflag",
 				"require": "g.soulflag>0&&g.hermit>0",
 				"desc": "There is room for more souls",
 				"length": 900,
@@ -113,7 +113,7 @@
 			},
 			{
 				"id": "soulflag3",
-				"name": "Complete the Soulflag",
+				"name": "complete soulflag",
 				"require": "g.soulflag2>0&&g.hermit>0",
 				"desc": "Containing ten thousand souls, this is a powerful tool ",
 				"length": 9000,
@@ -134,8 +134,8 @@
 		"upgrades": [
 			{
 				"id": "sworduse",
-				"name":"Mysterious Sword Arts",
-				"desc": "You found a lot of weapons through the catacrypts, maybe you can find a use for them",
+				"name":"mysterious sword arts",
+				"desc": "The catacrypts have yielded strange and interesting weapons; perhaps you can find a use for them.",
 				"require": "hermit",
 				"max": 1,
 				"cost": {
@@ -149,8 +149,8 @@
 			},
 			{
 				"id": "breakthrough",
-				"desc": "A breakthrough in your understanding of spirits!",
-				"require": "g.evt_breakthrough0>0",
+				"desc": "A breakthrough in your spiritual meditations.",
+				"require": "evt_breakthrough0",
 				"max":1,
 				"cost":{
 					"spirit":15
@@ -161,7 +161,7 @@
 			},
 			{
 				"id":"fastsoul",
-				"name":"Refinement techniques",
+				"name":"refinement techniques",
 				"desc":"Methods for making flags among other things, won't make it cheaper though",
 				"require":"g.tier5>0&&g.soulflag2>0",
 				"mod":{
@@ -173,7 +173,7 @@
 		"spells": [
 			{
 				"id": "throw_swords",
-				"name": "Flying Swords",
+				"name": "flying Swords",
 				"school": "blade",
 				"require": "sworduse",
 				"level": 11,
@@ -191,13 +191,12 @@
 					"kind": "slash",
 					"tohit": 10
 				},
-				"effect": {
+				"result": {
 					"magicblade":3
 				}
 			},
 			{
 				"id": "soulstrike",
-				"name": "Soulstrike",
 				"school": "spirit",
 				"require": "g.hermit>0&&g.soulflag>0",
 				"level": 6,
@@ -217,7 +216,7 @@
 			},
 			{
 				"id": "soullure",
-				"name": "Soul Lure",
+				"name": "soul lure",
 				"school": "spirit",
 				"require": "g.hermit>0&&g.soulflag2>0",
 				"level": 10,
@@ -233,7 +232,6 @@
 				"attack": {
 					"tohit": 20,
 					"dot": {
-						"id": "Soullure",
 						"kind": "spirit",
 						"duration": 10,
 						"targets": "enemies",
@@ -243,7 +241,7 @@
 			},
 			{
 				"id": "soulriver",
-				"name": "Soul River",
+				"name": "soul river",
 				"school": "spirit",
 				"require": "g.hermit>0&&g.soulflag3>0",
 				"level": 15,
@@ -267,18 +265,16 @@
 		"classes": [
 			{
 				"id": "hermit",
-				"name": "Hermit",
 				"desc": "Swords and spirit",
 				"tags": "t_tier4",
-				"actdesc": "",
-				"require": "g.tier3>0&&g.catacrypts>0&&g.tier4==0",
+				"require": "g.tier3>0&&g.catacrypts>0",
 				"cost": {
 					"research": 25000,
 					"arcana": 25,
 					"tomes": 100,
 					"ichor": 2
 				},
-				"effect": {
+				"result": {
 					"sp": 2
 				},
 				"mod": {
@@ -291,8 +287,8 @@
 		"rares": [
 			{
 				"id": "itemsoulflag",
-				"name": "Soulflag",
-				"desc": "Ten thousand quiet screams can be heard from within",
+				"name": "soulflag",
+				"desc": "Ten thousand lie muffled in its fabric.",
 				"save": true,
 				"type": "weapon",
 				"unique": true,

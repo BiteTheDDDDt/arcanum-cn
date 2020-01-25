@@ -15,7 +15,7 @@ export default {
 		focus() { return Game.state.getData('focus'); },
 		restAction(){return Game.state.restAction },
 		resting() {
-			return this.restAction;
+			return this.restAction.running;
 		},
 
 		pursuits(){return Game.state.getData(PURSUITS)}
