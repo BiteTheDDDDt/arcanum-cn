@@ -99,7 +99,7 @@ export const Persist = {
 
 	settingsLoc(char){ return SETTINGS_DIR + '/'+char +'/' },
 
-	saveSettings(charid) {
+	saveSettings(charid, data) {
 		window.localStorage.setItem( this.settingsLoc(charid), data );
 	},
 

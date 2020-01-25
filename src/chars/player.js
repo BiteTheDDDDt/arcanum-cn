@@ -7,7 +7,7 @@ import Events, { LEVEL_UP, NEW_TITLE, CHAR_TITLE, CHAR_NAME, CHAR_CLASS } from "
 import Wearable from "./wearable";
 import GData from "../items/gdata";
 import Char from './char';
-import { RESOURCE, TEAM_PLAYER, getDelay } from "../values/consts";
+import { RESOURCE, TEAM_PLAYER, getDelay, TimeId } from "../values/consts";
 
 import { NO_ATTACK } from "./states";
 
@@ -23,14 +23,6 @@ const Fists = new Wearable({
 	}
 
 });
-
-/**
-* Create a hall id so players can be unique per hall.
-* @returns {string}
- */
-const makeHallId = () => {
-	return Math.random().toString(36);
-}
 
 /**
  * @constant {number} EXP_RATE
@@ -223,7 +215,7 @@ export default class Player extends Char {
 		this.id = this.type = "player";
 		if ( !vars || !vars.name) this.name = 'wizrobe';
 
-		if ( !this.pid ) this.pid = makeHallId();
+		if ( !this.pid ) this.pid = TimeId('p');
 
 		//if ( vars ) Object.assign( this, vars );
 		if ( !this.level ) this.level = 0;

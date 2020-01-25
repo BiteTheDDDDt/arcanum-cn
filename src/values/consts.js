@@ -19,6 +19,8 @@ const schoolNames = {
 	mana:'arcane'
 }
 
+export const TimeId = (prefix)=>( prefix + Date.now().toString(36) );
+
 /**
  * @const TYP_PCT - object key to indicate a percentile in the given effect/result.
  * Also 'type' of a Percent type object.

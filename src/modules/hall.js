@@ -1,4 +1,5 @@
 import CharInfo from "./charinfo";
+import { TimeId } from "../values/consts";
 
 /**
  * Wizards hall.
@@ -11,6 +12,7 @@ export default class Hall {
 
 		return {
 
+			id:this.id,
 			name:this.name,
 			chars:this.chars,
 			active:this.active,
@@ -21,10 +23,10 @@ export default class Hall {
 	}
 
 	/**
-	 * @property {number} active - zero-indexed slot of active char.
+	 * @property {string} id
 	 */
-	get active() { return this._active; }
-	set active(v) { this._active = v;}
+	get id(){return this._id;}
+	set id(v){this._id = v;}
 
 	/**
 	 * @property {string} name - name of hall.
@@ -33,11 +35,25 @@ export default class Hall {
 	set name(v) { this._name = v; }
 
 	/**
+	 * @property {number} active - zero-indexed slot of active char.
+	 */
+	get active() { return this._active; }
+	set active(v) { this._active = v;}
+
+	/**
+	 * @public @property {string} activeId - pid of active character.
+	 */
+	get activeId(){return this._activeId;}
+	/**
+	 * @private @property {string} activeId
+	 */
+	set activeId(v){this._activeId=v;}
+
+	/**
 	 * @property {CharInfo[]} chars
 	 */
 	get chars() { return this._chars; }
 	set chars(v) {
-
 
 		for( let i = v.length-1; i >= 0; i-- ) {
 			v[i] = new CharInfo(v[i]);
@@ -86,6 +102,8 @@ export default class Hall {
 
 		if ( vars ) Object.assign(this, vars);
 
+		if (!this.id ) this.id = TimeId('h');
+
 		if ( !this.chars ) this.chars = [];
 		if ( !this.active ) this.active = 0;
 
@@ -129,8 +147,9 @@ export default class Hall {
 	/**
 	 * Recalculate point contributions from all chars.
 	 * @property {?Game} g - current game.
+	 * @deprecated
 	 */
-	calcPoints( g ) {
+	/*calcPoints( g ) {
 
 		let p = 0;
 
@@ -152,7 +171,7 @@ export default class Hall {
 		//console.log('RECALC POINTS: '+ this.points.valueOf() );
 		//console.log('PRESTIGE: ' + this.prestige.valueOf() );
 
-	}
+	}*/
 
 	/**
 	 * Creates char objects and calculates points.

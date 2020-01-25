@@ -326,7 +326,7 @@ export default {
 
 			let data = JSON.stringify( Settings );
 			if ( data ) {
-				Persist.saveSettings();
+				Persist.saveSettings( this.activeLoc, data );
 			}
 
 		} catch (e){

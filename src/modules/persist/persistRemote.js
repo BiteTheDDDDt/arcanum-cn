@@ -16,13 +16,35 @@ export const Remote = {
 
 	lastSave:0,
 
+	lastHallSave:0,
+
 	clearAll(){
 	},
 
+	/**
+	 *
+	 * @param {*} charid
+	 * @returns {Promise<object>}
+	 */
 	manualSave( charid ){
 		return this.saveChar( charid, MANUAL_SAVE_WAIT );
 	},
 
+	/**
+	 *
+	 * @param {*} hallid
+	 * @returns {Promise<object>}
+	 */
+	manualSaveHall(hallid){
+		return this.saveHall(hallid, MANUAL_SAVE_WAIT );
+	},
+
+	/**
+	 *
+	 * @param {string} charid
+	 * @param {*} minWait
+	 * @returns {Promise<object>}
+	 */
 	saveChar( charid, minWait=MIN_SAVE_WAIT ) {
 
 		var t = Date.now();
@@ -32,15 +54,38 @@ export const Remote = {
 		return FBRemote.saveChar(charid );
 	},
 
-	saveHall( charid ){
+	/**
+	 *
+	 * @param {string} hallid
+	 * @param {*} minWait
+	 * @returns {Promise<object>}
+	 */
+	saveHall( hallid, minWait=MIN_SAVE_WAIT ){
+
+		var t = Date.now();
+		if ( t - this.lastHallSave < minWait ) return null;
+		this.lastHallSave = t;
+
+		return FBRemote.saveHall( hallid );
+
 	},
 
+	/**
+	 *
+	 * @param {string} charid
+	 * @returns {Promise<object>}
+	 */
 	loadChar( charid ){
-		return FBRemote.loadChar();
+		return FBRemote.loadChar( charid );
 	},
 
-	loadHall( charid ){
-		return null;
+	/**
+	 *
+	 * @param {string} hallid
+	 * @returns {Promise<object>}
+	 */
+	loadHall( hallid ){
+		return FBRemote.loadHall(hallid);
 	}
 
 }

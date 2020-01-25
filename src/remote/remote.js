@@ -63,7 +63,7 @@ export const FBRemote = {
 		var store = firebase.storage().ref( this.hallDir( this.userid ) );
 		return store.getDownloadURL().then( url=>JSONLoad(url, false), err=>{
 			console.warn(err);
-			return null;
+			throw err;
 		});
 	},
 
