@@ -9,6 +9,7 @@ import { TEAM_NPC } from 'values/consts';
 import { mergeClass } from '../items/base';
 import Instance from '../items/instance';
 import { assignNoFunc } from '../util/util';
+import Context from '../context';
 
 /**
  * Class for specific Enemies/Minions in game.
@@ -117,6 +118,10 @@ export default class Npc extends Char {
 		this.dodge = this.dodge || this.level/2;
 
 		this.active = this.active === undefined || this.active === null ? false : this.active;
+
+		if ( this._spells ) {
+			this._context = new Context(this);
+		} else this._context = this;
 
 		if ( typeof this.hp === 'string' ) this.hp = new Range(this.hp).value;
 		else if ( this.hp instanceof Range ) {

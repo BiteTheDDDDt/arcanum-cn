@@ -10,7 +10,6 @@ import events, { CHAR_STATE } from '../events';
 import States, { NO_ATTACK } from './states';
 import {assign} from 'objecty';
 
-import Context from '../context';
 import Game from '../game';
 import { ApplyAction } from '../values/combat';
 import { assignNoFunc } from '../util/util';
@@ -172,10 +171,6 @@ export default class Char {
 		this.type = NPC;
 
 		this._states = new States();
-
-		if ( this._spells ) {
-			this._context = new Context(this);
-		} else this._context = Game;
 
 		this.immunities = this.immunities || {};
 		this._resist = this._resist || {};
