@@ -1,4 +1,4 @@
-import { assignPublic } from "../util/util";
+import { assignPublic, assignNoFunc } from "../util/util";
 import { cloneClass } from 'objecty';
 import Stat from "../values/stat";
 import { TARGET_ALLIES, TARGET_ALLY, TARGET_SELF,
@@ -141,7 +141,7 @@ export default class Attack {
 			this.name = vars.name;
 			this.kind = vars.kind;
 
-			assignPublic(this,vars); //Object.assign(this,vars);
+			assignNoFunc(this,vars); //Object.assign(this,vars);
 		}
 
 		if ( this.dot ) {

@@ -135,7 +135,6 @@ export const assignNoFunc = ( dest, src ) => {
 				if ( desc.set ) {
 
 					if ( typeof dest[p] === 'function') console.log('OVERWRITE dest SET: '+p);
-					console.log('SET: ' + p);
 
 				} else if ( !desc.writable ) continue;
 				else if ( typeof dest[p] ==='function') {
