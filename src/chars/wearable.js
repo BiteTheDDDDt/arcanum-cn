@@ -8,6 +8,7 @@ import { assign, assignRecursive } from 'objecty';
 import Item from '../items/item';
 import { WEARABLE, ARMOR, TYP_RANGE, TYP_STAT } from '../values/consts';
 import Stat from '../values/stat';
+import { assignNoFunc } from '../util/util';
 
 
 export default class Wearable extends Item {
@@ -105,7 +106,7 @@ export default class Wearable extends Item {
 		this.stack = false;
 		this.consume = false;
 
-		if ( vars ) assign( this, vars, ['constructor']);
+		if ( vars ) assignNoFunc( this, vars );
 
 		this.value = this.val = 1;
 
