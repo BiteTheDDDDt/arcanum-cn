@@ -50,14 +50,6 @@ export default class Wearable extends Item {
 
 	get equippable() { return true; }
 
-	/**
-	 * @property {number} enchantTot - total level of all enchantments applied.
-	 */
-	get enchantTot(){return this._enchantTot}
-	set enchantTot(v){
-		this._enchantTot=v;
-	}
-
 	get material() { return this._material; }
 	set material(v) { this._material=v;}
 

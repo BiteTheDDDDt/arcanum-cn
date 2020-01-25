@@ -74,6 +74,14 @@ export default class Item {
 	}
 
 	/**
+	 * @property {number} enchantTot - total level of all enchantments applied.
+	 */
+	get enchantTot(){return this._enchantTot}
+	set enchantTot(v){
+		this._enchantTot=v;
+	}
+
+	/**
 	 * @property {boolean} consume - whether the item is consumed when used.
 	 */
 	get consume() { return this._consume; }
@@ -92,6 +100,7 @@ export default class Item {
 
 		if ( vars ) assign(this,vars);
 
+		if ( !this.enchantTot ) this.enchantTot = 0;
 		this.value = this._value || 1;
 
 		if ( this.consume === null || this.consume === undefined ) this.consume = this.defaults.consume;
@@ -184,6 +193,7 @@ export default class Item {
 		}
 
 		this.enchantTot = tot;
+		console.log(this.id + ' ENCHANTS: ' + this.enchantTot );
 
 	}
 
