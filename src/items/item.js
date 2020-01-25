@@ -31,7 +31,9 @@ export default class Item {
 
 		}
 
-		if ( this.enchants && this.enchants.length > 0 ) data.enchants = this.enchants.join(',');
+		if ( this.enchants && this.enchants.length>0){
+			data.enchants = this.enchants.join(',');
+		}
 
 		data.id = this.id;
 		data.recipe = this.recipe;
@@ -63,6 +65,7 @@ export default class Item {
 
 		} else if ( typeof v === 'string' ){
 
+			console.log('encahnts loaded: ' + v );
 			this._enchants = v.split(',');
 
 		} else if ( Array.isArray(v)){
@@ -71,6 +74,14 @@ export default class Item {
 
 		} else console.warn('invalid enchants: ' + v );
 
+	}
+
+	/**
+	 * @property {number} enchantTot - total level of all enchantments applied.
+	 */
+	get enchantTot(){return this._enchantTot}
+	set enchantTot(v){
+		this._enchantTot=v;
 	}
 
 	/**
@@ -92,6 +103,7 @@ export default class Item {
 
 		if ( vars ) assign(this,vars);
 
+		if ( !this.enchantTot ) this.enchantTot = 0;
 		this.value = this._value || 1;
 
 		if ( this.consume === null || this.consume === undefined ) this.consume = this.defaults.consume;
@@ -130,6 +142,12 @@ export default class Item {
 	amount(g) {
 	}
 
+	/**
+	 * Do nothing when item mod changes.
+	 */
+	modChanged(){
+	}
+
 	maxed(){
 		return (this.stack === false &&this.value>0) || ( this.max && this.value >= this.max );
 	}
@@ -153,7 +171,7 @@ export default class Item {
 	addEnchant( e ) {
 
 		if ( !this.enchants ) this.enchants = [];
-		this.enchants.push(e);
+		this.enchants.push(e.id);
 
 		this.enchantTot += e.level || 0;
 
@@ -173,9 +191,9 @@ export default class Item {
 			for( let i = enchants.length-1; i>= 0; i-- ) {
 
 				let data = gs.getData( enchants[i] );
-				if ( !data ) continue;
+				if ( data === undefined ) continue;
 
-				if ( data.mod ) this.applyMods( data.mod );
+				//if ( data.mod ) this.applyMods( data.mod );
 
 				tot += data.level || 0;
 

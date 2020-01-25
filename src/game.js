@@ -608,7 +608,9 @@ export default {
 		it.value++;
 
 		console.log('USING: ' + it.id  + ' with ' + targ.id );
-		if ( it.mod ) targ.applyMods( it.mod );
+		if ( it.mod ) {
+			targ.permVars( it.mod );
+		}
 		if ( it.result ) targ.permVars(it.result);
 
 	},
@@ -724,19 +726,6 @@ export default {
 		it.doUnlock(this);
 
 		return true;
-
-	},
-
-	/**
-	 * Called when an item's modifier to other items changes.
-	 * The item must be subtracted and re-added to ensure mods are correct.
-	 * @param {GData} item
-	 */
-	modChanged( it ) {
-
-		let val = it.value;
-		if ( it.mod ) this.removeMod( it.mod, val );
-		if ( it.lock ) this.unlock( it.lock );
 
 	},
 

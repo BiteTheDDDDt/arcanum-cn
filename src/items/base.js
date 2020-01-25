@@ -294,7 +294,7 @@ export default {
 		if ( mods instanceof Mod ) {
 
 			mods.applyTo( targ, 'value', amt );
-			if ( this.mod ) Game.applyMods( this.mod, this.value );
+			if ( this.mod ) this.modChanged(Game);
 
 		} else if ( typeof mods === 'object') {
 
@@ -310,14 +310,14 @@ export default {
 
 			} else if ( typeof targ === 'object') {
 
-				console.warn('Target is raw Object: ' + mods );
+				console.warn( this.id + ' targ is raw Object: ' + mods );
 				targ.value = (targ.value || 0 ) + amt*mods;
 
 			} else {
 				// nothing can be done if targ is a number. no parent object.
 				console.error( this.id + ' !!invalid mod: ' + mods );
 			}
-			if ( this.mod ) Game.applyMods( this.mod, this.value );
+			if ( this.mod ) this.modChanged(Game);
 
 		} else console.warn( this.id + ' unknown mod type: ' + mods );
 
@@ -391,9 +391,13 @@ export default {
 		}
 
 		if ( mods.mod ) {
-			Game.applyMods( this.mod, this.value );
+			this.modChanged(Game);
 		}
 
+	},
+
+	modChanged(g){
+		g.applyMods(this.mod, this.value);
 	},
 
 	/**

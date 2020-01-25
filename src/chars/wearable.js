@@ -8,6 +8,7 @@ import { assign, assignRecursive } from 'objecty';
 import Item from '../items/item';
 import { WEARABLE, ARMOR, TYP_RANGE, TYP_STAT } from '../values/consts';
 import Stat from '../values/stat';
+import { assignNoFunc } from '../util/util';
 
 
 export default class Wearable extends Item {
@@ -50,14 +51,6 @@ export default class Wearable extends Item {
 
 	get equippable() { return true; }
 
-	/**
-	 * @property {number} enchantTot - total level of all enchantments applied.
-	 */
-	get enchantTot(){return this._enchantTot}
-	set enchantTot(v){
-		this._enchantTot=v;
-	}
-
 	get material() { return this._material; }
 	set material(v) { this._material=v;}
 
@@ -89,7 +82,6 @@ export default class Wearable extends Item {
 	}
 
 	/**
-	 * @todo not implemented.
 	 * @property {boolean} worn
 	 */
 	get worn(){ return this._worn; }
@@ -114,7 +106,7 @@ export default class Wearable extends Item {
 		this.stack = false;
 		this.consume = false;
 
-		if ( vars ) assign( this, vars, ['constructor']);
+		if ( vars ) assignNoFunc( this, vars );
 
 		this.value = this.val = 1;
 
@@ -230,9 +222,10 @@ export default class Wearable extends Item {
 		if ( this.armor ) p.defense.add( this.armor );
 		if ( this.type === 'weapon' ) p.weapon = this;
 
+		this.worn = true;
 		if ( this.mod ) {
 			setModCounts( this.mod, 1);
-			g.applyMods( this.mod );
+			g.applyMods( this.mod, 0 );
 		}
 	}
 
@@ -247,11 +240,11 @@ export default class Wearable extends Item {
 		if ( this.armor ) p.defense.add( -this.armor );
 		if ( p.weapon === this ) p.weapon = null;
 
+		this.worn = false;
+
 		if ( this.mod ) {
-
 			setModCounts( this.mod, 0);
-			g.applyMods( this.mod );
-
+			g.removeMod(this.mod)
 		}
 
 	}
