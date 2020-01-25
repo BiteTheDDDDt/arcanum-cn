@@ -125,13 +125,24 @@ export const assignNoFunc = ( dest, src ) => {
 
 		for( let p of Object.getOwnPropertyNames(vars) ) {
 
-			if ( p[0] === '_' || typeof src[p] === 'function'){
+			if ( p[0] === '_' ){
 				continue;
 			}
 
 			var desc = getPropDesc(dest, p);
-			if ( desc && (!desc.writable && desc.set === undefined) ) {
-				continue;
+			if ( desc ) {
+
+				if ( desc.set ) {
+
+					if ( typeof dest[p] === 'function') console.log('OVERWRITE dest SET: '+p);
+					console.log('SET: ' + p);
+
+				} else if ( !desc.writable ) continue;
+				else if ( typeof dest[p] ==='function') {
+					//console.log('skipping func: ' + p);
+					continue;
+				}
+
 			}
 
 			dest[p ] = src[p];
