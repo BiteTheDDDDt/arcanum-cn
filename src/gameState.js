@@ -53,7 +53,7 @@ export default class GameState {
 	 * Create unique string id.
 	 * @param {string} [s='']
 	 */
-	nextId( s='' ) { return s + this.nextIdNum(); }
+	nextId( s='' ) { return s + '_' + this.nextIdNum(); }
 
 	nextIdNum() { return this.NEXT_ID++; }
 
