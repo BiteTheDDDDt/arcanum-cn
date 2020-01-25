@@ -147,7 +147,6 @@ export default class Item {
 		}
 
 		if ( this.mod ) this.mod = ParseMods( this.mod, this.id, this );
-		if ( this.enchants ) this.reviveEnchants(gs);
 
 	}
 
@@ -166,18 +165,21 @@ export default class Item {
 	 */
 	begin(gs) {
 
-		let enchants = this.enchants;
-		if ( !enchants || !Array.isArray(enchants) ) return;
-
 		let tot = this.enchantTot || 0;
-		for( let i = enchants.length-1; i>= 0; i-- ) {
 
-			let data = gs.getData( enchants[i] );
-			if ( !data ) continue;
+		let enchants = this.enchants;
+		if ( enchants && Array.isArray(enchants) ) {
 
-			if ( data.mod ) this.applyMods( data.mod );
+			for( let i = enchants.length-1; i>= 0; i-- ) {
 
-			tot += data.level || 0;
+				let data = gs.getData( enchants[i] );
+				if ( !data ) continue;
+
+				if ( data.mod ) this.applyMods( data.mod );
+
+				tot += data.level || 0;
+
+			}
 
 		}
 
