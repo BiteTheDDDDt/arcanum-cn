@@ -81,7 +81,6 @@ export default class Wearable extends Item {
 	}
 
 	/**
-	 * @todo not implemented.
 	 * @property {boolean} worn
 	 */
 	get worn(){ return this._worn; }
@@ -222,9 +221,10 @@ export default class Wearable extends Item {
 		if ( this.armor ) p.defense.add( this.armor );
 		if ( this.type === 'weapon' ) p.weapon = this;
 
+		this.worn = true;
 		if ( this.mod ) {
 			setModCounts( this.mod, 1);
-			g.applyMods( this.mod );
+			g.applyMods( this.mod, 0 );
 		}
 	}
 
@@ -239,11 +239,11 @@ export default class Wearable extends Item {
 		if ( this.armor ) p.defense.add( -this.armor );
 		if ( p.weapon === this ) p.weapon = null;
 
+		this.worn = false;
+
 		if ( this.mod ) {
-
 			setModCounts( this.mod, 0);
-			g.applyMods( this.mod );
-
+			g.removeMod(this.mod)
 		}
 
 	}

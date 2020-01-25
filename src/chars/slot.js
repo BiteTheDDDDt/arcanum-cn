@@ -204,11 +204,15 @@ export default class Slot {
 					// this shouldn't occur but seems familiar as a previous bug.
 					all[i] = it;
 					ids[ it.id ] = true;
+					it.worn=true;
 				}
 
 			}
 
-		} else this.item = itemRevive(gs, this.item );
+		} else {
+			this.item = itemRevive(gs, this.item );
+			if ( this.item !== null && this.item !== undefined )this.item.worn=true;
+		}
 
 	}
 
