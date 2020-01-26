@@ -9,6 +9,7 @@ export const LOCAL_FAIL = 1;
  */
 export const REMOTE_FAIL = 2;
 
+const HALL_FILE = 'hall';
 const SETTINGS_DIR = 'settings/';
 
 /**
@@ -33,27 +34,28 @@ export const Persist = {
 	},
 
 	/**
+	 * @param {string} data
+	 * @param {string} charid
 	 *
-	 * @param {*} charid
-	 * @param {*} json
 	 * @returns {Promise.<object>}
 	 */
-	async saveChar( charid, json ) {
+	async saveChar( data, charid ) {
 
-		Local.saveChar( charid, json );
-		if ( Remote) return Remote.saveChar( charid, json );
+		Local.saveChar( data, charid );
+		if ( Remote) return Remote.saveChar( data, charid );
 
 	},
 
 
 	/**
-	 *
 	 * @param {string} data
+	 * @param {?string} [hid=HALL_FILE]
 	 */
-	async saveHall( data ){
+	async saveHall( data, hid=HALL_FILE ){
 
-		Local.saveHall(data);
-		if ( Remote) return Remote.saveHall(data);
+		hid = HALL_FILE + '.json';
+		Local.saveHall( data, hid );
+		if ( Remote) return Remote.saveHall( data, hid );
 
 	},
 
@@ -79,33 +81,35 @@ export const Persist = {
 	/**
 	 * @returns {Promise.<object>}
 	 */
-	async loadHall(){
+	async loadHall( hid=HALL_FILE ){
 
+		hid = HALL_FILE + '.json';
 		if ( this.remoteFirst && Remote ) {
 
-			let res = await Remote.loadHall();
+			let res = await Remote.loadHall( hid );
 			if ( res ) return res;
-			return Local.loadHall();
+			return Local.loadHall( hid );
 
 		} else {
 
-			let res = Local.loadHall();
+			let res = Local.loadHall( hid );
+			if ( !res ) console.log('LOCAL HLAL NOT FOUND');
 			if ( res || !Remote ) return res;
 
-			return Remote.loadHall();
+			return Remote.loadHall( hid );
 		}
 
 	},
 
-	settingsLoc(char){ return SETTINGS_DIR + '/'+char +'/' },
-
-	saveSettings(charid, data) {
+	saveSettings( data, charid ) {
 		window.localStorage.setItem( this.settingsLoc(charid), data );
 	},
 
 	loadSettings(charid){
 		return window.localStorage.getItem( this.settingsLoc(charid) );
-	}
+	},
+
+	settingsLoc(charid){ return SETTINGS_DIR + '/'+charid +'/' },
 
 };
 

@@ -82,7 +82,7 @@ export const FBRemote = {
 	 * @param {} charid
 	 * @returns {Promise<object>} json save object, or null.
 	 */
-	loadChar( charid='default'){
+	loadChar( charid){
 
 		var store = firebase.storage().ref( this.saveDir( this.userid, charid ) );
 		return store.getDownloadURL().then( url=>JSONLoad(url, false), err=>{
@@ -104,10 +104,10 @@ export const FBRemote = {
 	/**
 	 *
 	 * @param {string} save
-	 * @param {string} [charid='default']
+	 * @param {string} charid
 	 * @returns {Promise.<object>}
 	 */
-	saveChar( save, charid='default' ){
+	saveChar( save, charid ){
 
 		var store = firebase.storage().ref( this.saveDir( this.userid, charid ) );
 		return store.putString( save, StringFormat.RAW );
@@ -120,8 +120,8 @@ export const FBRemote = {
 	 * @param {*} hid
 	 * @returns {Promise<object>}
 	 */
-	saveHall( save, hid='hall' ) {
-		var store = firebase.storage().ref( this.saveDir( this.userid, charid ) );
+	saveHall( save, hid ) {
+		var store = firebase.storage().ref( this.hallDir( this.userid ) );
 		return store.putString( save, StringFormat.RAW );
 	},
 

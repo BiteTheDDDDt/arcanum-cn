@@ -5,14 +5,7 @@ import Events, { LEVEL_UP, CHAR_NAME, CHAR_TITLE, CHAR_CLASS } from "../events";
 import Module from "./module";
 import { Persist } from "./persist/persist";
 
-const CHARS_DIR = 'chars/';
 const HALL_FILE = 'hall';
-
-/**
-* @const {string} SAVE_DIR - global save directory.
-*/
-const SAVE_DIR = '';
-
 
 /**
  * Control access to all local storage and profile information.
@@ -57,15 +50,47 @@ export default {
 			if ( data ) {
 
 				try {
+
 					data = JSON.parse(data);
+
 				} catch(e) {console.error( e.message + '\n' + e.stack ); }
 			}
 
 		}
 
-		data = await this.initHallData( data );
+		data = await this.loadHallFile( data );
 
 		this.hall = new Hall(data);
+		if ( this.hall.legacy ) this.resaveLegacy();
+
+	},
+
+	/**
+	 * Load legacy char locations and resave with new
+	 * naming scheme.
+	 * @compatibility
+	 */
+	async resaveLegacy(){
+
+		console.log('RESAVING LEGACY FILES');
+
+		for( let i = 0; i < this.hall.max; i++ ) {
+
+			var c = this.hall.getSlot(i);
+			if ( c.empty ) continue;
+
+			console.log('loading legacy: ' + i );
+			let data = await Persist.loadChar( this.hall.charId(i) );
+			// parse to avoid double string encoding.
+			if ( data ) data = JSON.parse(data);
+
+			console.log('saving legacy: ' + i );
+
+			if ( data ) await Persist.saveChar( data, c.pid );
+			console.log('legacy saved');
+
+		}
+		this.hall.legacy = false;
 
 	},
 
@@ -74,7 +99,7 @@ export default {
 	 * @param {object} save - save data of hall.
 	 * @returns {Promise.<HallData>}
 	 */
-	initHallData( save ) {
+	loadHallFile( save ) {
 
 		let module = new Module();
 		return module.load( HALL_FILE ).then( ()=>module.instance( save ));
@@ -148,7 +173,7 @@ export default {
 	gameLoaded(game) {
 
 		let p = game.state.player;
-		let slot = this.hall.hidSlot( p.hid );
+		let slot = this.hall.pidSlot( p.pid );
 
 		if ( slot >= 0 ) {
 			this.hall.setActive( slot );
@@ -166,11 +191,15 @@ export default {
 
 	},
 
+	/**
+	 * Dismiss character by character slot.
+	 * @param {number} slot
+	 */
 	dismiss( slot ) {
 
 		if ( this.hall.dismiss(slot) ) {
 
-			Persist.deleteChar( slot );
+			Persist.deleteChar( this.hall.charId(slot) );
 			this.saveHall();
 
 		}
@@ -184,12 +213,7 @@ export default {
 	loadActive(){
 
 		try {
-
-			let store = window.localStorage;
-			let str = store.getItem( this.activeLoc() );
-
-			return str;
-
+			return Persist.loadChar( this.hall.curId );
 		} catch (e ) {
 
 			console.error( e.message + '\n' + e.stack );
@@ -216,7 +240,7 @@ export default {
 		let chars = data.chars;
 		for( let i = 0; i < max; i++ ) {
 
-			let char = await Persist.loadChar( this.charLoc(i) );
+			let char = await Persist.loadChar( this.hall.charId(i) );
 
 			// parse to avoid double string encoding.
 			if ( char ) char = JSON.parse(char);
@@ -231,6 +255,7 @@ export default {
 
 	/**
 	 * Set the complete hall data from save file.
+	 * Loads the data as the current hall.
 	 * @param {FullHall} save
 	 */
 	setHallSave( save ) {
@@ -238,21 +263,26 @@ export default {
 		this.setCharDatas( save.chars );
 		console.dir( save.hall );
 
-		Persist.saveHall( JSON.stringify(save.hall) );
+		Persist.saveHall( JSON.stringify(save.hall), save.hall.id );
 
 	},
 
-	setCharDatas( chars ) {
+	/**
+	 * Used to save all the character data when a hall
+	 * is loaded from file.
+	 * @param {*} chars
+	 */
+	async setCharDatas( chars ) {
 
 		if ( !chars ) return;
 
 		for( let i = chars.length-1; i >= 0; i-- ) {
 
 			if ( chars[i] ) console.log( `HALL SAVE ${i}: ${chars[i].name}` );
-			else console.log('HALL SAVE EMPTY: ' + i );
+			else console.log('EMPTY HALL SLOT: ' + i );
 
-			var json = JSON.stringify(chars[i]);
-			Persist.saveChar( this.charLoc(i), json);
+			var data = JSON.stringify(chars[i]);
+			await Persist.saveChar( data, chars[i].pid );
 
 		}
 
@@ -269,7 +299,7 @@ export default {
 
 			let json = JSON.stringify( state );
 			if ( json ) {
-				await Persist.saveChar( json );
+				await Persist.saveChar( json, this.hall.curId );
 			}
 
 			this.saveSettings();
@@ -287,13 +317,8 @@ export default {
 	/**
 	 * Wipe current player data and settings.
 	 */
-	clearActive(){
-
-		// clear hall char.
-		Persist.deleteChar( this.activeLoc() );
-
-
-
+	async clearActive(){
+		return Persist.deleteChar( this.curId );
 	},
 
 	/**
@@ -326,7 +351,7 @@ export default {
 
 			let data = JSON.stringify( Settings );
 			if ( data ) {
-				Persist.saveSettings( this.activeLoc, data );
+				Persist.saveSettings( data, this.curId );
 			}
 
 		} catch (e){
@@ -334,12 +359,6 @@ export default {
 		}
 
 	},
-
-	/**
-	 * Save loc for Active wizard.
-	 * @returns {string} - save location for current char file.
-	 */
-	activeLoc() { return SAVE_DIR + CHARS_DIR + this.hall.active; },
 
 	hasHall() { return this.hall && this.hall.owned() },
 
@@ -350,15 +369,13 @@ export default {
 		Persist.clearAll();
 	},
 
-	charLoc:( ind ) =>(SAVE_DIR + CHARS_DIR + ind),
-
-	saveHall(){
+	async saveHall(){
 
 		try {
 
-			let json = JSON.stringify( this.hall );
-			if ( json ) {
-				Persist.saveHall(json);
+			let data = JSON.stringify( this.hall );
+			if ( data ) {
+				await Persist.saveHall( data, this.hall.id );
 			}
 
 		} catch(e){

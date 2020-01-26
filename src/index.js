@@ -250,10 +250,9 @@ const vm = new Vue({
 			if (!e )return;
 			try {
 
-				if ( this.saveLink ) URL.revokeObjectURL( this.saveLink );
-
+				e.preventDefault();
 				let state = this.game.state;
-				this.saveLink = this.makeLink( state, e.target, state.player.name );
+				this.makeLink( state, e.target, state.player.name );
 
 			} catch(ex) {
 				console.error( ex.message + '\n' + ex.stack );
@@ -277,7 +276,7 @@ const vm = new Vue({
 				if ( this.hallLink) URL.revokeObjectURL( this.hallLink );
 
 				let data = await Profile.getHallSave();
-				this.saveLink = this.makeLink( data, e.target, 'hall');
+				this.makeLink( data, e.target, 'hall');
 
 			} catch(ex){
 				console.error( ex.message + '\n' + ex.stack );
@@ -293,13 +292,19 @@ const vm = new Vue({
 		 */
 		makeLink( data, targ, saveName ) {
 
-			let json = JSON.stringify(data);
+			if ( this.saveLink ) URL.revokeObjectURL( this.saveLink );
 
+			let json = JSON.stringify(data);
 			let file = new Blob( [json], {type:"text/json;charset=utf-8"} );
 
+			var a = document.createElement( 'a');
 			//targ.type = 'text/json';
-			targ.download = targ.title = saveName + '.json';
-			return targ.href = URL.createObjectURL( file );
+			a.download = targ.title = saveName + '.json';
+
+			this.saveLink = URL.createObjectURL( file );
+			a.href = this.saveLink;
+			a.click();
+			document.remove
 
 		},
 

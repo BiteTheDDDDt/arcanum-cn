@@ -29,8 +29,8 @@ export const Remote = {
 	 * @param {*} charid
 	 * @returns {Promise<object>}
 	 */
-	manualSave( charid ){
-		return this.saveChar( charid, MANUAL_SAVE_WAIT );
+	manualSave( data, charid ){
+		return this.saveChar( data, charid, MANUAL_SAVE_WAIT );
 	},
 
 	/**
@@ -38,8 +38,8 @@ export const Remote = {
 	 * @param {*} hallid
 	 * @returns {Promise<object>}
 	 */
-	manualSaveHall(hallid){
-		return this.saveHall(hallid, MANUAL_SAVE_WAIT );
+	manualSaveHall( data, hallid){
+		return this.saveHall( data, hallid, MANUAL_SAVE_WAIT );
 	},
 
 	/**
@@ -48,7 +48,7 @@ export const Remote = {
 	 * @param {*} minWait
 	 * @returns {Promise<object>}
 	 */
-	saveChar( charid, minWait=MIN_SAVE_WAIT ) {
+	saveChar( data, charid, minWait=MIN_SAVE_WAIT ) {
 
 		if ( !FBRemote.loggedIn ) return null;
 
@@ -56,7 +56,7 @@ export const Remote = {
 		if ( t - this.lastSave < minWait ) return null;
 		this.lastSave = t;
 
-		return FBRemote.saveChar(charid );
+		return FBRemote.saveChar( data, charid );
 	},
 
 	/**
@@ -65,7 +65,7 @@ export const Remote = {
 	 * @param {*} minWait
 	 * @returns {Promise<object>}
 	 */
-	saveHall( hallid, minWait=MIN_SAVE_WAIT ){
+	saveHall( data, hallid, minWait=MIN_SAVE_WAIT ){
 
 		if ( !FBRemote.loggedIn ) return null;
 
@@ -73,7 +73,7 @@ export const Remote = {
 		if ( t - this.lastHallSave < minWait ) return null;
 		this.lastHallSave = t;
 
-		return FBRemote.saveHall( hallid );
+		return FBRemote.saveHall( data, hallid );
 
 	},
 

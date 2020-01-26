@@ -15,7 +15,7 @@ export default class Hall {
 			id:this.id,
 			name:this.name,
 			chars:this.chars,
-			active:this.active,
+			curId:this.curId,
 			items:this.items
 
 		}
@@ -37,17 +37,24 @@ export default class Hall {
 	/**
 	 * @property {number} active - zero-indexed slot of active char.
 	 */
-	get active() { return this._active; }
-	set active(v) { this._active = v;}
+	get curSlot() { return this._curSlot; }
+	set curSlot(v) {
+		this._curSlot = v;
+	}
 
 	/**
 	 * @public @property {string} activeId - pid of active character.
 	 */
-	get activeId(){return this._activeId;}
+	get curId(){
+		return this._curId;
+	}
 	/**
 	 * @private @property {string} activeId
 	 */
-	set activeId(v){this._activeId=v;}
+	set curId(v){
+		this._curId=v;
+		this._curSlot = this.chars.findIndex(c=>c.id===v);
+	}
 
 	/**
 	 * @property {CharInfo[]} chars
@@ -105,7 +112,8 @@ export default class Hall {
 		if (!this.id ) this.id = TimeId('h');
 
 		if ( !this.chars ) this.chars = [];
-		if ( !this.active ) this.active = 0;
+
+		this.findCur(vars);
 
 		if ( !this.name ) this.name = "Wizard's Hall";
 
@@ -119,6 +127,30 @@ export default class Hall {
 		//console.warn('!!!!START PRESTIGE: ' + this.prestige.value );
 
 		this.initChars();
+
+	}
+
+	/**
+	 * Set curId/active index based on save.
+	 * @param {object} vars
+	 */
+	findCur(vars){
+
+		if (vars.active ) {
+
+			console.log('active: ' + vars.active );
+
+			this.legacy = true;
+			this.curSlot = vars.active;
+
+		} else {
+			this.curId = vars.curId;
+		}
+
+		if ( !this.curId ) {
+			this.curId = null;
+			this.curSlot = 0;
+		}
 
 	}
 
@@ -145,35 +177,6 @@ export default class Hall {
 	}
 
 	/**
-	 * Recalculate point contributions from all chars.
-	 * @property {?Game} g - current game.
-	 * @deprecated
-	 */
-	/*calcPoints( g ) {
-
-		let p = 0;
-
-		let max = Math.floor( this.max.value );
-
-		for( let i = 0; i < max; i++ ) {
-
-			var t = this.chars[i].getPoints();
-			//console.log( this.chars[i].name + " POINTS: " + t );
-
-			p += this.chars[i].getPoints();
-
-		}
-
-		if ( g ) {
-			this.points.setBase( g, p)
-		} else this.points.value = p;
-
-		//console.log('RECALC POINTS: '+ this.points.valueOf() );
-		//console.log('PRESTIGE: ' + this.prestige.valueOf() );
-
-	}*/
-
-	/**
 	 * Creates char objects and calculates points.
 	 */
 	initChars(){
@@ -187,7 +190,6 @@ export default class Hall {
 			}
 
 		}
-		//this.calcPoints();
 
 	}
 
@@ -226,7 +228,7 @@ export default class Hall {
 			console.warn('invalid char slot: '+ slot);
 			return false;
 		}
-		this.active = slot;
+		this.curSlot = slot;
 		return true;
 
 	}
@@ -239,14 +241,14 @@ export default class Hall {
 
 		let char = this.getSlot(slot);
 
-		if ( !char ) char = this.chars[ (slot < 0 ? this.active : slot)  ] = new CharInfo();
+		if ( !char ) char = this.chars[ (slot < 0 ? this.curSlot : slot)  ] = new CharInfo();
 		char.update( p );
 
 	}
 
 	setLevel( player, lvl ){
 
-		let char = this.getSlot( this.active );
+		let char = this.getSlot( this.curSlot );
 		if ( char) char.level = lvl;
 
 	}
@@ -259,31 +261,39 @@ export default class Hall {
 	}
 
 	/**
-	 * @param {number} hid - character hid to search for.
-	 * @returns {number} slot of character with given hid, or -1.
+	 * @param {number} pid - character pid to search for.
+	 * @returns {number} slot of character with given pid, or -1.
 	 */
-	hidSlot( hid ){ return this.chars.findIndex( v=>v.hid==hid); }
+	pidSlot( pid ){ return this.chars.findIndex( v=>v.pid==pid); }
 
 	setTitle( title, slot=-1 ){
 		let char = this.getSlot(slot);
 		if ( char) char.title = title;
 	}
 
-	getSlot(slot=-1) {
-		return this.chars[ slot < 0 ? this.active : slot ];
+	/**
+	 * Gets id of character at slot.
+	 * @param {number} slot
+	 * @returns {string}
+	 */
+	charId( slot=-1) {
+		if ( slot > this.chars.length ) return null;
+		return this.chars[slot].pid;
 	}
-
-	findSlot(p) { return this.chars.findIndex(p); }
 
 	/**
-	 * Get slot index by name.
-	 * @param {string} charName
-	 * @returns {number}
+	 * CharacterInfo by slot.
+	 * @param {*} slot
+	 * @returns {CharInfo}
 	 */
-	byName( charName ) {
-		return this.chars.findIndex( v=>v.name === charName);
+	getSlot(slot=-1) {
+		return this.chars[ slot < 0 ? this.curSlot : slot ];
 	}
 
+	/**
+	 * Remove character by slot.
+	 * @param {number} slot
+	 */
 	rmChar( slot ) {
 		this.chars[ slot ] = undefined;
 	}

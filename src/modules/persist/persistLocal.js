@@ -1,6 +1,5 @@
 const SAVE_DIR = '';
 const CHARS_DIR = 'chars/';
-const HALL_FILE = 'hall';
 
 export const Local = {
 
@@ -16,11 +15,11 @@ export const Local = {
 
 	},
 
-	saveChar( charid, json ) {
-		window.localStorage.setItem( this.charLoc( charid ), json );
+	saveChar( data, charid ) {
+		window.localStorage.setItem( this.charLoc( charid ), data );
 	},
 
-	loadChar(){
+	loadChar( charid ){
 		return window.localStorage.getItem( this.charLoc( charid ) );
 	},
 
@@ -28,17 +27,17 @@ export const Local = {
 	 *
 	 * @param {string} data
 	 */
-	saveHall( data ){
-		window.localStorage.setItem( this.hallLoc(), data );
+	saveHall( data, hid ){
+		window.localStorage.setItem( this.hallLoc( hid ), data );
 	},
 
-	loadHall(){
-		return window.localStorage.getItem( this.hallLoc() );
+	loadHall( hid ){
+		return window.localStorage.getItem( this.hallLoc( hid ) );
 	},
 
 
-	charLoc( ind ) { return SAVE_DIR + CHARS_DIR + ind },
+	charLoc( charid ) { return SAVE_DIR + CHARS_DIR + charid },
 
-	hallLoc(){ return (SAVE_DIR + HALL_FILE); }
+	hallLoc( hid ){ return (SAVE_DIR + hid); }
 
 }
