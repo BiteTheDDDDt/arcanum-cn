@@ -19,6 +19,9 @@ export const Remote = {
 	lastHallSave:0,
 
 	clearAll(){
+
+		if ( !FBRemote.loggedIn ) return null;
+
 	},
 
 	/**
@@ -47,6 +50,8 @@ export const Remote = {
 	 */
 	saveChar( charid, minWait=MIN_SAVE_WAIT ) {
 
+		if ( !FBRemote.loggedIn ) return null;
+
 		var t = Date.now();
 		if ( t - this.lastSave < minWait ) return null;
 		this.lastSave = t;
@@ -62,6 +67,8 @@ export const Remote = {
 	 */
 	saveHall( hallid, minWait=MIN_SAVE_WAIT ){
 
+		if ( !FBRemote.loggedIn ) return null;
+
 		var t = Date.now();
 		if ( t - this.lastHallSave < minWait ) return null;
 		this.lastHallSave = t;
@@ -76,6 +83,9 @@ export const Remote = {
 	 * @returns {Promise<object>}
 	 */
 	loadChar( charid ){
+
+		if ( !FBRemote.loggedIn ) return null;
+
 		return FBRemote.loadChar( charid );
 	},
 
@@ -85,6 +95,9 @@ export const Remote = {
 	 * @returns {Promise<object>}
 	 */
 	loadHall( hallid ){
+
+		if ( !FBRemote.loggedIn ) return null;
+
 		return FBRemote.loadHall(hallid);
 	}
 

@@ -55,6 +55,16 @@ export const FBRemote = {
 	},
 
 	/**
+	 * Delete all chars from current hall.
+	 * @param {*} hid
+	 */
+	deleteHall( hid ){
+
+		return null;
+
+	},
+
+	/**
 	 * load player hall file, if any.
 	 * @returns {Promise.<object>}
 	 */
@@ -102,6 +112,17 @@ export const FBRemote = {
 		var store = firebase.storage().ref( this.saveDir( this.userid, charid ) );
 		return store.putString( save, StringFormat.RAW );
 
+	},
+
+	/**
+	 *
+	 * @param {*} save
+	 * @param {*} hid
+	 * @returns {Promise<object>}
+	 */
+	saveHall( save, hid='hall' ) {
+		var store = firebase.storage().ref( this.saveDir( this.userid, charid ) );
+		return store.putString( save, StringFormat.RAW );
 	},
 
 	hallDir:( uid ) => { return USER_SAVES + '/' + uid + '/hall.json'; },
