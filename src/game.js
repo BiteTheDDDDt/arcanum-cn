@@ -33,7 +33,7 @@ export const EVT_TIME = 1000;
 
 export default {
 
-	toJSON() { return JSON.stringify( this.state ); },
+	toJSON() { return this.state },
 
 	/**
 	 * @property {GameState} gameData

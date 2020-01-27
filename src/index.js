@@ -104,9 +104,7 @@ const vm = new Vue({
 		},
 
 		logout(){
-
 			Profile.logout();
-
 		},
 
 		tryLogin(uname, pw) {
@@ -313,9 +311,9 @@ const vm = new Vue({
 		 * Set JSON for complete hall-file with all associated wizards.
 		 * @param {object} data
 		 */
-		setHallJSON( data ) {
+		async setHallJSON( data ) {
 
-			Profile.setHallSave( data );
+			await Profile.setHallSave( data );
 			this.loadProfile();	// load the hall data back. bit wasteful but organized.
 
 		},

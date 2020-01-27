@@ -21,6 +21,10 @@ export const Persist = {
 
 	loggedIn(){return Remote && Remote.loggedIn;},
 
+	logout(){
+		if(Remote && Remote.loggedIn ) Remote.logout();
+	},
+
 	async clearAll(){
 
 		Local.clearAll();
@@ -34,6 +38,8 @@ export const Persist = {
 
 		Local.deleteChar(file);
 		if ( Remote) return Remote.deleteChar(file);
+
+		window.localStorage.setItem( this.settingsLoc(charid), null);
 
 	},
 
@@ -65,13 +71,16 @@ export const Persist = {
 
 	},
 
+	/**
+	 *
+	 * @param {*} charid
+	 * @returns {Promise<object>}
+	 */
 	async loadChar( charid ){
 
 		var file = this.charFile(charid);
 
 		if ( this.remoteFirst && Remote ) {
-
-			console.log('REMOTE FIRST: ' + file );
 
 			let res = await Remote.loadChar( file );
 			if (res ) return res;
@@ -79,10 +88,7 @@ export const Persist = {
 
 		} else {
 
-			console.log('LOCAL FIRST: ' + file );
-
 			let res = Local.loadChar( file );
-			console.log('Raw result: ' + res );
 
 			if ( res || !Remote || !Remote.loggedIn ) return res;
 			console.log('Returning Remote');
@@ -108,7 +114,7 @@ export const Persist = {
 		} else {
 
 			let res = Local.loadHall( hid );
-			if ( !res ) console.log('LOCAL HLAL NOT FOUND');
+			if ( !res ) console.log('LOCAL HALL NOT FOUND');
 			if ( res || !Remote ) return res;
 
 			return Remote.loadHall( hid );

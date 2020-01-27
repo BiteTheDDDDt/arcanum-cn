@@ -19,7 +19,11 @@ const schoolNames = {
 	mana:'arcane'
 }
 
-export const TimeId = (prefix)=>( prefix + Date.now().toString(36) );
+/**
+ * Identifier based on current time and a random suffix that is extremely unlikely to be duplicated.
+ * @param {string} prefix
+ */
+export const TimeId = (prefix)=>( prefix + Date.now().toString(36).slice(3) + (4096*Math.random()).toString(36) );
 
 /**
  * @const TYP_PCT - object key to indicate a percentile in the given effect/result.

@@ -135,9 +135,9 @@ export default class Hall {
 	 */
 	findCur(vars){
 
-		if (vars.active ) {
+		if ( vars.active ) {
 
-			console.log('cur slot: ' + vars.active );
+			console.log('CUR HALL SLOT: ' + vars.active );
 
 			this.legacy = true;
 			this.setActive( vars.active );
@@ -146,6 +146,8 @@ export default class Hall {
 
 			let pid = this.curId = vars.curId;
 			this.curSlot = this.chars.findIndex(c=>c.pid===pid);
+
+			console.log('CUR HALL CHAR: ' + pid + '  AT SLOT: '+this.curSlot )
 
 		}
 

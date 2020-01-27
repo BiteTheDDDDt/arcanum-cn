@@ -11,7 +11,6 @@ export const Local = {
 	deleteChar( charid ) {
 
 		window.localStorage.setItem( this.charLoc(charid), null );
-		window.localStorage.setItem( this.settingsLoc(charid), null);
 
 	},
 
@@ -21,7 +20,6 @@ export const Local = {
 
 	loadChar( charid ){
 		let str = window.localStorage.getItem( this.charLoc( charid ) );
-		console.log('load type: ' + (typeof str));
 		if ( str ) return JSON.parse(str);
 		return null;
 	},

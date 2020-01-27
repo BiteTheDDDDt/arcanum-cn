@@ -18,6 +18,8 @@ export const Remote = {
 
 	lastHallSave:0,
 
+	logout(){ return FBRemote.logout()},
+
 	loggedIn(){return FBRemote.loggedIn},
 
 	clearAll(){
