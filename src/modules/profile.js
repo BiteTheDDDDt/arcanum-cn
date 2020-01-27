@@ -44,18 +44,7 @@ export default {
 	async loadHall( data=null ){
 
 		if ( !data ) {
-
 			data = await Persist.loadHall();
-
-			if ( data ) {
-
-				try {
-
-					data = JSON.parse(data);
-
-				} catch(e) {console.error( e.message + '\n' + e.stack ); }
-			}
-
 		}
 
 		data = await this.loadHallFile( data );
@@ -74,7 +63,8 @@ export default {
 
 		console.log('RESAVING LEGACY FILES');
 
-		for( let i = 0; i < this.hall.max; i++ ) {
+		let max = this.hall.max.value;
+		for( let i = 0; i < max; i++ ) {
 
 			var c = this.hall.getSlot(i);
 			if ( c.empty ) continue;
@@ -82,12 +72,14 @@ export default {
 			console.log('loading legacy: ' + i );
 			let data = await Persist.loadChar( i );
 			// parse to avoid double string encoding.
-			if ( data ) data = JSON.parse(data);
+			if ( data ) {
 
-			console.log('saving legacy: ' + i );
+				data = JSON.parse(data);
+				console.log('saving legacy: ' + i + ' to: ' + c.pid );
+				await Persist.saveChar( data, c.pid );
 
-			if ( data ) await Persist.saveChar( data, c.pid );
-			console.log('legacy saved');
+			} else console.log('NO LEGACY FOUND: ' + i );
+
 
 		}
 		this.hall.legacy = false;
@@ -210,11 +202,11 @@ export default {
 	 * @returns {string} - returns the JSON string for the current
 	 * player slot, or null.
 	 */
-	loadActive(){
+	async loadActive(){
 
 		try {
 
-			return Persist.loadChar( this.hall.curId || ('char'+this.hall.curSlot) );
+			return await Persist.loadChar( this.hall.curId || this.hall.curSlot );
 
 		} catch (e ) {
 

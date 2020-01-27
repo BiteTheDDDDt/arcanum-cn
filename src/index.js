@@ -155,8 +155,8 @@ const vm = new Vue({
 
 				this.dispatch('pause');
 
-				let str = await Profile.loadActive();
-				this.setStateJSON( JSON.parse(str) );
+				let data = await Profile.loadActive();
+				this.setStateJSON( data );
 
 			} catch (e ) { console.error( e.message + '\n' + e.stack ); }
 

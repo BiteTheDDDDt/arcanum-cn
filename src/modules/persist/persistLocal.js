@@ -20,7 +20,10 @@ export const Local = {
 	},
 
 	loadChar( charid ){
-		return window.localStorage.getItem( this.charLoc( charid ) );
+		let str = window.localStorage.getItem( this.charLoc( charid ) );
+		console.log('load type: ' + (typeof str));
+		if ( str ) return JSON.parse(str);
+		return null;
 	},
 
 	/**
@@ -32,7 +35,9 @@ export const Local = {
 	},
 
 	loadHall( hid ){
-		return window.localStorage.getItem( this.hallLoc( hid ) );
+		let str = window.localStorage.getItem( this.hallLoc( hid ) );
+		if ( str) return JSON.parse(str);
+		return null;
 	},
 
 

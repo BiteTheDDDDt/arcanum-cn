@@ -53,7 +53,6 @@ export default class Hall {
 	 */
 	set curId(v){
 		this._curId=v;
-		this._curSlot = this.chars.findIndex(c=>c.id===v);
 	}
 
 	/**
@@ -138,16 +137,19 @@ export default class Hall {
 
 		if (vars.active ) {
 
-			console.log('active: ' + vars.active );
+			console.log('cur slot: ' + vars.active );
 
 			this.legacy = true;
-			this.curSlot = vars.active;
+			this.setActive( vars.active );
 
 		} else {
-			this.curId = vars.curId;
+
+			let pid = this.curId = vars.curId;
+			this.curSlot = this.chars.findIndex(c=>c.pid===pid);
+
 		}
 
-		if ( !this.curId ) {
+		if ( !this.curId ||  this.curSlot < 0 ) {
 			this.curId = null;
 			this.curSlot = 0;
 		}
@@ -229,6 +231,10 @@ export default class Hall {
 			return false;
 		}
 		this.curSlot = slot;
+
+		let char = this.getSlot(slot);
+		this.curId = char.pid;
+
 		return true;
 
 	}

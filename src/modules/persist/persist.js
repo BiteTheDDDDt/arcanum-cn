@@ -59,7 +59,7 @@ export const Persist = {
 	 */
 	async saveHall( data, hid=HALL_FILE ){
 
-		hid = HALL_FILE + '.json';
+		hid = HALL_FILE;
 		Local.saveHall( data, hid );
 		if ( Remote) return Remote.saveHall( data, hid );
 
@@ -82,7 +82,10 @@ export const Persist = {
 			console.log('LOCAL FIRST: ' + file );
 
 			let res = Local.loadChar( file );
+			console.log('Raw result: ' + res );
+
 			if ( res || !Remote || !Remote.loggedIn ) return res;
+			console.log('Returning Remote');
 			return Remote.loadChar( file );
 
 		}
