@@ -103,7 +103,7 @@ export default {
 
 
 	<div class="chars">
-	<info v-for="(c,i) in availChars" :char="c" :active="i==hall.active"
+	<info v-for="(c,i) in availChars" :char="c" :active="i==hall.curSlot"
 		:key="i" @load="load( i)" @dismiss="dismiss(i,c.name)" />
 	</div>
 

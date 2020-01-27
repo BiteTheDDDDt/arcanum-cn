@@ -18,9 +18,29 @@ export const Remote = {
 
 	lastHallSave:0,
 
+	loggedIn(){return FBRemote.loggedIn},
+
 	clearAll(){
 
 		if ( !FBRemote.loggedIn ) return null;
+
+	},
+
+	tryRegister(email, pw ){
+
+		console.log('try register: ' + email );
+
+		if ( !this.remote ) return;
+
+		this.remote.register(email,pw).then(
+			()=>{
+				this.dispatch('register-sent');
+			},
+			err=>{
+				console.log('dispatch reg error');
+				this.dispatch('register-error', err );
+			}
+		);
 
 	},
 

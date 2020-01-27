@@ -1,4 +1,9 @@
 <script>
+/**
+ * Not currenty used because Firebase has an OpenSource
+ * registration dialog/component.
+ * Could be used with alternative save-frameworks.
+ */
 export default {
 
 	data(){

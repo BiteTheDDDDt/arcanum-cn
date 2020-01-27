@@ -80,7 +80,7 @@ export default {
 			if ( c.empty ) continue;
 
 			console.log('loading legacy: ' + i );
-			let data = await Persist.loadChar( this.hall.charId(i) );
+			let data = await Persist.loadChar( i );
 			// parse to avoid double string encoding.
 			if ( data ) data = JSON.parse(data);
 
@@ -213,7 +213,9 @@ export default {
 	loadActive(){
 
 		try {
-			return Persist.loadChar( this.hall.curId );
+
+			return Persist.loadChar( this.hall.curId || ('char'+this.hall.curSlot) );
+
 		} catch (e ) {
 
 			console.error( e.message + '\n' + e.stack );

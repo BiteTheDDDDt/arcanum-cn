@@ -62,17 +62,6 @@ const vm = new Vue({
 			renderKey:1
 		}
 	},
-	beforeCreate(){
-
-		if ( __CLOUD ) {
-			import( /* webpackChunkName: "remote" */ './remote/remote' ).then(mod=>{
-				console.log('REMOTE CODE LOADED: ' + mod );
-				this.remote = mod.FBRemote;
-			});
-
-		}
-
-	},
 	created(){
 
 		this.lastUpload = 0;
@@ -103,7 +92,7 @@ const vm = new Vue({
 		this.listen( 'setting', this.onSetting, this );
 		this.listen( 'logout', this.logout, this );
 		this.listen( 'login-changed', this.onLoginChanged, this );
-		this.listen( 'try-register', this.tryRegister, this );
+		//this.listen( 'try-register', this.tryRegister, this );
 
 		this.loadProfile();
 
@@ -116,26 +105,7 @@ const vm = new Vue({
 
 		logout(){
 
-			if ( this.remote ) this.remote.logout();
-			Profile.loggedIn=false;
-
-		},
-
-		tryRegister(email, pw ){
-
-			console.log('try register: ' + email );
-
-			if ( !this.remote ) return;
-
-			this.remote.register(email,pw).then(
-				()=>{
-					this.dispatch('register-sent');
-				},
-				err=>{
-					console.log('dispatch reg error');
-					this.dispatch('register-error', err );
-				}
-			);
+			Profile.logout();
 
 		},
 
@@ -252,7 +222,7 @@ const vm = new Vue({
 
 				e.preventDefault();
 				let state = this.game.state;
-				this.makeLink( state, e.target, state.player.name );
+				this.makeLink( state, state.player.name );
 
 			} catch(ex) {
 				console.error( ex.message + '\n' + ex.stack );
@@ -276,7 +246,7 @@ const vm = new Vue({
 				if ( this.hallLink) URL.revokeObjectURL( this.hallLink );
 
 				let data = await Profile.getHallSave();
-				this.makeLink( data, e.target, 'hall');
+				this.makeLink( data, 'hall');
 
 			} catch(ex){
 				console.error( ex.message + '\n' + ex.stack );
@@ -287,10 +257,9 @@ const vm = new Vue({
 		/**
 		 * Create URL link for data.
 		 * @param {object} data
-		 * @param {HTMLElement} targ - link target.
 		 * @returns {DOMString}
 		 */
-		makeLink( data, targ, saveName ) {
+		makeLink( data, saveName ) {
 
 			if ( this.saveLink ) URL.revokeObjectURL( this.saveLink );
 
@@ -299,12 +268,11 @@ const vm = new Vue({
 
 			var a = document.createElement( 'a');
 			//targ.type = 'text/json';
-			a.download = targ.title = saveName + '.json';
+			a.download = a.title = saveName + '.json';
 
 			this.saveLink = URL.createObjectURL( file );
 			a.href = this.saveLink;
 			a.click();
-			document.remove
 
 		},
 

@@ -75,7 +75,7 @@ export default {
 			overTitle:null,
 			overElm:null,
 			psection:null,
-			showRegister:false,
+			togRegister:false,
 			showLogin:false,
 			togSettings:false,
 			/** toggle activity manager */
@@ -174,7 +174,7 @@ export default {
 		},
 
 		onShowLogin(){this.showLogin=true;},
-		onShowRegister(){this.showRegister=true;},
+		onShowRegister(){this.togRegister=true;},
 
 		stopAutoSave() {
 			if ( this.saver ) {
@@ -365,7 +365,7 @@ export default {
 		<itempopup :item="overItem" :elm="overElm" :title="overTitle" />
 		<warn ref="warn" @confirmed="onConfirmed" />
 		<choice />
-		<register v-if="Profile.CLOUD&&showRegister" @close="showRegister=false" />
+		<register v-if="Profile.CLOUD&&togRegister" @close="togRegister=false" />
 		<login v-if="Profile.CLOUD&&showLogin" @close="showLogin=false" />
 		<settings v-if="togSettings" @close-settings="togSettings=false" />
 		<activities v-if="togActivities" @close="togActivities=false" />
