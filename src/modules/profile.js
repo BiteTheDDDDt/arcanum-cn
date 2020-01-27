@@ -43,15 +43,11 @@ export default {
 
 	/**
 	 * Load Hall information.
-	 * @param {object} data - optional data loaded from file.
 	 */
-	async loadHall( data=null ){
+	async loadHall( type=null ){
 
-		if ( !data ) {
-			data = await Persist.loadHall();
-		}
-
-		data = await this.loadHallData( data );
+		var save = await Persist.loadHall( HALL_FILE, type );
+		var data = await this.loadHallData( save );
 
 		this.hall = new Hall(data);
 		if ( this.hall.legacy ) this.resaveLegacy();

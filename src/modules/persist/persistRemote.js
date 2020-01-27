@@ -74,6 +74,8 @@ export const Remote = {
 
 		if ( !FBRemote.loggedIn ) return null;
 
+		console.log('saving remote: ' + charid );
+
 		var t = Date.now();
 		if ( t - this.lastSave < minWait ) return null;
 		this.lastSave = t;

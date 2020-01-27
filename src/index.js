@@ -64,8 +64,6 @@ const vm = new Vue({
 	},
 	created(){
 
-		this.lastUpload = 0;
-
 		this.saveLink = null;
 		this.game = Game;
 
@@ -94,13 +92,20 @@ const vm = new Vue({
 		this.listen( 'login-changed', this.onLoginChanged, this );
 		//this.listen( 'try-register', this.tryRegister, this );
 
-		this.loadProfile();
+		this.loadHall();
 
 	},
 	methods:{
 
 		onLoginChanged( loggedIn ){
+
+			console.log('LOGGED IN: ' + loggedIn );
 			Profile.loggedIn = loggedIn;
+
+			if ( loggedIn ) {
+				this.loadHall('remote');
+			}
+
 		},
 
 		logout(){
@@ -110,12 +115,12 @@ const vm = new Vue({
 		tryLogin(uname, pw) {
 		},
 
-		loadProfile(){
+		loadHall( type=null ){
 
 			//if ( forceClear ) this.reset();
 
-			console.warn('LOADING PROFILE');
-			Profile.loadHall().then( ()=>this.loadSave() );
+			this.dispatch('pause');
+			Profile.loadHall( type ).then( ()=>this.loadSave() );
 
 
 		},
@@ -314,7 +319,7 @@ const vm = new Vue({
 		async setHallJSON( data ) {
 
 			await Profile.setHallSave( data );
-			this.loadProfile();	// load the hall data back. bit wasteful but organized.
+			this.loadHall();	// load the hall data back. bit wasteful but organized.
 
 		},
 
@@ -368,7 +373,7 @@ const vm = new Vue({
 
 			await Profile.clearAll();
 
-			this.loadProfile();
+			this.loadHall();
 
 		}
 

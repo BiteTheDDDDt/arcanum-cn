@@ -102,11 +102,12 @@ export const Persist = {
 	/**
 	 * @returns {Promise.<object>}
 	 */
-	async loadHall( hid=HALL_FILE ){
+	async loadHall( hid=HALL_FILE, type=null ){
 
 		hid = HALL_FILE;
-		if ( this.remoteFirst && Remote ) {
+		if ( Remote && (type==='remote' ||this.remoteFirst) ) {
 
+			console.log('REMOTE FIRST');
 			let res = await Remote.loadHall( hid );
 			if ( res ) return res;
 			return Local.loadHall( hid );
