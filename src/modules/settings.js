@@ -2,7 +2,7 @@ const Defaults = {
 
 	saves:{
 		autosave:true,
-		localfirst:true,
+		remoteFirst:true,
 		saveTime:30
 	},
 	darkMode:false,

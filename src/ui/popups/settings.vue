@@ -97,23 +97,25 @@ export default {
 
 
 	<div>
-	<label :for="elmId('dark-mode')">dark mode</label>
+	<label :for="elmId('dark-mode')">Dark Mode</label>
 	<input type="checkbox" :id="elmId('dark-mode')" v-model="darkMode">
 	</div>
 
 	<div>
-	<label :for="elmId('compact-mode')">compact mode</label>
+	<label :for="elmId('compact-mode')">Compact Mode</label>
 	<input type="checkbox" :id="elmId('compact-mode')" v-model="compactMode">
 	</div>
 
 	<div>
-	<label :for="elmId('auto-save')">auto-save</label>
+	<label :for="elmId('auto-save')" title="Periodically save current game.">Auto-Save</label>
 	<input type="checkbox" :id="elmId('auto-save')" v-model="autoSave">
+	<h6>Periodically save game to storage. Game is saved to Browser storage by default. Only saved to Remote storage if logged in and server is available.</h6>
 	</div>
 
 	<div>
-	<label :for="elmId('remote-first')" tooltip="Attempt to load Remote save before local.">remote first</label>
+	<label :for="elmId('remote-first')" title="Attempt to load saves from Remote Storage before Local Storage.">Try Remote Load First</label>
 	<input type="checkbox" :id="elmId('remote-first')" v-model="remoteFirst">
+	<h6>Attempt to load game from Remote host before loading from browser Storage.</h6>
 	</div>
 
 	<!--<div><button @click="clear">Clear Settings</button></div>-->

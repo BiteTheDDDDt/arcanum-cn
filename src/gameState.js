@@ -208,7 +208,9 @@ export default class GameState {
 
 		this.equip.revive( this );
 
-		/*this.inventory.revive( this );
+		/*
+		@todo revive inventories special?
+		this.inventory.revive( this );
 		this.spelllist.revive(this);
 		this.minions.revive(this);*/
 
