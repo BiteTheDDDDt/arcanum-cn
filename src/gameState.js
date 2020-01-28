@@ -83,7 +83,7 @@ export default class GameState {
 		if ( !this.pid ) {
 
 			/**@ hid compat */
-			this.pid = vars.player.hid || TimeId('p');
+			this.pid = this.player.hid || TimeId('p');
 		}
 
 		this.initSlots();

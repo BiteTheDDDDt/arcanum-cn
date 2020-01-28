@@ -56,13 +56,13 @@ export default {
 			}
 
 		},
-		localFirst:{
+		remoteFirst:{
 			get(){
-				return this.saves.localFirst;
+				return this.saves.remoteFirst;
 			},
 			set(v){
-				this.saves.localFirst = Settings.setSubVar( 'saves', 'localFirst', v );
-				this.dispatch('setting', 'localFirst', v );
+				this.saves.remoteFirst = Settings.setSubVar( 'saves', 'remoteFirst', v );
+				this.dispatch('setting', 'remoteFirst', v );
 			}
 		},
 		autoSave:{
@@ -94,10 +94,7 @@ export default {
 
 <div :class="['settings', 'popup']">
 
-	<div>
-	<label :for="elmId('auto-save')">auto-save</label>
-	<input type="checkbox" :id="elmId('auto-save')" v-model="autoSave">
-	</div>
+
 
 	<div>
 	<label :for="elmId('dark-mode')">dark mode</label>
@@ -107,6 +104,16 @@ export default {
 	<div>
 	<label :for="elmId('compact-mode')">compact mode</label>
 	<input type="checkbox" :id="elmId('compact-mode')" v-model="compactMode">
+	</div>
+
+	<div>
+	<label :for="elmId('auto-save')">auto-save</label>
+	<input type="checkbox" :id="elmId('auto-save')" v-model="autoSave">
+	</div>
+
+	<div>
+	<label :for="elmId('remote-first')" tooltip="Attempt to load Remote save before local.">remote first</label>
+	<input type="checkbox" :id="elmId('remote-first')" v-model="remoteFirst">
 	</div>
 
 	<!--<div><button @click="clear">Clear Settings</button></div>-->

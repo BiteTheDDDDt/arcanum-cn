@@ -42,6 +42,11 @@ export default {
 	},
 
 	/**
+	 * @property {boolean} remoteFirst - prefer remote save over local.
+	 */
+	set remoteFirst(v){ Persist.remoteFirst =v;},
+
+	/**
 	 * Load Hall information.
 	 */
 	async loadHall( type=null ){

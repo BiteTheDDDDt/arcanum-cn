@@ -173,8 +173,7 @@ const vm = new Vue({
 
 			if ( !game ) console.warn('gameloaded(): NULL' );
 
-			let settings = Profile.loadSettings();
-			this.onSettings( settings );
+			this.settingsLoaded( Profile.loadSettings() );
 
 			this.dispatch( 'game-loaded' );
 
@@ -188,7 +187,7 @@ const vm = new Vue({
 		 * Call on settings loaded.
 		 * @param {*} vars
 		 */
-		onSettings(vars){
+		settingsLoaded(vars){
 
 			if (!vars) return;
 
@@ -208,7 +207,11 @@ const vm = new Vue({
 				if ( v ) document.body.classList.add( 'compact');
 				else document.body.classList.remove( 'compact');
 
+			} else if ( setting === 'remoteFirst') {
+
+				Profile.remoteFirst = true;
 			}
+
 
 		},
 
