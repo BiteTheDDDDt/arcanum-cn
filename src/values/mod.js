@@ -155,7 +155,10 @@ export default class Mod extends Stat {
 
 		super( null, id );
 
-		this.source = source;
+		if ( typeof source === 'number' ) {
+			this.count = source;
+		} else this.source = source;
+
 		if ( typeof vars === 'number') this.base = vars;
 		else if ( typeof vars === 'string') this.str = vars;
 		else if ( vars ) {

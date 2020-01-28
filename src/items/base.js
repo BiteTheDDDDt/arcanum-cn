@@ -364,6 +364,7 @@ export default {
 			} else if ( subTarg.applyMods ) subTarg.applyMods( m, amt, subTarg );
 			else if ( subTarg instanceof Stat) {
 
+				//console.log(' apply : ' + m + ' type: ' + (typeof m) );
 				subTarg.apply( m, amt );
 
 			} else if ( m instanceof Mod ) {

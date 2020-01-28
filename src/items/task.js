@@ -4,6 +4,8 @@ import Events, { TASK_DONE, TASK_IMPROVED } from '../events';
 import Stat from '../values/stat';
 import Scaler from '../values/scaler';
 import { TASK } from '../values/consts';
+import { ParseMods } from '../modules/parsing';
+import { setModCounts } from './base';
 
 export default class Task extends GData {
 
@@ -80,10 +82,11 @@ export default class Task extends GData {
 		this.repeat = this.repeat === false ? false : true;
 		this.type = 'task';
 
+		if ( this.at ) this.at = ParseMods( this.at, this.id, 1 );
+		if ( this.every ) this.every = ParseMods( this.every, this.id, this );
+
 		if ( (this.length || this.perpetual)) {
-
 			this.ex = this.ex || 0;
-
 		}
 
 		this.running = this.running || false;
@@ -108,7 +111,10 @@ export default class Task extends GData {
 			for( let p in this.at) {
 
 				if ( v >= Number(p) ) {
+
+					let m = this.at[p];
 					this.applyMods( this.at[p] );
+
 				}
 
 			}
@@ -120,7 +126,9 @@ export default class Task extends GData {
 			for( let p in this.every ) {
 
 				var amt = Math.floor( v / p );
-				if ( amt > 0 ) this.applyMods( this.every[p], amt );
+				if ( amt > 0 ) {
+					this.applyMods( this.every[p] );
+				}
 
 			}
 

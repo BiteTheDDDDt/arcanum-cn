@@ -45,7 +45,7 @@
 		},
 		"every":{
 			"100":{
-				"effect.research":0.05
+				"effect.research":"0.05/100"
 			}
 		},
 		"effect":{
@@ -89,7 +89,7 @@
 		"length":15,
 		"every":{
 			"10":{
-				"effect.gold":0.01
+				"effect.gold":"0.01/10"
 			}
 		},
 		"run":{
@@ -1906,7 +1906,7 @@
 		"need":"g.runner.hasType('skill')",
 		"every":{
 			"25":{
-				"result.runner.exp":0.02
+				"result.runner.exp":"0.02/25"
 			}
 		},
 		"cost":{

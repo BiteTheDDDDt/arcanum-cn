@@ -11,8 +11,8 @@ import { SubPath } from '../values/rvalue';
 export const ParseMods = ( mods, id, source ) => {
 
 	if ( !mods ) return null;
-	if (!id) {
-		if ( source ) id = source.id;
+	if (!id && source && (typeof source ==='object')) {
+		id = source.id;
 		if ( !id ) {
 			id = '';
 			logObj( mods, 'invalid mod: ' + id );

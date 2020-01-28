@@ -1,7 +1,7 @@
 import Mod from "./mod";
 
 const PER_SYM = '/';
-const PerRegEx = /^(\d*)\/(\d+)$/;
+const PerRegEx = /^(\d+\.?\d*)\/(\d+)$/;
 
 /**
  *
@@ -73,7 +73,7 @@ export default class PerValue extends Mod {
 	 * @param {*} targ
 	 */
 	getApply(gs, targ) {
-		return this.source && (( this.source.value % this.per ) === 0) ? this.value : 0;
+		return this.source && (( this.source.value % this.per ) === 0) ? this.count*this.value : 0;
 	}
 
 

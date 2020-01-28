@@ -1113,6 +1113,7 @@
 	{
 		"id":"flamestrike",
 		"school":"fire",
+		"desc":"Imbue your weapon with flame before striking.",
 		"buy":{
 			"tomes":1
 		},
