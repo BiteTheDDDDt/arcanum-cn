@@ -803,7 +803,7 @@ export default {
 
 					if ( p === P_TITLE ) this.state.player.addTitle( e );
 					else if ( p === P_LOG ) Events.emit( EVT_EVENT, e );
-					else console.warn( p + ' missing effect target: ' + e );
+					else console.warn( p + ' no effect target: ' + e );
 
 				} else {
 

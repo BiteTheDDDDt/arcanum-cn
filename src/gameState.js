@@ -133,6 +133,9 @@ export default class GameState {
 
 		this.readyItems();
 
+		// quickbars must revive after inventory.
+		this.bars.revive(this);
+
 		// circular problem. spelllist has to be revived after created spells
 		// compute their levels. unless levels stored in json?
 		this.spelllist.calcUsed();
@@ -214,8 +217,6 @@ export default class GameState {
 		this.drops.revive(this);
 		this.raid.revive( this );
 		this.explore.revive(this);
-
-		this.bars.revive(this);
 
 	}
 

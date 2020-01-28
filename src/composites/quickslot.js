@@ -122,8 +122,11 @@ export default class QuickSlot extends Proxy {
 
 		if ( this.item ) {
 
+			//console.log('finding quickslot item: ' + this.item );
+
 			var revive = gs.findData( this.item, false );
 			if ( revive ) {
+				//console.log('quickslot found: ' + revive.id );
 				this.item = revive;
 				return;
 			}
@@ -135,6 +138,8 @@ export default class QuickSlot extends Proxy {
 
 			// save recipe so item setter doesnt overwrite.
 			let recipe = this.recipe;
+
+			//console.log('finding slot recipie: ' + this.recipe );
 
 			// no item. if a matching item type can't be found, the recipe item
 			// is used as the quickbar rollover and a type will be searched on use.
