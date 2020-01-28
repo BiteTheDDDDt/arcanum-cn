@@ -305,13 +305,13 @@
         "name":"workforce",
         "desc":"Use your Snow Double as an extension of yourself",
         "cost":{
-				"ice": 2,
-				"frost.rate": 0.5
+				"ice": 2
 				},
 		"require":"g.evt_snowcopy>=1",
 		"warn":true,
         "disable":["w_fame","w_scholar"],
         "mod":{
+		"frost.rate":-0.5,
           "runner.max":1,
           "stamina.rate":-0.6
         }
