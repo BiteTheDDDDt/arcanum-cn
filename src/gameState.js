@@ -13,7 +13,7 @@ import Group from './composites/group';
 import UserSpells from './inventories/userSpells';
 import Quickbars from './composites/quickbars';
 import Stat from './values/stat';
-import { WEARABLE, ARMOR, WEAPON, HOME, PURSUITS, ENCHANTSLOTS, TYP_STATE } from './values/consts';
+import { WEARABLE, ARMOR, WEAPON, HOME, PURSUITS, ENCHANTSLOTS, TYP_STATE, TimeId } from './values/consts';
 import Dot from './chars/dot';
 import TagSet from './composites/tagset';
 import EnchantSlots from './inventories/enchantslots';
@@ -79,6 +79,12 @@ export default class GameState {
 		 * Next item id.
 		 */
 		this.NEXT_ID = this.NEXT_ID || 0;
+
+		if ( !this.pid ) {
+
+			/**@ hid compat */
+			this.pid = vars.player.hid || TimeId('p');
+		}
 
 		this.initSlots();
 

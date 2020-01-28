@@ -87,12 +87,13 @@ export default class CharInfo {
 
 		if ( !p ) {
 			this.empty = true;
-			return;
+			retur
 		}
 
 		this.name = p.name;
 		this.level = p.level ? p.level.valueOf() : 0;
-		this.pid = p.hid;
+
+		//this.pid = p.hid;
 
 		this.title = p.title;
 		this.titles = p.titles ? p.titles.length : 0;

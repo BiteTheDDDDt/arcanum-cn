@@ -134,15 +134,6 @@ export default class Player extends Char {
 	set hits(v){ this._hits = toStats(v); }
 
 	/**
-	 * @compat
-	 */
-	get hid(){return this._pid;}
-	set hid(v){this._pid =v;}
-
-	get pid(){return this._pid;}
-	set pid(v){this._pid=v;}
-
-	/**
 	 * NOTE: Elements that are themselves Items are not encoded,
 	 * since they are encoded in the Item array.
 	 * @return {object}
@@ -150,8 +141,6 @@ export default class Player extends Char {
 	toJSON() {
 
 		let data = {};
-
-		data.pid = this.pid;
 
 		data.defense = ( this.defense );
 		data.tohit = ( this.tohit );
@@ -215,8 +204,6 @@ export default class Player extends Char {
 		this.id = this.type = "player";
 		if ( !vars || !vars.name) this.name = 'wizrobe';
 
-		if ( !this.pid ) this.pid = TimeId('p');
-
 		//if ( vars ) Object.assign( this, vars );
 		if ( !this.level ) this.level = 0;
 		this._title = this._title || 'waif';
@@ -247,7 +234,7 @@ export default class Player extends Char {
 	setClass( gclass ) {
 
 		this.gclass = gclass;
-		this.setTitle( gclass );
+		this.addTitle( gclass );
 		Events.emit( CHAR_CLASS, this );
 
 	}

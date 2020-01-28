@@ -245,12 +245,13 @@ export default class Hall {
 	 * Player data loaded. Copy information into the active slot.
 	 * @param {Player} p
 	 */
-	updateChar( p, slot=-1 ) {
+	updateChar( p, pid=null ) {
 
-		let char = this.getSlot(slot);
+		let char = this.getSlot(this.curSlot);
 
-		if ( !char ) char = this.chars[ (slot < 0 ? this.curSlot : slot)  ] = new CharInfo();
+		if ( !char ) char = this.chars[ this.curSlot  ] = new CharInfo();
 		char.update( p );
+		if ( pid ) char.pid = pid;
 
 	}
 

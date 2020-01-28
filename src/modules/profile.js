@@ -113,9 +113,9 @@ export default {
 	 * update and save hall data.
 	 * @returns {Promise}
 	 */
-	updateChar( player, slot=-1 ) {
+	updateChar( player ) {
 
-		this.hall.updateChar( player, slot );
+		this.hall.updateChar( player );
 		return this.saveHall();
 
 	},
@@ -162,13 +162,17 @@ export default {
 	 */
 	gameLoaded(game) {
 
-		let p = game.state.player;
-		let slot = this.hall.pidSlot( p.pid );
+		let gs = game.state;
+		let p = gs.player;
+
+		let id = gs.pid || p.hid;
+
+		let slot = this.hall.pidSlot( id );
 
 		if ( slot >= 0 ) {
 			this.hall.setActive( slot );
 		}
-		this.hall.updateChar( p );
+		this.hall.updateChar( p, id );
 
 		this.saveHall();
 		//this.hall.calcPoints( game );
@@ -292,10 +296,14 @@ export default {
 			if ( char ) {
 
 				 console.log( `HALL SAVE ${i}: ${char.name}` );
-				var p = char.items.player;
 
-				// @compat hid
-				if ( p ) id = p.pid || p.hid
+				id = char.pid;
+				if ( !id ) {
+
+					var p = char.items.player;
+					// @compat hid
+					if ( p ) id = p.pid || p.hid
+				}
 
 			} else {
 				console.log('EMPTY HALL SLOT: ' + i );

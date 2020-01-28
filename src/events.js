@@ -136,7 +136,7 @@ const NEW_TITLE = 'newtitle';
 /**
  * Character name changed.
  */
-const CHAR_NAME = 'charname';
+export const CHAR_NAME = 'charname';
 
 const LEVEL_UP = 'levelup'
 
@@ -161,7 +161,7 @@ export const EVT_STAT = 'stat';
  */
 export const TOGGLE = 'toggle';
 
-export { CHAR_TITLE, NEW_TITLE, LEVEL_UP, CHAR_NAME, CHAR_CLASS, CHAR_CHANGE };
+export { CHAR_TITLE, NEW_TITLE, LEVEL_UP, CHAR_CLASS, CHAR_CHANGE };
 
 export { HALT_TASK, EVT_EVENT, EVT_UNLOCK, EVT_LOOT, TASK_DONE,
 	ALLY_DIED, CHAR_DIED, ITEM_ACTION, STOP_ALL, DELETE_ITEM,

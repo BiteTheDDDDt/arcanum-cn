@@ -39,7 +39,7 @@ export const FBRemote = {
 
 		this.auth.onAuthStateChanged( user=>{
 
-			if ( user ) console.log('AUTH CHANGED: ' + user.uid );
+			if ( user ) console.log('AUTH: ' + user.uid );
 			Events.dispatch('login-changed', user!=null);
 
 		});
