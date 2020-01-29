@@ -290,19 +290,24 @@ export default class Char {
 		let cur = this.dots.find( d=>d.id===id);
 		if ( cur !== undefined ) {
 
-			cur.extend( duration );
+			var level = dot.level || source ? source.level : 0;
+			if ( cur.level >= level ) {
+				cur.extend( duration );
+				return;
 
-		} else {
-
-			if ( !(dot instanceof Dot) ) {
-				dot = Game.state.mkDot( dot, source, duration );
 			}
-
-			this._states.add( dot );
-			this.dots.push( dot );
-			this.applyDot( dot );
+			console.log('removing: ' + cur );
+			this.removeDot( cur );
 
 		}
+
+		if ( !(dot instanceof Dot) ) {
+			dot = Game.state.mkDot( dot, source, duration );
+		}
+
+		this._states.add( dot );
+		this.dots.push( dot );
+		this.applyDot( dot );
 
 	}
 
@@ -334,11 +339,18 @@ export default class Char {
 
 	}
 
+	removeDot( dot ) {
+		let id = dot.id;
+		this.rmDot( this.dots.findIndex(d=>d.id===id) );
+	}
+
 	/**
 	 * Remove dot by index.
 	 * @param {number} i
 	 */
 	rmDot( i ){
+
+		if ( i < 0 ) return;
 
 		let dot = this.dots[i];
 		this.dots.splice(i,1);

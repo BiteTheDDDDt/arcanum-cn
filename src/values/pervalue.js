@@ -1,7 +1,7 @@
 import Mod from "./mod";
 
 const PER_SYM = '/';
-const PerRegEx = /^(\d+\.?\d*)\/(\d+)$/;
+const PerRegEx = /^(\d+\.?\d*)?\/(\d+)$/;
 
 /**
  *
