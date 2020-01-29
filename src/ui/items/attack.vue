@@ -16,7 +16,6 @@ export default {
 
 			let dmg = this.item.damage || this.item.dmg;
 			if( typeof dmg === 'number') return dmg;
-			else if ( typeof dmg === 'function' ) return 'special';
 			else if ( dmg ) {
 				return dmg.toString();
 				console.log( 'damage item: ' + this.item.id || this.item.name );

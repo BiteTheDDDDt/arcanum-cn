@@ -30,7 +30,7 @@ export default class FValue extends RValue {
 	get type() { return TYP_FUNC }
 
 	toString(){
-		return this._src;
+		return 'special';
 	}
 
 	constructor( params, src, path ){
