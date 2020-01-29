@@ -18,7 +18,6 @@ export default {
 			if( typeof dmg === 'number') return dmg;
 			else if ( dmg ) {
 				return dmg.toString();
-				console.log( 'damage item: ' + this.item.id || this.item.name );
 			}
 
 		},

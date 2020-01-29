@@ -38,13 +38,13 @@ export default class Task extends GData {
 	get exp() { return this._exp; }
 	set exp(v){
 
-		if ( this.locked || this.disabled ) return;
+		if ( this.locked || this.disabled || this.maxed() ) return;
 
 		//@compat only
 		if ( this._exp === null || this._exp === undefined ) this.ex = v;
 
 		if ( v < 0 ) {
-			console.warn( this.id + ' exp neg: ' + v );
+			console.warn( this.id + ' exp: ' + v );
 			return;
 		}
 		this._exp.set(v);
@@ -112,7 +112,6 @@ export default class Task extends GData {
 
 				if ( v >= Number(p) ) {
 
-					let m = this.at[p];
 					this.applyMods( this.at[p] );
 
 				}

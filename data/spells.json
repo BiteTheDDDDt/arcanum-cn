@@ -404,6 +404,7 @@
 			"mana":0.1
 		},
 		"dot":{
+			"id":"dotmana",
 			"duration":30,
 			"effect":{
 				"mana":0.25
@@ -428,6 +429,7 @@
 			"mana":0.3
 		},
 		"dot":{
+			"id":"dotmana",
 			"duration":60,
 			"effect":{
 				"mana":0.45
@@ -453,6 +455,7 @@
 			"mana":1
 		},
 		"dot":{
+			"id":"dotmana",
 			"duration":120,
 			"effect":{
 				"mana":0.8
