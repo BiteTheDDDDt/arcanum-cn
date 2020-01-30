@@ -2,6 +2,7 @@ const path = require('path');
 const VueLoader = require('vue-loader/lib/plugin');
 //const WorkboxPlugin = require( 'workbox-webpack-plugin');
 const CopyPlugin = require( 'copy-webpack-plugin');
+const HtmlWebpackPlugin = require( 'html-webpack-plugin');
 
 const webpack = require('webpack');
 const { execSync } = require('child_process');
@@ -11,14 +12,14 @@ var VERS_STR = execSync('git rev-list HEAD --count').toString()
 const UiDir = path.resolve( __dirname, 'src/ui');
 const DebugDir = path.resolve( __dirname, 'src/debug');
 
-
 module.exports = (env, argv)=>{
 
-	const BuildPath = path.resolve( require.main.__dirname, argv['buildpath'] || 'dev' );
+	const BuildPath = path.resolve( __dirname, argv['buildpath'] || 'dev' );
+	const __DIST = env.production ? true : false;
 
 	return {
 
-	mode: env.production ? "production" : 'development',
+	mode: __DIST ? "production" : 'development',
 	entry: {
 		wizrobe: "./src/index.js"
 	},
@@ -55,16 +56,22 @@ module.exports = (env, argv)=>{
 		__DEBUG:true,
 		__CHEATS:true,
 		__KONG:env.kong || false,
-		__DIST:true,
+		__DIST:__DIST,
 		__CLOUD:!env.kong && env.cloud,
 		__VERSION:VERS_STR
 	}),
+	new HtmlWebpackPlugin({
+
+		template:'index.ejs',
+		title:"Theory of Magic",
+		filename:path.resolve( BuildPath, 'index.html'),
+		__KONG:env.kong||false,
+		__DIST:__DIST,
+		__CLOUD:env.cloud
+
+	}),
 	new CopyPlugin([
 
-		{
-			from:'index.html',
-			to:BuildPath
-		},
 		{
 			from:'data',
 			to:path.resolve( BuildPath, 'data')
