@@ -1,40 +1,21 @@
-LevelUp:
-
-No scribe scroll.
-
-Progress cheat no longer working.
-
-Incorrect research rate from scrolls. Works after refresh?
-
-Rest effect tooltip incorrect. TagSet error?
-
-Gold Rate not Applied.
 
 
 PATRONS:
 
 Jeremy: needs custom item.
 
-
-FIX SPEED/DELAY numbers.
-
-resistances
-
 optional dot stacking
 
-Display Weapon/Dot stats
-
-class/level on save file
 
 GAME:
+
+Better 'function' dmg descriptions.
 
 Spell unlocks by school type, not player level.
 
 To-do list (in game) -- Maybe.
 
 Alchemy&Potions
-
-Enchant Items
 
 Familiars
 
@@ -51,8 +32,6 @@ MINOR:
 
 ongoing actions should stop if 'need' requirements not met.
 
-fix rollovers itemover etc.
-
 more armor drop variations.
 
 
@@ -62,7 +41,5 @@ reduce player level-up speed.
 
 
 UI TWEAKS:
-
-Clear button/rest button redesign
 
 Popup: Mark unmet requirements.

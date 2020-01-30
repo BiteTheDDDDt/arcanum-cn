@@ -65,7 +65,6 @@ export default class Item {
 
 		} else if ( typeof v === 'string' ){
 
-			console.log('encahnts loaded: ' + v );
 			this._enchants = v.split(',');
 
 		} else if ( Array.isArray(v)){

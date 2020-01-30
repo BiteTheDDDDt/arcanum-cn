@@ -22,6 +22,7 @@ export default class Dot {
 			name:this.name || undefined,
 			dmg:this.damage || undefined,
 			effect:this.effect||undefined,
+			level:this._level||undefined,
 			mod:this.mod||undefined,
 			acc:this.acc||undefined,
 			state:this.state||undefined,
@@ -73,6 +74,15 @@ export default class Dot {
 
 	}
 
+	get source(){return this._source;}
+	set source(v){this._source=v}
+
+	/**
+	 * @property {number} level - level (strength) of dot.
+	 */
+	get level(){return this._level || this.source ? (this.source.level || 0 ) : 0; }
+	set level(v){this._level=v;}
+
 	/**
 	 * @property {boolean} perm - dot is permanent.
 	 */
@@ -93,7 +103,7 @@ export default class Dot {
 
 		this.source = this.source || source || null;
 
-		if ( !this.name ) this.name = name || ( source ? source.name : '' );
+		this.name = name || ( source ? source.name : null );
 
 		if ( !this.id ) console.error('BAD DOT ID: ' + this.name );
 

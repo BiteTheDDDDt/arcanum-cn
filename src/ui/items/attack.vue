@@ -18,8 +18,6 @@ export default {
 			if( typeof dmg === 'number') return dmg;
 			else if ( dmg ) {
 				return dmg.toString();
-				//console.log( typeof this.item.damage );
-				//console.log( this.item.damage.min);
 			}
 
 		},

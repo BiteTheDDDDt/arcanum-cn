@@ -14,8 +14,7 @@ const DebugDir = path.resolve( __dirname, 'src/debug');
 
 module.exports = (env, argv)=>{
 
-	const BuildPath = argv['buildpath'] || 'dev';
-	const AbsBuildPath = path.resolve( __dirname, BuildPath );
+	const BuildPath = path.resolve( require.main.__dirname, argv['buildpath'] || 'dev' );
 
 	return {
 
@@ -64,15 +63,15 @@ module.exports = (env, argv)=>{
 
 		{
 			from:'index.html',
-			to:AbsBuildPath
+			to:BuildPath
 		},
 		{
 			from:'data',
-			to:path.resolve( AbsBuildPath, 'data')
+			to:path.resolve( BuildPath, 'data')
 		},
 		{
 			from:'css',
-			to:path.resolve( AbsBuildPath, 'css' )
+			to:path.resolve( BuildPath, 'css' )
 		}
 	])
 	/*new WorkboxPlugin.InjectManifest({
@@ -87,7 +86,7 @@ module.exports = (env, argv)=>{
 
 		filename: "[name].js",
 		chunkFilename: "[name].bundle.js",
-		path:path.resolve( AbsBuildPath, 'js/' ),
+		path:path.resolve( BuildPath, 'js/' ),
 		publicPath:'js/',
 		library: "[name]"
 	},

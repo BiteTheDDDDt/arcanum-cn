@@ -310,7 +310,7 @@ export default {
 
 			} else if ( typeof targ === 'object') {
 
-				console.warn( this.id + ' targ is raw Object: ' + mods );
+				console.warn( this.id + ' TARG is RAW OBJECT: ' + mods );
 				targ.value = (targ.value || 0 ) + amt*mods;
 
 			} else {
@@ -364,6 +364,7 @@ export default {
 			} else if ( subTarg.applyMods ) subTarg.applyMods( m, amt, subTarg );
 			else if ( subTarg instanceof Stat) {
 
+				//console.log(' apply : ' + m + ' type: ' + (typeof m) );
 				subTarg.apply( m, amt );
 
 			} else if ( m instanceof Mod ) {
