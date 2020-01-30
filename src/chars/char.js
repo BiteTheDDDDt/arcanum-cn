@@ -290,13 +290,12 @@ export default class Char {
 		let cur = this.dots.find( d=>d.id===id);
 		if ( cur !== undefined ) {
 
-			var level = dot.level || source ? source.level : 0;
+			var level = dot.level || source ? source.level || 0 : 0;
 			if ( cur.level >= level ) {
 				cur.extend( duration );
 				return;
 
 			}
-			console.log('removing: ' + cur );
 			this.removeDot( cur );
 
 		}

@@ -693,11 +693,11 @@
 				},
 				"at": {
 					"25": {
-						"attack.damage.max": 1
+						"attack.hits.damage.max": 1
 					},
 					"100": {
-						"attack.tohit": 1,
-						"attack.damage.min": 1
+						"attack.hits.tohit": 1,
+						"attack.hits.damage.min": 1
 					}
 				},
 				"cost": {

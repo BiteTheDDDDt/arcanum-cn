@@ -201,10 +201,15 @@ export default class Mod extends Stat {
 
 		} else if ( typeof targ === 'object') {
 
-			console.warn( this.id + ' !!Generic Mod Targ: ' + targ.id );
-			targ.value = ( ( Number(targ.value) || 0 ) + amt*this.bonus )*( 1 + amt*this.pct );
+			if ( Array.isArray(targ) ) {
 
-			// TODO? Percent all of obj?
+				for( let i = targ.length-1; i>= 0; i--) this.applyTo( targ[i], p, amt );
+
+			} else {
+
+				console.warn( this.id + ' !!Generic Mod Targ: ' + targ.id );
+				targ.value = ( ( Number(targ.value) || 0 ) + amt*this.bonus )*( 1 + amt*this.pct );
+			}
 
 		}
 

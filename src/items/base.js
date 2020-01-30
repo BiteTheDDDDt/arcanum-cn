@@ -310,7 +310,7 @@ export default {
 
 			} else if ( typeof targ === 'object') {
 
-				console.warn( this.id + ' targ is raw Object: ' + mods );
+				console.warn( this.id + ' TARG is RAW OBJECT: ' + mods );
 				targ.value = (targ.value || 0 ) + amt*mods;
 
 			} else {
