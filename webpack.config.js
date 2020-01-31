@@ -14,7 +14,7 @@ const DebugDir = path.resolve( __dirname, 'src/debug');
 
 module.exports = (env, argv)=>{
 
-	const BuildPath = path.resolve( require.main.__dirname, argv['buildpath'] || 'dev' );
+	const BuildPath = path.resolve( __dirname, argv['buildpath'] || 'dev' );
 
 	return {
 
