@@ -275,8 +275,6 @@ export default class GameState {
 
 		// must be defined for Vue. slots could be missing from save.
 		ensure( this.slots, [HOME, 'mount', 'bed', REST_SLOT]);
-
-		console.log('HOME: ' + this.slots[HOME] );
 		if ( !this.slots[REST_SLOT] ) this.slots[REST_SLOT] = this.getData('rest');
 
 	}
