@@ -110,13 +110,15 @@ export default class Attack {
 	 */
 	get hits(){ return this._hits; }
 	set hits(v){
+
 		this._hits = v;
 		for( let i = v.length-1; i>=0;i--) {
 			var h = v[i];
+
 			if (!h.id) h.id = this.id;
 			if ( !h.name ) h.name = this.name;
 			if (!h.kind)h.kind = this.kind;
-			if ( !h instanceof Attack ) h = v[i] = new Attack(h);
+			if ( !h instanceof Attack ) v[i] = new Attack(h);
 
 		}
 	}

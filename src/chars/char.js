@@ -251,6 +251,7 @@ export default class Char {
 
 	/**
 	 * try casting spell from player spelllist.
+	 * @returns {boolean}
 	 */
 	tryCast(){
 		return ( this.spells && this.spells.onUse(this.context) );

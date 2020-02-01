@@ -178,7 +178,7 @@ export default class Combat {
 			let a = this.player.getCause( NO_SPELLS);
 			if ( a ) {
 
-				console.log('spells blocked: ' + a );
+				console.warn('SPELLS blocked: ' + a );
 				Events.emit( STATE_BLOCK, this.player, a );
 
 			} else this.attack( this.player, it.attack );
