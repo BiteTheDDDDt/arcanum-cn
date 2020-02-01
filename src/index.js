@@ -119,6 +119,7 @@ const vm = new Vue({
 
 			//if ( forceClear ) this.reset();
 
+			console.log('loading hall type: ' + type );
 			this.dispatch('pause');
 			Profile.loadHall( type ).then( ()=>this.loadSave() );
 
@@ -176,6 +177,8 @@ const vm = new Vue({
 			this.settingsLoaded( Profile.loadSettings() );
 
 			this.dispatch( 'game-loaded' );
+
+			console.log('PLAYER LOADED: ' + game.state.pid );
 
 			Profile.gameLoaded( game );
 
@@ -282,6 +285,10 @@ const vm = new Vue({
 
 		},
 
+		/**
+		 * Load file from data.
+		 * @param {*} files
+		 */
 		loadFile(files) {
 
 			const file = files[0];
@@ -352,8 +359,10 @@ const vm = new Vue({
 		async save() {
 
 			if (!this.game.loaded ) return;
+			console.log('saving...');
 			let charsave = await Profile.saveActive( this.game.state );
 
+			console.log('saving hall..: ' + charsave );
 			if ( charsave ) {
 
 				Profile.saveHall();

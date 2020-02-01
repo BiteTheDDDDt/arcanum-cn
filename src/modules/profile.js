@@ -171,6 +171,7 @@ export default {
 		let p = gs.player;
 
 		let id = gs.pid || p.hid;
+		console.log('loaded id found: ' + id );
 
 		let slot = this.hall.pidSlot( id );
 
@@ -331,6 +332,7 @@ export default {
 
 		try {
 
+			console.log('cur char id: ' + this.hall.curId );
 			let json = JSON.stringify(state);
 			if ( json ) {
 				await Persist.saveChar( json, this.hall.curId );

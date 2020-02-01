@@ -251,7 +251,9 @@ export default class Hall {
 
 		if ( !char ) char = this.chars[ this.curSlot  ] = new CharInfo();
 		char.update( p );
-		if ( pid ) char.pid = pid;
+		if ( pid ) {
+			this.curId = char.pid = pid;
+		}
 
 	}
 

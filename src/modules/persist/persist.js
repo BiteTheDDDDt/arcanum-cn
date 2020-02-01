@@ -54,6 +54,8 @@ export const Persist = {
 		var file = this.charFile(charid);
 
 		Local.saveChar( data, file );
+		console.log('SAVING CHAR');
+
 		if ( Remote) return Remote.saveChar( data, file );
 
 	},
