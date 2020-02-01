@@ -481,7 +481,7 @@ export default {
 	 * @param {string} t - tag to test.
 	 * @returns {boolean}
 	 */
-	hasTag( t ) { return (this.tags) && this._tags.includes(t); },
+	hasTag( t ) { return this.tags && this.tags.includes(t); },
 
 	/**
 	 * Test if item has every tag in list.

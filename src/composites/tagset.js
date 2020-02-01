@@ -61,13 +61,6 @@ export default class TagSet {
 
 	}
 
-	fillsRequire(){
-		for( let it of this.items ) {
-			if ( it.fillsRequire() ) return true;
-		}
-		return true;
-	}
-
 	canUse( g ) {
 		return g.canPay( this.cost );
 	}
