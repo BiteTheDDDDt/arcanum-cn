@@ -743,7 +743,9 @@ export default {
 		}
 		//console.log('trying unlock: ' + item.id );
 		let type = typeof test;
-		if ( type === 'function') return test( this._gdata, item, this.state );
+		if ( type === 'function') {
+			return test( this._gdata, item, this.state );
+		}
 
 		else if ( type === 'string') {
 

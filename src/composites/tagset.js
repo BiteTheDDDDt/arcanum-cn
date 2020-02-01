@@ -48,6 +48,15 @@ export default class TagSet {
 		return false;
 	}
 
+	valueOf(){
+
+		let v = 0;
+		for( let it of this.items ) {
+			v += it.valueOf();
+		}
+		return v;
+	}
+
 	constructor(tag ) {
 
 		this.id = tag;
