@@ -701,69 +701,60 @@
 					}
 				},
 				"cost": {
-					"mana": 15
+					"mana": 7
 				},
 				"attack": {
+					"kind":"mana",
 					"hits": [
 						{
-							"targets": "randenemy",
 							"damage": "2~3",
 							"kind": "mana",
-							"tohit": -5
+							"tohit": -2
 						},
 						{
-							"targets": "randenemy",
 							"damage": "2~3",
 							"kind": "fire",
-							"tohit": -5
+							"tohit": -2
 						},
 						{
-							"targets": "randenemy",
 							"damage": "2~3",
 							"kind": "water",
-							"tohit": -5
+							"tohit": -2
 						},
 						{
-							"targets": "randenemy",
 							"damage": "2~3",
 							"kind": "nature",
-							"tohit": -5
+							"tohit": -2
 						},
 						{
-							"targets": "randenemy",
 							"damage": "2~3",
 							"kind": "air",
-							"tohit": -5
+							"tohit": -2
 						},
 						{
-							"targets": "randenemy",
 							"damage": "2~3",
 							"kind": "chaos",
-							"tohit": -5
+							"tohit": -2
 						},
 						{
-							"targets": "randenemy",
 							"damage": "2~3",
 							"kind": "earth",
-							"tohit": -5
+							"tohit": -2
 						},
 						{
-							"targets": "randenemy",
 							"damage": "2~3",
 							"kind": "shadow",
-							"tohit": -5
+							"tohit": -2
 						},
 						{
-							"targets": "randenemy",
 							"damage": "2~3",
 							"kind": "light",
-							"tohit": -5
+							"tohit": -2
 						},
 						{
-							"targets": "randenemy",
 							"damage": "2~3",
 							"kind": "spirit",
-							"tohit": -5
+							"tohit": -2
 						}
 					]
 				}

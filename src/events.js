@@ -343,13 +343,13 @@ export default {
 		else if (resist > 1) msg += " absorbed by ";
 		msg += target.name + ": "+ precise( dmg, 1 );
 
-		let tot_reduce = 100*(resist + reduce);
+		/*let tot_reduce = 100*(resist + reduce);
 		if (tot_reduce > 0) {
 
 			if ( tot_reduce <= 100 ) msg += " (-" + precise(tot_reduce,1) + "%)";
 			else msg += " (absorb: " + precise(tot_reduce-100, 1) + "%)";
 
-		} else if (tot_reduce < 0) msg += " (+" + precise( -tot_reduce, 1) + "%)";
+		} else if (tot_reduce < 0) msg += " (+" + precise( -tot_reduce, 1) + "%)";*/
 
 
 		this.log.log( '', msg, LOG_COMBAT);

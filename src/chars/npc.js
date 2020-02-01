@@ -94,6 +94,12 @@ export default class Npc extends Char {
 
 	}
 
+	/**
+	 */
+	set immune(v){
+		this.immunities=v;
+	}
+
 	get damage() { return this._damage; }
 	set damage(v) { this._damage = ParseDmg(v); }
 

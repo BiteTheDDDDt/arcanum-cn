@@ -64,6 +64,17 @@ export default class Char {
 	}
 	set immunities(v) {
 
+		if ( typeof v === 'string') {
+
+			this._immunities = {};
+			var a = v.split(',');
+			for( let i in a ) {
+				this.addImmune( a[i] );
+			}
+
+			return;
+		}
+
 		for( let p in v ) {
 
 			var val = v[p];
@@ -240,6 +251,7 @@ export default class Char {
 
 	/**
 	 * try casting spell from player spelllist.
+	 * @returns {boolean}
 	 */
 	tryCast(){
 		return ( this.spells && this.spells.onUse(this.context) );

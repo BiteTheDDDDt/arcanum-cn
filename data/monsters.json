@@ -3227,13 +3227,13 @@
             "dmg":"80~100"
 		},"loot":{"adamant":25},
 		"resist":{
-			"air":"80%",
-			"fire":"80%",
-			"shadow":"80%",
-			"earth":"80%",
-			"water":"80%",
-			"nature":"80%",
-			"light":"80%"
+			"air":80,
+			"fire":80,
+			"shadow":80,
+			"earth":80,
+			"water":80,
+			"nature":80,
+			"light":80
 		},
 		"immune":"physical,spirit"
     },

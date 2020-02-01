@@ -372,7 +372,6 @@ export default class Runner {
 		if ( a.fill && Game.filled(a.fill,a) ) return false;
 		if ( !a.canRun(Game) ) return false;
 
-		console.log('run: ' + a.id );
 		return this.setTask(a);
 
 	}
@@ -450,6 +449,8 @@ export default class Runner {
 	 */
 	actDone( act, repeatable=true ){
 
+		//console.log('COMPLETE: ' + act.id );
+
 		if ( act.running === false || !repeatable ) {
 			// skills cant complete when not running.
 			this.stopTask(act);
@@ -459,6 +460,10 @@ export default class Runner {
 			if ( Game.canRun(act) && this.actives.size <= this.max.value ) {
 
 				this.setTask(act);
+				if ( !act.hasTag( REST_TAG)  ) {
+					this.tryResume();
+				}
+
 
 			} else {
 

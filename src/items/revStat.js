@@ -32,9 +32,7 @@ export default class RevStat extends Resource {
 	}
 	remove( amt ) { this.value.base += amt; }
 
-	fill(){
-		this.value = 0;
-	}
+	fill(){ this.value = 0; }
 
 	/**
 	 * Determine whether the item is filled relative to a filling rate.
