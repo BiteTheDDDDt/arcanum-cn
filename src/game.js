@@ -114,6 +114,8 @@ export default {
 			this.recheckTiers();
 			this.restoreMods();
 
+			this.recalcSpace();
+
 			techTree = new TechTree( this.gdata );
 			Events.add( EVT_UNLOCK, techTree.unlocked, techTree );
 			Events.add( ITEM_ACTION, this.onAction, this );
@@ -225,6 +227,43 @@ export default {
 		for( let e of this.state.equip ) {
 			if ( e.mod ) this.applyMods( e.mod, 1 );
 		}
+
+	},
+
+	/**
+	 * Recalculate amount of space used by items.
+	 */
+	recalcSpace(){
+
+		let used = 0;
+
+		let items = this.gdata;
+		for( let p in items ) {
+
+			var it = items[p];
+			if ( !it.value ) continue;
+			var count = it.value.valueOf();
+			if ( count === 0 ) continue;
+
+			var cost = it.cost;
+			if ( cost === null || cost === undefined ) continue;
+			if ( typeof cost !== 'object') {
+
+				if ( cost === 'space') used += count;
+				continue;
+
+			} else {
+
+				used += count*cost.space || 0;
+
+			}
+
+		} // for
+
+		console.log('space used: ' + used );
+
+		let space = this.state.getData('space');
+		space.value = used;
 
 	},
 

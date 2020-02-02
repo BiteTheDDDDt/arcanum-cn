@@ -2,15 +2,15 @@ import { assign } from 'objecty';
 
 import Events, {
 	EVT_COMBAT, ENEMY_SLAIN, ALLY_DIED,
-	DAMAGE_MISS, CHAR_DIED, EVT_EVENT, STATE_BLOCK
+	DAMAGE_MISS, CHAR_DIED, STATE_BLOCK
 } from '../events';
 
 import { itemRevive } from '../modules/itemgen';
 import { NO_SPELLS } from '../chars/states';
 
 import { TEAM_PLAYER, getDelay, TEAM_NPC, TEAM_ALL } from '../values/consts';
-import { TARGET_ALLIES, TARGET_ENEMIES, TARGET_ENEMY, TARGET_ALLY, TARGET_SELF,
-	TARGET_RAND, TARGET_RANDG, TARGET_PRIMARY, TARGET_LEADER, ApplyAction, TARGET_GROUP, TARGET_ANY } from "../values/combat";
+import { TARGET_ENEMY, TARGET_ALLY, TARGET_SELF,
+	TARGET_RAND, TARGET_PRIMARY, ApplyAction, TARGET_GROUP, TARGET_ANY } from "../values/combat";
 import Npc from '../chars/npc';
 
 

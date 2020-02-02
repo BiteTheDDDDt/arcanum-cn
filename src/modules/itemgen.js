@@ -7,7 +7,7 @@ import Encounter from '../items/encounter';
 import GenGroup from '../genGroup';
 import { pushNonNull } from '../util/array';
 import GData from '../items/gdata';
-import { ENCOUNTER, WEARABLE, MONSTER, ARMOR, WEAPON, TYP_PCT, EVENT, ITEM, POTION, TYP_RANGE, NPC, TASK } from '../values/consts';
+import { WEARABLE, MONSTER, ARMOR, WEAPON, TYP_PCT, EVENT, ITEM, POTION, TYP_RANGE, NPC, TASK } from '../values/consts';
 
 /**
  * Revive an instanced item based on save data.
@@ -23,8 +23,9 @@ export function itemRevive( gs, it ) {
 	}
 
 	var orig = it.template || it.recipe;
+
 	if ( typeof orig === 'string') orig = gs.getData( orig );
-	var type = orig ? orig.type : it.type;
+	var type = orig ? orig.type || it.type : it.type;
 
 	if ( !type) {
 
@@ -33,19 +34,19 @@ export function itemRevive( gs, it ) {
 		console.warn('gen unknown: ' + it.id + ' -> ' + it.template + ' -> ' + it.recipe );
 		type = 'item';
 	}
-	it.template = orig;
 
 	if ( type === ARMOR || type === WEAPON || type === WEARABLE) {
 
-		it = new Wearable(it);
+		it = new Wearable( null,it);
 
 	} else if ( type === MONSTER || type === NPC ) {
 
-		it = new Npc( orig, it );
+		//it.template = orig;
+		it = new Npc( null, it );
 
 	} else {
 		//console.log('default revive: ' + it.id );
-		it = new Item(it);
+		it = new Item( null, it );
 	}
 	it.owned = true;
 

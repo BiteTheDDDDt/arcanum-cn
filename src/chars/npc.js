@@ -4,7 +4,7 @@ import Percent, { PercentTest } from '../values/percent';
 import MaxStat from '../values/maxStat';
 import Attack from './attack';
 import { ParseDmg } from 'values/combat'
-import { assign } from 'objecty';
+import { assign, mergeSafe } from 'objecty';
 import { TEAM_NPC } from 'values/consts';
 import { mergeClass } from '../items/base';
 import Instance from '../items/instance';
@@ -119,7 +119,7 @@ export default class Npc extends Char {
 
 		super( vars );
 
-		if ( save ) assignNoFunc( this, save );
+		if ( save ) assign( this, save );
 
 		this.dodge = this.dodge || this.level/2;
 
@@ -143,6 +143,19 @@ export default class Npc extends Char {
 			this.attack = new Attack( this.damage );
 			this.damage = 0;
 		}
+
+	}
+
+	revive(gs) {
+
+		if ( typeof this.template === 'string') this.template = gs.getData(this.template);
+		if ( this.template ) {
+
+			mergeSafe( this, this.template );
+
+		}
+		super.revive(gs);
+
 
 	}
 

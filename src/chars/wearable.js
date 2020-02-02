@@ -4,7 +4,7 @@ import Attack from './attack';
 import {mergeSafe} from "objecty";
 import Mod from '../values/mod';
 import { ParseMods } from 'modules/parsing';
-import { assign, assignRecursive } from 'objecty';
+import { cloneClass } from 'objecty';
 import Item from '../items/item';
 import { WEARABLE, ARMOR, TYP_RANGE, TYP_STAT } from '../values/consts';
 import Stat from '../values/stat';
@@ -74,7 +74,14 @@ export default class Wearable extends Item {
 	set attack(v) {
 
 		if ( v ) {
-			this._attack = new Attack(v);
+
+			if ( v !== this._attack ) {
+
+				if ( v instanceof Attack  ) this._attack = v.clone();
+				else this._attack = new Attack(v);
+
+			}
+
 		} else {
 			this._attack = null;
 		}
@@ -99,14 +106,15 @@ export default class Wearable extends Item {
 	get kind() { return this._kind; }
 	set kind(v) { this._kind = v; }
 
-	constructor(vars=null){
+	constructor(vars=null, save=null ){
 
-		super();
+		super( vars, save );
 
 		this.stack = false;
 		this.consume = false;
 
-		if ( vars ) assignNoFunc( this, vars );
+		//if ( vars ) cloneClass( vars, this );
+		//if ( save ) Object.assign( this, save );
 
 		this.value = this.val = 1;
 
@@ -123,6 +131,8 @@ export default class Wearable extends Item {
 	 * @param {GameState} gs
 	 */
 	revive( gs ) {
+
+		//console.log('reviving: ' + this.id );
 
 		if ( typeof this.material === 'string') this.material = gs.getMaterial( this.material );
 

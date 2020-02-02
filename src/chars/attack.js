@@ -142,7 +142,9 @@ export default class Attack {
 			this.name = vars.name;
 			this.kind = vars.kind;
 
-			assignNoFunc(this,vars); //Object.assign(this,vars);
+			//cloneClass( vars, this ); // breaks save-reloading.
+			assignNoFunc(this,vars);
+
 		}
 
 		if ( this.dot ) {

@@ -65,7 +65,7 @@ div.dot-view .dot {
 	}
 
 	div.mini {
-		width:var(--lg-gap);
+		width:auto;
 		font-size: 0.7em;
 		padding:0;
 	}

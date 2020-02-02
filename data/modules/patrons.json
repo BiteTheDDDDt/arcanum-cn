@@ -91,7 +91,7 @@
 				"desc":"Free a star and unleash the fury of the heavens on your foe. Hopefully your star won't turn on you...",
 				"buy":{
 					"research":7777,
-					"runstones":7,
+					"runestones":7,
 					"firerune":7,
 					"waterrune":7,
 					"airrune":7,
