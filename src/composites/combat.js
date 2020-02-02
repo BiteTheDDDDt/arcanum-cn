@@ -76,8 +76,6 @@ export default class Combat {
 		this.state = state;
 		this.player = state.player;
 
-		console.log('COMBAT REVIVE');
-
 		// splices done in place to not confuse player with changed order.
 
 		for( let i = this._enemies.length-1; i>=0; i-- ) {

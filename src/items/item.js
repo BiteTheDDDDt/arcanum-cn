@@ -101,7 +101,7 @@ export default class Item {
 	constructor( vars=null, save=null ) {
 
 		if ( vars ) cloneClass( vars, this );
-		if ( save ) Object.assign( this, save );
+		if ( save ) assign(this,save);
 
 		//if ( vars ) assign(this,vars);
 
