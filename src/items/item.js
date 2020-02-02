@@ -98,9 +98,12 @@ export default class Item {
 	get defaults() { return this._defaults || ItemDefaults }
 	set defaults(v) { this._defaults = v;}
 
-	constructor( vars=null ) {
+	constructor( vars=null, save=null ) {
 
-		if ( vars ) assign(this,vars);
+		if ( vars ) cloneClass( vars, this );
+		if ( save ) Object.assign( this, save );
+
+		//if ( vars ) assign(this,vars);
 
 		if ( !this.enchantTot ) this.enchantTot = 0;
 		this.value = this._value || 1;

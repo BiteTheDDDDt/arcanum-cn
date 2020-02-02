@@ -108,13 +108,13 @@ export default class Wearable extends Item {
 
 	constructor(vars=null, save=null ){
 
-		super();
+		super( vars, save );
 
 		this.stack = false;
 		this.consume = false;
 
-		if ( vars ) cloneClass( vars, this );
-		if ( save ) Object.assign( this, save );
+		//if ( vars ) cloneClass( vars, this );
+		//if ( save ) Object.assign( this, save );
 
 		this.value = this.val = 1;
 

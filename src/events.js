@@ -193,7 +193,9 @@ export default {
 		events.addListener( CHAR_STATE, this.onCharState, this );
 		events.addListener( STATE_BLOCK, this.onStateBlock, this );
 
-		events.addListener( ENEMY_SLAIN, this.enemySlain, this );
+		events.addListener( ENEMY_SLAIN, this.npcSlain, this );
+		events.addListener( ALLY_DIED, this.npcSlain, this );
+
 		events.addListener( DEFEATED, this.onDefeat, this );
 		events.addListener( DAMAGE_MISS, this.onMiss, this );
 		events.addListener( IS_IMMUNE, this.onImmune, this );
@@ -396,7 +398,7 @@ export default {
 
 	},
 
-	enemySlain( enemy, attacker ) {
+	npcSlain( enemy, attacker ) {
 		this.log.log( enemy.name + ' slain',
 			( attacker && attacker.name ? ' by ' + attacker.name : ''), LOG_COMBAT );
 	},

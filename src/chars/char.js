@@ -207,10 +207,6 @@ export default class Char {
 	 */
 	revive( gs ){
 
-		if ( this.template ) {
-			if ( !this.name ) this._name = it.name;
-		}
-
 		if ( this.spells ) this.spells = gs.makeDataList(this.spells );
 
 		this.reviveDots(gs);
