@@ -22,11 +22,6 @@ export function itemRevive( gs, it ) {
 		return null;
 	}
 
-	var type = it.type;
-	if ( type ) {
-		console.log('TYPE FOUND: ' + it.type );
-	}
-
 	var orig = it.template || it.recipe;
 
 	if ( typeof orig === 'string') orig = gs.getData( orig );
