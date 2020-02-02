@@ -23,6 +23,7 @@ export function itemRevive( gs, it ) {
 	}
 
 	var orig = it.template || it.recipe;
+
 	if ( typeof orig === 'string') orig = gs.getData( orig );
 	var type = orig ? orig.type : it.type;
 
@@ -33,14 +34,14 @@ export function itemRevive( gs, it ) {
 		console.warn('gen unknown: ' + it.id + ' -> ' + it.template + ' -> ' + it.recipe );
 		type = 'item';
 	}
-	it.template = orig;
 
 	if ( type === ARMOR || type === WEAPON || type === WEARABLE) {
 
-		it = new Wearable(it);
+		it = new Wearable( null,it);
 
 	} else if ( type === MONSTER || type === NPC ) {
 
+		it.template = orig;
 		it = new Npc( orig, it );
 
 	} else {
