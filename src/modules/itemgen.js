@@ -42,7 +42,7 @@ export function itemRevive( gs, it ) {
 	} else if ( type === MONSTER || type === NPC ) {
 
 		//it.template = orig;
-		it = new Npc( null, it );
+		it = new Npc( orig, it );
 
 	} else {
 		//console.log('default revive: ' + it.id );
