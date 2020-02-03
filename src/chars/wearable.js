@@ -149,7 +149,7 @@ export default class Wearable extends Item {
 
 			this.type = this.template.type || this.type;
 
-			mergeSafe( this, this.template );
+			//mergeSafe( this, this.template );
 
 		} else console.log('bad template: ' + this.template );
 

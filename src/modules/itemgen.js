@@ -37,7 +37,7 @@ export function itemRevive( gs, it ) {
 
 	if ( type === ARMOR || type === WEAPON || type === WEARABLE) {
 
-		it = new Wearable( null,it);
+		it = new Wearable( orig,it);
 
 	} else if ( type === MONSTER || type === NPC ) {
 
@@ -46,7 +46,7 @@ export function itemRevive( gs, it ) {
 
 	} else {
 		//console.log('default revive: ' + it.id );
-		it = new Item( null, it );
+		it = new Item( orig, it );
 	}
 	it.owned = true;
 
