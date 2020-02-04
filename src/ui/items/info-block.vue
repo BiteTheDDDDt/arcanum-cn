@@ -8,17 +8,23 @@ import ItemsBase from '../itemsBase.js';
  */
 export default {
 	props:['title', 'info', 'rate'],
-	mixins:[ItemsBase]
+	mixins:[ItemsBase],
+	computed:{
+		effects(){
+			return this.effectItems( this.info, this.rate );
+		}
+
+	}
 }
 </script>
 
 
 <template>
 
-	<div v-if="info">
+	<div v-if="info&&effects">
 
 		<div v-if="title" class="note-text"><hr>{{ title }}</div>
-		<div v-for="(v,k) in effectItems( info, rate)" :key="k">
+		<div v-for="(v,k) in effects" :key="k">
 			<span v-if="typeof v === 'boolean'">{{ k }}</span>
 			<span v-else-if="typeof v ==='number'">{{ `${k}: ${v}` }}</span>
 				<span v-else>{{ `${k}: ${v}` }}</span>

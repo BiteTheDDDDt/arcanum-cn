@@ -1,7 +1,7 @@
 /**
  * Base view for all item lists.
  */
-import { floor, precise } from '../util/format';
+import { floor, precise, funcText } from '../util/format';
 
 import Game, { TICK_LEN } from '../game';
 import { SKILL } from '../values/consts';
@@ -72,7 +72,17 @@ export default {
 				results[ it ? it.name : this.stripTags(obj) ] = true;
 
 			} else if ( Array.isArray(obj) ) obj.forEach(v=>this.effectList(v,results));
-			else if ( type === 'function' ) {}
+			else if ( type === 'function' ) {
+
+				/*if ( !obj.fText ){
+					obj.fText = funcText( obj, Game );
+					results[obj.fText] = true;
+				} else {
+					results[obj.fText] = true;
+				}*/
+				return undefined;
+
+			}
 			else if ( type === 'object') {
 
 				this.effectList( obj, results, '', rate );

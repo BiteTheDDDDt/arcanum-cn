@@ -1,6 +1,36 @@
 const PostFixes = [
 	'', 'K', 'M', 'B', 'T'
-]
+];
+
+const FuncRE = /(^[^]*\{|return|\}$)|\w\.(\w+)|(\!)|(\&\&)|(\|\|)/gi;
+
+/**
+ * Converts a function to some semblance of plain text.
+ * @param {function} f
+ */
+export const funcText = (f, lookup )=>{
+
+	let it;
+
+	return f.toString().replace( FuncRE, (match,skips,name,not,and,or)=>{
+
+		if ( name ) {
+
+			it = lookup.getData(name);
+			if ( it ) return it.name;
+
+			return name;
+
+		} else if ( skips ) {
+			return '';
+		}
+		if ( not ) return ' not ';
+		if ( and) return ' and ';
+		if ( or ) return ' or ';
+
+	});
+
+};
 
 export const toInt = Math.floor;
 

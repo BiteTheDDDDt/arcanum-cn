@@ -65,7 +65,7 @@ export default class Dungeon extends Task {
 
 		//console.log(this.id + ' dist: ' + this.dist );
 
-		if ( this.need == null ) this.need = distTest;
+		if ( this.need == null ) this.need = distTest(this);
 
 		/**
 		 * Total of all enemy weights, used to roll which
