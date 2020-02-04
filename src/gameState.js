@@ -290,25 +290,6 @@ export default class GameState {
 
 	}
 
-	mergeItems( dest, src ) {
-
-		let it;
-		for( let p in src ) {
-
-			it = dest[p];
-			if ( !it ) {
-				console.warn(`Attempt to revive undefined object: ${p}` );
-				dest[p] = src[p]
-			} else if ( it.hasOwnProperty('reviver' ) ) {
-
-				it.reviver( dest, src[p] );
-
-			} else Object.assign( dest[p], src[p] );
-
-		}
-
-	}
-
 	/**
 	 * @static
 	 * @param {object} dot
@@ -413,8 +394,7 @@ export default class GameState {
 	}
 
 	/**
-	 * Get the amount of a specific item subtype
-	 * required to buy.
+	 * Get the cost of a given subtype to buy item.
 	 * @param {string} type
 	 * @returns {number}
 	 */
@@ -426,7 +406,7 @@ export default class GameState {
 
 	/**
 	 * Add to maximum value of resource.
-	 * Used for implementing testing cheats.
+	 * Used for cheat codes.
 	 * @param {string} id
 	 * @param {number} amt
 	 */
@@ -449,21 +429,6 @@ export default class GameState {
 			if ( pred( items[p] ) ) a.push( items[p] );
 		}
 		return a;
-	}
-
-	/**
-	 * Return a list of items containing given tags.
-	 * @param {string[]} tags
-	 * @returns {GData[]}
-	 */
-	filterByTag( tags ) {
-
-		let a = [];
-		for( let p in this.items ) {
-			if ( this.items[p].hasTags(tags) ) a.push(this.items[p]);
-		}
-		return a;
-
 	}
 
 	/**
@@ -490,6 +455,10 @@ export default class GameState {
 
 	}
 
+	/**
+	 * Apparently? used to avoid circular module references.
+	 * @param {*} list
+	 */
 	makeDataList(list) {
 		return new DataList(list);
 	}

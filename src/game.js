@@ -9,7 +9,7 @@ import Stat from './values/stat';
 
 import DataLoader from './dataLoader';
 
-import Events, {EVT_UNLOCK, EVT_EVENT, EVT_LOOT, SET_SLOT, DELETE_ITEM, ITEM_ACTION } from './events';
+import Events, {EVT_UNLOCK, EVT_EVENT, EVT_LOOT, SET_SLOT, DELETE_ITEM, CHAR_ACTION } from './events';
 import { MONSTER, TYP_PCT, TYP_RANGE, P_TITLE, P_LOG, TEAM_PLAYER, ENCHANTSLOTS } from './values/consts';
 import TagSet from './composites/tagset';
 import { TARGET_SELF, TARGET_ALLY, ApplyAction } from './values/combat';
@@ -118,7 +118,7 @@ export default {
 
 			techTree = new TechTree( this.gdata );
 			Events.add( EVT_UNLOCK, techTree.unlocked, techTree );
-			Events.add( ITEM_ACTION, this.onAction, this );
+			Events.add( CHAR_ACTION, this.onCharAction, this );
 
 			// initial fringe check.
 			techTree.forceCheck();
@@ -534,7 +534,6 @@ export default {
 	instance( data ) {
 
 		if ( typeof data === 'string') data = this.state.getData(data);
-
 		return this.itemGen.instance(data);
 
 	},
@@ -963,7 +962,7 @@ export default {
 	 * @param {Attack} act
 	 * @param {Char} char
 	 */
-	onAction( act, char=this.player ) {
+	onCharAction( act, char=this.player ) {
 
 		if ( this.state.explore.running || this.state.raid.running ) return;
 
@@ -1025,7 +1024,7 @@ export default {
 
 		var res = this.state.inventory.find( p,true );
 		if ( res ) this.state.inventory.removeCount(res,amt);
-		else console.warn('Insufficient: ' + p );
+		else console.warn('Too Low: ' + p );
 
 	},
 
@@ -1167,10 +1166,9 @@ export default {
 
 	/**
 	 * Add an item to player's inventory.
-	 * @param {*} it
+	 * @param {Item} it
 	 */
 	take( it ) {
-		//console.log('adding: ' + it.id );
 		return this.state.inventory.add(it);
 	},
 
@@ -1234,19 +1232,6 @@ export default {
 		}
 
 
-	},
-
-	/**
-	 *
-	 * @param {(it)=>boolean} pred
-	 */
-	filterItems( pred ) {
-		let a = [];
-		let gdata = this._gdata;
-		for( let p in gdata ) {
-			if ( pred( gdata[p] ) ) a.push( gdata[p] );
-		}
-		return a;
 	},
 
 	/**
