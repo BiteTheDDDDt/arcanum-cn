@@ -6,7 +6,7 @@ import Mod from '../values/mod';
 import { ParseMods } from 'modules/parsing';
 import { cloneClass } from 'objecty';
 import Item from '../items/item';
-import { WEARABLE, ARMOR, TYP_RANGE, TYP_STAT } from '../values/consts';
+import { WEARABLE, ARMOR, TYP_RANGE, TYP_STAT, WEAPON } from '../values/consts';
 import Stat from '../values/stat';
 import { assignNoFunc } from '../util/util';
 
@@ -118,7 +118,12 @@ export default class Wearable extends Item {
 
 		this.value = this.val = 1;
 
-		if ( !this.type ) { this.type = WEARABLE; }
+		if ( !this.type ) {
+			console.warn(this.id + ' unknown wear type.');
+			if ( this.attack ) this.type = WEAPON;
+			else if ( this.armor || this.slot != null ) this.type = ARMOR;
+			else this.type = WEARABLE;
+		}
 
 		if ( this._attack && !this._attack.name ) this._attack.name = this.name;
 
@@ -149,7 +154,7 @@ export default class Wearable extends Item {
 
 			this.type = this.template.type || this.type;
 
-			mergeSafe( this, this.template );
+			//mergeSafe( this, this.template );
 
 		} else console.log('bad template: ' + this.template );
 

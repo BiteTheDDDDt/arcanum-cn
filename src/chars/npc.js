@@ -151,7 +151,7 @@ export default class Npc extends Char {
 		if ( typeof this.template === 'string') this.template = gs.getData(this.template);
 		if ( this.template ) {
 
-			mergeSafe( this, this.template );
+			//mergeSafe( this.template, this );
 
 		}
 		super.revive(gs);

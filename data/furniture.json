@@ -118,7 +118,7 @@
 			"rest":{
 				"effect":{
 					"stamina":0.35,
-					"manas":0.1,
+					"prismatic":0.1,
 					"fire":0.2
 				}
 			}

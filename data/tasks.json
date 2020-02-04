@@ -801,9 +801,9 @@
 		"locked":false,
 		"owned":true,
 		"perpetual":true,
-		"fill":[ "stamina", "hp", "manas", "stress"],
+		"fill":[ "stamina", "hp", "prismatic", "stress"],
 		"effect":{
-			"manas":{
+			"prismatic":{
 				"skipLocked":true,
 				"value":0.5
 			},
@@ -822,7 +822,7 @@
 		"require":"g.player.level>=9999",
         "length":10,
         "need":"g.tier2>0",
-        "fill":[ "stamina", "hp", "manas", "stress"],
+        "fill":[ "stamina", "hp", "prismatic", "stress"],
 
         "run":{
 
@@ -833,7 +833,7 @@
         "effect":{
 
             "stress":-2,
-            "manas":{
+            "prismatic":{
                 "skipLocked":true,
                 "value":1
             },
@@ -856,7 +856,7 @@
 		"run":{
 			"arcana":0.03
 		},"effect":{
-			"manas":0.55,
+			"prismatic":0.55,
 			"stamina":1,
 			"hp":1.2,
 			"stress":-1.1,
@@ -871,11 +871,11 @@
 		"slot":"rest",
 		"length":10,
 		"need":"(g.oracle+g.seer+g.mage)>0&&g.evil<=0",
-		"fill":[ "stamina", "hp", "manas", "stress"],
+		"fill":[ "stamina", "hp", "prismatic", "stress"],
 		"effect":{
 			"virtue":1,
 			"stress":-1.2,
-			"manas":{
+			"prismatic":{
 				"skipLocked":true,
 				"value":0.5
 			},
@@ -895,10 +895,10 @@
 		"desc":"commune with natural forces",
 		"perpetual":true,
 		"require":"g.naturelore>=12",
-		"fill":[ "hp", "manas", "stamina","stress"],
+		"fill":[ "hp", "prismatic", "stamina","stress"],
 		"effect":{
 			"stress":-1.4,
-			"manas":{
+			"prismatic":{
 				"skipLocked":true,
 				"value":0.5
 			},
@@ -919,7 +919,7 @@
 		"require":"(g.witch+g.thanophage)>0",
 		"need":"cauldron",
 		"desc":"how could you!?!",
-		"fill":[ "hp", "manas", "stamina", "stress" ],
+		"fill":[ "hp", "prismatic", "stamina", "stress" ],
 		"at":{
 			"100":{
 				"effect.hp":0.5,
@@ -939,7 +939,7 @@
 			"mana":0.6,
 			"shadow":0.4,
 			"spirit":0.4,
-			"manas":0.2,
+			"prismatic":0.2,
 			"stress":-1.1,
 			"stamina":1,
 			"hp":2
@@ -1189,7 +1189,7 @@
 			"research":200,
 			"gems":1,
 			"managem":1,
-			"manas":2,
+			"prismatic":2,
 			"hp":20
 		},
 		"flavor":"if I could turn back time"

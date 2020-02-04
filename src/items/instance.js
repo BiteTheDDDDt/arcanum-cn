@@ -9,6 +9,7 @@ export default {
 	 * @property {string} recipe - id of item template used to instance this item.
 	 */
 	get recipe() { return this.template?  this.template.id : this._id; },
+	set recipe(v) { if ( !this.template ) this.template = v},
 
 	get template(){ return this._template;},
 	set template(v){this._template=v;},

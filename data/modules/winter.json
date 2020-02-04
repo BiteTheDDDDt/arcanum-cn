@@ -121,9 +121,9 @@
         "tags":"t_rest",
         "slot":"rest",
         "perpetual":true,
-        "fill":["stamina","manas","hp","stress","frost"],
+        "fill":["stamina","prismatic","hp","stress","frost"],
 		"effect":{
-			"manas":{
+			"prismatic":{
 				"skipLocked":true,
 				"value":0.5
 			},

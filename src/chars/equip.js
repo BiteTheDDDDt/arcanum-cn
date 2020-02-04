@@ -91,7 +91,10 @@ export default class Equip extends SlotGroup {
 		if ( it.type === 'weapon' ) return this.equipWeap(it);
 
 		slot = slot || it.slot;
-		if( slot === null || !this.slots.hasOwnProperty(slot)) return false;
+		if( slot === null || !this.slots.hasOwnProperty(slot)) {
+			console.log( it.id + ' bad equip slot: ' + it.slot );
+			return false;
+		}
 
 		let cur = this.slots[slot];
 		return cur.equip(it);

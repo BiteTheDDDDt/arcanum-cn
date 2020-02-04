@@ -1,7 +1,8 @@
 import Base, {mergeClass} from './base';
-import {assign, cloneClass } from 'objecty';
+import {assign, clone, cloneClass, mergeSafe } from 'objecty';
 import { ParseMods } from 'modules/parsing';
 import Instance from './instance';
+import { assignNoFunc, assignPublic } from '../util/util';
 
 const ItemDefaults = {
 	stack:true,
@@ -42,14 +43,6 @@ export default class Item {
 
 	}
 
-	get instanced() { return true; }
-	set instanced(v){}
-
-	/**
-	 * @property {string} recipe - id of item template used to instance this item.
-	 */
-	get recipe() { return this.template?  this.template.id : this._id; }
-	set recipe(v) { if ( !this.template ) this.template = v}
 
 	/**
 	 * @property {string[]} enchants - ids of all enchantments applied.
@@ -100,7 +93,9 @@ export default class Item {
 
 	constructor( vars=null, save=null ) {
 
-		if ( vars ) cloneClass( vars, this );
+		if ( vars ) {
+			cloneClass( vars, this );
+		}
 		if ( save ) assign(this,save);
 
 		//if ( vars ) assign(this,vars);
