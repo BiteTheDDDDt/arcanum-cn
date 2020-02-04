@@ -25,14 +25,15 @@ export function itemRevive( gs, it ) {
 	var orig = it.template || it.recipe;
 
 	if ( typeof orig === 'string') orig = gs.getData( orig );
-	var type = orig ? orig.type || it.type : it.type;
+	var type = orig !== undefined ? ( orig.type || it.type ) : it.type;
 
 	if ( !type) {
 
 		if ( !it.id ) return null;
 
-		console.warn('gen unknown: ' + it.id + ' -> ' + it.template + ' -> ' + it.recipe );
+		console.warn( it.id + ' unknown type: ' + type + ' -> ' + it.template + ' -> ' + it.recipe );
 		type = 'item';
+
 	}
 
 	if ( type === ARMOR || type === WEAPON || type === WEARABLE) {

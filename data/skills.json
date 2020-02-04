@@ -1010,7 +1010,7 @@
 		"mod":{
 			"mana.max":0.5,
 			"arcana.rate":0.001,
-			"manas.rate":0.02
+			"prismatic.rate":0.02
 		}
 	},
 	{

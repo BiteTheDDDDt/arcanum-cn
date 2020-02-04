@@ -364,7 +364,7 @@
 			"minions.max":10,
 			"space.max":420,
 			"mysticism.max":1,
-			"manas.rate":0.05,
+			"prismatic.rate":0.05,
 			"history.max":1,
 			"arcana.rate":0.0001
 		}

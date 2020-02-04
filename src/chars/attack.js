@@ -1,4 +1,4 @@
-import { assignPublic, assignNoFunc } from "../util/util";
+import { assignNoFunc } from "../util/util";
 import { cloneClass } from 'objecty';
 import Stat from "../values/stat";
 import { TARGET_ALLIES, TARGET_ALLY, TARGET_SELF,

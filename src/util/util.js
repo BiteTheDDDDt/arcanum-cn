@@ -89,35 +89,6 @@ export const logPublic = ( src ) => {
 
 }
 
-/**
- * NOTE: Merge over undefined and null values.
- * @param {*} dest
- * @param {*} src
- */
-export const mergeDefined = ( dest, src ) => {
-
-	for( let p in src ) {
-
-		var destSub = dest[p];
-		let srcSub = src[p];
-
-		if ( destSub === undefined || destSub === null ) {
-
-			if ( srcSub !== null && typeof srcSub === 'object' ) dest[p] = clone( srcSub, Array.isArray(srcSub) ? [] : {} );
-			else dest[p] = srcSub;
-
-			continue;
-
-		}
-
-		if ( srcSub && typeof destSub === 'object' && typeof srcSub === 'object') {
-			if ( !Array.isArray(destSub) && !Array.isArray(srcSub) ) mergeDefined( destSub, srcSub );
-		}
-
-	}
-
-}
-
 export const assignNoFunc = ( dest, src ) => {
 
 	var vars = src;
