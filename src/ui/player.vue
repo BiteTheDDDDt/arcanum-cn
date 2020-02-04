@@ -20,9 +20,10 @@ export default {
 		}
 
 	},
+	beforeCreate(){
+		this.player = Game.state.player;
+	},
 	computed:{
-
-		player() { return Game.state.player},
 
 		wizName:{
 			get(){ return this.player.name },
@@ -37,7 +38,7 @@ export default {
 
 		title(){ return this.player.title; },
 		speed() {
-			return this.player.speed.valueOf();
+			return this.player.speed.value
 		},
 
 		/**
@@ -53,9 +54,9 @@ export default {
 			return Object.keys( this.player.hits );
 		},
 
-		level() {return this.player.level.valueOf(); },
+		level() {return this.player.level.value },
 
-		defense() {return this.player.defense.valueOf(); },
+		defense() {return this.player.defense },
 		dodge(){ return Math.floor(this.player.dodge.valueOf()) },
 		luck(){return Math.floor(this.player.luck.valueOf()) },
 		damage() { return this.player.damage.valueOf() },
@@ -145,7 +146,7 @@ export default {
 			<tr><td>damage bonus</td><th>{{ damage }}</th></tr>
 			<tr><td>hit bonus</td><th>{{ precise( tohit ) }}</th></tr>
 
-			<tr><td>speed</td><th>{{ speed.toFixed(2) }}</th></tr>
+			<tr><td>speed</td><th>{{ speed }}</th></tr>
 
 			<tr @mouseenter.capture.stop="emit( 'itemover', $event,player.weapon)">
 				<td>weapon</td><th>{{ player.weapon ? player.weapon.name : 'None' }}</th></tr>

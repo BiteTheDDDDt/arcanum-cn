@@ -465,7 +465,7 @@
         "id":"warmpotion",
         "name":"dew of icy fire",
         "need":"potsource",
-        "require":"((g.icystudy+g.alchemist)>0&&(g.firelore+g.icelore)>=15&&g.potions>=7)||g.cheatunlock>=1",
+        "require":"((g.icystudy+g.alchemist)>0&&(g.firelore+g.icelore)>=15&&g.potions>=7)",
         "desc":"A sure way to combat the freezing cold. It will however, render many of your icy spells useless.",
         "disable":["iceshard","iceshard0","iceshard1","iceshard2"],
         "warn":true,
