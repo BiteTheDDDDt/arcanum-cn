@@ -9,10 +9,8 @@ export const getDist = (lvl)=> {
 	return Math.ceil( 4.4*Math.exp( 0.30*lvl ) );
 };
 
-export const distTest = ( it ) => {
-
-	return new Function( 'g', 'return g.dist >=' + it.dist );
-
+export const distTest = (g,s) => {
+	return g.dist >= s.dist;
 }
 
 export const levelTest = (g, s) => {
@@ -62,7 +60,7 @@ export default class Locale extends Task {
 
 		if ( this.dist === undefined || this.dist === null ) this.dist = getDist(this.level);
 
-		if ( !this.need ) this.need = distTest(this);
+		if ( !this.need ) this.need = distTest;
 
 		if (!this.sym) this.sym = '🌳';
 		if ( this._encs == null ) this._encs = [];

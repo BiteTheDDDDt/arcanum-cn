@@ -464,7 +464,7 @@ export default class GData {
 	 * @todo @unused
 	 * @param {*} s
 	 */
-	scaleCost( s ) {
+	/*scaleCost( s ) {
 
 		let cost = this.cost;
 		if (!cost) return;
@@ -475,7 +475,7 @@ export default class GData {
 
 		}
 
-	}
+	}*/
 
 	/**
 	 * Add a requirement for unlocking this data.

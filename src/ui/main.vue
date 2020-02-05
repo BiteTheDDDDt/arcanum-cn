@@ -126,8 +126,6 @@ export default {
 			this.add( TASK, this.onItem );
 			this.add( 'spell', this.onItem );
 
-			this.add( 'rest', this.onRest );
-
 			this.add('equip', this.onEquip );
 			this.add('unequip', this.onUnequip );
 			this.add('enchant', this.onEnchant );
@@ -274,7 +272,6 @@ export default {
 			this.overItem = null;
 
 		},
-		onRest(){Game.toggleTask( this.state.restAction ); },
 
 		/**
 		 * Item clicked.
