@@ -793,7 +793,9 @@ export default {
 
 		} else if (  Array.isArray(test) ) {
 
-			return test.every( v=>this.unlockTest(v,item), this );
+			for( let i = test.length-1; i >= 0; i-- )
+				if ( !this.unlockTest(test[i], item ) ) return false;
+			return true;
 
 		} else if ( type === 'object' ) {
 
@@ -804,13 +806,11 @@ export default {
 
 			// @todo: take recursive values into account.
 			// @todo allow tag tests.
-			let limit, it;
+			let it;
 			for( let p in test ) {
 
 				it = this.getData(p);
-				if ( !it ) continue;
-				limit = test[p];
-				if ( it.value < limit ) return false;
+				if ( it && it.value < test[p] ) return false;
 
 			}
 			return true;
@@ -821,23 +821,23 @@ export default {
 
 	/**
 	 * Perform the one-time effect of an task, resource, or upgrade.
-	 * @param {GData} effect
+	 * @param {GData} vars
 	 * @param {number} dt - time elapsed.
 	 */
-	applyVars( effect, dt=1 ) {
+	applyVars( vars, dt=1 ) {
 
-		if (  Array.isArray(effect) ) {
-			for( let e of effect ) { this.applyVars( e,dt); }
+		if (  Array.isArray(vars) ) {
+			for( let e of vars ) { this.applyVars( e,dt); }
 
-		} else if ( typeof effect === 'object' ) {
+		} else if ( typeof vars === 'object' ) {
 
-			let target, e = effect[TYP_PCT];
+			let target, e = vars[TYP_PCT];
 			if ( e && !e.roll() ) return;
 
-			for( let p in effect ){
+			for( let p in vars ){
 
 				target = this.getData(p);
-				e = effect[p];
+				e = vars[p];
 
 				if ( target === undefined || target === null ) {
 
@@ -869,9 +869,9 @@ export default {
 				}
 			}
 
-		} else if ( typeof effect === 'string') {
+		} else if ( typeof vars === 'string') {
 
-			let target = this.getData(effect);
+			let target = this.getData(vars);
 			if ( target !== undefined ) {
 				target.amount( this, dt );
 			}
@@ -891,7 +891,7 @@ export default {
 
 	/**
 	 * Apply a mod.
-	 * @param {Array|Object} mod
+	 * @param {Array|Object|string} mod
 	 * @param {number} amt - amount added.
 	 */
 	applyMods( mod, amt=1 ) {
@@ -953,7 +953,7 @@ export default {
 	 * @param {GData} it
 	 */
 	canUse( it ){
-		if ( !it.canUse ) console.error( it.id + ' missing canUse()');
+		if ( !it.canUse ) console.error( it.id + ' no canUse()');
 		else return it.canUse( this );
 	},
 
