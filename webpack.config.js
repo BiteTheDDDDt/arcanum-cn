@@ -2,6 +2,7 @@ const path = require('path');
 const VueLoader = require('vue-loader/lib/plugin');
 //const WorkboxPlugin = require( 'workbox-webpack-plugin');
 const CopyPlugin = require( 'copy-webpack-plugin');
+const HtmlPlug = require( 'html-webpack-plugin' );
 
 const webpack = require('webpack');
 const { execSync } = require('child_process');
