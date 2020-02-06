@@ -1,7 +1,7 @@
 <script>
 import Game from '../game';
 import {HALT_TASK, STOP_ALL} from '../events';
-import { SKILL, DUNGEON, RAID, EXPLORE, LOCALE, TYP_RUN, PURSUITS } from '../values/consts';
+import { SKILL, DUNGEON, RAID, EXPLORE, LOCALE, TYP_RUN, PURSUITS, TASK } from '../values/consts';
 
 export default {
 
@@ -9,6 +9,7 @@ export default {
 	created(){
 		this.game = Game;
 		this.STOP_ALL = STOP_ALL;
+		this.TASK = TASK;
 	},
 	computed:{
 
@@ -46,7 +47,7 @@ export default {
 
 		<button class="btn-sm" @click="emit(STOP_ALL)">Stop All</button>
 
-		<button class="btn-sm" @click="emit('rest')" :disabled="resting"
+		<button class="btn-sm" @click="emit(TASK, restAction)" :disabled="resting"
 		@mouseenter.capture.stop="emit( 'itemover',$event, restAction )">{{ restAction.name }}</button>
 		<button v-if="!focus.locked" class="btn-sm" @mouseenter.capture.stop="emit( 'itemover',$event, focus )"
 			:disabled="!focus.canUse(game)"

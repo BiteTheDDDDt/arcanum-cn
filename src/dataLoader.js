@@ -288,6 +288,8 @@ export default {
 	},
 
 	/**
+	 * @compat
+	 * @deprecated
 	 * Merge old action files with new ones, removing dupe ids.
 	 * @param {Task[]} a
 	 * @param {Task[]} b

@@ -149,17 +149,13 @@ export default class Item {
 		return (this.stack === false &&this.value>0) || ( this.max && this.value >= this.max );
 	}
 
-	/**
-	 * does nothing.
-	 */
 	revive( gs ){
 
 		if ( typeof this.template ==='string' ) this.template = gs.getData( this.template );
-		if ( this.template ) {
+		/*if ( this.template ) {
 			//console.log('it revive from: ' + this.template );
-			// STILL NECESSARY.
-			cloneClass( this.template, this );
-		}
+			//cloneClass( this.template, this );
+		}*/
 
 		if ( this.mod ) this.mod = ParseMods( this.mod, this.id, this );
 

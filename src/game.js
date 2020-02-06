@@ -9,7 +9,7 @@ import Stat from './values/stat';
 
 import DataLoader from './dataLoader';
 
-import Events, {EVT_UNLOCK, EVT_EVENT, EVT_LOOT, SET_SLOT, DELETE_ITEM, ITEM_ACTION } from './events';
+import Events, {EVT_UNLOCK, EVT_EVENT, EVT_LOOT, SET_SLOT, DELETE_ITEM, CHAR_ACTION } from './events';
 import { MONSTER, TYP_PCT, TYP_RANGE, P_TITLE, P_LOG, TEAM_PLAYER, ENCHANTSLOTS } from './values/consts';
 import TagSet from './composites/tagset';
 import { TARGET_SELF, TARGET_ALLY, ApplyAction } from './values/combat';
@@ -118,7 +118,7 @@ export default {
 
 			techTree = new TechTree( this.gdata );
 			Events.add( EVT_UNLOCK, techTree.unlocked, techTree );
-			Events.add( ITEM_ACTION, this.onAction, this );
+			Events.add( CHAR_ACTION, this.onCharAction, this );
 
 			// initial fringe check.
 			techTree.forceCheck();
@@ -534,7 +534,6 @@ export default {
 	instance( data ) {
 
 		if ( typeof data === 'string') data = this.state.getData(data);
-
 		return this.itemGen.instance(data);
 
 	},
@@ -794,7 +793,9 @@ export default {
 
 		} else if (  Array.isArray(test) ) {
 
-			return test.every( v=>this.unlockTest(v,item), this );
+			for( let i = test.length-1; i >= 0; i-- )
+				if ( !this.unlockTest(test[i], item ) ) return false;
+			return true;
 
 		} else if ( type === 'object' ) {
 
@@ -805,13 +806,11 @@ export default {
 
 			// @todo: take recursive values into account.
 			// @todo allow tag tests.
-			let limit, it;
+			let it;
 			for( let p in test ) {
 
 				it = this.getData(p);
-				if ( !it ) continue;
-				limit = test[p];
-				if ( it.value < limit ) return false;
+				if ( it && it.value < test[p] ) return false;
 
 			}
 			return true;
@@ -822,23 +821,23 @@ export default {
 
 	/**
 	 * Perform the one-time effect of an task, resource, or upgrade.
-	 * @param {GData} effect
+	 * @param {GData} vars
 	 * @param {number} dt - time elapsed.
 	 */
-	applyVars( effect, dt=1 ) {
+	applyVars( vars, dt=1 ) {
 
-		if (  Array.isArray(effect) ) {
-			for( let e of effect ) { this.applyVars( e,dt); }
+		if (  Array.isArray(vars) ) {
+			for( let e of vars ) { this.applyVars( e,dt); }
 
-		} else if ( typeof effect === 'object' ) {
+		} else if ( typeof vars === 'object' ) {
 
-			let target, e = effect[TYP_PCT];
+			let target, e = vars[TYP_PCT];
 			if ( e && !e.roll() ) return;
 
-			for( let p in effect ){
+			for( let p in vars ){
 
 				target = this.getData(p);
-				e = effect[p];
+				e = vars[p];
 
 				if ( target === undefined || target === null ) {
 
@@ -870,9 +869,9 @@ export default {
 				}
 			}
 
-		} else if ( typeof effect === 'string') {
+		} else if ( typeof vars === 'string') {
 
-			let target = this.getData(effect);
+			let target = this.getData(vars);
 			if ( target !== undefined ) {
 				target.amount( this, dt );
 			}
@@ -892,7 +891,7 @@ export default {
 
 	/**
 	 * Apply a mod.
-	 * @param {Array|Object} mod
+	 * @param {Array|Object|string} mod
 	 * @param {number} amt - amount added.
 	 */
 	applyMods( mod, amt=1 ) {
@@ -954,7 +953,7 @@ export default {
 	 * @param {GData} it
 	 */
 	canUse( it ){
-		if ( !it.canUse ) console.error( it.id + ' missing canUse()');
+		if ( !it.canUse ) console.error( it.id + ' no canUse()');
 		else return it.canUse( this );
 	},
 
@@ -963,7 +962,7 @@ export default {
 	 * @param {Attack} act
 	 * @param {Char} char
 	 */
-	onAction( act, char=this.player ) {
+	onCharAction( act, char=this.player ) {
 
 		if ( this.state.explore.running || this.state.raid.running ) return;
 
@@ -1025,7 +1024,7 @@ export default {
 
 		var res = this.state.inventory.find( p,true );
 		if ( res ) this.state.inventory.removeCount(res,amt);
-		else console.warn('Insufficient: ' + p );
+		else console.warn('Too Low: ' + p );
 
 	},
 
@@ -1167,10 +1166,9 @@ export default {
 
 	/**
 	 * Add an item to player's inventory.
-	 * @param {*} it
+	 * @param {Item} it
 	 */
 	take( it ) {
-		//console.log('adding: ' + it.id );
 		return this.state.inventory.add(it);
 	},
 
@@ -1234,19 +1232,6 @@ export default {
 		}
 
 
-	},
-
-	/**
-	 *
-	 * @param {(it)=>boolean} pred
-	 */
-	filterItems( pred ) {
-		let a = [];
-		let gdata = this._gdata;
-		for( let p in gdata ) {
-			if ( pred( gdata[p] ) ) a.push( gdata[p] );
-		}
-		return a;
 	},
 
 	/**

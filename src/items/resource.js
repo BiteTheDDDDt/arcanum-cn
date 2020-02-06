@@ -6,12 +6,12 @@ export default class Resource extends GData {
 
 	get require() {
 		return super.require ||
-		( !this._locked ? null : v=>this.positive() );
+		( this._locked ? ()=>this.positive() : null );
 	}
 	set require(v){super.require = v;}
 
 	/**
-	 * @note NEED 'this' so dist mangler doesn't change 's', hiding the self-reference
+	 * @note NEED 'this' so webpack doesn't change 's', hiding the self-reference
 	 * require from 'unlock'. messy and bad.
 	* @returns {boolean} true if resource value is positive.
 	*/

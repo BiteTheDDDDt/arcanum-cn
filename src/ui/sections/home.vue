@@ -111,7 +111,7 @@ export default {
 		furniture(){
 
 			let s = this.state;
-			return Game.filterItems( it=>
+			return s.filterItems( it=>
 				it.type ==='furniture' || s.typeCost(it.cost, 'space')>0
 			).sort(
 				alphasort

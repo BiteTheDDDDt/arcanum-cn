@@ -1,6 +1,39 @@
+/**
+ * Postfixes to use for every 10^3 group of large numbers.
+ */
 const PostFixes = [
 	'', 'K', 'M', 'B', 'T'
-]
+];
+
+const FuncRE = /(^[^]*\{|return|\}$)|\w\.(\w+)|(\!)|(\&\&)|(\|\|)/gi;
+
+/**
+ * Converts a function to some semblance of plain text.
+ * @param {function} f
+ */
+export const funcText = (f, lookup )=>{
+
+	let it;
+
+	return f.toString().replace( FuncRE, (match,skips,name,not,and,or)=>{
+
+		if ( name ) {
+
+			it = lookup.getData(name);
+			if ( it ) return it.name;
+
+			return name;
+
+		} else if ( skips ) {
+			return '';
+		}
+		if ( not ) return ' not ';
+		if ( and) return ' and ';
+		if ( or ) return ' or ';
+
+	});
+
+};
 
 export const toInt = Math.floor;
 
@@ -55,6 +88,55 @@ export const precise = (v, n=2) => {
 
 }
 
+
+/**
+ * Returns abbreviation of an item based on first letters.
+ * @param {*} it
+ */
+export const abbr = (it)=>{
+
+	if ( !it ) return '';
+
+	let s = it.name;
+	if ( !s) {
+		//console.warn( it + ' missing name');
+		return it;
+	}
+
+	let ind = s.indexOf(' ');
+	if ( ind >= 0 && ind+1 < s.length ) return s[0] + s[ind+1];
+	return s.slice(0,2);
+
+}
+
+/**
+ * Returns fixed point, rounding down.
+ * @param {number} v
+ * @param {number} n
+ */
+export const lowFixed = (v, n=2) => {
+
+	let pow = Math.pow(10,n);
+	return Math.floor( v*pow )/pow;
+
+}
+
+/**
+ * Floor function checks for NaN and null values.
+ * @param {*} v
+ */
+export const floor = ( v ) => {
+	return (v === null || isNaN(v)) ? 0 : Math.floor(v);
+}
+
+/**
+ * Adds seconds 's' to number.
+ * @param {*} v
+ */
+/*export const seconds = (v) => {
+	return Math.ceil(v) + ' s';
+}*/
+
 /*export const decimal = (v, n=2) => {
 
 	let r = Number(v);
@@ -68,55 +150,11 @@ export const precise = (v, n=2) => {
 
 }*/
 
-/**
- * Returns abbreviation of an item based on first letters.
- * @param {*} it
- */
-export const abbr = (it)=>{
-
-	if ( !it ) return '';
-
-	let s = it.name || it.id;
-	if ( !s) {
-		//console.warn( it + ' missing name');
-		return it;
-	}
-
-	let ind = s.indexOf(' ');
-	if ( ind >= 0 && ind < s.length ) return s[0] + s[ind+1];
-	return s.slice(0,2);
-
-}
-
-/**
- * Returns fixed point, rounding down.
- * @param {*} v
- * @param {*} n
- */
-export const lowFixed = (v, n=2) => {
-
-	let pow = Math.pow(10,n);
-	return Math.floor( v*pow )/pow;
-
-}
-
-/**
- * Adds seconds 's' to number. Currently unused.
- * @param {*} v
- */
-export const seconds = (v) => {
-	return Math.ceil(v) + ' s';
-}
-
-export const floor = ( v ) => {
-	return (v === null || isNaN(v)) ? 0 : Math.floor(v);
-}
-
-export const ceil = ( v ) => {
+/*export const ceil = ( v ) => {
 	return (v === null || isNaN(v)) ? 0 : Math.ceil(v);
-}
+}*/
 
 
-export const round = ( v ) => {
+/*export const round = ( v ) => {
 	return (v === null || isNaN(v)) ? 0 : Math.round(v);
-}
+}*/
