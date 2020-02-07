@@ -197,7 +197,6 @@ export default class Inventory {
 
 		} else {
 
-			console.log('adding: ' + it.id );
 			if ( !it.id ) return false;
 
 			if ( it.stack && this.addStack(it) ) {

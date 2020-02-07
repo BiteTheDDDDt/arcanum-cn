@@ -293,15 +293,8 @@ export default class Player extends Char {
 		});
 
 		if ( this.weapons.count === 0 ) {
-			console.log('ADDING FISTS');
 			this.weapons.add( Fists );
 		}
-
-		for( let it of this.weapons ) {
-			console.log('CUR WEAP: ' + it.id );
-		}
-
-		console.log('revive weap count: ' + this.weapons.count );
 
 		// @compat
 		// @todo at least link these to template defaults?
@@ -329,12 +322,9 @@ export default class Player extends Char {
 	 */
 	addWeapon( it ){
 
-		console.log('addingwEAP ' + it.id);
-
 		this.weapons.add( it );
 		if ( this.weapons.count > 1 ) {
 			// check for fists.
-			console.log('removing fists');
 			this.weapons.remove(Fists);
 		}
 
@@ -346,11 +336,8 @@ export default class Player extends Char {
 	 */
 	removeWeapon(it){
 
-		console.log('REMOVING: ' + it.id );
-
 		this.weapons.remove( it );
 		if ( this.weapons.count === 0 ) {
-			console.log('ADDING FISTS');
 			this.weapons.add(Fists);
 		}
 
@@ -411,7 +398,6 @@ export default class Player extends Char {
 			// attempt to use spell first.
 			if ( this.spells.count > 0 && this.tryCast() ) {
 
-				console.log('still spellcastig');
 				// don't mix fists and spells.
 				if ( !this.weapons.includes(Fists) ){
 					return this.nextAttack();
@@ -429,7 +415,7 @@ export default class Player extends Char {
 	nextAttack(){
 
 		let nxt = this.weapons.nextItem();
-		console.log('attack with: ' + (nxt !== null && nxt!==undefined?nxt.id:'none') );
+		//console.log('attack with: ' + (nxt !== null && nxt!==undefined?nxt.id:'none') );
 		return nxt ? nxt.attack : null;
 	}
 
