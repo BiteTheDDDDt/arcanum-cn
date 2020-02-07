@@ -4,6 +4,13 @@ import Item from "../items/item";
 
 import { itemRevive } from "../modules/itemgen";
 
+/**
+ * Option for saveMap which will full-save instanced items
+ * and save ids for standard items.
+ * @param {*} v
+ */
+export const SaveInstanced = (v=>v.instanced ? v : v.id);
+
 export default class Inventory {
 
 	/**
@@ -15,13 +22,30 @@ export default class Inventory {
 
 	toJSON(){
 		return {
-			/**
-			 * @todo saveIds?
-			 */
-			items:this.items.map(v=>v.instanced ? v : v.id ),
+			items:this.saveMode === 'full' ? this.items : (
+				( this.saveMode === 'ids' || !this.saveMap ) ? this.items.map(v=>v.id ) :
+				this.items.map( this.saveMap, this )
+			),
 			max:(this.max)
 		}
 	}
+
+	/**
+	 * @property {string} [saveMode='full'] - how to save inventory items,
+	 * as 'full', 'ids' objects, or 'custom'
+	 * custum save modes must implement a saveMap function to pass to items.map()
+	 * Default is 'full'
+	 */
+	get saveMode(){return this._saveMode;}
+	set saveMode(v){
+		this._saveMode = v;
+	}
+
+	/**
+	 * @property {(*)=>*} saveMap
+	 */
+	get saveMap(){return this._saveMap}
+	set saveMap(v){this._saveMap=v}
 
 	/**
 	 * @property {string} spaceProp - property of items that counts
@@ -105,6 +129,7 @@ export default class Inventory {
 
 		if ( !this.items ) this.items = [];
 
+		if ( !this.saveMode ) this.saveMode = 'full';
 		this.type = 'inventory';
 		if (!this.id) this.id = this.type;
 

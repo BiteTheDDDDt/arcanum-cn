@@ -10,6 +10,8 @@ import Char from './char';
 import { RESOURCE, TEAM_PLAYER, getDelay } from "../values/consts";
 
 import { NO_ATTACK } from "./states";
+import Slot from './slot';
+import Inventory from '../inventories/inventory';
 
 const Fists = new Wearable({
 
@@ -120,7 +122,22 @@ export default class Player extends Char {
 	}
 
 	/**
+	 * @property {Slot<Wearable>} weapons - active weapons.
+	 */
+	get weapons(){
+		return this._weapons;
+	}
+	set weapons(v){
+
+		this._weapons = new Inventory(v);
+		this._weapons.saveMode = 'ids';
+
+	}
+
+	/**
 	 * @property {Wearable} weapon - primary weapon.
+	 * @deprecated
+	 * @compat
 	 */
 	get weapon() { return this._weapon; }
 	set weapon(v) {
@@ -133,14 +150,15 @@ export default class Player extends Char {
 		}
 	}
 
-	get alive() {return this._hp.value > 0; }
-
 	/**
 	 * @property {.<string,Stat>} hits - tohit bonuses per damage kind.
 	 */
 	get hits(){ return this._hits ? this._hits : (this._hits = {}) }
 	set hits(v){ this._hits = toStats(v); }
 
+	/**
+	 * @property {string}
+	 */
 	get hid(){return this._hid;}
 	set hid(v){this._hid=v;}
 
@@ -178,6 +196,9 @@ export default class Player extends Char {
 
 		data.gclass = this.gclass;
 
+		let ids = this.weaponds.getItemIds();
+		if ( ids.length > 0 ) data.weapons = ids;
+
 		if ( this.weapon ) data.weapon = this.weapon.id;
 
 		return data;
@@ -185,26 +206,13 @@ export default class Player extends Char {
 	}
 
 	/**
-	 * Get player hit bonus for damage type.
+	 * Get player tohit bonus for damage type.
 	 * @param {*} kind
+	 * @returns {number}
 	 */
 	getHit(kind){
 
 		return this.tohit.valueOf() + ( kind ? this.hits[kind] || 0 : 0 );
-
-		/*if ( kind && this.hits[kind] ) {
-			console.log('TOHIT BONUS: ' + this.hits[kind].valueOf() )
-
-		}
-		return d;*/
-
-	}
-
-	get sp(){return this._sp;}
-	set sp(v) {
-
-		if ( v instanceof GData ) this._sp = v;
-		else this._sp.value = v;
 
 	}
 
@@ -286,19 +294,19 @@ export default class Player extends Char {
 	}
 
 
-	revive( state ) {
+	revive( gs ) {
 
-		super.revive(state);
+		super.revive(gs);
 
-		if ( this.weapon && (typeof this.weapon === 'string') ) this.weapon = state.equip.find( this.weapon );
+		if ( this.weapon && (typeof this.weapon === 'string') ) this.weapon = gs.equip.find( this.weapon );
 
 		// @compat
 		// @todo at least link these to template defaults?
-		this.spells = state.getData('spelllist');
+		this.spells = gs.getData('spelllist');
 		this.spells.max.value = 0;
 		this.stamina.max.base = 10;
 		this.tohit.base = 1;
-		state.getData('allies').max = 0;
+		gs.getData('allies').max = 0;
 
 		// @todo can't set base directly because of stat type,
 		// base assignment will break things. bad.
@@ -307,9 +315,23 @@ export default class Player extends Char {
 		this.hp.max.base = 5;
 
 		// copy in stressors to test player defeats.
-		this.stressors = state.stressors;
+		this.stressors = gs.stressors;
 
 
+	}
+
+	/**
+	 * Add item to active weapons.
+	 * @param {Wearable} it
+	 */
+	addWeapon( it ){
+	}
+
+	/**
+	 * Remove item from active weapons.
+	 * @param {Wearable} it
+	 */
+	removeWeapon(it){
 	}
 
 	/**

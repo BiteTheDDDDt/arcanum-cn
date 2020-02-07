@@ -1,4 +1,4 @@
-import Inventory from "./inventory";
+import Inventory, { SaveInstanced } from "./inventory";
 import events, { DELETE_ITEM } from "../events";
 import GData from "../items/gdata";
 
@@ -40,6 +40,9 @@ export default class DataList extends Inventory {
 		super(vars);
 
 		this.lastInd = this.lastInd || 0;
+
+		this.saveMode = 'custom';
+		this.saveMap = SaveInstanced;
 
 		this.order = this.order || LOOP;
 

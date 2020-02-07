@@ -8,7 +8,6 @@ export default class Slot {
 
 	toJSON(){
 		return {
-			id:this.id,
 			item:this.item,
 			multi:this.multi,
 			max:this.max
@@ -36,7 +35,34 @@ export default class Slot {
 		 */
 		this.multi = Array.isArray( this.item );
 
-		this.name = this._name || this.id;
+		//this.name = this._name || this.id;
+
+	}
+
+	*[Symbol.iterator]() {
+
+		if ( Array.isArray(this.item) ) {
+
+			for( let i = 0; i < this.item.length;i ++ ) yield this.item[i];
+
+		} else yield this.item;
+
+	}
+
+	/**
+	 * @returns {string[]}
+	 */
+	getItemIds(){
+
+		if ( this.item == null ) return [];
+
+		if ( Array.isArray(this.item)) {
+
+			let a = [];
+			for( let i = 0; i < this.item.length; i++ ) a.push( this.item[i].id);
+			return a;
+
+		} else return [this.item.id]
 
 	}
 

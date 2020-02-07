@@ -12,41 +12,21 @@ export default class Equip extends SlotGroup {
 		super(vars );
 
 		this.slots = this._slots || {
-			"left":new Slot({
-				id:'left'
-			}),
-			"right":new Slot({
-				id:'right'
-			}),
-			"head":new Slot({
-				id:'head'
-			}),
-			"hands":new Slot({
-				id:'hands'
-			}),
-			"back":new Slot({
-				id:'back'
-			}),
-			"waist":new Slot({
-				id:'waist'
-			}),
+			"left":new Slot(),
+			"right":new Slot(),
+			"head":new Slot(),
+			"hands":new Slot(),
+			"back":new Slot(),
+			"waist":new Slot(),
 			"neck":new Slot({
-				id:'neck',
 				max:3
 			}),
 			"fingers":new Slot({
-				id:'fingers',
 				max:4
 			}),
-			"chest":new Slot({
-				id:'chest'
-			}),
-			"shins":new Slot({
-				id:'shins'
-			}),
-			"feet":new Slot({
-				id:'feet'
-			})
+			"chest":new Slot(),
+			"shins":new Slot(),
+			"feet":new Slot()
 		};
 
 	}
