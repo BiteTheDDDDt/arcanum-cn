@@ -104,6 +104,19 @@ export default class DataList extends Inventory {
 	}
 
 	/**
+	 * Return next item without regard for cost/usability.
+	 * current item index is updated.
+	 */
+	nextItem(){
+
+		if ( this.items.length > 0 ) {
+			this.lastInd = this.nextInd();
+			return this.items[this.lastInd];
+		}
+
+	}
+
+	/**
 	 * Get next usable item and return it.
 	 * Use index is advanced.
 	 * @param {*} g
@@ -156,12 +169,12 @@ export default class DataList extends Inventory {
 	 */
 	nextInd(){
 
-		if ( this.order === ORDER ) {
-			return 0;
-
-		} else if ( this.order === LOOP ) {
+		if ( this.order === LOOP ) {
 
 			return this.lastInd < this.items.length-1 ? this.lastInd+1 : 0;
+
+		} else if ( this.order === ORDER ) {
+			return 0;
 
 		} else if ( this.order === RANDOM ) {
 			return Math.floor( Math.random()*this.items.length );
@@ -178,9 +191,9 @@ export default class DataList extends Inventory {
 	 *
 	 * @param {GameState} gs
 	 */
-	revive(gs){
+	revive(gs, reviver=null ){
 
-		super.revive(gs);
+		super.revive(gs, reviver );
 
 		events.add( DELETE_ITEM, this.dataDeleted, this );
 

@@ -196,10 +196,7 @@ export default class Player extends Char {
 
 		data.gclass = this.gclass;
 
-		let ids = this.weaponds.getItemIds();
-		if ( ids.length > 0 ) data.weapons = ids;
-
-		if ( this.weapon ) data.weapon = this.weapon.id;
+		data.weapons = this.weapons;
 
 		return data;
 
@@ -298,6 +295,8 @@ export default class Player extends Char {
 
 		super.revive(gs);
 
+		this.weapons.revive(gs);
+
 		if ( this.weapon && (typeof this.weapon === 'string') ) this.weapon = gs.equip.find( this.weapon );
 
 		// @compat
@@ -387,15 +386,23 @@ export default class Player extends Char {
 			if ( a ) return a;
 
 			// attempt to use spell first.
-			if ( this.spells.count !== 0 ) {
-				if ( !this.tryCast() || this.weapon !== Fists ) {
-					return this.weapon.attack;
-				}
+			if ( this.spells.count !== 0 && this.tryCast() ) {
 
-			} else return this.weapon.attack;
+				return this.nextWeapon();
+
+			} else return this.nextWeapon();
 
 		}
 
+	}
+
+	/**
+	 * Get next weapon attack.
+	 */
+	nextWeapon(){
+
+		let nxt = this.weapons.nextItem();
+		return nxt ? nxt.attack : null;
 	}
 
 	/**

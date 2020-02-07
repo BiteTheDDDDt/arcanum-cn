@@ -110,9 +110,7 @@ export default class Item {
 
 	canPay(cost) { return this.value >= cost; }
 
-	canUse(g) {
-		return this.consume || this.use;
-	}
+	canUse(g) { return this.consume || this.use; }
 
 	onUse( g, inv ) {
 

@@ -148,7 +148,12 @@ export default class Inventory {
 		}
 	}
 
-	revive( gs ){
+	/**
+	 *
+	 * @param {GameState} gs
+	 * @param {(gs,*)=>object} [reviver=null] optional item reviver.
+	 */
+	revive( gs, reviver ){
 
 		// used ids.
 		var ids = {};
@@ -156,7 +161,9 @@ export default class Inventory {
 		for( let i = this.items.length-1; i>= 0; i-- ) {
 
 			var it = this.items[i];
-			if ( typeof it === 'object' ) {
+			if ( reviver ) {
+				it = reviver(gs, it);
+			} else if ( typeof it === 'object' ) {
 
 				it = itemRevive( gs, it );
 
