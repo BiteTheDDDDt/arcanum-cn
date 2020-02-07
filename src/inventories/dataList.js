@@ -104,6 +104,15 @@ export default class DataList extends Inventory {
 	}
 
 	/**
+	 * Returns current item without advancing index.
+	 */
+	curItem(){
+		if ( this.items.length > 0 ) {
+			return this.items[ this.nextInd() ];
+		}
+	}
+
+	/**
 	 * Return next item without regard for cost/usability.
 	 * current item index is updated.
 	 */

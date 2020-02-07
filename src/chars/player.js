@@ -12,6 +12,7 @@ import { RESOURCE, TEAM_PLAYER, getDelay } from "../values/consts";
 import { NO_ATTACK } from "./states";
 import Slot from './slot';
 import Inventory from '../inventories/inventory';
+import DataList from '../inventories/dataList';
 
 const Fists = new Wearable({
 
@@ -122,32 +123,27 @@ export default class Player extends Char {
 	}
 
 	/**
-	 * @property {Slot<Wearable>} weapons - active weapons.
+	 * @property {DataList<Wearable>} weapons - active weapons.
 	 */
 	get weapons(){
 		return this._weapons;
 	}
 	set weapons(v){
 
-		this._weapons = new Inventory(v);
+		this._weapons = new DataList(v);
 		this._weapons.saveMode = 'ids';
 
 	}
 
 	/**
+	 * Property continues to exist so spells/abilities can access 'current weapon'
 	 * @property {Wearable} weapon - primary weapon.
-	 * @deprecated
-	 * @compat
 	 */
-	get weapon() { return this._weapon; }
+	get weapon() {
+		return this._weapons ? this._weapons.curItem() : null;
+	}
 	set weapon(v) {
-
-		if ( v ){
-			this._weapon = v;
-			if ( !(v instanceof Wearable) ) console.log('NON WEAPON: ' + v);
-		} else {
-			this._weapon = Fists;
-		}
+		/**@compat invalid setter. (weapons might not be defined.) */
 	}
 
 	/**
@@ -222,6 +218,10 @@ export default class Player extends Char {
 		this.id = this.type = "player";
 		if ( !vars || !vars.name) this.name = 'wizrobe';
 
+		if ( !this.weapons ) this.weapons = null;
+		if ( vars.weapon ) this.weapons.add( vars.weapon );
+
+
 		if ( !this.hid ) this.hid = makeHallId();
 
 		//if ( vars ) Object.assign( this, vars );
@@ -243,7 +243,9 @@ export default class Player extends Char {
 
 		if ( this.damage === null || this.damage === undefined ) this.damage = 1;
 
-		if ( !this.weapon ) this.weapon = Fists;
+		if ( this.weapons.count === 0 ) {
+			this.weapons.add( Fists );
+		}
 
 	}
 
@@ -295,9 +297,13 @@ export default class Player extends Char {
 
 		super.revive(gs);
 
-		this.weapons.revive(gs);
+		this.weapons.revive( gs, (s,v)=>{
+			s.equip.find( v )
+		});
 
-		if ( this.weapon && (typeof this.weapon === 'string') ) this.weapon = gs.equip.find( this.weapon );
+		for( let it in this.weapons ) {
+			console.log('cur weap: ' + it.id );
+		}
 
 		// @compat
 		// @todo at least link these to template defaults?
@@ -324,6 +330,13 @@ export default class Player extends Char {
 	 * @param {Wearable} it
 	 */
 	addWeapon( it ){
+
+		this.weapons.add( it );
+		if ( this.weapons.count > 1 ) {
+			// check for fists.
+			this.weapons.remove(Fists);
+		}
+
 	}
 
 	/**
@@ -331,6 +344,12 @@ export default class Player extends Char {
 	 * @param {Wearable} it
 	 */
 	removeWeapon(it){
+
+		this.weapons.remove( it );
+		if ( this.weapons.count === 0 ) {
+			this.weapons.add(Fists);
+		}
+
 	}
 
 	/**
@@ -388,9 +407,12 @@ export default class Player extends Char {
 			// attempt to use spell first.
 			if ( this.spells.count !== 0 && this.tryCast() ) {
 
-				return this.nextWeapon();
+				// don't mix fists and spells.
+				if ( !this.weapons.includes(Fists) ){
+					return this.nextAttack();
+				}
 
-			} else return this.nextWeapon();
+			} else return this.nextAttack();
 
 		}
 
@@ -399,9 +421,10 @@ export default class Player extends Char {
 	/**
 	 * Get next weapon attack.
 	 */
-	nextWeapon(){
+	nextAttack(){
 
 		let nxt = this.weapons.nextItem();
+		console.log('attack with: ' + (nxt?nxt.id:'none') );
 		return nxt ? nxt.attack : null;
 	}
 

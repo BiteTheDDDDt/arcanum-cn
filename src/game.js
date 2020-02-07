@@ -10,7 +10,7 @@ import Stat from './values/stat';
 import DataLoader from './dataLoader';
 
 import Events, {EVT_UNLOCK, EVT_EVENT, EVT_LOOT, SET_SLOT, DELETE_ITEM, CHAR_ACTION } from './events';
-import { MONSTER, TYP_PCT, TYP_RANGE, P_TITLE, P_LOG, TEAM_PLAYER, ENCHANTSLOTS } from './values/consts';
+import { MONSTER, TYP_PCT, TYP_RANGE, P_TITLE, P_LOG, TEAM_PLAYER, ENCHANTSLOTS, WEAPON } from './values/consts';
 import TagSet from './composites/tagset';
 import { TARGET_SELF, TARGET_ALLY, ApplyAction } from './values/combat';
 
@@ -1146,21 +1146,28 @@ export default {
 			for( let i = it.length-1; i>=0;i--) {this.onUnequip(it[i])}
 
 		} else {
+
 			this.state.inventory.add( it );
 			it.unequip(this);
+
 		}
 
 	},
 
+	/**
+	 * Attempt to remove item from equip slot.
+	 * Unlike onUnequip, this can fail.
+	 * @param {string} slot
+	 * @param {*} it
+	 * @returns {boolean}
+	 */
 	unequip( slot, it){
 
 		if ( this.state.inventory.full() ) return false;
 
-		let weap = this.state.player.weapon;
 		this.onUnequip( this.state.equip.remove( it, slot ) );
 
-		// old weap must first be removed from equip.
-		if ( it && (it === weap) ) this.player.weapon = this.state.equip.getWeapon();
+		return true;
 
 	},
 
