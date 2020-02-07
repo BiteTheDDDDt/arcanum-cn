@@ -7,17 +7,16 @@ import Events, { LEVEL_UP, NEW_TITLE, CHAR_TITLE, CHAR_NAME, CHAR_CLASS } from "
 import Wearable from "./wearable";
 import GData from "../items/gdata";
 import Char from './char';
-import { RESOURCE, TEAM_PLAYER, getDelay } from "../values/consts";
+import { RESOURCE, TEAM_PLAYER, getDelay, WEAPON } from "../values/consts";
 
 import { NO_ATTACK } from "./states";
-import Slot from './slot';
-import Inventory from '../inventories/inventory';
 import DataList from '../inventories/dataList';
 
-const Fists = new Wearable({
+const Fists = new Wearable( null, {
 
 	id:'baseWeapon',
 	name:'fists',
+	type:WEAPON,
 	attack:{
 		name:"fists",
 		tohit:1,
@@ -132,6 +131,7 @@ export default class Player extends Char {
 
 		this._weapons = new DataList(v);
 		this._weapons.saveMode = 'ids';
+		this._weapons.removeDupes = true;
 
 	}
 
@@ -141,9 +141,6 @@ export default class Player extends Char {
 	 */
 	get weapon() {
 		return this._weapons ? this._weapons.curItem() : null;
-	}
-	set weapon(v) {
-		/**@compat invalid setter. (weapons might not be defined.) */
 	}
 
 	/**
@@ -219,8 +216,6 @@ export default class Player extends Char {
 		if ( !vars || !vars.name) this.name = 'wizrobe';
 
 		if ( !this.weapons ) this.weapons = null;
-		if ( vars.weapon ) this.weapons.add( vars.weapon );
-
 
 		if ( !this.hid ) this.hid = makeHallId();
 
@@ -242,10 +237,6 @@ export default class Player extends Char {
 		this.alignment = this.alignment || 'neutral';
 
 		if ( this.damage === null || this.damage === undefined ) this.damage = 1;
-
-		if ( this.weapons.count === 0 ) {
-			this.weapons.add( Fists );
-		}
 
 	}
 
@@ -301,9 +292,16 @@ export default class Player extends Char {
 			s.equip.find( v )
 		});
 
-		for( let it in this.weapons ) {
-			console.log('cur weap: ' + it.id );
+		if ( this.weapons.count === 0 ) {
+			console.log('ADDING FISTS');
+			this.weapons.add( Fists );
 		}
+
+		for( let it of this.weapons ) {
+			console.log('CUR WEAP: ' + it.id );
+		}
+
+		console.log('revive weap count: ' + this.weapons.count );
 
 		// @compat
 		// @todo at least link these to template defaults?
@@ -331,9 +329,12 @@ export default class Player extends Char {
 	 */
 	addWeapon( it ){
 
+		console.log('addingwEAP ' + it.id);
+
 		this.weapons.add( it );
 		if ( this.weapons.count > 1 ) {
 			// check for fists.
+			console.log('removing fists');
 			this.weapons.remove(Fists);
 		}
 
@@ -345,8 +346,11 @@ export default class Player extends Char {
 	 */
 	removeWeapon(it){
 
+		console.log('REMOVING: ' + it.id );
+
 		this.weapons.remove( it );
 		if ( this.weapons.count === 0 ) {
+			console.log('ADDING FISTS');
 			this.weapons.add(Fists);
 		}
 
@@ -405,8 +409,9 @@ export default class Player extends Char {
 			if ( a ) return a;
 
 			// attempt to use spell first.
-			if ( this.spells.count !== 0 && this.tryCast() ) {
+			if ( this.spells.count > 0 && this.tryCast() ) {
 
+				console.log('still spellcastig');
 				// don't mix fists and spells.
 				if ( !this.weapons.includes(Fists) ){
 					return this.nextAttack();
@@ -424,7 +429,7 @@ export default class Player extends Char {
 	nextAttack(){
 
 		let nxt = this.weapons.nextItem();
-		console.log('attack with: ' + (nxt?nxt.id:'none') );
+		console.log('attack with: ' + (nxt !== null && nxt!==undefined?nxt.id:'none') );
 		return nxt ? nxt.attack : null;
 	}
 

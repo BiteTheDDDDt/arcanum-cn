@@ -159,6 +159,15 @@ export default class Slot {
 
 	/**
 	 *
+	 * @param {*} pred
+	 */
+	match( pred  ) {
+		if ( this.item === null) return null;
+		return this.multi ? this.item.find( pred ) : pred(this.item) ? this.item : null;
+	}
+
+	/**
+	 *
 	 * @param {*} it
 	 * @returns {boolean}
 	 */

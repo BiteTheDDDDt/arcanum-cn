@@ -197,12 +197,16 @@ export default class Inventory {
 
 		} else {
 
+			console.log('adding: ' + it.id );
 			if ( !it.id ) return false;
 
 			if ( it.stack && this.addStack(it) ) {
 				return;
 			} else if ( this.full() ) return false;
-			else if ( this.removeDupes && this.find(it.id ) ) return false;
+			else if ( this.removeDupes && this.find(it.id ) ) {
+				console.log('removing: ' + it.id );
+				return false;
+			}
 
 
 			this.items.push( it );

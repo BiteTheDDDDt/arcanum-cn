@@ -180,7 +180,7 @@ export default class DataList extends Inventory {
 
 		if ( this.order === LOOP ) {
 
-			return this.lastInd < this.items.length-1 ? this.lastInd+1 : 0;
+			return this.lastInd+1 < this.items.length ? this.lastInd+1 : 0;
 
 		} else if ( this.order === ORDER ) {
 			return 0;

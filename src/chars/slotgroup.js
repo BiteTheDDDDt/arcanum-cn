@@ -42,6 +42,26 @@ export default class SlotGroup {
 	}
 
 	/**
+	 * Search for all items that match predicate.
+	 * @param {*=>boolean} pred
+	 * @returns {?object}
+	 */
+	findAll( pred ){
+
+		let a = [];
+
+		for( let p in this.slots ) {
+			var it = this.slots[p].match(pred);
+			if ( it ) {
+				a.push(it);
+			}
+
+		}
+		return a;
+
+	}
+
+	/**
 	 * Get item or items in a named slot.
 	 * @param {string} slot
 	 * @returns {?Item|Item[]}

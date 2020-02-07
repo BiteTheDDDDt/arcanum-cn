@@ -225,8 +225,14 @@ export default {
 		}
 
 		for( let e of this.state.equip ) {
+			if ( e.type === WEAPON) {
+				console.log('GAME START ADD WEAP: ' + e.id );
+				this.player.weapons.add(e);
+			}
 			if ( e.mod ) this.applyMods( e.mod, 1 );
 		}
+		console.log('weap count: ' + this.player.weapons.count );
+
 
 	},
 
