@@ -43,6 +43,10 @@ export default {
 
 		},
 
+		resume(){
+			Game.toggleTask(this.enchantSlots);
+		},
+
 		canUseOn( it, targ ) {
 			return targ&&it.canUseOn(targ)&& this.enchantSlots.canAdd(it)&&this.usable(it);
 		}
@@ -63,10 +67,14 @@ export default {
 
 		<div class="enchants">
 
-		<div><div @mouseenter.capture.stop="emit( 'itemover', $event, target )">
-			Target: {{ target ? target.name : 'None' }}
+		<div class="separate">
+		<div>
+			<div @mouseenter.capture.stop="emit( 'itemover', $event, target )">Target: {{ target ? target.name : 'None' }}</div>
+			<div class="note-text">Enchantment levels on an Item cannot exceed an Item's level.</div>
 		</div>
-		<span class="note-text">Total enchantment levels on an Item cannot exceed an Item's level.</span>
+
+		<span><button :disabled="enchantSlots.count==0" @click="resume">{{ runner.has(enchantSlots) ? 'Pause' : 'Resume' }}</button></span>
+
 		</div>
 
 		<eslots class="eslots" :eslots="enchantSlots" :inv="inv" />
