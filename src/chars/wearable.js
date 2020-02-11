@@ -233,7 +233,7 @@ export default class Wearable extends Item {
 		let p = g.state.player;
 
 		if ( this.armor ) p.defense.add( this.armor );
-		if ( this.type === 'weapon' ) p.weapon = this;
+		if ( this.type === 'weapon' ) p.addWeapon(this);
 
 		this.worn = true;
 		if ( this.mod ) {
@@ -251,7 +251,7 @@ export default class Wearable extends Item {
 		let p = g.state.player;
 
 		if ( this.armor ) p.defense.add( -this.armor );
-		if ( p.weapon === this ) p.weapon = null;
+		if ( this.type === WEAPON ) p.removeWeapon( this );
 
 		this.worn = false;
 

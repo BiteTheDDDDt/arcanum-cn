@@ -1,5 +1,5 @@
-import Inventory from "./inventory";
-import Events, { ALLY_DIED, TASK_CHANGED } from '../events';
+import Inventory, { SaveInstanced } from "./inventory";
+import Events, { TASK_CHANGED } from '../events';
 import { NPC, TEAM_PLAYER} from "../values/consts";
 import RValue from "../values/rvalue";
 
@@ -41,6 +41,9 @@ export default class Minions extends Inventory {
 		this.type = this.id = "minions";
 
 		if ( !this.max ) this.max = 0;
+
+		this.saveMode = 'custom';
+		this.saveMap = SaveInstanced;
 
 		this._allies = new Inventory( {id:'allies', spaceProp:'level'} );
 		this.mods = new Map();

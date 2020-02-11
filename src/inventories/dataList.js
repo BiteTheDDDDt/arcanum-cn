@@ -1,4 +1,4 @@
-import Inventory from "./inventory";
+import Inventory, { SaveInstanced } from "./inventory";
 import events, { DELETE_ITEM } from "../events";
 import GData from "../items/gdata";
 
@@ -40,6 +40,9 @@ export default class DataList extends Inventory {
 		super(vars);
 
 		this.lastInd = this.lastInd || 0;
+
+		this.saveMode = 'custom';
+		this.saveMap = SaveInstanced;
 
 		this.order = this.order || LOOP;
 
@@ -101,6 +104,28 @@ export default class DataList extends Inventory {
 	}
 
 	/**
+	 * Returns current item without advancing index.
+	 */
+	curItem(){
+		if ( this.items.length > 0 ) {
+			return this.items[ this.nextInd() ];
+		}
+	}
+
+	/**
+	 * Return next item without regard for cost/usability.
+	 * current item index is updated.
+	 */
+	nextItem(){
+
+		if ( this.items.length > 0 ) {
+			this.lastInd = this.nextInd();
+			return this.items[this.lastInd];
+		}
+
+	}
+
+	/**
 	 * Get next usable item and return it.
 	 * Use index is advanced.
 	 * @param {*} g
@@ -153,12 +178,12 @@ export default class DataList extends Inventory {
 	 */
 	nextInd(){
 
-		if ( this.order === ORDER ) {
+		if ( this.order === LOOP ) {
+
+			return this.lastInd+1 < this.items.length ? this.lastInd+1 : 0;
+
+		} else if ( this.order === ORDER ) {
 			return 0;
-
-		} else if ( this.order === LOOP ) {
-
-			return this.lastInd < this.items.length-1 ? this.lastInd+1 : 0;
 
 		} else if ( this.order === RANDOM ) {
 			return Math.floor( Math.random()*this.items.length );
@@ -175,9 +200,9 @@ export default class DataList extends Inventory {
 	 *
 	 * @param {GameState} gs
 	 */
-	revive(gs){
+	revive(gs, reviver=null ){
 
-		super.revive(gs);
+		super.revive(gs, reviver );
 
 		events.add( DELETE_ITEM, this.dataDeleted, this );
 

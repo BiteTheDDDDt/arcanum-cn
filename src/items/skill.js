@@ -19,6 +19,9 @@ export default class Skill extends Task {
 		super.exp = v;
 	}
 
+	/**
+	 * Skill levels are actually value.
+	 */
 	showLevel(){return Math.floor( this.value ); }
 
 	/**

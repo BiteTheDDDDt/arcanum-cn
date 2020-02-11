@@ -7,14 +7,16 @@ import Events, { LEVEL_UP, NEW_TITLE, CHAR_TITLE, CHAR_NAME, CHAR_CLASS } from "
 import Wearable from "./wearable";
 import GData from "../items/gdata";
 import Char from './char';
-import { RESOURCE, TEAM_PLAYER, getDelay, TimeId } from "../values/consts";
+import { RESOURCE, TEAM_PLAYER, getDelay, WEAPON } from "../values/consts";
 
 import { NO_ATTACK } from "./states";
+import DataList from '../inventories/dataList';
 
-const Fists = new Wearable({
+const Fists = new Wearable( null, {
 
 	id:'baseWeapon',
 	name:'fists',
+	type:WEAPON,
 	attack:{
 		name:"fists",
 		tohit:1,
@@ -112,20 +114,26 @@ export default class Player extends Char {
 	}
 
 	/**
-	 * @property {Wearable} weapon - primary weapon.
+	 * @property {DataList<Wearable>} weapons - active weapons.
 	 */
-	get weapon() { return this._weapon; }
-	set weapon(v) {
+	get weapons(){
+		return this._weapons;
+	}
+	set weapons(v){
 
-		if ( v ){
-			this._weapon = v;
-			if ( !(v instanceof Wearable) ) console.log('NON WEAPON: ' + v);
-		} else {
-			this._weapon = Fists;
-		}
+		this._weapons = new DataList(v);
+		this._weapons.saveMode = 'ids';
+		this._weapons.removeDupes = true;
+
 	}
 
-	get alive() {return this._hp.value > 0; }
+	/**
+	 * Property continues to exist so spells/abilities can access 'current weapon'
+	 * @property {Wearable} weapon - primary weapon.
+	 */
+	get weapon() {
+		return this._weapons ? this._weapons.curItem() : null;
+	}
 
 	/**
 	 * @property {.<string,Stat>} hits - tohit bonuses per damage kind.
@@ -165,33 +173,20 @@ export default class Player extends Char {
 
 		data.gclass = this.gclass;
 
-		if ( this.weapon ) data.weapon = this.weapon.id;
+		data.weapons = this.weapons;
 
 		return data;
 
 	}
 
 	/**
-	 * Get player hit bonus for damage type.
+	 * Get player tohit bonus for damage type.
 	 * @param {*} kind
+	 * @returns {number}
 	 */
 	getHit(kind){
 
 		return this.tohit.valueOf() + ( kind ? this.hits[kind] || 0 : 0 );
-
-		/*if ( kind && this.hits[kind] ) {
-			console.log('TOHIT BONUS: ' + this.hits[kind].valueOf() )
-
-		}
-		return d;*/
-
-	}
-
-	get sp(){return this._sp;}
-	set sp(v) {
-
-		if ( v instanceof GData ) this._sp = v;
-		else this._sp.value = v;
 
 	}
 
@@ -222,8 +217,6 @@ export default class Player extends Char {
 		this.alignment = this.alignment || 'neutral';
 
 		if ( this.damage === null || this.damage === undefined ) this.damage = 1;
-
-		if ( !this.weapon ) this.weapon = Fists;
 
 	}
 
@@ -271,19 +264,25 @@ export default class Player extends Char {
 	}
 
 
-	revive( state ) {
+	revive( gs ) {
 
-		super.revive(state);
+		super.revive(gs);
 
-		if ( this.weapon && (typeof this.weapon === 'string') ) this.weapon = state.equip.find( this.weapon );
+		this.weapons.revive( gs, (s,v)=>{
+			s.equip.find( v )
+		});
+
+		if ( this.weapons.count === 0 ) {
+			this.weapons.add( Fists );
+		}
 
 		// @compat
 		// @todo at least link these to template defaults?
-		this.spells = state.getData('spelllist');
+		this.spells = gs.getData('spelllist');
 		this.spells.max.value = 0;
 		this.stamina.max.base = 10;
 		this.tohit.base = 1;
-		state.getData('allies').max = 0;
+		gs.getData('allies').max = 0;
 
 		// @todo can't set base directly because of stat type,
 		// base assignment will break things. bad.
@@ -292,8 +291,35 @@ export default class Player extends Char {
 		this.hp.max.base = 5;
 
 		// copy in stressors to test player defeats.
-		this.stressors = state.stressors;
+		this.stressors = gs.stressors;
 
+
+	}
+
+	/**
+	 * Add item to active weapons.
+	 * @param {Wearable} it
+	 */
+	addWeapon( it ){
+
+		this.weapons.add( it );
+		if ( this.weapons.count > 1 ) {
+			// check for fists.
+			this.weapons.remove(Fists);
+		}
+
+	}
+
+	/**
+	 * Remove item from active weapons.
+	 * @param {Wearable} it
+	 */
+	removeWeapon(it){
+
+		this.weapons.remove( it );
+		if ( this.weapons.count === 0 ) {
+			this.weapons.add(Fists);
+		}
 
 	}
 
@@ -350,11 +376,27 @@ export default class Player extends Char {
 			if ( a ) return a;
 
 			// attempt to use spell first.
-			if ( this.spells.count !== 0 && this.tryCast() ) return;
-			else return this.weapon.attack;
+			if ( this.spells.count > 0 && this.tryCast() ) {
+
+				// don't mix fists and spells.
+				if ( !this.weapons.includes(Fists) ){
+					return this.nextAttack();
+				}
+
+			} else return this.nextAttack();
 
 		}
 
+	}
+
+	/**
+	 * Get next weapon attack.
+	 */
+	nextAttack(){
+
+		let nxt = this.weapons.nextItem();
+		//console.log('attack with: ' + (nxt !== null && nxt!==undefined?nxt.id:'none') );
+		return nxt ? nxt.attack : null;
 	}
 
 	/**
