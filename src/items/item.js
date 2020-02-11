@@ -174,7 +174,7 @@ export default class Item {
 	 */
 	begin(gs) {
 
-		let tot = this.enchantTot || 0;
+		let tot = 0;
 
 		let enchants = this.enchants;
 		if ( enchants && Array.isArray(enchants) ) {
@@ -186,7 +186,7 @@ export default class Item {
 
 				//if ( data.mod ) this.applyMods( data.mod );
 
-				tot += data.level || 0;
+				tot += Number(data.level) || 0;
 
 			}
 

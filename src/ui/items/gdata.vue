@@ -104,8 +104,10 @@ export default {
 		<span class="separate">
 			<span v-if="item.showLevel">lvl: {{item.showLevel()}}</span>
 			<span v-else-if="item.level">lvl: {{item.level}}</span>
+
 			<span v-if="item.slot">slot: {{ item.slot }}</span>
 		</span>
+		<span v-if="item.enchantTot>0">enchants used: {{item.enchantTot}}</span>
 
 		<span v-if="item.at&&(nextAt>0)" class="note-text">
 			Next Improvement: {{ Math.round(100*item.value/nextAt)+'%'}}
