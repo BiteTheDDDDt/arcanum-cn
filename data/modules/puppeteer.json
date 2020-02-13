@@ -373,7 +373,7 @@
 				"id": "runicreinforcement",
 				"name": "runic reinforcement",
 				"desc": "Carve the runes of strength and protection into your puppets",
-				"require": "g.puppeteer>0&&g.runiclore>=3",
+				"require": "g.puppeteer>0&&g.runelore>=3",
 				"max": 1,
 				"cost": {
 					"runestones": 20,
