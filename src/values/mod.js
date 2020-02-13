@@ -3,6 +3,7 @@ import Stat from './stat';
 import { precise } from '../util/format';
 import { TYP_MOD } from './consts';
 import { assign } from 'objecty';
+import RValue from './rvalue';
 //import Emitter from 'eventemitter3';
 
 export const ModTest = /^([\+\-]?\d+\.?\d*\b)?(?:([\+\-]?\d+\.?\d*)\%)?$/;
@@ -192,11 +193,11 @@ export default class Mod extends Stat {
 
 		let targ = obj[p];
 
-		if ( targ instanceof Stat ) targ.addMod( this, amt );
+		if ( targ instanceof RValue ) targ.addMod( this, amt );
 		else if ( targ === null || targ === undefined || typeof targ === 'number' ){
 
 			//console.log('MOD.applyTo() CREATE NEW MOD AT TARGET: ' + p );
-			let s = obj[p] = new Stat( targ || 0, p );
+			let s = obj[p] = new Stat( targ || 0, (obj.id ? obj.id +'.'  : '' ) + p );
 			s.addMod( this, amt );
 
 		} else if ( typeof targ === 'object') {
@@ -207,7 +208,7 @@ export default class Mod extends Stat {
 
 			} else {
 
-				console.warn( this.id + ' !!Generic Mod Targ: ' + targ.id );
+				console.warn( this.id + ': ' + targ.id + ' !!Mod Targ: ' + targ.constructor.name);
 				targ.value = ( ( Number(targ.value) || 0 ) + amt*this.bonus )*( 1 + amt*this.pct );
 			}
 

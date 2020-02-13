@@ -1,14 +1,11 @@
 import { setModCounts} from '../items/base';
 import Attack from './attack';
 
-import {mergeSafe} from "objecty";
 import Mod from '../values/mod';
 import { ParseMods } from 'modules/parsing';
-import { cloneClass } from 'objecty';
 import Item from '../items/item';
 import { WEARABLE, ARMOR, TYP_RANGE, TYP_STAT, WEAPON } from '../values/consts';
 import Stat from '../values/stat';
-import { assignNoFunc } from '../util/util';
 
 
 export default class Wearable extends Item {
@@ -174,6 +171,21 @@ export default class Wearable extends Item {
 		/*console.log('WEARABLE LEVEL: ' + this.level + ' MAT: '+ (this.material ? this.material.level : 0 )
 		 + ' base: ' + (this.template ? this.template.level : 0 ) );*/
 	}
+
+	/*findNumMods( mods ){
+
+		for( let p in mods ) {
+
+			if ( typeof mods[p] === 'number' ) console.log( this.id + ' mod is number: ' + p );
+			else if ( typeof mods[p] === 'object') {
+				if ( !(mods[p] instanceof RValue ) ) {
+					this.findNumMods(mods[p]);
+				}
+			}
+
+		}
+
+	}*/
 
 	applyMaterial( mat ) {
 
