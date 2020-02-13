@@ -972,6 +972,29 @@
 	},
 	{
 
+		"id":"a_oppress",
+		"desc":"Impose your will on the denizens of the world.",
+		"need":"g.tier3>0&&g.evil>0",
+		"length":100,
+		"cd":888,
+		"cost":{
+			"spirit":7,
+			"shadow":5
+		},
+		"run":{
+			"stamina":2,
+			"hp":2.5
+		},
+		"effect":{
+			"evil":0.1,
+			"fame":0.0024,
+			"shadowlore.max":0.001,
+			"shadowlore.exp":1
+		}
+
+	},
+	{
+
 		"id":"geas",
 		"desc":"undertake a quest to subdue a great evil.",
 		"need":"g.tier2>0&&g.evil<=0",
