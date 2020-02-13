@@ -305,7 +305,7 @@ export default {
 
 			if ( targ instanceof Stat ) {
 
-				//console.error( this.id + ' number apply to Stat/Mod: ' + mods );
+				console.error( '!!!!! ' + mods + ' number apply to: ' + this.id );
 				targ.add( mods*amt );
 
 			} else if ( typeof targ === 'object') {

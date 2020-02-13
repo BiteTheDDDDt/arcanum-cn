@@ -8,6 +8,8 @@ import Enchanting from '../composites/enchanting';
 
 export default class Enchant extends Task {
 
+	get isRecipe(){return true;}
+
 	/**
 	 * @property {string} only - limit target type by name, kind, or tag, to which
 	 * the enchantment can be applied.

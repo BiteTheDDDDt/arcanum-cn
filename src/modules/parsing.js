@@ -42,14 +42,18 @@ export const SubMods = ( mods, id, source )=>{
 			return new Mod( mods, id, source );
 		} else if ( IsPerValue(mods)) {
 			return new PerValue( mods, id, source );
-		}
+		} else if ( !isNaN(mods) ) return Number(mods);
 
 		console.warn('raw str mod: ' + mods );
 		return mods;
 
 	} else if ( typeof mods === 'number') {
 		return new Mod( mods, id, source );
-	} else if ( typeof mods !== 'object' ) return mods;
+	} else if ( typeof mods !== 'object' ) {
+		// @note includes boolean (unlock) mods.
+		//console.log( id + ' unknown mod type: ' + (typeof mods) + ' source: ' + source )
+		return mods;
+	}
 
 	// @note str is @compat
 	if ( mods.id || mods.base || mods.str ) return new Mod( mods, id, source );
@@ -57,6 +61,11 @@ export const SubMods = ( mods, id, source )=>{
 	for( let s in mods ) {
 
 		let val = mods[s];
+		if ( val === 0 ) {
+			delete mods[s];
+			continue;
+		}
+		// @note this includes 0 as well.
 		if ( !val) continue;
 
 		if ( val instanceof Mod ) {

@@ -36,7 +36,7 @@ import { MakeDmgFunc } from 'values/combat';
 import Stat from './values/stat';
 import State from './chars/state';
 import PerValue, { IsPerValue } from './values/pervalue';
-import { SubPath } from './values/rvalue';
+import RValue, { SubPath } from './values/rvalue';
 import { mergeInto } from './util/array';
 
 const DataDir = './data/';

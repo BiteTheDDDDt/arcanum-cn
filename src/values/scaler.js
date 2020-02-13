@@ -24,9 +24,9 @@ export default class Scaler extends RValue {
 
 	constructor( vars=0, path, scale=null ){
 
-		super( vars, path );
+		super( Number(vars), path );
 
-		this.scale = scale || new Stat( 0, this.id + '.scale' );
+		this.scale = scale || new RValue( 0, this.id + '.scale' );
 
 	}
 

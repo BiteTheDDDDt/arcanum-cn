@@ -917,8 +917,10 @@ export default {
 				} else {
 
 					if ( target.applyMods) {
+
 						target.applyMods( mod[p], amt );
 						target.dirty = true;
+
 					} else console.warn( 'no applyMods(): ' + target );
 
 				}
@@ -929,7 +931,7 @@ export default {
 			let t = this.getData(mod);
 			if ( t ) {
 
-				console.warn('!!!ADDED NUMBER MOD: ' + mod );
+				console.warn('!!!!!!!!!!ADDED NUMBER MOD: ' + mod );
 				t.amount( this, 1 );
 
 			}
