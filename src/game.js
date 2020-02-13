@@ -13,6 +13,7 @@ import Events, {EVT_UNLOCK, EVT_EVENT, EVT_LOOT, SET_SLOT, DELETE_ITEM, CHAR_ACT
 import { MONSTER, TYP_PCT, TYP_RANGE, P_TITLE, P_LOG, TEAM_PLAYER, ENCHANTSLOTS, WEAPON } from './values/consts';
 import TagSet from './composites/tagset';
 import { TARGET_SELF, TARGET_ALLY, ApplyAction } from './values/combat';
+import RValue from './values/rvalue';
 
 var techTree;
 
@@ -1086,16 +1087,22 @@ export default {
 	 */
 	canPayObj( parent, cost, amt=1 ){
 
-		if ( cost instanceof Stat || !isNaN(cost)){
+		if ( !parent ) return false;
+
+		if ( (cost instanceof RValue) || !isNaN(cost)){
 			return parent.value >= cost;
 		}
 
 		for( let p in cost ) {
 
 			var val = cost[p];
-			if ( !isNaN(val) || val instanceof Stat ) {
+			if ( !isNaN(val) || (val instanceof RValue) ) {
 				if ( parent.value < val*amt ) return false;
 			} else if ( typeof val === 'object'){
+
+
+				console.log('checking sub cost: ' + p + ' ' +cost.constructor.name );
+				if ( parent ) console.log( 'parent: ' + parent.id );
 
 				if ( !this.canPayObj( parent[p], val, amt ) ) return false;
 			}

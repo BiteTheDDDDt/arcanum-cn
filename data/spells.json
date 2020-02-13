@@ -2964,7 +2964,7 @@
 		"tags":"patron",
 		"level":7,
 		"desc":"",
-		"require":"g.tier9>0&&g.chaos>=3",
+		"require":"g.tier6>0&&g.chaos>=3",
 		"buy":{
 			"firerune":7,
 			"waterrune":7,
