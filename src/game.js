@@ -10,7 +10,7 @@ import Stat from './values/stat';
 import DataLoader from './dataLoader';
 
 import Events, {EVT_UNLOCK, EVT_EVENT, EVT_LOOT, SET_SLOT, DELETE_ITEM, CHAR_ACTION } from './events';
-import { MONSTER, TYP_PCT, TYP_RANGE, P_TITLE, P_LOG, TEAM_PLAYER, ENCHANTSLOTS, WEAPON } from './values/consts';
+import { MONSTER, TYP_PCT, TYP_RANGE, P_TITLE, P_LOG, TEAM_PLAYER, ENCHANTSLOTS, WEAPON, HOME } from './values/consts';
 import TagSet from './composites/tagset';
 import { TARGET_SELF, TARGET_ALLY, ApplyAction } from './values/combat';
 import RValue from './values/rvalue';
@@ -297,7 +297,9 @@ export default {
 		this.state.setSlot( it.slot, it );
 
 		this.payCost( it.cost );
-		return it.amount( this );
+		it.amount( this );
+
+		if ( it.slot === HOME ) this.recalcSpace();
 
 	},
 
