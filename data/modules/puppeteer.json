@@ -913,7 +913,7 @@
 					"assemblepuppet.cost.gold": 20,
 					"assemblepuppet.cost.research": 20,
 					"assemblepuppet.result.puppets": 1,
-					"space":-35
+					"space":35
 				}
 			},
 			{
@@ -929,7 +929,7 @@
 				},
 				"mod": {
 					"puppets.rate": 0.01,
-					"space":-20
+					"space":20
 				}
 			},
 			{
@@ -950,7 +950,7 @@
 					"assemblemachina.cost.gold": 100,
 					"assemblemachina.cost.research": 150,
 					"assemblemachina.result.machinae": 1,
-					"space":-55
+					"space":55
 				}
 			},
 			{
@@ -967,7 +967,7 @@
 				},
 				"mod": {
 					"machinae.rate": 0.01,
-					"space":-30
+					"space":30
 				}
 			},
 			{
@@ -986,7 +986,7 @@
 					"assembleautomata.cost.gold": -600,
 					"assembleautomata.cost.research": -600,
 					"assembleautomata.cost.runestones": -5,
-					"space":-70
+					"space":70
 				},
 				"flavor": "This was a triumph. I'm making a note here, 'huge success.'"
 			}

@@ -18,7 +18,7 @@
 					"gold":100
 				},
 				"mod":{
-					"space":-5,
+					"space":5,
 					"gold.rate":-0.2,
 					"virtue.rate":0.0001,
 					"light.rate":0.1,
@@ -39,7 +39,7 @@
 					"tomes":10
 				},
 				"mod":{
-					"space":-5,
+					"space":5,
 					"spellcraft.max":2,
 					"spellcraft.rate":"5%",
 					"enchanting.max":2

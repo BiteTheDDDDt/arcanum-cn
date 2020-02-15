@@ -2219,7 +2219,7 @@
 			"gems":100
 		},
 		"mod":{
-			"space":-5,
+			"space":5,
 			"gold.rate":-0.5,
 			"runestones.rate":0.01
 		}
@@ -2236,7 +2236,7 @@
 			"research":1000
 		},
 		"mod":{
-			"space":-5,
+			"space":5,
 			"gold.rate":0.1,
 			"scrolls.rate":0.02,
 			"codices.rate":0.01,
