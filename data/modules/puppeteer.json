@@ -141,7 +141,8 @@
 				},
 				"result": {
 					"puppetry.max": 0.01
-				}
+				},
+				"mod": {}
 			},
 			{
 				"id": "assemblepuppet",
@@ -165,7 +166,8 @@
 				},
 				"result": {
 					"puppets": 1
-				}
+				},
+				"mod": {}
 			},
 			{
 				"id": "machinalabor",
@@ -197,7 +199,8 @@
 				},
 				"result": {
 					"machinacreation.max": 0.01
-				}
+				},
+				"mod": {}
 			},
 			{
 				"id": "assemblemachina",
@@ -220,7 +223,8 @@
 				},
 				"result": {
 					"machinae": 1
-				}
+				},
+				"mod": {}
 			},
 			{
 				"id": "futurecouncil",
@@ -244,7 +248,8 @@
 				},
 				"result": {
 					"automatasculpting.max": 0.05
-				}
+				},
+				"mod": {}
 			},
 			{
 				"id": "assembleautomata",
@@ -269,7 +274,8 @@
 				},
 				"result": {
 					"automatas": 1
-				}
+				},
+				"mod": {}
 			}
 		],
 		"upgrades": [
@@ -579,14 +585,14 @@
 				"require": "g.automatasculpting>=10",
 				"max": 1,
 				"cost": {
-					"automatas":50,
-					"runestones":100,
-					"firerune":50,
-					"airrune":50,
-					"earthrune":50,
-					"waterrune":50,
-					"timerune":3,
-					"sindel":5
+					"automatas": 50,
+					"runestones": 100,
+					"firerune": 50,
+					"airrune": 50,
+					"earthrune": 50,
+					"waterrune": 50,
+					"timerune": 3,
+					"sindel": 5
 				},
 				"mod": {
 					"runner.max": 1
@@ -644,7 +650,8 @@
 				},
 				"cost": {
 					"puppets": 3
-				}
+				},
+				"mod": {}
 			},
 			{
 				"id": "machinarepair",
@@ -661,7 +668,8 @@
 				},
 				"cost": {
 					"machinae": 3
-				}
+				},
+				"mod": {}
 			},
 			{
 				"id": "automatarepair",
@@ -678,7 +686,8 @@
 				},
 				"cost": {
 					"automatas": 3
-				}
+				},
+				"mod": {}
 			},
 			{
 				"id": "prismaticmissile",
@@ -704,7 +713,7 @@
 					"mana": 7
 				},
 				"attack": {
-					"kind":"mana",
+					"kind": "mana",
 					"hits": [
 						{
 							"damage": "2~3",
@@ -757,7 +766,8 @@
 							"tohit": -2
 						}
 					]
-				}
+				},
+				"mod": {}
 			},
 			{
 				"id": "mk_puppet",
@@ -773,7 +783,8 @@
 					"puppets": 5,
 					"spirit": 10
 				},
-				"result": "puppetattacker"
+				"result": "puppetattacker",
+				"mod": {}
 			},
 			{
 				"id": "mk_charger",
@@ -788,7 +799,8 @@
 				"cost": {
 					"machinae": 5
 				},
-				"result": "mechacharger"
+				"result": "mechacharger",
+				"mod": {}
 			},
 			{
 				"id": "mk_autoslayer",
@@ -803,7 +815,8 @@
 				"cost": {
 					"automatas": 5
 				},
-				"result": "autoslayer"
+				"result": "autoslayer",
+				"mod": {}
 			},
 			{
 				"id": "mk_puppetdef",
@@ -820,7 +833,8 @@
 					"puppets": 5,
 					"spirit": 10
 				},
-				"result": "puppetdefender"
+				"result": "puppetdefender",
+				"mod": {}
 			},
 			{
 				"id": "mk_mender",
@@ -835,7 +849,8 @@
 				"cost": {
 					"machinae": 5
 				},
-				"result": "mechamender"
+				"result": "mechamender",
+				"mod": {}
 			},
 			{
 				"id": "mk_autocaster",
@@ -850,7 +865,8 @@
 				"cost": {
 					"automatas": 5
 				},
-				"result": "autocaster"
+				"result": "autocaster",
+				"mod": {}
 			}
 		],
 		"homes": [
@@ -891,13 +907,13 @@
 				"cost": {
 					"gold": 300,
 					"research": 500,
-					"space": 35,
 					"arcana": 5
 				},
 				"mod": {
 					"assemblepuppet.cost.gold": 20,
 					"assemblepuppet.cost.research": 20,
-					"assemblepuppet.result.puppets": 1
+					"assemblepuppet.result.puppets": 1,
+					"space":-35
 				}
 			},
 			{
@@ -909,11 +925,11 @@
 				"cost": {
 					"gold": 500,
 					"research": 500,
-					"space": 20,
 					"spiritgem": 5
 				},
 				"mod": {
-					"puppets.rate": 0.01
+					"puppets.rate": 0.01,
+					"space":-20
 				}
 			},
 			{
@@ -926,7 +942,6 @@
 				"cost": {
 					"gold": 3000,
 					"research": 2000,
-					"space": 55,
 					"gems": 30
 				},
 				"mod": {
@@ -934,7 +949,8 @@
 					"crafting.rate": "5%",
 					"assemblemachina.cost.gold": 100,
 					"assemblemachina.cost.research": 150,
-					"assemblemachina.result.machinae": 1
+					"assemblemachina.result.machinae": 1,
+					"space":-55
 				}
 			},
 			{
@@ -947,11 +963,11 @@
 					"gold": 2500,
 					"research": 3000,
 					"puppets": 20,
-					"space": 30,
 					"gems": 50
 				},
 				"mod": {
-					"machinae.rate": 0.01
+					"machinae.rate": 0.01,
+					"space":-30
 				}
 			},
 			{
@@ -964,13 +980,13 @@
 				"cost": {
 					"gold": 5000,
 					"research": 5000,
-					"space": 70,
 					"gems": 30
 				},
 				"mod": {
 					"assembleautomata.cost.gold": -600,
 					"assembleautomata.cost.research": -600,
-					"assembleautomata.cost.runestones": -5
+					"assembleautomata.cost.runestones": -5,
+					"space":-70
 				},
 				"flavor": "This was a triumph. I'm making a note here, 'huge success.'"
 			}
@@ -1030,7 +1046,7 @@
 						"hits": [
 							{
 								"name": "charge",
-								"tohit":10,
+								"tohit": 10,
 								"targets": "enemies",
 								"dmg": "50~70"
 							},
@@ -1039,13 +1055,13 @@
 								"nomiss": true,
 								"nodefense": true,
 								"targets": "self",
-								"dmg":50,
+								"dmg": 50,
 								"dot": {
 									"name": "recoil",
 									"targets": "self",
-									"duration":10,
+									"duration": 10,
 									"mod": {
-										"defense":-100
+										"defense": -100
 									}
 								}
 							}
@@ -1347,7 +1363,7 @@
 				"mod": {
 					"tier1": true,
 					"puppetry.max": 2,
-					"minions.keep":"puppet",
+					"minions.keep": "puppet",
 					"magicalanimation.max": 1,
 					"allies.max": 5,
 					"clockworkhome.mod.space.max": 50
@@ -1370,7 +1386,7 @@
 				"mod": {
 					"tier3": true,
 					"puppetry.max": 1,
-					"minions.keep":"machina",
+					"minions.keep": "machina",
 					"magicalanimation.max": 2,
 					"machinacreation.max": 2,
 					"allies.max": 5,
@@ -1396,7 +1412,7 @@
 					"magicalanimation.max": 1,
 					"machinacreation.max": 2,
 					"automatasculpting.max": 3,
-					"minions.keep":"automata",
+					"minions.keep": "automata",
 					"allies.max": 5,
 					"clockworkhome.mod.space.max": 150
 				},
@@ -1404,4 +1420,4 @@
 			}
 		]
 	}
-}
+}}
