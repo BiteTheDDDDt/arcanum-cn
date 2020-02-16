@@ -1,8 +1,7 @@
 import Base, {mergeClass} from './base';
-import {assign, clone, cloneClass, mergeSafe } from 'objecty';
+import {assign, cloneClass } from 'objecty';
 import { ParseMods } from 'modules/parsing';
 import Instance from './instance';
-import { assignNoFunc, assignPublic } from '../util/util';
 
 const ItemDefaults = {
 	stack:true,

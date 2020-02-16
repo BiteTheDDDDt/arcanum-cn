@@ -74,9 +74,12 @@ export default class Wearable extends Item {
 
 			if ( v !== this._attack ) {
 
-				if ( v instanceof Attack  ) this._attack = v.clone();
-				else this._attack = new Attack(v);
+				if ( v instanceof Attack  ) {
+					this._attack = v.clone();
+				} else this._attack = new Attack(v);
 
+			} else {
+				if ( !(v instanceof Attack) ) this._attack = new Attack(v);
 			}
 
 		} else {
@@ -122,7 +125,12 @@ export default class Wearable extends Item {
 			else this.type = WEARABLE;
 		}
 
-		if ( this._attack && !this._attack.name ) this._attack.name = this.name;
+		if ( this._attack ){
+			this.attack = this._attack;
+			if ( !this._attack.name ) this._attack.name = this.name;
+		}
+
+
 
 	}
 
