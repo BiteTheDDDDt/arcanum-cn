@@ -65,7 +65,7 @@
 				"id": "magiphysics",
 				"name": "magiphysics",
 				"require": "g.lore>=25&&g.planeslore>=15&&g.tier4>0",
-				"desc": "The universe is just an equation to solve.",
+				"desc": "The study of magic in motion.",
 				"level": 12,
 				"run": {
 					"stamina": 0.7

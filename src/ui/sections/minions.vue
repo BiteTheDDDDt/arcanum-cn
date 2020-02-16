@@ -101,7 +101,7 @@ export default {
 			</td>
 			<td v-if="!b.alive">
 				<!-- note this is a separate section from the one above -->
-				<button class="rez" v-for="r in rezzes(b)" :key="r.id" :disabled="!usable(r)" @click="useRez(r,b)">{{ r.name }}</button>
+				<button class="rez" v-for="r in rezzes(b)" :key="r.id" :disabled="!r.canUse()" @click="useRez(r,b)">{{ r.name }}</button>
 
 			</td>
 			<td>

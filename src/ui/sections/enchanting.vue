@@ -48,7 +48,7 @@ export default {
 		},
 
 		canUseOn( it, targ ) {
-			return targ&&it.canUseOn(targ)&& this.enchantSlots.canAdd(it)&&this.usable(it);
+			return targ&&it.canUseOn(targ)&& this.enchantSlots.canAdd(it)&&it.canUse();
 		}
 
 	},
@@ -89,7 +89,7 @@ export default {
 
 			<span class="ench-name">{{ it.name }}</span>
 
-			<button v-if="it.buy&&!it.owned" :disabled="!buyable(it)"
+			<button v-if="it.buy&&!it.owned" :disabled="!it.canBuy()"
 				@click="emit('buy', it)">Unlock</button>
 
 			<button v-else :disabled="!canUseOn(it,target)"

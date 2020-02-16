@@ -1,10 +1,10 @@
-import { defineExcept, clone, getProps } from 'objecty';
+import { defineExcept, clone } from 'objecty';
 import Stat from '../values/stat';
 import Base, {mergeClass } from './base';
 import {arrayMerge} from '../util/array';
 import { assignPublic } from '../util/util';
 import Events, { CHAR_ACTION, EVT_EVENT, EVT_UNLOCK } from '../events';
-import { TICK_LEN } from '../game';
+import Game, { TICK_LEN } from '../game';
 import { WEARABLE, WEAPON } from '../values/consts';
 import RValue from '../values/rvalue';
 
@@ -264,7 +264,7 @@ export default class GData {
 	 * test with 'canRun' instead.
 	 * @param {Game} g
 	 */
-	canUse( g ){
+	canUse( g=Game ){
 
 		if ( this.disabled || this.locks>0||
 				(this.need && !g.unlockTest( this.need, this )) ) return false;
@@ -284,7 +284,7 @@ export default class GData {
 		return !this.cost || g.canPay(this.cost);
 	}
 
-	canBuy(g){
+	canBuy(g=Game){
 
 		if ( this.disabled || this.locked || this.locks > 0 ) return false;
 

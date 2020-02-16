@@ -56,7 +56,7 @@ export default class Skill extends Task {
 
 	/**
 	 * Allow buying a skill even when maxed.
-	 * @param {*} g
+	 * @param {Game} g
 	 */
 	canBuy(g){
 
