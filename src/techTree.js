@@ -104,11 +104,16 @@ export default class TechTree {
 	 */
 	checkFringe(){
 
-		let arr = this.fringe;
+		//let arr = this.fringe;
 
 		//if ( Math.random() < 0.1 ) console.log('FRINGE SIZE: ' + arr.length );
 
-		for( let i = arr.length-1; i >= 0; i-- ) {
+		for( let it of Changed ){
+
+			this.changed(it.id );
+
+		}
+		/*for( let i = arr.length-1; i >= 0; i-- ) {
 
 			var it = arr[i];
 			if ( it.disabled ) {
@@ -126,7 +131,7 @@ export default class TechTree {
 			}
 
 
-		}
+		}*/
 
 	}
 

@@ -312,8 +312,6 @@ export default {
 		let dt = Math.min( ( time - this.lastUpdate )/1000, 1 );
 		this.lastUpdate = time;
 
-		Changed.clear();
-
 		this.state.player.update(dt);
 		this.state.minions.update(dt);
 
@@ -325,6 +323,8 @@ export default {
 
 		console.log('CHANGE SIZE: ' + Changed.size );
 		techTree.checkFringe();
+
+		Changed.clear();
 
 	},
 
