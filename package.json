@@ -36,7 +36,7 @@
   "dependencies": {
     "eventemitter3": "^3.1.2",
     "firebase": "^7.7.0",
-    "objecty": "^1.0.0",
+    "objecty": "^1.0.2",
     "vue": "^2.6.10"
   }
 }
