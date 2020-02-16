@@ -299,8 +299,6 @@ export default {
 		this.payCost( it.cost );
 		it.amount( this );
 
-		if ( it.slot === HOME ) this.recalcSpace();
-
 	},
 
 	/**

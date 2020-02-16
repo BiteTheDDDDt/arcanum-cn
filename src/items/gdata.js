@@ -270,7 +270,7 @@ export default class GData {
 				(this.need && !g.unlockTest( this.need, this )) ) return false;
 		if ( this.buy && !this.owned && !g.canPay(this.buy) ) return false;
 
-		if ( this.perpetual || this.length>0 ) { return this.canRun(g); }
+		if ( this.perpetual || this.length>0 ) { return this.canRun(g, TICK_LEN); }
 
 		if ( this.slot && g.state.getSlot(this.slot, this.type ) === this) return false;
 		if ( this.maxed() ) return false;

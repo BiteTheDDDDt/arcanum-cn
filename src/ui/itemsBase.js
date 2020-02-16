@@ -21,7 +21,7 @@ export default {
 		},
 
 		usable(it) {
-			return (it.length || it.perpetual ) ? it.canRun( Game, TICK_LEN) : it.canUse(Game );
+			return it.canUse(Game );
 		},
 
 		buyable(it) { return it.canBuy(Game) },

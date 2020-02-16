@@ -112,7 +112,8 @@ export default {
 
 			let s = this.state;
 			return s.filterItems( it=>
-				it.type ==='furniture' || s.typeCost(it.cost, 'space')>0
+				it.type ==='furniture' || s.typeCost(it.cost, 'space')>0 ||
+					s.typeCost(it.mod, 'space') >0
 			).sort(
 				alphasort
 				//(a,b)=> a.name < b.name ? -1 : 1
@@ -179,7 +180,7 @@ export default {
 
 		<tr v-for="it in filtered" :key="it.id" @mouseenter.capture.stop="emit( 'itemover', $event, it )">
 
-			<td class="space">{{ it.cost.space }}</td>
+			<td class="space">{{ it.cost.space || it.mod.space }}</td>
 			<td class="name">{{ it.name }}</td> <td class="count">{{ it.value.valueOf() }}</td>
 
 			<td><span v-if="it.maxed()" class="sm">Max</span><button v-else type="button" :disabled="!usable(it)" class="buy-btn"
