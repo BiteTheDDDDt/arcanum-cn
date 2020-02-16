@@ -8,6 +8,11 @@ import TagSet from './composites/tagset';
  */
 const FuncRE = /[^\.]\b\w+\.((?:\w|\.)+\b)/gi;
 
+/**
+ * @property {Set<GData>} Changed - items changed on previous frame.
+ */
+export const Changed = new Set();
+
 export default class TechTree {
 
 	/**
@@ -15,6 +20,8 @@ export default class TechTree {
 	 * @param {Object} [vars=null]
 	 */
 	constructor( items ) {
+
+		Changed.clear();
 
 		/**
 		 * @property {object.<string,GData>} items - used to check if items
@@ -108,9 +115,8 @@ export default class TechTree {
 
 				quickSplice( arr, i );
 
-			} else if ( it.dirty === true ) {
+			} else if ( Changed.has(it) ) {
 
-				it.dirty = false;
 				// no potential unlocks left.
 				if ( this.changed( it.id ) === false ) {
 					quickSplice( arr, i);

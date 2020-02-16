@@ -7,6 +7,7 @@ import Events, { CHAR_ACTION, EVT_EVENT, EVT_UNLOCK } from '../events';
 import Game, { TICK_LEN } from '../game';
 import { WEARABLE, WEAPON } from '../values/consts';
 import RValue from '../values/rvalue';
+import { Changed } from '../techTree';
 
 /**
  * @typedef {Object} Effect
@@ -381,13 +382,15 @@ export default class GData {
 		if ( this.attack || this.action ) {
 			if (this.type !== WEARABLE && this.type !== WEAPON ) Events.emit( CHAR_ACTION, this );
 		}
-		this.dirty = true;
+
+		Changed.add(this);
 
 	}
 
 	doLock(amt){
 		this.locks += amt;
-		this.dirty = true;
+
+		Changed.add(this);
 	}
 
 	doUnlock(){
@@ -396,7 +399,8 @@ export default class GData {
 
 		this.locked = false;
 		Events.emit( EVT_UNLOCK, this );
-		this.dirty = true;
+
+		Changed.add(this);
 	}
 
 	/**

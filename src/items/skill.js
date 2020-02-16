@@ -77,8 +77,6 @@ export default class Skill extends Task {
 
 		this._length += this._length*EXP_RATIO;
 
-		this.dirty = true;
-
 		super.changed(g);
 
 	}

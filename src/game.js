@@ -2,7 +2,7 @@ import GData from './items/gdata';
 import Log from './log.js';
 import GameState, { REST_SLOT } from './gameState';
 import ItemGen from './modules/itemgen';
-import TechTree from './techTree';
+import TechTree, { Changed } from './techTree';
 import Resource from './items/resource';
 import Skill from './items/skill';
 import Stat from './values/stat';
@@ -66,6 +66,7 @@ export default {
 	 * @property {Runner} runner - runs active tasks.
 	 */
 	runner:null,
+
 
 	get player(){return this.state.player},
 
@@ -311,6 +312,8 @@ export default {
 		let dt = Math.min( ( time - this.lastUpdate )/1000, 1 );
 		this.lastUpdate = time;
 
+		Changed.clear();
+
 		this.state.player.update(dt);
 		this.state.minions.update(dt);
 
@@ -320,6 +323,7 @@ export default {
 		this.doResources( this.state.playerStats, dt );
 		this.doResources( this.state.stressors, dt );
 
+		console.log('CHANGE SIZE: ' + Changed.size );
 		techTree.checkFringe();
 
 	},
@@ -749,7 +753,7 @@ export default {
 		if ( it.mod ) this.applyMods( it.mod, -amt );
 		if ( it.lock ) this.unlock( it.lock, amt );
 
-		it.dirty = true;
+		Changed.add( it );
 
 	},
 
@@ -869,7 +873,7 @@ export default {
 
 					} else target.applyVars(e,dt);
 
-					target.dirty = true;
+					Changed.add(target);
 				}
 			}
 
@@ -919,7 +923,6 @@ export default {
 					if ( target.applyMods) {
 
 						target.applyMods( mod[p], amt );
-						target.dirty = true;
 
 					} else console.warn( 'no applyMods(): ' + target );
 
@@ -1027,7 +1030,6 @@ export default {
 						this.remove( res, unit*price(this.state, this.player) )
 					}
 
-					res.dirty = true;
 				}
 
 
