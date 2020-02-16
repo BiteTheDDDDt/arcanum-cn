@@ -153,7 +153,7 @@ export default class Combat {
 			e.update(dt);
 			if ( e.alive === false ) { this._enemies.splice(i,1); continue;}
 			action = e.combat(dt);
-			if (!action) continue;
+			if ( !action ) continue;
 
 			else if ( !action.canAttack() ){
 				Events.emit( STATE_BLOCK, e, action );
