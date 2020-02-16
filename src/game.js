@@ -14,6 +14,7 @@ import { MONSTER, TYP_PCT, TYP_RANGE, P_TITLE, P_LOG, TEAM_PLAYER, ENCHANTSLOTS,
 import TagSet from './composites/tagset';
 import { TARGET_SELF, TARGET_ALLY, ApplyAction } from './values/combat';
 import RValue from './values/rvalue';
+import StatData from './items/statData';
 
 var techTree;
 
@@ -743,8 +744,6 @@ export default {
 
 		if ( it.slot ) { if ( this.state.getSlot(it.slot) === it ) this.state.setSlot(it.slot, null); }
 
-		if ( it.cost && it.cost.space ) this.getData('space').value.add( -amt*it.cost.space );
-
 		it.remove(amt);
 
 		if ( it.mod ) this.applyMods( it.mod, -amt );
@@ -987,6 +986,14 @@ export default {
 	},
 
 	/**
+	 *
+	 * @param {*} mod
+	 * @param {*} unit
+	 */
+	/*canMod( mod, unit) {
+	},*/
+
+	/**
 	 * Attempts to pay the cost to perform an task, buy an upgrade, etc.
 	 * Before calling this function, ensure cost can be met with canPay()
 	 *
@@ -1009,12 +1016,15 @@ export default {
 
 				} else {
 
-					var targ = cost[p];
+					var price = cost[p];
 
-					if ( !isNaN(targ) ) this.remove( res, targ*unit );
-					else if ( typeof targ === 'object' ) res.applyVars( targ, -unit );
-					else if ( typeof targ === 'function') {
-							this.remove( res, unit*targ(this.state, this.player) )
+					if ( !isNaN(price) ) this.remove( res, price*unit );
+					else if ( typeof price === 'object' ) {
+
+						res.applyVars( price, -unit );
+
+					} else if ( typeof price === 'function') {
+						this.remove( res, unit*price(this.state, this.player) )
 					}
 
 					res.dirty = true;
@@ -1032,6 +1042,38 @@ export default {
 		var res = this.state.inventory.find( p,true );
 		if ( res ) this.state.inventory.removeCount(res,amt);
 		else console.warn('Too Low: ' + p );
+
+	},
+
+	/**
+	 * Test if mods can be safely applied.
+	 * @param {object} mod
+	 * @returns {boolean}
+	 */
+	canMod( mod ) {
+
+		if ( typeof mod !== 'object') return true;
+		if (Array.isArray(mod) ) return mod.every( v=>this.canMod(v), this );
+
+		let res;
+
+		for( let p in mod ) {
+
+			var sub = mod[p];
+
+			if ( !isNaN(sub) || sub instanceof RValue ) {
+
+				res = this.state.getData(p);
+				if ( res instanceof Resource || res instanceof StatData ) {
+
+					return ( res.canPay(sub) );
+
+				}
+			}
+
+		}
+
+		return true;
 
 	},
 
@@ -1101,8 +1143,8 @@ export default {
 			} else if ( typeof val === 'object'){
 
 
-				console.log('checking sub cost: ' + p + ' ' +cost.constructor.name );
-				if ( parent ) console.log( 'parent: ' + parent.id );
+				//console.log('checking sub cost: ' + p + ' ' +cost.constructor.name );
+				//if ( parent ) console.log( 'parent: ' + parent.id );
 
 				if ( !this.canPayObj( parent[p], val, amt ) ) return false;
 			}

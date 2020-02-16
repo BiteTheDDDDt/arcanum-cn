@@ -277,6 +277,10 @@ export default class GData {
 
 		if ( this.fill && g.filled( this.fill, this ) ) return false;
 
+		if ( this.mod && !g.canMod(this.mod)) {
+			return false;
+		}
+
 		return !this.cost || g.canPay(this.cost);
 	}
 
