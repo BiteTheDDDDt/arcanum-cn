@@ -4,6 +4,7 @@ import Stat from '../values/stat';
 import Mod, { SetModIds } from '../values/mod';
 import { TYP_MOD } from '../values/consts';
 import RValue, { SubPath } from '../values/rvalue';
+import { Changed } from '../techTree';
 
 export const setModCounts = ( m, v)=>{
 
@@ -281,6 +282,9 @@ export default {
 
 		}
 
+
+		Changed.add(this);
+
 	},
 
 	/**
@@ -291,6 +295,7 @@ export default {
 	 */
 	applyMods( mods, amt=1, targ=this ) {
 
+		Changed.add(this);
 		if ( mods instanceof Mod ) {
 
 			mods.applyTo( targ, 'value', amt );
@@ -386,7 +391,7 @@ export default {
 
 			} else {
 
-				console.warn( `UNKNOWN Mod applied to ${this.id}.${p}: ${m}` + '  ' + typeof m);
+				console.warn( `UNKNOWN Mod to ${this.id}.${p}: ${m}` + '  ' + typeof m);
 			}
 
 		}

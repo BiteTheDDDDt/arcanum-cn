@@ -3,6 +3,7 @@ import Base, {mergeClass} from '../items/base';
 import Item from "../items/item";
 
 import { itemRevive } from "../modules/itemgen";
+import { Changed } from "../techTree";
 
 /**
  * Option for saveMap which will full-save instanced items
@@ -214,7 +215,7 @@ export default class Inventory {
 			//console.warn('CUR USED: ' + this.used + '/' + this.max.value );
 
 		}
-		this.dirty = true;
+		Changed.add(this);
 
 	}
 

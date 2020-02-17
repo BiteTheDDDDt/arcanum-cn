@@ -2,7 +2,7 @@ import GData from './items/gdata';
 import Log from './log.js';
 import GameState, { REST_SLOT } from './gameState';
 import ItemGen from './modules/itemgen';
-import TechTree from './techTree';
+import TechTree, { Changed } from './techTree';
 import Resource from './items/resource';
 import Skill from './items/skill';
 import Stat from './values/stat';
@@ -67,6 +67,7 @@ export default {
 	 */
 	runner:null,
 
+
 	get player(){return this.state.player},
 
 	/**
@@ -119,7 +120,7 @@ export default {
 			this.recalcSpace();
 
 			techTree = new TechTree( this.gdata );
-			Events.add( EVT_UNLOCK, techTree.unlocked, techTree );
+			//Events.add( EVT_UNLOCK, techTree.unlocked, techTree );
 			Events.add( CHAR_ACTION, this.onCharAction, this );
 
 			// initial fringe check.
@@ -243,31 +244,6 @@ export default {
 
 		let used = 0;
 
-		let items = this.gdata;
-		for( let p in items ) {
-
-			var it = items[p];
-			if ( !it.value ) continue;
-			var count = it.value.valueOf();
-			if ( count === 0 ) continue;
-
-			var cost = it.cost;
-			if ( cost === null || cost === undefined ) continue;
-			if ( typeof cost !== 'object') {
-
-				if ( cost === 'space') used += count;
-				continue;
-
-			} else {
-
-				used += count*cost.space || 0;
-
-			}
-
-		} // for
-
-		console.log('space used: ' + used );
-
 		let space = this.state.getData('space');
 		space.value = used;
 
@@ -320,7 +296,10 @@ export default {
 		this.doResources( this.state.playerStats, dt );
 		this.doResources( this.state.stressors, dt );
 
+		//console.log('CHANGE SIZE: ' + Changed.size );
 		techTree.checkFringe();
+
+		Changed.clear();
 
 	},
 
@@ -749,7 +728,7 @@ export default {
 		if ( it.mod ) this.applyMods( it.mod, -amt );
 		if ( it.lock ) this.unlock( it.lock, amt );
 
-		it.dirty = true;
+		Changed.add( it );
 
 	},
 
@@ -869,7 +848,7 @@ export default {
 
 					} else target.applyVars(e,dt);
 
-					target.dirty = true;
+					Changed.add(target);
 				}
 			}
 
@@ -919,7 +898,6 @@ export default {
 					if ( target.applyMods) {
 
 						target.applyMods( mod[p], amt );
-						target.dirty = true;
 
 					} else console.warn( 'no applyMods(): ' + target );
 
@@ -1027,7 +1005,6 @@ export default {
 						this.remove( res, unit*price(this.state, this.player) )
 					}
 
-					res.dirty = true;
 				}
 
 

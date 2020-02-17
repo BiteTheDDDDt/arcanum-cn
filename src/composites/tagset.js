@@ -148,7 +148,6 @@ export default class TagSet {
 
 		for( let it of this.items ) {
 			it.applyVars( mods, amt );
-			it.dirty = true;
 		}
 
 	}
@@ -163,7 +162,6 @@ export default class TagSet {
 
 		for( let it of this.items ) {
 			it.applyMods( mods, amt, it );
-			it.dirty = true;
 		}
 
 	}

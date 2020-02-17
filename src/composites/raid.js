@@ -3,6 +3,7 @@ import { assign } from 'objecty';
 import Game from '../game';
 import Combat from './combat';
 import { RAID, TYP_PCT, getDelay } from '../values/consts';
+import { Changed } from '../techTree';
 
 
 /**
@@ -188,7 +189,8 @@ export default class Raid {
 	complete() {
 
 		this.locale.exp = this.locale.length;
-		this.locale.dirty = true;
+
+		Changed.add( this.locale );
 
 		if ( this.locale.loot ) Game.getLoot( this.locale.loot, this.drops );
 		if ( this.locale.result ) Game.applyVars( this.locale.result );

@@ -11,6 +11,7 @@ import { RESOURCE, TEAM_PLAYER, getDelay, WEAPON } from "../values/consts";
 
 import { NO_ATTACK } from "./states";
 import DataList from '../inventories/dataList';
+import { Changed } from '../techTree';
 
 const Fists = new Wearable( null, {
 
@@ -459,7 +460,7 @@ export default class Player extends Char {
 		this._exp.value -= this._next;
 		this._next = Math.floor( this._next * ( 1 + EXP_RATE ) );
 
-		this.dirty = true;
+		Changed.add(this);
 
 		Events.emit( LEVEL_UP, this, this._level.valueOf() );
 
