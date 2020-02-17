@@ -1066,7 +1066,8 @@ export default {
 				res = this.state.getData(p);
 				if ( res instanceof Resource || res instanceof StatData ) {
 
-					return ( res.canPay(sub) );
+					// as mods, the values are actually being added.
+					return ( res.canPay(-sub) );
 
 				}
 			}

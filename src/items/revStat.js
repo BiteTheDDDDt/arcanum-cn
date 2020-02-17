@@ -34,7 +34,7 @@ export default class RevStat extends Resource {
 	 * @param {number} amt
 	 */
 	canPay( amt ) {
-		return this.value + amt <= this.max.value;
+		return this.value - amt <= this.max.value;
 	}
 	remove( amt ) { this.value.base += amt; }
 
