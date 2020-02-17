@@ -4,6 +4,7 @@ import Game from '../game';
 import Encounter from "../items/encounter";
 import { itemRevive } from "../modules/itemgen";
 import { EXPLORE, getDelay } from "../values/consts";
+import { Changed } from "../techTree";
 
 /**
  * Explore locations of arcane importance.

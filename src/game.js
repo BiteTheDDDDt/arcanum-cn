@@ -120,7 +120,7 @@ export default {
 			this.recalcSpace();
 
 			techTree = new TechTree( this.gdata );
-			Events.add( EVT_UNLOCK, techTree.unlocked, techTree );
+			//Events.add( EVT_UNLOCK, techTree.unlocked, techTree );
 			Events.add( CHAR_ACTION, this.onCharAction, this );
 
 			// initial fringe check.
@@ -244,31 +244,6 @@ export default {
 
 		let used = 0;
 
-		let items = this.gdata;
-		for( let p in items ) {
-
-			var it = items[p];
-			if ( !it.value ) continue;
-			var count = it.value.valueOf();
-			if ( count === 0 ) continue;
-
-			var cost = it.cost;
-			if ( cost === null || cost === undefined ) continue;
-			if ( typeof cost !== 'object') {
-
-				if ( cost === 'space') used += count;
-				continue;
-
-			} else {
-
-				used += count*cost.space || 0;
-
-			}
-
-		} // for
-
-		console.log('space used: ' + used );
-
 		let space = this.state.getData('space');
 		space.value = used;
 
@@ -321,7 +296,7 @@ export default {
 		this.doResources( this.state.playerStats, dt );
 		this.doResources( this.state.stressors, dt );
 
-		console.log('CHANGE SIZE: ' + Changed.size );
+		//console.log('CHANGE SIZE: ' + Changed.size );
 		techTree.checkFringe();
 
 		Changed.clear();

@@ -47,7 +47,7 @@ export default class TechTree {
 		/**
 		 * Unlocked items that might unlock other items.
 		 */
-		this.fringe = [];
+		/*this.fringe = [];
 
 		for( let p in this.items ) {
 
@@ -67,7 +67,7 @@ export default class TechTree {
 
 			}
 
-		}
+		}*/
 
 	}
 
@@ -105,8 +105,6 @@ export default class TechTree {
 	checkFringe(){
 
 		//let arr = this.fringe;
-
-		//if ( Math.random() < 0.1 ) console.log('FRINGE SIZE: ' + arr.length );
 
 		for( let it of Changed ){
 

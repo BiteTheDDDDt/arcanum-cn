@@ -391,7 +391,7 @@ export default {
 
 			} else {
 
-				console.warn( `UNKNOWN Mod applied to ${this.id}.${p}: ${m}` + '  ' + typeof m);
+				console.warn( `UNKNOWN Mod to ${this.id}.${p}: ${m}` + '  ' + typeof m);
 			}
 
 		}

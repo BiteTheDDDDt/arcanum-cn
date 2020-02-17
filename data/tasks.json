@@ -973,6 +973,7 @@
 	{
 
 		"id":"a_oppress",
+		"name":"oppress",
 		"desc":"Impose your will on the denizens of the world.",
 		"need":"g.tier3>0&&g.evil>0",
 		"length":100,
