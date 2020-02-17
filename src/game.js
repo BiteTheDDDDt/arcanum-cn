@@ -964,14 +964,6 @@ export default {
 	},
 
 	/**
-	 *
-	 * @param {*} mod
-	 * @param {*} unit
-	 */
-	/*canMod( mod, unit) {
-	},*/
-
-	/**
 	 * Attempts to pay the cost to perform an task, buy an upgrade, etc.
 	 * Before calling this function, ensure cost can be met with canPay()
 	 *
@@ -1027,7 +1019,7 @@ export default {
 	 * @param {object} mod
 	 * @returns {boolean}
 	 */
-	canMod( mod ) {
+	canMod( mod, src ) {
 
 		if ( typeof mod !== 'object') return true;
 		if (Array.isArray(mod) ) return mod.every( v=>this.canMod(v), this );
@@ -1041,9 +1033,9 @@ export default {
 			if ( !isNaN(sub) || sub instanceof RValue ) {
 
 				res = this.state.getData(p);
-				if ( res instanceof Resource || res instanceof StatData ) {
 
-					// as mods, the values are actually being added.
+				if ( res instanceof Resource ) {
+
 					return ( res.canPay(-sub) );
 
 				}
