@@ -99,9 +99,17 @@ export default class GData {
 	get require() { return this._require; }
 	set require(v) { this._require =v;}
 
+	/**
+	 * @property {boolean} warn - whether to display a warning before
+	 * purchasing or using item.
+	 */
 	get warn() { return this._warn; }
 	set warn(v) { this._warn =v;}
 
+	/**
+	 * @property {string} warnMsg - warning message to display
+	 * before purchasing item.
+	 */
 	get warnMsg(){return this._warnMsg; }
 	set warnMsg(v) { this._warnMsg = v; }
 
@@ -129,8 +137,18 @@ export default class GData {
 	get locked() { return this._locked; }
 	set locked(v) { this._locked = v; }
 
+	/**
+	 * @property {boolean} owned
+	 */
 	get owned() { return this._owned;}
 	set owned(v) { this._owned = v; }
+
+	/**
+	 * @property {boolean} usable - cached usable variable.
+	 * recalculated using canUse()
+	 */
+	get usable() {return this._usable;}
+	set usable(v) { this._usable = v}
 
 	/**
 	 * @property {Stat} value
@@ -239,7 +257,8 @@ export default class GData {
 	 */
 	canRun( g, dt=TICK_LEN ) {
 
-		if ( this.disabled || this.maxed() || (this.need && !g.unlockTest( this.need, this )) ) return false;
+		if ( this.disabled || this.maxed() || this.locks > 0 ||
+			(this.need && !g.unlockTest( this.need, this )) ) return false;
 
 		if ( this.buy && !this.owned && !g.canPay(this.buy ) ) return false;
 
@@ -267,14 +286,13 @@ export default class GData {
 	 */
 	canUse( g=Game ){
 
-		if ( this.disabled || this.locks>0||
+		if ( this.perpetual || this.length>0 ) return this.canRun(g, TICK_LEN);
+
+		if ( this.disabled || this.locks>0|| this.maxed() ||
 				(this.need && !g.unlockTest( this.need, this )) ) return false;
 		if ( this.buy && !this.owned && !g.canPay(this.buy) ) return false;
 
-		if ( this.perpetual || this.length>0 ) { return this.canRun(g, TICK_LEN); }
-
 		if ( this.slot && g.state.getSlot(this.slot, this.type ) === this) return false;
-		if ( this.maxed() ) return false;
 
 		if ( this.fill && g.filled( this.fill, this ) ) return false;
 
@@ -287,11 +305,9 @@ export default class GData {
 
 	canBuy(g=Game){
 
-		if ( this.disabled || this.locked || this.locks > 0 ) return false;
+		if ( this.disabled || this.locked || this.locks > 0 || this.maxed() ) return false;
 
-		if ( this.buy && !g.canPay(this.buy) ) return false;
-
-		return this.maxed() === false;
+		return ( !this.buy || g.canPay(this.buy) );
 
 	}
 

@@ -297,7 +297,7 @@ export default {
 		this.doResources( this.state.stressors, dt );
 
 		//console.log('CHANGE SIZE: ' + Changed.size );
-		techTree.checkFringe();
+		techTree.checkUnlocks();
 
 		Changed.clear();
 

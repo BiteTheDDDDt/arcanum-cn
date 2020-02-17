@@ -1,4 +1,4 @@
-import {changes, jsonify, cloneClass  } from 'objecty';
+import {changes, jsonify, cloneClass, getDescs  } from 'objecty';
 import Game from '../game';
 import Stat from '../values/stat';
 import Mod, { SetModIds } from '../values/mod';
@@ -22,11 +22,12 @@ export const setModCounts = ( m, v)=>{
 export const mergeClass = ( destClass, src ) => {
 
 	let proto = destClass.prototype || destClass;
-	let descs = Object.getOwnPropertyDescriptors(src);
+	let srcDescs = Object.getOwnPropertyDescriptors(src);
+	let protoDescs = getDescs(proto);
 
 	// NOTE: valueOf not overwritten.
-	for( let p in descs ) {
-		if ( !proto.hasOwnProperty(p) ) Object.defineProperty( proto, p, descs[p]);
+	for( let p in srcDescs ) {
+		if ( !protoDescs.has(p) ) Object.defineProperty( proto, p, srcDescs[p]);
 	}
 
 	return destClass;

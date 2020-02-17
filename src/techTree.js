@@ -30,44 +30,26 @@ export default class TechTree {
 		this.items = items;
 
 		/**
-		 * @property {Object.<string,Array>} unlocks - item id to Items potentially unlocked
-		 * by changes in Item.
+		 * @property {<string,GData[]>} unlocks - maps item id to Items potentially
+		 * unlocked by changes in Item.
 		 */
 		this.unlocks = {};
 
 		/**
-		 * @property {.<string,Array>} needs - item id to Items which might 'need' the item.
+		 * @property {.<string,Array>} needs - maps item ids to items which might need
+		 * that item in order to both unlock and run.
 		 */
 		this.needs = {};
+
+		/**
+		 * @property {<string,Array>} users - maps item ids whose usability requirement
+		 * relies in some way on the id'd item.
+		 */
+		this.users = {};
 
 		for( let p in this.items ) {
 			this.mapUnlocks( this.items[p]);
 		}
-
-		/**
-		 * Unlocked items that might unlock other items.
-		 */
-		/*this.fringe = [];
-
-		for( let p in this.items ) {
-
-			var it = this.items[p];
-			if ( it instanceof TagSet) continue;
-
-			if ( !it.locked && this.unlocks[p] ) {
-				this.fringe.push( it );
-			} else {
-
-				// check cyclic unlock. resources unlock themselves with any amount;
-				// these must be added to fringe without being unlocked.
-				let links = this.unlocks[p];
-				if ( links && links.includes(p) ) {
-					this.fringe.push( it );
-				}
-
-			}
-
-		}*/
 
 	}
 
@@ -87,49 +69,15 @@ export default class TechTree {
 	}
 
 	/**
-	 * Item was unlocked. Add to fringe if it potentially unlocks other items.
-	 * @param {GData} it
-	 */
-	unlocked( it ) {
-
-		if ( this.unlocks[it.id] !== undefined ){
-			// if duplicate entry in fringe, should be weeded out naturally anyway.
-			this.fringe.push( it );
-		}
-
-	}
-
-	/**
 	 * Check fringe items for potential unlock events.
 	 */
-	checkFringe(){
-
-		//let arr = this.fringe;
+	checkUnlocks(){
 
 		for( let it of Changed ){
 
 			this.changed(it.id );
 
 		}
-		/*for( let i = arr.length-1; i >= 0; i-- ) {
-
-			var it = arr[i];
-			if ( it.disabled ) {
-
-				quickSplice( arr, i );
-
-			} else if ( Changed.has(it) ) {
-
-				// no potential unlocks left.
-				if ( this.changed( it.id ) === false ) {
-					quickSplice( arr, i);
-				}
-
-
-			}
-
-
-		}*/
 
 	}
 
@@ -187,6 +135,7 @@ export default class TechTree {
 	 * Mark an item's possible requirements.
 	 * @param {GData} item
 	 * @param {string|function|Array} requires
+	 * @param {<string,GData>[]} graph - maps id to dependent items.
 	 */
 	mapRequirement( item, requires, graph ) {
 
@@ -208,6 +157,7 @@ export default class TechTree {
 	 * Mark unlock links from a requirement function.
 	 * @param {GData} targ - item being unlocked.
 	 * @param {function} func - function testing if item can be unlocked.
+	 * @param {<string,GData[]>} graph - maps item id to dependent items.
 	 */
 	mapFuncRequirement( targ, func, graph ) {
 
