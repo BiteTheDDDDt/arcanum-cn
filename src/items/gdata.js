@@ -296,7 +296,7 @@ export default class GData {
 
 		if ( this.fill && g.filled( this.fill, this ) ) return false;
 
-		if ( this.mod && !g.canMod(this.mod)) {
+		if ( this.mod && !g.canMod(this.mod, this )) {
 			return false;
 		}
 
