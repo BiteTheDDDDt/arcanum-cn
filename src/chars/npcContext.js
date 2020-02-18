@@ -20,9 +20,11 @@ const MakeNpcItem = (p,data)=>{
 
 export class NpcContext extends Context {
 
-	constructor( state ){
+	constructor( caster, state ){
 
 		super( state );
+		this.caster = caster;
+		console.log('NEW NPC CONTEXT');
 
 	}
 

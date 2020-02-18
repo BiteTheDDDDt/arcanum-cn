@@ -170,6 +170,8 @@ export default class Combat {
 	 */
 	spellAction( it, g ) {
 
+		console.log('caster: ' + g.caster.id );
+
 		if ( this._enemies.length===0 ) {
 
 			Events.emit(EVT_COMBAT, null, g.caster.name + ' casts ' + it.name + ' at the darkness.' );
