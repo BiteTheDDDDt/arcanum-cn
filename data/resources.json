@@ -352,7 +352,6 @@
 		"id":"space",
 		"name":"floor space",
 		"desc":"Space Available",
-		"modCost":true,
 		"hide":true,
 		"reverse":true,
 		"max":0

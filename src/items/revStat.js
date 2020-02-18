@@ -7,12 +7,6 @@ import Resource from "./resource";
  */
 export default class RevStat extends Resource {
 
-	/**
-	 * @property {boolean} modCost - pay for resource with mods, not values.
-	 */
-	get modCost(){ return this._modCost; }
-	set modCost(v) { this._modCost=v}
-
 	constructor( vars ){
 
 		super(vars);
