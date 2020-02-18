@@ -8,6 +8,7 @@ import { SKILL, REST_TAG, TYP_RUN, PURSUITS, RAID, EXPLORE } from '../values/con
 import { assign } from 'objecty';
 import { iterableMap, iterableFind, setReplace, mapSet } from '../util/dataUtil';
 import ArraySet from '../values/arrayset';
+import { Changed } from '../techTree';
 
 /**
  * Tracks running/perpetual tasks.
@@ -304,6 +305,8 @@ export default class Runner {
 		a.running = false;
 		this.actives.delete(a);
 
+		Changed.add(this);
+
 		if ( tryWaiting ){
 			this.tryResume();
 		}
@@ -592,6 +595,7 @@ export default class Runner {
 	 */
 	runTask(a) {
 
+		Changed.add(this);
 		a.running=true;
 		this.actives.add(a);
 

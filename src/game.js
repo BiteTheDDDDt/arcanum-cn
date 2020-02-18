@@ -309,10 +309,9 @@ export default {
 	 */
 	doResources( stats, dt ) {
 
-		let len = stats.length, stat;
-		for( let i = len-1; i >= 0; i-- ) {
+		for( let i = stats.length-1; i >= 0; i-- ) {
 
-			stat = stats[i];
+			let stat = stats[i];
 			if ( stat.locked === false && !stat.disabled ) {
 
 				if  ( stat.rate.value !== 0 ) {
