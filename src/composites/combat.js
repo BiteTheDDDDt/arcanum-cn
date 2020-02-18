@@ -166,22 +166,23 @@ export default class Combat {
 	/**
 	 * Player-casted spell or action attack.
 	 * @param {Item} it
+	 * @param {Context} g
 	 */
-	spellAction( it ) {
+	spellAction( it, g ) {
 
 		if ( this._enemies.length===0 ) {
 
-			Events.emit(EVT_COMBAT, null, this.player.name + ' casts ' + it.name + ' at the darkness.' );
+			Events.emit(EVT_COMBAT, null, g.caster.name + ' casts ' + it.name + ' at the darkness.' );
 
 		} else {
 
-			let a = this.player.getCause( NO_SPELLS);
+			let a = g.caster.getCause( NO_SPELLS);
 			if ( a ) {
 
 				console.warn('SPELLS blocked: ' + a );
-				Events.emit( STATE_BLOCK, this.player, a );
+				Events.emit( STATE_BLOCK, g.caster, a );
 
-			} else this.attack( this.player, it.attack );
+			} else this.attack( g.caster, it.attack );
 
 		}
 

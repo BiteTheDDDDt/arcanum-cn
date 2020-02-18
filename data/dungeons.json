@@ -17,6 +17,8 @@
 		},
 		"boss":"kakapo",
 		"spawns":[
+			"gardengnome",
+			"gardengnome",
 			["newt","newt","newt"],
 			"lgmouse",
 			"bigstone",

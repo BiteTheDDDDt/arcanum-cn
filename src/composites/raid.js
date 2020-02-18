@@ -145,8 +145,8 @@ export default class Raid {
 	 * Player-casted spell or attack action.
 	 * @param {Item} it
 	 */
-	spellAction( it ) {
-		if ( this.running ) this._combat.spellAction(it);
+	spellAction( it, g ) {
+		if ( this.running ) this._combat.spellAction(it, g);
 	}
 
 	/**

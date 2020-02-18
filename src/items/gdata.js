@@ -380,7 +380,7 @@ export default class GData {
 		if ( this.log ) Events.emit( EVT_EVENT, this.log );
 
 		if ( this.attack || this.action ) {
-			if (this.type !== WEARABLE && this.type !== WEAPON ) Events.emit( CHAR_ACTION, this );
+			if (this.type !== WEARABLE && this.type !== WEAPON ) Events.emit( CHAR_ACTION, this, g );
 		}
 
 		Changed.add(this);

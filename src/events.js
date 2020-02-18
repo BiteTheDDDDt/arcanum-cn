@@ -110,7 +110,7 @@ const TASK_BLOCKED = 'task_blocked';
 /**
  * Item with attack used. Typically spell; could be something else.
  */
-const CHAR_ACTION = 'item_atk';
+const CHAR_ACTION = 'char_act';
 
 /**
  * Completely delete item data. Use for Custom items only.

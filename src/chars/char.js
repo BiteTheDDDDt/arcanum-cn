@@ -8,16 +8,12 @@ import { NPC, getDelay, TYP_PCT } from '../values/consts';
 import { toStats } from "../util/dataUtil";
 import events, { CHAR_STATE } from '../events';
 import States, { NO_ATTACK } from './states';
-import {assign} from 'objecty';
 
 import Game from '../game';
 import { ApplyAction } from '../values/combat';
 import { assignNoFunc } from '../util/util';
 
 export default class Char {
-
-	/*get states() { return this._states; }
-	set states(v) { this._states = v; }*/
 
 	get defense() { return this._defense; }
 	set defense(v) {

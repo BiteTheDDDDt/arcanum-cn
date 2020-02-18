@@ -9,12 +9,11 @@ import Stat from './values/stat';
 
 import DataLoader from './dataLoader';
 
-import Events, {EVT_UNLOCK, EVT_EVENT, EVT_LOOT, SET_SLOT, DELETE_ITEM, CHAR_ACTION } from './events';
-import { MONSTER, TYP_PCT, TYP_RANGE, P_TITLE, P_LOG, TEAM_PLAYER, ENCHANTSLOTS, WEAPON, HOME } from './values/consts';
+import Events, {EVT_EVENT, EVT_LOOT, SET_SLOT, DELETE_ITEM, CHAR_ACTION } from './events';
+import { MONSTER, TYP_PCT, TYP_RANGE, P_TITLE, P_LOG, TEAM_PLAYER, ENCHANTSLOTS, WEAPON } from './values/consts';
 import TagSet from './composites/tagset';
-import { TARGET_SELF, TARGET_ALLY, ApplyAction } from './values/combat';
+import { TARGET_SELF, TARGET_ALLY } from './values/combat';
 import RValue from './values/rvalue';
-import StatData from './items/statData';
 
 var techTree;
 
@@ -71,6 +70,12 @@ export default {
 	get player(){return this.state.player},
 
 	/**
+	* @property {Char} caster - caster/user of any spell/action.
+	*/
+	get caster(){return this.state.player;},
+
+
+	/**
 	 *
 	 * @param {object} obj
 	 * @param {(number)=>boolean} obj.tick -tick function.
@@ -121,7 +126,7 @@ export default {
 
 			techTree = new TechTree( this.gdata );
 			//Events.add( EVT_UNLOCK, techTree.unlocked, techTree );
-			Events.add( CHAR_ACTION, this.onCharAction, this );
+			//Events.add( CHAR_ACTION, this.onCharAction, this );
 
 			// initial fringe check.
 			techTree.forceCheck();
@@ -946,7 +951,7 @@ export default {
 	 * @param {Attack} act
 	 * @param {Char} char
 	 */
-	onCharAction( act, char=this.player ) {
+	/*onCharAction( act, char=this.player ) {
 
 		if ( this.state.explore.running || this.state.raid.running ) return;
 
@@ -961,7 +966,7 @@ export default {
 
 		}
 
-	},
+	},*/
 
 	/**
 	 * Attempts to pay the cost to perform an task, buy an upgrade, etc.
