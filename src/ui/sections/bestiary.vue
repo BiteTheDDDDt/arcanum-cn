@@ -116,7 +116,7 @@ export default {
 			<td class="num-align">{{ Math.floor( b.level ) }}</td>
 			<td class="num-align">{{ Math.floor( b.value ) }}</td>
 			<td class="num-align">{{ showHp(b) ? toNum(b.hp) : '???' }}</td>
-			<td><button @click="tryUse(b)" :disabled="b.unique||!b.canUse()||minions.freeSpace()==0||b.value<10">Buy</button></td>
+			<td><button @click="tryUse(b)" :disabled="b.unique||!b.usable||minions.freeSpace()==0||b.value<10">Buy</button></td>
 		</tr>
 	</table>
 	</div>

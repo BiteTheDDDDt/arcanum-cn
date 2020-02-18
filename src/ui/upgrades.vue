@@ -24,7 +24,7 @@ export default {
 		:data-key="it.id" :key="it.id" @mouseenter.capture.stop="emit( 'itemover', $event,it)">
 
 	<button
-		class="wrapped-btn" :disabled="!it.canUse()"
+		class="wrapped-btn" :disabled="!it.usable"
 		@click="emit( 'upgrade', it)">{{ it.name }}</button>
 	</span>
 

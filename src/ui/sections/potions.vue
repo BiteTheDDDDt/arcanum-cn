@@ -43,7 +43,7 @@ export default {
 			<span>{{ it.name }}</span>
 
 			<button v-if="it.buy&&!it.owned" :disabled="!it.canBuy()" @click="emit(BUY, it)">Unlock</button>
-			<button v-else :disabled="!it.canUse()"
+			<button v-else :disabled="!it.usable"
 				@click="emit( 'craft', it )">Brew</button>
 
 		</div>

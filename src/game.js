@@ -123,7 +123,7 @@ export default {
 			//Events.add( EVT_UNLOCK, techTree.unlocked, techTree );
 			Events.add( CHAR_ACTION, this.onCharAction, this );
 
-			// initial fringe check.
+			// initial unlocks/usables check.
 			techTree.forceCheck();
 
 			//Events.add( DROP_ITEM, this.state.deleteInstance, this.state );
@@ -297,7 +297,7 @@ export default {
 		this.doResources( this.state.stressors, dt );
 
 		//console.log('CHANGE SIZE: ' + Changed.size );
-		techTree.checkUnlocks();
+		techTree.updateTech();
 
 		Changed.clear();
 
@@ -647,8 +647,8 @@ export default {
 
 		let it = typeof id === 'string' ? this.getData(id) : id;
 		if ( !it ) return;
-		if ( typeof it.fill === 'function'){
-			it.fill();
+		if ( typeof it.doFill === 'function'){
+			it.doFill();
 		} else {
 
 			if ( !it.max ) {
@@ -758,7 +758,7 @@ export default {
 	 */
 	unlockTest( test, item=null ) {
 
-		if ( !test ) {
+		if ( test === null || test === undefined ) {
 			console.warn('test not found: ' + test + ' : ' + item );
 			return true;
 		}

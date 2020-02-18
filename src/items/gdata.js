@@ -17,8 +17,8 @@ import { Changed } from '../techTree';
 /**
  * @const {Set} NoDefine - properties not to set to default values.
  */
-const NoDefine = new Set( ['require', 'rate', 'current', 'need', 'value', 'buy', 'max',
-	'cost', 'id', 'name', 'warn', 'effect', 'slot', 'exp' ] )
+const NoDefine = new Set( ['require', 'rate', 'current', 'need', 'value', 'buy',
+	'cost', 'id', 'name', 'warn', 'effect', 'slot', 'exp', 'usable' ] )
 
 /**
  * Game Data base class.
@@ -437,7 +437,7 @@ export default class GData {
 	 * @param {number} rate
 	 */
 	filled( rate=0 ) {
-		return (this.max && this.value >= this.max.value) ||
+		return (this._max && this.value >= this._max.value) ||
 		(this.rate && (this.rate + rate.valueOf() ) <= 0); }
 
 	/**
@@ -445,7 +445,7 @@ export default class GData {
 	*/
 	maxed() {
 
-		if ( this.max ) return this.value >= Math.floor( this.max.value);
+		if ( this._max ) return this.value >= Math.floor( this._max.value);
 
 		return !(this.repeat||this.owned) && this.value > 0;
 

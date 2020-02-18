@@ -48,7 +48,7 @@ export default {
 		},
 
 		canUseOn( it, targ ) {
-			return targ&&it.canUseOn(targ)&& this.enchantSlots.canAdd(it)&&it.canUse();
+			return targ&&it.canUseOn(targ)&& this.enchantSlots.canAdd(it)&&it.usable;
 		}
 
 	},

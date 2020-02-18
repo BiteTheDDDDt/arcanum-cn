@@ -70,7 +70,7 @@ if ( !__CHEATS ) {
 			} else if ( targ ) {
 				if (e.shiftKey) this.state.addMax( targ );
 				else {
-					this.debug.fill(targ);
+					this.debug.doFill(targ);
 				}
 				e.stopPropagation();
 			}
