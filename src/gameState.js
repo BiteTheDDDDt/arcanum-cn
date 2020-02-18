@@ -20,6 +20,14 @@ import EnchantSlots from './inventories/enchantslots';
 
 export const REST_SLOT = 'rest';
 
+/**
+ * Used to avoid circular include references.
+ * @param {string[]|object} list
+ */
+export const MakeDataList = (list)=>{
+	return new DataList(list);
+}
+
 export default class GameState {
 
 	toJSON(){
@@ -119,9 +127,9 @@ export default class GameState {
 		this.items.pursuits = new DataList( this.items.pursuits );
 		this.items.pursuits.id = PURSUITS;
 
-		this.revive();
+		this.reviveSpecial();
 
-		this.readyItems();
+		this.reviveItems();
 
 		// quickbars must revive after inventory.
 		this.bars.revive(this);
@@ -189,7 +197,7 @@ export default class GameState {
 
 	}
 
-	revive() {
+	reviveSpecial() {
 
 		for( let p in this.slots ) {
 			if ( typeof this.slots[p] === 'string') this.slots[p] = this.getData(this.slots[p] );
@@ -214,7 +222,7 @@ export default class GameState {
 	 * Check items for game-breaking inconsistencies and remove or fix
 	 * bad item entries.
 	 */
-	readyItems() {
+	reviveItems() {
 
 		let count = 0;
 		for( let p in this.items ) {
@@ -453,14 +461,6 @@ export default class GameState {
 
 		return true;
 
-	}
-
-	/**
-	 * Apparently? used to avoid circular module references.
-	 * @param {*} list
-	 */
-	makeDataList(list) {
-		return new DataList(list);
 	}
 
 	/**

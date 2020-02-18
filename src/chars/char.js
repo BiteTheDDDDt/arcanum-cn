@@ -43,14 +43,6 @@ export default class Char {
 		else this._speed.set(v);
 	}
 
-	/**
-	 * @property {string[]} spells - list of spells char can cast.
-	 */
-	get spells(){ return this._spells; }
-	set spells(v) {
-		if ( typeof v === 'string') this._spells = v.split(',');
-		else this._spells=v;
-	}
 
 	/**
 	 * @property {.<string,Stat>} immunities
@@ -204,7 +196,6 @@ export default class Char {
 	revive( gs ){
 
 		if ( this.spells ) {
-			this.spells = gs.makeDataList(this.spells );
 			this.spells.revive(gs);
 		}
 

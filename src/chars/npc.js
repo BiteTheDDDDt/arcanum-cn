@@ -10,6 +10,7 @@ import { mergeClass } from '../items/base';
 import Instance from '../items/instance';
 import { NpcContext } from './npcContext';
 import Game from '../game';
+import { MakeDataList } from '../gameState';
 
 /**
  * Class for specific Enemies/Minions in game.
@@ -115,6 +116,14 @@ export default class Npc extends Char {
 	get active() { return this._active; }
 	set active(v) { this._active = v; }
 
+	/**
+	 * @property {DataList} spells - list of spells char can cast.
+	 */
+	get spells(){ return this._spells; }
+	set spells(v) {
+		this._spells = MakeDataList(v);
+	}
+
 	constructor(vars, save=null ) {
 
 		super( vars );
@@ -124,6 +133,10 @@ export default class Npc extends Char {
 		this.dodge = this.dodge || this.level/2;
 
 		this.active = this.active === undefined || this.active === null ? false : this.active;
+
+		if ( this._spells ) {
+			this._context = new NpcContext( this, Game.state );
+		} else this._context = Game;
 
 		if ( typeof this.hp === 'string' ) this.hp = new Range(this.hp).value;
 		else if ( this.hp instanceof Range ) {
@@ -144,9 +157,7 @@ export default class Npc extends Char {
 
 	revive(gs) {
 
-		if ( this._spells ) {
-			this._context = new NpcContext( this, gs );
-		} else this._context = Game;
+		if ( this.spells ) this.context.state = gs;
 
 		if ( typeof this.template === 'string') this.template = gs.getData(this.template);
 		if ( this.template ) {
