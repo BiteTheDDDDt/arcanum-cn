@@ -216,7 +216,7 @@ export default class TechTree {
 
 		if ( type === 'string') {
 
-			this.mapStrRequire( item, requires, graph );
+			this.mapIdRequire( item, requires, graph );
 
 		} else if ( type === 'function' ) {
 
@@ -248,10 +248,10 @@ export default class TechTree {
 
 			let unlocker = results[1].split('.')[0];
 			if ( unlocker === 'mod' || unlocker === 'slot' ) continue;
-			this.mapStrRequire( targ, unlocker, graph );
+			this.mapIdRequire( targ, unlocker, graph );
 
 		}
-		if ( text.includes('this') || text.includes('s.') ) this.mapStrRequire( targ, targ.id, graph );
+		if ( text.includes('this') || text.includes('s.') ) this.mapIdRequire( targ, targ.id, graph );
 
 	}
 
@@ -264,7 +264,7 @@ export default class TechTree {
 	mapObjRequire( targ, vars, graph ) {
 
 		for( let p in vars ) {
-			this.mapStrRequire( targ, p, graph );
+			this.mapIdRequire( targ, p, graph );
 		}
 
 	}
@@ -275,7 +275,7 @@ export default class TechTree {
 	 * @param {string} unlocker
 	 * @param {<string,GData[]>} graph - the tech tree being mapped, needs or unlocks.
 	 */
-	mapStrRequire( targ, unlocker, graph ) {
+	mapIdRequire( targ, unlocker, graph ) {
 
 		if ( !unlocker) return;
 		let it = this.datas[unlocker];
@@ -284,7 +284,7 @@ export default class TechTree {
 		else if ( it instanceof TagSet ) {
 			return it.forEach( v=>{
 				//console.log( it.id + ': ' +v.id + ' unlock: ' + targ.id );
-				this.mapStrRequire(v.id, targ, graph)}
+				this.mapIdRequire(v.id, targ, graph)}
 			);
 		}
 
