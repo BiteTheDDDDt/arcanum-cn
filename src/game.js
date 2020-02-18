@@ -647,8 +647,8 @@ export default {
 
 		let it = typeof id === 'string' ? this.getData(id) : id;
 		if ( !it ) return;
-		if ( typeof it.fill === 'function'){
-			it.fill();
+		if ( typeof it.doFill === 'function'){
+			it.doFill();
 		} else {
 
 			if ( !it.max ) {
