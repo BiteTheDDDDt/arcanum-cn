@@ -135,7 +135,10 @@ export default class Npc extends Char {
 		this.active = this.active === undefined || this.active === null ? false : this.active;
 
 		if ( this._spells ) {
+
 			this._context = new NpcContext( this, Game.state );
+			if ( Game.loaded ) this.spells.revive( Game.state );
+
 		} else this._context = Game;
 
 		if ( typeof this.hp === 'string' ) this.hp = new Range(this.hp).value;

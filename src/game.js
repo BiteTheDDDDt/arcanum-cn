@@ -86,9 +86,12 @@ export default {
 	 * Clear game data.
 	 */
 	reset() {
+
 		this.loaded = false;
 		this.state = null;
 		this._gdata = null;
+		this.log.clear();
+
 	},
 
 	/**
@@ -100,8 +103,6 @@ export default {
 	load( saveData=null, hallData=null ) {
 
 		this.reset();
-
-		this.log.clear();
 
 		// Code events. Not game events.
 		Events.init(this);
