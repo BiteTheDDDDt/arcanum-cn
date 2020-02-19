@@ -14,13 +14,12 @@ export default class Context {
 	/**
 	 * @property {Char} caster - caster/user of any spell/action.
 	 */
-	get caster(){return this._caster;}
-	set caster(v){this._caster = v}
+	get caster(){return this._state.caster;}
+	set caster(v){this._state.caster = v}
 
-	constructor( caster, stateObj ) {
+	constructor( stateObj, caster ) {
 
-		this.caster = caster;
-		this.state = new NpcState( stateObj );
+		this.state = new NpcState( stateObj, caster );
 
 	}
 

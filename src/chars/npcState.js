@@ -33,13 +33,16 @@ const MakeNpcItem = (p,data)=>{
  */
 export class NpcState {
 
-	constructor(gs){
+	constructor( gs, caster){
 
+		this.caster = caster;
 		this.state = gs;
 
 	}
 
 	get raid(){return this.state.raid;}
+
+	//get player(){return this.caster; }
 
 	nextId(id){
 		return this.state.nextId(id);

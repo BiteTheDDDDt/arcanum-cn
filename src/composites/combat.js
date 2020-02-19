@@ -170,7 +170,7 @@ export default class Combat {
 	 */
 	spellAction( it, g ) {
 
-		console.log('caster: ' + g.caster.id );
+		console.log( g.caster.id + ' casts ' + it.id);
 
 		if ( this._enemies.length===0 ) {
 

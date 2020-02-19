@@ -1,6 +1,6 @@
 <script>
 import Range from '../../values/range';
-import Dot from './dot-block.vue';
+import Dot from './dot-info.vue';
 
 export default {
 

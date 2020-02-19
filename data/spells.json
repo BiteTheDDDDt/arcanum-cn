@@ -1088,7 +1088,7 @@
 		"dot":{
 			"duration":30,
 			"mod":{
-				"player.resist.poison":20
+				"caster.resist.poison":20
 			}
 		}
 	},
@@ -1345,7 +1345,7 @@
 		"dot": {
 			"duration": 10,
 			"mod": {
-				"player.defense": 200
+				"caster.defense": 200
 			}
 		}
 	},
@@ -1468,8 +1468,8 @@
 
 			"duration":20,
 			"mod":{
-				"player.resist.holy":10,
-				"player.resist.light":10
+				"caster.resist.holy":10,
+				"caster.resist.light":10
 			}
 
 		}
@@ -1495,8 +1495,8 @@
 
 			"duration":20,
 			"mod":{
-				"player.resist.shadow":10,
-				"player.resist.undead":10
+				"caster.resist.shadow":10,
+				"caster.resist.undead":10
 			}
 
 		}
@@ -1522,7 +1522,7 @@
 
 			"duration":20,
 			"mod":{
-				"player.resist.fire":10
+				"caster.resist.fire":10
 			}
 
 		}
@@ -1548,8 +1548,8 @@
 
 			"duration":20,
 			"mod":{
-				"player.resist.water":10,
-				"player.resist.cold":10
+				"caster.resist.water":10,
+				"caster.resist.cold":10
 			}
 
 		}
@@ -1575,8 +1575,8 @@
 
 			"duration":20,
 			"mod":{
-				"player.resist.nature":10,
-				"player.resist.poison":10
+				"caster.resist.nature":10,
+				"caster.resist.poison":10
 			}
 
 		}
@@ -2013,7 +2013,7 @@
 		"dot":{
 			"duration":30,
 			"mod":{
-				"player.defense":2
+				"caster.defense":2
 			}
 		}
 
@@ -2036,7 +2036,7 @@
 		"dot":{
 			"duration":45,
 			"mod":{
-				"player.tohit":3
+				"caster.tohit":3
 			}
 		}
 
@@ -2059,7 +2059,7 @@
 		"dot":{
 			"duration":45,
 			"mod":{
-				"player.tohit":7
+				"caster.tohit":7
 			}
 		}
 
@@ -2083,7 +2083,7 @@
 		"dot":{
 			"duration":45,
 			"mod":{
-				"player.tohit":15
+				"caster.tohit":15
 			}
 		}
 
@@ -2371,7 +2371,7 @@
 		"dot":{
 			"duration":50,
 			"mod":{
-				"player.defense":5
+				"caster.defense":5
 			}
 		}
 
@@ -2399,8 +2399,8 @@
 				"hp.max":50,
 				"hp":50,
 				"hp.rate":-2,
-				"player.tohit":10,
-				"player.damage":10
+				"caster.tohit":10,
+				"caster.damage":10
 			}
 		},"flavor":"don't lose your way"
 	},
@@ -2468,7 +2468,7 @@
 		"dot":{
 			"duration":60,
 			"mod":{
-				"player.defense":10
+				"caster.defense":10
 			}
 		}
 
@@ -2493,7 +2493,7 @@
 		"dot":{
 			"duration":120,
 			"mod":{
-				"player.defense":25
+				"caster.defense":25
 			}
 		}
 
@@ -2564,7 +2564,7 @@
 		"dot":{
 			"duration":180,
 			"mod":{
-				"player.defense":50
+				"caster.defense":50
 			}
 		}
 
@@ -2665,7 +2665,7 @@
 
 			"duration":20,
 			"mod":{
-				"player.immunities.fire":1
+				"caster.immunities.fire":1
 			}
 
 		}
@@ -2689,7 +2689,7 @@
 		"dot":{
 			"duration":60,
 			"mod":{
-				"player.tohit":5,
+				"caster.tohit":5,
 				"hp.max":50,
 				"defense":10,
 				"speed":2
@@ -2807,7 +2807,7 @@
 			"targets":"allies",
 			"duration":30,
 			"mod":{
-				"player.resist.water":50
+				"caster.resist.water":50
 			}
 
 		}
@@ -2890,7 +2890,7 @@
 			"targets":"allies",
 			"duration":30,
 			"mod":{
-				"player.resist.water":75
+				"caster.resist.water":75
 			}
 
 		},"flavor":"force without form"
@@ -2925,7 +2925,7 @@
 			"targets":"allies",
 			"duration":30,
 			"mod":{
-				"player.resist.fire":80
+				"caster.resist.fire":80
 			}
 
 		},"flavor":""
@@ -2952,7 +2952,7 @@
 
 			"duration":100,
 			"mod":{
-				"player.immunities.fire":1
+				"caster.immunities.fire":1
 			}
 
 		}
