@@ -2941,7 +2941,7 @@
 			"targets":"allies",
 			"duration":30,
 			"mod":{
-				"caster.resist.fire":80
+				"resist.fire":80
 			}
 
 		},"flavor":""

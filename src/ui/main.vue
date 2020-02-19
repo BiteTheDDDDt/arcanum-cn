@@ -10,7 +10,7 @@ import DotView from './items/dotView.vue';
 import TopBar from './top-bar.vue';
 
 import Warn from 'ui/popups/warn.vue';
-import ItemPopup, { ItemOut } from './popups/itemPopup.vue';
+import ItemPopup, { RollOver, ItemOut } from './popups/itemPopup.vue';
 import SettingsUI from './popups/settings.vue';
 
 import LogView from './outlog.vue';
@@ -217,7 +217,7 @@ export default {
 				let num = Number( e.code.slice(-1) );
 				//console.log('number: ' + num );
 
-				if ( e.shiftKey && this.overItem ) this.state.setQuickSlot( this.overItem, num );
+				if ( e.shiftKey && RollOver.item ) this.state.setQuickSlot( RollOver.item, num );
 				else {
 					let it = this.state.getQuickSlot(num);
 					if ( it) this.doQuickslot(it);

@@ -1599,7 +1599,8 @@
         "kind":"magicbeast",
         "hp":34,
         "tohit":5,
-        "defense":23,
+		"defense":23,
+		"spells":"firebolt",
         "attack":{
             "name":"flame claws",
             "kind":"fire",
