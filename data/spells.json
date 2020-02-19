@@ -1145,6 +1145,22 @@
 		"result":"hobgoblin"
 	},
 	{
+		"id":"mk_spider",
+		"name":"summon spider",
+		"desc":"Summon a spider to fight for you",
+		"school":"nature",
+		"level":5,
+		"buy":{
+			"research":100,
+			"scrolls":20
+		},
+		"cost":{
+			"nature":4
+		},
+		"result":"lgspider"
+
+	},
+	{
 		"id":"mk_raven",
 		"name":"summon raven",
 		"desc":"In combat, summon a raven to fight for you",
@@ -2986,7 +3002,7 @@
 	{
 		"id":"angelofdeath",
 		"name":"angel of death",
-		"desc":"a black spirit arises, to reap souls for your work.",
+		"desc":"a black spirit arises, reaping souls for your work.",
 		"school":"shadow",
 		"require":["evil",{
 			"shadow.max":15

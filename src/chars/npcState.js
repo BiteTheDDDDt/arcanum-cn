@@ -11,10 +11,10 @@ const MakeNpcItem = (p,data)=>{
 	let t;
 
 	if ( data.constructor ) {
-		console.log('using constr: ' + data.constructor.name );
+		//console.log('using constr: ' + data.constructor.name );
 		t = new data.constructor( cloneClass( data.template || data ) );
 	} else {
-		console.log('no constructor: ' + p );
+		//console.log('no constructor: ' + p );
 		t = cloneClass( data.template || data );
 	}
 
