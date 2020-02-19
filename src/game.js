@@ -832,7 +832,7 @@ export default {
 
 				if ( target === undefined || target === null ) {
 
-					if ( p === P_TITLE ) this.state.player.addTitle( e );
+					if ( p === P_TITLE ) this.caster.addTitle( e );
 					else if ( p === P_LOG ) Events.emit( EVT_EVENT, e );
 					else console.warn( p + ' no effect target: ' + e );
 

@@ -4,7 +4,7 @@
         "id":"newt",
         "level":0.2,
 		"kind":"beast",
-		"spells":"magicmissile",
+		"spells":"firebolt",
         "flavor":"Wriggly.",
         "hp":"1~2",
         "defense":1,
@@ -99,6 +99,7 @@
 		"defense":1,
 		"tohit":2,
 		"speed":2,
+		"spells":"mk_zombie",
         "attack":{
             "name":"spear",
             "kind":"slash",
@@ -135,7 +136,7 @@
 		"id":"lgmouse",
 		"name":"Large Mouse",
 		"kind":"beast",
-		"spells":"magicmissile",
+		"spells":"mk_zombie",
 		"level":1,
 		"hp":4,
 		"tohit":2,
@@ -172,14 +173,14 @@
 	{
 		"id":"bigstone",
 		"name":"Big Stone",
-		"spells":"magicmissile",
+		"spells":"magicmissile,mk_zombie,heal",
 		"kind":"natural",
 		"level":0,
 		"hp":5,
 		"tohit":0,
 		"defense":2,
 		"damage":0,
-		"speed":-20,
+		"speed":20,
 		"loot":{
 			"%":80,
 			"max":1

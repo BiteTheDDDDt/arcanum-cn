@@ -1,5 +1,6 @@
 import SpawnGroup from "./spawngroup";
 import Game from "../game";
+import { CreateNpc } from "../items/monster";
 
 
 /**
@@ -12,7 +13,7 @@ export const MakeNpc = ( e, pct=1 ) => {
 	if ( typeof e === 'string' ) {
 
 		e = Game.getData(e);
-		if ( e ) return Game.itemGen.npc(e);
+		if ( e ) return CreateNpc(e, Game);
 
 	}
 	if ( !e ) return null;

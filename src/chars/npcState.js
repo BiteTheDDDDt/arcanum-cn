@@ -10,8 +10,13 @@ const MakeNpcItem = (p,data)=>{
 
 	let t;
 
-	if ( typeof data.template !== 'object' || !data.constructor ) t = cloneClass( data );
-	else t = new data.constructor( cloneClass( data.template) );
+	if ( data.constructor ) {
+		console.log('using constr: ' + data.constructor.name );
+		t = new data.constructor( cloneClass( data.template || data ) );
+	} else {
+		console.log('no constructor: ' + p );
+		t = cloneClass(data);
+	}
 
 	if ( t === null || t === undefined ) {
 		console.log('NPC: Cant create: ' + p );
@@ -32,6 +37,12 @@ export class NpcState {
 
 		this.state = gs;
 
+	}
+
+	get raid(){return this.state.raid;}
+
+	nextId(id){
+		return this.state.nextId(id);
 	}
 
 	getSlot(id, type) {
@@ -63,17 +74,20 @@ export class NpcState {
 	getData( p ){
 
 		// appears to be check for special variables defined on state directly;
-		// e.g. raid, explore. too many issues with this...
-		//let it = this.state[p];
-		//if ( it !== undefined ) return it;
+		// e.g. raid, explore. @todo many issues with this.
+		let it = this.state[p];
+		if ( it !== undefined ) return it;
 
-		let it = NpcItems.get(p);
+		it = NpcItems.get(p);
 		if ( it !== undefined ) return it;
 
 		it = this.state.getData(p);
 		if ( it ) {
+
+			if ( it.isRecipe ) return it;
 			console.log('NEW NPC ITEM: ' + p + ': ' + it );
 			return MakeNpcItem( p, it );
+
 		} else console.log('item not found: ' + p );
 
 		return null;

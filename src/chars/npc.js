@@ -137,7 +137,6 @@ export default class Npc extends Char {
 		if ( this._spells ) {
 
 			this._context = new Context( this, Game.state );
-			console.log('Reviving Npc Spells');
 			this.spells.revive( this._context.state );
 
 		} else this._context = Game;

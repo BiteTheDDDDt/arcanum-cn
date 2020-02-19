@@ -3,11 +3,11 @@ import Wearable from "../chars/wearable";
 import { includesAny} from 'objecty';
 import Percent from '../values/percent';
 import Item from '../items/item';
-import Encounter from '../items/encounter';
 import GenGroup from '../genGroup';
 import { pushNonNull } from '../util/array';
 import GData from '../items/gdata';
 import { WEARABLE, MONSTER, ARMOR, WEAPON, TYP_PCT, EVENT, ITEM, POTION, TYP_RANGE, NPC, TASK } from '../values/consts';
+import { CreateNpc } from '../items/monster';
 
 /**
  * Revive an instanced item based on save data.
@@ -84,16 +84,6 @@ export default class ItemGen {
 
 	}
 
-	npc( proto ) {
-
-		let it = new Npc( proto );
-		it.value = 1;
-		it.name = proto.name;
-		it.id = this.state.nextId( proto.id );
-		return it;
-
-	}
-
 	/**
 	 * Generate an enemy from rand definition.
 	 * @param {object} data
@@ -124,7 +114,7 @@ export default class ItemGen {
 		level = Math.ceil(level);
 
 		let npc = this.groups.monster.randAt( level );
-		return npc ? this.npc(npc) : null;
+		return npc ? CreateNpc(this, this.game ) : null;
 
 	}
 
@@ -161,7 +151,9 @@ export default class ItemGen {
 
 			it = new Item( proto );
 
-		} else if ( proto.type === MONSTER || proto.type === NPC ) return this.npc(proto);
+		} else if ( proto.type === MONSTER || proto.type === NPC ) {
+			return CreateNpc(proto, this.game);
+		}
 
 		if ( it === undefined ) return null;
 

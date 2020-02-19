@@ -61,6 +61,10 @@ export default class Minions extends Inventory {
 
 	}
 
+	/**
+	 * @todo - improve this w/ NpcState/Context.
+	 * @param {GData} it
+	 */
 	shouldKeep(it) {
 
 		if ( this.keep.has(it.id)||this.keep.has(it.kind) ) return true;
