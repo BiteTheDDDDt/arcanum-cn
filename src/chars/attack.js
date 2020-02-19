@@ -161,8 +161,8 @@ export default class Attack {
 		}
 
 		if ( this._harmless === null || this._harmless === undefined ) {
-			this.harmless = this.targets === TARGET_SELF ||
-				this.targets === TARGET_ALLY || this.targets === TARGET_ALLIES;
+			this.harmless = (this.targets === TARGET_SELF) ||
+				(this.targets === TARGET_ALLY) || (this.targets === TARGET_ALLIES);
 		}
 
 		//this.damage = this.damage || 0;
