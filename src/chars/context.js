@@ -77,6 +77,7 @@ export default class Context {
 	}
 
 	removeMod( mod, amt ){
+		this.applyMods(mod,-amt);
 	}
 
 	remove(id, amt) {
@@ -158,7 +159,37 @@ export default class Context {
 		return true;
 	}
 
-	applyMods( it, amt=1) {
+	applyMods( mod, amt=1) {
+
+		if ( !mod ) return;
+
+		if ( Array.isArray(mod)  ) {
+			for( let m of mod ) this.applyMods(m, amt);
+		} else if ( typeof mod === 'object' ) {
+
+			for( let p in mod ) {
+
+				var target = this.getData( p );
+				if ( target === undefined ) continue;
+				if ( target.applyMods) {
+
+						target.applyMods( mod[p], amt );
+
+				} else console.warn( 'no applyMods(): ' + target );
+			}
+
+		} else if ( typeof mod === 'string') {
+
+			let t = this.getData(mod);
+			if ( t ) {
+
+				console.warn('!!!!!!!!!!ADDED NUMBER MOD: ' + mod );
+				t.amount( this, 1 );
+
+			}
+
+		}
+
 	}
 
 	applyVars( vars, dt ) {

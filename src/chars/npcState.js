@@ -35,8 +35,10 @@ export class NpcState {
 
 	constructor( gs, caster){
 
-		this.caster = caster;
 		this.state = gs;
+		this.caster = caster;
+
+
 
 	}
 
@@ -78,11 +80,12 @@ export class NpcState {
 
 		// appears to be check for special variables defined on state directly;
 		// e.g. raid, explore. @todo many issues with this.
-		let it = this.state[p];
+
+		let it = NpcItems.get(p);
 		if ( it !== undefined ) return it;
 
-		it = NpcItems.get(p);
-		if ( it !== undefined ) return it;
+		if ( p === 'caster' ) return this.caster;
+		if ( p === 'player' ) return this.state.player;
 
 		it = this.state.getData(p);
 		if ( it ) {

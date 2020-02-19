@@ -1,7 +1,7 @@
 <script>
 import ProgBar from '../components/progbar.vue';
 import ItemBase from '../itemsBase';
-import DotView from '../dotView.vue';
+import DotView from './dotView.vue';
 
 export default {
 

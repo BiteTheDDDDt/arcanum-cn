@@ -6,7 +6,7 @@ import Tasks from './sections/tasks.vue';
 import Quickbar from './quickbar.vue';
 import ItemsBase from './itemsBase';
 import Vitals from 'ui/vitals.vue';
-import DotView from './dotView.vue';
+import DotView from './items/dotView.vue';
 import ItemPopup from './popups/itemPopup.vue';
 import TopBar from './top-bar.vue';
 

@@ -5,7 +5,7 @@ import ItemsBase from '../itemsBase';
 
 import InfoBlock from './info-block.vue';
 /**
- * This is the popup rollOver dot item, as opposed to the Dot view in window.
+ * This is the dot InfoBlock in an info-popup, not the dotView in window.
  */
 export default {
 

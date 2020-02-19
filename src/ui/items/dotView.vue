@@ -1,5 +1,5 @@
 <script>
-import { abbr } from '../util/format.js';
+import { abbr } from 'util/format.js';
 import ItemBase from 'ui/itemsBase';
 
 /**
