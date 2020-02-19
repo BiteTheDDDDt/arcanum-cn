@@ -112,6 +112,8 @@ export default {
 		return this.loader = DataLoader.loadGame( saveData ).then( allData=>{
 
 			this.state = new GameState( allData, saveData );
+			this.state.revive();
+
 			this.itemGen = new ItemGen( this );
 
 			this._gdata = this.state.items;

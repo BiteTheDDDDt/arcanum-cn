@@ -1,3 +1,5 @@
+import { NpcState } from "./npcState";
+
 /**
  * @interface Context
  * Alternate context for a data item (NPC spellcaster, etc.)
@@ -13,9 +15,10 @@ export default class Context {
 	get caster(){return this._caster;}
 	set caster(v){this._caster = v}
 
-	constructor( stateObj ) {
+	constructor( caster, stateObj ) {
 
-		this.state = stateObj;
+		this.caster = caster;
+		this.state = new NpcState( stateObj );
 
 	}
 

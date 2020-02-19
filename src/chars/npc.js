@@ -8,9 +8,9 @@ import { assign } from 'objecty';
 import { TEAM_NPC } from 'values/consts';
 import { mergeClass } from '../items/base';
 import Instance from '../items/instance';
-import { NpcContext } from './npcContext';
 import Game from '../game';
 import { MakeDataList } from '../gameState';
+import Context from './context';
 
 /**
  * Class for specific Enemies/Minions in game.
@@ -136,8 +136,9 @@ export default class Npc extends Char {
 
 		if ( this._spells ) {
 
-			this._context = new NpcContext( this, Game.state );
-			if ( Game.loaded ) this.spells.revive( Game.state );
+			this._context = new Context( this, Game.state );
+			console.log('Reviving Npc Spells');
+			this.spells.revive( this._context.state );
 
 		} else this._context = Game;
 

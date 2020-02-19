@@ -397,7 +397,7 @@ export default class Player extends Char {
 			if ( a ) return a;
 
 			// attempt to use spell first.
-			if ( this.spells.count > 0 && this.tryCast() ) {
+			if ( this.tryCast() ) {
 
 				// don't mix fists and spells.
 				if ( !this.weapons.includes(Fists) ){

@@ -127,8 +127,13 @@ export default class GameState {
 		this.items.pursuits = new DataList( this.items.pursuits );
 		this.items.pursuits.id = PURSUITS;
 
+	}
+
+	revive() {
+
 		this.reviveSpecial();
 
+		console.log('Reviving GameState Items');
 		this.reviveItems();
 
 		// quickbars must revive after inventory.
@@ -149,6 +154,7 @@ export default class GameState {
 		 * makes upgrading/referencing by tag easier.
 		*/
 		this.tagSets = this.makeTagSets( this.items );
+
 		this.saveItems.allies = undefined;
 
 	}
@@ -472,27 +478,6 @@ export default class GameState {
 		delete this.items[it.id];
 		delete this.saveItems[it.id];
 	}
-
-	/**
-	 * Assign all items passing the predicate test the given tag.
-	 * Dyanamic tagging not supported.
-	 * @param {Predicate} test
-	 * @param {string} tag
-	 */
-	/*tagItems( test, tag ) {
-		let items = this.items;
-		for( let p in items ) {
-			if ( test( items[p] ) ) items[p].addTag(tag);
-		}
-	}*/
-
-	/**
-	 * Get an item on an item-id varpath.
-	 * @param {VarPath} v
-	 */
-	/*getPathItem(v){
-		return v.readVar( this._items );
-	}*/
 
 	/**
 	 * Get state slots so they can be modified for Vue reactivity.

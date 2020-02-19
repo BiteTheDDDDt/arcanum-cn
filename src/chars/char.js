@@ -195,10 +195,6 @@ export default class Char {
 	 */
 	revive( gs ){
 
-		if ( this.spells ) {
-			this.spells.revive(gs);
-		}
-
 		this.reviveDots(gs);
 		this._states.refresh(this._dots);
 
@@ -240,7 +236,6 @@ export default class Char {
 	 * @returns {boolean}
 	 */
 	tryCast(){
-		console.log(this.id + ' casting spell');
 		return ( this.spells && this.spells.onUse(this.context) );
 	}
 
