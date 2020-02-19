@@ -24,7 +24,7 @@ export default {
 
 	<div class="spellbook">
 		<table>
-		<tr v-for="s in viewing" :key="s.id" @mouseenter.capture.stop="emit( 'itemover', $event, s )">
+		<tr v-for="s in viewing" :key="s.id" @mouseenter.capture.stop="itemOver( $event, s )">
 
 			<td>
 

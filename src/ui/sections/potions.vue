@@ -38,7 +38,7 @@ export default {
 		<filterbox v-model="filtered" :items="potions" min-items="7" />
 
 		<div class="potion-col">
-		<div v-for="it in filtered" class="separate" :key="it.id" @mouseenter.capture.stop="emit( 'itemover', $event,it)">
+		<div v-for="it in filtered" class="separate" :key="it.id" @mouseenter.capture.stop="itemOver( $event,it)">
 
 			<span>{{ it.name }}</span>
 

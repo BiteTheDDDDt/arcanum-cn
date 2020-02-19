@@ -17,7 +17,7 @@ export default {
 
 <span :class="{ 'task-btn':true, locked:locked(it), 'wrap-btn':true,
 		'running':it.running, runnable:it.perpetual||it.length>0 }"
-		@mouseenter.capture.stop="emit( 'itemover', $event,it)">
+		@mouseenter.capture.stop="itemOver( $event,it)">
 
 	<button class="wrapped-btn"
 		:disabled="!it.canUse()"

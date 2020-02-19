@@ -34,7 +34,7 @@ export default {
 		<div class="config"><button ref="btnHides" class="btnConfig"></button></div>
 		<div class="rsrc hidable" v-for="it in shown"
 			:data-key="it.id" :key="it.id"
-			@mouseenter.capture.stop="emit( 'itemover',$event,it)">
+			@mouseenter.capture.stop="itemOver($event,it)">
 
 			<span class="item-name">{{ it.name }}</span>
 			<span class="num-align">{{ floor( it.value ) + ( it.max && it.max.value>0 ? '/' + floor(it.max.value) : '' )}}</span>

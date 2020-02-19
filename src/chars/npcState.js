@@ -15,7 +15,7 @@ const MakeNpcItem = (p,data)=>{
 		t = new data.constructor( cloneClass( data.template || data ) );
 	} else {
 		console.log('no constructor: ' + p );
-		t = cloneClass(data);
+		t = cloneClass( data.template || data );
 	}
 
 	if ( t === null || t === undefined ) {

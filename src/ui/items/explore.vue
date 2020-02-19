@@ -23,7 +23,7 @@ export default {
 		 */
 		encOver($event){
 
-			if ( this.enc ) this.emit( 'itemover', $event, this.enc );
+			if ( this.enc ) this.itemOver( $event, this.enc );
 
 		}
 
@@ -71,7 +71,7 @@ export default {
 	<span class="active-title">
 		<span>{{ explore.name }}</span><button class="raid-btn"
 		@click="emit( HALT_TASK, explore.locale, false )"
-		@mouseenter.capture.stop="emit( 'itemover', $event, explore.locale )">Flee</button>
+		@mouseenter.capture.stop="itemOver( $event, explore.locale )">Flee</button>
 		</span>
 
 		<span class="bar"><progbar :value="explore.exp.valueOf()" :max="Number(explore.length)" /></span>
@@ -87,7 +87,7 @@ export default {
 			</div>
 
 			<div class="stressors">
-			<div class="stress" v-for="s in stressors" :key="s.id" @mouseenter.capture.stop="emit( 'itemover', $event, s )">
+			<div class="stress" v-for="s in stressors" :key="s.id" @mouseenter.capture.stop="itemOver( $event, s )">
 				<span>{{s.name}}</span>
 				<progbar :value="s.value.valueOf()" :max="s.max.value" />
 			</div>

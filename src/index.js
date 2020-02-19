@@ -4,6 +4,7 @@ import Confirm from 'ui/components/confirm.vue';
 import Game from './game';
 import Events from './events';
 import Profile from './modules/profile';
+import { ItemOver } from 'ui/popups/itemPopup.vue';
 
 //window.localStorage.clear();
 
@@ -18,17 +19,6 @@ if ( __KONG ) {
 	});
 }
 
-/*window.addEventListener('beforeinstallprompt', e=>{
-
-	console.log('ARCANUM BEFOREINSTALL PROMPT');
-
-});*/
-
-/**
- * Global dispatch.
- */
-//var dispatch = new Vue();
-
 Vue.mixin({
 
 	components:{ confirm:Confirm },
@@ -40,6 +30,8 @@ Vue.mixin({
 		listen:Events.listen,
 		dispatch:Events.dispatch,
 		removeListener:Events.removeListener,
+
+		itemOver:ItemOver,
 
 		/**
 		 * Game-level events.

@@ -4,18 +4,48 @@ import Game from 'game';
 import ItemView from 'ui/items/gdata.vue';
 import {positionAt} from './popups.js';
 
+/**
+ * Information about current rollover object.
+ */
+export const RollOver = {
+
+	item:null,
+	elm:null,
+	title:null,
+	source:null
+
+};
+
+export const ItemOver = ( evt, it, source, title ) => {
+
+	RollOver.item = it;
+	RollOver.elm = evt.target;
+	RollOver.source = source;
+
+	if ( source && source.context ) {
+		RollOver.context = source.context;
+	} else RollOver.context = Game;
+
+	RollOver.title = title;
+}
+
+export const ItemOut = () => {
+	RollOver.item = null;
+	RollOver.elm = null;
+	RollOver.source = null;
+	RollOver.title = null;
+	RollOver.context = null;
+}
 
 /**
  * Box for displaying item information.
  */
 export default {
 
-	/**
-	 * @property {boolean} sell - if the pane is a sell-view.
-	 *
-	 * @property {string} title - optional custom title
-	 */
-	props:["item", "elm", 'sell', 'title'],
+	data(){
+		return RollOver;
+	},
+
 	updated() {
 		// waiting for width to change before reposition.
 		if ( this.item ) {

@@ -21,7 +21,7 @@ export default {
 
 	<span :class="{'task-btn':true, locked:locked(it)||(it.owned&&!it.repeat), hidable:true,
 		running:it.running, runnable:it.perpetual||it.length>0 }" v-for="it in items"
-		:data-key="it.id" :key="it.id" @mouseenter.capture.stop="emit( 'itemover', $event,it)">
+		:data-key="it.id" :key="it.id" @mouseenter.capture.stop="itemOver( $event,it)">
 
 	<button
 		class="wrapped-btn" :disabled="!it.canUse()"

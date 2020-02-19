@@ -48,7 +48,7 @@ export default {
 	<div class="buttons">
 
 	<button class="enter" v-if="!active" @click="$emit('load', char)"
-		@mouseenter.capture.stop="emit( 'itemover', $event, rollOver )">
+		@mouseenter.capture.stop="itemOver( $event, rollOver )">
 		<span v-if="empty">Begin</span><span v-else>Awaken</span>
 		</button>
 

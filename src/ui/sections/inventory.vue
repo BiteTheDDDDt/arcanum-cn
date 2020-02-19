@@ -75,18 +75,18 @@ export default {
 	<div class="item-table">
 
 	<tr class="separate" v-for="it in ( nosearch ? inv.items : filtered )" :key="it.id">
-		<td @mouseenter.capture.stop="emit( 'itemover',$event,it)">{{ it.name + count(it) }}</td>
+		<td @mouseenter.capture.stop="itemOver($event,it)">{{ it.name + count(it) }}</td>
 
 
 		<template v-if="!selecting">
 
 			<td v-if="it.equippable"><button @click="emit('equip',it, inv)">Equip</button></td>
-			<td v-if="it.use" @mouseenter.capture.stop="emit( 'itemover',$event,it)"><button @click="emit( USE, it, inv)">Use</button></td>
+			<td v-if="it.use" @mouseenter.capture.stop="itemOver($event,it)"><button @click="emit( USE, it, inv)">Use</button></td>
 			<td v-if="take&&canAdd(it)"><button @click="onTake(it)">Take</button></td>
 
 			<td>
-			<button @click="emit('sell',it,inv)" @mouseenter.capture.stop="emit( 'itemover',$event,it)">Sell</button>
-			<button v-if="it.value>1" @click="emit('sell',it,inv, it.value)" @mouseenter.capture.stop="emit( 'itemover',$event,it)">Sell All</button>
+			<button @click="emit('sell',it,inv)" @mouseenter.capture.stop="itemOver($event,it)">Sell</button>
+			<button v-if="it.value>1" @click="emit('sell',it,inv, it.value)" @mouseenter.capture.stop="itemOver($event,it)">Sell All</button>
 				<!--<button v-else @click="drop(it)">Drop</button>--></td>
 
 		</template>

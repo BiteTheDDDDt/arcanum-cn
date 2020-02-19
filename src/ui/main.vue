@@ -7,10 +7,10 @@ import Quickbar from './quickbar.vue';
 import ItemsBase from './itemsBase';
 import Vitals from 'ui/vitals.vue';
 import DotView from './items/dotView.vue';
-import ItemPopup from './popups/itemPopup.vue';
 import TopBar from './top-bar.vue';
 
 import Warn from 'ui/popups/warn.vue';
+import ItemPopup, { ItemOut } from './popups/itemPopup.vue';
 import SettingsUI from './popups/settings.vue';
 
 import LogView from './outlog.vue';
@@ -30,7 +30,7 @@ import { TASK } from '../values/consts';
 const SAVE_TIME = 30;
 
 /**
- * @listens [sell,itemover,itemout]
+ * @listens [sell]
  */
 export default {
 
@@ -68,9 +68,6 @@ export default {
 
 		return {
 			state:null,
-			overItem:null,
-			overTitle:null,
-			overElm:null,
 			psection:null,
 			profile:profile,
 			togSettings:false,
@@ -115,9 +112,6 @@ export default {
 		 * Listen non-system events.
 		 */
 		initEvents() {
-
-			this.add( 'itemover', this.itemOver );
-			this.add( 'itemout', this.itemOut );
 
 			this.add( 'sell', this.onSell );
 			this.add( 'take', this.onTake );
@@ -260,18 +254,7 @@ export default {
 
 		onSell( it, inv, count ) { Game.trySell( it, inv, count ); },
 
-		itemOver(evt, it, title) {
-			this.overItem = it;
-			this.overTitle = title;
-			this.overElm = evt.currentTarget;
-		},
-
-		itemOut(){
-
-			this.overElm = null;
-			this.overItem = null;
-
-		},
+		itemOut:ItemOut,
 
 		/**
 		 * Item clicked.
@@ -333,7 +316,7 @@ export default {
 
 <template>
 
-	<div class="full" @mouseover.capture.stop="emit('itemout')">
+	<div class="full" @mouseover.capture.stop="itemOut">
 
 		<devconsole />
 		<top-bar :has-hall="profile.hasHall()" @open-settings="togSettings=true">
@@ -344,7 +327,7 @@ export default {
 		</top-bar>
 
 <!-- popups -->
-		<itempopup :item="overItem" :elm="overElm" :title="overTitle" />
+		<itempopup />
 		<warn ref="warn" @confirmed="onConfirmed" />
 		<choice />
 		<settings v-if="togSettings" @close-settings="togSettings=false" />

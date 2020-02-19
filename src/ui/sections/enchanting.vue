@@ -69,7 +69,7 @@ export default {
 
 		<div class="separate">
 		<div>
-			<div @mouseenter.capture.stop="emit( 'itemover', $event, target )">Target: {{ target ? target.name : 'None' }}</div>
+			<div @mouseenter.capture.stop="itemOver( $event, target )">Target: {{ target ? target.name : 'None' }}</div>
 			<div class="note-text">Enchantment levels on an Item cannot exceed an Item's level.</div>
 		</div>
 
@@ -85,7 +85,7 @@ export default {
 		<filterbox v-model="filtered" :items="enchants" min-items="7" />
 
 		<div class="enchant-list">
-		<div class='enchant' v-for="it in filtered" :key="it.id" @mouseenter.capture.stop="emit( 'itemover', $event,it)">
+		<div class='enchant' v-for="it in filtered" :key="it.id" @mouseenter.capture.stop="itemOver( $event,it)">
 
 			<span class="ench-name">{{ it.name }}</span>
 

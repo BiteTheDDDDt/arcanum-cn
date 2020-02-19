@@ -7,7 +7,7 @@ import ItemBase from 'ui/itemsBase';
  */
 export default {
 
-	props:['dots', 'mini'],
+	props:['dots', 'mini', 'char'],
 	mixins:[ItemBase],
 	beforeCreate(){
 		this.abbr = abbr;
@@ -21,7 +21,7 @@ export default {
 	<div class="dot-view" v-if="dots.length>0">
 
 		<div :class="['dot',d.kind, d.school, mini ? 'mini':'']" v-for="d in dots" :key="d.id"
-		@mouseenter.capture.stop="emit( 'itemover', $event,d)">
+		@mouseenter.capture.stop="itemOver( $event, d, char )">
 
 			<span v-if="!d.perm">{{ Math.ceil( d.duration ) }}</span>
 			<span v-if="!mini"><br>{{ mini ? abbr( d ) : d.name }}</span>

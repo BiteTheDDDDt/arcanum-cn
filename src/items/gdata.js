@@ -1,4 +1,4 @@
-import { defineExcept, clone } from 'objecty';
+import { defineExcept, cloneClass } from 'objecty';
 import Stat from '../values/stat';
 import Base, {mergeClass } from './base';
 import {arrayMerge} from '../util/array';
@@ -448,7 +448,7 @@ export default class GData {
 				if ( typeof obj === 'function' ) this[p] = obj( this );
 				else if ( typeof obj === 'object' ) {
 					console.log('clone: ' + this.id );
-					this[p] = clone( obj );
+					this[p] = cloneClass( obj );
 				}
 				else this[p] = obj;
 
