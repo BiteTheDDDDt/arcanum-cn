@@ -394,7 +394,7 @@ export default class Char {
 
 			this.timer += getDelay( this.speed );
 
-			if ( this.spells && this.tryCast() ) {
+			if ( this.spells && Math.random()<0.4 && this.tryCast() ) {
 				return null;
 			}
 			return this.getCause(NO_ATTACK) || this.getAttack();

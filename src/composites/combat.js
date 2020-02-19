@@ -170,21 +170,23 @@ export default class Combat {
 	 */
 	spellAction( it, g ) {
 
-		console.log( g.caster.id + ' casts ' + it.id);
-
 		if ( this._enemies.length===0 ) {
 
 			Events.emit(EVT_COMBAT, null, g.caster.name + ' casts ' + it.name + ' at the darkness.' );
 
 		} else {
 
+
 			let a = g.caster.getCause( NO_SPELLS);
 			if ( a ) {
 
-				console.warn('SPELLS blocked: ' + a );
+				//console.warn('SPELLS blocked: ' + a );
 				Events.emit( STATE_BLOCK, g.caster, a );
 
-			} else this.attack( g.caster, it.attack );
+			} else {
+				Events.emit(EVT_COMBAT, null, g.caster.name + ' casts ' + it.name );
+				this.attack( g.caster, it.attack );
+			}
 
 		}
 

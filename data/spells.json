@@ -1616,7 +1616,7 @@
 			"light":5
 		},
 		"result":{
-			"hp":20
+			"caster.hp":20
 		}
 	},
 
