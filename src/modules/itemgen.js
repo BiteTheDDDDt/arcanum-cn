@@ -114,7 +114,7 @@ export default class ItemGen {
 		level = Math.ceil(level);
 
 		let npc = this.groups.monster.randAt( level );
-		return npc ? CreateNpc(this, this.game ) : null;
+		return npc ? CreateNpc( npc, this.game ) : null;
 
 	}
 

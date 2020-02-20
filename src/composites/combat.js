@@ -10,7 +10,7 @@ import { NO_SPELLS } from '../chars/states';
 
 import { TEAM_PLAYER, getDelay, TEAM_NPC, TEAM_ALL } from '../values/consts';
 import { TARGET_ENEMY, TARGET_ALLY, TARGET_SELF,
-	TARGET_RAND, TARGET_PRIMARY, ApplyAction, TARGET_GROUP, TARGET_ANY } from "../values/combat";
+	TARGET_RAND, TARGET_PRIMARY, ApplyAction, TARGET_GROUP, TARGET_ANY } from "../values/combatVars";
 import Npc from '../chars/npc';
 
 
@@ -71,16 +71,16 @@ export default class Combat {
 
 	}
 
-	revive(state) {
+	revive(gs) {
 
-		this.state = state;
-		this.player = state.player;
+		this.state = gs;
+		this.player = gs.player;
 
 		// splices done in place to not confuse player with changed order.
 
 		for( let i = this._enemies.length-1; i>=0; i-- ) {
 
-			this._enemies[i] = itemRevive( state, this._enemies[i]);
+			this._enemies[i] = itemRevive( gs, this._enemies[i]);
 			if ( !this._enemies[i] ) this._enemies.splice(i,1);
 
 
@@ -89,8 +89,8 @@ export default class Combat {
 		for( let i = this._allies.length-1; i>=0; i-- ) {
 
 			var it = this._allies[i];
-			if ( typeof it === 'string' ) this._allies[i] = state.minions.find( it );
-			else if ( it && typeof it === 'object') this._allies[i] = itemRevive( state, it );
+			if ( typeof it === 'string' ) this._allies[i] = gs.minions.find( it );
+			else if ( it && typeof it === 'object') this._allies[i] = itemRevive( gs, it );
 
 			if ( !this._allies[i] ) this._allies.splice(i,1);
 

@@ -32,7 +32,7 @@ import { splitKeyPath } from './util/util';
 import GClass from './items/gclass';
 import Module from './modules/gmodule';
 import { SKILL, ENCOUNTER, MONSTER, ARMOR, WEAPON, HOME, POTION, ITEM, RESOURCE, EVENT, RAID } from './values/consts';
-import { MakeDmgFunc } from 'values/combat';
+import { MakeDmgFunc } from './values/combatVars';
 import Stat from './values/stat';
 import State from './chars/state';
 import PerValue, { IsPerValue } from './values/pervalue';

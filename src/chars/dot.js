@@ -1,6 +1,6 @@
 import {ParseMods } from "modules/parsing";
 import { setModCounts } from "../items/base";
-import { ParseDmg } from "values/combat";
+import { ParseDmg } from "../values/combatVars";
 import { assign, mergeSafe } from 'objecty';
 import { ParseFlags, NO_SPELLS, NO_ATTACK, NO_DEFEND } from "./states";
 import { TYP_DOT } from "../values/consts";

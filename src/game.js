@@ -12,7 +12,7 @@ import DataLoader from './dataLoader';
 import Events, {EVT_EVENT, EVT_LOOT, SET_SLOT, DELETE_ITEM, CHAR_ACTION } from './events';
 import { MONSTER, TYP_PCT, TYP_RANGE, P_TITLE, P_LOG, TEAM_PLAYER, ENCHANTSLOTS, WEAPON } from './values/consts';
 import TagSet from './composites/tagset';
-import { TARGET_SELF, TARGET_ALLY } from './values/combat';
+import { TARGET_SELF, TARGET_ALLY } from './values/combatVars';
 import RValue from './values/rvalue';
 
 var techTree;

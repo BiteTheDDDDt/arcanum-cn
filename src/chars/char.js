@@ -10,7 +10,7 @@ import events, { CHAR_STATE } from '../events';
 import States, { NO_ATTACK } from './states';
 
 import Game from '../game';
-import { ApplyAction } from '../values/combat';
+import { ApplyAction } from '../values/combatVars';
 import { assignNoFunc } from '../util/util';
 
 export default class Char {

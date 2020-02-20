@@ -13,6 +13,8 @@ export const CreateNpc = (proto, g ) => {
 
 	let it = new Npc( proto );
 	it.value = 1;
+	//
+	it.name = proto.name;
 	it.id = g.state.nextId(proto.id);
 	return it;
 
