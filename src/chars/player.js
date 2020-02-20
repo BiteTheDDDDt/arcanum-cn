@@ -303,7 +303,6 @@ export default class Player extends Char {
 		this.spells.max.value = 0;
 		this.stamina.max.base = 10;
 		this.tohit.base = 1;
-		gs.getData('allies').max = 0;
 
 		// @todo can't set base directly because of stat type,
 		// base assignment will break things. bad.

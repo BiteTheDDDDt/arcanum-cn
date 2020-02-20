@@ -4,7 +4,7 @@ import Percent, { PercentTest } from '../values/percent';
 import MaxStat from '../values/maxStat';
 import Attack from './attack';
 import { ParseDmg } from '../values/combatVars'
-import { assign } from 'objecty';
+import { assign,merge } from 'objecty';
 import { TEAM_NPC } from 'values/consts';
 import { mergeClass } from '../items/base';
 import Instance from '../items/instance';
@@ -36,7 +36,7 @@ export default class Npc extends Char {
 
 		} else data.name = this._name;
 
-		data.keep = this.keep;
+		//data.keep = this.keep;
 
 		//data.died = this.died||undefined;
 
@@ -134,6 +134,8 @@ export default class Npc extends Char {
 
 		this.active = this.active === undefined || this.active === null ? false : this.active;
 
+		console.log('CREATE NPC: ' + this.name );
+
 		if ( this._spells ) {
 
 			this._context = new Context( Game.state, this );
@@ -167,6 +169,8 @@ export default class Npc extends Char {
 
 		}
 		super.revive(gs);
+
+		console.log('REVIVE NPC: ' + this.name );
 
 
 	}

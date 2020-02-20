@@ -106,7 +106,6 @@ export default class GameState {
 		 * @property {Minions} minions
 		 */
 		this.minions = this.items.minions = new Minions( this.items.minions || null );
-		this.items.allies = this.minions.allies;
 
 		this.equip = new Equip( baseData.equip );
 
@@ -156,6 +155,7 @@ export default class GameState {
 		*/
 		this.tagSets = this.makeTagSets( this.items );
 
+		this.items.allies = this.minions.allies;
 		this.saveItems.allies = undefined;
 
 	}
@@ -219,6 +219,7 @@ export default class GameState {
 
 		this.player.revive(this);
 
+		this.minions.revive(this);
 		this.drops.revive(this);
 		this.raid.revive( this );
 		this.explore.revive(this);

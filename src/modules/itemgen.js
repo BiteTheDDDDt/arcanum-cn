@@ -13,47 +13,47 @@ import { CreateNpc } from '../items/monster';
  * Revive an instanced item based on save data.
  * converts template string to actual template object before instancing/revive.
  * @param {GameState} gs
- * @param {object} it
+ * @param {object} save
  */
-export function itemRevive( gs, it ) {
+export function itemRevive( gs, save ) {
 
-	if ( !it ) {
-		console.warn('Missing gen item: ' + it );
+	if ( !save ) {
+		console.warn('Missing gen item: ' + save );
 		return null;
 	}
 
-	var orig = it.template || it.recipe;
+	var orig = save.template || save.recipe;
 
 	if ( typeof orig === 'string') orig = gs.getData( orig );
-	var type = orig !== undefined ? ( orig.type || it.type ) : it.type;
+	var type = orig !== undefined ? ( orig.type || save.type ) : save.type;
 
 	if ( !type) {
 
-		if ( !it.id ) return null;
+		if ( !save.id ) return null;
 
-		console.warn( it.id + ' unknown type: ' + type + ' -> ' + it.template + ' -> ' + it.recipe );
+		console.warn( save.id + ' unknown type: ' + type + ' -> ' + save.template + ' -> ' + save.recipe );
 		type = 'item';
 
 	}
 
 	if ( type === ARMOR || type === WEAPON || type === WEARABLE) {
 
-		it = new Wearable( orig,it);
+		save = new Wearable( orig,save);
 
 	} else if ( type === MONSTER || type === NPC ) {
 
 		//it.template = orig;
-		it = new Npc( orig, it );
+		save = new Npc( orig, save );
 
 	} else {
 		//console.log('default revive: ' + it.id );
-		it = new Item( orig, it );
+		save = new Item( orig, save );
 	}
-	it.owned = true;
+	save.owned = true;
 
-	it.revive( gs );
+	save.revive( gs );
 
-	return it;
+	return save;
 
 }
 

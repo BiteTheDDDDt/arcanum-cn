@@ -113,6 +113,8 @@ export default class Attack {
 	set hits(v){
 
 		this._hits = v;
+		if (!v) return;
+
 		for( let i = v.length-1; i>=0;i--) {
 			var h = v[i];
 
@@ -161,7 +163,6 @@ export default class Attack {
 
 		}
 
-		console.log( (this.id||this.name) + ' attack targs: ' + this.targets + ' vars targ: ' + vars.targets);
 
 		if ( this._harmless === null || this._harmless === undefined ) {
 			this.harmless = (this.targets === TARGET_SELF) ||

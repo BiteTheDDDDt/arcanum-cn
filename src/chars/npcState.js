@@ -91,7 +91,7 @@ export class NpcState {
 		if ( it ) {
 
 			if ( it.isRecipe ) return it;
-			console.log('NEW NPC ITEM: ' + p + ': ' + it );
+			//console.log('NEW NPC ITEM: ' + p + ': ' + it );
 			return MakeNpcItem( p, it );
 
 		} else console.log('item not found: ' + p );

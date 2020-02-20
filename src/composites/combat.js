@@ -97,9 +97,11 @@ export default class Combat {
 		for( let i = this._allies.length-1; i>=0; i-- ) {
 
 			it = this._allies[i];
-			if ( !it ) this._allies.splice(i,1);
-			else if ( typeof it === 'string' ) this._allies[i] = gs.minions.find( it );
-			else if ( it && typeof it === 'object') this._allies[i] = itemRevive( gs, it );
+			if ( typeof it === 'string' ) this._allies[i] = gs.minions.find( it );
+			else if ( it && typeof it === 'object' && !(it instanceof Npc)) {
+				console.log('NEW COMBAT ALLY');
+				this._allies[i] = itemRevive( gs, it );
+			}
 
 			if ( !this._allies[i] ) this._allies.splice(i,1);
 
@@ -221,6 +223,10 @@ export default class Combat {
 
 		let targ = this.getTarget( attacker, atk.targets );
 		if ( !targ) return;
+
+		if ( atk.name === 'rewind' || atk.name ==='recoil') {
+			console.log( atk.name + ' targ: ' + targ.name + ' TARG: ' + atk.targets);
+		}
 
 		if ( Array.isArray(targ)) {
 

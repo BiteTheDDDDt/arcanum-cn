@@ -45,7 +45,7 @@ export default class Minions extends Inventory {
 		this.saveMode = 'custom';
 		this.saveMap = SaveInstanced;
 
-		this._allies = new Inventory( {id:'allies', spaceProp:'level'} );
+		this._allies = new Inventory( {id:'allies', spaceProp:'level', saveMode:'ids'} );
 		this.mods = new Map();
 		this.keep = new Set();
 
@@ -93,6 +93,7 @@ export default class Minions extends Inventory {
 		super.add(m);
 
 		m.team = TEAM_PLAYER;
+		m.keep = true;
 
 		if ( m.active ) {
 			this.setActive(m)
@@ -157,6 +158,7 @@ export default class Minions extends Inventory {
 			}
 
 			if ( m.active ) { actives.push(m); }
+			m.keep = true;
 			m.team = TEAM_PLAYER;
 
 		}

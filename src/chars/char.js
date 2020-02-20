@@ -84,11 +84,13 @@ export default class Char {
 
 		if ( Array.isArray(v)) {
 
+			console.log( this.id + ' creating atacks.');
 			let a = [];
 			for( let i = v.length-1; i>=0; i-- ) {
 
 				a.push( (v[i] instanceof Attack) ? v[i] : new Attack(v[i]) );
 
+				console.log('targs: ' + a[ a.length-1].targets );
 			}
 
 			this._attack = a;
@@ -102,12 +104,14 @@ export default class Char {
 
 		let a = [];
 
-		for( let i = v.length-1; i >= 0; i-- ) {
+		if ( v ) {
+			for( let i = v.length-1; i >= 0; i-- ) {
 
-			//var d = v[i] instanceof Dot ? v[i] : new Dot(v[i]);
+				//var d = v[i] instanceof Dot ? v[i] : new Dot(v[i]);
 
-			a.push( v[i] instanceof Dot ? v[i] : new Dot(v[i] ) );
+				a.push( v[i] instanceof Dot ? v[i] : new Dot(v[i] ) );
 
+			}
 		}
 
 		this._dots = a;
@@ -165,7 +169,10 @@ export default class Char {
 
 	constructor( vars ){
 
-		if ( vars ) assignNoFunc( this, vars );
+		if ( vars ) {
+			this.id = vars.id;	// useful for debugging.
+			assignNoFunc( this, vars );
+		}
 
 		this.type = NPC;
 
@@ -174,8 +181,6 @@ export default class Char {
 		this.immunities = this.immunities || {};
 		this._resist = this._resist || {};
 		if ( !this.bonuses ) this.bonuses = {};
-
-		//console.log( this.id + ' tohit: ' + this.tohit );
 
 		/**
 		 * @property {Object[]} dots - timed/ongoing effects.
