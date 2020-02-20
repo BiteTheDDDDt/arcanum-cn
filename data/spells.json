@@ -1088,7 +1088,7 @@
 		"dot":{
 			"duration":30,
 			"mod":{
-				"caster.resist.poison":20
+				"self.resist.poison":20
 			}
 		}
 	},
@@ -1361,7 +1361,7 @@
 		"dot": {
 			"duration": 10,
 			"mod": {
-				"caster.defense": 200
+				"self.defense": 200
 			}
 		}
 	},
@@ -1484,8 +1484,8 @@
 
 			"duration":20,
 			"mod":{
-				"caster.resist.holy":10,
-				"caster.resist.light":10
+				"self.resist.holy":10,
+				"self.resist.light":10
 			}
 
 		}
@@ -1511,8 +1511,8 @@
 
 			"duration":20,
 			"mod":{
-				"caster.resist.shadow":10,
-				"caster.resist.undead":10
+				"self.resist.shadow":10,
+				"self.resist.undead":10
 			}
 
 		}
@@ -1538,7 +1538,7 @@
 
 			"duration":20,
 			"mod":{
-				"caster.resist.fire":10
+				"self.resist.fire":10
 			}
 
 		}
@@ -1564,8 +1564,8 @@
 
 			"duration":20,
 			"mod":{
-				"caster.resist.water":10,
-				"caster.resist.cold":10
+				"self.resist.water":10,
+				"self.resist.cold":10
 			}
 
 		}
@@ -1591,8 +1591,8 @@
 
 			"duration":20,
 			"mod":{
-				"caster.resist.nature":10,
-				"caster.resist.poison":10
+				"self.resist.nature":10,
+				"self.resist.poison":10
 			}
 
 		}
@@ -1616,7 +1616,7 @@
 			"light":5
 		},
 		"result":{
-			"caster.hp":20
+			"self.hp":20
 		}
 	},
 
@@ -2029,7 +2029,7 @@
 		"dot":{
 			"duration":30,
 			"mod":{
-				"caster.defense":2
+				"self.defense":2
 			}
 		}
 
@@ -2052,7 +2052,7 @@
 		"dot":{
 			"duration":45,
 			"mod":{
-				"caster.tohit":3
+				"self.tohit":3
 			}
 		}
 
@@ -2075,7 +2075,7 @@
 		"dot":{
 			"duration":45,
 			"mod":{
-				"caster.tohit":7
+				"self.tohit":7
 			}
 		}
 
@@ -2099,7 +2099,7 @@
 		"dot":{
 			"duration":45,
 			"mod":{
-				"caster.tohit":15
+				"self.tohit":15
 			}
 		}
 
@@ -2368,7 +2368,7 @@
 	{
 		"id":"stoneskin",
 		"name":"stone skin",
-		"desc":"hardens the skin of the caster.",
+		"desc":"hardens the skin of the self.",
 		"school":"earth",
 		"require":{
 			"earthlore":5
@@ -2387,7 +2387,7 @@
 		"dot":{
 			"duration":50,
 			"mod":{
-				"caster.defense":5
+				"self.defense":5
 			}
 		}
 
@@ -2415,8 +2415,8 @@
 				"hp.max":50,
 				"hp":50,
 				"hp.rate":-2,
-				"caster.tohit":10,
-				"caster.damage":10
+				"self.tohit":10,
+				"self.damage":10
 			}
 		},"flavor":"don't lose your way"
 	},
@@ -2465,7 +2465,7 @@
 	{
 		"id":"ironskin",
 		"name":"iron skin",
-		"desc":"hardens the skin of the caster.",
+		"desc":"hardens the skin of the self.",
 		"school":"earth",
 		"require":{
 			"earthlore":5
@@ -2484,7 +2484,7 @@
 		"dot":{
 			"duration":60,
 			"mod":{
-				"caster.defense":10
+				"self.defense":10
 			}
 		}
 
@@ -2492,7 +2492,7 @@
 	{
 		"id":"steelskin",
 		"name":"steel skin",
-		"desc":"hardens the skin of the caster.",
+		"desc":"hardens the skin of the self.",
 		"school":"earth",
 		"require":"stoneskin",
 		"level":5,
@@ -2509,7 +2509,7 @@
 		"dot":{
 			"duration":120,
 			"mod":{
-				"caster.defense":25
+				"self.defense":25
 			}
 		}
 
@@ -2580,7 +2580,7 @@
 		"dot":{
 			"duration":180,
 			"mod":{
-				"caster.defense":50
+				"self.defense":50
 			}
 		}
 
@@ -2681,7 +2681,7 @@
 
 			"duration":20,
 			"mod":{
-				"caster.immunities.fire":1
+				"self.immunities.fire":1
 			}
 
 		}
@@ -2705,7 +2705,7 @@
 		"dot":{
 			"duration":60,
 			"mod":{
-				"caster.tohit":5,
+				"self.tohit":5,
 				"hp.max":50,
 				"defense":10,
 				"speed":2
@@ -2823,7 +2823,7 @@
 			"targets":"allies",
 			"duration":30,
 			"mod":{
-				"caster.resist.water":50
+				"self.resist.water":50
 			}
 
 		}
@@ -2906,7 +2906,7 @@
 			"targets":"allies",
 			"duration":30,
 			"mod":{
-				"caster.resist.water":75
+				"self.resist.water":75
 			}
 
 		},"flavor":"force without form"
@@ -2968,7 +2968,7 @@
 
 			"duration":100,
 			"mod":{
-				"caster.immunities.fire":1
+				"self.immunities.fire":1
 			}
 
 		}

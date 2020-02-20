@@ -78,18 +78,27 @@ export default class Combat {
 
 		// splices done in place to not confuse player with changed order.
 
+		let it;
+
 		for( let i = this._enemies.length-1; i>=0; i-- ) {
 
-			this._enemies[i] = itemRevive( gs, this._enemies[i]);
-			if ( !this._enemies[i] ) this._enemies.splice(i,1);
+			// data can be null both before and after itemRevive()
+			it = this._enemies[i];
+			if ( it ) {
+				it = this._enemies[i] = itemRevive( gs, it );
+			}
+			if ( !it || !(it instanceof Npc) ) {
+				this._enemies.splice(i,1);
+			}
 
 
 		}
 
 		for( let i = this._allies.length-1; i>=0; i-- ) {
 
-			var it = this._allies[i];
-			if ( typeof it === 'string' ) this._allies[i] = gs.minions.find( it );
+			it = this._allies[i];
+			if ( !it ) this._allies.splice(i,1);
+			else if ( typeof it === 'string' ) this._allies[i] = gs.minions.find( it );
 			else if ( it && typeof it === 'object') this._allies[i] = itemRevive( gs, it );
 
 			if ( !this._allies[i] ) this._allies.splice(i,1);
@@ -172,20 +181,20 @@ export default class Combat {
 
 		if ( this._enemies.length===0 ) {
 
-			Events.emit(EVT_COMBAT, null, g.caster.name + ' casts ' + it.name + ' at the darkness.' );
+			Events.emit(EVT_COMBAT, null, g.self.name + ' casts ' + it.name + ' at the darkness.' );
 
 		} else {
 
 
-			let a = g.caster.getCause( NO_SPELLS);
+			let a = g.self.getCause( NO_SPELLS);
 			if ( a ) {
 
 				//console.warn('SPELLS blocked: ' + a );
-				Events.emit( STATE_BLOCK, g.caster, a );
+				Events.emit( STATE_BLOCK, g.self, a );
 
 			} else {
-				Events.emit(EVT_COMBAT, null, g.caster.name + ' casts ' + it.name );
-				this.attack( g.caster, it.attack );
+				Events.emit(EVT_COMBAT, null, g.self.name + ' casts ' + it.name );
+				this.attack( g.self, it.attack );
 			}
 
 		}

@@ -70,9 +70,9 @@ export default {
 	get player(){return this.state.player},
 
 	/**
-	* @property {Char} caster - caster/user of any spell/action.
+	* @property {Char} self - self/user of any spell/action.
 	*/
-	get caster(){return this.state.player;},
+	get self(){return this.state.player;},
 
 
 	/**
@@ -832,7 +832,7 @@ export default {
 
 				if ( target === undefined || target === null ) {
 
-					if ( p === P_TITLE ) this.caster.addTitle( e );
+					if ( p === P_TITLE ) this.self.addTitle( e );
 					else if ( p === P_LOG ) Events.emit( EVT_EVENT, e );
 					else console.warn( p + ' no effect target: ' + e );
 

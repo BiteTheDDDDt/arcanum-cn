@@ -36,7 +36,7 @@ export class NpcState {
 	constructor( gs, caster){
 
 		this.state = gs;
-		this.caster = caster;
+		this.self = caster;
 
 
 
@@ -44,7 +44,7 @@ export class NpcState {
 
 	get raid(){return this.state.raid;}
 
-	//get player(){return this.caster; }
+	//get player(){return this.self; }
 
 	nextId(id){
 		return this.state.nextId(id);
@@ -84,8 +84,8 @@ export class NpcState {
 		let it = NpcItems.get(p);
 		if ( it !== undefined ) return it;
 
-		if ( p === 'caster' ) return this.caster;
-		if ( p === 'player' ) return this.state.player;
+		if ( p === 'self' ) return this.self;
+		else if ( p === 'player' ) return this.state.player;
 
 		it = this.state.getData(p);
 		if ( it ) {

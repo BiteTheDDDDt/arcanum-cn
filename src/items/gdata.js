@@ -364,7 +364,7 @@ export default class GData {
 		}
 		if ( this.loot ) g.getLoot( this.loot );
 
-		if ( this.title ) g.caster.setTitle( this.title );
+		if ( this.title ) g.self.setTitle( this.title );
 		if ( this.result ) g.applyVars( this.result, count );
 		if ( this.create ) g.create( this.create );
 
@@ -372,7 +372,7 @@ export default class GData {
 
 		if ( this.lock ) g.lock( this.lock );
 		if ( this.dot ) {
-			g.caster.addDot( this.dot, this );
+			g.self.addDot( this.dot, this );
 		}
 
 		if ( this.disable ) g.disable( this.disable );

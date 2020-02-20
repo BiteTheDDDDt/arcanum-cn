@@ -12,10 +12,10 @@ export default class Context {
 	set state(v) { this._state=v}
 
 	/**
-	 * @property {Char} caster - caster/user of any spell/action.
+	 * @property {Char} self - caster/user of any spell/action.
 	 */
-	get caster(){return this._state.caster;}
-	set caster(v){this._state.caster = v}
+	get self(){return this._state.self;}
+	set self(v){this._state.self = v}
 
 	constructor( stateObj, caster ) {
 
@@ -64,7 +64,7 @@ export default class Context {
 		for( let i = count; i >0; i--) {
 
 			if ( it.type === MONSTER ) {
-				if ( it.onCreate ) it.onCreate( this, this.caster.team, false );
+				if ( it.onCreate ) it.onCreate( this, this.self.team, false );
 			}
 
 		}
@@ -209,7 +209,7 @@ export default class Context {
 
 				if ( target === undefined || target === null ) {
 
-					if ( p === P_TITLE ) this.caster.addTitle( e );
+					if ( p === P_TITLE ) this.self.addTitle( e );
 					else if ( p === P_LOG ) Events.emit( EVT_EVENT, e );
 					else console.warn( p + ' no effect target: ' + e );
 
