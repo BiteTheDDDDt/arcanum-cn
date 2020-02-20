@@ -84,6 +84,7 @@ export default class Attack {
 	 */
 	get targets() { return this._targets; }
 	set targets(v) {
+
 		if ( typeof v === 'string') this._targets = ParseTarget(v);
 		else this._targets = v;
 	}
@@ -118,7 +119,7 @@ export default class Attack {
 			if (!h.id) h.id = this.id;
 			if ( !h.name ) h.name = this.name;
 			if (!h.kind)h.kind = this.kind;
-			if ( !h instanceof Attack ) v[i] = new Attack(h);
+			if ( !(h instanceof Attack) ) v[i] = new Attack(h);
 
 		}
 	}
@@ -159,6 +160,8 @@ export default class Attack {
 			}
 
 		}
+
+		console.log( (this.id||this.name) + ' attack targs: ' + this.targets + ' vars targ: ' + vars.targets);
 
 		if ( this._harmless === null || this._harmless === undefined ) {
 			this.harmless = (this.targets === TARGET_SELF) ||

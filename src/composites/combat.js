@@ -222,7 +222,7 @@ export default class Combat {
 		let targ = this.getTarget( attacker, atk.targets );
 		if ( !targ) return;
 
-		else if ( Array.isArray(targ)) {
+		if ( Array.isArray(targ)) {
 
 			for( let i = targ.length-1; i>= 0; i-- ) {
 				this.doAttack( attacker, atk, targ[i]);
