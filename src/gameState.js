@@ -232,6 +232,8 @@ export default class GameState {
 	 */
 	reviveItems() {
 
+		var manualRevive = new Set( ['minions', 'player', 'raid', 'explore', 'equip', 'drops'] );
+
 		let count = 0;
 		for( let p in this.items ) {
 
@@ -240,7 +242,8 @@ export default class GameState {
 			 * revive() has to be called after prepItems() so custom items are instanced
 			 * and can be referenced.
 			 */
-			if ( it.revive && typeof it.revive === 'function') {
+			if ( it.revive && typeof it.revive === 'function' && !manualRevive.has(p) ) {
+
 				//console.log('REVIVING: ' + it.id );
 				it.revive(this);
 			}

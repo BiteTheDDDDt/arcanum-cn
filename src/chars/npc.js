@@ -132,9 +132,9 @@ export default class Npc extends Char {
 
 		this.dodge = this.dodge || this.level/2;
 
-		this.active = this.active === undefined || this.active === null ? false : this.active;
+		this.active = (this.active === undefined || this.active === null) ? false : this.active;
 
-		console.log('CREATE NPC: ' + this.name );
+		console.log('CREATE NPC: ' + this.name + ' active: ' + this.active );
 
 		if ( this._spells ) {
 

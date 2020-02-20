@@ -42,8 +42,8 @@ export default class Minions extends Inventory {
 
 		if ( !this.max ) this.max = 0;
 
-		this.saveMode = 'custom';
-		this.saveMap = SaveInstanced;
+		/*this.saveMode = 'custom';
+		this.saveMap = SaveInstanced;*/
 
 		this._allies = new Inventory( {id:'allies', spaceProp:'level', saveMode:'ids'} );
 		this.mods = new Map();
@@ -145,6 +145,8 @@ export default class Minions extends Inventory {
 
 		super.revive(state);
 
+		console.log('REVIVING MINIONS: ' + this.items.length );
+
 		if ( !this.allies.max ) { this.allies.max = Math.floor( state.player.level / 5 ); }
 
 		var actives = [];
@@ -157,7 +159,9 @@ export default class Minions extends Inventory {
 				continue;
 			}
 
-			if ( m.active ) { actives.push(m); }
+			if ( m.active ) {
+				actives.push(m); }
+
 			m.keep = true;
 			m.team = TEAM_PLAYER;
 

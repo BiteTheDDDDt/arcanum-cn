@@ -22,6 +22,7 @@ export default class Inventory {
 	valueOf() { return this.items.length; }
 
 	toJSON(){
+
 		return {
 			items:this.saveMode === 'full' ? this.items : (
 				( this.saveMode === 'ids' || !this.saveMap ) ? this.items.map(v=>v.id ) :
