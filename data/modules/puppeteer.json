@@ -889,11 +889,11 @@
 					"puppets.max": 20,
 					"machinae.max": 20,
 					"automatas.max": 20,
-					"puppetworkshop.cost.space": -25,
-					"puppetautomation.cost.space": -10,
-					"machinagarage.cost.space": -40,
-					"machinaautomation.cost.space": -20,
-					"shapinglab.cost.space": -50
+					"puppetworkshop.mod.space": -25,
+					"puppetautomation.mod.space": -10,
+					"machinagarage.mod.space": -40,
+					"machinaautomation.mod.space": -20,
+					"shapinglab.mod.space": -50
 				}
 			}
 		],
