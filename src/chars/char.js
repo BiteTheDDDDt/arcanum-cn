@@ -1,7 +1,6 @@
 import Base, {mergeClass} from '../items/base';
 import Stat from '../values/stat';
 import Attack from './attack';
-
 import Dot from './dot';
 
 import { NPC, getDelay, TYP_PCT } from '../values/consts';
@@ -88,7 +87,9 @@ export default class Char {
 			let a = [];
 			for( let i = v.length-1; i>=0; i-- ) {
 
-				a.push( (v[i] instanceof Attack) ? v[i] : new Attack(v[i]) );
+				a.push( (v[i] instanceof Attack) ? v[i] :
+					new Attack(v[i])
+				);
 
 				console.log('targs: ' + a[ a.length-1].targets );
 			}

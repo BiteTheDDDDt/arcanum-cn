@@ -17,6 +17,7 @@ export default class Attack {
 			hits:this.hits||undefined,
 			cure:this.cure||undefined,
 			state:this.state||undefined,
+			targets:this.targets||undefined,
 			id:this.id,
 			dot:this.dot
 		};
@@ -86,7 +87,10 @@ export default class Attack {
 	set targets(v) {
 
 		if ( typeof v === 'string') this._targets = ParseTarget(v);
-		else this._targets = v;
+		else {
+			this._targets = v;
+		}
+
 	}
 
 	get bonus() { return this._bonus; }

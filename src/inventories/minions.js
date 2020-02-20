@@ -145,8 +145,6 @@ export default class Minions extends Inventory {
 
 		super.revive(state);
 
-		console.log('REVIVING MINIONS: ' + this.items.length );
-
 		if ( !this.allies.max ) { this.allies.max = Math.floor( state.player.level / 5 ); }
 
 		var actives = [];

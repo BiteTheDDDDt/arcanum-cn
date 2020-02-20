@@ -4,13 +4,13 @@ import Percent, { PercentTest } from '../values/percent';
 import MaxStat from '../values/maxStat';
 import Attack from './attack';
 import { ParseDmg } from '../values/combatVars'
-import { assign,merge } from 'objecty';
 import { TEAM_NPC } from 'values/consts';
 import { mergeClass } from '../items/base';
 import Instance from '../items/instance';
 import Game from '../game';
 import { MakeDataList } from '../gameState';
 import Context from './context';
+import { assign } from 'objecty';
 
 /**
  * Class for specific Enemies/Minions in game.
@@ -130,11 +130,11 @@ export default class Npc extends Char {
 
 		if ( save ) assign( this, save );
 
+		//if ( this.id.includes('mecha')) console.dir(this.attack, 'post-save');
+
 		this.dodge = this.dodge || this.level/2;
 
 		this.active = (this.active === undefined || this.active === null) ? false : this.active;
-
-		console.log('CREATE NPC: ' + this.name + ' active: ' + this.active );
 
 		if ( this._spells ) {
 
@@ -169,8 +169,6 @@ export default class Npc extends Char {
 
 		}
 		super.revive(gs);
-
-		console.log('REVIVE NPC: ' + this.name );
 
 
 	}
