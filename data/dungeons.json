@@ -132,14 +132,17 @@
 			"herbs":"3~7",
 			"gems":"0~2"
 		},
-		"boss":"eledin",
+		"boss":["eledin","gildella"],
 		"spawns":[
 			["ranger","ranger"],
 			["elf","elf","elf","elf"],
 			"gnome",
+			["ranger","gryffon"],
 			["m_druid","m_druid"],
 			"ent",
-			"ettin",
+			["bear","bear","bear","ranger"],
+			"direbear",
+			"highranger",
 			"elf",
 			"slinger"
 		]
@@ -164,7 +167,12 @@
 		"spawns":[
 			["evilpriest","evilpriest","evilpriest"],
 			["corpse","corpse","corpse","corpse"],
-			["bugbear","bugbear"]
+			["bugbear","bugbear"],
+			["undeadhorror","undeadhorror"],
+			"vampiremaster",
+			"skellord",
+			["blasphemer", "blasphemer"],
+			"wraith"
 		]
 	},
 	{

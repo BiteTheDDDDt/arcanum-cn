@@ -951,7 +951,7 @@
         "kind":"humanoid",
         "evil":-5,
         "desc":"Rangers aren't very good with people.",
-        "hp":13,
+        "hp":20,
 		"defense":19,
 		"spells":"vinewhip",
         "attack":{
@@ -962,14 +962,31 @@
 
 	},
 	{
+		"id":"highranger",
+		"name":"high ranger",
+        "level":8,
+        "kind":"humanoid",
+        "evil":-5,
+        "desc":"All rangers travel far. Some have travelled farther than others.",
+        "hp":70,
+		"defense":25,
+		"spells":"vinewhip",
+        "attack":{
+            "name":"grandbow",
+            "kind":"pierce",
+            "dmg":"10~20"
+        }, "resist":{"nature":25}
+
+	},
+	{
 		"id":"eledin",
 		"name":"eledin strongbow",
 		"unique":true,
         "level":12,
         "kind":"humanoid",
         "evil":-10,
-        "desc":"Rangers aren't very good with people.",
-        "hp":120,
+        "desc":"When Tenwick told Eledin the Ettinmoors couldn't be crossed in safety, the ranger picked up his bow and headed east.",
+        "hp":140,
 		"defense":24,
 		"spells":"vinewhip",
         "attack":{
@@ -977,6 +994,26 @@
             "kind":"pierce",
             "dmg":"10~15"
         }, "resist":{"nature":30}
+
+	},
+	{
+		"id":"gildella",
+		"name":"gildella",
+		"unique":true,
+        "level":12,
+        "kind":"humanoid",
+        "evil":-10,
+        "desc":"The elf Gildella had roamed the Ettinmoors for centuries when Eledin first crossed her path. Their path has been the same since then.",
+        "hp":120,
+		"defense":24,
+		"speed":17,
+		"spells":"vinewhip",
+        "attack":{
+            "name":"greatbow",
+            "kind":"pierce",
+            "dmg":"10~15"
+		}, "resist":{"nature":50},
+		"flavor":"'I thought the moors too wild for decent folk,' said Eledin in surprise. 'Oh?' replied Gildella, 'I hadn't noticed.'"
 
     },
     {
@@ -1692,14 +1729,34 @@
 
 	},
 	{
+		"id":"blasphemer",
+        "level":7,
+        "kind":"humanoid",
+        "desc":"She screams black obscenities.",
+        "hp":75,
+        "defense":40,
+		"tohit":7,
+		"spells":"blast,gloom",
+        "attack":{
+            "name":"screech",
+			"kind":"evil",
+			"targets":"enemies",
+			"dmg":"5~9"
+		},
+		"resist":{
+			"shadow":20
+		}
+
+	},
+	{
 		"id":"m_hierophant",
 		"name":"evil hierophant",
-        "level":8,
+        "level":9,
         "kind":"humanoid",
         "desc":"Leader of wicked congregations.",
-        "hp":80,
-        "defense":32,
-		"tohit":5,
+        "hp":100,
+        "defense":50,
+		"tohit":9,
 		"spells":"deathbolt",
         "attack":{
             "name":"harm",
@@ -1718,10 +1775,10 @@
 		"unique":true,
         "level":14,
         "kind":"humanoid",
-        "desc":"Palus was a dabbler before unearthing the remains of a Dhrozen knight. Now he leads the Barrow priests.",
+        "desc":"Palus was a mere dabbler before unearthing the remains of a Dhrozen knight. Now he leads the Barrow priests.",
         "hp":80,
-        "defense":32,
-		"tohit":5,
+        "defense":75,
+		"tohit":10,
 		"spells":"deathbolt",
         "attack":{
             "name":"harm",
