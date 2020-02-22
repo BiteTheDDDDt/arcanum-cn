@@ -383,6 +383,20 @@
 		"loot":"hestiabrew"
 	},
 	{
+
+		"id":"enc_hettie",
+		"name":"hettie",
+		"desc":"An ancient gryffon lives atop the Rithel's solitary turret, and Hettie wiles her hours grooming and feeding the beast.",
+		"effect":{
+			"wear":"1~3",
+			"bf":"1~2"
+		},
+		"result":{
+			"magicbeasts.max":0.001
+		}
+
+	},
+	{
 		"id":"enc_hestia",
 		"name":"hestia",
 		"desc":"hestia has no interest in the world outside Thangmor, but will teach those who come to her.",

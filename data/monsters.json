@@ -962,12 +962,35 @@
 
 	},
 	{
+		"id":"highelf",
+		"name":"high elf",
+        "level":9,
+		"kind":"humanoid",
+		"desc":"Other elves are as newborns to their elder kin.",
+        "evil":-1,
+		"hp":80,
+		"speed":15,
+        "tohit":15,
+        "defense":70,
+        "attack":[{
+            "name":"bow",
+            "kind":"pierce",
+            "dmg":"1~6"
+        },{
+			"dot":{
+				"id":"entangle",
+				"duration":50
+			}
+		}]
+
+    },
+	{
 		"id":"highranger",
-		"name":"high ranger",
+		"name":"thangmor ranger",
         "level":8,
         "kind":"humanoid",
         "evil":-5,
-        "desc":"All rangers travel far. Some have travelled farther than others.",
+        "desc":"All rangers travel far. Some farther than others.",
         "hp":70,
 		"defense":25,
 		"spells":"vinewhip",
@@ -1750,7 +1773,7 @@
 	},
 	{
 		"id":"m_hierophant",
-		"name":"evil hierophant",
+		"name":"wicked hierophant",
         "level":9,
         "kind":"humanoid",
         "desc":"Leader of wicked congregations.",
@@ -2696,7 +2719,11 @@
         "attack":{
             "name":"mind flay",
             "kind":"psionic",
-            "dmg":"11~19"
+			"dmg":"11~19",
+			"dot":{
+				"id":"silence",
+				"duration":300
+			}
         }
 
 	},
@@ -2730,7 +2757,7 @@
 			"dmg":"20~50",
 			"dot":{
 				"id":"paralyzed",
-				"duration":3
+				"duration":300
 			}
 		},
 		"immune":"poison"

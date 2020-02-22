@@ -124,7 +124,7 @@
 		"title":"forest scourge",
 		"max":1,
 		"level":15,
-		"length":100,
+		"length":200,
 		"run":{
 			"stamina":2
 		},
@@ -136,15 +136,16 @@
 		"spawns":[
 			["ranger","ranger"],
 			["elf","elf","elf","elf"],
-			"gnome",
+			"beserker",
+			["roc","m_druid","roc"],
 			["ranger","gryffon"],
 			["m_druid","m_druid"],
 			"ent",
 			["bear","bear","bear","ranger"],
 			"direbear",
 			"highranger",
-			"elf",
-			"slinger"
+			["elf","highelf"],
+			["slinger","direbear"]
 		]
 	},
 	{
@@ -155,24 +156,28 @@
 		"title":"cabal breaker",
 		"max":1,
 		"level":15,
-		"length":100,
+		"length":200,
 		"run":{
 			"stamina":2
 		},
 		"result":{
-			"herbs":"3~7",
-			"gems":"0~2"
+			"bones":"3~7",
+			"bodies":"0~2"
 		},
 		"boss":"palus",
 		"spawns":[
 			["evilpriest","evilpriest","evilpriest"],
-			["corpse","corpse","corpse","corpse"],
-			["bugbear","bugbear"],
+			["corpse","corpse","skeleton","corpse"],
+			["ghost","ghost","wraith"],
+			["evilpriest","greaterzombie"],
 			["undeadhorror","undeadhorror"],
+			["wight","wight","ghast"],
 			"vampiremaster",
 			"skellord",
+			["m_hierophant","evilpriest","evilpriest"],
 			["blasphemer", "blasphemer"],
-			"wraith"
+			"wraith",
+			["ghoul","ghoul","ghast","evilpriest"]
 		]
 	},
 	{

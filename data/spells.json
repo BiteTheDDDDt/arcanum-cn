@@ -26,6 +26,64 @@
 
 	},
 	{
+		"id":"wake",
+		"level":5,
+		"school":"mana",
+		"desc":"Wake a slumbering ally.",
+		"cost":{
+			"mana":1,
+			"herbs":1
+		},
+		"action":{
+			"cure":"sleep",
+			"targets":"ally,self"
+		}
+
+	},
+	{
+		"id":"embolden",
+		"level":3,
+		"school":"nature",
+		"desc":"Remove fear from trembling subjects.",
+		"cost":{
+			"nature":1
+		},
+		"action":{
+			"cure":"fear",
+			"targets":"ally,self"
+		}
+
+	},
+	{
+		"id":"speak",
+		"level":10,
+		"school":"air",
+		"desc":"Breaks a curse of silence.",
+		"cost":{
+			"managem":5
+		},
+		"action":{
+			"cure":"silence",
+			"targets":"ally,self"
+		}
+
+	},
+	{
+		"id":"cureparalyze",
+		"name":"cure paralysis",
+		"level":7,
+		"school":"arcane",
+		"desc":"Loosens rigid muscles, nerves, and bones.",
+		"cost":{
+			"gems":1
+		},
+		"action":{
+			"cure":"paralyzed",
+			"targets":"ally,self"
+		}
+
+	},
+	{
 
 		"id":"curesick",
 		"level":1,
