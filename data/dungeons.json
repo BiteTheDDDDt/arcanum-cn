@@ -117,6 +117,57 @@
 
 	},
 	{
+		"id":"ettinmarchcamp",
+		"name":"ettinmarch camp",
+		"desc":"The perilous wilds of the Ettinmarch are a cherished home to bands of merry rangers and virtuous druids.",
+		"require":"evt_rangers",
+		"title":"forest scourge",
+		"max":1,
+		"level":15,
+		"length":100,
+		"run":{
+			"stamina":2
+		},
+		"result":{
+			"herbs":"3~7",
+			"gems":"0~2"
+		},
+		"boss":"eledin",
+		"spawns":[
+			["ranger","ranger"],
+			["elf","elf","elf","elf"],
+			"gnome",
+			["m_druid","m_druid"],
+			"ent",
+			"ettin",
+			"elf",
+			"slinger"
+		]
+	},
+	{
+		"id":"fetidbarrow",
+		"name":"the fetid barrows",
+		"desc":"When the fetid barrows were discovered, dark acolytes gathered at the mounds seeking ancient patrons of their art.",
+		"require":"evt_cabal",
+		"title":"cabal breaker",
+		"max":1,
+		"level":15,
+		"length":100,
+		"run":{
+			"stamina":2
+		},
+		"result":{
+			"herbs":"3~7",
+			"gems":"0~2"
+		},
+		"boss":"palus",
+		"spawns":[
+			["evilpriest","evilpriest","evilpriest"],
+			["corpse","corpse","corpse","corpse"],
+			["bugbear","bugbear"]
+		]
+	},
+	{
 		"id":"treffilwoods",
 		"name":"treffil woods",
 		"desc":"these enchanted woods are not particularly dangerous.",

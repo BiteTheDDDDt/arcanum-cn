@@ -85,6 +85,7 @@
 		"spells":[
 			{
 				"id":"cyrilsling",
+				"name":"cyril's celestial sling",
 				"level":7,
 				"school":"chaos",
 				"require":"g.tier5>0&&g.chaos.max>=3",
