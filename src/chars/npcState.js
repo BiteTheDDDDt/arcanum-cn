@@ -83,13 +83,13 @@ export class NpcState {
 
 		// appears to be check for special variables defined on state directly;
 		// e.g. raid, explore. @todo many issues with this.
-		if ( this.state[p] ) return this.state[p];
+		if ( p === 'self' ) return this.self;
+		else if ( this.state[p] ) return this.state[p];
 
 		let it = this.npcItems.get(p);
 		if ( it !== undefined ) return it;
 
-		if ( p === 'self' ) return this.self;
-		else if ( p === 'player' ) return this.state.player;
+
 
 		it = this.state.getData(p);
 		if ( it ) {

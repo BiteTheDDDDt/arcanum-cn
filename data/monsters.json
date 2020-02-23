@@ -54,7 +54,6 @@
         "desc":"a ghostly wisp of air.",
         "hp":"1~2",
 		"defense":1,
-		"spells":"mk_spirit",
         "attack":{
             "name":"shiver",
             "kind":"spirit",

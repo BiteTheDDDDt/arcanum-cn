@@ -398,7 +398,8 @@ export default class GData {
 		if ( this.disabled || this.locked === false || this.locks>0 ) return;
 
 		this.locked = false;
-		Events.emit( EVT_UNLOCK, this );
+		if ( this.show ) Events.emit( EVT_EVENT, this.show );
+		else Events.emit( EVT_UNLOCK, this );
 
 		Changed.add(this);
 	}

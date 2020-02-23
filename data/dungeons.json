@@ -56,7 +56,13 @@
 	{
 		"id":"pestcontrol",
 		"name":"Leaky Cellar",
-		"require":"evt_pestcontrol",
+		"require":"g.player.level>0&&(g.apprentice.value>0||g.neophyte.value>0)",
+		"show":{
+
+			"name":"Pest Control",
+			"desc":"After your daily castigation, your master mentions the rats in the basement have become a problem. Something about stolen shortswords and building barricades. You had better go down and deal with it."
+
+		},
 		"repeat":false,
 		"level":3,
 		"length":25,
@@ -207,30 +213,6 @@
 		],"loot":{"max":4}
 	},
 	{
-		"id":"goblincamp",
-		"name":"goblin camp",
-		"desc":"the pesky creatures are everywhere.",
-		"require":"evt_gobcamp",
-		"level":4,
-		"run":{
-			"stamina":1
-		},
-		"result":{
-			"title":"goblin slayer",
-			"gold":"20~30"
-		},
-		"boss":"gobchief",
-		"spawns":[
-			["goblin","goblin"],
-			"gobwarrior",
-			"gobwarrior",
-			"goblin",
-			"goblin",
-			"gobpriest"
-		],"loot":{"max":3}
-
-	},
-	{
 		"id":"underden",
 		"name":"under den",
 		"desc":"proverbial den of thieves",
@@ -354,10 +336,67 @@
 
 	},
 	{
+		"id":"goblincamp",
+		"name":"goblin camp",
+		"show":{
+
+			"name":"Goblins, Goblins!",
+			"desc":"Rumors hint at a camp of goblins in the vicinity. As an aspiring wizard, convention dictates you test your mettle on their lives."
+
+		},
+		"desc":"The pesky creatures are everywhere.",
+		"require":"g.treffilwoods>0&&g.player.level>=4&&g.dist>=25",
+		"level":4,
+		"run":{
+			"stamina":1
+		},
+		"result":{
+			"title":"goblin slayer",
+			"gold":"20~30"
+		},
+		"boss":"gobchief",
+		"spawns":[
+			["goblin","goblin"],
+			"gobwarrior",
+			"gobwarrior",
+			"goblin",
+			"goblin",
+			"gobpriest"
+		],"loot":{"max":3}
+
+	},
+	{
 		"id":"orccamp",
 		"name":"orc camp",
-		"desc":"a scourge of cities.",
-		"require":"tier0",
+		"desc":"A scourge of towns and cities.",
+		"require":"goblincamp",
+		"level":7,
+		"run":{
+			"stamina":1.2
+		},
+		"result":{
+			"gold":"40~50"
+		},
+		"boss":"orcchief",
+		"spawns":[
+			"orc",
+			"orcwarrior",
+			"orcwarrior",
+			"orc",
+			"orc",
+			"orcpriest"
+		], "flavor":"lok'tar!"
+
+	},
+	{
+		"id":"aragogres",
+		"name":"ogre cave",
+		"show":{
+			"name":"Ogre Cavern",
+			"desc":"While scrying the outlying lands you discover a colossal cave in the arag heights."
+		},
+		"desc":"A scourge of towns and cities.",
+		"require":"g.orccamp>0&&g.aragheights>0&&g.scrying>0",
 		"level":7,
 		"run":{
 			"stamina":1.2

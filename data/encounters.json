@@ -529,7 +529,7 @@
 	{
 		"id":"enc_workbook2",
 		"name":"master's workbook",
-		"desc":"a book on the practical applications of magic",
+		"desc":"A book on the practical applications of magic",
 		"effect":{
 			"bf":"-1~3",
 			"madness":"0~3",
@@ -543,7 +543,7 @@
 	{
 		"id":"enc_furnace",
 		"name":"fazbit's furnace",
-		"desc":"the embers still glow after centuries",
+		"desc":"Its embers still glow after centuries",
 		"effect":{
 			"bf":"-1~4",
 			"madness":"0~2",
@@ -557,7 +557,7 @@
 	{
 		"id":"enc_alchemy",
 		"name":"alchemical equipment",
-		"desc":"many of the uses of these things are beyond you.",
+		"desc":"The uses of these instruments are beyond you.",
 		"effect":{
 			"bf":"-1~4",
 			"madness":"0~2",
@@ -571,7 +571,7 @@
 	{
 		"id":"enc_statue2",
 		"name":"crumbled statue",
-		"desc":"the old stonemasons often chiselled spells into their works.",
+		"desc":"The old stonemasons often chiselled spells into their works.",
 		"effect":{
 			"earthlore.exp":1,
 			"bf":"0~2",
@@ -585,7 +585,7 @@
 	{
 		"id":"enc_statue4",
 		"name":"eldar statue",
-		"desc":"its weathered face has gazed upon the world since the Wind Age.",
+		"desc":"Its weathered face has gazed upon the world since the Wind Age.",
 		"effect":{
 			"madness":1,
 			"bf":"3~7",
@@ -600,7 +600,7 @@
 	{
 		"id":"enc_battle1",
 		"name":"ancient battlefield",
-		"desc":"blasted hills and scraps of armor still mark an ancient site of battle.",
+		"desc":"Blasted hills and scraps of armor still mark an ancient site of battle.",
 		"effect":{
 			"madness":0.5,
 			"weary":"2~7",
@@ -627,7 +627,7 @@
 	{
 		"id":"enc_oldstone",
 		"name":"the old stone",
-		"desc":"the massive head of stone and moss is said to be as old as the world itself.",
+		"desc":"The massive head of stone and moss is said to be as old as the world itself.",
 		"effect":{
 			"unease":"3~4",
 			"bf":"0~-2",
@@ -638,7 +638,7 @@
 	{
 		"id":"enc_sindel",
 		"name":"star shrine",
-		"desc":"a glowing star cinder embedded in a shrine.",
+		"desc":"A glowing star cinder embedded in a shrine.",
 		"effect":{
 			"lightlore.exp":1,
 			"bf":"2~5",
@@ -680,7 +680,7 @@
 	{
 		"id":"enc_gap",
 		"name":"markhul's gap",
-		"desc":"looking over the edge, you see no sign of a bottom",
+		"desc":"Looking over the edge, you see no sign of a bottom",
 		"effect":{
 			"bf":"0~3",
 			"unease":"1~4",
