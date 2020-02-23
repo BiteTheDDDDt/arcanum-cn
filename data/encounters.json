@@ -691,5 +691,17 @@
 			"airgem":"10%",
 			"airlore.max":0.001
 		}
+	},
+	{
+		"id":"enc_eonclock",
+		"name":"aeon clock",
+		"desc":"Legend has it that Thurn himself crafted the ten leagues of clockworks in the Orram Sands. Year by year, it ticks away the endless Aeons.",
+		"effect":{
+			"madness":"0~3",
+			"unease":"0~2",
+			"bf":"1~3",
+			"chronomancy.exp":1
+		},
+		"flavor":"Its vast face is nothing to what is reputed to lie buried below."
 	}
 ]

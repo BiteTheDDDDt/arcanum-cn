@@ -409,7 +409,7 @@
 		"boss":["orcchief","ogre","ogre"],
 		"spawns":[
 			"ogre",
-			["ogre","ogre"],
+			["bugbear","bugbear"],
 			["giantspider","lgspider","lgspider","lgspider"],
 			["ogre","warg","warg"],
 			"orcwarrior",
@@ -592,8 +592,8 @@
 	{
 		"id":"veldransstorehouse",
 		"name":"veldran's storehouse",
-		"desc":"Veldran never did manage to carve a kingdom from the wreck of bodias' reign. But he did accrue a sizeable hoard.",
-		"level":12,
+		"desc":"Veldran never did manage to carve a kingdom from the wreck of Bodias' reign. But he did accrue a sizeable hoard.",
+		"level":9,
 		"run":{
 			"stamina":2
 		},
@@ -603,11 +603,14 @@
 			"gold":"100~200"
 		},
 		"spawns":[
-			"claygolem",
+			["claygolem","claygolem","claygolem"],
 			"hobgoblin",
+			"doppelganger",
 			"masterswordsman",
-			"stonegolem",
-			"slime",
+			"irongolem",
+			"quasit",
+			["slime","slime","slime","slime"],
+			["stonegolem","stonegolem"],
 			"banditlord",
 			"magicmirror",
 			"woodgolem"
