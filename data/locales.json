@@ -244,6 +244,9 @@
 	"sym":"📖",
 	"desc":"An ancient library at the bridge spanning Markhul's gap.",
 	"flavor":"third of the Four Weirs of Dhrune.",
+	"result":{
+		"title":"Historian"
+	},
 	"loot":{
 		"tomes":"3~5",
 		"markhulcodex":true
@@ -255,6 +258,29 @@
 		"enc_statue2",
 		"enc_history",
 		"enc_primer1"
+	]
+},
+{
+
+	"id":"loc_orrem",
+	"require":"g.history>999",
+	"desc":"Only a small trading post marks the boundary of the lost cities of Orrem. Weathered masonry jutting from the sands beyond bespeak monuments of unimaginable proportions.",
+	"length":400,
+	"run":{
+		"stamina":3
+	},
+	"result":{
+		"title":"Orrem Scholar",
+		"fame":1
+	},"encs":[
+		"enc_aeonclock",
+		"enc_caravan",
+		"enc_oasis",
+		"enc_sandstorm",
+		"enc_mirage",
+		"strangebones",
+		"enc_chest3",
+		"enc_orremtrade"
 	]
 },
 {
