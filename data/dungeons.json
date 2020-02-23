@@ -390,29 +390,40 @@
 	},
 	{
 		"id":"aragogres",
-		"name":"ogre cave",
+		"name":"ogre cavern",
 		"show":{
 			"name":"Ogre Cavern",
 			"desc":"While scrying the outlying lands you discover a colossal cave in the arag heights."
 		},
 		"desc":"A scourge of towns and cities.",
 		"require":"g.orccamp>0&&g.aragheights>0&&g.scrying>0",
-		"level":7,
+		"level":10,
+		"length":100,
 		"run":{
-			"stamina":1.2
+			"stamina":1.7
 		},
 		"result":{
+			"bones":"5~10",
 			"gold":"40~50"
 		},
-		"boss":"orcchief",
+		"boss":["orcchief","ogre","ogre"],
 		"spawns":[
-			"orc",
+			"ogre",
+			["ogre","ogre"],
+			["giantspider","lgspider","lgspider","lgspider"],
+			["ogre","warg","warg"],
 			"orcwarrior",
-			"orcwarrior",
-			"orc",
-			"orc",
-			"orcpriest"
-		], "flavor":"lok'tar!"
+			["ogrewarrior","ogrewarrior"],
+			"troll",
+			"minotaur",
+			["vampirebat","vampirebat","vampirebat"],
+			["ogre","wolf","wolf","wolf"],
+			"hillgiant",
+			"direbear",
+			"ettin",
+			"orcchief",
+			["orcpriest","ogre","ogre"]
+		]
 
 	},
 	{

@@ -1969,10 +1969,51 @@
         "tohit":10,
         "defense":20,
         "attack":{
-            "name":"spiked club",
+            "name":"club",
             "kind":"blunt",
             "dmg":"8~17"
         }
+
+	},
+	{
+		"id":"ogrewarrior",
+		"name":"ogre warrior",
+        "level":8,
+		"flavor":"Ever wonder how ogres would look if they were twice as strong?",
+		"kind":"giant",
+        "hp":70,
+        "tohit":12,
+        "defense":23,
+        "attack":{
+            "name":"spiked club",
+            "kind":"blunt",
+            "dmg":"16~34"
+        }
+
+	},
+	{
+		"id":"ogrechief",
+		"name":"ogre chief",
+        "level":10,
+		"flavor":"Ever wonder how ogre warriors would look if they were twice as scary?",
+		"kind":"giant",
+        "hp":70,
+        "tohit":12,
+        "defense":23,
+        "attack":[
+			{
+				"name":"vicious gaze",
+				"targets":"enemies",
+				"dot":{
+					"id":"fear",
+					"duration":20
+				}
+			},
+			{
+            "name":"spiked club",
+            "kind":"blunt",
+            "dmg":"15~25"
+        }]
 
 	},
 	{
