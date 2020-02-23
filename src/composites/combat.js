@@ -196,7 +196,10 @@ export default class Combat {
 
 			} else {
 				Events.emit(EVT_COMBAT, null, g.self.name + ' casts ' + it.name );
-				this.attack( g.self, it.attack );
+				if ( it.attack ) this.attack( g.self, it.attack );
+				else {
+					console.log('spell no attack: ' + it.id );
+				}
 			}
 
 		}

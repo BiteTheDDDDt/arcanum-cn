@@ -4,9 +4,9 @@ import {cloneClass} from 'objecty';
  * @property {Map.<string,GData>} NpcItems - clone of base game data used by Npcs
  * without modifiers, player effects etc.
  */
-export const NpcItems = new Map();
+//export const NpcItems = new Map();
 
-const MakeNpcItem = (p,data)=>{
+/*const MakeNpcItem = (p,data)=>{
 
 	let t;
 
@@ -26,7 +26,7 @@ const MakeNpcItem = (p,data)=>{
 	NpcItems.set( p, t );
 	return t;
 
-}
+}*/
 
 /**
  * Proxy GameState for Npcs
@@ -38,6 +38,7 @@ export class NpcState {
 		this.state = gs;
 		this.self = caster;
 
+		this.npcItems = new Map();
 
 
 	}
@@ -72,6 +73,8 @@ export class NpcState {
 
 	hasUnique(id){return false}
 
+
+
 	/**
 	 *
 	 * @param {string} p
@@ -80,8 +83,9 @@ export class NpcState {
 
 		// appears to be check for special variables defined on state directly;
 		// e.g. raid, explore. @todo many issues with this.
+		if ( this.state[p] ) return this.state[p];
 
-		let it = NpcItems.get(p);
+		let it = this.npcItems.get(p);
 		if ( it !== undefined ) return it;
 
 		if ( p === 'self' ) return this.self;
@@ -92,12 +96,35 @@ export class NpcState {
 
 			if ( it.isRecipe ) return it;
 			//console.log('NEW NPC ITEM: ' + p + ': ' + it );
-			return MakeNpcItem( p, it );
+			return this.makeNpcItem( p, it );
 
 		} else console.log('item not found: ' + p );
 
 		return null;
 
+	}
+
+	makeNpcItem( p, data ){
+
+		let t;
+
+		//console.log('MAKE NPC ITEM: ' + data.id );
+
+		if ( data.constructor ) {
+			//console.log('using constr: ' + data.constructor.name );
+			t = new data.constructor( cloneClass( data.template || data ) );
+		} else {
+			//console.log('no constructor: ' + p );
+			t = cloneClass( data.template || data );
+		}
+
+		if ( t === null || t === undefined ) {
+			console.log('NPC: Cant create: ' + p );
+			t = data;
+		}
+
+		this.npcItems.set( p, t );
+		return t;
 	}
 
 }

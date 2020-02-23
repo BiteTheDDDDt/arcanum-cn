@@ -61,6 +61,8 @@ export default class Monster extends GData {
 	 */
 	onCreate( g, team = TEAM_PLAYER, keep=false ){
 
+		//if ( team === TEAM_PLAYER ) console.log('create npc: ' + this.id );
+
 		let it = CreateNpc(this, g);
 		it.team = team;
 		it.active = !keep;

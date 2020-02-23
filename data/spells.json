@@ -26,6 +26,20 @@
 
 	},
 	{
+		"id":"clarity",
+		"level":7,
+		"school":"charms",
+		"desc":"Cure yourself or an ally of a charm.",
+		"cost":{
+			"spiritgem":1
+		},
+		"action":{
+			"cure":"charm",
+			"targets":"ally,self"
+		}
+
+	},
+	{
 		"id":"wake",
 		"level":5,
 		"school":"mana",
@@ -43,10 +57,10 @@
 	{
 		"id":"embolden",
 		"level":3,
-		"school":"nature",
-		"desc":"Remove fear from trembling subjects.",
+		"school":"fire",
+		"desc":"Remove fear from yourself or a frightened creature.",
 		"cost":{
-			"nature":1
+			"fire":1
 		},
 		"action":{
 			"cure":"fear",
@@ -60,6 +74,7 @@
 		"school":"air",
 		"desc":"Breaks a curse of silence.",
 		"cost":{
+			"air":1,
 			"managem":5
 		},
 		"action":{
@@ -75,6 +90,7 @@
 		"school":"arcane",
 		"desc":"Loosens rigid muscles, nerves, and bones.",
 		"cost":{
+			"mana":1,
 			"gems":1
 		},
 		"action":{
@@ -2413,6 +2429,10 @@
 		},
 		"cost":{
 			"spirit":3
+		},
+		"action":{
+			"cure":"enrage",
+			"targets":"self,ally"
 		},
 		"dot":{
 			"duration":45,

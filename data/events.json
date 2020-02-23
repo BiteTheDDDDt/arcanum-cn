@@ -48,13 +48,13 @@
 	{
 		"id":"evt_rangers",
 		"name":"Naive Meddlers",
-		"require":"g.tier3>0&&g.player.level>=10&&g.evilamt>=50",
+		"require":"g.tier9>0&&g.player.level>=10&&g.evilamt>=50",
 		"desc":"Hearing of your wicked deeds, the rangers of the Ettinmarch plots your downfall. An assault on their camps should crush their presumption."
 	},
 	{
 		"id":"evt_cabal",
 		"name":"Vile Plotters",
-		"require":"g.tier3>0&&g.player.level>=10&&g.virtue>=50",
+		"require":"g.tier9>0&&g.player.level>=10&&g.virtue>=50",
 		"desc":"Learning of your virtuous ways, a cabal of ossurite priests plots your destruction. Travel to the Fetid Barrows and unravel their schemes."
 	},
 	{
