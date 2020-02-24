@@ -23,7 +23,7 @@
 		"flags":"nocast"
 	},
 	{
-		"id":"charm",
+		"id":"charmed",
 		"flags":"charmed",
 		"mod":{
 			"tohit":-5

@@ -514,7 +514,7 @@
 	{
 		"id":"enc_history",
 		"name":"dhrunic manuscript",
-		"desc":"much that was is lost.",
+		"desc":"Much that was is lost.",
 		"effect":{
 			"bf":"-1~4",
 			"rage":"0~4",
@@ -680,7 +680,7 @@
 	{
 		"id":"enc_gap",
 		"name":"markhul's gap",
-		"desc":"Looking over the edge, you see no sign of a bottom",
+		"desc":"Gazing over the dizzy edge, you see no sign of a bottom",
 		"effect":{
 			"bf":"0~3",
 			"unease":"1~4",
@@ -723,7 +723,8 @@
 		"desc":"",
 		"effect":{
 			"madness":"1~3",
-			"unease":"0~2"
+			"unease":"0~2",
+			"bf":"0~2"
 		},
 		"result":{
 			"history.max":0.001
@@ -732,12 +733,50 @@
 	{
 		"id":"enc_orremtrade",
 		"name":"lost trading post",
-		"desc":"",
+		"desc":"In the midst of a wide desolation, a tall grey-skinned creature with no eyes offers you its wares.",
 		"effect":{
-			"unease":"2~3"
+			"unease":"2~3",
+			"madness":"1~3",
+			"mana":-1
 		},
 		"result":{
-			"s_travel.max":0.001
+			"bloodgem":"20%",
+			"arcanegem":"10%",
+			"codices":"15%"
+		}
+	},
+	{
+		"id":"enc_madwinds",
+		"name":"winds of madness",
+		"desc":"Voices on the wind scream and echo in your mind.",
+		"effect":{
+			"madness":"2~5",
+			"mana":0.5,
+			"spiritlore.exp":1,
+			"airlore.exp":1
+		},
+		"result":{
+		}
+	},
+	{
+		"id":"orrem_rains",
+		"name":"orrem rains",
+		"desc":"Rare but torrential, the Orrem rains are accounted a wonder of the world.",
+		"effect":{
+			"stamina":1,
+			"waterlore.exp":1
+		}
+	},
+	{
+		"id":"enc_orem_cave",
+		"name":"hidden cave",
+		"desc":"",
+		"effect":{
+			"unease":"1~3"
+		},
+		"result":{
+			"codices":"2~4",
+			"tomes":"0~3"
 		}
 	},
 	{

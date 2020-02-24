@@ -1020,7 +1020,7 @@
 	},
 	{
 		"id":"gildella",
-		"name":"gildella",
+		"name":"gildella the lighthearted",
 		"unique":true,
         "level":12,
         "kind":"humanoid",
@@ -3095,11 +3095,17 @@
         "hp":145,
         "tohit":10,
         "defense":55,
-        "attack":{
+        "attack":[
+			{
+				"name":"fire breath",
+				"kind":"fire",
+				"dmg":"5~12",
+				"targets":"enemies"
+			},{
             "name":"claws",
             "kind":"slash",
             "dmg":"10~20"
-        }
+		}]
 	},
 	{
 		"id":"sandwyrm",
@@ -3129,11 +3135,24 @@
         "hp":119,
         "tohit":12,
         "defense":50,
-        "attack":{
+        "attack":[
+			{
+				"dot":{
+					"id":"silence",
+					"duration":5
+				}
+			},
+			{
+				"dot":{
+					"id":"paralyzed",
+					"duration":5
+				}
+			},
+			{
             "name":"eye beam",
             "kind":"mana",
             "dmg":"23~43"
-        }
+        }]
     },
     {
         "id":"angel",

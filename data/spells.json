@@ -34,7 +34,7 @@
 			"spiritgem":1
 		},
 		"action":{
-			"cure":"charm",
+			"cure":"charmed",
 			"targets":"ally,self"
 		}
 

@@ -50,7 +50,7 @@
 			"angrybird",
 			"smsnake"
 
-		], "flavor":"only the rare glimpse of wildlife breaks the stillness of the grove."
+		], "desc":"An idyllic grove for a walk or long nap."
 
 	},
 	{
@@ -189,7 +189,7 @@
 	{
 		"id":"treffilwoods",
 		"name":"treffil woods",
-		"desc":"these enchanted woods are not particularly dangerous.",
+		"desc":"These enchanted woods are not particularly dangerous.",
 		"dist":17,
 		"level":4,
 		"length":20,
@@ -239,7 +239,7 @@
 		"id":"veldranswreck",
 		"name":"veldran's wreck",
 		"desc":"Off the stormy cliffs of the arag highlands, a mass of cracked spars marks the resting place of the largest ship ever sailed by man.",
-		"require":"g.water.max>=10",
+		"require":"g.waterlore.max>=10",
 		"level":5,
 		"length":30,
 		"run":{
@@ -263,7 +263,7 @@
 	{
 		"id":"aragheights",
 		"name":"arag heights",
-		"desc":"barren mountains over arazor",
+		"desc":"Barren mountains over arazor",
 		"level":6,
 		"run":{
 			"stamina":1
@@ -324,13 +324,12 @@
 			"naga",
 			["raven","raven","raven","raven"],
 			"medusa",
-			"naga",
+			["naga","naga"],
 			"shriekingeel",
 			"naga",
 			"magicblade",
 			"evilpriest",
 			["eel","eel"],
-			"crab",
 			["crab","crab"]
 		],"flavor":"would the ancient seredites appreciate the temple's new inhabitants?"
 
@@ -443,10 +442,10 @@
 		"spawns":[
 			"giantspider",
 			"kobold",
+			["lgspider","lgspider"],
 			"lgspider",
 			"lgspider",
-			"direbat",
-			"giantspider"
+			"direbat"
 		]
 
 	},
@@ -506,7 +505,6 @@
 			"frixie",
 			"ogre",
 			"cavetroll",
-			"snowleopard",
 			"snowleopard"
 		]
 	},
