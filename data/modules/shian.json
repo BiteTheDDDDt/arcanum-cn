@@ -47,6 +47,24 @@
 				"mod":{
 					"sworduse.max":1
 				}
+			},
+			{
+				"id":"evt_hole",
+				"name":"public commotion",
+				"desc":"A large spire has risen closeby, quite a few are testing their luck, you better hurry if you want to be ahead",
+				"require":["mtgorborung", "tier3"]
+			},
+			{
+				"id":"evt_hole2",
+				"name":"the first one",
+				"desc":"You're the first one to the top, you find some books unlike many you've seen",
+				"require":"g.tier3>0&&g.easycrypts>0&&g.tier4==0"
+			},
+			{
+				"id":"evt_hole3",
+				"name":"the top",
+				"desc":"You've reached the top, but it seems others have already taken what was here",
+				"require":"g.tier4>0&&g.easycrypts&&g.evt_hole2<0"
 			}
 		],
 
@@ -74,6 +92,24 @@
 					"cave.mod.research.rate": 1.5,
 					"cave.mod.mana.rate": 0.2,
 					"cave.mod.spirit.rate": 0.25
+				},
+				"flavor": "This will take a while..."
+			},
+			{
+				"id": "mkpagoda",
+				"name": "Make a Beautiful Home",
+				"require": "g.mkcave>0&&g.tier6>0&&g.shian>0",
+				"desc": "Make a home where you can improve your mastery of the mysterious sword arts and spirits are plentiful",
+				"length": 1800,
+				"repeat": false,
+				"run": {
+					"gold":100,
+					"stamina": 1,
+					"earth": 1,
+					"mana": 1,
+					"fire": 1,
+					"air": 1,
+					"spirit": 1
 				},
 				"flavor": "This will take a while..."
 			},
@@ -131,6 +167,23 @@
 				}
 			}
 		],
+		"homes": [
+			{
+				"id": "shianpagoda",
+				"name": "elegant pagoda",
+				"desc": "A peaceful structure where you can devote yourself fully to your arts.",
+				"require": "g.mkpagoda>0",
+				"mod": {
+					"minions.max": 10,
+					"space.max": 550,
+					"sworduse.max":1,
+					"breakthrough.max":1,
+					"spirit.rate": 0.3,
+					"herbs.max":5
+
+				}
+			}
+		],
 		"upgrades": [
 			{
 				"id": "sworduse",
@@ -173,7 +226,7 @@
 		"spells": [
 			{
 				"id": "throw_swords",
-				"name": "flying Swords",
+				"name": "flying swords",
 				"school": "blade",
 				"require": "sworduse",
 				"level": 11,
@@ -220,7 +273,7 @@
 				"school": "spirit",
 				"require": "g.shian>0&&g.soulflag2>0",
 				"level": 10,
-				"desc": "Lure the souls of enemies from out their bodies",
+				"desc": "Lure the souls of enemies from out their mortal bodies",
 				"buy": {
 					"research": 1000,
 					"codices": 10,
@@ -236,6 +289,35 @@
 						"duration": 10,
 						"targets": "enemies",
 						"damage": "10~15"
+					}
+				}
+			},
+			{
+				"id": "giantkilling",
+				"name": "lost sword art: giant slayer",
+				"school": "blade",
+				"require": "g.sworduse>1",
+				"level": 12,
+				"tags": "swordart",
+				"buy": {
+					"research": 1000,
+					"codices": 10,
+					"spiritgem": 10
+				},
+				"cost": {
+					"gems":1,
+					"mana": 12
+				},
+				"attack": {
+					"targets": "enemies",
+					"damage": "67~92",
+					"kind": "slash",
+					"tohit": 10,
+					"dot": {
+						"duration": 10,
+						"mod": {
+							"defense": -10
+						}
 					}
 				}
 			},
@@ -309,6 +391,31 @@
 				"level": 15,
 				"cost": 5000
 			}
+		],
+		"dungeons":[
+			{
+    	   		"id":"unstablespire",
+   		    	"name":"The Unstable Spire",
+   		    	"desc":"A large spire that rose from the ground, looks like it might collapse any day now",
+   	     		"require":"evt_hole",
+        		"level":15,
+                "dist":"50",
+        		"run":{
+        		    "stamina":2
+        		},
+        		"length":10000,
+        		"result":{
+       			    "fame":1,
+            		"gems":"10~20",
+            		"gold":"100~200"
+        			},
+        		"biome":["cave","mountain"],
+        		"spawns":{
+            		"level":"4~15",
+           			"scale":true,
+            		"range":2
+        		},"flavor":"I'll add flavor to it later -Evil Tyrant"
+  			}
 		]
 	}
 }
