@@ -17,7 +17,7 @@
 					"sp": 0.05
 				},
 				"mod": {
-					"minions.puppet.hp": "1%",
+					"minions.puppet.hp.max": "1%",
 					"minions.puppet.dmg": "1%",
 					"allies.max": 0.25,
 					"research.max": 5
@@ -53,7 +53,7 @@
 					"sp": 0.05
 				},
 				"mod": {
-					"minions.machina.hp": "1%",
+					"minions.machina.hp.max": "1%",
 					"minions.machina.dmg": "1%",
 					"puppetry.max": 0.2,
 					"magicalanimation.max": 0.2,
@@ -92,11 +92,11 @@
 					"sp": 0.05
 				},
 				"mod": {
-					"minions.puppet.hp": "1%",
+					"minions.puppet.hp.max": "1%",
 					"minions.puppet.dmg": "1%",
-					"minions.machina.hp": "1%",
+					"minions.machina.hp.max": "1%",
 					"minions.machina.dmg": "1%",
-					"minions.automata.hp": "1%",
+					"minions.automata.hp.max": "1%",
 					"minions.automata.dmg": "1%",
 					"puppetry.max": 0.2,
 					"magicalanimation.max": 0.2,

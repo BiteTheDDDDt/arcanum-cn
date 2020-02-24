@@ -1,4 +1,4 @@
-import Inventory, { SaveInstanced } from "./inventory";
+import Inventory from "./inventory";
 import Events, { TASK_CHANGED } from '../events';
 import { NPC, TEAM_PLAYER} from "../values/consts";
 import RValue from "../values/rvalue";
@@ -102,6 +102,8 @@ export default class Minions extends Inventory {
 		for( let pair of this.mods ) {
 
 			if ( m.is(pair[1] ) ) {
+				console.log('APPLY MINION MOD: ' + pair[1] );
+				console.dir( pair[0], 'mod');
 				m.applyMods(pair[0]);
 			}
 
@@ -157,11 +159,7 @@ export default class Minions extends Inventory {
 				continue;
 			}
 
-			if ( m.active ) {
-				actives.push(m); }
-
-			m.keep = true;
-			m.team = TEAM_PLAYER;
+			if ( m.active ) { actives.push(m); }
 
 		}
 
@@ -199,6 +197,7 @@ export default class Minions extends Inventory {
 				for( let it of this.items ) {
 
 					if ( it.is(p) ) {
+						console.log('apply mod: ' + p );
 						it.applyMods( mod, amt );
 					}
 

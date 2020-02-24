@@ -83,7 +83,6 @@ export default class Char {
 
 		if ( Array.isArray(v)) {
 
-			console.log( this.id + ' creating atacks.');
 			let a = [];
 			for( let i = v.length-1; i>=0; i-- ) {
 
@@ -91,7 +90,6 @@ export default class Char {
 					new Attack(v[i])
 				);
 
-				console.log('targs: ' + a[ a.length-1].targets );
 			}
 
 			this._attack = a;

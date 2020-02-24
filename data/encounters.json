@@ -701,7 +701,10 @@
 			"madness":"0~1",
 			"weary":"1~2",
 			"player.hp":-2,
-			"airlore.exp":1
+			"airlore.exp":1,
+			"earthlore.exp":1,
+			"earth":0.5,
+			"air":0.5
 		},
 		"result":{
 			"history.max":0.001
@@ -720,11 +723,12 @@
 	{
 		"id":"enc_mirage",
 		"name":"mirage",
-		"desc":"",
+		"desc":"Extended travel beneath the hot sun produces visceral visions in the sand.",
 		"effect":{
 			"madness":"1~3",
 			"unease":"0~2",
-			"bf":"0~2"
+			"bf":"0~2",
+			"lightlore.exp":1
 		},
 		"result":{
 			"history.max":0.001
@@ -753,9 +757,8 @@
 			"madness":"2~5",
 			"mana":0.5,
 			"spiritlore.exp":1,
+			"spirit":1,
 			"airlore.exp":1
-		},
-		"result":{
 		}
 	},
 	{
@@ -764,19 +767,22 @@
 		"desc":"Rare but torrential, the Orrem rains are accounted a wonder of the world.",
 		"effect":{
 			"stamina":1,
-			"waterlore.exp":1
+			"waterlore.exp":1,
+			"water":0.5
 		}
 	},
 	{
 		"id":"enc_orem_cave",
 		"name":"hidden cave",
-		"desc":"",
+		"desc":"The shifting sands reveal a rocky cave. Perhaps some artifacts remain within.",
 		"effect":{
-			"unease":"1~3"
+			"unease":"1~3",
+			"void":0.1
 		},
 		"result":{
 			"codices":"2~4",
-			"tomes":"0~3"
+			"tomes":"0~3",
+			"runestones":"10%"
 		}
 	},
 	{

@@ -10,8 +10,7 @@
 			"stamina":0.4
 		},
 		"result":{
-			"gold":"5~10",
-			"tenwickstick":1
+			"gold":"5~10"
 		},
 		"loot":{
 			"max":1

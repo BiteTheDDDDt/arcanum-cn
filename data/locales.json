@@ -263,14 +263,19 @@
 {
 
 	"id":"loc_orrem",
-	"require":"g.history>999",
+	"require":"g.history>=7&&g.scrying>=5",
+	"show":{
+		"name":"Cities of Orrem",
+		"desc":"A vision in a crystal orb reveals to you the ruins of the lost cities of Orrem."
+	},
 	"desc":"Only a small trading post marks the boundary of the lost cities of Orrem. Weathered masonry jutting from the sands beyond bespeak monuments of unimaginable proportions.",
 	"length":400,
+	"level":19,
 	"run":{
 		"stamina":3
 	},
 	"result":{
-		"title":"Orrem Scholar",
+		"title":"Nomad",
 		"fame":1
 	},"encs":[
 		"enc_aeonclock",

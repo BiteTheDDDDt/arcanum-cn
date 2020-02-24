@@ -3,7 +3,43 @@
 	"data":{
 
 		"rares":[
-
+			{
+				"id": "iceorb",
+				"name": "orb of winters",
+				"desc": "A snowglobe with magical powers. It reminds you of colder days.",
+				"level": 10,
+				"save": true,
+				"unique": true,
+				"type": "weapon",
+				"tohit": 5,
+				"cost": {
+					"gold":100
+				},
+				"attack": {
+					"name": "blizzard",
+					"damage": "5~12",
+					"kind": "water",
+					"targets": "enemies",
+					"dot": {
+						"duration": 20,
+						"kind": "water",
+						"dmg": "5~12",
+						"mod": {
+							"speed": -5
+						}
+					}
+				},
+				"mod": {
+					"ice.rate": "20%",
+					"ice.max": "20%",
+					"icelore.rate": 2,
+					"water.rate": "20%",
+					"water.max": "20%",
+					"waterlore.rate": 2,
+					"fire.rate": "-80%",
+					"fire.max": "-80%"
+				}
+			  }
 
 		]
 

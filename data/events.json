@@ -64,7 +64,7 @@
 		"id":"tier1",
 		"name":"Professional Magick",
 		"desc":"Every province has its handful of runaway apprentices and failed Adepts. It's not uncommon for thieves and rangers to know a spell or two. They are nothing compared to the talents of a true professional.",
-		"disable":["treatailments","prestidigitation","buyscroll"],
+		"disable":["prestidigitation","buyscroll"],
 		"lock":["t_tier1", "t_tier0"],
 		"result":{
 			"sp":1,
