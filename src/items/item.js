@@ -97,6 +97,11 @@ export default class Item {
 		}
 		if ( save ) assign(this,save);
 
+		if ( this.id.includes('tenwick') ) {
+			console.dir( vars);
+			console.log( this.id + ' mod: ' + this.mod );
+		}
+
 		//if ( vars ) assign(this,vars);
 
 		if ( !this.enchantTot ) this.enchantTot = 0;

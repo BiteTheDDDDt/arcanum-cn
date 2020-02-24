@@ -1161,7 +1161,7 @@ export default {
 
 		if ( !this.canEquip(it) ) return false;
 
-		console.log('equip:' + it.id  + ' type: ' + it.type + ' kind: ' + it.kind );
+		console.log('equip: ' + it.id  + ' type: ' + it.type + ' kind: ' + it.kind );
 		let res = this.state.equip.equip( it );
 		if ( !res) return;
 
