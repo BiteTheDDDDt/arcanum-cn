@@ -772,7 +772,7 @@
 		}
 	},
 	{
-		"id":"enc_orem_cave",
+		"id":"enc_orrem_cave",
 		"name":"hidden cave",
 		"desc":"The shifting sands reveal a rocky cave. Perhaps some artifacts remain within.",
 		"effect":{
@@ -799,7 +799,7 @@
 	{
 		"id":"enc_aeonclock",
 		"name":"aeon clock",
-		"desc":"Legend has it that Thurn himself crafted the ten leagues of clockworks in the Orram Sands. Year by year, it ticks away the endless Aeons.",
+		"desc":"Legend has it that Thurn himself crafted the ten leagues of clockworks in the Orrem Sands. Year by year, it ticks away the endless Aeons.",
 		"effect":{
 			"madness":"0~3",
 			"unease":"0~2",
@@ -812,5 +812,70 @@
 			"history.max":0.001
 		},
 		"flavor":"Its vast face is nothing to what is reputed to lie buried below."
+	},
+	{
+		"id":"e_bloodgrass",
+		"name":"blood grass",
+		"desc":"Steel-sharp blades of grass bite cut at your boots.",
+		"effect":{
+			"weary":"0~3",
+			"rage":"1~3",
+			"hp":-2
+		},
+		"result":{
+		}
+	},
+	{
+		"id":"e_spidermass",
+		"name":"spider swarm",
+		"desc":"Piled higher than your head, an eclectic mass of skittering spiders bars the path.",
+		"effect":{
+			"unease":"2~3",
+			"madness":"2~4",
+			"rage":"1~2",
+			"hp":-1
+		},
+		"result":{
+		}
+	},
+	{
+		"id":"e_snakemass",
+		"name":"snake swarm",
+		"desc":"Writhing in heaps and drooping from branches, a mass of snakes covers the vicinity.",
+		"effect":{
+			"unease":"1~2",
+			"madness":"1~2",
+			"rage":"1~2",
+			"hp":-3
+		},
+		"result":{
+		}
+	},
+	{
+		"id":"e_bestiary1",
+		"name":"snake swarm",
+		"desc":"A pristine tapestry nearby displays a partial index of the menagerie.",
+		"effect":{
+			"unease":"1~2",
+			"madness":"1~2",
+			"rage":"1~2",
+			"hp":-3
+		},
+		"result":{
+		}
+	},
+	{
+		"id":"e_bestiary2",
+		"name":"snake swarm",
+		"desc":"A manual of beastly lore rests atop an ancient pedestal.",
+		"effect":{
+			"unease":"1~2",
+			"madness":"1~2",
+			"rage":"1~2",
+			"hp":-3
+		},
+		"result":{
+		}
 	}
+
 ]

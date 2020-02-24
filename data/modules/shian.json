@@ -1,5 +1,5 @@
 {
-	"module": "hermit",
+	"module": "shian",
 	"author":"evil tyrant",
 	"data": {
 		"events":[
@@ -7,7 +7,7 @@
 				"id":"evt_breakthrough0",
 				"name":"breakthrough",
 				"desc":"A breakthrough in your understanding of spirits! It seems so clear now",
-				"require":"g.spirit.max>19&&g.hermit>0",
+				"require":"g.spirit.max>19&&g.shian>0",
 				"mod":{
 					"spiritlore.max":1
 				}
@@ -55,7 +55,7 @@
 			{
 				"id": "mkcave",
 				"name": "Dig out a bigger cave",
-				"require": "(g.earthlore+g.spiritlore)>25&&g.hermit>0",
+				"require": "(g.earthlore+g.spiritlore)>25&&g.shian>0",
 				"desc": "Make a underground home where the magic is strong and spirits are plentiful",
 				"length": 1800,
 				"repeat": false,
@@ -80,7 +80,7 @@
 			{
 				"id": "soulflag",
 				"name": "craft soulflag",
-				"require": "g.spiritlore>12&&g.hermit>0",
+				"require": "g.spiritlore>12&&g.shian>0",
 				"desc": "So many souls around, there has to be a way to keep them out of your way",
 				"length": 100,
 				"repeat": false,
@@ -96,7 +96,7 @@
 			{
 				"id": "soulflag2",
 				"name": "improve soulflag",
-				"require": "g.soulflag>0&&g.hermit>0",
+				"require": "g.soulflag>0&&g.shian>0",
 				"desc": "There is room for more souls",
 				"length": 900,
 				"repeat": false,
@@ -114,7 +114,7 @@
 			{
 				"id": "soulflag3",
 				"name": "complete soulflag",
-				"require": "g.soulflag2>0&&g.hermit>0",
+				"require": "g.soulflag2>0&&g.shian>0",
 				"desc": "Containing ten thousand souls, this is a powerful tool ",
 				"length": 9000,
 				"repeat": false,
@@ -136,7 +136,7 @@
 				"id": "sworduse",
 				"name":"mysterious sword arts",
 				"desc": "The catacrypts have yielded strange and interesting weapons; perhaps you can find a use for them.",
-				"require": "hermit",
+				"require": "shian",
 				"max": 1,
 				"cost": {
 					"gold": 3000,
@@ -198,7 +198,7 @@
 			{
 				"id": "soulstrike",
 				"school": "spirit",
-				"require": "g.hermit>0&&g.soulflag>0",
+				"require": "g.shian>0&&g.soulflag>0",
 				"level": 6,
 				"buy": {
 					"research": 1000,
@@ -218,9 +218,9 @@
 				"id": "soullure",
 				"name": "soul lure",
 				"school": "spirit",
-				"require": "g.hermit>0&&g.soulflag2>0",
+				"require": "g.shian>0&&g.soulflag2>0",
 				"level": 10,
-				"desc": "lure the souls of enemies out of their bodies",
+				"desc": "Lure the souls of enemies from out their bodies",
 				"buy": {
 					"research": 1000,
 					"codices": 10,
@@ -243,7 +243,7 @@
 				"id": "soulriver",
 				"name": "soul river",
 				"school": "spirit",
-				"require": "g.hermit>0&&g.soulflag3>0",
+				"require": "g.shian>0&&g.soulflag3>0",
 				"level": 15,
 				"cd": 30,
 				"buy": {
@@ -264,8 +264,9 @@
 		],
 		"classes": [
 			{
-				"id": "hermit",
-				"desc": "Swords and spirit",
+				"id": "shian",
+				"name":"shian anchorite",
+				"desc": "An ancient magic from beyond the sea, combining spirit and blade.",
 				"tags": "t_tier4",
 				"require": "g.tier3>0&&g.catacrypts>0",
 				"cost": {
@@ -281,14 +282,14 @@
 					"tier4": true,
 					"spiritlore.max": 3
 				},
-				"flavor": "A user of spirits and swords, a disiple of eastern magic... Spends a lot of time on the small things"
+				"flavor": "Contemplation of the small as well as great."
 			}
 		],
 		"rares": [
 			{
 				"id": "itemsoulflag",
 				"name": "soulflag",
-				"desc": "Ten thousand lie muffled in its fabric.",
+				"desc": "Ten thousand souls muffled in its fabric.",
 				"save": true,
 				"type": "weapon",
 				"unique": true,

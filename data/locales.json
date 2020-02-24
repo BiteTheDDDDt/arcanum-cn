@@ -263,6 +263,7 @@
 {
 
 	"id":"loc_orrem",
+	"name":"sands of orrem",
 	"require":"g.history>=7&&g.scrying>=5",
 	"show":{
 		"name":"Cities of Orrem",
@@ -284,7 +285,7 @@
 		"desert_rains",
 		"orrem_rains",
 		"enc_madwinds",
-		"enc_orem_cave",
+		"enc_orrem_cave",
 		"enc_sandstorm",
 		"enc_mirage",
 		"enc_statue4",
