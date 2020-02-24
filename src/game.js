@@ -554,6 +554,8 @@ export default {
 	 */
 	create( it, keep=true, count=1 ) {
 
+		//console.log('CREATING: ' + it.id );
+
 		if ( typeof it === 'string') it = this.state.getData(it);
 		else if ( Array.isArray(it) ) {
 			for( let i = it.length-1; i>=0; i--) {
@@ -562,7 +564,10 @@ export default {
 			return;
 		}
 
-		if (!it ) return;
+		if (!it ) {
+			//console.log('not found: ' + it.id );
+			return;
+		}
 
 		for( let i = count; i >0; i--) {
 
@@ -577,7 +582,9 @@ export default {
 			} else {
 
 				var inst = this.itemGen.instance( it );
-				if ( inst ) this.state.inventory.add( inst );
+				if ( inst ) {
+					this.state.inventory.add( inst );
+				}
 				Events.emit( EVT_LOOT, inst );
 
 			}
@@ -1221,10 +1228,14 @@ export default {
 
 		if ( !it) return null;
 
+		console.log('LOOTING: ' + it.id );
+
 		inv = inv || this.state.inventory;
 		if ( inv.full() ) inv = this.state.drops;
 
 		if ( typeof it === 'object' && it.stack ) {
+
+			console.log('ADDING INVENTORY: ' + inv.id );
 
 			if ( inv.addStack( it ) ) {
 				Events.emit( EVT_LOOT, it );
