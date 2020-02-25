@@ -56,7 +56,7 @@ const MakePlugins = ( env, buildPath ) => {
 
 		plugins.push( new ZipPlugin({
 
-			filename:'arcanum.zip',
+			filename:'kong.zip',
 			pathPrefix:'js',
 			path:buildPath,
 			exclude:/\.html$/
