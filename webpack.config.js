@@ -2,10 +2,9 @@ const path = require('path');
 const VueLoader = require('vue-loader/lib/plugin');
 //const WorkboxPlugin = require( 'workbox-webpack-plugin');
 const CopyPlugin = require( 'copy-webpack-plugin');
+const HtmlWebpackPlugin = require( 'html-webpack-plugin');
 
 const ZipPlugin = require('zip-webpack-plugin');
-
-const HtmlPlug = require( 'html-webpack-plugin' );
 
 const webpack = require('webpack');
 const { execSync } = require('child_process');
@@ -18,8 +17,6 @@ const DebugDir = path.resolve( __dirname, 'src/debug');
 
 const MakePlugins = ( env, buildPath ) => {
 
-	console.log('BUILD: ' + buildPath);
-
 	const plugins = [
 		new VueLoader({
 			compilerOptions:{
@@ -31,16 +28,22 @@ const MakePlugins = ( env, buildPath ) => {
 			__DEBUG:true,
 			__CHEATS:true,
 			__KONG:env.kong || false,
-			__DIST:true,
-			__CLOUD_SAVE:false,
+			__DIST:env.production ? true : false,
+			__CLOUD:!env.kong && env.cloud,
 			__VERSION:VERS_STR
+		}),
+		new HtmlWebpackPlugin({
+
+			template:'index.ejs',
+			title:"Theory of Magic",
+			filename:path.resolve( buildPath, 'index.html'),
+			__KONG:env.kong||false,
+			__DIST:env.production ? true : false,
+			__CLOUD:env.cloud
+
 		}),
 		new CopyPlugin([
 
-			{
-				from:'index.html',
-				to:buildPath
-			},
 			{
 				from:'data',
 				to:path.resolve( buildPath, 'data')
@@ -70,10 +73,11 @@ const MakePlugins = ( env, buildPath ) => {
 module.exports = (env, argv) => {
 
 	const BuildPath = path.resolve( __dirname, argv['buildpath'] || 'dev' );
+	const __DIST = env.production ? true : false;
 
 	return {
 
-	mode: env.production ? "production" : 'development',
+	mode: __DIST ? "production" : 'development',
 	entry: {
 		wizrobe: "./src/index.js"
 	},
@@ -120,7 +124,8 @@ module.exports = (env, argv) => {
 			'modules':'modules',
 			'config': 'config',
 			"data": "../data",
-			'ui': 'ui'
+			'ui': 'ui',
+			'remote':'remote'
 		}
 	}
 
