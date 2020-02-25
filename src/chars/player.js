@@ -200,6 +200,10 @@ export default class Player extends Char {
 		this.id = this.type = "player";
 		if ( !vars || !vars.name) this.name = 'wizrobe';
 
+		if ( !this.weapons ) {
+			this.weapons = null;
+		}
+
 		//if ( vars ) Object.assign( this, vars );
 		if ( !this.level ) this.level = 0;
 		this._title = this._title || 'waif';
