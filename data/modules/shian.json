@@ -58,13 +58,13 @@
 				"id":"evt_hole2",
 				"name":"the first one",
 				"desc":"You're the first one to the top, you find some books unlike many you've seen",
-				"require":"g.tier3>0&&g.easycrypts>0&&g.tier4==0"
+				"require":"g.tier3>0&&g.unstablespire>0&&g.tier4==0"
 			},
 			{
 				"id":"evt_hole3",
 				"name":"the top",
 				"desc":"You've reached the top, but it seems others have already taken what was here",
-				"require":"g.tier4>0&&g.easycrypts&&g.evt_hole2<0"
+				"require":"g.tier4>0&&g.unstablespire&&g.evt_hole2<0"
 			}
 		],
 
@@ -350,7 +350,7 @@
 				"name":"shian anchorite",
 				"desc": "An ancient magic from beyond the sea, combining spirit and blade.",
 				"tags": "t_tier4",
-				"require": "g.tier3>0&&g.catacrypts>0",
+				"require": "g.tier3>0&&g.unstablespire>0",
 				"cost": {
 					"research": 25000,
 					"arcana": 25,
@@ -395,8 +395,8 @@
 		"dungeons":[
 			{
     	   		"id":"unstablespire",
-   		    	"name":"The Unstable Spire",
-   		    	"desc":"A large spire that rose from the ground, looks like it might collapse any day now",
+   		    	"name":"the unstable spire",
+   		    	"desc":"A large spire rising from the ground. IT looks like it might collapse any day now.",
    	     		"require":"evt_hole",
         		"level":15,
                 "dist":"50",
