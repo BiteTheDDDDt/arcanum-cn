@@ -2,7 +2,8 @@ const path = require('path');
 const VueLoader = require('vue-loader/lib/plugin');
 //const WorkboxPlugin = require( 'workbox-webpack-plugin');
 const CopyPlugin = require( 'copy-webpack-plugin');
-const CompressPlugin = require( 'compression-webpack-plugin');
+
+const ZipPlugin = require('zip-webpack-plugin');
 
 const HtmlPlug = require( 'html-webpack-plugin' );
 
@@ -16,6 +17,8 @@ const DebugDir = path.resolve( __dirname, 'src/debug');
 
 
 const MakePlugins = ( env, buildPath ) => {
+
+	console.log('BUILD: ' + buildPath);
 
 	const plugins = [
 		new VueLoader({
@@ -32,34 +35,34 @@ const MakePlugins = ( env, buildPath ) => {
 			__CLOUD_SAVE:false,
 			__VERSION:VERS_STR
 		}),
+		new CopyPlugin([
+
+			{
+				from:'index.html',
+				to:buildPath
+			},
+			{
+				from:'data',
+				to:path.resolve( buildPath, 'data')
+			},
+			{
+				from:'css',
+				to:path.resolve( buildPath, 'css' )
+			}
+		])
 	];
 
 	if ( env.kong) {
 
-		plugins.push( new CompressPlugin({
+		plugins.push( new ZipPlugin({
 
+			filename:'arcanum.zip',
+			pathPrefix:'js',
+			path:buildPath,
 			exclude:/\.html$/
 
 		}));
-
 	}
-
-	plugins.push(
-		new CopyPlugin([
-
-		{
-			from:'index.html',
-			to:buildPath
-		},
-		{
-			from:'data',
-			to:path.resolve( buildPath, 'data')
-		},
-		{
-			from:'css',
-			to:path.resolve( buildPath, 'css' )
-		}
-	]));
 
 	return plugins;
 }
