@@ -2,6 +2,8 @@ const path = require('path');
 const VueLoader = require('vue-loader/lib/plugin');
 //const WorkboxPlugin = require( 'workbox-webpack-plugin');
 const CopyPlugin = require( 'copy-webpack-plugin');
+const CompressPlugin = require( 'compression-webpack-plugin');
+
 const HtmlPlug = require( 'html-webpack-plugin' );
 
 const webpack = require('webpack');
@@ -13,7 +15,56 @@ const UiDir = path.resolve( __dirname, 'src/ui');
 const DebugDir = path.resolve( __dirname, 'src/debug');
 
 
-module.exports = (env, argv)=>{
+const MakePlugins = ( env, buildPath ) => {
+
+	const plugins = [
+		new VueLoader({
+			compilerOptions:{
+
+				whitespace:'condense'
+			}
+		}),
+		new webpack.DefinePlugin({
+			__DEBUG:true,
+			__CHEATS:true,
+			__KONG:env.kong || false,
+			__DIST:true,
+			__CLOUD_SAVE:false,
+			__VERSION:VERS_STR
+		}),
+	];
+
+	if ( env.kong) {
+
+		plugins.push( new CompressPlugin({
+
+			exclude:/\.html$/
+
+		}));
+
+	}
+
+	plugins.push(
+		new CopyPlugin([
+
+		{
+			from:'index.html',
+			to:buildPath
+		},
+		{
+			from:'data',
+			to:path.resolve( buildPath, 'data')
+		},
+		{
+			from:'css',
+			to:path.resolve( buildPath, 'css' )
+		}
+	]));
+
+	return plugins;
+}
+
+module.exports = (env, argv) => {
 
 	const BuildPath = path.resolve( __dirname, argv['buildpath'] || 'dev' );
 
@@ -45,43 +96,7 @@ module.exports = (env, argv)=>{
 			}
 		],
 	},
-	plugins: [
-		new VueLoader({
-			compilerOptions:{
-
-				whitespace:'condense'
-			}
-		}),
-		new webpack.DefinePlugin({
-		__DEBUG:true,
-		__CHEATS:true,
-		__KONG:env.kong || false,
-		__DIST:true,
-		__CLOUD_SAVE:false,
-		__VERSION:VERS_STR
-	}),
-	new CopyPlugin([
-
-		{
-			from:'index.html',
-			to:BuildPath
-		},
-		{
-			from:'data',
-			to:path.resolve( BuildPath, 'data')
-		},
-		{
-			from:'css',
-			to:path.resolve( BuildPath, 'css' )
-		}
-	])
-	/*new WorkboxPlugin.InjectManifest({
-		swSrc:'src/sw.js',
-		swDest:'sw.js',
-		importsDirectory:'wb-assets'
-	})*/],
-
-	//devtool: 'source-map',
+	plugins: MakePlugins(env, BuildPath ),
 
 	output: {
 
