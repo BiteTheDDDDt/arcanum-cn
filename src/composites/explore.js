@@ -4,6 +4,7 @@ import Game from '../game';
 import Encounter from "../items/encounter";
 import { itemRevive } from "../modules/itemgen";
 import { EXPLORE, getDelay } from "../values/consts";
+import { Changed } from "../techTree";
 
 /**
  * Explore locations of arcane importance.
@@ -217,7 +218,7 @@ export default class Explore {
 	complete() {
 
 		this.locale.exp = this.locale.length;
-		this.locale.dirty = true;
+		Changed.add(this.locale);
 
 		if ( this.locale.loot ) Game.getLoot( this.locale.loot, Game.state.drops );
 		if ( this.locale.result ) Game.applyVars( this.locale.result );

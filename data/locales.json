@@ -138,7 +138,7 @@
 {
 	"id":"rithel",
 	"level":14,
-	"desc":"this tiny outpost in the center of thangmor outlasted even the pillars",
+	"desc":"This tiny outpost in the center of thangmor outlasted even the pillars",
 	"require":"g.evil<=0&&g.history>=5",
 	"run":{
 		"stamina":0.2
@@ -154,6 +154,7 @@
 		"enc_chest2",
 		"enc_gnome",
 		"enc_primer2",
+		"enc_hettie",
 		"enc_delki",
 		"brightvista"
 	]
@@ -243,6 +244,9 @@
 	"sym":"📖",
 	"desc":"An ancient library at the bridge spanning Markhul's gap.",
 	"flavor":"third of the Four Weirs of Dhrune.",
+	"result":{
+		"title":"Historian"
+	},
 	"loot":{
 		"tomes":"3~5",
 		"markhulcodex":true
@@ -257,6 +261,41 @@
 	]
 },
 {
+
+	"id":"loc_orrem",
+	"name":"sands of orrem",
+	"require":"g.history>=7&&g.scrying>=5",
+	"show":{
+		"name":"Cities of Orrem",
+		"desc":"A vision in a crystal orb reveals to you the ruins of the lost cities of Orrem."
+	},
+	"desc":"Only a small trading post marks the boundary of the lost cities of Orrem. Weathered masonry jutting from the sands beyond bespeak monuments of unimaginable proportions.",
+	"length":400,
+	"level":19,
+	"run":{
+		"stamina":3
+	},
+	"result":{
+		"title":"Nomad",
+		"fame":1
+	},"encs":[
+		"enc_aeonclock",
+		"enc_caravan",
+		"enc_oasis",
+		"orrem_rains",
+		"enc_madwinds",
+		"enc_orrem_cave",
+		"enc_sandstorm",
+		"enc_mirage",
+		"enc_statue4",
+		"strangebones",
+		"enc_statue2",
+		"starrysky1",
+		"enc_chest3",
+		"enc_orremtrade"
+	]
+},
+{
 	"id":"loc_tenwick",
 	"name":"peregrination",
 	"level":20,
@@ -268,7 +307,7 @@
 	},
 	"result":{
 		"title":"Dhrunic Wayfarer",
-		"tenwickstick":true,
+		"tenwickstick":1,
 		"fame":1
 	},
 	"encs":[
@@ -279,6 +318,7 @@
 		"enc_gibber",
 		"hauntedglade",
 		"enc_statue4",
+		"enc_gap",
 		"brightvista",
 		"enc_mtpass",
 		"hiddencache",

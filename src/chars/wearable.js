@@ -74,9 +74,12 @@ export default class Wearable extends Item {
 
 			if ( v !== this._attack ) {
 
-				if ( v instanceof Attack  ) this._attack = v.clone();
-				else this._attack = new Attack(v);
+				if ( v instanceof Attack  ) {
+					this._attack = v.clone();
+				} else this._attack = new Attack(v);
 
+			} else {
+				if ( !(v instanceof Attack) ) this._attack = new Attack(v);
 			}
 
 		} else {
@@ -122,7 +125,12 @@ export default class Wearable extends Item {
 			else this.type = WEARABLE;
 		}
 
-		if ( this._attack && !this._attack.name ) this._attack.name = this.name;
+		if ( this._attack ){
+			this.attack = this._attack;
+			if ( !this._attack.name ) this._attack.name = this.name;
+		}
+
+
 
 	}
 
@@ -249,9 +257,18 @@ export default class Wearable extends Item {
 
 		this.worn = true;
 		if ( this.mod ) {
+
+			for( let p in this.mod ) {
+				console.log('apply mod: ' + p );
+			}
+			console.log('this mod: '+this.mod );
 			setModCounts( this.mod, 1);
-			g.applyMods( this.mod, 0 );
+			g.applyMods( this.mod, 1 );
+
+		} else {
+			console.log('no mods: '+ this.id );
 		}
+
 	}
 
 	/**

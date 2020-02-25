@@ -7,11 +7,11 @@ import Tasks from './sections/tasks.vue';
 import Quickbar from './quickbar.vue';
 import ItemsBase from './itemsBase';
 import Vitals from 'ui/vitals.vue';
-import DotView from './dotView.vue';
-import ItemPopup from './popups/itemPopup.vue';
+import DotView from './items/dotView.vue';
 import TopBar from './top-bar.vue';
 
 import Warn from 'ui/popups/warn.vue';
+import ItemPopup, { RollOver, ItemOut } from './popups/itemPopup.vue';
 import SettingsUI from './popups/settings.vue';
 
 import LogView from './outlog.vue';
@@ -23,6 +23,7 @@ import DevConsole from 'debug/devconsole.vue';
 import { TRY_BUY, USE, TRY_USE, EVT_STAT } from '../events';
 import { TICK_TIME } from '../game';
 import { TASK } from '../values/consts';
+import Task from '../items/task';
 
 /**
  * @const {number} SAVE_TIME  - time in seconds between auto-saves.
@@ -30,7 +31,7 @@ import { TASK } from '../values/consts';
 const SAVE_TIME = 30;
 
 /**
- * @listens [sell,itemover,itemout]
+ * @listens [sell]
  */
 export default {
 
@@ -71,9 +72,6 @@ export default {
 
 		return {
 			state:null,
-			overItem:null,
-			overTitle:null,
-			overElm:null,
 			psection:null,
 			togRegister:false,
 			showLogin:false,
@@ -127,9 +125,6 @@ export default {
 		 * Listen non-system events.
 		 */
 		initEvents() {
-
-			this.add( 'itemover', this.itemOver );
-			this.add( 'itemout', this.itemOut );
 
 			this.add( 'sell', this.onSell );
 			this.add( 'take', this.onTake );
@@ -238,8 +233,12 @@ export default {
 				let num = Number( e.code.slice(-1) );
 				//console.log('number: ' + num );
 
-				if ( e.shiftKey && this.overItem ) this.state.setQuickSlot( this.overItem, num );
-				else {
+				if ( e.shiftKey && RollOver.item ) {
+
+					let it = RollOver.item;
+					this.state.setQuickSlot( RollOver.item, num );
+
+				} else {
 					let it = this.state.getQuickSlot(num);
 					if ( it) this.doQuickslot(it);
 				}
@@ -275,18 +274,7 @@ export default {
 
 		onSell( it, inv, count ) { Game.trySell( it, inv, count ); },
 
-		itemOver(evt, it, title) {
-			this.overItem = it;
-			this.overTitle = title;
-			this.overElm = evt.currentTarget;
-		},
-
-		itemOut(){
-
-			this.overElm = null;
-			this.overItem = null;
-
-		},
+		itemOut:ItemOut,
 
 		/**
 		 * Item clicked.
@@ -348,7 +336,7 @@ export default {
 
 <template>
 
-	<div class="full" @mouseover.capture.stop="emit('itemout')">
+	<div class="full" @mouseover.capture.stop="itemOut">
 
 		<devconsole />
 		<topbar @open-settings="togSettings=true">
@@ -359,7 +347,7 @@ export default {
 		</topbar>
 
 <!-- popups -->
-		<itempopup :item="overItem" :elm="overElm" :title="overTitle" />
+		<itempopup />
 		<warn ref="warn" @confirmed="onConfirmed" />
 		<choice />
 		<register v-if="Profile.CLOUD&&togRegister" @close="togRegister=false" />

@@ -132,8 +132,7 @@ export const Targets = {
  */
 export const ParseTarget = (s)=>{
 
-	let f = Targets[s] || Targets.enemy;
-	return f;
+	return Targets[s] || Targets.enemy;
 
 }
 

@@ -10,7 +10,7 @@ import { NO_SPELLS } from '../chars/states';
 
 import { TEAM_PLAYER, getDelay, TEAM_NPC, TEAM_ALL } from '../values/consts';
 import { TARGET_ENEMY, TARGET_ALLY, TARGET_SELF,
-	TARGET_RAND, TARGET_PRIMARY, ApplyAction, TARGET_GROUP, TARGET_ANY } from "../values/combat";
+	TARGET_RAND, TARGET_PRIMARY, ApplyAction, TARGET_GROUP, TARGET_ANY } from "../values/combatVars";
 import Npc from '../chars/npc';
 
 
@@ -71,26 +71,37 @@ export default class Combat {
 
 	}
 
-	revive(state) {
+	revive(gs) {
 
-		this.state = state;
-		this.player = state.player;
+		this.state = gs;
+		this.player = gs.player;
 
 		// splices done in place to not confuse player with changed order.
 
+		let it;
+
 		for( let i = this._enemies.length-1; i>=0; i-- ) {
 
-			this._enemies[i] = itemRevive( state, this._enemies[i]);
-			if ( !this._enemies[i] ) this._enemies.splice(i,1);
+			// data can be null both before and after itemRevive()
+			it = this._enemies[i];
+			if ( it ) {
+				it = this._enemies[i] = itemRevive( gs, it );
+			}
+			if ( !it || !(it instanceof Npc) ) {
+				this._enemies.splice(i,1);
+			}
 
 
 		}
 
 		for( let i = this._allies.length-1; i>=0; i-- ) {
 
-			var it = this._allies[i];
-			if ( typeof it === 'string' ) this._allies[i] = state.minions.find( it );
-			else if ( it && typeof it === 'object') this._allies[i] = itemRevive( state, it );
+			it = this._allies[i];
+			if ( typeof it === 'string' ) this._allies[i] = gs.minions.find( it );
+			else if ( it && typeof it === 'object' && !(it instanceof Npc)) {
+				console.log('NEW COMBAT ALLY');
+				this._allies[i] = itemRevive( gs, it );
+			}
 
 			if ( !this._allies[i] ) this._allies.splice(i,1);
 
@@ -153,7 +164,7 @@ export default class Combat {
 			e.update(dt);
 			if ( e.alive === false ) { this._enemies.splice(i,1); continue;}
 			action = e.combat(dt);
-			if (!action) continue;
+			if ( !action ) continue;
 
 			else if ( !action.canAttack() ){
 				Events.emit( STATE_BLOCK, e, action );
@@ -166,22 +177,30 @@ export default class Combat {
 	/**
 	 * Player-casted spell or action attack.
 	 * @param {Item} it
+	 * @param {Context} g
 	 */
-	spellAction( it ) {
+	spellAction( it, g ) {
 
 		if ( this._enemies.length===0 ) {
 
-			Events.emit(EVT_COMBAT, null, this.player.name + ' casts ' + it.name + ' at the darkness.' );
+			Events.emit(EVT_COMBAT, null, g.self.name + ' casts ' + it.name + ' at the darkness.' );
 
 		} else {
 
-			let a = this.player.getCause( NO_SPELLS);
+
+			let a = g.self.getCause( NO_SPELLS);
 			if ( a ) {
 
-				console.warn('SPELLS blocked: ' + a );
-				Events.emit( STATE_BLOCK, this.player, a );
+				//console.warn('SPELLS blocked: ' + a );
+				Events.emit( STATE_BLOCK, g.self, a );
 
-			} else this.attack( this.player, it.attack );
+			} else {
+				Events.emit(EVT_COMBAT, null, g.self.name + ' casts ' + it.name );
+				if ( it.attack ) this.attack( g.self, it.attack );
+				else {
+					console.log('spell no attack: ' + it.id );
+				}
+			}
 
 		}
 
@@ -208,7 +227,11 @@ export default class Combat {
 		let targ = this.getTarget( attacker, atk.targets );
 		if ( !targ) return;
 
-		else if ( Array.isArray(targ)) {
+		if ( atk.name === 'rewind' || atk.name ==='recoil') {
+			console.log( atk.name + ' targ: ' + targ.name + ' TARG: ' + atk.targets);
+		}
+
+		if ( Array.isArray(targ)) {
 
 			for( let i = targ.length-1; i>= 0; i-- ) {
 				this.doAttack( attacker, atk, targ[i]);

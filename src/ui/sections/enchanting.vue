@@ -48,7 +48,7 @@ export default {
 		},
 
 		canUseOn( it, targ ) {
-			return targ&&it.canUseOn(targ)&& this.enchantSlots.canAdd(it)&&this.usable(it);
+			return targ&&it.canUseOn(targ)&& this.enchantSlots.canAdd(it)&&it.canUse();
 		}
 
 	},
@@ -69,7 +69,7 @@ export default {
 
 		<div class="separate">
 		<div>
-			<div @mouseenter.capture.stop="emit( 'itemover', $event, target )">Target: {{ target ? target.name : 'None' }}</div>
+			<div @mouseenter.capture.stop="itemOver( $event, target )">Target: {{ target ? target.name : 'None' }}</div>
 			<div class="note-text">Enchantment levels on an Item cannot exceed an Item's level.</div>
 		</div>
 
@@ -85,11 +85,11 @@ export default {
 		<filterbox v-model="filtered" :items="enchants" min-items="7" />
 
 		<div class="enchant-list">
-		<div class='enchant' v-for="it in filtered" :key="it.id" @mouseenter.capture.stop="emit( 'itemover', $event,it)">
+		<div class='enchant' v-for="it in filtered" :key="it.id" @mouseenter.capture.stop="itemOver( $event,it)">
 
 			<span class="ench-name">{{ it.name }}</span>
 
-			<button v-if="it.buy&&!it.owned" :disabled="!buyable(it)"
+			<button v-if="it.buy&&!it.owned" :disabled="!it.canBuy()"
 				@click="emit('buy', it)">Unlock</button>
 
 			<button v-else :disabled="!canUseOn(it,target)"

@@ -3,7 +3,7 @@
  */
 import { floor } from '../util/format';
 
-import Game, { TICK_LEN } from '../game';
+import Game from '../game';
 
 export default {
 
@@ -19,12 +19,6 @@ export default {
 			return true;
 
 		},
-
-		usable(it) {
-			return (it.length || it.perpetual ) ? it.canRun( Game, TICK_LEN) : it.canUse(Game );
-		},
-
-		buyable(it) { return it.canBuy(Game) },
 
 		reslocked( it ) {
 			return it.disabled === true || it.locks > 0 || it.locked !== false;

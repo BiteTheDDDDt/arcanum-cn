@@ -719,7 +719,7 @@
 		"id":"magicadvice",
 		"name":"advise notables",
 		"desc":"from worried village councils to bumbling barons, they all require your advice",
-		"require":"(g.witch+g.magician)>0",
+		"require":"(g.witch+g.magician+g.blueadept)>0",
 		"cost":{
 			"stamina":0.3
 		},
@@ -973,6 +973,7 @@
 	{
 
 		"id":"a_oppress",
+		"name":"oppress",
 		"desc":"Impose your will on the denizens of the world.",
 		"need":"g.tier3>0&&g.evil>0",
 		"length":100,

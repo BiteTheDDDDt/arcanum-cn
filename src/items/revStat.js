@@ -7,6 +7,12 @@ import Resource from "./resource";
  */
 export default class RevStat extends Resource {
 
+	/**
+	 * @property {boolean} modCost - pay for resource with mods, not values.
+	 */
+	get modCost(){ return this._modCost; }
+	set modCost(v) { this._modCost=v}
+
 	constructor( vars ){
 
 		super(vars);
@@ -28,11 +34,11 @@ export default class RevStat extends Resource {
 	 * @param {number} amt
 	 */
 	canPay( amt ) {
-		return this.value + amt <= this.max.value;
+		return this.value - amt <= this.max.value;
 	}
 	remove( amt ) { this.value.base += amt; }
 
-	fill(){ this.value = 0; }
+	doFill(){ this.value = 0; }
 
 	/**
 	 * Determine whether the item is filled relative to a filling rate.

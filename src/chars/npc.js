@@ -3,13 +3,14 @@ import Range, { RangeTest } from '../values/range';
 import Percent, { PercentTest } from '../values/percent';
 import MaxStat from '../values/maxStat';
 import Attack from './attack';
-import { ParseDmg } from 'values/combat'
-import { assign, mergeSafe } from 'objecty';
+import { ParseDmg } from '../values/combatVars'
 import { TEAM_NPC } from 'values/consts';
 import { mergeClass } from '../items/base';
 import Instance from '../items/instance';
-import { assignNoFunc } from '../util/util';
-import Context from '../context';
+import Game from '../game';
+import { MakeDataList } from '../gameState';
+import Context from './context';
+import { assign } from 'objecty';
 
 /**
  * Class for specific Enemies/Minions in game.
@@ -35,7 +36,7 @@ export default class Npc extends Char {
 
 		} else data.name = this._name;
 
-		data.keep = this.keep;
+		//data.keep = this.keep;
 
 		//data.died = this.died||undefined;
 
@@ -115,19 +116,32 @@ export default class Npc extends Char {
 	get active() { return this._active; }
 	set active(v) { this._active = v; }
 
+	/**
+	 * @property {DataList} spells - list of spells char can cast.
+	 */
+	get spells(){ return this._spells; }
+	set spells(v) {
+		this._spells = MakeDataList(v);
+	}
+
 	constructor(vars, save=null ) {
 
 		super( vars );
 
 		if ( save ) assign( this, save );
 
+		//if ( this.id.includes('mecha')) console.dir(this.attack, 'post-save');
+
 		this.dodge = this.dodge || this.level/2;
 
-		this.active = this.active === undefined || this.active === null ? false : this.active;
+		this.active = (this.active === undefined || this.active === null) ? false : this.active;
 
 		if ( this._spells ) {
-			this._context = new Context(this);
-		} else this._context = this;
+
+			this._context = new Context( Game.state, this );
+			this.spells.revive( this._context.state );
+
+		} else this._context = Game;
 
 		if ( typeof this.hp === 'string' ) this.hp = new Range(this.hp).value;
 		else if ( this.hp instanceof Range ) {
@@ -157,6 +171,13 @@ export default class Npc extends Char {
 		super.revive(gs);
 
 
+	}
+
+	/**
+	 * Catch event. Do nothing.
+	 * @param {*} g
+	 */
+	onUse(g){
 	}
 
 	/**

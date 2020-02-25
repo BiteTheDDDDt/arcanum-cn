@@ -1,5 +1,4 @@
 import RValue from "./rvalue";
-import Stat from "./stat";
 
 /**
  * @class {Scaler} Scaler -NOT a Scalar.

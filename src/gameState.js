@@ -20,6 +20,14 @@ import EnchantSlots from './inventories/enchantslots';
 
 export const REST_SLOT = 'rest';
 
+/**
+ * Used to avoid circular include references.
+ * @param {string[]|object} list
+ */
+export const MakeDataList = (list)=>{
+	return new DataList(list);
+}
+
 export default class GameState {
 
 	toJSON(){
@@ -100,6 +108,7 @@ export default class GameState {
 		this.items.inv = this.inventory;
 		this.inventory.removeDupes = true;
 
+		this.self = this.player;
 		this.drops = new Inventory();
 
 		this.items[ENCHANTSLOTS] = new EnchantSlots( this.items[ENCHANTSLOTS] );
@@ -107,7 +116,6 @@ export default class GameState {
 		 * @property {Minions} minions
 		 */
 		this.minions = this.items.minions = new Minions( this.items.minions || null );
-		this.items.allies = this.minions.allies;
 
 		this.equip = new Equip( baseData.equip );
 
@@ -129,9 +137,14 @@ export default class GameState {
 		this.items.pursuits = new DataList( this.items.pursuits );
 		this.items.pursuits.id = PURSUITS;
 
-		this.revive();
+	}
 
-		this.readyItems();
+	revive() {
+
+		this.reviveSpecial();
+
+		console.log('Reviving GameState Items');
+		this.reviveItems();
 
 		// quickbars must revive after inventory.
 		this.bars.revive(this);
@@ -151,6 +164,8 @@ export default class GameState {
 		 * makes upgrading/referencing by tag easier.
 		*/
 		this.tagSets = this.makeTagSets( this.items );
+
+		this.items.allies = this.minions.allies;
 		this.saveItems.allies = undefined;
 
 	}
@@ -199,7 +214,7 @@ export default class GameState {
 
 	}
 
-	revive() {
+	reviveSpecial() {
 
 		for( let p in this.slots ) {
 			if ( typeof this.slots[p] === 'string') this.slots[p] = this.getData(this.slots[p] );
@@ -216,6 +231,7 @@ export default class GameState {
 
 		this.player.revive(this);
 
+		this.minions.revive(this);
 		this.drops.revive(this);
 		this.raid.revive( this );
 		this.explore.revive(this);
@@ -226,7 +242,9 @@ export default class GameState {
 	 * Check items for game-breaking inconsistencies and remove or fix
 	 * bad item entries.
 	 */
-	readyItems() {
+	reviveItems() {
+
+		var manualRevive = new Set( ['minions', 'player', 'raid', 'explore', 'equip', 'drops'] );
 
 		let count = 0;
 		for( let p in this.items ) {
@@ -236,7 +254,8 @@ export default class GameState {
 			 * revive() has to be called after prepItems() so custom items are instanced
 			 * and can be referenced.
 			 */
-			if ( it.revive && typeof it.revive === 'function') {
+			if ( it.revive && typeof it.revive === 'function' && !manualRevive.has(p) ) {
+
 				//console.log('REVIVING: ' + it.id );
 				it.revive(this);
 			}
@@ -468,14 +487,6 @@ export default class GameState {
 	}
 
 	/**
-	 * Apparently? used to avoid circular module references.
-	 * @param {*} list
-	 */
-	makeDataList(list) {
-		return new DataList(list);
-	}
-
-	/**
 	 * Should only be used for custom items.
 	 * Call from Game so DELETE_ITEM event called.
 	 * @param {GData} it
@@ -484,27 +495,6 @@ export default class GameState {
 		delete this.items[it.id];
 		delete this.saveItems[it.id];
 	}
-
-	/**
-	 * Assign all items passing the predicate test the given tag.
-	 * Dyanamic tagging not supported.
-	 * @param {Predicate} test
-	 * @param {string} tag
-	 */
-	/*tagItems( test, tag ) {
-		let items = this.items;
-		for( let p in items ) {
-			if ( test( items[p] ) ) items[p].addTag(tag);
-		}
-	}*/
-
-	/**
-	 * Get an item on an item-id varpath.
-	 * @param {VarPath} v
-	 */
-	/*getPathItem(v){
-		return v.readVar( this._items );
-	}*/
 
 	/**
 	 * Get state slots so they can be modified for Vue reactivity.

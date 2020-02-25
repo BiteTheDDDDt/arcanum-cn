@@ -3,6 +3,7 @@ import Base, {mergeClass} from '../items/base';
 import Item from "../items/item";
 
 import { itemRevive } from "../modules/itemgen";
+import { Changed } from "../techTree";
 
 /**
  * Option for saveMap which will full-save instanced items
@@ -21,6 +22,7 @@ export default class Inventory {
 	valueOf() { return this.items.length; }
 
 	toJSON(){
+
 		return {
 			items:this.saveMode === 'full' ? this.items : (
 				( this.saveMode === 'ids' || !this.saveMap ) ? this.items.map(v=>v.id ) :
@@ -158,9 +160,13 @@ export default class Inventory {
 		// used ids.
 		var ids = {};
 
-		for( let i = this.items.length-1; i>= 0; i-- ) {
+		let loads = this.items.slice(0);
+		this.items.length = 0;
+		let len = loads.length;
 
-			var it = this.items[i];
+		for( let i = 0; i < len; i++ ) {
+
+			var it = loads[i];
 			if ( reviver ) {
 				it = reviver(gs, it);
 			} else if ( typeof it === 'object' ) {
@@ -169,12 +175,7 @@ export default class Inventory {
 
 			} else if ( typeof it === 'string') it = gs.getData(it);
 
-
-			if ( it == null || !it.id || ( this.removeDupes&& ids[it.id]===true) ) this.items.splice( i, 1 );
-			else {
-				ids[it.id] = true;
-				this.items[i] = it;
-			}
+			this.add(it);
 
 		}
 		this.calcUsed();
@@ -214,7 +215,7 @@ export default class Inventory {
 			//console.warn('CUR USED: ' + this.used + '/' + this.max.value );
 
 		}
-		this.dirty = true;
+		Changed.add(this);
 
 	}
 

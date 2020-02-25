@@ -1,23 +1,18 @@
 import Base, {mergeClass} from '../items/base';
 import Stat from '../values/stat';
 import Attack from './attack';
-
 import Dot from './dot';
 
 import { NPC, getDelay, TYP_PCT } from '../values/consts';
 import { toStats } from "../util/dataUtil";
 import events, { CHAR_STATE } from '../events';
 import States, { NO_ATTACK } from './states';
-import {assign} from 'objecty';
 
 import Game from '../game';
-import { ApplyAction } from '../values/combat';
+import { ApplyAction } from '../values/combatVars';
 import { assignNoFunc } from '../util/util';
 
 export default class Char {
-
-	/*get states() { return this._states; }
-	set states(v) { this._states = v; }*/
 
 	get defense() { return this._defense; }
 	set defense(v) {
@@ -47,14 +42,6 @@ export default class Char {
 		else this._speed.set(v);
 	}
 
-	/**
-	 * @property {string[]} spells - list of spells char can cast.
-	 */
-	get spells(){ return this._spells; }
-	set spells(v) {
-		if ( typeof v === 'string') this._spells = v.split(',');
-		else this._spells=v;
-	}
 
 	/**
 	 * @property {.<string,Stat>} immunities
@@ -99,7 +86,9 @@ export default class Char {
 			let a = [];
 			for( let i = v.length-1; i>=0; i-- ) {
 
-				a.push( (v[i] instanceof Attack) ? v[i] : new Attack(v[i]) );
+				a.push( (v[i] instanceof Attack) ? v[i] :
+					new Attack(v[i])
+				);
 
 			}
 
@@ -114,12 +103,14 @@ export default class Char {
 
 		let a = [];
 
-		for( let i = v.length-1; i >= 0; i-- ) {
+		if ( v ) {
+			for( let i = v.length-1; i >= 0; i-- ) {
 
-			//var d = v[i] instanceof Dot ? v[i] : new Dot(v[i]);
+				//var d = v[i] instanceof Dot ? v[i] : new Dot(v[i]);
 
-			a.push( v[i] instanceof Dot ? v[i] : new Dot(v[i] ) );
+				a.push( v[i] instanceof Dot ? v[i] : new Dot(v[i] ) );
 
+			}
 		}
 
 		this._dots = a;
@@ -177,7 +168,10 @@ export default class Char {
 
 	constructor( vars ){
 
-		if ( vars ) assignNoFunc( this, vars );
+		if ( vars ) {
+			this.id = vars.id;	// useful for debugging.
+			assignNoFunc( this, vars );
+		}
 
 		this.type = NPC;
 
@@ -186,8 +180,6 @@ export default class Char {
 		this.immunities = this.immunities || {};
 		this._resist = this._resist || {};
 		if ( !this.bonuses ) this.bonuses = {};
-
-		//console.log( this.id + ' tohit: ' + this.tohit );
 
 		/**
 		 * @property {Object[]} dots - timed/ongoing effects.
@@ -206,8 +198,6 @@ export default class Char {
 	 * @param {GameState} gs
 	 */
 	revive( gs ){
-
-		if ( this.spells ) this.spells = gs.makeDataList(this.spells );
 
 		this.reviveDots(gs);
 		this._states.refresh(this._dots);
@@ -408,6 +398,9 @@ export default class Char {
 
 			this.timer += getDelay( this.speed );
 
+			if ( this.spells && Math.random()<0.4 && this.tryCast() ) {
+				return null;
+			}
 			return this.getCause(NO_ATTACK) || this.getAttack();
 
 		}

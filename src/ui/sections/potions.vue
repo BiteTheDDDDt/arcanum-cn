@@ -38,12 +38,12 @@ export default {
 		<filterbox v-model="filtered" :items="potions" min-items="7" />
 
 		<div class="potion-col">
-		<div v-for="it in filtered" class="separate" :key="it.id" @mouseenter.capture.stop="emit( 'itemover', $event,it)">
+		<div v-for="it in filtered" class="separate" :key="it.id" @mouseenter.capture.stop="itemOver( $event,it)">
 
 			<span>{{ it.name }}</span>
 
-			<button v-if="it.buy&&!it.owned" :disabled="!buyable(it)" @click="emit(BUY, it)">Unlock</button>
-			<button v-else :disabled="!usable(it)"
+			<button v-if="it.buy&&!it.owned" :disabled="!it.canBuy()" @click="emit(BUY, it)">Unlock</button>
+			<button v-else :disabled="!it.canUse()"
 				@click="emit( 'craft', it )">Brew</button>
 
 		</div>

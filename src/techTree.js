@@ -8,6 +8,11 @@ import TagSet from './composites/tagset';
  */
 const FuncRE = /[^\.]\b\w+\.((?:\w|\.)+\b)/gi;
 
+/**
+ * @property {Set<GData>} Changed - items changed on previous frame.
+ */
+export const Changed = new Set();
+
 export default class TechTree {
 
 	/**
@@ -15,6 +20,8 @@ export default class TechTree {
 	 * @param {Object} [vars=null]
 	 */
 	constructor( items ) {
+
+		Changed.clear();
 
 		/**
 		 * @property {object.<string,GData>} items - used to check if items
@@ -37,31 +44,6 @@ export default class TechTree {
 			this.mapUnlocks( this.items[p]);
 		}
 
-		/**
-		 * Unlocked items that might unlock other items.
-		 */
-		this.fringe = [];
-
-		for( let p in this.items ) {
-
-			var it = this.items[p];
-			if ( it instanceof TagSet) continue;
-
-			if ( !it.locked && this.unlocks[p] ) {
-				this.fringe.push( it );
-			} else {
-
-				// check cyclic unlock. resources unlock themselves with any amount;
-				// these must be added to fringe without being unlocked.
-				let links = this.unlocks[p];
-				if ( links && links.includes(p) ) {
-					this.fringe.push( it );
-				}
-
-			}
-
-		}
-
 	}
 
 	/**
@@ -69,11 +51,18 @@ export default class TechTree {
 	 */
 	forceCheck() {
 
+		let links;
+
 		for( let p in this.items ) {
 
 			let it = this.items[p];
 			if ( it instanceof TagSet ) continue;
-			if ( !it.disabled && !it.locked ) this.changed(p);
+			if ( !it.disabled && !it.locked ) {
+
+				links = this.unlocks[p];
+				if ( links ) this.changed( links );
+
+			}
 
 		}
 
@@ -95,30 +84,18 @@ export default class TechTree {
 	/**
 	 * Check fringe items for potential unlock events.
 	 */
-	checkFringe(){
+	updateTech(){
 
-		let arr = this.fringe;
+		for( let it of Changed ){
 
-		//if ( Math.random() < 0.1 ) console.log('FRINGE SIZE: ' + arr.length );
+			let links = this.unlocks[it.id];
+			if ( links !== undefined ) {
 
-		for( let i = arr.length-1; i >= 0; i-- ) {
-
-			var it = arr[i];
-			if ( it.disabled ) {
-
-				quickSplice( arr, i );
-
-			} else if ( it.dirty === true ) {
-
-				it.dirty = false;
-				// no potential unlocks left.
-				if ( this.changed( it.id ) === false ) {
-					quickSplice( arr, i);
+				if ( this.changed( links ) === false ) {
+					this.unlocks[it.id] = undefined;
 				}
 
-
 			}
-
 
 		}
 
@@ -129,21 +106,15 @@ export default class TechTree {
 	 * Test unlocks on all variables linked by a possible unlock chain.
 	 * @param {string} src - id of changed Item.
 	*/
-	changed( src ){
-
-		let links = this.unlocks[src];
-		// never-null. this is guaranteed.
-		if ( links === undefined ) return false;
-
-		// links is id-array.
+	changed( links ){
 
 		let it;
 		for( let i = links.length-1; i>= 0; i--) {
 
 			it = this.items[ links[i] ];
-			if ( !it ) {
+			if ( !it || it.locked === false || it.disabled === true || it.locks>0 ) {
 				quickSplice( links, i );
-			} else if ( it.locked === false || it.disabled === true || Game.tryUnlock(it) ) {
+			} else if ( Game.tryUnlock(it) ) {
 
 				// remove unlock link.
 				quickSplice( links, i );
@@ -152,12 +123,7 @@ export default class TechTree {
 
 		}
 
-		if ( links.length === 0 ) {
-			this.unlocks[src] = undefined;
-			return false;
-		}
-
-		return true;
+		return links.length > 0;
 
 	}
 

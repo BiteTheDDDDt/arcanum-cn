@@ -1,12 +1,13 @@
-import { defineExcept, clone, getProps } from 'objecty';
+import { defineExcept, cloneClass } from 'objecty';
 import Stat from '../values/stat';
 import Base, {mergeClass } from './base';
 import {arrayMerge} from '../util/array';
 import { assignPublic } from '../util/util';
 import Events, { CHAR_ACTION, EVT_EVENT, EVT_UNLOCK } from '../events';
-import { TICK_LEN } from '../game';
+import Game, { TICK_LEN } from '../game';
 import { WEARABLE, WEAPON } from '../values/consts';
 import RValue from '../values/rvalue';
+import { Changed } from '../techTree';
 
 /**
  * @typedef {Object} Effect
@@ -264,23 +265,27 @@ export default class GData {
 	 * test with 'canRun' instead.
 	 * @param {Game} g
 	 */
-	canUse( g ){
+	canUse( g=Game ){
+
+		if ( this.perpetual || this.length>0 ) { return this.canRun(g, TICK_LEN); }
 
 		if ( this.disabled || this.locks>0||
 				(this.need && !g.unlockTest( this.need, this )) ) return false;
 		if ( this.buy && !this.owned && !g.canPay(this.buy) ) return false;
-
-		if ( this.perpetual || this.length>0 ) { return this.canRun(g); }
 
 		if ( this.slot && g.state.getSlot(this.slot, this.type ) === this) return false;
 		if ( this.maxed() ) return false;
 
 		if ( this.fill && g.filled( this.fill, this ) ) return false;
 
+		if ( this.mod && !g.canMod(this.mod, this )) {
+			return false;
+		}
+
 		return !this.cost || g.canPay(this.cost);
 	}
 
-	canBuy(g){
+	canBuy(g=Game){
 
 		if ( this.disabled || this.locked || this.locks > 0 ) return false;
 
@@ -359,7 +364,7 @@ export default class GData {
 		}
 		if ( this.loot ) g.getLoot( this.loot );
 
-		if ( this.title ) g.state.player.setTitle( this.title );
+		if ( this.title ) g.self.setTitle( this.title );
 		if ( this.result ) g.applyVars( this.result, count );
 		if ( this.create ) g.create( this.create );
 
@@ -367,7 +372,7 @@ export default class GData {
 
 		if ( this.lock ) g.lock( this.lock );
 		if ( this.dot ) {
-			g.state.player.addDot( this.dot, this );
+			g.self.addDot( this.dot, this );
 		}
 
 		if ( this.disable ) g.disable( this.disable );
@@ -375,15 +380,17 @@ export default class GData {
 		if ( this.log ) Events.emit( EVT_EVENT, this.log );
 
 		if ( this.attack || this.action ) {
-			if (this.type !== WEARABLE && this.type !== WEAPON ) Events.emit( CHAR_ACTION, this );
+			if (this.type !== WEARABLE && this.type !== WEAPON ) Events.emit( CHAR_ACTION, this, g );
 		}
-		this.dirty = true;
+
+		Changed.add(this);
 
 	}
 
 	doLock(amt){
 		this.locks += amt;
-		this.dirty = true;
+
+		Changed.add(this);
 	}
 
 	doUnlock(){
@@ -391,8 +398,10 @@ export default class GData {
 		if ( this.disabled || this.locked === false || this.locks>0 ) return;
 
 		this.locked = false;
-		Events.emit( EVT_UNLOCK, this );
-		this.dirty = true;
+		if ( this.show ) Events.emit( EVT_EVENT, this.show );
+		else Events.emit( EVT_UNLOCK, this );
+
+		Changed.add(this);
 	}
 
 	/**
@@ -440,7 +449,7 @@ export default class GData {
 				if ( typeof obj === 'function' ) this[p] = obj( this );
 				else if ( typeof obj === 'object' ) {
 					console.log('clone: ' + this.id );
-					this[p] = clone( obj );
+					this[p] = cloneClass( obj );
 				}
 				else this[p] = obj;
 

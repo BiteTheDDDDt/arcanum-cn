@@ -11,7 +11,7 @@
 	},
 	{
 		"id":"sick",
-		"duration":10,
+		"duration":20,
 		"mod":{
 			"tohit":-5,
 			"defense":-5
@@ -23,11 +23,18 @@
 		"flags":"nocast"
 	},
 	{
+		"id":"charmed",
+		"flags":"charmed",
+		"mod":{
+			"tohit":-5
+		}
+	},
+	{
 		"id":"fear",
 		"adj":"afraid",
 		"flags":"noattack",
 		"mod":{
-			"defense":-3
+			"defense":-5
 		}
 	},
 	{

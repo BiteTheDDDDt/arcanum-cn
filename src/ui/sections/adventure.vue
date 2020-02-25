@@ -165,7 +165,7 @@ export default {
 
 					<span class="separate">
 						<!-- EVENT MUST BE ON OUTER SPAN - CHROME -->
-					<span @mouseenter.capture.stop="emit( 'itemover', $event, d )"><span>{{ d.sname }}</span>
+					<span @mouseenter.capture.stop="itemOver( $event, d )"><span>{{ d.sname }}</span>
 
 					<button class="raid-btn" :disabled="!game.canRun(d)" @click="emit( 'task', d )">Enter</button></span>
 

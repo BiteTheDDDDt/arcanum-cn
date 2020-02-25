@@ -29,6 +29,7 @@ trickster
 
 Mid Tier?
 battlemage
+archeomancer
 eradicator
 elementalist /elemancy
 fire/water/earth/air mage?

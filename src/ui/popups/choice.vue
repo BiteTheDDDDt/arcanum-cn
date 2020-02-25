@@ -153,7 +153,7 @@ export default {
 
 		<div class="items">
 		<span class="task-btn" v-for="it in choices" :key="strings?it:it.id"
-			@mouseenter.capture.stop="!strings ? emit( 'itemover', $event,it):''">
+			@mouseenter.capture.stop="!strings ? itemOver( $event,it):''">
 
 		<button class="wrapped-btn" :disabled="!strings&&!slottable(it)||(mustPay&&cantPay(it))"
 			@click="choose( it )">{{ strings ? it : it.name }}</button>

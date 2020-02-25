@@ -48,8 +48,8 @@ export default {
 		<button class="btn-sm" @click="emit(STOP_ALL)">Stop All</button>
 
 		<button class="btn-sm" @click="emit(TASK, restAction)" :disabled="resting"
-		@mouseenter.capture.stop="emit( 'itemover',$event, restAction )">{{ restAction.name }}</button>
-		<button v-if="!focus.locked" class="btn-sm" @mouseenter.capture.stop="emit( 'itemover',$event, focus )"
+		@mouseenter.capture.stop="itemOver($event, restAction )">{{ restAction.name }}</button>
+		<button v-if="!focus.locked" class="btn-sm" @mouseenter.capture.stop="itemOver($event, focus )"
 			:disabled="!focus.canUse(game)"
 			@click="emit('task', focus)">Focus</button>
 		<button class="btnMenu" @click="emit('showActivities')"></button>

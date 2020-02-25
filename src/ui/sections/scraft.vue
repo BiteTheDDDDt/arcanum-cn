@@ -145,7 +145,7 @@ export default {
 		Custom Spells: {{ Math.floor( userSpells.used) + ' / ' + Math.floor( userSpells.max.value ) }}
 	</div>
 	<div class="spells">
-	<div class="custom" v-for="c in userSpells.items" :key="c.id" @mouseenter.capture.stop="emit( 'itemover',$event,c)">
+	<div class="custom" v-for="c in userSpells.items" :key="c.id" @mouseenter.capture.stop="itemOver($event,c)">
 		<span class="text-entry">
 			<input class="fld-name" type="text" v-model="c.name">
 		</span>
@@ -166,21 +166,21 @@ export default {
 		</div>
 
 		<!--chrome wrap-->
-		<span @mouseenter.capture.stop="emit( 'itemover',$event,craft)">
+		<span @mouseenter.capture.stop="itemOver($event,craft)">
 		<span>Power: {{ craft.level + ' / ' + Math.floor(maxLevels) }}</span>
 		<button @click="create" :disabled="!canCraft">Craft</button>
 		</span>
 
 	</div>
 
-	<div v-for="(s,ind) in list" :key="ind" @mouseenter.capture.stop="emit( 'itemover',$event,s)">
+	<div v-for="(s,ind) in list" :key="ind" @mouseenter.capture.stop="itemOver($event,s)">
 		<span>{{s.name}}</span><button @click="removeAt(ind)">Remove</button>
 	</div>
 
 </div>
 <div class="allspells">
 
-	<div class="separate" v-for="(s) in spells" :key="s.id"  @mouseenter.capture.stop="emit( 'itemover',$event,s)">
+	<div class="separate" v-for="(s) in spells" :key="s.id"  @mouseenter.capture.stop="itemOver($event,s)">
 		<span>{{s.name}}</span><button @click="add(s)" :disabled="!canAdd(s)">Add</button>
 	</div>
 

@@ -1,5 +1,6 @@
 import GData from "./gdata";
 import { MONSTER, TEAM_PLAYER } from "../values/consts";
+import Npc from "../chars/npc";
 
 const defaults = {
 
@@ -7,6 +8,17 @@ const defaults = {
 	locked:false
 
 };
+
+export const CreateNpc = (proto, g ) => {
+
+	let it = new Npc( proto );
+	it.value = 1;
+	//
+	it.name = proto.name;
+	it.id = g.state.nextId(proto.id);
+	return it;
+
+}
 
 export default class Monster extends GData {
 
@@ -49,7 +61,9 @@ export default class Monster extends GData {
 	 */
 	onCreate( g, team = TEAM_PLAYER, keep=false ){
 
-		let it = g.itemGen.npc( this );
+		//if ( team === TEAM_PLAYER ) console.log('create npc: ' + this.id );
+
+		let it = CreateNpc(this, g);
 		it.team = team;
 		it.active = !keep;
 

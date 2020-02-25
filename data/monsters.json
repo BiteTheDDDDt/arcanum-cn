@@ -3,7 +3,7 @@
 	{
         "id":"newt",
         "level":0.2,
-        "kind":"beast",
+		"kind":"beast",
         "flavor":"Wriggly.",
         "hp":"1~2",
         "defense":1,
@@ -53,7 +53,7 @@
         "kind":"spirit",
         "desc":"a ghostly wisp of air.",
         "hp":"1~2",
-        "defense":1,
+		"defense":1,
         "attack":{
             "name":"shiver",
             "kind":"spirit",
@@ -97,7 +97,8 @@
         "hp":"3~5",
 		"defense":1,
 		"tohit":2,
-		"speed":2,
+		"speed":1,
+		"spells":"guidestr",
         "attack":{
             "name":"spear",
             "kind":"slash",
@@ -192,12 +193,9 @@
 		"kind":"humanoid",
         "hp":"3~6",
         "defense":4,
-        "tohit":2,
-        "attack":[{
-            "name":"magic missile",
-            "kind":"mana",
-            "dmg":"2~4"
-		},
+		"tohit":2,
+		"spells":"magicmissile",
+        "attack":[
 		{
 			"dot":{
 				"id":"sleep",
@@ -235,7 +233,8 @@
         "desc":"Must have escaped its jar.",
         "hp":10,
         "tohit":1,
-        "defense":5,
+		"defense":5,
+		"spells":"copperskin",
         "attack":{
             "name":"nasty bite",
             "kind":"pierce",
@@ -718,6 +717,7 @@
 		"hp":10,
 		"tohit":5,
 		"defense":5,
+		"spells":"heal1",
 		"attack": [{
             "name":"curse",
             "kind":"shadow",
@@ -937,6 +937,7 @@
 		"hp":15,
 		"defense":14,
 		"speed":3,
+		"spells":"frostbolt",
         "attack":{
             "name":"frozen claws",
             "kind":"cold",
@@ -949,13 +950,92 @@
         "kind":"humanoid",
         "evil":-5,
         "desc":"Rangers aren't very good with people.",
-        "hp":13,
-        "defense":19,
+        "hp":20,
+		"defense":19,
+		"spells":"vinewhip",
         "attack":{
             "name":"longbow",
             "kind":"pierce",
             "dmg":"3~6"
         }, "resist":{"nature":20}
+
+	},
+	{
+		"id":"highelf",
+		"name":"high elf",
+        "level":9,
+		"kind":"humanoid",
+		"desc":"Other elves are as newborns to their elder kin.",
+        "evil":-1,
+		"hp":80,
+		"speed":15,
+        "tohit":15,
+        "defense":70,
+        "attack":[{
+            "name":"bow",
+            "kind":"pierce",
+            "dmg":"1~6"
+        },{
+			"dot":{
+				"id":"entangle",
+				"duration":50
+			}
+		}]
+
+    },
+	{
+		"id":"highranger",
+		"name":"thangmor ranger",
+        "level":8,
+        "kind":"humanoid",
+        "evil":-5,
+        "desc":"All rangers travel far. Some farther than others.",
+        "hp":70,
+		"defense":25,
+		"spells":"vinewhip",
+        "attack":{
+            "name":"grandbow",
+            "kind":"pierce",
+            "dmg":"10~20"
+        }, "resist":{"nature":25}
+
+	},
+	{
+		"id":"eledin",
+		"name":"eledin strongbow",
+		"unique":true,
+        "level":12,
+        "kind":"humanoid",
+        "evil":-10,
+        "desc":"When Tenwick told Eledin the Ettinmoors couldn't be crossed in safety, the ranger picked up his bow and headed east.",
+        "hp":140,
+		"defense":24,
+		"spells":"vinewhip",
+        "attack":{
+            "name":"greatbow",
+            "kind":"pierce",
+            "dmg":"10~15"
+        }, "resist":{"nature":30}
+
+	},
+	{
+		"id":"gildella",
+		"name":"gildella the lighthearted",
+		"unique":true,
+        "level":12,
+        "kind":"humanoid",
+        "evil":-10,
+        "desc":"The elf Gildella had roamed the Ettinmoors for centuries when Eledin first crossed her path. Their path has been the same since then.",
+        "hp":120,
+		"defense":24,
+		"speed":17,
+		"spells":"vinewhip",
+        "attack":{
+            "name":"greatbow",
+            "kind":"pierce",
+            "dmg":"10~15"
+		}, "resist":{"nature":50},
+		"flavor":"'I thought the moors too wild for decent folk,' said Eledin in surprise. 'Oh?' replied Gildella, 'I hadn't noticed.'"
 
     },
     {
@@ -1363,7 +1443,8 @@
         "desc":"She doesn't look harpy to see you.",
         "tohit":9,
         "hp":17,
-        "defense":22,
+		"defense":22,
+		"spells":"whirl3",
         "attack":{
             "name":"claws",
             "kind":"slash",
@@ -1384,7 +1465,7 @@
         "attack":{
             "name":"fists",
             "kind":"blunt",
-            "dmg":"4~7"
+            "dmg":"4~8"
         }, "loot":{"whiskey":10}
 
     },
@@ -1394,9 +1475,10 @@
         "kind":"demon",
         "evil":5,
         "desc":"little demonic bastards",
-        "hp":13,
+        "hp":17,
 		"defense":30,
 		"regen":1,
+		"spells":"darkbolt,magicmissile,firedart",
         "attack":[{
             "name":"claws",
             "kind":"slash",
@@ -1463,9 +1545,10 @@
 		"kind":"beast",
 		"level":5,
 		"desc":"oversized parasites of the dunes",
-		"hp":14,
+		"hp":16,
 		"speed":7,
 		"tohit":7,
+		"spells":"tremor",
 		"attack":{
 			"name":"burrow",
 			"kind":"pierce",
@@ -1480,7 +1563,7 @@
         "level":5,
         "kind":"humanoid",
         "tohit":5,
-        "hp":20,
+        "hp":25,
 		"defense":18,
         "attack":{
             "name":"talons",
@@ -1495,7 +1578,10 @@
         "level":5,
 		"desc":"their globed hands glow with pale, unearthly light.",
 		"kind":"humanoid",
-        "hp":40,
+		"hp":40,
+		"resist":{
+			"light":20
+		},
         "attack":{
 			"targets":"enemies",
             "name":"light burst",
@@ -1590,7 +1676,8 @@
         "kind":"magicbeast",
         "hp":34,
         "tohit":5,
-        "defense":23,
+		"defense":23,
+		"spells":"firebolt",
         "attack":{
             "name":"flame claws",
             "kind":"fire",
@@ -1650,14 +1737,79 @@
         "hp":45,
         "defense":32,
 		"tohit":5,
-		"spells":"blast",
+		"spells":"blast,heal1",
         "attack":{
             "name":"harm",
-            "kind":"evil",
-            "dmg":"2~5"
+			"kind":"evil",
+			"dot":{
+				"dmg":"5~8"
+			}
 		},
 		"resist":{
 			"shadow":20
+		}
+
+	},
+	{
+		"id":"blasphemer",
+        "level":7,
+        "kind":"humanoid",
+        "desc":"She screams black obscenities.",
+        "hp":75,
+        "defense":40,
+		"tohit":7,
+		"spells":"blast,gloom",
+        "attack":{
+            "name":"screech",
+			"kind":"evil",
+			"targets":"enemies",
+			"dmg":"5~9"
+		},
+		"resist":{
+			"shadow":20
+		}
+
+	},
+	{
+		"id":"m_hierophant",
+		"name":"wicked hierophant",
+        "level":9,
+        "kind":"humanoid",
+        "desc":"Leader of wicked congregations.",
+        "hp":100,
+        "defense":50,
+		"tohit":9,
+		"spells":"deathbolt",
+        "attack":{
+            "name":"harm",
+            "kind":"evil",
+            "dmg":"10~20"
+		},
+		"resist":{
+			"shadow":25,
+			"light":15
+		}
+
+	},
+	{
+		"id":"palus",
+		"name":"palus the sinner",
+		"unique":true,
+        "level":14,
+        "kind":"humanoid",
+        "desc":"Palus was a mere dabbler before unearthing the remains of a Dhrozen knight. Now he leads the Barrow priests.",
+        "hp":80,
+        "defense":75,
+		"tohit":10,
+		"spells":"deathbolt",
+        "attack":{
+            "name":"harm",
+            "kind":"evil",
+            "dmg":"10~20"
+		},
+		"resist":{
+			"shadow":25,
+			"light":15
 		}
 
     },
@@ -1742,7 +1894,7 @@
         "hp":22,
 		"defense":30,
 		"regen":1,
-		"spells":"searingbolt",
+		"spells":"searingbolt,magebolt",
         "attack":{
             "name":"claws",
             "kind":"slash",
@@ -1784,7 +1936,7 @@
         "attack":{
             "name":"scream",
             "kind":"sonic",
-            "dmg":"5~10"
+            "dmg":"7~11"
 		},
 		"resist":{
 			"water":25
@@ -1817,10 +1969,51 @@
         "tohit":10,
         "defense":20,
         "attack":{
-            "name":"spiked club",
+            "name":"club",
             "kind":"blunt",
             "dmg":"8~17"
         }
+
+	},
+	{
+		"id":"ogrewarrior",
+		"name":"ogre warrior",
+        "level":8,
+		"flavor":"Ever wonder how ogres would look if they were twice as strong?",
+		"kind":"giant",
+        "hp":70,
+        "tohit":12,
+        "defense":23,
+        "attack":{
+            "name":"spiked club",
+            "kind":"blunt",
+            "dmg":"16~34"
+        }
+
+	},
+	{
+		"id":"ogrechief",
+		"name":"ogre chief",
+        "level":10,
+		"flavor":"Ever wonder how ogre warriors would look if they were twice as scary?",
+		"kind":"giant",
+        "hp":70,
+        "tohit":12,
+        "defense":23,
+        "attack":[
+			{
+				"name":"vicious gaze",
+				"targets":"enemies",
+				"dot":{
+					"id":"fear",
+					"duration":20
+				}
+			},
+			{
+            "name":"spiked club",
+            "kind":"blunt",
+            "dmg":"15~25"
+        }]
 
 	},
 	{
@@ -1887,6 +2080,7 @@
 		"hp":70,
 		"tohit":6,
 		"defense":5,
+		"spells":"mk_spider",
 		"attack":{
 			"dmg":"3~5",
 			"dot":{
@@ -1942,9 +2136,10 @@
         "evil":14,
         "kind":"undead",
         "desc":"",
-        "hp":15,
+        "hp":20,
         "tohit":3,
-        "defense":38,
+		"defense":38,
+		"spells":"deathbolt",
         "attack":{
             "name":"cold touch",
             "kind":"cold",
@@ -1987,7 +2182,8 @@
         "desc":"ardent of nature",
         "tohit":7,
         "hp":27,
-        "defense":25,
+		"defense":25,
+		"spells":"venom2",
         "attack":{
             "name":"spellstorm",
             "kind":"nature",
@@ -2042,7 +2238,8 @@
         "desc":"It's a unicorn with wings and no horn.",
         "hp":54,
         "tohit":3,
-        "defense":27,
+		"defense":27,
+		"spells":"whirl3",
         "attack":{
             "name":"trample",
             "kind":"blunt",
@@ -2061,7 +2258,8 @@
         "desc":"How do you fight dirt?",
         "tohit":5,
         "hp":58,
-        "defense":30,
+		"defense":30,
+		"spells":"tremor",
         "attack":{
             "name":"pound",
             "kind":"blunt",
@@ -2393,7 +2591,8 @@
         "desc":"Too hot to get close to.",
         "tohit":10,
         "hp":40,
-        "defense":55,
+		"defense":55,
+		"spells":"searingbolt",
         "attack":{
 			"targets":"enemies",
             "name":"scorch",
@@ -2532,7 +2731,8 @@
         "kind":"elemental",
         "tohit":14,
         "hp":28,
-        "defense":63,
+		"defense":63,
+		"spells":"elec2",
         "attack":{
             "name":"lightning",
 			"kind":"light",
@@ -2559,7 +2759,11 @@
         "attack":{
             "name":"mind flay",
             "kind":"psionic",
-            "dmg":"11~19"
+			"dmg":"11~19",
+			"dot":{
+				"id":"silence",
+				"duration":300
+			}
         }
 
 	},
@@ -2590,7 +2794,11 @@
         "attack":{
             "name":"stare",
             "kind":"earth",
-            "dmg":"20~50"
+			"dmg":"20~50",
+			"dot":{
+				"id":"paralyzed",
+				"duration":300
+			}
 		},
 		"immune":"poison"
 
@@ -2887,11 +3095,17 @@
         "hp":145,
         "tohit":10,
         "defense":55,
-        "attack":{
+        "attack":[
+			{
+				"name":"fire breath",
+				"kind":"fire",
+				"dmg":"5~12",
+				"targets":"enemies"
+			},{
             "name":"claws",
             "kind":"slash",
             "dmg":"10~20"
-        }
+		}]
 	},
 	{
 		"id":"sandwyrm",
@@ -2901,7 +3115,8 @@
         "desc":"terror of the desert wastes",
         "tohit":15,
         "hp":130,
-        "defense":50,
+		"defense":50,
+		"spells":"quake",
         "attack":{
             "name":"crush",
             "kind":"blunt",
@@ -2920,11 +3135,24 @@
         "hp":119,
         "tohit":12,
         "defense":50,
-        "attack":{
+        "attack":[
+			{
+				"dot":{
+					"id":"silence",
+					"duration":5
+				}
+			},
+			{
+				"dot":{
+					"id":"paralyzed",
+					"duration":5
+				}
+			},
+			{
             "name":"eye beam",
             "kind":"mana",
             "dmg":"23~43"
-        }
+        }]
     },
     {
         "id":"angel",

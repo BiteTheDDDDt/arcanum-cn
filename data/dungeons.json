@@ -17,6 +17,7 @@
 		},
 		"boss":"kakapo",
 		"spawns":[
+			"gardengnome",
 			["newt","newt","newt"],
 			"lgmouse",
 			"bigstone",
@@ -49,13 +50,19 @@
 			"angrybird",
 			"smsnake"
 
-		], "flavor":"only the rare glimpse of wildlife breaks the stillness of the grove."
+		], "desc":"An idyllic grove for a walk or long nap."
 
 	},
 	{
 		"id":"pestcontrol",
 		"name":"Leaky Cellar",
-		"require":"evt_pestcontrol",
+		"require":"g.player.level>0&&(g.apprentice.value>0||g.neophyte.value>0)",
+		"show":{
+
+			"name":"Pest Control",
+			"desc":"After your daily castigation, your master mentions the rats in the basement have become a problem. Something about stolen shortswords and building barricades. You had better go down and deal with it."
+
+		},
 		"repeat":false,
 		"level":3,
 		"length":25,
@@ -116,9 +123,73 @@
 
 	},
 	{
+		"id":"ettinmarchcamp",
+		"name":"ettinmarch camp",
+		"desc":"The perilous wilds of the Ettinmarch are a cherished home to bands of merry rangers and virtuous druids.",
+		"require":"evt_rangers",
+		"title":"forest scourge",
+		"max":1,
+		"level":15,
+		"length":200,
+		"run":{
+			"stamina":2
+		},
+		"result":{
+			"herbs":"3~7",
+			"gems":"0~2"
+		},
+		"boss":["eledin","gildella"],
+		"spawns":[
+			["ranger","ranger"],
+			["elf","elf","elf","elf"],
+			"beserker",
+			["roc","m_druid","roc"],
+			["ranger","gryffon"],
+			["m_druid","m_druid"],
+			"ent",
+			["bear","bear","bear","ranger"],
+			"direbear",
+			"highranger",
+			["elf","highelf"],
+			["slinger","direbear"]
+		]
+	},
+	{
+		"id":"fetidbarrow",
+		"name":"the fetid barrows",
+		"desc":"When the fetid barrows were discovered, dark acolytes gathered at the mounds seeking ancient patrons of their art.",
+		"require":"evt_cabal",
+		"title":"cabal breaker",
+		"max":1,
+		"level":15,
+		"length":200,
+		"run":{
+			"stamina":2
+		},
+		"result":{
+			"bones":"3~7",
+			"bodies":"0~2"
+		},
+		"boss":"palus",
+		"spawns":[
+			["evilpriest","evilpriest","evilpriest"],
+			["corpse","corpse","skeleton","corpse"],
+			["ghost","ghost","wraith"],
+			["evilpriest","greaterzombie"],
+			["undeadhorror","undeadhorror"],
+			["wight","wight","ghast"],
+			"vampiremaster",
+			"skellord",
+			["m_hierophant","evilpriest","evilpriest"],
+			["blasphemer", "blasphemer"],
+			"wraith",
+			["ghoul","ghoul","ghast","evilpriest"]
+		]
+	},
+	{
 		"id":"treffilwoods",
 		"name":"treffil woods",
-		"desc":"these enchanted woods are not particularly dangerous.",
+		"desc":"These enchanted woods are not particularly dangerous.",
 		"dist":17,
 		"level":4,
 		"length":20,
@@ -140,30 +211,6 @@
 			"elf",
 			"slinger"
 		],"loot":{"max":4}
-	},
-	{
-		"id":"goblincamp",
-		"name":"goblin camp",
-		"desc":"the pesky creatures are everywhere.",
-		"require":"evt_gobcamp",
-		"level":4,
-		"run":{
-			"stamina":1
-		},
-		"result":{
-			"title":"goblin slayer",
-			"gold":"20~30"
-		},
-		"boss":"gobchief",
-		"spawns":[
-			["goblin","goblin"],
-			"gobwarrior",
-			"gobwarrior",
-			"goblin",
-			"goblin",
-			"gobpriest"
-		],"loot":{"max":3}
-
 	},
 	{
 		"id":"underden",
@@ -192,7 +239,7 @@
 		"id":"veldranswreck",
 		"name":"veldran's wreck",
 		"desc":"Off the stormy cliffs of the arag highlands, a mass of cracked spars marks the resting place of the largest ship ever sailed by man.",
-		"require":"g.water.max>=10",
+		"require":"g.waterlore.max>=10",
 		"level":5,
 		"length":30,
 		"run":{
@@ -216,7 +263,7 @@
 	{
 		"id":"aragheights",
 		"name":"arag heights",
-		"desc":"barren mountains over arazor",
+		"desc":"Barren mountains over arazor",
 		"level":6,
 		"run":{
 			"stamina":1
@@ -277,22 +324,51 @@
 			"naga",
 			["raven","raven","raven","raven"],
 			"medusa",
-			"naga",
+			["naga","naga"],
 			"shriekingeel",
 			"naga",
 			"magicblade",
 			"evilpriest",
 			["eel","eel"],
-			"crab",
 			["crab","crab"]
 		],"flavor":"would the ancient seredites appreciate the temple's new inhabitants?"
 
 	},
 	{
+		"id":"goblincamp",
+		"name":"goblin camp",
+		"show":{
+
+			"name":"Goblins, Goblins!",
+			"desc":"Rumors hint at a camp of goblins in the vicinity. As an aspiring wizard, convention dictates you test your mettle on their lives."
+
+		},
+		"desc":"The pesky creatures are everywhere.",
+		"require":"g.treffilwoods>0&&g.player.level>=4&&g.dist>=25",
+		"level":4,
+		"run":{
+			"stamina":1
+		},
+		"result":{
+			"title":"goblin slayer",
+			"gold":"20~30"
+		},
+		"boss":"gobchief",
+		"spawns":[
+			["goblin","goblin"],
+			"gobwarrior",
+			"gobwarrior",
+			"goblin",
+			"goblin",
+			"gobpriest"
+		],"loot":{"max":3}
+
+	},
+	{
 		"id":"orccamp",
 		"name":"orc camp",
-		"desc":"a scourge of cities.",
-		"require":"tier0",
+		"desc":"A scourge of towns and cities.",
+		"require":"goblincamp",
 		"level":7,
 		"run":{
 			"stamina":1.2
@@ -312,6 +388,44 @@
 
 	},
 	{
+		"id":"aragogres",
+		"name":"ogre cavern",
+		"show":{
+			"name":"Ogre Cavern",
+			"desc":"While scrying the outlying lands you discover a colossal cave in the arag heights."
+		},
+		"desc":"A scourge of towns and cities.",
+		"require":"g.orccamp>0&&g.aragheights>0&&g.scrying>0",
+		"level":10,
+		"length":100,
+		"run":{
+			"stamina":1.7
+		},
+		"result":{
+			"bones":"5~10",
+			"gold":"40~50"
+		},
+		"boss":["orcchief","ogre","ogre"],
+		"spawns":[
+			"ogre",
+			["bugbear","bugbear"],
+			["giantspider","lgspider","lgspider","lgspider"],
+			["ogre","warg","warg"],
+			"orcwarrior",
+			["ogrewarrior","ogrewarrior"],
+			"troll",
+			"minotaur",
+			["vampirebat","vampirebat","vampirebat"],
+			["ogre","wolf","wolf","wolf"],
+			"hillgiant",
+			"direbear",
+			"ettin",
+			"orcchief",
+			["orcpriest","ogre","ogre"]
+		]
+
+	},
+	{
 		"id":"spidercave",
 		"name":"skittering caverns",
 		"desc":"the only treasures here are were lost by adventurers searching for treasure.",
@@ -328,10 +442,10 @@
 		"spawns":[
 			"giantspider",
 			"kobold",
+			["lgspider","lgspider"],
 			"lgspider",
 			"lgspider",
-			"direbat",
-			"giantspider"
+			"direbat"
 		]
 
 	},
@@ -391,7 +505,6 @@
 			"frixie",
 			"ogre",
 			"cavetroll",
-			"snowleopard",
 			"snowleopard"
 		]
 	},
@@ -477,8 +590,8 @@
 	{
 		"id":"veldransstorehouse",
 		"name":"veldran's storehouse",
-		"desc":"Veldran never did manage to carve a kingdom from the wreck of bodias' reign. But he did accrue a sizeable hoard.",
-		"level":12,
+		"desc":"Veldran never did manage to carve a kingdom from the wreck of Bodias' reign. But he did accrue a sizeable hoard.",
+		"level":9,
 		"run":{
 			"stamina":2
 		},
@@ -488,11 +601,14 @@
 			"gold":"100~200"
 		},
 		"spawns":[
-			"claygolem",
+			["claygolem","claygolem","claygolem"],
 			"hobgoblin",
+			"doppelganger",
 			"masterswordsman",
-			"stonegolem",
-			"slime",
+			"irongolem",
+			"quasit",
+			["slime","slime","slime","slime"],
+			["stonegolem","stonegolem"],
 			"banditlord",
 			"magicmirror",
 			"woodgolem"

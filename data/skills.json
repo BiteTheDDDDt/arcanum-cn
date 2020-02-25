@@ -295,6 +295,7 @@
 		"mod":{
 			"research.max":10,
 			"arcana.max":0.1,
+			"s_travel.max":0.1,
 			"languages.rate":"1%"
 		}
 

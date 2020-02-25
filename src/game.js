@@ -2,17 +2,17 @@ import GData from './items/gdata';
 import Log from './log.js';
 import GameState, { REST_SLOT } from './gameState';
 import ItemGen from './modules/itemgen';
-import TechTree from './techTree';
+import TechTree, { Changed } from './techTree';
 import Resource from './items/resource';
 import Skill from './items/skill';
 import Stat from './values/stat';
 
 import DataLoader from './dataLoader';
 
-import Events, {EVT_UNLOCK, EVT_EVENT, EVT_LOOT, SET_SLOT, DELETE_ITEM, CHAR_ACTION } from './events';
+import Events, {EVT_EVENT, EVT_LOOT, SET_SLOT, DELETE_ITEM, CHAR_ACTION } from './events';
 import { MONSTER, TYP_PCT, TYP_RANGE, P_TITLE, P_LOG, TEAM_PLAYER, ENCHANTSLOTS, WEAPON } from './values/consts';
 import TagSet from './composites/tagset';
-import { TARGET_SELF, TARGET_ALLY, ApplyAction } from './values/combat';
+import { TARGET_SELF, TARGET_ALLY } from './values/combatVars';
 import RValue from './values/rvalue';
 
 var techTree;
@@ -66,7 +66,14 @@ export default {
 	 */
 	runner:null,
 
+
 	get player(){return this.state.player},
+
+	/**
+	* @property {Char} self - self/user of any spell/action.
+	*/
+	get self(){return this.state.player;},
+
 
 	/**
 	 *
@@ -79,9 +86,12 @@ export default {
 	 * Clear game data.
 	 */
 	reset() {
+
 		this.loaded = false;
 		this.state = null;
 		this._gdata = null;
+		this.log.clear();
+
 	},
 
 	/**
@@ -94,8 +104,6 @@ export default {
 
 		this.reset();
 
-		this.log.clear();
-
 		// Code events. Not game events.
 		Events.init(this);
 
@@ -104,6 +112,8 @@ export default {
 		return this.loader = DataLoader.loadGame( saveData ).then( allData=>{
 
 			this.state = new GameState( allData, saveData );
+			this.state.revive();
+
 			this.itemGen = new ItemGen( this );
 
 			this._gdata = this.state.items;
@@ -118,8 +128,8 @@ export default {
 			this.recalcSpace();
 
 			techTree = new TechTree( this.gdata );
-			Events.add( EVT_UNLOCK, techTree.unlocked, techTree );
-			Events.add( CHAR_ACTION, this.onCharAction, this );
+			//Events.add( EVT_UNLOCK, techTree.unlocked, techTree );
+			//Events.add( CHAR_ACTION, this.onCharAction, this );
 
 			// initial fringe check.
 			techTree.forceCheck();
@@ -242,31 +252,6 @@ export default {
 
 		let used = 0;
 
-		let items = this.gdata;
-		for( let p in items ) {
-
-			var it = items[p];
-			if ( !it.value ) continue;
-			var count = it.value.valueOf();
-			if ( count === 0 ) continue;
-
-			var cost = it.cost;
-			if ( cost === null || cost === undefined ) continue;
-			if ( typeof cost !== 'object') {
-
-				if ( cost === 'space') used += count;
-				continue;
-
-			} else {
-
-				used += count*cost.space || 0;
-
-			}
-
-		} // for
-
-		console.log('space used: ' + used );
-
 		let space = this.state.getData('space');
 		space.value = used;
 
@@ -297,7 +282,7 @@ export default {
 		this.state.setSlot( it.slot, it );
 
 		this.payCost( it.cost );
-		return it.amount( this );
+		it.amount( this );
 
 	},
 
@@ -319,7 +304,10 @@ export default {
 		this.doResources( this.state.playerStats, dt );
 		this.doResources( this.state.stressors, dt );
 
-		techTree.checkFringe();
+		//console.log('CHANGE SIZE: ' + Changed.size );
+		techTree.updateTech();
+
+		Changed.clear();
 
 	},
 
@@ -499,7 +487,7 @@ export default {
 
 		}  else if ( it.instanced ){
 
-			it.onUse( this, this.state.inventory );
+			it.onUse( this );
 
 		} else if ( it.buy && !it.owned ) {
 
@@ -566,6 +554,8 @@ export default {
 	 */
 	create( it, keep=true, count=1 ) {
 
+		//console.log('CREATING: ' + it.id );
+
 		if ( typeof it === 'string') it = this.state.getData(it);
 		else if ( Array.isArray(it) ) {
 			for( let i = it.length-1; i>=0; i--) {
@@ -574,7 +564,10 @@ export default {
 			return;
 		}
 
-		if (!it ) return;
+		if (!it ) {
+			//console.log('not found: ' + it.id );
+			return;
+		}
 
 		for( let i = count; i >0; i--) {
 
@@ -589,7 +582,9 @@ export default {
 			} else {
 
 				var inst = this.itemGen.instance( it );
-				if ( inst ) this.state.inventory.add( inst );
+				if ( inst ) {
+					this.state.inventory.add( inst );
+				}
 				Events.emit( EVT_LOOT, inst );
 
 			}
@@ -667,8 +662,8 @@ export default {
 
 		let it = typeof id === 'string' ? this.getData(id) : id;
 		if ( !it ) return;
-		if ( typeof it.fill === 'function'){
-			it.fill();
+		if ( typeof it.doFill === 'function'){
+			it.doFill();
 		} else {
 
 			if ( !it.max ) {
@@ -743,14 +738,12 @@ export default {
 
 		if ( it.slot ) { if ( this.state.getSlot(it.slot) === it ) this.state.setSlot(it.slot, null); }
 
-		if ( it.cost && it.cost.space ) this.getData('space').value.add( -amt*it.cost.space );
-
 		it.remove(amt);
 
 		if ( it.mod ) this.applyMods( it.mod, -amt );
 		if ( it.lock ) this.unlock( it.lock, amt );
 
-		it.dirty = true;
+		Changed.add( it );
 
 	},
 
@@ -846,7 +839,7 @@ export default {
 
 				if ( target === undefined || target === null ) {
 
-					if ( p === P_TITLE ) this.state.player.addTitle( e );
+					if ( p === P_TITLE ) this.self.addTitle( e );
 					else if ( p === P_LOG ) Events.emit( EVT_EVENT, e );
 					else console.warn( p + ' no effect target: ' + e );
 
@@ -870,7 +863,7 @@ export default {
 
 					} else target.applyVars(e,dt);
 
-					target.dirty = true;
+					Changed.add(target);
 				}
 			}
 
@@ -920,7 +913,6 @@ export default {
 					if ( target.applyMods) {
 
 						target.applyMods( mod[p], amt );
-						target.dirty = true;
 
 					} else console.warn( 'no applyMods(): ' + target );
 
@@ -969,7 +961,7 @@ export default {
 	 * @param {Attack} act
 	 * @param {Char} char
 	 */
-	onCharAction( act, char=this.player ) {
+	/*onCharAction( act, char=this.player ) {
 
 		if ( this.state.explore.running || this.state.raid.running ) return;
 
@@ -984,7 +976,7 @@ export default {
 
 		}
 
-	},
+	},*/
 
 	/**
 	 * Attempts to pay the cost to perform an task, buy an upgrade, etc.
@@ -1009,15 +1001,17 @@ export default {
 
 				} else {
 
-					var targ = cost[p];
+					var price = cost[p];
 
-					if ( !isNaN(targ) ) this.remove( res, targ*unit );
-					else if ( typeof targ === 'object' ) res.applyVars( targ, -unit );
-					else if ( typeof targ === 'function') {
-							this.remove( res, unit*targ(this.state, this.player) )
+					if ( !isNaN(price) ) this.remove( res, price*unit );
+					else if ( typeof price === 'object' ) {
+
+						res.applyVars( price, -unit );
+
+					} else if ( typeof price === 'function') {
+						this.remove( res, unit*price(this.state, this.player) )
 					}
 
-					res.dirty = true;
 				}
 
 
@@ -1032,6 +1026,39 @@ export default {
 		var res = this.state.inventory.find( p,true );
 		if ( res ) this.state.inventory.removeCount(res,amt);
 		else console.warn('Too Low: ' + p );
+
+	},
+
+	/**
+	 * Test if mods can be safely applied.
+	 * @param {object} mod
+	 * @returns {boolean}
+	 */
+	canMod( mod, src ) {
+
+		if ( typeof mod !== 'object') return true;
+		if (Array.isArray(mod) ) return mod.every( v=>this.canMod(v), this );
+
+		let res;
+
+		for( let p in mod ) {
+
+			var sub = mod[p];
+
+			if ( !isNaN(sub) || sub instanceof RValue ) {
+
+				res = this.state.getData(p);
+
+				if ( res instanceof Resource ) {
+
+					return ( res.canPay(-sub) );
+
+				}
+			}
+
+		}
+
+		return true;
 
 	},
 
@@ -1101,8 +1128,8 @@ export default {
 			} else if ( typeof val === 'object'){
 
 
-				console.log('checking sub cost: ' + p + ' ' +cost.constructor.name );
-				if ( parent ) console.log( 'parent: ' + parent.id );
+				//console.log('checking sub cost: ' + p + ' ' +cost.constructor.name );
+				//if ( parent ) console.log( 'parent: ' + parent.id );
 
 				if ( !this.canPayObj( parent[p], val, amt ) ) return false;
 			}
@@ -1134,7 +1161,7 @@ export default {
 
 		if ( !this.canEquip(it) ) return false;
 
-		console.log('equip:' + it.id  + ' type: ' + it.type + ' kind: ' + it.kind );
+		console.log('equip: ' + it.id  + ' type: ' + it.type + ' kind: ' + it.kind );
 		let res = this.state.equip.equip( it );
 		if ( !res) return;
 
@@ -1201,10 +1228,14 @@ export default {
 
 		if ( !it) return null;
 
+		console.log('LOOTING: ' + it.id );
+
 		inv = inv || this.state.inventory;
 		if ( inv.full() ) inv = this.state.drops;
 
 		if ( typeof it === 'object' && it.stack ) {
+
+			console.log('ADDING INVENTORY: ' + inv.id );
 
 			if ( inv.addStack( it ) ) {
 				Events.emit( EVT_LOOT, it );

@@ -580,7 +580,6 @@ export default class Runner {
 			if ( a.update ) {
 
 				a.update(dt);
-				a.dirty = true;
 			}
 
 		}

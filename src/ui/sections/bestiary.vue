@@ -111,12 +111,12 @@ export default {
 			<th @click="setSort('level')">Level</th>
 			<th @click="setSort('value')">Slain</th>
 			<th class="num-align" @click="setSort('hp')">Hp</th></tr>
-		<tr v-for="b in sorted" :key="b.id" @mouseenter.capture.stop="emit( 'itemover',$event,b)">
+		<tr v-for="b in sorted" :key="b.id" @mouseenter.capture.stop="itemOver($event,b)">
 			<th class="sm-name">{{ b.name }}</th>
 			<td class="num-align">{{ Math.floor( b.level ) }}</td>
 			<td class="num-align">{{ Math.floor( b.value ) }}</td>
 			<td class="num-align">{{ showHp(b) ? toNum(b.hp) : '???' }}</td>
-			<td><button @click="tryUse(b)" :disabled="b.unique||!usable(b)||minions.freeSpace()==0||b.value<10">Buy</button></td>
+			<td><button @click="tryUse(b)" :disabled="b.unique||!b.canUse()||minions.freeSpace()==0||b.value<10">Buy</button></td>
 		</tr>
 	</table>
 	</div>

@@ -11,6 +11,7 @@ import { RESOURCE, TEAM_PLAYER, getDelay, WEAPON } from "../values/consts";
 
 import { NO_ATTACK } from "./states";
 import DataList from '../inventories/dataList';
+import { Changed } from '../techTree';
 
 const Fists = new Wearable( null, {
 
@@ -282,7 +283,6 @@ export default class Player extends Char {
 		this.spells.max.value = 0;
 		this.stamina.max.base = 10;
 		this.tohit.base = 1;
-		gs.getData('allies').max = 0;
 
 		// @todo can't set base directly because of stat type,
 		// base assignment will break things. bad.
@@ -376,7 +376,7 @@ export default class Player extends Char {
 			if ( a ) return a;
 
 			// attempt to use spell first.
-			if ( this.spells.count > 0 && this.tryCast() ) {
+			if ( this.tryCast() ) {
 
 				// don't mix fists and spells.
 				if ( !this.weapons.includes(Fists) ){
@@ -439,7 +439,7 @@ export default class Player extends Char {
 		this._exp.value -= this._next;
 		this._next = Math.floor( this._next * ( 1 + EXP_RATE ) );
 
-		this.dirty = true;
+		Changed.add(this);
 
 		Events.emit( LEVEL_UP, this, this._level.valueOf() );
 

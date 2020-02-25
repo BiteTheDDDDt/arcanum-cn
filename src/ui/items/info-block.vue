@@ -4,6 +4,8 @@ import { SKILL } from '../../values/consts';
 import { precise } from '../../util/format';
 import Game from 'game';
 
+import {RollOver} from 'ui/popups/itemPopup.vue';
+
 /**
  * Display for a sub-block of gdata, such as item.effect, item.result, item.run, etc.
  *
@@ -36,7 +38,7 @@ export default {
 
 			} else if ( type === 'string') {
 
-				let it = Game.getData(obj);
+				let it = RollOver.context.getData(obj);
 				results[ it ? it.name : this.stripTags(obj) ] = true;
 
 			} else if ( Array.isArray(obj) ) obj.forEach(v=>this.effectList(v,results));
@@ -71,7 +73,7 @@ export default {
 
 			if ( typeof obj === 'string' ) {
 
-				let it = Game.getData(obj);
+				let it = RollOver.context.getData(obj);
 				results[ it ? it.name : this.stripTags(obj) ] = true;
 				return;
 			}
@@ -99,13 +101,13 @@ export default {
 					subPath = propPath;
 					subRate = true;
 
-					let baseItem = Game.getData( propPath.split('.')[0] );
+					let baseItem = RollOver.context.getData( propPath.split('.')[0] );
 					if ( baseItem && baseItem.type === SKILL ) subPath = 'train ' + subPath + ' rate';
 
 				} else {
 
 					// check if sub-prop refers to an item.
-					let refItem = Game.getData(p);
+					let refItem = RollOver.context.getData(p);
 					if ( refItem ) subPath = refItem.name;
 					else subPath = this.stripTags( p );
 
@@ -119,7 +121,7 @@ export default {
 
 					if ( sub.skipLocked ) {
 
-						let refItem = Game.getData(p);
+						let refItem = RollOver.context.getData(p);
 						if ( refItem && (refItem.locked || refItem.disabled) ) continue;
 
 					}

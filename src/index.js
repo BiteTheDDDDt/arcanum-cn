@@ -6,6 +6,7 @@ import Vue from 'vue';
 import Main from 'ui/main.vue';
 
 import Confirm from 'ui/components/confirm.vue';
+import { ItemOver } from 'ui/popups/itemPopup.vue';
 
 //window.localStorage.clear();
 
@@ -31,6 +32,8 @@ Vue.mixin({
 		listen:Events.listen,
 		dispatch:Events.dispatch,
 		removeListener:Events.removeListener,
+
+		itemOver:ItemOver,
 
 		/**
 		 * Game-level events.

@@ -32,13 +32,14 @@
     "webpack": "^4.40.2",
     "webpack-cli": "^3.3.9",
     "workbox-build": "^4.3.1",
-    "workbox-webpack-plugin": "^4.3.1"
+    "workbox-webpack-plugin": "^4.3.1",
+    "zip-webpack-plugin": "^3.0.0"
   },
   "dependencies": {
     "eventemitter3": "^3.1.2",
     "firebase": "^7.7.0",
     "stripe": "^8.9.0",
-    "objecty": "^1.0.0",
+    "objecty": "^1.0.2",
     "vue": "^2.6.10"
   }
 }

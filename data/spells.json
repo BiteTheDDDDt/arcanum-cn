@@ -26,6 +26,80 @@
 
 	},
 	{
+		"id":"clarity",
+		"level":7,
+		"school":"charms",
+		"desc":"Cure yourself or an ally of a charm.",
+		"cost":{
+			"spiritgem":1
+		},
+		"action":{
+			"cure":"charmed",
+			"targets":"ally,self"
+		}
+
+	},
+	{
+		"id":"wake",
+		"level":5,
+		"school":"mana",
+		"desc":"Wake a slumbering ally.",
+		"cost":{
+			"mana":1,
+			"herbs":1
+		},
+		"action":{
+			"cure":"sleep",
+			"targets":"ally,self"
+		}
+
+	},
+	{
+		"id":"embolden",
+		"level":3,
+		"school":"fire",
+		"desc":"Remove fear from yourself or a frightened creature.",
+		"cost":{
+			"fire":1
+		},
+		"action":{
+			"cure":"fear",
+			"targets":"ally,self"
+		}
+
+	},
+	{
+		"id":"speak",
+		"level":10,
+		"school":"air",
+		"desc":"Breaks a curse of silence.",
+		"cost":{
+			"air":1,
+			"managem":5
+		},
+		"action":{
+			"cure":"silence",
+			"targets":"ally,self"
+		}
+
+	},
+	{
+		"id":"cureparalyze",
+		"name":"cure paralysis",
+		"level":7,
+		"school":"arcane",
+		"desc":"Loosens rigid muscles, nerves, and bones.",
+		"cost":{
+			"mana":1,
+			"gems":1
+		},
+		"action":{
+			"cure":"paralyzed",
+			"targets":"ally,self"
+		}
+
+	},
+	{
 
 		"id":"curesick",
 		"level":1,
@@ -645,7 +719,7 @@
 	},
 	{
 		"id": "moveearth",
-		"name": "Stone Toss",
+		"name": "fling stone",
 		"desc": "Throw a rock using magic",
 		"school": "earth",
 		"require": "g.earthlore>=5",
@@ -1088,7 +1162,7 @@
 		"dot":{
 			"duration":30,
 			"mod":{
-				"player.resist.poison":20
+				"self.resist.poison":20
 			}
 		}
 	},
@@ -1143,6 +1217,22 @@
 			"mana":10
 		},
 		"result":"hobgoblin"
+	},
+	{
+		"id":"mk_spider",
+		"name":"summon spider",
+		"desc":"Summon a spider to fight for you",
+		"school":"nature",
+		"level":5,
+		"buy":{
+			"research":100,
+			"scrolls":20
+		},
+		"cost":{
+			"nature":4
+		},
+		"result":"lgspider"
+
 	},
 	{
 		"id":"mk_raven",
@@ -1345,7 +1435,7 @@
 		"dot": {
 			"duration": 10,
 			"mod": {
-				"player.defense": 200
+				"self.defense": 200
 			}
 		}
 	},
@@ -1468,8 +1558,8 @@
 
 			"duration":20,
 			"mod":{
-				"player.resist.holy":10,
-				"player.resist.light":10
+				"self.resist.holy":10,
+				"self.resist.light":10
 			}
 
 		}
@@ -1495,8 +1585,8 @@
 
 			"duration":20,
 			"mod":{
-				"player.resist.shadow":10,
-				"player.resist.undead":10
+				"self.resist.shadow":10,
+				"self.resist.undead":10
 			}
 
 		}
@@ -1522,7 +1612,7 @@
 
 			"duration":20,
 			"mod":{
-				"player.resist.fire":10
+				"self.resist.fire":10
 			}
 
 		}
@@ -1548,8 +1638,8 @@
 
 			"duration":20,
 			"mod":{
-				"player.resist.water":10,
-				"player.resist.cold":10
+				"self.resist.water":10,
+				"self.resist.cold":10
 			}
 
 		}
@@ -1575,8 +1665,8 @@
 
 			"duration":20,
 			"mod":{
-				"player.resist.nature":10,
-				"player.resist.poison":10
+				"self.resist.nature":10,
+				"self.resist.poison":10
 			}
 
 		}
@@ -1600,7 +1690,7 @@
 			"light":5
 		},
 		"result":{
-			"hp":20
+			"self.hp":20
 		}
 	},
 
@@ -2013,7 +2103,7 @@
 		"dot":{
 			"duration":30,
 			"mod":{
-				"player.defense":2
+				"self.defense":2
 			}
 		}
 
@@ -2036,7 +2126,7 @@
 		"dot":{
 			"duration":45,
 			"mod":{
-				"player.tohit":3
+				"self.tohit":3
 			}
 		}
 
@@ -2059,7 +2149,7 @@
 		"dot":{
 			"duration":45,
 			"mod":{
-				"player.tohit":7
+				"self.tohit":7
 			}
 		}
 
@@ -2083,7 +2173,7 @@
 		"dot":{
 			"duration":45,
 			"mod":{
-				"player.tohit":15
+				"self.tohit":15
 			}
 		}
 
@@ -2340,6 +2430,10 @@
 		"cost":{
 			"spirit":3
 		},
+		"action":{
+			"cure":"enrage",
+			"targets":"self,ally"
+		},
 		"dot":{
 			"duration":45,
 			"mod":{
@@ -2352,7 +2446,7 @@
 	{
 		"id":"stoneskin",
 		"name":"stone skin",
-		"desc":"hardens the skin of the caster.",
+		"desc":"hardens the skin of the self.",
 		"school":"earth",
 		"require":{
 			"earthlore":5
@@ -2371,7 +2465,7 @@
 		"dot":{
 			"duration":50,
 			"mod":{
-				"player.defense":5
+				"self.defense":5
 			}
 		}
 
@@ -2399,8 +2493,8 @@
 				"hp.max":50,
 				"hp":50,
 				"hp.rate":-2,
-				"player.tohit":10,
-				"player.damage":10
+				"self.tohit":10,
+				"self.damage":10
 			}
 		},"flavor":"don't lose your way"
 	},
@@ -2449,7 +2543,7 @@
 	{
 		"id":"ironskin",
 		"name":"iron skin",
-		"desc":"hardens the skin of the caster.",
+		"desc":"hardens the skin of the self.",
 		"school":"earth",
 		"require":{
 			"earthlore":5
@@ -2468,7 +2562,7 @@
 		"dot":{
 			"duration":60,
 			"mod":{
-				"player.defense":10
+				"self.defense":10
 			}
 		}
 
@@ -2476,7 +2570,7 @@
 	{
 		"id":"steelskin",
 		"name":"steel skin",
-		"desc":"hardens the skin of the caster.",
+		"desc":"hardens the skin of the self.",
 		"school":"earth",
 		"require":"stoneskin",
 		"level":5,
@@ -2493,7 +2587,7 @@
 		"dot":{
 			"duration":120,
 			"mod":{
-				"player.defense":25
+				"self.defense":25
 			}
 		}
 
@@ -2564,7 +2658,7 @@
 		"dot":{
 			"duration":180,
 			"mod":{
-				"player.defense":50
+				"self.defense":50
 			}
 		}
 
@@ -2665,7 +2759,7 @@
 
 			"duration":20,
 			"mod":{
-				"player.immunities.fire":1
+				"self.immunities.fire":1
 			}
 
 		}
@@ -2689,7 +2783,7 @@
 		"dot":{
 			"duration":60,
 			"mod":{
-				"player.tohit":5,
+				"self.tohit":5,
 				"hp.max":50,
 				"defense":10,
 				"speed":2
@@ -2807,7 +2901,7 @@
 			"targets":"allies",
 			"duration":30,
 			"mod":{
-				"player.resist.water":50
+				"self.resist.water":50
 			}
 
 		}
@@ -2890,7 +2984,7 @@
 			"targets":"allies",
 			"duration":30,
 			"mod":{
-				"player.resist.water":75
+				"self.resist.water":75
 			}
 
 		},"flavor":"force without form"
@@ -2925,7 +3019,7 @@
 			"targets":"allies",
 			"duration":30,
 			"mod":{
-				"player.resist.fire":80
+				"resist.fire":80
 			}
 
 		},"flavor":""
@@ -2952,41 +3046,16 @@
 
 			"duration":100,
 			"mod":{
-				"player.immunities.fire":1
+				"self.immunities.fire":1
 			}
 
 		}
 
 	},
 	{
-		"id":"cyrilsling",
-		"name":"cyril's celestial sling",
-		"tags":"patron",
-		"level":7,
-		"desc":"",
-		"require":"g.tier6>0&&g.chaos>=3",
-		"buy":{
-			"firerune":7,
-			"waterrune":7,
-			"airrune":7,
-			"earthrune":7,
-			"runestones":7
-		},
-		"cost":{
-			"sindel":1,
-			"chaos":1
-		},
-		"attack":{
-			"kind":"pierce",
-			"dmg":2,
-			"tohit":50
-		},"flavor":""
-
-	},
-	{
 		"id":"angelofdeath",
 		"name":"angel of death",
-		"desc":"a black spirit arises, to reap souls for your work.",
+		"desc":"a black spirit arises, reaping souls for your work.",
 		"school":"shadow",
 		"require":["evil",{
 			"shadow.max":15

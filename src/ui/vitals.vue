@@ -58,14 +58,14 @@ export default {
 		<table class="bars">
 
 		<tr class="hidable" data-key="stamina" v-show="show(stamina)"><td>stamina</td><td colspan="2"><progbar class="stamina" :value="stamina.valueOf()" :max="stamina.max.value"
-			@mouseenter.capture.stop.native="emit( 'itemover',$event,stamina)"/></td></tr>
+			@mouseenter.capture.stop.native="itemOver($event,stamina)"/></td></tr>
 
 		<tr class="hidable" data-key="hp" v-show="show(hp)"><td>hp</td><td colspan="2"><progbar class="hp" :value="hp.valueOf()" :max="hp.max.value"
-			@mouseenter.capture.stop.native="emit( 'itemover',$event,hp)"/></td></tr>
+			@mouseenter.capture.stop.native="itemOver($event,hp)"/></td></tr>
 
 		<tr class="hidable" v-for="it in visMana" :key="it.key" :data-key="it.id">
 			<td>{{it.name}}</td><td colspan="2"><progbar :value="it.valueOf()" :class="it.id" :max="it.max.value" :color="it.color"
-			@mouseenter.native.capture.stop="emit( 'itemover',$event,it)"/></td></tr>
+			@mouseenter.native.capture.stop="itemOver($event,it)"/></td></tr>
 
 		<!--<tr><td>mood</td><td><mood :state="state" /></td></tr>-->
 		</table>

@@ -15,10 +15,10 @@
 				"desc":"A sanctuary for orphans and paupers.",
 				"tags":"patron",
 				"cost":{
-					"space":5,
 					"gold":100
 				},
 				"mod":{
+					"space":5,
 					"gold.rate":-0.2,
 					"virtue.rate":0.0001,
 					"light.rate":0.1,
@@ -35,11 +35,11 @@
 				"desc":"Great spells are often forged on iron.",
 				"tags":"patron",
 				"cost":{
-					"space":5,
 					"research":10000,
 					"tomes":10
 				},
 				"mod":{
+					"space":5,
 					"spellcraft.max":2,
 					"spellcraft.rate":"5%",
 					"enchanting.max":2
@@ -85,6 +85,7 @@
 		"spells":[
 			{
 				"id":"cyrilsling",
+				"name":"cyril's celestial sling",
 				"level":7,
 				"school":"chaos",
 				"require":"g.tier5>0&&g.chaos.max>=3",

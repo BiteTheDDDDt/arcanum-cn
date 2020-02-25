@@ -1,4 +1,4 @@
-import Inventory, { SaveInstanced } from "./inventory";
+import Inventory from "./inventory";
 import Events, { TASK_CHANGED } from '../events';
 import { NPC, TEAM_PLAYER} from "../values/consts";
 import RValue from "../values/rvalue";
@@ -42,10 +42,10 @@ export default class Minions extends Inventory {
 
 		if ( !this.max ) this.max = 0;
 
-		this.saveMode = 'custom';
-		this.saveMap = SaveInstanced;
+		/*this.saveMode = 'custom';
+		this.saveMap = SaveInstanced;*/
 
-		this._allies = new Inventory( {id:'allies', spaceProp:'level'} );
+		this._allies = new Inventory( {id:'allies', spaceProp:'level', saveMode:'ids'} );
 		this.mods = new Map();
 		this.keep = new Set();
 
@@ -61,6 +61,10 @@ export default class Minions extends Inventory {
 
 	}
 
+	/**
+	 * @todo - improve this w/ NpcState/Context.
+	 * @param {GData} it
+	 */
 	shouldKeep(it) {
 
 		if ( this.keep.has(it.id)||this.keep.has(it.kind) ) return true;
@@ -89,6 +93,7 @@ export default class Minions extends Inventory {
 		super.add(m);
 
 		m.team = TEAM_PLAYER;
+		m.keep = true;
 
 		if ( m.active ) {
 			this.setActive(m)
@@ -97,7 +102,9 @@ export default class Minions extends Inventory {
 		for( let pair of this.mods ) {
 
 			if ( m.is(pair[1] ) ) {
-				m.applyMod(pair[0]);
+				console.log('APPLY MINION MOD: ' + pair[1] );
+				console.dir( pair[0], 'mod');
+				m.applyMods(pair[0]);
 			}
 
 		}
@@ -153,7 +160,6 @@ export default class Minions extends Inventory {
 			}
 
 			if ( m.active ) { actives.push(m); }
-			m.team = TEAM_PLAYER;
 
 		}
 

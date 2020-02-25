@@ -31,7 +31,7 @@
 		"name":"tenwick's walking stick",
 		"level":5,
 		"unique":true,
-		"recipe":true,
+		"type":"weapon",
 		"mod":{
 			"unease.rate":"-5%",
 			"weary.rate":"-10%",
@@ -39,7 +39,7 @@
 		},
 		"attack":{
 			"dmg":"5~10",
-			"type":"blunt"
+			"kind":"blunt"
 		}
 
 	},

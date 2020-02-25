@@ -2,7 +2,7 @@ import { assignNoFunc } from "../util/util";
 import { cloneClass } from 'objecty';
 import Stat from "../values/stat";
 import { TARGET_ALLIES, TARGET_ALLY, TARGET_SELF,
-		ParseTarget, ParseDmg} from "values/combat";
+		ParseTarget, ParseDmg} from "../values/combatVars";
 
 export default class Attack {
 
@@ -17,6 +17,7 @@ export default class Attack {
 			hits:this.hits||undefined,
 			cure:this.cure||undefined,
 			state:this.state||undefined,
+			targets:this.targets||undefined,
 			id:this.id,
 			dot:this.dot
 		};
@@ -84,8 +85,12 @@ export default class Attack {
 	 */
 	get targets() { return this._targets; }
 	set targets(v) {
+
 		if ( typeof v === 'string') this._targets = ParseTarget(v);
-		else this._targets = v;
+		else {
+			this._targets = v;
+		}
+
 	}
 
 	get bonus() { return this._bonus; }
@@ -112,13 +117,15 @@ export default class Attack {
 	set hits(v){
 
 		this._hits = v;
+		if (!v) return;
+
 		for( let i = v.length-1; i>=0;i--) {
 			var h = v[i];
 
 			if (!h.id) h.id = this.id;
 			if ( !h.name ) h.name = this.name;
 			if (!h.kind)h.kind = this.kind;
-			if ( !h instanceof Attack ) v[i] = new Attack(h);
+			if ( !(h instanceof Attack) ) v[i] = new Attack(h);
 
 		}
 	}
@@ -131,7 +138,7 @@ export default class Attack {
 	 */
 	canAttack(){return true;}
 
-	clone(){ return cloneClass( this ); }
+	clone(){ return cloneClass( this, new Attack() ); }
 
 	constructor( vars=null ){
 
@@ -160,9 +167,10 @@ export default class Attack {
 
 		}
 
+
 		if ( this._harmless === null || this._harmless === undefined ) {
-			this.harmless = this.targets === TARGET_SELF ||
-				this.targets === TARGET_ALLY || this.targets === TARGET_ALLIES;
+			this.harmless = (this.targets === TARGET_SELF) ||
+				(this.targets === TARGET_ALLY) || (this.targets === TARGET_ALLIES);
 		}
 
 		//this.damage = this.damage || 0;

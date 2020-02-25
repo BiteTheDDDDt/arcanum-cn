@@ -4,6 +4,8 @@ const VueLoader = require('vue-loader/lib/plugin');
 const CopyPlugin = require( 'copy-webpack-plugin');
 const HtmlWebpackPlugin = require( 'html-webpack-plugin');
 
+const ZipPlugin = require('zip-webpack-plugin');
+
 const webpack = require('webpack');
 const { execSync } = require('child_process');
 
@@ -12,7 +14,65 @@ var VERS_STR = execSync('git rev-list HEAD --count').toString()
 const UiDir = path.resolve( __dirname, 'src/ui');
 const DebugDir = path.resolve( __dirname, 'src/debug');
 
-module.exports = (env, argv)=>{
+
+const MakePlugins = ( env, buildPath ) => {
+
+	console.log('BUILD: ' + buildPath);
+
+	const plugins = [
+		new VueLoader({
+			compilerOptions:{
+
+				whitespace:'condense'
+			}
+		}),
+		new webpack.DefinePlugin({
+			__DEBUG:true,
+			__CHEATS:true,
+			__KONG:env.kong || false,
+			__DIST:__DIST,
+			__CLOUD:!env.kong && env.cloud,
+			__VERSION:VERS_STR
+		}),
+		new HtmlWebpackPlugin({
+
+			template:'index.ejs',
+			title:"Theory of Magic",
+			filename:path.resolve( buildPath, 'index.html'),
+			__KONG:env.kong||false,
+			__DIST:__DIST,
+			__CLOUD:env.cloud
+
+		}),
+		new CopyPlugin([
+
+			{
+				from:'data',
+				to:path.resolve( buildPath, 'data')
+			},
+			{
+				from:'css',
+				to:path.resolve( buildPath, 'css' )
+			}
+		])
+	];
+
+	if ( env.kong) {
+
+		plugins.push( new ZipPlugin({
+
+			filename:'kong.zip',
+			pathPrefix:'js',
+			path:buildPath,
+			exclude:/\.html$/
+
+		}));
+	}
+
+	return plugins;
+}
+
+module.exports = (env, argv) => {
 
 	const BuildPath = path.resolve( __dirname, argv['buildpath'] || 'dev' );
 	const __DIST = env.production ? true : false;
@@ -45,49 +105,7 @@ module.exports = (env, argv)=>{
 			}
 		],
 	},
-	plugins: [
-		new VueLoader({
-			compilerOptions:{
-
-				whitespace:'condense'
-			}
-		}),
-		new webpack.DefinePlugin({
-		__DEBUG:true,
-		__CHEATS:true,
-		__KONG:env.kong || false,
-		__DIST:__DIST,
-		__CLOUD:!env.kong && env.cloud,
-		__VERSION:VERS_STR
-	}),
-	new HtmlWebpackPlugin({
-
-		template:'index.ejs',
-		title:"Theory of Magic",
-		filename:path.resolve( BuildPath, 'index.html'),
-		__KONG:env.kong||false,
-		__DIST:__DIST,
-		__CLOUD:env.cloud
-
-	}),
-	new CopyPlugin([
-
-		{
-			from:'data',
-			to:path.resolve( BuildPath, 'data')
-		},
-		{
-			from:'css',
-			to:path.resolve( BuildPath, 'css' )
-		}
-	])
-	/*new WorkboxPlugin.InjectManifest({
-		swSrc:'src/sw.js',
-		swDest:'sw.js',
-		importsDirectory:'wb-assets'
-	})*/],
-
-	//devtool: 'source-map',
+	plugins: MakePlugins(env, BuildPath ),
 
 	output: {
 

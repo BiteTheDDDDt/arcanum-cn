@@ -112,7 +112,8 @@ export default {
 
 			let s = this.state;
 			return s.filterItems( it=>
-				it.type ==='furniture' || s.typeCost(it.cost, 'space')>0
+				it.type ==='furniture' || s.typeCost(it.cost, 'space')>0 ||
+					s.typeCost(it.mod, 'space') >0
 			).sort(
 				alphasort
 				//(a,b)=> a.name < b.name ? -1 : 1
@@ -126,7 +127,7 @@ export default {
 			let m = this.showMaxed;
 
 			return this.furniture.filter( it=>!this.reslocked(it) &&
-				(o||it.value==0) &&(b||this.usable(it))&&(m||!it.maxed())&&(n||it.value>0)
+				(o||it.value==0) &&(b||it.canUse())&&(m||!it.maxed())&&(n||it.value>0)
 			);
 
 		}
@@ -177,12 +178,12 @@ export default {
 		<tr><th>Space</th><th class="name">Furnishing</th><th>Owned</th><th/><th/></tr>
 
 
-		<tr v-for="it in filtered" :key="it.id" @mouseenter.capture.stop="emit( 'itemover', $event, it )">
+		<tr v-for="it in filtered" :key="it.id" @mouseenter.capture.stop="itemOver( $event, it )">
 
-			<td class="space">{{ it.cost.space }}</td>
+			<td class="space">{{ it.cost.space || it.mod.space }}</td>
 			<td class="name">{{ it.name }}</td> <td class="count">{{ it.value.valueOf() }}</td>
 
-			<td><span v-if="it.maxed()" class="sm">Max</span><button v-else type="button" :disabled="!usable(it)" class="buy-btn"
+			<td><span v-if="it.maxed()" class="sm">Max</span><button v-else type="button" :disabled="!it.canUse()" class="buy-btn"
 				@click="emit('upgrade',it)">Buy</button></td>
 
 			<td><button type="button" :disabled="it.value<=0" class="sell-btn" @click="emit('sell',it)">Sell</button></td>

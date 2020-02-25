@@ -134,6 +134,7 @@ export default class DataList extends Inventory {
 	nextUsable(g){
 
 		var len = this.items.length;
+		if ( len <= 0 ) return null;
 
 		let start = this.nextInd();
 		let i = start;

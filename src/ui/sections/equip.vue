@@ -17,12 +17,12 @@ export default {
 			<td class="slot-item" v-if="slot.empty()"></td>
 			<td class="sub-slots" v-else-if="slot.multi">
 
-				<div class="slot-item" v-for="it in slot.item" :key="it.id" @mouseenter.capture.stop="emit( 'itemover',$event,it)">
+				<div class="slot-item" v-for="it in slot.item" :key="it.id" @mouseenter.capture.stop="itemOver($event,it)">
 					 <button @click="emit('unequip', slot, it)">Unequip</button><span class="item-name">{{ it.name }}</span>
 				</div>
 			</td>
 			<td class="slot-item" v-else>
-				<div @mouseenter.capture.stop="emit( 'itemover',$event,slot.item)">
+				<div @mouseenter.capture.stop="itemOver($event,slot.item)">
 					<button @click="emit('unequip', slot, slot.item )">Unequip</button><span class="item-name">{{ slot.item.name }}</span>
 				</div>
 
