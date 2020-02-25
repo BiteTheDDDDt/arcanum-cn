@@ -17,8 +17,6 @@ const DebugDir = path.resolve( __dirname, 'src/debug');
 
 const MakePlugins = ( env, buildPath ) => {
 
-	console.log('BUILD: ' + buildPath);
-
 	const plugins = [
 		new VueLoader({
 			compilerOptions:{
@@ -30,7 +28,7 @@ const MakePlugins = ( env, buildPath ) => {
 			__DEBUG:true,
 			__CHEATS:true,
 			__KONG:env.kong || false,
-			__DIST:__DIST,
+			__DIST:env.production ? true : false,
 			__CLOUD:!env.kong && env.cloud,
 			__VERSION:VERS_STR
 		}),
@@ -40,7 +38,7 @@ const MakePlugins = ( env, buildPath ) => {
 			title:"Theory of Magic",
 			filename:path.resolve( buildPath, 'index.html'),
 			__KONG:env.kong||false,
-			__DIST:__DIST,
+			__DIST:env.production ? true : false,
 			__CLOUD:env.cloud
 
 		}),
