@@ -487,7 +487,7 @@ export default {
 
 		}  else if ( it.instanced ){
 
-			it.onUse( this, this.state.inventory );
+			it.onUse( this );
 
 		} else if ( it.buy && !it.owned ) {
 

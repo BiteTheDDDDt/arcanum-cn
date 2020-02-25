@@ -23,6 +23,7 @@ import { TRY_BUY, USE, TRY_USE, EVT_STAT } from '../events';
 import { TICK_TIME } from '../game';
 import profile from '../modules/profile';
 import { TASK } from '../values/consts';
+import Task from '../items/task';
 
 /**
  * @const {number} SAVE_TIME  - time in seconds between auto-saves.
@@ -217,8 +218,12 @@ export default {
 				let num = Number( e.code.slice(-1) );
 				//console.log('number: ' + num );
 
-				if ( e.shiftKey && RollOver.item ) this.state.setQuickSlot( RollOver.item, num );
-				else {
+				if ( e.shiftKey && RollOver.item ) {
+
+					let it = RollOver.item;
+					this.state.setQuickSlot( RollOver.item, num );
+
+				} else {
 					let it = this.state.getQuickSlot(num);
 					if ( it) this.doQuickslot(it);
 				}

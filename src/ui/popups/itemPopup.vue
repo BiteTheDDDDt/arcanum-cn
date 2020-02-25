@@ -19,7 +19,7 @@ export const RollOver = {
 export const ItemOver = ( evt, it, source, title ) => {
 
 	RollOver.item = it;
-	RollOver.elm = evt.target;
+	RollOver.elm = evt.currentTarget;
 	RollOver.source = source;
 
 	if ( source && source.context ) {

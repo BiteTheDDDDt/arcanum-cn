@@ -174,6 +174,13 @@ export default class Npc extends Char {
 	}
 
 	/**
+	 * Catch event. Do nothing.
+	 * @param {*} g
+	 */
+	onUse(g){
+	}
+
+	/**
 	 * Resurrect.
 	 */
 	res() {
