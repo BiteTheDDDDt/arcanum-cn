@@ -1,4 +1,4 @@
-import {randElm, randFrom, mapNonNull, propSort} from './util/array';
+import {randElm, randFrom, propSort} from './util/array';
 
 /**
  * Category to assign items with no property value

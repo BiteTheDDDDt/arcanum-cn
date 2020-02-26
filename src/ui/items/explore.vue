@@ -49,8 +49,10 @@ export default {
 		 */
 		enc() { return this.explore.enc; },
 
+		encDesc(){ return this.enc ? this.enc.desc : '&nbsp;';},
+
 		encName(){
-			return this.enc ? this.enc.name : '';
+			return this.enc ? this.enc.name : '&nbsp;';
 		},
 		encProg(){
 			return this.enc ? this.enc.exp.valueOf() : 0;
@@ -82,7 +84,8 @@ export default {
 		<template v-else>
 
 			<div @mouseenter.capture.stop="encOver($event)">
-			<span>{{ encName }}</span>
+			<span class="name" v-html="encName"></span>
+			<div class="desc" v-html="encDesc"></div>
 			<progbar :value="encProg" :max="encLen" />
 			</div>
 
@@ -117,6 +120,9 @@ div.explore div.stressors {
 	justify-content: space-between;
 }
 
+.name {
+	font-weight: bold;
+}
 div.stressors .stress {
 	flex-basis: 48%;
 }

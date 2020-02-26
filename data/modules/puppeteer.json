@@ -370,7 +370,7 @@
 				},
 				"mod": {
 					"puppetry.max": 1,
-					"minions.puppet.hp": 5,
+					"minions.puppet.hp.max": 5,
 					"minions.puppet.dmg": 5
 				},
 				"flavor": "The dark coloring is handy for assasinations"
@@ -387,7 +387,7 @@
 				},
 				"mod": {
 					"puppetry.max": 1,
-					"minions.puppet.hp": "20%",
+					"minions.puppet.hp.max": "20%",
 					"minions.puppet.dmg": "20%"
 				},
 				"flavor": "The faint glow of the runes looks quite striking"
@@ -464,7 +464,7 @@
 				},
 				"mod": {
 					"machinacreation.max": 2,
-					"minions.machina.hp": 5,
+					"minions.machina.hp.max": 5,
 					"minions.machina.dmg": 10
 				},
 				"flavor": "A layer of polish"

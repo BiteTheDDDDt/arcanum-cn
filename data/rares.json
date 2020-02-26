@@ -2,15 +2,29 @@
 
 	{
 
-		"id":"javidscompass",
+		"id":"lillitscape",
+		"name":"lillit's cape",
+		"unique":true,
+		"require":"loc_spring",
+		"desc":"",
+		"mod":{
+			"rage.rate":-0.1
+		}
+
+	},
+	{
+
+		"id":"jazidscompass",
 		"name":"javid's compass",
+		"unique":true,
 		"desc":"What leads your way can lead to you.",
 		"type":"armor",
 		"slot":"neck",
 		"mod":{
-			"s_travel.max":2
+			"s_travel.max":2,
+			"bf.rate":-0.5
 		},
-		"flavor":"Javid always finds his compass."
+		"flavor":"Jazid always finds his compass."
 
 	},
 	{

@@ -253,8 +253,8 @@ export default {
 
 		if ( lists.stats ) this.initItems( items, lists['stats'], StatData, 'stat', 'stat' );
 
-
-		this.initItems( items, lists['items'], Item, ITEM, ITEM);
+		/**@deprecated ??? @compat */
+		//this.initItems( items, lists['items'], Item, ITEM, ITEM);
 
 		if ( lists.armors ) {
 			inst.armors = this.initItems( items, lists['armors'], ProtoItem, ARMOR,ARMOR );

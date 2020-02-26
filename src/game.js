@@ -1235,7 +1235,7 @@ export default {
 
 		if ( typeof it === 'object' && it.stack ) {
 
-			console.log('ADDING INVENTORY: ' + inv.id );
+			console.log('ADD TO: ' + inv.id );
 
 			if ( inv.addStack( it ) ) {
 				Events.emit( EVT_LOOT, it );

@@ -389,7 +389,8 @@
 				},
 				"mod": {
 					"tier4": true,
-					"spiritlore.max": 3
+					"spiritlore.max": 3,
+					"bladelore":true
 				},
 				"flavor": "Contemplation of the small as well as great."
 			}
@@ -426,7 +427,7 @@
    		    	"desc":"A large spire which rose from the ground. It looks like it might collapse any day now",
    	     		"require":"evt_hole",
         		"level":15,
-                "dist":"50",
+                "dist":50,
         		"run":{
         		    "stamina":2
         		},
@@ -439,7 +440,6 @@
         		"biome":["cave","mountain"],
         		"spawns":{
             		"level":"4~15",
-           			"scale":true,
             		"range":2
         		},"flavor":"some things are left to time"
   			}

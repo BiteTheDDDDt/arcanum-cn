@@ -99,14 +99,8 @@ export default class ItemGen {
 		var level = data.level || 1;
 		if ( typeof level ==='object') {
 
-			if ( data.scale ) {
-
-				if ( level.type === TYP_RANGE ) level = level.percent(pct);
-				else level = level.value*pct;
-
-			} else {
-				level = level.value;
-			}
+			if ( level.type === TYP_RANGE ) level = level.percent(pct);
+			else level = level.value*pct;
 
 		}
 
@@ -234,6 +228,10 @@ export default class ItemGen {
 
 	}
 
+	/**
+	 * Loot specified by subobject.
+	 * @param {object} info
+	 */
 	objLoot( info ){
 
 		let items = [];

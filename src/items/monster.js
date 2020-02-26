@@ -4,8 +4,7 @@ import Npc from "../chars/npc";
 
 const defaults = {
 
-	level:1,
-	locked:false
+	level:1
 
 };
 
@@ -43,6 +42,7 @@ export default class Monster extends GData {
 		this.defense = ( this.defense === null || this.defense === undefined )
 								? this.level : this.defense;
 
+		this.locked = this.require ? true : false;
 
 	}
 
