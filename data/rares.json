@@ -1,6 +1,19 @@
 [
 
 	{
+
+		"id":"javidscompass",
+		"name":"javid's compass",
+		"desc":"What leads your way can lead to you.",
+		"type":"armor",
+		"slot":"neck",
+		"mod":{
+			"s_travel.max":2
+		},
+		"flavor":"Javid always finds his compass."
+
+	},
+	{
 		"id":"patronring1",
 		"name":"ring of the patron",
 		"unique":true,
