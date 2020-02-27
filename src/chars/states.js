@@ -150,7 +150,7 @@ export default class States {
 		let flags = dot.flags;
 		let f = 1;
 
-		while ( f < flags ) {
+		while ( f <= flags ) {
 
 			if ( (flags & f) > 0 ) this._rmCause( f, dot );
 			f *= 2;
