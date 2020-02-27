@@ -2,16 +2,15 @@
 
 	{
 
-		"id":"ecdysiastribbon",
-		"name":"ecdysiast's ribbons",
+		"id":"ecdysiastwrap",
+		"name":"wraps of the ecdysiast",
 		"type":"armor",
 		"slot":"shins",
-		"unique":true,
 		"level":7,
 		"desc":"Desilla awarded her servants with articles of apparel.",
 		"mod":{
 			"charms.max":1,
-			"charms.rate":0.1
+			"charms.rate":0.3
 		},"flavor":"The awards however, were given sparingly."
 
 	},
@@ -24,7 +23,7 @@
 		"armor":2,
 		"unique":true,
 		"level":5,
-		"require":"g.loc_spring>30",
+		"require":"g.loc_spring>=10",
 		"desc":"Lillit was known for her soothing presence.",
 		"mod":{
 			"rage.rate":-0.25

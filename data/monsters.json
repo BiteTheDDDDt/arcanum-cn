@@ -2874,8 +2874,8 @@
             "name":"claws",
 			"dmg":"12~22",
 			"type":"slash"
-        }, "loot":{
-			"max":11
+        },"loot":{
+			"ecdysiastwrap":"1%"
 		}
 
 	},
