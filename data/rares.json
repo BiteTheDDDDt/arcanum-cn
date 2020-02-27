@@ -2,6 +2,21 @@
 
 	{
 
+		"id":"ecdysiastribbon",
+		"name":"ecdysiast's ribbons",
+		"type":"armor",
+		"slot":"shins",
+		"unique":true,
+		"level":7,
+		"desc":"Desilla awarded her servants with articles of apparel.",
+		"mod":{
+			"charms.max":1,
+			"charms.rate":0.1
+		},"flavor":"The awards however, were given sparingly."
+
+	},
+	{
+
 		"id":"lillitscord",
 		"name":"lillit's cord",
 		"type":"armor",
