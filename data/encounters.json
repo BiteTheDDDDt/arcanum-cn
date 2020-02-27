@@ -52,6 +52,20 @@
 		}
 	},
 	{
+		"id":"enc_heather",
+		"name":"heathered copse",
+		"level":2,
+		"desc":"You rest in the shade amid flowers of heather.",
+		"effect":{
+			"rage":"-2~0",
+			"stamina":1,
+			"mana":1
+		},
+		"result":{
+			"lillitscord":"25%"
+		}
+	},
+	{
 		"id":"enc_tapestry",
 		"name":"occult tapestry",
 		"level":2,
@@ -744,6 +758,7 @@
 			"mana":-1
 		},
 		"result":{
+			"jazidscompass":"1%",
 			"bloodgem":"20%",
 			"managem":"10%",
 			"codices":"15%"

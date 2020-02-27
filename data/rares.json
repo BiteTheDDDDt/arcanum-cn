@@ -2,13 +2,17 @@
 
 	{
 
-		"id":"lillitscape",
-		"name":"lillit's cape",
+		"id":"lillitscord",
+		"name":"lillit's cord",
+		"type":"armor",
+		"slot":"waist",
+		"armor":2,
 		"unique":true,
-		"require":"loc_spring",
-		"desc":"",
+		"level":5,
+		"require":"g.loc_spring>0",
+		"desc":"Lillit was known for her soothing presence.",
 		"mod":{
-			"rage.rate":-0.1
+			"rage.rate":-0.25
 		}
 
 	},
@@ -17,6 +21,7 @@
 		"id":"jazidscompass",
 		"name":"javid's compass",
 		"unique":true,
+		"level":10,
 		"desc":"What leads your way can lead to you.",
 		"type":"armor",
 		"slot":"neck",

@@ -14,6 +14,10 @@ export default class ProtoItem extends GData {
 
 	}
 
+	/**
+	 * @property {boolean} hide - don't display unlock messages.
+	 */
+	get hide() { return true; }
 	get isRecipe() { return true; }
 
 	get material() { return this._material; }

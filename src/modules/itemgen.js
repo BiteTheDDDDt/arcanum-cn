@@ -132,6 +132,11 @@ export default class ItemGen {
 
 		let it;
 
+		if ( proto.disabled || proto.locked ) {
+			console.log('item locked: ' + proto.id );
+			return null;
+		}
+
 		if ( proto.type === ARMOR || proto.type === WEAPON || proto.type === WEARABLE ) {
 
 			console.log('itgen.inst() wearable: ' + proto.id );
