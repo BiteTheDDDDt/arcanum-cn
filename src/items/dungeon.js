@@ -82,18 +82,23 @@ export default class Dungeon extends Task {
 	 */
 	getSpawn() {
 
-		let spawn;
+		let spawn, npc;
+		let tries = 0;
 
 		if ( this.hasBoss( this.boss, this.exp ) ) spawn = this.getBoss( this.boss );
 		else if ( this.spawns ) spawn = this.spawns.random();
 
-		if ( spawn instanceof SpawnGroup ) return spawn.instantiate( this.percent()/100 );
-		else if ( spawn ) {
+		do {
 
-			let npc = MakeNpc( spawn, this.percent()/100);
-			if ( npc ) return [npc];
+			if ( spawn instanceof SpawnGroup ) return spawn.instantiate( this.percent()/100 );
+			else if ( spawn ) {
 
-		}
+				npc = MakeNpc( spawn, this.percent()/100);
+				if ( npc ) return [npc];
+
+			}
+
+		} while ( npc == null && tries++ < 4 );
 
 		return null;
 

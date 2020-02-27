@@ -3726,7 +3726,7 @@
 	},
 	{
 		"id":"jazid",
-		"require":"g.tier1>0",
+		"require":"jazidscompass",
 		"level":25,
 		"unique":true,
 		"desc":"Jazid's only purpose is to kill the holder of his compass.",
