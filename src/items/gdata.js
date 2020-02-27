@@ -397,8 +397,8 @@ export default class GData {
 
 		if ( this.disabled || this.locked === false || this.locks>0 ) return;
 
-		if ( this.id === 'lillitscape') console.log('LILLIT UNLOCKED');
-		else if ( this.id === 'jazid') console.log('JAZID UNLOCKED');
+		/*if ( this.id === 'lillitscape') console.log('LILLIT UNLOCKED');
+		else if ( this.id === 'jazid') console.log('JAZID UNLOCKED');*/
 
 		this.locked = false;
 		if ( this.show ) Events.emit( EVT_EVENT, this.show );

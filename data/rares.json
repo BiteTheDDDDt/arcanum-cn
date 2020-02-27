@@ -2,6 +2,20 @@
 
 	{
 
+		"id":"karnivexcrown",
+		"name":"crown of karnivex",
+		"desc":"The conceits of Karnivex are without bounds.",
+		"level":7,
+		"armor":5,
+		"mod":{
+			"bonuses.fire":1,
+			"tohit":1,
+			"rage.rate":0.5
+		}
+
+	},
+	{
+
 		"id":"ecdysiastwrap",
 		"name":"wraps of the ecdysiast",
 		"type":"armor",

@@ -102,8 +102,7 @@ export default class Minions extends Inventory {
 		for( let pair of this.mods ) {
 
 			if ( m.is(pair[1] ) ) {
-				console.log('APPLY MINION MOD: ' + pair[1] );
-				console.dir( pair[0], 'mod');
+				//console.log('APPLY MINION MOD: ' + pair[1] );
 				m.applyMods(pair[0]);
 			}
 

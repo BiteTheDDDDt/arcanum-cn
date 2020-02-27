@@ -227,10 +227,6 @@ export default class Combat {
 		let targ = this.getTarget( attacker, atk.targets );
 		if ( !targ) return;
 
-		if ( atk.name === 'rewind' || atk.name ==='recoil') {
-			console.log( atk.name + ' targ: ' + targ.name + ' TARG: ' + atk.targets);
-		}
-
 		if ( Array.isArray(targ)) {
 
 			for( let i = targ.length-1; i>= 0; i-- ) {

@@ -133,7 +133,6 @@ export default class ItemGen {
 		let it;
 
 		if ( proto.disabled || proto.locked || this.state.hasUnique(proto) ) {
-			console.log('item blocked: ' + proto.id );
 			return null;
 		}
 
