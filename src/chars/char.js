@@ -326,7 +326,7 @@ export default class Char {
 
 				var s = this._gs.getData( states[i] );
 				if ( s ) {
-					console.log('ADD DOT STATE: ' + states[i] );
+					console.log('ADD STATE: ' + states[i] );
 					this.addDot( s, dot.source, time );
 				}
 

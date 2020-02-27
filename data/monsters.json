@@ -700,7 +700,7 @@
         "level":4,
         "kind":"humanoid",
         "desc":"For the Horde!",
-        "hp":10,
+        "hp":14,
         "defense":8,
         "tohit":3,
         "attack":{
@@ -714,7 +714,7 @@
 		"id":"orcpriest",
 		"kind":"humanoid",
 		"level":6,
-		"hp":10,
+		"hp":14,
 		"tohit":5,
 		"defense":5,
 		"spells":"heal1",
@@ -725,7 +725,7 @@
         },{
 			"dot":{
 				"id":"silence",
-				"duration":10
+				"duration":25
 			}
 		}],"resist":{"shadow":20}
 	},
@@ -1487,7 +1487,7 @@
 		{
 			"dot":{
 				"id":"silence",
-				"duration":10
+				"duration":15
 			}
 		}],
 		"resist":{
@@ -3139,13 +3139,13 @@
 			{
 				"dot":{
 					"id":"silence",
-					"duration":5
+					"duration":10
 				}
 			},
 			{
 				"dot":{
 					"id":"paralyzed",
-					"duration":5
+					"duration":15
 				}
 			},
 			{

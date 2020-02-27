@@ -123,9 +123,9 @@ export default class Dot {
 		}
 		if ( !this.flags ) this.flags = 0;
 
-		for( let p in this ) {
+		/*for( let p in this ) {
 			if ( p === 'damage' || p =='dmg') console.log('DOT HAS DAMAGE');
-		}
+		}*/
 
 
 		/**
@@ -158,9 +158,10 @@ export default class Dot {
 	 */
 	mergeDot( st ) {
 
-		console.log('merge dot: ' + st.id );
+		console.log('st flags: ' + st.flags );
 		mergeSafe( this, st );
 		this._flags = this._flags | st.flags;
+		console.log('this flags: ' + this.flags );
 
 	}
 

@@ -130,6 +130,8 @@ export default class States {
 		let flags = cause.flags;
 		if ( flags === 0 ) return;
 
+		//console.log('ADD FLAGS: ' + flags );
+
 		let f = 1;
 		while ( f <= flags ) {
 
