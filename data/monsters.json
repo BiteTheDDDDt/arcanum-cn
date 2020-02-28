@@ -2363,7 +2363,8 @@
 		"resist":{
 			"spirit":20,
 			"shadow":15
-		}
+		},
+		"immune":"paralysis"
 
 	},
 	{
@@ -3469,7 +3470,7 @@
 			"nature":80,
 			"light":80
 		},
-		"immune":"physical,spirit"
+		"immune":"physical,spirit,sleep,fear"
     },
     {
 		"id":"maturereddragon",
@@ -3613,7 +3614,7 @@
 				"kind":"earth",
 				"log":{
 					"%":"10%",
-					"desc":"Does Dhruze still slumber?"
+					"desc":"Does Dhroz still slumber?"
 				},
 				"dot":{
 					"id":"quake",
@@ -3655,7 +3656,7 @@
 				"targets":"enemies",
 				"log":{
 					"%":"10%",
-					"desc":"Even Dhruze feared the void."
+					"desc":"Even Dhroz feared the void."
 				},
 				"dot":{
 					"kind":"void",
@@ -3826,6 +3827,71 @@
 			"targets":"enemies",
             "dmg":"50~75"
         },"flavor":"most agree it's best the gorborung resides in darkness."
+	},
+	{
+        "id":"dhrozenknight",
+        "level":26,
+        "evil":70,
+        "desc":"An immortal knight of Dhroz. Of fifty slain, one is knighted.",
+        "hp":1200,
+        "attack":{
+            "name":"nether blade",
+            "kind":"nether",
+            "dmg":"130~150"
+		},
+		"flavor":"To escape Sarnagor one had only collect the pieces of a single set of Dhrozen armor.",
+		"immune":"sleep,charm"
+
+	},
+	{
+        "id":"mummer",
+        "level":27,
+        "kind":"spirit",
+        "desc":"A voiceless form with a bare and twisted skull.",
+        "hp":700,
+        "tohit":100,
+		"defense":70,
+        "attack":[{
+            "name":"soul siphon",
+			"kind":"drain",
+			"leech":0.3,
+			"dmg":"40~70"
+		},
+		{
+			"dot":{
+				"id":"paralyzed",
+				"duration":10
+			}
+		}],
+		"flavor":"The mummers were believed to be a corrupted form of lesser Kell.",
+		"immune":"charm"
+
+	},
+	{
+        "id":"netherwraith",
+        "level":29,
+        "kind":"nether",
+        "desc":"A spirit cloaked in noxious nether.",
+        "hp":1000,
+        "tohit":100,
+		"defense":40,
+		"dodge":100,
+        "attack":{
+            "name":"nether touch",
+            "kind":"spirit",
+			"dmg":"50~80",
+			"dot":{
+				"kind":"nether",
+				"dmg":30
+			}
+		},"loot":{
+			"soul":1
+		},
+		"resist":{
+			"spirit":50
+		},
+		"immune":"paralysis"
+
 	},
 	{
 		"id":"reaper",
