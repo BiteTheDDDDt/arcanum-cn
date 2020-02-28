@@ -3002,7 +3002,7 @@
 			"kind":"pierce",
 			"dot":{
 				"kind":"poison",
-				"dmg":"4~7",
+				"dmg":"5~8",
 				"duration":5
 			}
         }
@@ -3400,7 +3400,7 @@
         "id":"leviathan",
         "level":18,
         "kind":"beast",
-        "desc":"",
+        "desc":"A mountain moves in the depths.",
         "hp":400,
         "tohit":20,
         "defense":75,
@@ -3634,9 +3634,7 @@
 				},
 				"kind":"earth"
 			}
-		], "loot":{
-			"max":25
-		}
+		]
 
 	},
 	{
@@ -3776,7 +3774,7 @@
 		"id":"strativax1",
 		"name":"strativax slumbering",
         "level":24,
-		"desc":"",
+		"desc":"He does not appear to notice your presence.",
 		"unique":true,
 		"kind":"dragon",
 		"defense":500,
@@ -3806,7 +3804,19 @@
         "hp":5000,
         "tohit":50,
         "defense":200,
-		"attack":"",
+		"attack":[
+			{
+				"name":"talon crush",
+				"dmg":"200~300",
+				"kind":"blunt"
+			},
+			{
+				"name":"breath of fire",
+				"kind":"fire",
+				"dmg":"100~200",
+				"targets":"enemies"
+			}
+		],
 		"loot":{
 			"max":27
 		}

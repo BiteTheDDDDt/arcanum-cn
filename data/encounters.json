@@ -833,7 +833,7 @@
 		"name":"blood grass",
 		"desc":"Steel-sharp blades of grass bite cut at your boots.",
 		"effect":{
-			"weary":"0~3",
+			"weary":"1~3",
 			"rage":"1~3",
 			"hp":-2
 		},
@@ -859,11 +859,38 @@
 		"desc":"Writhing in heaps and drooping from branches, a mass of snakes covers the vicinity.",
 		"effect":{
 			"unease":"1~2",
-			"madness":"1~2",
-			"rage":"1~2",
+			"madness":"2~3",
+			"rage":"2~3",
 			"hp":-3
 		},
 		"result":{
+		}
+	},
+	{
+		"id":"e_agolith",
+		"name":"agolith",
+		"desc":"Hidden in a deep pond, it lures its prey with a fruiting branch growing from its head.",
+		"effect":{
+			"bf":"1~2",
+			"wear":"0~1"
+		}
+	},
+	{
+		"id":"e_pogler",
+		"name":"pod of poglers",
+		"desc":"The placid poglers have backs of bushy leaves which they angle to the sun.",
+		"effect":{
+			"bf":"2~3",
+			"rage":-0.5
+		}
+	},
+	{
+		"id":"e_flithy",
+		"name":"flithy",
+		"desc":"You meet a creeping creature with twenty furry legs and nothing else.",
+		"effect":{
+			"bf":"2~3",
+			"madness":"1~2"
 		}
 	},
 	{

@@ -38,6 +38,9 @@ export default class ProtoItem extends GData {
 	get kind() { return this._kind; }
 	set kind(v) { this._kind = v; }
 
+	/**
+	 * @property {string} slot
+	 */
 	get slot(){return this._slot;}
 	set slot(v){ this._slot=v }
 

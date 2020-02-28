@@ -754,8 +754,11 @@
 		"boss":"archon",
 		"spawns":[
 			"angel",
+			["valkyrie","valkyrie"],
+			["gryffon","gryffon"],
 			"mithrilgolem",
 			"angel",
+			"firegolem",
 			["angel","angel"],
 			["lightelem","lightelem","lightelem"],
 			["roc","roc","roc"],
