@@ -11,7 +11,7 @@ export default class State {
 	get id() { return this._id; }
 	set id(v) { this._id =v;}
 
-	get name() { return this._name; }
+	get name() { return this._name || this._id; }
 	set name(v) { this._name = v;}
 
 	get value() { return this._value; }

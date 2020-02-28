@@ -460,8 +460,12 @@ export default class Char {
 
 	addResist( kind, amt ) {
 
-		if ( !this._resist[kind] ) this._resist[kind] = amt;
-		else this._resist[kind].base += amt;
+		if ( !this._resist[kind] ) {
+
+			//Vue.set( this._resist, kind, amt.valueOf() );
+			this._resist[kind] = amt.valueOf();
+
+		} else this._resist[kind].base += amt;
 
 	}
 
