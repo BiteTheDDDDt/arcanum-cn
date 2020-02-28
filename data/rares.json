@@ -11,6 +11,7 @@
 		"mod":{
 			"bonuses.fire":"5%",
 			"resist.fire":10,
+			"resist.silence":5,
 			"tohit":1,
 			"rage.rate":0.5
 		}
@@ -25,6 +26,7 @@
 		"level":7,
 		"desc":"Desilla awarded her servants with articles of apparel.",
 		"mod":{
+			"resist.paralysis":10,
 			"charms.max":1,
 			"charms.rate":0.3
 		},"flavor":"The awards however, were given sparingly."

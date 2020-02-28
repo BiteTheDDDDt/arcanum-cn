@@ -340,8 +340,8 @@ export default {
 	onHit( target, dmg, resist, reduce, source ) {
 
 		let msg = source + " hits ";
-		if (resist > 0) msg += "strongly ";
-		else if (resist < 0) msg += "weakly ";
+		if (resist < 0) msg += "strongly ";
+		else if (resist > 0) msg += "weakly ";
 		else if (resist > 1) msg += " absorbed by ";
 		msg += target.name + ": "+ precise( dmg, 1 );
 
