@@ -54,6 +54,15 @@ export default class ProtoItem extends GData {
 	}
 
 	/**
+	 * Tests whether item fills unlock requirement.
+	 * @returns {boolean}
+	 */
+	fillsRequire(g){
+		console.log('testing require: ' + this.id );
+		return g.state.findInstance(this.id) != null;
+	}
+
+	/**
 	 *
 	 */
 	instantiate(){

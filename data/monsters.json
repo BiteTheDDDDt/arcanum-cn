@@ -2792,15 +2792,20 @@
         "tohit":5,
         "hp":64,
         "defense":32,
-        "attack":{
-            "name":"stare",
+        "attack":[{
+            "name":"bite",
             "kind":"earth",
-			"dmg":"20~50",
+			"dmg":"10~30",
 			"dot":{
 				"id":"paralyzed",
 				"duration":10
 			}
 		},
+		{
+			"name":"claws",
+			"kind":"slash",
+			"dmg":"20~50"
+		}],
 		"immune":"poison"
 
 	},

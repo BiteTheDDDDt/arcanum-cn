@@ -13,7 +13,10 @@ export const MakeNpc = ( e, pct=1 ) => {
 	if ( typeof e === 'string' ) {
 
 		e = Game.getData(e);
-		if ( e ) return CreateNpc(e, Game);
+		if ( e ) {
+			if ( e.locked || e.disabled || e.locks>0 ) return null;
+			return CreateNpc(e, Game);
+		}
 
 	}
 	if ( !e ) return null;

@@ -787,7 +787,8 @@ export default {
 
 			// test that another item is unlocked.
 			let it = this.getData(test);
-			return it && it.fillsRequire();
+			if ( it.id === 'jazidscompass') console.log('testing jazidcompass');
+			return it && it.fillsRequire(this);
 
 		} else if (  Array.isArray(test) ) {
 
@@ -800,7 +801,7 @@ export default {
 			/**
 			 * @todo: quick patch in case it was a data item.
 			 */
-			if ( test.id ) return test.fillsRequire();
+			if ( test.id ) return test.fillsRequire(this);
 
 			// @todo: take recursive values into account.
 			// @todo allow tag tests.
