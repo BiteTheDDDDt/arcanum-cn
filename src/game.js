@@ -787,7 +787,6 @@ export default {
 
 			// test that another item is unlocked.
 			let it = this.getData(test);
-			if ( it.id === 'jazidscompass') console.log('testing jazidcompass');
 			return it && it.fillsRequire(this);
 
 		} else if (  Array.isArray(test) ) {

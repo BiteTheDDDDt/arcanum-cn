@@ -1,5 +1,4 @@
 import Resource from "../items/resource";
-import RevStat from "../items/revStat";
 
 const ALL = 'all';
 const ALL_ALT = '*';
@@ -173,6 +172,13 @@ export default class Debug {
 
 		let it = this.state.getData( id );
 		if ( !it ) return;
+
+		if ( it.isRecipe ) {
+			it.locked = false;
+			it.disabled = false;
+			this.game.create(it,true);
+			return;
+		}
 
 		let newval = it.value + amt;
 		if ( newval > it.max ) it.max = newval;
