@@ -3139,13 +3139,13 @@
 			{
 				"dot":{
 					"id":"silence",
-					"duration":10
+					"duration":2
 				}
 			},
 			{
 				"dot":{
 					"id":"paralyzed",
-					"duration":15
+					"duration":2
 				}
 			},
 			{

@@ -132,7 +132,24 @@
 				}
 			}
 
+		],
+		"classes":[
+			{
+				"id":"pillarfire",
+				"name":"pillar of flame",
+				"desc":"",
+				"max":1,
+				"tags":"t_tier7",
+				"require":"g.planeslore>=999",
+				"cost":{
+				},
+				"mod":{
+					"tier7":true
+				}
+
+			}
 		]
+
 	}
 
 
