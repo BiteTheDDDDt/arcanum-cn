@@ -5,6 +5,7 @@
 		"id":"karnivexcrown",
 		"name":"crown of karnivex",
 		"desc":"The conceits of Karnivex are without bounds.",
+		"unique":true,
 		"level":7,
 		"armor":5,
 		"mod":{
