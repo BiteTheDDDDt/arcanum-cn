@@ -3734,16 +3734,17 @@
 	{
 		"id":"jazid",
 		"require":"jazidscompass",
-		"level":25,
+		"level":26,
+		"kind":"kell",
 		"unique":true,
-		"desc":"Jazid's only purpose is to kill the holder of his compass.",
+		"desc":"Jazid's only purpose is to kill the bearer of his compass.",
 		"hp":5000,
 		"tohit":30,
 		"attack":{
 			"name":"claws",
 			"dmg:":"90~120"
 		},
-		"flavor":"legends of Jazid were already ancient when Dhroze was entombed."
+		"flavor":"takes of Jazid were already ancient when Dhroze was entombed."
 	},
 	{
 		"id":"m_ancientlich",
@@ -3813,11 +3814,11 @@
     },
 	{
 		"id":"gorborung",
-		"name":"The Gorborung",
+		"name":"the gorborung",
 		"level":25,
 		"unique":true,
         "evilamt":100,
-        "desc":"The gargantuan entity in the depths of Mr. Gorbu never seen by mortal eyes.",
+        "desc":"The gargantuan entity in the depths of Mt. Gorbu never seen by mortal eyes.",
         "hp":5000,
 		"tohit":34,
         "defense":100,
@@ -3826,7 +3827,30 @@
 			"kind":"sonic",
 			"targets":"enemies",
             "dmg":"50~75"
-        },"flavor":"most agree it's best the gorborung resides in darkness."
+        },"flavor":"most agree it's best the Gorborung reside in darkness."
+	},
+	{
+		"id":"brittelwort",
+		"name":"brittelwort the watcher",
+		"kind":"kell",
+		"level":27,
+		"unique":true,
+        "desc":"The silent Brittelwort watches in the Felkill mountains, punishing all transgressions.",
+        "hp":4000,
+		"tohit":34,
+        "defense":100,
+		"attack":[{
+            "name":"siphon",
+			"kind":"drain",
+			"leech":0.2,
+			"dmg":"70~100"
+		},
+		{
+			"dot":{
+				"id":"paralyzed",
+				"duration":15
+			}
+		}],"flavor":"It bears a striking similarity to the lesser mummers."
 	},
 	{
         "id":"dhrozenknight",
@@ -3839,13 +3863,13 @@
             "kind":"nether",
             "dmg":"130~150"
 		},
-		"flavor":"To escape Sarnagor one had only collect the pieces of a single set of Dhrozen armor.",
+		"flavor":"To escape Sarnagar one had only collect the pieces of a single set of Dhrozen armor.",
 		"immune":"sleep,charm"
 
 	},
 	{
         "id":"mummer",
-        "level":27,
+        "level":25,
         "kind":"spirit",
         "desc":"A voiceless form with a bare and twisted skull.",
         "hp":700,
@@ -3863,13 +3887,13 @@
 				"duration":10
 			}
 		}],
-		"flavor":"The mummers were believed to be a corrupted form of lesser Kell.",
+		"flavor":"believed to be a corrupted form of lesser Kell.",
 		"immune":"charm"
 
 	},
 	{
         "id":"netherwraith",
-        "level":29,
+        "level":27,
         "kind":"nether",
         "desc":"A spirit cloaked in noxious nether.",
         "hp":1000,
@@ -3924,7 +3948,7 @@
 	  },
 	{
 		"id":"fetigern",
-		"level":50,
+		"level":30,
 		"unique":true,
 		"unused":true,
         "evil":100,
@@ -3939,7 +3963,7 @@
 			"dot":{
 				"kind":"poison",
 				"duration":10,
-				"dmg":"100~200"
+				"dmg":"130~200"
 			},
             "dmg":"100~200"
         }
