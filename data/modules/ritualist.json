@@ -878,11 +878,9 @@
 				},
 				"mod": {},
 				"dot": {
-					"id": "Sealed limbs",
+					"name": "sealed limbs",
 					"duration": 5,
-					"effect": {
-						"id": "paralyzed"
-					}
+					"flags": "noact"
 				}
 			},
 			{
@@ -894,18 +892,16 @@
 				"desc": "Stop the flow of energy in an enemy's mind.",
 				"require": "g.ritual_cursedseals>0",
 				"buy": {
-					"ritualnotes": 10
+					"ritualnotes":10
 				},
 				"cost": {
-					"ritualpaper": 5
+					"ritualpaper":5
 				},
 				"mod": {},
 				"dot": {
-					"id": "Sealed mind",
+					"id":"sealed mind",
 					"duration": 5,
-					"effect": {
-						"id": "silence"
-					}
+					"flags":"nocast"
 				}
 			},
 			{
@@ -924,11 +920,8 @@
 				},
 				"mod": {},
 				"dot": {
-					"id": "Sealed heart",
-					"duration": 5,
-					"effect": {
-						"id": "fear"
-					}
+					"name": "sealed heart",
+					"id": "fear"
 				}
 			},
 			{
@@ -947,11 +940,9 @@
 				},
 				"mod": {},
 				"dot": {
-					"id": "Sealed dreams",
+					"name": "sealed dreams",
 					"duration": 5,
-					"effect": {
-						"id": "sleep"
-					}
+					"id":"sleep"
 				}
 			},
 			{
@@ -970,11 +961,9 @@
 				},
 				"mod": {},
 				"dot": {
-					"id": "Sealed reason",
+					"id": "sealed reason",
 					"duration": 5,
-					"effect": {
-						"id": "charmed"
-					}
+					"flags":"charmed"
 				}
 			}
 		],
