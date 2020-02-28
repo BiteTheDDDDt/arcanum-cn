@@ -161,16 +161,16 @@ export default class DataList extends Inventory {
 	/**
 	 *
 	 * @param {Context} g
-	 * @returns {boolean} true if spell was successfully cast.
+	 * @returns {?GData} item used or null.
 	 */
 	onUse(g) {
 
 		var it = this.nextUsable(g);
 		if ( it ) {
 			it.onUse(g);
-			return true;
+			return it;
 		}
-		return false;
+		return null;
 
 	}
 

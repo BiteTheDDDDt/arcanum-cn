@@ -5,7 +5,7 @@ import Dot from './dot';
 
 import { NPC, getDelay, TYP_PCT } from '../values/consts';
 import { toStats } from "../util/dataUtil";
-import events, { CHAR_STATE } from '../events';
+import Events, { CHAR_STATE, EVT_COMBAT } from '../events';
 import States, { NO_ATTACK } from './states';
 
 import Game from '../game';
@@ -237,10 +237,10 @@ export default class Char {
 
 	/**
 	 * try casting spell from player spelllist.
-	 * @returns {boolean}
+	 * @returns {?GData}
 	 */
 	tryCast(){
-		return ( this.spells && this.spells.onUse(this.context) );
+		return this.spells ? this.spells.onUse(this.context) : null;
 	}
 
 	reviveDots(gs) {
@@ -312,7 +312,7 @@ export default class Char {
 
 		if ( dot.mod ) this.context.applyMods( dot.mod, 1 );
 
-		if ( dot.flags ) events.emit( CHAR_STATE, this, dot );
+		if ( dot.flags ) Events.emit( CHAR_STATE, this, dot );
 
 		let time = dot.duration;
 
@@ -398,8 +398,14 @@ export default class Char {
 
 			this.timer += getDelay( this.speed );
 
-			if ( this.spells && Math.random()<0.4 && this.tryCast() ) {
-				return null;
+			if ( this.spells && Math.random()<0.4 ) {
+
+				let s = this.tryCast()
+				if ( s ) {
+
+					Events.emit( EVT_COMBAT, this.name + ' uses ' + s.name );
+				}
+
 			}
 			return this.getCause(NO_ATTACK) || this.getAttack();
 

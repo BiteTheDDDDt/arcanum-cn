@@ -712,6 +712,7 @@
 	},
 	{
 		"id":"orcpriest",
+		"name":"orc shaman",
 		"kind":"humanoid",
 		"level":6,
 		"hp":14,

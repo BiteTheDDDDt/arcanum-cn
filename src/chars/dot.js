@@ -26,7 +26,7 @@ export default class Dot {
 			mod:this.mod||undefined,
 			acc:this.acc||undefined,
 			state:this.state||undefined,
-			adj:this.adj||undefined,
+			adj:this._adj||undefined,
 			flags:this._flags!== 0 ? this._flags : undefined,
 			duration:this.duration,
 			/** @todo source should never be string. maybe on load? */
@@ -160,6 +160,8 @@ export default class Dot {
 
 		mergeSafe( this, st );
 		this._flags = this._flags | st.flags;
+		this.adj = this._adj || st.adj;
+
 		console.log('this flags: ' + this.flags );
 
 	}
