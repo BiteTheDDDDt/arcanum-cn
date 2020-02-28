@@ -159,7 +159,7 @@ export default class Char {
 	get alive() { return this.hp.value > 0; }
 
 	/**
-	 * @property {Object} dotContext - context for dot mods/effects,
+	 * @property {Object} context - context for dot mods/effects,
 	 * spells.
 	 * @todo: allow Player applyMods to work naturally.
 	 */
@@ -240,6 +240,7 @@ export default class Char {
 	 * @returns {boolean}
 	 */
 	tryCast(){
+		console.log(this.id + ' casting ' + this.context.self.id );
 		return ( this.spells && this.spells.onUse(this.context) );
 	}
 
@@ -398,7 +399,7 @@ export default class Char {
 
 			this.timer += getDelay( this.speed );
 
-			if ( this.spells && Math.random()<0.4 && this.tryCast() ) {
+			if ( this.spells && Math.random()<0.9 && this.tryCast() ) {
 				return null;
 			}
 			return this.getCause(NO_ATTACK) || this.getAttack();

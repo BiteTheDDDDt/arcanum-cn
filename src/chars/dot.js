@@ -158,7 +158,6 @@ export default class Dot {
 	 */
 	mergeDot( st ) {
 
-		console.log('st flags: ' + st.flags );
 		mergeSafe( this, st );
 		this._flags = this._flags | st.flags;
 		console.log('this flags: ' + this.flags );

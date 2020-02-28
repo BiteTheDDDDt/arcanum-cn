@@ -1,4 +1,5 @@
 import {cloneClass} from 'objecty';
+import { PrepData } from '../modules/parsing';
 
 /**
  * @property {Map.<string,GData>} NpcItems - clone of base game data used by Npcs
@@ -83,8 +84,9 @@ export class NpcState {
 
 		// appears to be check for special variables defined on state directly;
 		// e.g. raid, explore. @todo many issues with this.
-		if ( p === 'self' ) return this.self;
-		else if ( this.state[p] ) return this.state[p];
+		if ( p === 'self' ) {
+			return this.self;
+		} else if ( this.state[p] ) return this.state[p];
 
 		let it = this.npcItems.get(p);
 		if ( it !== undefined ) return it;
@@ -106,25 +108,27 @@ export class NpcState {
 
 	makeNpcItem( p, data ){
 
-		let t;
-
 		//console.log('MAKE NPC ITEM: ' + data.id );
+
+		let copy;
+
+		if ( data.template ) {
+			copy = cloneClass( data.template  || data);
+			copy = PrepData(copy, data.id );
+		} else copy = cloneClass(data,{});
 
 		if ( data.constructor ) {
 			//console.log('using constr: ' + data.constructor.name );
-			t = new data.constructor( cloneClass( data.template || data ) );
-		} else {
-			//console.log('no constructor: ' + p );
-			t = cloneClass( data.template || data );
+			copy = new data.constructor( copy );
 		}
 
-		if ( t === null || t === undefined ) {
+		if ( copy === null || copy === undefined ) {
 			console.log('NPC: Cant create: ' + p );
-			t = data;
+			copy = data;
 		}
 
-		this.npcItems.set( p, t );
-		return t;
+		this.npcItems.set( p, copy );
+		return copy;
 	}
 
 }

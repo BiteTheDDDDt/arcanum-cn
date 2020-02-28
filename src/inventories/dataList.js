@@ -160,7 +160,7 @@ export default class DataList extends Inventory {
 
 	/**
 	 *
-	 * @param {Game} g
+	 * @param {Context} g
 	 * @returns {boolean} true if spell was successfully cast.
 	 */
 	onUse(g) {
