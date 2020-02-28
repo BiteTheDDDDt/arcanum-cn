@@ -87,7 +87,7 @@
 		"id":"cureparalyze",
 		"name":"cure paralysis",
 		"level":7,
-		"school":"arcane",
+		"school":"mana",
 		"desc":"Loosens rigid muscles, nerves, and bones.",
 		"cost":{
 			"mana":1,
