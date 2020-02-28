@@ -2797,7 +2797,7 @@
 			"dmg":"20~50",
 			"dot":{
 				"id":"paralyzed",
-				"duration":300
+				"duration":10
 			}
 		},
 		"immune":"poison"

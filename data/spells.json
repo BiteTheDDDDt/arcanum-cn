@@ -2740,6 +2740,61 @@
 	},
 	{
 
+		"id":"resistparalysis",
+		"name":"resist paralysis",
+		"school":"water",
+		"level":7,
+		"require":"g.waterlore>=10",
+		"desc":"Keep your limbs fluid.",
+		"buy":{
+
+			"research":4000,
+			"tomes":5
+
+		},
+		"cost":{
+			"water":2
+		},
+		"dot":{
+
+			"duration":60,
+			"mod":{
+				"self.resist.paralysis":50
+			}
+
+		}
+
+	},
+	{
+
+		"id":"resistsilence",
+		"name":"resist silence",
+		"school":"mana",
+		"level":7,
+		"require":"g.lore>=15",
+		"desc":"Keep your mind active and alert.",
+		"buy":{
+
+			"research":5000,
+			"tomes":20,
+			"managem":10
+
+		},
+		"cost":{
+			"mana":2
+		},
+		"dot":{
+
+			"duration":60,
+			"mod":{
+				"self.resist.silence":50
+			}
+
+		}
+
+	},
+	{
+
 		"id":"immunefire1",
 		"name":"quenching sphere",
 		"school":"water",
