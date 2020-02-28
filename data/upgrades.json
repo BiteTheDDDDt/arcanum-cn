@@ -2041,18 +2041,29 @@
 	{
 		"id":"mendicant",
 		"desc":"Sacrifice luxury for higher attainments.",
-		"need":"g.evil<=0&&g.tier1>0&&g.gold.max>1000&&g.light.max>5",
+		"need":"g.evil<=0&&g.gold.max>1000&&g.light.max>5",
 		"warn":true,
-		"cost":{
-		},
 		"mod":{
 			"fame":10,
-			"virtue":2,
 			"gold.max":"-10%",
 			"spiritlore.max":2,
 			"spiritlore.rate":0.5,
 			"lightlore.max":2,
 			"lightlore.rate":0.5
+		}
+
+	},
+	{
+		"id":"innersanctum",
+		"name":"inner sanctum",
+		"need":"g.mendicant>0&&g.truesight>0",
+		"warn":true,
+		"desc":"The halls of the mind are without limits.",
+		"cost":{
+			"research":5000
+		},
+		"mod":{
+			"space.max":"10%"
 		}
 
 	},
