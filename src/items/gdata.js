@@ -354,8 +354,6 @@ export default class GData {
 	 */
 	changed( g, count) {
 
-		if ( this.id === 'heal1') console.log('APPLY: ' + g.state.self.id );
-
 		if ( this.isRecipe ) { return g.create( this, true, count ); }
 
 		if ( this.once && this.valueOf() === 1 ) g.applyVars( this.once );
@@ -368,8 +366,6 @@ export default class GData {
 
 		if ( this.title ) g.self.setTitle( this.title );
 		if ( this.result ) {
-
-			if ( this.id === 'heal1') console.log('APPLY: ' + g.state.self.id );
 
 			g.applyVars( this.result, count );
 		}

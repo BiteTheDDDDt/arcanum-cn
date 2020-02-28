@@ -240,7 +240,6 @@ export default class Char {
 	 * @returns {boolean}
 	 */
 	tryCast(){
-		console.log(this.id + ' casting ' + this.context.self.id );
 		return ( this.spells && this.spells.onUse(this.context) );
 	}
 
