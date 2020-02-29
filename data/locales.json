@@ -298,6 +298,33 @@
 	]
 },
 {
+	"id":"loc_menagerie",
+	"name":"",
+	"level":23,
+	"require":"g.tier98>0",
+	"length":100,
+	"desc":"",
+	"run":{
+		"stamina":2
+	},
+	"result":{
+	},
+	"loot":{
+		"herbs":"5~10"
+	},
+	"encs":[
+		"e_bloodgrass",
+		"e_big_scale",
+		"e_spidermass",
+		"e_snakemass",
+		"e_pogler",
+		"e_agolith",
+		"e_flithy",
+		"e_bestiary1",
+		"e_bestiary2"
+	]
+},
+{
 	"id":"loc_tenwick",
 	"name":"peregrination",
 	"level":20,
@@ -313,21 +340,33 @@
 		"fame":1
 	},
 	"encs":[
-		"enc_statue2",
+		"brightvista",
+		"e_pogler",
+		"e_agolith",
 		"enc_battle1",
-		"enc_oldstone",
-		"strangebones",
-		"enc_gibber",
-		"hauntedglade",
+		"enc_blackcat",
+		"enc_chest4",
+		"enc_delki",
+		"enc_statue2",
 		"enc_statue4",
 		"enc_gap",
-		"brightvista",
+		"enc_gibber",
+		"enc_gnome",
 		"enc_mtpass",
-		"hiddencache",
-		"murkywater",
-		"sombersunset",
+		"enc_oldstone",
+		"enc_sandstorm",
+		"enc_sindel",
+		"enc_tenwick",
 		"enc_wyrd",
-		"enc_sindel"
+		"hauntedglade",
+		"foggydale",
+		"hiddencache",
+		"manatree",
+		"murkywater",
+		"mysticwater",
+		"sombersunset",
+		"starrysky1",
+		"strangebones"
 
 	]
 

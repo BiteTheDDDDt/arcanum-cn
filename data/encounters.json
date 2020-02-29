@@ -15,7 +15,7 @@
 	{
 		"id":"enc_workbook1",
 		"name":"workbook",
-		"desc":"a book on the practical applications of magic",
+		"desc":"A book on the practical applications of magic",
 		"effect":{
 			"bf":"-1~2",
 			"rage":"0~2",
@@ -26,7 +26,7 @@
 		"id":"mysticwater",
 		"name":"mystic waters",
 		"level":1,
-		"desc":"water suffused with enchantments",
+		"desc":"Water suffused with enchantments",
 		"effect":{
 			"bf":"-1~2",
 			"naturelore.exp":1,
@@ -41,7 +41,7 @@
 		"id":"manatree",
 		"name":"mana tree",
 		"level":2,
-		"desc":"a tree by a magic spring exhibits surprising qualities",
+		"desc":"A tree by a magic spring exhibits surprising qualities",
 		"effect":{
 			"bf":"-1~2",
 			"naturelore.exp":2,
@@ -338,7 +338,7 @@
 	{
 		"id":"murkywater",
 		"name":"murky waters",
-		"desc":"Ominous shapes drift and flow beneath the deep unsettled water.",
+		"desc":"Ominous shapes drift and flow beneath the murky waters.",
 		"effect":{
 			"bf":"0~2",
 			"unease":"2~3",
@@ -669,12 +669,8 @@
 		"name":"tenwick",
 		"desc":"Tenwick is often on the trail, but always glad to stop and trade tales.",
 		"effect":{
-			"scrying.exp":1,
-			"divination.exp":1,
-			"bf":"3~6",
-			"unease":"2~5"
-		},
-		"result":{
+			"s_travel.exp":1,
+			"weary":"2~3"
 		}
 	},
 	{
@@ -876,9 +872,18 @@
 		}
 	},
 	{
+		"id":"e_big_scale",
+		"name":"scale of ouroboros",
+		"desc":"At the center of the menagerie a single massive scale merges with the tree.",
+		"effect":{
+			"bf":"2~3",
+			"madness":"3~4"
+		},"flavor":"best not disturb it"
+	},
+	{
 		"id":"e_pogler",
 		"name":"pod of poglers",
-		"desc":"The placid poglers have backs of bushy leaves which they angle to the sun.",
+		"desc":"The placid poglers angle their backs of bushy leaves to the sun.",
 		"effect":{
 			"bf":"2~3",
 			"rage":-0.5
