@@ -302,27 +302,29 @@
 	"name":"",
 	"level":23,
 	"require":"g.tier98>0",
-	"length":100,
-	"desc":"",
+	"length":200,
+	"desc":"Beneath the tallest idrasil a great menagerie thrives beneath a second sky.",
 	"run":{
-		"stamina":2
+		"stamina":3
 	},
 	"result":{
 	},
 	"loot":{
-		"herbs":"5~10"
+		"herbs":"10~20"
 	},
 	"encs":[
-		"e_bloodgrass",
-		"e_big_scale",
-		"e_spidermass",
-		"e_snakemass",
-		"e_pogler",
 		"e_agolith",
-		"e_flithy",
+		"e_balmuth",
 		"e_bestiary1",
-		"e_bestiary2"
-	]
+		"e_bestiary2",
+		"e_big_scale",
+		"e_bloodgrass",
+		"e_flithy",
+		"e_pogler",
+		"e_snakemass",
+		"e_spidermass",
+		"e_trumple"
+	],"flavor":"Its creator and purpose are unknown to history. Perhaps all creatures exist within."
 },
 {
 	"id":"loc_tenwick",
