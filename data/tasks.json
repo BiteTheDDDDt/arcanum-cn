@@ -987,7 +987,7 @@
 			"hp":2.5
 		},
 		"effect":{
-			"evil":0.1,
+			"evilamt":0.1,
 			"fame":0.0024,
 			"shadowlore.max":0.001,
 			"shadowlore.exp":1

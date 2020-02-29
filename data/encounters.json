@@ -827,13 +827,11 @@
 	{
 		"id":"e_bloodgrass",
 		"name":"blood grass",
-		"desc":"Steel-sharp blades of grass bite cut at your boots.",
+		"desc":"Steel-sharp blades of grass bite into your boots.",
 		"effect":{
 			"weary":"1~3",
 			"rage":"1~3",
 			"hp":-2
-		},
-		"result":{
 		}
 	},
 	{
@@ -876,7 +874,8 @@
 		"name":"trumple",
 		"desc":"A stout tree with stumpy legs and a face inlaid within its trunk.",
 		"effect":{
-			"bf":"1~2"
+			"bf":"1~2",
+			"weary":"2~3"
 		},"flavor":"It can't speak but likes it when you feed it oil."
 	},
 	{
@@ -916,7 +915,7 @@
 	},
 	{
 		"id":"e_bestiary1",
-		"name":"snake swarm",
+		"name":"menagerie hanging",
 		"desc":"A pristine tapestry nearby displays a partial index of the menagerie.",
 		"effect":{
 			"unease":"1~2",
@@ -929,7 +928,7 @@
 	},
 	{
 		"id":"e_bestiary2",
-		"name":"snake swarm",
+		"name":"bestiary",
 		"desc":"A manual of beastly lore rests atop an ancient pedestal.",
 		"effect":{
 			"unease":"1~2",

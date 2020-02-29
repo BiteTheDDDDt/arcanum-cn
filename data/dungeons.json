@@ -159,7 +159,6 @@
 		"name":"the fetid barrows",
 		"desc":"When the fetid barrows were discovered, dark acolytes gathered at the mounds seeking ancient patrons of their art.",
 		"require":"evt_cabal",
-		"title":"cabal breaker",
 		"max":1,
 		"level":15,
 		"length":200,
@@ -167,6 +166,7 @@
 			"stamina":2
 		},
 		"result":{
+			"title":"cabal breaker",
 			"bones":"3~7",
 			"bodies":"0~2"
 		},
