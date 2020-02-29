@@ -1343,16 +1343,18 @@
 		"id":"flamestrike",
 		"school":"fire",
 		"desc":"Imbue your weapon with flame before striking.",
+		"level":4,
 		"buy":{
-			"tomes":1
+			"tomes":5,
+			"firegem":10
 		},
 		"cost":{
-			"fire":2,
-			"hp":5
+			"fire":3,
+			"hp":10
 		},
 		"attack":{
 			"kind":"fire",
-			"bonus":7,
+			"bonus":5,
 			"dmg":"a.weapon.damage+a.getBonus( a.weapon.kind )"
 		}
 
@@ -2277,7 +2279,7 @@
 				"name":"blind",
 				"duration":5,
 				"mod":{
-					"tohit":-2
+					"tohit":-3
 				}
 			}
 		}

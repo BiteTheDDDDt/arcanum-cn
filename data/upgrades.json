@@ -881,7 +881,7 @@
 			"inv.max":4,
 			"gold.max":100,
 			"gems.max":20,
-			"magicgems.max":5
+			"prismaticgems.max":5
 		},"flavor":"the research costs a little more than you expected..."
 
 	},
@@ -2057,9 +2057,9 @@
 		"id":"innersanctum",
 		"name":"inner sanctum",
 		"need":"g.mendicant>0&&g.truesight>0",
-		"warn":true,
 		"desc":"The halls of the mind are without limits.",
 		"cost":{
+			"lightgem":5,
 			"research":5000
 		},
 		"mod":{

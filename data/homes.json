@@ -9,9 +9,9 @@
 		}
 	},
 	{
-		"id": "earthspire",
-		"name": "earthen spire",
-		"desc": "An impervious spire of metal and stone.",
+		"id":"earthspire",
+		"name":"earthen spire",
+		"desc":"An impervious spire of metal and stone.",
 		"cost": {
 			"research": 3000,
 			"gold": 3000,

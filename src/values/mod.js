@@ -208,8 +208,14 @@ export default class Mod extends Stat {
 
 			} else {
 
-				console.warn( this.id + ': ' + targ.id + ' !!Mod Targ: ' + targ.constructor.name);
-				targ.value = ( ( Number(targ.value) || 0 ) + amt*this.bonus )*( 1 + amt*this.pct );
+				if ( targ.value ) {
+
+					this.applyTo( targ, 'value', amt );
+
+				} else {
+					console.warn( this.id + ': ' + targ.id + ' !!Mod Targ: ' + targ.constructor.name);
+					targ.value = amt*this.bonus*( 1 + amt*this.pct );
+				}
 			}
 
 		}

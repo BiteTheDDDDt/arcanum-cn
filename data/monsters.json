@@ -3457,9 +3457,9 @@
         "tohit":15,
         "defense":130,
         "attack":{
-            "name":"smash",
-            "kind":"blunt",
-            "dmg":"80~100"
+        	"name":"smash",
+			"kind":"blunt",
+			"dmg":"80~100"
 		},"loot":{"adamant":25},
 		"resist":{
 			"air":80,

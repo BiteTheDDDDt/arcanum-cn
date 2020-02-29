@@ -402,7 +402,7 @@
 		"name":"hettie",
 		"desc":"An ancient gryffon lives atop the Rithel's solitary turret, and Hettie spends her days grooming and feeding the beast.",
 		"effect":{
-			"wear":"1~3",
+			"weary":"1~3",
 			"bf":"1~2"
 		},
 		"result":{
@@ -455,7 +455,7 @@
 			"rage":"0~2",
 			"madness":"0~2"
 		},
-		"loot":"magicgems",
+		"loot":"prismaticgems",
 		"flavor":"perhaps he could be induced to part with some..."
 
 	},

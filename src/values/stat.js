@@ -283,8 +283,8 @@ export default class Stat extends RValue {
 			var mod = this._mods[p];
 			if (mod === undefined ) continue;
 
-			pct += mod.pctTot;
-			bonus += mod.bonusTot;
+			pct += mod.pctTot || 0;
+			bonus += mod.bonusTot || 0;
 
 		}
 

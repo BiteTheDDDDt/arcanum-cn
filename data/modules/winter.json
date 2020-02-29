@@ -205,7 +205,7 @@
 				"require": "g.w_fazbitknowledge>=50",
 				"mod": {
 					"crafting.max": 1,
-					"magicgems.max": 20,
+					"prismaticgems.max": 20,
 					"gem.max": 10
 				}
 			},

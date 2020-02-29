@@ -210,28 +210,28 @@
 	{
 
 		"id":"managem",
-		"tags":"magicgems",
+		"tags":"magicgems,prismaticgems",
 		"name":"arcane gem",
 		"desc":"Gem infused with arcane energy.",
 		"max":2
 	},
 	{
 		"id":"firegem",
-		"tags":"magicgems",
+		"tags":"magicgems,prismaticgems",
 		"name":"fire gem",
 		"desc":"Gem imbued with the essence of fire.",
 		"max":2
 	},
 	{
 		"id":"watergem",
-		"tags":"magicgems",
+		"tags":"magicgems,prismaticgems",
 		"name":"water gem",
 		"desc":"Gem imbued with the essence of water.",
 		"max":2
 	},
 	{
 		"id":"naturegem",
-		"tags":"magicgems",
+		"tags":"magicgems,prismaticgems",
 		"name":"nature gem",
 		"desc":"physical essence of life.",
 		"max":2,
@@ -239,35 +239,35 @@
 	},
 	{
 		"id":"earthgem",
-		"tags":"magicgems",
+		"tags":"magicgems,prismaticgems",
 		"name":"earth gem",
 		"desc":"Gem imbued with the essence of earth.",
 		"max":2
 	},
 	{
 		"id":"airgem",
-		"tags":"magicgems",
+		"tags":"magicgems,prismaticgems",
 		"name":"air gem",
 		"desc":"Gem imbued with the essence of air.",
 		"max":2
 	},
 	{
 		"id":"shadowgem",
-		"tags":"magicgems",
+		"tags":"magicgems,prismaticgems",
 		"name":"shadow gem",
 		"desc":"Gem imbued with the essence of darkness.",
 		"max":2
 	},
 	{
 		"id":"lightgem",
-		"tags":"magicgems",
+		"tags":"magicgems,prismaticgems",
 		"name":"light gem",
 		"desc":"Gem imbued with the essence of light.",
 		"max":2
 	},
 	{
 		"id":"spiritgem",
-		"tags":"magicgems",
+		"tags":"magicgems,prismaticgems",
 		"name":"spirit gem",
 		"desc":"Gem imbued with raw spirit.",
 		"max":2
