@@ -1,3 +1,5 @@
+import { precise } from "../../util/format";
+
 /**
  * Single item in a display block.
  */
@@ -17,6 +19,11 @@ export class DisplayItem {
 	 */
 	add( v ) {
 		this.value = this.value + v;
+	}
+
+	toString(){
+
+		return typeof this.value ==='object' ? this.value.toString() : precise(this.value);
 	}
 
 }

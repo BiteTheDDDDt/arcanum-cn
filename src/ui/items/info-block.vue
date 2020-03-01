@@ -1,51 +1,10 @@
 <script>
 import ItemsBase from '../itemsBase.js';
 import { SKILL } from '../../values/consts';
-import { precise } from '../../util/format';
 import Game from 'game';
-import {ImportBlock, InfoBlock} from './infoBlock';
+import { InfoBlock, DisplayName, ConvertPath } from './infoBlock';
 
 import {RollOver} from 'ui/popups/itemPopup.vue';
-
-/**
-* Name to use for object in current context.
-*/
-const DisplayName = ( obj ) => {
-
-	let it = RollOver.context.getData(obj);
-	return it ? it.name : obj;
-
-},
-
-/**
- * Convert item path display based on next subprop.
- * Certain properties indicate the display path should be treated specially,
- * such as switching the order of 'max' or omitting 'base' and 'value' display.
- */
-var PathConversions = {
-
-	effect:( rootPath )=>rootPath,
-	skipLocked:()=>undefined,
-	max:( rootPath )=>'max ' + rootPath,
-	rate:(rootPath, subPath)=>{
-
-		subPath = rootPath;
-
-		let ind = rootPath.indexOf('.');
-		if ( ind > 0 ) {
-
-			let baseItem = RollOver.context.getData( rootPath.slice(0,ind) );
-			if ( baseItem && baseItem.type === SKILL ) subPath = 'train ' + subPath + ' rate';
-
-		}
-
-		return subPath;
-	}
-
-
-};
-
-PathConversions.mod = PathConversions.base = PathConversions.value = PathConversions.effect;
 
 /**
  * Display for a sub-block of gdata, such as item.effect, item.result, item.run, etc.
@@ -98,32 +57,7 @@ export default {
 
 			}
 
-			return infos;
-
-		},
-
-
-		/**
-		 * Convert display path based on current path object
-		 * and current property being displayed.
-		 * @returns {string} path displayed. returns undefined if no information
-		 * should be displayed for this variable path.
-		 */
-		convertPath( rootPath, prop ){
-
-			let func = PathConversions[prop];
-			if ( func !== undefined ) {
-
-				// use conversion function.
-				return func( rootPath, prop );
-
-			} else {
-
-				// no conversion func.
-				prop = DisplayName( prop );
-				return rootPath ? rootPath + ' ' + prop : prop;
-
-			}
+			return infos.results;
 
 		},
 
@@ -150,7 +84,7 @@ export default {
 
 				let subRate = rate || p === 'rate';
 				// displayed path to subitem.
-				let subPath = this.convertPath( rootPath, p );
+				let subPath = ConvertPath( rootPath, p );
 
 				// path conversion indicated no display.
 				if ( subPath === undefined ) continue;
