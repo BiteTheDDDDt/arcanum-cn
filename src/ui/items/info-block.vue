@@ -3,10 +3,19 @@ import ItemsBase from '../itemsBase.js';
 import { SKILL } from '../../values/consts';
 import { precise } from '../../util/format';
 import Game from 'game';
-import {ImportBlock} from './infoBlock';
+import {ImportBlock, InfoBlock} from './infoBlock';
 
 import {RollOver} from 'ui/popups/itemPopup.vue';
 
+/**
+* Name to use for object in current context.
+*/
+const DisplayName = ( obj ) => {
+
+	let it = RollOver.context.getData(obj);
+	return it ? it.name : obj;
+
+},
 
 /**
  * Convert item path display based on next subprop.
@@ -15,9 +24,23 @@ import {RollOver} from 'ui/popups/itemPopup.vue';
  */
 var PathConversions = {
 
-	effect:( parentPath, subPath )=>parentPath,
+	effect:( rootPath )=>rootPath,
 	skipLocked:()=>undefined,
-	max:( parentPath, subPath )=>'max ' + parentPath,
+	max:( rootPath )=>'max ' + rootPath,
+	rate:(rootPath, subPath)=>{
+
+		subPath = rootPath;
+
+		let ind = rootPath.indexOf('.');
+		if ( ind > 0 ) {
+
+			let baseItem = RollOver.context.getData( rootPath.slice(0,ind) );
+			if ( baseItem && baseItem.type === SKILL ) subPath = 'train ' + subPath + ' rate';
+
+		}
+
+		return subPath;
+	}
 
 
 };
@@ -57,15 +80,13 @@ export default {
 
 			} else if ( type === 'string') {
 
-				infos.add( this.displayName(obj), true );
+				infos.add( DisplayName(obj), true );
 
 			} else if ( Array.isArray(obj) ) obj.forEach(v=>this.effectList(v,infos));
 			else if ( type === 'function' ) {
 
 				/*if ( !obj.fText ){
 					obj.fText = funcText( obj, Game );
-					infos[obj.fText] = true;
-				} else {
 					infos[obj.fText] = true;
 				}*/
 				return undefined;
@@ -81,59 +102,60 @@ export default {
 
 		},
 
-		/**
-		 * Name to use for object in current context.
-		 */
-		displayName( obj ) {
 
-			let it = RollOver.context.getData(obj);
-			return it ? it.name : obj;
+		/**
+		 * Convert display path based on current path object
+		 * and current property being displayed.
+		 * @returns {string} path displayed. returns undefined if no information
+		 * should be displayed for this variable path.
+		 */
+		convertPath( rootPath, prop ){
+
+			let func = PathConversions[prop];
+			if ( func !== undefined ) {
+
+				// use conversion function.
+				return func( rootPath, prop );
+
+			} else {
+
+				// no conversion func.
+				prop = DisplayName( prop );
+				return rootPath ? rootPath + ' ' + prop : prop;
+
+			}
 
 		},
 
 		/**
 		 * @param {Object} obj - object of effects to enumerate.
 		 * @param {Object} infos - [name/effect] pairs to display to user.
-		 * @param {string} parentPath - prop path from base.
+		 * @param {string} rootPath - prop path from base.
 		 * @param {boolean} rate - whether display is per/s rate.
 		 */
-		effectList( obj, infos, parentPath='', rate=false ) {
+		effectList( obj, infos, rootPath='', rate=false ) {
 
 			if ( typeof obj === 'string' ) {
-				infos.add( this.displayName(obj), true, rate );
+				infos.add( DisplayName(obj), true, rate );
 				return;
 			}
 
 			for( let p in obj ) {
 
-				// displayed path to subitem.
-				let subPath = p;
 				let sub = obj[p];
-				let subRate = rate;
-
 				if ( sub === null || sub === undefined ) {
-					console.warn('Sub null: ' + parentPath + ': ' + p );
+					console.warn('Sub null: ' + rootPath + ': ' + p );
 					continue;
 				}
 
+				let subRate = rate || p === 'rate';
+				// displayed path to subitem.
+				let subPath = this.convertPath( rootPath, p );
 
-				else if ( p === 'rate') {
+				// path conversion indicated no display.
+				if ( subPath === undefined ) continue;
 
-					subPath = parentPath;
-					subRate = true;
-
-					let baseItem = RollOver.context.getData( parentPath.split('.')[0] );
-					if ( baseItem && baseItem.type === SKILL ) subPath = 'train ' + subPath + ' rate';
-
-				} else {
-
-					// check if sub-prop refers to an item.
-					subPath = this.displayName( p );
-					subPath = parentPath ? parentPath + ' ' + subPath : subPath;
-
-				}
-
-				if ( typeof sub !== 'object' ) infos[subPath] = precise(sub) + ( subRate ? '/s' : '');
+				if ( typeof sub !== 'object' ) infos.add(subPath, sub, subRate );
 				else if ( typeof sub !== 'function ' ) {
 
 					if ( sub.skipLocked ) {
@@ -145,7 +167,7 @@ export default {
 
 					if ( sub.toString && (sub.toString !== Object.prototype.toString) ) {
 
-						infos[subPath] = sub.toString() + ( subRate ? '/s' : '');
+						infos.add( subPath, sub.toString(), subRate );
 
 					} else this.effectList( sub, infos, subPath, subRate );
 
