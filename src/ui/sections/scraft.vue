@@ -12,6 +12,8 @@ export default {
 
 		return {
 
+			userSpells:Game.state.userSpells,
+
 			/**
 			 * List of spells in current crafting.
 			 */
@@ -102,13 +104,6 @@ export default {
 			return !this.userSpells.full() && this.list.length>0
 				&& Game.canPay( this.craft.buy );
 
-		},
-
-		/**
-		 * @property {UserSpells} userSpells - spells already crafted.
-		 */
-		userSpells() {
-			return Game.state.userSpells;
 		},
 
 		/**

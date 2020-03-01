@@ -1,6 +1,5 @@
 <script>
 import ItemsBase from '../itemsBase.js';
-import Game from 'game';
 import { InfoBlock, DisplayName, ConvertPath } from './infoBlock';
 
 import {RollOver} from 'ui/popups/itemPopup.vue';
@@ -32,8 +31,8 @@ export default {
 
 			if ( type === 'number') {
 
-				//@todo these still happen.
-				console.warn('effect type is number: ' + obj) ;
+				//@todo still happens. mostly for sell cost as gold.
+				//console.warn('effect type is number: ' + obj) ;
 				infos.add( 'gold', obj, this.rate );
 
 			} else if ( type === 'string') {
@@ -77,7 +76,7 @@ export default {
 
 				let sub = obj[p];
 				if ( sub === null || sub === undefined ) {
-					console.warn('Sub null: ' + rootPath + ': ' + p );
+					console.warn('null: ' + rootPath + ': ' + p );
 					continue;
 				}
 
@@ -97,10 +96,9 @@ export default {
 						if ( refItem && (refItem.locked || refItem.disabled) ) continue;
 
 					}
+					if ( sub.constructor !== Object ) {
 
-					if ( sub.toString && (sub.toString !== Object.prototype.toString) ) {
-
-						infos.add( subPath, sub.toString(), subRate );
+						infos.add( subPath, sub, subRate );
 
 					} else this.effectList( sub, infos, subPath, subRate );
 

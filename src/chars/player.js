@@ -12,6 +12,7 @@ import { RESOURCE, TEAM_PLAYER, getDelay, WEAPON } from "../values/consts";
 import { NO_ATTACK } from "./states";
 import DataList from '../inventories/dataList';
 import { Changed } from '../techTree';
+import { SAVE_IDS } from '../inventories/inventory';
 
 const Fists = new Wearable( null, {
 
@@ -131,7 +132,7 @@ export default class Player extends Char {
 	set weapons(v){
 
 		this._weapons = new DataList(v);
-		this._weapons.saveMode = 'ids';
+		this._weapons.saveMode = SAVE_IDS;
 		this._weapons.removeDupes = true;
 
 	}

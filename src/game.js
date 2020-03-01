@@ -1070,6 +1070,7 @@ export default {
 	 */
 	canPay( cost, amt=1 ) {
 
+		// @note @todo: this doesnt work since some items might charge same cost.
 		if (Array.isArray(cost) ) return cost.every( v=>this.canPay(v,amt), this );
 
 		let res;

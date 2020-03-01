@@ -12,6 +12,9 @@ import { Changed } from "../techTree";
  */
 export const SaveInstanced = (v=>v.instanced ? v : v.id);
 
+export const SAVE_FULL = 'full';
+export const SAVE_IDS = 'ids';
+
 export default class Inventory {
 
 	/**
@@ -24,8 +27,8 @@ export default class Inventory {
 	toJSON(){
 
 		return {
-			items:this.saveMode === 'full' ? this.items : (
-				( this.saveMode === 'ids' || !this.saveMap ) ? this.items.map(v=>v.id ) :
+			items:this.saveMode ===  SAVE_FULL ? this.items : (
+				( this.saveMode === SAVE_IDS || !this.saveMap ) ? this.items.map(v=>v.id ) :
 				this.items.map( this.saveMap, this )
 			),
 			max:(this.max)
@@ -131,7 +134,7 @@ export default class Inventory {
 
 		if ( !this.items ) this.items = [];
 
-		if ( !this.saveMode ) this.saveMode = 'full';
+		if ( !this.saveMode ) this.saveMode = SAVE_FULL;
 		this.type = 'inventory';
 		if (!this.id) this.id = this.type;
 

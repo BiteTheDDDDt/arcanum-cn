@@ -83,7 +83,7 @@ export class InfoBlock {
 		let cur = this.results[itemName];
 		if ( cur === undefined ){
 
-			this.results[itemName] = new DisplayItem(itemName, value, isRate );
+			this.results[itemName] = new DisplayItem( value, isRate );
 
 		} else {
 

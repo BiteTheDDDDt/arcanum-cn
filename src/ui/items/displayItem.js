@@ -5,9 +5,9 @@ import { precise } from "../../util/format";
  */
 export class DisplayItem {
 
-	constructor( path, value, isRate ) {
+	constructor( value, isRate ) {
 
-		this.path = path;
+		//this.path = path;
 		this.value = value;
 		this.isRate = isRate;
 
@@ -23,7 +23,8 @@ export class DisplayItem {
 
 	toString(){
 
-		return typeof this.value ==='object' ? this.value.toString() : precise(this.value);
+		return ((typeof this.value ==='object') ? this.value.toString() : precise(this.value) ) +
+			( this.isRate ? '/s' : '');
 	}
 
 }
