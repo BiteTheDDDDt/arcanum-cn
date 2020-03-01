@@ -561,7 +561,7 @@
 		},
 		"biome":["cave","mountain"],
 		"spawns":{
-			"level":"8~25",
+			"level":"8~23",
 			"range":2
 		},"flavor":"day and night the dark gates stand open to all... but to return to the open air... that is the task, that is the labor"
 

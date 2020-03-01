@@ -3915,6 +3915,7 @@
             "kind":"spirit",
 			"dmg":"50~80",
 			"dot":{
+				"duration":10,
 				"kind":"nether",
 				"dmg":30
 			}
