@@ -1055,7 +1055,7 @@
 		"id":"pace",
 		"perpetual":true,
 		"verb":"pacing",
-		"desc":"Pace your home as you comtemplate the arcane.",
+		"desc":"Pace your home as you contemplate the arcane.",
 		"require":"tier0",
 		"run":{
 			"stamina":0.4

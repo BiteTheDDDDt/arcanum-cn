@@ -3,8 +3,26 @@ import ItemsBase from '../itemsBase.js';
 import { SKILL } from '../../values/consts';
 import { precise } from '../../util/format';
 import Game from 'game';
+import {ImportBlock} from './infoBlock';
 
 import {RollOver} from 'ui/popups/itemPopup.vue';
+
+
+/**
+ * Convert item path display based on next subprop.
+ * Certain properties indicate the display path should be treated specially,
+ * such as switching the order of 'max' or omitting 'base' and 'value' display.
+ */
+var PathConversions = {
+
+	effect:( parentPath, subPath )=>parentPath,
+	skipLocked:()=>undefined,
+	max:( parentPath, subPath )=>'max ' + parentPath,
+
+
+};
+
+PathConversions.mod = PathConversions.base = PathConversions.value = PathConversions.effect;
 
 /**
  * Display for a sub-block of gdata, such as item.effect, item.result, item.run, etc.
@@ -29,95 +47,94 @@ export default {
 		effectItems( obj, rate=false) {
 
 			let type = typeof obj;
-			let results = {};
+			let infos = new InfoBlock();
 
 			if ( type === 'number') {
+
 				//@todo these still happen.
-				//console.warn('effect type is number: ' + obj) ;
-				results.gold = obj;
+				console.warn('effect type is number: ' + obj) ;
+				infos.add( 'gold', obj, this.rate );
 
 			} else if ( type === 'string') {
 
-				let it = RollOver.context.getData(obj);
-				results[ it ? it.name : this.stripTags(obj) ] = true;
+				infos.add( this.displayName(obj), true );
 
-			} else if ( Array.isArray(obj) ) obj.forEach(v=>this.effectList(v,results));
+			} else if ( Array.isArray(obj) ) obj.forEach(v=>this.effectList(v,infos));
 			else if ( type === 'function' ) {
 
 				/*if ( !obj.fText ){
 					obj.fText = funcText( obj, Game );
-					results[obj.fText] = true;
+					infos[obj.fText] = true;
 				} else {
-					results[obj.fText] = true;
+					infos[obj.fText] = true;
 				}*/
 				return undefined;
 
 			}
 			else if ( type === 'object') {
 
-				this.effectList( obj, results, '', rate );
+				this.effectList( obj, infos, '', rate );
 
 			}
 
-			return results;
+			return infos;
+
+		},
+
+		/**
+		 * Name to use for object in current context.
+		 */
+		displayName( obj ) {
+
+			let it = RollOver.context.getData(obj);
+			return it ? it.name : obj;
 
 		},
 
 		/**
 		 * @param {Object} obj - object of effects to enumerate.
-		 * @param {Object} results - [name/effect] pairs to display to user.
-		 * @param {string} propPath - prop path from base.
+		 * @param {Object} infos - [name/effect] pairs to display to user.
+		 * @param {string} parentPath - prop path from base.
 		 * @param {boolean} rate - whether display is per/s rate.
 		 */
-		effectList( obj, results={}, propPath='', rate=false ) {
+		effectList( obj, infos, parentPath='', rate=false ) {
 
 			if ( typeof obj === 'string' ) {
-
-				let it = RollOver.context.getData(obj);
-				results[ it ? it.name : this.stripTags(obj) ] = true;
+				infos.add( this.displayName(obj), true, rate );
 				return;
 			}
 
 			for( let p in obj ) {
 
 				// displayed path to subitem.
-				var subPath = p;
-				var sub = obj[p];
-				var subRate = rate;
+				let subPath = p;
+				let sub = obj[p];
+				let subRate = rate;
 
 				if ( sub === null || sub === undefined ) {
-
-					console.warn('Sub null: ' + propPath + ': ' + p );
+					console.warn('Sub null: ' + parentPath + ': ' + p );
 					continue;
-				} else if ( p === 'skipLocked') continue;
-				else if ( p === 'mod' || p === 'effect') subPath = propPath;
-				else if ( p === 'max' ) {
+				}
 
-					subPath = 'max ' + propPath;
 
-				} else if ( p==='base' || p === 'value') subPath = propPath;
 				else if ( p === 'rate') {
 
-					subPath = propPath;
+					subPath = parentPath;
 					subRate = true;
 
-					let baseItem = RollOver.context.getData( propPath.split('.')[0] );
+					let baseItem = RollOver.context.getData( parentPath.split('.')[0] );
 					if ( baseItem && baseItem.type === SKILL ) subPath = 'train ' + subPath + ' rate';
 
 				} else {
 
 					// check if sub-prop refers to an item.
-					let refItem = RollOver.context.getData(p);
-					if ( refItem ) subPath = refItem.name;
-					else subPath = this.stripTags( p );
-
-					subPath = propPath ? propPath + ' ' + subPath : subPath;
+					subPath = this.displayName( p );
+					subPath = parentPath ? parentPath + ' ' + subPath : subPath;
 
 				}
 
-				if ( typeof sub !== 'object' ) results[subPath] = precise(sub) + ( subRate ? '/s' : '');
-				else if ( typeof sub === 'function' ) {}
-				else {
+				if ( typeof sub !== 'object' ) infos[subPath] = precise(sub) + ( subRate ? '/s' : '');
+				else if ( typeof sub !== 'function ' ) {
 
 					if ( sub.skipLocked ) {
 
@@ -128,9 +145,9 @@ export default {
 
 					if ( sub.toString && (sub.toString !== Object.prototype.toString) ) {
 
-						results[subPath] = sub.toString() + ( subRate ? '/s' : '');
+						infos[subPath] = sub.toString() + ( subRate ? '/s' : '');
 
-					} else this.effectList( sub, results, subPath, subRate );
+					} else this.effectList( sub, infos, subPath, subRate );
 
 				}
 

@@ -86,31 +86,6 @@ export const toStats = (obj) => {
 }
 
 /**
- * Create a new cost object with requirements from both.
- * @todo this won't keep pace with modified costs.
- * @param {*} c1
- * @param {*} c2
-*/
-export const mergeCosts = ( c1, c2 ) => {
-
-	if ( !c1 ) return clone(c2);
-	if ( !c2 ) return clone(c1);
-
-	let res = {};
-
-	if ( typeof c1 === 'string') {
-		res[c1] = 1;
-	} else if ( typeof c1 === 'object') {
-		clone(c1, res);
-	}
-
-	addValues( res, c2 );
-
-	return res;
-
-}
-
-/**
  * Write numeric values into a destination object.
  * If the destination target for a keyed number is an object,
  * the keyed number is added to the object's 'value' property.
@@ -124,7 +99,6 @@ export const addValues = (dest, vals) => {
 		// value is one unit of id'd item.
 		let cur = dest[vals];
 		if ( typeof cur === 'object') {
-			// NOTE: if cur.value is NaN there is no consistent merge strategy.
 			cur.value = (cur.value || 0) + 1;
 		} else dest[vals] = (cur || 0 ) + 1;
 
@@ -135,9 +109,9 @@ export const addValues = (dest, vals) => {
 			let cur = dest[p];
 			let src = vals[p];
 
-			if ( !cur ) {
+			if ( cur === null || cur === undefined ) {
 
-				dest[p] = !isNaN(src) ? src : cloneClass(src);
+				dest[p] = isNaN(src) ? cloneClass(src) :src;
 
 			} else if ( typeof cur === 'object') {
 

@@ -18,7 +18,23 @@ export default {
 		dot:Dot
 	},
 	methods:{
-		precise:precise
+		precise:precise,
+
+		/**
+		 * Convert tag strings into viewable format.
+		 * @param {string|string[]} t
+		 * @returns {string|string[]}
+		 */
+		tagNames( t ) {
+
+			if ( Array.isArray(t) ) return t.map( this.tagNames, this );
+
+			if ( typeof t === 'string' && t.substring(0,2) === 't_' ) return t.slice(2);
+
+			return t;
+
+		}
+
 	},
 	computed:{
 
@@ -71,8 +87,8 @@ export default {
 		tags(){
 
 			let t = this.item.tags;
-			if ( typeof t === 'string') return this.stripTags(t);
-			else if ( Array.isArray(t) ) return t.map( this.stripTags, this ).join(', ');
+			if ( typeof t === 'string') return this.tagNames(t);
+			else if ( Array.isArray(t) ) return t.map( this.tagNames, this ).join(', ');
 
 		}
 

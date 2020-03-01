@@ -28,20 +28,6 @@ export default {
 
 			return (it.disabled === true) || it.maxed() || it.locks>0 || (it.locked !== false);
 
-		},
-
-		/**
-		 * Convert tag strings into viewable format.
-		 * @param {*} t
-		 */
-		stripTags( t ) {
-
-			if ( Array.isArray(t) ) return t.map( this.stripTags, this );
-
-			if ( typeof t === 'string' && t.substring(0,2) === 't_' ) return t.slice(2);
-
-			return t;
-
 		}
 
 	}

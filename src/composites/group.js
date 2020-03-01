@@ -17,7 +17,7 @@ export default class Group {
 			name:this.name,
 			type:this.type,
 			val:this.value,
-			custom:this.custom
+			custom:'group'
 
 		}
 	}
@@ -61,12 +61,6 @@ export default class Group {
 	get type() { return this._type; }
 	set type(v) { this._type = v; }
 
-	/**
-	 * @property {string} custom - custom type.
-	 */
-	get custom() { return 'group'; }
-	set custom(v){}
-
 	get name() {return this._name; }
 	set name(v) { this._name = v; }
 
@@ -104,7 +98,7 @@ export default class Group {
 
 		for( let i = this.items.length-1; i >= 0; i-- ) {
 
-			var it = this.items[i];
+			let it = this.items[i];
 			if (!it) this.items.splice( i, 1);
 			else if ( it.cost ) addValues( cost, it.cost );
 

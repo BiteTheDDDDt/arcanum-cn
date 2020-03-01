@@ -436,21 +436,21 @@
 	{
 		"id":"tempus",
 		"require":"chronomancy",
-		"tags":"manas",
+		"tags":"manas,primordial",
 		"unit":false,
 		"desc":"Time incarnate. If only...",
 		"max":0
 	},
 	{
 		"id":"chaos",
-		"tags":"manas",
+		"tags":"manas,primordial",
 		"unit":false,
 		"desc":"Chaos incarnate. No current use.",
 		"max":0
 	},
 	{
 		"id":"void",
-		"tags":"manas",
+		"tags":"manas,primordial",
 		"unit":false,
 		"desc":"nothingness. No current use.",
 		"flavor":"",
