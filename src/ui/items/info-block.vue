@@ -1,6 +1,5 @@
 <script>
 import ItemsBase from '../itemsBase.js';
-import { SKILL } from '../../values/consts';
 import Game from 'game';
 import { InfoBlock, DisplayName, ConvertPath } from './infoBlock';
 

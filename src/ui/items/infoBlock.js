@@ -1,6 +1,8 @@
 import { DisplayItem } from "./displayItem";
 import {RollOver} from 'ui/popups/itemPopup.vue';
 
+import { SKILL } from '../../values/consts';
+
 /**
 * Name to use for object in current context.
 */
