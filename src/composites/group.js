@@ -1,5 +1,6 @@
 import Base, { mergeClass } from "../items/base";
 import { assign } from 'objecty';
+import { addValues } from "../util/dataUtil";
 
 /**
  * Currently used to make custom user spells.
@@ -93,13 +94,13 @@ export default class Group {
 			this.cost = null;
 			return;
 		}
-		let cost = [];
+		let cost = {};
 
 		for( let i = this.items.length-1; i >= 0; i-- ) {
 
 			let it = this.items[i];
 			if (!it) this.items.splice( i, 1);
-			else if ( it.cost ) cost.push(it.cost);
+			else if ( it.cost ) addValues( cost, it.cost );
 
 
 		}

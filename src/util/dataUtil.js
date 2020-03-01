@@ -1,5 +1,6 @@
-import { clone, cloneClass } from "objecty";
+import { cloneClass } from "objecty";
 import Stat from "../values/stat";
+import RValue from "../values/rvalue";
 
 /**
  * Find and return first element of set matching predicate.
@@ -82,5 +83,81 @@ export const toStats = (obj) => {
 		//console.log('NEW STAT: ' + p + ': ' + s.valueOf() );
 	}
 	return obj;
+
+}
+
+/**
+ *
+ * @param {object} dest
+ * @param {string} prop
+ * @param {*} v
+ */
+const addValue = ( dest, prop, v ) => {
+
+	var cur = dest[prop];
+	if ( cur === undefined ) dest[prop] = new RValue( v.valueOf() );
+	else {
+
+		if ( typeof cur === 'object') {
+
+			cur.value = ( cur.value || 0 ) + v;
+
+		} else dest[prop] = new RValue( cur + v );
+
+	}
+
+}
+
+/**
+ * Write numeric values into a destination object.
+ * If the destination target for a keyed number is an object,
+ * the keyed number is added to the object's 'value' property.
+ * @param {object} dest
+ * @param {*} vals
+ */
+export const addValues = (dest, vals) => {
+
+	if ( typeof dest !== 'object' || dest.constructor !== Object ) {
+		dest = { value:dest};
+	}
+
+	if ( typeof vals === 'string') {
+
+		// value is one unit of id'd item.
+		addValue(dest, vals, 1 );
+
+	} else if ( typeof vals === 'object') {
+
+		for( let p in vals ) {
+
+			let cur = dest[p];
+			let src = vals[p];
+
+			if ( typeof src === 'object') {
+
+				if ( src.constructor !== Object ) {
+					addValue( dest, p, src );
+				} else {
+					dest[p] = addValues( cur || {}, src );
+				}
+
+
+			} else if ( typeof cur === 'object') {
+
+				// src is not object.
+				console.log('cur: object; src: ' + typeof src );
+				addValue( cur, 'value', src );
+
+			} else {
+
+				addValue(dest, p, src );
+			}
+
+
+		}
+
+	}
+
+	return dest;
 
 }
