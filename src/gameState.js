@@ -3,7 +3,7 @@ import Raid from './composites/raid';
 import GData from './items/gdata';
 import Equip from './chars/equip';
 import Minions from './inventories/minions';
-import { cloneClass } from 'objecty';
+import { mergeSafe } from 'objecty';
 
 import Runner from './modules/runner';
 import Explore from './composites/explore';
@@ -213,10 +213,6 @@ export default class GameState {
 
 		this.equip.revive( this );
 
-		/*this.inventory.revive( this );
-		this.spelllist.revive(this);
-		this.minions.revive(this);*/
-
 		this.player.revive(this);
 
 		this.minions.revive(this);
@@ -306,28 +302,6 @@ export default class GameState {
 		}
 
 		this.matsById = byId;
-
-	}
-
-	/**
-	 * @static
-	 * @param {object} dot
-	 * @param {object} source
-	 * @param {number} [duration=0]
-	 * @returns {Dot}
-	 */
-	mkDot( dot, source, duration=0 ) {
-
-		dot = new Dot( cloneClass(dot), source );
-
-		let st = this.getData(dot.id);
-		if ( st == dot ) {
-			console.warn('Dot already state: ' + st);
-		} else if ( st && st.type === TYP_STATE ) dot.mergeDot(st);
-
-		dot.duration = duration;
-
-		return dot;
 
 	}
 

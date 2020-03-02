@@ -297,7 +297,7 @@ export default {
 
 	onDefeat( locale ) {
 
-		this.log.log( 'Retreat', '', LOG_COMBAT );
+		this.log.log( 'RETREAT', 'Leaving '+ locale.name, LOG_COMBAT );
 
 	},
 

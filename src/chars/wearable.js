@@ -1,3 +1,4 @@
+import {mergeSafe, clone} from 'objecty';
 import { setModCounts} from '../items/base';
 import Attack from './attack';
 
@@ -205,6 +206,13 @@ export default class Wearable extends Item {
 
 		if ( this.armor > 0 || this.type === 'armor' ) {
 			this.applyBonus( this, ARMOR, mat.bonus );
+		}
+
+		if ( mat.mod ) {
+
+			let newMods = ParseMods( clone(mat.mod), this.id + '.mod', this );
+			if ( !this.mod ) this.mod = newMods;
+			else mergeSafe( this.mod, newMods);
 		}
 
 		if ( this.attack ) {

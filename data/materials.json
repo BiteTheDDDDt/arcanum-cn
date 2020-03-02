@@ -11,6 +11,7 @@
 	{
 		"id":"basiliskhide", "name":"basilisk hide", "kind":"natural", "weight":1, "priceMod":30, "bonus":4, "level":7,
 		"noproc":true,
+		"exclude":["weapon"],
 		"mod":{
 			"resist.paralysis":10
 		}

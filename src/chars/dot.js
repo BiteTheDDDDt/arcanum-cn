@@ -1,7 +1,7 @@
 import {ParseMods } from "modules/parsing";
 import { setModCounts } from "../items/base";
 import { ParseDmg } from "../values/combatVars";
-import { assign, mergeSafe } from 'objecty';
+import { assign } from 'objecty';
 import { ParseFlags, NO_SPELLS, NO_ATTACK, NO_DEFEND } from "./states";
 import { TYP_DOT } from "../values/consts";
 
@@ -149,20 +149,6 @@ export default class Dot {
 		} else if ( duration > this.duration ) {
 			this.duration = duration;
 		}
-
-	}
-
-	/**
-	 * Merge state or dot into this one.
-	 * @param {Dot} st
-	 */
-	mergeDot( st ) {
-
-		mergeSafe( this, st );
-		this._flags = this._flags | st.flags;
-		this.adj = this._adj || st.adj;
-
-		console.log('this flags: ' + this.flags );
 
 	}
 

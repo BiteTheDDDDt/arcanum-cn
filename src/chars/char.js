@@ -2,6 +2,7 @@ import Base, {mergeClass} from '../items/base';
 import Stat from '../values/stat';
 import Attack from './attack';
 import Dot from './dot';
+import { cloneClass, mergeSafe } from 'objecty';
 
 import { NPC, getDelay, TYP_PCT } from '../values/consts';
 import { toStats } from "../util/dataUtil";
@@ -268,22 +269,35 @@ export default class Char {
 			return dot.forEach(v=>this.addDot(v,source,duration));
 		}
 
+		let id = dot;
 		if ( typeof dot === 'string') {
+
 			dot = Game.state.getData(dot);
 			if ( !dot ) return
-		}
+			dot = cloneClass(dot);
 
+
+		} else {
+
+			id = dot.id;
+
+			dot = cloneClass(dot );
+			let orig = Game.state.getData( id );
+			if ( orig ) this.mergeDot( dot, orig );
+
+		}
 		if ( dot[ TYP_PCT ] && !dot[TYP_PCT].roll() ) {
 			return;
 		}
 
-		let id = dot.id;
+
 		if ( !id ) {
+			console.log('missing id: ' + source.name );
 			id = dot.id = (source ? source.name || source.id : null );
 			if ( !id) return;
 		}
 
-		if ( this.rollResist(dot.kind||dot.id) ) {
+		if ( this.rollResist(dot.kind||id) ) {
 			Events.emit( RESISTED, this, (dot.kind||dot.name));
 			return;
 		}
@@ -304,12 +318,29 @@ export default class Char {
 		}
 
 		if ( !(dot instanceof Dot) ) {
-			dot = Game.state.mkDot( dot, source, duration );
+			dot = new Dot(dot,source); //Game.state.mkDot( dot, source, duration );
+			dot.duration = duration;
 		}
 
 		this._states.add( dot );
 		this.dots.push( dot );
 		this.applyDot( dot );
+
+	}
+
+
+	/**
+	 * Merge state or dot into this one.
+	 * @param {object} dot
+	 * @param {Dot} st
+	 */
+	mergeDot( dot, st ) {
+
+		mergeSafe( dot, st );
+		dot.flags = dot.flags | st.flags;
+		dot.adj = dot.adj || st.adj;
+
+		console.log('dot flags: ' + dot.flags );
 
 	}
 

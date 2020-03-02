@@ -358,6 +358,7 @@ export default class Player extends Char {
 
 	/**
 	 * Determine if player has fully rested and can re-enter a locale.
+	 * @returns {boolean}
 	 */
 	rested() {
 
@@ -370,6 +371,9 @@ export default class Player extends Char {
 
 	}
 
+	/**
+	 * @returns {boolean}
+	 */
 	defeated() {
 
 		if ( this._hp.value <= 0 || this.stamina.value < 0 ) return true;
