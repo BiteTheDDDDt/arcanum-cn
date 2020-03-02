@@ -1,7 +1,7 @@
 /**
  * Skills required to understand/buy npcs.
  */
-const NpcInfoSkills = {
+const NpcLoreSkills = {
 
 	beast:"animals",
 	magicbeast:"magicbeasts",
@@ -12,9 +12,9 @@ const NpcInfoSkills = {
 	celestial:["lightlore","planeslore"],
 	construct:"crafting",
 	elemental:["waterlore","firelore","earthlore","airlore"],
-	giant:[],
-	ghost:["spiritlore"],
-	spirit:["spiritlore"]
+	giant:["charms","summoning"],
+	ghost:["spiritlore","conjuration"],
+	spirit:["spiritlore","conjuration"]
 
 
 
@@ -26,7 +26,7 @@ const NpcInfoSkills = {
  * @param {string} s
  * @param {Context} c
  */
-const SkillLevels = (map, s,c) => {
+export const SkillLevels = (map, s,c) => {
 
 	let skill = map[s];
 	if ( skill === undefined ) return 0;
@@ -51,19 +51,19 @@ const SkillLevels = (map, s,c) => {
 }
 
 /**
- * Total skill levels for buying minion.
+ * Total skill levels for monster type.
+ * @param {string} kind - monster type.
+ * @param {Context} c
+ */
+export const NpcLoreLevels = ( kind, c )=>{
+	return SkillLevels( NpcLoreSkills, kind, c );
+}
+
+/**
+ *
  * @param {*} b - monster/npc
  * @param {Context} c - context for data.
  */
-const NpcSkillLevels = (b, c)=>{
-
+/*export const NpcSkillLevels = (b, c)=>{
 	return SkillLevels( NpcInfoSkills, b.kind, c );
-
-}
-
-const CanBuyNpc = ( b, c )=>{
-
-	let npcSkills = NpcSkillLevels(b, c);
-	return 2*npcSkills>=b.level;
-
-}
+}*/

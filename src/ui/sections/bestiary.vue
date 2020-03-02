@@ -5,7 +5,8 @@ import Range from '../../values/range';
 import FilterBox from '../components/filterbox.vue';
 import { TRY_USE } from '../../events';
 import { npcCost } from 'modules/craft';
-import { TYP_RANGE } from '../../values/consts';
+import { TYP_RANGE } from 'values/consts';
+import { NpcLoreLevels } from 'values/craftVars';
 
 export default {
 
@@ -14,11 +15,17 @@ export default {
 		return {
 			filtered:null,
 			sortBy:'level',
-			sortOrder:1
+			sortOrder:1,
+			loreLevels:{
+			}
+
 		};
 	},
 	components:{
 		filterbox:FilterBox
+	},
+	beforeCreate(){
+		this.game = Game;
 	},
 	methods:{
 
@@ -26,7 +33,16 @@ export default {
 			this.emit( TRY_USE, m );
 		},
 
-		showHp(m) { return this.totalLore >= 4*m.level; },
+		loreLevel(m){
+			let lore = this.loreLevels[m.kind];
+			if ( lore === undefined ) lore = this.$set( this.loreLevels, m.kind, NpcLoreLevels(m.kind, Game ));
+			return lore;
+		},
+
+		showHp(m) {
+			return this.loreLevel(m) >= 4*m.level;
+
+		},
 
 		toNum(v) {
 			return ( typeof v === 'object' ?
@@ -45,14 +61,6 @@ export default {
 	computed:{
 
 		minions(){return Game.state.minions; },
-
-		totalLore() { return this.animals.value + this.lore.value + this.demonology.value; },
-
-		animals() { return Game.state.getData('animals');},
-
-		lore() { return Game.state.getData('lore');},
-
-		demonology() { return Game.state.getData('demonology');},
 
 		allItems(){
 
@@ -116,7 +124,7 @@ export default {
 			<td class="num-align">{{ Math.floor( b.level ) }}</td>
 			<td class="num-align">{{ Math.floor( b.value ) }}</td>
 			<td class="num-align">{{ showHp(b) ? toNum(b.hp) : '???' }}</td>
-			<td><button @click="tryUse(b)" :disabled="b.unique||!b.canUse()||minions.freeSpace()==0||b.value<10">Buy</button></td>
+			<td><button @click="tryUse(b)" :disabled="b.unique||!b.canUse(game)||minions.freeSpace()==0">Buy</button></td>
 		</tr>
 	</table>
 	</div>

@@ -1,6 +1,7 @@
 import GData from "./gdata";
 import { MONSTER, TEAM_PLAYER } from "../values/consts";
 import Npc from "../chars/npc";
+import { NpcLoreLevels } from '../values/craftVars';
 
 const defaults = {
 
@@ -43,6 +44,17 @@ export default class Monster extends GData {
 								? this.level : this.defense;
 
 		this.locked = this.require ? true : false;
+
+	}
+
+	canUse( g ){
+
+		if ( this.value < 10 ) return false;
+
+		let npcSkills = NpcLoreLevels( this.kind, g);
+		if ( npcSkills < this.level ) return false;
+
+		return super.canUse( g );
 
 	}
 
