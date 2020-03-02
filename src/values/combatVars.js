@@ -180,6 +180,7 @@ export const ApplyAction = ( target, attack, attacker = null) => {
 		return false;
 	}
 
+
 	if ( attack.damage ) ApplyDamage( target, attack, attacker );
 	if ( attack.cure ) {
 		console.log('CURE: ' + attack.cure );

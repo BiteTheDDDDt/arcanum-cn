@@ -13,6 +13,23 @@
 				"desc":"Across the aeons wizards gather in hidden halls to exchange lore and augment their powers."
 			}
 		],
+		"actions":[
+
+			{
+
+				"id":"retire",
+				"warn":true,
+				"require":"g.planeslore>=999",
+				"desc":"",
+				"cost":{
+
+				},
+				"mod":{
+
+				},"flavor":""
+
+			}
+		],
 		"upgrades":[
 
 			{

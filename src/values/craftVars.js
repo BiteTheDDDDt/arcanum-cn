@@ -6,15 +6,17 @@ const NpcInfoSkills = {
 	beast:"animals",
 	magicbeast:"magicbeasts",
 	demon:"demonology",
-	humanoid:"charms"
+	humanoid:["charms","history","summoning"],
+	undead:["necromancy","reanimation"],
+	kell:["naturelore"],
+	celestial:["lightlore","planeslore"],
+	construct:"crafting",
+	elemental:["waterlore","firelore","earthlore","airlore"],
+	giant:[],
+	ghost:["spiritlore"],
+	spirit:["spiritlore"]
 
 
-
-}
-
-const CanBuyNpc = ( b, c )=>{
-
-	let level = b.level;
 
 }
 
@@ -55,6 +57,13 @@ const SkillLevels = (map, s,c) => {
  */
 const NpcSkillLevels = (b, c)=>{
 
-	return SkillLevels( NpcInfoSkills, b.id, c) + SkillLevels( NpcInfoSkills, b.kind, c );
+	return SkillLevels( NpcInfoSkills, b.kind, c );
+
+}
+
+const CanBuyNpc = ( b, c )=>{
+
+	let npcSkills = NpcSkillLevels(b, c);
+	return 2*npcSkills>=b.level;
 
 }

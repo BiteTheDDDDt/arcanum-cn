@@ -70,7 +70,7 @@ export const assignOwn = (dest, src ) => {
  * Log all public properties.
  * @param {*} src
  */
-export const logPublic = ( src ) => {
+/*export const logPublic = ( src ) => {
 
 	let a = [];
 
@@ -87,7 +87,7 @@ export const logPublic = ( src ) => {
 
 	console.log('PUBLIC: ' + a.join(',' ) );
 
-}
+}*/
 
 export const assignNoFunc = ( dest, src ) => {
 
@@ -105,7 +105,7 @@ export const assignNoFunc = ( dest, src ) => {
 
 				if ( desc.set ) {
 
-					if ( typeof dest[p] === 'function') console.log('OVERWRITE dest SET: '+p);
+					if ( typeof dest[p] === 'function') console.log('OVERWRITE: '+p);
 
 				} else if ( !desc.writable ) continue;
 				else if ( typeof dest[p] ==='function') {
