@@ -92,8 +92,6 @@ export default class GameState {
 				{ bars:[baseData.quickbar] }
 		);
 
-		this.initMaterials( this.materials );
-
 		this.inventory = new Inventory( this.items.inv || baseData.inventory || {max:3} );
 		this.items.inv = this.inventory;
 		this.inventory.removeDupes = true;
@@ -291,17 +289,6 @@ export default class GameState {
 		// must be defined for Vue. slots could be missing from save.
 		ensure( this.slots, [HOME, 'mount', 'bed', REST_SLOT]);
 		if ( !this.slots[REST_SLOT] ) this.slots[REST_SLOT] = this.getData('rest');
-
-	}
-
-	initMaterials( mats ) {
-
-		let byId = {};
-		for( let i = mats.length-1; i>=0; i-- ) {
-			byId[ mats[i].id] = mats[i];
-		}
-
-		this.matsById = byId;
 
 	}
 
@@ -543,7 +530,5 @@ export default class GameState {
 	}
 
 	getData(id) { return this.items[id] || this[id]; }
-
-	getMaterial(id) { return this.matsById[id]; }
 
 }

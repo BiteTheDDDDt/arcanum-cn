@@ -66,8 +66,6 @@ export class NpcState {
 
 	getUnique(id){return this.state.getUnique(id)}
 
-	getMaterial(id) { return this.state.getMaterial(id)}
-
 	findData(id, any=false) {
 		return this.getData(p);
 	}

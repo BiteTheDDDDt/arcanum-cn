@@ -145,7 +145,7 @@ export default class Wearable extends Item {
 
 		//console.log('reviving: ' + this.id );
 
-		if ( typeof this.material === 'string') this.material = gs.getMaterial( this.material );
+		if ( typeof this.material === 'string') this.material = gs.getData( this.material );
 
 		if ( typeof this.recipe === 'string' ) this.template = gs.getData(this.recipe );
 		else if ( typeof this.template === 'string' ) this.template = gs.getData( this.template );
