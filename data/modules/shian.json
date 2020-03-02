@@ -287,8 +287,7 @@
 					"mana": 12
 				},
 				"attack": {
-					"targets": "enemies",
-					"damage": "27~45",
+					"damage": "35~65",
 					"kind": "slash",
 					"tohit": 10,
 					"dot": {
