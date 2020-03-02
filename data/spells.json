@@ -712,7 +712,7 @@
 		},
 		"attack": {
 			"targets": "enemies",
-			"damage": "32~42",
+			"damage": "12~30",
 			"kind": "mana",
 			"tohit": 4
 		}
