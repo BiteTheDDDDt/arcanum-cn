@@ -176,7 +176,7 @@ export const ApplyAction = ( target, attack, attacker = null) => {
 	if ( !target || !target.alive ) return;
 	if ( target.isImmune(attack.kind) ) {
 
-		Events.emit( IS_IMMUNE, target.name + ' IMMUNE to ' + attack.kind );
+		Events.emit( IS_IMMUNE, target, attack.kind );
 		return false;
 	}
 
@@ -190,7 +190,9 @@ export const ApplyAction = ( target, attack, attacker = null) => {
 		target.addDot( attack.state, attack );
 	}
 
-	if ( attack.dot ) { target.addDot( attack.dot, attack ); }
+	if ( attack.dot ) {
+		target.addDot( attack.dot, attack );
+	}
 
 	return true;
 

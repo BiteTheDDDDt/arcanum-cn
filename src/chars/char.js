@@ -5,7 +5,7 @@ import Dot from './dot';
 
 import { NPC, getDelay, TYP_PCT } from '../values/consts';
 import { toStats } from "../util/dataUtil";
-import Events, { CHAR_STATE, EVT_COMBAT } from '../events';
+import Events, { CHAR_STATE, EVT_COMBAT, RESISTED } from '../events';
 import States, { NO_ATTACK } from './states';
 
 import Game from '../game';
@@ -283,6 +283,11 @@ export default class Char {
 			if ( !id) return;
 		}
 
+		if ( this.rollResist(dot.kind||dot.id) ) {
+			Events.emit( RESISTED, this, (dot.kind||dot.name));
+			return;
+		}
+
 		if ( duration === 0 ) duration = dot.duration;
 
 		let cur = this.dots.find( d=>d.id===id);
@@ -448,6 +453,20 @@ export default class Char {
 	 */
 	getHit(kind) {
 		return this.tohit.valueOf();
+	}
+
+	/**
+	 * Perform a resistance roll for a damage/dot kind, with a base percent
+	 * success.
+	 * @param {string} kind
+	 * @param {number} [base=NaN]
+	 * @returns {boolean}
+	 */
+	rollResist( kind, base=null ) {
+
+		let res = (this._resist[kind]||0)+ ( base||10);
+		return res > 100*Math.random();
+
 	}
 
 	/**

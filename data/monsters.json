@@ -675,7 +675,7 @@
 			},
 			{
 				"%":"10%",
-				"id":"paralyzed",
+				"id":"paralyze",
 				"duration":5
 			}]
 		}
@@ -1743,7 +1743,8 @@
             "name":"harm",
 			"kind":"evil",
 			"dot":{
-				"dmg":"5~8"
+				"dmg":"5~8",
+				"duration":10
 			}
 		},
 		"resist":{
@@ -2789,7 +2790,7 @@
         "id":"basilisk",
         "level":11,
         "kind":"magicbeast",
-        "desc":"Touch, but don't look.",
+        "desc":"A large lizard with a petrifying bite.",
         "tohit":5,
         "hp":64,
         "defense":32,
@@ -2798,8 +2799,8 @@
             "kind":"earth",
 			"dmg":"10~30",
 			"dot":{
-				"id":"paralyzed",
-				"duration":5
+				"id":"paralyze",
+				"duration":2
 			}
 		},
 		{
@@ -3155,7 +3156,7 @@
 			},
 			{
 				"dot":{
-					"id":"paralyzed",
+					"id":"paralyze",
 					"duration":2
 				}
 			},
@@ -3862,7 +3863,7 @@
 		},
 		{
 			"dot":{
-				"id":"paralyzed",
+				"id":"paralyze",
 				"duration":15
 			}
 		}],"flavor":"It bears a striking similarity to the lesser mummers."
@@ -3898,7 +3899,7 @@
 		},
 		{
 			"dot":{
-				"id":"paralyzed",
+				"id":"paralyze",
 				"duration":10
 			}
 		}],

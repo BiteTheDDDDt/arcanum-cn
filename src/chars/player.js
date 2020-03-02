@@ -438,10 +438,6 @@ export default class Player extends Char {
 
 	}
 
-	/* getResist( kind ) {
-		return this._resist[kind].value / 100;
-	}*/
-
 	removeResist( kind, amt ) {
 		if ( this._resist[kind] ) this._resist[kind].base -= amt;
 	}

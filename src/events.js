@@ -81,7 +81,8 @@ export const STATE_BLOCK = 'blocked';
 const DEFEATED = 'defeated';
 
 const DAMAGE_MISS = 'damage_miss';
-export const IS_IMMUNE = 'dmg_immune';
+export const IS_IMMUNE = 'is_immune';
+export const RESISTED = 'resists';
 
 const TASK_CHANGED = 'taskchanged';
 const TASK_IMPROVED = 'taskimprove';
@@ -199,6 +200,7 @@ export default {
 		events.addListener( DEFEATED, this.onDefeat, this );
 		events.addListener( DAMAGE_MISS, this.onMiss, this );
 		events.addListener( IS_IMMUNE, this.onImmune, this );
+		events.addListener( RESISTED, this.onResist, this );
 		events.addListener( ENC_START, this.onEnc, this );
 
 	},
@@ -299,8 +301,17 @@ export default {
 
 	},
 
-	onImmune( msg ) {
-		this.log.log( 'IMMUNE', msg, LOG_COMBAT );
+	/**
+	 *
+	 * @param {Char} target
+	 * @param {string} kind
+	 */
+	onImmune( target, kind ) {
+		this.log.log( 'IMMUNE', target.name + ' immune to ' + kind, LOG_COMBAT );
+	},
+
+	onResist(target, kind) {
+		this.log.log( 'RESISTS', target.name + ' resists ' + kind, LOG_COMBAT );
 	},
 
 	onMiss( msg ) {

@@ -94,7 +94,7 @@
 			"gems":1
 		},
 		"action":{
-			"cure":"paralyzed",
+			"cure":"paralyze",
 			"targets":"ally,self"
 		}
 

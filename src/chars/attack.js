@@ -154,8 +154,6 @@ export default class Attack {
 
 		}
 
-		console.log('dmg: ' + this.damage );
-
 		if ( this.dot ) {
 
 			if ( !this.dot.id ) {
