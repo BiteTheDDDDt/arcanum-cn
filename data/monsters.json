@@ -2799,7 +2799,7 @@
 			"dmg":"10~30",
 			"dot":{
 				"id":"paralyzed",
-				"duration":10
+				"duration":5
 			}
 		},
 		{
@@ -2807,6 +2807,10 @@
 			"kind":"slash",
 			"dmg":"20~50"
 		}],
+		"loot":{
+			"max":11,
+			"material":"basiliskhide"
+		},
 		"immune":"poison"
 
 	},
@@ -3740,6 +3744,7 @@
 		"tohit":30,
 		"attack":{
 			"name":"claws",
+			"kind":"slash",
 			"dmg:":"90~120"
 		},
 		"flavor":"tales of Jazid were already ancient when Dhroze was entombed."
@@ -3879,7 +3884,7 @@
 	},
 	{
         "id":"mummer",
-        "level":25,
+        "level":26,
         "kind":"spirit",
         "desc":"A voiceless form with a bare and twisted skull.",
         "hp":700,

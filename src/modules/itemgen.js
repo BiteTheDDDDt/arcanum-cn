@@ -281,9 +281,8 @@ export default class ItemGen {
 	}
 
 	/**
-	 * Return loot from an object of rand parameters.
+	 * Return loot from an object of random parameters.
 	 * @param {object} info
-	 * @param {*} amt
 	 */
 	randLoot( info ) {
 

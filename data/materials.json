@@ -7,7 +7,15 @@
 	{ "id":"bone", "kind":"natural", "priceMod":1, "tohit":1, "bonus":1, "level":2 },
     { "id":"bronze", "kind":"metal", "weight":2, "priceMod":5, "tohit":2, "bonus":1, "level":2 },
     { "id":"iron", "kind":"metal", "weight":2, "priceMod":10, "tohit":2, "bonus":2, "level":3 },
-    { "id":"steel", "kind":"metal", "weight":2, "priceMod":20, "bonus":3,"tohit":4, "level":4 },
+	{ "id":"steel", "kind":"metal", "weight":2, "priceMod":20, "bonus":3,"tohit":4, "level":4 },
+	{
+		"id":"basiliskhide", "name":"basilisk hide", "kind":"natural", "weight":1, "priceMod":30, "bonus":4, "level":7,
+		"noproc":true,
+		"mod":{
+			"resist.paralysis":10
+		}
+
+	},
     { "id":"quicksteel", "kind":"metal", "weight":2, "priceMod":25, "bonus":5, "tohit":7, "level":5 },
     { "id":"mithril", "kind":"metal", "weight":1, "priceMod":100, "bonus":8, "tohit":10, "level":7 },
 	{ "id":"ebonwood", "kind":"natural", "weight":1, "priceMod":100, "bonus":6, "tohit":12, "level":8 },
