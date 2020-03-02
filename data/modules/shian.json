@@ -262,7 +262,7 @@
 				},
 				"attack": {
 					"targets": "enemies",
-					"damage": "40~56",
+					"damage": "20~30",
 					"kind": "slash",
 					"tohit": 10
 				},
@@ -288,7 +288,7 @@
 				},
 				"attack": {
 					"targets": "enemies",
-					"damage": "67~92",
+					"damage": "27~45",
 					"kind": "slash",
 					"tohit": 10,
 					"dot": {
