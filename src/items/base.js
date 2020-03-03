@@ -5,6 +5,7 @@ import Mod, { SetModIds } from '../values/mod';
 import { TYP_MOD } from '../values/consts';
 import RValue, { SubPath } from '../values/rvalue';
 import { Changed } from '../techTree';
+import { ParseMods } from '../modules/parsing';
 
 export const setModCounts = ( m, v)=>{
 
@@ -176,7 +177,7 @@ export default {
 
 	},
 
-	permVars( mods, targ=this) {
+	permVars( mods, targ=this ) {
 
 		//console.log( 'PERM VARS: ' + typeof mods);
 		//console.log('eNC TARG: ' + typeof targ);
@@ -188,28 +189,31 @@ export default {
 
 			for( let p in mods ) {
 
+				var mod = mods[p];
 				var sub = targ[p];
 
-				if ( sub === undefined ) {
+				if ( sub === undefined || sub === null ) {
 
-					sub = targ[p] = cloneClass( mods[p]);
+					sub = targ[p] = cloneClass( mod );
 
-				} else if ( sub instanceof Stat ) {
+				} else if ( typeof mod === 'object' ) {
 
-					sub.perm( mods[p] );
+					if ( sub.constructor !== Object ) sub.perm( mod );
+					else this.permVars( mod, sub );
 
 				} else if ( !sub || typeof sub === 'number') {
 
 					targ[p] = (sub||0) + mods[p].valueOf();
 
-				} else if ( typeof sub ==='object') this.permVars( mods[p], sub);
+				}
 				else console.log( this.id + ' UNKNOWN PERM VAR: ' + p + ' typ: ' + (typeof sub ));
 
 
 			}
 
-			if ( typeof targ === 'object' && targ && targ.mod ) {
-				SetModIds( targ.mod, targ.id );
+			if ( typeof targ === 'object' && targ && mods.mod ) {
+				ParseMods( this.mods, this.id, this );
+				//SetModIds( targ.mod, targ.id );
 			}
 
 		}

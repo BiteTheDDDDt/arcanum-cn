@@ -297,7 +297,7 @@ export default class Char {
 			if ( !id) return;
 		}
 
-		if ( this.rollResist(dot.kind||id) ) {
+		if ( dot.flags && this.rollResist(dot.kind||id) ) {
 			Events.emit( RESISTED, this, (dot.kind||dot.name));
 			return;
 		}
