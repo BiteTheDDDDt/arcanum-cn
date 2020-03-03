@@ -114,7 +114,7 @@ export default class Raid {
 	}
 
 	emitDefeat(){
-		Events.emit( DEFEATED, null );
+		Events.emit( DEFEATED, this.locale );
 		Events.emit( TASK_BLOCKED, this,
 			this.locale && this.player.level>this.locale.level && this.player.retreat>0 );
 	}

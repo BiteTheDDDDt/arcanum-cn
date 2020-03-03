@@ -4,7 +4,7 @@ import Attack from './attack';
 import Dot from './dot';
 import { cloneClass, mergeSafe } from 'objecty';
 
-import { NPC, getDelay, TYP_PCT } from '../values/consts';
+import { NPC, getDelay, TYP_PCT, TYP_STATE } from '../values/consts';
 import { toStats } from "../util/dataUtil";
 import Events, { CHAR_STATE, EVT_COMBAT, RESISTED } from '../events';
 import States, { NO_ATTACK } from './states';
@@ -283,7 +283,7 @@ export default class Char {
 
 			dot = cloneClass(dot );
 			let orig = Game.state.getData( id );
-			if ( orig ) this.mergeDot( dot, orig );
+			if ( orig && orig.type === TYP_STATE ) this.mergeDot( dot, orig );
 
 		}
 		if ( dot[ TYP_PCT ] && !dot[TYP_PCT].roll() ) {

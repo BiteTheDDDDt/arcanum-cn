@@ -3,7 +3,6 @@ import Raid from './composites/raid';
 import GData from './items/gdata';
 import Equip from './chars/equip';
 import Minions from './inventories/minions';
-import { mergeSafe } from 'objecty';
 
 import Runner from './modules/runner';
 import Explore from './composites/explore';
