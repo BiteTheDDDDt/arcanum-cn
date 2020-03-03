@@ -3738,6 +3738,7 @@
 		"id":"jazid",
 		"level":26,
 		"kind":"kell",
+		"require":"jazidscompass",
 		"unique":true,
 		"desc":"Jazid's sole purpose is to kill the bearer of his compass.",
 		"hp":2500,

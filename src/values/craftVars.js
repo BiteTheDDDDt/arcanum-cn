@@ -3,18 +3,19 @@
  */
 const NpcLoreSkills = {
 
-	beast:"animals",
-	magicbeast:"magicbeasts",
-	demon:"demonology",
-	humanoid:["charms","history","summoning"],
+	beast:["animals","naturelore","summoning"],
+	magicbeast:["magicbeasts","naturelore","summoning"],
+	demon:["demonology","bloodlore","summoning","languages"],
+	humanoid:["charms","languages","history"],
 	undead:["necromancy","reanimation"],
-	kell:["naturelore"],
-	celestial:["lightlore","planeslore"],
+	kell:["naturelore","runelore"],
+	celestial:["lightlore","astrallore", "divination"],
 	construct:"crafting",
-	elemental:["waterlore","firelore","earthlore","airlore"],
-	giant:["charms","summoning"],
+	elemental:["waterlore","firelore","earthlore","airlore","summoning"],
+	giant:["charms","summoning","trickery","summoning"],
 	ghost:["spiritlore","conjuration"],
-	spirit:["spiritlore","conjuration"]
+	spirit:["spiritlore","divination","summoning"],
+	diety:["spiritlore","divination"]
 
 
 

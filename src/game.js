@@ -9,10 +9,9 @@ import Stat from './values/stat';
 
 import DataLoader from './dataLoader';
 
-import Events, {EVT_EVENT, EVT_LOOT, SET_SLOT, DELETE_ITEM, CHAR_ACTION } from './events';
+import Events, {EVT_EVENT, EVT_LOOT, SET_SLOT, DELETE_ITEM } from './events';
 import { MONSTER, TYP_PCT, TYP_RANGE, P_TITLE, P_LOG, TEAM_PLAYER, ENCHANTSLOTS, WEAPON } from './values/consts';
 import TagSet from './composites/tagset';
-import { TARGET_SELF, TARGET_ALLY } from './values/combatVars';
 import RValue from './values/rvalue';
 
 var techTree;
@@ -90,6 +89,7 @@ export default {
 		this.loaded = false;
 		this.state = null;
 		this._gdata = null;
+		this.runner = null;
 		this.log.clear();
 
 	},
@@ -106,8 +106,6 @@ export default {
 
 		// Code events. Not game events.
 		Events.init(this);
-
-		this.runner = null;
 
 		return this.loader = DataLoader.loadGame( saveData ).then( allData=>{
 
@@ -247,6 +245,7 @@ export default {
 
 	/**
 	 * Recalculate amount of space used by items.
+	 * @compat @deprecated
 	 */
 	recalcSpace(){
 
@@ -627,8 +626,6 @@ export default {
 			}
 		}
 
-		return false;
-
 	},
 
 	/**
@@ -955,28 +952,6 @@ export default {
 		if ( !it.canUse ) console.error( it.id + ' no canUse()');
 		else return it.canUse( this );
 	},
-
-	/**
-	 * Item action or attack
-	 * @param {Attack} act
-	 * @param {Char} char
-	 */
-	/*onCharAction( act, char=this.player ) {
-
-		if ( this.state.explore.running || this.state.raid.running ) return;
-
-		if ( act.target & TARGET_SELF > 0 ) {
-
-			ApplyAction( char, act, char );
-
-		} else if ( act.target & TARGET_ALLY ) {
-
-			let ally = this.allies.randItem();
-			if ( ally ) ApplyAction( ally, act, char );
-
-		}
-
-	},*/
 
 	/**
 	 * Attempts to pay the cost to perform an task, buy an upgrade, etc.
