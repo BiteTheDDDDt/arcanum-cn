@@ -73,6 +73,7 @@
 		"level":10,
 		"school":"air",
 		"desc":"Breaks a curse of silence.",
+		"silent":true,
 		"cost":{
 			"air":1,
 			"managem":5

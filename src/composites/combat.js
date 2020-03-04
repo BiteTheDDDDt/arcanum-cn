@@ -189,7 +189,7 @@ export default class Combat {
 
 
 			let a = g.self.getCause( NO_SPELLS);
-			if ( a ) {
+			if ( a && !it.silent ) {
 
 				//console.warn('SPELLS blocked: ' + a );
 				Events.emit( STATE_BLOCK, g.self, a );

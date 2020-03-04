@@ -66,6 +66,12 @@ export default class Spell extends Task {
 	get only(){return this._only;}
 	set only(v){this._only = typeof v === 'string' ? v.split(',') : v;}
 
+	/**
+	 * @property {boolean} silent - spell can be cast silently.
+	 */
+	get silent(){return this._silent;}
+	set silent(v){this._silent = v;}
+
 	toJSON(){
 
 		let data = super.toJSON();
