@@ -44,18 +44,16 @@ export default class GenGroup {
 		let st = 1 + Math.floor( Math.random()*level );
 		let i = st;
 
-		var it;
-
 		do {
 
-			it = randElm( levels[i] );
+			let it = randElm( levels[i] );
 			if ( it != null && (!pred || pred(it) ) ) return it;
 
 			if ( --i < 0 ) i = level;
 
 		} while ( --level >= 0 );
 
-		return it;
+		return null;
 
 	}
 

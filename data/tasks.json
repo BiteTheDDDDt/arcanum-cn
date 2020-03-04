@@ -377,7 +377,7 @@
 	{
 		"id":"act_mine",
 		"name":"mine",
-		"desc":"Delve the depths for gems of mystic potential.",
+		"desc":"Delve the depths for gems of mystic potential. Requires a mine or sufficient geosculpting.",
 		"verb":"mining",
 		"need":"g.t_mine>0||g.geosculpting>=10",
 		"length":40,
