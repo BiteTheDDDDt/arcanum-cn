@@ -196,8 +196,9 @@ export default class Mod extends Stat {
 		if ( targ instanceof RValue ) targ.addMod( this, amt );
 		else if ( targ === null || targ === undefined || typeof targ === 'number' ){
 
-			console.log('MOD.applyTo() CREATE NEW MOD AT TARGET: ' + p );
-			let s = obj[p] = new Stat( targ || 0, (obj.id ? obj.id +'.'  : '' ) + p );
+			console.log('MOD.applyTo() NEW MOD AT TARGET: ' + p );
+			let s = obj[p] =
+				new Stat( targ || 0, (obj.id ? obj.id +'.'  : '' ) + p );
 			s.addMod( this, amt );
 
 		} else if ( typeof targ === 'object') {

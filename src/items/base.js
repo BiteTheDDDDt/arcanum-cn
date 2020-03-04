@@ -346,7 +346,19 @@ export default {
 			var m = mods[p];
 			var subTarg = targ[p];
 
-			if ( typeof m === 'object') {
+			if ( subTarg === undefined || subTarg === null && (typeof m !== 'object' || m.constructor !== Object) ) {
+
+				let s = targ[p] = isMod ? new Mod( typeof m === 'number' ? m*amt :0 )
+					: new Stat( typeof m === 'number' ? m*amt : 0 );
+
+				s.source = this;
+				//@todo use more accurate subpath.
+				s.id = SubPath(this.id, p );
+
+				console.log( this.id + '[' + p + ']:' + m + ': targ null: ' + s.valueOf() + ' isMod? ' + isMod );
+
+
+			} else if ( typeof m === 'object') {
 
 				if ( m.constructor === Object ) {
 
@@ -359,20 +371,8 @@ export default {
 					subTarg.apply( m, amt );
 
 				} else if ( m instanceof Mod ) {
-					m.applyTo( targ, p, amt );
+					m.applyTo( targ, p, amt, isMod );
 				}
-
-			} else if ( subTarg === undefined || subTarg === null ) {
-
-				let s = targ[p] = isMod ? new Mod( typeof m === 'number' ? m*amt :0 )
-					: new Stat( typeof m === 'number' ? m*amt : 0 );
-
-				s.source = this;
-				//@todo use more accurate subpath.
-				s.id = SubPath(this.id, p );
-
-				console.log( this.id + '[' + p + ']:' + m + ': targ null: ' + s.valueOf() + ' isMod? ' + isMod );
-
 
 			} else if ( subTarg.applyMods ) subTarg.applyMods( m, amt, subTarg );
 			else if ( typeof m === 'number' ) {
