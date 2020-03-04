@@ -897,7 +897,7 @@
 		"desc":"A gigantic reptile plows its jaw through the earth to eat.",
 		"effect":{
 			"bf":"1~2",
-			"earthlore.exp":1
+			"earthlore2.exp":1
 		},"flavor":"It seems to like rocks the best."
 	},
 	{
@@ -918,12 +918,21 @@
 		}
 	},
 	{
+		"id":"e_wyvern",
+		"name":"wyvern",
+		"desc":"Believed to be a distant cousin of dragons, some are even venomous.",
+		"effect":{
+			"unease":"2~3"
+		}
+	},
+	{
 		"id":"e_hydra",
 		"name":"hydra",
 		"desc":"A multi-headed beast rears its heads from the water.",
 		"effect":{
 			"unease":"2~3",
-			"rage":0.5
+			"rage":0.5,
+			"waterlore.exp":1
 		}
 	},
 	{
@@ -942,7 +951,7 @@
 		"effect":{
 			"unease":"2~3",
 			"rage":0.5,
-			"firelore.exp":1
+			"firelore2.exp":1
 		}
 	},
 	{
@@ -952,7 +961,7 @@
 		"effect":{
 			"bf":"2~3",
 			"rage":-0.5,
-			"naturelore.exp":1
+			"naturelore2.exp":1
 		}
 	},
 	{

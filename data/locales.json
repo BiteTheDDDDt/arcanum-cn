@@ -323,7 +323,7 @@
 		"e_bestiary1",
 		"e_bestiary2",
 		"e_big_scale",
-		"e_bloodgrass",
+		"e_cockatrice",
 		"e_flithy",
 		"e_gryffon",
 		"e_hydra",
@@ -331,7 +331,8 @@
 		"e_pogler",
 		"e_snakemass",
 		"e_spidermass",
-		"e_trumple"
+		"e_trumple",
+		"e_wyvern"
 	],"flavor":"Its creator and purpose are unknown to history. Perhaps all creatures exist within."
 },
 {
@@ -360,6 +361,7 @@
 		"enc_statue2",
 		"enc_statue4",
 		"enc_gap",
+		"e_bloodgrass",
 		"enc_gibber",
 		"enc_gnome",
 		"enc_mtpass",

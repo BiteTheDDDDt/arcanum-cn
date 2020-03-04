@@ -695,7 +695,6 @@
 		"id":"grimoire",
 		"desc":"The handbook of witches",
 		"require":"g.witch>0&&g.tier2>0",
-		"locked":true,
 		"cost":{
 			"gold":50,
 			"spirit":2,

@@ -1239,7 +1239,7 @@
 		"verb":"researching beasts",
 		"require":"g.animals>=3",
 		"length":50,
-		"desc":"compendium of magical creatures",
+		"desc":"Compendium of common creatures",
 		"repeat":false,
 		"cost":{
 			"codices":1
@@ -1254,6 +1254,30 @@
 			"research.max":10,
 			"animals.max":2,
 			"animals.rate":0.2
+		}
+
+	},
+	{
+
+		"id":"systemanaturae",
+		"name":"systema naturae",
+		"desc":"Compendium of living things.",
+		"require":"g.loc_menagerie>0",
+		"repeat":false,
+		"length":200,
+		"cost":{
+			"tomes":25,
+			"research":5000,
+			"waterrune":5,
+			"earthrune":5
+		},
+		"run":{
+			"stamina":1
+		},
+		"mod":{
+			"magicbeasts.max":1,
+			"animals.max":1,
+			"herbalism.max":1
 		}
 
 	},
