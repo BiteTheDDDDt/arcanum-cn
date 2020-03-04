@@ -299,7 +299,7 @@
 },
 {
 	"id":"loc_menagerie",
-	"name":"",
+	"name":"the lost menagerie",
 	"level":23,
 	"require":"g.tier98>0",
 	"length":200,
@@ -307,7 +307,11 @@
 	"run":{
 		"stamina":3
 	},
+	"once":{
+		"magicbeasts.max":1
+	},
 	"result":{
+		"title":""
 	},
 	"loot":{
 		"herbs":"10~20"
@@ -315,11 +319,15 @@
 	"encs":[
 		"e_agolith",
 		"e_balmuth",
+		"e_barghest",
 		"e_bestiary1",
 		"e_bestiary2",
 		"e_big_scale",
 		"e_bloodgrass",
 		"e_flithy",
+		"e_gryffon",
+		"e_hydra",
+		"e_phoenix",
 		"e_pogler",
 		"e_snakemass",
 		"e_spidermass",

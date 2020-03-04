@@ -292,7 +292,6 @@ export default class Char {
 
 
 		if ( !id ) {
-			console.log('missing id: ' + source.name );
 			id = dot.id = (source ? source.name || source.id : null );
 			if ( !id) return;
 		}

@@ -358,7 +358,8 @@ export default {
 				console.log( this.id + '[' + p + ']:' + m + ': targ null: ' + s.valueOf() + ' isMod? ' + isMod );
 
 
-			} else if ( typeof m === 'object') {
+			}else if ( subTarg.applyMods ) subTarg.applyMods( m, amt, subTarg )
+			else if ( typeof m === 'object') {
 
 				if ( m.constructor === Object ) {
 
@@ -374,8 +375,7 @@ export default {
 					m.applyTo( targ, p, amt, isMod );
 				}
 
-			} else if ( subTarg.applyMods ) subTarg.applyMods( m, amt, subTarg );
-			else if ( typeof m === 'number' ) {
+			} else if ( typeof m === 'number' ) {
 
 				if ( typeof subTarg === 'number') {
 

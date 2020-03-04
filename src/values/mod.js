@@ -189,15 +189,15 @@ export default class Mod extends Stat {
 	 * @param {string} p - target property to which mod is being applied.
 	 * @param {number} amt
 	 */
-	applyTo( obj, p, amt ) {
+	applyTo( obj, p, amt, isMod=false ) {
 
 		let targ = obj[p];
 
 		if ( targ instanceof RValue ) targ.addMod( this, amt );
 		else if ( targ === null || targ === undefined || typeof targ === 'number' ){
 
-			console.log('MOD.applyTo() NEW MOD AT TARGET: ' + p );
-			let s = obj[p] =
+			console.log('MOD.applyTo() NEW MOD AT TARGET: ' + p + ' isMod: ' + isMod );
+			let s = obj[p] = isMod ? new Mod(  targ || 0, (obj.id ? obj.id +'.'  : '' ) + p) :
 				new Stat( targ || 0, (obj.id ? obj.id +'.'  : '' ) + p );
 			s.addMod( this, amt );
 

@@ -865,8 +865,20 @@
 		"name":"agolith",
 		"desc":"Hidden in a deep pond, it lures its prey with a fruiting branch growing from its head.",
 		"effect":{
-			"bf":"1~2",
-			"weary":"0~1"
+			"unease":"1~2",
+			"weary":"0~1",
+			"herbalism.exp":1
+		}
+	},
+	{
+		"id":"e_cockatrice",
+		"name":"cockatrice",
+		"desc":"An unnatural blend of serpent and rooster. Its stare is death and you must avert your eyes.",
+		"effect":{
+			"unease":"3~5",
+			"bf":"2~3",
+			"madness":"0~2",
+			"magicbeasts.exp":1
 		}
 	},
 	{
@@ -875,7 +887,8 @@
 		"desc":"A stout tree with stumpy legs and a face inlaid within its trunk.",
 		"effect":{
 			"bf":"1~2",
-			"weary":"2~3"
+			"weary":"2~3",
+			"herbalism.exp":1
 		},"flavor":"It can't speak but likes it when you feed it oil."
 	},
 	{
@@ -883,7 +896,8 @@
 		"name":"balmuth",
 		"desc":"A gigantic reptile plows its jaw through the earth to eat.",
 		"effect":{
-			"bf":"1~2"
+			"bf":"1~2",
+			"earthlore.exp":1
 		},"flavor":"It seems to like rocks the best."
 	},
 	{
@@ -891,9 +905,45 @@
 		"name":"scale of ouroboros",
 		"desc":"At the center of the menagerie a single massive scale merges with the tree.",
 		"effect":{
-			"bf":"3~4",
+			"unease":"3~4",
 			"madness":"4~5"
 		},"flavor":"best not disturb it"
+	},
+	{
+		"id":"e_gryffon",
+		"name":"gryffon",
+		"desc":"Generally peaceful creatures, a gryffon is nevertheless deadly when enraged.",
+		"effect":{
+			"unease":"1~2"
+		}
+	},
+	{
+		"id":"e_hydra",
+		"name":"hydra",
+		"desc":"A multi-headed beast rears its heads from the water.",
+		"effect":{
+			"unease":"2~3",
+			"rage":0.5
+		}
+	},
+	{
+		"id":"e_barghest",
+		"name":"barghest",
+		"desc":"The great dog-like beast is a portend of death.",
+		"effect":{
+			"unease":"3~4",
+			"madness":"1~4"
+		}
+	},
+	{
+		"id":"e_phoenix",
+		"name":"phoenix",
+		"desc":"One of the rarest of birds, they are not uncommon in this place.",
+		"effect":{
+			"unease":"2~3",
+			"rage":0.5,
+			"firelore.exp":1
+		}
 	},
 	{
 		"id":"e_pogler",
@@ -901,7 +951,8 @@
 		"desc":"The placid poglers angle their backs of bushy leaves to the sun.",
 		"effect":{
 			"bf":"2~3",
-			"rage":-0.5
+			"rage":-0.5,
+			"naturelore.exp":1
 		}
 	},
 	{
@@ -909,7 +960,8 @@
 		"name":"flithy",
 		"desc":"You meet a creeping creature with twenty furry legs and nothing else.",
 		"effect":{
-			"bf":"2~3",
+			"unease":"1~2",
+			"bf":"1~2",
 			"madness":"1~2"
 		}
 	},
