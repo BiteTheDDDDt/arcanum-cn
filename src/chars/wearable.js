@@ -269,7 +269,6 @@ export default class Wearable extends Item {
 			for( let p in this.mod ) {
 				console.log('apply mod: ' + p );
 			}
-			console.log('this mod: '+this.mod );
 			setModCounts( this.mod, 1);
 			g.applyMods( this.mod, 1 );
 
