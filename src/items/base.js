@@ -1,7 +1,7 @@
 import {changes, jsonify, cloneClass  } from 'objecty';
 import Game from '../game';
 import Stat from '../values/stat';
-import Mod, { SetModIds } from '../values/mod';
+import Mod from '../values/mod';
 import { TYP_MOD } from '../values/consts';
 import RValue, { SubPath } from '../values/rvalue';
 import { Changed } from '../techTree';

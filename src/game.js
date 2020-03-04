@@ -480,6 +480,10 @@ export default {
 
 		if ( !this.canUse(it) ) return false;
 
+		if ( it.buy && !it.owned ) {
+			return this.tryBuy( it, false );
+		}
+
 		if ( it.perpetual || it.length > 0 ) {
 
 			this.setTask(it);
@@ -488,11 +492,7 @@ export default {
 
 			it.onUse( this );
 
-		} else if ( it.buy && !it.owned ) {
-
-			this.tryBuy( it, false );
-
-		} else {
+		} else  {
 
 			if ( it.isRecipe ) {
 
