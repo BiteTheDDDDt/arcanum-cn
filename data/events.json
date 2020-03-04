@@ -9,7 +9,7 @@
 	{
 		"id":"evt_scroll",
 		"name":"A tattered scroll",
-		"desc":"You buy a strange scroll from a travelling peddlar. If you could only decipher the cryptic symbols."
+		"desc":"You buy a strange scroll from a travelling peddler. If you could only decipher the cryptic symbols."
 	},
 	{
 		"id":"evt_alcove",

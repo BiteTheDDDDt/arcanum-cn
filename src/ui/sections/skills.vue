@@ -114,6 +114,7 @@ div.skills {
     }
 
     div.subs div.skill {
+		max-width: 45%;
         margin-bottom: 0; width: unset; flex-basis: 45%; box-sizing: border-box;
         padding: var(--md-gap); text-transform: capitalize; font-size: var(--compact-small-font);
          border-radius: var(--list-entry-border-radius);
