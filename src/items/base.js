@@ -346,43 +346,36 @@ export default {
 			var m = mods[p];
 			var subTarg = targ[p];
 
-			if ( subTarg === undefined || subTarg === null ) {
+			if ( typeof m === 'object') {
 
-				if (typeof m === 'number' || m instanceof Stat ) {
+				if ( m.constructor === Object ) {
 
-					let s = targ[p] = isMod ? new Mod( typeof m === 'number' ? m*amt :0 )
-						: new Stat( typeof m === 'number' ? m*amt : 0 );
+					if ( subTarg === undefined || subTarg === null ) subTarg = targ[p] = {};
+					this.applyObj( m, amt, subTarg, isMod || (p==='mod'));
 
-					s.source = this;
-					//@todo use more accurate subpath.
-					s.id = SubPath(this.id, p );
+				} else if ( subTarg instanceof Stat) {
 
-					if ( m instanceof Mod) {
-						//console.log('Add mod to nonexistant target: ' + SubPath(this.id,p));
-						s.addMod(m, amt);
-					}
-					//console.log( this.id + '[' + p + ']:' + m + ': targ null: ' + s.valueOf() + ' isMod? ' + isMod );
+					//console.log(' apply : ' + m + ' type: ' + (typeof m) );
+					subTarg.apply( m, amt );
 
-
-				} else {
-					/// create new subobject.
-					targ[p] = {};
-					this.applyObj( m, amt, targ[p], isMod || (p==='mod') );
+				} else if ( m instanceof Mod ) {
+					m.applyTo( targ, p, amt );
 				}
 
+			} else if ( subTarg === undefined || subTarg === null ) {
+
+				let s = targ[p] = isMod ? new Mod( typeof m === 'number' ? m*amt :0 )
+					: new Stat( typeof m === 'number' ? m*amt : 0 );
+
+				s.source = this;
+				//@todo use more accurate subpath.
+				s.id = SubPath(this.id, p );
+
+				console.log( this.id + '[' + p + ']:' + m + ': targ null: ' + s.valueOf() + ' isMod? ' + isMod );
+
+
 			} else if ( subTarg.applyMods ) subTarg.applyMods( m, amt, subTarg );
-			else if ( subTarg instanceof Stat) {
-
-				//console.log(' apply : ' + m + ' type: ' + (typeof m) );
-				subTarg.apply( m, amt );
-
-			} else if ( m instanceof Mod ) {
-				m.applyTo( targ, p, amt );
-			} else if ( typeof m === 'object' ) {
-
-				this.applyObj( m, amt, subTarg, isMod || (p==='mod'));
-
-			} else if ( typeof m === 'number' ) {
+			else if ( typeof m === 'number' ) {
 
 				if ( typeof subTarg === 'number') {
 
