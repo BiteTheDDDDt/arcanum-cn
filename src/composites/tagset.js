@@ -1,5 +1,5 @@
 /**
- * @class TagList to allow referencing tagged items by id.
+ * @class TagSet to allow referencing tagged items by id.
  */
 export default class TagSet {
 
@@ -120,6 +120,26 @@ export default class TagSet {
 
 	add( it ) {
 		this.items.add(it);
+	}
+
+	/**
+	 * @returns {GData} - random tagged item.
+	 */
+	random() {
+
+		let size = this.items.size;
+		if ( size <= 0 ) return null;
+
+		// dont know better way to do random on iterator.
+		let ind = Math.floor(Math.random()*size);
+
+		const it = this.items.values();
+		while ( ind-- > 0 ) {
+			it.next();
+		}
+		return it.next().value;
+
+
 	}
 
 	/**

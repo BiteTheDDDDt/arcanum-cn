@@ -8,6 +8,7 @@ import { pushNonNull } from '../util/array';
 import GData from '../items/gdata';
 import { WEARABLE, MONSTER, ARMOR, WEAPON, TYP_PCT, EVENT, ITEM, POTION, TYP_RANGE, NPC, TASK } from '../values/consts';
 import { CreateNpc } from '../items/monster';
+import TagSet from '../composites/tagset';
 
 /**
  * Revive an instanced item based on save data.
@@ -215,6 +216,8 @@ export default class ItemGen {
 
 				return this.getGData( info, amt );
 
+			} else if ( info instanceof TagSet ) {
+				return this.getGData( info.random(), amt );
 			}
 
 		}
@@ -295,10 +298,12 @@ export default class ItemGen {
 
 	/**
 	 * Get some amount of non-instanced gameData.
-	 * @param {*} it
-	 * @param {*} amt
+	 * @param {GData} it
+	 * @param {number} amt
 	 */
 	getGData( it , amt ) {
+
+		if ( it == null ) return null;
 
 		if ( typeof amt === 'number' || typeof amt === 'boolean') {
 
