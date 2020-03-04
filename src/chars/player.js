@@ -397,9 +397,6 @@ export default class Player extends Char {
 
 			this.timer += getDelay(this.speed);
 
-			let a = this.getCause( NO_ATTACK );
-			if ( a ) return a;
-
 			// attempt to use spell first.
 			if ( this.tryCast() ) {
 
@@ -418,6 +415,9 @@ export default class Player extends Char {
 	 * Get next weapon attack.
 	 */
 	nextAttack(){
+
+		let a = this.getCause( NO_ATTACK );
+		if ( a ) return a;
 
 		let nxt = this.weapons.nextItem();
 		//console.log('attack with: ' + (nxt !== null && nxt!==undefined?nxt.id:'none') );
