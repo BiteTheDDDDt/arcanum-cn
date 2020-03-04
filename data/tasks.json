@@ -379,7 +379,7 @@
 		"name":"mine",
 		"desc":"Delve the depths for gems of mystic potential.",
 		"verb":"mining",
-		"need":"g.t_mine||g.geosculpting>=10",
+		"need":"g.t_mine>0||g.geosculpting>=10",
 		"length":40,
 		"perpetual":true,
 		"run":{
