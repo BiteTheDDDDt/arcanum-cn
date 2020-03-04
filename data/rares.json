@@ -50,6 +50,18 @@
 	},
 	{
 
+		"id":"botanistgloves",
+		"name":"gloves of the botanist",
+		"type":"armor",
+		"slot":"hands",
+		"armor":5,
+		"mod":{
+			"resist.poison":10
+		}
+
+	},
+	{
+
 		"id":"jazidscompass",
 		"name":"jazid's compass",
 		"unique":true,
