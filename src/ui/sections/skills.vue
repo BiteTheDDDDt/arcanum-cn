@@ -108,7 +108,7 @@ div.skills {
 
     div.subs {
 		overflow-y: auto;
-        display: grid; grid-template-columns: repeat( auto-fit, minmax( 10rem, 1fr) );
+        display: grid; grid-template-columns: repeat( auto-fit, minmax( 10rem, 0.5fr) );
         margin: 0; padding: var(--md-gap); overflow-x: hidden; gap: var(--sm-gap);
         width: 100%; justify-content: space-between;
     }
