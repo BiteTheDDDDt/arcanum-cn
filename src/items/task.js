@@ -108,10 +108,13 @@ export default class Task extends GData {
 		let v = this.valueOf();
 		if ( this.at ) {
 
+			if ( v > 0 ) console.log(this.id + ' TOTAL: ' + v );
+
 			for( let p in this.at) {
 
 				if ( v >= Number(p) ) {
 
+					console.log(this.id + ' APPLY AT: ' + this.at);
 					this.applyMods( this.at[p] );
 
 				}

@@ -723,7 +723,7 @@
 	{
 		"id":"enc_oasis",
 		"name":"oasis",
-		"desc":"A cooling spring and frond trees relieve the monotany of the wastes.",
+		"desc":"A cooling spring and frond trees relieve the monotony of the wastes.",
 		"effect":{
 			"weary":-2,
 			"madness":-1,
