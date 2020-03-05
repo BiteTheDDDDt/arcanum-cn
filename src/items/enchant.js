@@ -1,6 +1,6 @@
 import Task from './task';
 import GData from './gdata';
-import { setModCounts } from './base';
+import { SetModCounts } from './base';
 import { canTarget, ENCHANTSLOTS } from '../values/consts';
 import Runnable from '../composites/runnable';
 import Enchanting from '../composites/enchanting';
@@ -30,7 +30,7 @@ export default class Enchant extends Task {
 		this.level = this.level || 1;
 		this.need = this.need || 'enchantsource';
 
-		if ( this.mod ) setModCounts( this.mod, 1);
+		if ( this.mod ) SetModCounts( this.mod, 1);
 
 	}
 

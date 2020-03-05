@@ -1,5 +1,5 @@
 import {ParseMods } from "modules/parsing";
-import { setModCounts } from "../items/base";
+import { SetModCounts } from "../items/base";
 import { ParseDmg } from "../values/combatVars";
 import { assign } from 'objecty';
 import { ParseFlags, NO_SPELLS, NO_ATTACK, NO_DEFEND } from "./states";
@@ -119,7 +119,7 @@ export default class Dot {
 
 			this.mod = ParseMods( this.mod, this.id, this );
 
-			setModCounts( this.mod, this );
+			SetModCounts( this.mod, this );
 		}
 		if ( !this.flags ) this.flags = 0;
 

@@ -13,6 +13,7 @@ import Events, {EVT_EVENT, EVT_LOOT, SET_SLOT, DELETE_ITEM } from './events';
 import { MONSTER, TYP_PCT, TYP_RANGE, P_TITLE, P_LOG, TEAM_PLAYER, ENCHANTSLOTS, WEAPON } from './values/consts';
 import TagSet from './composites/tagset';
 import RValue from './values/rvalue';
+import { SetModCounts } from './items/base';
 
 var techTree;
 
@@ -120,10 +121,10 @@ export default {
 
 			if ( hallData ) this.addData( hallData );
 
+			this.recalcSpace();
+
 			this.recheckTiers();
 			this.restoreMods();
-
-			this.recalcSpace();
 
 			techTree = new TechTree( this.gdata );
 			//Events.add( EVT_UNLOCK, techTree.unlocked, techTree );
@@ -249,10 +250,9 @@ export default {
 	 */
 	recalcSpace(){
 
-		let used = 0;
-
 		let space = this.state.getData('space');
-		space.value = used;
+		space.value = 0;
+		SetModCounts( space.mod, space.value );
 
 	},
 

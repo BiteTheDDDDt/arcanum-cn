@@ -194,15 +194,21 @@ export default class Mod extends Stat {
 		let targ = obj[p];
 
 		if ( targ instanceof RValue ) targ.addMod( this, amt );
-		else if ( targ === null || targ === undefined || typeof targ === 'number' ){
+		else if ( typeof targ === 'number') {
 
-			console.log('MOD.applyTo() NEW MOD AT TARGET: ' + p + ' isMod: ' + isMod );
-			let s = obj[p] = isMod ? new Mod(  targ || 0, (obj.id ? obj.id +'.'  : '' ) + p) :
-				new Stat( targ || 0, (obj.id ? obj.id +'.'  : '' ) + p );
+			let s = obj[p] = new Stat( targ || 0, (obj.id ? obj.id +'.'  : '' ) + p );
 			s.addMod( this, amt );
+
+			/*if ( isMod ) console.log('SHOULD BE MOD: ' + s.id );
+			else console.log( this.id + ' NEW STAT: ' +  s.id );*/
+
+		} else if ( targ === null || targ === undefined ){
+
+			console.error('DEPRECATED: MOD.applyTo() NEW MOD AT TARGET: ' + p );
 
 		} else if ( typeof targ === 'object') {
 
+			//console.dir( targ,  this.id + ' UNKNOWN MOD TARGET')
 			if ( Array.isArray(targ) ) {
 
 				for( let i = targ.length-1; i>= 0; i--) this.applyTo( targ[i], p, amt );

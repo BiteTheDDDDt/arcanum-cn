@@ -5,7 +5,7 @@ import Stat from '../values/stat';
 import Scaler from '../values/scaler';
 import { TASK } from '../values/consts';
 import { ParseMods } from '../modules/parsing';
-import { setModCounts } from './base';
+import { SetModCounts } from './base';
 
 export default class Task extends GData {
 

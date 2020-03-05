@@ -138,6 +138,7 @@ export default class GData {
 	get value() { return this._value; }
 	set value(v) {
 
+		//if ( this.id === 'space') console.log('setting space: ' + v );
 		if ( v instanceof Stat ) {
 
 			if ( this._value === null || this._value === undefined ) this._value = v;
@@ -152,6 +153,7 @@ export default class GData {
 
 
 			this._value.base = (typeof v === 'object') ? v.value : v;
+			if ( this.id === 'space') console.log('setting BASE SPACE: ' + v );
 
 		} else this._value = new Stat( v, this.id );
 

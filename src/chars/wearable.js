@@ -1,5 +1,5 @@
 import {mergeSafe, clone} from 'objecty';
-import { setModCounts} from '../items/base';
+import { SetModCounts} from '../items/base';
 import Attack from './attack';
 
 import Mod from '../values/mod';
@@ -269,7 +269,7 @@ export default class Wearable extends Item {
 			for( let p in this.mod ) {
 				console.log('apply mod: ' + p );
 			}
-			setModCounts( this.mod, 1);
+			SetModCounts( this.mod, 1);
 			g.applyMods( this.mod, 1 );
 
 		} else {
@@ -292,7 +292,7 @@ export default class Wearable extends Item {
 		this.worn = false;
 
 		if ( this.mod ) {
-			setModCounts( this.mod, 0);
+			SetModCounts( this.mod, 0);
 			g.removeMod(this.mod)
 		}
 

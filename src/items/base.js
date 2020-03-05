@@ -7,14 +7,14 @@ import RValue, { SubPath } from '../values/rvalue';
 import { Changed } from '../techTree';
 import { ParseMods } from '../modules/parsing';
 
-export const setModCounts = ( m, v)=>{
+export const SetModCounts = ( m, v)=>{
 
 	if ( m instanceof Mod ) {
 		//console.log('setting mod count: ' + m.id + ' val: ' + v );
 		m.count = v;
 	}
 	else if ( typeof m ==='object') {
-		for( let p in m ){ setModCounts(m[p], v); }
+		for( let p in m ){ SetModCounts(m[p], v); }
 	}
 
 }
@@ -300,15 +300,18 @@ export default {
 	applyMods( mods, amt=1, targ=this ) {
 
 		Changed.add(this);
+
 		if ( mods instanceof Mod ) {
 
 			mods.applyTo( targ, 'value', amt );
 			if ( this.mod ) this.modChanged(Game);
 
-		} else if ( typeof mods === 'object') {
+		} else if ( mods.constructor === Object ) {
 
 			this.applyObj( mods, amt, targ );
-			//if ( mods.mod ) this.changeMod( mods.mod, this.value );
+			if ( mods.mod ) {
+				this.modChanged(Game);
+			}
 
 		} else if ( typeof mods === 'number') {
 
@@ -339,68 +342,69 @@ export default {
 	 * @param {Object} targ - target of mods.
 	 * @param {boolean} isMod - whether target is subobject of a mod object.
 	 */
-	applyObj( mods, amt, targ, isMod ) {
+	applyObj( mods, amt, targ, isMod=false ) {
 
 		for( let p in mods ) {
 
-			var m = mods[p];
+			var subMod = mods[p];
 			var subTarg = targ[p];
 
-			if ( subTarg === undefined || subTarg === null && (typeof m !== 'object' || m.constructor !== Object) ) {
+			if ( subTarg === undefined || subTarg === null ) {
 
-				let s = targ[p] = isMod ? new Mod( typeof m === 'number' ? m*amt :0 )
-					: new Stat( typeof m === 'number' ? m*amt : 0 );
+				if ( subMod.constructor === Object ) {
 
-				s.source = this;
-				//@todo use more accurate subpath.
-				s.id = SubPath(this.id, p );
+					targ[p] = {};
+					this.applyObj( subMod, amt, targ[p], p==='mod'|| isMod );
 
-				console.log( this.id + '[' + p + ']:' + m + ': targ null: ' + s.valueOf() + ' isMod? ' + isMod );
+				} else {
+					subTarg = targ[p] = isMod ? new Mod( typeof subMod === 'number' ? subMod*amt :0 )
+						: new Stat( typeof subMod === 'number' ? subMod*amt : 0 );
+
+										//@todo use more accurate subpath.
+					subTarg.id = SubPath(this.id, p );
+
+					subTarg.source = this;
 
 
-			}else if ( subTarg.applyMods ) subTarg.applyMods( m, amt, subTarg )
-			else if ( typeof m === 'object') {
-
-				if ( m.constructor === Object ) {
-
-					if ( subTarg === undefined || subTarg === null ) subTarg = targ[p] = {};
-					this.applyObj( m, amt, subTarg, isMod || (p==='mod'));
-
-				} else if ( subTarg instanceof Stat) {
-
-					//console.log(' apply : ' + m + ' type: ' + (typeof m) );
-					subTarg.apply( m, amt );
-
-				} else if ( m instanceof Mod ) {
-					m.applyTo( targ, p, amt, isMod );
+					if ( subMod instanceof Mod ) subTarg.addMod( subMod,amt );
+					console.log( this.id + '.' + p  + ': ' + subMod + ': targ null: ' + subTarg.valueOf() + ' mod? ' + isMod );
 				}
 
-			} else if ( typeof m === 'number' ) {
+
+			} else if ( subTarg.applyMods ) {
+
+				subTarg.applyMods( subMod, amt, subTarg );
+
+			} else if ( subTarg instanceof Stat) {
+
+				//console.log(' apply : ' + m + ' type: ' + (typeof m) );
+				subTarg.apply( subMod, amt );
+
+			} else if ( subMod instanceof Mod ) {
+				subMod.applyTo( targ, p, amt );
+			} else if ( subMod.constructor === Object ) {
+
+				this.applyObj( subMod, amt, subTarg, p==='mod'||isMod );
+
+			}
+			else if ( typeof subMod === 'number' ) {
 
 				if ( typeof subTarg === 'number') {
 
 					/// @todo stat switch?
-					//console.warn('NEW STAT: ' + p + ' : ' + (m*amt ) );
-					targ[p] = new Stat( targ[p] + m*amt, SubPath(this.id, p) );
+					console.warn('MOD APPLIED TO RAW NUM: ' + p + ' : ' + (m*amt ) );
+					targ[p] = new Stat( targ[p] + subMod*amt, SubPath(this.id, p) );
 					//targ[p] += m*amt;
 
-				} else this.applyMods( m, amt, subTarg);
+				} else this.applyMods( subMod, amt, subTarg);
 
 			} else {
 
-				console.warn( `UNKNOWN Mod to ${this.id}.${p}: ${m}` + '  ' + typeof m);
+				console.warn( `UNKNOWN Mod to ${this.id}.${p}: ${subMod}` + '  ' + typeof subMod);
 			}
 
 		}
 
-		if ( mods.mod ) {
-			this.modChanged(Game);
-		}
-
-	},
-
-	modChanged(g){
-		g.applyMods(this.mod, this.value);
 	},
 
 	/**
@@ -452,6 +456,10 @@ export default {
 		let s = obj[key] = new Stat( typeof mod === 'number' ? mod*amt : 0, 'key' );
 		if ( mod instanceof Mod ) s.apply( mod, amt );
 
+	},
+
+	modChanged(g){
+		g.applyMods(this.mod, this.value);
 	},
 
 	/**
