@@ -169,29 +169,29 @@ export const ParseDmg = (v)=>{
 * Apply an attack. Attack is already assumed to have hit, but immunities,
 * resistances, can still be applied.
 * @param {Char} target
-* @param {Object} attack
+* @param {Object} action
 */
-export const ApplyAction = ( target, attack, attacker = null) => {
+export const ApplyAction = ( target, action, attacker = null) => {
 
 	if ( !target || !target.alive ) return;
-	if ( target.isImmune(attack.kind) ) {
+	if ( target.isImmune(action.kind) ) {
 
-		Events.emit( IS_IMMUNE, target, attack.kind );
+		Events.emit( IS_IMMUNE, target, action.kind );
 		return false;
 	}
 
 
-	if ( attack.damage ) ApplyDamage( target, attack, attacker );
-	if ( attack.cure ) {
-		console.log('CURE: ' + attack.cure );
-		target.cure( attack.cure );
+	if ( action.damage ) ApplyDamage( target, action, attacker );
+	if ( action.cure ) {
+
+		target.cure( action.cure );
 	}
-	if ( attack.state ) {
-		target.addDot( attack.state, attack );
+	if ( action.state ) {
+		target.addDot( action.state, action );
 	}
 
-	if ( attack.dot ) {
-		target.addDot( attack.dot, attack );
+	if ( action.dot ) {
+		target.addDot( action.dot, action );
 	}
 
 	return true;

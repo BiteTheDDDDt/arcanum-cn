@@ -228,8 +228,12 @@ export default class Char {
 			return;
 		}
 
+		console.log(this.id + ' TRYCURE: ' + state + ': ' + this.dots.length );
+
 		for( let i = this.dots.length-1; i>= 0; i-- ) {
-			if ( this.dots[i].id === state) {
+			console.log('TRY cure: ' + this.dots[i].id + ': ' + this.dots[i].kind );
+			if ( this.dots[i].id === state || this.dots[i].kind === state) {
+				console.log('CURING: ' + state );
 				this.rmDot(i);
 				return;
 			}

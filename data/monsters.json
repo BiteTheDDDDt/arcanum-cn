@@ -2792,7 +2792,7 @@
         "kind":"magicbeast",
         "desc":"A large lizard with a petrifying bite.",
         "tohit":5,
-        "hp":64,
+        "hp":640,
         "defense":32,
         "attack":[{
             "name":"bite",
@@ -2800,7 +2800,7 @@
 			"dmg":"10~30",
 			"dot":{
 				"id":"paralyze",
-				"duration":2
+				"duration":555
 			}
 		},
 		{

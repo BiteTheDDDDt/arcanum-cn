@@ -30,6 +30,7 @@
 		"level":7,
 		"school":"charms",
 		"desc":"Cure yourself or an ally of a charm.",
+		"silent":true,
 		"cost":{
 			"spiritgem":1
 		},
@@ -44,6 +45,7 @@
 		"level":5,
 		"school":"mana",
 		"desc":"Wake a slumbering ally.",
+		"silent":true,
 		"cost":{
 			"mana":1,
 			"herbs":1
@@ -58,6 +60,7 @@
 		"id":"embolden",
 		"level":3,
 		"school":"fire",
+		"silent":true,
 		"desc":"Remove fear from yourself or a frightened creature.",
 		"cost":{
 			"fire":1
@@ -89,13 +92,14 @@
 		"name":"cure paralysis",
 		"level":7,
 		"school":"mana",
+		"silent":true,
 		"desc":"Loosens rigid muscles, nerves, and bones.",
 		"cost":{
 			"mana":1,
 			"gems":1
 		},
 		"action":{
-			"cure":"paralyze",
+			"cure":"paralysis",
 			"targets":"ally,self"
 		}
 
@@ -106,6 +110,7 @@
 		"level":1,
 		"require":"spellbook",
 		"school":"light",
+		"silent":true,
 		"desc":"Cure sickness on yourself or an ally.",
 		"cost":{
 			"light":1

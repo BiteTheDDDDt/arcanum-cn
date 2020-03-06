@@ -15,9 +15,9 @@ const levelReq = ( g, s ) => {
  * @param {string} s - GData/Idable id.
  * @param {number} lvl
  */
-const reqStr = (s,lvl=1)=>{
+/*const reqStr = (s,lvl=1)=>{
 	return '!g.' + s + '||g.' + s + '>=' + lvl;
-}
+}*/
 
 /**
  * Create a school unlock function.
@@ -72,6 +72,28 @@ export default class Spell extends Task {
 	get silent(){return this._silent;}
 	set silent(v){this._silent = v;}
 
+	get attack(){return this._attack;}
+	set attack(v){
+
+		if ( !(v instanceof Attack)) v = new Attack(v);
+		if ( !v.name ) v.name = this.name;
+		if (!v.kind) v.kind = this.school;
+
+		this._attack = v;
+	}
+
+	get action(){return this._action;}
+	set action(v){
+
+		console.log('SETTING ACTION:');
+
+		if ( !(v instanceof Attack)) v = new Attack(v);
+		if ( !v.name ) v.name = this.name;
+		if (!v.kind) v.kind = this.school;
+
+		this._action = v;
+	}
+
 	toJSON(){
 
 		let data = super.toJSON();
@@ -100,17 +122,6 @@ export default class Spell extends Task {
 		if ( this.dot && !this.dot.id) {
 			this.dot.id = this.dot.name || this.name;
 		}
-
-		if ( this.attack ) {
-
-			if ( !(this.attack instanceof Attack) ) {
-				this.attack = new Attack(this.attack);
-			}
-			if ( !this.attack.name ) this.attack.name = this.name;
-			if (!this.attack.kind) this.attack.kind = this.school;
-
-		}
-
 
 		if ( this.locked !== false ) {
 

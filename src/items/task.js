@@ -5,7 +5,24 @@ import Stat from '../values/stat';
 import Scaler from '../values/scaler';
 import { TASK } from '../values/consts';
 import { ParseMods } from '../modules/parsing';
-import { SetModCounts } from './base';
+import Mod from '../values/mod';
+
+function ShowModTotals( mods ){
+
+	if ( mods instanceof Mod ) {
+		console.log( mods.id + ': ' + mods.bonusTot );
+		return;
+	}
+
+	for( let p in mods ) {
+
+		let it = mods[p];
+		if ( it instanceof Mod ) console.log( it.id + ': ' + it.bonusTot );
+		else ShowModTotals( it );
+
+	}
+
+}
 
 export default class Task extends GData {
 
@@ -114,7 +131,9 @@ export default class Task extends GData {
 
 				if ( v >= Number(p) ) {
 
-					console.log(this.id + ' APPLY AT: ' + this.at);
+					ShowModTotals( this.at[p] );
+
+					//console.log(this.id + ' APPLY AT: ' + this.at);
 					this.applyMods( this.at[p] );
 
 				}
