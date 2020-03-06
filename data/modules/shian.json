@@ -375,6 +375,7 @@
 				"id": "shian",
 				"name":"shian anchorite",
 				"desc": "An ancient magic from beyond the sea, combining spirit and blade.",
+				"secret":true,
 				"tags": "t_tier4",
 				"require": "g.tier3>0&&g.unstablespire>0",
 				"cost": {

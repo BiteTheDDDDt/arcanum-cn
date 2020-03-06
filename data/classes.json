@@ -127,6 +127,7 @@
 	"id":"blueadept",
 	"name":"blue adept",
 	"desc":"Dedicate yourself to putting the world in order.",
+	"secret":true,
 	"require":"g.neophyte>0&&g.virtue>=200",
 	"tags":"t_tier0",
 	"cost":{
@@ -145,6 +146,7 @@
 	"id":"savant",
 	"name":"mystic savant",
 	"desc":"You have no need of these dry tomes and musty old books.",
+	"secret":true,
 	"buyname":"Forgo Studies",
 	"tags":"t_tier0",
 	"require":"g.study<=0&&g.neophyte>0&&g.arcana>=5",
@@ -289,6 +291,7 @@
 	"id":"trickster",
 	"name":"arcane trickster",
 	"desc":"Use magic for deceit and trickery.",
+	"secret":true,
 	"buyname":"Path of Trickery",
 	"tags":"t_tier1",
 	"require":"g.trickery>=4&&g.tier0>0&&g.tier1==0",
@@ -321,6 +324,7 @@
 	"id":"madcap",
 	"name":"mystic madcap",
 	"desc":"A penchant for chaos",
+	"secret":true,
 	"tags":"t_tier2",
 	"require":"g.trickery>=7&&g.tier1>0&&g.tier2==0",
 	"cost":{
