@@ -25,6 +25,11 @@
 		],
 		"upgrades":[
 
+			{
+				"id":"spr_beeswax_candle",
+				"name":"beeswax candle"
+
+			}
 		],
 		"tasks":[
 
@@ -34,6 +39,9 @@
 			{
 				"id":"apiculture",
 				"level":3,
+				"cost":{
+					"sp":1
+				},
 				"desc":"Beekeeping has many surprising uses in the magic of life and creation.",
 				"flavor":""
 			}
@@ -44,12 +52,17 @@
 			},
 			{
 				"id":"spr_enc_market",
+				"desc":"From spring spices to dwarven garnets, all manner of luxuries are bartered at the fair.",
+				"effect":{
+					"gold":-0.5
+				},
 				"result":{
 					"herbs":"4~10"
 				}
 			},
 			{
-				"id":"spr_enc_"
+				"id":"spr_enc_tinker",
+				"desc":"Across the world tinkers wagons creak along the roads, to trade their wares at the festival."
 			}
 
 		],
@@ -63,7 +76,9 @@
 
 				},
 				"encs":[
-
+					"spr_enc_maypole",
+					"spr_enc_market",
+					"spr_enc_tinker"
 				],
 				"flavor":""
 
@@ -71,7 +86,7 @@
 			{
 				"id":"spr_aesilwyr",
 				"name":"tree of fate",
-				"desc":"At the center of the world, the greatest idrasil stretches to the heavens.",
+				"desc":"At the center of the world the great idrasil stretches to the heavens.",
 				"encs":[
 
 				],
