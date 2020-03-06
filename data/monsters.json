@@ -195,14 +195,16 @@
         "defense":4,
 		"tohit":2,
 		"spells":"magicmissile",
-        "attack":[
+        "attack":
 		{
 			"dot":{
+				"%":"10%",
 				"id":"sleep",
-				"duration":5
+				"name":"wink",
+				"duration":2
 			}
 
-		}],
+		},
 		"biome":["town","plains","hills"],
 		"loot":{
 			"scrolls":1,
