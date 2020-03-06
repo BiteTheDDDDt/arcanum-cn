@@ -228,7 +228,7 @@ export default class Char {
 			return;
 		}
 
-		console.log(this.id + ' TRYCURE: ' + state + ': ' + this.dots.length );
+		console.log(this.id + ' TRYCURE: ' + state);
 
 		for( let i = this.dots.length-1; i>= 0; i-- ) {
 			console.log('TRY cure: ' + this.dots[i].id + ': ' + this.dots[i].kind );

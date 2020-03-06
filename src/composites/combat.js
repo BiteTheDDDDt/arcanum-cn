@@ -196,10 +196,12 @@ export default class Combat {
 
 			} else {
 				Events.emit(EVT_COMBAT, null, g.self.name + ' casts ' + it.name );
-				if ( it.attack ) this.attack( g.self, it.attack );
-				else if ( it.action ) {
-					console.log('act targets: ' + it.targets );
-					ApplyAction( this.getTarget( g.self, it.targets ), it.action, g.self );
+				if ( it.attack ) {
+					this.attack( g.self, it.attack );
+				}
+				if ( it.action ) {
+					console.log('targets: ' + it.action.targets);
+					ApplyAction( this.getTarget( g.self, it.action.targets ), it.action, g.self );
 				}
 			}
 

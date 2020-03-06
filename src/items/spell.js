@@ -75,9 +75,11 @@ export default class Spell extends Task {
 	get attack(){return this._attack;}
 	set attack(v){
 
-		if ( !(v instanceof Attack)) v = new Attack(v);
-		if ( !v.name ) v.name = this.name;
-		if (!v.kind) v.kind = this.school;
+		if ( v != null ) {
+			if ( !(v instanceof Attack)) v = new Attack(v);
+			if ( !v.name ) v.name = this.name;
+			if (!v.kind) v.kind = this.school;
+		}
 
 		this._attack = v;
 	}
@@ -85,11 +87,12 @@ export default class Spell extends Task {
 	get action(){return this._action;}
 	set action(v){
 
-		console.log('SETTING ACTION:');
-
-		if ( !(v instanceof Attack)) v = new Attack(v);
-		if ( !v.name ) v.name = this.name;
-		if (!v.kind) v.kind = this.school;
+		if ( v) {
+			//console.dir(v, this.id);
+			if ( !(v instanceof Attack)) v = new Attack(v);
+			if ( !v.name ) v.name = this.name;
+			if (!v.kind) v.kind = this.school;
+		}
 
 		this._action = v;
 	}
