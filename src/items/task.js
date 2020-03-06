@@ -7,7 +7,7 @@ import { TASK } from '../values/consts';
 import { ParseMods } from '../modules/parsing';
 import Mod from '../values/mod';
 
-function ShowModTotals( mods ){
+/*function ShowModTotals( mods ){
 
 	if ( mods instanceof Mod ) {
 		console.log( mods.id + ': ' + mods.bonusTot );
@@ -22,7 +22,7 @@ function ShowModTotals( mods ){
 
 	}
 
-}
+}*/
 
 export default class Task extends GData {
 
@@ -125,13 +125,13 @@ export default class Task extends GData {
 		let v = this.valueOf();
 		if ( this.at ) {
 
-			if ( v > 0 ) console.log(this.id + ' TOTAL: ' + v );
+			//if ( v > 0 ) console.log(this.id + ' TOTAL: ' + v );
 
 			for( let p in this.at) {
 
 				if ( v >= Number(p) ) {
 
-					ShowModTotals( this.at[p] );
+					//ShowModTotals( this.at[p] );
 
 					//console.log(this.id + ' APPLY AT: ' + this.at);
 					this.applyMods( this.at[p] );

@@ -39,7 +39,7 @@ export const mergeClass = ( destClass, src ) => {
   * @todo shorten list by implementing better base/defaults logic.
   * @const {Set.<string>} JSONIgnore - ignore these properties by default when saving.
   */
- const JSONIgnore = new Set( ['template', 'id', 'type', 'defaults', 'module', 'sname', 'sym', 'warn',
+ const JSONIgnore = new Set( ['template', 'id', 'type', 'defaults', 'module', 'sname', 'sym', 'warn', "effect",
  	'name', 'desc', 'running', 'current', 'warnMsg', 'once', 'context', 'enemies', 'spawns','targets','only',
 	 'locked', 'locks', 'value', 'exp', 'delta', 'tags', 'mod', 'progress','need', 'require','action' ]);
 

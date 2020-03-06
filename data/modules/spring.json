@@ -10,11 +10,26 @@
 			{
 				"id":"spr_bees",
 				"name":"bees",
-				"desc":"",
+				"require":"apiculture",
+				"desc":"Bees have unexpected uses in spells of life and generation.",
 				"flavor":"dbulm has a collection"
 			}
 		],
-		"tasks":[],
+		"upgrades":[
+
+		],
+		"tasks":[
+
+		],
+		"skills":[
+
+			{
+				"id":"apiculture",
+				"level":3,
+				"desc":"Beekeeping has many surprising uses in the magic of life and creation.",
+				"flavor":""
+			}
+		],
 		"encounters":[
 			{
 				"id":"spr_enc_maypole"
