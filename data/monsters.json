@@ -4064,8 +4064,8 @@
 		"kind":"deity",
 		"unused":true,
 		"unique":true,
-		"desc":"The serpent that grips the earth in its scales",
-		"hp":1300,
+		"desc":"The serpent who grips the earth in its scales",
+		"hp":130000,
 		"tohit":30,
 		"defense":200,
 		"attack":{

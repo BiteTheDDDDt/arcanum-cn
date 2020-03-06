@@ -39,17 +39,17 @@
 	},
 	{
 		"id":"grimwort",
-		"desc":"",
+		"desc":"A morbid plant that only blooms in crypts and graveyards.",
 		"flavor":""
 	},
 	{
 		"id":"manabell",
-		"desc":"Its faintly glowing bulbs are found in ponds by ley-lines.",
+		"desc":"Mages search the ponds by ley-lines for its faintly glowing bulbs.",
 		"flavor":""
 	},
 	{
 		"id":"foxfire",
-		"desc":"It glows in dark forests at night, clinging to roots and tree trunks.",
+		"desc":"Found at night in deep forests, glowing on the roots and trunks of trees.",
 		"flavor":""
 	},
 	{
@@ -99,7 +99,7 @@
 	{
 		"id":"oleander",
 		"tags":"herb,reagent,poison",
-		"desc":"Such a delicate bloom for such a deadly poison.",
+		"desc":"Such a delicate bloom for such deadly poison.",
 		"flavor":""
 	},
 	{
