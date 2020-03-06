@@ -2800,7 +2800,7 @@
 			"dmg":"10~30",
 			"dot":{
 				"id":"paralyze",
-				"duration":555
+				"duration":5
 			}
 		},
 		{
