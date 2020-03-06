@@ -74,8 +74,10 @@
 		"furniture":[
 			{
 				"id":"spr_beehive",
+				"desc":"A small hive for keeping bees.",
 				"cost":{
-
+					"gold":100,
+					"herbs":10
 				},
 				"mod":{
 					"bees.max":10

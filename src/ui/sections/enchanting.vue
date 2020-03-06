@@ -117,7 +117,7 @@ export default {
 		</div>
 		</div>
 
-		<inv selecting=true :inv="state.inventory" v-model="target" hide-space="true" />
+		<inv selecting=true :inv="state.inventory" v-model="target" :types="['armor','weapon']" hide-space="true" />
 		</div>
 
 	</div>

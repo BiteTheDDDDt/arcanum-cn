@@ -9,8 +9,9 @@ export default {
 	 * @property {Inventory} inv - the inventory object.
 	 * @property {boolean} take - whether to display take button.
 	 * @property {boolean} selecting - inventory is selection only. sell-all & size information hidden.
+	 * @property {string[]} types - item types to display.
 	 */
-	props:['inv', 'take', 'value', 'selecting', 'nosearch', 'hideSpace'],
+	props:['inv', 'take', 'value', 'selecting', 'nosearch', 'types'],
 	data() {
 		return {
 			filtered:null
@@ -53,6 +54,16 @@ export default {
 	},
 	computed:{
 
+		baseItems(){
+
+			let types = this.types;
+			if ( this.types ) {
+				return this.inv.items.filter(it=>this.types.includes(it.type));
+			}
+			return this.inv.items;
+
+		},
+
 		playerInv(){ return this.inv === Game.state.inventory; },
 		playerFull(){ return Game.state.inventory.full(); }
 	}
@@ -65,16 +76,16 @@ export default {
 <div class="inventory">
 
 	<span class="top">
-	<filterbox ref="filter" v-if="!nosearch" v-model="filtered" :items="inv.items" min-items="7" />
+	<filterbox ref="filter" v-if="!nosearch" v-model="filtered" :items="baseItems" min-items="7" />
 	<span v-if="!selecting">
-		<span v-if="inv.max>0&&!hideSpace">{{ inv.items.length + ' / ' + Math.floor(inv.max.value ) + ' Used' }}</span>
+		<span v-if="inv.max>0">{{ inv.items.length + ' / ' + Math.floor(inv.max.value ) + ' Used' }}</span>
 		<button v-if="inv.count>0" @click="sellAll">Sell All</button>
 	</span>
 	</span>
 
 	<div class="item-table">
 
-	<tr class="separate" v-for="it in ( nosearch ? inv.items : filtered )" :key="it.id">
+	<tr class="separate" v-for="it in ( nosearch ? baseItems : filtered )" :key="it.id">
 		<td @mouseenter.capture.stop="itemOver($event,it)">{{ it.name + count(it) }}</td>
 
 
