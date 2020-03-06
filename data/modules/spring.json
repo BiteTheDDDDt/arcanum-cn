@@ -3,6 +3,70 @@
 	"sym":"🌼",
 	"data":{
 
+		"events":[
+
+		],
+		"resources":[
+			{
+				"id":"spr_bees",
+				"name":"bees",
+				"desc":"",
+				"flavor":"dbulm has a collection"
+			}
+		],
+		"tasks":[],
+		"encounters":[
+			{
+				"id":"spr_enc_maypole"
+			},
+			{
+				"id":"spr_enc_market",
+				"result":{
+					"herbs":"4~10"
+				}
+			},
+			{
+				"id":"spr_enc_"
+			}
+
+		],
+		"locales":[
+			{
+
+				"id":"spr_fair",
+				"name":"",
+				"desc":"",
+				"show":{
+
+				},
+				"encs":[
+
+				],
+				"flavor":""
+
+			},
+			{
+				"id":"spr_aesilwyr",
+				"name":"tree of fate",
+				"desc":"At the center of the world, the greatest idrasil stretches to the heavens.",
+				"encs":[
+
+				],
+				"flavor":"A single seed once fell from Ygggrasil."
+
+			}
+		],
+		"furniture":[
+			{
+				"id":"spr_beehive",
+				"cost":{
+
+				},
+				"mod":{
+					"bees.max":10
+				}
+			}
+		],
 		"dungeons":[
 
 			{
