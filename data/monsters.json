@@ -2793,7 +2793,8 @@
         "desc":"A large lizard with a petrifying bite.",
         "tohit":5,
         "hp":64,
-        "defense":32,
+		"defense":32,
+		"speed":8,
         "attack":[{
             "name":"bite",
             "kind":"earth",
@@ -2815,7 +2816,72 @@
 		"immune":"poison"
 
 	},
+	{
+		"id":"m_cordyceps",
+        "level":13,
+        "kind":"pest",
+        "desc":"A writhing fungus chokes the air with spores.",
+		"hp":65,
+		"defense":80,
+        "attack":[{
+            "name":"spores",
+            "kind":"nature",
+			"dmg":"20~40",
+			"dot":{
+				"id":"charm",
+				"duration":10
+			}
+		}]
 
+	},
+	{
+		"id":"cockatrice",
+        "level":15,
+        "kind":"magicbeast",
+        "desc":"The stare of the cockatrice is death.",
+        "speed":8,
+        "hp":300,
+        "attack":[{
+            "name":"gaze",
+            "kind":"earth",
+			"dmg":"30~60",
+			"dot":{
+				"id":"paralyze",
+				"duration":10
+			}
+		}],
+		"immune":"paralyze"
+
+	},
+    {
+		"id":"basilisk2",
+		"name":"greater basilisk",
+        "level":17,
+        "kind":"magicbeast",
+        "desc":"A massive lizard with a petrifying bite.",
+        "tohit":5,
+        "hp":300,
+        "attack":[{
+            "name":"bite",
+            "kind":"earth",
+			"dmg":"40~70",
+			"dot":{
+				"id":"paralyze",
+				"duration":30
+			}
+		},
+		{
+			"name":"claws",
+			"kind":"slash",
+			"dmg":"50~100"
+		}],
+		"loot":{
+			"max":17,
+			"material":"basiliskhide"
+		},
+		"immune":"poison,paralyze"
+
+	},
     {
 		"id":"hillgiant",
 		"name":"hill giant",

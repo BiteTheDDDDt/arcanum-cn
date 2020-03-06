@@ -4,6 +4,32 @@
 	"data":{
 
 		"dungeons":[
+
+			{
+				"id":"sunnyfield",
+				"name":"sunny fields of stone",
+				"level":20,
+				"length":100,
+				"desc":"The fields you remember in former days are now overrun with fearsome beasts.",
+				"run":{
+					"stamina":1.5
+				},
+				"result":{
+					"gold":"100~200"
+				},
+				"loot":{
+					"max":20
+				},
+				"boss":"",
+				"spawns":[
+					"basilisk2",
+					"basilisk",
+					"m_cordyceps",
+					"cockatrice",
+					"basilisk"
+				],"flavor":"every budding mage needs to start somewhere."
+			}
+
 		]
 	}
 
