@@ -191,7 +191,6 @@ export default class Combat {
 			let a = g.self.getCause( NO_SPELLS);
 			if ( a && !it.silent ) {
 
-				//console.warn('SPELLS blocked: ' + a );
 				Events.emit( STATE_BLOCK, g.self, a );
 
 			} else {
@@ -200,7 +199,6 @@ export default class Combat {
 					this.attack( g.self, it.attack );
 				}
 				if ( it.action ) {
-					console.log('targets: ' + it.action.targets);
 					ApplyAction( this.getTarget( g.self, it.action.targets ), it.action, g.self );
 				}
 			}
