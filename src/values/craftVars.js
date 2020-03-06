@@ -12,10 +12,10 @@ const NpcLoreSkills = {
 	celestial:["lightlore","astrallore", "divination"],
 	construct:"crafting",
 	elemental:["waterlore","firelore","earthlore","airlore","summoning"],
-	giant:["charms","summoning","trickery","summoning"],
+	giant:["charms","summoning","trickery"],
 	ghost:["spiritlore","conjuration"],
 	spirit:["spiritlore","divination","summoning"],
-	diety:["spiritlore","divination"]
+	deity:["spiritlore","divination"]
 
 
 

@@ -6,6 +6,14 @@
 		"events":[
 
 		],
+		"rares":[
+
+			{
+				"id":"spr_honey_jar",
+				"stack":true,
+				"desc":""
+			}
+		],
 		"resources":[
 			{
 				"id":"spr_bees",
@@ -77,7 +85,8 @@
 				"desc":"A small hive for keeping bees.",
 				"cost":{
 					"gold":100,
-					"herbs":10
+					"herbs":10,
+					"spr_honey_jar":1
 				},
 				"mod":{
 					"bees.max":10

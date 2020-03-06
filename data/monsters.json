@@ -3775,7 +3775,7 @@
 		"id":"m_avatar",
 		"name":"avatar",
         "level":23,
-        "kind":"diety",
+        "kind":"deity",
         "desc":"incarnation of a god",
         "hp":700,
         "tohit":30,
@@ -4061,7 +4061,7 @@
 	{
 		"id":"ouroboros",
 		"level":34,
-		"kind":"diety",
+		"kind":"deity",
 		"unused":true,
 		"unique":true,
 		"desc":"The serpent that grips the earth in its scales",
