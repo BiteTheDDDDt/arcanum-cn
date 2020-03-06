@@ -196,14 +196,14 @@ export default {
 
 					sub = targ[p] = cloneClass( mod );
 
-				} else if ( typeof mod === 'object' ) {
-
-					if ( sub.constructor !== Object ) sub.perm( mod );
-					else this.permVars( mod, sub );
-
-				} else if ( !sub || typeof sub === 'number') {
+				} else if ( typeof sub === 'number' ) {
 
 					targ[p] = (sub||0) + mods[p].valueOf();
+
+				} else if ( typeof mod === 'object' ) {
+
+					if ( mod.constructor !== Object ) sub.perm( mod );
+					else this.permVars( mod, sub );
 
 				}
 				else console.log( this.id + ' UNKNOWN PERM VAR: ' + p + ' typ: ' + (typeof sub ));

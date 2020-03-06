@@ -53,7 +53,7 @@ export default {
 		},
 
 		canUseOn( it, targ ) {
-			return targ&&it.canUseOn(targ)&& this.enchantSlots.canAdd(it)&&it.canUse();
+			return targ&&it.canUseOn(targ)&& this.enchantSlots.canAdd(it);
 		}
 
 	},
@@ -111,7 +111,7 @@ export default {
 			<button v-if="it.buy&&!it.owned" :disabled="!it.canBuy()"
 				@click="emit('buy', it)">Unlock</button>
 
-			<button v-else @click="begin(it,target)">Enchant</button>
+			<button v-else @click="begin(it,target)" :disabled="!it.canUse()">Enchant</button>
 
 		</div>
 		</div>

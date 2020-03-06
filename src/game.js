@@ -642,7 +642,6 @@ export default {
 		if ( typeof it.useOn === 'function') it.useOn( targ, this );
 		it.value++;
 
-		console.log('USE ' + it.id  + ' with ' + targ.id );
 		if ( it.mod ) {
 			targ.permVars( it.mod );
 		}
