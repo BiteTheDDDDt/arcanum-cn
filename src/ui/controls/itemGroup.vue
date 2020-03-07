@@ -65,6 +65,7 @@ export default {
 div.groupTitle {
 	cursor: pointer;
 	text-transform: capitalize;
+	color: var( --title-text-color );
 	border: 1px solid var(--list-header-border);
 	background-color: var(--list-header-color);
 	padding:2px;

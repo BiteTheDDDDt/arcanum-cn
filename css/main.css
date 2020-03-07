@@ -6,11 +6,11 @@
 	--very-quiet-text-color: #AAA;
 	--accent-color-hover: #Dba659;
 	--accent-color-active: #797979;
-	--progbar-dark-text:#222;
-	--progbar-light-text:#555;
 	--odd-list-color:#e5e5e5;
 	--task-btn-color: #fdc679;
 
+	--light-text-color:#575757;
+	--progbar-text-color:#222;
 	--list-header-border:#b1b5eb;
 	--list-header-color:#e0e1f1;
 	--task-button-width: 11rem;
@@ -105,9 +105,6 @@ body.darkmode {
         line-height: 1em;
     }
 
-	.darkmode div.bar .bar-text {
-	color: var( --progbar-dark-text );
-}
 
     body.compact div.bar .fill { border-radius: 0 var(--sm-gap) var(--sm-gap) 0; }
     body.compact div.bar { height: 1em; border-radius: var(--md-radius); }
@@ -382,7 +379,7 @@ button.btnMenu:before {
 
 
 .inConfig:hover {
-	background-color: var(--progbar-light-text);
+	background-color: var(--light-text-color);
 	cursor: default;
 }
 .configHiding {

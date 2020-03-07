@@ -47,7 +47,7 @@ export default {
     }
 
 div.bar .bar-text {
-	color: var( --progbar-dark-text );
+	color: var( --progbar-text-color );
 }
 
 div.container {
