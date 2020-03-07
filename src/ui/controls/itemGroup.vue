@@ -1,10 +1,12 @@
 <script>
+import ItemsBase from 'ui/itemsBase';
 export default {
 
 	/**
 	 * @property {string} group - displayed group name.
 	 */
 	props:[ 'items', 'group'],
+	mixins:[ItemsBase],
 	data(){
 
 		return {
@@ -16,6 +18,20 @@ export default {
 
 	},
 	computed:{
+
+		shown(){
+
+			let a = [];
+			let len = this.items.length;
+			for( let i = 0; i < len; i++ ) {
+
+				if ( !this.reslocked( this.items[i] ) ) a.push(this.items[i]);
+			}
+
+			return a;
+
+		}
+
 	}
 
 }
@@ -23,12 +39,12 @@ export default {
 
 <template>
 
-<div v-if="items.length>0">
+<div v-if="shown.length>0">
 
 <div class="groupTitle" @click="isOpen=!isOpen">{{group}}</div>
 <div v-if="isOpen">
 
-		<div class="rsrc separate hidable" v-for="it in items"
+		<div class="rsrc separate hidable" v-for="it in shown"
 			:data-key="it.id" :key="it.id"
 			@mouseenter.capture.stop="itemOver($event,it)">
 
