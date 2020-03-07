@@ -229,7 +229,7 @@ export default class ItemGen {
 
 			return this.instance( info );
 
-		} else if ( info.level || info.max ) return this.randLoot( info, amt );
+		} else if ( info.level || info.maxlevel ) return this.randLoot( info, amt );
 
 		return this.objLoot( info );
 
@@ -292,7 +292,7 @@ export default class ItemGen {
 		if ( (100+this.luck/2)*Math.random() < 50 ) return null;
 
 		if ( info.level ) return this.fromLevel( info.level/2, info.type, info.material );
-		else if ( info.max ) return this.randBelow( info.max/2, info.type, info.material );
+		else if ( info.maxlevel ) return this.randBelow( 0.6*info.maxlevel, info.type, info.material );
 
 	}
 
