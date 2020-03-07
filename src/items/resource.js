@@ -10,6 +10,9 @@ export default class Resource extends GData {
 	}
 	set require(v){super.require = v;}
 
+	get group(){return this._group;}
+	set group(v){this._group=v}
+
 	/**
 	 * @note NEED 'this' so webpack doesn't change 's', hiding the self-reference
 	 * require from 'unlock'. messy and bad.

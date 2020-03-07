@@ -40,6 +40,7 @@
 	},
 	{
 		"id":"scrolls",
+		"group":"books",
 		"desc":"Scroll of arcane lore",
 		"max":10,
 		"mod":{
@@ -65,6 +66,7 @@
 
 		"id":"runestones",
 		"name":"rune stones",
+		"group":"runes",
 		"desc":"Runes carved on pieces of stone.",
 		"tags":"t_runes",
 		"max":10,
@@ -80,6 +82,7 @@
 		"id":"firerune",
 		"name":"flame runes",
 		"tags":"t_runes",
+		"group":"runes",
 		"desc":"Rune etched with lines of fire",
 		"max":10,
 		"mod":{
@@ -92,6 +95,7 @@
 		"id":"waterrune",
 		"name":"water runes",
 		"tags":"t_runes",
+		"group":"runes",
 		"desc":"Rune lined in flowing water",
 		"max":10,
 		"mod":{
@@ -104,6 +108,7 @@
 		"id":"spiritrune",
 		"name":"spirit runes",
 		"tags":"t_runes",
+		"group":"runes",
 		"desc":"A Runestone carved in bone; it seems to whisper.",
 		"max":10,
 		"mod":{
@@ -116,6 +121,7 @@
 		"id":"airrune",
 		"name":"air runes",
 		"tags":"t_runes",
+		"group":"runes",
 		"desc":"rune etched with solid air",
 		"max":10,
 		"mod":{
@@ -128,6 +134,7 @@
 		"id":"earthrune",
 		"name":"earth runes",
 		"tags":"t_runes",
+		"group":"runes",
 		"desc":"Rune ingrained with moonstone",
 		"max":10,
 		"mod":{
@@ -139,6 +146,7 @@
 
 		"id":"timerune",
 		"name":"time runes",
+		"group":"runes",
 		"desc":"Time flows along the grooves of the rune",
 		"mod":{
 			"tempus.rate":0.001,
@@ -180,6 +188,7 @@
 	{
 		"id":"codices",
 		"name":"Codices",
+		"group":"books",
 		"desc":"Codex of arcane lore",
 		"max":10,
 		"mod":{
@@ -192,6 +201,7 @@
 	{
 		"id":"tomes",
 		"name":"Tomes",
+		"group":"books",
 		"desc":"A hefty tome of knowledge.",
 		"max":5,
 		"mod":{
@@ -211,6 +221,7 @@
 
 		"id":"managem",
 		"tags":"magicgems,prismaticgems",
+		"group":"gems",
 		"name":"arcane gem",
 		"desc":"Gem infused with arcane energy.",
 		"max":2
@@ -218,6 +229,7 @@
 	{
 		"id":"firegem",
 		"tags":"magicgems,prismaticgems",
+		"group":"gems",
 		"name":"fire gem",
 		"desc":"Gem imbued with the essence of fire.",
 		"max":2
@@ -225,6 +237,7 @@
 	{
 		"id":"watergem",
 		"tags":"magicgems,prismaticgems",
+		"group":"gems",
 		"name":"water gem",
 		"desc":"Gem imbued with the essence of water.",
 		"max":2
@@ -232,6 +245,7 @@
 	{
 		"id":"naturegem",
 		"tags":"magicgems,prismaticgems",
+		"group":"gems",
 		"name":"nature gem",
 		"desc":"physical essence of life.",
 		"max":2,
@@ -240,6 +254,7 @@
 	{
 		"id":"earthgem",
 		"tags":"magicgems,prismaticgems",
+		"group":"gems",
 		"name":"earth gem",
 		"desc":"Gem imbued with the essence of earth.",
 		"max":2
@@ -247,6 +262,7 @@
 	{
 		"id":"airgem",
 		"tags":"magicgems,prismaticgems",
+		"group":"gems",
 		"name":"air gem",
 		"desc":"Gem imbued with the essence of air.",
 		"max":2
@@ -254,6 +270,7 @@
 	{
 		"id":"shadowgem",
 		"tags":"magicgems,prismaticgems",
+		"group":"gems",
 		"name":"shadow gem",
 		"desc":"Gem imbued with the essence of darkness.",
 		"max":2
@@ -261,6 +278,7 @@
 	{
 		"id":"lightgem",
 		"tags":"magicgems,prismaticgems",
+		"group":"gems",
 		"name":"light gem",
 		"desc":"Gem imbued with the essence of light.",
 		"max":2
@@ -268,6 +286,7 @@
 	{
 		"id":"spiritgem",
 		"tags":"magicgems,prismaticgems",
+		"group":"gems",
 		"name":"spirit gem",
 		"desc":"Gem imbued with raw spirit.",
 		"max":2
@@ -275,6 +294,7 @@
 	{
 		"id":"bloodgem",
 		"tags":"magicgems",
+		"group":"gems",
 		"name":"blood gem",
 		"desc":"a little magic and a lot of blood",
 		"max":2,
@@ -286,6 +306,7 @@
 
 		"id":"timegem",
 		"tags":"magicgems",
+		"group":"gems",
 		"desc":"crafted from gems which do not yet exist.",
 		"mod":{
 			"gems.rate":-0.005,
@@ -297,6 +318,7 @@
 
 		"id":"voidgem",
 		"tags":"magicgems",
+		"group":"gems",
 		"desc":"the space where a gem once was.",
 		"mod":{
 			"player.resist.void":1
@@ -361,6 +383,7 @@
 		"id":"mana",
 		"tags":"manas,prismatic",
 		"desc":"raw magical energy",
+		"group":"mana",
 		"unit":false,
 		"require":"lore",
 		"name":"mana",
@@ -369,6 +392,7 @@
 	{
 		"id":"fire",
 		"require":"firelore",
+		"group":"mana",
 		"unit":false,
 		"tags":"manas,element,prismatic",
 		"desc":"Fire Mana",
@@ -377,6 +401,7 @@
 	{
 		"id":"air",
 		"require":"airlore",
+		"group":"mana",
 		"unit":false,
 		"tags":"manas,element,prismatic",
 		"desc":"Air Mana",
@@ -385,6 +410,7 @@
 	{
 		"id":"earth",
 		"unit":false,
+		"group":"mana",
 		"tags":"manas,element,prismatic",
 		"require":"earthlore",
 		"desc":"Earth Mana",
@@ -394,6 +420,7 @@
 		"id":"water",
 		"unit":false,
 		"tags":"manas,element,prismatic",
+		"group":"mana",
 		"desc":"Water Mana",
 		"require":"waterlore",
 		"max":0
@@ -401,6 +428,7 @@
 	{
 		"id":"nature",
 		"tags":"manas,prismatic",
+		"group":"mana",
 		"unit":false,
 		"require":"naturelore",
 		"desc":"Nature Mana",
@@ -410,6 +438,7 @@
 		"id":"shadow",
 		"name":"shadow",
 		"tags":"manas,prismatic",
+		"group":"mana",
 		"unit":false,
 		"require":"shadowlore",
 		"desc":"Shadow mana",
@@ -418,6 +447,7 @@
 	{
 		"id":"light",
 		"tags":"manas,prismatic",
+		"group":"mana",
 		"unit":false,
 		"require":"lightlore",
 		"desc":"Light mana",
@@ -427,6 +457,7 @@
 
 		"id":"spirit",
 		"tags":"manas,prismatic",
+		"group":"mana",
 		"unit":false,
 		"desc":"Spirit mana",
 		"require":"spiritlore",
@@ -436,6 +467,7 @@
 		"id":"tempus",
 		"require":"chronomancy",
 		"tags":"manas,primordial",
+		"group":"mana",
 		"unit":false,
 		"desc":"Time incarnate. If only...",
 		"max":0
@@ -443,6 +475,7 @@
 	{
 		"id":"chaos",
 		"tags":"manas,primordial",
+		"group":"mana",
 		"unit":false,
 		"desc":"Chaos incarnate. No current use.",
 		"max":0
@@ -450,6 +483,7 @@
 	{
 		"id":"void",
 		"tags":"manas,primordial",
+		"group":"mana",
 		"unit":false,
 		"desc":"nothingness. No current use.",
 		"flavor":"",

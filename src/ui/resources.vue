@@ -3,8 +3,13 @@ import ItemsBase from './itemsBase';
 import UIMixin from './uiMixin';
 import Settings from 'modules/settings';
 
+import ItemGroup from 'ui/controls/itemGroup.vue';
+
 export default {
 
+	/**
+	 * @property {Resource[]} items
+	 */
 	props:['items'],
 	mixins:[ItemsBase, UIMixin],
 
@@ -14,11 +19,39 @@ export default {
 		if (!ops.hide) ops.hide = {};
 
 		return {
+
+			groups:null,
 			hide:ops.hide
 		}
 
 	},
+	components:{
+		group:ItemGroup
+	},
+	created(){
 
+		let items = this.items;
+		let groups = {
+			other:[]
+		}
+
+		let group;
+		let len = items.length;
+		for( let i = 0; i < len; i++ ) {
+
+			let it = items[i];
+
+			if ( it.group ) {
+				group = groups[it.group] || ( groups[it.group] = [] );
+			} else group = groups.other;
+
+			group.push(it );
+
+		}
+
+		this.groups = groups;
+
+	},
 	computed:{
 		all(){ return this.items.filter( v=>!v.hasTag('manas')&&v.hide!==true&&v.id!=='space'&&!this.reslocked(v)) },
 		shown(){ return this.all.filter(v=>this.show(v)); }
@@ -31,16 +64,9 @@ export default {
 <template>
 <div class="res-list">
 
-		<div class="config"><button ref="btnHides" class="btnConfig"></button></div>
-		<div class="rsrc hidable" v-for="it in shown"
-			:data-key="it.id" :key="it.id"
-			@mouseenter.capture.stop="itemOver($event,it)">
+		<!--<div class="config"><button ref="btnHides" class="btnConfig"></button></div>-->
 
-			<span class="item-name">{{ it.name }}</span>
-			<span class="num-align">{{ floor( it.value ) + ( it.max && it.max.value>0 ? '/' + floor(it.max.value) : '' )}}</span>
-			<!--<td>{{ it.delta != 0 ? '&nbsp;(' + it.delta.toFixed(2) + '/t )' : ''}}</td>-->
-
-		</div>
+		<group v-for="(g,p) in groups" :items="g" :group="p" :key="p" />
 
 </div>
 </template>
@@ -52,19 +78,8 @@ div.res-list {
 	overflow-y:auto;
 	overflow-x:visible;
 	width: fit-content;
-	margin: 0; padding: 0 var(--tiny-gap);
+	margin: 0; padding: 0;
 	min-width: 11rem;
-}
-
-.rsrc {
-	display:flex;
-	justify-content: space-between;
-}
-
-.rsrc .item-name {
-	flex:1;
-	color:#999;
-	padding-right: var(--sm-gap);
 }
 
 </style>

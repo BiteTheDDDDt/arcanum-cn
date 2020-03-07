@@ -31,6 +31,7 @@ import { SKILL, ENCOUNTER, MONSTER, ARMOR, WEAPON, HOME, POTION, RESOURCE, EVENT
 import State from './chars/state';
 
 import { mergeInto } from './util/array';
+import Stat from './values/stat';
 
 const DataDir = './data/';
 
@@ -233,7 +234,8 @@ export default {
 		if ( lists.monsters ) inst.monsters = this.initItems( items, lists['monsters'], Monster, MONSTER, MONSTER );
 
 		if ( lists.rares ) inst.rares = this.initItems( items, lists['rares'], ProtoItem );
-		if ( lists.states ) inst.states = this.initItems( items, lists['states'], State, 'state', 'state' )
+		if ( lists.states ) inst.states = this.initItems( items, lists['states'], State, 'state', 'state' );
+		if ( lists.reagents ) inst.reagents = this.initItems( items, lists['reagents'], Resource );
 
 		if ( lists.locales ) this.initItems( items, lists['locales'], Locale );
 		if ( lists.dungeons ) this.initItems( items, lists['dungeons'], Dungeon );
