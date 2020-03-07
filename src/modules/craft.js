@@ -158,7 +158,7 @@ export const schoolCost = ( school, level=1, res={} ) => {
 
 	} else if ( school != null ) {
 
-		addCost( res, school + 'gem', level*level );
+		addCost( res, school + 'gem', Math.min(level,5)*level );
 
 		if ( level <= 5 ) addCost( res, 'codices', level );
 		else addCost( res, 'tomes', level = 5 );

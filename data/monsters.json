@@ -14,7 +14,7 @@
         },
         "biome":["swamp","plains","woods","hills"],
         "loot":{
-			"max":1
+			"maxlevel":1
 		}
 
 	},
@@ -164,7 +164,7 @@
 			"dmg":"0.5~1.5"
 		},
 		"loot":{
-			"max":1
+			"maxlevel":1
 		}
 	},
 	{
@@ -179,7 +179,7 @@
 		"speed":-20,
 		"loot":{
 			"%":80,
-			"max":1
+			"maxlevel":1
 		},
 		"resist":{
 			"earth":45
@@ -225,7 +225,7 @@
 		"speed":-20,
 		"loot":{
 			"%":30,
-			"max":2
+			"maxlevel":2
 		}
 	},
 	{
@@ -1071,7 +1071,7 @@
             "dmg":"4~7"
         },"loot":{
 			"gold":"4~8",
-			"max":5
+			"maxlevel":5
 		}
 
 	},
@@ -1285,7 +1285,7 @@
             "kind":"slash",
             "dmg":"5~9"
         },"loot":{
-			"max":5,
+			"maxlevel":5,
 			"gold":"5~10"
 		}
 
@@ -2812,7 +2812,7 @@
 			"dmg":"20~50"
 		}],
 		"loot":{
-			"max":11,
+			"maxlevel":11,
 			"material":"basiliskhide"
 		},
 		"immune":"poison"
@@ -2878,7 +2878,7 @@
 			"dmg":"50~100"
 		}],
 		"loot":{
-			"max":17,
+			"maxlevel":17,
 			"material":"basiliskhide"
 		},
 		"immune":"poison,paralyze"
@@ -3187,7 +3187,7 @@
             "dmg":"10~20"
 		}],
 		"loot":{
-			"max":14,
+			"maxlevel":14,
 			"material":"dragonscale"
 		}
 	},
@@ -3669,7 +3669,7 @@
 				"kind":"demon"
 			}
 		], "loot":{
-			"max":20
+			"maxlevel":20
 		}
 
 	},
@@ -3749,7 +3749,7 @@
 				"kind":"void"
 			}
 		], "loot":{
-			"max":27
+			"maxlevel":27
 		}
 
     },
@@ -3897,7 +3897,7 @@
 			}
 		],
 		"loot":{
-			"max":27
+			"maxlevel":27
 		}
 
     },

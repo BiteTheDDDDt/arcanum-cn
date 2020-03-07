@@ -849,7 +849,7 @@
 			"winteressence": 5
       	},
       	"loot":{
-      		"max":5
+      		"maxlevel":5
       	},
       	"log":{
       		"name":"Mountaineer",
