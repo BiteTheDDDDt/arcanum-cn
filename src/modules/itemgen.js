@@ -9,6 +9,36 @@ import GData from '../items/gdata';
 import { WEARABLE, MONSTER, ARMOR, WEAPON, TYP_PCT, EVENT, ITEM, POTION, TYP_RANGE, NPC, TASK } from '../values/consts';
 import { CreateNpc } from '../items/monster';
 import TagSet from '../composites/tagset';
+import ProtoItem from '../protos/protoItem';
+
+/**
+* Hacky implementation of flatMap since stupid browsers don't support.
+* @param {*} p
+* @param {*} t
+*/
+const flatMap = ( p, t )=>{
+
+	let a = [];
+	let len = this.length;
+	for( let i = 0; i < len; i++ ) {
+
+		let v = this[i];
+
+		if ( Array.isArray( v ) ) {
+
+			v = v.flatMap( p, t );
+			for( let j = 0; j < v.length; j++) {
+				a.push(v[j]);
+			}
+
+		} else {
+			a.push( p.call( t, v ) );
+		}
+
+	}
+	return a;
+
+}
 
 /**
  * Revive an instanced item based on save data.
@@ -75,8 +105,10 @@ export default class ItemGen {
 
 		this.luck = this.state.getData('luck');
 
-		this.initGroup( ARMOR, this.state.armors );
-		this.initGroup( WEAPON, this.state.weapons );
+		/*this.initGroup( ARMOR, this.state.armors );
+		this.initGroup( WEAPON, this.state.weapons );*/
+
+		this.initGroup( WEARABLE, this.state.weapons );
 		this.initGroup( 'materials', this.state.materials );
 
 		let g = this.initGroup( MONSTER, this.state.monsters );
@@ -167,25 +199,6 @@ export default class ItemGen {
 	}
 
 	/**
-	 * @private
-	 * Generate a new item from a template item.
-	 * @param {Wearable} data
-	 * @param {string|Material|number} material - material or material level.
-	 */
-	fromProto( data, material=null ) {
-
-		//console.log('wearable from data');
-		if ( data === null || data === undefined ) return null;
-
-		let mat = data.material || material;
-		if ( typeof mat ==='number' ) mat = this.matForItem( data, mat );
-		if ( typeof mat === 'string' ) mat = this.state.getData( mat );
-
-		return this.makeWearable( data, mat );
-
-	}
-
-	/**
 	 * Generate loot from looting info.
 	 * @param {string|Wearable|Object|Array} info
 	 * @returns {?Wearable|Wearable[]}
@@ -201,7 +214,7 @@ export default class ItemGen {
 
 		if ( Array.isArray(info) ) {
 			return info.flatMap ?  info.flatMap( this.getLoot, this )
-				: this.flatMap.call( info, this.getLoot, this )
+				: flatMap.call( info, this.getLoot, this )
 		}
 
 		if ( typeof info === 'string' ) info = this.state.getData(info);
@@ -237,23 +250,6 @@ export default class ItemGen {
 	}
 
 	/**
-	 * Return loot from an object of random parameters.
-	 * @param {object} info
-	 */
-	randLoot( info ) {
-
-		if ( (100+this.luck/2)*Math.random() < 50 ) return null;
-
-		if ( info.material ) {
-
-		}
-
-		if ( info.level ) return this.fromLevel( info.level/2, info.type, info.material );
-		else if ( info.maxlevel ) return this.randBelow( 0.6*info.maxlevel, info.type, info.material );
-
-	}
-
-	/**
 	 * Get some amount of non-instanced gameData.
 	 * @param {GData} it
 	 * @param {number} amt
@@ -281,14 +277,43 @@ export default class ItemGen {
 	}
 
 	/**
+	 * Return loot from an object of random parameters.
+	 * @param {object} info
+	 */
+	randLoot( info ) {
+
+		if ( (100+this.luck/2)*Math.random() < 50 ) return null;
+
+		let material = info.material;
+		let type = info.type;
+
+		if ( material ) { material = this.state.getData(material); }
+		if ( type ) { type = this.state.getData(type); }
+
+		if ( !type && !material ) {
+			type = this.groups[WEARABLE].randBelow( info.maxLevel || info.level );
+		}
+
+		if ( material && !type ) {
+			console.log('FIND TYPE FOR: ' + material.id );
+			type = this.getCompatible( this.groups[WEARABLE], material, info.maxlevel||info.level );
+		} else if ( type && !material ) {
+			material = this.getCompatible( this.groups.materials, type, info.maxlevel||info.level );
+		}
+
+		return this.fromProto( type, material );
+
+	}
+
+	/**
 	 * Return a random item of the given level.
 	 * @param {number} [level=0]
 	 * @param {?string} [type=null]
 	 * @param {?string|Material} [mat=null] - item material.
 	 */
-	fromLevel( level=0, type=null, mat=null ){
+	rantAt( level=0, type=null, mat=null ){
 
-		type = type || this.wearableType();
+		type = type || WEARABLE;
 
 		let g = this.groups[type];
 
@@ -312,7 +337,7 @@ export default class ItemGen {
 	 */
 	randBelow( maxLevel=1, type=null, mat=null ){
 
-		type = type || this.wearableType();
+		type = type || WEARABLE;
 		let g = this.groups[type];
 
 		maxLevel = Math.floor( 1 + Math.random()*maxLevel );
@@ -323,36 +348,18 @@ export default class ItemGen {
 	}
 
 	/**
-	 *
-	 * @param {string} name - group name.
-	 * @param {Item[]} items
-	 * @returns {GenGroup}
+	 * Get an item from a Generation Group compatible with the given item.
+	 * Used to pick a Material for a Wearable, or a Wearable for a material.
+	 * @param {GenGroup} group - group to pick an item from.
+	 * @param {Item} item - chosen item must be compatible with item.
+	 * @returns {object|null}
 	 */
-	initGroup( name, items ) {
-
-		if ( !items ) {
-			console.warn( 'group undefined: ' + name );
-			return;
-		}
-
-		let g = this.groups[name] = new GenGroup(items);
-		g.makeFilter('level');
-
-		return g;
-
-	}
-
-	/**
-	 * Get a material compatible with the given item data.
-	 * @param {Item} item
-	 * @returns {Material|null}
-	 */
-	matForItem( item, level=1 ) {
+	getCompatible( group, item, level=1 ) {
 
 		let only = item.only;
 		let exclude = item.exclude;
 
-		return this.groups.materials.randBelow( Math.max( item.level+1, level ),
+		return group.randBelow( Math.max( item.level+1, level ),
 			v=>{
 
 				if ( only && !includesAny(only, v.type, v.kind ) ) return false;
@@ -368,14 +375,27 @@ export default class ItemGen {
 	}
 
 	/**
-	 * Pick wearable type.
-	 * @returns {string}
+	 * @private
+	 * Generate a new item from a template item.
+	 * @param {Wearable} data
+	 * @param {string|Material|number} material - material or material level.
 	 */
-	wearableType() { return Math.random() < 0.65 ? ARMOR : WEAPON; }
+	fromProto( data, material=null ) {
+
+		//console.log('wearable from data');
+		if ( data === null || data === undefined ) return null;
+
+		let mat = data.material || material;
+		if ( typeof mat ==='number' ) mat = this.getCompatible( this.groups.materials, data, mat );
+		if ( typeof mat === 'string' ) mat = this.state.getData( mat );
+
+		return this.makeWearable( data, mat );
+
+	}
 
 	/**
 	 * @private
-	 * @param {} data
+	 * @param {ProtoItem} data
 	 * @param {*} material
 	 */
 	makeWearable( data, material ) {
@@ -396,31 +416,22 @@ export default class ItemGen {
 	}
 
 	/**
-	 * Hacky implementation of flatMap since stupid browsers don't support.
-	 * @param {*} p
-	 * @param {*} t
+	 *
+	 * @param {string} name - group name.
+	 * @param {Item[]} items
+	 * @returns {GenGroup}
 	 */
-	flatMap( p, t ){
+	initGroup( name, items ) {
 
-		let a = [];
-		let len = this.length;
-		for( let i = 0; i < len; i++ ) {
-
-			let v = this[i];
-
-			if ( Array.isArray( v ) ) {
-
-				v = v.flatMap( p, t );
-				for( let j = 0; j < v.length; j++) {
-					a.push(v[j]);
-				}
-
-			} else {
-				a.push( p.call( t, v ) );
-			}
-
+		if ( !items ) {
+			console.warn( 'group undefined: ' + name );
+			return;
 		}
-		return a;
+
+		let g = this.groups[name] = new GenGroup(items);
+		g.makeFilter('level');
+
+		return g;
 
 	}
 
