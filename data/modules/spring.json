@@ -48,7 +48,15 @@
 		],
 		"encounters":[
 			{
-				"id":"spr_enc_maypole"
+				"id":"spr_enc_maypole",
+				"desc":"Young women of the village weave ribbons around a central pole. The commoners never suspect the magic weaves created.",
+				"effect":{
+					"weaving.exp":2
+				},
+				"result":{
+
+				}
+
 			},
 			{
 				"id":"spr_enc_market",
@@ -62,7 +70,13 @@
 			},
 			{
 				"id":"spr_enc_tinker",
-				"desc":"Across the world tinkers wagons creak along the roads, to trade their wares at the festival."
+				"desc":"Across the world tinkers wagons creak along the roads, to trade their wares at the festival.",
+				"effect":{
+
+				},
+				"result":{
+
+				}
 			}
 
 		],
