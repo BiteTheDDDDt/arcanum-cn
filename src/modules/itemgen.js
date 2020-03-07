@@ -192,7 +192,6 @@ export default class ItemGen {
 	 */
 	getLoot( info, amt=1 ) {
 
-		if (!info) return null;
 		if ( amt instanceof Percent ) {
 
 			if ( !amt.roll( this.luck.value ) ) return null;
@@ -206,10 +205,12 @@ export default class ItemGen {
 		}
 
 		if ( typeof info === 'string' ) info = this.state.getData(info);
-
-		if ( info instanceof GData ) return this.getGData( info, amt );
+		if (!info) return null;
 
 		if ( info[TYP_PCT] && (100*Math.random() > info[TYP_PCT]) ) return null;
+		if ( info instanceof GData ) return this.getGData( info, amt );
+		else if ( info.id ) return this.instance(info);
+
 		else if ( info.level || info.maxlevel ) return this.randLoot( info, amt );
 
 		return this.objLoot( info );
@@ -242,6 +243,10 @@ export default class ItemGen {
 	randLoot( info ) {
 
 		if ( (100+this.luck/2)*Math.random() < 50 ) return null;
+
+		if ( info.material ) {
+
+		}
 
 		if ( info.level ) return this.fromLevel( info.level/2, info.type, info.material );
 		else if ( info.maxlevel ) return this.randBelow( 0.6*info.maxlevel, info.type, info.material );
