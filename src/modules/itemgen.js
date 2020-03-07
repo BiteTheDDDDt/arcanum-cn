@@ -192,6 +192,7 @@ export default class ItemGen {
 	 */
 	getLoot( info, amt=1 ) {
 
+		if (!info) return null;
 		if ( amt instanceof Percent ) {
 
 			if ( !amt.roll( this.luck.value ) ) return null;
@@ -204,32 +205,12 @@ export default class ItemGen {
 				: this.flatMap.call( info, this.getLoot, this )
 		}
 
-		if ( typeof info === 'string' ) {
+		if ( typeof info === 'string' ) info = this.state.getData(info);
 
-			info = this.state.getData(info);
-
-			if ( this.state.hasUnique(info) ) {
-				return null;
-			}
-
-			if ( info instanceof GData && !info.isRecipe && !info.instanced) {
-
-				return this.getGData( info, amt );
-
-			} else if ( info instanceof TagSet ) {
-				return this.getGData( info.random(), amt );
-			}
-
-		}
-
-		if (!info) return null;
+		if ( info instanceof GData ) return this.getGData( info, amt );
 
 		if ( info[TYP_PCT] && (100*Math.random() > info[TYP_PCT]) ) return null;
-		else if ( info.instanced || info.isRecipe ) {
-
-			return this.instance( info );
-
-		} else if ( info.level || info.maxlevel ) return this.randLoot( info, amt );
+		else if ( info.level || info.maxlevel ) return this.randLoot( info, amt );
 
 		return this.objLoot( info );
 
@@ -255,35 +236,6 @@ export default class ItemGen {
 	}
 
 	/**
-	 * Hacky implementation of flatMap since stupid browsers don't support.
-	 * @param {*} p
-	 * @param {*} t
-	 */
-	flatMap( p, t ){
-
-		let a = [];
-		let len = this.length;
-		for( let i = 0; i < len; i++ ) {
-
-			let v = this[i];
-
-			if ( Array.isArray( v ) ) {
-
-				v = v.flatMap( p, t );
-				for( let j = 0; j < v.length; j++) {
-					a.push(v[j]);
-				}
-
-			} else {
-				a.push( p.call( t, v ) );
-			}
-
-		}
-		return a;
-
-	}
-
-	/**
 	 * Return loot from an object of random parameters.
 	 * @param {object} info
 	 */
@@ -303,7 +255,12 @@ export default class ItemGen {
 	 */
 	getGData( it , amt ) {
 
-		if ( it == null ) return null;
+		if ( !it ) return null;
+
+		if ( it instanceof TagSet ) it = it.random();
+		if ( this.state.hasUnique(it) ) return null;
+
+		if ( it.instanced || it.isRecipe ) return this.instance( it );
 
 		if ( typeof amt === 'number' || typeof amt === 'boolean') {
 
@@ -433,5 +390,33 @@ export default class ItemGen {
 		return item;
 	}
 
+	/**
+	 * Hacky implementation of flatMap since stupid browsers don't support.
+	 * @param {*} p
+	 * @param {*} t
+	 */
+	flatMap( p, t ){
+
+		let a = [];
+		let len = this.length;
+		for( let i = 0; i < len; i++ ) {
+
+			let v = this[i];
+
+			if ( Array.isArray( v ) ) {
+
+				v = v.flatMap( p, t );
+				for( let j = 0; j < v.length; j++) {
+					a.push(v[j]);
+				}
+
+			} else {
+				a.push( p.call( t, v ) );
+			}
+
+		}
+		return a;
+
+	}
 
 }

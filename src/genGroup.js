@@ -34,7 +34,7 @@ export default class GenGroup {
 	/**
 	 * Get a random item at or below the given level.
 	 * @property {number} level - max item level.
-	 * @property {function} [pred=null] - optional filter predicate.
+	 * @property {(object)=>boolean} pred - optional filter predicate.
 	 * @returns {GData}
 	 */
 	randBelow( level=1, pred) {
