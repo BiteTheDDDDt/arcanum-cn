@@ -13,7 +13,7 @@
 			"gold":"5~10"
 		},
 		"loot":{
-			"max":1
+			"maxlevel":1
 		},
 		"boss":"kakapo",
 		"spawns":[
@@ -39,7 +39,7 @@
 			"gold":"7~14"
 		},
 		"loot":{
-			"max":2
+			"maxlevel":2
 		},
 		"spawns":[
 
@@ -77,7 +77,7 @@
 			"title":"master of the cellar"
 		},
 		"loot":{
-			"max":4
+			"maxlevel":4
 		},
 		"log":{
 			"name":"Pests Clear",
@@ -105,7 +105,7 @@
 			"gold":"10~15"
 		},
 		"loot":{
-			"max":3
+			"maxlevel":3
 		},
 		"biome":"hills",
 		"spawns":[
@@ -210,7 +210,7 @@
 			"ranger",
 			"elf",
 			"slinger"
-		],"loot":{"max":4}
+		],"loot":{"maxlevel":4}
 	},
 	{
 		"id":"underden",
@@ -361,7 +361,7 @@
 			"goblin",
 			"goblin",
 			"gobpriest"
-		],"loot":{"max":3}
+		],"loot":{"maxlevel":3}
 
 	},
 	{
