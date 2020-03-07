@@ -68,7 +68,7 @@ div.groupTitle {
 	color: var( --title-text-color );
 	border: 1px solid var(--list-header-border);
 	background-color: var(--list-header-color);
-	padding:2px;
+	padding:1px;
 	margin:-1px 0 0 0px;
 }
 

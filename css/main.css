@@ -9,7 +9,8 @@
 	--odd-list-color:#e5e5e5;
 	--task-btn-color: #fdc679;
 
-	--light-text-color:#575757;
+	--light-text-color:#5D5D5D;
+	--title-text-color:#555555;
 	--progbar-text-color:#222;
 	--list-header-border:#b1b5eb;
 	--list-header-color:#e0e1f1;
@@ -51,6 +52,7 @@
 
 	--list-header-color:#060a33;
 	--list-header-border:#0e156b;
+	--title-text-color:#bbb;
 
 	--header-background-color: #3a3a3a;
 	--background-color:#1a1a1a;
@@ -75,7 +77,8 @@
 * { box-sizing: border-box; }
 
 span.arrows {
-	font-size: var(--md-gap);
+	font-variant-position: super;
+	font-size: 0.5em;
 }
 body {
 	font-family: 'Open Sans', sans-serif;
