@@ -40,10 +40,9 @@ export default {
 		for( let i = 0; i < len; i++ ) {
 
 			let it = items[i];
+			let title = it.group || ( it.tags ? it.tags[0] : 'other');
 
-			if ( it.group ) {
-				group = groups[it.group] || ( groups[it.group] = [] );
-			} else group = groups.other;
+			group = groups[title] || ( groups[title] = [] );
 
 			group.push(it );
 
@@ -66,7 +65,7 @@ export default {
 
 		<!--<div class="config"><button ref="btnHides" class="btnConfig"></button></div>-->
 
-		<group v-for="(g,p) in groups" :items="g" :group="p" :key="p" />
+		<group class="res-group" v-for="(g,p) in groups" :items="g" :group="p" :key="p" />
 
 </div>
 </template>
@@ -81,5 +80,4 @@ div.res-list {
 	margin: 0; padding: 0;
 	min-width: 11rem;
 }
-
 </style>

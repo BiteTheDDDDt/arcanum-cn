@@ -19,8 +19,6 @@ Alchemy&Potions
 
 Familiars
 
-Magic Items
-
 Travel Component
 
 Storage max+upgrades

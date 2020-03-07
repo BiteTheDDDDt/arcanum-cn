@@ -157,6 +157,7 @@
 	},
 	{
 		"id":"bodies",
+		"group":"necromancy",
 		"desc":"bodies for necromatic magic",
 		"max":1,
 		"mod":{
@@ -166,6 +167,7 @@
 	},
 	{
 		"id":"souls",
+		"group":"necromancy",
 		"desc":"imprisoned souls of living creatures.",
 		"max":1,
 		"mod":{
@@ -214,6 +216,7 @@
 	},
 	{
 		"id":"gems",
+		"group":"gems",
 		"desc":"Various fine gemstones.",
 		"max":5
 	},
@@ -383,7 +386,6 @@
 		"id":"mana",
 		"tags":"manas,prismatic",
 		"desc":"raw magical energy",
-		"group":"mana",
 		"unit":false,
 		"require":"lore",
 		"name":"mana",
@@ -392,7 +394,6 @@
 	{
 		"id":"fire",
 		"require":"firelore",
-		"group":"mana",
 		"unit":false,
 		"tags":"manas,element,prismatic",
 		"desc":"Fire Mana",
@@ -401,7 +402,6 @@
 	{
 		"id":"air",
 		"require":"airlore",
-		"group":"mana",
 		"unit":false,
 		"tags":"manas,element,prismatic",
 		"desc":"Air Mana",
@@ -410,7 +410,6 @@
 	{
 		"id":"earth",
 		"unit":false,
-		"group":"mana",
 		"tags":"manas,element,prismatic",
 		"require":"earthlore",
 		"desc":"Earth Mana",
@@ -420,7 +419,6 @@
 		"id":"water",
 		"unit":false,
 		"tags":"manas,element,prismatic",
-		"group":"mana",
 		"desc":"Water Mana",
 		"require":"waterlore",
 		"max":0
@@ -428,7 +426,6 @@
 	{
 		"id":"nature",
 		"tags":"manas,prismatic",
-		"group":"mana",
 		"unit":false,
 		"require":"naturelore",
 		"desc":"Nature Mana",
@@ -438,7 +435,6 @@
 		"id":"shadow",
 		"name":"shadow",
 		"tags":"manas,prismatic",
-		"group":"mana",
 		"unit":false,
 		"require":"shadowlore",
 		"desc":"Shadow mana",
@@ -447,7 +443,6 @@
 	{
 		"id":"light",
 		"tags":"manas,prismatic",
-		"group":"mana",
 		"unit":false,
 		"require":"lightlore",
 		"desc":"Light mana",
@@ -457,7 +452,6 @@
 
 		"id":"spirit",
 		"tags":"manas,prismatic",
-		"group":"mana",
 		"unit":false,
 		"desc":"Spirit mana",
 		"require":"spiritlore",
@@ -467,7 +461,6 @@
 		"id":"tempus",
 		"require":"chronomancy",
 		"tags":"manas,primordial",
-		"group":"mana",
 		"unit":false,
 		"desc":"Time incarnate. If only...",
 		"max":0
@@ -475,7 +468,6 @@
 	{
 		"id":"chaos",
 		"tags":"manas,primordial",
-		"group":"mana",
 		"unit":false,
 		"desc":"Chaos incarnate. No current use.",
 		"max":0
@@ -483,7 +475,6 @@
 	{
 		"id":"void",
 		"tags":"manas,primordial",
-		"group":"mana",
 		"unit":false,
 		"desc":"nothingness. No current use.",
 		"flavor":"",

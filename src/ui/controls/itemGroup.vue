@@ -49,7 +49,10 @@ export default {
 div.groupTitle {
 	cursor: pointer;
 	text-transform: capitalize;
+	border: 1px solid var(--list-header-border);
 	background-color: var(--list-header-color);
+	padding:2px;
+	margin:-1px 0 0 0px;
 }
 
 </style>
