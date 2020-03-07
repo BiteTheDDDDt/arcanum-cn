@@ -41,7 +41,7 @@ export default {
 
 <div v-if="shown.length>0">
 
-<div class="groupTitle" @click="isOpen=!isOpen">{{group}}</div>
+<div class="groupTitle separate" @click="isOpen=!isOpen"><span>{{group}}</span><span>{{ isOpen ? '▼' : '▲' }}</span></div>
 <div v-if="isOpen">
 
 		<div class="rsrc separate hidable" v-for="it in shown"
