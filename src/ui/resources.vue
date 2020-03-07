@@ -49,9 +49,6 @@ export default {
 
 		this.groups = groups;
 
-	},
-	computed:{
-		shown(){ return this.all.filter(v=>this.show(v)); }
 	}
 
 }
@@ -61,9 +58,9 @@ export default {
 <template>
 <div class="res-list">
 
-		<!--<div class="config"><button ref="btnHides" class="btnConfig"></button></div>-->
+		<div class="config"><button ref="btnHides" class="btnConfig"></button></div>
 
-		<group class="res-group" v-for="(g,p) in groups" :items="g" :group="p" :key="p" />
+		<group class="res-group" v-for="(g,p) in groups" :items="g" :group="p" :hide="hide" :key="p" />
 
 </div>
 </template>

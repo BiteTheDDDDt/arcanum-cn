@@ -4,8 +4,9 @@ export default {
 
 	/**
 	 * @property {string} group - displayed group name.
+	 * @property {object<string,boolean>} - elements to hide.
 	 */
-	props:[ 'items', 'group'],
+	props:[ 'items', 'group', 'hide'],
 	mixins:[ItemsBase],
 	data(){
 
@@ -25,7 +26,8 @@ export default {
 			let len = this.items.length;
 			for( let i = 0; i < len; i++ ) {
 
-				if ( !this.reslocked( this.items[i] ) ) a.push(this.items[i]);
+				let it = this.items[i];
+				if ( !this.reslocked( it ) && !this.hide[it.id ] ) a.push(it);
 			}
 
 			return a;

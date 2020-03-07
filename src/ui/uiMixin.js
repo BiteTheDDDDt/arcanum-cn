@@ -5,8 +5,8 @@ export default {
 
 	data(){
 		return {
-			togglingHides:false,
-			hides:{}
+			inConfig:false,
+			hide:{}
 		}
 	},
 
@@ -18,16 +18,23 @@ export default {
 			btnHides.addEventListener( 'click', (e)=>{
 
 				e.preventDefault();
-				if ( this.togglingHides ) {
+				if ( this.inConfig ) {
 
 					this.stopHides();
+
+					this.hide = this.newHides;
+					this.newHides = null;
+
 					e.target.classList.remove('inConfig');
 
 				}
 				else {
 
-					this.togglingHides = true;
+					this.inConfig = true;
 					e.target.classList.add('inConfig');
+
+					this.newHides = this.hide;
+					this.hide={};
 
 					this.$nextTick( ()=>this.configHides());
 
@@ -43,11 +50,12 @@ export default {
 	methods: {
 
 		show(it){
-			return this.togglingHides||!this.hide[it.id];
+			return !this.hide || !this.hide[it.id];
 		},
 
 		configHides(){
 
+			// containing element.
 			var sel = this.$refs.hidables || this.$el;
 			var hideElms = sel.querySelectorAll('.hidable');
 			if ( !hideElms) return;
@@ -60,7 +68,7 @@ export default {
 			for( let i = hideElms.length-1; i>= 0; i--) {
 
 				var h = hideElms[i];
-				if ( this.hide[h.dataset.key] ) h.classList.add( 'inConfig', 'configHiding');
+				if ( this.newHides[h.dataset.key] ) h.classList.add( 'inConfig', 'configHiding');
 				else h.classList.add('inConfig');
 
 				h.addEventListener('pointerdown', this.onTogHide, true );
@@ -75,6 +83,7 @@ export default {
 		 */
 		stopHides(){
 
+			// containing element.
 			var sel = this.$refs.hidables || this.$el;
 			var hideElms = sel.querySelectorAll('.hidable');
 			if (!hideElms) return;
@@ -90,7 +99,7 @@ export default {
 			}
 
 			this.onTogHide = null;
-			this.togglingHides = false;
+			this.inConfig = false;
 
 		},
 
@@ -108,11 +117,11 @@ export default {
 
 			if ( !id) return;
 
-			let v = this.hide[id];
+			let v = this.newHides[id];
 			if ( v === undefined || v === null) {
-				this.$set( this.hide, id, true );
+				this.newHides[id] = true;
 			}
-			else this.hide[id] = !v;
+			else this.newHides[id] = !v;
 
 			if ( !v ) targ.classList.add('configHiding');
 			else targ.classList.remove('configHiding');
