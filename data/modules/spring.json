@@ -121,7 +121,7 @@
 			{
 				"id":"spr_enc_tinker",
 				"name":"tinker's wagon",
-				"desc":"Tinker wagons from distant lands creak along the roads, to trade their wares at the festival.",
+				"desc":"Tinker wagons from distant lands creak along the roads, to trade their wares at the fair.",
 				"effect":{
 					"rage":"1~3"
 				},
@@ -136,7 +136,7 @@
 
 				"id":"spr_fair",
 				"name":"",
-				"desc":"Every year Aylesmeade holds its fabled fair, at the foot of the World Tree.",
+				"desc":"Each spring Aylesmeade holds its fabled fair in sight of the World Tree, Aesilwyr.",
 				"show":{
 
 				},
