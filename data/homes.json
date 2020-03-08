@@ -72,8 +72,8 @@
 		"id":"camp",
 		"desc":"A wild camp and its environs.",
 		"require":"g.tier0>0&&g.naturelore>=5",
-		"tags":"outdoors",
-		"disable":"innroom",
+		"tags":"outdoors,starsource",
+	     "disable":"innroom",
 		"cost":75,
 		"mod":{
 			"space.max":14,
@@ -90,10 +90,10 @@
 	{
 		"id":"wagon",
 		"name":"tinker's wagon",
-		"desc":"wheeled carriage for a nomadic lifestyle.",
+		"desc":"Wheeled carriage for a nomadic lifestyle. Now with donkey.",
 		"require":"g.tier0>0&&g.naturelore>=5",
 		"disable":"innroom",
-		"tags":"outdoors",
+		"tags":"outdoors,t_pets",
 		"cost":150,
 		"mod":{
 			"space.max":12,
@@ -103,7 +103,6 @@
 			"animals.max":2,
 			"animals.rate":0.15
 		}
-
 	},
 	{
 		"id":"cottage",
@@ -216,6 +215,7 @@
 			"gold":800,
 			"gems":15
 		},
+          "tags":"airsource,lightsource",
 		"require":"oracle",
 		"mod":{
 			"minions.max":3,
@@ -232,7 +232,8 @@
 		"name":"haunted manse",
 		"desc":"legends of this mansion speak of ghosts and horrors",
 		"cost":2500,
-		"require":"hauntedmanor",
+	     "require":"hauntedmanor",
+          "tags":"spiritsource",
 		"mod":{
 			"space.max":75,
 			"spiritlore.max":1,
@@ -262,7 +263,8 @@
 		"id":"tower",
 		"desc":"A stone tower in which to conduct your arcane investigations.",
 		"cost":2500,
-		"require":"g.magician>0&&g.arcana>=20",
+	     "require":"g.magician>0&&g.arcana>=20",
+          "tags":"airsource",
 		"mod":{
 			"minions.max":5,
 			"space.max":55,
@@ -292,6 +294,7 @@
 			"gold":1000,
 			"gems":10
 		},
+          "tags":"watersource",
 		"mod":{
 			"minions.max":4,
 			"space.max":70,
@@ -375,7 +378,7 @@
 		"alias":"idrasil tree",
 		"name":"idrasil seedling",
 		"desc":"The seedlings of Yggdrasil become trees to rival mountains.",
-		"tags":"outdoors",
+		"tags":"outdoors,plantsource",
 		"cost":{
 			"gems":30,
 			"herbs":50
@@ -444,6 +447,7 @@
 			"gold":3000,
 			"firegem":2
 		},
+          "tags":"firesource",
 		"mod":{
 			"minions.max":20,
 			"space.max":200,
@@ -463,7 +467,8 @@
 	{
 		"id":"cavern",
 		"desc":"A wide and yawning cavern, deep beneath the earth",
-		"require":"g.tier2>0&&g.earthlore>=10",
+	     "require":"g.tier2>0&&g.earthlore>=10",
+          "tags":"earthsource",
 		"cost":{
 			"research":500,
 			"gold":3000,
