@@ -108,7 +108,7 @@ export default class ItemGen {
 		/*this.initGroup( ARMOR, this.state.armors );
 		this.initGroup( WEAPON, this.state.weapons );*/
 
-		this.initGroup( WEARABLE, this.state.weapons );
+		this.initGroup( WEARABLE, this.state.weapons.concat(this.state.armors ) );
 		this.initGroup( 'materials', this.state.materials );
 
 		let g = this.initGroup( MONSTER, this.state.monsters );
@@ -295,8 +295,8 @@ export default class ItemGen {
 		}
 
 		if ( material && !type ) {
-			console.log('FIND TYPE FOR: ' + material.id );
 			type = this.getCompatible( this.groups[WEARABLE], material, info.maxlevel||info.level );
+
 		} else if ( type && !material ) {
 			material = this.getCompatible( this.groups.materials, type, info.maxlevel||info.level );
 		}
@@ -387,7 +387,7 @@ export default class ItemGen {
 
 		let mat = data.material || material;
 		if ( typeof mat ==='number' ) mat = this.getCompatible( this.groups.materials, data, mat );
-		if ( typeof mat === 'string' ) mat = this.state.getData( mat );
+		else if ( typeof mat === 'string' ) mat = this.state.getData( mat );
 
 		return this.makeWearable( data, mat );
 
