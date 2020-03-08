@@ -82,6 +82,7 @@
 		"id":"patronring1",
 		"name":"ring of the patron",
 		"unique":true,
+		"material":"adamant",
 		"desc":"A trinket bestowed on mages embroiled in the world's affairs.",
 		"mod":{
 			"space.max":"1%"
@@ -110,6 +111,7 @@
 		"level":5,
 		"unique":true,
 		"type":"weapon",
+		"material":"wood",
 		"mod":{
 			"unease.rate":"-5%",
 			"weary.rate":"-10%",
@@ -125,7 +127,6 @@
 		"id": "titanhammer",
 		"name": "titan's hammer",
 		"desc": "Wrought from unyielding adamant, it hums with the energies of the earth.",
-		"save": true,
 		"type": "weapon",
 		"unique": true,
 		"attack": {

@@ -103,6 +103,12 @@
 		"flavor":""
 	},
 	{
+		"id":"crocodiletears",
+		"name":"crocodile tears",
+		"tags":"reagent",
+		"desc":"Tears without remorse"
+	},
+	{
 		"id":"eyeofnewt",
 		"tags":"reagent",
 		"name":"eye of newt"

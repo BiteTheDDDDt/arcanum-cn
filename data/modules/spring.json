@@ -5,6 +5,11 @@
 
 		"events":[
 
+			{
+				"id":"spr_intro",
+				"desc":"As winter thaws, life springs new from the ground, and the eternal cycle begins again."
+			}
+
 		],
 		"rares":[
 
@@ -13,6 +18,7 @@
 				"stack":true,
 				"desc":""
 			}
+
 		],
 		"resources":[
 			{
@@ -33,25 +39,66 @@
 		],
 		"tasks":[
 
+			{
+				"id":"spr_task_maypole",
+				"name":"spring rites",
+				"desc":"Call on satyrs and dryads to weave spells about your maypole.",
+				"require":"",
+				"tags":"t_rest",
+				"slot":"rest",
+				"perpetual":true,
+				"verb":"directing weaves",
+				"fill":[ "hp", "prismatic", "stamina","stress"],
+				"effect":{
+					"stress":-1.7,
+					"prismatic":{
+						"skipLocked":true,
+						"value":0.7
+					},
+					"stamina":0.7,
+					"hp":1,
+					"nature":0.3,
+					"spirit":0.2
+				}
+
+			}
+
 		],
 		"skills":[
 
 			{
 				"id":"apiculture",
+				"require":"",
 				"level":3,
 				"cost":{
 					"sp":1
 				},
-				"desc":"Beekeeping has many surprising uses in the magic of life and creation.",
+				"desc":"Beekeeping has surprising uses in the magic of life and creation.",
 				"flavor":""
 			}
 		],
 		"encounters":[
 			{
-				"id":"spr_enc_maypole",
-				"desc":"Young women of the village weave ribbons around a central pole. The commoners never suspect the magic weaves created.",
+				"id":"spr_enc_rumors",
+				"name":"idle rumors",
+				"desc":"Every year rumors abound of lights and music in the nearby hickory groves.",
 				"effect":{
-					"weaving.exp":2
+					"bf":"1~2",
+					"unease":"1~2"
+				},
+				"result":{
+
+				}
+
+			},
+
+			{
+				"id":"spr_enc_maypole",
+				"name":"maypole dance",
+				"desc":"Young women from Aylesmeade weave patterns of colored ribbons around a bare trunk.",
+				"effect":{
+					"weaving.exp":2,
+					"bf":"1~3"
 				},
 				"result":{
 
@@ -60,9 +107,12 @@
 			},
 			{
 				"id":"spr_enc_market",
+				"name":"aylesmeade market",
 				"desc":"From spring spices to dwarven garnets, all manner of luxuries are bartered at the fair.",
 				"effect":{
-					"gold":-0.5
+					"gold":-0.5,
+					"weary":"1~3",
+					"bf":"0~1"
 				},
 				"result":{
 					"herbs":"4~10"
@@ -70,9 +120,10 @@
 			},
 			{
 				"id":"spr_enc_tinker",
-				"desc":"Across the world tinkers wagons creak along the roads, to trade their wares at the festival.",
+				"name":"tinker's wagon",
+				"desc":"Tinker wagons from distant lands creak along the roads, to trade their wares at the festival.",
 				"effect":{
-
+					"rage":"1~3"
 				},
 				"result":{
 
@@ -85,14 +136,15 @@
 
 				"id":"spr_fair",
 				"name":"",
-				"desc":"",
+				"desc":"Every year Aylesmeade holds its fabled fair, at the foot of the World Tree.",
 				"show":{
 
 				},
 				"encs":[
 					"spr_enc_maypole",
 					"spr_enc_market",
-					"spr_enc_tinker"
+					"spr_enc_tinker",
+					"spr_enc_rumors"
 				],
 				"flavor":""
 
@@ -104,13 +156,23 @@
 				"encs":[
 
 				],
-				"flavor":"A single seed once fell from Ygggrasil."
+				"flavor":"A single seed once fell from Yggrasil."
 
 			}
 		],
 		"furniture":[
 			{
+				"id":"spr_maypole",
+				"name":"maypole",
+				"desc":"Raise a maypole to perform spring rituals.",
+				"cost":{
+					"gold":500,
+					"herbs":30
+				}
+			},
+			{
 				"id":"spr_beehive",
+				"name":"beehive",
 				"desc":"A small hive for keeping bees.",
 				"cost":{
 					"gold":100,
