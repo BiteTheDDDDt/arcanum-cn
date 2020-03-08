@@ -59,7 +59,7 @@
 	},
 	{
 		"id":"hut",
-		"desc":"A remote hut in the woods.",
+		"desc":"A small hut on the edge of a village.",
 		"disable":"innroom",
 		"require":"tier0",
 		"cost":300,
@@ -193,6 +193,7 @@
 		"id":"cave",
 		"desc":"A primitive dwelling well-suited to particular areas of study. Others less so.",
 		"require":"g.tier0>0&&(g.shadow+g.earth+g.nature)>0",
+		"tags":"outdoors",
 		"cost":150,
 		"mod":{
 			"minions.max":2,
@@ -210,12 +211,12 @@
 	},
 	{
 		"id":"pavilion",
-		"desc":"An airy, elegant structure on an open field.",
+		"desc":"An open elegant structure on a wide field.",
 		"cost":{
 			"gold":800,
 			"gems":15
 		},
-          "tags":"airsource,lightsource",
+          "tags":"lightsource",
 		"require":"oracle",
 		"mod":{
 			"minions.max":3,
@@ -378,7 +379,7 @@
 		"alias":"idrasil tree",
 		"name":"idrasil seedling",
 		"desc":"The seedlings of Yggdrasil become trees to rival mountains.",
-		"tags":"outdoors,plantsource",
+		"tags":"outdoors",
 		"cost":{
 			"gems":30,
 			"herbs":50

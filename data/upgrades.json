@@ -1758,7 +1758,7 @@
 		"id":"evanescence",
 		"name":"evanescence",
 		"tags":"airsource",
-		"desc":"like you don't exist at all",
+		"desc":"Like you don't exist at all",
 		"require":"g.air.max>=8",
 		"cost":{
 			"research":300,
