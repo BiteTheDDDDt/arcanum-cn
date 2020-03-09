@@ -535,7 +535,7 @@
 			"history.exp":2
 		},
 		"result":{
-			"history.max":0.001,
+			"history.max":0.0001,
 			"arcana":0.01
 		}
 		,"flavor":"for none now live, who remember it."
@@ -551,7 +551,7 @@
 			"crafting.exp":4
 		},
 		"result":{
-			"crafting.max":0.001
+			"crafting.max":0.0001
 		}
 	},
 	{
@@ -565,7 +565,7 @@
 			"firelore.exp":3
 		},
 		"result":{
-			"firelore.max":0.001
+			"firelore.max":0.0001
 		}
 	},
 	{
@@ -579,7 +579,7 @@
 			"alchemy.exp":3
 		},
 		"result":{
-			"alchemy.max":0.001
+			"alchemy.max":0.0001
 		}
 	},
 	{
@@ -593,7 +593,7 @@
 			"history.exp":1
 		},
 		"result":{
-			"earthlore.max":0.001
+			"earthlore.max":0.0001
 		}
 	},
 	{
@@ -608,7 +608,7 @@
 		},
 		"result":{
 			"runestones":"10%",
-			"history.max":0.001
+			"history.max":0.0001
 		}
 	},
 	{
@@ -622,7 +622,7 @@
 			"history.exp":0.5
 		},
 		"result":{
-			"history.max":0.001
+			"history.max":0.0002
 		}
 	},
 	{
@@ -635,7 +635,7 @@
 			"rage":"2~7"
 		},
 		"result":{
-			"dist":0.01
+			"s_travel.max":0.0001
 		}
 	},
 	{
@@ -661,7 +661,7 @@
 			"history.exp":1
 		},
 		"result":{
-			"lightlore.max":0.001
+			"lightlore.max":0.0001
 		},"flavor":"you can't seem to pry it loose."
 	},
 	{
@@ -699,7 +699,7 @@
 		},
 		"result":{
 			"airgem":"10%",
-			"airlore.max":0.001
+			"airlore.max":0.0001
 		}
 	},
 	{
@@ -717,7 +717,6 @@
 			"air":0.5
 		},
 		"result":{
-			"history.max":0.001
 		}
 	},
 	{
@@ -741,7 +740,7 @@
 			"lightlore.exp":1
 		},
 		"result":{
-			"history.max":0.001
+			"lightlore.max":0.0001
 		}
 	},
 	{
