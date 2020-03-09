@@ -193,7 +193,7 @@ export default class Npc extends Char {
 	 * @param {number} dt
 	 */
 	rest(dt) {
-		this.hp += ( 0.01*this.hp.max*dt );
+		this.hp.add( 0.01*this.hp.max*dt );
 	}
 
 }

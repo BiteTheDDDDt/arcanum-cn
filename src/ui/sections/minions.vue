@@ -45,7 +45,7 @@ export default {
 		useRez( rez, b) {
 
 			Game.tryItem(rez);
-			b.hp =1;
+			b.hp.set(1);
 
 		},
 

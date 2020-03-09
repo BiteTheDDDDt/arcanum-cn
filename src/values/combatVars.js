@@ -242,7 +242,7 @@ export const ApplyDamage = ( target, attack, attacker ) => {
 
 	if ( attack.leech && attacker && dmg > 0 ) {
 		let amt = Math.floor(100 * attack.leech * dmg) / 100;
-		attacker.hp += amt;
+		attacker.hp +=( amt );
 		Events.emit(EVT_COMBAT, null, attacker.name + ' steals ' + amt + ' life');
 	}
 

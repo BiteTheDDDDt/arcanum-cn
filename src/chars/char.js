@@ -419,7 +419,7 @@ export default class Char {
 			}
 
 		}
-		if ( this.regen ) this.hp += this.regen*dt;
+		if ( this.regen ) this.hp += ( this.regen*dt );
 
 	}
 
