@@ -10,7 +10,7 @@ import Instance from '../items/instance';
 import Game from '../game';
 import { MakeDataList } from '../gameState';
 import Context from './context';
-import { assign } from 'objecty';
+import { assignPublic } from '../util/util';
 
 /**
  * Class for specific Enemies/Minions in game.
@@ -128,9 +128,8 @@ export default class Npc extends Char {
 
 		super( vars );
 
-		if ( save ) assign( this, save );
+		if ( save ) assignPublic( this, save );
 
-		this.__ob__ = null;
 		//if ( this.id.includes('mecha')) console.dir(this.attack, 'post-save');
 
 		this.dodge = this.dodge || this.level/2;

@@ -89,6 +89,71 @@ export const assignOwn = (dest, src ) => {
 
 }*/
 
+/**
+ * Like assignNoFunc() but without recursion.
+ * @param {object} dest
+ * @param {object} src
+ */
+export const assignPublic = ( dest, src ) => {
+
+	for( let p of Object.getOwnPropertyNames(src) ) {
+
+		if ( p[0] === '_' ){
+			continue;
+		}
+
+		var desc = getPropDesc(dest, p);
+		if ( desc ) {
+
+			if ( desc.set ) {
+
+				if ( typeof dest[p] === 'function') console.log('OVERWRITE: '+p);
+
+			} else if ( !desc.writable ) continue;
+			else if ( typeof dest[p] ==='function') {
+				//console.log('skipping func: ' + p);
+				continue;
+			}
+
+		}
+
+		dest[p ] = src[p];
+
+	}
+
+
+	return dest;
+
+}
+
+/*export const assignPublic = ( dest, src ) => {
+
+	var vars = src;
+	while ( vars !== Object.prototype ) {
+
+		for( let p of Object.getOwnPropertyNames(vars) ) {
+
+			if ( p[0] === '_'){
+				continue;
+			}
+
+			var desc = getPropDesc(dest, p);
+			if ( desc && (!desc.writable && desc.set === undefined) ) {
+				//console.log('SKIPPING: ' + p);
+				continue;
+			}
+
+			dest[p ] = src[p];
+
+		}
+		vars = Object.getPrototypeOf(vars);
+
+	}
+
+	return dest;
+
+}*/
+
 export const assignNoFunc = ( dest, src ) => {
 
 	var vars = src;
@@ -181,35 +246,6 @@ export const splitKeys = (obj)=>{
 		obj[ keys[max] ] = val;
 
 	}
-
-export const assignPublic = ( dest, src ) => {
-
-	var vars = src;
-	while ( vars !== Object.prototype ) {
-
-		for( let p of Object.getOwnPropertyNames(vars) ) {
-
-			if ( p[0] === '_'){
-				continue;
-			}
-
-			var desc = getPropDesc(dest, p);
-			if ( desc && (!desc.writable && desc.set === undefined) ) {
-				//console.log('SKIPPING: ' + p);
-				continue;
-			}
-
-			dest[p ] = src[p];
-
-		}
-		vars = Object.getPrototypeOf(vars);
-
-	}
-
-	return dest;
-
-}
-
 
 /**
  * Log deprecation warning.
