@@ -110,7 +110,16 @@ export default class Group {
 
 	}
 
-	canUse( g ) { return g.canPay( this.cost ); }
+	canUse( g ) {
+
+		//check for additional blocks like cd, locks, disabled, etc.
+		for( let i = this.items.length-1; i>=0; i-- ) {
+			if ( !this.items[i].canUse(g) ) return false;
+		}
+
+		return g.canPay( this.cost );
+
+	}
 
 	onUse(g) {
 

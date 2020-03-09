@@ -2312,18 +2312,18 @@
 		},
 		"at":{
 			"30":{
-				"attack.damage.max":10
+				"attack.damage.max":3
 			},
 			"150":{
-				"attack.damage.max":5
+				"attack.damage.max":3
 			},
 			"400":{
-				"attack.damage.max":5,
+				"attack.damage.max":4,
 				"attack.tohit":4
 			}
 		},
 		"attack":{
-			"damage":"1~25",
+			"damage":"5~10",
 			"tohit":7,
 			"kind":"air",
 			"dot":{
@@ -2355,23 +2355,23 @@
 		},
 		"at":{
 			"30":{
-				"attack.damage.max":5
+				"attack.damage.max":4
 			},
 			"100":{
-				"attack.damage.max":10
+				"attack.damage.max":4
 			},
 			"300":{
-				"attack.damage.max":15,
+				"attack.damage.max":5,
 				"attack.tohit":5
 			}
 		},
 		"attack":{
-			"damage":"7~25",
+			"damage":"7~15",
 			"tohit":12,
 			"kind":"air",
 			"dot":{
 				"name":"blind",
-				"duration":5,
+				"duration":1,
 				"damage":"7~15",
 				"mod":{
 					"tohit":-7
@@ -2398,13 +2398,13 @@
 		},
 		"at":{
 			"30":{
-				"attack.dot.dmg.max":3
+				"attack.dot.dmg.max":5
 			},
 			"100":{
-				"attack.dot.dmg.min":3
+				"attack.dot.dmg.min":5
 			},
 			"300":{
-				"attack.dot.dmg.max":4,
+				"attack.dot.dmg.max":5,
 				"attack.dot.dmg.min":4,
 				"attack.tohit":5
 			}
@@ -2415,7 +2415,7 @@
 				"targets":"enemies",
 				"kind":"air",
 				"duration":15,
-				"damage":"7~15",
+				"damage":"7~25",
 				"mod":{
 					"tohit":-5
 				}
@@ -2974,7 +2974,7 @@
 		"id":"cordyceps",
 		"level":7,
 		"school":"nature",
-		"require":"g.venom2>0&&g.tier3>0",
+		"require":"g.venom2>0&&g.druid>0",
 		"desc":"a fungal cloud that damages all enemies.",
 		"buy":{
 
