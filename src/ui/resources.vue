@@ -39,7 +39,9 @@ export default {
 		for( let i = 0; i < len; i++ ) {
 
 			let it = items[i];
+			if ( it.hide ) continue;
 			let title = it.group || ( it.tags ? it.tags[0] : 'other');
+			if ( title === 'manas' ) continue;
 
 			group = groups[title] || ( groups[title] = [] );
 
