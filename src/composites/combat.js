@@ -137,6 +137,11 @@ export default class Combat {
 		for( let i = this._allies.length-1; i >= 0; i-- ) {
 
 			e = this._allies[i];
+			/*if ( !e.update ) {
+				console.warn('missing update: ' + e );
+				this._allies.splice(i,1);
+				continue;
+			}*/
 			if ( e.alive === false ) {
 
 				/** @todo messy minion removal. */

@@ -196,7 +196,10 @@ export const ApplyAction = ( target, action, attacker = null) => {
 	if ( action.state ) {
 		target.addDot( action.state, action );
 	}
-
+	if ( action.result ) {
+		if ( attacker && action.name ) Events.emit(EVT_COMBAT, attacker.name + ' uses ' + action.name );
+		target.applyVars( action.result );
+	}
 	if ( action.dot ) {
 		target.addDot( action.dot, action );
 	}

@@ -18,6 +18,7 @@ export default class Attack {
 			cure:this.cure||undefined,
 			state:this.state||undefined,
 			targets:this.targets||undefined,
+			result:this.result||undefined,
 			id:this.id,
 			dot:this.dot
 		};

@@ -1236,6 +1236,7 @@
 					{
 						"name": "mend",
 						"targets": "ally",
+						"harmless":true,
 						"result": {
 							"hp": 40
 						}
@@ -1243,6 +1244,7 @@
 					{
 						"name": "recover",
 						"targets": "allies",
+						"harmless":true,
 						"dot": {
 							"duration": 10,
 							"mod": {
@@ -1253,6 +1255,7 @@
 					{
 						"name": "align",
 						"targets": "ally",
+						"harmless":true,
 						"dot": {
 							"duration": 10,
 							"mod": {
