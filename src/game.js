@@ -842,7 +842,6 @@ export default {
 				} else {
 
 					if ( typeof e === 'number' || e.type === TYP_RANGE ) {
-
 						target.amount( this, e*dt );
 					} else if ( e.isRVal ) {
 						// messy code. this shouldn't be here. what's going on?!?!

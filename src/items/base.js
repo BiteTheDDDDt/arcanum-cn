@@ -282,7 +282,10 @@ export default {
 				}
 
 			}
-			if ( vars.value ) this.value += (vars.value)*amt;
+			if ( vars.value ) {
+				this.amount( Game, vars.value*amt);
+				//this.value += (vars.value)*amt;
+			}
 
 		}
 
@@ -377,7 +380,7 @@ export default {
 
 			} else if ( subTarg instanceof Stat) {
 
-				//console.log(' apply : ' + m + ' type: ' + (typeof m) );
+
 				subTarg.apply( subMod, amt );
 
 			} else if ( subMod instanceof Mod ) {

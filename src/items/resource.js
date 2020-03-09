@@ -109,10 +109,10 @@ export default class Resource extends GData {
 
 
 	/**
-	 * Not currently used any more.
+	 * Not used any more.
 	 * @param {} dt
 	 */
-	update( dt ) {
+	/*update( dt ) {
 
 		if ( this._rate.value !== 0 ) {
 
@@ -128,6 +128,6 @@ export default class Resource extends GData {
 
 		} else this._delta = 0;
 
-	}
+	}*/
 
 }

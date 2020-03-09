@@ -324,6 +324,7 @@ export default class GData {
 			}
 
 			if ( this.max && (prev + amt) >= this.max.value ) {
+
 				amt = this.max.value - prev;
 			}
 
@@ -344,6 +345,7 @@ export default class GData {
 		count = this.add(count);
 		if ( count === 0 ) return false;
 
+		if ( this.id === 'souls' ) console.log('ADDING souls: ' + count );
 		this.changed( g, count );
 		return true;
 
