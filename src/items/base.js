@@ -367,7 +367,7 @@ export default {
 
 
 					if ( subMod instanceof Mod ) subTarg.addMod( subMod,amt );
-					console.log( this.id + '.' + p  + ': ' + subMod + ': targ null: ' + subTarg.valueOf() + ' mod? ' + isMod );
+					//console.log( this.id + '.' + p  + ': ' + subMod + ': targ null: ' + subTarg.valueOf() + ' mod? ' + isMod );
 				}
 
 

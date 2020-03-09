@@ -141,8 +141,8 @@
 				},
 				"result": {
 					"puppetry.max": 0.01
-				},
-				"mod": {}
+				}
+
 			},
 			{
 				"id": "assemblepuppet",
@@ -166,8 +166,8 @@
 				},
 				"result": {
 					"puppets": 1
-				},
-				"mod": {}
+				}
+
 			},
 			{
 				"id": "machinalabor",
@@ -199,8 +199,8 @@
 				},
 				"result": {
 					"machinacreation.max": 0.01
-				},
-				"mod": {}
+				}
+
 			},
 			{
 				"id": "assemblemachina",
@@ -223,8 +223,8 @@
 				},
 				"result": {
 					"machinae": 1
-				},
-				"mod": {}
+				}
+
 			},
 			{
 				"id": "futurecouncil",
@@ -248,8 +248,8 @@
 				},
 				"result": {
 					"automatasculpting.max": 0.05
-				},
-				"mod": {}
+				}
+
 			},
 			{
 				"id": "assembleautomata",
@@ -274,8 +274,8 @@
 				},
 				"result": {
 					"automatas": 1
-				},
-				"mod": {}
+				}
+
 			}
 		],
 		"upgrades": [
@@ -650,8 +650,8 @@
 				},
 				"cost": {
 					"puppets": 3
-				},
-				"mod": {}
+				}
+
 			},
 			{
 				"id": "machinarepair",
@@ -668,8 +668,8 @@
 				},
 				"cost": {
 					"machinae": 3
-				},
-				"mod": {}
+				}
+
 			},
 			{
 				"id": "automatarepair",
@@ -686,8 +686,8 @@
 				},
 				"cost": {
 					"automatas": 3
-				},
-				"mod": {}
+				}
+
 			},
 			{
 				"id": "prismaticmissile",
@@ -766,8 +766,8 @@
 							"tohit": -2
 						}
 					]
-				},
-				"mod": {}
+				}
+
 			},
 			{
 				"id": "mk_puppet",
@@ -783,8 +783,7 @@
 					"puppets": 5,
 					"spirit": 10
 				},
-				"result": "puppetattacker",
-				"mod": {}
+				"result": "puppetattacker"
 			},
 			{
 				"id": "mk_charger",
@@ -799,8 +798,7 @@
 				"cost": {
 					"machinae": 5
 				},
-				"result": "mechacharger",
-				"mod": {}
+				"result": "mechacharger"
 			},
 			{
 				"id": "mk_autoslayer",
@@ -815,8 +813,7 @@
 				"cost": {
 					"automatas": 5
 				},
-				"result": "autoslayer",
-				"mod": {}
+				"result": "autoslayer"
 			},
 			{
 				"id": "mk_puppetdef",
@@ -833,8 +830,7 @@
 					"puppets": 5,
 					"spirit": 10
 				},
-				"result": "puppetdefender",
-				"mod": {}
+				"result": "puppetdefender"
 			},
 			{
 				"id": "mk_mender",
@@ -849,8 +845,7 @@
 				"cost": {
 					"machinae": 5
 				},
-				"result": "mechamender",
-				"mod": {}
+				"result": "mechamender"
 			},
 			{
 				"id": "mk_autocaster",
@@ -865,8 +860,8 @@
 				"cost": {
 					"automatas": 5
 				},
-				"result": "autocaster",
-				"mod": {}
+				"result": "autocaster"
+
 			}
 		],
 		"homes": [

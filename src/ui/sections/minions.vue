@@ -6,10 +6,10 @@ import FilterBox from '../components/filterbox.vue';
 
 export default {
 
+	props:['minions'],
 	data(){
 		return {
-			filtered:null,
-			minions:Game.state.minions
+			filtered:null
 		};
 	},
 	mixins:[ItemsBase],
@@ -22,7 +22,7 @@ export default {
 
 		inRaid() { return Game.state.raid.running },
 
-		items(){ return this.minions.filter( v=>v.value>=1 ); },
+		/*items(){ return this.minions.filter( v=>v.value>=1 ); },*/
 
 		rezList(){return Game.state.getTagSet('rez').filter(v=>v.owned&&!v.disabled);}
 
@@ -77,7 +77,7 @@ export default {
 
 <div class="minions">
 
-	<filterbox v-model="filtered" :items="items" min-items="10" />
+	<filterbox v-model="filtered" :items="this.minions.items" min-items="10" />
 
 	<div v-if="inRaid" class="warn-text">Cannot change active minions while adventuring</div>
 	<div class="minion-title">

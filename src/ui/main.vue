@@ -373,7 +373,7 @@ export default {
 		<template slot="sect_potions"><potions /></template>
 
 		<template slot="sect_bestiary"><bestiary /></template>
-		<template slot="sect_minions"><minions /></template>
+		<template slot="sect_minions"><minions :minions="state.minions" /></template>
 
 		<template slot="sect_enchant"><enchanting /></template>
 		</vue-menu>

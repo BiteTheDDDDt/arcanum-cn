@@ -98,10 +98,11 @@ export default class GameState {
 		this.drops = new Inventory();
 
 		this.items[ENCHANTSLOTS] = new EnchantSlots( this.items[ENCHANTSLOTS] );
+
 		/**
 		 * @property {Minions} minions
 		 */
-		this.minions = this.items.minions = new Minions( this.items.minions || null );
+		this.items.minions = this.minions = new Minions( baseData.items.minions || null );
 
 		this.equip = new Equip( baseData.equip );
 

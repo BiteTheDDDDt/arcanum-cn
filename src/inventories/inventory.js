@@ -1,3 +1,4 @@
+import Vue from 'Vue';
 import Stat from "../values/stat";
 import Base, {mergeClass} from '../items/base';
 import Item from "../items/item";
@@ -131,7 +132,6 @@ export default class Inventory {
 			else Object.assign(this,vars);
 
 		}
-
 		if ( !this.items ) this.items = [];
 
 		if ( !this.saveMode ) this.saveMode = SAVE_FULL;
@@ -160,12 +160,8 @@ export default class Inventory {
 	 */
 	revive( gs, reviver ){
 
-		// used ids.
-		var ids = {};
-
-		let loads = this.items.slice(0);
-		this.items.length = 0;
-		let len = loads.length;
+		let len = this.items.length;
+		let loads = this.items.splice(0, len );
 
 		for( let i = 0; i < len; i++ ) {
 
@@ -212,7 +208,7 @@ export default class Inventory {
 			}
 
 
-			this.items.push( it );
+			this._items.push( it );
 			this.used += this.spaceCost( it );
 
 			//console.warn('CUR USED: ' + this.used + '/' + this.max.value );

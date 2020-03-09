@@ -130,11 +130,12 @@ export default class Npc extends Char {
 
 		if ( save ) assign( this, save );
 
+		this.__ob__ = null;
 		//if ( this.id.includes('mecha')) console.dir(this.attack, 'post-save');
 
 		this.dodge = this.dodge || this.level/2;
 
-		this.active = (this.active === undefined || this.active === null) ? false : this.active;
+		this.active = (this.active === undefined || this.active === null) ? false : this._active;
 
 		if ( this._spells ) {
 
@@ -149,6 +150,7 @@ export default class Npc extends Char {
 			this.hp = this.hp.value;
 		}
 		if (!this.hp ) { this.hp = 1; }
+
 		if ( !this.team) this.team = TEAM_NPC;
 		if ( !this.tohit ) this.tohit = 0;
 

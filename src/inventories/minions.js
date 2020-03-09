@@ -77,7 +77,7 @@ export default class Minions extends Inventory {
 
 		for( let i = this.items.length-1; i>= 0; i-- ) {
 
-			var it = this.items[i];
+			let it = this.items[i];
 			if ( it.active === false && it.alive ) it.rest(dt);
 
 		}
@@ -109,14 +109,6 @@ export default class Minions extends Inventory {
 		}
 
 
-	}
-
-	/**
-	 * Get list of Minions by id.
-	 * @param {string[]} ids
-	 */
-	getList( ids ) {
-		return this.items.filter( v=>ids.includes(v.id) );
 	}
 
 	setActive( b, active=true ) {
