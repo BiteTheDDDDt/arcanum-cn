@@ -97,7 +97,7 @@
 
 				},
 				"cost":{
-					"mana":0.5
+					"mana":5
 				},
 				"action":{
 
@@ -121,7 +121,7 @@
 
 				},
 				"cost":{
-					"mana":0.5
+					"mana":7
 				},
 				"action":{
 
