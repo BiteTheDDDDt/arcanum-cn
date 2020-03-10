@@ -69,7 +69,7 @@ export default class MaxStat {
 	 *
 	 * @param {number} v
 	 */
-	add(v) {
+	amount(v) {
 
 		this._value.base += v;
 		if ( this._value.value > this.max.value ) this._value.base = this.max.value;

@@ -200,11 +200,19 @@ export default class Combat {
 
 			} else {
 				Events.emit(EVT_COMBAT, null, g.self.name + ' casts ' + it.name );
-				if ( it.attack ) {
-					this.attack( g.self, it.attack );
-				}
+				if ( it.attack ) this.attack( g.self, it.attack );
 				if ( it.action ) {
-					ApplyAction( this.getTarget( g.self, it.action.targets ), it.action, g.self );
+
+
+					let target = this.getTarget( g.self, it.action.targets );
+					if ( Array.isArray(target)) {
+
+						for( let i = target.length-1; i>= 0; i-- ) ApplyAction( target[i], it.action, g.self );
+					} else {
+						ApplyAction( target, it.action, g.self );
+					}
+
+
 				}
 			}
 

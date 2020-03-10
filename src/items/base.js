@@ -248,37 +248,39 @@ export default {
 				// add any final value last.
 				if (  p === 'skipLocked' || p === 'value') continue;
 
-				var targ = this[p];
+				let targ = this[p];
+				let sub = vars[p];
+
 				if ( targ instanceof RValue ) {
 
 					//console.log('APPLY ' + vars[p] + ' to stat: '+ this.id + '.'+ p + ': ' + amt*vars[p] + ' : ' + (typeof vars[p]) );
 					//if ( typeof (targ) === 'object') console.log('obj targ: ' + targ.constructor.name );
 
-					targ.apply( vars[p], amt );
+					targ.apply( sub, amt );
 
-				} else if ( typeof vars[p] === 'object' ) {
+				} else if ( typeof sub === 'object' ) {
 
-					if ( vars[p].type === TYP_MOD ) {
+					if ( sub.type === TYP_MOD ) {
 
-						vars[p].applyTo( this, p, amt );
+						sub.applyTo( this, p, amt );
 
-					} else if ( typeof targ === 'number' ) {
+					} else if ( typeof targ === 'number' || sub.isRVal ) {
 
 						//deprec( this.id + ' targ: ' + p + ': ' + targ );
-						this[p] += Number(vars[p])*amt;
+						this[p] += Number(sub)*amt;
 					} else {
-						//console.log( mods + ' subapply: ' + p);
-						this.subeffect( this[p], vars[p], amt );
+						//console.log( this.id + ' subapply: ' + p);
+						this.subeffect( targ, sub, amt );
 					}
 
-				} else if ( this[p] !== undefined ) {
+				} else if ( targ !== undefined ) {
 
 					//console.log( this.id + ' adding vars: ' + p );
-					this[p] += Number(vars[p])*amt;
+					this[p] += Number(sub)*amt;
 
 				} else {
 					console.log('NEW SUB: ' + p );
-					this.newSub( this, p, vars[p], amt )
+					this.newSub( this, p, sub, amt )
 				}
 
 			}

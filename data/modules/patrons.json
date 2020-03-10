@@ -84,6 +84,54 @@
 
 		"spells":[
 			{
+				"id":"phrenesis_heal1",
+				"level":4,
+				"name":"phrenesis' healing circle",
+				"desc":"",
+				"school":"light",
+				"require":"",
+				"buy":{
+
+					"research":1000,
+					"codices":25
+
+				},
+				"cost":{
+					"mana":0.5
+				},
+				"action":{
+
+					"targets":"allies",
+					"result":{
+						"hp":15
+					}
+				}
+			},
+			{
+				"id":"phrenesis_heal2",
+				"level":10,
+				"name":"phrenesis' healing wave",
+				"desc":"",
+				"school":"light",
+				"require":"",
+				"buy":{
+
+					"research":1000,
+					"codices":25
+
+				},
+				"cost":{
+					"mana":0.5
+				},
+				"action":{
+
+					"targets":"allies",
+					"result":{
+						"hp":35
+					}
+				}
+			},
+			{
 				"id":"cyrilsling",
 				"name":"cyril's celestial sling",
 				"level":7,
