@@ -3165,6 +3165,54 @@
 			"air":35
 		}
 
+	},
+	{
+		"id":"wyvern2",
+		"name":"vicious wyvern",
+        "level":20,
+		"desc":"",
+		"kind":"magicbeast",
+        "hp":332,
+        "tohit":32,
+        "defense":42,
+        "attack":[
+			{
+				"name":"bite",
+				"kind":"pierce",
+				"dmg":"40~80",
+				"dot":{
+					"kind":"poison",
+					"duration":20,
+					"dmg":"10~20"
+				}
+			}
+		],
+		"immune":"air,poison"
+
+	},
+	{
+		"id":"jabberwocky",
+		"level":25,
+		"unique":true,
+		"desc":"",
+		"kind":"magicbeast",
+        "hp":732,
+        "tohit":32,
+        "defense":42,
+        "attack":[
+			{
+				"name":"bite",
+				"kind":"pierce",
+				"dmg":"40~80",
+				"dot":{
+					"kind":"poison",
+					"duration":20,
+					"dmg":"10~20"
+				}
+			}
+		],
+		"immune":"air,poison"
+
     },
     {
 		"id":"greendragon",
@@ -3223,7 +3271,7 @@
 			{
 				"dot":{
 					"id":"silence",
-					"duration":2
+					"duration":15
 				}
 			},
 			{
@@ -3477,7 +3525,7 @@
         "id":"leviathan",
         "level":18,
         "kind":"beast",
-        "desc":"A mountain moves in the depths.",
+        "desc":"A mountain moves in the depths of the sea.",
         "hp":400,
         "tohit":20,
         "defense":75,

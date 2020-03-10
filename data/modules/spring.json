@@ -17,6 +17,12 @@
 				"id":"spr_honey_jar",
 				"stack":true,
 				"desc":""
+			},
+			{
+				"id":"spr_jar_bees",
+				"stack":true,
+				"desc":"A jar of wild bees.",
+				"use":"apiary"
 			}
 
 		],
@@ -202,7 +208,7 @@
 		"dungeons":[
 
 			{
-				"id":"sunnyfield",
+				"id":"spr_sunnyfield",
 				"name":"sunny fields of stone",
 				"level":20,
 				"length":100,
@@ -213,14 +219,20 @@
 				"result":{
 					"gold":"100~200"
 				},
+				"lock":"sunnyfield",
 				"loot":{
 					"max":20
 				},
-				"boss":"",
+				"boss":"jabberwocky",
 				"spawns":[
 					"basilisk2",
 					"basilisk",
+					"wyvern2",
+					["wyvern","wyvern","wyvern"],
 					"m_cordyceps",
+					"greendragon",
+					"manticore",
+					"direbear",
 					"cockatrice",
 					"basilisk"
 				],"flavor":"every budding mage needs to start somewhere."
