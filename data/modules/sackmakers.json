@@ -32,12 +32,14 @@
 				"length":250,
 				"boss":"sackmaster",
 				"enemies":[
+					"rumpelstiltskin",
 					"sackweaver",
 					"pouchmerchant",
 					"m_gemcutter",
 					["sackenforcer","sackthug","sackthug"],
 					["irongolem","irongolem","sackenforcer"],
 					"sackjman",
+					"greendragon",
 					["burlapgolem","burlapgolem","burlapgolem"],
 					["sackthug","sackthug"]
 				]
@@ -46,6 +48,19 @@
 
 		],
 		"monsters":[
+			{
+				"id":"rumpelstiltskin",
+				"desc":"A strange imp that spins magic threads.",
+				"level":23,
+				"unique":true,
+				"hp":900,
+				"spells":"apiary,whirl3,perfectstrike",
+				"attack":{
+					"name":"wooden cane",
+					"kind":"blunt",
+					"dmg":"40~100"
+				}
+			},
 			{
 				"id":"sackapprentice",
 				"name":"sackmaker apprentice",
@@ -64,8 +79,10 @@
 				"desc":"The guild's policies on unauthorized pouch sales are strictly enforced.",
 				"flavor":"",
 				"level":10,
+				"hp":70,
 				"attack":{
-
+					"name":"sand bag",
+					"kind":"blunt",
 					"dmg":"10~20"
 				}
 
@@ -95,7 +112,9 @@
 						"dmg":"30~40"
 					}
 
-				]
+				],"loot":{
+					"gems":"5~10"
+				}
 			},
 			{
 				"id":"pouchmerchant",
@@ -117,9 +136,11 @@
 				"name":"burlap golem",
 				"desc":"Woven golem filled with heavy sand",
 				"level":14,
-				"hp":500,
+				"noproc":true,
+				"hp":400,
 				"attack":{
-					"name":"punch",
+					"name":"sand punch",
+					"kind":"earth",
 					"dmg":"20~30"
 				},
 				"loot":{
@@ -156,12 +177,12 @@
 						}
 					},
 					{
-						"name":"needle",
+						"name":"magic needle",
 						"kind":"pierce",
 						"dmg":"20~30"
 					}
 				],
-				"desc":"Uses flows of magic to weave their sacks.",
+				"desc":"Uses flows of magic to weave bags for sale.",
 				"flavor":""
 			},
 			{
@@ -172,8 +193,9 @@
 				"hp":900,
 				"spells":"mk_burlapgolem",
 				"attack":{
-					"name":"punch",
-					"dmg":"20~30"
+					"name":"adamant needle",
+					"kind":"pierce",
+					"dmg":"40~75"
 				}
 
 			}
@@ -184,7 +206,7 @@
 			{
 				"id":"mk_burlapgolem",
 				"name":"create burlap golem",
-				"school":"crafting",
+				"school":"conjuring",
 				"require":"g.sackguild>=50",
 				"level":19,
 				"buy":{
