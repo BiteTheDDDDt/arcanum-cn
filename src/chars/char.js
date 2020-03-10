@@ -201,8 +201,15 @@ export default class Char {
 	revive( gs ){
 
 		this.reviveDots(gs);
-		this._states.refresh(this._dots);
+		//this._states.refresh(this._dots);
 
+	}
+
+	reviveDots(gs) {
+		for( let i = this.dots.length-1; i>=0; i--) {
+			this.dots[i].revive(gs);
+			this._states.add( this._dots[i]);
+		}
 	}
 
 	/**
@@ -244,12 +251,6 @@ export default class Char {
 	 */
 	tryCast(){
 		return this.spells ? this.spells.onUse(this.context) : null;
-	}
-
-	reviveDots(gs) {
-		for( let i = this.dots.length-1; i>=0; i--) {
-			this.dots[i].revive(gs);
-		}
 	}
 
 	/**
@@ -323,8 +324,6 @@ export default class Char {
 			dot.duration = duration;
 		}
 
-		this._states.add( dot );
-		this.dots.push( dot );
 		this.applyDot( dot );
 
 	}
@@ -347,30 +346,11 @@ export default class Char {
 
 	applyDot( dot ) {
 
+		this._states.add( dot );
+		this.dots.push( dot );
+
 		if ( dot.mod ) this.context.applyMods( dot.mod, 1 );
-
 		if ( dot.flags ) Events.emit( CHAR_STATE, this, dot );
-
-		let time = dot.duration;
-
-		let states = dot.state;
-		if ( states ) {
-
-			if ( typeof states === 'string') {
-				states = states.split(',');
-			}
-			for( let i = states.length-1; i>= 0; i-- ){
-
-				var s = this._gs.getData( states[i] );
-				if ( s ) {
-					console.log('ADD STATE: ' + states[i] );
-					this.addDot( s, dot.source, time );
-				}
-
-			}
-
-		}
-
 	}
 
 	removeDot( dot ) {
