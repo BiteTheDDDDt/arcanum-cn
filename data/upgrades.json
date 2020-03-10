@@ -425,6 +425,36 @@
 	},
 
 	{
+		"id":"bloodbag",
+		"name":"membranous pouch",
+		"desc":"A sack woven from living tissue helps preserve the gems.",
+		"require":"g.bloodlore>=5&&g.weaving>5",
+		"max":1,
+		"cost":{
+			"hp":100
+		},
+		"mod":{
+			"bloodgem.max":5
+		}
+
+	},
+	{
+		"id":"deepincisions",
+		"name":"deep incisions",
+		"desc":"The safest place to store your precious gems is by your heart.",
+		"require":"g.bloodbag>0&&g.dissection>=5",
+		"repeat":false,
+		"cost":{
+			"hp":100,
+			"bloodgem":15
+		},
+		"mod":{
+			"dissection.max":1,
+			"bloodbag.max":3
+		}
+
+	},
+	{
 		"id":"gembox",
 		"name":"gem box",
 		"desc":"Finely crafted box for storing magic gems.",

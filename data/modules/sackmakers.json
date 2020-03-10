@@ -17,9 +17,16 @@
 			{
 				"id":"sackguild",
 				"name":"guild of the sack makers",
+				"require":"",
 				"level":20,
 				"run":{
 					"stamina":5
+				},
+				"show":{
+
+					"name":"Goblins, Goblins!",
+					"desc":"Rumors hint at a camp of goblins in the vicinity. As an aspiring wizard, convention dictates you test your mettle on their lives."
+
 				},
 				"length":100,
 				"boss":"sackmaster",
@@ -143,10 +150,7 @@
 						"dot":{
 							"id":"sacked",
 							"name":"weave sack",
-							"duration":10,
-							"mod":{
-								"tohit":-10
-							}
+							"duration":10
 						}
 					},
 					{
