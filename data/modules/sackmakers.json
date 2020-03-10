@@ -17,15 +17,15 @@
 			{
 				"id":"sackguild",
 				"name":"guild of the sack makers",
-				"require":"",
+				"require":"(g.demonbag+g.bloodbag+g.bagofholding)>0",
 				"level":20,
 				"run":{
 					"stamina":5
 				},
 				"show":{
 
-					"name":"Goblins, Goblins!",
-					"desc":"Rumors hint at a camp of goblins in the vicinity. As an aspiring wizard, convention dictates you test your mettle on their lives."
+					"name":"Guild Practices",
+					"desc":"Your unauthorized construction of pouches has sparked the ire of the Guild of Sackmakers."
 
 				},
 				"length":100,

@@ -1165,6 +1165,33 @@
 
 	},
 	{
+		"id":"demonbag",
+		"name":"bag of demons",
+		"actname":"craft bag of demons",
+		"require":"g.demonology>=10&&g.crafting>20&&g.tier3>0",
+		"max":1,
+		"length":2000,
+		"desc":"You'll make your own bags, thank you.",
+		"cost":{
+			"gold":1000,
+			"souls":75,
+			"arcana":1,
+			"bones":10
+		},
+		"run":{
+			"stamina":2,
+			"hp":2
+		},
+		"mod":{
+			"bones.max":10,
+			"bloodgems.max":10,
+			"voidgem.max":1,
+			"spiritgem.max":2,
+			"shadowgem.max":1
+		},"flavor":"the research costs a little more than you expected..."
+
+	},
+	{
 		"id":"sublimate",
 		"name":"sublimate lore",
 		"desc":"internalize a vast amount of existing knowledge.",

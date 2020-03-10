@@ -626,7 +626,7 @@
 				"id": "ritualpaper_prepared",
 				"name": "inscribe ritual paper",
 				"verb": "inscribing",
-				"require": "(g.ritualist+g.masterritualis)t>0",
+				"require": "(g.ritualist+g.masterritualist)>0",
 				"need": "workspace",
 				"desc": "By using pre-infused paper, the creation of ritual paper can be vastly simplified",
 				"fill": [
