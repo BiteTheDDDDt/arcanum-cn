@@ -2,6 +2,17 @@
 	"module":"sackmakers",
 	"data":{
 
+		"materials":[
+			{ "id":"sackcloth", "kind":"cloth", "priceMod":10, "bonus":3, "level":8,
+				"noproc":true,
+				"exclude":["weapon"],
+				"mod":{
+					"bloodgem.max":1,
+					"magicgems.max":1,
+					"gold.max":10
+				}
+			}
+		],
 		"dungeons":[
 			{
 				"id":"sackguild",
@@ -80,13 +91,15 @@
 			{
 				"id":"pouchmerchant",
 				"name":"pouch merchant",
-				"desc":"The guild hires them to drain gold from the pouches of others.",
+				"desc":"The guild hires merchants to drain gold from the pouches of others.",
 				"level":14,
 				"speed":20,
 				"hp":300,
 				"attack":{
 					"name":"transfer gold",
-					"gold":"-100~-200"
+					"result":{
+						"gold":"-100~-200"
+					}
 				}
 
 			},
@@ -99,6 +112,9 @@
 				"attack":{
 					"name":"punch",
 					"dmg":"20~30"
+				},
+				"loot":{
+					"material":"sackcloth"
 				}
 
 			},
@@ -111,6 +127,9 @@
 				"attack":{
 					"name":"punch",
 					"dmg":"40~50"
+				},
+				"loot":{
+					"material":"sackcloth"
 				}
 
 			},
@@ -135,7 +154,7 @@
 						"dmg":"20~30"
 					}
 				],
-				"desc":"they use magic to weave strands of fabric into sacks.",
+				"desc":"They use magic to weave fabric into sacks.",
 				"flavor":""
 			},
 			{

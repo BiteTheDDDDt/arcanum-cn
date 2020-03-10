@@ -64,7 +64,10 @@
 	},
 	{
 		"id":"sacked",
-		"flags":"noattack,nodefend"
+		"flags":"noattack,nodefend",
+		"mod":{
+			"tohit":-10
+		}
 	}
 
 ]
