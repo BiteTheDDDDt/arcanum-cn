@@ -132,7 +132,7 @@ export default {
 			Next Improvement: {{ Math.round(100*nextEvery)+'%'}}
 		</span>
 
-			<div v-if="item.cd&&item.timer>0" class="note-text">Cooldown: {{ item.timer.toFixed(2) }}</div>
+			<div v-if="item.cd||item.timer>0" class="note-text">Cooldown: {{ item.timer > 0 ? item.timer.toFixed(2) + ' left' : item.cd + ' s' }}</div>
 
 			<div v-if="item.dist">distance: {{item.dist}}</div>
 			<div v-if="item.armor">armor: {{ item.armor }}</div>

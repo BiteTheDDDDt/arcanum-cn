@@ -201,7 +201,7 @@
 	"name":"dark magician",
 	"tags":"t_tier1",
 	"desc":"A devotee of black magic.",
-	"require":"g.tier0>0&&(g.evilamt>=10||g.evil>0)",
+	"require":"g.tier0>0&&(g.shadowlore>=7)",
 	"cost":{
 		"research":400,
 		"arcana":13,

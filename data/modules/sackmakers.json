@@ -22,19 +22,21 @@
 				"run":{
 					"stamina":5
 				},
+				"title":"Guild Breaker",
 				"show":{
 
 					"name":"Guild Practices",
 					"desc":"Your unauthorized construction of pouches has sparked the ire of the Guild of Sackmakers."
 
 				},
-				"length":100,
+				"length":250,
 				"boss":"sackmaster",
 				"enemies":[
 					"sackweaver",
 					"pouchmerchant",
 					"m_gemcutter",
-					"sackenforcer",
+					["sackenforcer","sackthug","sackthug"],
+					["irongolem","irongolem","sackenforcer"],
 					"sackjman",
 					["burlapgolem","burlapgolem","burlapgolem"],
 					["sackthug","sackthug"]
@@ -107,7 +109,7 @@
 					"result":{
 						"gold":"-100~-200"
 					}
-				}
+				},"immune":"charm"
 
 			},
 			{
@@ -122,15 +124,15 @@
 				},
 				"loot":{
 					"material":"sackcloth"
-				}
+				},"immune":"paralysis,earth"
 
 			},
 			{
 				"id":"sackjman",
-				"name":"sack-maker journeyman",
-				"desc":"",
+				"name":"sackmaker journeyman",
+				"desc":"Travels to towns, selling the finest quality bags and pouches.",
 				"level":16,
-				"hp":50,
+				"hp":75,
 				"attack":{
 					"name":"punch",
 					"dmg":"40~50"
@@ -154,11 +156,12 @@
 						}
 					},
 					{
-						"name":"club",
+						"name":"needle",
+						"kind":"pierce",
 						"dmg":"20~30"
 					}
 				],
-				"desc":"They use magic to weave fabric into sacks.",
+				"desc":"Uses flows of magic to weave their sacks.",
 				"flavor":""
 			},
 			{
@@ -167,6 +170,7 @@
 				"desc":"",
 				"level":20,
 				"hp":900,
+				"spells":"mk_burlapgolem",
 				"attack":{
 					"name":"punch",
 					"dmg":"20~30"
@@ -181,6 +185,7 @@
 				"id":"mk_burlapgolem",
 				"name":"create burlap golem",
 				"school":"crafting",
+				"require":"g.sackguild>=50",
 				"level":19,
 				"buy":{
 					"arcana":10,
