@@ -75,7 +75,7 @@ export default {
 			<a href="https://lerpinglemur.gitlab.io/arcanum/" target="_blank">unstable</a>
 			<a href="https://www.patreon.com/theoryofmagic" target="_blank">patreon</a>
 			<a href="https://www.reddit.com/r/wizrobe/" target="_blank">reddit</a>
-			<span class="vers">build# {{ VERSION }}</span>
+			<span class="vers">vers {{ VERSION }}</span>
 			<button class="text-button" @click="$emit('open-settings')">&#9881;</button>
 		</span>
 

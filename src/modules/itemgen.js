@@ -254,7 +254,7 @@ export default class ItemGen {
 	 * @param {GData} it
 	 * @param {number} [amt=1]
 	 */
-	getGData( it , amt=1 ) {
+	getGData( it, amt=1 ) {
 
 		if ( !it ) return null;
 
