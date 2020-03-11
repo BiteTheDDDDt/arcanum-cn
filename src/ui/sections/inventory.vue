@@ -85,26 +85,24 @@ export default {
 
 	<div class="item-table">
 
-	<tr class="separate" v-for="it in ( nosearch ? baseItems : filtered )" :key="it.id">
-		<td @mouseenter.capture.stop="itemOver($event,it)">{{ it.name + count(it) }}</td>
+	<div class="item separate" v-for="it in ( nosearch ? baseItems : filtered )" :key="it.id">
+		<span class="item-name" @mouseenter.capture.stop="itemOver($event,it)">{{ it.name + count(it) }}</span>
 
 
 		<template v-if="!selecting">
 
-			<td v-if="it.equippable"><button @click="emit('equip',it, inv)">Equip</button></td>
-			<td v-if="it.use" @mouseenter.capture.stop="itemOver($event,it)"><button @click="emit( USE, it, inv)">Use</button></td>
-			<td v-if="take&&canAdd(it)"><button @click="onTake(it)">Take</button></td>
+			<button v-if="it.equippable" class="item-action" @click="emit('equip',it, inv)">Equip</button>
+			<button v-if="it.use" class="item-action" @mouseenter.capture.stop="itemOver($event,it)" @click="emit( USE, it, inv)">Use</button>
+			<button v-if="take&&canAdd(it)" class="item-action" @click="onTake(it)">Take</button>
 
-			<td>
-			<button @click="emit('sell',it,inv)" @mouseenter.capture.stop="itemOver($event,it)">Sell</button>
-			<button v-if="it.value>1" @click="emit('sell',it,inv, it.value)" @mouseenter.capture.stop="itemOver($event,it)">Sell All</button>
-				<!--<button v-else @click="drop(it)">Drop</button>--></td>
+			<button class="item-action"  @click="emit('sell',it,inv)" @mouseenter.capture.stop="itemOver($event,it)">Sell</button>
+			<button v-if="it.value>1" class="item-action"  @click="emit('sell',it,inv, it.value)" @mouseenter.capture.stop="itemOver($event,it)">Sell All</button>
 
 		</template>
 		<template v-else>
-			<td><button @click="$emit('input', it)">Select</button></td>
+			<button class="item-action"  @click="$emit('input', it)">Select</button>
 		</template>
-	</tr>
+	</div>
 </div>
 
 <div v-if="playerFull" class="warn-text">Inventory Full</div>
@@ -114,7 +112,7 @@ export default {
 
 <style scoped>
 
-div.inventory {
+.inventory {
 	display:flex;
 	flex-direction: column;
 	width:100%;
@@ -122,22 +120,23 @@ div.inventory {
 	min-height: 0;
 }
 
-div.inventory .top {
+.top {
 	padding: var(--tiny-gap);
 	padding-top: var(--sm-gap);
 }
 
-div.inventory .filter-box {
+.filter-box {
 	display:inline;
 	font-size: 0.9rem;
 }
 
-div.inventory .table-div {
+/*.table-div {
 	display: grid; grid-template-columns: 1fr 1fr;
 	flex-grow: 1;
 	height:100%;
-}
-div.inventory .item-table {
+}*/
+
+.item-table {
 	flex-grow: 1;
 	flex-shrink: 1;
 		overflow-y: auto;
@@ -149,12 +148,16 @@ div.inventory .item-table {
 
     }
 
-div.inventory .item-table tr {
+.item-name {
+	flex-grow: 1;
+}
+
+.item-table .item {
+	margin: var(--sm-gap);
         padding: var(--sm-gap); align-items: center;
     }
-div.inventory .item-table tr :first-child { flex: 1; }
-div.inventory .item-table tr button { margin: var(--tiny-gap); }
-div.inventory .item-table td { display: flex; padding: 0; }
+
+.item .item-action { margin: var(--tiny-gap); }
 
 
 </style>

@@ -393,7 +393,7 @@ button.btnMenu:before {
 }
 
 
-body.compact .task-btn { min-height: 1em; }
+.compact .task-btn { min-height: 1em; }
 
 div.running {
 	border: 2px dashed #000;
