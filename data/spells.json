@@ -2951,7 +2951,7 @@
 		"attack":{
 			"dot":{
 				"kind":"water",
-				"targets":"enemies",
+				"targets":"all",
 				"dmg":"3~7",
 				"duration":30,
 				"mod":{
