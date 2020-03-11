@@ -92,12 +92,8 @@ export default class Item {
 
 	constructor( vars=null, save=null ) {
 
-		if ( vars ) {
-			cloneClass( vars, this );
-		}
+		if ( vars ) { cloneClass( vars, this ); }
 		if ( save ) assign(this,save);
-
-		//if ( vars ) assign(this,vars);
 
 		if ( !this.enchantTot ) this.enchantTot = 0;
 		this.value = this._value || 1;

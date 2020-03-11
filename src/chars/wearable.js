@@ -120,9 +120,10 @@ export default class Wearable extends Item {
 		this.value = this.val = 1;
 
 		if ( !this.type ) {
-			console.warn(this.id + ' unknown wear type.');
-			if ( this.attack ) this.type = WEAPON;
-			else if ( this.armor || this.slot != null ) this.type = ARMOR;
+			console.warn(this.id + ' unknown wear type: ' + this.type );
+			if ( this.attack ) {
+				this.type = WEAPON;
+			} else if ( this.armor || this.slot != null ) this.type = ARMOR;
 			else this.type = WEARABLE;
 		}
 
