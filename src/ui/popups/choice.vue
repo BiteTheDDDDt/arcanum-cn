@@ -152,15 +152,15 @@ export default {
 		<span class="title" v-if="title">{{title}}</span>
 
 		<div class="items">
-		<span class="task-btn" v-for="it in choices" :key="strings?it:it.id"
-			@mouseenter.capture.stop="!strings ? itemOver( $event,it):''">
 
-		<button class="wrapped-btn" :disabled="!strings&&!slottable(it)||(mustPay&&cantPay(it))"
+		<button class="task-btn"
+			:disabled="!strings&&!slottable(it)||(mustPay&&cantPay(it))"
+			v-for="it in choices" :key="strings?it:it.id"
+			@mouseenter.capture.stop="!strings ? itemOver( $event,it):''"
 			@click="choose( it )">{{ strings ? it : it.name }}</button>
-		</span>
 		</div>
 
-		<span><button class="close-btn" @click="cancel">Cancel</button></span>
+		<button class="close-btn" @click="cancel">Cancel</button>
 
 	</div>
 </div>
@@ -196,7 +196,7 @@ export default {
 .task-btn {
 	width: 100%;
 }
-.task-btn button {
+.task-btn {
 
 	max-height: 2em;
 	width:100%;

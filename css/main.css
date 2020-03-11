@@ -114,7 +114,10 @@ body.darkmode {
     body.compact div.bar .bar-text { font-size: 0.7rem; line-height: 0.8em; }
 
 button { color: var(--button-text-color); border: 1px solid #0006; outline:none; }
-button:disabled { opacity: 0.3; color: unset; }
+button:disabled {
+	opacity: 0.3; color: unset;
+	pointer-events: all;
+}
 
 input[type="button"], button, div.text-button, div.popup-close {
 	background-color: #e7e5e5;
@@ -188,13 +191,13 @@ input[type="button"]:hover, button:hover, .text-button:hover {
 	right: var(--sm-gap);
 }
 
-.runnable button {
+button.runnable {
 	background: var(--task-btn-color);
 }
 
-.runnable button:hover { background: #dba659; }
+button.runnable:hover { background: #dba659; }
 
-.darkmode .runnable button:hover {
+.darkmode button.runnable:hover {
 	background:#c5964f
 }
 
@@ -390,27 +393,29 @@ button.btnMenu:before {
 }
 
 
-body.compact .task-btn button { min-height: 1em; }
+body.compact .task-btn { min-height: 1em; }
 
-.task-btn.running { border: var(--tiny-gap) dashed #000; }
+div.running {
+	border: 2px dashed #000;
+}
+button.running {
+	outline: 1.6px dashed #000;
+	outline-offset: 4px;
+}
 
 .task-btn {
 	text-transform: capitalize;
-	border: var(--tiny-gap) solid transparent;
-	margin: 0;
-	padding: 1px;
-	width:100%;
+	margin: var(--sm-gap);
+	padding: var(--sm-gap);
 	max-width: 9rem;
-}
-.task-btn:not(.locked) { display:flex; }
-
-.task-btn button {
-	flex: 1; word-break: break-word; text-transform: capitalize;
+	word-break: break-word; text-transform: capitalize;
 	min-height: 3em;
 	min-width: 6em;
-	padding: var(--tiny-gap);
+
 	font-size:0.9em;
 }
+
+
 
 button.pursuit {
 	position: absolute;
@@ -430,18 +435,14 @@ button.stop {
 }
 
 
-body.darkmode .task-btn.running {
+body.darkmode button.task-btn.running {
 	border: 2px dashed var(--task-button-border-color);
 }
-.checks > span { flex: 1; }
-
-.task-btn.darkmode {
+body.darkmode button.task-btn {
 	color: var(--task-button-text-color);
 }
-.running {
-	border: 2px dashed #202020;
-	padding: 1px;
-}
+
+.checks > span { flex: 1; }
 
 .hide { display:hide; }
 
