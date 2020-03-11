@@ -133,11 +133,11 @@ export default class TagSet {
 		// dont know better way to do random on iterator.
 		let ind = Math.floor(Math.random()*size);
 
-		const it = this.items.values();
+		const itr = this.items.values();
 		while ( ind-- > 0 ) {
-			it.next();
+			itr.next();
 		}
-		return it.next().value;
+		return itr.next().value;
 
 
 	}

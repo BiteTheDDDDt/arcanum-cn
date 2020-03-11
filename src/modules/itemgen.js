@@ -221,7 +221,7 @@ export default class ItemGen {
 		if (!info) return null;
 
 		if ( info[TYP_PCT] && (100*Math.random() > info[TYP_PCT]) ) return null;
-		if ( info instanceof GData ) return this.getGData( info, amt );
+		if ( info instanceof GData || info instanceof TagSet ) return this.getGData( info, amt );
 		else if ( info.id ) return this.instance(info);
 
 		else if ( info.level || info.maxlevel ) return this.randLoot( info, amt );
@@ -252,9 +252,9 @@ export default class ItemGen {
 	/**
 	 * Get some amount of non-instanced gameData.
 	 * @param {GData} it
-	 * @param {number} amt
+	 * @param {number} [amt=1]
 	 */
-	getGData( it , amt ) {
+	getGData( it , amt=1 ) {
 
 		if ( !it ) return null;
 
