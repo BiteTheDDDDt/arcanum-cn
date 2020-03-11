@@ -171,7 +171,7 @@ export default class ItemGen {
 
 		if ( proto.type === ARMOR || proto.type === WEAPON || proto.type === WEARABLE ) {
 
-			console.log('itgen.inst() wearable: ' + proto.id );
+			console.log('itgen wearable: ' + proto.id );
 			it = this.fromProto(proto);
 
 		} else if ( proto.type === POTION ) {
