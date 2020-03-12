@@ -549,8 +549,8 @@ export default {
 	 * @param {Item} it
 	 * @param {Context} g
 	 */
-	spellAction( it, g ) {
-	},
+	/*spellAction( it, g ) {
+	},*/
 
 	/**
 	 * Get target of spell or action.
@@ -558,8 +558,8 @@ export default {
 	 * @param {string} targets
 	 * @returns {Char|Char[]|null}
 	 */
-	getTarget( char, targets ) {
-	},
+	/*getTarget( char, targets ) {
+	},*/
 
 	/**
 	 * Create an item whose cost has been met ( or been provided by an effect )

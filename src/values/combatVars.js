@@ -159,6 +159,7 @@ export const NextTarget = ( a ) => {
 /**
  * Parse string target into integer target for flag checking.
  * @param {string|string[]} s
+ * @returns {number}
  */
 export const ParseTarget = (s)=>{
 

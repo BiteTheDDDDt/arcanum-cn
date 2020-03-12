@@ -75,7 +75,8 @@ export default class Raid {
 
 		if ( vars ) assign( this, vars);
 
-		//this.running = this.running || false;
+		// necessary now for vue reactivity.
+		this.running = false;
 
 		this.type = RAID;
 

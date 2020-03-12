@@ -73,6 +73,8 @@ export default class Combat {
 		if (!this.enemies) this.enemies = [];
 		if ( !this.allies) this.allies = [];
 
+		this.active = false;
+
 		this._teams = [];
 
 	}
@@ -194,11 +196,16 @@ export default class Combat {
 			}
 			if ( it.action ) {
 
+				console.log('DO ACTION: ' + it.action );
 				let target = this.getTarget( g.self, it.action.targets );
-				if ( !target || !this.active && target.team !== TEAM_PLAYER ) return;
+
 				if ( Array.isArray(target)) {
 
 					for( let i = target.length-1; i>= 0; i-- ) ApplyAction( target[i], it.action, g.self );
+
+				} else if ( !target || (!this.active && target.team !== TEAM_PLAYER) ) {
+					console.log('BAD TARGET: ' + target );
+					return;
 				} else {
 					ApplyAction( target, it.action, g.self );
 				}
