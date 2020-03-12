@@ -15,6 +15,7 @@ import Stat from './values/stat';
 import { WEARABLE, ARMOR, WEAPON, HOME, PURSUITS, ENCHANTSLOTS } from './values/consts';
 import TagSet from './composites/tagset';
 import EnchantSlots from './inventories/enchantslots';
+import Combat from './composites/combat';
 
 export const REST_SLOT = 'rest';
 
@@ -42,8 +43,9 @@ export default class GameState {
 			items:this.saveItems,
 			bars:this.bars,
 			slots:slotIds,
-			equip:( this.equip ),
-			raid:( this.raid ),
+			equip:this.equip,
+			raid:this.raid,
+			combat:this.combat,
 			drops:this.drops,
 			explore:this.explore,
 			sellRate:this.sellRate,
@@ -109,6 +111,7 @@ export default class GameState {
 		this.initStats();
 
 		this.raid = new Raid( baseData.raid );
+		this.combat = new Combat( baseData.combat || this.raid.combat );
 		this.explore = new Explore( baseData.explore );
 
 		this.runner = this.items.runner = new Runner( this.items.runner );
@@ -215,6 +218,7 @@ export default class GameState {
 		this.minions.revive(this);
 		this.drops.revive(this);
 		this.raid.revive( this );
+		this.combat.revive(this);
 		this.explore.revive(this);
 
 	}

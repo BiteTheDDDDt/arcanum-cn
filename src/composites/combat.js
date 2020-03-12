@@ -2,7 +2,7 @@ import { assign } from 'objecty';
 
 import Events, {
 	EVT_COMBAT, ENEMY_SLAIN, ALLY_DIED,
-	DAMAGE_MISS, CHAR_DIED, STATE_BLOCK
+	DAMAGE_MISS, CHAR_DIED, STATE_BLOCK, CHAR_ACTION
 } from '../events';
 
 import { itemRevive } from '../modules/itemgen';
@@ -10,7 +10,7 @@ import { NO_SPELLS } from '../chars/states';
 
 import { TEAM_PLAYER, getDelay, TEAM_NPC, TEAM_ALL } from '../values/consts';
 import { TARGET_ENEMY, TARGET_ALLY, TARGET_SELF,
-	TARGET_RAND, TARGET_PRIMARY, ApplyAction, TARGET_GROUP, TARGET_ANY } from "../values/combatVars";
+	TARGET_RAND, TARGET_PRIMARY, ApplyAction, TARGET_GROUP, TARGET_ANY, RandTarget, PrimeTarget } from "../values/combatVars";
 import Npc from '../chars/npc';
 
 
@@ -40,6 +40,12 @@ export default class Combat {
 		}
 
 	}
+
+	/**
+	 * Whether combat is active.
+	 */
+	get active() { return this._active;}
+	set active(v) {this._active=v}
 
 	/**
 	 * @property {Npc[]} enemies - enemies in the combat.
@@ -111,21 +117,8 @@ export default class Combat {
 
 		this.refreshTeamArrays();
 
+		Events.add( CHAR_ACTION, this.spellAction, this );
 		Events.add( CHAR_DIED, this.charDied, this );
-
-	}
-
-	/**
-	 * Add Npc to the combat
-	 * @param {Npc} it
-	 */
-	addNpc( it ){
-
-		it.timer = getDelay( it.speed );
-
-		if ( it.team === TEAM_PLAYER ) {
-			this._allies.push( it)
-		} else this._enemies.push(it);
 
 	}
 
@@ -186,36 +179,32 @@ export default class Combat {
 	 */
 	spellAction( it, g ) {
 
-		if ( this._enemies.length===0 ) {
+		let a = g.self.getCause( NO_SPELLS);
+		if ( a && !it.silent ) {
 
-			Events.emit(EVT_COMBAT, null, g.self.name + ' casts ' + it.name + ' at the darkness.' );
+			Events.emit( STATE_BLOCK, g.self, a );
 
 		} else {
 
+			//Events.emit(EVT_COMBAT, null, g.self.name + ' casts ' + it.name + ' at the darkness.' );
 
-			let a = g.self.getCause( NO_SPELLS);
-			if ( a && !it.silent ) {
-
-				Events.emit( STATE_BLOCK, g.self, a );
-
-			} else {
-				Events.emit(EVT_COMBAT, null, g.self.name + ' casts ' + it.name );
-				if ( it.attack ) this.attack( g.self, it.attack );
-				if ( it.action ) {
-
-
-					let target = this.getTarget( g.self, it.action.targets );
-					if ( Array.isArray(target)) {
-
-						for( let i = target.length-1; i>= 0; i-- ) ApplyAction( target[i], it.action, g.self );
-					} else {
-						ApplyAction( target, it.action, g.self );
-					}
-
-
-				}
+			Events.emit(EVT_COMBAT, null, g.self.name + ' casts ' + it.name );
+			if ( it.attack && this.active ) {
+				this.attack( g.self, it.attack );
 			}
+			if ( it.action ) {
 
+				let target = this.getTarget( g.self, it.action.targets );
+				if ( !target || !this.active && target.team !== TEAM_PLAYER ) return;
+				if ( Array.isArray(target)) {
+
+					for( let i = target.length-1; i>= 0; i-- ) ApplyAction( target[i], it.action, g.self );
+				} else {
+					ApplyAction( target, it.action, g.self );
+				}
+
+
+			}
 		}
 
 	}
@@ -275,17 +264,17 @@ export default class Combat {
 	getTarget( char, targets ) {
 
 		// retarget based on state.
-		targets = char.getTarget(targets);
+		targets = char.retarget(targets);
 
 		var group = this.getGroup( targets, char.team );
 		if ( targets & TARGET_GROUP ) return group;
 
 		if ( !targets || targets === TARGET_ENEMY || targets === TARGET_ALLY ) {
-			return this.randTarget(group);
+			return RandTarget(group);
 		} else if ( targets & TARGET_SELF ) return char;
 
-		if ( targets & TARGET_PRIMARY) return this.primeTarget(group);
-		if ( targets & TARGET_RAND ) return this.randTarget(group);
+		if ( targets & TARGET_PRIMARY) return PrimeTarget(group);
+		if ( targets & TARGET_RAND ) return RandTarget(group);
 
 	}
 
@@ -310,30 +299,6 @@ export default class Combat {
 		}
 		return null;
 
-	}
-
-	randTarget(a) {
-		return a[Math.floor( Math.random()*a.length)];
-	}
-
-	/**
-	 * Returns the most-primary ( lowest index) target.
-	 * @param {*} a
-	 */
-	primeTarget(a){
-		for( let i = 0; i<a.length; i++ ) {
-			if ( a[i].alive ) return a[i];
-		}
-	}
-
-	/**
-	 * @returns {Char} rand attack target
-	 */
-	nextTarget( a ) {
-
-		for( let i = a.length-1; i>=0; i-- ) {
-			if ( a[i].alive ) return a[i];
-		}
 	}
 
 	/**
@@ -383,6 +348,22 @@ export default class Combat {
 
 	}
 
+	/**
+	 * Add Npc to combat
+	 * @param {Npc} it
+	 */
+	addNpc( it ){
+
+		it.timer = getDelay( it.speed );
+
+		if ( it.team === TEAM_PLAYER ) {
+			this._allies.push( it)
+		} else this._enemies.push(it);
+
+		this.teams[TEAM_ALL].push(it);
+
+	}
+
 	refreshTeamArrays() {
 
 		this.teams[TEAM_PLAYER] = this.allies;
@@ -395,9 +376,11 @@ export default class Combat {
 	 * Reenter same dungeon.
 	 */
 	reenter() {
+
 		this.allies = this.state.minions.allies.toArray();
 		this.allies.unshift( this.player );
 		this.refreshTeamArrays();
+
 	}
 
 	/**

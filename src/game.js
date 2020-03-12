@@ -545,6 +545,23 @@ export default {
 	},
 
 	/**
+	 * Actor-casted spell or action attack.
+	 * @param {Item} it
+	 * @param {Context} g
+	 */
+	spellAction( it, g ) {
+	},
+
+	/**
+	 * Get target of spell or action.
+	 * @param {Char} char
+	 * @param {string} targets
+	 * @returns {Char|Char[]|null}
+	 */
+	getTarget( char, targets ) {
+	},
+
+	/**
 	 * Create an item whose cost has been met ( or been provided by an effect )
 	 * @param {GData} it
 	 * @param {boolean} [keep=true] whether the item should be kept after effect.
@@ -1134,9 +1151,11 @@ export default {
 	 */
 	equip( it, inv=null ) {
 
-		if ( !this.canEquip(it) ) return false;
+		if ( !this.canEquip(it) ) {
+			console.log('equip: ' + it.id  + ' type: ' + it.type + ' kind: ' + it.kind );
+			return false;
+		}
 
-		console.log('equip: ' + it.id  + ' type: ' + it.type + ' kind: ' + it.kind );
 		let res = this.state.equip.equip( it );
 		if ( !res) return;
 
@@ -1203,14 +1222,12 @@ export default {
 
 		if ( !it) return null;
 
-		console.log('LOOTING: ' + it.id );
+		console.log('LOOT: ' + it.id );
 
 		inv = inv || this.state.inventory;
 		if ( inv.full() ) inv = this.state.drops;
 
 		if ( typeof it === 'object' && it.stack ) {
-
-			console.log('ADD TO: ' + inv.id );
 
 			if ( inv.addStack( it ) ) {
 				Events.emit( EVT_LOOT, it );

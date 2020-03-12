@@ -127,6 +127,36 @@ export const Targets = {
 };
 
 /**
+ * @param {Char[]} a - array of targets.
+ * @returns {Char} next attack target
+ */
+export const RandTarget = (a) => {
+	return a[Math.floor( Math.random()*a.length)];
+}
+
+/**
+ * @param {*} a
+ * @returns {Char} highest priority ( lowest index ) living target.
+ */
+export const PrimeTarget = (a) => {
+	for( let i = 0; i<a.length; i++ ) {
+		if ( a[i].alive ) return a[i];
+	}
+}
+
+/**
+ * @param {Char[]} a - array of targets.
+ * @returns {Char} next attack target
+ */
+export const NextTarget = ( a ) => {
+
+	for( let i = a.length-1; i>=0; i-- ) {
+		if ( a[i].alive ) return a[i];
+	}
+}
+
+
+/**
  * Parse string target into integer target for flag checking.
  * @param {string|string[]} s
  */

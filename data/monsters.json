@@ -2820,8 +2820,9 @@
 	},
 	{
 		"id":"m_cordyceps",
-        "level":13,
-        "kind":"pest",
+		"name":"cordyceps",
+		"kind":"pest",
+		"level":13,
         "desc":"A writhing fungus chokes the air with spores.",
 		"hp":65,
 		"defense":80,

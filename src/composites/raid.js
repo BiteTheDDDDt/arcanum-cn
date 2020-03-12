@@ -1,7 +1,6 @@
 import Events, { ENEMY_SLAIN, TASK_DONE, CHAR_ACTION, CHAR_DIED, DEFEATED, TASK_BLOCKED, EVT_COMBAT } from '../events';
 import { assign } from 'objecty';
 import Game from '../game';
-import Combat from './combat';
 import { RAID, TYP_PCT, getDelay } from '../values/consts';
 import { Changed } from '../techTree';
 
@@ -17,7 +16,6 @@ export default class Raid {
 
 		return {
 			locale:this.locale ? this.locale.id : undefined,
-			combat:this.combat
 		}
 
 	}
@@ -54,10 +52,18 @@ export default class Raid {
 	get length() { return this.locale ? this.locale.length : 0; }
 
 	get combat() { return this._combat; }
-	set combat(v) { this._combat = v instanceof Combat ? v : new Combat(v); }
+	set combat(v) { this._combat = v; }
 
 	get enc() { return this._combat; }
 	set enc(v) {}
+
+	get running(){ return this._running; }
+	set running(v) {
+
+		this._running = v;
+		if ( this.combat ) this.combat.active = v;
+
+	}
 
 	get done() { return this.exp === this.length; }
 
@@ -69,9 +75,7 @@ export default class Raid {
 
 		if ( vars ) assign( this, vars);
 
-		if ( !this._combat ) this.combat = new Combat();
-
-		this.running = this.running || false;
+		//this.running = this.running || false;
 
 		this.type = RAID;
 
@@ -82,21 +86,20 @@ export default class Raid {
 
 	}
 
-	revive( gameState ) {
+	revive( gs ) {
 
-		this.state = gameState;
-		this.player = gameState.player;
+		this.state = gs;
+		this.player = gs.player;
 
 		Events.add( ENEMY_SLAIN, this.enemyDied, this );
-		Events.add( CHAR_ACTION, this.spellAction, this );
 		Events.add( CHAR_DIED, this.charDied, this );
 
-		if ( typeof this.locale === 'string') this.locale = gameState.getData(this.locale);
+		if ( typeof this.locale === 'string') this.locale = gs.getData(this.locale);
 
 		if ( !this.locale) this.running = false;
 
-		this.drops = gameState.drops;
-		this._combat.revive( gameState );
+		this.drops = gs.drops;
+		this._combat = gs.combat;
 
 	}
 
@@ -130,15 +133,6 @@ export default class Raid {
 
 		} else this._combat.update(dt);
 
-	}
-
-	/**
-	 * Add npc to current battle.
-	 * @param {*} it
-	 */
-	addNpc( it ){
-
-		if ( this.running ) this._combat.addNpc(it);
 	}
 
 	/**
@@ -222,6 +216,7 @@ export default class Raid {
 			} else {
 				this.combat.reenter();
 			}
+			this.combat.active = true;
 
 			if ( d.exp >= d.length ) {
 				d.exp = 0;
