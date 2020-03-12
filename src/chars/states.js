@@ -89,7 +89,7 @@ export default class States {
 	 * Retarget based on flags.
 	 * @param {string} targ
 	 */
-	getTarget( targ ){
+	retarget( targ ){
 
 		if ( (this.flags & CONFUSED) > 0 ) {
 

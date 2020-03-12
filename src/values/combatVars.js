@@ -127,8 +127,39 @@ export const Targets = {
 };
 
 /**
+ * @param {Char[]} a - array of targets.
+ * @returns {Char} next attack target
+ */
+export const RandTarget = (a) => {
+	return a[Math.floor( Math.random()*a.length)];
+}
+
+/**
+ * @param {*} a
+ * @returns {Char} highest priority ( lowest index ) living target.
+ */
+export const PrimeTarget = (a) => {
+	for( let i = 0; i<a.length; i++ ) {
+		if ( a[i].alive ) return a[i];
+	}
+}
+
+/**
+ * @param {Char[]} a - array of targets.
+ * @returns {Char} next attack target
+ */
+export const NextTarget = ( a ) => {
+
+	for( let i = a.length-1; i>=0; i-- ) {
+		if ( a[i].alive ) return a[i];
+	}
+}
+
+
+/**
  * Parse string target into integer target for flag checking.
  * @param {string|string[]} s
+ * @returns {number}
  */
 export const ParseTarget = (s)=>{
 
@@ -199,7 +230,7 @@ export const ApplyAction = ( target, action, attacker = null) => {
 
 	if ( action.result ) {
 		//console.log('APPLY ON: '+ target.name );
-		if ( attacker && action.name ) Events.emit(EVT_COMBAT, attacker.name + ' uses ' + action.name );
+		//if ( attacker && action.name ) Events.emit(EVT_COMBAT, attacker.name + ' uses ' + action.name );
 		target.applyVars( action.result );
 	}
 	if ( action.dot ) {

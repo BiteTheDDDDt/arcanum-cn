@@ -218,8 +218,8 @@ export default class Char {
 	 * @param {?string} targ
 	 * @returns {string}
 	 */
-	getTarget( targ ){
-		return this._states.getTarget(targ);
+	retarget( targ ){
+		return this._states.retarget(targ);
 	}
 
 	/**

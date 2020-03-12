@@ -78,7 +78,7 @@
 		"desc":"Breaks a curse of silence.",
 		"silent":true,
 		"cost":{
-			"air":1,
+			"air":2,
 			"managem":1
 		},
 		"action":{
@@ -95,7 +95,7 @@
 		"silent":true,
 		"desc":"Loosens rigid muscles, nerves, and bones.",
 		"cost":{
-			"mana":1,
+			"mana":2,
 			"gems":1
 		},
 		"action":{
