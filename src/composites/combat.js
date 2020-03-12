@@ -191,7 +191,7 @@ export default class Combat {
 			//Events.emit(EVT_COMBAT, null, g.self.name + ' casts ' + it.name + ' at the darkness.' );
 
 			Events.emit(EVT_COMBAT, null, g.self.name + ' casts ' + it.name );
-			if ( it.attack && this.active ) {
+			if ( it.attack ) {
 				this.attack( g.self, it.attack );
 			}
 			if ( it.action ) {
@@ -199,13 +199,11 @@ export default class Combat {
 				console.log('DO ACTION: ' + it.action );
 				let target = this.getTarget( g.self, it.action.targets );
 
+				if (!target ) return;
 				if ( Array.isArray(target)) {
 
 					for( let i = target.length-1; i>= 0; i-- ) ApplyAction( target[i], it.action, g.self );
 
-				} else if ( !target || (!this.active && target.team !== TEAM_PLAYER) ) {
-					console.log('BAD TARGET: ' + target );
-					return;
 				} else {
 					ApplyAction( target, it.action, g.self );
 				}
@@ -274,6 +272,12 @@ export default class Combat {
 		targets = char.retarget(targets);
 
 		var group = this.getGroup( targets, char.team );
+		if ( !this.active ) {
+
+			if ( this.group === this.enemies ) return null;
+			if ( this.group === this.teams[TEAM_ALL] ) return this.allies;
+		}
+
 		if ( targets & TARGET_GROUP ) return group;
 
 		if ( !targets || targets === TARGET_ENEMY || targets === TARGET_ALLY ) {

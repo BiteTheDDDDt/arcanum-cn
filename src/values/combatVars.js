@@ -230,7 +230,7 @@ export const ApplyAction = ( target, action, attacker = null) => {
 
 	if ( action.result ) {
 		//console.log('APPLY ON: '+ target.name );
-		if ( attacker && action.name ) Events.emit(EVT_COMBAT, attacker.name + ' uses ' + action.name );
+		//if ( attacker && action.name ) Events.emit(EVT_COMBAT, attacker.name + ' uses ' + action.name );
 		target.applyVars( action.result );
 	}
 	if ( action.dot ) {

@@ -97,7 +97,7 @@
 
 				},
 				"cost":{
-					"mana":5
+					"light":1
 				},
 				"action":{
 
@@ -121,7 +121,7 @@
 
 				},
 				"cost":{
-					"mana":7
+					"light":3
 				},
 				"action":{
 
