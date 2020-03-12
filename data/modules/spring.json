@@ -23,7 +23,7 @@
 				"use":{
 						"dot":{
 							"mod":{
-								"earth.rate":0.1,
+								"earth.rate":"10%",
 								"duration":600
 							}
 					}
@@ -37,11 +37,19 @@
 				"id":"valelily",
 				"name":"lily of the vale",
 				"desc":"a scented white flower, worn for luck.",
-				"mod":{
-					"luck":1
+				"stack":true,
+				"use":{
+					"dot":{
+						"duration":500,
+						"mod":{
+							"luck":1,
+							"nature.rate":"10%"
+						}
+					}
 				}
 
 			},
+
 			{
 
 				"id":"laurel_crown",

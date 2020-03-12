@@ -804,7 +804,7 @@
 		"earthlore.max": 3,
 		"player.defense": 15,
 		"stamina.max": "20%",
-		"earth.rate": 0.5,
+		"earth.rate": 0.3,
 		"earthspire.mod.space.max": 50
 	},
 	"flavor": "Finally, a subduction license!"

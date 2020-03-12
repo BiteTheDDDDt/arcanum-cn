@@ -81,7 +81,7 @@ export default class Enchant extends Task {
 	canUseOn( targ ) {
 
 		let itLevel = targ.level || 1;
-		if ( (targ.enchantTot + this.level > itLevel) ) {
+		if ( targ.hasEnchant(this.id) || (targ.enchantTot + this.level > itLevel) ) {
 			return false;
 		}
 

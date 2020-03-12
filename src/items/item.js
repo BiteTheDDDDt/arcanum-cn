@@ -44,7 +44,7 @@ export default class Item {
 
 
 	/**
-	 * @property {string[]} enchants - ids of all enchantments applied.
+	 * @property {string[]} enchants - ids of enchantments applied.
 	 */
 	get enchants() {
 		return this._enchants;
@@ -101,6 +101,15 @@ export default class Item {
 		if ( this.consume === null || this.consume === undefined ) this.consume = this.defaults.consume;
 		if ( this.stack === null || this.stack === undefined ) this.stack = this.defaults.stack;
 
+	}
+
+	/**
+	 * Test if item has an enchantment.
+	 * @param {string} id
+	 * @returns {boolean}
+	 */
+	hasEnchant(id){
+		return this._enchants && this._enchants.includes(id);
 	}
 
 	canPay(cost) { return this.value >= cost; }
