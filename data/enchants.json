@@ -147,11 +147,56 @@
 		},
 		"length":30,
 		"cost":{
-			"managem":3,
+			"firegem":3,
 			"mana":5
 		},
 		"mod":{
 			"attack.bonus":1
+		}
+	},
+	{
+		"id":"en_dmg2",
+		"name":"biting edge",
+		"verb":"infusing weapon",
+		"adj":"of biting",
+		"only":"weapon",
+		"desc":"imbue a weapon with a magic strike.",
+		"require":"g.en_dmg1>0&&g.enchanting>=6",
+		"level":3,
+		"buy":{
+			"arcana":1,
+			"research":500
+		},
+		"length":30,
+		"cost":{
+			"firegem":5,
+			"mana":5
+		},
+		"mod":{
+			"attack.bonus":2
+		}
+	},
+	{
+		"id":"en_dmg3",
+		"name":"biting edge",
+		"verb":"infusing weapon",
+		"adj":"of biting",
+		"only":"weapon",
+		"desc":"imbue a weapon with a magic strike.",
+		"require":"g.en_dmg2>0&&g.enchanting>=9",
+		"level":5,
+		"buy":{
+			"arcana":1,
+			"research":1000,
+			"firerune":10
+		},
+		"length":30,
+		"cost":{
+			"firerune":3,
+			"mana":5
+		},
+		"mod":{
+			"attack.bonus":3
 		}
 	},
 	{
@@ -534,6 +579,29 @@
 		},
 		"mod":{
 			"mod.scraft":3
+		}
+	},
+	{
+		"id":"en_scraft4",
+		"name":"spellcraft IV",
+		"adj":"of spells",
+		"only":"armor,weapon",
+		"desc":"Increases your spellcrafting power",
+		"require":"g.en_scraft3>0&&g.enchanting>=15",
+		"level":10,
+		"buy":{
+			"gold":2000,
+			"research":7000,
+			"tomes":15,
+			"runestones":20
+		},
+		"length":30,
+		"cost":{
+			"runestones":15,
+			"spiritrune":10
+		},
+		"mod":{
+			"mod.scraft":5
 		}
 	},
 	{
