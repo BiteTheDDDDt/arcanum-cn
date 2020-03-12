@@ -79,7 +79,7 @@
 		"silent":true,
 		"cost":{
 			"air":1,
-			"managem":5
+			"managem":1
 		},
 		"action":{
 			"cure":"silence",

@@ -15,9 +15,6 @@ export default {
 		}
 
 	},
-	methods:{
-
-	},
 	computed:{
 
 		shown(){

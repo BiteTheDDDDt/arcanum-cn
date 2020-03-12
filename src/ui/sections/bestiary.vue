@@ -115,10 +115,10 @@ export default {
 	<div class="char-list">
 	<table class="bestiary">
 		<tr>
-			<th @click="setSort('name')">Creature</th>
-			<th @click="setSort('level')">Level</th>
-			<th @click="setSort('value')">Slain</th>
-			<th class="num-align" @click="setSort('hp')">Hp</th></tr>
+			<th class="table-head" @click="setSort('name')">Creature</th>
+			<th class="table-head" @click="setSort('level')">Level</th>
+			<th class="table-head" @click="setSort('value')">Slain</th>
+			<th class="num-align table-head" @click="setSort('hp')">Hp</th></tr>
 		<tr v-for="b in sorted" :key="b.id" @mouseenter.capture.stop="itemOver($event,b)">
 			<th class="sm-name">{{ b.name }}</th>
 			<td class="num-align">{{ Math.floor( b.level ) }}</td>
@@ -135,7 +135,7 @@ export default {
 
 <style scoped>
 
-tr th {
+tr .table-head {
 	cursor: pointer;
 	text-decoration: underline;
 	user-select: none;
@@ -158,23 +158,20 @@ margin:0;
 	margin-bottom:1rem;
 }
 
-table {
+table.bestiary {
 	border-spacing: var(--sm-gap) 0;
 	border-collapse: collapse;
 	row-gap: var(--sm-gap);
 	column-gap: var(--md-gap);
 }
 
-tr:first-child th {
+tr:first-child .table-head {
 	border-bottom: 1pt solid black;
 	margin:var(--sm-gap);
 }
 
-tr > th:first-of-type {
-	text-align: left;
-}
 
-th {
+.table-head {
 	padding: var(--sm-gap) var(--md-gap);
 }
 

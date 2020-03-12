@@ -45,8 +45,13 @@
 			{
 
 				"id":"laurel_crown",
+				"name":"laurel crown",
+				"slot":"head",
+				"type":"armor",
+				"level":10,
+				"armor":1,
 				"mod":{
-
+					"charms.max":1
 				}
 			},
 			{
@@ -285,7 +290,7 @@
 				"length":100,
 				"show":{
 					"name":"",
-					"desc":""
+					"desc":"Returning from the fair you receive reports of fields overrun by great serpents and lizards. It may bear investigation."
 				},
 				"desc":"The fields you remember from former days are now overrun with fearsome beasts.",
 				"run":{
