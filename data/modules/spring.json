@@ -139,9 +139,22 @@
 		],
 		"encounters":[
 			{
+				"id":"spr_stargaze",
+				"name":"stargazing",
+				"desc":"Bright spring skies bring new stars into view.",
+				"effect":{
+					"bf":"1~2",
+					"weary":"2~3"
+				},
+				"result":{
+					"starcharts":"1~2"
+				}
+
+			},
+			{
 				"id":"spr_enc_rumors",
 				"name":"idle rumors",
-				"desc":"Every year rumors abound of lights and music in the nearby hickory groves.",
+				"desc":"Every year rumors abound of lights and music from the nearby woods.",
 				"effect":{
 					"bf":"1~2",
 					"unease":"1~2"
@@ -232,7 +245,7 @@
 			{
 
 				"id":"spr_fair",
-				"name":"",
+				"name":"aylesmeade fair",
 				"desc":"Each spring Aylesmeade holds its fabled fair in sight of the World Tree, Aesilwyr.",
 				"show":{
 

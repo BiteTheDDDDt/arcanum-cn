@@ -248,7 +248,8 @@
 		"result":{
 			"gold":"50~75",
 			"watergem":"50%",
-			"gems":10
+			"gems":10,
+			"veldranearring":"5%"
 		},
 		"spawns":[
 			"eel",

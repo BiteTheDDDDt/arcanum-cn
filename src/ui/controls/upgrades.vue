@@ -1,5 +1,5 @@
 <script>
-import ItemsBase from './itemsBase.js';
+import ItemsBase from '../itemsBase.js';
 //import UIMixin from './uiMixin';
 
 export default {
@@ -20,11 +20,10 @@ export default {
 	<!--<div><button ref="btnHides" class="btnConfig">&#9881;</button></div>-->
 
 	<button :class="{'task-btn':true, hidable:true, locked:locked(it)||(it.owned&&!it.repeat),
-		running:it.running, runnable:it.perpetual||it.length>0 }"
+		running:it.running, runnable:it.perpetual||it.length>0,
+		disabled:!it.canUse() }"
 		v-for="it in items" :data-key="it.id" :key="it.id"
 		@mouseenter.capture.stop="itemOver( $event,it)"
-
-		:disabled="!it.canUse()"
 
 		@click="emit( 'upgrade', it)">{{ it.name }}</button>
 

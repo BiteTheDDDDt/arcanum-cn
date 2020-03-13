@@ -91,6 +91,23 @@ body.darkmode {
 	color: #D7DADC;
 }
 
+div.popup {
+	height:auto;
+	min-height:100px;
+	min-width:240px;
+	position: absolute;
+	opacity:1;
+	z-index:var(--high-depth);
+	align-self: center;
+	background:inherit;
+	background-clip: border-box;
+	padding:var(--md-gap);
+	background-color: var( --background-color);
+	border:var(--popup-border);
+	border-radius: 0.20rem;
+}
+
+
     div.bar {
         position: relative;
         border: 2px solid #000; box-sizing: content-box;
@@ -114,9 +131,19 @@ body.darkmode {
     body.compact div.bar .bar-text { font-size: 0.7rem; line-height: 0.8em; }
 
 button { color: var(--button-text-color); border: 1px solid #0006; outline:none; }
-button:disabled {
+
+
+input[type="button"]:enabled:active, button:enabled:active, .hilite {
+	background-color: var(--accent-color-active);
+}
+
+input[type="button"]:hover, button:hover, .text-button:hover {
+	background-color: #c2c2c2;
+}
+
+button:disabled, button.disabled, button.disabled:hover, button.disabled:active {
 	opacity: 0.3; color: unset;
-	pointer-events: all;
+	background-color: unset;
 }
 
 input[type="button"], button, div.text-button, div.popup-close {
@@ -129,21 +156,33 @@ input[type="button"], button, div.text-button, div.popup-close {
 
 }
 
-div.popup {
-	height:auto;
-	min-height:100px;
-	min-width:240px;
-	position: absolute;
-	opacity:1;
-	z-index:var(--high-depth);
-	align-self: center;
-	background:inherit;
-	background-clip: border-box;
-	padding:var(--md-gap);
-	background-color: var( --background-color);
-	border:var(--popup-border);
-	border-radius: 0.20rem;
+.darkmode input[type="button"],
+.darkmode button,
+.darkmode .text-button {
+	background-color:#181818;
+	border-color: #646464;
+	color:#D7DADC;
 }
+.darkmode input[type="button"]:hover, .darkmode button:hover, .darkmode .hilite, .darkmode .text-button:hover {
+	background-color: #5f5f5f;
+}
+
+.darkmode input[type="button"]:disabled, .darkmode button:disabled, .darkmode .task-btn.disabled,
+.darkmode .task-btn.disabled:hover, .darkmode .task-btn.disabled:active, .darkmode .text-button:disabled {
+	color: #808080;
+	background-color: #070707;
+}
+
+button.runnable {
+	background: var(--task-btn-color);
+}
+
+button.runnable:hover { background: #dba659; }
+
+.darkmode button.runnable:hover {
+	background:#c5964f
+}
+
 
 div.text-button {
 	display:flex;
@@ -158,30 +197,6 @@ div.text-button {
 	padding:0;
 }
 
-.darkmode input[type="button"],
-.darkmode button,
-.darkmode .text-button {
-	background-color:#181818;
-	border-color: #646464;
-	color:#D7DADC;
-}
-.darkmode input[type="button"]:hover, .darkmode button:hover, .darkmode .hilite, .darkmode .text-button:hover {
-	background-color: #5f5f5f;
-}
-
-.darkmode input[type="button"]:disabled, .darkmode button:disabled, .darkmode .text-button:disabled {
-	color: #808080;
-	background-color: #070707;
-}
-
-input[type="button"]:enabled:active, button:enabled:active, .hilite {
-	background-color: var(--accent-color-active);
-}
-
-input[type="button"]:hover, button:hover, .text-button:hover {
-	background-color: #c2c2c2;
-}
-
 
 /** button won't respect absolute position by itself **/
 .popup-close {
@@ -189,16 +204,6 @@ input[type="button"]:hover, button:hover, .text-button:hover {
 	cursor: default;
 	top: var(--sm-gap);
 	right: var(--sm-gap);
-}
-
-button.runnable {
-	background: var(--task-btn-color);
-}
-
-button.runnable:hover { background: #dba659; }
-
-.darkmode button.runnable:hover {
-	background:#c5964f
 }
 
 input[type=text].fld-name {
@@ -209,7 +214,7 @@ input[type=text].fld-name {
 }
 
 .darkmode .fld-name {
-	color: var( --button-text-color);
+	color: var( --button-text-color );
 }
 
 div.top-bar {

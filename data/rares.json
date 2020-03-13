@@ -5,6 +5,7 @@
 		"id":"karnivexcrown",
 		"name":"crown of karnivex",
 		"desc":"The conceits of Karnivex were without bounds.",
+		"slot":"head",
 		"unique":true,
 		"level":7,
 		"armor":5,
@@ -14,6 +15,21 @@
 			"resist.silence":5,
 			"tohit":1,
 			"rage.rate":0.5
+		}
+
+	},
+	{
+
+		"id":"veldranearring",
+		"name":"veldran's earring",
+		"desc":"A small blue stone with swirls of white.",
+		"unique":true,
+		"level":5,
+		"armor":1,
+		"slot":"trinket",
+		"mod":{
+			"water.rate":0.1,
+			"resist.water":5
 		}
 
 	},
