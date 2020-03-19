@@ -2,6 +2,7 @@ import { DisplayItem } from "./displayItem";
 import {RollOver} from 'ui/popups/itemPopup.vue';
 
 import { SKILL } from '../../values/consts';
+import RevStat from "../../items/revStat";
 
 /**
 * Name to use for object in current context.
@@ -76,9 +77,31 @@ export class InfoBlock {
 
 		this.results = {};
 
+		/**
+		 * @property {GData} rootItem - rootItem of the current path.
+		 */
+		this.rootItem = null;
+
+	}
+
+	/**
+	 * Attempt to set the base item of a path.
+	 * @param {string} str
+	 */
+	setPathRoot(str) {
+
+		if ( !this.rootItem ) this.rootItem = RollOver.context.getData(str);
+
+	}
+
+	clear(){
+		this.results = {};
+		this.rootItem = null;
 	}
 
 	add( itemName, value, isRate ){
+
+		if ( this.rootItem && this.rootItem.id ==='space' ) value = -value;
 
 		let cur = this.results[itemName];
 		if ( cur === undefined ){
@@ -90,6 +113,7 @@ export class InfoBlock {
 			cur.add( value );
 
 		}
+		this.rootItem = null;
 
 	}
 

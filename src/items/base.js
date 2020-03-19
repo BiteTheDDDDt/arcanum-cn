@@ -251,10 +251,11 @@ export default {
 				let targ = this[p];
 				let sub = vars[p];
 
+				if ( this.id === 'herbalism' && p === 'max') console.log('INCREASE MAX: ' + sub );
+
 				if ( targ instanceof RValue ) {
 
 					//console.log('APPLY ' + vars[p] + ' to stat: '+ this.id + '.'+ p + ': ' + amt*vars[p] + ' : ' + (typeof vars[p]) );
-					//if ( typeof (targ) === 'object') console.log('obj targ: ' + targ.constructor.name );
 
 					targ.apply( sub, amt );
 
@@ -269,7 +270,8 @@ export default {
 						//deprec( this.id + ' targ: ' + p + ': ' + targ );
 						this[p] += Number(sub)*amt;
 					} else {
-						//console.log( this.id + ' subapply: ' + p);
+
+							//console.log( this.id + ' subapply: ' + p);
 						this.subeffect( targ, sub, amt );
 					}
 
@@ -358,6 +360,9 @@ export default {
 
 				if ( subMod.constructor === Object ) {
 
+					/*if ( this.id === "act_garden") {
+						console.log( this.id + ' NEW: ' + p );
+					}*/
 					targ[p] = {};
 					this.applyObj( subMod, amt, targ[p], p==='mod'|| isMod );
 
@@ -370,7 +375,9 @@ export default {
 
 					subTarg.source = this;
 
-
+					/*if ( this.id === "act_garden") {
+						console.log( this.id + ' NEW: ' + p );
+					}*/
 					if ( subMod instanceof Mod ) subTarg.addMod( subMod,amt );
 					//console.log( this.id + '.' + p  + ': ' + subMod + ': targ null: ' + subTarg.valueOf() + ' mod? ' + isMod );
 				}

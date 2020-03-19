@@ -2,8 +2,6 @@
 import ItemsBase from '../itemsBase.js';
 import { InfoBlock, DisplayName, ConvertPath } from './infoBlock';
 
-import {RollOver} from 'ui/popups/itemPopup.vue';
-
 /**
  * Display for a sub-block of gdata, such as item.effect, item.result, item.run, etc.
  *
@@ -12,9 +10,15 @@ import {RollOver} from 'ui/popups/itemPopup.vue';
 export default {
 	props:['title', 'info', 'rate'],
 	mixins:[ItemsBase],
+	beforeCreate(){
+		this.infos = new InfoBlock();
+	},
 	computed:{
 		effects(){
+
+			this.infos.clear();
 			return this.effectItems( this.info, this.rate );
+
 		}
 
 	},
@@ -27,19 +31,18 @@ export default {
 		effectItems( obj, rate=false) {
 
 			let type = typeof obj;
-			let infos = new InfoBlock();
 
 			if ( type === 'number') {
 
 				//@todo still happens. mostly for sell cost as gold.
 				//console.warn('effect type is number: ' + obj) ;
-				infos.add( 'gold', obj, this.rate );
+				this.infos.add( 'gold', obj, this.rate );
 
 			} else if ( type === 'string') {
 
-				infos.add( DisplayName(obj), true );
+				this.infos.add( DisplayName(obj), true );
 
-			} else if ( Array.isArray(obj) ) obj.forEach(v=>this.effectList(v,infos));
+			} else if ( Array.isArray(obj) ) obj.forEach( v=>this.effectList(v) );
 			else if ( type === 'function' ) {
 
 				/*if ( !obj.fText ){
@@ -51,24 +54,23 @@ export default {
 			}
 			else if ( type === 'object') {
 
-				this.effectList( obj, infos, '', rate );
+				this.effectList( obj, '', rate );
 
 			}
 
-			return infos.results;
+			return this.infos.results;
 
 		},
 
 		/**
 		 * @param {Object} obj - object of effects to enumerate.
-		 * @param {Object} infos - [name/effect] pairs to display to user.
 		 * @param {string} rootPath - prop path from base.
 		 * @param {boolean} rate - whether display is per/s rate.
 		 */
-		effectList( obj, infos, rootPath='', rate=false ) {
+		effectList( obj, rootPath='', rate=false ) {
 
 			if ( typeof obj === 'string' ) {
-				infos.add( DisplayName(obj), true, rate );
+				this.infos.add( DisplayName(obj), true, rate );
 				return;
 			}
 
@@ -80,6 +82,8 @@ export default {
 					continue;
 				}
 
+				this.infos.setPathRoot(p);
+
 				let subRate = rate || p === 'rate';
 				// displayed path to subitem.
 				let subPath = ConvertPath( rootPath, p );
@@ -87,20 +91,20 @@ export default {
 				// path conversion indicated no display.
 				if ( subPath === undefined ) continue;
 
-				if ( typeof sub !== 'object' ) infos.add(subPath, sub, subRate );
+				if ( typeof sub !== 'object' ) this.infos.add(subPath, sub, subRate );
 				else if ( typeof sub !== 'function ' ) {
 
 					if ( sub.skipLocked ) {
 
-						let refItem = RollOver.context.getData(p);
+						let refItem = this.infos.rootItem;
 						if ( refItem && (refItem.locked || refItem.disabled) ) continue;
 
 					}
 					if ( sub.constructor !== Object ) {
 
-						infos.add( subPath, sub, subRate );
+						this.infos.add( subPath, sub, subRate );
 
-					} else this.effectList( sub, infos, subPath, subRate );
+					} else this.effectList( sub, subPath, subRate );
 
 				}
 

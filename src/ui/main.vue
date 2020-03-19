@@ -89,6 +89,8 @@ export default {
 	},
 	beforeDestroy(){
 
+		console.log('MAIN DESTROYED');
+		ItemOut();
 		this.removeListener('game-loaded', this.gameLoaded );
 		this.removeListener('setting', this.onSetting );
 		this.removeListener('pause', this.pause );
