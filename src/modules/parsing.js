@@ -26,7 +26,7 @@ export const ParseMods = ( mods, id, source ) => {
 		id = source.id;
 		if ( !id ) {
 			id = '';
-			logObj( mods, 'invalid mod: ' + id );
+			logObj( mods, 'No Mod Id: ' + source + ': ' + id );
 		}
 	}
 
@@ -82,6 +82,7 @@ export const SubMods = ( mods, id, source )=>{
 		if ( val instanceof Mod ) {
 
 			if ( id ) val.id = SubPath(id, s);
+			//console.log('NEW MOD ID: ' +SubPath(id, s) );
 			val.source = source;
 			continue;
 
