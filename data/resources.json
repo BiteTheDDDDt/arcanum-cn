@@ -366,16 +366,6 @@
 		"max":10
 	},
 	{
-		"id":"sulphur",
-		"desc":"principle of fire.",
-		"max":10
-	},
-	{
-		"id":"mercury",
-		"desc":"principle of metal.",
-		"max":10
-	},
-	{
 		"id":"space",
 		"name":"floor space",
 		"desc":"Space Available",

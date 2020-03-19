@@ -74,10 +74,26 @@
 			{
 				"id":"spr_bees",
 				"name":"bees",
+				"max":0,
+				"require":"apiculture",
+				"desc":"Bees have unexpected uses in spells of life and generation.",
+				"flavor":"dbulm has a collection"
+			},
+			{
+				"id":"spr_hyacinth",
+				"name":"hyacinth",
+				"max":5,
+				"desc":"A colorful and poisonous spring bloom.",
+				"flavor":"I could not speak, and my eyes failed, I was neither living nor dead, and I knew nothing."
+			},
+			{
+				"id":"spr_bees",
+				"name":"bees",
 				"require":"apiculture",
 				"desc":"Bees have unexpected uses in spells of life and generation.",
 				"flavor":"dbulm has a collection"
 			}
+
 		],
 		"upgrades":[
 
@@ -196,10 +212,24 @@
 				"desc":"Young women from Aylesmeade weave patterns of colored ribbons around a bare trunk.",
 				"effect":{
 					"weaving.exp":2,
-					"bf":"1~3"
+					"bf":"1~2",
+					"weary":"1~2"
 				},
 				"loot":{
 					"valelily":"10%"
+				}
+
+			},
+			{
+				"id":"spr_flowers",
+				"name":"potted flowers",
+				"desc":"Aylesmeade villagers arrange their spring blooms for sale.",
+				"effect":{
+					"herbalism.exp":2,
+					"weary":"2~3"
+				},
+				"loot":{
+					"spr_hyacinth":1
 				}
 
 			},
@@ -272,6 +302,20 @@
 		],
 		"furniture":[
 			{
+
+				"id":"spr_flower_pot",
+				"name":"flower pot",
+				"tags":"plantsource",
+				"cost":{
+					"spr_hyacinth":5,
+					"herbs":10,
+					"gold":10
+				},
+				"mod":{
+					"spr_hyacinth.max":5
+				}
+			},
+			{
 				"id":"spr_maypole",
 				"name":"maypole",
 				"desc":"Raise a maypole to perform spring rituals.",
@@ -290,7 +334,7 @@
 					"spr_honey_jar":1
 				},
 				"mod":{
-					"bees.max":10
+					"spr_bees.max":10
 				}
 			}
 		],

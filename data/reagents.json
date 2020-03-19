@@ -8,6 +8,16 @@
 		"flavor":""
 	},
 	{
+		"id":"sulphur",
+		"desc":"principle of fire.",
+		"max":10
+	},
+	{
+		"id":"mercury",
+		"desc":"principle of metal.",
+		"max":10
+	},
+	{
 		"id":"icethorn",
 		"tags":"herb,reagent",
 		"desc":"",
