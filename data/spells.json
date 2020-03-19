@@ -73,7 +73,7 @@
 	},
 	{
 		"id":"speak",
-		"level":10,
+		"level":8,
 		"school":"air",
 		"desc":"Breaks a curse of silence.",
 		"silent":true,
