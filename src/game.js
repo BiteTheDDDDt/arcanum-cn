@@ -490,7 +490,7 @@ export default {
 
 		}  else if ( it.instanced ){
 
-			it.onUse( this );
+			if ( it.value > 0 ) it.onUse( this );
 
 		} else  {
 
