@@ -63,7 +63,7 @@
 				"effect": {
 					"ritualnotes": 0.0001
 				},
-				"mod": {
+				"runmod": {
 					"mana.rate": 1
 				}
 			},
@@ -85,7 +85,7 @@
 				"effect": {
 					"ritualnotes": 0.0002
 				},
-				"mod": {
+				"runmod": {
 					"light.max": 10
 				}
 			},
@@ -106,7 +106,7 @@
 				"effect": {
 					"ritualnotes": 0.0001
 				},
-				"mod": {
+				"runmod": {
 					"player.resist.shadow": 5,
 					"player.resist.light": 5,
 					"hp.max": 50,
@@ -131,7 +131,7 @@
 				"effect": {
 					"ritualnotes": 0.0001
 				},
-				"mod": {
+				"runmod": {
 					"creepingvine.herbs.rate": 0.2,
 					"garden.herbs.rate": 1
 				}
@@ -155,7 +155,7 @@
 				"effect": {
 					"ritualnotes": 0.0001
 				},
-				"mod": {
+				"runmod": {
 					"hp.rate": 10,
 					"hp.max": 100
 				}
@@ -180,7 +180,7 @@
 				"effect": {
 					"ritualnotes": 0.0001
 				},
-				"mod": {
+				"runmod": {
 					"stamina.rate": 1.5,
 					"stamina.max": 40
 				}
@@ -203,7 +203,7 @@
 				"effect": {
 					"ritualnotes": 0.0005
 				},
-				"mod": {
+				"runmod": {
 					"prismatic.rate": 1
 				}
 			},
@@ -225,7 +225,7 @@
 				"effect": {
 					"ritualnotes": 0.0005
 				},
-				"mod": {
+				"runmod": {
 					"player.resist.shadow": 10,
 					"player.resist.light": 10,
 					"hp.max": 100,
@@ -251,7 +251,7 @@
 				"effect": {
 					"ritualnotes": 0.0005
 				},
-				"mod": {
+				"runmod": {
 					"creepingvine.herbs.rate": 0.4,
 					"garden.herbs.rate": 1.8
 				}
@@ -276,7 +276,7 @@
 				"effect": {
 					"ritualnotes": 0.0005
 				},
-				"mod": {
+				"runmod": {
 					"hp.rate": 20,
 					"hp.max": 150
 				}
@@ -302,7 +302,7 @@
 				"effect": {
 					"ritualnotes": 0.0005
 				},
-				"mod": {
+				"runmod": {
 					"stamina.rate": 3,
 					"stamina.max": 60
 				}
@@ -326,7 +326,7 @@
 				"effect": {
 					"ritualnotes": 0.005
 				},
-				"mod": {
+				"runmod": {
 					"speed": 25
 				}
 			},
@@ -349,7 +349,7 @@
 				"effect": {
 					"ritualnotes": 0.005
 				},
-				"mod": {
+				"runmod": {
 					"stamina.rate": 7,
 					"stress.rate": -10
 				}
@@ -373,7 +373,7 @@
 				"effect": {
 					"ritualnotes": 0.005
 				},
-				"mod": {
+				"runmod": {
 					"player.resist.fire": 15,
 					"player.resist.light": 15,
 					"player.resist.shadow": 15,
@@ -404,7 +404,7 @@
 					"ritualnotes": 0.0002,
 					"fire": 3
 				},
-				"mod": {
+				"runmod": {
 					"player.bonuses.fire": "15%",
 					"player.resist.fire": 10
 				}
@@ -427,7 +427,7 @@
 					"ritualnotes": 0.0002,
 					"water": 3
 				},
-				"mod": {
+				"runmod": {
 					"player.bonuses.water": "15%",
 					"player.resist.water": 10
 				}
@@ -450,7 +450,7 @@
 					"ritualnotes": 0.0002,
 					"air": 3
 				},
-				"mod": {
+				"runmod": {
 					"player.bonuses.air": "15%",
 					"player.resist.air": 10
 				}
@@ -473,7 +473,7 @@
 					"ritualnotes": 0.0002,
 					"earth": 3
 				},
-				"mod": {
+				"runmod": {
 					"player.bonuses.earth": "15%",
 					"player.resist.earth": 10
 				}
@@ -496,7 +496,7 @@
 					"ritualnotes": 0.0002,
 					"mana": 3
 				},
-				"mod": {
+				"runmod": {
 					"player.bonuses.mana": "15%",
 					"player.resist.mana": 10
 				}
@@ -520,7 +520,7 @@
 					"light": 3,
 					"shadow": 3
 				},
-				"mod": {
+				"runmod": {
 					"player.bonuses.light": "15%",
 					"player.resist.light": 10,
 					"player.bonuses.shadow": "15%",
@@ -545,7 +545,7 @@
 				"effect": {
 					"ritualnotes": 0.0003
 				},
-				"mod": {
+				"runmod": {
 					"ritual_dusk.mod.player.defense": 10,
 					"ritual_dusk.mod.player.bonuses.blunt": "10%",
 					"ritual_dusk.mod.player.bonuses.pierce": "10%",
@@ -569,7 +569,7 @@
 				"effect": {
 					"ritualnotes": 0.0003
 				},
-				"mod": {
+				"runmod": {
 					"ritual_dawn.mod.speed": 5,
 					"ritual_dawn.mod.stress": -0.2,
 					"ritual_dawn.mod.dist": 100
@@ -594,7 +594,7 @@
 				"effect": {
 					"ritualnotes": 0.005
 				},
-				"mod": {
+				"runmod": {
 					"t_ritual.mod.runner.max": 1
 				}
 			},
@@ -620,7 +620,7 @@
 				"result": {
 					"ritualpaper": 1
 				},
-				"mod": {}
+				"runmod": {}
 			},
 			{
 				"id": "ritualpaper_prepared",
@@ -644,7 +644,7 @@
 				"result": {
 					"ritualpaper": 1
 				},
-				"mod": {}
+				"runmod": {}
 			}
 		],
 		"upgrades": [
