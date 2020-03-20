@@ -595,6 +595,8 @@ export default class Runner {
 		a.running=true;
 		this.actives.add(a);
 
+		if ( a.onStart ) a.onStart();
+
 		this.removeWait(a);
 
 	}

@@ -6,6 +6,7 @@ import Scaler from '../values/scaler';
 import { TASK } from '../values/consts';
 import { ParseMods } from '../modules/parsing';
 import Mod from '../values/mod';
+import { SetModCounts } from './base';
 
 /*function ShowModTotals( mods ){
 
@@ -41,6 +42,12 @@ export default class Task extends GData {
 	set level(v) { this._level = v;}
 
 	get typeName() { return this.type === TASK ? 'action' : this.type }
+
+	/**
+	 * @property {Mods} runmod - mods to apply while task is being actively used.
+	 */
+	get runmod(){return this._runmod;}
+	set runmod(v){this._runmod = v;}
 
 	get ex(){
 		return this._exp;
@@ -181,6 +188,24 @@ export default class Task extends GData {
 	update( dt ) {
 		this.exp.set( this._exp + (this.rate||1)*dt );
 		this.checkComplete();
+	}
+
+	onStart(){
+
+		if ( this.runmod ) {
+			SetModCounts(this.runmod, 1);
+			Game.applyMods( this.runmod, 1 );
+		}
+
+	}
+
+	onStop(){
+
+		if ( this.runmod ) {
+			SetModCounts(this.runmod,0);
+			Game.removeMod( this.runmod, 1 );
+		}
+
 	}
 
 	/**
