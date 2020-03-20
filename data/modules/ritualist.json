@@ -679,12 +679,12 @@
 					"ritualnotes": 10
 				},
 				"mod": {
-					"ritual_arcane_greater.mod.prismatic": 0.2,
-					"ritual_cultivation_greater.mod.creepingvine.herbs.rate": 0.1,
-					"ritual_cultivation_greater.mod.garden.herbs.rate": 0.4,
-					"ritual_curse_greater.mod.player.defense": 10,
-					"ritual_refresh_greater.mod.stamina.max": 20,
-					"ritual_healing_greater.mod.hp.max": 50
+					"ritual_arcane_greater.runmod.prismatic": 0.2,
+					"ritual_cultivation_greater.runmod.creepingvine.herbs.rate": 0.1,
+					"ritual_cultivation_greater.runmod.garden.herbs.rate": 0.4,
+					"ritual_curse_greater.runmod.player.defense": 10,
+					"ritual_refresh_greater.runmod.stamina.max": 20,
+					"ritual_healing_greater.runmod.hp.max": 50
 				},
 				"flavor": "We must build a ward"
 			},
@@ -767,19 +767,19 @@
 				},
 				"mod": {
 					"ritual_air.effect.air": 1,
-					"ritual_air.mod.payer.bonuses.air": "5%",
+					"ritual_air.runmod.player.bonuses.air": "5%",
 					"ritual_fire.effect.fire": 1,
-					"ritual_fire.mod.payer.bonuses.fire": "5%",
+					"ritual_fire.runmod.player.bonuses.fire": "5%",
 					"ritual_water.effect.water": 1,
-					"ritual_water.mod.payer.bonuses.water": "5%",
+					"ritual_water.runmod.player.bonuses.water": "5%",
 					"ritual_earth.effect.earth": 1,
-					"ritual_earth.mod.payer.bonuses.earth": "5%",
+					"ritual_earth.runmod.player.bonuses.earth": "5%",
 					"ritual_mana.effect.mana": 1,
-					"ritual_mana.mod.payer.bonuses.mana": "5%",
+					"ritual_mana.runmod.player.bonuses.mana": "5%",
 					"ritual_penance.effect.shadow": 1,
-					"ritual_penance.mod.payer.bonuses.shadow": "5%",
+					"ritual_penance.runmod.player.bonuses.shadow": "5%",
 					"ritual_penance.effect.light": 1,
-					"ritual_penance.mod.payer.bonuses.light": "5%"
+					"ritual_penance.runmod.player.bonuses.light": "5%"
 				}
 			},
 			{
