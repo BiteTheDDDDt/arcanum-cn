@@ -170,7 +170,7 @@ export default class Context {
 			for( let p in mod ) {
 
 				var target = this.getData( p );
-				if ( target === undefined ) continue;
+				if ( target === undefined || target === null ) continue;
 				if ( target.applyMods) {
 
 						target.applyMods( mod[p], amt );

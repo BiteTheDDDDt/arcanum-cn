@@ -108,7 +108,7 @@ export default class QuickSlot extends Proxy {
 	}
 
 	/**
-	 *
+	 * Unused?!?!?
 	 * @param {Game} g
 	 */
 	onUse( g ) {

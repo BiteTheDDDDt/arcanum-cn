@@ -211,8 +211,8 @@ export default {
 
 			}
 
-			if ( typeof targ === 'object' && targ && mods.mod ) {
-				ParseMods( this.mods, this.id, this );
+			if ( targ === this && mods.mod ) {
+				ParseMods( this.mod, this.id, this );
 				//SetModIds( targ.mod, targ.id );
 			}
 

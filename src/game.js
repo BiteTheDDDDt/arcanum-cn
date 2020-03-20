@@ -490,7 +490,7 @@ export default {
 
 		}  else if ( it.instanced ){
 
-			it.onUse( this );
+			if ( it.value > 0 ) it.onUse( this );
 
 		} else  {
 
@@ -916,7 +916,7 @@ export default {
 			for( let p in mod ) {
 
 				var target = this.getData( p );
-				if ( target === undefined ) continue;
+				if ( target === undefined || target === null ) continue;
 				else if ( mod[p] === true ){
 
 					target.doUnlock(this);
