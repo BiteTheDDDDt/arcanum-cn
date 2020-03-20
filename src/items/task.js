@@ -5,7 +5,6 @@ import Stat from '../values/stat';
 import Scaler from '../values/scaler';
 import { TASK } from '../values/consts';
 import { ParseMods } from '../modules/parsing';
-import Mod from '../values/mod';
 import { SetModCounts } from './base';
 
 /*function ShowModTotals( mods ){
