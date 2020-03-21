@@ -40,7 +40,7 @@ export default {
 
 			} else if ( type === 'string') {
 
-				this.infos.add( DisplayName(obj), true );
+				this.infos.add( DisplayName(obj), true, InfoBlock.GetItem( obj ) );
 
 			} else if ( Array.isArray(obj) ) obj.forEach( v=>this.effectList(v) );
 			else if ( type === 'function' ) {
@@ -67,22 +67,21 @@ export default {
 		 * @param {string} rootPath - prop path from base.
 		 * @param {boolean} rate - whether display is per/s rate.
 		 */
-		effectList( obj, rootPath='', rate=false ) {
+		effectList( obj, rootPath='', rate=false, refItem=null ) {
 
 			if ( typeof obj === 'string' ) {
-				this.infos.add( DisplayName(obj), true, rate );
+				this.infos.add( DisplayName(obj), true, rate, InfoBlock.GetItem(obj, refItem) );
 				return;
 			}
 
 			for( let p in obj ) {
 
 				let sub = obj[p];
-				if ( sub === null || sub === undefined ) {
-					console.warn('null: ' + rootPath + ': ' + p );
+				if ( sub === null || sub === undefined || p === 'skipLocked' ) {
 					continue;
 				}
 
-				this.infos.setPathRoot(p);
+				let subItem = InfoBlock.GetItem( p, refItem );
 
 				let subRate = rate || p === 'rate';
 				// displayed path to subitem.
@@ -91,7 +90,7 @@ export default {
 				// path conversion indicated no display.
 				if ( subPath === undefined ) continue;
 
-				if ( typeof sub !== 'object' ) this.infos.add(subPath, sub, subRate );
+				if ( typeof sub !== 'object' ) this.infos.add(subPath, sub, subRate, subItem );
 				else if ( typeof sub !== 'function ' ) {
 
 					if ( sub.skipLocked ) {
@@ -102,9 +101,9 @@ export default {
 					}
 					if ( sub.constructor !== Object ) {
 
-						this.infos.add( subPath, sub, subRate );
+						this.infos.add( subPath, sub, subRate, subItem );
 
-					} else this.effectList( sub, subPath, subRate );
+					} else this.effectList( sub, subPath, subRate, subItem );
 
 				}
 

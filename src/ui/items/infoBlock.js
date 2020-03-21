@@ -73,6 +73,17 @@ export const ConvertPath = ( rootPath, prop ) => {
  */
 export class InfoBlock {
 
+	/**
+	 * Attempt to add a path to the current item being referred to.
+	 * @param {string} p
+	 */
+	static GetItem( p, curItem=null ) {
+
+		if ( !curItem ) return RollOver.context.getData(p);
+		else return curItem[p] || curItem;
+
+	}
+
 	constructor(){
 
 		this.results = {};
@@ -80,28 +91,17 @@ export class InfoBlock {
 		/**
 		 * @property {GData} rootItem - rootItem of the current path.
 		 */
-		this.rootItem = null;
-
-	}
-
-	/**
-	 * Attempt to set the base item of a path.
-	 * @param {string} str
-	 */
-	setPathRoot(str) {
-
-		if ( !this.rootItem ) this.rootItem = RollOver.context.getData(str);
+		//this.rootItem = null;
 
 	}
 
 	clear(){
 		this.results = {};
-		this.rootItem = null;
 	}
 
-	add( itemName, value, isRate ){
+	add( itemName, value, isRate=false, ref=null ){
 
-		if ( this.rootItem && this.rootItem.id ==='space' ) value = -value;
+		if ( ref && ref instanceof RevStat ) value = -value;
 
 		let cur = this.results[itemName];
 		if ( cur === undefined ){
@@ -113,7 +113,6 @@ export class InfoBlock {
 			cur.add( value );
 
 		}
-		this.rootItem = null;
 
 	}
 
