@@ -126,10 +126,11 @@ export const SkillLevels = (map, s,c) => {
 
 	let skill = map[s];
 	if ( skill === undefined ) return 0;
+
 	if ( typeof skill === 'string') {
 
 		let data = c.getData(skill);
-		return data ? data.level : 0;
+		return data ? data.value : 0;
 
 	} else {
 
@@ -137,7 +138,7 @@ export const SkillLevels = (map, s,c) => {
 		for( let i = skill.length-1; i >= 0; i-- ) {
 
 			let data = c.getData(skill[i]);
-			if ( data ) tot += data.level
+			if ( data ) tot += data.value
 		}
 
 		return tot;
