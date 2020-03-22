@@ -173,7 +173,7 @@ export default class Raid {
 
 		if ( enemy.result ) Game.applyVars( enemy.result );
 		if ( enemy.loot ) Game.getLoot( enemy.loot, this.drops );
-		else Game.getLoot( {max:enemy.level, [TYP_PCT]:30}, this.drops );
+		else Game.getLoot( {maxlevel:enemy.level, [TYP_PCT]:30}, this.drops );
 
 	}
 
