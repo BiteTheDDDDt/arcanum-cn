@@ -98,6 +98,33 @@
 		"upgrades":[
 
 			{
+
+				"id":"spr_portal",
+				"name":"portal of trees",
+				"desc":"A portal of tree trucks grows from the ground. If you could activate it, you might learn where the beasts came from.",
+				"cost":{
+
+				}
+
+			},
+			{
+				"id":"spr_mabs_carriage",
+				"name":"queen mab's carriage",
+				"desc":"A fairie-carriage carved from an enchanted chestnut.",
+				"slot":"mount",
+				"cost":{
+					"research":10000,
+					"gold":10,
+					"spr_honey_jar":5
+				},
+				"mod":{
+					"dist":325,
+					"player.bonuses.nature":2,
+					"naturelore.max":1
+				}
+
+			},
+			{
 				"id":"spr_beeswax_candle",
 				"name":"beeswax candle",
 				"desc":"A candle with a refreshing aroma.",
@@ -341,10 +368,30 @@
 		"dungeons":[
 
 			{
+
+				"id":"spr_",
+				"length":100,
+				"show":{
+					"name":"",
+					"desc":""
+				},
+				"desc":"",
+				"run":{
+					"stamina":2.5
+				},
+				"boss":"",
+				"loot":{
+					"maxlevel":25
+				}
+
+			},
+
+			{
 				"id":"spr_sunnyfield",
 				"name":"sunny fields of stone",
 				"level":20,
 				"length":100,
+				"dist":0,
 				"show":{
 					"name":"",
 					"desc":"Returning from the fair you receive reports of fields overrun by great serpents and lizards. It may bear investigation."
@@ -358,7 +405,7 @@
 				},
 				"lock":"sunnyfield",
 				"loot":{
-					"max":20
+					"maxlevel":20
 				},
 				"boss":"jabberwocky",
 				"spawns":[

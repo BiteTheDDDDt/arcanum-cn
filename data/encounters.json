@@ -900,6 +900,15 @@
 		},"flavor":"It seems to like rocks the best."
 	},
 	{
+		"id":"e_moss_portal",
+		"name":"moss-stone portal",
+		"desc":"One of a dozen mossy portals at the edges of the menagerie. Their use is unknown.",
+		"effect":{
+			"unease":"3~4",
+			"bf":"3~4"
+		}
+	},
+	{
 		"id":"e_big_scale",
 		"name":"scale of ouroboros",
 		"desc":"At the center of the menagerie a single massive scale merges with the tree.",
