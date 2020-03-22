@@ -291,7 +291,7 @@ export default class ItemGen {
 		if ( type ) { type = this.state.getData(type); }
 
 		if ( !type && !material ) {
-			type = this.groups[WEARABLE].randBelow( info.maxLevel || info.level );
+			type = this.groups[WEARABLE].randBelow( info.maxlevel || info.level );
 		}
 
 		if ( material && !type ) {
