@@ -311,7 +311,7 @@ export default class ItemGen {
 	 * @param {?string} [type=null]
 	 * @param {?string|Material} [mat=null] - item material.
 	 */
-	rantAt( level=0, type=null, mat=null ){
+	randAt( level=0, type=null, mat=null ){
 
 		type = type || WEARABLE;
 
@@ -330,20 +330,20 @@ export default class ItemGen {
 
 	/**
 	 * Get random item of given level or below.
-	 * @param {number} [maxLevel=1] - maximum level of item to return.
+	 * @param {number} [maxlevel=1] - maximum level of item to return.
 	 * @param {?string} [type=null] - kind of item to generate.
 	 * @param {?string|Material} [mat=null] - item material.
 	 * @returns {Wearable|null}
 	 */
-	randBelow( maxLevel=1, type=null, mat=null ){
+	randBelow( maxlevel=1, type=null, mat=null ){
 
 		type = type || WEARABLE;
 		let g = this.groups[type];
 
-		maxLevel = Math.floor( 1 + Math.random()*maxLevel );
+		maxlevel = Math.floor( 1 + Math.random()*maxlevel );
 
-		let it = g.randBelow( maxLevel );
-		return it ? this.fromProto( it, mat || maxLevel ) : null;
+		let it = g.randBelow( maxlevel );
+		return it ? this.fromProto( it, mat || maxlevel ) : null;
 
 	}
 
