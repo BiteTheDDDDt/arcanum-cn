@@ -110,6 +110,8 @@ export default class ItemGen {
 
 		this.initGroup( WEARABLE, this.state.weapons.concat(this.state.armors ) );
 		this.initGroup( 'materials', this.state.materials );
+		this.initGroup( 'properties', this.state.properties );
+
 
 		let g = this.initGroup( MONSTER, this.state.monsters );
 		g.makeFilter( 'biome' );
@@ -348,7 +350,7 @@ export default class ItemGen {
 	}
 
 	/**
-	 * Get an item from a Generation Group compatible with the given item.
+	 * Get an item from a Group compatible with the given item.
 	 * Used to pick a Material for a Wearable, or a Wearable for a material.
 	 * @param {GenGroup} group - group to pick an item from.
 	 * @param {Item} item - chosen item must be compatible with item.
@@ -393,6 +395,18 @@ export default class ItemGen {
 
 	}
 
+	genProperties( it, count ) {
+
+		it.properties = [];
+
+		for( count; count > 0; count-- ) {
+
+			it.addProperty( this.getCompatible( 'properties', it, it.level ) );
+
+		}
+
+	}
+
 	/**
 	 * @private
 	 * @param {ProtoItem} data
@@ -408,6 +422,10 @@ export default class ItemGen {
 			if ( material.id ) item.name = material.id + ' ' + ( data.name || data.id );
 
 		} else item.name = (data.name || data.id );
+
+		if ( typeof item.properties ==='number' ){
+			this.genProperties( item, item.properties );
+		}
 
 		item.id = this.state.nextId(item.id);
 		//this.state.addInstance( item );

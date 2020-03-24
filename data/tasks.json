@@ -1488,11 +1488,11 @@
 
 	},
 	{
-		"id": "terraform",
-		"name": "warp landscape",
-		"desc": "Improve the conditions of your local countryside",
-		"verb": "terraforming",
-		"require": "geosculpting",
+		"id":"terraform",
+		"name":"warp landscape",
+		"desc":"Improve the conditions of your local countryside",
+		"verb":"terraforming",
+		"require":"geosculpting",
 		"length": 15,
 		"at": {
 			"10": {
@@ -1524,11 +1524,11 @@
 		}
 	},
 	{
-		"id": "maketitanhammer",
-		"name": "titan's hammer",
-		"desc": "The powers of creation and destruction, locked in your grip.",
-		"verb": "Creating Masterpiece",
-		"require": "g.titan>0&&g.mythicanvil>0",
+		"id":"maketitanhammer",
+		"name":"titan's hammer",
+		"desc":"The powers of creation and destruction, locked in your grip.",
+		"verb":"Creating Masterpiece",
+		"require":"g.titan>0&&g.mythicanvil>0",
 		"length": 180,
 		"cost":{
 			"earthgem":300,

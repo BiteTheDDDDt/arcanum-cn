@@ -140,14 +140,14 @@
 
 	},
 	{
-		"id": "titanhammer",
-		"name": "titan's hammer",
-		"desc": "Wrought from unyielding adamant, it hums with the energies of the earth.",
-		"type": "weapon",
+		"id":"titanhammer",
+		"name":"titan's hammer",
+		"desc":"Wrought from unyielding adamant, it hums with the energies of the earth.",
+		"type":"weapon",
 		"unique": true,
 		"attack": {
-			"kind": "blunt",
-			"damage": "40~50"
+			"kind":"blunt",
+			"damage":"40~50"
 		},
 		"mod": {
 			"earth.rate": 0.5,
@@ -155,7 +155,7 @@
 			"player.defense": 30
 		},
 		"hands": 2,
-		"kind": "hammer",
+		"kind":"hammer",
 		"level": 15,
 		"cost": {
 			"gold":5000

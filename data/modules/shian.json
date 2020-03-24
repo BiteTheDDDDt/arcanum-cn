@@ -1,5 +1,5 @@
 {
-	"module": "shian",
+	"module":"shian",
 	"author":"evil tyrant",
 	"data": {
 		"events":[
@@ -71,10 +71,10 @@
 
 		"tasks": [
 			{
-				"id": "gathersouls",
-				"name": "ghost catcher",
-				"require": "g.soulflag2>0",
-				"desc": "Bind the dead that haunt the world.",
+				"id":"gathersouls",
+				"name":"ghost catcher",
+				"require":"g.soulflag2>0",
+				"desc":"Bind the dead that haunt the world.",
 				"length": 180,
 				"cost": {
 					"spiritgem": 5
@@ -85,10 +85,10 @@
 				}
 			},
 			{
-				"id": "mkcave",
-				"name": "Dig out a bigger cave",
-				"require": "(g.earthlore+g.spiritlore)>20&&g.shian>0",
-				"desc": "Make a underground home where the magic is strong and spirits are plentiful",
+				"id":"mkcave",
+				"name":"Dig out a bigger cave",
+				"require":"(g.earthlore+g.spiritlore)>20&&g.shian>0",
+				"desc":"Make a underground home where the magic is strong and spirits are plentiful",
 				"length": 1800,
 				"repeat": false,
 				"cost": {
@@ -108,13 +108,13 @@
 					"cave.mod.spirit.rate": 0.5,
 					"cave.mod.spiritlore.rate":150
 				},
-				"flavor": "This will take a while..."
+				"flavor":"This will take a while..."
 			},
 			{
-				"id": "mkpagoda",
-				"name": "Make a Beautiful Home",
-				"require": "g.mkcave>0&&g.tier6>0&&g.shian>0",
-				"desc": "Make a home where you can improve your mastery of the mysterious sword arts and spirits are plentiful",
+				"id":"mkpagoda",
+				"name":"Make a Beautiful Home",
+				"require":"g.mkcave>0&&g.tier6>0&&g.shian>0",
+				"desc":"Make a home where you can improve your mastery of the mysterious sword arts and spirits are plentiful",
 				"length": 1800,
 				"repeat": false,
 				"run": {
@@ -126,13 +126,13 @@
 					"air": 1,
 					"spirit": 1
 				},
-				"flavor": "This will take a while..."
+				"flavor":"This will take a while..."
 			},
 			{
-				"id": "soulflag",
-				"name": "craft soulflag",
-				"require": "g.spiritlore>12&&g.shian>0",
-				"desc": "So many souls around, there has to be a way to keep them out of your way",
+				"id":"soulflag",
+				"name":"craft soulflag",
+				"require":"g.spiritlore>12&&g.shian>0",
+				"desc":"So many souls around, there has to be a way to keep them out of your way",
 				"length": 100,
 				"repeat": false,
 				"run": {
@@ -145,10 +145,10 @@
 				}
 			},
 			{
-				"id": "soulflag2",
-				"name": "improve soulflag",
-				"require": "g.soulflag>0&&g.shian>0",
-				"desc": "There is room for more souls",
+				"id":"soulflag2",
+				"name":"improve soulflag",
+				"require":"g.soulflag>0&&g.shian>0",
+				"desc":"There is room for more souls",
 				"length": 900,
 				"repeat": false,
 				"run": {
@@ -164,10 +164,10 @@
 				}
 			},
 			{
-				"id": "soulflag3",
-				"name": "complete soulflag",
-				"require": "g.soulflag2>0&&g.shian>0",
-				"desc": "Containing ten thousand souls, this is a powerful tool ",
+				"id":"soulflag3",
+				"name":"complete soulflag",
+				"require":"g.soulflag2>0&&g.shian>0",
+				"desc":"Containing ten thousand souls, this is a powerful tool ",
 				"length": 9000,
 				"repeat": false,
 				"run": {
@@ -185,10 +185,10 @@
 		],
 		"homes": [
 			{
-				"id": "shianpagoda",
-				"name": "elegant pagoda",
-				"desc": "A peaceful structure where you can devote yourself fully to your arts.",
-				"require": "g.mkpagoda>0",
+				"id":"shianpagoda",
+				"name":"elegant pagoda",
+				"desc":"A peaceful structure where you can devote yourself fully to your arts.",
+				"require":"g.mkpagoda>0",
 				"mod": {
 					"minions.max": 10,
 					"space.max": 550,
@@ -201,10 +201,10 @@
 		],
 		"upgrades": [
 			{
-				"id": "sworduse",
+				"id":"sworduse",
 				"name":"mysterious sword arts",
-				"desc": "The spire has yielded strange and interesting weapons; perhaps you can find a use for them.",
-				"require": "shian",
+				"desc":"The spire has yielded strange and interesting weapons; perhaps you can find a use for them.",
+				"require":"shian",
 				"max": 1,
 				"cost": {
 					"gold": 3000,
@@ -218,9 +218,9 @@
 				}
 			},
 			{
-				"id": "breakthrough",
-				"desc": "A breakthrough in your spiritual meditations.",
-				"require": "evt_breakthrough0",
+				"id":"breakthrough",
+				"desc":"A breakthrough in your spiritual meditations.",
+				"require":"evt_breakthrough0",
 				"max":1,
 				"cost":{
 					"spirit":15
@@ -246,12 +246,12 @@
 		],
 		"spells": [
 			{
-				"id": "throw_swords",
-				"name": "lost sword art: flying swords",
-				"school": "blade",
-				"require": "sworduse",
+				"id":"throw_swords",
+				"name":"lost sword art: flying swords",
+				"school":"blade",
+				"require":"sworduse",
 				"level": 11,
-				"tags": "swordart",
+				"tags":"swordart",
 				"buy": {
 					"research": 1000,
 					"codices": 10,
@@ -261,9 +261,9 @@
 					"mana": 10
 				},
 				"attack": {
-					"targets": "enemies",
-					"damage": "20~30",
-					"kind": "slash",
+					"targets":"enemies",
+					"damage":"20~30",
+					"kind":"slash",
 					"tohit": 10
 				},
 				"result":{
@@ -271,12 +271,12 @@
 				}
 			},
 			{
-				"id": "giantkilling",
-				"name": "lost sword art: giant slayer",
-				"school": "blade",
-				"require": "g.sworduse>1",
+				"id":"giantkilling",
+				"name":"lost sword art: giant slayer",
+				"school":"blade",
+				"require":"g.sworduse>1",
 				"level": 12,
-				"tags": "swordart",
+				"tags":"swordart",
 				"buy": {
 					"research": 1000,
 					"codices": 10,
@@ -287,8 +287,8 @@
 					"mana": 12
 				},
 				"attack": {
-					"damage": "35~65",
-					"kind": "slash",
+					"damage":"35~65",
+					"kind":"slash",
 					"tohit": 10,
 					"dot": {
 						"duration": 10,
@@ -299,12 +299,12 @@
 				}
 			},
 			{
-				"id": "soulstrike",
-				"name": "spirit art: soulstrike",
-				"school": "spirit",
-				"require": "g.shian>0&&g.soulflag>0",
+				"id":"soulstrike",
+				"name":"spirit art: soulstrike",
+				"school":"spirit",
+				"require":"g.shian>0&&g.soulflag>0",
 				"level": 6,
-				"tags": "spiritart",
+				"tags":"spiritart",
 				"buy": {
 					"research": 1000,
 					"codices": 10,
@@ -315,19 +315,19 @@
 					"spirit": 1
 				},
 				"attack": {
-					"damage": "20~29",
-					"kind": "spirit",
+					"damage":"20~29",
+					"kind":"spirit",
 					"tohit": 15
 				}
 			},
 			{
-				"id": "soullure",
-				"name": "soul card: soul lure",
-				"school": "spirit",
-				"require": "g.shian>0&&g.soulflag2>0",
+				"id":"soullure",
+				"name":"soul card: soul lure",
+				"school":"spirit",
+				"require":"g.shian>0&&g.soulflag2>0",
 				"level": 10,
-				"tags": "soulart",
-				"desc": "Lure the souls of enemies from out their mortal bodies",
+				"tags":"soulart",
+				"desc":"Lure the souls of enemies from out their mortal bodies",
 				"buy": {
 					"research": 1000,
 					"codices": 10,
@@ -339,21 +339,21 @@
 				"attack": {
 					"tohit": 20,
 					"dot": {
-						"id": "soullure",
-						"kind": "spirit",
+						"id":"soullure",
+						"kind":"spirit",
 						"duration": 10,
-						"targets": "enemies",
-						"damage": "10~15"
+						"targets":"enemies",
+						"damage":"10~15"
 					}
 				}
 			},
 			{
-				"id": "soulriver",
-				"name": "spirit art: soul river",
-				"school": "spirit",
-				"require": "g.shian>0&&g.soulflag3>0",
+				"id":"soulriver",
+				"name":"spirit art: soul river",
+				"school":"spirit",
+				"require":"g.shian>0&&g.soulflag3>0",
 				"level": 15,
-				"tags": "spiritart",
+				"tags":"spiritart",
 				"buy": {
 					"research": 1000,
 					"codices": 10,
@@ -364,20 +364,20 @@
 					"spirit": 5
 				},
 				"attack": {
-					"damage": "80~110",
-					"kind": "spirit",
+					"damage":"80~110",
+					"kind":"spirit",
 					"tohit": 25
 				}
 			}
 		],
 		"classes": [
 			{
-				"id": "shian",
+				"id":"shian",
 				"name":"shian anchorite",
-				"desc": "An ancient magic from beyond the sea, combining spirit and blade.",
+				"desc":"An ancient magic from beyond the sea, combining spirit and blade.",
 				"secret":true,
-				"tags": "t_tier4",
-				"require": "g.tier3>0&&g.unstablespire>0",
+				"tags":"t_tier4",
+				"require":"g.tier3>0&&g.unstablespire>0",
 				"cost": {
 					"research": 25000,
 					"arcana": 25,
@@ -392,20 +392,20 @@
 					"spiritlore.max": 3,
 					"bladelore":true
 				},
-				"flavor": "Contemplation of the small as well as great."
+				"flavor":"Contemplation of the small as well as great."
 			}
 		],
 		"rares": [
 			{
-				"id": "itemsoulflag",
-				"name": "soulflag",
-				"desc": "Ten thousand souls muffled in its fabric.",
+				"id":"itemsoulflag",
+				"name":"soulflag",
+				"desc":"Ten thousand souls muffled in its fabric.",
 				"save": true,
-				"type": "weapon",
+				"type":"weapon",
 				"unique": true,
 				"attack": {
-					"kind": "spirit",
-					"damage": "60~70"
+					"kind":"spirit",
+					"damage":"60~70"
 				},
 				"mod": {
 					"spirit.max": 10,
@@ -415,7 +415,7 @@
 					"spiritart.attack.tohit": 5
 				},
 				"hands": 2,
-				"kind": "flag",
+				"kind":"flag",
 				"level": 15,
 				"cost": 5000
 			}

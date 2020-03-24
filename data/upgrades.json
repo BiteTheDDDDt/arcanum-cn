@@ -1823,9 +1823,9 @@
 		},"flavor":"i've had worse"
 	},
 	{
-		"id": "earthworks",
-		"desc": "Strong walls around your home, to deter unwise attackers",
-		"require": "g.geosculpting>=5",
+		"id":"earthworks",
+		"desc":"Strong walls around your home, to deter unwise attackers",
+		"require":"g.geosculpting>=5",
 		"max": 2,
 		"cost": {
 			"gold": 300,
@@ -1835,13 +1835,13 @@
 			"geosculpting.max": 1,
 			"player.defense": 5
 		},
-		"flavor": "Doubles as a burial mound"
+		"flavor":"Doubles as a burial mound"
 	},
 	{
-		"id": "coretap",
-		"name": "Core tap",
-		"desc": "tap the world's core for endless heat",
-		"require": "g.earthshaker>0&&g.geosculpting>=6",
+		"id":"coretap",
+		"name":"Core tap",
+		"desc":"tap the world's core for endless heat",
+		"require":"g.earthshaker>0&&g.geosculpting>=6",
 		"max": 1,
 		"cost": {
 			"gold": 5000,
@@ -1857,10 +1857,10 @@
 		}
 	},
 	{
-		"id": "tamedroads",
-		"name": "tamed pathway",
-		"require": "g.geomancer>0&&g.dist>=200",
-		"desc": "Train the roads around your home to behave.",
+		"id":"tamedroads",
+		"name":"tamed pathway",
+		"require":"g.geomancer>0&&g.dist>=200",
+		"desc":"Train the roads around your home to behave.",
 		"cost": {
 			"gold": 3000,
 			"earthgem": 5,
@@ -1869,13 +1869,13 @@
 		"mod": {
 			"dist": 100
 		},
-		"flavor": "those good boys are perfect for keeping unwanted guests away"
+		"flavor":"those good boys are perfect for keeping unwanted guests away"
 	},
 	{
-		"id": "hiddenchamber",
-		"name": "hidden chamber",
-		"desc": "A place to meditate in solitude, deep beneath the earth",
-		"require": "g.geosculpting>0",
+		"id":"hiddenchamber",
+		"name":"hidden chamber",
+		"desc":"A place to meditate in solitude, deep beneath the earth",
+		"require":"g.geosculpting>0",
 		"max": 1,
 		"cost": {
 			"gold": 500,
@@ -1887,10 +1887,10 @@
 		}
 	},
 	{
-		"id": "rockcollection",
-		"name": "minerals collection",
-		"desc": "Sorted by hardness.",
-		"require": "geomancer",
+		"id":"rockcollection",
+		"name":"minerals collection",
+		"desc":"Sorted by hardness.",
+		"require":"geomancer",
 		"max": 3,
 		"cost": {
 			"gold": 500,
@@ -1899,13 +1899,13 @@
 		"mod": {
 			"hammerlore.max": 1
 		},
-		"flavor": "A fantastic way to test your strength"
+		"flavor":"A fantastic way to test your strength"
 	},
 	{
-		"id": "artificialmountain",
-		"name": "raise mountain",
-		"desc": "Leave your mark on this world",
-		"require": "earthshaker",
+		"id":"artificialmountain",
+		"name":"raise mountain",
+		"desc":"Leave your mark on this world",
+		"require":"earthshaker",
 		"max": 1,
 		"cost": {
 			"gold": 5000,
@@ -1921,10 +1921,10 @@
 		}
 	},
 	{
-		"id": "constructquarry",
-		"name": "magic quarry",
-		"desc": "A rocky escarpment to conduct your excavations more efficiently.",
-		"require": "geosculpting",
+		"id":"constructquarry",
+		"name":"magic quarry",
+		"desc":"A rocky escarpment to conduct your excavations more efficiently.",
+		"require":"geosculpting",
 		"max": 3,
 		"cost": {
 			"gold": 1500,
@@ -1937,10 +1937,10 @@
 		}
 	},
 	{
-		"id": "mythicanvil",
-		"name": "mythic anvil",
-		"desc": "Made of mythical metals, this anvil can withstand even a titan's power",
-		"require": "titan",
+		"id":"mythicanvil",
+		"name":"mythic anvil",
+		"desc":"Made of mythical metals, this anvil can withstand even a titan's power",
+		"require":"titan",
 		"max": 1,
 		"cost": {
 			"gold": 10000,
@@ -1955,10 +1955,10 @@
 		}
 	},
 	{
-		"id": "undertunnels",
-		"name": "subterranean pathways",
-		"desc": "A twisting maze of indistinguishable passages spanning your domain.",
-		"require": "g.geosculpting>=10",
+		"id":"undertunnels",
+		"name":"subterranean pathways",
+		"desc":"A twisting maze of indistinguishable passages spanning your domain.",
+		"require":"g.geosculpting>=10",
 		"max": 1,
 		"cost": {
 			"gold": 5000,
@@ -1966,7 +1966,7 @@
 			"earthrune": 1
 		},
 		"mod": {
-			"dist": "25%"
+			"dist":"25%"
 		}
 	},
 	{

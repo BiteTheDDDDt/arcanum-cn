@@ -197,38 +197,39 @@ export default class Wearable extends Item {
 		if (!mat) return;
 		this.material = mat;
 
-		this.applyProperty( mat );
+		this.level +=  mat.level || 0;
+
+		this.addProperty( mat );
 
 	}
 
-	applyProperty( prop ) {
+	addProperty( prop ) {
 
-		if (!this.properties) this.properties = [];
+		if (!prop) return;
+		else if ( !Array.isArray(this.properties ) ) this.properties = [];
 		else if ( this.properties.includes(prop) ) return;
 
-		this.level +=  this.material.level || 0;
-
 		if ( this.armor > 0 || this.type === 'armor' ) {
-			this.applyBonus( this, ARMOR, mat.bonus );
+			this.applyBonus( this, ARMOR, prop.bonus );
 		}
 
-		if ( mat.mod ) {
+		if ( prop.mod ) {
 
-			let newMods = ParseMods( clone(mat.mod), this.id + '.mod', this );
+			let newMods = ParseMods( clone(prop.mod), this.id + '.mod', this );
 			if ( !this.mod ) this.mod = newMods;
 			else mergeSafe( this.mod, newMods);
 		}
 
 		if ( this.attack ) {
 
-			console.log('APPLY MAT: ' + (mat.id) );
+			console.log('APPLY MAT: ' + (prop.id) );
 
 			if ( this.attack.damage !== null && this.attack.damage !== undefined ) {
-				this.applyBonus( this.attack, 'damage', mat.bonus );
+				this.applyBonus( this.attack, 'damage', prop.bonus );
 			}
 			if ( mat.tohit ) {
 				//console.log('apply mat to: ' + this.id );
-				this.applyBonus( this.attack, 'tohit', mat.tohit );
+				this.applyBonus( this.attack, 'tohit', prop.tohit );
 			}
 
 		}

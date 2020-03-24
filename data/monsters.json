@@ -502,9 +502,9 @@
 		"tohit":2,
 		"defense":5,
 		"attack": {
-			"name": "psychic blast",
-            "dmg": "1~2",
-            "kind": "mana"
+			"name":"psychic blast",
+            "dmg":"1~2",
+            "kind":"mana"
         },
 		"resist":{
 			"mana":20
@@ -666,13 +666,13 @@
 		"tohit":5,
 		"defense":5,
 		"attack":{
-			"name": "bite",
-            "kind": "pierce",
-            "dmg": "4~7",
+			"name":"bite",
+            "kind":"pierce",
+            "dmg":"4~7",
             "dot":[{
-                "kind": "poison",
-                "name": "venom",
-                "dmg": "1~3",
+                "kind":"poison",
+                "name":"venom",
+                "dmg":"1~3",
                 "duration": 5
 			},
 			{
@@ -4080,8 +4080,8 @@
 		  {
 			"name":"reap",
 			"tohit": 50,
-			"kind": "death",
-			"dmg": "150~300"
+			"kind":"death",
+			"dmg":"150~300"
 		  }
 		]
 	  },
