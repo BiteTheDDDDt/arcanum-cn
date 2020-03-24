@@ -258,7 +258,7 @@
 				"hands": 1,
 				"level": 0,
 				"only": "magic",
-				"type": "tool"
+				"tags": "tool"
 			},
 			{
 				"id": "rod",
@@ -266,7 +266,7 @@
 				"hands": 1,
 				"level": 4,
 				"only": "magic",
-				"type": "tool"
+				"tags": "tool"
 			},
 			{
 				"id": "greatstaff",
@@ -274,7 +274,7 @@
 				"hands": 2,
 				"level": 6,
 				"only": "magic",
-				"type": "tool"
+				"tags": "tool"
 			},
 			{
 				"id": "w_focus",
@@ -283,7 +283,7 @@
 				"hands": 2,
 				"level": 8,
 				"only": "magic",
-				"type": "tool"
+				"tags": "tool"
 			},
 			{
 				"id": "fetish",
@@ -291,7 +291,7 @@
 				"hands": 1,
 				"level": 6,
 				"only": "magic",
-				"type": "tool"
+				"tags": "tool"
 			}
 		],
 		"enchants": [
