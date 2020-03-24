@@ -111,10 +111,12 @@
 				"id":"spr_mabs_carriage",
 				"name":"queen mab's carriage",
 				"desc":"A fairie-carriage carved from an enchanted chestnut.",
+				"require":"",
 				"slot":"mount",
 				"cost":{
 					"research":10000,
 					"gold":10,
+					"spr_hyacinth":10,
 					"spr_honey_jar":5
 				},
 				"mod":{
@@ -128,6 +130,7 @@
 				"id":"spr_beeswax_candle",
 				"name":"beeswax candle",
 				"desc":"A candle with a refreshing aroma.",
+				"require":"spr_bees",
 				"max":1,
 				"cost":{
 					"research":300,
@@ -146,7 +149,7 @@
 				"id":"spr_task_maypole",
 				"name":"spring rites",
 				"desc":"Call on satyrs and dryads to weave spells about your maypole.",
-				"require":"",
+				"require":"spr_maypole",
 				"tags":"t_rest",
 				"slot":"rest",
 				"perpetual":true,
@@ -371,6 +374,7 @@
 
 				"id":"spr_",
 				"length":100,
+				"require":"spr_portal",
 				"show":{
 					"name":"",
 					"desc":""
