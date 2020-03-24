@@ -192,26 +192,19 @@ export default class Wearable extends Item {
 		 + ' base: ' + (this.template ? this.template.level : 0 ) );*/
 	}
 
-	/*findNumMods( mods ){
-
-		for( let p in mods ) {
-
-			if ( typeof mods[p] === 'number' ) console.log( this.id + ' mod is number: ' + p );
-			else if ( typeof mods[p] === 'object') {
-				if ( !(mods[p] instanceof RValue ) ) {
-					this.findNumMods(mods[p]);
-				}
-			}
-
-		}
-
-	}*/
-
 	applyMaterial( mat ) {
 
 		if (!mat) return;
-
 		this.material = mat;
+
+		this.applyProperty( mat );
+
+	}
+
+	applyProperty( prop ) {
+
+		if (!this.properties) this.properties = [];
+		else if ( this.properties.includes(prop) ) return;
 
 		this.level +=  this.material.level || 0;
 
@@ -239,6 +232,10 @@ export default class Wearable extends Item {
 			}
 
 		}
+
+		this.addAdj( prop.adj, prop, prop.name );
+
+		this.properties.push(prop);
 
 	}
 

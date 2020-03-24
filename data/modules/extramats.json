@@ -189,7 +189,7 @@
 			{
 				"id": "en_wandgold",
 				"name": "golden wand",
-				"adj": "of gold",
+				"adj":"%i of gold",
 				"verb": "infusing wand",
 				"only": "wand",
 				"desc": "infuse a wand with gold-seeking properties.",
@@ -211,7 +211,7 @@
 			{
 				"id": "en_wandmana",
 				"name": "arcane wand",
-				"adj": "of mana",
+				"adj": "%i of mana",
 				"verb": "infusing wand",
 				"only": "wand",
 				"desc": "infuse a wand with arcane powers.",
@@ -233,7 +233,7 @@
 			{
 				"id": "en_wandrepel",
 				"name": "repel wand",
-				"adj": "of repel",
+				"adj": "%i of repel",
 				"verb": "infusing wand",
 				"only": "wand",
 				"desc": "infuse a wand with repellant force.",
@@ -257,7 +257,7 @@
 			{
 				"id": "en_rodminerals",
 				"name": "rod of minerals",
-				"adj": "of minerals",
+				"adj": "%i of minerals",
 				"verb": "infusing rod",
 				"only": "rod",
 				"desc": "infuse a rod with a mineral-seeking enchantment.",
@@ -279,7 +279,7 @@
 			{
 				"id": "en_rodshroud",
 				"name": "rod of shrouding",
-				"adj": "of shrouding",
+				"adj": "%i of shrouding",
 				"verb": "infusing rod",
 				"only": "rod",
 				"desc": "infuse a rod with an elemental shroud.",
@@ -304,7 +304,7 @@
 			{
 				"id": "en_rodamplification",
 				"name": "rod of amplification",
-				"adj": "of amplification",
+				"adj": "%i of amplification",
 				"verb": "infusing rod",
 				"only": "rod",
 				"desc": "infuse a rod to amplify your arcane spells.",
@@ -326,7 +326,7 @@
 			{
 				"id": "en_greatstafffireballs",
 				"name": "staff of fireballs",
-				"adj": "of fireballs",
+				"adj": "%i of fireballs",
 				"verb": "imbuing staff",
 				"only": "greatstaff",
 				"desc": "Cause your staff to shoot fireballs at enemies.",
@@ -350,7 +350,7 @@
 			{
 				"id": "en_greatstaffregen",
 				"name": "staff of elements",
-				"adj": "of elements",
+				"adj": "%i of elements",
 				"verb": "imbuing staff",
 				"only": "greatstaff",
 				"desc": "Cause your staff to shoot fireballs at enemies.",
@@ -372,7 +372,7 @@
 			{
 				"id": "en_greatstaffspell",
 				"name": "staff of spells",
-				"adj": "of spells",
+				"adj": "%i of spells",
 				"verb": "imbuing staff",
 				"only": "greatstaff",
 				"desc": "Cause your staff to become a vessel for spells.",
@@ -394,7 +394,7 @@
 			{
 				"id": "en_greatstaffrestoration",
 				"name": "staff of restoration",
-				"adj": "of restoration",
+				"adj": "%i of restoration",
 				"verb": "imbuing staff",
 				"only": "greatstaff",
 				"desc": "Cause your staff to restore health to yourself and your allies.",
@@ -419,7 +419,7 @@
 			{
 				"id": "en_focusclarity",
 				"name": "focus of clarity",
-				"adj": "of clarity",
+				"adj": "%i of clarity",
 				"verb": "calibrating focus",
 				"only": "w_focus",
 				"desc": "Your focus provides a clear head and clearer view.",
@@ -442,7 +442,7 @@
 			{
 				"id": "en_focusingenuity",
 				"name": "focus of ingenuity",
-				"adj": "of ingenuity",
+				"adj": "%i of ingenuity",
 				"verb": "calibrating focus",
 				"only": "w_focus",
 				"desc": "Your focus provides an insight into the workings of the world.",
@@ -465,7 +465,7 @@
 			{
 				"id": "en_focusarcane",
 				"name": "focus of the arcane",
-				"adj": "of the arcane",
+				"adj": "%i of the arcane",
 				"verb": "calibrating focus",
 				"only": "w_focus",
 				"desc": "Your focus is a bottomless source of mana.",
@@ -488,7 +488,7 @@
 			{
 				"id": "en_focusstellar",
 				"name": "focus of the stars",
-				"adj": "of the stars",
+				"adj": "%i of the stars",
 				"verb": "calibrating focus",
 				"only": "w_focus",
 				"desc": "Your focus is attuned to the stars above.",
@@ -511,7 +511,7 @@
 			{
 				"id": "en_fetishcurses",
 				"name": "fetish of curses",
-				"adj": "of curses",
+				"adj": "%i of curses",
 				"verb": "dedicating fetish",
 				"only": "fetish",
 				"desc": "Your fetish tortures those who stand in your path.",
@@ -535,7 +535,7 @@
 			{
 				"id": "en_fetishprotection",
 				"name": "fetish of protection",
-				"adj": "of protection",
+				"adj": "%i of protection",
 				"verb": "dedicating fetish",
 				"only": "fetish",
 				"desc": "No metal may touch the one protected by the spirits.",
@@ -559,7 +559,7 @@
 			{
 				"id": "en_fetishsouls",
 				"name": "fetish of souls",
-				"adj": "of souls",
+				"adj": "%i of souls",
 				"verb": "dedicating fetish",
 				"only": "fetish",
 				"desc": "Many souls are imprisoned within this vessel. You will add even more.",
@@ -581,7 +581,7 @@
 			{
 				"id": "en_fetishshadows",
 				"name": "fetish of shadows",
-				"adj": "of shadows",
+				"adj": "%i of shadows",
 				"verb": "dedicating fetish",
 				"only": "fetish",
 				"need": "g.evil>0",
@@ -607,7 +607,7 @@
 			{
 				"id": "en_fetishspurring",
 				"name": "fetish of spurring",
-				"adj": "of spurring",
+				"adj": "%i of spurring",
 				"verb": "dedicating fetish",
 				"only": "fetish",
 				"desc": "Your fetish spurs your allies into action.",

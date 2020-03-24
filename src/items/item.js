@@ -169,8 +169,7 @@ export default class Item {
 	 * @param {object} src - adjective source.
 	 * @param {?string} [fallback=null] - fallback prefix to apply.
 	 */
-	applyAdj( adj, src, fallback=null ) {
-
+	addAdj( adj, src, fallback=null ) {
 
 		if ( adj ) {
 
@@ -188,7 +187,7 @@ export default class Item {
 
 		}
 
-		if ( fallback ) this.applyAdj( fallback, src );
+		if ( fallback ) this.addAdj( fallback, src );
 
 	}
 
@@ -201,7 +200,7 @@ export default class Item {
 		if ( !this.enchants ) this.enchants = [];
 		this.enchants.push(e.id);
 
-		this.applyAdj( e.adj, e, 'enchanted');
+		this.addAdj( e.adj, e, 'enchanted');
 
 		this.enchantTot += e.level || 0;
 
