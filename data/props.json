@@ -1,0 +1,118 @@
+[
+
+	{
+		"id": "prop_dowsing",
+		"name": "dowsing",
+		"kind": "magic",
+		"weight": 1,
+		"priceMod": 50,
+		"level": 5,
+		"only": [
+			"rod"
+		],
+		"mod": {
+			"self.bonuses.water": "5%",
+			"water.rate": "50%",
+			"herbs.rate": 1
+		}
+	},
+	{
+		"id": "prop_elemental",
+		"name": "elemental",
+		"kind": "magic",
+		"weight": 1,
+		"priceMod": 100,
+		"level": 8,
+		"only": [
+			"greatstaff"
+		],
+		"mod": {
+			"self.bonuses.fire": "12%",
+			"fire.rate": "25%",
+			"self.bonuses.water": "12%",
+			"water.rate": "25%",
+			"self.bonuses.air": "12%",
+			"air.rate": "25%",
+			"self.bonuses.earth": "12%",
+			"earth.rate": "25%"
+		}
+	},
+	{
+		"id": "prop_arcane",
+		"name": "arcane",
+		"kind": "magic",
+		"weight": 1,
+		"priceMod": 100,
+		"level": 6,
+		"only": [
+			"w_focus"
+		],
+		"mod": {
+			"self.bonuses.mana": "20%",
+			"mana.rate": "30%"
+		}
+	},
+	{
+		"id": "prop_dominion",
+		"name": "dominion",
+		"kind": "magic",
+		"weight": 1,
+		"priceMod": 100,
+		"level": 6,
+		"only": [
+			"w_focus"
+		],
+		"mod": {
+			"self.allies.max": "5+10%",
+			"self.minions.max": 10
+		}
+	},
+	{
+		"id": "prop_optical",
+		"name": "optical",
+		"kind": "magic",
+		"weight": 1,
+		"priceMod": 100,
+		"level": 6,
+		"only": [
+			"w_focus"
+		],
+		"mod": {
+			"self.tohit": 10
+		}
+	},
+
+
+	{
+		"id": "prop_disturbing",
+		"name": "disturbing",
+		"kind": "magic",
+		"weight": 1,
+		"priceMod": 100,
+		"level": 8,
+		"only": [
+			"fetish"
+		],
+		"mod": {
+			"self.bonuses.spirit": "20%",
+			"spirit.rate": "30%"
+		}
+	},
+	{
+		"id": "prop_cursed",
+		"name": "cursed",
+		"kind": "magic",
+		"weight": 1,
+		"priceMod": 100,
+		"level": 8,
+		"only": [
+			"fetish"
+		],
+		"mod": {
+			"self.bonuses.shadow": "20%",
+			"shadow.max": "25%",
+			"shadow.rate": "20%"
+		}
+	}
+
+]
