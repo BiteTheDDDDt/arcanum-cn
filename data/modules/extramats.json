@@ -93,7 +93,7 @@
 				}
 			},
 			{
-				"id": "dowsingmaterial",
+				"id": "mat_dowsing",
 				"name": "dowsing",
 				"kind": "magic",
 				"weight": 1,
@@ -124,7 +124,7 @@
 				}
 			},
 			{
-				"id": "earthmaterial2",
+				"id": "mat_earth2",
 				"name": "earth",
 				"kind": "magic",
 				"weight": 1,
@@ -139,7 +139,7 @@
 				}
 			},
 			{
-				"id": "elementalmaterial",
+				"id": "mat_elemental",
 				"name": "elemental",
 				"kind": "magic",
 				"weight": 1,
@@ -160,7 +160,7 @@
 				}
 			},
 			{
-				"id": "saintmaterial",
+				"id": "mat_saintly",
 				"name": "saintly",
 				"kind": "magic",
 				"weight": 1,
@@ -176,7 +176,7 @@
 				}
 			},
 			{
-				"id": "arcanematerial",
+				"id": "mat_arcane",
 				"name": "arcane",
 				"kind": "magic",
 				"weight": 1,
@@ -191,7 +191,7 @@
 				}
 			},
 			{
-				"id": "controlmaterial",
+				"id": "mat_control",
 				"name": "controlling",
 				"kind": "magic",
 				"weight": 1,
@@ -206,7 +206,7 @@
 				}
 			},
 			{
-				"id": "opticalmaterial",
+				"id": "mat_optical",
 				"name": "optical",
 				"kind": "magic",
 				"weight": 1,
@@ -220,7 +220,7 @@
 				}
 			},
 			{
-				"id": "disturbingmaterial",
+				"id": "mat_disturbing",
 				"name": "disturbing",
 				"kind": "magic",
 				"weight": 1,
@@ -235,7 +235,7 @@
 				}
 			},
 			{
-				"id": "cursedmaterial",
+				"id": "mat_cursed",
 				"name": "cursed",
 				"kind": "magic",
 				"weight": 1,
