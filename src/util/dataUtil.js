@@ -1,4 +1,3 @@
-import { cloneClass } from "objecty";
 import Stat from "../values/stat";
 import RValue from "../values/rvalue";
 

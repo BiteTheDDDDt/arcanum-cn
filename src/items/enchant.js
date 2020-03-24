@@ -56,14 +56,7 @@ export default class Enchant extends Task {
 	useOn( targ, g ) {
 
 		if ( !targ) return;
-
 		targ.addEnchant( this );
-
-		if ( this.adj && !targ.name.includes(this.adj) ) {
-
-			targ.name += ' ' + this.adj;
-
-		} else if ( !targ.name.includes('enchanted') ) targ.name = 'enchanted ' + targ.name;
 
 	}
 

@@ -231,6 +231,11 @@ export const ParseRequire = ( sub ) => {
  */
 export function MakeTestFunc( text ) {
 
+	/**
+	 * g - game data
+	 * i - item being tested for unlock.
+	 * s - game state
+	 */
 	return new Function( "g", 'i', 's', 'return ' + text );
 }
 

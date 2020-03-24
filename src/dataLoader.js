@@ -16,7 +16,7 @@ import Task from './items/task';
 
 import { mergeSafe } from 'objecty';
 import ProtoItem from './protos/protoItem';
-import Material from './chars/material';
+import Property from './chars/property';
 import Enchant from './items/enchant';
 import Potion from './items/potion';
 import Encounter from './items/encounter';
@@ -258,12 +258,14 @@ export default {
 
 		if ( lists.potions ) inst.potions = this.initItems( items, lists['potions'], Potion, POTION, POTION );
 
-		if ( lists.materials ) inst.materials = this.initItems( items, lists['materials'], Material, 'material', 'material ');
+		if ( lists.materials ) inst.materials = this.initItems( items, lists['materials'], Property, 'material', 'material' );
+		if ( lists.properties ) inst.properties = this.initItems( items, lists['properties'], Property, 'property', 'property' );
 
 		if ( lists.events ) inst.events = this.initItems( items, lists['events'], GEvent, EVENT, EVENT );
 		if ( lists.classes ) inst.classes = this.initItems( items, lists['classes'], GClass, 'class', 'class' );
 
 		if ( lists.tasks ) inst.tasks = this.initItems( items, lists['tasks'], Task, null, 'task' );
+		/** @deprecated */
 		if ( lists.actions ) {
 				inst.tasks = this.mergeTasks( inst.tasks, this.initItems( items, lists.actions, Task, null, 'task' ) );
 		}

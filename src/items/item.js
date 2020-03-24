@@ -163,10 +163,45 @@ export default class Item {
 
 	}
 
+	/**
+	 * Apply an adjective to the item's name.
+	 * @param {string} adj
+	 * @param {object} src - adjective source.
+	 * @param {?string} [fallback=null] - fallback prefix to apply.
+	 */
+	applyAdj( adj, src, fallback=null ) {
+
+
+		if ( adj ) {
+
+			if ( adj.includes( '%' ) ) {
+
+				this.name = adj.replace( '%s', src.name ).replace( '%i', this.name );
+				return;
+
+			} else if ( !this.name.includes(adj) ) {
+
+				this.name = adj + ' ' + this.name;
+				return;
+
+			}
+
+		}
+
+		if ( fallback ) this.applyAdj( fallback, src );
+
+	}
+
+	/**
+	 *
+	 * @param {Enchant} e - enchantment being added.
+	 */
 	addEnchant( e ) {
 
 		if ( !this.enchants ) this.enchants = [];
 		this.enchants.push(e.id);
+
+		this.applyAdj( e.adj, e, 'enchanted');
 
 		this.enchantTot += e.level || 0;
 

@@ -1,7 +1,7 @@
 import Base, {mergeClass} from '../items/base';
 import { assign } from 'objecty';
 
-export default class Material {
+export default class Property {
 
 	get isRecipe(){return true}
 
@@ -13,4 +13,4 @@ export default class Material {
 
 }
 
-mergeClass( Material, Base );
+mergeClass( Property, Base );

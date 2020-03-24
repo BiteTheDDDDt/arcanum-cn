@@ -21,7 +21,7 @@ const levelReq = ( g, s ) => {
 
 /**
  * Create a school unlock function.
- * @param {string|string[]} s
+ * @param {string|string[]} s - name(s) of school which unlocks item.
  * @param {number} lvl - spell level.
  * @param {number} ratio - multiply spell level before test.
  */
