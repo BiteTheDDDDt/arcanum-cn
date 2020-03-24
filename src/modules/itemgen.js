@@ -397,11 +397,10 @@ export default class ItemGen {
 
 	genProperties( it, count ) {
 
-		it.properties = [];
+		let propGroup = this.groups.properties;
 
 		for( count; count > 0; count-- ) {
-
-			it.addProperty( this.getCompatible( 'properties', it, it.level ) );
+			it.addProperty( this.getCompatible( propGroup, it, it.level ) );
 
 		}
 
