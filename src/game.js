@@ -1222,7 +1222,7 @@ export default {
 
 		if ( !it) return null;
 
-		console.log('LOOT: ' + it.id );
+		//console.log('LOOT: ' + it.id );
 
 		inv = inv || this.state.inventory;
 		if ( inv.full() ) inv = this.state.drops;

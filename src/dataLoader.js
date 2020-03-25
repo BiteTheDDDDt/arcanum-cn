@@ -215,7 +215,7 @@ export default {
 		if ( lists.resources) inst.resources = this.initItems( items, lists['resources'], Resource );
 
 		if ( lists.stressors ) {
-			inst.stressors = this.initItems( items, lists['stressors'], Resource, 'stress', 'stress' );
+			inst.stressors = this.initItems( items, lists.stressors, Resource, 'stress', 'stress' );
 			inst.stressors.forEach(v=>v.hide=true);
 		}
 
@@ -226,9 +226,9 @@ export default {
 			inst.homes.forEach( v=>v.slot=HOME);
 		}
 
-		if ( lists.furniture ) this.initItems( items, lists['furniture'], GData, 'furniture', 'furniture' );
+		if ( lists.furniture ) this.initItems( items, lists.furniture, GData, 'furniture', 'furniture' );
 
-		if ( lists.skills ) inst.skills = this.initItems( items, lists['skills'], Skill, SKILL );
+		if ( lists.skills ) inst.skills = this.initItems( items, lists.skills, Skill, SKILL );
 
 		if ( lists.encounters ) inst.encounters = this.initItems( items, lists['encounters'], Encounter, ENCOUNTER, ENCOUNTER);
 		if ( lists.monsters ) inst.monsters = this.initItems( items, lists['monsters'], Monster, MONSTER, MONSTER );
@@ -237,9 +237,9 @@ export default {
 		if ( lists.states ) inst.states = this.initItems( items, lists['states'], State, 'state', 'state' );
 		if ( lists.reagents ) inst.reagents = this.initItems( items, lists['reagents'], Resource );
 
-		if ( lists.locales ) this.initItems( items, lists['locales'], Locale );
-		if ( lists.dungeons ) this.initItems( items, lists['dungeons'], Dungeon );
-		if ( lists.spells ) this.initItems( items, lists['spells'], Spell );
+		if ( lists.locales ) this.initItems( items, lists.locales, Locale );
+		if ( lists.dungeons ) this.initItems( items, lists.dungeons, Dungeon );
+		if ( lists.spells ) this.initItems( items, lists.spells, Spell );
 
 		if ( lists.stats ) this.initItems( items, lists['stats'], StatData, 'stat', 'stat' );
 
@@ -247,33 +247,33 @@ export default {
 		//this.initItems( items, lists['items'], Item, ITEM, ITEM);
 
 		if ( lists.armors ) {
-			inst.armors = this.initItems( items, lists['armors'], ProtoItem, ARMOR,ARMOR );
+			inst.armors = this.initItems( items, lists.armors, ProtoItem, ARMOR,ARMOR );
 			inst.armors.forEach( v=>v.kind = v.kind || ARMOR );
 		}
 
 		if ( lists.weapons ) {
-			inst.weapons = this.initItems( items, lists['weapons'], ProtoItem, WEAPON, WEAPON );
+			inst.weapons = this.initItems( items, lists.weapons, ProtoItem, WEAPON, WEAPON );
 			inst.weapons.forEach(v=>v.kind=v.kind ||WEAPON);
 		}
 
-		if ( lists.potions ) inst.potions = this.initItems( items, lists['potions'], Potion, POTION, POTION );
+		if ( lists.potions ) inst.potions = this.initItems( items, lists.potions, Potion, POTION, POTION );
 
-		if ( lists.materials ) inst.materials = this.initItems( items, lists['materials'], Property, 'material', 'material' );
-		if ( lists.properties ) inst.properties = this.initItems( items, lists['properties'], Property, 'property', 'property' );
+		if ( lists.materials ) inst.materials = this.initItems( items, lists.materials, Property, 'material', 'material' );
+		if ( lists.properties ) inst.properties = this.initItems( items, lists.properties, Property, 'property', 'property' );
 
-		if ( lists.events ) inst.events = this.initItems( items, lists['events'], GEvent, EVENT, EVENT );
-		if ( lists.classes ) inst.classes = this.initItems( items, lists['classes'], GClass, 'class', 'class' );
+		if ( lists.events ) inst.events = this.initItems( items, lists.events, GEvent, EVENT, EVENT );
+		if ( lists.classes ) inst.classes = this.initItems( items, lists.classes, GClass, 'class', 'class' );
 
-		if ( lists.tasks ) inst.tasks = this.initItems( items, lists['tasks'], Task, null, 'task' );
+		if ( lists.tasks ) inst.tasks = this.initItems( items, lists.tasks, Task, null, 'task' );
 		/** @deprecated */
 		if ( lists.actions ) {
 				inst.tasks = this.mergeTasks( inst.tasks, this.initItems( items, lists.actions, Task, null, 'task' ) );
 		}
 
-		if ( lists.enchants ) inst.enchants =this.initItems( items, lists['enchants'], Enchant, null, 'enchant' );
-		if ( lists.sections ) inst.sections = this.initItems( items, lists['sections']);
+		if ( lists.enchants ) inst.enchants =this.initItems( items, lists.enchants, Enchant, null, 'enchant' );
+		if ( lists.sections ) inst.sections = this.initItems( items, lists.sections );
 
-		if ( lists.player ) inst.player = this.initPlayer( items, lists['player'], inst.items.player );
+		if ( lists.player ) inst.player = this.initPlayer( items, lists.player, inst.items.player );
 
 		return inst;
 

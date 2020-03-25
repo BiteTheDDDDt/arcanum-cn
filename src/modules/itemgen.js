@@ -364,11 +364,12 @@ export default class ItemGen {
 		return group.randBelow( Math.max( item.level+1, level ),
 			v=>{
 
-				if ( only && !includesAny(only, v.type, v.kind ) ) return false;
-				if ( exclude && includesAny(exclude, v.type, v.kind, v.name) ) return false;
+				if ( item.kind === 'magic') console.log('TESTING: ' + v.id );
+ 				if ( only && !includesAny(only, v.type, v.kind, v.id ) ) return false;
+				if ( exclude && includesAny(exclude, v.type, v.kind, v.id) ) return false;
 
-				if ( v.only && !includesAny( v.only, item.type, item.kind ) ) return false;
-				if ( v.exclude && includesAny( v.exclude, item.type, item.kind ) ) return false;
+				if ( v.only && !includesAny( v.only, item.type, item.kind, item.id ) ) return false;
+				if ( v.exclude && includesAny( v.exclude, item.type, item.kind, item.id ) ) return false;
 				return true;
 
 			}
@@ -398,6 +399,8 @@ export default class ItemGen {
 	genProperties( it, count ) {
 
 		let propGroup = this.groups.properties;
+
+		console.log( it.name + ' props lvl: ' +  it.level + '  kind: ' + it.kind );
 
 		for( count; count > 0; count-- ) {
 			it.addProperty( this.getCompatible( propGroup, it, it.level ) );

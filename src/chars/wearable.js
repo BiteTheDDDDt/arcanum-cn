@@ -205,8 +205,10 @@ export default class Wearable extends Item {
 
 	addProperty( prop ) {
 
-		if (!prop) return;
-		else if ( !Array.isArray(this.properties ) ) this.properties = [];
+		if (!prop) {
+			console.log('null prop');
+			return;
+		} else if ( !Array.isArray(this.properties ) ) this.properties = [];
 		else if ( this.properties.includes(prop) ) return;
 
 		if ( this.armor > 0 || this.type === 'armor' ) {
@@ -220,9 +222,9 @@ export default class Wearable extends Item {
 			else mergeSafe( this.mod, newMods);
 		}
 
-		if ( this.attack ) {
+		//if ( prop.type ==='property' ) console.log('APPLY PROPERTY: ' + (prop.id) );
 
-			console.log('APPLY MAT: ' + (prop.id) );
+		if ( this.attack ) {
 
 			if ( this.attack.damage !== null && this.attack.damage !== undefined ) {
 				this.applyBonus( this.attack, 'damage', prop.bonus );

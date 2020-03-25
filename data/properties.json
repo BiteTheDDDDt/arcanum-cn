@@ -4,7 +4,6 @@
 		"id":"prop_dowsing",
 		"name":"dowsing",
 		"kind":"magic",
-		"weight": 1,
 		"priceMod": 50,
 		"level": 5,
 		"only": [
@@ -20,7 +19,6 @@
 		"id":"prop_elemental",
 		"name":"elemental",
 		"kind":"magic",
-		"weight": 1,
 		"priceMod": 100,
 		"level": 8,
 		"only": [
@@ -41,7 +39,6 @@
 		"id":"prop_arcane",
 		"name":"arcane",
 		"kind":"magic",
-		"weight": 1,
 		"priceMod": 100,
 		"level": 6,
 		"only": [
@@ -56,7 +53,6 @@
 		"id":"prop_dominion",
 		"name":"dominion",
 		"kind":"magic",
-		"weight": 1,
 		"priceMod": 100,
 		"level": 6,
 		"only": [
@@ -71,7 +67,6 @@
 		"id":"prop_optical",
 		"name":"optical",
 		"kind":"magic",
-		"weight": 1,
 		"priceMod": 100,
 		"level": 6,
 		"only": [
@@ -87,7 +82,6 @@
 		"id":"prop_disturbing",
 		"name":"disturbing",
 		"kind":"magic",
-		"weight": 1,
 		"priceMod": 100,
 		"level": 8,
 		"only": [
@@ -102,7 +96,6 @@
 		"id":"prop_cursed",
 		"name":"cursed",
 		"kind":"magic",
-		"weight": 1,
 		"priceMod": 100,
 		"level": 8,
 		"only": [

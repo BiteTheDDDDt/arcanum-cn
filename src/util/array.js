@@ -140,6 +140,35 @@ export const findRemove = (a,pred) => {
 
 }
 
+/**
+ * Return first array element fufilling predicate.
+ * @param {*} arr
+ * @param {*=>boolean} pred
+ * @returns {*}
+ */
+export const randWhere = (arr, pred)=>{
+
+	if ( arr === null || arr === undefined ) return null;
+
+	let st = Math.floor( Math.random()*arr.length );
+	let i = st;
+
+	while ( !pred( arr[i] ) ) {
+
+		if ( --i < 0 ) i = arr.length-1;
+		if ( i === st ) return null;
+
+	}
+
+	return arr[i];
+
+}
+
+/**
+ * Return a random element from the array.
+ * @param {Array} arr
+ * @returns {*}
+ */
 export const randElm = (arr)=>{
 	if ( arr === null || arr === undefined ) return null;
 
