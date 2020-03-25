@@ -1,21 +1,21 @@
 import Mod from "./mod";
 
-const PER_SYM = '/';
-const PerRegEx = /^(\d+\.?\d*)?\/(\d+)$/;
+const PER_SYM = ':';
+const PerRegEx = /^(\d+\.?\d*)?\:(\d+)$/;
 
 /**
  *
  * @param {string} v
  * @returns {boolean}
  */
-export const IsPerValue = (v)=>{
+export const IsPerMod = (v)=>{
 	return PerRegEx.test(v);
 }
 
 /**
  * Apply result only on value%modulus === 0
  */
-export default class PerValue extends Mod {
+export default class PerMod extends Mod {
 
 	toJSON(){ return this.value + PER_SYM + this.per; }
 

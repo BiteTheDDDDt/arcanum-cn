@@ -1,5 +1,5 @@
 import Mod, { ModTest } from '../values/mod';
-import PerValue, { IsPerValue } from '../values/pervalue';
+import PerMod, { IsPerMod } from '../values/permod';
 import { splitKeys, logObj, splitKeyPath } from '../util/util';
 import { SubPath } from '../values/rvalue';
 import Stat from '../values/stat';
@@ -51,8 +51,8 @@ export const SubMods = ( mods, id, source )=>{
 		//console.log('testing mod: ' + mods );
 		if ( ModTest.test(mods) ) {
 			return new Mod( mods, id, source );
-		} else if ( IsPerValue(mods)) {
-			return new PerValue( mods, id, source );
+		} else if ( IsPerMod(mods)) {
+			return new PerMod( mods, id, source );
 		} else if ( !isNaN(mods) ) return Number(mods);
 
 		console.warn('raw str mod: ' + mods );
@@ -140,7 +140,7 @@ export const PrepData = ( sub, id='' ) => {
 					sub[p] = new Percent(obj);
 
 				} else if ( RangeTest.test(obj) ) sub[p] = new Range(obj);
-				else if ( IsPerValue(obj) ) sub[p] = new PerValue( obj, SubPath(id,p) );
+				else if ( IsPerMod(obj) ) sub[p] = new PerMod( obj, SubPath(id,p) );
 				else if ( !isNaN(obj) ) {
 					if ( obj !== '') console.warn('string used as Number: ' + p + ' -> ' + obj );
 					sub[p] = Number(obj);
@@ -165,7 +165,7 @@ export const PrepData = ( sub, id='' ) => {
 
 		if ( RangeTest.test(sub) ) return new Range(sub);
 		else if ( PercentTest.test(sub)) return new Percent(sub);
-		else if ( IsPerValue(sub)) return new PerValue( sub, id );
+		else if ( IsPerMod(sub)) return new PerMod( sub, id );
 
 	}
 
@@ -190,7 +190,7 @@ export const ParseEffects = ( effects, funcMaker ) => {
 
 		if ( RangeTest.test(effects) ) return new Range(effects);
 		else if ( PercentTest.test(effects) ) return new Percent(effects);
-		else if ( IsPerValue(effects ) ) return new PerValue( effects );
+		else if ( IsPerMod(effects ) ) return new PerMod( effects );
 		else if ( effects.includes( '.' ) ) return funcMaker(effects);
 
 		return effects;

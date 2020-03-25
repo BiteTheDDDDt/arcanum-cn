@@ -145,7 +145,7 @@
 		"weapons": [
 			{
 				"id":"wand",
-				"tags":"tool",
+				"tags":"conduit",
 				"cost": 10,
 				"hands": 1,
 				"level": 0,
@@ -154,7 +154,7 @@
 			},
 			{
 				"id":"rod",
-				"tags":"tool",
+				"tags":"conduit",
 				"cost": 30,
 				"hands": 1,
 				"level": 4,
@@ -163,7 +163,7 @@
 			},
 			{
 				"id":"greatstaff",
-				"tags":"tool",
+				"tags":"conduit",
 				"cost": 50,
 				"hands": 2,
 				"level": 6,
@@ -173,7 +173,7 @@
 			{
 				"id":"weap_focus",
 				"name":"focus",
-				"tags":"tool",
+				"tags":"conduit",
 				"cost": 100,
 				"hands": 2,
 				"level": 8,
@@ -182,7 +182,7 @@
 			},
 			{
 				"id":"fetish",
-				"tags":"tool",
+				"tags":"conduit",
 				"only":"magic",
 				"cost": 100,
 				"hands": 1,
