@@ -117,8 +117,6 @@ export default {
 	},
 	set name(v) {
 
-		if ( this.kind === 'weapon' ) console.log('set name: ' + v );
-
 		if ( v&&this.sym ) {
 
 			this._name = v.split(this.sym).join( '').trim();
