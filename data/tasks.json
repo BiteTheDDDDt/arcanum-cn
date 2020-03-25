@@ -1524,26 +1524,47 @@
 		}
 	},
 	{
-		"id":"maketitanhammer",
-		"name":"titan's hammer",
-		"desc":"The powers of creation and destruction, locked in your grip.",
-		"verb":"Creating Masterpiece",
-		"require":"g.titan>0&&g.mythicanvil>0",
-		"length": 180,
-		"cost":{
-			"earthgem":300,
-			"earthrune":80,
-			"sindel":5,
-			"ichor":5
-		},
-		"run": {
-			"stamina": 4,
-			"earth": 3
-		},
-		"loot": {
-			"titanhammer": 1
-		}
-	},
+        "id":"remakehammer",
+        "name":"call hammer",
+        "desc":"You forged it once, call forth another.",
+        "verb":"Recalling",
+        "require":"g.maketitanhammer>0",
+        "length": 10,
+        "cost":{
+            "earthgem":30,
+            "earthrune":10,
+            "sindel":1
+        },
+        "run": {
+            "stamina": 8,
+            "earth": 5
+        },
+        "loot": {
+            "titanhammer": 1
+        }
+    },
+	{
+        "id":"maketitanhammer",
+        "name":"titan's hammer",
+        "desc":"The powers of creation and destruction, locked in your grip.",
+        "repeat":false,
+        "verb":"Creating Masterpiece",
+        "require":"g.titan>0&&g.mythicanvil>0",
+        "length": 180,
+        "cost":{
+            "earthgem":300,
+            "earthrune":80,
+            "sindel":5,
+            "ichor":5
+        },
+        "run": {
+            "stamina": 4,
+            "earth": 3
+        },
+        "loot": {
+            "titanhammer": 1
+        }
+    },
 	{
 		"id":"fazbitfixate",
 		"name":"fazbit's fixations",
