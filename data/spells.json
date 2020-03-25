@@ -1346,25 +1346,26 @@
 		}
 	},
 	{
-		"id":"flamestrike",
-		"school":"fire",
-		"desc":"Imbue your weapon with flame before striking.",
-		"level":4,
-		"buy":{
-			"tomes":5,
-			"firegem":10
-		},
-		"cost":{
-			"fire":3,
-			"hp":10
-		},
-		"attack":{
-			"kind":"fire",
-			"bonus":5,
-			"dmg":"a.weapon.damage+a.getBonus( a.weapon.kind )"
-		}
+        "id":"flamestrike",
+        "school":"fire",
+        "desc":"Imbue your weapon with flame before striking.",
+        "level":4,
+        "buy":{
+            "tomes":5,
+            "firegem":10
+        },
+        "cost":{
+            "fire":3,
+            "hp":10,
+            "stamina":1
+        },
+        "attack":{
+            "kind":"fire",
+            "bonus":5,
+            "dmg":"(a.weapon.damage+a.getBonus( a.weapon.kind ))/2"
+        }
 
-	},
+    },
 	{
 		"id":"mk_blade",
 		"name":"summon blade",
@@ -1503,50 +1504,48 @@
 		}
 	},
 	{
-		"id":"smite",
-		"school":"earth",
-		"require":"g.hammerlore>=5",
-		"level": 2,
-		"buy": {
-			"research": 500
-		},
-		"cost": {
-			"earth": 2,
-			"stamina": 1
-		},
-		"attack": {
-			"damage": 30,
-			"tohit": 3,
-			"kind":"earth"
-		}
-	},
+        "id":"smite",
+        "school":"earth",
+        "require":"g.hammerlore>=5",
+        "level": 5,
+        "buy": {
+            "research": 500
+        },
+        "cost": {
+            "earth": 3,
+            "stamina": 1
+        },
+        "attack": {
+            "damage": "(a.weapon.damage+a.getBonus( a.weapon.kind ))/2.5",
+            "tohit": 3,
+            "kind":"earth"
+        }
+    },
 	{
-		"id":"fissure",
-		"desc":"Crack the earth beneath the feet of your enemy.",
-		"cd": 200,
-		"school":"earth",
-		"require":"g.hammerlore>=10",
-		"level": 5,
-		"buy": {
-			"research": 12000
-		},
-		"cost": {
-			"earth": 8,
-			"stamina": 12
-		},
-		"attack": {
-			"damage": 50,
-			"tohit": -5,
-			"kind":"earth",
-			"dot": {
-				"kind":"earth",
-				"duration": 2,
-				"mod": {
-					"speed": -500
-				}
-			}
-		}
-	},
+        "id":"fissure",
+        "desc":"Crack the earth beneath the feet of your enemy.",
+        "cd": 200,
+        "school":"earth",
+        "require":"g.hammerlore>=10",
+        "level": 5,
+        "buy": {
+            "research": 12000
+        },
+        "cost": {
+            "earth": 8,
+            "stamina": 12
+        },
+        "attack": {
+            "damage": "(a.weapon.damage+a.getBonus( a.weapon.kind ))*1.5",
+            "tohit": 5,
+            "kind":"earth",
+            "dot": {
+                "kind":"earth",
+                "duration": 4,
+                "id":"prone"
+            }
+        }
+    },
 	{
 		"id":"prolight",
 		"name":"protection: light",
