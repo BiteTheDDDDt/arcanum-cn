@@ -2,144 +2,7 @@
 	"module":"extramats",
 	"data": {
 		"materials": [
-			{
-				"id":"mat_fire1",
-				"name":"fire",
-				"kind":"magic",
-				"weight": 1,
-				"priceMod": 30,
-				"level": 2,
-				"only": [
-					"wand"
-				],
-				"mod": {
-					"self.bonuses.fire":"5%",
-					"fire.rate":"15%"
-				}
-			},
-			{
-				"id":"mat_water1",
-				"name":"water",
-				"kind":"magic",
-				"weight": 1,
-				"priceMod": 30,
-				"level": 2,
-				"only": [
-					"wand"
-				],
-				"mod": {
-					"self.bonuses.water":"5%",
-					"water.rate":"15%"
-				}
-			},
-			{
-				"id":"mat_air1",
-				"name":"air",
-				"kind":"magic",
-				"weight": 1,
-				"priceMod": 30,
-				"level": 2,
-				"only": [
-					"wand"
-				],
-				"mod": {
-					"self.bonuses.air":"5%",
-					"air.rate":"15%"
-				}
-			},
-			{
-				"id":"mat_earth1",
-				"name":"earth",
-				"kind":"magic",
-				"weight": 1,
-				"priceMod": 30,
-				"level": 2,
-				"only": [
-					"wand"
-				],
-				"mod": {
-					"self.bonuses.earth":"5%",
-					"earth.rate":"15%"
-				}
-			},
-			{
-				"id":"mat_fire2",
-				"name":"fire",
-				"kind":"magic",
-				"weight": 1,
-				"priceMod": 50,
-				"level": 5,
-				"only": [
-					"rod"
-				],
-				"mod": {
-					"self.bonuses.fire":"10%",
-					"fire.rate":"30%"
-				}
-			},
-			{
-				"id":"mat_water2",
-				"name":"water",
-				"kind":"magic",
-				"weight": 1,
-				"priceMod": 50,
-				"level": 5,
-				"only": [
-					"rod"
-				],
-				"mod": {
-					"self.bonuses.water":"10%",
-					"water.rate":"30%"
-				}
-			},
 
-			{
-				"id":"mat_air2",
-				"name":"air",
-				"kind":"magic",
-				"weight": 1,
-				"priceMod": 50,
-				"level": 5,
-				"only": [
-					"rod"
-				],
-				"mod": {
-					"self.bonuses.air":"10%",
-					"air.rate":"30%"
-				}
-			},
-			{
-				"id":"mat_earth2",
-				"name":"earth",
-				"kind":"magic",
-				"weight": 1,
-				"priceMod": 50,
-				"level": 5,
-				"only": [
-					"rod"
-				],
-				"mod": {
-					"self.bonuses.earth":"10%",
-					"earth.rate":"30%"
-				}
-			},
-
-			{
-				"id":"mat_saintly",
-				"name":"saintly",
-				"kind":"magic",
-				"weight": 1,
-				"priceMod": 100,
-				"level": 8,
-				"only": [
-					"greatstaff"
-				],
-				"mod": {
-					"self.bonuses.light":"20%",
-					"light.max":"25%",
-					"light.rate":"20%"
-				}
-			}
 
 		],
 		"weapons": [
@@ -149,7 +12,6 @@
 				"cost": 10,
 				"hands": 1,
 				"level": 0,
-				"only":"magic",
 				"properties":1
 			},
 			{
@@ -158,7 +20,6 @@
 				"cost": 30,
 				"hands": 1,
 				"level": 4,
-				"only":"magic",
 				"properties":1
 			},
 			{
@@ -167,7 +28,6 @@
 				"cost": 50,
 				"hands": 2,
 				"level": 6,
-				"only":"magic",
 				"properties":1
 			},
 			{
@@ -177,13 +37,11 @@
 				"cost": 100,
 				"hands": 2,
 				"level": 8,
-				"only":"magic",
 				"properties":1
 			},
 			{
 				"id":"fetish",
 				"tags":"magic",
-				"only":"magic",
 				"cost": 100,
 				"hands": 1,
 				"level": 6,

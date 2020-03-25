@@ -1,6 +1,136 @@
 [
 
 	{
+		"id":"prop_fire1",
+		"name":"fire",
+		"weight": 1,
+		"priceMod": 30,
+		"level": 2,
+		"only": [
+			"wand"
+		],
+		"mod": {
+			"self.bonuses.fire":"5%",
+			"fire.rate":"15%"
+		}
+	},
+	{
+		"id":"prop_water1",
+		"name":"water",
+		"weight": 1,
+		"priceMod": 30,
+		"level": 2,
+		"only": [
+			"wand"
+		],
+		"mod": {
+			"self.bonuses.water":"5%",
+			"water.rate":"15%"
+		}
+	},
+	{
+		"id":"prop_air1",
+		"name":"air",
+		"weight": 1,
+		"priceMod": 30,
+		"level": 2,
+		"only": [
+			"wand"
+		],
+		"mod": {
+			"self.bonuses.air":"5%",
+			"air.rate":"15%"
+		}
+	},
+	{
+		"id":"prop_earth1",
+		"name":"earth",
+		"weight": 1,
+		"priceMod": 30,
+		"level": 2,
+		"only": [
+			"wand"
+		],
+		"mod": {
+			"self.bonuses.earth":"5%",
+			"earth.rate":"15%"
+		}
+	},
+	{
+		"id":"prop_fire2",
+		"name":"fire",
+		"weight": 1,
+		"priceMod": 50,
+		"level": 5,
+		"only": [
+			"rod"
+		],
+		"mod": {
+			"self.bonuses.fire":"10%",
+			"fire.rate":"30%"
+		}
+	},
+	{
+		"id":"prop_water2",
+		"name":"water",
+		"weight": 1,
+		"priceMod": 50,
+		"level": 5,
+		"only": [
+			"rod"
+		],
+		"mod": {
+			"self.bonuses.water":"10%",
+			"water.rate":"30%"
+		}
+	},
+
+	{
+		"id":"prop_air2",
+		"name":"air",
+		"weight": 1,
+		"priceMod": 50,
+		"level": 5,
+		"only": [
+			"rod"
+		],
+		"mod": {
+			"self.bonuses.air":"10%",
+			"air.rate":"30%"
+		}
+	},
+	{
+		"id":"prop_earth2",
+		"name":"earth",
+		"weight": 1,
+		"priceMod": 50,
+		"level": 5,
+		"only": [
+			"rod"
+		],
+		"mod": {
+			"self.bonuses.earth":"10%",
+			"earth.rate":"10%"
+		}
+	},
+
+	{
+		"id":"prop_saintly",
+		"name":"saintly",
+		"weight": 1,
+		"priceMod": 100,
+		"level": 8,
+		"only": [
+			"greatstaff"
+		],
+		"mod": {
+			"self.bonuses.light":"20%",
+			"light.max":"25%",
+			"light.rate":"10%"
+		}
+	},
+
+	{
 		"id":"prop_dowsing",
 		"name":"dowsing",
 		"priceMod": 50,
@@ -10,7 +140,7 @@
 		],
 		"mod": {
 			"self.bonuses.water":"5%",
-			"water.rate":"50%",
+			"water.rate":"15%",
 			"herbs.rate": 1
 		}
 	},
@@ -18,37 +148,38 @@
 		"id":"prop_elemental",
 		"name":"elemental",
 		"priceMod": 100,
-		"level": 8,
+		"level": 10,
 		"only": [
 			"greatstaff"
 		],
 		"mod": {
 			"self.bonuses.fire":"12%",
-			"fire.rate":"25%",
+			"fire.rate":"15%",
 			"self.bonuses.water":"12%",
-			"water.rate":"25%",
+			"water.rate":"15%",
 			"self.bonuses.air":"12%",
-			"air.rate":"25%",
+			"air.rate":"15%",
 			"self.bonuses.earth":"12%",
-			"earth.rate":"25%"
+			"earth.rate":"15%"
 		}
 	},
 	{
 		"id":"prop_arcane",
 		"name":"arcane",
 		"priceMod": 100,
-		"level": 6,
+		"level": 5,
 		"only": [
 			"weap_focus"
 		],
 		"mod": {
 			"self.bonuses.mana":"20%",
-			"mana.rate":"30%"
+			"mana.rate":"10%"
 		}
 	},
 	{
 		"id":"prop_dominion",
 		"name":"dominion",
+		"adj":"%i of %s",
 		"priceMod": 100,
 		"level": 6,
 		"only": [
@@ -60,8 +191,8 @@
 		}
 	},
 	{
-		"id":"prop_optical",
-		"name":"optical",
+		"id":"prop_optic",
+		"name":"optic",
 		"priceMod": 100,
 		"level": 6,
 		"only": [
@@ -82,8 +213,9 @@
 			"fetish"
 		],
 		"mod": {
+			"unease.rate":"10%",
 			"self.bonuses.spirit":"20%",
-			"spirit.rate":"30%"
+			"spirit.rate":"10%"
 		}
 	},
 	{
@@ -97,7 +229,7 @@
 		"mod": {
 			"self.bonuses.shadow":"20%",
 			"shadow.max":"25%",
-			"shadow.rate":"20%"
+			"shadow.rate":"10%"
 		}
 	}
 
