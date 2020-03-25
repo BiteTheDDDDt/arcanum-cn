@@ -10,9 +10,6 @@ export default class Property {
 		this._exclude = typeof v === 'string' ? v.split(',') : v;
 	}
 
-	get name(){return this._name}
-	set name(v){this._name=v;}
-
 	get only(){return this._only;}
 	set only(v) {
 		this._only = typeof v === 'string' ? v.split(',') : v;
@@ -22,6 +19,7 @@ export default class Property {
 
 		if ( vars ) assign( this, vars);
 
+		console.log('prop name: ' + this.name );
 	}
 
 }

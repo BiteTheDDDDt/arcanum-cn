@@ -105,7 +105,7 @@ export default {
 	toString(){return this.id;},
 
 	/**
-	 * Simple name without symbol.
+	 * @property {string} sname - Simple name without symbol.
 	 */
 	get sname(){ return this._name || this.id; },
 
@@ -116,6 +116,8 @@ export default {
 		: (this.sym||'') + (this._name||this.id));
 	},
 	set name(v) {
+
+		if ( this.kind === 'weapon' ) console.log('set name: ' + v );
 
 		if ( v&&this.sym ) {
 

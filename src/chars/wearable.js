@@ -29,7 +29,7 @@ export default class Wearable extends Item {
 
 		} else data.template = this.template.id;
 
-		data.name = this._name;
+		data.name = this.sname;
 		data.attack = this.attack || undefined;
 
 		if ( this.mod ) data.mod = this.mod;
@@ -205,10 +205,8 @@ export default class Wearable extends Item {
 
 	addProperty( prop ) {
 
-		if (!prop) {
-			console.log('null prop');
-			return;
-		} else if ( !Array.isArray(this.properties ) ) this.properties = [];
+		if (!prop) return;
+		else if ( !Array.isArray(this.properties ) ) this.properties = [];
 		else if ( this.properties.includes(prop) ) return;
 
 		if ( this.armor > 0 || this.type === 'armor' ) {
@@ -236,7 +234,7 @@ export default class Wearable extends Item {
 
 		}
 
-		this.addAdj( prop.adj, prop, prop.name );
+		this.addAdj( prop.adj || prop.name, prop );
 
 		this.properties.push(prop);
 
