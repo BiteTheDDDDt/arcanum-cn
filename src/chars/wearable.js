@@ -227,7 +227,7 @@ export default class Wearable extends Item {
 			if ( this.attack.damage !== null && this.attack.damage !== undefined ) {
 				this.applyBonus( this.attack, 'damage', prop.bonus );
 			}
-			if ( mat.tohit ) {
+			if ( prop.tohit ) {
 				//console.log('apply mat to: ' + this.id );
 				this.applyBonus( this.attack, 'tohit', prop.tohit );
 			}
