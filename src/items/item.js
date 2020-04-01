@@ -42,7 +42,6 @@ export default class Item {
 
 	}
 
-
 	/**
 	 * @property {string[]} enchants - ids of enchantments applied.
 	 */
@@ -76,6 +75,12 @@ export default class Item {
 	}
 
 	/**
+	 * @property {number} enchantMax - max sum of enchant levels applied.
+	 */
+	get maxEnchants() { return this._maxEnchants; }
+	set maxEnchants(v) { this._maxEnchants=v;}
+
+	/**
 	 * @property {boolean} consume - whether the item is consumed when used.
 	 */
 	get consume() { return this._consume; }
@@ -95,6 +100,7 @@ export default class Item {
 		if ( vars ) { cloneClass( vars, this ); }
 		if ( save ) assign(this,save);
 
+		if ( !this.maxEnchants ) this.maxEnchants = 0;
 		if ( !this.enchantTot ) this.enchantTot = 0;
 		this.value = this._value || 1;
 

@@ -123,7 +123,7 @@ export default {
 
 			<span v-if="item.slot">slot: {{ item.slot }}</span>
 		</span>
-		<span v-if="item.enchantTot>0">enchants used: {{item.enchantTot}}</span>
+		<span v-if="item.maxEnchants>0">enchants used: {{item.enchantTot}} / {{ item.maxEnchants }}</span>
 
 		<span v-if="item.at&&(nextAt>0)" class="note-text">
 			Next Improvement: {{ Math.round(100*item.value/nextAt)+'%'}}

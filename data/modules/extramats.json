@@ -1,10 +1,7 @@
 {
 	"module":"extramats",
 	"data": {
-		"materials": [
 
-
-		],
 		"weapons": [
 			{
 				"id":"wand",
@@ -33,6 +30,7 @@
 			{
 				"id":"weap_focus",
 				"name":"focus",
+				"desc":"A focus for your magic.",
 				"tags":"magic",
 				"cost": 100,
 				"hands": 2,
@@ -331,7 +329,7 @@
 				"adj":"%i of the arcane",
 				"verb":"calibrating focus",
 				"only":"weap_focus",
-				"desc":"Your focus is a bottomless source of mana.",
+				"desc":"Your focus is a source of mana.",
 				"require":"g.enchanting>=9",
 				"level": 7,
 				"buy": {
@@ -354,7 +352,7 @@
 				"adj":"%i of the stars",
 				"verb":"calibrating focus",
 				"only":"weap_focus",
-				"desc":"Your focus is attuned to the stars above.",
+				"desc":"Your focus is attuned to the stars.",
 				"require":"g.enchanting>=9&&g.astralseer>0",
 				"level": 7,
 				"buy": {

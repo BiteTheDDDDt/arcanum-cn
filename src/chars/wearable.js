@@ -43,6 +43,7 @@ export default class Wearable extends Item {
 
 	}
 
+
 	get damage() {
 		return this._attack ? this._attack.damage : undefined;
 	}
@@ -129,6 +130,8 @@ export default class Wearable extends Item {
 
 		this.value = this.val = 1;
 
+		this.maxEnchants = this.hands || 0;
+
 		if ( !this.type ) {
 			console.warn(this.id + ' unknown wear type: ' + this.type );
 			if ( this.attack ) {
@@ -190,6 +193,9 @@ export default class Wearable extends Item {
 
 		/*console.log('WEARABLE LEVEL: ' + this.level + ' MAT: '+ (this.material ? this.material.level : 0 )
 		 + ' base: ' + (this.template ? this.template.level : 0 ) );*/
+	}
+
+	calcMaxEnchants() {
 	}
 
 	applyMaterial( mat ) {
