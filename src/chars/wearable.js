@@ -252,6 +252,8 @@ export default class Wearable extends Item {
 			else mergeSafe( this.mod, newMods);
 		}
 
+		if ( prop.maxEnchants ) this.maxEnchants += prop.maxEnchants;
+
 		//if ( prop.type ==='property' ) console.log('APPLY PROPERTY: ' + (prop.id) );
 
 		if ( this.attack ) {

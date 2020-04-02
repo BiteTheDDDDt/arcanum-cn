@@ -4,30 +4,6 @@
 
 		"weapons": [
 			{
-				"id":"wand",
-				"tags":"magic",
-				"cost": 10,
-				"hands": 1,
-				"level": 0,
-				"properties":1
-			},
-			{
-				"id":"rod",
-				"tags":"magic",
-				"cost": 30,
-				"hands": 1,
-				"level": 4,
-				"properties":1
-			},
-			{
-				"id":"greatstaff",
-				"tags":"magic",
-				"cost": 50,
-				"hands": 2,
-				"level": 6,
-				"properties":1
-			},
-			{
 				"id":"weap_focus",
 				"name":"focus",
 				"desc":"A focus for your magic.",
@@ -35,14 +11,7 @@
 				"cost": 100,
 				"hands": 2,
 				"level": 8,
-				"properties":1
-			},
-			{
-				"id":"fetish",
-				"tags":"magic",
-				"cost": 100,
-				"hands": 1,
-				"level": 6,
+				"maxEnchants":6,
 				"properties":1
 			}
 		],
