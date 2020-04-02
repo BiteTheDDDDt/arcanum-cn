@@ -33,6 +33,9 @@ export default class Wearable extends Item {
 		data.attack = this.attack || undefined;
 
 		if ( this.mod ) data.mod = this.mod;
+		if ( this.properties ) {
+			data.properties = this.properties.map(v=>v.id).join(',');
+		}
 
 		if ( this.material ) {
 			if ( !data ) data = {};
@@ -191,11 +194,34 @@ export default class Wearable extends Item {
 
 		if ( this.mod ) this.mod = ParseMods( this.mod, this.id, this );
 
+		if ( this.maxEnchants ) this.calcMaxEnchants();
 		/*console.log('WEARABLE LEVEL: ' + this.level + ' MAT: '+ (this.material ? this.material.level : 0 )
 		 + ' base: ' + (this.template ? this.template.level : 0 ) );*/
 	}
 
 	calcMaxEnchants() {
+
+		let max = 0;
+		if ( this.template ) {
+
+			max = this.template.maxEnchants || 0;
+
+		}
+
+		let props = this.properties;
+		if ( props ) {
+
+			console.log( this.id + ' props: ' + props.length );
+			for( let i = 0; i < props.length; i++ ) {
+
+				let p = props[i];
+				if ( !p ) continue;
+				max += props[i].maxEnchants || 0;
+			}
+		}
+
+		console.log( this.id + ' new max enchants: ' + max );
+		this.maxEnchants = max;
 	}
 
 	applyMaterial( mat ) {

@@ -120,9 +120,7 @@
 		"weight": 1,
 		"priceMod": 100,
 		"level": 8,
-		"only": [
-			"greatstaff"
-		],
+		"only":"greatstaff",
 		"mod": {
 			"self.bonuses.light":"20%",
 			"light.max":"25%",

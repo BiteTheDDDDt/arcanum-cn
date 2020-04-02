@@ -301,7 +301,7 @@
 	"id":"loc_menagerie",
 	"name":"the lost menagerie",
 	"level":23,
-	"require":"g.tier98>0",
+	"require":"g.tier5>0&&g.magicbeasts>=5",
 	"length":200,
 	"desc":"Beneath the tallest idrasil a great menagerie thrives beneath a second sky.",
 	"run":{
@@ -310,10 +310,8 @@
 	"once":{
 		"magicbeasts.max":1
 	},
-	"result":{
-		"title":""
-	},
 	"loot":{
+		"gems":"5~10",
 		"herbs":"10~20"
 	},
 	"encs":[
