@@ -34,7 +34,13 @@ export default class Wearable extends Item {
 
 		if ( this.mod ) data.mod = this.mod;
 		if ( this.props ) {
-			data.props = this.props.map(v=>v.id).join(',');
+
+			if ( !Array.isArray(this.props)) {
+				console.log(this.id + ' PROPS INVALID: ' + (typeof this.props) + ' : ' + this.props );
+			} else {
+				data.props = this.props.map(v=>v.id).join(',');
+			}
+
 		}
 
 		if ( this.material ) {
@@ -194,9 +200,37 @@ export default class Wearable extends Item {
 
 		if ( this.mod ) this.mod = ParseMods( this.mod, this.id, this );
 
-		if ( this.maxEnchants ) this.calcMaxEnchants();
+		this.initProps( gs );
+		if ( !this.maxEnchants ) this.calcMaxEnchants();
 		/*console.log('WEARABLE LEVEL: ' + this.level + ' MAT: '+ (this.material ? this.material.level : 0 )
 		 + ' base: ' + (this.template ? this.template.level : 0 ) );*/
+	}
+
+	/**
+	 * Map property strings to source property objects.
+	 */
+	initProps( gs ){
+
+		let props = this.props;
+		if ( !props ) return;
+		if ( typeof props === 'string') {
+			props = props.split(',');
+		}
+
+		let len = props.length;
+		let a = [];
+		for( let i = 0; i < len; i++ ) {
+
+			let p = gs.getData( props[i] );
+			if (!p ) continue;
+			a.push(p);
+
+		}
+
+		this.props = a;
+
+
+
 	}
 
 	calcMaxEnchants() {
