@@ -33,8 +33,8 @@ export default class Wearable extends Item {
 		data.attack = this.attack || undefined;
 
 		if ( this.mod ) data.mod = this.mod;
-		if ( this.properties ) {
-			data.properties = this.properties.map(v=>v.id).join(',');
+		if ( this.props ) {
+			data.props = this.props.map(v=>v.id).join(',');
 		}
 
 		if ( this.material ) {
@@ -57,13 +57,13 @@ export default class Wearable extends Item {
 	set material(v) { this._material=v;}
 
 	/**
-	 * @property {Material[]} properties
+	 * @property {Material[]} props
 	 */
-	get properties(){
-		return this._properties;
+	get props(){
+		return this._props;
 	}
-	set properties(v){
-		this._properties=v;
+	set props(v){
+		this._props=v;
 	}
 
 	/**
@@ -208,7 +208,7 @@ export default class Wearable extends Item {
 
 		}
 
-		let props = this.properties;
+		let props = this.props;
 		if ( props ) {
 
 			console.log( this.id + ' props: ' + props.length );
@@ -238,8 +238,8 @@ export default class Wearable extends Item {
 	addProperty( prop ) {
 
 		if (!prop) return;
-		else if ( !Array.isArray(this.properties ) ) this.properties = [];
-		else if ( this.properties.includes(prop) ) return;
+		else if ( !Array.isArray(this.props ) ) this.props = [];
+		else if ( this.props.includes(prop) ) return;
 
 		if ( this.armor > 0 || this.type === 'armor' ) {
 			this.applyBonus( this, ARMOR, prop.bonus );
@@ -268,7 +268,7 @@ export default class Wearable extends Item {
 
 		this.addAdj( prop.adj || prop.name, prop );
 
-		this.properties.push(prop);
+		this.props.push(prop);
 
 	}
 
