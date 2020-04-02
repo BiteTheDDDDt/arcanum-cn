@@ -133,7 +133,7 @@ export default class Wearable extends Item {
 
 		this.value = this.val = 1;
 
-		this.maxEnchants = this.hands || 0;
+		if ( !this.maxEnchants ) this.maxEnchants = this.hands || 0;
 
 		if ( !this.type ) {
 			console.warn(this.id + ' unknown wear type: ' + this.type );
