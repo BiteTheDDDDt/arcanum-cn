@@ -14,6 +14,7 @@
 			"kind":"metal",
 			"priceMod": 30,
 			"tohit": 9,
+			"maxEnchants":4,
 			"bonus": 7,
 			"level": 5
 		}, {
