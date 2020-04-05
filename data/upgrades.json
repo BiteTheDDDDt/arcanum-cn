@@ -749,7 +749,7 @@
 		"id":"speakbirds",
 		"name":"Speak to Birds",
 		"desc":"Learn the secret languages of birds.",
-		"require":"g.falconer>0||(g.birdcage>0&&g.animals>5)",
+		"require":"g.falconer>0||(g.birdcage>0&&g.animals>7)",
 		"cost":{
 			"research":250,
 			"nature":1

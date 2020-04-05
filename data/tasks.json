@@ -1269,7 +1269,7 @@
 		"actname":"compile bestiary",
 		"verb":"researching beasts",
 		"require":"g.animals>=3",
-		"length":50,
+		"length":75,
 		"desc":"Compendium of common creatures",
 		"repeat":false,
 		"cost":{
@@ -1290,15 +1290,15 @@
 	},
 	{
 
-		"id":"systemanaturae",
-		"name":"systema naturae",
-		"desc":"Compendium of living things.",
+		"id":"bestiary2",
+		"name":"arcane bestiary",
+		"desc":"Compendium of magic creatures.",
 		"require":"g.loc_menagerie>0",
 		"repeat":false,
-		"length":200,
+		"length":500,
 		"cost":{
 			"tomes":25,
-			"research":5000,
+			"research":10000,
 			"waterrune":5,
 			"earthrune":5
 		},

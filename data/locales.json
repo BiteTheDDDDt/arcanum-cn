@@ -310,6 +310,12 @@
 	"once":{
 		"magicbeasts.max":1
 	},
+	"effect":{
+		"magicbeasts.exp":1
+	},
+	"result":{
+		"title":"Wild Compiler"
+	},
 	"loot":{
 		"gems":"5~10",
 		"herbs":"10~20"
