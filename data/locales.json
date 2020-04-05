@@ -60,9 +60,6 @@
 	"run":{
 		"stamina":0.2
 	},
-	"effect":{
-
-	},
 	"result":{
 		"arcana":0.1,
 		"research":10
@@ -115,9 +112,6 @@
 	"desc":"The half-goblin Pidwig has sailed the waters around his bay for hundreds of years. In that time he has collected a myriad of interesting artifacts.",
 	"run":{
 		"stamina":0.2
-	},
-	"effect":{
-
 	},
 	"result":{
 		"arcana":0.1

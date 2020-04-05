@@ -439,19 +439,18 @@ export default class Combat {
 	}
 
 	/**
-	 * exponentially decreasing function. Lower is better.
-	 * e^(-1/100) approx 99% (not to dodge)
-	 * 1/e = 37% - might be too low.
 	 * @param {number} dodge
 	 * @param {number} tohit
 	 * @returns {boolean} true if defender dodges.
 	 */
 	dodgeRoll( dodge, tohit ) {
 
-		// higher x === better dodge.
-		let x = ( tohit > dodge ? 1 : dodge - tohit )/16;
+		//let sig = 1 + (dodge-tohit)/( 1+ Math.abs(dodge-tohit));
+		let sig = 1 + (2/Math.PI)*( Math.atan(dodge-tohit) );
 
-		return Math.random() > ( Math.exp( -x*x ) );
+		//console.log( 'dodge: ' + dodge + ' tohit: ' + tohit + '  sig: ' + sig );
+
+		return sig > Math.random();
 
 	}
 
