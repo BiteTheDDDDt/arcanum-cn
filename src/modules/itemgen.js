@@ -424,8 +424,8 @@ export default class ItemGen {
 
 		} else item.name = (data.name || data.id );
 
-		if ( typeof item.props ==='number' ){
-			this.genProperties( item, item.props );
+		if ( data.properties ){
+			this.genProperties( item, data.properties );
 		}
 
 		item.id = this.state.nextId(item.id);

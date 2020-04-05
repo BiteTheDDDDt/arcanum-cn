@@ -457,6 +457,7 @@
 		"name":"spin gold",
 		"desc":"Spin straw into gold",
 		"verb":"spinning",
+		"need":"(g.spinwheel+g.loom)>0",
 		"require":"g.weaving>=5&&g.loom>0&&g.enchanting>=3",
 		"perpetual":true,
 		"length":10,
@@ -470,6 +471,9 @@
 			"500":{ "effect.gold":0.5 },
 			"1500":{ "effect.gold":1 }
 
+		},
+		"once":{
+			"weaving.max":1
 		},
 		"effect":{
 			"gold":2.2
