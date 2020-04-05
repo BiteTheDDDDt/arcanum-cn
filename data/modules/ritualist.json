@@ -28,23 +28,6 @@
 				}
 			}
 		],
-		"hall": [
-			{
-				"id":"ritualchamber",
-				"name":"ritual chamber",
-				"require":"tier6",
-				"desc":"A warded room deep within the hall, dedicated to carrying out rituals in safety.",
-				"max": 1,
-				"cost": {
-					"prestige": 30
-				},
-				"mod": {
-					"ritualism.max": 2,
-					"ritualnotes.max": 12,
-					"ritualward.max": 7
-				}
-			}
-		],
 		"tasks": [
 			{
 				"id":"ritual_arcane",

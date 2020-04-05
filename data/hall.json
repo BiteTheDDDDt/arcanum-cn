@@ -113,6 +113,21 @@
 				"mod":{
 					"runner.max":1
 				}
+			},
+			{
+				"id":"ritualchamber",
+				"name":"ritual chamber",
+				"require":"g.ritualist>0&&g.tier6>0",
+				"desc":"A warded room deep within the hall, dedicated to carrying out rituals in safety.",
+				"max": 1,
+				"cost": {
+					"prestige": 30
+				},
+				"mod": {
+					"ritualism.max": 2,
+					"ritualnotes.max": 12,
+					"ritualward.max": 7
+				}
 			}
 
 		],
