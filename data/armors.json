@@ -1,53 +1,77 @@
 [
-    { "id":"gloves", "armor":1, "slot":"hands", "cost":20,"maxEnchants":1 },
-    { "id":"boots", "armor":1, "slot":"feet", "cost":20,"maxEnchants":2 },
+    { "id":"gloves", "armor":1, "slot":"hands", "cost":20,"maxEnchants":1, "only":"cloth,leather" },
+    { "id":"boots", "armor":1, "slot":"feet", "cost":20,"maxEnchants":2, "only":"cloth,leather,metal"},
 
 	{ "id":"hat", "armor":0, "slot":"head", "cost":10 },
     { "id":"cap", "armor":1, "slot":"head", "cost":15, "level":1 },
     { "id":"helm", "armor":2, "slot":"head", "cost":30, "level":3 },
 
-    { "id":"jerkin", "armor":2, "slot":"chest", "cost":100, "level":2,"maxEnchants":1},
-    { "id":"padded armor", "armor":3, "slot":"chest", "cost":150, "level":4 },
-    { "id":"chainmail", "armor":5, "slot":"chest", "cost":350, "level":5, "maxEnchants":2 },
-    { "id":"plate mail", "armor":8, "slot":"chest", "cost":700, "level":9, "maxEnchants":2 },
-	{ "id":"robe", "armor":0, "slot":"chest", "cost":50, "only":"cloth",
+	{ "id":"jerkin", "armor":2, "slot":"chest", "cost":100, "level":2,"maxEnchants":1,
+		"only":"natural,leather,cloth" },
+
+	{ "id":"padded armor", "armor":3, "slot":"chest", "cost":150, "level":4,
+	"only":"leather,cloth" },
+
+	{ "id":"chainmail", "armor":5, "slot":"chest", "cost":350, "level":5, "maxEnchants":2,
+	"only":"metal,ethereal" },
+
+	{ "id":"plate mail", "armor":8, "slot":"chest", "cost":700, "level":9, "maxEnchants":2,
+		"only":"metal,ethereal"
+	},
+
+	{ "id":"robe", "armor":0, "slot":"chest", "cost":50,
+		"only":"cloth",
 		"maxEnchants":10
 	},
-    { "id":"conical helm", "armor":3, "slot":"head", "cost":40 },
+	{ "id":"conical helm", "armor":3, "slot":"head", "cost":40,
+		"only":"metal,ethereal" },
 
 	{ "id":"belt", "armor":0, "slot":"waist", "cost":30,
-		"maxEnchants":2 },
+		"maxEnchants":2,
+	"only":"natural,cloth" },
+
     { "id":"girdle", "armor":1, "slot":"waist", "cost":50},
 	{ "id":"cincture", "armor":1, "slot":"waist", "cost":50,
 		"maxEnchants":3 },
+
 	{ "id":"sash", "armor":0, "slot":"waist", "cost":10,
+		"only":"cloth",
 		"maxEnchants":3 },
 
-	{ "id":"cape", "armor":0, "slot":"back", "cost":50, "only":"cloth",
+	{ "id":"cape", "armor":0, "slot":"back", "cost":50,
+		"only":"cloth",
 		"maxEnchants":3 },
 
-	{ "id":"cloak", "armor":1, "slot":"back", "cost":50, "only":"cloth",
+	{ "id":"cloak", "armor":1, "slot":"back", "cost":50,
+		"only":"cloth",
 		"maxEnchants":5
 	},
 	{ "id":"wings", "armor":1, "slot":"back", "level":20, "cost":5000,
 		"maxEnchants":4 },
 
 
-    { "id":"greaves", "armor":1, "slot":"shins", "cost":30 },
+	{ "id":"greaves", "armor":1, "slot":"shins", "cost":30 },
+
 	{ "id":"pendant", "armor":0, "slot":"neck", "cost":300,
 		"maxEnchants":4},
+
 	{ "id":"collar", "armor":0, "slot":"neck", "cost":30,
 		"maxEnchants":2 },
+
 	{ "id":"amulet", "armor":0, "slot":"neck", "cost":500,
 		"maxEnchants":5 },
+
 	{ "id":"necklace", "armor":0, "slot":"neck", "cost":50,
 		"maxEnchants":3
 	},
+
 	{ "id":"band", "armor":0, "slot":"fingers", "kind":"ring", "cost":50, "level":3,
 		"maxEnchants":3
 	},
+
 	{ "id":"loop", "armor":0, "slot":"fingers","kind":"ring", "cost":10, "level":1,
 	"maxEnchants":2 },
+
 	{ "id":"ring", "armor":0, "slot":"fingers", "kind":"ring", "level":5, "cost":100,
 		"maxEnchants":5
 	}
