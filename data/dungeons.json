@@ -464,17 +464,23 @@
 		},
 		"boss":"roc",
 		"result":{
-			"gold":"20~30"
+			"gold":"20~30",
+			"bones":"3~7"
 		},
 		"spawns":[
-			"lgbird",
+			"vulture",
+			"minotaur",
 			"orc",
+			"warg",
+			["vrrek","vrrek"],
+			["m_scarab","m_scarab"],
 			"bandit",
 			"wolf",
 			"bugbear",
 			"hawk",
 			"goblin",
-			"coyote"
+			["vulture","vulture","vulture"],
+			["coyote","coyote","coyote"]
 		]
 
 	},

@@ -529,7 +529,7 @@
 
 	},
 	{
-		"id":"scarab",
+		"id":"m_scarab",
 		"level":4,
 		"desc":"massive shimmering beetle with a projecting horn",
 		"kind":"beast",
@@ -769,7 +769,23 @@
 			"bodies":"10%"
 		}
 
-    },
+	},
+	{
+		"id":"vulture",
+		"kind":"beast",
+		"level":3,
+		"tohit":7,
+		"defense":1,
+		"speed":5,
+		"attack": {
+            "name":"peck",
+            "kind":"pierce",
+            "dmg":"4~12"
+        },
+		"resist":{
+			"air":20
+		}
+	},
 	{
         "id":"cutpurse",
         "level":4,
@@ -1564,14 +1580,14 @@
 	{
         "id":"vrrek",
         "level":5,
-        "kind":"humanoid",
-        "tohit":5,
+		"kind":"humanoid",
+		"desc":"An intelligent scavenger with the features of a vulture.",
+        "tohit":9,
         "hp":25,
-		"defense":18,
         "attack":{
             "name":"talons",
             "kind":"slash",
-            "dmg":"3~5"
+            "dmg":"7~12"
         },"flavor":"vrrek is what most of their words sound like"
 
 	},
@@ -2821,7 +2837,7 @@
 	{
 		"id":"m_cordyceps",
 		"name":"cordyceps",
-		"kind":"pest",
+		"kind":"plant",
 		"level":13,
         "desc":"A writhing fungus chokes the air with spores.",
 		"hp":65,
@@ -2835,6 +2851,27 @@
 				"duration":10
 			}
 		}]
+
+	},
+	{
+		"id":"m_stranglevine",
+		"name":"stranglevine",
+		"kind":"plant",
+		"level":17,
+        "desc":"Writhing tendrils seek to ensnare fresh prey.",
+		"hp":165,
+		"spells":"vinewhip",
+        "attack":{
+            "name":"strangle",
+            "kind":"blunt",
+            "dmg":"10~20",
+			"dot":{
+				"id":"entangle",
+				"name":"strangle",
+				"duration":50,
+				"dmg":"5~10"
+			}
+		}
 
 	},
 	{

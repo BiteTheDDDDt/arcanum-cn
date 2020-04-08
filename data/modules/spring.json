@@ -372,27 +372,39 @@
 
 			{
 
-				"id":"spr_",
+				"id":"spr_wilds",
+				"name":"hidden wilds",
+				"desc":"A land of magic beasts, unknown to your lore.",
 				"length":100,
 				"require":"spr_portal",
 				"show":{
 					"name":"",
 					"desc":""
 				},
-				"desc":"",
 				"run":{
 					"stamina":2.5
 				},
-				"boss":"",
+				"title":"Tamer of Wilds",
+				"once":{
+					"magicbeasts.max":1
+				},
+				"boss":"jabberwocky",
 				"loot":{
 					"maxlevel":25
-				}
+				},
+				"spawns":[
+					"wyvern2",
+					["wyvern","wyvern","wyvern"],
+					"m_cordyceps",
+					"m_stranglevine"
+				]
 
 			},
 
 			{
 				"id":"spr_sunnyfield",
 				"name":"sunny fields of stone",
+				"lock":"sunnyfield",
 				"level":20,
 				"length":100,
 				"dist":0,
@@ -407,15 +419,14 @@
 				"result":{
 					"gold":"100~200"
 				},
-				"lock":"sunnyfield",
+				"title":"Sunny Champion",
 				"loot":{
 					"maxlevel":20
 				},
-				"boss":"jabberwocky",
+				"boss":"wyvern2",
 				"spawns":[
 					"basilisk2",
 					"basilisk",
-					"wyvern2",
 					["wyvern","wyvern","wyvern"],
 					"m_cordyceps",
 					"greendragon",
@@ -423,7 +434,7 @@
 					"direbear",
 					"cockatrice",
 					"basilisk"
-				],"flavor":"every budding mage needs to start somewhere."
+				],"flavor":"every budding mage needs to die somewhere."
 			}
 
 		]

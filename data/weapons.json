@@ -53,7 +53,7 @@
 		"hands": 2,
 		"level": 8,
 		"maxEnchants":6,
-		"only":"none",
+		"only":"glass",
 		"properties":1
 	},
 	{
