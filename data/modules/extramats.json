@@ -3,17 +3,7 @@
 	"data": {
 
 		"weapons": [
-			{
-				"id":"weap_focus",
-				"name":"focus",
-				"desc":"A focus for your magic.",
-				"tags":"magic",
-				"cost": 100,
-				"hands": 2,
-				"level": 8,
-				"maxEnchants":6,
-				"properties":1
-			}
+
 		],
 		"enchants": [
 			{
@@ -251,7 +241,7 @@
 				"name":"focus of clarity",
 				"adj":"%i of clarity",
 				"verb":"calibrating focus",
-				"only":"weap_focus",
+				"only":"weap_orb",
 				"desc":"Your focus provides a clear head and clearer view.",
 				"require":"g.enchanting>=9",
 				"level": 7,
@@ -274,7 +264,7 @@
 				"name":"focus of ingenuity",
 				"adj":"%i of ingenuity",
 				"verb":"calibrating focus",
-				"only":"weap_focus",
+				"only":"weap_orb",
 				"desc":"Your focus provides an insight into the workings of the world.",
 				"require":"g.enchanting>=9",
 				"level": 7,
@@ -297,7 +287,7 @@
 				"name":"focus of the arcane",
 				"adj":"%i of the arcane",
 				"verb":"calibrating focus",
-				"only":"weap_focus",
+				"only":"weap_orb",
 				"desc":"Your focus is a source of mana.",
 				"require":"g.enchanting>=9",
 				"level": 7,
@@ -320,7 +310,7 @@
 				"name":"focus of the stars",
 				"adj":"%i of the stars",
 				"verb":"calibrating focus",
-				"only":"weap_focus",
+				"only":"weap_orb",
 				"desc":"Your focus is attuned to the stars.",
 				"require":"g.enchanting>=9&&g.astralseer>0",
 				"level": 7,

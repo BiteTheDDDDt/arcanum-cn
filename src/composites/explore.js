@@ -2,9 +2,9 @@ import Events, { DEFEATED, TASK_DONE, ENC_START, TASK_BLOCKED } from "../events"
 import { assign } from 'objecty';
 import Game from '../game';
 import Encounter from "../items/encounter";
-import { itemRevive } from "../modules/itemgen";
 import { EXPLORE, getDelay } from "../values/consts";
 import { Changed } from "../techTree";
+import Locale from "../items/locale";
 
 /**
  * Explore locations of arcane importance.
@@ -88,7 +88,10 @@ export default class Explore {
 		this.player = gs.player;
 		this.spelllist = gs.getData('spelllist');
 
-		if ( typeof this.locale === 'string') this.locale = gs.getData(this.locale);
+		if ( typeof this.locale === 'string') {
+			let loc = gs.getData(this.locale);
+			if ( !loc || !( loc instanceof Locale ) ) this.locale = null;
+		}
 
 		if ( this._enc ) {
 

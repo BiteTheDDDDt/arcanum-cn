@@ -17,8 +17,10 @@
 		"maxEnchants":3 },
 	{ "id":"ivory", "kind":"natural", "priceMod":5, "tohit":2, "bonus":2, "level":4,
 			"maxEnchants":4 },
-	{ "id":"mat_gold", "name":"gold", "kind":"metal", "priceMod":5, "tohit":2, "bonus":2, "level":4,
+	{ "id":"mat_gold", "name":"gold", "kind":"metal", "priceMod":3, "tohit":2, "bonus":2, "level":4,
 				"maxEnchants":3 },
+	{ "id":"mat_ruby", "name":"ruby", "kind":"natural", "priceMod":7, "tohit":1, "bonus":2, "level":6,
+		"maxEnchants":5 },
 
 	{ "id":"bronze", "kind":"metal", "weight":2, "priceMod":5, "tohit":2, "bonus":1, "level":2,
 		"maxEnchants":1 },

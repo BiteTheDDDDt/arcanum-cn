@@ -11,6 +11,7 @@
 		"hands":2,
 		"maxEnchants":6 },
 	{ "id":"broomstick",
+		"only":"wood",
 		"attack":{ "kind":"blunt", "damage":1 }, "cost":20,
 			"level":0,
 			"maxEnchants":4
@@ -39,7 +40,20 @@
 		"cost": 100,
 		"hands": 1,
 		"level": 5,
+		"only":"wood,natural",
 		"maxEnchants":5,
+		"properties":1
+	},
+	{
+		"id":"weap_orb",
+		"name":"orb",
+		"desc":"A focus for your magic.",
+		"tags":"magic",
+		"cost": 100,
+		"hands": 2,
+		"level": 8,
+		"maxEnchants":6,
+		"only":"none",
 		"properties":1
 	},
 	{

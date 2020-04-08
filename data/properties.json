@@ -6,9 +6,7 @@
 		"weight": 1,
 		"priceMod": 30,
 		"level": 2,
-		"only": [
-			"wand"
-		],
+		"only":"wand",
 		"mod": {
 			"self.bonuses.fire":"1%",
 			"fire.rate":"1%"
@@ -20,9 +18,7 @@
 		"weight": 1,
 		"priceMod": 30,
 		"level": 2,
-		"only": [
-			"wand"
-		],
+		"only":"wand",
 		"mod": {
 			"self.bonuses.water":"1%",
 			"water.rate":"1%"
@@ -48,9 +44,7 @@
 		"weight": 1,
 		"priceMod": 30,
 		"level": 2,
-		"only": [
-			"wand"
-		],
+		"only":"wand",
 		"mod": {
 			"self.bonuses.earth":"1%",
 			"earth.rate":"1%"
@@ -62,9 +56,7 @@
 		"weight": 1,
 		"priceMod": 50,
 		"level": 5,
-		"only": [
-			"rod"
-		],
+		"only":"rod",
 		"mod": {
 			"self.bonuses.fire":"2%",
 			"fire.rate":"2%"
@@ -76,9 +68,7 @@
 		"weight": 1,
 		"priceMod": 50,
 		"level": 5,
-		"only": [
-			"rod"
-		],
+		"only":"rod",
 		"mod": {
 			"self.bonuses.water":"2%",
 			"water.rate":"2%"
@@ -91,9 +81,7 @@
 		"weight": 1,
 		"priceMod": 50,
 		"level": 5,
-		"only": [
-			"rod"
-		],
+		"only":"rod",
 		"mod": {
 			"self.bonuses.air":"2%",
 			"air.rate":"2%"
@@ -105,9 +93,7 @@
 		"weight": 1,
 		"priceMod": 50,
 		"level": 5,
-		"only": [
-			"rod"
-		],
+		"only":"rod",
 		"mod": {
 			"self.bonuses.earth":"2%",
 			"earth.rate":"2%"
@@ -164,7 +150,7 @@
 		"name":"arcane",
 		"priceMod": 100,
 		"level": 5,
-		"only":"staff,weap_focus,rod,greatstaff",
+		"only":"staff,weap_orb,rod,greatstaff",
 		"mod": {
 			"self.bonuses.mana":"1%",
 			"mana.rate":"1%"
@@ -176,7 +162,7 @@
 		"priceMod": 100,
 		"level": 3,
 		"only": [
-			"wand,weap_focus,rod,staff"
+			"wand,weap_orb,rod,staff"
 		],
 		"mod": {
 			"self.allies.max":"1",
@@ -189,7 +175,7 @@
 		"priceMod": 100,
 		"level": 6,
 		"only": [
-			"weap_focus"
+			"weap_orb"
 		],
 		"mod": {
 			"self.tohit": 2
