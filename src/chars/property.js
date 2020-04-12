@@ -19,7 +19,6 @@ export default class Property {
 
 		if ( vars ) assign( this, vars);
 
-		console.log('prop name: ' + this.name );
 	}
 
 }

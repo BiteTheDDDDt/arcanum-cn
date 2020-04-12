@@ -780,7 +780,7 @@
 		"attack": {
             "name":"peck",
             "kind":"pierce",
-            "dmg":"4~12"
+            "dmg":"4~8"
         },
 		"resist":{
 			"air":20
@@ -1571,7 +1571,7 @@
 		"attack":{
 			"name":"burrow",
 			"kind":"pierce",
-			"dmg":"4~6"
+			"dmg":"7~14"
 		},
 		"resist":{
 			"light":50
