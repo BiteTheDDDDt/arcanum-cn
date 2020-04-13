@@ -77,6 +77,25 @@ export default {
 		};
 
 	},
+
+	beforeCreate(){
+
+		/**
+		 * @property {number} loopId - interval id for game loop.
+		 */
+		this.loopId = 0;
+		/**
+		 * @property {number} repeaterId - interval id for auto-repeating click.
+		 */
+		this.repeaterId = 0;
+
+		/**
+		 * @property {(evt)=>null} repeatEndFunc - mouseup func to end repeater.
+		 */
+		this.repeatEndFunc = null;
+
+	},
+
 	created(){
 
 		this.listen('game-loaded', this.gameLoaded );
@@ -89,8 +108,9 @@ export default {
 	},
 	beforeDestroy(){
 
-		console.log('MAIN DESTROYED');
 		ItemOut();
+		this.endRepeater();
+
 		this.removeListener('game-loaded', this.gameLoaded );
 		this.removeListener('setting', this.onSetting );
 		this.removeListener('pause', this.pause );
@@ -132,6 +152,8 @@ export default {
 
 			this.add('showActivities', ()=>{this.togActivities=true} )
 
+			this.add('repeater', this.makeRepeater, this );
+			this.add('endrepeater', this.endRepeater, this );
 
 			this.add( TRY_USE, this.tryUse )
 			this.add( USE, this.onUse );
@@ -167,7 +189,7 @@ export default {
 
 		startAutoSave() {
 
-			if (!this.interval ) return;
+			if (!this.loopId ) return;
 
 			if ( Settings.get('autoSave') && !this.saver ) {
 				//console.log('START AUTOSAVE');
@@ -178,24 +200,60 @@ export default {
 
 		pause() {
 
-			if ( this.interval ) {
-				let int = this.interval;
-				this.interval = null;
+			if ( this.loopId ) {
+				let int = this.loopId;
+				this.loopId = 0;
 				clearInterval( int );
 			}
 			this.stopAutoSave();
+			this.endRepeater();
 
 			if ( this.keyListen ) window.removeEventListener('keydown', this.keyListen, false );
 
 
 		},
+
+
+		/**
+		 * Item repeats until released.
+		 * @param {GData} it - item being used.
+		 */
+		makeRepeater( it ){
+
+			if ( this.repeaterId ) {
+				clearInterval(this.repeaterId );
+				this.repeaterId = 0;
+			}
+			this.repeaterId = setInterval( (t)=>Game.tryItem(t), 50, it );
+
+			if ( !this.repeatEndFunc ) this.repeatEndFunc = ()=>this.endRepeater();
+			document.addEventListener( 'mouseup', this.repeatEndFunc );
+
+		},
+
+		/**
+		 * Cancel active repeater.
+		 */
+		endRepeater(){
+
+			if ( this.repeaterId ) {
+				clearInterval(this.repeaterId );
+				this.repeaterId=0;
+			}
+			if ( this.repeatEndFunc ) {
+				document.removeEventListener( 'mouseup', this.repeatEndFunc );
+				this.repeatEndFunc = null;
+			}
+
+		},
+
 		unpause() {
 
 			if ( Game.loaded ) {
 
 				Game.lastUpdate = Date.now();
-				if ( !this.interval ) {
-					this.interval = setInterval( ()=>Game.update(), TICK_TIME );
+				if ( !this.loopId ) {
+					this.loopId = setInterval( ()=>Game.update(), TICK_TIME );
 				}
 
 				this.keyListen = evt=>{
@@ -212,7 +270,7 @@ export default {
 
 		keyDown( e ){
 
-			if ( !this.interval ) return;
+			if ( !this.loopId ) return;
 
 			let slice = e.code.slice(0,-1);
 			if ( slice === 'Digit' || slice === 'Numpad' ) {
