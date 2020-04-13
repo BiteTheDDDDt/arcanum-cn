@@ -1,4 +1,4 @@
-import Stat from "../values/stat";
+import Stat from "../values/rvals/stat";
 import Base, {mergeClass} from '../items/base';
 import Item from "../items/item";
 

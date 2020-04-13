@@ -1,12 +1,12 @@
 import { defineExcept, cloneClass } from 'objecty';
-import Stat from '../values/stat';
+import Stat from '../values/rvals/stat';
 import Base, {mergeClass } from './base';
 import {arrayMerge} from '../util/array';
 import { assignPublic } from '../util/util';
 import Events, { CHAR_ACTION, EVT_EVENT, EVT_UNLOCK } from '../events';
 import Game, { TICK_LEN } from '../game';
 import { WEARABLE, WEAPON } from '../values/consts';
-import RValue from '../values/rvalue';
+import RValue from '../values/rvals/rvalue';
 import { Changed } from '../techTree';
 
 /**

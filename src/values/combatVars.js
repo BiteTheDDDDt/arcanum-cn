@@ -1,5 +1,5 @@
-import FValue from "./fvalue";
-import RValue from "./rvalue";
+import FValue from "./rvals/fvalue";
+import RValue from "./rvals/rvalue";
 import Range, { RangeTest } from "./range";
 import Events, { IS_IMMUNE, CHAR_DIED, COMBAT_HIT, EVT_COMBAT } from "../events";
 import { TYP_FUNC } from "./consts";

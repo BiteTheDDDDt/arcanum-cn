@@ -1,5 +1,5 @@
-import { TYP_RVAL } from "./consts";
-import { precise } from '../util/format';
+import { TYP_RVAL } from "../consts";
+import { precise } from '../../util/format';
 
 export const PercentTest = /^(\d+(?:\.?\d+)?)\%$/i
 export const RangeTest = /^\-?\d+\.?\d*\~\-?\d+\.?\d*$/i;

@@ -31,7 +31,7 @@ import { SKILL, ENCOUNTER, MONSTER, ARMOR, WEAPON, HOME, POTION, RESOURCE, EVENT
 import State from './chars/state';
 
 import { mergeInto } from './util/array';
-import Stat from './values/stat';
+import Stat from './values/rvals/stat';
 
 const DataDir = './data/';
 

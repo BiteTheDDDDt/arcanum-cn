@@ -2,11 +2,11 @@ import {mergeSafe, clone} from 'objecty';
 import { SetModCounts} from '../items/base';
 import Attack from './attack';
 
-import Mod from '../values/mod';
+import Mod from '../values/mods/mod';
 import { ParseMods } from 'modules/parsing';
 import Item from '../items/item';
 import { WEARABLE, ARMOR, TYP_RANGE, TYP_STAT, WEAPON } from '../values/consts';
-import Stat from '../values/stat';
+import Stat from '../values/rvals/stat';
 
 
 export default class Wearable extends Item {

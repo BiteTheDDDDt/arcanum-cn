@@ -1,8 +1,8 @@
 import GData from './gdata';
 import Game from '../game';
 import Events, { TASK_DONE, TASK_IMPROVED } from '../events';
-import Stat from '../values/stat';
-import Scaler from '../values/scaler';
+import Stat from '../values/rvals/stat';
+import Scaler from '../values/rvals/scaler';
 import { TASK } from '../values/consts';
 import { ParseMods } from '../modules/parsing';
 import { SetModCounts } from './base';

@@ -1,6 +1,5 @@
 import RValue from "./rvalue";
-import Stat from "./stat";
-import { TYP_FUNC } from "./consts";
+import { TYP_FUNC } from "../consts";
 
 /**
  * Create a function that returns a cost.

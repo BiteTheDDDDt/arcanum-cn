@@ -13,7 +13,7 @@ export const IsPerMod = (v)=>{
 }
 
 /**
- * Apply result only on value%modulus === 0
+ * Apply modifier per quantity of source object.
  */
 export default class PerMod extends Mod {
 
@@ -54,13 +54,13 @@ export default class PerMod extends Mod {
 				this.per = Number(parts[1]) || 1;
 
 			} else {
-				console.warn('Invalid modulus: ' + vars );
+				console.warn('Invalid PerMod: ' + vars );
 				this.value = 0;
 				this.per = 1;
 			}
 
 		} else {
-			console.log('unexpected per: ' + vars );
+			console.log('bad PerMod: ' + vars );
 			this.value = Number(vars);
 		}
 

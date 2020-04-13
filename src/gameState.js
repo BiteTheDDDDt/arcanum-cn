@@ -11,7 +11,7 @@ import DataList from './inventories/dataList';
 import Group from './composites/group';
 import UserSpells from './inventories/userSpells';
 import Quickbars from './composites/quickbars';
-import Stat from './values/stat';
+import Stat from './values/rvals/stat';
 import { WEARABLE, ARMOR, WEAPON, HOME, PURSUITS, ENCHANTSLOTS } from './values/consts';
 import TagSet from './composites/tagset';
 import EnchantSlots from './inventories/enchantslots';

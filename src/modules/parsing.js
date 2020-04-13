@@ -1,13 +1,14 @@
-import Mod, { ModTest } from '../values/mod';
-import PerMod, { IsPerMod } from '../values/permod';
+import Mod, { ModTest } from '../values/mods/mod';
+import PerMod, { IsPerMod } from '../values/mods/permod';
 import { splitKeys, logObj, splitKeyPath } from '../util/util';
-import RValue, { SubPath } from '../values/rvalue';
-import Stat from '../values/stat';
+import RValue, { SubPath } from '../values/rvals/rvalue';
+import Stat from '../values/rvals/stat';
 
 import { MakeDmgFunc } from '../values/combatVars';
 
 import Range, {RangeTest} from '../values/range';
 import Percent, {PercentTest} from '../values/percent';
+import OnceMod, { IsOnceMod } from '../values/mods/oncemod';
 
 /**
  * @const {RegEx} IdTest - Test for a simple id name.
@@ -179,6 +180,7 @@ export const ParseRVal = ( str ) => {
 	if ( RangeTest.test(str) ) return new Range(str);
 	else if ( PercentTest.test(str) ) return new Percent(str);
 	else if ( IsPerMod(str ) ) return new PerMod( str );
+	else if ( IsOnceMod(str) ) return new OnceMod(str);
 	return str;
 
 }

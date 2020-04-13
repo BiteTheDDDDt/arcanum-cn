@@ -1,7 +1,7 @@
-import { TYP_STAT, TYP_RVAL } from './consts';
+import { TYP_STAT, TYP_RVAL } from '../consts';
 import RValue from './rvalue';
 
-import { precise } from '../util/format';
+import { precise } from '../../util/format';
 /**
  * Stat with a list of modifiers.
  */

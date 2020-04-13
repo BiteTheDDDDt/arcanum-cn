@@ -1,5 +1,5 @@
 import Quickbar from "./quickbar";
-import Stat from "../values/stat";
+import Stat from "../values/rvals/stat";
 import events, { DELETE_ITEM } from "../events";
 
 /**

@@ -1,5 +1,5 @@
-import Stat from "../values/stat";
-import RValue from "../values/rvalue";
+import Stat from "../values/rvals/stat";
+import RValue from "../values/rvals/rvalue";
 
 /**
  * Find and return first element of set matching predicate.

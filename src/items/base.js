@@ -1,9 +1,9 @@
 import {changes, jsonify, cloneClass  } from 'objecty';
 import Game from '../game';
-import Stat from '../values/stat';
-import Mod from '../values/mod';
+import Stat from '../values/rvals/stat';
+import Mod from '../values/mods/mod';
 import { TYP_MOD } from '../values/consts';
-import RValue, { SubPath } from '../values/rvalue';
+import RValue, { SubPath } from '../values/rvals/rvalue';
 import { Changed } from '../techTree';
 import { ParseMods } from '../modules/parsing';
 

@@ -1,5 +1,5 @@
 import Game from '../game';
-import Stat from "../values/stat";
+import Stat from "../values/rvals/stat";
 import Resource from "../items/resource";
 import { toStats } from "../util/dataUtil";
 

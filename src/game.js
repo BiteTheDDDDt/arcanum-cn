@@ -5,14 +5,14 @@ import ItemGen from './modules/itemgen';
 import TechTree, { Changed } from './techTree';
 import Resource from './items/resource';
 import Skill from './items/skill';
-import Stat from './values/stat';
+import Stat from './values/rvals/stat';
 
 import DataLoader from './dataLoader';
 
 import Events, {EVT_EVENT, EVT_LOOT, SET_SLOT, DELETE_ITEM } from './events';
 import { MONSTER, TYP_PCT, TYP_RANGE, P_TITLE, P_LOG, TEAM_PLAYER, ENCHANTSLOTS, WEAPON } from './values/consts';
 import TagSet from './composites/tagset';
-import RValue from './values/rvalue';
+import RValue from './values/rvals/rvalue';
 import { SetModCounts } from './items/base';
 
 var techTree;

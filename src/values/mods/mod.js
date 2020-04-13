@@ -1,9 +1,9 @@
-import Percent from './percent';
-import Stat from './stat';
-import { precise } from '../util/format';
-import { TYP_MOD } from './consts';
+import Percent from '../percent';
+import Stat from '../rvals/stat';
+import { precise } from '../../util/format';
+import { TYP_MOD } from '../consts';
 import { assign } from 'objecty';
-import RValue from './rvalue';
+import RValue from '../rvals/rvalue';
 //import Emitter from 'eventemitter3';
 
 export const ModTest = /^([\+\-]?\d+\.?\d*\b)?(?:([\+\-]?\d+\.?\d*)\%)?$/;

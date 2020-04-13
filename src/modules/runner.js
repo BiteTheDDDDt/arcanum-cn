@@ -1,7 +1,7 @@
 import Game from '../game';
 import {quickSplice, swap } from '../util/array';
 import Events, {TASK_DONE, TASK_CHANGED, HALT_TASK, TASK_BLOCKED, STOP_ALL } from '../events';
-import Stat from '../values/stat';
+import Stat from '../values/rvals/stat';
 import Base, {mergeClass} from '../items/base';
 import Runnable from '../composites/runnable';
 import { SKILL, REST_TAG, TYP_RUN, PURSUITS, RAID, EXPLORE } from '../values/consts';

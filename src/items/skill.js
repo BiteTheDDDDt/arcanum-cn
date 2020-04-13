@@ -1,7 +1,7 @@
 import Task from './task';
-import Stat from '../values/stat';
+import Stat from '../values/rvals/stat';
 import { SKILL } from '../values/consts';
-import Scaler from '../values/scaler';
+import Scaler from '../values/rvals/scaler';
 
 const EXP_RATIO = 0.35;
 

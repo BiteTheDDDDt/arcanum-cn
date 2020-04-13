@@ -53,7 +53,7 @@
 		"hands": 2,
 		"level": 8,
 		"maxEnchants":6,
-		"only":"glass",
+		"only":"glass,ruby",
 		"properties":1
 	},
 	{

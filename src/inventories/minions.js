@@ -1,7 +1,7 @@
 import Inventory, { SAVE_IDS } from "./inventory";
 import Events, { TASK_CHANGED } from '../events';
 import { NPC, TEAM_PLAYER} from "../values/consts";
-import RValue from "../values/rvalue";
+import RValue from "../values/rvals/rvalue";
 
 
 export default class Minions extends Inventory {

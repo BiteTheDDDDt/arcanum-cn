@@ -1,6 +1,6 @@
 import { assignNoFunc } from "../util/util";
 import { cloneClass } from 'objecty';
-import Stat from "../values/stat";
+import Stat from "../values/rvals/stat";
 import { TARGET_ALLIES, TARGET_ALLY, TARGET_SELF,
 		ParseTarget, ParseDmg} from "../values/combatVars";
 

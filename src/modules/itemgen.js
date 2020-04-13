@@ -364,7 +364,6 @@ export default class ItemGen {
 		return group.randBelow( Math.max( item.level+1, level ),
 			v=>{
 
-				if ( item.kind === 'magic') console.log('TESTING: ' + v.id );
  				if ( only && !includesAny(only, v.type, v.kind, v.id ) ) return false;
 				if ( exclude && includesAny(exclude, v.type, v.kind, v.id) ) return false;
 

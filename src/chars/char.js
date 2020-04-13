@@ -1,5 +1,5 @@
 import Base, {mergeClass} from '../items/base';
-import Stat from '../values/stat';
+import Stat from '../values/rvals/stat';
 import Attack from './attack';
 import Dot from './dot';
 import { cloneClass, mergeSafe } from 'objecty';
