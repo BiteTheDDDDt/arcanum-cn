@@ -400,6 +400,9 @@ export default class ItemGen {
 
 		let propGroup = this.groups.properties;
 
+		if ( typeof count === 'object') count = Math.round(count.value);
+		if ( count <= 0 ) return;
+
 		console.log( it.name + ' props lvl: ' +  it.level + '  kind: ' + it.kind );
 
 		for( count; count > 0; count-- ) {

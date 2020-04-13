@@ -2,6 +2,7 @@ import GData from "../items/gdata";
 import { ARMOR, WEAPON, WEARABLE } from "../values/consts";
 import Wearable from "../chars/wearable";
 import Item from "../items/item";
+import { ParseRVal } from "../modules/parsing";
 
 /**
  * Generic prototype for a wearable item.
@@ -22,6 +23,11 @@ export default class ProtoItem extends GData {
 
 	get material() { return this._material; }
 	set material(v) { this._material=v;}
+
+	get properties(){return this._properties;}
+	set properties(v){
+		this._properties = ParseRVal(v);
+	}
 
 	/**
 	 * @property {} armor

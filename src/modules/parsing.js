@@ -1,7 +1,7 @@
 import Mod, { ModTest } from '../values/mod';
 import PerMod, { IsPerMod } from '../values/permod';
 import { splitKeys, logObj, splitKeyPath } from '../util/util';
-import { SubPath } from '../values/rvalue';
+import RValue, { SubPath } from '../values/rvalue';
 import Stat from '../values/stat';
 
 import { MakeDmgFunc } from '../values/combatVars';
@@ -162,17 +162,26 @@ export const PrepData = ( sub, id='' ) => {
 		}*/
 
 	} else if ( typeof sub === 'string') {
-
-		if ( RangeTest.test(sub) ) return new Range(sub);
-		else if ( PercentTest.test(sub)) return new Percent(sub);
-		else if ( IsPerMod(sub)) return new PerMod( sub, id );
-
+		return ParseRVal(sub);
 	}
 
 	return sub;
 
 }
 
+/**
+ * Attempt to convert a string to RValue.
+ * @param {string} str
+ * @returns {RValue|number|str}
+ */
+export const ParseRVal = ( str ) => {
+
+	if ( RangeTest.test(str) ) return new Range(str);
+	else if ( PercentTest.test(str) ) return new Percent(str);
+	else if ( IsPerMod(str ) ) return new PerMod( str );
+	return str;
+
+}
 /**
  *
  * @param {object|string|Array|Number} effects

@@ -1,5 +1,7 @@
 [
-	{ "id":"silk", "kind":"cloth", "weight":0, "priceMod":5, "tohit":-3, "level":1, "exclude":"weapon",
+	{ "id":"silk", "kind":"cloth",
+		"weight":0, "priceMod":5, "tohit":-3, "level":1,
+		"exclude":"weapon,ring,amulet",
 		"maxEnchants":5
 	},
     { "id":"cotton", "kind":"cloth", "weight":0, "priceMod":0, "tohit":-3, "level":0, "exclude":"weapon" },
@@ -13,7 +15,8 @@
 			"maxEnchants":2
 	},
 
-	{ "id":"leather", "kind":"leather", "weight":1, "priceMod":1, "bonus":0, "level":0, "exclude":"weapon",
+	{ "id":"leather", "kind":"leather", "weight":1, "priceMod":1, "bonus":0, "level":0,
+		"exclude":"weapon,ring,amulet",
 		"maxEnchants":2
 	},
 
@@ -37,7 +40,8 @@
 		"maxEnchants":1
 	},
 	{
-		"id":"dragonscale", "name":"dragonscale", "kind":"leather", "weight":1, "priceMod":50, "bonus":9, "level":7,
+		"id":"dragonscale", "name":"dragonscale",
+		"kind":"leather", "weight":1, "priceMod":50, "bonus":9, "level":7,
 		"noproc":true,
 		"exclude":["weapon"],
 		"maxEnchants":4,

@@ -47,32 +47,40 @@
 		"maxEnchants":5
 	},
 	{ "id":"wings", "armor":1, "slot":"back", "level":20, "cost":5000,
+		"properties":"10%",
 		"maxEnchants":4 },
 
 
 	{ "id":"greaves", "armor":1, "slot":"shins", "cost":30 },
 
 	{ "id":"pendant", "armor":0, "slot":"neck", "cost":300,
+		"properties":"5%",
 		"maxEnchants":4},
 
 	{ "id":"collar", "armor":0, "slot":"neck", "cost":30,
 		"maxEnchants":2 },
 
 	{ "id":"amulet", "armor":0, "slot":"neck", "cost":500,
+		"level":15,
+		"properties":"10%",
 		"maxEnchants":5 },
 
 	{ "id":"necklace", "armor":0, "slot":"neck", "cost":50,
+		"properties":"1%",
 		"maxEnchants":3
 	},
 
 	{ "id":"band", "armor":0, "slot":"fingers", "kind":"ring", "cost":50, "level":3,
+		"properties":"10%",
 		"maxEnchants":3
 	},
 
 	{ "id":"loop", "armor":0, "slot":"fingers","kind":"ring", "cost":10, "level":1,
 	"maxEnchants":2 },
 
-	{ "id":"ring", "armor":0, "slot":"fingers", "kind":"ring", "level":5, "cost":100,
+	{ "id":"ring", "armor":0, "slot":"fingers",
+		"kind":"ring", "level":5, "cost":100,
+		"properties":"0~2",
 		"maxEnchants":5
 	}
 
