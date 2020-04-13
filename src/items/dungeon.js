@@ -156,12 +156,6 @@ export default class Dungeon extends Task {
 	}
 
 	/**
-	 * Catch complete() to prevent default task. ugly.
-	 */
-	complete() {
-	}
-
-	/**
 	 *
 	 */
 	/*totalWeights() {

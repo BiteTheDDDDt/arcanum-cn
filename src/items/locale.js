@@ -77,9 +77,4 @@ export default class Locale extends Task {
 		return this._encs[ Math.floor( Math.random()*this._encs.length ) ];
 	}
 
-	/**
-	 * Catch complete() to prevent task default. ugly.
-	*/
-	complete() {}
-
 }

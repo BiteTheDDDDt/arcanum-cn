@@ -48,9 +48,7 @@ export default class Task extends GData {
 	get runmod(){return this._runmod;}
 	set runmod(v){this._runmod = v;}
 
-	get ex(){
-		return this._exp;
-	}
+	get ex(){ return this._exp; }
 	set ex(v){
 		this._exp = v instanceof Scaler ? v : new Scaler( v, this.id + ' .exp', this._rate );
 	}
@@ -73,7 +71,7 @@ export default class Task extends GData {
 		this._exp.set(v);
 
 
-		this.checkComplete();
+		this.tryComplete();
 
 
 	}
@@ -169,7 +167,7 @@ export default class Task extends GData {
 
 	canRun(g){ return (!this.timer ) && super.canRun(g);}
 
-	checkComplete() {
+	tryComplete() {
 
 		if ( (this._length && this._exp>=this._length )
 			|| (!this._length && this.perpetual && this._exp >= 1 ) ) {
@@ -186,7 +184,7 @@ export default class Task extends GData {
 	 */
 	update( dt ) {
 		this.exp.set( this._exp + (this.rate||1)*dt );
-		this.checkComplete();
+		this.tryComplete();
 	}
 
 	onStart(){
@@ -236,7 +234,7 @@ export default class Task extends GData {
 
 		if ( this.at ) {
 
-			let cur = this.at[this.valueOf()];
+			let cur = this.at[ this.valueOf() ];
 			if ( cur ) {
 
 				improve = true;

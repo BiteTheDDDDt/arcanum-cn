@@ -472,8 +472,8 @@
 			"1500":{ "effect.gold":1 }
 
 		},
-		"once":{
-			"weaving.max":1
+		"mod":{
+			"weaving.max":"?1"
 		},
 		"effect":{
 			"gold":2.2

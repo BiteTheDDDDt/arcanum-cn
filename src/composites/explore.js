@@ -35,9 +35,8 @@ export default class Explore {
 	get exp(){ return this.locale ? this.locale.exp : 0; }
 	set exp(v){
 
-		if ( v >= this.locale.length ) {
-			this.complete();
-		} else this.locale.exp=v;
+		this.locale.exp.set(v);
+		if ( v >= this.locale.length ) this.complete();
 
 	}
 
@@ -220,23 +219,18 @@ export default class Explore {
 
 	complete() {
 
-		this.locale.exp = this.locale.length;
-		Changed.add(this.locale);
-
-		if ( this.locale.loot ) Game.getLoot( this.locale.loot, Game.state.drops );
-		if ( this.locale.result ) Game.applyVars( this.locale.result );
-
-		if ( this.locale.once && this.locale.value === 0 ) Game.applyVars( this.locale.once );
+		this.locale.exp.set(this.locale.length );
 
 		this.locale.value++;
+		this.locale.changed( Game ,1);
 
 		var del = Math.max( 1 + this.player.level - this.locale.level, 1 );
 
 		this.player.exp +=	(this.locale.level)*( 15 + this.locale.length )/( 0.8*del );
 
-		this.enc = null;
-
 		Events.emit( TASK_DONE, this, false );
+
+		this.enc = null;
 		this.locale = null;
 
 	}

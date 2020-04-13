@@ -14,15 +14,6 @@ export const SubPath = ( id, child ) => {
 	return id + '.' + child;
 }
 
-/*Parse(str){
-
-	if ( PercentTest.test(str) ) return new Percent(str);
-	else if ( RangeTest.test(str) ) return new Range(str);
-
-	return new RValue( str );
-
-}*/
-
 export default class RValue {
 
 	toJSON(){return this._value;}
@@ -47,15 +38,9 @@ export default class RValue {
 	}
 
 	/**
-	 * @property {object} target - target modified.
-	 */
-	get target(){return this._target;}
-	set target(v){this._target=v}
-
-	/**
 	 * @property {boolean} isRVal - simple test for RVal interface.
 	 */
-	get isRVal(){return true;}
+	get isRVal(){ return true; }
 
 	/**
 	 * @property {string} id

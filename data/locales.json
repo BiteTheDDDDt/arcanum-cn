@@ -301,8 +301,8 @@
 	"run":{
 		"stamina":3
 	},
-	"once":{
-		"magicbeasts.max":1
+	"mod":{
+		"magicbeasts.max":"?1"
 	},
 	"effect":{
 		"magicbeasts.exp":1

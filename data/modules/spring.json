@@ -385,8 +385,8 @@
 					"stamina":2.5
 				},
 				"title":"Tamer of Wilds",
-				"once":{
-					"magicbeasts.max":1
+				"mod":{
+					"magicbeasts.max":"?1"
 				},
 				"boss":"jabberwocky",
 				"loot":{

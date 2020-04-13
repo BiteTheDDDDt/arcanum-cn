@@ -8,7 +8,7 @@ import { MakeDmgFunc } from '../values/combatVars';
 
 import Range, {RangeTest} from '../values/range';
 import Percent, {PercentTest} from '../values/percent';
-import OnceMod, { IsOnceMod } from '../values/mods/oncemod';
+import OnceMod, { IsAtMod } from '../values/mods/atmod';
 
 /**
  * @const {RegEx} IdTest - Test for a simple id name.
@@ -180,7 +180,7 @@ export const ParseRVal = ( str ) => {
 	if ( RangeTest.test(str) ) return new Range(str);
 	else if ( PercentTest.test(str) ) return new Percent(str);
 	else if ( IsPerMod(str ) ) return new PerMod( str );
-	else if ( IsOnceMod(str) ) return new OnceMod(str);
+	else if ( IsAtMod(str) ) return new OnceMod(str);
 	return str;
 
 }
