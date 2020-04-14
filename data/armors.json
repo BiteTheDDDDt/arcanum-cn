@@ -71,7 +71,7 @@
 	},
 
 	{ "id":"band", "armor":0, "slot":"fingers", "kind":"ring", "cost":50, "level":3,
-		"properties":"10%",
+		"properties":"1%",
 		"maxEnchants":3
 	},
 
@@ -80,7 +80,7 @@
 
 	{ "id":"ring", "armor":0, "slot":"fingers",
 		"kind":"ring", "level":5, "cost":100,
-		"properties":"0~2",
+		"properties":"3%",
 		"maxEnchants":5
 	}
 
