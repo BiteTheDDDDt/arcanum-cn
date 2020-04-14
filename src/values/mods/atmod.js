@@ -41,29 +41,20 @@ export default class AtMod extends Mod {
 			let res = AtRegEx.exec( vars );
 			if ( res ) {
 
-				if ( res.length >= 3 ) {
+				this.at = Number(res[1]) || 1;
+				this.value = Number(res[2]);
 
-					this.at = Number(res[1]);
-					this.value = Number(res[2]);
-
-				} else {
-					this.value = Number(res[1]);
-					this.at = 1;
-				}
-
-			} else {
-				this.value = 0;
-				this.at = 1;
 			}
 
 
 		} else {
 			console.log('bad AtMod: ' + vars );
-			this.value = Number(vars) || 0;
-			this.at = 1;
 		}
 
-		console.log( id + ': NEW AT MOD: ' + this.value );
+		if ( !this.value ) this.value = 0;
+		if ( this.at === null || this.at === undefined ) this.at = 1;
+
+		console.log( id + ': NEW AT MOD: ' + this.at + ' ? ' + this.value );
 
 	}
 
