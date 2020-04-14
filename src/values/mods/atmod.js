@@ -13,7 +13,7 @@ export const IsAtMod = (v)=>{ return AtRegEx.test(v); }
 /**
  * Apply modifier only once, or not at all.
  */
-export default class OnceMod extends Mod {
+export default class AtMod extends Mod {
 
 	toJSON(){ return this.at + AT_SYM + this.value; }
 
@@ -38,16 +38,16 @@ export default class OnceMod extends Mod {
 
 		if ( typeof vars === 'string') {
 
-			let res = AtRegEx.match( vars );
+			let res = AtRegEx.exec( vars );
 			if ( res ) {
 
 				if ( res.length >= 3 ) {
 
-					this.at = res[1];
-					this.value = res[2];
+					this.at = Number(res[1]);
+					this.value = Number(res[2]);
 
 				} else {
-					this.value = res[1];
+					this.value = Number(res[1]);
 					this.at = 1;
 				}
 
@@ -62,6 +62,8 @@ export default class OnceMod extends Mod {
 			this.value = Number(vars) || 0;
 			this.at = 1;
 		}
+
+		console.log( id + ': NEW AT MOD: ' + this.value );
 
 	}
 

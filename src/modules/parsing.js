@@ -8,7 +8,7 @@ import { MakeDmgFunc } from '../values/combatVars';
 
 import Range, {RangeTest} from '../values/range';
 import Percent, {PercentTest} from '../values/percent';
-import OnceMod, { IsAtMod } from '../values/mods/atmod';
+import AtMod, { IsAtMod } from '../values/mods/atmod';
 
 /**
  * @const {RegEx} IdTest - Test for a simple id name.
@@ -42,22 +42,31 @@ export const ParseMods = ( mods, id, source ) => {
 }
 
 /**
+ * Parse a string source into a Mod class.
+ * @param {string} str - mod str.
+ * @param {string} id - mod id.
+ * @param {object} src - mod source.
+ * @returns {Mod|string}
+ */
+export const StrMod = ( str, id, src ) => {
+
+	if ( ModTest.test(str) || !isNaN(str) ) return new Mod(str,id,src);
+	if ( IsPerMod(str ) ) return new PerMod( str, id, src );
+	else if ( IsAtMod(str) ) return new AtMod(str, id, src );
+	return str;
+
+}
+
+/**
  *
  */
-export const SubMods = ( mods, id, source )=>{
+const SubMods = ( mods, id, source )=>{
 
 	if ( mods === null || mods === undefined ) return null;
 
 	if ( typeof mods === 'string' ) {
-		//console.log('testing mod: ' + mods );
-		if ( ModTest.test(mods) ) {
-			return new Mod( mods, id, source );
-		} else if ( IsPerMod(mods)) {
-			return new PerMod( mods, id, source );
-		} else if ( !isNaN(mods) ) return Number(mods);
 
-		console.warn('raw str mod: ' + mods );
-		return mods;
+		return StrMod( mods, id, source );
 
 	} else if ( typeof mods === 'number') {
 		return new Mod( mods, id, source );
@@ -180,7 +189,7 @@ export const ParseRVal = ( str ) => {
 	if ( RangeTest.test(str) ) return new Range(str);
 	else if ( PercentTest.test(str) ) return new Percent(str);
 	else if ( IsPerMod(str ) ) return new PerMod( str );
-	else if ( IsAtMod(str) ) return new OnceMod(str);
+	else if ( IsAtMod(str) ) return new AtMod(str);
 	return str;
 
 }
