@@ -42,19 +42,19 @@ export default class AtMod extends Mod {
 			if ( res ) {
 
 				this.at = Number(res[1]) || 1;
-				this.value = Number(res[2]);
+				this.value = Number(res[2]) || 0;
 
 			}
 
 
 		} else {
+			this.value = Number(vars) || 0;
 			console.log('bad AtMod: ' + vars );
 		}
 
-		if ( !this.value ) this.value = 0;
 		if ( this.at === null || this.at === undefined ) this.at = 1;
 
-		console.log( id + ': NEW AT MOD: ' + this.at + ' ? ' + this.value );
+		//console.log( id + ': NEW AT MOD: ' + this.at + ' ? ' + this.value );
 
 	}
 

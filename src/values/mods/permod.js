@@ -54,7 +54,7 @@ export default class PerMod extends Mod {
 				this.per = Number(parts[1]) || 1;
 
 			} else {
-				console.warn('Invalid PerMod: ' + vars );
+				console.warn('bad PerMod: ' + vars );
 				this.value = 0;
 				this.per = 1;
 			}
