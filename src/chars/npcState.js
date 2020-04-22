@@ -2,34 +2,6 @@ import {cloneClass} from 'objecty';
 import { PrepData } from '../modules/parsing';
 
 /**
- * @property {Map.<string,GData>} NpcItems - clone of base game data used by Npcs
- * without modifiers, player effects etc.
- */
-//export const NpcItems = new Map();
-
-/*const MakeNpcItem = (p,data)=>{
-
-	let t;
-
-	if ( data.constructor ) {
-		//console.log('using constr: ' + data.constructor.name );
-		t = new data.constructor( cloneClass( data.template || data ) );
-	} else {
-		//console.log('no constructor: ' + p );
-		t = cloneClass( data.template || data );
-	}
-
-	if ( t === null || t === undefined ) {
-		console.log('NPC: Cant create: ' + p );
-		t = data;
-	}
-
-	NpcItems.set( p, t );
-	return t;
-
-}*/
-
-/**
  * Proxy GameState for Npcs
  */
 export class NpcState {

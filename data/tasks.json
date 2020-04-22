@@ -185,7 +185,7 @@
 		"name":"offer services",
 		"desc":"Offer your magical services to the nearby townsfolk.",
 		"verb":"servicing",
-		"require":"adept",
+		"require":"(g.adept+g.blueadept)>0",
 		"perpetual":true,
 		"at":{
 
