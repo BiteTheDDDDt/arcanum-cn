@@ -4,7 +4,7 @@ import { getDist, distTest, levelTest } from './locale';
 import { mapNonNull } from '../util/array';
 import { DUNGEON, RAID } from '../values/consts';
 import Spawns, { MakeNpc } from '../classes/spawns';
-import SpawnGroup from '../composites/spawngroup';
+import SpawnGroup from '../classes/spawngroup';
 
 /**
  * @type {Object} Enemy

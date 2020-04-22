@@ -1,7 +1,7 @@
 /**
  * Object describing the parameters of a random spawn.
  */
-export class SpawnInfo {
+export class SpawnRule {
 
 	/**
 	 * @property {Range} level - level range of the spawn from start of Dungeon to end.

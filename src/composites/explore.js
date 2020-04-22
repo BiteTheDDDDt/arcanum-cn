@@ -1,4 +1,4 @@
-import Events, { DEFEATED, TASK_DONE, ENC_START, TASK_BLOCKED } from "../events";
+import Events, { DEFEATED, TASK_DONE, ENC_START, TASK_BLOCKED, ENEMY_SLAIN, CHAR_DIED, EVT_COMBAT } from "../events";
 import { assign } from 'objecty';
 import Game from '../game';
 import { EXPLORE, getDelay } from "../values/consts";
@@ -45,6 +45,8 @@ export default class Explore {
 	canUse() { return this.locale && !this.locale.maxed(); }
 	canRun(g) { return this.locale && !this.player.defeated() && this.locale.canRun(g); }
 
+	get effect() { return this.locale ? this.locale.effect : null; }
+	set effect(v){}
 
 	get encs() { return this.locale ? this.locale.encs : null; }
 
@@ -56,6 +58,18 @@ export default class Explore {
 	get enc() { return this._enc; }
 	set enc(v) { this._enc = v; }
 
+	get combat() { return this._combat; }
+	set combat(v) { this._combat = v; }
+
+	/**
+	 * @property {boolean} running
+	 */
+	get running(){ return this._running; }
+	set running(v) { this._running = v; }
+
+	/**
+	 * @property {boolean} done
+	 */
 	get done() { return this.exp === this.length; }
 
 	/**
@@ -66,7 +80,7 @@ export default class Explore {
 
 		if ( vars ) assign( this, vars);
 
-		this.running = this.running || false;
+		this.running = false;
 
 		this.type = EXPLORE;
 
@@ -74,7 +88,7 @@ export default class Explore {
 		this._enc = this._enc || null;
 
 		/**
-		 * @property {locale} locale - current locale.
+		 * @property {Locale} locale - current locale.
 		 */
 		this.locale = this.locale || null;
 
@@ -86,8 +100,12 @@ export default class Explore {
 		this.player = gs.player;
 		this.spelllist = gs.getData('spelllist');
 
+		Events.add( ENEMY_SLAIN, this.enemyDied, this );
+		Events.add( CHAR_DIED, this.charDied, this );
+
 		if ( typeof this.locale === 'string') {
 			let loc = gs.getData(this.locale);
+			// possible with save of deleted Locales.
 			if ( !loc || !( loc instanceof Locale ) ) this.locale = null;
 		}
 
@@ -101,7 +119,8 @@ export default class Explore {
 
 		}
 
-		if ( !this.locale) this.running = false;
+		this.drops = gs.drops;
+		this.combat = gs.combat;
 
 	}
 
@@ -111,14 +130,43 @@ export default class Explore {
 
 		if ( d != null ) {
 
-			if ( d != this.locale ) this.enc = null;
+			if ( d != this.locale ) {
+				this.enc = null;
+				this.combat.begin();
+
+			} else {
+				this.combat.reenter();
+			}
+			this.combat.active = true;
+
 			if ( d.exp >= d.length ) {
 				d.exp = 0;
 			}
 		}
 
+		if ( this.combat.done ) this.nextEnc();
+
 		this.locale = d;
 
+	}
+
+	charDied( c ) {
+
+		if ( c !== this.player || !this.running ) return;
+
+		if ( this.player.luck > 100*Math.random() ) {
+			this.player.hp.value = Math.ceil( 0.05*this.player.hp.max );
+			Events.emit( EVT_COMBAT, 'Lucky Recovery', this.player.name + ' had a close call.' );
+		}
+
+		this.emitDefeat();
+
+	}
+
+	emitDefeat(){
+		Events.emit( DEFEATED, this.locale );
+		Events.emit( TASK_BLOCKED, this,
+			this.locale && this.player.level>this.locale.level && this.player.retreat>0 );
 	}
 
 	/**
@@ -134,6 +182,11 @@ export default class Explore {
 	update(dt) {
 
 		if ( this.locale == null || this.done ) return;
+
+		/*TODO TODO TODO if ( this._combat.done ) {
+			this.advance();
+			if ( !this.done ) this.nextEnc();
+		} else this._combat.update(dt);*/
 
 		if ( !this.enc ) this.nextEnc();
 		else {
@@ -167,6 +220,11 @@ export default class Explore {
 	}
 
 	nextEnc(){
+
+		/**
+		 * @todo: Combat integration.
+		 */
+		//this.combat.setEnemies( this.locale.getSpawn(), this.exp/this.length );
 
 		if ( !this.locale ) return;
 		// get random encounter.
@@ -209,6 +267,26 @@ export default class Explore {
 
 	}
 
+	enemyDied( enemy, attacker ) {
+
+		this.player.exp += Math.max( 1.5*enemy.level - this.player.level, 1 );
+
+		//console.log('ENEMY templ: ' + (typeof enemy.template) );
+
+		if ( enemy.template && enemy.template.id ) {
+
+			let tmp = this.state.getData(enemy.template.id );
+			if ( tmp ) {
+				tmp.value++;
+			}
+		}
+
+		if ( enemy.result ) Game.applyVars( enemy.result );
+		if ( enemy.loot ) Game.getLoot( enemy.loot, this.drops );
+		else Game.getLoot( {maxlevel:enemy.level, [TYP_PCT]:30}, this.drops );
+
+	}
+
 	/**
 	 * advance locale progress.
 	 */
@@ -217,8 +295,6 @@ export default class Explore {
 	}
 
 	complete() {
-
-		this.locale.exp.set(this.locale.length );
 
 		this.locale.value++;
 		this.locale.changed( Game ,1);

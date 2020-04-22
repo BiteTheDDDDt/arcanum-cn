@@ -1,4 +1,4 @@
-import { MakeNpc } from "../classes/spawns";
+import { MakeNpc } from "./spawns";
 
 export default class SpawnGroup {
 

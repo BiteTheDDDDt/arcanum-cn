@@ -127,19 +127,11 @@ export default class Raid {
 
 		if ( this._combat.done ) {
 
-			this.advance();
+			this.exp += 1;
 			if ( !this.done ) this.nextEnc();
 
 		} else this._combat.update(dt);
 
-	}
-
-	/**
-	 * Player-casted spell or attack action.
-	 * @param {Item} it
-	 */
-	spellAction( it, g ) {
-		if ( this.running ) this._combat.spellAction(it, g);
 	}
 
 	/**
@@ -173,10 +165,6 @@ export default class Raid {
 		if ( enemy.loot ) Game.getLoot( enemy.loot, this.drops );
 		else Game.getLoot( {maxlevel:enemy.level, [TYP_PCT]:30}, this.drops );
 
-	}
-
-	advance() {
-		this.exp += 1;
 	}
 
 	complete() {

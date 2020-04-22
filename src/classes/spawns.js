@@ -1,4 +1,4 @@
-import SpawnGroup from "../composites/spawngroup";
+import SpawnGroup from "./spawngroup";
 import Game from "../game";
 import { CreateNpc } from "../items/monster";
 

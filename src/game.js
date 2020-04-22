@@ -545,14 +545,6 @@ export default {
 	},
 
 	/**
-	 * Actor-casted spell or action attack.
-	 * @param {Item} it
-	 * @param {Context} g
-	 */
-	/*spellAction( it, g ) {
-	},*/
-
-	/**
 	 * Get target of spell or action.
 	 * @param {Char} char
 	 * @param {string} targets

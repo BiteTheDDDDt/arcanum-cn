@@ -3,7 +3,7 @@ import { EXPLORE, LOCALE } from "../values/consts";
 import Game from '../game';
 import { mapNonNull } from '../util/array';
 import Spawns, { MakeNpc } from '../classes/spawns';
-import SpawnGroup from '../composites/spawngroup';
+import SpawnGroup from '../classes/spawngroup';
 
 /**
  * Default dist per level function. Also currently used by dungeon.
@@ -41,6 +41,16 @@ export class Locale extends Task {
 	}
 
 	/**
+	 * @property {Spawns}
+	 */
+	get spawns() { return this._spawns; }
+	set spawns(v) {
+
+		this._spawns = v instanceof Spawns ? v : new Spawns(v);
+
+	}
+
+	/**
 	 * @property {string} proxy - id of actual runner.
 	 */
 	get controller() { return EXPLORE }
@@ -50,7 +60,6 @@ export class Locale extends Task {
 		super(vars);
 
 		if ( this.level === null || this.level === undefined ) this.level = 1;
-
 		this.type = LOCALE;
 
 		/**
