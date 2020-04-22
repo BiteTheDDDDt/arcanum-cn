@@ -1,20 +1,30 @@
-import { MakeNpc } from "./spawns";
+import { MakeNpc } from "../classes/spawns";
 
 export default class SpawnGroup {
 
+	/**
+	 * @property {number} weight - arbitrary weight of this spawn group (any number)
+	 */
 	get weight(){
 		return this._weight;
 	}
-	set weight(v){
-		this._weight=v;
-	}
+	set weight(v){ this._weight=v; }
 
+	/**
+	 * @property {string[]} spawns
+	 */
 	get spawns(){return this._spawns;}
 	set spawns(v){
 		if ( typeof v === 'string') this._spawns = v.split(',');
 		else this._spawns = v;
 	}
 
+	/**
+	 *
+	 * @param {string|string[]|object} vars
+	 * @param {?number} vars.weight
+	 * @param {?string[]} vars.spawns
+	 */
 	constructor( vars ){
 
 		if ( typeof vars === 'string' || Array.isArray(vars)){
@@ -36,6 +46,7 @@ export default class SpawnGroup {
 	 * Create npcs from group parameters.
 	 * @note this could probably be done before raid call.
 	 * @param {number} pct - percent of the way through dungeon.
+	 * @returns {Npc[]} instantiated npcs from group.
 	 */
 	instantiate( pct ){
 

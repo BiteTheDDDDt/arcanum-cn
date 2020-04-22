@@ -1,23 +1,27 @@
-import Task from './task';
+import Task from "./task";
+import { EXPLORE, LOCALE } from "../values/consts";
 import Game from '../game';
-import { getDist, distTest, levelTest } from './locale';
 import { mapNonNull } from '../util/array';
-import { DUNGEON, RAID } from '../values/consts';
 import Spawns, { MakeNpc } from '../classes/spawns';
 import SpawnGroup from '../composites/spawngroup';
 
 /**
- * @type {Object} Enemy
- * @property {number} weight - weighted chance of attack occuring. Not Implemented.
- * @property {number} min - min damage
- * @property {number} max - max damage
- * @property {string} type - attack type
- * @property {number} defense
- * @property {number} attack
- * @property {number} hp
+ * Default dist per level function. Also currently used by dungeon.
+ * @param {number} lvl
  */
+export const getDist = (lvl)=> {
+	return Math.ceil( 4.4*Math.exp( 0.30*lvl ) );
+};
 
-export default class Dungeon extends Task {
+export const distTest = (g,s) => {
+	return g.dist >= s.dist;
+}
+
+export const levelTest = (g, s) => {
+	return g.player.level >= (s.level-1);
+}
+
+export class Locale extends Task {
 
 	/**
 	 * @property {object|string} once - result to happen only once.
@@ -25,46 +29,72 @@ export default class Dungeon extends Task {
 	get once() { return this._once; }
 	set once(v) { this._once = v; }
 
-	/**
-	 * @compat
-	 */
-	get enemies(){return this.spawns;}
-	set enemies(v){this.spawns = v }
+	get encs() { return this._encs; }
+	set encs(v) {
 
-	get spawns() { return this._spawns; }
-	set spawns(v) {
+		// json data not true arrays.
+		let a = [];
 
-		this._spawns = v instanceof Spawns ? v : new Spawns(v);
+		for( let p in v) { a.push( v[p]); }
 
+		this._encs = a;
 	}
 
-	get controller() {return RAID}
-
 	/**
-	 *
-	 * @param {?Object} [vars=null]
+	 * @property {string} proxy - id of actual runner.
 	 */
-	constructor( vars=null ){
+	get controller() { return EXPLORE }
+
+	constructor(vars=null) {
 
 		super(vars);
 
-		this.level = this.level !== undefined ? this.level : 1;
+		if ( this.level === null || this.level === undefined ) this.level = 1;
 
-		this.type = DUNGEON;
+		this.type = LOCALE;
 
+		/**
+		 * @property {number} progress
+		 */
 		this.ex = this.ex || 0;
-		if (!this.length) this.length = 10*this.level;
+		if (!this.length) this.length = 20*this.level;
 
 		// default require for dungeon is player-level.
-		this.require = this.require || levelTest;
+		if ( !this.require ) this.require = levelTest;
 
-		this.dist = ( this.dist === undefined || this.dist === null ) ? getDist(this.level) : this.dist;
+		if ( this.dist === undefined || this.dist === null ) this.dist = getDist(this.level);
+
+		if ( !this.need ) this.need = distTest;
+
+		if (!this.sym) this.sym = '🌳';
+		if ( this._encs == null ) this._encs = [];
+
 		//console.log(this.id + ' dist: ' + this.dist );
-		//this.addRequire( 'dist', this.dist );
 
-		if ( this.need == null ) this.need = distTest;
+	}
 
-		if (!this.sym) this.sym = '⚔';
+	/**
+	 * Get next/random encounter.
+	 * @returns {string|Encounter|Object}
+	 */
+	getEncounter() {
+
+		let dat;
+
+		if ( this.hasBoss( this.boss, this.exp ) ) dat = this.getBoss( this.boss );
+		else {
+
+			let dat = this._encs[ Math.floor( Math.random()*this._encs.length )  ];
+
+		}
+
+		if ( typeof dat === 'string') {
+
+		} else if ( Array.isArray(dat) ) {
+		} else if ( typeof dat === 'object') {
+		}
+
+		return dat;
 
 	}
 

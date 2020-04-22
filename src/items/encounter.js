@@ -32,6 +32,9 @@ export default class Encounter extends GData {
 	get length() { return this._length; }
 	set length(v) { this._length = v;}
 
+	/**
+	 * @property {boolean} done
+	 */
 	get done() { return this._exp >= this.length; }
 
 	constructor( vars=null, save=null ) {
@@ -58,6 +61,9 @@ export default class Encounter extends GData {
 
 	}
 
+	/**
+	 * @returns {false}
+	 */
 	maxed() { return false; }
 
 }

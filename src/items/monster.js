@@ -9,6 +9,12 @@ const defaults = {
 
 };
 
+/**
+ *
+ * @param {*} proto
+ * @param {*} g
+ * @returns {Npc}
+ */
 export const CreateNpc = (proto, g ) => {
 
 	let it = new Npc( proto );
@@ -24,13 +30,23 @@ export default class Monster extends GData {
 
 	get defaults() { return defaults; }
 
+	/**
+	 * @property {true} isRecipe
+	 */
 	get isRecipe() {return true; }
 
+	/**
+	 * @returns {string}
+	 */
 	toJSON() {
 		if ( this.value > 0 ) return { value:this.value};
 		else return undefined;
 	}
 
+	/**
+	 *
+	 * @param {*} vars
+	 */
 	constructor(vars=null) {
 
 		super(vars, defaults );
@@ -47,6 +63,11 @@ export default class Monster extends GData {
 
 	}
 
+	/**
+	 *
+	 * @param {} g
+	 * @returns {boolean}
+	 */
 	canUse( g ){
 
 		if ( this.value < 10 ) return false;
@@ -91,6 +112,9 @@ export default class Monster extends GData {
 
 	}
 
+	/**
+	 * @returns {false}
+	 */
 	maxed() { return false; }
 
 }

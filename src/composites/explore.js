@@ -1,13 +1,12 @@
 import Events, { DEFEATED, TASK_DONE, ENC_START, TASK_BLOCKED } from "../events";
 import { assign } from 'objecty';
 import Game from '../game';
-import Encounter from "../items/encounter";
 import { EXPLORE, getDelay } from "../values/consts";
-import { Changed } from "../techTree";
+import Encounter from "../items/encounter";
 import Locale from "../items/locale";
 
 /**
- * Explore locations of arcane importance.
+ * Controls locale exploration.
  */
 export default class Explore {
 
@@ -172,7 +171,7 @@ export default class Explore {
 		if ( !this.locale ) return;
 		// get random encounter.
 		this.player.timer = getDelay( this.player.speed );
-		var e = this.locale.getEnc();
+		var e = this.locale.getEncounter();
 
 		if ( typeof e === 'string') {
 

@@ -6,7 +6,7 @@ import Item from '../items/item';
 import GenGroup from '../genGroup';
 import { pushNonNull } from '../util/array';
 import GData from '../items/gdata';
-import { WEARABLE, MONSTER, ARMOR, WEAPON, TYP_PCT, EVENT, ITEM, POTION, TYP_RANGE, NPC, TASK } from '../values/consts';
+import { WEARABLE, MONSTER, ARMOR, WEAPON, TYP_PCT, EVENT, ITEM, POTION, TYP_RANGE, NPC, TASK, ENCOUNTER } from '../values/consts';
 import { CreateNpc } from '../items/monster';
 import TagSet from '../composites/tagset';
 import ProtoItem from '../protos/protoItem';
@@ -112,10 +112,29 @@ export default class ItemGen {
 		this.initGroup( 'materials', this.state.materials );
 		this.initGroup( 'properties', this.state.properties );
 
+	}
 
-		let g = this.initGroup( MONSTER, this.state.monsters );
-		g.makeFilter( 'biome' );
-		g.makeFilter( 'kind' );
+	/**
+	 * Retrieve a random encounter matching criteria.
+	 * @param {object} data
+	 * @param {string} biome
+	 * @param {number} pct - percent through locale.
+	 */
+	randEncounter( data, biome, pct=1 ) {
+
+		var level = data.level || 1;
+		if ( typeof level ==='object') {
+
+			if ( level.type === TYP_RANGE ) level = level.percent(pct);
+			else level = level.value*pct;
+
+		}
+
+		if ( data.range ) level += (data.range*( -1 + 2*Math.random() ) );
+		level = Math.ceil(level);
+
+		if ( !this.groups.hasOwnProperty(ENCOUNTER)) this.initGroup( ENCOUNTER, this.state.encounters );
+		return this.groups[ENCOUNTER].randAt( level );
 
 	}
 
@@ -126,6 +145,8 @@ export default class ItemGen {
 	 * @param {number} [pct=1] level modifier / progress within dungeon.
 	 */
 	randEnemy( data, biome, pct=1 ) {
+
+		if ( !this.groups.hasOwnProperty(MONSTER) ) this.initGroup( MONSTER, this.state.monsters, ['biome','kind'] );
 
 		if ( biome ) {
 			return randByBiome( data, biome, pct );
@@ -142,7 +163,7 @@ export default class ItemGen {
 		if ( data.range ) level += (data.range*( -1 + 2*Math.random() ) );
 		level = Math.ceil(level);
 
-		let npc = this.groups.monster.randAt( level );
+		let npc = this.groups[ MONSTER ].randAt( level );
 		return npc ? CreateNpc( npc, this.game ) : null;
 
 	}
@@ -437,12 +458,14 @@ export default class ItemGen {
 	}
 
 	/**
-	 *
+	 * Create a group of Generable objects. All groups have a level filter by default
+	 * and additional filters can be created.
 	 * @param {string} name - group name.
-	 * @param {Item[]} items
+	 * @param {Item[]} items - items to add to group.
+	 * @param {?string[]} [filters=null] additional filters to use in group creation.
 	 * @returns {GenGroup}
 	 */
-	initGroup( name, items ) {
+	initGroup( name, items, filters=null ) {
 
 		if ( !items ) {
 			console.warn( 'group undefined: ' + name );
@@ -452,6 +475,9 @@ export default class ItemGen {
 		let g = this.groups[name] = new GenGroup(items);
 		g.makeFilter('level');
 
+		if ( filters ) {
+			for( let i = filters.length-1; i >= 0; i--) g.makeFilter( filters[i]);
+		}
 		return g;
 
 	}

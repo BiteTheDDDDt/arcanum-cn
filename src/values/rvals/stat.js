@@ -58,17 +58,20 @@ export default class Stat extends RValue {
 
 	}
 
+	/**
+	 * @property {number} base
+	 */
 	get base() { return this._value; }
 	set base(v) { this._value = v; }
 
 	/**
-	 * @property {number} pct - decimal percent
+	 * @property {number} basePct - decimal percent
 	 */
 	get basePct() { return this._basePct; }
 	set basePct(v) { this._basePct = v; }
 
 	/**
-	 * @property {number} pct - total decimal percent, both modified and base.
+	 * @property {number} pctTot - total decimal percent, both modified and base.
 	 * This is the percent-added and does not include the initial '1' percent.
 	 */
 	get pctTot(){
@@ -86,7 +89,7 @@ export default class Stat extends RValue {
 	get mBase(){return this._mBase; }
 
 	/**
-	 * @property {number} pct - mod pct bonuses, as decimal.
+	 * @property {number} mPct - mod pct bonuses, as decimal.
 	 * @protected
 	 */
 	get mPct() { return this._mPct };
@@ -106,7 +109,7 @@ export default class Stat extends RValue {
 	}
 
 	/**
-	 * @property {boolean} pos - force positive value after mods.
+	 * @property {boolean} pos - restrict stat to positive values after mods.
 	 */
 	get pos(){return this._pos; }
 	set pos(v) { this._pos = v;}

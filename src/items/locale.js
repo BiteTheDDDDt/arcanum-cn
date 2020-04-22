@@ -73,7 +73,7 @@ export default class Locale extends Task {
 	 * Get next/random encounter.
 	 * @returns {string|Encounter|Object}
 	 */
-	getEnc() {
+	getEncounter() {
 		return this._encs[ Math.floor( Math.random()*this._encs.length ) ];
 	}
 

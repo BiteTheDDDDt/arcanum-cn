@@ -43,6 +43,7 @@ export default class Combat {
 
 	/**
 	 * Whether combat is active.
+	 * @property {boolean} active
 	 */
 	get active() { return this._active;}
 	set active(v) {this._active=v}
@@ -59,6 +60,9 @@ export default class Combat {
 	get allies() { return this._allies; }
 	set allies(v) { this._allies = v; }
 
+	/**
+	 * @property {boolean} done
+	 */
 	get done() { return this._enemies.length === 0; }
 
 	/**
@@ -66,7 +70,7 @@ export default class Combat {
 	 */
 	get teams(){ return this._teams; }
 
-	constructor(vars = null) {
+	constructor( vars=null ) {
 
 		if (vars) assign(this, vars);
 
@@ -107,7 +111,7 @@ export default class Combat {
 			it = this._allies[i];
 			if ( typeof it === 'string' ) this._allies[i] = gs.minions.find( it );
 			else if ( it && typeof it === 'object' && !(it instanceof Npc)) {
-				console.log('NEW COMBAT ALLY');
+				console.log('NEW ALLY');
 				this._allies[i] = itemRevive( gs, it );
 			}
 

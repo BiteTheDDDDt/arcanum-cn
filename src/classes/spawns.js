@@ -1,4 +1,4 @@
-import SpawnGroup from "./spawngroup";
+import SpawnGroup from "../composites/spawngroup";
 import Game from "../game";
 import { CreateNpc } from "../items/monster";
 
@@ -7,6 +7,7 @@ import { CreateNpc } from "../items/monster";
  * Create Npc from string or SpawnInfo object.
  * @param {*} e
  * @param {number} [pct=1]
+ * @returns {Npc|null}
  */
 export const MakeNpc = ( e, pct=1 ) => {
 
@@ -43,6 +44,8 @@ export default class Spawns {
 	/**
 	 * @property {object} info - spawnInfo object. describes spawning information.
 	 * e.g. catacrytps.
+	 * @property {Range} info.level - start to end range of enemy levels encountered.
+	 * @property {number} info.range - range variation in level.
 	 */
 	get info(){
 		return this._info;
