@@ -3,8 +3,7 @@ import Game from '../game';
 import { getDist, distTest, levelTest } from './locale';
 import { mapNonNull } from '../util/array';
 import { DUNGEON, RAID } from '../values/consts';
-import Spawns, { MakeNpc } from '../classes/spawns';
-import SpawnGroup from '../classes/spawngroup';
+import { ParseSpawns } from '../classes/spawns';
 
 /**
  * @type {Object} Enemy
@@ -33,9 +32,7 @@ export default class Dungeon extends Task {
 
 	get spawns() { return this._spawns; }
 	set spawns(v) {
-
-		this._spawns = v instanceof Spawns ? v : new Spawns(v);
-
+		this._spawns = ParseSpawns(v);
 	}
 
 	get controller() {return RAID}
@@ -74,23 +71,10 @@ export default class Dungeon extends Task {
 	 */
 	getSpawn() {
 
-		let spawn, npc;
-		let tries = 0;
+		let spawn;
 
 		if ( this.hasBoss( this.boss, this.exp ) ) spawn = this.getBoss( this.boss );
-		else if ( this.spawns ) spawn = this.spawns.random();
-
-		do {
-
-			if ( spawn instanceof SpawnGroup ) return spawn.instantiate( this.percent()/100 );
-			else if ( spawn ) {
-
-				npc = MakeNpc( spawn, this.percent()/100);
-				if ( npc ) return [npc];
-
-			}
-
-		} while ( npc == null && tries++ < 4 );
+		if ( spawn == null ) spawn = this.spawns.random( this.percent()/100 );
 
 		return null;
 

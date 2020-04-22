@@ -10,6 +10,9 @@ import Locale from "../items/locale";
  */
 export default class Explore {
 
+	/**
+	 * @property {string}
+	 */
 	get id() { return EXPLORE;}
 
 	toJSON() {
@@ -28,7 +31,14 @@ export default class Explore {
 	 */
 	get name() { return this.locale? this.locale.name : ''; }
 
+	/**
+	 * @property {object|string}
+	 */
 	get cost() { return this.locale ? this.locale.cost : null; }
+
+	/**
+	 * @property {object|string}
+	 */
 	get run() { return this.locale ? this.locale.run : null; }
 
 	get exp(){ return this.locale ? this.locale.exp : 0; }
@@ -39,10 +49,24 @@ export default class Explore {
 
 	}
 
+	/**
+	 * @returns {number}
+	 */
 	percent() { return this.locale ? this.locale.percent() : 0; }
+
+	/**
+	 * @returns {boolean}
+	 */
 	maxed() { return !this.locale || this.locale.maxed(); }
 
+	/**
+	 * @returns {boolean}
+	 */
 	canUse() { return this.locale && !this.locale.maxed(); }
+
+	/**
+	 * @returns {boolean}
+	 */
 	canRun(g) { return this.locale && !this.player.defeated() && this.locale.canRun(g); }
 
 	get effect() { return this.locale ? this.locale.effect : null; }
@@ -58,6 +82,9 @@ export default class Explore {
 	get enc() { return this._enc; }
 	set enc(v) { this._enc = v; }
 
+	/**
+	 * @property {Combat}
+	 */
 	get combat() { return this._combat; }
 	set combat(v) { this._combat = v; }
 

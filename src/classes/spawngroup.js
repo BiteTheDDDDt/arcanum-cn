@@ -1,13 +1,9 @@
-import { MakeNpc } from "./spawns";
-
 export default class SpawnGroup {
 
 	/**
 	 * @property {number} weight - arbitrary weight of this spawn group (any number)
 	 */
-	get weight(){
-		return this._weight;
-	}
+	get weight(){ return this._weight; }
 	set weight(v){ this._weight=v; }
 
 	/**
@@ -48,7 +44,7 @@ export default class SpawnGroup {
 	 * @param {number} pct - percent of the way through dungeon.
 	 * @returns {Npc[]} instantiated npcs from group.
 	 */
-	instantiate( pct ){
+	/*instantiate( pct=0 ){
 
 		var a = [];
 
@@ -61,8 +57,7 @@ export default class SpawnGroup {
 
 		return a;
 
-	}
-
+	}*/
 
 
 }

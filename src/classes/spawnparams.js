@@ -1,7 +1,10 @@
+import Game from "../game";
+
 /**
+ * @class SpawnParams
  * Object describing the parameters of a random spawn.
  */
-export class SpawnRule {
+export class SpawnParams {
 
 	/**
 	 * @property {Range} level - level range of the spawn from start of Dungeon to end.
@@ -25,6 +28,27 @@ export class SpawnRule {
 
 		this.level = vars.level;
 		this.range = vars.range;
+
+	}
+
+	/**
+	 * Allows potential recursive stacking of spawn groups.
+	 * @param {} pct
+	 * @returns {Npc|null}
+	 */
+	instantiate(pct=0) {
+		return Game.itemGen.randEnemy( e, null, pct );
+	}
+
+	/**
+	 *
+	 * @param {number} pct - 1 based percent. progress through dungeon.
+	 * @returns {Npc|null}
+	 */
+	random( pct=0 ) {
+
+		// generate enemy from parameters.
+		return Game.itemGen.randEnemy( e, null, pct );
 
 	}
 

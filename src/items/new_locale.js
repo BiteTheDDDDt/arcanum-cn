@@ -2,21 +2,34 @@ import Task from "./task";
 import { EXPLORE, LOCALE } from "../values/consts";
 import Game from '../game';
 import { mapNonNull } from '../util/array';
-import Spawns, { MakeNpc } from '../classes/spawns';
+import Spawns, { ParseSpawns } from '../classes/spawns';
 import SpawnGroup from '../classes/spawngroup';
 
 /**
  * Default dist per level function. Also currently used by dungeon.
  * @param {number} lvl
+ * @returns {number}
  */
 export const getDist = (lvl)=> {
 	return Math.ceil( 4.4*Math.exp( 0.30*lvl ) );
 };
 
+/**
+ *
+ * @param {object} g - all game data.
+ * @param {*} s
+ * @returns {boolean}
+ */
 export const distTest = (g,s) => {
 	return g.dist >= s.dist;
 }
 
+/**
+ *
+ * @param {*} g
+ * @param {*} s
+ * @returns {boolean}
+ */
 export const levelTest = (g, s) => {
 	return g.player.level >= (s.level-1);
 }
@@ -45,9 +58,7 @@ export class Locale extends Task {
 	 */
 	get spawns() { return this._spawns; }
 	set spawns(v) {
-
-		this._spawns = v instanceof Spawns ? v : new Spawns(v);
-
+		this._spawns = ParseSpawns(v);
 	}
 
 	/**
@@ -113,23 +124,10 @@ export class Locale extends Task {
 	 */
 	getSpawn() {
 
-		let spawn, npc;
-		let tries = 0;
+		let spawn;
 
 		if ( this.hasBoss( this.boss, this.exp ) ) spawn = this.getBoss( this.boss );
-		else if ( this.spawns ) spawn = this.spawns.random();
-
-		do {
-
-			if ( spawn instanceof SpawnGroup ) return spawn.instantiate( this.percent()/100 );
-			else if ( spawn ) {
-
-				npc = MakeNpc( spawn, this.percent()/100);
-				if ( npc ) return [npc];
-
-			}
-
-		} while ( npc == null && tries++ < 4 );
+		if ( spawn == null ) spawn = this.spawns.random( this.percent()/100 );
 
 		return null;
 

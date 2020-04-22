@@ -1,32 +1,36 @@
 import SpawnGroup from "./spawngroup";
 import Game from "../game";
 import { CreateNpc } from "../items/monster";
+import { SpawnParams } from "./spawnparams";
 
 
 /**
+ * Parse Dungeon/Locale spawning information.
+ * @param {object|Array} spawnData
+ */
+export const ParseSpawns = ( spawnData ) => {
+
+	if ( typeof spawnData === 'object') {
+		if ( Array.isArray(spawnData) ) return new Spawns( spawnData );
+		return new SpawnParams( spawnData );
+	}
+
+}
+
+/**
  * Create Npc from string or SpawnInfo object.
- * @param {*} e
+ * @param {string} e
  * @param {number} [pct=1]
  * @returns {Npc|null}
  */
-export const MakeNpc = ( e, pct=1 ) => {
+const MakeNpc = ( e, pct=1 ) => {
 
-	if ( typeof e === 'string' ) {
-
-		e = Game.getData(e);
-		if ( e ) {
-			if ( e.locked || e.disabled || e.locks>0 ) return null;
-			return CreateNpc(e, Game);
-		}
-
+	e = Game.getData(e);
+	if ( e ) {
+		if ( !( e.locked || e.disabled || e.locks>0 ) ) return CreateNpc(e, Game);
 	}
-	if ( !e ) return null;
 
-	// generate enemy from parameters.
-	e = Game.itemGen.randEnemy( e, null, pct );
-	if ( !e) {console.warn( 'Missing Enemy: ') }
-
-	return e;
+	return null;
 
 }
 
@@ -42,54 +46,50 @@ export default class Spawns {
 	set groups(v){this._groups =v;}
 
 	/**
-	 * @property {object} info - spawnInfo object. describes spawning information.
-	 * e.g. catacrytps.
-	 * @property {Range} info.level - start to end range of enemy levels encountered.
-	 * @property {number} info.range - range variation in level.
-	 */
-	get info(){
-		return this._info;
-	}
-	set info(v) { this._info=v;}
-
-	/**
 	 * @private
 	 * @property {number} weightTot
 	 */
 	get weightTot(){ return this._weightTot; }
 	set weightTot(v) { this._weightTot = v}
 
-	constructor(vars){
+	/**
+	 *
+	 * @param {Array} arr
+	 */
+	constructor( arr ){
 
-		if ( Array.isArray(vars) ) {
-
-			this.initGroups(vars);
-
-		} else if ( typeof vars === 'object' ) {
-
-			this.info = vars;
-
-		}
+		this.initGroups(arr);
 
 	}
 
 	/**
 	 * Get a random spawn group.
 	 * @note faster would be sorted groups and binary search.
+	 * @param {number} [pct=0] - 1-base percent. progress through dungeon.
 	 * @returns {SpawnGroup}
 	 */
-	random() {
+	random( pct=0 ) {
 
-		if ( this.groups ) {
-			return this.randGroup();
-		} else {
-			return this.info;
+		let grp = this.randGroup();
+		if ( grp === null ) return;
+
+		let spawns = grp.spawns;
+		var a = [];
+
+		for ( let i = 0; i < spawns.length; i++ ) {
+
+			var e = MakeNpc( spawns[i], pct );
+			if ( e ) a.push(e);
+
 		}
+
+		return a;
 
 	}
 
 	/**
 	 * Get random group from groups list.
+	 * @returns {SpawnGroup|null}
 	 */
 	randGroup(){
 
@@ -104,11 +104,15 @@ export default class Spawns {
 
 		}
 
-		// shouldn't happen.
+		// shouldn't happen. weight total should account for all groups.
 		return len > 0 ? this.groups[0] : null;
 
 	}
 
+	/**
+	 *
+	 * @param { Array } list
+	 */
 	initGroups( list ){
 
 		var tot = 0;
