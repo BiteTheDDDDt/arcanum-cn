@@ -2,6 +2,10 @@ import GData from "./gdata";
 import Game from '../game';
 import { ENCOUNTER } from "../values/consts";
 
+const defaults = {
+	locked:false
+}
+
 /**
  * Sublocation of a Locale
  */
@@ -39,7 +43,7 @@ export default class Encounter extends GData {
 
 	constructor( vars=null, save=null ) {
 
-		super(vars );
+		super( vars, defaults );
 
 		if ( save ) Object.assign( this, save );
 

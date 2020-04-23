@@ -45,9 +45,7 @@ export class Locale extends Task {
 	 * @alias spawns
 	 */
 	get encs() { return this._spawns; }
-	set encs(v) {
-		this.spawns = v;
-	}
+	set encs(v) { this.spawns = v; }
 
 	/**
 	 * @property {Spawns} spawns

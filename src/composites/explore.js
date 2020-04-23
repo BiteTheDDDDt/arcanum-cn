@@ -1,7 +1,7 @@
 import Events, { DEFEATED, TASK_DONE, ENC_START, TASK_BLOCKED, ENEMY_SLAIN, CHAR_DIED, EVT_COMBAT } from "../events";
 import { assign } from 'objecty';
 import Game from '../game';
-import { EXPLORE, getDelay, TYP_PCT, ENCOUNTER } from "../values/consts";
+import { EXPLORE, getDelay, TYP_PCT, ENCOUNTER, DUNGEON } from "../values/consts";
 import Encounter from "../items/encounter";
 import { Locale } from "../items/locale";
 
@@ -89,7 +89,9 @@ export default class Explore {
 	 * @property {Encounter|Combat} enc - current encounter, or combat.
 	 */
 	get enc() { return this._enc; }
-	set enc(v) { this._enc = v; }
+	set enc(v) {
+		this._enc = v;
+	}
 
 	/**
 	 * @property {Combat}
@@ -111,6 +113,8 @@ export default class Explore {
 	 * @property {boolean} done
 	 */
 	get done() { return this.exp === this.length; }
+
+	get inCombat() { return ( this.enc === null && this.locale.type === DUNGEON )||( this.enc === this.combat ) }
 
 	/**
 	 *
@@ -148,7 +152,7 @@ export default class Explore {
 			let loc = gs.getData(this.locale);
 			// possible with save of deleted Locales.
 			if ( !( loc instanceof Locale ) ) this.locale = null;
-		}
+		} else this.locale = null;
 
 		if ( this._enc ) {
 			this.enc = gs.getData(this._enc);
@@ -211,11 +215,11 @@ export default class Explore {
 
 		if ( this.locale == null || this.done ) return;
 
-		if ( !this.enc ) this.nextEnc();
+		if ( this.enc === null ) this.nextEnc();
 		else {
 
 			//@todo TODO: hacky.
-			if ( this.enc.type === ENCOUNTER ) this.player.explore(dt);
+			if ( this.enc !== this.combat ) this.player.explore(dt);
 
 			this.enc.update( dt );
 			if ( this.player.defeated() ) {
@@ -244,11 +248,11 @@ export default class Explore {
 
 			if ( e.type === ENCOUNTER ) {
 
+				console.log('SETTING ENCOUNTER: ' + e.name );
 				this.enc = e;
-				this._enc = it;
-				it.exp = 0;
 
-				Events.emit( ENC_START, it.name, it.desc );
+				e.exp = 0;
+				Events.emit( ENC_START, e.name, e.desc );
 
 			} else {
 
@@ -259,7 +263,7 @@ export default class Explore {
 			}
 
 		}
-		this.combat.active = this.combat === this.enc;
+		this.combat.active = (this.combat === this.enc );
 
 
 	}

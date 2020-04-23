@@ -1,5 +1,6 @@
 import { CreateNpc } from "../items/monster";
 import { ENCOUNTER } from "../values/consts";
+import Game from "../game";
 
 /**
  * Create Npc from string or SpawnInfo object.
@@ -10,6 +11,9 @@ import { ENCOUNTER } from "../values/consts";
 const MakeSpawn = ( e ) => {
 
 	e = Game.getData(e);
+	//console.log('spawn: ' + e + '  unique? ' + Game.state.hasUnique(e) + '  type? ' + e.type );
+	//console.log('spawn: ' + e + '  locked? ' + e.locked + '  disabled ' + e.disabled + ' locks: ' + e.locks  );
+
 	if ( !e || Game.state.hasUnique(e) || ( e.locked || e.disabled || e.locks>0 )) return null;
 
 	if ( e.type === ENCOUNTER ) return e;
@@ -66,13 +70,16 @@ export default class SpawnGroup {
 	 */
 	instantiate( pct=0 ){
 
-		var e;
+		let e;
 
 		if ( typeof this.spawns === 'string') {
+
+			//console.log('create str: '  + this.spawns );
 
 			e = MakeSpawn( this.spawns, pct );
 			if ( e === null ) return null;
 			else if ( e.type === ENCOUNTER ) return e;
+
 			return [e];
 
 		} else {
