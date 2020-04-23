@@ -1,7 +1,7 @@
 import Events, { DEFEATED, TASK_DONE, ENC_START, TASK_BLOCKED, ENEMY_SLAIN, CHAR_DIED, EVT_COMBAT } from "../events";
 import { assign } from 'objecty';
 import Game from '../game';
-import { EXPLORE, getDelay, TYP_PCT } from "../values/consts";
+import { EXPLORE, getDelay, TYP_PCT, ENCOUNTER } from "../values/consts";
 import Encounter from "../items/encounter";
 import { Locale } from "../items/locale";
 
@@ -101,7 +101,11 @@ export default class Explore {
 	 * @property {boolean} running
 	 */
 	get running(){ return this._running; }
-	set running(v) { this._running = v; }
+	set running(v) {
+		this._running = v;
+		this.combat.active = v && (this.enc === this.combat );
+
+	}
 
 	/**
 	 * @property {boolean} done
@@ -174,8 +178,6 @@ export default class Explore {
 				this.combat.reenter();
 			}
 
-			this.combat.active = true;
-
 			if ( locale.exp >= locale.length ) {
 				locale.exp = 0;
 			}
@@ -234,11 +236,6 @@ export default class Explore {
 
 	nextEnc(){
 
-		/**
-		 * @todo: Combat integration.
-		 */
-		//this.combat.setEnemies( this.locale.getSpawn(), this.exp/this.length );
-
 		if ( !this.locale ) return;
 		// get random encounter.
 		this.player.timer = getDelay( this.player.speed );
@@ -257,11 +254,13 @@ export default class Explore {
 			} else {
 
 				// Combat Encounter.
+				this.combat.setEnemies( e, this.exp/this.length );
 				this.enc = this.combat;
 
 			}
 
 		}
+		this.combat.active = this.combat === this.enc;
 
 
 	}
@@ -272,16 +271,20 @@ export default class Explore {
 	 */
 	encDone( enc ) {
 
-		this.player.exp += 0.75 + Math.max( enc.level - this.player.level, 0 );
-
 		//console.log('ENEMY templ: ' + (typeof enemy.template) );
 
-		enc.value++;
+		if ( enc !== this.combat ) {
 
-		if ( enc.result ) Game.applyVars( enc.result );
-		if ( enc.loot ) Game.getLoot( enc.loot, this.drops );
+			this.player.exp += 0.75 + Math.max( enc.level - this.player.level, 0 );
 
-		enc.exp = 0;
+			enc.value++;
+
+			if ( enc.result ) Game.applyVars( enc.result );
+			if ( enc.loot ) Game.getLoot( enc.loot, this.drops );
+			enc.exp = 0;
+
+		}
+
 		this.enc = null;
 
 	}
