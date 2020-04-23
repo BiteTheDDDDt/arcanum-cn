@@ -21,6 +21,8 @@ const DEFENSE_RATE = 0.25;
 
 export default class Combat {
 
+	get id() { return 'combat' }
+
 	toJSON() {
 
 		var a = undefined;
@@ -55,7 +57,7 @@ export default class Combat {
 	set enemies(v) {this._enemies = v;}
 
 	/**
-	 * @property {Char[]} allies - player & allies.
+	 * @property {Char[]} allies - player & allies. allies[0] is always the player.
 	 */
 	get allies() { return this._allies; }
 	set allies(v) { this._allies = v; }
@@ -136,23 +138,22 @@ export default class Combat {
 		for( let i = this._allies.length-1; i >= 0; i-- ) {
 
 			e = this._allies[i];
-			/*if ( !e.update ) {
-				console.warn('missing update: ' + e );
-				this._allies.splice(i,1);
-				continue;
-			}*/
-			if ( e.alive === false ) {
 
-				/** @todo messy minion removal. */
-				e.hp -= dt;
-				if ( e.hp < -5 ) {
-					this._allies.splice(i,1);
+			if ( i > 0 ) {
+				// non-player allies.
+				if ( e.alive === false ) {
+
+					/** @todo messy minion removal. */
+					e.hp -= dt;
+					if ( e.hp < -5 ) {
+						this._allies.splice(i,1);
+					}
+					continue;
+
 				}
-				continue;
-
+				e.update(dt);
 			}
 
-			if ( e !==this.player) e.update(dt);
 			action = e.combat(dt);
 			if ( !action ) continue;
 
@@ -395,7 +396,7 @@ export default class Combat {
 	}
 
 	/**
-	 * Reenter same dungeon.
+	 * Reenter a dungeon.
 	 */
 	reenter() {
 

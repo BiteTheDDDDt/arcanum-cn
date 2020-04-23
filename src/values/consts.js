@@ -42,7 +42,6 @@ export const TASK = 'task';
 const DUNGEON = 'dungeon';
 const LOCALE = 'locale';
 const EXPLORE = 'explore';
-const RAID = 'raid';
 
 /**
  * @const {number} TEAM_PLAYER - team constant for allies.
@@ -61,7 +60,7 @@ export const TEAM_NPC = 0;
  */
 export const TEAM_ALL = 2;
 
-export { RAID, DUNGEON, EXPLORE, LOCALE };
+export { DUNGEON, EXPLORE, LOCALE };
 export { HOME, RESOURCE, NPC, SKILL, ACTION, ENCOUNTER, WEARABLE, MONSTER, ARMOR, WEAPON, PURSUITS, EVENT };
 
 /**

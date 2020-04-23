@@ -20,7 +20,7 @@ export default {
 
 		allies() { return this.minions.allies;},
 
-		inRaid() { return Game.state.raid.running },
+		inExplore() { return Game.state.explore.running },
 
 		/*items(){ return this.minions.filter( v=>v.value>=1 ); },*/
 
@@ -79,7 +79,7 @@ export default {
 
 	<filterbox v-model="filtered" :items="this.minions.items" min-items="10" />
 
-	<div v-if="inRaid" class="warn-text">Cannot change active minions while adventuring</div>
+	<div v-if="inExplore" class="warn-text">Cannot change active minions while adventuring</div>
 	<div class="minion-title">
 		<span>Total Minions: {{ minions.count + ' / ' + Math.floor(minions.max) }}</span>
 		<span>Allies Power: {{ Math.floor(allies.used) + ' / ' + Math.floor( allies.max.value ) }}</span></div>
@@ -96,8 +96,8 @@ export default {
 
 			</td>
 			<td v-else>
-				<button v-if="b.active" @click="toggleActive(b)" :disabled="inRaid">Rest</button>
-				<button v-else @click="toggleActive(b)" :disabled="inRaid||!allies.canAdd(b)">Activate</button>
+				<button v-if="b.active" @click="toggleActive(b)" :disabled="inExplore">Rest</button>
+				<button v-else @click="toggleActive(b)" :disabled="inExplore||!allies.canAdd(b)">Activate</button>
 			</td>
 			<td v-if="!b.alive">
 				<!-- note this is a separate section from the one above -->

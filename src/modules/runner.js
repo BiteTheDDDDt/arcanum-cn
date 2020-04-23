@@ -323,7 +323,7 @@ export default class Runner {
 	 * @param {*}
 	 */
 	baseTask(a) {
-		return ( a.type === RAID || a.type === EXPLORE ) ? a.locale : a;
+		return ( a.type === EXPLORE ) ? a.locale : a;
 	}
 
 	/**

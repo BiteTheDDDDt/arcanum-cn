@@ -1,5 +1,4 @@
 import Inventory from './inventories/inventory';
-import Raid from './composites/raid';
 import GData from './items/gdata';
 import Equip from './chars/equip';
 import Minions from './inventories/minions';
@@ -44,7 +43,6 @@ export default class GameState {
 			bars:this.bars,
 			slots:slotIds,
 			equip:this.equip,
-			raid:this.raid,
 			combat:this.combat,
 			drops:this.drops,
 			explore:this.explore,
@@ -110,8 +108,7 @@ export default class GameState {
 
 		this.initStats();
 
-		this.raid = new Raid( baseData.raid );
-		this.combat = new Combat( baseData.combat || this.raid.combat );
+		this.combat = new Combat( baseData.combat );
 		this.explore = new Explore( baseData.explore );
 
 		this.runner = this.items.runner = new Runner( this.items.runner );
@@ -217,7 +214,7 @@ export default class GameState {
 
 		this.minions.revive(this);
 		this.drops.revive(this);
-		this.raid.revive( this );
+
 		this.combat.revive(this);
 		this.explore.revive(this);
 
@@ -229,7 +226,7 @@ export default class GameState {
 	 */
 	reviveItems() {
 
-		var manualRevive = new Set( ['minions', 'player', 'raid', 'explore', 'equip', 'drops'] );
+		var manualRevive = new Set( ['minions', 'player', 'explore', 'equip', 'drops'] );
 
 		let count = 0;
 		for( let p in this.items ) {

@@ -1,7 +1,7 @@
 import Events, { ENEMY_SLAIN, TASK_DONE, CHAR_DIED, DEFEATED, TASK_BLOCKED, EVT_COMBAT } from '../events';
 import { assign } from 'objecty';
 import Game from '../game';
-import { RAID, TYP_PCT, getDelay } from '../values/consts';
+import { TYP_PCT, getDelay } from '../values/consts';
 
 
 /**
@@ -9,7 +9,7 @@ import { RAID, TYP_PCT, getDelay } from '../values/consts';
  */
 export default class Raid {
 
-	get id() { return RAID;}
+	get id() { return 'raid';}
 
 	toJSON() {
 

@@ -106,35 +106,10 @@ export class Locale extends Task {
 	}
 
 	/**
-	 * Get next/random encounter.
-	 * @returns {Encounter|Npc[]||null}
+	 * Get next group of enemies, or next Encounter.
+	 * @returns {Encounter|Npc[]|null}
 	 */
 	getEncounter() {
-
-		let dat;
-
-		if ( this.hasBoss( this.boss, this.exp ) ) dat = this.getBoss( this.boss );
-		else {
-
-			let dat = this._encs[ Math.floor( Math.random()*this._encs.length )  ];
-
-		}
-
-		if ( typeof dat === 'string') {
-
-		} else if ( Array.isArray(dat) ) {
-		} else if ( typeof dat === 'object') {
-		}
-
-		return dat;
-
-	}
-
-	/**
-	 * Get next group of enemies.
-	 * @returns {Npc[]|null}
-	 */
-	getSpawn() {
 
 		let spawn = null;
 
@@ -144,9 +119,7 @@ export class Locale extends Task {
 			if ( spawn !== null && spawn.length > 0 ) return spawn;
 		}
 
-		spawn = this.spawns.random( this.percent()/100 );
-
-		return spawn;
+		return this.spawns.random( this.percent()/100 );
 
 	}
 
@@ -173,7 +146,7 @@ export class Locale extends Task {
 	/**
 	 * Instantiates a boss Npc.
 	 * @param {string|string[]|object} boss
-	 * @returns {Npc[]|null}
+	 * @returns {Npc[]|Explore|null}
 	 */
 	getBoss( boss ) {
 

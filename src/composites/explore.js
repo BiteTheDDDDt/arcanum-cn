@@ -1,4 +1,4 @@
-import Events, { DEFEATED, TASK_DONE, ENC_START, TASK_BLOCKED, ENEMY_SLAIN, CHAR_DIED, EVT_COMBAT, COMBAT_WON } from "../events";
+import Events, { DEFEATED, TASK_DONE, ENC_START, TASK_BLOCKED, ENEMY_SLAIN, CHAR_DIED, EVT_COMBAT } from "../events";
 import { assign } from 'objecty';
 import Game from '../game';
 import { EXPLORE, getDelay, TYP_PCT } from "../values/consts";
@@ -69,16 +69,25 @@ export default class Explore {
 	 */
 	canRun(g) { return this.locale && !this.player.defeated() && this.locale.canRun(g); }
 
+	/**
+	 * @property {object} effect - might be used by runner to apply effect?
+	 */
 	get effect() { return this.locale ? this.locale.effect : null; }
 	set effect(v){}
 
-	get encs() { return this.locale ? this.locale.encs : null; }
+	/**
+	 * @property {}
+	 */
+	//get encs() { return this.locale ? this.locale.encs : null; }
 
 	/**
 	 * @property {number} length - length of locale in progress.
 	 */
 	get length() { return this.locale ? this.locale.length : 0; }
 
+	/**
+	 * @property {Encounter|Combat} enc - current encounter, or combat.
+	 */
 	get enc() { return this._enc; }
 	set enc(v) { this._enc = v; }
 
@@ -128,8 +137,8 @@ export default class Explore {
 		this.spelllist = gs.getData('spelllist');
 
 		Events.add( ENEMY_SLAIN, this.enemyDied, this );
-		Events.add( COMBAT_WON, this.nextEnc, this );
 		Events.add( CHAR_DIED, this.charDied, this );
+		//Events.add( COMBAT_WON, this.nextEnc, this );
 
 		if ( typeof this.locale === 'string') {
 			let loc = gs.getData(this.locale);
@@ -138,13 +147,7 @@ export default class Explore {
 		}
 
 		if ( this._enc ) {
-
-			if ( typeof this._enc === 'string' ) this.enc = gs.getData(this._enc);
-			else {
-				/** @compat */
-				this.enc = gs.getData( this.enc.id );
-			}
-
+			this.enc = gs.getData(this._enc);
 		}
 
 		this.drops = gs.drops;
@@ -152,29 +155,35 @@ export default class Explore {
 
 	}
 
-	runWith( d ) {
+	/**
+	 *
+	 * @param {Locale} locale - locale to explore.
+	 */
+	runWith( locale ) {
 
 		this.player.timer = getDelay( this.player.speed );
 
-		if ( d != null ) {
+		if ( locale != null ) {
 
-			if ( d != this.locale ) {
+			if ( locale != this.locale ) {
 				this.enc = null;
 				this.combat.begin();
+				locale.exp = 0;
 
 			} else {
 				this.combat.reenter();
 			}
+
 			this.combat.active = true;
 
-			if ( d.exp >= d.length ) {
-				d.exp = 0;
+			if ( locale.exp >= locale.length ) {
+				locale.exp = 0;
 			}
 		}
 
-		if ( this.combat.done ) this.nextEnc();
+		if ( this.enc.done ) this.nextEnc();
 
-		this.locale = d;
+		this.locale = locale;
 
 	}
 
@@ -197,39 +206,15 @@ export default class Explore {
 			this.locale && this.player.level>this.locale.level && this.player.retreat>0 );
 	}
 
-	/**
-	 * try casting spell from player spelllist.
-	*/
-	tryCast(){
-
-		if ( !this.spelllist.canUse(Game) ) return false;
-		return this.spelllist.onUse(Game);
-
-	}
-
 	update(dt) {
 
 		if ( this.locale == null || this.done ) return;
 
-		/*TODO TODO TODO if ( this._combat.done ) {
-			this.advance();
-			if ( !this.done ) this.nextEnc();
-		} else this._combat.update(dt);*/
-
 		if ( !this.enc ) this.nextEnc();
 		else {
 
-			this.player.timer -= dt;
-			if ( this.player.timer <= 0 ) {
-
-				this.player.timer += getDelay( this.player.speed )
-
-				// attempt to use cast spell first.
-				if ( this.spelllist.count > 0 ) {
-					this.tryCast();
-				}
-
-			}
+			//@todo TODO: hacky.
+			if ( enc.type === ENCOUNTER ) this.player.explore(dt);
 
 			this.enc.update( dt );
 			if ( this.player.defeated() ) {
@@ -240,7 +225,7 @@ export default class Explore {
 			} else if ( this.enc.done ) {
 
 				this.encDone( this.enc );
-				this.advance();
+				this.exp += 1;
 
 			}
 		}
@@ -259,19 +244,25 @@ export default class Explore {
 		this.player.timer = getDelay( this.player.speed );
 		var e = this.locale.getEncounter();
 
-		if ( typeof e === 'string') {
+		if ( e !== null ) {
 
-			var it = this.state.getData(e);
+			if ( e.type === ENCOUNTER ) {
 
-			if ( it ){
-
-				Events.emit( ENC_START, it.name, it.desc );
+				this.enc = e;
 				this._enc = it;
 				it.exp = 0;
 
-			} else console.warn('MISSING ENCOUNTER: ' + e );
+				Events.emit( ENC_START, it.name, it.desc );
+
+			} else {
+
+				// Combat Encounter.
+				this.enc = this.combat;
+
+			}
 
 		}
+
 
 	}
 
@@ -288,7 +279,7 @@ export default class Explore {
 		enc.value++;
 
 		if ( enc.result ) Game.applyVars( enc.result );
-		if ( enc.loot ) Game.getLoot( enc.loot, Game.state.drops );
+		if ( enc.loot ) Game.getLoot( enc.loot, this.drops );
 
 		enc.exp = 0;
 		this.enc = null;
@@ -313,13 +304,6 @@ export default class Explore {
 		if ( enemy.loot ) Game.getLoot( enemy.loot, this.drops );
 		else Game.getLoot( {maxlevel:enemy.level, [TYP_PCT]:30}, this.drops );
 
-	}
-
-	/**
-	 * advance locale progress.
-	 */
-	advance() {
-		this.exp += 1;
 	}
 
 	complete() {

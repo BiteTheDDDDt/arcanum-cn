@@ -387,6 +387,23 @@ export default class Player extends Char {
 	}
 
 	/**
+	 * Explore player action.
+	 * @param {*} dt
+	 */
+	explore(dt) {
+
+		this.timer -= dt;
+		if ( this.timer <= 0 ) {
+
+			this.timer += getDelay( this.speed );
+
+			// attempt to use cast spell first.
+			this.tryCast();
+		}
+
+	}
+
+	/**
 	 * Get combat action.
 	 * @param {*} dt
 	 */

@@ -16,8 +16,6 @@ export class NpcState {
 
 	}
 
-	get raid(){return this.state.raid;}
-
 	//get player(){return this.self; }
 
 	nextId(id){
@@ -53,7 +51,7 @@ export class NpcState {
 	getData( p ){
 
 		// appears to be check for special variables defined on state directly;
-		// e.g. raid, explore. @todo many issues with this.
+		// e.g. explore. @todo many issues with this.
 		if ( p === 'self' ) {
 			return this.self;
 		} else if ( this.state[p] ) return this.state[p];

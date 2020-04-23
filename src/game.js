@@ -401,7 +401,6 @@ export default {
 				}
 
 				if ( it.running ) this.runner.stopTask(it);
-				if ( it == this.state.raid.dungeon ) this.state.raid.setDungeon(null);
 
 				if ( it instanceof Resource || it instanceof Skill ) {
 					this.remove( it, it.value);
