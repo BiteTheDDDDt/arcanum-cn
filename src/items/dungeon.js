@@ -71,12 +71,12 @@ export default class Dungeon extends Task {
 	 */
 	getSpawn() {
 
-		let spawn;
+		let spawn = null;
 
 		if ( this.hasBoss( this.boss, this.exp ) ) spawn = this.getBoss( this.boss );
 		if ( spawn == null ) spawn = this.spawns.random( this.percent()/100 );
 
-		return null;
+		return spawn;
 
 	}
 
