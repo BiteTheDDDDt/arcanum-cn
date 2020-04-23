@@ -26,8 +26,10 @@ export class SpawnParams {
 	 */
 	constructor( vars ){
 
-		this.level = vars.level;
-		this.range = vars.range;
+		if ( vars ) {
+			this.level = vars.level;
+			this.range = vars.range;
+		} else console.warn('NO SPAWN PARAMS: ' + vars );
 
 	}
 
