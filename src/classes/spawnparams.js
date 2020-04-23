@@ -39,7 +39,7 @@ export class SpawnParams {
 	 * @returns {Npc|null}
 	 */
 	instantiate(pct=0) {
-		return Game.itemGen.randEnemy( e, null, pct );
+		return Game.itemGen.randEnemy( this, null, pct );
 	}
 
 	/**
@@ -50,7 +50,7 @@ export class SpawnParams {
 	random( pct=0 ) {
 
 		// generate enemy from parameters.
-		return Game.itemGen.randEnemy( e, null, pct );
+		return Game.itemGen.randEnemy( this, null, pct );
 
 	}
 
