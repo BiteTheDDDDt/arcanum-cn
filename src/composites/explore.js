@@ -176,14 +176,13 @@ export default class Explore {
 
 			} else {
 				this.combat.reenter();
+				if ( this.enc && this.enc.done ) this.nextEnc();
 			}
 
 			if ( locale.exp >= locale.length ) {
 				locale.exp = 0;
 			}
 		}
-
-		if ( this.enc.done ) this.nextEnc();
 
 		this.locale = locale;
 
@@ -216,7 +215,7 @@ export default class Explore {
 		else {
 
 			//@todo TODO: hacky.
-			if ( enc.type === ENCOUNTER ) this.player.explore(dt);
+			if ( this.enc.type === ENCOUNTER ) this.player.explore(dt);
 
 			this.enc.update( dt );
 			if ( this.player.defeated() ) {
