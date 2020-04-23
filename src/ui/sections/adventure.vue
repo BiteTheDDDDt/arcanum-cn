@@ -97,9 +97,9 @@ export default {
 
 		},
 
-		explore() { return this.state.raid.running ? this.state.raid : this.state.explore; },
+		explore() { return this.state.explore; },
 
-		exploring() { return this.explore && this.explore.running; },
+		exploring() { this.explore.running; },
 
 		/**
 		 * Only sort once.

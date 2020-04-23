@@ -4,6 +4,7 @@ import Game from '../../game';
 import Combat from './combat.vue';
 import ProgBar from '../components/progbar.vue';
 
+import { ENCOUNTER } from '../../values/consts';
 import {HALT_TASK} from '../../events';
 
 export default {
@@ -14,6 +15,7 @@ export default {
 		progbar:ProgBar
 	},
 	created(){
+		this.ENCOUNTER = ENCOUNTER;
 		this.HALT_TASK = HALT_TASK;
 	},
 	methods:{
@@ -78,7 +80,7 @@ export default {
 
 		<span class="bar"><progbar :value="explore.exp.valueOf()" :max="Number(explore.length)" /></span>
 
-		<template v-if="type==='raid'">
+		<template v-if="enc.type !== ENCOUNTER">
 			<combat :combat="explore.combat" />
 		</template>
 		<template v-else>

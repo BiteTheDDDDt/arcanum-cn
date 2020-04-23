@@ -1,9 +1,9 @@
-import Events, { DEFEATED, TASK_DONE, ENC_START, TASK_BLOCKED, ENEMY_SLAIN, CHAR_DIED, EVT_COMBAT } from "../events";
+import Events, { DEFEATED, TASK_DONE, ENC_START, TASK_BLOCKED, ENEMY_SLAIN, CHAR_DIED, EVT_COMBAT, COMBAT_WON } from "../events";
 import { assign } from 'objecty';
 import Game from '../game';
 import { EXPLORE, getDelay, TYP_PCT } from "../values/consts";
 import Encounter from "../items/encounter";
-import Locale from "../items/locale";
+import { Locale } from "../items/locale";
 
 /**
  * Controls locale exploration.
@@ -128,12 +128,13 @@ export default class Explore {
 		this.spelllist = gs.getData('spelllist');
 
 		Events.add( ENEMY_SLAIN, this.enemyDied, this );
+		Events.add( COMBAT_WON, this.nextEnc, this );
 		Events.add( CHAR_DIED, this.charDied, this );
 
 		if ( typeof this.locale === 'string') {
 			let loc = gs.getData(this.locale);
 			// possible with save of deleted Locales.
-			if ( !loc || !( loc instanceof Locale ) ) this.locale = null;
+			if ( !( loc instanceof Locale ) ) this.locale = null;
 		}
 
 		if ( this._enc ) {

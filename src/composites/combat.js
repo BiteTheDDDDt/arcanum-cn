@@ -2,7 +2,7 @@ import { assign } from 'objecty';
 
 import Events, {
 	EVT_COMBAT, ENEMY_SLAIN, ALLY_DIED,
-	DAMAGE_MISS, CHAR_DIED, STATE_BLOCK, CHAR_ACTION
+	DAMAGE_MISS, CHAR_DIED, STATE_BLOCK, CHAR_ACTION, COMBAT_WON
 } from '../events';
 
 import { itemRevive } from '../modules/itemgen';
@@ -166,7 +166,13 @@ export default class Combat {
 
 			e = this._enemies[i];
 			e.update(dt);
-			if ( e.alive === false ) { this._enemies.splice(i,1); continue;}
+
+			if ( e.alive === false ) {
+				this._enemies.splice(i,1);
+				if ( this._enemies.length === 0 ) Events.emit( COMBAT_WON );
+				continue;
+			}
+
 			action = e.combat(dt);
 			if ( !action ) continue;
 
@@ -175,6 +181,7 @@ export default class Combat {
 			} else this.attack( e, action );
 
 		}
+
 
 	}
 

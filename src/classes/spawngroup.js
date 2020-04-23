@@ -1,21 +1,20 @@
 import { CreateNpc } from "../items/monster";
+import { ENCOUNTER } from "../values/consts";
 
 /**
  * Create Npc from string or SpawnInfo object.
  * @param {string} e
  * @param {number} [pct=1]
- * @returns {Npc|null}
+ * @returns {Encounter|Npc|null}
  */
-const MakeNpc = ( e ) => {
+const MakeSpawn = ( e ) => {
 
 	e = Game.getData(e);
-	if ( Game.state.hasUnique(e)) return null;
+	if ( !e || Game.state.hasUnique(e) || ( e.locked || e.disabled || e.locks>0 )) return null;
 
-	if ( e ) {
-		if ( !( e.locked || e.disabled || e.locks>0 ) ) return CreateNpc(e, Game);
-	}
+	if ( e.type === ENCOUNTER ) return e;
 
-	return null;
+	return CreateNpc(e, Game);
 
 }
 
@@ -28,11 +27,11 @@ export default class SpawnGroup {
 	set weight(v){ this._weight=v; }
 
 	/**
-	 * @property {string[]} spawns
+	 * @property {string|string[]} spawns
 	 */
 	get spawns(){return this._spawns;}
 	set spawns(v){
-		if ( typeof v === 'string') this._spawns = v.split(',');
+		if ( typeof v === 'string' && v.includes(',') ) this._spawns = v.split(',');
 		else this._spawns = v;
 	}
 
@@ -63,20 +62,34 @@ export default class SpawnGroup {
 	 * Create npcs from group parameters.
 	 * @note this could probably be done before raid call.
 	 * @param {number} pct - percent of the way through dungeon.
-	 * @returns {Npc[]} instantiated npcs from group.
+	 * @returns {Npc[]|Encounter} instantiated npcs from group.
 	 */
 	instantiate( pct=0 ){
 
-		var a = [];
+		var e;
 
-		for ( let i = 0; i < this.spawns.length; i++ ) {
+		if ( typeof this.spawns === 'string') {
 
-			var e = MakeNpc( this.spawns[i], pct );
-			if ( e ) a.push(e);
+			e = MakeSpawn( this.spawns, pct );
+			if ( e === null ) return null;
+			else if ( e.type === ENCOUNTER ) return e;
+			return [e];
+
+		} else {
+
+			let a = [];
+
+			for ( let i = 0; i < this.spawns.length; i++ ) {
+
+				e = MakeSpawn( this.spawns[i], pct );
+				if ( e ) a.push(e);
+
+			}
+
+			return a.length > 0 ? a : null;
 
 		}
 
-		return a;
 
 	}
 

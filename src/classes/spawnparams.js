@@ -1,10 +1,17 @@
 import Game from "../game";
+import { ENCOUNTER } from "../values/consts";
 
 /**
  * @class SpawnParams
  * Object describing the parameters of a random spawn.
  */
 export class SpawnParams {
+
+	/**
+	 * @property {string} type - object to spawn, NPC or ENCOUNTER.
+	 */
+	get type(){return this._type}
+	set type(v){this._type =v}
 
 	/**
 	 * @property {Range} level - level range of the spawn from start of Dungeon to end.
@@ -36,21 +43,22 @@ export class SpawnParams {
 	/**
 	 * Allows potential recursive stacking of spawn groups.
 	 * @param {} pct
-	 * @returns {Npc|null}
+	 * @returns {Npc|Encounter|null}
 	 */
 	instantiate(pct=0) {
-		return [ Game.itemGen.randEnemy( this, null, pct ) ];
+		if ( this.type !== ENCOUNTER ) return [ Game.itemGen.randEnemy( this, null, pct ) ];
+		return Game.itemGen.randEncounter( this, null, pct );
 	}
 
 	/**
 	 *
 	 * @param {number} pct - 1 based percent. progress through dungeon.
-	 * @returns {Npc|null}
+	 * @returns {Npc|Encounter|null}
 	 */
 	random( pct=0 ) {
 
-		// generate enemy from parameters.
-		return [ Game.itemGen.randEnemy( this, null, pct ) ];
+		if ( this.type !== ENCOUNTER ) return [ Game.itemGen.randEnemy( this, null, pct ) ];
+		return Game.itemGen.randEncounter( this, null, pct );
 
 	}
 

@@ -53,7 +53,7 @@ export default class Spawns {
 	random( pct=0 ) {
 
 		let grp = this.randGroup();
-		if ( grp === null ) return;
+		if ( grp === null ) return null;
 
 		return grp.instantiate(pct);
 

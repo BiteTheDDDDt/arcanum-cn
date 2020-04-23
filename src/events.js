@@ -28,7 +28,7 @@ export const COMBAT_HIT = 'char_hit';
 const EVT_EVENT = 'event';
 const EVT_UNLOCK = 'unlock';
 const EVT_LOOT = 'loot';
-const EVT_DISABLED = 'disabled';
+//const EVT_DISABLED = 'disabled';
 
 const LOG_EVENT = 1;
 const LOG_UNLOCK = 2;
@@ -61,12 +61,16 @@ export const DROP_ITEM = 'dropitem';
 /**
  * Any character died by damage.
  */
-const CHAR_DIED = 'char_died';
+export const CHAR_DIED = 'char_died';
 
-const ALLY_DIED = 'ally_died';
+export const ALLY_DIED = 'ally_died';
 
-const COMBAT_DONE = 'combat_done';
-const ENEMY_SLAIN = 'slain';
+/**
+ * @const {string} COMBAT_WON - all enemies slain in current combat.
+ */
+export const COMBAT_WON = 'combat_won';
+
+export const ENEMY_SLAIN = 'slain';
 
 /**
  * @const {string} CHAR_STATE - inform current char state.
@@ -164,10 +168,9 @@ export const TOGGLE = 'toggle';
 
 export { CHAR_TITLE, NEW_TITLE, LEVEL_UP, CHAR_NAME, CHAR_CLASS, CHAR_CHANGE };
 
-export { HALT_TASK, EVT_EVENT, EVT_UNLOCK, EVT_LOOT, TASK_DONE,
-	ALLY_DIED, CHAR_DIED, CHAR_ACTION, STOP_ALL, DELETE_ITEM,
+export { HALT_TASK, EVT_EVENT, EVT_UNLOCK, EVT_LOOT, TASK_DONE, CHAR_ACTION, STOP_ALL, DELETE_ITEM,
 	TASK_CHANGED, TASK_IMPROVED, TASK_BLOCKED,
-	DAMAGE_MISS, DEFEATED, ENEMY_SLAIN, COMBAT_DONE, ENC_START, ENC_DONE };
+	DAMAGE_MISS, DEFEATED, ENC_START, ENC_DONE };
 
 export default {
 

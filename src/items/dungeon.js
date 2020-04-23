@@ -1,8 +1,6 @@
 import Task from './task';
-import Game from '../game';
 import { getDist, distTest, levelTest } from './locale';
-import { mapNonNull } from '../util/array';
-import { DUNGEON, RAID } from '../values/consts';
+import { DUNGEON, EXPLORE } from '../values/consts';
 import { ParseSpawns } from '../classes/spawns';
 import SpawnGroup from '../classes/spawngroup';
 
@@ -53,7 +51,7 @@ export default class Dungeon extends Task {
 
 	}
 
-	get controller() {return RAID}
+	get controller() {return EXPLORE}
 
 	/**
 	 *
