@@ -103,7 +103,7 @@ export default class Explore {
 	get running(){ return this._running; }
 	set running(v) {
 		this._running = v;
-		this.combat.active = v && (this.enc === this.combat );
+		if ( this.combat ) this.combat.active = v && (this.enc === this.combat );
 
 	}
 

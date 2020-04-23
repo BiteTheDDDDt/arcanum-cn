@@ -63,9 +63,10 @@ export class Locale extends Task {
 	get boss(){ return this._boss; }
 	set boss(v) {
 
-		if ( typeof v === 'object' && !Array.isArray(v) ) {
+		if ( v === null ) this._boss = null;
+		else if ( typeof v === 'object' && !Array.isArray(v) ) {
 
-			for( let p of v ) {
+			for( let p in v ) {
 
 				v[p] = new SpawnGroup(v);
 			}

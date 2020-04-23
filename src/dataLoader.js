@@ -238,7 +238,7 @@ export default {
 
 		if ( lists.locales ) this.initItems( items, lists.locales, Locale );
 		if ( lists.dungeons ) {
-			this.initItems( items, lists.dungeons, Locale, null, DUNGEON );
+			inst.dungeons = this.initItems( items, lists.dungeons, Locale, null, DUNGEON );
 			inst.dungeons.forEach( v=>v.sym = v.sym || '⚔' );
 		}
 		if ( lists.spells ) this.initItems( items, lists.spells, Spell );
