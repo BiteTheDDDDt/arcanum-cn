@@ -1,6 +1,5 @@
 import SpawnGroup from "./spawngroup";
 import Game from "../game";
-import { CreateNpc } from "../items/monster";
 import { SpawnParams } from "./spawnparams";
 
 
@@ -14,23 +13,6 @@ export const ParseSpawns = ( spawnData ) => {
 		if ( Array.isArray(spawnData) ) return new Spawns( spawnData );
 		return new SpawnParams( spawnData );
 	}
-
-}
-
-/**
- * Create Npc from string or SpawnInfo object.
- * @param {string} e
- * @param {number} [pct=1]
- * @returns {Npc|null}
- */
-const MakeNpc = ( e, pct=1 ) => {
-
-	e = Game.getData(e);
-	if ( e ) {
-		if ( !( e.locked || e.disabled || e.locks>0 ) ) return CreateNpc(e, Game);
-	}
-
-	return null;
 
 }
 
@@ -66,24 +48,14 @@ export default class Spawns {
 	 * Get a random spawn group.
 	 * @note faster would be sorted groups and binary search.
 	 * @param {number} [pct=0] - 1-base percent. progress through dungeon.
-	 * @returns {SpawnGroup}
+	 * @returns {Npc[]|null}
 	 */
 	random( pct=0 ) {
 
 		let grp = this.randGroup();
 		if ( grp === null ) return;
 
-		let spawns = grp.spawns;
-		var a = [];
-
-		for ( let i = 0; i < spawns.length; i++ ) {
-
-			var e = MakeNpc( spawns[i], pct );
-			if ( e ) a.push(e);
-
-		}
-
-		return a;
+		return grp.instantiate(pct);
 
 	}
 

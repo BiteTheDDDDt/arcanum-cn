@@ -11,8 +11,8 @@ const defaults = {
 
 /**
  *
- * @param {*} proto
- * @param {*} g
+ * @param {object} proto
+ * @param {Game} g
  * @returns {Npc}
  */
 export const CreateNpc = (proto, g ) => {

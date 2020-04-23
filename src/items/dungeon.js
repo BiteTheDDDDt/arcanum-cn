@@ -4,6 +4,7 @@ import { getDist, distTest, levelTest } from './locale';
 import { mapNonNull } from '../util/array';
 import { DUNGEON, RAID } from '../values/consts';
 import { ParseSpawns } from '../classes/spawns';
+import SpawnGroup from '../classes/spawngroup';
 
 /**
  * @type {Object} Enemy
@@ -33,6 +34,23 @@ export default class Dungeon extends Task {
 	get spawns() { return this._spawns; }
 	set spawns(v) {
 		this._spawns = ParseSpawns(v);
+	}
+
+	/**
+	 * @property {SpawnGroup|Object.<number,SpawnGroup>} boss
+	 */
+	get boss(){ return this._boss; }
+	set boss(v) {
+
+		if ( typeof v === 'object' && !Array.isArray(v) ) {
+
+			for( let p of v ) {
+
+				v[p] = new SpawnGroup(v);
+			}
+
+		} else this._boss = new SpawnGroup(v);
+
 	}
 
 	get controller() {return RAID}
@@ -67,14 +85,19 @@ export default class Dungeon extends Task {
 
 	/**
 	 * Get next group of enemies.
-	 * @returns {?Npc[]}
+	 * @returns {Npc[]|null}
 	 */
 	getSpawn() {
 
 		let spawn = null;
 
-		if ( this.hasBoss( this.boss, this.exp ) ) spawn = this.getBoss( this.boss );
-		if ( spawn == null ) spawn = this.spawns.random( this.percent()/100 );
+		if ( this.hasBoss( this.boss, this.exp ) ) {
+			spawn = this.getBoss( this.boss );
+			// unique bosses might result in empty arrays.
+			if ( spawn !== null && spawn.length > 0 ) return spawn;
+		}
+
+		spawn = this.spawns.random( this.percent()/100 );
 
 		return spawn;
 
@@ -91,43 +114,36 @@ export default class Dungeon extends Task {
 		if ( !boss ) return false;
 
 		at = Math.floor(at + 1 );
-		if ( typeof boss === 'object' && !Array.isArray(boss) && boss.hasOwnProperty(at) ) {
-			return true;
+		if ( (boss instanceof SpawnGroup) ) {
+			// last enemy in dungeon.
+			return (at === this.length);
 		}
-		// last enemy in dungeon.
-		return (at === this.length);
+		return boss.hasOwnProperty(at);
 
 	}
 
 	/**
-	 *
+	 * Instantiates a boss Npc.
 	 * @param {string|string[]|object} boss
-	 * @returns {string|string[]|null}
+	 * @returns {Npc[]|null}
 	 */
 	getBoss( boss ) {
 
 		if ( !boss ) return null;
 
-		if ( typeof boss === 'string') {
+		if ( boss instanceof SpawnGroup ) {
 
-			if ( Game.state.hasUnique( boss ) ) return null;
-			return boss;
-
-		} else if ( Array.isArray(boss) ) {
-
-			var a = mapNonNull( boss, v=>{
-				return this.getBoss(v)
-			});
-			return a.length > 0 ? a : null;
+			return boss.instantiate();
 
 		} else {
 
 			let ind = Math.floor( this.exp + 1 );
 			if ( boss.hasOwnProperty( ind ) ) {
 				// mid-level boss
-				return this.getBoss( boss[ind] );
+				return boss[ind].instantiate();
 			}
 		}
+		return null;
 
 	}
 

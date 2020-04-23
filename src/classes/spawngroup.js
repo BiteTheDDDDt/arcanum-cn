@@ -1,3 +1,24 @@
+import { CreateNpc } from "../items/monster";
+
+/**
+ * Create Npc from string or SpawnInfo object.
+ * @param {string} e
+ * @param {number} [pct=1]
+ * @returns {Npc|null}
+ */
+const MakeNpc = ( e ) => {
+
+	e = Game.getData(e);
+	if ( Game.state.hasUnique(e)) return null;
+
+	if ( e ) {
+		if ( !( e.locked || e.disabled || e.locks>0 ) ) return CreateNpc(e, Game);
+	}
+
+	return null;
+
+}
+
 export default class SpawnGroup {
 
 	/**
@@ -44,7 +65,7 @@ export default class SpawnGroup {
 	 * @param {number} pct - percent of the way through dungeon.
 	 * @returns {Npc[]} instantiated npcs from group.
 	 */
-	/*instantiate( pct=0 ){
+	instantiate( pct=0 ){
 
 		var a = [];
 
@@ -57,7 +78,7 @@ export default class SpawnGroup {
 
 		return a;
 
-	}*/
+	}
 
 
 }
