@@ -70,10 +70,11 @@ export default class Player extends Char {
 		if ( this._titles == null ) this._titles = [];
 		return this._titles;
 	}
-	set titles(v){
-		this._titles = v;
-	}
+	set titles(v){ this._titles = v; }
 
+	/**
+	 * @property {} exp
+	 */
 	get exp(){ return this._exp; }
 	set exp(v) {
 
@@ -98,6 +99,9 @@ export default class Player extends Char {
 	get next() { return this._next; }
 	set next(v) { this._next = v;}
 
+	/**
+	 * @property {GData} hp - player hitpoints.
+	 */
 	get hp() { return this._hp; }
 	set hp(v) {
 
@@ -106,6 +110,9 @@ export default class Player extends Char {
 		else console.error('Invalid Hp: ' + v );
 	}
 
+	/**
+	 * @property {Stat} damage - bonus damage per attack.
+	 */
 	get damage(){ return this._damage; }
 	set damage(v) {
 		this._damage = v instanceof Stat ? v : new Stat(v)
@@ -126,9 +133,7 @@ export default class Player extends Char {
 	/**
 	 * @property {DataList<Wearable>} weapons - active weapons.
 	 */
-	get weapons(){
-		return this._weapons;
-	}
+	get weapons(){ return this._weapons; }
 	set weapons(v){
 
 		this._weapons = new DataList(v);

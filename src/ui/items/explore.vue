@@ -56,7 +56,6 @@ export default {
 		 */
 		inCombat(){
 
-			console.log('IN COMBAT? ' + ( this.enc ? (this.enc === this.explore.combat) : this.type === DUNGEON ) );
 			return this.enc ? (this.enc === this.explore.combat) : this.type === DUNGEON;
 
 		},

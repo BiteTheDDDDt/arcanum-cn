@@ -25,6 +25,9 @@ export default class Group {
 	get id() { return this._id; }
 	set id(v) { this._id = v;}
 
+	get name() {return this._name; }
+	set name(v) { this._name = v; }
+
 	/**
 	 * @property {Array} items
 	 */
@@ -61,9 +64,9 @@ export default class Group {
 	get type() { return this._type; }
 	set type(v) { this._type = v; }
 
-	get name() {return this._name; }
-	set name(v) { this._name = v; }
-
+	/**
+	 * @property {number} level
+	 */
 	get level() { return this._level; }
 	set level(v) { this._level = v; }
 
@@ -121,6 +124,11 @@ export default class Group {
 
 	}
 
+	/**
+	 *
+	 * @param {} g
+	 * @returns nothing
+	 */
 	onUse(g) {
 
 		let len = this.items.length;

@@ -67,7 +67,7 @@ export default class Spell extends Task {
 	set only(v){this._only = typeof v === 'string' ? v.split(',') : v;}
 
 	/**
-	 * @property {boolean} silent - spell can be cast silently.
+	 * @property {boolean} silent - spell can be cast while silenced.
 	 */
 	get silent(){return this._silent;}
 	set silent(v){this._silent = v;}

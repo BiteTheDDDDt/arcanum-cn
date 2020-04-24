@@ -23,6 +23,15 @@
 		}
 	},
 	{
+		"id":"enc_bookworm",
+		"name":"bookworm",
+		"desc":"A studious annelid to choose a home within a tome's pages.",
+		"effect":{
+			"bf":"1~2",
+			"lore.exp":3
+		}
+	},
+	{
 		"id":"mysticwater",
 		"name":"mystic waters",
 		"level":1,

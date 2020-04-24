@@ -3,12 +3,6 @@ import { MONSTER, TEAM_PLAYER } from "../values/consts";
 import Npc from "../chars/npc";
 import { NpcLoreLevels } from '../values/craftVars';
 
-const defaults = {
-
-	level:1
-
-};
-
 /**
  *
  * @param {object} proto
@@ -28,15 +22,13 @@ export const CreateNpc = (proto, g ) => {
 
 export default class Monster extends GData {
 
-	get defaults() { return defaults; }
-
 	/**
 	 * @property {true} isRecipe
 	 */
 	get isRecipe() {return true; }
 
 	/**
-	 * @returns {string}
+	 * @returns {object}
 	 */
 	toJSON() {
 		if ( this.value > 0 ) return { value:this.value};
@@ -53,6 +45,8 @@ export default class Monster extends GData {
 
 		this.type = MONSTER;
 
+		if ( !this.level ) this.level = 1;
+
 		this.hp = this.hp || (2*this.level);
 		this.speed = this.speed || this.level;
 		this.tohit = this.tohit || this.level;
@@ -65,7 +59,7 @@ export default class Monster extends GData {
 
 	/**
 	 *
-	 * @param {} g
+	 * @param {Game} g
 	 * @returns {boolean}
 	 */
 	canUse( g ){
@@ -79,6 +73,11 @@ export default class Monster extends GData {
 
 	}
 
+	/**
+	 *
+	 * @param {Game} g
+	 * @param {number} [count=1]
+	 */
 	amount( g, count=1 ) {
 
 		let minions = g.getData('minions');
@@ -89,8 +88,8 @@ export default class Monster extends GData {
 	/**
 	 *
 	 * @param {Game} g
-	 * @param {number} team
-	 * @param {boolean} keep
+	 * @param {number} [team=TEAM_PLAYER]
+	 * @param {boolean} [keep=false]
 	 */
 	onCreate( g, team = TEAM_PLAYER, keep=false ){
 

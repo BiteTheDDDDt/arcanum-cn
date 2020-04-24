@@ -1,5 +1,6 @@
 /**
  * @class MinData
+ * CURRENTLY UNUSED
  * Absolute minimum functionality to allow reference by id, tag checks, etc.
  */
 export default class MinData {

@@ -352,6 +352,7 @@ export default class GData {
 	/**
 	 * Process an actual change amount in data. This is after Stat Mods
 	 * have been applied to the base value.
+	 * @param {Game} g
 	 * @param {number} count - total change in value.
 	 */
 	changed( g, count) {

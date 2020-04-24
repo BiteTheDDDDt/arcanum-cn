@@ -95,7 +95,7 @@ export default class GameState {
 		this.inventory.removeDupes = true;
 
 		this.self = this.player;
-		this.drops = new Inventory();
+		this.drops = new Inventory( baseData.drops );
 
 		this.items[ENCHANTSLOTS] = new EnchantSlots( this.items[ENCHANTSLOTS] );
 

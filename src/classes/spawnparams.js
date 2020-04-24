@@ -46,9 +46,7 @@ export class SpawnParams {
 	 * @returns {Npc|Encounter|null}
 	 */
 	instantiate(pct=0) {
-		console.log('INSTANTIATE FROM SPAWN PARAMS');
-		if ( this.type !== ENCOUNTER ) return [ Game.itemGen.randEnemy( this, null, pct ) ];
-		return Game.itemGen.randEncounter( this, null, pct );
+		return this.random(pct);
 	}
 
 	/**
@@ -57,7 +55,6 @@ export class SpawnParams {
 	 * @returns {Npc|Encounter|null}
 	 */
 	random( pct=0 ) {
-		console.log('RANDOM FROM SPAWN PARAMS');
 		if ( this.type !== ENCOUNTER ) return [ Game.itemGen.randEnemy( this, null, pct ) ];
 		return Game.itemGen.randEncounter( this, null, pct );
 

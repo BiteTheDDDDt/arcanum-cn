@@ -85,6 +85,10 @@ export default class Combat {
 
 	}
 
+	/**
+	 *
+	 * @param {GameState} gs
+	 */
 	revive(gs) {
 
 		this.state = gs;
@@ -208,7 +212,7 @@ export default class Combat {
 			}
 			if ( it.action ) {
 
-				console.log('DO ACTION: ' + it.action );
+				console.log('ACTION: ' + it.action );
 				let target = this.getTarget( g.self, it.action.targets );
 
 				if (!target ) return;
