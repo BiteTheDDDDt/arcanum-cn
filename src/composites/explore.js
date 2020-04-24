@@ -174,11 +174,13 @@ export default class Explore {
 		if ( locale != null ) {
 
 			if ( locale != this.locale ) {
+				console.log('RESET COMBAT');
 				this.enc = null;
-				this.combat.begin();
+				this.combat.reset();
 				locale.exp = 0;
 
 			} else {
+				console.log('REENTER COMBAT');
 				this.combat.reenter();
 				if ( this.enc && this.enc.done ) this.nextEnc();
 			}
@@ -186,6 +188,12 @@ export default class Explore {
 			if ( locale.exp >= locale.length ) {
 				locale.exp = 0;
 			}
+
+		} else {
+
+			this.enc = null;
+			this.combat.reset();
+
 		}
 
 		this.locale = locale;
@@ -248,7 +256,6 @@ export default class Explore {
 
 			if ( e.type === ENCOUNTER ) {
 
-				console.log('SETTING ENCOUNTER: ' + e.name );
 				this.enc = e;
 
 				e.exp = 0;
@@ -284,10 +291,9 @@ export default class Explore {
 
 			if ( enc.result ) Game.applyVars( enc.result );
 			if ( enc.loot ) Game.getLoot( enc.loot, this.drops );
-			enc.exp = 0;
+			enc.exp = enc.length;
 
 		}
-
 		this.enc = null;
 
 	}

@@ -123,7 +123,7 @@ export default class Combat {
 
 		this._allies.unshift( this.player );
 
-		this.refreshTeamArrays();
+		this.resetTeamArrays();
 
 		Events.add( CHAR_ACTION, this.spellAction, this );
 		Events.add( CHAR_DIED, this.charDied, this );
@@ -366,7 +366,7 @@ export default class Combat {
 
 		}
 
-		this.refreshTeamArrays();
+		this.resetTeamArrays();
 		this.setTimers();
 
 	}
@@ -387,7 +387,7 @@ export default class Combat {
 
 	}
 
-	refreshTeamArrays() {
+	resetTeamArrays() {
 
 		this.teams[TEAM_PLAYER] = this.allies;
 		this.teams[TEAM_NPC] = this.enemies;
@@ -402,14 +402,14 @@ export default class Combat {
 
 		this.allies = this.state.minions.allies.toArray();
 		this.allies.unshift( this.player );
-		this.refreshTeamArrays();
+		this.resetTeamArrays();
 
 	}
 
 	/**
 	 * Begin new dungeon.
 	 */
-	begin() {
+	reset() {
 
 		this._enemies.splice(0, this.enemies.length);
 		this.reenter();

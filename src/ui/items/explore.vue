@@ -14,7 +14,11 @@ export default {
 		progbar:ProgBar
 	},
 	created(){
+
 		this.HALT_TASK = HALT_TASK;
+		// continue to display previous encounter until new encounter ready.
+		this.lastEnc = null;
+
 	},
 	methods:{
 
@@ -47,7 +51,12 @@ export default {
 		/**
 		 * @property {Encounter} enc - current encounter.
 		 */
-		enc() { return this.explore.enc; },
+		enc() {
+
+			if ( this.explore.enc ) this.lastEnc = this.explore.enc;
+			return this.lastEnc;
+
+		},
 
 		encDesc(){ return this.enc ? this.enc.desc : '&nbsp;';},
 
@@ -55,7 +64,8 @@ export default {
 			return this.enc ? this.enc.name : '&nbsp;';
 		},
 		encProg(){
-			return this.enc ? this.enc.exp.valueOf() : 0;
+			return this.enc ? this.enc.exp : 0;
+
 		},
 		encLen(){
 			return this.enc ? this.enc.length.valueOf() : 0;
