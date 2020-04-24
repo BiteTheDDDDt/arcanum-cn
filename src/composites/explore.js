@@ -174,13 +174,11 @@ export default class Explore {
 		if ( locale != null ) {
 
 			if ( locale != this.locale ) {
-				console.log('RESET COMBAT');
 				this.enc = null;
 				this.combat.reset();
 				locale.exp = 0;
 
 			} else {
-				console.log('REENTER COMBAT');
 				this.combat.reenter();
 				if ( this.enc && this.enc.done ) this.nextEnc();
 			}

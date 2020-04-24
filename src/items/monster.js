@@ -37,7 +37,7 @@ export default class Monster extends GData {
 
 	/**
 	 *
-	 * @param {*} vars
+	 * @param {object} [vars=null]
 	 */
 	constructor(vars=null) {
 

@@ -15,7 +15,7 @@ export default class RevStat extends Resource {
 
 	}
 
-	free(){return this.max - this.value; }
+	free(){ return this.max - this.value; }
 
 	empty(){ return this.value>=this.max.value; }
 
