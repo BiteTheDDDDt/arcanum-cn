@@ -59,7 +59,9 @@ export default class Explore {
 	/**
 	 * @returns {boolean}
 	 */
-	maxed() { return !this.locale || this.locale.maxed(); }
+	maxed() {
+		return !this.locale || this.locale.maxed();
+	}
 
 	/**
 	 * @returns {boolean}
@@ -152,6 +154,8 @@ export default class Explore {
 			let loc = gs.getData(this.locale);
 			// possible with save of deleted Locales.
 			if ( !( loc instanceof Locale ) ) this.locale = null;
+			else this.locale = loc;
+
 		} else this.locale = null;
 
 		if ( this._enc ) {
