@@ -1,4 +1,3 @@
-import GData from "./gdata";
 import Events, { EVT_EVENT } from "../events";
 import CharUpgrade from "./charupgrade";
 /**
@@ -28,7 +27,6 @@ export default class GClass extends CharUpgrade {
 		if ( !super.amount(g,amt) ) return false;
 
 		g.state.player.setClass( this.name );
-		if ( this.loot ) g.getLoot( this.loot );
 
 		this.locked = false;
 
