@@ -19,7 +19,7 @@ export default class CharUpgrade extends GData {
 	/**
 	 * @property {boolean} charlock - indicates upgrade locked to a single character.
 	 */
-	get charlock(){}
+	get charlock(){ return this._charlock }
 	set charlock(v){
 		this._charlock=v;
 	}
@@ -27,8 +27,8 @@ export default class CharUpgrade extends GData {
 	/**
 	 * @property {string} char - id of character bound to upgrade.
 	 */
-	get char(){}
-	set char(v){}
+	get char(){ return this._char }
+	set char(v){ this._char = v;}
 
 	constructor(vars=null){
 

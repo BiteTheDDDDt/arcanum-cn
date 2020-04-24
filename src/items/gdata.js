@@ -365,9 +365,7 @@ export default class GData {
 			this.timer = Number(this.cd );
 			g.addTimer( this );
 		}
-		if ( this.loot ) {
-			g.getLoot( this.loot );
-		}
+		if ( this.loot ) { g.getLoot( this.loot ); }
 
 		if ( this.title ) g.self.setTitle( this.title );
 		if ( this.result ) {
