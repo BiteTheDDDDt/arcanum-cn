@@ -236,10 +236,14 @@ export default {
 		if ( lists.states ) inst.states = this.initItems( items, lists['states'], State, 'state', 'state' );
 		if ( lists.reagents ) inst.reagents = this.initItems( items, lists['reagents'], Resource );
 
-		if ( lists.locales ) this.initItems( items, lists.locales, Locale );
+		if ( lists.locales ) {
+			this.initItems( items, lists.locales, Locale );
+			lists.locales.forEach( v=>v.sym = v.sym||'🌳');
+		}
+
 		if ( lists.dungeons ) {
-			inst.dungeons = this.initItems( items, lists.dungeons, Locale, null, DUNGEON );
-			inst.dungeons.forEach( v=>v.sym = v.sym || '⚔' );
+			this.initItems( items, lists.dungeons, Locale, null, DUNGEON );
+			lists.dungeons.forEach( v=>v.sym = v.sym || '⚔' );
 		}
 		if ( lists.spells ) this.initItems( items, lists.spells, Spell );
 

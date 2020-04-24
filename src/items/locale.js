@@ -98,8 +98,6 @@ export class Locale extends Task {
 
 		if ( !this.need ) this.need = distTest;
 
-		if (!this.sym) this.sym = '🌳';
-
 		//console.log(this.id + ' dist: ' + this.dist );
 
 	}

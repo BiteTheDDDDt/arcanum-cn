@@ -114,8 +114,6 @@ export default class Explore {
 	 */
 	get done() { return this.exp === this.length; }
 
-	get inCombat() { return ( this.enc === null && this.locale.type === DUNGEON )||( this.enc === this.combat ) }
-
 	/**
 	 *
 	 * @param {?Object} [vars=null]

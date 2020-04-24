@@ -5,6 +5,7 @@ import Combat from './combat.vue';
 import ProgBar from '../components/progbar.vue';
 
 import {HALT_TASK} from '../../events';
+import { DUNGEON } from '../../values/consts';
 
 export default {
 
@@ -18,6 +19,8 @@ export default {
 		this.HALT_TASK = HALT_TASK;
 		// continue to display previous encounter until new encounter ready.
 		this.lastEnc = null;
+		// whether last encounter was combat.
+		this.lastCombat = true;
 
 	},
 	methods:{
@@ -46,7 +49,17 @@ export default {
 		/**
 		 * @property {string} type - locale type
 		 */
-		type() { return this.explore.type; },
+		type() { return this.explore.locale.type; },
+
+		/**
+		 * @property {boolean} inCombat
+		 */
+		inCombat(){
+
+			console.log('IN COMBAT? ' + ( this.enc ? (this.enc === this.explore.combat) : this.type === DUNGEON ) );
+			return this.enc ? (this.enc === this.explore.combat) : this.type === DUNGEON;
+
+		},
 
 		/**
 		 * @property {Encounter} enc - current encounter.
@@ -88,7 +101,7 @@ export default {
 
 		<span class="bar"><progbar :value="explore.exp.valueOf()" :max="Number(explore.length)" /></span>
 
-		<template v-if="explore.inCombat">
+		<template v-if="inCombat">
 			<combat :combat="explore.combat" />
 		</template>
 		<template v-else>
