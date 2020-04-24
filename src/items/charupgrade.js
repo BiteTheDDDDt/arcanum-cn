@@ -47,7 +47,7 @@ export default class CharUpgrade extends GData {
 		if ( this.charlock && amt > 0 ) {
 			this.char = g.state.player.hid;
 		}
-		super.amount( g, amt );
+		return super.amount( g, amt );
 
 	}
 

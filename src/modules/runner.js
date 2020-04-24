@@ -4,7 +4,7 @@ import Events, {TASK_DONE, TASK_CHANGED, HALT_TASK, TASK_BLOCKED, STOP_ALL } fro
 import Stat from '../values/rvals/stat';
 import Base, {mergeClass} from '../items/base';
 import Runnable from '../composites/runnable';
-import { SKILL, REST_TAG, TYP_RUN, PURSUITS, RAID, EXPLORE } from '../values/consts';
+import { SKILL, REST_TAG, TYP_RUN, PURSUITS } from '../values/consts';
 import { assign } from 'objecty';
 import { iterableMap, iterableFind, setReplace, mapSet } from '../util/dataUtil';
 import ArraySet from '../values/arrayset';
@@ -104,6 +104,9 @@ export default class Runner {
 		return Math.floor( this.max.valueOf() ) - this.actives.size;
 	}
 
+	/**
+	 * @property {Stat} max
+	 */
 	get max() { return this._max; }
 	set max(v) {
 
@@ -167,6 +170,12 @@ export default class Runner {
 
 	}
 
+	/**
+	 *
+	 * @param {*} a
+	 * @param {*} gs
+	 * @param {boolean} [running=false]
+	 */
 	reviveTask( a, gs, running=false ) {
 
 		if (!a) return;
@@ -190,7 +199,7 @@ export default class Runner {
 	 * setTask of two items combined.
 	 * Before using an item and target, check if any existing Runnable matches.
 	 * If no match, create a Runnable.
-	 * @param {*} it
+	 * @param {GData} it
 	 * @param {*} targ
 	 */
 	beginUseOn( it, targ ) {
@@ -323,7 +332,7 @@ export default class Runner {
 	 * @param {*}
 	 */
 	baseTask(a) {
-		return ( a.type === EXPLORE ) ? a.locale : a;
+		return a.baseTask || a;
 	}
 
 	/**

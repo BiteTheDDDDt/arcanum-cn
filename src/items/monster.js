@@ -41,7 +41,7 @@ export default class Monster extends GData {
 	 */
 	constructor(vars=null) {
 
-		super(vars, defaults );
+		super(vars );
 
 		this.type = MONSTER;
 

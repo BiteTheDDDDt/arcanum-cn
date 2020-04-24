@@ -81,6 +81,9 @@ export default {
 
 	},
 
+	/**
+	 * @property {string} id
+	 */
 	get id() { return this._id; },
 	set id(v) { this._id = v;},
 
@@ -301,7 +304,7 @@ export default {
 	/**
 	 *
 	 * @param {Mod|Object} mods
-	 * @param {number} amt
+	 * @param {number} [amt=1]
 	 * @param {Object} [targ=null]
 	 */
 	applyMods( mods, amt=1, targ=this ) {
@@ -347,7 +350,7 @@ export default {
 	 * @param {Object} mod
 	 * @param {number} amt - percent of mod added.
 	 * @param {Object} targ - target of mods.
-	 * @param {boolean} isMod - whether target is subobject of a mod object.
+	 * @param {boolean} [isMod=false] - whether target is subobject of a mod object.
 	 */
 	applyObj( mods, amt, targ, isMod=false ) {
 
@@ -459,7 +462,7 @@ export default {
 	 * @param {Object} obj - parent object.
 	 * @param {string} key - prop key to set.
 	 * @param {Object} mod - modify amount.
-	 * @param {number} amt - times modifier applied.
+	 * @param {number} [amt=1] - times modifier applied.
 	 */
 	newSub( obj, key, mod, amt=1 ) {
 

@@ -19,9 +19,9 @@ export default class Enchant extends Task {
 		this._only = typeof v === 'string' ? v.split(',') : v;
 	}
 
-	get controller(){return ENCHANTSLOTS; }
+	get controller(){ return ENCHANTSLOTS; }
 
-	constructor(vars){
+	constructor( vars ){
 
 		super(vars);
 

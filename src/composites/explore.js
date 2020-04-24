@@ -1,7 +1,7 @@
 import Events, { DEFEATED, TASK_DONE, ENC_START, TASK_BLOCKED, ENEMY_SLAIN, CHAR_DIED, EVT_COMBAT } from "../events";
 import { assign } from 'objecty';
 import Game from '../game';
-import { EXPLORE, getDelay, TYP_PCT, ENCOUNTER, DUNGEON } from "../values/consts";
+import { EXPLORE, getDelay, TYP_PCT, ENCOUNTER } from "../values/consts";
 import Encounter from "../items/encounter";
 import { Locale } from "../items/locale";
 
@@ -48,6 +48,8 @@ export default class Explore {
 		if ( v >= this.locale.length ) this.complete();
 
 	}
+
+	get baseTask() { return this.locale }
 
 	/**
 	 * @returns {number}

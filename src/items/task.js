@@ -207,6 +207,7 @@ export default class Task extends GData {
 
 	/**
 	 * completion of ongoing task.
+	 * @param {Game} [g=Game]
 	 */
 	complete(g=Game) {
 
