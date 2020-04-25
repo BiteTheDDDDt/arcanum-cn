@@ -17,13 +17,13 @@ export default class Dot {
 
 		return {
 
-			id:this.id,
+			id:this._id,
 			kind:this.kind || undefined,
-			name:this.name || undefined,
+			name:this._name || undefined,
 			dmg:this.damage || undefined,
 			effect:this.effect||undefined,
 			level:this._level||undefined,
-			mod:this.mod||undefined,
+			mod:this._mod||undefined,
 			acc:this.acc||undefined,
 			state:this.state||undefined,
 			adj:this._adj||undefined,
@@ -55,9 +55,15 @@ export default class Dot {
 	get adj() { return this._adj || this._name || this._id; }
 	set adj(v) { this._adj = v; }
 
-	get dmg(){return this.damage;}
+	/**
+	 * @property {RValue} dmg - alias for damage.
+	 */
+	get dmg(){return this._damage;}
 	set dmg(v) { this.damage = v; }
 
+	/**
+	 * @property {RValue} damage
+	 */
 	get damage() { return this._damage; }
 	set damage(v) { this._damage = ParseDmg(v); }
 

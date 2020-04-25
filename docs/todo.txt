@@ -9,6 +9,8 @@ optional dot stacking
 
 GAME:
 
+data list of player defeat stat conditions.
+
 Better 'function' dmg descriptions.
 
 Spell unlocks by school type, not player level.
@@ -20,8 +22,6 @@ Alchemy&Potions
 Familiars
 
 Travel Component
-
-Storage max+upgrades
 
 ERRORS:
 

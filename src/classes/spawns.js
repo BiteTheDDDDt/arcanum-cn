@@ -71,7 +71,7 @@ export default class Spawns {
 		let len = this.groups.length;
 		for( let i =0; i < len; i++ ) {
 
-			tot += this.groups[i].weight;
+			tot += this.groups[i].w;
 			if ( p <= tot ) return this.groups[i];
 
 		}
@@ -95,7 +95,7 @@ export default class Spawns {
 
 			if ( !(g instanceof SpawnGroup)) g = list[i] = new SpawnGroup(g);
 
-			tot += g.weight;
+			tot += g.w;
 
 
 		}

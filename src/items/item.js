@@ -81,7 +81,7 @@ export default class Item {
 	set maxEnchants(v) { this._maxEnchants=v;}
 
 	/**
-	 * @property {boolean} consume - whether the item is consumed when used.
+	 * @property {boolean} consume - whether to consume the item on use.
 	 */
 	get consume() { return this._consume; }
 	set consume(v) { this._consume = v;}

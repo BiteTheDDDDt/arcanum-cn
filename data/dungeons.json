@@ -445,7 +445,7 @@
 			"giantspider",
 			"kobold",
 			{
-				"spawns":"jazid",
+				"ids":"jazid",
 				"weight":0.1
 			},
 			["lgspider","lgspider"],

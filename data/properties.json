@@ -3,7 +3,6 @@
 	{
 		"id":"prop_studious",
 		"name":"studious",
-		"weight": 1,
 		"priceMod": 30,
 		"level": 2,
 		"mod": {
@@ -14,7 +13,6 @@
 	{
 		"id":"prop_fire1",
 		"name":"warm",
-		"weight": 1,
 		"priceMod": 30,
 		"level": 2,
 		"mod": {
@@ -25,7 +23,6 @@
 	{
 		"id":"prop_water1",
 		"name":"aquatic",
-		"weight": 1,
 		"priceMod": 30,
 		"level": 2,
 		"mod": {
@@ -36,7 +33,6 @@
 	{
 		"id":"prop_air1",
 		"name":"whistling",
-		"weight": 1,
 		"priceMod": 30,
 		"level": 2,
 		"mod": {
@@ -47,7 +43,6 @@
 	{
 		"id":"prop_earth1",
 		"name":"earthy",
-		"weight": 1,
 		"priceMod": 30,
 		"level": 2,
 		"mod": {
@@ -58,7 +53,6 @@
 	{
 		"id":"prop_fire2",
 		"name":"fire",
-		"weight": 1,
 		"priceMod": 50,
 		"level": 5,
 		"mod": {
@@ -69,7 +63,6 @@
 	{
 		"id":"prop_water2",
 		"name":"brackish",
-		"weight": 1,
 		"priceMod": 50,
 		"level": 5,
 		"only":"rod",
@@ -82,7 +75,6 @@
 	{
 		"id":"prop_air2",
 		"name":"airy",
-		"weight": 1,
 		"priceMod": 50,
 		"level": 5,
 		"only":"rod",
@@ -94,7 +86,6 @@
 	{
 		"id":"prop_earth2",
 		"name":"earthy",
-		"weight": 1,
 		"priceMod": 50,
 		"level": 5,
 		"only":"rod",
@@ -107,7 +98,6 @@
 	{
 		"id":"prop_saintly",
 		"name":"saintly",
-		"weight": 1,
 		"priceMod": 100,
 		"level": 8,
 		"only":"greatstaff",

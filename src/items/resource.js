@@ -55,6 +55,7 @@ export default class Resource extends GData {
 
 	/**
 	 * @property {number} delta - last change in value.
+	 * currently unused. theoretical use for actual rate reporting.
 	 */
 	get delta() { return this._delta; }
 	set delta(v) { this._delta = v; }
@@ -101,7 +102,7 @@ export default class Resource extends GData {
 	}
 
 	/**
-	 * @returns {boolean} true if an unlocked item is at maximum value.
+	 * @returns {boolean} true if item at maximum value.
 	 */
 	maxed() {
 		return this.max ? (this.value >= this.max) : false;

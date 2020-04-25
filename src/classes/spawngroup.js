@@ -26,13 +26,13 @@ export default class SpawnGroup {
 
 	toJSON(){
 
-		if ( this._weight === 1 ) {
-			return this.spawns;
+		if ( this._w === 1 ) {
+			return this.ids;
 		} else {
 
 			return {
-				spawns:this.spawns,
-				weight:this._weight
+				ids:this.ids,
+				w:this._w
 			};
 
 		}
@@ -40,40 +40,41 @@ export default class SpawnGroup {
 	}
 
 	/**
-	 * @property {number} weight - arbitrary weight of this spawn group (any number)
+	 * @property {number} w - arbitrary weight of this spawn group (any number)
 	 */
-	get weight(){ return this._weight; }
-	set weight(v){ this._weight=v; }
+	get w(){ return this._w; }
+	set w(v){ this._w=v; }
 
 	/**
-	 * @property {string|string[]} spawns
+	 * @property {string|string[]} ids
 	 */
-	get spawns(){return this._spawns;}
-	set spawns(v){
-		if ( typeof v === 'string' && v.includes(',') ) this._spawns = v.split(',');
-		else this._spawns = v;
+	get ids(){return this._ids;}
+	set ids(v){
+		if ( typeof v === 'string' && v.includes(',') ) this._ids = v.split(',');
+		else this._ids = v;
 	}
 
 	/**
 	 *
 	 * @param {string|string[]|object} vars
 	 * @param {?number} vars.weight
+	 * @param {?number} vars.w
 	 * @param {?string[]} vars.spawns
 	 */
 	constructor( vars ){
 
 		if ( typeof vars === 'string' || Array.isArray(vars)){
 
-			this.spawns = vars;
+			this.ids = vars;
 
 		} else if ( typeof vars === 'object') {
 
-			this.spawns = vars.spawns;
-			this.weight = vars.weight;
+			this.ids = vars.ids;
+			this.w = vars.weight || vars.w;
 
 		}
 
-		if ( !this.weight ) this.weight = 1;
+		if ( !this.w ) this.w = 1;
 
 	}
 
@@ -87,11 +88,11 @@ export default class SpawnGroup {
 
 		let e;
 
-		if ( typeof this.spawns === 'string') {
+		if ( typeof this.ids === 'string') {
 
 			//console.log('TRY SPAWN: '  + this.spawns );
 
-			e = MakeSpawn( this.spawns, pct );
+			e = MakeSpawn( this.ids, pct );
 			if ( e === null ) return null;
 			else if ( e.type === ENCOUNTER ) return e;
 
@@ -101,9 +102,9 @@ export default class SpawnGroup {
 
 			let a = [];
 
-			for ( let i = 0; i < this.spawns.length; i++ ) {
+			for ( let i = 0; i < this.ids.length; i++ ) {
 
-				e = MakeSpawn( this.spawns[i], pct );
+				e = MakeSpawn( this.ids[i], pct );
 				if ( e ) a.push(e);
 
 			}

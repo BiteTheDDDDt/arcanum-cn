@@ -178,12 +178,14 @@ export default class Explore {
 				locale.exp = 0;
 
 			} else {
+
 				this.combat.reenter();
 				if ( this.enc && this.enc.done ) this.nextEnc();
-			}
 
-			if ( locale.exp >= locale.length ) {
-				locale.exp = 0;
+				if ( locale.exp >= locale.length ) {
+					locale.exp = 0;
+				}
+
 			}
 
 		} else {

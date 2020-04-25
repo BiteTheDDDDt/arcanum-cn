@@ -105,6 +105,9 @@ export default class GData {
 	get warnMsg(){return this._warnMsg; }
 	set warnMsg(v) { this._warnMsg = v; }
 
+	/**
+	 * @property {object} mod - mods applied by object.
+	 */
 	get mod(){return this._mod;}
 	set mod(v){this._mod=v;}
 
@@ -159,6 +162,10 @@ export default class GData {
 
 	}
 
+	/**
+	 * @property {Stat} val - value assignment from save data.
+	 * assigns value without triggering game events.
+	 */
 	get val() { return this.value; }
 	set val(v) { this.value = v; }
 
@@ -167,6 +174,7 @@ export default class GData {
 	/**
 	 *
 	 * @param {?Object} [vars=null]
+	 * @param {?defaults} [defaults=null]
 	 */
 	constructor( vars=null, defaults=null ){
 
