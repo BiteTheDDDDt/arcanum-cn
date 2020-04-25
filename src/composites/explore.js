@@ -13,7 +13,7 @@ export default class Explore {
 	/**
 	 * @property {string}
 	 */
-	get id() { return EXPLORE;}
+	get id() { return EXPLORE; }
 
 	toJSON() {
 

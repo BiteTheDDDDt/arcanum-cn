@@ -73,6 +73,11 @@
 		"locked":false
 	},
 	{
+		"id":"breath",
+		"val":5,
+		"unit":false
+	},
+	{
 		"id":"speed",
 		"desc":"Movement speed",
 		"val":1,

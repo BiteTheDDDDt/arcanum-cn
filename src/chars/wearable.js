@@ -53,7 +53,7 @@ export default class Wearable extends Item {
 	}
 
 	get damage() {
-		return this._attack ? this._attack.damage : undefined;
+		return this._attack ? this._attack.damage : 0;
 	}
 
 	get equippable() { return true; }
