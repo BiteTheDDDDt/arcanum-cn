@@ -14,6 +14,7 @@
 		"arcana":0.1,
 		"research":10
 	},
+	"boss":"manatree",
 	"loot":{
 		"scrolls":"1~4"
 	},

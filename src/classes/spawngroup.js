@@ -24,6 +24,21 @@ const MakeSpawn = ( e ) => {
 
 export default class SpawnGroup {
 
+	toJSON(){
+
+		if ( this._weight === 1 ) {
+			return this.spawns;
+		} else {
+
+			return {
+				spawns:this.spawns,
+				weight:this._weight
+			};
+
+		}
+
+	}
+
 	/**
 	 * @property {number} weight - arbitrary weight of this spawn group (any number)
 	 */
@@ -74,7 +89,7 @@ export default class SpawnGroup {
 
 		if ( typeof this.spawns === 'string') {
 
-			//console.log('create str: '  + this.spawns );
+			//console.log('TRY SPAWN: '  + this.spawns );
 
 			e = MakeSpawn( this.spawns, pct );
 			if ( e === null ) return null;

@@ -61,13 +61,15 @@ export class Locale extends Task {
 	get boss(){ return this._boss; }
 	set boss(v) {
 
-		if ( v === null ) this._boss = null;
-		else if ( typeof v === 'object' && !Array.isArray(v) ) {
+		if ( v === null || v instanceof SpawnGroup ) this._boss = v;
+		else if ( typeof v === 'object' && Array.isArray(v) ) {
 
 			for( let p in v ) {
 
+				if ( this.id === 'mustylibrary') console.log('BOSS SUB: ' + p );
 				v[p] = new SpawnGroup(v);
 			}
+			this._boss = v;
 
 		} else this._boss = new SpawnGroup(v);
 
@@ -113,7 +115,7 @@ export class Locale extends Task {
 		if ( this.hasBoss( this.boss, this.exp ) ) {
 			spawn = this.getBoss( this.boss );
 			// unique bosses might result in empty arrays.
-			if ( spawn !== null && spawn.length > 0 ) return spawn;
+			if ( spawn ) return spawn;
 		}
 
 		return this.spawns.random( this.percent()/100 );
@@ -129,14 +131,14 @@ export class Locale extends Task {
 	 */
 	hasBoss( boss, at ) {
 
-		if ( !boss ) return false;
+		if ( boss == null ) return false;
 
 		at = Math.floor(at + 1 );
 		if ( (boss instanceof SpawnGroup) ) {
 			// last enemy in dungeon.
-			return (at === this.length);
+			return ( at == this.length);
 		}
-		return boss.hasOwnProperty(at);
+		return boss.hasOwnProperty( at );
 
 	}
 

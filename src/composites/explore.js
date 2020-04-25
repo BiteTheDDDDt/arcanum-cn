@@ -80,11 +80,6 @@ export default class Explore {
 	set effect(v){}
 
 	/**
-	 * @property {}
-	 */
-	//get encs() { return this.locale ? this.locale.encs : null; }
-
-	/**
 	 * @property {number} length - length of locale in progress.
 	 */
 	get length() { return this.locale ? this.locale.length : 0; }

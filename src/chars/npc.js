@@ -3,8 +3,8 @@ import Range, { RangeTest } from '../values/range';
 import Percent, { PercentTest } from '../values/percent';
 import MaxStat from '../values/maxStat';
 import Attack from './attack';
-import { ParseDmg } from '../values/combatVars'
 import { TEAM_NPC } from 'values/consts';
+import { ParseDmg } from '../values/combatVars'
 import { mergeClass } from '../items/base';
 import Instance from '../items/instance';
 import Game from '../game';
@@ -96,6 +96,7 @@ export default class Npc extends Char {
 	}
 
 	/**
+	 * @property {object<string,Stat>} immune
 	 */
 	set immune(v){
 		this.immunities=v;

@@ -79,6 +79,9 @@ export default class Char {
 	get bonuses(){ return this._bonuses }
 	set bonuses(v){ this._bonuses = toStats(v); }
 
+	/**
+	 * @property {Attack} attack
+	 */
 	get attack() { return this._attack; }
 	set attack(v) {
 
@@ -142,20 +145,17 @@ export default class Char {
 	}
 
 	/**
-	 * @property {States} states - current states.
+	 * @property {States} states - current char states. (silenced, paralyzed, etc.)
 	 */
 	get states(){return this._states; }
 	set states(v) { this._states = new States(); }
 
 
 	get instanced() { return true; }
-	set instanced(v) {}
+	//set instanced(v) {}
 
 	get regen() { return this._regen; }
 	set regen(v) { this._regen = ( v instanceof Stat ) ? v : new Stat(v); }
-
-	/*get died() { return this._died; }
-	set died(v) { this._died = v; }*/
 
 	get alive() { return this.hp.value > 0; }
 
@@ -213,10 +213,10 @@ export default class Char {
 	}
 
 	/**
-	 * Use current states to map requested target
+	 * Use char state ( charmed, rage, etc ) to change the a default action target.
 	 * to new target type.
-	 * @param {?string} targ
-	 * @returns {string}
+	 * @param {?string} targ - type of target, ally, enemy, self etc.
+	 * @returns {string} - new target based on char state.
 	 */
 	retarget( targ ){
 		return this._states.retarget(targ);
