@@ -415,7 +415,7 @@ export default class GData {
 		else if ( this.id === 'jazid') console.log('JAZID UNLOCKED');*/
 
 		this.locked = false;
-		if ( this.show ) Events.emit( EVT_EVENT, this.show );
+		if ( this.start ) Events.emit( EVT_EVENT, this.start );
 		else Events.emit( EVT_UNLOCK, this );
 
 		Changed.add(this);

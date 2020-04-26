@@ -75,7 +75,10 @@
 	{
 		"id":"breath",
 		"val":5,
-		"unit":false
+		"unit":false,
+		"effect":{
+			"hp":"<0?-20"
+		}
 	},
 	{
 		"id":"speed",

@@ -91,7 +91,7 @@ export default {
 				if ( subPath === undefined ) continue;
 
 				if ( typeof sub !== 'object' ) this.infos.add(subPath, sub, subRate, subItem );
-				else if ( typeof sub !== 'function ' ) {
+				else if ( typeof sub !== 'function' ) {
 
 					if ( sub.skipLocked ) {
 

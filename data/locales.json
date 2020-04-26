@@ -262,7 +262,7 @@
 	"id":"loc_orrem",
 	"name":"sands of orrem",
 	"require":"g.history>=7&&g.scrying>=5",
-	"show":{
+	"start":{
 		"name":"Cities of Orrem",
 		"desc":"A vision in a crystal orb reveals to you the ruins of the lost cities of Orrem."
 	},
@@ -291,6 +291,11 @@
 		"enc_chest3",
 		"enc_orremtrade"
 	]
+},
+{
+	"id":"loc_ettinmoors",
+	"name":"ettinmoors",
+	"require":"g.player.level>=9999"
 },
 {
 	"id":"loc_menagerie",

@@ -57,7 +57,7 @@
 		"id":"pestcontrol",
 		"name":"Leaky Cellar",
 		"require":"g.player.level>0&&(g.apprentice.value>0||g.neophyte.value>0)",
-		"show":{
+		"start":{
 
 			"name":"Pest Control",
 			"desc":"After your daily castigation, your master mentions the rats in the basement have become a problem. Something about stolen shortswords and building barricades. You had better go down and deal with it."
@@ -339,7 +339,7 @@
 	{
 		"id":"goblincamp",
 		"name":"goblin camp",
-		"show":{
+		"start":{
 
 			"name":"Goblins, Goblins!",
 			"desc":"Rumors hint at a camp of goblins in the vicinity. As an aspiring wizard, convention dictates you test your mettle on their lives."
@@ -392,7 +392,7 @@
 	{
 		"id":"aragogres",
 		"name":"ogre cavern",
-		"show":{
+		"start":{
 			"name":"Ogre Cavern",
 			"desc":"While scrying the outlying lands you discover a colossal cave in the arag heights."
 		},

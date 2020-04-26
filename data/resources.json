@@ -191,7 +191,7 @@
 	},
 	{
 		"id":"codices",
-		"name":"Codices",
+		"name":"codices",
 		"group":"books",
 		"desc":"Codex of arcane lore",
 		"max":10,
@@ -204,7 +204,7 @@
 	},
 	{
 		"id":"tomes",
-		"name":"Tomes",
+		"name":"tomes",
 		"group":"books",
 		"desc":"A hefty tome of knowledge.",
 		"max":5,

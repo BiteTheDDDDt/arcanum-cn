@@ -22,14 +22,11 @@ U+26B0 	⚰ CASKET
 https://en.wikipedia.org/wiki/Black_books_of_hours
 book of hours
 black book of hours
+narthex
 
-star cinder
-star well
 cloak of ashes
 amulet of xulang
 living fire
-zavid's compass
-tenwick's walking stick
 
 oubliette
 
@@ -74,7 +71,6 @@ war of the locks
 
 
 HIGH TIER FURNISHINGS
-dimensional library
 deeper dungeon? name?
 dream woods
 
@@ -82,8 +78,6 @@ everflame
 
 
 staff of the dryad
-fazbit's workshop
-fazbit's fixations
 the black spindle
 robes of tharandul
 
@@ -165,8 +159,6 @@ pocket dimension
 
 plane
 
-
-
 Dungeons:
 
 misty grove
@@ -186,9 +178,3 @@ lesser
 greater
 major?
 superior
-
-So I have little interest in counting out the motes of dust you take for a lineage,
-and piling them up like shivering dunes of sand,
-to be scattered away with the faintest breeze.
-A hundred of your generations are but a passing day to me,
-and now you come, asking to be forgiven at evening for the mistakes you made this very afternoon.”

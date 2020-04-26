@@ -307,7 +307,7 @@
 				"id":"spr_fair",
 				"name":"aylesmeade fair",
 				"desc":"Each spring Aylesmeade holds its fabled fair in sight of the World Tree, Aesilwyr.",
-				"show":{
+				"start":{
 
 				},
 				"encs":[
@@ -377,7 +377,7 @@
 				"desc":"A land of magic beasts, unknown to your lore.",
 				"length":100,
 				"require":"spr_portal",
-				"show":{
+				"start":{
 					"name":"",
 					"desc":""
 				},
@@ -408,7 +408,7 @@
 				"level":20,
 				"length":100,
 				"dist":0,
-				"show":{
+				"start":{
 					"name":"",
 					"desc":"Returning from the fair you receive reports of fields overrun by great serpents and lizards. It may bear investigation."
 				},
