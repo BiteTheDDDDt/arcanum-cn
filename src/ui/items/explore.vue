@@ -12,6 +12,7 @@ export default {
 	props:['explore'],
 	components:{
 		combat:Combat,
+		bars:()=>import( /* webpackChunkName: "bars-ui" */  '../components/bars.vue'),
 		progbar:ProgBar
 	},
 	created(){
@@ -99,6 +100,8 @@ export default {
 		</span>
 
 		<span class="bar"><progbar :value="explore.exp.valueOf()" :max="Number(explore.length)" /></span>
+
+		<bars v-if="explore.locale.bars" :bars="explore.locale.bars" />
 
 		<template v-if="inCombat">
 			<combat :combat="explore.combat" />

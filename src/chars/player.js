@@ -14,6 +14,11 @@ import DataList from '../inventories/dataList';
 import { Changed } from '../techTree';
 import { SAVE_IDS } from '../inventories/inventory';
 
+/**
+ * @const {string[]} LoseConditions - player retreats from locale if any of these stats are empty.
+ */
+const DefeatStats = [ 'hp', 'stamina', 'breath', 'rage', 'bf', 'unease', 'weary', 'rage', 'madness' ];
+
 const Fists = new Wearable( null, {
 
 	id:'baseWeapon',
@@ -234,6 +239,11 @@ export default class Player extends Char {
 
 		this._next = this._next || 50;
 
+		/**
+		 * @property {GData[]} retreats - stats to check for empty before retreating.
+		 * Initialized from RetreatStats
+		 */
+		this.defeators = [];
 		this.retreat = this.retreat || 0;
 
 		this.initStates();
@@ -303,6 +313,13 @@ export default class Player extends Char {
 			this.weapons.add( Fists );
 		}
 
+		for( let i = DefeatStats.length-1; i>= 0; i-- ) {
+
+			var it = gs.getData( DefeatStats[i] );
+			if ( it ) this.defeators.push(it);
+
+		}
+
 		// @compat
 		// @todo at least link these to template defaults?
 		this.spells = gs.getData('spelllist');
@@ -315,10 +332,6 @@ export default class Player extends Char {
 		this.speed.value.base = 1;
 
 		this.hp.max.base = 5;
-
-		// copy in stressors to test player defeats.
-		this.stressors = gs.stressors;
-
 
 	}
 
@@ -367,10 +380,9 @@ export default class Player extends Char {
 	 */
 	rested() {
 
-		if ( !this.hp.maxed() && this.stamina.maxed()) return false;
-		for( let i = this.stressors.length-1; i>=0; i--){
+		for( let i = this.defeators.length-1; i>=0; i--){
 
-			if ( !this.stressors[i].maxed() ) return false;
+			if ( !this.defeators[i].maxed() ) return false;
 		}
 		return true;
 
@@ -381,11 +393,9 @@ export default class Player extends Char {
 	 */
 	defeated() {
 
-		if ( this._hp.value <= 0 || this.stamina.value < 0 ) return true;
-		for( let i = this.stressors.length-1; i>=0; i--){
+		for( let i = this.defeators.length-1; i>=0; i--){
 
-			var s = this.stressors[i];
-			if ( s.value >= s.max.value ) return true;
+			if ( this.defeators[i].empty() ) return true;
 		}
 		return false;
 

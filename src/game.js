@@ -1094,6 +1094,7 @@ export default {
 	 * @param {object} parent - parent object.
 	 * @param {object|number} cost - cost expected on parent or sub.
 	 * @param {number} amt - cost multiplier.
+	 * @returns {boolean}
 	 */
 	canPayObj( parent, cost, amt=1 ){
 
@@ -1126,6 +1127,7 @@ export default {
 	 * Test if equip is possible. ( Must have space in inventory
 	 * for any items replaced. )
 	 * @param {*} it
+	 * @returns {boolean}
 	 */
 	canEquip(it) {
 

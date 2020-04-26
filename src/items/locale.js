@@ -56,6 +56,14 @@ export class Locale extends Task {
 	}
 
 	/**
+	 * @property {string[]} bars - list of progress bars to display in locale.
+	 */
+	get bars() { return this._bars; }
+	set bars(v) {
+		this._bars = typeof v === 'string' ? v.split(',') : v;
+	}
+
+	/**
 	 * @property {SpawnGroup|Object.<number,SpawnGroup>} boss
 	 */
 	get boss(){ return this._boss; }

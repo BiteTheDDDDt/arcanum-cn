@@ -243,6 +243,7 @@
 		"require":"g.waterlore.max>=10",
 		"level":5,
 		"length":30,
+		"bars":"breath",
 		"run":{
 			"stamina":1
 		},

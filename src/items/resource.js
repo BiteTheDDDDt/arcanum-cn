@@ -101,6 +101,8 @@ export default class Resource extends GData {
 		return this.locked === false && this.value > 0;
 	}
 
+	empty(){ return this.value <= 0; }
+
 	/**
 	 * @returns {boolean} true if item at maximum value.
 	 */
