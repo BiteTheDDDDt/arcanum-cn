@@ -83,7 +83,7 @@ export default {
 
 				let subItem = InfoBlock.GetItem( p, refItem );
 
-				let subRate = rate || p === 'rate';
+				let subRate = rate;
 				// displayed path to subitem.
 				let subPath = ConvertPath( rootPath, p );
 
@@ -120,7 +120,7 @@ export default {
 	<div v-if="info&&effects">
 
 		<div v-if="title" class="note-text"><hr>{{ title }}</div>
-		<div v-for="(v,k) in effects" :key="k">
+		<div v-for="v in effects" :key="v.name">
 			<span>{{ v.toString() }}</span>
 		</div>
 
