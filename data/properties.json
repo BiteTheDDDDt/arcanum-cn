@@ -128,12 +128,12 @@
 		"only":"greatstaff,wand,rod",
 		"mod": {
 			"self.bonuses.fire":"1%",
-			"fire.rate":"1%",
 			"self.bonuses.water":"1%",
-			"water.rate":"1%",
 			"self.bonuses.air":"1%",
-			"air.rate":"1%",
 			"self.bonuses.earth":"1%",
+			"fire.rate":"1%",
+			"water.rate":"1%",
+			"air.rate":"1%",
 			"earth.rate":"1%"
 		}
 	},

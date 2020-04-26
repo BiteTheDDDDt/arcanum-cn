@@ -11,6 +11,9 @@ export class NpcState {
 		this.state = gs;
 		this.self = caster;
 
+		/**
+		 * @property {Map<string,GData>} npcItems
+		 */
 		this.npcItems = new Map();
 
 

@@ -40,7 +40,7 @@ export default {
 
 			} else if ( type === 'string') {
 
-				this.infos.add( DisplayName(obj), true, InfoBlock.GetItem( obj ) );
+				this.infos.add( DisplayName(obj), true, false, InfoBlock.GetItem( obj ) );
 
 			} else if ( Array.isArray(obj) ) obj.forEach( v=>this.effectList(v) );
 			else if ( type === 'function' ) {
@@ -121,9 +121,7 @@ export default {
 
 		<div v-if="title" class="note-text"><hr>{{ title }}</div>
 		<div v-for="(v,k) in effects" :key="k">
-			<span v-if="typeof v === 'boolean'">{{ k }}</span>
-			<span v-else-if="typeof v ==='number'">{{ `${k}: ${v}` }}</span>
-				<span v-else>{{ `${k}: ${v}` }}</span>
+			<span>{{ v.toString() }}</span>
 		</div>
 
 

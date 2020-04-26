@@ -24,19 +24,19 @@ var PathConversions = {
 	effect:( rootPath )=>rootPath,
 	skipLocked:()=>undefined,
 	max:( rootPath )=>'max ' + rootPath,
-	rate:(rootPath, subPath)=>{
+	rate:(rootPath, subProp)=>{
 
-		subPath = rootPath;
+		//subProp = rootPath;
 
 		let ind = rootPath.indexOf('.');
 		if ( ind > 0 ) {
 
 			let baseItem = RollOver.context.getData( rootPath.slice(0,ind) );
-			if ( baseItem && baseItem.type === SKILL ) subPath = 'train ' + subPath + ' rate';
+			if ( baseItem && baseItem.type === SKILL ) subProp = 'train ' + subProp + ' rate';
 
-		}
+		} else return rootPath + ' ' + subProp;
 
-		return subPath;
+		return subProp;
 	}
 
 
@@ -47,6 +47,8 @@ PathConversions.mod = PathConversions.base = PathConversions.value = PathConvers
 /**
 * Convert display path based on current path object
 * and current property being displayed.
+* @param {string} rootPath - base path up to prop
+* @param {string} prop - next prop on path - NOT path tail.
 * @returns {string} path displayed. returns undefined if no information
 * should be displayed for this variable path.
 */
@@ -106,7 +108,7 @@ export class InfoBlock {
 		let cur = this.results[itemName];
 		if ( cur === undefined ){
 
-			this.results[itemName] = new DisplayItem( value, isRate );
+			this.results[itemName] = new DisplayItem( itemName, value, isRate );
 
 		} else {
 

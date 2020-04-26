@@ -61,8 +61,6 @@ export default class CharUpgrade extends GData {
 		if ( this.char && p.hid !== this.char ) {
 			this.disabled = true;
 			console.log( this.id + ' DISABLED FOR ' + p.hid );
-		} else {
-			console.log(this.id + ' ENABLED FOR: ' + this.char );
 		}
 
 	}

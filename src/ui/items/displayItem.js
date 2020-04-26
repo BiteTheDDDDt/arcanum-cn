@@ -5,9 +5,16 @@ import { precise } from "../../util/format";
  */
 export class DisplayItem {
 
-	constructor( value, isRate ) {
+	/**
+	 *
+	 * @param {string} name - item name.
+	 * @param {*} value
+	 * @param {boolean} isRate
+	 */
+	constructor( name, value, isRate ) {
 
 		//this.path = path;
+		this.name = name;
 		this.value = value;
 		this.isRate = isRate;
 
@@ -23,7 +30,11 @@ export class DisplayItem {
 
 	toString(){
 
-		return ((typeof this.value ==='object') ? this.value.toString() : precise(this.value) ) +
+		let typ = typeof this.value;
+		if ( typ === 'boolean' ) return this.name;
+
+		return (this.name + ': ') +
+			((typ ==='object') ? this.value.toString() : precise(this.value) ) +
 			( this.isRate ? '/s' : '');
 	}
 
