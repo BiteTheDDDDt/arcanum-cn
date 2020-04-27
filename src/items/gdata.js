@@ -204,7 +204,7 @@ export default class GData {
 	}
 
 	/**
-	 * Set source property of all RValue subs to this.
+	 * Set source property of all RValue subobjects.
 	 */
 	initRVals( obj=this, recur=new Set() ){
 

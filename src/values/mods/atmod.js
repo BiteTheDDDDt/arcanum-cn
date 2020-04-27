@@ -1,7 +1,7 @@
 import Mod from "./mod";
 
 const AT_SYM = '?';
-const AtRegEx = /^([<>]=?)?([0-9.]+)?\?([0-9.]+)$/;
+const AtRegEx = /^(<|>=?)?(-?[0-9.]+)?\?(-?[0-9.]+)$/;
 
 const EQ = 1;
 const GT = 2;
@@ -62,7 +62,7 @@ export default class AtMod extends Mod {
 				if ( this.source.value > this.at ) return 1;
 				break;
 			case LTE:
-				if ( this.source.value < this.at ) return 1;
+				if ( this.source.value <= this.at ) return 1;
 				break;
 			case LT:
 				if ( this.source.value < this.at ) return 1;
@@ -103,16 +103,16 @@ export default class AtMod extends Mod {
 
 		if ( this.at === null || this.at === undefined ) this.at = 1;
 
-		//console.log( id + ': NEW AT MOD: ' + this.at + ' ? ' + this.value );
-
 	}
 
 	/**
 	 *
-	 * @param {*} gs
+	 * @param {GameState} gs
 	 * @param {*} targ
 	 */
 	getApply(gs, targ) {
+		if ( this.source ) console.log('atmod source: ' + this.source.id );
+		if ( this.source && this.source.id === 'breath') console.log('breathe count: ' + this.count + '  value: ' + this.value );
 		return this.count ? this.value : 0;
 	}
 

@@ -110,6 +110,12 @@ export default class Resource extends GData {
 		return this.max ? (this.value >= this.max) : false;
 	}
 
+	amount( g, count ) {
+
+		if ( this.effect ) g.applyVars( this.effect, count );
+		super.amount(g,count);
+
+	}
 
 	/**
 	 * Not used any more.

@@ -245,8 +245,10 @@
 		"length":30,
 		"bars":"breath",
 		"run":{
-			"stamina":1,
-			"breath":1.5
+			"stamina":1
+		},
+		"effect":{
+			"breath":-1.5
 		},
 		"result":{
 			"gold":"50~75",

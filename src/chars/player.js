@@ -17,7 +17,7 @@ import { SAVE_IDS } from '../inventories/inventory';
 /**
  * @const {string[]} LoseConditions - player retreats from locale if any of these stats are empty.
  */
-const DefeatStats = [ 'hp', 'stamina', 'breath', 'rage', 'bf', 'unease', 'weary', 'rage', 'madness' ];
+const DefeatStats = [ 'hp', 'stamina', 'rage', 'bf', 'unease', 'weary', 'rage', 'madness' ];
 
 const Fists = new Wearable( null, {
 

@@ -196,7 +196,8 @@ export const ParseRVal = ( str ) => {
 /**
  *
  * @param {object|string|Array|Number} effects
- * @param {Function} funcMaker - Function that returns a function for function RValues.
+ * @param {Function} funcMaker - Function that returns a new function to use in any function RValues.
+ * (cost func, effect func, attack func, etc.)
  */
 export const ParseEffects = ( effects, funcMaker ) => {
 
@@ -211,6 +212,7 @@ export const ParseEffects = ( effects, funcMaker ) => {
 		if ( RangeTest.test(effects) ) return new Range(effects);
 		else if ( PercentTest.test(effects) ) return new Percent(effects);
 		else if ( IsPerMod(effects ) ) return new PerMod( effects );
+		else if ( IsAtMod(effects) ) return new AtMod( effects );
 		else if ( effects.includes( '.' ) ) return funcMaker(effects);
 
 		return effects;
