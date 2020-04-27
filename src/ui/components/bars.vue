@@ -58,24 +58,12 @@ export default {
 <template>
 
 	<!-- anything not table is a headache -->
-	<div class="bars">
+	<div class="statbars">
 
-		<div class="hidable entry" v-for="it in itemList" :key="it.key" :data-key="it.id">
-			<span class="name">{{it.name}}</span><span><progbar :value="it.valueOf()" :class="it.id" :max="it.max.value" :color="it.color"
+		<div class="hidable statbar" v-for="it in itemList" :key="it.key" :data-key="it.id">
+			<span class="name">{{it.name}}</span><span class="barspan"><progbar :value="it.valueOf()" :class="it.id" :max="it.max.value" :color="it.color"
 			@mouseenter.native.capture.stop="itemOver($event,it)"/></span></div>
 
 	</div>
 
 </template>
-
-<style scoped>
-
-	.bars {
-		display: flex; flex-flow: column;
-		width: -moz-available;
-		width:-webkit-fill-available;
-	}
-
-    .bars .entry { display: flex; width: 50%; }
-
-</style>

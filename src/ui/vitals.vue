@@ -55,16 +55,16 @@ export default {
 		<div class="config"><button ref="btnHides" class="btnConfig"></button></div>
 
 		<!-- anything not a table is a headache -->
-		<div class="bars">
+		<div class="statbars">
 
-		<div class="hidable stat" data-key="stamina" v-show="show(stamina)">
+		<div class="hidable statbar" data-key="stamina" v-show="show(stamina)">
 			<span class="name">stamina</span><span class="barspan"><progbar class="stamina" :value="stamina.valueOf()" :max="stamina.max.value"
 			@mouseenter.capture.stop.native="itemOver($event,stamina)"/></span></div>
 
-		<div class="hidable stat" data-key="hp" v-show="show(hp)"><span class="name">hp</span><span class="barspan"><progbar class="hp" :value="hp.valueOf()" :max="hp.max.value"
+		<div class="hidable statbar" data-key="hp" v-show="show(hp)"><span class="name">hp</span><span class="barspan"><progbar class="hp" :value="hp.valueOf()" :max="hp.max.value"
 			@mouseenter.capture.stop.native="itemOver($event,hp)"/></span></div>
 
-		<div class="hidable stat" v-for="it in visMana" :key="it.key" :data-key="it.id">
+		<div class="hidable statbar" v-for="it in visMana" :key="it.key" :data-key="it.id">
 			<span class="name">{{it.name}}</span><span class="barspan"><progbar :value="it.valueOf()" :class="it.id" :max="it.max.value" :color="it.color"
 			@mouseenter.native.capture.stop="itemOver($event,it)"/></span></div>
 
@@ -81,22 +81,6 @@ export default {
         margin: 0; padding: 0;
         min-width: 15rem; overflow-y :auto; overflow-x: hidden;
     }
-	div.vitals .bars {
-		display: flex; flex-flow: column;
-		width: -moz-available;
-		width:-webkit-fill-available;
-	}
-
-	div.vitals .bars .stat {
-		display: flex; align-items: center;
-	}
-	div.vitals .bars .stat .name {
-		flex-basis: 33%; margin:auto;
-	}
-	div.vitals .bars .stat .barspan {
-		flex-basis: 66%;
-		 padding: var(--sm-gap) var(--sm-gap); width: 100%;
-		}
 
 
 </style>

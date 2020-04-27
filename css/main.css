@@ -605,6 +605,24 @@ div.bgfill {
 	width:100%;
 }
 
+.statbars {
+	display: flex; flex-flow: column;
+	width: -moz-available;
+	width:-webkit-fill-available;
+}
+
+.statbars .statbar {
+	display: flex; align-items: center;
+}
+.statbars .statbar .name {
+	flex-basis: 33%; margin:auto;
+}
+.statbars .statbar .barspan {
+	flex-basis: 66%;
+	 padding: var(--sm-gap) var(--sm-gap); width: 100%;
+	}
+
+
 div.bar .fill {
 	background:orange;
 	border-radius: var(--rg-radius);
