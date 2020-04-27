@@ -381,8 +381,7 @@ export default class Player extends Char {
 	rested() {
 
 		for( let i = this.defeators.length-1; i>=0; i--){
-
-			if ( !this.defeators[i].maxed() ) return false;
+			if ( this.defeators[i].maxed() === false ) return false;
 		}
 		return true;
 

@@ -1889,6 +1889,40 @@
 		}
 	},
 	{
+		"id":"expandedlungs",
+		"name":"expansive lungs",
+		"desc":"All the air you require.",
+		"require":"(g.windmage+g.stormcaller+g.avatar)>0",
+		"cost":{
+			"arcana":1,
+			"airgem":50
+		},
+		"mod":{
+			"airlore.max":1,
+			"airelore.rate":"10%",
+			"breath.max":10,
+			"breath.rate":0.5
+		}
+
+	},
+	{
+		"id":"waterbreathing",
+		"name":"water breathing",
+		"desc":"Water is as air to you.",
+		"require":"(g.hydromancer+g.stormcaller+g.avatar)>0",
+		"cost":{
+			"arcana":1,
+			"sp":1,
+			"watergem":100
+		},
+		"mod":{
+			"waterlore.max":1,
+			"waterlore.rate":"10%",
+			"breath.max":"100%",
+			"breath.rate":5
+		}
+	},
+	{
 		"id":"rockcollection",
 		"name":"minerals collection",
 		"desc":"Sorted by hardness.",
