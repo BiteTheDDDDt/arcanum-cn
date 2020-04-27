@@ -55,27 +55,28 @@ export default {
 		<div class="config"><button ref="btnHides" class="btnConfig"></button></div>
 
 		<!-- anything not a table is a headache -->
-		<table class="bars">
+		<div class="bars">
 
-		<tr class="hidable" data-key="stamina" v-show="show(stamina)"><td>stamina</td><td colspan="2"><progbar class="stamina" :value="stamina.valueOf()" :max="stamina.max.value"
-			@mouseenter.capture.stop.native="itemOver($event,stamina)"/></td></tr>
+		<div class="hidable stat" data-key="stamina" v-show="show(stamina)">
+			<span class="name">stamina</span><span class="barspan"><progbar class="stamina" :value="stamina.valueOf()" :max="stamina.max.value"
+			@mouseenter.capture.stop.native="itemOver($event,stamina)"/></span></div>
 
-		<tr class="hidable" data-key="hp" v-show="show(hp)"><td>hp</td><td colspan="2"><progbar class="hp" :value="hp.valueOf()" :max="hp.max.value"
-			@mouseenter.capture.stop.native="itemOver($event,hp)"/></td></tr>
+		<div class="hidable stat" data-key="hp" v-show="show(hp)"><span class="name">hp</span><span class="barspan"><progbar class="hp" :value="hp.valueOf()" :max="hp.max.value"
+			@mouseenter.capture.stop.native="itemOver($event,hp)"/></span></div>
 
-		<tr class="hidable" v-for="it in visMana" :key="it.key" :data-key="it.id">
-			<td>{{it.name}}</td><td colspan="2"><progbar :value="it.valueOf()" :class="it.id" :max="it.max.value" :color="it.color"
-			@mouseenter.native.capture.stop="itemOver($event,it)"/></td></tr>
+		<div class="hidable stat" v-for="it in visMana" :key="it.key" :data-key="it.id">
+			<span class="name">{{it.name}}</span><span class="barspan"><progbar :value="it.valueOf()" :class="it.id" :max="it.max.value" :color="it.color"
+			@mouseenter.native.capture.stop="itemOver($event,it)"/></span></div>
 
 		<!--<tr><td>mood</td><td><mood :state="state" /></td></tr>-->
-		</table>
+		</div>
 
 	</div>
 </template>
 
 <style scoped>
 
-    div.vitals {
+    .vitals {
         text-transform: capitalize;
         margin: 0; padding: 0;
         min-width: 15rem; overflow-y :auto; overflow-x: hidden;
@@ -86,22 +87,16 @@ export default {
 		width:-webkit-fill-available;
 	}
 
-    div.vitals .bars tr { display: flex; align-items: center; }
-    div.vitals .bars tr td:nth-child(2) div { display: flex; flex-flow: column; justify-content: center; }
-    div.vitals .bars tr:first-child { min-height: 4em; }
-    div.vitals .bars tr:not(:first-child) { padding: var(--sm-gap) var(--sm-gap); }
-	div.vitals .bars tr td:nth-child(1) { flex-basis: 50%; }
+	div.vitals .bars .stat {
+		display: flex; align-items: center;
+	}
+	div.vitals .bars .stat .name {
+		flex-basis: 33%; margin:auto;
+	}
+	div.vitals .bars .stat .barspan {
+		flex-basis: 66%;
+		 padding: var(--sm-gap) var(--sm-gap); width: 100%;
+		}
 
-table .td-prog {
-	columns: 2;
-}
-
-tr td:first-child {
-	max-width: 33%;
-}
-
-tr td:last-child {
-	width:100%;
-}
 
 </style>

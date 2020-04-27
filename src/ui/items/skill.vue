@@ -41,7 +41,7 @@ export default {
 
 			<span v-else>
 				<button @click="emit('buy', skill)"
-					:disabled="!skill.canUse()">Unlock</button>
+					:disabled="!skill.canUse()">🔒</button>
 			</span>
 		</span>
 

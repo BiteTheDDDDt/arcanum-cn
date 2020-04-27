@@ -58,13 +58,13 @@ export default {
 <template>
 
 	<!-- anything not table is a headache -->
-	<table class="bars">
+	<div class="bars">
 
-		<tr class="hidable" v-for="it in itemList" :key="it.key" :data-key="it.id">
-			<td>{{it.name}}</td><td colspan="2"><progbar :value="it.valueOf()" :class="it.id" :max="it.max.value" :color="it.color"
-			@mouseenter.native.capture.stop="itemOver($event,it)"/></td></tr>
+		<div class="hidable entry" v-for="it in itemList" :key="it.key" :data-key="it.id">
+			<span class="name">{{it.name}}</span><span><progbar :value="it.valueOf()" :class="it.id" :max="it.max.value" :color="it.color"
+			@mouseenter.native.capture.stop="itemOver($event,it)"/></span></div>
 
-	</table>
+	</div>
 
 </template>
 
@@ -76,22 +76,6 @@ export default {
 		width:-webkit-fill-available;
 	}
 
-    .bars tr { display: flex; align-items: center; }
-    .bars tr td:nth-child(2) div { display: flex; flex-flow: column; justify-content: center; }
-    .bars tr:first-child { min-height: 4em; }
-    .bars tr:not(:first-child) { padding: var(--sm-gap) var(--sm-gap); }
-	.bars tr td:nth-child(1) { flex-basis: 50%; }
-
-table .td-prog {
-	columns: 2;
-}
-
-tr td:first-child {
-	max-width: 33%;
-}
-
-tr td:last-child {
-	width:100%;
-}
+    .bars .entry { display: flex; width: 50%; }
 
 </style>

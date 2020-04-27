@@ -40,6 +40,12 @@ export default {
 </template>
 
 <style>
+div.container {
+	display:flex;
+	height:100%;
+	width: 100%;
+}
+
     div.bar .fill {
 	  height:100%;
 	  padding:0;
@@ -50,12 +56,7 @@ div.bar .bar-text {
 	color: var( --progbar-text-color );
 }
 
-div.container {
-	display:inline-block;
-	margin-bottom: var(--md-gap);
-	height:100%;
-	width: 100%;
-}
+
 div.bar {
 
 	display:inline-block;

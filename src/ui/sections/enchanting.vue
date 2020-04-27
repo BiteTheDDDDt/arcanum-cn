@@ -109,7 +109,7 @@ export default {
 
 
 			<button v-if="it.buy&&!it.owned" :disabled="!it.canBuy()"
-				@click="emit('buy', it)">Unlock</button>
+				@click="emit('buy', it)">🔒</button>
 
 			<button v-else @click="begin(it,target)" :disabled="!it.canUse()">Enchant</button>
 

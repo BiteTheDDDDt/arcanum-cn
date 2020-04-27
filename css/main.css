@@ -625,6 +625,10 @@ div.hp .fill, div.hp .bgfill {
 	background:#8011ac;
 }*/
 
+div.breath .fill, div.breath .bgfill {
+	background:#6eb9e7;
+}
+
 div.mana .fill, div.mana .bgfill {
 	background: #2531b3;
 }
