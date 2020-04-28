@@ -1898,8 +1898,8 @@
 			"airgem":50
 		},
 		"mod":{
-			"airlore.max":1,
-			"airelore.rate":"10%",
+			"self.resist.water":5,
+			"airlore.rate":"10%",
 			"breath.max":10,
 			"breath.rate":0.5
 		}
@@ -1916,7 +1916,7 @@
 			"watergem":100
 		},
 		"mod":{
-			"waterlore.max":1,
+			"self.resist.water":10,
 			"waterlore.rate":"10%",
 			"breath.max":"100%",
 			"breath.rate":5

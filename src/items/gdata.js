@@ -156,7 +156,7 @@ export default class GData {
 
 
 			this._value.base = (typeof v === 'object') ? v.value : v;
-			if ( this.id === 'space') console.log('setting BASE SPACE: ' + v );
+			//if ( this.id === 'space') console.log('setting BASE SPACE: ' + v );
 
 		} else this._value = new Stat( v, this.id );
 

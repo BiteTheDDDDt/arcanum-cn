@@ -327,6 +327,9 @@ export default {
 					stat.amount(this, stat.rate.value*dt);
 
 				}
+				if ( stat.effect ) {
+					this.applyVars( stat.effect, dt );
+				}
 
 			}
 

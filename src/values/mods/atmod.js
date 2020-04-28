@@ -1,7 +1,7 @@
 import Mod from "./mod";
 
 const AT_SYM = '?';
-const AtRegEx = /^(<|>=?)?(-?[0-9.]+)?\?(-?[0-9.]+)$/;
+const AtRegEx = /^([<>]=?)?(-?[0-9.]+)?\?(-?[0-9.]+)$/;
 
 const EQ = 1;
 const GT = 2;
@@ -111,8 +111,7 @@ export default class AtMod extends Mod {
 	 * @param {*} targ
 	 */
 	getApply(gs, targ) {
-		if ( this.source ) console.log('atmod source: ' + this.source.id );
-		if ( this.source && this.source.id === 'breath') console.log('breathe count: ' + this.count + '  value: ' + this.value );
+		//if ( this.source && this.source.id === 'breath') console.log('breathe count: ' + this.count + '  value: ' + this.value );
 		return this.count ? this.value : 0;
 	}
 

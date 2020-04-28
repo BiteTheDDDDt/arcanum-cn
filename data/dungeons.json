@@ -248,7 +248,7 @@
 			"stamina":1
 		},
 		"effect":{
-			"breath":-1.5
+			"breath":-2
 		},
 		"result":{
 			"gold":"50~75",

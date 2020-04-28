@@ -47,7 +47,7 @@ export default class FValue extends RValue {
 
 	/**
 	 * Get value of a result or effect.
-	 * NOTE: this applies the standard effect params.
+	 * NOTE: this applies the standard effect/result params.
 	 * Damage funcs use different function param assignments.
 	 * @param {GameState} gs
 	 * @param {*} targ

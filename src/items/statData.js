@@ -58,12 +58,8 @@ export default class StatData extends GData {
 
 	}
 
-	amount( g, count ) {
-
-		if ( this.effect ) g.applyVars( this.effect, count );
-		super.amount(g,count);
-
-	}
+	/*amount( g, count ) {
+	}*/
 
 	/**
 	 * Not currently used any more.
