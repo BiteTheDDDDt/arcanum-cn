@@ -12,13 +12,10 @@ export default class RevStat extends Resource {
 		super(vars);
 
 		if ( !this._max ) this.max = 0;
-		if ( vars.used ) {
-			this.value.base = vars.used;
-		}
 
 	}
 
-	free(){return this.max - this.value; }
+	free(){ return this.max - this.value; }
 
 	empty(){ return this.value>=this.max.value; }
 
@@ -30,7 +27,9 @@ export default class RevStat extends Resource {
 	canPay( amt ) {
 		return this.value - amt <= this.max.value;
 	}
-	remove( amt ) { this.value.base += amt; }
+	remove( amt ) {
+		this.value.base += amt;
+	}
 
 	doFill(){ this.value = 0; }
 

@@ -1,12 +1,12 @@
-import { defineExcept, clone } from 'objecty';
-import Stat from '../values/stat';
+import { defineExcept, cloneClass } from 'objecty';
+import Stat from '../values/rvals/stat';
 import Base, {mergeClass } from './base';
 import {arrayMerge} from '../util/array';
 import { assignPublic } from '../util/util';
 import Events, { CHAR_ACTION, EVT_EVENT, EVT_UNLOCK } from '../events';
 import Game, { TICK_LEN } from '../game';
 import { WEARABLE, WEAPON } from '../values/consts';
-import RValue from '../values/rvalue';
+import RValue from '../values/rvals/rvalue';
 import { Changed } from '../techTree';
 
 /**
@@ -113,6 +113,9 @@ export default class GData {
 	get warnMsg(){return this._warnMsg; }
 	set warnMsg(v) { this._warnMsg = v; }
 
+	/**
+	 * @property {object} mod - mods applied by object.
+	 */
 	get mod(){return this._mod;}
 	set mod(v){this._mod=v;}
 
@@ -156,6 +159,7 @@ export default class GData {
 	get value() { return this._value; }
 	set value(v) {
 
+		//if ( this.id === 'space') console.log('setting space: ' + v );
 		if ( v instanceof Stat ) {
 
 			if ( this._value === null || this._value === undefined ) this._value = v;
@@ -170,11 +174,16 @@ export default class GData {
 
 
 			this._value.base = (typeof v === 'object') ? v.value : v;
+			//if ( this.id === 'space') console.log('setting BASE SPACE: ' + v );
 
 		} else this._value = new Stat( v, this.id );
 
 	}
 
+	/**
+	 * @property {Stat} val - value assignment from save data.
+	 * assigns value without triggering game events.
+	 */
 	get val() { return this.value; }
 	set val(v) { this.value = v; }
 
@@ -183,6 +192,7 @@ export default class GData {
 	/**
 	 *
 	 * @param {?Object} [vars=null]
+	 * @param {?defaults} [defaults=null]
 	 */
 	constructor( vars=null, defaults=null ){
 
@@ -212,7 +222,7 @@ export default class GData {
 	}
 
 	/**
-	 * Set source property of all RValue subs to this.
+	 * Set source property of all RValue subobjects.
 	 */
 	initRVals( obj=this, recur=new Set() ){
 
@@ -338,6 +348,7 @@ export default class GData {
 			}
 
 			if ( this.max && (prev + amt) >= this.max.value ) {
+
 				amt = this.max.value - prev;
 			}
 
@@ -357,7 +368,6 @@ export default class GData {
 
 		count = this.add(count);
 		if ( count === 0 ) return false;
-
 		this.changed( g, count );
 		return true;
 
@@ -366,6 +376,7 @@ export default class GData {
 	/**
 	 * Process an actual change amount in data. This is after Stat Mods
 	 * have been applied to the base value.
+	 * @param {Game} g
 	 * @param {number} count - total change in value.
 	 */
 	changed( g, count) {
@@ -378,17 +389,20 @@ export default class GData {
 			this.timer = Number(this.cd );
 			g.addTimer( this );
 		}
-		if ( this.loot ) g.getLoot( this.loot );
+		if ( this.loot ) { g.getLoot( this.loot ); }
 
-		if ( this.title ) g.state.player.setTitle( this.title );
-		if ( this.result ) g.applyVars( this.result, count );
+		if ( this.title ) g.self.setTitle( this.title );
+		if ( this.result ) {
+
+			g.applyVars( this.result, count );
+		}
 		if ( this.create ) g.create( this.create );
 
 		if ( this.mod ) { g.applyMods( this.mod ); }
 
 		if ( this.lock ) g.lock( this.lock );
 		if ( this.dot ) {
-			g.state.player.addDot( this.dot, this );
+			g.self.addDot( this.dot, this );
 		}
 
 		if ( this.disable ) g.disable( this.disable );
@@ -396,7 +410,7 @@ export default class GData {
 		if ( this.log ) Events.emit( EVT_EVENT, this.log );
 
 		if ( this.attack || this.action ) {
-			if (this.type !== WEARABLE && this.type !== WEAPON ) Events.emit( CHAR_ACTION, this );
+			if (this.type !== WEARABLE && this.type !== WEAPON ) Events.emit( CHAR_ACTION, this, g );
 		}
 
 		Changed.add(this);
@@ -413,15 +427,19 @@ export default class GData {
 
 		if ( this.disabled || this.locked === false || this.locks>0 ) return;
 
+		/*if ( this.id === 'lillitscape') console.log('LILLIT UNLOCKED');
+		else if ( this.id === 'jazid') console.log('JAZID UNLOCKED');*/
+
 		this.locked = false;
-		Events.emit( EVT_UNLOCK, this );
+		if ( this.start ) Events.emit( EVT_EVENT, this.start );
+		else Events.emit( EVT_UNLOCK, this );
 
 		Changed.add(this);
 	}
 
 	/**
 	 * Default implementation of onUse() is to add 1.
-	 * @param {Game} g
+	 * @param {Context} g
 	 */
 	onUse( g ) {
 
@@ -464,7 +482,7 @@ export default class GData {
 				if ( typeof obj === 'function' ) this[p] = obj( this );
 				else if ( typeof obj === 'object' ) {
 					console.log('clone: ' + this.id );
-					this[p] = clone( obj );
+					this[p] = cloneClass( obj );
 				}
 				else this[p] = obj;
 

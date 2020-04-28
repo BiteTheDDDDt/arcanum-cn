@@ -14,6 +14,9 @@ export default {
 	get template(){ return this._template;},
 	set template(v){this._template=v;},
 
+	get mod(){return this._mod;},
+	set mod(v){this._mod =v;},
+
 	is( k ) {
 		return this.type === k || this.kind === k || this.hasTag(k) || this.name === k;
 	}

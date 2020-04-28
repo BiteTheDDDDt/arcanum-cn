@@ -97,9 +97,7 @@ export default {
 
 		},
 
-		explore() { return this.state.raid.running ? this.state.raid : this.state.explore; },
-
-		exploring() { return this.explore && this.explore.running; },
+		explore() { return this.state.explore; },
 
 		/**
 		 * Only sort once.
@@ -135,7 +133,7 @@ export default {
 <div class="adventure">
 
 		<!-- also contains combat -->
-		<explore v-if="exploring" :explore="explore" />
+		<explore v-if="explore.running" :explore="explore" />
 
 		<div class="content" v-else>
 			<div class="top">
@@ -165,7 +163,7 @@ export default {
 
 					<span class="separate">
 						<!-- EVENT MUST BE ON OUTER SPAN - CHROME -->
-					<span @mouseenter.capture.stop="emit( 'itemover', $event, d )"><span>{{ d.sname }}</span>
+					<span @mouseenter.capture.stop="itemOver( $event, d )"><span>{{ d.sname }}</span>
 
 					<button class="raid-btn" :disabled="!game.canRun(d)" @click="emit( 'task', d )">Enter</button></span>
 
@@ -180,11 +178,11 @@ export default {
 			</div>
 		</div>
 
-	<div class="raid-bottom" v-if="exploring||drops.count>0">
+	<div class="raid-bottom" v-if="explore.running||drops.count>0">
 
 		<inv class="inv" :inv="drops" take=true />
 		<div class="log">
-			<span v-if="exploring">Exploring...<br></span>
+			<!--<span v-if="exploring">Exploring...<br></span>-->
 
 			<div class="outlog">
 			<div class="log-item" v-for="(it,i) in combatLog" :key="i">

@@ -1,7 +1,7 @@
 <script>
 import ProgBar from '../components/progbar.vue';
 import ItemBase from '../itemsBase';
-import DotView from '../dotView.vue';
+import DotView from './dotView.vue';
 
 export default {
 
@@ -20,8 +20,9 @@ export default {
 <div class="npc-group">
 	<span class="title" v-if="label">{{ label }}</span>
 	<div v-for="p in npcs" :key="p.id">
-		<span class="name-span"><span @mouseenter.capture.stop="emit( 'itemover', $event, p )">{{p.name }}</span><dots class="inline" mini=true :dots="p.dots" /></span>
-		<prog class="hp" :value="p.hp.value.valueOf()" :max="p.hp.max.value" @mouseenter.capture.stop="emit( 'itemover', $event, p )" />
+		<span class="name-span"><span @mouseenter.capture.stop="itemOver( $event, p )">{{p.name }}</span>
+		<dots class="inline" mini=true :dots="p.dots" :char="p" /></span>
+		<prog class="hp" :value="p.hp.value.valueOf()" :max="p.hp.max.value" @mouseenter.capture.stop="itemOver( $event, p )" />
 	</div>
 
 </div>

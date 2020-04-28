@@ -4,7 +4,7 @@ import Game from '../../game';
 import ItemsBase from '../itemsBase.js';
 import InfoBlock from './info-block.vue';
 import Attack from './attack.vue';
-import Dot from './dot-block.vue';
+import Dot from './dot-info.vue';
 
 import {precise} from '../../util/format';
 
@@ -18,7 +18,23 @@ export default {
 		dot:Dot
 	},
 	methods:{
-		precise:precise
+		precise:precise,
+
+		/**
+		 * Convert tag strings into viewable format.
+		 * @param {string|string[]} t
+		 * @returns {string|string[]}
+		 */
+		tagNames( t ) {
+
+			if ( Array.isArray(t) ) return t.map( this.tagNames, this );
+
+			if ( typeof t === 'string' && t.substring(0,2) === 't_' ) return t.slice(2);
+
+			return t;
+
+		}
+
 	},
 	computed:{
 
@@ -71,8 +87,8 @@ export default {
 		tags(){
 
 			let t = this.item.tags;
-			if ( typeof t === 'string') return this.stripTags(t);
-			else if ( Array.isArray(t) ) return t.map( this.stripTags, this ).join(', ');
+			if ( typeof t === 'string') return this.tagNames(t);
+			else if ( Array.isArray(t) ) return t.map( this.tagNames, this ).join(', ');
 
 		}
 
@@ -107,7 +123,7 @@ export default {
 
 			<span v-if="item.slot">slot: {{ item.slot }}</span>
 		</span>
-		<span v-if="item.enchantTot>0">enchants used: {{item.enchantTot}}</span>
+		<span v-if="item.maxEnchants>0">enchant levels: {{item.enchantTot}} / {{ item.maxEnchants }}</span>
 
 		<span v-if="item.at&&(nextAt>0)" class="note-text">
 			Next Improvement: {{ Math.round(100*item.value/nextAt)+'%'}}
@@ -116,7 +132,7 @@ export default {
 			Next Improvement: {{ Math.round(100*nextEvery)+'%'}}
 		</span>
 
-			<div v-if="item.cd&&item.timer>0" class="note-text">Cooldown: {{ item.timer.toFixed(2) }}</div>
+			<div v-if="item.cd||item.timer>0" class="note-text">cooldown: {{ item.timer > 0 ? item.timer.toFixed(2) + ' left' : item.cd + 's' }}</div>
 
 			<div v-if="item.dist">distance: {{item.dist}}</div>
 			<div v-if="item.armor">armor: {{ item.armor }}</div>

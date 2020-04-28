@@ -1,4 +1,4 @@
-import Stat from "../values/stat";
+import Stat from "../values/rvals/stat";
 import Base, {mergeClass} from '../items/base';
 import Item from "../items/item";
 
@@ -12,6 +12,9 @@ import { Changed } from "../techTree";
  */
 export const SaveInstanced = (v=>v.instanced ? v : v.id);
 
+export const SAVE_FULL = 'full';
+export const SAVE_IDS = 'ids';
+
 export default class Inventory {
 
 	/**
@@ -22,9 +25,10 @@ export default class Inventory {
 	valueOf() { return this.items.length; }
 
 	toJSON(){
+
 		return {
-			items:this.saveMode === 'full' ? this.items : (
-				( this.saveMode === 'ids' || !this.saveMap ) ? this.items.map(v=>v.id ) :
+			items:this.saveMode ===  SAVE_FULL ? this.items : (
+				( this.saveMode === SAVE_IDS || !this.saveMap ) ? this.items.map(v=>v.id ) :
 				this.items.map( this.saveMap, this )
 			),
 			max:(this.max)
@@ -127,10 +131,9 @@ export default class Inventory {
 			else Object.assign(this,vars);
 
 		}
-
 		if ( !this.items ) this.items = [];
 
-		if ( !this.saveMode ) this.saveMode = 'full';
+		if ( !this.saveMode ) this.saveMode = SAVE_FULL;
 		this.type = 'inventory';
 		if (!this.id) this.id = this.type;
 
@@ -156,12 +159,12 @@ export default class Inventory {
 	 */
 	revive( gs, reviver ){
 
-		// used ids.
-		var ids = {};
+		let len = this.items.length;
+		let loads = this.items.splice(0, len );
 
-		for( let i = this.items.length-1; i>= 0; i-- ) {
+		for( let i = 0; i < len; i++ ) {
 
-			var it = this.items[i];
+			var it = loads[i];
 			if ( reviver ) {
 				it = reviver(gs, it);
 			} else if ( typeof it === 'object' ) {
@@ -170,12 +173,7 @@ export default class Inventory {
 
 			} else if ( typeof it === 'string') it = gs.getData(it);
 
-
-			if ( it == null || !it.id || ( this.removeDupes&& ids[it.id]===true) ) this.items.splice( i, 1 );
-			else {
-				ids[it.id] = true;
-				this.items[i] = it;
-			}
+			this.add(it);
 
 		}
 		this.calcUsed();
@@ -209,7 +207,7 @@ export default class Inventory {
 			}
 
 
-			this.items.push( it );
+			this._items.push( it );
 			this.used += this.spaceCost( it );
 
 			//console.warn('CUR USED: ' + this.used + '/' + this.max.value );

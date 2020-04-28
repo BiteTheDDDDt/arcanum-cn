@@ -1,5 +1,6 @@
 /**
  * Stub to obviate preloading all items.
+ * CURRENTLY UNUSED.
  */
 export default class Stub {
 

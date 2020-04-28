@@ -1,3 +1,6 @@
+/**
+ * CURRENTLY UNUSED.
+ */
 export default class CharGroup {
 
 	get chars(){ return this._chars; }

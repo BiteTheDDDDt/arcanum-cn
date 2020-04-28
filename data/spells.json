@@ -26,11 +26,91 @@
 
 	},
 	{
+		"id":"clarity",
+		"level":7,
+		"school":"charms",
+		"desc":"Cure yourself or an ally of a charm.",
+		"silent":true,
+		"cost":{
+			"spiritgem":1
+		},
+		"action":{
+			"cure":"charmed",
+			"targets":"ally,self"
+		}
+
+	},
+	{
+		"id":"wake",
+		"level":5,
+		"school":"mana",
+		"desc":"Wake a slumbering ally.",
+		"silent":true,
+		"cost":{
+			"mana":1,
+			"herbs":1
+		},
+		"action":{
+			"cure":"sleep",
+			"targets":"ally,self"
+		}
+
+	},
+	{
+		"id":"embolden",
+		"level":3,
+		"school":"fire",
+		"silent":true,
+		"desc":"Remove fear from yourself or a frightened creature.",
+		"cost":{
+			"fire":1
+		},
+		"action":{
+			"cure":"fear",
+			"targets":"ally,self"
+		}
+
+	},
+	{
+		"id":"speak",
+		"level":8,
+		"school":"air",
+		"desc":"Breaks a curse of silence.",
+		"silent":true,
+		"cost":{
+			"air":2,
+			"managem":1
+		},
+		"action":{
+			"cure":"silence",
+			"targets":"ally,self"
+		}
+
+	},
+	{
+		"id":"cureparalyze",
+		"name":"cure paralysis",
+		"level":7,
+		"school":"mana",
+		"silent":true,
+		"desc":"Loosens rigid muscles, nerves, and bones.",
+		"cost":{
+			"mana":2,
+			"gems":1
+		},
+		"action":{
+			"cure":"paralysis",
+			"targets":"ally,self"
+		}
+
+	},
+	{
 
 		"id":"curesick",
 		"level":1,
 		"require":"spellbook",
 		"school":"light",
+		"silent":true,
 		"desc":"Cure sickness on yourself or an ally.",
 		"cost":{
 			"light":1
@@ -613,12 +693,12 @@
 		}
 	},
 	{
-		"id": "prismaticspray2",
-		"name": "greater prismatic spray",
+		"id":"prismaticspray2",
+		"name":"greater prismatic spray",
 		"level": 9,
-		"school": "mana",
-		"require": "g.tier3>0",
-		"desc": "lines of arcane energy strike all enemies.",
+		"school":"mana",
+		"require":"g.tier3>0",
+		"desc":"lines of arcane energy strike all enemies.",
 		"buy": {
 			"research": 100,
 			"scrolls": 10
@@ -637,18 +717,18 @@
 			"mana": 8
 		},
 		"attack": {
-			"targets": "enemies",
-			"damage": "32~42",
-			"kind": "mana",
+			"targets":"enemies",
+			"damage":"12~30",
+			"kind":"mana",
 			"tohit": 4
 		}
 	},
 	{
-		"id": "moveearth",
-		"name": "Stone Toss",
-		"desc": "Throw a rock using magic",
-		"school": "earth",
-		"require": "g.earthlore>=5",
+		"id":"moveearth",
+		"name":"fling stone",
+		"desc":"Throw a rock using magic",
+		"school":"earth",
+		"require":"g.earthlore>=5",
 		"level": 1,
 		"buy": {
 			"research": 30,
@@ -658,8 +738,8 @@
 			"earth": 1
 		},
 		"attack": {
-			"damage": "2~6",
-			"kind": "earth",
+			"damage":"2~6",
+			"kind":"earth",
 			"tohit": 4
 		}
 	},
@@ -706,7 +786,7 @@
 	{
 		"id":"mk_zombie",
 		"name":"raise zombie",
-		"desc": "Summon a zombie to fight for you",
+		"desc":"Summon a zombie to fight for you",
 		"school":"shadow",
 		"require":"g.shadowlore>0&&g.reanimation>0",
 		"level":2,
@@ -870,12 +950,12 @@
 
 	},
 	{
-		"id": "lightspear2",
-		"name": "greater light spear",
+		"id":"lightspear2",
+		"name":"greater light spear",
 		"level": 7,
-		"desc": "a lance of solid light",
-		"school": "light",
-		"require": "g.lightspear>0&&g.tier2>0",
+		"desc":"a lance of solid light",
+		"school":"light",
+		"require":"g.lightspear>0&&g.tier2>0",
 		"buy": {
 			"research": 100,
 			"codices": 10,
@@ -900,9 +980,9 @@
 			}
 		},
 		"attack": {
-			"damage": "21~29",
+			"damage":"21~29",
 			"tohit": 8,
-			"kind": "light"
+			"kind":"light"
 		}
 	},
 	{
@@ -947,11 +1027,11 @@
 
 	},
 	{
-		"id": "waterblast",
-		"name": "water spray",
+		"id":"waterblast",
+		"name":"water spray",
 		"level": 3,
-		"desc": "A violent burst of water.",
-		"school": "water",
+		"desc":"A violent burst of water.",
+		"school":"water",
 		"buy": {
 			"research": 30,
 			"scrolls": 10
@@ -960,9 +1040,9 @@
 			"water": 1
 		},
 		"attack": {
-			"damage": "2~5",
+			"damage":"2~5",
 			"tohit": 3,
-			"kind": "water"
+			"kind":"water"
 		}
 	},
 	{
@@ -1039,12 +1119,12 @@
 
 	},
 {
-		"id": "frostbolt3",
-		"name": "frost bolt III",
+		"id":"frostbolt3",
+		"name":"frost bolt III",
 		"level": 10,
-		"require": "g.frostbolt2>0&&g.tier3>0",
-		"desc": "A heavy shard of ice.",
-		"school": "water",
+		"require":"g.frostbolt2>0&&g.tier3>0",
+		"desc":"A heavy shard of ice.",
+		"school":"water",
 		"buy": {
 			"codices": 10,
 			"watergem": 6
@@ -1066,9 +1146,9 @@
 			"water": 7
 		},
 		"attack": {
-			"damage": "36~45",
+			"damage":"36~45",
 			"tohit": 8,
-			"kind": "water"
+			"kind":"water"
 		}
 	},
 	{
@@ -1088,7 +1168,7 @@
 		"dot":{
 			"duration":30,
 			"mod":{
-				"player.resist.poison":20
+				"self.resist.poison":20
 			}
 		}
 	},
@@ -1143,6 +1223,22 @@
 			"mana":10
 		},
 		"result":"hobgoblin"
+	},
+	{
+		"id":"mk_spider",
+		"name":"summon spider",
+		"desc":"Summon a spider to fight for you",
+		"school":"nature",
+		"level":5,
+		"buy":{
+			"research":100,
+			"scrolls":20
+		},
+		"cost":{
+			"nature":4
+		},
+		"result":"lgspider"
+
 	},
 	{
 		"id":"mk_raven",
@@ -1250,23 +1346,26 @@
 		}
 	},
 	{
-		"id":"flamestrike",
-		"school":"fire",
-		"desc":"Imbue your weapon with flame before striking.",
-		"buy":{
-			"tomes":1
-		},
-		"cost":{
-			"fire":2,
-			"hp":5
-		},
-		"attack":{
-			"kind":"fire",
-			"bonus":7,
-			"dmg":"a.weapon.damage+a.getBonus( a.weapon.kind )"
-		}
+        "id":"flamestrike",
+        "school":"fire",
+        "desc":"Imbue your weapon with flame before striking.",
+        "level":4,
+        "buy":{
+            "tomes":5,
+            "firegem":10
+        },
+        "cost":{
+            "fire":3,
+            "hp":10,
+            "stamina":1
+        },
+        "attack":{
+            "kind":"fire",
+            "bonus":5,
+            "dmg":"(a.weapon.damage+a.getBonus( a.weapon.kind ))/2"
+        }
 
-	},
+    },
 	{
 		"id":"mk_blade",
 		"name":"summon blade",
@@ -1328,11 +1427,11 @@
 
 	},
 	{
-		"id": "tosand",
-		"name": "to sand",
-		"desc": "Transform your body into fine-grained sand.",
-		"school": "earth",
-		"require": "g.titan>0&&g.geosculpting>11",
+		"id":"tosand",
+		"name":"to sand",
+		"desc":"Transform your body into fine-grained sand.",
+		"school":"earth",
+		"require":"g.titan>0&&g.geosculpting>11",
 		"level": 15,
 		"buy": {
 			"research": 8000,
@@ -1345,15 +1444,15 @@
 		"dot": {
 			"duration": 10,
 			"mod": {
-				"player.defense": 200
+				"self.defense": 200
 			}
 		}
 	},
 	{
-		"id": "quicksand",
-		"desc": "Command the earth to swallow the enemy",
-		"school": "earth",
-		"require": "g.geosculpting>7",
+		"id":"quicksand",
+		"desc":"Command the earth to swallow the enemy",
+		"school":"earth",
+		"require":"g.geosculpting>7",
 		"level": 15,
 		"buy": {
 			"sp": 1,
@@ -1365,10 +1464,10 @@
 			"earth": 15
 		},
 		"attack": {
-			"targets": "enemies",
+			"targets":"enemies",
 			"dot": {
 				"duration": 15,
-				"dmg": "15~25",
+				"dmg":"15~25",
 				"mod": {
 					"speed": -12
 				}
@@ -1376,10 +1475,10 @@
 		}
 	},
 	{
-		"id": "entomb",
-		"desc": "Bury your enemies deep beneath the ground.",
-		"school": "earth",
-		"require": "g.titan>0",
+		"id":"entomb",
+		"desc":"Bury your enemies deep beneath the ground.",
+		"school":"earth",
+		"require":"g.titan>0",
 		"level": 25,
 		"buy": {
 			"sp": 15,
@@ -1394,10 +1493,10 @@
 			"sindel": 2
 		},
 		"attack": {
-			"targets": "enemies",
+			"targets":"enemies",
 			"dot": {
 				"duration": 30,
-				"dmg": "50~75",
+				"dmg":"50~75",
 				"mod": {
 					"speed": -25
 				}
@@ -1405,50 +1504,48 @@
 		}
 	},
 	{
-		"id": "smite",
-		"school": "earth",
-		"require": "g.hammerlore>=5",
-		"level": 2,
-		"buy": {
-			"research": 500
-		},
-		"cost": {
-			"earth": 2,
-			"stamina": 1
-		},
-		"attack": {
-			"damage": 30,
-			"tohit": 3,
-			"kind": "earth"
-		}
-	},
+        "id":"smite",
+        "school":"earth",
+        "require":"g.hammerlore>=5",
+        "level": 5,
+        "buy": {
+            "research": 500
+        },
+        "cost": {
+            "earth": 3,
+            "stamina": 1
+        },
+        "attack": {
+            "damage": "(a.weapon.damage+a.getBonus( a.weapon.kind ))/2.5",
+            "tohit": 3,
+            "kind":"earth"
+        }
+    },
 	{
-		"id": "fissure",
-		"desc": "Crack the earth beneath the feet of your enemy.",
-		"cd": 200,
-		"school": "earth",
-		"require": "g.hammerlore>=10",
-		"level": 5,
-		"buy": {
-			"research": 12000
-		},
-		"cost": {
-			"earth": 8,
-			"stamina": 12
-		},
-		"attack": {
-			"damage": 50,
-			"tohit": -5,
-			"kind": "earth",
-			"dot": {
-				"kind": "earth",
-				"duration": 2,
-				"mod": {
-					"speed": -500
-				}
-			}
-		}
-	},
+        "id":"fissure",
+        "desc":"Crack the earth beneath the feet of your enemy.",
+        "cd": 200,
+        "school":"earth",
+        "require":"g.hammerlore>=10",
+        "level": 5,
+        "buy": {
+            "research": 12000
+        },
+        "cost": {
+            "earth": 8,
+            "stamina": 12
+        },
+        "attack": {
+            "damage": "(a.weapon.damage+a.getBonus( a.weapon.kind ))*1.5",
+            "tohit": 5,
+            "kind":"earth",
+            "dot": {
+                "kind":"earth",
+                "duration": 4,
+                "id":"prone"
+            }
+        }
+    },
 	{
 		"id":"prolight",
 		"name":"protection: light",
@@ -1468,8 +1565,8 @@
 
 			"duration":20,
 			"mod":{
-				"player.resist.holy":10,
-				"player.resist.light":10
+				"self.resist.holy":10,
+				"self.resist.light":10
 			}
 
 		}
@@ -1495,8 +1592,8 @@
 
 			"duration":20,
 			"mod":{
-				"player.resist.shadow":10,
-				"player.resist.undead":10
+				"self.resist.shadow":10,
+				"self.resist.undead":10
 			}
 
 		}
@@ -1522,7 +1619,7 @@
 
 			"duration":20,
 			"mod":{
-				"player.resist.fire":10
+				"self.resist.fire":10
 			}
 
 		}
@@ -1548,8 +1645,8 @@
 
 			"duration":20,
 			"mod":{
-				"player.resist.water":10,
-				"player.resist.cold":10
+				"self.resist.water":10,
+				"self.resist.cold":10
 			}
 
 		}
@@ -1575,8 +1672,8 @@
 
 			"duration":20,
 			"mod":{
-				"player.resist.nature":10,
-				"player.resist.poison":10
+				"self.resist.nature":10,
+				"self.resist.poison":10
 			}
 
 		}
@@ -1600,7 +1697,7 @@
 			"light":5
 		},
 		"result":{
-			"hp":20
+			"self.hp":20
 		}
 	},
 
@@ -2013,7 +2110,7 @@
 		"dot":{
 			"duration":30,
 			"mod":{
-				"player.defense":2
+				"self.defense":2
 			}
 		}
 
@@ -2036,7 +2133,7 @@
 		"dot":{
 			"duration":45,
 			"mod":{
-				"player.tohit":3
+				"self.tohit":3
 			}
 		}
 
@@ -2059,7 +2156,7 @@
 		"dot":{
 			"duration":45,
 			"mod":{
-				"player.tohit":7
+				"self.tohit":7
 			}
 		}
 
@@ -2083,7 +2180,7 @@
 		"dot":{
 			"duration":45,
 			"mod":{
-				"player.tohit":15
+				"self.tohit":15
 			}
 		}
 
@@ -2135,10 +2232,10 @@
 		}
 	},
 	{
-		"id": "airburst",
+		"id":"airburst",
 		"name":"burst",
 		"level": 1,
-		"school": "air",
+		"school":"air",
 		"buy": {
 			"research": 100,
 			"scrolls": 10
@@ -2147,9 +2244,9 @@
 			"air": 1
 		},
 		"attack": {
-			"damage": "1~4",
+			"damage":"1~4",
 			"tohit": 3,
-			"kind": "air"
+			"kind":"air"
 		}
 	},
 	{
@@ -2187,7 +2284,7 @@
 				"name":"blind",
 				"duration":5,
 				"mod":{
-					"tohit":-2
+					"tohit":-3
 				}
 			}
 		}
@@ -2214,18 +2311,18 @@
 		},
 		"at":{
 			"30":{
-				"attack.damage.max":10
+				"attack.damage.max":3
 			},
 			"150":{
-				"attack.damage.max":5
+				"attack.damage.max":3
 			},
 			"400":{
-				"attack.damage.max":5,
+				"attack.damage.max":4,
 				"attack.tohit":4
 			}
 		},
 		"attack":{
-			"damage":"1~25",
+			"damage":"5~10",
 			"tohit":7,
 			"kind":"air",
 			"dot":{
@@ -2257,23 +2354,23 @@
 		},
 		"at":{
 			"30":{
-				"attack.damage.max":5
+				"attack.damage.max":4
 			},
 			"100":{
-				"attack.damage.max":10
+				"attack.damage.max":4
 			},
 			"300":{
-				"attack.damage.max":15,
+				"attack.damage.max":5,
 				"attack.tohit":5
 			}
 		},
 		"attack":{
-			"damage":"7~25",
+			"damage":"7~15",
 			"tohit":12,
 			"kind":"air",
 			"dot":{
 				"name":"blind",
-				"duration":5,
+				"duration":1,
 				"damage":"7~15",
 				"mod":{
 					"tohit":-7
@@ -2300,13 +2397,13 @@
 		},
 		"at":{
 			"30":{
-				"attack.dot.dmg.max":3
+				"attack.dot.dmg.max":5
 			},
 			"100":{
-				"attack.dot.dmg.min":3
+				"attack.dot.dmg.min":5
 			},
 			"300":{
-				"attack.dot.dmg.max":4,
+				"attack.dot.dmg.max":5,
 				"attack.dot.dmg.min":4,
 				"attack.tohit":5
 			}
@@ -2317,7 +2414,7 @@
 				"targets":"enemies",
 				"kind":"air",
 				"duration":15,
-				"damage":"7~15",
+				"damage":"7~25",
 				"mod":{
 					"tohit":-5
 				}
@@ -2340,6 +2437,10 @@
 		"cost":{
 			"spirit":3
 		},
+		"action":{
+			"cure":"enrage",
+			"targets":"self,ally"
+		},
 		"dot":{
 			"duration":45,
 			"mod":{
@@ -2352,7 +2453,7 @@
 	{
 		"id":"stoneskin",
 		"name":"stone skin",
-		"desc":"hardens the skin of the caster.",
+		"desc":"hardens the skin of the self.",
 		"school":"earth",
 		"require":{
 			"earthlore":5
@@ -2371,7 +2472,7 @@
 		"dot":{
 			"duration":50,
 			"mod":{
-				"player.defense":5
+				"self.defense":5
 			}
 		}
 
@@ -2399,8 +2500,8 @@
 				"hp.max":50,
 				"hp":50,
 				"hp.rate":-2,
-				"player.tohit":10,
-				"player.damage":10
+				"self.tohit":10,
+				"self.damage":10
 			}
 		},"flavor":"don't lose your way"
 	},
@@ -2449,7 +2550,7 @@
 	{
 		"id":"ironskin",
 		"name":"iron skin",
-		"desc":"hardens the skin of the caster.",
+		"desc":"hardens the skin of the self.",
 		"school":"earth",
 		"require":{
 			"earthlore":5
@@ -2468,7 +2569,7 @@
 		"dot":{
 			"duration":60,
 			"mod":{
-				"player.defense":10
+				"self.defense":10
 			}
 		}
 
@@ -2476,7 +2577,7 @@
 	{
 		"id":"steelskin",
 		"name":"steel skin",
-		"desc":"hardens the skin of the caster.",
+		"desc":"hardens the skin of the self.",
 		"school":"earth",
 		"require":"stoneskin",
 		"level":5,
@@ -2493,7 +2594,7 @@
 		"dot":{
 			"duration":120,
 			"mod":{
-				"player.defense":25
+				"self.defense":25
 			}
 		}
 
@@ -2564,7 +2665,7 @@
 		"dot":{
 			"duration":180,
 			"mod":{
-				"player.defense":50
+				"self.defense":50
 			}
 		}
 
@@ -2646,6 +2747,61 @@
 	},
 	{
 
+		"id":"resistparalysis",
+		"name":"resist paralysis",
+		"school":"water",
+		"level":7,
+		"require":"g.waterlore>=10",
+		"desc":"Keep your limbs fluid.",
+		"buy":{
+
+			"research":4000,
+			"tomes":5
+
+		},
+		"cost":{
+			"water":2
+		},
+		"dot":{
+
+			"duration":60,
+			"mod":{
+				"self.resist.paralysis":50
+			}
+
+		}
+
+	},
+	{
+
+		"id":"resistsilence",
+		"name":"resist silence",
+		"school":"mana",
+		"level":7,
+		"require":"g.lore>=15",
+		"desc":"Keep your mind active and alert.",
+		"buy":{
+
+			"research":5000,
+			"tomes":20,
+			"managem":10
+
+		},
+		"cost":{
+			"mana":2
+		},
+		"dot":{
+
+			"duration":60,
+			"mod":{
+				"self.resist.silence":50
+			}
+
+		}
+
+	},
+	{
+
 		"id":"immunefire1",
 		"name":"quenching sphere",
 		"school":"water",
@@ -2665,7 +2821,7 @@
 
 			"duration":20,
 			"mod":{
-				"player.immunities.fire":1
+				"self.immunities.fire":1
 			}
 
 		}
@@ -2689,7 +2845,7 @@
 		"dot":{
 			"duration":60,
 			"mod":{
-				"player.tohit":5,
+				"self.tohit":5,
 				"hp.max":50,
 				"defense":10,
 				"speed":2
@@ -2780,7 +2936,7 @@
 		"level":6,
 		"desc":"flood the field of battle",
 		"cd":40,
-		"require": "g.tier3>0",
+		"require":"g.tier3>0",
 		"buy":{
 
 			"research":400,
@@ -2794,7 +2950,7 @@
 		"attack":{
 			"dot":{
 				"kind":"water",
-				"targets":"enemies",
+				"targets":"all",
 				"dmg":"3~7",
 				"duration":30,
 				"mod":{
@@ -2807,7 +2963,7 @@
 			"targets":"allies",
 			"duration":30,
 			"mod":{
-				"player.resist.water":50
+				"self.resist.water":50
 			}
 
 		}
@@ -2817,7 +2973,7 @@
 		"id":"cordyceps",
 		"level":7,
 		"school":"nature",
-		"require":"g.venom2>0&&g.tier3>0",
+		"require":"g.venom2>0&&g.druid>0",
 		"desc":"a fungal cloud that damages all enemies.",
 		"buy":{
 
@@ -2890,7 +3046,7 @@
 			"targets":"allies",
 			"duration":30,
 			"mod":{
-				"player.resist.water":75
+				"self.resist.water":75
 			}
 
 		},"flavor":"force without form"
@@ -2925,7 +3081,7 @@
 			"targets":"allies",
 			"duration":30,
 			"mod":{
-				"player.resist.fire":80
+				"resist.fire":80
 			}
 
 		},"flavor":""
@@ -2952,41 +3108,16 @@
 
 			"duration":100,
 			"mod":{
-				"player.immunities.fire":1
+				"self.immunities.fire":1
 			}
 
 		}
 
 	},
 	{
-		"id":"cyrilsling",
-		"name":"cyril's celestial sling",
-		"tags":"patron",
-		"level":7,
-		"desc":"",
-		"require":"g.tier6>0&&g.chaos>=3",
-		"buy":{
-			"firerune":7,
-			"waterrune":7,
-			"airrune":7,
-			"earthrune":7,
-			"runestones":7
-		},
-		"cost":{
-			"sindel":1,
-			"chaos":1
-		},
-		"attack":{
-			"kind":"pierce",
-			"dmg":2,
-			"tohit":50
-		},"flavor":""
-
-	},
-	{
 		"id":"angelofdeath",
 		"name":"angel of death",
-		"desc":"a black spirit arises, to reap souls for your work.",
+		"desc":"a black spirit arises, reaping souls for your work.",
 		"school":"shadow",
 		"require":["evil",{
 			"shadow.max":15

@@ -295,6 +295,7 @@
 		"mod":{
 			"research.max":10,
 			"arcana.max":0.1,
+			"s_travel.max":0.1,
 			"languages.rate":"1%"
 		}
 
@@ -677,10 +678,10 @@
 
 	},
 	{
-		"id": "hammerlore",
-		"desc": "The anvil or the skull, it makes no difference.",
-		"require": "g.geomancer>0||g.earthshaker>0||g.titan>0",
-		"need": "armssource",
+		"id":"hammerlore",
+		"desc":"The anvil or the skull, it makes no difference.",
+		"require":"g.geomancer>0||g.earthshaker>0||g.titan>0",
+		"need":"armssource",
 		"level": 3,
 		"buy": {
 			"sp": 2
@@ -697,9 +698,9 @@
 		}
 	},
 	{
-		"id": "geosculpting",
-		"desc": "Bend the earth to your will.",
-		"require": "g.geomancer>0||g.earthshaker>0",
+		"id":"geosculpting",
+		"desc":"Bend the earth to your will.",
+		"require":"g.geomancer>0||g.earthshaker>0",
 		"level": 3,
 		"buy": {
 			"sp": 2

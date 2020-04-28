@@ -20,12 +20,12 @@
 			"stamina.max":1,
 			"player.tohit":1,
 			"hp.max":1,
-			"allies.max":"/5",
-			"speed":"/4"
+			"allies.max":":5",
+			"speed":":4"
 		},
 		"result":{
 			"hallPoints":0.1,
-			"sp":"/3"
+			"sp":":3"
 		}
 
 	},
@@ -71,6 +71,16 @@
 		"stat":true,
 		"unit":false,
 		"locked":false
+	},
+	{
+		"id":"breath",
+		"max":5,
+		"val":5,
+		"unit":false,
+		"rate":1,
+		"effect":{
+			"hp":"<=0.3?-20"
+		}
 	},
 	{
 		"id":"speed",

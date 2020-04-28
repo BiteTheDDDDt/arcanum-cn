@@ -3,7 +3,7 @@
 import Profile from '../../modules/profile';
 
 import Info from './charinfo.vue';
-import Upgrades from '../upgrades.vue';
+import Upgrades from '../controls/upgrades.vue';
 import {centerXY} from '../popups/popups.js';
 import { EVT_STAT } from '../../events';
 
@@ -91,7 +91,7 @@ export default {
 
 <div class="popup wizhall">
 
-	<div class="power" @mouseenter.capture.stop="emit( 'itemover', $event, hall.prestige )">Hall Prestige: {{ prestige }}</div>
+	<div class="power" @mouseenter.capture.stop="itemOver( $event, hall.prestige )">Hall Prestige: {{ prestige }}</div>
 
 	<div class="header"><input class="fld-name text-entry" type="text" v-model="hallName">
 			<div class="text-button"><a href=""

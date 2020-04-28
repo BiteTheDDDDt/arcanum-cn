@@ -1,7 +1,7 @@
 import Game from '../game';
 import Proxy from './proxy';
 import { TYP_RUN, ENCHANTSLOTS } from '../values/consts';
-import Stat from '../values/stat';
+import Stat from '../values/rvals/stat';
 import { itemRevive } from '../modules/itemgen';
 import {assign } from 'objecty';
 

@@ -1,7 +1,7 @@
 <script>
 import Game from '../game';
 import {HALT_TASK, STOP_ALL} from '../events';
-import { SKILL, DUNGEON, RAID, EXPLORE, LOCALE, TYP_RUN, PURSUITS, TASK } from '../values/consts';
+import { SKILL, DUNGEON, EXPLORE, LOCALE, TYP_RUN, PURSUITS, TASK } from '../values/consts';
 
 export default {
 
@@ -48,10 +48,10 @@ export default {
 		<button class="btn-sm" @click="emit(STOP_ALL)">Stop All</button>
 
 		<button class="btn-sm" @click="emit(TASK, restAction)" :disabled="resting"
-		@mouseenter.capture.stop="emit( 'itemover',$event, restAction )">{{ restAction.name }}</button>
-		<button v-if="!focus.locked" class="btn-sm" @mouseenter.capture.stop="emit( 'itemover',$event, focus )"
-			:disabled="!focus.usable"
-			@click="emit('task', focus)">Focus</button>
+		@mouseenter.capture.stop="itemOver($event, restAction )">{{ restAction.name }}</button>
+		<button v-if="!focus.locked" class="btn-sm" @mouseenter.capture.stop="itemOver($event, focus )"
+			:disabled="!focus.canUse(game)"
+			@mousedown="emit('repeater', focus)">Focus</button>
 		<button class="btnMenu" @click="emit('showActivities')"></button>
 	</div>
 

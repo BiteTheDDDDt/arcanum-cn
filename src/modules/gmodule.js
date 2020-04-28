@@ -115,7 +115,7 @@ export default class Module {
 
 		}
 
-		// marge in submodules.
+		// merge in submodules.
 		for( let i = modules.length-1; i>= 0; i-- ) {
 			this.merge( modules[i] );
 		}

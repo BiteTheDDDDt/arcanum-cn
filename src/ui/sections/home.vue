@@ -181,7 +181,7 @@ export default {
 		<tr><th>Space</th><th class="name">Furnishing</th><th>Owned</th><th/><th/></tr>
 
 
-		<tr v-for="it in filtered" :key="it.id" @mouseenter.capture.stop="emit( 'itemover', $event, it )">
+		<tr v-for="it in filtered" :key="it.id" @mouseenter.capture.stop="itemOver( $event, it )">
 
 			<td class="space">{{ it.cost.space || it.mod.space }}</td>
 			<td class="name">{{ it.name }}</td> <td class="count">{{ it.value.valueOf() }}</td>

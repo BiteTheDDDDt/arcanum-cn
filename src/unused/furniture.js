@@ -1,5 +1,8 @@
-import GData from "./gdata";
+import GData from "../items/gdata";
 
+/**
+ * CURRENTLY UNUSED
+ */
 export default class Furniture extends GData {
 
 	constructor(vars) {

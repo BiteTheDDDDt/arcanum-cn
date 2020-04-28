@@ -10,6 +10,9 @@ export default class Resource extends GData {
 	}
 	set require(v){super.require = v;}
 
+	get group(){return this._group;}
+	set group(v){this._group=v}
+
 	/**
 	 * @note NEED 'this' so webpack doesn't change 's', hiding the self-reference
 	 * require from 'unlock'. messy and bad.
@@ -52,6 +55,7 @@ export default class Resource extends GData {
 
 	/**
 	 * @property {number} delta - last change in value.
+	 * currently unused. theoretical use for actual rate reporting.
 	 */
 	get delta() { return this._delta; }
 	set delta(v) { this._delta = v; }
@@ -97,19 +101,20 @@ export default class Resource extends GData {
 		return this.locked === false && this.value > 0;
 	}
 
+	empty(){ return this.value <= 0; }
+
 	/**
-	 * @returns {boolean} true if an unlocked item is at maximum value.
+	 * @returns {boolean} true if item at maximum value.
 	 */
 	maxed() {
 		return this.max ? (this.value >= this.max) : false;
 	}
 
-
 	/**
-	 * Not currently used any more.
+	 * Not used any more.
 	 * @param {} dt
 	 */
-	update( dt ) {
+	/*update( dt ) {
 
 		if ( this._rate.value !== 0 ) {
 
@@ -125,6 +130,6 @@ export default class Resource extends GData {
 
 		} else this._delta = 0;
 
-	}
+	}*/
 
 }

@@ -21,6 +21,7 @@ export default class Equip extends SlotGroup {
 			"neck":new Slot({
 				max:3
 			}),
+			"trinket":new Slot(),
 			"fingers":new Slot({
 				max:4
 			}),
@@ -104,8 +105,8 @@ export default class Equip extends SlotGroup {
 			let rightItem = right.equip( it );
 			let leftItem = left.remove();
 
-			return rightItem && leftItem ? [ rightItem, leftItem ] :
-				(rightItem || leftItem );
+			return (rightItem && leftItem) ? [ rightItem, leftItem ] :
+				(rightItem || leftItem || true );
 
 		} else {
 
@@ -114,14 +115,14 @@ export default class Equip extends SlotGroup {
 				console.log('setting right.');
 
 				right.equip( it );
-				return ( left.hands() > 1 ) ? left.remove() : true;
+				return ( !left.empty() ) ? left.remove() : true;
 
 			} else if ( left.empty() ) {
 
 				console.log('setting left.');
 
 				left.equip( it );
-				return ( right.hands() > 1 ) ? right.remove() : true;
+				return ( !right.empty() ) ? right.remove() : true;
 
 			} else {
 

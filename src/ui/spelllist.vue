@@ -15,7 +15,7 @@ export default {
 		<div class='warn-text note-text' v-if="list.full()">Spelllist is Full</div>
 	</span>
 
-	<div v-for="(it,ind) in list.items" :key="ind" @mouseenter.capture.stop="emit( 'itemover', $event, it )">
+	<div v-for="(it,ind) in list.items" :key="ind" @mouseenter.capture.stop="itemOver( $event, it )">
 		<button class="stop" @click="list.removeAt(ind)">X</button><span>{{ it.name }}</span>
 	</div>
 

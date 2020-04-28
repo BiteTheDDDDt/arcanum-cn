@@ -1,9 +1,9 @@
-import Percent from './percent';
-import Stat from './stat';
-import { precise } from '../util/format';
-import { TYP_MOD } from './consts';
+import Percent from '../percent';
+import Stat from '../rvals/stat';
+import { precise } from '../../util/format';
+import { TYP_MOD } from '../consts';
 import { assign } from 'objecty';
-import RValue from './rvalue';
+import RValue from '../rvals/rvalue';
 //import Emitter from 'eventemitter3';
 
 export const ModTest = /^([\+\-]?\d+\.?\d*\b)?(?:([\+\-]?\d+\.?\d*)\%)?$/;
@@ -189,27 +189,40 @@ export default class Mod extends Stat {
 	 * @param {string} p - target property to which mod is being applied.
 	 * @param {number} amt
 	 */
-	applyTo( obj, p, amt ) {
+	applyTo( obj, p, amt, isMod=false ) {
 
 		let targ = obj[p];
 
 		if ( targ instanceof RValue ) targ.addMod( this, amt );
-		else if ( targ === null || targ === undefined || typeof targ === 'number' ){
+		else if ( typeof targ === 'number') {
 
-			//console.log('MOD.applyTo() CREATE NEW MOD AT TARGET: ' + p );
 			let s = obj[p] = new Stat( targ || 0, (obj.id ? obj.id +'.'  : '' ) + p );
 			s.addMod( this, amt );
 
+			/*if ( isMod ) console.log('SHOULD BE MOD: ' + s.id );
+			else console.log( this.id + ' NEW STAT: ' +  s.id );*/
+
+		} else if ( targ === null || targ === undefined ){
+
+			console.error('DEPRECATED: MOD.applyTo() NEW MOD AT TARGET: ' + p );
+
 		} else if ( typeof targ === 'object') {
 
+			//console.dir( targ,  this.id + ' UNKNOWN MOD TARGET')
 			if ( Array.isArray(targ) ) {
 
 				for( let i = targ.length-1; i>= 0; i--) this.applyTo( targ[i], p, amt );
 
 			} else {
 
-				console.warn( this.id + ': ' + targ.id + ' !!Mod Targ: ' + targ.constructor.name);
-				targ.value = ( ( Number(targ.value) || 0 ) + amt*this.bonus )*( 1 + amt*this.pct );
+				if ( targ.value ) {
+
+					this.applyTo( targ, 'value', amt );
+
+				} else {
+					console.warn( this.id + ': ' + targ.id + ' !!Mod Targ: ' + targ.constructor.name);
+					targ.value = amt*this.bonus*( 1 + amt*this.pct );
+				}
 			}
 
 		}

@@ -1,6 +1,6 @@
 <script>
 import Game from '../../game';
-import Upgrades from '../upgrades.vue';
+import Upgrades from '../controls/upgrades.vue';
 
 import Settings from 'modules/settings';
 import ItemsBase from '../itemsBase';
@@ -54,15 +54,14 @@ export default {
 
 <style scoped>
 
-    .main-tasks > div.task-list,
-    .main-tasks > div.upgrade-list {
+    div.task-list, .main-tasks > div.upgrade-list {
         margin: 0; padding: var(--md-gap);
 		display: grid;
 		grid-template-columns: repeat( auto-fit, var(--task-button-width) );
     }
 
-    .main-tasks > div.task-list .runnable button:hover {background: var(--accent-color-hover); }
-    .main-tasks > div.task-list .runnable button:active {background: var(--accent-color-active); }
+    div.task-list .runnable:hover {background: var(--accent-color-hover); }
+    div.task-list .runnable:active {background: var(--accent-color-active); }
 
 
 </style>

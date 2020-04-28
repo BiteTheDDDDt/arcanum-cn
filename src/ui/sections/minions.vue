@@ -6,10 +6,10 @@ import FilterBox from '../components/filterbox.vue';
 
 export default {
 
+	props:['minions'],
 	data(){
 		return {
-			filtered:null,
-			minions:Game.state.minions
+			filtered:null
 		};
 	},
 	mixins:[ItemsBase],
@@ -20,9 +20,9 @@ export default {
 
 		allies() { return this.minions.allies;},
 
-		inRaid() { return Game.state.raid.running },
+		inExplore() { return Game.state.explore.running },
 
-		items(){ return this.minions.filter( v=>v.value>=1 ); },
+		/*items(){ return this.minions.filter( v=>v.value>=1 ); },*/
 
 		rezList(){return Game.state.getTagSet('rez').filter(v=>v.owned&&!v.disabled);}
 
@@ -45,7 +45,7 @@ export default {
 		useRez( rez, b) {
 
 			Game.tryItem(rez);
-			b.hp =1;
+			b.hp.set(1);
 
 		},
 
@@ -77,9 +77,9 @@ export default {
 
 <div class="minions">
 
-	<filterbox v-model="filtered" :items="items" min-items="10" />
+	<filterbox v-model="filtered" :items="this.minions.items" min-items="10" />
 
-	<div v-if="inRaid" class="warn-text">Cannot change active minions while adventuring</div>
+	<div v-if="inExplore" class="warn-text">Cannot change active minions while adventuring</div>
 	<div class="minion-title">
 		<span>Total Minions: {{ minions.count + ' / ' + Math.floor(minions.max) }}</span>
 		<span>Allies Power: {{ Math.floor(allies.used) + ' / ' + Math.floor( allies.max.value ) }}</span></div>
@@ -87,7 +87,7 @@ export default {
 	<div class="char-list">
 	<table>
 		<tr><th>Creature</th><th class="num-align">Hp</th><th>active</th><th>actions</th></tr>
-		<tr class="char-row" v-for="b in filtered" :key="b.id" @mouseenter.capture.stop="emit( 'itemover',$event,b)">
+		<tr class="char-row" v-for="b in filtered" :key="b.id" @mouseenter.capture.stop="itemOver($event,b)">
 			<th><input class="fld-name" type="text" v-model="b.name"></th>
 			<td class="num-align">{{ toNum(b.hp) }} / {{ toNum( b.hp.max ) }}</td>
 
@@ -96,8 +96,8 @@ export default {
 
 			</td>
 			<td v-else>
-				<button v-if="b.active" @click="toggleActive(b)" :disabled="inRaid">Rest</button>
-				<button v-else @click="toggleActive(b)" :disabled="inRaid||!allies.canAdd(b)">Activate</button>
+				<button v-if="b.active" @click="toggleActive(b)" :disabled="inExplore">Rest</button>
+				<button v-else @click="toggleActive(b)" :disabled="inExplore||!allies.canAdd(b)">Activate</button>
 			</td>
 			<td v-if="!b.alive">
 				<!-- note this is a separate section from the one above -->

@@ -1,6 +1,6 @@
 {
   "name": "wizrobe",
-  "version": "1.0.0",
+  "version": "0.8.0",
   "description": "theory of magic",
   "main": "index.js",
   "scripts": {
@@ -22,7 +22,6 @@
     "copy-webpack-plugin": "^5.0.5",
     "css-loader": "^3.2.0",
     "html-webpack-plugin": "^3.2.0",
-    "jszip": "^3.2.2",
     "style-loader": "^0.23.1",
     "ts-loader": "^6.2.1",
     "typescript": "^3.7.5",
@@ -31,12 +30,13 @@
     "webpack": "^4.40.2",
     "webpack-cli": "^3.3.9",
     "workbox-build": "^4.3.1",
-    "workbox-webpack-plugin": "^4.3.1"
+    "workbox-webpack-plugin": "^4.3.1",
+    "zip-webpack-plugin": "^3.0.0"
   },
   "dependencies": {
     "eventemitter3": "^3.1.2",
     "firebase": "^7.7.0",
-    "objecty": "^1.0.2",
+    "objecty": "^1.0.3",
     "vue": "^2.6.10"
   }
 }

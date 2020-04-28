@@ -1,23 +1,19 @@
 import Base, {mergeClass} from '../items/base';
-import Stat from '../values/stat';
+import Stat from '../values/rvals/stat';
 import Attack from './attack';
-
 import Dot from './dot';
+import { cloneClass, mergeSafe } from 'objecty';
 
-import { NPC, getDelay, TYP_PCT } from '../values/consts';
+import { NPC, getDelay, TYP_PCT, TYP_STATE } from '../values/consts';
 import { toStats } from "../util/dataUtil";
-import events, { CHAR_STATE } from '../events';
+import Events, { CHAR_STATE, EVT_COMBAT, RESISTED } from '../events';
 import States, { NO_ATTACK } from './states';
-import {assign} from 'objecty';
 
 import Game from '../game';
-import { ApplyAction } from '../values/combat';
+import { ApplyAction } from '../values/combatVars';
 import { assignNoFunc } from '../util/util';
 
 export default class Char {
-
-	/*get states() { return this._states; }
-	set states(v) { this._states = v; }*/
 
 	get defense() { return this._defense; }
 	set defense(v) {
@@ -47,14 +43,6 @@ export default class Char {
 		else this._speed.set(v);
 	}
 
-	/**
-	 * @property {string[]} spells - list of spells char can cast.
-	 */
-	get spells(){ return this._spells; }
-	set spells(v) {
-		if ( typeof v === 'string') this._spells = v.split(',');
-		else this._spells=v;
-	}
 
 	/**
 	 * @property {.<string,Stat>} immunities
@@ -91,6 +79,9 @@ export default class Char {
 	get bonuses(){ return this._bonuses }
 	set bonuses(v){ this._bonuses = toStats(v); }
 
+	/**
+	 * @property {Attack} attack
+	 */
 	get attack() { return this._attack; }
 	set attack(v) {
 
@@ -99,7 +90,9 @@ export default class Char {
 			let a = [];
 			for( let i = v.length-1; i>=0; i-- ) {
 
-				a.push( (v[i] instanceof Attack) ? v[i] : new Attack(v[i]) );
+				a.push( (v[i] instanceof Attack) ? v[i] :
+					new Attack(v[i])
+				);
 
 			}
 
@@ -114,12 +107,14 @@ export default class Char {
 
 		let a = [];
 
-		for( let i = v.length-1; i >= 0; i-- ) {
+		if ( v ) {
+			for( let i = v.length-1; i >= 0; i-- ) {
 
-			//var d = v[i] instanceof Dot ? v[i] : new Dot(v[i]);
+				//var d = v[i] instanceof Dot ? v[i] : new Dot(v[i]);
 
-			a.push( v[i] instanceof Dot ? v[i] : new Dot(v[i] ) );
+				a.push( v[i] instanceof Dot ? v[i] : new Dot(v[i] ) );
 
+			}
 		}
 
 		this._dots = a;
@@ -150,25 +145,22 @@ export default class Char {
 	}
 
 	/**
-	 * @property {States} states - current states.
+	 * @property {States} states - current char states. (silenced, paralyzed, etc.)
 	 */
 	get states(){return this._states; }
 	set states(v) { this._states = new States(); }
 
 
 	get instanced() { return true; }
-	set instanced(v) {}
+	//set instanced(v) {}
 
 	get regen() { return this._regen; }
 	set regen(v) { this._regen = ( v instanceof Stat ) ? v : new Stat(v); }
 
-	/*get died() { return this._died; }
-	set died(v) { this._died = v; }*/
-
 	get alive() { return this.hp.value > 0; }
 
 	/**
-	 * @property {Object} dotContext - context for dot mods/effects,
+	 * @property {Object} context - context for dot mods/effects,
 	 * spells.
 	 * @todo: allow Player applyMods to work naturally.
 	 */
@@ -177,7 +169,10 @@ export default class Char {
 
 	constructor( vars ){
 
-		if ( vars ) assignNoFunc( this, vars );
+		if ( vars ) {
+			this.id = vars.id;	// useful for debugging.
+			assignNoFunc( this, vars );
+		}
 
 		this.type = NPC;
 
@@ -186,8 +181,6 @@ export default class Char {
 		this.immunities = this.immunities || {};
 		this._resist = this._resist || {};
 		if ( !this.bonuses ) this.bonuses = {};
-
-		//console.log( this.id + ' tohit: ' + this.tohit );
 
 		/**
 		 * @property {Object[]} dots - timed/ongoing effects.
@@ -207,21 +200,26 @@ export default class Char {
 	 */
 	revive( gs ){
 
-		if ( this.spells ) this.spells = gs.makeDataList(this.spells );
-
 		this.reviveDots(gs);
-		this._states.refresh(this._dots);
+		//this._states.refresh(this._dots);
 
 	}
 
+	reviveDots(gs) {
+		for( let i = this.dots.length-1; i>=0; i--) {
+			this.dots[i].revive(gs);
+			this._states.add( this._dots[i]);
+		}
+	}
+
 	/**
-	 * Use current states to map requested target
+	 * Use char state ( charmed, rage, etc ) to change the a default action target.
 	 * to new target type.
-	 * @param {?string} targ
-	 * @returns {string}
+	 * @param {?string} targ - type of target, ally, enemy, self etc.
+	 * @returns {string} - new target based on char state.
 	 */
-	getTarget( targ ){
-		return this._states.getTarget(targ);
+	retarget( targ ){
+		return this._states.retarget(targ);
 	}
 
 	/**
@@ -238,7 +236,9 @@ export default class Char {
 		}
 
 		for( let i = this.dots.length-1; i>= 0; i-- ) {
-			if ( this.dots[i].id === state) {
+			//console.log('TRY cure: ' + this.dots[i].id + ': ' + this.dots[i].kind );
+			if ( this.dots[i].id === state || this.dots[i].kind === state) {
+				console.log('CURING: ' + state );
 				this.rmDot(i);
 				return;
 			}
@@ -247,16 +247,10 @@ export default class Char {
 
 	/**
 	 * try casting spell from player spelllist.
-	 * @returns {boolean}
+	 * @returns {?GData}
 	 */
 	tryCast(){
-		return ( this.spells && this.spells.onUse(this.context) );
-	}
-
-	reviveDots(gs) {
-		for( let i = this.dots.length-1; i>=0; i--) {
-			this.dots[i].revive(gs);
-		}
+		return this.spells ? this.spells.onUse(this.context) : null;
 	}
 
 	/**
@@ -278,19 +272,36 @@ export default class Char {
 			return dot.forEach(v=>this.addDot(v,source,duration));
 		}
 
+		let id = dot;
 		if ( typeof dot === 'string') {
+
 			dot = Game.state.getData(dot);
 			if ( !dot ) return
-		}
+			dot = cloneClass(dot);
 
+
+		} else {
+
+			id = dot.id;
+
+			dot = cloneClass(dot );
+			let orig = Game.state.getData( id );
+			if ( orig && orig.type === TYP_STATE ) this.mergeDot( dot, orig );
+
+		}
 		if ( dot[ TYP_PCT ] && !dot[TYP_PCT].roll() ) {
 			return;
 		}
 
-		let id = dot.id;
+
 		if ( !id ) {
 			id = dot.id = (source ? source.name || source.id : null );
 			if ( !id) return;
+		}
+
+		if ( dot.flags && this.rollResist(dot.kind||id) ) {
+			Events.emit( RESISTED, this, (dot.kind||dot.name));
+			return;
 		}
 
 		if ( duration === 0 ) duration = dot.duration;
@@ -309,41 +320,37 @@ export default class Char {
 		}
 
 		if ( !(dot instanceof Dot) ) {
-			dot = Game.state.mkDot( dot, source, duration );
+			dot = new Dot(dot,source); //Game.state.mkDot( dot, source, duration );
+			dot.duration = duration;
 		}
 
-		this._states.add( dot );
-		this.dots.push( dot );
 		this.applyDot( dot );
+
+	}
+
+
+	/**
+	 * Merge state or dot into this one.
+	 * @param {object} dot
+	 * @param {Dot} st
+	 */
+	mergeDot( dot, st ) {
+
+		mergeSafe( dot, st );
+		dot.flags = dot.flags | st.flags;
+		dot.adj = dot.adj || st.adj;
+
+		console.log('dot flags: ' + dot.flags );
 
 	}
 
 	applyDot( dot ) {
 
+		this._states.add( dot );
+		this.dots.push( dot );
+
 		if ( dot.mod ) this.context.applyMods( dot.mod, 1 );
-
-		if ( dot.flags ) events.emit( CHAR_STATE, this, dot );
-
-		let time = dot.duration;
-
-		let states = dot.state;
-		if ( states ) {
-
-			if ( typeof states === 'string') {
-				states = states.split(',');
-			}
-			for( let i = states.length-1; i>= 0; i-- ){
-
-				var s = this._gs.getData( states[i] );
-				if ( s ) {
-					console.log('ADD DOT STATE: ' + states[i] );
-					this.addDot( s, dot.source, time );
-				}
-
-			}
-
-		}
-
+		if ( dot.flags ) Events.emit( CHAR_STATE, this, dot );
 	}
 
 	removeDot( dot ) {
@@ -390,7 +397,7 @@ export default class Char {
 			}
 
 		}
-		if ( this.regen ) this.hp += this.regen*dt;
+		if ( this.regen ) this.hp += ( this.regen*dt );
 
 	}
 
@@ -408,6 +415,15 @@ export default class Char {
 
 			this.timer += getDelay( this.speed );
 
+			if ( this.spells && Math.random()<0.4 ) {
+
+				let s = this.tryCast()
+				if ( s ) {
+
+					Events.emit( EVT_COMBAT, this.name + ' uses ' + s.name );
+				}
+
+			}
 			return this.getCause(NO_ATTACK) || this.getAttack();
 
 		}
@@ -452,6 +468,20 @@ export default class Char {
 	}
 
 	/**
+	 * Perform a resistance roll for a damage/dot kind, with a base percent
+	 * success.
+	 * @param {string} kind
+	 * @param {number} [base=NaN]
+	 * @returns {boolean}
+	 */
+	rollResist( kind, base=null ) {
+
+		let res = (this._resist[kind]||0)+ ( base||10);
+		return res > 100*Math.random();
+
+	}
+
+	/**
 	 *
 	 * @param {*} kind
 	 * @returns {number} 0-based resist percent.
@@ -467,8 +497,12 @@ export default class Char {
 
 	addResist( kind, amt ) {
 
-		if ( !this._resist[kind] ) this._resist[kind] = amt;
-		else this._resist[kind].base += amt;
+		if ( !this._resist[kind] ) {
+
+			//Vue.set( this._resist, kind, amt.valueOf() );
+			this._resist[kind] = amt.valueOf();
+
+		} else this._resist[kind].base += amt;
 
 	}
 

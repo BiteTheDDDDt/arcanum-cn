@@ -117,24 +117,24 @@ export default {
 
 		<tr v-if="hallUnlocked"><td></td><th><button @click="openHall">{{ hallName }}</button></th></tr>
 
-		<tr @mouseenter.capture.stop="emit( 'itemover', $event,player.titles, 'Titles')">
+		<tr @mouseenter.capture.stop="itemOver( $event, player.titles, null, 'Titles')">
 			<td><span v-if="player.titles.length>0"><button class="config" @click="pickTitle($event)"></button></span>title</td><th> {{ title}}</th></tr>
 		<tr><td>notoriety</td><th>{{ Math.floor(player.fame.valueOf() ) }}</th></tr>
 		<tr><td>level</td><th> {{ level }}</th></tr>
 		<tr><td>exp</td><th> {{ exp }} / {{ next }} </th></tr>
 		<tr><td>virtue : evil</td><th> {{ Math.floor(player.virtue.valueOf()) }} : {{Math.floor(player.evilamt.valueOf())}}</th></tr>
-		<tr><td @mouseenter.capture.stop="emit( 'itemover', $event,sp)">skill points</td><th> {{spStr }}</th></tr>
+		<tr><td @mouseenter.capture.stop="itemOver( $event,sp)">skill points</td><th> {{spStr }}</th></tr>
 
 
 		<tr><td>rest</td><th><slotpick pick="rest" /></th></tr>
 		<tr><td>mount</td><th><slotpick pick="mount" /></th></tr>
-		<tr><td @mouseenter.capture.stop="emit( 'itemover', $event,dist)">distance</td><th>{{ dist.current }}</th></tr>
+		<tr><td @mouseenter.capture.stop="itemOver( $event,dist)">distance</td><th>{{ dist.current }}</th></tr>
 		</table>
 		</div>
 
 		<div>
 		<table>
-			<tr><td @mouseenter.capture.stop="emit( 'itemover', $event, hp)">life</td><th>
+			<tr><td @mouseenter.capture.stop="itemOver( $event, hp)">life</td><th>
 			{{ floor( hp.valueOf() ) }} / {{ floor( hp.max.value ) }}</th></tr>
 
 			<tr><td>stamina</td><th>
@@ -148,7 +148,7 @@ export default {
 
 			<tr><td>speed</td><th>{{ speed }}</th></tr>
 
-			<tr @mouseenter.capture.stop="emit( 'itemover', $event,player.weapon)">
+			<tr @mouseenter.capture.stop="itemOver( $event,player.weapon)">
 				<td>weapon</td><th>{{ player.weapon ? player.weapon.name : 'None' }}</th></tr>
 
 

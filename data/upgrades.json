@@ -45,6 +45,7 @@
 		"flavor":"",
 		"slot":"mount",
 		"buy":{
+			"broomstick":1,
 			"research":200,
 			"nature":5,
 			"spirit":5,
@@ -65,6 +66,7 @@
 		"flavor":"",
 		"slot":"mount",
 		"buy":{
+			"broomstick":1,
 			"research":1000,
 			"nature":10,
 			"spirit":10,
@@ -695,7 +697,6 @@
 		"id":"grimoire",
 		"desc":"The handbook of witches",
 		"require":"g.witch>0&&g.tier2>0",
-		"locked":true,
 		"cost":{
 			"gold":50,
 			"spirit":2,
@@ -750,7 +751,7 @@
 		"id":"speakbirds",
 		"name":"Speak to Birds",
 		"desc":"Learn the secret languages of birds.",
-		"require":"g.languages>0&&g.animals>2&&g.birdcage>1",
+		"require":"g.falconer>0||(g.birdcage>0&&g.animals>7)",
 		"cost":{
 			"research":250,
 			"nature":1
@@ -867,6 +868,38 @@
 
 	},
 	{
+		"id":"bloodbag",
+		"name":"membranous pouch",
+		"desc":"A sack woven from living tissue helps preserve the gems.",
+		"require":"g.bloodlore>=5&&g.weaving>5",
+		"max":1,
+		"cost":{
+			"hp":100,
+			"bloodgem":5,
+			"bodies":1
+		},
+		"mod":{
+			"bloodgem.max":5
+		}
+
+	},
+	{
+		"id":"deepincisions",
+		"name":"deep incisions",
+		"desc":"The safest place to store your precious gems is by your heart.",
+		"require":"g.bloodbag>0&&g.dissection>=5",
+		"repeat":false,
+		"cost":{
+			"hp":100,
+			"bloodgem":15
+		},
+		"mod":{
+			"dissection.max":1,
+			"bloodbag.max":3
+		}
+
+	},
+	{
 		"id":"bagofholding",
 		"name":"bag of holding",
 		"require":"g.lore>10&&g.conjuration>7",
@@ -874,14 +907,14 @@
 		"max":1,
 		"cost":{
 			"gold":1000,
-			"research":1000,
-			"arcana":1
+			"research":2000,
+			"arcana":3
 		},
 		"mod":{
 			"inv.max":4,
 			"gold.max":100,
 			"gems.max":20,
-			"magicgems.max":5
+			"prismaticgems.max":5
 		},"flavor":"the research costs a little more than you expected..."
 
 	},
@@ -1759,7 +1792,7 @@
 		"id":"evanescence",
 		"name":"evanescence",
 		"tags":"airsource",
-		"desc":"like you don't exist at all",
+		"desc":"Like you don't exist at all",
 		"require":"g.air.max>=8",
 		"cost":{
 			"research":300,
@@ -1792,9 +1825,9 @@
 		},"flavor":"i've had worse"
 	},
 	{
-		"id": "earthworks",
-		"desc": "Strong walls around your home, to deter unwise attackers",
-		"require": "g.geosculpting>=5",
+		"id":"earthworks",
+		"desc":"Strong walls around your home, to deter unwise attackers",
+		"require":"g.geosculpting>=5",
 		"max": 2,
 		"cost": {
 			"gold": 300,
@@ -1804,13 +1837,13 @@
 			"geosculpting.max": 1,
 			"player.defense": 5
 		},
-		"flavor": "Doubles as a burial mound"
+		"flavor":"Doubles as a burial mound"
 	},
 	{
-		"id": "coretap",
-		"name": "Core tap",
-		"desc": "tap the world's core for endless heat",
-		"require": "g.earthshaker>0&&g.geosculpting>=6",
+		"id":"coretap",
+		"name":"Core tap",
+		"desc":"tap the world's core for endless heat",
+		"require":"g.earthshaker>0&&g.geosculpting>=6",
 		"max": 1,
 		"cost": {
 			"gold": 5000,
@@ -1826,10 +1859,10 @@
 		}
 	},
 	{
-		"id": "tamedroads",
-		"name": "tamed pathway",
-		"require": "g.geomancer>0&&g.dist>=200",
-		"desc": "Train the roads around your home to behave.",
+		"id":"tamedroads",
+		"name":"tamed pathway",
+		"require":"g.geomancer>0&&g.dist>=200",
+		"desc":"Train the roads around your home to behave.",
 		"cost": {
 			"gold": 3000,
 			"earthgem": 5,
@@ -1838,13 +1871,13 @@
 		"mod": {
 			"dist": 100
 		},
-		"flavor": "those good boys are perfect for keeping unwanted guests away"
+		"flavor":"those good boys are perfect for keeping unwanted guests away"
 	},
 	{
-		"id": "hiddenchamber",
-		"name": "hidden chamber",
-		"desc": "A place to meditate in solitude, deep beneath the earth",
-		"require": "g.geosculpting>0",
+		"id":"hiddenchamber",
+		"name":"hidden chamber",
+		"desc":"A place to meditate in solitude, deep beneath the earth",
+		"require":"g.geosculpting>0",
 		"max": 1,
 		"cost": {
 			"gold": 500,
@@ -1856,10 +1889,44 @@
 		}
 	},
 	{
-		"id": "rockcollection",
-		"name": "minerals collection",
-		"desc": "Sorted by hardness.",
-		"require": "geomancer",
+		"id":"expandedlungs",
+		"name":"expansive lungs",
+		"desc":"All the air you require.",
+		"require":"(g.windmage+g.stormcaller+g.avatar)>0",
+		"cost":{
+			"arcana":1,
+			"airgem":50
+		},
+		"mod":{
+			"self.resist.water":5,
+			"airlore.rate":"10%",
+			"breath.max":10,
+			"breath.rate":0.5
+		}
+
+	},
+	{
+		"id":"waterbreathing",
+		"name":"water breathing",
+		"desc":"Water is as air to you.",
+		"require":"(g.hydromancer+g.stormcaller+g.avatar)>0",
+		"cost":{
+			"arcana":1,
+			"sp":1,
+			"watergem":100
+		},
+		"mod":{
+			"self.resist.water":10,
+			"waterlore.rate":"10%",
+			"breath.max":"100%",
+			"breath.rate":5
+		}
+	},
+	{
+		"id":"rockcollection",
+		"name":"minerals collection",
+		"desc":"Sorted by hardness.",
+		"require":"geomancer",
 		"max": 3,
 		"cost": {
 			"gold": 500,
@@ -1868,13 +1935,13 @@
 		"mod": {
 			"hammerlore.max": 1
 		},
-		"flavor": "A fantastic way to test your strength"
+		"flavor":"A fantastic way to test your strength"
 	},
 	{
-		"id": "artificialmountain",
-		"name": "raise mountain",
-		"desc": "Leave your mark on this world",
-		"require": "earthshaker",
+		"id":"artificialmountain",
+		"name":"raise mountain",
+		"desc":"Leave your mark on this world",
+		"require":"earthshaker",
 		"max": 1,
 		"cost": {
 			"gold": 5000,
@@ -1890,10 +1957,10 @@
 		}
 	},
 	{
-		"id": "constructquarry",
-		"name": "magic quarry",
-		"desc": "A rocky escarpment to conduct your excavations more efficiently.",
-		"require": "geosculpting",
+		"id":"constructquarry",
+		"name":"magic quarry",
+		"desc":"A rocky escarpment to conduct your excavations more efficiently.",
+		"require":"geosculpting",
 		"max": 3,
 		"cost": {
 			"gold": 1500,
@@ -1906,10 +1973,10 @@
 		}
 	},
 	{
-		"id": "mythicanvil",
-		"name": "mythic anvil",
-		"desc": "Made of mythical metals, this anvil can withstand even a titan's power",
-		"require": "titan",
+		"id":"mythicanvil",
+		"name":"mythic anvil",
+		"desc":"Made of mythical metals, this anvil can withstand even a titan's power",
+		"require":"titan",
 		"max": 1,
 		"cost": {
 			"gold": 10000,
@@ -1924,10 +1991,10 @@
 		}
 	},
 	{
-		"id": "undertunnels",
-		"name": "subterranean pathways",
-		"desc": "A twisting maze of indistinguishable passages spanning your domain.",
-		"require": "g.geosculpting>=10",
+		"id":"undertunnels",
+		"name":"subterranean pathways",
+		"desc":"A twisting maze of indistinguishable passages spanning your domain.",
+		"require":"g.geosculpting>=10",
 		"max": 1,
 		"cost": {
 			"gold": 5000,
@@ -1935,7 +2002,7 @@
 			"earthrune": 1
 		},
 		"mod": {
-			"dist": "25%"
+			"dist":"25%"
 		}
 	},
 	{
@@ -2041,18 +2108,29 @@
 	{
 		"id":"mendicant",
 		"desc":"Sacrifice luxury for higher attainments.",
-		"need":"g.evil<=0&&g.tier1>0&&g.gold.max>1000&&g.light.max>5",
+		"need":"g.evil<=0&&g.gold.max>1000&&g.light.max>5",
 		"warn":true,
-		"cost":{
-		},
 		"mod":{
 			"fame":10,
-			"virtue":2,
 			"gold.max":"-10%",
 			"spiritlore.max":2,
 			"spiritlore.rate":0.5,
 			"lightlore.max":2,
 			"lightlore.rate":0.5
+		}
+
+	},
+	{
+		"id":"innersanctum",
+		"name":"inner sanctum",
+		"need":"g.mendicant>0&&g.truesight>0",
+		"desc":"The halls of the mind are without limits.",
+		"cost":{
+			"lightgem":5,
+			"research":5000
+		},
+		"mod":{
+			"space.max":"10%"
 		}
 
 	},

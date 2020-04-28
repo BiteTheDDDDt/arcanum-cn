@@ -5,16 +5,15 @@ import ItemGen from './modules/itemgen';
 import TechTree, { Changed } from './techTree';
 import Resource from './items/resource';
 import Skill from './items/skill';
-import Stat from './values/stat';
+import Stat from './values/rvals/stat';
 
 import DataLoader from './dataLoader';
 
-import Events, {EVT_UNLOCK, EVT_EVENT, EVT_LOOT, SET_SLOT, DELETE_ITEM, CHAR_ACTION } from './events';
-import { MONSTER, TYP_PCT, TYP_RANGE, P_TITLE, P_LOG, TEAM_PLAYER, ENCHANTSLOTS, WEAPON, HOME } from './values/consts';
+import Events, {EVT_EVENT, EVT_LOOT, SET_SLOT, DELETE_ITEM } from './events';
+import { MONSTER, TYP_PCT, TYP_RANGE, P_TITLE, P_LOG, TEAM_PLAYER, ENCHANTSLOTS, WEAPON } from './values/consts';
 import TagSet from './composites/tagset';
-import { TARGET_SELF, TARGET_ALLY, ApplyAction } from './values/combat';
-import RValue from './values/rvalue';
-import StatData from './items/statData';
+import RValue from './values/rvals/rvalue';
+import { SetModCounts } from './items/base';
 
 var techTree;
 
@@ -71,6 +70,12 @@ export default {
 	get player(){return this.state.player},
 
 	/**
+	* @property {Char} self - self/user of any spell/action.
+	*/
+	get self(){return this.state.player;},
+
+
+	/**
 	 *
 	 * @param {object} obj
 	 * @param {(number)=>boolean} obj.tick -tick function.
@@ -81,9 +86,13 @@ export default {
 	 * Clear game data.
 	 */
 	reset() {
+
 		this.loaded = false;
 		this.state = null;
 		this._gdata = null;
+		this.runner = null;
+		this.log.clear();
+
 	},
 
 	/**
@@ -96,16 +105,14 @@ export default {
 
 		this.reset();
 
-		this.log.clear();
-
 		// Code events. Not game events.
 		Events.init(this);
-
-		this.runner = null;
 
 		return this.loader = DataLoader.loadGame( saveData ).then( allData=>{
 
 			this.state = new GameState( allData, saveData );
+			this.state.revive();
+
 			this.itemGen = new ItemGen( this );
 
 			this._gdata = this.state.items;
@@ -114,14 +121,14 @@ export default {
 
 			if ( hallData ) this.addData( hallData );
 
+			this.recalcSpace();
+
 			this.recheckTiers();
 			this.restoreMods();
 
-			this.recalcSpace();
-
 			techTree = new TechTree( this.gdata );
 			//Events.add( EVT_UNLOCK, techTree.unlocked, techTree );
-			Events.add( CHAR_ACTION, this.onCharAction, this );
+			//Events.add( CHAR_ACTION, this.onCharAction, this );
 
 			// initial unlocks/usables check.
 			techTree.forceCheck();
@@ -239,13 +246,13 @@ export default {
 
 	/**
 	 * Recalculate amount of space used by items.
+	 * @compat @deprecated
 	 */
 	recalcSpace(){
 
-		let used = 0;
-
 		let space = this.state.getData('space');
-		space.value = used;
+		space.value = 0;
+		SetModCounts( space.mod, space.value );
 
 	},
 
@@ -318,6 +325,9 @@ export default {
 
 					stat.amount(this, stat.rate.value*dt);
 
+				}
+				if ( stat.effect ) {
+					this.applyVars( stat.effect, dt );
 				}
 
 			}
@@ -393,7 +403,6 @@ export default {
 				}
 
 				if ( it.running ) this.runner.stopTask(it);
-				if ( it == this.state.raid.dungeon ) this.state.raid.setDungeon(null);
 
 				if ( it instanceof Resource || it instanceof Skill ) {
 					this.remove( it, it.value);
@@ -472,19 +481,19 @@ export default {
 
 		if ( !this.canUse(it) ) return false;
 
+		if ( it.buy && !it.owned ) {
+			return this.tryBuy( it, false );
+		}
+
 		if ( it.perpetual || it.length > 0 ) {
 
 			this.setTask(it);
 
 		}  else if ( it.instanced ){
 
-			it.onUse( this, this.state.inventory );
+			if ( it.value > 0 ) it.onUse( this );
 
-		} else if ( it.buy && !it.owned ) {
-
-			this.tryBuy( it, false );
-
-		} else {
+		} else  {
 
 			if ( it.isRecipe ) {
 
@@ -537,6 +546,15 @@ export default {
 	},
 
 	/**
+	 * Get target of spell or action.
+	 * @param {Char} char
+	 * @param {string} targets
+	 * @returns {Char|Char[]|null}
+	 */
+	/*getTarget( char, targets ) {
+	},*/
+
+	/**
 	 * Create an item whose cost has been met ( or been provided by an effect )
 	 * @param {GData} it
 	 * @param {boolean} [keep=true] whether the item should be kept after effect.
@@ -544,6 +562,8 @@ export default {
 	 * @param {number} [count=1]
 	 */
 	create( it, keep=true, count=1 ) {
+
+		//console.log('CREATING: ' + it.id );
 
 		if ( typeof it === 'string') it = this.state.getData(it);
 		else if ( Array.isArray(it) ) {
@@ -553,7 +573,10 @@ export default {
 			return;
 		}
 
-		if (!it ) return;
+		if (!it ) {
+			//console.log('not found: ' + it.id );
+			return;
+		}
 
 		for( let i = count; i >0; i--) {
 
@@ -568,7 +591,9 @@ export default {
 			} else {
 
 				var inst = this.itemGen.instance( it );
-				if ( inst ) this.state.inventory.add( inst );
+				if ( inst ) {
+					this.state.inventory.add( inst );
+				}
 				Events.emit( EVT_LOOT, inst );
 
 			}
@@ -611,8 +636,6 @@ export default {
 			}
 		}
 
-		return false;
-
 	},
 
 	/**
@@ -629,7 +652,6 @@ export default {
 		if ( typeof it.useOn === 'function') it.useOn( targ, this );
 		it.value++;
 
-		console.log('USING: ' + it.id  + ' with ' + targ.id );
 		if ( it.mod ) {
 			targ.permVars( it.mod );
 		}
@@ -771,7 +793,7 @@ export default {
 
 			// test that another item is unlocked.
 			let it = this.getData(test);
-			return it && it.fillsRequire();
+			return it && it.fillsRequire(this);
 
 		} else if (  Array.isArray(test) ) {
 
@@ -784,7 +806,7 @@ export default {
 			/**
 			 * @todo: quick patch in case it was a data item.
 			 */
-			if ( test.id ) return test.fillsRequire();
+			if ( test.id ) return test.fillsRequire(this);
 
 			// @todo: take recursive values into account.
 			// @todo allow tag tests.
@@ -823,16 +845,16 @@ export default {
 
 				if ( target === undefined || target === null ) {
 
-					if ( p === P_TITLE ) this.state.player.addTitle( e );
+					if ( p === P_TITLE ) this.self.addTitle( e );
 					else if ( p === P_LOG ) Events.emit( EVT_EVENT, e );
 					else console.warn( p + ' no effect target: ' + e );
 
 				} else {
 
 					if ( typeof e === 'number' || e.type === TYP_RANGE ) {
-
 						target.amount( this, e*dt );
 					} else if ( e.isRVal ) {
+
 						// messy code. this shouldn't be here. what's going on?!?!
 						target.amount( this, dt*e.getApply(this.state, target ) );
 
@@ -887,7 +909,7 @@ export default {
 			for( let p in mod ) {
 
 				var target = this.getData( p );
-				if ( target === undefined ) continue;
+				if ( target === undefined || target === null ) continue;
 				else if ( mod[p] === true ){
 
 					target.doUnlock(this);
@@ -938,28 +960,6 @@ export default {
 	canUse( it ){
 		if ( !it.canUse ) console.error( it.id + ' no canUse()');
 		else return it.canUse( this );
-	},
-
-	/**
-	 * Item action or attack
-	 * @param {Attack} act
-	 * @param {Char} char
-	 */
-	onCharAction( act, char=this.player ) {
-
-		if ( this.state.explore.running || this.state.raid.running ) return;
-
-		if ( act.target & TARGET_SELF > 0 ) {
-
-			ApplyAction( char, act, char );
-
-		} else if ( act.target & TARGET_ALLY ) {
-
-			let ally = this.allies.randItem();
-			if ( ally ) ApplyAction( ally, act, char );
-
-		}
-
 	},
 
 	/**
@@ -1054,6 +1054,7 @@ export default {
 	 */
 	canPay( cost, amt=1 ) {
 
+		// @note @todo: this doesnt work since some items might charge same cost.
 		if (Array.isArray(cost) ) return cost.every( v=>this.canPay(v,amt), this );
 
 		let res;
@@ -1095,6 +1096,7 @@ export default {
 	 * @param {object} parent - parent object.
 	 * @param {object|number} cost - cost expected on parent or sub.
 	 * @param {number} amt - cost multiplier.
+	 * @returns {boolean}
 	 */
 	canPayObj( parent, cost, amt=1 ){
 
@@ -1127,6 +1129,7 @@ export default {
 	 * Test if equip is possible. ( Must have space in inventory
 	 * for any items replaced. )
 	 * @param {*} it
+	 * @returns {boolean}
 	 */
 	canEquip(it) {
 
@@ -1143,9 +1146,11 @@ export default {
 	 */
 	equip( it, inv=null ) {
 
-		if ( !this.canEquip(it) ) return false;
+		if ( !this.canEquip(it) ) {
+			console.log('equip: ' + it.id  + ' type: ' + it.type + ' kind: ' + it.kind );
+			return false;
+		}
 
-		console.log('equip:' + it.id  + ' type: ' + it.type + ' kind: ' + it.kind );
 		let res = this.state.equip.equip( it );
 		if ( !res) return;
 
@@ -1211,6 +1216,8 @@ export default {
 	getLoot(it, inv=null) {
 
 		if ( !it) return null;
+
+		//console.log('LOOT: ' + it.id );
 
 		inv = inv || this.state.inventory;
 		if ( inv.full() ) inv = this.state.drops;

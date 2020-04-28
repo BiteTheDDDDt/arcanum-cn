@@ -1,27 +1,18 @@
 import SpawnGroup from "./spawngroup";
 import Game from "../game";
+import { SpawnParams } from "./spawnparams";
 
 
 /**
- * Create Npc from string or SpawnInfo object.
- * @param {*} e
- * @param {number} [pct=1]
+ * Parse Dungeon/Locale spawning information.
+ * @param {object|Array} spawnData
  */
-export const MakeNpc = ( e, pct=1 ) => {
+export const ParseSpawns = ( spawnData ) => {
 
-	if ( typeof e === 'string' ) {
-
-		e = Game.getData(e);
-		if ( e ) return Game.itemGen.npc(e);
-
+	if ( typeof spawnData === 'object') {
+		if ( Array.isArray(spawnData) ) return new Spawns( spawnData );
+		return new SpawnParams( spawnData );
 	}
-	if ( !e ) return null;
-
-	// generate enemy from parameters.
-	e = Game.itemGen.randEnemy( e, null, pct );
-	if ( !e) {console.warn( 'Missing Enemy: ') }
-
-	return e;
 
 }
 
@@ -37,52 +28,40 @@ export default class Spawns {
 	set groups(v){this._groups =v;}
 
 	/**
-	 * @property {object} info - spawnInfo object. describes spawning information.
-	 * e.g. catacrytps.
-	 */
-	get info(){
-		return this._info;
-	}
-	set info(v) { this._info=v;}
-
-	/**
 	 * @private
 	 * @property {number} weightTot
 	 */
 	get weightTot(){ return this._weightTot; }
 	set weightTot(v) { this._weightTot = v}
 
-	constructor(vars){
+	/**
+	 *
+	 * @param {Array} arr
+	 */
+	constructor( arr ){
 
-		if ( Array.isArray(vars) ) {
-
-			this.initGroups(vars);
-
-		} else if ( typeof vars === 'object' ) {
-
-			this.info = vars;
-
-		}
+		this.initGroups(arr);
 
 	}
 
 	/**
 	 * Get a random spawn group.
 	 * @note faster would be sorted groups and binary search.
-	 * @returns {SpawnGroup}
+	 * @param {number} [pct=0] - 1-base percent. progress through dungeon.
+	 * @returns {Npc[]|null}
 	 */
-	random() {
+	random( pct=0 ) {
 
-		if ( this.groups ) {
-			return this.randGroup();
-		} else {
-			return this.info;
-		}
+		let grp = this.randGroup();
+		if ( grp === null ) return null;
+
+		return grp.instantiate(pct);
 
 	}
 
 	/**
 	 * Get random group from groups list.
+	 * @returns {SpawnGroup|null}
 	 */
 	randGroup(){
 
@@ -92,16 +71,20 @@ export default class Spawns {
 		let len = this.groups.length;
 		for( let i =0; i < len; i++ ) {
 
-			tot += this.groups[i].weight;
+			tot += this.groups[i].w;
 			if ( p <= tot ) return this.groups[i];
 
 		}
 
-		// shouldn't happen.
+		// shouldn't happen. weight total should account for all groups.
 		return len > 0 ? this.groups[0] : null;
 
 	}
 
+	/**
+	 *
+	 * @param { Array } list
+	 */
 	initGroups( list ){
 
 		var tot = 0;
@@ -112,7 +95,7 @@ export default class Spawns {
 
 			if ( !(g instanceof SpawnGroup)) g = list[i] = new SpawnGroup(g);
 
-			tot += g.weight;
+			tot += g.w;
 
 
 		}

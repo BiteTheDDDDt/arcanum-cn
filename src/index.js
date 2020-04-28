@@ -4,6 +4,7 @@ import Confirm from 'ui/components/confirm.vue';
 import Game from './game';
 import Events from './events';
 import Profile from './modules/profile';
+import { ItemOver } from 'ui/popups/itemPopup.vue';
 
 //window.localStorage.clear();
 
@@ -18,17 +19,6 @@ if ( __KONG ) {
 	});
 }
 
-/*window.addEventListener('beforeinstallprompt', e=>{
-
-	console.log('ARCANUM BEFOREINSTALL PROMPT');
-
-});*/
-
-/**
- * Global dispatch.
- */
-//var dispatch = new Vue();
-
 Vue.mixin({
 
 	components:{ confirm:Confirm },
@@ -40,6 +30,8 @@ Vue.mixin({
 		listen:Events.listen,
 		dispatch:Events.dispatch,
 		removeListener:Events.removeListener,
+
+		itemOver:ItemOver,
 
 		/**
 		 * Game-level events.
@@ -252,6 +244,7 @@ const vm = new Vue({
 
 			this.dispatch('pause');
 
+
 			const reader = new FileReader();
 			reader.onload = (e)=>{
 
@@ -298,7 +291,8 @@ const vm = new Vue({
 
 			try {
 
-				if ( this.game.loaded ) this.renderKey++;
+				//if ( this.game.loaded ) this.renderKey++;
+				this.renderKey++;
 
 				this.game.load( obj, Profile.getHallItems() ).then( this.gameLoaded,
 					e=>console.error( e.message + '\n' + e.stack ) );
@@ -322,6 +316,7 @@ const vm = new Vue({
 		reset(){
 
 			this.dispatch('pause');
+
 			Profile.clearActive();
 			this.setStateJSON(null);
 

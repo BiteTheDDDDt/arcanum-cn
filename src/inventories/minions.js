@@ -1,7 +1,7 @@
-import Inventory, { SaveInstanced } from "./inventory";
+import Inventory, { SAVE_IDS } from "./inventory";
 import Events, { TASK_CHANGED } from '../events';
 import { NPC, TEAM_PLAYER} from "../values/consts";
-import RValue from "../values/rvalue";
+import RValue from "../values/rvals/rvalue";
 
 
 export default class Minions extends Inventory {
@@ -42,10 +42,10 @@ export default class Minions extends Inventory {
 
 		if ( !this.max ) this.max = 0;
 
-		this.saveMode = 'custom';
-		this.saveMap = SaveInstanced;
+		/*this.saveMode = 'custom';
+		this.saveMap = SaveInstanced;*/
 
-		this._allies = new Inventory( {id:'allies', spaceProp:'level'} );
+		this._allies = new Inventory( {id:'allies', spaceProp:'level', saveMode:SAVE_IDS} );
 		this.mods = new Map();
 		this.keep = new Set();
 
@@ -61,6 +61,10 @@ export default class Minions extends Inventory {
 
 	}
 
+	/**
+	 * @todo - improve this w/ NpcState/Context.
+	 * @param {GData} it
+	 */
 	shouldKeep(it) {
 
 		if ( this.keep.has(it.id)||this.keep.has(it.kind) ) return true;
@@ -73,7 +77,7 @@ export default class Minions extends Inventory {
 
 		for( let i = this.items.length-1; i>= 0; i-- ) {
 
-			var it = this.items[i];
+			let it = this.items[i];
 			if ( it.active === false && it.alive ) it.rest(dt);
 
 		}
@@ -89,6 +93,7 @@ export default class Minions extends Inventory {
 		super.add(m);
 
 		m.team = TEAM_PLAYER;
+		m.keep = true;
 
 		if ( m.active ) {
 			this.setActive(m)
@@ -97,20 +102,13 @@ export default class Minions extends Inventory {
 		for( let pair of this.mods ) {
 
 			if ( m.is(pair[1] ) ) {
-				m.applyMod(pair[0]);
+				//console.log('APPLY MINION MOD: ' + pair[1] );
+				m.applyMods(pair[0]);
 			}
 
 		}
 
 
-	}
-
-	/**
-	 * Get list of Minions by id.
-	 * @param {string[]} ids
-	 */
-	getList( ids ) {
-		return this.items.filter( v=>ids.includes(v.id) );
 	}
 
 	setActive( b, active=true ) {
@@ -153,7 +151,6 @@ export default class Minions extends Inventory {
 			}
 
 			if ( m.active ) { actives.push(m); }
-			m.team = TEAM_PLAYER;
 
 		}
 

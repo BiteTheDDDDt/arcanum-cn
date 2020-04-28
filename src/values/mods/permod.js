@@ -1,21 +1,21 @@
 import Mod from "./mod";
 
-const PER_SYM = '/';
-const PerRegEx = /^(\d+\.?\d*)?\/(\d+)$/;
+const PER_SYM = ':';
+const PerRegEx = /^(\d+\.?\d*)?\:(\d+)$/;
 
 /**
  *
  * @param {string} v
  * @returns {boolean}
  */
-export const IsPerValue = (v)=>{
+export const IsPerMod = (v)=>{
 	return PerRegEx.test(v);
 }
 
 /**
- * Apply result only on value%modulus === 0
+ * Apply modifier per quantity of source object.
  */
-export default class PerValue extends Mod {
+export default class PerMod extends Mod {
 
 	toJSON(){ return this.value + PER_SYM + this.per; }
 
@@ -54,13 +54,13 @@ export default class PerValue extends Mod {
 				this.per = Number(parts[1]) || 1;
 
 			} else {
-				console.warn('Invalid modulus: ' + vars );
+				console.warn('bad PerMod: ' + vars );
 				this.value = 0;
 				this.per = 1;
 			}
 
 		} else {
-			console.log('unexpected per: ' + vars );
+			console.log('bad PerMod: ' + vars );
 			this.value = Number(vars);
 		}
 

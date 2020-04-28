@@ -1,5 +1,6 @@
 import GData from "./gdata";
 import Events, { EVT_EVENT, EVT_UNLOCK } from "../events";
+
 /**
  * Represents in-game event.
  */
@@ -12,6 +13,9 @@ export default class GEvent extends GData {
 	get rand() { return this._rand; }
 	set rand(v) { this._rand = v; }
 
+	/**
+	 * @property {number} cd - cooldown.
+	 */
 	get cd() { return this._cd; }
 	set cd(v) { this._cd =v; }
 

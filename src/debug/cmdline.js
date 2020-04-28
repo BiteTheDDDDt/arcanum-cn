@@ -3,7 +3,7 @@ export default class CmdLine {
 
 	/**
 	 *
-	 * @param {object} context - starting execution context for all commands.
+	 * @param {Debug} context - starting execution context for all commands.
 	 */
 	constructor( context ){
 		this.context = context;
@@ -18,7 +18,7 @@ export default class CmdLine {
 		if ( line == null ) return false;
 
 		line = line.toLowerCase();
-		let parts = line.split(' ');;
+		let parts = line.split(' ');
 		console.log( this.exec( parts, line ) );
 
 

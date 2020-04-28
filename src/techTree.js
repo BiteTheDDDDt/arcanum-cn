@@ -3,7 +3,7 @@ import { quickSplice } from './util/array';
 import TagSet from './composites/tagset';
 
 /**
- * @const {RegExp} FuncRE - regular expression to find tree relationships
+ * @const {RegExp} FuncRE - regular expression to identify tree relationships
  * in requirement/need functions.
  */
 const FuncRE = /[^\.]\b\w+\.((?:\w|\.)+\b)/gi;
@@ -19,6 +19,7 @@ export const Changed = new Set();
 const UnlockQueue = new Set();
 
 /**
+ * @const {Set<GData>} UseQueue - queue of items to check for usable.
  * Used to queue checks of use changes.
  */
 const UseQueue = new Set();
@@ -27,7 +28,7 @@ export default class TechTree {
 
 	/**
 	 *
-	 * @param {Object} [vars=null]
+	 * @param {Object} [datas=null]
 	 */
 	constructor( datas ) {
 
@@ -79,54 +80,55 @@ export default class TechTree {
 	}
 
 	/**
-	 * Check fringe items for potential unlock events.
+	 * Item was unlocked. Add to fringe if it potentially unlocks other items.
+	 * @param {GData} it
 	 */
-	async updateTech(){
+	unlocked( it ) {
+
+		if ( this.unlocks[it.id] !== undefined ){
+			// if duplicate entry in fringe, should be weeded out naturally anyway.
+			this.fringe.push( it );
+		}
+
+	}
 
 		/**
-		 * @todo: put unlocks/usables into Set to avoid duplicate checks.
-		 */
+	 * Check fringe items for potential unlock events.
+	 */
+	updateTech(){
+
 		for( let it of Changed ){
 
-			let links = this.unlocks[it.id ];
-
-			// check for items unlocked by changes to item.
+			let links = this.unlocks[it.id];
 			if ( links !== undefined ) {
-				if ( this.checkUnlocks( links ) === false ) {
 
+				if ( this.changed( links ) === false ) {
 					this.unlocks[it.id] = undefined;
-
-				}
-			}
-
-			links = this.needs[it.id];
-			if ( links !== undefined ) {
-
-				if ( this.checkUsables( links ) === false ) {
-					this.needs[it.id] = undefined;
 				}
 
 			}
 
 		}
 
-		await this.updateUnlocks();
-		await this.updateUsables();
-
-
 	}
 
-	async updateUnlocks(){
+	updateUnlocks(){
 
 		for( let it of UnlockQueue ) {
 			Game.tryUnlock(it);
 		}
+	}
+
+	/**
+	 * Check fringe items for potential unlock events.
+	 */
+	updateTech(){
 
 		UnlockQueue.clear();
 
 	}
 
-	async updateUsables(){
+	updateUsables(){
 
 		for( let it of UseQueue ) {
 			it.usable = it.canUse( Game );
@@ -151,8 +153,6 @@ export default class TechTree {
 
 		}
 
-		return links.length > 0;
-
 	}
 
 	/**
@@ -161,18 +161,27 @@ export default class TechTree {
 	 * @returns {boolean} false if no unlock links remain.
 	*/
 	checkUnlocks( links ){
+	}
 
+	/**
+	 * Call when src Item changes.
+	 * Test unlocks on all variables linked by a possible unlock chain.
+	 * @param {string} src - id of changed Item.
+	*/
+	changed( links ){
+
+		let it;
 		for( let i = links.length-1; i>= 0; i--) {
 
-			let it = this.datas[ links[i] ];
-			if ( !it ) {
+			it = this.items[ links[i] ];
+			if ( !it || it.locked === false || it.disabled === true || it.locks>0 ) {
 				quickSplice( links, i );
-			} else if ( it.locked === false || it.disabled === true ) {
+			} else if ( Game.tryUnlock(it) ) {
 
 				// remove unlock link.
 				quickSplice( links, i );
 
-			} else UnlockQueue.add(it);
+			}
 
 		}
 
@@ -180,26 +189,24 @@ export default class TechTree {
 
 	}
 
+
 	/**
 	 * Mark all Items which might potentially unlock this item.
 	 * @param {GData} item
 	 */
 	mapUnlocks( item ) {
 
-		if ( item instanceof TagSet ) return;
+		if ( !item.locked || item.disabled || item instanceof TagSet ) return;
+		//if ( item instanceof TagSet ) return;
 
-		if ( item.locked ) {
+		if ( item.require ) this.mapRequirement( item, item.require, this.unlocks );
+		if ( item.need ) this.mapRequirement( item, item.need, this.unlocks );
 
-			if ( item.require ) this.mapRequirement( item, item.require, this.unlocks );
-			if ( item.need ) this.mapRequirement( item, item.need, this.unlocks );
-
-		}
-
-		if ( item.need ) this.mapRequirement( item, item.need, this.needs );
+		/*if ( item.need ) this.mapRequirement( item, item.need, this.needs );
 		if ( item.cost ) this.mapRequirement( item, item.cost, this.needs );
 		if ( item.fill ) this.mapRequirement( item, item.fill, this.needs );
 		if ( item.buy ) this.mapRequirement( item, item.buy, this.needs );
-		if ( item.buy ) this.mapRequirement( item, item.run, this.needs );
+		if ( item.buy ) this.mapRequirement( item, item.run, this.needs );*/
 
 
 	}

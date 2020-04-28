@@ -1,5 +1,5 @@
-import { TYP_RVAL } from "./consts";
-import { precise } from '../util/format';
+import { TYP_RVAL } from "../consts";
+import { precise } from '../../util/format';
 
 export const PercentTest = /^(\d+(?:\.?\d+)?)\%$/i
 export const RangeTest = /^\-?\d+\.?\d*\~\-?\d+\.?\d*$/i;
@@ -13,15 +13,6 @@ export const RangeTest = /^\-?\d+\.?\d*\~\-?\d+\.?\d*$/i;
 export const SubPath = ( id, child ) => {
 	return id + '.' + child;
 }
-
-/*Parse(str){
-
-	if ( PercentTest.test(str) ) return new Percent(str);
-	else if ( RangeTest.test(str) ) return new Range(str);
-
-	return new RValue( str );
-
-}*/
 
 export default class RValue {
 
@@ -47,15 +38,9 @@ export default class RValue {
 	}
 
 	/**
-	 * @property {object} target - target modified.
-	 */
-	get target(){return this._target;}
-	set target(v){this._target=v}
-
-	/**
 	 * @property {boolean} isRVal - simple test for RVal interface.
 	 */
-	get isRVal(){return true;}
+	get isRVal(){ return true; }
 
 	/**
 	 * @property {string} id
@@ -120,7 +105,7 @@ export default class RValue {
 	 */
 	getApply() {
 		//console.log( this.id + ' getApply: ' + this.value );
-		return this.value;
+		return this.valueOf();
 	}
 
 	/**

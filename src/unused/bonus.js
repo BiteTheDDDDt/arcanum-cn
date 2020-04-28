@@ -1,4 +1,4 @@
-import Stat from "../values/stat";
+import Stat from "../values/rvals/stat";
 
 /**
  * CURRENTLY UNUSED.

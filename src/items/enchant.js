@@ -1,6 +1,6 @@
 import Task from './task';
 import GData from './gdata';
-import { setModCounts } from './base';
+import { SetModCounts } from './base';
 import { canTarget, ENCHANTSLOTS } from '../values/consts';
 import Runnable from '../composites/runnable';
 import Enchanting from '../composites/enchanting';
@@ -19,9 +19,9 @@ export default class Enchant extends Task {
 		this._only = typeof v === 'string' ? v.split(',') : v;
 	}
 
-	get controller(){return ENCHANTSLOTS; }
+	get controller(){ return ENCHANTSLOTS; }
 
-	constructor(vars){
+	constructor( vars ){
 
 		super(vars);
 
@@ -30,7 +30,7 @@ export default class Enchant extends Task {
 		this.level = this.level || 1;
 		this.need = this.need || 'enchantsource';
 
-		if ( this.mod ) setModCounts( this.mod, 1);
+		if ( this.mod ) SetModCounts( this.mod, 1);
 
 	}
 
@@ -56,14 +56,7 @@ export default class Enchant extends Task {
 	useOn( targ, g ) {
 
 		if ( !targ) return;
-
 		targ.addEnchant( this );
-
-		if ( this.adj && !targ.name.includes(this.adj) ) {
-
-			targ.name += ' ' + this.adj;
-
-		} else if ( !targ.name.includes('enchanted') ) targ.name = 'enchanted ' + targ.name;
 
 	}
 
@@ -80,8 +73,8 @@ export default class Enchant extends Task {
 	 */
 	canUseOn( targ ) {
 
-		let itLevel = targ.level || 1;
-		if ( (targ.enchantTot + this.level > itLevel) ) {
+		let itLevel = targ.maxEnchants || 0;
+		if ( targ.hasEnchant(this.id) || (targ.enchantTot + this.level > itLevel) ) {
 			return false;
 		}
 

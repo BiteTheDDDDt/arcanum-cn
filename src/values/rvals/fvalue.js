@@ -1,6 +1,5 @@
 import RValue from "./rvalue";
-import Stat from "./stat";
-import { TYP_FUNC } from "./consts";
+import { TYP_FUNC } from "../consts";
 
 /**
  * Create a function that returns a cost.
@@ -48,6 +47,8 @@ export default class FValue extends RValue {
 
 	/**
 	 * Get value of a result or effect.
+	 * NOTE: this applies the standard effect/result params.
+	 * Damage funcs use different function param assignments.
 	 * @param {GameState} gs
 	 * @param {*} targ
 	 */

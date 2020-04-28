@@ -60,7 +60,7 @@ export default {
 			@click.self="dispatch('hall-file',$event )" type="text/json">hall save</a></div>
 
 			<!--<input type="file" name="[File]" accept="text/json" @change="fileDrop">-->
-		<button id="drop-file" @click="$refs.fileInput.click()" @drop="fileDrop" @dragover="fileDrag" @dragleave.capture.stop="dragOut" name="[Drop Save]">[Drop Save]</button>
+		<button id="drop-file" @click="$refs.fileInput.click()" @drop="fileDrop" @dragover="fileDrag" @dragleave.capture.stop="dragOut" name="[Load Save]">[Load Save]</button>
 			<input ref="fileInput" type="file" @change="fileSelect" accept="text/json text/*">
 
 			<confirm @confirm="dispatch('reset')">reset wizard</confirm>
@@ -72,9 +72,10 @@ export default {
 		<span class="link-bar">
 			<a href="https://discord.gg/bCABC96" target="_blank">discord</a>
 			<a href="http://wiki.lerpinglemur.com/dhrune" target="_blank">wiki</a>
+			<a href="https://lerpinglemur.gitlab.io/arcanum/" target="_blank">unstable</a>
 			<a href="https://www.patreon.com/theoryofmagic" target="_blank">patreon</a>
 			<a href="https://www.reddit.com/r/wizrobe/" target="_blank">reddit</a>
-			<span class="vers">build# {{ VERSION }}</span>
+			<span class="vers">vers {{ VERSION }}</span>
 			<button class="text-button" @click="$emit('open-settings')">&#9881;</button>
 		</span>
 

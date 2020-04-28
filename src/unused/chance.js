@@ -1,4 +1,4 @@
-import Percent from "./percent";
+import Percent from "../values/percent";
 
 /**
  * Percent with an associated object to trigger on successful roll.

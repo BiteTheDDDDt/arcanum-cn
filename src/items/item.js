@@ -42,9 +42,8 @@ export default class Item {
 
 	}
 
-
 	/**
-	 * @property {string[]} enchants - ids of all enchantments applied.
+	 * @property {string[]} enchants - ids of enchantments applied.
 	 */
 	get enchants() {
 		return this._enchants;
@@ -76,7 +75,13 @@ export default class Item {
 	}
 
 	/**
-	 * @property {boolean} consume - whether the item is consumed when used.
+	 * @property {number} enchantMax - max sum of enchant levels applied.
+	 */
+	get maxEnchants() { return this._maxEnchants; }
+	set maxEnchants(v) { this._maxEnchants=v;}
+
+	/**
+	 * @property {boolean} consume - whether to consume the item on use.
 	 */
 	get consume() { return this._consume; }
 	set consume(v) { this._consume = v;}
@@ -92,19 +97,25 @@ export default class Item {
 
 	constructor( vars=null, save=null ) {
 
-		if ( vars ) {
-			cloneClass( vars, this );
-		}
+		if ( vars ) { cloneClass( vars, this ); }
 		if ( save ) assign(this,save);
 
-		//if ( vars ) assign(this,vars);
-
+		if ( !this.maxEnchants ) this.maxEnchants = 0;
 		if ( !this.enchantTot ) this.enchantTot = 0;
 		this.value = this._value || 1;
 
 		if ( this.consume === null || this.consume === undefined ) this.consume = this.defaults.consume;
 		if ( this.stack === null || this.stack === undefined ) this.stack = this.defaults.stack;
 
+	}
+
+	/**
+	 * Test if item has an enchantment.
+	 * @param {string} id
+	 * @returns {boolean}
+	 */
+	hasEnchant(id){
+		return this._enchants && this._enchants.includes(id);
 	}
 
 	canPay(cost) { return this.value >= cost; }
@@ -158,10 +169,44 @@ export default class Item {
 
 	}
 
+	/**
+	 * Apply an adjective to the item's name.
+	 * @param {string} adj
+	 * @param {object} src - adjective source.
+	 * @param {?string} [fallback=null] - fallback prefix to apply.
+	 */
+	addAdj( adj, src, fallback=null ) {
+
+		if ( adj ) {
+
+			if ( adj.includes( '%' ) ) {
+
+				this.name = adj.replace( '%s', src.name ).replace( '%i', this.name );
+				return;
+
+			} else if ( !this.name.includes(adj) ) {
+
+				this.name = adj + ' ' + this.name;
+				return;
+
+			}
+
+		}
+
+		if ( fallback ) this.addAdj( fallback, src );
+
+	}
+
+	/**
+	 *
+	 * @param {Enchant} e - enchantment being added.
+	 */
 	addEnchant( e ) {
 
 		if ( !this.enchants ) this.enchants = [];
 		this.enchants.push(e.id);
+
+		this.addAdj( e.adj, e, 'enchanted');
 
 		this.enchantTot += e.level || 0;
 

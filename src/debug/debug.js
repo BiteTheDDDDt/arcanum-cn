@@ -1,9 +1,28 @@
 import Resource from "../items/resource";
-import RevStat from "../items/revStat";
 
 const ALL = 'all';
 const ALL_ALT = '*';
 
+/**
+ * Current commands:
+ * (Items refer to any Data items in game: Upgrades, furniture,actions, etc.)
+ * addmax, max - add stat max
+ * get [item|amount] [item|amount] - get quantity of item.
+ * add - same as get
+ * addall [amount] - add quantity to all items.
+ * getall [amount] - same as addall
+ * fill [item] - fill item.
+ * fillall - fill all resources.
+ * emptyall - remove all count of item.
+ * emptyid - remove all of one item type.
+ * removeall [amount] - remove quantity from one resource.
+ * remove [item] [amount] - remove quantity of item.
+ * lock [item] - apply lock to item.
+ * unlock [item] - unlock item.
+ * unlockall - unlock all items
+ *
+ *
+ */
 export default class Debug {
 
 	/**
@@ -173,6 +192,13 @@ export default class Debug {
 
 		let it = this.state.getData( id );
 		if ( !it ) return;
+
+		if ( it.isRecipe ) {
+			it.locked = false;
+			it.disabled = false;
+			this.game.create(it,true);
+			return;
+		}
 
 		let newval = it.value + amt;
 		if ( newval > it.max ) it.max = newval;

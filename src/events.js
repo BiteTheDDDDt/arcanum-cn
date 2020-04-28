@@ -28,7 +28,7 @@ export const COMBAT_HIT = 'char_hit';
 const EVT_EVENT = 'event';
 const EVT_UNLOCK = 'unlock';
 const EVT_LOOT = 'loot';
-const EVT_DISABLED = 'disabled';
+//const EVT_DISABLED = 'disabled';
 
 const LOG_EVENT = 1;
 const LOG_UNLOCK = 2;
@@ -61,12 +61,16 @@ export const DROP_ITEM = 'dropitem';
 /**
  * Any character died by damage.
  */
-const CHAR_DIED = 'char_died';
+export const CHAR_DIED = 'char_died';
 
-const ALLY_DIED = 'ally_died';
+export const ALLY_DIED = 'ally_died';
 
-const COMBAT_DONE = 'combat_done';
-const ENEMY_SLAIN = 'slain';
+/**
+ * @const {string} COMBAT_WON - all enemies slain in current combat.
+ */
+export const COMBAT_WON = 'combat_won';
+
+export const ENEMY_SLAIN = 'slain';
 
 /**
  * @const {string} CHAR_STATE - inform current char state.
@@ -81,7 +85,8 @@ export const STATE_BLOCK = 'blocked';
 const DEFEATED = 'defeated';
 
 const DAMAGE_MISS = 'damage_miss';
-export const IS_IMMUNE = 'dmg_immune';
+export const IS_IMMUNE = 'is_immune';
+export const RESISTED = 'resists';
 
 const TASK_CHANGED = 'taskchanged';
 const TASK_IMPROVED = 'taskimprove';
@@ -110,7 +115,7 @@ const TASK_BLOCKED = 'task_blocked';
 /**
  * Item with attack used. Typically spell; could be something else.
  */
-const CHAR_ACTION = 'item_atk';
+const CHAR_ACTION = 'char_act';
 
 /**
  * Completely delete item data. Use for Custom items only.
@@ -163,10 +168,9 @@ export const TOGGLE = 'toggle';
 
 export { CHAR_TITLE, NEW_TITLE, LEVEL_UP, CHAR_NAME, CHAR_CLASS, CHAR_CHANGE };
 
-export { HALT_TASK, EVT_EVENT, EVT_UNLOCK, EVT_LOOT, TASK_DONE,
-	ALLY_DIED, CHAR_DIED, CHAR_ACTION, STOP_ALL, DELETE_ITEM,
+export { HALT_TASK, EVT_EVENT, EVT_UNLOCK, EVT_LOOT, TASK_DONE, CHAR_ACTION, STOP_ALL, DELETE_ITEM,
 	TASK_CHANGED, TASK_IMPROVED, TASK_BLOCKED,
-	DAMAGE_MISS, DEFEATED, ENEMY_SLAIN, COMBAT_DONE, ENC_START, ENC_DONE };
+	DAMAGE_MISS, DEFEATED, ENC_START, ENC_DONE };
 
 export default {
 
@@ -199,6 +203,7 @@ export default {
 		events.addListener( DEFEATED, this.onDefeat, this );
 		events.addListener( DAMAGE_MISS, this.onMiss, this );
 		events.addListener( IS_IMMUNE, this.onImmune, this );
+		events.addListener( RESISTED, this.onResist, this );
 		events.addListener( ENC_START, this.onEnc, this );
 
 	},
@@ -295,12 +300,21 @@ export default {
 
 	onDefeat( locale ) {
 
-		this.log.log( 'Retreat', '', LOG_COMBAT );
+		this.log.log( 'RETREAT', 'Leaving '+ locale.name, LOG_COMBAT );
 
 	},
 
-	onImmune( msg ) {
-		this.log.log( 'IMMUNE', msg, LOG_COMBAT );
+	/**
+	 *
+	 * @param {Char} target
+	 * @param {string} kind
+	 */
+	onImmune( target, kind ) {
+		this.log.log( 'IMMUNE', target.name + ' immune to ' + kind, LOG_COMBAT );
+	},
+
+	onResist(target, kind) {
+		this.log.log( 'RESISTS', target.name + ' resists ' + kind, LOG_COMBAT );
 	},
 
 	onMiss( msg ) {
@@ -340,8 +354,8 @@ export default {
 	onHit( target, dmg, resist, reduce, source ) {
 
 		let msg = source + " hits ";
-		if (resist > 0) msg += "strongly ";
-		else if (resist < 0) msg += "weakly ";
+		if (resist < 0) msg += "strongly ";
+		else if (resist > 0) msg += "weakly ";
 		else if (resist > 1) msg += " absorbed by ";
 		msg += target.name + ": "+ precise( dmg, 1 );
 

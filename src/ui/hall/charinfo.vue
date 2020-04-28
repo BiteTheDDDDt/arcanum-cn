@@ -20,9 +20,7 @@ export default {
 
 		empty(){return this.char.empty },
 
-		name(){ return this.char.name; },
 		level() { return this.char.level },
-		title() { return this.char.title },
 		gclass(){return this.char.gclass },
 		fame(){return precise( this.char.fame );}
 
@@ -35,7 +33,7 @@ export default {
 <template>
 <div :class="['char-info', empty ? 'empty' : '']">
 	<div class="char-stats" v-if="!empty">
-	<span class="fld-name">{{ name }} the {{ title }}</span>
+	<span class="fld-name">{{ char.name }} the {{ char.title }}</span>
 	<span v-if="gclass">{{ gclass }}</span>
 	<span v-if="level>0">level {{ level }}</span>
 	<span v-if="char.fame>0">notoriety: {{ fame }}</span>
@@ -48,12 +46,13 @@ export default {
 	<div class="buttons">
 
 	<button class="enter" v-if="!active" @click="$emit('load', char)"
-		@mouseenter.capture.stop="emit( 'itemover', $event, rollOver )">
+		@mouseenter.capture.stop="itemOver( $event, rollOver )">
 		<span v-if="empty">Begin</span><span v-else>Awaken</span>
 		</button>
 
 	<button class="dismiss" v-if="!active&&!empty"
 		@click="$emit('dismiss', char)">Dismiss</button>
+	<!--<button class="dismiss" v-if="killable" @click="$emit('kill',char)">Murder</button>-->
 
 	</div>
 

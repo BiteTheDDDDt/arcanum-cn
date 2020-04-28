@@ -90,7 +90,7 @@ export default class Range {
 	 */
 	add( amt:any ) {
 
-		console.log('ADDING RANGE: ' + amt );
+		//console.log('ADDING RANGE: ' + amt );
 
 		if ( typeof amt === 'number' ) {
 			this.min += amt;

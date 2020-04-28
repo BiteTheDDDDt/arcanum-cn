@@ -6,11 +6,11 @@ import Tasks from './sections/tasks.vue';
 import Quickbar from './quickbar.vue';
 import ItemsBase from './itemsBase';
 import Vitals from 'ui/vitals.vue';
-import DotView from './dotView.vue';
-import ItemPopup from './popups/itemPopup.vue';
+import DotView from './items/dotView.vue';
 import TopBar from './top-bar.vue';
 
 import Warn from 'ui/popups/warn.vue';
+import ItemPopup, { RollOver, ItemOut } from './popups/itemPopup.vue';
 import SettingsUI from './popups/settings.vue';
 
 import LogView from './outlog.vue';
@@ -23,6 +23,7 @@ import { TRY_BUY, USE, TRY_USE, EVT_STAT } from '../events';
 import { TICK_TIME } from '../game';
 import profile from '../modules/profile';
 import { TASK } from '../values/consts';
+import Task from '../items/task';
 
 /**
  * @const {number} SAVE_TIME  - time in seconds between auto-saves.
@@ -30,7 +31,7 @@ import { TASK } from '../values/consts';
 const SAVE_TIME = 30;
 
 /**
- * @listens [sell,itemover,itemout]
+ * @listens [sell]
  */
 export default {
 
@@ -68,9 +69,6 @@ export default {
 
 		return {
 			state:null,
-			overItem:null,
-			overTitle:null,
-			overElm:null,
 			psection:null,
 			profile:profile,
 			togSettings:false,
@@ -79,6 +77,25 @@ export default {
 		};
 
 	},
+
+	beforeCreate(){
+
+		/**
+		 * @property {number} loopId - interval id for game loop.
+		 */
+		this.loopId = 0;
+		/**
+		 * @property {number} repeaterId - interval id for auto-repeating click.
+		 */
+		this.repeaterId = 0;
+
+		/**
+		 * @property {(evt)=>null} repeatEndFunc - mouseup func to end repeater.
+		 */
+		this.repeatEndFunc = null;
+
+	},
+
 	created(){
 
 		this.listen('game-loaded', this.gameLoaded );
@@ -90,6 +107,9 @@ export default {
 
 	},
 	beforeDestroy(){
+
+		ItemOut();
+		this.endRepeater();
 
 		this.removeListener('game-loaded', this.gameLoaded );
 		this.removeListener('setting', this.onSetting );
@@ -116,9 +136,6 @@ export default {
 		 */
 		initEvents() {
 
-			this.add( 'itemover', this.itemOver );
-			this.add( 'itemout', this.itemOut );
-
 			this.add( 'sell', this.onSell );
 			this.add( 'take', this.onTake );
 
@@ -135,6 +152,8 @@ export default {
 
 			this.add('showActivities', ()=>{this.togActivities=true} )
 
+			this.add('repeater', this.makeRepeater, this );
+			this.add('endrepeater', this.endRepeater, this );
 
 			this.add( TRY_USE, this.tryUse )
 			this.add( USE, this.onUse );
@@ -170,7 +189,7 @@ export default {
 
 		startAutoSave() {
 
-			if (!this.interval ) return;
+			if (!this.loopId ) return;
 
 			if ( Settings.get('autoSave') && !this.saver ) {
 				//console.log('START AUTOSAVE');
@@ -181,24 +200,60 @@ export default {
 
 		pause() {
 
-			if ( this.interval ) {
-				let int = this.interval;
-				this.interval = null;
+			if ( this.loopId ) {
+				let int = this.loopId;
+				this.loopId = 0;
 				clearInterval( int );
 			}
 			this.stopAutoSave();
+			this.endRepeater();
 
 			if ( this.keyListen ) window.removeEventListener('keydown', this.keyListen, false );
 
 
 		},
+
+
+		/**
+		 * Item repeats until released.
+		 * @param {GData} it - item being used.
+		 */
+		makeRepeater( it ){
+
+			if ( this.repeaterId ) {
+				clearInterval(this.repeaterId );
+				this.repeaterId = 0;
+			}
+			this.repeaterId = setInterval( (t)=>Game.tryItem(t), 50, it );
+
+			if ( !this.repeatEndFunc ) this.repeatEndFunc = ()=>this.endRepeater();
+			document.addEventListener( 'mouseup', this.repeatEndFunc );
+
+		},
+
+		/**
+		 * Cancel active repeater.
+		 */
+		endRepeater(){
+
+			if ( this.repeaterId ) {
+				clearInterval(this.repeaterId );
+				this.repeaterId=0;
+			}
+			if ( this.repeatEndFunc ) {
+				document.removeEventListener( 'mouseup', this.repeatEndFunc );
+				this.repeatEndFunc = null;
+			}
+
+		},
+
 		unpause() {
 
 			if ( Game.loaded ) {
 
 				Game.lastUpdate = Date.now();
-				if ( !this.interval ) {
-					this.interval = setInterval( ()=>Game.update(), TICK_TIME );
+				if ( !this.loopId ) {
+					this.loopId = setInterval( ()=>Game.update(), TICK_TIME );
 				}
 
 				this.keyListen = evt=>{
@@ -215,7 +270,7 @@ export default {
 
 		keyDown( e ){
 
-			if ( !this.interval ) return;
+			if ( !this.loopId ) return;
 
 			let slice = e.code.slice(0,-1);
 			if ( slice === 'Digit' || slice === 'Numpad' ) {
@@ -223,8 +278,12 @@ export default {
 				let num = Number( e.code.slice(-1) );
 				//console.log('number: ' + num );
 
-				if ( e.shiftKey && this.overItem ) this.state.setQuickSlot( this.overItem, num );
-				else {
+				if ( e.shiftKey && RollOver.item ) {
+
+					let it = RollOver.item;
+					this.state.setQuickSlot( RollOver.item, num );
+
+				} else {
 					let it = this.state.getQuickSlot(num);
 					if ( it) this.doQuickslot(it);
 				}
@@ -260,18 +319,7 @@ export default {
 
 		onSell( it, inv, count ) { Game.trySell( it, inv, count ); },
 
-		itemOver(evt, it, title) {
-			this.overItem = it;
-			this.overTitle = title;
-			this.overElm = evt.currentTarget;
-		},
-
-		itemOut(){
-
-			this.overElm = null;
-			this.overItem = null;
-
-		},
+		itemOut:ItemOut,
 
 		/**
 		 * Item clicked.
@@ -333,7 +381,7 @@ export default {
 
 <template>
 
-	<div class="full" @mouseover.capture.stop="emit('itemout')">
+	<div class="full" @mouseover.capture.stop="itemOut">
 
 		<devconsole />
 		<top-bar :has-hall="profile.hasHall()" @open-settings="togSettings=true">
@@ -344,7 +392,7 @@ export default {
 		</top-bar>
 
 <!-- popups -->
-		<itempopup :item="overItem" :elm="overElm" :title="overTitle" />
+		<itempopup />
 		<warn ref="warn" @confirmed="onConfirmed" />
 		<choice />
 		<settings v-if="togSettings" @close-settings="togSettings=false" />
@@ -385,7 +433,7 @@ export default {
 		<template slot="sect_potions"><potions /></template>
 
 		<template slot="sect_bestiary"><bestiary /></template>
-		<template slot="sect_minions"><minions /></template>
+		<template slot="sect_minions"><minions :minions="state.minions" /></template>
 
 		<template slot="sect_enchant"><enchanting /></template>
 		</vue-menu>

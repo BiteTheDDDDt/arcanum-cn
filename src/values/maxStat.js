@@ -1,4 +1,4 @@
-import Stat from "./stat";
+import Stat from "./rvals/stat";
 
 /**
  * @class
@@ -38,9 +38,13 @@ export default class MaxStat {
 		if ( this._value ) {
 			this._value.set(v);
 		} else {
-			this._value = v instanceof Stat ? v : new Stat( v, this.path + '.value' );
+			this.v = v;
 		}
 
+	}
+
+	set v(v){
+		this._value = new Stat(v,this.path +'.value');
 	}
 
 	get max(){ return this._max; }
@@ -65,7 +69,7 @@ export default class MaxStat {
 	 *
 	 * @param {number} v
 	 */
-	add(v) {
+	amount(v) {
 
 		this._value.base += v;
 		if ( this._value.value > this.max.value ) this._value.base = this.max.value;
@@ -84,7 +88,7 @@ export default class MaxStat {
 			if ( vars.isRVal ) {
 
 				this.max = vars.value;
-				this.value = this.max.value;
+				this.v = this.max.value;
 
 			} else {
 
@@ -92,20 +96,20 @@ export default class MaxStat {
 				else if ( vars.v) this.max = vars.v;
 				else this.max = 0;
 
-				if ( vars.v ) this.value = vars.v;
+				if ( vars.v ) this.v = vars.v;
 				else if ( vars.max ) this.value = vars.max;
-				else this.value = 0;
+				else this.v = 0;
 			}
 
 		} else if ( typeof vars === 'number' ) {
 
 			this.max = vars;
-			this.value = vars;
+			this.v = vars;
 
 		} else {
 
-			this.value = 0;
 			this.max = 0;
+			this.v = 0;
 
 		}
 

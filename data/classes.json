@@ -127,6 +127,7 @@
 	"id":"blueadept",
 	"name":"blue adept",
 	"desc":"Dedicate yourself to putting the world in order.",
+	"secret":true,
 	"require":"g.neophyte>0&&g.virtue>=200",
 	"tags":"t_tier0",
 	"cost":{
@@ -145,6 +146,7 @@
 	"id":"savant",
 	"name":"mystic savant",
 	"desc":"You have no need of these dry tomes and musty old books.",
+	"secret":true,
 	"buyname":"Forgo Studies",
 	"tags":"t_tier0",
 	"require":"g.study<=0&&g.neophyte>0&&g.arcana>=5",
@@ -199,7 +201,7 @@
 	"name":"dark magician",
 	"tags":"t_tier1",
 	"desc":"A devotee of black magic.",
-	"require":"g.tier0>0&&(g.evilamt>=10||g.evil>0)",
+	"require":"g.tier0>0&&(g.shadowlore>=7)",
 	"cost":{
 		"research":400,
 		"arcana":13,
@@ -289,6 +291,7 @@
 	"id":"trickster",
 	"name":"arcane trickster",
 	"desc":"Use magic for deceit and trickery.",
+	"secret":true,
 	"buyname":"Path of Trickery",
 	"tags":"t_tier1",
 	"require":"g.trickery>=4&&g.tier0>0&&g.tier1==0",
@@ -321,6 +324,7 @@
 	"id":"madcap",
 	"name":"mystic madcap",
 	"desc":"A penchant for chaos",
+	"secret":true,
 	"tags":"t_tier2",
 	"require":"g.trickery>=7&&g.tier1>0&&g.tier2==0",
 	"cost":{
@@ -679,7 +683,7 @@
 },
 {
 	"id":"warden",
-	"desc":"a keeper of the forests, mountains, and hills",
+	"desc":"A keeper of the forests, mountains, and hills. Only those living in the wild may become wardens.",
 	"tags":"t_tier2",
 	"require":"g.tier1>0&&g.naturelore>=12",
 	"need":"(g.outdoors+g.lodge)>0",
@@ -756,11 +760,11 @@
 	}
 },
 {
-	"id": "geomancer",
-	"desc": "Lord of rocks.",
-	"tags": "t_tier2",
-	"actdesc": "Become a geomancer, a master of perseverance.",
-	"require": "g.tier1>0&&g.earthlore>=10&&g.tier2==0",
+	"id":"geomancer",
+	"desc":"Lord of rocks.",
+	"tags":"t_tier2",
+	"actdesc":"Become a geomancer, a master of perseverance.",
+	"require":"g.tier1>0&&g.earthlore>=10&&g.tier2==0",
 	"cost": {
 		"research": 1000,
 		"arcana": 15,
@@ -774,18 +778,18 @@
 		"tier2": true,
 		"earthlore.max": 2,
 		"geosculpting.max": 2,
-		"stamina.max": "10%",
+		"stamina.max":"10%",
 		"mana.max": 2,
 		"earthspire.mod.space.max": 50
 	},
-	"flavor": "Your empire of dirt"
+	"flavor":"Your empire of dirt"
 },
 {
-	"id": "earthshaker",
-	"desc": "master of the tectonics.",
-	"tags": "t_tier4",
-	"actdesc": "Become an earthshaker.",
-	"require": "g.tier3>0&&g.earthlore>=20&&g.tier4==0",
+	"id":"earthshaker",
+	"desc":"master of the tectonics.",
+	"tags":"t_tier4",
+	"actdesc":"Become an earthshaker.",
+	"require":"g.tier3>0&&g.earthlore>=20&&g.tier4==0",
 	"cost": {
 		"research": 4000,
 		"arcana": 25,
@@ -799,18 +803,18 @@
 		"tier4": true,
 		"earthlore.max": 3,
 		"player.defense": 15,
-		"stamina.max": "20%",
-		"earth.rate": 0.5,
+		"stamina.max":"20%",
+		"earth.rate": 0.3,
 		"earthspire.mod.space.max": 50
 	},
-	"flavor": "Finally, a subduction license!"
+	"flavor":"Finally, a subduction license!"
 },
 {
-	"id": "titan",
-	"desc": "A mantle of metal and stone.",
-	"tags": "t_tier6",
-	"actdesc": "Become a titan.",
-	"require": "g.tier5>0&&(g.earthshaker+g.geomancer)>0&&g.hammerlore>=10&&g.geosculpting>=10&&g.tier6==0",
+	"id":"titan",
+	"desc":"A mantle of metal and stone.",
+	"tags":"t_tier6",
+	"actdesc":"Become a titan.",
+	"require":"g.tier5>0&&(g.earthshaker+g.geomancer)>0&&g.hammerlore>=10&&g.geosculpting>=10&&g.tier6==0",
 	"cost": {
 		"research": 10000,
 		"arcana": 50,
@@ -825,11 +829,11 @@
 		"tier6": true,
 		"earthlore.max": 3,
 		"player.defense": 30,
-		"stamina.max": "20%",
+		"stamina.max":"20%",
 		"hammerlore.max": 3,
 		"earthspire.mod.space.max": 100
 	},
-	"flavor": "No stone left unturned"
+	"flavor":"No stone left unturned"
 },
 {
 	"id":"pyromancer",

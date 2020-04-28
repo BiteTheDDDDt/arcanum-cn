@@ -1,9 +1,9 @@
-import GData from "./gdata";
 import Events, { EVT_EVENT } from "../events";
+import CharUpgrade from "./charupgrade";
 /**
  * Represents in-game wizard class.
  */
-export default class GClass extends GData {
+export default class GClass extends CharUpgrade {
 
 	constructor(vars=null){
 
@@ -18,8 +18,8 @@ export default class GClass extends GData {
 
 	/**
 	 *
-	 * @param {*} g
-	 * @param {*} amt
+	 * @param {Game} g
+	 * @param {number} amt
 	 * @returns {boolean}
 	 */
 	amount( g, amt ) {
@@ -27,7 +27,6 @@ export default class GClass extends GData {
 		if ( !super.amount(g,amt) ) return false;
 
 		g.state.player.setClass( this.name );
-		if ( this.loot ) g.getLoot( this.loot );
 
 		this.locked = false;
 
