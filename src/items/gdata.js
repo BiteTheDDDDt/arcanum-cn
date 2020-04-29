@@ -18,7 +18,7 @@ import { Changed } from '../techTree';
  * @const {Set} NoDefine - properties not to set to default values.
  */
 const NoDefine = new Set( ['require', 'rate', 'current', 'need', 'value', 'buy',
-	'cost', 'id', 'name', 'warn', 'effect', 'slot', 'exp', 'usable' ] )
+	'cost', 'id', 'name', 'warn', 'effect', 'slot', 'exp', 'nextValue'] )
 
 /**
  * Game Data base class.
@@ -150,8 +150,13 @@ export default class GData {
 	 * @property {boolean} usable - cached usable variable.
 	 * recalculated using canUse()
 	 */
-	get usable() {return this._usable;}
-	set usable(v) { this._usable = v}
+	/*get usable() {return this._usable;}
+	set usable(v) { this._usable = v}*/
+
+	get nextValue(){return this._nextValue;}
+	set nextValue(v) {
+		this._nextValue = v;
+	}
 
 	/**
 	 * @property {Stat} value

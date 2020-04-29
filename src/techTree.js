@@ -22,7 +22,7 @@ const UnlockQueue = new Set();
  * @const {Set<GData>} UseQueue - queue of items to check for usable.
  * Used to queue checks of use changes.
  */
-const UseQueue = new Set();
+//const UseQueue = new Set();
 
 export default class TechTree {
 
@@ -64,20 +64,23 @@ export default class TechTree {
 	 */
 	forceCheck() {
 
+		let links;
+
 		for( let p in this.datas ) {
 
 			let it = this.datas[p];
 			if ( it instanceof TagSet ) continue;
-			if ( !it.disabled && !it.locked && this.unlocks[p] ) {
+			if ( !it.disabled && !it.locked ) {
 
-				this.checkUnlocks( this.unlocks[p ]);
+				links = this.unlocks[p];
+				if ( links ) this.changed( links );
 
 			}
-			it.usable = it.canUse(Game);
 
 		}
 
 	}
+
 
 	/**
 	 * Item was unlocked. Add to fringe if it potentially unlocks other items.
@@ -112,23 +115,14 @@ export default class TechTree {
 
 	}
 
-	updateUnlocks(){
+	/*updateUnlocks(){
 
 		for( let it of UnlockQueue ) {
 			Game.tryUnlock(it);
 		}
-	}
+	}*/
 
-	/**
-	 * Check fringe items for potential unlock events.
-	 */
-	updateTech(){
-
-		UnlockQueue.clear();
-
-	}
-
-	updateUsables(){
+	/*updateUsables(){
 
 		for( let it of UseQueue ) {
 			it.usable = it.canUse( Game );
@@ -153,15 +147,7 @@ export default class TechTree {
 
 		}
 
-	}
-
-	/**
-	 * Call when src Item changes.
-	 * Test unlocks on all variables linked by a possible unlock chain.
-	 * @returns {boolean} false if no unlock links remain.
-	*/
-	checkUnlocks( links ){
-	}
+	}*/
 
 	/**
 	 * Call when src Item changes.
@@ -173,7 +159,7 @@ export default class TechTree {
 		let it;
 		for( let i = links.length-1; i>= 0; i--) {
 
-			it = this.items[ links[i] ];
+			it = this.datas[ links[i] ];
 			if ( !it || it.locked === false || it.disabled === true || it.locks>0 ) {
 				quickSplice( links, i );
 			} else if ( Game.tryUnlock(it) ) {
@@ -215,7 +201,7 @@ export default class TechTree {
 	 * Mark an item's possible requirements.
 	 * @param {GData} item
 	 * @param {string|function|Array} requires
-	 * @param {<string,GData>[]} graph - maps id to dependent items.
+	 * @param {.<string,GData>[]} graph - maps id to dependent items.
 	 */
 	mapRequirement( item, requires, graph ) {
 

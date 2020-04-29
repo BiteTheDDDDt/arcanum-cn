@@ -128,7 +128,7 @@ export default {
 
 			return this.furniture.filter( it=>!this.reslocked(it) &&
 				( o||it.value==0) &&
-				( b||it.usable)&&
+				( b||it.canUse(Game))&&
 				( m||!it.maxed() )&&
 				(n||it.value>0)
 			);
@@ -186,7 +186,7 @@ export default {
 			<td class="space">{{ it.cost.space || it.mod.space }}</td>
 			<td class="name">{{ it.name }}</td> <td class="count">{{ it.value.valueOf() }}</td>
 
-			<td><span v-if="it.maxed()" class="sm">Max</span><button v-else type="button" :disabled="!it.usable" class="buy-btn"
+			<td><span v-if="it.maxed()" class="sm">Max</span><button v-else type="button" :disabled="!it.canUse()" class="buy-btn"
 				@click="emit('upgrade',it)">Buy</button></td>
 
 			<td><button type="button" :disabled="it.value<=0" class="sell-btn" @click="emit('sell',it)">Sell</button></td>

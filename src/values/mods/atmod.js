@@ -101,6 +101,7 @@ export default class AtMod extends Mod {
 			console.log('bad AtMod: ' + vars );
 		}
 
+		//console.log('NEW AT: ' + this.at + ' value: ' + this.value );
 		if ( this.at === null || this.at === undefined ) this.at = 1;
 
 	}

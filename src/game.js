@@ -290,6 +290,14 @@ export default {
 	 */
 	update() {
 
+		/*for( let it of Changed ) {
+
+			if ( it.nextValue != it.value ) {
+				it.changed( this, it.nextValue - this.value );
+			}
+
+		}*/
+
 		let time = Date.now();
 		let dt = Math.min( ( time - this.lastUpdate )/1000, 1 );
 		this.lastUpdate = time;

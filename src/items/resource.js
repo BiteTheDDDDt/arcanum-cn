@@ -85,8 +85,6 @@ export default class Resource extends GData {
 
 		if ( this.rate === null || this.rate === undefined ) this.rate = 0;
 
-		this._lastValue = super.value.valueOf();
-
 		this.type = this.type || RESOURCE;
 
 		this._delta = 0;
