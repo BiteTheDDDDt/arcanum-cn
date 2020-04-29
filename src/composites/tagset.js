@@ -182,10 +182,10 @@ export default class TagSet {
 	 * @param {Game} g
 	 * @param {*} amt
 	 */
-	amount( g, amt ) {
+	amount( amt ) {
 
 		for( let it of this.items ) {
-			if ( typeof it.amount === 'function' ) it.amount( g, amt );
+			if ( typeof it.amount === 'function' ) it.amount( amt );
 		}
 
 	}

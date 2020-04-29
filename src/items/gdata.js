@@ -153,6 +153,9 @@ export default class GData {
 	/*get usable() {return this._usable;}
 	set usable(v) { this._usable = v}*/
 
+	/**
+	 * @property {number} nextValue
+	 */
 	get nextValue(){return this._nextValue;}
 	set nextValue(v) {
 		this._nextValue = v;
@@ -215,6 +218,7 @@ export default class GData {
 
 		/**
 		 * recomputed at game start.
+		 * @property {number} locks - locks applied by items.
 		 */
 		this.locks = 0;
 
@@ -335,6 +339,8 @@ export default class GData {
 
 		let prev = this.value.valueOf();
 
+		this.nextValue += amt;
+
 		if ( amt <= 0 ) {
 
 			if ( prev <= 0 || amt === 0 ) return 0;
@@ -366,16 +372,10 @@ export default class GData {
 
 	/**
 	 * Get or lose quantity.
-	 * @param {Game} g
 	 * @returns {boolean} true if some amount was actually added.
 	 */
-	amount( g, count=1 ) {
-
-		count = this.add(count);
-		if ( count === 0 ) return false;
-		this.changed( g, count );
-		return true;
-
+	amount( count=1 ) {
+		this.nextValue += count;
 	}
 
 	/**
@@ -385,6 +385,9 @@ export default class GData {
 	 * @param {number} count - total change in value.
 	 */
 	changed( g, count) {
+
+		count = this.add(count);
+		if ( count === 0 ) return;
 
 		if ( this.isRecipe ) { return g.create( this, true, count ); }
 
@@ -449,7 +452,7 @@ export default class GData {
 	onUse( g ) {
 
 		if ( this.slot ) g.setSlot( this );
-		else this.amount( g, 1 );
+		else this.amount( 1 );
 
 	}
 

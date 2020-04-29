@@ -41,7 +41,7 @@ export default class GEvent extends GData {
 		// randomized event.
 		if ( this.rand ) {
 
-		} else super.amount( g, 1 );
+		} else super.amount( 1 );
 
 		this.locked = false;
 
@@ -54,7 +54,7 @@ export default class GEvent extends GData {
 	 * @param {*} g
 	 * @param {*} amt
 	 */
-	amount( g, amt ) {
+	amount( amt ) {
 
 		this.doUnlock(g);
 

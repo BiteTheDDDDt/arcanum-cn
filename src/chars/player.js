@@ -486,7 +486,7 @@ export default class Player extends Char {
 
 	levelUp() {
 
-		this.level.amount( this.context, 1 );
+		this.level.amount( 1 );
 
 		this._exp.value -= this._next;
 		this._next = Math.floor( this._next * ( 1 + EXP_RATE ) );

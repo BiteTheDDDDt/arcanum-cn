@@ -22,9 +22,9 @@ export default class GClass extends CharUpgrade {
 	 * @param {number} amt
 	 * @returns {boolean}
 	 */
-	amount( g, amt ) {
+	amount( amt ) {
 
-		if ( !super.amount(g,amt) ) return false;
+		if ( !super.amount( amt ) ) return false;
 
 		g.state.player.setClass( this.name );
 

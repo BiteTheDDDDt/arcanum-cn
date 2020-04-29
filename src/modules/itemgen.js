@@ -290,7 +290,7 @@ export default class ItemGen {
 
 			if ( it.type === 'upgrade' || it.type === TASK || it.type === 'furniture' || it.type === EVENT) it.doUnlock( this.game );
 			else {
-				it.amount( this.game, amt );
+				it.amount( amt );
 				if ( amt > 0 ) return it.name;
 			}
 

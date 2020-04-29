@@ -151,11 +151,11 @@ export default class Group {
 	 * @param {Game} g
 	 * @param {*} amt
 	 */
-	amount( g, amt ) {
+	amount( amt ) {
 
 		let len = this.items.length;
 		for( let i = 0; i < len; i++ ) {
-			this.items[i].amount( g, amt );
+			this.items[i].amount( amt );
 		}
 
 	}

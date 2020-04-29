@@ -281,7 +281,7 @@ export default {
 		this.state.setSlot( it.slot, it );
 
 		this.payCost( it.cost );
-		it.amount( this );
+		it.amount( 1 );
 
 	},
 
@@ -331,7 +331,7 @@ export default {
 
 				if  ( stat.rate.value !== 0 ) {
 
-					stat.amount(this, stat.rate.value*dt);
+					stat.amount( stat.rate.value*dt);
 
 				}
 				if ( stat.effect ) {
@@ -512,7 +512,7 @@ export default {
 				if ( it.slot ) this.setSlot( it );
 				else {
 					this.payCost( it.cost );
-					it.amount( this );
+					it.amount( 1 );
 				}
 			}
 
@@ -681,12 +681,12 @@ export default {
 		} else {
 
 			if ( !it.max ) {
-				it.amount( this, 1 );
+				it.amount( 1 );
 				return;
 			}
 
 			let del = it.max.value - it.value;
-			if ( del > 0) it.amount( this, it.max.value - it.value );
+			if ( del > 0) it.amount( it.max.value - it.value );
 		}
 
 	},
@@ -860,11 +860,11 @@ export default {
 				} else {
 
 					if ( typeof e === 'number' || e.type === TYP_RANGE ) {
-						target.amount( this, e*dt );
+						target.amount( e*dt );
 					} else if ( e.isRVal ) {
 
 						// messy code. this shouldn't be here. what's going on?!?!
-						target.amount( this, dt*e.getApply(this.state, target ) );
+						target.amount( dt*e.getApply( target ) );
 
 					} else if ( e === true ) {
 
@@ -873,7 +873,7 @@ export default {
 
 					} else if ( e.type === TYP_PCT ) {
 
-						if ( e.roll( this.getData('luck').valueOf() ) ) target.amount( this, 1 );
+						if ( e.roll( this.getData('luck').valueOf() ) ) target.amount( 1 );
 
 					} else target.applyVars(e,dt);
 
@@ -885,7 +885,7 @@ export default {
 
 			let target = this.getData(vars);
 			if ( target !== undefined ) {
-				target.amount( this, dt );
+				target.amount( dt );
 			}
 
 		}
@@ -939,7 +939,7 @@ export default {
 			if ( t ) {
 
 				console.warn('!!!!!!!!!!ADDED NUMBER MOD: ' + mod );
-				t.amount( this, 1 );
+				t.amount( 1 );
 
 			}
 

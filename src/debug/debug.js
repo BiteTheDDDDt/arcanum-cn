@@ -109,14 +109,14 @@ export default class Debug {
 		for( let p in this.items) {
 			let it = this.items[p];
 			if ( it && (typeof it.amount === 'function') ) {
-				it.amount( this.game, -it.value );
+				it.amount( -it.value );
 			}
 		}
 	}
 
 	empty( id ) {
 		this.apply(id, it=>{
-			if ( typeof it.amount ==='function' ) it.amount( this.game, -it.value );
+			if ( typeof it.amount ==='function' ) it.amount( -it.value );
 		});
 	}
 
@@ -202,7 +202,7 @@ export default class Debug {
 
 		let newval = it.value + amt;
 		if ( newval > it.max ) it.max = newval;
-		it.amount( this.game, Number(amt) || 1 );
+		it.amount( Number(amt) || 1 );
 
 	}
 

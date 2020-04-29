@@ -239,8 +239,8 @@ export default {
 
 		} else if ( vars.isRVal ) {
 
-			//this.amount( Game, mods*amt );
-			this.value.add( amt*vars.getApply( Game.state, this ) );
+			this.amount( amt*vars.getApply( Game.state, this ) );
+			//this.value.add( amt*vars.getApply( Game.state, this ) );
 
 
 		} else if ( typeof vars === 'object' ) {
@@ -291,7 +291,7 @@ export default {
 
 			}
 			if ( vars.value ) {
-				this.amount( Game, vars.value*amt);
+				this.amount( vars.value*amt);
 				//this.value += (vars.value)*amt;
 			}
 

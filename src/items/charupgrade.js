@@ -42,12 +42,12 @@ export default class CharUpgrade extends GData {
 	 * @param {number} amt
 	 * @returns {boolean}
 	 */
-	amount( g, amt ) {
+	amount( amt ) {
 
 		if ( this.charlock && amt > 0 ) {
 			this.char = g.state.player.hid;
 		}
-		return super.amount( g, amt );
+		return super.amount( amt );
 
 	}
 
