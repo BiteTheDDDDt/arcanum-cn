@@ -1,12 +1,51 @@
 export default class CmdLine {
 
-
 	/**
 	 *
 	 * @param {Debug} context - starting execution context for all commands.
 	 */
 	constructor( context ){
+
 		this.context = context;
+
+		/**
+		 * @property {string[]} history - history of commands entered.
+		 */
+		this.history = [];
+
+		/**
+		 * @property {number} hIndex - index of history being viewed.
+		 * resets on command entered.
+		 */
+		this.hIndex = -1;
+
+	}
+
+	/**
+	 * previous lines are higher history indices.
+	 */
+	prevLine(){
+
+
+		if ( ++this.hIndex >= this.history.length ) {
+			this.hIndex = this.history.length-1;
+		}
+		return this.hIndex >= 0 ? this.history[this.hIndex] : '';
+
+	}
+
+	nextLine(){
+
+		if ( --this.hIndex < 0 ) {
+			this.hIndex = -1;
+		} else if ( this.hIndex >= this.history.length ) {
+			this.hIndex = this.history.length-1;
+		}
+
+		if ( this.hIndex >= 0 ) return this.history[this.hIndex];
+
+		return '';
+
 	}
 
 	/**
@@ -16,6 +55,10 @@ export default class CmdLine {
 	parse( line ) {
 
 		if ( line == null ) return false;
+
+		this.history.unshift(line);
+		if ( this.history.length >= 100 ) this.history.pop();
+		this.hIndex = -1;
 
 		line = line.toLowerCase();
 		let parts = line.split(' ');

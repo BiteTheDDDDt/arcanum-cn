@@ -124,7 +124,6 @@ export default class TechTree {
 		for( let it of changes ){
 
 			let links = this.unlocks[it.id];
-			if ( it.id === 'workbench') console.log('TESTING WORKBENCH UNLCOKS: ' + links );
 
 			if ( links !== undefined ) {
 
