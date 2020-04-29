@@ -9,14 +9,35 @@ import TagSet from './composites/tagset';
 const FuncRE = /[^\.]\b\w+\.((?:\w|\.)+\b)/gi;
 
 /**
+ * @property {Set<GData>} NextChanges - changes for next frame.
+ * Used to loop on changes from current frame while marking changes
+ * for next frame.
+ */
+var NextChanges = new Set();
+
+/**
  * @property {Set<GData>} Changed - items changed on previous frame.
  */
-export const Changed = new Set();
+export var Changed = new Set();
+
+export const GetChanged = ()=>{
+
+	var temp = Changed;
+
+	NextChanges.clear();
+	Changed = NextChanges;
+
+	NextChanges = temp;
+
+	return temp;
+
+
+}
 
 /**
  * @property {Set<GData>} UnlockQueue - items to check for unlocks.
  */
-const UnlockQueue = new Set();
+//const UnlockQueue = new Set();
 
 /**
  * @const {Set<GData>} UseQueue - queue of items to check for usable.
@@ -95,7 +116,7 @@ export default class TechTree {
 
 	}
 
-		/**
+	/**
 	 * Check fringe items for potential unlock events.
 	 */
 	updateTech(){

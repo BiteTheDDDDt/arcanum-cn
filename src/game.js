@@ -2,7 +2,7 @@ import GData from './items/gdata';
 import Log from './log.js';
 import GameState, { REST_SLOT } from './gameState';
 import ItemGen from './modules/itemgen';
-import TechTree, { Changed } from './techTree';
+import TechTree, { Changed, GetChanged } from './techTree';
 import Resource from './items/resource';
 import Skill from './items/skill';
 import Stat from './values/rvals/stat';
@@ -290,6 +290,18 @@ export default {
 	 */
 	update() {
 
+		for( let it of GetChanged() ) {
+
+			var del = it.delta;
+			if ( del !== 0 ) {
+				if ( !it.changed) console.log('NO CHANGE: ' + it.id );
+				else it.changed( this, del );
+			}
+
+		}
+
+
+		//console.log('CHANGE SIZE: ' + Changed.size );
 		let time = Date.now();
 		let dt = Math.min( ( time - this.lastUpdate )/1000, 1 );
 		this.lastUpdate = time;
@@ -303,20 +315,7 @@ export default {
 		this.doResources( this.state.playerStats, dt );
 		this.doResources( this.state.stressors, dt );
 
-		for( let it of Changed ) {
-
-			var del = it.delta;
-			if ( del !== 0 ) {
-				if ( !it.changed) console.log('NO CHANGE: ' + it.id );
-				else it.changed( this, del );
-			}
-
-		}
-
-		//console.log('CHANGE SIZE: ' + Changed.size );
 		techTree.updateTech();
-
-		Changed.clear();
 
 	},
 
