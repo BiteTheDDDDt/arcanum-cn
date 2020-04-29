@@ -164,6 +164,8 @@ export default {
 	set value(v) { this._value = v; },
 	valueOf() { return this._value; },
 
+	get delta(){return 0;},
+
 	/**
 	 * @property {string[]} tags - tag to distinguish between
 	 * item subtypes.

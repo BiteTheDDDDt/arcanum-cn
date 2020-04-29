@@ -60,6 +60,8 @@ export default class TagSet {
 		return false;
 	}
 
+	get delta(){return 0;}
+
 	/**
 	 * @returns {number}
 	 */
@@ -185,7 +187,8 @@ export default class TagSet {
 	amount( amt ) {
 
 		for( let it of this.items ) {
-			if ( typeof it.amount === 'function' ) it.amount( amt );
+			//if ( typeof it.amount === 'function' ) it.amount( amt );
+			it.amount(amt);
 		}
 
 	}

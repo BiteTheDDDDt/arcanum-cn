@@ -306,8 +306,8 @@ export default {
 		for( let it of Changed ) {
 
 			var del = it.delta;
-			if ( del !== 0 ) {
-				if ( !it.changed) console.log('NO CHANGE FUNC: ' + it.id );
+			if ( del != 0 ) {
+				if ( !it.changed) console.log('NO CHANGE: ' + it.id );
 				else it.changed( this, del );
 			}
 
