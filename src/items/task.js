@@ -215,8 +215,8 @@ export default class Task extends GData {
 		 * @note value has to be incremented first
 		 * so the applied mods see the current value.
 		 */
-		this.value++;
-		this.changed(g, 1);
+		this.amount(1);
+
 		this._exp.set(0);
 
 		Events.emit( TASK_DONE, this );
