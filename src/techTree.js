@@ -107,14 +107,14 @@ export default class TechTree {
 	 * Item was unlocked. Add to fringe if it potentially unlocks other items.
 	 * @param {GData} it
 	 */
-	unlocked( it ) {
+	/*unlocked( it ) {
 
 		if ( this.unlocks[it.id] !== undefined ){
 			// if duplicate entry in fringe, should be weeded out naturally anyway.
 			this.fringe.push( it );
 		}
 
-	}
+	}*/
 
 	/**
 	 * Check fringe items for potential unlock events.
@@ -124,6 +124,8 @@ export default class TechTree {
 		for( let it of changes ){
 
 			let links = this.unlocks[it.id];
+			if ( it.id === 'workbench') console.log('TESTING WORKBENCH UNLCOKS: ' + links );
+
 			if ( links !== undefined ) {
 
 				if ( this.changed( links ) === false ) {
@@ -181,6 +183,7 @@ export default class TechTree {
 		for( let i = links.length-1; i>= 0; i--) {
 
 			it = this.datas[ links[i] ];
+
 			if ( !it || it.locked === false || it.disabled === true || it.locks>0 ) {
 				quickSplice( links, i );
 			} else if ( Game.tryUnlock(it) ) {
@@ -203,8 +206,9 @@ export default class TechTree {
 	 */
 	mapUnlocks( item ) {
 
+		// function maps unlockers OF item. TagSets are collections of items
+		// and do not have unlockers.
 		if ( !item.locked || item.disabled || item instanceof TagSet ) return;
-		//if ( item instanceof TagSet ) return;
 
 		if ( item.require ) this.mapRequirement( item, item.require, this.unlocks );
 		if ( item.need ) this.mapRequirement( item, item.need, this.unlocks );
@@ -284,8 +288,8 @@ export default class TechTree {
 	}
 
 	/**
-	 * Map src as a potential unlocker of targ.
-	 * @param {GData} targ
+	 * Map unlocker as a potential unlocker of targ.
+	 * @param {GData} targ - target of the unlock attempt.
 	 * @param {string} unlocker
 	 * @param {<string,GData[]>} graph - the tech tree being mapped, needs or unlocks.
 	 */
@@ -298,7 +302,7 @@ export default class TechTree {
 		else if ( it instanceof TagSet ) {
 			return it.forEach( v=>{
 				//console.log( it.id + ': ' +v.id + ' unlock: ' + targ.id );
-				this.mapIdRequire(v.id, targ, graph)}
+				this.mapIdRequire( targ, v.id, graph)}
 			);
 		}
 

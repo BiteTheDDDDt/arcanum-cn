@@ -319,8 +319,7 @@ export default class Explore {
 
 	complete() {
 
-		this.locale.value++;
-		this.locale.changed( Game ,1);
+		this.locale.amount(1);
 
 		var del = Math.max( 1 + this.player.level - this.locale.level, 1 );
 
