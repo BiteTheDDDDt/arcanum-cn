@@ -119,9 +119,9 @@ export default class TechTree {
 	/**
 	 * Check fringe items for potential unlock events.
 	 */
-	updateTech(){
+	updateTech( changes ){
 
-		for( let it of Changed ){
+		for( let it of changes ){
 
 			let links = this.unlocks[it.id];
 			if ( links !== undefined ) {

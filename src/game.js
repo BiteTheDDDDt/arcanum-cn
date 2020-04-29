@@ -290,7 +290,9 @@ export default {
 	 */
 	update() {
 
-		for( let it of GetChanged() ) {
+		let changed = GetChanged();
+
+		for( let it of changed ) {
 
 			var del = it.delta;
 			if ( del !== 0 ) {
@@ -300,6 +302,7 @@ export default {
 
 		}
 
+		techTree.updateTech( changed );
 
 		//console.log('CHANGE SIZE: ' + Changed.size );
 		let time = Date.now();
@@ -314,8 +317,6 @@ export default {
 		this.doResources( this.state.resources, dt);
 		this.doResources( this.state.playerStats, dt );
 		this.doResources( this.state.stressors, dt );
-
-		techTree.updateTech();
 
 	},
 
