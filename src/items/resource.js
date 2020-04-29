@@ -100,26 +100,4 @@ export default class Resource extends GData {
 		return this.max ? (this.value >= this.max) : false;
 	}
 
-	/**
-	 * Not used any more.
-	 * @param {} dt
-	 */
-	/*update( dt ) {
-
-		if ( this._rate.value !== 0 ) {
-
-			let cur = super.value.base;
-			let v = cur + this._rate.value*dt;
-
-			if ( this.max && v > this.max.value ) v = this.max.value;
-			else if ( v < 0 ) v = 0;
-
-			this._delta = v - this._lastValue;
-
-			super.value = this._lastValue = v;
-
-		} else this._delta = 0;
-
-	}*/
-
 }

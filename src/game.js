@@ -306,7 +306,7 @@ export default {
 		for( let it of Changed ) {
 
 			var del = it.delta;
-			if ( del != 0 ) {
+			if ( del !== 0 ) {
 				if ( !it.changed) console.log('NO CHANGE: ' + it.id );
 				else it.changed( this, del );
 			}
@@ -723,7 +723,7 @@ export default {
 
 		if ( count > it.value ) count = it.valueOf();
 
-		this.getData('gold').value += count*this.sellPrice(it);
+		this.getData('gold').amount( count*this.sellPrice(it) );
 
 		if ( it.instanced ) {
 

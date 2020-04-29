@@ -60,7 +60,7 @@ export default class TagSet {
 		return false;
 	}
 
-	get delta(){return 0;}
+	get delta(){ return 0; }
 
 	/**
 	 * @returns {number}

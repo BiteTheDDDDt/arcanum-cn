@@ -340,8 +340,6 @@ export default class GData {
 
 		let prev = this.value.valueOf();
 
-		this.value += amt;
-
 		if ( amt <= 0 ) {
 
 			if ( prev <= 0 || amt === 0 ) return 0;
@@ -391,6 +389,7 @@ export default class GData {
 	 */
 	changed( g, count) {
 
+		this.delta = 0;
 		count = this.add(count);
 		if ( count === 0 ) return;
 
@@ -425,8 +424,6 @@ export default class GData {
 		if ( this.attack || this.action ) {
 			if (this.type !== WEARABLE && this.type !== WEAPON ) Events.emit( CHAR_ACTION, this, g );
 		}
-
-		this.delta = 0;
 
 	}
 
