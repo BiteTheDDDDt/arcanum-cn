@@ -53,12 +53,6 @@ export default class Resource extends GData {
 		} else this.value.base -= amt;
 	}
 
-	/**
-	 * @property {number} delta - last change in value.
-	 * currently unused. theoretical use for actual rate reporting.
-	 */
-	get delta() { return this._delta; }
-	set delta(v) { this._delta = v; }
 
 	/**
 	 * @property {string} color - optional color override.
@@ -86,8 +80,6 @@ export default class Resource extends GData {
 		if ( this.rate === null || this.rate === undefined ) this.rate = 0;
 
 		this.type = this.type || RESOURCE;
-
-		this._delta = 0;
 
 	}
 

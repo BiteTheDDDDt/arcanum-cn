@@ -18,7 +18,7 @@ import { Changed } from '../techTree';
  * @const {Set} NoDefine - properties not to set to default values.
  */
 const NoDefine = new Set( ['require', 'rate', 'current', 'need', 'value', 'buy',
-	'cost', 'id', 'name', 'warn', 'effect', 'slot', 'exp', 'nextValue'] )
+	'cost', 'id', 'name', 'warn', 'effect', 'slot', 'exp', 'delta'] )
 
 /**
  * Game Data base class.
@@ -154,11 +154,11 @@ export default class GData {
 	set usable(v) { this._usable = v}*/
 
 	/**
-	 * @property {number} nextValue
+	 * @property {number} delta - Amount to add at end of frame.
 	 */
-	get nextValue(){return this._nextValue;}
-	set nextValue(v) {
-		this._nextValue = v;
+	get delta(){return this._delta;}
+	set delta(v) {
+		this._delta = v;
 	}
 
 	/**
@@ -224,6 +224,7 @@ export default class GData {
 
 		if ( this._value === null || this._value === undefined ) this.val = 0;
 
+		this.delta = 0;
 		defineExcept( this, null, NoDefine );
 
 		this.initRVals( this );
@@ -339,7 +340,7 @@ export default class GData {
 
 		let prev = this.value.valueOf();
 
-		this.nextValue += amt;
+		this.value += amt;
 
 		if ( amt <= 0 ) {
 
@@ -375,7 +376,11 @@ export default class GData {
 	 * @returns {boolean} true if some amount was actually added.
 	 */
 	amount( count=1 ) {
-		this.nextValue += count;
+
+		this.delta += count;
+
+		Changed.add(this);
+
 	}
 
 	/**
@@ -421,14 +426,15 @@ export default class GData {
 			if (this.type !== WEARABLE && this.type !== WEAPON ) Events.emit( CHAR_ACTION, this, g );
 		}
 
-		Changed.add(this);
+		this.delta = 0;
 
 	}
 
 	doLock(amt){
-		this.locks += amt;
 
+		this.locks += amt;
 		Changed.add(this);
+
 	}
 
 	doUnlock(){

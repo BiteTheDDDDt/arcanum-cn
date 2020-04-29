@@ -290,14 +290,6 @@ export default {
 	 */
 	update() {
 
-		/*for( let it of Changed ) {
-
-			if ( it.nextValue != it.value ) {
-				it.changed( this, it.nextValue - this.value );
-			}
-
-		}*/
-
 		let time = Date.now();
 		let dt = Math.min( ( time - this.lastUpdate )/1000, 1 );
 		this.lastUpdate = time;
@@ -310,6 +302,16 @@ export default {
 		this.doResources( this.state.resources, dt);
 		this.doResources( this.state.playerStats, dt );
 		this.doResources( this.state.stressors, dt );
+
+		for( let it of Changed ) {
+
+			var del = it.delta;
+			if ( del !== 0 ) {
+				if ( !it.changed) console.log('NO CHANGE FUNC: ' + it.id );
+				else it.changed( this, del );
+			}
+
+		}
 
 		//console.log('CHANGE SIZE: ' + Changed.size );
 		techTree.updateTech();
