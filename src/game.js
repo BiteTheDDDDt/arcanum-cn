@@ -20,7 +20,7 @@ var techTree;
 /**
  * @constant {number} TICK_TIME - time in milliseconds between updates.
  */
-export const TICK_TIME = 200;
+export const TICK_TIME = 150;
 
 /**
  * @constant {number} TICK_LEN - time between frames in seconds.
