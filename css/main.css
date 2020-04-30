@@ -156,6 +156,10 @@ input[type="button"], button, div.text-button, div.popup-close {
 
 }
 
+.flex-row {
+	display:flex;
+}
+
 .darkmode input[type="button"],
 .darkmode button,
 .darkmode .text-button {

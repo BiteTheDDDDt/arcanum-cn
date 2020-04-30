@@ -162,7 +162,7 @@ export default {
 		<hall v-if="hallOpen" @close="closeHall" />
 		<div class="pick-slots">
 
-			<button class="btnHall task-btn" v-if="hallUnlocked" @click="openHall">{{ hallName }}</button>
+			<button class="task-btn" v-if="hallUnlocked" @click="openHall">{{ hallName }}</button>
 
 			<slotpick title="home" pick="home" must-pay=true />
 			<slotpick title="werry" hide-empty=true pick="werry" />
@@ -229,11 +229,6 @@ div.home-view .content {
 	flex-direction: row;
 	width: 100%;
 	padding-top: var(--tiny-gap);
-}
-
-
-div.home-view .btnHall {
-	width:90%;
 }
 
 div.pick-slots {

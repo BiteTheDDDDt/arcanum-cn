@@ -194,9 +194,6 @@ export default {
 }
 
 .task-btn {
-	width: 100%;
-}
-.task-btn {
 
 	max-height: 2em;
 	width:100%;
