@@ -18,7 +18,7 @@ export const SAVE_IDS = 'ids';
 export default class Inventory {
 
 	/**
-	 * @property {number} length - items in inventory.
+	 * @property {number} length - number of items in inventory.
 	 */
 	get count() { return this.items.length; }
 

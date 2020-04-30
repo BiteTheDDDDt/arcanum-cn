@@ -39,9 +39,7 @@ export default class Dot {
 	set name(v){this._name =v;}
 
 	get id() { return this._id; }
-	set id(v) {
-		this._id =v;
-	}
+	set id(v) { this._id =v; }
 
 	get mod() { return this._mod; }
 	set mod(v) { this._mod = v; }
