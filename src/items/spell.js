@@ -135,6 +135,8 @@ export default class Spell extends Task {
 			}
 			else this.addRequire( levelReq );
 
+			this.addRequire("spellbook");
+
 		}
 
 	}
