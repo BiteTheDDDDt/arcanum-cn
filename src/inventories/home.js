@@ -1,24 +1,34 @@
 import GData from "../items/gdata";
+import { mergeClass } from "../items/base";
+import Instance from "../items/instance";
+import Inventory from "./inventory";
 
 export class Home extends GData {
+
+	toJSON(){
+	}
 
 	/**
 	 * @property {Inventory} furniture
 	 */
 	get furniture(){ return this._furniture; }
-	set furniture(v){ this._furniture =v;}
+	set furniture(v){
+		this._furniture = new Inventory( v );
+	}
+
+	get items(){ return this._items; }
+	set items(v){ this._items = new Inventory(v);}
 
 	/**
 	 * @property {Inventory} minions
 	 */
 	get minions(){ return this._minions; }
-	set minions(v){ this._minions =v;}
+	set minions(v){ this._minions = new Inventory( v );}
 
 	/**
 	 * @property {string[]} biomes - biomes composing the home.
 	 */
-	get biomes(){ return this._biomes;
-	}
+	get biomes(){ return this._biomes; }
 	set biomes(v){ this._biomes= typeof v ==='string' ? v.split(',') : v; }
 
 	/**
@@ -31,4 +41,13 @@ export class Home extends GData {
 
 	}
 
+	revive(gs){
+
+		this.furniture.revive( gs );
+		this.minions.revive( gs );
+
+	}
+
 }
+
+mergeClass( Home, Instance )
