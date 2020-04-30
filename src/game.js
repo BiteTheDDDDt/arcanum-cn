@@ -113,6 +113,8 @@ export default {
 			this.state = new GameState( allData, saveData );
 			this.state.revive();
 
+			this.player.context = this;
+
 			this.itemGen = new ItemGen( this );
 
 			this._gdata = this.state.items;

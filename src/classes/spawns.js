@@ -1,5 +1,4 @@
 import SpawnGroup from "./spawngroup";
-import Game from "../game";
 import { SpawnParams } from "./spawnparams";
 
 

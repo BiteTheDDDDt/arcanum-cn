@@ -9,7 +9,6 @@ import { toStats } from "../util/dataUtil";
 import Events, { CHAR_STATE, EVT_COMBAT, RESISTED } from '../events';
 import States, { NO_ATTACK } from './states';
 
-import Game from '../game';
 import { ApplyAction } from '../values/combatVars';
 import { assignNoFunc } from '../util/util';
 
@@ -275,7 +274,7 @@ export default class Char {
 		let id = dot;
 		if ( typeof dot === 'string') {
 
-			dot = Game.state.getData(dot);
+			dot = this.context.state.getData(dot);
 			if ( !dot ) return
 			dot = cloneClass(dot);
 
@@ -285,7 +284,7 @@ export default class Char {
 			id = dot.id;
 
 			dot = cloneClass(dot );
-			let orig = Game.state.getData( id );
+			let orig = this.context.state.getData( id );
 			if ( orig && orig.type === TYP_STATE ) this.mergeDot( dot, orig );
 
 		}

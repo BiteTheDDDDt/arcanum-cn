@@ -1,4 +1,3 @@
-import Game from '../game';
 import Stat from "../values/rvals/stat";
 import Resource from "../items/resource";
 import { toStats } from "../util/dataUtil";
@@ -221,8 +220,6 @@ export default class Player extends Char {
 	constructor( vars=null ){
 
 		super(vars);
-
-		this.context = Game;
 
 		this.id = this.type = "player";
 		if ( !vars || !vars.name) this.name = 'wizrobe';

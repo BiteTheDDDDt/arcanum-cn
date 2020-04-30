@@ -209,7 +209,7 @@ export default class Task extends GData {
 	 * completion of ongoing task.
 	 * @param {Game} [g=Game]
 	 */
-	complete(g=Game) {
+	complete() {
 
 		/**
 		 * @note value has to be incremented first
