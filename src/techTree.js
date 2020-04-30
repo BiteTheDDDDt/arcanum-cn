@@ -239,11 +239,12 @@ export default class TechTree {
 
 			this.mapFuncRequire( item, requires, graph );
 
-		} else if ( type === 'object' ) {
+		} else if (  Array.isArray(requires) ) return requires.forEach( v=>this.mapRequirement(item,v, graph), this );
+		else if ( type === 'object' ) {
 
 			this.mapObjRequire(item, requires, graph );
 
-		} else if (  Array.isArray(requires) ) return requires.forEach( v=>this.mapRequirement(item,v, graph), this );
+		}
 
 	}
 
