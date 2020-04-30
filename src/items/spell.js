@@ -131,9 +131,8 @@ export default class Spell extends Task {
 			if ( this.school ) {
 				let req = schoolFunc( this.school, this.level.value, this.ratio );
 				if ( req ) this.addRequire( req );
-				else this.addRequire( levelReq );
 			}
-			else this.addRequire( levelReq );
+			this.addRequire( levelReq );
 
 			this.addRequire("spellbook");
 

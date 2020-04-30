@@ -30,6 +30,7 @@
 	{
 		"id":"placidgrove",
 		"name":"placid grove",
+		"require":"sunnyfield",
 		"level":2,
 		"length":12,
 		"run":{
@@ -56,7 +57,7 @@
 	{
 		"id":"pestcontrol",
 		"name":"Leaky Cellar",
-		"require":"g.player.level>0&&(g.apprentice.value>0||g.neophyte.value>0)",
+		"require":"g.sunnyfield>0&&(g.apprentice.value>0||g.neophyte.value>0)",
 		"start":{
 
 			"name":"Pest Control",
