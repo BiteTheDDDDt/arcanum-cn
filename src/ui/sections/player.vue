@@ -1,17 +1,17 @@
 <script>
-import Game from '../game';
-import { floor, lowFixed, precise } from '../util/format';
+import Game from 'game';
+import { floor, lowFixed, precise } from 'util/format';
 
-import AllUpgrades from './allupgrades.vue';
-import SlotPick from './components/slotpick.vue';
-import Profile from '../modules/profile';
+import AllUpgrades from '../panes/allupgrades.vue';
+import SlotPick from '../components/slotpick.vue';
+import Profile from 'modules/profile';
 
 export default {
 
 	components:{
 		upgrades:AllUpgrades,
 		slotpick:SlotPick,
-		hall:()=>import( /* webpackChunkName: "hall-ui" */ './hall/hall.vue')
+		hall:()=>import( /* webpackChunkName: "hall-ui" */ 'ui/hall/hall.vue')
 	},
 	data(){
 

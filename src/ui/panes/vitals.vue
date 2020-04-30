@@ -5,9 +5,9 @@ import Running from './running.vue';
 
 import Settings from 'modules/settings';
 
-import Game from '../game';
-import UIMixin from './uiMixin';
-import ItemBase from './itemsBase';
+import Game from 'game';
+import UIMixin from '../uiMixin';
+import ItemBase from '../itemsBase';
 
 
 /**

@@ -1,6 +1,6 @@
 <script>
-import Game from '../game';
-import {alphasort} from '../util/util';
+import Game from 'game';
+import {alphasort} from 'util/util';
 
 export default {
 

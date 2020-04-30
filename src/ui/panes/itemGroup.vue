@@ -71,9 +71,6 @@ div.groupTitle {
 	margin:-1px 0 0 0px;
 }
 
-</style>
-
-<style scoped>
 .rsrc .item-name {
 	flex:1;
 	color:#999;

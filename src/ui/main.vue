@@ -1,11 +1,11 @@
 <script>
-import Game from '../game';
+import Game from 'game';
 import Menu from './components/menu.vue';
-import ResoucesView from './resources.vue';
+import ResoucesView from './panes/resources.vue';
 import Tasks from './sections/tasks.vue';
 import Quickbar from './quickbar.vue';
 import ItemsBase from './itemsBase';
-import Vitals from 'ui/vitals.vue';
+import Vitals from './panes/vitals.vue';
 import DotView from './items/dotView.vue';
 import TopBar from './top-bar.vue';
 
@@ -56,7 +56,7 @@ export default {
 		inventory:()=> import( /* webpackChunkName: "inv-ui" */ './sections/inventory.vue' ),
 		potions:()=> import( /* webpackChunkName: "potions-ui" */ './sections/potions.vue'),
 		home:()=>import( /* webpackChunkName: "home-ui" */ './sections/home.vue'),
-		player:()=>import( /* webpackChunkName: "player-ui" */'./player.vue'),
+		player:()=>import( /* webpackChunkName: "player-ui" */'./sections/player.vue'),
 		bestiary:()=>import(/* webpackChunkName: "bestiary-ui" */ './sections/bestiary.vue' ),
 		spells:()=>import( /* webpackChunkName: "spells-ui" */ './sections/spells.vue'),
 		adventure:()=>import( /* webpackChunkName: "raid-ui" */ './sections/adventure.vue'),

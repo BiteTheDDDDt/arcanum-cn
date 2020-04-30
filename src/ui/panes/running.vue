@@ -1,7 +1,7 @@
 <script>
-import Game from '../game';
-import {HALT_TASK, STOP_ALL} from '../events';
-import { SKILL, DUNGEON, EXPLORE, LOCALE, TYP_RUN, PURSUITS, TASK } from '../values/consts';
+import Game from 'game';
+import {HALT_TASK, STOP_ALL} from 'events';
+import { SKILL, DUNGEON, EXPLORE, LOCALE, TYP_RUN, PURSUITS, TASK } from 'values/consts';
 
 export default {
 

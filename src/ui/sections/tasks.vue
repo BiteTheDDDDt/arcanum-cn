@@ -1,6 +1,6 @@
 <script>
 import Game from '../../game';
-import Upgrades from '../controls/upgrades.vue';
+import Upgrades from '../panes/upgrades.vue';
 
 import Settings from 'modules/settings';
 import ItemsBase from '../itemsBase';

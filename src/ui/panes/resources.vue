@@ -1,8 +1,8 @@
 <script>
-import UIMixin from './uiMixin';
+import UIMixin from 'ui/uiMixin';
 import Settings from 'modules/settings';
 
-import ItemGroup from 'ui/controls/itemGroup.vue';
+import ItemGroup from 'ui/panes/itemGroup.vue';
 
 export default {
 
@@ -19,6 +19,9 @@ export default {
 
 		return {
 
+			/**
+			 * @property {.<string,GData[]>} groups - maps group name to items array.
+			 */
 			groups:null,
 			hide:ops.hide
 		}
@@ -29,6 +32,7 @@ export default {
 	},
 	created(){
 
+		// build item groups.
 		let items = this.items;
 		let groups = {
 			other:[]
