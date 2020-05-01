@@ -12,9 +12,7 @@ export class Home extends GData {
 	 * @property {Inventory} furniture
 	 */
 	get furniture(){ return this._furniture; }
-	set furniture(v){
-		this._furniture = new Inventory( v );
-	}
+	set furniture(v){ this._furniture = new Inventory( v ); }
 
 	get items(){ return this._items; }
 	set items(v){ this._items = new Inventory(v);}

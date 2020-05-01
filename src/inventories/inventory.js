@@ -64,12 +64,22 @@ export default class Inventory {
 	}
 
 	/**
+	 * @property {string} countProp - property that represents the count of an object.
+	 * Not the same as inventory.count which is separate items in inventory.
+	 */
+	get countProp(){return this._cProp;}
+	set countProp(v){this._cProp=v}
+
+	/**
 	 * @property {number} used - spaces used by items in inventory.
 	 * if no space prop is defined, this is just the number of items.
 	 */
 	get used() { return this._used; }
 	set used(v) { this._used = v; }
 
+	/**
+	 * @property {string} name - display name of inventory.
+	 */
 	get name() {return this._name || this.id; }
 	set name(v) { this._name = v; }
 
@@ -132,6 +142,7 @@ export default class Inventory {
 
 		}
 		if ( !this.items ) this.items = [];
+		if ( this._cProp ) this._cProp = 'value';
 
 		if ( !this.saveMode ) this.saveMode = SAVE_FULL;
 		this.type = 'inventory';
@@ -320,8 +331,8 @@ export default class Inventory {
 	 */
 	removeCount( it, count) {
 
-		it.value -= count;
-		if ( it.value <= 0 )this.remove(it);
+		it[this._cProp] -= count;
+		if ( it[this._cProp] <= 0 ) this.remove(it);
 
 	}
 
@@ -342,7 +353,7 @@ export default class Inventory {
 
 		it = this.findMatch(it);
 		if ( !it ) return false;
-		return count === 1 || ( it.stack && it.value >= count );
+		return count === 1 || ( it.stack && it[this._cProp] >= count );
 	}
 
 	/**
@@ -355,7 +366,7 @@ export default class Inventory {
 
 		let orig = this.findMatch(it);
 		if ( orig) {
-			orig.value += count;
+			orig[this._cProp] += count;
 			return orig;
 		}
 

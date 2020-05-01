@@ -339,13 +339,14 @@ export default class Wearable extends Item {
 		if ( this.armor ) p.defense.add( this.armor );
 		if ( this.type === 'weapon' ) p.addWeapon(this);
 
+		this.value = 1;
 		this.worn = true;
 		if ( this.mod ) {
 
 			for( let p in this.mod ) {
 				console.log('apply mod: ' + p );
 			}
-			SetModCounts( this.mod, 1);
+			//SetModCounts( this.mod, 1);
 			g.applyMods( this.mod, 1 );
 
 		} else {
@@ -365,10 +366,11 @@ export default class Wearable extends Item {
 		if ( this.armor ) p.defense.add( -this.armor );
 		if ( this.type === WEAPON ) p.removeWeapon( this );
 
+		this.value = 0;
 		this.worn = false;
 
 		if ( this.mod ) {
-			SetModCounts( this.mod, 0);
+			//SetModCounts( this.mod, 0);
 			g.removeMod(this.mod)
 		}
 

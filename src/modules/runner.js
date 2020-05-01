@@ -179,12 +179,12 @@ export default class Runner {
 	 */
 	reviveTask( a, gs, running=false ) {
 
-		if (!a) return;
+		if ( !a ) return;
 
 		if ( typeof a === 'string' ) {
 
 			a = gs.getData( a);
-			if ( !a ) return null;
+			if ( !a || typeof a.maxed !== 'function' ) return null;
 
 		}
 

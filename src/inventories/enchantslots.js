@@ -4,13 +4,6 @@ import Enchanting from "../composites/enchanting";
 
 export default class EnchantSlots extends Inventory {
 
-	/**
-	 * @private
-	 * @property {Runner} runner
-	 */
-	get runner(){return this._runner;}
-	set runner(v) { this._runner = v;}
-
 	get exp(){
 		return this._exp;
 	}
@@ -69,8 +62,6 @@ export default class EnchantSlots extends Inventory {
 	}
 
 	revive( gs ){
-
-		this.runner = gs.runner;
 
 		let ltot = 0;
 		let extot = 0;

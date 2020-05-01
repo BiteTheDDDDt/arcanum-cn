@@ -503,7 +503,7 @@ export default {
 
 		}  else if ( it.instanced ){
 
-			if ( it.value > 0 ) it.onUse( this );
+			if ( it.count > 0 ) it.onUse( this );
 
 		} else  {
 
@@ -729,10 +729,10 @@ export default {
 
 		if ( it.instanced ) {
 
-			it.value -= count;
+			it.count -= count;
 
 			//console.log('remainig: ' + it.value );
-			if ( inv && (!it.stack || it.value <= 0) ) inv.remove( it );
+			if ( inv && (!it.stack || it.count <= 0) ) inv.remove( it );
 
 		} else this.remove(it,count);
 

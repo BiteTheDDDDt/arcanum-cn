@@ -2,6 +2,7 @@ import Base, {mergeClass} from './base';
 import {assign, cloneClass } from 'objecty';
 import { ParseMods } from 'modules/parsing';
 import Instance from './instance';
+import RValue from '../values/rvals/rvalue';
 
 const ItemDefaults = {
 	stack:true,
@@ -34,6 +35,8 @@ export default class Item {
 		if ( this.enchants && this.enchants.length>0){
 			data.enchants = this.enchants.join(',');
 		}
+
+		data.cnt = this.count || undefined;
 
 		data.id = this.id;
 		data.recipe = this.recipe;
@@ -87,7 +90,13 @@ export default class Item {
 	set consume(v) { this._consume = v;}
 
 	/**
-	 * @property {boolean} stack - whether the item should stack.
+	 * @property {RValue} count - count of item held.
+	 */
+	get count(){ return this._count; }
+	set count(v){this._count = new RValue(v); }
+
+	/**
+	 * @property {boolean} stack - whether the item can stack.
 	 */
 	get stack() { return this._stack; }
 	set stack(v) { this._stack = v; }
@@ -102,7 +111,17 @@ export default class Item {
 
 		if ( !this.maxEnchants ) this.maxEnchants = 0;
 		if ( !this.enchantTot ) this.enchantTot = 0;
-		this.value = this._value || 1;
+
+		if ( !this.count ) {
+
+			if ( vars ) {
+				if ( vars.cnt ) this.count = vars.cnt;
+				else if ( vars.val ) this.count = vars.val;
+			}
+			if ( !this.count ) this.count = 1;
+
+		}
+		this.value = 0;
 
 		if ( this.consume === null || this.consume === undefined ) this.consume = this.defaults.consume;
 		if ( this.stack === null || this.stack === undefined ) this.stack = this.defaults.stack;
@@ -118,15 +137,15 @@ export default class Item {
 		return this._enchants && this._enchants.includes(id);
 	}
 
-	canPay(cost) { return this.value >= cost; }
+	canPay(cost) { return this.count >= cost; }
 
 	canUse(g) { return this.consume || this.use; }
 
 	onUse( g, inv ) {
 
 		if ( this.consume === true ) {
-			this.value--;
-			if ( this.value <= 0 ) ( inv || g.state.inventory ).remove( this );
+			this.count--;
+			if ( this.count <= 0 ) ( inv || g.state.inventory ).remove( this );
 		}
 
 		if ( this.use ) {
@@ -154,7 +173,7 @@ export default class Item {
 	}
 
 	maxed(){
-		return (this.stack === false &&this.value>0) || ( this.max && this.value >= this.max );
+		return (this.stack === false &&this.count>0) || ( this.max && this.count >= this.max );
 	}
 
 	revive( gs ){

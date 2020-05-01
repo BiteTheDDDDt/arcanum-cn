@@ -257,8 +257,6 @@ export default {
 				let targ = this[p];
 				let sub = vars[p];
 
-				if ( this.id === 'herbalism' && p === 'max') console.log('INCREASE MAX: ' + sub );
-
 				if ( targ instanceof RValue ) {
 
 					//console.log('APPLY ' + vars[p] + ' to stat: '+ this.id + '.'+ p + ': ' + amt*vars[p] + ' : ' + (typeof vars[p]) );
