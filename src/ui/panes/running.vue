@@ -1,6 +1,6 @@
 <script>
 import Game from 'game';
-import {HALT_TASK, STOP_ALL} from 'events';
+import {HALT_TASK, STOP_ALL} from '../../events';
 import { SKILL, DUNGEON, EXPLORE, LOCALE, TYP_RUN, PURSUITS, TASK } from 'values/consts';
 
 export default {
@@ -33,7 +33,9 @@ export default {
 			return ' (' + Math.floor( a.valueOf() ) + '/' + Math.floor(a.max.valueOf() ) +')';
 		},
 
-		halt(a) { this.emit( HALT_TASK, a); }
+		halt(a) {
+			this.emit( HALT_TASK, a);
+		}
 
 	}
 

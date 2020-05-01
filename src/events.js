@@ -181,6 +181,7 @@ export default {
 		this.log = game.log;
 		this.game = game;
 
+		console.log('CLEARING GAME EVENTS');
 		this.clearGameEvents();
 
 		events.addListener( EVT_LOOT, this.onLoot, this );
