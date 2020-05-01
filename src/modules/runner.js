@@ -184,7 +184,7 @@ export default class Runner {
 		if ( typeof a === 'string' ) {
 
 			a = gs.getData( a);
-			if ( !a ) return null;
+			if ( !a || !a.hasTag ) return null;
 
 		}
 
