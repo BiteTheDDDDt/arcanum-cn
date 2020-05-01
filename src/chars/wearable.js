@@ -1,5 +1,4 @@
 import {mergeSafe, clone} from 'objecty';
-import { SetModCounts} from '../items/base';
 import Attack from './attack';
 
 import Mod from '../values/mods/mod';
@@ -136,7 +135,7 @@ export default class Wearable extends Item {
 		//if ( vars ) cloneClass( vars, this );
 		//if ( save ) Object.assign( this, save );
 
-		this.value = this.val = 1;
+		this.value = this.val = 0;
 
 		if ( !this.maxEnchants ) this.maxEnchants = this.hands || 0;
 
@@ -152,8 +151,6 @@ export default class Wearable extends Item {
 			this.attack = this._attack;
 			if ( !this._attack.name ) this._attack.name = this.name;
 		}
-
-
 
 	}
 
@@ -198,6 +195,7 @@ export default class Wearable extends Item {
 		}
 
 		if ( this.mod ) this.mod = ParseMods( this.mod, this.id, this );
+		//InitRVals( this, this );
 
 		this.initProps( gs );
 		if ( !this.maxEnchants ) this.calcMaxEnchants();
@@ -227,9 +225,6 @@ export default class Wearable extends Item {
 		}
 
 		this.props = a;
-
-
-
 	}
 
 	calcMaxEnchants() {

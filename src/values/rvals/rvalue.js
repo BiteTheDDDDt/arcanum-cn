@@ -4,6 +4,41 @@ import { precise } from '../../util/format';
 export const PercentTest = /^(\d+(?:\.?\d+)?)\%$/i
 export const RangeTest = /^\-?\d+\.?\d*\~\-?\d+\.?\d*$/i;
 
+
+/**
+ * Recursively set source property for RValues.
+ * @param {*} obj
+ * @param {*} source
+ * @param {*} recur
+ */
+export const InitRVals = ( obj=this, source, recur=new Set() ) => {
+
+		recur.add(obj);
+
+		for( let p in obj ) {
+
+			var s = obj[p];
+			if ( s === null || s=== undefined ) continue;
+			if ( Array.isArray(s) ) {
+
+				for( let i = s.length-1; i>= 0; i-- ) {
+					var t = s[i];
+					if ( typeof t === 'object' && !recur.has(t)) InitRVals( t, source, recur);
+				}
+
+			} else if ( typeof s === 'object' && !recur.has(s)) {
+
+				if ( s instanceof RValue  && !s.source ) {
+					s.source = source;
+				} else InitRVals( s, source, recur );
+
+			}
+
+		}
+
+	}
+
+
 /**
  * Form sub-path.
  * @param {string} id
@@ -28,13 +63,14 @@ export default class RValue {
 	}
 
 	/**
-	 * @property {object} source - object that defines the value,
-	 * if any.
+	 * @property {object} source - object that defined the value,
+	 * and may affect how the RValue is counted.
 	 */
 	get source(){return this._source;}
 	set source(v) {
-		if ( !v ) this._source = null;
-		else this._source = v instanceof RValue ? v : v.value;
+		this._source = v;
+		//if ( !v ) this._source = null;
+		//else this._source = v instanceof RValue ? v : v.value;
 	}
 
 	/**

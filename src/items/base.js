@@ -161,7 +161,9 @@ export default {
 	 * @property {number} value
 	 */
 	get value() { return this._value; },
-	set value(v) { this._value = v; },
+	set value(v) {
+		this._value = v;
+	},
 	valueOf() { return this._value; },
 
 	get delta(){return 0;},

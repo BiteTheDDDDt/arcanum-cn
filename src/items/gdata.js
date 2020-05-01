@@ -6,7 +6,7 @@ import { assignPublic } from '../util/util';
 import Events, { CHAR_ACTION, EVT_EVENT, EVT_UNLOCK } from '../events';
 import Game, { TICK_LEN } from '../game';
 import { WEARABLE, WEAPON } from '../values/consts';
-import RValue from '../values/rvals/rvalue';
+import RValue, { InitRVals } from '../values/rvals/rvalue';
 import { Changed } from '../techTree';
 
 /**
@@ -227,37 +227,7 @@ export default class GData {
 		this.delta = 0;
 		defineExcept( this, null, NoDefine );
 
-		this.initRVals( this );
-
-	}
-
-	/**
-	 * Set source property of all RValue subobjects.
-	 */
-	initRVals( obj=this, recur=new Set() ){
-
-		recur.add(obj);
-
-		for( let p in obj ) {
-
-			var s = obj[p];
-			if ( s === null || s=== undefined ) continue;
-			if ( Array.isArray(s) ) {
-
-				for( let i = s.length-1; i>= 0; i-- ) {
-					var t = s[i];
-					if ( typeof t === 'object' && !recur.has(t)) this.initRVals( t, recur);
-				}
-
-			} else if ( typeof s === 'object' && !recur.has(s)) {
-
-				if ( s instanceof RValue ) {
-					s.source = this;
-				} else this.initRVals( s, recur );
-
-			}
-
-		}
+		InitRVals( this, this );
 
 	}
 
