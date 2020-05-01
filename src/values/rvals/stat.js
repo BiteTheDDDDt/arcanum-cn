@@ -2,6 +2,16 @@ import { TYP_STAT, TYP_RVAL } from '../consts';
 import RValue from './rvalue';
 
 import { precise } from '../../util/format';
+
+// number of times all stats recalculated this frame.
+var LoopCount = 0;
+
+export function ShowLoops(){
+
+	if ( this.LoopCount > 0 ) console.log('Loops: ' + LoopCount);
+	LoopCount=0;
+}
+
 /**
  * Stat with a list of modifiers.
  */
@@ -251,7 +261,11 @@ export default class Stat extends RValue {
 
 	}
 
-	removeMod( mod ){
+	/**
+	 *
+	 * @param {*} mod
+	 */
+	removeMods( mod ){
 
 		let cur = this.mods[mod.id];
 		if ( cur === undefined) return;
@@ -291,6 +305,7 @@ export default class Stat extends RValue {
 
 		}
 
+		LoopCount++;
 		this._mPct = pct;
 		this._mBase = bonus;
 

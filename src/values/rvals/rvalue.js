@@ -168,7 +168,7 @@ export default class RValue {
 	 * Remove a standard modifier.
 	 * @param {Mod} mod
 	 */
-	removeMod( mod ){
+	removeMods( mod ){
 		// ignored.
 	}
 

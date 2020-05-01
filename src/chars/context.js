@@ -76,7 +76,7 @@ export default class Context {
 		return false;
 	}
 
-	removeMod( mod, amt ){
+	removeMods( mod, amt ){
 		this.applyMods(mod,-amt);
 	}
 

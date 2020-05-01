@@ -5,7 +5,7 @@ import ItemGen from './modules/itemgen';
 import TechTree, { Changed, GetChanged } from './techTree';
 import Resource from './items/resource';
 import Skill from './items/skill';
-import Stat from './values/rvals/stat';
+import Stat, { ShowLoops } from './values/rvals/stat';
 
 import DataLoader from './dataLoader';
 
@@ -320,6 +320,8 @@ export default {
 		this.doResources( this.state.playerStats, dt );
 		this.doResources( this.state.stressors, dt );
 
+		ShowLoops();
+
 	},
 
 	/**
@@ -421,7 +423,7 @@ export default {
 
 				} else if ( it.mod ) {
 					//console.log('REMOVING MOD: ' + it.id + ' --> ' + it.value );
-					this.removeMod( it.mod, it.value );
+					this.removeMods( it.mod, it.value );
 				}
 
 			}
@@ -899,10 +901,42 @@ export default {
 	/**
 	 *
 	 * @param {Object} mod
-	 * @param {number} amt
 	 */
-	removeMod( mod, amt=1 ) {
-		this.applyMods( mod, -amt);
+	removeMods( mod ) {
+
+		if ( !mod ) return;
+
+		if ( Array.isArray(mod)  ) {
+			for( let m of mod ) this.removeMods(m );
+		} else if ( typeof mod === 'object' ) {
+
+			for( let p in mod ) {
+
+				var target = this.getData( p );
+				if ( target === undefined || target === null ) continue;
+				else {
+
+					if ( target.removeMods) {
+
+						target.removeMods( mod[p] );
+
+					} else console.warn( 'no removeMods(): ' + target );
+
+				}
+			}
+
+		} else if ( typeof mod === 'string') {
+
+			let t = this.getData(mod);
+			if ( t ) {
+
+				console.warn('!!! REMOVE NUM MOD: ' + mod );
+				t.amount( -1 );
+
+			}
+
+		}
+
 	},
 
 	/**

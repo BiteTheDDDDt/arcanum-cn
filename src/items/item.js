@@ -166,12 +166,6 @@ export default class Item {
 	amount(g) {
 	}
 
-	/**
-	 * Do nothing when item mod changes.
-	 */
-	modChanged(){
-	}
-
 	maxed(){
 		return (this.stack === false &&this.count>0) || ( this.max && this.count >= this.max );
 	}

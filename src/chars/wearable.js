@@ -110,8 +110,7 @@ export default class Wearable extends Item {
 	/**
 	 * @property {boolean} worn
 	 */
-	get worn(){ return this._worn; }
-	set worn(v) { this._worn = v;}
+	get worn(){ return this.value > 0; }
 
 	/**
 	 * @property {string} slot
@@ -333,7 +332,6 @@ export default class Wearable extends Item {
 		if ( this.type === 'weapon' ) p.addWeapon(this);
 
 		this.value = 1;
-		this.worn = true;
 		if ( this.mod ) {
 
 			for( let p in this.mod ) {
@@ -360,11 +358,10 @@ export default class Wearable extends Item {
 		if ( this.type === WEAPON ) p.removeWeapon( this );
 
 		this.value = 0;
-		this.worn = false;
 
 		if ( this.mod ) {
 			//SetModCounts( this.mod, 0);
-			g.removeMod(this.mod)
+			g.removeMods(this.mod)
 		}
 
 	}

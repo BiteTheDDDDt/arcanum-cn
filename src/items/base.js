@@ -317,14 +317,11 @@ export default {
 		if ( mods instanceof Mod ) {
 
 			mods.applyTo( targ, 'value', amt );
-			if ( this.mod ) this.modChanged(Game);
 
 		} else if ( mods.constructor === Object ) {
 
 			this.applyObj( mods, amt, targ );
-			if ( mods.mod ) {
-				this.modChanged(Game);
-			}
+
 
 		} else if ( typeof mods === 'number') {
 
@@ -342,7 +339,6 @@ export default {
 				// nothing can be done if targ is a number. no parent object.
 				console.error( this.id + ' !!invalid mod: ' + mods );
 			}
-			if ( this.mod ) this.modChanged(Game);
 
 		} else console.warn( this.id + ' unknown mod type: ' + mods );
 
@@ -426,6 +422,39 @@ export default {
 	},
 
 	/**
+	 *
+	 * @param {Mod|Object} mods
+	 * @param {Object} [targ=null]
+	 */
+	removeMods( mods, targ=this ) {
+
+		Changed.add(this);
+
+		if ( mods instanceof Mod ) {
+
+			if ( typeof targ === 'object') {
+
+				if ( targ.isRVal ) targ.removeMod( mods );
+			}
+
+			mods.applyTo( targ, 'value', amt );
+
+		} else if ( mods.constructor === Object ) {
+
+			for( let p in mods ) {
+				this.removeMods( mods[p], this[p] );
+			}
+			this.applyObj( mods, amt, targ );
+
+		} else if ( typeof mods === 'number') {
+
+			console.warn( this.id + ' REMOVED NUMBER MOD: ' + mods );
+
+		} else console.warn( this.id + ' unknown mod type: ' + mods );
+
+	},
+
+	/**
 	 * Perform a subobject assignment.
 	 * @param {Object} obj - base object being assigned to.
 	 * @param {Object} m - object with subobjects representing assignment paths.
@@ -474,10 +503,6 @@ export default {
 		let s = obj[key] = new Stat( typeof mod === 'number' ? mod*amt : 0, 'key' );
 		if ( mod instanceof Mod ) s.apply( mod, amt );
 
-	},
-
-	modChanged(g){
-		g.applyMods(this.mod, this.value);
 	},
 
 	/**
