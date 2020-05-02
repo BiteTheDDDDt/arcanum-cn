@@ -1,10 +1,22 @@
 [
 
 	{
+
 		"id":"prop_studious",
 		"name":"studious",
+		"level":2,
+		"only":"cloth",
+		"priceMod":20,
+		"mod":{
+			"research.rate":1
+		}
+
+	},
+	{
+		"id":"prop_scholarly",
+		"name":"scholarly",
 		"priceMod": 30,
-		"level": 2,
+		"level": 3,
 		"mod": {
 			"lore.max":1,
 			"lore.rate":"15%"

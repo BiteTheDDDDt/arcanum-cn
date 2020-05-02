@@ -1945,8 +1945,8 @@
 		"buy":{
 
 			"research":500,
-			"codices":1,
-			"naturegem":1
+			"codices":5,
+			"naturegem":3
 
 		},
 		"cost":{
@@ -2910,7 +2910,7 @@
 		"buy":{
 
 			"research":4000,
-			"tomes":1,
+			"tomes":5,
 			"naturegem":10
 
 		},
@@ -2977,8 +2977,8 @@
 		"buy":{
 
 			"research":4000,
-			"tomes":5,
-			"naturegem":10
+			"tomes":10,
+			"naturegem":20
 
 		},
 		"cost":{
@@ -3004,8 +3004,8 @@
 		"buy":{
 
 			"research":1000,
-			"tomes":5,
-			"lightgem":5
+			"tomes":10,
+			"lightgem":10
 
 		},
 		"cost":{

@@ -3,7 +3,10 @@
 	{
 		"id":"arag",
 		"name":"arag",
-		"loc":""
+		"biomes":"",
+		"loc":"",
+		"homes":"",
+		"locales":""
 
 	}
 

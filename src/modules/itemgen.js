@@ -382,14 +382,16 @@ export default class ItemGen {
 		let only = item.only;
 		let exclude = item.exclude;
 
+		let mat = item.material ? item.material.id : null;
+
 		return group.randBelow( Math.max( item.level+1, level ),
 			v=>{
 
  				if ( only && !includesAny(only, v.type, v.kind, v.id ) ) return false;
 				if ( exclude && includesAny(exclude, v.type, v.kind, v.id) ) return false;
 
-				if ( v.only && !includesAny( v.only, item.type, item.kind, item.id ) ) return false;
-				if ( v.exclude && includesAny( v.exclude, item.type, item.kind, item.id ) ) return false;
+				if ( v.only && !includesAny( v.only, item.type, item.kind, item.id, mat ) ) return false;
+				if ( v.exclude && includesAny( v.exclude, item.type, item.kind, item.id, mat ) ) return false;
 				return true;
 
 			}

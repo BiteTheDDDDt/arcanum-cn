@@ -1,0 +1,60 @@
+{
+	"module":"legacy",
+	"data":{
+
+		"monsters":[
+
+			{
+				"id":"nyarlathotep",
+				"name":"nyarlathotep",
+				"desc":"",
+				"biome":"air",
+				"level":30
+			},
+			{
+				"id":"hastur",
+				"name":"hastur",
+				"desc":"",
+				"biome":"air",
+				"level":30
+			},
+			{
+				"id":"ghatanothoa",
+				"name":"ghatanothoa",
+				"desc":"",
+				"biome":"seas",
+				"level":30
+			},
+			{
+				"id":"ythogtha",
+				"name":"ythogtha",
+				"desc":"",
+				"biome":"seas",
+				"level":30
+			},
+			{
+				"id":"zothommog",
+				"name":"zoth-ommog",
+				"desc":"Third son of cthulhu with a razor fanged, reptilian head.",
+				"biome":"seas",
+				"level":30
+			},
+			{
+				"id":"yogsothoth",
+				"name":"yog-sothoth",
+				"desc":"",
+				"biome":"voids",
+				"level":90
+			},
+			{
+				"id":"azathoth",
+				"name":"azathoth",
+				"desc":"The blind idiot god at the center of creation.",
+				"biome":"voids",
+				"level":100
+			}
+
+		]
+
+	}
+}

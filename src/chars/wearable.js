@@ -57,11 +57,14 @@ export default class Wearable extends Item {
 
 	get equippable() { return true; }
 
+	/**
+	 * @property {Property} material - (may be string before revive.)
+	 */
 	get material() { return this._material; }
 	set material(v) { this._material=v;}
 
 	/**
-	 * @property {Material[]} props
+	 * @property {Property[]} props
 	 */
 	get props(){
 		return this._props;
@@ -86,6 +89,9 @@ export default class Wearable extends Item {
 
 	}
 
+	/**
+	 * @property {Attack} attack
+	 */
 	get attack() { return this._attack; }
 	set attack(v) {
 
