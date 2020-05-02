@@ -6,6 +6,15 @@ import Inventory from "./inventory";
 export class Home extends GData {
 
 	toJSON(){
+
+		let data = super.toJSON() || {};
+
+		data.furniture = this.furniture.count>0 ? this.furniture : undefined;
+		data.items = this.items.count>0 ? this.items : undefined;
+		data.minions = this.minions.count>0 ? this.minions : undefined
+
+		return data;
+
 	}
 
 	/**

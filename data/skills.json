@@ -1015,9 +1015,11 @@
 		"id":"mysticism",
 		"require":"g.lore>=8",
 		"desc":"the ability to sense the flow and flux of arcane energies.",
-		"run":{
-			"stamina":0.5,
+		"buy":{
 			"arcana":1
+		},
+		"run":{
+			"stamina":0.5
 		},
 		"mod":{
 			"mana.max":0.5,
