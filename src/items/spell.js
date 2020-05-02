@@ -7,7 +7,7 @@ import { canTarget } from '../values/consts';
  * @param {Object} g - items
  */
 const levelReq = ( g, s ) => {
-	return ( g.player.level >= 2*s.level );
+	return ( s.level<=1 || g.player.level >= 2*s.level );
 }
 
 /**
