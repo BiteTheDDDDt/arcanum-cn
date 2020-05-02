@@ -118,6 +118,7 @@
 	},
 	{
 		"id":"virtue",
+		"require":"tier0",
 		"hide":"true",
 		"locked":false,
 		"desc":"Tendency to good",

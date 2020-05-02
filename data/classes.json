@@ -30,7 +30,7 @@
 		"cost":{
 			"gold":100,
 			"research":100,
-			"arcana":1
+			"arcana":2
 		},
 		"result":{
 			"sp":1.25,
@@ -53,7 +53,7 @@
 		"cost":{
 			"gold":100,
 			"research":100,
-			"arcana":1
+			"arcana":2
 		},
 		"result":{
 			"evt_helper":true,
@@ -75,7 +75,7 @@
 		"cost":{
 			"gold":100,
 			"research":100,
-			"arcana":1
+			"arcana":2
 		},
 		"result":{
 			"evt_helper":true,
