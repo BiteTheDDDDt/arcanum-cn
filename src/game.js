@@ -5,7 +5,7 @@ import ItemGen from './modules/itemgen';
 import TechTree, { Changed, GetChanged } from './techTree';
 import Resource from './items/resource';
 import Skill from './items/skill';
-import Stat, { ShowLoops } from './values/rvals/stat';
+import Stat from './values/rvals/stat';
 
 import DataLoader from './dataLoader';
 
@@ -319,8 +319,6 @@ export default {
 		this.doResources( this.state.resources, dt);
 		this.doResources( this.state.playerStats, dt );
 		this.doResources( this.state.stressors, dt );
-
-		ShowLoops();
 
 	},
 

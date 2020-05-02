@@ -337,7 +337,6 @@ export default class Wearable extends Item {
 			for( let p in this.mod ) {
 				console.log('apply mod: ' + p );
 			}
-			//SetModCounts( this.mod, 1);
 			g.applyMods( this.mod, 1 );
 
 		} else {
@@ -360,7 +359,6 @@ export default class Wearable extends Item {
 		this.value = 0;
 
 		if ( this.mod ) {
-			//SetModCounts( this.mod, 0);
 			g.removeMods(this.mod)
 		}
 

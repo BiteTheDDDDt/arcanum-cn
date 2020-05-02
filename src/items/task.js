@@ -191,7 +191,7 @@ export default class Task extends GData {
 
 		if ( this.runmod ) {
 			SetModCounts(this.runmod, 1);
-			Game.applyMods( this.runmod, 1 );
+			Game.applyMods( this.runmod );
 		}
 
 	}
@@ -200,7 +200,7 @@ export default class Task extends GData {
 
 		if ( this.runmod ) {
 			SetModCounts(this.runmod,0);
-			Game.removeMods( this.runmod, 1 );
+			Game.removeMods( this.runmod );
 		}
 
 	}

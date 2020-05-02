@@ -428,23 +428,23 @@ export default {
 	 */
 	removeMods( mods, targ=this ) {
 
-		Changed.add(this);
+		if ( targ === this ) Changed.add(this);
+		else if ( !targ ) return;
 
 		if ( mods instanceof Mod ) {
 
 			if ( typeof targ === 'object') {
 
-				if ( targ.isRVal ) targ.removeMod( mods );
+				console.log( this.id + ' REMOVE MOD: ' + mods )
+				if ( targ.isRVal ) targ.removeMods( mods );
+				else this.removeMods(mods, targ.value );
 			}
-
-			mods.applyTo( targ, 'value', amt );
 
 		} else if ( mods.constructor === Object ) {
 
 			for( let p in mods ) {
-				this.removeMods( mods[p], this[p] );
+				this.removeMods( mods[p], targ[p] );
 			}
-			this.applyObj( mods, amt, targ );
 
 		} else if ( typeof mods === 'number') {
 
