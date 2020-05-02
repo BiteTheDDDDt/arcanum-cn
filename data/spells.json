@@ -520,7 +520,6 @@
 		"id":"mana3",
 		"name":"mana",
 		"school":"mana",
-		"locked":false,
 		"require":"mana2",
 		"level":5,
 		"buy":{
