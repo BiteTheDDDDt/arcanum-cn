@@ -83,10 +83,11 @@ export default class GData {
 	/**
 	 * @property {.<string,object>} on - actions to take on string triggers.
 	 */
-	get on() {
-		return this._on;
-	}
+	get on() { return this._on; }
 	set on(v) { this._on = v; }
+
+	get triggers(){return this._triggers;}
+	set triggers(v){this._triggers=v; }
 
 	/**
 	 * @property {.<string,number>} cost
@@ -280,7 +281,7 @@ export default class GData {
 	/**
 	 * Determine if an item can be used. Ongoing/perpetual tasks
 	 * test with 'canRun' instead.
-	 * @param {Game} g
+	 * @param {Context} g
 	 */
 	canUse( g=Game ){
 
@@ -301,7 +302,7 @@ export default class GData {
 		return !this.cost || g.canPay(this.cost);
 	}
 
-	canBuy(g=Game){
+	canBuy(g){
 
 		if ( this.disabled || this.locked || this.locks > 0 || this.maxed() ) return false;
 

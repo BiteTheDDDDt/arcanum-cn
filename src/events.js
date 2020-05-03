@@ -266,7 +266,7 @@ export default {
 	 * @param {*} obj
 	 * @param {*} result
 	 */
-	onTrigger( trigger, obj, result ) {
+	addTrigger( trigger, obj, result ) {
 
 		let trigs = this._triggers.get(trigger);
 		if ( !trigs ) {

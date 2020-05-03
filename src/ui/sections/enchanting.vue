@@ -27,6 +27,7 @@ export default {
 		}
 	},
 	beforeCreate(){
+		this.game = Game;
 		this.state = Game.state;
 		this.runner = this.state.runner;
 		this.inv = this.state.getData('inventory');
@@ -108,7 +109,7 @@ export default {
 			<span class="ench-name">{{ it.name }}</span>
 
 
-			<button v-if="it.buy&&!it.owned" :disabled="!it.canBuy()"
+			<button v-if="it.buy&&!it.owned" :disabled="!it.canBuy(game)"
 				@click="emit('buy', it)">🔒</button>
 
 			<button v-else @click="begin(it,target)" :disabled="!it.canUse()">Enchant</button>

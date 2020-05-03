@@ -22,6 +22,9 @@ export default {
 		inv:()=>import( /* webpackChunkName: "inv-ui" */ './inventory.vue'),
 		filterbox:FilterBox
 	},
+	beforeCreate(){
+		this.game = Game;
+	},
 	computed:{
 
 		potions(){ return Game.state.potions.filter(v=>!this.locked(v)); },
@@ -42,7 +45,7 @@ export default {
 
 			<span>{{ it.name }}</span>
 
-			<button v-if="it.buy&&!it.owned" :disabled="!it.canBuy()" @click="emit(BUY, it)">🔒</button>
+			<button v-if="it.buy&&!it.owned" :disabled="!it.canBuy(game)" @click="emit(BUY, it)">🔒</button>
 			<button v-else :disabled="!it.canUse()"
 				@click="emit( 'craft', it )">Brew</button>
 
