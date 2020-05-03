@@ -25,7 +25,7 @@ import Player from './chars/player';
 
 import Loader from './util/jsonLoader';
 import GClass from './items/gclass';
-import Module from './modules/gmodule';
+import Module from './modules/module';
 import { SKILL, ENCOUNTER, MONSTER, ARMOR, WEAPON, HOME, POTION, RESOURCE, EVENT, DUNGEON } from './values/consts';
 import State from './chars/state';
 

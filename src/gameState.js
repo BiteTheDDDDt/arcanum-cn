@@ -10,7 +10,6 @@ import DataList from './inventories/dataList';
 import Group from './composites/group';
 import UserSpells from './inventories/userSpells';
 import Quickbars from './composites/quickbars';
-import Stat from './values/stat';
 import { WEARABLE, ARMOR, WEAPON, HOME, PURSUITS, ENCHANTSLOTS, TimeId } from './values/consts';
 import Stat from './values/rvals/stat';
 import TagSet from './composites/tagset';

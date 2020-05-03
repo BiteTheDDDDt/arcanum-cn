@@ -8,6 +8,7 @@ export default {
 
 	computed:{
 		hasHall(){return Profile.hasHall() },
+		VERSION(){return __VERSION; }
 
 	},
 	created(){
