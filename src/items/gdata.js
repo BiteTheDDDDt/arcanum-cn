@@ -17,7 +17,7 @@ import { Changed } from '../techTree';
 /**
  * @const {Set} NoDefine - properties not to set to default values.
  */
-const NoDefine = new Set( ['require', 'rate', 'current', 'need', 'value', 'buy',
+const NoDefine = new Set( ['require', 'rate', 'current', 'need', 'value', 'buy', "on",
 	'cost', 'id', 'name', 'warn', 'effect', 'slot', 'exp', 'delta'] )
 
 /**
@@ -79,6 +79,14 @@ export default class GData {
 		} else this._rate = new Stat( v, this.id + '.rate' );
 
 	}
+
+	/**
+	 * @property {.<string,object>} on - actions to take on string triggers.
+	 */
+	get on() {
+		return this._on;
+	}
+	set on(v) { this._on = v; }
 
 	/**
 	 * @property {.<string,number>} cost

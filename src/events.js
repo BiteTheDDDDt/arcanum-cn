@@ -43,6 +43,12 @@ export const LogTypes = {
 };
 
 /**
+ * @const {string} TRIGGER - event indicating data defined trigger
+ * occurred.
+ */
+export const TRIGGER = 'trigger';
+
+/**
  * BASIC ITEM EVENTS
  */
 export const TRY_BUY = 'buy';
@@ -77,18 +83,21 @@ export const ENEMY_SLAIN = 'slain';
  */
 export const CHAR_STATE = 'charstate';
 
-export const STATE_BLOCK = 'blocked';
+export const STATE_BLOCK = 'stateblock';
 
 /**
  * player defeated by some stat.
  */
-const DEFEATED = 'defeated';
+const DEFEATED = 'defeat';
 
-const DAMAGE_MISS = 'damage_miss';
+const DAMAGE_MISS = 'dmg_miss';
 export const IS_IMMUNE = 'is_immune';
 export const RESISTED = 'resists';
 
-const TASK_CHANGED = 'taskchanged';
+/**
+ * @const {string} TASK_REPEATED
+ */
+const TASK_REPEATED = 'taskrepeat';
 const TASK_IMPROVED = 'taskimprove';
 
 /**
@@ -100,22 +109,23 @@ const STOP_ALL = 'stopall';
  * Dispatched by a Runnable when it has completed.
  * It is the job of the runnable to determine when it has completed.
  */
-const TASK_DONE = 'task_done';
+const TASK_DONE = 'taskdone';
 
 /**
  * Action should be stopped by runner.
  */
-const HALT_TASK = 'halt_task';
+const HALT_TASK = 'halttask';
 
 /**
  * Action blocked or failed.
+ * @event TASK_BLOCKED - obj, resumable
  */
-const TASK_BLOCKED = 'task_blocked';
+const TASK_BLOCKED = 'taskblock';
 
 /**
  * Item with attack used. Typically spell; could be something else.
  */
-const CHAR_ACTION = 'char_act';
+const CHAR_ACTION = 'charact';
 
 /**
  * Completely delete item data. Use for Custom items only.
@@ -125,8 +135,8 @@ const DELETE_ITEM = 'delitem';
 /**
  * Encounter done.
  */
-const ENC_DONE = 'enc_done';
-const ENC_START = 'enc_start'
+const ENC_DONE = 'encdone';
+const ENC_START = 'encstart'
 
 
 /**
@@ -169,7 +179,7 @@ export const TOGGLE = 'toggle';
 export { CHAR_TITLE, NEW_TITLE, LEVEL_UP, CHAR_NAME, CHAR_CLASS, CHAR_CHANGE };
 
 export { HALT_TASK, EVT_EVENT, EVT_UNLOCK, EVT_LOOT, TASK_DONE, CHAR_ACTION, STOP_ALL, DELETE_ITEM,
-	TASK_CHANGED, TASK_IMPROVED, TASK_BLOCKED,
+	TASK_REPEATED, TASK_IMPROVED, TASK_BLOCKED,
 	DAMAGE_MISS, DEFEATED, ENC_START, ENC_DONE };
 
 export default {
@@ -181,7 +191,12 @@ export default {
 		this.log = game.log;
 		this.game = game;
 
-		console.log('CLEARING GAME EVENTS');
+		/**
+		 * @property {.<string,object>}
+		 */
+		this._triggers = {};
+
+		console.log('clearGameEvents()');
 		this.clearGameEvents();
 
 		events.addListener( EVT_LOOT, this.onLoot, this );
@@ -190,6 +205,7 @@ export default {
 		events.addListener( LEVEL_UP, this.onLevel, this );
 		events.addListener( NEW_TITLE, this.onNewTitle, this );
 
+		events.addListener( TRIGGER, this.doTrigger, this );
 		events.addListener( TASK_IMPROVED, this.actImproved, this );
 
 		events.addListener( EVT_COMBAT, this.onCombat, this );
@@ -212,6 +228,64 @@ export default {
 	clearGameEvents() {
 
 		events.removeAllListeners();
+
+	},
+
+	/**
+	 *
+	 * @param {*} obj
+	 */
+	clearTriggers(obj) {
+
+		let ons = obj.on;
+		if ( !ons ) return;
+
+		for( let p in ons ) {
+			this.clearTrigger( p, obj );
+		}
+
+	},
+
+	/**
+	 *
+	 * @param {string} trigger
+	 * @param {object} obj
+	 */
+	clearTrigger( trigger, obj ) {
+
+		let trigs = this._triggers.get( trigger );
+		if ( trigs ) {
+			trigs.delete(obj);
+		}
+
+	},
+
+	/**
+	 *
+	 * @param {string} trigger
+	 * @param {*} obj
+	 * @param {*} result
+	 */
+	onTrigger( trigger, obj, result ) {
+
+		let trigs = this._triggers.get(trigger);
+		if ( !trigs ) {
+			trigs = {};
+			this._triggers.set( trigger, trigs);
+		}
+
+	},
+
+	/**
+	 *
+	 * @param {string} trigger - data defined trigger.
+	 */
+	doTrigger( trigger ){
+
+		let trigs = this._triggers[trigger];
+		if ( trigs ) {
+
+		}
 
 	},
 

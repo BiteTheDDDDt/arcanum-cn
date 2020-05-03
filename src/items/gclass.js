@@ -22,17 +22,15 @@ export default class GClass extends CharUpgrade {
 	 * @param {number} amt
 	 * @returns {boolean}
 	 */
-	amount( amt ) {
+	changed( g, amt ) {
 
-		if ( !super.amount( amt ) ) return false;
+		super.changed( g, amt );
 
 		g.state.player.setClass( this.name );
 
 		this.locked = false;
 
 		Events.emit( EVT_EVENT, this );
-
-		return true;
 
 	}
 

@@ -1,6 +1,6 @@
 import Game from '../game';
 import {quickSplice, swap } from '../util/array';
-import Events, {TASK_DONE, TASK_CHANGED, HALT_TASK, TASK_BLOCKED, STOP_ALL } from '../events';
+import Events, {TASK_DONE, TASK_REPEATED, HALT_TASK, TASK_BLOCKED, STOP_ALL } from '../events';
 import Stat from '../values/rvals/stat';
 import Base, {mergeClass} from '../items/base';
 import Runnable from '../composites/runnable';
@@ -230,7 +230,7 @@ export default class Runner {
 	}
 
 	/**
-	 * Add an task absolutely, removing a running task if necessary.
+	 * Add a task absolutely, removing a running task if necessary.
 	 * @public
 	 * @param {*} a
 	 * @returns {boolean} true on success
@@ -253,13 +253,14 @@ export default class Runner {
 
 		if ( !this.has(a) ) {
 
-			// task already in running list.
-			Events.emit( TASK_CHANGED );
-
 			this.runTask(a);
 			this.trimActives(a);
 
+		} else {
+			// task already in running list.
+			Events.emit( TASK_REPEATED );
 		}
+
 		return true;
 
 	}
@@ -287,6 +288,7 @@ export default class Runner {
 	/**
 	 * @private
 	 * @param {Task} act
+	 * @param {boolean} [resume=true] - attempt to resume task later.
 	 */
 	actBlocked( act, resume=true ) {
 
