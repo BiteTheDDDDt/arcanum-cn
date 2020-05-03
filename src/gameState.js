@@ -38,6 +38,7 @@ export default class GameState {
 		let data = {
 
 			version:__VERSION,
+			pid:this.pid,
 
 			name:this.player.name,
 			items:this.saveItems,
