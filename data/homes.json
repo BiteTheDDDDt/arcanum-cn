@@ -109,7 +109,10 @@
 		"desc":"Cozy and quaint.",
 		"require":"tier0",
 		"disable":"innroom",
-		"cost":500,
+		"cost":{
+			"gold":500,
+			"gems":5
+		},
 		"mod":{
 			"minions.max":1,
 			"space.max":20
@@ -118,7 +121,10 @@
 	{
 		"id":"house",
 		"desc":"A modest house in a small town.",
-		"cost":900,
+		"cost":{
+			"gold":900,
+			"gems":10
+		},
 		"disable":"innroom",
 		"require":"g.tier0>0&&g.arcana.max>=8",
 		"mod":{
@@ -129,7 +135,10 @@
 	{
 		"id":"shop",
 		"desc":"A small shop in a bustling city.",
-		"cost":850,
+		"cost":{
+			"gold":850,
+			"gems":9
+		},
 		"require":"g.tier0>0&&g.crafting>=9",
 		"mod":{
 			"minions.max":2,
@@ -138,13 +147,16 @@
 			"gold.rate":0.2,
 			"gold.max":25,
 			"nature.rate":"-5%",
-			"arcana.rate":-0.001
+			"arcana.rate":-0.002
 		}
 	},
 	{
 		"id":"inn",
 		"desc":"A quiet inn for hosting wayfarers.",
-		"cost":2000,
+		"cost":{
+			"gold":2000,
+			"gems":10
+		},
 		"require":"g.tier0>0&&g.languages>=7",
 		"mod":{
 			"minions.max":5,
@@ -158,7 +170,10 @@
 	{
 		"id":"lodge",
 		"desc":"A rugged lodge in the woods.",
-		"cost":950,
+		"cost":{
+			"gold":950,
+			"gems":5
+		},
 		"require":"g.tier0>0&&g.naturelore>=7",
 		"mod":{
 			"minions.max":5,
@@ -171,7 +186,10 @@
 		"id":"gabledhouse",
 		"name":"gabled mansion",
 		"desc":"A spacious house with many gabled windows.",
-		"cost":2000,
+		"cost":{
+			"gold":2000,
+			"gems":10
+		},
 		"require":"g.tier1>0&&g.arcana>=10",
 		"mod":{
 			"minions.max":5,
@@ -182,7 +200,10 @@
 		"id":"halftimber",
 		"name":"half-timber house",
 		"desc":"A vast home of rustic design",
-		"cost":3000,
+		"cost":{
+			"gold":3000,
+			"gems":15
+		},
 		"require":"g.tier1>0&&g.arcana>=10",
 		"mod":{
 			"minions.max":7,
@@ -194,7 +215,9 @@
 		"desc":"A primitive dwelling well-suited to particular areas of study. Others less so.",
 		"require":"g.tier0>0&&(g.shadow+g.earth+g.nature)>0",
 		"tags":"outdoors",
-		"cost":150,
+		"cost":{
+			"gold":150
+		},
 		"mod":{
 			"minions.max":2,
 			"space.max":25,

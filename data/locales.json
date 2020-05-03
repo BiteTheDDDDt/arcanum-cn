@@ -59,7 +59,7 @@
 	"length":30,
 	"desc":"the small and tranquil island is inhabited by an old hermit named thyffr",
 	"run":{
-		"stamina":0.2
+		"stamina":0.22
 	},
 	"result":{
 		"arcana":0.1,
@@ -84,7 +84,7 @@
 	"length":40,
 	"desc":"the woods posses many features of interest to the magical scholar.",
 	"run":{
-		"stamina":0.2
+		"stamina":0.25
 	},
 	"result":{
 		"arcana":0.1,
@@ -112,7 +112,7 @@
 	"length":25,
 	"desc":"The half-goblin Pidwig has sailed the waters around his bay for hundreds of years. In that time he has collected a myriad of interesting artifacts.",
 	"run":{
-		"stamina":0.2
+		"stamina":0.3
 	},
 	"result":{
 		"arcana":0.1
@@ -138,7 +138,7 @@
 	"desc":"This tiny outpost in the center of thangmor outlasted even the pillars",
 	"require":"g.evil<=0&&g.history>=5",
 	"run":{
-		"stamina":0.2
+		"stamina":0.33
 	},
 	"result":{
 		"arcana":0.1,
@@ -164,7 +164,7 @@
 	"require":"tier0",
 	"desc":"an ancient crypt of crumbling stone.",
 	"run":{
-		"stamina":0.2
+		"stamina":0.35
 	},
 	"result":{
 		"arcana":0.15,
@@ -191,7 +191,7 @@
 	"sym":"📖",
 	"desc":"",
 	"run":{
-		"stamina":0.2
+		"stamina":0.4
 	},
 	"result":{
 		"arcana":0.1,
@@ -244,6 +244,9 @@
 	"result":{
 		"title":"Historian"
 	},
+	"run":{
+		"stamina":0.4
+	},
 	"loot":{
 		"tomes":"3~5",
 		"markhulcodex":true
@@ -270,7 +273,7 @@
 	"length":400,
 	"level":19,
 	"run":{
-		"stamina":3
+		"stamina":4
 	},
 	"result":{
 		"title":"Nomad",
