@@ -3,22 +3,22 @@
   "version": "0.8.0",
   "description": "theory of magic",
   "main": "index.js",
-  "scripts": {
+  "scripts":{
     "build": "webpack --env.production --buildpath=dist/",
     "ci-dev": "webpack --env --buildpath=dev/",
     "dev": "webpack --watch --env --buildpath=dev/",
     "run": "webpack --watch --env.production --buildpath=dist/",
     "kong": "webpack --watch --env.production --env.kong --buildpath=kong/"
   },
-  "repository": {
+  "repository":{
     "type": "git",
     "url": "git+https://github.com/lerpinglemur/webpack-template.git"
   },
   "author": "",
-  "bugs": {
+  "bugs":{
     "url": "https://github.com/lerpinglemur/webpack-template/issues"
   },
-  "devDependencies": {
+  "devDependencies":{
     "copy-webpack-plugin": "^5.0.5",
     "css-loader": "^3.2.0",
     "html-webpack-plugin": "^3.2.0",
@@ -33,7 +33,7 @@
     "workbox-webpack-plugin": "^4.3.1",
     "zip-webpack-plugin": "^3.0.0"
   },
-  "dependencies": {
+  "dependencies":{
     "eventemitter3": "^3.1.2",
     "firebase": "^7.7.0",
     "objecty": "^1.0.3",

@@ -113,6 +113,7 @@ export default class Task extends GData {
 		this.running = this.running || false;
 
 		this.applyImproves();
+		SetModCounts(this.runmod, 1);
 
 	}
 
@@ -190,7 +191,6 @@ export default class Task extends GData {
 	onStart(){
 
 		if ( this.runmod ) {
-			SetModCounts(this.runmod, 1);
 			Game.applyMods( this.runmod );
 		}
 
@@ -199,7 +199,6 @@ export default class Task extends GData {
 	onStop(){
 
 		if ( this.runmod ) {
-			SetModCounts(this.runmod,0);
 			Game.removeMods( this.runmod );
 		}
 

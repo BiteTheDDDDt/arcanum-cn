@@ -270,7 +270,7 @@
 		"hp":14,
 		"tohit":1,
 		"defense":4,
-		"attack": {
+		"attack":{
             "name":"slime",
             "kind":"nature",
 			"dmg":"1~3",
@@ -292,7 +292,7 @@
 		"hp":10,
 		"tohit":2,
 		"defense":2,
-		"attack": {
+		"attack":{
             "name":"bite",
             "kind":"pierce",
             "dmg":"0~2.5"
@@ -310,7 +310,7 @@
 		"tohit":4,
 		"defense":1,
 		"speed":3,
-		"attack": {
+		"attack":{
             "name":"peck",
             "kind":"pierce",
             "dmg":"0~2"
@@ -354,7 +354,7 @@
 		"hp":3,
 		"tohit":3,
 		"defense":1,
-		"attack": {
+		"attack":{
             "name":"bite",
             "kind":"pierce",
             "dmg":"0~2"
@@ -403,7 +403,7 @@
 		"hp":4,
 		"tohit":2,
 		"defense":2,
-		"attack": {
+		"attack":{
             "name":"claws",
 			"kind":"slash",
             "dmg":"2~3"
@@ -417,7 +417,7 @@
 		"hp":3,
 		"tohit":5,
 		"defense":2,
-		"attack": {
+		"attack":{
             "name":"claws",
 			"kind":"slash",
             "dmg":"2.2~4.2"
@@ -451,7 +451,7 @@
 		"hp":7,
 		"tohit":2,
 		"defense":4,
-		"attack": {
+		"attack":{
 			"name":"bite",
             "dmg":"1~4",
             "kind":"pierce"
@@ -465,7 +465,7 @@
 		"hp":4,
 		"tohit":3,
 		"defense":3,
-		"attack": {
+		"attack":{
 			"name":"bite",
             "dmg":"2~4",
             "kind":"pierce"
@@ -479,7 +479,7 @@
 		"hp":4,
 		"tohit":5,
 		"defense":3,
-		"attack": {
+		"attack":{
 			"name":"slash",
             "dmg":"1~4",
             "kind":"slash"
@@ -501,7 +501,7 @@
 		"hp":4,
 		"tohit":2,
 		"defense":5,
-		"attack": {
+		"attack":{
 			"name":"psychic blast",
             "dmg":"1~2",
             "kind":"mana"
@@ -521,7 +521,7 @@
 		"tohit":2,
 		"regen":0.5,
 		"defense":4,
-		"attack": {
+		"attack":{
 			"name":"kingly bite",
             "dmg":"1~3",
             "kind":"pierce"
@@ -549,7 +549,7 @@
 		"level":2,
 		"hp":4,
 		"defense":5,
-		"attack": {
+		"attack":{
 			"name":"dagger",
             "dmg":"1~2",
             "kind":"pierce"
@@ -567,7 +567,7 @@
 		"hp":8,
 		"tohit":5,
 		"defense":7,
-		"attack": {
+		"attack":{
 			"name":"shortsword",
             "dmg":"2~3",
             "kind":"pierce"
@@ -585,7 +585,7 @@
 		"tohit":5,
 		"spells":"heal1",
 		"defense":5,
-		"attack": {
+		"attack":{
 			"name":"club",
             "dmg":"2~4",
             "kind":"blunt"
@@ -602,7 +602,7 @@
 		"hp":11,
 		"tohit":6,
 		"defense":13,
-		"attack": {
+		"attack":{
             "dmg":"3~5",
             "kind":"slash"
         },
@@ -618,7 +618,7 @@
 		"hp":14,
 		"tohit":7,
 		"defense":16,
-		"attack": {
+		"attack":{
             "dmg":"4~7",
             "kind":"slash"
         },
@@ -634,7 +634,7 @@
 		"hp":18,
 		"tohit":8,
 		"defense":23,
-		"attack": {
+		"attack":{
 			"name":"magic missle",
             "dmg":"5~9",
             "kind":"mana"
@@ -652,7 +652,7 @@
 		"hp":15,
 		"tohit":7,
 		"defense":4,
-		"attack": {
+		"attack":{
 			"name":"bite",
             "dmg":"7~9",
             "kind":"pierce"
@@ -674,7 +674,7 @@
                 "kind":"poison",
                 "name":"venom",
                 "dmg":"1~3",
-                "duration": 5
+                "duration":5
 			},
 			{
 				"%":"10%",
@@ -778,7 +778,7 @@
 		"tohit":7,
 		"defense":1,
 		"speed":5,
-		"attack": {
+		"attack":{
             "name":"peck",
             "kind":"pierce",
             "dmg":"4~8"
@@ -4109,7 +4109,7 @@
 		  {
 			"name":"deathly presence",
 			"targets":"enemies",
-			"dot": {
+			"dot":{
 			  "kind":"death",
 			  "duration":500,
 			  "dmg":"50~80"
@@ -4117,7 +4117,7 @@
 		  },
 		  {
 			"name":"reap",
-			"tohit": 50,
+			"tohit":50,
 			"kind":"death",
 			"dmg":"150~300"
 		  }
@@ -4151,7 +4151,7 @@
 		"kind":"deity",
 		"unused":true,
 		"unique":true,
-		"desc":"The serpent who grips the earth in its scales",
+		"desc":"The serpent that grips the earth in its scales",
 		"hp":130000,
 		"tohit":30,
 		"defense":200,

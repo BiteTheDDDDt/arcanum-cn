@@ -144,14 +144,14 @@
         "name":"titan's hammer",
         "desc":"Wrought from unyielding adamant, it hums with the energies of the earth.",
         "type":"weapon",
-        "attack": {
+        "attack":{
             "kind":"blunt",
             "damage":"40~50"
         },
-        "mod": {
-            "earth.rate": 1,
-            "earth.max": 10,
-            "player.defense": 30,
+        "mod":{
+            "earth.rate":1,
+            "earth.max":10,
+            "player.defense":30,
             "smite.attack.tohit":5,
             "smite.level":-2,
             "smite.attack.damage":"20%",
@@ -159,10 +159,10 @@
             "fissure.attack.dot.duration":1
 
         },
-        "hands": 2,
+        "hands":2,
         "tags":"hammer",
-        "level": 10,
-        "cost": {
+        "level":10,
+        "cost":{
             "gold":5000
         }
     }
