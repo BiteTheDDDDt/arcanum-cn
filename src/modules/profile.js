@@ -28,6 +28,7 @@ export default {
 	hall:null,
 
 	/**
+	 * Reactive information about active profile.
 	 * @property {Object} active - reactive profile information for Vue.
 	 */
 	active:{
@@ -171,7 +172,7 @@ export default {
 		let p = gs.player;
 
 		let id = gs.pid || p.hid;
-		console.log('loaded id found: ' + id );
+		console.log('player id: ' + id );
 
 		let slot = this.hall.pidSlot( id );
 
@@ -214,7 +215,7 @@ export default {
 
 		try {
 
-			if ( this.hall.curId ) console.log('loading active: ' + this.hall.curId);
+			if ( this.hall.curId ) console.log('loading hall char: ' + this.hall.curId);
 			else if ( this.hall.curSlot ) console.log('loading slot: '+ this.hall.curSlot );
 
 			return Persist.loadChar( this.hall.curId || this.hall.curSlot );

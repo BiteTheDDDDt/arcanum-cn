@@ -81,6 +81,7 @@ export default class Hall {
 	 */
 	get points(){return this._points;}
 	set points(v){this._points=v;}
+
 	/**
 	 * GData specific to hall.
 	 * @property {Object.<string,GData>} items
@@ -108,7 +109,10 @@ export default class Hall {
 
 		if ( vars ) Object.assign(this, vars);
 
-		if (!this.id ) this.id = TimeId('h');
+		if (!this.id ) {
+			this.id = TimeId('h');
+			console.log('NEW HALL ID: ' + this.id );
+		} else console.log('HALL ID: ' + this.id );
 
 		if ( !this.chars ) this.chars = [];
 
@@ -137,7 +141,7 @@ export default class Hall {
 
 		if ( vars.active ) {
 
-			console.log('CUR HALL SLOT: ' + vars.active );
+			console.log('LEGACY HALL SLOT: ' + vars.active );
 
 			this.legacy = true;
 			this.setActive( vars.active );

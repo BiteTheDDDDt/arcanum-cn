@@ -15,12 +15,19 @@ export const Local = {
 	},
 
 	saveChar( data, charid ) {
+		console.log('LOCAL SAVE AT: ' + this.charLoc(charid ));
 		window.localStorage.setItem( this.charLoc( charid ), data );
 	},
 
 	loadChar( charid ){
 		let str = window.localStorage.getItem( this.charLoc( charid ) );
-		if ( str ) return JSON.parse(str);
+
+		console.log('LOCAL LOAD CHAR: ' + this.charLoc(charid) );
+		if ( str ) {
+			console.log('loading LOCAL: ' + charid );
+			return JSON.parse(str);
+		}
+		console.log('CHAR NOT FOUND');
 		return null;
 	},
 
@@ -34,7 +41,9 @@ export const Local = {
 
 	loadHall( hid ){
 		let str = window.localStorage.getItem( this.hallLoc( hid ) );
+		console.log('LOCAL LOAD HALL: ' + this.hallLoc(hid) );
 		if ( str) return JSON.parse(str);
+		console.log('LOCAL HALL NOT FOUND');
 		return null;
 	},
 

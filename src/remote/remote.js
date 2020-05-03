@@ -85,6 +85,7 @@ export const FBRemote = {
 	loadChar( charid){
 
 		var store = firebase.storage().ref( this.saveDir( this.userid, charid ) );
+		console.log('LOADING FIREBASE: ' + charid );
 		return store.getDownloadURL().then( url=>JSONLoad(url, false), err=>{
 			console.warn(err);
 			return null;

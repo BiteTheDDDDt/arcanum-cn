@@ -90,6 +90,9 @@ export default class GameState {
 
 			/**@ hid compat */
 			this.pid = this.player.hid || TimeId('p');
+			if ( this.player.hid ) console.log('USING LEGACY HID: ' + this.player.hid );
+			else console.log('GENERATING NEW PLAYERID: ' + this.pid );
+
 		}
 
 		this.initSlots();

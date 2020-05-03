@@ -17,6 +17,10 @@ const SETTINGS_DIR = 'settings/';
  */
 export const Persist = {
 
+	/**
+	 * @property {boolean} remoteFirst - attempt to load from remote sources
+	 * before local.
+	 */
 	remoteFirst:false,
 
 	loggedIn(){return Remote && Remote.loggedIn;},
@@ -25,6 +29,9 @@ export const Persist = {
 		if(Remote && Remote.loggedIn ) Remote.logout();
 	},
 
+	/**
+	 * Clear all data.
+	 */
 	async clearAll(){
 
 		Local.clearAll();
@@ -75,7 +82,7 @@ export const Persist = {
 
 	/**
 	 *
-	 * @param {*} charid
+	 * @param {string} charid
 	 * @returns {Promise<object>}
 	 */
 	async loadChar( charid ){
@@ -84,12 +91,15 @@ export const Persist = {
 
 		if ( this.remoteFirst && Remote ) {
 
+			console.log('TRY REMOTE LOAD: ' + file);
 			let res = await Remote.loadChar( file );
 			if (res ) return res;
+			console.log('REMOTE LOAD FAILED');
 			return Local.loadChar( file );
 
 		} else {
 
+			console.log('TRY LOCAL LOAD: ' + file );
 			let res = Local.loadChar( file );
 
 			if ( res || !Remote || !Remote.loggedIn ) return res;
@@ -135,6 +145,11 @@ export const Persist = {
 		return window.localStorage.getItem( this.settingsLoc(charid) );
 	},
 
+	/**
+	 * Path of settings file for character.
+	 * @param {string} charid
+	 * @returns {string} path to settings file.
+	 */
 	settingsLoc(charid){ return SETTINGS_DIR + '/'+charid +'/' },
 
 };
