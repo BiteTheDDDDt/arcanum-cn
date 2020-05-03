@@ -1,9 +1,7 @@
 import Inventory from './inventories/inventory';
-import Raid from './composites/raid';
 import GData from './items/gdata';
 import Equip from './chars/equip';
 import Minions from './inventories/minions';
-import { cloneClass } from 'objecty';
 
 import Runner from './modules/runner';
 import Explore from './composites/explore';
@@ -13,10 +11,11 @@ import Group from './composites/group';
 import UserSpells from './inventories/userSpells';
 import Quickbars from './composites/quickbars';
 import Stat from './values/stat';
-import { WEARABLE, ARMOR, WEAPON, HOME, PURSUITS, ENCHANTSLOTS, TYP_STATE, TimeId } from './values/consts';
-import Dot from './chars/dot';
+import { WEARABLE, ARMOR, WEAPON, HOME, PURSUITS, ENCHANTSLOTS, TimeId } from './values/consts';
+import Stat from './values/rvals/stat';
 import TagSet from './composites/tagset';
 import EnchantSlots from './inventories/enchantslots';
+import Combat from './composites/combat';
 
 export const REST_SLOT = 'rest';
 
@@ -45,8 +44,8 @@ export default class GameState {
 			items:this.saveItems,
 			bars:this.bars,
 			slots:slotIds,
-			equip:( this.equip ),
-			raid:( this.raid ),
+			equip:this.equip,
+			combat:this.combat,
 			drops:this.drops,
 			explore:this.explore,
 			sellRate:this.sellRate,
@@ -102,26 +101,25 @@ export default class GameState {
 				{ bars:[baseData.quickbar] }
 		);
 
-		this.initMaterials( this.materials );
-
 		this.inventory = new Inventory( this.items.inv || baseData.inventory || {max:3} );
 		this.items.inv = this.inventory;
 		this.inventory.removeDupes = true;
 
 		this.self = this.player;
-		this.drops = new Inventory();
+		this.drops = new Inventory( baseData.drops );
 
 		this.items[ENCHANTSLOTS] = new EnchantSlots( this.items[ENCHANTSLOTS] );
+
 		/**
 		 * @property {Minions} minions
 		 */
-		this.minions = this.items.minions = new Minions( this.items.minions || null );
+		this.items.minions = this.minions = new Minions( baseData.items.minions || null );
 
 		this.equip = new Equip( baseData.equip );
 
 		this.initStats();
 
-		this.raid = new Raid( baseData.raid );
+		this.combat = new Combat( baseData.combat );
 		this.explore = new Explore( baseData.explore );
 
 		this.runner = this.items.runner = new Runner( this.items.runner );
@@ -223,17 +221,12 @@ export default class GameState {
 
 		this.equip.revive( this );
 
-		/*
-		@todo revive inventories special?
-		this.inventory.revive( this );
-		this.spelllist.revive(this);
-		this.minions.revive(this);*/
-
 		this.player.revive(this);
 
 		this.minions.revive(this);
 		this.drops.revive(this);
-		this.raid.revive( this );
+
+		this.combat.revive(this);
 		this.explore.revive(this);
 
 	}
@@ -244,7 +237,7 @@ export default class GameState {
 	 */
 	reviveItems() {
 
-		var manualRevive = new Set( ['minions', 'player', 'raid', 'explore', 'equip', 'drops'] );
+		var manualRevive = new Set( ['minions', 'player', 'explore', 'equip', 'drops'] );
 
 		let count = 0;
 		for( let p in this.items ) {
@@ -307,39 +300,6 @@ export default class GameState {
 		// must be defined for Vue. slots could be missing from save.
 		ensure( this.slots, [HOME, 'mount', 'bed', REST_SLOT]);
 		if ( !this.slots[REST_SLOT] ) this.slots[REST_SLOT] = this.getData('rest');
-
-	}
-
-	initMaterials( mats ) {
-
-		let byId = {};
-		for( let i = mats.length-1; i>=0; i-- ) {
-			byId[ mats[i].id] = mats[i];
-		}
-
-		this.matsById = byId;
-
-	}
-
-	/**
-	 * @static
-	 * @param {object} dot
-	 * @param {object} source
-	 * @param {number} [duration=0]
-	 * @returns {Dot}
-	 */
-	mkDot( dot, source, duration=0 ) {
-
-		dot = new Dot( cloneClass(dot), source );
-
-		let st = this.getData(dot.id);
-		if ( st == dot ) {
-			console.warn('Dot already state: ' + st);
-		} else if ( st && st.type === TYP_STATE ) dot.mergeDot(st);
-
-		dot.duration = duration;
-
-		return dot;
 
 	}
 
@@ -581,7 +541,5 @@ export default class GameState {
 	}
 
 	getData(id) { return this.items[id] || this[id]; }
-
-	getMaterial(id) { return this.matsById[id]; }
 
 }

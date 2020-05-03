@@ -1,7 +1,7 @@
-import Inventory from "./inventory";
-import Events, { TASK_CHANGED } from '../events';
+import Inventory, { SAVE_IDS } from "./inventory";
+import Events, { TASK_REPEATED } from '../events';
 import { NPC, TEAM_PLAYER} from "../values/consts";
-import RValue from "../values/rvalue";
+import RValue from "../values/rvals/rvalue";
 
 
 export default class Minions extends Inventory {
@@ -45,7 +45,7 @@ export default class Minions extends Inventory {
 		/*this.saveMode = 'custom';
 		this.saveMap = SaveInstanced;*/
 
-		this._allies = new Inventory( {id:'allies', spaceProp:'level', saveMode:'ids'} );
+		this._allies = new Inventory( {id:'allies', spaceProp:'level', saveMode:SAVE_IDS} );
 		this.mods = new Map();
 		this.keep = new Set();
 
@@ -77,7 +77,7 @@ export default class Minions extends Inventory {
 
 		for( let i = this.items.length-1; i>= 0; i-- ) {
 
-			var it = this.items[i];
+			let it = this.items[i];
 			if ( it.active === false && it.alive ) it.rest(dt);
 
 		}
@@ -102,22 +102,13 @@ export default class Minions extends Inventory {
 		for( let pair of this.mods ) {
 
 			if ( m.is(pair[1] ) ) {
-				console.log('APPLY MINION MOD: ' + pair[1] );
-				console.dir( pair[0], 'mod');
+				//console.log('APPLY MINION MOD: ' + pair[1] );
 				m.applyMods(pair[0]);
 			}
 
 		}
 
 
-	}
-
-	/**
-	 * Get list of Minions by id.
-	 * @param {string[]} ids
-	 */
-	getList( ids ) {
-		return this.items.filter( v=>ids.includes(v.id) );
 	}
 
 	setActive( b, active=true ) {
@@ -169,7 +160,7 @@ export default class Minions extends Inventory {
 		this.calcUsed();
 
 		//Events.add( ALLY_DIED, this.died, this );
-		Events.add( TASK_CHANGED, this.resetActives, this );
+		Events.add( TASK_REPEATED, this.resetActives, this );
 
 	}
 

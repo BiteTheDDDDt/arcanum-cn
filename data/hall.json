@@ -13,6 +13,21 @@
 				"desc":"Across the aeons wizards gather in hidden halls to exchange lore and augment their powers."
 			}
 		],
+		"tasks":[
+
+			{
+
+				"id":"retire",
+				"warn":true,
+				"require":"g.planeslore>=999",
+				"desc":"",
+				"cost":{
+
+				},
+				"flavor":""
+
+			}
+		],
 		"upgrades":[
 
 			{
@@ -98,6 +113,21 @@
 				"mod":{
 					"runner.max":1
 				}
+			},
+			{
+				"id":"ritualchamber",
+				"name":"ritual chamber",
+				"require":"g.ritualist>0&&g.tier6>0",
+				"desc":"A warded room deep within the hall, dedicated to carrying out rituals in safety.",
+				"max":1,
+				"cost":{
+					"prestige":30
+				},
+				"mod":{
+					"ritualism.max":2,
+					"ritualnotes.max":12,
+					"ritualward.max":7
+				}
 			}
 
 		],
@@ -132,7 +162,24 @@
 				}
 			}
 
+		],
+		"classes":[
+			{
+				"id":"pillarfire",
+				"name":"pillar of flame",
+				"desc":"",
+				"max":1,
+				"tags":"t_tier7",
+				"require":"g.planeslore>=999",
+				"cost":{
+				},
+				"mod":{
+					"tier7":true
+				}
+
+			}
 		]
+
 	}
 
 

@@ -1,11 +1,11 @@
-import { setModCounts} from '../items/base';
+import {mergeSafe, clone} from 'objecty';
 import Attack from './attack';
 
-import Mod from '../values/mod';
+import Mod from '../values/mods/mod';
 import { ParseMods } from 'modules/parsing';
 import Item from '../items/item';
 import { WEARABLE, ARMOR, TYP_RANGE, TYP_STAT, WEAPON } from '../values/consts';
-import Stat from '../values/stat';
+import Stat from '../values/rvals/stat';
 
 
 export default class Wearable extends Item {
@@ -28,10 +28,19 @@ export default class Wearable extends Item {
 
 		} else data.template = this.template.id;
 
-		data.name = this._name;
+		data.name = this.sname;
 		data.attack = this.attack || undefined;
 
 		if ( this.mod ) data.mod = this.mod;
+		if ( this.props ) {
+
+			if ( !Array.isArray(this.props)) {
+				console.log(this.id + ' PROPS INVALID: ' + (typeof this.props) + ' : ' + this.props );
+			} else {
+				data.props = this.props.map(v=>v.id).join(',');
+			}
+
+		}
 
 		if ( this.material ) {
 			if ( !data ) data = {};
@@ -43,13 +52,26 @@ export default class Wearable extends Item {
 	}
 
 	get damage() {
-		return this._attack ? this._attack.damage : undefined;
+		return this._attack ? this._attack.damage : 0;
 	}
 
 	get equippable() { return true; }
 
+	/**
+	 * @property {Property} material - (may be string before revive.)
+	 */
 	get material() { return this._material; }
 	set material(v) { this._material=v;}
+
+	/**
+	 * @property {Property[]} props
+	 */
+	get props(){
+		return this._props;
+	}
+	set props(v){
+		this._props=v;
+	}
 
 	/**
 	 * @property {Stat} armor
@@ -67,6 +89,9 @@ export default class Wearable extends Item {
 
 	}
 
+	/**
+	 * @property {Attack} attack
+	 */
 	get attack() { return this._attack; }
 	set attack(v) {
 
@@ -91,8 +116,7 @@ export default class Wearable extends Item {
 	/**
 	 * @property {boolean} worn
 	 */
-	get worn(){ return this._worn; }
-	set worn(v) { this._worn = v;}
+	get worn(){ return this.value > 0; }
 
 	/**
 	 * @property {string} slot
@@ -116,12 +140,15 @@ export default class Wearable extends Item {
 		//if ( vars ) cloneClass( vars, this );
 		//if ( save ) Object.assign( this, save );
 
-		this.value = this.val = 1;
+		this.value = this.val = 0;
+
+		if ( !this.maxEnchants ) this.maxEnchants = this.hands || 0;
 
 		if ( !this.type ) {
-			console.warn(this.id + ' unknown wear type.');
-			if ( this.attack ) this.type = WEAPON;
-			else if ( this.armor || this.slot != null ) this.type = ARMOR;
+			console.warn(this.id + ' unknown wear type: ' + this.type );
+			if ( this.attack ) {
+				this.type = WEAPON;
+			} else if ( this.armor || this.slot != null ) this.type = ARMOR;
 			else this.type = WEARABLE;
 		}
 
@@ -129,8 +156,6 @@ export default class Wearable extends Item {
 			this.attack = this._attack;
 			if ( !this._attack.name ) this._attack.name = this.name;
 		}
-
-
 
 	}
 
@@ -144,7 +169,7 @@ export default class Wearable extends Item {
 
 		//console.log('reviving: ' + this.id );
 
-		if ( typeof this.material === 'string') this.material = gs.getMaterial( this.material );
+		if ( typeof this.material === 'string') this.material = gs.getData( this.material );
 
 		if ( typeof this.recipe === 'string' ) this.template = gs.getData(this.recipe );
 		else if ( typeof this.template === 'string' ) this.template = gs.getData( this.template );
@@ -175,51 +200,108 @@ export default class Wearable extends Item {
 		}
 
 		if ( this.mod ) this.mod = ParseMods( this.mod, this.id, this );
+		//InitRVals( this, this );
 
+		this.initProps( gs );
+		if ( !this.maxEnchants ) this.calcMaxEnchants();
 		/*console.log('WEARABLE LEVEL: ' + this.level + ' MAT: '+ (this.material ? this.material.level : 0 )
 		 + ' base: ' + (this.template ? this.template.level : 0 ) );*/
 	}
 
-	/*findNumMods( mods ){
+	/**
+	 * Map property strings to source property objects.
+	 */
+	initProps( gs ){
 
-		for( let p in mods ) {
+		let props = this.props;
+		if ( !props ) return;
+		if ( typeof props === 'string') {
+			props = props.split(',');
+		}
 
-			if ( typeof mods[p] === 'number' ) console.log( this.id + ' mod is number: ' + p );
-			else if ( typeof mods[p] === 'object') {
-				if ( !(mods[p] instanceof RValue ) ) {
-					this.findNumMods(mods[p]);
-				}
-			}
+		let len = props.length;
+		let a = [];
+		for( let i = 0; i < len; i++ ) {
+
+			let p = gs.getData( props[i] );
+			if (!p ) continue;
+			a.push(p);
 
 		}
 
-	}*/
+		this.props = a;
+	}
+
+	calcMaxEnchants() {
+
+		let max = 0;
+		if ( this.template ) {
+
+			max = this.template.maxEnchants || 0;
+
+		}
+
+		let props = this.props;
+		if ( props ) {
+
+			for( let i = 0; i < props.length; i++ ) {
+
+				let p = props[i];
+				if ( !p ) continue;
+				max += props[i].maxEnchants || 0;
+			}
+		}
+
+		this.maxEnchants = max;
+	}
 
 	applyMaterial( mat ) {
 
 		if (!mat) return;
-
 		this.material = mat;
 
-		this.level +=  this.material.level || 0;
+		this.level +=  mat.level || 0;
+
+		this.addProperty( mat );
+
+	}
+
+	addProperty( prop ) {
+
+		if (!prop) return;
+		else if ( !Array.isArray(this.props ) ) this.props = [];
+		else if ( this.props.includes(prop) ) return;
 
 		if ( this.armor > 0 || this.type === 'armor' ) {
-			this.applyBonus( this, ARMOR, mat.bonus );
+			this.applyBonus( this, ARMOR, prop.bonus );
 		}
+
+		if ( prop.mod ) {
+
+			let newMods = ParseMods( clone(prop.mod), this.id + '.mod', this );
+			if ( !this.mod ) this.mod = newMods;
+			else mergeSafe( this.mod, newMods);
+		}
+
+		if ( prop.maxEnchants ) this.maxEnchants += prop.maxEnchants;
+
+		//if ( prop.type ==='property' ) console.log('APPLY PROPERTY: ' + (prop.id) );
 
 		if ( this.attack ) {
 
-			console.log('APPLY MAT: ' + (mat.id) );
-
 			if ( this.attack.damage !== null && this.attack.damage !== undefined ) {
-				this.applyBonus( this.attack, 'damage', mat.bonus );
+				this.applyBonus( this.attack, 'damage', prop.bonus );
 			}
-			if ( mat.tohit ) {
+			if ( prop.tohit ) {
 				//console.log('apply mat to: ' + this.id );
-				this.applyBonus( this.attack, 'tohit', mat.tohit );
+				this.applyBonus( this.attack, 'tohit', prop.tohit );
 			}
 
 		}
+
+		this.addAdj( prop.adj || prop.name, prop );
+
+		this.props.push(prop);
 
 	}
 
@@ -255,14 +337,12 @@ export default class Wearable extends Item {
 		if ( this.armor ) p.defense.add( this.armor );
 		if ( this.type === 'weapon' ) p.addWeapon(this);
 
-		this.worn = true;
+		this.value = 1;
 		if ( this.mod ) {
 
 			for( let p in this.mod ) {
 				console.log('apply mod: ' + p );
 			}
-			console.log('this mod: '+this.mod );
-			setModCounts( this.mod, 1);
 			g.applyMods( this.mod, 1 );
 
 		} else {
@@ -282,11 +362,10 @@ export default class Wearable extends Item {
 		if ( this.armor ) p.defense.add( -this.armor );
 		if ( this.type === WEAPON ) p.removeWeapon( this );
 
-		this.worn = false;
+		this.value = 0;
 
 		if ( this.mod ) {
-			setModCounts( this.mod, 0);
-			g.removeMod(this.mod)
+			g.removeMods(this.mod)
 		}
 
 	}

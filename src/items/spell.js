@@ -7,7 +7,7 @@ import { canTarget } from '../values/consts';
  * @param {Object} g - items
  */
 const levelReq = ( g, s ) => {
-	return ( g.player.level >= 2*s.level );
+	return ( s.level<=1 || g.player.level >= 2*s.level );
 }
 
 /**
@@ -15,13 +15,13 @@ const levelReq = ( g, s ) => {
  * @param {string} s - GData/Idable id.
  * @param {number} lvl
  */
-const reqStr = (s,lvl=1)=>{
+/*const reqStr = (s,lvl=1)=>{
 	return '!g.' + s + '||g.' + s + '>=' + lvl;
-}
+}*/
 
 /**
  * Create a school unlock function.
- * @param {string|string[]} s
+ * @param {string|string[]} s - name(s) of school which unlocks item.
  * @param {number} lvl - spell level.
  * @param {number} ratio - multiply spell level before test.
  */
@@ -66,6 +66,37 @@ export default class Spell extends Task {
 	get only(){return this._only;}
 	set only(v){this._only = typeof v === 'string' ? v.split(',') : v;}
 
+	/**
+	 * @property {boolean} silent - spell can be cast while silenced.
+	 */
+	get silent(){return this._silent;}
+	set silent(v){this._silent = v;}
+
+	get attack(){return this._attack;}
+	set attack(v){
+
+		if ( v != null ) {
+			if ( !(v instanceof Attack)) v = new Attack(v);
+			if ( !v.name ) v.name = this.name;
+			if (!v.kind) v.kind = this.school;
+		}
+
+		this._attack = v;
+	}
+
+	get action(){return this._action;}
+	set action(v){
+
+		if ( v) {
+			//console.dir(v, this.id);
+			if ( !(v instanceof Attack)) v = new Attack(v);
+			if ( !v.name ) v.name = this.name;
+			if (!v.kind) v.kind = this.school;
+		}
+
+		this._action = v;
+	}
+
 	toJSON(){
 
 		let data = super.toJSON();
@@ -95,25 +126,15 @@ export default class Spell extends Task {
 			this.dot.id = this.dot.name || this.name;
 		}
 
-		if ( this.attack ) {
-
-			if ( !(this.attack instanceof Attack) ) {
-				this.attack = new Attack(this.attack);
-			}
-			if ( !this.attack.name ) this.attack.name = this.name;
-			if (!this.attack.kind) this.attack.kind = this.school;
-
-		}
-
-
 		if ( this.locked !== false ) {
 
 			if ( this.school ) {
 				let req = schoolFunc( this.school, this.level.value, this.ratio );
 				if ( req ) this.addRequire( req );
-				else this.addRequire( levelReq );
 			}
-			else this.addRequire( levelReq );
+			this.addRequire( levelReq );
+
+			this.addRequire("spellbook");
 
 		}
 

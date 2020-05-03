@@ -1,32 +1,5 @@
 import {cloneClass} from 'objecty';
-
-/**
- * @property {Map.<string,GData>} NpcItems - clone of base game data used by Npcs
- * without modifiers, player effects etc.
- */
-//export const NpcItems = new Map();
-
-/*const MakeNpcItem = (p,data)=>{
-
-	let t;
-
-	if ( data.constructor ) {
-		//console.log('using constr: ' + data.constructor.name );
-		t = new data.constructor( cloneClass( data.template || data ) );
-	} else {
-		//console.log('no constructor: ' + p );
-		t = cloneClass( data.template || data );
-	}
-
-	if ( t === null || t === undefined ) {
-		console.log('NPC: Cant create: ' + p );
-		t = data;
-	}
-
-	NpcItems.set( p, t );
-	return t;
-
-}*/
+import { PrepData } from '../modules/parsing';
 
 /**
  * Proxy GameState for Npcs
@@ -38,12 +11,13 @@ export class NpcState {
 		this.state = gs;
 		this.self = caster;
 
+		/**
+		 * @property {Map<string,GData>} npcItems
+		 */
 		this.npcItems = new Map();
 
 
 	}
-
-	get raid(){return this.state.raid;}
 
 	//get player(){return this.self; }
 
@@ -65,8 +39,6 @@ export class NpcState {
 
 	getUnique(id){return this.state.getUnique(id)}
 
-	getMaterial(id) { return this.state.getMaterial(id)}
-
 	findData(id, any=false) {
 		return this.getData(p);
 	}
@@ -82,9 +54,10 @@ export class NpcState {
 	getData( p ){
 
 		// appears to be check for special variables defined on state directly;
-		// e.g. raid, explore. @todo many issues with this.
-		if ( p === 'self' ) return this.self;
-		else if ( this.state[p] ) return this.state[p];
+		// e.g. explore. @todo many issues with this.
+		if ( p === 'self' ) {
+			return this.self;
+		} else if ( this.state[p] ) return this.state[p];
 
 		let it = this.npcItems.get(p);
 		if ( it !== undefined ) return it;
@@ -106,25 +79,27 @@ export class NpcState {
 
 	makeNpcItem( p, data ){
 
-		let t;
-
 		//console.log('MAKE NPC ITEM: ' + data.id );
+
+		let copy;
+
+		if ( data.template ) {
+			copy = cloneClass( data.template  || data);
+			copy = PrepData(copy, data.id );
+		} else copy = cloneClass(data,{});
 
 		if ( data.constructor ) {
 			//console.log('using constr: ' + data.constructor.name );
-			t = new data.constructor( cloneClass( data.template || data ) );
-		} else {
-			//console.log('no constructor: ' + p );
-			t = cloneClass( data.template || data );
+			copy = new data.constructor( copy );
 		}
 
-		if ( t === null || t === undefined ) {
+		if ( copy === null || copy === undefined ) {
 			console.log('NPC: Cant create: ' + p );
-			t = data;
+			copy = data;
 		}
 
-		this.npcItems.set( p, t );
-		return t;
+		this.npcItems.set( p, copy );
+		return copy;
 	}
 
 }

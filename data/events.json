@@ -9,7 +9,7 @@
 	{
 		"id":"evt_scroll",
 		"name":"A tattered scroll",
-		"desc":"You buy a strange scroll from a travelling peddlar. If you could only decipher the cryptic symbols."
+		"desc":"You buy a strange scroll from a travelling peddler. If you could only decipher the cryptic symbols."
 	},
 	{
 		"id":"evt_alcove",
@@ -197,7 +197,7 @@
 	{
 
 		"id":"decent",
-		"require":"g.virtue>75&&g.evilamt<10",
+		"require":"g.virtue>90&&g.evilamt<10",
 		"desc":"You are turning out to be an upstanding spellcaster.",
 		"mod":{
 			"light.rate":0.1

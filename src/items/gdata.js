@@ -1,12 +1,12 @@
 import { defineExcept, cloneClass } from 'objecty';
-import Stat from '../values/stat';
+import Stat from '../values/rvals/stat';
 import Base, {mergeClass } from './base';
 import {arrayMerge} from '../util/array';
 import { assignPublic } from '../util/util';
 import Events, { CHAR_ACTION, EVT_EVENT, EVT_UNLOCK } from '../events';
 import Game, { TICK_LEN } from '../game';
 import { WEARABLE, WEAPON } from '../values/consts';
-import RValue from '../values/rvalue';
+import RValue, { InitRVals } from '../values/rvals/rvalue';
 import { Changed } from '../techTree';
 
 /**
@@ -17,8 +17,8 @@ import { Changed } from '../techTree';
 /**
  * @const {Set} NoDefine - properties not to set to default values.
  */
-const NoDefine = new Set( ['require', 'rate', 'current', 'need', 'value', 'buy', 'max',
-	'cost', 'id', 'name', 'warn', 'effect', 'slot', 'exp' ] )
+const NoDefine = new Set( ['require', 'rate', 'current', 'need', 'value', 'buy', "on",
+	'cost', 'id', 'name', 'warn', 'effect', 'slot', 'exp', 'delta'] )
 
 /**
  * Game Data base class.
@@ -81,6 +81,15 @@ export default class GData {
 	}
 
 	/**
+	 * @property {.<string,object>} on - actions to take on string triggers.
+	 */
+	get on() { return this._on; }
+	set on(v) { this._on = v; }
+
+	get triggers(){return this._triggers;}
+	set triggers(v){this._triggers=v; }
+
+	/**
 	 * @property {.<string,number>} cost
 	 */
 	get cost() { return this._cost; }
@@ -99,12 +108,23 @@ export default class GData {
 	get require() { return this._require; }
 	set require(v) { this._require =v;}
 
+	/**
+	 * @property {boolean} warn - whether to display a warning before
+	 * purchasing or using item.
+	 */
 	get warn() { return this._warn; }
 	set warn(v) { this._warn =v;}
 
+	/**
+	 * @property {string} warnMsg - warning message to display
+	 * before purchasing item.
+	 */
 	get warnMsg(){return this._warnMsg; }
 	set warnMsg(v) { this._warnMsg = v; }
 
+	/**
+	 * @property {object} mod - mods applied by object.
+	 */
 	get mod(){return this._mod;}
 	set mod(v){this._mod=v;}
 
@@ -129,8 +149,26 @@ export default class GData {
 	get locked() { return this._locked; }
 	set locked(v) { this._locked = v; }
 
+	/**
+	 * @property {boolean} owned
+	 */
 	get owned() { return this._owned;}
 	set owned(v) { this._owned = v; }
+
+	/**
+	 * @property {boolean} usable - cached usable variable.
+	 * recalculated using canUse()
+	 */
+	/*get usable() {return this._usable;}
+	set usable(v) { this._usable = v}*/
+
+	/**
+	 * @property {number} delta - Amount to add at end of frame.
+	 */
+	get delta(){return this._delta;}
+	set delta(v) {
+		this._delta = v;
+	}
 
 	/**
 	 * @property {Stat} value
@@ -138,6 +176,7 @@ export default class GData {
 	get value() { return this._value; }
 	set value(v) {
 
+		//if ( this.id === 'space') console.log('setting space: ' + v );
 		if ( v instanceof Stat ) {
 
 			if ( this._value === null || this._value === undefined ) this._value = v;
@@ -152,11 +191,16 @@ export default class GData {
 
 
 			this._value.base = (typeof v === 'object') ? v.value : v;
+			//if ( this.id === 'space') console.log('setting BASE SPACE: ' + v );
 
 		} else this._value = new Stat( v, this.id );
 
 	}
 
+	/**
+	 * @property {Stat} val - value assignment from save data.
+	 * assigns value without triggering game events.
+	 */
 	get val() { return this.value; }
 	set val(v) { this.value = v; }
 
@@ -165,6 +209,7 @@ export default class GData {
 	/**
 	 *
 	 * @param {?Object} [vars=null]
+	 * @param {?defaults} [defaults=null]
 	 */
 	constructor( vars=null, defaults=null ){
 
@@ -182,44 +227,16 @@ export default class GData {
 
 		/**
 		 * recomputed at game start.
+		 * @property {number} locks - locks applied by items.
 		 */
 		this.locks = 0;
 
 		if ( this._value === null || this._value === undefined ) this.val = 0;
 
+		this.delta = 0;
 		defineExcept( this, null, NoDefine );
 
-		this.initRVals( this );
-
-	}
-
-	/**
-	 * Set source property of all RValue subs to this.
-	 */
-	initRVals( obj=this, recur=new Set() ){
-
-		recur.add(obj);
-
-		for( let p in obj ) {
-
-			var s = obj[p];
-			if ( s === null || s=== undefined ) continue;
-			if ( Array.isArray(s) ) {
-
-				for( let i = s.length-1; i>= 0; i-- ) {
-					var t = s[i];
-					if ( typeof t === 'object' && !recur.has(t)) this.initRVals( t, recur);
-				}
-
-			} else if ( typeof s === 'object' && !recur.has(s)) {
-
-				if ( s instanceof RValue ) {
-					s.source = this;
-				} else this.initRVals( s, recur );
-
-			}
-
-		}
+		InitRVals( this, this );
 
 	}
 
@@ -239,7 +256,8 @@ export default class GData {
 	 */
 	canRun( g, dt=TICK_LEN ) {
 
-		if ( this.disabled || this.maxed() || (this.need && !g.unlockTest( this.need, this )) ) return false;
+		if ( this.disabled || this.maxed() || this.locks > 0 ||
+			(this.need && !g.unlockTest( this.need, this )) ) return false;
 
 		if ( this.buy && !this.owned && !g.canPay(this.buy ) ) return false;
 
@@ -263,18 +281,17 @@ export default class GData {
 	/**
 	 * Determine if an item can be used. Ongoing/perpetual tasks
 	 * test with 'canRun' instead.
-	 * @param {Game} g
+	 * @param {Context} g
 	 */
 	canUse( g=Game ){
 
-		if ( this.perpetual || this.length>0 ) { return this.canRun(g, TICK_LEN); }
+		if ( this.perpetual || this.length>0 ) return this.canRun(g, TICK_LEN);
 
-		if ( this.disabled || this.locks>0||
+		if ( this.disabled || this.locks>0|| this.maxed() ||
 				(this.need && !g.unlockTest( this.need, this )) ) return false;
 		if ( this.buy && !this.owned && !g.canPay(this.buy) ) return false;
 
 		if ( this.slot && g.state.getSlot(this.slot, this.type ) === this) return false;
-		if ( this.maxed() ) return false;
 
 		if ( this.fill && g.filled( this.fill, this ) ) return false;
 
@@ -285,13 +302,11 @@ export default class GData {
 		return !this.cost || g.canPay(this.cost);
 	}
 
-	canBuy(g=Game){
+	canBuy(g){
 
-		if ( this.disabled || this.locked || this.locks > 0 ) return false;
+		if ( this.disabled || this.locked || this.locks > 0 || this.maxed() ) return false;
 
-		if ( this.buy && !g.canPay(this.buy) ) return false;
-
-		return this.maxed() === false;
+		return ( !this.buy || g.canPay(this.buy) );
 
 	}
 
@@ -322,6 +337,7 @@ export default class GData {
 			}
 
 			if ( this.max && (prev + amt) >= this.max.value ) {
+
 				amt = this.max.value - prev;
 			}
 
@@ -334,25 +350,27 @@ export default class GData {
 
 	/**
 	 * Get or lose quantity.
-	 * @param {Game} g
 	 * @returns {boolean} true if some amount was actually added.
 	 */
-	amount( g, count=1 ) {
+	amount( count=1 ) {
 
-		count = this.add(count);
-		if ( count === 0 ) return false;
+		this.delta += count;
 
-		this.changed( g, count );
-		return true;
+		Changed.add(this);
 
 	}
 
 	/**
 	 * Process an actual change amount in data. This is after Stat Mods
 	 * have been applied to the base value.
+	 * @param {Game} g
 	 * @param {number} count - total change in value.
 	 */
 	changed( g, count) {
+
+		this.delta = 0;
+		count = this.add(count);
+		if ( count === 0 ) return;
 
 		if ( this.isRecipe ) { return g.create( this, true, count ); }
 
@@ -362,10 +380,13 @@ export default class GData {
 			this.timer = Number(this.cd );
 			g.addTimer( this );
 		}
-		if ( this.loot ) g.getLoot( this.loot );
+		if ( this.loot ) { g.getLoot( this.loot ); }
 
 		if ( this.title ) g.self.setTitle( this.title );
-		if ( this.result ) g.applyVars( this.result, count );
+		if ( this.result ) {
+
+			g.applyVars( this.result, count );
+		}
 		if ( this.create ) g.create( this.create );
 
 		if ( this.mod ) { g.applyMods( this.mod ); }
@@ -383,14 +404,13 @@ export default class GData {
 			if (this.type !== WEARABLE && this.type !== WEAPON ) Events.emit( CHAR_ACTION, this, g );
 		}
 
-		Changed.add(this);
-
 	}
 
 	doLock(amt){
-		this.locks += amt;
 
+		this.locks += amt;
 		Changed.add(this);
+
 	}
 
 	doUnlock(){
@@ -398,7 +418,7 @@ export default class GData {
 		if ( this.disabled || this.locked === false || this.locks>0 ) return;
 
 		this.locked = false;
-		if ( this.show ) Events.emit( EVT_EVENT, this.show );
+		if ( this.start ) Events.emit( EVT_EVENT, this.start );
 		else Events.emit( EVT_UNLOCK, this );
 
 		Changed.add(this);
@@ -406,12 +426,12 @@ export default class GData {
 
 	/**
 	 * Default implementation of onUse() is to add 1.
-	 * @param {Game} g
+	 * @param {Context} g
 	 */
 	onUse( g ) {
 
 		if ( this.slot ) g.setSlot( this );
-		else this.amount( g, 1 );
+		else this.amount( 1 );
 
 	}
 
@@ -422,7 +442,7 @@ export default class GData {
 	 * @param {number} rate
 	 */
 	filled( rate=0 ) {
-		return (this.max && this.value >= this.max.value) ||
+		return (this._max && this.value >= this._max.value) ||
 		(this.rate && (this.rate + rate.valueOf() ) <= 0); }
 
 	/**
@@ -430,7 +450,7 @@ export default class GData {
 	*/
 	maxed() {
 
-		if ( this.max ) return this.value >= Math.floor( this.max.value);
+		if ( this._max ) return this.value >= Math.floor( this._max.value);
 
 		return !(this.repeat||this.owned) && this.value > 0;
 

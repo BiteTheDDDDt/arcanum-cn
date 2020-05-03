@@ -2,7 +2,7 @@ import { assign } from 'objecty';
 
 import Events, {
 	EVT_COMBAT, ENEMY_SLAIN, ALLY_DIED,
-	DAMAGE_MISS, CHAR_DIED, STATE_BLOCK
+	DAMAGE_MISS, CHAR_DIED, STATE_BLOCK, CHAR_ACTION, COMBAT_WON
 } from '../events';
 
 import { itemRevive } from '../modules/itemgen';
@@ -10,7 +10,7 @@ import { NO_SPELLS } from '../chars/states';
 
 import { TEAM_PLAYER, getDelay, TEAM_NPC, TEAM_ALL } from '../values/consts';
 import { TARGET_ENEMY, TARGET_ALLY, TARGET_SELF,
-	TARGET_RAND, TARGET_PRIMARY, ApplyAction, TARGET_GROUP, TARGET_ANY } from "../values/combatVars";
+	TARGET_RAND, TARGET_PRIMARY, ApplyAction, TARGET_GROUP, TARGET_ANY, RandTarget, PrimeTarget } from "../values/combatVars";
 import Npc from '../chars/npc';
 
 
@@ -20,6 +20,8 @@ import Npc from '../chars/npc';
 const DEFENSE_RATE = 0.25;
 
 export default class Combat {
+
+	get id() { return 'combat' }
 
 	toJSON() {
 
@@ -42,17 +44,27 @@ export default class Combat {
 	}
 
 	/**
+	 * Whether combat is active.
+	 * @property {boolean} active
+	 */
+	get active() { return this._active;}
+	set active(v) {this._active=v}
+
+	/**
 	 * @property {Npc[]} enemies - enemies in the combat.
 	 */
 	get enemies() { return this._enemies; }
 	set enemies(v) {this._enemies = v;}
 
 	/**
-	 * @property {Char[]} allies - player & allies.
+	 * @property {Char[]} allies - player & allies. allies[0] is always the player.
 	 */
 	get allies() { return this._allies; }
 	set allies(v) { this._allies = v; }
 
+	/**
+	 * @property {boolean} done
+	 */
 	get done() { return this._enemies.length === 0; }
 
 	/**
@@ -60,17 +72,23 @@ export default class Combat {
 	 */
 	get teams(){ return this._teams; }
 
-	constructor(vars = null) {
+	constructor( vars=null ) {
 
 		if (vars) assign(this, vars);
 
 		if (!this.enemies) this.enemies = [];
 		if ( !this.allies) this.allies = [];
 
+		this.active = false;
+
 		this._teams = [];
 
 	}
 
+	/**
+	 *
+	 * @param {GameState} gs
+	 */
 	revive(gs) {
 
 		this.state = gs;
@@ -99,7 +117,7 @@ export default class Combat {
 			it = this._allies[i];
 			if ( typeof it === 'string' ) this._allies[i] = gs.minions.find( it );
 			else if ( it && typeof it === 'object' && !(it instanceof Npc)) {
-				console.log('NEW COMBAT ALLY');
+				console.log('NEW ALLY');
 				this._allies[i] = itemRevive( gs, it );
 			}
 
@@ -109,23 +127,10 @@ export default class Combat {
 
 		this._allies.unshift( this.player );
 
-		this.refreshTeamArrays();
+		this.resetTeamArrays();
 
+		Events.add( CHAR_ACTION, this.spellAction, this );
 		Events.add( CHAR_DIED, this.charDied, this );
-
-	}
-
-	/**
-	 * Add Npc to the combat
-	 * @param {Npc} it
-	 */
-	addNpc( it ){
-
-		it.timer = getDelay( it.speed );
-
-		if ( it.team === TEAM_PLAYER ) {
-			this._allies.push( it)
-		} else this._enemies.push(it);
 
 	}
 
@@ -137,18 +142,22 @@ export default class Combat {
 		for( let i = this._allies.length-1; i >= 0; i-- ) {
 
 			e = this._allies[i];
-			if ( e.alive === false ) {
 
-				/** @todo messy minion removal. */
-				e.hp -= dt;
-				if ( e.hp < -5 ) {
-					this._allies.splice(i,1);
+			if ( i > 0 ) {
+				// non-player allies.
+				if ( e.alive === false ) {
+
+					/** @todo messy minion removal. */
+					e.hp -= dt;
+					if ( e.hp < -5 ) {
+						this._allies.splice(i,1);
+					}
+					continue;
+
 				}
-				continue;
-
+				e.update(dt);
 			}
 
-			if ( e !==this.player) e.update(dt);
 			action = e.combat(dt);
 			if ( !action ) continue;
 
@@ -162,7 +171,13 @@ export default class Combat {
 
 			e = this._enemies[i];
 			e.update(dt);
-			if ( e.alive === false ) { this._enemies.splice(i,1); continue;}
+
+			if ( e.alive === false ) {
+				this._enemies.splice(i,1);
+				if ( this._enemies.length === 0 ) Events.emit( COMBAT_WON );
+				continue;
+			}
+
 			action = e.combat(dt);
 			if ( !action ) continue;
 
@@ -171,6 +186,7 @@ export default class Combat {
 			} else this.attack( e, action );
 
 		}
+
 
 	}
 
@@ -181,27 +197,35 @@ export default class Combat {
 	 */
 	spellAction( it, g ) {
 
-		if ( this._enemies.length===0 ) {
+		let a = g.self.getCause( NO_SPELLS);
+		if ( a && !it.silent ) {
 
-			Events.emit(EVT_COMBAT, null, g.self.name + ' casts ' + it.name + ' at the darkness.' );
+			Events.emit( STATE_BLOCK, g.self, a );
 
 		} else {
 
+			//Events.emit(EVT_COMBAT, null, g.self.name + ' casts ' + it.name + ' at the darkness.' );
 
-			let a = g.self.getCause( NO_SPELLS);
-			if ( a ) {
-
-				//console.warn('SPELLS blocked: ' + a );
-				Events.emit( STATE_BLOCK, g.self, a );
-
-			} else {
-				Events.emit(EVT_COMBAT, null, g.self.name + ' casts ' + it.name );
-				if ( it.attack ) this.attack( g.self, it.attack );
-				else {
-					console.log('spell no attack: ' + it.id );
-				}
+			Events.emit(EVT_COMBAT, null, g.self.name + ' casts ' + it.name );
+			if ( it.attack ) {
+				this.attack( g.self, it.attack );
 			}
+			if ( it.action ) {
 
+				console.log('ACTION: ' + it.action );
+				let target = this.getTarget( g.self, it.action.targets );
+
+				if (!target ) return;
+				if ( Array.isArray(target)) {
+
+					for( let i = target.length-1; i>= 0; i-- ) ApplyAction( target[i], it.action, g.self );
+
+				} else {
+					ApplyAction( target, it.action, g.self );
+				}
+
+
+			}
 		}
 
 	}
@@ -226,10 +250,6 @@ export default class Combat {
 
 		let targ = this.getTarget( attacker, atk.targets );
 		if ( !targ) return;
-
-		if ( atk.name === 'rewind' || atk.name ==='recoil') {
-			console.log( atk.name + ' targ: ' + targ.name + ' TARG: ' + atk.targets);
-		}
 
 		if ( Array.isArray(targ)) {
 
@@ -265,17 +285,23 @@ export default class Combat {
 	getTarget( char, targets ) {
 
 		// retarget based on state.
-		targets = char.getTarget(targets);
+		targets = char.retarget(targets);
 
 		var group = this.getGroup( targets, char.team );
+		if ( !this.active ) {
+
+			if ( this.group === this.enemies ) return null;
+			if ( this.group === this.teams[TEAM_ALL] ) return this.allies;
+		}
+
 		if ( targets & TARGET_GROUP ) return group;
 
 		if ( !targets || targets === TARGET_ENEMY || targets === TARGET_ALLY ) {
-			return this.randTarget(group);
+			return RandTarget(group);
 		} else if ( targets & TARGET_SELF ) return char;
 
-		if ( targets & TARGET_PRIMARY) return this.primeTarget(group);
-		if ( targets & TARGET_RAND ) return this.randTarget(group);
+		if ( targets & TARGET_PRIMARY) return PrimeTarget(group);
+		if ( targets & TARGET_RAND ) return RandTarget(group);
 
 	}
 
@@ -300,30 +326,6 @@ export default class Combat {
 		}
 		return null;
 
-	}
-
-	randTarget(a) {
-		return a[Math.floor( Math.random()*a.length)];
-	}
-
-	/**
-	 * Returns the most-primary ( lowest index) target.
-	 * @param {*} a
-	 */
-	primeTarget(a){
-		for( let i = 0; i<a.length; i++ ) {
-			if ( a[i].alive ) return a[i];
-		}
-	}
-
-	/**
-	 * @returns {Char} rand attack target
-	 */
-	nextTarget( a ) {
-
-		for( let i = a.length-1; i>=0; i-- ) {
-			if ( a[i].alive ) return a[i];
-		}
 	}
 
 	/**
@@ -368,12 +370,28 @@ export default class Combat {
 
 		}
 
-		this.refreshTeamArrays();
+		this.resetTeamArrays();
 		this.setTimers();
 
 	}
 
-	refreshTeamArrays() {
+	/**
+	 * Add Npc to combat
+	 * @param {Npc} it
+	 */
+	addNpc( it ){
+
+		it.timer = getDelay( it.speed );
+
+		if ( it.team === TEAM_PLAYER ) {
+			this._allies.push( it)
+		} else this._enemies.push(it);
+
+		this.teams[TEAM_ALL].push(it);
+
+	}
+
+	resetTeamArrays() {
 
 		this.teams[TEAM_PLAYER] = this.allies;
 		this.teams[TEAM_NPC] = this.enemies;
@@ -382,18 +400,20 @@ export default class Combat {
 	}
 
 	/**
-	 * Reenter same dungeon.
+	 * Reenter a dungeon.
 	 */
 	reenter() {
+
 		this.allies = this.state.minions.allies.toArray();
 		this.allies.unshift( this.player );
-		this.refreshTeamArrays();
+		this.resetTeamArrays();
+
 	}
 
 	/**
 	 * Begin new dungeon.
 	 */
-	begin() {
+	reset() {
 
 		this._enemies.splice(0, this.enemies.length);
 		this.reenter();
@@ -435,19 +455,18 @@ export default class Combat {
 	}
 
 	/**
-	 * exponentially decreasing function. Lower is better.
-	 * e^(-1/100) approx 99% (not to dodge)
-	 * 1/e = 37% - might be too low.
 	 * @param {number} dodge
 	 * @param {number} tohit
 	 * @returns {boolean} true if defender dodges.
 	 */
 	dodgeRoll( dodge, tohit ) {
 
-		// higher x === better dodge.
-		let x = ( tohit > dodge ? 1 : dodge - tohit )/16;
+		//let sig = 1 + (dodge-tohit)/( 1+ Math.abs(dodge-tohit));
+		let sig = 1 + (2/Math.PI)*( Math.atan(dodge-tohit) );
 
-		return Math.random() > ( Math.exp( -x*x ) );
+		//console.log( 'dodge: ' + dodge + ' tohit: ' + tohit + '  sig: ' + sig );
+
+		return sig > Math.random();
 
 	}
 

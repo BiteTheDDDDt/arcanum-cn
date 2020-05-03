@@ -2,6 +2,7 @@ import Base, {mergeClass} from './base';
 import {assign, cloneClass } from 'objecty';
 import { ParseMods } from 'modules/parsing';
 import Instance from './instance';
+import RValue from '../values/rvals/rvalue';
 
 const ItemDefaults = {
 	stack:true,
@@ -35,6 +36,8 @@ export default class Item {
 			data.enchants = this.enchants.join(',');
 		}
 
+		data.cnt = this.count || undefined;
+
 		data.id = this.id;
 		data.recipe = this.recipe;
 
@@ -42,9 +45,8 @@ export default class Item {
 
 	}
 
-
 	/**
-	 * @property {string[]} enchants - ids of all enchantments applied.
+	 * @property {string[]} enchants - ids of enchantments applied.
 	 */
 	get enchants() {
 		return this._enchants;
@@ -76,13 +78,25 @@ export default class Item {
 	}
 
 	/**
-	 * @property {boolean} consume - whether the item is consumed when used.
+	 * @property {number} enchantMax - max sum of enchant levels applied.
+	 */
+	get maxEnchants() { return this._maxEnchants; }
+	set maxEnchants(v) { this._maxEnchants=v;}
+
+	/**
+	 * @property {boolean} consume - whether to consume the item on use.
 	 */
 	get consume() { return this._consume; }
 	set consume(v) { this._consume = v;}
 
 	/**
-	 * @property {boolean} stack - whether the item should stack.
+	 * @property {RValue} count - count of item held.
+	 */
+	get count(){ return this._count; }
+	set count(v){this._count = new RValue(v); }
+
+	/**
+	 * @property {boolean} stack - whether the item can stack.
 	 */
 	get stack() { return this._stack; }
 	set stack(v) { this._stack = v; }
@@ -92,30 +106,46 @@ export default class Item {
 
 	constructor( vars=null, save=null ) {
 
-		if ( vars ) {
-			cloneClass( vars, this );
-		}
+		if ( vars ) { cloneClass( vars, this ); }
 		if ( save ) assign(this,save);
 
-		//if ( vars ) assign(this,vars);
-
+		if ( !this.maxEnchants ) this.maxEnchants = 0;
 		if ( !this.enchantTot ) this.enchantTot = 0;
-		this.value = this._value || 1;
+
+		if ( !this.count ) {
+
+			if ( vars ) {
+				if ( vars.cnt ) this.count = vars.cnt;
+				else if ( vars.val ) this.count = vars.val;
+			}
+			if ( !this.count ) this.count = 1;
+
+		}
+		this.value = 0;
 
 		if ( this.consume === null || this.consume === undefined ) this.consume = this.defaults.consume;
 		if ( this.stack === null || this.stack === undefined ) this.stack = this.defaults.stack;
 
 	}
 
-	canPay(cost) { return this.value >= cost; }
+	/**
+	 * Test if item has an enchantment.
+	 * @param {string} id
+	 * @returns {boolean}
+	 */
+	hasEnchant(id){
+		return this._enchants && this._enchants.includes(id);
+	}
+
+	canPay(cost) { return this.count >= cost; }
 
 	canUse(g) { return this.consume || this.use; }
 
 	onUse( g, inv ) {
 
 		if ( this.consume === true ) {
-			this.value--;
-			if ( this.value <= 0 ) ( inv || g.state.inventory ).remove( this );
+			this.count--;
+			if ( this.count <= 0 ) ( inv || g.state.inventory ).remove( this );
 		}
 
 		if ( this.use ) {
@@ -136,14 +166,8 @@ export default class Item {
 	amount(g) {
 	}
 
-	/**
-	 * Do nothing when item mod changes.
-	 */
-	modChanged(){
-	}
-
 	maxed(){
-		return (this.stack === false &&this.value>0) || ( this.max && this.value >= this.max );
+		return (this.stack === false &&this.count>0) || ( this.max && this.count >= this.max );
 	}
 
 	revive( gs ){
@@ -158,10 +182,44 @@ export default class Item {
 
 	}
 
+	/**
+	 * Apply an adjective to the item's name.
+	 * @param {string} adj
+	 * @param {object} src - adjective source.
+	 * @param {?string} [fallback=null] - fallback prefix to apply.
+	 */
+	addAdj( adj, src, fallback=null ) {
+
+		if ( adj ) {
+
+			if ( adj.includes( '%' ) ) {
+
+				this.name = adj.replace( '%s', src.name ).replace( '%i', this.name );
+				return;
+
+			} else if ( !this.name.includes(adj) ) {
+
+				this.name = adj + ' ' + this.name;
+				return;
+
+			}
+
+		}
+
+		if ( fallback ) this.addAdj( fallback, src );
+
+	}
+
+	/**
+	 *
+	 * @param {Enchant} e - enchantment being added.
+	 */
 	addEnchant( e ) {
 
 		if ( !this.enchants ) this.enchants = [];
 		this.enchants.push(e.id);
+
+		this.addAdj( e.adj, e, 'enchanted');
 
 		this.enchantTot += e.level || 0;
 

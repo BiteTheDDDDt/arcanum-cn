@@ -1,4 +1,4 @@
-import Inventory from "./inventory";
+import Inventory, { SAVE_IDS } from "./inventory";
 import Group from "../composites/group";
 import Events, { DELETE_ITEM } from "../events";
 
@@ -15,6 +15,7 @@ export default class UserSpells extends Inventory {
 
 		this.id = 'userSpells';
 		this.name = "crafted spells";
+		this.saveMode = SAVE_IDS;
 
 	}
 

@@ -28,7 +28,7 @@ export const COMBAT_HIT = 'char_hit';
 const EVT_EVENT = 'event';
 const EVT_UNLOCK = 'unlock';
 const EVT_LOOT = 'loot';
-const EVT_DISABLED = 'disabled';
+//const EVT_DISABLED = 'disabled';
 
 const LOG_EVENT = 1;
 const LOG_UNLOCK = 2;
@@ -41,6 +41,12 @@ export const LogTypes = {
 	'loot':LOG_LOOT,
 	'combat':LOG_COMBAT
 };
+
+/**
+ * @const {string} TRIGGER - event indicating data defined trigger
+ * occurred.
+ */
+export const TRIGGER = 'trigger';
 
 /**
  * BASIC ITEM EVENTS
@@ -61,29 +67,37 @@ export const DROP_ITEM = 'dropitem';
 /**
  * Any character died by damage.
  */
-const CHAR_DIED = 'char_died';
+export const CHAR_DIED = 'char_died';
 
-const ALLY_DIED = 'ally_died';
+export const ALLY_DIED = 'ally_died';
 
-const COMBAT_DONE = 'combat_done';
-const ENEMY_SLAIN = 'slain';
+/**
+ * @const {string} COMBAT_WON - all enemies slain in current combat.
+ */
+export const COMBAT_WON = 'combat_won';
+
+export const ENEMY_SLAIN = 'slain';
 
 /**
  * @const {string} CHAR_STATE - inform current char state.
  */
 export const CHAR_STATE = 'charstate';
 
-export const STATE_BLOCK = 'blocked';
+export const STATE_BLOCK = 'stateblock';
 
 /**
  * player defeated by some stat.
  */
-const DEFEATED = 'defeated';
+const DEFEATED = 'defeat';
 
-const DAMAGE_MISS = 'damage_miss';
-export const IS_IMMUNE = 'dmg_immune';
+const DAMAGE_MISS = 'dmg_miss';
+export const IS_IMMUNE = 'is_immune';
+export const RESISTED = 'resists';
 
-const TASK_CHANGED = 'taskchanged';
+/**
+ * @const {string} TASK_REPEATED
+ */
+const TASK_REPEATED = 'taskrepeat';
 const TASK_IMPROVED = 'taskimprove';
 
 /**
@@ -95,22 +109,23 @@ const STOP_ALL = 'stopall';
  * Dispatched by a Runnable when it has completed.
  * It is the job of the runnable to determine when it has completed.
  */
-const TASK_DONE = 'task_done';
+const TASK_DONE = 'taskdone';
 
 /**
  * Action should be stopped by runner.
  */
-const HALT_TASK = 'halt_task';
+const HALT_TASK = 'halttask';
 
 /**
  * Action blocked or failed.
+ * @event TASK_BLOCKED - obj, resumable
  */
-const TASK_BLOCKED = 'task_blocked';
+const TASK_BLOCKED = 'taskblock';
 
 /**
  * Item with attack used. Typically spell; could be something else.
  */
-const CHAR_ACTION = 'char_act';
+const CHAR_ACTION = 'charact';
 
 /**
  * Completely delete item data. Use for Custom items only.
@@ -120,8 +135,8 @@ const DELETE_ITEM = 'delitem';
 /**
  * Encounter done.
  */
-const ENC_DONE = 'enc_done';
-const ENC_START = 'enc_start'
+const ENC_DONE = 'encdone';
+const ENC_START = 'encstart'
 
 
 /**
@@ -163,10 +178,9 @@ export const TOGGLE = 'toggle';
 
 export { CHAR_TITLE, NEW_TITLE, LEVEL_UP, CHAR_CLASS, CHAR_CHANGE };
 
-export { HALT_TASK, EVT_EVENT, EVT_UNLOCK, EVT_LOOT, TASK_DONE,
-	ALLY_DIED, CHAR_DIED, CHAR_ACTION, STOP_ALL, DELETE_ITEM,
-	TASK_CHANGED, TASK_IMPROVED, TASK_BLOCKED,
-	DAMAGE_MISS, DEFEATED, ENEMY_SLAIN, COMBAT_DONE, ENC_START, ENC_DONE };
+export { HALT_TASK, EVT_EVENT, EVT_UNLOCK, EVT_LOOT, TASK_DONE, CHAR_ACTION, STOP_ALL, DELETE_ITEM,
+	TASK_REPEATED, TASK_IMPROVED, TASK_BLOCKED,
+	DAMAGE_MISS, DEFEATED, ENC_START, ENC_DONE };
 
 export default {
 
@@ -177,6 +191,12 @@ export default {
 		this.log = game.log;
 		this.game = game;
 
+		/**
+		 * @property {.<string,object>}
+		 */
+		this._triggers = {};
+
+		console.log('clearGameEvents()');
 		this.clearGameEvents();
 
 		events.addListener( EVT_LOOT, this.onLoot, this );
@@ -185,6 +205,7 @@ export default {
 		events.addListener( LEVEL_UP, this.onLevel, this );
 		events.addListener( NEW_TITLE, this.onNewTitle, this );
 
+		events.addListener( TRIGGER, this.doTrigger, this );
 		events.addListener( TASK_IMPROVED, this.actImproved, this );
 
 		events.addListener( EVT_COMBAT, this.onCombat, this );
@@ -199,6 +220,7 @@ export default {
 		events.addListener( DEFEATED, this.onDefeat, this );
 		events.addListener( DAMAGE_MISS, this.onMiss, this );
 		events.addListener( IS_IMMUNE, this.onImmune, this );
+		events.addListener( RESISTED, this.onResist, this );
 		events.addListener( ENC_START, this.onEnc, this );
 
 	},
@@ -206,6 +228,64 @@ export default {
 	clearGameEvents() {
 
 		events.removeAllListeners();
+
+	},
+
+	/**
+	 *
+	 * @param {*} obj
+	 */
+	clearTriggers(obj) {
+
+		let ons = obj.on;
+		if ( !ons ) return;
+
+		for( let p in ons ) {
+			this.clearTrigger( p, obj );
+		}
+
+	},
+
+	/**
+	 *
+	 * @param {string} trigger
+	 * @param {object} obj
+	 */
+	clearTrigger( trigger, obj ) {
+
+		let trigs = this._triggers.get( trigger );
+		if ( trigs ) {
+			trigs.delete(obj);
+		}
+
+	},
+
+	/**
+	 *
+	 * @param {string} trigger
+	 * @param {*} obj
+	 * @param {*} result
+	 */
+	addTrigger( trigger, obj, result ) {
+
+		let trigs = this._triggers.get(trigger);
+		if ( !trigs ) {
+			trigs = {};
+			this._triggers.set( trigger, trigs);
+		}
+
+	},
+
+	/**
+	 *
+	 * @param {string} trigger - data defined trigger.
+	 */
+	doTrigger( trigger ){
+
+		let trigs = this._triggers[trigger];
+		if ( trigs ) {
+
+		}
 
 	},
 
@@ -295,12 +375,21 @@ export default {
 
 	onDefeat( locale ) {
 
-		this.log.log( 'Retreat', '', LOG_COMBAT );
+		this.log.log( 'RETREAT', 'Leaving '+ locale.name, LOG_COMBAT );
 
 	},
 
-	onImmune( msg ) {
-		this.log.log( 'IMMUNE', msg, LOG_COMBAT );
+	/**
+	 *
+	 * @param {Char} target
+	 * @param {string} kind
+	 */
+	onImmune( target, kind ) {
+		this.log.log( 'IMMUNE', target.name + ' immune to ' + kind, LOG_COMBAT );
+	},
+
+	onResist(target, kind) {
+		this.log.log( 'RESISTS', target.name + ' resists ' + kind, LOG_COMBAT );
 	},
 
 	onMiss( msg ) {
@@ -340,8 +429,8 @@ export default {
 	onHit( target, dmg, resist, reduce, source ) {
 
 		let msg = source + " hits ";
-		if (resist > 0) msg += "strongly ";
-		else if (resist < 0) msg += "weakly ";
+		if (resist < 0) msg += "strongly ";
+		else if (resist > 0) msg += "weakly ";
 		else if (resist > 1) msg += " absorbed by ";
 		msg += target.name + ": "+ precise( dmg, 1 );
 

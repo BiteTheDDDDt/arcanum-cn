@@ -5,16 +5,24 @@ import Combat from './combat.vue';
 import ProgBar from '../components/progbar.vue';
 
 import {HALT_TASK} from '../../events';
+import { DUNGEON } from '../../values/consts';
 
 export default {
 
 	props:['explore'],
 	components:{
 		combat:Combat,
+		bars:()=>import( /* webpackChunkName: "bars-ui" */  '../components/bars.vue'),
 		progbar:ProgBar
 	},
 	created(){
+
 		this.HALT_TASK = HALT_TASK;
+		// continue to display previous encounter until new encounter ready.
+		this.lastEnc = null;
+		// whether last encounter was combat.
+		this.lastCombat = true;
+
 	},
 	methods:{
 
@@ -42,18 +50,35 @@ export default {
 		/**
 		 * @property {string} type - locale type
 		 */
-		type() { return this.explore.type; },
+		type() { return this.explore.locale.type; },
+
+		/**
+		 * @property {boolean} inCombat
+		 */
+		inCombat(){
+
+			return this.enc ? (this.enc === this.explore.combat) : this.type === DUNGEON;
+
+		},
 
 		/**
 		 * @property {Encounter} enc - current encounter.
 		 */
-		enc() { return this.explore.enc; },
+		enc() {
+
+			if ( this.explore.enc ) this.lastEnc = this.explore.enc;
+			return this.lastEnc;
+
+		},
+
+		encDesc(){ return this.enc ? this.enc.desc : '&nbsp;';},
 
 		encName(){
-			return this.enc ? this.enc.name : '';
+			return this.enc ? this.enc.name : '&nbsp;';
 		},
 		encProg(){
-			return this.enc ? this.enc.exp.valueOf() : 0;
+			return this.enc ? this.enc.exp : 0;
+
 		},
 		encLen(){
 			return this.enc ? this.enc.length.valueOf() : 0;
@@ -76,13 +101,16 @@ export default {
 
 		<span class="bar"><progbar :value="explore.exp.valueOf()" :max="Number(explore.length)" /></span>
 
-		<template v-if="type==='raid'">
+		<bars v-if="explore.locale.bars" :bars="explore.locale.bars" />
+
+		<template v-if="inCombat">
 			<combat :combat="explore.combat" />
 		</template>
 		<template v-else>
 
 			<div @mouseenter.capture.stop="encOver($event)">
-			<span>{{ encName }}</span>
+			<span class="name" v-html="encName"></span>
+			<div class="desc" v-html="encDesc"></div>
 			<progbar :value="encProg" :max="encLen" />
 			</div>
 
@@ -117,6 +145,9 @@ div.explore div.stressors {
 	justify-content: space-between;
 }
 
+.name {
+	font-weight: bold;
+}
 div.stressors .stress {
 	flex-basis: 48%;
 }

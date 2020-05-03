@@ -127,7 +127,10 @@ export default {
 			let m = this.showMaxed;
 
 			return this.furniture.filter( it=>!this.reslocked(it) &&
-				(o||it.value==0) &&(b||it.canUse())&&(m||!it.maxed())&&(n||it.value>0)
+				( o||it.value==0) &&
+				( b||it.canUse(Game))&&
+				( m||!it.maxed() )&&
+				(n||it.value>0)
 			);
 
 		}
@@ -159,7 +162,7 @@ export default {
 		<hall v-if="hallOpen" @close="closeHall" />
 		<div class="pick-slots">
 
-			<div class="task-btn" v-if="hallUnlocked"><button class="btnHall" @click="openHall">{{ hallName }}</button></div>
+			<button class="task-btn" v-if="hallUnlocked" @click="openHall">{{ hallName }}</button>
 
 			<slotpick title="home" pick="home" must-pay=true />
 			<slotpick title="werry" hide-empty=true pick="werry" />
@@ -226,11 +229,6 @@ div.home-view .content {
 	flex-direction: row;
 	width: 100%;
 	padding-top: var(--tiny-gap);
-}
-
-
-div.home-view .btnHall {
-	width:90%;
 }
 
 div.pick-slots {

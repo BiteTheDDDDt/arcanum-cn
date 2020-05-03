@@ -47,11 +47,24 @@ export default {
 		},
 
 		onpress(e) {
-			if ( e.keyCode === 13) {
+
+			if ( e.keyCode === 38 ) {
+				// UP ARROW
+				this.$refs.cmdInput.value = this.cmdLine.prevLine();
+
+
+			} else if ( e.keyCode === 40 ) {
+
+				// DOWN ARROW
+				this.$refs.cmdInput.value = this.cmdLine.nextLine();
+
+			} else if ( e.keyCode === 13) {
+				// ENTER
 				let line = e.target.value;
 				e.target.value = '';
 				this.doCmd( line );
 			}
+
 		}
 
 	}

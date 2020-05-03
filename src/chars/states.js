@@ -89,7 +89,7 @@ export default class States {
 	 * Retarget based on flags.
 	 * @param {string} targ
 	 */
-	getTarget( targ ){
+	retarget( targ ){
 
 		if ( (this.flags & CONFUSED) > 0 ) {
 
@@ -130,6 +130,8 @@ export default class States {
 		let flags = cause.flags;
 		if ( flags === 0 ) return;
 
+		//console.log('ADD FLAGS: ' + flags );
+
 		let f = 1;
 		while ( f <= flags ) {
 
@@ -148,7 +150,7 @@ export default class States {
 		let flags = dot.flags;
 		let f = 1;
 
-		while ( f < flags ) {
+		while ( f <= flags ) {
 
 			if ( (flags & f) > 0 ) this._rmCause( f, dot );
 			f *= 2;

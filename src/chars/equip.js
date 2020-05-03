@@ -21,6 +21,7 @@ export default class Equip extends SlotGroup {
 			"neck":new Slot({
 				max:3
 			}),
+			"trinket":new Slot(),
 			"fingers":new Slot({
 				max:4
 			}),

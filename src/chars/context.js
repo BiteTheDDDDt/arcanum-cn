@@ -76,7 +76,7 @@ export default class Context {
 		return false;
 	}
 
-	removeMod( mod, amt ){
+	removeMods( mod, amt ){
 		this.applyMods(mod,-amt);
 	}
 
@@ -170,7 +170,7 @@ export default class Context {
 			for( let p in mod ) {
 
 				var target = this.getData( p );
-				if ( target === undefined ) continue;
+				if ( target === undefined || target === null ) continue;
 				if ( target.applyMods) {
 
 						target.applyMods( mod[p], amt );
@@ -217,10 +217,10 @@ export default class Context {
 
 					if ( typeof e === 'number' || e.type === TYP_RANGE ) {
 
-						target.amount( this, e*dt );
+						target.amount( e*dt );
 					} else if ( e.isRVal ) {
 						// messy code. this shouldn't be here. what's going on?!?!
-						target.amount( this, dt*e.getApply(this.state, target ) );
+						target.amount( dt*e.getApply(this.state, target ) );
 
 					} else if ( e === true ) {
 
@@ -229,7 +229,7 @@ export default class Context {
 
 					} else if ( e.type === TYP_PCT ) {
 
-						if ( e.roll() ) target.amount( this, 1 );
+						if ( e.roll() ) target.amount( 1 );
 
 					} else target.applyVars(e,dt);
 
@@ -240,7 +240,7 @@ export default class Context {
 
 			let target = this.getData(vars);
 			if ( target !== undefined ) {
-				target.amount( this, dt );
+				target.amount( dt );
 			}
 
 		}

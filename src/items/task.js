@@ -1,11 +1,28 @@
 import GData from './gdata';
 import Game from '../game';
 import Events, { TASK_DONE, TASK_IMPROVED } from '../events';
-import Stat from '../values/stat';
-import Scaler from '../values/scaler';
+import Stat from '../values/rvals/stat';
+import Scaler from '../values/rvals/scaler';
 import { TASK } from '../values/consts';
 import { ParseMods } from '../modules/parsing';
-import { setModCounts } from './base';
+import { SetModCounts } from './base';
+
+/*function ShowModTotals( mods ){
+
+	if ( mods instanceof Mod ) {
+		console.log( mods.id + ': ' + mods.bonusTot );
+		return;
+	}
+
+	for( let p in mods ) {
+
+		let it = mods[p];
+		if ( it instanceof Mod ) console.log( it.id + ': ' + it.bonusTot );
+		else ShowModTotals( it );
+
+	}
+
+}*/
 
 export default class Task extends GData {
 
@@ -25,9 +42,13 @@ export default class Task extends GData {
 
 	get typeName() { return this.type === TASK ? 'action' : this.type }
 
-	get ex(){
-		return this._exp;
-	}
+	/**
+	 * @property {Mods} runmod - mods to apply while task is being actively used.
+	 */
+	get runmod(){return this._runmod;}
+	set runmod(v){this._runmod = v;}
+
+	get ex(){ return this._exp; }
 	set ex(v){
 		this._exp = v instanceof Scaler ? v : new Scaler( v, this.id + ' .exp', this._rate );
 	}
@@ -50,7 +71,7 @@ export default class Task extends GData {
 		this._exp.set(v);
 
 
-		this.checkComplete();
+		this.tryComplete();
 
 
 	}
@@ -92,6 +113,7 @@ export default class Task extends GData {
 		this.running = this.running || false;
 
 		this.applyImproves();
+		SetModCounts(this.runmod, 1);
 
 	}
 
@@ -108,10 +130,15 @@ export default class Task extends GData {
 		let v = this.valueOf();
 		if ( this.at ) {
 
+			//if ( v > 0 ) console.log(this.id + ' TOTAL: ' + v );
+
 			for( let p in this.at) {
 
 				if ( v >= Number(p) ) {
 
+					//ShowModTotals( this.at[p] );
+
+					//console.log(this.id + ' APPLY AT: ' + this.at);
 					this.applyMods( this.at[p] );
 
 				}
@@ -141,7 +168,7 @@ export default class Task extends GData {
 
 	canRun(g){ return (!this.timer ) && super.canRun(g);}
 
-	checkComplete() {
+	tryComplete() {
 
 		if ( (this._length && this._exp>=this._length )
 			|| (!this._length && this.perpetual && this._exp >= 1 ) ) {
@@ -158,20 +185,37 @@ export default class Task extends GData {
 	 */
 	update( dt ) {
 		this.exp.set( this._exp + (this.rate||1)*dt );
-		this.checkComplete();
+		this.tryComplete();
+	}
+
+	onStart(){
+
+		if ( this.runmod ) {
+			Game.applyMods( this.runmod );
+		}
+
+	}
+
+	onStop(){
+
+		if ( this.runmod ) {
+			Game.removeMods( this.runmod );
+		}
+
 	}
 
 	/**
 	 * completion of ongoing task.
+	 * @param {Game} [g=Game]
 	 */
-	complete(g=Game) {
+	complete() {
 
 		/**
 		 * @note value has to be incremented first
 		 * so the applied mods see the current value.
 		 */
-		this.value++;
-		this.changed(g, 1);
+		this.amount(1);
+
 		this._exp.set(0);
 
 		Events.emit( TASK_DONE, this );
@@ -190,7 +234,7 @@ export default class Task extends GData {
 
 		if ( this.at ) {
 
-			let cur = this.at[this.valueOf()];
+			let cur = this.at[ this.valueOf() ];
 			if ( cur ) {
 
 				improve = true;

@@ -108,13 +108,13 @@ div.skills {
 
     div.subs {
 		overflow-y: auto;
-        display: grid; grid-template-columns: repeat( auto-fit, minmax( 10rem, 1fr) );
+        display: grid; grid-template-columns: repeat( auto-fit, minmax( 10rem, 0.5fr) );
         margin: 0; padding: var(--md-gap); overflow-x: hidden; gap: var(--sm-gap);
         width: 100%; justify-content: space-between;
     }
 
     div.subs div.skill {
-        margin-bottom: 0; width: unset; flex-basis: 45%; box-sizing: border-box;
+        margin-bottom: 0; width: unset; flex-basis: 100%; box-sizing: border-box;
         padding: var(--md-gap); text-transform: capitalize; font-size: var(--compact-small-font);
          border-radius: var(--list-entry-border-radius);
     }

@@ -9,22 +9,22 @@
 		}
 	},
 	{
-		"id": "earthspire",
-		"name": "earthen spire",
-		"desc": "An impervious spire of metal and stone.",
-		"cost": {
-			"research": 3000,
-			"gold": 3000,
-			"codices": 50
+		"id":"earthspire",
+		"name":"earthen spire",
+		"desc":"An impervious spire of metal and stone.",
+		"cost":{
+			"research":3000,
+			"gold":3000,
+			"codices":50
 		},
-		"require": "g.geosculpting>=5",
-		"mod": {
-			"minions.max": 10,
-			"space.max": 300,
-			"earthlore.max": 5,
-			"geosculpting.max": 3,
-			"earth.max": 5,
-			"earth.rate": 0.5
+		"require":"g.geosculpting>=5",
+		"mod":{
+			"minions.max":10,
+			"space.max":300,
+			"earthlore.max":5,
+			"geosculpting.max":3,
+			"earth.max":5,
+			"earth.rate":0.5
 		},"flavor":"A monument to your geosculpting mastery."
 	},
 	{
@@ -59,7 +59,7 @@
 	},
 	{
 		"id":"hut",
-		"desc":"A remote hut in the woods.",
+		"desc":"A small hut on the edge of a village.",
 		"disable":"innroom",
 		"require":"tier0",
 		"cost":300,
@@ -72,8 +72,8 @@
 		"id":"camp",
 		"desc":"A wild camp and its environs.",
 		"require":"g.tier0>0&&g.naturelore>=5",
-		"tags":"outdoors",
-		"disable":"innroom",
+		"tags":"outdoors,starsource",
+	     "disable":"innroom",
 		"cost":75,
 		"mod":{
 			"space.max":14,
@@ -90,10 +90,10 @@
 	{
 		"id":"wagon",
 		"name":"tinker's wagon",
-		"desc":"wheeled carriage for a nomadic lifestyle.",
+		"desc":"Wheeled carriage for a nomadic lifestyle. Now with donkey.",
 		"require":"g.tier0>0&&g.naturelore>=5",
 		"disable":"innroom",
-		"tags":"outdoors",
+		"tags":"outdoors,t_pets",
 		"cost":150,
 		"mod":{
 			"space.max":12,
@@ -103,7 +103,6 @@
 			"animals.max":2,
 			"animals.rate":0.15
 		}
-
 	},
 	{
 		"id":"cottage",
@@ -194,6 +193,7 @@
 		"id":"cave",
 		"desc":"A primitive dwelling well-suited to particular areas of study. Others less so.",
 		"require":"g.tier0>0&&(g.shadow+g.earth+g.nature)>0",
+		"tags":"outdoors",
 		"cost":150,
 		"mod":{
 			"minions.max":2,
@@ -211,11 +211,12 @@
 	},
 	{
 		"id":"pavilion",
-		"desc":"An airy, elegant structure on an open field.",
+		"desc":"An open elegant structure on a wide field.",
 		"cost":{
 			"gold":800,
 			"gems":15
 		},
+          "tags":"lightsource",
 		"require":"oracle",
 		"mod":{
 			"minions.max":3,
@@ -232,7 +233,8 @@
 		"name":"haunted manse",
 		"desc":"legends of this mansion speak of ghosts and horrors",
 		"cost":2500,
-		"require":"hauntedmanor",
+	     "require":"hauntedmanor",
+          "tags":"spiritsource",
 		"mod":{
 			"space.max":75,
 			"spiritlore.max":1,
@@ -262,7 +264,8 @@
 		"id":"tower",
 		"desc":"A stone tower in which to conduct your arcane investigations.",
 		"cost":2500,
-		"require":"g.magician>0&&g.arcana>=20",
+	     "require":"g.magician>0&&g.arcana>=20",
+          "tags":"airsource",
 		"mod":{
 			"minions.max":5,
 			"space.max":55,
@@ -292,6 +295,7 @@
 			"gold":1000,
 			"gems":10
 		},
+          "tags":"watersource",
 		"mod":{
 			"minions.max":4,
 			"space.max":70,
@@ -444,6 +448,7 @@
 			"gold":3000,
 			"firegem":2
 		},
+          "tags":"firesource",
 		"mod":{
 			"minions.max":20,
 			"space.max":200,
@@ -463,7 +468,8 @@
 	{
 		"id":"cavern",
 		"desc":"A wide and yawning cavern, deep beneath the earth",
-		"require":"g.tier2>0&&g.earthlore>=10",
+	     "require":"g.tier2>0&&g.earthlore>=10",
+          "tags":"earthsource",
 		"cost":{
 			"research":500,
 			"gold":3000,

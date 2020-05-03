@@ -1,5 +1,7 @@
 import GData from "./gdata";
 import Events, { EVT_EVENT, EVT_UNLOCK } from "../events";
+import Game from "../game";
+
 /**
  * Represents in-game event.
  */
@@ -12,6 +14,9 @@ export default class GEvent extends GData {
 	get rand() { return this._rand; }
 	set rand(v) { this._rand = v; }
 
+	/**
+	 * @property {number} cd - cooldown.
+	 */
 	get cd() { return this._cd; }
 	set cd(v) { this._cd =v; }
 
@@ -25,7 +30,7 @@ export default class GEvent extends GData {
 	 * Unlocking the event triggers the event.
 	 * @todo: randomized events won't work this way.
 	 */
-	doUnlock(g) {
+	doUnlock(g=Game) {
 
 
 		if ( this.disabled || (this.value>0 &&!this.repeat) ) {
@@ -37,7 +42,7 @@ export default class GEvent extends GData {
 		// randomized event.
 		if ( this.rand ) {
 
-		} else super.amount( g, 1 );
+		} else super.amount( 1 );
 
 		this.locked = false;
 
@@ -50,10 +55,8 @@ export default class GEvent extends GData {
 	 * @param {*} g
 	 * @param {*} amt
 	 */
-	amount( g, amt ) {
-
-		this.doUnlock(g);
-
+	amount( amt ) {
+		this.doUnlock();
 	}
 
 }

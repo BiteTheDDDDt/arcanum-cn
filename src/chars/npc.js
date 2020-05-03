@@ -3,14 +3,14 @@ import Range, { RangeTest } from '../values/range';
 import Percent, { PercentTest } from '../values/percent';
 import MaxStat from '../values/maxStat';
 import Attack from './attack';
-import { ParseDmg } from '../values/combatVars'
 import { TEAM_NPC } from 'values/consts';
+import { ParseDmg } from '../values/combatVars'
 import { mergeClass } from '../items/base';
 import Instance from '../items/instance';
 import Game from '../game';
 import { MakeDataList } from '../gameState';
 import Context from './context';
-import { assign } from 'objecty';
+import { assignPublic } from '../util/util';
 
 /**
  * Class for specific Enemies/Minions in game.
@@ -96,6 +96,7 @@ export default class Npc extends Char {
 	}
 
 	/**
+	 * @property {object<string,Stat>} immune
 	 */
 	set immune(v){
 		this.immunities=v;
@@ -128,17 +129,17 @@ export default class Npc extends Char {
 
 		super( vars );
 
-		if ( save ) assign( this, save );
+		if ( save ) assignPublic( this, save );
 
 		//if ( this.id.includes('mecha')) console.dir(this.attack, 'post-save');
 
 		this.dodge = this.dodge || this.level/2;
 
-		this.active = (this.active === undefined || this.active === null) ? false : this.active;
+		this.active = (this.active === undefined || this.active === null) ? false : this._active;
 
 		if ( this._spells ) {
 
-			this._context = new Context( Game.state, this );
+			this.context = new Context( Game.state, this );
 			this.spells.revive( this._context.state );
 
 		} else this._context = Game;
@@ -149,6 +150,7 @@ export default class Npc extends Char {
 			this.hp = this.hp.value;
 		}
 		if (!this.hp ) { this.hp = 1; }
+
 		if ( !this.team) this.team = TEAM_NPC;
 		if ( !this.tohit ) this.tohit = 0;
 
@@ -192,7 +194,7 @@ export default class Npc extends Char {
 	 * @param {number} dt
 	 */
 	rest(dt) {
-		this.hp += ( 0.01*this.hp.max*dt );
+		this.hp.amount( 0.01*this.hp.max*dt );
 	}
 
 }

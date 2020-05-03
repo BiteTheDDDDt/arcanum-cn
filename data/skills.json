@@ -606,12 +606,32 @@
 
 	},
 	{
+		"id":"wizlore",
+		"name":"wizard Lore",
+		"require":"(g.mage+g.highmage+g.wizard+g.wizard2+g.wizard3)>=2",
+		"school":"arcane",
+		"desc":"Many ask 'how?' Few think to ask, 'why?'",
+		"level":5,
+		"run":{
+			"stamina":1,
+			"research":50,
+			"arcana":0.5
+		},
+		"mod":{
+			"lore.rate":"5%",
+			"mana.rate":"3%",
+			"research.rate":"2%",
+			"arcana.rate":"1%"
+		}
+	},
+	{
 		"id":"firelore2",
 		"name":"fire mastery",
 		"desc":"a mastery of fire",
 		"level":10,
 		"require":"g.firelore>=10",
 		"buy":{
+			"arana":1,
 			"sp":5,
 			"tomes":30,
 			"runestones":10
@@ -636,6 +656,7 @@
 		"require":"g.waterlore>=10",
 		"level":10,
 		"buy":{
+			"arana":1,
 			"sp":5,
 			"tomes":30,
 			"runestones":10
@@ -660,6 +681,7 @@
 		"require":"g.airlore>=10",
 		"level":10,
 		"buy":{
+			"arana":1,
 			"sp":5,
 			"tomes":30,
 			"runestones":10
@@ -678,62 +700,43 @@
 
 	},
 	{
-		"id": "hammerlore",
-		"desc": "The anvil or the skull, it makes no difference.",
-		"require": "g.geomancer>0||g.earthshaker>0||g.titan>0",
-		"need": "armssource",
-		"level": 3,
-		"buy": {
-			"sp": 2
+		"id":"hammerlore",
+		"desc":"The anvil or the skull, it makes no difference.",
+		"require":"g.geomancer>0||g.earthshaker>0||g.titan>0",
+		"need":"armssource",
+		"level":3,
+		"buy":{
+			"sp":2
 		},
-		"run": {
-			"stamina": 0.6
-		},
-		"result": {
-			"sp": 0.05
-		},
-		"mod": {
-			"player.bonuses.blunt": 1,
-			"player.hits.blunt": 1
-		}
-	},
-	{
-		"id": "geosculpting",
-		"desc": "Bend the earth to your will.",
-		"require": "g.geomancer>0||g.earthshaker>0",
-		"level": 3,
-		"buy": {
-			"sp": 2
-		},
-		"run": {
-			"stamina": 0.6
-		},
-		"result": {
-			"sp": 0.05
-		},
-		"mod": {
-			"player.defense": 1,
-			"player.dodge": -1,
-			"earthspire.mod.space.max": 1
-		}
-	},
-	{
-		"id":"wizlore",
-		"name":"wizard Lore",
-		"require":"(g.mage+g.highmage+g.wizard+g.wizard2+g.wizard3)>=2",
-		"school":"arcane",
-		"desc":"Many ask 'how?' Few think to ask, 'why?'",
-		"level":5,
 		"run":{
-			"stamina":1,
-			"research":50,
-			"arcana":0.5
+			"stamina":0.6
+		},
+		"result":{
+			"sp":0.05
 		},
 		"mod":{
-			"lore.rate":"5%",
-			"mana.rate":"3%",
-			"research.rate":"2%",
-			"arcana.rate":"1%"
+			"player.bonuses.blunt":1,
+			"player.hits.blunt":1
+		}
+	},
+	{
+		"id":"geosculpting",
+		"desc":"Bend the earth to your will.",
+		"require":"g.geomancer>0||g.earthshaker>0",
+		"level":3,
+		"buy":{
+			"sp":2
+		},
+		"run":{
+			"stamina":0.6
+		},
+		"result":{
+			"sp":0.05
+		},
+		"mod":{
+			"player.defense":1,
+			"player.dodge": -1,
+			"earthspire.mod.space.max":1
 		}
 	},
 	{
@@ -743,6 +746,7 @@
 		"require":"g.earthlore>=10",
 		"level":10,
 		"buy":{
+			"arana":1,
 			"sp":5,
 			"tomes":30,
 			"runestones":10
@@ -767,6 +771,7 @@
 		"require":"g.shadowlore>=10",
 		"level":10,
 		"buy":{
+			"arana":1,
 			"sp":5,
 			"tomes":30,
 			"runestones":10
@@ -790,6 +795,7 @@
 		"require":"g.lightlore>=10",
 		"level":10,
 		"buy":{
+			"arana":1,
 			"sp":5,
 			"tomes":30,
 			"runestones":10
@@ -813,9 +819,10 @@
 		"require":"g.spiritlore>=10",
 		"level":10,
 		"buy":{
+			"arana":1,
 			"sp":5,
 			"tomes":30,
-			"runestones":10
+			"souls":10
 		},
 		"run":{
 			"stamina":1,
@@ -836,6 +843,7 @@
 		"require":"g.lore>=20",
 		"level":10,
 		"buy":{
+			"arana":1,
 			"sp":5,
 			"tomes":30,
 			"runestones":10
@@ -859,6 +867,7 @@
 		"require":"g.naturelore>=10",
 		"level":10,
 		"buy":{
+			"arana":1,
 			"sp":5,
 			"tomes":30,
 			"runestones":10
@@ -881,7 +890,8 @@
 		"require":"tier1",
 		"level":4,
 		"buy":{
-			"sp":2
+			"sp":2,
+			"arcana":1
 		},
 		"run":{
 			"stamina":0.4,
@@ -1005,6 +1015,9 @@
 		"id":"mysticism",
 		"require":"g.lore>=8",
 		"desc":"the ability to sense the flow and flux of arcane energies.",
+		"buy":{
+			"arcana":1
+		},
 		"run":{
 			"stamina":0.5
 		},
@@ -1036,7 +1049,8 @@
 		"level":6,
 		"desc":"farther than the stars and closer than your fingertips",
 		"buy":{
-			"sp":2
+			"sp":2,
+			"arcana":5
 		},
 		"run":{
 			"stamina":0.7,
@@ -1058,12 +1072,13 @@
 		"desc":"Anyone can see the stars. Few can read them.",
 		"level":10,
 		"buy":{
-			"sp":10
+			"sp":10,
+			"arcana":1
 		},
 		"run":{
 			"stamina":1,
 			"research":10,
-			"arcana":1
+			"arcana":5
 		},
 		"mod":{
 			"sindel.rate":0.0001,
@@ -1079,7 +1094,8 @@
 		"desc":"the absence of all things",
 		"level":10,
 		"buy":{
-			"sp":5
+			"sp":5,
+			"arcana":5
 		},
 		"run":{
 			"stamina":0.7,

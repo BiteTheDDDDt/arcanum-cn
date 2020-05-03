@@ -1,6 +1,7 @@
 import Base, {mergeClass} from '../items/base';
 import { assign } from 'objecty';
 import { TYP_STATE } from '../values/consts';
+import { ParseFlags } from './states';
 
 export default class State {
 
@@ -10,7 +11,7 @@ export default class State {
 	get id() { return this._id; }
 	set id(v) { this._id =v;}
 
-	get name() { return this._name; }
+	get name() { return this._name || this._id; }
 	set name(v) { this._name = v;}
 
 	get value() { return this._value; }
@@ -22,6 +23,17 @@ export default class State {
 	get effect() { return this._effect; }
 	set effect(v) {
 		this._effect = v;
+	}
+
+		/**
+	 * @property {number} flags
+	 */
+	get flags(){return this._flags;}
+	set flags(v) {
+
+		if ( typeof v !== 'number' ) this._flags = ParseFlags(v);
+		else this._flags = v;
+
 	}
 
 	/**

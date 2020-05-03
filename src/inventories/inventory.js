@@ -1,4 +1,4 @@
-import Stat from "../values/stat";
+import Stat from "../values/rvals/stat";
 import Base, {mergeClass} from '../items/base';
 import Item from "../items/item";
 
@@ -12,10 +12,13 @@ import { Changed } from "../techTree";
  */
 export const SaveInstanced = (v=>v.instanced ? v : v.id);
 
+export const SAVE_FULL = 'full';
+export const SAVE_IDS = 'ids';
+
 export default class Inventory {
 
 	/**
-	 * @property {number} length - items in inventory.
+	 * @property {number} length - number of items in inventory.
 	 */
 	get count() { return this.items.length; }
 
@@ -24,8 +27,8 @@ export default class Inventory {
 	toJSON(){
 
 		return {
-			items:this.saveMode === 'full' ? this.items : (
-				( this.saveMode === 'ids' || !this.saveMap ) ? this.items.map(v=>v.id ) :
+			items:this.saveMode ===  SAVE_FULL ? this.items : (
+				( this.saveMode === SAVE_IDS || !this.saveMap ) ? this.items.map(v=>v.id ) :
 				this.items.map( this.saveMap, this )
 			),
 			max:(this.max)
@@ -61,12 +64,22 @@ export default class Inventory {
 	}
 
 	/**
+	 * @property {string} countProp - property that represents the count of an object.
+	 * Not the same as inventory.count which is separate items in inventory.
+	 */
+	get countProp(){return this._cProp;}
+	set countProp(v){this._cProp=v}
+
+	/**
 	 * @property {number} used - spaces used by items in inventory.
 	 * if no space prop is defined, this is just the number of items.
 	 */
 	get used() { return this._used; }
 	set used(v) { this._used = v; }
 
+	/**
+	 * @property {string} name - display name of inventory.
+	 */
 	get name() {return this._name || this.id; }
 	set name(v) { this._name = v; }
 
@@ -128,10 +141,10 @@ export default class Inventory {
 			else Object.assign(this,vars);
 
 		}
-
 		if ( !this.items ) this.items = [];
+		if ( this._cProp ) this._cProp = 'value';
 
-		if ( !this.saveMode ) this.saveMode = 'full';
+		if ( !this.saveMode ) this.saveMode = SAVE_FULL;
 		this.type = 'inventory';
 		if (!this.id) this.id = this.type;
 
@@ -157,12 +170,8 @@ export default class Inventory {
 	 */
 	revive( gs, reviver ){
 
-		// used ids.
-		var ids = {};
-
-		let loads = this.items.slice(0);
-		this.items.length = 0;
-		let len = loads.length;
+		let len = this.items.length;
+		let loads = this.items.splice(0, len );
 
 		for( let i = 0; i < len; i++ ) {
 
@@ -209,7 +218,7 @@ export default class Inventory {
 			}
 
 
-			this.items.push( it );
+			this._items.push( it );
 			this.used += this.spaceCost( it );
 
 			//console.warn('CUR USED: ' + this.used + '/' + this.max.value );
@@ -322,8 +331,8 @@ export default class Inventory {
 	 */
 	removeCount( it, count) {
 
-		it.value -= count;
-		if ( it.value <= 0 )this.remove(it);
+		it[this._cProp] -= count;
+		if ( it[this._cProp] <= 0 ) this.remove(it);
 
 	}
 
@@ -344,7 +353,7 @@ export default class Inventory {
 
 		it = this.findMatch(it);
 		if ( !it ) return false;
-		return count === 1 || ( it.stack && it.value >= count );
+		return count === 1 || ( it.stack && it[this._cProp] >= count );
 	}
 
 	/**
@@ -357,7 +366,7 @@ export default class Inventory {
 
 		let orig = this.findMatch(it);
 		if ( orig) {
-			orig.value += count;
+			orig[this._cProp] += count;
 			return orig;
 		}
 

@@ -1,6 +1,6 @@
 import { assignNoFunc } from "../util/util";
 import { cloneClass } from 'objecty';
-import Stat from "../values/stat";
+import Stat from "../values/rvals/stat";
 import { TARGET_ALLIES, TARGET_ALLY, TARGET_SELF,
 		ParseTarget, ParseDmg} from "../values/combatVars";
 
@@ -18,6 +18,7 @@ export default class Attack {
 			cure:this.cure||undefined,
 			state:this.state||undefined,
 			targets:this.targets||undefined,
+			result:this.result||undefined,
 			id:this.id,
 			dot:this.dot
 		};

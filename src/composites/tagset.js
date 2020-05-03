@@ -1,5 +1,5 @@
 /**
- * @class TagList to allow referencing tagged items by id.
+ * @class TagSet to allow referencing tagged items by id.
  */
 export default class TagSet {
 
@@ -8,6 +8,9 @@ export default class TagSet {
 	 */
 	toJSON(){return undefined;}
 
+	/**
+	 * @property {string}
+	 */
 	get id() { return this._id; }
 	set id(v) { this._id = v;}
 
@@ -27,6 +30,9 @@ export default class TagSet {
 	get type() { return this._type; }
 	set type(v) { this._type = v; }
 
+	/**
+	 * @property {string} name
+	 */
 	get name() {return this._name }
 	set name(v) { this._name = v; }
 
@@ -34,6 +40,9 @@ export default class TagSet {
 	/*get.instanced() { return true; }
 	set.instanced(v){}*/
 
+	/**
+	 * @property {boolean} locked
+	 */
 	get locked() {
 		for( let it of this.items ) {
 			if ( it.locked === false ) return false;
@@ -41,6 +50,9 @@ export default class TagSet {
 		return true;
 	}
 
+	/**
+	 * @property {boolean} owned
+	 */
 	get owned(){
 		for( let it of this.items ) {
 			if ( it.owned === true ) return true;
@@ -48,6 +60,11 @@ export default class TagSet {
 		return false;
 	}
 
+	get delta(){ return 0; }
+
+	/**
+	 * @returns {number}
+	 */
 	valueOf(){
 
 		let v = 0;
@@ -57,6 +74,10 @@ export default class TagSet {
 		return v;
 	}
 
+	/**
+	 *
+	 * @param {string} tag
+	 */
 	constructor(tag ) {
 
 		this.id = tag;
@@ -70,6 +91,19 @@ export default class TagSet {
 
 	}
 
+	/**
+	 * @returns {boolean}
+	 */
+	fillsRequire(){
+		for( let it of this.items ) {
+			if ( it.fillsRequire() ) return true;
+		}
+		return true;
+	}
+
+	/**
+	 * @returns {boolean}
+	 */
 	canUse( g ) {
 		return g.canPay( this.cost );
 	}
@@ -85,6 +119,9 @@ export default class TagSet {
 		return false;
 	}
 
+	/**
+	 * @returns {boolean}
+	 */
 	filled( rate ){
 		for( let it of this.items ) {
 			if ( !it.filled(rate) ) return false;
@@ -92,6 +129,9 @@ export default class TagSet {
 		return true;
 	}
 
+	/**
+	 * @returns {boolean}
+	 */
 	maxed(){
 		for( let it of this.items ) {
 			if ( !it.maxed() ) return false;
@@ -111,8 +151,32 @@ export default class TagSet {
 		console.warn('TagSet onUse() not implemented');
 	}
 
+	/**
+	 *
+	 * @param {GData} it
+	 */
 	add( it ) {
 		this.items.add(it);
+	}
+
+	/**
+	 * @returns {GData} - random tagged item.
+	 */
+	random() {
+
+		let size = this.items.size;
+		if ( size <= 0 ) return null;
+
+		// dont know better way to do random on iterator.
+		let ind = Math.floor(Math.random()*size);
+
+		const itr = this.items.values();
+		while ( ind-- > 0 ) {
+			itr.next();
+		}
+		return itr.next().value;
+
+
 	}
 
 	/**
@@ -120,10 +184,11 @@ export default class TagSet {
 	 * @param {Game} g
 	 * @param {*} amt
 	 */
-	amount( g, amt ) {
+	amount( amt ) {
 
 		for( let it of this.items ) {
-			if ( typeof it.amount === 'function' ) it.amount( g, amt );
+			//if ( typeof it.amount === 'function' ) it.amount( amt );
+			it.amount(amt);
 		}
 
 	}

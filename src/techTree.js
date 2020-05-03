@@ -3,23 +3,55 @@ import { quickSplice } from './util/array';
 import TagSet from './composites/tagset';
 
 /**
- * @const {RegExp} FuncRE - regular expression to find tree relationships
+ * @const {RegExp} FuncRE - regular expression to identify tree relationships
  * in requirement/need functions.
  */
 const FuncRE = /[^\.]\b\w+\.((?:\w|\.)+\b)/gi;
 
 /**
+ * @property {Set<GData>} NextChanges - changes for next frame.
+ * Used to loop on changes from current frame while marking changes
+ * for next frame.
+ */
+var NextChanges = new Set();
+
+/**
  * @property {Set<GData>} Changed - items changed on previous frame.
  */
-export const Changed = new Set();
+export var Changed = new Set();
+
+export const GetChanged = ()=>{
+
+	var temp = Changed;
+
+	NextChanges.clear();
+	Changed = NextChanges;
+
+	NextChanges = temp;
+
+	return temp;
+
+
+}
+
+/**
+ * @property {Set<GData>} UnlockQueue - items to check for unlocks.
+ */
+//const UnlockQueue = new Set();
+
+/**
+ * @const {Set<GData>} UseQueue - queue of items to check for usable.
+ * Used to queue checks of use changes.
+ */
+//const UseQueue = new Set();
 
 export default class TechTree {
 
 	/**
 	 *
-	 * @param {Object} [vars=null]
+	 * @param {Object} [datas=null]
 	 */
-	constructor( items ) {
+	constructor( datas ) {
 
 		Changed.clear();
 
@@ -27,21 +59,23 @@ export default class TechTree {
 		 * @property {object.<string,GData>} items - used to check if items
 		 * locked/unlocked etc in unlock links.
 		 */
-		this.items = items;
+		this.datas = datas;
 
 		/**
-		 * @property {Object.<string,Array>} unlocks - item id to Items potentially unlocked
-		 * by changes in Item.
+		 * @property {<string,GData[]>} unlocks - maps item id to Items potentially
+		 * unlocked by changes in Item.
 		 */
 		this.unlocks = {};
 
 		/**
-		 * @property {.<string,Array>} needs - item id to Items which might 'need' the item.
+		 * @property {.<string,Array>} needs - maps item ids to items which might need
+		 * that item in order to both unlock and run.
+		 * includes both item 'need' object, and other variables required to run.
 		 */
 		this.needs = {};
 
-		for( let p in this.items ) {
-			this.mapUnlocks( this.items[p]);
+		for( let p in this.datas ) {
+			this.mapUnlocks( this.datas[p]);
 		}
 
 	}
@@ -53,9 +87,9 @@ export default class TechTree {
 
 		let links;
 
-		for( let p in this.items ) {
+		for( let p in this.datas ) {
 
-			let it = this.items[p];
+			let it = this.datas[p];
 			if ( it instanceof TagSet ) continue;
 			if ( !it.disabled && !it.locked ) {
 
@@ -68,27 +102,29 @@ export default class TechTree {
 
 	}
 
+
 	/**
 	 * Item was unlocked. Add to fringe if it potentially unlocks other items.
 	 * @param {GData} it
 	 */
-	unlocked( it ) {
+	/*unlocked( it ) {
 
 		if ( this.unlocks[it.id] !== undefined ){
 			// if duplicate entry in fringe, should be weeded out naturally anyway.
 			this.fringe.push( it );
 		}
 
-	}
+	}*/
 
 	/**
 	 * Check fringe items for potential unlock events.
 	 */
-	updateTech(){
+	updateTech( changes ){
 
-		for( let it of Changed ){
+		for( let it of changes ){
 
 			let links = this.unlocks[it.id];
+
 			if ( links !== undefined ) {
 
 				if ( this.changed( links ) === false ) {
@@ -101,6 +137,40 @@ export default class TechTree {
 
 	}
 
+	/*updateUnlocks(){
+
+		for( let it of UnlockQueue ) {
+			Game.tryUnlock(it);
+		}
+	}*/
+
+	/*updateUsables(){
+
+		for( let it of UseQueue ) {
+			it.usable = it.canUse( Game );
+		}
+		UseQueue.clear();
+
+	}
+
+	checkUsables( links ){
+
+		for( let i = links.length-1; i>= 0; i--) {
+
+			let it = this.datas[ links[i] ];
+			if ( !it || it.disabled === true || it.locks > 0 ) {
+				quickSplice( links, i );
+			} else if ( it.locked !== false ) {
+				continue;
+			} else {
+
+				UseQueue.add(it);
+			}
+
+		}
+
+	}*/
+
 	/**
 	 * Call when src Item changes.
 	 * Test unlocks on all variables linked by a possible unlock chain.
@@ -111,7 +181,8 @@ export default class TechTree {
 		let it;
 		for( let i = links.length-1; i>= 0; i--) {
 
-			it = this.items[ links[i] ];
+			it = this.datas[ links[i] ];
+
 			if ( !it || it.locked === false || it.disabled === true || it.locks>0 ) {
 				quickSplice( links, i );
 			} else if ( Game.tryUnlock(it) ) {
@@ -127,16 +198,26 @@ export default class TechTree {
 
 	}
 
+
 	/**
 	 * Mark all Items which might potentially unlock this item.
 	 * @param {GData} item
 	 */
 	mapUnlocks( item ) {
 
+		// function maps unlockers OF item. TagSets are collections of items
+		// and do not have unlockers.
 		if ( !item.locked || item.disabled || item instanceof TagSet ) return;
 
 		if ( item.require ) this.mapRequirement( item, item.require, this.unlocks );
 		if ( item.need ) this.mapRequirement( item, item.need, this.unlocks );
+
+		/*if ( item.need ) this.mapRequirement( item, item.need, this.needs );
+		if ( item.cost ) this.mapRequirement( item, item.cost, this.needs );
+		if ( item.fill ) this.mapRequirement( item, item.fill, this.needs );
+		if ( item.buy ) this.mapRequirement( item, item.buy, this.needs );
+		if ( item.buy ) this.mapRequirement( item, item.run, this.needs );*/
+
 
 	}
 
@@ -144,6 +225,7 @@ export default class TechTree {
 	 * Mark an item's possible requirements.
 	 * @param {GData} item
 	 * @param {string|function|Array} requires
+	 * @param {.<string,GData>[]} graph - maps id to dependent items.
 	 */
 	mapRequirement( item, requires, graph ) {
 
@@ -151,13 +233,18 @@ export default class TechTree {
 
 		if ( type === 'string') {
 
-			this.mapUnlock( requires, item, graph );
+			this.mapIdRequire( item, requires, graph );
 
 		} else if ( type === 'function' ) {
 
-			this.mapFuncRequirement( item, requires, graph );
+			this.mapFuncRequire( item, requires, graph );
 
 		} else if (  Array.isArray(requires) ) return requires.forEach( v=>this.mapRequirement(item,v, graph), this );
+		else if ( type === 'object' ) {
+
+			this.mapObjRequire(item, requires, graph );
+
+		}
 
 	}
 
@@ -165,8 +252,9 @@ export default class TechTree {
 	 * Mark unlock links from a requirement function.
 	 * @param {GData} targ - item being unlocked.
 	 * @param {function} func - function testing if item can be unlocked.
+	 * @param {<string,GData[]>} graph - maps item id to dependent items.
 	 */
-	mapFuncRequirement( targ, func, graph ) {
+	mapFuncRequire( targ, func, graph ) {
 
 		let text = func.toString();
 		let results;
@@ -178,28 +266,43 @@ export default class TechTree {
 
 			let unlocker = results[1].split('.')[0];
 			if ( unlocker === 'mod' || unlocker === 'slot' ) continue;
-			this.mapUnlock( unlocker, targ, graph );
+			this.mapIdRequire( targ, unlocker, graph );
 
 		}
-		if ( text.includes('this') || text.includes('s.') ) this.mapUnlock( targ.id, targ, graph );
+		if ( text.includes('this') || text.includes('s.') ) this.mapIdRequire( targ, targ.id, graph );
 
 	}
 
 	/**
-	 * Map src as a potential unlocker of targ.
-	 * @param {string} unlocker
+	 *
 	 * @param {GData} targ
-	 * @param {object} graph - the tech tree being mapped, needs or unlocks.
+	 * @param {object} vars
+	 * @param {<string,GData[]>} graph
 	 */
-	mapUnlock( unlocker, targ, graph ) {
+	mapObjRequire( targ, vars, graph ) {
+
+		for( let p in vars ) {
+			this.mapIdRequire( targ, p, graph );
+		}
+
+	}
+
+	/**
+	 * Map unlocker as a potential unlocker of targ.
+	 * @param {GData} targ - target of the unlock attempt.
+	 * @param {string} unlocker
+	 * @param {<string,GData[]>} graph - the tech tree being mapped, needs or unlocks.
+	 */
+	mapIdRequire( targ, unlocker, graph ) {
 
 		if ( !unlocker) return;
-		let it = this.items[unlocker];
+		let it = this.datas[unlocker];
+
 		if ( it === undefined ) return;
 		else if ( it instanceof TagSet ) {
 			return it.forEach( v=>{
 				//console.log( it.id + ': ' +v.id + ' unlock: ' + targ.id );
-				this.mapUnlock(v.id, targ, graph)}
+				this.mapIdRequire( targ, v.id, graph)}
 			);
 		}
 

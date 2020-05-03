@@ -1,9 +1,20 @@
+
+canUse() dependencies:
+
+locked/disabled/locks ( self )
+need
+cost ( canPay() )
+mod ( canMod() )
+run ( run cost )
+fill
+buy
+
+
+
 basic item events:
 
-'amount' - apply amount to item total
-
 'buy' - initial purchase required before use.
-spells, enchants, potions, mounts
+spells, skills, enchants, potions, mounts
 
 'use' - use skill, action, upgrade, dungeon, mount, spell etc.
 must pay 'cost' on use.

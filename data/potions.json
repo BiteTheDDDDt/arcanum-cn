@@ -30,6 +30,30 @@
 		}
 	},
 	{
+
+		"id":"pot_cparalysis",
+		"name":"cure paralysis",
+		"level":5,
+		"cost":{
+			"herbs":1,
+			"managem":1
+		},
+		"use":"cureparalyze"
+
+	},
+	{
+
+		"id":"pot_csilence",
+		"name":"cure silence",
+		"level":7,
+		"cost":{
+			"herbs":1,
+			"airgem":1
+		},
+		"use":"speak"
+
+	},
+	{
 		"id":"pot_heal1",
 		"buy":{
 			"gold":25,

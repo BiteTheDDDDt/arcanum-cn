@@ -34,14 +34,15 @@ export default {
 	<div class="skill">
 
 		<span class="separate" @mouseenter.capture.stop="itemOver( $event, skill )">
-			<span>{{ skill.name }}</span>&nbsp;
-			<span v-if="skill.owned">{{ 'lvl: ' + Math.floor(skill.valueOf()) + '/' + Math.floor(skill.max.valueOf()) }}<button class="train-btn"
+			<span>{{ skill.name }}</span>
+			<span class="flex-row" v-if="skill.owned">{{ 'lvl: ' + Math.floor(skill.valueOf()) + '/' + Math.floor(skill.max.valueOf()) }}
+				<button class="train-btn"
 			@click="$emit('train',skill)" :disabled="!skill.canUse()">
 				{{ active ? 'Stop' : 'Train' }}</button></span>
 
 			<span v-else>
 				<button @click="emit('buy', skill)"
-					:disabled="!skill.canUse()">Unlock</button>
+					:disabled="!skill.canUse()">🔒</button>
 			</span>
 		</span>
 
@@ -49,22 +50,9 @@ export default {
 
 		<bar :value="skill.exp" :max="skill.length" hide-stats=true />
 
-			progress: {{ exp + ' / ' + length }}
+			exp: {{ exp + ' / ' + length }}
 		</div>
 
 	</div>
 
 </template>
-
-<style scoped>
-
-span.separate {
-	width: 100%;
-	align-items: center;
-}
-button {
-	max-height:2.1rem;
-	margin-top:var(--sm-gap);
-	padding:var(--sm-gap);
-}
-</style>

@@ -1,12 +1,12 @@
 <script>
 import Profile from 'modules/profile';
-import Game from '../game';
+import Game from 'game';
 import Menu from './components/menu.vue';
-import ResoucesView from './resources.vue';
+import ResoucesView from './panes/resources.vue';
 import Tasks from './sections/tasks.vue';
 import Quickbar from './quickbar.vue';
 import ItemsBase from './itemsBase';
-import Vitals from 'ui/vitals.vue';
+import Vitals from './panes/vitals.vue';
 import DotView from './items/dotView.vue';
 import TopBar from './top-bar.vue';
 
@@ -59,7 +59,7 @@ export default {
 		inventory:()=> import( /* webpackChunkName: "inv-ui" */ './sections/inventory.vue' ),
 		potions:()=> import( /* webpackChunkName: "potions-ui" */ './sections/potions.vue'),
 		home:()=>import( /* webpackChunkName: "home-ui" */ './sections/home.vue'),
-		player:()=>import( /* webpackChunkName: "player-ui" */'./player.vue'),
+		player:()=>import( /* webpackChunkName: "player-ui" */'./sections/player.vue'),
 		bestiary:()=>import(/* webpackChunkName: "bestiary-ui" */ './sections/bestiary.vue' ),
 		spells:()=>import( /* webpackChunkName: "spells-ui" */ './sections/spells.vue'),
 		adventure:()=>import( /* webpackChunkName: "raid-ui" */ './sections/adventure.vue'),
@@ -81,6 +81,25 @@ export default {
 		};
 
 	},
+
+	beforeCreate(){
+
+		/**
+		 * @property {number} loopId - interval id for game loop.
+		 */
+		this.loopId = 0;
+		/**
+		 * @property {number} repeaterId - interval id for auto-repeating click.
+		 */
+		this.repeaterId = 0;
+
+		/**
+		 * @property {(evt)=>null} repeatEndFunc - mouseup func to end repeater.
+		 */
+		this.repeatEndFunc = null;
+
+	},
+
 	created(){
 
 		this.Profile = Profile;
@@ -97,6 +116,9 @@ export default {
 
 	},
 	beforeDestroy(){
+
+		ItemOut();
+		this.endRepeater();
 
 		this.removeListener('game-loaded', this.gameLoaded );
 		this.removeListener('setting', this.onSetting );
@@ -142,6 +164,8 @@ export default {
 
 			this.add('showActivities', ()=>{this.togActivities=true} )
 
+			this.add('repeater', this.makeRepeater, this );
+			this.add('endrepeater', this.endRepeater, this );
 
 			this.add( TRY_USE, this.tryUse )
 			this.add( USE, this.onUse );
@@ -180,7 +204,7 @@ export default {
 
 		startAutoSave() {
 
-			if (!this.interval ) return;
+			if (!this.loopId ) return;
 
 			if ( Settings.get('autoSave') && !this.saver ) {
 				//console.log('START AUTOSAVE');
@@ -191,24 +215,60 @@ export default {
 
 		pause() {
 
-			if ( this.interval ) {
-				let int = this.interval;
-				this.interval = null;
+			if ( this.loopId ) {
+				let int = this.loopId;
+				this.loopId = 0;
 				clearInterval( int );
 			}
 			this.stopAutoSave();
+			this.endRepeater();
 
 			if ( this.keyListen ) window.removeEventListener('keydown', this.keyListen, false );
 
 
 		},
+
+
+		/**
+		 * Item repeats until released.
+		 * @param {GData} it - item being used.
+		 */
+		makeRepeater( it ){
+
+			if ( this.repeaterId ) {
+				clearInterval(this.repeaterId );
+				this.repeaterId = 0;
+			}
+			this.repeaterId = setInterval( (t)=>Game.tryItem(t), 50, it );
+
+			if ( !this.repeatEndFunc ) this.repeatEndFunc = ()=>this.endRepeater();
+			document.addEventListener( 'mouseup', this.repeatEndFunc );
+
+		},
+
+		/**
+		 * Cancel active repeater.
+		 */
+		endRepeater(){
+
+			if ( this.repeaterId ) {
+				clearInterval(this.repeaterId );
+				this.repeaterId=0;
+			}
+			if ( this.repeatEndFunc ) {
+				document.removeEventListener( 'mouseup', this.repeatEndFunc );
+				this.repeatEndFunc = null;
+			}
+
+		},
+
 		unpause() {
 
 			if ( Game.loaded ) {
 
 				Game.lastUpdate = Date.now();
-				if ( !this.interval ) {
-					this.interval = setInterval( ()=>Game.update(), TICK_TIME );
+				if ( !this.loopId ) {
+					this.loopId = setInterval( ()=>Game.update(), TICK_TIME );
 				}
 
 				this.keyListen = evt=>{
@@ -225,7 +285,7 @@ export default {
 
 		keyDown( e ){
 
-			if ( !this.interval ) return;
+			if ( !this.loopId ) return;
 
 			let slice = e.code.slice(0,-1);
 			if ( slice === 'Digit' || slice === 'Numpad' ) {
@@ -390,7 +450,7 @@ export default {
 		<template slot="sect_potions"><potions /></template>
 
 		<template slot="sect_bestiary"><bestiary /></template>
-		<template slot="sect_minions"><minions /></template>
+		<template slot="sect_minions"><minions :minions="state.minions" /></template>
 
 		<template slot="sect_enchant"><enchanting /></template>
 		</vue-menu>

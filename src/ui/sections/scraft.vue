@@ -12,6 +12,8 @@ export default {
 
 		return {
 
+			userSpells:Game.state.userSpells,
+
 			/**
 			 * List of spells in current crafting.
 			 */
@@ -105,13 +107,6 @@ export default {
 		},
 
 		/**
-		 * @property {UserSpells} userSpells - spells already crafted.
-		 */
-		userSpells() {
-			return Game.state.userSpells;
-		},
-
-		/**
 		 * @property {Spell[]} spells - all spells in game.
 		 */
 		spells() {
@@ -149,7 +144,7 @@ export default {
 		<span class="text-entry">
 			<input class="fld-name" type="text" v-model="c.name">
 		</span>
-		<button @click="removeSpell(c)">Remove</button>
+		<button class="stop" @click="removeSpell(c)">X</button>
 	</div>
 	</div>
 
@@ -173,15 +168,15 @@ export default {
 
 	</div>
 
-	<div v-for="(s,ind) in list" :key="ind" @mouseenter.capture.stop="itemOver($event,s)">
-		<span>{{s.name}}</span><button @click="removeAt(ind)">Remove</button>
+	<div v-for="(s,ind) in list" class="separate" :key="ind" @mouseenter.capture.stop="itemOver($event,s)">
+		<span>{{s.name}}</span><button class="remove" @click="removeAt(ind)">X</button>
 	</div>
 
 </div>
 <div class="allspells">
 
 	<div class="separate" v-for="(s) in spells" :key="s.id"  @mouseenter.capture.stop="itemOver($event,s)">
-		<span>{{s.name}}</span><button @click="add(s)" :disabled="!canAdd(s)">Add</button>
+		<span>{{s.name}}</span><button class="add" @click="add(s)" :disabled="!canAdd(s)">+</button>
 	</div>
 
 </div>

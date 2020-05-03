@@ -3,7 +3,7 @@ import Slot from './slot';
 export default class SlotGroup {
 
 	/**
-	 * @property {object.<string,Slot>} slots
+	 * @property {.<string,Slot>} slots
 	 */
 	get slots() { return this._slots; }
 	set slots(v) {
@@ -128,6 +128,7 @@ export default class SlotGroup {
 
 	/**
 	 * Iterate slot names.
+	 * @returns {Iterator<string>}
 	 */
 	* slotNames() {
 		for( let k in this.slots ) yield k;

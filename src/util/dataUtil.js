@@ -1,5 +1,5 @@
-import { clone, cloneClass } from "objecty";
-import Stat from "../values/stat";
+import Stat from "../values/rvals/stat";
+import RValue from "../values/rvals/rvalue";
 
 /**
  * Find and return first element of set matching predicate.
@@ -86,27 +86,24 @@ export const toStats = (obj) => {
 }
 
 /**
- * Create a new cost object with requirements from both.
- * @todo this won't keep pace with modified costs.
- * @param {*} c1
- * @param {*} c2
-*/
-export const mergeCosts = ( c1, c2 ) => {
+ *
+ * @param {object} dest
+ * @param {string} prop
+ * @param {*} v
+ */
+const addValue = ( dest, prop, v ) => {
 
-	if ( !c1 ) return clone(c2);
-	if ( !c2 ) return clone(c1);
+	var cur = dest[prop];
+	if ( cur === undefined ) dest[prop] = new RValue( v.valueOf() );
+	else {
 
-	let res = {};
+		if ( typeof cur === 'object') {
 
-	if ( typeof c1 === 'string') {
-		res[c1] = 1;
-	} else if ( typeof c1 === 'object') {
-		clone(c1, res);
+			cur.value = ( cur.value || 0 ) + v;
+
+		} else dest[prop] = new RValue( cur + v );
+
 	}
-
-	addValues( res, c2 );
-
-	return res;
 
 }
 
@@ -119,14 +116,14 @@ export const mergeCosts = ( c1, c2 ) => {
  */
 export const addValues = (dest, vals) => {
 
+	if ( typeof dest !== 'object' || dest.constructor !== Object ) {
+		dest = { value:dest};
+	}
+
 	if ( typeof vals === 'string') {
 
 		// value is one unit of id'd item.
-		let cur = dest[vals];
-		if ( typeof cur === 'object') {
-			// NOTE: if cur.value is NaN there is no consistent merge strategy.
-			cur.value = (cur.value || 0) + 1;
-		} else dest[vals] = (cur || 0 ) + 1;
+		addValue(dest, vals, 1 );
 
 	} else if ( typeof vals === 'object') {
 
@@ -135,31 +132,31 @@ export const addValues = (dest, vals) => {
 			let cur = dest[p];
 			let src = vals[p];
 
-			if ( !cur ) {
+			if ( typeof src === 'object') {
 
-				dest[p] = !isNaN(src) ? src : cloneClass(src);
+				if ( src.constructor !== Object ) {
+					addValue( dest, p, src );
+				} else {
+					dest[p] = addValues( cur || {}, src );
+				}
+
 
 			} else if ( typeof cur === 'object') {
 
-				if ( typeof src === 'object') {
-					cur = [ cur, cloneClass(src )];
-				}
-
-				else cur.value = (cur.value || 0 ) + src;
-
-			} else if ( typeof src === 'object') {
-
-				src = dest[p] = cloneClass(src);
-				src.value = (src.value||0) + cur;
+				// src is not object.
+				console.log('cur: object; src: ' + typeof src );
+				addValue( cur, 'value', src );
 
 			} else {
 
-				dest[p] = (cur||0) + src;
+				addValue(dest, p, src );
 			}
 
 
 		}
 
 	}
+
+	return dest;
 
 }

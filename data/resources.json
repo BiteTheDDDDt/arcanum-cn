@@ -17,29 +17,8 @@
 		"max":0
 	},
 	{
-
-		"id":"bones",
-		"desc":"human bones.",
-		"max":10
-
-	},
-	{
-
-		"id":"skulls",
-		"alias":"skulls",
-		"desc":"human skull.",
-		"max":5
-
-	},
-	{
-
-		"id":"bonedust",
-		"name":"bone dust",
-		"desc":"The dust of human bones.",
-		"max":10
-	},
-	{
 		"id":"scrolls",
+		"group":"books",
 		"desc":"Scroll of arcane lore",
 		"max":10,
 		"mod":{
@@ -65,6 +44,7 @@
 
 		"id":"runestones",
 		"name":"rune stones",
+		"group":"runes",
 		"desc":"Runes carved on pieces of stone.",
 		"tags":"t_runes",
 		"max":10,
@@ -80,6 +60,7 @@
 		"id":"firerune",
 		"name":"flame runes",
 		"tags":"t_runes",
+		"group":"runes",
 		"desc":"Rune etched with lines of fire",
 		"max":10,
 		"mod":{
@@ -92,6 +73,7 @@
 		"id":"waterrune",
 		"name":"water runes",
 		"tags":"t_runes",
+		"group":"runes",
 		"desc":"Rune lined in flowing water",
 		"max":10,
 		"mod":{
@@ -104,6 +86,7 @@
 		"id":"spiritrune",
 		"name":"spirit runes",
 		"tags":"t_runes",
+		"group":"runes",
 		"desc":"A Runestone carved in bone; it seems to whisper.",
 		"max":10,
 		"mod":{
@@ -116,6 +99,7 @@
 		"id":"airrune",
 		"name":"air runes",
 		"tags":"t_runes",
+		"group":"runes",
 		"desc":"rune etched with solid air",
 		"max":10,
 		"mod":{
@@ -128,6 +112,7 @@
 		"id":"earthrune",
 		"name":"earth runes",
 		"tags":"t_runes",
+		"group":"runes",
 		"desc":"Rune ingrained with moonstone",
 		"max":10,
 		"mod":{
@@ -139,6 +124,7 @@
 
 		"id":"timerune",
 		"name":"time runes",
+		"group":"runes",
 		"desc":"Time flows along the grooves of the rune",
 		"mod":{
 			"tempus.rate":0.001,
@@ -149,6 +135,7 @@
 	},
 	{
 		"id":"bodies",
+		"group":"necromancy",
 		"desc":"bodies for necromatic magic",
 		"max":1,
 		"mod":{
@@ -157,7 +144,32 @@
 		}
 	},
 	{
+
+		"id":"bones",
+		"group":"necromancy",
+		"desc":"human bones.",
+		"max":10
+
+	},
+	{
+
+		"id":"skulls",
+		"group":"necromancy",
+		"desc":"human skull.",
+		"max":5
+
+	},
+	{
+
+		"id":"bonedust",
+		"name":"bone dust",
+		"group":"necromancy",
+		"desc":"The dust of human bones.",
+		"max":10
+	},
+	{
 		"id":"souls",
+		"group":"necromancy",
 		"desc":"imprisoned souls of living creatures.",
 		"max":1,
 		"mod":{
@@ -179,7 +191,8 @@
 	},
 	{
 		"id":"codices",
-		"name":"Codices",
+		"name":"codices",
+		"group":"books",
 		"desc":"Codex of arcane lore",
 		"max":10,
 		"mod":{
@@ -191,7 +204,8 @@
 	},
 	{
 		"id":"tomes",
-		"name":"Tomes",
+		"name":"tomes",
+		"group":"books",
 		"desc":"A hefty tome of knowledge.",
 		"max":5,
 		"mod":{
@@ -204,34 +218,39 @@
 	},
 	{
 		"id":"gems",
+		"group":"gems",
 		"desc":"Various fine gemstones.",
 		"max":5
 	},
 	{
 
 		"id":"managem",
-		"tags":"magicgems",
+		"tags":"magicgems,prismaticgems",
+		"group":"gems",
 		"name":"arcane gem",
 		"desc":"Gem infused with arcane energy.",
 		"max":2
 	},
 	{
 		"id":"firegem",
-		"tags":"magicgems",
+		"tags":"magicgems,prismaticgems",
+		"group":"gems",
 		"name":"fire gem",
 		"desc":"Gem imbued with the essence of fire.",
 		"max":2
 	},
 	{
 		"id":"watergem",
-		"tags":"magicgems",
+		"tags":"magicgems,prismaticgems",
+		"group":"gems",
 		"name":"water gem",
 		"desc":"Gem imbued with the essence of water.",
 		"max":2
 	},
 	{
 		"id":"naturegem",
-		"tags":"magicgems",
+		"tags":"magicgems,prismaticgems",
+		"group":"gems",
 		"name":"nature gem",
 		"desc":"physical essence of life.",
 		"max":2,
@@ -239,35 +258,40 @@
 	},
 	{
 		"id":"earthgem",
-		"tags":"magicgems",
+		"tags":"magicgems,prismaticgems",
+		"group":"gems",
 		"name":"earth gem",
 		"desc":"Gem imbued with the essence of earth.",
 		"max":2
 	},
 	{
 		"id":"airgem",
-		"tags":"magicgems",
+		"tags":"magicgems,prismaticgems",
+		"group":"gems",
 		"name":"air gem",
 		"desc":"Gem imbued with the essence of air.",
 		"max":2
 	},
 	{
 		"id":"shadowgem",
-		"tags":"magicgems",
+		"tags":"magicgems,prismaticgems",
+		"group":"gems",
 		"name":"shadow gem",
 		"desc":"Gem imbued with the essence of darkness.",
 		"max":2
 	},
 	{
 		"id":"lightgem",
-		"tags":"magicgems",
+		"tags":"magicgems,prismaticgems",
+		"group":"gems",
 		"name":"light gem",
 		"desc":"Gem imbued with the essence of light.",
 		"max":2
 	},
 	{
 		"id":"spiritgem",
-		"tags":"magicgems",
+		"tags":"magicgems,prismaticgems",
+		"group":"gems",
 		"name":"spirit gem",
 		"desc":"Gem imbued with raw spirit.",
 		"max":2
@@ -275,6 +299,7 @@
 	{
 		"id":"bloodgem",
 		"tags":"magicgems",
+		"group":"gems",
 		"name":"blood gem",
 		"desc":"a little magic and a lot of blood",
 		"max":2,
@@ -286,6 +311,7 @@
 
 		"id":"timegem",
 		"tags":"magicgems",
+		"group":"gems",
 		"desc":"crafted from gems which do not yet exist.",
 		"mod":{
 			"gems.rate":-0.005,
@@ -297,6 +323,7 @@
 
 		"id":"voidgem",
 		"tags":"magicgems",
+		"group":"gems",
 		"desc":"the space where a gem once was.",
 		"mod":{
 			"player.resist.void":1
@@ -339,20 +366,9 @@
 		"max":10
 	},
 	{
-		"id":"sulphur",
-		"desc":"principle of fire.",
-		"max":10
-	},
-	{
-		"id":"mercury",
-		"desc":"principle of metal.",
-		"max":10
-	},
-	{
 		"id":"space",
 		"name":"floor space",
 		"desc":"Space Available",
-		"modCost":true,
 		"hide":true,
 		"reverse":true,
 		"max":0
@@ -436,21 +452,21 @@
 	{
 		"id":"tempus",
 		"require":"chronomancy",
-		"tags":"manas",
+		"tags":"manas,primordial",
 		"unit":false,
 		"desc":"Time incarnate. If only...",
 		"max":0
 	},
 	{
 		"id":"chaos",
-		"tags":"manas",
+		"tags":"manas,primordial",
 		"unit":false,
 		"desc":"Chaos incarnate. No current use.",
 		"max":0
 	},
 	{
 		"id":"void",
-		"tags":"manas",
+		"tags":"manas,primordial",
 		"unit":false,
 		"desc":"nothingness. No current use.",
 		"flavor":"",

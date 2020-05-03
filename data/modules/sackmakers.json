@@ -2,22 +2,44 @@
 	"module":"sackmakers",
 	"data":{
 
+		"materials":[
+			{ "id":"sackcloth", "kind":"cloth", "priceMod":10, "bonus":3, "level":8,
+				"noproc":true,
+				"exclude":["weapon"],
+				"mod":{
+					"bloodgem.max":1,
+					"magicgems.max":1,
+					"gold.max":10
+				}
+			}
+		],
 		"dungeons":[
 			{
 				"id":"sackguild",
 				"name":"guild of the sack makers",
+				"require":"(g.demonbag+g.bloodbag+g.bagofholding)>0",
 				"level":20,
 				"run":{
 					"stamina":5
 				},
-				"length":100,
+				"title":"Guild Breaker",
+				"start":{
+
+					"name":"Guild Practices",
+					"desc":"Your unauthorized construction of pouches has sparked the ire of the Guild of Sackmakers."
+
+				},
+				"length":250,
 				"boss":"sackmaster",
 				"enemies":[
+					"rumpelstiltskin",
 					"sackweaver",
 					"pouchmerchant",
 					"m_gemcutter",
-					"sackenforcer",
+					["sackenforcer","sackthug","sackthug"],
+					["irongolem","irongolem","sackenforcer"],
 					"sackjman",
+					"greendragon",
 					["burlapgolem","burlapgolem","burlapgolem"],
 					["sackthug","sackthug"]
 				]
@@ -26,6 +48,19 @@
 
 		],
 		"monsters":[
+			{
+				"id":"rumpelstiltskin",
+				"desc":"A strange imp that spins magic threads.",
+				"level":23,
+				"unique":true,
+				"hp":900,
+				"spells":"apiary,whirl3,perfectstrike",
+				"attack":{
+					"name":"wooden cane",
+					"kind":"blunt",
+					"dmg":"40~100"
+				}
+			},
 			{
 				"id":"sackapprentice",
 				"name":"sackmaker apprentice",
@@ -44,8 +79,10 @@
 				"desc":"The guild's policies on unauthorized pouch sales are strictly enforced.",
 				"flavor":"",
 				"level":10,
+				"hp":70,
 				"attack":{
-
+					"name":"sand bag",
+					"kind":"blunt",
 					"dmg":"10~20"
 				}
 
@@ -75,19 +112,23 @@
 						"dmg":"30~40"
 					}
 
-				]
+				],"loot":{
+					"gems":"5~10"
+				}
 			},
 			{
 				"id":"pouchmerchant",
 				"name":"pouch merchant",
-				"desc":"The guild hires them to drain gold from the pouches of others.",
+				"desc":"The guild hires merchants to drain gold from the pouches of others.",
 				"level":14,
 				"speed":20,
 				"hp":300,
 				"attack":{
 					"name":"transfer gold",
-					"gold":"-100~-200"
-				}
+					"result":{
+						"gold":"-100~-200"
+					}
+				},"immune":"charm"
 
 			},
 			{
@@ -95,22 +136,30 @@
 				"name":"burlap golem",
 				"desc":"Woven golem filled with heavy sand",
 				"level":14,
-				"hp":500,
+				"noproc":true,
+				"hp":400,
 				"attack":{
-					"name":"punch",
+					"name":"sand punch",
+					"kind":"earth",
 					"dmg":"20~30"
-				}
+				},
+				"loot":{
+					"material":"sackcloth"
+				},"immune":"paralysis,earth"
 
 			},
 			{
 				"id":"sackjman",
-				"name":"sack-maker journeyman",
-				"desc":"",
+				"name":"sackmaker journeyman",
+				"desc":"Travels to towns, selling the finest quality bags and pouches.",
 				"level":16,
-				"hp":50,
+				"hp":75,
 				"attack":{
 					"name":"punch",
 					"dmg":"40~50"
+				},
+				"loot":{
+					"material":"sackcloth"
 				}
 
 			},
@@ -124,18 +173,16 @@
 						"dot":{
 							"id":"sacked",
 							"name":"weave sack",
-							"duration":10,
-							"mod":{
-								"tohit":-10
-							}
+							"duration":10
 						}
 					},
 					{
-						"name":"club",
+						"name":"magic needle",
+						"kind":"pierce",
 						"dmg":"20~30"
 					}
 				],
-				"desc":"they use magic to weave strands of fabric into sacks.",
+				"desc":"Uses flows of magic to weave bags for sale.",
 				"flavor":""
 			},
 			{
@@ -144,9 +191,11 @@
 				"desc":"",
 				"level":20,
 				"hp":900,
+				"spells":"mk_burlapgolem",
 				"attack":{
-					"name":"punch",
-					"dmg":"20~30"
+					"name":"adamant needle",
+					"kind":"pierce",
+					"dmg":"40~75"
 				}
 
 			}
@@ -157,7 +206,8 @@
 			{
 				"id":"mk_burlapgolem",
 				"name":"create burlap golem",
-				"school":"crafting",
+				"school":"conjuring",
+				"require":"g.sackguild>=50",
 				"level":19,
 				"buy":{
 					"arcana":10,

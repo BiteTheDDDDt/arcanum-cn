@@ -1,6 +1,6 @@
-import { addValues } from "../util/dataUtil";
 import Base, { mergeClass } from "../items/base";
 import { assign } from 'objecty';
+import { addValues } from "../util/dataUtil";
 
 /**
  * Currently used to make custom user spells.
@@ -17,13 +17,16 @@ export default class Group {
 			name:this.name,
 			type:this.type,
 			val:this.value,
-			custom:this.custom
+			custom:'group'
 
 		}
 	}
 
 	get id() { return this._id; }
 	set id(v) { this._id = v;}
+
+	get name() {return this._name; }
+	set name(v) { this._name = v; }
 
 	/**
 	 * @property {Array} items
@@ -62,14 +65,8 @@ export default class Group {
 	set type(v) { this._type = v; }
 
 	/**
-	 * @property {string} custom - custom type.
+	 * @property {number} level
 	 */
-	get custom() { return 'group'; }
-	set custom(v){}
-
-	get name() {return this._name; }
-	set name(v) { this._name = v; }
-
 	get level() { return this._level; }
 	set level(v) { this._level = v; }
 
@@ -104,7 +101,7 @@ export default class Group {
 
 		for( let i = this.items.length-1; i >= 0; i-- ) {
 
-			var it = this.items[i];
+			let it = this.items[i];
 			if (!it) this.items.splice( i, 1);
 			else if ( it.cost ) addValues( cost, it.cost );
 
@@ -116,8 +113,22 @@ export default class Group {
 
 	}
 
-	canUse( g ) { return g.canPay( this.cost ); }
+	canUse( g ) {
 
+		//check for additional blocks like cd, locks, disabled, etc.
+		for( let i = this.items.length-1; i>=0; i-- ) {
+			if ( !this.items[i].canUse(g) ) return false;
+		}
+
+		return g.canPay( this.cost );
+
+	}
+
+	/**
+	 *
+	 * @param {} g
+	 * @returns nothing
+	 */
 	onUse(g) {
 
 		let len = this.items.length;
@@ -140,11 +151,11 @@ export default class Group {
 	 * @param {Game} g
 	 * @param {*} amt
 	 */
-	amount( g, amt ) {
+	amount( amt ) {
 
 		let len = this.items.length;
 		for( let i = 0; i < len; i++ ) {
-			this.items[i].amount( g, amt );
+			this.items[i].amount( amt );
 		}
 
 	}

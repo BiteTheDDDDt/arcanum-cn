@@ -1,10 +1,6 @@
 <script>
 import ItemsBase from '../itemsBase.js';
-import { SKILL } from '../../values/consts';
-import { precise } from '../../util/format';
-import Game from 'game';
-
-import {RollOver} from 'ui/popups/itemPopup.vue';
+import { InfoBlock, DisplayName, ConvertPath } from './infoBlock';
 
 /**
  * Display for a sub-block of gdata, such as item.effect, item.result, item.run, etc.
@@ -14,9 +10,15 @@ import {RollOver} from 'ui/popups/itemPopup.vue';
 export default {
 	props:['title', 'info', 'rate'],
 	mixins:[ItemsBase],
+	beforeCreate(){
+		this.infos = new InfoBlock();
+	},
 	computed:{
 		effects(){
+
+			this.infos.clear();
 			return this.effectItems( this.info, this.rate );
+
 		}
 
 	},
@@ -29,108 +31,79 @@ export default {
 		effectItems( obj, rate=false) {
 
 			let type = typeof obj;
-			let results = {};
 
 			if ( type === 'number') {
-				//@todo these still happen.
+
+				//@todo still happens. mostly for sell cost as gold.
 				//console.warn('effect type is number: ' + obj) ;
-				results.gold = obj;
+				this.infos.add( 'gold', obj, this.rate );
 
 			} else if ( type === 'string') {
 
-				let it = RollOver.context.getData(obj);
-				results[ it ? it.name : this.stripTags(obj) ] = true;
+				this.infos.add( DisplayName(obj), true, false, InfoBlock.GetItem( obj ) );
 
-			} else if ( Array.isArray(obj) ) obj.forEach(v=>this.effectList(v,results));
+			} else if ( Array.isArray(obj) ) obj.forEach( v=>this.effectList(v) );
 			else if ( type === 'function' ) {
 
 				/*if ( !obj.fText ){
 					obj.fText = funcText( obj, Game );
-					results[obj.fText] = true;
-				} else {
-					results[obj.fText] = true;
+					infos[obj.fText] = true;
 				}*/
 				return undefined;
 
 			}
 			else if ( type === 'object') {
 
-				this.effectList( obj, results, '', rate );
+				this.effectList( obj, '', rate );
 
 			}
 
-			return results;
+			return this.infos.results;
 
 		},
 
 		/**
 		 * @param {Object} obj - object of effects to enumerate.
-		 * @param {Object} results - [name/effect] pairs to display to user.
-		 * @param {string} propPath - prop path from base.
+		 * @param {string} rootPath - prop path from base.
 		 * @param {boolean} rate - whether display is per/s rate.
 		 */
-		effectList( obj, results={}, propPath='', rate=false ) {
+		effectList( obj, rootPath='', rate=false, refItem=null ) {
 
 			if ( typeof obj === 'string' ) {
-
-				let it = RollOver.context.getData(obj);
-				results[ it ? it.name : this.stripTags(obj) ] = true;
+				this.infos.add( DisplayName(obj), true, rate, InfoBlock.GetItem(obj, refItem) );
 				return;
 			}
 
 			for( let p in obj ) {
 
-				// displayed path to subitem.
-				var subPath = p;
-				var sub = obj[p];
-				var subRate = rate;
-
-				if ( sub === null || sub === undefined ) {
-
-					console.warn('Sub null: ' + propPath + ': ' + p );
+				let sub = obj[p];
+				if ( sub === null || sub === undefined || p === 'skipLocked' ) {
 					continue;
-				} else if ( p === 'skipLocked') continue;
-				else if ( p === 'mod' || p === 'effect') subPath = propPath;
-				else if ( p === 'max' ) {
-
-					subPath = 'max ' + propPath;
-
-				} else if ( p==='base' || p === 'value') subPath = propPath;
-				else if ( p === 'rate') {
-
-					subPath = propPath;
-					subRate = true;
-
-					let baseItem = RollOver.context.getData( propPath.split('.')[0] );
-					if ( baseItem && baseItem.type === SKILL ) subPath = 'train ' + subPath + ' rate';
-
-				} else {
-
-					// check if sub-prop refers to an item.
-					let refItem = RollOver.context.getData(p);
-					if ( refItem ) subPath = refItem.name;
-					else subPath = this.stripTags( p );
-
-					subPath = propPath ? propPath + ' ' + subPath : subPath;
-
 				}
 
-				if ( typeof sub !== 'object' ) results[subPath] = precise(sub) + ( subRate ? '/s' : '');
-				else if ( typeof sub === 'function' ) {}
-				else {
+				let subItem = InfoBlock.GetItem( p, refItem );
+
+				let subRate = rate;
+				// displayed path to subitem.
+				let subPath = ConvertPath( rootPath, p );
+
+				// path conversion indicated no display.
+				if ( subPath === undefined ) continue;
+
+				if ( typeof sub !== 'object' ) this.infos.add(subPath, sub, subRate, subItem );
+				else if ( typeof sub !== 'function' ) {
 
 					if ( sub.skipLocked ) {
 
-						let refItem = RollOver.context.getData(p);
+						let refItem = this.infos.rootItem;
 						if ( refItem && (refItem.locked || refItem.disabled) ) continue;
 
 					}
+					if ( sub.constructor !== Object ) {
 
-					if ( sub.toString && (sub.toString !== Object.prototype.toString) ) {
+						this.infos.add( subPath, sub, subRate, subItem );
 
-						results[subPath] = sub.toString() + ( subRate ? '/s' : '');
-
-					} else this.effectList( sub, results, subPath, subRate );
+					} else this.effectList( sub, subPath, subRate, subItem );
 
 				}
 
@@ -147,10 +120,8 @@ export default {
 	<div v-if="info&&effects">
 
 		<div v-if="title" class="note-text"><hr>{{ title }}</div>
-		<div v-for="(v,k) in effects" :key="k">
-			<span v-if="typeof v === 'boolean'">{{ k }}</span>
-			<span v-else-if="typeof v ==='number'">{{ `${k}: ${v}` }}</span>
-				<span v-else>{{ `${k}: ${v}` }}</span>
+		<div v-for="v in effects" :key="v.name">
+			<span>{{ v.toString() }}</span>
 		</div>
 
 

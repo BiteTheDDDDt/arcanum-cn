@@ -1,4 +1,6 @@
 const path = require('path');
+const fs = require('fs');
+
 const VueLoader = require('vue-loader/lib/plugin');
 //const WorkboxPlugin = require( 'workbox-webpack-plugin');
 const CopyPlugin = require( 'copy-webpack-plugin');
@@ -7,13 +9,13 @@ const HtmlWebpackPlugin = require( 'html-webpack-plugin');
 const ZipPlugin = require('zip-webpack-plugin');
 
 const webpack = require('webpack');
-const { execSync } = require('child_process');
-
-var VERS_STR = execSync('git rev-list HEAD --count').toString()
 
 const UiDir = path.resolve( __dirname, 'src/ui');
 const DebugDir = path.resolve( __dirname, 'src/debug');
 
+let packData = fs.readFileSync( 'package.json');
+packData = JSON.parse( packData);
+const VERS_STR = JSON.stringify( packData.version );
 
 const MakePlugins = ( env, buildPath ) => {
 

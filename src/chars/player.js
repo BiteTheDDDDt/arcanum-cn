@@ -1,5 +1,4 @@
-import Game from '../game';
-import Stat from "../values/stat";
+import Stat from "../values/rvals/stat";
 import Resource from "../items/resource";
 import { toStats } from "../util/dataUtil";
 
@@ -12,6 +11,12 @@ import { RESOURCE, TEAM_PLAYER, getDelay, WEAPON } from "../values/consts";
 import { NO_ATTACK } from "./states";
 import DataList from '../inventories/dataList';
 import { Changed } from '../techTree';
+import { SAVE_IDS } from '../inventories/inventory';
+
+/**
+ * @const {string[]} LoseConditions - player retreats from locale if any of these stats are empty.
+ */
+const DefeatStats = [ 'hp', 'stamina', 'rage', 'bf', 'unease', 'weary', 'rage', 'madness' ];
 
 const Fists = new Wearable( null, {
 
@@ -61,10 +66,11 @@ export default class Player extends Char {
 		if ( this._titles == null ) this._titles = [];
 		return this._titles;
 	}
-	set titles(v){
-		this._titles = v;
-	}
+	set titles(v){ this._titles = v; }
 
+	/**
+	 * @property {} exp
+	 */
 	get exp(){ return this._exp; }
 	set exp(v) {
 
@@ -89,6 +95,9 @@ export default class Player extends Char {
 	get next() { return this._next; }
 	set next(v) { this._next = v;}
 
+	/**
+	 * @property {GData} hp - player hitpoints.
+	 */
 	get hp() { return this._hp; }
 	set hp(v) {
 
@@ -97,6 +106,9 @@ export default class Player extends Char {
 		else console.error('Invalid Hp: ' + v );
 	}
 
+	/**
+	 * @property {Stat} damage - bonus damage per attack.
+	 */
 	get damage(){ return this._damage; }
 	set damage(v) {
 		this._damage = v instanceof Stat ? v : new Stat(v)
@@ -117,13 +129,11 @@ export default class Player extends Char {
 	/**
 	 * @property {DataList<Wearable>} weapons - active weapons.
 	 */
-	get weapons(){
-		return this._weapons;
-	}
+	get weapons(){ return this._weapons; }
 	set weapons(v){
 
 		this._weapons = new DataList(v);
-		this._weapons.saveMode = 'ids';
+		this._weapons.saveMode = SAVE_IDS;
 		this._weapons.removeDupes = true;
 
 	}
@@ -195,8 +205,6 @@ export default class Player extends Char {
 
 		super(vars);
 
-		this.context = Game;
-
 		this.id = this.type = "player";
 		if ( !vars || !vars.name) this.name = 'wizrobe';
 
@@ -212,6 +220,11 @@ export default class Player extends Char {
 
 		this._next = this._next || 50;
 
+		/**
+		 * @property {GData[]} retreats - stats to check for empty before retreating.
+		 * Initialized from RetreatStats
+		 */
+		this.defeators = [];
 		this.retreat = this.retreat || 0;
 
 		this.initStates();
@@ -281,6 +294,13 @@ export default class Player extends Char {
 			this.weapons.add( Fists );
 		}
 
+		for( let i = DefeatStats.length-1; i>= 0; i-- ) {
+
+			var it = gs.getData( DefeatStats[i] );
+			if ( it ) this.defeators.push(it);
+
+		}
+
 		// @compat
 		// @todo at least link these to template defaults?
 		this.spells = gs.getData('spelllist');
@@ -293,10 +313,6 @@ export default class Player extends Char {
 		this.speed.value.base = 1;
 
 		this.hp.max.base = 5;
-
-		// copy in stressors to test player defeats.
-		this.stressors = gs.stressors;
-
 
 	}
 
@@ -341,27 +357,44 @@ export default class Player extends Char {
 
 	/**
 	 * Determine if player has fully rested and can re-enter a locale.
+	 * @returns {boolean}
 	 */
 	rested() {
 
-		if ( !this.hp.maxed() && this.stamina.maxed()) return false;
-		for( let i = this.stressors.length-1; i>=0; i--){
-
-			if ( !this.stressors[i].maxed() ) return false;
+		for( let i = this.defeators.length-1; i>=0; i--){
+			if ( this.defeators[i].maxed() === false ) return false;
 		}
 		return true;
 
 	}
 
+	/**
+	 * @returns {boolean}
+	 */
 	defeated() {
 
-		if ( this._hp.value <= 0 || this.stamina.value < 0 ) return true;
-		for( let i = this.stressors.length-1; i>=0; i--){
+		for( let i = this.defeators.length-1; i>=0; i--){
 
-			var s = this.stressors[i];
-			if ( s.value >= s.max.value ) return true;
+			if ( this.defeators[i].empty() ) return true;
 		}
 		return false;
+
+	}
+
+	/**
+	 * Explore player action.
+	 * @param {*} dt
+	 */
+	explore(dt) {
+
+		this.timer -= dt;
+		if ( this.timer <= 0 ) {
+
+			this.timer += getDelay( this.speed );
+
+			// attempt to use cast spell first.
+			this.tryCast();
+		}
 
 	}
 
@@ -375,9 +408,6 @@ export default class Player extends Char {
 		if ( this.timer <= 0 ) {
 
 			this.timer += getDelay(this.speed);
-
-			let a = this.getCause( NO_ATTACK );
-			if ( a ) return a;
 
 			// attempt to use spell first.
 			if ( this.tryCast() ) {
@@ -397,6 +427,9 @@ export default class Player extends Char {
 	 * Get next weapon attack.
 	 */
 	nextAttack(){
+
+		let a = this.getCause( NO_ATTACK );
+		if ( a ) return a;
 
 		let nxt = this.weapons.nextItem();
 		//console.log('attack with: ' + (nxt !== null && nxt!==undefined?nxt.id:'none') );
@@ -421,10 +454,6 @@ export default class Player extends Char {
 
 	}
 
-	/* getResist( kind ) {
-		return this._resist[kind].value / 100;
-	}*/
-
 	removeResist( kind, amt ) {
 		if ( this._resist[kind] ) this._resist[kind].base -= amt;
 	}
@@ -438,7 +467,7 @@ export default class Player extends Char {
 
 	levelUp() {
 
-		this.level.amount( this.context, 1 );
+		this.level.amount( 1 );
 
 		this._exp.value -= this._next;
 		this._next = Math.floor( this._next * ( 1 + EXP_RATE ) );

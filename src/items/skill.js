@@ -1,8 +1,11 @@
 import Task from './task';
-import Stat from '../values/stat';
+import Stat from '../values/rvals/stat';
 import { SKILL } from '../values/consts';
-import Scaler from '../values/scaler';
+import Scaler from '../values/rvals/scaler';
 
+/**
+ * @const {number} EXP_RATIO - ratio of skill experience cap increase.
+ */
 const EXP_RATIO = 0.35;
 
 /**
@@ -13,6 +16,9 @@ const levLength = (n)=>{ return 50*Math.pow( (1+EXP_RATIO), n ) }
 
 export default class Skill extends Task {
 
+	/**
+	 * @property {Scaler} exp
+	 */
 	get exp() { return super.exp; }
 	set exp(v) {
 		if ( this.locked || this.maxed() || (this.buy &&!this.owned) ) return;
@@ -57,6 +63,7 @@ export default class Skill extends Task {
 	/**
 	 * Allow buying a skill even when maxed.
 	 * @param {Game} g
+	 * @returns {boolean}
 	 */
 	canBuy(g){
 
@@ -68,7 +75,9 @@ export default class Skill extends Task {
 
 	}
 
-	changed(g) {
+	changed(g, count) {
+
+		super.changed(g, count);
 
 		if ( this.value > Math.floor(this._max.value) ) {
 			this.value = Math.floor(this.max.value);
@@ -76,8 +85,6 @@ export default class Skill extends Task {
 		}
 
 		this._length += this._length*EXP_RATIO;
-
-		super.changed(g);
 
 	}
 

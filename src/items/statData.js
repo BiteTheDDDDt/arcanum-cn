@@ -58,6 +58,9 @@ export default class StatData extends GData {
 
 	}
 
+	/*amount( g, count ) {
+	}*/
+
 	/**
 	 * Not currently used any more.
 	 * @param {} dt

@@ -60,9 +60,9 @@ export default class Proxy {
 
 	}
 
-	amount( g, amt ) {
+	amount( amt ) {
 
-		if ( this._item ) this._item.amount(g, amt );
+		if ( this._item ) this._item.amount( amt );
 
 	}
 

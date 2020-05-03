@@ -27,6 +27,7 @@ export default {
 		}
 	},
 	beforeCreate(){
+		this.game = Game;
 		this.state = Game.state;
 		this.runner = this.state.runner;
 		this.inv = this.state.getData('inventory');
@@ -40,7 +41,12 @@ export default {
 			this.emit('enchant', it, target )
 
 			this.inv.remove(target);
+			this.target = null;
 
+		},
+
+		clearTarget(){
+			this.target = null;
 		},
 
 		resume(){
@@ -48,7 +54,7 @@ export default {
 		},
 
 		canUseOn( it, targ ) {
-			return targ&&it.canUseOn(targ)&& this.enchantSlots.canAdd(it)&&it.canUse();
+			return targ&&it.canUseOn(targ)&& this.enchantSlots.canAdd(it);
 		}
 
 	},
@@ -56,6 +62,18 @@ export default {
 
 		enchants(){
 			return this.state.filterItems( it=>it.type==='enchant' && !this.locked(it) );
+		},
+
+		/**
+		 * Enchants usable for selected item.
+		 */
+		usable(){
+
+			let t = this.target;
+			if ( !t ) return this.filtered;
+
+			return this.filtered.filter( it=>!it.owned|| this.canUseOn(it, t ) );
+
 		}
 
 	}
@@ -82,24 +100,25 @@ export default {
 		<div class="separate">
 
 		<div class="filtered">
+		<div v-if="target"><button class="stop" @click="clearTarget">X</button>{{ target.name }}</div>
 		<filterbox v-model="filtered" :items="enchants" min-items="7" />
 
 		<div class="enchant-list">
-		<div class='enchant' v-for="it in filtered" :key="it.id" @mouseenter.capture.stop="itemOver( $event,it)">
+		<div class='enchant' v-for="it in usable" :key="it.id" @mouseenter.capture.stop="itemOver( $event,it)">
 
 			<span class="ench-name">{{ it.name }}</span>
 
-			<button v-if="it.buy&&!it.owned" :disabled="!it.canBuy()"
-				@click="emit('buy', it)">Unlock</button>
 
-			<button v-else :disabled="!canUseOn(it,target)"
-				@click="begin(it,target)">Enchant</button>
+			<button v-if="it.buy&&!it.owned" :disabled="!it.canBuy(game)"
+				@click="emit('buy', it)">🔒</button>
+
+			<button v-else @click="begin(it,target)" :disabled="!it.canUse()">Enchant</button>
 
 		</div>
 		</div>
 		</div>
 
-		<inv selecting=true :inv="state.inventory" v-model="target" hide-space="true" />
+		<inv selecting=true :inv="state.inventory" v-model="target" :types="['armor','weapon']" hide-space="true" />
 		</div>
 
 	</div>

@@ -1,4 +1,4 @@
-import {randElm, randFrom, mapNonNull, propSort} from './util/array';
+import {randElm, randFrom, propSort, randWhere} from './util/array';
 
 /**
  * Category to assign items with no property value
@@ -34,28 +34,32 @@ export default class GenGroup {
 	/**
 	 * Get a random item at or below the given level.
 	 * @property {number} level - max item level.
-	 * @property {function} [pred=null] - optional filter predicate.
+	 * @property {(object)=>boolean} pred - optional filter predicate.
 	 * @returns {GData}
 	 */
-	randBelow( level=1, pred) {
+	randBelow( max=1, pred) {
 
 		let levels = this.filterBy.level;
 
-		let st = 1 + Math.floor( Math.random()*level );
-		let i = st;
-
-		var it;
+		let st = 1 + Math.floor( Math.random()*max );
+		let lvl = st;
 
 		do {
 
-			it = randElm( levels[i] );
-			if ( it != null && (!pred || pred(it) ) ) return it;
+			let list = levels[lvl];
+			let it;
+			if ( list ) {
 
-			if ( --i < 0 ) i = level;
+				it = pred ? randWhere( list, pred ) : randElm( list );
+				if ( it ) return it;
 
-		} while ( --level >= 0 );
+			}
 
-		return it;
+			if ( --lvl < 0 ) lvl = max;
+
+		} while ( lvl !== st );
+
+		return null;
 
 	}
 

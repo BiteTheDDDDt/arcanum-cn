@@ -1,7 +1,6 @@
 import {ParseMods } from "modules/parsing";
-import { setModCounts } from "../items/base";
 import { ParseDmg } from "../values/combatVars";
-import { assign, mergeSafe } from 'objecty';
+import { assign } from 'objecty';
 import { ParseFlags, NO_SPELLS, NO_ATTACK, NO_DEFEND } from "./states";
 import { TYP_DOT } from "../values/consts";
 
@@ -17,16 +16,16 @@ export default class Dot {
 
 		return {
 
-			id:this.id,
+			id:this._id,
 			kind:this.kind || undefined,
-			name:this.name || undefined,
+			name:this._name || undefined,
 			dmg:this.damage || undefined,
 			effect:this.effect||undefined,
 			level:this._level||undefined,
-			mod:this.mod||undefined,
+			mod:this._mod||undefined,
 			acc:this.acc||undefined,
 			state:this.state||undefined,
-			adj:this.adj||undefined,
+			adj:this._adj||undefined,
 			flags:this._flags!== 0 ? this._flags : undefined,
 			duration:this.duration,
 			/** @todo source should never be string. maybe on load? */
@@ -39,9 +38,7 @@ export default class Dot {
 	set name(v){this._name =v;}
 
 	get id() { return this._id; }
-	set id(v) {
-		this._id =v;
-	}
+	set id(v) { this._id =v; }
 
 	get mod() { return this._mod; }
 	set mod(v) { this._mod = v; }
@@ -55,9 +52,15 @@ export default class Dot {
 	get adj() { return this._adj || this._name || this._id; }
 	set adj(v) { this._adj = v; }
 
-	get dmg(){return this.damage;}
+	/**
+	 * @property {RValue} dmg - alias for damage.
+	 */
+	get dmg(){return this._damage;}
 	set dmg(v) { this.damage = v; }
 
+	/**
+	 * @property {RValue} damage
+	 */
 	get damage() { return this._damage; }
 	set damage(v) { this._damage = ParseDmg(v); }
 
@@ -105,7 +108,7 @@ export default class Dot {
 
 		this.name = name || ( source ? source.name : null );
 
-		if ( !this.id ) console.error('BAD DOT ID: ' + this.name );
+		if ( !this.id ) console.warn('BAD DOT ID: ' + this.name );
 
 		if ( !this.duration) {
 			this.duration = 0;
@@ -119,13 +122,13 @@ export default class Dot {
 
 			this.mod = ParseMods( this.mod, this.id, this );
 
-			setModCounts( this.mod, this );
+			//SetModCounts( this.mod, this );
 		}
 		if ( !this.flags ) this.flags = 0;
 
-		for( let p in this ) {
+		/*for( let p in this ) {
 			if ( p === 'damage' || p =='dmg') console.log('DOT HAS DAMAGE');
-		}
+		}*/
 
 
 		/**
@@ -149,18 +152,6 @@ export default class Dot {
 		} else if ( duration > this.duration ) {
 			this.duration = duration;
 		}
-
-	}
-
-	/**
-	 * Merge state or dot into this one.
-	 * @param {Dot} st
-	 */
-	mergeDot( st ) {
-
-		console.log('merge dot: ' + st.id );
-		mergeSafe( this, st );
-		this._flags = this._flags | st.flags;
 
 	}
 

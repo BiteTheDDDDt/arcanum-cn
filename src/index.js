@@ -299,6 +299,7 @@ const vm = new Vue({
 
 			this.dispatch('pause');
 
+
 			const reader = new FileReader();
 			reader.onload = (e)=>{
 
@@ -345,7 +346,8 @@ const vm = new Vue({
 
 			try {
 
-				if ( this.game.loaded ) this.renderKey++;
+				//if ( this.game.loaded ) this.renderKey++;
+				this.renderKey++;
 
 				this.game.load( obj, Profile.getHallItems() ).then( this.gameLoaded,
 					e=>console.error( e.message + '\n' + e.stack ) );
@@ -377,6 +379,7 @@ const vm = new Vue({
 		reset(){
 
 			this.dispatch('pause');
+
 			Profile.clearActive();
 			this.setStateJSON(null);
 

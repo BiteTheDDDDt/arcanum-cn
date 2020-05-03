@@ -1,8 +1,12 @@
-import { getTier, schoolSkill, schoolResource, tierDelta, getSchool } from "../values/consts";
 import game from "../game";
+import { schoolResource, getTier, schoolSkill, tierOffset, getSchool} from "../values/craftVars";
+
 
 /**
- * Functions for crafting/buying items.
+ * Add cost to buy object.
+ * @param {object} buy - current buy params.
+ * @param {string} type
+ * @param {number} amt
  */
 export const addCost = ( buy, type, amt ) => {
 
@@ -14,6 +18,10 @@ export const addCost = ( buy, type, amt ) => {
 
 };
 
+/**
+ * Cost to buy an npc.
+ * @param {*} m
+ */
 export const npcCost = (m)=>{
 
 	let lvl = m.level;
@@ -36,6 +44,7 @@ export const npcCost = (m)=>{
 }
 
 /**
+ * CURRENTLY UNUSED.
  * kind cost for npc.
  * @param {Npc} m - npc
  * @param {object} [buy={}] existing buy cost.
@@ -57,13 +66,14 @@ export const npcKindBuy = (m, buy={}, kind=null)=>{
 		let school = schoolSkill( kind );
 		let res = schoolResource( school );
 
-		addCost( buy, res, m.level - tierDelta(m.level) + 1 );
+		addCost( buy, res, m.level - tierOffset(m.level) + 1 );
 
 	}
 
 }
 
 /**
+ * CURRENTLY UNUSED.
  * Biome cost for npc.
  * @param {Npc} m - npc
  * @param {object} [buy={}] existing buy cost.
@@ -88,9 +98,9 @@ export const biomeBuy = (m, buy={}, biome=null)=>{
 
 /**
  * Buy object for a school
- * @param {Npc} m - object containing school.
+ * @param {string} school - object containing school.
  * @param {object} [buy={}] existing buy cost.
- * @param {string} kind - current kind being processed. (for arr recursion)
+ * @param {number} [level=1] - level of object being bought.
  */
 export const schoolBuy = (school, buy={}, level=1 )=>{
 
@@ -106,7 +116,7 @@ export const schoolBuy = (school, buy={}, level=1 )=>{
 		school = getSchool( school );
 		let res = schoolResource( school, level );
 
-		addCost( buy, res, level - tierDelta( level) + 1 );
+		addCost( buy, res, level - tierOffset( level) + 1 );
 
 	}
 
@@ -148,7 +158,7 @@ export const schoolCost = ( school, level=1, res={} ) => {
 
 	} else if ( school != null ) {
 
-		addCost( res, school + 'gem', level*level );
+		addCost( res, school + 'gem', Math.min(level,5)*level );
 
 		if ( level <= 5 ) addCost( res, 'codices', level );
 		else addCost( res, 'tomes', level = 5 );

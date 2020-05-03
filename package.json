@@ -1,6 +1,6 @@
 {
   "name": "wizrobe",
-  "version": "1.0.0",
+  "version": "0.8.0",
   "description": "theory of magic",
   "main": "index.js",
   "scripts": {
@@ -19,27 +19,27 @@
     "url": "https://github.com/lerpinglemur/webpack-template/issues"
   },
   "devDependencies": {
-    "copy-webpack-plugin": "^5.0.5",
-    "css-loader": "^3.2.0",
+    "copy-webpack-plugin": "^5.1.1",
+    "css-loader": "^3.5.3",
     "html-webpack-plugin": "^3.2.0",
     "jszip": "^3.2.2",
     "lodash": "^4.17.15",
     "style-loader": "^0.23.1",
-    "ts-loader": "^6.2.1",
-    "typescript": "^3.7.5",
-    "vue-loader": "^15.7.2",
-    "vue-template-compiler": "^2.6.10",
-    "webpack": "^4.40.2",
-    "webpack-cli": "^3.3.9",
+    "ts-loader": "^6.2.2",
+    "typescript": "^3.8.3",
+    "vue-loader": "^15.9.2",
+    "vue-template-compiler": "^2.6.11",
+    "webpack": "^4.43.0",
+    "webpack-cli": "^3.3.11",
     "workbox-build": "^4.3.1",
     "workbox-webpack-plugin": "^4.3.1",
     "zip-webpack-plugin": "^3.0.0"
   },
   "dependencies": {
     "eventemitter3": "^3.1.2",
-    "firebase": "^7.7.0",
     "stripe": "^8.9.0",
-    "objecty": "^1.0.2",
-    "vue": "^2.6.10"
+    "firebase": "^7.14.2",
+    "objecty": "^1.0.3",
+    "vue": "^2.6.11"
   }
 }

@@ -1,5 +1,5 @@
-import FValue from "./fvalue";
-import RValue from "./rvalue";
+import FValue from "./rvals/fvalue";
+import RValue from "./rvals/rvalue";
 import Range, { RangeTest } from "./range";
 import Events, { IS_IMMUNE, CHAR_DIED, COMBAT_HIT, EVT_COMBAT } from "../events";
 import { TYP_FUNC } from "./consts";
@@ -127,12 +127,50 @@ export const Targets = {
 };
 
 /**
+ * @param {Char[]} a - array of targets.
+ * @returns {Char} next attack target
+ */
+export const RandTarget = (a) => {
+	return a[Math.floor( Math.random()*a.length)];
+}
+
+/**
+ * @param {*} a
+ * @returns {Char} highest priority ( lowest index ) living target.
+ */
+export const PrimeTarget = (a) => {
+	for( let i = 0; i<a.length; i++ ) {
+		if ( a[i].alive ) return a[i];
+	}
+}
+
+/**
+ * @param {Char[]} a - array of targets.
+ * @returns {Char} next attack target
+ */
+export const NextTarget = ( a ) => {
+
+	for( let i = a.length-1; i>=0; i-- ) {
+		if ( a[i].alive ) return a[i];
+	}
+}
+
+
+/**
  * Parse string target into integer target for flag checking.
  * @param {string|string[]} s
+ * @returns {number}
  */
 export const ParseTarget = (s)=>{
 
-	return Targets[s] || Targets.enemy;
+	let a = s.split(',');
+	let t = 0;
+	for( let i = a.length-1; i>=0; i-- ) {
+
+		t |= ( Targets[ a[i] ] || 0 );
+	}
+
+	return t || Targets.enemy;
 
 }
 
@@ -169,27 +207,35 @@ export const ParseDmg = (v)=>{
 * Apply an attack. Attack is already assumed to have hit, but immunities,
 * resistances, can still be applied.
 * @param {Char} target
-* @param {Object} attack
+* @param {Object} action
 */
-export const ApplyAction = ( target, attack, attacker = null) => {
+export const ApplyAction = ( target, action, attacker = null) => {
 
 	if ( !target || !target.alive ) return;
-	if ( target.isImmune(attack.kind) ) {
+	if ( target.isImmune(action.kind) ) {
 
-		Events.emit( IS_IMMUNE, target.name + ' IMMUNE to ' + attack.kind );
+		Events.emit( IS_IMMUNE, target, action.kind );
 		return false;
 	}
 
-	if ( attack.damage ) ApplyDamage( target, attack, attacker );
-	if ( attack.cure ) {
-		console.log('CURE: ' + attack.cure );
-		target.cure( attack.cure );
+
+	if ( action.damage ) ApplyDamage( target, action, attacker );
+	if ( action.cure ) {
+
+		target.cure( action.cure );
 	}
-	if ( attack.state ) {
-		target.addDot( attack.state, attack );
+	if ( action.state ) {
+		target.addDot( action.state, action );
 	}
 
-	if ( attack.dot ) { target.addDot( attack.dot, attack ); }
+	if ( action.result ) {
+		//console.log('APPLY ON: '+ target.name );
+		//if ( attacker && action.name ) Events.emit(EVT_COMBAT, attacker.name + ' uses ' + action.name );
+		target.applyVars( action.result );
+	}
+	if ( action.dot ) {
+		target.addDot( action.dot, action );
+	}
 
 	return true;
 
@@ -232,7 +278,7 @@ export const ApplyDamage = ( target, attack, attacker ) => {
 
 	if ( attack.leech && attacker && dmg > 0 ) {
 		let amt = Math.floor(100 * attack.leech * dmg) / 100;
-		attacker.hp += amt;
+		attacker.hp +=( amt );
 		Events.emit(EVT_COMBAT, null, attacker.name + ' steals ' + amt + ' life');
 	}
 

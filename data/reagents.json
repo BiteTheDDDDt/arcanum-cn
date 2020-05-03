@@ -8,6 +8,16 @@
 		"flavor":""
 	},
 	{
+		"id":"sulphur",
+		"desc":"principle of fire.",
+		"max":10
+	},
+	{
+		"id":"mercury",
+		"desc":"principle of metal.",
+		"max":10
+	},
+	{
 		"id":"icethorn",
 		"tags":"herb,reagent",
 		"desc":"",
@@ -39,17 +49,17 @@
 	},
 	{
 		"id":"grimwort",
-		"desc":"",
+		"desc":"A morbid plant that only blooms in crypts and graveyards.",
 		"flavor":""
 	},
 	{
 		"id":"manabell",
-		"desc":"the faintly glowing bulbs grow from ponds near ley-lines.",
+		"desc":"Mages search the ponds by ley-lines for its faintly glowing bulbs.",
 		"flavor":""
 	},
 	{
 		"id":"foxfire",
-		"desc":"",
+		"desc":"Found at night in deep forests, glowing on the roots and trunks of trees.",
 		"flavor":""
 	},
 	{
@@ -61,13 +71,13 @@
 	{
 		"id":"vikaroot",
 		"name":"vika root",
-		"desc":"legend holds there is only a single vika plant, its buried roots spanning hundreds of thousands of miles.",
-		"flavor":""
+		"desc":"Its roots drive so deep that none have found their source.",
+		"flavor":"Druids claim all vika root are a single great plant, rooted at the world's center."
 	},
 	{
 		"id":"bloodgrass",
 		"name":"blood grass",
-		"desc":"cuts from its razor sharp blades provide the only sustenance it requires."
+		"desc":"Blood drawn from its sharp blades are all the sustenance it requires."
 
 	},
 	{
@@ -85,16 +95,28 @@
 		"flavor":""
 	},
 	{
+
+		"id":"marigold",
+		"tags":"herb,reagent",
+		"desc":"A bright and cheerful spring bloom."
+	},
+	{
 		"id":"lavender",
 		"tags":"herb,reagent",
 		"desc":"",
-		"flavor":"noone actually knows what lavender does."
+		"flavor":"Noone actually knows what lavender does."
 	},
 	{
 		"id":"oleander",
 		"tags":"herb,reagent,poison",
-		"desc":"",
+		"desc":"Such a delicate bloom for such deadly poison.",
 		"flavor":""
+	},
+	{
+		"id":"crocodiletears",
+		"name":"crocodile tears",
+		"tags":"reagent",
+		"desc":"Tears without remorse"
 	},
 	{
 		"id":"eyeofnewt",
@@ -105,7 +127,7 @@
 		"id":"dragonscale",
 		"tags":"reagent",
 		"name":"dragon scales",
-		"desc":"plucked from a living dragon.",
-		"flavor":"the plucker might not still be living."
+		"desc":"Plucked from a living dragon.",
+		"flavor":"The plucker might not still be living."
 	}
 ]

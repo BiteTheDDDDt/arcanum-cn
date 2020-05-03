@@ -2,25 +2,25 @@ import GData from './items/gdata';
 import Log from './log.js';
 import GameState, { REST_SLOT } from './gameState';
 import ItemGen from './modules/itemgen';
-import TechTree, { Changed } from './techTree';
+import TechTree, { Changed, GetChanged } from './techTree';
 import Resource from './items/resource';
 import Skill from './items/skill';
-import Stat from './values/stat';
+import Stat from './values/rvals/stat';
 
 import DataLoader from './dataLoader';
 
-import Events, {EVT_EVENT, EVT_LOOT, SET_SLOT, DELETE_ITEM, CHAR_ACTION } from './events';
+import Events, {EVT_EVENT, EVT_LOOT, SET_SLOT, DELETE_ITEM } from './events';
 import { MONSTER, TYP_PCT, TYP_RANGE, P_TITLE, P_LOG, TEAM_PLAYER, ENCHANTSLOTS, WEAPON } from './values/consts';
 import TagSet from './composites/tagset';
-import { TARGET_SELF, TARGET_ALLY } from './values/combatVars';
-import RValue from './values/rvalue';
+import RValue from './values/rvals/rvalue';
+import { SetModCounts } from './items/base';
 
 var techTree;
 
 /**
  * @constant {number} TICK_TIME - time in milliseconds between updates.
  */
-export const TICK_TIME = 200;
+export const TICK_TIME = 150;
 
 /**
  * @constant {number} TICK_LEN - time between frames in seconds.
@@ -90,6 +90,7 @@ export default {
 		this.loaded = false;
 		this.state = null;
 		this._gdata = null;
+		this.runner = null;
 		this.log.clear();
 
 	},
@@ -107,12 +108,12 @@ export default {
 		// Code events. Not game events.
 		Events.init(this);
 
-		this.runner = null;
-
 		return this.loader = DataLoader.loadGame( saveData ).then( allData=>{
 
 			this.state = new GameState( allData, saveData );
 			this.state.revive();
+
+			this.player.context = this;
 
 			this.itemGen = new ItemGen( this );
 
@@ -122,16 +123,16 @@ export default {
 
 			if ( hallData ) this.addData( hallData );
 
+			this.recalcSpace();
+
 			this.recheckTiers();
 			this.restoreMods();
-
-			this.recalcSpace();
 
 			techTree = new TechTree( this.gdata );
 			//Events.add( EVT_UNLOCK, techTree.unlocked, techTree );
 			//Events.add( CHAR_ACTION, this.onCharAction, this );
 
-			// initial fringe check.
+			// initial unlocks/usables check.
 			techTree.forceCheck();
 
 			//Events.add( DROP_ITEM, this.state.deleteInstance, this.state );
@@ -247,13 +248,13 @@ export default {
 
 	/**
 	 * Recalculate amount of space used by items.
+	 * @compat @deprecated
 	 */
 	recalcSpace(){
 
-		let used = 0;
-
 		let space = this.state.getData('space');
-		space.value = used;
+		space.value = 0;
+		SetModCounts( space.mod, space.value );
 
 	},
 
@@ -282,7 +283,7 @@ export default {
 		this.state.setSlot( it.slot, it );
 
 		this.payCost( it.cost );
-		it.amount( this );
+		it.amount( 1 );
 
 	},
 
@@ -291,6 +292,21 @@ export default {
 	 */
 	update() {
 
+		let changed = GetChanged();
+
+		for( let it of changed ) {
+
+			var del = it.delta;
+			if ( del !== 0 ) {
+				if ( !it.changed) console.log('NO CHANGE: ' + it.id );
+				else it.changed( this, del );
+			}
+
+		}
+
+		techTree.updateTech( changed );
+
+		//console.log('CHANGE SIZE: ' + Changed.size );
 		let time = Date.now();
 		let dt = Math.min( ( time - this.lastUpdate )/1000, 1 );
 		this.lastUpdate = time;
@@ -304,11 +320,6 @@ export default {
 		this.doResources( this.state.playerStats, dt );
 		this.doResources( this.state.stressors, dt );
 
-		//console.log('CHANGE SIZE: ' + Changed.size );
-		techTree.updateTech();
-
-		Changed.clear();
-
 	},
 
 	/**
@@ -317,16 +328,18 @@ export default {
 	 */
 	doResources( stats, dt ) {
 
-		let len = stats.length, stat;
-		for( let i = len-1; i >= 0; i-- ) {
+		for( let i = stats.length-1; i >= 0; i-- ) {
 
-			stat = stats[i];
+			let stat = stats[i];
 			if ( stat.locked === false && !stat.disabled ) {
 
 				if  ( stat.rate.value !== 0 ) {
 
-					stat.amount(this, stat.rate.value*dt);
+					stat.amount( stat.rate.value*dt);
 
+				}
+				if ( stat.effect ) {
+					this.applyVars( stat.effect, dt );
 				}
 
 			}
@@ -402,14 +415,13 @@ export default {
 				}
 
 				if ( it.running ) this.runner.stopTask(it);
-				if ( it == this.state.raid.dungeon ) this.state.raid.setDungeon(null);
 
 				if ( it instanceof Resource || it instanceof Skill ) {
 					this.remove( it, it.value);
 
 				} else if ( it.mod ) {
 					//console.log('REMOVING MOD: ' + it.id + ' --> ' + it.value );
-					this.removeMod( it.mod, it.value );
+					this.removeMods( it.mod, it.value );
 				}
 
 			}
@@ -481,19 +493,19 @@ export default {
 
 		if ( !this.canUse(it) ) return false;
 
+		if ( it.buy && !it.owned ) {
+			return this.tryBuy( it, false );
+		}
+
 		if ( it.perpetual || it.length > 0 ) {
 
 			this.setTask(it);
 
 		}  else if ( it.instanced ){
 
-			it.onUse( this );
+			if ( it.count > 0 ) it.onUse( this );
 
-		} else if ( it.buy && !it.owned ) {
-
-			this.tryBuy( it, false );
-
-		} else {
+		} else  {
 
 			if ( it.isRecipe ) {
 
@@ -504,7 +516,7 @@ export default {
 				if ( it.slot ) this.setSlot( it );
 				else {
 					this.payCost( it.cost );
-					it.amount( this );
+					it.amount( 1 );
 				}
 			}
 
@@ -544,6 +556,15 @@ export default {
 		this.create( it );
 
 	},
+
+	/**
+	 * Get target of spell or action.
+	 * @param {Char} char
+	 * @param {string} targets
+	 * @returns {Char|Char[]|null}
+	 */
+	/*getTarget( char, targets ) {
+	},*/
 
 	/**
 	 * Create an item whose cost has been met ( or been provided by an effect )
@@ -627,8 +648,6 @@ export default {
 			}
 		}
 
-		return false;
-
 	},
 
 	/**
@@ -645,7 +664,6 @@ export default {
 		if ( typeof it.useOn === 'function') it.useOn( targ, this );
 		it.value++;
 
-		console.log('USING: ' + it.id  + ' with ' + targ.id );
 		if ( it.mod ) {
 			targ.permVars( it.mod );
 		}
@@ -667,12 +685,12 @@ export default {
 		} else {
 
 			if ( !it.max ) {
-				it.amount( this, 1 );
+				it.amount( 1 );
 				return;
 			}
 
 			let del = it.max.value - it.value;
-			if ( del > 0) it.amount( this, it.max.value - it.value );
+			if ( del > 0) it.amount( it.max.value - it.value );
 		}
 
 	},
@@ -707,14 +725,14 @@ export default {
 
 		if ( count > it.value ) count = it.valueOf();
 
-		this.getData('gold').value += count*this.sellPrice(it);
+		this.getData('gold').amount( count*this.sellPrice(it) );
 
 		if ( it.instanced ) {
 
-			it.value -= count;
+			it.count -= count;
 
 			//console.log('remainig: ' + it.value );
-			if ( inv && (!it.stack || it.value <= 0) ) inv.remove( it );
+			if ( inv && (!it.stack || it.count <= 0) ) inv.remove( it );
 
 		} else this.remove(it,count);
 
@@ -773,7 +791,7 @@ export default {
 	 */
 	unlockTest( test, item=null ) {
 
-		if ( !test ) {
+		if ( test === null || test === undefined ) {
 			console.warn('test not found: ' + test + ' : ' + item );
 			return true;
 		}
@@ -787,7 +805,7 @@ export default {
 
 			// test that another item is unlocked.
 			let it = this.getData(test);
-			return it && it.fillsRequire();
+			return it && it.fillsRequire(this);
 
 		} else if (  Array.isArray(test) ) {
 
@@ -800,7 +818,7 @@ export default {
 			/**
 			 * @todo: quick patch in case it was a data item.
 			 */
-			if ( test.id ) return test.fillsRequire();
+			if ( test.id ) return test.fillsRequire(this);
 
 			// @todo: take recursive values into account.
 			// @todo allow tag tests.
@@ -846,11 +864,11 @@ export default {
 				} else {
 
 					if ( typeof e === 'number' || e.type === TYP_RANGE ) {
-
-						target.amount( this, e*dt );
+						target.amount( e*dt );
 					} else if ( e.isRVal ) {
+
 						// messy code. this shouldn't be here. what's going on?!?!
-						target.amount( this, dt*e.getApply(this.state, target ) );
+						target.amount( dt*e.getApply( target ) );
 
 					} else if ( e === true ) {
 
@@ -859,7 +877,7 @@ export default {
 
 					} else if ( e.type === TYP_PCT ) {
 
-						if ( e.roll( this.getData('luck').valueOf() ) ) target.amount( this, 1 );
+						if ( e.roll( this.getData('luck').valueOf() ) ) target.amount( 1 );
 
 					} else target.applyVars(e,dt);
 
@@ -871,7 +889,7 @@ export default {
 
 			let target = this.getData(vars);
 			if ( target !== undefined ) {
-				target.amount( this, dt );
+				target.amount( dt );
 			}
 
 		}
@@ -881,10 +899,42 @@ export default {
 	/**
 	 *
 	 * @param {Object} mod
-	 * @param {number} amt
 	 */
-	removeMod( mod, amt=1 ) {
-		this.applyMods( mod, -amt);
+	removeMods( mod ) {
+
+		if ( !mod ) return;
+
+		if ( Array.isArray(mod)  ) {
+			for( let m of mod ) this.removeMods(m );
+		} else if ( typeof mod === 'object' ) {
+
+			for( let p in mod ) {
+
+				var target = this.getData( p );
+				if ( target === undefined || target === null ) continue;
+				else {
+
+					if ( target.removeMods) {
+
+						target.removeMods( mod[p] );
+
+					} else console.warn( 'no removeMods(): ' + target );
+
+				}
+			}
+
+		} else if ( typeof mod === 'string') {
+
+			let t = this.getData(mod);
+			if ( t ) {
+
+				console.warn('!!! REMOVE NUM MOD: ' + mod );
+				t.amount( -1 );
+
+			}
+
+		}
+
 	},
 
 	/**
@@ -903,7 +953,7 @@ export default {
 			for( let p in mod ) {
 
 				var target = this.getData( p );
-				if ( target === undefined ) continue;
+				if ( target === undefined || target === null ) continue;
 				else if ( mod[p] === true ){
 
 					target.doUnlock(this);
@@ -925,7 +975,7 @@ export default {
 			if ( t ) {
 
 				console.warn('!!!!!!!!!!ADDED NUMBER MOD: ' + mod );
-				t.amount( this, 1 );
+				t.amount( 1 );
 
 			}
 
@@ -955,28 +1005,6 @@ export default {
 		if ( !it.canUse ) console.error( it.id + ' no canUse()');
 		else return it.canUse( this );
 	},
-
-	/**
-	 * Item action or attack
-	 * @param {Attack} act
-	 * @param {Char} char
-	 */
-	/*onCharAction( act, char=this.player ) {
-
-		if ( this.state.explore.running || this.state.raid.running ) return;
-
-		if ( act.target & TARGET_SELF > 0 ) {
-
-			ApplyAction( char, act, char );
-
-		} else if ( act.target & TARGET_ALLY ) {
-
-			let ally = this.allies.randItem();
-			if ( ally ) ApplyAction( ally, act, char );
-
-		}
-
-	},*/
 
 	/**
 	 * Attempts to pay the cost to perform an task, buy an upgrade, etc.
@@ -1070,6 +1098,7 @@ export default {
 	 */
 	canPay( cost, amt=1 ) {
 
+		// @note @todo: this doesnt work since some items might charge same cost.
 		if (Array.isArray(cost) ) return cost.every( v=>this.canPay(v,amt), this );
 
 		let res;
@@ -1111,6 +1140,7 @@ export default {
 	 * @param {object} parent - parent object.
 	 * @param {object|number} cost - cost expected on parent or sub.
 	 * @param {number} amt - cost multiplier.
+	 * @returns {boolean}
 	 */
 	canPayObj( parent, cost, amt=1 ){
 
@@ -1143,6 +1173,7 @@ export default {
 	 * Test if equip is possible. ( Must have space in inventory
 	 * for any items replaced. )
 	 * @param {*} it
+	 * @returns {boolean}
 	 */
 	canEquip(it) {
 
@@ -1159,9 +1190,11 @@ export default {
 	 */
 	equip( it, inv=null ) {
 
-		if ( !this.canEquip(it) ) return false;
+		if ( !this.canEquip(it) ) {
+			console.log('equip: ' + it.id  + ' type: ' + it.type + ' kind: ' + it.kind );
+			return false;
+		}
 
-		console.log('equip: ' + it.id  + ' type: ' + it.type + ' kind: ' + it.kind );
 		let res = this.state.equip.equip( it );
 		if ( !res) return;
 
@@ -1228,14 +1261,12 @@ export default {
 
 		if ( !it) return null;
 
-		console.log('LOOTING: ' + it.id );
+		//console.log('LOOT: ' + it.id );
 
 		inv = inv || this.state.inventory;
 		if ( inv.full() ) inv = this.state.drops;
 
 		if ( typeof it === 'object' && it.stack ) {
-
-			console.log('ADDING INVENTORY: ' + inv.id );
 
 			if ( inv.addStack( it ) ) {
 				Events.emit( EVT_LOOT, it );

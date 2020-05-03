@@ -9,8 +9,9 @@ export default {
 	 * @property {Inventory} inv - the inventory object.
 	 * @property {boolean} take - whether to display take button.
 	 * @property {boolean} selecting - inventory is selection only. sell-all & size information hidden.
+	 * @property {string[]} types - item types to display.
 	 */
-	props:['inv', 'take', 'value', 'selecting', 'nosearch', 'hideSpace'],
+	props:['inv', 'take', 'value', 'selecting', 'nosearch', 'types'],
 	data() {
 		return {
 			filtered:null
@@ -53,6 +54,16 @@ export default {
 	},
 	computed:{
 
+		baseItems(){
+
+			let types = this.types;
+			if ( this.types ) {
+				return this.inv.items.filter(it=>this.types.includes(it.type));
+			}
+			return this.inv.items;
+
+		},
+
 		playerInv(){ return this.inv === Game.state.inventory; },
 		playerFull(){ return Game.state.inventory.full(); }
 	}
@@ -65,35 +76,33 @@ export default {
 <div class="inventory">
 
 	<span class="top">
-	<filterbox ref="filter" v-if="!nosearch" v-model="filtered" :items="inv.items" min-items="7" />
+	<filterbox ref="filter" v-if="!nosearch" v-model="filtered" :items="baseItems" min-items="7" />
 	<span v-if="!selecting">
-		<span v-if="inv.max>0&&!hideSpace">{{ inv.items.length + ' / ' + Math.floor(inv.max.value ) + ' Used' }}</span>
+		<span v-if="inv.max>0">{{ inv.items.length + ' / ' + Math.floor(inv.max.value ) + ' Used' }}</span>
 		<button v-if="inv.count>0" @click="sellAll">Sell All</button>
 	</span>
 	</span>
 
 	<div class="item-table">
 
-	<tr class="separate" v-for="it in ( nosearch ? inv.items : filtered )" :key="it.id">
-		<td @mouseenter.capture.stop="itemOver($event,it)">{{ it.name + count(it) }}</td>
+	<div class="item separate" v-for="it in ( nosearch ? baseItems : filtered )" :key="it.id">
+		<span class="item-name" @mouseenter.capture.stop="itemOver($event,it)">{{ it.name + count(it) }}</span>
 
 
 		<template v-if="!selecting">
 
-			<td v-if="it.equippable"><button @click="emit('equip',it, inv)">Equip</button></td>
-			<td v-if="it.use" @mouseenter.capture.stop="itemOver($event,it)"><button @click="emit( USE, it, inv)">Use</button></td>
-			<td v-if="take&&canAdd(it)"><button @click="onTake(it)">Take</button></td>
+			<button v-if="it.equippable" class="item-action" @click="emit('equip',it, inv)">Equip</button>
+			<button v-if="it.use" class="item-action" @mouseenter.capture.stop="itemOver($event,it)" @click="emit( USE, it, inv)">Use</button>
+			<button v-if="take&&canAdd(it)" class="item-action" @click="onTake(it)">Take</button>
 
-			<td>
-			<button @click="emit('sell',it,inv)" @mouseenter.capture.stop="itemOver($event,it)">Sell</button>
-			<button v-if="it.value>1" @click="emit('sell',it,inv, it.value)" @mouseenter.capture.stop="itemOver($event,it)">Sell All</button>
-				<!--<button v-else @click="drop(it)">Drop</button>--></td>
+			<button class="item-action"  @click="emit('sell',it,inv)" @mouseenter.capture.stop="itemOver($event,it)">Sell</button>
+			<button v-if="it.value>1" class="item-action"  @click="emit('sell',it,inv, it.value)" @mouseenter.capture.stop="itemOver($event,it)">Sell All</button>
 
 		</template>
 		<template v-else>
-			<td><button @click="$emit('input', it)">Select</button></td>
+			<button class="item-action"  @click="$emit('input', it)">Select</button>
 		</template>
-	</tr>
+	</div>
 </div>
 
 <div v-if="playerFull" class="warn-text">Inventory Full</div>
@@ -103,7 +112,7 @@ export default {
 
 <style scoped>
 
-div.inventory {
+.inventory {
 	display:flex;
 	flex-direction: column;
 	width:100%;
@@ -111,22 +120,23 @@ div.inventory {
 	min-height: 0;
 }
 
-div.inventory .top {
+.top {
 	padding: var(--tiny-gap);
 	padding-top: var(--sm-gap);
 }
 
-div.inventory .filter-box {
+.filter-box {
 	display:inline;
 	font-size: 0.9rem;
 }
 
-div.inventory .table-div {
+/*.table-div {
 	display: grid; grid-template-columns: 1fr 1fr;
 	flex-grow: 1;
 	height:100%;
-}
-div.inventory .item-table {
+}*/
+
+.item-table {
 	flex-grow: 1;
 	flex-shrink: 1;
 		overflow-y: auto;
@@ -138,12 +148,16 @@ div.inventory .item-table {
 
     }
 
-div.inventory .item-table tr {
+.item-name {
+	flex-grow: 1;
+}
+
+.item-table .item {
+	margin: var(--sm-gap);
         padding: var(--sm-gap); align-items: center;
     }
-div.inventory .item-table tr :first-child { flex: 1; }
-div.inventory .item-table tr button { margin: var(--tiny-gap); }
-div.inventory .item-table td { display: flex; padding: 0; }
+
+.item .item-action { margin: var(--tiny-gap); }
 
 
 </style>
