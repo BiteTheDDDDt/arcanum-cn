@@ -367,6 +367,7 @@
 		"cost":10000,
 		"require":"(g.oracle+g.seer)>0",
 		"mod":{
+			"composure.max":1,
 			"virtue.rate":0.001,
 			"arcana.rate":0.001,
 			"minions.max":8,

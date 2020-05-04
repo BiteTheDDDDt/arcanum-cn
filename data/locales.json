@@ -207,7 +207,8 @@
 		"enc_mirror1",
 		"enc_mirror2",
 		"enc_mirror3",
-		"enc_mirrorhall"
+		"enc_mirrorhall",
+		"enc_voidmirror"
 	]
 },
 {

@@ -1207,7 +1207,7 @@
 	{
 
 		"id":"abstraction",
-		"desc":"a wizard's power is the sum of their knowledge",
+		"desc":"A wizard's power is the sum of their knowledge",
 		"require":"g.lore>=14",
 		"cost":{
 			"research":1000,
@@ -1541,13 +1541,14 @@
 		"id":"innerlight",
 		"name":"inner light",
 		"require":"(g.oracle+g.seer)>0&&g.divination>=8",
-		"desc":"a light in the darkness",
+		"desc":"A light in the darkness",
 		"cost":{
-			"research":300,
-			"lightgem":5,
-			"arcana":1
+			"research":500,
+			"lightgem":10,
+			"arcana":2
 		},
 		"mod":{
+			"composure.max":1,
 			"lightlore.rate":"10%",
 			"hp.rate":0.3,
 			"player.resist.light":5
@@ -1563,6 +1564,7 @@
 			"arcana":3
 		},
 		"mod":{
+			"composure.max":1,
 			"player.defense":2,
 			"dodge":2
 		}
@@ -1571,7 +1573,7 @@
 	{
 		"id":"truesight",
 		"require":"(g.seer+g.oracle)>0&&g.tier4>0",
-		"desc":"immunity to mortal deceptions.",
+		"desc":"Immunity to mortal deceptions.",
 		"cost":{
 			"tomes":5,
 			"research":1000,
@@ -1580,6 +1582,7 @@
 		"warn":true,
 		"disable":"trickery",
 		"mod":{
+			"composure.max":1,
 			"lightlore.max":1,
 			"scrying.max":1,
 			"divination.max":1,
@@ -1593,7 +1596,7 @@
 	{
 		"id":"fatalist",
 		"require":"(g.seer+g.oracle)>0&&g.tier5>0&&g.truesight>0",
-		"desc":"the guiding hand of fate.",
+		"desc":"The guiding hand of fate.",
 		"cost":{
 			"tomes":20,
 			"research":2000,
@@ -2108,7 +2111,7 @@
 	{
 		"id":"mendicant",
 		"desc":"Sacrifice luxury for higher attainments.",
-		"need":"g.evil<=0&&g.gold.max>1000&&g.light.max>5",
+		"need":"g.evil<=0&&g.gold.max>1000&&g.light.max>7",
 		"warn":true,
 		"mod":{
 			"fame":10,
