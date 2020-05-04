@@ -153,6 +153,7 @@
 		"mod":{
 			"inv.max":2,
 			"prismaticgems.max":10,
+			"tapestries.max":3,
 			"gembox.max":5,
 			"gold.max":1800,
 			"gems.max":20,
@@ -172,6 +173,7 @@
 		"mod":{
 			"inv.max":3,
 			"prismaticgems.max":20,
+			"tapestries.max":5,
 			"gembox.max":10,
 			"gold.max":4000,
 			"gems.max":50,
@@ -822,6 +824,7 @@
 			"gold":250
 		},
 		"mod":{
+			"tapestries.max":3,
 			"souls.max":1,
 			"spiritgem.max":2,
 			"spirit.max":1,
@@ -876,6 +879,7 @@
 			"gold":400
 		},
 		"mod":{
+			"tapestries.max":1,
 			"inv.max":1,
 			"player.defense":1,
 			"player.tohit":1,
@@ -928,6 +932,7 @@
 			"research":400
 		},
 		"mod":{
+			"tapestries.max":4,
 			"scrolls.max":50,
 			"tomes.max":20,
 			"codices.max":50,
@@ -1031,6 +1036,7 @@
 			"research":100
 		},
 		"mod":{
+			"tapestries.max":1,
 			"starcharts.max":50,
 			"codices.max":100,
 			"lore.rate":0.2,
@@ -1050,6 +1056,7 @@
 			"research":1000
 		},
 		"mod":{
+			"tapestries.max":3,
 			"tomes.rate":0.002,
 			"codices.rate": -0.001,
 			"starcharts.max":50,
@@ -1234,6 +1241,7 @@
 			"gold":5000
 		},
 		"mod":{
+			"tapestries.max":5,
 			"minions.max":"10%",
 			"allies.max":"10%",
 			"space":50
@@ -1310,6 +1318,7 @@
 			"research":250
 		},
 		"mod":{
+			"tapestries.max":1,
 			"dissection.max":3,
 			"dissection.rate":0.4,
 			"shadow.max":5,
@@ -1350,6 +1359,7 @@
 			"research":2500
 		},
 		"mod":{
+			"tapestries.max":1,
 			"sp.rate":0.001,
 			"ichor.rate":0.0005,
 			"liquifier.mod.managem.rate":"10%",
@@ -1368,6 +1378,7 @@
 			"research":750
 		},
 		"mod":{
+			"tapestries.max":2,
 			"starcharts.max":50,
 			"codices.max":400,
 			"tomes.max":75,
@@ -1389,6 +1400,7 @@
 			"research":10000
 		},
 		"mod":{
+			"tapestries.max":3,
 			"tomes.rate":0.01,
 			"starcharts.max":50,
 			"tomes.mod.research.max":"3%",
@@ -1505,9 +1517,13 @@
 		"tags":"prison",
 		"cost":{
 			"research":5000,
-			"arcana":5
+			"gold":500,
+			"bodies":5,
+			"bones":20,
+			"arcana":1
 		},
 		"mod":{
+			"tapestries.max":2,
 			"bodies.max":25,
 			"bones.max":30,
 			"bonedust.max":20,
@@ -1526,6 +1542,7 @@
 			"gold":1000
 		},
 		"mod":{
+			"tapestries.max":1,
 			"bodies.max":20,
 			"bones.max":20,
 			"shadowlore.max":1,

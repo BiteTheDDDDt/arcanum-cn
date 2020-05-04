@@ -740,13 +740,25 @@
 
 	},
 	{
-		"id":"enc_mirror3",
-		"name":"mirror of foretelling.",
+		"id":"enc_futuremirror",
+		"name":"mirror of foretelling",
 		"desc":"Visions of the future play in your reflection.",
 		"effect":{
 			"divination.exp":1,
 			"madness":"1~3",
 			"unease":"2~3"
+		},
+		"result":{
+
+		}
+
+	},
+	{
+		"id":"enc_rageemirror",
+		"name":"seething mirror",
+		"desc":"The glass fixes your gaze and stokes your wrath.",
+		"effect":{
+			"rage":"4~5"
 		},
 		"result":{
 
