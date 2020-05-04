@@ -781,6 +781,28 @@
 
 	},
 	{
+		"id":"enc_pastmirror",
+		"name":"mirror of history",
+		"desc":"The mirror shows scenes from long ago.",
+		"effect":{
+			"history.exp":1,
+			"bf":"1~2",
+			"unease":"1~2"
+		}
+
+	},
+	{
+		"id":"enc_farmirror",
+		"name":"a distant mirror",
+		"desc":"The mirror shows scenes from far away.",
+		"effect":{
+			"scrying.exp":1,
+			"travel.exp":1,
+			"bf":"1~2"
+		}
+
+	},
+	{
 
 		"id":"enc_sandstorm",
 		"name":"sandstorm",

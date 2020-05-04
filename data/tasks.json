@@ -1130,6 +1130,23 @@
 	},
 	{
 
+		"id":"weavetapestry",
+		"name":"weave tapestry",
+		"require":"g.enchanting>0&&g.weaving>=4",
+		"length":10,
+		"fill":"tapestries",
+		"run":{
+			"gold":3,
+			"research":1,
+			"mana":0.5
+		},
+		"result":{
+			"tapestries":1
+		}
+
+	},
+	{
+
 		"id":"craftrune",
 		"name":"craft rune",
 		"require":"g.crafting>=14&&g.runelore>=3",
