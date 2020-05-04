@@ -6,7 +6,7 @@
 	"length":15,
 	"sym":"📖",
 	"require":"evt_helper",
-	"desc":"A good apprentice spends all their free time in the library. After doing chores, of course.",
+	"desc":"A good apprentice spends all their free time in the library. After chores, of course.",
 	"run":{
 		"stamina":0.2
 	},
@@ -180,7 +180,8 @@
 		"enc_rats",
 		"strangebones",
 		"enc_embalm1",
-		"enc_chest2"
+		"enc_chest2",
+		"eeriemoans"
 	]
 },
 {

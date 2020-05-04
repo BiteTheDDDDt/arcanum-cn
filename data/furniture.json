@@ -101,7 +101,7 @@
 	{
 		"id":"burningcoals",
 		"name":"burning coals",
-		"desc":"bed of burning coals",
+		"desc":"Bed of burning coals",
 		"tags":"bed",
 		"slot":"bed",
 		"require":"g.fire>=10",

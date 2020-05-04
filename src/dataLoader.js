@@ -92,8 +92,8 @@ export default {
 	},
 
 	/**
-	 * At this point dataLists and templates both refer to the same data.
-	 * dataLists just have it separated by type.
+	 * At this point dataLists and templates both refer to the same data items.
+	 * dataLists are simply separated into lists by type (upgrades,tasks, etc.)
 	 * @param {.<string,object>} templates
 	 * @param {.<string,object[]>} dataLists
 	 * @param {object} saveData

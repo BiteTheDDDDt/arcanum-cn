@@ -8,6 +8,9 @@ import { TYP_RANGE, P_TITLE, P_LOG, TYP_PCT, MONSTER } from "../values/consts";
  */
 export default class Context {
 
+	get runner() { return this._runner;}
+	set runner(v) { this._runner = v;}
+
 	get state(){return this._state;}
 	set state(v) { this._state=v}
 

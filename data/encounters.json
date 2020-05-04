@@ -260,6 +260,17 @@
 		}
 	},
 	{
+
+		"id":"eeriemoans",
+		"name":"eerie moans",
+		"desc":"You hear a faint moaning, but are unable to determine its source.",
+		"effect":{
+			"spiritlore.exp":1,
+			"madness":1
+		}
+
+	},
+	{
 		"id":"strangebones",
 		"name":"strange bones",
 		"desc":"You've never seen such bones before.",
