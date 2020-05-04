@@ -419,6 +419,9 @@
 		"require":"g.dreams>0&&g.weaving>=5",
 		"perpetual":true,
 		"length":10,
+		"cost":{
+			"tapestries":1
+		},
 		"run":{
 			"stamina":0.7,
 			"mana":1,
@@ -1132,7 +1135,8 @@
 
 		"id":"weavetapestry",
 		"name":"weave tapestry",
-		"require":"g.enchanting>0&&g.weaving>=4",
+		"require":"g.weaving>=2",
+		"need":"weavesource",
 		"length":10,
 		"fill":"tapestries",
 		"run":{
@@ -1150,6 +1154,7 @@
 		"id":"craftrune",
 		"name":"craft rune",
 		"require":"g.crafting>=14&&g.runelore>=3",
+		"need":"workspace",
 		"length":10,
 		"cost":{
 			"tomes":1,

@@ -202,7 +202,6 @@
 	},
 	"encs":[
 		"enc_tapestry",
-		"enc_primer1",
 		"enc_chest1",
 		"enc_mirror1",
 		"enc_mirror2",
@@ -211,7 +210,8 @@
 		"enc_mirrorhall",
 		"enc_voidmirror",
 		"enc_pastmirror",
-		"enc_farmirror"
+		"enc_farmirror",
+		"enc_watermirror"
 	]
 },
 {

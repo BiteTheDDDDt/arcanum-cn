@@ -375,7 +375,8 @@
 	{
 		"id":"loom",
 		"desc":"Unlocks the art of weaving",
-		"require":"g.crafting>=5",
+		"tags":"weavesource",
+		"require":"g.crafting>=6",
 		"cost":{
 			"gold":50,
 			"research":100
@@ -390,6 +391,7 @@
 		"id":"spinwheel",
 		"name":"spinning wheel",
 		"desc":"Eases tasks related to weaving.",
+		"tags":"weavesource",
 		"require":"g.weaving>=5",
 		"cost":{
 			"gold":1000,

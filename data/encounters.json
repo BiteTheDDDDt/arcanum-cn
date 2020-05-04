@@ -694,7 +694,7 @@
 			"unease":"2~4"
 		},
 		"result":{
-		},"flavor":"blank verse is always hard to interpret."
+		},"flavor":"blank verse is hard to interpret."
 	},
 	{
 		"id":"enc_gap",
@@ -730,7 +730,7 @@
 		"name":"mirror of false reflection",
 		"desc":"Something is wrong with the glass.",
 		"effect":{
-			"lightlore.exp":1,
+			"trickery.exp":1,
 			"rage":"1~3",
 			"bf":"1~2"
 		},
@@ -770,7 +770,7 @@
 		"name":"reflecting hallways",
 		"desc":"You soon become lost in the false cooridors.",
 		"effect":{
-			"travel.exp":1,
+			"trickery.exp":1,
 			"rage":"2~3",
 			"bf":"3~5"
 		},
@@ -790,6 +790,18 @@
 			"unease":"3~5"
 		},
 		"flavor":"for now you see in a mirror, darkly."
+
+	},
+	{
+		"id":"enc_watermirror",
+		"name":"water mirror",
+		"desc":"Through the mirror you appear to be drowning.",
+		"effect":{
+			"breath":-3,
+			"water":1,
+			"rage":"2~4",
+			"unease":"3~5"
+		}
 
 	},
 	{

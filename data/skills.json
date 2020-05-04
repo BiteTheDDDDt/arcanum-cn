@@ -240,7 +240,7 @@
 	{
 
 		"id":"weaving",
-		"need":"loom",
+		"need":"weavesource",
 		"run":{
 			"stamina":0.5
 		},

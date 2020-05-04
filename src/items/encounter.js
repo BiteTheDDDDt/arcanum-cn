@@ -27,6 +27,9 @@ export default class Encounter extends GData {
 
 	}
 
+	/**
+	 * @property {number} exp
+	 */
 	get exp() { return this._exp;}
 	set exp(v) { this._exp = v;}
 
