@@ -155,7 +155,7 @@
 		"desc":"A quiet inn for hosting wayfarers.",
 		"cost":{
 			"gold":2000,
-			"gems":10
+			"gems":15
 		},
 		"require":"g.tier0>0&&g.languages>=7",
 		"mod":{

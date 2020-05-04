@@ -1614,24 +1614,67 @@
 
 	},
 	{
-		"id":"unendingtome",
-		"name":"unending tome",
-		"require":"g.languages>=9",
-		"desc":"some books have no end",
+		"id":"unendingscroll",
+		"name":"unending scroll",
+		"require":"g.languages>=7",
+		"desc":"A scroll can feel interminable.",
 		"length":50,
-		"repeat":false,
+		"max":1,
 		"cost":{
-			"tomes":5,
-			"mana":10,
+			"scrolls":50,
+			"mana":7,
 			"gems":10
+		},
+		"run":{
+			"research":5,
+			"stamina":3
+		},
+		"mod":{
+			"scrolls.rate":0.01
+		}
+
+	},
+	{
+		"id":"unendingcodex",
+		"name":"unending codex",
+		"require":"g.unendingscroll>0&&g.languages>=10",
+		"desc":"some books have no end",
+		"length":100,
+		"max":1,
+		"cost":{
+			"codices":30,
+			"mana":10,
+			"gems":20
 		},
 		"run":{
 			"research":10,
 			"stamina":3
 		},
 		"mod":{
-			"lore.max":1,
+			"languages.max":1,
 			"codices.rate":0.01
+		}
+
+	},
+	{
+		"id":"unendingtome",
+		"name":"unending tome",
+		"require":"g.tier1>0&&g.unendingcodex>0",
+		"desc":"some books have no end",
+		"length":200,
+		"max":1,
+		"cost":{
+			"tomes":15,
+			"mana":10,
+			"managem":10
+		},
+		"run":{
+			"research":20,
+			"stamina":5
+		},
+		"mod":{
+			"languages.max":1,
+			"tomes.rate":0.005
 		}
 
 	},

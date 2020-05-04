@@ -1,4 +1,10 @@
 
+FIXED:
+
+Genezereth should not be available at T0
+
+more max research bonuses?
+
 
 PATRONS:
 

@@ -98,7 +98,7 @@
 		"id":"hills",
 		"name":"stony hills",
 		"level":3,
-		"length":15,
+		"length":25,
 		"run":{
 			"stamina":0.75
 		},

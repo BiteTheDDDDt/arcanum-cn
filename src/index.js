@@ -181,7 +181,7 @@ const vm = new Vue({
 
 			this.dispatch( 'game-loaded' );
 
-			console.log('Begin with player id: ' + game.state.pid );
+			console.log('Begin player id: ' + game.state.pid );
 
 			Profile.gameLoaded( game );
 
