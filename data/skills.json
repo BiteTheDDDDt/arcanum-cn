@@ -903,7 +903,7 @@
 		"mod":{
 			"arcana.max":0.1,
 			"lore.rate":0.2,
-			"research.max":1
+			"research.max":3
 		}
 
 	},
@@ -960,7 +960,7 @@
 		},
 		"mod":{
 			"alchemy.rate":"1%",
-			"research.max":2
+			"research.max":5
 		}
 	},
 	{
@@ -1004,11 +1004,11 @@
 			"stamina":0.5
 		},
 		"result":{
-			"sp":0.05
+			"sp":0.04
 		},
 		"mod":{
 			"planeslore.rate":"1%",
-			"research.max":2
+			"research.max":5
 		}
 	},
 	{
