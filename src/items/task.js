@@ -59,7 +59,7 @@ export default class Task extends GData {
 	get exp() { return this._exp; }
 	set exp(v){
 
-		if ( this.locked || this.disabled || this.maxed() ) return;
+		if ( this.locked || this.disabled || this.maxed() || (this.buy &&!this.owned) ) return;
 
 		//@compat only
 		if ( this._exp === null || this._exp === undefined ) this.ex = v;

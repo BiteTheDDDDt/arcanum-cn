@@ -3951,23 +3951,35 @@
 		"id":"strativax2",
 		"name":"strativax waking",
         "level":27,
-		"desc":"",
+		"desc":"The dragon's eyes begin to open.",
 		"unique":true,
 		"kind":"dragon",
-        "hp":5000,
+        "hp":50000,
         "tohit":50,
         "defense":300,
-		"attack":""
+		"attack":[
+			{
+				"name":"tail flick",
+				"dmg":"100~150",
+				"kind":"pierce"
+			},
+			{
+				"name":"burning yawn",
+				"dmg":"50~100",
+				"targets":"enemies",
+				"kind":"fire"
+			}
+		]
 
 	},
 	{
 		"id":"strativax3",
 		"name":"strativax enraged",
         "level":27,
-		"desc":"",
+		"desc":"Strativax now furious at your impetuous intrusion.",
 		"unique":true,
 		"kind":"dragon",
-        "hp":5000,
+        "hp":20000,
         "tohit":50,
         "defense":200,
 		"attack":[
@@ -3977,7 +3989,7 @@
 				"kind":"blunt"
 			},
 			{
-				"name":"breath of fire",
+				"name":"fire breath",
 				"kind":"fire",
 				"dmg":"100~200",
 				"targets":"enemies"

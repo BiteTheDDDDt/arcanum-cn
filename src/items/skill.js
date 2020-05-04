@@ -17,15 +17,6 @@ const levLength = (n)=>{ return 50*Math.pow( (1+EXP_RATIO), n ) }
 export default class Skill extends Task {
 
 	/**
-	 * @property {Scaler} exp
-	 */
-	get exp() { return super.exp; }
-	set exp(v) {
-		if ( this.locked || this.maxed() || (this.buy &&!this.owned) ) return;
-		super.exp = v;
-	}
-
-	/**
 	 * Skill levels are actually value.
 	 */
 	showLevel(){return Math.floor( this.value ); }
