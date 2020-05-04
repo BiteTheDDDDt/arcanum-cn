@@ -1,4 +1,3 @@
-import Game from '../game';
 import {quickSplice, swap } from '../util/array';
 import Events, {TASK_DONE, TASK_REPEATED, HALT_TASK, TASK_BLOCKED, STOP_ALL } from '../events';
 import Stat from '../values/rvals/stat';
@@ -21,7 +20,7 @@ export default class Runner {
 	get type() { return 'runner' }
 	hasTag() { return false; }
 
-	constructor(vars=null ){
+	constructor( vars=null ){
 
 		if ( vars ) assign(this,vars);
 
@@ -92,6 +91,9 @@ export default class Runner {
 		});
 
 	}
+
+	get context(){return this._context;}
+	set context(v) { this._context = v;}
 
 	/**
 	 * @property {number} running - number currently running.
@@ -240,12 +242,12 @@ export default class Runner {
 		if ( !a) return false;
 
 		if ( a.cost && (a.exp.valueOf() === 0) ) {
-			Game.payCost( a.cost);
+			this.context.payCost( a.cost);
 		}
 
 		if ( a.controller ) {
 			/// a is proxied by another object. (raid/explore)
-			let p = Game.state.getData( a.controller );
+			let p = this.context.state.getData( a.controller );
 			if (!p) return false;
 			p.runWith(a);
 			a = p;
@@ -368,7 +370,7 @@ export default class Runner {
 			return false;
 		}
 
-		let it = this.pursuits.getRunnable( Game );
+		let it = this.pursuits.getRunnable( this.context );
 		if ( !it ) return false;
 
 		return this.tryAdd( it );
@@ -383,8 +385,8 @@ export default class Runner {
 	tryAdd( a ) {
 
 		if ( !this.free ) return false;
-		if ( a.fill && Game.filled(a.fill,a) ) return false;
-		if ( !a.canRun(Game) ) return false;
+		if ( a.fill && this.context.filled(a.fill,a) ) return false;
+		if ( !a.canRun(this.context) ) return false;
 
 		return this.setTask(a);
 
@@ -445,7 +447,7 @@ export default class Runner {
 
 	haltTask( act ) {
 
-		if ( act.controller ) act = Game.state.getData(act.controller);
+		if ( act.controller ) act = this.context.state.getData(act.controller);
 
 		// absolute rest stop if no tasks waiting.
 		if ( this.waiting.length === 0 && act.hasTag( REST_TAG ) ) this.stopTask(act,false);
@@ -471,7 +473,7 @@ export default class Runner {
 
 		} else if ( repeatable ) {
 
-			if ( Game.canRun(act) && this.actives.size <= this.max.value ) {
+			if ( this.context.canRun(act) && this.actives.size <= this.max.value ) {
 
 				this.setTask(act);
 				if ( !act.hasTag( REST_TAG)  ) {
@@ -530,8 +532,8 @@ export default class Runner {
 		}
 
 		if ( avail > 0 ) {
-			if ( !Game.state.player.rested() ) {
-				this.tryAdd( Game.state.restAction );
+			if ( !this.context.state.player.rested() ) {
+				this.tryAdd( this.context.state.restAction );
 			}
 			this.tryPursuit();
 		}
@@ -555,7 +557,7 @@ export default class Runner {
 	 * @public
 	 */
 	doRest(){
-		this.tryAdd( Game.state.restAction );
+		this.tryAdd( this.context.state.restAction );
 	}
 
 	/**
@@ -568,29 +570,29 @@ export default class Runner {
 
 		if ( a.maxed() ) {
 			this.stopTask(a);
-			this.tryAdd( Game.state.restAction );
+			this.tryAdd( this.context.state.restAction );
 			return;
 		}
 
 		if ( a.run ) {
 
-			if ( !Game.canPay( a.run, dt ) ) {
+			if ( !this.context.canPay( a.run, dt ) ) {
 				this.stopTask(a);
 				this.addWait(a);
-				this.tryAdd( Game.state.restAction );
+				this.tryAdd( this.context.state.restAction );
 
 			}
-			Game.payCost( a.run, dt );
+			this.context.payCost( a.run, dt );
 
 		}
 
-		if ( a.fill && Game.filled( a.fill, a ) ) {
+		if ( a.fill && this.context.filled( a.fill, a ) ) {
 
 			this.actBlocked(a);
 
 		} else {
 
-			if ( a.effect) Game.applyVars( a.effect, dt );
+			if ( a.effect) this.context.applyVars( a.effect, dt );
 			if ( a.update ) {
 
 				a.update(dt);

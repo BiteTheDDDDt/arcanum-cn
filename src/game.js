@@ -120,6 +120,7 @@ export default {
 			this._gdata = this.state.items;
 
 			this.runner = this.state.runner;
+			this.runner.context = this;
 
 			if ( hallData ) this.addData( hallData );
 
