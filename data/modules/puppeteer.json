@@ -1354,7 +1354,7 @@
 				"id":"puppeteer",
 				"desc":"Assemble and control mechanical minions.",
 				"tags":"t_tier1",
-				"require":"g.tier0>0&&g.puppetry>=5&&g.tier1==0",
+				"require":"g.tier0>0&&g.puppetry>=5",
 				"cost":{
 					"research":700,
 					"arcana":10,

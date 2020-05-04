@@ -1472,7 +1472,7 @@
 		"name":"crystal mind",
 		"max":3,
 		"desc":"expend your research to enhance your mental fortitude.",
-		"require":"g.lore>=7&&g.tier0>0",
+		"require":"tier0",
 		"warn":true,
 		"cost":{
 			"research.max":25,
@@ -1487,9 +1487,27 @@
 	},
 	{
 
+		"id":"occultendure",
+		"name":"occult endurance",
+		"max":3,
+		"desc":"expend your research to discover new sources of stamina.",
+		"require":"tier1",
+		"warn":true,
+		"cost":{
+			"research.max":25,
+			"mana":5
+		},
+		"mod":{
+			"stamina.max":1,
+			"stamina.rate":"0.12+1%"
+		}
+
+	},
+	{
+
 		"id":"arcanebody",
 		"name":"arcane body",
-		"max":3,
+		"max":1,
 		"desc":"expend your research to enhance your durability.",
 		"require":"g.lore>=7&&g.tier0>0",
 		"warn":true,
@@ -1609,29 +1627,11 @@
 
 	},
 	{
-
-		"id":"occultendure",
-		"name":"occult endurance",
-		"max":3,
-		"desc":"expend your research to discover new sources of stamina.",
-		"require":"g.tier0>0",
-		"warn":true,
-		"cost":{
-			"research.max":25,
-			"mana":5
-		},
-		"mod":{
-			"stamina.max":1,
-			"stamina.rate":"0.12+1%"
-		}
-
-	},
-	{
 		"id":"infusedbody",
 		"name":"infused body",
 		"desc":"increases the effectiveness of arcane body",
 		"max":1,
-		"require":"g.tier2>0&&g.player.level>=15",
+		"require":"tier2",
 		"cost":{
 			"tomes":10,
 			"bloodgem":5

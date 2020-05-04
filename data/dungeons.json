@@ -466,11 +466,11 @@
 	{
 		"id":"aragwastes",
 		"name":"arag wastes",
-		"desc":"An arid plain stretching from the arag heights.",
+		"desc":"An arid plain stretching across Arazor from the Arag Heights.",
 		"require":"aragheights",
 		"level":8,
 		"run":{
-			"stamina":1.5
+			"stamina":2
 		},
 		"boss":"roc",
 		"result":{
@@ -750,7 +750,7 @@
 		"desc":"His acolytes fed the beast on offerings from a thousand leagues.",
 		"flavor":"Strativax curled up to nap. His temple fell to ruins, and the ages fled like leaves.",
 		"require":"g.scrying>=12&&g.history>=12",
-		"start":"While scrying, you uncover the location of a ruined temple.",
+		"start":"You scry the location of an ancient ruined temple.",
 		"level":20,
 		"boss":{
 			"0":"strativax1",

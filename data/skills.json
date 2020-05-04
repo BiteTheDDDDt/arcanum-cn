@@ -120,7 +120,7 @@
 		"school":"arcane",
 		"verb":"conjuring",
 		"desc":"",
-		"require":"g.lore>=7&&g.divination>3",
+		"require":"g.lore>=10&&g.divination>3",
 		"run":{
 			"stamina":0.2,
 			"spirit":0.2
@@ -293,7 +293,7 @@
 			"sp":0.05
 		},
 		"mod":{
-			"research.max":10,
+			"research.max":15,
 			"arcana.max":0.1,
 			"s_travel.max":0.1,
 			"languages.rate":"1%"
@@ -374,7 +374,7 @@
 	{
 
 		"id":"summoning",
-		"require":"g.tier1>0",
+		"require":"g.tier1>0&&g.conjuration>=5",
 		"school":"arcane",
 		"level":4,
 		"buy":{
@@ -950,7 +950,7 @@
 	},
 	{
 		"id":"potions",
-		"require":"g.crafting>=3&&g.alchemy>=1",
+		"require":"g.crafting>=3&&g.alchemy>=2",
 		"need":["workspace","potsource"],
 		"run":{
 			"stamina":0.5
@@ -965,7 +965,7 @@
 	},
 	{
 		"id":"enchanting",
-		"require":"g.tier0>0&&g.lore>=7",
+		"require":"g.tier1>0&&g.lore>=14",
 		"desc":"imbue mundane gems and items with magical properties.",
 		"run":{
 			"stamina":0.4,
@@ -983,7 +983,7 @@
 	{
 		"id":"alchemy",
 		"school":"elemental",
-		"require":"g.herbalism>=3",
+		"require":"g.tier0>0&&g.herbalism>=4",
 		"run":{
 			"stamina":0.5
 		},
@@ -1031,7 +1031,7 @@
 		"id":"s_travel",
 		"name":"travel",
 		"level":2,
-		"require":"(g.languages+g.history)>=10",
+		"require":"(g.languages+g.history)>=12",
 		"desc":"Travel offers a growing wizard new avenues of research and new sources of research.",
 		"run":{
 			"stamina":0.5

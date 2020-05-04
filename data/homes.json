@@ -139,7 +139,7 @@
 			"gold":850,
 			"gems":9
 		},
-		"require":"g.tier0>0&&g.crafting>=9",
+		"require":"g.tier1>0&&g.crafting>=9",
 		"mod":{
 			"minions.max":2,
 			"magicgems.max":1,
@@ -157,7 +157,7 @@
 			"gold":2000,
 			"gems":15
 		},
-		"require":"g.tier0>0&&g.languages>=7",
+		"require":"g.tier1>0&&g.languages>=7",
 		"mod":{
 			"minions.max":5,
 			"space.max":50,
@@ -174,7 +174,7 @@
 			"gold":950,
 			"gems":5
 		},
-		"require":"g.tier0>0&&g.naturelore>=7",
+		"require":"g.tier1>0&&g.naturelore>=7",
 		"mod":{
 			"minions.max":5,
 			"space.max":30,

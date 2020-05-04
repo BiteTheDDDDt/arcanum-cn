@@ -857,7 +857,7 @@
 		"repeat": true,
 		"require":"g.tier0>0&&g.space.max>=20",
 		"cost":{
-			"gold":300
+			"gold":400
 		},
 		"mod":{
 			"shadow.max":1,
