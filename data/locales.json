@@ -187,7 +187,7 @@
 	"id":"hallofmirrors",
 	"level":12,
 	"require":"g.scrying>=999",
-	"length":10,
+	"length":50,
 	"sym":"📖",
 	"desc":"",
 	"run":{
@@ -204,8 +204,10 @@
 		"enc_tapestry",
 		"enc_primer1",
 		"enc_chest1",
-		"enc_primer1",
-		"enc_workbook1"
+		"enc_mirror1",
+		"enc_mirror2",
+		"enc_mirror3",
+		"enc_mirrorhall"
 	]
 },
 {
@@ -214,8 +216,8 @@
 	"level":9,
 	"length":50,
 	"sym":"📖",
-	"require":"g.alchemy>=7||g.scrying>=9",
-	"desc":"You could spend a century in Fazbit's lost workshop and still not exhaust its creations.",
+	"require":"(g.alchemy+g.scrying)>=17",
+	"desc":"You could spend a century in Fazbit's lost workshop and not exhaust its creations.",
 	"loot":{
 		"tomes":"2~3",
 		"gems":"3~5",
@@ -236,7 +238,7 @@
 {
 	"id":"genezereth",
 	"level":15,
-	"require":"g.history>=6",
+	"require":"g.history>=7",
 	"length":100,
 	"sym":"📖",
 	"desc":"An ancient library at the bridge spanning Markhul's gap.",
