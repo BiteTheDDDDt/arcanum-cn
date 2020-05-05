@@ -50,8 +50,6 @@ export default class Player extends Char {
 
 	}
 
-	get team(){ return TEAM_PLAYER; }
-
 	/**
 	 * currently active title.
 	 * @property {string} title
@@ -219,6 +217,8 @@ export default class Player extends Char {
 		this.titles = this._titles || [];
 
 		this._next = this._next || 50;
+
+		this.team = TEAM_PLAYER;
 
 		/**
 		 * @property {GData[]} retreats - stats to check for empty before retreating.

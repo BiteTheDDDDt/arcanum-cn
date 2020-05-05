@@ -65,6 +65,10 @@ export default class JSONLoader {
 
 	}
 
+	/**
+	 *
+	 * @param {string[]} files
+	 */
 	setFiles( files ) {
 
 		this._files = files;

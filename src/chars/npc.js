@@ -95,21 +95,8 @@ export default class Npc extends Char {
 
 	}
 
-	/**
-	 * @property {object<string,Stat>} immune
-	 */
-	set immune(v){
-		this.immunities=v;
-	}
-
 	get damage() { return this._damage; }
 	set damage(v) { this._damage = ParseDmg(v); }
-
-	/**
-	 * @property {number} team - side in combat.
-	 */
-	get team() { return this._team; }
-	set team(v) { this._team=v;}
 
 	/**
 	 * @property {boolean} active - whether minion is active in combat.

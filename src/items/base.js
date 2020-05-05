@@ -90,7 +90,7 @@ export default {
 	set id(v) { this._id = v;},
 
 	/**
-	 * @property {Object} template - original data used to create this Item.
+	 * @property {Object} template - original data used to create the Item.
 	 * Should be raw, immutable data.
 	 */
 	get template() { return this._template; },
@@ -134,6 +134,8 @@ export default {
 	/**
 	 * @property {boolean} repeat - whether the item is repeatable.
 	 */
+	get repeat(){return this._repeat;},
+	set repeat(v) { this._repeat=v},
 
 	/**
 	 * @property {string} desc
@@ -167,6 +169,10 @@ export default {
 	},
 	valueOf() { return this._value; },
 
+	/**
+	 * @property {number} delta - value change this frame.
+	 * added to value at end of frame.
+	 */
 	get delta(){return 0;},
 
 	/**

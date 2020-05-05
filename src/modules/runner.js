@@ -22,7 +22,7 @@ export default class Runner {
 
 	constructor( vars=null ){
 
-		if ( vars ) assign(this,vars);
+		if ( vars ) assign( this, vars );
 
 		this.id = this.type;
 		this.name = 'activity';

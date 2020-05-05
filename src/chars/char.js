@@ -42,6 +42,19 @@ export default class Char {
 		else this._speed.set(v);
 	}
 
+	/**
+	 * @property {number} team - side in combat.
+	 */
+	get team() { return this._team; }
+	set team(v) { this._team=v;}
+
+	/**
+	 * @alias immunities
+	 * @property {object<string,Stat>} immune
+	 */
+	set immune(v){
+		this.immunities=v;
+	}
 
 	/**
 	 * @property {.<string,Stat>} immunities

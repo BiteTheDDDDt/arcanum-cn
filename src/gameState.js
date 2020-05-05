@@ -57,8 +57,11 @@ export default class GameState {
 
 	}
 
-	get plugins(){return this._plugins}
-	set plugins(v){this._plugins = v;}
+	/**
+	 * @property {string[]} modules - list of modules used.
+	 */
+	get modules(){return this._modules}
+	set modules(v){this._modules = v;}
 
 	/**
 	 * Create unique string id.
@@ -83,7 +86,13 @@ export default class GameState {
 		this.saveItems = {};
 
 		/**
-		 * Next item id.
+		 * @property {Map<string,Inventory>} inventories - default inventories
+		 * by item type, plus named inventories.
+		 */
+		this.inventories = new Map();
+
+		/**
+		 * @property {number} NEXT_ID - Next item id.
 		 */
 		this.NEXT_ID = this.NEXT_ID || 0;
 

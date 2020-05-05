@@ -1140,6 +1140,7 @@
 		"length":10,
 		"fill":"tapestries",
 		"run":{
+			"stamina":2,
 			"gold":3,
 			"research":1,
 			"mana":0.5
