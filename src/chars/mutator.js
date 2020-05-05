@@ -1,7 +1,10 @@
 import Base, {mergeClass} from '../items/base';
 import { assign } from 'objecty';
 
-export default class Property {
+/**
+ * @class A Mutator alters an instanced object.
+ */
+export default class Mutator {
 
 	get isRecipe(){return true}
 
@@ -15,6 +18,16 @@ export default class Property {
 		this._only = typeof v === 'string' ? v.split(',') : v;
 	}
 
+	/**
+	 * @property {object} alter - alteration mods applied to target.
+	 */
+	get alter(){
+		return this._alter;
+	}
+	set alter(v) {
+		this._alter = v;
+	}
+
 	constructor(vars=null) {
 
 		if ( vars ) assign( this, vars);
@@ -23,4 +36,4 @@ export default class Property {
 
 }
 
-mergeClass( Property, Base );
+mergeClass( Mutator, Base );
