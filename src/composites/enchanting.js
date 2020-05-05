@@ -45,7 +45,7 @@ export default class Enchanting extends Proxy {
 	get length() { return this._length; }
 	set length(v) { this._length = new Stat(v);}
 
-	canRun( g ) { return !this.done && this._item && this._target && this._item.canUseOn( this._target ) }
+	canRun( g ) { return !this.done && this._item && this._target && this._item.canAlter( this._target ) }
 	get done() { return this._exp >= this._length; }
 
 	/**

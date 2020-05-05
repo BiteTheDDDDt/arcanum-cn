@@ -53,8 +53,8 @@ export default {
 			Game.toggleTask(this.enchantSlots);
 		},
 
-		canUseOn( it, targ ) {
-			return targ&&it.canUseOn(targ)&& this.enchantSlots.canAdd(it);
+		canAlter( it, targ ) {
+			return targ&&it.canAlter(targ)&& this.enchantSlots.canAdd(it);
 		}
 
 	},
@@ -72,7 +72,7 @@ export default {
 			let t = this.target;
 			if ( !t ) return this.filtered;
 
-			return this.filtered.filter( it=>!it.owned|| this.canUseOn(it, t ) );
+			return this.filtered.filter( it=>!it.owned|| this.canAlter(it, t ) );
 
 		}
 

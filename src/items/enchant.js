@@ -2,7 +2,6 @@ import Task from './task';
 import GData from './gdata';
 import { SetModCounts } from './base';
 import { canTarget, ENCHANTSLOTS } from '../values/consts';
-import Runnable from '../composites/runnable';
 import Enchanting from '../composites/enchanting';
 
 
@@ -37,7 +36,7 @@ export default class Enchant extends Task {
 	/**
 	 * Begin using Enchant on item. Increase item level immediately.
 	 * @param {GData} targ
-	 * @returns {Runnable}
+	 * @returns {Enchanting}
 	 */
 	beginUseOn( targ ) {
 		return new Enchanting( this, targ );
@@ -71,7 +70,7 @@ export default class Enchant extends Task {
 	 * Test if enchantment can be applied to target item.
 	 * @param {Item} targ
 	 */
-	canUseOn( targ ) {
+	canAlter( targ ) {
 
 		let itLevel = targ.maxEnchants || 0;
 		if ( targ.hasEnchant(this.id) || (targ.enchantTot + this.level > itLevel) ) {
