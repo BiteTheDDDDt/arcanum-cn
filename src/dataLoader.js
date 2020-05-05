@@ -68,7 +68,7 @@ export default {
 
 		// load the local list of mod files then load all listed files.
 		return loadFiles( [srcList] ).then( list=>{
-			if (!list) throw new Error('Mod list not found.');
+			if (!list) throw new Error('Modlist not found: ' + srcList );
 			return list[srcList];
 		});
 
@@ -87,19 +87,19 @@ export default {
 
 		}
 
-		return this.instance( this.main.templates, this.main.lists, saveData );
+		return this.instance( this.main.objects, this.main.lists, saveData );
 
 	},
 
 	/**
-	 * At this point dataLists and templates both refer to the same data items.
+	 * At this point dataLists and gdatas both refer to the same data items.
 	 * dataLists are simply separated into lists by type (upgrades,tasks, etc.)
-	 * @param {.<string,object>} templates
+	 * @param {.<string,object>} raws
 	 * @param {.<string,object[]>} dataLists
 	 * @param {object} saveData
 	 * @returns {object} initialized save&game data.
 	 */
-	instance( templates, dataLists, saveData={} ){
+	instance( raws, dataLists, saveData={} ){
 
 		saveData = saveData || {};
 
@@ -116,9 +116,9 @@ export default {
 		let items = saveData.items;
 		if ( items ) {
 
-			for( let p in templates ) {
+			for( let p in raws ) {
 
-				let t = templates[p];
+				let t = raws[p];
 				if ( t.alias && !items[p] ) {
 					// check aliased item.
 					var it = items[t.alias];
@@ -134,7 +134,7 @@ export default {
 		} else items = {};
 
 		// Merge and ensure game data item for every template.
-		saveData.items = this.mergeItems( items, templates );
+		saveData.items = this.mergeItems( items, raws );
 
 		// replace original data list items with saveData items.
 		let gameLists = this.buildLists( saveData.items, dataLists );
@@ -176,10 +176,10 @@ export default {
 	/**
 	 * Merge template data into saved data items.
 	 * @param {Object} saveItems - previous save items.
-	 * @param {.<string,Object>} templates - template items..
+	 * @param {.<string,Object>} raws - template items..
 	 * @returns {.<string,Object>} - the saveItems with data merged from default data.
 	 */
-	mergeItems( saveItems, templates ) {
+	mergeItems( saveItems, raws ) {
 
 		/**
 		 * @note ordering.
@@ -187,18 +187,18 @@ export default {
 		 * 2) data prepared with type instances.
 		 * 3) template assigned LAST because the template is frozen and can't be prepped.
 		 */
-		for( let p in templates ) {
+		for( let p in raws ) {
 
 			var saveObj = saveItems[p] || {};
 
 			if ( typeof saveObj === 'number') {
 				saveObj = { val:saveObj };
 			}
-			mergeSafe( saveObj, templates[p] );
+			mergeSafe( saveObj, raws[p] );
 
 			saveItems[p] = PrepData( saveObj, p );
 
-			saveObj.template = templates[p];
+			saveObj.template = raws[p];
 
 		}
 

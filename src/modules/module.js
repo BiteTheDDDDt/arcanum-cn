@@ -6,11 +6,11 @@ import dataLoader, { loadFiles, freezeData } from '../dataLoader';
 export default class Module {
 
 	/**
-	 * @property {.<string,object>} templates - raw untyped object templates.
+	 * @property {.<string,object>} objects - raw untyped object templates.
 	 * used for reloading and comparing for data save.
 	 */
-	get templates() { return this._templates; }
-	set templates(v) { this._templates =v; }
+	get objects() { return this._objects; }
+	set objects(v) { this._objects =v; }
 
 	/**
 	 * Lists of items by type of data.
@@ -51,7 +51,7 @@ export default class Module {
 	 */
 	constructor() {
 
-		this.templates = {};
+		this.objects = {};
 		this.lists = {};
 
 	}
@@ -89,7 +89,7 @@ export default class Module {
 	/**
 	 * Separate module files loaded. Each file is a list of objects
 	 * of the same type.
-	 * @param {.<string,object[]>} files
+	 * @param {.<string,object[]>} files - filename to file data.
 	 * @returns {GModule} this module.
 	 */
 	typesLoaded(files) {
@@ -175,7 +175,7 @@ export default class Module {
 			if ( modName ) it.module = modName;
 			if ( sym ) it.sym = it.sym || sym;
 
-			this.templates[ it.id ] = freezeData( it );
+			this.objects[ it.id ] = freezeData( it );
 
 		}
 
@@ -185,13 +185,13 @@ export default class Module {
 
 	/**
 	 * Merge module into this module.
-	 * @param {GModule} mod
+	 * @param {GModule} mod - module to merge.
 	 * @param {*} insertLists
 	 */
 	merge( mod ) {
 
-		let items = mod.templates;
-		let dest = this.templates;
+		let items = mod.objects;
+		let dest = this.objects;
 
 		for( let p in items ) {
 			/** @note merge overwrites */
@@ -205,7 +205,6 @@ export default class Module {
 
 			if ( !Array.isArray(dest)) {
 
-				//console.warn( 'DEST NONARRAY: ' + p );
 				this.lists[p] = list.slice(0);
 				continue;
 
@@ -227,7 +226,7 @@ export default class Module {
 	 * @returns {object} - game data, items, standard loaded lists.
 	 */
 	instance( saveData={} ){
-		return dataLoader.instance( this.templates, this.lists, saveData );
+		return dataLoader.instance( this.objects, this.lists, saveData );
 	}
 
 }
