@@ -333,6 +333,8 @@ export default {
 
 		} else if ( typeof mods === 'number') {
 
+			console.warn( mods + ' RAW NUM MOD ON: ' + this.id );
+
 			if ( targ instanceof Stat ) {
 
 				console.error( '!!!!! ' + mods + ' number apply to: ' + this.id );
@@ -368,6 +370,7 @@ export default {
 
 			if ( typeof subMod === 'number' ) {
 				console.warn( 'RAW NUMBER MOD on: ' + this.id + ': ' + p + ': ' + subMod );
+				continue;
 			}
 
 			if ( (subTarg === undefined || subTarg === null) ) {
@@ -379,15 +382,14 @@ export default {
 					this.applyObj( subMod, amt, targ[p]={}, p==='mod'|| isMod );
 
 				} else {
-					subTarg = targ[p] = isMod ? new Mod( typeof subMod === 'number' ? subMod*amt :0 )
-						: new Stat( typeof subMod === 'number' ? subMod*amt : 0 );
+					subTarg = targ[p] = isMod ? new Mod( 0 ) : new Stat( 0 );
 
 										//@todo use more accurate subpath.
 					subTarg.id = SubPath(this.id, p );
 
 					subTarg.source = this;
 
-					if ( subMod instanceof Mod ) subTarg.addMod( subMod,amt );
+					subTarg.addMod( subMod, amt );
 					//console.log( this.id + '.' + p  + ': ' + subMod + ': targ null: ' + subTarg.valueOf() + ' mod? ' + isMod );
 				}
 
@@ -396,10 +398,10 @@ export default {
 
 				subTarg.applyMods( subMod, amt, subTarg );
 
-			} else if ( subTarg instanceof Stat) {
+			} else if ( subTarg.addMod) {
 
 
-				subTarg.apply( subMod, amt );
+				subTarg.addMod( subMod, amt );
 
 			} else if ( subMod instanceof Mod ) {
 
@@ -410,7 +412,7 @@ export default {
 				this.applyObj( subMod, amt, subTarg, p==='mod'||isMod );
 
 			}
-			else if ( typeof subMod === 'number' ) {
+			/*else if ( typeof subMod === 'number' ) {
 
 				if ( typeof subTarg === 'number') {
 
@@ -421,7 +423,7 @@ export default {
 
 				} else this.applyMods( subMod, amt, subTarg);
 
-			} else {
+			}*/else {
 
 				console.warn( `UNKNOWN Mod to ${this.id}.${p}: ${subMod}` + '  ' + typeof subMod);
 			}

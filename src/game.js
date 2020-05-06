@@ -1117,7 +1117,7 @@ export default {
 					/* @todo: ensure correct inventory used. map type-> default inventory? */
 					return this.state.inventory.hasCount( res, amt );
 
-				} else if ( !isNaN(sub) || sub instanceof Stat ) {
+				} else if ( !isNaN(sub) || sub.isRVal ) {
 
 					if ( !res.canPay(sub*amt) ) return false;
 					//if ( res.value < sub*amt ) return false;

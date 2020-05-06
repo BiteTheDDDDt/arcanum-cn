@@ -94,8 +94,8 @@ export default class Range {
 
 	addMod( mod, amt ) {
 
-		if ( !this.min instanceof Stat ) this.min = new Stat( this.min, SubPath(this.id, 'min') );
-		if ( !this.max instanceof Stat ) this.max = new Stat(this.max, SubPath( this.id, 'max') );
+		if ( !(this.min instanceof Stat) ) this.min = new Stat( this.min, SubPath(this.id, 'min') );
+		if ( !(this.max instanceof Stat) ) this.max = new Stat(this.max, SubPath( this.id, 'max') );
 
 		this.min.addMod(mod, amt);
 		this.max.addMod(mod, amt);

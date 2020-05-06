@@ -62,7 +62,7 @@ export default class Wearable extends Item {
 	 * @alias attack.damage
 	 */
 	get damage() {
-		return this._attack ? this._attack.bonus : 0;
+		return this._attack ? this._attack.damage : 0;
 	}
 
 	get equippable() { return true; }
