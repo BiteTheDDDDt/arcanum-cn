@@ -1,5 +1,7 @@
 import { TYP_RANGE } from "./consts";
 import { precise } from "../util/format";
+import Stat from "./rvals/stat";
+import { SubPath } from "./rvals/rvalue";
 
 export const RangeTest = /^\-?\d+\.?\d*\~\-?\d+\.?\d*$/i;
 
@@ -11,15 +13,21 @@ export default class Range {
 
 	toString() { return precise( this.min ) + ' ' + SPLIT_CHAR + ' ' + precise(this.max ); }
 
+	/**
+	 * @property {string} id
+	 */
+	get id() { return this._id; }
+	set id(v) { this._id = v; }
+
+	/**
+	 * @property {string} type - type constant.
+	 */
 	get type(){ return TYP_RANGE; }
 
-	_min:any;
-	_max:any;
-
-	get min():any{return this._min;}
+	get min(){return this._min;}
 	set min(v){this._min=v}
 
-	get max():any{return this._max}
+	get max(){return this._max}
 	set max(v){this._max=v;}
 
 	/**
@@ -46,7 +54,7 @@ export default class Range {
 	 * @param {Object|number|string} min
 	 * @param {?number} max
 	 */
-	constructor(min:any, max:any) {
+	constructor(min, max) {
 
 		if ( typeof min === 'string' ) {
 
@@ -72,7 +80,7 @@ export default class Range {
 	 * @param {number} v
 	 * @returns {boolean}
 	 */
-	contains(v:number):boolean {
+	contains(v) {
 		return v >= this.min && v <= this.max;
 	}
 
@@ -80,15 +88,31 @@ export default class Range {
 	 * Return a percent of the range value.
 	 * @param {number} pct - decimal percent.
 	 */
-	percent( pct:any ):number {
+	percent( pct ) {
 		return this.min + pct*( this.max - this.min );
+	}
+
+	addMod( mod, amt ) {
+
+		if ( !this.min instanceof Stat ) this.min = new Stat( this.min, SubPath(this.id, 'min') );
+		if ( !this.max instanceof Stat ) this.max = new Stat(this.max, SubPath( this.id, 'max') );
+
+		this.min.addMod(mod, amt);
+		this.max.addMod(mod, amt);
+
+	}
+
+	removeMods( mod ){
+
+		if ( this.min instanceof Stat ) this.min.removeMods(mod);
+		if ( this.max instanceof Stat ) this.max.removeMods(mod);
 	}
 
 	/**
 	 * Add amount to range.
 	 * @param {number|Range} amt
 	 */
-	add( amt:any ) {
+	add( amt ) {
 
 		//console.log('ADDING RANGE: ' + amt );
 
@@ -97,7 +121,7 @@ export default class Range {
 			this.max += amt;
 		} else if ( amt && typeof amt ==='object') {
 
-			if ( amt instanceof Range ){
+			if ( amt.type === TYP_RANGE ){
 				this.min += amt.min;
 				this.max += amt.max;
 			} else if ( amt.value ) {
@@ -108,5 +132,15 @@ export default class Range {
 		}
 
 	}
+
+	/**
+	 * Necessary for RValue compatibility.
+	 * @param {*} state - ignored
+	 * @param {*} target - ignored
+	 */
+	getApply() {
+		return this.valueOf();
+	}
+
 
 }

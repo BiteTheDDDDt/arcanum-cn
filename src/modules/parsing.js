@@ -120,7 +120,7 @@ export const PrepData = ( sub, id='' ) => {
 
 		for( let p in sub ) {
 
-			if ( p === 'mod' || p === 'runmod') {
+			if ( p === 'mod' || p === 'runmod' || p === 'alter' ) {
 
 				sub[p] = ParseMods( sub[p],  SubPath(id, p) );
 				continue;

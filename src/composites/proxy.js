@@ -40,6 +40,8 @@ export default class Proxy {
 	get item() { return this._item; }
 	set item(v) { this._item = v; }
 
+	get repeat() { return (this._item && this._item.repeat) || false; }
+
 	get owned() { return this._item ? this.item.owned : false; }
 	set owned(v) { if ( this._item ) this._item.owned = v; }
 

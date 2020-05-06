@@ -272,8 +272,12 @@ export default class Wearable extends Item {
 		else if ( !Array.isArray(this.props ) ) this.props = [];
 		else if ( this.props.includes(prop) ) return;
 
-		if ( this.armor > 0 || this.type === 'armor' ) {
-			this.applyBonus( this, ARMOR, prop.bonus );
+		if ( prop.bonus && this.armor > 0 || this.type === 'armor' ) {
+			this.applyMods( prop.bonus, 1, this.armor );
+		}
+
+		if ( prop.maxEnchants ) {
+			this.applyMods( prop.maxEnchants, 1, this.maxEnchants );
 		}
 
 		if ( prop.mod ) {
@@ -282,8 +286,6 @@ export default class Wearable extends Item {
 			if ( !this.mod ) this.mod = newMods;
 			else mergeSafe( this.mod, newMods);
 		}
-
-		if ( prop.maxEnchants ) this.maxEnchants += prop.maxEnchants;
 
 		//if ( prop.type ==='property' ) console.log('APPLY PROPERTY: ' + (prop.id) );
 

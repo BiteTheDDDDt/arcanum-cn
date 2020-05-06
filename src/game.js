@@ -10,7 +10,7 @@ import Stat from './values/rvals/stat';
 import DataLoader from './dataLoader';
 
 import Events, {EVT_EVENT, EVT_LOOT, SET_SLOT, DELETE_ITEM } from './events';
-import { MONSTER, TYP_PCT, TYP_RANGE, P_TITLE, P_LOG, TEAM_PLAYER, ENCHANTSLOTS, WEAPON } from './values/consts';
+import { MONSTER, TYP_PCT, P_TITLE, P_LOG, TEAM_PLAYER, ENCHANTSLOTS, WEAPON } from './values/consts';
 import TagSet from './composites/tagset';
 import RValue from './values/rvals/rvalue';
 import { SetModCounts } from './items/base';
@@ -864,7 +864,7 @@ export default {
 
 				} else {
 
-					if ( typeof e === 'number' || e.type === TYP_RANGE ) {
+					if ( typeof e === 'number' ) {
 						target.amount( e*dt );
 					} else if ( e.isRVal ) {
 

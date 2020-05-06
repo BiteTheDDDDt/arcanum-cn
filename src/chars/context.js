@@ -1,6 +1,6 @@
 import { NpcState } from "./npcState";
 import Events, { EVT_EVENT } from "../events";
-import { TYP_RANGE, P_TITLE, P_LOG, TYP_PCT, MONSTER } from "../values/consts";
+import { P_TITLE, P_LOG, TYP_PCT, MONSTER } from "../values/consts";
 
 /**
  * @interface Context
@@ -218,9 +218,10 @@ export default class Context {
 
 				} else {
 
-					if ( typeof e === 'number' || e.type === TYP_RANGE ) {
+					if ( typeof e === 'number' ) {
 
 						target.amount( e*dt );
+
 					} else if ( e.isRVal ) {
 						// messy code. this shouldn't be here. what's going on?!?!
 						target.amount( dt*e.getApply(this.state, target ) );
