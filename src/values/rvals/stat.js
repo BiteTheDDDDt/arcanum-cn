@@ -18,18 +18,7 @@ export function ShowLoops(){
 export default class Stat extends RValue {
 
 	toJSON(){
-
-
-		if ( this._basePct === 0 ) return this._value;
-
-		let o = {
-			base: this._value,
-			pct:this._basePct
-
-		};
-
-		return o;
-
+		return this._value;
 	}
 
 	/**
@@ -43,9 +32,9 @@ export default class Stat extends RValue {
 
 		if ( this._pos === true ) {
 
-			return Math.max( bTot + Math.abs(bTot)*(this._basePct + this._mPct ),0);
+			return Math.max( bTot + Math.abs(bTot)*(this._mPct ),0);
 
-		} else return bTot + Math.abs(bTot)*(this._basePct + this._mPct);
+		} else return bTot + Math.abs(bTot)*(this._mPct);
 
 	}
 	/** @todo */
@@ -62,9 +51,9 @@ export default class Stat extends RValue {
 
 		if ( this._pos === true ) {
 
-			return Math.max( bTot + Math.abs(bTot)*(this._basePct + this._mPct ),0);
+			return Math.max( bTot + Math.abs(bTot)*(this._mPct ),0);
 
-		} else return bTot + Math.abs(bTot)*(this._basePct + this._mPct);
+		} else return bTot + Math.abs(bTot)*(this._mPct);
 
 	}
 
@@ -75,17 +64,11 @@ export default class Stat extends RValue {
 	set base(v) { this._value = v; }
 
 	/**
-	 * @property {number} basePct - decimal percent
-	 */
-	get basePct() { return this._basePct; }
-	set basePct(v) { this._basePct = v; }
-
-	/**
 	 * @property {number} pctTot - total decimal percent, both modified and base.
 	 * This is the percent-added and does not include the initial '1' percent.
 	 */
 	get pctTot(){
-		return this._basePct + this._mPct;
+		return this._mPct;
 	}
 	/**
 	 * @property {number} baseTot - total base before percents applied.
@@ -148,7 +131,6 @@ export default class Stat extends RValue {
 					this.base = vars.value;
 				} else {
 					this.base = vars.base;
-					this.basePct = vars.pct;
 				}
 
 			} else if ( !isNaN(vars) ) this.base = Number(vars);
@@ -158,7 +140,6 @@ export default class Stat extends RValue {
 		if ( pos ) this.pos = pos;
 
 		if ( !this.base ) this.base = 0;
-		if ( !this.basePct ) this.basePct = 0;
 
 		this._mBase = this._mPct = 0;
 
@@ -206,7 +187,6 @@ export default class Stat extends RValue {
 
 			/// when an object has no id, must apply to base.
 			this.base += amt*( val.bonus || val.value || 0 );
-			this.basePct += amt*( val.pct || 0 );
 
 			console.warn( this.id + ' DEPRECATED NEW base: ' + this.value );
 
@@ -227,7 +207,6 @@ export default class Stat extends RValue {
 		console.warn( this.id + ' PERMANENT MOD: ' + mod )
 		if ( mod.bonusTot || mod.pctTot ){
 			this.base += mod.bonusTot;
-			this.basePct += mod.pctTot;
 		} else if ( typeof mod === 'number') {
 			this.base += mod;
 		} else {
@@ -287,7 +266,7 @@ export default class Stat extends RValue {
 	 * @returns {number} - new stat value.
 	 */
 	delValue( delBonus=0, delPct=0 ) {
-		return ( this._value + this._mBase + delBonus )*( 1 + this._basePct + this._mPct + delPct );
+		return ( this._value + this._mBase + delBonus )*( 1 + this._mPct + delPct );
 	}
 
 	/**

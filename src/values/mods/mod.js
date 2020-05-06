@@ -82,6 +82,12 @@ export default class Mod extends Stat {
 	}
 
 	/**
+	 * @property {number} basePct - decimal percent
+	 */
+	get basePct() { return this._basePct; }
+	set basePct(v) { this._basePct = v; }
+
+	/**
 	 * @property {number} bonus - base bonus of mod.
 	 */
 	get bonus(){return (this.base + this.mBase)*(1+this.mPct); }
