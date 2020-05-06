@@ -43,10 +43,10 @@ export default class Mod extends Stat {
 		: '' );
 
 
-		if ( this.pct !== 0 ) {
+		if ( this.pctTot !== 0 ) {
 
 			if ( this.bonus !== 0 ) s += ', ';
-			s += ( this.pct > 0 ? '+' : '' ) + precise(100*this.pct) + '%';
+			s += ( this.pctTot > 0 ? '+' : '' ) + precise(100*this.pctTot) + '%';
 		}
 		return s;
 	}
@@ -88,25 +88,27 @@ export default class Mod extends Stat {
 	set basePct(v) { this._basePct = v; }
 
 	/**
-	 * @property {number} bonus - base bonus of mod.
+	 * @property {number} bonus - bonus of mod after percent mods.
+	 * basePct not added because basePct works on target of mod.
 	 */
 	get bonus(){return (this.base + this.mBase)*(1+this.mPct); }
-	/**
-	 * @property {number} pct - base percent bonus of mod.
-	 */
-	get pct(){return this.basePct * (1+ this.mPct); }
 
 	/**
-	 * @property {number} pctTot - base percent multiplied by number of times
-	 * mod is applied.
+	 * @property {number} pctTot - modified percent bonus of mod.
 	 */
-	get pctTot(){return this.pct*this.count;}
+	get pctTot(){return this.basePct * (1+ this.mPct); }
 
 	/**
-	 * @property {number} pctTot - base bonus multiplied by number of times
+	 * @property {number} countPct - base percent multiplied by number of times
 	 * mod is applied.
 	 */
-	get bonusTot(){return this.bonus*this.count;}
+	get countPct(){return this.pctTot*this.count;}
+
+	/**
+	 * @property {number} bonusTot - base bonus multiplied by number of times
+	 * mod is applied.
+	 */
+	get countBonus(){return this.bonus*this.count;}
 
 	/**
 	 * @compat
@@ -234,7 +236,7 @@ export default class Mod extends Stat {
 
 				} else {
 					console.warn( this.id + ': ' + targ.id + ' !!Mod Targ: ' + targ.constructor.name);
-					targ.value = amt*this.bonus*( 1 + amt*this.pct );
+					targ.value = amt*this.bonus*( 1 + amt*this.pctTot );
 				}
 			}
 

@@ -21,6 +21,16 @@ export default class Stat extends RValue {
 		return this._value;
 	}
 
+
+	/**
+	 * @returns {string}
+	 */
+	toString(){ return precise( this.value ); }
+
+	/** @todo */
+	set value(v){
+		this._value = v;
+	}
 	/**
 	 * @property {number} value
 	 */
@@ -37,10 +47,7 @@ export default class Stat extends RValue {
 		} else return bTot + Math.abs(bTot)*(this._mPct);
 
 	}
-	/** @todo */
-	set value(v){
-		this._value = v;
-	}
+
 
 	/**
 	 * @returns {number}
@@ -64,18 +71,6 @@ export default class Stat extends RValue {
 	set base(v) { this._value = v; }
 
 	/**
-	 * @property {number} pctTot - total decimal percent, both modified and base.
-	 * This is the percent-added and does not include the initial '1' percent.
-	 */
-	get pctTot(){
-		return this._mPct;
-	}
-	/**
-	 * @property {number} baseTot - total base before percents applied.
-	 */
-	get baseTot(){ return this._value + this._mBase;}
-
-	/**
 	 * @property {number} bonus - total bonus to base, computed from mods.
 	 * @protected
 	 */
@@ -83,9 +78,18 @@ export default class Stat extends RValue {
 
 	/**
 	 * @property {number} mPct - mod pct bonuses, as decimal.
+	 * Does not count implicit starting 1
 	 * @protected
 	 */
 	get mPct() { return this._mPct };
+
+	/**
+	 * @property {number} pctTot - total percent added by mods.
+	 * Same as mPct for Stat, but different in Mod
+	 */
+	get pctTot(){
+		return this._mPct;
+	}
 
 	/**
 	 * @property {.<string,Mod>} mods - mods applied to object.
@@ -109,10 +113,6 @@ export default class Stat extends RValue {
 
 	get type(){ return TYP_STAT }
 
-	/**
-	 * @returns {string}
-	 */
-	toString(){ return precise( this.value ); }
 
 	/**
 	 *
@@ -205,8 +205,8 @@ export default class Stat extends RValue {
 	perm( mod ) {
 
 		console.warn( this.id + ' PERMANENT MOD: ' + mod )
-		if ( mod.bonusTot || mod.pctTot ){
-			this.base += mod.bonusTot;
+		if ( mod.countBonus ){
+			this.base += mod.countBonus;
 		} else if ( typeof mod === 'number') {
 			this.base += mod;
 		} else {
@@ -282,8 +282,8 @@ export default class Stat extends RValue {
 			var mod = this._mods[p];
 			if (mod === undefined ) continue;
 
-			pct += mod.pctTot || 0;
-			bonus += mod.bonusTot || 0;
+			pct += mod.countPct || 0;
+			bonus += mod.countBonus || 0;
 
 		}
 
