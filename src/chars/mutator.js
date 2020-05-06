@@ -30,7 +30,7 @@ export default class Mutator {
 	}
 
 	get bonus(){return this._bonus;}
-	set bonus(v){ this.bonus = v; }
+	set bonus(v){ this._bonus = v; }
 
 	constructor(vars=null) {
 
