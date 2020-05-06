@@ -37,6 +37,7 @@ export default class Mutator {
 		if ( vars ) assign( this, vars);
 
 		if ( this.bonus ) this.bonus = ParseMods( this.bonus, this.id, 1 );
+		if ( this.alter ) this.alter = ParseMods( this.alter, this.id, 1 );
 
 	}
 
