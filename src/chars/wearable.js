@@ -272,7 +272,7 @@ export default class Wearable extends Item {
 		else if ( !Array.isArray(this.props ) ) this.props = [];
 		else if ( this.props.includes(prop) ) return;
 
-		if ( prop.bonus && this.armor > 0 || this.type === 'armor' ) {
+		if ( prop.bonus && ( this.armor > 0 || this.type === 'armor') ) {
 			this.applyMods( prop.bonus, 1, this.armor );
 		}
 

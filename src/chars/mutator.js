@@ -1,5 +1,6 @@
 import Base, {mergeClass} from '../items/base';
 import { assign } from 'objecty';
+import { ParseMods } from '../modules/parsing';
 
 /**
  * @class A Mutator alters an instanced object.
@@ -28,9 +29,14 @@ export default class Mutator {
 		this._alter = v;
 	}
 
+	get bonus(){return this._bonus;}
+	set bonus(v){ this.bonus = v; }
+
 	constructor(vars=null) {
 
 		if ( vars ) assign( this, vars);
+
+		if ( this.bonus ) this.bonus = ParseMods( this.bonus, this.id, 1 );
 
 	}
 

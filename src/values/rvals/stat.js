@@ -198,7 +198,7 @@ export default class Stat extends RValue {
 
 			this.base += amt*val;
 			//deprec( this.id + ' mod: ' + mod );
-			//console.log( this.base + ' NEW base: ' + this.value );
+			console.warn( this.id + ' DEPRECATED NEW base: ' + this.value );
 
 			return;
 
@@ -208,7 +208,7 @@ export default class Stat extends RValue {
 			this.base += amt*( val.bonus || val.value || 0 );
 			this.basePct += amt*( val.pct || 0 );
 
-			//console.log( this.base + ' base; NEW VLAUE: ' + this.value );
+			console.warn( this.id + ' DEPRECATED NEW base: ' + this.value );
 
 		} else {
 			console.dir( val, 'unknown mod: ' + typeof val );
@@ -224,6 +224,7 @@ export default class Stat extends RValue {
 	 */
 	perm( mod ) {
 
+		console.warn( this.id + ' PERMANENT MOD: ' + mod )
 		if ( mod.bonusTot || mod.pctTot ){
 			this.base += mod.bonusTot;
 			this.basePct += mod.pctTot;
