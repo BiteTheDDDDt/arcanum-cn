@@ -1,10 +1,9 @@
-import {mergeSafe, clone} from 'objecty';
 import Attack from './attack';
 
 import Mod from '../values/mods/mod';
 import { ParseMods } from 'modules/parsing';
 import Item from '../items/item';
-import { WEARABLE, ARMOR, TYP_RANGE, TYP_STAT, WEAPON } from '../values/consts';
+import { WEARABLE, ARMOR, WEAPON } from '../values/consts';
 import Stat from '../values/rvals/stat';
 
 
@@ -51,8 +50,19 @@ export default class Wearable extends Item {
 
 	}
 
+	/**
+	 * @property {Damage} dmg
+	 * @alias attack.damage
+	 */
+	get dmg(){
+		return this.damage;
+	}
+	/**
+	 * @property {Damage} damage
+	 * @alias attack.damage
+	 */
 	get damage() {
-		return this._attack ? this._attack.damage : 0;
+		return this._attack ? this._attack.bonus : 0;
 	}
 
 	get equippable() { return true; }
@@ -66,12 +76,8 @@ export default class Wearable extends Item {
 	/**
 	 * @property {Property[]} props
 	 */
-	get props(){
-		return this._props;
-	}
-	set props(v){
-		this._props=v;
-	}
+	get props(){ return this._props; }
+	set props(v){ this._props=v; }
 
 	/**
 	 * @property {Stat} armor
@@ -203,6 +209,8 @@ export default class Wearable extends Item {
 		//InitRVals( this, this );
 
 		this.initProps( gs );
+
+		// @compat
 		if ( !this.maxEnchants ) this.calcMaxEnchants();
 		/*console.log('WEARABLE LEVEL: ' + this.level + ' MAT: '+ (this.material ? this.material.level : 0 )
 		 + ' base: ' + (this.template ? this.template.level : 0 ) );*/
@@ -269,40 +277,29 @@ export default class Wearable extends Item {
 	addProperty( prop ) {
 
 		if (!prop) return;
-		else if ( !Array.isArray(this.props ) ) this.props = [];
-		else if ( this.props.includes(prop) ) return;
 
-		if ( prop.bonus && ( this.armor > 0 || this.type === 'armor') ) {
-			this.applyMods( prop.bonus, 1, this.armor );
+		if ( prop.alter ) this.applyMods( prop.alter, 1, this );
+
+		/*if ( prop.armor && ( this.armor > 0 || this.type === 'armor') ) {
+			this.applyMods( prop.armor, 1, this.armor );
 		}
-
-		if ( prop.maxEnchants ) {
-			this.applyMods( prop.maxEnchants, 1, this.maxEnchants );
-		}
-
-		if ( prop.mod ) {
-
-			let newMods = ParseMods( clone(prop.mod), this.id + '.mod', this );
-			if ( !this.mod ) this.mod = newMods;
-			else mergeSafe( this.mod, newMods);
-		}
-
-		//if ( prop.type ==='property' ) console.log('APPLY PROPERTY: ' + (prop.id) );
 
 		if ( this.attack ) {
 
 			if ( this.attack.damage !== null && this.attack.damage !== undefined ) {
-				this.applyMods( prop.bonus, 1, this.attack.damage );
+				this.applyMods( prop.dmg, 1, this.attack.damage );
 			}
 			if ( prop.tohit ) {
 				//console.log('apply mat to: ' + this.id );
 				this.applyMods( prop.tohit, 1, this.attack.tohit );
 			}
 
-		}
+		}*/
+
+		if ( !Array.isArray(this.props ) ) this.props = [];
+		else if ( this.props.includes(prop) ) return;
 
 		this.addAdj( prop.adj || prop.name, prop );
-
 		this.props.push(prop);
 
 	}

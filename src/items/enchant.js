@@ -60,13 +60,6 @@ export default class Enchant extends Task {
 	}
 
 	/**
-	 * Called when enchant stopped? Is it?
-	 * @param {*} targ
-	 */
-	/*onStop(targ){
-	}*/
-
-	/**
 	 * Test if enchantment can be applied to target item.
 	 * @param {Item} targ
 	 */
@@ -82,5 +75,13 @@ export default class Enchant extends Task {
 		return !this.only || canTarget( this.only, targ );
 
 	}
+
+	/**
+	 * Called when enchant stopped? Is it?
+	 * @param {*} targ
+	 */
+	/*onStop(targ){
+	}*/
+
 
 }

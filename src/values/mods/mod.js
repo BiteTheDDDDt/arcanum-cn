@@ -4,6 +4,7 @@ import { precise } from '../../util/format';
 import { TYP_MOD } from '../consts';
 import { assign } from 'objecty';
 import RValue from '../rvals/rvalue';
+import { canWriteProp } from '../../util/util';
 //import Emitter from 'eventemitter3';
 
 export const ModTest = /^([\+\-]?\d+\.?\d*\b)?(?:([\+\-]?\d+\.?\d*)\%)?$/;
@@ -196,6 +197,11 @@ export default class Mod extends Stat {
 
 		if ( targ instanceof RValue ) targ.addMod( this, amt );
 		else if ( typeof targ === 'number') {
+
+			if ( !canWriteProp(obj, p ) ) {
+				console.log('CANNOT EDIT: ' + p );
+				return;
+			}
 
 			let s = obj[p] = new Stat( targ || 0, (obj.id ? obj.id +'.'  : '' ) + p );
 			s.addMod( this, amt );

@@ -241,8 +241,6 @@ export default class Item {
 				let data = gs.getData( enchants[i] );
 				if ( data === undefined ) continue;
 
-				//if ( data.mod ) this.applyMods( data.mod );
-
 				tot += Number(data.level) || 0;
 
 			}

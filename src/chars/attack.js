@@ -94,6 +94,9 @@ export default class Attack {
 
 	}
 
+	/**
+	 * @property {Stat} bonus - bonus damage applied by attack.
+	 */
 	get bonus() { return this._bonus; }
 	set bonus(v) {
 
@@ -103,9 +106,15 @@ export default class Attack {
 
 	}
 
+	/**
+	 * @alias damage
+	 */
 	get dmg() { return this.damage;}
 	set dmg(v) { this.damage = v; }
 
+	/**
+	 * @property {Range|RValue} damage
+	 */
 	get damage() { return this._damage; }
 	set damage(v) {
 		this._damage = ParseDmg(v);

@@ -241,7 +241,7 @@ export default {
 			if ( e.type === WEAPON) {
 				this.player.addWeapon(e);
 			}
-			if ( e.mod ) this.applyMods( e.mod, 1 );
+			if ( e.mod ) this.applyMods( e.mod );
 		}
 
 

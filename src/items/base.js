@@ -6,6 +6,7 @@ import { TYP_MOD } from '../values/consts';
 import RValue, { SubPath } from '../values/rvals/rvalue';
 import { Changed } from '../techTree';
 import { ParseMods } from '../modules/parsing';
+import { canWriteProp } from '../util/util';
 
 export const SetModCounts = ( m, v)=>{
 
@@ -365,12 +366,17 @@ export default {
 			var subMod = mods[p];
 			var subTarg = targ[p];
 
-			if ( subTarg === undefined || subTarg === null ) {
+			if ( typeof subMod === 'number' ) {
+				console.warn( 'RAW NUMBER MOD on: ' + this.id + ': ' + p + ': ' + subMod );
+			}
+
+			if ( (subTarg === undefined || subTarg === null) ) {
+
+				if( !canWriteProp(targ, p ) ) continue;
 
 				if ( subMod.constructor === Object ) {
 
-					targ[p] = {};
-					this.applyObj( subMod, amt, targ[p], p==='mod'|| isMod );
+					this.applyObj( subMod, amt, targ[p]={}, p==='mod'|| isMod );
 
 				} else {
 					subTarg = targ[p] = isMod ? new Mod( typeof subMod === 'number' ? subMod*amt :0 )
@@ -396,7 +402,9 @@ export default {
 				subTarg.apply( subMod, amt );
 
 			} else if ( subMod instanceof Mod ) {
+
 				subMod.applyTo( targ, p, amt );
+
 			} else if ( subMod.constructor === Object ) {
 
 				this.applyObj( subMod, amt, subTarg, p==='mod'||isMod );
@@ -407,7 +415,7 @@ export default {
 				if ( typeof subTarg === 'number') {
 
 					/// @todo stat switch?
-					console.warn('MOD APPLIED TO RAW NUM: ' + p + ' : ' + (m*amt ) );
+					console.warn('MOD OF RAW NUM: ' + p + ' : ' + (m*amt ) );
 					targ[p] = new Stat( targ[p] + subMod*amt, SubPath(this.id, p) );
 					//targ[p] += m*amt;
 

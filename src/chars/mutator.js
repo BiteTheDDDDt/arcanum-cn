@@ -3,7 +3,7 @@ import { assign } from 'objecty';
 import { ParseMods } from '../modules/parsing';
 
 /**
- * @class A Mutator alters an instanced object.
+ * @class A Mutator alters instanced objects.
  */
 export default class Mutator {
 
@@ -22,21 +22,13 @@ export default class Mutator {
 	/**
 	 * @property {object} alter - alteration mods applied to target.
 	 */
-	get alter(){
-		return this._alter;
-	}
-	set alter(v) {
-		this._alter = v;
-	}
-
-	get bonus(){return this._bonus;}
-	set bonus(v){ this._bonus = v; }
+	get alter(){return this._alter;}
+	set alter(v) {this._alter = v;}
 
 	constructor(vars=null) {
 
 		if ( vars ) assign( this, vars);
 
-		if ( this.bonus ) this.bonus = ParseMods( this.bonus, this.id, 1 );
 		if ( this.alter ) this.alter = ParseMods( this.alter, this.id, 1 );
 
 	}

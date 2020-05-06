@@ -1,4 +1,4 @@
-import {getPropDesc, clone} from 'objecty';
+import {getPropDesc} from 'objecty';
 
 /**
  * alphabetical sort by name property.
@@ -36,6 +36,35 @@ export const ensure = ( obj, props ) => {
 	}
 
 }
+
+/**
+ * Attempt to add a property to object.
+ * @param {object} targ
+ * @param {string} prop
+ * @param {object} v - property value.
+*/
+export const tryAddProp = ( targ, prop, v ) => {
+
+	let desc = getPropDesc( targ, prop );
+	if ( !desc || !desc.set && !desc.writable ) return null;
+
+	return targ[prop] = v;
+
+}
+
+/**
+ * Determine if property can be safely added to target.
+ * Does not check sealed/frozen object status.
+ * @param {object} targ
+ * @param {string} prop
+*/
+export const canWriteProp = ( targ, prop ) => {
+
+	let desc = getPropDesc( targ, prop );
+	return !desc || desc.set || desc.writable;
+
+}
+
 
 /**
  * Only assign values already defined in dest's protochain.

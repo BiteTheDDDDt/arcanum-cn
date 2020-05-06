@@ -361,7 +361,7 @@ export default class Char {
 		this._states.add( dot );
 		this.dots.push( dot );
 
-		if ( dot.mod ) this.context.applyMods( dot.mod, 1 );
+		if ( dot.mod ) this.context.applyMods( dot.mod );
 		if ( dot.flags ) Events.emit( CHAR_STATE, this, dot );
 	}
 
@@ -381,7 +381,7 @@ export default class Char {
 		let dot = this.dots[i];
 		this.dots.splice(i,1);
 
-		if ( dot.mod ) this.context.applyMods( dot.mod, -1 );
+		if ( dot.mod ) this.context.removeMods( dot.mod );
 		if ( dot.flags ) this._states.remove( dot );
 
 	}
