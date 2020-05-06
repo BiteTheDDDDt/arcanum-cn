@@ -292,11 +292,11 @@ export default class Wearable extends Item {
 		if ( this.attack ) {
 
 			if ( this.attack.damage !== null && this.attack.damage !== undefined ) {
-				this.applyBonus( this.attack, 'damage', prop.bonus );
+				this.applyMods( prop.bonus, 1, this.attack.damage );
 			}
 			if ( prop.tohit ) {
 				//console.log('apply mat to: ' + this.id );
-				this.applyBonus( this.attack, 'tohit', prop.tohit );
+				this.applyMods( prop.tohit, 1, this.attack.tohit );
 			}
 
 		}
@@ -304,27 +304,6 @@ export default class Wearable extends Item {
 		this.addAdj( prop.adj || prop.name, prop );
 
 		this.props.push(prop);
-
-	}
-
-	/**
-	 * Bonus applied by material.
-	 * @param {Object} obj - object being modified.
-	 * @param {string} prop
-	 * @param {number|Mod} amt
-	 */
-	applyBonus( obj, prop, amt=0 ) {
-
-		let cur = obj[prop];
-		if ( cur === null || cur === undefined ) {
-			obj[prop] = amt;
-		}
-		else if ( typeof cur === 'number') {
-			 obj[prop] = cur + amt;
-		}
-		else if ( cur.type === TYP_RANGE || cur.type === TYP_STAT ) {
-			cur.add( amt );
-		}
 
 	}
 
