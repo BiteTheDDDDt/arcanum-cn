@@ -1,8 +1,8 @@
 import FValue from "./rvals/fvalue";
-import RValue from "./rvals/rvalue";
 import Range, { RangeTest } from "./range";
 import Events, { IS_IMMUNE, CHAR_DIED, COMBAT_HIT, EVT_COMBAT } from "../events";
 import { TYP_FUNC } from "./consts";
+import RValue from "./rvals/rvalue";
 
 /**
  * @const {number} TARGET_SELF - target self.
@@ -181,6 +181,7 @@ export const ParseTarget = (s)=>{
  * @returns {(a,t,c,g)=>number}
  */
 export const MakeDmgFunc = (s)=>{
+	console.log('DAMGE FUNC: ' + s );
 	return new FValue( 'a,t,g', s );
 };
 
@@ -188,7 +189,8 @@ export const ParseDmg = (v)=>{
 
 	if ( v === null || v === undefined || v === '' ) return null;
 
-	if ( typeof v === 'string' && !RangeTest.test(v) && !isNaN(v) ) return MakeDmgFunc(v);
+	if ( (typeof v === 'string') && !RangeTest.test(v) && isNaN(v) ) return MakeDmgFunc(v);
+	else if ( v instanceof RValue ) return v;
 	return new Range(v);
 
 }

@@ -11,7 +11,10 @@ export default class Range {
 
 	toJSON() { return this.min + SPLIT_CHAR + this.max; }
 
-	toString() { return precise( this.min ) + ' ' + SPLIT_CHAR + ' ' + precise(this.max ); }
+	toString() {
+		return ( this.min == this.max ) ? precise( this.min ) :
+		precise( this.min ) + ' ' + SPLIT_CHAR + ' ' + precise(this.max );
+	}
 
 	/**
 	 * @property {string} id
@@ -70,8 +73,7 @@ export default class Range {
 
 		}
 
-		//console.log('min: ' + this.min + ' -> ' + this.max );
-
+		if ( typeof this.min !== 'number') console.log('min: ' + this.min + ' -> ' + this.max );
 
 	}
 
