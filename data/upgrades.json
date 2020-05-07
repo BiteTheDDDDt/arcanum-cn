@@ -827,7 +827,7 @@
 		"id":"hiddenpockets",
 		"require":"g.magician>0||g.trickster>0&&g.trickery>0",
 		"cost":{
-			"research":200,
+			"research":300,
 			"arcana":1
 		},
 		"repeat":false,
@@ -1144,10 +1144,10 @@
 
 		"id":"coinmagic",
 		"name":"coin tricks",
-		"require":"(g.magician+g.trickster)>0",
+		"require":"hiddenpockets",
 		"desc":"Manipulate coins to produce more coins.",
 		"cost":{
-			"research":100
+			"research":400
 		},
 		"repeat":false,
 		"flavor":"didn't even palm it.",

@@ -133,11 +133,12 @@ export default class RValue {
 	 */
 	addMod( mod, amt ){
 		// base rvalue does not accept modifiers.
+		console.warn('ATTEMPT TO MOD RVAL: ' + this.id + ' mod: ' + mod.id );
 	}
 
 	/**
 	 * Get amount when applied as an effect.
-	 * @param {}
+	 * @returns {number} this.valueOf() by default.
 	 */
 	getApply() {
 		//console.log( this.id + ' getApply: ' + this.value );

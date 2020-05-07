@@ -329,13 +329,14 @@ export default {
 		} else if ( mods.constructor === Object ) {
 
 			this.applyObj( mods, amt, targ );
+			if ( mods.mod ) this.changeMod( mods.mod, amt );
 
 
 		} else if ( typeof mods === 'number') {
 
 			console.warn( mods + ' RAW NUM MOD ON: ' + this.id );
 
-			if ( targ instanceof Stat ) {
+			/*if ( targ instanceof Stat ) {
 
 				console.error( '!!!!! ' + mods + ' number apply to: ' + this.id );
 				targ.add( mods*amt );
@@ -348,7 +349,7 @@ export default {
 			} else {
 				// nothing can be done if targ is a number. no parent object.
 				console.error( this.id + ' !!invalid mod: ' + mods );
-			}
+			}*/
 
 		} else console.warn( this.id + ' unknown mod type: ' + mods );
 
@@ -367,11 +368,6 @@ export default {
 
 			var subMod = mods[p];
 			var subTarg = targ[p];
-
-			if ( typeof subMod === 'number' ) {
-				console.warn( 'RAW NUMBER MOD on: ' + this.id + ': ' + p + ': ' + subMod );
-				continue;
-			}
 
 			if ( (subTarg === undefined || subTarg === null) ) {
 
@@ -398,23 +394,24 @@ export default {
 
 				subTarg.applyMods( subMod, amt, subTarg );
 
-			} else if ( subMod instanceof Mod ) {
-
-				subMod.applyTo( targ, p, amt );
-
 			} else if ( subMod.constructor === Object ) {
 
 				this.applyObj( subMod, amt, subTarg, p==='mod'||isMod );
 
+			} else if ( subMod instanceof Mod ) {
+
+				if ( subTarg.isRVal ) subTarg.addMod( subMod, amt );
+				else subMod.applyTo( targ, p, amt );
+
+			}else if ( typeof subMod === 'number' ) {
+				console.warn( 'RAW NUMBER MOD on: ' + this.id + ': ' + p + ': ' + subMod );
 			}
 			/*else if ( typeof subMod === 'number' ) {
 
 				if ( typeof subTarg === 'number') {
 
-					/// @todo stat switch?
 					console.warn('MOD OF RAW NUM: ' + p + ' : ' + (m*amt ) );
 					targ[p] = new Stat( targ[p] + subMod*amt, SubPath(this.id, p) );
-					//targ[p] += m*amt;
 
 				} else this.applyMods( subMod, amt, subTarg);
 
@@ -516,9 +513,6 @@ export default {
 	 * @param {number} amt - percent of change applied to modifier.
 	 */
 	changeMod( mod, amt ) {
-
-		// @todo: why? assume not currently worn?
-		if ( this.equippable ) return;
 
 		// apply change to modifier for existing item amount.
 		Game.applyMods( mod, amt*this.value );
