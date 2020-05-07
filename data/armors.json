@@ -57,7 +57,7 @@
 		"properties":"5%",
 		"maxEnchants":4},
 
-	{ "id":"collar", "armor":0, "slot":"neck", "cost":30,
+	{ "id":"collar", "armor":1, "slot":"neck", "cost":30,
 		"maxEnchants":2 },
 
 	{ "id":"amulet", "armor":0, "slot":"neck", "cost":500,

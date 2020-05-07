@@ -69,7 +69,9 @@ const SubMods = ( mods, id, source )=>{
 		return StrMod( mods, id, source );
 
 	} else if ( typeof mods === 'number') {
+
 		return new Mod( mods, id, source );
+
 	} else if ( typeof mods !== 'object' ) {
 		// @note includes boolean (unlock) mods.
 		//console.log( id + ' unknown mod type: ' + (typeof mods) + ' source: ' + source )
@@ -88,6 +90,7 @@ const SubMods = ( mods, id, source )=>{
 		}
 		// @note this includes 0 as well.
 		if ( !val) continue;
+
 
 		if ( val instanceof Mod ) {
 

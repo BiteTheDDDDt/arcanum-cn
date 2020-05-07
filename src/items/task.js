@@ -103,7 +103,11 @@ export default class Task extends GData {
 		this.repeat = this.repeat === false ? false : true;
 		this.type = 'task';
 
-		if ( this.at ) this.at = ParseMods( this.at, this.id, 1 );
+		if ( this.at ) {
+			if ( this.id === 'magicmissile') console.log('MAGIC MISSILE AT MODS');
+			this.at = ParseMods( this.at, this.id, 1 );
+		}
+
 		if ( this.every ) this.every = ParseMods( this.every, this.id, this );
 
 		if ( (this.length || this.perpetual)) {
@@ -137,8 +141,6 @@ export default class Task extends GData {
 				if ( v >= Number(p) ) {
 
 					//ShowModTotals( this.at[p] );
-
-					//console.log(this.id + ' APPLY AT: ' + this.at);
 					this.applyMods( this.at[p] );
 
 				}

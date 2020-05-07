@@ -175,11 +175,15 @@ export default class Stat extends RValue {
 
 		if ( (val instanceof Stat) && val.id ) return this.addMod( val, amt );
 
+		if ( ( val instanceof Stat ) ) {
+			console.log('STAT WITHOUT ID: ' + val );
+		}
+
 		else if ( typeof val ==='number' ) {
 
 			this.base += amt*val;
 			//deprec( this.id + ' mod: ' + mod );
-			console.warn( this.id + ' DEPRECATED NEW base: ' + this.value );
+			console.warn( this.id + ' adding: ' + val +'  DEPRECATED NEW base: ' + this.value );
 
 			return;
 
@@ -188,7 +192,9 @@ export default class Stat extends RValue {
 			/// when an object has no id, must apply to base.
 			this.base += amt*( val.bonus || val.value || 0 );
 
-			console.warn( this.id + ' DEPRECATED NEW base: ' + this.value );
+			console.warn( this.id + ' DEPRECATED APPLY: ' + val + '  type: ' + val.constructor.name );
+
+			//console.dir( val );
 
 		} else {
 			console.dir( val, 'unknown mod: ' + typeof val );
@@ -204,7 +210,7 @@ export default class Stat extends RValue {
 	 */
 	perm( mod ) {
 
-		console.warn( this.id + ' PERMANENT MOD: ' + mod )
+		console.warn( this.id + ' PERM MOD: ' + mod )
 		if ( mod.countBonus ){
 			this.base += mod.countBonus;
 		} else if ( typeof mod === 'number') {
@@ -223,6 +229,7 @@ export default class Stat extends RValue {
 	addMod( mod, amt=1 ) {
 
 		if ( !mod.id ) {
+			console.dir( mod, 'NO MOD ID' );
 			this.apply(mod, amt );
 			return;
 		}

@@ -185,7 +185,7 @@ export default class Mod extends Stat {
 		this.base = this.base || 0;
 		this.basePct = this.basePct || 0;
 
-		this.id = id || this.id || DEFAULT_MOD;
+		if ( !this.id ) this.id = DEFAULT_MOD;
 
 	}
 

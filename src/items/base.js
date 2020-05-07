@@ -398,11 +398,6 @@ export default {
 
 				subTarg.applyMods( subMod, amt, subTarg );
 
-			} else if ( subTarg.addMod) {
-
-
-				subTarg.addMod( subMod, amt );
-
 			} else if ( subMod instanceof Mod ) {
 
 				subMod.applyTo( targ, p, amt );
