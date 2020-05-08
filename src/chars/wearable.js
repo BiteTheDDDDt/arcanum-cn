@@ -57,9 +57,15 @@ export default class Wearable extends Item {
 	 */
 	get enchants(){return this._enchants}
 	set enchants(v){
-		if ( v ) {
-			this._enchants = v instanceof MaxStat ? v : new MaxStat( v, true );
-		} this._enchants = v;
+
+		console.log('set enchant: ' + (typeof v ) + ': ' + v );
+		if ( v !== null && v !== undefined ) {
+
+			if ( this._enchants ) this._enchants.base = v;
+			else this._enchants = v instanceof MaxStat ? v : new MaxStat( v, true );
+
+		} else this._enchants = v;
+
 	}
 
 	/**
@@ -152,9 +158,10 @@ export default class Wearable extends Item {
 		//if ( vars ) cloneClass( vars, this );
 		//if ( save ) Object.assign( this, save );
 
-		this.value = this.val = 0;
-
 		if ( !this.enchants ) this.enchants = 0;
+		if (!this.alters ) this.alters = [];
+
+		this.value = this.val = 0;
 
 		if ( !this.type ) {
 			console.warn(this.id + ' unknown wear type: ' + this.type );
@@ -206,16 +213,33 @@ export default class Wearable extends Item {
 			else this.level = 1;
 
 			if ( this.material && this.material.level ) {
+				console.log('MAT WITH LEVEL: ' + this.material.level );
 				this.level += this.material.level.valueOf() || 0;
 			}
 
 		}
 
+		if ( this.material && !this.alters.includes(this.material.id)) {
+			console.log( this.id + ' PUSHING MATERIAL: ' + this.material.id );
+			this.alters.push(this.material.id);
+		}
+
 		if ( this.mod ) this.mod = ParseMods( this.mod, this.id, this );
 		// @compat
-		//if ( !this.enchants ) this.calcMaxEnchants();
+		if ( !this.enchants.max ) this.calcMaxEnchants();
+
 		/*console.log('WEARABLE LEVEL: ' + this.level + ' MAT: '+ (this.material ? this.material.level : 0 )
 		 + ' base: ' + (this.template ? this.template.level : 0 ) );*/
+	}
+
+	/**
+	 *
+	 * @param {Game} g
+	 */
+	begin( g ){
+
+		this.initAlters(g);
+
 	}
 
 	/**
@@ -227,14 +251,26 @@ export default class Wearable extends Item {
 		return this.alters && this.alters.find( v=>v.id===id);
 	}
 
+	applyMaterial( mat ) {
+
+		if (!mat) return;
+		this.material = mat;
+
+		this.doAlter( mat );
+
+	}
+
 	/**
 	 *
-	 * @param {Enchant} e - enchantment being added.
+	 * @param {Alter} it - enchantment being added.
 	 */
-	doAlter( e ) {
+	doAlter( it ) {
 
-		if ( e.type === ENCHANT ) this.enchants += e.level || 0;
-		super.doAlter( e );
+		if ( it.type === ENCHANT || it.type === 'material') this.enchants += it.level || 0;
+
+		console.log('APPLY ALTER: ' + it.id );
+
+		Instance.doAlter.call( this, it );
 
 	}
 
@@ -247,28 +283,8 @@ export default class Wearable extends Item {
 
 		}
 
-		let props = this.alters;
-		if ( props ) {
-
-			for( let i = 0; i < props.length; i++ ) {
-
-				let p = props[i];
-				if ( !p ) continue;
-				max += props[i].enchants || 0;
-			}
-		}
-
-		this.enchants = max;
-	}
-
-	applyMaterial( mat ) {
-
-		if (!mat) return;
-		this.material = mat;
-
-		this.level +=  mat.level || 0;
-
-		Instance.doAlter( mat );
+		console.log('ENCHANT max: ' + max );
+		this.enchants.max = max;
 
 	}
 

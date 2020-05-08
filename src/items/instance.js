@@ -23,20 +23,13 @@ export default {
 	get alters(){ return this._alters; },
 	set alters(v){ this._alters=v; },
 
-	/**
-	 *
-	 * @param {Game} g
-	 */
-	begin( g ){
-
-		this.initAlters(g);
-
+	constructor(){
 	},
 
 	/**
 	 * Map property strings to source property objects.
 	 */
-	initAlters( gs ){
+	initAlters( g ){
 
 		let alters = this.alters;
 		if ( !alters ) return;
@@ -48,11 +41,14 @@ export default {
 		let a = [];
 		for( let i = 0; i < len; i++ ) {
 
-			let p = gs.getData( alters[i] );
+			let p = g.getData( alters[i] );
 			if (!p ) continue;
-
-
 			a.push(p);
+
+			if ( p.alter ) {
+				console.log(this.id + ' APPLY ALTER: ' + p.id );
+				this.applyMods( p.alter, 1, this );
+			}
 
 		}
 
@@ -61,19 +57,19 @@ export default {
 
 	/**
 	 * Add an alteration to the base instance.
-	 * @param {Alter} prop
+	 * @param {Alter} alter
 	 */
-	doAlter( prop ) {
+	doAlter( alter ) {
 
-		if (!prop) return;
+		if (!alter) return;
 
-		if ( prop.alter ) this.applyMods( prop.alter, 1, this );
+		if ( alter.alter ) this.applyMods( alter.alter, 1, this );
 
 		if ( !Array.isArray(this.alters ) ) this.alters = [];
-		else if ( this.alters.includes(prop) ) return;
+		else if ( this.alters.includes(alter) ) return;
 
-		this.addAdj( prop.adj || prop.name, prop );
-		this.alters.push(prop);
+		this.addAdj( alter.adj || alter.name, alter );
+		this.alters.push(alter);
 
 	},
 

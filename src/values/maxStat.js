@@ -104,8 +104,8 @@ export default class MaxStat {
 				else this.max = 0;
 
 				if ( vars.v ) this.v = vars.v;
-				else if ( vars.max ) this.value = vars.max;
-				else this.v = 0;
+				else this.v = empty || !vars.max ? 0 : vars.max;
+
 			}
 
 		} else if ( typeof vars === 'number' ) {

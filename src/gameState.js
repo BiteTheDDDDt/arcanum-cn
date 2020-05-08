@@ -151,10 +151,12 @@ export default class GameState {
 
 	revive() {
 
-		this.reviveSpecial();
-
 		console.log('Reviving GameState Items');
 		this.reviveItems();
+
+
+		this.reviveSpecial();
+
 
 		// quickbars must revive after inventory.
 		this.bars.revive(this);

@@ -207,6 +207,10 @@ export default class Slot {
 
 	}
 
+	/**
+	 *
+	 * @param {Context} g
+	 */
 	begin(g){
 		if ( this.item === null || this.item === undefined ) return;
 		if ( Array.isArray( this.item) ) {
