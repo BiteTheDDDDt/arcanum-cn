@@ -130,8 +130,14 @@ export default class Item {
 
 		if ( this.mod ) this.mod = ParseMods( this.mod, this.id, this );
 
+		//this.initAlters(gs);
+
 	}
 
+	begin(g){
+		console.log('BEGIN CALLED: ' + this.id );
+		this.initAlters(g);
+	}
 
 }
 

@@ -23,31 +23,32 @@ export default {
 	get alters(){ return this._alters; },
 	set alters(v){ this._alters=v; },
 
-	constructor(){
-	},
-
 	/**
 	 * Map property strings to source property objects.
 	 */
 	initAlters( g ){
 
-		let alters = this.alters;
-		if ( !alters ) return;
+		let alters = this.alters || [];
 		if ( typeof alters === 'string') {
 			alters = alters.split(',');
 		}
+
+		console.log('INIT ALTERS: ' + this.id );
 
 		let len = alters.length;
 		let a = [];
 		for( let i = 0; i < len; i++ ) {
 
 			let p = g.getData( alters[i] );
-			if (!p ) continue;
-			a.push(p);
+			if (!p || (typeof p !== 'object') ) continue;
+			else {
 
-			if ( p.alter ) {
-				console.log(this.id + ' APPLY ALTER: ' + p.id );
-				this.applyMods( p.alter, 1, this );
+				a.push(p);
+
+				if ( p.alter ) {
+				//	console.log(this.id + ' INIT ALTER: ' + p.id );
+					this.applyMods( p.alter, 1, this );
+				}
 			}
 
 		}

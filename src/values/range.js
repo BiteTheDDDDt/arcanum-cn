@@ -9,7 +9,11 @@ const SPLIT_CHAR = '~';
 
 export default class Range {
 
-	toJSON() { return this.min + SPLIT_CHAR + this.max; }
+	toJSON() {
+		return (typeof this.min === 'number' ? this.min : this.min.base ) + SPLIT_CHAR +
+				( typeof this.max === 'number' ? this.max : this.max.base );
+
+	}
 
 	toString() {
 		return ( this.min == this.max ) ? precise( this.min ) :

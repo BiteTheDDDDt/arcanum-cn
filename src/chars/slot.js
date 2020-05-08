@@ -216,10 +216,10 @@ export default class Slot {
 		if ( Array.isArray( this.item) ) {
 
 			for( let i = this.item.length-1; i>= 0; i-- ) {
-				if ( this.item[i].begin === 'function') this.item[i].begin(g);
+				this.item[i].begin(g);
 			}
 
-		} else if ( typeof this.item.begin ==='function' ) this.item.begin( g );
+		} else this.item.begin( g );
 	}
 
 	revive( gs ) {

@@ -33,15 +33,6 @@ export default class Wearable extends Item {
 		data.attack = this.attack || undefined;
 
 		if ( this.mod ) data.mod = this.mod;
-		if ( this.alters ) {
-
-			if ( !Array.isArray(this.alters)) {
-				console.log(this.id + ' PROPS INVALID: ' + (typeof this.alters) + ' : ' + this.alters );
-			} else {
-				data.props = this.alters.map(v=>v.id).join(',');
-			}
-
-		}
 
 		if ( this.material ) {
 			if ( !data ) data = {};
@@ -228,16 +219,7 @@ export default class Wearable extends Item {
 
 		/*console.log('WEARABLE LEVEL: ' + this.level + ' MAT: '+ (this.material ? this.material.level : 0 )
 		 + ' base: ' + (this.template ? this.template.level : 0 ) );*/
-	}
-
-	/**
-	 *
-	 * @param {Game} g
-	 */
-	begin( g ){
-
-		this.initAlters(g);
-
+		 //this.initAlters(gs);
 	}
 
 	/**
@@ -253,6 +235,7 @@ export default class Wearable extends Item {
 
 		if (!mat) return;
 		this.material = mat;
+		console.log('APPLY MATERIAL: ' + mat.id );
 
 		this.doAlter( mat );
 
