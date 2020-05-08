@@ -5,6 +5,7 @@ import { ParseMods } from 'modules/parsing';
 import Item from '../items/item';
 import { WEARABLE, ARMOR, WEAPON } from '../values/consts';
 import Stat from '../values/rvals/stat';
+import MaxStat from '../values/maxStat';
 
 
 export default class Wearable extends Item {
@@ -31,12 +32,12 @@ export default class Wearable extends Item {
 		data.attack = this.attack || undefined;
 
 		if ( this.mod ) data.mod = this.mod;
-		if ( this.props ) {
+		if ( this.alters ) {
 
-			if ( !Array.isArray(this.props)) {
-				console.log(this.id + ' PROPS INVALID: ' + (typeof this.props) + ' : ' + this.props );
+			if ( !Array.isArray(this.alters)) {
+				console.log(this.id + ' PROPS INVALID: ' + (typeof this.alters) + ' : ' + this.alters );
 			} else {
-				data.props = this.props.map(v=>v.id).join(',');
+				data.props = this.alters.map(v=>v.id).join(',');
 			}
 
 		}
@@ -48,6 +49,16 @@ export default class Wearable extends Item {
 
 		return data ? data : undefined;
 
+	}
+
+	/**
+	 * @property {number} enchants - total level of all enchantments applied.
+	 */
+	get enchants(){return this._enchants}
+	set enchants(v){
+		if ( v ) {
+			this._enchants = v instanceof MaxStat ? v : new MaxStat( v, true );
+		} this._enchants = v;
 	}
 
 	/**
@@ -68,16 +79,10 @@ export default class Wearable extends Item {
 	get equippable() { return true; }
 
 	/**
-	 * @property {Property} material - (may be string before revive.)
+	 * @property {Alter} material - (may be string before revive.)
 	 */
 	get material() { return this._material; }
 	set material(v) { this._material=v;}
-
-	/**
-	 * @property {Property[]} props
-	 */
-	get props(){ return this._props; }
-	set props(v){ this._props=v; }
 
 	/**
 	 * @property {Stat} armor
@@ -148,7 +153,7 @@ export default class Wearable extends Item {
 
 		this.value = this.val = 0;
 
-		if ( !this.maxEnchants ) this.maxEnchants = this.hands || 0;
+		if ( !this.enchants ) this.enchants = 0;
 
 		if ( !this.type ) {
 			console.warn(this.id + ' unknown wear type: ' + this.type );
@@ -208,59 +213,50 @@ export default class Wearable extends Item {
 		if ( this.mod ) this.mod = ParseMods( this.mod, this.id, this );
 		//InitRVals( this, this );
 
-		this.initProps( gs );
+		this.initAlters( gs );
 
 		// @compat
-		if ( !this.maxEnchants ) this.calcMaxEnchants();
+		if ( !this.enchants ) this.calcEnchants();
 		/*console.log('WEARABLE LEVEL: ' + this.level + ' MAT: '+ (this.material ? this.material.level : 0 )
 		 + ' base: ' + (this.template ? this.template.level : 0 ) );*/
 	}
 
 	/**
-	 * Map property strings to source property objects.
+	 *
+	 * @param {Enchant} e - enchantment being added.
 	 */
-	initProps( gs ){
+	addEnchant( e ) {
 
-		let props = this.props;
-		if ( !props ) return;
-		if ( typeof props === 'string') {
-			props = props.split(',');
-		}
+		if ( !this.alters ) this.alters = [];
+		this.alters.push(e.id);
 
-		let len = props.length;
-		let a = [];
-		for( let i = 0; i < len; i++ ) {
+		this.addAdj( e.adj, e, 'enchanted');
 
-			let p = gs.getData( props[i] );
-			if (!p ) continue;
-			a.push(p);
+		this.enchants += e.level || 0;
 
-		}
-
-		this.props = a;
 	}
 
-	calcMaxEnchants() {
+	calcEnchants() {
 
 		let max = 0;
 		if ( this.template ) {
 
-			max = this.template.maxEnchants || 0;
+			max = this.template.enchants || 0;
 
 		}
 
-		let props = this.props;
+		let props = this.alters;
 		if ( props ) {
 
 			for( let i = 0; i < props.length; i++ ) {
 
 				let p = props[i];
 				if ( !p ) continue;
-				max += props[i].maxEnchants || 0;
+				max += props[i].enchants || 0;
 			}
 		}
 
-		this.maxEnchants = max;
+		this.enchants = max;
 	}
 
 	applyMaterial( mat ) {
@@ -270,37 +266,7 @@ export default class Wearable extends Item {
 
 		this.level +=  mat.level || 0;
 
-		this.addProperty( mat );
-
-	}
-
-	addProperty( prop ) {
-
-		if (!prop) return;
-
-		if ( prop.alter ) this.applyMods( prop.alter, 1, this );
-
-		/*if ( prop.armor && ( this.armor > 0 || this.type === 'armor') ) {
-			this.applyMods( prop.armor, 1, this.armor );
-		}
-
-		if ( this.attack ) {
-
-			if ( this.attack.damage !== null && this.attack.damage !== undefined ) {
-				this.applyMods( prop.dmg, 1, this.attack.damage );
-			}
-			if ( prop.tohit ) {
-				//console.log('apply mat to: ' + this.id );
-				this.applyMods( prop.tohit, 1, this.attack.tohit );
-			}
-
-		}*/
-
-		if ( !Array.isArray(this.props ) ) this.props = [];
-		else if ( this.props.includes(prop) ) return;
-
-		this.addAdj( prop.adj || prop.name, prop );
-		this.props.push(prop);
+		this.addAlter( mat );
 
 	}
 

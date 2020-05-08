@@ -6,7 +6,7 @@
   "scripts": {
     "build": "webpack --env.production --env.cloud --buildpath=dist/",
     "ci-dev": "webpack --env --buildpath=dev/",
-    "dev": "webpack --watch --env --env.cloud --buildpath=dev/",
+    "dev": "webpack --watch --env.cloud --buildpath=dev/",
     "run": "webpack --watch --env.production --env.cloud --buildpath=dist/",
 	"kong": "webpack --watch --env.production --env.kong --buildpath=kong/",
 	"deploy":"firebase deploy"

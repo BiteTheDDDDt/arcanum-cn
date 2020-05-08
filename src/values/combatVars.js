@@ -181,7 +181,6 @@ export const ParseTarget = (s)=>{
  * @returns {(a,t,c,g)=>number}
  */
 export const MakeDmgFunc = (s)=>{
-	console.log('DAMGE FUNC: ' + s );
 	return new FValue( 'a,t,g', s );
 };
 

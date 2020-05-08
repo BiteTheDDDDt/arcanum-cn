@@ -1616,7 +1616,7 @@
 
 	{
 		"id":"celerity",
-		"require":"tier1",
+		"require":"g.tier1>0&&g.arcanebody>0",
 		"desc":"ancient spellcasters often move with preternatural speed.",
 		"max":3,
 		"warn":true,

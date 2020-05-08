@@ -53,6 +53,11 @@ const MakePlugins = ( env, buildPath ) => {
 			{
 				from:'css',
 				to:path.resolve( buildPath, 'css' )
+			},
+			{
+				// additional js files.
+				from:'includes',
+				to:path.resolve(buildPath, 'js')
 			}
 		])
 	];

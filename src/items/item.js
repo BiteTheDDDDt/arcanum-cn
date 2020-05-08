@@ -3,6 +3,7 @@ import {assign, cloneClass } from 'objecty';
 import { ParseMods } from 'modules/parsing';
 import Instance from './instance';
 import RValue from '../values/rvals/rvalue';
+import Enchant from './enchant';
 
 const ItemDefaults = {
 	stack:true,
@@ -32,8 +33,8 @@ export default class Item {
 
 		}
 
-		if ( this.enchants && this.enchants.length>0){
-			data.enchants = this.enchants.join(',');
+		if ( this.alters && this.alters.length>0){
+			data.alters = this.alters.map( v=>v.id );
 		}
 
 		data.cnt = this.count || undefined;
@@ -44,44 +45,6 @@ export default class Item {
 		return data ? data : undefined;
 
 	}
-
-	/**
-	 * @property {string[]} enchants - ids of enchantments applied.
-	 */
-	get enchants() {
-		return this._enchants;
-	}
-	set enchants(v) {
-
-		if ( typeof v === 'number') {
-			/**@compat */
-			this.enchantTot = v;
-
-		} else if ( typeof v === 'string' ){
-
-			this._enchants = v.split(',');
-
-		} else if ( Array.isArray(v)){
-
-			this._enchants = v;
-
-		} else console.warn('invalid enchants: ' + v );
-
-	}
-
-	/**
-	 * @property {number} enchantTot - total level of all enchantments applied.
-	 */
-	get enchantTot(){return this._enchantTot}
-	set enchantTot(v){
-		this._enchantTot=v;
-	}
-
-	/**
-	 * @property {number} enchantMax - max sum of enchant levels applied.
-	 */
-	get maxEnchants() { return this._maxEnchants; }
-	set maxEnchants(v) { this._maxEnchants=v;}
 
 	/**
 	 * @property {boolean} consume - whether to consume the item on use.
@@ -108,9 +71,6 @@ export default class Item {
 
 		if ( vars ) { cloneClass( vars, this ); }
 		if ( save ) assign(this,save);
-
-		if ( !this.maxEnchants ) this.maxEnchants = 0;
-		if ( !this.enchantTot ) this.enchantTot = 0;
 
 		if ( !this.count ) {
 
@@ -183,49 +143,6 @@ export default class Item {
 	}
 
 	/**
-	 * Apply an adjective to the item's name.
-	 * @param {string} adj
-	 * @param {object} src - adjective source.
-	 * @param {?string} [fallback=null] - fallback prefix to apply.
-	 */
-	addAdj( adj, src, fallback=null ) {
-
-		if ( adj ) {
-
-			if ( adj.includes( '%' ) ) {
-
-				this.name = adj.replace( '%s', src.name ).replace( '%i', this.name );
-				return;
-
-			} else if ( !this.name.includes(adj) ) {
-
-				this.name = adj + ' ' + this.name;
-				return;
-
-			}
-
-		}
-
-		if ( fallback ) this.addAdj( fallback, src );
-
-	}
-
-	/**
-	 *
-	 * @param {Enchant} e - enchantment being added.
-	 */
-	addEnchant( e ) {
-
-		if ( !this.enchants ) this.enchants = [];
-		this.enchants.push(e.id);
-
-		this.addAdj( e.adj, e, 'enchanted');
-
-		this.enchantTot += e.level || 0;
-
-	}
-
-	/**
 	 *
 	 * @param {GameState} gs
 	 */
@@ -233,21 +150,21 @@ export default class Item {
 
 		let tot = 0;
 
-		let enchants = this.enchants;
-		if ( enchants && Array.isArray(enchants) ) {
+		let alters = this.alters;
+		if ( alters && Array.isArray(alters) ) {
 
-			for( let i = enchants.length-1; i>= 0; i-- ) {
+			for( let i = alters.length-1; i>= 0; i-- ) {
 
-				let data = gs.getData( enchants[i] );
+				let data = gs.getData( alters[i] );
 				if ( data === undefined ) continue;
 
-				tot += Number(data.level) || 0;
+				if ( data.type === 'enchant' ) tot += Number(data.level) || 0;
 
 			}
 
 		}
 
-		this.enchantTot = tot;
+		this.enchants = tot;
 
 	}
 

@@ -15,7 +15,7 @@ import Task from './items/task';
 
 import { mergeSafe } from 'objecty';
 import ProtoItem from './protos/protoItem';
-import Mutator from './chars/mutator';
+import Alter from './chars/alter';
 import Enchant from './items/enchant';
 import Potion from './items/potion';
 import Encounter from './items/encounter';
@@ -263,8 +263,8 @@ export default {
 
 		if ( lists.potions ) inst.potions = this.initItems( items, lists.potions, Potion, POTION, POTION );
 
-		if ( lists.materials ) inst.materials = this.initItems( items, lists.materials, Mutator, 'material', 'material' );
-		if ( lists.properties ) inst.properties = this.initItems( items, lists.properties, Mutator, 'property', 'property' );
+		if ( lists.materials ) inst.materials = this.initItems( items, lists.materials, Alter, 'material', 'material' );
+		if ( lists.properties ) inst.properties = this.initItems( items, lists.properties, Alter, 'property', 'property' );
 
 		if ( lists.events ) inst.events = this.initItems( items, lists.events, GEvent, EVENT, EVENT );
 		if ( lists.classes ) inst.classes = this.initItems( items, lists.classes, GClass, 'class', 'class' );

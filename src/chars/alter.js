@@ -5,7 +5,7 @@ import { ParseMods } from '../modules/parsing';
 /**
  * @class A Mutator alters instanced objects.
  */
-export default class Mutator {
+export default class Alter {
 
 	get isRecipe(){return true}
 
@@ -35,4 +35,4 @@ export default class Mutator {
 
 }
 
-mergeClass( Mutator, Base );
+mergeClass( Alter, Base );

@@ -56,8 +56,8 @@ export default class ProtoItem extends GData {
 
 		this.level = this.level || 1;
 
-		if ( !this.maxEnchants ) {
-			this.maxEnchants = 1;
+		if ( !this.enchants ) {
+			this.enchants = 1;
 		}
 
 		if ( !this.require && !this.need ) this.locked = false;

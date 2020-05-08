@@ -77,10 +77,17 @@ export default class MaxStat {
 	}
 
 	/**
+	 * @returns {boolean} true if stat is maxed.
+	 */
+	maxed(){ return this._value >= this.max; }
+
+	/**
 	 *
 	 * @param {object|number} vars
+	 * @param {boolean} empty - whether to init empty by default.
+	 * ignored if vars defines both a max and value.
 	 */
-	constructor(vars=null){
+	constructor(vars=null, empty=false ){
 
 
 		if ( vars && typeof vars === 'object') {
@@ -88,7 +95,7 @@ export default class MaxStat {
 			if ( vars.isRVal ) {
 
 				this.max = vars.value;
-				this.v = this.max.value;
+				this.v = empty ? 0 : this.max.value;
 
 			} else {
 
@@ -104,7 +111,7 @@ export default class MaxStat {
 		} else if ( typeof vars === 'number' ) {
 
 			this.max = vars;
-			this.v = vars;
+			this.v = empty ? 0 : vars;
 
 		} else {
 

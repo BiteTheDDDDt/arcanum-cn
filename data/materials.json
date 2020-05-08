@@ -6,7 +6,7 @@
 		"alter":{
 
 			"tohit":-3,
-			"maxEnchants":5
+			"enchants.max":5
 		}
 
 	},
@@ -22,7 +22,7 @@
 		"kind":"natural",
 		"weight":3, "level":0, "only":"weapon",
 		"alter":{
-			"maxEnchants":1,
+			"enchants.max":1,
 			"dmg":1
 		}
 	},
@@ -32,7 +32,7 @@
 		"weight":1, "level":2,
 		"alter":{
 			"dmg":1,
-			"maxEnchants":2
+			"enchants.max":2
 		}
 
 	},
@@ -41,7 +41,7 @@
 		"exclude":"weapon,ring,amulet",
 
 		"alter":{
-			"maxEnchants":2
+			"enchants.max":2
 		}
 
 	},
@@ -52,7 +52,7 @@
 			"tohit":1,
 			"dmg":1,
 			"armor":1,
-			"maxEnchants":3
+			"enchants.max":3
 		}
 	},
 	{ "id":"bone", "kind":"natural", "priceMod":1, "level":2,
@@ -61,7 +61,7 @@
 			"tohit":1,
 			"dmg":1,
 			"armor":1,
-			"maxEnchants":3
+			"enchants.max":3
 		}
 
 	},
@@ -71,7 +71,7 @@
 				"tohit":2,
 				"dmg":2,
 				"armor":2,
-				"maxEnchants":4
+				"enchants.max":4
 			}
 	},
 	{ "id":"mat_gold", "name":"gold", "adj":"golden", "kind":"metal", "priceMod":3, "level":4,
@@ -80,7 +80,7 @@
 			"tohit":2,
 			"dmg":2,
 			"armor":2,
-			"maxEnchants":3
+			"enchants.max":3
 		}
 	},
 	{ "id":"mat_ruby",
@@ -91,7 +91,7 @@
 		"alter":{
 			"tohit":-1,
 			"dmg":-2,
-			"maxEnchants":5
+			"enchants.max":5
 		}
 	},
 
@@ -101,7 +101,7 @@
 			"tohit":2,
 			"dmg":1,
 			"armor":1,
-			"maxEnchants":1
+			"enchants.max":1
 		}
 	},
 	{ "id":"iron", "kind":"metal", "weight":2, "priceMod":10, "level":3,
@@ -110,7 +110,7 @@
 			"tohit":2,
 			"dmg":2,
 			"armor":2,
-			"maxEnchants":2
+			"enchants.max":2
 		}
 	},
 	{ "id":"steel", "kind":"metal", "weight":2, "priceMod":20, "level":4,
@@ -119,7 +119,7 @@
 			"dmg":3,
 			"armor":2,
 			"tohit":4,
-			"maxEnchants":1
+			"enchants.max":1
 		}
 	},
 	{
@@ -130,7 +130,7 @@
 
 		"alter":{
 			"armor":9,
-			"maxEnchants":4,
+			"enchants.max":4,
 			"mod":{
 				"self.resist.fire":10
 			}
@@ -145,7 +145,7 @@
 
 		"alter":{
 			"armor":4,
-			"maxEnchants":2,
+			"enchants.max":2,
 			"mod":{
 				"self.resist.paralysis":10
 			}
@@ -158,7 +158,7 @@
 			"dmg":5,
 			"armor":4,
 			"tohit":7,
-			"maxEnchants":3
+			"enchants.max":3
 		}
 	},
 
@@ -168,7 +168,7 @@
 			"dmg":8,
 			"armor":8,
 			"tohit":10,
-			"maxEnchants":6
+			"enchants.max":6
 		}
 	},
 	{ "id":"ebonwood", "kind":"wood", "weight":1, "priceMod":100, "level":8,
@@ -177,7 +177,7 @@
 			"dmg":6,
 			"armor":6,
 			"tohit":12,
-			"maxEnchants":7
+			"enchants.max":7
 		}
 	},
 	{ "id":"idrasil", "kind":"wood", "weight":1, "priceMod":100, "level":8,
@@ -185,7 +185,7 @@
 			"dmg":7,
 			"armor":7,
 			"tohit":9,
-			"maxEnchants":7
+			"enchants.max":7
 		}
 	},
 	{ "id":"ethereal", "kind":"ethereal", "weight":0, "priceMod":2000, "level":8,
@@ -193,7 +193,7 @@
 			"dmg":5,
 			"armor":5,
 			"tohit":15,
-			"maxEnchants":3
+			"enchants.max":3
 		}
 	},
 	{ "id":"adamant", "kind":"metal", "adj":"adamantine", "priceMod":1000, "level":9,
@@ -202,7 +202,7 @@
 			"dmg":10,
 			"armor":10,
 			"tohit":12,
-			"maxEnchants":4
+			"enchants.max":4
 		}
 	}
 

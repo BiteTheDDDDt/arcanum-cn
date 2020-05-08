@@ -57,7 +57,7 @@
 	"name":"eryl eyot",
 	"level":5,
 	"length":30,
-	"desc":"the small and tranquil island is inhabited by an old hermit named thyffr",
+	"desc":"The small and tranquil island is inhabited by an old hermit named thyffr",
 	"run":{
 		"stamina":0.22
 	},
@@ -108,7 +108,7 @@
 	"id":"pidwigcove",
 	"name":"pidwig's cove",
 	"level":9,
-	"require":"g.history>=3",
+	"require":"g.history>=5&&g.eryleyot>0",
 	"length":25,
 	"desc":"The half-goblin Pidwig has sailed the waters around his bay for hundreds of years. In that time he has collected a myriad of interesting artifacts.",
 	"run":{
@@ -136,7 +136,7 @@
 	"id":"rithel",
 	"level":14,
 	"desc":"This tiny outpost in the center of thangmor outlasted even the pillars",
-	"require":"g.evil<=0&&g.history>=5",
+	"require":"g.evil<=0&&g.history>=7&&g.loc_treffil>0",
 	"run":{
 		"stamina":0.33
 	},
@@ -162,7 +162,7 @@
 	"level":4,
 	"length":30,
 	"require":"tier0",
-	"desc":"an ancient crypt of crumbling stone.",
+	"desc":"An ancient crypt of crumbling stone.",
 	"run":{
 		"stamina":0.35
 	},
