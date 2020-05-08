@@ -59,12 +59,10 @@ export default class Wearable extends Item {
 	set enchants(v){
 
 		console.log('set enchant: ' + (typeof v ) + ': ' + v );
-		if ( v !== null && v !== undefined ) {
 
-			if ( this._enchants ) this._enchants.base = v;
-			else this._enchants = v instanceof MaxStat ? v : new MaxStat( v, true );
-
-		} else this._enchants = v;
+		if ( this._enchants === undefined || this._enchants === null || typeof v === 'object') {
+			this._enchants = v instanceof MaxStat ? v : new MaxStat(v, true);
+	   } else this._enchants.set( v );
 
 	}
 
@@ -283,7 +281,7 @@ export default class Wearable extends Item {
 
 		}
 
-		console.log('ENCHANT max: ' + max );
+		console.log( this.id + ' RECALC ENCHANT max: ' + max );
 		this.enchants.max = max;
 
 	}
