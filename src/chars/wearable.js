@@ -3,7 +3,8 @@ import Attack from './attack';
 import Mod from '../values/mods/mod';
 import { ParseMods } from 'modules/parsing';
 import Item from '../items/item';
-import { WEARABLE, ARMOR, WEAPON } from '../values/consts';
+import Instance from '../items/instance';
+import { WEARABLE, ARMOR, WEAPON, ENCHANT } from '../values/consts';
 import Stat from '../values/rvals/stat';
 import MaxStat from '../values/maxStat';
 
@@ -211,32 +212,33 @@ export default class Wearable extends Item {
 		}
 
 		if ( this.mod ) this.mod = ParseMods( this.mod, this.id, this );
-		//InitRVals( this, this );
-
-		this.initAlters( gs );
-
 		// @compat
-		if ( !this.enchants ) this.calcEnchants();
+		//if ( !this.enchants ) this.calcMaxEnchants();
 		/*console.log('WEARABLE LEVEL: ' + this.level + ' MAT: '+ (this.material ? this.material.level : 0 )
 		 + ' base: ' + (this.template ? this.template.level : 0 ) );*/
+	}
+
+	/**
+	 * Test if item has an enchantment.
+	 * @param {string} id
+	 * @returns {boolean}
+	 */
+	hasEnchant(id){
+		return this.alters && this.alters.find( v=>v.id===id);
 	}
 
 	/**
 	 *
 	 * @param {Enchant} e - enchantment being added.
 	 */
-	addEnchant( e ) {
+	doAlter( e ) {
 
-		if ( !this.alters ) this.alters = [];
-		this.alters.push(e.id);
-
-		this.addAdj( e.adj, e, 'enchanted');
-
-		this.enchants += e.level || 0;
+		if ( e.type === ENCHANT ) this.enchants += e.level || 0;
+		super.doAlter( e );
 
 	}
 
-	calcEnchants() {
+	calcMaxEnchants() {
 
 		let max = 0;
 		if ( this.template ) {
@@ -266,7 +268,7 @@ export default class Wearable extends Item {
 
 		this.level +=  mat.level || 0;
 
-		this.addAlter( mat );
+		Instance.doAlter( mat );
 
 	}
 

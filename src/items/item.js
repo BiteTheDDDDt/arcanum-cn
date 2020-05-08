@@ -3,7 +3,6 @@ import {assign, cloneClass } from 'objecty';
 import { ParseMods } from 'modules/parsing';
 import Instance from './instance';
 import RValue from '../values/rvals/rvalue';
-import Enchant from './enchant';
 
 const ItemDefaults = {
 	stack:true,
@@ -88,15 +87,6 @@ export default class Item {
 
 	}
 
-	/**
-	 * Test if item has an enchantment.
-	 * @param {string} id
-	 * @returns {boolean}
-	 */
-	hasEnchant(id){
-		return this._enchants && this._enchants.includes(id);
-	}
-
 	canPay(cost) { return this.count >= cost; }
 
 	canUse(g) { return this.consume || this.use; }
@@ -139,32 +129,6 @@ export default class Item {
 		}*/
 
 		if ( this.mod ) this.mod = ParseMods( this.mod, this.id, this );
-
-	}
-
-	/**
-	 *
-	 * @param {GameState} gs
-	 */
-	begin(gs) {
-
-		let tot = 0;
-
-		let alters = this.alters;
-		if ( alters && Array.isArray(alters) ) {
-
-			for( let i = alters.length-1; i>= 0; i-- ) {
-
-				let data = gs.getData( alters[i] );
-				if ( data === undefined ) continue;
-
-				if ( data.type === 'enchant' ) tot += Number(data.level) || 0;
-
-			}
-
-		}
-
-		this.enchants = tot;
 
 	}
 

@@ -24,22 +24,34 @@ export default {
 	set alters(v){ this._alters=v; },
 
 	/**
+	 *
+	 * @param {Game} g
+	 */
+	begin( g ){
+
+		this.initAlters(g);
+
+	},
+
+	/**
 	 * Map property strings to source property objects.
 	 */
 	initAlters( gs ){
 
-		let props = this.alters;
-		if ( !props ) return;
-		if ( typeof props === 'string') {
-			props = props.split(',');
+		let alters = this.alters;
+		if ( !alters ) return;
+		if ( typeof alters === 'string') {
+			alters = alters.split(',');
 		}
 
-		let len = props.length;
+		let len = alters.length;
 		let a = [];
 		for( let i = 0; i < len; i++ ) {
 
-			let p = gs.getData( props[i] );
+			let p = gs.getData( alters[i] );
 			if (!p ) continue;
+
+
 			a.push(p);
 
 		}
@@ -47,7 +59,11 @@ export default {
 		this.alters = a;
 	},
 
-	addAlter( prop ) {
+	/**
+	 * Add an alteration to the base instance.
+	 * @param {Alter} prop
+	 */
+	doAlter( prop ) {
 
 		if (!prop) return;
 

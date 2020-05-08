@@ -58,6 +58,7 @@ const SKILL = 'skill';
 const ENCOUNTER = 'enc';
 const MONSTER = 'monster';
 const WEARABLE = 'wearable';
+export const ENCHANT = 'enchant';
 const HOME = 'home';
 const EVENT = 'event';
 const PURSUITS = 'pursuits';

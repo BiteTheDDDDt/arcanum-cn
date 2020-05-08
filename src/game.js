@@ -212,10 +212,10 @@ export default {
 		/**
 		 * @todo: instance-table starting to look like a better idea.
 		 */
-		this.state.player.begin( this.state );
-		this.state.inventory.begin(this.state);
-		this.state.equip.begin(this.state);
-		gdata[ENCHANTSLOTS].begin(this.state);
+		this.state.player.begin( this );
+		this.state.inventory.begin(this);
+		this.state.equip.begin(this);
+		gdata[ENCHANTSLOTS].begin(this);
 
 		for( let p in gdata ) {
 

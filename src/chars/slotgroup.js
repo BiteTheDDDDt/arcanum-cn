@@ -98,9 +98,9 @@ export default class SlotGroup {
 
 	}
 
-	begin(gs){
+	begin(g){
 		for( let p in this.slots ) {
-			this.slots[p].begin(gs);
+			this.slots[p].begin(g);
 		}
 	}
 

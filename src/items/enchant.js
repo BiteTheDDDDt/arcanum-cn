@@ -55,7 +55,7 @@ export default class Enchant extends Task {
 	useOn( targ, g ) {
 
 		if ( !targ) return;
-		targ.addEnchant( this );
+		targ.doAlter( this );
 
 	}
 

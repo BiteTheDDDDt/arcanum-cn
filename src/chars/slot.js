@@ -207,15 +207,15 @@ export default class Slot {
 
 	}
 
-	begin(gs){
+	begin(g){
 		if ( this.item === null || this.item === undefined ) return;
 		if ( Array.isArray( this.item) ) {
 
 			for( let i = this.item.length-1; i>= 0; i-- ) {
-				if ( this.item[i].begin === 'function') this.item[i].begin(gs);
+				if ( this.item[i].begin === 'function') this.item[i].begin(g);
 			}
 
-		} else if ( typeof this.item.begin ==='function' ) this.item.begin( gs );
+		} else if ( typeof this.item.begin ==='function' ) this.item.begin( g );
 	}
 
 	revive( gs ) {

@@ -155,11 +155,11 @@ export default class Inventory {
 	/**
 	 * Call begin on any items once Game is loaded with data.
 	 * (Prior to restore mods.)
-	 * @param {*} gs
+	 * @param {Context} g - game context.
 	 */
-	begin(gs){
+	begin(g){
 		for( let i = this.items.length-1; i>= 0; i-- ) {
-			if ( typeof this.items[i].begin === 'function' ) this.items[i].begin(gs);
+			if ( typeof this.items[i].begin === 'function' ) this.items[i].begin(g);
 		}
 	}
 
