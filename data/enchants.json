@@ -17,7 +17,7 @@
 			"managem":3,
 			"mana":5
 		},
-		"mod":{
+		"alter":{
 			"armor":1
 		}
 	},
@@ -38,7 +38,7 @@
 			"airgem":1,
 			"mana":5
 		},
-		"mod":{
+		"alter":{
 			"mod.luck":1
 		},"flavor":"let's keep this party polite"
 	},
@@ -60,7 +60,7 @@
 			"managem":1,
 			"mana":5
 		},
-		"mod":{
+		"alter":{
 			"mod.mana.max":1
 		}
 	},
@@ -82,7 +82,7 @@
 			"managem":1,
 			"mana":5
 		},
-		"mod":{
+		"alter":{
 			"mod.mana.rate":0.01
 		}
 	},
@@ -105,7 +105,7 @@
 			"mana":5,
 			"hp":10
 		},
-		"mod":{
+		"alter":{
 			"mod.hp.max":4
 		}
 	},
@@ -128,7 +128,7 @@
 			"mana":5,
 			"hp":10
 		},
-		"mod":{
+		"alter":{
 			"mod.hp.rate":0.2
 		}
 	},
@@ -150,7 +150,7 @@
 			"firegem":3,
 			"mana":5
 		},
-		"mod":{
+		"alter":{
 			"attack.bonus":1
 		}
 	},
@@ -172,7 +172,7 @@
 			"firegem":5,
 			"mana":5
 		},
-		"mod":{
+		"alter":{
 			"attack.bonus":2
 		}
 	},
@@ -195,7 +195,7 @@
 			"firerune":3,
 			"mana":5
 		},
-		"mod":{
+		"alter":{
 			"attack.bonus":3
 		}
 	},
@@ -218,7 +218,7 @@
 			"watergem":1,
 			"mana":5
 		},
-		"mod":{
+		"alter":{
 			"mod.speed":0.5
 		}
 	},
@@ -238,7 +238,7 @@
 			"firegem":1,
 			"fire":5
 		},
-		"mod":{
+		"alter":{
 			"mod.firelore.max":1,
 			"mod.fire.rate":0.1
 		}
@@ -259,7 +259,7 @@
 			"watergem":1,
 			"water":5
 		},
-		"mod":{
+		"alter":{
 			"mod.waterlore.max":1,
 			"mod.water.rate":0.1
 		}
@@ -280,7 +280,7 @@
 			"earthgem":1,
 			"earth":5
 		},
-		"mod":{
+		"alter":{
 			"mod.earthlore.max":1,
 			"mod.earth.rate":0.1
 		}
@@ -301,7 +301,7 @@
 			"airgem":1,
 			"air":5
 		},
-		"mod":{
+		"alter":{
 			"mod.airlore.max":1,
 			"mod.air.rate":0.1
 		}
@@ -325,7 +325,7 @@
 			"watergem":5,
 			"mana":5
 		},
-		"mod":{
+		"alter":{
 			"mod.speed":2
 		}
 	},
@@ -347,7 +347,7 @@
 			"runestones":2,
 			"mana":10
 		},
-		"mod":{
+		"alter":{
 			"mod.speed":5
 		}
 	},
@@ -370,7 +370,7 @@
 			"runestones":2,
 			"mana":15
 		},
-		"mod":{
+		"alter":{
 			"mod.speed":8
 		}
 	},
@@ -390,7 +390,7 @@
 		"cost":{
 			"managem":10
 		},
-		"mod":{
+		"alter":{
 			"mod.bf.rate":-0.5
 		}
 	},
@@ -411,7 +411,7 @@
 			"managem":15,
 			"mana":5
 		},
-		"mod":{
+		"alter":{
 			"mod.scraft":1
 		}
 	},
@@ -430,7 +430,7 @@
 		"cost":{
 			"earthgem":5
 		},
-		"mod":{
+		"alter":{
 			"mod.unease.rate":-0.5
 		}
 	},
@@ -449,7 +449,7 @@
 		"cost":{
 			"managem":10
 		},
-		"mod":{
+		"alter":{
 			"mod.madness.rate":-1
 		}
 	},
@@ -470,7 +470,7 @@
 		"cost":{
 			"managem":10
 		},
-		"mod":{
+		"alter":{
 			"mod.bf.rate":-0.75
 		}
 	},
@@ -493,7 +493,7 @@
 			"waterrune":3,
 			"mana":5
 		},
-		"mod":{
+		"alter":{
 			"mod.stamina.rate":0.3
 		}
 	},
@@ -514,7 +514,7 @@
 			"watergem":3,
 			"mana":5
 		},
-		"mod":{
+		"alter":{
 			"attack.tohit":1
 		}
 	},
@@ -536,7 +536,7 @@
 			"managem":15,
 			"spiritgem":15
 		},
-		"mod":{
+		"alter":{
 			"mod.scraft":2
 		}
 	},
@@ -558,7 +558,7 @@
 			"watergem":3,
 			"mana":5
 		},
-		"mod":{
+		"alter":{
 			"attack.tohit":3
 		}
 	},
@@ -581,7 +581,7 @@
 			"managem":15,
 			"spiritrune":10
 		},
-		"mod":{
+		"alter":{
 			"mod.scraft":3
 		}
 	},
@@ -604,7 +604,7 @@
 			"runestones":15,
 			"spiritrune":10
 		},
-		"mod":{
+		"alter":{
 			"mod.scraft":5
 		}
 	},
@@ -623,7 +623,7 @@
 		"cost":{
 			"watergem":10
 		},
-		"mod":{
+		"alter":{
 			"mod.trickery":2
 		}
 	},
@@ -649,7 +649,7 @@
 			"shadowgem":10,
 			"spiritgem":10
 		},
-		"mod":{
+		"alter":{
 			"mod.prismatic.rate":0.4
 		}
 	}

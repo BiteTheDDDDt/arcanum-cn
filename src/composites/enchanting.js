@@ -49,8 +49,8 @@ export default class Enchanting extends Proxy {
 	/**
 	 * If target is supplied, first element MUST be the item
 	 * being used with target.
-	 * @param {object|GData} vars - runnable variables OR runner item.
-	 * @param {*} targ
+	 * @param {object|GData} [vars=null] - runnable variables OR runner item.
+	 * @param {targ} [targ=null]
 	 */
 	constructor( vars=null, targ=null ) {
 

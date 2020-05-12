@@ -24,7 +24,7 @@
 					"gold":100,
 					"mana":5
 				},
-				"mod":{
+				"alter":{
 					"mod.gold.rate":0.2
 				}
 			},
@@ -46,7 +46,7 @@
 					"codices":10,
 					"mana":5
 				},
-				"mod":{
+				"alter":{
 					"mod.mana.rate":0.2
 				}
 			},
@@ -68,7 +68,7 @@
 					"gold":100,
 					"hp":20
 				},
-				"mod":{
+				"alter":{
 					"mod.player.resist.blunt":2,
 					"mod.player.resist.pierce":2,
 					"mod.player.resist.slash":2
@@ -92,7 +92,7 @@
 					"gems":20,
 					"mana":10
 				},
-				"mod":{
+				"alter":{
 					"mod.gems.rate.":0.1
 				}
 			},
@@ -114,7 +114,7 @@
 					"element":5,
 					"prismaticgems":1
 				},
-				"mod":{
+				"alter":{
 					"mod.player.resist.fire":2,
 					"mod.player.resist.air":2,
 					"mod.player.resist.water":2,
@@ -139,7 +139,7 @@
 					"mana":15,
 					"managem":5
 				},
-				"mod":{
+				"alter":{
 					"mod.player.bonuses.mana":"3%"
 				}
 			},
@@ -161,7 +161,7 @@
 					"fire":15,
 					"firegem":50
 				},
-				"mod":{
+				"alter":{
 					"attack.kind":"fire",
 					"attack.damage":0,
 					"attack.bonus":15
@@ -185,7 +185,7 @@
 					"element":15,
 					"prismaticgems":50
 				},
-				"mod":{
+				"alter":{
 					"element.rate":0.3
 				}
 			},
@@ -207,7 +207,7 @@
 					"mana":15,
 					"managem":50
 				},
-				"mod":{
+				"alter":{
 					"mod.spelllist.max":5
 				}
 			},
@@ -230,7 +230,7 @@
 					"light":10,
 					"lightgem":50
 				},
-				"mod":{
+				"alter":{
 					"attack.action.targets":"ally",
 					"attack.action.result.hp.min":10,
 					"attack.action.result.hp.max":15
@@ -254,7 +254,7 @@
 					"prismaticgems":25,
 					"tempus":10
 				},
-				"mod":{
+				"alter":{
 					"mod.stress.rate": -0.1,
 					"mod.stress.max":5
 				}
@@ -277,7 +277,7 @@
 					"prismaticgems":25,
 					"tempus":10
 				},
-				"mod":{
+				"alter":{
 					"mod.focus.result.runner.exp":"50%",
 					"mod.focus.cost.mana":"100%"
 				}
@@ -301,7 +301,7 @@
 					"runestones":10,
 					"tempus":10
 				},
-				"mod":{
+				"alter":{
 					"mod.mana.rate":1
 				}
 			},
@@ -324,7 +324,7 @@
 					"sindel":1,
 					"tempus":10
 				},
-				"mod":{
+				"alter":{
 					"mod.sindel.rate":0.0005
 				}
 			},
@@ -346,7 +346,7 @@
 					"spirit":15,
 					"spiritgem":50
 				},
-				"mod":{
+				"alter":{
 					"attack.kind":"spirit",
 					"attack.damage":0,
 					"attack.bonus":15
@@ -370,7 +370,7 @@
 					"spirit":15,
 					"spiritgem":50
 				},
-				"mod":{
+				"alter":{
 					"mod.player.resist.blunt":5,
 					"mod.player.resist.pierce":5,
 					"mod.player.resist.slash":5
@@ -394,7 +394,7 @@
 					"spirit":15,
 					"spiritgem":50
 				},
-				"mod":{
+				"alter":{
 					"mod.trapsoul.result.souls.max":0.25
 				}
 			},
@@ -417,7 +417,7 @@
 					"shadow":15,
 					"shadowgem":50
 				},
-				"mod":{
+				"alter":{
 					"mod.lifedrain.attack.dot.damage.min":"15%",
 					"mod.lifedrain.attack.dot.damage.max":"15%",
 					"mod.blast.attack.dot.damage.min":"15%",
@@ -442,7 +442,7 @@
 					"spirit":15,
 					"spiritgem":50
 				},
-				"mod":{
+				"alter":{
 					"attack.dot.targets":"ally",
 					"attack.dot.mod.dmg.min":"20%",
 					"attack.dot.mod.dmg.max":"25%"
