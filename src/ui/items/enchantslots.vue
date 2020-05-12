@@ -36,8 +36,8 @@ export default {
 <div class="enchant-slot" v-for="s in eslots.items" :key="s.id">
 <span class="enchant-desc">
 <span>Level {{ s.item.level }}</span>
-<span class="item-name">{{s.target.name}}</span>
-<span class="enchant-name">{{s.item.name}}</span>
+<span class="item-name" @mouseenter.capture.stop="itemOver( $event, s.target )">{{s.target.name}}</span>
+<span class="enchant-name" @mouseenter.capture.stop="itemOver( $event, s.item )">{{s.item.name}}</span>
 
 </span>
 <span>{{ s.percent() + '%'}}</span>

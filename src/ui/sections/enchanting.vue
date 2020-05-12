@@ -88,7 +88,7 @@ export default {
 		<div class="separate">
 		<div>
 			<div @mouseenter.capture.stop="itemOver( $event, target )">Target: {{ target ? target.name : 'None' }}</div>
-			<div class="note-text">Enchantment levels on an Item cannot exceed an Item's level.</div>
+			<div class="note-text">Enchantment levels on an Item cannot exceed Item's enchant slots.</div>
 		</div>
 
 		<span><button :disabled="enchantSlots.count==0" @click="resume">{{ runner.has(enchantSlots) ? 'Pause' : 'Resume' }}</button></span>

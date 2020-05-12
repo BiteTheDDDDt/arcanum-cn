@@ -154,6 +154,7 @@ export default {
 
 		<info v-if="item.effect" :info="item.effect" :rate="item.perpetual||item.length>0" />
 		<info v-if="item.mod" :info="item.mod" />
+		<info v-if="item.alter" :info="item.alter" />
 		<info v-if="item.use" :info="item.use" />
 		<info v-if="item.result" :info="item.result" />
 
