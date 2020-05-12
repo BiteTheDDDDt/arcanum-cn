@@ -60,7 +60,10 @@ export default {
 	 */
 	doAlter( alter ) {
 
-		if (!alter) return;
+		if (!alter) {
+			console.log('NO ALTER. NULL RETURN');
+			return;
+		}
 
 		if ( alter.alter ) this.applyMods( alter.alter, 1, this );
 

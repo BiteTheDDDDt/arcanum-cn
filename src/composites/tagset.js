@@ -51,6 +51,15 @@ export default class TagSet {
 	}
 
 	/**
+	 * Used by cheat menu.
+	 */
+	set locked(v){
+		for( let it of this.items ) {
+			it.locked = v;
+		}
+	}
+
+	/**
 	 * @property {boolean} owned
 	 */
 	get owned(){

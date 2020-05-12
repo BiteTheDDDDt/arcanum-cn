@@ -73,7 +73,7 @@ export default class Enchanting extends Proxy {
 		this.exp += dt;
 
 		if ( this.exp >= this.length ) {
-			if ( this.target ) Game.useOn( this.item, this.target );
+			if ( this.target ) this.target.doAlter(this.item);// Game.useOn( this.item, this.target );
 		}
 
 	}
