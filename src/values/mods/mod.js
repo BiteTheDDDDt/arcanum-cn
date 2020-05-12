@@ -210,7 +210,7 @@ export default class Mod extends Stat {
 				console.log('NOT WRITABLE: ' + p );
 				return;
 			}
-			console.log('CREATE STAT FROM NUMBER: ' + p );
+			console.log( p + ': STAT FROM NUMBER: ' + obj[p] );
 
 			let s = obj[p] = new Stat( targ || 0, (obj.id ? obj.id +'.'  : '' ) + p );
 			s.addMod( this, amt );

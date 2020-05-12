@@ -44,7 +44,7 @@ export default {
 				a.push(p);
 
 				if ( p.alter ) {
-				//	console.log(this.id + ' INIT ALTER: ' + p.id );
+					console.log(this.id + ' INIT ALTER: ' + p.id );
 					this.applyMods( p.alter, 1, this );
 				}
 			}

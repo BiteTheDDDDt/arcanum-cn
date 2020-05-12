@@ -29,7 +29,7 @@ export default class Enchant extends Task {
 		this.level = this.level || 1;
 		this.need = this.need || 'enchantsource';
 
-		if ( this.mod ) SetModCounts( this.mod, 1);
+		if ( this.alter ) SetModCounts( this.alter, 1);
 
 	}
 

@@ -286,7 +286,7 @@ export default class Wearable extends Item {
 			g.applyMods( this.mod, 1 );
 
 		} else {
-			console.log('no mods: '+ this.id );
+			//console.log('no mods: '+ this.id );
 		}
 
 	}
