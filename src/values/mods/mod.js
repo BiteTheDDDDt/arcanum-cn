@@ -207,7 +207,7 @@ export default class Mod extends Stat {
 		else if ( typeof targ === 'number') {
 
 			if ( !canWriteProp(obj, p ) ) {
-				console.log('CANNOT EDIT: ' + p );
+				console.log('NOT WRITABLE: ' + p );
 				return;
 			}
 			console.log('CREATE STAT FROM NUMBER: ' + p );

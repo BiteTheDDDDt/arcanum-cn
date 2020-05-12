@@ -135,7 +135,7 @@ export default class Item {
 	}
 
 	begin(g){
-		console.log('BEGIN CALLED: ' + this.id );
+		//console.log('BEGIN CALLED: ' + this.id );
 		this.initAlters(g);
 	}
 

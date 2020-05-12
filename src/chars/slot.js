@@ -159,7 +159,7 @@ export default class Slot {
 
 	/**
 	 *
-	 * @param {*} pred
+	 * @param {(*)=>boolean} pred
 	 */
 	match( pred  ) {
 		if ( this.item === null) return null;

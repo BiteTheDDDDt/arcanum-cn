@@ -33,8 +33,6 @@ export default {
 			alters = alters.split(',');
 		}
 
-		console.log('INIT ALTERS: ' + this.id );
-
 		let len = alters.length;
 		let a = [];
 		for( let i = 0; i < len; i++ ) {

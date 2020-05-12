@@ -2477,15 +2477,15 @@
 
 	},
 	{
-		"id":"bodyisdry",
+		"id":"downswinging",
 		"level":7,
-		"name":"last stand",
+		"name":"down swinging",
 		"school":"blood",
 		"require":"bloodmage",
-		"desc":"before your body is dry",
+		"desc":"You won't go down without a fight.",
 		"buy":{
 
-			"research":500,
+			"research":1000,
 			"tomes":1,
 			"bloodgem":10
 
@@ -2501,6 +2501,35 @@
 				"hp.rate":-2,
 				"self.tohit":10,
 				"self.damage":10
+			}
+		},"flavor":"am I more than you bargained for yet?"
+	},
+	{
+		"id":"bodyisdry",
+		"level":10,
+		"name":"last stand",
+		"school":"blood",
+		"require":"g.bloodmage&&g.tier5>0",
+		"desc":"Before your body is dry",
+		"cd":120,
+		"buy":{
+
+			"research":3000,
+			"tomes":10,
+			"bloodgem":30
+
+		},
+		"cost":{
+			"mana":10
+		},
+		"dot":{
+			"duration":60,
+			"mod":{
+				"hp.max":200,
+				"hp":200,
+				"hp.rate":-3,
+				"self.tohit":20,
+				"self.damage":20
 			}
 		},"flavor":"don't lose your way"
 	},

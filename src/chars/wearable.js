@@ -49,8 +49,6 @@ export default class Wearable extends Item {
 	get enchants(){return this._enchants}
 	set enchants(v){
 
-		console.log('set enchant: ' + (typeof v ) + ': ' + v );
-
 		if ( this._enchants === undefined || this._enchants === null || typeof v === 'object') {
 			this._enchants = v instanceof MaxStat ? v : new MaxStat(v, true);
 	   } else this._enchants.set( v );
@@ -209,7 +207,6 @@ export default class Wearable extends Item {
 		}
 
 		if ( this.material && !this.alters.includes(this.material.id)) {
-			console.log( this.id + ' PUSHING MATERIAL: ' + this.material.id );
 			this.alters.push(this.material.id);
 		}
 
