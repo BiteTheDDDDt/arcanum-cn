@@ -1,7 +1,7 @@
 image: node:latest
 
 variables:
-  PAGES_BRANCH: master
+  PAGES_BRANCH: pedro2
 
 stages:
   - make_dev

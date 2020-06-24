@@ -2,6 +2,7 @@ test/**
 dist/**
 dev/**
 kong/**
+node_modules/**
 vers.json
 package-lock.json
 dist/wizrobe.dev.bundle.js
