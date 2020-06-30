@@ -15,6 +15,7 @@ const DebugDir = path.resolve( __dirname, 'src/debug');
 
 let packData = fs.readFileSync( 'package.json');
 packData = JSON.parse( packData);
+packData.version = "pseudo_stable " + packData.version;
 const VERS_STR = JSON.stringify( packData.version );
 
 const MakePlugins = ( env, buildPath ) => {
