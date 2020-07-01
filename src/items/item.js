@@ -33,6 +33,11 @@ export default class Item {
 		}
 
 		if ( this.alters && this.alters.length>0){
+
+			this.alters = this.alters.filter(function (el) 
+			{
+			  return el != null;
+			});
 			data.alters = this.alters.map( v=>v.id );
 		}
 
