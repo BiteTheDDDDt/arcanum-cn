@@ -206,9 +206,13 @@ export default class Wearable extends Item {
 
 		}
 
-		if ( this.material && !this.alters.includes(this.material.id)) {
-			this.alters.push(this.material.id);
-		}
+		if(typeof this.alters.includes === "function")
+		//{
+			if ( this.material && !this.alters.includes(this.material.id)) {
+					this.alters.push(this.material.id);
+			}
+		//}
+		
 
 		if ( this.mod ) this.mod = ParseMods( this.mod, this.id, this );
 		// @compat
