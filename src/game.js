@@ -891,6 +891,7 @@ export default {
 			let target = this.getData(vars);
 			if ( target !== undefined ) {
 				target.amount( dt );
+				//target.amount( this );
 			}
 
 		}

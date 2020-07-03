@@ -101,13 +101,14 @@ export default class SpawnGroup {
 		} else {
 
 			let a = [];
+			if(typeof this.ids !== "undefined"){
+				for ( let i = 0; i < this.ids.length; i++ ) {
 
-			for ( let i = 0; i < this.ids.length; i++ ) {
-
-				e = MakeSpawn( this.ids[i], pct );
-				if ( e ) a.push(e);
-
+						e = MakeSpawn( this.ids[i], pct );
+						if ( e ) a.push(e);
+				}
 			}
+			
 
 			return a.length > 0 ? a : null;
 
