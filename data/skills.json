@@ -631,7 +631,7 @@
 		"level":10,
 		"require":"g.firelore>=10",
 		"buy":{
-			"arana":1,
+			"arcana":1,
 			"sp":5,
 			"tomes":30,
 			"runestones":10
@@ -656,7 +656,7 @@
 		"require":"g.waterlore>=10",
 		"level":10,
 		"buy":{
-			"arana":1,
+			"arcana":1,
 			"sp":5,
 			"tomes":30,
 			"runestones":10
@@ -681,7 +681,7 @@
 		"require":"g.airlore>=10",
 		"level":10,
 		"buy":{
-			"arana":1,
+			"arcana":1,
 			"sp":5,
 			"tomes":30,
 			"runestones":10
@@ -746,7 +746,7 @@
 		"require":"g.earthlore>=10",
 		"level":10,
 		"buy":{
-			"arana":1,
+			"arcana":1,
 			"sp":5,
 			"tomes":30,
 			"runestones":10
@@ -771,7 +771,7 @@
 		"require":"g.shadowlore>=10",
 		"level":10,
 		"buy":{
-			"arana":1,
+			"arcana":1,
 			"sp":5,
 			"tomes":30,
 			"runestones":10
@@ -795,7 +795,7 @@
 		"require":"g.lightlore>=10",
 		"level":10,
 		"buy":{
-			"arana":1,
+			"arcana":1,
 			"sp":5,
 			"tomes":30,
 			"runestones":10
@@ -819,7 +819,7 @@
 		"require":"g.spiritlore>=10",
 		"level":10,
 		"buy":{
-			"arana":1,
+			"arcana":1,
 			"sp":5,
 			"tomes":30,
 			"souls":10
@@ -843,7 +843,7 @@
 		"require":"g.lore>=20",
 		"level":10,
 		"buy":{
-			"arana":1,
+			"arcana":1,
 			"sp":5,
 			"tomes":30,
 			"runestones":10
@@ -867,7 +867,7 @@
 		"require":"g.naturelore>=10",
 		"level":10,
 		"buy":{
-			"arana":1,
+			"arcana":1,
 			"sp":5,
 			"tomes":30,
 			"runestones":10
