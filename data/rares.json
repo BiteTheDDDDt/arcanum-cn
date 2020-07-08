@@ -58,12 +58,10 @@
 		"armor":2,
 		"unique":true,
 		"level":5,
-		"require":"g.loc_spring>=10",
 		"desc":"Lillit was known for her soothing presence.",
 		"mod":{
 			"rage.rate":-0.25
 		}
-
 	},
 	{
 
