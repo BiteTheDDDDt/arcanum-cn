@@ -205,8 +205,11 @@ export default {
 		startAutoSave() {
 
 			if (!this.loopId ) return;
+			var s = Settings;
+				var setting = s.get('autoSave');
 
-			if ( Settings.get('autoSave') && !this.saver ) {
+			//if ( setting && !this.saver ) { //renabled autosaver regardless
+			if (!this.saver ) {
 				//console.log('START AUTOSAVE');
 				this.saver = setInterval( ()=>this.dispatch('autosave'), 1000*SAVE_TIME );
 			}

@@ -372,7 +372,10 @@ const vm = new Vue({
 
 				Profile.saveHall();
 
-			} else console.warn('ERR ON SAVE. NO SAVE.');
+			} else{
+					console.warn('ERR ON SAVE. NO SAVE.');	
+					alert('ERR ON SAVE. NO SAVE.');
+			} 
 
 		},
 
