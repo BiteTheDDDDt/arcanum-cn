@@ -890,7 +890,8 @@ export default {
 
 			let target = this.getData(vars);
 			if ( target !== undefined ) {
-				target.amount( dt );
+				if (target.type === 'monster') target.amount( this, dt );
+				else target.amount( dt );
 				//target.amount( this );
 			}
 
