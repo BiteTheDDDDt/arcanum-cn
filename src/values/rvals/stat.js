@@ -76,6 +76,8 @@ export default class Stat extends RValue {
 	 */
 	get mBase(){return this._mBase; }
 
+	set mBase(v){this._mBase = v; }
+
 	/**
 	 * @property {number} mPct - mod pct bonuses, as decimal.
 	 * Does not count implicit starting 1
@@ -173,13 +175,15 @@ export default class Stat extends RValue {
 	 */
 	apply( val, amt=1 ) {
 
-		if ( (val instanceof Stat) && val.id ) return this.addMod( val, amt );
+		if ( (val instanceof Stat) && val.id ) 
+			return this.addMod( val, amt );
 
 		if ( ( val instanceof Stat ) ) {
 			console.log('STAT WITHOUT ID: ' + val );
+			val = val._value;
 		}
 
-		else if ( typeof val ==='number' ) {
+		if ( typeof val ==='number' ) {
 
 			this.base += amt*val;
 			//deprec( this.id + ' mod: ' + mod );
