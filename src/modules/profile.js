@@ -249,7 +249,7 @@ export default {
 			let char = await Persist.loadChar( this.hall.charId(i) );
 
 			// parse to avoid double string encoding.
-			if ( char ) char = JSON.parse(char);
+			//if ( char ) char = JSON.parse(char);
 
 			chars.push( char || null );
 

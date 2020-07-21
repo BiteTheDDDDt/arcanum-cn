@@ -254,6 +254,7 @@ const vm = new Vue({
 			this.save();		// save game first.
 
 			try {
+				e.preventDefault();
 
 				if ( this.hallLink) URL.revokeObjectURL( this.hallLink );
 
