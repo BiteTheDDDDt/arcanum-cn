@@ -29,7 +29,7 @@ pages:
       when: always
     - when: never
   script:
-    - cp -r dev public
+    - cp -r dev public/pedro2
   artifacts:
     paths:
-      - public
+      - public/pedro2
