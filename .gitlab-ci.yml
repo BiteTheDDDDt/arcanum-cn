@@ -29,8 +29,10 @@ pages:
       when: always
     - when: never
   script:
+    - mkdir public
     - mkdir public/pedro2
     - cp -r dev public/pedro2
   artifacts:
     paths:
+      - public
       - public/pedro2
