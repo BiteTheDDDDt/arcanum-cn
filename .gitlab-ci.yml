@@ -19,11 +19,13 @@ make_dev:
   stage: make_dev
   script: 
     - npm run-script ci-dev
+    - mkdir website
     - mkdir website/dev
     - cp -r dev website/dev
   artifacts:
     paths:
       - dev
+      - website/dev
 
 pages:
   stage: pages
