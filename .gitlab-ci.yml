@@ -17,15 +17,10 @@ before_script:
 
 make_dev:
   stage: make_dev
-  script: 
-    - npm run-script ci-dev
-    - mkdir website
-    - mkdir website/dev
-    - cp -r dev website/dev
+  script: npm run-script ci-dev
   artifacts:
     paths:
       - dev
-      - website/dev
 
 pages:
   stage: pages
@@ -34,11 +29,7 @@ pages:
       when: always
     - when: never
   script:
-    - mkdir public
-    - mkdir public/pedro2
-    - cp -r dev public/pedro2
     - cp -r dev public
   artifacts:
     paths:
       - public
-      - public/pedro2
