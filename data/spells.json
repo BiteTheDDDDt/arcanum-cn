@@ -2396,14 +2396,14 @@
 		},
 		"at":{
 			"30":{
-				"attack.dot.dmg.max":5
+				"attack.damage.max":5
 			},
 			"100":{
-				"attack.dot.dmg.min":5
+				"attack.damage.min":5
 			},
 			"300":{
-				"attack.dot.dmg.max":5,
-				"attack.dot.dmg.min":4,
+				"attack.damage.max":5,
+				"attack.damage.min":4,
 				"attack.tohit":5
 			}
 		},
@@ -2719,12 +2719,12 @@
 				"attack.tohit":1
 			},
 			"100":{
-				"attack.dot.dmg.max":1,
+				"attack.damage.max":1,
 				"attack.tohit":2
 			},
 			"300":{
-				"attack.dot.dmg.max":2,
-				"attack.dot.dmg.min":1,
+				"attack.damage.max":2,
+				"attack.damage.min":1,
 				"attack.tohit":2
 			}
 		},
