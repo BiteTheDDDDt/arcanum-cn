@@ -2396,14 +2396,16 @@
 		},
 		"at":{
 			"30":{
-				"attack.damage.max":5
+				"attack.dot.dmg.min":0,
+				"attack.dot.dmg.max":5
 			},
 			"100":{
-				"attack.damage.min":5
+				"attack.dot.dmg.min":5,
+				"attack.dot.dmg.max":1
 			},
 			"300":{
-				"attack.damage.max":5,
-				"attack.damage.min":4,
+				"attack.dot.dmg.max":5,
+				"attack.dot.dmg.min":4,
 				"attack.tohit":5
 			}
 		},
