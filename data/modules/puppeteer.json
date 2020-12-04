@@ -1012,7 +1012,7 @@
 			{
 				"id":"puppetattacker",
 				"tags":"t_puppet",
-				"name":"puppet agg",
+				"name":"puppet aggressor",
 				"level":10,
 				"kind":"puppet",
 				"noproc": true,
