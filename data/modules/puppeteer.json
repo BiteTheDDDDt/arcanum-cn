@@ -1019,13 +1019,11 @@
 				"hp":75,
 				"tohit":10,
 				"defense":7,
-				"attack": [
-					{
-						"name":"stab",
-						"kind":"pierce",
-						"dmg":"20~30"
-					}
-				]
+				"attack":{
+					"name":"stab",
+					"kind":"pierce",
+					"dmg":"20~30"
+				}
 			},
 			{
 				"id":"mechacharger",
