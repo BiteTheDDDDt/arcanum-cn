@@ -1605,21 +1605,21 @@
 		"tohit":10,
 		"bonus":3,
 		"kind":"ice",
-		"level":5
+		"level":10
 	}, {
 		"id":"coldsteel",
 		"kind":"metal",
 		"priceMod":30,
 		"tohit":9,
 		"bonus":7,
-		"level":5
+		"level":15
 	}, {
 		"id":"permafrost",
 		"priceMod":80,
 		"bonus":10,
 		"tohit":11,
 		"kind":"ice",
-		"level":7
+		"level":20
 	}
 ],
     "rares":[
