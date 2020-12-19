@@ -849,7 +849,7 @@
 			"winteressence":5
       	},
       	"loot":{
-      		"maxlevel":5
+      		"maxlevel":10
       	},
       	"log":{
       		"name":"Mountaineer",
@@ -1631,19 +1631,19 @@
 		"save": true,
 		"unique": true,
 		"type":"weapon",
-		"tohit":5,
+		"tohit":10,
 		"cost":{
 			"gold":100
 		},
 		"attack":{
 			"name":"blizzard",
-			"damage":"5~12",
+			"damage":"8~15",
 			"kind":"water",
 			"targets":"enemies",
 			"dot":{
 				"duration":20,
 				"kind":"water",
-				"dmg":"5~12",
+				"dmg":"8~15",
 				"mod":{
 					"speed": -5
 				}
