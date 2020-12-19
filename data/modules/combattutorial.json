@@ -81,7 +81,7 @@
                     "id":"trainingdart",
                     "name":"homing dart",
                     "level":0,
-                    "tohit":20,
+                    "tohit":30,
                     "type":"weapon",
                     "material":"wood",
                     "attack":{
@@ -97,7 +97,7 @@
         "level":0,
         "hp":1,
         "speed":-10,
-        "dodge":30,
+        "dodge":20,
         "attack":{
           "log":{
             "name":"Can't hit me",
