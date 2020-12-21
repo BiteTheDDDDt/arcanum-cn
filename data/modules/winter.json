@@ -587,7 +587,7 @@
 		"mod":{
 			"hearth.mod.frost.rate":"-100%",
 			"icelore.max":4,
-			"frost.mod.hp.rate":"-200%",
+			"frost.mod.hp.rate":"-50%",
 			"player.bonuses.ice":3,
 			"player.hits.ice":3
 		},
