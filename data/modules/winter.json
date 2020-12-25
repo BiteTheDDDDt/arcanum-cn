@@ -297,7 +297,11 @@
 					"crafting.max":5,
 					"history.max":5,
 					"allies.max":25
-				}
+				},
+        "result":{
+          "prestige":10,
+          "title":"Fazbit's Legacy"
+        }
 			},
 			{
         "id":"w_multitask",
