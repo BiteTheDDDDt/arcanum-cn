@@ -367,7 +367,11 @@
 			"500":{
 				"effect.research":0.2,
 				"effect.arcana":0.001,
-				"effect.elemental.max":0.0001
+				"effect.alchemy.max":0.0001,
+				"effect.firelore.max":0.0001,
+				"effect.waterlore.max":0.0001,
+				"effect.earthlore.max":0.0001,
+				"effect.airlore.max":0.0001
 			}
 		},
 		"effect":{
