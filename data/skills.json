@@ -169,6 +169,9 @@
 		"id":"animals",
 		"name":"animal handling",
 		"need":"t_pets",
+		"buy":{
+			"research":20
+		},
 		"run":{
 			"stamina":0.5
 		},
