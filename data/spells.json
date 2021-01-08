@@ -2527,7 +2527,6 @@
 		"dot":{
 			"duration":60,
 			"mod":{
-				"hp.max":200,
 				"hp":200,
 				"hp.rate":-3,
 				"self.tohit":20,
