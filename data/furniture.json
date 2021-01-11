@@ -1406,7 +1406,7 @@
 			"tomes.rate":0.01,
 			"starcharts.max":50,
 			"tomes.mod.research.max":"3%",
-			"tomes.mod.arcana.max":"2%",
+			"tomes.mod.arcana.max":"0.5",
 			"codices.max":100,
 			"scrolls.max":100,
 			"tomes.max":100,
