@@ -2723,8 +2723,6 @@
 				"attack.tohit":2
 			},
 			"300":{
-				"attack.damage.dot.max":2,
-				"attack.damage.dot.min":1,
 				"attack.tohit":2
 			}
 		},
