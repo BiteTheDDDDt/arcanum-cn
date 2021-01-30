@@ -2550,7 +2550,15 @@
 		"attack":{
 			"kind":"blood",
 			"dmg":"a.hp"
-		}
+		},
+		"at":{
+			"100":{
+				"attack.dmg":"a.hp/2"
+			},
+			"500":{
+				"attack.dmg":"a.hp/2"
+			}
+		},"flavor":"Costs 1/4 of your health and gives all your health in damage!"
 	},
 	{
 		"id":"unearth",
