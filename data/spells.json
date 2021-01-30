@@ -1361,7 +1361,7 @@
         "attack":{
             "kind":"fire",
             "bonus":5,
-            "dmg":"(a.weapon.damage+a.getBonus( a.weapon.kind ))/2"
+            "dmg":"(a.weapon.damage+a.getBonus( a.weapon.kind ))*2"
         }
 
     },
