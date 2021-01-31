@@ -7,7 +7,7 @@
 		"rares","reagents","properties"
 	],
 	"modules":[
-		"patrons", "puppeteer","combattutorial", "shian","sackmakers","ritualist","extramats","winter"
+		"patrons", "puppeteer","combattutorial", "shian","sackmakers","ritualist","extramats"
 	]
 
 }
