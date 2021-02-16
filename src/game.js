@@ -724,7 +724,7 @@ export default {
 
 		if ( it.value < 1 && !it.instanced ) { return false; }
 
-		if ( count > it.value ) count = it.valueOf();
+		if ( count > it.count ) count = it.count;
 
 		this.getData('gold').amount( count*this.sellPrice(it) );
 
