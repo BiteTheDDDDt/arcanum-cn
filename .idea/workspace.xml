@@ -2,11 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="8bcb1b34-b677-4cfe-9792-4fffbd79d5c3" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/game.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/game.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/inventories/inventory.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/inventories/inventory.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ui/popups/choice.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/ui/popups/choice.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ui/sections/inventory.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/ui/sections/inventory.vue" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -38,19 +35,30 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1613480317072</updated>
-      <workItem from="1613480319311" duration="3669000" />
+      <workItem from="1613480319311" duration="4229000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/src/game.js</url>
-          <line>610</line>
+          <line>607</line>
           <properties lambdaOrdinal="-1" />
           <option name="timeStamp" value="1" />
         </line-breakpoint>
