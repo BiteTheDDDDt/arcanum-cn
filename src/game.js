@@ -721,15 +721,18 @@ export default {
 	 * @returns {boolean}
 	 */
 	trySell( it, inv, count=1 ) {
+
 		if ( it.value < 1 && !it.instanced ) { return false; }
+
 		if ( count > it.count ) count = it.count;
-		
+
 		this.getData('gold').amount( count*this.sellPrice(it) );
 
 		if ( it.instanced ) {
 
 			it.count -= count;
 
+			//console.log('remainig: ' + it.value );
 			if ( inv && (!it.stack || it.count <= 0) ) inv.remove( it );
 
 		} else this.remove(it,count);
