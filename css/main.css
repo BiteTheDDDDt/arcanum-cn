@@ -41,7 +41,7 @@
 
 	--rg-gap:1em;
 
-	--tiny-gap: 0.1em;
+	--tiny-gap: 0.2em;
 	--sm-gap: 0.32em;
 	--md-gap: 0.65em;
 	--lg-gap: 1.25em;
@@ -122,13 +122,13 @@ div.popup {
 		transform: translate( 0, -50% );
 		text-align: right; padding: 0 0.5em; color: #000; background: #FFF8;
 		border-radius: var(--sm-gap);
-        line-height: 1em;
+        line-height: 1.1em;
     }
 
 
     body.compact div.bar .fill { border-radius: 0 var(--sm-gap) var(--sm-gap) 0; }
     body.compact div.bar { height: 1em; border-radius: var(--md-radius); }
-    body.compact div.bar .bar-text { font-size: 0.7rem; line-height: 0.8em; }
+    body.compact div.bar .bar-text { font-size: 0.7rem; line-height: 1.1em; }
 
 button { color: var(--button-text-color); border: 1px solid #0006; outline:none; }
 
