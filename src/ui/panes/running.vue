@@ -53,6 +53,7 @@ export default {
 		@mouseenter.capture.stop="itemOver($event, restAction )">{{ restAction.name }}</button>
 		<button v-if="!focus.locked" class="btn-sm" @mouseenter.capture.stop="itemOver($event, focus )"
 			:disabled="!focus.canUse(game)"
+      @click="emit(TASK,focus)"
 			@mousedown="emit('repeater', focus)">Focus</button>
 		<button class="btnMenu" @click="emit('showActivities')"></button>
 	</div>
