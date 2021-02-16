@@ -217,7 +217,6 @@ export default class Inventory {
 				return false;
 			}
 
-
 			this._items.push( it );
 			this.used += this.spaceCost( it );
 
@@ -366,7 +365,8 @@ export default class Inventory {
 
 		let orig = this.findMatch(it);
 		if ( orig) {
-			orig[this._cProp] += count;
+			if(!orig.count) orig.count = 0;
+			orig.count++;
 			return orig;
 		}
 

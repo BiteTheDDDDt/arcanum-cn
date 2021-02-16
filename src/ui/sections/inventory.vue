@@ -33,7 +33,7 @@ export default {
 
 		},
 
-		count(it) { return it.value > 1 ? ' (' + Math.floor(it.value) + ')': ''; },
+		count(it) { return it.count > 1 ? ' (' + Math.floor(it.count) + ')': ''; },
 		drop( it ){ this.inv.remove(it); },
 
 		/**
