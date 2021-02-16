@@ -116,7 +116,12 @@ export default {
 			return it.cost&&!Game.canPay(it.cost);
 		},
 
+    disabled(it) {
+      return !this.strings&&!this.slottable(it)||(this.mustPay&&this.cantPay(it));
+    },
+
 		choose( opt ){
+      if(this.disabled(opt)) return;
 
 			this.open = false;
 			this.item = null;
@@ -152,9 +157,9 @@ export default {
 		<span class="title" v-if="title">{{title}}</span>
 
 		<div class="items">
-
+      <!--			:disabled="!strings&&!slottable(it)||(mustPay&&cantPay(it))"-->
 		<button class="task-btn"
-			:disabled="!strings&&!slottable(it)||(mustPay&&cantPay(it))"
+      :class="disabled(it) && 'disabled'"
 			v-for="it in choices" :key="strings?it:it.id"
 			@mouseenter.capture.stop="!strings ? itemOver( $event,it):''"
 			@click="choose( it )">{{ strings ? it : it.name }}</button>
@@ -168,6 +173,11 @@ export default {
 </template>
 
 <style scoped>
+
+.disabled {
+  border-color: rgba(0,0,0,0.4);
+  color: rgba(0,0,0,0.4);
+}
 
 .popup {
 	z-index: var(--md-depth);
