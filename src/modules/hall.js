@@ -126,8 +126,17 @@ export default class Hall {
 		this.max = this.items.hallSize;
 
 		this.points = this.items.hallPoints;
+
+		//There seems to be no logical difference between hallPoints and prestige
+		//But hallPoints achieves that by applying a temporary "+1 prestige" mod that
+		// applies too late for the initially loaded character to apply to skills
+		const prestige = this.items.prestige && this.items.prestige.value.value || 0;
+		const hallPoints = this.items.hallPoints && this.items.hallPoints.value.value || 0;
+
 		this.prestige = this.items.prestige;
-		//console.warn('!!!!START PRESTIGE: ' + this.prestige.value );
+		this.items.prestige.value.set(hallPoints+prestige > 0 ? hallPoints+prestige : 0);
+		this.items.hallPoints.value.set(0);
+
 
 		this.initChars();
 

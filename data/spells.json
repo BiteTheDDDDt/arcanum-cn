@@ -1745,6 +1745,12 @@
 		"dot":{
 			"duration":60,
 			"mod":{
+				"lore.rate":"0.005",
+				"naturelore.rate":"0.01",
+				"lightlore.rate":"0.01",
+				"languages.rate":"0.01"
+			},
+			"mod":{
 				"lore.rate":0.5,
 				"naturelore.rate":"0.2+2%",
 				"lightlore.rate":"0.2+2%",
@@ -1767,6 +1773,10 @@
 		},
 		"cost":{
 			"fire":2
+		},
+		"mod":{
+			"lore.rate":"0.005",
+			"firelore.rate": "0.01"
 		},
 		"dot":{
 			"duration":60,
@@ -1792,6 +1802,10 @@
 			"watergem":1
 
 		},
+		"mod":{
+			"lore.rate":"0.005",
+			"waterlore.rate": "0.01"
+		},
 		"dot":{
 			"duration":60,
 			"mod":{
@@ -1815,6 +1829,10 @@
 			"codices":1,
 			"airgem":1
 
+		},
+		"mod":{
+			"lore.rate":"0.005",
+			"airlore.rate": "0.01"
 		},
 		"dot":{
 			"duration":60,
@@ -1841,6 +1859,12 @@
 		"cost":{
 			"shadow":5,
 			"bonedust":1
+		},
+		"mod":{
+			"dissection.rate":"0.01",
+			"shadowlore.rate":"0.01",
+			"demonology.rate":"0.01",
+			"reanimation.rate":"0.01"
 		},
 		"dot":{
 			"duration":60,
