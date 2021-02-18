@@ -266,7 +266,7 @@
 					"kind":"slash",
 					"tohit":10
 				},
-				"result": "magicblade"
+				"result": ["magicblade","magicblade","magicblade"]
 			},
 			{
 				"id":"giantkilling",
