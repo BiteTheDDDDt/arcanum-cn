@@ -108,10 +108,10 @@ export default {
 		// Code events. Not game events.
 		Events.init(this);
 
-		return this.loader = DataLoader.loadGame( saveData ).then( allData=>{
+		return this.loader = DataLoader.loadGame( saveData ).then( async allData=>{
 
 			this.state = new GameState( allData, saveData );
-			this.state.revive();
+			await this.state.revive();
 
 			this.player.context = this;
 
@@ -124,17 +124,16 @@ export default {
 
 			if ( hallData ) this.addData( hallData );
 
-			this.recalcSpace();
-
-			this.recheckTiers();
-			this.restoreMods();
+			await this.recalcSpace();
+			await this.recheckTiers();
+			await this.restoreMods();
 
 			techTree = new TechTree( this.gdata );
 			//Events.add( EVT_UNLOCK, techTree.unlocked, techTree );
 			//Events.add( CHAR_ACTION, this.onCharAction, this );
 
 			// initial unlocks/usables check.
-			techTree.forceCheck();
+			await techTree.forceCheck();
 
 			//Events.add( DROP_ITEM, this.state.deleteInstance, this.state );
 			Events.add( SET_SLOT, this.setSlot, this );

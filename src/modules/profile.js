@@ -56,7 +56,7 @@ export default {
 		var data = await this.loadHallData( save );
 
 		this.hall = new Hall(data);
-		if ( this.hall.legacy ) this.resaveLegacy();
+		if ( this.hall.legacy ) await this.resaveLegacy();
 
 	},
 
