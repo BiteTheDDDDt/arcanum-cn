@@ -48,7 +48,7 @@
 		"id":"weap_orb",
 		"name":"orb",
 		"desc":"A focus for your magic.",
-		"tags":"magic,orb",
+		"tags":"magic,orb,weap_orb",
 		"cost":100,
 		"hands":2,
 		"level":8,
