@@ -173,7 +173,7 @@
 				"adj":"%i of elements",
 				"verb":"imbuing staff",
 				"only":"greatstaff",
-				"desc":"Cause your staff to shoot fireballs at enemies.",
+				"desc":"Cause your staff to restore elemental energies.",
 				"require":"g.enchanting>=7",
 				"level":6,
 				"buy":{
