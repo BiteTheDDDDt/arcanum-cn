@@ -428,8 +428,7 @@ export default class ItemGen {
 		console.log( it.name + ' props lvl: ' +  it.level + '  kind: ' + it.kind );
 
 		for( count; count > 0; count-- ) {
-			it.addProperty( this.getCompatible( propGroup, it, it.level ) );
-
+			//it.addProperty( this.getCompatible( propGroup, it, it.level ) );
 		}
 
 	}

@@ -1120,13 +1120,13 @@ export default {
 
 				} else if ( !isNaN(sub) || sub.isRVal ) {
 
-					if ( !res.canPay(sub*amt) ) return false;
+					if ( res.canPay && !res.canPay(sub*amt) ) return false;
 					//if ( res.value < sub*amt ) return false;
 
 				} else {
 
 					// things like research.max. with suboject costs.
-					if ( !this.canPayObj( res, sub, amt ) ) return false;
+					if ( res.canPay && !this.canPayObj( res, sub, amt ) ) return false;
 
 				}
 

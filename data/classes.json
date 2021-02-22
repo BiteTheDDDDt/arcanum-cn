@@ -40,8 +40,9 @@
 			"evt_helper":true,
 			"lore.max":1,
 			"gold.rate":0.07,
+			"animals.max":3,
 			"animals.rate":0.2,
-			"nature.max":1,
+			"nature.max":2,
 			"nature.rate":0.1
 		}
 	},
@@ -64,7 +65,9 @@
 			"lore.max":1,
 			"gold.rate":0.08,
 			"herbalism.rate":0.2,
-			"alchemy.rate":0.1
+			"herbalism.max": 3,
+			"alchemy.rate":0.1,
+			"alchemy.max": 2
 		}
 	},
 	{

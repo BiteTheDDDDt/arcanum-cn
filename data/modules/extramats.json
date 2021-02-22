@@ -93,7 +93,7 @@
 					"mana":10
 				},
 				"alter":{
-					"mod.gems.rate.":0.1
+					"mod.gems.rate":0.1
 				}
 			},
 			{
@@ -163,7 +163,7 @@
 				},
 				"alter":{
 					"attack.kind":"fire",
-					"attack.damage":0,
+					"attack.damage":1,
 					"attack.bonus":15
 				}
 			},
@@ -219,7 +219,7 @@
 				"only":"greatstaff",
 				"desc":"Cause your staff to restore health to yourself and your allies.",
 				"need":"g.evil<1",
-				"require":"g.enchanting>=7",
+				"require":"g.enchanting>=777",
 				"level":8,
 				"buy":{
 					"tomes":15,
@@ -348,7 +348,7 @@
 				},
 				"alter":{
 					"attack.kind":"spirit",
-					"attack.damage":0,
+					"attack.damage":1,
 					"attack.bonus":15
 				}
 			},
