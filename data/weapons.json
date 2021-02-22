@@ -18,7 +18,7 @@
 	},
 	{
 		"id":"wand",
-		"tags":"magic",
+		"tags":"magic,wand",
 		"cost":10,
 		"hands":1,
 		"level":0,
@@ -27,7 +27,7 @@
 	},
 	{
 		"id":"rod",
-		"tags":"magic",
+		"tags":"magic,rod",
 		"cost":30,
 		"hands":1,
 		"level":4,
@@ -36,29 +36,29 @@
 	},
 	{
 		"id":"fetish",
-		"tags":"magic",
+		"tags":"magic,fetish",
 		"cost":100,
 		"hands":1,
 		"level":5,
 		"only":"wood,natural",
-		"enchants":5,
+		"enchants":8,
 		"properties":1
 	},
 	{
 		"id":"weap_orb",
 		"name":"orb",
 		"desc":"A focus for your magic.",
-		"tags":"magic",
+		"tags":"magic,orb,weap_orb",
 		"cost":100,
 		"hands":2,
 		"level":8,
-		"enchants":6,
+		"enchants":7,
 		"only":"glass,ruby",
 		"properties":1
 	},
 	{
 		"id":"greatstaff",
-		"tags":"magic",
+		"tags":"magic,greatstaff",
 		"cost":50,
 		"hands":2,
 		"level":6,

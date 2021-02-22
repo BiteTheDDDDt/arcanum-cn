@@ -268,13 +268,11 @@
 		"run":{
 			"stamina":0.2
 		},
-		"effect":{
-			"research":0.1
-		},
 		"result":{
 			"sp":0.05
 		},
 		"mod":{
+			"research.rate":0.05,
 			"research.max":5,
 			"lore.rate":0.1
 		}
