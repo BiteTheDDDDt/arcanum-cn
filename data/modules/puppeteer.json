@@ -583,6 +583,7 @@
 				"name":"automata agents",
 				"desc":"Agents capable of independent completion of any desired task",
 				"require":"g.automatasculpting>=10",
+				"lock": "timespiral",
 				"max":1,
 				"cost":{
 					"automatas":50,
@@ -990,13 +991,15 @@
 			{
 				"id":"puppets",
 				"desc":"Easily controlled, yet fundamentally inert.",
+				"group":"puppets",
 				"max":20,
-				"flavor":"A skilled user could put on a marvellous show"
+				"flavor":"A skilled user could put on a marvellous show."
 			},
 			{
 				"id":"machinae",
 				"name":"machinae",
 				"desc":"Towering hulks of metal, ready to do their master's bidding.",
+				"group":"puppets",
 				"max":20,
 				"flavor":"beep boop."
 			},
@@ -1004,6 +1007,7 @@
 				"id":"automatas",
 				"name":"automata",
 				"desc":"Constructs of translucent crystal; they possess a pristine intellect for learning.",
+				"group":"puppets",
 				"max":20,
 				"flavor":"It's not smarter than you, surely."
 			}
