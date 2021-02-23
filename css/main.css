@@ -59,7 +59,7 @@
 	--button-text-color: #FFF;
 	--task-button-text-color:#aaa;
 	--task-button-border-color: #FFF;
-	--task-btn-color:#b37723;
+	--task-btn-color:#6b450f;
 	--separator-color: #555;
 	--odd-list-color:#222;
 }
@@ -184,7 +184,7 @@ button.runnable {
 button.runnable:hover { background: #dba659; }
 
 .darkmode button.runnable:hover {
-	background:#c5964f
+	background:#673619
 }
 
 
