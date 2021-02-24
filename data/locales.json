@@ -181,7 +181,8 @@
 		"strangebones",
 		"enc_embalm1",
 		"enc_chest2",
-		"eeriemoans"
+		"eeriemoans",
+		"puppet_broken"
 	]
 },
 {
@@ -237,7 +238,8 @@
 		"enc_furnace",
 		"enc_workbook1",
 		"enc_alchemy",
-		"enc_workbook2"
+		"enc_workbook2",
+		"puppet_fazbitservants"
 	]
 },
 {
@@ -264,7 +266,9 @@
 		"enc_gap",
 		"enc_statue2",
 		"enc_history",
-		"enc_primer1"
+		"enc_primer1",
+		"puppet_scrapmachina",		
+		"puppet_crystal"
 	]
 },
 {
@@ -299,7 +303,9 @@
 		"enc_statue2",
 		"starrysky1",
 		"enc_chest3",
-		"enc_orremtrade"
+		"enc_orremtrade",
+		"puppet_scrapmachina",
+		"puppet_broken"
 	]
 },
 {

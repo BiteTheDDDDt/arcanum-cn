@@ -1383,7 +1383,7 @@
             "name":"bite",
             "kind":"pierce",
             "dmg":"4~7"
-		},"loot":{"crocodiletears":5},
+		},
 		"resist":{
 			"water":15,
 			"nature":20
@@ -2090,7 +2090,7 @@
             "kind":"pierce",
 			"dmg":"7~15",
 			"leech":0.3
-        },"loot":{"croctears":5}
+        }
 
 	},
 	{

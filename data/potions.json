@@ -17,6 +17,7 @@
 	{
 		"id":"pot_breath1",
 		"name":"portion of waterbreathing",
+		"desc":"Unusually, prepared by baking special herbs into a brownie.",
 		"require":"g.potions>1",
 		"buy":{
 			"gold":25,
