@@ -1420,6 +1420,144 @@
 				},
 				"flavor":"If you want a better future, make better people."
 			}
+		],
+		"encounters": [
+			{
+				"id":"puppet_strawman",
+				"name":"scarecrow",
+				"desc":"A scarecrow winks at you.",
+				"effect":{
+					"unease":"1~2",
+					"puppetry.exp":5
+				}
+			},
+			{
+				"id":"puppet_rustedsickle",
+				"name":"rusted sickle",
+				"desc":"A rusted sickle lays abandoned. Curiously, it seems to have never had a handle.",
+				"effect":{
+					"unease":"0~2",
+					"bf":"0~2",
+					"puppetry.exp":2,
+					"machinacreation.exp":2
+				}
+			},
+			{
+				"id":"puppet_farmer",
+				"name":"chatty farmer",
+				"desc":"You barely manage to escape his endless complaints about his rich neighbor.",
+				"effect":{
+					"weary":"1~2",
+					"rage":"1~2",
+					"charms.exp":2,
+					"composure.exp":2
+				}
+			},
+			{
+				"id":"puppet_remains",
+				"name":"blood",
+				"desc":"A crushed, mangled corpse of a critter lies in the fields, cut apart by an uncaring plow.",
+				"effect":{
+					"unease":"1~2",
+					"rage":"2",
+					"animals.exp":2,
+					"composure.exp":2
+				}
+			},
+			{
+				"id":"puppet_broken",
+				"name":"pile of wood?",
+				"desc":"Upon closer inspection it appears to be an old, discarded puppet.",
+				"effect":{
+					"rage":"1~3",
+					"puppetry.exp":1
+				},
+				"result":{
+					"puppets":"15%"
+				}
+			},
+			{
+				"id":"puppet_plow",
+				"name":"automated plower",
+				"desc":"A lone mechanism plows the fields for it's rich master.",
+				"effect":{
+					"weary":"1~3",
+					"machinacreation.exp":5
+				},
+				"result":{
+					"herbs":"0~3"
+				}
+			},
+			{
+				"id":"puppet_crystal",
+				"name":"pulsating crystal",
+				"desc":"An odd crystal pulses rhythmically in the darkness. .... . .-.. .-.. ---",
+				"effect":{
+					"weary":"1~3",
+					"unease":"1~3",
+					"bf":"1~3",
+					"automatasculpting.exp":5
+				},
+				"result":{
+					"runestones":"15%"
+				}
+			},
+			{
+				"id":"puppet_scrapmachina",
+				"name":"scrap pile",
+				"desc":"A pile of scrap metal sits on the floor, once a useful mechanical servant",
+				"effect":{
+					"weary":"2~3",
+					"machinacreation.exp":1
+				},
+				"result":{
+					"machinae":"15%"
+				}
+			},
+						{
+				"id":"puppet_fazbitservants",
+				"name":"fazbit's helpers",
+				"desc":"Still maintaining the workshop after centuries... as much as they can",
+				"effect":{
+					"weary":"1~3",
+					"machinacreation.exp":3,
+					"puppetry.exp":3
+				},
+				"result":{
+					"machinae":"5%",
+					"puppets":"5%"
+				}
+			}
+		],
+		"locales": [
+			{
+				"id":"localfields",
+				"name":"Village fields",
+				"level":1,
+				"length":25,
+				"require":"evt_helper",
+				"desc":"The nearby village's fields are vast and full of opportunity for an aspiring mage.",
+				"run":{
+					"stamina":0.2
+				},
+				"result":{
+					"arcana":0.1,
+					"gold":5
+				},
+				"loot":{
+					"herbs":"1~3"
+				},
+				"encs":[
+					"puppet_plow",
+					"puppet_broken",
+					"puppet_farmer",
+					"puppet_remains",
+					"puppet_strawman",
+					"puppet_strawman",
+					"puppet_rustedsickle",
+					"puppet_rustedsickle"
+				]
+			}
 		]
 	}
 }
