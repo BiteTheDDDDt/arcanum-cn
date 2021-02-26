@@ -48,7 +48,7 @@
 					"dreams": 3
 				},
 				"mod": {
-					"notoriety.rate": 0.000034,
+					"fame.rate": 0.000034,
 					"sindel.rate": "10%"
 				}
 			},
