@@ -362,9 +362,7 @@ export default class Inventory {
 	 * @returns {?GData} item found, or null.
 	 */
 	addStack(it, count=1) {
-		console.log('addstack?');
 		let orig = this.findMatch(it);
-		console.log({orig});
 		if (orig) {
 			if(orig.count.value < 1) orig.count.value = 1;
 			orig.count++;
