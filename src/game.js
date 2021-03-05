@@ -704,11 +704,10 @@ export default {
 		let sellObj = it.sell || it.cost || (5*it.level) || 5;
 
 		if ( typeof sellObj === 'object' ) {
-			sellObj = sellObj.gold || it.level || 1;
+			return sellObj;
+		} else {
+			return Math.ceil(sellObj * this.state.sellRate);
 		}
-
-		return Math.ceil( sellObj*this.state.sellRate );
-
 
 	},
 
@@ -722,11 +721,21 @@ export default {
 	trySell( it, inv, count=1 ) {
 
 		if ( it.value < 1 && !it.instanced ) { return false; }
-
 		if ( count > it.count ) count = it.count;
 
 		if(count<1) count=1;
-		this.getData('gold').amount( count*this.sellPrice(it) );
+		const sellPrice = this.sellPrice(it);
+
+		if(sellPrice.gold || typeof sellPrice === 'object') {
+			Object.keys(sellPrice).forEach(key => {
+				const res = this.getData(key);
+				const price = sellPrice[key];
+				res.amount(count * (price||1));
+			});
+		}
+		 else {
+			this.getData('gold').amount(count * this.sellPrice(it));
+		}
 
 		if ( it.instanced ) {
 
