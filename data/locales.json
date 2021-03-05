@@ -367,7 +367,9 @@
 		"stamina":2
 	},
 	"result":{
-		"title":"Dhrunic Wayfarer",
+		"title":"Dhrunic Wayfarer"
+	},
+	"loot": {
 		"tenwickstick":1
 	},
 	"encs":[
