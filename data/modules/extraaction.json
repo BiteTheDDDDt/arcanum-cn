@@ -21,7 +21,7 @@
 			{
 				"id": "stillroom",
 				"name": "still room",
-				"group":"spacetime",
+				"group": "spacetime",
 				"desc": "Nothing occurs within this room.",
 				"max": 1,
 				"flavor": "Perfect for extremely specialized experiments."
@@ -29,7 +29,7 @@
 			{
 				"id": "chargedtimepiece",
 				"name": "charged timepiece",
-				"group":"spacetime",
+				"group": "spacetime",
 				"desc": "Imbued with time energies, this timepiece shows the current time no matter when you are.",
 				"max": 6,
 				"flavor": "How many of you have one?"
@@ -37,7 +37,7 @@
 			{
 				"id": "emptytimepiece",
 				"name": "empty timepiece",
-				"group":"spacetime",
+				"group": "spacetime",
 				"desc": "An ordinary timepiece, crafted with remarkable materials.",
 				"max": 6,
 				"flavor": "The time is L1:69."

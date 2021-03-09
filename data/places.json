@@ -1,13 +1,10 @@
 [
-
 	{
-		"id":"arag",
-		"name":"arag",
-		"biomes":"",
-		"loc":"",
-		"homes":"",
-		"locales":""
-
+		"id": "arag",
+		"name": "arag",
+		"biomes": "",
+		"loc": "",
+		"homes": "",
+		"locales": ""
 	}
-
 ]
