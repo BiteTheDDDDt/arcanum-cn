@@ -113,7 +113,7 @@
 				"require": "g.titan>0",
 				"max": 3,
 				"cost": {
-					"prestige": 120,					
+					"prestige": 120,
 					"mythicanvil": 1
 				},
 				"mod": {
