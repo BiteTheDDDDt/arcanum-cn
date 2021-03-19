@@ -116,7 +116,7 @@ export default {
 		<div v-if="activesLen===0" class="note-text">None</div>
 		<div v-else>
 		<div v-for="(t,ind) in actives.values().reverse()" :key="'a'+ind" class="task-info">
-			<button class="stop" @click="removeActive(t)">X</button><span class="task-name">{{ t.name }}</span>
+			<button class="stop" @click="removeActive(t)">X</button><span class="task-name">{{ t.name.toTitleCase() }}</span>
 			<!-- note: indices are reversed -->
 			<button @click="incActive(t)" :disabled="ind===0">+</button>
 			<button @click="decActive(t)" :disabled="(ind+1)===activesLen">-</button>
@@ -130,7 +130,7 @@ export default {
 		<div v-if="waiting.length===0" class="note-text">None</div>
 		<div v-else>
 		<div v-for="(t,ind) in waiting" :key="'w'+ind" class="task-info">
-			<button class="stop" @click="removeWait(t)">X</button><span class="task-name">{{ t.name }}</span>
+			<button class="stop" @click="removeWait(t)">X</button><span class="task-name">{{ t.name.toTitleCase() }}</span>
 			<button @click="incWaiting(t)" :disabled="ind===0">+</button>
 			<button @click="decWaiting(t)" :disabled="(ind+1)===waiting.length">-</button>
 
@@ -144,7 +144,7 @@ export default {
 		<div v-else>
 		<div v-for="(t) in pursuits.items" :key="t.id" class="task-info">
 
-			<button class="stop" @click="removePursuit(t)">X</button><span class="task-name">{{ t.name }}</span>
+			<button class="stop" @click="removePursuit(t)">X</button><span class="task-name">{{ t.name.toTitleCase() }}</span>
 			<!--<button v-if="runner.canPursuit(t)" :class="['pursuit', pursuits.includes( runner.baseTask(t) ) ? 'current' : '']"
 					@click="runner.togglePursuit(t)"> F </button>-->
 		</div>

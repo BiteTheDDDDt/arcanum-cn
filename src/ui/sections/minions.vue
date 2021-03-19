@@ -86,7 +86,7 @@ export default {
 
 	<div class="char-list">
 	<table>
-		<tr><th>Creature</th><th class="num-align">Hp</th><th>active</th><th>actions</th></tr>
+		<tr><th>Creature</th><th class="num-align">Hp</th><th>Active</th><th>Actions</th></tr>
 		<tr class="char-row" v-for="b in filtered" :key="b.id" @mouseenter.capture.stop="itemOver($event,b)">
 			<th><input class="fld-name" type="text" v-model="b.name"></th>
 			<td class="num-align">{{ toNum(b.hp) }} / {{ toNum( b.hp.max ) }}</td>

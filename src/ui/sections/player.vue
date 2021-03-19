@@ -112,44 +112,44 @@ export default {
 
 		<div>
 		<table>
-		<tr><td>name</td><th class="text-entry">
+		<tr><td>Name</td><th class="text-entry">
 			<input class="fld-name" type="text" v-model="wizName"></th></tr>
 
 		<tr v-if="hallUnlocked"><td></td><th><button @click="openHall">{{ hallName }}</button></th></tr>
 
 		<tr @mouseenter.capture.stop="itemOver( $event, player.titles, null, 'Titles')">
-			<td><span v-if="player.titles.length>0"><button class="config" @click="pickTitle($event)"></button></span>title</td><th> {{ title}}</th></tr>
-		<tr><td>notoriety</td><th>{{ Math.floor(player.fame.valueOf() ) }}</th></tr>
-		<tr><td>level</td><th> {{ level }}</th></tr>
-		<tr><td>exp</td><th> {{ exp }} / {{ next }} </th></tr>
-		<tr><td>virtue : evil</td><th> {{ Math.floor(player.virtue.valueOf()) }} : {{Math.floor(player.evilamt.valueOf())}}</th></tr>
-		<tr><td @mouseenter.capture.stop="itemOver( $event,sp)">skill points</td><th> {{spStr }}</th></tr>
+			<td><span v-if="player.titles.length>0"><button class="config" @click="pickTitle($event)"></button></span>Title</td><th> {{ title}}</th></tr>
+		<tr><td>Notoriety</td><th>{{ Math.floor(player.fame.valueOf() ) }}</th></tr>
+		<tr><td>Level</td><th> {{ level }}</th></tr>
+		<tr><td>Experience</td><th> {{ exp }} / {{ next }} </th></tr>
+		<tr><td>Virtue : Evil</td><th> {{ Math.floor(player.virtue.valueOf()) }} : {{Math.floor(player.evilamt.valueOf())}}</th></tr>
+		<tr><td @mouseenter.capture.stop="itemOver( $event,sp)">Skill Points</td><th> {{spStr }}</th></tr>
 
 
-		<tr><td>rest</td><th><slotpick pick="rest" /></th></tr>
-		<tr><td>mount</td><th><slotpick pick="mount" /></th></tr>
-		<tr><td @mouseenter.capture.stop="itemOver( $event,dist)">distance</td><th>{{ dist.current }}</th></tr>
+		<tr><td>Rest</td><th><slotpick pick="rest" /></th></tr>
+		<tr><td>Mount</td><th><slotpick pick="mount" /></th></tr>
+		<tr><td @mouseenter.capture.stop="itemOver( $event,dist)">Distance</td><th>{{ dist.current }}</th></tr>
 		</table>
 		</div>
 
 		<div>
 		<table>
-			<tr><td @mouseenter.capture.stop="itemOver( $event, hp)">life</td><th>
+			<tr><td @mouseenter.capture.stop="itemOver( $event, hp)">Life</td><th>
 			{{ floor( hp.valueOf() ) }} / {{ floor( hp.max.value ) }}</th></tr>
 
-			<tr><td>stamina</td><th>
+			<tr><td>Stamina</td><th>
 			{{ floor( stamina.valueOf() ) }} / {{ floor(stamina.max.value )}}</th></tr>
 
-			<tr><td>defense</td><th>{{ defense }}</th></tr>
-			<tr><td>dodge</td><th>{{ dodge }}</th></tr>
-			<tr><td>luck</td><th>{{ luck }}</th></tr>
-			<tr><td>damage bonus</td><th>{{ damage }}</th></tr>
-			<tr><td>hit bonus</td><th>{{ precise( tohit ) }}</th></tr>
+			<tr><td>Defense</td><th>{{ defense }}</th></tr>
+			<tr><td>Dodge</td><th>{{ dodge }}</th></tr>
+			<tr><td>Luck</td><th>{{ luck }}</th></tr>
+			<tr><td>Damage Bonus</td><th>{{ damage }}</th></tr>
+			<tr><td>Hit Bonus</td><th>{{ precise( tohit ) }}</th></tr>
 
-			<tr><td>speed</td><th>{{ speed }}</th></tr>
+			<tr><td>Speed</td><th>{{ speed }}</th></tr>
 
 			<tr @mouseenter.capture.stop="itemOver( $event,player.weapon)">
-				<td>weapon</td><th>{{ player.weapon ? player.weapon.name : 'None' }}</th></tr>
+				<td>Weapon</td><th>{{ player.weapon ? player.weapon.name.toTitleCase() : 'None' }}</th></tr>
 
 
 		</table>
@@ -157,36 +157,36 @@ export default {
 
 		<div>
 		<table class="resists">
-			<tr><th>resists</th></tr>
+			<tr><th>Resists</th></tr>
 			<tr v-for="(r,k) in player.resist" :key="k">
-				<td>{{k}}</td><td class="num-align">{{ precise( r.value ) }}%</td>
+				<td>{{ k.toString().toTitleCase() }}</td><td class="num-align">{{ precise( r.value ) }}%</td>
 			</tr>
 		</table>
 		</div>
 
 		<div>
 		<table class="bonuses">
-			<tr><th>bonus damage</th></tr>
+			<tr><th>Bonus Damage</th></tr>
 			<tr v-for="(r,k) in player.bonuses" :key="k">
-				<td v-if="r.valueOf()!==0">{{k}}: {{ r.valueOf() }}</td>
+				<td v-if="r.valueOf()!==0">{{ k.toString().toTitleCase() }}: {{ r.valueOf() }}</td>
 			</tr>
 		</table>
 		</div>
 
 		<div>
 		<table class="hits">
-			<tr><th>tohit bonus</th></tr>
+			<tr><th>Hit Bonus</th></tr>
 			<tr v-for="(r,k) in player.hits" :key="k">
-				<td v-if="r.valueOf()!==0">{{k}}: {{ r.valueOf() }}</td>
+				<td v-if="r.valueOf()!==0">{{ k.toString().toTitleCase() }}: {{ r.valueOf() }}</td>
 			</tr>
 		</table>
 		</div>
 
 		<div>
 		<table class="immunities">
-			<tr><th>immunities</th></tr>
+			<tr><th>Immunities</th></tr>
 			<tr v-for="(r,k) in player.immunities" :key="k">
-				<td v-if="r>0">{{k}}</td>
+				<td v-if="r>0">{{ k.toString().toTitleCase() }}</td>
 			</tr>
 		</table>
 		</div>
@@ -222,8 +222,6 @@ div.player-tables div {
 }
 
 div.player-view input[type=text].fld-name { margin: 0; }
-
-
 
 div.player-view input[type=text] {
 	border: none; background: transparent; font-size: 1em; cursor: text; position: relative;

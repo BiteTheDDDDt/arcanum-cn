@@ -1,7 +1,7 @@
 [
 	{
 		"id": "sunnyfield",
-		"name": "sunny field",
+		"name": "Sunny Field",
 		"level": 1,
 		"length": 10,
 		"require": "evt_helper",
@@ -28,11 +28,11 @@
 			"smsnake",
 			"twikman"
 		],
-		"flavor": "every budding mage needs to start somewhere."
+		"flavor": "Every budding mage needs to start somewhere."
 	},
 	{
 		"id": "placidgrove",
-		"name": "placid grove",
+		"name": "Placid Grove",
 		"require": "sunnyfield",
 		"level": 2,
 		"length": 12,
@@ -77,7 +77,7 @@
 			"sp": 1,
 			"gold": "15~20",
 			"player.exp": 10,
-			"title": "master of the cellar"
+			"title": "Master Of The Cellar"
 		},
 		"loot": {
 			"maxlevel": 4
@@ -102,7 +102,7 @@
 	{
 		"id": "stonyhills",
 		"alias": "hills",
-		"name": "stony hills",
+		"name": "Stony Hills",
 		"require": "placidgrove",
 		"level": 3,
 		"length": 25,
@@ -137,10 +137,10 @@
 	},
 	{
 		"id": "ettinmarchcamp",
-		"name": "ettinmarch camp",
+		"name": "Ettinmarch Camp",
 		"desc": "The perilous wilds of the Ettinmarch are a cherished home to bands of merry rangers and virtuous druids.",
 		"require": "evt_rangers",
-		"title": "forest scourge",
+		"title": "Forest Scourge",
 		"max": 1,
 		"level": 15,
 		"length": 200,
@@ -201,7 +201,7 @@
 	},
 	{
 		"id": "fetidbarrow",
-		"name": "the fetid barrows",
+		"name": "The Fetid Barrows",
 		"desc": "When the fetid barrows were discovered, dark acolytes gathered at the mounds seeking ancient patrons of their art.",
 		"require": "evt_cabal",
 		"max": 1,
@@ -211,7 +211,7 @@
 			"stamina": 2
 		},
 		"result": {
-			"title": "cabal breaker",
+			"title": "Cabal Breaker",
 			"bones": "3~7",
 			"bodies": "0~2"
 		},
@@ -268,7 +268,7 @@
 	},
 	{
 		"id": "treffilwoods",
-		"name": "treffil woods",
+		"name": "Treffil Woods",
 		"desc": "These enchanted woods are not particularly dangerous.",
 		"dist": 17,
 		"level": 4,
@@ -300,8 +300,8 @@
 	},
 	{
 		"id": "underden",
-		"name": "under den",
-		"desc": "proverbial den of thieves",
+		"name": "Under Den",
+		"desc": "Proverbial den of thieves",
 		"require": "tier0",
 		"level": 5,
 		"run": {
@@ -327,7 +327,7 @@
 	},
 	{
 		"id": "veldranswreck",
-		"name": "veldran's wreck",
+		"name": "Veldran's Wreck",
 		"desc": "Off the stormy cliffs of Arazor a mass of cracked spars marks the resting place of the largest ship ever sailed by man.",
 		"require": "g.waterlore.max>=10&&g.aragheights>0",
 		"level": 7,
@@ -356,7 +356,7 @@
 	},
 	{
 		"id": "aragheights",
-		"name": "arag heights",
+		"name": "Arag Heights",
 		"desc": "Barren mountains on the coast of Arazor.",
 		"require": "stonyhills",
 		"level": 6,
@@ -384,7 +384,7 @@
 	},
 	{
 		"id": "hauntedmanor",
-		"name": "haunted manor",
+		"name": "Haunted Manor",
 		"desc": "",
 		"require": "g.spirit.max>=9",
 		"level": 6,
@@ -407,8 +407,8 @@
 	},
 	{
 		"id": "sereditetemple",
-		"name": "seredite temple",
-		"desc": "who they were or why they built this ruined temple in the seaside cliffs is a mystery lost to time.",
+		"name": "Seredite Temple",
+		"desc": "Who they were or why they built this ruined temple in the seaside cliffs is a mystery lost to time.",
 		"level": 8,
 		"run": {
 			"stamina": 1.2
@@ -443,11 +443,11 @@
 				"crab"
 			]
 		],
-		"flavor": "would the ancient seredites appreciate the temple's new inhabitants?"
+		"flavor": "Would the ancient seredites appreciate the temple's new inhabitants?"
 	},
 	{
 		"id": "goblincamp",
-		"name": "goblin camp",
+		"name": "Goblin Camp",
 		"start": {
 			"name": "Goblins, Goblins!",
 			"desc": "Rumors hint at a camp of goblins in the vicinity. As an aspiring wizard, convention dictates you test your mettle on their lives."
@@ -459,7 +459,7 @@
 			"stamina": 1
 		},
 		"result": {
-			"title": "goblin slayer",
+			"title": "Goblin Slayer",
 			"gold": "20~30"
 		},
 		"boss": "gobchief",
@@ -480,7 +480,7 @@
 	},
 	{
 		"id": "orccamp",
-		"name": "orc camp",
+		"name": "Orc Camp",
 		"desc": "A scourge of towns and cities.",
 		"require": "goblincamp",
 		"level": 7,
@@ -499,11 +499,11 @@
 			"orc",
 			"orcpriest"
 		],
-		"flavor": "lok'tar!"
+		"flavor": "Lok'tar!"
 	},
 	{
 		"id": "aragogres",
-		"name": "ogre cavern",
+		"name": "Ogre Cavern",
 		"start": {
 			"name": "Ogre Cavern",
 			"desc": "While scrying the outlying lands you discover a colossal cave in the arag heights."
@@ -572,7 +572,7 @@
 	},
 	{
 		"id": "spidercave",
-		"name": "skittering caverns",
+		"name": "Skittering Caverns",
 		"desc": "The only treasures here are were lost by adventurers searching for treasure.",
 		"require": "tier0",
 		"level": 7,
@@ -580,7 +580,7 @@
 			"stamina": 1.2
 		},
 		"result": {
-			"title": "spider slayer",
+			"title": "Spider Slayer",
 			"gold": "40~50"
 		},
 		"boss": "spiderqueen",
@@ -602,7 +602,7 @@
 	},
 	{
 		"id": "aragwastes",
-		"name": "arag wastes",
+		"name": "Arag Wastes",
 		"desc": "An arid plain stretching across Arazor from the Arag Heights.",
 		"require": "aragheights",
 		"level": 8,
@@ -647,15 +647,15 @@
 	},
 	{
 		"id": "mtgorborung",
-		"name": "mount gorborung",
-		"desc": "one of the most perilous mountains in the world. many journey over its passes; none venture within.",
+		"name": "Mount Gorborung",
+		"desc": "One of the most perilous mountains in the world. Many journey over its passes; none venture within.",
 		"level": 9,
 		"length": 50,
 		"run": {
 			"stamina": 2
 		},
 		"result": {
-			"title": "mountaineer",
+			"title": "Mountaineer",
 			"watergem": "25%",
 			"airgem": "10%",
 			"gems": "3~5"
@@ -683,8 +683,8 @@
 	},
 	{
 		"id": "greatbog",
-		"name": "the great bog",
-		"desc": "for hundreds of miles the great bog spreads across the dark center of Dhrune.",
+		"name": "The Great Bog",
+		"desc": "For hundreds of miles the great bog spreads across the dark center of Dhrune.",
 		"require": "g.player.dist>=200",
 		"level": 13,
 		"run": {
@@ -692,7 +692,7 @@
 		},
 		"length": 100,
 		"result": {
-			"title": "fetid pathfinder",
+			"title": "Fetid Pathfinder",
 			"gems": "3~5",
 			"gold": "100~200",
 			"bones": 10
@@ -734,11 +734,11 @@
 				"piranha"
 			]
 		],
-		"flavor": "also known as Barden's bog, noone can say exactly just who Barden was."
+		"flavor": "Also known as Barden's bog, no one can say exactly just who Barden was."
 	},
 	{
 		"id": "catacrypts",
-		"name": "the catacrypts",
+		"name": "The Catacrypts",
 		"desc": "Old Mirthemgnar dug its dungeons til they joined the hollows beneath the world. In terror they sealed them forever. Or so they tried.",
 		"require": [
 			"mtgorborung",
@@ -750,7 +750,7 @@
 		},
 		"length": 10000,
 		"result": {
-			"title": "twice born",
+			"title": "Twice Born",
 			"fame": 3,
 			"gems": "30~50",
 			"gold": "1000~2000"
@@ -763,12 +763,12 @@
 			"level": "15~23",
 			"range": 2
 		},
-		"flavor": "day and night the dark gates stand open to all... but to return to the open air... that is the task, that is the labor"
+		"flavor": "Day and night the dark gates stand open to all... but to return to the open air... that is the task, that is the labor"
 	},
 	{
 		"id": "elementrift",
-		"name": "elemental rift",
-		"desc": "a tear in the fabric of reality leads to a land of raw elements.",
+		"name": "Elemental Rift",
+		"desc": "A tear in the fabric of reality leads to a land of raw elements.",
 		"require": "g.planeslore>=7",
 		"level": 12,
 		"run": {
@@ -789,7 +789,7 @@
 	},
 	{
 		"id": "veldransstorehouse",
-		"name": "veldran's storehouse",
+		"name": "Veldran's Storehouse",
 		"desc": "Veldran never did manage to carve a kingdom from the wreck of Bodias' reign. But he did accrue a sizeable hoard.",
 		"level": 9,
 		"run": {
@@ -828,8 +828,8 @@
 	},
 	{
 		"id": "desillagrotto",
-		"name": "desilla's grotto",
-		"desc": "in all the world, the most enjoyable place to die.",
+		"name": "Desilla's Grotto",
+		"desc": "In all the world, the most enjoyable place to die.",
 		"require": "g.player.dist>=500",
 		"level": 15,
 		"run": {
@@ -875,19 +875,19 @@
 			],
 			"succubus"
 		],
-		"flavor": "desilla was known as much for her entertainments as her ruthlessness."
+		"flavor": "Desilla was known as much for her entertainments as her ruthlessness."
 	},
 	{
 		"id": "charredkeep",
-		"name": "charred keep",
-		"desc": "its smouldering ruins once more begin to burn.",
+		"name": "Charred Keep",
+		"desc": "Its smouldering ruins once more begin to burn.",
 		"level": 18,
 		"run": {
 			"stamina": 3
 		},
 		"length": 100,
 		"result": {
-			"title": "lock slayer",
+			"title": "Lock Slayer",
 			"gold": "300~500",
 			"ichor": 3
 		},
@@ -926,12 +926,12 @@
 				"masterswordsman"
 			]
 		],
-		"flavor": "burned black by its own denizens"
+		"flavor": "Burned black by its own denizens"
 	},
 	{
 		"id": "belowgorborung",
-		"name": "below mt gorborung",
-		"desc": "they say the roots of the mountain extend deeper than its heights.",
+		"name": "Below Mt Gorborung",
+		"desc": "They say the roots of the mountain extend deeper than its heights.",
 		"level": 25,
 		"length": 100,
 		"require": "g.player.level>20&&g.mtgorborung>0",
@@ -940,7 +940,7 @@
 			"stamina": 3
 		},
 		"result": {
-			"title": "lightless",
+			"title": "Lightless",
 			"earthgem": 5,
 			"gems": 10,
 			"tomes": 2
@@ -1021,7 +1021,7 @@
 	},
 	{
 		"id": "holyhall",
-		"name": "hall of the holy",
+		"name": "Hall Of The Holy",
 		"desc": "Various divine spirits watch over the world. And the greatest have their halls and kingdoms.",
 		"require": "g.planeslore.max>=12&&g.evil>0",
 		"level": 17,
@@ -1030,7 +1030,7 @@
 			"stamina": 2
 		},
 		"result": {
-			"title": "holy defiler",
+			"title": "Holy Defiler",
 			"evilamt": 10,
 			"gold": "150~275"
 		},

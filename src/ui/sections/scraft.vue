@@ -24,7 +24,7 @@ export default {
 			 */
 			craft:{
 
-				name:'crafted spell',
+				name:'Crafted Spell',
 				level:0,
 				buy:null
 			}
@@ -107,10 +107,10 @@ export default {
 		},
 
 		/**
-		 * @property {Spell[]} spells - all spells in game.
+		 * @property {Spell[]} spells - all spells in game, except bloodshot.
 		 */
 		spells() {
-			return Game.state.filterItems( v=>v.type === 'spell'&&!this.locked(v)&&v.owned).sort( alphasort );
+			return Game.state.filterItems( v=>v.type === 'spell'&&!this.locked(v)&&v.owned&&v.id!='bloodshot').sort( alphasort );
 		},
 
 		/**
@@ -169,14 +169,14 @@ export default {
 	</div>
 
 	<div v-for="(s,ind) in list" class="separate" :key="ind" @mouseenter.capture.stop="itemOver($event,s)">
-		<span>{{s.name}}</span><button class="remove" @click="removeAt(ind)">X</button>
+		<span>{{s.name.toTitleCase()}}</span><button class="remove" @click="removeAt(ind)">X</button>
 	</div>
 
 </div>
 <div class="allspells">
 
 	<div class="separate" v-for="(s) in spells" :key="s.id"  @mouseenter.capture.stop="itemOver($event,s)">
-		<span>{{s.name}}</span><button class="add" @click="add(s)" :disabled="!canAdd(s)">+</button>
+		<span>{{s.name.toTitleCase()}}</span><button class="add" @click="add(s)" :disabled="!canAdd(s)">+</button>
 	</div>
 
 </div>

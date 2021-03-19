@@ -14,7 +14,7 @@ export class DisplayItem {
 	constructor( name, value, isRate ) {
 
 		//this.path = path;
-		this.name = name;
+		this.name = name.toTitleCase();
 		this.value = value;
 		this.isRate = isRate;
 

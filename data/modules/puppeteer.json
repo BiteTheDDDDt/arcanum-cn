@@ -318,7 +318,7 @@
 			{
 				"id": "clockworkexpansione",
 				"name": "endless expansion",
-				"desc": "More",
+				"desc": "More...",
 				"require": "g.clockworkexpansion3>=2",
 				"max": 500,
 				"cost": {
@@ -404,7 +404,7 @@
 			{
 				"id": "proxies2",
 				"name": "proxy amplification",
-				"desc": "use your puppet proxies to amplify your memory",
+				"desc": "Use your puppet proxies to amplify your memory",
 				"require": "g.puppetry>=8",
 				"max": 1,
 				"cost": {
@@ -419,7 +419,7 @@
 			{
 				"id": "puppetspies",
 				"name": "puppet spies",
-				"desc": "nobody would notice",
+				"desc": "Nobody would notice",
 				"require": "g.puppeteer>0",
 				"max": 1,
 				"cost": {
@@ -596,7 +596,7 @@
 			{
 				"id": "automatamastery",
 				"name": "automata mastery",
-				"desc": "a complete mastery over all things mechanical",
+				"desc": "A complete mastery over all things mechanical",
 				"require": "g.mechamancer>0",
 				"max": 1,
 				"cost": {
@@ -636,7 +636,7 @@
 				"level": 10,
 				"only": "puppet",
 				"school": "animation",
-				"desc": "mend a broken puppet.",
+				"desc": "Mend a broken puppet.",
 				"require": "puppeteer",
 				"tags": "rez",
 				"buy": {
@@ -653,7 +653,7 @@
 				"level": 20,
 				"only": "machina",
 				"school": "animation",
-				"desc": "repair a wrecked machina.",
+				"desc": "Repair a wrecked machina.",
 				"require": "mechanist",
 				"tags": "rez",
 				"buy": {
@@ -670,7 +670,7 @@
 				"level": 30,
 				"only": "automata",
 				"school": "animation",
-				"desc": "re-tune a discordant automata.",
+				"desc": "Re-tune a discordant automata.",
 				"require": "mechamancer",
 				"tags": "rez",
 				"buy": {
@@ -687,7 +687,7 @@
 				"level": 15,
 				"school": "mana",
 				"require": "g.magiphysics>=5",
-				"desc": "a burst of chaotic magic inflicting damage to enemies.",
+				"desc": "A burst of chaotic magic inflicting damage to enemies.",
 				"buy": {
 					"research": 6000,
 					"tomes": 40
@@ -973,7 +973,7 @@
 					"assembleautomata.cost.runestones": -5,
 					"space": 70
 				},
-				"flavor": "This was a triumph. I'm making a note here, 'huge success.'"
+				"flavor": "This was a triumph. I'm making a note here, 'Huge Success.'"
 			}
 		],
 		"resources": [
@@ -990,7 +990,7 @@
 				"desc": "Towering hulks of metal, ready to do their master's bidding.",
 				"group": "puppets",
 				"max": 20,
-				"flavor": "beep boop."
+				"flavor": "B33P B00P."
 			},
 			{
 				"id": "automatas",

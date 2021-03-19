@@ -60,7 +60,7 @@ export default {
 			<div>{{ msg }}</div>
 		</div>
 		<div v-else>
-		<div class="log-title">{{ item.name }}</div>
+		<div class="log-title">{{ item.name.toString().toTitleCase() }}</div>
 		<div>{{ item.desc }}</div>
 		<div>{{ msg }}</div>
 		<div class="skip"><label :for="elmId('nowarn')">Skip Warning</label>

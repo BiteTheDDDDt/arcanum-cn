@@ -206,7 +206,7 @@ export default class Combat {
 
 			//Events.emit(EVT_COMBAT, null, g.self.name + ' casts ' + it.name + ' at the darkness.' );
 
-			Events.emit(EVT_COMBAT, null, g.self.name + ' casts ' + it.name );
+			Events.emit(EVT_COMBAT, null, g.self.name + ' Casts ' + it.name.toTitleCase() );
 			if ( it.attack ) {
 				this.attack( g.self, it.attack );
 			}
@@ -343,13 +343,13 @@ export default class Combat {
 
 		if ( this.dodgeRoll( defender.dodge, tohit )) {
 
-			Events.emit( DAMAGE_MISS, defender.name + ' dodges ' + (attack.name||attacker.name));
+			Events.emit( DAMAGE_MISS, defender.name.toTitleCase() + ' Dodges ' + (attack.name.toTitleCase()||attacker.name.toTitleCase()));
 
 		} else if ( Math.random()*( 10 + tohit ) >= Math.random()*(10 + defender.defense * DEFENSE_RATE ) ) {
 			return true;
 		} else {
 
-			Events.emit( DAMAGE_MISS, defender.name + ' parries ' + (attack.name||attacker.name));
+			Events.emit( DAMAGE_MISS, defender.name.toTitleCase() + ' Parries ' + (attack.name.toTitleCase()||attacker.name.toTitleCase()));
 		}
 
 	}
@@ -365,7 +365,7 @@ export default class Combat {
 
 		if ( enemies.length>0 ){
 
-			if ( enemies[0] ) Events.emit( EVT_COMBAT, enemies[0].name + ' Encountered' );
+			if ( enemies[0] ) Events.emit( EVT_COMBAT, enemies[0].name.toTitleCase() + ' Encountered' );
 			else console.warn('No valid enemy');
 
 		}

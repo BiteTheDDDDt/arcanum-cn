@@ -339,9 +339,9 @@ export default {
 
 				if ( res.length > 0) return res.join( ', ');
 
-			} else return it.name;
+			} else return it.name.toTitleCase();
 
-		} else if ( typeof it === 'string') return it;
+		} else if ( typeof it === 'string') return it.toTitleCase();
 
 		return null;
 
@@ -362,7 +362,7 @@ export default {
 
 	actImproved(it) {
 
-		this.log.log( it.name + ' Improved', null, LOG_UNLOCK );
+		this.log.log( it.name.toTitleCase() + ' Improved', null, LOG_UNLOCK );
 	},
 
 	onLevel( player, lvl ) {
@@ -375,7 +375,7 @@ export default {
 
 	onDefeat( locale ) {
 
-		this.log.log( 'RETREAT', 'Leaving '+ locale.name, LOG_COMBAT );
+		this.log.log( 'RETREAT', 'Leaving '+ locale.name.toTitleCase(), LOG_COMBAT );
 
 	},
 
@@ -385,20 +385,20 @@ export default {
 	 * @param {string} kind
 	 */
 	onImmune( target, kind ) {
-		this.log.log( 'IMMUNE', target.name + ' immune to ' + kind, LOG_COMBAT );
+		this.log.log( 'IMMUNE', target.name.toTitleCase() + ' Is Immune To ' + kind, LOG_COMBAT );
 	},
 
 	onResist(target, kind) {
-		this.log.log( 'RESISTS', target.name + ' resists ' + kind, LOG_COMBAT );
+		this.log.log( 'RESISTS', target.name.toTitleCase() + ' Resists ' + kind, LOG_COMBAT );
 	},
 
 	onMiss( msg ) {
 
-		this.log.log( '', msg, LOG_COMBAT );
+		this.log.log( '', msg.toString().toTitleCase(), LOG_COMBAT );
 	},
 
 	onEnc( title, msg ) {
-		this.log.log( title, msg, LOG_COMBAT );
+		this.log.log( title.toString().toTitleCase(), msg, LOG_COMBAT );
 	},
 
 	onCombat( title, msg) {
@@ -428,11 +428,11 @@ export default {
 	 */
 	onHit( target, dmg, resist, reduce, source ) {
 
-		let msg = source + " hits ";
-		if (resist < 0) msg += "strongly ";
-		else if (resist > 0) msg += "weakly ";
-		else if (resist > 1) msg += " absorbed by ";
-		msg += target.name + ": "+ precise( dmg, 1 );
+		let msg = source.toString().toTitleCase() + " Hits ";
+		if (resist < 0) msg += "Strongly ";
+		else if (resist > 0) msg += "Weakly ";
+		else if (resist > 1) msg += " Absorbed By ";
+		msg += target.name.toString().toTitleCase() + ": "+ precise( dmg, 1 );
 
 		/*let tot_reduce = 100*(resist + reduce);
 		if (tot_reduce > 0) {
@@ -453,7 +453,7 @@ export default {
 	 * @param {Dot} state
 	 */
 	onStateBlock( char, state ) {
-		this.log.log( state.adj, char.name + ' is ' + state.adj, LOG_COMBAT )
+		this.log.log( state.adj, char.name + ' Is ' + state.adj, LOG_COMBAT )
 	},
 
 	/**
@@ -463,7 +463,7 @@ export default {
 	 */
 	onCharState( char, state ) {
 
-		this.log.log( state.adj, char.name + ' is ' + state.adj, LOG_COMBAT )
+		this.log.log( state.adj, char.name + ' Is ' + state.adj, LOG_COMBAT )
 
 	},
 
@@ -473,7 +473,7 @@ export default {
 	 * @param {Dot} state
 	 */
 	onStateBlock( char, state ) {
-		this.log.log( state.adj, char.name + ' is ' + state.adj, LOG_COMBAT )
+		this.log.log( state.adj, char.name + ' Is ' + state.adj, LOG_COMBAT )
 	},
 
 	/**
@@ -483,13 +483,13 @@ export default {
 	 */
 	onCharState( char, state ) {
 
-		this.log.log( state.adj, char.name + ' is ' + state.adj, LOG_COMBAT )
+		this.log.log( state.adj, char.name + ' Is ' + state.adj, LOG_COMBAT )
 
 	},
 
 	npcSlain( enemy, attacker ) {
-		this.log.log( enemy.name + ' slain',
-			( attacker && attacker.name ? ' by ' + attacker.name : ''), LOG_COMBAT );
+		this.log.log( enemy.name.toTitleCase() + ' Slain',
+			( attacker && attacker.name.toTitleCase() ? ' By ' + attacker.name.toTitleCase() : ''), LOG_COMBAT );
 	},
 
 	/**

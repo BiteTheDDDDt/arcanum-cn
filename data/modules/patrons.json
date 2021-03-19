@@ -333,7 +333,7 @@
 				"name": "hall of ages",
 				"desc": "The lost Hall of Ages was a gathering place of great and powerful patron mages.",
 				"require": "g.tier3>0",
-				"title": "Mark of Ages",
+				"title": "Mark Of Ages",
 				"length": 100,
 				"mod": {
 					"history.max": "?1"

@@ -43,7 +43,7 @@ export default {
 		<div class="potion-col">
 		<div v-for="it in filtered" class="separate" :key="it.id" @mouseenter.capture.stop="itemOver( $event,it)">
 
-			<span>{{ it.name }}</span>
+			<span>{{ it.name.toTitleCase() }}</span>
 
 			<button v-if="it.buy&&!it.owned" :disabled="!it.canBuy(game)" @click="emit(BUY, it)">🔒</button>
 			<button v-else :disabled="!it.canUse()"

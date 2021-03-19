@@ -28,11 +28,13 @@ export default {
 
 <template>
 <div class="allupgrades">
-	<div class="div-hr">upgrades</div>
 	<div class="up-list">
-	<div v-for="it in classes" :key="it.id" @mouseenter.capture.stop="itemOver( $event,it)">{{it.name + count(it) }}</div>
-	<div v-for="it in tasks" :key="it.id" @mouseenter.capture.stop="itemOver( $event,it)">{{it.name + count(it) }}</div>
-	<div v-for="it in upgrades" :key="it.id" @mouseenter.capture.stop="itemOver( $event,it)">{{it.name + count(it) }}</div>
+	<div v-if="classes.length != 0" class="div-hr">Classes</div>
+	<div v-for="it in classes" :key="it.id" @mouseenter.capture.stop="itemOver( $event,it)">{{it.name.toTitleCase() + count(it) }}</div>
+	<div v-if="tasks.length != 0" class="div-hr">Tasks</div>
+	<div v-for="it in tasks" :key="it.id" @mouseenter.capture.stop="itemOver( $event,it)">{{it.name.toTitleCase() + count(it) }}</div>
+	<div v-if="upgrades.length != 0" class="div-hr">Upgrades</div>
+	<div v-for="it in upgrades" :key="it.id" @mouseenter.capture.stop="itemOver( $event,it)">{{it.name.toTitleCase() + count(it) }}</div>
 	</div>
 </div>
 </template>

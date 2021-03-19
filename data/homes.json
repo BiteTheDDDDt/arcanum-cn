@@ -2,7 +2,7 @@
 	{
 		"id": "alcove",
 		"desc": "A small corner beneath the stairs of your Master's domicile.",
-		"flavor": "goodbye hayloft.",
+		"flavor": "Goodbye hayloft.",
 		"require": "apprentice",
 		"mod": {
 			"space.max": 5
@@ -261,7 +261,7 @@
 	{
 		"id": "hauntedmanse",
 		"name": "haunted manse",
-		"desc": "legends of this mansion speak of ghosts and horrors",
+		"desc": "Legends of this mansion speak of ghosts and horrors",
 		"cost": 2500,
 		"require": "hauntedmanor",
 		"tags": "spiritsource",
@@ -360,7 +360,7 @@
 	},
 	{
 		"id": "academy",
-		"desc": "austere house of learning",
+		"desc": "Austere house of learning",
 		"cost": {
 			"gold": 10000,
 			"research": 500
@@ -434,7 +434,7 @@
 	},
 	{
 		"id": "palace",
-		"desc": "luxurious, sprawling estate to advance your studies in maximum comfort.",
+		"desc": "Luxurious, sprawling estate to advance your studies in maximum comfort.",
 		"cost": 10000,
 		"require": "tier2",
 		"mod": {

@@ -26,7 +26,7 @@ export default {
 
 		taskStr( a ){
 
-			return (a.verb || a.name) + (a.length ? ( ' ' + Math.floor(a.percent()) + '%' ) : '');
+			return (a.verb || a.name.toTitleCase() ) + (a.length ? ( ' ' + Math.floor(a.percent()) + '%' ) : '');
 
 		},
 		levelStr(a){
@@ -50,7 +50,7 @@ export default {
 		<button class="btn-sm" @click="emit(STOP_ALL)">Stop All</button>
 
 		<button class="btn-sm" @click="emit(TASK, restAction)" :disabled="resting"
-		@mouseenter.capture.stop="itemOver($event, restAction )">{{ restAction.name }}</button>
+		@mouseenter.capture.stop="itemOver($event, restAction )">{{ restAction.name.toTitleCase() }}</button>
 		<button v-if="!focus.locked" class="btn-sm" @mouseenter.capture.stop="itemOver($event, focus )"
 			:disabled="!focus.canUse(game)"
       @click="emit(TASK,focus)"

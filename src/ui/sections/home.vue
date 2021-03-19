@@ -164,8 +164,8 @@ export default {
 
 			<button class="task-btn" v-if="hallUnlocked" @click="openHall">{{ hallName }}</button>
 
-			<slotpick title="home" pick="home" must-pay=true />
-			<slotpick title="werry" hide-empty=true pick="werry" />
+			<slotpick title="Home" pick="home" must-pay=true />
+			<slotpick title="Werry" hide-empty=true pick="werry" />
 
 		</div>
 

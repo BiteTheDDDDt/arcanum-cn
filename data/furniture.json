@@ -63,7 +63,7 @@
 	{
 		"id": "woodbed",
 		"name": "wooden bed",
-		"desc": "small wooden bed.",
+		"desc": "Small wooden bed.",
 		"tags": "bed",
 		"slot": "bed",
 		"require": "g.stamina>=15",
@@ -77,7 +77,7 @@
 	},
 	{
 		"id": "fourposter",
-		"desc": "four post bed",
+		"desc": "Four post bed",
 		"tags": "bed",
 		"slot": "bed",
 		"require": "g.stamina>=30",
@@ -208,7 +208,7 @@
 			"gold": 50,
 			"research": 100
 		},
-		"flavor": "it doesn't seem very nice.",
+		"flavor": "It doesn't seem very nice.",
 		"mod": {
 			"animals.max": 1,
 			"shadowlore.max": 1,
@@ -218,7 +218,7 @@
 	},
 	{
 		"id": "terrarium",
-		"desc": "a glass enclosure of dirt, insects, and wormy things.",
+		"desc": "A glass enclosure of dirt, insects, and wormy things.",
 		"tags": "earthsource,t_pets",
 		"require": "neophyte",
 		"repeat": true,
@@ -234,7 +234,7 @@
 	},
 	{
 		"id": "vivarium",
-		"desc": "a glass enclosure for small reptiles, snakes, and frogs.",
+		"desc": "A glass enclosure for small reptiles, snakes, and frogs.",
 		"tags": "earthsource,t_pets,naturesource",
 		"require": "g.tier0>0&&g.naturelore>=5",
 		"cost": {
@@ -331,7 +331,7 @@
 	{
 		"id": "creepingvine",
 		"name": "creeping vine",
-		"desc": "a quickly growing plant",
+		"desc": "A quickly growing plant",
 		"tags": "plantsource",
 		"require": "g.herbalism>=4",
 		"max": 5,
@@ -439,7 +439,7 @@
 		"id": "scrollrack",
 		"name": "scroll rack",
 		"repeat": true,
-		"desc": "latticed shelves for easy scroll storage.",
+		"desc": "Latticed shelves for easy scroll storage.",
 		"require": "g.apprentice>=0&&g.scrolls>=20",
 		"cost": {
 			"gold": 75,
@@ -554,7 +554,7 @@
 	{
 		"id": "bonecandelabra",
 		"name": "bone candelabra",
-		"desc": "creepy",
+		"desc": "Creepy",
 		"require": "g.necromancer>0||g.witch>0||g.bonemonger>0",
 		"repeat": false,
 		"cost": {
@@ -615,7 +615,7 @@
 		"id": "bonfire",
 		"tags": "firesource",
 		"require": "g.space.max>=20",
-		"desc": "a burning pyre for the practice of pyromancy.",
+		"desc": "A burning pyre for the practice of pyromancy.",
 		"cost": {
 			"fire": 4
 		},
@@ -624,7 +624,7 @@
 			"fire.rate": 0.05,
 			"space": 2
 		},
-		"flavor": "be careful where you put it."
+		"flavor": "Be careful where you put it."
 	},
 	{
 		"id": "clepsydra",
@@ -642,7 +642,7 @@
 			"water.rate": 0.01,
 			"space": 1
 		},
-		"flavor": "what is gone is gone"
+		"flavor": "What is gone is gone"
 	},
 	{
 		"id": "fireplace",
@@ -662,7 +662,7 @@
 		"id": "grotesque",
 		"tags": "earthsource",
 		"require": "g.tier1>0&&(g.earthlore>3||g.shadowlore>3)",
-		"desc": "a grim, disfigured stone statue",
+		"desc": "A grim, disfigured stone statue",
 		"max": 4,
 		"cost": {
 			"gold": 750
@@ -679,7 +679,7 @@
 		"id": "gargoyle",
 		"tags": "watersource",
 		"require": "g.tier1>0&&(g.waterlore>3||g.shadowlore>3)",
-		"desc": "a fountain issues from the stone demon's mouth",
+		"desc": "A fountain issues from the stone demon's mouth",
 		"max": 4,
 		"cost": {
 			"gold": 750
@@ -801,7 +801,7 @@
 	},
 	{
 		"id": "cairn",
-		"desc": "Mystic rock-pile",
+		"desc": "Mystic Rock Pile",
 		"tags": "spiritsource",
 		"require": "g.spirit.max>=10",
 		"cost": {
@@ -837,7 +837,7 @@
 	{
 		"id": "darkshrine",
 		"name": "dark shrine",
-		"desc": "A shrine to Evil.",
+		"desc": "A shrine to EVIL.",
 		"tags": "shadowsource",
 		"require": "g.evilamt>2",
 		"cost": {
@@ -852,7 +852,7 @@
 			"shadow.max": 1,
 			"space": 1
 		},
-		"flavor": "Zhakul ihnaac."
+		"flavor": "Zhakul Ihnaac."
 	},
 	{
 		"id": "ironcell",
@@ -982,7 +982,7 @@
 	},
 	{
 		"id": "casket",
-		"desc": "simple container for preserving bodies.",
+		"desc": "Simple container for preserving bodies.",
 		"require": "g.tier0>0&&g.embalming>=5&&g.crafting>=5",
 		"repeat": true,
 		"cost": {
@@ -996,7 +996,7 @@
 	},
 	{
 		"id": "vat",
-		"desc": "grows bodies from raw materials",
+		"desc": "Grows bodies from raw materials",
 		"require": "g.tier1>0&&g.anatomy>=5&&g.embalming>=5&&g.crafting>=10",
 		"repeat": true,
 		"cost": {
@@ -1015,7 +1015,7 @@
 		"id": "portaalchemica",
 		"name": "porta alchemica",
 		"require": "g.alchemy>=5&&g.planeslore>=5&&g.crafting>=10",
-		"desc": "a monument inscribed with alchemical runes",
+		"desc": "A monument inscribed with alchemical runes",
 		"cost": {
 			"gems": 20
 		},
@@ -1069,7 +1069,7 @@
 	},
 	{
 		"id": "orrery",
-		"desc": "a vast mechanical model of existence",
+		"desc": "A vast mechanical model of existence",
 		"require": "g.codices>=80&&g.astronomy>7",
 		"tags": "starsource",
 		"repeat": false,
@@ -1116,7 +1116,7 @@
 		"name": "arcane alembic",
 		"repeat": true,
 		"require": "solidifier",
-		"desc": "a complex alchemical process drips arcane energy onto gemstones.",
+		"desc": "A complex alchemical process drips arcane energy onto gemstones.",
 		"cost": {
 			"research": 1000,
 			"gold": 500
@@ -1184,7 +1184,7 @@
 	{
 		"id": "latticefence",
 		"name": "lattice fence",
-		"desc": "latticed fence for growing vines",
+		"desc": "Latticed fence for growing vines",
 		"require": "g.tier0>0&&g.naturelore>=7",
 		"cost": {
 			"gold": 200,
@@ -1220,7 +1220,7 @@
 		"id": "sandgarden",
 		"name": "sand garden",
 		"tags": "earthsource",
-		"desc": "rocks and sand form patterns of intricate design.",
+		"desc": "Rocks and sand form patterns of intricate design.",
 		"require": "g.earth.max>=5&&g.space.max>=50",
 		"cost": {
 			"gold": 100,
@@ -1236,7 +1236,7 @@
 	{
 		"id": "banquethall",
 		"name": "banquet hall",
-		"desc": "a grand hall to entertain guests and supplicants",
+		"desc": "A grand hall to entertain guests and supplicants",
 		"require": "tier2",
 		"cost": {
 			"gems": 20,
@@ -1293,7 +1293,7 @@
 	{
 		"id": "potroom",
 		"name": "potions room",
-		"desc": "room for preparing and brewing potions",
+		"desc": "Room for preparing and brewing potions",
 		"require": "potions",
 		"tags": "potsource",
 		"cost": {
@@ -1373,7 +1373,7 @@
 	},
 	{
 		"id": "library",
-		"desc": "the most important part of a proper wizard's stronghold.",
+		"desc": "The most important part of a proper wizard's stronghold.",
 		"require": "g.codices>=100",
 		"cost": {
 			"gold": 500,
@@ -1412,11 +1412,11 @@
 			"tomes.max": 100,
 			"space": 100
 		},
-		"flavor": "its shelves extend beyond all sight."
+		"flavor": "Its shelves extend beyond all sight."
 	},
 	{
 		"id": "gate",
-		"desc": "dhrunic gate",
+		"desc": "Dhrunic Gate",
 		"require": "g.planeslore>=20&&g.tier4>0",
 		"max": 3,
 		"cost": {
@@ -1434,7 +1434,7 @@
 	},
 	{
 		"id": "nexus",
-		"desc": "a nexus between all worlds",
+		"desc": "A nexus between all worlds",
 		"max": 1,
 		"cost": {
 			"gate": 3,
@@ -1449,7 +1449,7 @@
 	},
 	{
 		"id": "ziggurat",
-		"desc": "a vast mound of earth dedicated to occult practices.",
+		"desc": "A vast mound of earth dedicated to occult practices.",
 		"require": "tier4",
 		"tags": "starsource",
 		"cost": {
@@ -1475,7 +1475,7 @@
 	{
 		"id": "bindcircle",
 		"name": "binding circle",
-		"desc": "magic circle for binding summoned entities",
+		"desc": "Magic circle for binding summoned entities",
 		"tags": "prison",
 		"require": "g.summoning>=6||g.demonology>=7",
 		"cost": {
@@ -1495,7 +1495,7 @@
 	{
 		"id": "pentagram",
 		"name": "demonic pentagram",
-		"desc": "used for summoning demonic entities.",
+		"desc": "Used for summoning demonic entities.",
 		"tags": "prison",
 		"require": "g.demonology>=12",
 		"cost": {

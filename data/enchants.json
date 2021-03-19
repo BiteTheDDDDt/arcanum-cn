@@ -4,7 +4,7 @@
 		"name": "sturdy armor",
 		"verb": "infusing armor",
 		"only": "armor",
-		"desc": "infuse an item with magical protection.",
+		"desc": "Infuse an item with magical protection.",
 		"require": "g.enchanting>=3",
 		"level": 1,
 		"buy": {
@@ -25,7 +25,7 @@
 		"name": "luck",
 		"adj": "lucky",
 		"only": "ring",
-		"desc": "infuse a ring with a mana gem.",
+		"desc": "Infuse a ring with a mana gem.",
 		"require": "g.enchanting>=1",
 		"level": 1,
 		"buy": {
@@ -40,7 +40,7 @@
 		"alter": {
 			"mod.luck": 1
 		},
-		"flavor": "let's keep this party polite"
+		"flavor": "Let's keep this party polite"
 	},
 	{
 		"id": "en_mana1",
@@ -48,7 +48,7 @@
 		"verb": "enchanting",
 		"adj": "%i of %s",
 		"only": "ring",
-		"desc": "infuse a ring with a mana gem.",
+		"desc": "Infuse a ring with a mana gem.",
 		"require": "g.enchanting>=1",
 		"level": 1,
 		"buy": {
@@ -70,7 +70,7 @@
 		"verb": "enchanting",
 		"adj": "%i of %s",
 		"only": "ring",
-		"desc": "link a ring with a mana source.",
+		"desc": "Link a ring with a mana source.",
 		"require": "g.enchanting>=1",
 		"level": 1,
 		"buy": {
@@ -92,7 +92,7 @@
 		"verb": "enchanting",
 		"adj": "%i of life",
 		"only": "neck",
-		"desc": "infuse an amulet with lifeforce.",
+		"desc": "Infuse an amulet with lifeforce.",
 		"require": "g.enchanting>=2",
 		"level": 1,
 		"buy": {
@@ -115,7 +115,7 @@
 		"verb": "enchanting",
 		"adj": "%i of %s",
 		"only": "neck",
-		"desc": "infuse an amulet with living blood.",
+		"desc": "Infuse an amulet with living blood.",
 		"require": "g.enchanting>=5",
 		"level": 2,
 		"buy": {
@@ -138,7 +138,7 @@
 		"verb": "infusing weapon",
 		"adj": "%i of biting",
 		"only": "weapon",
-		"desc": "imbue a weapon with a magic strike.",
+		"desc": "Imbue a weapon with a magic strike.",
 		"require": "g.enchanting>=3",
 		"level": 1,
 		"buy": {
@@ -160,7 +160,7 @@
 		"verb": "infusing weapon",
 		"adj": "%i of biting",
 		"only": "weapon",
-		"desc": "imbue a weapon with a magic strike.",
+		"desc": "Imbue a weapon with a magic strike.",
 		"require": "g.en_dmg1>0&&g.enchanting>=6",
 		"level": 3,
 		"buy": {
@@ -182,7 +182,7 @@
 		"verb": "infusing weapon",
 		"adj": "%i of biting",
 		"only": "weapon",
-		"desc": "imbue a weapon with a magic strike.",
+		"desc": "Imbue a weapon with a magic strike.",
 		"require": "g.en_dmg2>0&&g.enchanting>=9",
 		"level": 5,
 		"buy": {
@@ -205,7 +205,7 @@
 		"verb": "infusing shoes",
 		"adj": "%i of speed",
 		"only": "feet",
-		"desc": "imbue an item with inherent speed",
+		"desc": "Imbue an item with inherent speed",
 		"require": "g.enchanting>=3",
 		"level": 1,
 		"buy": {
@@ -227,7 +227,7 @@
 		"name": "fire ring",
 		"adj": "%i of fire",
 		"only": "ring",
-		"desc": "increases your aptitude with fire",
+		"desc": "Increases your aptitude with fire",
 		"require": "g.enchanting>=1&&g.firelore>=7",
 		"level": 3,
 		"buy": {
@@ -248,7 +248,7 @@
 		"name": "water ring",
 		"adj": "%i of water",
 		"only": "ring",
-		"desc": "increases your aptitude with water",
+		"desc": "Increases your aptitude with water",
 		"require": "g.enchanting>=1&&g.waterlore>=7",
 		"level": 3,
 		"buy": {
@@ -269,7 +269,7 @@
 		"name": "earth ring",
 		"adj": "%i of earth",
 		"only": "ring",
-		"desc": "increases your aptitude with earth",
+		"desc": "Increases your aptitude with earth",
 		"require": "g.enchanting>=1&&g.earthlore>=7",
 		"level": 3,
 		"buy": {
@@ -290,7 +290,7 @@
 		"name": "air ring",
 		"adj": "%i of air",
 		"only": "ring",
-		"desc": "increases your aptitude with air",
+		"desc": "Increases your aptitude with air",
 		"require": "g.enchanting>=1&&g.airlore>=7",
 		"level": 3,
 		"buy": {
@@ -312,7 +312,7 @@
 		"verb": "infusing shoes",
 		"adj": "%i of speed",
 		"only": "feet",
-		"desc": "imbue an item with inherent speed",
+		"desc": "Imbue an item with inherent speed",
 		"require": "g.enchanting>=5",
 		"level": 3,
 		"buy": {
@@ -335,7 +335,7 @@
 		"verb": "infusing shoes",
 		"adj": "%i of speed",
 		"only": "feet",
-		"desc": "imbue an item with inherent speed",
+		"desc": "Imbue an item with inherent speed",
 		"require": "g.enchanting>=7",
 		"level": 5,
 		"buy": {
@@ -357,7 +357,7 @@
 		"verb": "infusing shoes",
 		"only": "feet",
 		"adj": "%i of speed",
-		"desc": "imbue your boots with speed",
+		"desc": "Imbue your boots with speed",
 		"require": "g.enchanting>=10",
 		"level": 7,
 		"buy": {
@@ -379,7 +379,7 @@
 		"name": "clarity",
 		"only": "head",
 		"adj": "%i of %s",
-		"desc": "an enchantment to aid the mind.",
+		"desc": "An enchantment to aid the mind.",
 		"level": 3,
 		"buy": {
 			"tomes": 3,
@@ -397,7 +397,7 @@
 		"id": "en_scraft",
 		"name": "spellcraft",
 		"adj": "%i of spells",
-		"desc": "increases your spellcrafting power.",
+		"desc": "Increases your spellcrafting power.",
 		"only": "armor,weapon",
 		"level": 3,
 		"buy": {
@@ -419,7 +419,7 @@
 		"name": "courage",
 		"only": "waist",
 		"adj": "%i of %s",
-		"desc": "an enchantment to gird the spine.",
+		"desc": "An enchantment to gird the spine.",
 		"level": 5,
 		"buy": {
 			"tomes": 3,
@@ -438,7 +438,7 @@
 		"name": "sanity",
 		"only": "head",
 		"adj": "%i of %s",
-		"desc": "an enchantment to ward off madness",
+		"desc": "An enchantment to ward off madness",
 		"level": 6,
 		"buy": {
 			"tomes": 5,
@@ -457,7 +457,7 @@
 		"name": "clarity",
 		"only": "head",
 		"adj": "%i of %s",
-		"desc": "an enchantment to aid the mind.",
+		"desc": "An enchantment to aid the mind.",
 		"require": "g.en_clarity>0&&g.enchanting>10",
 		"level": 7,
 		"buy": {
@@ -479,7 +479,7 @@
 		"verb": "enchanting",
 		"adj": "%i of %s",
 		"only": "ring",
-		"desc": "runed ring refreshes your stamina.",
+		"desc": "Runed ring refreshes your stamina.",
 		"require": "g.enchanting>=10&&g.enchanter>0",
 		"level": 7,
 		"buy": {
@@ -501,7 +501,7 @@
 		"name": "keen weapon",
 		"verb": "infusing weapon",
 		"only": "weapon",
-		"desc": "infuse an item with magical precision.",
+		"desc": "Infuse an item with magical precision.",
 		"require": "g.enchanting>=3",
 		"level": 1,
 		"buy": {
@@ -522,7 +522,7 @@
 		"name": "spellcraft II",
 		"adj": "%i of spells",
 		"only": "armor,weapon",
-		"desc": "increases your spellcrafting power",
+		"desc": "Increases your spellcrafting power",
 		"require": "g.en_scraft>0&&g.enchanting>=6",
 		"level": 6,
 		"buy": {
@@ -544,7 +544,7 @@
 		"name": "keen weapon",
 		"verb": "infusing weapon",
 		"only": "weapon",
-		"desc": "infuse an item with magical precision.",
+		"desc": "Infuse an item with magical precision.",
 		"require": "g.enchanting>=7",
 		"level": 2,
 		"buy": {
@@ -612,7 +612,7 @@
 		"name": "deception",
 		"only": "back",
 		"adj": "%i of %s",
-		"desc": "a cloak to confuse your enemies.",
+		"desc": "A cloak to confuse your enemies.",
 		"level": 9,
 		"buy": {
 			"tomes": 4,
@@ -631,7 +631,7 @@
 		"name": "prismatic ring",
 		"only": "ring",
 		"adj": "%i of colors",
-		"desc": "restores energies of all kinds.",
+		"desc": "Restores energies of all kinds.",
 		"level": 8,
 		"buy": {
 			"tomes": 5,

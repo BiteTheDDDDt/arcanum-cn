@@ -68,7 +68,7 @@
 				"max": 0,
 				"require": "apiculture",
 				"desc": "Bees have unexpected uses in spells of life and generation.",
-				"flavor": "dbulm has a collection"
+				"flavor": "Dbulm has a collection"
 			},
 			{
 				"id": "spr_hyacinth",
@@ -82,7 +82,7 @@
 				"name": "bees",
 				"require": "apiculture",
 				"desc": "Bees have unexpected uses in spells of life and generation.",
-				"flavor": "dbulm has a collection"
+				"flavor": "Dbulm has a collection"
 			}
 		],
 		"upgrades": [
@@ -350,7 +350,7 @@
 				"run": {
 					"stamina": 2.5
 				},
-				"title": "Tamer of Wilds",
+				"title": "Tamer Of Wilds",
 				"mod": {
 					"magicbeasts.max": "?1"
 				},
@@ -407,7 +407,7 @@
 					"cockatrice",
 					"basilisk"
 				],
-				"flavor": "every budding mage needs to die somewhere."
+				"flavor": "Every budding mage needs to die somewhere."
 			}
 		]
 	}

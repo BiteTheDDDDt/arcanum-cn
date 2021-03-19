@@ -45,9 +45,13 @@ export default {
 <template>
 	<div class="main-tasks" ref="hidables">
 		<div class="config"><button ref="btnHides" class="btnConfig"></button></div>
+		<div v-if="visActs.length != 0" class="div-hs">Actions</div>
 		<upgrades class="task-list" :items="visActs" />
+		<div v-if="visRuns.length != 0" class="div-hs">Tasks</div>
 		<upgrades class="task-list" :items="visRuns" />
+		<div v-if="ups.length != 0" class="div-hs">Upgrades</div>
 		<upgrades class="upgrade-list" :items="ups" />
+		<div v-if="classes.length != 0" class="div-hs">Classes</div>
 		<upgrades class="upgrade-list" :items="classes" />
 	</div>
 </template>

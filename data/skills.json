@@ -2,7 +2,7 @@
 	{
 		"id": "crafting",
 		"need": "workspace",
-		"desc": "an absolutely vital skill for a wizard to craft arcane items.",
+		"desc": "An absolutely vital skill for a wizard to craft arcane items.",
 		"buy": {
 			"research": 20
 		},
@@ -21,7 +21,7 @@
 		"school": "arcane",
 		"tags": "t_school",
 		"verb": "reading lore",
-		"desc": "nothing is more important to a wizard than the depth of their lore.",
+		"desc": "Nothing is more important to a wizard than the depth of their lore.",
 		"locked": false,
 		"buy": {
 			"research": 20
@@ -42,7 +42,7 @@
 		"id": "spellcraft",
 		"school": "arcane",
 		"verb": "studying spells",
-		"desc": "the ability to build greater spells from lesser is what separates a practitioner from a master.",
+		"desc": "The ability to build greater spells from lesser is what separates a practitioner from a master.",
 		"require": "g.tier2>0&&g.lore>=15",
 		"level": 8,
 		"buy": {
@@ -61,7 +61,7 @@
 	{
 		"id": "concentrate",
 		"name": "concentration",
-		"desc": "keep your mind and nerves sharp under pressure.",
+		"desc": "Keep your mind and nerves sharp under pressure.",
 		"verb": "concentrating",
 		"require": "(g.mustylibrary+g.loc_spring)>=2",
 		"run": {
@@ -75,7 +75,7 @@
 	{
 		"id": "composure",
 		"name": "composure",
-		"desc": "remain unfazed under strain.",
+		"desc": "Remain unfazed under strain.",
 		"require": "g.concentrate>=4",
 		"level": 3,
 		"run": {
@@ -105,7 +105,7 @@
 			"luck": 0.4,
 			"dodge": 0.4
 		},
-		"flavor": "sufficiently advanced sleight of hand is indistinguishable from magic"
+		"flavor": "Sufficiently advanced sleight of hand is indistinguishable from magic"
 	},
 	{
 		"id": "conjuration",
@@ -126,7 +126,7 @@
 			"summoning.max": 0.2,
 			"summoning.rate": 0.1
 		},
-		"flavor": "who knows where things come from? they just appear."
+		"flavor": "Who knows where things come from? they just appear."
 	},
 	{
 		"id": "runelore",
@@ -134,7 +134,7 @@
 		"name": "runic lore",
 		"school": "arcane",
 		"verb": "translating",
-		"desc": "study ancient dhrunic runes.",
+		"desc": "Study ancient dhrunic runes.",
 		"require": "g.tier2>0&&g.dwarfbook>0",
 		"level": 7,
 		"buy": {
@@ -250,7 +250,7 @@
 		"id": "languages",
 		"school": "lore",
 		"require": "lore",
-		"desc": "books and scrolls are written in many obscure languages. learn as many as possible.",
+		"desc": "Books and scrolls are written in many obscure languages. learn as many as possible.",
 		"verb": "linguisticizing",
 		"buy": {
 			"research": 10
@@ -271,7 +271,7 @@
 		"id": "history",
 		"name": "world lore",
 		"require": "g.languages>=6",
-		"desc": "the knowledge of what has come before reveals what is yet possible.",
+		"desc": "The knowledge of what has come before reveals what is yet possible.",
 		"verb": "historicizing",
 		"run": {
 			"stamina": 0.2
@@ -297,7 +297,7 @@
 			"shadow",
 			"light"
 		],
-		"desc": "the study of physical form.",
+		"desc": "The study of physical form.",
 		"level": 2,
 		"run": {
 			"stamina": 0.5
@@ -417,7 +417,7 @@
 	},
 	{
 		"id": "divination",
-		"desc": "the art of foretelling",
+		"desc": "The art of foretelling",
 		"require": "g.spiritlore>=6||g.mysticism>=5",
 		"need": "spiritsource",
 		"school": "spirit",
@@ -441,7 +441,7 @@
 		"name": "lumenology",
 		"school": "light",
 		"level": 2,
-		"desc": "study of pure light",
+		"desc": "Study of pure light",
 		"need": "lightsource",
 		"run": {
 			"stamina": 0.4
@@ -451,7 +451,7 @@
 			"light.max": 1,
 			"light.rate": 0.01
 		},
-		"flavor": "the light fantastic"
+		"flavor": "The light fantastic"
 	},
 	{
 		"id": "shadowlore",
@@ -474,7 +474,7 @@
 		"tags": "t_school",
 		"name": "spirit lore",
 		"level": 2,
-		"desc": "seeing the unseen",
+		"desc": "Seeing the unseen",
 		"require": "g.lore>=6",
 		"need": "spiritsource",
 		"school": "spirit",
@@ -492,7 +492,7 @@
 		"tags": "t_school,elemental",
 		"name": "pyromancy",
 		"level": 2,
-		"desc": "the investigation of fire",
+		"desc": "The investigation of fire",
 		"need": "firesource",
 		"run": {
 			"stamina": 0.4,
@@ -503,7 +503,7 @@
 			"fire.max": 1,
 			"fire.rate": 0.01
 		},
-		"flavor": "dry is good and wind is better"
+		"flavor": "Dry is good and wind is better"
 	},
 	{
 		"id": "earthlore",
@@ -525,7 +525,7 @@
 	{
 		"id": "waterlore",
 		"name": "water lore",
-		"desc": "the study of water",
+		"desc": "The study of water",
 		"verb": "studying water",
 		"tags": "elemental,t_school",
 		"level": 2,
@@ -544,7 +544,7 @@
 	{
 		"id": "airlore",
 		"name": "wind lore",
-		"desc": "the study of air",
+		"desc": "The study of air",
 		"verb": "studying air",
 		"tags": "elemental,t_school",
 		"level": 2,
@@ -600,7 +600,7 @@
 	{
 		"id": "firelore2",
 		"name": "fire mastery",
-		"desc": "a mastery of fire",
+		"desc": "A mastery of fire",
 		"level": 10,
 		"require": "g.firelore>=10",
 		"buy": {
@@ -620,12 +620,12 @@
 			"player.bonuses.fire": 1,
 			"player.hits.fire": 1
 		},
-		"flavor": "dry is good and wind is better"
+		"flavor": "Dry is good and wind is better"
 	},
 	{
 		"id": "waterlore2",
 		"name": "water mastery",
-		"desc": "a mastery of water",
+		"desc": "A mastery of water",
 		"require": "g.waterlore>=10",
 		"level": 10,
 		"buy": {
@@ -649,7 +649,7 @@
 	{
 		"id": "airlore2",
 		"name": "air mastery",
-		"desc": "a mastery of air",
+		"desc": "A mastery of air",
 		"require": "g.airlore>=10",
 		"level": 10,
 		"buy": {
@@ -713,7 +713,7 @@
 	{
 		"id": "earthlore2",
 		"name": "earth mastery",
-		"desc": "a mastery of earth",
+		"desc": "A mastery of earth",
 		"require": "g.earthlore>=10",
 		"level": 10,
 		"buy": {
@@ -737,7 +737,7 @@
 	{
 		"id": "shadowlore2",
 		"name": "shadow mastery",
-		"desc": "a mastery of shadow",
+		"desc": "A mastery of shadow",
 		"require": "g.shadowlore>=10",
 		"level": 10,
 		"buy": {
@@ -760,7 +760,7 @@
 	{
 		"id": "lightlore2",
 		"name": "light mastery",
-		"desc": "a mastery of light",
+		"desc": "A mastery of light",
 		"require": "g.lightlore>=10",
 		"level": 10,
 		"buy": {
@@ -783,7 +783,7 @@
 	{
 		"id": "spiritlore2",
 		"name": "spirit mastery",
-		"desc": "a mastery of spirit",
+		"desc": "A mastery of spirit",
 		"require": "g.spiritlore>=10",
 		"level": 10,
 		"buy": {
@@ -806,7 +806,7 @@
 	{
 		"id": "manalore2",
 		"name": "arcane mastery",
-		"desc": "a mastery of pure magic",
+		"desc": "A mastery of pure magic",
 		"require": "g.lore>=20",
 		"level": 10,
 		"buy": {
@@ -829,7 +829,7 @@
 	{
 		"id": "naturelore2",
 		"name": "nature mastery",
-		"desc": "a mastery of nature",
+		"desc": "A mastery of nature",
 		"require": "g.naturelore>=10",
 		"level": 10,
 		"buy": {
@@ -893,7 +893,7 @@
 		"id": "necromancy",
 		"require": "g.evil>0&&g.reanimation>=7&&g.souls.max>3",
 		"school": "shadow",
-		"desc": "forbidden death magic.",
+		"desc": "Forbidden death magic.",
 		"buy": {
 			"sp": 3
 		},
@@ -930,7 +930,7 @@
 	{
 		"id": "enchanting",
 		"require": "g.tier1>0&&g.lore>=14",
-		"desc": "imbue mundane gems and items with magical properties.",
+		"desc": "Imbue mundane gems and items with magical properties.",
 		"run": {
 			"stamina": 0.4,
 			"research": 1
@@ -977,7 +977,7 @@
 	{
 		"id": "mysticism",
 		"require": "g.lore>=8",
-		"desc": "the ability to sense the flow and flux of arcane energies.",
+		"desc": "The ability to sense the flow and flux of arcane energies.",
 		"buy": {
 			"arcana": 1
 		},
@@ -1008,7 +1008,7 @@
 		"name": "planes lore",
 		"require": "g.astronomy>=5&&g.tier1>0",
 		"level": 6,
-		"desc": "farther than the stars and closer than your fingertips",
+		"desc": "Farther than the stars and closer than your fingertips",
 		"buy": {
 			"sp": 2,
 			"arcana": 5
@@ -1023,7 +1023,7 @@
 			"arcana.max": 1,
 			"research.max": 1
 		},
-		"flavor": "there is no safe distance"
+		"flavor": "There is no safe distance"
 	},
 	{
 		"id": "astrallore",
@@ -1049,7 +1049,7 @@
 		"id": "voidlore",
 		"name": "void lore",
 		"require": "g.planeslore>=10&&g.tier5>0",
-		"desc": "the absence of all things",
+		"desc": "The absence of all things",
 		"level": 10,
 		"buy": {
 			"sp": 5,
@@ -1065,7 +1065,7 @@
 			"dist": "1%",
 			"research.max": 1
 		},
-		"flavor": "what could go wrong?"
+		"flavor": "What could go wrong?"
 	},
 	{
 		"id": "chronomancy",
@@ -1086,7 +1086,7 @@
 			"tempus.max": 1,
 			"tempus.rate": 0.001
 		},
-		"flavor": "too much to do, so little time."
+		"flavor": "Too much to do, so little time."
 	},
 	{
 		"id": "scrying",

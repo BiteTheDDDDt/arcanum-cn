@@ -87,15 +87,15 @@ export default class TagSet {
 	 *
 	 * @param {string} tag
 	 */
-	constructor(tag ) {
+	constructor(tag) {
 
 		this.id = tag;
 		this.items = new Set();
 
-		let ind = tag.indexOf('t_');
-		if ( ind < 0) this.name = tag;
+		let ind = tag.toString().indexOf('t_');
+		if ( ind < 0) this.name = tag.toString();
 		else {
-			this.name = tag.slice(ind+2);
+			this.name = tag.toString().slice(ind+2).toTitleCase();
 		}
 
 	}

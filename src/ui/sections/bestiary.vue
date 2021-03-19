@@ -65,6 +65,9 @@ export default {
 		allItems(){
 
 			let all = Game.state.monsters;
+			for( let i = all.length-1; i>=0; i-- ) {
+				all[i].name = all[i].name.toTitleCase()
+			}
 			var a = [];
 
 			for( let i = all.length-1; i>=0; i-- ) {
@@ -96,13 +99,9 @@ export default {
 					else return 0;
 
 				}
-
 			);
 		}
-
-
 	}
-
 }
 </script>
 
@@ -120,7 +119,7 @@ export default {
 			<th class="table-head" @click="setSort('value')">Slain</th>
 			<th class="num-align table-head" @click="setSort('hp')">Hp</th></tr>
 		<tr v-for="b in sorted" :key="b.id" @mouseenter.capture.stop="itemOver($event,b)">
-			<th class="sm-name">{{ b.name }}</th>
+			<th class="lg-name">{{ b.name }}</th>
 			<td class="num-align">{{ Math.floor( b.level ) }}</td>
 			<td class="num-align">{{ Math.floor( b.value ) }}</td>
 			<td class="num-align">{{ showHp(b) ? toNum(b.hp) : '???' }}</td>

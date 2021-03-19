@@ -30,7 +30,7 @@ export default class Equip extends SlotGroup {
 			"feet":new Slot()
 		};
 
-		for( let p in this._slots ) this._slots[p].name = p;
+		for( let p in this._slots ) this._slots[p].name = p.toString().toTitleCase();
 
 	}
 

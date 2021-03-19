@@ -204,7 +204,7 @@ export default class Player extends Char {
 		super(vars);
 
 		this.id = this.type = "player";
-		if ( !vars || !vars.name) this.name = 'wizrobe';
+		if ( !vars || !vars.name) this.name = 'Wizrobe';
 
 		if ( !this.weapons ) {
 			this.weapons = null;
@@ -212,7 +212,7 @@ export default class Player extends Char {
 
 		//if ( vars ) Object.assign( this, vars );
 		if ( !this.level ) this.level = 0;
-		this._title = this._title || 'waif';
+		this._title = this._title || 'Waif';
 
 		this.titles = this._titles || [];
 
@@ -274,7 +274,7 @@ export default class Player extends Char {
 		if ( !this._titles.includes(title) ) {
 
 			this.context.applyVars( 'hallPoints', 1 );
-			this._titles.push(title);
+			this._titles.push( title.toString().toTitleCase() );
 			Events.emit( NEW_TITLE, title, this._titles.length );
 
 		}

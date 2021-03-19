@@ -1,5 +1,6 @@
 import RValue from "./rvalue";
 import { TYP_FUNC } from "../consts";
+import Game from "../../game"
 
 /**
  * Create a function that returns a cost.
@@ -29,7 +30,7 @@ export default class FValue extends RValue {
 	get type() { return TYP_FUNC }
 
 	toString(){
-		return 'special';
+		return Game.state.player.hp.value;
 	}
 
 	constructor( params, src, path ){

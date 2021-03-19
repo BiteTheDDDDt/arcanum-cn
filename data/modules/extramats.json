@@ -10,7 +10,7 @@
 				"adj": "%i of gold",
 				"verb": "infusing wand",
 				"only": "wand",
-				"desc": "infuse a wand with gold-seeking properties.",
+				"desc": "Infuse a wand with gold-seeking properties.",
 				"require": "g.enchanting>=3",
 				"level": 1,
 				"buy": {
@@ -32,7 +32,7 @@
 				"adj": "%i of mana",
 				"verb": "infusing wand",
 				"only": "wand",
-				"desc": "infuse a wand with arcane powers.",
+				"desc": "Infuse a wand with arcane powers.",
 				"require": "g.enchanting>=3",
 				"level": 1,
 				"buy": {
@@ -54,7 +54,7 @@
 				"adj": "%i of repel",
 				"verb": "infusing wand",
 				"only": "wand",
-				"desc": "infuse a wand with repellant force.",
+				"desc": "Infuse a wand with repellant force.",
 				"require": "g.enchanting>=3",
 				"level": 1,
 				"buy": {
@@ -78,7 +78,7 @@
 				"adj": "%i of minerals",
 				"verb": "infusing rod",
 				"only": "rod",
-				"desc": "infuse a rod with a mineral-seeking enchantment.",
+				"desc": "Infuse a rod with a mineral-seeking enchantment.",
 				"require": "g.enchanting>=5",
 				"level": 3,
 				"buy": {
@@ -100,7 +100,7 @@
 				"adj": "%i of shrouding",
 				"verb": "infusing rod",
 				"only": "rod",
-				"desc": "infuse a rod with an elemental shroud.",
+				"desc": "Infuse a rod with an elemental shroud.",
 				"require": "g.enchanting>=5",
 				"level": 3,
 				"buy": {
@@ -125,7 +125,7 @@
 				"adj": "%i of amplification",
 				"verb": "infusing rod",
 				"only": "rod",
-				"desc": "infuse a rod to amplify your arcane spells.",
+				"desc": "Infuse a rod to amplify your arcane spells.",
 				"require": "g.enchanting>=5",
 				"level": 3,
 				"buy": {

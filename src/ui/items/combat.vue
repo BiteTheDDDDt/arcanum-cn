@@ -16,8 +16,8 @@ export default {
 
 <div class="combat">
 
-	<npc-group class="group" :npcs="combat.allies" label="allies" />
-	<npc-group class="group" :npcs="combat.enemies" label="enemies" />
+	<npc-group class="group" :npcs="combat.allies" label="Allies" />
+	<npc-group class="group" :npcs="combat.enemies" label="Enemies" />
 
 </div>
 

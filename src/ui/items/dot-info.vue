@@ -47,21 +47,19 @@ export default {
 
 <div class="dot">
 
-	<div class="note-text">{{ title || 'dot'}}:</div>
-	<div>
-		<div><span>duration: </span><span>{{ dot.duration || 'infinity' }}</span></div>
-		<div v-if="dot.damage||dot.dmg"><span>damage: </span><span>{{damage}}</span></div>
-		<div v-if="dot.kind"><span>kind: </span><span>{{dot.kind}}</span></div>
+	<div v-if="dot.effect||dot.mod">
+		<info v-if="dot.effect" :info="dot.effect" rate="true" />
+		<info v-if="dot.mod" :info="dot.mod" />
 	</div>
 
-			<div v-if="dot.effect||dot.mod">
+	<div v-if="title" class="note-text">{{ title }}:</div>
 
-			<div v-if="dot.effect||dot.mod" class="note-text">effects:</div>
-			<info v-if="dot.effect" :info="dot.effect" rate="true" />
-			<info v-if="dot.mod" :info="dot.mod" />
-
-
-		</div>
+	<div>
+		<div v-if="dot.damage||dot.dmg">
+			<span>Damage: </span><span>{{damage}}</span></div>
+		<div v-if="dot.kind"><span>Kind: </span><span>{{dot.kind.toString().toTitleCase()}}</span></div>
+		<div><span>Duration: </span><span>{{ dot.duration  + "s" || 'infinity' }}</span></div>
+	</div>
 
 </div>
 

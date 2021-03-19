@@ -14,7 +14,7 @@ export default class UserSpells extends Inventory {
 		super(vars);
 
 		this.id = 'userSpells';
-		this.name = "crafted spells";
+		this.name = "Crafted Spells";
 		this.saveMode = SAVE_IDS;
 
 	}
