@@ -703,12 +703,17 @@ export default {
 
 		let sellObj = it.sell || it.cost || (5*it.level) || 5;
 
-		if ( typeof sellObj === 'object' ) {
+		if(it.sell && typeof it.sell === 'object') {
+			sellObj = {...sellObj};
+			if (sellObj.gold) {
+				sellObj.gold = sellObj.gold * this.state.sellRate
+			}
 			return sellObj;
-		} else {
-			return Math.ceil(sellObj * this.state.sellRate);
 		}
-
+		else if ( typeof sellObj === 'object' ) {
+			sellObj = sellObj.gold || (5*it.level) || 5;
+		}
+		return Math.ceil(sellObj * this.state.sellRate);
 	},
 
 	/**
