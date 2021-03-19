@@ -106,7 +106,7 @@ export default class Dot {
 
 		this.source = this.source || source || null;
 
-		this.name = name || ( source ? source.name : null );
+		this.name = name || this.name || ( source ? source.name : null );
 
 		if ( !this.id ) console.warn('BAD DOT ID: ' + this.name );
 
