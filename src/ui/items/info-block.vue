@@ -100,15 +100,18 @@ export default {
 
 					}
 					if ( sub.constructor !== Object ) {
-
-						this.infos.add( subPath, sub, subRate, subItem );
-
-					} else this.effectList( sub, subPath, subRate, subItem );
-
+              this.infos.add(subPath, sub, subRate, subItem);
+					} else {
+            //special code for DOT subpath, currently unique to potions
+            if(subPath === 'dot') {
+              if(sub.id) delete sub.id;
+              if(sub.name) delete sub.name;
+              if(sub[undefined]) delete sub[undefined];
+            }
+					  this.effectList( sub, subPath, subRate, subItem );
+          }
 				}
-
 			}
-
 		}
 	}
 }
@@ -121,7 +124,7 @@ export default {
 
 		<div v-if="title" class="note-text"><hr>{{ title }}</div>
 		<div v-for="v in effects" :key="v.name">
-			<span>{{ v.toString() }}</span>
+      <span>{{ v.toString() }}</span>
 		</div>
 
 

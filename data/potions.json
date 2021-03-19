@@ -299,5 +299,31 @@
 				"duration": 3600
 			}
 		}
+	},
+	{
+		"id":"pot_midas",
+		"name":"potion of midas",
+		"desc":"This expensive potion has the ability to turn straw into gold on its own.",
+		"require":"g.potions>15&&g.weaving>=5&&g.enchanting>=3",
+		"level":15,
+		"buy":{
+			"gold":1000,
+			"research":2000
+		},
+		"cost":{
+			"herbs": 60,
+			"gold": 300
+		},
+		"use":{
+			"dot": {
+				"id": "dot_midas",
+				"name":"potion of midas",
+				"duration": 600,
+				"effect": {
+					"gold": 1.1,
+					"mana": -0.125
+				}
+			}
+		}
 	}
 ]
