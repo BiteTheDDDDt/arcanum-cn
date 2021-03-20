@@ -317,7 +317,7 @@
 		"use":{
 			"dot": {
 				"id": "dot_midas",
-				"name":"potion of midas",
+				"name":"spin gold",
 				"duration": 600,
 				"effect": {
 					"gold": 1.1,
