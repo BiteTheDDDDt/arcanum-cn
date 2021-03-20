@@ -104,6 +104,7 @@ export default {
 					} else {
             //special code for DOT subpath, currently unique to potions
             if(subPath === 'dot') {
+              sub = {...sub}
               if(sub.id) delete sub.id;
               if(sub.name) delete sub.name;
               if(sub[undefined]) delete sub[undefined];

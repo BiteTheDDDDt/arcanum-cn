@@ -15,6 +15,7 @@
 		},
 		"dot": {
 			"id": "fount",
+			"name": "minor fount",
 			"duration": 30,
 			"effect": {
 				"stamina": 0.3
@@ -125,6 +126,7 @@
 		},
 		"dot": {
 			"id": "fount",
+			"name": "fount",
 			"duration": 60,
 			"effect": {
 				"stamina": 0.7
@@ -147,6 +149,7 @@
 		},
 		"dot": {
 			"id": "fount",
+			"name": "greater fount",
 			"duration": 90,
 			"effect": {
 				"stamina": 2
@@ -439,6 +442,7 @@
 		},
 		"dot": {
 			"id": "dotmana",
+			"name": "minor mana",
 			"duration": 30,
 			"effect": {
 				"mana": 0.25
@@ -461,6 +465,7 @@
 		},
 		"dot": {
 			"id": "dotmana",
+			"name": "lesser mana",
 			"duration": 60,
 			"effect": {
 				"mana": 0.45
@@ -483,6 +488,7 @@
 		},
 		"dot": {
 			"id": "dotmana",
+			"name": "mana",
 			"duration": 120,
 			"effect": {
 				"mana": 0.8
