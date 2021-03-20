@@ -481,7 +481,7 @@
 	{
 		"id": "pidwigstars",
 		"name": "pidwig's starcharts",
-		"desc": "An old hand at astronomical calculations, pidwig shares his extensive observations.",
+		"desc": "An old hand at astronomical calculations, Pidwig shares his extensive observations.",
 		"effect": {
 			"bf": "1~3",
 			"unease": "-1~2",

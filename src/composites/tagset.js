@@ -92,6 +92,7 @@ export default class TagSet {
 		this.id = tag;
 		this.items = new Set();
 
+		//The followint .toString() resolves an error thrown in console
 		let ind = tag.toString().indexOf('t_');
 		if ( ind < 0) this.name = tag.toString();
 		else {

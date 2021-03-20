@@ -33,7 +33,7 @@ export default {
 <template>
 <div :class="['char-info', empty ? 'empty' : '']">
 	<div class="char-stats" v-if="!empty">
-	<span class="fld-name">{{ char.name }} The {{ char.title }}</span>
+	<span class="fld-name">{{ char.name }} {{char.name == " " ? 'The' : 'the'}} {{ char.title }}</span>
 	<span v-if="gclass">{{ gclass.toString().toTitleCase() }}</span>
 	<span v-if="level>0">Level {{ level }}</span>
 	<span v-if="char.fame>0">Notoriety: {{ fame }}</span>

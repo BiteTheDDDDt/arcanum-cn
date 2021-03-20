@@ -165,7 +165,7 @@
 	{
 		"id": "souls",
 		"group": "necromancy",
-		"desc": "Imprisoned Souls of Living Creatures.",
+		"desc": "Imprisoned souls of living creatures.",
 		"max": 1,
 		"mod": {
 			"shadow.rate": 0.001,

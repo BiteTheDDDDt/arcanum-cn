@@ -576,7 +576,7 @@
 			"skulls",
 			"bones"
 		],
-		"desc": "Dissect a body for components. only the best pieces will serve.",
+		"desc": "Dissect a body for components. Only the best pieces will serve.",
 		"length": 10,
 		"cost": {
 			"bodies": 1
@@ -1413,7 +1413,7 @@
 			"player.damage": 2,
 			"player.tohit": 1
 		},
-		"flavor": "What he lacked in depth, karnivex made up for with sheer destructive force"
+		"flavor": "What he lacked in depth, Karnivex made up for with sheer destructive force"
 	},
 	{
 		"id": "markhulcodex",
@@ -1681,7 +1681,7 @@
 			"mana.max": 1,
 			"mana.rate": 0.1
 		},
-		"flavor": "Corivar called Fazbit a mad crank. but tried to steal his manuals."
+		"flavor": "Corivar called Fazbit a mad crank, but tried to steal his manuals anyway."
 	},
 	{
 		"id": "coporisfabrica",

@@ -205,7 +205,7 @@ export default class Combat {
 		} else {
 
 			//Events.emit(EVT_COMBAT, null, g.self.name + ' casts ' + it.name + ' at the darkness.' );
-
+			//This capitalizes all the spells in the combat log.
 			Events.emit(EVT_COMBAT, null, g.self.name + ' Casts ' + it.name.toTitleCase() );
 			if ( it.attack ) {
 				this.attack( g.self, it.attack );

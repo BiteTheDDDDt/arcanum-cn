@@ -337,6 +337,7 @@ String.prototype.toTitleCase = function () {
 	let string = this.trim().toLowerCase().replace(/\w\S*/g, (w) => (w.replace(/^\w/, (c) => c.toUpperCase())))
 	let prefix = string.substr(0, string.lastIndexOf(" "))
 	let suffix = string.substr(string.lastIndexOf(" ")+1)
+	//This accounts for roman numerals.
 	if (suffix.toLowerCase() == "ii") {
 		suffix = "II"
 	} else if (suffix.toLowerCase() == "iii") {
@@ -346,5 +347,9 @@ String.prototype.toTitleCase = function () {
 	} else if (suffix.toLowerCase() == "v") {
 		suffix = "V"
 	}
+	string = prefix + " " + suffix
+	//This makes sure the words 'of' and 'the' are not capittalized.
+	string=string.replace(" Of "," of ");
+	string=string.replace(" The "," the ");
 	return prefix + " " + suffix
 }

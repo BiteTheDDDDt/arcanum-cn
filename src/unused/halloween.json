@@ -51,7 +51,7 @@
 			"id":"hal_broomstick",
 			"name":"hallow broomstick",
 			"desc":"Touching the broom you hear the sound of cackling in the distance.",
-			"flavor":"Hestia doesn't use this one. probably.",
+			"flavor":"Hestia doesn't use this one... Probably.",
 			"slot":"mount",
 			"save":true,
 			"mod":{

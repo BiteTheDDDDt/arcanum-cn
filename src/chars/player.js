@@ -274,7 +274,7 @@ export default class Player extends Char {
 		if ( !this._titles.includes(title) ) {
 
 			this.context.applyVars( 'hallPoints', 1 );
-			this._titles.push( title.toString().toTitleCase() );
+			this._titles.push( title.toTitleCase() );
 			Events.emit( NEW_TITLE, title, this._titles.length );
 
 		}

@@ -77,7 +77,7 @@
 			"sp": 1,
 			"gold": "15~20",
 			"player.exp": 10,
-			"title": "Master Of The Cellar"
+			"title": "Master of the Cellar"
 		},
 		"loot": {
 			"maxlevel": 4
@@ -1021,7 +1021,7 @@
 	},
 	{
 		"id": "holyhall",
-		"name": "Hall Of The Holy",
+		"name": "Hall of the Holy",
 		"desc": "Various divine spirits watch over the world. And the greatest have their halls and kingdoms.",
 		"require": "g.planeslore.max>=12&&g.evil>0",
 		"level": 17,

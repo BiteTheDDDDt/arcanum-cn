@@ -126,7 +126,7 @@
 			"summoning.max": 0.2,
 			"summoning.rate": 0.1
 		},
-		"flavor": "Who knows where things come from? they just appear."
+		"flavor": "Who knows where things come from? They just appear."
 	},
 	{
 		"id": "runelore",
@@ -134,7 +134,7 @@
 		"name": "runic lore",
 		"school": "arcane",
 		"verb": "translating",
-		"desc": "Study ancient dhrunic runes.",
+		"desc": "Study ancient Dhrunic runes.",
 		"require": "g.tier2>0&&g.dwarfbook>0",
 		"level": 7,
 		"buy": {
@@ -250,7 +250,7 @@
 		"id": "languages",
 		"school": "lore",
 		"require": "lore",
-		"desc": "Books and scrolls are written in many obscure languages. learn as many as possible.",
+		"desc": "Books and scrolls are written in many obscure languages. Learn as many as possible.",
 		"verb": "linguisticizing",
 		"buy": {
 			"research": 10

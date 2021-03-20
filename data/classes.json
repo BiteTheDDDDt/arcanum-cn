@@ -542,7 +542,7 @@
 	},
 	{
 		"id": "dreadlord",
-		"desc": "Harbinger Of Destruction",
+		"desc": "Harbinger of destruction",
 		"tags": "t_tier3",
 		"require": "g.tier2>0&&g.evil>0&&g.hp>=100&&g.player.level>=17&&g.tier3==0",
 		"cost": {
@@ -1384,7 +1384,7 @@
 	{
 		"id": "highkell",
 		"name": "high kell",
-		"desc": "The ranks of the kell range from the lesser Fey and forest Delki, to ancient spirits, old and indominable.",
+		"desc": "The ranks of the Kell range from the lesser Fey and forest Delki, to ancient spirits, old and indominable.",
 		"tags": "t_tier6",
 		"require": "g.tier5>0&&(g.fey+g.kell)>0",
 		"cost": {
