@@ -14,7 +14,7 @@ export default {
 
 <template>
 <span v-if="active.loggedIn">
-	<button type="button" @click="dispatch('logout')">logout</button>
+	<button type="button" @click="dispatch('logout')">Logout</button>
 </span>
-<span v-else><button type="button" @click="dispatch('show-login')">login</button></span>
+<span v-else><button type="button" @click="dispatch('show-login')">Login</button></span>
 </template>

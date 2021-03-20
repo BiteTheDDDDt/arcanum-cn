@@ -11,7 +11,7 @@
 
 			"id":"hal_charger",
 			"name":"hallow charger",
-			"desc":"a pitch dark horse in fumes of smoke",
+			"desc":"A pitch dark horse in fumes of smoke",
 			"tags":"steed",
 			"slot":"mount",
 			"save":true,
@@ -25,8 +25,8 @@
 
 			"id":"hal_carriage",
 			"name":"pumpkin carriage",
-			"desc":"a spacious and relaxing way to travel",
-			"flavor":"arrive at the ball in style",
+			"desc":"A spacious and relaxing way to travel",
+			"flavor":"Arrive at the ball in style",
 			"require":"g.pumpkins.max>=50",
 			"slot":"mount",
 			"save":true,
@@ -50,8 +50,8 @@
 
 			"id":"hal_broomstick",
 			"name":"hallow broomstick",
-			"desc":"touching the broom you hear the sound of cackling in the distance.",
-			"flavor":"hestia doesn't use this one. probably.",
+			"desc":"Touching the broom you hear the sound of cackling in the distance.",
+			"flavor":"Hestia doesn't use this one... Probably.",
 			"slot":"mount",
 			"save":true,
 			"mod":{
@@ -73,7 +73,7 @@
 			},
 			"mod":{
 				"pumpseeds.max":10
-			},"flavor":"you need to have a word with the sack-maker's guild."
+			},"flavor":"You need to have a word with the sack-maker's guild."
 		}
 	],
 
@@ -102,7 +102,7 @@
 			"id":"applebob",
 			"name":"apple bobbing",
 			"require":"evt_hal_imp",
-			"desc":"the imp at the barrel promises some of the apples are really magic gems.",
+			"desc":"The imp at the barrel promises some of the apples are really magic gems.",
 			"cost":{
 				"gold":1
 			},
@@ -120,7 +120,7 @@
 			"require":"apprentice",
 			"length":10,
 			"fill":"pumpkins",
-			"desc":"steal pumpkins from nearby homes",
+			"desc":"Steal pumpkins from nearby homes",
 			"run":{
 				"stamina":0.5
 			},
@@ -170,7 +170,7 @@
 			"id":"tricktreat",
 			"name":"trick & treat",
 			"require":"trickery",
-			"desc":"threaten homes with magical trickery if they don't give you loot.",
+			"desc":"Threaten homes with magical trickery if they don't give you loot.",
 			"length":20,
 			"perpetual":true,
 			"run":{
@@ -206,12 +206,12 @@
 		{
 			"id":"evt_hal_imp",
 			"name":"a strange imp",
-			"desc":"outside the fields, an imp at a water barrel offers you a chance at magic riches, for a small fee."
+			"desc":"Outside the fields, an imp at a water barrel offers you a chance at magic riches, for a small fee."
 		},
 		{
 			"id":"evt_hal_hestia_done",
 			"name":"purple amulet",
-			"desc":"as you leave her cottage Hestia presses a small amulet into your hand."
+			"desc":"As you leave her cottage Hestia presses a small amulet into your hand."
 		}
 
 	],
@@ -238,7 +238,7 @@
 				},{
 				"id":"hal_amulet",
 				"name":"hestia's charm",
-				"desc":"hestia's amulet throbs with a dull purple light.",
+				"desc":"Hestia's amulet throbs with a dull purple light.",
 				"unique":true,
 				"save":true,
 				"type":"armor",
@@ -290,7 +290,7 @@
 				"hiddencache",
 				"starrysky1"
 
-			],"flavor":"just don't wander too far from the village."
+			],"flavor":"Just don't wander too far from the village."
 		}
 
 	],
@@ -376,14 +376,14 @@
 				"jacklantern.max":"100%",
 				"cobwebs.max":"100%"
 
-			},"flavor":"clear a porch for seasonal activities"
+			},"flavor":"Clear a porch for seasonal activities"
 
 		},
 		{
 			"id":"f_pumppatch",
 			"name":"pumpkin patch",
 			"tags":"plantsource,naturesource,spiritsource",
-			"desc":"a furrowed plot for growing pumpkins",
+			"desc":"A furrowed plot for growing pumpkins",
 			"require":"tier0",
 			"max":5,
 			"cost":{
@@ -407,7 +407,7 @@
 
 		{
 			"id":"pumpkins",
-			"desc":"plump round gourds of the season.",
+			"desc":"Plump round gourds of the season.",
 			"max":5,
 			"mod":{
 				"nature.rate":0.05,
@@ -473,7 +473,7 @@
 
 			"id":"hal_bridge",
 			"name":"hallow bridge",
-			"desc":"the bridge from Hollomar to the grimpen wood isn't safe this time of year.",
+			"desc":"The bridge from Hollomar to the grimpen wood isn't safe this time of year.",
 			"level":14,
 			"dist":10,
 			"length":3,
@@ -561,7 +561,7 @@
 					"weary":-1
 					}
 				}
-			},"flavor":"what are the cobwebs for?!"
+			},"flavor":"What are the cobwebs for?!"
 
 		},
 		{
@@ -577,7 +577,7 @@
 			"use":{
 				"hp":50,
 				"stamina":20
-			},"flavor":"looks terrible, tastes worse."
+			},"flavor":"Looks terrible, tastes worse."
 		}
 
 	],
@@ -718,7 +718,7 @@
 			"name":"necrotic ghost",
 			"level":2,
 			"kind":"undead",
-			"desc":"Noone's seen the Miller since he died last year...",
+			"desc":"No one's seen the Miller since he died last year...",
 			"hp":4,
 			"speed":4,
 			"defense":8,
@@ -800,7 +800,7 @@
 			"name":"necrotic skeleton",
 			"level":2,
 			"kind":"undead",
-			"desc":"the bones are mostly clean",
+			"desc":"The bones are mostly clean",
 			"hp":7,
 			"defense":4,
 			"attack":{
@@ -820,7 +820,7 @@
 		{
 			"id":"nymiescharm",
 			"name":"nymie's charm",
-			"desc":"a small figurine of a black cat.",
+			"desc":"A small figurine of a black cat.",
 			"level":20,
 			"stack":false,
 			"save":true,
@@ -845,7 +845,7 @@
 			"level":1,
 			"save":true,
 			"stack":true,
-			"desc":"local confections may have unpredictable effects",
+			"desc":"Local confections may have unpredictable effects",
 			"use":{
 
 				"hp":"-10~20",

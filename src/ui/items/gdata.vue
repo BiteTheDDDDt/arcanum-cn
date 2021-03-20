@@ -29,16 +29,19 @@ export default {
 
 			if ( Array.isArray(t) ) return t.map( this.tagNames, this );
 
-			if ( typeof t === 'string' && t.substring(0,2) === 't_' ) return t.slice(2);
-
-			return t;
+			if ( typeof t === 'string' && t.substring(0,2) === 't_' ) return t.slice(2).toTitleCase();
+			
+			return t.toTitleCase();
 
 		}
 
 	},
+	beforeCreate(){
+		this.player = Game.state.player;
+	},
 	computed:{
 
-		name(){return this.item.sname || this.item.name; },
+		name(){return this.item.sname || this.item.name.toTitleCase(); },
 		sellPrice(){ return Game.sellPrice(this.item);},
 
 		nextImprove(){
@@ -87,11 +90,25 @@ export default {
 		tags(){
 
 			let t = this.item.tags;
+			for(var i=0; i < this.item.tags.length; i++) {
+				if (this.item.tags[i] == 'gemimbue') {
+					this.item.tags[i] = 'Imbue Gem'
+				};
+				if (this.item.tags[i] == 'magicgems') {
+					this.item.tags[i] = 'Magic Gems'
+				};
+				if (this.item.tags[i] == 'prismaticgems') {
+					this.item.tags[i] = 'Prismatic Gems'
+				};
+				if (this.item.tags[i] == 'manas') {
+					this.item.tags[i] = 'Mana'
+				};
+ 				this.item.tags[i] = this.item.tags[i];
+			}
 			if ( typeof t === 'string') return this.tagNames(t);
 			else if ( Array.isArray(t) ) return t.map( this.tagNames, this ).join(', ');
 
 		}
-
 
 	}
 
@@ -103,7 +120,7 @@ export default {
 
 <div class="item-info">
 	<span class="separate">
-		<span class="item-name">{{name}}</span>
+		<span class="item-name">{{name.toString().toTitleCase()}}</span>
 
 			<span v-if="item.type==='resource'||item.type==='stat'">{{ item.current.toFixed(0) + ( item.max ? (' / ' + Math.floor(item.max.value ) ) :'' ) }}</span>
 			<span v-else-if="item.type==='furniture'">max: {{
@@ -113,17 +130,17 @@ export default {
 
 
 	</span>
-	<div class="tight note-text" v-if="item.tags||item.hands"><span v-if="item.hands>1">two-handed </span>{{tags}}</div>
-		<span class="flex-right" v-if="item.rate&&item.rate.value!=0">{{ precise( item.rate.value ) }} /s</span>
+	<div class="tight note-text" v-if="item.tags||item.hands"><span v-if="item.hands>1">Two-Handed </span>{{tags}}</div>
+		<span class="flex-right" v-if="item.rate&&item.rate.value!=0">{{ precise( item.rate.value ) }}/s</span>
 		<div>
 
 		<span class="separate">
-			<span v-if="item.showLevel">lvl: {{item.showLevel()}}</span>
-			<span v-else-if="item.level">lvl: {{item.level}}</span>
+			<span v-if="item.showLevel">Level: {{item.showLevel()}}</span>
+			<span v-else-if="item.level">Level: {{item.level}}</span>
 
-			<span v-if="item.slot">slot: {{ item.slot }}</span>
+			<span v-if="item.slot">Slot: {{ item.slot.toString().toTitleCase() }}</span>
 		</span>
-		<span v-if="item.enchants&&item.enchants.max>0">enchant levels: {{item.enchants.value}} / {{ item.enchants.max }}</span>
+		<span v-if="item.enchants&&item.enchants.max>0">Enchant Levels: {{item.enchants.value}} / {{ item.enchants.max }}</span>
 
 		<span v-if="item.at&&(nextAt>0)" class="note-text">
 			Next Improvement: {{ Math.round(100*item.value/nextAt)+'%'}}
@@ -132,23 +149,24 @@ export default {
 			Next Improvement: {{ Math.round(100*nextEvery)+'%'}}
 		</span>
 
-			<div v-if="item.cd||item.timer>0" class="note-text">cooldown: {{ item.timer > 0 ? item.timer.toFixed(2) + ' left' : item.cd + 's' }}</div>
+			<div v-if="item.cd||item.timer>0" class="note-text">Cooldown: {{ item.timer > 0 ? item.timer.toFixed(2) + ' Left' : item.cd + 's' }}</div>
 
-			<div v-if="item.dist">distance: {{item.dist}}</div>
-			<div v-if="item.armor">armor: {{ item.armor }}</div>
+			<div v-if="item.dist">Distance: {{item.dist}}</div>
+			<div v-if="item.armor">Armor: {{ item.armor }}</div>
 			<div class="item-desc" v-if="item.desc">{{ item.desc }}</div>
 
 		</div>
 
-		<info v-if="item.need" :info="item.need" title="need" />
-		<info v-if="item.buy&&!item.owned" :info="item.buy" title="purchase cost" />
-		<info v-if="item.cost" :info="item.cost" title="cost" />
-		<info v-if="item.sell||item.instanced||item.type==='furniture'" :info="sellPrice" title="sell" />
-		<info v-if="item.run" :info="item.run" title="progress cost" rate="true" />
+		<info v-if="item.need" :info="item.need" title="Need" />
+		<info v-if="item.buy&&!item.owned" :info="item.buy" title="Purchase Cost" />
+		<info v-if="item.cost&&item.id != 'bloodshot'" :info="item.cost" title="Cost" />
+		<info v-if="item.cost&&item.id == 'bloodshot'" :info="'Life: ' + (this.player.hp/4).toFixed(2)" title="Cost" />
+		<info v-if="item.sell||item.instanced||item.type==='Furniture'" :info="sellPrice" title="Sell" />
+		<info v-if="item.run" :info="item.run" title="Progress Cost" rate="true" />
 
 		<attack v-if="item.attack" :item="item.attack" />
 
-		<div v-if="item.effect||item.mod||item.result||item.dot||item.use" class="info-sect">effects:</div>
+		<div v-if="item.effect||item.mod||item.result||item.dot||item.use" class="info-sect">Effects:</div>
 
 		<dot v-if="item.dot" :dot="item.dot" />
 
@@ -158,11 +176,11 @@ export default {
 		<info v-if="item.use" :info="item.use" />
 		<info v-if="item.result" :info="item.result" />
 
-		<div v-if="item.lock||item.disable" class="info-sect">locks:</div>
+		<div v-if="item.lock||item.disable" class="info-sect">Locks:</div>
 		<info v-if="item.lock" :info="item.lock" />
 		<info v-if="item.disable" :info="item.disable" />
 
-		<div class="note-text" v-if="item.flavor">{{ item.flavor}}</div>
+		<div class="note-text" v-if="item.flavor">{{item.flavor}}</div>
 </div>
 
 </template>

@@ -2,7 +2,7 @@
 	{
 		"id": "enc_primer1",
 		"name": "magical primer",
-		"desc": "an introduction to magical theory.",
+		"desc": "An introduction to magical theory.",
 		"effect": {
 			"bf": "-1~2",
 			"lore.exp": 1
@@ -188,7 +188,7 @@
 	{
 		"id": "enc_delki",
 		"name": "babbling delki",
-		"desc": "The delki of the woods know many things, but are seldom coherent.",
+		"desc": "The Delki of the woods know many things, but are seldom coherent.",
 		"effect": {
 			"rage": "1~2",
 			"weary": "1~3",
@@ -230,7 +230,7 @@
 			"shadowgem": "5%",
 			"arcana": 0.01
 		},
-		"flavor": "legend tells of a massive gibbering, who will answer any question in return for a murder."
+		"flavor": "Legend tells of a massive gibbering, who will answer any question in return for a murder."
 	},
 	{
 		"id": "enc_mummy",
@@ -393,7 +393,7 @@
 	{
 		"id": "enc_cauldron",
 		"name": "bubbling cauldron",
-		"desc": "the cauldron bubbles and glows with a odorous brew.",
+		"desc": "The cauldron bubbles and glows with a odorous brew.",
 		"effect": {
 			"unease": "0~2",
 			"weary": "1~3",
@@ -421,8 +421,8 @@
 	},
 	{
 		"id": "enc_hestia",
-		"name": "hestia",
-		"desc": "hestia has no interest in the world outside Thangmor, but will teach those who come to her.",
+		"name": "Hestia",
+		"desc": "Hestia has no interest in the world outside Thangmor, but will teach those who come to her.",
 		"effect": {
 			"unease": "2~4",
 			"bf": "-2~3",
@@ -437,8 +437,8 @@
 	},
 	{
 		"id": "enc_pidwig",
-		"name": "talk to pidwig",
-		"desc": "pidwig is sparse with words, but has seen many mysteries in his travels.",
+		"name": "Talk To Pidwig",
+		"desc": "Pidwig is sparse with words, but has seen many mysteries in his travels.",
 		"effect": {
 			"bf": "0~2",
 			"weary": "0~2",
@@ -454,7 +454,7 @@
 	{
 		"id": "pidwigtreasure",
 		"name": "pidwig's hoard",
-		"desc": "over the years Pidwig has amassed a sizeable collection of gems and artifacts.",
+		"desc": "Over the years Pidwig has amassed a sizeable collection of gems and artifacts.",
 		"effect": {
 			"crafting.exp": 1,
 			"history.exp": 1,
@@ -463,12 +463,12 @@
 			"madness": "0~2"
 		},
 		"loot": "prismaticgems",
-		"flavor": "perhaps he could be induced to part with some..."
+		"flavor": "Perhaps he could be induced to part with some..."
 	},
 	{
 		"id": "starrysky1",
 		"name": "starry night",
-		"desc": "a clear sky affords an endless view of the firmament.",
+		"desc": "A clear sky affords an endless view of the firmament.",
 		"effect": {
 			"bf": "1~2",
 			"unease": "-1~2",
@@ -481,7 +481,7 @@
 	{
 		"id": "pidwigstars",
 		"name": "pidwig's starcharts",
-		"desc": "an old hand at astronomical calculations, pidwig shares his extensive observations.",
+		"desc": "An old hand at astronomical calculations, Pidwig shares his extensive observations.",
 		"effect": {
 			"bf": "1~3",
 			"unease": "-1~2",
@@ -495,7 +495,7 @@
 	{
 		"id": "sombersunset",
 		"name": "somber sunset",
-		"desc": "lapping waves in the dying sun hint at secrets beyond your reach.",
+		"desc": "Lapping waves in the dying sun hint at secrets beyond your reach.",
 		"effect": {
 			"rage": "-1~-2",
 			"weary": "-1~-2",
@@ -508,7 +508,7 @@
 	{
 		"id": "brightvista",
 		"name": "bright vista",
-		"desc": "a small knoll reveals lands far into the distance",
+		"desc": "A small knoll reveals lands far into the distance",
 		"effect": {
 			"bf": "-1~-2",
 			"weary": "-1~-2",
@@ -520,7 +520,7 @@
 	{
 		"id": "enc_tome",
 		"name": "runic tome",
-		"desc": "even deciphering the runes is a tedious chore.",
+		"desc": "Even deciphering the runes is a tedious chore.",
 		"effect": {
 			"bf": "-1~4",
 			"rage": "0~4",
@@ -545,7 +545,7 @@
 			"history.max": 0.0001,
 			"arcana": 0.01
 		},
-		"flavor": "for none now live, who remember it."
+		"flavor": "For none now live, who remember it."
 	},
 	{
 		"id": "enc_workbook2",
@@ -655,7 +655,7 @@
 			"madness": "0~2",
 			"history.exp": 2
 		},
-		"flavor": "a voice seems to grumble from the ground."
+		"flavor": "A voice seems to grumble from the ground."
 	},
 	{
 		"id": "enc_sindel",
@@ -671,7 +671,7 @@
 		"result": {
 			"lightlore.max": 0.0001
 		},
-		"flavor": "you can't seem to pry it loose."
+		"flavor": "You can't seem to pry it loose."
 	},
 	{
 		"id": "enc_tenwick",
@@ -695,7 +695,7 @@
 		},
 		"result": {
 		},
-		"flavor": "blank verse is hard to interpret."
+		"flavor": "Blank verse is hard to interpret."
 	},
 	{
 		"id": "enc_gap",
@@ -780,7 +780,7 @@
 			"madness": "3~5",
 			"unease": "3~5"
 		},
-		"flavor": "for now you see in a mirror, darkly."
+		"flavor": "For now you see in a mirror, darkly."
 	},
 	{
 		"id": "enc_watermirror",
@@ -1027,7 +1027,7 @@
 			"unease": "3~4",
 			"madness": "4~5"
 		},
-		"flavor": "best not disturb it"
+		"flavor": "Best not disturb it."
 	},
 	{
 		"id": "e_gryffon",
@@ -1059,7 +1059,7 @@
 	{
 		"id": "e_barghest",
 		"name": "barghest",
-		"desc": "The great dog-like beast is a portend of death.",
+		"desc": "The great dog-like beast is a portent of death.",
 		"effect": {
 			"unease": "3~4",
 			"madness": "1~4",

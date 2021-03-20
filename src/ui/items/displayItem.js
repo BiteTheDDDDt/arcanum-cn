@@ -14,7 +14,8 @@ export class DisplayItem {
 	constructor( name, value, isRate ) {
 
 		//this.path = path;
-		this.name = name;
+		//.toTitleCase() here fixes the caps of all items in the tooltips.
+		this.name = name.toTitleCase();
 		this.value = value;
 		this.isRate = isRate;
 

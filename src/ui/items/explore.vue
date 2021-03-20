@@ -74,7 +74,7 @@ export default {
 		encDesc(){ return this.enc ? this.enc.desc : '&nbsp;';},
 
 		encName(){
-			return this.enc ? this.enc.name : '&nbsp;';
+			return this.enc ? this.enc.name.toTitleCase() : '&nbsp;';
 		},
 		encProg(){
 			return this.enc ? this.enc.exp : 0;
@@ -94,7 +94,7 @@ export default {
 <div class='explore'>
 
 	<span class="active-title">
-		<span>{{ explore.name }}</span><button class="raid-btn"
+		<span>{{ explore.name.toTitleCase() }}</span><button class="raid-btn"
 		@click="emit( HALT_TASK, explore.locale, false )"
 		@mouseenter.capture.stop="itemOver( $event, explore.locale )">Flee</button>
 		</span>
@@ -116,7 +116,7 @@ export default {
 
 			<div class="stressors">
 			<div class="stress" v-for="s in stressors" :key="s.id" @mouseenter.capture.stop="itemOver( $event, s )">
-				<span>{{s.name}}</span>
+				<span>{{s.name.toTitleCase()}}</span>
 				<progbar :value="s.value.valueOf()" :max="s.max.value" />
 			</div>
 			</div>

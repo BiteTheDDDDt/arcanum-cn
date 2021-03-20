@@ -125,7 +125,7 @@ export default {
 
 	</div>-->
 
-	<button class="close" @click="close">close</button>
+	<button class="close" @click="close">Close</button>
 
 </div>
 

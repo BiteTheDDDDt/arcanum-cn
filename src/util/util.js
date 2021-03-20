@@ -326,12 +326,30 @@ export const uppercase = (s) => {
 	return !s ? '' : (s.length > 1 ? s[0].toUpperCase() + s.slice(1) : s[0].toUpperCase());
 }
 
-
-
-
 export const indexAfter = ( s, k ) => {
 
 	let i = s.indexOf(k);
 	return i >= 0 ? i + k.length : i;
 
+}
+
+String.prototype.toTitleCase = function () {
+	let string = this.trim().toLowerCase().replace(/\w\S*/g, (w) => (w.replace(/^\w/, (c) => c.toUpperCase())))
+	let prefix = string.substr(0, string.lastIndexOf(" "))
+	let suffix = string.substr(string.lastIndexOf(" ")+1)
+	//This accounts for roman numerals.
+	if (suffix.toLowerCase() == "ii") {
+		suffix = "II"
+	} else if (suffix.toLowerCase() == "iii") {
+		suffix = "III"
+	} else if (suffix.toLowerCase() == "iv") {
+		suffix = "IV"
+	} else if (suffix.toLowerCase() == "v") {
+		suffix = "V"
+	}
+	string = prefix + " " + suffix
+	//This makes sure the words 'of' and 'the' are not capittalized.
+	string=string.replace(" Of "," of ");
+	string=string.replace(" The "," the ");
+	return prefix + " " + suffix
 }

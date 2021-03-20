@@ -58,34 +58,31 @@ export default {
 
 	<div class="top-bar">
 
-		<span class="load-opts">
-		<login v-if="Profile.CLOUD" />
-		<button @click="dispatch('save')">save</button>
-		<button @click="dispatch('load')">load</button>
+		<span class="load-opts" >
+			<login v-if="Profile.CLOUD" />
+			<button @click="dispatch('save')">Save</button>
+			<button @click="dispatch('load')">Load</button>
 
-		<div class="text-button"><a href=""
-			@click.self="dispatch('save-file',$event )" type="text/json">get save</a></div>
+			<div class="text-button"><a href=""
+				@click.self="dispatch('save-file',$event )" type="text/json">Get Save</a></div>
 
-		<div v-if="hasHall" class="text-button"><a href=""
-			@click.self="dispatch('hall-file',$event )" type="text/json">hall save</a></div>
+			<div v-if="hasHall" class="text-button"><a href=""
+				@click.self="dispatch('hall-file',$event )" type="text/json">Hall Save</a></div>
 
 			<!--<input type="file" name="[File]" accept="text/json" @change="fileDrop">-->
-		<button id="drop-file" @click="$refs.fileInput.click()" @drop="fileDrop" @dragover="fileDrag" @dragleave.capture.stop="dragOut" name="[Load Save]">[Load Save]</button>
+			<button id="drop-file" @click="$refs.fileInput.click()" @drop="fileDrop" @dragover="fileDrag" @dragleave.capture.stop="dragOut" name="[Load Save]">[Load Save]</button>
 			<input ref="fileInput" type="file" @change="fileSelect" accept="text/json text/*">
 
-			<confirm @confirm="dispatch('reset')">reset wizard</confirm>
-
+			<confirm @confirm="dispatch('reset')">Reset Wizard</confirm>
 		</span>
 
 		<span class="items"><slot name="center"></slot></span>
 
 		<span class="link-bar">
-			<a href="https://discord.gg/bCABC96" target="_blank">discord</a>
-			<a href="http://wiki.lerpinglemur.com/dhrune" target="_blank">wiki</a>
-			<a href="https://lerpinglemur.gitlab.io/arcanum/" target="_blank">unstable</a>
-			<a href="https://www.patreon.com/theoryofmagic" target="_blank">patreon</a>
-			<a href="https://www.reddit.com/r/wizrobe/" target="_blank">reddit</a>
-			<span class="vers">vers {{ VERSION }}</span>
+			<a href="https://discord.gg/bCABC96" target="_blank">Discord</a>
+			<a href="http://wiki.lerpinglemur.com/dhrune" target="_blank">Wiki</a>
+			<a href="https://www.reddit.com/r/wizrobe/" target="_blank">Reddit</a>
+			<span class="vers">Version: {{ VERSION }}</span>
 			<button class="text-button" @click="$emit('open-settings')">&#9881;</button>
 		</span>
 
@@ -129,4 +126,7 @@ span.load-message {
 	padding: var(--md-gap) var(--md-gap) var(--tiny-gap);
 }
 
+span.items {
+	text-transform: capitalize;
+}
 </style>

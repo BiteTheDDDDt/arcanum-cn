@@ -102,7 +102,7 @@
 		"name": "air runes",
 		"tags": "t_runes",
 		"group": "runes",
-		"desc": "rune etched with solid air",
+		"desc": "Rune etched with solid air",
 		"max": 10,
 		"mod": {
 			"research.max": 10
@@ -131,12 +131,12 @@
 			"bf.rate": 0.01
 		},
 		"max": 3,
-		"flavor": "it's not easy to look at."
+		"flavor": "It's not easy to look at."
 	},
 	{
 		"id": "bodies",
 		"group": "necromancy",
-		"desc": "bodies for necromatic magic",
+		"desc": "Bodies for necromatic magic",
 		"max": 1,
 		"mod": {
 			"dissection.rate": 0.01,
@@ -146,13 +146,13 @@
 	{
 		"id": "bones",
 		"group": "necromancy",
-		"desc": "human bones.",
+		"desc": "Human Bones",
 		"max": 10
 	},
 	{
 		"id": "skulls",
 		"group": "necromancy",
-		"desc": "human skull.",
+		"desc": "Human Skull",
 		"max": 5
 	},
 	{
@@ -165,19 +165,19 @@
 	{
 		"id": "souls",
 		"group": "necromancy",
-		"desc": "imprisoned souls of living creatures.",
+		"desc": "Imprisoned souls of living creatures.",
 		"max": 1,
 		"mod": {
 			"shadow.rate": 0.001,
 			"spirit.rate": 0.001,
 			"spiritlore.rate": 0.01
 		},
-		"flavor": "is it wrong?"
+		"flavor": "Is it wrong?"
 	},
 	{
 		"id": "schematic",
 		"name": "schematics",
-		"desc": " Schematic of Thurn the Artificer",
+		"desc": "Schematic of Thurn the Artificer",
 		"max": 3,
 		"mod": {
 			"crafting.max": 0.1,
@@ -244,9 +244,9 @@
 		"tags": "magicgems,prismaticgems",
 		"group": "gems",
 		"name": "nature gem",
-		"desc": "physical essence of life.",
+		"desc": "Physical essence of life.",
 		"max": 2,
-		"flavor": "the force from the beginning"
+		"flavor": "The force from the beginning"
 	},
 	{
 		"id": "earthgem",
@@ -293,7 +293,7 @@
 		"tags": "magicgems",
 		"group": "gems",
 		"name": "blood gem",
-		"desc": "a little magic and a lot of blood",
+		"desc": "A little magic and a lot of blood",
 		"max": 2,
 		"mod": {
 			"hp.max": 1
@@ -303,7 +303,7 @@
 		"id": "timegem",
 		"tags": "magicgems",
 		"group": "gems",
-		"desc": "crafted from gems which do not yet exist.",
+		"desc": "Crafted from gems which do not yet exist.",
 		"mod": {
 			"gems.rate": -0.005,
 			"tempus.rate": 0.01
@@ -314,7 +314,7 @@
 		"id": "voidgem",
 		"tags": "magicgems",
 		"group": "gems",
-		"desc": "the space where a gem once was.",
+		"desc": "The space where a gem once was.",
 		"mod": {
 			"player.resist.void": 1
 		},
@@ -324,14 +324,14 @@
 		"id": "ichor",
 		"tags": "reagent",
 		"desc": "The blood of gods.",
-		"flavor": "the secret courtesy that courses like ichor",
+		"flavor": "The secret courtesy that courses like ichor",
 		"max": 5
 	},
 	{
 		"id": "sindel",
 		"name": "star shard",
 		"desc": "A glowing cinder of the stars.",
-		"flavor": "the pillars broke; the stars fell screaming from the sky",
+		"flavor": "The pillars broke; the stars fell screaming from the sky",
 		"max": 3,
 		"mod": {
 			"light.rate": 0.1,
@@ -346,7 +346,7 @@
 			"weary.rate": -0.1,
 			"arcana.rate": "1%"
 		},
-		"flavor": "in your wildest..."
+		"flavor": "In your wildest..."
 	},
 	{
 		"id": "herbs",
@@ -364,7 +364,7 @@
 	{
 		"id": "mana",
 		"tags": "manas,prismatic",
-		"desc": "raw magical energy",
+		"desc": "Raw magical energy",
 		"unit": false,
 		"require": "lore",
 		"name": "mana",
@@ -454,7 +454,7 @@
 		"id": "void",
 		"tags": "manas,primordial",
 		"unit": false,
-		"desc": "nothingness. No current use.",
+		"desc": "Nothingness. No current use.",
 		"flavor": "",
 		"max": 0
 	}

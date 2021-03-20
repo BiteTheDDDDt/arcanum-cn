@@ -6,7 +6,7 @@
 			{
 				"id": "traininggrounds",
 				"name": "training grounds",
-				"title": "certified",
+				"title": "Certified",
 				"distance": 1,
 				"length": 20,
 				"locked": false,
@@ -27,21 +27,21 @@
 			{
 				"id": "stddummy",
 				"name": "dummy1",
-				"desc": "even fists would do",
+				"desc": "Even fists would do",
 				"level": 0,
 				"speed": -10,
 				"hp": 10,
 				"attack": {
 					"log": {
 						"name": "hit me!",
-						"desc": "harder, HARDER I said"
+						"desc": "Harder, HARDER I said"
 					}
 				}
 			},
 			{
 				"id": "noweapondummy",
 				"name": "hard dummy",
-				"desc": "fists don't work against this guy",
+				"desc": "Fists don't work against this guy",
 				"level": 0,
 				"speed": -10,
 				"hp": 5,
@@ -49,7 +49,7 @@
 				"attack": {
 					"log": {
 						"name": "Spells",
-						"desc": "use your magic missile, from spellpage bind as quickslot or add to memorized"
+						"desc": "Use your magic missile, from spellpage bind as quickslot or add to memorized"
 					}
 				},
 				"loot": {
@@ -95,7 +95,7 @@
 			{
 				"id": "dodgydummy",
 				"name": "dodging dummy",
-				"desc": "any normal means of attack is useless",
+				"desc": "Any normal means of attack is useless",
 				"level": 0,
 				"hp": 1,
 				"speed": -10,
@@ -122,7 +122,7 @@
 			{
 				"id": "armorydummy",
 				"name": "armored dummy",
-				"desc": "any normal attack leaves no mark",
+				"desc": "Any normal attack leaves no mark",
 				"dodge": -30,
 				"hp": 10,
 				"speed": -10,
@@ -133,7 +133,7 @@
 				"attack": {
 					"log": {
 						"name": "Use your hammer",
-						"desc": "only the hammer could leave a dent at this iron chunk"
+						"desc": "Only the hammer could leave a dent at this iron chunk"
 					}
 				}
 			},
@@ -154,18 +154,18 @@
 						},
 						{
 							"%": "10%",
-							"desc": "casting spells manually makes for an easy combat"
+							"desc": "Casting spells manually makes for an easy combat"
 						},
 						{
 							"%": "10%",
-							"desc": "memorizing a good combination of buffs and attack spells increases survivability"
+							"desc": "Memorizing a good combination of buffs and attack spells increases survivability"
 						}
 					]
 				}
 			},
 			{
 				"id": "dummy",
-				"desc": "can't even hit back",
+				"desc": "Can't even hit back",
 				"dodge": -10,
 				"defense": 3,
 				"hp": 10,

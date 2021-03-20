@@ -8,12 +8,12 @@
 	},
 	{
 		"id": "sulphur",
-		"desc": "principle of fire.",
+		"desc": "Principle of fire.",
 		"max": 10
 	},
 	{
 		"id": "mercury",
-		"desc": "principle of metal.",
+		"desc": "Principle of metal.",
 		"max": 10
 	},
 	{
@@ -82,7 +82,7 @@
 		"name": "fire thistle",
 		"tags": "herb,reagent",
 		"desc": "",
-		"flavor": "it burns"
+		"flavor": "It burns"
 	},
 	{
 		"id": "goldfel",
@@ -100,7 +100,7 @@
 		"id": "lavender",
 		"tags": "herb,reagent",
 		"desc": "",
-		"flavor": "Noone actually knows what lavender does."
+		"flavor": "No one actually knows what lavender does."
 	},
 	{
 		"id": "oleander",

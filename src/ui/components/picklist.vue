@@ -15,7 +15,7 @@ export default {
 <div>
 
 <div class="separate" v-for="(s) in items" :key="s.id"  @mouseenter.capture.stop="itemOver($event,s)">
-	<span>{{s.name}}</span><button @click="emit( 'add', s)" :disabled="!canAdd(s)">Add</button>
+	<span>{{s.name.toTitleCase()}}</span><button @click="emit( 'add', s)" :disabled="!canAdd(s)">Add</button>
 </div>
 
 </div>

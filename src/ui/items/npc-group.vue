@@ -20,7 +20,7 @@ export default {
 <div class="npc-group">
 	<span class="title" v-if="label">{{ label }}</span>
 	<div v-for="p in npcs" :key="p.id">
-		<span class="name-span"><span @mouseenter.capture.stop="itemOver( $event, p )">{{p.name }}</span>
+		<span class="name-span"><span @mouseenter.capture.stop="itemOver( $event, p )">{{p.name.toTitleCase() }}</span>
 		<dots class="inline" mini=true :dots="p.dots" :char="p" /></span>
 		<prog class="hp" :value="p.hp.value.valueOf()" :max="p.hp.max.value" @mouseenter.capture.stop="itemOver( $event, p )" />
 	</div>

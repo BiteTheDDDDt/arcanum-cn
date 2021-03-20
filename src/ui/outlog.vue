@@ -80,7 +80,7 @@ export default {
 
 				<span v-for="(p,k) in LogTypes" :key="k">
 					<input type="checkbox" :value="p" :id="elmId(k)" :checked="filter&p" @change="changed( $event.target )" >
-					<label :for="elmId(k)">{{ k }}</label>
+					<label :for="elmId(k)">{{ k.toString().toTitleCase() }}</label>
 				</span>
 				</span>
 
@@ -93,7 +93,9 @@ export default {
 			<div class="outlog">
 			<div class="log-item" v-for="(it,i) in visItems" :key="i">
 
-				<span v-if="it.title" class="log-title item-name">{{ it.title }}</span>
+				<div>
+					<span v-if="it.title" class="log-title item-name">{{it.title}}</span>
+				</div>
 				<span class="log-text">{{ it.text }}</span>
 				<span class="num-align" v-if="it.count>1">(x{{it.count}})</span>
 

@@ -90,12 +90,12 @@
 	},
 	{
 		"id": "luck",
-		"desc": "affinity for fortune",
+		"desc": "Affinity for fortune",
 		"val": 0,
 		"stat": true,
 		"unit": false,
 		"locked": false,
-		"flavor": "let's keep this party polite"
+		"flavor": "Let's keep this party polite"
 	},
 	{
 		"id": "scraft",

@@ -163,7 +163,7 @@ export default {
 
 					<span class="separate">
 						<!-- EVENT MUST BE ON OUTER SPAN - CHROME -->
-					<span @mouseenter.capture.stop="itemOver( $event, d )"><span>{{ d.sname }}</span>
+					<span @mouseenter.capture.stop="itemOver( $event, d )"><span>{{ d.sname.toString().toTitleCase() }}</span>
 
 					<button class="raid-btn" :disabled="!game.canRun(d)" @click="emit( 'task', d )">Enter</button></span>
 
@@ -186,7 +186,7 @@ export default {
 
 			<div class="outlog">
 			<div class="log-item" v-for="(it,i) in combatLog" :key="i">
-				<span class="log-title" v-if="it.title">{{ it.title }}</span>
+				<div><span class="log-title" v-if="it.title">{{ it.title.toString().toTitleCase() }}</span></div>
 				<span class="log-text" v-if="it.text">{{ it.text }}</span>
 			</div>
 			</div>

@@ -20,9 +20,9 @@ export default {
 
 <div class="attack">
 
-	<div>hit bonus: {{ item.tohit || 0 }}</div>
+	<div>Hit Bonus: {{ item.tohit || 0 }}</div>
 	<div>{{ item.hands>1 ? 'Two Handed' : 'One Handed' }}</div>
-	<div>kind: {{ item.kind }}</div>
+	<div>Kind: {{ item.kind.toString().toTitleCase() }}</div>
 	<gdata v-if="item.dot" :item="item.dot" />
 
 </div>

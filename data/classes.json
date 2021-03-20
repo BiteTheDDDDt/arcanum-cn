@@ -1,7 +1,7 @@
 [
 	{
 		"id": "apprentice",
-		"desc": "apprentice to a notable wizard",
+		"desc": "Apprentice to a notable wizard",
 		"actname": "Apprenticeship",
 		"actdesc": "Become an apprentice.",
 		"require": "research",
@@ -254,7 +254,7 @@
 			"potions.max": 3,
 			"spiritlore.max": 2
 		},
-		"flavor": "even the dead have their uses"
+		"flavor": "Even the dead have their uses"
 	},
 	{
 		"id": "witch",
@@ -264,7 +264,7 @@
 		"actname": "The Craft",
 		"actdesc": "Enter into the practice of witchcraft.",
 		"require": "g.tier0>0&&g.animals>=2&&g.potions>=3&&g.tier1==0",
-		"flavor": "'what is't you do?' 'a deed without a name'",
+		"flavor": "'What is't you do?' 'A deed without a name'",
 		"cost": {
 			"research": 350,
 			"gold": 200,
@@ -354,7 +354,7 @@
 	{
 		"id": "bonemonger",
 		"tags": "t_tier2",
-		"desc": "extend your life with spare parts from the dead.",
+		"desc": "Extend your life with spare parts from the dead.",
 		"require": "g.tier1>0&&g.reanimator>=1&&g.evil>0&&g.tier2==0",
 		"cost": {
 			"research": 800,
@@ -376,12 +376,12 @@
 			"potions.max": 2,
 			"spiritlore.max": 1
 		},
-		"flavor": "even the dead have their uses"
+		"flavor": "Even the dead have their uses"
 	},
 	{
 		"id": "thanophage",
 		"tags": "t_tier3",
-		"desc": "drain corpses of their lingering life-force to prolong your bleak existence.",
+		"desc": "Drain corpses of their lingering life-force to prolong your bleak existence.",
 		"require": "g.tier2>0&&g.evil>0&&g.tier3==0",
 		"cost": {
 			"research": 1500,
@@ -542,7 +542,7 @@
 	},
 	{
 		"id": "dreadlord",
-		"desc": "harbinger of destruction",
+		"desc": "Harbinger of destruction",
 		"tags": "t_tier3",
 		"require": "g.tier2>0&&g.evil>0&&g.hp>=100&&g.player.level>=17&&g.tier3==0",
 		"cost": {
@@ -568,7 +568,7 @@
 	{
 		"id": "warlock",
 		"tags": "t_tier4",
-		"desc": "master of demons and demonic magic",
+		"desc": "Master of demons and demonic magic",
 		"require": "g.tier3>0&&g.evil>0&&g.demonology>=10&&g.tier4==0",
 		"cost": {
 			"research": 4000,
@@ -596,7 +596,7 @@
 		"id": "bloodmage",
 		"name": "blood mage",
 		"tags": "t_tier3",
-		"desc": "the magic in your veins",
+		"desc": "The magic in your veins",
 		"require": "g.tier2>0&&(g.battlemage>0||g.hp.max>150)&&g.tier3==0",
 		"cost": {
 			"research": 1500,
@@ -675,7 +675,7 @@
 	{
 		"id": "alchemist",
 		"tags": "t_tier2",
-		"desc": "an alchemist uses magical knowledge to craft wonders.",
+		"desc": "An alchemist uses magical knowledge to craft wonders.",
 		"require": "g.tier1>0&&g.potions>=4&&g.alchemy>=5",
 		"cost": {
 			"research": 2000,
@@ -753,7 +753,7 @@
 	},
 	{
 		"id": "earthshaker",
-		"desc": "master of the tectonics.",
+		"desc": "Master of the tectonics.",
 		"tags": "t_tier4",
 		"actdesc": "Become an earthshaker.",
 		"require": "g.tier3>0&&g.earthlore>=20&&g.tier4==0",
@@ -804,7 +804,7 @@
 	},
 	{
 		"id": "pyromancer",
-		"desc": "shaper of fire",
+		"desc": "Shaper of fire",
 		"tags": "t_tier2",
 		"actdesc": "Become a pyromancer.",
 		"require": "g.tier1>0&&g.firelore>=10",
@@ -828,7 +828,7 @@
 	},
 	{
 		"id": "hydromancer",
-		"desc": "master of water",
+		"desc": "Master of water",
 		"tags": "t_tier2",
 		"actdesc": "Become a hydromancer.",
 		"require": "g.tier1>0&&g.waterlore>=10",
@@ -853,7 +853,7 @@
 	{
 		"id": "windmage",
 		"name": "wind mage",
-		"desc": "to walk on the wind",
+		"desc": "To walk on the wind",
 		"tags": "t_tier2",
 		"actdesc": "Become a wind mage.",
 		"require": "g.tier1>0&&g.airlore>=10",
@@ -873,7 +873,7 @@
 			"dodge": "10%",
 			"mana.max": 2
 		},
-		"flavor": "there's a storm coming"
+		"flavor": "There's a storm coming"
 	},
 	{
 		"id": "stormcaller",
@@ -952,7 +952,7 @@
 	},
 	{
 		"id": "druid",
-		"desc": "a spellcaster dedicated to the natural world",
+		"desc": "A spellcaster dedicated to the natural world",
 		"tags": "t_tier3",
 		"require": "g.tier2>0&&g.naturelore>=15",
 		"cost": {
@@ -1057,7 +1057,7 @@
 	},
 	{
 		"id": "mage",
-		"desc": "member of an arcane order.",
+		"desc": "Member of an arcane order.",
 		"tags": "t_tier2",
 		"require": "g.tier1>0&&g.lore>=17",
 		"cost": {
@@ -1082,7 +1082,7 @@
 	{
 		"id": "highmage",
 		"name": "high mage",
-		"desc": "elite of an arcane order.",
+		"desc": "Elite of an arcane order.",
 		"tags": "t_tier3",
 		"require": "g.tier2>0&&g.lore>=21",
 		"cost": {
@@ -1106,7 +1106,7 @@
 	},
 	{
 		"id": "doomsayer",
-		"desc": "harbinger of ruin",
+		"desc": "Harbinger of ruin",
 		"require": "g.tier2>0&&g.spirit>=12&&g.divination>=12",
 		"tags": "t_tier3",
 		"cost": {
@@ -1128,11 +1128,11 @@
 			"lore.rate": "10%",
 			"mana.max": 1
 		},
-		"flavor": "you call it an empire, but in the gloaming I see only heaps of crumbled stone."
+		"flavor": "You call it an empire, but in the gloaming I see only heaps of crumbled stone."
 	},
 	{
 		"id": "fey",
-		"desc": "a being of wild and natural magic",
+		"desc": "A being of wild and natural magic",
 		"tags": "t_tier4",
 		"require": "g.tier3>0&&g.naturelore>=19&&(g.witch+g.druid+g.elementalist)>0",
 		"cost": {
@@ -1161,7 +1161,7 @@
 	},
 	{
 		"id": "thaumaturge",
-		"desc": "a maker of miracles",
+		"desc": "A maker of miracles",
 		"require": "g.tier3>0&&g.spirit>=15&&g.divination>=15",
 		"tags": "t_tier4",
 		"cost": {
@@ -1190,7 +1190,7 @@
 	{
 		"id": "necromancer",
 		"tags": "t_tier4",
-		"desc": "a master of death magic",
+		"desc": "A master of death magic",
 		"require": "g.tier3>0&&g.evil>0&&g.shadowlore>=17",
 		"cost": {
 			"research": 2000,
@@ -1219,7 +1219,7 @@
 	},
 	{
 		"id": "wizard",
-		"desc": "raw magic power",
+		"desc": "Raw magic power",
 		"tags": "t_tier4",
 		"require": "g.evil<=0&&g.tier3>0&&g.lore>=25",
 		"cost": {
@@ -1242,13 +1242,13 @@
 			"lore.rate": "10%",
 			"mana.max": 3
 		},
-		"flavor": "'do not take me for some conjurer of cheap tricks.'"
+		"flavor": "'Do not take me for some conjurer of cheap tricks.'"
 	},
 	{
 		"id": "wizard2",
 		"alias": "dhrunic wizard",
 		"name": "dhrunic wizard",
-		"desc": "raw magic power",
+		"desc": "Raw magic power",
 		"tags": "t_tier5",
 		"require": "g.tier4>0&&g.lore>=30",
 		"cost": {
@@ -1275,7 +1275,7 @@
 	},
 	{
 		"id": "kell",
-		"desc": "immortal spirits of nature, even the weakest Kell are beings to rival wizards",
+		"desc": "Immortal spirits of nature, even the weakest Kell are beings to rival wizards",
 		"tags": "t_tier5",
 		"require": "g.tier4>0&&g.naturelore>=23&&(g.witch+g.fey+g.highelemental)>0",
 		"cost": {
@@ -1298,13 +1298,13 @@
 			"herbalism.max": 1,
 			"herbalism.rate": "15%"
 		},
-		"flavor": "kell are not of mortal blood, and only potent magics can imbue a mortal with their essence."
+		"flavor": "Kell are not of mortal blood, and only potent magics can imbue a mortal with their essence."
 	},
 	{
 		"id": "greynecromancer",
 		"name": "grey necromancer",
 		"tags": "t_tier5",
-		"desc": "disciple of death",
+		"desc": "Disciple of death",
 		"require": "g.tier4>0&&g.evil>0&&g.spiritlore>=15&&g.shadowlore>=24",
 		"cost": {
 			"research": 17000,
@@ -1331,7 +1331,7 @@
 	},
 	{
 		"id": "archlock",
-		"desc": "master of demons and demonic magic",
+		"desc": "Master of demons and demonic magic",
 		"tags": "t_tier5",
 		"require": "g.warlock>0&&g.demonology>=20",
 		"cost": {
@@ -1352,11 +1352,11 @@
 			"demonology.max": 5,
 			"demonology.rate": "20%"
 		},
-		"flavor": "in the War of the Locks the Seven raged for Power Absolute, and Dhrune trembled in their wake."
+		"flavor": "In the War of the Locks the Seven raged for Power Absolute, and Dhrune trembled in their wake."
 	},
 	{
 		"id": "heresiarch",
-		"desc": "a reckoning comes.",
+		"desc": "A reckoning comes.",
 		"require": "g.tier4>0&&g.spirit>=15&&g.divination>=17",
 		"tags": "t_tier5",
 		"cost": {
@@ -1379,12 +1379,12 @@
 			"lore.max": 2,
 			"lore.rate": "10%"
 		},
-		"flavor": "it waits in time"
+		"flavor": "It waits in time"
 	},
 	{
 		"id": "highkell",
 		"name": "high kell",
-		"desc": "the ranks of the kell range from the lesser fey and forest delki, to ancient spirits, old and indominable.",
+		"desc": "The ranks of the Kell range from the lesser Fey and forest Delki, to ancient spirits, old and indominable.",
 		"tags": "t_tier6",
 		"require": "g.tier5>0&&(g.fey+g.kell)>0",
 		"cost": {
@@ -1442,7 +1442,7 @@
 	{
 		"id": "deathlock",
 		"name": "death lock",
-		"desc": "an unholy synthesis of wizardry and demonology.",
+		"desc": "An unholy synthesis of wizardry and demonology.",
 		"tags": "t_tier6",
 		"require": "g.tier5>0&&g.phylactory>0",
 		"cost": {

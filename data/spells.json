@@ -325,7 +325,7 @@
 		"level": 2,
 		"require": "g.shadow>=10",
 		"school": "shadow",
-		"desc": "decreases the target's resistance to shadow magic.",
+		"desc": "Decreases the target's resistance to shadow magic.",
 		"buy": {
 			"research": 100,
 			"codices": 1,
@@ -500,7 +500,7 @@
 		"name": "pulsing light",
 		"require": "g.spellbook.value>0&&g.light>0",
 		"school": "light",
-		"desc": "a small pulse of light zips around you, mending injuries.",
+		"desc": "A small pulse of light zips around you, mending injuries.",
 		"level": 1,
 		"buy": {
 			"research": 25,
@@ -521,7 +521,7 @@
 		"name": "pulsing light II",
 		"school": "light",
 		"require": "lightregen1",
-		"desc": "a small pulse of light zips around you, mending injuries.",
+		"desc": "A pulse of light zips around you, mending injuries.",
 		"level": 3,
 		"buy": {
 			"research": 100,
@@ -542,7 +542,7 @@
 		"id": "lightregen3",
 		"name": "pulsing light III",
 		"school": "light",
-		"desc": "a small pulse of light zips around you, mending injuries.",
+		"desc": "A large pulse of light zips around you, mending injuries.",
 		"level": 5,
 		"require": "lightregen2",
 		"buy": {
@@ -597,7 +597,7 @@
 		"level": 1,
 		"school": "mana",
 		"require": "g.spellbook.value>0",
-		"desc": "lines of arcane energy damage all enemies.",
+		"desc": "Lines of arcane energy damage all enemies.",
 		"buy": {
 			"research": 100,
 			"scrolls": 10
@@ -628,7 +628,7 @@
 		"level": 9,
 		"school": "mana",
 		"require": "g.tier3>0",
-		"desc": "lines of arcane energy strike all enemies.",
+		"desc": "Lines of arcane energy strike all enemies.",
 		"buy": {
 			"research": 100,
 			"scrolls": 10
@@ -676,7 +676,7 @@
 	{
 		"id": "slow1",
 		"name": "mud",
-		"desc": "engulfs target in mud",
+		"desc": "Engulfs target in mud",
 		"school": "earth",
 		"require": "g.player.level>=4&&g.earthlore>=5",
 		"level": 2,
@@ -764,7 +764,7 @@
 		"id": "firebolt",
 		"name": "fire bolt",
 		"level": 2,
-		"desc": "a small bolt of flame.",
+		"desc": "A small bolt of flame.",
 		"require": "firedart",
 		"school": "fire",
 		"buy": {
@@ -798,7 +798,7 @@
 		"id": "searingbolt",
 		"name": "searing bolt",
 		"level": 3,
-		"desc": "a bolt of fire with lingering flames",
+		"desc": "A bolt of fire with lingering flames",
 		"school": "fire",
 		"require": "firebolt",
 		"buy": {
@@ -836,7 +836,7 @@
 		"id": "lightspear",
 		"name": "light spear",
 		"level": 3,
-		"desc": "a barb of solid light",
+		"desc": "A barb of solid light",
 		"school": "light",
 		"buy": {
 			"research": 100,
@@ -870,7 +870,7 @@
 		"id": "lightspear2",
 		"name": "greater light spear",
 		"level": 7,
-		"desc": "a lance of solid light",
+		"desc": "A lance of solid light",
 		"school": "light",
 		"require": "g.lightspear>0&&g.tier2>0",
 		"buy": {
@@ -906,7 +906,7 @@
 		"id": "magmabolt",
 		"name": "magma bolt",
 		"level": 5,
-		"desc": "a bolt of liquid-hot magma",
+		"desc": "A bolt of liquid-hot magma",
 		"school": "fire",
 		"require": "searingbolt",
 		"buy": {
@@ -964,7 +964,7 @@
 		"name": "frost bolt",
 		"level": 2,
 		"require": "g.spellbook.value>0",
-		"desc": "a sharp shard of ice.",
+		"desc": "A sharp shard of ice.",
 		"school": "water",
 		"buy": {
 			"research": 30,
@@ -1065,7 +1065,7 @@
 		"require": "g.spellbook.value>0",
 		"level": 2,
 		"school": "nature",
-		"desc": "reduce the efficacy of common venoms",
+		"desc": "Reduce the efficacy of common venoms",
 		"buy": {
 			"research": 50,
 			"scrolls": 10
@@ -1084,7 +1084,7 @@
 		"id": "vinewhip",
 		"name": "vine whip",
 		"level": 3,
-		"desc": "vines lash out from the ground.",
+		"desc": "Vines lash out from the ground.",
 		"school": "nature",
 		"require": "g.player.level>=4&&g.naturelore>=5",
 		"buy": {
@@ -1164,7 +1164,7 @@
 		"level": 3,
 		"only": "undead",
 		"school": "shadow",
-		"desc": "Reanimate a weak ( up to lvl 6) undead minion. From the \"Minions\" tab only",
+		"desc": "Reanimate a weak (up to level 6) undead minion. From the \"Minions\" tab only",
 		"tags": "rez",
 		"buy": {
 			"research": 50,
@@ -1178,7 +1178,7 @@
 	{
 		"id": "reanimate2",
 		"name": "greater reanimate",
-		"desc": "Reanimate a stronger ( up to lvl 10) undead minion. From the \"Minions\" tab only",
+		"desc": "Reanimate a stronger (up to level 10) undead minion. From the \"Minions\" tab only",
 		"level": 5,
 		"only": "undead",
 		"school": "shadow",
@@ -1198,7 +1198,7 @@
 		"only": "humanoid,goblinoid",
 		"level": 3,
 		"school": "spirit",
-		"desc": "call back to life a weak ( up to lvl 6) humanoid or goblinoid minion. From the \"Minions\" tab only",
+		"desc": "Call back to life a weak (up to level 6) humanoid or goblinoid minion. From the \"Minions\" tab only",
 		"tags": "rez",
 		"buy": {
 			"research": 100,
@@ -1215,7 +1215,7 @@
 		"only": "beast",
 		"level": 3,
 		"school": "nature",
-		"desc": "Revive a weak ( up to lvl 6) beast minion. From the \"Minions\" tab only",
+		"desc": "Revive a weak (up to level 6) beast minion. From the \"Minions\" tab only",
 		"tags": "rez",
 		"buy": {
 			"research": 100,
@@ -1234,7 +1234,7 @@
 		"require": "(g.druid+g.warden+g.kell+g.fey)>0",
 		"level": 5,
 		"school": "nature",
-		"desc": "Revive a stronger ( up to lvl 10) beast minion. From the \"Minions\" tab only",
+		"desc": "Revive a stronger (up to level 10) beast minion. From the \"Minions\" tab only",
 		"buy": {
 			"research": 100,
 			"codices": 25
@@ -1551,7 +1551,7 @@
 		"id": "heal1",
 		"level": 2,
 		"name": "sealing light",
-		"desc": "seams of light close your wounds.",
+		"desc": "Seams of light close your wounds.",
 		"school": "light",
 		"require": "g.player.level>=4&&g.lightlore>=4",
 		"buy": {
@@ -1570,7 +1570,7 @@
 		"id": "unseenservant",
 		"level": 2,
 		"name": "unseen servant",
-		"desc": "an invisible servant manages your affairs.",
+		"desc": "An invisible servant manages your affairs.",
 		"school": "air",
 		"require": "g.player.level>=4&&g.airlore>=4",
 		"buy": {
@@ -1592,7 +1592,7 @@
 		"id": "insight",
 		"name": "insight",
 		"level": 3,
-		"desc": "all your studies fall neatly into place.",
+		"desc": "All your studies fall neatly into place.",
 		"flavor": "I know the pieces fit",
 		"school": "light",
 		"require": "g.player.level>=5&&g.lightlore>=5",
@@ -1623,7 +1623,7 @@
 	{
 		"id": "fireinsight",
 		"name": "fire sense",
-		"desc": "temporarily increase your natural aptitude for fire.",
+		"desc": "Temporarily increase your natural aptitude for fire.",
 		"level": 2,
 		"school": "fire",
 		"buy": {
@@ -1649,7 +1649,7 @@
 	{
 		"id": "waterinsight",
 		"name": "water sense",
-		"desc": "temporarily increase your natural aptitude for water.",
+		"desc": "Temporarily increase your natural aptitude for water.",
 		"level": 2,
 		"school": "water",
 		"cost": {
@@ -1675,7 +1675,7 @@
 	{
 		"id": "airinsight",
 		"name": "wind sense",
-		"desc": "temporarily increase your natural aptitude for air.",
+		"desc": "Temporarily increase your natural aptitude for air.",
 		"level": 2,
 		"school": "air",
 		"cost": {
@@ -1702,7 +1702,7 @@
 		"id": "darkpromptings",
 		"name": "dark promptings",
 		"level": 3,
-		"desc": "malevolent voices whisper secrets to your mind.",
+		"desc": "Malevolent voices whisper secrets to your mind.",
 		"require": "g.player.level>=5&&g.shadowlore>=5",
 		"school": "shadow",
 		"buy": {
@@ -1735,7 +1735,7 @@
 		"id": "wildgrowth",
 		"name": "wild growth",
 		"level": 1,
-		"desc": "herbs sprout more quickly from the earth.",
+		"desc": "Herbs sprout more quickly from the earth.",
 		"school": "nature",
 		"require": "g.spellbook.value>0&&g.herbalism>=3",
 		"buy": {
@@ -1787,7 +1787,7 @@
 	{
 		"id": "whisper",
 		"level": 2,
-		"desc": "spirits whisper hidden truths as you study.",
+		"desc": "Spirits whisper hidden truths as you study.",
 		"school": "spirit",
 		"require": "g.player.level>=4&&g.spiritlore>=4",
 		"buy": {
@@ -1807,7 +1807,7 @@
 				"arcana": 0.001
 			}
 		},
-		"flavor": "did you hear something?"
+		"flavor": "Did you hear something?"
 	},
 	{
 		"id": "venom1",
@@ -1859,7 +1859,7 @@
 		"id": "jinx",
 		"level": 2,
 		"require": "trickster",
-		"desc": "curse an enemy with a streak of bad luck.",
+		"desc": "Curse an enemy with a streak of bad luck.",
 		"school": "trickery",
 		"buy": {
 			"research": 75
@@ -1882,7 +1882,7 @@
 		"id": "speed1",
 		"level": 3,
 		"name": "dust devil",
-		"desc": "a whirl of wind at your feet",
+		"desc": "A whirl of wind at your feet",
 		"school": "air",
 		"require": {
 			"air.max": 5
@@ -1906,7 +1906,7 @@
 		"id": "speed2",
 		"level": 5,
 		"name": "dust devil II",
-		"desc": "a whirl of wind at your feet",
+		"desc": "A whirl of wind at your feet",
 		"school": "air",
 		"require": {
 			"air.max": 5
@@ -1931,7 +1931,7 @@
 		"name": "mass jinx",
 		"level": 4,
 		"require": "trickster",
-		"desc": "curse all enemies with a streak of bad luck.",
+		"desc": "Curse all enemies with a streak of bad luck.",
 		"school": "trickery",
 		"buy": {
 			"research": 1000,
@@ -2037,7 +2037,7 @@
 		"id": "heal2",
 		"level": 4,
 		"name": "sealing light II",
-		"desc": "seams of light close your wounds.",
+		"desc": "Seams of light close your wounds.",
 		"require": "heal1",
 		"school": "light",
 		"buy": {
@@ -2057,7 +2057,7 @@
 		"name": "soothing breeze",
 		"level": 2,
 		"school": "air",
-		"desc": "a light wind steadies your nerves.",
+		"desc": "A light wind steadies your nerves.",
 		"buy": {
 			"research": 200,
 			"codices": 5,
@@ -2144,7 +2144,7 @@
 			"airgem": 5,
 			"lightgem": 5
 		},
-		"flavor": "shazaaam?",
+		"flavor": "Shazaaam?",
 		"cost": {
 			"air": 5
 		},
@@ -2178,7 +2178,7 @@
 		"name": "doublestrike",
 		"level": 9,
 		"desc": "Twin arcs of lightning flash from the sky.",
-		"flavor": "sometimes lightning does strike twice.",
+		"flavor": "Sometimes lightning does strike twice.",
 		"require": "g.airlore>=9&&g.elec1>0",
 		"school": "air",
 		"buy": {
@@ -2219,7 +2219,7 @@
 		"id": "elec3",
 		"name": "thunderstrike",
 		"level": 12,
-		"desc": "a blinding storm of lightning.",
+		"desc": "A blinding storm of lightning.",
 		"require": "g.airlore>=12&&g.elec2>0",
 		"school": "air",
 		"buy": {
@@ -2262,7 +2262,7 @@
 		"name": "calming murmurs",
 		"level": 2,
 		"school": "spirit",
-		"desc": "whispers on the wind calm your troubled mind.",
+		"desc": "Whispers on the wind calm your troubled mind.",
 		"buy": {
 			"research": 200,
 			"codices": 5,
@@ -2287,7 +2287,7 @@
 	{
 		"id": "stoneskin",
 		"name": "stone skin",
-		"desc": "hardens the skin of the self.",
+		"desc": "Hardens the skin of the self.",
 		"school": "earth",
 		"require": {
 			"earthlore": 5
@@ -2333,7 +2333,7 @@
 				"self.damage": 10
 			}
 		},
-		"flavor": "am I more than you bargained for yet?"
+		"flavor": "Am I more than you bargained for yet?"
 	},
 	{
 		"id": "bodyisdry",
@@ -2360,7 +2360,7 @@
 				"self.damage": 20
 			}
 		},
-		"flavor": "don't lose your way"
+		"flavor": "Don't lose your way"
 	},
 	{
 		"id": "bloodshot",
@@ -2390,7 +2390,7 @@
 	},
 	{
 		"id": "unearth",
-		"desc": "raise precious stones from the ground.",
+		"desc": "Raise precious stones from the ground.",
 		"school": "earth",
 		"level": 3,
 		"buy": {
@@ -2408,12 +2408,12 @@
 				"gems.rate": 0.1
 			}
 		},
-		"flavor": "hi-ho, hi-ho"
+		"flavor": "Hi-Ho, Hi-Ho"
 	},
 	{
 		"id": "ironskin",
 		"name": "iron skin",
-		"desc": "hardens the skin of the self.",
+		"desc": "Hardens the skin of the self.",
 		"school": "earth",
 		"require": {
 			"earthlore": 5
@@ -2437,7 +2437,7 @@
 	{
 		"id": "steelskin",
 		"name": "steel skin",
-		"desc": "hardens the skin of the self.",
+		"desc": "Hardens the skin of the self.",
 		"school": "earth",
 		"require": "stoneskin",
 		"level": 5,
@@ -2477,7 +2477,7 @@
 			"duration": 10,
 			"effect": "stingybee"
 		},
-		"flavor": "beees"
+		"flavor": "Beees"
 	},
 	{
 		"id": "starfall",
@@ -2506,7 +2506,7 @@
 	{
 		"id": "adamantshell",
 		"name": "adamant shell",
-		"desc": "your skin becomes adamant.",
+		"desc": "Your skin becomes adamant.",
 		"school": "earth",
 		"require": "steelskin",
 		"level": 10,
@@ -2566,7 +2566,7 @@
 	{
 		"id": "quake",
 		"alias": "earthquake",
-		"desc": "the earth shakes at your command",
+		"desc": "The earth shakes at your command",
 		"school": "earth",
 		"level": 9,
 		"buy": {
@@ -2639,7 +2639,7 @@
 		"school": "water",
 		"level": 5,
 		"require": "g.waterlore>=8",
-		"desc": "temporarily negate all fire damage",
+		"desc": "Temporarily negate all fire damage",
 		"buy": {
 			"research": 4000,
 			"tomes": 1
@@ -2681,7 +2681,7 @@
 	{
 		"id": "abundance",
 		"level": 8,
-		"desc": "herbs sprout more quickly from the earth.",
+		"desc": "Herbs sprout more quickly from the earth.",
 		"school": "nature",
 		"require": "g.naturelore>=15",
 		"buy": {
@@ -2703,7 +2703,7 @@
 		"name": "blinding flash",
 		"school": "light",
 		"level": 8,
-		"desc": "a flash of pure white light",
+		"desc": "A flash of pure white light",
 		"buy": {
 			"tomes": 10,
 			"lightgem": 20,
@@ -2753,7 +2753,7 @@
 		"name": "high tide",
 		"school": "water",
 		"level": 6,
-		"desc": "flood the field of battle",
+		"desc": "Flood the field of battle",
 		"cd": 40,
 		"require": "g.tier3>0",
 		"buy": {
@@ -2789,7 +2789,7 @@
 		"level": 7,
 		"school": "nature",
 		"require": "g.venom2>0&&g.druid>0",
-		"desc": "a fungal cloud that damages all enemies.",
+		"desc": "A fungal cloud that damages all enemies.",
 		"buy": {
 			"research": 4000,
 			"tomes": 10,
@@ -2811,7 +2811,7 @@
 		"id": "heal3",
 		"level": 7,
 		"name": "sealing light III",
-		"desc": "seams of light close your wounds.",
+		"desc": "Seams of light close your wounds.",
 		"school": "light",
 		"require": "g.lightlore>=14&&g.heal2>0",
 		"buy": {
@@ -2856,13 +2856,13 @@
 				"self.resist.water": 75
 			}
 		},
-		"flavor": "force without form"
+		"flavor": "Force without form"
 	},
 	{
 		"id": "firestorm",
 		"school": "fire",
 		"level": 17,
-		"desc": "rain hell from above",
+		"desc": "Rain hell from above",
 		"cd": 66,
 		"buy": {
 			"research": 4000,
@@ -2895,7 +2895,7 @@
 		"school": "water",
 		"level": 5,
 		"require": "g.waterlore>=15",
-		"desc": "temporarily negate all fire damage",
+		"desc": "Temporarily negate all fire damage",
 		"buy": {
 			"research": 4000,
 			"tomes": 10
@@ -2913,7 +2913,7 @@
 	{
 		"id": "angelofdeath",
 		"name": "angel of death",
-		"desc": "a black spirit arises, reaping souls for your work.",
+		"desc": "A black spirit arises, reaping souls for your work.",
 		"school": "shadow",
 		"require": [
 			"evil",

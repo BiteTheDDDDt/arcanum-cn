@@ -2,7 +2,7 @@
 	{
 		"id": "cleanstables",
 		"name": "clean stables",
-		"desc": "working from home.",
+		"desc": "Working from home.",
 		"verb": "cleaning",
 		"locked": false,
 		"cost": {
@@ -11,12 +11,12 @@
 		"result": {
 			"gold": 0.2
 		},
-		"flavor": "it's stable employment"
+		"flavor": "It's stable employment"
 	},
 	{
 		"id": "chores",
 		"name": "do chores",
-		"desc": "standard apprentice work.",
+		"desc": "Standard apprentice work.",
 		"verb": "working",
 		"require": "apprentice",
 		"at": {
@@ -60,7 +60,7 @@
 	{
 		"id": "errands",
 		"name": "run errands",
-		"desc": "standard apprentice work.",
+		"desc": "Standard apprentice work.",
 		"verb": "running errands",
 		"require": "apprentice",
 		"length": 10,
@@ -199,7 +199,7 @@
 	{
 		"id": "tendanimals",
 		"name": "tend animals",
-		"desc": "tend to sick and wounded animals in the wild",
+		"desc": "Tend to sick and wounded animals in the wild",
 		"verb": "tending",
 		"require": "tier0",
 		"perpetual": true,
@@ -229,7 +229,7 @@
 		"name": "garden",
 		"perpetual": true,
 		"verb": "botanicalizing",
-		"desc": "study plants and herbs.",
+		"desc": "Study plants and herbs.",
 		"need": "plantsource",
 		"require": "(g.witch+g.druid+g.alchemist+g.warden)>0",
 		"run": {
@@ -265,7 +265,7 @@
 		"name": "scry",
 		"perpetual": true,
 		"verb": "peering",
-		"desc": "knowledge for those who look.",
+		"desc": "Knowledge for those who look.",
 		"require": "(g.oracle+g.seer+g.astralseer)>0&&g.chronomancy>=3&&g.scrying>=5",
 		"length": 5,
 		"run": {
@@ -342,7 +342,7 @@
 		"name": "Attune (elements)",
 		"perpetual": true,
 		"verb": "attuning",
-		"desc": "attune to primal forces of the world.",
+		"desc": "Attune to primal forces of the world.",
 		"require": "(g.kell+g.elementalist+g.highelemental+g.c_avatar)>0",
 		"run": {
 			"stamina": 0.5,
@@ -443,7 +443,7 @@
 		"effect": {
 			"dreams": 0.0005
 		},
-		"flavor": "we are the dream-makers"
+		"flavor": "We are the dream-makers"
 	},
 	{
 		"id": "starwish",
@@ -456,7 +456,7 @@
 		"result": {
 			"dreams": 1
 		},
-		"flavor": "star-light, star-bright..."
+		"flavor": "Star-light, Star-bright..."
 	},
 	{
 		"id": "spingold",
@@ -492,7 +492,7 @@
 	{
 		"id": "bloodsiphon",
 		"name": "blood siphon",
-		"desc": "leech blood from a body to restore your health",
+		"desc": "Leech blood from a body to restore your health",
 		"require": "transfusions",
 		"length": 10,
 		"fill": "hp",
@@ -516,11 +516,11 @@
 			"bones": 2,
 			"virtue": -0.1
 		},
-		"flavor": "it's for a good cause."
+		"flavor": "It's for a good cause."
 	},
 	{
 		"id": "murder",
-		"desc": "an incidental necessity to the advancement of magic",
+		"desc": "An incidental necessity to the advancement of magic",
 		"require": "g.anatomy>=5&&g.shadowlore>=5&&g.dissection>=5",
 		"length": 10,
 		"run": {
@@ -531,7 +531,7 @@
 			"rage": -1,
 			"bodies": 1
 		},
-		"flavor": "why do they come to me to die?"
+		"flavor": "Why do they come to me to die?"
 	},
 	{
 		"id": "vileexperiment",
@@ -576,7 +576,7 @@
 			"skulls",
 			"bones"
 		],
-		"desc": "dissect a body for components. only the best pieces will serve.",
+		"desc": "Dissect a body for components. Only the best pieces will serve.",
 		"length": 10,
 		"cost": {
 			"bodies": 1
@@ -590,7 +590,7 @@
 	{
 		"id": "grindbones",
 		"name": "grind bones",
-		"desc": "grind bones into dust",
+		"desc": "Grind bones into dust",
 		"require": "g.dissection>=3",
 		"length": 10,
 		"fill": "bonedust",
@@ -608,7 +608,7 @@
 		"id": "embalm",
 		"name": "funerary rites",
 		"verb": "solemnizing",
-		"desc": "oversee the funerary rites of merchants and nobles.",
+		"desc": "Oversee the funerary rites of merchants and nobles.",
 		"require": "g.embalming>=5&&g.tier0>0",
 		"perpetual": true,
 		"length": 25,
@@ -637,7 +637,7 @@
 		"id": "paidseance",
 		"name": "hold seance",
 		"verb": "holding seance",
-		"desc": "channel spirits for a small fee.",
+		"desc": "Channel spirits for a small fee.",
 		"require": [
 			"divination",
 			"spiritsource",
@@ -676,7 +676,7 @@
 		"verb": "catching souls",
 		"require": "g.spiritlore>=7&&g.tier1>0",
 		"need": "dreamcatcher",
-		"desc": "bind a soul within a spirit gem.",
+		"desc": "Bind a soul within a spirit gem.",
 		"length": 15,
 		"cost": {
 			"spiritgem": 1,
@@ -729,7 +729,7 @@
 		"name": "read palms",
 		"verb": "reading palms",
 		"require": "g.divination>5||g.trickster>0",
-		"desc": "read palms for a small fee.",
+		"desc": "Read palms for a small fee.",
 		"cost": {
 			"stamina": 0.3,
 			"mana": 0.2
@@ -780,7 +780,7 @@
 			"evilamt": -0.01,
 			"gold": 0.35
 		},
-		"flavor": "whether they know it or not"
+		"flavor": "Whether they know it or not"
 	},
 	{
 		"id": "hattrick",
@@ -806,7 +806,7 @@
 			"watergem": "1%",
 			"runestones": "1%"
 		},
-		"flavor": "an ordinary wizard's cap"
+		"flavor": "An ordinary wizard's cap"
 	},
 	{
 		"id": "gatherherbs",
@@ -943,7 +943,7 @@
 		"slot": "rest",
 		"owned": true,
 		"verb": "communing",
-		"desc": "commune with natural forces",
+		"desc": "Commune with natural forces",
 		"perpetual": true,
 		"require": "g.naturelore>=12",
 		"fill": [
@@ -1105,7 +1105,7 @@
 			"animals.exp": 1,
 			"herbalism.exp": 1
 		},
-		"flavor": "a tramp abroad"
+		"flavor": "A tramp abroad"
 	},
 	{
 		"id": "pace",
@@ -1257,7 +1257,7 @@
 			"spiritgem.max": 2,
 			"shadowgem.max": 1
 		},
-		"flavor": "the research costs a little more than you expected..."
+		"flavor": "The research costs a little more than you expected..."
 	},
 	{
 		"id": "sublimate",
@@ -1310,7 +1310,7 @@
 			"prismatic": 2,
 			"hp": 20
 		},
-		"flavor": "if I could turn back time"
+		"flavor": "If I could turn back time..."
 	},
 	{
 		"id": "mapstars",
@@ -1413,7 +1413,7 @@
 			"player.damage": 2,
 			"player.tohit": 1
 		},
-		"flavor": "what he lacked in depth, karnivex made up for with sheer destructive force"
+		"flavor": "What he lacked in depth, Karnivex made up for with sheer destructive force"
 	},
 	{
 		"id": "markhulcodex",
@@ -1475,7 +1475,7 @@
 			"crafting.max": 1,
 			"crafting.rate": 0.3
 		},
-		"flavor": "through dungeons deep and caverns old"
+		"flavor": "Through dungeons deep and caverns old..."
 	},
 	{
 		"id": "lemurlexicon",
@@ -1681,7 +1681,7 @@
 			"mana.max": 1,
 			"mana.rate": 0.1
 		},
-		"flavor": "corivar called fazbit a mad crank. but tried to steal his manuals."
+		"flavor": "Corivar called Fazbit a mad crank, but tried to steal his manuals anyway."
 	},
 	{
 		"id": "coporisfabrica",
@@ -1843,10 +1843,10 @@
 	},
 	{
 		"id": "imbuelifegem",
-		"name": "imbue gem (nature)",
+		"name": "imbue gem (Nature)",
 		"require": "g.naturelore>=6&&g.enchanting>0",
-		"tags": "gemimbue",
 		"fill": "naturegem",
+		"tags": "gemimbue",
 		"cost": {
 			"herbs": 10,
 			"gems": 1,
@@ -1858,7 +1858,7 @@
 	},
 	{
 		"id": "imbuemanagem",
-		"name": "imbue gem (arcane)",
+		"name": "imbue gem (Arcane)",
 		"require": "g.mana.max>=5&&g.enchanting>0",
 		"fill": "managem",
 		"tags": "gemimbue",
@@ -1872,7 +1872,7 @@
 	},
 	{
 		"id": "imbuebloodgem",
-		"name": "coagulate gem (blood)",
+		"name": "coagulate gem (Blood)",
 		"require": "g.alchemy>=5&&g.anatomy>=5",
 		"fill": "bloodgem",
 		"tags": "gemimbue",
@@ -1886,7 +1886,7 @@
 	},
 	{
 		"id": "imbuefiregem",
-		"name": "imbue gem (fire)",
+		"name": "imbue gem (Fire)",
 		"require": "g.fire.max>=4&&g.enchanting>2",
 		"fill": "firegem",
 		"tags": "gemimbue",
@@ -1898,7 +1898,7 @@
 	},
 	{
 		"id": "imbueairgem",
-		"name": "imbue gem (air)",
+		"name": "imbue gem (Air)",
 		"require": "g.air.max>=4&&g.enchanting>2",
 		"fill": "airgem",
 		"tags": "gemimbue",
@@ -1922,7 +1922,7 @@
 	},
 	{
 		"id": "imbuewatergem",
-		"name": "imbue gem (water)",
+		"name": "imbue gem (Water)",
 		"require": "g.water.max>=4&&g.enchanting>2",
 		"fill": "watergem",
 		"tags": "gemimbue",
@@ -1934,7 +1934,7 @@
 	},
 	{
 		"id": "imbuelightgem",
-		"name": "imbue gem (light)",
+		"name": "imbue gem (Light)",
 		"require": "g.light.max>=4&&g.enchanting>2",
 		"fill": "lightgem",
 		"tags": "gemimbue",
@@ -1946,7 +1946,7 @@
 	},
 	{
 		"id": "imbueshadowgem",
-		"name": "imbue gem (shadow)",
+		"name": "imbue gem (Shadow)",
 		"require": "g.shadow.max>=4&&g.enchanting>2",
 		"fill": "shadowgem",
 		"tags": "gemimbue",
@@ -1958,7 +1958,7 @@
 	},
 	{
 		"id": "imbuespiritgem",
-		"name": "imbue gem (spirit)",
+		"name": "imbue gem (Spirit)",
 		"require": "g.spirit.max>=4&&g.enchanting>2",
 		"fill": "spiritgem",
 		"tags": "gemimbue",
@@ -1970,7 +1970,7 @@
 	},
 	{
 		"id": "craftfirerune",
-		"name": "craft rune (fire)",
+		"name": "craft rune (Fire)",
 		"require": "g.fire.max>=10&&g.tier4>0",
 		"fill": "firerune",
 		"length": 10,
@@ -1986,7 +1986,7 @@
 	},
 	{
 		"id": "craftearthrune",
-		"name": "craft rune (earth)",
+		"name": "craft rune (Earth)",
 		"require": "g.earth.max>=10&&g.tier4>0",
 		"fill": "earthrune",
 		"length": 10,
@@ -2002,7 +2002,7 @@
 	},
 	{
 		"id": "craftairrune",
-		"name": "craft rune (air)",
+		"name": "craft rune (Air)",
 		"require": "g.air.max>=10&&g.tier4>0",
 		"fill": "airrune",
 		"length": 10,
@@ -2018,7 +2018,7 @@
 	},
 	{
 		"id": "craftwaterrune",
-		"name": "craft rune (water)",
+		"name": "craft rune (Water)",
 		"require": "g.water.max>=10&&g.tier4>0",
 		"fill": "waterrune",
 		"length": 10,
@@ -2034,7 +2034,7 @@
 	},
 	{
 		"id": "craftspiritrune",
-		"name": "craft rune (spirit)",
+		"name": "craft rune (Spirit)",
 		"require": "g.spirit.max>=999&&g.tier4>0",
 		"fill": "spiritrune",
 		"length": 10,
@@ -2062,7 +2062,7 @@
 	{
 		"id": "phylactory",
 		"actname": "craft phylactory",
-		"desc": "rip out of a piece of your soul and store it in a magic gem.",
+		"desc": "Rip out of a piece of your soul and store it in a magic gem.",
 		"require": "g.crafting>=20&&g.necromancy>=8",
 		"length": 50,
 		"repeat": false,
@@ -2092,7 +2092,7 @@
 		"id": "up_lich",
 		"name": "lich",
 		"actname": "rite of undeath",
-		"desc": "obtain immortality by becoming a lich",
+		"desc": "Obtain immortality by becoming a lich",
 		"require": "g.crafting>=20&&g.necromancy>=9&&g.phylactory>0",
 		"repeat": false,
 		"length": 50,
@@ -2108,7 +2108,7 @@
 			"hp": 2
 		},
 		"result": {
-			"title": "lich"
+			"title": "Lich"
 		},
 		"mod": {
 			"lore.max": 1,
@@ -2121,7 +2121,7 @@
 	},
 	{
 		"id": "focus",
-		"desc": "quicken your skills with magic energy.",
+		"desc": "Quicken your skills with magic energy.",
 		"require": "mana",
 		"need": "g.runner.hasType('skill')",
 		"every": {
@@ -2139,7 +2139,7 @@
 	{
 		"id": "grind",
 		"require": "g.lore>5&&g.research.max<5",
-		"desc": "experiment with magic to expand your research.",
+		"desc": "Experiment with magic to expand your research.",
 		"cost": {
 			"mana": 0.15
 		},
@@ -2153,7 +2153,7 @@
 		"name": "animal companion",
 		"require": "(g.druid+g.warden)>0",
 		"need": "outdoors",
-		"desc": "create a magic link with a wild animal.",
+		"desc": "Create a magic link with a wild animal.",
 		"repeat": false,
 		"length": 50,
 		"cost": {

@@ -152,7 +152,7 @@ export default {
 
 		<div class="checks" v-for="(p,k) in allSchools" :key="k">
 					<input type="checkbox" :value="k" :id="elmId('chk'+k)" v-model="viewSchools" >
-					<label :for="elmId('chk'+k)">{{ k }}</label>
+					<label :for="elmId('chk'+k)">{{ k.toTitleCase() }}</label>
 		</div>
 
 		<button @click="toggle">Memorized</button>

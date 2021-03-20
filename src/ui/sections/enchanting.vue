@@ -87,7 +87,7 @@ export default {
 
 		<div class="separate">
 		<div>
-			<div @mouseenter.capture.stop="itemOver( $event, target )">Target: {{ target ? target.name : 'None' }}</div>
+			<div @mouseenter.capture.stop="itemOver( $event, target )">Target: {{ target ? target.name.toTitleCase() : 'None' }}</div>
 			<div class="note-text">Enchantment levels on an Item cannot exceed Item's enchant slots.</div>
 		</div>
 
@@ -100,13 +100,13 @@ export default {
 		<div class="separate">
 
 		<div class="filtered">
-		<div v-if="target"><button class="stop" @click="clearTarget">X</button>{{ target.name }}</div>
+		<div v-if="target"><button class="stop" @click="clearTarget">X</button>{{ target.name.toTitleCase() }}</div>
 		<filterbox v-model="filtered" :items="enchants" min-items="7" />
 
 		<div class="enchant-list">
 		<div class='enchant' v-for="it in usable" :key="it.id" @mouseenter.capture.stop="itemOver( $event,it)">
 
-			<span class="ench-name">{{ it.name }}</span>
+			<span class="ench-name">{{ it.name.toTitleCase() }}</span>
 
 
 			<button v-if="it.buy&&!it.owned" :disabled="!it.canBuy(game)"

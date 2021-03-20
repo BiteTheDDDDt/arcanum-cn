@@ -140,12 +140,12 @@ export default class SlotGroup {
 
 			var it = this.slots[k].item;
 			if ( Array.isArray(it) ) {
-
+	
 				for( let i = it.length-1; i>= 0; i-- ) {
 					if ( it[i]) yield it[i];
 				}
 
-			} else if (it ) yield it;
+			} else if (it) yield it;
 
 		}
 

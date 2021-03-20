@@ -40,7 +40,7 @@
 		"name": "undead crow",
 		"level": 0.5,
 		"kind": "undead",
-		"desc": "little more than tatters and bones",
+		"desc": "Little more than tatters and bones",
 		"hp": 4,
 		"defense": 2,
 		"attack": {
@@ -48,13 +48,13 @@
 			"kind": "necrotic",
 			"dmg": "0.2~1"
 		},
-		"flavor": "how does it fly?"
+		"flavor": "How does it fly?"
 	},
 	{
 		"id": "wisp",
 		"level": 1,
 		"kind": "spirit",
-		"desc": "a ghostly wisp of air.",
+		"desc": "A ghostly wisp of air.",
 		"hp": "1~2",
 		"defense": 1,
 		"attack": {
@@ -384,7 +384,7 @@
 			"name": "peck",
 			"dmg": "1~2"
 		},
-		"flavor": "like a writing desk."
+		"flavor": "Like a writing desk."
 	},
 	{
 		"id": "wombat",
@@ -435,7 +435,7 @@
 	{
 		"id": "willowisp",
 		"name": "will o' wisp",
-		"desc": "a gleaming orb of light",
+		"desc": "A gleaming orb of light",
 		"kind": "spirit",
 		"level": 3,
 		"dodge": 5,
@@ -536,7 +536,7 @@
 		"id": "m_scarab",
 		"level": 4,
 		"name": "scarab",
-		"desc": "massive shimmering beetle with a projecting horn",
+		"desc": "Massive shimmering beetle with a projecting horn",
 		"kind": "beast",
 		"hp": 5,
 		"defense": 7,
@@ -648,7 +648,7 @@
 			"boots": "10%",
 			"gold": "5~7"
 		},
-		"flavor": "you remind me of the babe"
+		"flavor": "You remind me of the babe"
 	},
 	{
 		"id": "warg",
@@ -951,7 +951,7 @@
 		"level": 3,
 		"kind": "beast",
 		"biome": "swamp",
-		"desc": "don't touch.",
+		"desc": "Don't touch.",
 		"hp": 4,
 		"tohit": 5,
 		"speed": 5,
@@ -971,7 +971,7 @@
 	},
 	{
 		"id": "icewalker",
-		"desc": "they say those who die on the cold heights search the passes for mortals to join them.",
+		"desc": "They say those who die on the cold heights search the passes for mortals to join them.",
 		"level": 4,
 		"kind": "undead",
 		"hp": 15,
@@ -1181,7 +1181,7 @@
 		"level": 6,
 		"kind": "magicbeast",
 		"desc": "Fiercely loyal when summoned by magic.",
-		"flavor": "do not boop",
+		"flavor": "Do not boop",
 		"hp": 50,
 		"regen": 2,
 		"defense": 20,
@@ -1229,7 +1229,7 @@
 		"name": "giant centipede",
 		"kind": "beast",
 		"level": 5,
-		"desc": "creepy crawly",
+		"desc": "Creepy crawly",
 		"hp": 16,
 		"defense": 15,
 		"attack": {
@@ -1260,7 +1260,7 @@
 		"id": "leech",
 		"level": 4,
 		"kind": "beast",
-		"desc": "blood sucking leech",
+		"desc": "Blood sucking leech",
 		"hp": 6,
 		"attack": {
 			"name": "suck",
@@ -1377,7 +1377,7 @@
 		"hp": 12,
 		"tohit": 3,
 		"defense": 25,
-		"desc": "a massive scuttling crab",
+		"desc": "A massive scuttling crab",
 		"attack": {
 			"name": "claws",
 			"kind": "pierce",
@@ -1509,7 +1509,7 @@
 		"level": 4,
 		"kind": "demon",
 		"evil": 5,
-		"desc": "little demonic bastards",
+		"desc": "Little demonic bastards",
 		"hp": 17,
 		"defense": 30,
 		"regen": 1,
@@ -1585,7 +1585,7 @@
 		"name": "sand mite",
 		"kind": "beast",
 		"level": 5,
-		"desc": "oversized parasites of the dunes",
+		"desc": "Oversized parasites of the dunes",
 		"hp": 16,
 		"speed": 7,
 		"tohit": 7,
@@ -1611,13 +1611,13 @@
 			"kind": "slash",
 			"dmg": "7~12"
 		},
-		"flavor": "vrrek is what most of their words sound like"
+		"flavor": "Vrrek is what most of their words sound like"
 	},
 	{
 		"id": "callodiper",
 		"biome": "cave",
 		"level": 5,
-		"desc": "their globed hands glow with pale, unearthly light.",
+		"desc": "Their globed hands glow with pale, unearthly light.",
 		"kind": "humanoid",
 		"hp": 40,
 		"resist": {
@@ -1629,7 +1629,7 @@
 			"kind": "light",
 			"dmg": "3~7"
 		},
-		"flavor": "it is said they feed on darkness."
+		"flavor": "It is said they feed on darkness."
 	},
 	{
 		"id": "direwolf",
@@ -1689,7 +1689,7 @@
 		"level": 6,
 		"kind": "undead",
 		"evil": 5,
-		"flavor": "boo!",
+		"flavor": "Boo!",
 		"hp": 20,
 		"tohit": 7,
 		"defense": 30,
@@ -1963,7 +1963,7 @@
 		"level": 7,
 		"kind": "beast",
 		"biome": "sea",
-		"desc": "oversized eel with bladed teeth and a terrifying screach.",
+		"desc": "Oversized eel with bladed teeth and a terrifying screach.",
 		"hp": 37,
 		"tohit": 20,
 		"defense": 20,
@@ -1980,7 +1980,7 @@
 		"id": "dwarp",
 		"biome": "cave",
 		"level": 7,
-		"desc": "its contorted purple body can hide in the smallest crevices.",
+		"desc": "Its contorted purple body can hide in the smallest crevices.",
 		"kind": "humanoid",
 		"hp": 35,
 		"tohit": 9,
@@ -1991,7 +1991,7 @@
 			"kind": "blunt",
 			"dmg": "3~7"
 		},
-		"flavor": "a dwarp can hear the drip of water through 100 feet of solid rock."
+		"flavor": "A dwarp can hear the drip of water through 100 feet of solid rock."
 	},
 	{
 		"id": "ogre",
@@ -2209,7 +2209,7 @@
 		"name": "druid",
 		"level": 7,
 		"kind": "humanoid",
-		"desc": "ardent of nature",
+		"desc": "Ardent of nature",
 		"tohit": 7,
 		"hp": 27,
 		"defense": 25,
@@ -2687,7 +2687,7 @@
 			"mountains",
 			"cave"
 		],
-		"flavor": "they have a cave troll...",
+		"flavor": "They have a cave troll...",
 		"hp": 90,
 		"defense": 35,
 		"regen": 2,
@@ -2981,7 +2981,7 @@
 		"level": 11,
 		"evil": 25,
 		"kind": "giant",
-		"flavor": "tro lo lo.",
+		"flavor": "Tro lo lo.",
 		"hp": 100,
 		"tohit": 3,
 		"defense": 50,
@@ -3093,7 +3093,7 @@
 		"id": "trow",
 		"level": 12,
 		"evil": 5,
-		"desc": "a towering giant of stone",
+		"desc": "A towering giant of stone",
 		"flavor": "You should have stayed out of the cloudspine.",
 		"kind": "giant",
 		"hp": 225,
@@ -3129,7 +3129,7 @@
 		"name": "blood golem",
 		"level": 12,
 		"kind": "construct",
-		"desc": "a creature of pure blood.",
+		"desc": "A creature of pure blood.",
 		"hp": 90,
 		"defense": 45,
 		"attack": {
@@ -3325,7 +3325,7 @@
 		"name": "sand wyrm",
 		"kind": "beast",
 		"level": 14,
-		"desc": "terror of the desert wastes",
+		"desc": "Terror of the desert wastes",
 		"tohit": 15,
 		"hp": 130,
 		"defense": 50,
@@ -3755,8 +3755,8 @@
 		"name": "Karnivex the BloodLock",
 		"level": 19,
 		"evil": 27,
-		"desc": "the weakest of the Archlocks built his reputation upon sheer slaughter.",
-		"flavor": "subtlety was lost on karnivex.",
+		"desc": "The weakest of the Archlocks built his reputation upon sheer slaughter.",
+		"flavor": "Subtlety was lost on karnivex.",
 		"kind": "humanoid",
 		"unique": true,
 		"hp": 1200,
@@ -3934,7 +3934,7 @@
 		"name": "avatar",
 		"level": 23,
 		"kind": "deity",
-		"desc": "incarnation of a god",
+		"desc": "Incarnation of a god",
 		"hp": 700,
 		"tohit": 30,
 		"defense": 120,
@@ -3980,7 +3980,7 @@
 			"kind": "slash",
 			"dmg": "90~120"
 		},
-		"flavor": "tales of Jazid were already ancient when Dhroze was entombed."
+		"flavor": "Tales of Jazid were already ancient when Dhroze was entombed."
 	},
 	{
 		"id": "m_ancientlich",
@@ -4086,7 +4086,7 @@
 			"targets": "enemies",
 			"dmg": "50~75"
 		},
-		"flavor": "most agree it's best the Gorborung reside in darkness."
+		"flavor": "Most agree it's best the Gorborung reside in darkness."
 	},
 	{
 		"id": "brittelwort",
@@ -4150,7 +4150,7 @@
 				}
 			}
 		],
-		"flavor": "believed to be a corrupted form of lesser Kell.",
+		"flavor": "Believed to be a corrupted form of lesser Kell.",
 		"immune": "charm"
 	},
 	{

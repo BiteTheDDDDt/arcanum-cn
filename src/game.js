@@ -159,7 +159,7 @@ export default {
 
 			//if ( full ) logObj(s,'LOG STAT' );
 			console.dir( s );
-			console.warn( id + ' value: ' + s.value + '  type: ' + s.constructor.name );
+			console.warn( id + ' value: ' + s.value + '  type: ' + s.constructor.name.toString().toTitleCase() );
 
 		}
 	},

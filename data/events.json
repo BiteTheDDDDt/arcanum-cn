@@ -164,7 +164,7 @@
 	{
 		"id": "tier6",
 		"name": "Ageless Magic",
-		"desc": "ages of the world come and go; only these endure.",
+		"desc": "Ages of the world come and go; only these endure.",
 		"lock": "t_tier6",
 		"result": {
 			"sp": 1,
@@ -183,7 +183,7 @@
 	{
 		"id": "tier7",
 		"name": "Dhrunic Pillar",
-		"desc": "a foundation of the world",
+		"desc": "A foundation of the world",
 		"lock": "t_tier7",
 		"result": {
 			"sp": 1,

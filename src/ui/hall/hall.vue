@@ -95,9 +95,9 @@ export default {
 
 	<div class="header"><input class="fld-name text-entry" type="text" v-model="hallName">
 			<div class="text-button"><a href=""
-			@click.self.prevent="dispatch('hall-file',$event )" type="text/json">hall save</a></div>
+			@click.self.prevent="dispatch('hall-file',$event )" type="text/json">Hall Save</a></div>
 
-			<confirm @confirm="dispatch('resetHall')">reset hall</confirm>
+			<confirm @confirm="dispatch('resetHall')">Reset Hall</confirm>
 
 			</div>
 

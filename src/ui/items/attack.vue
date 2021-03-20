@@ -43,14 +43,14 @@ export default {
 
 <div class="attack">
 
-	<div class="info-sect">attack</div>
+	<div class="info-sect">Attack</div>
 
-	<div v-if="hitBonus">hit bonus: {{ hitBonus }}</div>
-	<div class="damage" v-if="damage!==null">
-		<span>damage: {{ damage }}</span><span v-if="bonus">{{ bonus }}</span></div>
-	<div>kind: {{ item.kind }}</div>
+	<div v-if="hitBonus">Hit Bonus: {{ hitBonus }}</div>
+	<div class="damage" v-if="damage!==null&&!item.dot">
+		<span>Damage: {{ damage }}</span><span v-if="bonus">{{ bonus }}</span></div>
+	<div v-if="!item.dot">Kind: {{ item.kind.toString().toTitleCase() }}</div>
+	<div v-if="item.dot&&item.dmg"><br></div>
 	<dot v-if="item.dot" :dot="item.dot" />
-
 </div>
 
 </template>

@@ -79,10 +79,10 @@
 	},
 	{
 		"id": "loc_treffil",
-		"name": "explore treffil wood",
+		"name": "Explore Treffil Wood",
 		"level": 7,
 		"length": 40,
-		"desc": "the woods posses many features of interest to the magical scholar.",
+		"desc": "The woods posses many features of interest to the magical scholar.",
 		"run": {
 			"stamina": 0.25
 		},
@@ -249,7 +249,7 @@
 		"length": 100,
 		"sym": "📖",
 		"desc": "An ancient library at the bridge spanning Markhul's gap.",
-		"flavor": "third of the Four Weirs of Dhrune.",
+		"flavor": "Third of the Four Weirs of Dhrune.",
 		"result": {
 			"title": "Historian"
 		},

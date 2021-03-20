@@ -24,7 +24,7 @@ export default class QuickSlot extends Proxy {
 
 	get name() {
 
-		return super.item ? super.item.name :
+		return super.item ? super.item.name.toTitleCase() :
 		this.recipe || '';
 
 	}

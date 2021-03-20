@@ -31,7 +31,7 @@ export default {
 				<button v-if="s.owned&&list.canAdd(s)" @click="list.add(s)">Memorize</button>
 
 				</td>
-			<td>{{ s.name }}</td>
+			<td>{{s.name.toTitleCase()}}</td>
 			<td>
 
 				<button v-if="s.owned" @click="emit('spell', s)" :disabled="!s.canUse(game)">Cast</button>

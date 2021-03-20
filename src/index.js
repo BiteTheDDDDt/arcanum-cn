@@ -365,10 +365,10 @@ const vm = new Vue({
 		async save() {
 
 			if (!this.game.loaded ) return;
-			console.log('saving...');
+			console.log('Saving...');
 			let charsave = await Profile.saveActive( this.game.state );
 
-			console.log('saving hall..: ' + charsave );
+			console.log('Saving Hall..: ' + charsave );
 			if ( charsave ) {
 
 				Profile.saveHall();
