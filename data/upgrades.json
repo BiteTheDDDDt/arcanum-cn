@@ -678,7 +678,40 @@
 			"research.max": 10,
 			"potions.max": 2,
 			"potions.rate": 0.1,
-			"spirit.rate": 0.1
+			"spirit.rate": 0.1,
+			"potionessence.rate": 0.0001
+		}
+	},
+	{
+		"id": "lorecoda",
+		"name": "loremaster's triumph",
+		"desc": "A comprehensive work on Dhrune's history and achievements, large enough to fill a library.",
+		"require": "(g.wizard2+g.wizard3)>0",
+		"cost": {
+			"gold": 15000,
+			"research": 60000,
+			"codices": 1000,
+			"tomes": 200,
+			"runestones": 60
+		},
+		"result": {
+			"sp": 50
+		},
+		"mod": {
+			"fame": 10,
+			"codices.rate": 0.02,
+			"tomes.rate": 0.01,
+			"runestones.rate": 0.005,
+			"codices.mod.research.rate": 0.03,
+			"tomes.mod.research.max": 1,
+			"runestones.mod.research.max": "20%",
+			"potions.max": 2,
+			"lore.max": 5,
+			"lore.rate": "500%",
+			"history.max": 5,
+			"history.rate": "200+500%",
+			"mana.max": 15,
+			"mana.rate": 1
 		}
 	},
 	{
@@ -1875,7 +1908,7 @@
 		"mod": {
 			"gems.rate": 0.1,
 			"act_mine.effect.gems": 0.1,
-			"player.fame": 5,
+			"fame": 5,
 			"hammerlore.max": 2,
 			"geosculpting.max": 2
 		}
@@ -2061,7 +2094,8 @@
 		},
 		"mod": {
 			"potions.max": 1,
-			"potions.rate": 0.2
+			"potions.rate": 0.2,
+			"potionessence.rate": 0.0001
 		}
 	},
 	{
@@ -2088,7 +2122,7 @@
 			"naturegem": 10
 		},
 		"mod": {
-			"herbs.rate": -0.5,
+			"herbs.rate": -0.25,
 			"gold.rate": 0.2
 		}
 	},
@@ -2137,7 +2171,8 @@
 		"mod": {
 			"potions.rate": 0.2,
 			"rest.effect.stamina": 0.12,
-			"spirit.rate": 0.01
+			"spirit.rate": 0.01,
+			"potionessence.rate": 0.0001
 		}
 	},
 	{
@@ -2369,6 +2404,119 @@
 			"earth.max": -2,
 			"player.resist.air": "1+10%",
 			"player.bonuses.air": 5
+		}
+	},
+	{
+		"id": "familiarcat",
+		"name": "cat familiar",
+		"desc": "Your familiar is a cat, as dark as the night that spawned him.",
+		"require": "g.summonfamiliar>0",
+		"warn": true,
+		"lock": [
+			"familiarowl",
+			"familiarkobold",
+			"familiarimp",
+			"familiartome"
+		],
+		"mod": {
+			"demonology.max": 2,
+			"demonology.rate": "10%",
+			"planeslore.max": 1,
+			"charms.max": 1,
+			"charms.rate": 0.1,
+			"animals.max": 2,
+			"animals.rate": 0.2,
+			"bones.rate": 0.01,
+			"petfamiliar.result.stress": -25
+		}
+	},
+	{
+		"id": "familiarowl",
+		"name": "owl familiar",
+		"desc": "Your familiar is an owl, most active at night, just like you are.",
+		"require": "g.summonfamiliar>0",
+		"warn": true,
+		"lock": [
+			"familiarcat",
+			"familiarkobold",
+			"familiarimp",
+			"familiartome"
+		],
+		"mod": {
+			"demonology.max": 2,
+			"demonology.rate": "10%",
+			"planeslore.max": 1,
+			"concentrate.max": 1,
+			"concentrate.rate": 0.1,
+			"scrying.max": 1,
+			"scrying.rate": 0.2,
+			"petfamiliar.result.bonedust": 10
+		}
+	},
+	{
+		"id": "familiarkobold",
+		"name": "kobold familiar",
+		"desc": "Your familiar is a kobold, greedy for gold.",
+		"require": "g.summonfamiliar>0",
+		"warn": true,
+		"lock": [
+			"familiarcat",
+			"familiarowl",
+			"familiarimp",
+			"familiartome"
+		],
+		"mod": {
+			"demonology.max": 2,
+			"demonology.rate": "10%",
+			"planeslore.max": 1,
+			"act_mine.effect.gold.min": 0.1,
+			"act_mine.effect.gold.max": 0.1,
+			"spingold.effect.gold": 0.1,
+			"petfamiliar.result.gold": 50
+		}
+	},
+	{
+		"id": "familiarimp",
+		"name": "imp familiar",
+		"desc": "Your familiar is an imp, devious and prone to mischief.",
+		"require": "g.summonfamiliar>0",
+		"warn": true,
+		"lock": [
+			"familiarcat",
+			"familiarkobold",
+			"familiarowl",
+			"familiartome"
+		],
+		"mod": {
+			"demonology.max": 2,
+			"demonology.rate": "10%",
+			"planeslore.max": 1,
+			"trickery.max": 1,
+			"trickery.rate": 0.1,
+			"heist.result.gold": 15,
+			"petfamiliar.result.gems": 1
+		}
+	},
+	{
+		"id": "familiartome",
+		"name": "tome familiar",
+		"desc": "Your familiar is an animated tome, filled with arcane knowledge and a thirst for expansion.",
+		"require": "g.summonfamiliar>0",
+		"warn": true,
+		"lock": [
+			"familiarcat",
+			"familiarkobold",
+			"familiarimp",
+			"familiarowl"
+		],
+		"mod": {
+			"demonology.max": 2,
+			"demonology.rate": "10%",
+			"planeslore.max": 1,
+			"tomes.max": 5,
+			"lore.max": 2,
+			"lore.rate": 0.2,
+			"petfamiliar.result.research": 100
 		}
 	}
 ]

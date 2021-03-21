@@ -160,7 +160,7 @@ export default {
 		<info v-if="item.need" :info="item.need" title="Need" />
 		<info v-if="item.buy&&!item.owned" :info="item.buy" title="Purchase Cost" />
 		<info v-if="item.cost&&item.id != 'bloodshot'" :info="item.cost" title="Cost" />
-		<info v-if="item.cost&&item.id == 'bloodshot'" :info="'Life: ' + (this.player.hp/4).toFixed(2)" title="Cost" />
+		<info v-if="item.cost&&item.id == 'bloodshot'" :info="'Life: ' + (this.player.hp/3).toFixed(2)" title="Cost" />
 		<info v-if="item.sell||item.instanced||item.type==='Furniture'" :info="sellPrice" title="Sell" />
 		<info v-if="item.run" :info="item.run" title="Progress Cost" rate="true" />
 

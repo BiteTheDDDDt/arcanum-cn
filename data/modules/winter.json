@@ -1720,6 +1720,66 @@
 					"fire.max": "-80%"
 				}
 			}
+		],
+		"potions": [
+			{
+				"id": "pot_icecreamevil",
+				"name": "ice cream lure",
+				"desc": "A batch of ice cream, for children",
+				"require": "g.potions>=1&&(g.witch+g.thanophage)>0",
+				"buy": {
+					"gold": 250,
+					"ice": 5
+				},
+				"cost": {
+					"herbs": 15,
+					"ice": 5
+				},
+				"sell": {
+					"gold": 100
+				},
+				"use": {
+					"dot": {
+						"id": "icecreamlure",
+						"name": "ice cream lure",
+						"duration": 600,
+						"effect": {
+							"eatchildren.effect.stress": -0.2,
+							"eatchildren.effect.prismatic": 0.1,
+							"eatchildren.effect.stamina": 0.3,
+							"eatchildren.effect.hp": 1
+						}
+					}
+				}
+			},
+			{
+				"id": "pot_icecream",
+				"name": "ice cream",
+				"desc": "A batch of ice cream flavored with wintery herbs and spices",
+				"require": "g.potions>=1",
+				"buy": {
+					"gold": 250,
+					"ice": 5
+				},
+				"cost": {
+					"herbs": 15,
+					"ice": 5
+				},
+				"sell": {
+					"gold": 100
+				},
+				"use": {
+					"dot": {
+						"id": "icecream",
+						"name": "ice cream high",
+						"duration": 600,
+						"effect": {
+							"hp": 0.5,
+							"stress": -0.1
+						}
+					}
+				}
+			}
 		]
 	}
 }
