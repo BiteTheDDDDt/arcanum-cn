@@ -142,6 +142,7 @@
 				"level": 7,
 				"name": "kanna's dervish dance",
 				"tags": "patron",
+				"cd":120,
 				"school": "bladelore",
 				"require": "spellblade",
 				"desc": "Kanna's dance was a strenuous one for a mage, and a deadly one to her enemies.",
@@ -157,12 +158,14 @@
 					"duration": 60,
 					"mod": {
 						"stamina.max": 50,
-						"stamina.rate": -1,
-						"stamina": 50,
+						"stamina.rate": -1,						
 						"dodge": 15,
 						"player.tohit": 10,
 						"player.damage": 5
 					}
+				},
+				"result": {
+					"stamina": 50
 				},
 				"flavor": "she danced with the devil in the pale moonlight, blades gleaming and blurring like a single streak of silver"
 			}
@@ -173,16 +176,14 @@
 				"name": "ancient tablet",
 				"desc": "A tablet on a dais displays a glowing list of names.",
 				"flavor": "Chazza, Jiopaba, Kamianya, Alyx, Man of Smoke",
-				"effect": {
-				}
+				"effect": {}
 			},
 			{
 				"id": "agetablet2",
 				"name": "weathered tablet",
 				"desc": "A weathered tablet with a faded list of names.",
 				"flavor": "Chazza, Jiopaba, Kamianya, Alyx, Man of Smoke",
-				"effect": {
-				}
+				"effect": {}
 			},
 			{
 				"id": "enc_cyril",
@@ -193,8 +194,7 @@
 					"weary": "2~5",
 					"research": 1
 				},
-				"result": {
-				}
+				"result": {}
 			},
 			{
 				"id": "enc_kanna",
@@ -220,8 +220,7 @@
 					"weary": "2~5",
 					"research": 1
 				},
-				"result": {
-				}
+				"result": {}
 			},
 			{
 				"id": "enc_phrenesis",
@@ -251,8 +250,7 @@
 					"weary": "2~5",
 					"research": 1
 				},
-				"result": {
-				}
+				"result": {}
 			},
 			{
 				"id": "enc_tainted",
@@ -277,8 +275,7 @@
 				"id": "enc_kaidi",
 				"name": "kaidi",
 				"desc": "",
-				"effect": {
-				},
+				"effect": {},
 				"flavor": ""
 			},
 			{

@@ -2173,6 +2173,7 @@
 	{
 		"id": "summonfamiliar",
 		"name": "summon familiar",
+		"desc": "Prepare a rite for summoning a familiar. The exact shape will be chosen after the fact",
 		"require": "(g.animals>=5&&g.demonology>=4)||g.witch>0",
 		"repeat": false,
 		"length": 100,
@@ -2181,15 +2182,16 @@
 			"arcana": 3,
 			"gems": 10,
 			"research": 1000
-		},
-		"mod": {
-			"demonology.max": 2,
-			"demonology.rate": "10%",
-			"lore.max": 1,
-			"lore.rate": 0.2,
-			"planeslore.max": 1,
-			"languages.max": 1,
-			"languages.rate": 0.1
+		}
+	},
+	{
+		"id": "petfamiliar",
+		"name": "pet familiar",
+		"desc": "Pet you familiar to calm your nerves",
+		"require": "(g.familiarcat+g.familiarowl+g.familiarkobold+g.familiarimp+g.familiartome)>0",
+		"cd": 120,
+		"result": {
+			"stress": -25
 		}
 	}
 ]

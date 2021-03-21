@@ -3,14 +3,6 @@ import Task from './task';
 import { canTarget } from '../values/consts';
 
 /**
- * Default require function for spells.
- * @param {Object} g - items
- */
-const levelReq = ( g, s ) => {
-	return ( s.level<=1 || g.player.level >= 2*s.level );
-}
-
-/**
  * Single requirement substring.
  * @param {string} s - GData/Idable id.
  * @param {number} lvl
@@ -25,37 +17,6 @@ const levelReq = ( g, s ) => {
  * @param {number} lvl - spell level.
  * @param {number} ratio - multiply spell level before test.
  */
-function schoolFunc(s, lvl=1 ) {
-
-	if ( typeof s === 'string') {
-
-		s = 'g.' + s;
-		// @note: test school existence first.
-		return new Function( 'g', 'return !' + s + '||' + s + '>=' + lvl );
-
-	} else if ( Array.isArray(s) ) {
-
-		if ( s.length === 1 ) return schoolFunc( s[0] );
-
-		// total string.
-		var t = 'return ';
-
-		for( let i = s.length-1; i >= 0; i-- ) {
-
-			var d = 'g.' + s[i];
-			t += ('!' + d + '||' + d + '>=' + lvl);
-
-			if (i>0) t += '&&';
-
-		}
-
-		return new Function( 'g', t );
-
-	}
-
-	return null;
-
-}
 
 export default class Spell extends Task {
 
@@ -127,13 +88,6 @@ export default class Spell extends Task {
 		}
 
 		if ( this.locked !== false ) {
-
-			if ( this.school ) {
-				let req = schoolFunc( this.school, this.level.value, this.ratio );
-				if ( req ) this.addRequire( req );
-			}
-			this.addRequire( levelReq );
-
 			this.addRequire("spellbook");
 
 		}

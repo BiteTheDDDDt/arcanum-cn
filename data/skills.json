@@ -291,7 +291,7 @@
 	},
 	{
 		"id": "anatomy",
-		"require": "g.neophyte>=0&&g.lore>=6",
+		"require": "g.neophyte>0&&g.lore>=6",
 		"school": [
 			"nature",
 			"shadow",

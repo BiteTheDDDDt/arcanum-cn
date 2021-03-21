@@ -1023,6 +1023,8 @@
 			"managem.max": 2,
 			"alchemy.max": 2,
 			"potions.max": 1,
+			"potionessence.rate": 0.0002,
+			"potionessence.max": 1,
 			"alchemy.rate": 0.1,
 			"arcana.rate": 0.0001,
 			"space": 5
@@ -1303,6 +1305,8 @@
 		"mod": {
 			"herbs.max": 10,
 			"potions.max": 2,
+			"potionessence.rate": 0.0002,
+			"potionessence.max": 1,
 			"potions.rate": 0.5,
 			"alchemy.max": 1,
 			"alchemy.rate": 1,

@@ -41,7 +41,8 @@
 			"research": 10
 		},
 		"loot": {
-			"herbs": "2~5"
+			"herbs": "2~5",
+			"lillitscord": "5%"
 		},
 		"encs": [
 			"manatree",
@@ -289,6 +290,9 @@
 		"result": {
 			"title": "Nomad",
 			"fame": 1
+		},
+		"loot": {
+			"jazidscompass": "5%"
 		},
 		"encs": [
 			"enc_aeonclock",

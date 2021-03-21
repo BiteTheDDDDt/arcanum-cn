@@ -489,17 +489,18 @@
 				"cost": {
 					"gold": 5000,
 					"research": 7500,
-					"gems": 50
+					"gems": 50,
+					"managem": 25,
+					"firegem": 25,
+					"airgem": 25,
+					"watergem": 25,
+					"spiritgem": 25,
+					"earthgem": 25,
+					"naturegem": 25
 				},
 				"mod": {
 					"gems.rate": -0.07,
-					"managem.rate": 0.01,
-					"firegem.rate": 0.01,
-					"airgem.rate": 0.01,
-					"watergem.rate": 0.01,
-					"spiritgem.rate": 0.01,
-					"earthgem.rate": 0.01,
-					"naturegem.rate": 0.01
+					"elementalgems.rate": 0.007
 				}
 			},
 			{
@@ -1532,6 +1533,23 @@
 				}
 			}
 		],
+		"rares": [
+			{
+				"id": "loosecog",
+				"name": "loose cog",
+				"desc": "Large enough to accomodate a finger.",
+				"unique": true,
+				"level": 1,
+				"armor": 2,
+				"type": "armor",
+				"slot": "fingers",
+				"enchants": 7,
+				"mod": {
+					"puppetry.max": 1,
+					"puppetry.rate": 0.3
+				}
+			}
+		],
 		"locales": [
 			{
 				"id": "localfields",
@@ -1548,7 +1566,8 @@
 					"gold": 5
 				},
 				"loot": {
-					"herbs": "1~3"
+					"herbs": "1~3",
+					"loosecog": "5%"
 				},
 				"encs": [
 					"puppet_plow",
