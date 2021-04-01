@@ -323,7 +323,8 @@
 		"cost": {
 			"airgem": 5,
 			"watergem": 5,
-			"mana": 5
+			"mana": 10
+			
 		},
 		"alter": {
 			"mod.speed": 2
@@ -344,8 +345,10 @@
 		},
 		"length": 30,
 		"cost": {
+			"airgem": 8,
+			"watergem": 8,
 			"runestones": 2,
-			"mana": 10
+			"mana": 15
 		},
 		"alter": {
 			"mod.speed": 5
@@ -367,8 +370,10 @@
 		},
 		"length": 30,
 		"cost": {
-			"runestones": 2,
-			"mana": 15
+			"airgem": 12,
+			"watergem": 12,
+			"runestones": 5,
+			"mana": 20
 		},
 		"alter": {
 			"mod.speed": 8
@@ -510,7 +515,7 @@
 		},
 		"length": 30,
 		"cost": {
-			"watergem": 3,
+			"watergem": 1,
 			"mana": 5
 		},
 		"alter": {
@@ -555,7 +560,7 @@
 		"length": 30,
 		"cost": {
 			"watergem": 3,
-			"mana": 5
+			"mana": 12
 		},
 		"alter": {
 			"attack.tohit": 3

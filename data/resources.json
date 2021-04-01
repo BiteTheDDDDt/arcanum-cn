@@ -272,6 +272,7 @@
 	},
 	{
 		"id": "gems",
+		"name": "gemstones",
 		"group": "gems",
 		"desc": "Various fine gemstones.",
 		"max": 5
@@ -362,7 +363,7 @@
 	},
 	{
 		"id": "timegem",
-		"name":"time gem",
+		"name": "time gem",
 		"tags": "magicgems,primordialgems",
 		"group": "gems",
 		"desc": "Crafted from gems which do not yet exist.",
@@ -374,7 +375,7 @@
 	},
 	{
 		"id": "voidgem",
-		"name":"void gem",
+		"name": "void gem",
 		"tags": "magicgems,primordialgems",
 		"group": "gems",
 		"desc": "The space where a gem once was.",
@@ -386,7 +387,7 @@
 	},
 	{
 		"id": "chaosgem",
-		"name":"chaos gem",
+		"name": "chaos gem",
 		"tags": "magicgems,primordialgems",
 		"group": "gems",
 		"desc": "Every time you look at it, it looks different.",
@@ -394,7 +395,7 @@
 			"chaos.rate": 0.01
 		},
 		"max": 3,
-		"flavor":"Chaos,chaos!"
+		"flavor": "Chaos,chaos!"
 	},
 	{
 		"id": "ichor",

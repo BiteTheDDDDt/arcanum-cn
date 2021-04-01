@@ -7,7 +7,8 @@
 		"level": 10,
 		"buy": {
 			"gold": 2500,
-			"research": 3000
+			"research": 3000,
+			"potionessence": 1
 		},
 		"cost": {
 			"herbs": 50,
@@ -47,7 +48,8 @@
 		"level": 10,
 		"buy": {
 			"gold": 5000,
-			"research": 6000
+			"research": 6000,
+			"potionessence": 1
 		},
 		"cost": {
 			"herbs": 50,
@@ -74,7 +76,8 @@
 		"level": 10,
 		"buy": {
 			"gold": 2500,
-			"research": 3000
+			"research": 3000,
+			"potionessence": 1
 		},
 		"cost": {
 			"soul": 15,
@@ -102,8 +105,9 @@
 		"require": "g.puppet_enhancedlabs>0&&g.potions>0",
 		"level": 10,
 		"buy": {
-			"gold": 2500,
-			"research": 3000
+			"gold": 4500,
+			"research": 3000,
+			"potionessence": 1
 		},
 		"cost": {
 			"herbs": 50,
@@ -139,7 +143,8 @@
 		"level": 10,
 		"buy": {
 			"gold": 2500,
-			"research": 3000
+			"research": 3000,
+			"potionessence": 1
 		},
 		"cost": {
 			"herbs": 50,
@@ -259,7 +264,8 @@
 		"require": "g.potions>=1&&g.evil>0",
 		"buy": {
 			"gold": 250,
-			"research": 500
+			"research": 500,
+			"potionessence": 1
 		},
 		"cost": {
 			"herbs": 25,
@@ -372,7 +378,8 @@
 		"level": 1,
 		"buy": {
 			"gold": 250,
-			"research": 500
+			"research": 500,
+			"potionessence": 1
 		},
 		"cost": {
 			"herbs": 10,
@@ -391,7 +398,8 @@
 		"buy": {
 			"gold": 2500,
 			"research": 5000,
-			"sp": 100
+			"sp": 100,
+			"potionessence": 1
 		},
 		"cost": {
 			"sp": 50,
@@ -461,7 +469,7 @@
 		},
 		"use": {
 			"dot": {
-				"id": "adamantreinforcement",
+				"id": "toughskin",
 				"name": "adamant salve",
 				"duration": 1800,
 				"mod": {
@@ -518,7 +526,8 @@
 		"buy": {
 			"gold": 500,
 			"tomes": 3,
-			"research": 500
+			"research": 500,
+			"ichor": 1
 		},
 		"cost": {
 			"spiritgem": 1,
@@ -541,7 +550,8 @@
 		"buy": {
 			"gold": 500,
 			"tomes": 5,
-			"research": 500
+			"research": 500,
+			"ichor": 1
 		},
 		"cost": {
 			"lightgem": 1,
@@ -564,7 +574,8 @@
 		"buy": {
 			"gold": 500,
 			"tomes": 5,
-			"research": 500
+			"research": 500,
+			"ichor": 1
 		},
 		"cost": {
 			"airgem": 1,
@@ -587,7 +598,8 @@
 		"buy": {
 			"gold": 500,
 			"tomes": 5,
-			"research": 500
+			"research": 500,
+			"ichor": 1
 		},
 		"cost": {
 			"herbs": 50,
@@ -611,7 +623,8 @@
 		"buy": {
 			"gold": 500,
 			"tomes": 5,
-			"research": 500
+			"research": 500,
+			"potionessence": 1
 		},
 		"cost": {
 			"herbs": 50,
@@ -645,7 +658,8 @@
 			"firegem": 50,
 			"airgem": 50,
 			"watergem": 50,
-			"earthgem": 50
+			"earthgem": 50,
+			"potionessence": 1
 		},
 		"cost": {
 			"herbs": 50,
@@ -674,7 +688,8 @@
 			"firegem": 50,
 			"airgem": 50,
 			"watergem": 50,
-			"earthgem": 50
+			"earthgem": 50,
+			"potionessence": 1
 		},
 		"cost": {
 			"herbs": 50,
@@ -702,7 +717,8 @@
 			"gold": 5000,
 			"tomes": 50,
 			"research": 5000,
-			"souls": 150
+			"souls": 150,
+			"potionessence": 1
 		},
 		"cost": {
 			"herbs": 50,
@@ -732,7 +748,8 @@
 			"firegem": 50,
 			"airgem": 50,
 			"watergem": 50,
-			"earthgem": 50
+			"earthgem": 50,
+			"potionessence": 1
 		},
 		"cost": {
 			"herbs": 50,

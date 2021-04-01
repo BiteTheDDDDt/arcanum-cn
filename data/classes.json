@@ -1222,6 +1222,7 @@
 		"desc": "Raw magic power",
 		"tags": "t_tier4",
 		"require": "g.evil<=0&&g.tier3>0&&g.lore>=25",
+		"need": "g.evil<=0",
 		"cost": {
 			"research": 5000,
 			"arcana": 25,
@@ -1473,6 +1474,7 @@
 		"desc": "Their names reappear throughout the ages, and few believe they ever existed.",
 		"tags": "t_tier6",
 		"require": "g.tier5>0&&g.lore>=35&&g.spellcraft>=10&&g.evil==0",
+		"need": "g.evil<=0",
 		"cost": {
 			"research": 20000,
 			"arcana": 75,

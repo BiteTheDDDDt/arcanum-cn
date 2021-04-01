@@ -268,7 +268,7 @@
 	},
 	{
 		"id": "treffilwoods",
-		"name": "Treffil Woods",
+		"name": "Treffil Woods edges",
 		"desc": "These enchanted woods are not particularly dangerous.",
 		"dist": 17,
 		"level": 4,
@@ -778,7 +778,8 @@
 		},
 		"length": 50,
 		"result": {
-			"gems": "3~5"
+			"gems": "9~12",
+			"lightgem":3
 		},
 		"boss": "lightningelemental",
 		"spawns": [
@@ -797,10 +798,10 @@
 		"run": {
 			"stamina": 2
 		},
-		"length": 50,
+		"length": 60,
 		"result": {
-			"gems": "5~7",
-			"gold": "100~200"
+			"gems": "3~5",
+			"gold": "80~150"
 		},
 		"spawns": [
 			[

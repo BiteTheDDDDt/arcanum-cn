@@ -18,6 +18,7 @@
 	},
 	{
 		"id": "lore",
+		"name": "mage lore",
 		"school": "arcane",
 		"tags": "t_school",
 		"verb": "reading lore",
@@ -395,6 +396,7 @@
 	},
 	{
 		"id": "bladelore",
+		"name": "swordplay",
 		"desc": "Incorporate martial weapons into your magic.",
 		"require": "g.spellblade>0||g.battlemage>0||g.dreadlord>0",
 		"need": "armssource",
@@ -455,6 +457,7 @@
 	},
 	{
 		"id": "shadowlore",
+		"name": "umbramancy",
 		"tags": "t_school",
 		"level": 2,
 		"require": "g.dissection>=3||g.evil>0",
@@ -472,7 +475,7 @@
 	{
 		"id": "spiritlore",
 		"tags": "t_school",
-		"name": "spirit lore",
+		"name": "spirit communion",
 		"level": 2,
 		"desc": "Seeing the unseen",
 		"require": "g.lore>=6",
@@ -524,7 +527,7 @@
 	},
 	{
 		"id": "waterlore",
-		"name": "water lore",
+		"name": "aquamancy",
 		"desc": "The study of water",
 		"verb": "studying water",
 		"tags": "elemental,t_school",
@@ -543,7 +546,7 @@
 	},
 	{
 		"id": "airlore",
-		"name": "wind lore",
+		"name": "aeromancy",
 		"desc": "The study of air",
 		"verb": "studying air",
 		"tags": "elemental,t_school",
@@ -562,7 +565,7 @@
 	},
 	{
 		"id": "naturelore",
-		"name": "nature lore",
+		"name": "nature studies",
 		"verb": "observing nature",
 		"tags": "t_school",
 		"level": 2,
@@ -672,6 +675,7 @@
 	},
 	{
 		"id": "hammerlore",
+		"name": "hammer proficiency",
 		"desc": "The anvil or the skull, it makes no difference.",
 		"require": "g.geomancer>0||g.earthshaker>0||g.titan>0",
 		"need": "armssource",
@@ -1027,7 +1031,7 @@
 	},
 	{
 		"id": "astrallore",
-		"name": "astral lore",
+		"name": "astral communion",
 		"require": "g.planeslore>=25&&g.tier5>0",
 		"desc": "Anyone can see the stars. Few can read them.",
 		"level": 10,
@@ -1047,7 +1051,7 @@
 	},
 	{
 		"id": "voidlore",
-		"name": "void lore",
+		"name": "abyss gazing",
 		"require": "g.planeslore>=10&&g.tier5>0",
 		"desc": "The absence of all things",
 		"level": 10,

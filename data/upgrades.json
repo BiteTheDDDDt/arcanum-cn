@@ -183,7 +183,7 @@
 		"id": "firecharger",
 		"name": "fire charger",
 		"desc": "Hooves of flame leave lines of fire in the ground",
-		"require": "g.firelore>5&&g.magicbeasts>=5",
+		"require": "g.firelore>5&&g.magicbeasts>=5&&g.stables>0",
 		"need": "stables",
 		"slot": "mount",
 		"tags": "steed",
@@ -234,7 +234,7 @@
 		"id": "pegasusmount",
 		"name": "pegasus",
 		"desc": "A winged horse",
-		"require": "g.lightlore>=20",
+		"require": "g.lightlore>=20&&g.stables>0",
 		"need": "stables",
 		"slot": "mount",
 		"tags": "steed",
@@ -250,7 +250,7 @@
 		"id": "gryffonmount",
 		"name": "gryffon",
 		"desc": "As fleet as it is fearsome.",
-		"require": "g.magicbeasts>=7",
+		"require": "g.magicbeasts>=7&&g.stables>0",
 		"need": "stables",
 		"slot": "mount",
 		"tags": "steed",
@@ -264,7 +264,7 @@
 	},
 	{
 		"id": "magichorseshoe",
-		"name": "Magic Horseshoes",
+		"name": "magic Horseshoes",
 		"require": "g.enchanting>=5&&g.crafting>=10",
 		"need": "steed",
 		"cost": {
@@ -358,7 +358,7 @@
 	},
 	{
 		"id": "mortar",
-		"name": "Mortar and Pestle",
+		"name": "mortar and Pestle",
 		"desc": "Useful for grinding herbs & fine ingredients.",
 		"require": "g.herbalism>=2&&g.herbs>=5",
 		"cost": {
@@ -763,7 +763,7 @@
 	},
 	{
 		"id": "dragontongue",
-		"name": "Dragon Tongue",
+		"name": "dragon Tongue",
 		"desc": "Learn the ancient language of dragons.",
 		"require": "g.languages>12&&g.magicbeasts>=5",
 		"cost": {
@@ -799,7 +799,7 @@
 	},
 	{
 		"id": "manatrans",
-		"name": "Energy Transfusion",
+		"name": "energy Transfusion",
 		"desc": "Transfusions now draw magical energy from bodies.",
 		"require": "g.anatomy>=7&&g.lore>=8&&g.transfusions>0",
 		"cost": {
@@ -819,7 +819,7 @@
 			"research": 300,
 			"arcana": 1
 		},
-		"repeat": false,
+		"max": 1,
 		"flavor": "Nothing up my sleeves...",
 		"mod": {
 			"purse.max": 3,
@@ -875,7 +875,7 @@
 		"name": "deep incisions",
 		"desc": "The safest place to store your precious gems is by your heart.",
 		"require": "g.bloodbag>0&&g.dissection>=5",
-		"repeat": false,
+		"max": 1,
 		"cost": {
 			"hp": 100,
 			"bloodgem": 15
@@ -906,7 +906,7 @@
 	},
 	{
 		"id": "deeppockets",
-		"name": "Deep Pockets",
+		"name": "deep Pockets",
 		"require": "g.hiddenpockets>0&&g.trickster>0&&g.conjuration>2",
 		"desc": "Cheaper than buying pouches.",
 		"cost": {
@@ -1136,7 +1136,7 @@
 		"cost": {
 			"research": 400
 		},
-		"repeat": false,
+		"max": 1,
 		"flavor": "Didn't even palm it.",
 		"mod": {
 			"gold.rate": 0.15
@@ -1268,7 +1268,7 @@
 	},
 	{
 		"id": "heartcandle",
-		"name": "Heart Candle",
+		"name": "heart Candle",
 		"tags": "candle",
 		"desc": "A warm glowing candle.",
 		"max": 2,
@@ -2427,7 +2427,7 @@
 			"animals.max": 2,
 			"animals.rate": 0.2,
 			"bones.rate": 0.01,
-			"petfamiliar.result.stress": -25
+			"petfamiliar.result.stress": -50
 		}
 	},
 	{
@@ -2450,7 +2450,8 @@
 			"concentrate.rate": 0.1,
 			"scrying.max": 1,
 			"scrying.rate": 0.2,
-			"petfamiliar.result.bonedust": 10
+			"petfamiliar.result.bonedust": 10,
+			"petfamiliar.result.stress": -25
 		}
 	},
 	{
@@ -2472,7 +2473,8 @@
 			"act_mine.effect.gold.min": 0.1,
 			"act_mine.effect.gold.max": 0.1,
 			"spingold.effect.gold": 0.1,
-			"petfamiliar.result.gold": 50
+			"petfamiliar.result.gold": 50,
+			"petfamiliar.result.stress": -25
 		}
 	},
 	{
@@ -2494,7 +2496,8 @@
 			"trickery.max": 1,
 			"trickery.rate": 0.1,
 			"heist.result.gold": 15,
-			"petfamiliar.result.gems": 1
+			"petfamiliar.result.gems": 1,
+			"petfamiliar.result.stress": -25
 		}
 	},
 	{
@@ -2516,7 +2519,8 @@
 			"tomes.max": 5,
 			"lore.max": 2,
 			"lore.rate": 0.2,
-			"petfamiliar.result.research": 100
+			"petfamiliar.result.research": 100,
+			"petfamiliar.result.stress": -25
 		}
 	}
 ]

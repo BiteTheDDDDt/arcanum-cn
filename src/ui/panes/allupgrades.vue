@@ -15,7 +15,7 @@ export default {
 			return Game.state.classes.filter(v=>!v.disabled&&v.value>=1);
 		},
 		tasks() {
-			return Game.state.tasks.filter(v=>!v.repeat&&!v.disabled&&v.value>=1).sort(alphasort);
+			return Game.state.tasks.filter(v=>v.max==1&&!v.disabled&&v.value>=1).sort(alphasort);
 		},
 		upgrades(){
 			return Game.state.upgrades.filter(v=>!v.disabled&&v.value>=1).sort(alphasort);

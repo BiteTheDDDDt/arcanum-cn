@@ -91,7 +91,7 @@
 				"require": "(g.earthlore+g.spiritlore)>20&&g.shian>0",
 				"desc": "Make a underground home where the magic is strong and spirits are plentiful",
 				"length": 1800,
-				"repeat": false,
+				"max": 1,
 				"cost": {
 					"herbs": 50
 				},
@@ -117,7 +117,7 @@
 				"require": "g.mkcave>0&&g.tier6>0&&g.shian>0",
 				"desc": "Make a home where you can improve your mastery of the mysterious sword arts and spirits are plentiful",
 				"length": 1800,
-				"repeat": false,
+				"max": 1,
 				"run": {
 					"gold": 100,
 					"stamina": 1,
@@ -135,7 +135,7 @@
 				"require": "g.spiritlore>12&&g.shian>0",
 				"desc": "So many souls around, there has to be a way to keep them out of your way",
 				"length": 100,
-				"repeat": false,
+				"max": 1,
 				"run": {
 					"research": 50,
 					"souls": 1
@@ -151,7 +151,7 @@
 				"require": "g.soulflag>0&&g.shian>0",
 				"desc": "There is room for more souls",
 				"length": 900,
-				"repeat": false,
+				"max": 1,
 				"run": {
 					"research": 50,
 					"souls": 1
@@ -170,7 +170,7 @@
 				"require": "g.soulflag2>0&&g.shian>0",
 				"desc": "Containing ten thousand souls, this is a powerful tool ",
 				"length": 9000,
-				"repeat": false,
+				"max": 1,
 				"run": {
 					"research": 50,
 					"souls": 1
@@ -178,6 +178,20 @@
 				"mod": {
 					"souls.max": 45,
 					"souls.rate": 0.03
+				},
+				"loot": {
+					"itemsoulflag": 1
+				}
+			},
+			{
+				"id": "soulflagreacquire",
+				"name": "re-weave soulflag",
+				"require": "g.soulflag3>0&&g.shian>0",
+				"desc": "Even if it's been reduced to scraps, it can be restored",
+				"length": 60,
+				"run": {
+					"stamina": 3,
+					"souls": 1
 				},
 				"loot": {
 					"itemsoulflag": 1
@@ -403,7 +417,6 @@
 				"id": "itemsoulflag",
 				"name": "soulflag",
 				"desc": "Ten thousand souls muffled in its fabric.",
-				"save": true,
 				"type": "weapon",
 				"unique": true,
 				"attack": {
@@ -419,8 +432,12 @@
 				},
 				"hands": 2,
 				"kind": "flag",
+				"tags": "flag",
 				"level": 15,
-				"cost": 5000
+				"enchants": 15,
+				"sell": {
+					"souls": 1
+				}
 			}
 		],
 		"dungeons": [

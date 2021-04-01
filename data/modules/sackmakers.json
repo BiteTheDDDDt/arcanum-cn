@@ -24,7 +24,7 @@
 				"id": "sackguild",
 				"name": "guild of the sack makers",
 				"require": "(g.demonbag+g.bloodbag+g.bagofholding)>0",
-				"level": 20,
+				"level": 19,
 				"run": {
 					"stamina": 5
 				},
@@ -35,7 +35,7 @@
 				},
 				"length": 250,
 				"boss": "sackmaster",
-				"enemies": [
+				"spawns": [
 					"rumpelstiltskin",
 					"sackweaver",
 					"pouchmerchant",

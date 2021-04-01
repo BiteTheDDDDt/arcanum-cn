@@ -1,6 +1,6 @@
 {
   "name": "wizrobe",
-  "version": "0.9.0",
+  "version": "0.9.4",
   "description": "theory of magic",
   "main": "index.js",
   "scripts": {

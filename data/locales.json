@@ -83,7 +83,7 @@
 		"name": "Explore Treffil Wood",
 		"level": 7,
 		"length": 40,
-		"desc": "The woods posses many features of interest to the magical scholar.",
+		"desc": "The deeper woods posses many features of interest to the magical scholar. The spirits of the place make sure to keep the troublemakers out.",
 		"run": {
 			"stamina": 0.25
 		},
@@ -365,7 +365,7 @@
 	{
 		"id": "loc_tenwick",
 		"name": "peregrination",
-		"level": 20,
+		"level": 19,
 		"require": "g.s_travel>=5&&g.a_travel>=100",
 		"desc": "Tenwick's trail runs a circuit about the notable areas of Dhrune. On foot it takes the better part of a year to complete.",
 		"length": 10000,

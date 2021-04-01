@@ -100,6 +100,21 @@ export default {
 				if (this.item.tags[i] == 'prismaticgems') {
 					this.item.tags[i] = 'Prismatic Gems'
 				};
+				if (this.item.tags[i] == 'elementalgems') {
+					this.item.tags[i] = 'Elemental Gems'
+				};
+				if (this.item.tags[i] == 'primordialgems') {
+					this.item.tags[i] = 'Primordial Gems'
+				};
+				if (this.item.tags[i] == 'elementalrunes') {
+					this.item.tags[i] = 'Elemental Runes'
+				};
+				if (this.item.tags[i] == 'primaticrunes') {
+					this.item.tags[i] = 'Prismatic Runes'
+				};
+				if (this.item.tags[i] == 'primordialrunes') {
+					this.item.tags[i] = 'Primordial Runes'
+				};
 				if (this.item.tags[i] == 'manas') {
 					this.item.tags[i] = 'Mana'
 				};

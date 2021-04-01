@@ -116,7 +116,7 @@
 				"name": "cyril's celestial sling",
 				"level": 7,
 				"school": "chaos",
-				"require": "g.tier5>0&&g.chaos.max>=3",
+				"require": "g.tier5>0&&g.chaos.max>=3&&g.lore>999",
 				"desc": "Free a star and unleash the fury of the heavens on your foe. Hopefully your star won't turn on you...",
 				"buy": {
 					"research": 7777,
@@ -142,7 +142,7 @@
 				"level": 7,
 				"name": "kanna's dervish dance",
 				"tags": "patron",
-				"cd":120,
+				"cd": 120,
 				"school": "bladelore",
 				"require": "spellblade",
 				"desc": "Kanna's dance was a strenuous one for a mage, and a deadly one to her enemies.",
@@ -158,7 +158,7 @@
 					"duration": 60,
 					"mod": {
 						"stamina.max": 50,
-						"stamina.rate": -1,						
+						"stamina.rate": -1,
 						"dodge": 15,
 						"player.tohit": 10,
 						"player.damage": 5
