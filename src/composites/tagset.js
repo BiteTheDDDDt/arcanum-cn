@@ -96,7 +96,7 @@ export default class TagSet {
 		let ind = tag.toString().indexOf('t_');
 		if ( ind < 0) this.name = tag.toString();
 		else {
-			this.name = tag.toString().slice(ind+2).toTitleCase();
+			this.name = tag.toString().slice(ind+2);
 		}
 
 	}

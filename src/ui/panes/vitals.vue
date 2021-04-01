@@ -61,7 +61,7 @@ export default {
 			<span class="name">stamina</span><span class="barspan"><progbar class="stamina" :value="stamina.valueOf()" :max="stamina.max.value"
 			@mouseenter.capture.stop.native="itemOver($event,stamina)"/></span></div>
 
-		<div class="hidable statbar" data-key="hp" v-show="show(hp)"><span class="name">hp</span><span class="barspan"><progbar class="hp" :value="hp.valueOf()" :max="hp.max.value"
+		<div class="hidable statbar" data-key="hp" v-show="show(hp)"><span class="name">life</span><span class="barspan"><progbar class="hp" :value="hp.valueOf()" :max="hp.max.value"
 			@mouseenter.capture.stop.native="itemOver($event,hp)"/></span></div>
 
 		<div class="hidable statbar" v-for="it in visMana" :key="it.key" :data-key="it.id">

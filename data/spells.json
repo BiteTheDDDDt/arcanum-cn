@@ -384,6 +384,8 @@
 			"air": 1
 		},
 		"dot": {
+			"id": "whirling step",
+			"name": "whirling step",
 			"duration": 45,
 			"mod": {
 				"dodge": 1
@@ -402,9 +404,11 @@
 			"airgem": 1
 		},
 		"cost": {
-			"air": 5
+			"air": 4
 		},
 		"dot": {
+			"id": "whirling step",
+			"name": "whirling step",
 			"duration": 60,
 			"mod": {
 				"dodge": 2,
@@ -423,9 +427,11 @@
 			"tomes": 1
 		},
 		"cost": {
-			"air": 4
+			"air": 7
 		},
 		"dot": {
+			"id": "whirling step",
+			"name": "whirling step",
 			"duration": 80,
 			"mod": {
 				"dodge": 5,
@@ -1914,6 +1920,8 @@
 			"air": 1
 		},
 		"dot": {
+			"id": "dustdevil",
+			"name": "dust devil",
 			"duration": 20,
 			"mod": {
 				"speed": 1
@@ -1936,6 +1944,8 @@
 			"air": 3
 		},
 		"dot": {
+			"id": "dustdevil",
+			"name": "dust devil",
 			"duration": 45,
 			"mod": {
 				"speed": 2
@@ -2304,30 +2314,6 @@
 		}
 	},
 	{
-		"id": "stoneskin",
-		"name": "stone skin",
-		"desc": "Hardens the skin of the self.",
-		"school": "earth",
-		"require": {
-			"earthlore": 6
-		},
-		"level": 2,
-		"buy": {
-			"research": 30,
-			"scrolls": 5,
-			"earthgem": 1
-		},
-		"cost": {
-			"earth": 5
-		},
-		"dot": {
-			"duration": 50,
-			"mod": {
-				"self.defense": 5
-			}
-		}
-	},
-	{
 		"id": "downswinging",
 		"level": 7,
 		"name": "down swinging",
@@ -2469,52 +2455,6 @@
 		"flavor": "Hi-Ho, Hi-Ho"
 	},
 	{
-		"id": "ironskin",
-		"name": "iron skin",
-		"desc": "Hardens the skin of the self.",
-		"school": "earth",
-		"require": {
-			"earthlore": 8
-		},
-		"level": 2,
-		"buy": {
-			"research": 750,
-			"codices": 5,
-			"earthgem": 5
-		},
-		"cost": {
-			"earth": 5
-		},
-		"dot": {
-			"duration": 60,
-			"mod": {
-				"self.defense": 10
-			}
-		}
-	},
-	{
-		"id": "steelskin",
-		"name": "steel skin",
-		"desc": "Hardens the skin of the self.",
-		"school": "earth",
-		"require": "g.ironskin>0&&g.earthlore>=12&&g.tier3>0",
-		"level": 5,
-		"buy": {
-			"research": 1000,
-			"tomes": 1,
-			"earthgem": 10
-		},
-		"cost": {
-			"earth": 7
-		},
-		"dot": {
-			"duration": 120,
-			"mod": {
-				"self.defense": 25
-			}
-		}
-	},
-	{
 		"id": "apiary",
 		"name": "dbulm's apiary",
 		"desc": "In combat, summon a really angry bee to fight for you",
@@ -2541,6 +2481,7 @@
 		"id": "starfall",
 		"desc": "You can't escape the sky.",
 		"school": "astral",
+		"level": 10,
 		"require": "g.tier5>0&&(g.astralseer+g.wizard3+g.wizard2)>0&&g.astronomy>=15&&g.evil==0",
 		"cd": 55,
 		"buy": {
@@ -2562,6 +2503,78 @@
 		}
 	},
 	{
+		"id": "stoneskin",
+		"name": "stone skin",
+		"desc": "Hardens the skin of the self.",
+		"school": "earth",
+		"require": "g.earthlore>=8&&g.tier0>0",
+		"level": 1,
+		"buy": {
+			"research": 30,
+			"scrolls": 5,
+			"earthgem": 1
+		},
+		"cost": {
+			"earth": 2
+		},
+		"dot": {
+			"id": "toughskin",
+			"name": "stone skin",
+			"duration": 50,
+			"mod": {
+				"self.defense": 5
+			}
+		}
+	},
+	{
+		"id": "ironskin",
+		"name": "iron skin",
+		"desc": "Hardens the skin of the self.",
+		"school": "earth",
+		"require": "g.stoneskin>0&&g.earthlore>=8&&g.tier1>0",
+		"level": 3,
+		"buy": {
+			"research": 750,
+			"codices": 5,
+			"earthgem": 5
+		},
+		"cost": {
+			"earth": 5
+		},
+		"dot": {
+			"id": "toughskin",
+			"name": "iron skin",
+			"duration": 60,
+			"mod": {
+				"self.defense": 10
+			}
+		}
+	},
+	{
+		"id": "steelskin",
+		"name": "steel skin",
+		"desc": "Hardens the skin of the self.",
+		"school": "earth",
+		"require": "g.ironskin>0&&g.earthlore>=12&&g.tier2>0",
+		"level": 5,
+		"buy": {
+			"research": 1000,
+			"tomes": 1,
+			"earthgem": 10
+		},
+		"cost": {
+			"earth": 7
+		},
+		"dot": {
+			"id": "toughskin",
+			"name": "steel skin",
+			"duration": 120,
+			"mod": {
+				"self.defense": 25
+			}
+		}
+	},
+	{
 		"id": "adamantshell",
 		"name": "adamant shell",
 		"desc": "Your skin becomes adamant.",
@@ -2577,7 +2590,7 @@
 			"earth": 10
 		},
 		"dot": {
-			"id": "adamantreinforcement",
+			"id": "toughskin",
 			"name": "adamant shell",
 			"duration": 180,
 			"mod": {
@@ -2958,7 +2971,7 @@
 		"id": "immunefire2",
 		"name": "greater quenching sphere",
 		"school": "water",
-		"level": 5,
+		"level": 9,
 		"require": "g.waterlore>=15&&g.tier3>0",
 		"desc": "Temporarily negate all fire damage",
 		"buy": {

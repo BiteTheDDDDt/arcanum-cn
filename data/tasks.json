@@ -146,7 +146,7 @@
 		"require": "g.lore>=2&&g.crafting>=2&&g.languages>=1",
 		"desc": "The portal to true magic.",
 		"length": 50,
-		"repeat": false,
+		"max": 1,
 		"cost": {
 			"research": 20,
 			"codices": 1,
@@ -806,6 +806,18 @@
 			"watergem": "1%",
 			"runestones": "1%"
 		},
+		"loot": {
+			"bones": "14%",
+			"skulls": "5%",
+			"gems": "20%",
+			"bodies": "1%",
+			"managem": "7%",
+			"firegem": "1%",
+			"earthgem": "1%",
+			"airgem": "1%",
+			"watergem": "1%",
+			"runestones": "1%"
+		},
 		"flavor": "An ordinary wizard's cap"
 	},
 	{
@@ -836,9 +848,9 @@
 	{
 		"id": "rest",
 		"tags": "t_rest",
-		"name": "rest",
+		"name": "relax",
 		"slot": "rest",
-		"verb": "resting",
+		"verb": "relaxing",
 		"locked": false,
 		"owned": true,
 		"perpetual": true,
@@ -1263,27 +1275,29 @@
 		"id": "sublimate",
 		"name": "sublimate lore",
 		"desc": "Internalize a vast amount of existing knowledge.",
-		"require": "g.codices.max>=10&&g.crafting>=3",
-		"warn": true,
+		"require": "g.codices.max>=10&&g.crafting>=3&&g.tier0>0",
 		"cost": {
-			"codices": 30
+			"codices": 6
 		},
 		"at": {
 			"10": {
-				"result.research.max": 5,
-				"result.arcana": 0.3
+				"result.research.max": 2,
+				"result.arcana": 0.3,
+				"cost.codices": 1
 			},
 			"50": {
-				"result.research.max": 5,
-				"result.arcana": 0.7
+				"result.research.max": 2,
+				"result.arcana": 0.7,
+				"cost.codices": 1
 			},
 			"100": {
-				"result.research.max": 10,
-				"result.arcana": 1
+				"result.research.max": 4,
+				"result.arcana": 1,
+				"cost.codices": 2
 			}
 		},
 		"result": {
-			"research.max": 10,
+			"research.max": 2,
 			"arcana": 1
 		}
 	},
@@ -1335,7 +1349,7 @@
 		"require": "g.animals>=3",
 		"length": 75,
 		"desc": "Compendium of common creatures",
-		"repeat": false,
+		"max": 1,
 		"cost": {
 			"codices": 1
 		},
@@ -1356,7 +1370,7 @@
 		"name": "arcane bestiary",
 		"desc": "Compendium of magic creatures.",
 		"require": "g.loc_menagerie>0",
-		"repeat": false,
+		"max": 1,
 		"length": 500,
 		"cost": {
 			"tomes": 25,
@@ -1400,7 +1414,7 @@
 		"require": "(g.darkmagician+g.dreadlord)>0",
 		"desc": "Karnivex's manual of destruction",
 		"length": 75,
-		"repeat": false,
+		"max": 1,
 		"cost": {
 			"research": 400,
 			"codices": 10
@@ -1419,7 +1433,7 @@
 		"id": "markhulcodex",
 		"name": "markhul's codex",
 		"desc": "A dusty codex from the genezereth library.",
-		"repeat": false,
+		"max": 1,
 		"length": 75,
 		"cost": {
 			"tomes": 5,
@@ -1440,7 +1454,7 @@
 		"require": "g.languages>=5&&g.tier0>0",
 		"desc": "A book of elvish symbols",
 		"length": 75,
-		"repeat": false,
+		"max": 1,
 		"cost": {
 			"codices": 10
 		},
@@ -1461,7 +1475,7 @@
 		"require": "g.languages>=5&&g.tier0>0",
 		"desc": "A compilation of gloomy dwarven drinking songs",
 		"length": 75,
-		"repeat": false,
+		"max": 1,
 		"cost": {
 			"codices": 10
 		},
@@ -1483,7 +1497,7 @@
 		"require": "g.languages>=7&&g.spiritlore>=6&&g.tier0>0",
 		"desc": "Interpret the strange whisperings of spirits",
 		"length": 50,
-		"repeat": false,
+		"max": 1,
 		"cost": {
 			"codices": 20
 		},
@@ -1504,7 +1518,7 @@
 		"require": "g.languages>=10&&g.demonology>0&&g.tier1>0",
 		"desc": "A compiliation of obscure demonic languages",
 		"length": 75,
-		"repeat": false,
+		"max": 1,
 		"cost": {
 			"tomes": 5,
 			"bones": 10
@@ -1526,7 +1540,7 @@
 		"require": "aragwastes",
 		"desc": "A history of the eastern region of Arazor.",
 		"tags": "book",
-		"repeat": false,
+		"max": 1,
 		"length": 50,
 		"cost": {
 			"codices": 5
@@ -1545,7 +1559,7 @@
 		"require": "loc_orrem",
 		"desc": "A history of the lost cities of Orrem.",
 		"tags": "book",
-		"repeat": false,
+		"max": 1,
 		"length": 100,
 		"cost": {
 			"tomes": 25
@@ -1565,7 +1579,7 @@
 		"require": "g.crafting>=15&&g.lightlore>=15",
 		"desc": "A manual against the darkness.",
 		"length": 50,
-		"repeat": false,
+		"max": 1,
 		"cost": {
 			"tomes": 5
 		},
@@ -1642,7 +1656,7 @@
 		"id": "maketitanhammer",
 		"name": "titan's hammer",
 		"desc": "The powers of creation and destruction, locked in your grip.",
-		"repeat": false,
+		"max": 1,
 		"verb": "Creating Masterpiece",
 		"require": "g.titan>0&&g.mythicanvil>0",
 		"length": 180,
@@ -1665,7 +1679,7 @@
 		"name": "fazbit's fixations",
 		"desc": "Scribe a copy the seminal text in practical alchemy",
 		"length": 50,
-		"repeat": false,
+		"max": 1,
 		"cost": {
 			"codices": 25
 		},
@@ -1690,7 +1704,7 @@
 		"desc": "A manual of the human body",
 		"tags": "book",
 		"length": 40,
-		"repeat": false,
+		"max": 1,
 		"cost": {
 			"codices": 10
 		},
@@ -1770,7 +1784,7 @@
 		"desc": "Compile a manual of the sun and stars",
 		"actname": "almagest",
 		"require": "g.astronomy>=7&&g.tier1>0",
-		"repeat": false,
+		"max": 1,
 		"length": 50,
 		"cost": {
 			"codices": 30
@@ -2065,7 +2079,7 @@
 		"desc": "Rip out of a piece of your soul and store it in a magic gem.",
 		"require": "g.crafting>=20&&g.necromancy>=8",
 		"length": 50,
-		"repeat": false,
+		"max": 1,
 		"cost": {
 			"research": 4000,
 			"shadowgem": 20,
@@ -2094,7 +2108,7 @@
 		"actname": "rite of undeath",
 		"desc": "Obtain immortality by becoming a lich",
 		"require": "g.crafting>=20&&g.necromancy>=9&&g.phylactory>0",
-		"repeat": false,
+		"max": 1,
 		"length": 50,
 		"cost": {
 			"research": 4000,
@@ -2154,7 +2168,7 @@
 		"require": "(g.druid+g.warden)>0",
 		"need": "outdoors",
 		"desc": "Create a magic link with a wild animal.",
-		"repeat": false,
+		"max": 1,
 		"length": 50,
 		"cost": {
 			"gold": 400,
@@ -2175,7 +2189,7 @@
 		"name": "summon familiar",
 		"desc": "Prepare a rite for summoning a familiar. The exact shape will be chosen after the fact",
 		"require": "(g.animals>=5&&g.demonology>=4)||g.witch>0",
-		"repeat": false,
+		"max": 1,
 		"length": 100,
 		"cost": {
 			"gold": 400,
@@ -2190,8 +2204,6 @@
 		"desc": "Pet you familiar to calm your nerves",
 		"require": "(g.familiarcat+g.familiarowl+g.familiarkobold+g.familiarimp+g.familiartome)>0",
 		"cd": 120,
-		"result": {
-			"stress": -25
-		}
+		"result": {}
 	}
 ]

@@ -1692,6 +1692,7 @@
 				"unique": true,
 				"type": "weapon",
 				"tohit": 10,
+				"enchants": 10,
 				"cost": {
 					"gold": 100
 				},

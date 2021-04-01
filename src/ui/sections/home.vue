@@ -68,10 +68,12 @@ export default {
 			if ( it.mod && typeof it.mod === 'object') {
 
 				for( let p in it.mod) {
-					if ( p.includes(t) ) return true;
+					if ( game.state.getData(p) && typeof game.state.getData(p) === 'object') {
+						if ( game.state.getData(p).name.includes(t)) return true; 
+					}
 				}
 
-			}
+			}	
 
 			return false;
 

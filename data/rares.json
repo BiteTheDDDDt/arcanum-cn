@@ -6,6 +6,7 @@
 		"slot": "head",
 		"unique": true,
 		"level": 7,
+		"enchants": 7,
 		"armor": 5,
 		"mod": {
 			"bonuses.fire": "5%",
@@ -21,6 +22,7 @@
 		"desc": "A small blue stone with swirls of white.",
 		"unique": true,
 		"level": 5,
+		"enchants": 5,
 		"armor": 1,
 		"slot": "trinket",
 		"mod": {
@@ -35,6 +37,7 @@
 		"slot": "shins",
 		"material": "silk",
 		"level": 7,
+		"enchants": 7,
 		"desc": "Desilla awarded her servants with articles of apparel.",
 		"mod": {
 			"resist.paralysis": 10,
@@ -51,6 +54,7 @@
 		"armor": 2,
 		"unique": true,
 		"level": 5,
+		"enchants": 5,
 		"desc": "Lillit was known for her soothing presence.",
 		"mod": {
 			"rage.rate": -0.25
@@ -63,6 +67,7 @@
 		"slot": "hands",
 		"material": "basiliskhide",
 		"armor": 5,
+		"enchants": 5,
 		"mod": {
 			"resist.poison": 10
 		}
@@ -72,6 +77,7 @@
 		"name": "jazid's compass",
 		"unique": true,
 		"level": 10,
+		"enchants": 10,
 		"desc": "What leads your way can lead to you.",
 		"type": "armor",
 		"slot": "neck",
@@ -95,6 +101,7 @@
 		"id": "icedagg",
 		"name": "icy dagger",
 		"material": "ice",
+		"enchants": 3,
 		"type": "weapon",
 		"tohit": 1,
 		"attack": {
@@ -116,6 +123,7 @@
 		"id": "tenwickstick",
 		"name": "tenwick's walking stick",
 		"level": 5,
+		"enchants": 5,
 		"unique": true,
 		"type": "weapon",
 		"material": "wood",
@@ -151,8 +159,9 @@
 		"hands": 2,
 		"tags": "hammer",
 		"level": 10,
-		"cost": {
-			"gold": 5000
+		"enchants":10,
+		"sell": {
+			"gold": 1000
 		}
 	}
 ]
