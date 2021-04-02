@@ -384,7 +384,7 @@
 			"air": 1
 		},
 		"dot": {
-			"id": "whirling step",
+			"id": "whirlingstep",
 			"name": "whirling step",
 			"duration": 45,
 			"mod": {
@@ -407,7 +407,7 @@
 			"air": 4
 		},
 		"dot": {
-			"id": "whirling step",
+			"id": "whirlingstep",
 			"name": "whirling step",
 			"duration": 60,
 			"mod": {
@@ -430,7 +430,7 @@
 			"air": 7
 		},
 		"dot": {
-			"id": "whirling step",
+			"id": "whirlingstep",
 			"name": "whirling step",
 			"duration": 80,
 			"mod": {
@@ -1979,26 +1979,6 @@
 		}
 	},
 	{
-		"id": "copperskin",
-		"name": "copper skin",
-		"level": 1,
-		"require": "g.spellbook.value>0&&g.earthlore>0",
-		"school": "earth",
-		"buy": {
-			"research": 25,
-			"scrolls": 1
-		},
-		"cost": {
-			"earth": 1
-		},
-		"dot": {
-			"duration": 30,
-			"mod": {
-				"self.defense": 2
-			}
-		}
-	},
-	{
 		"id": "guidestr",
 		"name": "guided strike",
 		"level": 1,
@@ -2502,6 +2482,28 @@
 			}
 		}
 	},
+	{
+		"id": "copperskin",
+		"name": "copper skin",
+		"level": 1,
+		"require": "g.spellbook.value>0&&g.earthlore>0",
+		"school": "earth",
+		"buy": {
+			"research": 25,
+			"scrolls": 1
+		},
+		"cost": {
+			"earth": 1
+		},
+		"dot": {
+			"id": "toughskin",
+			"name": "copper skin",
+			"duration": 30,
+			"mod": {
+				"self.defense": 2
+			}
+		}
+	},	
 	{
 		"id": "stoneskin",
 		"name": "stone skin",
