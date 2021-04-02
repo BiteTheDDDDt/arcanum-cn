@@ -37,7 +37,7 @@ export default {
 
 		hp(){return this.state.getData('hp');},
 
-		manaList() { return this.state.filterItems( it=>it.hasTag('manas') && !it.locked)},
+		manaList() { return this.state.filterItems (it=> (it.hasTag('manas') || it.hasTag('Mana') ) && !it.locked)},
 		visMana(){return this.manaList.filter(v=>this.show(v))},
 
 		stamina(){ return this.state.getData('stamina'); }
