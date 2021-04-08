@@ -241,7 +241,7 @@ export default class Stat extends RValue {
 		//this._mPct += amt*mod.pct;
 		//this._mBase += amt*mod.bonus;
 
-		this.mods[mod.id] = mod;
+		if (amt != 0) this.mods[mod.id] = mod;
 		this.recalc();
 
 		/*let cur = this.mods[ mod.id ];
