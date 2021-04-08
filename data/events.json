@@ -59,10 +59,10 @@
 		"result": {
 			"innroom": true,
 			"sp": 1,
-			"player.exp": 15
+			"player.exp": 15,
+			"fame": 1
 		},
 		"mod": {
-			"fame": 1,
 			"research.max": 15
 		}
 	},
@@ -80,10 +80,10 @@
 		],
 		"result": {
 			"sp": 1,
-			"player.exp": 15
+			"player.exp": 15,
+			"fame": 2
 		},
 		"mod": {
-			"fame": 2,
 			"crafting.max": 1,
 			"arcanebody.max": 1,
 			"occultendure.max": 1,
@@ -98,8 +98,10 @@
 		"result": {
 			"player.exp": 25
 		},
+		"result": {
+			"fame": 3
+		},
 		"mod": {
-			"fame": 3,
 			"lore.max": 2,
 			"arcanebody.max": 1,
 			"occultendure.max": 1,
@@ -113,10 +115,10 @@
 		"lock": "t_tier3",
 		"result": {
 			"sp": 1,
-			"player.exp": 50
+			"player.exp": 50,
+			"fame": 4
 		},
 		"mod": {
-			"fame": 4,
 			"lore.max": 3,
 			"crafting.max": 2,
 			"arcanebody.max": 1,
@@ -131,10 +133,10 @@
 		"lock": "t_tier4",
 		"result": {
 			"sp": 1,
-			"player.exp": 75
+			"player.exp": 75,
+			"fame": 5
 		},
 		"mod": {
-			"fame": 5,
 			"lore.max": 4,
 			"crafting.max": 2,
 			"arcanebody.max": 1,
@@ -149,10 +151,10 @@
 		"lock": "t_tier5",
 		"result": {
 			"sp": 1,
-			"player.exp": 100
+			"player.exp": 100,
+			"fame": 6
 		},
 		"mod": {
-			"fame": 6,
 			"lore.max": 4,
 			"crafting.max": 2,
 			"arcanebody.max": 1,
@@ -168,10 +170,10 @@
 		"lock": "t_tier6",
 		"result": {
 			"sp": 1,
-			"player.exp": 100
+			"player.exp": 100,
+			"fame": 7
 		},
 		"mod": {
-			"fame": 7,
 			"lore.max": 3,
 			"crafting.max": 4,
 			"arcanebody.max": 1,
@@ -187,10 +189,10 @@
 		"lock": "t_tier7",
 		"result": {
 			"sp": 1,
-			"player.exp": 100
+			"player.exp": 100,
+			"fame": 8
 		},
 		"mod": {
-			"fame": 8,
 			"lore.max": 4,
 			"crafting.max": 2,
 			"arcanebody.max": 1,
@@ -211,8 +213,10 @@
 		"id": "respectable",
 		"require": "g.virtue>350&&g.evilamt<20",
 		"desc": "You have become a respected personage in the magical world.",
+		"result": {
+			"fame": 1
+		},
 		"mod": {
-			"fame": 1,
 			"light.rate": 0.1
 		}
 	},
@@ -250,8 +254,10 @@
 		"id": "wicked",
 		"desc": "Your wicked deeds put you on the sure path of evil. A few more steps, and there will be no turning back.",
 		"require": "g.evilamt>=250",
+		"result": {
+			"fame": 1
+		},
 		"mod": {
-			"fame": 1,
 			"shadowlore.max": 1,
 			"shadowlore.rate": 0.2
 		}
