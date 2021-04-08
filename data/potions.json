@@ -80,7 +80,7 @@
 			"potionessence": 1
 		},
 		"cost": {
-			"soul": 15,
+			"souls": 15,
 			"gold": 500,
 			"spiritgem": 5,
 			"spirit": 15,
