@@ -159,5 +159,11 @@ export default class EnchantSlots extends Inventory {
 		super.remove( e );
 
 	}
+	//God damn magic, calls begin for target instead of item since the item in enchantslots in an enchant with a target, not a real item.
+	begin(g){
+		for( let i = this.items.length-1; i>= 0; i-- ) {
+			if ( typeof this.items[i].target.begin === 'function' ) this.items[i].target.begin(g);
+		}
+	}
 
 }

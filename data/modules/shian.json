@@ -355,11 +355,11 @@
 				},
 				"attack": {
 					"tohit": 20,
+					"targets": "enemies",
 					"dot": {
 						"id": "soullure",
 						"kind": "spirit",
 						"duration": 10,
-						"targets": "enemies",
 						"damage": "10~15"
 					}
 				}

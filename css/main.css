@@ -544,7 +544,7 @@ div.log-item {
 	color:#d80808;
 }
 
-.note-text, .info-sect {
+.note-text, .info-sect, .info-subsect {
 	padding:0;
 	margin:var(--comfy-gap) 0;
 	font-style: italic;
@@ -554,6 +554,11 @@ div.log-item {
 .info-sect {
 	width:100%;
 	border-top: var(--tiny-gap) solid var(--separator-color);
+	padding-top: var(--sm-gap);
+}
+.info-subsect {
+	width:100%;
+	
 	padding-top: var(--sm-gap);
 }
 

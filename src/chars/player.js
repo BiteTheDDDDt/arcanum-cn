@@ -422,6 +422,9 @@ export default class Player extends Char {
 		}
 
 	}
+ 	tryCast(){
+		return this.spells ? this.spells.onUse(this.context) : null;
+	}
 
 	/**
 	 * Get next weapon attack.

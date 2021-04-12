@@ -6,7 +6,7 @@ import { cloneClass, mergeSafe } from 'objecty';
 
 import { NPC, getDelay, TYP_PCT, TYP_STATE } from '../values/consts';
 import { toStats } from "../util/dataUtil";
-import Events, { CHAR_STATE, EVT_COMBAT, RESISTED } from '../events';
+import Events, { CHAR_STATE, EVT_COMBAT, RESISTED, CHAR_ACTION } from '../events';
 import States, { NO_ATTACK } from './states';
 
 import { ApplyAction } from '../values/combatVars';
@@ -262,7 +262,7 @@ export default class Char {
 	 * @returns {?GData}
 	 */
 	tryCast(){
-		return this.spells ? this.spells.onUse(this.context) : null;
+		return this.spells ? this.spells.nextUsable(this.context) : null;
 	}
 
 	/**
@@ -427,12 +427,28 @@ export default class Char {
 
 			this.timer += getDelay( this.speed );
 
-			if ( this.spells && Math.random()<0.4 ) {
+			if ( this.spells && Math.random()<0.8 ) {
 
 				let s = this.tryCast()
 				if ( s ) {
-
-					Events.emit( EVT_COMBAT, this.name + ' uses ' + s.name );
+					
+					
+					if ( s.attack || s.action ) {
+						Events.emit( CHAR_ACTION, s, this.context );
+					}			
+					if ( s.mod ) { 
+						this.context.applyMods( this.mod ); 
+						Events.emit( EVT_COMBAT, this.name + ' uses ' + s.name );
+					}
+					if ( s.create ) this.context.create( s.create );
+					if ( s.result ) {
+						Events.emit( EVT_COMBAT, this.name + ' uses ' + s.name );
+						this.context.applyVars( s.result, 1 );
+					}
+					if ( s.dot ) {
+						Events.emit( EVT_COMBAT, this.name + ' uses ' + s.name );
+						this.context.self.addDot( s.dot, s );
+					}
 				}
 
 			}

@@ -97,6 +97,7 @@ export default class Context {
 	 */
 	useOn( it, targ ) {
 	}
+	
 
 	/**
 	 * Not implemented.
@@ -196,7 +197,7 @@ export default class Context {
 	}
 
 	applyVars( vars, dt ) {
-
+		
 		if (  Array.isArray(vars) ) {
 			for( let e of vars ) { this.applyVars( e,dt); }
 
@@ -206,7 +207,7 @@ export default class Context {
 			if ( e && !e.roll() ) return;
 
 			for( let p in vars ){
-
+				
 				target = this.getData(p);
 				e = vars[p];
 
@@ -241,11 +242,15 @@ export default class Context {
 			}
 
 		} else if ( typeof vars === 'string') {
-
 			let target = this.getData(vars);
 			if ( target !== undefined ) {
-				target.amount( dt );
-			}
+				if(target.amount.length === 1){ 
+					target.amount( dt ); 
+				}
+				else if (target.amount.length === 2){ 
+					target.amount(this, dt ); 
+				}
+			}		
 
 		}
 

@@ -14,7 +14,7 @@ export default {
 
 		damage(){
 
-			let dmg = this.item.damage || this.item.dmg;
+			let dmg = this.item.attack.damage || this.item.attack.dmg;
 			if( typeof dmg === 'number') return dmg;
 			else if ( dmg ) {
 				return dmg.toString();
@@ -22,16 +22,19 @@ export default {
 
 		},
 		hitBonus(){
-			return this.item.tohit || 0;
+			return this.item.attack.tohit || 0;
 		},
 		bonus(){
 
-			let bonus = this.item.bonus;
+			let bonus = this.item.attack.bonus;
 			if ( !bonus || bonus.valueOf() == 0 ) return 0;
 
 			if ( bonus > 0) return ' (+' + bonus + ')';
 			else return ' (' + bonus + ')';
 
+		},
+		itemtype(){
+			return this.item.type.toString();
 		}
 
 	}
@@ -43,14 +46,28 @@ export default {
 
 <div class="attack">
 
-	<div class="info-sect">Attack</div>
-
-	<div v-if="hitBonus">Hit Bonus: {{ hitBonus }}</div>
-	<div class="damage" v-if="damage!==null&&!item.dot">
-		<span>Damage: {{ damage }}</span><span v-if="bonus">{{ bonus }}</span></div>
-	<div v-if="!item.dot">Kind: {{ item.kind.toString().toTitleCase() }}</div>
-	<div v-if="item.dot&&item.dmg"><br></div>
-	<dot v-if="item.dot" :dot="item.dot" />
+	<div v-if="damage!==0&&damage!==null&&typeof damage !== 'undefined'&&itemtype!=='armor'||item.attack.targets">
+		<div class="info-sect" >Attack</div>		
+		<div v-if="hitBonus&&damage!==0&&damage!==null&&typeof damage !== 'undefined'">Hit Bonus: {{ hitBonus }}</div>
+		<div class="damage" v-if="damage!==0&&damage!==null&&typeof damage !== 'undefined'">
+			<span>Damage: {{ damage }}</span><span v-if="bonus">{{ bonus }}</span></div>
+		<div v-if="damage!==0&&damage!==null&&typeof damage !== 'undefined'&&item.attack.kind">Kind: {{ item.attack.kind.toString().toTitleCase() }}</div>
+		<div v-if="item.attack.targets">Targets: {{ item.attack.targetstring.toString().toTitleCase() }}</div>
+	</div>
+	<div v-if="item.attack.hits">
+		<div v-for="hit in item.attack.hits">
+			<div class="info-sect" >Attack hit</div>		
+			<div v-if="hit.tohit&&hit.damage!==0&&hit.damage!==null&&typeof hit.damage !== 'undefined'">Hit Bonus: {{ hit.tohit }}</div>
+			<div class="damage" v-if="hit.damage!==0&&hit.damage!==null&&typeof hit.damage !== 'undefined'">
+				<span>Damage: {{ hit.damage }}</span><span v-if="bonus">{{ hit.bonus }}</span></div>
+			<div v-if="hit.damage!==0&&hit.damage!==null&&typeof hit.damage !== 'undefined'&&hit.kind">Kind: {{ hit.kind.toString().toTitleCase() }}</div>
+			<div v-if="hit.targets">Targets: {{ hit.targetstring.toString().toTitleCase() }}</div>
+			<div class="info-subsect" v-if="hit.dot">Applies</div>
+			<dot v-if="hit.dot" :dot="hit.dot" />
+		</div>
+	</div>
+	<div class="info-sect" v-if="item.attack.dot">Applies</div>
+	<dot v-if="item.attack.dot" :dot="item.attack.dot" />
 </div>
 
 </template>

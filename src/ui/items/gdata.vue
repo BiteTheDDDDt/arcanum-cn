@@ -116,7 +116,7 @@ export default {
 					this.item.tags[i] = 'Primordial Runes'
 				};
 				if (this.item.tags[i] == 'manas') {
-					this.item.tags[i] = 'Mana'
+					this.item.tags[i] = 'Mana energies'
 				};
  				this.item.tags[i] = this.item.tags[i];
 			}
@@ -179,18 +179,20 @@ export default {
 		<info v-if="item.sell||item.instanced||item.type==='Furniture'" :info="sellPrice" title="Sell" />
 		<info v-if="item.run" :info="item.run" title="Progress Cost" rate="true" />
 
-		<attack v-if="item.attack" :item="item.attack" />
+		<attack v-if="item.attack" :item="item" />
 
-		<div v-if="item.effect||item.mod||item.result||item.dot||item.use" class="info-sect">Effects:</div>
-
-		<dot v-if="item.dot" :dot="item.dot" />
-
+		<div v-if="item.effect" class="info-sect">Effects:</div>				
 		<info v-if="item.effect" :info="item.effect" :rate="item.perpetual||item.length>0" />
+		<div v-if="item.mod||item.alter" class="info-sect">Modifications:</div>				
 		<info v-if="item.mod" :info="item.mod" />
 		<info v-if="item.alter" :info="item.alter" />
-		<info v-if="item.use" :info="item.use" />
+		<div v-if="item.result" class="info-sect">Results:</div>
 		<info v-if="item.result" :info="item.result" />
-
+		<div v-if="item.use" class="info-sect">When used:</div>
+		<info v-if="item.use" :info="item.use" />
+		<div v-if="item.dot" class="info-sect">Buffs:</div>
+		<dot v-if="item.dot" :dot="item.dot" />
+		
 		<div v-if="item.lock||item.disable" class="info-sect">Locks:</div>
 		<info v-if="item.lock" :info="item.lock" />
 		<info v-if="item.disable" :info="item.disable" />

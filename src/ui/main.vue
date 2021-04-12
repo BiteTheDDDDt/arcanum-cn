@@ -183,7 +183,7 @@ export default {
 
 		onSetting( setting, val ) {
 
-			if ( setting === 'autoSave' ) {
+			if ( setting === 'autosave' ) {
 				if ( val ) this.startAutoSave();
 				else this.stopAutoSave();
 			}
@@ -206,7 +206,7 @@ export default {
 
 			if (!this.loopId ) return;
 			var s = Settings;
-				var setting = s.get('autoSave');
+				var setting = s.get('autosave');
 
 			//if ( setting && !this.saver ) { //renabled autosaver regardless
 			if (!this.saver ) {

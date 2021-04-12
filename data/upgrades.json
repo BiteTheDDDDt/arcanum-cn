@@ -2321,11 +2321,13 @@
 			"tomes": 50,
 			"gold": 15000
 		},
+		"result":{
+			"evt_hall": true
+		},
 		"mod": {
 			"t_runes.max": 10,
 			"tomes.rate": 0.003,
-			"sp.rate": 0.0001,
-			"evt_hall": true
+			"sp.rate": 0.0001
 		}
 	},
 	{
@@ -2418,6 +2420,7 @@
 		"desc": "Your familiar is a cat, as dark as the night that spawned him.",
 		"require": "g.summonfamiliar>0",
 		"warn": true,
+		"tags":"familiar",
 		"lock": [
 			"familiarowl",
 			"familiarkobold",
@@ -2442,6 +2445,7 @@
 		"desc": "Your familiar is an owl, most active at night, just like you are.",
 		"require": "g.summonfamiliar>0",
 		"warn": true,
+		"tags":"familiar",
 		"lock": [
 			"familiarcat",
 			"familiarkobold",
@@ -2466,6 +2470,7 @@
 		"desc": "Your familiar is a kobold, greedy for gold.",
 		"require": "g.summonfamiliar>0",
 		"warn": true,
+		"tags":"familiar",
 		"lock": [
 			"familiarcat",
 			"familiarowl",
@@ -2489,6 +2494,7 @@
 		"desc": "Your familiar is an imp, devious and prone to mischief.",
 		"require": "g.summonfamiliar>0",
 		"warn": true,
+		"tags":"familiar",
 		"lock": [
 			"familiarcat",
 			"familiarkobold",
@@ -2512,6 +2518,7 @@
 		"desc": "Your familiar is an animated tome, filled with arcane knowledge and a thirst for expansion.",
 		"require": "g.summonfamiliar>0",
 		"warn": true,
+		"tags":"familiar",
 		"lock": [
 			"familiarcat",
 			"familiarkobold",

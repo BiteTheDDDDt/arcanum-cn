@@ -341,11 +341,11 @@
 			"shadow": 2
 		},
 		"attack": {
+			"targets": "enemies",
 			"dot": {
-				"targets": "enemies",
 				"kind": "shadow",
 				"duration": 100,
-				"resist.shadow": -10
+				"self.resist.shadow": -10
 			}
 		}
 	},
@@ -420,7 +420,7 @@
 		"id": "whirl3",
 		"name": "whirling step III",
 		"level": 5,
-		"require": "g.whirl2&&g.airlore>=10&&g.tier2>0",
+		"require": "g.whirl2>0&&g.airlore>=10&&g.tier2>0",
 		"school": "air",
 		"buy": {
 			"airgem": 10,
@@ -2254,8 +2254,8 @@
 		},
 		"attack": {
 			"tohit": 15,
+			"targets": "enemies",
 			"dot": {
-				"targets": "enemies",
 				"kind": "air",
 				"duration": 15,
 				"damage": "7~25",
@@ -2503,7 +2503,7 @@
 				"self.defense": 2
 			}
 		}
-	},	
+	},
 	{
 		"id": "stoneskin",
 		"name": "stone skin",
@@ -2843,23 +2843,27 @@
 			"water": 5
 		},
 		"attack": {
-			"dot": {
-				"kind": "water",
-				"targets": "all",
-				"dmg": "3~7",
-				"duration": 30,
-				"mod": {
-					"speed": -5,
-					"dodge": -10
+			"hits": [
+				{
+					"targets": "all",
+					"dot": {
+						"kind": "water",
+						"dmg": "20~30",
+						"duration": 30
+					}
+				},
+				{
+					"targets": "allies",
+					"dot": {
+						"id": "hightideprotection",
+						"name": "high tide protection",
+						"duration": 30,
+						"mod": {
+							"self.resist.water": 75
+						}
+					}
 				}
-			}
-		},
-		"dot": {
-			"targets": "allies",
-			"duration": 30,
-			"mod": {
-				"self.resist.water": 50
-			}
+			]
 		}
 	},
 	{
@@ -2921,19 +2925,27 @@
 			"water": 8
 		},
 		"attack": {
-			"targets": "all",
-			"dot": {
-				"kind": "water",
-				"dmg": "20~30",
-				"duration": 30
-			}
-		},
-		"dot": {
-			"targets": "allies",
-			"duration": 30,
-			"mod": {
-				"self.resist.water": 75
-			}
+			"hits": [
+				{
+					"targets": "all",
+					"dot": {
+						"kind": "water",
+						"dmg": "20~30",
+						"duration": 30
+					}
+				},
+				{
+					"id": "forcetenprotection",
+					"name": "force ten protection",
+					"targets": "allies",
+					"dot": {
+						"duration": 30,
+						"mod": {
+							"self.resist.water": 75
+						}
+					}
+				}
+			]
 		},
 		"flavor": "Force without form"
 	},
@@ -2953,19 +2965,27 @@
 			"fire": 8
 		},
 		"attack": {
-			"dot": {
-				"kind": "fire",
-				"targets": "all",
-				"dmg": "30~50",
-				"duration": 30
-			}
-		},
-		"dot": {
-			"targets": "allies",
-			"duration": 30,
-			"mod": {
-				"resist.fire": 80
-			}
+			"hits": [
+				{
+					"targets": "all",
+					"dot": {
+						"kind": "fire",
+						"dmg": "30~50",
+						"duration": 30
+					}
+				},
+				{
+					"id": "firestormprotection",
+					"name": "firestorm protection",
+					"targets": "allies",
+					"dot": {
+						"duration": 30,
+						"mod": {
+							"self.resist.fire": 80
+						}
+					}
+				}
+			]
 		},
 		"flavor": ""
 	},

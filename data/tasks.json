@@ -1272,6 +1272,31 @@
 		"flavor": "The research costs a little more than you expected..."
 	},
 	{
+		"id": "chaosbag",
+		"name": "bag of mayhem",
+		"actname": "craft bag of mayhem",
+		"require": "g.trickster>0&&g.crafting>20&&g.tier3>0&&g.chaosgem>=3",
+		"max": 1,
+		"length": 2000,
+		"desc": "Badger, badger, badger, badger, why are there so many badgers in there???",
+		"cost": {
+			"gold": 1000,
+			"chaosgem": 3,
+			"arcana": 10
+		},
+		"run": {
+			"stamina": 2,
+			"chaos": 0.2
+		},
+		"mod": {
+			"chaosgem.max": 10,
+			"chaosrune.max": 5,
+			"animals.max": 2,
+			"allies.max": 10
+		},
+		"flavor": "And now there's a snake?"
+	},
+	{
 		"id": "sublimate",
 		"name": "sublimate lore",
 		"desc": "Internalize a vast amount of existing knowledge.",
@@ -1885,6 +1910,20 @@
 		}
 	},
 	{
+		"id": "imbuechaosgem",
+		"name": "imbue gem (Chaos)",
+		"require": "g.trickster>0&&g.enchanting>0",
+		"fill": "chaosgem",
+		"tags": "gemimbue",
+		"cost": {
+			"gems": 1,
+			"chaos": 3
+		},
+		"result": {
+			"chaosgem": 1
+		}
+	},
+	{
 		"id": "imbuebloodgem",
 		"name": "coagulate gem (Blood)",
 		"require": "g.alchemy>=5&&g.anatomy>=5",
@@ -2061,6 +2100,22 @@
 			"stamina": 1
 		},
 		"result": "spiritrune"
+	},
+	{
+		"id": "craftchaosrune",
+		"name": "craft rune (Chaos)",
+		"require": "g.madcap>0&&g.tier4>0",
+		"fill": "chaosrune",
+		"length": 10,
+		"cost": {
+			"runestones": 1,
+			"chaosgem": 10,
+			"tomes": 1
+		},
+		"run": {
+			"stamina": 1
+		},
+		"result": "chaosrune"
 	},
 	{
 		"id": "sellscroll",

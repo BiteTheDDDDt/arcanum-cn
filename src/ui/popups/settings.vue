@@ -65,13 +65,13 @@ export default {
 				this.dispatch('setting', 'remoteFirst', v );
 			}
 		},
-		autoSave:{
+		autosave:{
 			get(){
-				return this.saves.autoSave;
+				return this.saves.autosave;
 			},
 			set(v){
-				this.saves.autoSave = Settings.setSubVar( 'saves', 'autoSave', v );
-				this.dispatch('setting', 'autoSave', v );
+				this.saves.autoSave = Settings.setSubVar( 'saves', 'autosave', v );
+				this.dispatch('setting', 'autosave', v );
 			}
 		},
 		darkMode:{
@@ -108,7 +108,7 @@ export default {
 
 	<div>
 	<label :for="elmId('auto-save')" title="Periodically save current game.">Auto-Save</label>
-	<input type="checkbox" :id="elmId('auto-save')" v-model="autoSave">
+	<input type="checkbox" :id="elmId('auto-save')" v-model="autosave">
 	<h6>Periodically save game to storage. Game is saved to Browser storage by default. Only saved to Remote storage if logged in and server is available.</h6>
 	</div>
 
