@@ -104,8 +104,6 @@ export default class Monster extends GData {
 			g.state.minions.add( it );
 
 		} else {
-			console.log(g);
-			console.log(g.state);
 			if (g.state.combat){
 				g.state.combat.addNpc( it );
 				
