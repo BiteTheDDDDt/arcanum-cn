@@ -65,7 +65,7 @@
 		"mod": {
 			"research.max": 15,
 			"buyscroll.result.scrolls": 1,
-			"buyscroll.cost.gold": 15
+			"buyscroll.cost.gold": 20
 		}
 	},
 	{
@@ -90,7 +90,7 @@
 			"occultendure.max": 1,
 			"crystalmind.max": 1,
 			"buyscroll.result.scrolls": 1,
-			"buyscroll.cost.gold": 20
+			"buyscroll.cost.gold": 30
 		}
 	},
 	{
@@ -110,7 +110,7 @@
 			"occultendure.max": 1,
 			"crystalmind.max": 1,
 			"buyscroll.result.scrolls": 1,
-			"buyscroll.cost.gold": 20
+			"buyscroll.cost.gold": 40
 		}
 	},
 	{
@@ -130,7 +130,7 @@
 			"occultendure.max": 1,
 			"crystalmind.max": 1,
 			"buyscroll.result.scrolls": 1,
-			"buyscroll.cost.gold": 30
+			"buyscroll.cost.gold": 50
 		}
 	},
 	{
