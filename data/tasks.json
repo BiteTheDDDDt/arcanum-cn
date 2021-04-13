@@ -1153,6 +1153,7 @@
 	{
 		"id": "buyscroll",
 		"name": "buy scroll",
+		"desc": "A novice can get by with very basic scrolls, hopefully you won't need any of the pricier ones",
 		"require": "g.gold>=10",
 		"cost": {
 			"gold": 10
