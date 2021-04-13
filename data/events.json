@@ -63,7 +63,9 @@
 			"fame": 1
 		},
 		"mod": {
-			"research.max": 15
+			"research.max": 15,
+			"buyscroll.result.scrolls": 1,
+			"buyscroll.cost.gold": 15
 		}
 	},
 	{
@@ -71,8 +73,7 @@
 		"name": "Professional Magick",
 		"desc": "Every province has its handful of runaway apprentices and failed Adepts. It's not uncommon for thieves and rangers to know a spell or two. They are nothing compared to the talents of a true professional.",
 		"disable": [
-			"prestidigitation",
-			"buyscroll"
+			"prestidigitation"
 		],
 		"lock": [
 			"t_tier1",
@@ -87,7 +88,9 @@
 			"crafting.max": 1,
 			"arcanebody.max": 1,
 			"occultendure.max": 1,
-			"crystalmind.max": 1
+			"crystalmind.max": 1,
+			"buyscroll.result.scrolls": 1,
+			"buyscroll.cost.gold": 20
 		}
 	},
 	{
@@ -105,7 +108,9 @@
 			"lore.max": 2,
 			"arcanebody.max": 1,
 			"occultendure.max": 1,
-			"crystalmind.max": 1
+			"crystalmind.max": 1,
+			"buyscroll.result.scrolls": 1,
+			"buyscroll.cost.gold": 20
 		}
 	},
 	{
@@ -123,7 +128,9 @@
 			"crafting.max": 2,
 			"arcanebody.max": 1,
 			"occultendure.max": 1,
-			"crystalmind.max": 1
+			"crystalmind.max": 1,
+			"buyscroll.result.scrolls": 1,
+			"buyscroll.cost.gold": 30
 		}
 	},
 	{
@@ -131,6 +138,9 @@
 		"name": "Supreme Sorcery",
 		"desc": "Not even the masters could challenge you.",
 		"lock": "t_tier4",
+		"disable": [
+			"buyscroll"
+		],
 		"result": {
 			"sp": 1,
 			"player.exp": 75,
