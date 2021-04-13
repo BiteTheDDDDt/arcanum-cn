@@ -30,10 +30,10 @@ export default class Wearable extends Item {
 		} else data.template = this.template.id;
 
 		data.name = this.sname;
-		data.attack = this.attack || undefined;
-
+		
+		data.enchants = this.enchants; //explicitly saving those, let's see if it helps with the disappearing act.
 		if ( this.mod ) data.mod = this.mod;
-
+		
 		if ( this.material ) {
 			if ( !data ) data = {};
 			data.material = this.material.id;
@@ -247,9 +247,8 @@ export default class Wearable extends Item {
 	 * @param {Alter} it - enchantment being added.
 	 */
 	doAlter( it ) {
-
-		if ( it.type === ENCHANT || it.type === 'material') this.enchants += it.level || 0;
-
+		
+		if ( it.type === ENCHANT) this.enchants += it.level || 0;
 		console.log('APPLY ALTER: ' + it.id );
 
 		Instance.doAlter.call( this, it );
@@ -294,7 +293,22 @@ export default class Wearable extends Item {
 		}
 
 	}
+	remod( g ) { 
+		//this is a copy of equip function meant to workaround the enchants loading bug. Applies mods from item but not the attack or armor.
+		let p = g.state.player;
+		this.value = 1;
+		if ( this.mod ) {
 
+			for( let p in this.mod ) {
+				console.log('apply mod: ' + p );
+			}
+			g.applyMods( this.mod, 1 );
+
+		} else {
+			//console.log('no mods: '+ this.id );
+		}
+
+	}
 	/**
 	 *
 	 * @param {Game} g

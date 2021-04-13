@@ -9,18 +9,8 @@ export default class Attack {
 	toJSON(){
 
 		return {
-			name:this.name,
-			dmg:this._damage,
-			tohit:this.tohit||undefined,
-			bonus:this.bonus||undefined,
-			kind:this.kind,
-			hits:this.hits||undefined,
-			cure:this.cure||undefined,
-			state:this.state||undefined,
-			targets:this.targets||undefined,
-			result:this.result||undefined,
-			id:this.id,
-			dot:this.dot
+			
+			
 		};
 
 	}
@@ -60,6 +50,13 @@ export default class Attack {
 		if ( this.dot ){
 			if ( !this.dot.kind ) this.dot.kind = k;
 		}
+		if ( this._hits ) {
+			for( let i = this._hits.length-1; i>=0; i--) if ( !this._hits[i].kind ) this._hits[i].kind =k;
+			if ( this._hits.dot ) {
+				for( let i = this._hits.length-1; i>=0; i--) if ( !this._hits[i].dot.kind ) this._hits[i].dot.kind = this._hits[i].kind;
+			}
+		}
+		
 
 	}
 
@@ -84,14 +81,29 @@ export default class Attack {
 	/**
 	 * @property {string} targets - target of attack.
 	 */
+	get targetstring() {return this._targetstring;}
+	set targetstring(v) { this.targetstring=v;
+	}
 	get targets() { return this._targets; }
 	set targets(v) {
 
-		if ( typeof v === 'string') this._targets = ParseTarget(v);
-		else {
-			this._targets = v;
+		if ( typeof v === 'string') {
+			this._targetstring = v;
+			this._targets = ParseTarget(v);
+			if ( this._hits ) {
+				for( let i = this._hits.length-1; i>=0; i--) if ( !this._hits[i].targets ) this._hits[i].targets=ParseTarget(v);
+				for( let i = this._hits.length-1; i>=0; i--) if ( !this._hits[i].targetstring ) this._hits[i].targetstring = v;
+			}
 		}
-
+		else {
+			this._targetstring = this._targets;
+			this._targets = v;
+			if ( this._hits ) {
+				for( let i = this._hits.length-1; i>=0; i--) if ( !this._hits[i].targets ) this._hits[i].targets = v;
+				for( let i = this._hits.length-1; i>=0; i--) if ( !this._hits[i].targetstring ) this._hits[i].targetstring = v;
+			}
+		}
+		
 	}
 
 	/**

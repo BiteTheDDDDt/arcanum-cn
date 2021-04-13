@@ -212,6 +212,8 @@ export default {
 		 * @todo: instance-table starting to look like a better idea.
 		 */
 		this.state.inventory.begin(this);
+		this.state.items.enchantslots.begin(this);
+		this.state.drops.begin(this);
 		this.state.equip.begin(this);
 		this.state.player.begin( this );
 		gdata[ENCHANTSLOTS].begin(this);
@@ -240,7 +242,7 @@ export default {
 			if ( e.type === WEAPON) {
 				this.player.addWeapon(e);
 			}
-			if ( e.mod ) this.applyMods( e.mod );
+			if ( e.mod ) e.remod( this ); //used to call ApplyMods, but that does not work. Instead calls the Remod function of wearable which simulates equipping it.
 		}
 
 

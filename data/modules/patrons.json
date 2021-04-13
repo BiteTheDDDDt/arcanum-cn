@@ -17,7 +17,8 @@
 					"gold.rate": -0.2,
 					"virtue.rate": 0.0001,
 					"light.rate": 0.1,
-					"notoriety.rate": 0.00001
+					"fame.rate": 0.00005
+								 
 				},
 				"flavor": "Nathaniel insisted magic be used for the benefit of the unfortunate."
 			},

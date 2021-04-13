@@ -34,11 +34,11 @@
 			"arcana": 2
 		},
 		"result": {
+			"evt_helper": true,
 			"sp": 1.25,
 			"player.exp": 10
 		},
 		"mod": {
-			"evt_helper": true,
 			"lore.max": 1,
 			"gold.rate": 0.07,
 			"animals.max": 3,
@@ -276,7 +276,6 @@
 		"disable": "pace",
 		"mod": {
 			"tier1": true,
-			"witchcraft": true,
 			"research.max": 10,
 			"naturelore.max": 1,
 			"naturelore.rate": "10%",

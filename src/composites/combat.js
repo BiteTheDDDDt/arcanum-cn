@@ -211,7 +211,7 @@ export default class Combat {
 				this.attack( g.self, it.attack );
 			}
 			if ( it.action ) {
-
+				
 				console.log('ACTION: ' + it.action );
 				let target = this.getTarget( g.self, it.action.targets );
 
@@ -236,15 +236,14 @@ export default class Combat {
 	 * @param {Object|Char} atk - attack object.
 	 */
 	attack( attacker, atk ) {
-
 		if ( atk.log ) {
 			Events.emit( EVT_COMBAT, null, atk.log );
 		}
 
 		if ( atk.hits ) {
-			let len = atk.hits.length;
-			for( let i = 0; i < len; i++ ) {
-				this.attack( attacker, atk.hits[i] );
+			
+			for( let p in atk.hits ) {
+				this.attack( attacker, atk.hits[p] );
 			}
 		}
 
@@ -273,6 +272,7 @@ export default class Combat {
 
 		if ( atk.harmless || !targ.canDefend() || this.tryHit( attacker, targ, atk ) ) {
 			ApplyAction( targ, atk, attacker );
+			
 		}
 
 	}
@@ -342,14 +342,26 @@ export default class Combat {
 		if ( attack && (attack != attacker) ) tohit += ( attack.tohit || 0 );
 
 		if ( this.dodgeRoll( defender.dodge, tohit )) {
-
-			Events.emit( DAMAGE_MISS, defender.name.toTitleCase() + ' Dodges ' + (attack.name.toTitleCase()||attacker.name.toTitleCase()));
+			if(attack.name) {
+				Events.emit( DAMAGE_MISS, defender.name.toTitleCase() + ' Dodges ' + (attack.name.toTitleCase()));
+				
+			}
+			else
+			{
+				Events.emit( DAMAGE_MISS, defender.name.toTitleCase() + ' Dodges ' + (attacker.name.toTitleCase()));
+			}
 
 		} else if ( Math.random()*( 10 + tohit ) >= Math.random()*(10 + defender.defense * DEFENSE_RATE ) ) {
 			return true;
 		} else {
-
-			Events.emit( DAMAGE_MISS, defender.name.toTitleCase() + ' Parries ' + (attack.name.toTitleCase()||attacker.name.toTitleCase()));
+			if(attack.name) {
+				Events.emit( DAMAGE_MISS, defender.name.toTitleCase() + ' Parries ' + (attack.name.toTitleCase()));
+				
+			}
+			else
+			{
+				Events.emit( DAMAGE_MISS, defender.name.toTitleCase() + ' Parries ' + (attacker.name.toTitleCase()));
+			}
 		}
 
 	}

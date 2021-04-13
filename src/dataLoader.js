@@ -107,7 +107,7 @@ export default {
 		for( let p in saveData ) {
 
 			// items prepped separately so template can be written over, then prep, then template assigned.
-			if ( p === 'items') continue;
+			if ( p === 'items' || p === 'drops') continue;
 			saveData[p] = PrepData( saveData[p], p );
 
 		}

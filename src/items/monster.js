@@ -78,8 +78,8 @@ export default class Monster extends GData {
 	 * @param {Game} g
 	 * @param {number} [count=1]
 	 */
-	amount( g, count=1 ) {
-
+	amount( g, count ) {
+		if(!count) count = 1;
 		let minions = g.getData('minions');
 		g.create( this, minions.shouldKeep(this), count );
 
@@ -104,9 +104,13 @@ export default class Monster extends GData {
 			g.state.minions.add( it );
 
 		} else {
-
-			g.state.combat.addNpc( it );
-
+			if (g.state.combat){
+				g.state.combat.addNpc( it );
+				
+			}
+			else if (g.state.state){
+				g.state.state.combat.addNpc( it );
+			}
 		}
 
 	}

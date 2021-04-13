@@ -100,19 +100,19 @@ export const Targets = {
 	/**
  	* @const TARGET_RANDG - target random group.
 	 */
-	randgroup:TARGET_RANDG,
+	randomgroup:TARGET_RANDG,
 
 	 /**
  	* @const {string} TARGET_RAND - random target.
  	*/
-	rand:TARGET_RAND,
+	random:TARGET_RAND,
 
-	randenemy:TARG_RAND_ENEMY,
+	randomenemy:TARG_RAND_ENEMY,
 
 	/**
 	 * @const {number} TARGET_PRIMARY - target opposing leader.
 	 */
-	primary:TARGET_PRIMARY,
+	enemyleader:TARGET_PRIMARY,
 
 	/**
 	 * @const {number} TARGET_LEADER - target (same-team) leader.
