@@ -472,12 +472,8 @@ export default class Runner {
 			this.stopTask(act);
 
 		} else if ( repeatable ) {
-
-			//Temp fix. Creates update values for value and timer, then attempts to do a run check with new values
-			//Does not fully emulate an update, meaning that some checks that dont rely on these values but would stop the task won't stop it until after cost is paid.
-			//TODO make this do an actual tick update instead of this temporary patch
-			let updateValues = {value: (act.value ? act.value + 1 : 1), timer: (act.cd ? act.cd : act.timer)};
-			if ( this.context.canRun(act) && this.context.canRerun(act, updateValues) && this.actives.size <= this.max.value ) {
+			
+			if ( this.context.canRun(act) && this.actives.size <= this.max.value ) {
 
 				this.setTask(act);
 				if ( !act.hasTag( REST_TAG)  ) {

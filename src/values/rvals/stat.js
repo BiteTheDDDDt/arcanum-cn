@@ -2,7 +2,6 @@ import { TYP_STAT, TYP_RVAL } from '../consts';
 import RValue from './rvalue';
 
 import { precise } from '../../util/format';
-import { assign } from 'objecty'
 
 // number of times all stats recalculated this frame.
 /*var LoopCount = 0;
@@ -20,13 +19,6 @@ export default class Stat extends RValue {
 
 	toJSON(){
 		return this._value;
-	}
-
-	//TODO make sure this is good. coded on the fly so no verification that everything done here is fine
-	clone() {
-		let newStat = new Stat(this.base, this.id, this.pos);
-		assign(newStat, this);
-		return newStat;
 	}
 
 	/**

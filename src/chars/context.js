@@ -244,25 +244,6 @@ export default class Context {
 
 	}
 
-	/**
-	 * Determines whether an item can run again as a continuous task.
-	 * @returns {boolean}
-	 */
-	canRerun(it, itMod) {
-
-		if ( !it.canRun ) {
-			console.error( it.id + ' no canRun()');
-			return false;
-		}
-		console.log(it);
-		let newIt = assign(assign(Object.create(Object.getPrototypeOf(it), Object.getOwnPropertyDescriptors(it)), clone(it)), itMod);
-
-		console.log(it);
-		console.log(newIt);
-		
-		return !itMod || Object.keys(itMod).length === 0 ? it.canRun(this, TICK_LEN) : newIt.canRun(this, TICK_LEN);
-	}
-
 	canUse(it) {
 		return true;
 	}
