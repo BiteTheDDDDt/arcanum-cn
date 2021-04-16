@@ -97,8 +97,10 @@ export default class Stat extends RValue {
 	 */
 	get mods() { return this._mods; }
 	set mods(v) {
+
 		let mods = {};
 		for( let p in v ) {
+
 			var mod = v[p];
 			mods[p] = (mod instanceof Mod ) ? mod : new Mod( v[p] );
 		}

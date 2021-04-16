@@ -472,7 +472,7 @@ export default class Runner {
 			this.stopTask(act);
 
 		} else if ( repeatable ) {
-			
+
 			if ( this.context.canRun(act) && this.actives.size <= this.max.value ) {
 
 				this.setTask(act);
