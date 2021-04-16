@@ -6,7 +6,6 @@ import TechTree, { Changed, GetChanged } from './techTree';
 import Resource from './items/resource';
 import Skill from './items/skill';
 import Stat from './values/rvals/stat';
-import Context from './chars/context';
 
 import DataLoader from './dataLoader';
 
