@@ -6,6 +6,7 @@ import TechTree, { Changed, GetChanged } from './techTree';
 import Resource from './items/resource';
 import Skill from './items/skill';
 import Stat from './values/rvals/stat';
+import Context from './chars/context';
 
 import DataLoader from './dataLoader';
 
@@ -13,7 +14,7 @@ import Events, {EVT_EVENT, EVT_LOOT, SET_SLOT, DELETE_ITEM } from './events';
 import { MONSTER, TYP_PCT, P_TITLE, P_LOG, TEAM_PLAYER, ENCHANTSLOTS, WEAPON } from './values/consts';
 import TagSet from './composites/tagset';
 import RValue from './values/rvals/rvalue';
-import { SetModCounts } from './items/base';
+import { mergeClass, SetModCounts } from './items/base';
 
 var techTree;
 
@@ -32,7 +33,7 @@ export const TICK_LEN = TICK_TIME/1000;
  */
 export const EVT_TIME = 1000;
 
-export default {
+var Game = {
 
 	toJSON() { return this.state },
 
@@ -1343,3 +1344,7 @@ export default {
 	getData(id) { return this._gdata[id] || this.state[id]; },
 
 }
+
+mergeClass( Game, Context );
+
+export default Game;

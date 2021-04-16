@@ -2,6 +2,7 @@ import { TYP_STAT, TYP_RVAL } from '../consts';
 import RValue from './rvalue';
 
 import { precise } from '../../util/format';
+import { assign } from 'objecty'
 
 // number of times all stats recalculated this frame.
 /*var LoopCount = 0;
@@ -21,6 +22,12 @@ export default class Stat extends RValue {
 		return this._value;
 	}
 
+	//TODO make sure this is good. coded on the fly so no verification that everything done here is fine
+	clone() {
+		let newStat = new Stat(this.base, this.id, this.pos);
+		assign(newStat, this);
+		return newStat;
+	}
 
 	/**
 	 * @returns {string}
@@ -98,13 +105,12 @@ export default class Stat extends RValue {
 	 */
 	get mods() { return this._mods; }
 	set mods(v) {
-
+		let mods = {};
 		for( let p in v ) {
-
 			var mod = v[p];
-			v[p] = (mod instanceof Mod ) ? mod : new Mod( v[p] );
+			mods[p] = (mod instanceof Mod ) ? mod : new Mod( v[p] );
 		}
-		this._mods = v;
+		this._mods = mods;
 	}
 
 	/**
