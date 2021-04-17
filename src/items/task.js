@@ -6,6 +6,7 @@ import Scaler from '../values/rvals/scaler';
 import { TASK } from '../values/consts';
 import { ParseMods } from '../modules/parsing';
 import { SetModCounts } from './base';
+import { Changed } from '../techTree'
 
 /*function ShowModTotals( mods ){
 
@@ -217,6 +218,7 @@ export default class Task extends GData {
 		 * so the applied mods see the current value.
 		 */
 		this.changed(g, 1);
+		Changed.add(this);
 
 		this._exp.set(0);
 
