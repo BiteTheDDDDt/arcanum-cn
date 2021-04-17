@@ -24,7 +24,7 @@ export const SetModCounts = ( m, v)=>{
 export const mergeClass = ( destClass, src ) => {
 
 	let proto = destClass.prototype || destClass;
-	let srcDescs = Object.getOwnPropertyDescriptors(src);
+	let srcDescs = Object.getOwnPropertyDescriptors( src );
 	let protoDescs = getDescs(proto);
 
 	// NOTE: valueOf not overwritten.

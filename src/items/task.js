@@ -210,13 +210,13 @@ export default class Task extends GData {
 	 * completion of ongoing task.
 	 * @param {Game} [g=Game]
 	 */
-	complete() {
+	complete(g=Game) {
 
 		/**
 		 * @note value has to be incremented first
 		 * so the applied mods see the current value.
 		 */
-		this.amount(1);
+		this.changed(g, 1);
 
 		this._exp.set(0);
 

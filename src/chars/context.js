@@ -1,6 +1,9 @@
 import { NpcState } from "./npcState";
 import Events, { EVT_EVENT } from "../events";
 import { P_TITLE, P_LOG, TYP_PCT, MONSTER } from "../values/consts";
+import { TICK_LEN } from '../game';
+
+import { assign, clone } from 'objecty';
 
 /**
  * @interface Context
@@ -111,11 +114,84 @@ export default class Context {
 	 */
 	getLoot(){
 	}
+
 	/**
-	 * Test if item can be paid for.
-	 * @param {*} it
+	 * Determine if an object cost can be paid before the pay attempt
+	 * is actually made.
+	 * @param {Array|Object} cost
+	 * @returns {boolean} true if cost can be paid.
 	 */
-	canPay(it) {
+	canPay( cost, amt=1 ) {
+
+		if (cost===null||cost===undefined) return true;
+		// @note @todo: this doesnt work since some items might charge same cost.
+		if (Array.isArray(cost) ) return cost.every( v=>this.canPay(v,amt), this );
+
+		let res;
+
+		if ( typeof cost === 'object' ){
+
+			for( let p in cost ) {
+
+				let sub = cost[p];
+
+				res = this.state.getData(p);
+				if ( !res ) return false;
+				else if ( res.instanced || res.isRecipe ) {
+
+					/* @todo: ensure correct inventory used. map type-> default inventory? */
+					return this.state.inventory.hasCount( res, amt );
+
+				} else if ( !isNaN(sub) || sub.isRVal ) {
+
+					if ( !res.canPay(sub*amt) ) return false;
+					//if ( res.value < sub*amt ) return false;
+
+				} else {
+
+					// things like research.max. with suboject costs.
+					if ( !this.canPayObj( res, sub, amt ) ) return false;
+
+				}
+
+			}
+
+		}
+
+		return true;
+	}
+
+	/**
+	 * Follow object path to determine ability to pay.
+	 * @param {object} parent - parent object.
+	 * @param {object|number} cost - cost expected on parent or sub.
+	 * @param {number} amt - cost multiplier.
+	 * @returns {boolean}
+	 */
+	canPayObj( parent, cost, amt=1 ){
+
+		if ( !parent ) return false;
+
+		if ( (cost instanceof RValue) || !isNaN(cost)){
+			return parent.value >= cost;
+		}
+
+		for( let p in cost ) {
+
+			var val = cost[p];
+			if ( !isNaN(val) || (val instanceof RValue) ) {
+				if ( parent.value < val*amt ) return false;
+			} else if ( typeof val === 'object'){
+
+
+				//console.log('checking sub cost: ' + p + ' ' +cost.constructor.name );
+				//if ( parent ) console.log( 'parent: ' + parent.id );
+
+				if ( !this.canPayObj( parent[p], val, amt ) ) return false;
+			}
+
+		}
+
 		return true;
 	}
 
@@ -155,8 +231,17 @@ export default class Context {
 
 	}
 
-	canRun(it){
-		return true;
+	/**
+	 * Determines whether an item can be run as a continuous task.
+	 * @returns {boolean}
+	 */
+	canRun( it ) {
+
+		if ( !it.canRun ) {
+			console.error( it.id + ' no canRun()');
+			return false;
+		} else return it.canRun( this, TICK_LEN );
+
 	}
 
 	canUse(it) {
