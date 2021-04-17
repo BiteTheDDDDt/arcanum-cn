@@ -329,7 +329,7 @@ export default {
 		} else if ( mods.constructor === Object ) {
 
 			this.applyObj( mods, amt, targ );
-			if ( mods.mod ) this.changeMod( mods.mod, amt );
+			if ( mods.mod ) this.changeMod( mods.mod, 0 , targ);
 
 
 		} else if ( typeof mods === 'number') {
