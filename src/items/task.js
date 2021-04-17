@@ -217,6 +217,7 @@ export default class Task extends GData {
 		 * so the applied mods see the current value.
 		 */
 		this.changed(g, 1);
+		Changed.add(this);
 
 		this._exp.set(0);
 
