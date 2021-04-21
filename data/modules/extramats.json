@@ -184,7 +184,10 @@
 					"prismaticgems": 50
 				},
 				"alter": {
-					"element.rate": 0.3
+					"mod.fire.rate": 0.3,
+					"mod.air.rate": 0.3,
+					"mod.water.rate": 0.3,
+					"mod.earth.rate": 0.3
 				}
 			},
 			{
