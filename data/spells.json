@@ -2483,8 +2483,8 @@
 		}
 	},
 	{
-		"id": "copperskin",
-		"name": "copper skin",
+		"id": "stoneskin",
+		"name": "stone skin",
 		"level": 1,
 		"require": "g.spellbook.value>0&&g.earthlore>0",
 		"school": "earth",
@@ -2505,8 +2505,8 @@
 		}
 	},
 	{
-		"id": "stoneskin",
-		"name": "stone skin",
+		"id": "copperskin",
+		"name": "copper skin",
 		"desc": "Hardens the skin of the self.",
 		"school": "earth",
 		"require": "g.earthlore>=8&&g.tier0>0",
