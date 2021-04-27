@@ -575,7 +575,7 @@
 	{
 		"id": "spidercave",
 		"name": "Skittering Caverns",
-		"desc": "The only treasures here are were lost by adventurers searching for treasure.",
+		"desc": "The only treasures here, are those lost by adventurers searching for treasure.",
 		"require": "tier0",
 		"level": 7,
 		"run": {
