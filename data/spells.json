@@ -2497,7 +2497,7 @@
 		},
 		"dot": {
 			"id": "toughskin",
-			"name": "copper skin",
+			"name": "stone skin",
 			"duration": 30,
 			"mod": {
 				"self.defense": 2
@@ -2521,7 +2521,7 @@
 		},
 		"dot": {
 			"id": "toughskin",
-			"name": "stone skin",
+			"name": "copper skin",
 			"duration": 50,
 			"mod": {
 				"self.defense": 5
