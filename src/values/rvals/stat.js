@@ -180,7 +180,7 @@ export default class Stat extends RValue {
 
 		if ( ( val instanceof Stat ) ) {
 			console.log('STAT WITHOUT ID: ' + val );
-			val = val._value;
+			val = val._value + val._mBase;
 		}
 
 		if ( typeof val ==='number' ) {
