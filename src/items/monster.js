@@ -1,6 +1,7 @@
 import GData from "./gdata";
 import { MONSTER, TEAM_PLAYER } from "../values/consts";
 import Npc from "../chars/npc";
+import Attack from '../chars/attack';
 import { NpcLoreLevels } from '../values/craftVars';
 
 /**
@@ -34,7 +35,25 @@ export default class Monster extends GData {
 		if ( this.value > 0 ) return { value:this.value};
 		else return undefined;
 	}
+	get attack() { return this._attack; }
+	set attack(v) {
 
+		if ( Array.isArray(v)) {
+
+			let a = [];
+			for( let i = v.length-1; i>=0; i-- ) {
+
+				a.push( (v[i] instanceof Attack) ? v[i] :
+					new Attack(v[i])
+				);
+
+			}
+
+			this._attack = a;
+
+		} else this._attack = ( v instanceof Attack) ? v : new Attack(v);
+
+	}
 	/**
 	 *
 	 * @param {object} [vars=null]

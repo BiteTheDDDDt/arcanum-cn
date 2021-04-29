@@ -1028,7 +1028,7 @@
 				"noproc": true,
 				"hp": 500,
 				"tohit": 20,
-				"defense": 200,
+				"defense": 120,
 				"attack": [
 					{
 						"hits": [
@@ -1036,14 +1036,14 @@
 								"name": "charge",
 								"tohit": 10,
 								"targets": "enemies",
-								"dmg": "50~70"
+								"dmg": "60~70"
 							},
 							{
 								"name": "recoil",
 								"nomiss": true,
 								"nodefense": true,
 								"targets": "self",
-								"dmg": 50,
+								"dmg": 30,
 								"dot": {
 									"name": "recoil",
 									"targets": "self",
@@ -1058,7 +1058,9 @@
 					{
 						"name": "rewind",
 						"targets": "self",
-						"hp": 10,
+						"result": {
+							"hp": 50
+						},
 						"dot": {
 							"duration": 2,
 							"mod": {

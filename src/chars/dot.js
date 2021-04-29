@@ -55,14 +55,16 @@ export default class Dot {
 	/**
 	 * @property {RValue} dmg - alias for damage.
 	 */
-	get dmg(){return this._damage;}
+	get dmg(){return this.damage;}
 	set dmg(v) { this.damage = v; }
 
 	/**
 	 * @property {RValue} damage
 	 */
 	get damage() { return this._damage; }
-	set damage(v) { this._damage = ParseDmg(v); }
+	set damage(v) { 
+		this._damage = ParseDmg(v); 
+	}
 
 	/**
 	 * @property {number} flags
