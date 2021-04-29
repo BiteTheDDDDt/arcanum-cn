@@ -78,6 +78,7 @@ export default {
 
 	<div v-if="damage!==0&&damage!==null&&typeof damage !== 'undefined'&&itemtype!=='armor'||item.attack.targets||item.attack.result">
 		<div class="info-sect" >Attack</div>		
+		<div v-if="item.attack.name"><span>Name: </span><span>{{item.attack.name.toString().toTitleCase()}}</span></div>
 		<div v-if="hitBonus&&damage!==0&&damage!==null&&typeof damage !== 'undefined'">Hit Bonus: {{ hitBonus }}</div>
 		<div class="damage" v-if="damage!==0&&damage!==null&&typeof damage !== 'undefined'">
 			<span>Damage: {{ damage }}</span><span v-if="bonus">{{ bonus }}</span></div>
@@ -88,7 +89,7 @@ export default {
 
 	<div v-if="item.attack.hits">
 		<div v-for="hit in item.attack.hits">
-			<div class="info-sect" >Attack hit</div>		
+			<div class="info-sect" >Attack hit</div>
 			<div v-if="hit.tohit&&hit.damage!==0&&hit.damage!==null&&typeof hit.damage !== 'undefined'">Hit Bonus: {{ hit.tohit }}</div>
 			<div class="damage" v-if="hit.damage!==0&&hit.damage!==null&&typeof hit.damage !== 'undefined'">
 				<span>Damage: {{ hit.damage }}</span><span v-if="bonus">{{ hit.bonus }}</span></div>
