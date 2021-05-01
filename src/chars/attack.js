@@ -10,7 +10,21 @@ export default class Attack {
 
 		return {
 			
-			
+			/*
+			name:this.name,
+			dmg:this._damage,
+			tohit:this.tohit||undefined,
+			bonus:this.bonus||undefined,
+			kind:this.kind,
+			hits:this.hits||undefined,
+			cure:this.cure||undefined,
+			state:this.state||undefined,
+			targets:this.targets||undefined,
+			targetstring:this.targetstring||undefined,
+			result:this.result||undefined,
+			id:this.id,
+			dot:this.dot
+			*/
 		};
 
 	}
@@ -82,7 +96,8 @@ export default class Attack {
 	 * @property {string} targets - target of attack.
 	 */
 	get targetstring() {return this._targetstring;}
-	set targetstring(v) { this.targetstring=v;
+	set targetstring(v) { 
+		this.targetstring=v;
 	}
 	get targets() { return this._targets; }
 	set targets(v) {
@@ -177,16 +192,28 @@ export default class Attack {
 		}
 
 		if ( this.dot ) {
-
-			if ( !this.dot.id ) {
-				if ( this.dot.name ) this.dot.id = this.dot.name;
-				else this.dot.id = this.dot.name = this.name || this.id;
+			if ( Array.isArray(this.dot)) {
+				for( let p of this.dot ) {
+					if ( !p.id ) {
+						if ( p.name ) p.id = p.name;
+						else p.id = p.name = this.name || this.id;
+					}
+					if ( p.dmg || p.damage ) {
+						if ( !p.damage ) p.damage = p.dmg;
+						else p.dmg = p.damage;
+					}
+				}
 			}
-			if ( this.dot.dmg || this.dot.damage ) {
-				if ( !this.dot.damage ) this.dot.damage = this.dot.dmg;
-				else this.dot.dmg = this.dot.damage;
+			else {
+				if ( !this.dot.id ) {
+					if ( this.dot.name ) this.dot.id = this.dot.name;
+					else this.dot.id = this.dot.name = this.name || this.id;
+				}
+				if ( this.dot.dmg || this.dot.damage ) {
+					if ( !this.dot.damage ) this.dot.damage = this.dot.dmg;
+					else this.dot.dmg = this.dot.damage;
+				}
 			}
-
 		}
 
 

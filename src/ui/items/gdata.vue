@@ -191,7 +191,7 @@ export default {
 		<div v-if="item.use" class="info-sect">When used:</div>
 		<info v-if="item.use" :info="item.use" />
 		<div v-if="item.dot" class="info-sect">Buffs:</div>
-		<dot v-if="item.dot" :dot="item.dot" />
+		<dot v-if="item.dot" :dot="item.dot" :item="item" />
 		
 		<div v-if="item.lock||item.disable" class="info-sect">Locks:</div>
 		<info v-if="item.lock" :info="item.lock" />
