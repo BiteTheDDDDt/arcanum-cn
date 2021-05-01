@@ -186,8 +186,15 @@ export default {
 		<tr v-for="it in filtered" :key="it.id" @mouseenter.capture.stop="itemOver( $event, it )">
 
 			<td class="space">{{ it.cost.space || it.mod.space }}</td>
-			<td class="name">{{ it.name }}</td> <td class="count">{{ it.value.valueOf() }}</td>
-
+			<template v-if="typeof it.max !== 'undefined'">
+				<td class="name">{{ it.name }}</td> <td class="count">{{ it.value.valueOf()}}/{{ it.max.valueOf() }}</td>
+			</template>
+			<template v-else-if="it.repeat==true">
+				<td class="name">{{ it.name }}</td> <td class="count">{{ it.value.valueOf() }}</td>
+			</template>
+			<template v-else>
+				<td class="name">{{ it.name }}</td> <td class="count">{{ it.value.valueOf() }}/1</td>
+			</template>
 			<td><span v-if="it.maxed()" class="sm">Max</span><button v-else type="button" :disabled="!it.canUse()" class="buy-btn"
 				@click="emit('upgrade',it)">Buy</button></td>
 
