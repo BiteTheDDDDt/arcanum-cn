@@ -13,6 +13,16 @@ const defaults = {
  * Individual potions are instanced from this data.
  */
 export default class Potion extends GData {
+	
+	toJSON() {
+
+		let data = super.toJSON();
+
+		data.id = this.id;
+
+		return data ? data : undefined;
+
+	}
 
 	get isRecipe() {return true; }
 
