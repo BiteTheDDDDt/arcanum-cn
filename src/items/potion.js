@@ -19,7 +19,8 @@ export default class Potion extends GData {
 		let data = super.toJSON();
 
 		data.id = this.id;
-
+		data.template=this.template;
+		data.recipe=this.recipe;
 		return data ? data : undefined;
 
 	}
