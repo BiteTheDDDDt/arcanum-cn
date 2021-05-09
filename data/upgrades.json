@@ -745,7 +745,7 @@
 	},
 	{
 		"id": "speakbirds",
-		"name": "Speak to Birds",
+		"name": "speak to Birds",
 		"desc": "Learn the secret languages of birds.",
 		"require": "g.falconer>0||(g.birdcage>0&&g.animals>7)",
 		"cost": {
