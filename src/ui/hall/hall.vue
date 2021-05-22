@@ -97,7 +97,7 @@ export default {
 			<div class="text-button"><a href=""
 			@click.self.prevent="dispatch('hall-file',$event )" type="text/json">Hall Save</a></div>
 
-			<confirm @confirm="dispatch('resetHall')">Reset Hall</confirm>
+			<confirm @confirm="dispatch('resetHall')">Wipe Hall Save</confirm>
 
 			</div>
 

@@ -73,7 +73,7 @@ export default {
 			<button id="drop-file" @click="$refs.fileInput.click()" @drop="fileDrop" @dragover="fileDrag" @dragleave.capture.stop="dragOut" name="[Load Save]">[Load Save]</button>
 			<input ref="fileInput" type="file" @change="fileSelect" accept="text/json text/*">
 
-			<confirm @confirm="dispatch('reset')">Reset Wizard</confirm>
+			<confirm @confirm="dispatch('reset')">Wipe Wizard</confirm>
 		</span>
 
 		<span class="items"><slot name="center"></slot></span>
