@@ -197,7 +197,7 @@
 	{
 		"id": "bodies",
 		"group": "necromancy",
-		"desc": "Bodies for necromatic magic",
+		"desc": "Bodies for necromantic magic",
 		"max": 1,
 		"mod": {
 			"dissection.rate": 0.01,
