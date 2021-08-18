@@ -307,17 +307,18 @@
 		},
 		"at": {
 			"25": {
-				"attack.dot.damage.max": 5
+				"attack.damage.max": 5
 			},
 			"75": {
-				"attack.dot.damage.min": 5
+				"attack.damage.min": 5
 			},
 			"300": {
-				"attack.dot.damage.max": 5,
-				"attack.dot.damage.min": 5
+				"attack.damage.max": 5,
+				"attack.damage.min": 5
 			}
 		},
 		"attack": {
+			"damage": "0~5",
 			"dot": {
 				"kind": "drain",
 				"leech": 0.75,
