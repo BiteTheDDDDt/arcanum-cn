@@ -87,7 +87,7 @@
 			"length":30,
 			"repeat":false,
 			"cost":{
-				"nymiescharm":1,
+				"res_nymiescharm":1,
 				"cobwebs":10,
 				"jacklantern":7,
 				"gems":50
@@ -404,7 +404,12 @@
 		}
 	],
 	"resources":[
-
+		{
+			"id":"res_nymiescharm",
+			"name":"nymie's charm",
+			"desc":"A small figurine of a black cat.",
+			"max":1
+		},
 		{
 			"id":"pumpkins",
 			"desc":"Plump round gourds of the season.",
@@ -613,7 +618,7 @@
 			"desc":"A devotee of the immortal Night Queen, the bloody baroness extends her own life with harvests of blood.",
 			"hp":1000,
 			"defense":20,
-			"loot":"nymiescharm",
+			"loot":"res_nymiescharm",
 			"attack":[
 
 				{
