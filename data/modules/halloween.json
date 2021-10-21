@@ -526,20 +526,7 @@
 			},
 			"loot":[
 				"cobwebs",
-				{
-					"id":"bdagg",
-					"name":"necrotic dagger",
-					"material":"bone",
-					"type":"weapon",
-					"tohit":2,
-					"attack":{ "kind":"pierce", "damage":"1~3","dot":{
-						"duration":3,
-						"dmg":"1~2",
-						"name":"necrosis",
-						"kind":"necrotic"
-
-					}}, "cost":20, "level":3
-				}
+				"bdagg"
 			],
 			"log":{
 				"name":"graves silenced",
