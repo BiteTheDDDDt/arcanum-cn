@@ -30,6 +30,18 @@
 		],
 		"rares": [
 			{
+				"id":"vorpal",
+				"name":"vorpal blade",
+				"level":14,
+				"type":"weapon",
+				"material":"quicksteel",
+				"tohit":10,
+				"attack":{
+					"kind":"slash",
+					"dmg":"5~10"
+				}
+			},
+			{
 				"id":"bdagg",
 				"name":"necrotic dagger",
 				"material":"bone",
