@@ -107,7 +107,7 @@
 				"gold":1
 			},
 			"loot":{
-				"hal_apple":"40%",
+				"res_apple":"40%",
 				"watergem":"0.1%",
 				"runestones":"0.01%"
 			}
