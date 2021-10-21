@@ -161,7 +161,7 @@
 			"cost":{
 				"pumpkins":1
 			},
-			"effect":{
+			"result":{
 				"pumpseeds":3
 			}
 
