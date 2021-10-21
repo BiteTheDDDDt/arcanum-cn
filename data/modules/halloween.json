@@ -180,7 +180,7 @@
 				"trickery.exp":1
 			},
 			"loot":{
-				"hal_treat":1,
+				"res_treat":1,
 				"pumpseeds":"0~2",
 				"gold":"0~5",
 				"gems":"1%",
@@ -405,6 +405,19 @@
 	],
 	"resources":[
 		{
+			"id":"res_apple",
+			"name":"apple",
+			"level":1,
+			"max":50
+		},
+		{
+			"id":"res_treat",
+			"name":"treat",
+			"level":1,
+			"desc":"Local confections may have unpredictable effects",
+			"max":100
+		},
+		{
 			"id":"res_nymiescharm",
 			"name":"nymie's charm",
 			"desc":"A small figurine of a black cat.",
@@ -554,7 +567,7 @@
 			"cost":{
 				"cobwebs":1,
 				"pumpseeds":10,
-				"hal_apple":10
+				"res_apple":10
 			},
 			"use":{
 				"dot":{
@@ -606,6 +619,62 @@
 				"kind":"spooky"
 			}
 
+		},
+		{
+			"id":"eat_apple",
+			"name":"eating a apple",
+			"desc":"healty are you",
+			"require":"g.res_apple>10",
+			"unlock":{"res_apple":10},
+			"cost":{"res_apple":1},
+			"at":{
+				"10":{
+					"result.hp.max":5,
+					"result.stamina.max":5
+				},
+				"30":{
+					"result.hp.max":5,
+					"result.stamina.max":5
+				},
+				"100":{
+					"result.nature":5
+				}
+			},
+			"result":{
+				"hp":"0~10",
+				"stamina":"0~10"
+			}
+		},
+		{
+			"id":"eat_treat",
+			"name":"eating a treat",
+			"level":1,
+			"desc":"Local confections may have unpredictable effects",
+			"require":"g.res_treat>10",
+			"buy":{"res_treat":1},
+			"cost":{"res_treat":1},
+			"at":{
+				"10":{
+					"result.hp.max":5,
+					"result.stamina.max":5,
+					"result.mana.max":5
+				},
+				"30":{
+					"result.hp.max":5,
+					"result.stamina.max":5,
+					"result.mana.max":5
+				},
+				"100":{
+					"result.hp.min":5,
+					"result.stamina.min":5,
+					"result.mana.min":5
+				}
+			},
+			"result":{
+				"hp":"-10~10",
+				"stamina":"-10~10",
+				"mana":"-10~10"
+			}
 		}
 
 	],
