@@ -719,22 +719,10 @@
 				}
 
 			],
-			"loot":[
-				{
-					"%":"10%",
-					"id":"vorpal",
-					"name":"vorpal blade",
-					"level":10,
-					"type":"weapon",
-					"material":"quicksteel",
-					"tohit":10,
-					"attack":{
-						"kind":"slash",
-						"dmg":"4~8"
-					}
-				},
-				"jacklantern"
-			]
+			"loot":{
+				"vorpal": "10%",
+				"jacklantern":1
+			}
 		},
 		{
 			"id":"hal_wight",
