@@ -526,20 +526,7 @@
 			},
 			"loot":[
 				"cobwebs",
-				{
-					"id":"bdagg",
-					"name":"necrotic dagger",
-					"material":"bone",
-					"type":"weapon",
-					"tohit":2,
-					"attack":{ "kind":"pierce", "damage":"1~3","dot":{
-						"duration":3,
-						"dmg":"1~2",
-						"name":"necrosis",
-						"kind":"necrotic"
-
-					}}, "cost":20, "level":3
-				}
+				"bdagg"
 			],
 			"log":{
 				"name":"graves silenced",
@@ -732,22 +719,10 @@
 				}
 
 			],
-			"loot":[
-				{
-					"%":"10%",
-					"id":"vorpal",
-					"name":"vorpal blade",
-					"level":10,
-					"type":"weapon",
-					"material":"quicksteel",
-					"tohit":10,
-					"attack":{
-						"kind":"slash",
-						"dmg":"4~8"
-					}
-				},
-				"jacklantern"
-			]
+			"loot":{
+				"vorpal": "10%",
+				"jacklantern":1
+			}
 		},
 		{
 			"id":"hal_wight",

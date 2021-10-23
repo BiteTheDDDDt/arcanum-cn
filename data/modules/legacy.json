@@ -30,6 +30,32 @@
 		],
 		"rares": [
 			{
+				"id":"vorpal",
+				"name":"vorpal blade",
+				"level":14,
+				"type":"weapon",
+				"material":"quicksteel",
+				"tohit":10,
+				"attack":{
+					"kind":"slash",
+					"dmg":"5~10"
+				}
+			},
+			{
+				"id":"bdagg",
+				"name":"necrotic dagger",
+				"material":"bone",
+				"type":"weapon",
+				"tohit":2,
+				"attack":{ "kind":"pierce", "damage":"1~3","dot":{
+					"duration":3,
+					"dmg":"1~2",
+					"name":"necrosis",
+					"kind":"necrotic"
+
+				}}, "cost":20, "level":3
+			},
+			{
 				"id": "iceorb",
 				"name": "orb of winters",
 				"desc": "A snowglobe with magical powers. It reminds you of colder days.",
