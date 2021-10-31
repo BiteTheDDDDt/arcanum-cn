@@ -36,6 +36,20 @@ export const mergeClass = ( destClass, src ) => {
 
 }
 
+//NOTE if there is a circular reference within the object, this WILL infinitely loop
+/**
+ * Collects the first encountered mod property within each of an object's properties into one array.
+ * @param {Object} obj object to be reduced
+ * @returns {Array<Object>} objects array containing all mod property values found
+ */
+ function findMods( obj, src ) {
+	//prevents delving into any instances of classes; should only be dealing with Objects
+	if( !obj || !( typeof obj === "object" && obj.constructor === Object ) ) return [];
+
+	//Collects all mods into one object
+	return Object.values( obj ).reduce( ( results, val ) => [ ...results, ...findMods( val ), ...(obj.mod ? [obj.mod] : [])], [] );
+}
+
 
  /**
   * @todo shorten list by implementing better base/defaults logic.
@@ -334,7 +348,7 @@ export default {
 
 			let nextMods = this.applyObj( mods, amt, targ, src, path, isMod );
 			if ( initialCall ) {
-				this.changeMod(nextMods.mod , amt);
+				this.changeMod( findMods( nextMods ) , amt );
 			}
 
 			return nextMods;
