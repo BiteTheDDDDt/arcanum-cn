@@ -180,12 +180,16 @@ export default class Group {
 	 * @param {number} amt
 	 * @param {Object} [targ=null]
 	 */
-	applyMods( mods, amt=1, targ=this ) {
+	 applyMods( mods, amt=1, targ, src, path, isMod=false, initialCall=true ) {
 
-		let len = this.items.length;
+		let len = this.items.length,
+			results = [];
+
 		for( let i = 0; i < len; i++ ) {
-			this.items[i].applyMods( mods, amt, targ );
+			let it = this.items[i];
+			results.push( it.applyMods( mods, amt, it, isMod ? src : it, path ? path : it.id, isMod, initialCall ) );
 		}
+		return results;
 
 	}
 

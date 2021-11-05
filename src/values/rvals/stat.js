@@ -92,6 +92,9 @@ export default class Stat extends RValue {
 		return this._mPct;
 	}
 
+	get mod() { return this._mod; }
+	set mod(v) { this._mod = v;	}
+
 	/**
 	 * @property {.<string,Mod>} mods - mods applied to object.
 	 */
@@ -231,6 +234,7 @@ export default class Stat extends RValue {
 	 * @param {number} amt
 	 */
 	addMod( mod, amt=1 ) {
+		let prev = +this;
 
 		if ( !mod.id ) {
 			console.dir( mod, 'NO MOD ID' );
@@ -241,7 +245,7 @@ export default class Stat extends RValue {
 		//this._mPct += amt*mod.pct;
 		//this._mBase += amt*mod.bonus;
 
-		if (amt != 0) this.mods[mod.id] = mod;
+		this.mods[mod.id] = mod;
 		this.recalc();
 
 		/*let cur = this.mods[ mod.id ];
@@ -249,7 +253,7 @@ export default class Stat extends RValue {
 			cur = this.mods[mod.id] = mod;
 		}*/
 
-
+		return this.mod && prev !== +this ? this.mod : null;
 	}
 
 	/**

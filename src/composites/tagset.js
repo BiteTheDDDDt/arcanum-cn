@@ -226,10 +226,26 @@ export default class TagSet {
 	 * @param {number} amt
 	 * @param {Object} [targ=null]
 	 */
-	applyMods( mods, amt=1 ) {
+	 applyMods( mods, amt=1, targ, src, path, isMod=false, initialCall=true ) {
+		
+		let results = [];
+		for( let it of this.items ) {
+			results.push( it.applyMods( mods, amt, it, isMod ? src : it, path ? path : it.id, isMod, initialCall ) );
+		}
+		return results;
+
+	}
+
+	/**
+	 * Remove mod from every tagged item.
+	 * @param {Mod|Object} mods
+	 * @param {number} amt
+	 * @param {Object} [targ=null]
+	 */
+	removeMods( mods ) {
 
 		for( let it of this.items ) {
-			it.applyMods( mods, amt, it );
+			it.removeMods( mods, it );
 		}
 
 	}
