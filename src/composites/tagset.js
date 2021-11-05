@@ -226,7 +226,7 @@ export default class TagSet {
 	 * @param {number} amt
 	 * @param {Object} [targ=null]
 	 */
-	 applyMods( mods, amt=1, targ, src, path, isMod=false, initialCall=true ) {
+	applyMods( mods, amt=1, targ, src, path, isMod=false, initialCall=true ) {
 		
 		let results = [];
 		for( let it of this.items ) {

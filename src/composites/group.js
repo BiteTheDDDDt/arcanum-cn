@@ -180,7 +180,7 @@ export default class Group {
 	 * @param {number} amt
 	 * @param {Object} [targ=null]
 	 */
-	 applyMods( mods, amt=1, targ, src, path, isMod=false, initialCall=true ) {
+	applyMods( mods, amt=1, targ, src, path, isMod=false, initialCall=true ) {
 
 		let len = this.items.length,
 			results = [];
