@@ -1265,7 +1265,7 @@
 		},
 		"mod": {
 			"bones.max": 10,
-			"bloodgems.max": 10,
+			"bloodgem.max": 10,
 			"voidgem.max": 1,
 			"spiritgem.max": 2,
 			"shadowgem.max": 1

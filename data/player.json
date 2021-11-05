@@ -77,7 +77,7 @@
 		"unit": false,
 		"rate": 1,
 		"effect": {
-			"hp": "<=0?-20"
+			"player.hp": "<=0?-20"
 		}
 	},
 	{

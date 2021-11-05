@@ -7,7 +7,7 @@ import RValue from '../rvals/rvalue';
 import { canWriteProp } from '../../util/util';
 //import Emitter from 'eventemitter3';
 
-export const ModTest = /^([\+\-]?\d+\.?\d*\b)?(?:([\+\-]?\d+\.?\d*)\%)?$/;
+export const ModTest = /^([\+\-]?\d*(?:\.\d+)?(?![.%0-9]))?(?:([\+\-]?\d*(?:\.\d+)?)\%)?$/;
 
 /**
  * Modifier for mod without id.
@@ -96,7 +96,7 @@ export default class Mod extends Stat {
 	/**
 	 * @property {number} pctTot - modified percent bonus of mod.
 	 */
-	get pctTot(){return this.basePct * (1+ this.mPct); }
+	get pctTot(){return (1 + this.basePct) * (1 + this.mPct) - 1; }
 
 	/**
 	 * @property {number} countPct - base percent multiplied by number of times
@@ -197,18 +197,18 @@ export default class Mod extends Stat {
 	 * This is a one-time modify and doesnt use count total.
 	 * @param {Object} obj - owner of the property being modified.
 	 * @param {string} p - target property to which mod is being applied.
-	 * @param {number} amt
+	 * @param {number} amt - amount to be added/removed
 	 */
 	applyTo( obj, p, amt, isMod=false ) {
 
 		let targ = obj[p];
 
-		if ( targ instanceof RValue ) targ.addMod( this, amt );
+		if ( targ instanceof RValue ) return targ.addMod( this, amt ) || targ instanceof Mod ? targ : null;
 		else if ( typeof targ === 'number') {
 
 			if ( !canWriteProp(obj, p ) ) {
 				console.log('NOT WRITABLE: ' + p );
-				return;
+				return null;
 			}
 			console.log( p + ': STAT FROM NUMBER: ' + obj[p] );
 
@@ -227,13 +227,17 @@ export default class Mod extends Stat {
 			//console.dir( targ,  this.id + ' UNKNOWN MOD TARGET')
 			if ( Array.isArray(targ) ) {
 
-				for( let i = targ.length-1; i>= 0; i--) this.applyTo( targ[i], p, amt );
+				//Theorhetical
+				let res = [] ;
+				for( let i = targ.length-1, val; i>= 0; i--) if ( val = this.applyTo( targ[i], p, amt ) ) res.splice(0, 0, val);
+				return res;
 
 			} else {
 
 				if ( targ.value ) {
 
-					this.applyTo( targ, 'value', amt );
+					targ = this.applyTo( targ, 'value', amt );
+					if ( targ ) return targ;
 
 				} else {
 					console.warn( this.id + ': ' + targ.id + ' !!Mod Targ: ' + targ.constructor.name);
@@ -243,6 +247,13 @@ export default class Mod extends Stat {
 
 		}
 
+		return null;
+
+	}
+
+	addMod( mod, amt=1 ) {
+		super.addMod(mod, amt);
+		return this;
 	}
 
 }

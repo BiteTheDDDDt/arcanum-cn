@@ -1,5 +1,6 @@
-import { TYP_STAT, TYP_RVAL } from '../consts';
+import { TYP_MOD, TYP_STAT, TYP_RVAL } from '../consts';
 import RValue from './rvalue';
+import Game from '../../game';
 
 import { precise } from '../../util/format';
 
@@ -93,6 +94,18 @@ export default class Stat extends RValue {
 	}
 
 	/**
+	 * @property {number} prev - previous value of Stat calculated by recalc
+	 */
+	get prev() { return this._prev || 0; }
+	set prev(v) { this._prev = v; }
+
+	/**
+	 * @property {object} - mods being applied by object
+	 */
+	get mod() { return this._mod; }
+	set mod(v) { this._mod = v;	}
+
+	/**
 	 * @property {.<string,Mod>} mods - mods applied to object.
 	 */
 	get mods() { return this._mods; }
@@ -145,6 +158,8 @@ export default class Stat extends RValue {
 
 		this._mBase = this._mPct = 0;
 
+		if ( !this.mod ) this.mod = {};
+
 		if ( !this.mods ) this.mods = {};
 
 		this.recalc();
@@ -175,19 +190,17 @@ export default class Stat extends RValue {
 	 */
 	apply( val, amt=1 ) {
 
-		if ( (val instanceof Stat) && val.id ) 
-			return this.addMod( val, amt );
+		if ( (val.type === TYP_MOD) && val.id ) return this.addMod( val, amt );
+		
+		if( val.type === TYP_MOD ) console.warn('MOD WITHOUT ID: ' + val );
 
-		if ( ( val instanceof Stat ) ) {
-			console.log('STAT WITHOUT ID: ' + val );
-			val = val._value + val._mBase;
-		}
+		if ( val instanceof Stat ) val = val.valueOf();
 
 		if ( typeof val ==='number' ) {
 
 			this.base += amt*val;
 			//deprec( this.id + ' mod: ' + mod );
-			console.warn( this.id + ' adding: ' + val +'  DEPRECATED NEW base: ' + this.value );
+			// console.warn( this.id + ' adding: ' + val +'  DEPRECATED NEW base: ' + this.vaTYP_MOD, lue );
 
 			return;
 
@@ -241,15 +254,13 @@ export default class Stat extends RValue {
 		//this._mPct += amt*mod.pct;
 		//this._mBase += amt*mod.bonus;
 
-		if (amt != 0) this.mods[mod.id] = mod;
+		this.mods[mod.id] = mod;
 		this.recalc();
 
 		/*let cur = this.mods[ mod.id ];
 		if ( cur === undefined ) {
 			cur = this.mods[mod.id] = mod;
 		}*/
-
-
 	}
 
 	/**
@@ -281,6 +292,25 @@ export default class Stat extends RValue {
 	}
 
 	/**
+	 * Checks if the current value of this Stat has changed since last called.
+	 * Calls applyMods if it has.
+	 * @returns {boolean} if the value has updated
+	 */
+	update() {
+
+		let current = +this, result = current !== this.prev;
+
+		if ( result && this.mod && Object.values(this.mod).length ) {
+			Game.applyMods( this.mod, current );
+		}
+
+		this.prev = current;
+
+		return result;
+
+	}
+
+	/**
 	 * Recalculate the total bonus and percent applied to stat.
 	 * @protected
 	 */
@@ -301,6 +331,7 @@ export default class Stat extends RValue {
 		this._mPct = pct;
 		this._mBase = bonus;
 
+		return this.update();
 
 	}
 

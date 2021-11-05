@@ -125,8 +125,8 @@ export default class GData {
 	/**
 	 * @property {object} mod - mods applied by object.
 	 */
-	get mod(){return this._mod;}
-	set mod(v){this._mod=v;}
+	get mod(){return this.value.mod;}
+	set mod(v){this.value.mod=v;}
 
 	/**
 	 * @property {Object|Array|string|function} effect
@@ -217,6 +217,7 @@ export default class GData {
 
 			if ( typeof vars === 'object'){
 				if ( vars.id ) this.id = vars.id;	// used to assign sub-ids.
+				this.val = vars.val || 0;
 				assignPublic( this, vars );
 			}
 			else if ( !isNaN(vars) ) this.val = vars;
@@ -237,6 +238,7 @@ export default class GData {
 		defineExcept( this, null, NoDefine );
 
 		InitRVals( this, this );
+		InitRVals( this.mod, this );
 
 	}
 

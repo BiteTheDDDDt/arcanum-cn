@@ -51,7 +51,7 @@ export default class Task extends GData {
 
 	get ex(){ return this._exp; }
 	set ex(v){
-		this._exp = v instanceof Scaler ? v : new Scaler( v, this.id + ' .exp', this._rate );
+		this._exp = v instanceof Scaler ? v : new Scaler( v, this.id + '.exp', this._rate );
 	}
 
 	/**

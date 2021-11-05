@@ -183,9 +183,9 @@ export default {
 
 		<div v-if="item.effect" class="info-sect">Effects:</div>				
 		<info v-if="item.effect" :info="item.effect" :rate="item.perpetual||item.length>0" />
-		<div v-if="item.mod||item.alter" class="info-sect">Modifications:</div>				
-		<info v-if="item.mod" :info="item.mod" />
-		<info v-if="item.alter" :info="item.alter" />
+		<div v-if="(item.mod&&Object.values(item.mod).length)||(item.alter&&Object.values(item.alter).length)" class="info-sect">Modifications:</div>				
+		<info v-if="item.mod&&Object.values(item.mod).length" :info="item.mod" />
+		<info v-if="item.alter&&Object.values(item.alter).length" :info="item.alter" />
 		<div v-if="item.result" class="info-sect">Results:</div>
 		<info v-if="item.result" :info="item.result" />
 		<div v-if="item.use" class="info-sect">When used:</div>

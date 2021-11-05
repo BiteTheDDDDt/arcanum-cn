@@ -36,6 +36,20 @@ export const mergeClass = ( destClass, src ) => {
 
 }
 
+//NOTE if there is a circular reference within the object, this WILL infinitely loop
+/**
+ * Collects the first encountered mod property within each of an object's properties into one array.
+ * @param {Object} obj object to be reduced
+ * @returns {Array<Object>} objects array containing all mod property values found
+ */
+ function findMods( obj, src ) {
+	//prevents delving into any instances of classes; should only be dealing with Objects
+	if( !obj || !( typeof obj === "object" && obj.constructor === Object ) ) return [];
+
+	//Collects all mods into one object
+	return Object.values( obj ).reduce( ( results, val ) => [ ...results, ...findMods( val ), ...(obj.mod ? [obj.mod] : [])], [] );
+}
+
 
  /**
   * @todo shorten list by implementing better base/defaults logic.
@@ -313,24 +327,31 @@ export default {
 	},
 
 	/**
-	 *
-	 * @param {Mod|Object} mods
-	 * @param {number} [amt=1]
-	 * @param {Object} [targ=null]
+	  * Apply mod(s) recursively.
+	 * @param {Object} mods - Mods being applied to target
+	 * @param {number} [amt=1] - mod multiplier. Used when a mod doesn't have an id.
+	 * @param {Object} [targ=this] - target of mods.
+	 * @param {Object} [src=this] - source of mods. Used for applyObj 
+	 * @param {string} [path=targ.id] - Path used for creating ids.
+	 * @param {boolean} [isMod=false] - subobject mod check.
+	 * @returns {Object} mod path object used in applyObj
 	 */
-	applyMods( mods, amt=1, targ=this ) {
+	applyMods( mods, amt=1, targ=this, src=this, path=this.id, isMod=false, initialCall=true ) {
 
 		Changed.add(this);
 
 		if ( mods instanceof Mod ) {
 
-			mods.applyTo( targ, 'value', amt );
+			return mods.applyTo( targ, 'value', amt );
 
 		} else if ( mods.constructor === Object ) {
 
-			this.applyObj( mods, amt, targ );
-			if ( mods.mod ) this.changeMod( mods.mod, 0 , targ);
+			let nextMods = this.applyObj( mods, amt, targ, src, path, isMod );
+			if ( initialCall ) {
+				this.changeMod( findMods( nextMods ) , amt );
+			}
 
+			return nextMods;
 
 		} else if ( typeof mods === 'number') {
 
@@ -353,21 +374,35 @@ export default {
 
 		} else console.warn( this.id + ' unknown mod type: ' + mods );
 
+		return null;
+
 	},
 
 	/**
 	 * Apply a mod when the mod is recursive object.
-	 * @param {Object} mod
-	 * @param {number} amt - percent of mod added.
+	 * @param {Object} mods - Mods being applied to target
+	 * @param {number} amt - mod multiplier. Used when a mod doesn't have an id.
 	 * @param {Object} targ - target of mods.
-	 * @param {boolean} [isMod=false] - whether target is subobject of a mod object.
+	 * @param {Object} [src=this] - source of mods. Used for new stats/mods.
+	 * @param {string} path - Path used for creating ids.
+	 * @param {boolean} [isMod=false] - subobject mod check.
+	 * @returns {Object} New mod objects
 	 */
-	applyObj( mods, amt, targ, isMod=false ) {
+	applyObj( mods, amt, targ, src, path, isMod ) {
+
+		let results = {}
 
 		for( let p in mods ) {
 
-			var subMod = mods[p];
-			var subTarg = targ[p];
+			let res = null;
+
+			let subMod = mods[p];
+			let subTarg = targ[p];
+			let modCheck = p === 'mod' || isMod;
+
+			//Only needed when subTarg is null or undefined
+			let newSrc = modCheck || isNaN(+subTarg) ? src : subTarg; //may need a better check for source.
+			let newPath = (path ? path + '.' : '') + p;
 
 			if ( (subTarg === undefined || subTarg === null) ) {
 
@@ -375,33 +410,36 @@ export default {
 
 				if ( subMod.constructor === Object ) {
 
-					this.applyObj( subMod, amt, targ[p]={}, p==='mod'|| isMod );
+					res = this.applyObj( subMod, amt, targ[p]={}, newSrc, newPath, modCheck );
 
 				} else {
-					subTarg = targ[p] = isMod ? new Mod( 0 ) : new Stat( 0 );
+
+					let params = [
+						0, //vars
+						newPath, //id
+						newSrc //source
+					];
+
+					(res = targ[p] = modCheck ? new Mod( ...params ) : new Stat( ...params )).addMod( subMod, amt );
 
 										//@todo use more accurate subpath.
-					subTarg.id = SubPath(this.id, p );
-
-					subTarg.source = this;
-
-					subTarg.addMod( subMod, amt );
+					// subTarg.id = SubPath(this.id, p );
+					
 					//console.log( this.id + '.' + p  + ': ' + subMod + ': targ null: ' + subTarg.valueOf() + ' mod? ' + isMod );
 				}
 
 
 			} else if ( subTarg.applyMods ) {
 
-				subTarg.applyMods( subMod, amt, subTarg );
+				res = subTarg.applyMods( subMod, amt, subTarg, newSrc, newPath, modCheck );
 
 			} else if ( subMod.constructor === Object ) {
 
-				this.applyObj( subMod, amt, subTarg, p==='mod'||isMod );
+				res = this.applyObj( subMod, amt, subTarg, newSrc, newPath, modCheck );
 
 			} else if ( subMod instanceof Mod ) {
 
-				if ( subTarg.isRVal ) subTarg.addMod( subMod, amt );
-				else subMod.applyTo( targ, p, amt );
+				res = subTarg.isRVal ? subTarg.addMod( subMod, amt ) : subMod.applyTo( targ, p, amt );
 
 			}else if ( typeof subMod === 'number' ) {
 				console.warn( 'RAW NUMBER MOD on: ' + this.id + ': ' + p + ': ' + subMod );
@@ -420,7 +458,11 @@ export default {
 				console.warn( `UNKNOWN Mod to ${this.id}.${p}: ${subMod}` + '  ' + typeof subMod);
 			}
 
+			if ( res && Object.keys(res).length ) results[p] = res;
+
 		}
+
+		return results;
 
 	},
 
