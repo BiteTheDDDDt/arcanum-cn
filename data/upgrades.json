@@ -1674,7 +1674,7 @@
 		},
 		"mod": {
 			"dreams.rate": 0.0001,
-			"runner.max": 1
+			"bed.mod.runner.max": 1
 		},
 		"flavor": "Every second of the night I live another life."
 	},
