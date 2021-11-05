@@ -674,6 +674,7 @@
 			"desc":"A devotee of the immortal Night Queen, the bloody baroness extends her own life with harvests of blood.",
 			"hp":1000,
 			"defense":20,
+			"noproc":true,
 			"loot":"res_nymiescharm",
 			"attack":[
 
@@ -699,6 +700,7 @@
 			"desc":"He rides across the Hollow bridge at night, to claim the heads of the living.",
 			"hp":500,
 			"defense":20,
+			"noproc":true,
 			"attack":[
 
 				{

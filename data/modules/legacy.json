@@ -8,6 +8,7 @@
 				"tohit": 10,
 				"bonus": 3,
 				"kind": "ice",
+				"noproc":true,
 				"level": 5
 			},
 			{
@@ -17,6 +18,7 @@
 				"tohit": 9,
 				"enchants": 4,
 				"bonus": 7,
+				"noproc":true,
 				"level": 5
 			},
 			{
@@ -25,6 +27,7 @@
 				"bonus": 10,
 				"tohit": 11,
 				"kind": "ice",
+				"noproc":true,
 				"level": 7
 			}
 		],

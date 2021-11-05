@@ -31,6 +31,7 @@
 				"level": 0,
 				"speed": -10,
 				"hp": 10,
+				"noproc": true,
 				"attack": {
 					"log": {
 						"name": "hit me!",
@@ -45,6 +46,7 @@
 				"level": 0,
 				"speed": -10,
 				"hp": 5,
+				"noproc": true,
 				"immune": "physical",
 				"attack": {
 					"log": {
@@ -72,6 +74,7 @@
 				"level": 0,
 				"speed": -10,
 				"hp": 5,
+				"noproc": true,
 				"immune": "force,blunt",
 				"attack": {
 					"log": {
@@ -100,6 +103,7 @@
 				"hp": 1,
 				"speed": -10,
 				"dodge": 5,
+				"noproc": true,
 				"attack": {
 					"log": {
 						"name": "Can't hit me",
@@ -127,6 +131,7 @@
 				"hp": 10,
 				"speed": -10,
 				"defense": 20,
+				"noproc": true,
 				"resist": {
 					"blunt": -50
 				},
@@ -143,6 +148,7 @@
 				"dodge": 4,
 				"hp": 50,
 				"speed": 3,
+				"noproc": true,
 				"attack": {
 					"name": "mockery",
 					"dmg": "0~2",
