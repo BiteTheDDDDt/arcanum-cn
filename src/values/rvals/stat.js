@@ -1,4 +1,4 @@
-import { TYP_STAT, TYP_RVAL } from '../consts';
+import { TYP_MOD, TYP_STAT, TYP_RVAL } from '../consts';
 import RValue from './rvalue';
 
 import { precise } from '../../util/format';
@@ -178,19 +178,17 @@ export default class Stat extends RValue {
 	 */
 	apply( val, amt=1 ) {
 
-		if ( (val instanceof Stat) && val.id ) 
-			return this.addMod( val, amt );
+		if ( (val.type === TYP_MOD) && val.id ) return this.addMod( val, amt );
+		
+		if( val.type === TYP_MOD ) console.warn('MOD WITHOUT ID: ' + val );
 
-		if ( ( val instanceof Stat ) ) {
-			console.log('STAT WITHOUT ID: ' + val );
-			val = val._value + val._mBase;
-		}
+		if ( val instanceof Stat ) val = val.valueOf();
 
 		if ( typeof val ==='number' ) {
 
 			this.base += amt*val;
 			//deprec( this.id + ' mod: ' + mod );
-			console.warn( this.id + ' adding: ' + val +'  DEPRECATED NEW base: ' + this.value );
+			// console.warn( this.id + ' adding: ' + val +'  DEPRECATED NEW base: ' + this.vaTYP_MOD, lue );
 
 			return;
 
