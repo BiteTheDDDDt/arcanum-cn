@@ -474,8 +474,11 @@ export default class Combat {
 	dodgeRoll( dodge, tohit ) {
 
 		//let sig = 1 + (dodge-tohit)/( 1+ Math.abs(dodge-tohit));
-		let sig = 1 + (2/Math.PI)*( Math.atan(dodge-tohit) );
-
+		//let sig = 1 + (2/Math.PI)*( Math.atan(dodge-tohit) );
+		//new attempt:
+		let high = Math.max(Math.abs(tohit),Math.abs(dodge));
+		if ( high == 0 ) return 0.5 > Math.random();
+		let sig = 1/(1+Math.exp(-(10*(dodge-tohit)/high)));
 		//console.log( 'dodge: ' + dodge + ' tohit: ' + tohit + '  sig: ' + sig );
 
 		return sig > Math.random();
