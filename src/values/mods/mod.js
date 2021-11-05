@@ -7,7 +7,7 @@ import RValue from '../rvals/rvalue';
 import { canWriteProp } from '../../util/util';
 //import Emitter from 'eventemitter3';
 
-export const ModTest = /^([\+\-]?\d+\.?\d*\b)?(?:([\+\-]?\d+\.?\d*)\%)?$/;
+export const ModTest = /^([\+\-]?\d*(?:\.\d+)?(?![.%0-9]))?(?:([\+\-]?\d*(?:\.\d+)?)\%)?$/;
 
 /**
  * Modifier for mod without id.
@@ -252,7 +252,7 @@ export default class Mod extends Stat {
 	}
 
 	addMod( mod, amt=1 ) {
-		super.addMod(mod, amt)
+		super.addMod(mod, amt);
 		return this;
 	}
 

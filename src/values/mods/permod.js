@@ -1,7 +1,7 @@
 import Mod from "./mod";
 
 const PER_SYM = ':';
-const PerRegEx = /^(\d+\.?\d*)?\:(\d+)$/;
+const PerRegEx = /^(\d+\.?\d*)?\:(\d+\.?\d*)?$/;
 
 /**
  *
@@ -41,7 +41,6 @@ export default class PerMod extends Mod {
 
 		if ( typeof vars === 'number') {
 
-			this.value = 1;
 			this.per = vars;
 
 		} else if ( typeof vars === 'string') {
@@ -50,19 +49,20 @@ export default class PerMod extends Mod {
 
 			if ( parts.length === 2 ) {
 
-				this.value =  Number(parts[0]) || 1
-				this.per = Number(parts[1]) || 1;
+				this.value =  parts[0] ? Number(parts[0]) : 1;
+				this.per = parts[1] ? Number(parts[1]) : 1;
 
 			} else {
 				console.warn('bad PerMod: ' + vars );
-				this.value = 0;
-				this.per = 1;
 			}
 
 		} else {
 			console.log('bad PerMod: ' + vars );
 			this.value = Number(vars);
 		}
+
+		if(this.value == null) this.value = 1;
+		if(this.per == null) this.per = 1; 
 
 		//console.log( this.id + ' PERVAL: ' + this.toString() );
 	}

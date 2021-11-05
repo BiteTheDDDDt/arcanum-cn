@@ -1,8 +1,7 @@
 import Mod from "./mod";
 
 const AT_SYM = '?';
-const AtRegEx = /^([<>]=?)?(-?[0-9.]+)?\?(-?[0-9.]+)$/;
-
+const AtRegEx = /^([<>=]|[<>]=)?(-?\d+\.?\d*)?\?(-?\d+\.?\d*)?$/;
 const EQ = 1;
 const GT = 2;
 const LT = 4;
@@ -89,7 +88,7 @@ export default class AtMod extends Mod {
 
 				this.op = ParseOp( res[1] );
 
-				this.at = Number(res[2]) || 1;
+				this.at = res[2] ? Number(res[2]) : 1;
 				this.value = Number(res[3]) || 0;
 
 			}
