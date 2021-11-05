@@ -1,5 +1,6 @@
 import { TYP_MOD, TYP_STAT, TYP_RVAL } from '../consts';
 import RValue from './rvalue';
+import Game from '../../game';
 
 import { precise } from '../../util/format';
 
@@ -92,6 +93,15 @@ export default class Stat extends RValue {
 		return this._mPct;
 	}
 
+	/**
+	 * @property {number} prev - previous value of Stat calculated by recalc
+	 */
+	get prev() { return this._prev || 0; }
+	set prev(v) { this._prev = v; }
+
+	/**
+	 * @property {object} - mods being applied by object
+	 */
 	get mod() { return this._mod; }
 	set mod(v) { this._mod = v;	}
 
@@ -147,6 +157,8 @@ export default class Stat extends RValue {
 		if ( !this.base ) this.base = 0;
 
 		this._mBase = this._mPct = 0;
+
+		if ( !this.mod ) this.mod = {};
 
 		if ( !this.mods ) this.mods = {};
 
@@ -232,7 +244,6 @@ export default class Stat extends RValue {
 	 * @param {number} amt
 	 */
 	addMod( mod, amt=1 ) {
-		let prev = +this;
 
 		if ( !mod.id ) {
 			console.dir( mod, 'NO MOD ID' );
@@ -250,8 +261,6 @@ export default class Stat extends RValue {
 		if ( cur === undefined ) {
 			cur = this.mods[mod.id] = mod;
 		}*/
-
-		return this.mod && prev !== +this ? this.mod : null;
 	}
 
 	/**
@@ -283,6 +292,25 @@ export default class Stat extends RValue {
 	}
 
 	/**
+	 * Checks if the current value of this Stat has changed since last called.
+	 * Calls applyMods if it has.
+	 * @returns {boolean} if the value has updated
+	 */
+	update() {
+
+		let current = +this, result = current !== this.prev;
+
+		if ( result && this.mod && Object.values(this.mod).length ) {
+			Game.applyMods( this.mod, current );
+		}
+
+		this.prev = current;
+
+		return result;
+
+	}
+
+	/**
 	 * Recalculate the total bonus and percent applied to stat.
 	 * @protected
 	 */
@@ -303,6 +331,7 @@ export default class Stat extends RValue {
 		this._mPct = pct;
 		this._mBase = bonus;
 
+		return this.update();
 
 	}
 
