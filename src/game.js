@@ -972,8 +972,12 @@ export default {
 			for( let p in mod ) {
 
 				var target = this.getData( p );
-				if ( target === undefined || target === null ) continue;
-				else if ( mod[p] === true ){
+				if ( target === undefined || target === null ) {
+
+					//if this is reached, the json files should be inspected, using p and mod as a guide
+					console.warn( "game.applyMods SKIPPED TARGET:", p, mod );
+
+				} else if ( mod[p] === true ){
 
 					target.doUnlock(this);
 
