@@ -96,7 +96,7 @@ export default class Mod extends Stat {
 	/**
 	 * @property {number} pctTot - modified percent bonus of mod.
 	 */
-	get pctTot(){return this.basePct * (1+ this.mPct); }
+	 get pctTot(){return (1 + this.basePct) * (1 + this.mPct) - 1; }
 
 	/**
 	 * @property {number} countPct - base percent multiplied by number of times
