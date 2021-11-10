@@ -8,12 +8,14 @@
 		"level": 7,
 		"enchants": 7,
 		"armor": 5,
-		"mod": {
-			"bonuses.fire": "5%",
-			"resist.fire": 10,
-			"resist.silence": 5,
-			"tohit": 1,
-			"rage.rate": 0.5
+		"alter": {
+			"mod": {
+				"bonuses.fire": "5%",
+				"resist.fire": 10,
+				"resist.silence": 5,
+				"tohit": 1,
+				"rage.rate": 0.5
+			}
 		}
 	},
 	{
@@ -25,9 +27,11 @@
 		"enchants": 5,
 		"armor": 1,
 		"slot": "trinket",
-		"mod": {
-			"water.rate": 0.1,
-			"resist.water": 5
+		"alter": {
+			"mod": {
+				"water.rate": 0.1,
+				"resist.water": 5
+			}
 		}
 	},
 	{
@@ -39,10 +43,12 @@
 		"level": 7,
 		"enchants": 7,
 		"desc": "Desilla awarded her servants with articles of apparel.",
-		"mod": {
-			"resist.paralysis": 10,
-			"charms.max": 1,
-			"charms.rate": 0.3
+		"alter": {
+			"mod": {
+				"resist.paralysis": 10,
+				"charms.max": 1,
+				"charms.rate": 0.3
+			}
 		},
 		"flavor": "The awards however, were given sparingly."
 	},
@@ -56,8 +62,10 @@
 		"level": 5,
 		"enchants": 5,
 		"desc": "Lillit was known for her soothing presence.",
-		"mod": {
-			"rage.rate": -0.25
+		"alter": {
+			"mod": {
+				"rage.rate": -0.25
+			}
 		}
 	},
 	{
@@ -68,8 +76,10 @@
 		"material": "basiliskhide",
 		"armor": 5,
 		"enchants": 5,
-		"mod": {
-			"resist.poison": 10
+		"alter": {
+			"mod": {
+				"resist.poison": 10
+			}
 		}
 	},
 	{
@@ -81,9 +91,11 @@
 		"desc": "What leads your way can lead to you.",
 		"type": "armor",
 		"slot": "neck",
-		"mod": {
-			"s_travel.max": 2,
-			"bf.rate": -0.5
+		"alter": {
+			"mod": {
+				"s_travel.max": 2,
+				"bf.rate": -0.5
+			}
 		},
 		"flavor": "Jazid always finds his compass."
 	},
@@ -93,8 +105,10 @@
 		"unique": true,
 		"material": "adamant",
 		"desc": "A trinket bestowed on mages embroiled in the world's affairs.",
-		"mod": {
-			"space.max": "1%"
+		"alter": {
+			"mod": {
+				"space.max": "1%"
+			}
 		}
 	},
 	{
@@ -127,10 +141,12 @@
 		"unique": true,
 		"type": "weapon",
 		"material": "wood",
-		"mod": {
-			"unease.rate": "-5%",
-			"weary.rate": "-10%",
-			"dist": "5%"
+		"alter": {
+			"mod": {
+				"unease.rate": "-5%",
+				"weary.rate": "-10%",
+				"dist": "5%"
+			}
 		},
 		"attack": {
 			"dmg": "5~10",
@@ -146,15 +162,17 @@
 			"kind": "blunt",
 			"damage": "40~50"
 		},
-		"mod": {
-			"earth.rate": 1,
-			"earth.max": 10,
-			"player.defense": 30,
-			"smite.attack.tohit": 5,
-			"smite.level": -2,
-			"smite.attack.damage": "20%",
-			"fissure.cd": "-25%",
-			"fissure.attack.dot.duration": 1
+		"alter": {
+			"mod": {
+				"earth.rate": 1,
+				"earth.max": 10,
+				"player.defense": 30,
+				"smite.attack.tohit": 5,
+				"smite.level": -2,
+				"smite.attack.damage": "20%",
+				"fissure.cd": "-25%",
+				"fissure.attack.dot.duration": 1
+			}
 		},
 		"hands": 2,
 		"tags": "hammer",

@@ -33,9 +33,11 @@
 				"name": "lily of the vale",
 				"desc": "A scented white flower, worn for luck.",
 				"slot": "trinket",
-				"mod": {
-					"luck": 1,
-					"nature.rate": "5%"
+				"alter": {
+					"mod": {
+						"luck": 1,
+						"nature.rate": "5%"
+					}
 				}
 			},
 			{
@@ -45,8 +47,10 @@
 				"type": "armor",
 				"level": 10,
 				"armor": 1,
-				"mod": {
-					"charms.max": 1
+				"alter": {
+					"mod": {
+						"charms.max": 1
+					}
 				}
 			},
 			{
