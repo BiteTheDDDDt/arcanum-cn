@@ -9,6 +9,11 @@ const ItemDefaults = {
 	consume:true
 }
 
+/** Properties to delete after cloneClass but before assigning save */
+const deleteProp = [
+	"alter"
+]
+
 /**
  * @class Item
  * Carryable or equippable instanced Item.
@@ -57,10 +62,10 @@ export default class Item {
 	set consume(v) { this._consume = v;}
 
 	/**
-	 * @property {RValue} count - count of item held.
+	 * @property {number} count - count of item held.
 	 */
 	get count(){ return this._count; }
-	set count(v){this._count = new RValue(v); }
+	set count(v){if(v instanceof RValue || !Number.isNaN(v)) this._count = +v; } //Only assigned if its a number
 
 	/**
 	 * @property {boolean} stack - whether the item can stack.
@@ -74,6 +79,7 @@ export default class Item {
 	constructor( vars=null, save=null ) {
 
 		if ( vars ) { cloneClass( vars, this ); }
+		deleteProp.forEach(prop => {if(this[prop]) delete this[prop]});
 		if ( save ) assign(this,save);
 
 		if ( !this.count ) {
@@ -141,6 +147,7 @@ export default class Item {
 
 	begin(g){
 		//console.log('BEGIN CALLED: ' + this.id );
+		if(this.template && this.template.alter) this.applyMods(this.template.alter);
 		this.initAlters(g);
 	}
 
