@@ -91,13 +91,13 @@ export default class Resource extends GData {
 		return this.locked === false && this.value > 0;
 	}
 
-	empty(){ return this.value <= 0; }
+	empty(){ return this.value + this.delta <= 0; }
 
 	/**
 	 * @returns {boolean} true if item at maximum value.
 	 */
 	maxed() {
-		return this.max ? (this.value >= this.max) : false;
+		return this.max ? super.maxed() : false;
 	}
 
 }
