@@ -8,7 +8,7 @@ import InfoBlock from './info-block.vue';
  */
 export default {
 
-	props:['dot', 'title', 'item'],
+	props:['dot', 'title', 'item', 'target'],
 	name:'dot',
 	mixins:[ItemsBase],
 	components:{
@@ -53,7 +53,7 @@ export default {
 			<div v-if="dots.name"><span>Name: </span><span>{{dots.name.toString().toTitleCase()}}</span></div>
 			<div v-if="dots.effect||dots.mod">
 				<info v-if="dots.effect" :info="dots.effect" rate="true" />
-				<info v-if="dots.mod" :info="dots.mod" />
+				<info v-if="dots.mod" :info="dots.mod" :target="this.target" />
 			</div>
 			<div>
 				<div v-if="dots.damage||dots.dmg">
@@ -76,7 +76,7 @@ export default {
 	</div>
 	<div v-if="dot.effect||dot.mod">
 		<info v-if="dot.effect" :info="dot.effect" rate="true" />
-		<info v-if="dot.mod" :info="dot.mod" />
+		<info v-if="dot.mod" :info="dot.mod" :target="this.target" />
 	</div>
 
 	<div v-if="title" class="note-text">{{ title }}:</div>
