@@ -70,12 +70,11 @@ export class Locale extends Task {
 	set boss(v) {
 
 		if ( v === null || v instanceof SpawnGroup ) this._boss = v;
-		else if ( typeof v === 'object' && Array.isArray(v) ) {
-
+		else if ( typeof v === 'object' && !v.hasOwnProperty('ids') ) {
 			for( let p in v ) {
 
 				if ( this.id === 'mustylibrary') console.log('BOSS SUB: ' + p );
-				v[p] = new SpawnGroup(v);
+				v[p] = new SpawnGroup(v[p]);
 			}
 			this._boss = v;
 
