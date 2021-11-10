@@ -310,7 +310,7 @@
 					"dot": {
 						"duration": 10,
 						"mod": {
-							"defense": -10
+							"self.defense": -10
 						}
 					}
 				}
