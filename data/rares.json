@@ -10,10 +10,10 @@
 		"armor": 5,
 		"alter": {
 			"mod": {
-				"bonuses.fire": "5%",
-				"resist.fire": 10,
-				"resist.silence": 5,
-				"tohit": 1,
+				"self.bonuses.fire": "5%",
+				"self.resist.fire": 10,
+				"self.resist.silence": 5,
+				"self.tohit": 1,
 				"rage.rate": 0.5
 			}
 		}
@@ -30,7 +30,7 @@
 		"alter": {
 			"mod": {
 				"water.rate": 0.1,
-				"resist.water": 5
+				"self.resist.water": 5
 			}
 		}
 	},
@@ -45,7 +45,7 @@
 		"desc": "Desilla awarded her servants with articles of apparel.",
 		"alter": {
 			"mod": {
-				"resist.paralysis": 10,
+				"self.resist.paralysis": 10,
 				"charms.max": 1,
 				"charms.rate": 0.3
 			}
@@ -78,7 +78,7 @@
 		"enchants": 5,
 		"alter": {
 			"mod": {
-				"resist.poison": 10
+				"self.resist.poison": 10
 			}
 		}
 	},
@@ -166,7 +166,7 @@
 			"mod": {
 				"earth.rate": 1,
 				"earth.max": 10,
-				"player.defense": 30,
+				"self.defense": 30,
 				"smite.attack.tohit": 5,
 				"smite.level": -2,
 				"smite.attack.damage": "20%",
