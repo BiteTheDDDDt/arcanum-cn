@@ -84,15 +84,17 @@
 						}
 					}
 				},
-				"mod": {
-					"ice.rate": "20%",
-					"ice.max": "20%",
-					"icelore.rate": 2,
-					"water.rate": "20%",
-					"water.max": "20%",
-					"waterlore.rate": 2,
-					"fire.rate": "-80%",
-					"fire.max": "-80%"
+				"alter": {
+					"mod": {
+						"ice.rate": "20%",
+						"ice.max": "20%",
+						"icelore.rate": 2,
+						"water.rate": "20%",
+						"water.max": "20%",
+						"waterlore.rate": 2,
+						"fire.rate": "-80%",
+						"fire.max": "-80%"
+					}
 				}
 			}
 		]

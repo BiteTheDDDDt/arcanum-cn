@@ -2,6 +2,7 @@ import GData from "../items/gdata";
 import { ARMOR, WEAPON, WEARABLE } from "../values/consts";
 import Wearable from "../chars/wearable";
 import Item from "../items/item";
+import Game from '../game';
 import { ParseRVal } from "../modules/parsing";
 
 /**
@@ -11,7 +12,7 @@ export default class ProtoItem extends GData {
 
 	toJSON() {
 
-		return this.value > 0 ? this.value : undefined;
+		return undefined;
 
 	}
 
@@ -55,8 +56,9 @@ export default class ProtoItem extends GData {
 		super(vars);
 
 		this.level = this.level || 1;
+		this.value = 1;
 
-		if ( !this.enchants ) {
+		if ( this.enchants == null ) {
 			this.enchants = 1;
 		}
 

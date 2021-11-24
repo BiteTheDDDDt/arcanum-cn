@@ -181,7 +181,7 @@ export const ParseTarget = (s)=>{
  * @returns {(a,t,c,g)=>number}
  */
 export const MakeDmgFunc = (s)=>{
-	return new FValue( 'a,t,g', s );
+	return new FValue( 'a,t,c', s );
 };
 
 export const ParseDmg = (v)=>{

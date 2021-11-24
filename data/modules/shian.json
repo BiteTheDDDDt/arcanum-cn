@@ -310,7 +310,7 @@
 					"dot": {
 						"duration": 10,
 						"mod": {
-							"defense": -10
+							"self.defense": -10
 						}
 					}
 				}
@@ -423,12 +423,14 @@
 					"kind": "spirit",
 					"damage": "60~70"
 				},
-				"mod": {
-					"spirit.max": 10,
-					"souls.rate": 0.5,
-					"spiritart.attack.damage.max": 5,
-					"spiritart.attack.damage.min": 5,
-					"spiritart.attack.tohit": 5
+				"alter": {
+					"mod": {
+						"spirit.max": 10,
+						"souls.rate": 0.5,
+						"spiritart.attack.damage.max": 5,
+						"spiritart.attack.damage.min": 5,
+						"spiritart.attack.tohit": 5
+					}
 				},
 				"hands": 2,
 				"kind": "flag",

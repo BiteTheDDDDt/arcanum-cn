@@ -17,7 +17,7 @@ export default class RevStat extends Resource {
 
 	free(){ return this.max - this.value; }
 
-	empty(){ return this.value>=this.max.value; }
+	empty(){ return this.value + this.delta >=this.max.value; }
 
 	/**
 	 * Determine if this resource can pay the given amount of value.
@@ -39,8 +39,8 @@ export default class RevStat extends Resource {
 	 * it is considered filled to avoid getting stuck.
 	 * @param {number} rate
 	 */
-	filled( rate=0 ) { return this.value <= 0 || (this.rate && (this.rate+rate) >=0); }
+	filled( rate=0 ) { return this.value + this.delta <= 0 || (this.rate && (this.rate+rate) >=0); }
 
-	maxed() { return this.value<=0; }
+	maxed() { return this.value + this.delta <= 0; }
 
 }

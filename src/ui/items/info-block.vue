@@ -8,7 +8,7 @@ import { InfoBlock, DisplayName, ConvertPath } from './infoBlock';
  * @property {boolean} rate - info items are 'rate' per-second items.
  */
 export default {
-	props:['title', 'info', 'rate'],
+	props:['title', 'info', 'rate', 'target'],
 	mixins:[ItemsBase],
 	beforeCreate(){
 		this.infos = new InfoBlock();
@@ -17,7 +17,7 @@ export default {
 		effects(){
 
 			this.infos.clear();
-			return this.effectItems( this.info, this.rate );
+			return this.effectItems( this.info, this.rate, this.target );
 
 		}
 
@@ -28,7 +28,7 @@ export default {
 		 * @param {*} obj
 		 * @param {boolean} rate - items represent /sec rates.
 		 */
-		effectItems( obj, rate=false) {
+		effectItems( obj, rate=false, target=null) {
 
 			let type = typeof obj;
 
@@ -54,7 +54,7 @@ export default {
 			}
 			else if ( type === 'object') {
 
-				this.effectList( obj, '', rate );
+				this.effectList( obj, '', rate, null, target );
 
 			}
 
@@ -67,7 +67,7 @@ export default {
 		 * @param {string} rootPath - prop path from base.
 		 * @param {boolean} rate - whether display is per/s rate.
 		 */
-		effectList( obj, rootPath='', rate=false, refItem=null ) {
+		effectList( obj, rootPath='', rate=false, refItem=null, target=null ) {
 
 			if ( typeof obj === 'string' ) {
 				this.infos.add( DisplayName(obj), true, rate, InfoBlock.GetItem(obj, refItem) );
@@ -85,7 +85,7 @@ export default {
 
 				let subRate = rate;
 				// displayed path to subitem.
-				let subPath = ConvertPath( rootPath, p );
+				let subPath = ConvertPath( rootPath, ( p === "self" && target ) || p );
 
 				// path conversion indicated no display.
 				if ( subPath === undefined ) continue;

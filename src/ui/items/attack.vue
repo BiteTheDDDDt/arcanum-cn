@@ -37,6 +37,9 @@ export default {
 		},
 		itemtype(){
 			return this.item.type.toString();
+		},
+		target() {
+			return !Array.isArray(this.item.attack) && this.item.attack.targetstring || null;
 		}
 
 	}
@@ -72,11 +75,11 @@ export default {
 					<div v-if="hit.result" class="info-subsect">Results:</div>
 					<info v-if="hit.result" :info="hit.result" />
 					<div class="info-subsect" v-if="hit.dot">Applies</div>
-					<dot v-if="hit.dot" :dot="hit.dot"  :item="hit" />
+					<dot v-if="hit.dot" :dot="hit.dot"  :item="hit" :target="hit.targetstring" />
 				</div>
 			</div>
 			<div class="info-subsect" v-if="attackunit.dot">Applies</div>
-				<dot v-if="attackunit.dot" :dot="attackunit.dot"  :item="attackunit" />			
+				<dot v-if="attackunit.dot" :dot="attackunit.dot"  :item="attackunit" :target="attackunit.targetstring" />			
 		</div>
 	</div>
 
@@ -105,12 +108,12 @@ export default {
 			<div v-if="hit.result" class="info-sect">Results:</div>
 			<info v-if="hit.result" :info="hit.result" />
 			<div class="info-subsect" v-if="hit.dot">Applies</div>
-			<dot v-if="hit.dot" :dot="hit.dot" :item="hit" />
+			<dot v-if="hit.dot" :dot="hit.dot" :item="hit" :target="hit.targetstring" />
 		</div>
 	</div>
 
 	<div class="info-sect" v-if="item.attack.dot">Applies</div>
-	<dot v-if="item.attack.dot" :dot="item.attack.dot"  :item="item.attack" />
+	<dot v-if="item.attack.dot" :dot="item.attack.dot"  :item="item.attack" :target="target" />
 	
 </div>
 

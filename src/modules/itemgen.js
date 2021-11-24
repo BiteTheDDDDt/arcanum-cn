@@ -196,6 +196,8 @@ export default class ItemGen {
 
 			console.log('itgen wearable: ' + proto.id );
 			it = this.fromProto(proto);
+			it.owned = true;
+			return it;
 
 		} else if ( proto.type === POTION ) {
 
@@ -402,7 +404,7 @@ export default class ItemGen {
 	/**
 	 * @private
 	 * Generate a new item from a template item.
-	 * @param {Wearable} data
+	 * @param {ProtoItem} data
 	 * @param {string|Material|number} material - material or material level.
 	 */
 	fromProto( data, material=null ) {
@@ -441,6 +443,8 @@ export default class ItemGen {
 	makeWearable( data, material ) {
 
 		let item = new Wearable( data );
+		item.template = data;
+		item.begin(this.game);
 
 		if ( material ) {
 

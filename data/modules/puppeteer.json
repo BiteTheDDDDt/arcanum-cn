@@ -1546,9 +1546,11 @@
 				"type": "armor",
 				"slot": "fingers",
 				"enchants": 7,
-				"mod": {
-					"puppetry.max": 1,
-					"puppetry.rate": 0.3
+				"alter": {
+					"mod": {
+						"puppetry.max": 1,
+						"puppetry.rate": 0.3
+					}
 				}
 			}
 		],

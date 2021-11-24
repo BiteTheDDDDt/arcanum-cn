@@ -160,9 +160,11 @@
 					"mod": {
 						"stamina.max": 50,
 						"stamina.rate": -1,
-						"dodge": 15,
-						"player.tohit": 10,
-						"player.damage": 5
+						"self": { 
+							"dodge": 15,
+							"tohit": 10,
+							"damage": 5
+						}
 					}
 				},
 				"result": {
