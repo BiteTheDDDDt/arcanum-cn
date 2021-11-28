@@ -2,6 +2,55 @@
 	"module": "combat_tutorial",
 	"sym": "⚔️",
 	"data": {
+		"rares": [
+			{
+				"id": "trainingdagger",
+				"name": "dagger",
+				"desc":"a plain looking wooden dagger",
+				"level": 1,
+				"tags":"t_training",
+				"type": "weapon",
+				"material": "wood",
+				"hands":1,
+				"enchants":1,
+				"attack": {
+					"kind": "slash",
+					"tohit": 4,
+					"dmg": "1~2"
+				}
+			},
+			{
+				"id": "trainingdart",
+				"name": "homing dart",
+				"desc":"this should hit anything",
+				"level": 1,
+				"hands":1,
+				"enchants":1,
+				"type": "weapon",
+				"material": "wood",
+				"tags":"t_training",
+				"attack": {
+					"kind": "piercing",
+					"tohit": 30,
+					"dmg": 1
+				}
+			},
+			{
+				"id": "traininghammer",
+				"name": "wooden hammer",
+				"level": 1,
+				"enchants":1,
+				"hands":2,
+				"tags":"t_training",
+				"type": "weapon",
+				"material": "wood",
+				"attack": {
+					"kind": "blunt",
+					"tohit": -10,
+					"dmg": "2~3"
+				}
+			}
+		],
 		"dungeons": [
 			{
 				"id": "traininggrounds",
@@ -31,7 +80,6 @@
 				"level": 0,
 				"speed": -10,
 				"hp": 10,
-				"noproc": true,
 				"attack": {
 					"log": {
 						"name": "hit me!",
@@ -46,7 +94,6 @@
 				"level": 0,
 				"speed": -10,
 				"hp": 5,
-				"noproc": true,
 				"immune": "physical",
 				"attack": {
 					"log": {
@@ -54,18 +101,7 @@
 						"desc": "Use your magic missile, from spellpage bind as quickslot or add to memorized"
 					}
 				},
-				"loot": {
-					"id": "trainingdagger",
-					"name": "dagger",
-					"level": 0,
-					"tohit": 4,
-					"type": "weapon",
-					"material": "wood",
-					"attack": {
-						"kind": "slash",
-						"dmg": "1~2"
-					}
-				}
+				"loot": {"trainingdagger":1}
 			},
 			{
 				"id": "weapondummy",
@@ -74,7 +110,6 @@
 				"level": 0,
 				"speed": -10,
 				"hp": 5,
-				"noproc": true,
 				"immune": "force,blunt",
 				"attack": {
 					"log": {
@@ -82,18 +117,7 @@
 						"desc": "Go to the tab Equip and find the wood dagger and equip it"
 					}
 				},
-				"loot": {
-					"id": "trainingdart",
-					"name": "homing dart",
-					"level": 0,
-					"tohit": 30,
-					"type": "weapon",
-					"material": "wood",
-					"attack": {
-						"kind": "piercing",
-						"dmg": 1
-					}
-				}
+				"loot": {"trainingdart":1}
 			},
 			{
 				"id": "dodgydummy",
@@ -103,25 +127,13 @@
 				"hp": 1,
 				"speed": -10,
 				"dodge": 5,
-				"noproc": true,
 				"attack": {
 					"log": {
 						"name": "Can't hit me",
 						"desc": "Use the homing dart to hit this obnoxious dummy"
 					}
 				},
-				"loot": {
-					"id": "traininghammer",
-					"name": "hammer",
-					"level": 0,
-					"tohit": -10,
-					"type": "weapon",
-					"material": "wood",
-					"attack": {
-						"kind": "blunt",
-						"dmg": "2~3"
-					}
-				}
+				"loot": {"traininghammer":1}
 			},
 			{
 				"id": "armorydummy",
@@ -131,7 +143,6 @@
 				"hp": 10,
 				"speed": -10,
 				"defense": 20,
-				"noproc": true,
 				"resist": {
 					"blunt": -50
 				},
@@ -148,7 +159,6 @@
 				"dodge": 4,
 				"hp": 50,
 				"speed": 3,
-				"noproc": true,
 				"attack": {
 					"name": "mockery",
 					"dmg": "0~2",
