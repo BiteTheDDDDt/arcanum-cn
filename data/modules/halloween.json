@@ -1059,7 +1059,7 @@
 					"dmg": "1~3",
 					"log": {
 						"%": "10%",
-						"desc": "He describe the monstrous experiments by his master in detail"
+						"desc": "He describes the monstrous experiments by his master in detail"
 					}
 				},
 				"loot": {
@@ -1068,10 +1068,10 @@
 			},
 			{
 				"id": "hal_foxshape",
-				"name": "alluring fox",
+				"name": "furious fox",
 				"level": 10,
 				"kind": "beast",
-				"desc": "the fox leads you deeper into the complex",
+				"desc": "it attacks frenzidly",
 				"hp": 50,
 				"defense": 10,
 				"tohit": 20,
@@ -1087,10 +1087,10 @@
 			},
 			{
 				"id": "hal_wolfshape",
-				"name": "man eating wolf",
+				"name": "man-eating wolf",
 				"level": 14,
 				"kind": "beast",
-				"desc": "when the fox turned the corner this beast appears",
+				"desc": "when the fox finally scampered off, this beast appears",
 				"hp": 70,
 				"defense": 15,
 				"tohit": 20,
@@ -1107,16 +1107,15 @@
 				},
 				"loot": {
 					"skull": "10%",
-					"bloodgem": 1,
-					"animals.max": 0.01
+					"bloodgem": 1
 				}
 			},
 			{
 				"id": "hal_granny",
-				"name": "berating granyn",
+				"name": "berating granny",
 				"level": 14,
 				"kind": "human",
-				"desc": "wolf is sent scurrying, when the granny appears and scold you",
+				"desc": "after the wolf is sent scurrying, the granny appears",
 				"hp": 80,
 				"defense": 12,
 				"tohit": 30,
@@ -1128,9 +1127,6 @@
 						"%": "10%",
 						"desc": "This is the mayors private property you can't just burst in!"
 					}
-				},
-				"loot": {
-					"language.max": 0.01
 				}
 			},
 			{
@@ -1138,7 +1134,7 @@
 				"name": "hank",
 				"level": 16,
 				"kind": "human",
-				"desc": "so this is where he was, he appoached you after granny was chased",
+				"desc": "so this is where he was, he appoached you after granny was content",
 				"hp": 120,
 				"defense": 20,
 				"tohit": 25,
@@ -1161,7 +1157,7 @@
 				"name": "???",
 				"level": 16,
 				"kind": "human",
-				"desc": "After you blow the shapechangers cover he rapidly switches shapes",
+				"desc": "After you blow the shapechanger's cover, he rapidly switches shape",
 				"hp": 200,
 				"defense": 25,
 				"tohit": 30,
