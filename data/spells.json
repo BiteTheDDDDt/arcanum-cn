@@ -1441,7 +1441,7 @@
 			"stamina": 1
 		},
 		"attack": {
-			"damage": "(a.weapon.damage+a.getBonus( a.weapon.kind ))*2.5",
+			"damage": "((a.weapon.damage||0)+a.getBonus( a.weapon.kind ))*2.5",
 			"tohit": 3,
 			"kind": "earth"
 		}
@@ -1461,7 +1461,7 @@
 			"stamina": 12
 		},
 		"attack": {
-			"damage": "(a.weapon.damage+a.getBonus( a.weapon.kind ))*6",
+			"damage": "((a.weapon.damage||0)+a.getBonus( a.weapon.kind ))*6",
 			"tohit": 5,
 			"kind": "earth",
 			"dot": {
