@@ -14,7 +14,9 @@
 		"loot": {
 			"maxlevel": 1
 		},
-		"boss": "kakapo",
+		"boss": {"10":[
+			"kakapo"
+		]},
 		"spawns": [
 			"gardengnome",
 			[
@@ -86,7 +88,9 @@
 			"name": "Pests Clear",
 			"desc": "With the basement cleared your master will have more room to stash all the gold you've been earning."
 		},
-		"boss": "ratking",
+		"boss": {"25":[
+			"ratking"
+		]},
 		"spawns": [
 			[
 				"lgmouse",
@@ -151,10 +155,10 @@
 			"herbs": "3~7",
 			"gems": "0~2"
 		},
-		"boss": [
+		"boss": {"200":[
 			"eledin",
 			"gildella"
-		],
+		]},
 		"spawns": [
 			[
 				"ranger",
@@ -215,7 +219,9 @@
 			"bones": "3~7",
 			"bodies": "0~2"
 		},
-		"boss": "palus",
+		"boss": {"200":[
+			"palus"
+		]},
 		"spawns": [
 			[
 				"evilpriest",
@@ -280,7 +286,9 @@
 			"herbs": "3~7",
 			"gems": "0~2"
 		},
-		"boss": "gobchief",
+		"boss": {"20":[
+			"gobchief"
+		]},
 		"spawns": [
 			[
 				"goblin",
@@ -521,11 +529,11 @@
 			"bones": "5~10",
 			"gold": "40~50"
 		},
-		"boss": [
+		"boss": {"100":[
 			"orcchief",
 			"ogre",
 			"ogre"
-		],
+		]},
 		"spawns": [
 			"ogre",
 			[
@@ -894,11 +902,11 @@
 			"gold": "300~500",
 			"ichor": 3
 		},
-		"boss": [
+		"boss": {"100":[
 			"reddragon",
 			"karnivex",
 			"reddragon"
-		],
+		]},
 		"spawns": [
 			"mithrilgolem",
 			[
@@ -1016,10 +1024,11 @@
 		"require": "g.scrying>=12&&g.history>=12",
 		"start": "You scry the location of an ancient ruined temple.",
 		"level": 20,
+		"length":3,
 		"boss": {
-			"0": "strativax1",
-			"1": "strativax2",
-			"2": "strativax3"
+			"1": "strativax1",
+			"2": "strativax2",
+			"3": "strativax3"
 		}
 	},
 	{
