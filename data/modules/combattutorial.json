@@ -10,6 +10,7 @@
 				"level": 1,
 				"tags":"t_training",
 				"type": "weapon",
+				"noproc":true,
 				"material": "wood",
 				"hands":1,
 				"enchants":1,
@@ -26,6 +27,7 @@
 				"level": 1,
 				"hands":1,
 				"enchants":1,
+				"noproc":true,
 				"type": "weapon",
 				"material": "wood",
 				"tags":"t_training",
@@ -43,6 +45,7 @@
 				"hands":2,
 				"tags":"t_training",
 				"type": "weapon",
+				"noproc":true,
 				"material": "wood",
 				"attack": {
 					"kind": "blunt",
