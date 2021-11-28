@@ -1124,7 +1124,7 @@
 					"dmg": "7~15",
 					"log": {
 						"%": "10%",
-						"desc": "This isn't a place to loiter, I will remove you from the property!"
+						"desc": "I will remove you from the property!"
 					}
 				},
 				"loot": {
