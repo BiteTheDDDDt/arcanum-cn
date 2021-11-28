@@ -712,10 +712,9 @@
 					"stamina": 0.4
 				},
 				"boss": {
-					"15": "hal_ratminion",
-					"16": "hal_foxshape",
-					"17": "hal_wolfshape",
-					"18": "hal_granny",
+					"16": "hal_ratminion",
+					"17": "hal_foxshape",
+					"18": "hal_wolfshape",
 					"19": "hal_hank",
 					"20": "hal_shapechange"
 				},
@@ -1071,7 +1070,7 @@
 				"name": "furious fox",
 				"level": 10,
 				"kind": "beast",
-				"desc": "it attacks frenzidly",
+				"desc": "it attacks frenziedly",
 				"hp": 50,
 				"defense": 10,
 				"tohit": 20,
@@ -1111,30 +1110,11 @@
 				}
 			},
 			{
-				"id": "hal_granny",
-				"name": "berating granny",
-				"level": 14,
-				"kind": "human",
-				"desc": "after the wolf is sent scurrying, the granny appeared",
-				"hp": 80,
-				"defense": 12,
-				"tohit": 30,
-				"attack": {
-					"name": "berate",
-					"kind": "psychic",
-					"dmg": "5~10",
-					"log": {
-						"%": "10%",
-						"desc": "This is the mayors private property you can't just burst in!"
-					}
-				}
-			},
-			{
 				"id": "hal_hank",
 				"name": "hank",
 				"level": 16,
 				"kind": "human",
-				"desc": "so this is where he was- He appoached you after granny was content",
+				"desc": "so this is where he was- He approached you after the wolf was scared off",
 				"hp": 120,
 				"defense": 20,
 				"tohit": 25,
@@ -1169,15 +1149,6 @@
 						"log": {
 							"%": "10%",
 							"desc": "This isn't your place to be!"
-						}
-					},
-					{
-						"name": "granny",
-						"kind": "psychic",
-						"dmg": "5~10",
-						"log": {
-							"%": "10%",
-							"desc": "You should wash that mouth of yours"
 						}
 					},
 					{
