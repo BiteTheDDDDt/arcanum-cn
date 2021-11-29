@@ -546,7 +546,7 @@
 	},
 	{
 		"id": "en_tohit2",
-		"name": "keen weapon",
+		"name": "keen weapon II",
 		"verb": "infusing weapon",
 		"only": "weapon",
 		"desc": "Infuse an item with magical precision.",
