@@ -432,7 +432,6 @@
 						"type": "armor",
 						"armor": 2,
 						"slot": "neck",
-						"cost": 1000,
 						"mod": {
 							"player.resist.necrotic": 20
 						}
