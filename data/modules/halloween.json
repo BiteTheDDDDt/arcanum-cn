@@ -387,11 +387,7 @@
 				"level": 3,
 				"run": {
 					"stamina": 0.5,
-					"res_treat": 0.1
-				},
-				"log": {
-					"name": "Laboratory",
-					"desc": "You find the shapeshifters equipment and you think you could make use of it yourself"
+					"res_apple": 0.1
 				},
 				"result": {
 					"res_treat.max": 10,
@@ -709,6 +705,10 @@
 				"require": "hal_aspect",
 				"run": {
 					"stamina": 0.4
+				},
+				"log": {
+					"name": "Laboratory",
+					"desc": "You find the shapeshifters equipment and you think you could make use of it yourself"
 				},
 				"boss": {
 					"16": "hal_ratminion",
