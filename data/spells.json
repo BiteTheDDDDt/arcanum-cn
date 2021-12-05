@@ -2292,7 +2292,7 @@
 		},
 		"dot": {
 			"duration": 45,
-			"mod": {
+			"effect": {
 				"bf": -0.2,
 				"rage": -0.2,
 				"madness": -0.2
