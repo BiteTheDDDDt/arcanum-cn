@@ -37,14 +37,16 @@
 			{
 				"id": "w_fazbitknowledge",
 				"name": "fazbit's knowledge",
-				"desc": "A story of fazbit's workshop",
-				"max": 100000
+				"desc": "Accumulated knowledge on the workings of the mysterious workshop. May yield benefits as it accumulates",
+				"max": 100000,
+				"group": "seasonal"
 			},
 			{
 				"id": "snowman",
 				"name": "snomunculus",
 				"desc": "A being of living snow",
 				"max": 5,
+				"group": "seasonal",
 				"mod": {
 					"frost.rate": 1,
 					"icelore.max": 0.2
@@ -56,6 +58,7 @@
 				"desc": "Snow that pulsates and beats like a heart; it melts away slowly",
 				"require": "g.livingsnow>=1",
 				"max": 20,
+				"group": "seasonal",
 				"mod": {
 					"icelore.rate": 0.1,
 					"livingsnow.rate": -0.0001,
@@ -68,6 +71,7 @@
 				"desc": "Winter chill reduces your effectiveness.",
 				"require": "g.frost>=1",
 				"max": 80,
+				"group": "adversities",
 				"reverse": true,
 				"mod": {
 					"hp.rate": "-1%",
@@ -79,12 +83,14 @@
 			{
 				"id": "winteressence",
 				"name": "essence of winter",
+				"group": "seasonal",
 				"desc": "As you go deeper into the winter, understanding dawns.",
 				"max": 10000
 			},
 			{
 				"id": "emblemofice",
 				"name": "emblem of ice",
+				"group": "seasonal",
 				"desc": "An ancient rune engraved in unmelting ice",
 				"max": 1,
 				"mod": {
@@ -103,7 +109,8 @@
 				"id": "snowdrop",
 				"name": "snowdrop",
 				"tags": "herb,reagent",
-				"desc": "a tiny white flower that starts to bloom despite the cold",
+				"group": "seasonal",
+				"desc": "A tiny white flower that starts to bloom despite the cold",
 				"max": 5,
 				"mod": {
 					"nature.rate": 0.1
@@ -210,8 +217,8 @@
 				"require": "g.w_fazbitknowledge>=50",
 				"mod": {
 					"crafting.max": 1,
-					"prismaticgems.max": 20,
-					"gem.max": 10
+					"prismaticgems.max": 10,
+					"gem.max": 5
 				}
 			},
 			{
@@ -261,7 +268,9 @@
 				"require": "g.w_fazbitknowledge>=15000",
 				"mod": {
 					"summoning.max": 1,
-					"conjuration.max": 2
+					"conjuration.max": 2,
+					"puppetry.max": 2,
+					"machinacreation.max": 2
 				}
 			},
 			{
@@ -271,7 +280,9 @@
 				"require": "g.w_fazbitknowledge>=25000",
 				"mod": {
 					"summoning.max": 1,
-					"runelore.max": 2
+					"runelore.max": 2,
+					"machinacreation.max": 1,
+					"puppetry.max": 1
 				}
 			},
 			{
@@ -281,7 +292,8 @@
 				"require": "g.w_fazbitknowledge>=40000",
 				"mod": {
 					"history.rate": "100%",
-					"history.max": 5
+					"history.max": 5,
+					"tomes.rate": 0.002
 				}
 			},
 			{
@@ -291,7 +303,10 @@
 				"require": "g.w_fazbitknowledge>=60000",
 				"mod": {
 					"lore.rate": "100%",
-					"history.max": 5
+					"history.max": 5,
+					"tomes.max": 25,
+					"codices.max": 25,
+					"scrolls.max": 25
 				}
 			},
 			{
@@ -305,7 +320,7 @@
 					"allies.max": 25
 				},
 				"result": {
-					"prestige": 10,
+					"fame": 10,
 					"title": "Fazbit's Legacy"
 				}
 			},
@@ -323,9 +338,8 @@
 					"w_scholar"
 				],
 				"mod": {
-					"frost.rate": -0.5,
-					"runner.max": 1,
-					"stamina.rate": -0.6
+					"frost.rate": 2,
+					"runner.max": 1
 				}
 			},
 			{
@@ -342,7 +356,7 @@
 					"w_scholar"
 				],
 				"result": {
-					"prestige": 14
+					"prestige": 20
 				},
 				"mod": {
 					"gold.rate": 0.5
@@ -362,8 +376,8 @@
 					"w_multitask"
 				],
 				"mod": {
-					"skill.rate": "20%",
-					"focus.effect.runner.exp": "20%"
+					"skill.rate": "30%",
+					"focus.effect.runner.exp": "40%"
 				}
 			},
 			{
@@ -606,15 +620,19 @@
 				"desc": "You feel like imbuing yourself with Ice can push your power even further.",
 				"require": "g.iceshard>=1000&&g.iceshard1>0",
 				"warn": true,
+				"disable": [
+					"hearth",
+					"hearthexpansion"
+				],
 				"cost": {
 					"ice": 10,
 					"sp": 2,
 					"arcana": 5
 				},
 				"mod": {
-					"hearth.mod.frost.rate": "-100%",
+					"fazbitshearth.mod.frost.rate": 80,
 					"icelore.max": 4,
-					"frost.mod.hp.rate": "-50%",
+					"frost.mod.hp.rate": "1%",
 					"player.bonuses.ice": 3,
 					"player.hits.ice": 3
 				},
@@ -915,7 +933,9 @@
 					"winteressence": 10
 				},
 				"length": 100,
-				"loot": "iceorb",
+				"loot": {
+					"iceorb": 1
+				},
 				"boss": "frostgiant",
 				"spawns": [
 					"w_blizzardguardian",
@@ -1599,9 +1619,7 @@
 				"loot": {
 					"winteressence": 0.1,
 					"herbs": "2~5",
-					"snowdrop": "20%",
-					"icethorn": "10%",
-					"manabell": "1%"
+					"snowdrop": "20%"
 				}
 			},
 			{
@@ -1656,6 +1674,10 @@
 				}
 			}
 		],
+
+		"rares":[
+
+		],
 		"materials": [
 			{
 				"id": "crimsonice",
@@ -1682,46 +1704,6 @@
 				"level": 20
 			}
 		],
-		"rares": [
-			{
-				"id": "iceorb",
-				"name": "orb of winters",
-				"desc": "A snowglobe with magical powers. It reminds you of colder days.",
-				"level": 10,
-				"save": true,
-				"unique": true,
-				"type": "weapon",
-				"tohit": 10,
-				"enchants": 10,
-				"cost": {
-					"gold": 100
-				},
-				"attack": {
-					"name": "blizzard",
-					"damage": "8~15",
-					"kind": "water",
-					"targets": "enemies",
-					"dot": {
-						"duration": 20,
-						"kind": "water",
-						"dmg": "8~15",
-						"mod": {
-							"speed": -5
-						}
-					}
-				},
-				"mod": {
-					"ice.rate": "20%",
-					"ice.max": "20%",
-					"icelore.rate": 2,
-					"water.rate": "20%",
-					"water.max": "20%",
-					"waterlore.rate": 2,
-					"fire.rate": "-80%",
-					"fire.max": "-80%"
-				}
-			}
-		],
 		"potions": [
 			{
 				"id": "pot_icecreamevil",
@@ -1743,8 +1725,8 @@
 					"dot": {
 						"id": "icecreamlure",
 						"name": "ice cream lure",
-						"duration": 600,
-						"effect": {
+						"duration": 3600,
+						"mod": {
 							"eatchildren.effect.stress": -0.2,
 							"eatchildren.effect.prismatic": 0.1,
 							"eatchildren.effect.stamina": 0.3,
@@ -1773,10 +1755,10 @@
 					"dot": {
 						"id": "icecream",
 						"name": "ice cream high",
-						"duration": 600,
+						"duration": 3600,
 						"effect": {
 							"hp": 0.5,
-							"stress": -0.1
+							"stress": -0.5
 						}
 					}
 				}
