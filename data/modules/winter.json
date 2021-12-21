@@ -517,7 +517,7 @@
 					"watergem": 1,
 					"snowdrop": 2
 				},
-				"result": {
+				"mod": {
 					"icelore.mod.frost.rate": -0.15,
 					"hearth.mod.frost.rate": -1,
 					"snowman.mod.frost.rate": -0.8
