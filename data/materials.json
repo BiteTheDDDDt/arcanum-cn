@@ -34,7 +34,7 @@
 	{
 		"id": "glass",
 		"kind": "natural",
-		"only": "weap_orb",
+		"only": "t_orb",
 		"weight": 1,
 		"level": 2,
 		"alter": {
