@@ -1,0 +1,38 @@
+[
+    {
+        "id": "magicgems",
+        "name": "Magic Gems"
+    },
+    {
+        "id": "gemimbue",
+        "name": "Imbue Gem"
+    },
+    {
+        "id": "manas",
+        "name": "Mana Energies"
+    },
+    {
+        "id": "primordialgems",
+        "name": "Primordial Gems"
+    },
+    {
+        "id": "prismaticgems",
+        "name": "Prismatic Gems"
+    },
+    {
+        "id": "elementalgems",
+        "name": "Elemental Gems"
+    },
+    {
+        "id": "primordialrunes",
+        "name": "Primordial Runes"
+    },
+    {
+        "id": "primaticrunes",
+        "name": "Prismatic Runes"
+    },
+    {
+        "id": "elementalrunes",
+        "name": "Elemental Runes"
+    }
+]

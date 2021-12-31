@@ -1,3 +1,5 @@
+import { assignPublic } from "../util/util";
+
 /**
  * @class TagSet to allow referencing tagged items by id.
  */
@@ -85,18 +87,27 @@ export default class TagSet {
 
 	/**
 	 *
-	 * @param {string} tag
+	 * @param {string} vars
 	 */
-	constructor(tag) {
+	constructor(vars) {
 
-		this.id = tag;
 		this.items = new Set();
 
-		//The followint .toString() resolves an error thrown in console
-		let ind = tag.toString().indexOf('t_');
-		if ( ind < 0) this.name = tag.toString();
-		else {
-			this.name = tag.toString().slice(ind+2);
+		if(vars instanceof Object) {
+			assignPublic(this, vars);
+		} else {
+			this.id = vars;
+		}
+
+		if(!this.id) console.warn("TAGSET NO ID!!!!!");
+		
+		if(!this.name) {
+			//The followint .toString() resolves an error thrown in console
+			let ind = vars.toString().indexOf('t_');
+			if ( ind < 0) this.name = vars.toString();
+			else {
+				this.name = vars.toString().slice(ind+2);
+			}
 		}
 
 	}

@@ -89,39 +89,21 @@ export default {
 		},
 		tags(){
 
-			let t = this.item.tags;
-			for(var i=0; i < this.item.tags.length; i++) {
-				if (this.item.tags[i] == 'gemimbue') {
-					this.item.tags[i] = 'Imbue Gem'
-				};
-				if (this.item.tags[i] == 'magicgems') {
-					this.item.tags[i] = 'Magic Gems'
-				};
-				if (this.item.tags[i] == 'prismaticgems') {
-					this.item.tags[i] = 'Prismatic Gems'
-				};
-				if (this.item.tags[i] == 'elementalgems') {
-					this.item.tags[i] = 'Elemental Gems'
-				};
-				if (this.item.tags[i] == 'primordialgems') {
-					this.item.tags[i] = 'Primordial Gems'
-				};
-				if (this.item.tags[i] == 'elementalrunes') {
-					this.item.tags[i] = 'Elemental Runes'
-				};
-				if (this.item.tags[i] == 'primaticrunes') {
-					this.item.tags[i] = 'Prismatic Runes'
-				};
-				if (this.item.tags[i] == 'primordialrunes') {
-					this.item.tags[i] = 'Primordial Runes'
-				};
-				if (this.item.tags[i] == 'manas') {
-					this.item.tags[i] = 'Mana energies'
-				};
- 				this.item.tags[i] = this.item.tags[i];
+			let tags = this.item.tags;
+			if(typeof tags === 'string') tags = [tags];
+			let names = [];
+			for(var i=0; i < tags.length; i++) {
+				let tag = tags[i];
+				tag = Game.state.tagSets[tag] || tag;
+				if(tag == null || tag.hide) continue;
+				if(tag instanceof Object && tag.name) {
+					names.push(tag.name.toTitleCase());
+				} else {
+					names.push(this.tagNames(tag));
+				}
 			}
-			if ( typeof t === 'string') return this.tagNames(t);
-			else if ( Array.isArray(t) ) return t.map( this.tagNames, this ).join(', ');
+			
+			return names.join(', ');
 
 		}
 

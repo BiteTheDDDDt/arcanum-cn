@@ -30,6 +30,7 @@ import { SKILL, ENCOUNTER, MONSTER, ARMOR, WEAPON, HOME, POTION, RESOURCE, EVENT
 import State from './chars/state';
 
 import { mergeInto } from './util/array';
+import TagSet from './composites/tagset';
 
 const DataDir = './data/';
 
@@ -209,6 +210,8 @@ export default {
 	initInstance( inst, lists ){
 
 		var items = inst.items;
+
+		if ( lists.tags ) inst.tagSets = this.initItems( items, lists.tags, TagSet);
 
 		if ( lists.resources) inst.resources = this.initItems( items, lists['resources'], Resource );
 
