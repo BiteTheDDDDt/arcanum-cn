@@ -1,4 +1,7 @@
 <script>
+import Game from '../../game';
+import { FP, getParams } from '../../values/consts';
+
 import ItemsBase from '../itemsBase.js';
 import { InfoBlock, DisplayName, ConvertPath } from './infoBlock';
 
@@ -12,6 +15,7 @@ export default {
 	mixins:[ItemsBase],
 	beforeCreate(){
 		this.infos = new InfoBlock();
+		this.player = Game.state.player;
 	},
 	computed:{
 		effects(){
@@ -23,6 +27,8 @@ export default {
 
 	},
 	methods:{
+		getParams: getParams,
+
 		/**
 		 *
 		 * @param {*} obj
@@ -90,8 +96,18 @@ export default {
 				// path conversion indicated no display.
 				if ( subPath === undefined ) continue;
 
-				if ( typeof sub !== 'object' ) this.infos.add(subPath, sub, subRate, subItem );
-				else if ( typeof sub !== 'function' ) {
+				if ( sub instanceof Function ) {
+					let params = this.getParams(sub).map(param => {
+						switch(param) {
+							case FP.GAME: return Game.gdata;
+							case FP.ACTOR: return this.player;
+							case FP.TARGET: return this.player; //TODO have a dummy enemy parameter that isnt the player 
+							case FP.CONTEXT: return this.player.context; //TODO replace context with target context once target is replaced.
+							case FP.STATE: return Game.state;
+						}
+					})
+					this.infos.add(subPath, sub(...params), subRate, subItem);
+				} else if ( sub instanceof Object ) {
 
 					if ( sub.skipLocked ) {
 
@@ -99,18 +115,22 @@ export default {
 						if ( refItem && (refItem.locked || refItem.disabled) ) continue;
 
 					}
-					if ( sub.constructor !== Object ) {
-              this.infos.add(subPath, sub, subRate, subItem);
-					} else {
-            //special code for DOT subpath, currently unique to potions
-            if(subPath === 'dot') {
-              sub = {...sub}
-              if(sub.id) delete sub.id;
-              if(sub.name) delete sub.name;
-              if(sub[undefined]) delete sub[undefined];
-            }
-					  this.effectList( sub, subPath, subRate, subItem );
-          }
+					if ( sub.constructor !== Object && sub.constructor.name !== 'Attack' ) {
+						this.infos.add(subPath, sub, subRate, subItem);
+					} else if ( sub.constructor.name !== 'Attack' ){
+						
+						//special code for DOT subpath, currently unique to potions
+						if(subPath === 'dot') {
+							sub = {...sub}
+							if(sub.id) delete sub.id;
+							if(sub.name) delete sub.name;
+							if(sub[undefined]) delete sub[undefined];
+						}
+						this.effectList( sub, subPath, subRate, subItem );
+					
+					}
+				} else {
+					this.infos.add(subPath, sub, subRate, subItem );
 				}
 			}
 		}

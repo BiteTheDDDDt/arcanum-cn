@@ -1,14 +1,11 @@
 import RValue from "./rvalue";
-import { TYP_FUNC } from "../consts";
+import { TYP_FUNC, FP } from "../consts";
 import Game from "../../game";
 import { precise } from "../../util/format";
 
-const FV_GAME = 'g';
-const FV_ACTOR = 'a';
-const FV_TARGET = 't';
-const FV_CONTEXT = 'c';
-
-export {FV_GAME, FV_ACTOR, FV_TARGET, FV_CONTEXT}
+export const MkParams = (...args) => {
+	return args.join(",");
+}
 
 /**
  * Create a function that returns a cost.
@@ -17,7 +14,7 @@ export {FV_GAME, FV_ACTOR, FV_TARGET, FV_CONTEXT}
  * @returns {FValue.<(g,a,c)=>number>}
  */
 export const MkCostFunc = s => {
-	return new FValue( 'g,a,c', s );
+	return new FValue( MkParams(FP.GAME, FP.ACTOR, FP.CONTEXT), s );
 }
 
 /**
@@ -40,13 +37,13 @@ export default class FValue extends RValue {
 	toString(){
 		let dummyParams = this._params.split(',').map(param => {
 			switch(param) {
-				case FV_GAME: return Game;
-				case FV_ACTOR: return Game.player;
-				case FV_TARGET: return Game.player; //TODO have a dummy enemy parameter that isnt the player 
-				case FV_CONTEXT: return Game.player.context; //TODO replace context with target context once target is replaced.
+				case FP.GAME: return Game.gdata;
+				case FP.ACTOR: return Game.player;
+				case FP.TARGET: return Game.player; //TODO have a dummy enemy parameter that isnt the player 
+				case FP.CONTEXT: return Game.player.context; //TODO replace context with target context once target is replaced.
 			}
 		});
-		return precise(this.getApply(...dummyParams));
+		return precise(this.fn(...dummyParams));
 	}
 
 	constructor( params, src, path ){

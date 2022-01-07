@@ -1060,7 +1060,7 @@ export default {
 						res.applyVars( price, -unit );
 
 					} else if ( typeof price === 'function') {
-						this.remove( res, unit*price(this.state, this.player) )
+						this.remove( res, unit*price(this.gdata, this.player) )
 					}
 
 				}
@@ -1171,6 +1171,11 @@ export default {
 
 		if ( (cost instanceof RValue) || !isNaN(cost)){
 			return parent.value >= cost;
+		}
+
+		if ( (cost instanceof Function) ) {
+			let pay = cost(this.gdata, this.player);
+			return !isNaN(pay) && +parent >= pay;
 		}
 
 		for( let p in cost ) {
