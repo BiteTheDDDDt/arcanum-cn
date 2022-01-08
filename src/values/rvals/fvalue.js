@@ -70,4 +70,8 @@ export default class FValue extends RValue {
 	getApply( gs, targ ) {
 		return this._fn( gs, targ );
 	}
+
+	instantiate() {
+		return new FValue(this.params, this.src, this.id);
+	}
 }

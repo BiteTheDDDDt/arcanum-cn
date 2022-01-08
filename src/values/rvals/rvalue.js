@@ -173,4 +173,7 @@ export default class RValue {
 		// ignored.
 	}
 
+	instantiate() {
+		return +this;
+	}
 }

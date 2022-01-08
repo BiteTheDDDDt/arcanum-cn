@@ -148,5 +148,7 @@ export default class Range {
 		return this.valueOf();
 	}
 
-
+	instantiate() {
+		return new Range(+this.min, +this.max);
+	}
 }

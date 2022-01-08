@@ -76,5 +76,8 @@ export default class PerMod extends Mod {
 		return this.source && (( this.source.value % this.per ) === 0) ? this.count*this.value : 0;
 	}
 
-
+	instantiate() {
+		//TODO edit count so that, if specified in constructor, uses that instead of source.
+		return new PerMod(this.toString(), this.id, this.source);
+	}
 }

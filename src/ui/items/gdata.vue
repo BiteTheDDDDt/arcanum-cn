@@ -148,8 +148,9 @@ export default {
 
 			<div v-if="item.cd||item.timer>0" class="note-text">Cooldown: {{ item.timer > 0 ? item.timer.toFixed(2) + ' Left' : item.cd + 's' }}</div>
 
-			<div v-if="item.dist">Distance: {{item.dist}}</div>
-			<div v-if="item.armor">Armor: {{ item.armor }}</div>
+			<div v-if="+item.dist">Distance: {{item.dist}}</div>
+			<div v-if="+item.armor">Armor: {{ item.armor }}</div>
+			<div v-if="+item.dmg&&(!item.attack || item.attack.dmg!==item.dmg)"> Damage: {{ item.dmg.toString() }}</div>
 			<div class="item-desc" v-if="item.desc">{{ item.desc }}</div>
 
 		</div>
