@@ -232,39 +232,28 @@ export default class Task extends GData {
 	 */
 	changed( g, count ) {
 
+		let prev = +this;
 		super.changed(g,count);
-
-		var improve = false;
+		let current = +this;
 
 		if ( this.at ) {
-
-			let cur = this.at[ this.valueOf() ];
-			if ( cur ) {
-
-				improve = true;
-				this.applyMods( cur );
-
-			}
-
-		} else if ( this.every ) {
-
-			let v = this.valueOf();
-			for( let p in this.every ) {
-
-				if ( v % p === 0 ) {
-
-					improve = true;
-					this.applyMods( this.every[p] );
-
+			for ( const val in this.at ) {
+				if ( !isNaN( val ) && prev < +val && current >= +val ) {
+					Events.emit( TASK_IMPROVED, this );
+					this.applyMods( this.at[val] );
 				}
-
 			}
-
-
 		}
 
-		if ( improve ) Events.emit( TASK_IMPROVED, this );
-
+		if ( this.every ) {
+			for ( const val in this.every ) {
+				let diff = Math.floor( current / +val ) - Math.floor( prev / +val );
+				if ( !isNaN( val ) &&  diff > 0 ) {
+					for( let i = 0; i < diff; i++ ) Events.emit( TASK_IMPROVED, this );
+					this.applyMods( this.every[val] );
+				}
+			}
+		}
 	}
 
 	/**
