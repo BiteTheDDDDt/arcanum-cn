@@ -242,7 +242,10 @@ export default {
 			if ( e.type === WEAPON) {
 				this.player.addWeapon(e);
 			}
-			if ( e.mod ) e.remod( this ); //used to call ApplyMods, but that does not work. Instead calls the Remod function of wearable which simulates equipping it.
+			if ( e.mod ) {
+				if ( e.remod ) e.remod( this ); //used to call ApplyMods, but that does not work. Instead calls the Remod function of wearable which simulates equipping it.
+				else console.warn("Equipped item has mods but no remod.", e);
+			}
 		}
 
 
