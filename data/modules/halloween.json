@@ -181,7 +181,7 @@
 				"tags": "steed",
 				"slot": "mount",
 				"require": "g.headless_ride>0",
-				"costs": {
+				"cost": {
 					"res_apple": 10
 				},
 				"mod": {
