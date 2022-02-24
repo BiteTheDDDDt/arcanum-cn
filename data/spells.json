@@ -307,18 +307,17 @@
 		},
 		"at": {
 			"25": {
-				"attack.damage.max": 5
+				"attack.dot.damage.max": 5
 			},
 			"75": {
-				"attack.damage.min": 5
+				"attack.dot.damage.min": 5
 			},
 			"300": {
-				"attack.damage.max": 5,
-				"attack.damage.min": 5
+				"attack.dot.damage.max": 5,
+				"attack.dot.damage.min": 5
 			}
 		},
 		"attack": {
-			"damage": "0~5",
 			"dot": {
 				"kind": "drain",
 				"leech": 0.75,
@@ -2627,15 +2626,18 @@
 		"cost": {
 			"earth": 5
 		},
-		"at": {
-			"30": {
-				"attack.tohit": 1
+		"at":{
+			"30":{
+				"attack.tohit":1
 			},
-			"100": {
-				"attack.tohit": 2
+			"100":{
+				"attack.damage.dot.max":1,
+				"attack.tohit":2
 			},
-			"300": {
-				"attack.tohit": 2
+			"300":{
+				"attack.damage.dot.max":2,
+				"attack.damage.dot.min":1,
+				"attack.tohit":2
 			}
 		},
 		"attack": {

@@ -308,7 +308,7 @@ export default class Char {
 			return;
 		}
 
-		if(dmg && dmg.instantiate instanceof Function) dot.dmg = dmg.instantiate(); 
+		if( dmg && dmg.instantiate instanceof Function ) dot.damage = dot.dmg = dmg.instantiate();
 
 		if ( !id ) {
 			id = dot.id = (source ? source.name || source.id : null );
