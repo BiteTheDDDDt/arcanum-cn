@@ -313,7 +313,9 @@ export default {
 
 		//console.log('CHANGE SIZE: ' + Changed.size );
 		let time = Date.now();
-		let dt = Math.min( ( time - this.lastUpdate )/1000, 1 );
+		let dt = ( time - this.lastUpdate )/1000;
+		if ( dt > 1 ) dt = 1;
+		else if ( dt < 0 ) dt = 0;
 		this.lastUpdate = time;
 
 		this.state.player.update(dt);
