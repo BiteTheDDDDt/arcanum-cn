@@ -45,8 +45,8 @@ export default class Scaler extends RValue {
 		super.value += v;
 	}
 
-	apply(v) {
-		this.value = this.value + v;
+	apply(val, amt=1) {
+		this.value = this.value + val*amt;
 	}
 
 }
