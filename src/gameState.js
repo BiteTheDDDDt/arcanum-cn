@@ -113,6 +113,8 @@ export default class GameState {
 				{ bars:[baseData.quickbar] }
 		);
 
+		// this.tagSets = baseData.items.tagSets;
+
 		this.inventory = new Inventory( this.items.inv || baseData.inventory || {max:3} );
 		this.items.inv = this.inventory;
 		this.inventory.removeDupes = true;
@@ -172,10 +174,14 @@ export default class GameState {
 		this.playerStats = this.player.getResources();
 
 		/**
-		 * @property {Map.<string,TagSet>} tagsets - tag to array of items with tag.
+		 * @property {Object.<string,TagSet>} tagsets - tag to array of items with tag.
 		 * makes upgrading/referencing by tag easier.
 		*/
-		this.tagSets = this.makeTagSets( this.items );
+		this.tagSets = this.makeTagSets( this.items, this.tagSets.reduce((obj, tagset) => {
+			if(tagset.id) obj[tagset.id] = tagset;
+			else console.warn("TAGSET MISSING ID: ", tagset);
+			return obj;
+		}, {}));
 
 		this.items.allies = this.minions.allies;
 		this.saveItems.allies = undefined;
@@ -320,11 +326,9 @@ export default class GameState {
 	/**
 	 * Create lists of tagged items.
 	 * @param {.<string,GData>} items
-	 * @returns {Map.<string,GData[]>} lists
+	 * @returns {Object.<string,GData[]>} lists
 	 */
-	makeTagSets( items ) {
-
-		var tagSets = new Map();
+	makeTagSets( items, tagSets = {} ) {
 
 		for( let p in items ) {
 

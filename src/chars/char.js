@@ -285,16 +285,19 @@ export default class Char {
 		}
 
 		let id = dot;
+		let dmg;
 		if ( typeof dot === 'string') {
 
 			dot = this.context.state.getData(dot);
-			if ( !dot ) return
+			if ( !dot ) return;
+			if (dot.dmg || dot.damage) dmg = dot.dmg != null ? dot.dmg : dot.damage;
 			dot = cloneClass(dot);
 
 
 		} else {
 
 			id = dot.id;
+			if (dot.dmg || dot.damage) dmg = dot.dmg != null ? dot.dmg : dot.damage;
 
 			dot = cloneClass(dot );
 			let orig = this.context.state.getData( id );
@@ -305,6 +308,7 @@ export default class Char {
 			return;
 		}
 
+		if( dmg && dmg.instantiate instanceof Function ) dot.damage = dot.dmg = dmg.instantiate();
 
 		if ( !id ) {
 			id = dot.id = (source ? source.name || source.id : null );

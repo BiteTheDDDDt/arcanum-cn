@@ -10,6 +10,8 @@ import Range, {RangeTest} from '../values/range';
 import Percent, {PercentTest} from '../values/percent';
 import AtMod, { IsAtMod } from '../values/mods/atmod';
 
+import { FP } from "../values/consts";
+
 /**
  * @const {RegEx} IdTest - Test for a simple id name.
  */
@@ -261,7 +263,7 @@ export function MakeTestFunc( text ) {
 	 * i - item being tested for unlock.
 	 * s - game state
 	 */
-	return new Function( "g", 'i', 's', 'return ' + text );
+	return new Function( FP.GAME, FP.ITEM, FP.STATE, 'return ' + text );
 }
 
 /**
@@ -269,7 +271,7 @@ export function MakeTestFunc( text ) {
  * @param {*} text
  */
 export function MakeCostFunc(text) {
-	return new Function( 'g,a', 'return ' + text );
+	return new Function( FP.GAME, FP.ACTOR, 'return ' + text );
 }
 
 /**
@@ -279,5 +281,5 @@ export function MakeCostFunc(text) {
  * @param {string} text
  */
 export function MakeEffectFunc( text ) {
-	return new Function( 'g,t,a', 'return ' + text );
+	return new Function( FP.GAME, FP.TARGET, FP.ACTOR, 'return ' + text );
 }

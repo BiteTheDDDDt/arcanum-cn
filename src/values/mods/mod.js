@@ -256,4 +256,7 @@ export default class Mod extends Stat {
 		return this;
 	}
 
+	instantiate() {
+		return new Mod({base: this.bonus, basePct: this.pctTot, count: +this.source}, this.id);
+	}
 }

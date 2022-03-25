@@ -4,6 +4,7 @@
 		"name": "crown of karnivex",
 		"desc": "The conceits of Karnivex were without bounds.",
 		"slot": "head",
+		"tags": "t_crown",
 		"unique": true,
 		"level": 7,
 		"enchants": 7,
@@ -22,6 +23,7 @@
 		"id": "veldranearring",
 		"name": "veldran's earring",
 		"desc": "A small blue stone with swirls of white.",
+		"tags": "t_earring",
 		"unique": true,
 		"level": 5,
 		"enchants": 5,
@@ -39,6 +41,7 @@
 		"name": "wraps of the ecdysiast",
 		"type": "armor",
 		"slot": "shins",
+		"tags": "t_ankleguard",
 		"material": "silk",
 		"level": 7,
 		"enchants": 7,
@@ -57,6 +60,7 @@
 		"name": "lillit's cord",
 		"type": "armor",
 		"slot": "waist",
+		"tags": "t_cord",
 		"armor": 2,
 		"unique": true,
 		"level": 5,
@@ -71,6 +75,7 @@
 	{
 		"id": "botanistgloves",
 		"name": "gloves of the botanist",
+		"tags": "t_gloves",
 		"type": "armor",
 		"slot": "hands",
 		"material": "basiliskhide",
@@ -90,7 +95,7 @@
 		"enchants": 10,
 		"desc": "What leads your way can lead to you.",
 		"type": "armor",
-		"slot": "neck",
+		"slot": "trinket",
 		"alter": {
 			"mod": {
 				"s_travel.max": 2,
@@ -104,6 +109,7 @@
 		"name": "ring of the patron",
 		"unique": true,
 		"material": "adamant",
+		"tags": "t_ring",
 		"desc": "A trinket bestowed on mages embroiled in the world's affairs.",
 		"alter": {
 			"mod": {
@@ -117,6 +123,7 @@
 		"material": "ice",
 		"enchants": 3,
 		"type": "weapon",
+		"tags": "t_dagger",
 		"tohit": 1,
 		"attack": {
 			"kind": "pierce",
@@ -140,6 +147,7 @@
 		"enchants": 5,
 		"unique": true,
 		"type": "weapon",
+		"tags": "t_cane",
 		"material": "wood",
 		"alter": {
 			"mod": {
@@ -175,7 +183,7 @@
 			}
 		},
 		"hands": 2,
-		"tags": "hammer",
+		"tags": "t_warhammer,t_artifact",
 		"level": 10,
 		"enchants":10,
 		"sell": {

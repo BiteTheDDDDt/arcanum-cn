@@ -242,7 +242,10 @@ export default {
 			if ( e.type === WEAPON) {
 				this.player.addWeapon(e);
 			}
-			if ( e.mod ) e.remod( this ); //used to call ApplyMods, but that does not work. Instead calls the Remod function of wearable which simulates equipping it.
+			if ( e.mod ) {
+				if ( e.remod ) e.remod( this ); //used to call ApplyMods, but that does not work. Instead calls the Remod function of wearable which simulates equipping it.
+				else console.warn("Equipped item has mods but no remod.", e);
+			}
 		}
 
 
@@ -310,7 +313,9 @@ export default {
 
 		//console.log('CHANGE SIZE: ' + Changed.size );
 		let time = Date.now();
-		let dt = Math.min( ( time - this.lastUpdate )/1000, 1 );
+		let dt = ( time - this.lastUpdate )/1000;
+		if ( dt > 1 ) dt = 1;
+		else if ( dt < 0 ) dt = 0;
 		this.lastUpdate = time;
 
 		this.state.player.update(dt);
@@ -1060,7 +1065,7 @@ export default {
 						res.applyVars( price, -unit );
 
 					} else if ( typeof price === 'function') {
-						this.remove( res, unit*price(this.state, this.player) )
+						this.remove( res, unit*price(this.gdata, this.player) )
 					}
 
 				}
@@ -1171,6 +1176,11 @@ export default {
 
 		if ( (cost instanceof RValue) || !isNaN(cost)){
 			return parent.value >= cost;
+		}
+
+		if ( (cost instanceof Function) ) {
+			let pay = cost(this.gdata, this.player);
+			return !isNaN(pay) && +parent >= pay;
 		}
 
 		for( let p in cost ) {

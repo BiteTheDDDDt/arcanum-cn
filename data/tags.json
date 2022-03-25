@@ -1,0 +1,295 @@
+[
+    {
+        "id": "magicgems",
+        "name": "Magic Gems"
+    },
+    {
+        "id": "gemimbue",
+        "name": "Imbue Gem"
+    },
+    {
+        "id": "manas",
+        "name": "Mana Energies"
+    },
+    {
+        "id": "primordialgems",
+        "name": "Primordial Gems"
+    },
+    {
+        "id": "prismaticgems",
+        "name": "Prismatic Gems"
+    },
+    {
+        "id": "elementalgems",
+        "name": "Elemental Gems"
+    },
+    {
+        "id": "primordialrunes",
+        "name": "Primordial Runes"
+    },
+    {
+        "id": "primaticrunes",
+        "name": "Prismatic Runes"
+    },
+    {
+        "id": "elementalrunes",
+        "name": "Elemental Runes"
+    },
+    {
+        "id": "t_swords",
+        "hide": true
+    },
+    {
+        "id": "t_axes",
+        "hide": true
+    },
+    {
+        "id": "t_staves",
+        "hide": true
+    },
+    {
+        "id": "d_shortsword",
+        "name": "Shortsword Drops",
+        "hide": true
+    },
+    {
+        "id": "d_sword",
+        "name": "Sword Drops",
+        "hide": true
+    },
+    {
+        "id": "d_longsword",
+        "name": "Longsword Drops",
+        "hide": true
+    },
+    {
+        "id": "d_swords",
+        "name": "All Sword Drops",
+        "hide": true
+    },
+    {
+        "id": "d_club",
+        "name": "Club Drops",
+        "hide": true
+    },
+    {
+        "id": "d_cane",
+        "name": "Cane Drops",
+        "hide": true
+    },
+    {
+        "id": "d_knife",
+        "name": "Knife Drops",
+        "hide": true
+    },
+    {
+        "id": "d_staff",
+        "name": "Staff Drops",
+        "hide": true
+    },
+    {
+        "id": "d_greatstaff",
+        "name": "Greatstaff Drops",
+        "hide": true
+    },
+    {
+        "id": "d_staves",
+        "name": "All Staff Drops",
+        "hide": true
+    },
+    {
+        "id": "d_broomstick",
+        "name": "Broomstick Drops",
+        "hide": true
+    },
+    {
+        "id": "d_wand",
+        "name": "Wand Drops",
+        "hide": true
+    },
+    {
+        "id": "d_rod",
+        "name": "Rod Drops",
+        "hide": true
+    },
+    {
+        "id": "d_fetish",
+        "name": "Fetish Drops",
+        "hide": true
+    },
+    {
+        "id": "d_orb",
+        "name": "Orb Drops",
+        "hide": true
+    },
+    {
+        "id": "d_magic",
+        "name": "Magical Item Drops",
+        "hide": true
+    },
+    {
+        "id": "d_dagger",
+        "name": "Dagger Drops",
+        "hide": true
+    },
+    {
+        "id": "d_axe",
+        "name": "Axe Drops",
+        "hide": true
+    },
+    {
+        "id": "d_battleaxe",
+        "name": "Battleaxe Drops",
+        "hide": true
+    },
+    {
+        "id": "d_axes",
+        "name": "All Axe Drops",
+        "hide": true
+    },
+    {
+        "id": "d_mace",
+        "name": "Mace Drops",
+        "hide": true
+    },
+    {
+        "id": "d_warhammer",
+        "name": "Warhammer Drops",
+        "hide": true
+    },
+    {
+        "id": "d_spear",
+        "name": "Spear Drops",
+        "hide": true
+    },
+    {
+        "id": "d_gloves",
+        "name": "Glove Drops",
+        "hide": true
+    },
+    {
+        "id": "d_boots",
+        "name": "Boot Drops",
+        "hide": true
+    },
+    {
+        "id": "d_hat",
+        "name": "Hat Drops",
+        "hide": true
+    },
+    {
+        "id": "d_cap",
+        "name": "Cap Drops",
+        "hide": true
+    },
+    {
+        "id": "d_helm",
+        "name": "Helm Drops",
+        "hide": true
+    },
+    {
+        "id": "d_jerkin",
+        "name": "Jerkin Drops",
+        "hide": true
+    },
+    {
+        "id": "d_paddedarmor",
+        "name": "Padded Armor Drops",
+        "hide": true
+    },
+    {
+        "id": "d_chainmail",
+        "name": "Chainmail Drops",
+        "hide": true
+    },
+    {
+        "id": "d_platemail",
+        "name": "Plate Mail Drops",
+        "hide": true
+    },
+    {
+        "id": "d_robe",
+        "name": "Robe Drops",
+        "hide": true
+    },
+    {
+        "id": "d_conicalhelm",
+        "name": "Conical Helm Drops",
+        "hide": true
+    },
+    {
+        "id": "d_belt",
+        "name": "Belt Drops",
+        "hide": true
+    },
+    {
+        "id": "d_girdle",
+        "name": "Girdle Drops",
+        "hide": true
+    },
+    {
+        "id": "d_cincture",
+        "name": "Cincture Drops",
+        "hide": true
+    },
+    {
+        "id": "d_sash",
+        "name": "Sash Drops",
+        "hide": true
+    },
+    {
+        "id": "d_cape",
+        "name": "Cape Drops",
+        "hide": true
+    },
+    {
+        "id": "d_cloak",
+        "name": "Cloak Drops",
+        "hide": true
+    },
+    {
+        "id": "d_greaves",
+        "name": "Greave Drops",
+        "hide": true
+    },
+    {
+        "id": "d_pendant",
+        "name": "Pendant Drops",
+        "hide": true
+    },
+    {
+        "id": "d_collar",
+        "name": "Collar Drops",
+        "hide": true
+    },
+    {
+        "id": "d_amulet",
+        "name": "Amulet Drops",
+        "hide": true
+    },
+    {
+        "id": "d_necklace",
+        "name": "Necklace Drops",
+        "hide": true
+    },
+    {
+        "id": "d_band",
+        "name": "Band Drops",
+        "hide": true
+    },
+    {
+        "id": "d_loop",
+        "name": "Loop Drops",
+        "hide": true
+    },
+    {
+        "id": "d_ring",
+        "name": "Ring Drops",
+        "hide": true
+    },
+    {
+        "id": "d_wings",
+        "name": "Wing Drops",
+        "hide": true
+    }
+]

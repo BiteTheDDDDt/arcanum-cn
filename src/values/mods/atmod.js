@@ -114,5 +114,12 @@ export default class AtMod extends Mod {
 		return this.count ? this.value : 0;
 	}
 
-
+	instantiate() {
+		//TODO edit count so that, if specified in constructor, uses that instead of source.
+		let clone = new AtMod(null, this.id, this.source);
+		clone.at = +this.at;
+		clone.value = +this.value;
+		clone.op = this.op;
+		return clone;
+	}
 }

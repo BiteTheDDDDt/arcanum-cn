@@ -39,7 +39,7 @@ export default {
 			return this.item.type.toString();
 		},
 		target() {
-			return !Array.isArray(this.item.attack) && this.item.attack.targetstring || null;
+			return !Array.isArray(this.item.attack) && this.item.attack.targetstring || "enemy";
 		}
 
 	}
@@ -94,7 +94,7 @@ export default {
 		<div v-if="damage!==0&&damage!==null&&typeof damage !== 'undefined'&&item.attack.kind">Kind: {{ item.attack.kind.toString().toTitleCase() }}</div>
 		<div v-if="item.attack.targets">Targets: {{ item.attack.targetstring.toString().toTitleCase() }}</div>
 		<div v-if="item.attack.result" class="info-sect">Results:</div>
-		<info v-if="item.attack.result" :info="item.attack.result" />
+		<info v-if="item.attack.result" :info="item.attack.result" :target="target" />
 	</div>
 
 	<div v-if="item.attack.hits">
@@ -106,7 +106,7 @@ export default {
 			<div v-if="hit.damage!==0&&hit.damage!==null&&typeof hit.damage !== 'undefined'&&hit.kind">Kind: {{ hit.kind.toString().toTitleCase() }}</div>
 			<div v-if="hit.targets">Targets: {{ hit.targetstring.toString().toTitleCase() }}</div>
 			<div v-if="hit.result" class="info-sect">Results:</div>
-			<info v-if="hit.result" :info="hit.result" />
+			<info v-if="hit.result" :info="hit.result" :target="hit.targetstring" />
 			<div class="info-subsect" v-if="hit.dot">Applies</div>
 			<dot v-if="hit.dot" :dot="hit.dot" :item="hit" :target="hit.targetstring" />
 		</div>

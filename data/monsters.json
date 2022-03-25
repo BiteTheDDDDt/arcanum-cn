@@ -84,8 +84,8 @@
 			"dmg": 1
 		},
 		"loot": {
-			"dagger": "20%",
-			"gloves": "10%"
+			"d_dagger": "20%",
+			"d_gloves": "10%"
 		}
 	},
 	{
@@ -108,9 +108,9 @@
 		},
 		"loot": {
 			"scrolls": "80%",
-			"spear": "20%",
-			"gloves": "5%",
-			"cap": "5%"
+			"d_spear": "20%",
+			"d_gloves": "5%",
+			"d_cap": "5%"
 		}
 	},
 	{
@@ -131,7 +131,7 @@
 			"dmg": "1~2"
 		},
 		"loot": {
-			"sash": "10%"
+			"d_sash": "10%"
 		},
 		"resist": {
 			"poison": 50
@@ -152,7 +152,7 @@
 			"leech": 0.2
 		},
 		"loot": {
-			"boots": "2%"
+			"d_boots": "2%"
 		}
 	},
 	{
@@ -216,7 +216,7 @@
 		],
 		"loot": {
 			"scrolls": 1,
-			"boots": "15%"
+			"d_boots": "15%"
 		},
 		"resist": {
 			"mana": 50
@@ -288,7 +288,7 @@
 		},
 		"speed": -1,
 		"loot": {
-			"club": 1
+			"d_club": 1
 		}
 	},
 	{
@@ -429,7 +429,7 @@
 		},
 		"loot": {
 			"feather": "1~5",
-			"loop": "20%"
+			"d_loop": "20%"
 		}
 	},
 	{
@@ -492,7 +492,7 @@
 		},
 		"loot": {
 			"bones": "2~5",
-			"shortsword": "25%"
+			"d_shortsword": "25%"
 		},
 		"resist": {
 			"shadow": 15
@@ -559,8 +559,8 @@
 			"kind": "pierce"
 		},
 		"loot": {
-			"dagger": "20%",
-			"cap": "20%"
+			"d_dagger": "20%",
+			"d_cap": "20%"
 		}
 	},
 	{
@@ -577,8 +577,8 @@
 			"kind": "pierce"
 		},
 		"loot": {
-			"shortsword": "20%",
-			"cap": "20%"
+			"d_shortsword": "20%",
+			"d_cap": "20%"
 		}
 	},
 	{
@@ -595,8 +595,8 @@
 			"kind": "blunt"
 		},
 		"loot": {
-			"club": "10%",
-			"mace": "15%"
+			"d_club": "10%",
+			"d_mace": "15%"
 		}
 	},
 	{
@@ -611,8 +611,8 @@
 			"kind": "slash"
 		},
 		"loot": {
-			"cap": "20%",
-			"boots": "10%"
+			"d_cap": "20%",
+			"d_boots": "10%"
 		}
 	},
 	{
@@ -627,8 +627,8 @@
 			"kind": "slash"
 		},
 		"loot": {
-			"cap": "20%",
-			"boots": "10%"
+			"d_cap": "20%",
+			"d_boots": "10%"
 		}
 	},
 	{
@@ -644,8 +644,8 @@
 			"kind": "mana"
 		},
 		"loot": {
-			"cap": "20%",
-			"boots": "10%",
+			"d_cap": "20%",
+			"d_boots": "10%",
 			"gold": "5~7"
 		},
 		"flavor": "You remind me of the babe"
@@ -823,9 +823,9 @@
 		},
 		"biome": "town",
 		"loot": {
-			"dagger": "10%",
+			"d_dagger": "10%",
 			"gold": "3~5",
-			"cloak": "3%"
+			"d_cloak": "3%"
 		}
 	},
 	{
@@ -851,9 +851,9 @@
 			}
 		],
 		"loot": {
-			"ring": "2%",
-			"cloak": "3%",
-			"belt": "3%"
+			"d_ring": "2%",
+			"d_cloak": "3%",
+			"d_belt": "3%"
 		}
 	},
 	{
@@ -1863,7 +1863,7 @@
 			"mana": 30
 		},
 		"loot": {
-			"sword": 1
+			"d_sword": 1
 		}
 	},
 	{

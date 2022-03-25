@@ -3,6 +3,7 @@
 		"id": "gloves",
 		"armor": 1,
 		"slot": "hands",
+		"tags": "t_gloves,d_gloves",
 		"cost": 20,
 		"enchants": 1,
 		"only": "cloth,leather"
@@ -11,6 +12,7 @@
 		"id": "boots",
 		"armor": 1,
 		"slot": "feet",
+		"tags": "t_boots,d_boots",
 		"cost": 20,
 		"enchants": 2,
 		"only": "cloth,leather,metal"
@@ -19,12 +21,14 @@
 		"id": "hat",
 		"armor": 0,
 		"slot": "head",
+		"tags": "t_hat,d_hat",
 		"cost": 10
 	},
 	{
 		"id": "cap",
 		"armor": 1,
 		"slot": "head",
+		"tags": "t_cap,d_cap",
 		"cost": 15,
 		"level": 1
 	},
@@ -32,6 +36,7 @@
 		"id": "helm",
 		"armor": 2,
 		"slot": "head",
+		"tags": "t_helm,d_helm",
 		"cost": 30,
 		"level": 3
 	},
@@ -39,6 +44,7 @@
 		"id": "jerkin",
 		"armor": 2,
 		"slot": "chest",
+		"tags": "t_jerkin,d_jerkin",
 		"cost": 100,
 		"level": 2,
 		"enchants": 1,
@@ -48,6 +54,7 @@
 		"id": "padded armor",
 		"armor": 3,
 		"slot": "chest",
+		"tags": "t_paddedarmor,d_paddedarmor",
 		"cost": 150,
 		"level": 4,
 		"only": "leather,cloth"
@@ -56,6 +63,7 @@
 		"id": "chainmail",
 		"armor": 5,
 		"slot": "chest",
+		"tags": "t_chainmail,d_chainmail",
 		"cost": 350,
 		"level": 5,
 		"enchants": 2,
@@ -65,6 +73,7 @@
 		"id": "plate mail",
 		"armor": 8,
 		"slot": "chest",
+		"tags": "t_platemail,d_platemail",
 		"cost": 700,
 		"level": 9,
 		"enchants": 2,
@@ -74,6 +83,7 @@
 		"id": "robe",
 		"armor": 0,
 		"slot": "chest",
+		"tags": "t_robe,d_robe",
 		"cost": 50,
 		"only": "cloth",
 		"enchants": 10
@@ -82,6 +92,7 @@
 		"id": "conical helm",
 		"armor": 3,
 		"slot": "head",
+		"tags": "t_conicalhelm,d_conicalhelm",
 		"cost": 40,
 		"only": "metal,ethereal"
 	},
@@ -89,6 +100,7 @@
 		"id": "belt",
 		"armor": 0,
 		"slot": "waist",
+		"tags": "t_belt,d_belt",
 		"cost": 30,
 		"enchants": 2,
 		"only": "natural,cloth"
@@ -97,12 +109,14 @@
 		"id": "girdle",
 		"armor": 1,
 		"slot": "waist",
+		"tags": "t_girdle,d_girdle",
 		"cost": 50
 	},
 	{
 		"id": "cincture",
 		"armor": 1,
 		"slot": "waist",
+		"tags": "t_cincture,d_cincture",
 		"cost": 50,
 		"enchants": 3
 	},
@@ -110,6 +124,7 @@
 		"id": "sash",
 		"armor": 0,
 		"slot": "waist",
+		"tags": "t_sash,d_sash",
 		"cost": 10,
 		"only": "cloth",
 		"enchants": 3
@@ -118,6 +133,7 @@
 		"id": "cape",
 		"armor": 0,
 		"slot": "back",
+		"tags": "t_cape,d_cape",
 		"cost": 50,
 		"only": "cloth",
 		"enchants": 3
@@ -126,6 +142,7 @@
 		"id": "cloak",
 		"armor": 1,
 		"slot": "back",
+		"tags": "t_cloak,d_cloak",
 		"cost": 50,
 		"only": "cloth",
 		"enchants": 5
@@ -134,6 +151,7 @@
 		"id": "wings",
 		"armor": 1,
 		"slot": "back",
+		"tags": "t_wings,d_wings",
 		"level": 20,
 		"cost": 5000,
 		"properties": "10%",
@@ -143,12 +161,14 @@
 		"id": "greaves",
 		"armor": 1,
 		"slot": "shins",
+		"tags": "t_greaves,d_greaves",
 		"cost": 30
 	},
 	{
 		"id": "pendant",
 		"armor": 0,
 		"slot": "neck",
+		"tags": "t_pendant,d_pendant",
 		"cost": 300,
 		"properties": "5%",
 		"enchants": 4
@@ -157,6 +177,7 @@
 		"id": "collar",
 		"armor": 1,
 		"slot": "neck",
+		"tags": "t_collar,d_collar",
 		"cost": 30,
 		"enchants": 2
 	},
@@ -164,6 +185,7 @@
 		"id": "amulet",
 		"armor": 0,
 		"slot": "neck",
+		"tags": "t_amulet,d_amulet",
 		"cost": 500,
 		"level": 15,
 		"properties": "10%",
@@ -173,6 +195,7 @@
 		"id": "necklace",
 		"armor": 0,
 		"slot": "neck",
+		"tags": "t_necklace,d_necklace",
 		"cost": 50,
 		"properties": "1%",
 		"enchants": 3
@@ -181,6 +204,7 @@
 		"id": "band",
 		"armor": 0,
 		"slot": "fingers",
+		"tags": "t_band,d_band",
 		"kind": "ring",
 		"cost": 50,
 		"level": 3,
@@ -191,6 +215,7 @@
 		"id": "loop",
 		"armor": 0,
 		"slot": "fingers",
+		"tags": "t_loop,d_loop",
 		"kind": "ring",
 		"cost": 10,
 		"level": 1,
@@ -200,6 +225,7 @@
 		"id": "ring",
 		"armor": 0,
 		"slot": "fingers",
+		"tags": "t_ring,d_ring",
 		"kind": "ring",
 		"level": 5,
 		"cost": 100,

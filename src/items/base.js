@@ -566,7 +566,9 @@ export default {
 	 * @param {string} tag
 	 */
 	addTag( tag ) {
-		if ( this._tags === null || this._tags === undefined) this._tags = [ tag ];
+		if ( Array.isArray(tag) ) tag.forEach( t => this.addTag( t ), this );
+
+		else if ( this._tags == null ) this._tags = [ tag ];
 		else if ( !this._tags.includes(tag) ) this._tags.push(tag);
 	},
 

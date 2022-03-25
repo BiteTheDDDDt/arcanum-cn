@@ -5,13 +5,13 @@
 	{
 		"id": "cloak",
 		"mod": {
-			"defense": 1
+			"self.defense": 1
 		}
 	},
 	{
 		"id": "ring1",
 		"mod": {
-			"defense": 1
+			"self.defense": 1
 		}
 	},
 	{

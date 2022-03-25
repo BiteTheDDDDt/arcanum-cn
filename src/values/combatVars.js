@@ -1,7 +1,7 @@
-import FValue from "./rvals/fvalue";
+import FValue, { MkParams } from "./rvals/fvalue";
 import Range, { RangeTest } from "./range";
 import Events, { IS_IMMUNE, CHAR_DIED, COMBAT_HIT, EVT_COMBAT } from "../events";
-import { TYP_FUNC } from "./consts";
+import { FP, TYP_FUNC } from "./consts";
 import RValue from "./rvals/rvalue";
 
 /**
@@ -181,7 +181,7 @@ export const ParseTarget = (s)=>{
  * @returns {(a,t,c,g)=>number}
  */
 export const MakeDmgFunc = (s)=>{
-	return new FValue( 'a,t,c', s );
+	return new FValue( MkParams(FP.ACTOR, FP.TARGET, FP.CONTEXT), s );
 };
 
 export const ParseDmg = (v)=>{

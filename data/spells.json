@@ -307,18 +307,17 @@
 		},
 		"at": {
 			"25": {
-				"attack.damage.max": 5
+				"attack.dot.damage.max": 5
 			},
 			"75": {
-				"attack.damage.min": 5
+				"attack.dot.damage.min": 5
 			},
 			"300": {
-				"attack.damage.max": 5,
-				"attack.damage.min": 5
+				"attack.dot.damage.max": 5,
+				"attack.dot.damage.min": 5
 			}
 		},
 		"attack": {
-			"damage": "0~5",
 			"dot": {
 				"kind": "drain",
 				"leech": 0.75,
@@ -1441,7 +1440,7 @@
 			"stamina": 1
 		},
 		"attack": {
-			"damage": "(a.weapon.damage+a.getBonus( a.weapon.kind ))*2.5",
+			"damage": "((a.weapon.damage||0)+a.getBonus( a.weapon.kind ))*2.5",
 			"tohit": 3,
 			"kind": "earth"
 		}
@@ -1461,7 +1460,7 @@
 			"stamina": 12
 		},
 		"attack": {
-			"damage": "(a.weapon.damage+a.getBonus( a.weapon.kind ))*6",
+			"damage": "((a.weapon.damage||0)+a.getBonus( a.weapon.kind ))*6",
 			"tohit": 5,
 			"kind": "earth",
 			"dot": {
@@ -2245,26 +2244,25 @@
 		},
 		"at": {
 			"30": {
-				"attack.dmg.max": 2
+				"attack.dot.damage.max": 5
 			},
 			"100": {
-				"attack.dmg.min": 3,
-				"attack.dmg.max": 2
+				"attack.dot.damage.min": 5,
+				"attack.dot.damage.max": 1
 			},
 			"300": {
-				"attack.dmg.max": 3,
-				"attack.dmg.min": 2,
+				"attack.dot.damage.max": 5,
+				"attack.dot.damage.min": 4,
 				"attack.tohit": 5
 			}
 		},
 		"attack": {
 			"tohit": 15,
 			"targets": "enemies",
-			"damage": "1~3",
 			"dot": {
 				"kind": "air",
 				"duration": 15,
-				"damage": "10~15",
+				"damage": "7~25",
 				"mod": {
 					"self.tohit": -5
 				}
@@ -2628,15 +2626,18 @@
 		"cost": {
 			"earth": 5
 		},
-		"at": {
-			"30": {
-				"attack.tohit": 1
+		"at":{
+			"30":{
+				"attack.tohit":1
 			},
-			"100": {
-				"attack.tohit": 2
+			"100":{
+				"attack.damage.dot.max":1,
+				"attack.tohit":2
 			},
-			"300": {
-				"attack.tohit": 2
+			"300":{
+				"attack.damage.dot.max":2,
+				"attack.damage.dot.min":1,
+				"attack.tohit":2
 			}
 		},
 		"attack": {

@@ -100,6 +100,36 @@ export function getDelay(s) {
 }
 
 /**
+ * Dictionary of possible dynamic function parameters.
+ * @prop {String} FP.GAME - Game data
+ * @prop {String} FP.TARGET - Target data
+ * @prop {String} FP.ACTOR - Actor/Caster data 
+ * @prop {String} FP.ITEM - Item data
+ * @prop {String} FP.CONTEXT - (Target's) context data
+ * @prop {String} FP.STATE - Game state data
+ */
+export const FP = Object.freeze({
+	GAME: "g",
+	TARGET: "t",
+	ACTOR: "a",
+	ITEM: "i",
+	CONTEXT: "c",
+	STATE: "s"
+});
+
+/**
+ * Parses value functions into its parameters 
+ * @param {Function} func - function to be parsed
+ * @returns {Array.<String>} array of parameters
+ */
+export const getParams = func => {
+	if(!func || typeof func !== 'function') return null;
+	let params = func.toString().match(/\(([^)]*)\)/)[1];
+	if(!params) return [];
+	return params.split(",").map(s => s.trim());
+}
+
+/**
  * Determine if the given target allows targetting of item.
  * @param {string|string[]} targs - tags, names, or or id list.
  * @param {GData} it

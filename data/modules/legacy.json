@@ -37,6 +37,7 @@
 				"name":"vorpal blade",
 				"level":14,
 				"type":"weapon",
+				"tags": "t_longsword,t_swords",
 				"material":"quicksteel",
 				"tohit":10,
 				"attack":{
@@ -49,14 +50,18 @@
 				"name":"necrotic dagger",
 				"material":"bone",
 				"type":"weapon",
+				"tags": "t_dagger",
 				"tohit":2,
-				"attack":{ "kind":"pierce", "damage":"1~3","dot":{
-					"duration":3,
-					"dmg":"1~2",
-					"name":"necrosis",
-					"kind":"necrotic"
-
-				}}, "cost":20, "level":3
+				"attack":{ 
+					"kind":"pierce", 
+					"damage":"1~3",
+					"dot":{
+						"duration":3,
+						"dmg":"1~2",
+						"name":"necrosis",
+						"kind":"necrotic"
+					}
+				}, "cost":20, "level":3
 			},
 			{
 				"id": "iceorb",
@@ -89,45 +94,6 @@
 					}
 				},
 				"alter":{
-					"mod": {
-						"ice.rate": "20%",
-						"ice.max": "20%",
-						"icelore.rate": 2,
-						"water.rate": "20%",
-						"water.max": "20%",
-						"waterlore.rate": 2,
-						"fire.rate": "-80%",
-						"fire.max": "-80%"
-					}
-				}
-			},
-			{
-				"id": "iceorb",
-				"name": "orb of winters",
-				"desc": "A snowglobe with magical powers. It reminds you of colder days.",
-				"level": 10,
-				"save": true,
-				"unique": true,
-				"type": "weapon",
-				"tohit": 5,
-				"cost": {
-					"gold": 100
-				},
-				"attack": {
-					"name": "blizzard",
-					"damage": "5~12",
-					"kind": "water",
-					"targets": "enemies",
-					"dot": {
-						"duration": 20,
-						"kind": "water",
-						"dmg": "5~12",
-						"mod": {
-							"speed": -5
-						}
-					}
-				},
-				"alter": {
 					"mod": {
 						"ice.rate": "20%",
 						"ice.max": "20%",
