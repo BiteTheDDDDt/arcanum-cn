@@ -159,6 +159,7 @@ export default class Explore {
 
 		this.drops = gs.drops;
 		this.combat = gs.combat;
+		if(this.running) this.combat.active = (this.combat === this.enc );
 
 	}
 

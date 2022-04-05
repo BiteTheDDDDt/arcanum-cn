@@ -2,7 +2,7 @@ import { assign } from 'objecty';
 
 import Events, {
 	EVT_COMBAT, ENEMY_SLAIN, ALLY_DIED,
-	DAMAGE_MISS, CHAR_DIED, STATE_BLOCK, CHAR_ACTION, COMBAT_WON
+	DAMAGE_MISS, CHAR_DIED, STATE_BLOCK, CHAR_ACTION, ITEM_ACTION, COMBAT_WON
 } from '../events';
 
 import { itemRevive } from '../modules/itemgen';
@@ -78,7 +78,6 @@ export default class Combat {
 
 		if (!this.enemies) this.enemies = [];
 		if ( !this.allies) this.allies = [];
-
 		this.active = false;
 
 		this._teams = [];
@@ -93,7 +92,6 @@ export default class Combat {
 
 		this.state = gs;
 		this.player = gs.player;
-
 		// splices done in place to not confuse player with changed order.
 
 		let it;
@@ -129,6 +127,7 @@ export default class Combat {
 
 		this.resetTeamArrays();
 
+		Events.add( ITEM_ACTION, this.itemAction, this );
 		Events.add( CHAR_ACTION, this.spellAction, this );
 		Events.add( CHAR_DIED, this.charDied, this );
 
@@ -229,6 +228,38 @@ export default class Combat {
 		}
 
 	}
+	/**
+	 * item-casted spell or action attack.
+	 * @param {Item} it
+	 * @param {Context} g
+	 */
+	itemAction( it, g ) {
+
+	
+			Events.emit(EVT_COMBAT, null, g.self.name + ' Uses ' + it.name.toTitleCase() );
+			if ( it.use.attack ) {
+				this.attack( g.self, it.use.attack );
+				
+			}
+			if ( it.use.action ) {
+				
+				console.log('ACTION: ' + it.use.action );
+				let target = this.getTarget( g.self, it.use.action.targets );
+
+				if (!target ) return;
+				if ( Array.isArray(target)) {
+
+					for( let i = target.length-1; i>= 0; i-- ) ApplyAction( target[i], it.use.action, g.self );
+
+				} else {
+					ApplyAction( target, it.use.action, g.self );
+				}
+
+
+			}
+		
+
+	}
 
 	/**
 	 * Attack a target.
@@ -283,15 +314,14 @@ export default class Combat {
 	 * @returns {Char|Char[]|null}
 	 */
 	getTarget( char, targets ) {
-
 		// retarget based on state.
 		targets = char.retarget(targets);
-
+		
 		var group = this.getGroup( targets, char.team );
 		if ( !this.active ) {
 
-			if ( this.group === this.enemies ) return null;
-			if ( this.group === this.teams[TEAM_ALL] ) return this.allies;
+			if ( group === this.enemies ) return null;
+			if ( group === this.teams[TEAM_ALL] ) return this.allies;
 		}
 
 		if ( targets & TARGET_GROUP ) return group;
