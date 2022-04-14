@@ -321,6 +321,15 @@ export default class Inventory {
 		this.items.splice(ind,1);
 
 	}
+	
+	swap(start,end) {
+
+		let temp = this.items[end];
+		this.items.splice(end,1,this.items[start]);
+		this.items.splice(start,1,temp);
+
+		
+	}
 
 	/**
 	 * Remove quantity of item and only drop from inventory

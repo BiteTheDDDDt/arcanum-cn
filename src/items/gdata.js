@@ -287,7 +287,7 @@ export default class GData {
 	 */
 	canUse( g=Game ){
 
-		if ( this.perpetual || this.length>0 ) return this.canRun(g, TICK_LEN);
+		if ( this.perpetual>0 || this.length>0 ) return this.canRun(g, TICK_LEN);
 
 		if ( this.disabled || this.locks>0|| this.maxed() ||
 				(this.need && !g.unlockTest( this.need, this )) ) return false;
@@ -452,7 +452,7 @@ export default class GData {
 	*/
 	maxed() {
 
-		if ( this._max ) return this.value + this.delta >= Math.floor( this._max.value);
+		if ( this._max ) return this.value + this.delta>= Math.floor( this._max.value);
 
 		return !(this.repeat||this.owned) && this.value + this.delta >= 1;
 

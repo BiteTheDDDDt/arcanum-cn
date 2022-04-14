@@ -111,7 +111,7 @@ export default class Task extends GData {
 
 		if ( this.every ) this.every = ParseMods( this.every, this.id, this );
 
-		if ( (this.length || this.perpetual)) {
+		if ( (this.length>0 || this.perpetual>0)) {
 			this.ex = this.ex || 0;
 		}
 
@@ -174,7 +174,7 @@ export default class Task extends GData {
 	tryComplete() {
 
 		if ( (this._length && this._exp>=this._length )
-			|| (!this._length && this.perpetual && this._exp >= 1 ) ) {
+			|| (!this._length>0 && this.perpetual>0 && this._exp >= 1 ) ) {
 
 			this.complete( Game );
 

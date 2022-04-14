@@ -155,6 +155,9 @@ export default {
 
 		</div>
 
+		<span v-if="item.length>0&&item.type==='task'">
+			Completion time: {{new Date((item.length-item.exp)*1000).toISOString().substr(11, 8)}}
+		</span>
 		<info v-if="item.need" :info="item.need" title="Need" />
 		<info v-if="item.buy&&!item.owned" :info="item.buy" title="Purchase Cost" />
 		<info v-if="item.cost" :info="item.cost" title="Cost" />
@@ -164,7 +167,7 @@ export default {
 		<attack v-if="item.attack" :item="item" />
 
 		<div v-if="item.effect" class="info-sect">Effects:</div>				
-		<info v-if="item.effect" :info="item.effect" :rate="item.perpetual||item.length>0" />
+		<info v-if="item.effect" :info="item.effect" :rate="item.perpetual>0||item.length>0" />
 		<div v-if="(item.mod&&Object.values(item.mod).length)||(item.alter&&Object.values(item.alter).length)" class="info-sect">Modifications:</div>				
 		<info v-if="item.mod&&Object.values(item.mod).length" :info="item.mod" />
 		<info v-if="item.alter&&Object.values(item.alter).length" :info="item.alter" />

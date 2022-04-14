@@ -373,6 +373,19 @@
 		}
 	},
 	{
+		"id": "furn_gemcraft",
+		"name": "imbuement chambers",
+		"require": "g.gemcraft>0",
+		"cost": {
+			"mana": 5
+		},
+		"desc": "Activate your imbuement chambers, making gem imbuement a sustained action.",
+		"mod": {
+			"gemimbue.perpetual": true,
+			"gemimbue.length": 4
+		}
+	},
+	{
 		"id": "loom",
 		"desc": "Unlocks the art of weaving",
 		"tags": "weavesource",

@@ -704,7 +704,7 @@
 			"runestones.rate": 0.005,
 			"codices.mod.research.rate": 0.03,
 			"tomes.mod.research.max": 1,
-			"runestones.mod.research.max": "20%",
+			"runestones.mod.research.max": "0.2%",
 			"potions.max": 2,
 			"lore.max": 5,
 			"lore.rate": "500%",
@@ -936,34 +936,30 @@
 	},
 	{
 		"id": "gemcraft",
+		"name": "sustained imbuement",
 		"require": "g.tier4>0&&g.crafting>=16",
-		"warn": true,
 		"cost": {
 			"research": 7500,
 			"tomes": 10,
 			"arcana": 15,
 			"sp": 5
 		},
-		"desc": "Allow you to imbue gems continuously as an activity.",
-		"mod": {
-			"gemimbue.perpetual": true,
-			"gemimbue.length": 5
-		}
+		"desc": "Unlocks an ability to imbue gems as a continuous action."
 	},
 	{
 		"id": "advgems",
-		"name": "advanced gemcraft",
-		"require": "g.gemcraft>0&&g.crafting>=18",
+		"name": "advanced imbuement chambers",
+		"require": "g.furn_gemcraft>0&&g.crafting>=18",
 		"warn": true,
 		"cost": {
 			"research": 10000,
 			"tomes": 10,
 			"arcana": 15,
-			"sp": 10
+			"sp": 15
 		},
 		"desc": "Improve the speed of your gem enchanting.",
 		"mod": {
-			"gemimbue.length": "-75%"
+			"furn_gemcraft.mod.gemimbue.length": "-3"
 		}
 	},
 	{
@@ -1799,7 +1795,7 @@
 	},
 	{
 		"id": "coretap",
-		"name": "Core tap",
+		"name": "core tap",
 		"desc": "Tap the world's core for endless heat",
 		"require": "g.earthshaker>0&&g.geosculpting>=6",
 		"max": 1,
@@ -2321,7 +2317,7 @@
 			"tomes": 50,
 			"gold": 15000
 		},
-		"result":{
+		"result": {
 			"evt_hall": true
 		},
 		"mod": {
@@ -2420,7 +2416,7 @@
 		"desc": "Your familiar is a cat, as dark as the night that spawned him.",
 		"require": "g.summonfamiliar>0",
 		"warn": true,
-		"tags":"familiar",
+		"tags": "familiar",
 		"lock": [
 			"familiarowl",
 			"familiarkobold",
@@ -2445,7 +2441,7 @@
 		"desc": "Your familiar is an owl, most active at night, just like you are.",
 		"require": "g.summonfamiliar>0",
 		"warn": true,
-		"tags":"familiar",
+		"tags": "familiar",
 		"lock": [
 			"familiarcat",
 			"familiarkobold",
@@ -2470,7 +2466,7 @@
 		"desc": "Your familiar is a kobold, greedy for gold.",
 		"require": "g.summonfamiliar>0",
 		"warn": true,
-		"tags":"familiar",
+		"tags": "familiar",
 		"lock": [
 			"familiarcat",
 			"familiarowl",
@@ -2494,7 +2490,7 @@
 		"desc": "Your familiar is an imp, devious and prone to mischief.",
 		"require": "g.summonfamiliar>0",
 		"warn": true,
-		"tags":"familiar",
+		"tags": "familiar",
 		"lock": [
 			"familiarcat",
 			"familiarkobold",
@@ -2518,7 +2514,7 @@
 		"desc": "Your familiar is an animated tome, filled with arcane knowledge and a thirst for expansion.",
 		"require": "g.summonfamiliar>0",
 		"warn": true,
-		"tags":"familiar",
+		"tags": "familiar",
 		"lock": [
 			"familiarcat",
 			"familiarkobold",
