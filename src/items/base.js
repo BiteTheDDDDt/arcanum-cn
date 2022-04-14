@@ -58,7 +58,7 @@ export const mergeClass = ( destClass, src ) => {
  const JSONIgnore = new Set( ['template', 'id', 'type', 'defaults', 'module', 'sname',
 	 'sym', 'warn', "effect", "length", 'runmod', 'name', 'desc', 'running', 'current', 'warnMsg',
 	 'once', 'context', 'enemies', 'encs', 'boss', 'spawns','targets','only',
-	 'locked', 'locks', 'value', 'exp', 'delta', 'tags', 'mod', 'progress','need', 'require','action' ]);
+	 'locked', 'locks', 'value', 'exp', 'delta', 'tags', 'mod', 'alter', 'progress','need', 'require','action' ]);
 
 /**
  * Base class of all Game Objects.
@@ -443,6 +443,13 @@ export default {
 
 			}else if ( typeof subMod === 'number' ) {
 				console.warn( 'RAW NUMBER MOD on: ' + this.id + ': ' + p + ': ' + subMod );
+			}
+			else if ( typeof subMod === 'boolean' ) {
+				if (amt>0) {
+					subTarg.value = subMod;
+				} else if (amt<0) {
+					subTarg.value = !subMod;
+				};
 			}
 			/*else if ( typeof subMod === 'number' ) {
 

@@ -24,8 +24,8 @@ export default {
 	},
 	computed:{
 
-		tasks(){return Game.state.tasks.filter(v=>!v.perpetual&&!v.length)},
-		runnables(){return Game.state.tasks.filter(v=>v.perpetual||v.length>0)},
+		tasks(){return Game.state.tasks.filter(v=>(!v.perpetual||v.perpetual==0)&&(!v.length||v.length==0))},
+		runnables(){return Game.state.tasks.filter(v=>v.perpetual>0||v.length>0)},
 
 		visActs(){return this.tasks.filter(v=>this.show(v))},
 		visRuns(){ return this.runnables.filter(v=>this.show(v))},

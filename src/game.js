@@ -504,7 +504,7 @@ export default {
 			return this.tryBuy( it, false );
 		}
 
-		if ( it.perpetual || it.length > 0 ) {
+		if ( it.perpetual>0 || it.length > 0 ) {
 
 			this.setTask(it);
 

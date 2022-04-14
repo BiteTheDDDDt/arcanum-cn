@@ -568,6 +568,11 @@ export default class Runner {
 	 */
 	doTask(a, dt) {
 
+		if (a.length==0&&a.perpetual==0)
+		{
+			this.stopTask(a);
+			return;
+		}
 		if ( a.maxed() ) {
 			this.stopTask(a);
 			this.tryAdd( this.context.state.restAction );

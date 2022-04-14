@@ -16,7 +16,10 @@ export default {
 	</span>
 
 	<div v-for="(it,ind) in list.items" :key="ind" @mouseenter.capture.stop="itemOver( $event, it )">
-		<button class="stop" @click="list.removeAt(ind)">X</button><span>{{it.name.toTitleCase()}}</span>
+		<button :disabled= "!(ind>0)"   class="stop" @click="list.swap(ind,ind-1)">↑</button>
+		<button :disabled= "!(ind < list.items.length-1)"   class="stop" @click="list.swap(ind,ind+1)">↓</button>
+		<button class="stop" @click="list.removeAt(ind)">X</button>
+		<span>{{it.name.toTitleCase()}}</span>
 	</div>
 
 </div>
