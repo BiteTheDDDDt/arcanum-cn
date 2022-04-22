@@ -2865,8 +2865,12 @@
 					"targets": "all",
 					"dot": {
 						"kind": "water",
-						"dmg": "20~30",
-						"duration": 30
+						"dmg": "3~7",
+						"duration": 30,
+						"mod": {
+							"speed": -5,
+							"dodge": -10
+						}
 					}
 				},
 				{
