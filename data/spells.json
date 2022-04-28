@@ -2631,12 +2631,12 @@
 				"attack.tohit":1
 			},
 			"100":{
-				"attack.damage.dot.max":1,
+				"attack.dot.damage.max":1,
 				"attack.tohit":2
 			},
 			"300":{
-				"attack.damage.dot.max":2,
-				"attack.damage.dot.min":1,
+				"attack.dot.damage.max":2,
+				"attack.dot.damage.min":1,
 				"attack.tohit":2
 			}
 		},

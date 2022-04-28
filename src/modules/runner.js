@@ -433,7 +433,7 @@ export default class Runner {
 
 	addWait( a ){
 
-		if ( a.hasTag(REST_TAG) ) return;
+		if ( a == null || a.hasTag(REST_TAG) || (a.max != null && +a >= a.max ) ) return;
 
 		//console.log('adding wait: ' + a.id );
 		this.waiting.push(a);

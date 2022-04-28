@@ -102,7 +102,7 @@
 		"hands": 2,
 		"level": 8,
 		"enchants": 7,
-		"only": "glass,ruby",
+		"only": "glass,mat_ruby",
 		"properties": 1
 	},
 	{
