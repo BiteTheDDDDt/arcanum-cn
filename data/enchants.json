@@ -156,7 +156,7 @@
 	},
 	{
 		"id": "en_dmg2",
-		"name": "biting edge",
+		"name": "biting edge II",
 		"verb": "infusing weapon",
 		"adj": "%i of biting",
 		"only": "weapon",
@@ -178,7 +178,7 @@
 	},
 	{
 		"id": "en_dmg3",
-		"name": "biting edge",
+		"name": "biting edge III",
 		"verb": "infusing weapon",
 		"adj": "%i of biting",
 		"only": "weapon",
