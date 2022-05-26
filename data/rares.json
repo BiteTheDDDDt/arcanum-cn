@@ -2,6 +2,7 @@
 	{
 		"id": "karnivexcrown",
 		"name": "crown of karnivex",
+		"type": "armor",
 		"desc": "The conceits of Karnivex were without bounds.",
 		"slot": "head",
 		"tags": "t_crown",
@@ -22,6 +23,7 @@
 	{
 		"id": "veldranearring",
 		"name": "veldran's earring",
+		"type": "armor",
 		"desc": "A small blue stone with swirls of white.",
 		"tags": "t_earring",
 		"unique": true,
@@ -168,7 +170,7 @@
 		"type": "weapon",
 		"attack": {
 			"kind": "blunt",
-			"damage": "40~50"
+			"damage": "20~30"
 		},
 		"alter": {
 			"mod": {
@@ -186,6 +188,7 @@
 		"tags": "t_warhammer,t_artifact",
 		"level": 10,
 		"enchants":10,
+		"unique": true,
 		"sell": {
 			"gold": 1000
 		}

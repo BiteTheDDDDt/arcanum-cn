@@ -4,6 +4,7 @@
 		"name": "clean stables",
 		"desc": "Working from home.",
 		"verb": "cleaning",
+		"fill": "gold",
 		"locked": false,
 		"cost": {
 			"stamina": 0.08
@@ -449,6 +450,7 @@
 		"id": "starwish",
 		"desc": "Turn sindels into dreams.",
 		"require": "g.astrallore>=5&&g.divination>=10&&g.dreams>0",
+		"fill": "dreams",
 		"cost": {
 			"arcana": 1,
 			"sindel": 1
@@ -602,6 +604,23 @@
 		},
 		"result": {
 			"bonedust": "2~4"
+		}
+	},
+	{
+		"id": "grindskull",
+		"name": "powderize skull",
+		"desc": "Grind a skull into dust",
+		"require": "g.dissection>=4",
+		"length": 12,
+		"fill": "bonedust",
+		"cost": {
+			"skulls": 1
+		},
+		"run": {
+			"stamina": 0.4
+		},
+		"result": {
+			"bonedust": "6~8"
 		}
 	},
 	{
