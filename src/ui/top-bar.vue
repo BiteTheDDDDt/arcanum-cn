@@ -81,7 +81,7 @@ export default {
 		<span class="link-bar">
 			<a href="https://arcanumtesting.gitlab.io/arcanum/" target="_blank">Test Site</a>
 			<a href="https://discord.gg/bCABC96" target="_blank">Discord</a>
-			<a href="http://wiki.lerpinglemur.com/dhrune" target="_blank">Wiki</a>
+			<a href="https://gitlab.com/mathiashjelm/arcanum/-/wikis/home" target="_blank">Wiki</a>
 			<a href="https://www.reddit.com/r/wizrobe/" target="_blank">Reddit</a>
 			<span class="vers">Version: {{ VERSION }}</span>
 			<button class="text-button" @click="$emit('open-settings')">&#9881;</button>
