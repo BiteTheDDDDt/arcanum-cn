@@ -244,8 +244,8 @@ export default {
 			}
 			this.repeaterId = setInterval( (t)=>Game.tryItem(t), 50, it );
 
-			if ( !this.repeatEndFunc ) this.repeatEndFunc = ()=>this.endRepeater();
-			document.addEventListener( 'mouseup', this.repeatEndFunc );
+			// if ( !this.repeatEndFunc ) this.repeatEndFunc = ()=>this.endRepeater();
+			// document.addEventListener( 'mouseup', this.repeatEndFunc );
 
 		},
 

@@ -1,5 +1,5 @@
 <script>
-import Game from 'game';
+import Game from '../../game.js';
 import {HALT_TASK, STOP_ALL} from '../../events';
 import { SKILL, DUNGEON, EXPLORE, LOCALE, TYP_RUN, PURSUITS, TASK } from 'values/consts';
 
@@ -10,6 +10,7 @@ export default {
 		this.game = Game;
 		this.STOP_ALL = STOP_ALL;
 		this.TASK = TASK;
+		this.autofocus = false
 	},
 	computed:{
 
@@ -35,7 +36,20 @@ export default {
 
 		halt(a) {
 			this.emit( HALT_TASK, a);
-		}
+		},
+		run(){
+			if(this.autofocus){
+				this.emit('endrepeater', this.focus)
+				document.getElementById('auto').style = ""
+				this.autofocus = false
+			}else{
+				this.emit('repeater', this.focus)
+				document.getElementById('auto').style = "background-color:green;"
+				this.autofocus = true
+			}
+				
+		},
+
 
 	}
 
@@ -51,10 +65,12 @@ export default {
 
 		<button class="btn-sm" @click="emit(TASK, restAction)" :disabled="resting"
 		@mouseenter.capture.stop="itemOver($event, restAction )">{{ restAction.name.toTitleCase() }}</button>
-		<button v-if="!focus.locked" class="btn-sm" @mouseenter.capture.stop="itemOver($event, focus )"
-			:disabled="!focus.canUse(game)"
-      @click="emit(TASK,focus)"
-			@mousedown="emit('repeater', focus)">Focus</button>
+		<div v-if="!focus.locked">
+			<button class="btn-sm" @mouseenter.capture.stop="itemOver($event, focus )"
+			:disabled="!focus.canUse" @click="emit(TASK, focus)"
+			@mousedown="emit('repeater', focus)" @mouseup="emit('endrepeater',focus)">Focus</button>
+		<button class="btn-sm" @click="run()" id="auto" :disabled="!focus.canUse">Auto Focus</button>
+		</div>
 		<button class="btnMenu" @click="emit('showActivities')"></button>
 	</div>
 

@@ -1544,6 +1544,7 @@
 				"level": 1,
 				"armor": 2,
 				"type": "armor",
+				"kind": "ring",
 				"slot": "fingers",
 				"enchants": 7,
 				"alter": {

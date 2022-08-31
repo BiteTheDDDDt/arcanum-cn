@@ -435,11 +435,15 @@ button.pursuit {
 	position: absolute;
 	top:0;
 	right:0;
-	opacity: 0.2;
+	outline-style: solid;
+	outline-width: thin;
+	background-color:rgba(22, 219, 22, 0.25);
+
 }
 
 button.pursuit.current {
-	opacity: 0.7;
+	background-color:rgba(22, 219, 22, 0.7);
+
 }
 
 
@@ -453,9 +457,6 @@ button.accept, button.add {
 	border-radius: 1;
 }
 
-button.pursuit {
-	background-color: #16db16;
-}
 
 button.remove {
 	border-color: #f7755e;
