@@ -197,7 +197,8 @@
 			"languages.max": 1,
 			"arcana.rate": 0.001,
 			"mana.max": 2,
-			"mana.rate": 0.02
+			"mana.rate": 0.4,
+			"mysticism.mod.mana.rate":0.05
 		}
 	},
 	{
@@ -223,8 +224,9 @@
 			"demonology.max": 2,
 			"lore.max": 1,
 			"lore.rate": "5%",
-			"mana.max": 1,
-			"mana.rate": 0.01,
+			"mana.max": 3,
+			"mana.rate": 0.2,
+			"shadowlore.mod.mana.rate":0.02,
 			"shadowlore.max": 1,
 			"shadowlore.rate": "0.1+5%"
 		}
@@ -422,8 +424,8 @@
 		"mod": {
 			"tier2": true,
 			"research.max": -50,
-			"mana.max": 1,
-			"mana.rate": 0.1,
+			"mana.max": 4,
+			"mana.rate": 0.5,
 			"firelore.max": 2,
 			"firelore.rate": 0.1,
 			"earthlore.max": 1
@@ -513,13 +515,14 @@
 			"elemental.max": 1,
 			"anatomy.max": 1,
 			"arcanebody2.max": 1
-		}
+		},
+		"flavor": "Mithril parts with but a gesture. Flesh and bone, barely even a thought."
 	},
 	{
 		"id": "spellblade",
 		"name": "spell blade",
 		"tags": "t_tier3",
-		"desc": "",
+		"desc": "A combat specialist, melding sorcery with traditional martial techniques.",
 		"require": "g.tier2>0&&g.enchanting>=7&&g.player.tohit>=10&&g.tier3==0",
 		"cost": {
 			"research": 3000,
@@ -610,8 +613,9 @@
 			"tier3": true,
 			"research.max": -50,
 			"bloodgem.max": 10,
-			"mana.max": 1,
-			"mana.rate": 0.1,
+			"bloodgem.mod.bloodsiphon.effect.hp": 0.02,
+			"mana.max": 2,
+			"mana.rate": 0.5,
 			"anatomy.max": 3,
 			"anatomy.rate": "10%",
 			"earthlore.max": 2,
@@ -694,6 +698,7 @@
 			"crafting.rate": 0.3,
 			"potions.max": 3,
 			"potions.rate": "5%",
+			"potionessence.rate": 0.0002
 			"alchemy.max": 3,
 			"alchemy.rate": "5%",
 			"lore.max": 1,
@@ -729,7 +734,7 @@
 		"id": "geomancer",
 		"desc": "Lord of rocks.",
 		"tags": "t_tier2",
-		"actdesc": "Become a geomancer, a master of perseverance.",
+		"actdesc": "A mage specialising in earth manipulation and endurance.",
 		"require": "g.tier1>0&&g.earthlore>=10&&g.tier2==0",
 		"cost": {
 			"research": 1000,
@@ -754,8 +759,8 @@
 		"id": "earthshaker",
 		"desc": "Master of the tectonics.",
 		"tags": "t_tier4",
-		"actdesc": "Become an earthshaker.",
-		"require": "g.tier3>0&&g.earthlore>=20&&g.tier4==0",
+		"actdesc": "A supreme master of earth's destructive magics.",
+		"require": "g.tier3>0&&g.earthlore>=15&&g.tier4==0",
 		"cost": {
 			"research": 4000,
 			"arcana": 25,
@@ -779,7 +784,7 @@
 		"id": "titan",
 		"desc": "A mantle of metal and stone.",
 		"tags": "t_tier6",
-		"actdesc": "Become a titan.",
+		"actdesc": "An unstoppable force of nature, a Titan is Will incarnate.",
 		"require": "g.tier5>0&&(g.earthshaker+g.geomancer)>0&&g.hammerlore>=10&&g.geosculpting>=10&&g.tier6==0",
 		"cost": {
 			"research": 10000,
@@ -799,7 +804,7 @@
 			"hammerlore.max": 3,
 			"earthspire.mod.space.max": 100
 		},
-		"flavor": "No stone left unturned"
+		"flavor": "When in good moods, Titans sculpted mountains. In bad ones, nations became craters."
 	},
 	{
 		"id": "pyromancer",
@@ -829,7 +834,7 @@
 		"id": "hydromancer",
 		"desc": "Master of water",
 		"tags": "t_tier2",
-		"actdesc": "Become a hydromancer.",
+		"actdesc": "A mage specialising in water manipulation and adaptability.",
 		"require": "g.tier1>0&&g.waterlore>=10",
 		"cost": {
 			"research": 1000,
@@ -854,7 +859,7 @@
 		"name": "wind mage",
 		"desc": "To walk on the wind",
 		"tags": "t_tier2",
-		"actdesc": "Become a wind mage.",
+		"actdesc": "A mage specialising in air manipulation and intuition.",
 		"require": "g.tier1>0&&g.airlore>=10",
 		"cost": {
 			"research": 1000,
@@ -876,6 +881,7 @@
 	},
 	{
 		"id": "stormcaller",
+		"desc": "Harness the violence of natural forces.",
 		"require": "g.hydromancer>0||g.windmage>0",
 		"tags": "t_tier3",
 		"cost": {
@@ -1240,7 +1246,10 @@
 			"spellcraft.max": 3,
 			"spellcraft.rate": 0.5,
 			"lore.rate": "10%",
-			"mana.max": 3
+			"mana.max": 4,
+			"mana.rate": "5%",
+			"mysticism.max": 1,
+			"spelllist.max": 5
 		},
 		"flavor": "'Do not take me for some conjurer of cheap tricks.'"
 	},
@@ -1269,7 +1278,11 @@
 			"crafting.max": 2,
 			"lore.max": 5,
 			"lore.rate": "10%",
-			"mana.max": 3
+			"mana.max": 4,
+			"mana.rate": "10%",
+			"mysticism.max": 1,
+			"mysticism.mod.mana.rate":0.05,
+			"spelllist.max": 5
 		},
 		"flavor": "In the end it was three Thule Wizards and The Necromancer who brought the locks to heel."
 	},
@@ -1492,8 +1505,13 @@
 			"crafting.max": 2,
 			"history.max": 1,
 			"potions.max": 1,
-			"alchemy.max": 1
-		}
+			"alchemy.max": 1,
+			"mana.max": 5,
+			"mana.rate": "15%",
+			"mysticism.max": 2,
+			"spelllist.max": 5
+		},
+		"flavor": "After a mythic ascends, even the Archlocks curb their appetites."
 	},
 	{
 		"id": "astralseer",
@@ -1522,7 +1540,8 @@
 			"mysticism.max": 2,
 			"mysticism.rate": 0.5,
 			"crafting.max": 2
-		}
+		},
+		"flavor": "Standing in the distant light of celestials, the mortal world seems so... Petty."
 	},
 	{
 		"id": "c_avatar",
@@ -1553,6 +1572,6 @@
 			"firelore.max": 1,
 			"firelore.rate": "15%"
 		},
-		"flavor": ""
+		"flavor": "'I am the flood and the tempest, the whisper-wind and the inferno'."
 	}
 ]

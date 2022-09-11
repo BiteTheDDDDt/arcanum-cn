@@ -84,7 +84,7 @@
 				"cost": {
 					"light": 1
 				},
-				"action": {
+				"attack": {
 					"targets": "allies",
 					"result": {
 						"hp": 15
@@ -105,7 +105,7 @@
 				"cost": {
 					"light": 3
 				},
-				"action": {
+				"attack": {
 					"targets": "allies",
 					"result": {
 						"hp": 35
