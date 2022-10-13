@@ -34,6 +34,7 @@
 		"rares": [
 			{
 				"id":"vorpal",
+				"sym": "🎃",
 				"name":"vorpal blade",
 				"level":14,
 				"type":"weapon",
@@ -47,6 +48,7 @@
 			},
 			{
 				"id":"bdagg",
+				"sym": "🎃",
 				"name":"necrotic dagger",
 				"material":"bone",
 				"type":"weapon",
@@ -61,17 +63,19 @@
 						"name":"necrosis",
 						"kind":"necrotic"
 					}
-				}, "cost":20, "level":3
+				}, 
+				"cost":20, 
+				"level":3
 			},
 			{
 				"id": "iceorb",
-				"name": "❄️orb of winters",
+				"sym": "❄️",
+				"name": "orb of winters",
 				"tags":"t_event,t_orb",
 				"hands":2,
 				"desc": "A snowglobe with magical powers. It reminds you of colder days.",
 				"level": 10,
 				"material":"glass",
-				"unique": true,
 				"type": "weapon",
 				"enchants": 10,
 				"sell": {
@@ -105,6 +109,28 @@
 						"fire.max": "-80%"
 					}
 				}
+			},
+			{
+				"id": "hal_amulet",
+				"sym": "🎃",
+				"name": "hestia's charm",
+				"desc": "Hestia's amulet throbs with a dull purple light.",
+				"type": "armor",
+				"armor": 2,
+				"slot": "neck",
+				"mod": {
+					"player.resist.necrotic": 20
+				}
+			},
+			{
+				"id": "nymiescharm",
+				"sym": "🎃",
+				"name": "nymie's charm",
+				"desc": "A small figurine of a black cat.",
+				"level": 20,
+				"type": "armor",
+				"slot": "trinket",
+				"enchants": 0
 			}
 		]
 	}
