@@ -142,7 +142,7 @@ export default class Inventory {
 
 		}
 		if ( !this.items ) this.items = [];
-		if ( this._cProp ) this._cProp = 'value';
+		if ( !this._cProp ) this._cProp = 'value';
 
 		if ( !this.saveMode ) this.saveMode = SAVE_FULL;
 		this.type = 'inventory';
@@ -385,7 +385,7 @@ export default class Inventory {
 	findMatch(it){
 
 		let id = it.id;
-		let rec = it.recipe;
+		let rec = it.recipe || it.id;
 
 		return this.items.find( v=>v.id===id || (rec&&v.recipe===rec));
 

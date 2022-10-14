@@ -3,6 +3,10 @@ import {assign, cloneClass } from 'objecty';
 import { ParseMods } from 'modules/parsing';
 import Instance from './instance';
 import RValue from '../values/rvals/rvalue';
+import Events, {
+	ITEM_ACTION
+} from '../events';
+import { Changed } from '../techTree';
 
 const ItemDefaults = {
 	stack:true,
@@ -11,7 +15,8 @@ const ItemDefaults = {
 
 /** Properties to delete after cloneClass but before assigning save */
 const deleteProp = [
-	"alter"
+	"alter",
+	"_cost"
 ]
 
 /**
@@ -76,10 +81,24 @@ export default class Item {
 	get defaults() { return this._defaults || ItemDefaults }
 	set defaults(v) { this._defaults = v;}
 
+	get sell() { return this._sell; }
+	set sell(v) { this._sell = v; }
+
 	constructor( vars=null, save=null ) {
 
 		if ( vars ) { cloneClass( vars, this ); }
+
+		if ( this.sell == null ) {
+			this.sell = 0;
+			let cost = this._cost;
+			if ( typeof cost === "number" ) this.sell = cost;
+			else if ( cost instanceof Object ) {
+				if ( cost.gold && !isNaN(+cost.gold) ) this.sell = +cost.gold;
+				else if ( !isNaN(+cost) ) this.sell = +cost;
+			}
+		}
 		deleteProp.forEach(prop => {if(this[prop]) delete this[prop]});
+
 		if ( save ) assign(this,save);
 
 		if ( !this.count ) {
@@ -98,6 +117,11 @@ export default class Item {
 
 	}
 
+	updated() {
+		Changed.add(this);
+		if (this.template && this.template instanceof Object) Changed.add(this.template);
+	}
+
 	canPay(cost) { return this.count >= cost; }
 
 	canUse(g) { return this.consume || this.use; }
@@ -113,6 +137,9 @@ export default class Item {
 
 			if (this.use.dot ) {
 				g.state.player.addDot( this.use.dot, this );
+			}
+			if (this.use.attack ) {
+				Events.emit( ITEM_ACTION, this, g )
 			}
 			g.applyVars( this.use );
 

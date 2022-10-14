@@ -106,6 +106,8 @@ export default class Slot {
 
 		} else if ( !this.item ) {
 
+			it.updated();
+
 			this.item = it;
 			return true;
 
@@ -113,6 +115,9 @@ export default class Slot {
 
 			let tmp = this.item;
 			this.item = it;
+
+			it.updated();
+			tmp.updated();
 
 			return tmp;
 
@@ -129,13 +134,15 @@ export default class Slot {
 
 		if ( this.item.find(v=>v.id===it.id) ) return false;
 
+		it.updated();
 		this.item.push(it);
 		for( let i = this.item.length-2; i >= 0; i-- ) {
 
 			spaces += (this.item[i].numslots || 1);
 			if ( spaces > this.max ) {
-
-				return this.item.splice( 0, i+1);
+				let removed = this.item.splice( 0, i+1);
+				removed.forEach(item => item.updated());
+				return removed;
 
 			}
 
@@ -150,11 +157,20 @@ export default class Slot {
 	 * @param {string} id
 	 * @returns {Item|null}
 	 */
-	find(id ) {
+	find(id, proto=false ) {
 		if ( this.item === null) return null;
-		return this.multi ?
+		if (proto)
+		{		
+			return this.multi ?
+			this.item.find( v=>v.id===id||v.recipe===id) :
+			(this.item.id === id || this.item.recipe===id ) ? this.item : null
+
+		} else {
+			
+			return this.multi ?
 			this.item.find(v=>v.id===id) :
 			(this.item.id === id) ? this.item : null
+		}
 	}
 
 	/**
@@ -185,6 +201,8 @@ export default class Slot {
 
 		if ( this.item === it ) {
 
+			it.updated();
+
 			this.item = null;
 			return it;
 
@@ -193,12 +211,17 @@ export default class Slot {
 			it = this.item;
 			this.item = null;
 
+			if (it) it.updated();
+
 			return it;
 
 		} else if ( this.multi ) {
 
 			let ind = this.item.indexOf(it);
 			if ( ind < 0 ) return false;
+
+			it.updated();
+
 			return this.item.splice(ind,1)[0];
 
 		}

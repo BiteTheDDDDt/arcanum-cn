@@ -4,6 +4,7 @@ import Wearable from "../chars/wearable";
 import Item from "../items/item";
 import Game from '../game';
 import { ParseRVal } from "../modules/parsing";
+import { Changed } from "../techTree";
 
 /**
  * Generic prototype for a wearable item.
@@ -81,8 +82,16 @@ export default class ProtoItem extends GData {
 	 *
 	 */
 	instantiate(){
+		Changed.add(this);
 		if ( this.type === ARMOR || this.type === WEAPON || this.type === WEARABLE ) return new Wearable( this.template );
 		else return new Item(this.template);
 	}
 
+	hasUnique() {
+		return Game.state.hasUnique(this);
+	}
+
+	isEquipped() {
+		return ( this.type === ARMOR || this.type === WEAPON || this.type === WEARABLE ) && Game.state.equip.find(this.id, true) != null;
+	}
 }

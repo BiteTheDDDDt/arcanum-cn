@@ -10,6 +10,7 @@ import { WEARABLE, MONSTER, ARMOR, WEAPON, TYP_PCT, EVENT, ITEM, POTION, TYP_RAN
 import { CreateNpc } from '../items/monster';
 import TagSet from '../composites/tagset';
 import ProtoItem from '../protos/protoItem';
+import { Changed } from '../techTree';
 
 /**
 * Hacky implementation of flatMap since stupid browsers don't support.
@@ -197,6 +198,7 @@ export default class ItemGen {
 			console.log('itgen wearable: ' + proto.id );
 			it = this.fromProto(proto);
 			it.owned = true;
+			it.updated();
 			return it;
 
 		} else if ( proto.type === POTION ) {
@@ -218,6 +220,7 @@ export default class ItemGen {
 		//this.state.addInstance(it);
 		it.value = 1;
 		it.owned = true;
+		it.updated();
 
 		return it;
 
