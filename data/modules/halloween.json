@@ -972,6 +972,7 @@
 				"kind": "human",
 				"desc": "A devotee of the immortal Night Queen, the Bloody Baroness extends her own life with harvests of blood.",
 				"hp": 1000,
+				"noproc": true,
 				"defense": 20,
 				"loot": "nymiescharm",
 				"attack": [
@@ -996,6 +997,7 @@
 				"kind": "undead",
 				"desc": "He rides across the Hollow bridge at night, claiming the heads of the living.",
 				"hp": 500,
+				"noproc": true,
 				"defense": 20,
 				"attack": [
 					{
@@ -1027,6 +1029,7 @@
 				"kind": "beast",
 				"desc": "the ugly monster keeps ratting out its master.",
 				"hp": 30,
+				"noproc": true,
 				"defense": 4,
 				"tohit": 6,
 				"attack": {
@@ -1049,6 +1052,7 @@
 				"kind": "beast",
 				"desc": "it attacks frenziedly.",
 				"hp": 50,
+				"noproc": true,
 				"defense": 10,
 				"tohit": 20,
 				"attack": {
@@ -1068,6 +1072,7 @@
 				"kind": "beast",
 				"desc": "When the fox finally scampered off, this beast appeared.",
 				"hp": 70,
+				"noproc": true,
 				"defense": 15,
 				"tohit": 20,
 				"attack": {
@@ -1091,6 +1096,7 @@
 				"name": "hank",
 				"level": 16,
 				"kind": "human",
+				"noproc": true,
 				"desc": "so this is where he was- He approached you after the wolf was scared off.",
 				"hp": 120,
 				"defense": 20,
@@ -1114,6 +1120,7 @@
 				"name": "???",
 				"level": 16,
 				"kind": "human",
+				"noproc": true,
 				"desc": "After you blow the shapechanger's cover, he rapidly switches shape.",
 				"hp": 200,
 				"defense": 25,
