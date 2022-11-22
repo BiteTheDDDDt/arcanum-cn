@@ -45,22 +45,24 @@ const MakePlugins = ( env, buildPath ) => {
 			__CLOUD:env.cloud
 
 		}),
-		new CopyPlugin([
+		new CopyPlugin({
+			patterns: [
 
-			{
-				from:'data',
-				to:path.resolve( buildPath, 'data')
-			},
-			{
-				from:'css',
-				to:path.resolve( buildPath, 'css' )
-			},
-			{
-				// additional js files.
-				from:'includes',
-				to:path.resolve(buildPath, 'js')
-			}
-		])
+				{
+					from:'data',
+					to:path.resolve( buildPath, 'data')
+				},
+				{
+					from:'css',
+					to:path.resolve( buildPath, 'css' )
+				},
+				{
+					// additional js files.
+					from:'includes',
+					to:path.resolve(buildPath, 'js')
+				}
+			]
+		})
 	];
 
 	if ( env.kong) {
