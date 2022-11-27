@@ -115,16 +115,6 @@ export default class TagSet {
 	/**
 	 * @returns {boolean}
 	 */
-	fillsRequire(){
-		for( let it of this.items ) {
-			if ( it.fillsRequire() ) return true;
-		}
-		return true;
-	}
-
-	/**
-	 * @returns {boolean}
-	 */
 	canUse( g ) {
 		return g.canPay( this.cost );
 	}
