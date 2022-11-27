@@ -335,4 +335,9 @@ export default class Stat extends RValue {
 
 	}
 
+	canPay(amt) {
+		let temp = (this.base - amt) + this._mBase;
+		return !this.pos || temp + Math.abs(temp)*(this._mPct) >= 0;
+	}
+
 }

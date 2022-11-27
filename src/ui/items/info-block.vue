@@ -9,9 +9,10 @@ import { InfoBlock, DisplayName, ConvertPath } from './infoBlock';
  * Display for a sub-block of gdata, such as item.effect, item.result, item.run, etc.
  *
  * @property {boolean} rate - info items are 'rate' per-second items.
+ * @property {boolean} checkAvailability - enable unlock and cost checks.
  */
 export default {
-	props:['title', 'info', 'rate', 'target'],
+	props:['title', 'info', 'rate', 'checkAvailability', 'target'],
 	mixins:[ItemsBase],
 	beforeCreate(){
 		this.infos = new InfoBlock();
@@ -21,7 +22,7 @@ export default {
 		effects(){
 
 			this.infos.clear();
-			return this.effectItems( this.info, this.rate, this.target );
+			return this.effectItems( this.info, this.rate, this.checkAvailability, this.target );
 
 		}
 
@@ -33,8 +34,9 @@ export default {
 		 *
 		 * @param {*} obj
 		 * @param {boolean} rate - items represent /sec rates.
+		 * @param {boolean} checkAvailability - items need unlock and cost checks.
 		 */
-		effectItems( obj, rate=false, target=null) {
+		effectItems( obj, rate=false, checkAvailability=false, target=null) {
 
 			let type = typeof obj;
 
@@ -42,13 +44,13 @@ export default {
 
 				//@todo still happens. mostly for sell cost as gold.
 				//console.warn('effect type is number: ' + obj) ;
-				this.infos.add( 'gold', obj, this.rate );
+				this.infos.add( 'gold', obj, rate, checkAvailability );
 
 			} else if ( type === 'string') {
 
-				this.infos.add( DisplayName(obj), true, false, InfoBlock.GetItem( obj ) );
+				this.infos.add( DisplayName(obj), true, false, checkAvailability, InfoBlock.GetItem( obj ) );
 
-			} else if ( Array.isArray(obj) ) obj.forEach( v=>this.effectList(v) );
+			} else if ( Array.isArray(obj) ) obj.forEach( v=>this.effectList(v, '', rate, checkAvailability, null, target) );
 			else if ( type === 'function' ) {
 
 				/*if ( !obj.fText ){
@@ -60,7 +62,7 @@ export default {
 			}
 			else if ( type === 'object') {
 
-				this.effectList( obj, '', rate, null, target );
+				this.effectList( obj, '', rate, checkAvailability, null, target );
 
 			}
 
@@ -72,11 +74,12 @@ export default {
 		 * @param {Object} obj - object of effects to enumerate.
 		 * @param {string} rootPath - prop path from base.
 		 * @param {boolean} rate - whether display is per/s rate.
+		 * @param {boolean} checkAvailability - whether items need unlock and cost checks.
 		 */
-		effectList( obj, rootPath='', rate=false, refItem=null, target=null ) {
+		effectList( obj, rootPath='', rate=false, checkAvailability=false, refItem=null, target=null ) {
 
 			if ( typeof obj === 'string' ) {
-				this.infos.add( DisplayName(obj), true, rate, InfoBlock.GetItem(obj, refItem) );
+				this.infos.add( DisplayName(obj), true, rate, checkAvailability, InfoBlock.GetItem(obj, refItem) );
 				return;
 			}
 
@@ -90,6 +93,7 @@ export default {
 				let subItem = InfoBlock.GetItem( p, refItem );
 
 				let subRate = rate;
+				let subCheckAvailability = checkAvailability;
 				// displayed path to subitem.
 				let subPath = ConvertPath( rootPath, ( p === "self" && target ) || p );
 
@@ -106,7 +110,7 @@ export default {
 							case FP.STATE: return Game.state;
 						}
 					})
-					this.infos.add(subPath, sub(...params), subRate, subItem);
+					this.infos.add(subPath, sub(...params), subRate, subCheckAvailability, subItem);
 				} else if ( sub instanceof Object ) {
 
 					if ( sub.skipLocked ) {
@@ -116,7 +120,7 @@ export default {
 
 					}
 					if ( sub.constructor !== Object && sub.constructor.name !== 'Attack' ) {
-						this.infos.add(subPath, sub, subRate, subItem);
+						this.infos.add(subPath, sub, subRate, subCheckAvailability, subItem);
 					} else if ( sub.constructor.name !== 'Attack' ){
 						
 						//special code for DOT subpath, currently unique to potions
@@ -126,11 +130,11 @@ export default {
 							if(sub.name) delete sub.name;
 							if(sub[undefined]) delete sub[undefined];
 						}
-						this.effectList( sub, subPath, subRate, subItem );
+						this.effectList( sub, subPath, subRate, subCheckAvailability, subItem, target );
 					
 					}
 				} else {
-					this.infos.add(subPath, sub, subRate, subItem );
+					this.infos.add(subPath, sub, subRate, subCheckAvailability, subItem );
 				}
 			}
 		}
@@ -145,7 +149,7 @@ export default {
 
 		<div v-if="title" class="note-text"><hr>{{ title }}</div>
 		<div v-for="v in effects" :key="v.name">
-      <span>{{ v.toString() }}</span>
+      		<span :class="{missing: !v.isAvailable}">{{ v.toString() }}</span>
 		</div>
 
 
@@ -172,5 +176,7 @@ div.item-desc {
 .flavor {
 	font-style: italic;
 }
-
+.missing {
+	color: red;
+}
 </style>

@@ -4,6 +4,8 @@ import {RollOver} from 'ui/popups/itemPopup.vue';
 import { SKILL } from '../../values/consts';
 import RevStat from "../../items/revStat";
 
+import Game from '../../game';
+
 /**
 * Name to use for object in current context.
 */
@@ -101,14 +103,24 @@ export class InfoBlock {
 		this.results = {};
 	}
 
-	add( itemName, value, isRate=false, ref=null ){
+	add( itemName, value, isRate=false, checkAvailability=false, ref=null){
 
 		if ( ref && ref instanceof RevStat ) value = -value;
 
 		let cur = this.results[itemName];
-		if ( cur === undefined ){
+		let ctx = RollOver.context;
 
-			this.results[itemName] = new DisplayItem( itemName, value, isRate );
+		if ( cur === undefined ){
+			let isAvailable = true;
+
+			if (value > 0 && ref instanceof Object && checkAvailability && ctx === Game) {
+					
+				if (ref.fillsRequire instanceof Function) isAvailable &&= ref.fillsRequire(ctx);
+				if (ref.canPay instanceof Function) isAvailable &&= ref.canPay(value);
+
+			}
+
+			this.results[itemName] = new DisplayItem( itemName, value, isRate, isAvailable );
 
 		} else {
 

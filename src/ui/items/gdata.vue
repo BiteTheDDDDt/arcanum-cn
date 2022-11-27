@@ -158,11 +158,11 @@ export default {
 		<span v-if="item.length>0&&item.type==='task'">
 			Completion time: {{new Date((item.length-item.exp)*1000).toISOString().substr(11, 8)}}
 		</span>
-		<info v-if="item.need" :info="item.need" title="Need" />
-		<info v-if="item.buy&&!item.owned" :info="item.buy" title="Purchase Cost" />
-		<info v-if="item.cost" :info="item.cost" title="Cost" />
+		<info v-if="item.need" :info="item.need" :checkAvailability="true" title="Need" />
+		<info v-if="item.buy&&!item.owned" :info="item.buy" :checkAvailability="true" title="Purchase Cost" />
+		<info v-if="item.cost" :info="item.cost" :checkAvailability="true" title="Cost" />
 		<info v-if="item.sell||item.instanced||item.type==='Furniture'" :info="sellPrice" title="Sell" />
-		<info v-if="item.run" :info="item.run" title="Progress Cost" rate="true" />
+		<info v-if="item.run" :info="item.run" :checkAvailability="true" title="Progress Cost" rate="true" />
 
 		<attack v-if="item.attack" :item="item" />
 
