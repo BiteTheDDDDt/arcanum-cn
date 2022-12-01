@@ -31,6 +31,38 @@
 				"level": 7
 			}
 		],
+		"potions": [
+			{
+				"id": "pumpcider",
+				"name": "spoiled pumpkin cider",
+				"level": 1,
+				"cost": {
+					"gold": 1
+				},
+				"use": {
+					"dot": {
+						"duration": 45,
+						"effect": {
+							"hp": "-1"
+						}
+					}
+				},
+				"flavor": "Used to be a refreshing brew, now nothing more than a bottle of rot."
+			},
+			{
+				"id": "bubblebrew",
+				"name": "once-bubbling brew",
+				"level": 1,
+				"cost": {
+
+					"herbs": 1
+				},
+				"use": {
+					"hp": "-1"
+				},
+				"flavor": "Flat and flavorless."
+			}
+		],
 		"rares": [
 			{
 				"id":"vorpal",
