@@ -479,8 +479,8 @@
 					"iceshard.attack.damage.min": 10,
 					"iceshard.attack.damage.max": 15,
 					"iceshard.cost.ice": 6,
-					"iceflame.attack.dot.effect.dmg.min": 20,
-					"iceflame.attack.dot.effect.dmg.max": 30,
+					"iceflame.attack.dot.dmg.min": 20,
+					"iceflame.attack.dot.dmg.max": 30,
 					"iceflame.cost.ice": 6,
 					"iceflame.cost.fire": 2
 				}
@@ -677,14 +677,14 @@
 				},
 				"at": {
 					"100": {
-						"attack.dot.effect.dmg.min": 2,
-						"attack.dot.effect.dmg.max": 5,
+						"attack.dot.dmg.min": 2,
+						"attack.dot.dmg.max": 5,
 						"attack.tohit": 1,
 						"attack.dot.duration": 5
 					},
 					"1000": {
-						"attack.dot.effect.dmg.min": 5,
-						"attack.dot.effect.dmg.max": 10,
+						"attack.dot.dmg.min": 5,
+						"attack.dot.dmg.max": 10,
 						"attack.tohit": 2,
 						"attack.dot.duration": 10
 					}
