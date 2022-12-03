@@ -291,17 +291,21 @@ export default class Char {
 			dot = this.context.state.getData(dot);
 			if ( !dot ) return;
 			if (dot.dmg || dot.damage) dmg = dot.dmg != null ? dot.dmg : dot.damage;
-			dot = cloneClass(dot);
+			if (!duration && !Number.isNaN(dot.duration)) duration = +dot.duration;
 
+			dot = cloneClass(dot);
 
 		} else {
 
 			id = dot.id;
 			if (dot.dmg || dot.damage) dmg = dot.dmg != null ? dot.dmg : dot.damage;
+			if (!duration && !Number.isNaN(dot.duration)) duration = +dot.duration;
 
 			dot = cloneClass(dot );
 			let orig = this.context.state.getData( id );
 			if ( orig && orig.type === TYP_STATE ) this.mergeDot( dot, orig );
+			//Repeated, just in case dot didnt set duration and original has a modded duration
+			if (!duration && !Number.isNaN(dot.duration)) duration = +dot.duration; 
 
 		}
 		if ( dot[ TYP_PCT ] && !dot[TYP_PCT].roll() ) {
@@ -319,8 +323,6 @@ export default class Char {
 			Events.emit( RESISTED, this, (dot.kind||dot.name));
 			return;
 		}
-
-		if ( duration === 0 ) duration = dot.duration;
 
 		let cur = this.dots.find( d=>d.id===id);
 		if ( cur !== undefined ) {

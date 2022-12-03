@@ -120,7 +120,7 @@ export class InfoBlock {
 
 			}
 
-			this.results[itemName] = new DisplayItem( itemName, value, isRate, isAvailable );
+			if(value.toString() != 0) this.results[itemName] = new DisplayItem( itemName, value, isRate, isAvailable );
 
 		} else {
 

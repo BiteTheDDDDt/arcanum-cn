@@ -48,6 +48,9 @@ export default class Mod extends Stat {
 			if ( this.bonus !== 0 ) s += ', ';
 			s += ( this.pctTot > 0 ? '+' : '' ) + precise(100*this.pctTot) + '%';
 		}
+
+		if (!s) s = '0';
+
 		return s;
 	}
 
