@@ -630,7 +630,7 @@
 					"arcana": 5
 				},
 				"mod": {
-					"fazbitshearth.mod.frost.rate": 80,
+					"fazbithearth.mod.frost.rate": 80,
 					"icelore.max": 4,
 					"frost.mod.hp.rate": "1%",
 					"player.bonuses.ice": 3,
