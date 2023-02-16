@@ -653,10 +653,10 @@
 	},
 	{
 		"id": "warden",
-		"desc": "A keeper of the forests, mountains, and hills. Only those living in the wild may become wardens.",
+		"desc": "A keeper of the forests, mountains, and hills. Only those who make forest their home can become one.",
 		"tags": "t_tier2",
 		"require": "g.tier1>0&&g.naturelore>=12",
-		"need": "(g.outdoors+g.lodge)>0",
+		"need": "lodge",
 		"cost": {
 			"research": 1500,
 			"naturegem": 15,
