@@ -61,6 +61,48 @@
 					"hp": "-1"
 				},
 				"flavor": "Flat and flavorless."
+			},
+			{
+				"id": "pot_icecreamevil",
+				"name": "ice cream puddle",
+				"desc": "Not very attractive, to children or otherwise.",
+				"cost": {
+					"herbs": 1
+				},
+				"sell": {
+					"gold": 1
+				},
+				"use": {
+					"dot": {
+						"id": "icecreamlure",
+						"name": "ice cream puddle",
+						"duration": 30,
+						"mod": {
+							"eatchildren.effect.stress": -0.01
+						}
+					}
+				}
+			},
+			{
+				"id": "pot_icecream",
+				"name": "Melted ice cream",
+				"desc": "Used to be a refreshing treat, now it's just nasty mush.",
+				"cost": {
+					"herbs": 1
+				},
+				"sell": {
+					"gold": 1
+				},
+				"use": {
+					"dot": {
+						"id": "icecream",
+						"name": "ice cream low",
+						"duration": 30,
+						"effect": {
+							"hp": 0.01
+						}
+					}
+				}
 			}
 		],
 		"rares": [
@@ -150,8 +192,10 @@
 				"type": "armor",
 				"armor": 2,
 				"slot": "neck",
-				"mod": {
-					"player.resist.necrotic": 20
+				"alter": {
+					"mod": {
+						"player.resist.necrotic": 20
+					}
 				}
 			},
 			{
