@@ -1743,8 +1743,8 @@
 		"flavor": "Corivar called Fazbit a mad crank, but tried to steal his manuals anyway."
 	},
 	{
-		"id": "coporisfabrica",
-		"name": "coporis fabrica",
+		"id": "corporisfabrica",
+		"name": "corporis fabrica",
 		"require": "g.player.level>=8&&g.anatomy>=5",
 		"desc": "A manual of the human body",
 		"tags": "book",
