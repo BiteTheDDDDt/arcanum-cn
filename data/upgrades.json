@@ -964,7 +964,8 @@
 	},
 	{
 		"id": "earthaffinity",
-		"desc": "Earth Affinity",
+		"name": "earth affinity",
+		"desc": "Resistance to earth-based attacks and afflictions.",
 		"require": "g.earth>10",
 		"cost": {
 			"research": 3000,
@@ -992,7 +993,8 @@
 	},
 	{
 		"id": "airaffinity",
-		"desc": "Air Affinity",
+		"name": "air affinity",
+		"desc": "Resistance to air-based assaults and enfeeblements.",
 		"require": "g.air>10",
 		"cost": {
 			"research": 3000,
@@ -1005,7 +1007,8 @@
 	},
 	{
 		"id": "wateraffinity",
-		"desc": "Water Affinity",
+		"name": "water affinity",
+		"desc": "Resistance to water-based barrages and detriments.",
 		"require": "g.water>10",
 		"cost": {
 			"research": 3000,
@@ -1018,7 +1021,8 @@
 	},
 	{
 		"id": "fireaffinity",
-		"desc": "Fire Affinity",
+		"name": "fire affinity",
+		"desc": "Resistance to fire-based blasts and immolations.",
 		"require": "g.fire>10",
 		"cost": {
 			"research": 3000,
