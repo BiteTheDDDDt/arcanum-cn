@@ -273,7 +273,7 @@ export default class Player extends Char {
 
 		if ( !this._titles.includes(title.toTitleCase()) ) {
 
-			this.context.applyVars( 'hallPoints', 0.1 );
+			this.context.applyVars( 'fame', 0.1 );
 			this._titles.push( title.toTitleCase() );
 			Events.emit( NEW_TITLE, title, this._titles.length );
 
