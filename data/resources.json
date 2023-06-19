@@ -64,7 +64,7 @@
 	{
 		"id": "firerune",
 		"name": "flame runes",
-		"tags": "t_runes,elementalrunes,primaticrunes",
+		"tags": "t_runes,elementalrunes,prismaticrunes",
 		"group": "runes",
 		"desc": "Rune etched with lines of fire",
 		"max": 10,
@@ -76,7 +76,7 @@
 	{
 		"id": "waterrune",
 		"name": "water runes",
-		"tags": "t_runes,elementalrunes,primaticrunes",
+		"tags": "t_runes,elementalrunes,prismaticrunes",
 		"group": "runes",
 		"desc": "Rune lined in flowing water",
 		"max": 10,
@@ -88,7 +88,7 @@
 	{
 		"id": "spiritrune",
 		"name": "spirit runes",
-		"tags": "t_runes,primaticrunes",
+		"tags": "t_runes,prismaticrunes",
 		"group": "runes",
 		"desc": "A Runestone carved in bone; it seems to whisper.",
 		"max": 10,
@@ -100,7 +100,7 @@
 	{
 		"id": "airrune",
 		"name": "air runes",
-		"tags": "t_runes,elementalrunes,primaticrunes",
+		"tags": "t_runes,elementalrunes,prismaticrunes",
 		"group": "runes",
 		"desc": "Rune etched with solid air",
 		"max": 10,
@@ -112,7 +112,7 @@
 	{
 		"id": "earthrune",
 		"name": "earth runes",
-		"tags": "t_runes,elementalrunes,primaticrunes",
+		"tags": "t_runes,elementalrunes,prismaticrunes",
 		"group": "runes",
 		"desc": "Rune ingrained with moonstone",
 		"max": 10,
@@ -124,7 +124,7 @@
 	{
 		"id": "lightrune",
 		"name": "light runes",
-		"tags": "t_runes,primaticrunes",
+		"tags": "t_runes,prismaticrunes",
 		"group": "runes",
 		"desc": "Rune ingrained with sparkling diamond",
 		"max": 10,
@@ -136,7 +136,7 @@
 	{
 		"id": "shadowrune",
 		"name": "shadow runes",
-		"tags": "t_runes,primaticrunes",
+		"tags": "t_runes,prismaticrunes",
 		"group": "runes",
 		"desc": "Black upon black, only a trained eye can distinguish the tiniest difference in the shades of black.",
 		"max": 10,
@@ -148,7 +148,7 @@
 	{
 		"id": "manarune",
 		"name": "mana runes",
-		"tags": "t_runes,primaticrunes",
+		"tags": "t_runes,prismaticrunes",
 		"group": "runes",
 		"desc": "The surging energy of this rune can be felt even by the least talented of mages.",
 		"max": 10,
@@ -160,7 +160,7 @@
 	{
 		"id": "naturerune",
 		"name": "nature runes",
-		"tags": "t_runes,primaticrunes",
+		"tags": "t_runes,prismaticrunes",
 		"group": "runes",
 		"desc": "Formed out of a complicated tangle of stems and leaves.",
 		"max": 10,
