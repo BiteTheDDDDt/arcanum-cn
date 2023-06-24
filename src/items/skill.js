@@ -12,9 +12,23 @@ const EXP_RATIO = 0.35;
  * Starting exp length for skills of various level.
  * @param {number} n
  */
-const levLength = (n)=>{ return 50*Math.pow( (1+EXP_RATIO), n ) }
+const levLength = (n)=>{ 
+	let val = 50*Math.pow( (1+EXP_RATIO), n );
+	return val === Infinity ? Number.MAX_VALUE : val;
+}
+
+/**
+ * Skill default values
+ */
+const Defaults = Object.freeze({
+	rate: 0.5,
+	max: 5
+});
 
 export default class Skill extends Task {
+	static get Defaults() {
+		return Defaults;
+	}
 
 	/**
 	 * Skill levels are actually value.
@@ -42,12 +56,12 @@ export default class Skill extends Task {
 
 		if ( !this.buy ) this.buy = { sp:1 };
 
-		if ( !this.rate ) this.rate = new Stat( 0.5, this.id + '.rate' );
-		if ( !this.rate.base ) this.rate.base = 0.5;
+		if ( !this.rate ) this.rate = new Stat( Defaults.rate, this.id + '.rate' );
+		if ( !this.rate.base ) this.rate.base = Defaults.rate;
 
 		if ( !(this.exp instanceof Scaler) ) this.ex = 0;
 
-		if (  !this.max ) this.max = new Stat(5, this.id + '.max', true );
+		if (  !this.max ) this.max = new Stat(Defaults.max, this.id + '.max', true );
 
 	}
 
@@ -75,7 +89,9 @@ export default class Skill extends Task {
 			return;
 		}
 
-		this._length += this._length*EXP_RATIO;
+		if ( this.length * (1 + EXP_RATIO) > Number.MAX_VALUE ) {
+			this.length = Number.MAX_VALUE; 
+		} else this._length += this._length*EXP_RATIO;
 
 	}
 

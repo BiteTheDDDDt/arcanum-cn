@@ -56,8 +56,9 @@ export default class Equip extends SlotGroup {
 	 */
 	replaceCount(it) {
 
+		// @TODO Replace && with + when hand items gets redone
 		let space = (it.type==='weapon') ?
-			this.freeSpace( 'right' ) + this.freeSpace('left') : this.freeSpace(it.slot);
+			this.freeSpace( 'right' ) && this.freeSpace('left') : this.freeSpace(it.slot);
 
 		return Math.max( ( it.numslots || 1 ) - space, 0 );
 

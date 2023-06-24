@@ -7,9 +7,15 @@ export default {
 	/**
 	 * @property {string} event - name of event to fire when an item is selected.
 	 */
-	props:['items'],
-	mixins:[ItemsBase]
-
+	props:['items','preventClick'],
+	mixins: [ItemsBase],
+	methods: {
+		clickHandler(it) {
+			if (!this.preventClick) {// config : inConfig from task, value in uiMixin.js
+				this.emit('upgrade',it)
+			}
+		}
+	}
 }
 </script>
 
@@ -25,7 +31,7 @@ export default {
 		v-for="it in items" :data-key="it.id" :key="it.id"
 		@mouseenter.capture.stop="itemOver( $event,it)"
 
-		@click="emit( 'upgrade', it)">{{ it.name }}</button>
+		@click="clickHandler(it)">{{ it.name }}</button>
 
 </div>
 </template>

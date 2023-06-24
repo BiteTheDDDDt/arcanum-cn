@@ -88,10 +88,10 @@ export default class Resource extends GData {
 	 * @returns {boolean}
 	 */
 	fillsRequire(){
-		return this.locked === false && this.value > 0;
+		return this.locked === false && this.value + this.delta > 0;
 	}
 
-	empty(){ return this.value + this.delta <= 0; }
+	empty(){ return this.value +this.delta <= 0; }
 
 	/**
 	 * @returns {boolean} true if item at maximum value.

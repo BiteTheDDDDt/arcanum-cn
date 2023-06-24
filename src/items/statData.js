@@ -1,3 +1,4 @@
+import { precise } from '../util/format';
 import GData from './gdata';
 
 /**
@@ -5,6 +6,10 @@ import GData from './gdata';
  * Resources can't be modified by stats because they represent progress vs a max.
  */
 export default class StatData extends GData {
+
+	toString() {
+		return precise(this);
+	}
 
 	/**
 	 * @property {number} current - identical to value except uses floor of values.

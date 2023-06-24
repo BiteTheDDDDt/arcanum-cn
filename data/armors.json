@@ -51,7 +51,8 @@
 		"only": "natural,leather,cloth"
 	},
 	{
-		"id": "padded armor",
+		"id": "paddedarmor",
+		"name": "padded armor",
 		"armor": 3,
 		"slot": "chest",
 		"tags": "t_paddedarmor,d_paddedarmor",
@@ -70,7 +71,8 @@
 		"only": "metal,ethereal"
 	},
 	{
-		"id": "plate mail",
+		"id": "platemail",
+		"name": "plate mail",
 		"armor": 8,
 		"slot": "chest",
 		"tags": "t_platemail,d_platemail",
@@ -89,7 +91,8 @@
 		"enchants": 10
 	},
 	{
-		"id": "conical helm",
+		"id": "conicalhelm",
+		"name": "conical helm",
 		"armor": 3,
 		"slot": "head",
 		"tags": "t_conicalhelm,d_conicalhelm",

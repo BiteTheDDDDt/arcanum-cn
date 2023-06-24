@@ -14,8 +14,8 @@
 			"water": 1
 		},
 		"dot": {
-			"id": "fount",
-			"name": "minor fount",
+			"id": "fount1",
+			"tags": "stamdot",
 			"duration": 30,
 			"effect": {
 				"stamina": 0.3
@@ -118,7 +118,7 @@
 	},
 	{
 		"id": "stam2",
-		"name": "fount",
+		"name": "lesser fount",
 		"level": 5,
 		"require": "g.stam1>0&&g.waterlore>=5",
 		"school": "water",
@@ -130,8 +130,8 @@
 			"water": 1
 		},
 		"dot": {
-			"id": "fount",
-			"name": "fount",
+			"id": "fount2",
+			"tags": "stamdot",
 			"duration": 60,
 			"effect": {
 				"stamina": 0.7
@@ -140,7 +140,7 @@
 	},
 	{
 		"id": "stam3",
-		"name": "greater fount",
+		"name": "fount",
 		"level": 10,
 		"school": "water",
 		"require": "g.stam2>0&&g.waterlore>=10&&g.tier2>0",
@@ -154,8 +154,8 @@
 			"water": 1.5
 		},
 		"dot": {
-			"id": "fount",
-			"name": "greater fount",
+			"id": "fount3",
+			"tags": "stamdot",
 			"duration": 90,
 			"effect": {
 				"stamina": 2
@@ -372,7 +372,7 @@
 	},
 	{
 		"id": "whirl1",
-		"name": "whirling step",
+		"name": "lesser whirling step",
 		"level": 1,
 		"require": "g.spellbook.value>0&&g.airlore>0",
 		"school": "air",
@@ -384,8 +384,7 @@
 			"air": 1
 		},
 		"dot": {
-			"id": "whirlingstep",
-			"name": "whirling step",
+			"tags": "whirlingstep",
 			"duration": 45,
 			"mod": {
 				"self.dodge": 1
@@ -394,7 +393,7 @@
 	},
 	{
 		"id": "whirl2",
-		"name": "whirling step II",
+		"name": "whirling step",
 		"level": 3,
 		"school": "air",
 		"require": "g.whirl1>0&&g.airlore>=5",
@@ -407,8 +406,7 @@
 			"air": 4
 		},
 		"dot": {
-			"id": "whirlingstep",
-			"name": "whirling step",
+			"tags": "whirlingstep",
 			"duration": 60,
 			"mod": {
 				"self": {
@@ -420,7 +418,7 @@
 	},
 	{
 		"id": "whirl3",
-		"name": "whirling step III",
+		"name": "greater whirling step",
 		"level": 5,
 		"require": "g.whirl2>0&&g.airlore>=10&&g.tier2>0",
 		"school": "air",
@@ -432,8 +430,7 @@
 			"air": 7
 		},
 		"dot": {
-			"id": "whirlingstep",
-			"name": "whirling step",
+			"tags": "whirlingstep",
 			"duration": 80,
 			"mod": {
 				"self": {
@@ -457,8 +454,8 @@
 			"mana": 0.1
 		},
 		"dot": {
-			"id": "dotmana",
 			"name": "minor mana",
+			"tags": "manadot",
 			"duration": 30,
 			"effect": {
 				"mana": 0.25
@@ -480,8 +477,8 @@
 			"mana": 0.3
 		},
 		"dot": {
-			"id": "dotmana",
 			"name": "lesser mana",
+			"tags": "manadot",
 			"duration": 60,
 			"effect": {
 				"mana": 0.45
@@ -503,8 +500,8 @@
 			"mana": 1
 		},
 		"dot": {
-			"id": "dotmana",
 			"name": "mana",
+			"tags": "manadot",
 			"duration": 120,
 			"effect": {
 				"mana": 0.8
@@ -513,7 +510,7 @@
 	},
 	{
 		"id": "lightregen1",
-		"name": "pulsing light",
+		"name": "lesser pulsing light",
 		"require": "g.spellbook.value>0&&g.lightlore>0",
 		"school": "light",
 		"desc": "A small pulse of light zips around you, mending injuries.",
@@ -526,6 +523,7 @@
 			"light": 1
 		},
 		"dot": {
+			"tags": "lightregen",
 			"duration": 45,
 			"effect": {
 				"hp": 1.1
@@ -534,7 +532,7 @@
 	},
 	{
 		"id": "lightregen2",
-		"name": "pulsing light II",
+		"name": "pulsing light",
 		"school": "light",
 		"require": "g.lightregen1>0&&g.lightlore>=5",
 		"desc": "A pulse of light zips around you, mending injuries.",
@@ -548,6 +546,7 @@
 			"light": 5
 		},
 		"dot": {
+			"tags": "lightregen",
 			"duration": 60,
 			"effect": {
 				"hp": 2
@@ -556,7 +555,7 @@
 	},
 	{
 		"id": "lightregen3",
-		"name": "pulsing light III",
+		"name": "greater pulsing light",
 		"school": "light",
 		"desc": "A large pulse of light zips around you, mending injuries.",
 		"level": 5,
@@ -570,6 +569,7 @@
 			"light": 10
 		},
 		"dot": {
+			"tags": "lightregen",
 			"duration": 120,
 			"effect": {
 				"hp": 5
@@ -1675,6 +1675,33 @@
 		}
 	},
 	{
+		"id": "earthinsight",
+		"name": "earth sense",
+		"desc": "Temporarily increase your natural aptitude for earth.",
+		"level": 2,
+		"school": "earth",
+		"require": "g.earthlore>=1",
+		"buy": {
+			"research": 100,
+			"codices": 1,
+			"earthgem": 1
+		},
+		"cost": {
+			"earth": 2
+		},
+		"mod": {
+			"lore.rate": "0.005",
+			"earthlore.rate": "0.01"
+		},
+		"dot": {
+			"duration": 60,
+			"mod": {
+				"lore.rate": 0.5,
+				"earthlore.rate": "0.2+2%"
+			}
+		}
+	},
+	{
 		"id": "waterinsight",
 		"name": "water sense",
 		"desc": "Temporarily increase your natural aptitude for water.",
@@ -1855,8 +1882,9 @@
 		},
 		"attack": {
 			"dot": {
-				"id": "venom",
+				"name": "venom",
 				"kind": "poison",
+				"tags": "venom",
 				"duration": 30,
 				"damage": "2~4"
 			}
@@ -1878,7 +1906,7 @@
 		},
 		"attack": {
 			"dot": {
-				"id": "hex1",
+				"name": "hex",
 				"kind": "hex",
 				"duration": 15,
 				"damage": "5~7"
@@ -1899,8 +1927,10 @@
 		},
 		"attack": {
 			"dot": {
-				"id": "jinx",
+				"id": "dot_jinx1",
+				"name": "jinx",
 				"kind": "curse",
+				"tags": "jinx",
 				"mod": {
 					"self.tohit": -5
 				},
@@ -1924,8 +1954,9 @@
 			"air": 1
 		},
 		"dot": {
-			"id": "dustdevil",
+			"id": "dot_dustdevil1",
 			"name": "dust devil",
+			"tags": "dustdevil",
 			"duration": 20,
 			"mod": {
 				"self.speed": 1
@@ -1948,8 +1979,9 @@
 			"air": 3
 		},
 		"dot": {
-			"id": "dustdevil",
+			"id": "dot_dustdevil2",
 			"name": "dust devil",
+			"tags": "dustdevil",
 			"duration": 45,
 			"mod": {
 				"self.speed": 2
@@ -1973,8 +2005,10 @@
 		"attack": {
 			"targets": "enemies",
 			"dot": {
-				"id": "jinx",
+				"id": "dot_jinx2",
+				"name": "jinx",
 				"kind": "curse",
+				"tags": "jinx",
 				"duration": 30,
 				"mod": {
 					"self.tohit": -10
@@ -2405,7 +2439,7 @@
 			"bloodgem": 15
 		},
 		"cost": {
-			"hp": "15"
+			"hp": 15
 		},
 		"attack": {
 			"kind": "blood",
@@ -2508,8 +2542,7 @@
 			"earth": 1
 		},
 		"dot": {
-			"id": "toughskin",
-			"name": "stone skin",
+			"tags": "toughskin",
 			"duration": 30,
 			"mod": {
 				"self.defense": 2
@@ -2522,7 +2555,7 @@
 		"desc": "Hardens the skin of the self.",
 		"school": "earth",
 		"require": "g.earthlore>=8&&g.tier0>0",
-		"level": 1,
+		"level": 2,
 		"buy": {
 			"research": 30,
 			"scrolls": 5,
@@ -2532,8 +2565,7 @@
 			"earth": 2
 		},
 		"dot": {
-			"id": "toughskin",
-			"name": "copper skin",
+			"tags": "toughskin",
 			"duration": 50,
 			"mod": {
 				"self.defense": 5
@@ -2556,8 +2588,7 @@
 			"earth": 5
 		},
 		"dot": {
-			"id": "toughskin",
-			"name": "iron skin",
+			"tags": "toughskin",
 			"duration": 60,
 			"mod": {
 				"self.defense": 10
@@ -2580,8 +2611,7 @@
 			"earth": 7
 		},
 		"dot": {
-			"id": "toughskin",
-			"name": "steel skin",
+			"tags": "toughskin",
 			"duration": 120,
 			"mod": {
 				"self.defense": 25
@@ -2604,8 +2634,8 @@
 			"earth": 10
 		},
 		"dot": {
-			"id": "toughskin",
-			"name": "adamant shell",
+			"id": "dot_adamantskin",
+			"tags": "toughskin",
 			"duration": 180,
 			"mod": {
 				"self.defense": 50
@@ -2626,18 +2656,18 @@
 		"cost": {
 			"earth": 5
 		},
-		"at": {
-			"30": {
-				"attack.tohit": 1
+		"at":{
+			"30":{
+				"attack.tohit":1
 			},
-			"100": {
-				"attack.dot.damage.max": 1,
-				"attack.tohit": 2
+			"100":{
+				"attack.dot.damage.max":1,
+				"attack.tohit":2
 			},
-			"300": {
-				"attack.dot.damage.max": 2,
-				"attack.dot.damage.min": 1,
-				"attack.tohit": 2
+			"300":{
+				"attack.dot.damage.max":2,
+				"attack.dot.damage.min":1,
+				"attack.tohit":2
 			}
 		},
 		"attack": {
@@ -2836,14 +2866,15 @@
 		},
 		"attack": {
 			"dot": {
-				"id": "venom",
+				"name": "venom",
 				"kind": "poison",
+				"tags": "venom",
 				"duration": 30,
 				"damage": "8~15"
 			}
 		}
 	},
-	{
+{
 		"id": "hightide",
 		"name": "high tide",
 		"school": "water",
@@ -2904,7 +2935,10 @@
 		"attack": {
 			"targets": "enemies",
 			"dot": {
+				"id": "dot_venom3",
+				"name": "venom",
 				"kind": "poison",
+				"tags": "venom",
 				"duration": 45,
 				"damage": "7~11"
 			}

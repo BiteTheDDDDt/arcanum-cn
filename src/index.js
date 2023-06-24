@@ -1,12 +1,14 @@
 import Game from './game';
 import Events from './events';
 import Profile from 'modules/profile';
+import DataLoader from './dataLoader';
 
 import Vue from 'vue';
 import Main from 'ui/main.vue';
 
 import Confirm from 'ui/components/confirm.vue';
 import { ItemOver } from 'ui/popups/itemPopup.vue';
+
 
 //window.localStorage.clear();
 
@@ -95,7 +97,7 @@ const vm = new Vue({
 		this.listen( 'login-changed', this.onLoginChanged, this );
 		//this.listen( 'try-register', this.tryRegister, this );
 
-		this.loadHall();
+		DataLoader.requestData().then(() => this.loadHall());
 
 	},
 	methods:{

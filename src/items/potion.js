@@ -1,4 +1,5 @@
 import GData from "./gdata";
+import Attack from '../chars/attack';
 
 const defaults = {
 
@@ -13,17 +14,6 @@ const defaults = {
  * Individual potions are instanced from this data.
  */
 export default class Potion extends GData {
-	
-	toJSON() {
-
-		let data = super.toJSON();
-
-		data.id = this.id;
-		data.template=this.template;
-		data.recipe=this.recipe;
-		return data ? data : undefined;
-
-	}
 
 	get isRecipe() {return true; }
 
@@ -31,6 +21,11 @@ export default class Potion extends GData {
 
 		super(vars, defaults );
 
+		if ( this.use.attack != null ) {
+			var a;
+			if ( !(this.use.attack  instanceof Attack)) a = new Attack(this.use.attack );
+			this.use.attack = a;
+		}
 		this.require = this.require||this.unlockTest;
 
 	}

@@ -13,6 +13,46 @@ export const swap = ( a, i, j ) => {
 }
 
 /**
+ * Moves an element (specified by index) within an array by a specific number of elements.
+ * If the amount to be moved would go over array bounds, goes up to the bounds.
+ * Mutates the array that is passed in.
+ * @param {Array} arr Array to move elements in
+ * @param {Number} idx Index of target element to move
+ * @param {Number} amt Amount of elements to move the target
+ * @returns {Boolean} If array was moved
+ */
+export const move = (arr, idx, amt) => {
+	if(
+		!arr || !Array.isArray(arr) || 
+		!amt || typeof amt !== "number" || 
+		typeof idx !== "number" || idx < 0 || idx >= arr.length ||
+		idx === arr.length - 1 && amt > 0 || idx === 0 && amt < 0
+	) return false;
+
+	arr.splice(idx + amt, 0, ...arr.splice(idx, 1));
+	return true;
+}
+
+/**
+ * Finds the first instance of an element within an array and move it by a specific number of elements.
+ * If the amount to be moved would go over array bounds, goes up to the bounds.
+ * Mutates the array that is passed in.
+ * Does nothing if element isn't found
+ * @param {Array} arr Array to move elements in
+ * @param {*} elm target element to move
+ * @param {Number} amt Amount of elements to move the target
+ * @returns {Boolean} If array was moved
+ */
+export const moveElm = (arr, elm, amt) => {
+	if(!arr || !Array.isArray(arr) || !amt || typeof amt !== "number") return false;
+	
+	let idx = arr.indexOf(elm);
+	return move(arr, idx, amt);
+}
+
+
+
+/**
  * Merges items from b into array a for all items in b
  * passing predicate p.
  * @param {array} a

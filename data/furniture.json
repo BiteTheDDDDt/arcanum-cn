@@ -56,7 +56,7 @@
 			"gold": 10
 		},
 		"mod": {
-			"rest.effect.stamina": 0.23,
+			"bed_rest.effect.stamina": 0.23,
 			"space": 1
 		}
 	},
@@ -71,7 +71,7 @@
 			"gold": 40
 		},
 		"mod": {
-			"rest.effect.stamina": 0.27,
+			"bed_rest.effect.stamina": 0.27,
 			"space": 2
 		}
 	},
@@ -89,7 +89,7 @@
 				"skipLocked": true,
 				"rate": 0.0001
 			},
-			"rest": {
+			"bed_rest": {
 				"effect": {
 					"stamina": 0.4,
 					"hp": 0.02
@@ -110,7 +110,7 @@
 		},
 		"mod": {
 			"firelore.max": 1,
-			"rest": {
+			"bed_rest": {
 				"effect": {
 					"stamina": 0.35,
 					"prismatic": 0.1,
@@ -177,6 +177,33 @@
 			"gembox.max": 10,
 			"gold.max": 4000,
 			"gems.max": 50,
+			"space": 20
+		}
+	},
+	{
+		"id": "display_room",
+		"name": "display room",
+		"desc": "A large room for nicknacks and baubles.",
+		"require": "g.space.max>=120",
+		"max": 1,
+		"cost": {
+			"gold": 7500,
+			"research": 7500,
+			"gems": 25,
+			"runestones": 3
+		},
+		"mod": {
+			"inv.max": 5,
+			"prismaticgems.max": 5,
+			"tapestries.max": 15,
+			"starcharts.max": 5,
+			"gembox.max": 3,
+			"glassware.max": 5,
+			"model_animals.max": 2,
+			"runestones.max": 3,
+			"skulls.max": 5,
+			"bones.max": 5,
+			"gems.max": 10,
 			"space": 20
 		}
 	},
@@ -1013,6 +1040,8 @@
 		"require": "g.tier1>0&&g.anatomy>=5&&g.embalming>=5&&g.crafting>=10",
 		"repeat": true,
 		"cost": {
+			"bloodgem":10,
+			"bones":10,
 			"research": 300,
 			"gold": 100
 		},
@@ -1320,10 +1349,28 @@
 			"potions.max": 2,
 			"potionessence.rate": 0.0002,
 			"potionessence.max": 1,
+			"potioncombatflask.rate": 0.0005,
+			"potioncombatflask.max": 2,
 			"potions.rate": 0.5,
 			"alchemy.max": 1,
 			"alchemy.rate": 1,
 			"space": 20
+		}
+	},
+	{
+		"id": "glassblower",
+		"name": "glass-making room",
+		"desc": "Dedicated to production of specialized glassware",
+		"require": "potions",
+		"max": 5,
+		"cost": {
+			"gold": 500,
+			"research": 800
+		},
+		"mod": {
+			"potioncombatflask.rate": 0.0003,
+			"potioncombatflask.max": 2,
+			"space": 5
 		}
 	},
 	{

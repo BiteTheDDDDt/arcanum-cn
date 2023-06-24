@@ -126,7 +126,7 @@ const TASK_BLOCKED = 'taskblock';
  * Item with attack used. Typically spell; could be something else.
  */
 const CHAR_ACTION = 'charact';
-
+const ITEM_ACTION = 'itemact';
 /**
  * Completely delete item data. Use for Custom items only.
  */
@@ -178,7 +178,7 @@ export const TOGGLE = 'toggle';
 
 export { CHAR_TITLE, NEW_TITLE, LEVEL_UP, CHAR_CLASS, CHAR_CHANGE };
 
-export { HALT_TASK, EVT_EVENT, EVT_UNLOCK, EVT_LOOT, TASK_DONE, CHAR_ACTION, STOP_ALL, DELETE_ITEM,
+export { HALT_TASK, EVT_EVENT, EVT_UNLOCK, EVT_LOOT, TASK_DONE, CHAR_ACTION, ITEM_ACTION, STOP_ALL, DELETE_ITEM,
 	TASK_REPEATED, TASK_IMPROVED, TASK_BLOCKED,
 	DAMAGE_MISS, DEFEATED, ENC_START, ENC_DONE };
 

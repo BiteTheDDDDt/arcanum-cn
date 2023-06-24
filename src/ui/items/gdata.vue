@@ -3,6 +3,7 @@ import Game from '../../game';
 
 import ItemsBase from '../itemsBase.js';
 import InfoBlock from './info-block.vue';
+import {CheckTypes} from './infoBlock.js';
 import Attack from './attack.vue';
 import Dot from './dot-info.vue';
 
@@ -38,6 +39,7 @@ export default {
 	},
 	beforeCreate(){
 		this.player = Game.state.player;
+		this.CheckTypes = CheckTypes;
 	},
 	computed:{
 
@@ -122,7 +124,16 @@ export default {
 			<span v-if="item.type==='resource'||item.type==='stat'">{{ item.current.toFixed(0) + ( item.max ? (' / ' + Math.floor(item.max.value ) ) :'' ) }}</span>
 			<span v-else-if="item.type==='furniture'">max: {{
 				item.max ? Math.floor(item.max.value ) : ( (item.repeat) ? '&infin;' : 1) }}</span>
-
+			<span v-else-if="item.type==='upgrade'||item.type==='task'">
+				<br>
+				<span v-if="item.value">{{Math.floor(+item.value)}}</span>
+				<span v-if="item.max">/ {{+item.max}}</span>
+				<span v-else-if="item.type==='upgrade'">/ 1</span>
+			</span>
+			<span v-if="item.type==='locale'||item.type==='dungeon'">
+				<span v-if="item.value">{{Math.floor(+item.value)}}</span>
+				<span v-if="item.max">/ {{+item.max}}</span>
+			</span>
 			<span v-if="item.sym">{{item.sym}}</span>
 
 
@@ -158,23 +169,30 @@ export default {
 		<span v-if="item.length>0&&item.type==='task'">
 			Completion time: {{new Date((item.length-item.exp)*1000).toISOString().substr(11, 8)}}
 		</span>
-		<info v-if="item.need" :info="item.need" :checkAvailability="true" title="Need" />
-		<info v-if="item.buy&&!item.owned" :info="item.buy" :checkAvailability="true" title="Purchase Cost" />
-		<info v-if="item.cost" :info="item.cost" :checkAvailability="true" title="Cost" />
-		<info v-if="item.sell||item.instanced||item.type==='Furniture'" :info="sellPrice" title="Sell" />
-		<info v-if="item.run" :info="item.run" :checkAvailability="true" title="Progress Cost" rate="true" />
+		<info v-if="item.need" :info="item.need" :checkType="CheckTypes.NEED" title="Need" />
+		<info v-if="item.buy&&!item.owned" :info="item.buy" :checkType="CheckTypes.COST" title="Purchase Cost" />
+		<info v-if="item.cost" :info="item.cost" :checkType="CheckTypes.COST" title="Cost" />
+		<info v-if="item.sell||item.instanced||item.type==='Furniture'" :info="sellPrice" :checkType="CheckTypes.FULL" title="Sell" />
+		<info v-if="item.run" :info="item.run" :checkType="CheckTypes.COST" title="Progress Cost" rate="true" />
 
 		<attack v-if="item.attack" :item="item" />
 
 		<div v-if="item.effect" class="info-sect">Effects:</div>				
-		<info v-if="item.effect" :info="item.effect" :rate="item.perpetual>0||item.length>0" />
+		<info v-if="item.effect" :info="item.effect" :rate="item.perpetual>0||item.length>0" :checkType="CheckTypes.FULL" />
 		<div v-if="(item.mod&&Object.values(item.mod).length)||(item.alter&&Object.values(item.alter).length)" class="info-sect">Modifications:</div>				
 		<info v-if="item.mod&&Object.values(item.mod).length" :info="item.mod" />
 		<info v-if="item.alter&&Object.values(item.alter).length" :info="item.alter" />
 		<div v-if="item.result" class="info-sect">Results:</div>
-		<info v-if="item.result" :info="item.result" />
-		<div v-if="item.use" class="info-sect">When used:</div>
-		<info v-if="item.use" :info="item.use" />
+		<info v-if="item.result" :info="item.result" :checkType="CheckTypes.FULL" />
+		<div v-if="item.use">
+			<div class="info-sect">When used:</div>
+			<info v-if="item.use" :info="item.use" />
+			<attack v-if="item.use.attack" :item="item.use" />
+		</div>
+		<div v-if="item.runmod&&Object.values(item.runmod).length">
+			<div class="info-sect">When active:</div>
+			<info :info="item.runmod" />
+		</div>
 		<div v-if="item.dot" class="info-sect">Buffs:</div>
 		<dot v-if="item.dot" :dot="item.dot" :item="item" />
 		

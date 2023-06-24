@@ -142,7 +142,12 @@ export default class EnchantSlots extends Inventory {
 		}
 
 	}
+	findItem(id, proto=false ) {
 
+		return proto === true ? this.items.find( v=>v._target.id===id||v._target.recipe===id) :
+			this.items.find( v=>v._target.id===id);
+
+	}
 	/**
 	 *
 	 * @param {} e - running task or enchant target.

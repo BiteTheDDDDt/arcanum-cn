@@ -159,7 +159,7 @@
 					"mod": {
 						"stamina.max": 50,
 						"stamina.rate": -1,
-						"self": {
+						"self": { 
 							"dodge": 15,
 							"tohit": 10,
 							"damage": 5
@@ -194,9 +194,12 @@
 				"effect": {
 					"rage": "1~5",
 					"weary": "2~5",
+					"astronomy.exp": 3,
 					"research": 1
 				},
-				"result": {}
+				"result": {
+					"astronomy.max": 0.001
+				}
 			},
 			{
 				"id": "enc_kanna",
@@ -222,7 +225,9 @@
 					"weary": "2~5",
 					"research": 1
 				},
-				"result": {}
+				"result": {
+					"lore.max": 0.001
+				}
 			},
 			{
 				"id": "enc_phrenesis",
@@ -231,6 +236,9 @@
 				"effect": {
 					"stress": -0.1,
 					"hp": -4
+				},
+				"result": {
+					"anatomy.max": 0.001
 				}
 			},
 			{
@@ -241,6 +249,9 @@
 					"rage": "1~5",
 					"weary": "2~5",
 					"research": 1
+				},
+				"result": {
+					"languages.max": 0.001
 				}
 			},
 			{
@@ -252,18 +263,23 @@
 					"weary": "2~5",
 					"research": 1
 				},
-				"result": {}
+				"result": {
+					"lore.max": 0.001
+				}
 			},
 			{
 				"id": "enc_tainted",
 				"name": "Tainted, Archon of the Void",
-				"desc": "A violent echo still wanders the halls it never walked",
+				"desc": "A violent echo still wanders the halls it never walked.",
 				"effect": {
 					"madness": "2~4",
 					"unease": "2~4",
 					"tempus": -1,
 					"chronomancy.exp": 1,
 					"voidlore.exp": 1
+				},
+				"result": {
+					"composure.max": 0.001
 				},
 				"loot": {
 					"voidrune": "1%",
@@ -275,10 +291,22 @@
 			},
 			{
 				"id": "enc_kaidi",
-				"name": "kaidi",
-				"desc": "",
-				"effect": {},
-				"flavor": ""
+				"name": "kaidi the mixer",
+				"desc": "A teacher and maker of the oddest concoctions.",
+				"effect": {
+					"bf": "2~5",
+					"unease": "1~2",
+					"potions.exp": 1
+				},
+				"result": {
+					"potions.max": 0.001
+				},
+				"loot": {
+					"pot_breath1": "1%",
+					"pot_mana1": "5%",
+					"pot_stam1": "5%"
+				},
+				"flavor": "Fumes swirl around them from seemingly nowhere."
 			},
 			{
 				"id": "enc_tjoker",
@@ -289,6 +317,9 @@
 					"bf": "2~5",
 					"trickery.exp": 2,
 					"player.exp": 1
+				},
+					"result": {
+					"trickery.max": 0.001
 				}
 			},
 			{
@@ -301,6 +332,9 @@
 					"weary": "2~5",
 					"concentrate.exp": 1,
 					"composure.exp": 1
+				},
+					"result": {
+					"concentrate.max": 0.001
 				}
 			},
 			{
@@ -312,6 +346,9 @@
 					"weary": "2~5",
 					"naturelore.exp": 2,
 					"animals.exp": 2
+				},
+					"result": {
+					"herbalism.max": 0.001
 				}
 			},
 			{
@@ -323,6 +360,9 @@
 					"bf": "2~5",
 					"history.exp": 2,
 					"shadowlore.exp": 2
+				},
+					"result": {
+					"dissection.max": 0.001
 				}
 			}
 		],

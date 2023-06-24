@@ -15,7 +15,7 @@ export default class RevStat extends Resource {
 
 	}
 
-	free(){ return this.max - this.value; }
+	free(){ return this.max - this.value - this.delta; }
 
 	empty(){ return this.value + this.delta >=this.max.value; }
 
@@ -41,6 +41,6 @@ export default class RevStat extends Resource {
 	 */
 	filled( rate=0 ) { return this.value + this.delta <= 0 || (this.rate && (this.rate+rate) >=0); }
 
-	maxed() { return this.value + this.delta <= 0; }
+	maxed() { return this.value + this.delta <=0; }
 
 }

@@ -13,7 +13,7 @@ export default class Wearable extends Item {
 
 	toJSON() {
 
-		let data = super.toJSON();
+		let data = super.toJSON() || {};
 
 		if ( !this.save ) data.material = data.kind = undefined;
 		data.id = this.id;
@@ -39,7 +39,7 @@ export default class Wearable extends Item {
 			data.material = this.material.id;
 		}
 
-		return data ? data : undefined;
+		return data && Object.keys(data).length ? data : undefined;
 
 	}
 
@@ -247,7 +247,16 @@ export default class Wearable extends Item {
 	 * @param {Alter} it - enchantment being added.
 	 */
 	doAlter( it ) {
-		
+		//Note doAlter is never called during game startup, so priceMod isn't added more than once (like alter names).
+		if ( it.priceMod ) {
+			if ( this.sell instanceof Object ) this.sell.gold = (this.sell.gold || 0) + it.priceMod;
+			else if ( typeof this.sell === "number" ) this.sell += it.priceMod;
+			
+			if ( this.cost instanceof Object ) this.cost.gold = (this.cost.gold || 0) + it.priceMod;
+			else if ( typeof this.cost === "number" ) this.cost += it.priceMod;
+			
+			if(this.sell == null && this.cost == null) this.sell = it.priceMod;
+		}
 		if ( it.type === ENCHANT) this.enchants += it.level || 0;
 		console.log('APPLY ALTER: ' + it.id );
 

@@ -33,6 +33,12 @@ export default class Char {
 
 	}
 
+	/**
+	 * @property {number} spellchance - chance to cast a spell.
+	 */
+	 get spellchance() { return this._spellchance; }
+	 set spellchance(v) { this._spellchance=v;}
+
 	get resist() { return this._resist };
 	set resist(v) { this._resist = v; }
 
@@ -189,7 +195,7 @@ export default class Char {
 		this.type = NPC;
 
 		this._states = new States();
-
+		if ( !this.spellchance ) this.spellchance = 0.8;
 		this.immunities = this.immunities || {};
 		this._resist = this._resist || {};
 		if ( !this.bonuses ) this.bonuses = {};
@@ -285,38 +291,46 @@ export default class Char {
 		}
 
 		let id = dot;
+		let base = dot;
 		let dmg;
 		if ( typeof dot === 'string') {
 
 			dot = this.context.state.getData(dot);
 			if ( !dot ) return;
-			if (dot.dmg || dot.damage) dmg = dot.dmg != null ? dot.dmg : dot.damage;
-			if (!duration && !Number.isNaN(dot.duration)) duration = +dot.duration;
 
-			dot = cloneClass(dot);
+		}
 
-		} else {
+		if (dot.dmg || dot.damage) dmg = dot.dmg != null ? dot.dmg : dot.damage;
+		if (!duration && !isNaN(dot.duration)) duration = +dot.duration;
 
-			id = dot.id;
-			if (dot.dmg || dot.damage) dmg = dot.dmg != null ? dot.dmg : dot.damage;
-			if (!duration && !Number.isNaN(dot.duration)) duration = +dot.duration;
+		dot = cloneClass(dot);
 
-			dot = cloneClass(dot );
+		if (base instanceof Object) {
+			
+			id = base.id;
 			let orig = this.context.state.getData( id );
 			if ( orig && orig.type === TYP_STATE ) this.mergeDot( dot, orig );
 			//Repeated, just in case dot didnt set duration and original has a modded duration
-			if (!duration && !Number.isNaN(dot.duration)) duration = +dot.duration; 
+			if (!duration && !isNaN(dot.duration)) duration = +dot.duration; 
 
 		}
+
 		if ( dot[ TYP_PCT ] && !dot[TYP_PCT].roll() ) {
 			return;
 		}
 
 		if( dmg && dmg.instantiate instanceof Function ) dot.damage = dot.dmg = dmg.instantiate();
 
+		// In case the getData dot doesn't have an id
+		if ( !dot.id && typeof id === "string" ) dot.id = id;
+
 		if ( !id ) {
-			id = dot.id = (source ? source.name || source.id : null );
-			if ( !id) return;
+			id = dot.id = (source ? "dot_" + (source.recipe || source.id || source.name.replace(" ", "_")) : null );
+		}
+		
+		if ( !id || !dot.id ) {
+			console.warn("No DoT ID", this.id, dot);
+			return;
 		}
 
 		if ( dot.flags && this.rollResist(dot.kind||id) ) {
@@ -324,22 +338,27 @@ export default class Char {
 			return;
 		}
 
-		let cur = this.dots.find( d=>d.id===id);
-		if ( cur !== undefined ) {
+		let tags = dot.tags?.split(",") || [];
+		let level = dot.level || (source ? source.level || 0 : 0);
 
-			var level = dot.level || source ? source.level || 0 : 0;
-			if ( cur.level >= level ) {
+		let cur = this.dots.find( d => (d.id===id || d.tags.find(t => tags.includes(t))) );
+
+		if ( cur != null ) {
+			if(cur.id === id) {
 				cur.extend( duration );
 				return;
-
 			}
-			this.removeDot( cur );
 
+			if ( cur.level <= level ) {
+				this.removeDot( cur );
+			} else {
+				return;
+			}
 		}
-
+		
 		if ( !(dot instanceof Dot) ) {
 			dot = new Dot(dot,source); //Game.state.mkDot( dot, source, duration );
-			dot.duration = duration;
+			if(dot.duration != duration) dot.duration = duration;
 		}
 
 		this.applyDot( dot );
@@ -410,7 +429,7 @@ export default class Char {
 			if ( dot.effect ) this.context.applyVars( dot.effect, 1 );
 			if ( dot.damage || dot.cure ) ApplyAction( this, dot, dot.source );
 
-			if ( dot.duration <= dt ) {
+			if ( dot.duration <= dt && !dot.perm ) {
 				this.rmDot(i);
 			}
 
@@ -433,7 +452,7 @@ export default class Char {
 
 			this.timer += getDelay( this.speed );
 
-			if ( this.spells && Math.random()<0.8 ) {
+			if ( this.spells && Math.random() < this.spellchance ) {
 
 				let s = this.tryCast()
 				if ( s ) {

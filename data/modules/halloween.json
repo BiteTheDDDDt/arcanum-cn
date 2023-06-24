@@ -23,13 +23,7 @@
 				"mod": {
 					"stamina.max": 5,
 					"stamina.rate": 1.5,
-					"rest.effect.stamina.rate": "-100%",
-					"naturecamp.effect.stamina.rate": "-100%",
-					"eatchildren.effect.stamina.rate": "-100%",
-					"timesiphon.effect.stamina.rate": "-100%",
-					"indulge.effect.stamina.rate": "-100%",
-					"slumber.effect.stamina.rate": "-100%",
-					"chant.effect.stamina.rate": "-100%"
+					"t_rest.effect.stamina": "-100%"
 				},
 				"result": {
 					"anatomy.max": 3,

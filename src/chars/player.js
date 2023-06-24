@@ -1,7 +1,7 @@
 import Stat from "../values/rvals/stat";
 import Resource from "../items/resource";
 import { toStats } from "../util/dataUtil";
-
+import Loader from '../util/jsonLoader';
 import Events, { LEVEL_UP, NEW_TITLE, CHAR_TITLE, CHAR_NAME, CHAR_CLASS } from "../events";
 import Wearable from "./wearable";
 import GData from "../items/gdata";
@@ -16,7 +16,11 @@ import { SAVE_IDS } from '../inventories/inventory';
 /**
  * @const {string[]} LoseConditions - player retreats from locale if any of these stats are empty.
  */
-const DefeatStats = [ 'hp', 'stamina', 'rage', 'bf', 'unease', 'weary', 'rage', 'madness' ];
+ const DefeatStats = [];
+ new Loader('./data', ["defeatstat"]).load().then(e=> {
+	 e.defeatstat.forEach(i => DefeatStats.push(i))
+	 Object.freeze(DefeatStats)
+});
 
 const Fists = new Wearable( null, {
 
@@ -254,6 +258,7 @@ export default class Player extends Char {
 
 		if ( !name ) return;
 		this.name = name;
+		Changed.add(this);
 		Events.emit( CHAR_NAME, this );
 
 	}
@@ -283,7 +288,6 @@ export default class Player extends Char {
 
 
 	revive( gs ) {
-
 		super.revive(gs);
 
 		this.weapons.revive( gs, (s,v)=>{
@@ -298,9 +302,7 @@ export default class Player extends Char {
 
 			var it = gs.getData( DefeatStats[i] );
 			if ( it ) this.defeators.push(it);
-
 		}
-
 		this.spells = gs.getData('spelllist');
 
 	}
@@ -363,8 +365,9 @@ export default class Player extends Char {
 	defeated() {
 
 		for( let i = this.defeators.length-1; i>=0; i--){
-
-			if ( this.defeators[i].empty() ) return true;
+			if ( this.defeators[i].empty() ){
+				return true
+			}
 		}
 		return false;
 

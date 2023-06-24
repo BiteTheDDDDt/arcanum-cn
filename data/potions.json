@@ -221,8 +221,10 @@
 		},
 		"use": {
 			"dot": {
-				"id": "dotmana",
+				"id": "manadrip",
 				"name": "mana drip",
+				"tags": "manadot",
+				"level": 15,
 				"duration": 900,
 				"effect": {
 					"mana": 1,
@@ -247,8 +249,10 @@
 		},
 		"use": {
 			"dot": {
-				"id": "fount",
+				"id": "tenacity",
 				"name": "bull's tenacity",
+				"tags": "stamdot",
+				"level": 15,
 				"duration": 900,
 				"effect": {
 					"stamina": 2.25,
@@ -392,7 +396,7 @@
 	{
 		"id": "pot_sp_sink",
 		"name": "phial of skillfulness",
-		"desc": "Converts passive information into short-term benefit",
+		"desc": "Converts accumulated life experience into short-term benefit",
 		"require": "g.potions>=9",
 		"level": 5,
 		"buy": {
@@ -415,22 +419,193 @@
 		"id": "pot_explodium",
 		"name": "volatile concoction",
 		"desc": "Holding it seems dangerous. Not holding it, even more so.",
-		"require": "g.potions>=999",
+		"require": "g.potions>=9&&g.alchemist>0",
 		"level": 5,
 		"buy": {
-			"gold": 1500,
-			"research": 1200
+			"gold": 2500,
+			"research": 3000
 		},
 		"cost": {
-			"fire": 5,
+			"fire": 15,
+			"air": 15,
+			"herbs": 15,
+			"water": 15,
+			"potioncombatflask": 5
+		},
+		"use": {
+			"attack": {
+				"targets": "enemies",
+				"dot": {
+					"name": "volatile combustion",
+					"kind": "fire",
+					"dmg": "12~15",
+					"duration": 120
+				}
+			}
+		}
+	},
+	{
+		"id": "pot_corrosion",
+		"name": "corrosive mixture",
+		"desc": "Highly acidic and prone to reducing even the toughest materials to sludge.",
+		"require": "g.potions>=7",
+		"level": 5,
+		"buy": {
+			"gold": 1000,
+			"research": 2000
+		},
+		"cost": {
+			"shadow": 5,
 			"air": 5,
-			"herbs": 25,
-			"water": 5
+			"herbs": 15,
+			"water": 5,
+			"potioncombatflask": 1
+		},
+		"use": {
+			"attack": {
+				"targets": "enemy",
+				"dot": {
+					"name": "corroding",
+					"kind": "acid",
+					"dmg": "3~5",
+					"duration": 120,
+					"mod": {
+						"self": {
+							"defense": -25
+						}
+					}
+				}
+			}
+		}
+	},
+	{
+		"id": "pot_sticky",
+		"name": "engulfing glue",
+		"desc": "Quickly solidifies when in contact with air.",
+		"require": "g.potions>=6",
+		"level": 5,
+		"buy": {
+			"gold": 1000,
+			"research": 2000
+		},
+		"cost": {
+			"nature": 5,
+			"earth": 5,
+			"herbs": 15,
+			"water": 5,
+			"potioncombatflask": 1
+		},
+		"use": {
+			"attack": {
+				"targets": "enemy",
+				"dot": {
+					"name": "stuck",
+					"kind": "nature",
+					"duration": 120,
+					"mod": {
+						"self": {
+							"speed": -15
+						}
+					}
+				}
+			}
+		}
+	},
+	{
+		"id": "pot_smoke",
+		"name": "smoke bomb",
+		"desc": "Only someone gifted with true sight would be able to see through the thick smoke produced by this alchemical marvel.",
+		"require": "g.potions>=5",
+		"level": 5,
+		"buy": {
+			"gold": 1000,
+			"research": 2000
+		},
+		"cost": {
+			"shadow": 5,
+			"earth": 5,
+			"herbs": 15,
+			"water": 5,
+			"potioncombatflask": 1
 		},
 		"use": {
 			"attack": {
 				"targets": "all",
-				"dmg": "50~90"
+				"dot": {
+					"name": "blinded",
+					"kind": "shadow",
+					"duration": 120,
+					"mod": {
+						"self": {
+							"tohit": -25
+						}
+					}
+				}
+			}
+		}
+	},
+	{
+		"id": "pot_ignition",
+		"name": "flame potion",
+		"desc": "Throw at an enemy and watch them ignite into a fireball.",
+		"require": "g.potions>=4",
+		"level": 5,
+		"buy": {
+			"gold": 1000,
+			"research": 2000
+		},
+		"cost": {
+			"fire": 5,
+			"earth": 5,
+			"herbs": 15,
+			"air": 5,
+			"potioncombatflask": 1
+		},
+		"use": {
+			"attack": {
+				"targets": "enemy",
+				"dot": {
+					"name": "ignited",
+					"kind": "fire",
+					"dmg": "6~10",
+					"duration": 120
+				}
+			}
+		}
+	},
+	{
+		"id": "pot_frost",
+		"name": "Everfreeze potion",
+		"desc": "More accurately a set of potions, designed to induce rapid heat loss in the affected subject.",
+		"require": "g.alchemist>0",
+		"level": 5,
+		"buy": {
+			"gold": 5500,
+			"research": 6600
+		},
+		"cost": {
+			"water": 15,
+			"shadow": 15,
+			"herbs": 25,
+			"mana": 15,
+			"potioncombatflask": 5
+		},
+		"use": {
+			"attack": {
+				"targets": "enemy",
+				"dot": {
+					"name": "everfrozen",
+					"kind": "ice",
+					"dmg": "5",
+					"duration": 120,
+					"mod": {
+						"self": {
+							"tohit": -15,
+							"speed": -15,
+							"dodge": -25
+						}
+					}
+				}
 			}
 		}
 	},
@@ -469,8 +644,9 @@
 		},
 		"use": {
 			"dot": {
-				"id": "toughskin",
-				"name": "adamant salve",
+				"id": "dot_adamantskin",
+				"name": "adamant shell",
+				"tags": "toughskin",
 				"duration": 1800,
 				"mod": {
 					"self.defense": 50
@@ -650,11 +826,11 @@
 		"name": "flask of perfection",
 		"desc": "Reshapes your body to make it ever so slightly more ideal.",
 		"level": 25,
-		"require": "g.potions>=999",
+		"require": "g.potions>=10",
 		"buy": {
-			"gold": 5000,
+			"gold": 15000,
 			"tomes": 50,
-			"research": 5000,
+			"research": 15000,
 			"firegem": 50,
 			"airgem": 50,
 			"watergem": 50,
@@ -670,21 +846,49 @@
 			"potionessence": 5
 		},
 		"use": {
-			"effect": {
-				"hp.max": 2
-			}
+			
+			"hp.max": 2
 		}
+	},
+	{
+		"id": "pot_mule",
+		"name": "packmule's formula",
+		"desc": "Allows the user to become more vigorous over time.",
+		"level": 25,
+		"require": "g.potions>=10",
+		"buy": {
+			"gold": 15000,
+			"tomes": 50,
+			"research": 25000,
+			"runestones": 50,
+			"potionessence": 1
+		},
+		"cost": {
+			"herbs": 50,
+			"runestones": 30,
+			"research": 15000,
+			"gold": 10000,
+			"bloodgem": 50,
+			"potionessence": 5
+		},
+		"use": {
+
+			"stamina.max": 1,
+			"element.max": -0.25,
+			"mana.max": -0.1
+		},
+		"flavor": "A potent form of an additive used to grow exceptionally healthy cattle."
 	},
 	{
 		"id": "pot_bigbrain",
 		"name": "bubble of mind expansion",
 		"desc": "Expands your mind's capacity for knowledge.",
 		"level": 25,
-		"require": "g.potions>=999",
+		"require": "g.potions>=10",
 		"buy": {
-			"gold": 5000,
+			"gold": 15000,
 			"tomes": 50,
-			"research": 5000,
+			"research": 15000,
 			"firegem": 50,
 			"airgem": 50,
 			"watergem": 50,
@@ -700,10 +904,9 @@
 			"potionessence": 5
 		},
 		"use": {
-			"effect": {
-				"research.max": 250,
-				"research.rate": 1
-			}
+			"research.max": 250,
+			"research.rate": 1,
+			"mana.max": 0.1
 		},
 		"flavor": "It's big brain time."
 	},
@@ -712,11 +915,11 @@
 		"name": "vile concoction",
 		"desc": "What was theirs is now yours.",
 		"level": 25,
-		"require": "g.potions>=999&&g.evil>0",
+		"require": "g.potions>=10&&g.evil>0",
 		"buy": {
-			"gold": 5000,
+			"gold": 15000,
 			"tomes": 50,
-			"research": 5000,
+			"research": 15000,
 			"souls": 150,
 			"potionessence": 1
 		},
@@ -729,10 +932,8 @@
 			"potionessence": 5
 		},
 		"use": {
-			"effect": {
-				"hp.max": 1,
-				"element.max": 0.1
-			}
+			"hp.max": 1,
+			"element.max": 0.1
 		}
 	},
 	{
@@ -740,11 +941,11 @@
 		"name": "vial of attunement",
 		"desc": "Causes you to become more attuned to the world's elements. Harmful to one's physical body.",
 		"level": 25,
-		"require": "g.potions>=999",
+		"require": "g.potions>=10",
 		"buy": {
-			"gold": 5000,
+			"gold": 15000,
 			"tomes": 50,
-			"research": 5000,
+			"research": 15000,
 			"firegem": 50,
 			"airgem": 50,
 			"watergem": 50,
@@ -763,10 +964,8 @@
 			"potionessence": 5
 		},
 		"use": {
-			"effect": {
-				"hp.max": -4,
-				"element.max": 0.25
-			}
+			"hp.max": -4,
+			"element.max": 0.25
 		}
 	}
 ]

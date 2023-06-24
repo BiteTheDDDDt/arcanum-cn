@@ -37,6 +37,10 @@ export default {
 
 		hp(){return this.state.getData('hp');},
 
+		menaces() { return this.state.filterItems (it=> it.hasTag('menace') && it.value>0)},
+		visMenaces(){return this.menaces.filter(v=>this.show(v))},
+		specials() { return this.state.filterItems (it=> it.hasTag('specialty') && !it.locked)},
+		visSpecials(){return this.specials.filter(v=>this.show(v))},
 		manaList() { return this.state.filterItems (it=> (it.hasTag('manas') || it.hasTag('Mana energies') ) && !it.locked)},
 		visMana(){return this.manaList.filter(v=>this.show(v))},
 
@@ -68,6 +72,13 @@ export default {
 			<span class="name">{{it.name}}</span><span class="barspan"><progbar :value="it.valueOf()" :class="it.id" :max="it.max.value" :color="it.color"
 			@mouseenter.native.capture.stop="itemOver($event,it)"/></span></div>
 
+		<div class="hidable statbar" v-for="it in visSpecials" :key="it.key" :data-key="it.id">
+			<span class="name">{{it.name}}</span><span class="barspan"><progbar :value="it.valueOf()" :class="it.id" :max="it.max.value" :color="it.color"
+			@mouseenter.native.capture.stop="itemOver($event,it)"/></span></div>
+
+		<div class="hidable statbar" v-for="it in visMenaces" :key="it.key" :data-key="it.id">
+			<span class="name">{{it.name}}</span><span class="barspan"><progbar :value="it.valueOf()" :class="it.id" :max="it.max.value" :color="it.color"
+			@mouseenter.native.capture.stop="itemOver($event,it)"/></span></div>
 		<!--<tr><td>mood</td><td><mood :state="state" /></td></tr>-->
 		</div>
 

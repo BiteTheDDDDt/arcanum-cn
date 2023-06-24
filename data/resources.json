@@ -188,10 +188,10 @@
 		"group": "runes",
 		"desc": "Time flows along the grooves of the rune",
 		"mod": {
-			"tempus.rate": 0.001,
+			"tempus.rate": 0.05,
 			"bf.rate": 0.01
 		},
-		"max": 3,
+		"max": 6,
 		"flavor": "It's not easy to look at."
 	},
 	{
@@ -328,7 +328,7 @@
 	},
 	{
 		"id": "shadowgem",
-		"tags": "magicgems,prismaticgems",
+		"tags": "magicgems,prismaticgems,esotericgems",
 		"group": "gems",
 		"name": "shadow gem",
 		"desc": "Gem imbued with the essence of darkness.",
@@ -336,7 +336,7 @@
 	},
 	{
 		"id": "lightgem",
-		"tags": "magicgems,prismaticgems",
+		"tags": "magicgems,prismaticgems,esotericgems",
 		"group": "gems",
 		"name": "light gem",
 		"desc": "Gem imbued with the essence of light.",
@@ -344,7 +344,7 @@
 	},
 	{
 		"id": "spiritgem",
-		"tags": "magicgems,prismaticgems",
+		"tags": "magicgems,prismaticgems,esotericgems",
 		"group": "gems",
 		"name": "spirit gem",
 		"desc": "Gem imbued with raw spirit.",
@@ -440,11 +440,20 @@
 		"max": 3
 	},
 	{
+		"id": "potioncombatflask",
+		"name": "combat flask",
+		"group": "reagent",
+		"desc": "Specialized glassware allowing for simultaneously safe storage and easy combat use.",
+		"flavor": "Developed after a string of corrosive potion incidents.",
+		"max": 8
+	},
+	{
 		"id": "space",
 		"name": "floor space",
 		"desc": "Space Available",
 		"hide": true,
 		"reverse": true,
+		"reverseDisplay": true,
 		"max": 0
 	},
 	{

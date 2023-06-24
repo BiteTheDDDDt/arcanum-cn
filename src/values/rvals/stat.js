@@ -118,6 +118,7 @@ export default class Stat extends RValue {
 			mods[p] = (mod instanceof Mod ) ? mod : new Mod( v[p] );
 		}
 		this._mods = mods;
+		this.recalc();
 	}
 
 	/**
@@ -161,8 +162,6 @@ export default class Stat extends RValue {
 		if ( !this.mod ) this.mod = {};
 
 		if ( !this.mods ) this.mods = {};
-
-		this.recalc();
 
 	}
 
@@ -254,6 +253,7 @@ export default class Stat extends RValue {
 		//this._mPct += amt*mod.pct;
 		//this._mBase += amt*mod.bonus;
 
+		//should always occur (even at 0), to overwrite mods that have different values.
 		this.mods[mod.id] = mod;
 		this.recalc();
 

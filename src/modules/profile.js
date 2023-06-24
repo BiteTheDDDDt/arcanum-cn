@@ -1,8 +1,8 @@
 import Hall from "./hall";
+import DataLoader from "../dataLoader";
 import Settings from './settings';
 import Events, { LEVEL_UP, CHAR_NAME, CHAR_TITLE, CHAR_CLASS } from "../events";
 
-import Module from "./module";
 import { Persist } from "./persist/persist";
 
 const HALL_FILE = 'hall';
@@ -53,7 +53,7 @@ export default {
 	async loadHall( type=null ){
 
 		var save = await Persist.loadHall( HALL_FILE, type );
-		var data = await this.loadHallData( save );
+		var data = this.loadHallData( save );
 
 		this.hall = new Hall(data);
 		if ( this.hall.legacy ) await this.resaveLegacy();
@@ -97,8 +97,7 @@ export default {
 	 */
 	loadHallData( save ) {
 
-		let module = new Module();
-		return module.load( HALL_FILE ).then( ()=>module.instance( save ));
+		return DataLoader.main.hall.instance( save );
 
 	},
 

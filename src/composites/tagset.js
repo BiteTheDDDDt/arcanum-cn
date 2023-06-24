@@ -150,8 +150,17 @@ export default class TagSet {
 		return true;
 	}
 
-	remove(){
-		console.warn('TagSet remove() not implemented');
+	canPay(amt) {
+		for( let it of this.items ) {
+			if ( !it.canPay(amt) ) return false;
+		}
+		return true;
+	}
+
+	remove(amt){
+		for( let it of this.items ) {
+			it.remove(amt);
+		}
 	}
 
 	/**

@@ -50,7 +50,6 @@ export default {
 				
 		},
 
-
 	}
 
 }
@@ -97,5 +96,4 @@ div.running {
 div.running .relative {
 	position: relative;
 }
-
 </style>

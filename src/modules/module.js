@@ -1,5 +1,7 @@
 import dataLoader, { loadFiles, freezeData } from '../dataLoader';
 
+const HALL_ID = 'hall';
+
 /**
  * Class for loading and storing json plugin in a well-defined format.
  */
@@ -18,6 +20,13 @@ export default class Module {
 	*/
 	get lists(){return this._lists; }
 	set lists(v){this._lists=v;}
+
+	/**
+	 * Hall data module. Separate from lists and objects.
+	 * @property {Module}
+	 */
+	get hall() { return this._hall; }
+	set hall(v) { this._hall = v; }
 
 	/**
 	 * @property {string} name
@@ -60,7 +69,9 @@ export default class Module {
 	 * Directly set module data in json-module format.
 	 * @param {object} data
 	 */
-	setData( data ) {
+	setData( data, name, sym ) {
+		this.name = name;
+		this.sym = sym;
 		this.fileLoaded(data);
 	}
 
@@ -102,6 +113,10 @@ export default class Module {
 			if ( !file ) {
 				console.warn('no file: ' + p );
 
+			} else if ( p === HALL_ID ) {
+				
+				this.addHall( file );
+
 			} else if ( file.module ) {
 
 				let mod = new Module();
@@ -134,7 +149,7 @@ export default class Module {
 		this.lists = mod.data;
 
 		this.name = mod.module || this.name;
-		this.sym = mod.sym;
+		this.sym = mod.sym || this.sym;
 
 		if ( mod.data ){
 			this.parseLists( mod.data );
@@ -151,9 +166,28 @@ export default class Module {
 	parseLists( lists ){
 
 		for( let p in lists ) {
-			this.parseList( lists[p] );
+			if ( p === HALL_ID ) {
+				this.addHall( lists[p] );
+				delete this.lists[p];	
+			} else this.parseList( lists[p] );
 		}
 
+	}
+
+	addHall(hallData) {
+		let hallMod = new Module();
+		if(!hallData.data) {
+			let {name, sym, ...data} = hallData;
+			hallData = {name: name, sym: sym, data: data};
+		}
+		hallMod.setData(hallData, this.name, this.sym);
+		if(this.hall) this.mergeHall(hallMod);
+		else this.hall = hallMod;
+	}
+
+	mergeHall(hallMod) {
+		if(!this.hall) this.hall = new Module();
+		this.hall.merge(hallMod);
 	}
 
 	/**
@@ -217,6 +251,7 @@ export default class Module {
 
 		}
 
+		if( mod.hall ) this.mergeHall( mod.hall );
 
 	}
 

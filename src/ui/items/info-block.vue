@@ -3,26 +3,27 @@ import Game from '../../game';
 import { FP, getParams } from '../../values/consts';
 
 import ItemsBase from '../itemsBase.js';
-import { InfoBlock, DisplayName, ConvertPath } from './infoBlock';
+import { CheckTypes, InfoBlock, DisplayName, ConvertPath } from './infoBlock';
 
 /**
  * Display for a sub-block of gdata, such as item.effect, item.result, item.run, etc.
  *
  * @property {boolean} rate - info items are 'rate' per-second items.
- * @property {boolean} checkAvailability - enable unlock and cost checks.
+ * @property {boolean} checkType - enable unlock and cost checks.
  */
 export default {
-	props:['title', 'info', 'rate', 'checkAvailability', 'target'],
+	props:['title', 'info', 'rate', 'checkType', 'target'],
 	mixins:[ItemsBase],
 	beforeCreate(){
 		this.infos = new InfoBlock();
 		this.player = Game.state.player;
+		this.CheckTypes = CheckTypes;
 	},
 	computed:{
 		effects(){
 
 			this.infos.clear();
-			return this.effectItems( this.info, this.rate, this.checkAvailability, this.target );
+			return this.effectItems( this.info, this.rate, this.checkType, this.target );
 
 		}
 
@@ -34,9 +35,9 @@ export default {
 		 *
 		 * @param {*} obj
 		 * @param {boolean} rate - items represent /sec rates.
-		 * @param {boolean} checkAvailability - items need unlock and cost checks.
+		 * @param {boolean} checkType - items check type.
 		 */
-		effectItems( obj, rate=false, checkAvailability=false, target=null) {
+		effectItems( obj, rate=false, checkType=null, target=null) {
 
 			let type = typeof obj;
 
@@ -44,13 +45,14 @@ export default {
 
 				//@todo still happens. mostly for sell cost as gold.
 				//console.warn('effect type is number: ' + obj) ;
-				this.infos.add( 'gold', obj, rate, checkAvailability );
+				let ref = InfoBlock.GetItem("gold");
+				this.infos.add( ref.name, obj, rate, checkType, ref );
 
 			} else if ( type === 'string') {
 
-				this.infos.add( DisplayName(obj), true, false, checkAvailability, InfoBlock.GetItem( obj ) );
+				this.infos.add( DisplayName(obj), true, false, checkType, InfoBlock.GetItem( obj ) );
 
-			} else if ( Array.isArray(obj) ) obj.forEach( v=>this.effectList(v, '', rate, checkAvailability, null, target) );
+			} else if ( Array.isArray(obj) ) obj.forEach( v=>this.effectList(v, '', rate, checkType, null, target) );
 			else if ( type === 'function' ) {
 
 				/*if ( !obj.fText ){
@@ -62,7 +64,7 @@ export default {
 			}
 			else if ( type === 'object') {
 
-				this.effectList( obj, '', rate, checkAvailability, null, target );
+				this.effectList( obj, '', rate, checkType, null, target );
 
 			}
 
@@ -74,12 +76,12 @@ export default {
 		 * @param {Object} obj - object of effects to enumerate.
 		 * @param {string} rootPath - prop path from base.
 		 * @param {boolean} rate - whether display is per/s rate.
-		 * @param {boolean} checkAvailability - whether items need unlock and cost checks.
+		 * @param {boolean} checkType - type of check to use for checking availability.
 		 */
-		effectList( obj, rootPath='', rate=false, checkAvailability=false, refItem=null, target=null ) {
+		effectList( obj, rootPath='', rate=false, checkType=null, refItem=null, target=null ) {
 
 			if ( typeof obj === 'string' ) {
-				this.infos.add( DisplayName(obj), true, rate, checkAvailability, InfoBlock.GetItem(obj, refItem) );
+				this.infos.add( DisplayName(obj), true, rate, checkType, InfoBlock.GetItem(obj, refItem) );
 				return;
 			}
 
@@ -93,7 +95,7 @@ export default {
 				let subItem = InfoBlock.GetItem( p, refItem );
 
 				let subRate = rate;
-				let subCheckAvailability = checkAvailability;
+				let subCheckType = checkType;
 				// displayed path to subitem.
 				let subPath = ConvertPath( rootPath, ( p === "self" && target ) || p );
 
@@ -110,7 +112,7 @@ export default {
 							case FP.STATE: return Game.state;
 						}
 					})
-					this.infos.add(subPath, sub(...params), subRate, subCheckAvailability, subItem);
+					this.infos.add(subPath, sub(...params), subRate, subCheckType, subItem);
 				} else if ( sub instanceof Object ) {
 
 					if ( sub.skipLocked ) {
@@ -120,7 +122,7 @@ export default {
 
 					}
 					if ( sub.constructor !== Object && sub.constructor.name !== 'Attack' ) {
-						this.infos.add(subPath, sub, subRate, subCheckAvailability, subItem);
+						this.infos.add(subPath, sub, subRate, subCheckType, subItem);
 					} else if ( sub.constructor.name !== 'Attack' ){
 						
 						//special code for DOT subpath, currently unique to potions
@@ -128,13 +130,19 @@ export default {
 							sub = {...sub}
 							if(sub.id) delete sub.id;
 							if(sub.name) delete sub.name;
+							if(sub.tags) {
+								sub.tags = sub.tags.split(",").map(t => {
+									let tag = Game.state.tagSets[t];
+									return tag ? tag.name : t;
+								});
+							}
 							if(sub[undefined]) delete sub[undefined];
 						}
-						this.effectList( sub, subPath, subRate, subCheckAvailability, subItem, target );
+						this.effectList( sub, subPath, subRate, subCheckType, subItem, target );
 					
 					}
 				} else {
-					this.infos.add(subPath, sub, subRate, subCheckAvailability, subItem );
+					this.infos.add(subPath, sub, subRate, subCheckType, subItem );
 				}
 			}
 		}
@@ -149,7 +157,11 @@ export default {
 
 		<div v-if="title" class="note-text"><hr>{{ title }}</div>
 		<div v-for="v in effects" :key="v.name">
-      		<span :class="{missing: !v.isAvailable}">{{ v.toString() }}</span>
+      		<span :class="{failed: !v.isAvailable, full: checkType === CheckTypes.FULL}">
+				{{ v.toString() }}
+				<span v-if="!v.isAvailable && checkType === CheckTypes.FULL">(Full)</span>
+			</span>
+			
 		</div>
 
 
@@ -176,7 +188,13 @@ div.item-desc {
 .flavor {
 	font-style: italic;
 }
-.missing {
+.failed {
 	color: red;
+}
+.failed.full {
+	color: slategrey;
+}
+.darkmode .failed.full {
+	color: #505050;
 }
 </style>

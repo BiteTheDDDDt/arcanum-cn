@@ -6,12 +6,14 @@
 			{
 				"id": "evt_hall",
 				"name": "Wizard's Hall",
+				"tags":"hall",
 				"desc": "Across the aeons wizards gather in hidden halls to exchange lore and augment their powers."
 			}
 		],
 		"tasks": [
 			{
 				"id": "retire",
+				"tags":"hall",
 				"warn": true,
 				"require": "g.planeslore>=999",
 				"desc": "",
@@ -23,6 +25,7 @@
 			{
 				"id": "greatwing",
 				"name": "great wing",
+				"tags":"hall",
 				"max": 3,
 				"desc": "A new wing of the Great Hall where Wizards can lodge in comfort.",
 				"require": "g.expandhall>=1",
@@ -39,6 +42,7 @@
 			{
 				"id": "starchamber",
 				"name": "star chamber",
+				"tags":"hall",
 				"require": "tier6",
 				"max": 3,
 				"desc": "An expansive chamber for viewing the heavens.",
@@ -55,6 +59,7 @@
 			{
 				"id": "expandhall",
 				"name": "expanded halls",
+				"tags":"hall",
 				"require": "tier5",
 				"max": 3,
 				"cost": {
@@ -67,6 +72,7 @@
 			{
 				"id": "spellspire",
 				"max": 3,
+				"tags":"hall",
 				"require": "tier6",
 				"desc": "A conduit for magic energy.",
 				"cost": {
@@ -79,6 +85,7 @@
 			{
 				"id": "dreamchamber",
 				"name": "dream chamber",
+				"tags":"hall",
 				"desc": "In some time and place, even dreams were once real.",
 				"require": "tier5",
 				"max": 1,
@@ -93,6 +100,7 @@
 			{
 				"id": "puppet_enhancedlabs",
 				"name": "enhanced laboratories",
+				"tags":"hall",
 				"desc": "Mechanical assistants and automated delivery systems.",
 				"require": "g.mechamancer>0",
 				"max": 5,
@@ -109,6 +117,7 @@
 			{
 				"id": "titan_foundations",
 				"name": "stabilized foundations",
+				"tags":"hall",
 				"desc": "A procedure to prevent earthquakes from affecting member's buildings.",
 				"require": "g.titan>0",
 				"max": 3,
@@ -123,6 +132,7 @@
 			{
 				"id": "magicstables",
 				"name": "magic stables",
+				"tags":"hall",
 				"desc": "Dedicated stabling for the hall's mounts. Useful for discerning those with aptitude for magic.",
 				"require": "tier5",
 				"max": 4,
@@ -140,6 +150,7 @@
 			{
 				"id": "arcanacollectors",
 				"name": "arcana collectors",
+				"tags":"hall",
 				"desc": "Specialized facilities for newer mages to practice arcana absorption.",
 				"require": "tier5",
 				"max": 4,
@@ -153,6 +164,7 @@
 			{
 				"id": "classrooms",
 				"name": "classrooms",
+				"tags":"hall",
 				"desc": "Dedicated classrooms for efficient study and transfer of knowledge.",
 				"require": "tier5",
 				"max": 5,
@@ -167,6 +179,7 @@
 			{
 				"id": "timewell",
 				"require": "tier6",
+				"tags":"hall",
 				"desc": "A deep pool of time incarnate.",
 				"max": 1,
 				"cost": {
@@ -179,6 +192,7 @@
 			{
 				"id": "ritualchamber",
 				"name": "ritual chamber",
+				"tags":"hall",
 				"require": "g.ritualist>0&&g.tier6>0",
 				"desc": "A warded room deep within the hall, dedicated to carrying out rituals in safety.",
 				"max": 1,
@@ -195,12 +209,14 @@
 		"stats": [
 			{
 				"id": "hallSize",
+				"tags":"hall",
 				"locked": false,
 				"val": 3
 			},
 			{
 				"id": "hallPoints",
 				"name": "prestige",
+				"tags":"hall",
 				"alias": "points",
 				"hide": true,
 				"locked": false,
@@ -212,6 +228,7 @@
 			{
 				"id": "prestige",
 				"name": "hall prestige",
+				"tags":"hall",
 				"require": "evt_hall",
 				"val": 0,
 				"locked": false,
@@ -233,6 +250,12 @@
 				"mod": {
 					"tier7": true
 				}
+			}
+		],
+		"tags":[
+			{
+				"id": "hall",
+				"name": "hall"
 			}
 		]
 	}

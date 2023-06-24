@@ -6,7 +6,7 @@ import { TYP_MOD } from '../values/consts';
 import RValue, { SubPath } from '../values/rvals/rvalue';
 import { Changed } from '../techTree';
 import { ParseMods } from '../modules/parsing';
-import { canWriteProp } from '../util/util';
+import { canWriteProp, splitKeys } from '../util/util';
 
 export const SetModCounts = ( m, v)=>{
 
@@ -58,7 +58,7 @@ export const mergeClass = ( destClass, src ) => {
  const JSONIgnore = new Set( ['template', 'id', 'type', 'defaults', 'module', 'sname',
 	 'sym', 'warn', "effect", "length", 'runmod', 'name', 'desc', 'running', 'current', 'warnMsg',
 	 'once', 'context', 'enemies', 'encs', 'boss', 'spawns','targets','only',
-	 'locked', 'locks', 'value', 'exp', 'delta', 'tags', 'mod', 'alter', 'progress','need', 'require','action' ]);
+	 'locked', 'locks', 'value', 'exp', 'delta', 'tags', 'mod', 'alter', 'progress','need', 'require','action', 'repeat' ]);
 
 /**
  * Base class of all Game Objects.
@@ -69,8 +69,37 @@ export default {
 
 		if ( this.save && (this.value>0||this.owned)) return this.forceSave();
 
-		let vars = jsonify(this, JSONIgnore );
-		if ( this.template ) vars = changes( vars, this.template );
+		//the JSON parse + stringify is to make sure that all items in vars have been formatted to JSON.
+		//jsonify only does shallow toJSON, and won't toJSON inner objects.
+		let vars = JSON.parse(JSON.stringify(jsonify(this, JSONIgnore ) || {}));
+		if ( this.template ) {
+			vars = changes( vars, this.template );
+			if(this.cost) {
+				if(this.template.cost instanceof String) delete vars.cost;
+				else if(typeof this.template.cost === "number" && vars.cost.gold === this.template.cost) delete vars.cost;
+				else if(vars?.cost) {
+					let ref = cloneClass(this.template.cost);
+					splitKeys(ref);
+					if(!changes(vars.cost, ref)) delete vars.cost;
+				}
+			}
+		}
+
+		let defaults = this.Defaults || this.constructor.Defaults;
+		if(defaults) {
+			// Warning: changes doesn't do strict equality checks, which means falsy values can be lost.
+			// vars = changes(vars, defaults);
+			for(let key in defaults) {
+				if(vars[key] === undefined) continue;
+				if(!(defaults[key] instanceof Object)) {
+					if(vars[key] === defaults[key]) {
+						delete vars[key];
+					}
+				} else {
+					//TODO nested object defaults
+				}
+			}
+		}
 
 		if ( this.locked === false && this.template && this.template.locked !== false ){
 			vars = vars || {};
@@ -78,7 +107,7 @@ export default {
 		}
 		if ( vars && vars.name ) vars.name = this.sname;
 
-		return vars || undefined;
+		return vars && Object.keys(vars).length ? vars : undefined;
 
 	},
 
@@ -145,6 +174,12 @@ export default {
 
 
 	},
+
+	/**
+	 * @property {string} sym - optional unicode symbol.
+	 */
+	 get sym() { return this._sym; },
+	 set sym(v) { this._sym=v;},
 
 	/**
 	 * @property {boolean} repeat - whether the item is repeatable.

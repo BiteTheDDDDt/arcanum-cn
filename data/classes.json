@@ -198,7 +198,7 @@
 			"arcana.rate": 0.001,
 			"mana.max": 2,
 			"mana.rate": 0.4,
-			"mysticism.mod.mana.rate": 0.05
+			"mysticism.mod.mana.rate":0.05
 		}
 	},
 	{
@@ -226,7 +226,7 @@
 			"lore.rate": "5%",
 			"mana.max": 3,
 			"mana.rate": 0.2,
-			"shadowlore.mod.mana.rate": 0.02,
+			"shadowlore.mod.mana.rate":0.02,
 			"shadowlore.max": 1,
 			"shadowlore.rate": "0.1+5%"
 		}
@@ -317,7 +317,8 @@
 			"chaos.max": 3,
 			"chaos.rate": 0.1,
 			"potions.max": 1,
-			"spiritlore.max": 1
+			"spiritlore.max": 1,
+			"potioncombatflask.rate": 0.0005
 		}
 	},
 	{
@@ -699,6 +700,7 @@
 			"potions.max": 3,
 			"potions.rate": "5%",
 			"potionessence.rate": 0.0002,
+			"potioncombatflask.rate": 0.0005,
 			"alchemy.max": 3,
 			"alchemy.rate": "5%",
 			"lore.max": 1,
@@ -1281,7 +1283,7 @@
 			"mana.max": 4,
 			"mana.rate": "10%",
 			"mysticism.max": 1,
-			"mysticism.mod.mana.rate": 0.05,
+			"mysticism.mod.mana.rate":0.05,
 			"spelllist.max": 5
 		},
 		"flavor": "In the end it was three Thule Wizards and The Necromancer who brought the locks to heel."

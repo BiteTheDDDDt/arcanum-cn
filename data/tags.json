@@ -291,5 +291,29 @@
         "id": "d_wings",
         "name": "Wing Drops",
         "hide": true
+    },
+    {
+        "id": "bed_rest",
+        "name": "Bed-Related Rest"
+    },
+    {
+        "id": "manadot",
+        "name": "Mana"
+    },
+    {
+        "id": "stamdot",
+        "name": "Fount"
+    },
+    {
+        "id": "whirlingstep",
+        "name": "Whirling Step"
+    },
+    {
+        "id": "toughskin",
+        "name": "Tough Skin"
+    },
+    {
+        "id": "lightregen",
+        "name": "Pulsing Light"
     }
 ]
