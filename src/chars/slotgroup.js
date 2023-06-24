@@ -31,10 +31,10 @@ export default class SlotGroup {
 	 * @param {string} id
 	 * @returns {Item|null}
 	 */
-	find( id ) {
+	find( id, proto=false  ) {
 
 		for( let p in this.slots ) {
-			var it = this.slots[p].find(id);
+			var it = this.slots[p].find(id, proto);
 			if ( it ) return it;
 		}
 		return null;

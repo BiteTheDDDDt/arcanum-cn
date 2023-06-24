@@ -43,6 +43,10 @@ export default {
 			return Game.state.inventory.canAdd(it);
 		},
 
+		canEquip(it) {
+			return Game.canEquip(it)
+		},
+
 		onTake(it) {
 
 			//console.log('start take: ' + it.id );
@@ -91,7 +95,7 @@ export default {
 
 		<template v-if="!selecting">
 
-			<button v-if="it.equippable" class="item-action" @click="emit('equip',it, inv)">Equip</button>
+			<button v-if="it.equippable&&canEquip(it)" class="item-action" @click="emit('equip',it, inv)">Equip</button>
 			<button v-if="it.use" class="item-action" @mouseenter.capture.stop="itemOver($event,it)" @click="emit( USE, it, inv)">Use</button>
 			<button v-if="take&&canAdd(it)" class="item-action" @click="onTake(it)">Take</button>
 

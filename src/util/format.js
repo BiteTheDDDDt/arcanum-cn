@@ -55,7 +55,11 @@ export const toLarge = (v) => {
 	// index cutoff is every multiple of 1000, plus 2 digits over the next higher.
 	// e.g. the 'hundreds' category extends to 99,999; K extends to 99,999K
 	let ex = Math.floor( (Math.log10(v)-1)/3 );
-	if ( ex < 1 ) return sgn*v;
+	if ( ex < 1 ) {
+		return sgn*v;
+	} else if (ex >= PostFixes.length) {
+		return (sgn*v).toExponential(2);
+	}
 
 	return ( sgn*Math.round( v / Math.pow(10,3*ex) ) )+PostFixes[ex];
 

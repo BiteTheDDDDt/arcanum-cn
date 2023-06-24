@@ -2,7 +2,6 @@ import { DisplayItem } from "./displayItem";
 import {RollOver} from 'ui/popups/itemPopup.vue';
 
 import { SKILL } from '../../values/consts';
-import RevStat from "../../items/revStat";
 
 import Game from '../../game';
 
@@ -15,6 +14,13 @@ export const DisplayName = ( obj ) => {
 	return it ? it.name : obj;
 
 }
+
+export const CheckTypes = Object.freeze({
+	COST: "cost",
+	NEED: "need",
+	FULL: "maxed",
+	MOD: "mod" //TODO make mod check
+})
 
 /**
  * Convert item path display based on next subprop.
@@ -103,9 +109,9 @@ export class InfoBlock {
 		this.results = {};
 	}
 
-	add( itemName, value, isRate=false, checkAvailability=false, ref=null){
+	add( itemName, value, isRate=false, checkType=null, ref=null){
 
-		if ( ref && ref instanceof RevStat ) value = -value;
+		if ( ref && ref.reverseDisplay ) value = -value;
 
 		let cur = this.results[itemName];
 		let ctx = RollOver.context;
@@ -113,10 +119,11 @@ export class InfoBlock {
 		if ( cur === undefined ){
 			let isAvailable = true;
 
-			if (value > 0 && ref instanceof Object && checkAvailability && ctx === Game) {
+			if (ref instanceof Object && checkType && ctx === Game) {
 					
-				if (ref.fillsRequire instanceof Function) isAvailable &&= ref.fillsRequire(ctx);
-				if (ref.canPay instanceof Function) isAvailable &&= ref.canPay(value);
+				if (checkType === CheckTypes.NEED && ref.fillsRequire instanceof Function) isAvailable &&= ref.fillsRequire(ctx);
+				if (checkType === CheckTypes.COST && ref.canPay instanceof Function) isAvailable &&= ref.canPay(value);
+				if (checkType === CheckTypes.FULL && ref.maxed instanceof Function) isAvailable &&= !ref.maxed();
 
 			}
 

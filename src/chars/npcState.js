@@ -84,7 +84,7 @@ export class NpcState {
 		let copy;
 
 		if ( data.template ) {
-			copy = cloneClass( data.template  || data);
+			copy = cloneClass( data.template );
 			copy = PrepData(copy, data.id );
 		} else copy = cloneClass(data,{});
 
@@ -96,6 +96,8 @@ export class NpcState {
 		if ( copy === null || copy === undefined ) {
 			console.log('NPC: Cant create: ' + p );
 			copy = data;
+		} else {
+			copy.template = data.template;
 		}
 
 		this.npcItems.set( p, copy );

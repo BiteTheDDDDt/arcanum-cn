@@ -4,6 +4,9 @@ import { TYP_STATE } from '../values/consts';
 import { ParseFlags } from './states';
 
 export default class State {
+	toJSON() {
+		return undefined;
+	}
 
 	get type() { return TYP_STATE }
 	set type(v){}

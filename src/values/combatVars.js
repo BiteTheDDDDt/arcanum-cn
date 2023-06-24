@@ -174,6 +174,25 @@ export const ParseTarget = (s)=>{
 
 }
 
+export const GetTarget = (n) => {
+	if(!n || typeof n !== "number") return "";
+
+	let targs = Object.entries(Targets);
+
+	let str = targs.find(it => it[1] === n);
+	if(str) return str[0];
+
+	str = [];
+	for(let [targ, val] of targs.sort((a, b) => b[1] - a[1])) {
+		if(val > n) continue;
+		if(val & n === val) {
+			str.push(targ);
+			n -= val;
+		}
+	}
+	return str.join(",");
+}
+
 /**
  * Create a function that returns a numeric damage value.
  * function has format: (a)ctor, (t)arget, (g)ameState

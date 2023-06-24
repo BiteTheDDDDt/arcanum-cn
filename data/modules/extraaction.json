@@ -36,7 +36,7 @@
 			},
 			{
 				"id": "emptytimepiece",
-				"name": "empty timepiece",
+				"name": "intricate timepiece",
 				"group": "spacetime",
 				"desc": "An ordinary timepiece, crafted with remarkable materials.",
 				"max": 6,
@@ -108,7 +108,7 @@
 					"bloodgem": 0.25,
 					"managem": 0.25,
 					"runestones": 0.15,
-					"timegem": 0.07
+					"timegem": 0.05
 				},
 				"result": {
 					"chargedtimepiece": 1
@@ -131,7 +131,7 @@
 				"cost": {
 					"timegem": 100,
 					"timerune": 3,
-					"clepsydra": 200
+					"clepsydra100": 2
 				},
 				"result": {
 					"stillroom": 1

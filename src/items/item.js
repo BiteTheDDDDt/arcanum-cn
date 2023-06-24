@@ -33,7 +33,7 @@ export default class Item {
 
 	toJSON() {
 
-		let data = Base.toJSON.call(this);
+		let data = Base.toJSON.call(this) || {};
 
 		if ( !this.template && !this.recipe ) {
 
@@ -56,7 +56,7 @@ export default class Item {
 		data.id = this.id;
 		data.recipe = this.recipe;
 
-		return data ? data : undefined;
+		return data && Object.keys(data).length ? data : undefined;
 
 	}
 
@@ -134,14 +134,14 @@ export default class Item {
 		}
 
 		if ( this.use ) {
-
-			if (this.use.dot ) {
-				g.state.player.addDot( this.use.dot, this );
+			let {dot, attack, ...vars} = this.use;
+			if ( dot ) {
+				g.state.player.addDot( dot, this );
 			}
-			if (this.use.attack ) {
+			if ( attack ) {
 				Events.emit( ITEM_ACTION, this, g )
 			}
-			g.applyVars( this.use );
+			g.applyVars( vars );
 
 		}
 

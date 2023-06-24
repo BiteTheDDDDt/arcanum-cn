@@ -15,11 +15,12 @@ const ALL_ALT = '*';
  * fillall - fill all resources.
  * emptyall - remove all count of item.
  * emptyid - remove all of one item type.
+ * help - prints this list into the console.
  * removeall [amount] - remove quantity from one resource.
  * remove [item] [amount] - remove quantity of item.
  * lock [item] - apply lock to item.
  * unlock [item] - unlock item.
- * unlockall - unlock all items
+ * unlockall - unlock all items.
  *
  *
  */
@@ -229,5 +230,28 @@ export default class Debug {
 		});
 
 	}
+
+  help(){
+    window.alert("Printed to console!");
+    console.log(
+    "Current commands:"
+    +"\n(Items refer to any Data items in game: Upgrades, furniture,actions, etc.)"
+    +"\naddmax, max - add stat max"
+    +"\nget [item|amount] [item|amount] - get quantity of item."
+    +"\nadd - same as get"
+    +"\naddall [amount] - add quantity to all items."
+    +"\ngetall [amount] - same as addall"
+    +"\nfill [item] - fill item."
+    +"\nfillall - fill all resources."
+    +"\nemptyall - remove all count of item."
+    +"\nemptyid - remove all of one item type."
+    +"\nhelp - prints this list into the console."
+    +"\nremoveall [amount] - remove quantity from one resource."
+    +"\nremove [item] [amount] - remove quantity of item."
+    +"\nlock [item] - apply lock to item."
+    +"\nunlock [item] - unlock item."
+    +"\nunlockall - unlock all items."
+  );
+  }
 
 }

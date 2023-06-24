@@ -539,7 +539,7 @@ export default class GameState {
 		if ( it.isRecipe || it.instanced ) {
 
 			return this.inventory.find(it.id,true) != null ||
-			this.drops.find(it.id,true) != null || this.equip.find(it.id,true) != null;
+			this.drops.find(it.id,true) != null || this.equip.find(it.id,true) != null || this.items.enchantslots.findItem(it.id,true) != null;
 
 		} else return it.value > 0;
 

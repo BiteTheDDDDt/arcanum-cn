@@ -207,6 +207,24 @@
 				"type": "armor",
 				"slot": "trinket",
 				"enchants": 0
+			},
+			{
+				"id": "coldnecklace",
+				"name": "coldsteel necklace",
+				"desc": "Wearing it makes your thoughts cold and your focus sharp.",
+				"unique": true,
+				"level": 1,
+				"armor": 3,
+				"type": "armor",
+				"kind": "necklace",
+				"slot": "neck",
+				"enchants": 10,
+				"alter": {
+					"mod": {
+						"focus.effect.runner.exp": "25%",
+						"stress.rate": -0.3
+					}
+				}
 			}
 		]
 	}

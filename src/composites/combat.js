@@ -10,7 +10,7 @@ import { NO_SPELLS } from '../chars/states';
 
 import { TEAM_PLAYER, getDelay, TEAM_NPC, TEAM_ALL } from '../values/consts';
 import { TARGET_ENEMY, TARGET_ALLY, TARGET_SELF,
-	TARGET_RAND, TARGET_PRIMARY, ApplyAction, TARGET_GROUP, TARGET_ANY, RandTarget, PrimeTarget } from "../values/combatVars";
+	TARGET_RAND, TARGET_PRIMARY, ApplyAction, TARGET_GROUP, TARGET_ANY, RandTarget, PrimeTarget, TARGET_LEADER } from "../values/combatVars";
 import Npc from '../chars/npc';
 
 
@@ -124,6 +124,7 @@ export default class Combat {
 		}
 
 		this._allies.unshift( this.player );
+		this.enemies = [...this.enemies];
 
 		this.resetTeamArrays();
 
@@ -330,7 +331,7 @@ export default class Combat {
 			return RandTarget(group);
 		} else if ( targets & TARGET_SELF ) return char;
 
-		if ( targets & TARGET_PRIMARY) return PrimeTarget(group);
+		if ( targets & TARGET_PRIMARY || targets & TARGET_LEADER) return PrimeTarget(group);
 		if ( targets & TARGET_RAND ) return RandTarget(group);
 
 	}
@@ -342,7 +343,7 @@ export default class Combat {
 	 * @param {number} team - ally team.
 	 */
 	getGroup( targets, team ) {
-
+		
 		if ( !targets || (targets & TARGET_ENEMY) ) {
 
 			return team === TEAM_PLAYER ? this.enemies : this.allies;
@@ -353,6 +354,12 @@ export default class Combat {
 		} else if ( targets & TARGET_ANY ) return this.teams[TEAM_ALL];
 		else if ( targets & TARGET_RAND ) {
 			return Math.random() < 0.5 ? this.allies : this.enemies;
+		}
+		else if ( targets & TARGET_LEADER ) {
+			return team === TEAM_PLAYER ? this.enemies : this.allies;
+		}
+		else if ( targets & TARGET_PRIMARY ) {
+			return team === TEAM_PLAYER ? this.allies : this.enemies;
 		}
 		return null;
 

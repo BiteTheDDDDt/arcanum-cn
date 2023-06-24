@@ -14,11 +14,10 @@ export default class DataList extends Inventory {
 
 	toJSON(){
 
-		let data = super.toJSON();
-		if ( data.order !== LOOP ) data.order = this.order;
+		let data = super.toJSON() || {};
 		data.lastInd = this.lastInd || undefined;
 
-		return data;
+		return data && Object.keys(data).length ? data : undefined;
 
 	}
 

@@ -7,12 +7,11 @@ export default class CharUpgrade extends GData {
 
 	toJSON(){
 
-		let p = super.toJSON();
+		let data = super.toJSON() || {};
 		if ( this.char ) {
-			if ( !p ) p = {};
-			p.char = this.char;
+			data.char = this.char;
 		}
-		return p;
+		return data && Object.keys(data).length ? data : undefined;
 
 	}
 

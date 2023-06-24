@@ -3,7 +3,7 @@
 import Profile from '../../modules/profile';
 
 import Info from './charinfo.vue';
-import Upgrades from '../panes/upgrades.vue';
+import Upgrades from './hall_upgrades.vue';
 import {centerXY} from '../popups/popups.js';
 import { EVT_STAT } from '../../events';
 

@@ -1,6 +1,7 @@
 <script>
 import Game from 'game';
 import {alphasort} from 'util/util';
+import { UPGRADE } from '../../values/consts';
 
 export default {
 
@@ -15,10 +16,13 @@ export default {
 			return Game.state.classes.filter(v=>!v.disabled&&v.value>=1);
 		},
 		tasks() {
-			return Game.state.tasks.filter(v=>v.max==1&&!v.disabled&&v.value>=1).sort(alphasort);
+			return Game.state.tasks.filter(v=>v.max>=1&&!v.disabled&&v.value>=1).sort(alphasort);
 		},
 		upgrades(){
 			return Game.state.upgrades.filter(v=>!v.disabled&&v.value>=1).sort(alphasort);
+		},
+		hallUpgrades() {
+			return Object.values(Game.state.items).filter(v=>v.type==='upgrade'&&!this.upgrades.includes(v)&&!v.disabled&&v.value>=1).sort(alphasort);
 		}
 	}
 
@@ -35,6 +39,8 @@ export default {
 	<div v-for="it in tasks" :key="it.id" @mouseenter.capture.stop="itemOver( $event,it)">{{it.name.toTitleCase() + count(it) }}</div>
 	<div v-if="upgrades.length != 0" class="div-hr">Upgrades</div>
 	<div v-for="it in upgrades" :key="it.id" @mouseenter.capture.stop="itemOver( $event,it)">{{it.name.toTitleCase() + count(it) }}</div>
+	<div v-if="hallUpgrades.length != 0" class="div-hr">Hall Upgrades</div>
+	<div v-for="it in hallUpgrades" :key="it.id" @mouseenter.capture.stop="itemOver( $event,it)">{{it.name.toTitleCase() + count(it) }}</div>
 	</div>
 </div>
 </template>

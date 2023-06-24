@@ -1,6 +1,6 @@
 import GData from './items/gdata';
 import Log from './log.js';
-import GameState, { REST_SLOT } from './gameState';
+import GameState from './gameState';
 import ItemGen from './modules/itemgen';
 import TechTree, { Changed, GetChanged } from './techTree';
 import Resource from './items/resource';
@@ -128,6 +128,9 @@ export default {
 			await this.recheckTiers();
 			await this.restoreMods();
 
+			// Runner's waiting list is trimmed after runner max mods are applied
+			this.runner.trimWaiting();
+
 			techTree = new TechTree( this.gdata );
 			//Events.add( EVT_UNLOCK, techTree.unlocked, techTree );
 			//Events.add( CHAR_ACTION, this.onCharAction, this );
@@ -227,6 +230,7 @@ export default {
 
 				if ( it.value != 0 ) {
 
+					if ( it.applyImproves ) it.applyImproves();
 					if ( it.mod ) this.applyMods( it.mod, it.value, it.id);
 					if ( it.lock ) {
 						this.lock( it.lock, it.value );
@@ -247,7 +251,17 @@ export default {
 				else console.warn("Equipped item has mods but no remod.", e);
 			}
 		}
-
+		
+		for( let r of this.runner.actives ) {
+			if(r.runmod){
+				this.applyMods( a.runmod )
+			}
+			if(r.locale){
+				if(r.locale.runmod){
+					this.applyMods( r.locale.runmod )
+				}
+			}
+		}
 
 	},
 
@@ -346,7 +360,7 @@ export default {
 
 				}
 				if ( stat.effect ) {
-					this.applyVars( stat.effect, dt );
+					this.applyVars( stat.effect, dt, stat.value );
 				}
 
 			}
@@ -364,7 +378,7 @@ export default {
 	/**
 	 * Wrapper for Runner rest
 	 */
-	doRest() { this.runner.tryAdd( this.state.getSlot(REST_SLOT) ) },
+	doRest() { this.runner.tryRest() },
 
 	haltTask(a) { this.runner.stopTask(a);},
 
@@ -862,10 +876,10 @@ export default {
 	 * @param {GData} vars
 	 * @param {number} dt - time elapsed.
 	 */
-	applyVars( vars, dt=1 ) {
+	applyVars( vars, dt=1, amt=1 ) {
 
 		if (  Array.isArray(vars) ) {
-			for( let e of vars ) { this.applyVars( e,dt); }
+			for( let e of vars ) { this.applyVars( e,dt,amt); }
 
 		} else if ( typeof vars === 'object' ) {
 
@@ -886,11 +900,11 @@ export default {
 				} else {
 
 					if ( typeof e === 'number' ) {
-						target.amount( e*dt );
+						target.amount( e*dt*amt );
 					} else if ( e.isRVal ) {
 
 						// messy code. this shouldn't be here. what's going on?!?!
-						target.amount( dt*e.getApply( target ) );
+						target.amount( amt*dt*e.getApply( target ) );
 
 					} else if ( e === true ) {
 
@@ -901,7 +915,7 @@ export default {
 
 						if ( e.roll( this.getData('luck').valueOf() ) ) target.amount( 1 );
 
-					} else target.applyVars(e,dt);
+					} else target.applyVars(e,dt,amt);
 
 					Changed.add(target);
 				}
@@ -1142,17 +1156,19 @@ export default {
 				else if ( res.instanced || res.isRecipe ) {
 
 					/* @todo: ensure correct inventory used. map type-> default inventory? */
-					return this.state.inventory.hasCount( res, amt );
+					if(!this.state.inventory.hasCount( res, amt )) return false;
 
 				} else if ( !isNaN(sub) || sub.isRVal ) {
 
-					if ( res.canPay && !res.canPay(sub*amt) ) return false;
+					if ( !res.canPay ) console.warn("Missing canPay function for", res);
+					else if ( !res.canPay(sub*amt) ) return false;
 					//if ( res.value < sub*amt ) return false;
 
 				} else {
 
 					// things like research.max. with suboject costs.
-					if ( res.canPay && !this.canPayObj( res, sub, amt ) ) return false;
+					if ( !res.canPay ) console.warn("Missing canPay function for", res);
+					else if ( !this.canPayObj( res, sub, amt ) ) return false;
 
 				}
 
@@ -1187,7 +1203,9 @@ export default {
 
 			var val = cost[p];
 			if ( !isNaN(val) || (val instanceof RValue) ) {
-				if ( parent.value < val*amt ) return false;
+				if ( parent.canPay ) {
+					if ( !parent.canPay(val*amt) ) return false;
+				} else if ( parent.value < val*amt ) return false;
 			} else if ( typeof val === 'object'){
 
 

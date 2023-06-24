@@ -393,7 +393,8 @@
 					"spiritgem": 50
 				},
 				"alter": {
-					"mod.trapsoul.result.souls.max": 0.25
+					"mod.trapsoul.result.souls.max": 0.25,
+					"mod.gathersouls.result.souls.max": 1
 				}
 			},
 			{

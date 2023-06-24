@@ -4,6 +4,7 @@ import Item from "../items/item";
 
 import { itemRevive } from "../modules/itemgen";
 import { Changed } from "../techTree";
+import { moveElm } from "../util/array";
 
 /**
  * Option for saveMap which will full-save instanced items
@@ -329,6 +330,10 @@ export default class Inventory {
 		this.items.splice(start,1,temp);
 
 		
+	}
+
+	move(it, amt) {
+		return moveElm(this.items, it, amt);
 	}
 
 	/**

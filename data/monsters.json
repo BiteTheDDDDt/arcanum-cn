@@ -3788,7 +3788,7 @@
 			}
 		],
 		"loot": {
-			"karnivexcrown": "10%"
+			"karnivexcrown": "100%"
 		}
 	},
 	{
@@ -3969,7 +3969,7 @@
 		"id": "jazid",
 		"level": 26,
 		"kind": "kell",
-		"require": "jazidscompass",
+		"require": "g.jazidscompass.isEquipped()",
 		"unique": true,
 		"desc": "Jazid's sole purpose is to kill the bearer of his compass.",
 		"hp": 2500,

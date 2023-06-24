@@ -37,7 +37,7 @@ export default class Spell extends Task {
 	set attack(v){
 
 		if ( v != null ) {
-			if ( !(v instanceof Attack)) v = new Attack(v);
+			if ( !(v instanceof Attack)) v = new Attack(v, this);
 			if ( !v.name ) v.name = this.name;
 			if (!v.kind) v.kind = this.school;
 		}
@@ -50,7 +50,7 @@ export default class Spell extends Task {
 
 		if ( v) {
 			//console.dir(v, this.id);
-			if ( !(v instanceof Attack)) v = new Attack(v);
+			if ( !(v instanceof Attack)) v = new Attack(v, this);
 			if ( !v.name ) v.name = this.name;
 			if (!v.kind) v.kind = this.school;
 		}
@@ -60,11 +60,11 @@ export default class Spell extends Task {
 
 	toJSON(){
 
-		let data = super.toJSON();
+		let data = super.toJSON() || {};
 
 		if ( this.owned ) data.owned = this.owned;
 
-		return data;
+		return data && Object.keys(data).length ? data : undefined;
 	}
 
 	constructor(vars=null) {
@@ -81,10 +81,6 @@ export default class Spell extends Task {
 			if ( !this.buy ) this.buy = {};
 			if ( this.buy.arcana == null && this.level > 1 ) this.buy.arcana = this.level - 1;
 
-		}
-
-		if ( this.dot && !this.dot.id) {
-			this.dot.id = this.dot.name || this.name;
 		}
 
 		if ( this.locked !== false ) {

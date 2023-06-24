@@ -183,6 +183,34 @@ export const assignPublic = ( dest, src ) => {
 
 }*/
 
+export function getPropertyDescriptors(obj, ...props) {
+	let descs = {};
+	while(obj !== Object.prototype && props.length) {
+		let currentDesc = Object.getOwnPropertyDescriptors(obj);
+		props = props.filter(prop => {
+			//Checks if property exists in current descriptor set, and if it does, saves it, then marks it as found by filtering it out.
+			if(currentDesc[prop]) {
+				desc[prop] = currentDesc[prop];
+				return false;
+			}
+			return true;
+		});
+		obj = Object.getPrototypeOf(obj);
+	}
+	return descs;
+}
+
+export function getAllPropertyDescriptors(obj) {
+	let descs = {};
+	while(obj !== Object.prototype) {
+		for(let [prop, desc] of Object.entries(Object.getOwnPropertyDescriptors(obj))) {
+			if(!descs[prop]) descs[prop] = desc;
+		}
+		obj = Object.getPrototypeOf(obj);
+	}
+	return descs;
+}
+
 export const assignNoFunc = ( dest, src ) => {
 
 	var vars = src;

@@ -122,7 +122,7 @@ export default class Context {
 	 * @returns {boolean} true if cost can be paid.
 	 */
 	canPay( cost, amt=1 ) {
-
+		/*
 		if (cost===null||cost===undefined) return true;
 		// @note @todo: this doesnt work since some items might charge same cost.
 		if (Array.isArray(cost) ) return cost.every( v=>this.canPay(v,amt), this );
@@ -139,7 +139,7 @@ export default class Context {
 				if ( !res ) return false;
 				else if ( res.instanced || res.isRecipe ) {
 
-					/* @todo: ensure correct inventory used. map type-> default inventory? */
+					// @todo: ensure correct inventory used. map type-> default inventory?
 					return this.state.inventory.hasCount( res, amt );
 
 				} else if ( !isNaN(sub) || sub.isRVal ) {
@@ -157,7 +157,7 @@ export default class Context {
 			}
 
 		}
-
+		*/
 		return true;
 	}
 
@@ -236,12 +236,13 @@ export default class Context {
 	 * @returns {boolean}
 	 */
 	canRun( it ) {
-
+		/*
 		if ( !it.canRun ) {
 			console.error( it.id + ' no canRun()');
 			return false;
 		} else return it.canRun( this, TICK_LEN );
-
+		*/
+		return true;
 	}
 
 	canUse(it) {
@@ -281,10 +282,10 @@ export default class Context {
 
 	}
 
-	applyVars( vars, dt ) {
+	applyVars( vars, dt, amt=1 ) {
 		
 		if (  Array.isArray(vars) ) {
-			for( let e of vars ) { this.applyVars( e,dt); }
+			for( let e of vars ) { this.applyVars( e,dt,amt); }
 
 		} else if ( typeof vars === 'object' ) {
 
@@ -306,11 +307,11 @@ export default class Context {
 
 					if ( typeof e === 'number' ) {
 
-						target.amount( e*dt );
+						target.amount( e*dt*amt );
 
 					} else if ( e.isRVal ) {
 						// messy code. this shouldn't be here. what's going on?!?!
-						target.amount( dt*e.getApply(this.state, target ) );
+						target.amount( amt*dt*e.getApply(this.state, target ) );
 
 					} else if ( e === true ) {
 
@@ -321,7 +322,7 @@ export default class Context {
 
 						if ( e.roll() ) target.amount( 1 );
 
-					} else target.applyVars(e,dt);
+					} else target.applyVars(e,dt,amt);
 
 				}
 			}

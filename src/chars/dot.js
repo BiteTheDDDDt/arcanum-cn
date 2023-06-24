@@ -3,6 +3,8 @@ import { ParseDmg } from "../values/combatVars";
 import { assign } from 'objecty';
 import { ParseFlags, NO_SPELLS, NO_ATTACK, NO_DEFEND } from "./states";
 import { TYP_DOT } from "../values/consts";
+import Game from "../game";
+import { getAllPropertyDescriptors } from "../util/util";
 
 
 export default class Dot {
@@ -14,12 +16,52 @@ export default class Dot {
 			return undefined;
 		}
 
+		let src = this.source && Game.getData(this.source.id);
+
+		// @TODO also need to check gs for source existence within gs.
+		// template check due to possible overlap of indirect game ids (like an attack) and game ids, while allowing npc dot source checks.
+		if(!src || src.template !== this.source.template) {
+			let descs = getAllPropertyDescriptors(this);
+			let save = {};
+
+			for(let [prop, desc] of Object.entries(descs)) {
+				if(
+					// ignore "protected" properties
+					prop[0] !== "_" && 
+					// no nullish or function values
+					this[prop] != null && 
+					!(this[prop] instanceof Function) &&
+					// the property in question has to be writable, 
+					// but if the property has a setter, the value has to match its protected property.
+					// if the setter does not have a protected property with the same name, it is not saved.
+					// @note gimmicky workaround. Since Vue replaces an object's properties with getters and setters,
+					// a check for the setter's name being reactiveSetter is needed to differentiate from the setters defined in file. 
+					(desc.writable || (desc.set && (desc.set.name === "reactiveSetter" || this[prop] === this["_" + prop])))
+				) save[prop] = this[prop];
+			}
+
+			// Source deletion, as force saving means that the source won't be found through game's getData.
+			if(save.source) delete save.source;
+
+			// Specific inclusion of level property due to level possibly depending on source
+			if(this.level != null) save.level = this.level;
+			
+			// Various edits to the save
+			if(!save.flags) delete save.flags;
+			save.tags = save.tags.join(",") || undefined;
+
+			console.warn("Forcibly saving DOT", this, save);
+			return save;
+		}
+
 		return {
 
 			id:this._id,
 			kind:this.kind || undefined,
 			name:this._name || undefined,
+			tags:this.tags.join(",") || undefined,
 			dmg:this.damage || undefined,
+			// level:this.level || undefined,
 			effect:this.effect||undefined,
 			level:this._level||undefined,
 			mod:this._mod||undefined,
@@ -34,7 +76,7 @@ export default class Dot {
 
 	}
 
-	get name(){return this._name || this._id}
+	get name(){return this._name || this._id; } //(this._id.substring(0, 4) !== "dot_" ? this._id : this._id.substring(4));}
 	set name(v){this._name =v;}
 
 	get id() { return this._id; }
@@ -85,7 +127,9 @@ export default class Dot {
 	/**
 	 * @property {number} level - level (strength) of dot.
 	 */
-	get level(){return this._level || this.source ? (this.source.level || 0 ) : 0; }
+	get level(){
+		return this._level || (this.source ? this.source.level || 0 : 0);
+	}
 	set level(v){this._level=v;}
 
 	/**
@@ -93,6 +137,16 @@ export default class Dot {
 	 */
 	get perm(){return this._perm;}
 	set perm(v) { this._perm =v}
+
+	get tags() {
+		return this._tags
+	}
+	set tags(v) {
+		if(!v) return;
+		if(typeof v === "string") this._tags = v.split(",").map(t => t.trim());
+		else if(Array.isArray(v)) this._tags = v;
+		else console.warn("Unknown tags in setter", v);
+	}
 
 	get type(){ return TYP_DOT}
 
@@ -108,7 +162,7 @@ export default class Dot {
 
 		this.source = this.source || source || null;
 
-		this.name = name || this.name || ( source ? source.name : null );
+		this.name = name || this._name || ( source ? source.name : null );
 
 		if ( !this.id ) console.warn('BAD DOT ID: ' + this.name );
 
@@ -138,6 +192,8 @@ export default class Dot {
 		 */
 		this.acc = this.acc || 0;
 
+		if(!this.tags) this.tags = [];
+
 	}
 
 	/**
@@ -158,6 +214,7 @@ export default class Dot {
 	}
 
 	revive(gs) {
+		// @note uses GameState (player's context) and not the owner's state, which could be a npc's state.
 		if ( this.source && typeof this.source === 'string') this.source = gs.getData( this.source );
 	}
 

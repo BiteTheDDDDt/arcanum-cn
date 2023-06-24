@@ -96,10 +96,9 @@ export default class QuickSlot extends Proxy {
 
 			return this.item;
 
-		} else if ( this.item ) {
+		} else if ( this.item && this.item.count > 0 ) { //@TODO make sure wearables dont try to do findInstance. 
 
-			if ( this.item.value > 0 || (this.recipe !== this.item.id )) return this.item;
-
+			 return this.item;
 
 		} else if ( this.recipe ) return g.state.findInstance( this.recipe, true );
 

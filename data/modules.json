@@ -25,7 +25,8 @@
 		"stressors",
 		"rares",
 		"reagents",
-		"properties"
+		"properties",
+		"hall"
 	],
 	"modules": [
 		"patrons",
@@ -36,6 +37,8 @@
 		"ritualist",
 		"extramats",
 		"extraaction",
-		"legacy"
+		"legacy",
+		"timerip",
+		"furniture_upgrades"
 	]
 }

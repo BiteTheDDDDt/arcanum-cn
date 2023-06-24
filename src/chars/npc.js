@@ -19,7 +19,7 @@ export default class Npc extends Char {
 
 	toJSON() {
 
-		let data = super.toJSON();
+		let data = super.toJSON() || {};
 		data.id = this.id;
 
 		data.cost = undefined;

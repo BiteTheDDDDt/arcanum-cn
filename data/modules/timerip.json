@@ -1,0 +1,1230 @@
+{
+	"module": "timerip",
+	"data": {
+		"dungeons": [
+			{
+				"id": "timerip_clash",
+				"name": "unknown timeline",
+				"unreturnable": true,
+				"sym": "⌛️",
+				"desc": "The unmistakable ticking of a timepiece of your own making catches your attention. Who could possibly own one?",
+				"require": "g.timerip_locale>=15",
+				"level": 1,
+				"run": {
+					"stamina": 1,
+					"tempus": 3
+				},
+				"buy": {
+					"chargedtimepiece": 1
+				},
+				"once":
+				{
+					"chargedtimepiece": 2
+				},
+				"result": {
+					"title":"Foredoomed"
+				},
+				"length": 1,
+				"boss": {
+				"1":[
+					"timerip_unknown_wizard"
+				]
+				},
+				"runmod":
+				{
+					"timeparadox.mod.instability.rate":0.3,
+					"timeparadox.mod.hp.max": "-2%"
+				}
+			}
+			
+		],
+		"locales": [
+			{
+				"id": "timerip_locale",
+				"name": "rip in time",
+				"level": 15,
+				"length": 150,
+				"sym": "⌛️",
+				"require": "evt_timerip",
+				"buy": {
+					"emptytimepiece": 1
+				},
+				"desc": "This can't possibly be a bad idea.",
+				"run": {
+					"stamina": 3,
+					"tempus": 1
+				},
+				"loot": {
+					"timegem": 25,
+					"timerune": 2
+				},
+				"encs": [
+					"timerip_stablehorse",
+					"timerip_stablehorse_paradox",
+					"timerip_apprentice",
+					"timerip_neophyte_evil",
+					"timerip_neophyte_good",
+					"timerip_neophyte_savant",
+					"timerip_darkmagician",
+					"timerip_reanimator",
+					"timerip_reanimator_paradox",
+					"timerip_unattended_gems",
+					"timerip_witch",
+					"timerip_holdup",
+					"timerip_trickster",
+					"timerip_thanophage",
+					"timerip_battlemage",
+					"timerip_dragon",
+					"timerip_bladeweaver",
+					"timerip_eldritchknight",
+					"timerip_warlock",
+					"timerip_mechamancer",
+					"timerip_mechamancer_paradox",
+					"timerip_summoner",
+					"timerip_alchemist",
+					"timerip_titan",
+					"timerip_elementalist",
+					"timerip_druid",
+					"timerip_druid_paradox",
+					"timerip_oracle",
+					"timerip_mage",
+					"timerip_doomsayer",
+					"timerip_necromancer",
+					"timerip_mirror",
+					"timerip_mirror2",
+					"timerip_mirror3",
+					"timerip_workshop"
+				],
+				"runmod":
+				{
+					"timeparadox.mod.instability.rate":0.2,
+					"timeparadox.mod.stress.max": "-3%"
+				}
+			}
+		],
+		"tasks": [
+			{
+				"id": "stabilize",
+				"desc": "Untangle the paradoxes. Assert your existence.",
+				"require": "g.instability>25",
+				"tags": "t_rest",
+				"slot": "rest",
+				"verb": "anchoring",
+				"perpetual": true,
+				"effect": {
+					"prismatic": 0.15,
+					"stamina": 0.2,
+					"hp": 0.3,
+					"stress": -0.2,
+					"tempus": 0.1,
+					"instability": -1,
+					"timeparadox": -0.01
+				},
+				"flavor": "It's as if you ever existed."
+			}
+		],
+		"potions": [
+			{
+				"id": "pot_stability",
+				"name": "draught of memory",
+				"desc": "Grants you precise and immutable memory, for a time.",
+				"level": 5,
+				"require": "g.timerip_locale>=5&&g.potions>=5&&g.chronomancy>=5",
+				"buy": {
+					"gold": 30000,
+					"tomes": 150,
+					"tempus": 150
+				},
+				"cost": {
+					"tempus": 100,
+					"timegem": 1	
+				},
+				"use": {
+					"dot": {
+						"mod": {
+							"stabilize.effect.instability": -0.5,
+							"stabilize.effect.timeparadox": -0.01
+						},
+						"duration": 3600
+					}
+				}
+			}
+		],
+		"resources": [
+			{
+				"id": "timeparadox",
+				"name": "time paradox",
+				"desc": "Hold on, the stables were demolished a century ago?",
+				"group": "adversities",
+				"rate":"-0.01",
+				"max": 20,
+				"flavor": "No relation to usage of postmen to deliver volatile materials."
+			},
+			{
+				"id": "instability",
+				"desc": "Time is a dangerous thing. Try not to wink out of existence",
+				"max": 500,
+				"reverse": "true",
+				"rate":"-0.1",
+				"tags": "menace",
+				"mod": {
+					"tempus.rate": "-0.2%",
+					"prismatic.rate": -0.01,
+					"gems.rate": -0.01,
+					"research.rate": -1
+				}
+			}
+		],
+		"furniture": [
+			{
+				"id": "clepsydra100",
+				"name": "clockwork cabinet",
+				"desc": "An enormous collection of clocks, all tuned to different times.",
+				"require": "tier6",
+				"tags": "timesource",
+				"repeat": true,
+				"cost": {
+					"gold": 10000,
+					"research": 10000
+				},
+				"mod": {
+					"tempus.max": 100,
+					"tempus.rate": 1,
+					"water.rate": 1,
+					"space": 100
+				},
+				"flavor": "It took a lot of time to make this, not that you kept track"
+			}
+		],
+		"rares": [
+			{
+				"id": "timeedge",
+				"name": "time's flowering edge",
+				"desc": "Blossoming flows of time coalesce into a cutting edge right before your eyes.",
+				"type": "weapon",
+				"unique": true,
+				"attack": {
+					"kind": "slash",
+					"damage": "15~20"
+				},
+				"alter": {
+					"mod": {
+						"tempus.rate": 0.5,
+						"tempus.max": 50,
+						"player.dodge": 8,
+						"player.speed": 5,
+						"instability.rate": -0.1,
+						"timeparadox.rate": -0.01
+					}
+				},
+				"hands": 2,
+				"tags": "t_katana,t_swords,t_artifact",
+				"level": 15,
+				"enchants": 15,
+				"sell": {
+					"timegem": 25,
+					"timerune": 5
+				}
+			}
+		],
+		"upgrades": [
+			{
+				"id": "timeledger",
+				"name": "ledger of time",
+				"desc": "A book of uncertain dimensions, containing exacting information about various states of the universe.",
+				"require": "g.timerip_locale>=1&&g.chronomancy>=5",
+				"cost": {
+					"research": 33333,
+					"timegem": 20,
+					"timerune": 2
+				},
+				"mod": {
+					"stabilize.effect.instability": -0.3,
+					"stabilize.effect.timeparadox": -0.01
+				}
+			},
+			{
+				"id": "paradoxmitigation",
+				"name": "paradox disentanglement",
+				"desc": "A paradox is nothing but a simple inconsistency in the universe. Nothing a little mathemagic cannot solve.",
+				"require": "g.timerip_locale>=10&&g.chronomancy>=5",
+				"cost": {
+					"research": 33333,
+					"timeparadox": 10,
+					"timerune": 3
+				},
+				"mod": {
+					"timeparadox.rate": -0.01,
+					"timerip_locale.runmod.timeparadox.mod.instability.rate": -0.04
+				}
+			},
+			{
+				"id": "instabilitymitigation",
+				"name": "instability mitigation",
+				"desc": "Time is merciless to those who abuse it. However, there may be ways to soften the blow.",
+				"require": "g.timerip_locale>=10&&g.chronomancy>=5",
+				"cost": {
+					"research": 33333,
+					"instability": 90,
+					"timerune": 3
+				},
+				"mod": {
+					"instability.rate": -0.3,
+					"instability.mod.tempus.rate": "0.1%"
+				}
+			},
+			{
+				"id": "restfulstabilization",
+				"name": "restful stabilization",
+				"desc": "With the immense amount of practice, you can streamline the stabilization process allowing you to regain more strength while using it.",
+				"require": "g.timerip_locale>=5&&g.chronomancy>=5",
+				"cost": {
+					"research": 33333,
+					"timegem": 20,
+					"timerune": 3
+				},
+				"mod": {
+					"stabilize.effect.prismatic": 0.15,
+					"stabilize.effect.stamina": 0.2,
+					"stabilize.effect.hp": 0.3,
+					"stabilize.effect.stress": -0.2,
+					"stabilize.effect.tempus": 0.1
+				}
+			},
+			{
+				"id": "ripexploitation",
+				"name": "time-rip exploitation",
+				"desc": "Now that you have walked the timelines so many times, you can shorten the time needed to procure time gems significantly.",
+				"require": "g.timerip_locale>=15&&g.chronomancy>=5",
+				"cost": {
+					"research": 55555,
+					"timegem": 50,
+					"timerune": 3
+				},
+				"mod": {
+					"timerip_locale.length": -50
+				}
+			},
+			{
+				"id": "ripshortening",
+				"name": "rip concentration",
+				"desc": "With an expenditure of specially-prepared conduits, further improvements to time collection efficiency are possible.",
+				"require": "g.ripexploitation>0",
+				"max": 5,
+				"cost": {
+					"chargedtimepiece": 1
+				},
+				"mod": {
+					"timerip_locale.length": -10,
+					"timerip_locale.run.stamina": 0.2,
+					"timerip_locale.run.tempus": 0.2
+				}
+			}
+		],
+		"spells": [
+			{
+				"id": "perfectstability",
+				"name": "perfect stability",
+				"level": 25,
+				"school": "time",
+				"desc": "Unleash the stored time to mask your own meddling.",
+				"require": "g.instability>50&&g.chronomancy>=5",
+				"buy": {
+					"research": 50000,
+					"clepsydra100": 1
+				},
+				"cost": {
+					"chargedtimepiece": 1
+				},
+				"dot": {
+					"duration": 3600,
+					"mod": {
+						"instability.rate": -100,
+						"timeparadox.rate": -10
+					}
+				}
+			},
+			{
+				"id": "temporalanchor",
+				"name": "temporal anchor",
+				"level": 15,
+				"cd":"100",
+				"school": "time",
+				"desc": "Utilize an anchor to achieve transient temporal stability.",
+				"require": "g.instability>50&&g.chronomancy>=5",
+				"buy": {
+					"research": 30000,
+					"clepsydra": 5
+				},
+				"cost": {
+					"tempus": 25
+				},
+				"dot": {
+					"duration": 120,
+					"mod": {
+						"instability.rate": -0.3,
+						"timeparadox.rate": -0.01
+					}
+				}
+			},
+			{
+				"id": "temporalalignment",
+				"name": "temporal alignment",
+				"level": 15,
+				"school": "time",
+				"cd": 300,
+				"desc": "Re-align yourself with primary timeline.",
+				"require": "g.instability>50&&g.chronomancy>=5",
+				"buy": {
+					"research": 25000,
+					"clepsydra": 5
+				},
+				"cost": {
+					"tempus": 50,
+					"instability": 15,
+					"timeparadox": 1
+				},
+				"result": {
+					"instability": -45,
+					"timeparadox": -5
+				}
+			},
+			{
+				"id": "timerip_stress",
+				"name": "mind resilience",
+				"level": 15,
+				"school": "time",
+				"cd": 100,
+				"desc": "Steel your mind against the ravages of time.",
+				"require": "g.instability>50&&g.chronomancy>=5",
+				"buy": {
+					"research": 25000,
+					"clepsydra": 5
+				},
+				"cost": {
+					"tempus": 80
+				},
+				"dot": {
+					"duration": 120,
+					"mod": {
+						"stress.max": "20+50%",
+						"tempus.rate": -0.5
+					}
+				}
+			},
+			{
+				"id": "timerip_aeon",
+				"name": "aeon blast",
+				"level": 25,
+				"school": "time",
+				"cd": 30,
+				"desc": "In time, all perish.",
+				"require": "g.timerip_clash>0",
+				"buy": {
+					"research": 35000,
+					"clepsydra": 5
+				},
+				"cost": {
+					"tempus": 100
+				},
+				"attack": {
+					"targets": "enemies",
+					"damage": "125~250",
+					"kind": "tempus",
+					"tohit": 80
+				}
+			},
+			{
+				"id": "mon_aeon",
+				"name": "aeon blast",
+				"level": 25,
+				"require":"g.chronomancy>=9999",
+				"school": "time",
+				"desc": "In time, all perish. How are you reading this?",
+				"attack": {
+					"targets": "enemies",
+					"damage": "100~130",
+					"kind": "tempus",
+					"tohit": 80
+				}
+			},
+			{
+				"id": "timerip_distort",
+				"name": "distortion",
+				"level": 15,
+				"school": "time",
+				"cd": 10,
+				"desc": "Change the flow of time within an opponent, causing them to desynchronize.",
+				"require": "g.timerip_locale>=7",
+				"buy": {
+					"research": 25000,
+					"clepsydra": 5
+				},
+				"cost": {
+					"tempus": 60
+				},
+				"attack": {
+					"targets": "enemy",
+					"dot": {
+						"duration": 15,
+						"dmg": "25~50"
+					}
+				}
+			},
+			{
+				"id": "mon_distort",
+				"name": "distortion",
+				"level": 25,
+				"require":"g.chronomancy>=9999",
+				"school": "time",
+				"desc": "Change the flow of time within an opponent, causing them to desynchronize. How are you reading this?",
+				"attack": {
+					"hits": [
+						{
+							"targets": "enemyleader",
+							"dot": {
+							"name": "distortion",
+							"id":"mon_distortion",
+							"duration": 15,
+							"dmg": "25~35"	
+							}
+						},
+						{
+							"targets": "enemyleader",
+							"tohit":250,
+							"dot": {
+								"duration": 4,
+								"name": "destabilization",
+								"id":"mon_instability",
+								"effect": {
+									"instability": 10
+								}
+							}
+						}
+					]
+				}
+			},
+			{
+				"id": "timerip_dilate",
+				"name": "dilation",
+				"level": 15,
+				"school": "time",
+				"cd": 20,
+				"desc": "Alter the flow of time to create a localized time dilation zone.",
+				"require": "g.timerip_locale>=3",
+				"buy": {
+					"research": 15000,
+					"clepsydra": 5
+				},
+				"cost": {
+					"tempus": 30
+				},
+				"attack": {
+					"targets": "enemies",
+					"dot": {
+						"duration": 20,
+						"mod": {
+							"self.speed": -10
+						}
+					}
+				}
+			},
+			{
+				"id": "mon_dilate",
+				"name": "dilation",
+				"level": 25,
+				"school": "time",
+				"require":"g.chronomancy>=9999",
+				"desc": "Alter the flow of time to create a localized time dilation zone. How are you reading this?",
+				"attack": {
+					"hits": [
+						{
+							"targets": "enemies",
+							"dot": {
+								"name": "dilation",
+								"id":"mon_dilation",
+								"duration": 15,
+								"dmg": "10~20",	
+								"mod": {
+									"self.speed": -15
+								}
+							}
+						},
+						{
+							"targets": "enemyleader",
+							"tohit":250,
+							"dot": {
+								"name": "conflicting existence",
+								"id":"mon_paradox",
+								"duration": 4,
+								"effect": {
+									"timeparadox": 0.75
+								}
+								}
+						}
+					]
+				}
+			},
+			{
+				"id": "mon_lightregen3",
+				"name": "acausal restoration",
+				"level": 25,
+				"school": "time",
+				"require":"g.chronomancy>=9999",
+				"desc": "A regen spell for unknown wizard. How are you reading this?",
+				"attack": {
+					"hits": [
+						{
+							"targets": "self",
+							"result": {
+								"hp": 600
+							}
+						},
+						{
+							"targets": "enemyleader",
+							"tohit":250,
+							"dot": {
+								"name": "causality enforcement",
+								"id":"mon_causality",
+								"duration": 4,
+								"effect": {
+									"timeparadox": 0.5,
+									"instability": 6
+								}
+								}
+						}
+					]
+				}
+			},
+			{
+				"id": "mon_quicken",
+				"name": "acceleration",
+				"level": 25,
+				"school": "time",
+				"require":"g.chronomancy>=9999",
+				"desc": "A buff spell for unknown wizard. How are you reading this?",
+				"attack": {
+					"hits": [
+						{
+							"targets": "self",
+							"dot": {
+								"name": "quickening",
+								"id":"mon_quicken",
+								"duration": 15,
+								"mod": {
+									"self.speed": 15
+								}
+							}
+						},
+						{
+							"targets": "enemyleader",
+							"tohit":250,
+							"dot": {
+								"name": "time whiplash",
+								"id":"mon_whiplash",
+								"duration": 4,
+								"effect": {
+									"instability": 10
+								}
+								}
+						}
+					]
+				}
+			}
+
+		],
+		"encounters": [
+			{
+				"id": "enc_test",
+				"level": 2,
+				"name": "stablehand",
+				"desc": "You see someone feeding a horse. This is a test encounter, dumbass.",
+				"effect": {
+					"unease": 1,
+					"instability": 1
+				},
+				"result": {
+					"timeparadox": 1,
+					"timegem": 1,
+					"timerune": 1
+				},
+				"loot": {
+					"timeedge": 1
+				}
+			},
+			{
+				"id": "timerip_stablehorse",
+				"name": "stablehand",
+				"desc": "You see someone feeding a horse. Seems like an incredibly mundane job.",
+				"effect": {
+					"unease": "5~7",
+					"instability": 1.5,
+					"animals.exp": 200
+				}
+			},
+			{
+				"id": "timerip_stablehorse_paradox",
+				"name": "stablehand",
+				"desc": "You see someone feeding a horse. As you turn to leave, you knock a candle over.",
+				"effect": {
+					"unease": "5~7",
+					"animals.exp": 200,
+					"instability": 2
+				},
+				"result": {
+					"timeparadox": 1,
+					"timegem": "5%"
+				},
+				"loot": {
+					"timerune": "1%"
+				}
+			},
+			{
+				"id": "timerip_apprentice",
+				"name": "apprentice",
+				"desc": "An apprentice fumbles a simple errand for his master.",
+				"effect": {
+					"rage": "5~7",
+					"instability": 1.5,
+					"composure.exp": 200
+				},
+				"loot": {
+					"timerune": "1%"
+				}
+			},
+			{
+				"id": "timerip_neophyte_evil",
+				"name": "quiet night",
+				"desc": "No sound is heard, as a figure carrying a pillow approaches a bedroom.",
+				"effect": {
+					"madness": "5~7",
+					"instability": 1.5,
+					"trickery.exp": 200
+				},
+				"loot": {
+					"timerune": "1%"
+				}
+			},
+			{
+				"id": "timerip_neophyte_good",
+				"name": "graduation",
+				"desc": "An old miser takes an unfair fee from a young adept.",
+				"effect": {
+					"rage": "5~7",
+					"instability": 1.5,
+					"lore.exp": 200
+				},
+				"loot": {
+					"timerune": "1%"
+				}
+			},
+			{
+				"id": "timerip_neophyte_savant",
+				"name": "unnatural insight",
+				"desc": "An apprentice leaves his master behind, having no need for formal instruction. Highly unusual...",
+				"effect": {
+					"bf": "5~7",
+					"mysticism.exp": 200,
+					"instability": 2
+				},
+				"result": {
+					"timeparadox": 1,
+					"timegem": "5%"
+				},
+				"loot": {
+					"timerune": "1%"
+				}
+			},
+			{
+				"id": "timerip_darkmagician",
+				"name": "dark pledge",
+				"desc": "Cursed words echo in the surrounding darkness, pledging themselves to the darker arts.",
+				"effect": {
+					"madness": "5~7",
+					"instability": 1.5,
+					"shadowlore.exp": 200
+				},
+				"loot": {
+					"timerune": "1%"
+				}
+			},
+			{
+				"id": "timerip_reanimator",
+				"name": "squelch",
+				"desc": "You see a collection of organs, neatly preserved in jars. The sounds of dissection can be heard in the next room.",
+				"effect": {
+					"madness": "5~7",
+					"instability": 1.5,
+					"dissection.exp": 200
+				},
+				"loot": {
+					"timerune": "1%"
+				}
+			},
+			{
+				"id": "timerip_reanimator_paradox",
+				"name": "squelch",
+				"desc": "You see a collection of organs, neatly preserved in jars. A bone crunches underfoot.",
+				"effect": {
+					"madness": "5~7",
+					"instability": 1.5,
+					"dissection.exp": 200
+				},
+				"result": {
+					"timeparadox": 1,
+					"timegem": "5%"
+				},
+				"loot": {
+					"timerune": "1%"
+				}
+			},
+			{
+				"id": "timerip_unattended_gems",
+				"name": "treasury",
+				"desc": "Piles of gold and gems surround you. You take a gem along.",
+				"effect": {
+					"bf": "5~7",
+					"instability": 3
+				},
+				"result": {
+					"timeparadox": 1,
+					"timegem": "50%",
+					"gems": 1
+				},
+				"loot": {
+					"timerune": "1%"
+				}
+			},
+			{
+				"id": "timerip_witch",
+				"name": "steaming cauldron",
+				"desc": "Some sort of soup is boiling in a large pot. The stock seems to be extremely rich in life force.",
+				"effect": {
+					"unease": "5~7",
+					"instability": 1.5,
+					"potions.exp": 200
+				},
+				"loot": {
+					"timerune": "1%"
+				}
+			},
+			{
+				"id": "timerip_holdup",
+				"name": "A ⚔👗♨️⚗️✒️♾️",
+				"desc": "A blacksmith is hammering his needle into the soft silk. With every stitch, the potion's hue changes slightly, as the engraving spreads across the surface of the clock.",
+				"effect": {
+					"unease": 7,
+					"madness": 7,
+					"rage": 7,
+					"bf": 7,
+					"weary": 7,
+					"instability": 5
+				},
+				"result": {
+					"timeparadox": 2,
+					"timegem": 1,
+					"timerune": "10%"
+				},
+				"loot": {
+					"timeedge": "2%"
+				}
+			},
+			{
+				"id": "timerip_trickster",
+				"name": "busy street",
+				"desc": "As you walk down the street your pocket suddenly feels lighter.",
+				"effect": {
+					"bf": "5~7",
+					"instability": 2,
+					"trickery.exp": 200
+				},
+				"result": {
+					"timeparadox": 1,
+					"timegem": "5%",
+					"gold": -50
+				},
+				"loot": {
+					"timerune": "1%"
+				}
+			},
+			{
+				"id": "timerip_thanophage",
+				"name": "odor",
+				"desc": "A chamber of rotten meat lies in front of you. You suddenly feel peckish",
+				"effect": {
+					"madness": "5~7",
+					"instability": 1.5,
+					"embalming.exp": 200
+				},
+				"loot": {
+					"timerune": "1%"
+				}
+			},
+			{
+				"id": "timerip_battlemage",
+				"name": "spells flashing",
+				"desc": "A spellslinger is fighting off a horde of monsters with his trusty blade and a veritable arsenal of spells",
+				"effect": {
+					"weary": "5~7",
+					"instability": 1.5,
+					"firelore.exp": 200
+				},
+				"loot": {
+					"timerune": "1%"
+				}
+			},
+			{
+				"id": "timerip_dragon",
+				"name": "fiery chamber",
+				"desc": "An odd wizard gulps down a potion and collapses, his body twisting into a grotesque, scaly form.",
+				"effect": {
+					"bf": "5~7",
+					"instability": 1.5,
+					"firelore2.exp": 200
+				},
+				"loot": {
+					"timerune": "1%"
+				}
+			},
+			{
+				"id": "timerip_bladeweaver",
+				"name": "sharp air",
+				"desc": "A blade stops an inch from your face as a confused swordsman looks on.",
+				"effect": {
+					"rage": "5~7",
+					"instability": 2,
+					"bladelore.exp": 200
+				},
+				"result": {
+					"timeparadox": 1,
+					"timegem": "5%"
+				},
+				"loot": {
+					"timerune": "1%"
+				}
+			},
+			{
+				"id": "timerip_eldritchknight",
+				"name": "weave of death",
+				"desc": "Cleft cleanly in twain, the monster collapses, revealing an armored figure.",
+				"effect": {
+					"rage": "5~7",
+					"instability": 1.5,
+					"bladelore.exp": 200
+				},
+				"loot": {
+					"timerune": "1%"
+				}
+			},
+			{
+				"id": "timerip_warlock",
+				"name": "otherwordly portal",
+				"desc": "Staff raised high, a distant figure opens a portal for a demonic horde to pass through.",
+				"effect": {
+					"madness": "5~7",
+					"instability": 1.5,
+					"demonology.exp": 200
+				},
+				"loot": {
+					"timerune": "1%"
+				}
+			},
+			{
+				"id": "timerip_mechamancer",
+				"name": "ghastly sight",
+				"desc": "A row of automata passes before you, searching for the one that managed to escape.",
+				"effect": {
+					"weary": "5~7",
+					"instability": 1.5,
+					"automatasculpting.exp": 200
+				},
+				"loot": {
+					"timerune": "1%"
+				}
+			},
+			{
+				"id": "timerip_mechamancer_paradox",
+				"name": "ghastly sight",
+				"desc": "A row of automata passes before you, brought here by an unusual magical aura.",
+				"effect": {
+					"weary": "5~7",
+					"instability": 2,
+					"automatasculpting.exp": 200
+				},
+				"result": {
+					"timeparadox": 1,
+					"timegem": "5%"
+				},
+				"loot": {
+					"timerune": "1%"
+				}
+			},
+			{
+				"id": "timerip_summoner",
+				"name": "dimensional rift",
+				"desc": "Multiple creatures congregate on this site, summoned by a friendly wizard.",
+				"effect": {
+					"bf": "5~7",
+					"instability": 1.5,
+					"conjuration.exp": 200
+				},
+				"loot": {
+					"timerune": "1%"
+				}
+			},
+			{
+				"id": "timerip_alchemist",
+				"name": "busy lab",
+				"desc": "Retorts, alembics and vials of all shapes and sizes occupy this space.",
+				"effect": {
+					"bf": "5~7",
+					"instability": 1.5,
+					"alchemy.exp": 200
+				},
+				"loot": {
+					"timerune": "1%"
+				}
+			},
+			{
+				"id": "timerip_titan",
+				"name": "deep cavern",
+				"desc": "You shout, but the echo doesn't come back.",
+				"effect": {
+					"bf": "5~7",
+					"instability": 1.5,
+					"earthlore.exp": 200
+				},
+				"loot": {
+					"timerune": "1%"
+				}
+			},
+			{
+				"id": "timerip_elementalist",
+				"name": "heart of the storm",
+				"desc": "It's calm here, even as the elements tear the world apart.",
+				"effect": {
+					"madness": "5~7",
+					"instability": 1.5,
+					"waterlore.exp": 200
+				},
+				"loot": {
+					"timerune": "1%"
+				}
+			},
+			{
+				"id": "timerip_druid",
+				"name": "tender seedling",
+				"desc": "In an unusually large garden, a single seedling is planted.",
+				"effect": {
+					"weary": "5~7",
+					"instability": 1.5,
+					"naturelore.exp": 200
+				},
+				"loot": {
+					"timerune": "1%"
+				}
+			},
+			{
+				"id": "timerip_druid_paradox",
+				"name": "tender seedling",
+				"desc": "In an unusually large garden, a single seedling was planted.",
+				"effect": {
+					"weary": "5~7",
+					"instability": 2,
+					"naturelore.exp": 200
+				},
+				"result": {
+					"timeparadox": 1,
+					"timegem": "5%"
+				},
+				"loot": {
+					"timerune": "1%"
+				}
+			},
+			{
+				"id": "timerip_oracle",
+				"name": "the seer",
+				"desc": "There is no point in hiding. He knew you would come, after all.",
+				"effect": {
+					"weary": "5~7",
+					"instability": 2,
+					"divination.exp": 200
+				},
+				"result": {
+					"timeparadox": 1,
+					"timegem": "5%"
+				},
+				"loot": {
+					"timerune": "1%"
+				}
+			},
+			{
+				"id": "timerip_mage",
+				"name": "high tower",
+				"desc": "Secluded in a room above the clouds, the loremaster performs his research.",
+				"effect": {
+					"bf": "5~7",
+					"instability": 1.5,
+					"lore.exp": 200
+				},
+				"loot": {
+					"timerune": "1%"
+				}
+			},
+			{
+				"id": "timerip_doomsayer",
+				"name": "end",
+				"desc": "Nothing. Just as he foretold",
+				"effect": {
+					"madness": "5~7",
+					"instability": 1.5,
+					"scrying.exp": 200
+				},
+				"loot": {
+					"timerune": "1%"
+				}
+			},
+			{
+				"id": "timerip_necromancer",
+				"name": "bone plains",
+				"desc": "A wasteland where no one living dares to tread.",
+				"effect": {
+					"weary": "5~7",
+					"instability": 1.5,
+					"necromancy.exp": 200
+				},
+				"loot": {
+					"timerune": "1%"
+				}
+			},
+			{
+				"id": "timerip_mirror",
+				"name": "a mirror",
+				"desc": "An enormous pane stands before you, reflecting everything perfectly. You wink.",
+				"effect": {
+					"bf": "5~7",
+					"instability": 2,
+					"mysticism.exp": 200
+				},
+				"result": {
+					"timeparadox": 1,
+					"timegem": "5%"
+				},
+				"loot": {
+					"timerune": "1%"
+				}
+			},
+			{
+				"id": "timerip_mirror2",
+				"name": "a mirror",
+				"desc": "An enormous pane stands before you, reflecting everything perfectly. Your reflection winks.",
+				"effect": {
+					"bf": "5~7",
+					"instability": 2,
+					"mysticism.exp": 200
+				},
+				"result": {
+					"timeparadox": 1,
+					"timegem": "5%"
+				},
+				"loot": {
+					"timerune": "1%"
+				}
+			},
+			{
+				"id": "timerip_mirror3",
+				"name": "a plateau",
+				"desc": "Two wizards stand opposite, on a symmetrical featureless plane. They wink.",
+				"effect": {
+					"bf": "5~7",
+					"instability": 1.5,
+					"chronomancy.exp": 200
+				},
+				"loot": {
+					"timerune": "1%"
+				}
+			},
+			{
+				"id": "timerip_workshop",
+				"name": "a workshop",
+				"desc": "Tools are scattered about, seemingly without rhyme or reason.",
+				"effect": {
+					"weary": "5~7",
+					"instability": 1.5,
+					"crafting.exp": 200
+				},
+				"loot": {
+					"timerune": "1%"
+				}
+			}
+		],
+		"events": [
+			{
+				"id": "evt_timerip",
+				"name": "odd feeling",
+				"desc": "Errant memories tug at the edges of your conciousness.",
+				"require": "g.tier6>0&&g.timewell>0"
+			}
+		],
+		"monsters": [
+			{
+				"id": "timerip_unknown_wizard",
+				"name": "unknown wizard",
+				"level": 15,
+				"spells": "mon_aeon,mon_distort,mon_dilate,mon_lightregen3,prismaticmissile,mon_quicken",
+				"spellchance":0.7,
+				"kind": "unknown",
+				"desc": "You know you will win this battle. This knowledge offers little comfort.",
+				"noproc":"true",
+				"hp": 4000,
+				"defense": 80,
+				"dodge":40,
+				"tohit":60,
+				"speed":30,
+				"attack": [
+					{
+					"name": "whirling dervish",
+					"targets":"enemies",
+					"dmg": "50~60"
+					},
+					{
+					"name": "culling",
+					"targets":"enemy",
+					"dmg": "90~110"
+					},
+					{
+					"name": "bladework",
+					"targets":"enemyleader",
+					"dmg": "90~110",
+					"tohit":"25"
+					}
+				],
+				"loot": {
+					"timeedge": 1
+				}
+			}
+		],
+		"hall": {
+			"data":{
+				"upgrades": [	
+					{
+						"id": "unknown_trophy",
+						"name": "unknown robes",
+						"sym": "🏰",
+						"tags":"hall",
+						"desc": "Robes that, at one time, adorned an unknown wizard. Their mere presence instills a sense of timelessness to all present, past and future.",
+						"require": "g.timerip_clash>0",
+						"max": 1,
+						"mod": {
+							"timespiral.cost.chargedtimepiece":-1,
+							"imbuetimepiece.run.timegem":-0.01
+						},
+						"result":{
+							"fame":20
+						}
+					}
+				]
+			}
+		}
+	}
+}

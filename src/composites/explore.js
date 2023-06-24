@@ -41,6 +41,12 @@ export default class Explore {
 	 */
 	get run() { return this.locale ? this.locale.run : null; }
 
+	/**
+	 * @property {bool} - dungeons marked as unreturnable reset when you are defeated or otherwise leave them.
+	 */
+	 get unreturnable() { return this.locale ? this.locale.unreturnable : null; }	
+
+
 	get exp(){ return this.locale ? this.locale.exp : 0; }
 	set exp(v){
 
@@ -212,7 +218,20 @@ export default class Explore {
 		this.emitDefeat();
 
 	}
-
+	onStop()
+	{	
+		if(this.unreturnable)
+		{
+			this.reset();
+		}
+	}
+	reset()
+	{
+		this.exp=0;
+		this.enc = null;
+		this.combat.reset();
+		this.locale=null;
+	}
 	emitDefeat(){
 		Events.emit( DEFEATED, this.locale );
 		Events.emit( TASK_BLOCKED, this,
@@ -230,15 +249,16 @@ export default class Explore {
 			if ( this.enc !== this.combat ) this.player.explore(dt);
 
 			this.enc.update( dt );
+			if ( this.enc.done ) {
+
+				this.encDone( this.enc );
+				this.exp += 1;
+
+			}
 			if ( this.player.defeated() ) {
 
 				Events.emit( DEFEATED, this );
 				Events.emit( TASK_BLOCKED, this, true );
-
-			} else if ( this.enc.done ) {
-
-				this.encDone( this.enc );
-				this.exp += 1;
 
 			}
 		}

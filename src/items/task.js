@@ -31,15 +31,18 @@ export default class Task extends GData {
 
 	toJSON(){
 
-		let d = super.toJSON();
-		if ( this.timer > 0 ) d.timer = this.timer;
+		let data = super.toJSON() || {};
+		if ( this.timer > 0 ) data.timer = this.timer;
 
-		return d;
+		return data && Object.keys(data).length ? data : undefined;
 
 	}
 
 	get level() {return this._level;}
 	set level(v) { this._level = v;}
+
+	get craftable() {return this._craftable;}
+	set craftable(v) { this._craftable = v;}
 
 	get typeName() { return this.type === TASK ? 'action' : this.type }
 
@@ -69,7 +72,10 @@ export default class Task extends GData {
 			console.warn( this.id + ' exp: ' + v );
 			return;
 		}
-		this._exp.set(v);
+
+		if (v === Infinity) {
+			this._exp.set(Number.MAX_VALUE);
+		} else this._exp.set(v);
 
 
 		this.tryComplete();
@@ -117,7 +123,7 @@ export default class Task extends GData {
 
 		this.running = this.running || false;
 
-		this.applyImproves();
+		// this.applyImproves();
 		SetModCounts(this.runmod, 1);
 
 	}

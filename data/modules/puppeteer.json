@@ -1241,7 +1241,7 @@
 						"harmless": true,
 						"dot": {
 							"duration": 10,
-							"mod": {
+							"effect": {
 								"hp": 4
 							}
 						}

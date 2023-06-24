@@ -75,17 +75,22 @@ export default {
 
 	},
 
+	async requestData() {
+		let files = await this.loadModInfo( ModFiles );
+		this.main = new Module();
+		//Creating hall module here so that the core hall module doesn't assign it's symbol to all other blank hall module symbols.
+		this.main.hall = new Module();
+		await this.main.load( files.core );
+
+		if ( files.modules ) {
+			await this.main.load( files.modules, DataDir + 'modules/' );
+		}
+	},
+
 	async loadGame( saveData ) {
 
 		if ( this.main === null ) {
-
-			let files = await this.loadModInfo( ModFiles );
-			this.main = await new Module().load( files.core );
-
-			if ( files.modules ) {
-				await this.main.load( files.modules, DataDir + 'modules/' );
-			}
-
+			await this.requestData();
 		}
 
 		return this.instance( this.main.objects, this.main.lists, saveData );

@@ -900,7 +900,7 @@
 	{
 		"id": "enc_caravan",
 		"name": "caravan",
-		"desc": "All features of the riders are hidden in robes. They communicate with gutteral sounds and gestures.",
+		"desc": "All features of the riders are hidden in robes. They communicate with guttural sounds and gestures.",
 		"effect": {
 			"unease": "1~3"
 		},
