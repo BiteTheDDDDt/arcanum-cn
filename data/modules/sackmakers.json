@@ -200,6 +200,7 @@
 			{
 				"id": "sackmaster",
 				"name": "sackmaker's lodge master",
+				"noproc":true,
 				"desc": "",
 				"level": 20,
 				"hp": 900,
