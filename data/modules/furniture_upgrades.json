@@ -78,7 +78,7 @@
 		{
 			"id": "graveyard_landscaping",
 			"name": "graveyard landscaping",
-			"desc": "Redesign many ares of the graveyard to be more respectful to the dead.",
+			"desc": "Redesign many areas of the graveyard to be more respectful to the dead.",
 			"require": "g.virtue>=75&&g.graveyard>0",
 			"cost": {
 				"gold": 5000,

@@ -984,6 +984,7 @@
 	},
 	{
 		"id": "highelemental",
+		"name": "high elementalist",
 		"tags": "t_tier3",
 		"desc": "Lord of the elements",
 		"require": "g.tier2>0&&g.airlore>7&&g.firelore>7&&g.waterlore>7&&g.earthlore>7",
