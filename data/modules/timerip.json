@@ -265,7 +265,7 @@
 				"require": "g.timerip_locale>=10&&g.chronomancy>=5",
 				"cost": {
 					"research": 33333,
-					"instability": 90,
+					"instability": -90,
 					"timerune": 3
 				},
 				"mod": {
@@ -381,7 +381,7 @@
 				},
 				"cost": {
 					"tempus": 50,
-					"instability": 15,
+					"instability": -15,
 					"timeparadox": 1
 				},
 				"result": {
