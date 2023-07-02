@@ -65,8 +65,7 @@
 					"firerune": 15,
 					"airrune": 15,
 					"earthrune": 15,
-					"waterrune": 15,
-					"timerune": 1
+					"waterrune": 15
 				},
 				"run": {
 					"stamina": 2,
@@ -94,7 +93,7 @@
 					"sindel": 2,
 					"gold": 15000,
 					"research": 10000,
-					"timerune": 2,
+					"timerune": 3,
 					"tomes": 200,
 					"runestones": 40,
 					"codices": 500,
