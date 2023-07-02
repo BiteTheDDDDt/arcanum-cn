@@ -54,6 +54,24 @@ export default {
 		warnDone( okay, slot ) {
 
 			if ( okay ) this.dispatch('set-char', slot );
+		},
+		formatNumber(number) { 
+			let parsednumber= (Math.floor(parseFloat(number)))
+			if(parsednumber) {
+				parsednumber = parsednumber.toString();
+				let brokenNumbersPostPoint= parsednumber.split('.'); 
+				let numbersBeforePoint= brokenNumbersPostPoint[0]; 
+				let numbersAfterPoint= brokenNumbersPostPoint.length > 1 ? '.' + brokenNumbersPostPoint[1] : ''; 
+				var rgx = /(\d+)(\d{3})/; 
+				while (rgx.test(numbersBeforePoint)) { 
+					numbersBeforePoint= numbersBeforePoint.replace(rgx, '$1' + ',' + '$2'); 
+				}
+				return numbersBeforePoint+ numbersAfterPoint
+			}
+			else
+			{
+				return number
+			}
 		}
 
 	},
@@ -71,7 +89,7 @@ export default {
 
 			this.dispatch( EVT_STAT, 'prestige', p );
 
-			return Math.floor(p);
+			return p;
 
 		},
 
@@ -91,7 +109,7 @@ export default {
 
 <div class="popup wizhall">
 
-	<div class="power" @mouseenter.capture.stop="itemOver( $event, hall.prestige )">Hall Prestige: {{ prestige }}</div>
+	<div class="power" @mouseenter.capture.stop="itemOver( $event, hall.prestige )">Hall Prestige: {{ formatNumber(prestige) }}</div>
 
 	<div class="header"><input class="fld-name text-entry" type="text" v-model="hallName">
 			<div class="text-button"><a href=""

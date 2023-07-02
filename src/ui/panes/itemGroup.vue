@@ -15,6 +15,19 @@ export default {
 		}
 
 	},
+	methods:{
+		formatNumber(number) { 
+			number= (Math.floor(parseFloat(number))).toString();
+			let brokenNumbersPostPoint= number.split('.'); 
+			let numbersBeforePoint= brokenNumbersPostPoint[0]; 
+			let numbersAfterPoint= brokenNumbersPostPoint.length > 1 ? '.' + brokenNumbersPostPoint[1] : ''; 
+			var rgx = /(\d+)(\d{3})/; 
+			while (rgx.test(numbersBeforePoint)) { 
+				numbersBeforePoint= numbersBeforePoint.replace(rgx, '$1' + ',' + '$2'); 
+			}
+			return numbersBeforePoint+ numbersAfterPoint
+		}
+	},
 	computed:{
 
 		shown(){
@@ -48,7 +61,7 @@ export default {
 			@mouseenter.capture.stop="itemOver($event,it)">
 
 			<span class="item-name">{{ it.name }}</span>
-			<span class="num-align">{{ Math.floor( it.value ) + ( it.max && it.max.value>0 ? '/' + Math.floor(it.max.value) : '' )}}</span>
+			<span class="num-align">{{formatNumber(it.value ) + ( it.max && it.max.value>0 ? '/' + formatNumber(it.max.value) : '' )}}</span>
 			<!--<td>{{ it.delta != 0 ? '&nbsp;(' + it.delta.toFixed(2) + '/t )' : ''}}</td>-->
 
 	</div>

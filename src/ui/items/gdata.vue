@@ -34,6 +34,24 @@ export default {
 			
 			return t.toTitleCase();
 
+		},
+		formatNumber(number) { 
+			let parsednumber= (Math.floor(parseFloat(number)))
+			if(parsednumber) {
+				parsednumber = parsednumber.toString();
+				let brokenNumbersPostPoint= parsednumber.split('.'); 
+				let numbersBeforePoint= brokenNumbersPostPoint[0]; 
+				let numbersAfterPoint= brokenNumbersPostPoint.length > 1 ? '.' + brokenNumbersPostPoint[1] : ''; 
+				var rgx = /(\d+)(\d{3})/; 
+				while (rgx.test(numbersBeforePoint)) { 
+					numbersBeforePoint= numbersBeforePoint.replace(rgx, '$1' + ',' + '$2'); 
+				}
+				return numbersBeforePoint+ numbersAfterPoint
+			}
+			else
+			{
+				return number
+			}
 		}
 
 	},
@@ -121,18 +139,18 @@ export default {
 	<span class="separate">
 		<span class="item-name">{{name.toString().toTitleCase()}}</span>
 
-			<span v-if="item.type==='resource'||item.type==='stat'">{{ item.current.toFixed(0) + ( item.max ? (' / ' + Math.floor(item.max.value ) ) :'' ) }}</span>
+			<span v-if="item.type==='resource'||item.type==='stat'">{{ formatNumber(item.current.toFixed(0)) + ( formatNumber(item.max) ? (' / ' + formatNumber(item.max.value ) ) :'' ) }}</span>
 			<span v-else-if="item.type==='furniture'">max: {{
-				item.max ? Math.floor(item.max.value ) : ( (item.repeat) ? '&infin;' : 1) }}</span>
+				item.max ? formatNumber(item.max.value ) : ( (item.repeat) ? '&infin;' : 1) }}</span>
 			<span v-else-if="item.type==='upgrade'||item.type==='task'">
 				<br>
-				<span v-if="item.value">{{Math.floor(+item.value)}}</span>
-				<span v-if="item.max">/ {{+item.max}}</span>
+				<span v-if="item.value">{{formatNumber(+item.value)}}</span>
+				<span v-if="item.max">/ {{formatNumber(+item.max)}}</span>
 				<span v-else-if="item.type==='upgrade'">/ 1</span>
 			</span>
 			<span v-if="item.type==='locale'||item.type==='dungeon'">
-				<span v-if="item.value">{{Math.floor(+item.value)}}</span>
-				<span v-if="item.max">/ {{+item.max}}</span>
+				<span v-if="item.value">{{formatNumber(+item.value)}}</span>
+				<span v-if="item.max">/ {{formatNumber(+item.max)}}</span>
 			</span>
 			<span v-if="item.sym">{{item.sym}}</span>
 
