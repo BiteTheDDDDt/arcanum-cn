@@ -93,6 +93,7 @@ div.res-list {
 		overflow-x:visible;
 		width: fit-content;
 		padding-right: 1.1rem;
+		min-width: 11rem;
 	}
 }
 
