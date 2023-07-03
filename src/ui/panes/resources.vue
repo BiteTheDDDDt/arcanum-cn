@@ -63,11 +63,10 @@ export default {
 
 <template>
 <div class="res-list">
-
-		<div class="config"><button ref="btnHides" class="btnConfig"></button></div>
-
-		<group class="res-group" v-for="(g,p) in groups" :items="g" :group="p" :hide="hide" :key="p" />
-
+    <div class="config"><button ref="btnHides" class="btnConfig"></button></div>
+    <div class="res-container">
+        <group class="res-group" v-for="(g,p) in groups" :items="g" :group="p" :hide="hide" :key="p" />
+    </div>
 </div>
 </template>
 
@@ -81,4 +80,20 @@ div.res-list {
 	margin: 0; padding: 0;
 	min-width: 11rem;
 }
+
+@supports (-moz-appearance:button) and (contain:paint) {
+	div.res-list {
+		overflow-y:auto;
+		overflow-x:visible;
+		width: fit-content;
+		margin: 0; padding: 0;
+		min-width: 11rem;
+	}
+	div.res-container {
+		overflow-x:visible;
+		width: fit-content;
+		padding-right: 1.1rem;
+	}
+}
+
 </style>

@@ -84,6 +84,16 @@ div.groupTitle {
 	margin:-1px 0 0 0px;
 }
 
+
+@supports (-moz-appearance:button) and (contain:paint) {
+	div.groupTitle {
+		cursor: pointer;
+		text-transform: capitalize;
+		color: var( --title-text-color );
+		border: 1px solid var(--list-header-border);
+		background-color: var(--list-header-color);
+	}
+}
 .rsrc .item-name {
 	flex:1;
 	color:#999;
