@@ -6,7 +6,7 @@
 				"id": "timespiral",
 				"name": "time spiral",
 				"desc": "Take a step back and do it again.",
-				"require": "g.tier5>0&&g.timewell>0&&g.dreamchamber>0",
+				"require": "g.tier5>0&&g.runner.max>=3",
 				"lock": "autoagents",
 				"cost": {
 					"stillroom": 1,
@@ -48,7 +48,7 @@
 				"id": "crafttimepiece",
 				"name": "craft timepiece",
 				"verb": "clockmaking",
-				"require": "g.tier5>0&&g.timewell>0&&g.dreamchamber>0",
+				"require": "g.tier5>0&&g.runner.max>=3",
 				"need": [
 					"workspace",
 					"timesource"
@@ -117,7 +117,7 @@
 				"id": "createstillroom",
 				"name": "create still room",
 				"verb": "stilling",
-				"require": "g.tier5>0&&g.timewell>0&&g.dreamchamber>0",
+				"require": "g.tier5>0&&g.runner.max>=3",
 				"need": [
 					"workspace",
 					"timesource"
