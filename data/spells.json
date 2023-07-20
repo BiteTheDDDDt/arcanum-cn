@@ -1137,7 +1137,7 @@
 		"id": "mk_hobgoblin",
 		"name": "summon hobgoblin",
 		"school": "mana",
-		"desc": "In combat, summon an hobgoblin to fight for you",
+		"desc": "In combat, summon a hobgoblin to fight for you",
 		"level": 6,
 		"require": "g.conjuration>4",
 		"buy": {
