@@ -337,7 +337,7 @@
 		"id": "veldranswreck",
 		"name": "Veldran's Wreck",
 		"desc": "Off the stormy cliffs of Arazor a mass of cracked spars marks the resting place of the largest ship ever sailed by man.",
-		"require": "g.waterlore.max>=10&&g.aragheights>0",
+		"require": "g.waterlore>=10&&g.aragheights>0",
 		"level": 7,
 		"length": 75,
 		"bars": "breath",

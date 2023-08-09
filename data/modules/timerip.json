@@ -566,7 +566,7 @@
 				}
 			},
 			{
-				"id": "mon_lightregen3",
+				"id": "mon_temporalrestoration",
 				"name": "acausal restoration",
 				"level": 25,
 				"school": "time",
@@ -1171,7 +1171,7 @@
 				"id": "timerip_unknown_wizard",
 				"name": "unknown wizard",
 				"level": 15,
-				"spells": "mon_aeon,mon_distort,mon_dilate,mon_lightregen3,prismaticmissile,mon_quicken",
+				"spells": "mon_aeon,mon_distort,mon_dilate,mon_temporalrestoration,prismaticmissile,mon_quicken",
 				"spellchance":0.7,
 				"kind": "unknown",
 				"desc": "You know you will win this battle. This knowledge offers little comfort.",
