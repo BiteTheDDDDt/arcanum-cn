@@ -96,6 +96,19 @@ div.quickslot {
 	font-size:xx-large;
 	border: 1px solid var(--dark-border-color);
 }
+.darkmode div.quickslot {
+	min-width:2em;
+	min-height:2em;
+	cursor: pointer;
+	text-transform: capitalize;
+	margin:var(--tiny-gap) var(--sm-gap) var(--sm-gap) var(--sm-gap);
+	padding:var(--tiny-gap);
+	text-align: center;
+	/** relative so remove button correctly placed. **/
+	position: relative;
+	font-size:xx-large;
+	border: 1px solid var(--light-border-color);
+}
 
 div.remove {
 	position:absolute;

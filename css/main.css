@@ -209,6 +209,15 @@ div.text-button {
 	top: var(--sm-gap);
 	right: var(--sm-gap);
 }
+.darkmode .popup-close {
+	position: absolute;
+	cursor: default;
+	top: var(--sm-gap);
+	right: var(--sm-gap);
+	background-color:#181818;
+	border-color: #f7755e;
+	color:#D7DADC;
+}
 
 input[type=text].fld-name {
 	border: none;
