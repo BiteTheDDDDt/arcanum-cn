@@ -2308,7 +2308,7 @@
 	{
 		"id": "petfamiliar",
 		"name": "pet familiar",
-		"desc": "Pet you familiar to calm your nerves",
+		"desc": "Pet your familiar to calm your nerves",
 		"require": "(g.familiarcat+g.familiarowl+g.familiarkobold+g.familiarimp+g.familiartome)>0",
 		"cd": 120,
 		"result": {}
