@@ -170,6 +170,9 @@ export default {
 			<span v-if="item.value">{{formatNumber(+item.value)}}</span>
 			<span v-if="item.max">/ {{formatNumber(+item.max)}}</span>
 		</span>
+		<span v-if="item.type==='enc'">
+			<span v-if="item.value">{{formatNumber(+item.value)}}</span>
+		</span>
 
 		<span v-if="item.sym">{{item.sym}}</span>
 	</span>
