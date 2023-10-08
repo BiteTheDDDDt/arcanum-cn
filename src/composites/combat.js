@@ -10,7 +10,7 @@ import { NO_SPELLS } from '../chars/states';
 
 import { TEAM_PLAYER, getDelay, TEAM_NPC, TEAM_ALL } from '../values/consts';
 import { TARGET_ENEMY, TARGET_ALLY, TARGET_SELF,
-	TARGET_RAND, TARGET_PRIMARY, ApplyAction, TARGET_GROUP, TARGET_ANY, RandTarget, PrimeTarget, TARGET_LEADER } from "../values/combatVars";
+	TARGET_RAND, TARGET_PRIMARY, ApplyAction, TARGET_GROUP, TARGET_ANY, RandTarget, PrimeTarget, TARGET_NONPRIMARY, PrimeInd, TARGET_RAND_ENEMY, TARGET_RAND_ALLY } from "../values/combatVars";
 import Npc from '../chars/npc';
 
 
@@ -196,17 +196,22 @@ export default class Combat {
 	 * @param {Context} g
 	 */
 	spellAction( it, g ) {
-
-		let a = g.self.getCause( NO_SPELLS);
-		if ( a && !it.silent ) {
-
+		let a
+		if(it.caststoppers) {
+			for (let b of it.caststoppers)
+				{
+					a = g.self.getCause(b);
+					if(a) break;
+				}
+			}
+		if ( a ) {
 			Events.emit( STATE_BLOCK, g.self, a );
 
 		} else {
 
 			//Events.emit(EVT_COMBAT, null, g.self.name + ' casts ' + it.name + ' at the darkness.' );
 			//This capitalizes all the spells in the combat log.
-			Events.emit(EVT_COMBAT, null, g.self.name + ' Casts ' + it.name.toTitleCase() );
+			Events.emit(EVT_COMBAT, g.self.name.toTitleCase() + ' Casts ' + it.name.toTitleCase() );
 			if ( it.attack ) {
 				this.attack( g.self, it.attack );
 			}
@@ -325,14 +330,25 @@ export default class Combat {
 			if ( group === this.teams[TEAM_ALL] ) return this.allies;
 		}
 
-		if ( targets & TARGET_GROUP ) return group;
-
-		if ( !targets || targets === TARGET_ENEMY || targets === TARGET_ALLY ) {
-			return RandTarget(group);
+		if ( targets & TARGET_GROUP ) {
+			if(targets & TARGET_NONPRIMARY)
+			{	
+				
+				let trimgroup =  group.toSpliced(0, PrimeInd(group)+1)
+				return trimgroup;
+			}
+			else return group;
+		}
+		
+		if ( !targets || (targets & TARGET_RAND && !(targets & TARGET_GROUP))) {
+			let ignoretaunt = false;
+			let only_nonprimary = false;
+			if (!(targets & TARGET_ENEMY)) ignoretaunt = true;
+			if ( targets & TARGET_NONPRIMARY) only_nonprimary = true;
+			return RandTarget(group,only_nonprimary,ignoretaunt);
 		} else if ( targets & TARGET_SELF ) return char;
 
-		if ( targets & TARGET_PRIMARY || targets & TARGET_LEADER) return PrimeTarget(group);
-		if ( targets & TARGET_RAND ) return RandTarget(group);
+		if ( targets & TARGET_PRIMARY) return PrimeTarget(group);
 
 	}
 
@@ -355,14 +371,7 @@ export default class Combat {
 		else if ( targets & TARGET_RAND ) {
 			return Math.random() < 0.5 ? this.allies : this.enemies;
 		}
-		else if ( targets & TARGET_LEADER ) {
-			return team === TEAM_PLAYER ? this.enemies : this.allies;
-		}
-		else if ( targets & TARGET_PRIMARY ) {
-			return team === TEAM_PLAYER ? this.allies : this.enemies;
-		}
 		return null;
-
 	}
 
 	/**
@@ -531,6 +540,33 @@ export default class Combat {
 
 		} else Events.emit( ENEMY_SLAIN, char, attacker );
 
+	}
+
+	getMonsters(id,team)
+	{
+		let monsters = []
+		if ( team === TEAM_PLAYER ) {
+			for (let i =0;i<this._allies.length;i++)
+			{
+				if(this._allies[i].template)
+				{
+					if(this._allies[i]?.template.id == id && this._allies[i].alive == true)
+					{
+						monsters.push(this._allies[i])
+					}
+				}
+			}
+		} else 
+		{
+			for (let i =0;i<this._enemies.length;i++)
+			{
+				if(this._enemies[i]?.template.id == id && this._enemies[i].alive == true)
+				{
+					monsters.push(this._enemies[i])
+				}
+			}
+		}
+		return monsters;
 	}
 
 }

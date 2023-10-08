@@ -73,5 +73,17 @@
 		"adj": "asleep",
 		"kind": "sleep",
 		"flags": "noact"
+	},
+	{
+		"id": "taunt",
+		"adj": "provoking",
+		"kind": "taunt",
+		"flags": "taunt"
+	},
+	{
+		"id": "hide",
+		"adj": "hiding",
+		"kind": "hiding",
+		"flags": "hiding"
 	}
 ]

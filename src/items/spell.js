@@ -1,6 +1,7 @@
 import Attack from '../chars/attack';
 import Task from './task';
 import { canTarget } from '../values/consts';
+import { NO_SPELLS } from '../chars/states';
 
 /**
  * Single requirement substring.
@@ -28,15 +29,16 @@ export default class Spell extends Task {
 	set only(v){this._only = typeof v === 'string' ? v.split(',') : v;}
 
 	/**
-	 * @property {boolean} silent - spell can be cast while silenced.
+	 * @property {boolean} caststoppers - condition that cause the cast to fail
 	 */
-	get silent(){return this._silent;}
-	set silent(v){this._silent = v;}
+	get caststoppers(){return this._caststoppers;}
+	set caststoppers(v){this._caststoppers = v;}
 
 	get attack(){return this._attack;}
 	set attack(v){
 
 		if ( v != null ) {
+			if (!v.potencies) v.potencies = ["spelldmg"];
 			if ( !(v instanceof Attack)) v = new Attack(v, this);
 			if ( !v.name ) v.name = this.name;
 			if (!v.kind) v.kind = this.school;
@@ -74,7 +76,7 @@ export default class Spell extends Task {
 		this.repeat = true;
 		this.type = 'spell';
 		this.level = this.level || 1;
-
+		if (!this.caststoppers) this.caststoppers = [NO_SPELLS];
 		this.owned = this.owned || false;
 		if ( !this.owned ) {
 

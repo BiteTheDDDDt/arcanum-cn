@@ -34,7 +34,8 @@
 		"alter": {
 			"mod": {
 				"water.rate": 0.1,
-				"self.resist.water": 5
+				"self.resist.water": 5,
+				"self.resist.silence": 10
 			}
 		}
 	},
@@ -90,6 +91,118 @@
 		}
 	},
 	{
+		"id": "stone_working_kit",
+		"name": "stone working kit",
+		"type": "armor",
+		"enchants": 0,
+		"tags": "t_tool",
+		"slot": "trinket",
+		"desc": "A leather pouch filled with the finest tools for crafting runes.",
+		"level": 1,
+		"armor": 0,
+		"alter": {
+			"mod": {
+				"craftrune.cost.managem": -1,
+				"craftrune.cost.mana": 3,
+				"craftrune.length": -4,
+				"craftfirerune.cost.firegem": -2,
+				"craftfirerune.cost.fire": 3,
+				"craftfirerune.length": -4,
+				"craftearthrune.cost.earthgem": -2,
+				"craftearthrune.cost.earth": 3,
+				"craftearthrune.length": -4,
+				"craftairrune.cost.airgem": -2,
+				"craftairrune.cost.air": 3,
+				"craftairrune.length": -4,
+				"craftwaterrune.cost.watergem": -2,
+				"craftwaterrune.cost.water": 3,
+				"craftwaterrune.length": -4,
+				"craftspiritrune.cost.spiritgem": -2,
+				"craftspiritrune.cost.spirit": 3,
+				"craftspiritrune.length": -4
+			}
+		}
+	},
+	{
+		"id": "botanical_kit",
+		"name": "botanical kit",
+		"type": "armor",
+		"enchants": 0,
+		"tags": "t_tool",
+		"slot": "trinket",
+		"desc": "A wooden box brimming with tools for gathering and preserving herbs, flowers, and roots.",
+		"level": 1,
+		"armor": 0,
+		"sell":{
+			"gold": 15
+		},
+		"alter": {
+			"mod": {
+				"herbs.max": 20,
+				"gatherherbs.result.herbalism.exp": 0.2,
+				"gatherherbs.result.herbs": 0.3,
+				"act_garden.effect.herbs": 0.1,
+				"act_garden.effect.herbalism.exp": 1,
+				"act_garden.effect.research": 0.1
+			}
+		}
+	},
+	{
+		"id": "phoenix_quill",
+		"name": "phoenix quill",
+		"type": "armor",
+		"enchants": 0,
+		"tags": "t_tool",
+		"slot": "trinket",
+		"desc": "A quill tempered in the ash pile of a phoenix.",
+		"level": 1,
+		"armor": 0,
+		"sell":{
+			"firegem": 1
+		},
+		"alter": {
+			"mod": {
+				"scribescroll.result.scrolls": 1,
+				"scribescroll.length": 1,
+				"scribescroll.perpetual": true,
+				"scribescroll.cost.fire": 0.2,
+				"bindcodex.result.codices": 1,
+				"bindcodex.cost.fire": 2,
+				"compiletome.length": -10,
+				"compiletome.run.stamina": -0.2,
+				"compiletome.run.fire": 0.2
+			}
+		}
+	},
+	{
+		"id": "enchanted_fountain_pen",
+		"name": "enchanted fountain pen",
+		"type": "armor",
+		"enchants": 0,
+		"tags": "t_tool",
+		"slot": "trinket",
+		"desc": "A moonstone pen imbued with magic to make it's ink flow without error.",
+		"level": 1,
+		"armor": 0,
+		"sell":{
+			"gems": 2,
+			"gold": 150
+		},
+		"alter": {
+			"mod": {
+				"scribescroll.cost.research": 10,
+				"scribescroll.cost.mana": -1,
+				"bindcodex.cost.research": 30,
+				"bindcodex.cost.mana": -1,
+				"bindcodex.cost.scrolls": -2,
+				"compiletome.length": -10,
+				"compiletome.cost.mana": -5,
+				"compiletome.cost.research": 150,
+				"compiletome.run.stamina": -0.2
+			}
+		}
+	},
+	{
 		"id": "jazidscompass",
 		"name": "jazid's compass",
 		"unique": true,
@@ -126,10 +239,10 @@
 		"enchants": 3,
 		"type": "weapon",
 		"tags": "t_dagger",
-		"tohit": 1,
 		"attack": {
 			"kind": "pierce",
 			"damage": "2~4",
+			"tohit": 1,
 			"dot": {
 				"duration": 5,
 				"dmg": "1~3",
@@ -168,10 +281,42 @@
 		"name": "titan's hammer",
 		"desc": "Wrought from unyielding adamant, it hums with the energies of the earth.",
 		"type": "weapon",
-		"attack": {
-			"kind": "blunt",
-			"damage": "20~30"
-		},
+		"attack": [
+			{
+				"name": "earthbreaker",
+				"targets":"enemies",
+				"dmg": "10~12",
+				"kind": "blunt",
+				"dot": {
+					"duration": 6,
+					"dmg": "3~6",
+					"mod": {
+						"self.speed": -5
+						}
+					}
+				},	
+				{
+				"name": "titanic slam",
+				"kind": "blunt",
+				"targets":"enemy",
+				"dmg": "30~35"
+				},
+				{
+				"name": "earth barrier",
+				"targets":"allies",
+				"harmless":true,
+				"dot": {
+					"id": "dot_adamantskin",
+					"name": "earth barrier",
+					"tags": "toughskin",
+					"duration": 15,
+					"mod": {
+						"self.defense": 50
+					}
+				}
+
+				}
+			],
 		"alter": {
 			"mod": {
 				"earth.rate": 1,
@@ -191,6 +336,67 @@
 		"unique": true,
 		"sell": {
 			"gold": 1000
+		}
+	},
+	{
+		"id": "apprentice_herb_sickle",
+		"name": "apprentice herb sickle",
+		"type": "armor",
+		"enchants": 0,
+		"tags": "t_tool",
+		"slot": "trinket",
+		"desc": "A small sickle that makes herb gathering easier.",
+		"level": 1,
+		"armor": 0,
+		"sell":{
+			"gold": 15
+		},
+		"alter": {
+			"mod": {
+				"gatherherbs.cost.stamina": -0.1
+			}
+		}
+	},
+	{
+		"id": "apprentice_quill",
+		"name": "apprentice scribe's quill",
+		"type": "armor",
+		"enchants": 0,
+		"tags": "t_tool",
+		"slot": "trinket",
+		"desc": "A simple quill, enchanted to last far longer than normal.",
+		"level": 1,
+		"armor": 0,
+		"sell":{
+			"gold": 15
+		},
+		"alter": {
+			"mod": {
+				"scribescroll.cost.research": -2,
+				"bindcodex.cost.scrolls": -1
+			}
+		}
+	},
+	{
+		"id": "apprentice_falconer_glove",
+		"name": "apprentice falconer's glove",
+		"type": "armor",
+		"enchants": 0,
+		"tags": "t_tool",
+		"slot": "trinket",
+		"desc": "An old reinforced glove, suitable for falconry.",
+		"level": 1,
+		"armor": 0,
+		"sell":{
+			"gold": 15
+		},
+		"alter": {
+			"mod": {
+				"allies.max": 5,
+				"tendanimals.run.stamina":-0.05,
+				"chores.cost.stamina":-0.05
+
+			}
 		}
 	}
 ]

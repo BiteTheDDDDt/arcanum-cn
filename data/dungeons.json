@@ -14,11 +14,15 @@
 		"loot": {
 			"maxlevel": 1
 		},
-		"boss": {"10":[
-			"kakapo"
-		]},
+		"boss": {
+			"10":[
+				"kakapo"
+			],
+			"5":[
+				"gardengnome"
+			]
+		},
 		"spawns": [
-			"gardengnome",
 			[
 				"newt",
 				"newt",
@@ -353,7 +357,7 @@
 			"gems": 10
 		},
 		"loot": {
-			"veldranearring": "5%"
+			"veldranearring": "25%"
 		},
 		"spawns": [
 			"eel",

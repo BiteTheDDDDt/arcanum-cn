@@ -29,8 +29,8 @@ export default class Context {
 
 	}
 
-	getData(id){
-		return this.state.getData(id);
+	getData(id, create=true, elevate=true){
+		return this.state.getData(id, create, elevate);
 	}
 
 	tryItem( it ){
@@ -55,7 +55,7 @@ export default class Context {
 		return true;
 	}
 
-	create( it, keep, count=1 ) {
+	create( it, keep, count=1, cap = 0 ) {
 
 		if ( typeof it === 'string') it = this.state.getData(it);
 		else if ( Array.isArray(it) ) {
@@ -70,7 +70,7 @@ export default class Context {
 		for( let i = count; i >0; i--) {
 
 			if ( it.type === MONSTER ) {
-				if ( it.onCreate ) it.onCreate( this, this.self.team, false );
+				if ( it.onCreate ) it.onCreate( this, this.self.team, false, cap );
 			}
 
 		}

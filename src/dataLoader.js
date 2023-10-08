@@ -26,7 +26,7 @@ import Player from './chars/player';
 import Loader from './util/jsonLoader';
 import GClass from './items/gclass';
 import Module from './modules/module';
-import { SKILL, ENCOUNTER, MONSTER, ARMOR, WEAPON, HOME, POTION, RESOURCE, EVENT, DUNGEON } from './values/consts';
+import { SKILL, ENCOUNTER, MONSTER, ARMOR, WEAPON, HOME, POTION, RESOURCE, EVENT, DUNGEON, CLASH } from './values/consts';
 import State from './chars/state';
 
 import { mergeInto } from './util/array';
@@ -219,6 +219,8 @@ export default {
 		if ( lists.tags ) inst.tagSets = this.initItems( items, lists.tags, TagSet);
 
 		if ( lists.resources) inst.resources = this.initItems( items, lists['resources'], Resource );
+		
+		if ( lists.potencies) inst.potencies = this.initItems( items, lists['potencies'], StatData );
 
 		if ( lists.stressors ) {
 			inst.stressors = this.initItems( items, lists.stressors, Resource, 'stress', 'stress' );
@@ -251,6 +253,10 @@ export default {
 		if ( lists.dungeons ) {
 			this.initItems( items, lists.dungeons, Locale, null, DUNGEON );
 			lists.dungeons.forEach( v=>v.sym = v.sym || '⚔' );
+		}
+		if ( lists.clashes ) {
+			this.initItems( items, lists.clashes, Locale, null, CLASH );
+			lists.clashes.forEach( v=>v.sym = v.sym || '⚔💀' );
 		}
 		if ( lists.spells ) this.initItems( items, lists.spells, Spell );
 

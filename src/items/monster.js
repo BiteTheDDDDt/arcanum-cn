@@ -1,8 +1,9 @@
 import GData from "./gdata";
-import { MONSTER, TEAM_PLAYER } from "../values/consts";
+import { MONSTER, TEAM_PLAYER, TYP_PCT } from "../values/consts";
 import Npc from "../chars/npc";
 import Attack from '../chars/attack';
 import { NpcLoreLevels } from '../values/craftVars';
+import Percent from "../values/percent";
 
 /**
  *
@@ -19,6 +20,13 @@ export const CreateNpc = (proto, g ) => {
 	it.id = g.state.nextId(proto.id);
 	return it;
 
+}
+
+export const genDefaultLoot = char => {
+	return {
+		maxlevel: char.level, 
+		[TYP_PCT]: new Percent(10)
+	}
 }
 
 export default class Monster extends GData {
@@ -74,6 +82,8 @@ export default class Monster extends GData {
 
 		this.locked = this.require ? true : false;
 
+		if(!this.loot) this.loot = genDefaultLoot(this);
+
 	}
 
 	/**
@@ -110,7 +120,7 @@ export default class Monster extends GData {
 	 * @param {number} [team=TEAM_PLAYER]
 	 * @param {boolean} [keep=false]
 	 */
-	onCreate( g, team = TEAM_PLAYER, keep=false ){
+	onCreate( g, team = TEAM_PLAYER, keep=false, max = 0 ){
 
 		//if ( team === TEAM_PLAYER ) console.log('create npc: ' + this.id );
 
@@ -124,11 +134,27 @@ export default class Monster extends GData {
 
 		} else {
 			if (g.state.combat){
-				g.state.combat.addNpc( it );
+				if (max>0)
+				{
+					if(g.state.combat.getMonsters(this.id,team).length>=max)
+					{
+						return null
+					} else g.state.combat.addNpc( it );
+
+				}
+				else g.state.combat.addNpc( it );
 				
 			}
 			else if (g.state.state){
-				g.state.state.combat.addNpc( it );
+				if (max>0)
+				{
+					if(g.state.state.combat.getMonsters(this.id,team).length>=max)
+					{
+						return null
+					} else g.state.state.combat.addNpc( it );
+
+				}
+				else g.state.state.combat.addNpc( it );
 			}
 		}
 

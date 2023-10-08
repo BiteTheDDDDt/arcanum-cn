@@ -1,5 +1,5 @@
 import { CreateNpc } from "../items/monster";
-import { ENCOUNTER } from "../values/consts";
+import { ENCOUNTER, FP } from "../values/consts";
 import Game from "../game";
 
 /**
@@ -16,7 +16,7 @@ const MakeSpawn = ( e ) => {
 
 	if ( !e || Game.state.hasUnique(e) || ( e.locked || e.disabled || e.locks>0 )) return null;
 
-	if ( e.type === ENCOUNTER ) return e;
+	if ( e.type === ENCOUNTER ) return e.canUse() ? e : null;
 
 	return CreateNpc(e, Game);
 
@@ -26,7 +26,7 @@ export default class SpawnGroup {
 
 	toJSON(){
 
-		if ( this._w === 1 ) {
+		if ( this._w === 1 || this._w instanceof Function ) {
 			return this.ids;
 		} else {
 
@@ -71,10 +71,11 @@ export default class SpawnGroup {
 
 			this.ids = vars.ids;
 			this.w = vars.weight || vars.w;
+			if(typeof this.w === "string") this.w === new Function(FP.GAME, "return " + this.w);
 
 		}
 
-		if ( !this.w ) this.w = 1;
+		if ( this.w == null ) this.w = 1;
 
 	}
 

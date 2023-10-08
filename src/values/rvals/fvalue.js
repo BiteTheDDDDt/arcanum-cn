@@ -1,5 +1,5 @@
 import RValue from "./rvalue";
-import { TYP_FUNC, FP } from "../consts";
+import { TYP_FUNC, FP, applyParams } from "../consts";
 import Game from "../../game";
 import { precise } from "../../util/format";
 
@@ -23,7 +23,7 @@ export const MkCostFunc = s => {
 export default class FValue extends RValue {
 
 	toJSON(){
-		return undefined;
+		return this._src;
 	}
 
 	/**
@@ -34,16 +34,15 @@ export default class FValue extends RValue {
 
 	get type() { return TYP_FUNC }
 
-	toString(){
-		let dummyParams = this._params.split(',').map(param => {
-			switch(param) {
-				case FP.GAME: return Game.gdata;
-				case FP.ACTOR: return Game.player;
-				case FP.TARGET: return Game.player; //TODO have a dummy enemy parameter that isnt the player 
-				case FP.CONTEXT: return Game.player.context; //TODO replace context with target context once target is replaced.
-			}
-		});
-		return precise(this.fn(...dummyParams));
+	toString(item=null){
+		let dummyParams =  {
+			[FP.GAME]: Game.gdata,
+			[FP.ACTOR]: Game.player,
+			[FP.TARGET]: Game.player, //TODO have a dummy enemy parameter that isnt the player 
+			[FP.CONTEXT]: Game.player.context, //TODO replace context with target context once target is replaced.
+			[FP.ITEM]: item,
+		}
+		return precise(applyParams(this.fn, dummyParams));
 	}
 
 	constructor( params, src, path ){
@@ -72,6 +71,15 @@ export default class FValue extends RValue {
 	}
 
 	instantiate() {
-		return new FValue(this.params, this.src, this.id);
+		return new FValue(this._params, this._src, this.id);
+	}
+
+	clone(){
+
+		let f = new FValue( this._params, this._src, this._id );
+		f.source = this.source;
+
+		return f;
+
 	}
 }

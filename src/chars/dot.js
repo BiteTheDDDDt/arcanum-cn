@@ -16,9 +16,7 @@ export default class Dot {
 			return undefined;
 		}
 
-		let src = this.source && Game.getData(this.source.id);
-
-		// @TODO also need to check gs for source existence within gs.
+		let src = this.source && Game.getData(this.source.id);		// @TODO also need to check gs for source existence within gs.
 		// template check due to possible overlap of indirect game ids (like an attack) and game ids, while allowing npc dot source checks.
 		if(!src || src.template !== this.source.template) {
 			let descs = getAllPropertyDescriptors(this);
@@ -42,6 +40,7 @@ export default class Dot {
 
 			// Source deletion, as force saving means that the source won't be found through game's getData.
 			if(save.source) delete save.source;
+			if(save.applier) save.applier = save.applier.id
 
 			// Specific inclusion of level property due to level possibly depending on source
 			if(this.level != null) save.level = this.level;
@@ -50,7 +49,7 @@ export default class Dot {
 			if(!save.flags) delete save.flags;
 			save.tags = save.tags.join(",") || undefined;
 
-			console.warn("Forcibly saving DOT", this, save);
+			//console.log("Forcibly saving DOT", this, save);
 			return save;
 		}
 
@@ -71,7 +70,8 @@ export default class Dot {
 			flags:this._flags!== 0 ? this._flags : undefined,
 			duration:this.duration,
 			/** @todo source should never be string. maybe on load? */
-			source:this.source ? ( typeof this.source === 'string' ? this.source : this.source.id ) : undefined
+			source:this.source ? ( typeof this.source === 'string' ? this.source : this.source.id ) : undefined,
+			applier:this.applier ? ( typeof this.applier === 'string' ? this.applier : this.applier.id ) : undefined
 		};
 
 	}
@@ -100,6 +100,8 @@ export default class Dot {
 	get dmg(){return this.damage;}
 	set dmg(v) { this.damage = v; }
 
+	get potencies(){return this._potencies;}
+	set potencies(v) { this._potencies = v; }
 	/**
 	 * @property {RValue} damage
 	 */
@@ -123,6 +125,9 @@ export default class Dot {
 
 	get source(){return this._source;}
 	set source(v){this._source=v}
+
+	get applier(){return this._applier;}
+	set applier(v){this._applier=v}
 
 	/**
 	 * @property {number} level - level (strength) of dot.
@@ -161,7 +166,7 @@ export default class Dot {
 		if ( vars ) assign( this, vars );
 
 		this.source = this.source || source || null;
-
+		this.applier = this.applier || this.source || null;
 		this.name = name || this._name || ( source ? source.name : null );
 
 		if ( !this.id ) console.warn('BAD DOT ID: ' + this.name );
@@ -193,6 +198,7 @@ export default class Dot {
 		this.acc = this.acc || 0;
 
 		if(!this.tags) this.tags = [];
+		if(!this.potencies) this.potencies = [];
 
 	}
 
@@ -215,6 +221,9 @@ export default class Dot {
 
 	revive(gs) {
 		// @note uses GameState (player's context) and not the owner's state, which could be a npc's state.
+		if ( this.applier && typeof this.applier === 'string') {
+			this.applier = gs.getMonster(this.applier);
+		}
 		if ( this.source && typeof this.source === 'string') this.source = gs.getData( this.source );
 	}
 

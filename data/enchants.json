@@ -326,7 +326,7 @@
 			"mana": 10
 		},
 		"alter": {
-			"mod.speed": 2
+			"mod.speed": 4
 		}
 	},
 	{
@@ -350,7 +350,7 @@
 			"mana": 15
 		},
 		"alter": {
-			"mod.speed": 5
+			"mod.speed": 6
 		}
 	},
 	{

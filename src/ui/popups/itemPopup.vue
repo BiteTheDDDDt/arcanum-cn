@@ -3,6 +3,7 @@ import Game from 'game';
 
 import ItemView from 'ui/items/gdata.vue';
 import {positionAt} from './popups.js';
+import Char from '../../chars/char.js';
 
 /**
  * Information about current rollover object.
@@ -20,11 +21,16 @@ export const ItemOver = ( evt, it, source, title ) => {
 
 	RollOver.item = it;
 	RollOver.elm = evt.currentTarget;
-	RollOver.source = source;
+	RollOver.source = source != null || it instanceof Char ? source : Game.player;
 
-	if ( source && source.context ) {
-		RollOver.context = source.context;
-	} else RollOver.context = Game;
+	if( it && it.context ) {
+		RollOver.context = it.context;
+	} else if ( RollOver.source && RollOver.source.context ) {
+		RollOver.context = RollOver.source.context;
+	} else {
+		console.warn("Item and Source don't have context. Defaulting to game.", it, source);
+		RollOver.context = Game;
+	}
 
 	RollOver.title = title;
 }

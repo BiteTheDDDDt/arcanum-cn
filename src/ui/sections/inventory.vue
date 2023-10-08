@@ -27,13 +27,13 @@ export default {
 
 			let items = this.filtered;// this.inv.removeAll();
 			for( let i = items.length-1; i>=0; i-- ){
-				this.emit( 'sell', items[i], this.inv, items[i].value);
+				this.emit( 'sell', items[i], this.inv, items[i].count);
 			}
 			//this.$refs.filter.clear();
 
 		},
 
-		count(it) { return it.count > 1 ? ' (' + Math.floor(it.count) + ')': ''; },
+		count(count) { return count > 1 ? ' (' + Math.floor(count) + ')': ''; },
 		drop( it ){ this.inv.remove(it); },
 
 		/**
@@ -90,7 +90,7 @@ export default {
 	<div class="item-table">
 
 	<div class="item separate" v-for="it in ( nosearch ? baseItems : filtered )" :key="it.id">
-		<span class="item-name" @mouseenter.capture.stop="itemOver($event,it)">{{ it.name + count(it) }}</span>
+		<span class="item-name" @mouseenter.capture.stop="itemOver($event,it)">{{ it.name + count(it.count) }}</span>
 
 
 		<template v-if="!selecting">
@@ -100,7 +100,7 @@ export default {
 			<button v-if="take&&canAdd(it)" class="item-action" @click="onTake(it)">Take</button>
 
 			<button class="item-action"  @click="emit('sell',it,inv)" @mouseenter.capture.stop="itemOver($event,it)">Sell</button>
-			<button v-if="it.value>1" class="item-action"  @click="emit('sell',it,inv, it.value)" @mouseenter.capture.stop="itemOver($event,it)">Sell All</button>
+			<button v-if="it.count>1" class="item-action"  @click="emit('sell',it,inv, it.count)" @mouseenter.capture.stop="itemOver($event,it)">Sell All</button>
 
 		</template>
 		<template v-else>

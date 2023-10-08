@@ -2,6 +2,7 @@ import { precise } from "../util/format";
 import { TYP_PCT } from "./consts";
 
 export const PercentTest = /^(\d+(?:\.\d+)?)\%$/i
+const RollScale = 120;
 
 /**
  * Represents a percentage probability.
@@ -25,7 +26,12 @@ export default class Percent {
 	 * @param {number} [mod=0] - 100-based percent.
 	 * @returns {boolean} - true if roll succeeds.
 	 */
-	roll( mod=0 ) { return 100*Math.random() < this.pct*( 100 + mod ); }
+	roll( mod=0 ) {
+		if(mod < 0) {
+			return Math.random() < 1 - ((1 - this.pct) * RollScale - 10 * mod ) / (RollScale - 10 * mod);
+		}
+		return Math.random() < 1 - ((1 - this.pct) * RollScale + mod * Math.max(1 - this.pct * 4, 0) ) / (RollScale + mod);
+	}
 
 	get type() { return TYP_PCT }
 

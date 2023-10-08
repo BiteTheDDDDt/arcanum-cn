@@ -37,7 +37,8 @@ export default class GEvent extends GData {
 			return;
 		}
 		if ( this.locked ) Events.emit( EVT_UNLOCK, this );
-		if ( this.loot ) g.getLoot( this.loot );
+		//loot getter here is redundant, because amount(1) triggers changed() which has a loot getter already.
+		//if ( this.loot ) g.getLoot( this.loot );
 
 		// randomized event.
 		if ( this.rand ) {
@@ -55,8 +56,11 @@ export default class GEvent extends GData {
 	 * @param {*} g
 	 * @param {*} amt
 	 */
+	// currently the only correct way to trigger the event is via "true" which bypasses this function. Events are meant to be unique, so we are commenting this out for the time being.
+
 	amount( amt ) {
-		this.doUnlock();
+		//this.doUnlock();
 	}
+
 
 }

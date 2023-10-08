@@ -257,10 +257,16 @@
 		"run": {
 			"stamina": 0.4
 		},
-		"loot": {
-			"tomes": "3~5",
-			"markhulcodex": true
-		},
+		"loot": [
+			{
+				"tomes": "3~5",
+				"markhulcodex": true
+			},
+			{
+				"%": 100,
+				"enchanted_fountain_pen": 1
+			}
+		],
 		"encs": [
 			"enc_tapestry",
 			"enc_tome",
@@ -291,9 +297,17 @@
 			"title": "Nomad",
 			"fame": 1
 		},
-		"loot": {
-			"jazidscompass": "5%"
-		},
+		"loot": [
+			{
+				"%": 5,
+				"jazidscompass": 1
+			},
+			{
+				"%": 100,
+				"maxlevel": 1,
+				"stone_working_kit": 1
+			}
+		],
 		"encs": [
 			"enc_aeonclock",
 			"enc_caravan",

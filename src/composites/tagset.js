@@ -102,7 +102,7 @@ export default class TagSet {
 		if(!this.id) console.warn("TAGSET NO ID!!!!!");
 		
 		if(!this.name) {
-			//The followint .toString() resolves an error thrown in console
+			//The following .toString() resolves an error thrown in console
 			let ind = vars.toString().indexOf('t_');
 			if ( ind < 0) this.name = vars.toString();
 			else {

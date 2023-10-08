@@ -50,9 +50,10 @@ export default class DataList extends Inventory {
 	/**
 	 * Get the next runnable data item, or null.
 	 * @param {Game} g
+	 * @param {(it) => boolean} check - additional check for runnable data item
 	 * @returns {GData} Next runnable data, or null.
 	 */
-	getRunnable(g){
+	getRunnable(g, check){
 
 		var len = this.items.length;
 
@@ -62,8 +63,14 @@ export default class DataList extends Inventory {
 		let i = start;
 
 		do {
-
-			if ( this.items[i].canRun(g) ) return this.items[i];
+			let it = this.items[i];
+			if ( it.canRun(g) ) {
+				if ( check && check instanceof Function ) {
+					if ( check(it) ) return it;
+				} else {
+					return it;
+				}
+			}
 			if ( ++i >= len ) i = 0;
 
 		} while ( i !== start );

@@ -98,7 +98,7 @@ div.skills {
 	body.compact .skill div:last-child { display: flex; }
 
     body.compact div.subs { justify-content: center;}
-	body.compact div.subs div.skill { background: var(--list-entry-background); }
+	body.compact div.subs div.skill { background: var(--list-entry-background);width: 100%; }
 	body.compact div.subs div.skill > div > div .bar {
 		max-height: var(--md-gap);
 		background: var(--list-entry-background);
@@ -108,7 +108,7 @@ div.skills {
 
     div.subs {
 		overflow-y: auto;
-        display: grid; grid-template-columns: repeat( auto-fit, minmax( 10rem, 0.5fr) );
+        display: grid; grid-template-columns: repeat( auto-fit, minmax( 12rem, 0.5fr) );
         margin: 0; padding: var(--md-gap); overflow-x: hidden; gap: var(--sm-gap);
         width: 100%; justify-content: space-between;
     }
@@ -116,7 +116,8 @@ div.skills {
     div.subs div.skill {
         margin-bottom: 0; width: unset; flex-basis: 100%; box-sizing: border-box;
         padding: var(--md-gap); text-transform: capitalize; font-size: var(--compact-small-font);
-         border-radius: var(--list-entry-border-radius);
+        border-radius: var(--list-entry-border-radius);
+		width: 83%;
     }
     div.sub div.skill button { font-size: 0.75em; }
     div.sub div.skill > div {
@@ -132,5 +133,7 @@ div.skills {
 .separate {
 	width:90%;
 }
+
+
 
 </style>

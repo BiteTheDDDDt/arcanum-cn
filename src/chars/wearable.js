@@ -7,6 +7,7 @@ import Instance from '../items/instance';
 import { WEARABLE, ARMOR, WEAPON, ENCHANT } from '../values/consts';
 import Stat from '../values/rvals/stat';
 import MaxStat from '../values/maxStat';
+import { ParseDmg } from '../values/combatVars';
 
 
 export default class Wearable extends Item {
@@ -102,17 +103,35 @@ export default class Wearable extends Item {
 
 		if ( v ) {
 
-			if ( v !== this._attack ) {
+			if ( Array.isArray(v)) {
 
-				if ( v instanceof Attack  ) {
-					this._attack = v.clone();
-				} else this._attack = new Attack(v);
+				let a = [];
+				for( let i = v.length-1; i>=0; i-- ) {
+	
+					a.push( (v[i] instanceof Attack) ? v[i] :
+						new Attack(v[i], this)
+					);
+	
+				}
+	
+				this._attack = a;
+	
+			}
+			else
+			{
+				if ( v !== this._attack ) {
 
-			} else {
-				if ( !(v instanceof Attack) ) this._attack = new Attack(v);
+					if ( v instanceof Attack  ) {
+						this._attack = v.clone();
+					} else this._attack = new Attack(v, this);
+
+				} else {
+					if ( !(v instanceof Attack) ) this._attack = new Attack(v, this);
+				}
 			}
 
-		} else {
+		} 
+		else {
 			this._attack = null;
 		}
 
@@ -200,12 +219,11 @@ export default class Wearable extends Item {
 			else this.level = 1;
 
 			if ( this.material && this.material.level ) {
-				console.log('MAT WITH LEVEL: ' + this.material.level );
+				//console.log('MAT WITH LEVEL: ' + this.material.level );
 				this.level += this.material.level.valueOf() || 0;
 			}
 
 		}
-
 		if(typeof this.alters.includes === "function")
 		//{
 			if ( this.material && !this.alters.includes(this.material.id)) {
@@ -293,7 +311,7 @@ export default class Wearable extends Item {
 		if ( this.mod ) {
 
 			for( let p in this.mod ) {
-				console.log('apply mod: ' + p );
+				//console.log('apply mod: ' + p );
 			}
 			g.applyMods( this.mod, 1 );
 
@@ -309,7 +327,7 @@ export default class Wearable extends Item {
 		if ( this.mod ) {
 
 			for( let p in this.mod ) {
-				console.log('apply mod: ' + p );
+				//console.log('apply mod: ' + p );
 			}
 			g.applyMods( this.mod, 1 );
 

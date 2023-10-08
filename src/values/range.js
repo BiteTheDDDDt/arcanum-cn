@@ -138,6 +138,26 @@ export default class Range {
 		}
 
 	}
+	multiply ( mult ) {
+
+		//console.log('MULTIPLYING RANGE: ' + mult );
+
+		if ( typeof mult === 'number' ) {
+			this.min *= mult;
+			this.max *= mult;
+		} else if ( mult && typeof mult ==='object') {
+
+			if ( mult.type === TYP_RANGE ){
+				this.min *= mult.min;
+				this.max *= mult.max;
+			} else if ( mult.value ) {
+				this.min *= mult.value;
+				this.max *= mult.value;
+			}
+
+		}
+
+	}
 
 	/**
 	 * Necessary for RValue compatibility.

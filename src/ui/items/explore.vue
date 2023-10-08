@@ -5,7 +5,7 @@ import Combat from './combat.vue';
 import ProgBar from '../components/progbar.vue';
 
 import {HALT_TASK} from '../../events';
-import { DUNGEON } from '../../values/consts';
+import { DUNGEON, CLASH } from '../../values/consts';
 
 export default {
 
@@ -57,7 +57,7 @@ export default {
 		 */
 		inCombat(){
 
-			return this.enc ? (this.enc === this.explore.combat) : this.type === DUNGEON;
+			return this.enc ? (this.enc === this.explore.combat) : this.type === (DUNGEON||CLASH);
 
 		},
 

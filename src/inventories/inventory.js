@@ -375,11 +375,12 @@ export default class Inventory {
 	 * @param {number} [count=1]
 	 * @returns {?GData} item found, or null.
 	 */
-	addStack(it, count=1) {
+	addStack(it, count) {
 		let orig = this.findMatch(it);
 		if (orig) {
-			if(orig.count.value < 1) orig.count.value = 1;
-			orig.count++;
+			if(count == null) count = it.count ?? 1;
+			if(orig.count.value < 1) console.warn("item in inv with >1 count", orig);
+			orig.count += count;
 			return orig;
 		}
 

@@ -38,30 +38,44 @@ export const TARGET_ANY = 32;
  */
 export const TARGET_PRIMARY = 64;
 
+/**
+ * @const {number} TARGET_NONPRIMARY - avoid targeting the leader of the group.
+ */
+export const TARGET_NONPRIMARY = 128;
+
 export const TARGET_ALL = TARGET_ANY + TARGET_GROUP;
 
+export const TARGET_RAND_ENEMY = TARGET_RAND + TARGET_ENEMY;
 
-export const TARG_RAND_ENEMY = TARGET_RAND + TARGET_ENEMY;
+export const TARGET_RAND_ALLY = TARGET_RAND + TARGET_ALLY;
 
-
+export const TARGET_ENEMYLEADER = TARGET_ENEMY + TARGET_PRIMARY;
 
 export const TARGET_LEADER = TARGET_ALLY + TARGET_PRIMARY;
 
+export const TARGET_FLUNKIES = TARGET_GROUP + TARGET_ENEMY + TARGET_NONPRIMARY;
 
-/**
- * @const {number} TARGET_ENEMIES - target all enemies.
- */
+export const TARGET_MINIONS = TARGET_GROUP + TARGET_ALLY + TARGET_NONPRIMARY;
+
+export const TARGET_FLUNKY = TARGET_RAND + TARGET_ENEMY + TARGET_NONPRIMARY;
+
+export const TARGET_MINION = TARGET_RAND + TARGET_ALLY + TARGET_NONPRIMARY;
+
 export const TARGET_ENEMIES = TARGET_GROUP + TARGET_ENEMY;
 
-/**
- * @const {number} TARGET_ALLIES - target all allies.
- */
 export const TARGET_ALLIES = TARGET_GROUP + TARGET_ALLY;
+
+export const TARGET_EPICENTER = TARGET_ANY + TARGET_GROUP + TARGET_NONPRIMARY;
 
 /**
  * @const TARGET_RANDG - target random group.
  */
 export const TARGET_RANDG = TARGET_RAND + TARGET_GROUP;
+
+/**
+ * @const TARGET_RANDNP - target random non-primary.
+ */
+export const TARGET_RANDNP = TARGET_RAND + TARGET_NONPRIMARY;
 
 /**
  * Determine if target can target type.
@@ -84,16 +98,21 @@ export const Targets = {
 	self:TARGET_SELF,
 
 	/**
-	 * @property {string} ENEMY - target one enemy.
+	 * @property {string} TARGET_RAND_ENEMY - target one enemy.
  	 */
-	enemy:TARGET_ENEMY,
+	enemy:TARGET_RAND_ENEMY,
+
+	/**
+	 * @property {string} TARGET_RAND_ALLY - target one ally.
+ 	 */
+	ally:TARGET_RAND_ALLY,
 
 	/**
 	 * @const {string} ENEMIES - target all enemies.
 	 */
 	enemies:TARGET_ENEMIES,
 	/**
-	* @const {string} ALLIES - target all allies.
+	* @const {string} TARGET_ALLIES - target all allies.
 	 */
 	allies:TARGET_ALLIES,
 
@@ -107,12 +126,11 @@ export const Targets = {
  	*/
 	random:TARGET_RAND,
 
-	randomenemy:TARG_RAND_ENEMY,
 
 	/**
-	 * @const {number} TARGET_PRIMARY - target opposing leader.
+	 * @const {number} TARGET_ENEMYLEADER - target opposing leader.
 	 */
-	enemyleader:TARGET_PRIMARY,
+	enemyleader:TARGET_ENEMYLEADER,
 
 	/**
 	 * @const {number} TARGET_LEADER - target (same-team) leader.
@@ -120,9 +138,29 @@ export const Targets = {
 	leader:TARGET_LEADER,
 
 	/**
- 	* @const {string} TARGET_ALLY - target single ally.
- 	*/
-	ally:TARGET_ALLY,
+	 * @const {number} TARGET_FLUNKIES - target all enemies except their leader.
+	 */
+	flunkies:TARGET_FLUNKIES,
+
+	/**
+	 * @const {number} TARGET_MINIONS - target all allies except self.
+	 */
+	minions:TARGET_MINIONS,
+
+	/**
+	 * @const {number} TARGET_FLUNKY - target a random enemy that is not a leader.
+	 */
+	flunky:TARGET_FLUNKY,
+
+	/**
+	 * @const {number} TARGET_MINION - target a random ally except self.
+	 */
+	minion:TARGET_MINION,
+
+	/**
+	 * @const {number} TARGET_EPICENTER - target a random ally except self.
+	 */
+	epicenter:TARGET_EPICENTER,
 
 };
 
@@ -130,8 +168,29 @@ export const Targets = {
  * @param {Char[]} a - array of targets.
  * @returns {Char} next attack target
  */
-export const RandTarget = (a) => {
-	return a[Math.floor( Math.random()*a.length)];
+export const RandTarget = (a,nonprime = false,ignoretaunt = false) => {
+	// if we don't want a prime target we find out who's the prime and chop that off our list of valid random targets
+	let ind  = 0
+	if(nonprime){
+		ind = PrimeInd(a)+1;
+		if (a.length == ind) return null;
+	}
+	let v = []
+	if (!ignoretaunt)
+	{
+		for (let i = ind; i<a.length; i++)
+		{
+			if (a[i].alive)
+			{
+				if(a[i].getCause(32)) return a[i];
+				if(!a[i].getCause(64))  v.push(a[i]);
+			}
+		}
+	}
+	if (v.length>0)
+	{
+		return v[Math.floor( Math.random()*v.length)];
+	} else return a[Math.floor( Math.random()*(a.length-ind))+ind];
 }
 
 /**
@@ -141,6 +200,11 @@ export const RandTarget = (a) => {
 export const PrimeTarget = (a) => {
 	for( let i = 0; i<a.length; i++ ) {
 		if ( a[i].alive ) return a[i];
+	}
+}
+export const PrimeInd = (a) => {
+	for( let i = 0; i<a.length; i++ ) {
+		if ( a[i].alive ) return i;
 	}
 }
 
@@ -195,12 +259,12 @@ export const GetTarget = (n) => {
 
 /**
  * Create a function that returns a numeric damage value.
- * function has format: (a)ctor, (t)arget, (g)ameState
+ * function has format: (a)ctor, (t)arget, (c)ontext, (i)tem
  * @param {string} s
- * @returns {(a,t,c,g)=>number}
+ * @returns {(a,t,c,i)=>number}
  */
 export const MakeDmgFunc = (s)=>{
-	return new FValue( MkParams(FP.ACTOR, FP.TARGET, FP.CONTEXT), s );
+	return new FValue( MkParams(FP.ACTOR, FP.TARGET, FP.CONTEXT, FP.ITEM), s );
 };
 
 export const ParseDmg = (v)=>{
@@ -235,7 +299,7 @@ export const ApplyAction = ( target, action, attacker = null) => {
 		target.cure( action.cure );
 	}
 	if ( action.state ) {
-		target.addDot( action.state, action );
+		target.addDot( action.state, action, null, attacker );
 	}
 
 	if ( action.result ) {
@@ -244,7 +308,7 @@ export const ApplyAction = ( target, action, attacker = null) => {
 		target.applyVars( action.result );
 	}
 	if ( action.dot ) {
-		target.addDot( action.dot, action );
+		target.addDot( action.dot, action, null, attacker );
 	}
 
 	return true;
@@ -258,13 +322,25 @@ export const ApplyDamage = ( target, attack, attacker ) => {
 
 	if ( dmg.type === TYP_FUNC ) {
 		//let f = dmg.fn;
-		dmg = dmg.fn( attacker, target, target.context );
+		dmg = dmg.fn( attacker, target, target.context, attack.source);
 	}
 	else dmg = dmg.value;
-
-	if ( attacker && attacker.getBonus ) dmg += attacker.getBonus( attack.kind );
 	if ( attack.bonus ) dmg += attack.bonus;
-
+	if(attacker)
+	{
+		if (attacker.getBonus ) dmg += attacker.getBonus( attack.kind );
+		if (attacker.context && attack.potencies && attacker.id =="player")
+		{
+			for (let p of attack.potencies)
+			{	
+				let potency = attacker.context.state.getData(p)
+				if(potency){
+				dmg = dmg * potency.dmg.fn( attacker, target, target.context, potency )
+				}
+			}
+		}
+	}
+	
 
 	let resist = target.getResist(attack.kind);
 	if (resist !== 0) {

@@ -318,12 +318,9 @@ export default class Runner {
 		if(a.runmod){
 			Game.removeMods( a.runmod )
 		}
-		if(a.locale){
-			if(a.locale.runmod){
-				Game.removeMods( a.locale.runmod )
-			}
-			if(a.locale.onStop){
-				a.locale.onStop()
+		if(a.baseTask){
+			if(a.baseTask.runmod){
+				Game.removeMods( a.baseTask.runmod )
 			}
 		}
 		if ( a.onStop ) a.onStop();
@@ -383,25 +380,28 @@ export default class Runner {
 			return false;
 		}
 
-		let it = this.pursuits.getRunnable( this.context );
-		if ( !it ) return false;
-
-		return this.tryAdd( it, 0 );
+		return !!this.pursuits.getRunnable( this.context, it => this.tryAdd(it, 0, true) );
 
 	}
 
 	/**
 	 * Attempt to add an task, while avoiding any conflicting task types.
 	 * @public
-	 * @param {GData} a
+	 * @param {GData} a - task to be added
+	 * @param {number} [pos] - location to add task. Will append if null
+	 * @param {boolean} [cont] - if task is being automatically added
 	 */
-	tryAdd( a, pos ) {
-
+	tryAdd( a, pos, cont ) {
 		if ( !this.free ) return false;
+
 		if ( a.controller ) {
 			let controller = this.getContoller(a);
 			if ( this.has(controller) && controller.baseTask === a ) return false;
-		} else if ( this.has(a) ) return false; 
+			if ( cont && !controller.canContinue(this.context, a) ) return false;
+		} else {
+			if ( this.has(a) ) return false;
+			if ( cont && !a.canContinue(this.context)) return false;
+		}
 		if ( a.fill && this.context.filled(a.fill,a) ) return false;
 		if ( !a.canRun(this.context) ) return false;
 
@@ -444,7 +444,7 @@ export default class Runner {
 	addWait( a ){
 
 		if ( a == null || a.hasTag(REST_TAG) || this.waiting.includes(a) || this.pursuits.includes(a) || ( a.maxed && a.maxed() ) || ( a.max != null && +a >= a.max ) ) return;
-		if ( a.locale != null && (this.waiting.includes(a.locale) || this.pursuits.includes(a.locale)) ) return;
+		if ( a.baseTask != null && (this.waiting.includes(a.baseTask) || this.pursuits.includes(a.baseTask)) ) return;
 		//@todo fill check
 
 		//console.log('adding wait: ' + a.id );
@@ -618,12 +618,9 @@ export default class Runner {
 		if(a.runmod){
 			Game.applyMods( a.runmod )
 		}
-		if(a.locale){
-			if(a.locale.runmod){
-				Game.applyMods( a.locale.runmod )
-			}
-			if(a.locale.onStart){
-				a.locale.onStart()
+		if(a.baseTask){
+			if(a.baseTask.runmod){
+				Game.applyMods( a.baseTask.runmod )
 			}
 		}
 		

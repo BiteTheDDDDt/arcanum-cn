@@ -2,20 +2,20 @@
 	{
 		"id": "pot_remedy",
 		"name": "remedy",
-		"desc": "Cures most common ailments and fortifies the body.",
+		"desc": "Cures most common ailments and renders the imbiber more resistant to them.",
 		"require": "g.potions>=8",
 		"level": 10,
 		"buy": {
 			"gold": 2500,
 			"research": 3000,
-			"potionessence": 1
+			"ichor": 1
 		},
 		"cost": {
 			"herbs": 50,
 			"nature": 10,
 			"naturegem": 15,
 			"gems": 5,
-			"potionessence": 1
+			"ichor": 1
 		},
 		"use": {
 			"action": {
@@ -30,12 +30,14 @@
 				"targets": "self"
 			},
 			"dot": {
-				"duration": 300,
-				"effect": {
-					"hp": 1
-				},
+				"duration": 60,
 				"mod": {
-					"hp.max": 100
+					"self.resist.paralysis": 15,
+					"self.resist.enrage": 15,
+					"self.resist.charmed": 15,
+					"self.resist.fear": 15,
+					"self.resist.silence": 15,
+					"self.resist.sick": 15
 				}
 			}
 		}
@@ -161,7 +163,7 @@
 				"duration": 1800,
 				"mod": {
 					"player.dodge": 25,
-					"player.speed": 15,
+					"player.speed": 5,
 					"heist.result.gems.min": 1,
 					"heist.result.gems.max": 1,
 					"heist.length": -25
@@ -335,12 +337,47 @@
 		"name": "echoing flask",
 		"desc": "Amplifies even significantly muffled sounds.",
 		"level": 7,
+		"buy": {
+			"gold": 150,
+			"research": 250
+		},
 		"require": "g.potions>=5",
 		"cost": {
 			"herbs": 1,
 			"airgem": 1
 		},
 		"use": "speak"
+	},
+	{
+		"id": "pot_csilence2",
+		"name": "amplified echoing flask",
+		"desc": "A refined formula protects your voice for a time after application.",
+		"level": 9,
+		"require": "g.potions>=7",
+		"buy": {
+			"gold": 1000,
+			"research": 1500
+		},
+		"cost": {
+			"herbs": 15,
+			"airgem": 15
+		},
+		"use": {
+			"action": {
+				"cure": [
+					"silence"
+				],
+				"targets": "self"
+			},
+			"dot": {
+				"id": "pot_csilence_dot",
+				"name": "echoing",
+				"duration": 20,
+				"mod": {
+					"self.resist.silence": 50
+				}
+			}
+		}
 	},
 	{
 		"id": "pot_heal1",
@@ -504,7 +541,7 @@
 					"duration": 120,
 					"mod": {
 						"self": {
-							"speed": -15
+							"speed": -6
 						}
 					}
 				}
@@ -596,12 +633,12 @@
 				"dot": {
 					"name": "everfrozen",
 					"kind": "ice",
-					"dmg": "5",
+					"dmg": 5,
 					"duration": 120,
 					"mod": {
 						"self": {
 							"tohit": -15,
-							"speed": -15,
+							"speed": -6,
 							"dodge": -25
 						}
 					}
@@ -712,7 +749,7 @@
 		"use": {
 			"dot": {
 				"mod": {
-					"player.tohit": 25
+					"self.tohit": 25
 				},
 				"duration": 1800
 			}
@@ -760,7 +797,7 @@
 		"use": {
 			"dot": {
 				"mod": {
-					"speed": 25
+					"speed": 10
 				},
 				"duration": 1800
 			}

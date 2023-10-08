@@ -212,7 +212,14 @@ export default class Stat extends RValue {
 
 			//console.dir( val );
 
-		} else {
+		} else if ( typeof val === 'function') {
+
+			this.base += amt*val(Game.gdata);
+
+			//console.dir( val );
+
+		}
+		else {
 			console.dir( val, 'unknown mod: ' + typeof val );
 		}
 

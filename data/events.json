@@ -30,6 +30,33 @@
 		}
 	},
 	{
+		"id": "evt_tool_herbalist",
+		"name": "tool of the trade",
+		"require": "g.herbalist>0",
+		"desc": "Your master offers you an old sickle. 'I used this one for years, so it should be good enough for you.'",
+		"loot": {
+			"apprentice_herb_sickle": 1
+		}
+	},
+	{
+		"id": "evt_tool_scribe",
+		"name": "tool of the trade",
+		"require": "g.scribe>0",
+		"desc": "Your master offers you an old quill. 'Used this one for quite a few of the books you've read, so don't even think about complaining.'",
+		"loot": {
+			"apprentice_quill": 1
+		}
+	},
+	{
+		"id": "evt_tool_falconer",
+		"name": "tool of the trade",
+		"require": "g.falconer>0",
+		"desc": "Your master offers you an old glove. 'My falcons are used to this one, just don't let them get into the holes.'",
+		"loot": {
+			"apprentice_falconer_glove": 1
+		}
+	},
+	{
 		"id": "evt_rangers",
 		"name": "Impudent Meddlers",
 		"require": "g.wicked>0&&g.player.level>=15&&g.evilamt>=75",
@@ -99,9 +126,7 @@
 		"desc": "The masses of arcane dabblers never reach such heights.",
 		"lock": "t_tier2",
 		"result": {
-			"player.exp": 25
-		},
-		"result": {
+			"player.exp": 25,
 			"fame": 3
 		},
 		"mod": {

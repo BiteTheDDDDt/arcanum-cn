@@ -223,7 +223,7 @@ export default class Player extends Char {
 		this._next = this._next || 50;
 
 		this.team = TEAM_PLAYER;
-
+		this.chaincast = this.chaincast || 1;
 		/**
 		 * @property {GData[]} retreats - stats to check for empty before retreating.
 		 * Initialized from RetreatStats
@@ -385,7 +385,10 @@ export default class Player extends Char {
 			this.timer += getDelay( this.speed );
 
 			// attempt to use cast spell first.
-			this.tryCast();
+			for(let i=this.castAmt(this.chaincast); i>0;i--)
+			{
+				this.tryCast();
+			}
 		}
 
 	}
@@ -400,16 +403,13 @@ export default class Player extends Char {
 		if ( this.timer <= 0 ) {
 
 			this.timer += getDelay(this.speed);
-
-			// attempt to use spell first.
-			if ( this.tryCast() ) {
-
-				// don't mix fists and spells.
-				if ( !this.weapons.includes(Fists) ){
-					return this.nextAttack();
-				}
-
-			} else return this.nextAttack();
+			// attempt to use spells first.
+			for(let i=this.castAmt(this.chaincast); i>0;i--)
+			{
+				this.tryCast();
+			}
+			//you can now actually use fists with spells, why was that not allowed?
+		 	return this.nextAttack();
 
 		}
 
@@ -428,6 +428,7 @@ export default class Player extends Char {
 
 		let nxt = this.weapons.nextItem();
 		//console.log('attack with: ' + (nxt !== null && nxt!==undefined?nxt.id:'none') );
+		if ( Array.isArray(nxt.attack) ) return nxt.attack[ Math.floor( Math.random()*nxt.attack.length ) ];
 		return nxt ? nxt.attack : null;
 	}
 

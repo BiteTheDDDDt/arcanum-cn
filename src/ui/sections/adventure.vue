@@ -10,7 +10,7 @@ import FilterBox from '../components/filterbox.vue';
 import Explore from '../items/explore.vue';
 
 import { LOG_COMBAT } from '../../events';
-import { EXPLORE, DUNGEON, LOCALE } from '../../values/consts';
+import { EXPLORE, DUNGEON, LOCALE, CLASH } from '../../values/consts';
 
 const MAX_ITEMS = 7;
 
@@ -27,8 +27,9 @@ export default {
 
 		return {
 			showDone:ops.hasOwnProperty('showDone') ? ops.showDone : true,
-			showRaid:ops.hasOwnProperty('showRaid') ? ops.showRaid : true,
+			showCombatDungeon:ops.hasOwnProperty('showCombatDungeon') ? ops.showCombatDungeon : true,
 			showLocale:ops.hasOwnProperty('showLocale') ? ops.showLocale : true,
+			showClash:ops.hasOwnProperty('showClash') ? ops.showClash : true,
 			lvlSort:ops.lvlSort,
 			log:Game.log,
 			filtered:null
@@ -59,10 +60,17 @@ export default {
 			}
 		},
 
-		chkShowRaid:{
-			get(){return this.showRaid;},
+		chkShowCombatDungeon:{
+			get(){return this.showCombatDungeon;},
 			set(v){
-				this.showRaid = Settings.setSubVar( EXPLORE, 'showRaid', v );
+				this.showCombatDungeon = Settings.setSubVar( EXPLORE, 'showCombatDungeon', v );
+			}
+		},
+
+		chkShowClash:{
+			get(){return this.showClash;},
+			set(v){
+				this.showClash = Settings.setSubVar( EXPLORE, 'showClash', v );
 			}
 		},
 
@@ -104,20 +112,22 @@ export default {
 		 */
 		allLocs(){
 			return this.state.filterItems(
-				it=>(it.type===DUNGEON||it.type===LOCALE)
+				it=>(it.type===DUNGEON||it.type===LOCALE||it.type===CLASH)
 			).sort( this.lvlSort ? levelsort : alphasort );
 		},
 
 		locales(){
 
 			let d = this.showDone;
-			let r = this.showRaid;
+			let cd = this.showCombatDungeon;
 			let l = this.showLocale;
+			let cl = this.showClash;
 
 			return this.allLocs.filter(
 				it=>!this.locked(it) && (d||it.value<=0) &&
-				( r||it.type!==DUNGEON ) &&
-				( l || it.type !==LOCALE )
+				( cd || it.type !== DUNGEON ) &&
+				( l || it.type !== LOCALE ) &&
+				( cl || it.type !== CLASH )
 			);
 
 		}
@@ -146,8 +156,10 @@ export default {
 				<span>
 				<span class="opt"><input :id="elmId('showDone')" type="checkbox" v-model="chkShowDone">
 				<label :for="elmId('showDone')">Complete</label></span>
-				<span class="opt"><input :id="elmId('showRaid')" type="checkbox" v-model="chkShowRaid">
-				<label :for="elmId('showRaid')">Dungeon</label></span>
+				<span class="opt"><input :id="elmId('ShowCombatDungeon')" type="checkbox" v-model="chkShowCombatDungeon">
+				<label :for="elmId('ShowCombatDungeon')">Dungeon</label></span>
+				<span class="opt"><input :id="elmId('ShowClash')" type="checkbox" v-model="chkShowClash">
+				<label :for="elmId('ShowClash')">Clash</label></span>
 				<span class="opt"><input :id="elmId('showLocale')" type="checkbox" v-model="chkShowLocale">
 				<label :for="elmId('showLocale')">Explore</label></span>
 				</span>

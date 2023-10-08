@@ -1,5 +1,5 @@
 import { quickSplice } from "../util/array";
-import { TARGET_ALLIES, TARGET_ENEMIES, TARGET_ENEMY, TARGET_ALLY, TARGET_SELF, TARGET_RAND, TARGET_RANDG } from "../values/combatVars";
+import { TARGET_ALLIES, TARGET_ENEMIES, TARGET_ENEMY, TARGET_ALLY, TARGET_SELF, TARGET_RAND, TARGET_RANDG, TARGET_LEADER, TARGET_PRIMARY, TARGET_MINIONS, TARGET_FLUNKIES, TARGET_RAND_ENEMY, TARGET_RAND_ALLY, TARGET_MINION, TARGET_FLUNKY, TARGET_RANDNP } from "../values/combatVars";
 
 
 export const NO_ATTACK = 1;
@@ -7,6 +7,8 @@ export const NO_DEFEND = 2;
 export const NO_SPELLS = 4;
 export const CONFUSED = 8;
 export const CHARMED = 16;
+export const TAUNT = 32;
+export const HIDE = 64;
 
 export const NO_ACT = NO_ATTACK + NO_DEFEND + NO_SPELLS;
 export const IMMOBILE = NO_ATTACK + 32;
@@ -26,6 +28,8 @@ export const ParseFlags = (list)=>{
 		else if ( v === 'nocast') f |= NO_SPELLS;
 		else if ( v === 'confused') f |= CONFUSED;
 		else if ( v === 'charmed') f |= CHARMED;
+		else if ( v === 'taunt') f |= TAUNT;
+		else if ( v === 'hiding') f |= HIDE;
 
 	}
 	return f;
@@ -36,14 +40,30 @@ const ConfuseTargets = {
 	[TARGET_ALLIES]:TARGET_RANDG,
 	[TARGET_ENEMIES]:TARGET_RANDG,
 	[TARGET_ENEMY]:TARGET_RAND,
+	[TARGET_RAND_ENEMY]:TARGET_RAND,
+	[TARGET_RAND_ALLY]:TARGET_RAND,
+	[TARGET_LEADER]:TARGET_RAND,
+	[TARGET_PRIMARY]:TARGET_RAND,
 	[TARGET_ALLY]:TARGET_RAND,
-	[TARGET_SELF]:TARGET_RAND
+	[TARGET_SELF]:TARGET_RAND,
+	[TARGET_MINIONS]:TARGET_RANDG,
+	[TARGET_FLUNKIES]:TARGET_RANDG,
+	[TARGET_MINION]:TARGET_RANDNP,
+	[TARGET_FLUNKY]:TARGET_RANDNP
 }
 const CharmTargets = {
 	[TARGET_ALLIES]:TARGET_ENEMIES,
 	[TARGET_ENEMIES]:TARGET_ALLIES,
 	[TARGET_ENEMY]:TARGET_ALLY,
+	[TARGET_RAND_ENEMY]:TARGET_RAND_ALLY,
+	[TARGET_RAND_ALLY]:TARGET_RAND_ENEMY,
+	[TARGET_LEADER]:TARGET_PRIMARY,
+	[TARGET_PRIMARY]:TARGET_LEADER,
 	[TARGET_ALLY]:TARGET_ENEMY,
+	[TARGET_MINIONS]:TARGET_FLUNKIES,
+	[TARGET_FLUNKIES]:TARGET_MINIONS,
+	[TARGET_MINION]:TARGET_FLUNKY,
+	[TARGET_FLUNKY]:TARGET_MINION
 };
 
 /**
@@ -61,6 +81,16 @@ export default class States {
 
 	get flags(){return this._flags;}
 	set flags(v) { this._flags = v;}
+
+	get tags() {
+		return this._tags
+	}
+	set tags(v) {
+		if(!v) return;
+		if(typeof v === "string") this._tags = v.split(",").map(t => t.trim());
+		else if(Array.isArray(v)) this._tags = v;
+		else console.warn("Unknown tags in setter", v);
+	}
 
 	canCast() { return (this._flags & NO_SPELLS) === 0 }
 	canAttack() { return (this._flags & NO_ATTACK) === 0 }

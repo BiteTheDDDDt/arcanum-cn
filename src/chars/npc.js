@@ -122,6 +122,8 @@ export default class Npc extends Char {
 
 		this.dodge = this.dodge || this.level/2;
 
+		if (!this.chaincast ) this.chaincast = 0.8;
+
 		this.active = (this.active === undefined || this.active === null) ? false : this._active;
 
 		this.context = new Context( Game.state, this );

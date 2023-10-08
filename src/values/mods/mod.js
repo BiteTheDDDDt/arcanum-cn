@@ -45,8 +45,8 @@ export default class Mod extends Stat {
 
 		if ( this.pctTot !== 0 ) {
 
-			if ( this.bonus !== 0 ) s += ', ';
-			s += ( this.pctTot > 0 ? '+' : '' ) + precise(100*this.pctTot) + '%';
+			if ( this.bonus !== 0 ) s += ' & ';
+			s += precise(100*this.pctTot) + '%';
 		}
 
 		if (!s) s = '0';
@@ -213,7 +213,7 @@ export default class Mod extends Stat {
 				console.log('NOT WRITABLE: ' + p );
 				return null;
 			}
-			console.log( p + ': STAT FROM NUMBER: ' + obj[p] );
+			//console.log( p + ': STAT FROM NUMBER: ' + obj[p] );
 
 			let s = obj[p] = new Stat( targ || 0, (obj.id ? obj.id +'.'  : '' ) + p );
 			s.addMod( this, amt );

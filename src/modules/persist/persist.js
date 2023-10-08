@@ -46,7 +46,7 @@ export const Persist = {
 		Local.deleteChar(file);
 		if ( Remote) return Remote.deleteChar(file);
 
-		window.localStorage.setItem( this.settingsLoc(charid), null);
+		//window.localStorage.setItem( this.settingsLoc(charid), null);
 
 	},
 

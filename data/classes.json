@@ -125,7 +125,9 @@
 		"name": "adept",
 		"tags": "t_tier0",
 		"desc": "Your master behind you, you set off into the world alone. You had better find a new place to stay.",
-		"mod": "tier0"
+		"mod": {
+			"tier0": true
+		}
 	},
 	{
 		"id": "blueadept",
@@ -657,7 +659,7 @@
 		"desc": "A keeper of the forests, mountains, and hills. Only those who make forest their home can become one.",
 		"tags": "t_tier2",
 		"require": "g.tier1>0&&g.naturelore>=12",
-		"need": "lodge",
+		"need": "(g.outdoors+g.lodge)>0",
 		"cost": {
 			"research": 1500,
 			"naturegem": 15,

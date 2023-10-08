@@ -248,7 +248,7 @@ export default class GameState {
 
 		this.combat.revive(this);
 		this.explore.revive(this);
-
+		new Set([this.player, ...this.minions.items, ...this.combat.enemies, ...this.combat.allies]).forEach(it => it.reviveDots(this))	
 	}
 
 	/**
@@ -559,5 +559,7 @@ export default class GameState {
 	}
 
 	getData(id) { return this.items[id] || this[id]; }
+
+	getMonster(v) {return this.combat.enemies.find(w => w.id === v) || this.combat.allies.find(w => w.id === v) || this.minions.items.find(w => w.id === v)}
 
 }

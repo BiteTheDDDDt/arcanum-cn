@@ -10,7 +10,7 @@ import Game from '../../game';
 */
 export const DisplayName = ( obj ) => {
 
-	let it = RollOver.context.getData(obj);
+	let it = RollOver.context.getData(obj, false);
 	return it ? it.name : obj;
 
 }
@@ -89,7 +89,7 @@ export class InfoBlock {
 	 */
 	static GetItem( p, curItem=null ) {
 
-		if ( !curItem ) return RollOver.context.getData(p);
+		if ( !curItem ) return RollOver.context.getData(p, false);
 		else return curItem[p] || curItem;
 
 	}

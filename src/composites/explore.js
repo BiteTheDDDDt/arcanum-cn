@@ -4,6 +4,7 @@ import Game from '../game';
 import { EXPLORE, getDelay, TYP_PCT, ENCOUNTER } from "../values/consts";
 import Encounter from "../items/encounter";
 import { Locale } from "../items/locale";
+import { genDefaultLoot } from "../items/monster";
 
 /**
  * Controls locale exploration.
@@ -21,7 +22,8 @@ export default class Explore {
 
 		return {
 			locale:this.locale ? this.locale.id : undefined,
-			enc:enc ? enc.id : undefined
+			enc:enc ? enc.id : undefined,
+			exhausted: this.exhausted || undefined
 		}
 
 	}
@@ -45,6 +47,12 @@ export default class Explore {
 	 * @property {bool} - dungeons marked as unreturnable reset when you are defeated or otherwise leave them.
 	 */
 	 get unreturnable() { return this.locale ? this.locale.unreturnable : null; }	
+
+	/**
+	 * @property {boolean} exhausted - determines whether explorer can automatically reenter the current adventure.
+	 */
+	get exhausted() { return this._exhausted; }
+	set exhausted(v) { this._exhausted = v; }
 
 
 	get exp(){ return this.locale ? this.locale.exp : 0; }
@@ -78,6 +86,33 @@ export default class Explore {
 	 * @returns {boolean}
 	 */
 	canRun(g) { return this.locale && !this.player.defeated() && this.locale.canRun(g); }
+
+	/**
+	 * 
+	 * @param {Game} g 
+	 * @param {*} [locale]
+	 * @returns {boolean}
+	 */
+	canContinue(g, locale) {
+		locale = locale || this.locale;
+		if(!locale) {
+			return false;
+		}
+		if(this.exhausted) {
+			let statCheck = [...this.player.defeators, ...Object.keys(locale.run || {}).map(key => g.getData(key))];
+			if(statCheck.find(it => it == null)) {
+				console.warn("Nullish value found in canContinue");
+				statCheck = statCheck.filter(it => it == null);
+			}
+
+			if(statCheck.find(it => it.max ? !it.maxed() : false)) {
+				return false;
+			} else {
+				this.exhausted = false;
+			}
+		}
+		return true;
+	}
 
 	/**
 	 * @property {object} effect - might be used by runner to apply effect?
@@ -218,8 +253,15 @@ export default class Explore {
 		this.emitDefeat();
 
 	}
+
+	onStart() {
+		this.exhausted = false;
+		if(this.locale && this.locale.onStart) this.locale.onStart();
+	}
+
 	onStop()
 	{	
+		if(this.locale && this.locale.onStop) this.locale.onStop();
 		if(this.unreturnable)
 		{
 			this.reset();
@@ -236,6 +278,7 @@ export default class Explore {
 		Events.emit( DEFEATED, this.locale );
 		Events.emit( TASK_BLOCKED, this,
 			this.locale && this.player.level>this.locale.level && this.player.retreat>0 );
+		this.exhausted = true;
 	}
 
 	update(dt) {
@@ -259,6 +302,7 @@ export default class Explore {
 
 				Events.emit( DEFEATED, this );
 				Events.emit( TASK_BLOCKED, this, true );
+				this.exhausted = true;
 
 			}
 		}
@@ -334,7 +378,7 @@ export default class Explore {
 
 		if ( enemy.result ) Game.applyVars( enemy.result );
 		if ( enemy.loot ) Game.getLoot( enemy.loot, this.drops );
-		else Game.getLoot( {maxlevel:enemy.level, [TYP_PCT]:30}, this.drops );
+		else Game.getLoot( genDefaultLoot( enemy ), this.drops );
 
 	}
 

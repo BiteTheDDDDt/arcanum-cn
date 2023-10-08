@@ -8,6 +8,26 @@ const LT = 4;
 const GTE = GT + EQ;
 const LTE = LT + EQ;
 
+/**
+ * @property {OPS.EQ}
+ * @property {OPS.GT}
+ * @property {OPS.LT}
+ * @property {OPS.GTE}
+ * @property {OPS.LTE}
+ */
+export const OPS = Object.freeze(Object.entries({
+	EQ: {op: '=', value: EQ},
+	GT: {op: '>', value: GT},
+	LT: {op: '<', value: LT},
+	GTE: {op: '>=', value: GTE},
+	LTE: {op: '<=', value: LTE}
+}).reduce((dict, [key, value]) => {
+	dict[key] = value;
+	dict[value.op] = value.value;
+	dict[value.value] = value.op;
+	return dict;
+}, {}));
+
 const ParseOp = ( s ) => {
 
 	if ( s === '=' ) return EQ;

@@ -254,11 +254,11 @@ export default {
 		
 		for( let r of this.runner.actives ) {
 			if(r.runmod){
-				this.applyMods( a.runmod )
+				this.applyMods( r.runmod )
 			}
-			if(r.locale){
-				if(r.locale.runmod){
-					this.applyMods( r.locale.runmod )
+			if(r.baseTask){
+				if(r.baseTask.runmod){
+					this.applyMods( r.baseTask.runmod )
 				}
 			}
 		}
@@ -594,7 +594,7 @@ export default {
 	 * ( currently used for npcs )
 	 * @param {number} [count=1]
 	 */
-	create( it, keep=true, count=1 ) {
+	create( it, keep=true, count=1, cap=0) {
 
 		//console.log('CREATING: ' + it.id );
 
@@ -619,7 +619,7 @@ export default {
 			*/
 			if ( it.type === MONSTER ) {
 
-				if ( it.onCreate ) it.onCreate( this, TEAM_PLAYER, keep );
+				if ( it.onCreate ) it.onCreate( this, TEAM_PLAYER, keep, cap );
 
 			} else {
 
@@ -899,12 +899,15 @@ export default {
 
 				} else {
 
+					let amtFunc;
+					if(target.amount && target.amount instanceof Function) amtFunc = target.amount.length > 1 ? amt => target.amount(this, amt) : target.amount.bind(target);
+
 					if ( typeof e === 'number' ) {
-						target.amount( e*dt*amt );
+						amtFunc( e*dt*amt );
 					} else if ( e.isRVal ) {
 
 						// messy code. this shouldn't be here. what's going on?!?!
-						target.amount( amt*dt*e.getApply( target ) );
+						amtFunc( amt*dt*e.getApply( target ) );
 
 					} else if ( e === true ) {
 
@@ -913,7 +916,7 @@ export default {
 
 					} else if ( e.type === TYP_PCT ) {
 
-						if ( e.roll( this.getData('luck').valueOf() ) ) target.amount( 1 );
+						if ( e.roll( this.getData('luck').valueOf() ) ) amtFunc( 1 );
 
 					} else target.applyVars(e,dt,amt);
 
@@ -1190,14 +1193,15 @@ export default {
 
 		if ( !parent ) return false;
 
-		if ( (cost instanceof RValue) || !isNaN(cost)){
-			return parent.value >= cost;
+		if ( cost instanceof Function ) {
+			cost = cost(this.gdata, this.player); //TODO does not account updated costs.
 		}
 
-		if ( (cost instanceof Function) ) {
-			let pay = cost(this.gdata, this.player);
-			return !isNaN(pay) && +parent >= pay;
+		if ( (cost instanceof RValue) || !isNaN(cost)){
+			return parent.canPay ? parent.canPay(cost * amt) : parent >= cost * amt;
 		}
+
+		if( typeof cost !== "object" && isNaN(cost) ) console.warn("canPayObj cost is non-object NaN", cost);
 
 		for( let p in cost ) {
 

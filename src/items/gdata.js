@@ -3,7 +3,7 @@ import Stat from '../values/rvals/stat';
 import Base, {mergeClass } from './base';
 import {arrayMerge} from '../util/array';
 import { assignPublic } from '../util/util';
-import Events, { CHAR_ACTION, EVT_EVENT, EVT_UNLOCK } from '../events';
+import Events, { CHAR_ACTION, EVT_EVENT, EVT_UNLOCK, STATE_BLOCK } from '../events';
 import Game, { TICK_LEN } from '../game';
 import { WEARABLE, WEAPON } from '../values/consts';
 import RValue, { InitRVals } from '../values/rvals/rvalue';
@@ -267,6 +267,16 @@ export default class GData {
 	}
 
 	/**
+	 * Detemines whether an item can continue to run as a continuous task.
+	 * Does not check canRun.
+	 * @param {Game} g 
+	 * @param {number} dt - minimum length of time item would run.
+	 */
+	canContinue( g ) {
+		return true;
+	}
+
+	/**
 	 * Determine if this resource can pay the given amount of value.
 	 * Made a function for reverseStats, among other things.
 	 * @param {number} amt
@@ -370,26 +380,73 @@ export default class GData {
 
 		if ( this.isRecipe ) { return g.create( this, true, count ); }
 
-		if ( this.once && this.valueOf() === 1 ) g.applyVars( this.once );
+		if ( this.once && this.valueOf() === 1 ) 
+		{
+			g.applyVars( this.once );
+			if ( this.once.loot ) { g.getLoot( this.once.loot ); }
+		}
 
 		if ( this.cd ) {
 			this.timer = Number(this.cd );
 			g.addTimer( this );
 		}
-		if ( this.loot ) { g.getLoot( this.loot ); }
+		if ( this.loot ) { 
+			//fix for turbolooting
+			for (let i =0;i<count;i++)
+			{
+				g.getLoot( this.loot );
+			}
+			
+		 }
 
 		if ( this.title ) g.self.setTitle( this.title );
 		if ( this.result ) {
-
+			let a
+			if(this.caststoppers) {
+				for (let b of this.caststoppers)
+					{
+						a = g.self.getCause(b);
+						if(a) break;
+					}
+				}
+			if ( a ) {
+				Events.emit( STATE_BLOCK, g.self, a );
+			} else {
 			g.applyVars( this.result, count );
+			}
 		}
 		if ( this.create ) g.create( this.create );
-
+		if (this.summon)
+		{
+			for (let i =0;i<count;i++)
+			{
+				for (let smn of this.summon){
+					let smnid = smn.id
+					let smncount = smn.count || 1
+					let smnmax = smn.max || 0
+					let minions = g.getData('minions');
+					let mon = g.getData(smn.id)
+					g.create(smnid, minions.shouldKeep(mon), smncount, smnmax)
+				}
+			}	
+		}
 		if ( this.mod ) { g.applyMods( this.mod ); }
 
 		if ( this.lock ) g.lock( this.lock );
 		if ( this.dot ) {
-			g.self.addDot( this.dot, this );
+			let a
+			if(this.caststoppers) {
+				for (let b of this.caststoppers)
+					{
+						a = g.self.getCause(b);
+						if(a) break;
+					}
+				}
+			if ( a ) {
+				Events.emit( STATE_BLOCK, g.self, a );
+			} else {
+				g.self.addDot( this.dot, this, null, g.self );
+			}
 		}
 
 		if ( this.disable ) g.disable( this.disable );
@@ -397,7 +454,12 @@ export default class GData {
 		if ( this.log ) Events.emit( EVT_EVENT, this.log );
 
 		if ( this.attack || this.action ) {
-			if (this.type !== WEARABLE && this.type !== WEAPON ) Events.emit( CHAR_ACTION, this, g );
+			if (this.type !== WEARABLE && this.type !== WEAPON ) 
+			//this is required for chaincast - otherwise multiple casts at once are ignored.
+			for (let i =0;i<count;i++)
+			{
+				Events.emit( CHAR_ACTION, this, g );
+			}
 		}
 
 	}

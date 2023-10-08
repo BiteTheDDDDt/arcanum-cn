@@ -1,12 +1,12 @@
 {
 	"module": "timerip",
 	"data": {
-		"dungeons": [
+		"clashes": [
 			{
 				"id": "timerip_clash",
 				"name": "unknown timeline",
 				"unreturnable": true,
-				"sym": "⌛️",
+				"sym": "⌛️⚔💀",
 				"desc": "The unmistakable ticking of a timepiece of your own making catches your attention. Who could possibly own one?",
 				"require": "g.timerip_locale>=15",
 				"level": 1,
@@ -156,7 +156,7 @@
 				"name": "time paradox",
 				"desc": "Hold on, the stables were demolished a century ago?",
 				"group": "adversities",
-				"rate":"-0.01",
+				"rate": -0.01,
 				"max": 20,
 				"flavor": "No relation to usage of postmen to deliver volatile materials."
 			},
@@ -165,7 +165,7 @@
 				"desc": "Time is a dangerous thing. Try not to wink out of existence",
 				"max": 500,
 				"reverse": "true",
-				"rate":"-0.1",
+				"rate": -0.1,
 				"tags": "menace",
 				"mod": {
 					"tempus.rate": "-0.2%",
@@ -203,10 +203,27 @@
 				"desc": "Blossoming flows of time coalesce into a cutting edge right before your eyes.",
 				"type": "weapon",
 				"unique": true,
-				"attack": {
-					"kind": "slash",
-					"damage": "15~20"
-				},
+				"attack": [
+					{
+						"name": "whirling dervish",
+						"kind": "slash",
+						"targets":"enemies",
+						"dmg": "10~15"
+						},	
+						{
+						"name": "culling",
+						"kind": "slash",
+						"targets":"enemy",
+						"dmg": "15~20"
+						},
+						{
+						"name": "bladework",
+						"kind": "slash",
+						"targets":"enemyleader",
+						"dmg": "15~20",
+						"tohit": 25
+						}
+					],
 				"alter": {
 					"mod": {
 						"tempus.rate": 0.5,
@@ -348,7 +365,7 @@
 				"id": "temporalanchor",
 				"name": "temporal anchor",
 				"level": 15,
-				"cd":"100",
+				"cd": 100,
 				"school": "time",
 				"desc": "Utilize an anchor to achieve transient temporal stability.",
 				"require": "g.instability>50&&g.chronomancy>=5",
@@ -443,7 +460,7 @@
 				"desc": "In time, all perish. How are you reading this?",
 				"attack": {
 					"targets": "enemies",
-					"damage": "100~130",
+					"damage": "80~110",
 					"kind": "tempus",
 					"tohit": 80
 				}
@@ -486,7 +503,7 @@
 							"name": "distortion",
 							"id":"mon_distortion",
 							"duration": 15,
-							"dmg": "25~35"	
+							"dmg": "15~25"	
 							}
 						},
 						{
@@ -544,7 +561,7 @@
 								"name": "dilation",
 								"id":"mon_dilation",
 								"duration": 15,
-								"dmg": "10~20",	
+								"dmg": "5~10",	
 								"mod": {
 									"self.speed": -15
 								}
@@ -577,7 +594,7 @@
 						{
 							"targets": "self",
 							"result": {
-								"hp": 600
+								"hp": 200
 							}
 						},
 						{
@@ -1172,11 +1189,12 @@
 				"name": "unknown wizard",
 				"level": 15,
 				"spells": "mon_aeon,mon_distort,mon_dilate,mon_temporalrestoration,prismaticmissile,mon_quicken",
-				"spellchance":0.7,
+				"chaincast":0.7,
 				"kind": "unknown",
 				"desc": "You know you will win this battle. This knowledge offers little comfort.",
-				"noproc":"true",
-				"hp": 4000,
+				"noproc":true,
+				"hp": 2500,
+				"regen":5,
 				"defense": 80,
 				"dodge":40,
 				"tohit":60,
@@ -1185,18 +1203,18 @@
 					{
 					"name": "whirling dervish",
 					"targets":"enemies",
-					"dmg": "50~60"
+					"dmg": "40~45"
 					},
 					{
 					"name": "culling",
 					"targets":"enemy",
-					"dmg": "90~110"
+					"dmg": "70~90"
 					},
 					{
 					"name": "bladework",
 					"targets":"enemyleader",
-					"dmg": "90~110",
-					"tohit":"25"
+					"dmg": "70~90",
+					"tohit": 25
 					}
 				],
 				"loot": {

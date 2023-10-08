@@ -53,7 +53,7 @@ export default {
 		hitNames(){
 			return Object.keys( this.player.hits );
 		},
-
+		potencies() {return Game.state.potencies},
 		level() {return this.player.level.value },
 
 		defense() {return this.player.defense },
@@ -65,7 +65,7 @@ export default {
 		next() {return this.floor( this.player.next ); },
 		mount() { return Game.state.getSlot('mount'); },
 		dist() { return this.player.dist; },
-
+		chaincast() { return (this.player.chaincast - 1).toPrecision(3); },
 		sp() { return this.player.sp; },
 		spStr(){return lowFixed( this.player.sp ); }
 

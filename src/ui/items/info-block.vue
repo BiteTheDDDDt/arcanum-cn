@@ -1,9 +1,20 @@
 <script>
 import Game from '../../game';
-import { FP, getParams } from '../../values/consts';
+import { applyParams, FP } from '../../values/consts';
 
 import ItemsBase from '../itemsBase.js';
 import { CheckTypes, InfoBlock, DisplayName, ConvertPath } from './infoBlock';
+import { RollOver } from '../popups/itemPopup.vue';
+import Char from '../../chars/char';
+
+let attack;
+let dot;
+/** Regex to check if a string is a function. Note: does not process newlines, have to be removed manually. */
+const FunctionRegex = /^function *\w+\( *(?<params>[^\)]+) *\) *{ *return +(?<body>.*)}$/;
+/** Regex to check if a function's body matches the "one of" pattern. */
+const OneOfRegex = /^\( *(?:(?:(?<! |\() *\|\| *)?(?:\+g\.(\w+)|g\.(\w+) *> *0)){2,} *\)$|^\( *(?:(?:(?<! |\() *\+ *)?g\.(\w+)){2,} *\)(?: *> *0)?$|^ *(?:(?:(?<!^| ) *\|\| *)?(?:\+g\.(\w+)|g\.(\w+) *> *0)){2,}$|^(?:(?:(?<!^| |\() *\+ *)?g\.(\w+)){2,}(?: *> *0)?$/;
+/** Regex to identify gdata items that do not check for subproperties. */
+const GdataIdRegex = /g\.(?<id>\w+)(?!\.)/g;
 
 /**
  * Display for a sub-block of gdata, such as item.effect, item.result, item.run, etc.
@@ -12,24 +23,31 @@ import { CheckTypes, InfoBlock, DisplayName, ConvertPath } from './infoBlock';
  * @property {boolean} checkType - enable unlock and cost checks.
  */
 export default {
-	props:['title', 'info', 'rate', 'checkType', 'target'],
+	props:['title', 'info', 'rate', 'checkType', 'target', 'require', 'separate'],
 	mixins:[ItemsBase],
+	components: {
+		// dot: require("./dot-info.vue"),
+		// attack: require("./attack.vue")
+	},
 	beforeCreate(){
 		this.infos = new InfoBlock();
 		this.player = Game.state.player;
 		this.CheckTypes = CheckTypes;
-	},
-	computed:{
-		effects(){
-
-			this.infos.clear();
-			return this.effectItems( this.info, this.rate, this.checkType, this.target );
-
-		}
-
+		// janky code time. since the components cannot be set within the components property without causing a circular dependency,
+		// requiring and setting the components in beforeCreate to avoid the error.
+		if(!attack) attack = require("./attack.vue").default;
+		if(!dot) dot = require("./dot-info.vue").default;
+		this.$options.components.attack = attack;
+		this.$options.components.dot = dot;
 	},
 	methods:{
-		getParams: getParams,
+		processItems() {
+			this.subTitle = null;
+			this.infos.clear();
+			this.item = RollOver.item;
+			this.items = this.effectItems( this.info, this.rate, this.checkType, this.target );
+			return this.items != null && Object.keys(this.items).length;
+		},
 
 		/**
 		 *
@@ -40,6 +58,7 @@ export default {
 		effectItems( obj, rate=false, checkType=null, target=null) {
 
 			let type = typeof obj;
+			let res;
 
 			if ( type === 'number') {
 
@@ -54,21 +73,37 @@ export default {
 
 			} else if ( Array.isArray(obj) ) obj.forEach( v=>this.effectList(v, '', rate, checkType, null, target) );
 			else if ( type === 'function' ) {
+				//TODO other possible parsing for functions.
+				if(!this.require) return;
+
+				let res = FunctionRegex.exec(obj.toString().replaceAll("\n", ""));
+				if(!res) return;
+
+				let body = res.groups.body;
+				if(!OneOfRegex.test(body)) return;
+
+				this.subTitle = "One of";
+				[...body.matchAll(GdataIdRegex)].forEach(match => {this.effectList(match.groups.id, '', rate, checkType, null, target)});
 
 				/*if ( !obj.fText ){
 					obj.fText = funcText( obj, Game );
 					infos[obj.fText] = true;
 				}*/
-				return undefined;
 
 			}
 			else if ( type === 'object') {
-
-				this.effectList( obj, '', rate, checkType, null, target );
+				if(this.separate) {
+					// TODO separate out action, and parse it as its own thing, like attack and dot.
+					let {attack, dot, ...eff} = obj;
+					this.effectList( eff, '', rate, checkType, null, target );
+					res = {attack, dot, eff: this.infos.results};
+				} else {
+					this.effectList( obj, '', rate, checkType, null, target );
+				}
 
 			}
 
-			return this.infos.results;
+			return res ?? {eff: this.infos.results};
 
 		},
 
@@ -103,16 +138,14 @@ export default {
 				if ( subPath === undefined ) continue;
 
 				if ( sub instanceof Function ) {
-					let params = this.getParams(sub).map(param => {
-						switch(param) {
-							case FP.GAME: return Game.gdata;
-							case FP.ACTOR: return this.player;
-							case FP.TARGET: return this.player; //TODO have a dummy enemy parameter that isnt the player 
-							case FP.CONTEXT: return this.player.context; //TODO replace context with target context once target is replaced.
-							case FP.STATE: return Game.state;
-						}
-					})
-					this.infos.add(subPath, sub(...params), subRate, subCheckType, subItem);
+					let params = {
+						[FP.GAME]: Game.gdata,
+						[FP.ACTOR]: RollOver.item instanceof Char ? RollOver.item : RollOver.source instanceof Char ? RollOver.source : this.player,
+						[FP.TARGET]: this.player, //TODO have a dummy enemy parameter that isnt the player 
+						[FP.CONTEXT]: this.player.context, //TODO replace context with target context once target is replaced.
+						[FP.STATE]: Game.state
+					};
+					this.infos.add(subPath, applyParams(sub, params), subRate, subCheckType, subItem);
 				} else if ( sub instanceof Object ) {
 
 					if ( sub.skipLocked ) {
@@ -153,17 +186,29 @@ export default {
 
 <template>
 
-	<div v-if="info&&effects">
+	<div v-if="info&&processItems()" class="info-block">
 
 		<div v-if="title" class="note-text"><hr>{{ title }}</div>
-		<div v-for="v in effects" :key="v.name">
-      		<span :class="{failed: !v.isAvailable, full: checkType === CheckTypes.FULL}">
-				{{ v.toString() }}
-				<span v-if="!v.isAvailable && checkType === CheckTypes.FULL">(Full)</span>
-			</span>
-			
-		</div>
+		<div>
+			<div v-if="subTitle" class="note-text">{{ subTitle }}</div>
+			<div :class="subTitle ? 'info-subsubsect' : ''">
+				<div v-for="v in items.eff" :key="v.name">
+					<span :class="{failed: !v.isAvailable, full: checkType === CheckTypes.FULL}">
+						{{ v.toString() }}
+						<span v-if="!v.isAvailable && checkType === CheckTypes.FULL">(Full)</span>
+					</span>
 
+				</div>
+				<div v-if="items.dot">
+					<div class="info-sect">Applies:</div>
+					<dot :dot="items.dot" :target="target" :item="item" />
+				</div>
+				<div v-if="items.attack">
+					<div class="info-sect">Attack</div>
+					<attack :item="item" :atk="items.attack" />
+				</div>
+			</div>
+		</div>
 
 	</div>
 

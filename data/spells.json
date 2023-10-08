@@ -28,7 +28,7 @@
 		"school": "charms",
 		"require": "g.charms>2",
 		"desc": "Cure yourself or an ally of a charm.",
-		"silent": true,
+		"caststoppers": [],
 		"cost": {
 			"spiritgem": 1
 		},
@@ -43,7 +43,7 @@
 		"school": "mana",
 		"require": "g.lore>10",
 		"desc": "Wake a slumbering ally.",
-		"silent": true,
+		"caststoppers": [],
 		"cost": {
 			"mana": 1,
 			"herbs": 1
@@ -58,7 +58,7 @@
 		"level": 3,
 		"school": "fire",
 		"require": "g.firelore>5",
-		"silent": true,
+		"caststoppers": [],
 		"desc": "Remove fear from yourself or a frightened creature.",
 		"cost": {
 			"fire": 1
@@ -74,7 +74,7 @@
 		"school": "air",
 		"require": "g.airlore>5",
 		"desc": "Breaks a curse of silence.",
-		"silent": true,
+		"caststoppers": [],
 		"cost": {
 			"air": 2,
 			"managem": 1
@@ -90,7 +90,7 @@
 		"level": 7,
 		"school": "mana",
 		"require": "g.lore>10",
-		"silent": true,
+		"caststoppers": [],
 		"desc": "Loosens rigid muscles, nerves, and bones.",
 		"cost": {
 			"mana": 2,
@@ -105,7 +105,7 @@
 		"id": "curesick",
 		"level": 1,
 		"school": "light",
-		"silent": true,
+		"caststoppers": [],
 		"require": "g.lightlore>1",
 		"desc": "Cure sickness on yourself or an ally.",
 		"cost": {
@@ -286,7 +286,7 @@
 			"dot": {
 				"duration": 60,
 				"mod": {
-					"self.speed": -20
+					"self.speed": -10
 				}
 			}
 		}
@@ -345,7 +345,9 @@
 			"dot": {
 				"kind": "shadow",
 				"duration": 100,
-				"self.resist.shadow": -10
+				"mod": {
+					"self.resist.shadow": -10
+				}
 			}
 		}
 	},
@@ -411,7 +413,7 @@
 			"mod": {
 				"self": {
 					"dodge": 2,
-					"speed": 0.3
+					"speed": 1
 				}
 			}
 		}
@@ -435,7 +437,7 @@
 			"mod": {
 				"self": {
 					"dodge": 5,
-					"speed": 0.55
+					"speed": 2
 				}
 			}
 		}
@@ -708,7 +710,7 @@
 			"dot": {
 				"duration": 20,
 				"mod": {
-					"self.speed": -0.2
+					"self.speed": -2
 				}
 			}
 		}
@@ -726,7 +728,12 @@
 		"cost": {
 			"spirit": 5
 		},
-		"result": "wisp"
+		"summon": [
+			{
+				"id": "wisp",
+				"count": 1
+			}
+		]
 	},
 	{
 		"id": "mk_zombie",
@@ -743,7 +750,12 @@
 		"cost": {
 			"shadow": 7
 		},
-		"result": "zombie"
+		"summon": [
+			{
+				"id": "zombie",
+				"count": 1
+			}
+		]
 	},
 	{
 		"id": "firedart",
@@ -1147,7 +1159,12 @@
 		"cost": {
 			"mana": 10
 		},
-		"result": "hobgoblin"
+		"summon": [
+			{
+				"id": "hobgoblin",
+				"count": 1
+			}
+		]
 	},
 	{
 		"id": "mk_spider",
@@ -1163,7 +1180,12 @@
 		"cost": {
 			"nature": 4
 		},
-		"result": "lgspider"
+		"summon": [
+			{
+				"id": "lgspider",
+				"count": 1
+			}
+		]
 	},
 	{
 		"id": "mk_raven",
@@ -1179,7 +1201,12 @@
 		"cost": {
 			"nature": 4
 		},
-		"result": "raven"
+		"summon": [
+			{
+				"id": "raven",
+				"count": 1
+			}
+		]
 	},
 	{
 		"id": "reanimate",
@@ -1305,7 +1332,12 @@
 		"cost": {
 			"mana": 12
 		},
-		"result": "magicblade"
+		"summon": [
+			{
+				"id": "magicblade",
+				"count": 1
+			}
+		]
 	},
 	{
 		"id": "mk_murder",
@@ -1323,12 +1355,11 @@
 		"cost": {
 			"mana": 7
 		},
-		"result": [
-			"raven",
-			"raven",
-			"raven",
-			"raven",
-			"raven"
+		"summon": [
+			{
+				"id": "raven",
+				"count": 5
+			}
 		]
 	},
 	{
@@ -1347,7 +1378,12 @@
 		"cost": {
 			"light": 10
 		},
-		"result": "unicorn"
+		"summon": [
+			{
+				"id": "unicorn",
+				"count": 1
+			}
+		]
 	},
 	{
 		"id": "tosand",
@@ -1392,7 +1428,7 @@
 				"duration": 15,
 				"dmg": "15~25",
 				"mod": {
-					"self.speed": -12
+					"self.speed": -5
 				}
 			}
 		}
@@ -1421,26 +1457,29 @@
 				"duration": 30,
 				"dmg": "50~75",
 				"mod": {
-					"self.speed": -25
+					"self.speed": -15
 				}
 			}
 		}
 	},
 	{
 		"id": "smite",
-		"school": "earth",
 		"require": "g.hammerlore>=5&&g.earthlore>=8&&g.tier1>0",
+		"caststoppers": [
+			1
+		],
 		"level": 5,
-		"cd": 2,
+		"tags": "t_nospellcraft",
+		"school": "martial",
 		"buy": {
 			"research": 500
 		},
 		"cost": {
 			"earth": 3,
-			"stamina": 1
+			"stamina": 2
 		},
 		"attack": {
-			"damage": "((a.weapon.damage||0)+a.getBonus( a.weapon.kind ))*1.3",
+			"damage": "((a.weapon.damage||0))*1.3",
 			"tohit": 3,
 			"kind": "earth"
 		}
@@ -1448,8 +1487,12 @@
 	{
 		"id": "fissure",
 		"desc": "Crack the earth beneath the feet of your enemy.",
+		"caststoppers": [
+			1
+		],
 		"cd": 200,
-		"school": "earth",
+		"tags": "t_nospellcraft",
+		"school": "martial",
 		"require": "g.hammerlore>=10&&g.earthlore>=12&&g.tier3>0",
 		"level": 5,
 		"buy": {
@@ -1460,8 +1503,8 @@
 			"stamina": 12
 		},
 		"attack": {
-			"damage": "((a.weapon.damage||0)+a.getBonus( a.weapon.kind ))*6",
-			"tohit": 5,
+			"damage": "((a.weapon.damage||0))*6",
+			"tohit": 15,
 			"kind": "earth",
 			"dot": {
 				"kind": "earth",
@@ -1959,7 +2002,7 @@
 			"tags": "dustdevil",
 			"duration": 20,
 			"mod": {
-				"self.speed": 1
+				"self.speed": 2
 			}
 		}
 	},
@@ -1984,7 +2027,7 @@
 			"tags": "dustdevil",
 			"duration": 45,
 			"mod": {
-				"self.speed": 2
+				"self.speed": 4
 			}
 		}
 	},
@@ -2403,6 +2446,7 @@
 		"id": "bloodshot",
 		"level": 8,
 		"school": "blood",
+		"tags": "t_nospellcraft",
 		"cd": 15,
 		"require": "g.bloodlore>=3",
 		"buy": {
@@ -2443,17 +2487,17 @@
 		},
 		"attack": {
 			"kind": "blood",
-			"dmg": "16",
+			"dmg": 16,
 			"targets": "enemies"
 		},
 		"at": {
 			"100": {
-				"attack.dmg": "7",
-				"cost.hp": "2"
+				"attack.dmg": 7,
+				"cost.hp": 2
 			},
 			"500": {
-				"attack.dmg": "7",
-				"cost.hp": "3"
+				"attack.dmg": 7,
+				"cost.hp": 3
 			}
 		}
 	},
@@ -2499,7 +2543,12 @@
 		},
 		"dot": {
 			"duration": 10,
-			"effect": "stingybee"
+			"summon": [
+				{
+					"id": "stingybee",
+					"count": 1
+				}
+			]
 		},
 		"flavor": "Beees"
 	},
@@ -2656,18 +2705,18 @@
 		"cost": {
 			"earth": 5
 		},
-		"at":{
-			"30":{
-				"attack.tohit":1
+		"at": {
+			"30": {
+				"attack.tohit": 1
 			},
-			"100":{
-				"attack.dot.damage.max":1,
-				"attack.tohit":2
+			"100": {
+				"attack.dot.damage.max": 1,
+				"attack.tohit": 2
 			},
-			"300":{
-				"attack.dot.damage.max":2,
-				"attack.dot.damage.min":1,
-				"attack.tohit":2
+			"300": {
+				"attack.dot.damage.max": 2,
+				"attack.dot.damage.min": 1,
+				"attack.tohit": 2
 			}
 		},
 		"attack": {
@@ -2678,7 +2727,7 @@
 				"dmg": "2~3",
 				"duration": 3,
 				"mod": {
-					"self.speed": -10
+					"self.speed": -5
 				}
 			}
 		}
@@ -2745,12 +2794,12 @@
 			"managem": 10
 		},
 		"cost": {
-			"mana": 2
+			"mana": 5
 		},
 		"dot": {
 			"duration": 60,
 			"mod": {
-				"self.resist.silence": 50
+				"self.resist.silence": 30
 			}
 		}
 	},
@@ -2874,7 +2923,7 @@
 			}
 		}
 	},
-{
+	{
 		"id": "hightide",
 		"name": "high tide",
 		"school": "water",
@@ -2899,7 +2948,7 @@
 						"dmg": "3~7",
 						"duration": 30,
 						"mod": {
-							"speed": -5,
+							"self.speed": -3,
 							"dodge": -10
 						}
 					}

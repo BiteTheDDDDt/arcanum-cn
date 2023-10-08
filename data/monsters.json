@@ -83,10 +83,18 @@
 			"kind": "slash",
 			"dmg": 1
 		},
-		"loot": {
-			"d_dagger": "20%",
-			"d_gloves": "10%"
-		}
+		"loot": [
+			{
+				"%": 20,
+				"maxlevel": 1,
+				"id": "d_dagger"
+			},
+			{
+				"%": 10,
+				"maxlevel": 1,
+				"id": "d_gloves"
+			}
+		]
 	},
 	{
 		"id": "twikman",
@@ -106,12 +114,26 @@
 			"kind": "slash",
 			"dmg": "0.5~1.5"
 		},
-		"loot": {
-			"scrolls": "80%",
-			"d_spear": "20%",
-			"d_gloves": "5%",
-			"d_cap": "5%"
-		}
+		"loot": [
+			{
+				"scrolls": "80%"
+			},
+			{
+				"%": 20,
+				"maxlevel": 1,
+				"id": "d_spear"
+			},
+			{
+				"%": 5,
+				"maxlevel": 1,
+				"id": "d_gloves"
+			},
+			{
+				"%": 5,
+				"maxlevel": 1,
+				"id": "d_cap"
+			}
+		]
 	},
 	{
 		"id": "bat",
@@ -130,9 +152,13 @@
 			"kind": "pierce",
 			"dmg": "1~2"
 		},
-		"loot": {
-			"d_sash": "10%"
-		},
+		"loot": [
+			{
+				"%": 10,
+				"maxlevel": 1,
+				"id": "d_sash"
+			}
+		],
 		"resist": {
 			"poison": 50
 		}
@@ -151,9 +177,13 @@
 			"dmg": "0.2~0.7",
 			"leech": 0.2
 		},
-		"loot": {
-			"d_boots": "2%"
-		}
+		"loot": [
+			{
+				"%": 5,
+				"maxlevel": 1,
+				"id": "d_boots"
+			}
+		]
 	},
 	{
 		"id": "stingybee",
@@ -214,13 +244,23 @@
 			"plains",
 			"hills"
 		],
-		"loot": {
-			"scrolls": 1,
-			"d_boots": "15%"
-		},
 		"resist": {
 			"mana": 50
-		}
+		},
+		"loot": [
+			{
+				"scrolls": 1
+			},
+			{
+				"%": 15,
+				"maxlevel": 1,
+				"id": "d_boots"
+			},
+			{
+				"%": 35,
+				"botanical_kit": 1
+			}
+		]
 	},
 	{
 		"id": "smbox",
@@ -287,9 +327,12 @@
 			}
 		},
 		"speed": -1,
-		"loot": {
-			"d_club": 1
-		}
+		"loot": [
+			{
+				"maxlevel": 2,
+				"id": "d_club"
+			}
+		]
 	},
 	{
 		"id": "lgrat",
@@ -427,10 +470,16 @@
 			"kind": "slash",
 			"dmg": "2.2~4.2"
 		},
-		"loot": {
-			"feather": "1~5",
-			"d_loop": "20%"
-		}
+		"loot": [
+			{
+				"feather": "1~5"
+			},
+			{
+				"%": 20,
+				"maxlevel": 3,
+				"id": "d_loop"
+			}
+		]
 	},
 	{
 		"id": "willowisp",
@@ -490,13 +539,19 @@
 			"dmg": "1~4",
 			"kind": "slash"
 		},
-		"loot": {
-			"bones": "2~5",
-			"d_shortsword": "25%"
-		},
 		"resist": {
 			"shadow": 15
-		}
+		},
+		"loot": [
+			{
+				"bones": "2~5"
+			},
+			{
+				"%": 25,
+				"maxlevel": 3,
+				"id": "d_shortsword"
+			}
+		]
 	},
 	{
 		"id": "badexperiment",
@@ -558,10 +613,18 @@
 			"dmg": "1~2",
 			"kind": "pierce"
 		},
-		"loot": {
-			"d_dagger": "20%",
-			"d_cap": "20%"
-		}
+		"loot": [
+			{
+				"%": 20,
+				"maxlevel": 2,
+				"id": "d_dagger"
+			},
+			{
+				"%": 20,
+				"maxlevel": 2,
+				"id": "d_cap"
+			}
+		]
 	},
 	{
 		"id": "gobwarrior",
@@ -576,10 +639,18 @@
 			"dmg": "2~3",
 			"kind": "pierce"
 		},
-		"loot": {
-			"d_shortsword": "20%",
-			"d_cap": "20%"
-		}
+		"loot": [
+			{
+				"%": 20,
+				"maxlevel": 3,
+				"id": "d_shortsword"
+			},
+			{
+				"%": 20,
+				"maxlevel": 3,
+				"id": "d_cap"
+			}
+		]
 	},
 	{
 		"id": "gobpriest",
@@ -594,10 +665,18 @@
 			"dmg": "2~4",
 			"kind": "blunt"
 		},
-		"loot": {
-			"d_club": "10%",
-			"d_mace": "15%"
-		}
+		"loot": [
+			{
+				"%": 10,
+				"maxlevel": 4,
+				"id": "d_club"
+			},
+			{
+				"%": 15,
+				"maxlevel": 4,
+				"id": "d_mace"
+			}
+		]
 	},
 	{
 		"id": "gobchief",
@@ -610,10 +689,18 @@
 			"dmg": "3~5",
 			"kind": "slash"
 		},
-		"loot": {
-			"d_cap": "20%",
-			"d_boots": "10%"
-		}
+		"loot": [
+			{
+				"%": 20,
+				"maxlevel": 5,
+				"id": "d_cap"
+			},
+			{
+				"%": 10,
+				"maxlevel": 5,
+				"id": "d_boots"
+			}
+		]
 	},
 	{
 		"id": "gobchamp",
@@ -626,10 +713,18 @@
 			"dmg": "4~7",
 			"kind": "slash"
 		},
-		"loot": {
-			"d_cap": "20%",
-			"d_boots": "10%"
-		}
+		"loot": [
+			{
+				"%": 20,
+				"maxlevel": 6,
+				"id": "d_cap"
+			},
+			{
+				"%": 10,
+				"maxlevel": 6,
+				"id": "d_boots"
+			}
+		]
 	},
 	{
 		"id": "gobking",
@@ -643,11 +738,21 @@
 			"dmg": "5~9",
 			"kind": "mana"
 		},
-		"loot": {
-			"d_cap": "20%",
-			"d_boots": "10%",
-			"gold": "5~7"
-		},
+		"loot": [
+			{
+				"%": 20,
+				"maxlevel": 7,
+				"id": "d_cap"
+			},
+			{
+				"%": 10,
+				"maxlevel": 7,
+				"id": "d_boots"
+			},
+			{
+				"gold": "5~7"
+			}
+		],
 		"flavor": "You remind me of the babe"
 	},
 	{
@@ -822,11 +927,21 @@
 			"dmg": "2~5"
 		},
 		"biome": "town",
-		"loot": {
-			"d_dagger": "10%",
-			"gold": "3~5",
-			"d_cloak": "3%"
-		}
+		"loot": [
+			{
+				"%": 10,
+				"maxlevel": 4,
+				"id": "d_dagger"
+			},
+			{
+				"%": 5,
+				"maxlevel": 4,
+				"id": "d_cloak"
+			},
+			{
+				"gold": "3~5"
+			}
+		]
 	},
 	{
 		"id": "elf",
@@ -850,11 +965,23 @@
 				}
 			}
 		],
-		"loot": {
-			"d_ring": "2%",
-			"d_cloak": "3%",
-			"d_belt": "3%"
-		}
+		"loot": [
+			{
+				"%": 10,
+				"maxlevel": 4,
+				"id": "d_ring"
+			},
+			{
+				"%": 10,
+				"maxlevel": 4,
+				"id": "d_cloak"
+			},
+			{
+				"%": 10,
+				"maxlevel": 4,
+				"id": "d_belt"
+			}
+		]
 	},
 	{
 		"id": "slinger",
@@ -1862,9 +1989,12 @@
 		"resist": {
 			"mana": 30
 		},
-		"loot": {
-			"d_sword": 1
-		}
+		"loot": [
+			{
+				"maxlevel": 6,
+				"id": "d_sword"
+			}
+		]
 	},
 	{
 		"id": "bear",
@@ -2430,10 +2560,16 @@
 			"kind": "fire",
 			"dmg": "11~20"
 		},
-		"loot": {
-			"phoenixfeather": 5,
-			"phoenixash": 1
-		}
+		"loot": [
+			{
+				"phoenixfeather": 5,
+				"phoenixash": 1
+			},
+			{
+				"%": 30,
+				"phoenix_quill": 1
+			}
+		]
 	},
 	{
 		"id": "iceelemental",
@@ -3593,7 +3729,11 @@
 			"dmg": "50~95"
 		},
 		"loot": {
-			"mithril": 25
+			"level": 25,
+			"material": {
+				"only": "t_mithril"
+			},
+			"%": 100
 		},
 		"resist": {
 			"earth": 30,
@@ -3978,7 +4118,8 @@
 		"attack": {
 			"name": "claws",
 			"kind": "slash",
-			"dmg": "90~120"
+			"dmg": "90~120",
+			"targets": "enemyleader"
 		},
 		"flavor": "Tales of Jazid were already ancient when Dhroze was entombed."
 	},

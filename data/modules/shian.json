@@ -424,9 +424,10 @@
 				"desc": "Ten thousand souls muffled in its fabric.",
 				"type": "weapon",
 				"unique": true,
+				"damage": "60~70",
 				"attack": {
 					"kind": "spirit",
-					"damage": "60~70"
+					"damage": "(i.damage||0)"
 				},
 				"alter": {
 					"mod": {

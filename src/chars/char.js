@@ -6,8 +6,8 @@ import { cloneClass, mergeSafe } from 'objecty';
 
 import { NPC, getDelay, TYP_PCT, TYP_STATE } from '../values/consts';
 import { toStats } from "../util/dataUtil";
-import Events, { CHAR_STATE, EVT_COMBAT, RESISTED, CHAR_ACTION } from '../events';
-import States, { NO_ATTACK } from './states';
+import Events, { CHAR_STATE, EVT_COMBAT, RESISTED, CHAR_ACTION, STATE_BLOCK } from '../events';
+import States, { NO_ATTACK, NO_SPELLS } from './states';
 
 import { ApplyAction } from '../values/combatVars';
 import { assignNoFunc } from '../util/util';
@@ -32,12 +32,6 @@ export default class Char {
 		} else { this._tohit.set(v); }
 
 	}
-
-	/**
-	 * @property {number} spellchance - chance to cast a spell.
-	 */
-	 get spellchance() { return this._spellchance; }
-	 set spellchance(v) { this._spellchance=v;}
 
 	get resist() { return this._resist };
 	set resist(v) { this._resist = v; }
@@ -175,6 +169,14 @@ export default class Char {
 	get regen() { return this._regen; }
 	set regen(v) { this._regen = ( v instanceof Stat ) ? v : new Stat(v); }
 
+	/**
+	 * @property {number} chaincast - amount of spells cast per turn. Decimals turn into a chance.
+	 */
+	get chaincast() { return this._chaincast; }
+	set chaincast(v) {
+		if (!this._chaincast) this._chaincast = new Stat(v, this.id + '.chaincast');
+		else this._chaincast.set(v);
+	}
 	get alive() { return this.hp.value > 0; }
 
 	/**
@@ -195,7 +197,6 @@ export default class Char {
 		this.type = NPC;
 
 		this._states = new States();
-		if ( !this.spellchance ) this.spellchance = 0.8;
 		this.immunities = this.immunities || {};
 		this._resist = this._resist || {};
 		if ( !this.bonuses ) this.bonuses = {};
@@ -218,7 +219,6 @@ export default class Char {
 	 */
 	revive( gs ){
 
-		this.reviveDots(gs);
 		//this._states.refresh(this._dots);
 
 	}
@@ -283,11 +283,12 @@ export default class Char {
 	 * @param {Dot|object|Array} dot
 	 * @param {?object} source
 	 * @param {number} duration - duration override
+	 * @param {?object} applier - whoever applied the dot if any
 	 */
-	addDot( dot, source, duration=0 ) {
+	addDot( dot, source, duration=0, applier = null) {
 
 		if ( Array.isArray(dot)) {
-			return dot.forEach(v=>this.addDot(v,source,duration));
+			return dot.forEach(v=>this.addDot(v,source,duration,applier));
 		}
 
 		let id = dot;
@@ -304,6 +305,8 @@ export default class Char {
 		if (!duration && !isNaN(dot.duration)) duration = +dot.duration;
 
 		dot = cloneClass(dot);
+
+		if(applier) dot.applier = applier;
 
 		if (base instanceof Object) {
 			
@@ -338,9 +341,17 @@ export default class Char {
 			return;
 		}
 
-		let tags = dot.tags?.split(",") || [];
+		let tags = Array.isArray(dot.tags) ? dot.tags : dot.tags?.split(",") || [];
 		let level = dot.level || (source ? source.level || 0 : 0);
 
+		if(dot._tags) { 
+			if(Array.isArray(dot._tags) && dot.tags !== dot._tags) {
+				tags.push(...dot._tags);
+			}
+			delete dot._tags;
+		}
+		tags = tags.filter(t => t !== "state");
+		dot.tags = tags;
 		let cur = this.dots.find( d => (d.id===id || d.tags.find(t => tags.includes(t))) );
 
 		if ( cur != null ) {
@@ -422,12 +433,22 @@ export default class Char {
 		for( let i = dots.length-1; i >= 0; i-- ) {
 
 			var dot = dots[i];
+
 			if ( !dot.tick(dt) ) continue;
 
 			// ignore any remainder beyond 0.
 			// @note: dots tick at second-intervals, => no dt.
 			if ( dot.effect ) this.context.applyVars( dot.effect, 1 );
-			if ( dot.damage || dot.cure ) ApplyAction( this, dot, dot.source );
+			if ( dot.summon)
+				{
+					for (let smn of dot.summon){
+						let smnid = smn.id
+						let smncount = smn.count || 1
+						let smnmax = smn.max || 0
+						this.context.create(smnid, false, smncount, smnmax)
+					}
+				}
+			if ( dot.damage || dot.cure ) ApplyAction( this, dot, dot.applier );
 
 			if ( dot.duration <= dt && !dot.perm ) {
 				this.rmDot(i);
@@ -452,31 +473,64 @@ export default class Char {
 
 			this.timer += getDelay( this.speed );
 
-			if ( this.spells && Math.random() < this.spellchance ) {
-
-				let s = this.tryCast()
-				if ( s ) {
-					
-					
-					if ( s.attack || s.action ) {
-						Events.emit( CHAR_ACTION, s, this.context );
-					}			
-					if ( s.mod ) { 
-						this.context.applyMods( this.mod ); 
-						Events.emit( EVT_COMBAT, this.name + ' uses ' + s.name );
-					}
-					if ( s.create ) this.context.create( s.create );
-					if ( s.result ) {
-						Events.emit( EVT_COMBAT, this.name + ' uses ' + s.name );
-						this.context.applyVars( s.result, 1 );
-					}
-					if ( s.dot ) {
-						Events.emit( EVT_COMBAT, this.name + ' uses ' + s.name );
-						this.context.self.addDot( s.dot, s );
+			for(let i=this.castAmt(this.chaincast); i>0;i--)
+			{
+				if ( this.spells ) {
+					let s = this.tryCast()
+					if ( s ) {
+						let a
+						if(s.caststoppers) {
+							for (let b of s.caststoppers)
+								{
+									a = this.getCause(b);
+									if(a) break;
+								}
+							}
+						if (a) {
+							Events.emit( STATE_BLOCK, this, a );
+						}
+						else{
+							let logged = false;
+							if ( s.attack || s.action ) {
+								Events.emit( CHAR_ACTION, s, this.context );
+								logged = true;
+							}			
+							if ( s.mod ) { 
+								this.context.applyMods( this.mod ); 
+								if(!logged) {
+									Events.emit( EVT_COMBAT, this.name + ' uses ' + s.name );
+									logged = true;
+								}
+							}
+							if ( s.create ) this.context.create( s.create );
+							if (s.summon)
+							{
+								for (let smn of s.summon){
+									let smnid = smn.id
+									let smncount = smn.count || 1
+									let smnmax = smn.max || 0
+									this.context.create(smnid, undefined, smncount, smnmax)
+								}
+							}
+							if ( s.result ) {
+								if(!logged) {
+									Events.emit( EVT_COMBAT, this.name + ' uses ' + s.name );
+									logged = true;
+								}
+								this.context.applyVars( s.result, 1 );
+							}
+							if ( s.dot ) {
+								if(!logged) {
+									Events.emit( EVT_COMBAT, this.name + ' uses ' + s.name );
+									logged = true;
+								}
+								this.context.self.addDot( s.dot, s, null, this );
+							}
+						}
 					}
 				}
-
 			}
+			
 			return this.getCause(NO_ATTACK) || this.getAttack();
 
 		}
@@ -529,7 +583,7 @@ export default class Char {
 	 */
 	rollResist( kind, base=null ) {
 
-		let res = (this._resist[kind]||0)+ ( base||10);
+		let res = (this._resist[kind]||0)+( base||0);
 		return res > 100*Math.random();
 
 	}
@@ -581,6 +635,10 @@ export default class Char {
 	 */
 	removeImmune(kind) {
 		this.immunities[kind] = this.immunities[kind] ? this.immunities[kind] - 1 : 0;
+	}
+	castAmt(casts)
+	{
+		return Math.floor(casts) + (Math.random() < (casts - Math.floor(casts))) 
 	}
 
 }

@@ -11,6 +11,7 @@ import Percent, {PercentTest} from '../values/percent';
 import AtMod, { IsAtMod } from '../values/mods/atmod';
 
 import { FP } from "../values/consts";
+import RangedMod, { isRangedMod } from '../values/mods/rangedmod';
 
 /**
  * @const {RegEx} IdTest - Test for a simple id name.
@@ -55,6 +56,7 @@ export const StrMod = ( str, id, src ) => {
 	if ( ModTest.test(str) || !isNaN(str) ) return new Mod(str,id,src);
 	if ( IsPerMod(str ) ) return new PerMod( str, id, src );
 	else if ( IsAtMod(str) ) return new AtMod(str, id, src );
+	else if ( isRangedMod(str) ) return new RangedMod( str, id, src );
 	return str;
 
 }
@@ -156,6 +158,7 @@ export const PrepData = ( sub, id='' ) => {
 
 				} else if ( RangeTest.test(obj) ) sub[p] = new Range(obj);
 				else if ( IsPerMod(obj) ) sub[p] = new PerMod( obj, SubPath(id,p) );
+				else if ( isRangedMod(obj) ) return new RangedMod( obj, SubPath(id,p) );
 				else if ( !isNaN(obj) ) {
 					if ( obj !== '') console.warn('string used as Number: ' + p + ' -> ' + obj );
 					sub[p] = Number(obj);
@@ -195,6 +198,7 @@ export const ParseRVal = ( str ) => {
 	else if ( PercentTest.test(str) ) return new Percent(str);
 	else if ( IsPerMod(str ) ) return new PerMod( str );
 	else if ( IsAtMod(str) ) return new AtMod(str);
+	else if ( isRangedMod(str) ) return new RangedMod( str );
 	return str;
 
 }
@@ -218,6 +222,7 @@ export const ParseEffects = ( effects, funcMaker ) => {
 		else if ( PercentTest.test(effects) ) return new Percent(effects);
 		else if ( IsPerMod(effects ) ) return new PerMod( effects );
 		else if ( IsAtMod(effects) ) return new AtMod( effects );
+		else if ( isRangedMod(effects) ) return new RangedMod( effects );
 		else if ( effects.includes( '.' ) ) return funcMaker(effects);
 
 		return effects;

@@ -110,7 +110,7 @@ export default {
 		 * @property {Spell[]} spells - all spells in game, except bloodshot.
 		 */
 		spells() {
-			return Game.state.filterItems( v=>v.type === 'spell'&&!this.locked(v)&&v.owned&&v.id!='bloodshot').sort( alphasort );
+			return Game.state.filterItems( v=>v.type === 'spell'&&!this.locked(v)&&v.owned&&!v.hasTag('t_nospellcraft')).sort( alphasort );
 		},
 
 		/**

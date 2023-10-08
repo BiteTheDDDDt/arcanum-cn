@@ -70,7 +70,7 @@ export default class Item {
 	 * @property {number} count - count of item held.
 	 */
 	get count(){ return this._count; }
-	set count(v){if(v instanceof RValue || !Number.isNaN(v)) this._count = +v; } //Only assigned if its a number
+	set count(v){if(v instanceof RValue || !isNaN(v)) this._count = +v; } //Only assigned if its a number
 
 	/**
 	 * @property {boolean} stack - whether the item can stack.
@@ -134,14 +134,18 @@ export default class Item {
 		}
 
 		if ( this.use ) {
-			let {dot, attack, ...vars} = this.use;
-			if ( dot ) {
-				g.state.player.addDot( dot, this );
+			if(this.use instanceof Object) {
+				let {dot, attack, action, ...vars} = this.use;
+				if ( dot ) {
+					g.state.player.addDot( dot, this, null, this );
+				}
+				if ( attack || action ) {
+					Events.emit( ITEM_ACTION, this, g );
+				}
+				g.applyVars( vars );
+			} else {
+				g.applyVars(this.use);
 			}
-			if ( attack ) {
-				Events.emit( ITEM_ACTION, this, g )
-			}
-			g.applyVars( vars );
 
 		}
 

@@ -132,7 +132,8 @@ export default class Attack {
 		} else this._bonus = new Stat( v );
 
 	}
-
+	get source(){return this._source;}
+	set source(v){this._source=v}
 	/**
 	 * @alias damage
 	 */
@@ -160,8 +161,9 @@ export default class Attack {
 			var h = v[i];
 
 			if (!h.id) h.id = this.id;
-			if ( !h.name ) h.name = this.name;
-			if (!h.kind)h.kind = this.kind;
+			if (!h.name ) h.name = this.name;
+			if (!h.kind) h.kind = this.kind;
+			if (!h.potencies) h.potencies = this.potencies;
 			if ( !(h instanceof Attack) ) v[i] = new Attack(h, this);
 
 		}
@@ -180,6 +182,8 @@ export default class Attack {
 	get harmless(){ return this._harmless; }
 	set harmless(v) { this._harmless = v;}
 
+	get potencies(){ return this._potencies; }
+	set potencies(v) { this._potencies = v;}
 	/**
 	 * Messy, work on dot/state interface.
 	 */
@@ -195,14 +199,14 @@ export default class Attack {
 			this.id = vars.id;
 			this.name = vars.name;
 			this.kind = vars.kind;
-
+			this.potencies = vars.potencies||["physdmg"]
 			//cloneClass( vars, this ); // breaks save-reloading.
 			assignNoFunc(this,vars);
 
 		}
 
 		if ( source ) this.source = source;
-
+		if (!this.potencies) this.potencies = ["physdmg"]
 		if ( this.dot ) {
 			if ( Array.isArray(this.dot)) {
 				for( let p of this.dot ) {
@@ -213,6 +217,7 @@ export default class Attack {
 					if ( p.dmg || p.damage ) {
 						if ( !p.damage ) p.damage = p.dmg;
 						else p.dmg = p.damage;
+						if (this.potencies) p.potencies = this.potencies;
 					}
 				}
 			}
@@ -224,6 +229,7 @@ export default class Attack {
 				if ( this.dot.dmg || this.dot.damage ) {
 					if ( !this.dot.damage ) this.dot.damage = this.dot.dmg;
 					else this.dot.dmg = this.dot.damage;
+					if (this.potencies) this.dot.potencies = this.potencies;
 				}
 			}
 		}

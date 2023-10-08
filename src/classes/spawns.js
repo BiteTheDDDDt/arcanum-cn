@@ -1,3 +1,4 @@
+import game from "../game";
 import SpawnGroup from "./spawngroup";
 import { SpawnParams } from "./spawnparams";
 
@@ -30,8 +31,16 @@ export default class Spawns {
 	 * @private
 	 * @property {number} weightTot
 	 */
-	get weightTot(){ return this._weightTot; }
-	set weightTot(v) { this._weightTot = v}
+	get weightTot(){ 
+		return this.groups.reduce((sum, spawn) => {
+			let amt = +(spawn.w instanceof Function ? spawn.w(game) : spawn.w);
+			if(isNaN(amt)) {
+				console.warn("isNaN weight", spawn, spawn.w);
+				return sum;
+			}
+			return sum + amt;
+		}, 0); 
+	}
 
 	/**
 	 *
@@ -44,39 +53,45 @@ export default class Spawns {
 	}
 
 	/**
-	 * Get a random spawn group.
+	 * Get a random spawn group from groups list.
 	 * @note faster would be sorted groups and binary search.
 	 * @param {number} [pct=0] - 1-base percent. progress through dungeon.
 	 * @returns {Npc[]|null}
 	 */
 	random( pct=0 ) {
+		let weightLeft = this.weightTot;
+		let groups = [...this.groups];
 
-		let grp = this.randGroup();
-		if ( grp === null ) return null;
+		while(groups.length) {
+			let p = Math.random() * weightLeft;
+			let tot = 0;
+			let len = groups.length;
+			let weight, i;
 
-		return grp.instantiate(pct);
+			for( i = 0; i < len; i++ ) {
 
-	}
+				weight = groups[i].w;
+				tot += weight instanceof Function ? (weight = weight(game)) : weight;
 
-	/**
-	 * Get random group from groups list.
-	 * @returns {SpawnGroup|null}
-	 */
-	randGroup(){
+				if( p <= tot ) break;
 
-		let p = Math.random()*this.weightTot;
-		let tot = 0;
+			}
 
-		let len = this.groups.length;
-		for( let i =0; i < len; i++ ) {
+			if( i >= len ) {
+				console.warn(`Rolled weight ${p} exceeds total weight ${weightLeft} of ${len} items. Using last group`);
+				i = len - 1;
+			}
 
-			tot += this.groups[i].w;
-			if ( p <= tot ) return this.groups[i];
+			// TODO if spawngroup.js's MakeSpawn is changed to use pct, this part will need to be revisited.
+			let group = groups[i].instantiate(pct);
+			if(group) return group;
 
+			weightLeft -= weight;
+			groups.splice(i, 1);
 		}
 
-		// shouldn't happen. weight total should account for all groups.
-		return len > 0 ? this.groups[0] : null;
+		console.warn("Couldn't spawn anything", this.groups);
+		return null;
 
 	}
 
@@ -86,20 +101,14 @@ export default class Spawns {
 	 */
 	initGroups( list ){
 
-		var tot = 0;
-
 		for( let i = list.length-1; i>= 0; i-- ) {
 
 			var g = list[i];
 
 			if ( !(g instanceof SpawnGroup)) g = list[i] = new SpawnGroup(g);
 
-			tot += g.w;
-
-
 		}
 
-		this.weightTot = tot;
 		this.groups = list;
 	}
 

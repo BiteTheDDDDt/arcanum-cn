@@ -70,6 +70,7 @@ export const TASK = 'task';
 const DUNGEON = 'dungeon';
 const LOCALE = 'locale';
 const EXPLORE = 'explore';
+const CLASH = 'clash';
 
 /**
  * @const {number} TEAM_PLAYER - team constant for allies.
@@ -88,7 +89,7 @@ export const TEAM_NPC = 0;
  */
 export const TEAM_ALL = 2;
 
-export { DUNGEON, EXPLORE, LOCALE };
+export { DUNGEON, EXPLORE, LOCALE, CLASH };
 export { HOME, RESOURCE, NPC, SKILL, ACTION, ENCOUNTER, WEARABLE, MONSTER, ARMOR, WEAPON, PURSUITS, EVENT };
 
 /**
@@ -96,7 +97,14 @@ export { HOME, RESOURCE, NPC, SKILL, ACTION, ENCOUNTER, WEARABLE, MONSTER, ARMOR
  */
 export const DELAY_RATE = 3.5;
 export function getDelay(s) {
-	return 0.5 + DELAY_RATE*Math.exp(-s/8);
+	if (s<0){
+		return 0.5 + DELAY_RATE + (-s/20)
+	}
+	else 
+	{
+		return 0.5 + DELAY_RATE*Math.exp(-s/20)
+	}
+	;
 }
 
 /**
@@ -127,6 +135,21 @@ export const getParams = func => {
 	let params = func.toString().match(/\(([^)]*)\)/)[1];
 	if(!params) return [];
 	return params.split(",").map(s => s.trim());
+}
+
+/**
+ * Applies parameters to function when order of function parameters are unknown
+ * @param {Function} func - target function
+ * @param {*} params - function parameters to be mapped to function
+ * @returns result of function
+ */
+export const applyParams = (func, params) => {
+	if(!func || typeof func !== 'function') return null;
+	
+	if(params == null) params = {};
+	else if(typeof params === 'string') params = {[FP.GAME]: params};
+
+	return func(...(getParams(func).map(p => params[p])));
 }
 
 /**

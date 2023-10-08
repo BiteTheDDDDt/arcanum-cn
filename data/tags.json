@@ -36,6 +36,34 @@
         "name": "Elemental Runes"
     },
     {
+        "id": "t_runic",
+        "name": "runic",
+        "hide": true
+    },
+    {
+        "id": "t_mithril",
+        "hide": true
+    },
+    {
+        "id": "d_runic",
+        "name": "runic drops",
+        "hide": true
+    },
+    {
+        "id": "d_runic_sword",
+        "name": "runic sword drops",
+        "hide": true
+    },
+    {
+        "id": "d_runic_rapier",
+        "name": "runic rapier drops",
+        "hide": true
+    },
+    {
+        "id": "t_nospellcraft",
+        "name": "Cannot spellcraft"
+    },
+    {
         "id": "t_swords",
         "hide": true
     },

@@ -12,6 +12,7 @@
 		"spells",
 		"monsters",
 		"dungeons",
+		"clashes",
 		"events",
 		"classes",
 		"armors",
@@ -26,6 +27,7 @@
 		"rares",
 		"reagents",
 		"properties",
+		"potencies",
 		"hall"
 	],
 	"modules": [
@@ -39,6 +41,7 @@
 		"extraaction",
 		"legacy",
 		"timerip",
-		"furniture_upgrades"
+		"furniture_upgrades",
+		"halloween"
 	]
 }

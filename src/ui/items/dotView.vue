@@ -24,6 +24,7 @@ export default {
 		@mouseenter.capture.stop="itemOver( $event, d, char )">
 
 			<span v-if="!d.perm">{{ Math.ceil( d.duration ) }}</span>
+			<span v-else-if="mini">∞</span>
 			<span v-if="!mini"><br>{{ mini ? abbr( d ) : d.name }}</span>
 
 			<div v-if="d.kind||d.school" class="bgfill" >&nbsp;</div>

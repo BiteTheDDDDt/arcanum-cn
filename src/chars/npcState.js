@@ -51,7 +51,7 @@ export class NpcState {
 	 *
 	 * @param {string} p
 	 */
-	getData( p ){
+	getData( p, create=true, elevate=true ){
 
 		// appears to be check for special variables defined on state directly;
 		// e.g. explore. @todo many issues with this.
@@ -63,16 +63,17 @@ export class NpcState {
 		if ( it !== undefined ) return it;
 
 
+		if(elevate) {
+			it = this.state.getData(p, create, elevate);
+			if ( it ) {
+				
+				//console.log('NEW NPC ITEM: ' + p + ': ' + it );
+				return it.isRecipe || !create ? it : this.makeNpcItem( p, it );
 
-		it = this.state.getData(p);
-		if ( it ) {
-
-			if ( it.isRecipe ) return it;
-			//console.log('NEW NPC ITEM: ' + p + ': ' + it );
-			return this.makeNpcItem( p, it );
-
-		} else console.log('item not found: ' + p );
-
+			}
+		}
+		
+		console.log('item not found: ' + p );
 		return null;
 
 	}

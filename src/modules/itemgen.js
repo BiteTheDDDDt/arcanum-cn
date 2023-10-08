@@ -185,8 +185,7 @@ export default class ItemGen {
 	 * @param {object} proto
 	 * @returns {Item|Wearable} the item created, or null on failure.
 	 */
-	instance( proto ) {
-
+	instance( proto, level = null, amt = 1 ) {
 		let it;
 
 		if ( proto.disabled || proto.locked || this.state.hasUnique(proto) ) {
@@ -196,7 +195,7 @@ export default class ItemGen {
 		if ( proto.type === ARMOR || proto.type === WEAPON || proto.type === WEARABLE ) {
 
 			console.log('itgen wearable: ' + proto.id );
-			it = this.fromProto(proto);
+			it = this.fromProto(proto, level);
 			it.owned = true;
 			it.updated();
 			return it;
@@ -218,6 +217,7 @@ export default class ItemGen {
 		it.id = this.state.nextId(it.id);
 
 		//this.state.addInstance(it);
+		it.count = amt||1;
 		it.value = 1;
 		it.owned = true;
 		it.updated();
@@ -248,10 +248,18 @@ export default class ItemGen {
 		if ( typeof info === 'string' ) info = this.state.getData(info);
 		if (!info) return null;
 
-		if ( info[TYP_PCT] && (100*Math.random() > info[TYP_PCT]) ) return null;
-		if ( info instanceof GData || info instanceof TagSet ) return this.getGData( info, amt );
-		else if ( info.id ) return this.instance(info);
+		if ( info[TYP_PCT] ) {
+			if( info[TYP_PCT] instanceof Percent ) {
+				if( !info[TYP_PCT].roll(+this.luck) ) return null;
+			} else if( 100*Math.random() > info[TYP_PCT] ) return null;
+		}
 
+		if ( info instanceof GData || info instanceof TagSet ) return this.getGData( info, amt, info.maxlevel||null );
+		else if ( info.id ) {
+			let instanceditem =  this.state.getData(info.id);
+			if ( instanceditem instanceof GData || instanceditem instanceof TagSet ) return this.getGData( instanceditem, amt, info.level||info.maxlevel||amt );
+			return this.instance(info);
+		}
 		else if ( info.level || info.maxlevel ) return this.randLoot( info, amt );
 
 		return this.objLoot( info );
@@ -282,14 +290,14 @@ export default class ItemGen {
 	 * @param {GData} it
 	 * @param {number} [amt=1]
 	 */
-	getGData( it, amt=1 ) {
+	getGData( it, amt=1, level = null ) {
 
 		if ( !it ) return null;
 
 		if ( it instanceof TagSet ) it = it.random();
 		if ( this.state.hasUnique(it) ) return null;
 
-		if ( it.instanced || it.isRecipe ) return this.instance( it );
+		if ( it.instanced || it.isRecipe ) return this.instance( it, level, amt );
 
 		if ( typeof amt === 'number' || typeof amt === 'boolean') {
 
@@ -310,27 +318,63 @@ export default class ItemGen {
 	 */
 	randLoot( info ) {
 
-		if ( (100+this.luck/2)*Math.random() < 50 ) return null;
-
 		let material = info.material;
 		let type = info.type;
+		let level = info.maxlevel ?? info.level;
 
-		if ( material ) { material = this.state.getData(material); }
-		if ( type ) { type = this.state.getData(type); }
+		if ( material ) {
+			if( typeof material === "string" ) material = this.state.getData(material);
+			else if( material && material.constructor === Object ) {
+				material = this.randItemBelow(this.groups.materials, material, level);
+			}
+
+			if( material instanceof TagSet ) material = material.random();
+		}
+		if ( type ) {
+			if( typeof type === "string" ) type = this.state.getData(type);
+			else if( type && type.constructor === Object ) {
+				type = this.randItemBelow(this.groups[WEARABLE], type, level);
+			}
+
+			if( type instanceof TagSet ) type = type.random();
+		}
 
 		if ( !type && !material ) {
-			type = this.groups[WEARABLE].randBelow( info.maxlevel || info.level );
+			type = this.groups[WEARABLE].randBelow( level );
 		}
 
 		if ( material && !type ) {
-			type = this.getCompatible( this.groups[WEARABLE], material, info.maxlevel||info.level );
+			type = this.getCompatible( this.groups[WEARABLE], material, level );
 
 		} else if ( type && !material ) {
-			material = this.getCompatible( this.groups.materials, type, info.maxlevel||info.level );
+			material = this.getCompatible( this.groups.materials, type, level );
 		}
 
 		return this.fromProto( type, material );
 
+	}
+
+	/**
+	 * Finds an item within a group that matches passed in parameters.
+	 * @param {GenGroup} group - Group to pick an item from
+	 * @param {*} data - Information on what specific group to look for
+	 * @param {number} level - maximum level for item
+	 * @returns {?Material} A material matching passed in prerequisites. Returns null if one cannot be found.
+	 */
+	randItemBelow(group, data, level=0) {
+		let {only, exclude} = data;
+		level = data.maxlevel ?? data.level ?? level;
+		if(typeof only === "string") only = only.split(",");
+		if(typeof exclude === "string") exclude = exclude.split(",");
+
+		return group.randBelow(level, v=> {
+			let checks = [v.type, v.kind, v.id, ...(v.tags ?? [])];
+
+			if(only && only.find(it => checks.includes(it)) == null) return false;
+			if(exclude && exclude.find(it => checks.includes(it)) != null) return false;
+
+			return true;
+		})
 	}
 
 	/**
@@ -382,19 +426,19 @@ export default class ItemGen {
 	 * @param {Item} item - chosen item must be compatible with item.
 	 * @returns {object|null}
 	 */
-	getCompatible( group, item, level=1 ) {
+	getCompatible( group, item, level = null) {
 
 		let only = item.only;
 		let exclude = item.exclude;
 
 		let mat = item.material ? item.material.id : null;
 		let itTags = item.tags || [];
-
-		return group.randBelow( Math.max( item.level+1, level ),
+		let targetlevel = level||item.level+1||1;
+		return group.randBelow( targetlevel ,
 			v=>{
 				let tags = v.tags || [];
- 				if ( only && !includesAny(only, v.type, v.kind, v.id, ...v.tags ) ) return false;
-				if ( exclude && includesAny(exclude, v.type, v.kind, v.id, ...v.tags) ) return false;
+ 				if ( only && !includesAny(only, v.type, v.kind, v.id, ...tags ) ) return false;
+				if ( exclude && includesAny(exclude, v.type, v.kind, v.id, ...tags) ) return false;
 
 				if ( v.only && !includesAny( v.only, item.type, item.kind, item.id, mat, ...itTags ) ) return false;
 				if ( v.exclude && includesAny( v.exclude, item.type, item.kind, item.id, mat, ...itTags ) ) return false;

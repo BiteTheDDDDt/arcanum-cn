@@ -499,13 +499,13 @@
 		"name": "blood siphon",
 		"desc": "Leech blood from a body to restore your health",
 		"require": "transfusions",
-		"perpetual":true,
-		"at":{
-			"900":{
-				"effect.hp":2
+		"perpetual": true,
+		"at": {
+			"900": {
+				"effect.hp": 2
 			},
-			"3600":{
-				"effect.hp":3
+			"3600": {
+				"effect.hp": 3
 			}
 		},
 		"run": {
@@ -943,7 +943,8 @@
 			"arcana": 0.03
 		},
 		"effect": {
-			"prismatic": 0.55,
+			"prismatic": 0.6,
+			"primordial": 0.5,
 			"stamina": 1,
 			"hp": 1.2,
 			"stress": -1.1,
@@ -2237,7 +2238,7 @@
 			"player.bonuses.shadow": 3,
 			"player.hits.shadow": 3,
 			"player.resist.shadow": "5%",
-			"resist.light": -100
+			"player.resist.light": -100
 		}
 	},
 	{

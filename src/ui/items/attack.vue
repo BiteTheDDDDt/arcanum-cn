@@ -1,34 +1,32 @@
 <script>
-import Range from '../../values/range';
 import Dot from './dot-info.vue';
 import InfoBlock from './info-block.vue';
+import DamageMixin from './damageMixin.js';
+import game from '../../game';
 
 export default {
 
-	props:['item'],
+	props:['item', 'atk', 'target'],
 	name:'attack',
+	mixins: [DamageMixin()],
 	components:{
-		gdata:() => import( /* webpackChunkName: "gdata-ui" */ './gdata.vue'),
 		dot:Dot,
 		info:InfoBlock
 	},
 	computed:{
 
-		damage(){
-
-			let dmg = this.item.attack.damage || this.item.attack.dmg;
-			if( typeof dmg === 'number') return dmg;
-			else if ( dmg ) {
-				return dmg.toString();
-			}
-
+		attack() {
+			return this.atk || this.item.attack;
+		},
+		damage() {
+			return this.getDamage(this.attack);
 		},
 		hitBonus(){
-			return this.item.attack.tohit || 0;
+			return this.attack.tohit || 0;
 		},
 		bonus(){
 
-			let bonus = this.item.attack.bonus;
+			let bonus = this.attack.bonus;
 			if ( !bonus || bonus.valueOf() == 0 ) return 0;
 
 			if ( bonus > 0) return ' (+' + bonus + ')';
@@ -38,8 +36,17 @@ export default {
 		itemtype(){
 			return this.item.type.toString();
 		},
-		target() {
-			return !Array.isArray(this.item.attack) && this.item.attack.targetstring || "enemy";
+		calcTarget() {
+			return this.attack.targetstring || this.target || "enemy";
+		},
+		potency() {
+			let potencystring = ""
+			for (let a of this.attack.potencies)
+			{	
+				if(potencystring != "") potencystring = potencystring.concat(", ");
+				potencystring = potencystring.concat(game.state.getData(a).name.toTitleCase())
+			}
+			return potencystring
 		}
 
 	}
@@ -51,70 +58,39 @@ export default {
 
 <div class="attack">
 
-	<div v-if="Array.isArray(item.attack)">
-		<div v-for="attackunit in item.attack">	
-			<div class="info-sect" >Attack</div>
-			<div v-if="attackunit.name"><span>Name: </span><span>{{attackunit.name.toString().toTitleCase()}}</span></div>
-			<div v-if="attackunit.damage!==0&&attackunit.damage!==null&&typeof attackunit.damage !== 'undefined'&&itemtype!=='armor'|| attackunit.targets||item.attack.result">	
-				<div v-if="attackunit.tohit&&attackunit.damage!==0&&attackunit.damage!==null&&typeof attackunit.damage !== 'undefined'">Hit Bonus: {{ attackunit.tohit }}</div>
-				<div class="damage" v-if="attackunit.damage!==0&&attackunit.damage!==null&&typeof attackunit.damage !== 'undefined'">
-					<span>Damage: {{ attackunit.damage }}</span><span v-if="bonus">{{ attackunit.bonus }}</span></div>
-				<div v-if="attackunit.damage!==0&&attackunit.damage!==null&&typeof attackunit.damage !== 'undefined'&&attackunit.kind">Kind: {{ attackunit.kind.toString().toTitleCase() }}</div>
-				<div v-if="attackunit.targets">Targets: {{ attackunit.targetstring.toString().toTitleCase() }}</div>
-				<div v-if="attackunit.result" class="info-subsect">Results:</div>
-				<info v-if="attackunit.result" :info="attackunit.result" />
-			</div>
-			<div v-if="attackunit.hits">
-				<div v-for="hit in attackunit.hits">
-					<div class="info-subsect" >Attack hit</div>		
-					<div v-if="hit.tohit&&hit.damage!==0&&hit.damage!==null&&typeof hit.damage !== 'undefined'">Hit Bonus: {{ hit.tohit }}</div>
-					<div class="damage" v-if="hit.damage!==0&&hit.damage!==null&&typeof hit.damage !== 'undefined'">
-						<span>Damage: {{ hit.damage }}</span><span v-if="bonus">{{ hit.bonus }}</span></div>
-					<div v-if="hit.damage!==0&&hit.damage!==null&&typeof hit.damage !== 'undefined'&&hit.kind">Kind: {{ hit.kind.toString().toTitleCase() }}</div>
-					<div v-if="hit.targets">Targets: {{ hit.targetstring.toString().toTitleCase() }}</div>
-					<div v-if="hit.result" class="info-subsect">Results:</div>
-					<info v-if="hit.result" :info="hit.result" />
-					<div class="info-subsect" v-if="hit.dot">Applies</div>
-					<dot v-if="hit.dot" :dot="hit.dot"  :item="hit" :target="hit.targetstring" />
-				</div>
-			</div>
-			<div class="info-subsect" v-if="attackunit.dot">Applies</div>
-				<dot v-if="attackunit.dot" :dot="attackunit.dot"  :item="attackunit" :target="attackunit.targetstring" />			
+	<div v-if="Array.isArray(attack)">
+		<div v-for="(attackunit, idx) in attack" :key="'atk-' + idx">
+			<div v-if="idx !== 0" class="info-sect"></div>
+			<attack :item="item" :atk="attackunit" />
 		</div>
 	</div>
+	<div v-else>
+		<div v-if="damage&&itemtype!=='armor'||attack.hits||attack.dot||attack.result">
+			<div v-if="attack.name&&attack.name!==item.name"><span>Name: </span><span>{{attack.name.toString().toTitleCase()}}</span></div>
+			
+			<div v-if="damage">
+				<div v-if="hitBonus">Hit Bonus: {{ hitBonus }}</div>
+				<div class="damage">Estimated damage: {{ damage }}<span v-if="bonus">{{ bonus }}</span></div>
+				<div v-if="attack.kind">Kind: {{ attack.kind.toString().toTitleCase() }}</div>
+			</div>
 
-	<div v-if="damage!==0&&damage!==null&&typeof damage !== 'undefined'&&itemtype!=='armor'||item.attack.targets||item.attack.result">
-		<div class="info-sect" >Attack</div>		
-		<div v-if="item.attack.name">
-			<div v-if="item.attack.name!==item.name"><span>Name: </span><span>{{item.attack.name.toString().toTitleCase()}}</span></div>
-		</div>		
-		<div v-if="hitBonus&&damage!==0&&damage!==null&&typeof damage !== 'undefined'">Hit Bonus: {{ hitBonus }}</div>
-		<div class="damage" v-if="damage!==0&&damage!==null&&typeof damage !== 'undefined'">
-			<span>Damage: {{ damage }}</span><span v-if="bonus">{{ bonus }}</span></div>
-		<div v-if="damage!==0&&damage!==null&&typeof damage !== 'undefined'&&item.attack.kind">Kind: {{ item.attack.kind.toString().toTitleCase() }}</div>
-		<div v-if="item.attack.targets">Targets: {{ item.attack.targetstring.toString().toTitleCase() }}</div>
-		<div v-if="item.attack.result" class="info-sect">Results:</div>
-		<info v-if="item.attack.result" :info="item.attack.result" :target="target" />
-	</div>
+			<div v-if="attack.targets">Targets: {{ calcTarget.toString().toTitleCase() }}</div>
+			<div v-if="attack.result" class="info-sect">Results:</div>
+			<info v-if="attack.result" :info="attack.result" :target="calcTarget" />
+		</div>
 
-	<div v-if="item.attack.hits">
-		<div v-for="hit in item.attack.hits">
-			<div class="info-sect" >Attack hit</div>
-			<div v-if="hit.tohit&&hit.damage!==0&&hit.damage!==null&&typeof hit.damage !== 'undefined'">Hit Bonus: {{ hit.tohit }}</div>
-			<div class="damage" v-if="hit.damage!==0&&hit.damage!==null&&typeof hit.damage !== 'undefined'">
-				<span>Damage: {{ hit.damage }}</span><span v-if="bonus">{{ hit.bonus }}</span></div>
-			<div v-if="hit.damage!==0&&hit.damage!==null&&typeof hit.damage !== 'undefined'&&hit.kind">Kind: {{ hit.kind.toString().toTitleCase() }}</div>
-			<div v-if="hit.targets">Targets: {{ hit.targetstring.toString().toTitleCase() }}</div>
-			<div v-if="hit.result" class="info-sect">Results:</div>
-			<info v-if="hit.result" :info="hit.result" :target="hit.targetstring" />
-			<div class="info-subsect" v-if="hit.dot">Applies</div>
-			<dot v-if="hit.dot" :dot="hit.dot" :item="hit" :target="hit.targetstring" />
+		<div v-if="attack.hits">
+			<div v-for="(hit, idx) in attack.hits" :key="'hit-' + idx">
+				<div class="info-sect" >Attack hit</div>
+				<attack :item="item" :atk="hit" class="info-subsubsect" />
+			</div>
+		</div>
+
+		<div v-if="attack.dot">
+			<div class="info-sect">Applies</div>
+			<dot :dot="attack.dot" :item="attack" :target="calcTarget" class="info-subsubsect" />
 		</div>
 	</div>
-
-	<div class="info-sect" v-if="item.attack.dot">Applies</div>
-	<dot v-if="item.attack.dot" :dot="item.attack.dot"  :item="item.attack" :target="target" />
-	
 </div>
 
 </template>

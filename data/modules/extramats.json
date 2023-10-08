@@ -442,9 +442,13 @@
 					"spiritgem": 50
 				},
 				"alter": {
-					"attack.dot.targets": "ally",
-					"attack.dot.mod.dmg.min": "20%",
-					"attack.dot.mod.dmg.max": "25%"
+					"attack.dot": {
+						"targets": "ally",
+						"duration": 10,
+						"mod": {
+							"self.dmg": "25%"
+						}
+					}
 				}
 			}
 		]
