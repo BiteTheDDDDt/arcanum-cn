@@ -263,10 +263,9 @@
 				"level": 8,
 				"type": "weapon",
 				"tags": "t_longsword,t_swords",
-				"damage": "8~10",
 				"attack": {
 					"kind": "slash",
-					"damage": "i.damage||0"
+					"damage": "8~10"
 				}
 			},
 			{
