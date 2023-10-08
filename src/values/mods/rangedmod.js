@@ -46,7 +46,7 @@ export default class RangedMod extends Mod {
 
         if (this.pctTot !== 0) {
 
-            if (this.bonus !== 0) s += ' & ';
+            if (this.bonus !== 0) str += ' & ';
             str += precise(100 * this.pctTot * (this.estimateStep() || 1)) + '%';
         }
 
@@ -57,13 +57,13 @@ export default class RangedMod extends Mod {
             str += ` per ${precise(this.estimateStep()).toString().replace(/.*/, this.roundingSym ? (this.roundingSym === "+" ? "⌈$&⌉" : "⌊$&⌋") : "$&")}`;
         }
         if (this.min && !this.max) {
-            str += ` starting at ${this.minOp === OPS.GT.value ? "(" : ""}${this.min ?? ""}`;
+            str += ` starting at ${this.minOp === OPS.GT.value ? "(" : ""}${this.adjustedbonus(this.min) ?? ""} total`;
         }
         if (!this.min && this.max) {
-            str += ` up to ${this.minOp === OPS.GT.value ? "(" : ""}${this.max ?? ""}`;
+            str += ` up to ${this.minOp === OPS.GT.value ? "(" : ""}${this.adjustedbonus(this.max) ?? ""} total`;
         }
         if (this.min && this.max) {
-            str += ` between ${this.minOp === OPS.GT.value ? "(" : "["}${this.min ?? ""},${this.max ?? ""}]`;
+            str += ` between ${this.minOp === OPS.GT.value ? "(" : "["}${this.adjustedbonus(this.min) ?? ""},${this.adjustedbonus(this.max) ?? ""}] total`;
         }
         if (this.min && !this.minOp) {
             str += ` min ${this.min}`;
@@ -190,5 +190,41 @@ export default class RangedMod extends Mod {
 
     maxed() {
         return this.max != null && this.count >= this.max;
+    }
+
+    adjustedbonus(adjustment = 1) {
+
+        let adjustedcount = this.arbitrarycount(adjustment)
+        let s = (this.bonus !== 0 ?
+            precise(this.bonus.toString() * adjustedcount)
+            : '');
+
+
+        if (this.pctTot !== 0) {
+
+            if (this.bonus !== 0) s += ' & ';
+            s += precise(100 * this.pctTot * (this.estimateStep() || 1) * adjustedcount) + '%';
+        }
+        return s
+    }
+
+    arbitrarycount(count) {
+
+        if (this.max != null && count >= this.max) {
+            return this.max;
+        } else if (this.min != null && count <= this.min) {
+            return !this.minOp || (this.minOp === OPS.GTE.value && this.min === count) ? this.min : 0
+        }
+
+        if (this.step) {
+            let rounding = roundingFunc(this.roundingSym);
+            if (this.section) {
+                return rounding((count - this.min) * this.step / this.range) * this.range / this.step + this.min;
+            }
+            let min = this.min || 0;
+            return rounding((count - min) / this.step) * this.step + min;
+        }
+
+        return count;
     }
 }

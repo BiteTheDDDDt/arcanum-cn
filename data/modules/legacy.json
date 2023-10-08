@@ -90,7 +90,7 @@
 					"arcana": 0.04
 				},
 				"mod": {
-					"spiritlore.max": "0.05//20/-20"
+					"spiritlore.max": "0.05//20/-10"
 				}
 			},
 			{
@@ -104,8 +104,8 @@
 					"enchanting.exp": 5
 				},
 				"mod": {
-					"enchanting.max": "0.05//20/-20",
-					"charms.max": "0.05//20/-20"
+					"enchanting.max": "0.05//20/-10",
+					"charms.max": "0.05//20/-10"
 				}
 			},
 			{
@@ -121,7 +121,7 @@
 					"crafting.exp": 5
 				},
 				"mod": {
-					"potions.max": "0.05//20/-20"
+					"potions.max": "0.05//20/-10"
 				},
 				"loot": "hestiabrew"
 			},
@@ -139,8 +139,8 @@
 					"arcana": 0.01
 				},
 				"mod": {
-					"scrying.max": "0.05//20/-20",
-					"history.max": "0.05//20/-20"
+					"scrying.max": "0.05//20/-10",
+					"history.max": "0.05//20/-10"
 				}
 			},
 			{
@@ -152,7 +152,7 @@
 					"weary": 0.5
 				},
 				"mod": {
-					"languages.max": "0.05//20/-20"
+					"languages.max": "0.05//20/-10"
 				}
 			},
 			{
@@ -166,7 +166,7 @@
 					"stamina": -0.5
 				},
 				"mod": {
-					"animals.max": "0.05//20/-20"
+					"animals.max": "0.05//20/-10"
 				}
 			},
 			{
@@ -192,7 +192,7 @@
 					"hal_suspicion": true
 				},
 				"mod": {
-					"history.max": "0.05//20/-20"
+					"history.max": "0.05//20/-10"
 				}
 			},
 			{
@@ -212,7 +212,7 @@
 					"madness": "0~2"
 				},
 				"mod": {
-					"anatomy.max": "0.05//20/-20"
+					"anatomy.max": "0.05//20/-10"
 				}
 			},
 			{
@@ -231,7 +231,7 @@
 					"pumpcider": true
 				},
 				"mod": {
-					"crafting.max": "0.05//20/-20"
+					"crafting.max": "0.05//20/-10"
 				}
 			},
 			{
@@ -250,7 +250,7 @@
 					"pumpkins": 1
 				},
 				"mod": {
-					"spiritlore.max": "0.05//20/-20"
+					"spiritlore.max": "0.05//20/-10"
 				}
 			}
 		],
