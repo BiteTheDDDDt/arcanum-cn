@@ -515,13 +515,11 @@
 			{
 				"id": "res_apple",
 				"name": "apple",
-				"level": 1,
 				"max": 50
 			},
 			{
 				"id": "res_treat",
 				"name": "treat",
-				"level": 1,
 				"desc": "Local confections may have unpredictable effects.",
 				"max": 100
 			},
