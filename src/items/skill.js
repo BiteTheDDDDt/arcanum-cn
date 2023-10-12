@@ -95,4 +95,13 @@ export default class Skill extends Task {
 
 	}
 
+	/**
+	 * Skills have no meaningful onUse
+	 * @param {Context} g
+	 */
+	onUse( g ) {
+
+
+	}
+
 }

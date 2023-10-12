@@ -362,6 +362,15 @@
 				"id": "evt_hal_hestia_done",
 				"name": "purple amulet",
 				"desc": "As you leave her cottage, Hestia presses a small amulet into your hand."
+			},
+			{
+				"id": "trick_unlock",
+				"name": "Mischievous spirit",
+				"desc": "Peculiar energies permeate the hall, driving all to mischief.",
+				"require": "g.hal_trick_pumpkin>0&&g.apprentice>0&&g.trickery==0",
+				"result": {
+					"trickery": true
+				}
 			}
 		],
 		"locales": [
@@ -541,18 +550,18 @@
 			{
 				"id": "jacklantern",
 				"name": "jack o' lantern",
-				"max": 3,
+				"max": 4,
 				"mod": {
-					"light.rate": 0.04,
-					"fire.rate": 0.04
+					"light.rate": 0.035,
+					"fire.rate": 0.035
 				}
 			},
 			{
 				"id": "cobwebs",
 				"max": 5,
 				"mod": {
-					"shadow.rate": 0.03,
-					"air.rate": 0.03
+					"shadow.rate": 0.025,
+					"air.rate": 0.025
 				}
 			}
 		],
@@ -968,7 +977,7 @@
 						"name": "behead",
 						"kind": "void",
 						"targets": "flunky",
-						"dmg": "1200",
+						"dmg": 1200,
 						"tohit": 500
 					},
 					{
@@ -1124,7 +1133,7 @@
 					{
 						"name": "fox's claws",
 						"kind": "slashing",
-						"dmg": "12",
+						"dmg": 12,
 						"log": {
 							"%": "10%",
 							"desc": "Won't you join my collection?"
@@ -1227,7 +1236,7 @@
 					"name": "chilling touch",
 					"kind": "necrotic",
 					"targets": "enemyleader",
-					"dmg": "100",
+					"dmg": 100,
 					"tohit": 30
 				},
 				"loot": {
@@ -1417,6 +1426,29 @@
 					]
 				}
 			}
-		]
+		],
+		"hall": {
+			"data": {
+				"upgrades": [
+					{
+						"id": "hal_trick_pumpkin",
+						"name": "Headless rider's heart",
+						"sym": "🏰",
+						"tags": "hall",
+						"desc": "The only thing left behind after your clash on the midnight bridge. It feels ethereal, as if it would dissipate at any moment.",
+						"require": "g.hal_bridge2>0",
+						"max": 1,
+						"mod": {
+							"pumpkins.max": "50%",
+							"jacklantern.max": "100%",
+							"cobwebs.max": "100%"
+						},
+						"result": {
+							"fame": 10
+						}
+					}
+				]
+			}
+		}
 	}
 }
