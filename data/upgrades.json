@@ -2337,7 +2337,7 @@
 	},
 	{
 		"id": "better_sorting",
-		"name": "Better Organization",
+		"name": "better Organization",
 		"desc": "With better ways to place things to save on space in your cellars.",
 		"require": "g.schematic>=1",
 		"max": 2,
