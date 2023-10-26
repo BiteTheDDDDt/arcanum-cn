@@ -458,7 +458,7 @@
 	},
 	{
 		"id": "en_clarity2",
-		"name": "clarity",
+		"name": "great clarity",
 		"only": "head",
 		"adj": "%i of %s",
 		"desc": "An enchantment to aid the mind.",
