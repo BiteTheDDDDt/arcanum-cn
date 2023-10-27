@@ -29,14 +29,12 @@
 			"name": "Master Slain",
 			"desc": "Your master was a fool. A quick murder in the dark put an end to their petty demands, and frees you to pursue your own grander designs."
 		},
-		"result": [
-			"adept",
-			"evil",
-			{
-				"bodies": 1,
-				"player.exp": 10
-			}
-		]
+		"result": {
+			"adept": true,
+			"evil": true,
+			"bodies": 1,
+			"player.exp": 10
+		}
 	},
 	{
 		"id": "magicbroomstick",
