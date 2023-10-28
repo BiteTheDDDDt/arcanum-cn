@@ -1,0 +1,20 @@
+[
+	{
+		"id": "physdmg",
+		"name": "physical",
+        "value":100,
+		"dmg": "Math.max((i.value/100)||0,0)"
+    },
+    {
+		"id": "spelldmg",
+		"name": "spell",
+        "value":100,
+		"dmg": "Math.max((i.value/100)||0,0)"
+    },
+    {
+		"id": "runicdmg",
+		"name": "runic",
+        "value":100,
+		"dmg": "Math.max((i.value/100)||0,0)"
+    }
+]

@@ -1,0 +1,25 @@
+{
+	"short_name": "Theory of Magic",
+	"name": "Theory of Magic",
+	"start_url": "index.html",
+	"lang": "en",
+	"dir": "ltr",
+	"icons": [
+
+		{
+			"src": "/images/manifest-icon-192.png",
+			"type": "image/png",
+			"sizes":"192x192"
+		},
+		{
+			"src": "/images/manifest-icon-512.png",
+			"type": "image/png",
+			"sizes":"512x512"
+		}
+
+	],
+	"display": "standalone",
+	"orientation": "any",
+	"theme_color": "transparent",
+	"background_color": "#577996"
+}

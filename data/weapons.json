@@ -1,0 +1,208 @@
+[
+	{
+		"id": "shortsword",
+		"attack": {
+			"kind": "slash",
+			"damage": "1~3"
+		},
+		"tags": "t_shortsword,t_swords,d_shortsword,d_swords",
+		"cost": 30,
+		"level": 1
+	},
+	{
+		"id": "club",
+		"attack": {
+			"kind": "blunt",
+			"damage": 1
+		},
+		"cost": 15,
+		"tags": "t_club,d_club",
+		"level": 0
+	},
+	{
+		"id": "cane",
+		"attack": {
+			"kind": "blunt",
+			"damage": 1
+		},
+		"cost": 15,
+		"tags": "t_cane,d_cane",
+		"level": 1,
+		"enchants": 2
+	},
+	{
+		"id": "knife",
+		"attack": {
+			"kind": "pierce",
+			"damage": 1
+		},
+		"tags": "t_knife,d_knife",
+		"cost": 20,
+		"level": 0,
+		"enchants": 2
+	},
+	{
+		"id": "staff",
+		"attack": {
+			"kind": "blunt",
+			"damage": "1~2"
+		},
+		"cost": 25,
+		"tags": "t_staff,t_staves,d_staff,d_staves",
+		"level": 1,
+		"hands": 2,
+		"enchants": 6
+	},
+	{
+		"id": "broomstick",
+		"only": "wood",
+		"attack": {
+			"kind": "blunt",
+			"damage": 1
+		},
+		"cost": 20,
+		"tags": "t_broomstick,d_broomstick",
+		"level": 0,
+		"enchants": 4
+	},
+	{
+		"id": "wand",
+		"tags": "t_wand,t_magic,d_wand,d_magic",
+		"cost": 10,
+		"hands": 1,
+		"level": 0,
+		"enchants": 4,
+		"properties": 1
+	},
+	{
+		"id": "rod",
+		"tags": "t_rod,t_magic,d_rod,d_magic",
+		"cost": 30,
+		"hands": 1,
+		"level": 4,
+		"enchants": 5,
+		"properties": 1
+	},
+	{
+		"id": "fetish",
+		"tags": "t_fetish,t_magic,d_fetish,d_magic",
+		"cost": 100,
+		"hands": 1,
+		"level": 5,
+		"only": "wood,natural",
+		"enchants": 8,
+		"properties": 1
+	},
+	{
+		"id": "weap_orb",
+		"name": "orb",
+		"desc": "A focus for your magic.",
+		"tags": "t_orb,t_magic,d_orb,d_magic",
+		"cost": 100,
+		"hands": 2,
+		"level": 8,
+		"enchants": 7,
+		"only": "glass,mat_ruby",
+		"properties": 1
+	},
+	{
+		"id": "greatstaff",
+		"tags": "t_greatstaff,t_staves,t_magic,d_greatstaff,d_staves,d_magic",
+		"cost": 50,
+		"hands": 2,
+		"level": 6,
+		"enchants": 12,
+		"properties": 1
+	},
+	{
+		"id": "dagger",
+		"attack": {
+			"kind": "pierce",
+			"damage": 1
+		},
+		"cost": 20,
+		"tags": "t_dagger,d_dagger",
+		"level": 1,
+		"enchants": 2
+	},
+	{
+		"id": "sword",
+		"tags": "t_sword,t_swords,d_sword,d_swords",
+		"attack": {
+			"kind": "slash",
+			"damage": "1~4"
+		},
+		"cost": 50,
+		"hands": 2,
+		"level": 3,
+		"enchants": 1
+	},
+	{
+		"id": "longsword",
+		"attack": {
+			"kind": "slash",
+			"damage": "2~4"
+		},
+		"cost": 50,
+		"hands": 2,
+		"tags": "t_longsword,t_swords,d_longsword,d_swords",
+		"level": 3,
+		"enchants": 3
+	},
+	{
+		"id": "axe",
+		"attack": {
+			"kind": "slash",
+			"damage": "1~2"
+		},
+		"cost": 40,
+		"tags": "t_axe,t_axes,d_axe,d_axes",
+		"level": 1
+	},
+	{
+		"id": "battleaxe",
+		"attack": {
+			"kind": "slash",
+			"damage": "1~3"
+		},
+		"cost": 50,
+		"tags": "t_battleaxe,t_axes,d_battleaxe,d_axes",
+		"hands": 2,
+		"level": 2
+	},
+	{
+		"id": "mace",
+		"attack": {
+			"kind": "blunt",
+			"damage": "1~2"
+		},
+		"cost": 30,
+		"hands": 1,
+		"tags": "t_mace,d_mace",
+		"level": 3,
+		"enchants": 2
+	},
+	{
+		"id": "warhammer",
+		"attack": {
+			"kind": "blunt",
+			"damage": "1~4"
+		},
+		"cost": 50,
+		"tags": "t_warhammer,d_warhammer",
+		"hands": 2,
+		"level": 3
+	},
+	{
+		"id": "spear",
+		"attack": {
+			"kind": "pierce",
+			"damage": "1~3"
+		},
+		"cost": 30,
+		"tags": "t_spear,d_spear",
+		"hands": 2,
+		"level": 2,
+		"enchants": 2
+	}
+]

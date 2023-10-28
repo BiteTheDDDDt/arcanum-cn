@@ -1,0 +1,35 @@
+image: node:latest
+
+variables:
+  PAGES_BRANCH: master
+
+stages:
+  - make_dev
+  - pages
+
+cache:
+  key: ${CI_COMMIT_REF_SLUG}
+  paths:
+  - node_modules/
+
+before_script:
+  - npm install
+
+make_dev:
+  stage: make_dev
+  script: npm run-script ci-dev
+  artifacts:
+    paths:
+      - dev
+
+pages:
+  stage: pages
+  rules:
+    - if: '$CI_COMMIT_REF_NAME == $PAGES_BRANCH'
+      when: always
+    - when: never
+  script:
+    - cp -r dev public
+  artifacts:
+    paths:
+      - public

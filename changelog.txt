@@ -1,0 +1,313 @@
+Bugfixes added by Abraxas, version 0.8.3
+Fixed so you can have multiple potions (bit risky)
+Change the look on bar texts (mana bars)
+Changed focus, made it into a toggle
+Fixed tooltip on Homes
+
+Bunch of new enchants, and stuff, not sure on all that is new
+
+DOTS:
+
+New Combat Tutorial Dungeon by Mathias.
+
+Dots and spells can now apply statuses which can prevent player/monsters from attacking, blocking, casting spells,
+etc.
+
+New damage and defense computations by Harrygiel. Small percent of defense factors into tohit/miss roll, and
+damage reduction is applied according to defense.
+
+New Puppeteer class arc by Regallion. Multiple classes, spells, minions.
+
+Level up modifiers are now based on json data, not code, so previous level up bonuses will unfortunately be reapplied.
+
+Many, many, display, interface bug fixes.
+
+Enchanting items are now placed into enchant slots for clarity, and to prevent item locking. (previous update)
+
+
+
+VER 69:
+
+BUGFIX:
+
+Fixed Elemental loot bug.
+
+Fixed percent regex.
+
+
+VER 64+
+
+FEATURES:
+
+New-combat adventure locations in progress.
+
+Added new class tiers.
+
+BUGS:
+
+Some previous classes were moved so some prior saves can now select Multiple
+classes of the same tier.
+
+
+
+9/22
+
+FEATURES:
+
+Next task improvement % displayed in tooltip
+
+Lowered wizard unlock requirement.
+
+Better loot drop variation
+
+
+BUGFIX:
+
+Heist/Thievery now give the propery skill exp
+
+Fixed bug preventing druid unlock
+
+Fixed bug preventing auto-resume task
+
+Fixed bug preventing rest after failed dungeon.
+
+
+9/21
+
+FEATURES:
+
+More avenues for water and fire advancement.
+
+Fixed broken High Elemental requirement and some High elemental buffs.
+
+Some waterlore /earthlore furniture sources.
+
+BUGFIX:
+
+Fixed a few item reversions.
+
+Much more work to do.
+
+
+9/20
+
+FEATURES:
+
+Craft Rune: Now able to craft runestones with enough Crafting+Rune skills
+
+There is now a use for Chronomancy and Tempus.
+In initial phases.
+
+Added graveyard furnishing.
+
+Reduced trap soul max souls bonus.
+
+Added several water-attack spells.
+
+Complete css redesign from kermit_tears
+
+Higher tier versions of low spells now require unlocking low version first.
+(following suggestion by Morkyl)
+
+BUGS:
+
+Fixed Bug Preventing Dungeons from ever starting again. :P
+
+Slight reduction in requirements to imbue elemental gem types.
+
+Fixed some regression bugs
+
+
+
+9/19
+
+FEATURES:
+
+Experimental: Some Actions will now improve after many uses.
+Gold actions in particular should improve after tier0 (adept)
+
+BUGFIX:
+
+Fixed duplicate display of some item effects.
+
+Resources over-max no longer jump to max on first use.
+You can spend the overflow now.
+
+Clamped delta-update time for game in background.
+
+
+9/18
+
+FEATURES:
+
+Active Allies limited by Levels/Summoning/Charms etc.
+
+Minions can now be renamed.
+
+Support for multi-target attacks
+
+Some multi-target attack spells.
+
+Sell All button in Inventories.
+
+individual items sell-all option.
+
+
+BUGFIX:
+
+Fixed Actions giving skill exp to Maxed Skills.
+
+UI-improvements as always.
+
+Raiding from quickbar no longer auto-completes dungeon.
+
+Max inventory and Minions formatting.
+
+Percentile loots now function correctly.
+
+Speed boosts should be safe now.
+
+
+BUGS:
+
+
+9/17
+
+FEATURES:
+
+Added tier2 summoner class.
+
+More spells. Increases to many existing spell powers.
+
+Added summoning spells.
+
+Minions can now be summoned into combat.
+
+UI-Improvements in progress with help from /u/incremental_games
+(ongoing)
+
+Display damage dot effects in popup.
+
+
+BUGFIX:
+
+Fixed some combat damage bugs.
+
+Player dodge displayed in player ui.
+
+Fixed bug preventing Travel Tent and Magichorseshoe from working.
+
+Fixed Adventure UI overlaps.
+
+Fixed brew-from-quickbar potion bug.
+
+Fixed bug preventing minions from unlocking without refresh.
+
+EXISTING BUGS:
+
+Dots do not always restore properly on reload.
+
+Speed buffs not applying correctly.
+
+Some Enchantments are known to be buggy.
+
+
+9/16
+
+FEATURES:
+
+Multiple-enemy groups in some dungeons.
+
+Added Upgrade: Autonomic Mending
+
+Added Virtue actions/events
+
+Added Item/Weapon Selling.
+
+Increased Max gemboxes
+
+Increased maximum number of herb bags.
+
+Unlocks include Unlock-type.
+
+
+BUGFIX:
+
+Repaired many of the path-class unlocks.
+
+Fixed some Multiple-Classes from same tier being allowed. This may make the game
+more difficult.
+
+Dungeons no longer advance when exit/re-entering.
+
+You are now notified that you are losing money when moving into an Inn.
+
+Now possible to scroll the available Homes list.
+
+Fixed Infinite Free actions bug.
+
+
+9/15:
+
+FEATURES:
+
+Reduced the effectiveness of grinding low-level dungeons for leveling.
+Feature? Sure?
+
+Rudimentary Dark Mode.
+
+Some basic Resource / Skill train rates displayed.
+
+Display maximum furniture values.
+
+Experimental Skill focus ability.
+
+Added Grind Action for when Research goes negative.
+
+
+BUGFIX:
+
+Some ring-enchant bug fixes.
+
+Thirdeye upgrade bug fix.
+
+Some of the css fixes recommended by pettankon. more to come.
+
+9/14:
+
+FEATURES:
+
+Rudimentary Settings Pane
+
+Added a link to this changelog.
+
+Added Apprentice level classes: Herbalist, Falconer
+
+Planeslore increases max travel distance.
+
+Scrying increases max travel distance.
+
+Auto-save enabled.
+
+Cheat-keys re-enabled for the time being.
+
+
+
+BUGFIX:
+
+Show disabled skill rollovers in Chrome.
+
+Fix Quickslot Runnable Action bug.
+
+
+9/5/2019:
+
+FEATURES:
+
+Staggered more of the early unlocks.
+
+Added skills
+
+List of all titles earned.
+
+New dungeons.

@@ -1,0 +1,85 @@
+
+canUse() dependencies:
+
+locked/disabled/locks ( self )
+need
+cost ( canPay() )
+mod ( canMod() )
+run ( run cost )
+fill
+buy
+
+
+
+basic item events:
+
+'buy' - initial purchase required before use.
+spells, skills, enchants, potions, mounts
+
+'use' - use skill, action, upgrade, dungeon, mount, spell etc.
+must pay 'cost' on use.
+may be runnable (perpetual), one one-time.
+
+'useOn' - identical to use but requires a use target.
+possibly unnecessary. 'use' can be used with param?
+
+'sell' - sell item.
+
+'slot' - set item in slot. might be identical to 'use' for slottable items?
+
+'rest' - begin/ttogle rest action
+
+'toggle'
+
+'craft' - identical to use for crafting actions?
+
+'stop' - stop action in progress.
+
+'unlock' - unlock item for buying/using. internal event. player takes no action.
+
+'lock'
+
+'disable'
+
+
+
+
+-- skipLocked could cause problems on mods. the lock status of skipped stat could change
+after the initial mod is applied. TODO: this is a long-term problem.
+
+
+slot: item takes a unique slot. can't buy multiple types of same slot.
+
+need: need represents a combination of an unlock and a usability requirement.
+
+ITEMS:
+
+
+!NOTE: Properties of Items can be set to null, but should not be deleted, otherwise
+saved-data with deleted properties would have those properties restored by default values
+on reload.
+
+effects are applied once and are not reversible. During Runnable actions and Dots,
+effects are applied per-frame and mulitplied by the elapsed frame-time.
+
+mods are applied per-quantity, and are removed whenever a quantity
+of the item is removed.
+
+in dots/Runnable actions, effects are applied continuously.
+Mods are applied at start of dot, and removed at the end.
+
+
+COSTS:
+
+'buy' is a one-time price to own or learn an item. once bought, normal cost and run fees
+still apply if they are defined. The 'buy' cost is never applied more than once.
+
+'cost' is a one-time price to cast a spell, perform an action, or start a continuous action.
+
+'run' is the ongoing price to continue using a runnable action or spell. it is applied each
+frame based on the time elapsed.
+this is similar to an ongoing 'effect' but will prevent the action from running if not met;
+whereas an action can still be used even when the effect won't work.
+
+
+'result' is applied once at the end of a Runnable action, or dot.

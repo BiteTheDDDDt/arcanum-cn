@@ -1,0 +1,34 @@
+
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+	<title>Theory of Magic</title>
+	<link href="./css/main.css" rel="stylesheet" type="text/css">
+	<!--<link rel="manifest" href="./manifest.webmanifest" type="application/json">-->
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<% if (htmlWebpackPlugin.options.__CLOUD ) {%>
+
+		<script src="https://www.gstatic.com/firebasejs/ui/4.3.0/firebase-ui-auth.js"></script>
+		<link type="text/css" rel="stylesheet" href="https://www.gstatic.com/firebasejs/ui/4.3.0/firebase-ui-auth.css" />
+	<% }%>
+
+	<meta name="keywords" content="idle, clicker, idle clicker, game, wizard, arcane, rpg, fun, browser, javascript" />
+	<meta name="description" content="magic idle clicker for rpg enthusiasts" />
+	<meta name="author" content="lerping lemur" />
+
+	<% if (htmlWebpackPlugin.options.__KONG ) {%>
+	<script src='https://cdn1.kongregate.com/javascripts/kongregate_api.js'></script>
+	<% } %>
+
+	<link href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap" rel="stylesheet">
+
+</head>
+
+<body>
+
+	<div id="vueRoot"></div>
+
+</body>
+</html>

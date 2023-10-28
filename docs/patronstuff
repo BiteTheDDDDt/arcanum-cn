@@ -1,0 +1,26 @@
+
+
+"id":"enc_blasphemous_truths",
+"name":"This Isn't Right",
+"desc":"A bruised chartreuse sun vomits forth blasphemous truths that never were",
+"effect":{
+    "madness":"0~1",
+    "stress":"0~1",
+    "unease":"0~1",
+    "life":"-4~0",
+    "demonology.exp":"0~3",
+    "shadowlore.exp":"0~2"
+},
+"result":{
+    "planeslore.max":0.001,
+    "voidlore.max":0.001,
+    "worldlore.max":0.001
+},
+"loot":{
+    "ichor":0.001,
+    "sindel":0.001,
+    "timegem":0.001
+}"flavor":"the gods, time, even reality...all of it could die..."
+
+
+Cyril: @the lemur i realize it's a bit late, but for the Cyril encounter in the hall- -0.7 stamina/second and slowly raises max trickery sound good?

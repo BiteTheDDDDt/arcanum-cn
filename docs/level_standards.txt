@@ -1,0 +1,7 @@
+BASE Level Stats:
+
+hp: 2*( level+1)
+defense: level+1
+tohit: level+1
+dmg: (level-1)-2*level
+speed: level

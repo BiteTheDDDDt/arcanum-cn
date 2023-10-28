@@ -1,0 +1,112 @@
+{
+    "module":"furniture_upgrades",
+    "data":{
+
+    "upgrades":[
+        {
+			"id": "dungeon_modular",
+			"name": "rework dungeon",
+			"desc": "Add in new hidden passages and optimize the layout of your dungeon to make better use of its space.",
+			"require": "g.dungeon>0",
+			"cost": {
+				"tapestries": 12,
+				"gold": 5000,
+				"gems": 15,
+				"bookcase": 5
+			},
+			"mod": {
+				"dungeon.mod.space": -10,
+				"dungeon.mod.tapestries.max": 4,
+				"dungeon.mod.bodies.max": 5,
+				"dungeon.mod.bones.max": 15
+			}
+		},
+		{
+			"id": "dungeon_catacomb",
+			"name": "dungeon catacomb",
+			"desc": "Turn a room in your dungeon into a dedicated storage area for skeletons.",
+			"require": "g.dungeon_modular>0",
+			"cost": {
+				"tapestries": 12,
+				"gold": 1000,
+				"gems": 25,
+				"casket": 5
+			},
+			"mod": {
+				"dungeon.mod.tapestries.max": 4,
+				"dungeon.mod.bones.max": 20,
+				"dungeon.mod.skulls.max": 4,
+				"dungeon.mod.urn.max": 2
+			}
+		},
+		{
+			"id": "dungeon_treasure_room",
+			"name": "dungeon treasure room",
+			"desc": "Turn one room in your dungeon into a well-secured vault.",
+			"require": "g.dungeon_modular>0",
+			"cost": {
+				"tapestries": 30,
+				"gold": 5000,
+				"gems": 50,
+				"smchest": 3,
+				"ironchest": 2,
+				"ornatechest": 1
+			},
+			"mod": {
+				"dungeon.mod.tapestries.max": 4,
+				"dungeon.mod.gold.max": 400,
+				"dungeon.mod.inv.max": 5,
+				"dungeon.mod.glassware.max": 5,
+				"dungeon.mod.gems.max": 10
+			}
+		},
+		{
+			"id": "graveyard_columbarium",
+			"name": "graveyard columbarium",
+			"desc": "A building for cremated remains.",
+			"require": "g.fire>5&&g.graveyard>0",
+			"cost": {
+				"tapestries": 2,
+				"gold": 2000,
+				"gems": 10
+			},
+			"mod": {
+				"graveyard.mod.urn.max": 2,
+				"graveyard.mod.glassware.max": 2
+			}
+		},
+		{
+			"id": "graveyard_landscaping",
+			"name": "graveyard landscaping",
+			"desc": "Redesign many areas of the graveyard to be more respectful to the dead.",
+			"require": "g.virtue>=75&&g.graveyard>0",
+			"cost": {
+				"gold": 5000,
+				"gems": 30
+			},
+			"mod": {
+				"graveyard.mod.spiritlore.max": 2,
+				"graveyard.mod.spiritlore.rate": 0.5,
+				"graveyard.mod.souls.rate": 0.01,
+				"graveyard.mod.souls.max": 5
+			}
+		},
+		{
+			"id": "graveyard_soulkeeping",
+			"name": "graveyard soul binding",
+			"desc": "Tie the dead souls forcefully to the graveyard area.",
+			"require": "g.evil>0&&g.spiritlore>=10&&g.graveyard>0",
+			"cost": {
+				"gold": 300,
+				"gems": 10
+			},
+			"mod": {
+				"graveyard.mod.spiritlore.max": 2,
+				"graveyard.mod.spiritlore.rate": 1,
+				"graveyard.mod.souls.rate": 0.01,
+				"graveyard.mod.souls.max": 15
+            }
+        }
+    ]
+    }
+}

@@ -1,0 +1,49 @@
+
+FIXED:
+
+Genezereth should not be available at T0
+
+more max research bonuses?
+
+
+PATRONS:
+
+Jeremy: needs custom item.
+
+optional dot stacking
+
+
+GAME:
+
+data list of player defeat stat conditions.
+
+Better 'function' dmg descriptions.
+
+Spell unlocks by school type, not player level.
+
+To-do list (in game) -- Maybe.
+
+Alchemy&Potions
+
+Familiars
+
+Travel Component
+
+ERRORS:
+
+
+MINOR:
+
+ongoing actions should stop if 'need' requirements not met.
+
+more armor drop variations.
+
+
+BALANCE:
+
+reduce player level-up speed.
+
+
+UI TWEAKS:
+
+Popup: Mark unmet requirements.

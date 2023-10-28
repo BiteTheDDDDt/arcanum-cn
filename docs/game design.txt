@@ -1,0 +1,184 @@
+EMOJIS:
+
+
+ U+1F5FB 🗻
+ U+1F3D4 🏔 MOUNTAIN
+
+Volcano:
+U+1F30B
+
+
+U+1F3D5 🏕 CAMPING
+
+📜 SCROLL
+
+🧠 BRAIN
+
+
+U+1F3DB 	🏛 BUILDING
+
+U+2B50 	⭐
+U+2697 	⚗
+
+U+1F6CF 	🛏  BED
+U+26B0 	⚰ CASKET
+
+https://en.wikipedia.org/wiki/Black_books_of_hours
+book of hours
+black book of hours
+narthex
+
+cloak of ashes
+amulet of xulang
+living fire
+
+oubliette
+
+paragon
+
+plants not beasts:
+systemanaturae
+
+pelagic soul
+friendless
+arcane embezzler
+
+The Archlocks:
+
+Narz/Nargril
+Bodias
+Vezial
+Caladar
+Mog
+Desilla
+Karnivex
+
+eras:
+
+primordial/primal? era before death
+
+era of death / great dying?
+
+the dawning
+
+the wind age
+
+reign of the pillars
+
+the rending
+
+age of silence
+
+war of the locks
+
+
+
+
+HIGH TIER FURNISHINGS
+deeper dungeon? name?
+dream woods
+
+everflame
+
+
+staff of the dryad
+the black spindle
+robes of tharandul
+
+sirith tal
+
+ellister's boots of bounding
+
+sindel - star cinder?
+
+epiphany
+
+treatise
+text
+folio
+lorebook
+compendium
+magister's manual
+
+grove/glade?
+
+new sections:
+familiars,
+alchemy,
+crafting
+
+baffling
+befuddlement
+
+upgrades:
+
+cairn ( druid)
+obelisk
+
+astral projection
+crocodile tears
+- as crocodiles do not cry, they are notoriously difficult to come by.
+
+weapons:
+Shillelagh
+
+Types/Associations:
+
+Earth: Defense/Hp
+Water: Dodge/Stamina
+Air: Speed/Dodge?
+Fire: damage
+Tempus: Speed
+
+
+ongoing/continuous
+
+master names?
+quizlbach
+
+
+beds + stamina/rest speed
+
+homes /sanctums / domiciles / base
+
+obscura
+
+
+
+
+alcove?
+corner?
+
+cabin
+
+crypt
+
+mausoleum
+
+library
+
+archive
+
+pocket dimension
+
+plane
+
+Dungeons:
+
+misty grove
+bright forest
+dark forest
+gloomy forest
+verdant hills
+
+the werry
+
+
+spell/potion order:
+
+minor
+lesser
+(normal)
+greater
+major?
+superior
