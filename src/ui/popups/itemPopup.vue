@@ -13,11 +13,12 @@ export const RollOver = {
 	item:null,
 	elm:null,
 	title:null,
-	source:null
+	source:null,
+	text:null
 
 };
 
-export const ItemOver = ( evt, it, source, title ) => {
+export const ItemOver = ( evt, it, source, title, text=null ) => {
 
 	RollOver.item = it;
 	RollOver.elm = evt.currentTarget;
@@ -33,6 +34,7 @@ export const ItemOver = ( evt, it, source, title ) => {
 	}
 
 	RollOver.title = title;
+	RollOver.text = text;
 }
 
 export const ItemOut = () => {
@@ -41,6 +43,7 @@ export const ItemOut = () => {
 	RollOver.source = null;
 	RollOver.title = null;
 	RollOver.context = null;
+	RollOver.text = null;
 }
 
 /**
@@ -54,7 +57,7 @@ export default {
 
 	updated() {
 		// waiting for width to change before reposition.
-		if ( this.item ) {
+		if ( this.item||this.text ) {
 			positionAt( this.$el, this.elm );
 		}
 	},
@@ -66,7 +69,7 @@ export default {
 
 <template>
 
-	<div class="item-popup" v-show="item!=null">
+	<div class="item-popup" v-show="item!=null||text!=null">
 		<div class="popup-content">
 		<div v-if="title" class="pop-title">{{ title }}</div>
 		<template v-if="Array.isArray(item)">
@@ -76,6 +79,9 @@ export default {
 		</template>
 		<template v-else>
 			<gdata v-if="item" :item="item" />
+		</template>
+		<template v-if="text">
+			<div>{{ text }}</div>
 		</template>
 		</div>
 	</div>
@@ -91,6 +97,7 @@ div.pop-title {
 	margin-bottom: var(--md-gap);
 
 }
+
 
 .popup-content {
 	padding: var(--md-gap);

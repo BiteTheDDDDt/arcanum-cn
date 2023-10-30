@@ -270,8 +270,8 @@ export default class Explore {
 	reset()
 	{
 		this.exp=0;
-		this.enc = null;
 		this.combat.reset();
+		this.enc = null;
 		this.locale=null;
 	}
 	emitDefeat(){
@@ -355,6 +355,7 @@ export default class Explore {
 
 			if ( enc.result ) Game.applyVars( enc.result );
 			if ( enc.loot ) Game.getLoot( enc.loot, this.drops );
+			if ( enc.mod ) Game.applyMods( enc.mod );
 			enc.exp = enc.length;
 
 		}

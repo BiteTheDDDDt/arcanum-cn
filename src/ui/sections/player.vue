@@ -5,6 +5,7 @@ import { floor, lowFixed, precise } from 'util/format';
 import AllUpgrades from '../panes/allupgrades.vue';
 import SlotPick from '../components/slotpick.vue';
 import Profile from 'modules/profile';
+import { getDelay } from '../../values/consts';
 
 export default {
 
@@ -40,7 +41,10 @@ export default {
 		speed() {
 			return this.player.speed.value
 		},
-
+		delay() {
+			let a = ""
+			return  a.concat('Turn delay: ', getDelay(this.player.speed.value).toPrecision(2), ' seconds')
+		},
 		/**
 		 * @note intentionally GData. make clearer.
 		 */
@@ -146,8 +150,8 @@ export default {
 			<tr><td>Damage Bonus</td><th>{{ damage }}</th></tr>
 			<tr><td>Hit Bonus</td><th>{{ precise( tohit ) }}</th></tr>
 
-			<tr><td>Speed</td><th>{{ speed }}</th></tr>
-
+			<tr @mouseenter.capture.stop="itemOver( $event,null,null,null,delay)">
+				<td>Speed</td><th>{{ speed }} </th> </tr>
 			<tr @mouseenter.capture.stop="itemOver( $event,player.weapon)">
 				<td>Weapon</td><th>{{ player.weapon ? player.weapon.name.toTitleCase() : 'None' }}</th></tr>
 

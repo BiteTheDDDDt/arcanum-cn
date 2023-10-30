@@ -452,7 +452,6 @@ button.pursuit {
 
 button.pursuit.current {
 	background-color:rgba(22, 219, 22, 0.7);
-
 }
 
 
@@ -497,7 +496,7 @@ div.log-item {
 	border-radius: var(--sm-radius);
 	height:auto;
 	opacity: 1.0;
-	min-height:100px;
+	min-height:25px;
 	min-width:200px;
 	max-width:280px;
 	z-index: var(--md-high);
@@ -570,6 +569,13 @@ div.log-item {
 	width:100%;
 	
 	padding-top: var(--sm-gap);
+}
+
+.info-subsubsect,
+.info-sect+.info-block,
+.info-block>.note-text~* {
+	margin-left: 0.5rem;
+	margin-right: 0.5rem;
 }
 
 div.stamina-bar {
@@ -665,6 +671,10 @@ div.bar .fill {
 
 div.hp .fill, div.hp .bgfill {
 	background:#ac0404;
+}
+
+div.vigor .fill, div.vigor .bgfill {
+	background:#FF6900;
 }
 
 .darkmode .bgfill {
