@@ -2,7 +2,7 @@ import { assignNoFunc } from "../util/util";
 import { cloneClass } from 'objecty';
 import Stat from "../values/rvals/stat";
 import { TARGET_ALLIES, TARGET_ALLY, TARGET_SELF,
-		ParseTarget, ParseDmg, GetTarget} from "../values/combatVars";
+		ParseTarget, ParseDmg, GetTarget, TARGET_RAND_ALLY} from "../values/combatVars";
 
 export default class Attack {
 
@@ -237,7 +237,7 @@ export default class Attack {
 
 		if ( this._harmless === null || this._harmless === undefined ) {
 			this.harmless = (this.targets === TARGET_SELF) ||
-				(this.targets === TARGET_ALLY) || (this.targets === TARGET_ALLIES);
+				(this.targets === TARGET_ALLY) || (this.targets === TARGET_RAND_ALLY) || (this.targets === TARGET_ALLIES);
 		}
 
 		//this.damage = this.damage || 0;
