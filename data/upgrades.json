@@ -986,7 +986,7 @@
 			"arcana": 15,
 			"sp": 5
 		},
-		"desc": "Unlocks an ability to imbue gems as a continuous action."
+		"desc": "Unlocks an ability to imbue gems as a continuous action. Activate via furniture"
 	},
 	{
 		"id": "advgems",
