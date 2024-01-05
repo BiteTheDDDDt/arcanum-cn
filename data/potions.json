@@ -552,8 +552,7 @@
 			"herbs": 10
 		},
 		"use": {
-			"stamina": 10,
-			"vigor": 2
+			"stamina": 10
 		}
 	},
 	{
@@ -571,8 +570,7 @@
 			"watergem": 1
 		},
 		"use": {
-			"stamina": 50,
-			"vigor": 10
+			"stamina": 50
 		},
 		"flavor": "Magnum"
 	},
@@ -615,7 +613,6 @@
 			"research": 2000,
 			"manas": 250,
 			"stamina": 250,
-			"vigor": 100,
 			"dot": {
 				"id": "pot_sp_sink_dot",
 				"name": "skillfulness",

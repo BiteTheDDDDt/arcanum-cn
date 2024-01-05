@@ -446,7 +446,6 @@
 					"bed_rest": {
 						"effect": {
 							"stamina": -0.1,
-							"vigor":-0.01,
 							"prismatic": 0.1
 						}
 					},

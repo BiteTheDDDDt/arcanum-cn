@@ -1464,8 +1464,7 @@
 			"research": 500
 		},
 		"cost": {
-			"earth": 3,
-			"vigor": 4
+			"earth": 3
 		},
 		"attack": {
 			"damage": "(a.weapon.damage||0)*(1.3+ 0.2*((a.weapon.template=='titanhammer')||0)) ",
@@ -1488,8 +1487,7 @@
 			"research": 12000
 		},
 		"cost": {
-			"earth": 8,
-			"vigor": 15
+			"earth": 8
 		},
 		"attack": {
 			"damage": "((a.weapon.damage||0))*6",
@@ -3190,8 +3188,7 @@
 			"spiritgem": 1
 		},
 		"cost": {
-			"mana": 3,
-			"vigor": 1
+			"mana": 3
 		},
 		"attack": {
 			"targets": "all",

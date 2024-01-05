@@ -129,7 +129,6 @@
 					},
 					"fire": 0.5,
 					"stamina": 0.5,
-					"vigor": 0.05,
 					"hp": 0.75,
 					"frost": -10,
 					"stress": -0.5
@@ -1811,8 +1810,7 @@
 						"desc": "Utilize your expertise with weaponry to speed up the carving process.",
 						"perpetual": true,
 						"run": {
-							"stamina": 1,
-							"vigor": 0.1
+							"stamina": 1
 						},
 						"runmod": {
 							"frostsigils_production2.runmod.frostsigils_production1.result.frostsigils": 5
