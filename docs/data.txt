@@ -1,0 +1,218 @@
+Shallow property data for currently active modules, as of Unstable 0.10.11.13
+Properties for each data section, sorted by name asc. List is unsorted. Total: 26
+armors:     (11)  ['id', 'armor', 'slot', 'tags', 'cost', 'enchants', 'only', 'level', 'name', 'properties', 'kind']
+classes:    (18)  ['id', 'desc', 'actname', 'actdesc', 'require', 'disable', 'warn', 'log', 'cost', 'result', 'name', 'tags', 'mod', 'flavor', 'secret', 'buyname', 'need', 'alias']
+dungeons:   (22)  ['id', 'name', 'level', 'length', 'require', 'run', 'result', 'loot', 'boss', 'spawns', 'flavor', 'desc', 'start', 'repeat', 'dist', 'log', 'alias', 'biome', 'title', 'max', 'bars', 'effect']
+enchants:   (13)  ['id', 'name', 'verb', 'only', 'desc', 'require', 'level', 'buy', 'length', 'cost', 'alter', 'adj', 'flavor']
+encounters: (9)   ['id', 'name', 'desc', 'effect', 'result', 'level', 'loot', 'flavor', 'mod']
+events:     (8)   ['id', 'name', 'require', 'desc', 'lock', 'result', 'disable', 'mod']
+furniture:  (13)  ['id', 'name', 'desc', 'require', 'repeat', 'cost', 'mod', 'tags', 'slot', 'max', 'need', 'flavor', 'locked']
+homes:      (12)  ['id', 'desc', 'flavor', 'require', 'mod', 'name', 'cost', 'lock', 'log', 'disable', 'tags', 'alias']
+locales:    (15)  ['id', 'name', 'level', 'length', 'sym', 'require', 'desc', 'run', 'result', 'loot', 'encs', 'flavor', 'start', 'mod', 'effect']
+materials:  (11)  ['id', 'kind', 'weight', 'priceMod', 'level', 'exclude', 'alter', 'only', 'adj', 'name', 'noproc']
+monsters:   (25)  ['id', 'level', 'kind', 'flavor', 'hp', 'defense', 'attack', 'biome', 'loot', 'tohit', 'name', 'desc', 'evil', 'regen', 'speed', 'spells', 'resist', 'damage', 'dodge', 'immune', 'unique', 'reflect', 'unused', 'require', 'evilamt']
+player:     (15)  ['id', 'name', 'desc', 'val', 'max', 'unit', 'locked', 'stat', 'hide', 'mod', 'result', 'rate', 'effect', 'flavor', 'require']
+potions:    (10)  ['id', 'name', 'desc', 'require', 'level', 'buy', 'cost', 'use', 'sell', 'flavor']
+properties: (6)   ['id', 'name', 'level', 'only', 'priceMod', 'mod']
+rares:      (18)  ['id', 'name', 'desc', 'slot', 'tags', 'unique', 'level', 'enchants', 'armor', 'alter', 'type', 'material', 'flavor', 'tohit', 'attack', 'cost', 'hands', 'sell']
+reagents:   (6)   ['id', 'name', 'tags', 'desc', 'flavor', 'max']
+resources:  (14)  ['id', 'desc', 'locked', 'max', 'school', 'group', 'mod', 'name', 'tags', 'flavor', 'hide', 'reverse', 'unit', 'require']
+sections:   (4)   ['id', 'name', 'locked', 'require']
+skills:     (17)  ['id', 'need', 'desc', 'buy', 'run', 'result', 'mod', 'name', 'school', 'tags', 'verb', 'locked', 'require', 'level', 'flavor', 'alias', 'effect']
+spells:     (20)  ['id', 'name', 'level', 'require', 'school', 'buy', 'flavor', 'cost', 'dot', 'desc', 'silent', 'action', 'at', 'attack', 'cd', 'result', 'only', 'tags', 'mod', 'alias']
+states:     (6)   ['id', 'flags', 'kind', 'mod', 'adj', 'duration']
+stressors:  (6)   ['id', 'tags', 'name', 'desc', 'reverse', 'max']
+tags:       (3)   ['id', 'name', 'hide']
+tasks:      (29)  ['id', 'name', 'desc', 'verb', 'locked', 'cost', 'result', 'flavor', 'require', 'length', 'at', 'run', 'perpetual', 'every', 'effect', 'actname', 'craftable', 'max', 'log', 'mod', 'need', 'fill', 'loot', 'tags', 'slot', 'owned', 'buy', 'cd', 'alias']
+upgrades:   (24)  ['id', 'name', 'desc', 'warn', 'require', 'repeat', 'cost', 'result', 'flavor', 'log', 'slot', 'buy', 'mod', 'tags', 'need', 'max', 'alias', 'lock', 'scale', 'title', 'unused', 'choice', 'disable', 'actname']
+weapons:    (11)  ['id', 'attack', 'tags', 'cost', 'level', 'enchants', 'hands', 'only', 'properties', 'name', 'desc']
+
+Data section that properties are found in. Sorted by count desc, then name asc. Section list is unsorted. Total: 93
+id:         (26)  ['tags', 'resources', 'upgrades', 'tasks', 'homes', 'furniture', 'skills', 'states', 'player', 'spells', 'monsters', 'dungeons', 'events', 'classes', 'armors', 'weapons', 'materials', 'enchants', 'sections', 'potions', 'encounters', 'locales', 'stressors', 'rares', 'reagents', 'properties']
+name:       (25)  ['tags', 'resources', 'upgrades', 'tasks', 'homes', 'furniture', 'skills', 'player', 'spells', 'monsters', 'dungeons', 'events', 'classes', 'armors', 'weapons', 'materials', 'enchants', 'sections', 'potions', 'encounters', 'locales', 'stressors', 'rares', 'reagents', 'properties']
+desc:       (20)  ['resources', 'upgrades', 'tasks', 'homes', 'furniture', 'skills', 'player', 'spells', 'monsters', 'dungeons', 'events', 'classes', 'weapons', 'enchants', 'potions', 'encounters', 'locales', 'stressors', 'rares', 'reagents']
+flavor:     (17)  ['resources', 'upgrades', 'tasks', 'homes', 'furniture', 'skills', 'player', 'spells', 'monsters', 'dungeons', 'classes', 'enchants', 'potions', 'encounters', 'locales', 'rares', 'reagents']
+require:    (16)  ['resources', 'upgrades', 'tasks', 'homes', 'furniture', 'skills', 'player', 'spells', 'monsters', 'dungeons', 'events', 'classes', 'enchants', 'sections', 'potions', 'locales']
+mod:        (14)  ['resources', 'upgrades', 'tasks', 'homes', 'furniture', 'skills', 'states', 'player', 'spells', 'events', 'classes', 'encounters', 'locales', 'properties']
+level:      (13)  ['skills', 'spells', 'monsters', 'dungeons', 'armors', 'weapons', 'materials', 'enchants', 'potions', 'encounters', 'locales', 'rares', 'properties']
+tags:       (13)  ['resources', 'upgrades', 'tasks', 'homes', 'furniture', 'skills', 'spells', 'classes', 'armors', 'weapons', 'stressors', 'rares', 'reagents']
+cost:       (11)  ['upgrades', 'tasks', 'homes', 'furniture', 'spells', 'classes', 'armors', 'weapons', 'enchants', 'potions', 'rares']
+result:     (10)  ['upgrades', 'tasks', 'skills', 'player', 'spells', 'dungeons', 'events', 'classes', 'encounters', 'locales']
+max:        (8)   ['resources', 'upgrades', 'tasks', 'furniture', 'player', 'dungeons', 'stressors', 'reagents']
+alias:      (7)   ['upgrades', 'tasks', 'homes', 'skills', 'spells', 'dungeons', 'classes']
+buy:        (6)   ['upgrades', 'tasks', 'skills', 'spells', 'enchants', 'potions']
+effect:     (6)   ['tasks', 'skills', 'player', 'dungeons', 'encounters', 'locales']
+locked:     (6)   ['resources', 'tasks', 'furniture', 'skills', 'player', 'sections']
+only:       (6)   ['spells', 'armors', 'weapons', 'materials', 'enchants', 'properties']
+log:        (5)   ['upgrades', 'tasks', 'homes', 'dungeons', 'classes']
+loot:       (5)   ['tasks', 'monsters', 'dungeons', 'encounters', 'locales']
+need:       (5)   ['upgrades', 'tasks', 'furniture', 'skills', 'classes']
+slot:       (5)   ['upgrades', 'tasks', 'furniture', 'armors', 'rares']
+attack:     (4)   ['spells', 'monsters', 'weapons', 'rares']
+disable:    (4)   ['upgrades', 'homes', 'events', 'classes']
+kind:       (4)   ['states', 'monsters', 'armors', 'materials']
+length:     (4)   ['tasks', 'dungeons', 'enchants', 'locales']
+run:        (4)   ['tasks', 'skills', 'dungeons', 'locales']
+actname:    (3)   ['upgrades', 'tasks', 'classes']
+adj:        (3)   ['states', 'materials', 'enchants']
+alter:      (3)   ['materials', 'enchants', 'rares']
+enchants:   (3)   ['armors', 'weapons', 'rares']
+hide:       (3)   ['tags', 'resources', 'player']
+lock:       (3)   ['upgrades', 'homes', 'events']
+repeat:     (3)   ['upgrades', 'furniture', 'dungeons']
+school:     (3)   ['resources', 'skills', 'spells']
+verb:       (3)   ['tasks', 'skills', 'enchants']
+armor:      (2)   ['armors', 'rares']
+at:         (2)   ['tasks', 'spells']
+biome:      (2)   ['monsters', 'dungeons']
+cd:         (2)   ['tasks', 'spells']
+hands:      (2)   ['weapons', 'rares']
+priceMod:   (2)   ['materials', 'properties']
+properties: (2)   ['armors', 'weapons']
+reverse:    (2)   ['resources', 'stressors']
+sell:       (2)   ['potions', 'rares']
+start:      (2)   ['dungeons', 'locales']
+title:      (2)   ['upgrades', 'dungeons']
+tohit:      (2)   ['monsters', 'rares']
+unique:     (2)   ['monsters', 'rares']
+unit:       (2)   ['resources', 'player']
+unused:     (2)   ['upgrades', 'monsters']
+warn:       (2)   ['upgrades', 'classes']
+actdesc:    (1)   ['classes']
+action:     (1)   ['spells']
+bars:       (1)   ['dungeons']
+boss:       (1)   ['dungeons']
+buyname:    (1)   ['classes']
+choice:     (1)   ['upgrades']
+craftable:  (1)   ['tasks']
+damage:     (1)   ['monsters']
+defense:    (1)   ['monsters']
+dist:       (1)   ['dungeons']
+dodge:      (1)   ['monsters']
+dot:        (1)   ['spells']
+duration:   (1)   ['states']
+encs:       (1)   ['locales']
+every:      (1)   ['tasks']
+evil:       (1)   ['monsters']
+evilamt:    (1)   ['monsters']
+exclude:    (1)   ['materials']
+fill:       (1)   ['tasks']
+flags:      (1)   ['states']
+group:      (1)   ['resources']
+hp:         (1)   ['monsters']
+immune:     (1)   ['monsters']
+material:   (1)   ['rares']
+noproc:     (1)   ['materials']
+owned:      (1)   ['tasks']
+perpetual:  (1)   ['tasks']
+rate:       (1)   ['player']
+reflect:    (1)   ['monsters']
+regen:      (1)   ['monsters']
+resist:     (1)   ['monsters']
+scale:      (1)   ['upgrades']
+secret:     (1)   ['classes']
+silent:     (1)   ['spells']
+spawns:     (1)   ['dungeons']
+speed:      (1)   ['monsters']
+spells:     (1)   ['monsters']
+stat:       (1)   ['player']
+sym:        (1)   ['locales']
+type:       (1)   ['rares']
+use:        (1)   ['potions']
+val:        (1)   ['player']
+weight:     (1)   ['materials']
+
+Number of times property is used. Sorted by count desc, then name asc. Total: 93
+id:         1329
+desc:       988
+name:       906
+require:    715
+cost:       617
+level:      550
+mod:        484
+tags:       308
+attack:     270
+kind:       244
+result:     243
+buy:        227
+hp:         211
+flavor:     207
+defense:    203
+tohit:      176
+max:        169
+run:        164
+school:     138
+length:     130
+effect:     126
+loot:       107
+evil:       86
+resist:     79
+only:       67
+verb:       65
+alter:      62
+slot:       61
+hide:       57
+dot:        51
+need:       51
+at:         44
+enchants:   42
+adj:        40
+group:      39
+use:        38
+biome:      36
+priceMod:   36
+fill:       35
+immune:     33
+regen:      31
+armor:      30
+repeat:     30
+spells:     28
+craftable:  26
+spawns:     26
+speed:      26
+unique:     26
+locked:     23
+warn:       23
+lock:       22
+unit:       22
+boss:       20
+perpetual:  18
+cd:         16
+disable:    16
+val:        16
+actname:    15
+actdesc:    14
+weight:     14
+encs:       13
+hands:      13
+stat:       12
+properties: 11
+flags:      10
+log:        10
+alias:      8
+action:     7
+type:       7
+reverse:    6
+silent:     6
+exclude:    5
+material:   5
+owned:      5
+start:      5
+unused:     5
+secret:     4
+sym:        4
+dist:       3
+every:      3
+buyname:    2
+damage:     2
+dodge:      2
+noproc:     2
+sell:       2
+title:      2
+bars:       1
+choice:     1
+duration:   1
+evilamt:    1
+rate:       1
+reflect:    1
+scale:      1

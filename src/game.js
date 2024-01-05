@@ -14,6 +14,7 @@ import { MONSTER, TYP_PCT, P_TITLE, P_LOG, TEAM_PLAYER, ENCHANTSLOTS, WEAPON } f
 import TagSet from './composites/tagset';
 import RValue from './values/rvals/rvalue';
 import { SetModCounts } from './items/base';
+import RevStat from './items/revStat';
 
 var techTree;
 
@@ -231,7 +232,7 @@ export default {
 				if ( it.value != 0 ) {
 
 					if ( it.applyImproves ) it.applyImproves();
-					if ( it.mod ) this.applyMods( it.mod, it.value, it.id);
+					if ( it.mod && +it.value ) this.applyMods( it.mod, it.value, it.id);
 					if ( it.lock ) {
 						this.lock( it.lock, it.value );
 					}
@@ -302,8 +303,10 @@ export default {
 		this.state.setSlot( it.slot, it );
 
 		this.payCost( it.cost );
-		it.amount( 1 );
-
+		if (it.type != MONSTER){
+			it.amount( 1 );
+		}
+		
 	},
 
 	/**
@@ -340,6 +343,9 @@ export default {
 		this.doResources( this.state.resources, dt);
 		this.doResources( this.state.playerStats, dt );
 		this.doResources( this.state.stressors, dt );
+		this.doConversions( this.state.furnitures, dt );
+		this.doConversions( this.state.upgrades, dt );
+		this.doConversions( this.state.resources, dt );
 
 	},
 
@@ -368,6 +374,56 @@ export default {
 		}
 
 	},
+
+	/**
+	 * Frame update of conversions (currently just furniture and upgrades).
+	 * @param {number} dt - elapsed time.
+	 */
+		doConversions( stats, dt ) {
+
+			for( let i = stats.length-1; i >= 0; i-- ) {
+	
+				let stat = stats[i];
+				
+				if ( stat.locked === false && !stat.disabled ) {
+					
+					//if something has a convert definition
+					if ( stat.convert) {
+						let a=[]
+						for (let e in stat.convert.output.effect)
+							{
+								a.push(e)
+							}
+						stat.convert.fill = a
+						if (this.canPay(stat.convert.input, stat.value) && stat.value > 0 && (!this.filled(stat.convert.fill,stat)||stat.convert.output.mod) ) {
+							//Expecting that we always have an input and an output. If there is no output, no point in doing anything, same if we can't pay or if we don't have any units of it.
+							this.payCost( stat.convert.input, dt*stat.value ); // pay input cost
+							if(stat.convert.output.effect)
+							{
+								this.applyVars( stat.convert.output.effect, dt, stat.value ); //if we have an effect, smoothly apply it
+							}
+							if(stat.convert.output.mod && stat.convert.modvalue == 0 ) //if we have a mod and it's not applied yet, apply it
+							{
+								this.applyMods( stat.convert.output.mod, stat.value);
+								stat.convert.modvalue = stat.valueOf(); //remember how many units we used for modding.
+							}
+							if(stat.convert.modvalue != stat.valueOf()) //if the amount of the provider changed (buying/selling furniture) adjusts the mod.
+							{
+								this.removeMods( stat.convert.output.mod, stat.convert.modvalue)
+								this.applyMods( stat.convert.output.mod, stat.value);
+								stat.convert.modvalue = stat.valueOf();
+							}
+						}
+						else if ((!this.canPay(stat.convert.input, stat.value) || stat.value == 0)  && stat.convert.modvalue) // if we can't afford to maintain the conversion (or we lost all units of conversion provider) AND we have it modded, remove the mods.
+						{
+							
+							this.removeMods( stat.convert.output.mod, stat.convert.modvalue);
+							stat.convert.modvalue = 0;
+						}
+					}
+				}
+			}
+		},
 
 	/**
 	 * Toggles an task on or off.
@@ -1122,11 +1178,11 @@ export default {
 
 				res = this.state.getData(p);
 
-				if ( res instanceof Resource ) {
+				if ( res instanceof RevStat ) {
 
-					return ( res.canPay(-sub) );
+					return ( res.canPay(sub) );
 
-				}
+				} else if ( res instanceof Resource ) return ( res.canPay(-sub) );
 			}
 
 		}

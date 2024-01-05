@@ -757,7 +757,7 @@
 		"id": "readpalms",
 		"name": "read palms",
 		"verb": "reading palms",
-		"require": "g.divination>5||g.trickster>0",
+		"require": "g.divination>=5||g.trickster>0",
 		"desc": "Read palms for a small fee.",
 		"cost": {
 			"stamina": 0.3,
@@ -814,7 +814,7 @@
 	{
 		"id": "hattrick",
 		"name": "hat trick",
-		"require": "g.trickster>0&&g.conjuration>1",
+		"require": "g.trickster>0&&g.conjuration>=2",
 		"desc": "Pull small objects out of thin air.",
 		"cost": {
 			"mana": 5,
@@ -1279,7 +1279,7 @@
 		"id": "demonbag",
 		"name": "bag of demons",
 		"actname": "craft bag of demons",
-		"require": "g.demonology>=10&&g.crafting>20&&g.tier3>0",
+		"require": "g.demonology>=10&&g.crafting>=20&&g.tier3>0",
 		"craftable": true,
 		"max": 1,
 		"length": 2000,
@@ -1307,7 +1307,7 @@
 		"id": "chaosbag",
 		"name": "bag of mayhem",
 		"actname": "craft bag of mayhem",
-		"require": "g.trickster>0&&g.crafting>20&&g.tier3>0&&g.chaosgem>=3",
+		"require": "g.trickster>0&&g.crafting>=20&&g.tier3>0&&g.chaosgem>=3",
 		"craftable": true,
 		"max": 1,
 		"length": 2000,
@@ -1896,7 +1896,7 @@
 	{
 		"id": "buygem",
 		"name": "purchase gem",
-		"require": "g.tier0>0&&g.gold>100",
+		"require": "g.tier0>0&&g.gold>=100",
 		"cost": {
 			"gold": 100
 		},
@@ -1992,7 +1992,7 @@
 	{
 		"id": "imbuefiregem",
 		"name": "imbue gem (Fire)",
-		"require": "g.fire.max>=4&&g.enchanting>2",
+		"require": "g.fire.max>=4&&g.enchanting>=3",
 		"fill": "firegem",
 		"tags": "gemimbue",
 		"cost": {
@@ -2004,7 +2004,7 @@
 	{
 		"id": "imbueairgem",
 		"name": "imbue gem (Air)",
-		"require": "g.air.max>=4&&g.enchanting>2",
+		"require": "g.air.max>=4&&g.enchanting>=3",
 		"fill": "airgem",
 		"tags": "gemimbue",
 		"cost": {
@@ -2016,7 +2016,7 @@
 	{
 		"id": "imbueearthgem",
 		"name": "imbue stone (earth)",
-		"require": "g.earth.max>=4&&g.enchanting>2",
+		"require": "g.earth.max>=4&&g.enchanting>=3",
 		"fill": "earthgem",
 		"tags": "gemimbue",
 		"cost": {
@@ -2028,7 +2028,7 @@
 	{
 		"id": "imbuewatergem",
 		"name": "imbue gem (Water)",
-		"require": "g.water.max>=4&&g.enchanting>2",
+		"require": "g.water.max>=4&&g.enchanting>=3",
 		"fill": "watergem",
 		"tags": "gemimbue",
 		"cost": {
@@ -2040,7 +2040,7 @@
 	{
 		"id": "imbuelightgem",
 		"name": "imbue gem (Light)",
-		"require": "g.light.max>=4&&g.enchanting>2",
+		"require": "g.light.max>=4&&g.enchanting>=3",
 		"fill": "lightgem",
 		"tags": "gemimbue",
 		"cost": {
@@ -2052,7 +2052,7 @@
 	{
 		"id": "imbueshadowgem",
 		"name": "imbue gem (Shadow)",
-		"require": "g.shadow.max>=4&&g.enchanting>2",
+		"require": "g.shadow.max>=4&&g.enchanting>=3",
 		"fill": "shadowgem",
 		"tags": "gemimbue",
 		"cost": {
@@ -2064,7 +2064,7 @@
 	{
 		"id": "imbuespiritgem",
 		"name": "imbue gem (Spirit)",
-		"require": "g.spirit.max>=4&&g.enchanting>2",
+		"require": "g.spirit.max>=4&&g.enchanting>=3",
 		"fill": "spiritgem",
 		"tags": "gemimbue",
 		"cost": {
@@ -2260,7 +2260,7 @@
 	},
 	{
 		"id": "grind",
-		"require": "g.lore>5&&g.research.max<5",
+		"require": "g.lore>=6&&g.research.max<5",
 		"desc": "Experiment with magic to expand your research.",
 		"cost": {
 			"mana": 0.15

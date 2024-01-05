@@ -59,6 +59,23 @@ export default {
 		// waiting for width to change before reposition.
 		if ( this.item||this.text ) {
 			positionAt( this.$el, this.elm );
+			//this fixes "Tooltip too long" by applying a column style to any window that's a bit too tall.
+			//The reason for the default setters, is that without them, iteminfo gets an incorrect height.
+			let popup = document.getElementsByClassName("item-popup")[0]
+			popup.style["column-count"] = "auto"
+			popup.style["column-width"]= "auto"
+			popup.style["max-width"] = "280px"
+			var positionInfo = popup.getBoundingClientRect();
+			var height = positionInfo.height;
+			if (height >= window.innerHeight*0.85)
+			{
+				let iteminfo = document.getElementsByClassName("popup-content")[0]
+				let colCount = Math.ceil(iteminfo.getBoundingClientRect().height/(window.innerHeight*0.95))
+				let maxwidth = colCount * 300 + "px"
+				popup.style["column-width"]= 280+"px"
+				popup.style["column-count"] = colCount
+				popup.style["max-width"] = maxwidth
+			}
 		}
 	},
 	components:{ gdata:ItemView }

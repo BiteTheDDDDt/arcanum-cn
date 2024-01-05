@@ -45,6 +45,11 @@ export default {
 	},
 	methods:{
 
+		forceRefresh() {
+			this.$forceUpdate();
+			console.warn("Spells update forced");
+		},
+
 		/**
 		 * toggle memorized list.
 		 */

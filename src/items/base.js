@@ -6,7 +6,8 @@ import { TYP_MOD } from '../values/consts';
 import RValue, { SubPath } from '../values/rvals/rvalue';
 import { Changed } from '../techTree';
 import { ParseMods } from '../modules/parsing';
-import { canWriteProp, splitKeys } from '../util/util';
+import { canWriteProp, splitKeys, subset } from '../util/util';
+import FValue from '../values/rvals/fvalue';
 
 export const SetModCounts = ( m, v)=>{
 
@@ -36,18 +37,32 @@ export const mergeClass = ( destClass, src ) => {
 
 }
 
+const ModKeys = ["runmod", "mod"];
+
 //NOTE if there is a circular reference within the object, this WILL infinitely loop
 /**
  * Collects the first encountered mod property within each of an object's properties into one array.
  * @param {Object} obj object to be reduced
  * @returns {Array<Object>} objects array containing all mod property values found
  */
- function findMods( obj, src ) {
+function findMods( obj, src ) {
 	//prevents delving into any instances of classes; should only be dealing with Objects
-	if( !obj || !( typeof obj === "object" && obj.constructor === Object ) ) return [];
+	if( !obj || !( typeof obj === "object" && obj.constructor === Object ) ) return {};
+
+	//Grabbing mods within current object
+	let [mods, check] = subset(obj, ...ModKeys);
+	ModKeys.forEach(modtype => {
+		mods[modtype] = mods[modtype] ? [mods[modtype]] : [];
+	});
 
 	//Collects all mods into one object
-	return Object.values( obj ).reduce( ( results, val ) => [ ...results, ...findMods( val ), ...(obj.mod ? [obj.mod] : [])], [] );
+	for(let key in check) {
+		let res = findMods(check[key]);
+		ModKeys.forEach(modtype => {
+			if(res[modtype]) mods[modtype].push(...res[modtype])
+		});
+	}
+	return mods;
 }
 
 
@@ -316,6 +331,12 @@ export default {
 				let targ = this[p];
 				let sub = vars[p];
 
+				
+
+				if ( sub instanceof Function ) sub = sub( Game.gdata );
+
+				if ( sub instanceof FValue ) sub = sub.fn( Game.gdata );
+
 				if ( targ instanceof RValue ) {
 
 					//console.log('APPLY ' + vars[p] + ' to stat: '+ this.id + '.'+ p + ': ' + amt*vars[p] + ' : ' + (typeof vars[p]) );
@@ -368,10 +389,10 @@ export default {
 	 * @param {Object} [targ=this] - target of mods.
 	 * @param {Object} [src=this] - source of mods. Used for applyObj 
 	 * @param {string} [path=targ.id] - Path used for creating ids.
-	 * @param {boolean} [isMod=false] - subobject mod check.
+	 * @param {string} [modType=null] - subobject mod check.
 	 * @returns {Object} mod path object used in applyObj
 	 */
-	applyMods( mods, amt=1, targ=this, src=this, path=this.id, isMod=false, initialCall=true ) {
+	applyMods( mods, amt=1, targ=this, src=this, path=this.id, modType=null, initialCall=true ) {
 
 		Changed.add(this);
 
@@ -381,9 +402,11 @@ export default {
 
 		} else if ( mods.constructor === Object ) {
 
-			let nextMods = this.applyObj( mods, amt, targ, src, path, isMod );
+			let nextMods = this.applyObj( mods, amt, targ, src, path, modType );
 			if ( initialCall ) {
-				this.changeMod( findMods( nextMods ) , amt );
+				let { mod, runmod } = findMods( nextMods );
+				this.changeMod( mod , amt );
+				if ( this.running ) this.changeMod( runmod, 1, false );
 			}
 
 			return nextMods;
@@ -420,10 +443,10 @@ export default {
 	 * @param {Object} targ - target of mods.
 	 * @param {Object} [src=this] - source of mods. Used for new stats/mods.
 	 * @param {string} path - Path used for creating ids.
-	 * @param {boolean} [isMod=false] - subobject mod check.
+	 * @param {?string} [modType=null] - subobject mod check.
 	 * @returns {Object} New mod objects
 	 */
-	applyObj( mods, amt, targ, src, path, isMod ) {
+	applyObj( mods, amt, targ, src, path, modType ) {
 
 		let results = {}
 
@@ -433,7 +456,7 @@ export default {
 
 			let subMod = mods[p];
 			let subTarg = targ[p];
-			let modCheck = p === 'mod' || isMod;
+			let modCheck = modType || (ModKeys.includes(p) ? p : null);
 
 			//Only needed when subTarg is null or undefined
 			let newSrc = modCheck || isNaN(+subTarg) ? src : subTarg; //may need a better check for source.
@@ -452,7 +475,7 @@ export default {
 					let params = [
 						0, //vars
 						newPath, //id
-						newSrc //source
+						modType !== "runmod" ? newSrc : 1 //source
 					];
 
 					(res = targ[p] = modCheck ? new Mod( ...params ) : new Stat( ...params )).addMod( subMod, amt );
@@ -596,10 +619,10 @@ export default {
 	 * @param {Object|Mod|number} mod
 	 * @param {number} amt - percent of change applied to modifier.
 	 */
-	changeMod( mod, amt ) {
+	changeMod( mod, amt, scale=true ) {
 
 		// apply change to modifier for existing item amount.
-		Game.applyMods( mod, amt*this.value );
+		Game.applyMods( mod, scale ? amt*this.value : amt );
 
 	},
 

@@ -2,7 +2,7 @@
 import Profile from 'modules/profile';
 import Game from 'game';
 import Menu from './components/menu.vue';
-import ResoucesView from './panes/resources.vue';
+import ResourcesView from './panes/resources.vue';
 import Tasks from './sections/tasks.vue';
 import Quickbar from './quickbar.vue';
 import ItemsBase from './itemsBase';
@@ -23,7 +23,6 @@ import DevConsole from 'debug/devconsole.vue';
 import { TRY_BUY, USE, TRY_USE, EVT_STAT } from '../events';
 import { TICK_TIME } from '../game';
 import { TASK } from '../values/consts';
-import Task from '../items/task';
 
 /**
  * @const {number} SAVE_TIME  - time in seconds between auto-saves.
@@ -39,7 +38,7 @@ export default {
 	mixins:[ItemsBase,Cheats],
 	components:{
 		devconsole:DevConsole,
-		resources:ResoucesView,
+		resources:ResourcesView,
 		tasks:Tasks,
 		itempopup:ItemPopup,
 		vitals:Vitals,
@@ -292,7 +291,15 @@ export default {
 				let num = Number( e.code.slice(-1) );
 				//console.log('number: ' + num );
 
-				if ( e.shiftKey && RollOver.item ) {
+				if ( e.altKey ) {
+					let oldid = Game.state.currentSpellLoadout;
+
+					let newloadout = Game.state.spellLoadouts.items[num-1];
+
+					if ( newloadout !== undefined) {
+						Game.state.spellLoadouts.changeLoadout(Game.state, newloadout.id);
+					}
+				} else if ( e.shiftKey && RollOver.item ) {
 
 					let it = RollOver.item;
 					this.state.setQuickSlot( RollOver.item, num );
@@ -386,8 +393,14 @@ export default {
 				if ( v ) Settings.set('curview', v.id );
 			}
 		},
-		menuItems(){ return this.state.sections.filter( it=>!this.locked(it) ); }
+		
+		menuItems(){ return this.state.sections.filter( it=>!this.locked(it)&&!it.parent ); },
 
+		hall(){ return Profile.hall; },
+
+		mergedresources(){return this.state.resources.concat(this.hall.resources)},
+		
+		drops() { return Game.state.drops; }
 	}
 
 }
@@ -418,7 +431,7 @@ export default {
 
 		<div v-if="state" class="game-main">
 
-		<resources :items="state.resources"/>
+		<resources :items="mergedresources"/>
 
 		<vue-menu class="game-mid" :items="menuItems" v-model="section">
 
@@ -433,6 +446,8 @@ export default {
 		<template slot="sect_home"><home :state="state" /></template>
 
 		<template slot="sect_raid"><adventure :state="state" /></template>
+
+		<template slot="sect_loot"><inventory :inv="drops" take=true /></template>
 
 		<template slot="sect_equip">
 

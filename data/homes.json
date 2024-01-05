@@ -19,8 +19,8 @@
 		},
 		"require": "g.geosculpting>=5",
 		"mod": {
-			"minions.max": 10,
 			"space.max": 300,
+			"minions.max": 10,
 			"earthlore.max": 5,
 			"geosculpting.max": 3,
 			"earth.max": 5,
@@ -113,9 +113,9 @@
 			"gems": 5
 		},
 		"mod": {
+			"space.max": 20,
 			"tapestries.max": 1,
-			"minions.max": 1,
-			"space.max": 20
+			"minions.max": 1
 		}
 	},
 	{
@@ -128,9 +128,9 @@
 		"disable": "innroom",
 		"require": "g.tier0>0&&g.arcana.max>=8",
 		"mod": {
+			"space.max": 30,
 			"tapestries.max": 2,
-			"minions.max": 3,
-			"space.max": 30
+			"minions.max": 3
 		}
 	},
 	{
@@ -142,10 +142,10 @@
 		},
 		"require": "g.tier1>0&&g.crafting>=9",
 		"mod": {
+			"space.max": 25,
 			"tapestries.max": 1,
 			"minions.max": 2,
 			"magicgems.max": 1,
-			"space.max": 25,
 			"gold.rate": 0.2,
 			"gold.max": 25,
 			"nature.rate": "-5%",
@@ -161,9 +161,9 @@
 		},
 		"require": "g.tier1>0&&g.languages>=7",
 		"mod": {
+			"space.max": 50,
 			"tapestries.max": 2,
 			"minions.max": 5,
-			"space.max": 50,
 			"research.rate": -0.5,
 			"gold.max": 40,
 			"gold.rate": 0.4,
@@ -179,9 +179,9 @@
 		},
 		"require": "g.tier1>0&&g.naturelore>=7",
 		"mod": {
+			"space.max": 30,
 			"tapestries.max": 3,
 			"minions.max": 5,
-			"space.max": 30,
 			"nature.max": 1,
 			"nature.rate": 0.1
 		}
@@ -196,9 +196,9 @@
 		},
 		"require": "g.tier1>0&&g.arcana>=10",
 		"mod": {
+			"space.max": 65,
 			"tapestries.max": 4,
-			"minions.max": 5,
-			"space.max": 65
+			"minions.max": 5
 		}
 	},
 	{
@@ -211,9 +211,9 @@
 		},
 		"require": "g.tier1>0&&g.arcana>=10",
 		"mod": {
+			"space.max": 75,
 			"tapestries.max": 3,
-			"minions.max": 7,
-			"space.max": 75
+			"minions.max": 7
 		}
 	},
 	{
@@ -225,8 +225,8 @@
 			"gold": 150
 		},
 		"mod": {
-			"minions.max": 2,
 			"space.max": 25,
+			"minions.max": 2,
 			"research.rate": -0.5,
 			"earthlore.max": 2,
 			"earthlore.rate": 0.1,
@@ -249,8 +249,8 @@
 		"tags": "lightsource",
 		"require": "oracle",
 		"mod": {
-			"minions.max": 3,
 			"space.max": 50,
+			"minions.max": 3,
 			"light.rate": 0.1,
 			"air.rate": 0.1,
 			"mana.rate": 0.1,
@@ -266,8 +266,8 @@
 		"require": "hauntedmanor",
 		"tags": "spiritsource",
 		"mod": {
-			"tapestries.max": 2,
 			"space.max": 75,
+			"tapestries.max": 2,
 			"spiritlore.max": 1,
 			"spiritlore.rate": 0.1,
 			"shadow.rate": 0.1,
@@ -281,9 +281,9 @@
 		"cost": 5000,
 		"require": "g.spirit>=15&&g.arcana>=12",
 		"mod": {
+			"space.max": 110,
 			"tapestries.max": 2,
 			"minions.max": 10,
-			"space.max": 110,
 			"runelore.max": 2,
 			"demonology.max": 1,
 			"runelore.rate": "10%",
@@ -299,9 +299,9 @@
 		"require": "g.magician>0&&g.arcana>=20",
 		"tags": "airsource",
 		"mod": {
+			"space.max": 55,
 			"tapestries.max": 2,
 			"minions.max": 5,
-			"space.max": 55,
 			"airlore.max": 1,
 			"airlore.rate": 0.1
 		}
@@ -312,8 +312,8 @@
 		"cost": 3000,
 		"require": "(g.magician+g.darkmagician+g.mage+g.elementalist+g.windmage+g.hydromancer)>0&&g.arcana>=20",
 		"mod": {
-			"minions.max": 5,
 			"space.max": 80,
+			"minions.max": 5,
 			"waterlore.max": 3,
 			"waterlore.rate": 0.1,
 			"lightlore.max": 3,
@@ -330,8 +330,8 @@
 		},
 		"tags": "watersource",
 		"mod": {
-			"minions.max": 4,
 			"space.max": 70,
+			"minions.max": 4,
 			"research.rate": "-10%",
 			"waterlore.max": 2,
 			"waterlore.rate": 0.2,
@@ -351,9 +351,9 @@
 		"cost": 5000,
 		"require": "(g.magician+g.darkmagician+g.battlemage+g.dreadlord)>0&&g.arcana>=20",
 		"mod": {
+			"space.max": 200,
 			"tapestries.max": 3,
 			"minions.max": 15,
-			"space.max": 200,
 			"nature.max": -1,
 			"nature.rate": "-5%"
 		}
@@ -367,9 +367,9 @@
 		},
 		"require": "g.research>=400&&g.magician>0",
 		"mod": {
+			"space.max": 300,
 			"tapestries.max": 5,
 			"minions.max": 20,
-			"space.max": 300,
 			"research.max": 50,
 			"research.rate": 0.4
 		}
@@ -380,13 +380,13 @@
 		"cost": 10000,
 		"require": "(g.oracle+g.seer)>0",
 		"mod": {
+			"space.max": 200,
 			"tapestries.max": 4,
 			"composure.max": 1,
 			"virtue.rate": 0.001,
 			"arcana.rate": 0.001,
 			"minions.max": 8,
 			"lightlore.max": 1,
-			"space.max": 200,
 			"shadow.max": -3,
 			"shadow.rate": "-10%"
 		}
@@ -395,7 +395,7 @@
 		"id": "magetower",
 		"name": "mage tower",
 		"desc": "Nothing is more iconic to the craft than the wizard in a tower.",
-		"require": "g.tier3>0&&(g.magician+g.mage+g.highmage+g.wizard+g.wizard2+g.wizard3)>1",
+		"require": "g.tier3>0&&(g.magician+g.mage+g.highmage+g.wizard+g.wizard2+g.wizard3)>=2",
 		"cost": {
 			"gold": 7000,
 			"research": 5000,
@@ -403,9 +403,9 @@
 			"tomes": 20
 		},
 		"mod": {
+			"space.max": 420,
 			"tapestries.max": 1,
 			"minions.max": 10,
-			"space.max": 420,
 			"mysticism.max": 1,
 			"prismatic.rate": 0.05,
 			"history.max": 1,
@@ -424,8 +424,8 @@
 		},
 		"require": "g.tier3>0&&g.nature>=10&&g.arcana>=10",
 		"mod": {
-			"minions.max": 10,
 			"space.max": 300,
+			"minions.max": 10,
 			"naturelore.max": 3,
 			"naturelore.rate": "2%",
 			"airlore.max": 1,
@@ -438,9 +438,9 @@
 		"cost": 10000,
 		"require": "tier2",
 		"mod": {
+			"space.max": 400,
 			"tapestries.max": 4,
 			"minions.max": 20,
-			"space.max": 400,
 			"charms.max": 2,
 			"charms.rate": "10%",
 			"spirit.rate": "-2%",
@@ -454,9 +454,9 @@
 		"require": "tier2",
 		"cost": 10000,
 		"mod": {
+			"space.max": 400,
 			"tapestries.max": 5,
 			"minions.max": 20,
-			"space.max": 400,
 			"earthlore.max": 1,
 			"earthlore.rate": 0.2,
 			"earth.rate": 0.1
@@ -469,8 +469,8 @@
 		"require": "g.tier3>0&&g.enchanter>0",
 		"cost": 3000,
 		"mod": {
-			"minions.max": 20,
 			"space.max": 350,
+			"minions.max": 20,
 			"airlore.max": 1,
 			"waterlore.max": 2,
 			"waterlore.rate": 0.2,
@@ -517,8 +517,8 @@
 			"earthgem": 20
 		},
 		"mod": {
-			"minions.max": 20,
 			"space.max": 200,
+			"minions.max": 20,
 			"research.rate": -0.5,
 			"earth.rate": 0.2,
 			"earthlore.max": 3,
@@ -546,8 +546,8 @@
 			"gems": 50
 		},
 		"mod": {
-			"minions.max": 20,
 			"space.max": 420,
+			"minions.max": 20,
 			"naturelore.max": 1,
 			"enchanting.max": 2,
 			"enchanting.rate": "10%"
@@ -565,8 +565,8 @@
 			"research": 2000
 		},
 		"mod": {
-			"minions.max": 25,
 			"space.max": 420,
+			"minions.max": 25,
 			"waterlore.max": 5,
 			"airlore.max": 2,
 			"water.rate": 0.1,

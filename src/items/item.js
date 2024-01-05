@@ -55,6 +55,7 @@ export default class Item {
 
 		data.id = this.id;
 		data.recipe = this.recipe;
+		if(data.attack) delete data.attack;
 
 		return data && Object.keys(data).length ? data : undefined;
 

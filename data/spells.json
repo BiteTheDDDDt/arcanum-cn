@@ -3,7 +3,7 @@
 		"id": "stam1",
 		"name": "minor fount",
 		"level": 1,
-		"require": "g.spellbook.value>0&&g.waterlore>0",
+		"require": "g.spellbook>0&&g.waterlore>0",
 		"school": "water",
 		"buy": {
 			"research": 25,
@@ -23,25 +23,10 @@
 		}
 	},
 	{
-		"id": "clarity",
-		"level": 7,
-		"school": "charms",
-		"require": "g.charms>2",
-		"desc": "Cure yourself or an ally of a charm.",
-		"caststoppers": [],
-		"cost": {
-			"spiritgem": 1
-		},
-		"action": {
-			"cure": "charmed",
-			"targets": "ally,self"
-		}
-	},
-	{
 		"id": "wake",
 		"level": 5,
 		"school": "mana",
-		"require": "g.lore>10",
+		"require": "g.lore>=11",
 		"desc": "Wake a slumbering ally.",
 		"caststoppers": [],
 		"cost": {
@@ -57,7 +42,7 @@
 		"id": "embolden",
 		"level": 3,
 		"school": "fire",
-		"require": "g.firelore>5",
+		"require": "g.firelore>=6",
 		"caststoppers": [],
 		"desc": "Remove fear from yourself or a frightened creature.",
 		"cost": {
@@ -72,7 +57,7 @@
 		"id": "speak",
 		"level": 8,
 		"school": "air",
-		"require": "g.airlore>5",
+		"require": "g.airlore>=6",
 		"desc": "Breaks a curse of silence.",
 		"caststoppers": [],
 		"cost": {
@@ -89,7 +74,7 @@
 		"name": "cure paralysis",
 		"level": 7,
 		"school": "mana",
-		"require": "g.lore>10",
+		"require": "g.lore>=11",
 		"caststoppers": [],
 		"desc": "Loosens rigid muscles, nerves, and bones.",
 		"cost": {
@@ -106,7 +91,7 @@
 		"level": 1,
 		"school": "light",
 		"caststoppers": [],
-		"require": "g.lightlore>1",
+		"require": "g.lightlore>=2",
 		"desc": "Cure sickness on yourself or an ally.",
 		"cost": {
 			"light": 1
@@ -166,7 +151,7 @@
 		"id": "darkbolt",
 		"name": "dark bolt",
 		"level": 1,
-		"require": "g.spellbook.value>0&&g.shadowlore>0",
+		"require": "g.spellbook>0&&g.shadowlore>0",
 		"school": "shadow",
 		"buy": {
 			"research": 25,
@@ -220,7 +205,7 @@
 			"300": {
 				"attack.damage.max": 3,
 				"attack.damage.min": 3,
-				"attack.tohit": 4
+				"attack.tohit": 2
 			}
 		},
 		"attack": {
@@ -256,7 +241,7 @@
 			"300": {
 				"attack.damage.max": 4,
 				"attack.damage.min": 4,
-				"attack.tohit": 4
+				"attack.tohit": 2
 			}
 		},
 		"attack": {
@@ -329,7 +314,7 @@
 	{
 		"id": "gloom",
 		"level": 2,
-		"require": "g.shadowlore>=5&&g.shadow>8",
+		"require": "g.shadowlore>=5&&g.shadow>=9",
 		"school": "shadow",
 		"desc": "Decreases the target's resistance to shadow magic.",
 		"buy": {
@@ -355,7 +340,7 @@
 		"id": "poisonnettle",
 		"name": "poison nettle",
 		"level": 1,
-		"require": "g.spellbook.value>0&&g.naturelore>0",
+		"require": "g.spellbook>0&&g.naturelore>0",
 		"school": "nature",
 		"buy": {
 			"research": 25,
@@ -376,7 +361,7 @@
 		"id": "whirl1",
 		"name": "lesser whirling step",
 		"level": 1,
-		"require": "g.spellbook.value>0&&g.airlore>0",
+		"require": "g.spellbook>0&&g.airlore>0",
 		"school": "air",
 		"buy": {
 			"research": 25,
@@ -446,7 +431,7 @@
 		"id": "mana1",
 		"name": "minor mana",
 		"school": "mana",
-		"require": "g.spellbook.value>0&&g.lore>=4",
+		"require": "g.spellbook>0&&g.lore>=4",
 		"level": 1,
 		"buy": {
 			"research": 25,
@@ -513,7 +498,7 @@
 	{
 		"id": "lightregen1",
 		"name": "lesser pulsing light",
-		"require": "g.spellbook.value>0&&g.lightlore>0",
+		"require": "g.spellbook>0&&g.lightlore>0",
 		"school": "light",
 		"desc": "A small pulse of light zips around you, mending injuries.",
 		"level": 1,
@@ -583,7 +568,7 @@
 		"name": "magic missile",
 		"level": 1,
 		"school": "mana",
-		"require": "g.spellbook.value>0&&g.lore>0",
+		"require": "g.spellbook>0&&g.lore>0",
 		"buy": {
 			"research": 25,
 			"scrolls": 1
@@ -614,7 +599,7 @@
 		"name": "prismatic spray",
 		"level": 1,
 		"school": "mana",
-		"require": "g.spellbook.value>0&&g.lore>0",
+		"require": "g.spellbook>0&&g.lore>0",
 		"desc": "Lines of arcane energy damage all enemies.",
 		"buy": {
 			"research": 100,
@@ -626,7 +611,7 @@
 				"attack.damage.max": 1
 			},
 			"100": {
-				"attack.tohit": 2,
+				"attack.tohit": 1,
 				"attack.damage.min": 1
 			}
 		},
@@ -653,11 +638,11 @@
 		},
 		"at": {
 			"25": {
-				"attack.tohit": 3,
+				"attack.tohit": 1,
 				"attack.damage.max": 3
 			},
 			"100": {
-				"attack.tohit": 3,
+				"attack.tohit": 1,
 				"attack.damage.min": 3
 			}
 		},
@@ -668,7 +653,7 @@
 			"targets": "enemies",
 			"damage": "12~30",
 			"kind": "mana",
-			"tohit": 4
+			"tohit": 2
 		}
 	},
 	{
@@ -688,7 +673,7 @@
 		"attack": {
 			"damage": "2~6",
 			"kind": "earth",
-			"tohit": 4
+			"tohit": 1
 		}
 	},
 	{
@@ -879,11 +864,11 @@
 		"at": {
 			"30": {
 				"attack.damage.min": 3,
-				"attack.tohit": 2
+				"attack.tohit": 1
 			},
 			"100": {
 				"attack.damage.max": 3,
-				"attack.tohit": 3
+				"attack.tohit": 1
 			},
 			"300": {
 				"attack.damage.max": 4,
@@ -892,7 +877,6 @@
 		},
 		"attack": {
 			"damage": "5~8",
-			"tohit": 8,
 			"kind": "light"
 		}
 	},
@@ -914,21 +898,21 @@
 		"at": {
 			"30": {
 				"attack.damage.min": 3,
-				"attack.tohit": 2
+				"attack.tohit": 1
 			},
 			"100": {
 				"attack.damage.max": 3,
-				"attack.tohit": 3
+				"attack.tohit": 1
 			},
 			"300": {
 				"attack.damage.max": 4,
 				"attack.damage.min": 3,
-				"attack.tohit": 4
+				"attack.tohit": 2
 			}
 		},
 		"attack": {
 			"damage": "21~29",
-			"tohit": 8,
+			"tohit": 2,
 			"kind": "light"
 		}
 	},
@@ -986,15 +970,19 @@
 		},
 		"attack": {
 			"damage": "2~5",
-			"tohit": 3,
-			"kind": "water"
+			"tohit": 2,
+			"kind": "water",
+			"potencies": [
+				"spelldmg",
+				"waterdmg"
+			]
 		}
 	},
 	{
 		"id": "frostbolt",
 		"name": "frost bolt",
 		"level": 2,
-		"require": "g.spellbook.value>0&&g.waterlore>0",
+		"require": "g.spellbook>0&&g.waterlore>0",
 		"desc": "A sharp shard of ice.",
 		"school": "water",
 		"buy": {
@@ -1012,7 +1000,7 @@
 			"300": {
 				"attack.damage.max": 2,
 				"attack.damage.min": 1,
-				"attack.tohit": 2
+				"attack.tohit": 1
 			}
 		},
 		"cost": {
@@ -1020,7 +1008,7 @@
 		},
 		"attack": {
 			"damage": "6~11",
-			"tohit": 5,
+			"tohit": 2,
 			"kind": "water"
 		}
 	},
@@ -1045,7 +1033,7 @@
 			"300": {
 				"attack.damage.max": 3,
 				"attack.damage.min": 2,
-				"attack.tohit": 7
+				"attack.tohit": 72
 			}
 		},
 		"cost": {
@@ -1053,7 +1041,7 @@
 		},
 		"attack": {
 			"damage": "16~21",
-			"tohit": 8,
+			"tohit": 2,
 			"kind": "water"
 		}
 	},
@@ -1078,7 +1066,7 @@
 			"300": {
 				"attack.damage.max": 3,
 				"attack.damage.min": 2,
-				"attack.tohit": 7
+				"attack.tohit": 2
 			}
 		},
 		"cost": {
@@ -1086,14 +1074,14 @@
 		},
 		"attack": {
 			"damage": "36~45",
-			"tohit": 8,
+			"tohit": 3,
 			"kind": "water"
 		}
 	},
 	{
 		"id": "poisonward",
 		"name": "poison ward",
-		"require": "g.spellbook.value>0&&g.naturelore>0",
+		"require": "g.spellbook>0&&g.naturelore>0",
 		"level": 2,
 		"school": "nature",
 		"desc": "Reduce the efficacy of common venoms",
@@ -1151,7 +1139,7 @@
 		"school": "mana",
 		"desc": "In combat, summon a hobgoblin to fight for you",
 		"level": 6,
-		"require": "g.conjuration>4",
+		"require": "g.conjuration>=5",
 		"buy": {
 			"research": 100,
 			"tomes": 1
@@ -1171,7 +1159,7 @@
 		"name": "summon spider",
 		"desc": "Summon a spider to fight for you",
 		"school": "nature",
-		"require": "g.conjuration>2&&g.naturelore>=5",
+		"require": "g.conjuration>=3&&g.naturelore>=5",
 		"level": 5,
 		"buy": {
 			"research": 100,
@@ -1192,7 +1180,7 @@
 		"name": "summon raven",
 		"desc": "In combat, summon a raven to fight for you",
 		"school": "nature",
-		"require": "g.conjuration>2&&g.naturelore>=3",
+		"require": "g.conjuration>=3&&g.naturelore>=3",
 		"level": 3,
 		"buy": {
 			"research": 100,
@@ -1411,7 +1399,7 @@
 		"id": "quicksand",
 		"desc": "Command the earth to swallow the enemy",
 		"school": "earth",
-		"require": "g.geosculpting>7",
+		"require": "g.geosculpting>=8",
 		"level": 15,
 		"buy": {
 			"sp": 1,
@@ -1426,7 +1414,7 @@
 			"targets": "enemies",
 			"dot": {
 				"duration": 15,
-				"dmg": "15~25",
+				"damage": "15~25",
 				"mod": {
 					"self.speed": -5
 				}
@@ -1449,13 +1437,14 @@
 		},
 		"cost": {
 			"earth": 25,
-			"sindel": 2
+			"sindel": 2,
+			"deepsteel": 1
 		},
 		"attack": {
 			"targets": "enemies",
 			"dot": {
 				"duration": 30,
-				"dmg": "50~75",
+				"damage": "50~75",
 				"mod": {
 					"self.speed": -15
 				}
@@ -1476,10 +1465,10 @@
 		},
 		"cost": {
 			"earth": 3,
-			"stamina": 2
+			"vigor": 4
 		},
 		"attack": {
-			"damage": "((a.weapon.damage||0))*1.3",
+			"damage": "(a.weapon.damage||0)*(1.3+ 0.2*((a.weapon.template=='titanhammer')||0)) ",
 			"tohit": 3,
 			"kind": "earth"
 		}
@@ -1500,7 +1489,7 @@
 		},
 		"cost": {
 			"earth": 8,
-			"stamina": 12
+			"vigor": 15
 		},
 		"attack": {
 			"damage": "((a.weapon.damage||0))*6",
@@ -1837,7 +1826,7 @@
 		"level": 1,
 		"desc": "Herbs sprout more quickly from the earth.",
 		"school": "nature",
-		"require": "g.spellbook.value>0&&g.herbalism>=3&&g.naturelore>0",
+		"require": "g.spellbook>0&&g.herbalism>=3&&g.naturelore>0",
 		"buy": {
 			"research": 50,
 			"scrolls": 5
@@ -1975,7 +1964,7 @@
 				"kind": "curse",
 				"tags": "jinx",
 				"mod": {
-					"self.tohit": -5
+					"self.tohit": -2
 				},
 				"duration": 20
 			}
@@ -2054,7 +2043,7 @@
 				"tags": "jinx",
 				"duration": 30,
 				"mod": {
-					"self.tohit": -10
+					"self.tohit": -3
 				}
 			}
 		}
@@ -2073,9 +2062,10 @@
 			"spirit": 1
 		},
 		"dot": {
+			"tags": "strike",
 			"duration": 45,
 			"mod": {
-				"self.tohit": 3
+				"self.tohit": 1
 			}
 		}
 	},
@@ -2094,8 +2084,9 @@
 		},
 		"dot": {
 			"duration": 45,
+			"tags": "strike",
 			"mod": {
-				"self.tohit": 7
+				"self.tohit": 2
 			}
 		}
 	},
@@ -2115,8 +2106,9 @@
 		},
 		"dot": {
 			"duration": 45,
+			"tags": "strike",
 			"mod": {
-				"self.tohit": 15
+				"self.tohit": 4
 			}
 		}
 	},
@@ -2137,30 +2129,6 @@
 		},
 		"result": {
 			"hp": 75
-		}
-	},
-	{
-		"id": "soothing",
-		"name": "soothing breeze",
-		"level": 2,
-		"school": "air",
-		"desc": "A light wind steadies your nerves.",
-		"require": "g.airlore>=3",
-		"buy": {
-			"research": 200,
-			"codices": 5,
-			"airgem": 1
-		},
-		"cost": {
-			"air": 3
-		},
-		"dot": {
-			"duration": 45,
-			"effect": {
-				"unease": -0.2,
-				"madness": -0.2,
-				"weary": -0.2
-			}
 		}
 	},
 	{
@@ -2214,8 +2182,9 @@
 			"dot": {
 				"name": "blind",
 				"duration": 5,
+				"id": "tohitdown",
 				"mod": {
-					"self.tohit": -3
+					"self.tohit": -1
 				}
 			}
 		}
@@ -2256,8 +2225,9 @@
 			"dot": {
 				"name": "blind",
 				"duration": 5,
+				"id": "tohitdown",
 				"mod": {
-					"self.tohit": -4
+					"self.tohit": -2
 				}
 			}
 		}
@@ -2296,10 +2266,11 @@
 			"kind": "air",
 			"dot": {
 				"name": "blind",
-				"duration": 1,
-				"damage": "7~15",
+				"duration": 5,
+				"id": "tohitdown",
+				"damage": "2~3",
 				"mod": {
-					"self.tohit": -7
+					"self.tohit": -3
 				}
 			}
 		}
@@ -2347,34 +2318,6 @@
 		}
 	},
 	{
-		"id": "calming",
-		"name": "calming murmurs",
-		"level": 2,
-		"school": "spirit",
-		"require": "g.spiritlore>=5",
-		"desc": "Whispers on the wind calm your troubled mind.",
-		"buy": {
-			"research": 200,
-			"codices": 5,
-			"spiritgem": 1
-		},
-		"cost": {
-			"spirit": 3
-		},
-		"action": {
-			"cure": "enrage",
-			"targets": "self,ally"
-		},
-		"dot": {
-			"duration": 45,
-			"effect": {
-				"bf": -0.2,
-				"rage": -0.2,
-				"madness": -0.2
-			}
-		}
-	},
-	{
 		"id": "downswinging",
 		"level": 7,
 		"name": "down swinging",
@@ -2391,7 +2334,8 @@
 			"mana": 10
 		},
 		"dot": {
-			"duration": 60,
+			"duration": 15,
+			"tags": "bloodbuff",
 			"mod": {
 				"self": {
 					"hp": {
@@ -2399,7 +2343,8 @@
 						"rate": -1
 					},
 					"tohit": 10,
-					"damage": 10
+					"physdmg": 30,
+					"spelldmg": 15
 				}
 			}
 		},
@@ -2425,15 +2370,17 @@
 			"mana": 10
 		},
 		"dot": {
-			"duration": 60,
+			"duration": 15,
+			"tags": "bloodbuff",
 			"mod": {
 				"self": {
 					"hp": {
 						"max": 200,
 						"rate": -3
 					},
-					"tohit": 20,
-					"damage": 20
+					"tohit": 15,
+					"spelldmg": 35,
+					"physdmg": 20
 				}
 			}
 		},
@@ -2459,14 +2406,14 @@
 		},
 		"attack": {
 			"kind": "blood",
-			"dmg": "15+a.hp/33"
+			"damage": "15+a.hp/33"
 		},
 		"at": {
 			"20": {
-				"attack.dmg": "10+a.hp/33"
+				"attack.damage": "10+a.hp/33"
 			},
 			"100": {
-				"attack.dmg": "10+a.hp/33"
+				"attack.damage": "10+a.hp/33"
 			}
 		},
 		"flavor": "Costs 1/3 of your health and deals part of it as damage!"
@@ -2487,16 +2434,16 @@
 		},
 		"attack": {
 			"kind": "blood",
-			"dmg": 16,
+			"damage": 16,
 			"targets": "enemies"
 		},
 		"at": {
 			"100": {
-				"attack.dmg": 7,
+				"attack.damage": 7,
 				"cost.hp": 2
 			},
 			"500": {
-				"attack.dmg": 7,
+				"attack.damage": 7,
 				"cost.hp": 3
 			}
 		}
@@ -2573,7 +2520,7 @@
 			"dot": {
 				"duration": 30,
 				"kind": "astral",
-				"dmg": "20~30"
+				"damage": "20~30"
 			}
 		}
 	},
@@ -2581,7 +2528,7 @@
 		"id": "stoneskin",
 		"name": "stone skin",
 		"level": 1,
-		"require": "g.spellbook.value>0&&g.earthlore>0",
+		"require": "g.spellbook>0&&g.earthlore>0",
 		"school": "earth",
 		"buy": {
 			"research": 25,
@@ -2724,7 +2671,7 @@
 			"targets": "enemies",
 			"kind": "earth",
 			"dot": {
-				"dmg": "2~3",
+				"damage": "2~3",
 				"duration": 3,
 				"mod": {
 					"self.speed": -5
@@ -2753,7 +2700,7 @@
 			"kind": "earth",
 			"dot": {
 				"duration": 30,
-				"dmg": "5~12",
+				"damage": "5~12",
 				"mod": {
 					"self.speed": -7
 				}
@@ -2843,7 +2790,7 @@
 			"duration": 60,
 			"mod": {
 				"self": {
-					"tohit": 5,
+					"tohit": 1,
 					"hp.max": 50,
 					"defense": 10,
 					"speed": 2
@@ -2890,11 +2837,12 @@
 			"targets": "enemies",
 			"damage": "3~5",
 			"dot": {
-				"id": "blind",
+				"name": "blind",
 				"kind": "light",
+				"id": "tohitdown",
 				"duration": 60,
 				"mod": {
-					"self.tohit": -30
+					"self.tohit": -5
 				}
 			}
 		}
@@ -2929,7 +2877,7 @@
 		"school": "water",
 		"level": 6,
 		"desc": "Flood the field of battle",
-		"cd": 40,
+		"cd": 120,
 		"require": "g.waterlore>=11",
 		"buy": {
 			"research": 400,
@@ -2939,32 +2887,43 @@
 		"cost": {
 			"water": 5
 		},
-		"attack": {
-			"hits": [
-				{
-					"targets": "all",
-					"dot": {
-						"kind": "water",
-						"dmg": "3~7",
-						"duration": 30,
-						"mod": {
-							"self.speed": -3,
-							"dodge": -10
+		"dot": {
+			"name": "high tide",
+			"duration": 30,
+			"applyinstanced": true,
+			"kind": "water",
+			"attack": {
+				"hits": [
+					{
+						"targets": "enemies",
+						"dot": {
+							"name": "crushing tide",
+							"applyinstanced": true,
+							"kind": "water",
+							"damage": "4~8",
+							"duration": 3,
+							"mod": {
+								"self.speed": -3,
+								"dodge": -3
+							}
+						}
+					},
+					{
+						"targets": "allies",
+						"dot": {
+							"name": "tide backlash",
+							"applyinstanced": true,
+							"kind": "water",
+							"damage": "1~2",
+							"duration": 3,
+							"mod": {
+								"self.speed": -3,
+								"dodge": -3
+							}
 						}
 					}
-				},
-				{
-					"targets": "allies",
-					"dot": {
-						"id": "hightideprotection",
-						"name": "high tide protection",
-						"duration": 30,
-						"mod": {
-							"self.resist.water": 75
-						}
-					}
-				}
-			]
+				]
+			}
 		}
 	},
 	{
@@ -3028,28 +2987,27 @@
 		"cost": {
 			"water": 8
 		},
-		"attack": {
-			"hits": [
-				{
-					"targets": "all",
-					"dot": {
+		"dot": {
+			"name": "force ten",
+			"duration": 30,
+			"applyinstanced": true,
+			"kind": "water",
+			"attack": {
+				"hits": [
+					{
+						"targets": "enemies",
 						"kind": "water",
-						"dmg": "20~30",
-						"duration": 30
+						"damage": "20~30",
+						"name": "hurricane"
+					},
+					{
+						"targets": "allies",
+						"kind": "water",
+						"damage": "5~7.5",
+						"name": "downpour"
 					}
-				},
-				{
-					"id": "forcetenprotection",
-					"name": "force ten protection",
-					"targets": "allies",
-					"dot": {
-						"duration": 30,
-						"mod": {
-							"self.resist.water": 75
-						}
-					}
-				}
-			]
+				]
+			}
 		},
 		"flavor": "Force without form"
 	},
@@ -3066,30 +3024,29 @@
 			"tomes": 20
 		},
 		"cost": {
-			"fire": 8
+			"fire": 14
 		},
-		"attack": {
-			"hits": [
-				{
-					"targets": "all",
-					"dot": {
+		"dot": {
+			"name": "firestorm",
+			"duration": 30,
+			"applyinstanced": true,
+			"kind": "fire",
+			"attack": {
+				"hits": [
+					{
+						"targets": "enemies",
 						"kind": "fire",
-						"dmg": "30~50",
-						"duration": 30
+						"damage": "20~30",
+						"name": "firestorm"
+					},
+					{
+						"targets": "allies",
+						"kind": "fire",
+						"damage": "5~7.5",
+						"name": "blowback"
 					}
-				},
-				{
-					"id": "firestormprotection",
-					"name": "firestorm protection",
-					"targets": "allies",
-					"dot": {
-						"duration": 30,
-						"mod": {
-							"self.resist.fire": 80
-						}
-					}
-				}
-			]
+				]
+			}
 		},
 		"flavor": ""
 	},
@@ -3160,8 +3117,322 @@
 			"targets": "all",
 			"dot": {
 				"duration": 30,
-				"dmg": "200~300",
+				"damage": "200~300",
 				"kind": "void"
+			}
+		}
+	},
+	{
+		"id": "calming",
+		"name": "calming murmurs",
+		"level": 2,
+		"school": "charms",
+		"require": "g.spiritlore>=5",
+		"desc": "Whispers on the wind calm your troubled mind.",
+		"buy": {
+			"research": 200,
+			"codices": 5,
+			"spiritgem": 1
+		},
+		"cost": {
+			"spirit": 3
+		},
+		"action": {
+			"cure": "enrage",
+			"targets": "self,ally"
+		},
+		"dot": {
+			"duration": 45,
+			"effect": {
+				"bf": -0.2,
+				"rage": -0.2,
+				"madness": -0.2
+			}
+		}
+	},
+	{
+		"id": "soothing",
+		"name": "soothing breeze",
+		"level": 2,
+		"school": "charms",
+		"desc": "A light wind steadies your nerves.",
+		"require": "g.airlore>=3",
+		"buy": {
+			"research": 200,
+			"codices": 5,
+			"airgem": 1
+		},
+		"cost": {
+			"air": 3
+		},
+		"dot": {
+			"duration": 45,
+			"effect": {
+				"unease": -0.2,
+				"madness": -0.2,
+				"weary": -0.2
+			}
+		}
+	},
+	{
+		"id": "quickening_melody",
+		"name": "quickening melody",
+		"level": 3,
+		"school": "charms",
+		"require": "g.charms>=4",
+		"desc": "A magical melody that quickens everyone's pace.",
+		"cd": 60,
+		"buy": {
+			"research": 800,
+			"gold": 200,
+			"codices": 5,
+			"tomes": 2,
+			"spiritgem": 1
+		},
+		"cost": {
+			"mana": 3,
+			"vigor": 1
+		},
+		"attack": {
+			"targets": "all",
+			"harmless": true,
+			"dot": {
+				"kind": "charm",
+				"duration": 30,
+				"mod": {
+					"self.speed": 10
+				}
+			}
+		}
+	},
+	{
+		"id": "luminescent_enchantment",
+		"name": "luminescent enchantment",
+		"level": 6,
+		"school": "charms",
+		"require": "g.charms>=4&&g.evil<=0",
+		"desc": "Conjure a swirling array of dancing lights that stick to everyone.",
+		"cd": 120,
+		"buy": {
+			"research": 1600,
+			"gold": 700,
+			"codices": 8,
+			"tomes": 5,
+			"lightgem": 4
+		},
+		"cost": {
+			"lightgem": 1,
+			"light": 5
+		},
+		"attack": {
+			"targets": "all",
+			"harmless": true,
+			"dot": {
+				"kind": "charm",
+				"duration": 60,
+				"mod": {
+					"self.dodge": -2
+				}
+			}
+		}
+	},
+	{
+		"id": "glimmering_aura",
+		"name": "glimmering aura",
+		"level": 2,
+		"school": "charms",
+		"require": "g.charms>=4",
+		"desc": "Render a gemstone into a temporary source of illumination.",
+		"cd": 60,
+		"buy": {
+			"research": 800,
+			"gold": 200,
+			"codices": 5,
+			"gems": 1
+		},
+		"cost": {
+			"gems": 1,
+			"mana": 5
+		},
+		"attack": {
+			"targets": "all",
+			"harmless": true,
+			"dot": {
+				"kind": "charm",
+				"duration": 60,
+				"mod": {
+					"self.tohit": 3
+				}
+			}
+		}
+	},
+	{
+		"id": "eclipsing_desolate_destinies",
+		"name": "eclipsing desolate destinies",
+		"level": 8,
+		"school": "charms",
+		"require": "g.charms>=5&&g.spiritlore>=8",
+		"desc": "Fill the mind of a foe with visions of varying horrifying fates, forcing them to grapple with the reality of their imminent demise.",
+		"cd": 30,
+		"buy": {
+			"research": 3500,
+			"gold": 1200,
+			"codices": 10,
+			"tomes": 1,
+			"bones": 3
+		},
+		"cost": {
+			"mana": 8,
+			"spirit": 8
+		},
+		"dot": {
+			"name": "desolation's wake",
+			"duration": 15,
+			"applyinstanced": true,
+			"kind": "charm",
+			"attack": {
+				"targets": "enemyleader",
+				"tohit": 6,
+				"dot": {
+					"name": "desolation",
+					"applyinstanced": true,
+					"kind": "charm",
+					"damage": "3~5",
+					"duration": 3
+				}
+			}
+		}
+	},
+	{
+		"id": "clarity",
+		"level": 7,
+		"school": "charms",
+		"require": "g.charms>=3",
+		"desc": "Cure yourself or an ally of a charm.",
+		"caststoppers": [],
+		"cost": {
+			"spiritgem": 1
+		},
+		"action": {
+			"cure": "charmed",
+			"targets": "ally,self"
+		}
+	},
+	{
+		"id": "bolstering_hope",
+		"name": "bolstering hope",
+		"level": 4,
+		"school": "charms",
+		"require": "g.charms>=3",
+		"desc": "Gently disperse the essence of hopeful aspirations, imbuing the minds of others.",
+		"cd": 40,
+		"buy": {
+			"research": 500,
+			"gold": 1200,
+			"tomes": 3
+		},
+		"cost": {
+			"gold": 50,
+			"mana": 3,
+			"herbs": 5
+		},
+		"at": {
+			"5": {
+				"cost.mana": -1,
+				"cost.gold": -10
+			},
+			"15": {
+				"cost.mana": -1,
+				"cost.gold": -15
+			}
+		},
+		"attack": {
+			"hits": [
+				{
+					"kind": "charm",
+					"targets": "all",
+					"harmless": true,
+					"dot": {
+						"duration": 90,
+						"mod": {
+							"self": {
+								"dodge": 2,
+								"hp.max": "5+15%"
+							}
+						}
+					}
+				},
+				{
+					"targets": "all",
+					"harmless": true,
+					"result": {
+						"hp": 25
+					}
+				}
+			]
+		}
+	},
+	{
+		"id": "aura_of_benevolence",
+		"name": "aura of benevolence",
+		"level": 3,
+		"school": "charms",
+		"require": "g.tier3>=1&&g.charms>=5",
+		"desc": "Use your life force to produce a beneficial aura, mending the wounds and spirits of your allies.",
+		"cd": 240,
+		"buy": {
+			"research": 3500,
+			"gold": 1200,
+			"tomes": 12,
+			"runestones": 3
+		},
+		"cost": {
+			"hp": 30,
+			"gems": 2,
+			"gold": 30,
+			"scrolls": 1,
+			"spiritgem": 1
+		},
+		"at": {
+			"10": {
+				"cost.hp": -10
+			},
+			"25": {
+				"cost.hp": -20
+			},
+			"30": {
+				"cost.gems": -1
+			}
+		},
+		"dot": {
+			"name": "aura of benevolence",
+			"duration": 120,
+			"applyinstanced": true,
+			"kind": "charm",
+			"attack": {
+				"hits": [
+					{
+						"targets": "self",
+						"name": "burden of the giver",
+						"applyinstanced": true,
+						"damage": "3~4",
+						"nodefense": true
+					},
+					{
+						"targets": "minions",
+						"harmless": true,
+						"dot": {
+							"name": "benevolence",
+							"applyinstanced": true,
+							"kind": "charm",
+							"duration": 3,
+							"mod": {
+								"self.regen": 4,
+								"self.tohit": 1
+							}
+						}
+					}
+				]
 			}
 		}
 	}

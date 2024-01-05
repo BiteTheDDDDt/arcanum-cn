@@ -259,10 +259,10 @@ export default class Explore {
 		if(this.locale && this.locale.onStart) this.locale.onStart();
 	}
 
-	onStop()
+	onStop(success = false)
 	{	
 		if(this.locale && this.locale.onStop) this.locale.onStop();
-		if(this.unreturnable)
+		if(this.unreturnable&&!success)
 		{
 			this.reset();
 		}

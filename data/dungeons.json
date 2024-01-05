@@ -67,7 +67,7 @@
 	{
 		"id": "pestcontrol",
 		"name": "Leaky Cellar",
-		"require": "g.sunnyfield>0&&(g.apprentice.value>0||g.neophyte.value>0)",
+		"require": "g.sunnyfield>0&&(g.apprentice>0||g.neophyte>0)",
 		"start": {
 			"name": "Pest Control",
 			"desc": "After your daily castigation, your master mentions the rats in the basement have become a problem. Something about stolen shortswords and building barricades. You had better go down and deal with it."
@@ -148,7 +148,6 @@
 		"name": "Ettinmarch Camp",
 		"desc": "The perilous wilds of the Ettinmarch are a cherished home to bands of merry rangers and virtuous druids.",
 		"require": "evt_rangers",
-		"title": "Forest Scourge",
 		"max": 1,
 		"level": 15,
 		"length": 200,
@@ -157,7 +156,8 @@
 		},
 		"result": {
 			"herbs": "3~7",
-			"gems": "0~2"
+			"gems": "0~2",
+			"title": "Forest Scourge"
 		},
 		"boss": {"200":[
 			"eledin",
@@ -949,7 +949,7 @@
 		"desc": "They say the roots of the mountain extend deeper than its heights.",
 		"level": 25,
 		"length": 100,
-		"require": "g.player.level>20&&g.mtgorborung>0",
+		"require": "g.player.level>=20&&g.mtgorborung>0",
 		"dist": 1200,
 		"run": {
 			"stamina": 3

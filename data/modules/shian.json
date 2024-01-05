@@ -7,7 +7,7 @@
 				"id": "evt_breakthrough0",
 				"name": "breakthrough",
 				"desc": "A breakthrough in your understanding of spirits! It seems so clear now",
-				"require": "g.spirit.max>19&&g.shian>0",
+				"require": "g.spirit.max>=20&&g.shian>0",
 				"mod": {
 					"spiritlore.max": 1
 				}
@@ -67,7 +67,7 @@
 				"id": "evt_hole3",
 				"name": "the top",
 				"desc": "You've reached the top, but it seems others have already taken what was here",
-				"require": "g.tier4>0&&g.unstablespire&&g.evt_hole2<0"
+				"require": "g.tier4>0&&g.unstablespire>0&&g.evt_hole2<=0"
 			}
 		],
 		"tasks": [
@@ -88,7 +88,7 @@
 			{
 				"id": "mkcave",
 				"name": "Dig out a bigger cave",
-				"require": "(g.earthlore+g.spiritlore)>20&&g.shian>0",
+				"require": "(g.earthlore+g.spiritlore)>=20&&g.shian>0",
 				"desc": "Make a underground home where the magic is strong and spirits are plentiful",
 				"length": 1800,
 				"max": 1,
@@ -102,8 +102,8 @@
 					"spirit": 1
 				},
 				"mod": {
-					"cave.mod.minions.max": 8,
 					"cave.mod.space.max": 475,
+					"cave.mod.minions.max": 8,
 					"cave.mod.research.rate": 1.5,
 					"cave.mod.mana.rate": 0.2,
 					"cave.mod.spirit.rate": 0.5,
@@ -133,7 +133,7 @@
 			{
 				"id": "soulflag",
 				"name": "craft soulflag",
-				"require": "g.spiritlore>12&&g.shian>0",
+				"require": "g.spiritlore>=13&&g.shian>0",
 				"craftable": true,
 				"desc": "So many souls around, there has to be a way to keep them out of your way",
 				"length": 100,
@@ -210,8 +210,8 @@
 				"desc": "A peaceful structure where you can devote yourself fully to your arts.",
 				"require": "g.mkpagoda>0",
 				"mod": {
-					"minions.max": 10,
 					"space.max": 550,
+					"minions.max": 10,
 					"sworduse.max": 1,
 					"breakthrough.max": 1,
 					"spirit.rate": 0.3,
@@ -268,7 +268,7 @@
 			{
 				"id": "throw_swords",
 				"name": "lost sword art: flying swords",
-				"school": "blade",
+				"school": "summoning",
 				"require": "sworduse",
 				"level": 11,
 				"tags": "swordart",
@@ -284,20 +284,21 @@
 					"targets": "enemies",
 					"damage": "20~30",
 					"kind": "slash",
-					"tohit": 10
+					"tohit": 2
 				},
-				"result": [
-					"magicblade",
-					"magicblade",
-					"magicblade"
+				"summon": [
+					{
+						"id": "magicblade",
+						"count": 3
+					}
 				]
 			},
 			{
 				"id": "giantkilling",
 				"name": "lost sword art: giant slayer",
-				"school": "blade",
-				"require": "g.sworduse>1",
 				"level": 12,
+				"school": "martial",
+				"require": "g.sworduse>=2",
 				"tags": "swordart",
 				"buy": {
 					"research": 1000,
@@ -311,7 +312,7 @@
 				"attack": {
 					"damage": "35~65",
 					"kind": "slash",
-					"tohit": 10,
+					"tohit": 2,
 					"dot": {
 						"duration": 10,
 						"mod": {
@@ -339,7 +340,7 @@
 				"attack": {
 					"damage": "20~29",
 					"kind": "spirit",
-					"tohit": 15
+					"tohit": 3
 				}
 			},
 			{
@@ -359,7 +360,7 @@
 					"spirit": 10
 				},
 				"attack": {
-					"tohit": 20,
+					"tohit": 4,
 					"targets": "enemies",
 					"dot": {
 						"id": "soullure",
@@ -388,7 +389,7 @@
 				"attack": {
 					"damage": "80~110",
 					"kind": "spirit",
-					"tohit": 25
+					"tohit": 5
 				}
 			}
 		],

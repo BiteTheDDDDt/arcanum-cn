@@ -1,7 +1,7 @@
 <script>
 import Game from '../../game';
 import Upgrades from '../panes/upgrades.vue';
-
+import Profile from 'modules/profile';
 import Settings from 'modules/settings';
 import ItemsBase from '../itemsBase';
 import UIMixin from '../uiMixin';
@@ -23,10 +23,11 @@ export default {
 
 	},
 	computed:{
-
-		tasks(){return Game.state.tasks.filter(v=>(!v.perpetual||v.perpetual==0)&&(!v.length||v.length==0))},
-		runnables(){return Game.state.tasks.filter(v=>(v.perpetual>0||v.length>0)&&!v.craftable)},
-		crafts(){return Game.state.tasks.filter(v=>(v.perpetual>0||v.length>0)&&v.craftable)},
+		hall(){ return Profile.hall; },
+		mergedtasks(){return Game.state.tasks.concat(this.hall.tasks)},
+		tasks(){return this.mergedtasks.filter(v=>(!v.perpetual||v.perpetual==0)&&(!v.length||v.length==0))},
+		runnables(){return this.mergedtasks.filter(v=>(v.perpetual>0||v.length>0)&&!v.craftable)},
+		crafts(){return this.mergedtasks.filter(v=>(v.perpetual>0||v.length>0)&&v.craftable)},
 
 		visActs(){return this.tasks.filter(v=>this.show(v))},
 		visRuns(){ return this.runnables.filter(v=>this.show(v))},

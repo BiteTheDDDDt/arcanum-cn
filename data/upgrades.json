@@ -94,6 +94,7 @@
 		"id": "timesplit",
 		"desc": "Perform tasks of different types simultaneously.",
 		"require": "chronomancy",
+		"max": 1,
 		"cost": {
 			"arcana": 10,
 			"tempus": 5
@@ -187,7 +188,7 @@
 		"id": "firecharger",
 		"name": "fire charger",
 		"desc": "Hooves of flame leave lines of fire in the ground",
-		"require": "g.firelore>5&&g.magicbeasts>=5&&g.stables>0",
+		"require": "g.firelore>=5&&g.magicbeasts>=5&&g.stables>0",
 		"need": "stables",
 		"slot": "mount",
 		"tags": "steed",
@@ -213,7 +214,7 @@
 			"airgem": 20
 		},
 		"mod": {
-			"player.bonuses.air": 2,
+			"player.hits.air": 2,
 			"speed": 2,
 			"dist": 525
 		}
@@ -222,7 +223,7 @@
 		"id": "firechariot",
 		"name": "chariot of fire",
 		"desc": "",
-		"require": "g.firelore>=20||g.lightlore>20",
+		"require": "g.firelore>=20||g.lightlore>=20",
 		"slot": "mount",
 		"buy": {
 			"research": 10000,
@@ -272,7 +273,6 @@
 			"gems.max": 5,
 			"prismaticgems.max": 3,
 			"gold.max": 800
-
 		}
 	},
 	{
@@ -507,15 +507,21 @@
 			"research": 200
 		},
 		"flavor": "Spirits never sleep",
-		"mod": {
-			"scrolls.rate": -0.01,
-			"codices.rate": 0.01
+		"convert": {
+			"input": {
+				"scrolls": 0.01
+			},
+			"output": {
+				"effect": {
+					"codices": 0.01
+				}
+			}
 		}
 	},
 	{
 		"id": "ghostchains",
 		"name": "ghost chains",
-		"require": "g.tier2>0&&g.spirit>=8&&g.ghostcompiler>1",
+		"require": "g.tier2>0&&g.spirit>=8&&g.ghostcompiler>=2",
 		"desc": "Hold more spirits in your sway",
 		"max": 3,
 		"cost": {
@@ -692,7 +698,7 @@
 			"potions.max": 2,
 			"potions.rate": 0.1,
 			"spirit.rate": 0.1,
-			"potionessence.rate": 0.0001
+			"potionessence.rate": 0.00028
 		}
 	},
 	{
@@ -747,7 +753,7 @@
 		"id": "restless",
 		"name": "restless nights",
 		"desc": "Continue working even while idle",
-		"require": "g.lore>2",
+		"require": "g.lore>=3",
 		"cost": {
 			"research": 100
 		},
@@ -760,7 +766,7 @@
 		"id": "speakbirds",
 		"name": "speak to Birds",
 		"desc": "Learn the secret languages of birds.",
-		"require": "g.falconer>0||(g.birdcage>0&&g.animals>7)",
+		"require": "g.falconer>0||(g.birdcage>0&&g.animals>=8)",
 		"cost": {
 			"research": 250,
 			"nature": 1
@@ -778,7 +784,7 @@
 		"id": "dragontongue",
 		"name": "dragon Tongue",
 		"desc": "Learn the ancient language of dragons.",
-		"require": "g.languages>12&&g.magicbeasts>=5",
+		"require": "g.languages>=13&&g.magicbeasts>=5",
 		"cost": {
 			"research": 1000
 		},
@@ -901,7 +907,7 @@
 		"id": "bloodbag",
 		"name": "membranous pouch",
 		"desc": "A sack woven from living tissue helps preserve the gems.",
-		"require": "g.bloodlore>=5&&g.weaving>5",
+		"require": "g.bloodlore>=5&&g.weaving>=6",
 		"max": 1,
 		"cost": {
 			"hp": 100,
@@ -930,7 +936,7 @@
 	{
 		"id": "bagofholding",
 		"name": "bag of holding",
-		"require": "g.lore>10&&g.conjuration>7",
+		"require": "g.lore>=11&&g.conjuration>=8",
 		"desc": "You'll make your own bags, thank you.",
 		"max": 1,
 		"cost": {
@@ -949,7 +955,7 @@
 	{
 		"id": "deeppockets",
 		"name": "deep Pockets",
-		"require": "g.hiddenpockets>0&&g.trickster>0&&g.conjuration>2",
+		"require": "g.hiddenpockets>0&&g.trickster>0&&g.conjuration>=3",
 		"desc": "Cheaper than buying pouches.",
 		"cost": {
 			"research": 300,
@@ -1008,7 +1014,7 @@
 		"id": "earthaffinity",
 		"name": "earth affinity",
 		"desc": "Resistance to earth-based attacks and afflictions.",
-		"require": "g.earth>10",
+		"require": "g.earth>=10",
 		"cost": {
 			"research": 3000,
 			"earthgem": 10,
@@ -1022,7 +1028,7 @@
 		"id": "poisonaffinity",
 		"name": "poison affinity",
 		"desc": "A natural resistance to most poisons.",
-		"require": "g.nature>10&&g.druid>0",
+		"require": "g.nature>=10&&g.druid>0",
 		"cost": {
 			"research": 3000,
 			"naturegem": 10,
@@ -1037,7 +1043,7 @@
 		"id": "airaffinity",
 		"name": "air affinity",
 		"desc": "Resistance to air-based assaults and enfeeblements.",
-		"require": "g.air>10",
+		"require": "g.air>=10",
 		"cost": {
 			"research": 3000,
 			"airgem": 10,
@@ -1051,7 +1057,7 @@
 		"id": "wateraffinity",
 		"name": "water affinity",
 		"desc": "Resistance to water-based barrages and detriments.",
-		"require": "g.water>10",
+		"require": "g.water>=10",
 		"cost": {
 			"research": 3000,
 			"watergem": 10,
@@ -1065,7 +1071,7 @@
 		"id": "fireaffinity",
 		"name": "fire affinity",
 		"desc": "Resistance to fire-based blasts and immolations",
-		"require": "g.fire>10",
+		"require": "g.fire>=10",
 		"cost": {
 			"research": 3000,
 			"firegem": 10,
@@ -1078,7 +1084,7 @@
 	{
 		"id": "firesign",
 		"name": "fire sign",
-		"require": "g.fireaffinity>0&&g.fire>14",
+		"require": "g.fireaffinity>0&&g.fire>=15",
 		"warn": true,
 		"lock": [
 			"watersign",
@@ -1098,7 +1104,7 @@
 	{
 		"id": "watersign",
 		"name": "water sign",
-		"require": "g.wateraffinity>0&&g.water>14",
+		"require": "g.wateraffinity>0&&g.water>=15",
 		"lock": [
 			"firesign",
 			"airsign",
@@ -1118,7 +1124,7 @@
 	{
 		"id": "earthsign",
 		"name": "earth sign",
-		"require": "g.earthaffinity>0&&g.earth>14",
+		"require": "g.earthaffinity>0&&g.earth>=15",
 		"lock": [
 			"watersign",
 			"airsign",
@@ -1139,7 +1145,7 @@
 		"id": "airsign",
 		"name": "wind sign",
 		"warn": true,
-		"require": "g.airaffinity>0&&g.air>14",
+		"require": "g.airaffinity>0&&g.air>=15",
 		"lock": [
 			"watersign",
 			"firesign",
@@ -1159,7 +1165,7 @@
 		"id": "poisonveins",
 		"name": "poison veins",
 		"desc": "You do not fear poison",
-		"require": "g.poisonaffinity>0&&g.nature>14",
+		"require": "g.poisonaffinity>0&&g.nature>=15",
 		"cost": {
 			"research": 5000,
 			"naturegem": 15,
@@ -1194,7 +1200,7 @@
 			"arcana": 15
 		},
 		"mod": {
-			"player.tohit": 4,
+			"player.tohit": 2,
 			"scrying.max": 2,
 			"scrying.rate": "2%"
 		},
@@ -1238,9 +1244,15 @@
 			"arcana": 5,
 			"sp": 1
 		},
-		"mod": {
-			"research.rate": -0.2,
-			"hp.rate": 0.5
+		"convert": {
+			"input": {
+				"research": 0.2
+			},
+			"output": {
+				"effect": {
+					"hp": 0.5
+				}
+			}
 		}
 	},
 	{
@@ -1279,7 +1291,7 @@
 		"name": "windchime",
 		"tags": "airsource,spiritsource",
 		"desc": "Focus of air magic.",
-		"require": "g.space.max>10",
+		"require": "g.space.max>=11",
 		"cost": {
 			"gems": 10,
 			"research": 100
@@ -1377,7 +1389,7 @@
 	{
 		"id": "urn",
 		"desc": "Receptacle for dust",
-		"require": "g.crafting>=5&&g.spirit>4",
+		"require": "g.crafting>=5&&g.spirit>=5",
 		"max": 3,
 		"cost": {
 			"gold": 300,
@@ -1459,7 +1471,6 @@
 	{
 		"id": "chakravarti",
 		"desc": "Wheels upon wheels; you turn them all.",
-		"title": "Chakravarti",
 		"require": "(g.dreadlord+g.battlemage)>0&&g.player.level>=20",
 		"cost": {
 			"research": 800,
@@ -1471,6 +1482,9 @@
 			"arcanebody.max": 3,
 			"minions.max": 2,
 			"allies.max": 1
+		},
+		"result": {
+			"title": "Chakravarti"
 		}
 	},
 	{
@@ -1605,7 +1619,7 @@
 			"scrying.max": 1,
 			"divination.max": 1,
 			"lightlore.rate": "5%",
-			"player.tohit": 2,
+			"player.tohit": 4,
 			"player.defense": 2,
 			"dodge": 2
 		}
@@ -1661,7 +1675,7 @@
 	{
 		"id": "chirography",
 		"desc": "Improve the efficacy of your scrolls by meticulous attention to penmanship.",
-		"require": "g.lore>12",
+		"require": "g.lore>=13",
 		"cost": {
 			"research": 700,
 			"mana": 10
@@ -1794,7 +1808,7 @@
 	{
 		"id": "demonicpact",
 		"name": "demonic pact",
-		"require": "g.demonology>4",
+		"require": "g.demonology>=5",
 		"desc": "A deal with a demon, sealed in blood. The knowledge offered is worth twice the price.",
 		"cost": {
 			"research": 300,
@@ -2175,7 +2189,7 @@
 	{
 		"id": "mendicant",
 		"desc": "Sacrifice luxury for higher attainments.",
-		"need": "g.evil<=0&&g.gold.max>1000&&g.light.max>7",
+		"need": "g.evil<=0&&g.gold.max>=1000&&g.light.max>=8",
 		"warn": true,
 		"result": {
 			"fame": 10
@@ -2212,7 +2226,7 @@
 		"mod": {
 			"potions.max": 1,
 			"potions.rate": 0.2,
-			"potionessence.rate": 0.0001
+			"potionessence.rate": 0.00014
 		}
 	},
 	{
@@ -2223,9 +2237,15 @@
 			"research": 500,
 			"codices": 10
 		},
-		"mod": {
-			"gems.rate": 0.02,
-			"gold.rate": -0.1
+		"convert": {
+			"input": {
+				"gold": 0.2
+			},
+			"output": {
+				"effect": {
+					"gems": 0.02
+				}
+			}
 		}
 	},
 	{
@@ -2238,9 +2258,15 @@
 			"research": 3000,
 			"naturegem": 10
 		},
-		"mod": {
-			"herbs.rate": -0.25,
-			"gold.rate": 0.2
+		"convert": {
+			"input": {
+				"herbs": 0.25
+			},
+			"output": {
+				"effect": {
+					"gold": 0.2
+				}
+			}
 		}
 	},
 	{
@@ -2289,7 +2315,7 @@
 			"potions.rate": 0.2,
 			"rest.effect.stamina": 0.12,
 			"spirit.rate": 0.01,
-			"potionessence.rate": 0.0001
+			"potionessence.rate": 0.00014
 		}
 	},
 	{
@@ -2378,9 +2404,17 @@
 			"gems": 100
 		},
 		"mod": {
-			"space": 5,
-			"gold.rate": -0.5,
-			"runestones.rate": 0.01
+			"space": 5
+		},
+		"convert": {
+			"input": {
+				"gold": 0.4
+			},
+			"output": {
+				"effect": {
+					"runestones": 0.012
+				}
+			}
 		}
 	},
 	{
@@ -2473,6 +2507,7 @@
 		"mod": {
 			"space.max": "30%",
 			"firelore.max": 2,
+			"firelore.mod.player.hits.fire": 0.3,
 			"player.bonuses.water": -3,
 			"water.max": -2,
 			"player.resist.fire": "1+10%",
@@ -2494,6 +2529,7 @@
 		"mod": {
 			"space.max": "30%",
 			"waterlore.max": 2,
+			"waterlore.mod.player.hits.water": 0.3,
 			"player.bonuses.fire": -3,
 			"fire.max": -2,
 			"player.resist.water": "1+10%",
@@ -2515,6 +2551,7 @@
 		"mod": {
 			"space.max": "30%",
 			"earthlore.max": 2,
+			"earthlore.mod.player.hits.earth": 0.3,
 			"player.bonuses.air": -3,
 			"air.max": -2,
 			"player.resist.earth": "1+10%",
@@ -2536,6 +2573,7 @@
 		"mod": {
 			"space.max": "30%",
 			"airlore.max": 2,
+			"airlore.mod.player.hits.air": 0.3,
 			"player.bonuses.earth": -3,
 			"earth.max": -2,
 			"player.resist.air": "1+10%",
@@ -2548,12 +2586,9 @@
 		"desc": "Your familiar is a cat, as dark as the night that spawned him.",
 		"require": "g.summonfamiliar>0",
 		"warn": true,
-		"tags": "familiar",
+		"tags": "t_familiar",
 		"lock": [
-			"familiarowl",
-			"familiarkobold",
-			"familiarimp",
-			"familiartome"
+			"t_familiar"
 		],
 		"mod": {
 			"demonology.max": 2,
@@ -2573,12 +2608,9 @@
 		"desc": "Your familiar is an owl, most active at night, just like you are.",
 		"require": "g.summonfamiliar>0",
 		"warn": true,
-		"tags": "familiar",
+		"tags": "t_familiar",
 		"lock": [
-			"familiarcat",
-			"familiarkobold",
-			"familiarimp",
-			"familiartome"
+			"t_familiar"
 		],
 		"mod": {
 			"demonology.max": 2,
@@ -2598,12 +2630,9 @@
 		"desc": "Your familiar is a kobold, greedy for gold.",
 		"require": "g.summonfamiliar>0",
 		"warn": true,
-		"tags": "familiar",
+		"tags": "t_familiar",
 		"lock": [
-			"familiarcat",
-			"familiarowl",
-			"familiarimp",
-			"familiartome"
+			"t_familiar"
 		],
 		"mod": {
 			"demonology.max": 2,
@@ -2622,12 +2651,9 @@
 		"desc": "Your familiar is an imp, devious and prone to mischief.",
 		"require": "g.summonfamiliar>0",
 		"warn": true,
-		"tags": "familiar",
+		"tags": "t_familiar",
 		"lock": [
-			"familiarcat",
-			"familiarkobold",
-			"familiarowl",
-			"familiartome"
+			"t_familiar"
 		],
 		"mod": {
 			"demonology.max": 2,
@@ -2646,12 +2672,9 @@
 		"desc": "Your familiar is an animated tome, filled with arcane knowledge and a thirst for expansion.",
 		"require": "g.summonfamiliar>0",
 		"warn": true,
-		"tags": "familiar",
+		"tags": "t_familiar",
 		"lock": [
-			"familiarcat",
-			"familiarkobold",
-			"familiarimp",
-			"familiarowl"
+			"t_familiar"
 		],
 		"mod": {
 			"demonology.max": 2,

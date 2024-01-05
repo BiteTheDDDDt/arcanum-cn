@@ -34,7 +34,7 @@ export default {
 
 		},
 		itemtype(){
-			return this.item.type.toString();
+			return this.item.type?.toString()||"untyped";
 		},
 		calcTarget() {
 			return this.attack.targetstring || this.target || "enemy";
@@ -44,7 +44,7 @@ export default {
 			for (let a of this.attack.potencies)
 			{	
 				if(potencystring != "") potencystring = potencystring.concat(", ");
-				potencystring = potencystring.concat(game.state.getData(a).name.toTitleCase())
+				potencystring = potencystring.concat(game.state.getData(a).name.replace(" damage","").toTitleCase())
 			}
 			return potencystring
 		}

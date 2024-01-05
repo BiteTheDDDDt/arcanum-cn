@@ -192,7 +192,7 @@ export default {
 
 	<div class="raid-bottom" v-if="explore.running||drops.count>0">
 
-		<inv class="inv" :inv="drops" take=true />
+		<inv class="inv" :inv="state.inventory" types="potion" nosearch = "true" combat = "true" />
 		<div class="log">
 			<!--<span v-if="exploring">Exploring...<br></span>-->
 

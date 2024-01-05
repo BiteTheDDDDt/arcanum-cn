@@ -1,3 +1,5 @@
+import { CalcDmgWithBonus } from "./combatVars";
+
 /**
  * @property {object.<string,string|object>} - maps school to skill determining school level.
  */
@@ -55,11 +57,12 @@ export { POTION, ITEM };
 const RESOURCE = 'resource';
 const ACTION = 'action';
 const SKILL = 'skill';
-const ENCOUNTER = 'enc';
+const ENCOUNTER = 'encounter';
 const MONSTER = 'monster';
 const WEARABLE = 'wearable';
 export const ENCHANT = 'enchant';
 const HOME = 'home';
+const COMPANION = 'companion';
 const EVENT = 'event';
 const PURSUITS = 'pursuits';
 const ARMOR = 'armor', WEAPON = 'weapon';
@@ -90,7 +93,7 @@ export const TEAM_NPC = 0;
 export const TEAM_ALL = 2;
 
 export { DUNGEON, EXPLORE, LOCALE, CLASH };
-export { HOME, RESOURCE, NPC, SKILL, ACTION, ENCOUNTER, WEARABLE, MONSTER, ARMOR, WEAPON, PURSUITS, EVENT };
+export { HOME, RESOURCE, NPC, SKILL, ACTION, ENCOUNTER, WEARABLE, MONSTER, ARMOR, WEAPON, PURSUITS, EVENT, COMPANION };
 
 /**
  * @constant {number} DELAY_RATE - speed to attack delay conversion constant.
@@ -174,4 +177,18 @@ export const canTarget = (targs, it ) => {
 
 	return targs === it.type || targs === it.kind || targs === it.slot || it.hasTag(targ);
 
+}
+
+/**
+ * Sets an attack/dot to be instantiated, that is, unaffected by any changes on the source
+ * @param {attack/dot} attack - thing to modify
+ * @param {char} applier - the one using the attack
+ * @param {char} target - the target of the attack
+ * @returns modified attack
+ */
+export const instanceDamage = (attack, applier, target) => {
+	attack.damage = CalcDmgWithBonus(attack, applier, target)
+	attack.tohit += applier.getHit()
+	attack.showinstanced = true;
+	return attack
 }

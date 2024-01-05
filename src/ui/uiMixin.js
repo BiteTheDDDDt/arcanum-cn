@@ -50,7 +50,7 @@ export default {
 	methods: {
 
 		show(it){
-			return this.inConfig || !this.hide[it.id];
+			return (this.inConfig || !this.hide[it.id])&&!it.hide;
 		},
 
 		configHides(){

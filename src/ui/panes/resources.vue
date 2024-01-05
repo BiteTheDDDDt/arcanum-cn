@@ -45,7 +45,7 @@ export default {
 			let it = items[i];
 			if ( it.hide ) continue;
 			let title = it.group || ( it.tags ? it.tags[0] : 'other');
-			if ( title === 'manas'|| title === 'menace' || title === 'specialty' ) continue;
+			if ( title === 'manas'|| title === 'menace' || title === 'specialty' || title === 't_endurance' ) continue;
 
 			group = groups[title] || ( groups[title] = [] );
 

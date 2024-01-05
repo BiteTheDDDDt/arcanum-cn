@@ -312,7 +312,7 @@ export default class Runner {
 	 * @param {Task} i
 	 * @param {boolean} [tryWaiting=true] - whether to attempt to resume other tasks.
 	 */
-	stopTask( a, tryWaiting=true ){
+	stopTask( a, tryWaiting=true, success=false ){
 		
 
 		if(a.runmod){
@@ -323,7 +323,7 @@ export default class Runner {
 				Game.removeMods( a.baseTask.runmod )
 			}
 		}
-		if ( a.onStop ) a.onStop();
+		if ( a.onStop ) a.onStop(success);
 		a.running = false;
 		let idx = this.actives.indexOf(a);
 		if(idx >= 0) this.actives.splice(idx, 1);
@@ -410,11 +410,16 @@ export default class Runner {
 	}
 
 	moveWaiting(task, amt) {
-		return moveElm(this.waiting, task, amt);
+		let a = moveElm(this.waiting, task, amt);
+		if (a) this.waiting = a;
+		return true;
 	}
 
 	moveActive(task, amt) {
-		return moveElm(this.actives, task, amt);
+		
+		let a = moveElm(this.actives, task, amt);
+		if (a) this.actives = a;
+		return true;
 	}
 
 	/**
@@ -478,7 +483,7 @@ export default class Runner {
 
 		if ( act.running === false || !repeatable ) {
 			// skills cant complete when not running.
-			this.stopTask(act);
+			this.stopTask(act, true, true);
 
 		} else if ( repeatable ) {
 

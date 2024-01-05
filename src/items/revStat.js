@@ -24,9 +24,7 @@ export default class RevStat extends Resource {
 	 * Made a function for reverseStats, among other things.
 	 * @param {number} amt
 	 */
-	canPay( amt ) {
-		return this.value - amt <= this.max.value;
-	}
+	canPay( amt ) { return amt >= 0 ? (this.max ? this.value + amt <= this.max.value : true ) :  this.value >= -amt}
 	remove( amt ) {
 		this.value.base += amt;
 	}

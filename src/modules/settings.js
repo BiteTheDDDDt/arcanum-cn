@@ -8,6 +8,7 @@ const Defaults = {
 	darkMode:false,
 	compactMode:false,
 	curview:null,
+	homeview:null,
 	spells:{
 
 	},

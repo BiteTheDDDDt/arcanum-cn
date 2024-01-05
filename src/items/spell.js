@@ -25,51 +25,52 @@ export default class Spell extends Task {
 	 * @property {string} only - target type, name, kind, or tag, to which
 	 * the enchantment can be applied.
 	 */
-	get only(){return this._only;}
-	set only(v){this._only = typeof v === 'string' ? v.split(',') : v;}
+	get only() { return this._only; }
+	set only(v) { this._only = typeof v === 'string' ? v.split(',') : v; }
 
 	/**
 	 * @property {boolean} caststoppers - condition that cause the cast to fail
 	 */
-	get caststoppers(){return this._caststoppers;}
-	set caststoppers(v){this._caststoppers = v;}
+	get caststoppers() { return this._caststoppers; }
+	set caststoppers(v) { this._caststoppers = v; }
 
-	get attack(){return this._attack;}
-	set attack(v){
+	get attack() { return this._attack; }
+	set attack(v) {
 
-		if ( v != null ) {
+		if (v != null) {
 			if (!v.potencies) v.potencies = ["spelldmg"];
-			if ( !(v instanceof Attack)) v = new Attack(v, this);
-			if ( !v.name ) v.name = this.name;
+			if (!(v instanceof Attack)) v = new Attack(v, this);
+			if (!v.name) v.name = this.name;
 			if (!v.kind) v.kind = this.school;
 		}
 
 		this._attack = v;
 	}
 
-	get action(){return this._action;}
-	set action(v){
+	get action() { return this._action; }
+	set action(v) {
 
-		if ( v) {
+		if (v) {
 			//console.dir(v, this.id);
-			if ( !(v instanceof Attack)) v = new Attack(v, this);
-			if ( !v.name ) v.name = this.name;
+			if (!(v instanceof Attack)) v = new Attack(v, this);
+			if (!v.name) v.name = this.name;
 			if (!v.kind) v.kind = this.school;
 		}
 
 		this._action = v;
 	}
 
-	toJSON(){
+	toJSON() {
 
 		let data = super.toJSON() || {};
-
-		if ( this.owned ) data.owned = this.owned;
+		if (data.caststoppers) delete data.caststoppers;
+		if (data.attack) delete data.attack;
+		if (this.owned) data.owned = this.owned;
 
 		return data && Object.keys(data).length ? data : undefined;
 	}
 
-	constructor(vars=null) {
+	constructor(vars = null) {
 
 		super(vars);
 
@@ -78,18 +79,42 @@ export default class Spell extends Task {
 		this.level = this.level || 1;
 		if (!this.caststoppers) this.caststoppers = [NO_SPELLS];
 		this.owned = this.owned || false;
-		if ( !this.owned ) {
+		if (!this.owned) {
 
-			if ( !this.buy ) this.buy = {};
-			if ( this.buy.arcana == null && this.level > 1 ) this.buy.arcana = this.level - 1;
+			if (!this.buy) this.buy = {};
+			if (this.buy.arcana == null && this.level > 1) this.buy.arcana = this.level - 1;
 
 		}
 
-		if ( this.locked !== false ) {
+		if (this.locked !== false && this.school !== "martial") {
 			this.addRequire("spellbook");
 
 		}
+		if (this.dot) {
+			if (this.dot.attack) {
+				if (Array.isArray(this.dot.attack)) {
 
+					for (let i = this.dot.attack.length - 1; i >= 0; i--) {
+
+						this.dot.attack[i].targetstring = this.dot.attack[i].targets;
+						if (this.dot.attack[i].hits) {
+							for (let b = this.dot.attack[i].hits.length - 1; b >= 0; b--) {
+								this.dot.attack[i].hits[b].targetstring = this.dot.attack[i].hits[b].targets;
+							}
+						}
+					}
+
+
+				} else {
+					this.dot.attack.targetstring = this.dot.attack.targets;
+					if (this.dot.attack.hits) {
+						for (let b = this.dot.attack.hits.length - 1; b >= 0; b--) {
+							this.dot.attack.hits[b].targetstring = this.dot.attack.hits[b].targets;
+						}
+					}
+				}
+			}
+		}
 	}
 
 	/**
@@ -98,8 +123,8 @@ export default class Spell extends Task {
 	 */
 	canUseOn(targ) {
 
-		if ( targ.level && ( 2*this.level < targ.level) ) return false;
-		return !this.only || canTarget( this.only, targ );
+		if (targ.level && (2 * this.level < targ.level)) return false;
+		return !this.only || canTarget(this.only, targ);
 
 	}
 

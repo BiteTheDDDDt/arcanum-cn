@@ -5,7 +5,7 @@ import {arrayMerge} from '../util/array';
 import { assignPublic } from '../util/util';
 import Events, { CHAR_ACTION, EVT_EVENT, EVT_UNLOCK, STATE_BLOCK } from '../events';
 import Game, { TICK_LEN } from '../game';
-import { WEARABLE, WEAPON } from '../values/consts';
+import { WEARABLE, WEAPON, TYP_PCT } from '../values/consts';
 import RValue, { InitRVals } from '../values/rvals/rvalue';
 import { Changed } from '../techTree';
 
@@ -281,7 +281,7 @@ export default class GData {
 	 * Made a function for reverseStats, among other things.
 	 * @param {number} amt
 	 */
-	canPay( amt ) { return this.value >= amt; }
+	canPay( amt ) { return amt >= 0 ? this.value >= amt : (this.max ? this.value - amt <= this.max.value : true )}
 	remove( amt ) { this.value.base -= amt; }
 
 	/**
@@ -378,6 +378,15 @@ export default class GData {
 		count = this.add(count);
 		if ( count === 0 ) return;
 
+		let a
+		if(this.caststoppers) {
+			for (let b of this.caststoppers)
+			{
+				a = g.self.getCause(b);
+				if(a) break;
+			}
+		}
+
 		if ( this.isRecipe ) { return g.create( this, true, count ); }
 
 		if ( this.once && this.valueOf() === 1 ) 
@@ -401,14 +410,6 @@ export default class GData {
 
 		if ( this.title ) g.self.setTitle( this.title );
 		if ( this.result ) {
-			let a
-			if(this.caststoppers) {
-				for (let b of this.caststoppers)
-					{
-						a = g.self.getCause(b);
-						if(a) break;
-					}
-				}
 			if ( a ) {
 				Events.emit( STATE_BLOCK, g.self, a );
 			} else {
@@ -418,30 +419,31 @@ export default class GData {
 		if ( this.create ) g.create( this.create );
 		if (this.summon)
 		{
-			for (let i =0;i<count;i++)
-			{
-				for (let smn of this.summon){
-					let smnid = smn.id
-					let smncount = smn.count || 1
-					let smnmax = smn.max || 0
-					let minions = g.getData('minions');
-					let mon = g.getData(smn.id)
-					g.create(smnid, minions.shouldKeep(mon), smncount, smnmax)
-				}
-			}	
+			
+			if ( a ) {
+				Events.emit( STATE_BLOCK, g.self, a );
+			} 
+			else {
+				for (let i =0;i<count;i++)
+				{
+					for (let smn of this.summon){
+						if ( smn[ TYP_PCT ] && !smn[ TYP_PCT ].roll() ) {
+							continue;
+						}
+						let smnid = smn.id
+						let smncount = smn.count || 1
+						let smnmax = smn.max || 0
+						let minions = g.getData('minions');
+						let mon = g.getData(smn.id)
+						g.create(smnid, minions.shouldKeep(mon), smncount, smnmax)
+					}
+				}	
+			}
 		}
 		if ( this.mod ) { g.applyMods( this.mod ); }
 
 		if ( this.lock ) g.lock( this.lock );
 		if ( this.dot ) {
-			let a
-			if(this.caststoppers) {
-				for (let b of this.caststoppers)
-					{
-						a = g.self.getCause(b);
-						if(a) break;
-					}
-				}
 			if ( a ) {
 				Events.emit( STATE_BLOCK, g.self, a );
 			} else {

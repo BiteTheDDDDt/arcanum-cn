@@ -216,7 +216,7 @@
 				"verb": "imbuing staff",
 				"only": "t_greatstaff",
 				"desc": "Cause your staff to restore health to yourself and your allies.",
-				"need": "g.evil<1",
+				"need": "g.evil<=0",
 				"require": "g.enchanting>=777",
 				"level": 8,
 				"buy": {
@@ -446,7 +446,7 @@
 						"targets": "ally",
 						"duration": 10,
 						"mod": {
-							"self.dmg": "25%"
+							"self.damage": "25%"
 						}
 					}
 				}

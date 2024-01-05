@@ -1,21 +1,23 @@
 import { precise } from "../../util/format";
 import { OPS } from "./atmod";
 import Mod from "./mod";
+import Stat from "../rvals/stat"
 
 /**
  * Regex for parsing RangedMod
  * modFlat - flat base modifier
  * modPct - percent-based modifier
- * minOp - Atmod-like greater than or gte check for min, which sets count to 0 if min isn't met. If left blank, sets count to min if count is lower than min.
- * min - Minimum count multiplier, inclusive. Leave blank for no minimum.
- * max - Maximum count multiplier, inclusive. Leave blank for no maximum.
+ * start - Starting point for count. If min exists, defaults to min. Otherwise, defaults to 0.
+ * minOp - Atmod-like greater than or gte check for min, which sets count to 0 if min isn't met. If left blank, sets count to start if count is lower than min.
+ * min - Minimum count range for mod application, inclusive. Leave blank for no minimum.
+ * max - Maximum count range for mod application, inclusive. Leave blank for no maximum.
  * mode - Toggles sectioning, meaning the difference between min and max is divided into (step + 1) of sections. 
  *        By default, goes from min (or 0 if min isnt defined) up to max by step amount.
- *        Min, max, and step must be defined for section to work properly.
+ *        Max and step must be defined for section to work properly.
  * rounding - Rounding method. + uses ceil, - uses floor, default is round. only used when step is defined.
- * step - the amount that count should be rounded to. if sectioning is true, step is instead the amount of sections plus one between min and max that count uses.
+ * step - the amount that count should be rounded to. If sectioning is true, step is instead the amount of sections plus one between min and max that count uses.
  */
-const RangedRegex = /(?<modFlat>[\+\-]?\d*(?:\.\d+)?(?![.%0-9]))?(?:(?<modPct>[\+\-]?\d*(?:\.\d+)?)\%)?\/(?:(?<minOp>>=?)?(?<min>[\+\-]?\d+(?:\.\d+)?))?\/(?<max>[\+\-]?\d+(?:\.\d+)?)?\/(?<mode>~)?(?<rounding>[\+\-])?(?<step>\d*(?:\.\d+)?)/;
+const RangedRegex = /^(?<modFlat>[\+\-]?\d*\.?\d+(?![.%0-9]))?(?:(?<modPct>[\+\-]?\d*\.?\d+)\%)?\/(?:(?<start>[\+\-]?\d*\.?\d+)?\/)?(?:(?<minOp>>=?)?(?<min>[\+\-]?\d*\.?\d+))?\/(?<max>[\+\-]?\d*\.?\d+)?\/(?:(?<mode>~)?(?<rounding>[\+\-])?(?<step>\d*\.?\d+))?$/;
 
 const roundingFunc = char => {
     switch (char) {
@@ -39,57 +41,44 @@ export default class RangedMod extends Mod {
     }
 
     toString() {
-        let str = (this.bonus !== 0 ?
-            precise(this.bonus.toString() * (this.estimateStep() || 1))
-            : '');
+        let str = this.strBonus(this.estimateStep());
 
+        if (!str) return "0";
 
-        if (this.pctTot !== 0) {
-
-            if (this.bonus !== 0) str += ' & ';
-            str += precise(100 * this.pctTot * (this.estimateStep() || 1)) + '%';
+        if (+this.step) {
+            str += ` per ${precise(this.estimateStep())} amount${this.roundingSym ? ` (rounded ${this.roundingSym === "+" ? "up" : "down"})`: ""}`;
         }
 
-        if (!str) str = '0';
-        if (!str) return str;
+        if (+this.min) {
+            // Uses strBonus(start) instead of adjustedbonus(min) to account for greater than comparison, which would cause adjustCount to always return 0
+            str += ` ${this.minOp ? "active" : "starting"} ${this.minOp === OPS.GT.value ? "past" : "at"} ${precise(this.min)} (resulting in ${this.strBonus(this.start)})`;
+        }
+        if (+this.max) {
+            str += ` up to ${precise(this.max)} (resulting in ${this.adjustedbonus(this.max)})`;
+        }
 
-        if (this.step) {
-            str += ` per ${precise(this.estimateStep()).toString().replace(/.*/, this.roundingSym ? (this.roundingSym === "+" ? "⌈$&⌉" : "⌊$&⌋") : "$&")}`;
-        }
-        if (this.min && !this.max) {
-            str += ` starting at ${this.minOp === OPS.GT.value ? "(" : ""}${this.adjustedbonus(this.min) ?? ""} total`;
-        }
-        if (!this.min && this.max) {
-            str += ` up to ${this.minOp === OPS.GT.value ? "(" : ""}${this.adjustedbonus(this.max) ?? ""} total`;
-        }
-        if (this.min && this.max) {
-            str += ` between ${this.minOp === OPS.GT.value ? "(" : "["}${this.adjustedbonus(this.min) ?? ""},${this.adjustedbonus(this.max) ?? ""}] total`;
-        }
-        if (this.min && !this.minOp) {
-            str += ` min ${this.min}`;
-        }
+        // Old compressed version of toString. Re-add if a setting for compressed tooltip is ever added.
+        // if (+this.step) {
+        //     str += ` per ${precise(this.estimateStep()).toString().replace(/.*/, this.roundingSym ? (this.roundingSym === "+" ? "⌈$&⌉" : "⌊$&⌋") : "$&")}`;
+        // }
+
+        // let minStr = `${precise(this.min)} (${this.strBonus(this.start)})`;
+        // let maxStr = `${precise(this.max)} (${this.adjustedbonus(this.max)})`
+
+        // if (+this.min && +this.max) {
+        //     str += ` between ${this.minOp === OPS.GT.value ? "(" : "["}${minStr},${maxStr}]`;
+        // } else if (+this.min) {
+        //     str += ` ${this.minOp ? "active" : "starting"} ${this.minOp === OPS.GT.value ? "past" : "at"} ${minStr}`;
+        // } else if (+this.max) {
+        //     str += " up to " + maxStr;
+        // }
 
         return str;
     }
 
     get count() {
         let count = +(this._count instanceof Function ? this._count() : super.count);
-        if (this.max != null && count >= this.max) {
-            return this.max;
-        } else if (this.min != null && count <= this.min) {
-            return !this.minOp || (this.minOp === OPS.GTE.value && this.min === count) ? this.min : 0
-        }
-
-        if (this.step) {
-            let rounding = roundingFunc(this.roundingSym);
-            if (this.section) {
-                return rounding((count - this.min) * this.step / this.range) * this.range / this.step + this.min;
-            }
-            let min = this.min || 0;
-            return rounding((count - min) / this.step) * this.step + min;
-        }
-
-        return count;
+        return this.adjustCount(count);
     }
     set count(v) {
         super.count = v;
@@ -100,10 +89,18 @@ export default class RangedMod extends Mod {
     }
 
     get str() {
-        return `${this.base || ""}${this.basePct > 0 && this.base && this.basePct ? "+" : ""}${this.basePct * 100 || ""}/${OPS[this.minOp] || ""}${this.min || ""}/${this.max || ""}/${this.section ? "~" : ""}${this.roundingSym || ""}${this.step}`;
+        let base = Stat.getBase(this.base), basePct = Stat.getBase(this.basePct);
+        return `${base || ""}${basePct > 0 && base ? "+" : ""}${basePct ? basePct * 100 + "%": ""}/${this._start != null ? Stat.getBase(this._start) + "/" : ""}${OPS[this.minOp] || ""}${Stat.getBase(this.min) || ""}/${Stat.getBase(this.max) || ""}/${this.section ? "~" : ""}${this.roundingSym || ""}${Stat.getBase(this.step)}`;
     }
     set str(v) {
         this.parseMod(v);
+    }
+
+    get start() {
+        return +(this._start ?? this.min);
+    }
+    set start(v) {
+        this._start = v;
     }
 
     constructor(vars, id, source) {
@@ -112,13 +109,15 @@ export default class RangedMod extends Mod {
         // Copy constructor
         if (vars instanceof RangedMod) {
             this.str = vars.str;
-            this.id = vars.id;
+            if(!this.id) {
+                this.id = vars.id;
+            }
             if (vars._count) {
                 this._count = vars._count;
-            } else {
+            }
+            if (!this.source && vars.source) {
                 this.source = vars.source;
             }
-            this.basePct = vars.basePct;
             return;
         }
 
@@ -133,7 +132,8 @@ export default class RangedMod extends Mod {
     }
 
     estimateStep() {
-        return this.section ? this.range / this.step : this.step;
+        if(!+this.step) return 1;
+        return this.section ? this.range / this.step : +this.step;
     }
 
     parseMod(str) {
@@ -151,8 +151,11 @@ export default class RangedMod extends Mod {
 
         this.base = +(res.modFlat || 0);
         this.basePct = +(res.modPct || 0) / 100;
+
         this.min = res.min == null || res.min === "" ? null : +res.min;
         this.max = res.max == null || res.max === "" ? null : +res.max;
+
+        if(res.start) this.start = res.start;
 
         this.minOp = !res.minOp ? null : typeof res.minOp === "number" ? res.minOp : OPS[res.minOp];
 
@@ -160,8 +163,8 @@ export default class RangedMod extends Mod {
         this.roundingSym = res.rounding;
         this.step = +(res.step || 0);
 
-        if (this.max == null || this.min == null) {
-            if (this.section && this.step) console.warn("RangedMod section mode was declared with non-zero step, but missing either min or max", this.min, this.max, this);
+        if (this.max == null) {
+            if (this.section && this.step) console.warn("RangedMod section mode was declared with non-zero step, but missing max", this.max, this);
             this.section = false;
         }
         if (this.max != null && this.min != null && this.max < this.min) {
@@ -179,6 +182,7 @@ export default class RangedMod extends Mod {
             modFlat: this.bonus,
             modPct: this.pctTot * 100,
             minOp: this.minOp,
+            start: this._start,
             min: +this.min,
             max: +this.max,
             mode: this.section,
@@ -193,38 +197,38 @@ export default class RangedMod extends Mod {
     }
 
     adjustedbonus(adjustment = 1) {
+        let adjustedcount = this.adjustCount(adjustment);
+        return this.strBonus(adjustedcount);
+    }
 
-        let adjustedcount = this.arbitrarycount(adjustment)
-        let s = (this.bonus !== 0 ?
-            precise(this.bonus.toString() * adjustedcount)
-            : '');
+    strBonus(count) {
+        let s = this.bonus ? precise(this.bonus * count) : "";
 
-
-        if (this.pctTot !== 0) {
-
-            if (this.bonus !== 0) s += ' & ';
-            s += precise(100 * this.pctTot * (this.estimateStep() || 1) * adjustedcount) + '%';
+        if (this.pctTot) {
+            if (this.bonus) s += " & ";
+            s += precise(100 * this.pctTot * count) + "%";
         }
+        
         return s
     }
 
-    arbitrarycount(count) {
-
+    adjustCount(count) {
         if (this.max != null && count >= this.max) {
-            return this.max;
+            count = this.range;
         } else if (this.min != null && count <= this.min) {
-            return !this.minOp || (this.minOp === OPS.GTE.value && this.min === count) ? this.min : 0
-        }
-
-        if (this.step) {
+            if (count < this.min || (this.minOp === OPS.GT.value && +this.min === count)) return 0;
+            count = 0;
+        } else if (this.step) {
             let rounding = roundingFunc(this.roundingSym);
-            if (this.section) {
-                return rounding((count - this.min) * this.step / this.range) * this.range / this.step + this.min;
-            }
             let min = this.min || 0;
-            return rounding((count - min) / this.step) * this.step + min;
+            let {range, step} = this;
+            if (this.section) {
+                count = rounding((count - min) * step / range) * range / step;
+            } else {
+                count = rounding((count - min) / step) * step;
+            }
         }
 
-        return count;
+        return count + this.start;
     }
 }

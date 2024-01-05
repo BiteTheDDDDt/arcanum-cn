@@ -656,7 +656,8 @@
 						"tohit":10,
 						"attack":{
 							"kind":"slash",
-							"dmg":"4~8"
+							"dmg":"4~8",
+							"potencies":["sworddmg"]
 						}
 					},
 					"jacklantern"

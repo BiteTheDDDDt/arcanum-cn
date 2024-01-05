@@ -26,7 +26,7 @@
 		"adj": "lucky",
 		"only": "ring",
 		"desc": "Infuse a ring with a mana gem.",
-		"require": "g.enchanting>=1",
+		"require": "g.enchanting>0",
 		"level": 1,
 		"buy": {
 			"arcana": 1,
@@ -49,7 +49,7 @@
 		"adj": "%i of %s",
 		"only": "ring",
 		"desc": "Infuse a ring with a mana gem.",
-		"require": "g.enchanting>=1",
+		"require": "g.enchanting>0",
 		"level": 1,
 		"buy": {
 			"arcana": 1,
@@ -71,7 +71,7 @@
 		"adj": "%i of %s",
 		"only": "ring",
 		"desc": "Link a ring with a mana source.",
-		"require": "g.enchanting>=1",
+		"require": "g.enchanting>0",
 		"level": 1,
 		"buy": {
 			"arcana": 1,
@@ -219,7 +219,7 @@
 			"mana": 5
 		},
 		"alter": {
-			"mod.speed": 0.5
+			"mod.speed": 2
 		}
 	},
 	{
@@ -228,7 +228,7 @@
 		"adj": "%i of fire",
 		"only": "ring",
 		"desc": "Increases your aptitude with fire",
-		"require": "g.enchanting>=1&&g.firelore>=7",
+		"require": "g.enchanting>0&&g.firelore>=7",
 		"level": 3,
 		"buy": {
 			"research": 300
@@ -249,7 +249,7 @@
 		"adj": "%i of water",
 		"only": "ring",
 		"desc": "Increases your aptitude with water",
-		"require": "g.enchanting>=1&&g.waterlore>=7",
+		"require": "g.enchanting>0&&g.waterlore>=7",
 		"level": 3,
 		"buy": {
 			"research": 300
@@ -270,7 +270,7 @@
 		"adj": "%i of earth",
 		"only": "ring",
 		"desc": "Increases your aptitude with earth",
-		"require": "g.enchanting>=1&&g.earthlore>=7",
+		"require": "g.enchanting>0&&g.earthlore>=7",
 		"level": 3,
 		"buy": {
 			"research": 300
@@ -291,7 +291,7 @@
 		"adj": "%i of air",
 		"only": "ring",
 		"desc": "Increases your aptitude with air",
-		"require": "g.enchanting>=1&&g.airlore>=7",
+		"require": "g.enchanting>0&&g.airlore>=7",
 		"level": 3,
 		"buy": {
 			"research": 300
@@ -462,7 +462,7 @@
 		"only": "head",
 		"adj": "%i of %s",
 		"desc": "An enchantment to aid the mind.",
-		"require": "g.en_clarity.owned>0&&g.enchanting>10",
+		"require": "g.en_clarity.owned>0&&g.enchanting>=11",
 		"level": 7,
 		"buy": {
 			"tomes": 5,
@@ -564,7 +564,7 @@
 			"mana": 12
 		},
 		"alter": {
-			"attack.tohit": 3
+			"attack.tohit": 2
 		}
 	},
 	{

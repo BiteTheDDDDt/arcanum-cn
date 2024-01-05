@@ -2,9 +2,6 @@ import GData from "./gdata";
 import Game from '../game';
 import { ENCOUNTER } from "../values/consts";
 
-const defaults = {
-	locked:false
-}
 
 /**
  * Sublocation of a Locale
@@ -17,12 +14,13 @@ export default class Encounter extends GData {
 
 			return {
 				value:this.value,
-				exp:this.exp
+				exp:this.exp,
+				locked: this.locked
 			}
 
 		} else {
 
-			return this.value > 0 ? { value:this.value } : undefined;
+			return (this.value > 0||this.require) ? { value:this.value, locked: this.locked} : undefined;
 		}
 
 	}
@@ -46,7 +44,7 @@ export default class Encounter extends GData {
 
 	constructor( vars=null, save=null ) {
 
-		super( vars, defaults );
+		super( vars);
 
 		if ( save ) Object.assign( this, save );
 
@@ -56,7 +54,7 @@ export default class Encounter extends GData {
 
 		if ( !this.level ) this.level = 1;
 		if ( !this.length ) this.length = 5*this.level;
-
+		if (this._locked != false) this.locked = this.require ? true : false;
 	}
 
 	update( dt ){

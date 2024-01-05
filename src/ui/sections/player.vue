@@ -181,7 +181,7 @@ export default {
 		<table class="hits">
 			<tr><th>Hit Bonus</th></tr>
 			<tr v-for="(r,k) in player.hits" :key="k">
-				<td v-if="r.valueOf()!==0">{{ k.toString().toTitleCase() }}: {{ r.valueOf() }}</td>
+				<td v-if="r.valueOf()!==0">{{ k.toString().toTitleCase() }}: {{ precise(r.valueOf()) }}</td>
 			</tr>
 		</table>
 		</div>

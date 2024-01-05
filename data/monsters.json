@@ -9,7 +9,7 @@
 		"attack": {
 			"name": "newting",
 			"kind": "squiggly",
-			"dmg": "1~2"
+			"damage": "1~2"
 		},
 		"biome": [
 			"swamp",
@@ -27,12 +27,11 @@
 		"kind": "beast",
 		"flavor": "Better leave it. They're endangered.",
 		"hp": 5,
-		"tohit": 3,
 		"defense": 2,
 		"attack": {
 			"name": "beak",
 			"type": "pierce",
-			"dmg": "1~4"
+			"damage": "1~4"
 		}
 	},
 	{
@@ -46,7 +45,7 @@
 		"attack": {
 			"name": "pecking",
 			"kind": "necrotic",
-			"dmg": "0.2~1"
+			"damage": "0.2~1"
 		},
 		"flavor": "How does it fly?"
 	},
@@ -60,7 +59,7 @@
 		"attack": {
 			"name": "shiver",
 			"kind": "spirit",
-			"dmg": "0.2~1",
+			"damage": "0.2~1",
 			"dot": {
 				"%": "20%",
 				"adj": "shivering",
@@ -81,16 +80,16 @@
 		"attack": {
 			"name": "claws",
 			"kind": "slash",
-			"dmg": 1
+			"damage": 1
 		},
 		"loot": [
 			{
-				"%": 20,
+				"%": "20%",
 				"maxlevel": 1,
 				"id": "d_dagger"
 			},
 			{
-				"%": 10,
+				"%": "10%",
 				"maxlevel": 1,
 				"id": "d_gloves"
 			}
@@ -106,30 +105,29 @@
 		"desc": "Tiny vicious humanoid riding a dragonfly.",
 		"hp": "3~5",
 		"defense": 1,
-		"tohit": 2,
 		"speed": 1,
 		"spells": "guidestr",
 		"attack": {
 			"name": "spear",
 			"kind": "slash",
-			"dmg": "0.5~1.5"
+			"damage": "0.5~1.5"
 		},
 		"loot": [
 			{
 				"scrolls": "80%"
 			},
 			{
-				"%": 20,
+				"%": "20%",
 				"maxlevel": 1,
 				"id": "d_spear"
 			},
 			{
-				"%": 5,
+				"%": "5%",
 				"maxlevel": 1,
 				"id": "d_gloves"
 			},
 			{
-				"%": 5,
+				"%": "5%",
 				"maxlevel": 1,
 				"id": "d_cap"
 			}
@@ -145,16 +143,15 @@
 			"woods"
 		],
 		"hp": 3,
-		"tohit": 3,
 		"defense": 1,
 		"attack": {
 			"name": "bite",
 			"kind": "pierce",
-			"dmg": "1~2"
+			"damage": "1~2"
 		},
 		"loot": [
 			{
-				"%": 10,
+				"%": "10%",
 				"maxlevel": 1,
 				"id": "d_sash"
 			}
@@ -169,17 +166,16 @@
 		"kind": "beast",
 		"level": 1,
 		"hp": 4,
-		"tohit": 2,
 		"defense": 2,
 		"attack": {
 			"name": "nibble",
 			"kind": "pierce",
-			"dmg": "0.2~0.7",
+			"damage": "0.2~0.7",
 			"leech": 0.2
 		},
 		"loot": [
 			{
-				"%": 5,
+				"%": "5%",
 				"maxlevel": 1,
 				"id": "d_boots"
 			}
@@ -191,13 +187,12 @@
 		"kind": "beast",
 		"level": 1,
 		"hp": 2,
-		"tohit": 4,
 		"defense": 2,
 		"speed": 3,
 		"attack": {
 			"name": "sting",
 			"kind": "poison",
-			"dmg": "0.5~1.5"
+			"damage": "0.5~1.5"
 		},
 		"loot": {
 			"maxlevel": 1
@@ -209,12 +204,11 @@
 		"kind": "natural",
 		"level": 0,
 		"hp": 5,
-		"tohit": 0,
 		"defense": 2,
 		"damage": 0,
 		"speed": -20,
 		"loot": {
-			"%": 80,
+			"%": "80%",
 			"maxlevel": 1
 		},
 		"resist": {
@@ -229,7 +223,6 @@
 		"kind": "humanoid",
 		"hp": "3~6",
 		"defense": 4,
-		"tohit": 2,
 		"spells": "magicmissile",
 		"attack": {
 			"dot": {
@@ -252,12 +245,12 @@
 				"scrolls": 1
 			},
 			{
-				"%": 15,
+				"%": "15%",
 				"maxlevel": 1,
 				"id": "d_boots"
 			},
 			{
-				"%": 35,
+				"%": "35%",
 				"botanical_kit": 1
 			}
 		]
@@ -272,7 +265,7 @@
 		"damage": 0,
 		"speed": -20,
 		"loot": {
-			"%": 30,
+			"%": "30%",
 			"maxlevel": 2
 		}
 	},
@@ -282,13 +275,12 @@
 		"kind": "construct",
 		"desc": "Must have escaped its jar.",
 		"hp": 10,
-		"tohit": 1,
 		"defense": 5,
 		"spells": "copperskin",
 		"attack": {
 			"name": "nasty bite",
 			"kind": "pierce",
-			"dmg": "0~2"
+			"damage": "0~2"
 		},
 		"resist": {
 			"mana": 50
@@ -300,12 +292,11 @@
 		"kind": "beast",
 		"desc": "They're tricksy.",
 		"hp": 11,
-		"tohit": 2,
 		"defense": 8,
 		"attack": {
 			"name": "bite",
 			"kind": "pierce",
-			"dmg": "1~3"
+			"damage": "1~3"
 		},
 		"biome": "plains"
 	},
@@ -315,12 +306,11 @@
 		"kind": "beast",
 		"level": 2,
 		"hp": 14,
-		"tohit": 1,
 		"defense": 4,
 		"attack": {
 			"name": "slime",
 			"kind": "nature",
-			"dmg": "1~3",
+			"damage": "1~3",
 			"dot": {
 				"id": "disgust",
 				"duration": 3
@@ -340,12 +330,11 @@
 		"kind": "beast",
 		"level": 2,
 		"hp": 10,
-		"tohit": 2,
 		"defense": 2,
 		"attack": {
 			"name": "bite",
 			"kind": "pierce",
-			"dmg": "0~2.5"
+			"damage": "0~2.5"
 		},
 		"resist": {
 			"poison": 75
@@ -357,13 +346,12 @@
 		"kind": "beast",
 		"level": 2,
 		"hp": 2,
-		"tohit": 4,
 		"defense": 1,
 		"speed": 3,
 		"attack": {
 			"name": "peck",
 			"kind": "pierce",
-			"dmg": "0~2"
+			"damage": "0~2"
 		},
 		"loot": {
 			"airgem": "0.1%"
@@ -378,14 +366,13 @@
 		"kind": "beast",
 		"level": 2,
 		"hp": 5,
-		"tohit": 2,
 		"defense": 2,
 		"attack": {
 			"dot": {
 				"name": "venom",
 				"duration": 3,
 				"kind": "poison",
-				"dmg": "0.2~0.5"
+				"damage": "0.2~0.5"
 			}
 		},
 		"resist": {
@@ -402,12 +389,11 @@
 		"kind": "undead",
 		"level": 1,
 		"hp": 3,
-		"tohit": 3,
 		"defense": 1,
 		"attack": {
 			"name": "bite",
 			"kind": "pierce",
-			"dmg": "0~2"
+			"damage": "0~2"
 		},
 		"loot": {
 			"bones": 1
@@ -420,12 +406,11 @@
 		"level": 2,
 		"hp": 3,
 		"speed": 4,
-		"tohit": 4,
 		"defense": 3,
 		"attack": {
 			"kind": "pierce",
 			"name": "peck",
-			"dmg": "1~2"
+			"damage": "1~2"
 		},
 		"flavor": "Like a writing desk."
 	},
@@ -440,7 +425,7 @@
 		"attack": {
 			"name": "wombatting",
 			"kind": "blunt",
-			"dmg": "1~4"
+			"damage": "1~4"
 		}
 	},
 	{
@@ -449,12 +434,11 @@
 		"kind": "beast",
 		"level": 3,
 		"hp": 4,
-		"tohit": 2,
 		"defense": 2,
 		"attack": {
 			"name": "claws",
 			"kind": "slash",
-			"dmg": "2~3"
+			"damage": "2~3"
 		}
 	},
 	{
@@ -463,19 +447,18 @@
 		"kind": "beast",
 		"level": 3,
 		"hp": 3,
-		"tohit": 5,
 		"defense": 2,
 		"attack": {
 			"name": "claws",
 			"kind": "slash",
-			"dmg": "2.2~4.2"
+			"damage": "2.2~4.2"
 		},
 		"loot": [
 			{
 				"feather": "1~5"
 			},
 			{
-				"%": 20,
+				"%": "20%",
 				"maxlevel": 3,
 				"id": "d_loop"
 			}
@@ -493,7 +476,7 @@
 		"speed": 4,
 		"attack": {
 			"name": "flicker",
-			"dmg": "1~2",
+			"damage": "1~2",
 			"kind": "light"
 		},
 		"immune": "light,fire,spirit"
@@ -504,11 +487,10 @@
 		"kind": "beast",
 		"level": 3,
 		"hp": 7,
-		"tohit": 2,
 		"defense": 4,
 		"attack": {
 			"name": "bite",
-			"dmg": "1~4",
+			"damage": "1~4",
 			"kind": "pierce"
 		}
 	},
@@ -518,11 +500,10 @@
 		"kind": "magicbeast",
 		"level": 3,
 		"hp": 4,
-		"tohit": 3,
 		"defense": 3,
 		"attack": {
 			"name": "bite",
-			"dmg": "2~4",
+			"damage": "2~4",
 			"kind": "pierce"
 		}
 	},
@@ -532,11 +513,10 @@
 		"level": 3,
 		"desc": "It appears to be missing all its fleshy bits.",
 		"hp": 4,
-		"tohit": 5,
 		"defense": 3,
 		"attack": {
 			"name": "slash",
-			"dmg": "1~4",
+			"damage": "1~4",
 			"kind": "slash"
 		},
 		"resist": {
@@ -547,7 +527,7 @@
 				"bones": "2~5"
 			},
 			{
-				"%": 25,
+				"%": "25%",
 				"maxlevel": 3,
 				"id": "d_shortsword"
 			}
@@ -560,11 +540,10 @@
 		"kind": "arcane",
 		"level": 3,
 		"hp": 4,
-		"tohit": 2,
 		"defense": 5,
 		"attack": {
 			"name": "psychic blast",
-			"dmg": "1~2",
+			"damage": "1~2",
 			"kind": "mana"
 		},
 		"resist": {
@@ -578,12 +557,11 @@
 		"kind": "magicbeast",
 		"level": 3,
 		"hp": 8,
-		"tohit": 2,
 		"regen": 0.5,
 		"defense": 4,
 		"attack": {
 			"name": "kingly bite",
-			"dmg": "1~3",
+			"damage": "1~3",
 			"kind": "pierce"
 		}
 	},
@@ -597,7 +575,7 @@
 		"defense": 7,
 		"attack": {
 			"name": "charge",
-			"dmg": "3~5",
+			"damage": "3~5",
 			"kind": "blunt"
 		},
 		"immune": "light"
@@ -610,17 +588,17 @@
 		"defense": 5,
 		"attack": {
 			"name": "dagger",
-			"dmg": "1~2",
+			"damage": "1~2",
 			"kind": "pierce"
 		},
 		"loot": [
 			{
-				"%": 20,
+				"%": "20%",
 				"maxlevel": 2,
 				"id": "d_dagger"
 			},
 			{
-				"%": 20,
+				"%": "20%",
 				"maxlevel": 2,
 				"id": "d_cap"
 			}
@@ -632,21 +610,20 @@
 		"kind": "humanoid",
 		"level": 3,
 		"hp": 8,
-		"tohit": 5,
 		"defense": 7,
 		"attack": {
 			"name": "shortsword",
-			"dmg": "2~3",
+			"damage": "2~3",
 			"kind": "pierce"
 		},
 		"loot": [
 			{
-				"%": 20,
+				"%": "20%",
 				"maxlevel": 3,
 				"id": "d_shortsword"
 			},
 			{
-				"%": 20,
+				"%": "20%",
 				"maxlevel": 3,
 				"id": "d_cap"
 			}
@@ -657,22 +634,21 @@
 		"kind": "humanoid",
 		"level": 4,
 		"hp": 5,
-		"tohit": 5,
 		"spells": "heal1",
 		"defense": 5,
 		"attack": {
 			"name": "club",
-			"dmg": "2~4",
+			"damage": "2~4",
 			"kind": "blunt"
 		},
 		"loot": [
 			{
-				"%": 10,
+				"%": "10%",
 				"maxlevel": 4,
 				"id": "d_club"
 			},
 			{
-				"%": 15,
+				"%": "15%",
 				"maxlevel": 4,
 				"id": "d_mace"
 			}
@@ -683,20 +659,19 @@
 		"kind": "humanoid",
 		"level": 5,
 		"hp": 11,
-		"tohit": 6,
 		"defense": 13,
 		"attack": {
-			"dmg": "3~5",
+			"damage": "3~5",
 			"kind": "slash"
 		},
 		"loot": [
 			{
-				"%": 20,
+				"%": "20%",
 				"maxlevel": 5,
 				"id": "d_cap"
 			},
 			{
-				"%": 10,
+				"%": "10%",
 				"maxlevel": 5,
 				"id": "d_boots"
 			}
@@ -707,20 +682,19 @@
 		"kind": "humanoid",
 		"level": 6,
 		"hp": 14,
-		"tohit": 7,
 		"defense": 16,
 		"attack": {
-			"dmg": "4~7",
+			"damage": "4~7",
 			"kind": "slash"
 		},
 		"loot": [
 			{
-				"%": 20,
+				"%": "20%",
 				"maxlevel": 6,
 				"id": "d_cap"
 			},
 			{
-				"%": 10,
+				"%": "10%",
 				"maxlevel": 6,
 				"id": "d_boots"
 			}
@@ -731,21 +705,20 @@
 		"kind": "humanoid",
 		"level": 7,
 		"hp": 18,
-		"tohit": 8,
 		"defense": 23,
 		"attack": {
 			"name": "magic missle",
-			"dmg": "5~9",
+			"damage": "5~9",
 			"kind": "mana"
 		},
 		"loot": [
 			{
-				"%": 20,
+				"%": "20%",
 				"maxlevel": 7,
 				"id": "d_cap"
 			},
 			{
-				"%": 10,
+				"%": "10%",
 				"maxlevel": 7,
 				"id": "d_boots"
 			},
@@ -760,11 +733,10 @@
 		"kind": "magicbeast",
 		"level": 6,
 		"hp": 15,
-		"tohit": 7,
 		"defense": 4,
 		"attack": {
 			"name": "bite",
-			"dmg": "7~9",
+			"damage": "7~9",
 			"kind": "pierce"
 		}
 	},
@@ -774,17 +746,16 @@
 		"kind": "beast",
 		"level": 5,
 		"hp": 9,
-		"tohit": 5,
 		"defense": 5,
 		"attack": {
 			"name": "bite",
 			"kind": "pierce",
-			"dmg": "4~7",
+			"damage": "4~7",
 			"dot": [
 				{
 					"kind": "poison",
 					"name": "venom",
-					"dmg": "1~3",
+					"damage": "1~3",
 					"duration": 5
 				},
 				{
@@ -805,7 +776,7 @@
 		"attack": {
 			"name": "pointy stick",
 			"kind": "pierce",
-			"dmg": "1~4"
+			"damage": "1~4"
 		},
 		"biome": [
 			"mountains",
@@ -823,11 +794,10 @@
 		"desc": "For the Horde!",
 		"hp": 14,
 		"defense": 8,
-		"tohit": 3,
 		"attack": {
 			"name": "spear",
 			"kind": "pierce",
-			"dmg": "3~6"
+			"damage": "3~6"
 		},
 		"loot": {
 			"gold": "2~4"
@@ -839,19 +809,18 @@
 		"kind": "humanoid",
 		"level": 6,
 		"hp": 14,
-		"tohit": 5,
 		"defense": 5,
 		"spells": "heal1",
 		"attack": [
 			{
 				"name": "curse",
 				"kind": "shadow",
-				"dmg": "4~8"
+				"damage": "4~8"
 			},
 			{
 				"dot": {
 					"id": "silence",
-					"duration": 25
+					"duration": 5
 				}
 			}
 		],
@@ -866,12 +835,11 @@
 		"kind": "humanoid",
 		"desc": "The strongest orc in the whole tribe.",
 		"hp": 80,
-		"tohit": 8,
 		"defense": 30,
 		"attack": {
 			"name": "broadsword",
 			"kind": "slash",
-			"dmg": "12~17"
+			"damage": "12~17"
 		}
 	},
 	{
@@ -881,12 +849,11 @@
 		"evil": 8,
 		"desc": "Slow and rotting corpse.",
 		"hp": 4,
-		"tohit": -1,
 		"defense": 4,
 		"attack": {
 			"name": "smash",
 			"kind": "blunt",
-			"dmg": "3~8"
+			"damage": "3~8"
 		},
 		"resist": {
 			"shadow": 15
@@ -899,13 +866,12 @@
 		"id": "vulture",
 		"kind": "beast",
 		"level": 3,
-		"tohit": 7,
 		"defense": 1,
 		"speed": 5,
 		"attack": {
 			"name": "peck",
 			"kind": "pierce",
-			"dmg": "4~8"
+			"damage": "4~8"
 		},
 		"resist": {
 			"air": 20
@@ -919,22 +885,21 @@
 		"desc": "Wants to steal your stuff.",
 		"hp": 7,
 		"defense": 7,
-		"tohit": 4,
 		"speed": 6,
 		"attack": {
 			"name": "dagger",
 			"kind": "pierce",
-			"dmg": "2~5"
+			"damage": "2~5"
 		},
 		"biome": "town",
 		"loot": [
 			{
-				"%": 10,
+				"%": "10%",
 				"maxlevel": 4,
 				"id": "d_dagger"
 			},
 			{
-				"%": 5,
+				"%": "5%",
 				"maxlevel": 4,
 				"id": "d_cloak"
 			},
@@ -950,13 +915,12 @@
 		"evil": -1,
 		"desc": "So lithe. So graceful.",
 		"hp": 8,
-		"tohit": 1,
 		"defense": 10,
 		"attack": [
 			{
 				"name": "bow",
 				"kind": "pierce",
-				"dmg": "1~6"
+				"damage": "1~6"
 			},
 			{
 				"dot": {
@@ -967,17 +931,17 @@
 		],
 		"loot": [
 			{
-				"%": 10,
+				"%": "10%",
 				"maxlevel": 4,
 				"id": "d_ring"
 			},
 			{
-				"%": 10,
+				"%": "10%",
 				"maxlevel": 4,
 				"id": "d_cloak"
 			},
 			{
-				"%": 10,
+				"%": "10%",
 				"maxlevel": 4,
 				"id": "d_belt"
 			}
@@ -995,12 +959,11 @@
 		"evil": -1,
 		"flavor": "How much damage could he do with just a sling?",
 		"hp": 7,
-		"tohit": 8,
 		"defense": 5,
 		"attack": {
 			"name": "sling",
 			"kind": "blunt",
-			"dmg": "2~5"
+			"damage": "2~5"
 		}
 	},
 	{
@@ -1011,12 +974,11 @@
 		"evil": 5,
 		"desc": "That's one large bat.",
 		"hp": 8,
-		"tohit": 5,
 		"defense": 10,
 		"attack": {
 			"name": "bite",
 			"kind": "pierce",
-			"dmg": "3~7",
+			"damage": "3~7",
 			"leech": 0.1
 		}
 	},
@@ -1028,12 +990,11 @@
 		"evil": 5,
 		"desc": "Red eyes... that's different.",
 		"hp": 11,
-		"tohit": 3,
 		"defense": 9,
 		"attack": {
 			"name": "bite",
 			"kind": "pierce",
-			"dmg": "1~6"
+			"damage": "1~6"
 		}
 	},
 	{
@@ -1043,12 +1004,11 @@
 		"biome": "swamp",
 		"desc": "So wriggly.",
 		"hp": 3,
-		"tohit": 3,
 		"defense": 12,
 		"attack": {
 			"name": "bite",
 			"kind": "pierce",
-			"dmg": "1~4"
+			"damage": "1~4"
 		},
 		"resist": {
 			"water": 15
@@ -1061,13 +1021,12 @@
 		"biome": "swamp",
 		"desc": "It's bitey.",
 		"hp": 4,
-		"tohit": 5,
 		"speed": 7,
 		"defense": 15,
 		"attack": {
 			"name": "bite",
 			"kind": "pierce",
-			"dmg": "2~4"
+			"damage": "2~4"
 		},
 		"resist": {
 			"water": 25
@@ -1080,15 +1039,14 @@
 		"biome": "swamp",
 		"desc": "Don't touch.",
 		"hp": 4,
-		"tohit": 5,
 		"speed": 5,
 		"defense": 15,
 		"attack": {
 			"name": "sting",
 			"kind": "poison",
-			"dmg": "1~3",
+			"damage": "1~3",
 			"dot": {
-				"dmg": "1~2",
+				"damage": "1~2",
 				"duration": 3
 			}
 		},
@@ -1108,7 +1066,7 @@
 		"attack": {
 			"name": "frozen claws",
 			"kind": "cold",
-			"dmg": "3~6"
+			"damage": "3~6"
 		},
 		"immune": "water"
 	},
@@ -1124,7 +1082,7 @@
 		"attack": {
 			"name": "longbow",
 			"kind": "pierce",
-			"dmg": "3~6"
+			"damage": "3~6"
 		},
 		"resist": {
 			"nature": 20
@@ -1139,13 +1097,12 @@
 		"evil": -1,
 		"hp": 80,
 		"speed": 15,
-		"tohit": 15,
 		"defense": 70,
 		"attack": [
 			{
 				"name": "bow",
 				"kind": "pierce",
-				"dmg": "1~6"
+				"damage": "1~6"
 			},
 			{
 				"dot": {
@@ -1168,7 +1125,7 @@
 		"attack": {
 			"name": "grandbow",
 			"kind": "pierce",
-			"dmg": "10~20"
+			"damage": "10~20"
 		},
 		"resist": {
 			"nature": 25
@@ -1188,7 +1145,7 @@
 		"attack": {
 			"name": "greatbow",
 			"kind": "pierce",
-			"dmg": "10~15"
+			"damage": "10~15"
 		},
 		"resist": {
 			"nature": 30
@@ -1209,7 +1166,7 @@
 		"attack": {
 			"name": "greatbow",
 			"kind": "pierce",
-			"dmg": "10~15"
+			"damage": "10~15"
 		},
 		"resist": {
 			"nature": 50
@@ -1222,12 +1179,11 @@
 		"kind": "undead",
 		"desc": "One isn't too bad. 100 can be a problem.",
 		"hp": 14,
-		"tohit": 2,
 		"defense": 5,
 		"attack": {
 			"name": "axe",
 			"kind": "slash",
-			"dmg": "5~9"
+			"damage": "5~9"
 		}
 	},
 	{
@@ -1238,11 +1194,10 @@
 		"desc": "Wants to steal your stuff.",
 		"hp": 12,
 		"defense": 15,
-		"tohit": 6,
 		"attack": {
 			"name": "short sword",
 			"kind": "slash",
-			"dmg": "4~7"
+			"damage": "4~7"
 		},
 		"loot": {
 			"gold": "4~8",
@@ -1257,14 +1212,13 @@
 		"biome": "sea",
 		"desc": "So wriggly.",
 		"hp": 5,
-		"tohit": 3,
 		"defense": 15,
 		"speed": 7,
 		"attack": {
 			"name": "zap",
 			"kind": "pierce",
 			"targets": "enemies",
-			"dmg": "2~4"
+			"damage": "2~4"
 		},
 		"resist": {
 			"light": 20,
@@ -1280,11 +1234,10 @@
 		"desc": "",
 		"hp": 17,
 		"defense": 15,
-		"tohit": 6,
 		"attack": {
 			"name": "orc hammer",
 			"kind": "blunt",
-			"dmg": "2~7"
+			"damage": "2~7"
 		}
 	},
 	{
@@ -1295,11 +1248,10 @@
 		"evil": 7,
 		"hp": 15,
 		"defense": 17,
-		"tohit": 2,
 		"attack": {
 			"name": "dagger",
 			"kind": "pierce",
-			"dmg": "1~5"
+			"damage": "1~5"
 		}
 	},
 	{
@@ -1312,19 +1264,18 @@
 		"hp": 50,
 		"regen": 2,
 		"defense": 20,
-		"tohit": 9,
 		"attack": [
 			{
 				"name": "constrict",
 				"kind": "blunt",
-				"dmg": "6~14"
+				"damage": "6~14"
 			},
 			{
 				"name": "venom",
 				"dot": {
 					"duration": 7,
 					"kind": "poison",
-					"dmg": "0.5~1.2"
+					"damage": "0.5~1.2"
 				}
 			}
 		],
@@ -1339,13 +1290,12 @@
 		"biome": "sea",
 		"desc": "It's bitey.",
 		"hp": 12,
-		"tohit": 7,
 		"speed": 6,
 		"defense": 18,
 		"attack": {
 			"name": "bite",
 			"kind": "pierce",
-			"dmg": "3~5"
+			"damage": "3~5"
 		},
 		"resist": {
 			"water": 15
@@ -1362,9 +1312,9 @@
 		"attack": {
 			"name": "sting",
 			"kind": "pierce",
-			"dmg": "5~8",
+			"damage": "5~8",
 			"dot": {
-				"dmg": "1~3",
+				"damage": "1~3",
 				"kind": "venom",
 				"duration": 3
 			}
@@ -1380,7 +1330,7 @@
 		"attack": {
 			"name": "bite",
 			"kind": "pierce",
-			"dmg": "2~5"
+			"damage": "2~5"
 		}
 	},
 	{
@@ -1393,7 +1343,7 @@
 			"name": "suck",
 			"kind": "pierce",
 			"leech": 0.5,
-			"dmg": "1~3"
+			"damage": "1~3"
 		}
 	},
 	{
@@ -1407,7 +1357,7 @@
 			"name": "squelch",
 			"kind": "acid",
 			"targets": "enemies",
-			"dmg": "2~4"
+			"damage": "2~4"
 		}
 	},
 	{
@@ -1417,12 +1367,11 @@
 		"kind": "undead",
 		"desc": "",
 		"hp": 13,
-		"tohit": 2,
 		"defense": 14,
 		"attack": {
 			"name": "bite",
 			"kind": "physical",
-			"dmg": "2~3",
+			"damage": "2~3",
 			"dot": {
 				"id": "sick",
 				"duration": 10
@@ -1444,11 +1393,10 @@
 		"desc": "Wants to steal your stuff.",
 		"hp": 23,
 		"defense": 17,
-		"tohit": 8,
 		"attack": {
 			"name": "short sword",
 			"kind": "slash",
-			"dmg": "5~9"
+			"damage": "5~9"
 		},
 		"loot": {
 			"maxlevel": 5,
@@ -1462,13 +1410,12 @@
 		"evil": 8,
 		"desc": "",
 		"hp": 21,
-		"tohit": 2,
 		"defense": 18,
 		"regen": 1,
 		"attack": {
 			"name": "claws",
 			"kind": "slash",
-			"dmg": "3~6",
+			"damage": "3~6",
 			"dot": {
 				"id": "sick",
 				"duration": 15
@@ -1485,13 +1432,12 @@
 		"kind": "construct",
 		"evil": 0,
 		"desc": "Durable, but not very good at its job.",
-		"tohit": 6,
 		"hp": 22,
 		"defense": 28,
 		"attack": {
 			"name": "short sword",
 			"kind": "slash",
-			"dmg": "3~7"
+			"damage": "3~7"
 		},
 		"immune": "spirit"
 	},
@@ -1502,13 +1448,12 @@
 		"level": 5,
 		"kind": "beast",
 		"hp": 12,
-		"tohit": 3,
 		"defense": 25,
 		"desc": "A massive scuttling crab",
 		"attack": {
 			"name": "claws",
 			"kind": "pierce",
-			"dmg": "5~8"
+			"damage": "5~8"
 		},
 		"resist": {
 			"water": 15,
@@ -1522,12 +1467,11 @@
 		"kind": "beast",
 		"flavor": "They're wild!",
 		"hp": 14,
-		"tohit": 3,
 		"defense": 20,
 		"attack": {
 			"name": "bite",
 			"kind": "pierce",
-			"dmg": "4~7"
+			"damage": "4~7"
 		},
 		"resist": {
 			"water": 15,
@@ -1546,7 +1490,7 @@
 		"attack": {
 			"name": "claws",
 			"kind": "cold",
-			"dmg": "4~7"
+			"damage": "4~7"
 		},
 		"resist": {
 			"cold": 20,
@@ -1563,7 +1507,7 @@
 		"attack": {
 			"name": "mallet",
 			"kind": "blunt",
-			"dmg": "7~11"
+			"damage": "7~11"
 		}
 	},
 	{
@@ -1572,14 +1516,13 @@
 		"kind": "humanoid",
 		"evil": 5,
 		"desc": "",
-		"tohit": 7,
 		"hp": 22,
 		"regen": 1.5,
 		"defense": 25,
 		"attack": {
 			"name": "claws",
 			"kind": "slash",
-			"dmg": "3~6"
+			"damage": "3~6"
 		}
 	},
 	{
@@ -1593,7 +1536,7 @@
 		"attack": {
 			"name": "claws",
 			"kind": "slash",
-			"dmg": "7~10"
+			"damage": "7~10"
 		}
 	},
 	{
@@ -1602,14 +1545,13 @@
 		"kind": "humanoid",
 		"evil": 13,
 		"desc": "She doesn't look harpy to see you.",
-		"tohit": 9,
 		"hp": 17,
 		"defense": 22,
 		"spells": "whirl3",
 		"attack": {
 			"name": "claws",
 			"kind": "slash",
-			"dmg": "4~7"
+			"damage": "4~7"
 		}
 	},
 	{
@@ -1619,13 +1561,12 @@
 		"kind": "humanoid",
 		"evil": -2,
 		"desc": "This monk has had a bit too much to drink...",
-		"tohit": 7,
 		"hp": 15,
 		"defense": 29,
 		"attack": {
 			"name": "fists",
 			"kind": "blunt",
-			"dmg": "4~8"
+			"damage": "4~8"
 		},
 		"loot": {
 			"whiskey": 10
@@ -1645,12 +1586,12 @@
 			{
 				"name": "claws",
 				"kind": "slash",
-				"dmg": "4~7"
+				"damage": "4~7"
 			},
 			{
 				"dot": {
 					"id": "silence",
-					"duration": 15
+					"duration": 5
 				}
 			}
 		],
@@ -1673,11 +1614,11 @@
 		"attack": {
 			"name": "bite",
 			"kind": "pierce",
-			"dmg": "4~9",
+			"damage": "4~9",
 			"dot": {
 				"kind": "venom",
 				"name": "poison",
-				"dmg": "1~2",
+				"damage": "1~2",
 				"duration": 3
 			}
 		},
@@ -1698,13 +1639,12 @@
 		"evil": 5,
 		"desc": "It vants to zuck your blood.",
 		"hp": 12,
-		"tohit": 2,
 		"defense": 25,
 		"attack": {
 			"name": "bite",
 			"kind": "pierce",
 			"leech": 0.2,
-			"dmg": "5~7"
+			"damage": "5~7"
 		}
 	},
 	{
@@ -1715,12 +1655,11 @@
 		"desc": "Oversized parasites of the dunes",
 		"hp": 16,
 		"speed": 7,
-		"tohit": 7,
 		"spells": "tremor",
 		"attack": {
 			"name": "burrow",
 			"kind": "pierce",
-			"dmg": "7~14"
+			"damage": "7~14"
 		},
 		"resist": {
 			"light": 50
@@ -1731,12 +1670,11 @@
 		"level": 5,
 		"kind": "humanoid",
 		"desc": "An intelligent scavenger with the features of a vulture.",
-		"tohit": 9,
 		"hp": 25,
 		"attack": {
 			"name": "talons",
 			"kind": "slash",
-			"dmg": "7~12"
+			"damage": "7~12"
 		},
 		"flavor": "Vrrek is what most of their words sound like"
 	},
@@ -1754,7 +1692,7 @@
 			"targets": "enemies",
 			"name": "light burst",
 			"kind": "light",
-			"dmg": "3~7"
+			"damage": "3~7"
 		},
 		"flavor": "It is said they feed on darkness."
 	},
@@ -1766,12 +1704,11 @@
 		"evil": 7,
 		"desc": "",
 		"hp": 17,
-		"tohit": 7,
 		"defense": 20,
 		"attack": {
 			"name": "bite",
 			"kind": "pierce",
-			"dmg": "3~6"
+			"damage": "3~6"
 		}
 	},
 	{
@@ -1781,13 +1718,12 @@
 		"kind": "undead",
 		"evil": 12,
 		"hp": 18,
-		"tohit": 5,
 		"defense": 22,
 		"regen": 1,
 		"attack": {
 			"name": "claws",
 			"kind": "slash",
-			"dmg": "3~9"
+			"damage": "3~9"
 		},
 		"resist": {
 			"shadow": 15
@@ -1800,12 +1736,11 @@
 		"desc": "Such a good-looking fellow!",
 		"kind": "humanoid",
 		"hp": 37,
-		"tohit": 8,
 		"defense": 32,
 		"attack": {
 			"name": "slam",
 			"kind": "blunt",
-			"dmg": "3~8"
+			"damage": "3~8"
 		},
 		"resist": {
 			"mana": 15
@@ -1818,12 +1753,11 @@
 		"evil": 5,
 		"flavor": "Boo!",
 		"hp": 20,
-		"tohit": 7,
 		"defense": 30,
 		"attack": {
 			"name": "death touch",
 			"kind": "drain",
-			"dmg": "3~9",
+			"damage": "3~9",
 			"dot": {
 				"id": "fear",
 				"duration": 10
@@ -1832,7 +1766,7 @@
 		"resist": {
 			"spirit": 20
 		},
-		"immune": "physical"
+		"immune": "physical,blunt,slash,pierce"
 	},
 	{
 		"id": "salamander",
@@ -1840,17 +1774,16 @@
 		"desc": "",
 		"kind": "magicbeast",
 		"hp": 34,
-		"tohit": 5,
 		"defense": 23,
 		"spells": "firebolt",
 		"attack": {
 			"name": "flame claws",
 			"kind": "fire",
-			"dmg": "3~9",
+			"damage": "3~9",
 			"dot": {
 				"kind": "fire",
 				"name": "burning",
-				"dmg": "1~3",
+				"damage": "1~3",
 				"duration": 3
 			}
 		},
@@ -1866,11 +1799,10 @@
 		"desc": "",
 		"hp": 25,
 		"defense": 20,
-		"tohit": 7,
 		"attack": {
 			"name": "constrict",
 			"kind": "blunt",
-			"dmg": "8~17"
+			"damage": "8~17"
 		},
 		"resist": {
 			"poison": 20
@@ -1883,11 +1815,10 @@
 		"hp": 43,
 		"defense": 25,
 		"kind": "humanoid",
-		"tohit": 2,
 		"attack": {
 			"name": "mace",
 			"kind": "blunt",
-			"dmg": "5~12"
+			"damage": "5~12"
 		}
 	},
 	{
@@ -1898,13 +1829,12 @@
 		"desc": "He worships evil.",
 		"hp": 45,
 		"defense": 32,
-		"tohit": 5,
 		"spells": "blast,heal1",
 		"attack": {
 			"name": "harm",
 			"kind": "evil",
 			"dot": {
-				"dmg": "5~8",
+				"damage": "5~8",
 				"duration": 10
 			}
 		},
@@ -1919,13 +1849,12 @@
 		"desc": "She screams black obscenities.",
 		"hp": 75,
 		"defense": 40,
-		"tohit": 7,
 		"spells": "blast,gloom",
 		"attack": {
 			"name": "screech",
 			"kind": "evil",
 			"targets": "enemies",
-			"dmg": "5~9"
+			"damage": "5~9"
 		},
 		"resist": {
 			"shadow": 20
@@ -1939,12 +1868,11 @@
 		"desc": "Leader of wicked congregations.",
 		"hp": 100,
 		"defense": 50,
-		"tohit": 9,
 		"spells": "deathbolt",
 		"attack": {
 			"name": "harm",
 			"kind": "evil",
-			"dmg": "10~20"
+			"damage": "10~20"
 		},
 		"resist": {
 			"shadow": 25,
@@ -1960,12 +1888,11 @@
 		"desc": "Palus was a mere dabbler before unearthing the remains of a Dhrozen knight. Now he leads the Barrow priests.",
 		"hp": 80,
 		"defense": 75,
-		"tohit": 10,
 		"spells": "deathbolt",
 		"attack": {
 			"name": "harm",
 			"kind": "evil",
-			"dmg": "10~20"
+			"damage": "10~20"
 		},
 		"resist": {
 			"shadow": 25,
@@ -1979,12 +1906,11 @@
 		"kind": "construct",
 		"desc": "It just floats there...",
 		"hp": 45,
-		"tohit": 9,
 		"defense": 35,
 		"attack": {
 			"name": "magic sword",
 			"kind": "slash",
-			"dmg": "4~10"
+			"damage": "4~10"
 		},
 		"resist": {
 			"mana": 30
@@ -2007,12 +1933,11 @@
 		"kind": "beast",
 		"desc": "He's angry now!!!",
 		"hp": 55,
-		"tohit": 8,
 		"defense": 30,
 		"attack": {
 			"name": "claws",
 			"kind": "slash",
-			"dmg": "5~14"
+			"damage": "5~14"
 		}
 	},
 	{
@@ -2022,13 +1947,12 @@
 		"evil": 14,
 		"desc": "",
 		"hp": 42,
-		"tohit": 3,
 		"defense": 26,
 		"regen": 2,
 		"attack": {
 			"name": "claws",
 			"kind": "slash",
-			"dmg": "7~13"
+			"damage": "7~13"
 		},
 		"resist": {
 			"shadow": 35
@@ -2040,12 +1964,11 @@
 		"kind": "humanoid",
 		"flavor": "You gotta... dance.",
 		"hp": 25,
-		"tohit": 10,
 		"defense": 29,
 		"attack": {
 			"name": "claymore",
 			"kind": "slash",
-			"dmg": "3~10"
+			"damage": "3~10"
 		}
 	},
 	{
@@ -2053,7 +1976,6 @@
 		"level": 7,
 		"kind": "demon",
 		"desc": "Like a demonic humanoid vulture.",
-		"tohit": 8,
 		"hp": 22,
 		"defense": 30,
 		"regen": 1,
@@ -2061,7 +1983,7 @@
 		"attack": {
 			"name": "claws",
 			"kind": "slash",
-			"dmg": "4~9"
+			"damage": "4~9"
 		},
 		"loot": {
 			"sulfur": 10
@@ -2076,12 +1998,11 @@
 		"desc": "It ate up all the smaller zombies.",
 		"hp": 42,
 		"defense": 22,
-		"tohit": 5,
 		"regen": 1,
 		"attack": {
 			"name": "slam",
 			"kind": "blunt",
-			"dmg": "7~12"
+			"damage": "7~12"
 		},
 		"loot": {
 			"bodies": 1
@@ -2095,12 +2016,11 @@
 		"biome": "sea",
 		"desc": "Oversized eel with bladed teeth and a terrifying screach.",
 		"hp": 37,
-		"tohit": 20,
 		"defense": 20,
 		"attack": {
 			"name": "scream",
 			"kind": "sonic",
-			"dmg": "7~11"
+			"damage": "7~11"
 		},
 		"resist": {
 			"water": 25
@@ -2113,13 +2033,12 @@
 		"desc": "Its contorted purple body can hide in the smallest crevices.",
 		"kind": "humanoid",
 		"hp": 35,
-		"tohit": 9,
 		"speed": 9,
 		"defense": 20,
 		"attack": {
 			"name": "strangle",
 			"kind": "blunt",
-			"dmg": "3~7"
+			"damage": "3~7"
 		},
 		"flavor": "A dwarp can hear the drip of water through 100 feet of solid rock."
 	},
@@ -2129,12 +2048,11 @@
 		"flavor": "Ever wonder how orcs would look if they were three times as large?",
 		"kind": "giant",
 		"hp": 45,
-		"tohit": 10,
 		"defense": 20,
 		"attack": {
 			"name": "club",
 			"kind": "blunt",
-			"dmg": "8~17"
+			"damage": "8~17"
 		}
 	},
 	{
@@ -2144,12 +2062,11 @@
 		"flavor": "Ever wonder how ogres would look if they were twice as strong?",
 		"kind": "giant",
 		"hp": 70,
-		"tohit": 12,
 		"defense": 23,
 		"attack": {
 			"name": "spiked club",
 			"kind": "blunt",
-			"dmg": "16~34"
+			"damage": "16~34"
 		}
 	},
 	{
@@ -2159,7 +2076,6 @@
 		"flavor": "Ever wonder how ogre warriors would look if they were twice as scary?",
 		"kind": "giant",
 		"hp": 70,
-		"tohit": 12,
 		"defense": 23,
 		"attack": [
 			{
@@ -2173,7 +2089,7 @@
 			{
 				"name": "spiked club",
 				"kind": "blunt",
-				"dmg": "15~25"
+				"damage": "15~25"
 			}
 		]
 	},
@@ -2183,13 +2099,12 @@
 		"desc": "A nasty fey of cold disposition.",
 		"kind": "fey",
 		"hp": 35,
-		"tohit": 10,
 		"defense": 17,
 		"speed": 12,
 		"attack": {
 			"name": "frost bolt",
 			"kind": "water",
-			"dmg": "4~17"
+			"damage": "4~17"
 		},
 		"resist": {
 			"water": 20,
@@ -2203,16 +2118,16 @@
 		"kind": "construct",
 		"desc": "I made you out of clay...",
 		"hp": 65,
-		"tohit": -1,
 		"defense": 33,
 		"attack": {
 			"name": "smash",
 			"kind": "blunt",
-			"dmg": "2~7"
+			"damage": "2~7"
 		},
 		"resist": {
 			"earth": 15
-		}
+		},
+		"immune": "spirit,sleep,fear,paralysis"
 	},
 	{
 		"id": "direcrocodile",
@@ -2222,12 +2137,11 @@
 		"level": 8,
 		"desc": "",
 		"hp": 30,
-		"tohit": 5,
 		"defense": 32,
 		"attack": {
 			"name": "bite",
 			"kind": "pierce",
-			"dmg": "7~15",
+			"damage": "7~15",
 			"leech": 0.3
 		}
 	},
@@ -2237,16 +2151,15 @@
 		"kind": "beast",
 		"level": 8,
 		"hp": 70,
-		"tohit": 6,
 		"defense": 5,
 		"spells": "mk_spider",
 		"attack": {
-			"dmg": "3~5",
+			"damage": "3~5",
 			"dot": {
 				"name": "venom",
 				"duration": 30,
 				"kind": "poison",
-				"dmg": "3~5"
+				"damage": "3~5"
 			}
 		}
 	},
@@ -2263,13 +2176,12 @@
 		],
 		"desc": "Two heads are better than one.",
 		"hp": 65,
-		"tohit": 11,
 		"defense": 30,
 		"regen": 5,
 		"attack": {
 			"name": "spiked club",
 			"kind": "blunt",
-			"dmg": "7~13"
+			"damage": "7~13"
 		}
 	},
 	{
@@ -2279,13 +2191,12 @@
 		"biome": "sea",
 		"desc": "It's bitey.",
 		"hp": 58,
-		"tohit": 11,
 		"speed": 11,
 		"defense": 18,
 		"attack": {
 			"name": "bite",
 			"kind": "pierce",
-			"dmg": "10~15",
+			"damage": "10~15",
 			"leech": 0.2
 		},
 		"resist": {
@@ -2299,13 +2210,12 @@
 		"kind": "undead",
 		"desc": "",
 		"hp": 20,
-		"tohit": 3,
 		"defense": 38,
 		"spells": "deathbolt",
 		"attack": {
 			"name": "cold touch",
 			"kind": "cold",
-			"dmg": "10~20",
+			"damage": "10~20",
 			"leech": 0.5
 		},
 		"resist": {
@@ -2322,12 +2232,11 @@
 		"desc": "You don't see a thing.",
 		"kind": "humanoid",
 		"hp": 24,
-		"tohit": 26,
 		"defense": 42,
 		"attack": {
 			"name": "slam",
 			"kind": "blunt",
-			"dmg": "5~11"
+			"damage": "5~11"
 		},
 		"resist": {
 			"air": 30,
@@ -2340,14 +2249,13 @@
 		"level": 7,
 		"kind": "humanoid",
 		"desc": "Ardent of nature",
-		"tohit": 7,
 		"hp": 27,
 		"defense": 25,
 		"spells": "venom2",
 		"attack": {
 			"name": "spellstorm",
 			"kind": "nature",
-			"dmg": "9~17"
+			"damage": "9~17"
 		},
 		"resist": {
 			"nature": 25
@@ -2359,17 +2267,17 @@
 		"level": 7,
 		"kind": "construct",
 		"desc": "A golem crafted on a budget.",
-		"tohit": 5,
 		"hp": 32,
 		"defense": 28,
 		"attack": {
 			"name": "punch",
 			"kind": "blunt",
-			"dmg": "2~11"
+			"damage": "2~11"
 		},
 		"resist": {
 			"nature": 15
-		}
+		},
+		"immune": "spirit,sleep,fear,paralysis"
 	},
 	{
 		"id": "masterswordsman",
@@ -2379,12 +2287,11 @@
 		"evil": -11,
 		"desc": "He's looking for a six-fingered man.",
 		"hp": 35,
-		"tohit": 14,
 		"defense": 35,
 		"attack": {
 			"name": "longsword",
 			"kind": "slash",
-			"dmg": "7~13"
+			"damage": "7~13"
 		}
 	},
 	{
@@ -2394,13 +2301,12 @@
 		"evil": -13,
 		"desc": "It's a unicorn with wings and no horn.",
 		"hp": 54,
-		"tohit": 3,
 		"defense": 27,
 		"spells": "whirl3",
 		"attack": {
 			"name": "trample",
 			"kind": "blunt",
-			"dmg": "9~15"
+			"damage": "9~15"
 		},
 		"resist": {
 			"air": 20
@@ -2412,14 +2318,13 @@
 		"level": 8,
 		"kind": "elemental",
 		"desc": "How do you fight dirt?",
-		"tohit": 5,
 		"hp": 58,
 		"defense": 30,
 		"spells": "tremor",
 		"attack": {
 			"name": "pound",
 			"kind": "blunt",
-			"dmg": "8~12"
+			"damage": "8~12"
 		},
 		"loot": {
 			"earthgem": "15%"
@@ -2432,13 +2337,12 @@
 		"kind": "elemental",
 		"level": 8,
 		"desc": "Wispy.",
-		"tohit": 13,
 		"hp": "13~22",
 		"defense": 48,
 		"attack": {
 			"name": "air whip",
 			"kind": "slash",
-			"dmg": "5~12"
+			"damage": "5~12"
 		},
 		"loot": {
 			"airgem": "15%"
@@ -2452,16 +2356,16 @@
 		"kind": "construct",
 		"desc": "The head stone's connected to the... spine stone.",
 		"hp": 88,
-		"tohit": 7,
 		"defense": 40,
 		"attack": {
 			"name": "smash",
 			"kind": "blunt",
-			"dmg": "9~13"
+			"damage": "9~13"
 		},
 		"resist": {
 			"earth": 20
-		}
+		},
+		"immune": "spirit,sleep,fear,paralysis"
 	},
 	{
 		"id": "unicorn",
@@ -2470,12 +2374,11 @@
 		"evil": -17,
 		"desc": "Its horn is full of magic.",
 		"hp": 77,
-		"tohit": 14,
 		"defense": 35,
 		"attack": {
 			"name": "horn",
 			"kind": "pierce",
-			"dmg": "7~14"
+			"damage": "7~14"
 		},
 		"biome": [
 			"plains",
@@ -2489,12 +2392,11 @@
 		"evil": 16,
 		"desc": "Standard blood sucking variety.",
 		"hp": 66,
-		"tohit": 18,
 		"defense": 30,
 		"attack": {
 			"name": "bite",
 			"kind": "drain",
-			"dmg": "9~18",
+			"damage": "9~18",
 			"leech": 0.3
 		},
 		"loot": {
@@ -2511,12 +2413,11 @@
 		"evil": 15,
 		"desc": "A ghostly black form.",
 		"hp": 30,
-		"tohit": 10,
 		"defense": 40,
 		"attack": {
 			"name": "death touch",
 			"kind": "drain",
-			"dmg": "5~8"
+			"damage": "5~8"
 		},
 		"loot": {
 			"soul": "10%"
@@ -2531,7 +2432,6 @@
 		"id": "magicmirror",
 		"name": "magic mirror",
 		"level": 7,
-		"tohit": 7,
 		"kind": "construct",
 		"hp": 47,
 		"defense": 40,
@@ -2540,7 +2440,7 @@
 			"name": "light",
 			"kind": "light",
 			"targets": "enemies",
-			"dmg": "8~15"
+			"damage": "8~15"
 		},
 		"resist": {
 			"mana": 30
@@ -2558,7 +2458,7 @@
 		"attack": {
 			"name": "flame wing",
 			"kind": "fire",
-			"dmg": "11~20"
+			"damage": "11~20"
 		},
 		"loot": [
 			{
@@ -2566,7 +2466,7 @@
 				"phoenixash": 1
 			},
 			{
-				"%": 30,
+				"%": "30%",
 				"phoenix_quill": 1
 			}
 		]
@@ -2577,13 +2477,12 @@
 		"level": 7,
 		"kind": "elemental",
 		"desc": "What's so scary about a bunch of icicles?",
-		"tohit": 9,
 		"hp": 72,
 		"defense": 35,
 		"attack": {
 			"name": "ice shard",
 			"kind": "cold",
-			"dmg": "8~15"
+			"damage": "8~15"
 		},
 		"loot": {
 			"watergem": "15%"
@@ -2600,7 +2499,7 @@
 		"attack": {
 			"name": "beak",
 			"kind": "pierce",
-			"dmg": "11~17"
+			"damage": "11~17"
 		},
 		"biome": "mountains",
 		"resist": {
@@ -2613,14 +2512,13 @@
 		"evil": 17,
 		"kind": "demon",
 		"desc": "You could bounce a coin off those abs.",
-		"tohit": 10,
 		"hp": 33,
 		"defense": 33,
 		"attack": {
 			"name": "seduction",
 			"kind": "sexy",
 			"targets": "enemies",
-			"dmg": "5~8"
+			"damage": "5~8"
 		},
 		"loot": {
 			"sulfur": 10
@@ -2632,14 +2530,13 @@
 		"desc": "Kind of ugly.",
 		"kind": "humanoid",
 		"evil": 20,
-		"tohit": 7,
 		"hp": 56,
 		"defense": 40,
 		"attack": {
 			"name": "stare",
 			"kind": "magic",
 			"targets": "enemies",
-			"dmg": "17~25"
+			"damage": "17~25"
 		}
 	},
 	{
@@ -2649,12 +2546,11 @@
 		"kind": "humanoid",
 		"desc": "A champion among orcs.",
 		"hp": 100,
-		"tohit": 10,
 		"defense": 40,
 		"attack": {
 			"name": "broadsword",
 			"kind": "slash",
-			"dmg": "15~20"
+			"damage": "15~20"
 		}
 	},
 	{
@@ -2665,12 +2561,11 @@
 		"evil": 17,
 		"desc": "He's angrier now!!!",
 		"hp": 85,
-		"tohit": 11,
 		"defense": 30,
 		"attack": {
 			"name": "claws",
 			"kind": "slash",
-			"dmg": "17~27"
+			"damage": "17~27"
 		},
 		"biome": [
 			"hills",
@@ -2688,12 +2583,11 @@
 		"evil": 14,
 		"desc": "You need to stop looking at it before you go insane.",
 		"hp": 45,
-		"tohit": 10,
 		"defense": 50,
 		"attack": {
 			"name": "chill touch",
 			"kind": "drain",
-			"dmg": "6~16"
+			"damage": "6~16"
 		},
 		"resist": {
 			"shadow": 25
@@ -2710,7 +2604,7 @@
 		"attack": {
 			"name": "vorpal sword",
 			"kind": "slash",
-			"dmg": "7~15"
+			"damage": "7~15"
 		},
 		"biome": [
 			"town",
@@ -2728,16 +2622,15 @@
 		"desc": "From the waist up, it doesn't look that bad.",
 		"kind": "humanoid",
 		"hp": 38,
-		"tohit": 8,
 		"defense": 48,
 		"attack": {
 			"name": "scimitars",
 			"kind": "slash",
-			"dmg": "5~8",
+			"damage": "5~8",
 			"dot": {
 				"kind": "poison",
 				"name": "poison",
-				"dmg": "1~4",
+				"damage": "1~4",
 				"duration": 5
 			}
 		}
@@ -2748,13 +2641,12 @@
 		"kind": "undead",
 		"evil": 14,
 		"desc": "Only the objects flying at your head alert you to its presence.",
-		"tohit": 9,
 		"hp": 44,
 		"defense": 40,
 		"attack": {
 			"name": "chill touch",
 			"kind": "drain",
-			"dmg": "3~10"
+			"damage": "3~10"
 		},
 		"loot": {
 			"soul": "15%"
@@ -2769,7 +2661,6 @@
 		"level": 8,
 		"kind": "elemental",
 		"desc": "Too hot to get close to.",
-		"tohit": 10,
 		"hp": 40,
 		"defense": 55,
 		"spells": "searingbolt",
@@ -2777,12 +2668,12 @@
 			"targets": "enemies",
 			"name": "scorch",
 			"kind": "fire",
-			"dmg": "5~15"
+			"damage": "5~15"
 		},
 		"loot": {
 			"firegem": "10%"
 		},
-		"immune": "fire,light"
+		"immune": "fire"
 	},
 	{
 		"id": "lightelem",
@@ -2790,27 +2681,27 @@
 		"level": 8,
 		"kind": "elemental",
 		"desc": "Too bright to see.",
-		"tohit": 13,
 		"hp": 30,
 		"defense": 65,
 		"attack": {
 			"targets": "enemies",
 			"name": "light",
 			"kind": "light",
-			"dmg": "4~10",
+			"damage": "4~10",
 			"dot": {
-				"name": "blind",
+				"id": "tohitdown",
+				"name":"blind",
 				"kind": "blind",
 				"duration": 20,
 				"mod": {
-					"tohit": -3
+					"self.tohit":-5
 				}
 			}
 		},
 		"loot": {
 			"lightgem": "10%"
 		},
-		"immune": "fire,light"
+		"immune": "light"
 	},
 	{
 		"id": "cavetroll",
@@ -2830,7 +2721,7 @@
 		"attack": {
 			"name": "club",
 			"kind": "blunt",
-			"dmg": "15~27"
+			"damage": "15~27"
 		}
 	},
 	{
@@ -2840,12 +2731,11 @@
 		"kind": "construct",
 		"desc": "It moves with heavy clonking steps.",
 		"hp": 120,
-		"tohit": 1,
 		"defense": 45,
 		"attack": {
 			"name": "smash",
 			"kind": "blunt",
-			"dmg": "9~14"
+			"damage": "9~14"
 		},
 		"resist": {
 			"earth": 15,
@@ -2860,13 +2750,12 @@
 		"evil": 27,
 		"flavor": "Oh my!",
 		"hp": 69,
-		"tohit": 20,
 		"defense": 35,
 		"attack": {
 			"name": "seduction",
 			"kind": "sexy",
 			"targets": "enemies",
-			"dmg": "9~13"
+			"damage": "9~13"
 		},
 		"loot": {
 			"sulfur": 3
@@ -2880,12 +2769,11 @@
 		"kind": "humanoid",
 		"desc": "Master Wong Fei-Hung.",
 		"hp": 53,
-		"tohit": 10,
 		"defense": 44,
 		"attack": {
 			"name": "fists",
 			"kind": "blunt",
-			"dmg": "7~17"
+			"damage": "7~17"
 		},
 		"loot": {
 			"whiskey": 20
@@ -2902,12 +2790,11 @@
 		"level": 10,
 		"flavor": "You ain't seen nothing yeti.",
 		"hp": 60,
-		"tohit": 11,
 		"defense": 25,
 		"attack": {
 			"name": "claws",
 			"kind": "slash",
-			"dmg": "8~12"
+			"damage": "8~12"
 		},
 		"resist": {
 			"earth": 20
@@ -2919,7 +2806,6 @@
 		"level": 10,
 		"flavor": "All your hairs feel prickly.",
 		"kind": "elemental",
-		"tohit": 14,
 		"hp": 28,
 		"defense": 63,
 		"spells": "elec2",
@@ -2927,9 +2813,9 @@
 			"name": "lightning",
 			"kind": "light",
 			"targets": "enemies",
-			"dmg": "13~25"
+			"damage": "13~25"
 		},
-		"immune": "light,fire",
+		"immune": "light,air",
 		"loot": {
 			"airgem": "5%",
 			"firegem": "5%",
@@ -2944,12 +2830,11 @@
 		"desc": "It licks your brain with its mind.",
 		"kind": "humanoid",
 		"hp": 49,
-		"tohit": 15,
 		"defense": 44,
 		"attack": {
 			"name": "mind flay",
 			"kind": "psionic",
-			"dmg": "11~19",
+			"damage": "11~19",
 			"dot": {
 				"id": "silence",
 				"duration": 300
@@ -2962,13 +2847,12 @@
 		"level": 11,
 		"desc": "A cross between a worm and a dragon.",
 		"kind": "magicbeast",
-		"tohit": 5,
 		"hp": 80,
 		"defense": 42,
 		"attack": {
 			"name": "bite",
 			"kind": "pierce",
-			"dmg": "9~15"
+			"damage": "9~15"
 		}
 	},
 	{
@@ -2976,7 +2860,6 @@
 		"level": 11,
 		"kind": "magicbeast",
 		"desc": "A large lizard with a petrifying bite.",
-		"tohit": 5,
 		"hp": 64,
 		"defense": 32,
 		"speed": 8,
@@ -2984,7 +2867,7 @@
 			{
 				"name": "bite",
 				"kind": "earth",
-				"dmg": "10~30",
+				"damage": "10~30",
 				"dot": {
 					"id": "paralyze",
 					"duration": 5
@@ -2993,7 +2876,7 @@
 			{
 				"name": "claws",
 				"kind": "slash",
-				"dmg": "20~50"
+				"damage": "20~50"
 			}
 		],
 		"loot": {
@@ -3014,7 +2897,7 @@
 			{
 				"name": "spores",
 				"kind": "nature",
-				"dmg": "20~40",
+				"damage": "20~40",
 				"dot": {
 					"id": "charm",
 					"duration": 10
@@ -3033,12 +2916,12 @@
 		"attack": {
 			"name": "strangle",
 			"kind": "blunt",
-			"dmg": "10~20",
+			"damage": "10~20",
 			"dot": {
 				"id": "entangle",
 				"name": "strangle",
 				"duration": 50,
-				"dmg": "5~10"
+				"damage": "5~10"
 			}
 		}
 	},
@@ -3053,7 +2936,7 @@
 			{
 				"name": "gaze",
 				"kind": "earth",
-				"dmg": "30~60",
+				"damage": "30~60",
 				"dot": {
 					"id": "paralyze",
 					"duration": 10
@@ -3068,13 +2951,12 @@
 		"level": 17,
 		"kind": "magicbeast",
 		"desc": "A massive lizard with a petrifying bite.",
-		"tohit": 5,
 		"hp": 300,
 		"attack": [
 			{
 				"name": "bite",
 				"kind": "earth",
-				"dmg": "40~70",
+				"damage": "40~70",
 				"dot": {
 					"id": "paralyze",
 					"duration": 30
@@ -3083,7 +2965,7 @@
 			{
 				"name": "claws",
 				"kind": "slash",
-				"dmg": "50~100"
+				"damage": "50~100"
 			}
 		],
 		"loot": {
@@ -3101,12 +2983,11 @@
 		"evil": 17,
 		"desc": "You've seen bigger.",
 		"hp": 120,
-		"tohit": 2,
 		"defense": 45,
 		"attack": {
 			"name": "club",
 			"kind": "blunt",
-			"dmg": "15~24"
+			"damage": "15~24"
 		},
 		"resist": {
 			"earth": 20
@@ -3119,13 +3000,12 @@
 		"kind": "giant",
 		"flavor": "Tro lo lo.",
 		"hp": 100,
-		"tohit": 3,
 		"defense": 50,
 		"regen": 5,
 		"attack": {
 			"name": "claws",
 			"kind": "slash",
-			"dmg": "17~23"
+			"damage": "17~23"
 		},
 		"biome": [
 			"woods",
@@ -3142,13 +3022,12 @@
 		"evil": 30,
 		"desc": "Worked his way up the vampire ranks, and has his very own brood now.",
 		"hp": 87,
-		"tohit": 10,
 		"defense": 42,
 		"regen": 2,
 		"attack": {
 			"name": "bite",
 			"kind": "drain",
-			"dmg": "10~25",
+			"damage": "10~25",
 			"leech": 0.4
 		},
 		"loot": {
@@ -3163,11 +3042,10 @@
 		"desc": "A devoted follower of the sorceress Desilla.",
 		"kind": "humanoid",
 		"hp": 90,
-		"tohit": 20,
 		"defense": 50,
 		"attack": {
 			"name": "claws",
-			"dmg": "12~22",
+			"damage": "12~22",
 			"type": "slash"
 		},
 		"loot": {
@@ -3181,14 +3059,13 @@
 		"kind": "construct",
 		"desc": "Crafted from only the finest phlogiston.",
 		"hp": 100,
-		"tohit": 8,
 		"defense": 53,
 		"attack": {
 			"name": "fire punch",
 			"kind": "fire",
-			"dmg": "15~23"
+			"damage": "15~23"
 		},
-		"immune": "fire"
+		"immune": "fire,spirit,sleep,fear,paralysis,"
 	},
 	{
 		"id": "grimstalk",
@@ -3198,13 +3075,12 @@
 		"kind": "demon",
 		"evil": 19,
 		"hp": 53,
-		"tohit": 15,
 		"defense": 35,
 		"regen": 7,
 		"attack": {
 			"name": "claws",
 			"kind": "slash",
-			"dmg": "12~28"
+			"damage": "12~28"
 		}
 	},
 	{
@@ -3214,12 +3090,11 @@
 		"desc": "She'll take you to Valhalla.",
 		"kind": "humanoid",
 		"hp": 155,
-		"tohit": 15,
 		"defense": 54,
 		"attack": {
 			"name": "claymore",
 			"kind": "slash",
-			"dmg": "10~17"
+			"damage": "10~17"
 		},
 		"loot": {
 			"ichor": "1%"
@@ -3233,12 +3108,11 @@
 		"flavor": "You should have stayed out of the cloudspine.",
 		"kind": "giant",
 		"hp": 225,
-		"tohit": 10,
 		"defense": 50,
 		"attack": {
 			"name": "kick",
 			"kind": "blunt",
-			"dmg": "14~20"
+			"damage": "14~20"
 		}
 	},
 	{
@@ -3248,12 +3122,11 @@
 		"evil": -8,
 		"desc": "Body of a lion. Face of a giant eagle.",
 		"hp": 123,
-		"tohit": 5,
 		"defense": 40,
 		"attack": {
 			"name": "beak",
 			"kind": "pierce",
-			"dmg": "21~27"
+			"damage": "21~27"
 		},
 		"resist": {
 			"air": 30,
@@ -3271,9 +3144,10 @@
 		"attack": {
 			"name": "slam",
 			"kind": "blunt",
-			"dmg": "15~20",
+			"damage": "15~20",
 			"leech": 0.5
-		}
+		},
+		"immune": "spirit,sleep,fear,paralysis"
 	},
 	{
 		"id": "manticore",
@@ -3282,15 +3156,14 @@
 		"evil": 5,
 		"desc": "",
 		"hp": 130,
-		"tohit": 10,
 		"defense": 48,
 		"attack": {
 			"name": "sting",
-			"dmg": "15~25",
+			"damage": "15~25",
 			"kind": "pierce",
 			"dot": {
 				"kind": "poison",
-				"dmg": "5~8",
+				"damage": "5~8",
 				"duration": 5
 			}
 		}
@@ -3305,17 +3178,16 @@
 		"biome": "swamp",
 		"desc": "Vicious witch in the waters of the Great Bog",
 		"hp": 500,
-		"tohit": 14,
 		"defense": 48,
 		"regen": 2,
 		"attack": {
 			"name": "claws",
 			"kind": "slash",
-			"dmg": "12~20",
+			"damage": "12~20",
 			"dot": {
 				"kind": "poison",
 				"name": "black blood",
-				"dmg": "1~4",
+				"damage": "1~4",
 				"duration": 20
 			}
 		},
@@ -3335,12 +3207,11 @@
 		"evil": 16,
 		"desc": "Are those rubies in its eyes?",
 		"hp": 53,
-		"tohit": 15,
 		"defense": 34,
 		"attack": {
 			"name": "longsword",
 			"kind": "slash",
-			"dmg": "36~45"
+			"damage": "36~45"
 		},
 		"loot": {
 			"bone": 10
@@ -3354,13 +3225,12 @@
 		"kind": "giant",
 		"hp": 138,
 		"evil": -18,
-		"tohit": 2,
 		"defense": 50,
 		"regen": 3,
 		"attack": {
 			"name": "pound",
 			"kind": "blunt",
-			"dmg": "20~30"
+			"damage": "20~30"
 		},
 		"resist": {
 			"nature": 30
@@ -3372,12 +3242,11 @@
 		"desc": "Not a dragon. But it will kill you like one.",
 		"kind": "magicbeast",
 		"hp": 132,
-		"tohit": 12,
 		"defense": 42,
 		"attack": {
 			"name": "claws",
 			"kind": "slash",
-			"dmg": "20~30"
+			"damage": "20~30"
 		},
 		"resist": {
 			"air": 35
@@ -3390,17 +3259,16 @@
 		"desc": "",
 		"kind": "magicbeast",
 		"hp": 332,
-		"tohit": 32,
 		"defense": 42,
 		"attack": [
 			{
 				"name": "bite",
 				"kind": "pierce",
-				"dmg": "40~80",
+				"damage": "40~80",
 				"dot": {
 					"kind": "poison",
 					"duration": 20,
-					"dmg": "10~20"
+					"damage": "10~20"
 				}
 			}
 		],
@@ -3413,17 +3281,16 @@
 		"desc": "",
 		"kind": "magicbeast",
 		"hp": 732,
-		"tohit": 32,
 		"defense": 42,
 		"attack": [
 			{
 				"name": "bite",
 				"kind": "pierce",
-				"dmg": "40~80",
+				"damage": "40~80",
 				"dot": {
 					"kind": "poison",
 					"duration": 20,
-					"dmg": "10~20"
+					"damage": "10~20"
 				}
 			}
 		],
@@ -3436,19 +3303,18 @@
 		"kind": "dragon",
 		"desc": "Just your standard green dragon.",
 		"hp": 145,
-		"tohit": 10,
 		"defense": 55,
 		"attack": [
 			{
 				"name": "fire breath",
 				"kind": "fire",
-				"dmg": "5~12",
+				"damage": "5~12",
 				"targets": "enemies"
 			},
 			{
 				"name": "claws",
 				"kind": "slash",
-				"dmg": "10~20"
+				"damage": "10~20"
 			}
 		],
 		"loot": {
@@ -3462,14 +3328,13 @@
 		"kind": "beast",
 		"level": 14,
 		"desc": "Terror of the desert wastes",
-		"tohit": 15,
 		"hp": 130,
 		"defense": 50,
 		"spells": "quake",
 		"attack": {
 			"name": "crush",
 			"kind": "blunt",
-			"dmg": "12~24"
+			"damage": "12~24"
 		},
 		"resist": {
 			"earth": 30
@@ -3482,13 +3347,12 @@
 		"evil": 23,
 		"desc": "It seeeeees you.",
 		"hp": 119,
-		"tohit": 12,
 		"defense": 50,
 		"attack": [
 			{
 				"dot": {
 					"id": "silence",
-					"duration": 15
+					"duration": 5
 				}
 			},
 			{
@@ -3500,7 +3364,7 @@
 			{
 				"name": "eye beam",
 				"kind": "mana",
-				"dmg": "23~43"
+				"damage": "23~43"
 			}
 		]
 	},
@@ -3511,12 +3375,11 @@
 		"evil": -30,
 		"desc": "It has wings and a halo of light.",
 		"hp": 170,
-		"tohit": 10,
 		"defense": 70,
 		"attack": {
 			"name": "light sword",
 			"kind": "light",
-			"dmg": "20~50"
+			"damage": "20~50"
 		},
 		"loot": {
 			"angelwing": "1%",
@@ -3532,14 +3395,13 @@
 		"evil": 30,
 		"desc": "It was a wizard, once.",
 		"hp": 166,
-		"tohit": 20,
 		"defense": 68,
 		"regen": 3,
 		"attack": {
 			"name": "death touch",
 			"kind": "drain",
 			"leech": 0.1,
-			"dmg": "26~36"
+			"damage": "26~36"
 		},
 		"loot": {
 			"ichor": "2%"
@@ -3557,7 +3419,7 @@
 		"attack": {
 			"name": "darksword",
 			"kind": "evil",
-			"dmg": "15~40"
+			"damage": "15~40"
 		},
 		"loot": {
 			"sulfur": 30,
@@ -3572,12 +3434,11 @@
 		"evil": 9,
 		"desc": "",
 		"hp": 170,
-		"tohit": 10,
 		"defense": 65,
 		"attack": {
 			"name": "punch",
 			"kind": "blunt",
-			"dmg": "17~50"
+			"damage": "17~50"
 		},
 		"loot": {
 			"ichor": "5%"
@@ -3591,13 +3452,12 @@
 		"evil": 8,
 		"desc": "",
 		"hp": 137,
-		"tohit": 10,
 		"defense": 60,
 		"attack": {
 			"name": "fire breath",
 			"kind": "fire",
 			"targets": "enemies",
-			"dmg": "50~70"
+			"damage": "50~70"
 		},
 		"resist": {
 			"fire": 50,
@@ -3610,14 +3470,13 @@
 		"kind": "beast",
 		"desc": "",
 		"hp": 325,
-		"tohit": 15,
 		"defense": 75,
 		"regen": 1,
 		"attack": {
 			"name": "trample",
 			"kind": "blunt",
 			"targets": "enemies",
-			"dmg": "40~70"
+			"damage": "40~70"
 		},
 		"resist": {
 			"nature": 25,
@@ -3639,13 +3498,12 @@
 		"evil": 40,
 		"desc": "Master Vampires are its lackeys.",
 		"hp": 120,
-		"tohit": 15,
 		"defense": 70,
 		"regen": 5,
 		"attack": {
 			"name": "bite",
 			"kind": "drain",
-			"dmg": "20~40",
+			"damage": "20~40",
 			"leech": 0.3
 		},
 		"loot": {
@@ -3663,12 +3521,11 @@
 		"kind": "giant",
 		"desc": "",
 		"hp": 160,
-		"tohit": 17,
 		"defense": 65,
 		"attack": {
 			"name": "punch",
 			"kind": "cold",
-			"dmg": "40~60"
+			"damage": "40~60"
 		},
 		"resist": {
 			"water": 75,
@@ -3683,12 +3540,11 @@
 		"level": 16,
 		"desc": "A small mountain of magma.",
 		"hp": 170,
-		"tohit": 15,
 		"defense": 60,
 		"attack": {
 			"name": "lava slam",
 			"kind": "fire",
-			"dmg": "50~75"
+			"damage": "50~75"
 		},
 		"loot": {
 			"firegem": "15%",
@@ -3704,13 +3560,12 @@
 		"evil": 30,
 		"desc": "It was a wizard, once.",
 		"hp": 150,
-		"tohit": 20,
 		"defense": 71,
 		"regen": 7,
 		"attack": {
 			"name": "death touch",
 			"kind": "drain",
-			"dmg": "30~40",
+			"damage": "30~40",
 			"leech": 0.1
 		}
 	},
@@ -3721,24 +3576,27 @@
 		"kind": "construct",
 		"desc": "Would be worth a fortune if you could even make a dent in it.",
 		"hp": 200,
-		"tohit": 8,
 		"defense": 100,
 		"attack": {
 			"name": "pound",
 			"kind": "blunt",
-			"dmg": "50~95"
+			"damage": "50~95"
 		},
 		"loot": {
 			"level": 25,
 			"material": {
 				"only": "t_mithril"
 			},
-			"%": 100
+			"%": "100%"
 		},
 		"resist": {
 			"earth": 30,
-			"physical": 70
-		}
+			"physical": 70,
+			"blunt": 70,
+			"pierce": 70,
+			"slash": 70
+		},
+		"immune": "spirit,sleep,fear,paralysis"
 	},
 	{
 		"id": "ancientvampire",
@@ -3748,13 +3606,12 @@
 		"evil": 60,
 		"desc": "",
 		"hp": 150,
-		"tohit": 25,
 		"defense": 75,
 		"regen": 7,
 		"attack": {
 			"name": "bite",
 			"kind": "shadow",
-			"dmg": "30~50",
+			"damage": "30~50",
 			"leech": 0.4
 		},
 		"loot": {
@@ -3770,12 +3627,11 @@
 		"kind": "beast",
 		"desc": "A mountain moves in the depths of the sea.",
 		"hp": 400,
-		"tohit": 20,
 		"defense": 75,
 		"attack": {
 			"name": "crush",
 			"kind": "blunt",
-			"dmg": "80~110"
+			"damage": "80~110"
 		},
 		"immune": "water"
 	},
@@ -3786,12 +3642,11 @@
 		"evil": 70,
 		"desc": "A servant of Morgoth.",
 		"hp": 200,
-		"tohit": 17,
 		"defense": 80,
 		"attack": {
 			"name": "flame whip",
 			"kind": "fire",
-			"dmg": "90~150"
+			"damage": "90~150"
 		},
 		"loot": {
 			"firegem": 10
@@ -3805,13 +3660,12 @@
 		"evil": -30,
 		"desc": "It has wings and a halo of light.",
 		"hp": 270,
-		"tohit": 23,
 		"defense": 90,
 		"regen": 10,
 		"attack": {
 			"name": "light sword",
 			"kind": "light",
-			"dmg": "70~120"
+			"damage": "70~120"
 		},
 		"loot": {
 			"ichor": "50%"
@@ -3825,12 +3679,11 @@
 		"kind": "construct",
 		"desc": "Unbreakable",
 		"hp": 450,
-		"tohit": 15,
 		"defense": 130,
 		"attack": {
 			"name": "smash",
 			"kind": "blunt",
-			"dmg": "80~100"
+			"damage": "80~100"
 		},
 		"loot": {
 			"adamant": 25
@@ -3844,7 +3697,7 @@
 			"nature": 80,
 			"light": 80
 		},
-		"immune": "physical,spirit,sleep,fear"
+		"immune": "spirit,sleep,fear,paralysis,physical,blunt,slash,pierce"
 	},
 	{
 		"id": "maturereddragon",
@@ -3854,13 +3707,12 @@
 		"evil": 20,
 		"desc": "",
 		"hp": 350,
-		"tohit": 25,
 		"defense": 90,
 		"attack": {
 			"name": "fire breath",
 			"kind": "fire",
 			"targets": "enemies",
-			"dmg": "90~120"
+			"damage": "90~120"
 		},
 		"resist": {
 			"fire": 90
@@ -3874,13 +3726,12 @@
 		"evil": 60,
 		"desc": "",
 		"hp": 175,
-		"tohit": 25,
 		"defense": 110,
 		"regen": 10,
 		"attack": {
 			"name": "bite",
 			"kind": "shadow",
-			"dmg": "50~70",
+			"damage": "50~70",
 			"leech": 0.5
 		},
 		"loot": {
@@ -3900,7 +3751,6 @@
 		"kind": "humanoid",
 		"unique": true,
 		"hp": 1200,
-		"tohit": 20,
 		"defense": 130,
 		"attack": [
 			{
@@ -3913,18 +3763,17 @@
 						"desc": "I have no equals!"
 					},
 					"duration": 20,
-					"dmg": "20~40"
+					"damage": "20~40"
 				}
 			},
 			{
 				"name": "fire bolt",
-				"tohit": 10,
 				"log": {
 					"%": "10%",
 					"desc": "I will not be mocked!"
 				},
 				"kind": "fire",
-				"dmg": "70~100"
+				"damage": "70~100"
 			}
 		],
 		"loot": {
@@ -3939,7 +3788,6 @@
 		"desc": "Among the Archlocks, desilla was more inclined to indulgence than conquest.",
 		"kind": "humanoid",
 		"hp": 1500,
-		"tohit": 27,
 		"defense": 133,
 		"unique": true,
 		"attack": [
@@ -3953,14 +3801,12 @@
 				"dot": {
 					"id": "redhaze",
 					"duration": 20,
-					"mod": {
-						"tohit": -10
-					}
+					"mod": {}
 				}
 			},
 			{
 				"name": "red bolt",
-				"dmg": "90~123",
+				"damage": "90~123",
 				"log": {
 					"%": "10%",
 					"desc": "Now for some fun."
@@ -3980,7 +3826,6 @@
 		"desc": "",
 		"kind": "humanoid",
 		"hp": 2000,
-		"tohit": 50,
 		"unique": true,
 		"defense": 150,
 		"attack": [
@@ -3995,15 +3840,13 @@
 				"dot": {
 					"id": "quake",
 					"duration": 30,
-					"dmg": "40~70",
-					"mod": {
-						"tohit": -10
-					}
+					"damage": "40~70",
+					"mod": {}
 				}
 			},
 			{
 				"name": "disintegrate",
-				"dmg": "100~150",
+				"damage": "100~150",
 				"log": {
 					"%": "10%",
 					"desc": "You are dismissed."
@@ -4021,7 +3864,6 @@
 		"unique": true,
 		"kind": "humanoid",
 		"hp": 1700,
-		"tohit": 50,
 		"defense": 200,
 		"attack": [
 			{
@@ -4034,16 +3876,14 @@
 				"dot": {
 					"kind": "void",
 					"duration": 20,
-					"dmg": "30~75",
-					"mod": {
-						"tohit": -15
-					}
+					"damage": "30~75",
+					"mod": {}
 				},
 				"kind": "void"
 			},
 			{
 				"name": "void bolt",
-				"dmg": "100~150",
+				"damage": "100~150",
 				"kind": "void"
 			}
 		],
@@ -4059,13 +3899,12 @@
 		"evil": 20,
 		"desc": "",
 		"hp": 400,
-		"tohit": 25,
 		"regen": 15,
 		"defense": 120,
 		"attack": {
 			"name": "lifestorm",
 			"kind": "nature",
-			"dmg": "100~125"
+			"damage": "100~125"
 		},
 		"immune": "nature,poison"
 	},
@@ -4076,13 +3915,12 @@
 		"kind": "deity",
 		"desc": "Incarnation of a god",
 		"hp": 700,
-		"tohit": 30,
 		"defense": 120,
 		"regen": 20,
 		"attack": {
 			"name": "holy shine",
 			"kind": "light",
-			"dmg": "75~130"
+			"damage": "75~130"
 		},
 		"immune": "light"
 	},
@@ -4094,7 +3932,6 @@
 		"kind": "outsider",
 		"desc": "In his house at R'lyeh dead Cthulhu waits dreaming.",
 		"hp": 1050,
-		"tohit": 25,
 		"regen": 5,
 		"defense": 125,
 		"attack": {
@@ -4102,7 +3939,7 @@
 			"leech": 0.25,
 			"targets": "enemies",
 			"kind": "psychic",
-			"dmg": "70~125"
+			"damage": "70~125"
 		}
 	},
 	{
@@ -4114,11 +3951,10 @@
 		"desc": "Jazid's sole purpose is to kill the bearer of his compass.",
 		"hp": 2500,
 		"speed": 30,
-		"tohit": 30,
 		"attack": {
 			"name": "claws",
 			"kind": "slash",
-			"dmg": "90~120",
+			"damage": "90~120",
 			"targets": "enemyleader"
 		},
 		"flavor": "Tales of Jazid were already ancient when Dhroze was entombed."
@@ -4131,13 +3967,12 @@
 		"evil": 30,
 		"desc": "Not one lich in a hundred live to reach such heights.",
 		"hp": 550,
-		"tohit": 27,
 		"regen": 15,
 		"defense": 120,
 		"attack": {
 			"name": "death touch",
 			"kind": "shadow",
-			"dmg": "80~120",
+			"damage": "80~120",
 			"leech": 0.1
 		},
 		"resist": {
@@ -4168,17 +4003,16 @@
 		"unique": true,
 		"kind": "dragon",
 		"hp": 50000,
-		"tohit": 50,
 		"defense": 300,
 		"attack": [
 			{
 				"name": "tail flick",
-				"dmg": "100~150",
+				"damage": "100~150",
 				"kind": "pierce"
 			},
 			{
 				"name": "burning yawn",
-				"dmg": "50~100",
+				"damage": "50~100",
 				"targets": "enemies",
 				"kind": "fire"
 			}
@@ -4192,18 +4026,17 @@
 		"unique": true,
 		"kind": "dragon",
 		"hp": 20000,
-		"tohit": 50,
 		"defense": 200,
 		"attack": [
 			{
 				"name": "talon crush",
-				"dmg": "200~300",
+				"damage": "200~300",
 				"kind": "blunt"
 			},
 			{
 				"name": "fire breath",
 				"kind": "fire",
-				"dmg": "100~200",
+				"damage": "100~200",
 				"targets": "enemies"
 			}
 		],
@@ -4219,13 +4052,12 @@
 		"evilamt": 100,
 		"desc": "The gargantuan entity in the depths of Mt. Gorbu never seen by mortal eyes.",
 		"hp": 5000,
-		"tohit": 34,
 		"defense": 100,
 		"attack": {
 			"name": "gorboring",
 			"kind": "sonic",
 			"targets": "enemies",
-			"dmg": "50~75"
+			"damage": "50~75"
 		},
 		"flavor": "Most agree it's best the Gorborung reside in darkness."
 	},
@@ -4237,14 +4069,13 @@
 		"unique": true,
 		"desc": "The silent Brittelwort watches in the Felkill mountains, punishing all transgressions.",
 		"hp": 4000,
-		"tohit": 34,
 		"defense": 100,
 		"attack": [
 			{
 				"name": "siphon",
 				"kind": "drain",
 				"leech": 0.2,
-				"dmg": "70~100"
+				"damage": "70~100"
 			},
 			{
 				"dot": {
@@ -4264,7 +4095,7 @@
 		"attack": {
 			"name": "nether blade",
 			"kind": "nether",
-			"dmg": "130~150"
+			"damage": "130~150"
 		},
 		"flavor": "To escape Sarnagar one had only collect the pieces of a single set of Dhrozen armor.",
 		"immune": "sleep,charm"
@@ -4275,14 +4106,13 @@
 		"kind": "spirit",
 		"desc": "A voiceless form with a bare and twisted skull.",
 		"hp": 700,
-		"tohit": 100,
 		"defense": 70,
 		"attack": [
 			{
 				"name": "soul siphon",
 				"kind": "drain",
 				"leech": 0.3,
-				"dmg": "40~70"
+				"damage": "40~70"
 			},
 			{
 				"dot": {
@@ -4300,17 +4130,16 @@
 		"kind": "nether",
 		"desc": "A spirit cloaked in noxious nether.",
 		"hp": 1000,
-		"tohit": 100,
 		"defense": 40,
-		"dodge": 100,
+		"dodge": 30,
 		"attack": {
 			"name": "nether touch",
 			"kind": "spirit",
-			"dmg": "50~80",
+			"damage": "50~80",
 			"dot": {
 				"duration": 10,
 				"kind": "nether",
-				"dmg": 30
+				"damage": 30
 			}
 		},
 		"loot": {
@@ -4329,7 +4158,6 @@
 		"desc": "a raw manifestation of death is fleeting, but terrible beyond measure.",
 		"kind": "shade",
 		"hp": 6666,
-		"tohit": 50,
 		"defense": 200,
 		"regen": -100,
 		"attack": [
@@ -4339,14 +4167,13 @@
 				"dot": {
 					"kind": "death",
 					"duration": 500,
-					"dmg": "50~80"
+					"damage": "50~80"
 				}
 			},
 			{
 				"name": "reap",
-				"tohit": 50,
 				"kind": "death",
-				"dmg": "150~300"
+				"damage": "150~300"
 			}
 		]
 	},
@@ -4367,9 +4194,9 @@
 			"dot": {
 				"kind": "poison",
 				"duration": 10,
-				"dmg": "130~200"
+				"damage": "130~200"
 			},
-			"dmg": "100~200"
+			"damage": "100~200"
 		}
 	},
 	{
@@ -4380,12 +4207,11 @@
 		"unique": true,
 		"desc": "The serpent that grips the earth in its scales",
 		"hp": 130000,
-		"tohit": 30,
 		"defense": 200,
 		"attack": {
 			"name": "crush",
 			"kind": "blunt",
-			"dmg": "200~350"
+			"damage": "200~350"
 		},
 		"immune": "earth"
 	}

@@ -44,7 +44,6 @@ export default class Task extends GData {
 	get craftable() {return this._craftable;}
 	set craftable(v) { this._craftable = v;}
 
-	get typeName() { return this.type === TASK ? 'action' : this.type }
 
 	/**
 	 * @property {Mods} runmod - mods to apply while task is being actively used.

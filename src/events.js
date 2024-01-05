@@ -127,6 +127,7 @@ const TASK_BLOCKED = 'taskblock';
  */
 const CHAR_ACTION = 'charact';
 const ITEM_ACTION = 'itemact';
+const DOT_ACTION = 'dotact';
 /**
  * Completely delete item data. Use for Custom items only.
  */
@@ -178,7 +179,7 @@ export const TOGGLE = 'toggle';
 
 export { CHAR_TITLE, NEW_TITLE, LEVEL_UP, CHAR_CLASS, CHAR_CHANGE };
 
-export { HALT_TASK, EVT_EVENT, EVT_UNLOCK, EVT_LOOT, TASK_DONE, CHAR_ACTION, ITEM_ACTION, STOP_ALL, DELETE_ITEM,
+export { HALT_TASK, EVT_EVENT, EVT_UNLOCK, EVT_LOOT, TASK_DONE, CHAR_ACTION, ITEM_ACTION, DOT_ACTION, STOP_ALL, DELETE_ITEM,
 	TASK_REPEATED, TASK_IMPROVED, TASK_BLOCKED,
 	DAMAGE_MISS, DEFEATED, ENC_START, ENC_DONE };
 
@@ -426,7 +427,7 @@ export default {
 	/**
 	 * @param {string} msg
 	 */
-	onHit( target, dmg, resist, reduce, source ) {
+	onHit( target, dmg, resist, reduce, source, parried ) {
 
 		let msg = source.toString().toTitleCase() + " Hits ";
 		if (resist < 0) msg += "Strongly ";

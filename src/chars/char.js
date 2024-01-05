@@ -4,12 +4,12 @@ import Attack from './attack';
 import Dot from './dot';
 import { cloneClass, mergeSafe } from 'objecty';
 
-import { NPC, getDelay, TYP_PCT, TYP_STATE } from '../values/consts';
+import { NPC, getDelay, TYP_PCT, TYP_STATE, instanceDamage } from '../values/consts';
 import { toStats } from "../util/dataUtil";
-import Events, { CHAR_STATE, EVT_COMBAT, RESISTED, CHAR_ACTION, STATE_BLOCK } from '../events';
+import Events, { CHAR_STATE, EVT_COMBAT, RESISTED, CHAR_ACTION, STATE_BLOCK, DOT_ACTION } from '../events';
 import States, { NO_ATTACK, NO_SPELLS } from './states';
 
-import { ApplyAction } from '../values/combatVars';
+import { ApplyAction, CalcDmgWithBonus } from '../values/combatVars';
 import { assignNoFunc } from '../util/util';
 
 export default class Char {
@@ -155,6 +155,9 @@ export default class Char {
 	canCast(){
 		return this._states.canCast();
 	}
+	canParry(){
+		return this._states.canParry();
+	}
 
 	/**
 	 * @property {States} states - current char states. (silenced, paralyzed, etc.)
@@ -290,7 +293,6 @@ export default class Char {
 		if ( Array.isArray(dot)) {
 			return dot.forEach(v=>this.addDot(v,source,duration,applier));
 		}
-
 		let id = dot;
 		let base = dot;
 		let dmg;
@@ -323,6 +325,39 @@ export default class Char {
 		}
 
 		if( dmg && dmg.instantiate instanceof Function ) dot.damage = dot.dmg = dmg.instantiate();
+
+		if (dot.applyinstanced) 
+		{
+			dot.damage = CalcDmgWithBonus(dot, dot.applier, this)
+			dot.showinstanced = true;
+			if(dot.attack)
+			{
+				if ( Array.isArray(dot.attack)) {
+					for( let i = dot.attack.length-1; i>=0; i-- ) {
+						dot.attack[i] = instanceDamage(dot.attack[i] ,dot.applier, this)
+						if (dot.attack[i].dot) dot.attack[i].dot = instanceDamage(dot.attack[i].dot, dot.applier, this)
+						if ( dot.attack[i].hits ) {
+							for( let b = dot.attack[i].hits.length-1; b>=0; b--) 
+							{
+								dot.attack[i].hits[b] = instanceDamage(dot.attack[i].hits[b] ,dot.applier,this)
+								if (dot.attack[i].hits[b].dot) dot.attack[i].dot = instanceDamage(dot.attack[i].hits[b].dot, dot.applier, this)
+							}
+						}
+					}
+				} else 
+				{ 
+					dot.attack = instanceDamage(dot.attack,dot.applier,this)
+					if (dot.attack.dot) dot.attack.dot = instanceDamage(dot.attack.dot, dot.applier, this)
+					if ( dot.attack.hits ) {
+						for( let b = dot.attack.hits.length-1; b>=0; b--) 
+						{
+							dot.attack.hits[b] = instanceDamage(dot.attack.hits[b],dot.applier,this)
+							if (dot.attack.hits[b].dot) dot.attack.hits[b].dot = instanceDamage(dot.attack.hits[b].dot, dot.applier, this)
+						}
+					}
+				}
+			}
+		}
 
 		// In case the getData dot doesn't have an id
 		if ( !dot.id && typeof id === "string" ) dot.id = id;
@@ -442,6 +477,9 @@ export default class Char {
 			if ( dot.summon)
 				{
 					for (let smn of dot.summon){
+						if ( smn[ TYP_PCT ] && !smn[TYP_PCT].roll() ) {
+							continue;
+						}
 						let smnid = smn.id
 						let smncount = smn.count || 1
 						let smnmax = smn.max || 0
@@ -449,6 +487,11 @@ export default class Char {
 					}
 				}
 			if ( dot.damage || dot.cure ) ApplyAction( this, dot, dot.applier );
+			
+			if ( dot.attack) 
+			{	
+				Events.emit( DOT_ACTION, dot, this.context );
+			}
 
 			if ( dot.duration <= dt && !dot.perm ) {
 				this.rmDot(i);
@@ -506,6 +549,9 @@ export default class Char {
 							if (s.summon)
 							{
 								for (let smn of s.summon){
+									if ( smn[ TYP_PCT ] && !smn[ TYP_PCT ].roll() ) {
+										continue;
+									}
 									let smnid = smn.id
 									let smncount = smn.count || 1
 									let smnmax = smn.max || 0

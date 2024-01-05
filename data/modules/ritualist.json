@@ -8,7 +8,7 @@
 			{
 				"id": "ritualism",
 				"name": "rituals",
-				"require": "g.runner.max>1&&g.ritualchamber>0",
+				"require": "g.runner.max>=2&&g.ritualchamber>0",
 				"desc": "Practice in the various magic rituals and their dangers",
 				"level": 25,
 				"buy": {
@@ -79,7 +79,7 @@
 				"desc": "Empower souls with malice to shield you from harm.",
 				"perpetual": true,
 				"verb": "cursing ritual",
-				"require": "g.ritualism>3&&g.evil>0",
+				"require": "g.ritualism>=3&&g.evil>0",
 				"buy": {
 					"ritualward": 1
 				},
@@ -103,7 +103,7 @@
 				"desc": "Command the plants to grow and blossom",
 				"perpetual": true,
 				"verb": "cultivation ritual",
-				"require": "g.ritualism>3&&(g.druid+g.fey+g.kell+g.highkell)>0",
+				"require": "g.ritualism>=3&&(g.druid+g.fey+g.kell+g.highkell)>0",
 				"buy": {
 					"ritualward": 1
 				},
@@ -126,8 +126,8 @@
 				"desc": "Fortify your body with light",
 				"perpetual": true,
 				"verb": "healing ritual",
-				"need": "g.evil<1",
-				"require": "g.ritualism>3&&g.evil<1",
+				"need": "g.evil<=0",
+				"require": "g.ritualism>=3&&g.evil<=0",
 				"buy": {
 					"ritualward": 1
 				},
@@ -150,7 +150,7 @@
 				"desc": "Drain vitality from living tissues to replenish your stamina.",
 				"perpetual": true,
 				"verb": "energy ritual",
-				"require": "g.ritualism>5",
+				"require": "g.ritualism>=6",
 				"buy": {
 					"ritualward": 1
 				},
@@ -175,7 +175,7 @@
 				"desc": "An advanced ritual for those adept in ritual magic",
 				"perpetual": true,
 				"verb": "greater arcane ritual",
-				"require": "g.ritualism>6",
+				"require": "g.ritualism>=7",
 				"buy": {
 					"ritualward": 4
 				},
@@ -197,7 +197,7 @@
 				"desc": "Empower legions of cursed souls to guard your mortal form",
 				"perpetual": true,
 				"verb": "greater cursing ritual",
-				"require": "g.ritualism>8&&g.evil>0",
+				"require": "g.ritualism>=9&&g.evil>0",
 				"buy": {
 					"ritualward": 4
 				},
@@ -222,7 +222,7 @@
 				"desc": "Use the lifeforce of multiple bodies to create a field of herbs in a blink of an eye",
 				"perpetual": true,
 				"verb": "greater cultivation ritual",
-				"require": "g.ritualism>8&&(g.druid+g.fey+g.kell+g.highkell)>0",
+				"require": "g.ritualism>=9&&(g.druid+g.fey+g.kell+g.highkell)>0",
 				"buy": {
 					"ritualward": 4
 				},
@@ -246,8 +246,8 @@
 				"desc": "Infuse yourself with a healing radiance",
 				"perpetual": true,
 				"verb": "greater healing ritual",
-				"need": "g.evil<1",
-				"require": "g.ritualism>8&&g.evil<1",
+				"need": "g.evil<=0",
+				"require": "g.ritualism>=9&&g.evil<=0",
 				"buy": {
 					"ritualward": 4
 				},
@@ -271,7 +271,7 @@
 				"desc": "Pass on your exhaustion to others",
 				"perpetual": true,
 				"verb": "greater energy ritual",
-				"require": "g.ritualism>10",
+				"require": "g.ritualism>=10",
 				"buy": {
 					"ritualward": 4
 				},
@@ -297,7 +297,7 @@
 				"desc": "Control the ebb and flow of time to your benefit",
 				"perpetual": true,
 				"verb": "time ritual",
-				"require": "g.ritualism>15&&g.masterritualist>0",
+				"require": "g.ritualism>=15&&g.masterritualist>0",
 				"buy": {
 					"ritualward": 10
 				},
@@ -320,7 +320,7 @@
 				"desc": "Null",
 				"perpetual": true,
 				"verb": "void ritual",
-				"require": "g.ritualism>15&&g.masterritualist>0",
+				"require": "g.ritualism>=15&&g.masterritualist>0",
 				"buy": {
 					"ritualward": 10
 				},
@@ -344,7 +344,7 @@
 				"desc": "Don't let your dreams be dreams",
 				"perpetual": true,
 				"verb": "dream ritual",
-				"require": "g.ritualism>15&&g.masterritualist>0",
+				"require": "g.ritualism>=15&&g.masterritualist>0",
 				"buy": {
 					"ritualward": 10
 				},
@@ -769,7 +769,7 @@
 				"id": "ritual_notestorage",
 				"name": "an accurate magical index",
 				"desc": "Cataloguing your notes reduces clutter.",
-				"require": "g.ritualism>10",
+				"require": "g.ritualism>=10",
 				"max": 1,
 				"cost": {
 					"ritualward": 10,
@@ -785,7 +785,7 @@
 				"id": "ritual_paperfolders",
 				"name": "reinforced folders",
 				"desc": "Specialized folders for unstable materials",
-				"require": "g.ritualism>5",
+				"require": "g.ritualism>=6",
 				"max": 1,
 				"cost": {
 					"ritualward": 10,
@@ -801,7 +801,7 @@
 				"id": "ritual_furtherstudy",
 				"name": "study ritual notes",
 				"desc": "Acquire further understanding of ritualistic magic",
-				"require": "g.ritualism>5",
+				"require": "g.ritualism>=6",
 				"max": 500,
 				"cost": {
 					"ritualnotes": 3

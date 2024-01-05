@@ -40,7 +40,8 @@ export default class Monster extends GData {
 	 * @returns {object}
 	 */
 	toJSON() {
-		if ( this.value > 0 ) return { value:this.value};
+		if (this.require) return { value:this.value, locked:this.locked};
+		else if ( this.value > 0 ) return { value:this.value};
 		else return undefined;
 	}
 	get attack() { return this._attack; }
@@ -76,11 +77,11 @@ export default class Monster extends GData {
 
 		this.hp = this.hp || (2*this.level);
 		this.speed = this.speed || this.level;
-		this.tohit = this.tohit || this.level;
+		this.tohit = this.tohit || this.level*1.5;
 		this.defense = ( this.defense === null || this.defense === undefined )
 								? this.level : this.defense;
 
-		this.locked = this.require ? true : false;
+		if (this.locked != false) this.locked = this.require ? true : false;
 
 		if(!this.loot) this.loot = genDefaultLoot(this);
 

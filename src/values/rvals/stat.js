@@ -17,6 +17,9 @@ export function ShowLoops(){
  * Stat with a list of modifiers.
  */
 export default class Stat extends RValue {
+	static getBase(s) {
+		return s instanceof Stat ? s.base : s;
+	}
 
 	toJSON(){
 		return this._value;
@@ -212,14 +215,7 @@ export default class Stat extends RValue {
 
 			//console.dir( val );
 
-		} else if ( typeof val === 'function') {
-
-			this.base += amt*val(Game.gdata);
-
-			//console.dir( val );
-
-		}
-		else {
+		} else {
 			console.dir( val, 'unknown mod: ' + typeof val );
 		}
 

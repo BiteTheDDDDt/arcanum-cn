@@ -8,9 +8,10 @@ import Explore from './composites/explore';
 import { ensure } from './util/util';
 import DataList from './inventories/dataList';
 import Group from './composites/group';
+import SpellLoadouts from './inventories/spellLoadouts';
 import UserSpells from './inventories/userSpells';
 import Quickbars from './composites/quickbars';
-import { WEARABLE, ARMOR, WEAPON, HOME, PURSUITS, ENCHANTSLOTS, TimeId } from './values/consts';
+import { WEARABLE, ARMOR, WEAPON, HOME, PURSUITS, ENCHANTSLOTS, TimeId, COMPANION } from './values/consts';
 import Stat from './values/rvals/stat';
 import TagSet from './composites/tagset';
 import EnchantSlots from './inventories/enchantslots';
@@ -49,6 +50,7 @@ export default class GameState {
 			drops:this.drops,
 			explore:this.explore,
 			sellRate:this.sellRate,
+			currentSpellLoadout:this.currentSpellLoadout,
 			NEXT_ID:this.NEXT_ID
 
 		};
@@ -145,6 +147,44 @@ export default class GameState {
 		this.items.spelllist = this.spelllist = new DataList( this.items.spelllist );
 		this.spelllist.spaceProp = 'level';
 		this.spelllist.name = this.spelllist.id = 'spelllist';
+
+		/**
+		 * Support for Spell Loadouts (stored spell lists)
+		 */
+
+		this.items.spellLoadouts = this.spellLoadouts = new SpellLoadouts( this.items.spellLoadouts );
+
+		/**
+		 * Ensures we have a current Spell Loadout
+		 * 
+		 * If there is no currentSpellLoadout, it either means we're dealing with the first
+		 * run under the spellLoadouts methodology, or that something else went wrong.
+		 *
+		 * Clone the spelllist out to the 0th list item if it does not exist.
+		 * 
+		 * Either way, set the currentSpellLoadout to the 0th list's id.
+		 */
+
+		if ( !this.currentSpellLoadout ){
+			if ( this.items.spellLoadouts.items[0] === undefined ){
+				this.spellLoadouts.create( this, "init", "Default Spell List");
+				
+				/**
+				 * Then reinstantiate the data properly, because the game refuses
+				 * to initialize this list properly as a Group object within the
+				 * spellLoadouts container when called like this.
+				 */
+				let newid = this.spellLoadouts.items[0].id;
+
+				this.spellLoadouts.items[0] = this.findData(newid);
+
+			}
+
+			this.currentSpellLoadout = this.spellLoadouts.items[0].id;
+
+		}
+
+		this.items.currentSpellLoadout = this.currentSpellLoadout;
 
 		this.items.pursuits = new DataList( this.items.pursuits );
 		this.items.pursuits.id = PURSUITS;
@@ -318,7 +358,7 @@ export default class GameState {
 		this.slots = this.slots || {};
 
 		// must be defined for Vue. slots could be missing from save.
-		ensure( this.slots, [HOME, 'mount', 'bed', REST_SLOT]);
+		ensure( this.slots, [HOME, 'mount', 'bed', REST_SLOT, COMPANION ]);
 		if ( !this.slots[REST_SLOT] ) this.slots[REST_SLOT] = this.getData('rest');
 
 	}

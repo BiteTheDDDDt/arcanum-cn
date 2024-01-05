@@ -10,72 +10,74 @@ import RValue from "./rvals/rvalue";
 export const TARGET_SELF = 1;
 
 /**
- * @const {number} TARGET_ENEMY - target one enemy.
+ * @const {number} TARGET_ENEMY - target has to be on enemy team
  */
 export const TARGET_ENEMY = 2;
 
 /**
- * @const {number} TARGET_ALLY - target single ally.
+ * @const {number} TARGET_ALLY - target has to be ally team
  */
 export const TARGET_ALLY = 4;
 
 /**
- * @const {number} TARGET_RAND - random target.
+ * @const {number} TARGET_RAND - one target is chosen randomly
  */
 export const TARGET_RAND = 8;
 
+/**
+ * @const {number} TARGET_GROUP - affect an entire group, depending on other flags
+ */
 export const TARGET_GROUP = 16;
 
 
 /**
- * @const {number} TARGET_ANY - not necessarily useful but
- * included for consistency with targetting flags.
+ * @const {number} TARGET_ANY - Everyone not excluded is a valid target (largely equivalent to ALLY+ENEMY, but not quite)
  */
 export const TARGET_ANY = 32;
 
 /**
- * @const {number} TARGET_PRIMARY - target leader of targetted group.
+ * @const {number} TARGET_PRIMARY - Target has to be the 1st in it's group.
  */
 export const TARGET_PRIMARY = 64;
 
 /**
- * @const {number} TARGET_NONPRIMARY - avoid targeting the leader of the group.
+ * @const {number} TARGET_NONPRIMARY - Target has to NOT be the 1st in it's group. If targeting a group, exclude the 1st.
  */
 export const TARGET_NONPRIMARY = 128;
 
-export const TARGET_ALL = TARGET_ANY + TARGET_GROUP;
+export const TARGET_ALL = TARGET_ANY + TARGET_GROUP; // Target everyone, targets entire group.
 
-export const TARGET_RAND_ENEMY = TARGET_RAND + TARGET_ENEMY;
+export const TARGET_RAND_ENEMY = TARGET_RAND + TARGET_ENEMY; //target a random target from an enemy group
 
-export const TARGET_RAND_ALLY = TARGET_RAND + TARGET_ALLY;
+export const TARGET_RAND_ALLY = TARGET_RAND + TARGET_ALLY; //target a random target from an ally group
 
-export const TARGET_ENEMYLEADER = TARGET_ENEMY + TARGET_PRIMARY;
+export const TARGET_ENEMYLEADER = TARGET_ENEMY + TARGET_PRIMARY; // target the 1st entity in enemy group
 
-export const TARGET_LEADER = TARGET_ALLY + TARGET_PRIMARY;
+export const TARGET_LEADER = TARGET_ALLY + TARGET_PRIMARY; // target the 1st entity in ally group 
 
-export const TARGET_FLUNKIES = TARGET_GROUP + TARGET_ENEMY + TARGET_NONPRIMARY;
+export const TARGET_FLUNKIES = TARGET_GROUP + TARGET_ENEMY + TARGET_NONPRIMARY; // target everyone in an enemy group, except the 1st entity
 
-export const TARGET_MINIONS = TARGET_GROUP + TARGET_ALLY + TARGET_NONPRIMARY;
+export const TARGET_MINIONS = TARGET_GROUP + TARGET_ALLY + TARGET_NONPRIMARY; // target everyone in an ally group, except the 1st entity
 
-export const TARGET_FLUNKY = TARGET_RAND + TARGET_ENEMY + TARGET_NONPRIMARY;
+export const TARGET_FLUNKY = TARGET_RAND + TARGET_ENEMY + TARGET_NONPRIMARY; //target a random target from an enemy group but never the 1st
 
-export const TARGET_MINION = TARGET_RAND + TARGET_ALLY + TARGET_NONPRIMARY;
+export const TARGET_MINION = TARGET_RAND + TARGET_ALLY + TARGET_NONPRIMARY;  //target a random target from an ally group but never the 1st
 
-export const TARGET_ENEMIES = TARGET_GROUP + TARGET_ENEMY;
+export const TARGET_ENEMIES = TARGET_GROUP + TARGET_ENEMY; // target entire group of enemies
 
-export const TARGET_ALLIES = TARGET_GROUP + TARGET_ALLY;
+export const TARGET_ALLIES = TARGET_GROUP + TARGET_ALLY; // target entire group of allies
 
-export const TARGET_EPICENTER = TARGET_ANY + TARGET_GROUP + TARGET_NONPRIMARY;
+export const TARGET_EPICENTER = TARGET_ANY + TARGET_GROUP + TARGET_NONPRIMARY; // TODO
 
 /**
  * @const TARGET_RANDG - target random group.
  */
-export const TARGET_RANDG = TARGET_RAND + TARGET_GROUP;
+export const TARGET_RANDG = TARGET_RAND + TARGET_GROUP; // Target everyone in a random group
 
 /**
  * @const TARGET_RANDNP - target random non-primary.
  */
-export const TARGET_RANDNP = TARGET_RAND + TARGET_NONPRIMARY;
+export const TARGET_RANDNP = TARGET_RAND + TARGET_NONPRIMARY; // target someone random who isn't the 1st in their group
 
 /**
  * Determine if target can target type.
@@ -283,7 +285,7 @@ export const ParseDmg = (v)=>{
 * @param {Char} target
 * @param {Object} action
 */
-export const ApplyAction = ( target, action, attacker = null) => {
+export const ApplyAction = ( target, action, attacker = null, parried = 0) => {
 
 	if ( !target || !target.alive ) return;
 	if ( target.isImmune(action.kind) ) {
@@ -293,7 +295,7 @@ export const ApplyAction = ( target, action, attacker = null) => {
 	}
 
 
-	if ( action.damage ) ApplyDamage( target, action, attacker );
+	if ( action.damage ) ApplyDamage( target, action, attacker, parried );
 	if ( action.cure ) {
 
 		target.cure( action.cure );
@@ -315,8 +317,7 @@ export const ApplyAction = ( target, action, attacker = null) => {
 
 }
 
-export const ApplyDamage = ( target, attack, attacker ) => {
-
+export const CalcDmgWithBonus = (attack, attacker, target = null ) => {
 	let dmg = attack.damage;
 	if ( !dmg) return;
 
@@ -335,12 +336,32 @@ export const ApplyDamage = ( target, attack, attacker ) => {
 			{	
 				let potency = attacker.context.state.getData(p)
 				if(potency){
-				dmg = dmg * potency.dmg.fn( attacker, target, target.context, potency )
+				dmg = dmg * potency.damage.fn( attacker, target, target.context, potency )
 				}
 			}
 		}
 	}
-	
+	return dmg
+}
+
+export const CalcDmgWithoutBonus = (attack, attacker, target = null ) => {
+	let dmg = attack.damage;
+	if ( !dmg) return;
+
+	if ( dmg.type === TYP_FUNC ) {
+		//let f = dmg.fn;
+		dmg = dmg.fn( attacker, target, target.context, attack.source);
+	}
+	else dmg = dmg.value;
+	return dmg
+}
+
+export const ApplyDamage = ( target, attack, attacker, parried = 0 ) => {
+	let dmg
+	if (!attack.showinstanced)
+	{
+		dmg = CalcDmgWithBonus (attack,attacker, target)
+	} else dmg = CalcDmgWithoutBonus (attack,attacker, target);
 
 	let resist = target.getResist(attack.kind);
 	if (resist !== 0) {
@@ -355,11 +376,10 @@ export const ApplyDamage = ( target, attack, attacker ) => {
 		dmg *= ( 1 - dmg_reduce );
 
 	}
-
+	if (parried) dmg*=parried;
 	target.hp -= dmg;
 
-
-	Events.emit( COMBAT_HIT, target, dmg, resist, dmg_reduce, (attack.name || (attacker ? attacker.name : '') ) );
+	Events.emit( COMBAT_HIT, target, dmg, resist, dmg_reduce, (attack.name || (attacker ? attacker.name : '') ), parried );
 	if ( target.hp <= 0 ) { Events.emit( CHAR_DIED, target, attack ); }
 
 	if ( attack.leech && attacker && dmg > 0 ) {

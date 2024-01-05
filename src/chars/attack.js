@@ -2,7 +2,7 @@ import { assignNoFunc } from "../util/util";
 import { cloneClass } from 'objecty';
 import Stat from "../values/rvals/stat";
 import { TARGET_ALLIES, TARGET_ALLY, TARGET_SELF,
-		ParseTarget, ParseDmg, GetTarget, TARGET_RAND_ALLY} from "../values/combatVars";
+		ParseTarget, ParseDmg, GetTarget, TARGET_RAND_ALLY, TARGET_MINION, TARGET_MINIONS} from "../values/combatVars";
 
 export default class Attack {
 
@@ -10,9 +10,8 @@ export default class Attack {
 
 		return {
 			
-			/*
 			name:this.name,
-			dmg:this._damage,
+			dmg:this.damage||undefined,
 			tohit:this.tohit||undefined,
 			bonus:this.bonus||undefined,
 			kind:this.kind,
@@ -23,8 +22,10 @@ export default class Attack {
 			targetstring:this.targetstring||undefined,
 			result:this.result||undefined,
 			id:this.id,
-			dot:this.dot
-			*/
+			dot:this.dot,
+			showinstanced:this.showinstanced||undefined,
+			potencies:this.potencies
+
 		};
 
 	}
@@ -134,6 +135,13 @@ export default class Attack {
 	}
 	get source(){return this._source;}
 	set source(v){this._source=v}
+
+	/**
+	 * @property {boolean} applyinstanced - for dot attacks
+	 */
+	get applyinstanced(){return this._applyinstanced;}
+	set applyinstanced(v){this._applyinstanced=v}
+
 	/**
 	 * @alias damage
 	 */
@@ -164,6 +172,11 @@ export default class Attack {
 			if (!h.name ) h.name = this.name;
 			if (!h.kind) h.kind = this.kind;
 			if (!h.potencies) h.potencies = this.potencies;
+			if (h.dot)
+			{
+				h.dot.targetstring = h.dot.targets;
+				h.dot.damage = ParseDmg(h.dot.damage)
+			}
 			if ( !(h instanceof Attack) ) v[i] = new Attack(h, this);
 
 		}
@@ -217,8 +230,38 @@ export default class Attack {
 					if ( p.dmg || p.damage ) {
 						if ( !p.damage ) p.damage = p.dmg;
 						else p.dmg = p.damage;
-						if (this.potencies) p.potencies = this.potencies;
+						if (this.potencies&&!p.potencies) p.potencies = this.potencies;
 					}
+					
+					if (p.attack)
+					{	
+						if ( Array.isArray(p.attack)) {
+		
+						
+							for( let i = p.attack.length-1; i>=0; i-- ) {
+				
+								p.attack[i].targetstring = p.attack[i].targets;
+								if (p.attack[i].hits)
+								{
+									for( let b = p.attack[i].hits.length-1; b>=0; b-- ) {
+										p.attack[i].hits[b].targetstring = p.attack[i].hits[b].targets;
+									}
+								}
+							}
+				
+				
+						} else 
+						{
+							p.attack.targetstring = p.attack.targets;
+							if (p.attack.hits)
+							{
+								for( let b = p.attack.hits.length-1; b>=0; b-- ) {
+									p.attack.hits[b].targetstring = p.attack.hits[b].targets;
+								}
+							}
+						}
+					}
+					
 				}
 			}
 			else {
@@ -229,15 +272,45 @@ export default class Attack {
 				if ( this.dot.dmg || this.dot.damage ) {
 					if ( !this.dot.damage ) this.dot.damage = this.dot.dmg;
 					else this.dot.dmg = this.dot.damage;
-					if (this.potencies) this.dot.potencies = this.potencies;
+					if (this.potencies&&!this.dot.potencies) this.dot.potencies = this.potencies;
 				}
+				
+				if (this.dot.attack)
+				{	
+					if ( Array.isArray(this.dot.attack)) {
+		
+						
+						for( let i = this.dot.attack.length-1; i>=0; i-- ) {
+			
+							this.dot.attack[i].targetstring = this.dot.attack[i].targets;
+							if (this.dot.attack[i].hits)
+							{
+								for( let b = this.dot.attack[i].hits.length-1; b>=0; b-- ) {
+									this.dot.attack[i].hits[b].targetstring = this.dot.attack[i].hits[b].targets;
+								}
+							}
+						}
+			
+			
+					} else 
+					{
+						this.dot.attack.targetstring = this.dot.attack.targets;
+						if (this.dot.attack.hits)
+						{
+							for( let b = this.dot.attack.hits.length-1; b>=0; b-- ) {
+								this.dot.attack.hits[b].targetstring = this.dot.attack.hits[b].targets;
+							}
+						}
+					}
+				}
+				
 			}
 		}
 
 
 		if ( this._harmless === null || this._harmless === undefined ) {
 			this.harmless = (this.targets === TARGET_SELF) ||
-				(this.targets === TARGET_ALLY) || (this.targets === TARGET_RAND_ALLY) || (this.targets === TARGET_ALLIES);
+				(this.targets === TARGET_ALLY) || (this.targets === TARGET_RAND_ALLY) || (this.targets === TARGET_MINION) || (this.targets === TARGET_MINIONS) || (this.targets === TARGET_ALLIES);
 		}
 
 		//this.damage = this.damage || 0;

@@ -9,6 +9,7 @@ export const CONFUSED = 8;
 export const CHARMED = 16;
 export const TAUNT = 32;
 export const HIDE = 64;
+export const DEFENSIVE = 128;
 
 export const NO_ACT = NO_ATTACK + NO_DEFEND + NO_SPELLS;
 export const IMMOBILE = NO_ATTACK + 32;
@@ -30,6 +31,7 @@ export const ParseFlags = (list)=>{
 		else if ( v === 'charmed') f |= CHARMED;
 		else if ( v === 'taunt') f |= TAUNT;
 		else if ( v === 'hiding') f |= HIDE;
+		else if ( v === 'defensive') f |= DEFENSIVE;
 
 	}
 	return f;
@@ -95,6 +97,7 @@ export default class States {
 	canCast() { return (this._flags & NO_SPELLS) === 0 }
 	canAttack() { return (this._flags & NO_ATTACK) === 0 }
 	canDefend() { return (this._flags & NO_DEFEND ) === 0 }
+	canParry() {return !((this._flags & DEFENSIVE ) === 0)}
 
 	/**
 	 *

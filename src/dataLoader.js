@@ -234,7 +234,7 @@ export default {
 			inst.homes.forEach( v=>v.slot=HOME);
 		}
 
-		if ( lists.furniture ) this.initItems( items, lists.furniture, GData, 'furniture', 'furniture' );
+		if ( lists.furniture ) inst.furnitures = this.initItems( items, lists.furniture, GData, 'furniture', 'furniture' );
 
 		if ( lists.skills ) inst.skills = this.initItems( items, lists.skills, Skill, SKILL );
 

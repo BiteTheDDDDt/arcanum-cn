@@ -12,6 +12,7 @@ import AtMod, { IsAtMod } from '../values/mods/atmod';
 
 import { FP } from "../values/consts";
 import RangedMod, { isRangedMod } from '../values/mods/rangedmod';
+import FValue, { MkParams } from '../values/rvals/fvalue';
 
 /**
  * @const {RegEx} IdTest - Test for a simple id name.
@@ -286,5 +287,5 @@ export function MakeCostFunc(text) {
  * @param {string} text
  */
 export function MakeEffectFunc( text ) {
-	return new Function( FP.GAME, FP.TARGET, FP.ACTOR, 'return ' + text );
+	return new FValue( MkParams(FP.GAME, FP.TARGET, FP.ACTOR), text );
 }

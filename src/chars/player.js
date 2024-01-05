@@ -188,6 +188,8 @@ export default class Player extends Char {
 
 		data.weapons = this.weapons;
 
+		if(data.attack) delete data.attack;
+
 		return data;
 
 	}
@@ -197,9 +199,17 @@ export default class Player extends Char {
 	 * @param {*} kind
 	 * @returns {number}
 	 */
-	getHit(kind){
-
-		return this.tohit.valueOf() + ( kind ? this.hits[kind] || 0 : 0 );
+	getHit(kind, weapon = null){
+		let weaponhit = 0
+		if(weapon&&this.weapon.tags) {
+			
+			for (let e of this.weapon.tags)
+			{
+				//console.log(e + " " + e.replace("t_","") + " " + this.hits[e.replace("t_","")])
+				if (this.hits[e.replace("t_","")]) weaponhit += this.hits[e.replace("t_","")]
+			}
+		}
+		return this.tohit.valueOf() + ( kind ? this.hits[kind] || 0 : 0 ) + weaponhit||0;
 
 	}
 

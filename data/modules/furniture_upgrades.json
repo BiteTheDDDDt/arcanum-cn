@@ -1,9 +1,58 @@
 {
-    "module":"furniture_upgrades",
-    "data":{
+	"module":"furniture_upgrades",
+	"data":{
 
-    "upgrades":[
-        {
+	"upgrades":[
+		{
+			"id": "better_arcanestudy",
+			"name": "magically soundproofed study",
+			"desc": "Magically refine your enchanted study into an ideal location for researching topics without any distractions.",
+			"require": "g.arcanestudy>0&&g.airlore2>=1",
+			"cost": {
+				"tomes": 15,
+				"gold": 6000,
+				"airgem": 60,
+				"arcana": 12,
+				"tapestries": 25
+			},
+			"mod": {
+				"studyroom.mod.focus.result.runner.exp": "3%",
+				"arcanestudy.mod.focus.result.runner.exp": "2%"
+			}
+		},
+		{
+			"id": "better_study",
+			"name": "soundproof study",
+			"desc": "Refine your study into an ideal location for researching topics without any distractions.",
+			"require": "g.studyroom>0&&g.airlore>=5",
+			"cost": {
+				"scrolls": 12,
+				"gold": 2000,
+				"gems": 30,
+				"arcana": 3,
+				"bookcase": 5
+			},
+			"mod": {
+				"studyroom.mod.focus.result.runner.exp": "2%"
+			}
+		},
+		{
+			"id": "better_pedestal",
+			"name": "utility pedestal",
+			"desc": "A pedestal with added grooves to keep the reading material in place, small compartments holding spare bookmarks and even a light gem holder for night reading.",
+			"require": "g.pedestal>0&&g.crafting>=7&&g.weaving>=2",
+			"cost": {
+				"scrolls": 12,
+				"gold": 700,
+				"arcana": 1,
+				"research": 1200,
+				"lightgem": 3
+			},
+			"mod": {
+				"pedestal.mod.focus.result.runner.exp": "1.05%"
+			}
+		},
+		{
 			"id": "dungeon_modular",
 			"name": "rework dungeon",
 			"desc": "Add in new hidden passages and optimize the layout of your dungeon to make better use of its space.",
@@ -64,7 +113,7 @@
 			"id": "graveyard_columbarium",
 			"name": "graveyard columbarium",
 			"desc": "A building for cremated remains.",
-			"require": "g.fire>5&&g.graveyard>0",
+			"require": "g.fire>=5&&g.graveyard>0",
 			"cost": {
 				"tapestries": 2,
 				"gold": 2000,

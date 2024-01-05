@@ -57,6 +57,7 @@ export default {
 			}
 		},
 		formatTime(millis) {
+			if(millis < 0) millis = 0;
 			let hr = Math.floor(millis/3600000);
 			let min = Math.floor(millis/60000) % 60;
 			let sec = Math.floor(millis/1000) % 60;
@@ -170,7 +171,7 @@ export default {
 			<span v-if="item.value">{{formatNumber(+item.value)}}</span>
 			<span v-if="item.max">/ {{formatNumber(+item.max)}}</span>
 		</span>
-		<span v-if="item.type==='enc'">
+		<span v-if="item.type==='encounter'">
 			<span v-if="item.value">{{formatNumber(+item.value)}}</span>
 		</span>
 
@@ -231,6 +232,14 @@ export default {
 		<div class="info-sect">Modifications:</div>
 		<info v-if="item.mod&&Object.values(item.mod).length" :info="item.mod" />
 		<info v-if="item.alter&&Object.values(item.alter).length" :info="item.alter" />
+	</div>
+	<div v-if="item.convert">
+		<div class="info-sect">Conversion per {{name.toString().toTitleCase()}}</div>
+		<div class="info-sect">Input:</div>
+		<info :info="item.convert.input" :rate="item.perpetual>0||item.length>0" :checkType="CheckTypes.COST" />
+		<div class="info-sect">Output:</div>
+		<info v-if="item.convert.output.effect&&Object.values(item.convert.output.effect).length" :info="item.convert.output.effect" :rate="item.perpetual>0||item.length>0" :checkType="CheckTypes.FULL" />
+		<info v-if="item.convert.output.mod&&Object.values(item.convert.output.mod).length" :info="item.convert.output.mod" />
 	</div>
 	<div v-if="item.summon">
 		<div class="info-sect">Summons:</div>

@@ -94,6 +94,7 @@
 		"id": "conicalhelm",
 		"name": "conical helm",
 		"armor": 3,
+		"level":2,
 		"slot": "head",
 		"tags": "t_conicalhelm,d_conicalhelm",
 		"cost": 40,

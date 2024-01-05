@@ -36,7 +36,8 @@
 		"mod": {
 			"research.max": 5,
 			"spelllist.max": 0.5,
-			"arcana.max": 1
+			"arcana.max": 1,
+			"player.hits.mana": 0.2
 		}
 	},
 	{
@@ -90,7 +91,7 @@
 		"id": "trickery",
 		"school": "arcane",
 		"verb": "scheming",
-		"require": "g.prestidigitation>25",
+		"require": "g.prestidigitation>=25",
 		"buy": {
 			"sp": 2
 		},
@@ -113,7 +114,7 @@
 		"school": "arcane",
 		"verb": "conjuring",
 		"desc": "",
-		"require": "g.lore>=10&&g.divination>3",
+		"require": "g.lore>=10&&g.divination>=3",
 		"run": {
 			"stamina": 0.2,
 			"spirit": 0.2
@@ -451,7 +452,8 @@
 		"mod": {
 			"research.max": 1,
 			"light.max": 1,
-			"light.rate": 0.01
+			"light.rate": 0.01,
+			"player.hits.light": 0.2
 		},
 		"flavor": "The light fantastic"
 	},
@@ -469,7 +471,8 @@
 		"mod": {
 			"research.max": 1,
 			"shadow.max": 1,
-			"shadow.rate": 0.01
+			"shadow.rate": 0.01,
+			"player.hits.shadow": 0.2
 		}
 	},
 	{
@@ -487,7 +490,8 @@
 		"mod": {
 			"research.max": 1,
 			"spirit.max": 1,
-			"spirit.rate": 0.01
+			"spirit.rate": 0.01,
+			"player.hits.spirit": 0.2
 		}
 	},
 	{
@@ -497,6 +501,9 @@
 		"level": 2,
 		"desc": "The investigation of fire",
 		"need": "firesource",
+		"buy": {
+			"sp": 1
+		},
 		"run": {
 			"stamina": 0.4,
 			"hp": 0.2
@@ -504,7 +511,8 @@
 		"mod": {
 			"research.max": 1,
 			"fire.max": 1,
-			"fire.rate": 0.01
+			"fire.rate": 0.01,
+			"player.hits.fire": 0.2
 		},
 		"flavor": "Dry is good and wind is better"
 	},
@@ -514,6 +522,9 @@
 		"tags": "t_school,elemental",
 		"level": 2,
 		"need": "earthsource",
+		"buy": {
+			"sp": 1
+		},
 		"run": {
 			"stamina": 0.4
 		},
@@ -522,7 +533,8 @@
 			"earth": {
 				"max": 1,
 				"rate": 0.01
-			}
+			},
+			"player.hits.earth": 0.2
 		}
 	},
 	{
@@ -531,6 +543,9 @@
 		"desc": "The study of water",
 		"verb": "studying water",
 		"tags": "elemental,t_school",
+		"buy": {
+			"sp": 1
+		},
 		"level": 2,
 		"need": "watersource",
 		"run": {
@@ -541,7 +556,8 @@
 			"water": {
 				"max": 1,
 				"rate": 0.01
-			}
+			},
+			"player.hits.water": 0.2
 		}
 	},
 	{
@@ -550,6 +566,9 @@
 		"desc": "The study of air",
 		"verb": "studying air",
 		"tags": "elemental,t_school",
+		"buy": {
+			"sp": 1
+		},
 		"level": 2,
 		"need": "airsource",
 		"run": {
@@ -560,7 +579,8 @@
 			"air": {
 				"max": 1,
 				"rate": 0.01
-			}
+			},
+			"player.hits.air": 0.2
 		}
 	},
 	{
@@ -578,7 +598,8 @@
 			"nature": {
 				"max": 1,
 				"rate": 0.01
-			}
+			},
+			"player.hits.nature": 0.2
 		}
 	},
 	{
@@ -621,7 +642,7 @@
 			"fire.max": 1,
 			"fire.rate": "1%",
 			"player.bonuses.fire": 1,
-			"player.hits.fire": 1
+			"firelore.mod.player.hits.fire": 0.04
 		},
 		"flavor": "Dry is good and wind is better"
 	},
@@ -646,7 +667,7 @@
 			"water.max": 1,
 			"water.rate": "1%",
 			"player.bonuses.water": 1,
-			"player.hits.water": 1
+			"waterlore.mod.player.hits.water": 0.04
 		}
 	},
 	{
@@ -670,7 +691,7 @@
 			"air.max": 1,
 			"air.rate": "1%",
 			"player.bonuses.air": 1,
-			"player.hits.air": 1
+			"airlore.mod.player.hits.air": 0.04
 		}
 	},
 	{
@@ -690,8 +711,8 @@
 			"sp": 0.05
 		},
 		"mod": {
-			"player.bonuses.blunt": 1,
-			"player.hits.blunt": 1
+			"player.bonuses.blunt": 0.5,
+			"player.hits.blunt": 0.4
 		}
 	},
 	{
@@ -709,8 +730,8 @@
 			"sp": 0.05
 		},
 		"mod": {
-			"player.defense": 1,
-			"player.dodge": -1,
+			"player.defense": 0.3,
+			"player.dodge": -0.2,
 			"earthspire.mod.space.max": 1
 		}
 	},
@@ -735,7 +756,7 @@
 			"earth.max": 1,
 			"earth.rate": "1%",
 			"player.bonuses.earth": 1,
-			"player.hits.earth": 1
+			"earthlore.mod.player.hits.earth": 0.04
 		}
 	},
 	{
@@ -758,7 +779,7 @@
 			"shadow.max": 1,
 			"shadow.rate": "1%",
 			"player.bonuses.shadow": 1,
-			"player.hits.shadow": 1
+			"shadowlore.mod.player.hits.shadow": 0.04
 		}
 	},
 	{
@@ -781,7 +802,7 @@
 			"light.max": 1,
 			"light.rate": "1%",
 			"player.bonuses.light": 1,
-			"player.hits.light": 1
+			"lightlore.mod.player.hits.light": 0.04
 		}
 	},
 	{
@@ -804,7 +825,7 @@
 			"spirit.max": 1,
 			"spirit.rate": "1%",
 			"player.bonuses.spirit": 1,
-			"player.hits.spirit": 1
+			"spiritlore.mod.player.hits.spirit": 0.04
 		}
 	},
 	{
@@ -827,7 +848,7 @@
 			"mana.max": 1,
 			"mana.rate": "1%",
 			"player.bonuses.mana": 1,
-			"player.hits.mana": 1
+			"lore.mod.player.hits.mana": 0.04
 		}
 	},
 	{
@@ -850,7 +871,7 @@
 			"nature.max": 1,
 			"nature.rate": "1%",
 			"player.bonuses.nature": 1,
-			"player.hits.nature": 1
+			"naturelore.mod.player.hits.nature": 0.04
 		}
 	},
 	{
@@ -895,7 +916,7 @@
 	},
 	{
 		"id": "necromancy",
-		"require": "g.evil>0&&g.reanimation>=7&&g.souls.max>3",
+		"require": "g.evil>0&&g.reanimation>=7&&g.souls.max>=3",
 		"school": "shadow",
 		"desc": "Forbidden death magic.",
 		"buy": {
@@ -1094,7 +1115,7 @@
 	},
 	{
 		"id": "scrying",
-		"require": "g.divination>5",
+		"require": "g.divination>=6",
 		"run": {
 			"stamina": 0.5
 		},

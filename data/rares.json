@@ -133,7 +133,7 @@
 		"desc": "A wooden box brimming with tools for gathering and preserving herbs, flowers, and roots.",
 		"level": 1,
 		"armor": 0,
-		"sell":{
+		"sell": {
 			"gold": 15
 		},
 		"alter": {
@@ -157,7 +157,7 @@
 		"desc": "A quill tempered in the ash pile of a phoenix.",
 		"level": 1,
 		"armor": 0,
-		"sell":{
+		"sell": {
 			"firegem": 1
 		},
 		"alter": {
@@ -184,7 +184,7 @@
 		"desc": "A moonstone pen imbued with magic to make it's ink flow without error.",
 		"level": 1,
 		"armor": 0,
-		"sell":{
+		"sell": {
 			"gems": 2,
 			"gold": 150
 		},
@@ -238,14 +238,14 @@
 		"material": "ice",
 		"enchants": 3,
 		"type": "weapon",
-		"tags": "t_dagger",
+		"tags": "t_martial,t_pierce,t_dagger",
 		"attack": {
 			"kind": "pierce",
 			"damage": "2~4",
 			"tohit": 1,
 			"dot": {
 				"duration": 5,
-				"dmg": "1~3",
+				"damage": "1~3",
 				"name": "frosty",
 				"kind": "frost"
 			}
@@ -262,7 +262,7 @@
 		"enchants": 5,
 		"unique": true,
 		"type": "weapon",
-		"tags": "t_cane",
+		"tags": "t_martial,t_blunt,t_cane",
 		"material": "wood",
 		"alter": {
 			"mod": {
@@ -272,7 +272,7 @@
 			}
 		},
 		"attack": {
-			"dmg": "5~10",
+			"damage": "5~10",
 			"kind": "blunt"
 		}
 	},
@@ -303,9 +303,10 @@
 				},
 				{
 				"name": "earth barrier",
-				"targets":"allies",
-				"harmless":true,
+				"targets": "allies",
+				"harmless": true,
 				"dot": {
+					"level": 1,
 					"id": "dot_adamantskin",
 					"name": "earth barrier",
 					"tags": "toughskin",
@@ -314,15 +315,14 @@
 						"self.defense": 50
 					}
 				}
-
-				}
-			],
+			}
+		],
 		"alter": {
 			"mod": {
 				"earth.rate": 1,
 				"earth.max": 10,
 				"self.defense": 30,
-				"smite.attack.tohit": 5,
+				"smite.attack.tohit": 2,
 				"smite.level": -2,
 				"smite.attack.damage": "20%",
 				"fissure.cd": "-25%",
@@ -330,9 +330,9 @@
 			}
 		},
 		"hands": 2,
-		"tags": "t_warhammer,t_artifact",
+		"tags": "t_martial,t_blunt,t_warhammer,t_artifact",
 		"level": 10,
-		"enchants":10,
+		"enchants": 10,
 		"unique": true,
 		"sell": {
 			"gold": 1000
@@ -348,7 +348,7 @@
 		"desc": "A small sickle that makes herb gathering easier.",
 		"level": 1,
 		"armor": 0,
-		"sell":{
+		"sell": {
 			"gold": 15
 		},
 		"alter": {
@@ -367,7 +367,7 @@
 		"desc": "A simple quill, enchanted to last far longer than normal.",
 		"level": 1,
 		"armor": 0,
-		"sell":{
+		"sell": {
 			"gold": 15
 		},
 		"alter": {
@@ -387,15 +387,14 @@
 		"desc": "An old reinforced glove, suitable for falconry.",
 		"level": 1,
 		"armor": 0,
-		"sell":{
+		"sell": {
 			"gold": 15
 		},
 		"alter": {
 			"mod": {
 				"allies.max": 5,
-				"tendanimals.run.stamina":-0.05,
-				"chores.cost.stamina":-0.05
-
+				"tendanimals.run.stamina": -0.05,
+				"chores.cost.stamina": -0.05
 			}
 		}
 	}

@@ -7,27 +7,34 @@
 		"level": 1,
 		"exclude": "weapon,ring,amulet",
 		"alter": {
-			"attack.tohit": -3,
 			"enchants.max": 5
 		}
 	},
 	{
 		"id": "cotton",
 		"kind": "cloth",
-		"level": 0,
-		"exclude": "weapon",
+		"level": 1,
+		"exclude": "weapon,ring,amulet",
 		"alter": {
-			"attack.tohit": -3
+			"armor": 1
+		}
+	},
+	{
+		"id": "twine",
+		"kind": "cloth",
+		"level": 1,
+		"only": "ring,amulet",
+		"alter": {
+			"armor": 1
 		}
 	},
 	{
 		"id": "stone",
 		"kind": "natural",
 		"weight": 3,
-		"level": 0,
+		"level": 1,
 		"only": "weapon",
 		"alter": {
-			"enchants.max": 1,
 			"damage": 1
 		}
 	},

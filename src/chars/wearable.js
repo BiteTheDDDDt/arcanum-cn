@@ -166,7 +166,7 @@ export default class Wearable extends Item {
 
 		if ( !this.enchants ) this.enchants = 0;
 		if (!this.alters ) this.alters = [];
-
+		//if (!this.armor) this.armor = 0; //this causes things without explicitly defined armor to properly be amenable to armor mods, including rings and armors.
 		this.value = this.val = 0;
 
 		if ( !this.type ) {

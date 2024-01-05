@@ -4,7 +4,7 @@
 		"flags": "charmed",
 		"kind": "charm",
 		"mod": {
-			"tohit": -5
+			"self.tohit": -2
 		}
 	},
 	{
@@ -31,7 +31,7 @@
 		"kind": "fear",
 		"flags": "noattack",
 		"mod": {
-			"defense": -5
+			"self.defense": -5
 		}
 	},
 	{
@@ -50,7 +50,7 @@
 		"id": "sacked",
 		"flags": "noattack,nodefend",
 		"mod": {
-			"tohit": -10
+			"self.tohit": -10
 		}
 	},
 	{
@@ -58,8 +58,8 @@
 		"kind": "sickness",
 		"duration": 20,
 		"mod": {
-			"tohit": -5,
-			"defense": -5
+			"self.tohit": -2,
+			"self.defense": -5
 		}
 	},
 	{
@@ -85,5 +85,11 @@
 		"adj": "hiding",
 		"kind": "hiding",
 		"flags": "hiding"
+	},
+	{
+		"id": "defensive",
+		"adj": "defending",
+		"kind": "defending",
+		"flags": "defensive"
 	}
 ]

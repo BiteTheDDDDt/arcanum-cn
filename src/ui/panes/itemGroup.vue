@@ -43,10 +43,12 @@ export default {
 			return a;
 
 		}
+		
 
 	}
-
+	
 }
+
 </script>
 
 <template>

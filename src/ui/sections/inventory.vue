@@ -11,7 +11,7 @@ export default {
 	 * @property {boolean} selecting - inventory is selection only. sell-all & size information hidden.
 	 * @property {string[]} types - item types to display.
 	 */
-	props:['inv', 'take', 'value', 'selecting', 'nosearch', 'types'],
+	props:['inv', 'take', 'value', 'selecting', 'nosearch', 'types', 'combat'],
 	data() {
 		return {
 			filtered:null
@@ -81,7 +81,7 @@ export default {
 
 	<span class="top">
 	<filterbox ref="filter" v-if="!nosearch" v-model="filtered" :items="baseItems" min-items="7" />
-	<span v-if="!selecting">
+	<span v-if="!selecting&&!combat">
 		<span v-if="inv.max>0">{{ inv.items.length + ' / ' + Math.floor(inv.max.value ) + ' Used' }}</span>
 		<button v-if="inv.count>0" @click="sellAll">Sell All</button>
 	</span>
@@ -93,7 +93,7 @@ export default {
 		<span class="item-name" @mouseenter.capture.stop="itemOver($event,it)">{{ it.name + count(it.count) }}</span>
 
 
-		<template v-if="!selecting">
+		<template v-if="!selecting&&!combat">
 
 			<button v-if="it.equippable&&canEquip(it)" class="item-action" @click="emit('equip',it, inv)">Equip</button>
 			<button v-if="it.use" class="item-action" @mouseenter.capture.stop="itemOver($event,it)" @click="emit( USE, it, inv)">Use</button>
@@ -103,7 +103,12 @@ export default {
 			<button v-if="it.count>1" class="item-action"  @click="emit('sell',it,inv, it.count)" @mouseenter.capture.stop="itemOver($event,it)">Sell All</button>
 
 		</template>
-		<template v-else>
+		<template v-if="!selecting&&combat">
+
+		<button v-if="it.use" class="item-action" @mouseenter.capture.stop="itemOver($event,it)" @click="emit( USE, it, inv)">Use</button>
+
+		</template>
+		<template v-if="selecting">
 			<button class="item-action"  @click="$emit('input', it)">Select</button>
 		</template>
 	</div>

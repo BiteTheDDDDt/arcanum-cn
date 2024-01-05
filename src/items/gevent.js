@@ -59,7 +59,7 @@ export default class GEvent extends GData {
 	// currently the only correct way to trigger the event is via "true" which bypasses this function. Events are meant to be unique, so we are commenting this out for the time being.
 
 	amount( amt ) {
-		//this.doUnlock();
+		if (this.locked) this.doUnlock();
 	}
 
 

@@ -4,7 +4,7 @@ import Item from "../items/item";
 
 import { itemRevive } from "../modules/itemgen";
 import { Changed } from "../techTree";
-import { moveElm } from "../util/array";
+import { move, moveElm } from "../util/array";
 
 /**
  * Option for saveMap which will full-save instanced items
@@ -323,18 +323,15 @@ export default class Inventory {
 
 	}
 	
-	swap(start,end) {
-
-		let temp = this.items[end];
-		this.items.splice(end,1,this.items[start]);
-		this.items.splice(start,1,temp);
-
-		
-	}
 
 	move(it, amt) {
 		return moveElm(this.items, it, amt);
 	}
+
+	moveInd(ind, amt) {
+		return move(this.items, ind, amt);
+	}
+
 
 	/**
 	 * Remove quantity of item and only drop from inventory

@@ -701,7 +701,7 @@
 	{
 		"id": "grotesque",
 		"tags": "earthsource",
-		"require": "g.tier1>0&&(g.earthlore>3||g.shadowlore>3)",
+		"require": "g.tier1>0&&(g.earthlore>=4||g.shadowlore>=4)",
 		"desc": "A grim, disfigured stone statue",
 		"max": 4,
 		"cost": {
@@ -718,7 +718,7 @@
 	{
 		"id": "gargoyle",
 		"tags": "watersource",
-		"require": "g.tier1>0&&(g.waterlore>3||g.shadowlore>3)",
+		"require": "g.tier1>0&&(g.waterlore>=4||g.shadowlore>=4)",
 		"desc": "A fountain issues from the stone demon's mouth",
 		"max": 4,
 		"cost": {
@@ -736,7 +736,7 @@
 		"id": "fountain",
 		"desc": "Water Fountain",
 		"tags": "watersource",
-		"require": "g.space.max>20",
+		"require": "g.space.max>=20",
 		"cost": {
 			"gold": 500
 		},
@@ -800,7 +800,7 @@
 		"id": "elemsiphon",
 		"name": "elemental siphon",
 		"desc": "A crystal apparatus to siphon elemental energies into mana.",
-		"require": "g.tier4>0&&g.mana.max>30",
+		"require": "g.tier4>0&&g.mana.max>=30",
 		"need": "workshop",
 		"max": 2,
 		"cost": {
@@ -812,17 +812,25 @@
 			"earthgem": 50
 		},
 		"mod": {
-			"mana.rate": 0.5,
-			"arcana.rate": -0.002,
-			"element.rate": -0.75,
 			"space": 5
+		},
+		"convert": {
+			"input": {
+				"arcana": 0.002,
+				"element": 0.75
+			},
+			"output": {
+				"effect": {
+					"mana": 0.5
+				}
+			}
 		}
 	},
 	{
 		"id": "elemflux",
 		"name": "elemental flux",
 		"desc": "Gems draw in pure mana and disperse it into elemental forms.",
-		"require": "g.tier4>0&&g.mana.max>30",
+		"require": "g.tier4>0&&g.mana.max>=30",
 		"max": 2,
 		"cost": {
 			"gold": 2500,
@@ -833,10 +841,18 @@
 			"earthgem": 25
 		},
 		"mod": {
-			"mana.rate": -2,
-			"arcana.rate": -0.002,
-			"element.rate": 0.25,
 			"space": 5
+		},
+		"convert": {
+			"input": {
+				"arcana": 0.002,
+				"mana": 2
+			},
+			"output": {
+				"effect": {
+					"element": 0.25
+				}
+			}
 		}
 	},
 	{
@@ -879,7 +895,7 @@
 		"name": "dark shrine",
 		"desc": "A shrine to EVIL.",
 		"tags": "shadowsource",
-		"require": "g.evilamt>2",
+		"require": "g.evilamt>=3",
 		"cost": {
 			"gold": 30,
 			"bones": 10,
@@ -924,7 +940,7 @@
 			"tapestries.max": 1,
 			"inv.max": 1,
 			"player.defense": 1,
-			"player.tohit": 1,
+			"player.tohit": 0.2,
 			"space": 10
 		}
 	},
@@ -1040,8 +1056,8 @@
 		"require": "g.tier1>0&&g.anatomy>=5&&g.embalming>=5&&g.crafting>=10",
 		"repeat": true,
 		"cost": {
-			"bloodgem":10,
-			"bones":10,
+			"bloodgem": 10,
+			"bones": 10,
 			"research": 300,
 			"gold": 100
 		},
@@ -1065,8 +1081,8 @@
 			"managem.max": 2,
 			"alchemy.max": 2,
 			"potions.max": 1,
-			"potionessence.rate": 0.0002,
-			"potionessence.max": 1,
+			"potionessence.rate": 0.00028,
+			"potionessence.max": 2,
 			"alchemy.rate": 0.1,
 			"arcana.rate": 0.0001,
 			"space": 5
@@ -1103,18 +1119,26 @@
 		},
 		"mod": {
 			"tapestries.max": 3,
-			"tomes.rate": 0.002,
-			"codices.rate": -0.001,
 			"starcharts.max": 50,
 			"codices.max": 100,
 			"scrolls.rate": 0.05,
 			"space": 20
+		},
+		"convert": {
+			"input": {
+				"codices": 0.001
+			},
+			"output": {
+				"effect": {
+					"tomes": 0.002
+				}
+			}
 		}
 	},
 	{
 		"id": "orrery",
 		"desc": "A vast mechanical model of existence",
-		"require": "g.codices>=80&&g.astronomy>7",
+		"require": "g.codices>=80&&g.astronomy>=8",
 		"tags": "starsource",
 		"repeat": false,
 		"cost": {
@@ -1166,10 +1190,18 @@
 			"gold": 500
 		},
 		"mod": {
-			"arcana.rate": -0.001,
-			"managem.rate": 0.01,
-			"gems.rate": -0.01,
 			"space": 5
+		},
+		"convert": {
+			"input": {
+				"arcana": 0.001,
+				"gems": 0.01
+			},
+			"output": {
+				"effect": {
+					"managem": 0.01
+				}
+			}
 		}
 	},
 	{
@@ -1246,7 +1278,7 @@
 		"id": "pond",
 		"desc": "Pond",
 		"tags": "watersource",
-		"require": "g.space.max>50",
+		"require": "g.space.max>=50",
 		"cost": {
 			"gold": 500
 		},
@@ -1347,8 +1379,8 @@
 		"mod": {
 			"herbs.max": 10,
 			"potions.max": 2,
-			"potionessence.rate": 0.0002,
-			"potionessence.max": 1,
+			"potionessence.rate": 0.00028,
+			"potionessence.max": 2,
 			"potioncombatflask.rate": 0.0005,
 			"potioncombatflask.max": 2,
 			"potions.rate": 0.5,
@@ -1428,7 +1460,7 @@
 			"tapestries.max": 1,
 			"sp.rate": 0.001,
 			"ichor.rate": 0.0005,
-			"liquifier.mod.managem.rate": "10%",
+			"liquifier.convert.output.effect.managem": "10%",
 			"enchanting.max": 1,
 			"crafting.max": 2,
 			"crafting.rate": 0.4,

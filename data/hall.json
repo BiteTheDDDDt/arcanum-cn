@@ -6,14 +6,14 @@
 			{
 				"id": "evt_hall",
 				"name": "Wizard's Hall",
-				"tags":"hall",
+				"tags": "hall",
 				"desc": "Across the aeons wizards gather in hidden halls to exchange lore and augment their powers."
 			}
 		],
 		"tasks": [
 			{
 				"id": "retire",
-				"tags":"hall",
+				"tags": "hall",
 				"warn": true,
 				"require": "g.planeslore>=999",
 				"desc": "",
@@ -25,7 +25,7 @@
 			{
 				"id": "greatwing",
 				"name": "great wing",
-				"tags":"hall",
+				"tags": "hall",
 				"max": 3,
 				"desc": "A new wing of the Great Hall where Wizards can lodge in comfort.",
 				"require": "g.expandhall>=1",
@@ -42,7 +42,7 @@
 			{
 				"id": "starchamber",
 				"name": "star chamber",
-				"tags":"hall",
+				"tags": "hall",
 				"require": "tier6",
 				"max": 3,
 				"desc": "An expansive chamber for viewing the heavens.",
@@ -59,7 +59,7 @@
 			{
 				"id": "expandhall",
 				"name": "expanded halls",
-				"tags":"hall",
+				"tags": "hall",
 				"require": "tier5",
 				"max": 3,
 				"cost": {
@@ -72,7 +72,7 @@
 			{
 				"id": "spellspire",
 				"max": 3,
-				"tags":"hall",
+				"tags": "hall",
 				"require": "tier6",
 				"desc": "A conduit for magic energy.",
 				"cost": {
@@ -85,7 +85,7 @@
 			{
 				"id": "dreamchamber",
 				"name": "dream chamber",
-				"tags":"hall",
+				"tags": "hall",
 				"desc": "In some time and place, even dreams were once real.",
 				"require": "tier5",
 				"max": 1,
@@ -100,14 +100,12 @@
 			{
 				"id": "puppet_enhancedlabs",
 				"name": "enhanced laboratories",
-				"tags":"hall",
+				"tags": "hall",
 				"desc": "Mechanical assistants and automated delivery systems.",
 				"require": "g.mechamancer>0",
 				"max": 5,
 				"cost": {
-					"prestige": 80,
-					"automatas": 20,
-					"machinae": 20
+					"prestige": 30
 				},
 				"mod": {
 					"potions.max": 0.4,
@@ -117,27 +115,73 @@
 			{
 				"id": "titan_foundations",
 				"name": "stabilized foundations",
-				"tags":"hall",
+				"tags": "hall",
 				"desc": "A procedure to prevent earthquakes from affecting member's buildings.",
 				"require": "g.titan>0",
 				"max": 3,
 				"cost": {
-					"prestige": 120,
-					"mythicanvil": 1
+					"prestige": 40
 				},
 				"mod": {
 					"space.max": 2
 				}
 			},
 			{
+				"id": "hall_time_1",
+				"name": "time fork",
+				"tags": "hall",
+				"desc": "Forces the timelines of all hall members to diverge without a need for a complicated procedure.",
+				"require": "tier6",
+				"max": 1,
+				"cost": {
+					"prestige": 25,
+					"timesplit": 1
+				},
+				"mod": {
+					"timesplit": 1
+				}
+			},
+			{
+				"id": "hall_time_2",
+				"name": "time knife",
+				"tags": "hall",
+				"desc": "Carve out just a little more time in a day.",
+				"require": "g.tier6>0&&g.hall_time_1>0",
+				"max": 1,
+				"cost": {
+					"prestige": 50
+				},
+				"mod": {
+					"timesplit.max": 1
+				}
+			},
+			{
+				"id": "hall_time_refund",
+				"name": "wind back",
+				"tags": "hall",
+				"desc": "By using the traces left in your timewell, you can rewind the time to before you purchased it.",
+				"require": "g.timewell>0",
+				"max": 1,
+				"cost": {
+					"timewell": 1
+				},
+				"result": {
+					"fame": 75
+				},
+				"disable": [
+					"hall_time_refund",
+					"timewell"
+				]
+			},
+			{
 				"id": "magicstables",
 				"name": "magic stables",
-				"tags":"hall",
+				"tags": "hall",
 				"desc": "Dedicated stabling for the hall's mounts. Useful for discerning those with aptitude for magic.",
 				"require": "tier5",
 				"max": 4,
 				"cost": {
-					"prestige": 30
+					"prestige": 10
 				},
 				"mod": {
 					"animals.max": 1,
@@ -150,12 +194,12 @@
 			{
 				"id": "arcanacollectors",
 				"name": "arcana collectors",
-				"tags":"hall",
+				"tags": "hall",
 				"desc": "Specialized facilities for newer mages to practice arcana absorption.",
 				"require": "tier5",
 				"max": 4,
 				"cost": {
-					"prestige": 30
+					"prestige": 10
 				},
 				"mod": {
 					"arcana.rate": 0.0005
@@ -164,12 +208,12 @@
 			{
 				"id": "classrooms",
 				"name": "classrooms",
-				"tags":"hall",
+				"tags": "hall",
 				"desc": "Dedicated classrooms for efficient study and transfer of knowledge.",
 				"require": "tier5",
 				"max": 5,
 				"cost": {
-					"prestige": 30
+					"prestige": 10
 				},
 				"mod": {
 					"study.effect.research": 0.15,
@@ -177,22 +221,52 @@
 				}
 			},
 			{
-				"id": "timewell",
-				"require": "tier6",
-				"tags":"hall",
-				"desc": "A deep pool of time incarnate.",
-				"max": 1,
+				"id": "hall_tomeinsight",
+				"name": "tome of insight",
+				"tags": "hall",
+				"desc": "A rare treatise on the nature of learning.",
+				"require": "tier5",
+				"max": 2,
 				"cost": {
-					"prestige": 75
+					"prestige": 20
 				},
 				"mod": {
-					"runner.max": 1
+					"sp": 1
+				}
+			},
+			{
+				"id": "hall_books_basic",
+				"name": "elementalism textbooks",
+				"tags": "hall",
+				"desc": "A set of textbooks intended to facilitate the study of the elements.",
+				"require": "tier5",
+				"max": 1,
+				"cost": {
+					"prestige": 60
+				},
+				"mod": {
+					"firelore.buy.sp": -1,
+					"earthlore.buy.sp": -1,
+					"waterlore.buy.sp": -1,
+					"airlore.buy.sp": -1
+				}
+			},
+			{
+				"id": "timewell",
+				"name": "shallow timewell",
+				"require": "g.timewell>=2",
+				"tags": "hall",
+				"comment": "deprecated, purposely unattainable, left in for compatibility purposes.",
+				"desc": "Once, there was all the time in the world. Now, you are out of time.",
+				"max": 0,
+				"cost": {
+					"prestige": 75
 				}
 			},
 			{
 				"id": "ritualchamber",
 				"name": "ritual chamber",
-				"tags":"hall",
+				"tags": "hall",
 				"require": "g.ritualist>0&&g.tier6>0",
 				"desc": "A warded room deep within the hall, dedicated to carrying out rituals in safety.",
 				"max": 1,
@@ -209,14 +283,14 @@
 		"stats": [
 			{
 				"id": "hallSize",
-				"tags":"hall",
+				"tags": "hall",
 				"locked": false,
 				"val": 3
 			},
 			{
 				"id": "hallPoints",
 				"name": "prestige",
-				"tags":"hall",
+				"tags": "hall",
 				"alias": "points",
 				"hide": true,
 				"locked": false,
@@ -228,7 +302,7 @@
 			{
 				"id": "prestige",
 				"name": "hall prestige",
-				"tags":"hall",
+				"tags": "hall",
 				"require": "evt_hall",
 				"val": 0,
 				"locked": false,
@@ -252,7 +326,7 @@
 				}
 			}
 		],
-		"tags":[
+		"tags": [
 			{
 				"id": "hall",
 				"name": "hall"

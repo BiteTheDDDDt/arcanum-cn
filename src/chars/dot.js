@@ -5,6 +5,8 @@ import { ParseFlags, NO_SPELLS, NO_ATTACK, NO_DEFEND } from "./states";
 import { TYP_DOT } from "../values/consts";
 import Game from "../game";
 import { getAllPropertyDescriptors } from "../util/util";
+import Attack from "./attack";
+import { MakeEffectFunc, ParseEffects } from "../modules/parsing";
 
 
 export default class Dot {
@@ -71,7 +73,9 @@ export default class Dot {
 			duration:this.duration,
 			/** @todo source should never be string. maybe on load? */
 			source:this.source ? ( typeof this.source === 'string' ? this.source : this.source.id ) : undefined,
-			applier:this.applier ? ( typeof this.applier === 'string' ? this.applier : this.applier.id ) : undefined
+			applier:this.applier ? ( typeof this.applier === 'string' ? this.applier : this.applier.id ) : undefined,
+			attack:this.attack||undefined,
+			applyinstanced:this.applyinstanced||undefined
 		};
 
 	}
@@ -99,6 +103,26 @@ export default class Dot {
 	 */
 	get dmg(){return this.damage;}
 	set dmg(v) { this.damage = v; }
+
+	get attack() { return this._attack; }
+	set attack(v) {
+
+		if ( Array.isArray(v)) {
+
+			let a = [];
+			for( let i = v.length-1; i>=0; i-- ) {
+
+				a.push( (v[i] instanceof Attack) ? v[i] :
+					new Attack(v[i])
+				);
+
+			}
+
+			this._attack = a;
+
+		} else this._attack = ( v instanceof Attack) ? v : new Attack(v);
+
+	}
 
 	get potencies(){return this._potencies;}
 	set potencies(v) { this._potencies = v; }
@@ -128,6 +152,11 @@ export default class Dot {
 
 	get applier(){return this._applier;}
 	set applier(v){this._applier=v}
+	/**
+	 * @property {boolean} applyinstanced - whether the dot should become independent of damage bonuses after application.
+	 */
+	get applyinstanced(){return this._applyinstanced;}
+	set applyinstanced(v){this._applyinstanced=v}
 
 	/**
 	 * @property {number} level - level (strength) of dot.
@@ -160,6 +189,7 @@ export default class Dot {
 	canCast() { return (this._flags & NO_SPELLS) === 0 }
 	canAttack() { return (this._flags & NO_ATTACK) === 0 }
 	canDefend() { return (this._flags & NO_DEFEND ) === 0 }
+	canParry() {return (this._flags & DEFENSIVE ) === 0}
 
 	constructor( vars, source, name ){
 
@@ -170,7 +200,7 @@ export default class Dot {
 		this.name = name || this._name || ( source ? source.name : null );
 
 		if ( !this.id ) console.warn('BAD DOT ID: ' + this.name );
-
+		if (!this.nodefense) this.nodefense = true;
 		if ( !this.duration) {
 			this.duration = 0;
 			this.perm = true;
@@ -191,7 +221,10 @@ export default class Dot {
 			if ( p === 'damage' || p =='dmg') console.log('DOT HAS DAMAGE');
 		}*/
 
-
+		if ( this._attack ){
+			this.attack = this._attack;
+			if ( !this._attack.name ) this._attack.name = this.name;
+		}
 		/**
 		 * @private {number} acc - integer accumulator
 		 */
@@ -225,6 +258,29 @@ export default class Dot {
 			this.applier = gs.getMonster(this.applier);
 		}
 		if ( this.source && typeof this.source === 'string') this.source = gs.getData( this.source );
+
+		if (this.effect) {
+			this.effect = ParseEffects( this.effect, MakeEffectFunc);
+		}
+
+		if (this.attack)
+		{	
+
+			if ( Array.isArray(this.attack)) {
+
+				let a = [];
+				for( let i = this.attack.length-1; i>=0; i-- ) {
+	
+					this.attack.push( (this.attack[i] instanceof Attack) ? this.attack[i] :
+						new Attack(this.attack[i])
+					);
+	
+				}
+	
+				this.attack = a;
+	
+			} else this.attack = ( this.attack instanceof Attack) ? this.attack : new Attack(this.attack);
+		}
 	}
 
 	/**
@@ -246,6 +302,12 @@ export default class Dot {
 		}
 
 		return 0;
+
+	}
+	getAttack(){
+
+		if ( Array.isArray(this.attack) ) return this.attack[ Math.floor( Math.random()*this.attack.length ) ];
+		return this.attack || this;
 
 	}
 

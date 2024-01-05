@@ -361,6 +361,25 @@ export const indexAfter = ( s, k ) => {
 
 }
 
+/**
+ * Gets a subset of properties listed in object.
+ * @param {*} obj Object to extract properties from.
+ * @param  {...string} props properties to be retrieved from obj.
+ * @returns {?[*, *]} An object containing all properties specified and an object containing all the properties not extracted.
+ */
+export function subset(obj, ...props) {
+	if(!obj || !(obj instanceof Object)) return null
+
+	let sub = {}, remainder = {...obj};
+	for(let prop of props) {
+		if(Object.hasOwn(remainder, prop) || remainder[prop] !== undefined) {
+			sub[prop] = remainder[prop];
+			delete remainder[prop];
+		}
+	}
+	return [sub, remainder];
+}
+
 String.prototype.toTitleCase = function () {
 	let string = this.trim().toLowerCase().replace(/\w\S*/g, (w) => (w.replace(/^\w/, (c) => c.toUpperCase())))
 	let prefix = string.substr(0, string.lastIndexOf(" "))

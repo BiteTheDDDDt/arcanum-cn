@@ -2,16 +2,17 @@ import { assign } from 'objecty';
 
 import Events, {
 	EVT_COMBAT, ENEMY_SLAIN, ALLY_DIED,
-	DAMAGE_MISS, CHAR_DIED, STATE_BLOCK, CHAR_ACTION, ITEM_ACTION, COMBAT_WON
+	DAMAGE_MISS, CHAR_DIED, STATE_BLOCK, CHAR_ACTION, ITEM_ACTION, COMBAT_WON, DOT_ACTION
 } from '../events';
 
 import { itemRevive } from '../modules/itemgen';
-import { NO_SPELLS } from '../chars/states';
+import { DEFENSIVE, NO_SPELLS } from '../chars/states';
 
-import { TEAM_PLAYER, getDelay, TEAM_NPC, TEAM_ALL } from '../values/consts';
+import { TEAM_PLAYER, getDelay, TEAM_NPC, TEAM_ALL, COMPANION, WEAPON } from '../values/consts';
 import { TARGET_ENEMY, TARGET_ALLY, TARGET_SELF,
 	TARGET_RAND, TARGET_PRIMARY, ApplyAction, TARGET_GROUP, TARGET_ANY, RandTarget, PrimeTarget, TARGET_NONPRIMARY, PrimeInd, TARGET_RAND_ENEMY, TARGET_RAND_ALLY } from "../values/combatVars";
 import Npc from '../chars/npc';
+import game from '../game';
 
 
 /**
@@ -130,6 +131,7 @@ export default class Combat {
 
 		Events.add( ITEM_ACTION, this.itemAction, this );
 		Events.add( CHAR_ACTION, this.spellAction, this );
+		Events.add( DOT_ACTION, this.dotAction, this );
 		Events.add( CHAR_DIED, this.charDied, this );
 
 	}
@@ -196,8 +198,9 @@ export default class Combat {
 	 * @param {Context} g
 	 */
 	spellAction( it, g ) {
+		//first we check if the action has any caststoppers - aka conditions that would prevent it. If it does, we check if we have any of those conditions, and if we have even 1, gg.
 		let a
-		if(it.caststoppers) {
+		if(it.caststoppers) { 
 			for (let b of it.caststoppers)
 				{
 					a = g.self.getCause(b);
@@ -266,7 +269,28 @@ export default class Combat {
 		
 
 	}
+	//for use by dots
+	dotAction( it, g ) {
+		
+		if ( it.attack ) {
+			this.attack( g.self, it.getAttack() );
+		}
+		if ( it.action ) {
+			
+			console.log('ACTION: ' + it.action );
+			let target = this.getTarget( g.self, it.action.targets );
 
+			if (!target ) return;
+			if ( Array.isArray(target)) {
+
+				for( let i = target.length-1; i>= 0; i-- ) ApplyAction( target[i], it.action, g.self );
+
+			} else {
+				ApplyAction( target, it.action, g.self );
+			}
+		}
+
+	}
 	/**
 	 * Attack a target.
 	 * @param {Char} attacker - enemy attacking.
@@ -333,8 +357,14 @@ export default class Combat {
 		if ( targets & TARGET_GROUP ) {
 			if(targets & TARGET_NONPRIMARY)
 			{	
+				let trimgroup = []
+				if ( group !== this.teams[TEAM_ALL] ){ //if not ALL, we just lop off however many we need to remove the first alive element.
+					trimgroup =  group.toSpliced(0, PrimeInd(group)+1)
+				} else { //If all, first we chop off the enemy part of ALL which starts after this.allies.length, THEN we chop off the allies.
+					trimgroup =  group.toSpliced(this.allies.length, PrimeInd(this.enemies)+1)
+					trimgroup =  trimgroup.toSpliced(0, PrimeInd(group)+1)
+				}
 				
-				let trimgroup =  group.toSpliced(0, PrimeInd(group)+1)
 				return trimgroup;
 			}
 			else return group;
@@ -383,11 +413,10 @@ export default class Combat {
 	 */
 	tryHit( attacker, defender, attack ){
 
-		let tohit = attacker.getHit();
-
+		let tohit = attacker.getHit(attack.kind||null, (attack?.source?.type == WEAPON || attack?.source?.school == "martial" ));
 		if ( attack && (attack != attacker) ) tohit += ( attack.tohit || 0 );
 
-		if ( this.dodgeRoll( defender.dodge, tohit )) {
+		if ( this.dodgeRoll( defender.dodge, tohit )&&!attack.nododge) {
 			if(attack.name) {
 				Events.emit( DAMAGE_MISS, defender.name.toTitleCase() + ' Dodges ' + (attack.name.toTitleCase()));
 				
@@ -463,6 +492,10 @@ export default class Combat {
 	reenter() {
 
 		this.allies = this.state.minions.allies.toArray();
+		let comp = this.state.getSlot(COMPANION)
+		if(comp){
+			if ( comp.onCreate ) comp.onCreate( game, TEAM_PLAYER, false)
+		}
 		this.allies.unshift( this.player );
 		this.resetTeamArrays();
 

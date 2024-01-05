@@ -162,11 +162,119 @@
 				"name": "invisibility",
 				"duration": 1800,
 				"mod": {
-					"player.dodge": 25,
+					"player.dodge": 5,
 					"player.speed": 5,
 					"heist.result.gems.min": 1,
 					"heist.result.gems.max": 1,
 					"heist.length": -25
+				}
+			}
+		}
+	},
+	{
+		"id": "pot_bottled_starlight",
+		"name": "bottled starlight",
+		"desc": "A bizarre concoction that smells like carrots, tastes like raspberries and looks like oil.",
+		"require": "g.potions>=9&&g.astronomy>=3",
+		"level": 10,
+		"buy": {
+			"gold": 2500,
+			"research": 3000,
+			"tomes": 5
+		},
+		"cost": {
+			"herbs": 30,
+			"research": 600,
+			"water": 2,
+			"bonedust": 5,
+			"gold": 500
+		},
+		"use": {
+			"dot": {
+				"id": "pot_bottled_starlight_effect",
+				"name": "night's sight",
+				"duration": 900,
+				"effect": {
+					"astronomy.exp": "0 + (g.astronomy.length*0.00005)"
+				},
+				"mod": {
+					"astronomy.rate": "500+2%",
+					"scrying.rate": "20+30%",
+					"shadow.rate": "-30%",
+					"light.rate": "-30%",
+					"mapstars.length": -5,
+					"mapstars.run.research": 5,
+					"act_scry.run.stamina": -0.1,
+					"act_scry.run.mana": -0.1
+				}
+			}
+		}
+	},
+	{
+		"id": "pot_weavers_balm",
+		"name": "weaver's balm",
+		"desc": "A cream made of previously woven fibers that helps guide the unwoven fibers.",
+		"require": "g.potions>=2&&g.weaving>=1",
+		"level": 10,
+		"buy": {
+			"gold": 700,
+			"research": 800,
+			"tapestries": 12,
+			"codices": 5
+		},
+		"cost": {
+			"herbs": 15,
+			"tapestries": 1,
+			"research": 200,
+			"earth": 2,
+			"nature": 1,
+			"gold": 200
+		},
+		"use": {
+			"dot": {
+				"id": "pot_weavers_balm_effect",
+				"name": "weaving balm",
+				"duration": 1800,
+				"mod": {
+					"weaving.rate": "40%",
+					"weavetapestry.length": -5,
+					"weavetapestry.run.stamina": -0.2,
+					"weavetapestry.run.gold": 2,
+					"spingold.run.mana": -0.1,
+					"spingold.run.stamina": -0.1
+				}
+			}
+		}
+	},
+	{
+		"id": "pot_dream_weaver_fibers",
+		"name": "dream weaver's fibers",
+		"desc": "Enchanted fibers from tapestries infused with herbs and spices before being applied around the eyes to aid in dream weaving.",
+		"require": "g.potions>=8&&g.weaving>=5&&g.dreamweaver>0",
+		"level": 10,
+		"buy": {
+			"gold": 1200,
+			"research": 2000,
+			"codices": 15,
+			"tomes": 15,
+			"tapestries": 1
+		},
+		"cost": {
+			"herbs": 30,
+			"research": 800,
+			"tapestries": 1,
+			"gold": 900
+		},
+		"use": {
+			"dot": {
+				"id": "pot_dream_weaver_fibers_effect",
+				"name": "sleepy fibers",
+				"duration": 1800,
+				"mod": {
+					"dreamweaver.run.stamina": -0.1,
+					"dreamweaver.run.mana": -0.2,
+					"dreamweaver.run.gold": -1,
+					"dreamweaver.run.arcana": -0.01
 				}
 			}
 		}
@@ -206,6 +314,24 @@
 		},
 		"use": {
 			"mana": 5
+		}
+	},
+	{
+		"id": "pot_mana2",
+		"name": "well of mana",
+		"require": "g.potions>=9",
+		"buy": {
+			"gold": 750,
+			"research": 800,
+			"scrolls": 15,
+			"codices": 15
+		},
+		"cost": {
+			"herbs": 30,
+			"managem": 1
+		},
+		"use": {
+			"mana": 20
 		}
 	},
 	{
@@ -381,6 +507,8 @@
 	},
 	{
 		"id": "pot_heal1",
+		"name": "minor healing",
+		"require": "g.potions>0",
 		"buy": {
 			"gold": 25,
 			"research": 50
@@ -389,10 +517,26 @@
 		"cost": {
 			"herbs": 10
 		},
-		"name": "minor healing",
-		"require": "g.potions>0",
 		"use": {
 			"hp": 75
+		}
+	},
+	{
+		"id": "pot_heal3",
+		"name": "healing potion",
+		"require": "g.potions>=9",
+		"buy": {
+			"gold": 100,
+			"lightgem": 1,
+			"research": 500
+		},
+		"level": 7,
+		"cost": {
+			"herbs": 25,
+			"gems": 3
+		},
+		"use": {
+			"hp": 200
 		}
 	},
 	{
@@ -408,8 +552,29 @@
 			"herbs": 10
 		},
 		"use": {
-			"stamina": 10
+			"stamina": 10,
+			"vigor": 2
 		}
+	},
+	{
+		"id": "pot_stam2",
+		"name": "potion of monster's stamina",
+		"require": "g.potions>=5",
+		"level": 5,
+		"buy": {
+			"gold": 300,
+			"research": 500,
+			"codices": 30
+		},
+		"cost": {
+			"herbs": 30,
+			"watergem": 1
+		},
+		"use": {
+			"stamina": 50,
+			"vigor": 10
+		},
+		"flavor": "Magnum"
 	},
 	{
 		"id": "pot_sp",
@@ -449,7 +614,18 @@
 		"use": {
 			"research": 2000,
 			"manas": 250,
-			"stamina": 250
+			"stamina": 250,
+			"vigor": 100,
+			"dot": {
+				"id": "pot_sp_sink_dot",
+				"name": "skillfulness",
+				"duration": 300,
+				"mod": {
+					"mana": 1.15,
+					"stamina": 1.15,
+					"focus.result.runner.exp": "2%"
+				}
+			}
 		}
 	},
 	{
@@ -475,7 +651,7 @@
 				"dot": {
 					"name": "volatile combustion",
 					"kind": "fire",
-					"dmg": "12~15",
+					"damage": "12~15",
 					"duration": 120
 				}
 			}
@@ -504,7 +680,7 @@
 				"dot": {
 					"name": "corroding",
 					"kind": "acid",
-					"dmg": "3~5",
+					"damage": "3~5",
 					"duration": 120,
 					"mod": {
 						"self": {
@@ -553,7 +729,7 @@
 		"name": "smoke bomb",
 		"desc": "Only someone gifted with true sight would be able to see through the thick smoke produced by this alchemical marvel.",
 		"require": "g.potions>=5",
-		"level": 5,
+		"level": 10,
 		"buy": {
 			"gold": 1000,
 			"research": 2000
@@ -572,9 +748,10 @@
 					"name": "blinded",
 					"kind": "shadow",
 					"duration": 120,
+					"id": "tohitdown",
 					"mod": {
 						"self": {
-							"tohit": -25
+							"tohit": -5
 						}
 					}
 				}
@@ -604,7 +781,7 @@
 				"dot": {
 					"name": "ignited",
 					"kind": "fire",
-					"dmg": "6~10",
+					"damage": "6~10",
 					"duration": 120
 				}
 			}
@@ -633,37 +810,18 @@
 				"dot": {
 					"name": "everfrozen",
 					"kind": "ice",
-					"dmg": 5,
+					"damage": 5,
 					"duration": 120,
 					"mod": {
 						"self": {
-							"tohit": -15,
+							"tohit": -3,
 							"speed": -6,
-							"dodge": -25
+							"dodge": -3
 						}
 					}
 				}
 			}
 		}
-	},
-	{
-		"id": "pot_stam2",
-		"name": "potion of monster's stamina",
-		"require": "g.potions>=5",
-		"level": 5,
-		"buy": {
-			"gold": 300,
-			"research": 500,
-			"codices": 30
-		},
-		"cost": {
-			"herbs": 30,
-			"watergem": 1
-		},
-		"use": {
-			"stamina": 50
-		},
-		"flavor": "Magnum"
 	},
 	{
 		"id": "pot_adamant",
@@ -714,24 +872,6 @@
 		}
 	},
 	{
-		"id": "pot_heal3",
-		"name": "healing potion",
-		"require": "g.potions>=9",
-		"buy": {
-			"gold": 100,
-			"lightgem": 1,
-			"research": 500
-		},
-		"level": 7,
-		"cost": {
-			"herbs": 25,
-			"gems": 3
-		},
-		"use": {
-			"hp": 200
-		}
-	},
-	{
 		"id": "pot_truestrike",
 		"name": "true striking",
 		"level": 10,
@@ -749,7 +889,7 @@
 		"use": {
 			"dot": {
 				"mod": {
-					"self.tohit": 25
+					"self.tohit": 5
 				},
 				"duration": 1800
 			}
@@ -832,7 +972,7 @@
 		"name": "weaponmeld salve",
 		"desc": "Applied to a weapon, lets the wielder utilize his skills to the fullest extent.",
 		"level": 12,
-		"require": "g.potions>=10&&(g.bladelore+g.hammerlore)>5",
+		"require": "g.potions>=10&&(g.bladelore+g.hammerlore)>=5",
 		"buy": {
 			"gold": 500,
 			"tomes": 5,
@@ -883,7 +1023,6 @@
 			"potionessence": 5
 		},
 		"use": {
-			
 			"hp.max": 2
 		}
 	},
@@ -909,7 +1048,6 @@
 			"potionessence": 5
 		},
 		"use": {
-
 			"stamina.max": 1,
 			"element.max": -0.25,
 			"mana.max": -0.1

@@ -16,6 +16,11 @@ export default function DamageMixin(itemProp="item") {
             getDamageStr(dmg, it) {
                 let mult = this.getDamageMult(it);
                 let bonus = this.getDamageBonus(it);
+                if (it.showinstanced)
+                {
+                    mult = 1
+                    bonus = 0
+                }
                 if(!dmg) return null;
                 else if(typeof dmg === 'number') return dmg*mult+bonus;
 
@@ -73,7 +78,7 @@ export default function DamageMixin(itemProp="item") {
                     {	
                         let potency = Actor.context.state.getData(p)
                         if(potency){
-                            PotencyMult = PotencyMult * potency.dmg.fn( Actor, game.state.player, game.state.player.context, potency )
+                            PotencyMult = PotencyMult * potency.damage.fn( Actor, game.state.player, game.state.player.context, potency )
                         }
                     }
                 }

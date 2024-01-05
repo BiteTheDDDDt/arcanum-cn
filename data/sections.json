@@ -20,6 +20,11 @@
 		"require": "evt_helper"
 	},
 	{
+		"id": "sect_loot",
+		"name": "loot",
+		"require": "evt_helper"
+	},
+	{
 		"id": "sect_player",
 		"name": "player",
 		"locked": false
@@ -27,7 +32,7 @@
 	{
 		"id": "sect_spells",
 		"name": "spells",
-		"require": "g.spellbook.value>0"
+		"require": "g.spellbook.value>0||g.weaponlore>0"
 	},
 	{
 		"id": "sect_scraft",
@@ -62,5 +67,17 @@
 		"id": "sect_minions",
 		"name": "minions",
 		"require": "g.minions>0"
+	},
+	{
+		"id": "sect_furniture",
+		"name": "furniture",
+		"locked": false,
+		"parent": "home"
+	},
+	{
+		"id": "sect_converters",
+		"name": "converters",
+		"locked": false,
+		"parent": "home"
 	}
 ]

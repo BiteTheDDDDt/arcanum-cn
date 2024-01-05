@@ -263,7 +263,7 @@
 				"markhulcodex": true
 			},
 			{
-				"%": 100,
+				"%": "100%",
 				"enchanted_fountain_pen": 1
 			}
 		],
@@ -299,11 +299,11 @@
 		},
 		"loot": [
 			{
-				"%": 5,
+				"%": "5%",
 				"jazidscompass": 1
 			},
 			{
-				"%": 100,
+				"%": "100%",
 				"stone_working_kit": 1
 			}
 		],

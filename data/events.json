@@ -26,7 +26,8 @@
 			"research.max": 10,
 			"lore.max": 1,
 			"lore.rate": 0.1,
-			"player.exp": 10
+			"player.exp": 10,
+			"player.tohit":1
 		}
 	},
 	{
@@ -92,7 +93,8 @@
 		"mod": {
 			"research.max": 15,
 			"buyscroll.result.scrolls": 1,
-			"buyscroll.cost.gold": 20
+			"buyscroll.cost.gold": 20,
+			"player.tohit":1
 		}
 	},
 	{
@@ -117,7 +119,8 @@
 			"occultendure.max": 1,
 			"crystalmind.max": 1,
 			"buyscroll.result.scrolls": 1,
-			"buyscroll.cost.gold": 30
+			"buyscroll.cost.gold": 30,
+			"player.tohit":1
 		}
 	},
 	{
@@ -135,7 +138,8 @@
 			"occultendure.max": 1,
 			"crystalmind.max": 1,
 			"buyscroll.result.scrolls": 1,
-			"buyscroll.cost.gold": 40
+			"buyscroll.cost.gold": 40,
+			"player.tohit":1
 		}
 	},
 	{
@@ -155,7 +159,8 @@
 			"occultendure.max": 1,
 			"crystalmind.max": 1,
 			"buyscroll.result.scrolls": 1,
-			"buyscroll.cost.gold": 50
+			"buyscroll.cost.gold": 50,
+			"player.tohit":1
 		}
 	},
 	{
@@ -176,7 +181,8 @@
 			"crafting.max": 2,
 			"arcanebody.max": 1,
 			"occultendure.max": 1,
-			"crystalmind.max": 1
+			"crystalmind.max": 1,
+			"player.tohit":2
 		}
 	},
 	{
@@ -195,7 +201,8 @@
 			"arcanebody.max": 1,
 			"arcanebody2.max": 2,
 			"occultendure.max": 1,
-			"crystalmind.max": 2
+			"crystalmind.max": 2,
+			"player.tohit":2
 		}
 	},
 	{
@@ -214,7 +221,8 @@
 			"arcanebody.max": 1,
 			"arcanebody2.max": 1,
 			"occultendure.max": 1,
-			"crystalmind.max": 1
+			"crystalmind.max": 1,
+			"player.tohit":2
 		}
 	},
 	{
@@ -238,7 +246,7 @@
 	},
 	{
 		"id": "decent",
-		"require": "g.virtue>90&&g.evilamt<10",
+		"require": "g.virtue>=90&&g.evilamt<=10",
 		"desc": "You are turning out to be an upstanding spellcaster.",
 		"mod": {
 			"light.rate": 0.1
@@ -246,7 +254,7 @@
 	},
 	{
 		"id": "respectable",
-		"require": "g.virtue>350&&g.evilamt<20",
+		"require": "g.virtue>=350&&g.evilamt<=20",
 		"desc": "You have become a respected personage in the magical world.",
 		"result": {
 			"fame": 1
@@ -258,7 +266,7 @@
 	{
 		"id": "good",
 		"name": "virtuous",
-		"require": "g.virtue>750&&g.evil<=0",
+		"require": "g.virtue>=750&&g.evil<=0",
 		"desc": "Your actions have shown you to be a virtuous wizard.",
 		"mod": {
 			"light.max": 1,
@@ -301,7 +309,7 @@
 		"id": "evil",
 		"name": "vile",
 		"desc": "Freed of pitiful notions of right, and morality, the dark arts lie open before you.",
-		"require": "g.evilamt>500",
+		"require": "g.evilamt>=500",
 		"disable": [
 			"light",
 			"good",

@@ -1,0 +1,476 @@
+{
+	"module": "shopkeeping",
+	"author": "wunarg, draxius",
+	"data": {
+		"skills": [
+			{
+				"id": "shopkeeping",
+				"require": "g.crafting>=2&&g.gold>=1000&&g.languages>=4&&g.tier1>0",
+				"desc": "Buy and sell everything in the pursuit of gold",
+				"level": 2,
+				"run": {
+					"stamina": 0.5,
+					"gold": 1
+				},
+				"result": {
+					"sp": 0.05
+				},
+				"mod": {
+					"gold.max": 20,
+					"research.max": 5,
+					"goldstash.cost.gold": 25,
+					"goldstash.sell.gold": 50
+				}
+			}
+		],
+		"tasks": [
+			{
+				"id": "sellbooks",
+				"name": "sell Tomes",
+				"desc": "Even with the best scribes, these are always undervalued",
+				"verb": "haggling over tomes",
+				"fill": "gold",
+				"require": "g.shopkeeping>=6&&g.tomes>=1",
+				"length": 10,
+				"at": {
+					"20": {
+						"result.gold": 130,
+						"cost.tomes": 1
+					},
+					"50": {
+						"result.gold": 148,
+						"cost.tomes": 1
+					},
+					"100": {
+						"result.gold": 432,
+						"cost.tomes": 2,
+						"result.tomes.max": 0.01
+					},
+					"250": {
+						"result.gold": 825,
+						"cost.tomes": 5,
+						"result.tomes.max": 0.01,
+						"result.shopkeeping.max": 0.001
+					}
+				},
+				"cost": {
+					"tomes": 1
+				},
+				"run": {
+					"stamina": 1
+				},
+				"result": {
+					"gold": 115
+				}
+			},
+			{
+				"id": "sellcodices",
+				"name": "sell Codices",
+				"desc": "Sell codices to just about anyone that wants them",
+				"verb": "haggling over codices",
+				"fill": "gold",
+				"require": "g.shopkeeping>=3&&g.codices>=1",
+				"length": 5,
+				"at": {
+					"20": {
+						"result.gold": 34,
+						"cost.codices": 1
+					},
+					"50": {
+						"result.gold": 38,
+						"cost.codices": 1
+					},
+					"100": {
+						"result.gold": 111,
+						"cost.codices": 2,
+						"result.codices.max": 0.01
+					},
+					"250": {
+						"result.gold": 211,
+						"cost.codices": 5,
+						"result.codices.max": 0.01,
+						"result.shopkeeping.max": 0.001
+					}
+				},
+				"cost": {
+					"codices": 1
+				},
+				"run": {
+					"stamina": 0.8
+				},
+				"result": {
+					"gold": 28
+				}
+			},
+			{
+				"id": "sellscrolls",
+				"name": "sell Scrolls",
+				"desc": "Sell scrolls to whoever comes along",
+				"verb": "haggling over scrolls",
+				"fill": "gold",
+				"require": "g.shopkeeping>=1&&g.scrolls>=1",
+				"length": 3,
+				"at": {
+					"20": {
+						"result.gold": 8,
+						"cost.scrolls": 1
+					},
+					"50": {
+						"result.gold": 9,
+						"cost.scrolls": 1
+					},
+					"100": {
+						"result.gold": 26,
+						"cost.scrolls": 2,
+						"result.scrolls.max": 0.01
+					},
+					"250": {
+						"result.gold": 50,
+						"cost.scrolls": 5,
+						"result.scrolls.max": 0.01,
+						"result.shopkeeping.max": 0.001
+					}
+				},
+				"cost": {
+					"scrolls": 1
+				},
+				"run": {
+					"stamina": 0.5
+				},
+				"result": {
+					"gold": 7
+				}
+			},
+			{
+				"id": "mass_sellherbs",
+				"name": "sell herbs",
+				"desc": "Sell herbs to people looking to make potions or incense.",
+				"verb": "haggling over herbs",
+				"fill": "gold",
+				"require": "g.shopkeeping>=2&&g.herbs>=1",
+				"length": 3,
+				"at": {
+					"20": {
+						"result.gold": 3.2,
+						"cost.herbs": 1
+					},
+					"50": {
+						"result.gold": 3.6,
+						"cost.herbs": 1
+					},
+					"100": {
+						"result.gold": 10.4,
+						"cost.herbs": 2,
+						"result.herbs.max": 0.001
+					},
+					"250": {
+						"result.gold": 20,
+						"cost.herbs": 5,
+						"result.herbs.max": 0.001,
+						"result.shopkeeping.max": 0.001
+					}
+				},
+				"cost": {
+					"herbs": 1
+				},
+				"run": {
+					"stamina": 0.2
+				},
+				"result": {
+					"gold": 2.8
+				}
+			},
+			{
+				"id": "sellgems",
+				"name": "sell gems",
+				"desc": "Sell gems to jewelers and traders",
+				"verb": "haggling over gems",
+				"fill": "gold",
+				"require": "g.shopkeeping>=3&&g.gems>=1",
+				"length": 5,
+				"at": {
+					"20": {
+						"result.gold": 40,
+						"cost.gems": 1
+					},
+					"50": {
+						"result.gold": 50,
+						"cost.gems": 1
+					},
+					"100": {
+						"result.gold": 110,
+						"cost.gems": 2
+					},
+					"250": {
+						"result.gold": 260,
+						"cost.gems": 5,
+						"result.gems.max": 0.01,
+						"result.shopkeeping.max": 0.001
+					}
+				},
+				"cost": {
+					"gems": 1
+				},
+				"run": {
+					"stamina": 0.5
+				},
+				"result": {
+					"gold": 40
+				}
+			},
+			{
+				"id": "accountingbook",
+				"name": "accounting Ledger",
+				"actname": "calculating expenses",
+				"require": "g.shopkeeping>=4&&g.crafting>=2&&g.languages>=5",
+				"craftable": true,
+				"desc": "Better organization of all your wizardly expenses",
+				"length": 50,
+				"max": 1,
+				"cost": {
+					"codices": 1,
+					"scrolls": 20
+				},
+				"run": {
+					"stamina": 3
+				},
+				"effect": {
+					"shopkeeping.exp": 0.5
+				},
+				"mod": {
+					"research.max": 20,
+					"shopkeeping.max": 2,
+					"shopkeeping.rate": 0.5,
+					"composure.max": 1
+				}
+			}
+		],
+		"upgrades": [
+			{
+				"id": "tradingstall",
+				"name": "trading stall",
+				"desc": "Makes buyers come to you for scrolls and gems, rather than having to seek them out",
+				"require": "g.shopkeeping>=5",
+				"max": 1,
+				"cost": {
+					"gold": 400
+				},
+				"mod": {
+					"shopkeeping.max": 1,
+					"sellscrolls.run.stamina": -0.1,
+					"sellgems.run.stamina": -0.1
+				}
+			},
+			{
+				"id": "colorfulsigns",
+				"name": "colorful sign",
+				"desc": "You could probably sell things faster with some fancy illusions and effects",
+				"require": "g.shopkeeping>=7",
+				"max": 1,
+				"cost": {
+					"gold": 300,
+					"research": 500,
+					"managem": 5
+				},
+				"mod": {
+					"shopkeeping.max": 1,
+					"sellscrolls.length": -1,
+					"sellgems.length": -1
+				}
+			},
+			{
+				"id": "charmingsigns",
+				"name": "enchanted sign",
+				"desc": "Why convince buyers when you have magic",
+				"require": "g.shopkeeping>=7 && g.charms>=5",
+				"max": 1,
+				"cost": {
+					"gold": 1000,
+					"research": 2500,
+					"managem": 15
+				},
+				"mod": {
+					"shopkeeping.max": 1,
+					"charms.rate": 0.5,
+					"mass_sellherbs.length": -1,
+					"sellgems.length": -1
+				}
+			},
+			{
+				"id": "gemtradercontact",
+				"name": "gemtrader contact",
+				"desc": "Seek out someone who will sell you gems for better prices",
+				"require": "g.shopkeeping>=7",
+				"max": 1,
+				"cost": {
+					"gold": 1500,
+					"research": 2000
+				},
+				"mod": {
+					"buygem.cost.gold": -20
+				}
+			},
+			{
+				"id": "splendorandriches",
+				"name": "splendor and riches",
+				"desc": "Sometimes a lot of gold and greed is all you need to be famous",
+				"require": "g.shopkeeping>=12",
+				"max": 1,
+				"cost": {
+					"gold": 50000,
+					"gems": 150
+				},
+				"result": {
+					"gold.max": 1000,
+					"fame": 2
+				}
+			}
+		],
+		"potions": [
+			{
+				"id": "pot_negotiator",
+				"name": "negotiator's cunning",
+				"desc": "A clear, viscous liquid that smells like money but tastes like pennies",
+				"require": "g.potions>=8&&g.shopkeeping>=5",
+				"level": 9,
+				"buy": {
+					"gold": 1500,
+					"goldstash": 1,
+					"research": 2000,
+					"tomes": 5
+				},
+				"cost": {
+					"herbs": 30,
+					"research": 600,
+					"goldstash": 1,
+					"gold": 1000
+				},
+				"use": {
+					"dot": {
+						"id": "pot_negotiator_effect",
+						"name": "shrewd negotiation",
+						"duration": 600,
+						"effect": {
+							"shopkeeping.exp": "0 + (g.shopkeeping.length*0.0017)"
+						},
+						"mod": {
+							"mass_sellherbs.run.stamina": -0.1,
+							"sellcodices.run.stamina": -0.1,
+							"sellgems.run.stamina": -0.1,
+							"sellscrolls.run.stamina": -0.1,
+							"sellbooks.run.stamina": -0.1,
+							"shopkeeping.rate": "200+2%"
+						}
+					}
+				}
+			}		
+		],
+		"furniture": [
+			{
+				"id": "bazaar",
+				"name": "bazaar",
+				"desc": "A bustle of traders and merchants",
+				"require": "g.shopkeeping>=10&&g.tradingstall>0",
+				"max": 1,
+				"cost": {
+					"gold": 3000,
+					"gems": 50
+				},
+				"mod": {
+					"gold.rate": 0.3,
+					"gold.max": 100,
+					"space": 30,
+					"shopkeeping.max": 2,
+					"scrollmonger.mod.space": -1,
+					"gemmonger.mod.space": -1
+				}
+			},
+			{
+				"id": "scrollmonger",
+				"name": "scroll monger",
+				"desc": "Constantly sells a portion of your scroll supply at your behest.",
+				"require": "g.shopkeeping>=7&&g.scrolls>=30",
+				"repeat": true,
+				"cost": {
+					"gold": 100
+				},
+				"mod": {
+					"space": 3,
+					"scrolls.convert": {
+						"input": {
+							"scrolls": 0.001
+						},
+						"output": {
+							"effect": {
+								"gold": 0.005
+							}
+						}
+					}
+				}
+			},
+			{
+				"id": "gemmonger",
+				"name": "gem monger",
+				"desc": "Constantly sells a portion of your gem supply at your behest.",
+				"require": "g.shopkeeping>=9&&g.gems>=30",
+				"repeat": true,
+				"cost": {
+					"gold": 200
+				},
+				"mod": {
+					"space": 3,
+					"gems.convert": {
+						"input": {
+							"gems": 0.001
+						},
+						"output": {
+							"effect": {
+								"gold": 0.035
+							}
+						}
+					}	
+				}
+			},
+			{
+				"id": "goldpile",
+				"name": "gold pile",
+				"desc": "Why sleep like a peasant, when you can sleep like a dragon",
+				"require": "g.shopkeeping>=8",
+				"max": 1,
+				"tags": "bed",
+				"slot": "bed",
+				"cost": {
+					"gold": 2000
+				},
+				"mod": {
+					"bed_rest": {
+						"effect": {
+							"stamina": -0.1,
+							"vigor":-0.01,
+							"prismatic": 0.1
+						}
+					},
+					"gold.rate": 0.05,
+					"space": 2,
+					"shopkeeping.max": 1
+				}
+			},
+			{
+				"id": "goldstash",
+				"name": "stash of gold",
+				"desc": "Protect your gold by stashing it away",
+				"require": "g.shopkeeping>=8",
+				"repeat": true,
+				"cost": {
+					"gold": 250
+				},
+				"mod": {
+					"space": 2
+				},
+				"sell": {
+					"gold": 500
+				}
+			}
+		]
+	}
+}

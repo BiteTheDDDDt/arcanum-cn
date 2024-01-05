@@ -98,7 +98,7 @@
 	{
 		"id": "neophyte",
 		"actdesc": "The final step on the twisting stairwell of apprenticeship.",
-		"require": "(g.evt_helper>0)&&g.research.max>=125&&g.spellbook.value>0",
+		"require": "(g.evt_helper>0)&&g.research.max>=125&&g.spellbook>0",
 		"log": {
 			"name": "Neophyte",
 			"desc": "Your master has decided you are ready to take the next step on the path of wizardry."
@@ -200,7 +200,7 @@
 			"arcana.rate": 0.001,
 			"mana.max": 2,
 			"mana.rate": 0.4,
-			"mysticism.mod.mana.rate":0.05
+			"mysticism.mod.mana.rate": 0.05
 		}
 	},
 	{
@@ -228,7 +228,7 @@
 			"lore.rate": "5%",
 			"mana.max": 3,
 			"mana.rate": 0.2,
-			"shadowlore.mod.mana.rate":0.02,
+			"shadowlore.mod.mana.rate": 0.02,
 			"shadowlore.max": 1,
 			"shadowlore.rate": "0.1+5%"
 		}
@@ -237,7 +237,7 @@
 		"id": "reanimator",
 		"tags": "t_tier1",
 		"desc": "Create and ressurect living materials.",
-		"require": "g.tier0>0&&g.reanimation>2",
+		"require": "g.tier0>0&&g.reanimation>=3",
 		"cost": {
 			"research": 500,
 			"bones": 10,
@@ -359,7 +359,7 @@
 		"id": "bonemonger",
 		"tags": "t_tier2",
 		"desc": "Extend your life with spare parts from the dead.",
-		"require": "g.tier1>0&&g.reanimator>=1&&g.evil>0&&g.tier2==0",
+		"require": "g.tier1>0&&g.reanimator>0&&g.evil>0&&g.tier2==0",
 		"cost": {
 			"research": 800,
 			"bodies": 3,
@@ -561,7 +561,7 @@
 		},
 		"mod": {
 			"tier3": true,
-			"player.tohit": "10%",
+			"player.tohit": 1,
 			"hp.max": "10%",
 			"bladelore.max": 1,
 			"shadowlore.max": 2,
@@ -602,7 +602,7 @@
 		"name": "blood mage",
 		"tags": "t_tier3",
 		"desc": "The magic in your veins",
-		"require": "g.tier2>0&&(g.battlemage>0||g.hp.max>150)&&g.tier3==0",
+		"require": "g.tier2>0&&(g.battlemage>0||g.hp.max>=150)&&g.tier3==0",
 		"cost": {
 			"research": 1500,
 			"arcana": 8,
@@ -631,7 +631,7 @@
 		"id": "summoner",
 		"tags": "t_tier3",
 		"desc": "Alone or with friends, a summoner is never without an army.",
-		"require": "g.minions>4&&g.tier2>0&&g.lore>=20",
+		"require": "g.minions>=5&&g.tier2>0&&g.lore>=20",
 		"cost": {
 			"research": 2000,
 			"arcana": 20,
@@ -701,7 +701,7 @@
 			"crafting.rate": 0.3,
 			"potions.max": 3,
 			"potions.rate": "5%",
-			"potionessence.rate": 0.0002,
+			"potionessence.rate": 0.00028,
 			"potioncombatflask.rate": 0.0005,
 			"alchemy.max": 3,
 			"alchemy.rate": "5%",
@@ -912,7 +912,7 @@
 	{
 		"id": "elementalist",
 		"desc": "Master of elemental forces.",
-		"require": "g.tier0>0&&g.airlore>2&&g.firelore>2&&g.earthlore>2&&g.waterlore>2",
+		"require": "g.tier0>0&&g.airlore>=3&&g.firelore>=3&&g.earthlore>=3&&g.waterlore>=3",
 		"tags": "t_tier1",
 		"cost": {
 			"arcana": 12,
@@ -989,7 +989,7 @@
 		"name": "high elementalist",
 		"tags": "t_tier3",
 		"desc": "Lord of the elements",
-		"require": "g.tier2>0&&g.airlore>7&&g.firelore>7&&g.waterlore>7&&g.earthlore>7",
+		"require": "g.tier2>0&&g.airlore>=8&&g.firelore>=8&&g.waterlore>=8&&g.earthlore>=8",
 		"cost": {
 			"arcana": 15,
 			"tomes": 10,
@@ -1286,7 +1286,7 @@
 			"mana.max": 4,
 			"mana.rate": "10%",
 			"mysticism.max": 1,
-			"mysticism.mod.mana.rate":0.05,
+			"mysticism.mod.mana.rate": 0.05,
 			"spelllist.max": 5
 		},
 		"flavor": "In the end it was three Thule Wizards and The Necromancer who brought the locks to heel."
