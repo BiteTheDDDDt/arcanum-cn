@@ -159,7 +159,7 @@
 					"mod": {
 						"stamina.max": 50,
 						"stamina.rate": -1,
-						"self": { 
+						"self": {
 							"dodge": 15,
 							"tohit": 10,
 							"damage": 5
@@ -319,7 +319,7 @@
 					"trickery.exp": 2,
 					"player.exp": 1
 				},
-					"result": {
+				"result": {
 					"trickery.max": 0.001
 				}
 			},
@@ -334,7 +334,7 @@
 					"concentrate.exp": 1,
 					"composure.exp": 1
 				},
-					"result": {
+				"result": {
 					"concentrate.max": 0.001
 				}
 			},
@@ -348,7 +348,7 @@
 					"naturelore.exp": 2,
 					"animals.exp": 2
 				},
-					"result": {
+				"result": {
 					"herbalism.max": 0.001
 				}
 			},
@@ -362,7 +362,7 @@
 					"history.exp": 2,
 					"shadowlore.exp": 2
 				},
-					"result": {
+				"result": {
 					"dissection.max": 0.001
 				}
 			}
