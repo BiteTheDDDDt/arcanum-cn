@@ -243,16 +243,17 @@
 			},
 			{
 				"id": "enc_sinae",
-				"name": "sinae",
-				"desc": "",
+				"name": "sinae the puppeteer",
+				"desc": "A researcher, more machine than human",
 				"effect": {
-					"rage": "1~5",
-					"weary": "2~5",
+					"unease": "1~5",
+					"rage": "2~5",
 					"research": 1
 				},
 				"result": {
-					"languages.max": 0.001
-				}
+					"puppetry.max": 0.001
+				},
+				"flavor": "You can hear the clock mechanisms clicking within him"
 			},
 			{
 				"id": "enc_stags",
