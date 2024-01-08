@@ -5,7 +5,7 @@ import ItemGen from './modules/itemgen';
 import TechTree, { Changed, GetChanged } from './techTree';
 import Resource from './items/resource';
 import Skill from './items/skill';
-import Stat from './values/rvals/stat';
+import profile from './modules/profile';
 
 import DataLoader from './dataLoader';
 
@@ -15,6 +15,7 @@ import TagSet from './composites/tagset';
 import RValue from './values/rvals/rvalue';
 import { SetModCounts } from './items/base';
 import RevStat from './items/revStat';
+
 
 var techTree;
 
@@ -346,6 +347,10 @@ export default {
 		this.doConversions( this.state.furnitures, dt );
 		this.doConversions( this.state.upgrades, dt );
 		this.doConversions( this.state.resources, dt );
+		//process the hall items too
+		this.doResources( profile.hall.resources, dt);
+		this.doConversions( profile.hall.upgrades, dt );
+		this.doConversions( profile.hall.resources, dt );
 
 	},
 

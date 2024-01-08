@@ -496,7 +496,7 @@ export default class GameState {
 		this.items[it.id] = it;
 
 		if ( it.module !== 'hall') {
-			console.log('ADDING SAVE ITEM: ' + it.id );
+			//console.log('ADDING SAVE ITEM: ' + it.id );
 			this.saveItems[it.id] = it;
 		}
 
