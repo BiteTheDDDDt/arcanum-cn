@@ -533,9 +533,6 @@ export default class Combat {
 		// +1 initial encounter delay.
 		minDelay -= 1;
 
-		this.player.timer -= minDelay;
-
-
 		for( let i = this.enemies.length-1; i >= 0; i-- ) {
 			this.enemies[i].timer -= minDelay;
 		}
