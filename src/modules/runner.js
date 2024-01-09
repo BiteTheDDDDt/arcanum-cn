@@ -410,16 +410,11 @@ export default class Runner {
 	}
 
 	moveWaiting(task, amt) {
-		let a = moveElm(this.waiting, task, amt);
-		if (a) this.waiting = a;
-		return true;
+		return moveElm(this.waiting, task, amt);
 	}
 
 	moveActive(task, amt) {
-		
-		let a = moveElm(this.actives, task, amt);
-		if (a) this.actives = a;
-		return true;
+		return moveElm(this.actives, task, amt);
 	}
 
 	/**
