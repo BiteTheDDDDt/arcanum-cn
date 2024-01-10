@@ -67,7 +67,7 @@ export default {
 <div v-if="!hideEmpty||avail.length>0">
 
 	<span v-if="title">{{title}}:</span>
-	<button class="task-btn" @mouseenter.capture.stop="itemOver($event,cur)" @click="select" v-if="avail.length>0">{{ cur ? cur.name : 'None'}}</button>
+	<button class="task-btn" @mouseenter.capture.stop="itemOver($event,cur)" @click="select" v-if="avail.length>0">{{ cur ? cur.name : 'Move In'}}</button>
 
 </div>
 </template>
