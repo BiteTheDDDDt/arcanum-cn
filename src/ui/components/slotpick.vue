@@ -18,7 +18,7 @@ export default {
 	 * for a matching slot property.
 	 * @property {?string} pickEvent - event to emit on item picked.
 	 */
-	props:['pick', 'title', 'choices', 'pickEvent', 'hideEmpty', 'mustPay'],
+	props:['pick', 'nonetext', 'title', 'choices', 'pickEvent', 'hideEmpty', 'mustPay'],
 	mixins:[ItemsBase],
 	data(){
 		return {
@@ -67,7 +67,7 @@ export default {
 <div v-if="!hideEmpty||avail.length>0">
 
 	<span v-if="title">{{title}}:</span>
-	<button class="task-btn" @mouseenter.capture.stop="itemOver($event,cur)" @click="select" v-if="avail.length>0">{{ cur ? cur.name : 'Move In'}}</button>
+	<button class="task-btn" @mouseenter.capture.stop="itemOver($event,cur)" @click="select" v-if="avail.length>0">{{ cur ? cur.name : ( nonetext ? nonetext : 'None')}}</button>
 
 </div>
 </template>
