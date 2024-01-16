@@ -1828,9 +1828,9 @@
 						"cost": {
 							"w_dolls": 10
 						},
+						"max": 50,
 						"result": {
-							"fame": "0.5//50/-2",
-							"virtue": 5
+							"fame": 0.5
 						}
 					},
 					{
