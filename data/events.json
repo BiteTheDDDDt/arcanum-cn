@@ -61,7 +61,7 @@
 		"id": "evt_rangers",
 		"name": "Impudent Meddlers",
 		"require": "g.wicked>0&&g.player.level>=15&&g.evilamt>=75",
-		"desc": "Hearing of your wicked deeds, the rangers of the Ettinmarch plots your downfall. An assault on their camps should crush their presumption."
+		"desc": "Hearing of your wicked deeds, the rangers of the Ettinmarch plot your downfall. An assault on their camps should crush their presumption."
 	},
 	{
 		"id": "evt_cabal",
