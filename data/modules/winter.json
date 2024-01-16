@@ -1418,7 +1418,7 @@
 					},
 					{
 						"id": "frostparts",
-						"name": "frost-rimmed parts",
+						"name": "rime-rimmed parts",
 						"group": "hall",
 						"desc": "Cogs, springs and multitudes of other mechanical parts. Ever-cold, even after prolonged use.",
 						"max": 1000,
@@ -1623,7 +1623,7 @@
 					},
 					{
 						"id": "frostparts_production1",
-						"name": "produce frost-rimmed parts",
+						"name": "produce rime-rimmed parts",
 						"sym": "🏰❄️",
 						"tags": "hall",
 						"require": "g.fazbit_restoration_stage1>0",
@@ -1643,7 +1643,7 @@
 						"tags": "hall",
 						"require": "g.fazbit_restoration_stage1>0",
 						"need": "mechamancer",
-						"desc": "Forge parts with intent to turn them into frost-rimmed parts.",
+						"desc": "Forge parts with intent to turn them into rime-rimmed parts.",
 						"perpetual": true,
 						"run": {
 							"stamina": 1,
