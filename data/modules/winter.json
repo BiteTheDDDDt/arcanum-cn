@@ -302,7 +302,7 @@
 			{
 				"id": "w_fazbit9",
 				"name": "discarded missives",
-				"desc": "A large bin full of paper dust. With your restoration technique, you manage to recover what appears to missives and drawings crudely detailing the golems produced by the workshop.",
+				"desc": "A large bin full of paper dust. With your restoration technique, you manage to recover what appears to be missives and drawings crudely detailing the golems produced by the workshop.",
 				"require": "g.w_fazbitknowledge>=60000&&g.w_fazbit8>0",
 				"mod": {
 					"lore.rate": "100%",
