@@ -490,8 +490,8 @@
 		},
 		"tags": "firesource",
 		"mod": {
-			"minions.max": 20,
 			"space.max": 200,
+			"minions.max": 20,
 			"research.rate": -0.5,
 			"fire.max": 4,
 			"fire.rate": 0.2,
