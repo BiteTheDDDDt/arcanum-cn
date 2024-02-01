@@ -357,12 +357,12 @@ export default class Combat {
 		if ( targets & TARGET_GROUP ) {
 			if(targets & TARGET_NONPRIMARY)
 			{	
-				let trimgroup = []
+				let trimgroup = Array.from(group)
 				if ( group !== this.teams[TEAM_ALL] ){ //if not ALL, we just lop off however many we need to remove the first alive element.
-					trimgroup =  group.toSpliced(0, PrimeInd(group)+1)
+					trimgroup.splice(0, PrimeInd(group)+1)
 				} else { //If all, first we chop off the enemy part of ALL which starts after this.allies.length, THEN we chop off the allies.
-					trimgroup =  group.toSpliced(this.allies.length, PrimeInd(this.enemies)+1)
-					trimgroup =  trimgroup.toSpliced(0, PrimeInd(group)+1)
+					trimgroup.splice(this.allies.length, PrimeInd(this.enemies)+1)
+					trimgroup.splice(0, PrimeInd(group)+1)
 				}
 				
 				return trimgroup;
