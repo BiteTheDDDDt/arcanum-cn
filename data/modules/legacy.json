@@ -735,7 +735,7 @@
 			{
 				"id": "enc_w_faz_scrapper2",
 				"name": "adjuster",
-				"desc": "Once meant to make minute adjustments to better suit individual recepients, it has been reduced to an eternity of useless work.",
+				"desc": "Once meant to make minute adjustments to better suit individual recipients, it has been reduced to an eternity of useless work.",
 				"require": "w_fazbit9",
 				"effect": {
 					"madness": "2~3",
