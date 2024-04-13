@@ -428,7 +428,7 @@
 				"damage": "60~70",
 				"attack": {
 					"kind": "spirit",
-					"damage": "(i.damage||0)"
+					"damage": "60~70"
 				},
 				"alter": {
 					"mod": {
