@@ -119,7 +119,7 @@ export default class GenGroup {
 	getCategories( filter, matches, allowBlank ) {
 
 		const subs = this.filterBy[filter];
-		let res = [];
+		const res = [];
 
 		if ( subs === undefined ) return res;
 		if ( allowBlank && subs.hasOwnProperty(BLANK_CATEGORY)) res.push( subs[BLANK_CATEGORY]);
@@ -130,7 +130,7 @@ export default class GenGroup {
 		} else if ( Array.isArray(matches)) {
 
 			for( let i = matches.length-1; i>= 0; i--) {
-				var sub = subs[matches[i] ];
+				const sub = subs[matches[i] ];
 				if ( sub ) res.push(sub);
 			}
 
@@ -148,8 +148,8 @@ export default class GenGroup {
 	 */
 	randBy( filter, matches, allowBlank=false ) {
 
-		var subs = this.filterBy[filter];
-		if ( subs === undefined ) return null;
+		/// no filters of this type.
+		if ( this.filterBy[filter] === undefined ) return null;
 
 		if ( Array.isArray( matches ) ) {
 
@@ -177,10 +177,10 @@ export default class GenGroup {
 
 		for( let i = this.items.length-1; i>= 0; i-- ) {
 
-			var it = this.items[i];
-			var cat = it[prop] || BLANK_CATEGORY;
+			const it = this.items[i];
+			const cat = it[prop] || BLANK_CATEGORY;
 
-			var list = group[ cat ];
+			const list = group[ cat ];
 			if ( list === undefined ) {
 
 				group[ cat ] = [ it ];
@@ -194,7 +194,7 @@ export default class GenGroup {
 		// sort all lists.
 		if ( sortBy && sortBy !== prop) {
 
-			for( let p in group ) {
+			for( const p in group ) {
 				propSort( group[p], sortBy );
 			}
 

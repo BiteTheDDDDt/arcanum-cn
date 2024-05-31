@@ -1,6 +1,7 @@
 import { CreateNpc } from "../items/monster";
 import { ENCOUNTER, FP } from "../values/consts";
 import Game from "../game";
+import FValue from "../values/rvals/fvalue";
 
 /**
  * Create Npc from string or SpawnInfo object.
@@ -26,7 +27,7 @@ export default class SpawnGroup {
 
 	toJSON(){
 
-		if ( this._w === 1 || this._w instanceof Function ) {
+		if ( this._w === 1 ) {
 			return this.ids;
 		} else {
 
@@ -71,7 +72,10 @@ export default class SpawnGroup {
 
 			this.ids = vars.ids;
 			this.w = vars.weight || vars.w;
-			if(typeof this.w === "string") this.w === new Function(FP.GAME, "return " + this.w);
+			if(typeof this.w === "string") {
+				this.w = new FValue([FP.GDATA], weight);
+				this.w.setParameter(FP.GDATA, Game.gdata);
+			}
 
 		}
 

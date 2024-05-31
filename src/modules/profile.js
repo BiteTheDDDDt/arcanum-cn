@@ -4,8 +4,19 @@ import Settings from './settings';
 import Events, { LEVEL_UP, CHAR_NAME, CHAR_TITLE, CHAR_CLASS } from "../events";
 
 import { Persist } from "./persist/persist";
+import { useLocalStorage } from "./persist/persistLocal";
+import { useDB } from "./persist/persist-db";
 
 const HALL_FILE = 'hall';
+
+(function(){	
+	useLocalStorage( Persist);
+	try {
+		useDB(Persist);
+	} catch(err){
+		console.warn(`failed to init IndexedDB: ${err}`);
+	}
+})();
 
 /**
  * Control access to all local storage and profile information.
@@ -16,11 +27,6 @@ export default {
 	 * @const {number}
 	 */
 	VERSION:__VERSION,
-
-	/**
-	 * @const {boolean}
-	 */
-	CLOUD:__CLOUD,
 
 	/**
 	 * @property {Hall} hall
@@ -38,9 +44,7 @@ export default {
 	get loggedIn(){return this.active.loggedIn},
 	set loggedIn(v){this.active.loggedIn=v},
 
-	logout(){
-		Persist.logout();
-	},
+	logout(){ Persist.logout(); },
 
 	/**
 	 * @property {boolean} remoteFirst - prefer remote save over local.
@@ -52,8 +56,8 @@ export default {
 	 */
 	async loadHall( type=null ){
 
-		var save = await Persist.loadHall( HALL_FILE, type );
-		var data = this.loadHallData( save );
+		const save = await Persist.loadHall( HALL_FILE, type );
+		const data = this.loadHallData( save );
 
 		this.hall = new Hall(data);
 		if ( this.hall.legacy ) await this.resaveLegacy();
@@ -67,19 +71,15 @@ export default {
 	 */
 	async resaveLegacy(){
 
-		console.log('RESAVING LEGACY FILES');
-
-		let max = this.hall.max.value;
+		const max = this.hall.max.value;
 		for( let i = 0; i < max; i++ ) {
 
-			var c = this.hall.getSlot(i);
+			const c = this.hall.getSlot(i);
 			if ( c.empty ) continue;
 
-			console.log('load (to save) legacy: ' + i );
-			let data = await Persist.loadChar( i );
+			const data = await Persist.loadChar( i );
 			// parse to avoid double string encoding.
 			if ( data ) {
-				console.log('save: ' + i + ' to: ' + c.pid );
 				await Persist.saveChar( JSON.stringify(data), c.pid );
 
 			} else console.log('NO LEGACY FOUND: ' + i );
@@ -167,13 +167,13 @@ export default {
 	 */
 	gameLoaded(game) {
 
-		let gs = game.state;
-		let p = gs.player;
+		const gs = game.state;
+		const p = gs.player;
 
-		let id = gs.pid || p.hid;
+		const id = gs.pid || p.hid;
 		console.log('player id: ' + id );
 
-		let slot = this.hall.pidSlot( id );
+		const slot = this.hall.pidSlot( id );
 
 		if ( slot >= 0 ) {
 			this.hall.setActive( slot );
@@ -245,6 +245,7 @@ export default {
 		let chars = data.chars;
 		for( let i = 0; i < max; i++ ) {
 
+			if(!this.hall.charId(i)) continue;
 			let char = await Persist.loadChar( this.hall.charId(i) );
 
 			// parse to avoid double string encoding.
@@ -294,11 +295,11 @@ export default {
 
 		if ( !chars ) return;
 
-		var id;
+		let id;
 
 		for( let i = chars.length-1; i >= 0; i-- ) {
 
-			var char = chars[i];
+			const char = chars[i];
 			if ( char ) {
 
 				 console.log( `HALL SAVE ${i}: ${char.name}` );
@@ -306,7 +307,7 @@ export default {
 				id = char.pid;
 				if ( !id ) {
 
-					var p = char.items.player;
+					const p = char.items.player;
 					// @compat hid
 					if ( p ) id = p.pid || p.hid
 				}
@@ -333,7 +334,7 @@ export default {
 		try {
 
 			console.log('cur char id: ' + this.hall.curId );
-			let json = JSON.stringify(state);
+			const json = JSON.stringify(state);
 			if ( json ) {
 				await Persist.saveChar( json, this.hall.curId );
 			}
@@ -409,7 +410,7 @@ export default {
 
 		try {
 
-			let data = JSON.stringify( this.hall );
+			const data = JSON.stringify( this.hall );
 			if ( data ) {
 				await Persist.saveHall( data, this.hall.id );
 			}

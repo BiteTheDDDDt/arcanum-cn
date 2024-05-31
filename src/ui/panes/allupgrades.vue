@@ -16,7 +16,10 @@ export default {
 			return Game.state.classes.filter(v=>!v.disabled&&v.value>=1);
 		},
 		tasks() {
-			return Game.state.tasks.filter(v=>v.max>=1&&!v.disabled&&v.value>=1).sort(alphasort);
+			return Game.state.tasks.filter(v=>v.max>=1&&!v.disabled&&v.value>=1&&!v.morality).sort(alphasort);
+		},
+		morals() {
+			return Game.state.tasks.filter(v=>v.max>=1&&!v.disabled&&v.value>=1&&v.morality).sort(alphasort);
 		},
 		upgrades(){
 			return Game.state.upgrades.filter(v=>!v.disabled&&v.value>=1).sort(alphasort);

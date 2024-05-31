@@ -23,15 +23,16 @@ export default {
 
 	},
 	computed:{
+
 		hall(){ return Profile.hall; },
 		mergedtasks(){return Game.state.tasks.concat(this.hall.tasks)},
 		tasks(){return this.mergedtasks.filter(v=>(!v.perpetual||v.perpetual==0)&&(!v.length||v.length==0))},
-		runnables(){return this.mergedtasks.filter(v=>(v.perpetual>0||v.length>0)&&!v.craftable)},
-		crafts(){return this.mergedtasks.filter(v=>(v.perpetual>0||v.length>0)&&v.craftable)},
+		runnables(){return this.mergedtasks.filter(v=>(v.perpetual>0||v.length>0)&&!v.craftable&&!v.morality)},
+		crafts(){return this.mergedtasks.filter(v=>(v.perpetual>0||v.length>0)&&v.craftable&&(v.value<v.max||!v.max)&&v.locked==false)},
 
 		visActs(){return this.tasks.filter(v=>this.show(v))},
-		visRuns(){ return this.runnables.filter(v=>this.show(v))},
-		visCrafts() { return this.crafts.filter(v=>this.show(v))},
+		visRuns(){return this.runnables.filter(v=>this.show(v))},
+		visCrafts(){return this.crafts.filter(v=>this.show(v))},
 
 		ups(){
 			return Game.state.upgrades.filter( v=>!this.locked(v)&&this.show(v) )
@@ -70,6 +71,7 @@ export default {
 		grid-template-columns: repeat( auto-fit, var(--task-button-width) );
     }
 
+	div.upgrade-list:empty{ padding: 0px;}
     div.task-list .runnable:hover {background: var(--accent-color-hover); }
     div.task-list .runnable:active {background: var(--accent-color-active); }
 

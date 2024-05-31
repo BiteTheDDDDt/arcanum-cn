@@ -1,23 +1,40 @@
 <script>
+import settings from '../../modules/settings';
+
 export default {
 
-	props:['value', 'max', 'label', 'hideStats', 'color'],
-	computed:{
+	props: ['value', 'max', 'label', 'hideStats', 'color'],
+	data() {
+		return {
+			delta: undefined
+		}
+	},
+	watch: {
 
-		style(){
+		value(newVal, oldVal) {
+			if (typeof oldVal === 'number') {
+				this.delta = Math.abs((newVal - oldVal) / this.max);
+			}
+		}
+	},
+	computed: {
 
-			let s = 'width:' + this.width;
-			if ( this.color ) s += ';background:' + this.color;
+		style() {
+			const smooth = settings.get('smoothBars')
+			let s = 'width:' + this.width + '%';
+			if (this.color) s += ';background:' + this.color;
+			if (typeof this.delta === 'number' && smooth) {
+				s += `;transition: width 1000ms ease-out`
+			}
 
 			return s;
 
 		},
 
-		width(){
-			let val = Math.floor( 100*(this.value/this.max) );
-			if ( val > 100 ) val = 100;
-			else if ( val < 0 ) val = 0;
-			return val + '%;'
+		width() {
+			const val = Math.floor(100 * (this.value / this.max));
+			if (val > 100) return 100;
+			return val < 0 ? 0 : val;
 		}
 	}
 
@@ -28,7 +45,7 @@ export default {
 <template>
 
 <div class="container">
-	<label v-if="label" :for="elmId('bar')">{{label}}</label>
+	<label v-if="label" :for="elmId('bar')">{{ label }}</label>
 	<div class="bar" :id="elmId('bar')">
 		<div class="fill" :style="style">
 			<span class="bar-text" v-if="!hideStats">{{ value.toFixed(1) + '/' + max.toFixed(1) }}</span>
@@ -41,33 +58,31 @@ export default {
 
 <style>
 div.container {
-	display:flex;
-	height:100%;
+	display: flex;
+	height: 100%;
 	width: 100%;
 }
 
-    div.bar .fill {
-	  height:100%;
-	  padding:0;
-	  margin:0;
-    }
+div.bar .fill {
+	height: 100%;
+	padding: 0;
+	margin: 0;
+}
 
 div.bar .bar-text {
-	color: var( --progbar-text-color );
+	color: var(--progbar-text-color);
 }
 
 
 div.bar {
 
-	display:inline-block;
+	display: inline-block;
 	background: #333;
-	overflow:hidden;
-	padding:0;
-	min-height:1.5rem;
-	width:-webkit-fill-available;
-	width:-moz-available;
+	overflow: hidden;
+	padding: 0;
+	min-height: 1.5rem;
+	width: -webkit-fill-available;
+	width: -moz-available;
 	border-radius: var(--lg-radius);
 }
-
-
 </style>

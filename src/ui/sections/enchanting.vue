@@ -1,174 +1,267 @@
 <script>
-import Game from 'game';
-import {ENCHANTSLOTS} from 'values/consts';
-import EnchantSlots from '../items/enchantslots.vue';
-import FilterBox from '../components/filterbox.vue';
-import ItemsBase from '../itemsBase';
+import Game from "game";
+import { ENCHANTSLOTS } from "values/consts";
+import EnchantSlots from "../items/enchantslots.vue";
+import FilterBox from "../components/filterbox.vue";
+import ItemsBase from "../itemsBase";
 
 export default {
+  mixins: [ItemsBase],
+  components: {
+    eslots: EnchantSlots,
+    filterbox: FilterBox,
+    inv: () => import(/* webpackChunkName: "inv-ui" */ "./inventory.vue"),
+  },
+  data() {
+    return {
+      /**
+       * @property {Item[]} filtered - filtered search results.
+       */
+      filtered: null,
+      /**
+       * @property {Item} target - current enchant target.
+       */
+      target: null,
 
-	mixins:[ItemsBase],
-	components:{
-		eslots:EnchantSlots,
-		filterbox:FilterBox,
-		inv:()=>import( /* webpackChunkName: "inv-ui" */ './inventory.vue')
-	},
-	data() {
+      /// limit kinds of enchants being viewed (rings, orbs, etc.)
+      viewKinds: [],
+    };
+  },
 
-		return {
-			/**
-			 * @property {Item[]} filtered - filtered search results.
-			 */
-			filtered:null,
-			/**
-			 * @property {Item} target - current enchant target.
-			 */
-			target:null
-		}
-	},
-	beforeCreate(){
-		this.game = Game;
-		this.state = Game.state;
-		this.runner = this.state.runner;
-		this.inv = this.state.getData('inventory');
-		this.enchantSlots = this.state.getData(ENCHANTSLOTS);
-	},
-	methods:{
+  beforeCreate() {
+    this.game = Game;
+    this.state = Game.state;
+    this.runner = this.state.runner;
+    this.inv = this.state.getData("inventory");
+    this.enchantSlots = this.state.getData(ENCHANTSLOTS);
+  },
+  methods: {
+    begin(it, target) {
+      /** @note test here for successful add to enchants? */
+      this.emit("enchant", it, target);
 
-		begin(it,target ) {
+      this.inv.remove(target);
+      this.target = null;
+    },
 
-			/** @note test here for successful add to enchants? */
-			this.emit('enchant', it, target )
+    clearTarget() {
+      this.target = null;
+    },
 
-			this.inv.remove(target);
-			this.target = null;
+    resume() {
+      Game.toggleTask(this.enchantSlots);
+    },
 
-		},
+    canAlter(it, targ) {
+      return targ && it.canAlter(targ) && this.enchantSlots.canAdd(it);
+    },
+  },
+  computed: {
+  
+    /// all available enchant kinds.
+    allKinds(){
 
-		clearTarget(){
-			this.target = null;
-		},
+      const kinds = [];
+  
+      for( const e of this.enchants){
+  
+        const only = e.only;
+        if ( Array.isArray(only)) {
 
-		resume(){
-			Game.toggleTask(this.enchantSlots);
-		},
+          for( const kind of only ){
+            if ( !kinds.includes(kind)) kinds.push(kind);
+          }
 
-		canAlter( it, targ ) {
-			return targ&&it.canAlter(targ)&& this.enchantSlots.canAdd(it);
-		}
+        } else if ( only && !kinds.includes(only)){
+          kinds.push(only);
+        }
 
-	},
-	computed:{
 
-		enchants(){
-			return this.state.filterItems( it=>it.type==='enchant' && !this.locked(it) );
-		},
+      }
 
-		/**
-		 * Enchants usable for selected item.
-		 */
-		usable(){
+      return kinds;
+  
+    },
+  
+    enchants() {
+      return this.state.filterItems(
+        (it) => it.type === "enchant" && !this.locked(it),
+      );
+    },
 
-			let t = this.target;
-			if ( !t ) return this.filtered;
+    showItems(){
 
-			return this.filtered.filter( it=>!it.owned|| this.canAlter(it, t ) );
+      /// display items limited by selected enchant kinds.
+  
+    },
 
-		}
+    /// Enchants limited by selected enchant kinds.
+    onlyKinds(){
 
-	}
+      const enchants = this.enchants;
+      const viewOnly = this.viewKinds;
 
-}
+      if ( viewOnly.length > 0 ){
+
+        return enchants.filter( e=>{
+
+          const only = e.only;
+          if ( Array.isArray(only)){
+            return viewOnly.some(v=>only.includes(v));
+          } else if ( typeof only ==='string' && viewOnly.includes(only)) return true;
+  
+        });
+    
+      }
+      return enchants;
+
+    },
+
+    /**
+     * Enchants usable for selected item.
+     */
+    usable() {
+      const t = this.target;
+      if (!t) return this.filtered;
+
+      return this.filtered.filter((it) => !it.owned || this.canAlter(it, t));
+    },
+  },
+};
 </script>
 
 <template>
+  <div class="enchants">
+    <div class="separate">
+      <div>
+        <div @mouseenter.capture.stop="itemOver($event, target)">
+          Target: {{ target ? target.name.toTitleCase() : "None" }}
+        </div>
+        <div class="note-text">
+          Enchantment levels on an Item cannot exceed Item's enchant slots.
+        </div>
+      </div>
 
-		<div class="enchants">
+      <span>
+        <button :disabled="enchantSlots.count == 0" @click="resume">
+          {{ runner.has(enchantSlots) ? "Pause" : "Resume" }}
+        </button></span
+      >
+    </div>
 
-		<div class="separate">
-		<div>
-			<div @mouseenter.capture.stop="itemOver( $event, target )">Target: {{ target ? target.name.toTitleCase() : 'None' }}</div>
-			<div class="note-text">Enchantment levels on an Item cannot exceed Item's enchant slots.</div>
-		</div>
+    <eslots class="eslots" :eslots="enchantSlots" :inv="inv" />
 
-		<span><button :disabled="enchantSlots.count==0" @click="resume">{{ runner.has(enchantSlots) ? 'Pause' : 'Resume' }}</button></span>
+    <div class="checkboxes">
+    <div class="category" v-for="(p, k) in allKinds" :key="k">
+      <input
+        type="checkbox"
+        :value="p"
+        :id="elmId('chk' + k)"
+        v-model="viewKinds"
+      />
+      <label :for="elmId('chk' + k)">{{ p.replace('t_', '') }}</label>
+    </div>
+  </div>
 
-		</div>
+    <div class="separate">
+      <div class="filters">
+        <div v-if="target">
+          <button class="stop" @click="clearTarget">X</button
+          >{{ target.name.toTitleCase() }}
+        </div>
+        <filterbox v-model="filtered" :items="onlyKinds" />
 
-		<eslots class="eslots" :eslots="enchantSlots" :inv="inv" />
+        <div class="enchant-list">
+          <div
+            class="enchant"
+            v-for="it in usable"
+            :key="it.id"
+            @mouseenter.capture.stop="itemOver($event, it)"
+          >
+            <span class="ench-name">{{ it.name.toTitleCase() }}</span>
 
-		<div class="separate">
+            <button
+              v-if="it.buy && !it.owned"
+              :disabled="!it.canBuy(game)"
+              @click="emit('buy', it)"
+            >
+              🔒
+            </button>
 
-		<div class="filtered">
-		<div v-if="target"><button class="stop" @click="clearTarget">X</button>{{ target.name.toTitleCase() }}</div>
-		<filterbox v-model="filtered" :items="enchants" min-items="7" />
+            <button v-else @click="begin(it, target)" :disabled="!it.canUse()">
+              Enchant
+            </button>
+          </div>
+        </div>
+      </div>
 
-		<div class="enchant-list">
-		<div class='enchant' v-for="it in usable" :key="it.id" @mouseenter.capture.stop="itemOver( $event,it)">
-
-			<span class="ench-name">{{ it.name.toTitleCase() }}</span>
-
-
-			<button v-if="it.buy&&!it.owned" :disabled="!it.canBuy(game)"
-				@click="emit('buy', it)">🔒</button>
-
-			<button v-else @click="begin(it,target)" :disabled="!it.canUse()">Enchant</button>
-
-		</div>
-		</div>
-		</div>
-
-		<inv selecting=true :inv="state.inventory" v-model="target" :types="['armor','weapon']" hide-space="true" />
-		</div>
-
-	</div>
-
+      <inv
+        selecting="true"
+        :inv="state.inventory"
+        v-model="target"
+        :types="['armor', 'weapon']"
+        :kinds="viewKinds"
+        hide-space="true"
+      />
+    </div>
+  </div>
 </template>
 
 <style scoped>
+div.enchants div.checkboxes {
+  margin: 0;
+  padding: 0 0.5em;
+  display:flex;
+  flex-direction:row;
+  flex-wrap: wrap;
+}
+
+div.checkboxes div.category {
+  display:flex;
+  flex-direction: row;
+  margin: 2px 4px;
+
+}
 
 div.enchants {
-	display:flex;
-	flex-direction: column;
-	padding:0 1rem;
-	height:100%;
-	margin-top: var(--sm-gap);
+  display: flex;
+  flex-direction: column;
+  padding: 0 1rem;
+  height: 100%;
+  margin-top: var(--sm-gap);
 }
 
 div.enchants .eslots {
-	padding-bottom: var(--sm-gap);
-	border-bottom: 1pt solid var(--separator-color);
+  padding-bottom: var(--sm-gap);
+  border-bottom: 1pt solid var(--separator-color);
 }
 
-div.enchants .filtered {
-	padding-top: var(--sm-gap);
-	display:flex;
-	flex-flow: column;
-	margin-right: var(--md-gap);
-	border-right: 1px solid var(--separator-color);
+div.enchants .filters {
+  padding-top: var(--sm-gap);
+  display: flex;
+  flex-flow: column;
+  margin-right: var(--md-gap);
+  border-right: 1px solid var(--separator-color);
 }
-
 
 div.enchants .enchant-list {
-	display:flex;
-	flex-flow: column nowrap;
-	flex:1;
+  display: flex;
+  flex-flow: column nowrap;
+  flex: 1;
 }
 
 div.enchants .separate {
-	align-items:flex-start;
+  align-items: flex-start;
 }
 
 div.enchants .enchant-list > div.enchant {
-	display:flex;
-	width:100%;
-	justify-content: space-between;
-	flex-direction: row;
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  flex-direction: row;
 }
 
-div.enchants .enchant-list  .ench-name {
-	min-width: 5rem;
+div.enchants .enchant-list .ench-name {
+  min-width: 5rem;
 }
-
-
 </style>

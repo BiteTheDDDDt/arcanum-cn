@@ -27,7 +27,7 @@
 			"lore.max": 1,
 			"lore.rate": 0.1,
 			"player.exp": 10,
-			"player.tohit":1
+			"player.tohit": 1
 		}
 	},
 	{
@@ -69,6 +69,25 @@
 		"require": "g.respectable>0&&g.player.level>=15&&g.virtue>=75",
 		"desc": "Learning of your virtuous ways, a cabal of ossurite priests plots your destruction. Travel to the Fetid Barrows and unravel their schemes."
 	},
+	
+	{
+		"id": "evt_nexusadjust1",
+		"name": "Gate implosion",
+		"require": "g.gate==2",
+		"desc": "A powerful magical disturbance rocks the foundations of your home. As you survey the damage, you realize your gates have converged into a single nexus.",
+		"result": {
+			"gate":-1
+		}
+	},
+	{
+		"id": "evt_nexusadjust2",
+		"name": "Gate implosion",
+		"require": "g.gate==3",
+		"desc": "A powerful magical disturbance rocks the foundations of your home. As you survey the damage, you realize your gates have converged into a single nexus.",
+		"result": {
+			"gate":-2
+		}
+	},
 	{
 		"id": "tier0",
 		"name": "Solitary Magic",
@@ -94,7 +113,8 @@
 			"research.max": 15,
 			"buyscroll.result.scrolls": 1,
 			"buyscroll.cost.gold": 20,
-			"player.tohit":1
+			"player.hp.max": 10,
+			"player.tohit": 1
 		}
 	},
 	{
@@ -120,7 +140,8 @@
 			"crystalmind.max": 1,
 			"buyscroll.result.scrolls": 1,
 			"buyscroll.cost.gold": 30,
-			"player.tohit":1
+			"player.hp.max": 20,
+			"player.tohit": 1
 		}
 	},
 	{
@@ -139,7 +160,8 @@
 			"crystalmind.max": 1,
 			"buyscroll.result.scrolls": 1,
 			"buyscroll.cost.gold": 40,
-			"player.tohit":1
+			"player.hp.max": 20,
+			"player.tohit": 1
 		}
 	},
 	{
@@ -160,7 +182,8 @@
 			"crystalmind.max": 1,
 			"buyscroll.result.scrolls": 1,
 			"buyscroll.cost.gold": 50,
-			"player.tohit":1
+			"player.hp.max": 30,
+			"player.tohit": 1
 		}
 	},
 	{
@@ -182,7 +205,8 @@
 			"arcanebody.max": 1,
 			"occultendure.max": 1,
 			"crystalmind.max": 1,
-			"player.tohit":2
+			"player.hp.max": 30,
+			"player.tohit": 2
 		}
 	},
 	{
@@ -202,7 +226,8 @@
 			"arcanebody2.max": 2,
 			"occultendure.max": 1,
 			"crystalmind.max": 2,
-			"player.tohit":2
+			"player.hp.max": 40,
+			"player.tohit": 2
 		}
 	},
 	{
@@ -222,7 +247,8 @@
 			"arcanebody2.max": 1,
 			"occultendure.max": 1,
 			"crystalmind.max": 1,
-			"player.tohit":2
+			"player.hp.max": 40,
+			"player.tohit": 2
 		}
 	},
 	{
@@ -241,7 +267,19 @@
 			"arcanebody.max": 1,
 			"arcanebody2.max": 2,
 			"occultendure.max": 1,
-			"crystalmind.max": 1
+			"crystalmind.max": 1,
+			"player.hp.max": 50
+		}
+	},
+	{
+		"id": "secretfire",
+		"name": "servant of the secret fire",
+		"desc": "",
+		"mod": {
+			"firelore.rate": 0.2,
+			"firelore.max": 1,
+			"lightlore.rate": 0.2,
+			"lightlore.max": 1
 		}
 	},
 	{
@@ -271,17 +309,6 @@
 		"mod": {
 			"light.max": 1,
 			"lightlore.rate": 0.1,
-			"lightlore.max": 1
-		}
-	},
-	{
-		"id": "secretfire",
-		"name": "servant of the secret fire",
-		"desc": "",
-		"mod": {
-			"firelore.rate": 0.2,
-			"firelore.max": 1,
-			"lightlore.rate": 0.2,
 			"lightlore.max": 1
 		}
 	},

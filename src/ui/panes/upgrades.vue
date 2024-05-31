@@ -11,7 +11,7 @@ export default {
 	mixins: [ItemsBase],
 	methods: {
 		clickHandler(it) {
-			if (!this.preventClick) {// config : inConfig from task, value in uiMixin.js
+			if (!this.preventClick && it.canUse()) {// config : inConfig from task, value in uiMixin.js
 				this.emit('upgrade',it)
 			}
 		}
@@ -31,7 +31,7 @@ export default {
 		v-for="it in items" :data-key="it.id" :key="it.id"
 		@mouseenter.capture.stop="itemOver( $event,it)"
 
-		@click="clickHandler(it)">{{ it.name }}</button>
+		@click="clickHandler(it)">{{ (it.actname || it.name) }}</button>
 
 </div>
 </template>

@@ -77,11 +77,14 @@ export default {
 			return this.enc ? this.enc.name.toTitleCase() : '&nbsp;';
 		},
 		encProg(){
-			return this.enc ? this.enc.exp : 0;
+			return this.enc ? this.enc.exp.valueOf() : 0;
 
 		},
 		encLen(){
 			return this.enc ? this.enc.length.valueOf() : 0;
+		},
+		localeBars(){
+			return this.explore?.locale?.bars ? this.explore.locale.bars : false;
 		}
 
 	}
@@ -101,7 +104,7 @@ export default {
 
 		<span class="bar"><progbar :value="explore.exp.valueOf()" :max="Number(explore.length)" /></span>
 
-		<bars v-if="explore.locale.bars" :bars="explore.locale.bars" />
+		<bars v-if="localeBars" :bars="localeBars" />
 
 		<template v-if="inCombat">
 			<combat :combat="explore.combat" />

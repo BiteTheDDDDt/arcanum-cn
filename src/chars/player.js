@@ -119,7 +119,7 @@ export default class Player extends Char {
 	/**
 	 * @property {Resource} speed
 	 * speed normalized to an average of level=speed.
-	 */
+	 *//*
 	get speed() { return this._speed; }
 	set speed(v) {
 
@@ -127,7 +127,7 @@ export default class Player extends Char {
 		else if ( v instanceof GData ) this._speed = v;
 
 	}
-
+	*/
 	/**
 	 * @property {DataList<Wearable>} weapons - active weapons.
 	 */
@@ -310,11 +310,28 @@ export default class Player extends Char {
 
 		for( let i = DefeatStats.length-1; i>= 0; i-- ) {
 
-			var it = gs.getData( DefeatStats[i] );
+			const it = gs.getData( DefeatStats[i] );
 			if ( it ) this.defeators.push(it);
 		}
 		this.spells = gs.getData('spelllist');
 
+		let exp = Object.getOwnPropertyDescriptor(this, "exp");
+		Object.defineProperty(this, "exp", {
+			get() {
+				return exp.get();
+			}, 
+			set(v) {
+				exp.set(v);
+				this.checkLevelUp();
+			}
+		});
+		this.checkLevelUp();
+
+	}
+
+	checkLevelUp() {
+		let stat = this.exp;
+		while ( this.next > 0 && stat.value >= this.next ) this.levelUp();
 	}
 
 	/**
@@ -447,11 +464,11 @@ export default class Player extends Char {
 	 */
 	getResources() {
 
-		let res =[];
+		const res =[];
 
 		for( let p in this ) {
 
-			var obj = this[p];
+			const obj = this[p];
 			if ( obj !== null && typeof obj === 'object' && obj.type === RESOURCE) res.push(obj);
 
 		}

@@ -1,5 +1,5 @@
 import Base, {mergeClass} from '../items/base';
-import { assign } from 'objecty';
+import { assign } from '../util/objecty';
 import { TYP_STATE } from '../values/consts';
 import { ParseFlags } from './states';
 

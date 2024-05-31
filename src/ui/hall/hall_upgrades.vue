@@ -12,7 +12,14 @@ export default {
 	 * @property {string} event - name of event to fire when an item is selected.
 	 */
 	props:['items'],
-	mixins:[ItemsBase]
+	mixins:[ItemsBase],
+	methods: {
+		clickHandler(it) {
+			if (it.canUse()) {
+				this.emit('upgrade',it)
+			}
+		}
+	}
 
 }
 </script>
@@ -26,7 +33,7 @@ export default {
                 disabled:!it.canUse() }"
                 v-for="it in items" :data-key="it.id" :key="it.id"
                 @mouseenter.capture.stop="itemOver( $event,it)"
-                @click="emit( 'upgrade', it)">{{ it.name }}
+                @click="clickHandler(it)">{{ it.name }}
             </button>
         </div>
         <span>Maxed upgrades :</span>

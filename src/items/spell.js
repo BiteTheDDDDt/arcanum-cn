@@ -2,7 +2,7 @@ import Attack from '../chars/attack';
 import Task from './task';
 import { canTarget } from '../values/consts';
 import { NO_SPELLS } from '../chars/states';
-
+import { processDot } from '../values/combatVars';
 /**
  * Single requirement substring.
  * @param {string} s - GData/Idable id.
@@ -91,29 +91,7 @@ export default class Spell extends Task {
 
 		}
 		if (this.dot) {
-			if (this.dot.attack) {
-				if (Array.isArray(this.dot.attack)) {
-
-					for (let i = this.dot.attack.length - 1; i >= 0; i--) {
-
-						this.dot.attack[i].targetstring = this.dot.attack[i].targets;
-						if (this.dot.attack[i].hits) {
-							for (let b = this.dot.attack[i].hits.length - 1; b >= 0; b--) {
-								this.dot.attack[i].hits[b].targetstring = this.dot.attack[i].hits[b].targets;
-							}
-						}
-					}
-
-
-				} else {
-					this.dot.attack.targetstring = this.dot.attack.targets;
-					if (this.dot.attack.hits) {
-						for (let b = this.dot.attack.hits.length - 1; b >= 0; b--) {
-							this.dot.attack.hits[b].targetstring = this.dot.attack.hits[b].targets;
-						}
-					}
-				}
-			}
+			this.dot = processDot(this.dot)
 		}
 	}
 

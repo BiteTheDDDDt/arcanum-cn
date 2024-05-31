@@ -1,10 +1,11 @@
 import Percent from '../percent';
 import Stat from '../rvals/stat';
 import { precise } from '../../util/format';
-import { TYP_MOD } from '../consts';
-import { assign } from 'objecty';
-import RValue from '../rvals/rvalue';
+import { TYP_MOD, DESCENDLIST, UNTAG } from '../consts';
+import { assign } from '../../util/objecty';
 import { canWriteProp } from '../../util/util';
+import Game from '../../game.js';
+
 //import Emitter from 'eventemitter3';
 
 export const ModTest = /^([\+\-]?\d*(?:\.\d+)?(?![.%0-9]))?(?:([\+\-]?\d*(?:\.\d+)?)\%)?$/;
@@ -30,10 +31,10 @@ export default class Mod extends Stat {
 
 		if ( this._basePct === 0 ) return this.base;
 
-		var val = (this.base || '') + (( this._basePct > 0 ? '+' : '') + (100*this.basePct)  + '%');
-
-		return val;
-
+		return (this.base || '')
+			+ (( this._basePct > 0 ? '+' : '')
+			+ (100*this.basePct)  + '%');
+	
 	}
 
 	toString() {
@@ -99,7 +100,9 @@ export default class Mod extends Stat {
 	/**
 	 * @property {number} pctTot - modified percent bonus of mod.
 	 */
-	get pctTot(){return (1 + this.basePct) * (1 + this.mPct) - 1; }
+	get pctTot(){
+		return (this.basePct + this.mPct); 
+	}
 
 	/**
 	 * @property {number} countPct - base percent multiplied by number of times
@@ -201,12 +204,49 @@ export default class Mod extends Stat {
 	 * @param {Object} obj - owner of the property being modified.
 	 * @param {string} p - target property to which mod is being applied.
 	 * @param {number} amt - amount to be added/removed
+	 * @param {boolean} [descend=false] - whether we should descend into a targeted object
+	 * 			Should only be used as an intentional loop from a prior applyTo call
+	 * @param {string} [childKey=null] - the underlying key to affect when untagging
 	 */
-	applyTo( obj, p, amt, isMod=false ) {
+	applyTo( obj, p, amt, descend=false, childKey=null ) {
 
 		let targ = obj[p];
 
-		if ( targ instanceof RValue ) return targ.addMod( this, amt ) || targ instanceof Mod ? targ : null;
+		if( p.startsWith(UNTAG) ){
+			// Special handling for modding the tagSet members, rather than the tag itself
+			let tag = p.slice(UNTAG.length);
+			let res = [];
+			let val = null;
+
+			// Special handling for "runner" instances, where the "object" is numerically indexed
+			const isArray = Array.isArray(obj);
+			for (const objKey in obj){
+				let newTarg = obj[objKey];
+				let reference = newTarg;
+				if ( !isArray )  {
+					reference = Game.state.getData(objKey);
+				}
+
+				if ( reference && reference.hasTag(tag) ) {
+					if ( !childKey ) {
+						if ( isArray ) {
+							console.warn("Arrayed object without childKey: ", obj, objKey, newTarg, targ, p, this);
+							continue;
+						} else {
+							// Basic scenario, such as thing.untag_stress
+							val = this.applyTo( obj, objKey, amt, true );
+						}
+					} else if( newTarg[childKey] ) {
+						// Sub-target scenario - thing.untag_skill.exp
+						val = this.applyTo( newTarg, childKey, amt, true, childKey );
+					}
+				}
+				res.shift(val);
+			}
+			return res;
+
+		} else if ( targ?.addMod instanceof Function ) return targ.addMod( this, amt ) || targ instanceof Mod ? targ : null;
+
 		else if ( typeof targ === 'number') {
 
 			if ( !canWriteProp(obj, p ) ) {
@@ -215,7 +255,7 @@ export default class Mod extends Stat {
 			}
 			//console.log( p + ': STAT FROM NUMBER: ' + obj[p] );
 
-			let s = obj[p] = new Stat( targ || 0, (obj.id ? obj.id +'.'  : '' ) + p );
+			const s = obj[p] = new Stat( targ || 0, (obj.id ? obj.id +'.'  : '' ) + p );
 			s.addMod( this, amt );
 
 			/*if ( isMod ) console.log('SHOULD BE MOD: ' + s.id );
@@ -231,19 +271,53 @@ export default class Mod extends Stat {
 			if ( Array.isArray(targ) ) {
 
 				//Theorhetical
-				let res = [] ;
-				for( let i = targ.length-1, val; i>= 0; i--) if ( val = this.applyTo( targ[i], p, amt ) ) res.splice(0, 0, val);
+				const res = [] ;
+				for( let i = targ.length-1, val; i>= 0; i--) if ( val = this.applyTo( targ[i], p, amt ) ) res.unshift(val);
 				return res;
 
 			} else {
-
+				// list of valid targets that are normally objects that we can descend into
+//				let descendArr = ["cost","run","effect","result","convert","input","output"];
 				if ( targ.value ) {
-
 					targ = this.applyTo( targ, 'value', amt );
 					if ( targ ) return targ;
 
 				} else {
-					console.warn( this.id + ': ' + targ.id + ' !!Mod Targ: ' + targ.constructor.name);
+
+					const res = [];
+
+					if( !targ ){
+						return;
+					}
+					//console.warn(p);
+					if( DESCENDLIST.includes(p) || descend ){
+						let val = null;
+						for (let subtarg in targ){
+							const retarg = targ[subtarg];
+							// Skip any instance where the value is a boolean true or false
+							if( typeof retarg.value === "boolean" ) {
+								console.warn("Skipping boolean value: " + p + "." + subtarg);
+								continue;
+							}
+							//console.warn(retarg);
+
+							if(typeof retarg === 'undefined'){
+								continue;
+							}
+							//console.warn(this.id + " applying to " + obj.id + "." + p + "." + subtarg + " " + amt);
+							val = this.applyTo( targ, subtarg, amt, true );
+
+							res.unshift(val);
+
+						}
+					}
+
+					if(res){
+						return res;
+					} else {
+						console.warn( this.id + ': ' + targ.id + ' !!Mod Targ: ' + targ.constructor.name);
+					}
+
 					targ.value = amt*this.bonus*( 1 + amt*this.pctTot );
 				}
 			}

@@ -33,9 +33,16 @@
 			"mana": 1,
 			"herbs": 1
 		},
-		"action": {
-			"cure": "sleep",
-			"targets": "ally,self"
+		"attack": {
+			"cure": "t_sleep",
+			"targets": "ally",
+			"targetspec": {
+				"affectedby": {
+					"condition": [
+						"t_sleep"
+					]
+				}
+			}
 		}
 	},
 	{
@@ -48,9 +55,16 @@
 		"cost": {
 			"fire": 1
 		},
-		"action": {
-			"cure": "fear",
-			"targets": "ally,self"
+		"attack": {
+			"cure": "t_fear",
+			"targets": "ally",
+			"targetspec": {
+				"affectedby": {
+					"condition": [
+						"t_fear"
+					]
+				}
+			}
 		}
 	},
 	{
@@ -65,8 +79,15 @@
 			"managem": 1
 		},
 		"action": {
-			"cure": "silence",
-			"targets": "ally,self"
+			"cure": "t_silence",
+			"targets": "ally",
+			"targetspec": {
+				"affectedby": {
+					"condition": [
+						"t_silence"
+					]
+				}
+			}
 		}
 	},
 	{
@@ -82,12 +103,20 @@
 			"gems": 1
 		},
 		"action": {
-			"cure": "paralysis",
-			"targets": "ally,self"
+			"cure": "t_paralysis",
+			"targets": "ally",
+			"targetspec": {
+				"affectedby": {
+					"condition": [
+						"t_paralysis"
+					]
+				}
+			}
 		}
 	},
 	{
 		"id": "curesick",
+		"name": "cure sickness",
 		"level": 1,
 		"school": "light",
 		"caststoppers": [],
@@ -96,9 +125,16 @@
 		"cost": {
 			"light": 1
 		},
-		"action": {
-			"cure": "sick",
-			"targets": "ally,self"
+		"attack": {
+			"cure": "t_sick",
+			"targets": "ally",
+			"targetspec": {
+				"affectedby": {
+					"condition": [
+						"t_sick"
+					]
+				}
+			}
 		}
 	},
 	{
@@ -131,7 +167,7 @@
 		"require": "g.stam2>0&&g.waterlore>=10&&g.tier2>0",
 		"buy": {
 			"watergem": 10,
-			"waterrune": 20,
+			"waterrune": 5,
 			"tomes": 20
 		},
 		"flavor": "Come thou fount",
@@ -692,7 +728,15 @@
 			"earth": 5
 		},
 		"attack": {
+			"targetspec": {
+				"notaffectedby": {
+					"condition": [
+						"t_speeddown"
+					]
+				}
+			},
 			"dot": {
+				"tags": "t_speeddown",
 				"duration": 20,
 				"mod": {
 					"self.speed": -2
@@ -705,6 +749,7 @@
 		"name": "call spirit",
 		"school": "spirit",
 		"level": 1,
+		"cd": 1,
 		"require": "g.spiritlore>0",
 		"buy": {
 			"research": 30,
@@ -715,29 +760,7 @@
 		},
 		"summon": [
 			{
-				"id": "wisp",
-				"count": 1
-			}
-		]
-	},
-	{
-		"id": "mk_zombie",
-		"name": "raise zombie",
-		"desc": "Summon a zombie to fight for you",
-		"school": "shadow",
-		"require": "g.shadowlore>0&&g.reanimation>0",
-		"level": 2,
-		"buy": {
-			"research": 30,
-			"scrolls": 5,
-			"shadowgem": 1
-		},
-		"cost": {
-			"shadow": 7
-		},
-		"summon": [
-			{
-				"id": "zombie",
+				"id": "sum_wisp",
 				"count": 1
 			}
 		]
@@ -1139,6 +1162,7 @@
 		"school": "mana",
 		"desc": "In combat, summon a hobgoblin to fight for you",
 		"level": 6,
+		"cd": 3,
 		"require": "g.conjuration>=5",
 		"buy": {
 			"research": 100,
@@ -1149,7 +1173,7 @@
 		},
 		"summon": [
 			{
-				"id": "hobgoblin",
+				"id": "sum_hobgoblin",
 				"count": 1
 			}
 		]
@@ -1161,6 +1185,7 @@
 		"school": "nature",
 		"require": "g.conjuration>=3&&g.naturelore>=5",
 		"level": 5,
+		"cd": 2,
 		"buy": {
 			"research": 100,
 			"scrolls": 20
@@ -1171,27 +1196,6 @@
 		"summon": [
 			{
 				"id": "lgspider",
-				"count": 1
-			}
-		]
-	},
-	{
-		"id": "mk_raven",
-		"name": "summon raven",
-		"desc": "In combat, summon a raven to fight for you",
-		"school": "nature",
-		"require": "g.conjuration>=3&&g.naturelore>=3",
-		"level": 3,
-		"buy": {
-			"research": 100,
-			"scrolls": 20
-		},
-		"cost": {
-			"nature": 4
-		},
-		"summon": [
-			{
-				"id": "raven",
 				"count": 1
 			}
 		]
@@ -1307,57 +1311,13 @@
 		}
 	},
 	{
-		"id": "mk_blade",
-		"name": "summon blade",
-		"school": "blade",
-		"desc": "In combat, summon a magical blade to fight for you",
-		"require": "(g.battlemage+g.spellblade+g.dreadlord+g.summoner)>0",
-		"level": 7,
-		"buy": {
-			"research": 5000,
-			"tomes": 5
-		},
-		"cost": {
-			"mana": 12
-		},
-		"summon": [
-			{
-				"id": "magicblade",
-				"count": 1
-			}
-		]
-	},
-	{
-		"id": "mk_murder",
-		"name": "summon murder",
-		"school": "nature",
-		"desc": "In combat, summon a squad of murdering raven to fight for you",
-		"require": "summoner",
-		"level": 5,
-		"cd": 150,
-		"buy": {
-			"research": 1000,
-			"codices": 10,
-			"managem": 3
-		},
-		"cost": {
-			"mana": 7
-		},
-		"summon": [
-			{
-				"id": "raven",
-				"count": 5
-			}
-		]
-	},
-	{
 		"id": "mk_unicorn",
 		"name": "summon unicorn",
 		"school": "light",
 		"desc": "In combat, summon an unicorn to fight for you",
 		"require": "g.evil==0&&(g.seer+g.oracle+g.summoner)>0&&g.magicbeasts>=5",
 		"level": 5,
-		"cd": 150,
+		"cd": 5,
 		"buy": {
 			"research": 1000,
 			"tomes": 10,
@@ -1368,8 +1328,9 @@
 		},
 		"summon": [
 			{
-				"id": "unicorn",
-				"count": 1
+				"id": "sum_unicorn",
+				"count": 1,
+				"max": 3
 			}
 		]
 	},
@@ -1956,11 +1917,18 @@
 			"mana": 2
 		},
 		"attack": {
+			"targetspec": {
+				"notaffectedby": {
+					"condition": [
+						"dot_jinx1"
+					],
+					"conditiontext": "jinx"
+				}
+			},
 			"dot": {
 				"id": "dot_jinx1",
 				"name": "jinx",
 				"kind": "curse",
-				"tags": "jinx",
 				"mod": {
 					"self.tohit": -2
 				},
@@ -1986,7 +1954,7 @@
 		"dot": {
 			"id": "dot_dustdevil1",
 			"name": "dust devil",
-			"tags": "dustdevil",
+			"tags": "t_speedup",
 			"duration": 20,
 			"mod": {
 				"self.speed": 2
@@ -2011,7 +1979,7 @@
 		"dot": {
 			"id": "dot_dustdevil2",
 			"name": "dust devil",
-			"tags": "dustdevil",
+			"tags": "t_speedup",
 			"duration": 45,
 			"mod": {
 				"self.speed": 4
@@ -2060,7 +2028,7 @@
 			"spirit": 1
 		},
 		"dot": {
-			"tags": "strike",
+			"tags": "t_tohitup",
 			"duration": 45,
 			"mod": {
 				"self.tohit": 1
@@ -2082,7 +2050,7 @@
 		},
 		"dot": {
 			"duration": 45,
-			"tags": "strike",
+			"tags": "t_tohitup",
 			"mod": {
 				"self.tohit": 2
 			}
@@ -2104,7 +2072,7 @@
 		},
 		"dot": {
 			"duration": 45,
-			"tags": "strike",
+			"tags": "t_tohitup",
 			"mod": {
 				"self.tohit": 4
 			}
@@ -2180,7 +2148,7 @@
 			"dot": {
 				"name": "blind",
 				"duration": 5,
-				"id": "tohitdown",
+				"tags": "t_tohitdown",
 				"mod": {
 					"self.tohit": -1
 				}
@@ -2223,7 +2191,7 @@
 			"dot": {
 				"name": "blind",
 				"duration": 5,
-				"id": "tohitdown",
+				"tags": "t_tohitdown",
 				"mod": {
 					"self.tohit": -2
 				}
@@ -2337,8 +2305,8 @@
 			"mod": {
 				"self": {
 					"hp": {
-						"max": 75,
-						"rate": -1
+						"max": 150,
+						"rate": -2
 					},
 					"tohit": 10,
 					"physdmg": 30,
@@ -2373,8 +2341,8 @@
 			"mod": {
 				"self": {
 					"hp": {
-						"max": 200,
-						"rate": -3
+						"max": 400,
+						"rate": -6
 					},
 					"tohit": 15,
 					"spelldmg": 35,
@@ -2428,7 +2396,7 @@
 			"bloodgem": 15
 		},
 		"cost": {
-			"hp": 15
+			"hp": 30
 		},
 		"attack": {
 			"kind": "blood",
@@ -2470,13 +2438,13 @@
 		"flavor": "Hi-Ho, Hi-Ho"
 	},
 	{
-		"id": "apiary",
+		"id": "mk_apiary",
 		"name": "dbulm's apiary",
 		"desc": "In combat, summon a really angry bee to fight for you",
 		"require": "g.tier5>0&&g.conjuration>=5&&g.summoning>=10",
 		"school": "conjuration",
-		"level": 10,
-		"cd": 200,
+		"level": 5,
+		"cd": 20,
 		"buy": {
 			"research": 2000,
 			"tomes": 15,
@@ -2484,14 +2452,20 @@
 			"airgem": 15
 		},
 		"cost": {
-			"airgem": 1
+			"air": 15
 		},
 		"dot": {
 			"duration": 10,
 			"summon": [
 				{
-					"id": "stingybee",
-					"count": 1
+					"id": "sum_queenbee",
+					"count": 1,
+					"max": 1
+				},
+				{
+					"id": "sum_warwasp",
+					"count": 2,
+					"max": 2
 				}
 			]
 		},
@@ -2837,7 +2811,7 @@
 			"dot": {
 				"name": "blind",
 				"kind": "light",
-				"id": "tohitdown",
+				"tags": "t_tohitdown",
 				"duration": 60,
 				"mod": {
 					"self.tohit": -5
@@ -2860,10 +2834,18 @@
 			"nature": 5
 		},
 		"attack": {
+			"targetspec": {
+				"notaffectedby": {
+					"condition": [
+						"t_venom"
+					],
+					"conditiontext": "venom"
+				}
+			},
 			"dot": {
 				"name": "venom",
 				"kind": "poison",
-				"tags": "venom",
+				"tags": "t_venom",
 				"duration": 30,
 				"damage": "8~15"
 			}
@@ -2944,7 +2926,7 @@
 				"id": "dot_venom3",
 				"name": "venom",
 				"kind": "poison",
-				"tags": "venom",
+				"tags": "t_venom",
 				"duration": 45,
 				"damage": "7~11"
 			}
@@ -3135,9 +3117,16 @@
 		"cost": {
 			"spirit": 3
 		},
-		"action": {
-			"cure": "enrage",
-			"targets": "self,ally"
+		"attack": {
+			"targetspec": {
+				"affectedby": {
+					"condition": [
+						"t_enrage"
+					]
+				}
+			},
+			"cure": "t_enrage",
+			"targets": "ally"
 		},
 		"dot": {
 			"duration": 45,
@@ -3432,5 +3421,887 @@
 				]
 			}
 		}
+	},
+	{
+		"id": "obscure1",
+		"name": "lesser obscuring shadows",
+		"level": 2,
+		"require": "g.spellbook>0&&g.shadowlore>0",
+		"school": "shadow",
+		"buy": {
+			"research": 25,
+			"scrolls": 1
+		},
+		"cost": {
+			"shadow": 2
+		},
+		"dot": {
+			"tags": "obscuringshadows",
+			"duration": 20,
+			"mod": {
+				"self.dodge": 2
+			}
+		}
+	},
+	{
+		"id": "obscure2",
+		"name": "obscuring shadows",
+		"level": 5,
+		"school": "shadow",
+		"require": "g.obscure1>0&&g.shadowlore>=5&&g.tier1>0",
+		"buy": {
+			"research": 500,
+			"codices": 5,
+			"shadowgem": 1
+		},
+		"cost": {
+			"shadow": 4
+		},
+		"dot": {
+			"tags": "obscuringshadows",
+			"duration": 25,
+			"mod": {
+				"self.dodge": 3
+			}
+		}
+	},
+	{
+		"id": "obscure3",
+		"name": "greater obscuring shadows",
+		"level": 7,
+		"require": "g.obscure2>0&&g.shadowlore>=10&&g.tier2>0",
+		"school": "shadow",
+		"buy": {
+			"shadowgem": 10,
+			"tomes": 1
+		},
+		"cost": {
+			"shadow": 6
+		},
+		"dot": {
+			"tags": "obscuringshadows",
+			"duration": 30,
+			"mod": {
+				"mod": {
+					"self.dodge": 4
+				}
+			}
+		}
+	},
+	{
+		"id": "terrifyingvisage",
+		"name": "terrifying visage",
+		"level": 6,
+		"school": "shadow",
+		"require": "g.shadowlore>=6",
+		"cd": 30,
+		"buy": {
+			"research": 5000,
+			"shadowgem": 20,
+			"tomes": 10
+		},
+		"cost": {
+			"shadow": 6
+		},
+		"attack": {
+			"targets": "enemies",
+			"dot": {
+				"id": "fear",
+				"duration": 3
+			}
+		}
+	},
+	{
+		"id": "immuneblind",
+		"name": "penumbral senses",
+		"school": "shadow",
+		"level": 5,
+		"require": "g.shadowlore>=8&&g.tier1>0",
+		"buy": {
+			"research": 4000,
+			"tomes": 1
+		},
+		"cost": {
+			"shadow": 5
+		},
+		"dot": {
+			"duration": 30,
+			"mod": {
+				"self.immunities.blind": 1
+			}
+		}
+	},
+	{
+		"id": "waveofdarkness",
+		"name": "wave of darkness",
+		"level": 9,
+		"school": "shadow",
+		"require": "g.shadowlore>=14&&g.tier3>0",
+		"buy": {
+			"research": 100,
+			"scrolls": 10,
+			"shadowgem": 3
+		},
+		"cost": {
+			"shadow": 6
+		},
+		"attack": {
+			"targets": "enemies",
+			"damage": "15~35",
+			"kind": "shadow"
+		}
+	},
+	{
+		"id": "etherealness1",
+		"name": "lesser etherealness",
+		"school": "spirit",
+		"level": 5,
+		"require": "g.player.level>=4&&g.spiritlore>=3",
+		"desc": "A partial intangibility to protect from physical attacks",
+		"buy": {
+			"research": 25,
+			"scrolls": 5
+		},
+		"cost": {
+			"spirit": 3
+		},
+		"dot": {
+			"id": "etherealness",
+			"duration": 20,
+			"mod": {
+				"self.resist.physical": 10,
+				"self.resist.blunt": 10,
+				"self.resist.pierce": 10,
+				"self.resist.slash": 10
+			}
+		}
+	},
+	{
+		"id": "etherealness2",
+		"name": "etherealness",
+		"school": "spirit",
+		"level": 8,
+		"require": "g.etherealness1>0&&g.spiritlore>=9&&g.tier2>0",
+		"desc": "More potent than its predecessor, with greater protection against the weapons of your enemies.",
+		"buy": {
+			"spiritgem": 10,
+			"tomes": 5
+		},
+		"cost": {
+			"spirit": 8
+		},
+		"dot": {
+			"id": "etherealness",
+			"duration": 30,
+			"mod": {
+				"self.resist.physical": 20,
+				"self.resist.blunt": 20,
+				"self.resist.pierce": 20,
+				"self.resist.slash": 20
+			}
+		}
+	},
+	{
+		"id": "ghostlyassist",
+		"name": "ghostly assistants",
+		"level": 9,
+		"desc": "Unseen spirits assist you in compiling knowledge, speeding your work.",
+		"school": "spirit",
+		"require": "g.player.level>=4&&g.spiritlore>=10",
+		"buy": {
+			"research": 1000,
+			"codices": 20,
+			"tomes": 10,
+			"spiritgem": 5
+		},
+		"cost": {
+			"spirit": 6,
+			"mana": 5
+		},
+		"dot": {
+			"duration": 60,
+			"mod": {
+				"scrolls.rate": "5%",
+				"codices.rate": "3%",
+				"tomes.rate": "2%"
+			}
+		},
+		"flavor": "The sound of quill scratching against parchment seem ceaseless."
+	},
+	{
+		"id": "spiritpossess",
+		"name": "spiritual possession",
+		"level": 10,
+		"require": "g.spiritlore>=15&&g.tier3>0",
+		"desc": "Entreat a captured soul to briefly possess an enemy before being granted its release.",
+		"school": "spirit",
+		"cd": 25,
+		"buy": {
+			"research": 3000,
+			"tomes": 10,
+			"spiritgem": 30
+		},
+		"cost": {
+			"spirit": 10,
+			"souls": 1
+		},
+		"attack": {
+			"damage": "20~25",
+			"dot": {
+				"flags": "silence",
+				"name": "possessed",
+				"kind": "spirit",
+				"duration": 6,
+				"damage": "4~6"
+			}
+		},
+		"flavor": "Their screams of terror would pierce your ears, if only they could make a sound."
+	},
+	{
+		"id": "spiritconfuse",
+		"name": "befuddling spirits",
+		"level": 7,
+		"require": "g.spiritlore>=12&&g.tier2>0",
+		"desc": "Confuse the mind of the target",
+		"school": "spirit",
+		"cd": 60,
+		"buy": {
+			"research": 2500,
+			"tomes": 5,
+			"spiritgem": 15
+		},
+		"cost": {
+			"spirit": 7
+		},
+		"attack": {
+			"damage": "25~30",
+			"dot": {
+				"id": "confuse",
+				"name": "confused",
+				"kind": "spirit",
+				"duration": 10
+			}
+		}
+	},
+	{
+		"id": "mk_snek",
+		"name": "summon arcane serpent",
+		"level": 3,
+		"cd": 3,
+		"desc": "In combat, summon an arcane serpent to fight for you.",
+		"require": "g.tier3>0&&g.conjuration>=5&&g.lore>=15",
+		"school": "mana",
+		"buy": {
+			"research": 1000,
+			"tomes": 5,
+			"managem": 10
+		},
+		"cost": {
+			"mana": 10
+		},
+		"summon": [
+			{
+				"id": "sum_snek",
+				"count": 1,
+				"max": 3
+			}
+		]
+	},
+	{
+		"id": "mk_prism",
+		"name": "summon fulminant prism",
+		"level": 8,
+		"cd": 30,
+		"desc": "In combat, create a fulminant prism to destroy your enemies.",
+		"require": "g.tier5>0&&g.summoning>=5&&g.lore>=20",
+		"school": "mana",
+		"buy": {
+			"research": 5000,
+			"tomes": 50,
+			"runestones": 10
+		},
+		"cost": {
+			"mana": 20
+		},
+		"summon": [
+			{
+				"id": "sum_prism",
+				"count": 1,
+				"max": 1
+			}
+		]
+	},
+	{
+		"id": "mon_ephemeral",
+		"name": "ephemeral",
+		"require": "g.lore>9999",
+		"level": 1,
+		"cd": 10,
+		"dot": {
+			"targets": "self",
+			"duration": 5,
+			"onExpire": {
+				"harmless": true,
+				"nodefense": true,
+				"targets": "self",
+				"damage": "100+a.hp"
+			}
+		}
+	},
+	{
+		"id": "mk_hero_ancestor",
+		"name": "summon heroic ancestor",
+		"level": 8,
+		"cd": 20,
+		"desc": "In combat, summon an ancestral hero to defend you.",
+		"require": "g.tier5>0&&g.summoning>=5&&g.spiritlore>=15",
+		"school": "spirit",
+		"buy": {
+			"research": 5000,
+			"tomes": 50,
+			"spiritgem": 100
+		},
+		"cost": {
+			"spirit": 20
+		},
+		"summon": [
+			{
+				"id": "sum_hero_ancestor",
+				"count": 1,
+				"max": 1
+			}
+		]
+	},
+	{
+		"id": "mon_taunt",
+		"name": "taunt",
+		"require": "g.weaponlore>9999",
+		"level": 1,
+		"cd": 3600,
+		"targets": "self",
+		"dot": {
+			"id": "taunt",
+			"flags": "taunt"
+		}
+	},
+	{
+		"id": "mk_frostgiant",
+		"name": "summon frost giant",
+		"level": 8,
+		"cd": 20,
+		"desc": "In combat, summon a frost giant to fight for you.",
+		"require": "g.tier5>0&&g.summoning>=5&&g.waterlore>=15",
+		"school": "water",
+		"buy": {
+			"research": 5000,
+			"tomes": 25,
+			"waterrune": 10
+		},
+		"cost": {
+			"water": 15
+		},
+		"summon": [
+			{
+				"id": "sum_frostgiant",
+				"count": 1,
+				"max": 3
+			}
+		]
+	},
+	{
+		"id": "mon_mk_stingybee",
+		"name": "spawn bees",
+		"level": 5,
+		"cd": 30,
+		"require": "g.lore>9999",
+		"school": "arcane",
+		"dot": {
+			"duration": 10,
+			"summon": [
+				{
+					"id": "sum_stingybee",
+					"count": 1,
+					"max": 10
+				}
+			]
+		}
+	},
+	{
+		"id": "mon_incubate_phoenix",
+		"name": "incubate",
+		"require": "g.firelore>999",
+		"level": 1,
+		"cd": 60,
+		"school": "fire",
+		"targets": "self",
+		"dot": {
+			"duration": 10,
+			"onExpire": {
+				"targets": "leader",
+				"summon": [
+					{
+						"id": "sum_phoenix",
+						"count": 1,
+						"max": 3
+					}
+				],
+				"hits": [
+					{
+						"targets": "self",
+						"harmless": true,
+						"nodefense": true,
+						"damage": "100+a.hp"
+					}
+				]
+			}
+		}
+	},
+	{
+		"id": "mk_phoenix",
+		"name": "summon phoenix",
+		"desc": "In combat, summon a phoenix to fight for you.",
+		"require": "g.summoning>=12&&g.tier4>0",
+		"level": 7,
+		"cd": 60,
+		"school": "fire",
+		"buy": {
+			"research": 3000,
+			"firerune": 5,
+			"codices": 100
+		},
+		"cost": {
+			"fire": 15
+		},
+		"summon": [
+			{
+				"id": "sum_phoenix",
+				"count": 1,
+				"max": 3
+			}
+		]
+	},
+	{
+		"id": "mon_phoenix_rebirth",
+		"name": "rebirth",
+		"require": "g.firelore>999",
+		"cd": 3600,
+		"school": "fire",
+		"targets": "self",
+		"dot": {
+			"duration": 7200,
+			"onDeath": {
+				"summon": {
+					"targets": "leader",
+					"id": "sum_phoenixegg",
+					"count": 1,
+					"max": 3
+				}
+			}
+		}
+	},
+	{
+		"id": "mk_sandmite",
+		"name": "summon sand mite",
+		"desc": "In combat, summon a sand mite to fight for you.",
+		"require": "g.conjuration>=7||g.tier2>0",
+		"level": 4,
+		"cd": 3,
+		"school": "earth",
+		"buy": {
+			"research": 1000,
+			"earthgem": 10,
+			"scrolls": 20
+		},
+		"cost": {
+			"earth": 10
+		},
+		"summon": [
+			{
+				"id": "sum_sandmite",
+				"count": 1,
+				"max": 3
+			}
+		]
+	},
+	{
+		"id": "mon_dig",
+		"name": "dig",
+		"require": "g.earthlore>999",
+		"level": 1,
+		"cd": 10,
+		"school": "earth",
+		"dot": {
+			"duration": 5,
+			"id": "hide",
+			"hits": [
+				{
+					"dot": {
+						"targets": "enemies",
+						"damage": "2~3",
+						"kind": "earth",
+						"duration": 1,
+						"mod": {
+							"self.speed": -5
+						}
+					}
+				},
+				{
+					"onExpire": {
+						"name": "burrow",
+						"damage": "10~20",
+						"kind": "pierce"
+					}
+				}
+			]
+		}
+	},
+	{
+		"id": "mk_shadow",
+		"name": "coalesce shadow",
+		"require": "(g.conjuration>=8||g.tier2>0)&&g.shadowlore>=5",
+		"desc": "Animate your shadow for a dependable ally- a risky move.",
+		"level": 5,
+		"cd": 5,
+		"school": "shadow",
+		"buy": {
+			"research": 500,
+			"shadowgem": 10,
+			"scrolls": 25
+		},
+		"cost": {
+			"shadow": 10,
+			"hp": 5
+		},
+		"summon": [
+			{
+				"id": "sum_shadow",
+				"count": 1,
+				"max": 1
+			}
+		]
+	},
+	{
+		"id": "mk_painrune",
+		"name": "summon rune of agony",
+		"require": "g.summoning>=10&&g.runelore>=3&&g.shadowlore>=10",
+		"desc": "Summon a rune of pure suffering. Its dark power doesn't distinguish between friend and foe.",
+		"level": 7,
+		"cd": 5,
+		"school": "shadow",
+		"buy": {
+			"research": 4000,
+			"shadowgem": 30,
+			"tomes": 10
+		},
+		"cost": {
+			"shadow": 15
+		},
+		"summon": [
+			{
+				"id": "sum_painrune",
+				"count": 1,
+				"max": 1
+			}
+		]
+	},
+	{
+		"id": "mk_nova",
+		"name": "summon nova",
+		"require": "g.summoning>=13&&g.planeslore>=15&&g.lightlore>=15",
+		"cd": 30,
+		"desc": "Summon an incarnation of extreme light as an ally.",
+		"level": 10,
+		"school": "astral",
+		"buy": {
+			"research": 10000,
+			"tomes": 100,
+			"lightgem": 50,
+			"sindel": 1
+		},
+		"cost": {
+			"light": 20
+		},
+		"summon": [
+			{
+				"id": "sum_nova",
+				"count": 1,
+				"max": 1
+			}
+		]
+	},
+	{
+		"id": "mk_black_hole",
+		"name": "summon black hole",
+		"require": "g.summoning>=13&&g.voidlore>=3&&g.shadowlore>=15",
+		"cd": 30,
+		"desc": "Summon an incarnation of extreme shadow as an ally.",
+		"level": 10,
+		"school": "void",
+		"buy": {
+			"research": 10000,
+			"tomes": 100,
+			"shadowgem": 100
+		},
+		"cost": {
+			"shadow": 20
+		},
+		"summon": [
+			{
+				"id": "sum_black_hole",
+				"count": 1,
+				"max": 1
+			}
+		]
+	},
+	{
+		"id": "mk_imp",
+		"name": "summon imp",
+		"require": "(g.warlock+g.archlock+g.deathlock)>0&&g.summoning>=5",
+		"desc": "Summon one of your patron's servants to die for you.",
+		"level": 5,
+		"cd": 3,
+		"school": "fire",
+		"buy": {
+			"research": 2000,
+			"codices": 30,
+			"shadowgem": 10
+		},
+		"cost": {
+			"shadow": 8,
+			"fire": 2,
+			"hp": 8
+		},
+		"summon": [
+			{
+				"id": "sum_imp",
+				"count": 1,
+				"max": 5
+			}
+		]
+	},
+	{
+		"id": "mk_quasit",
+		"name": "summon quasit",
+		"require": "(g.warlock+g.archlock+g.deathlock)>0&&g.summoning>=5",
+		"desc": "Summon one of your patron's servants to die for you.",
+		"level": 5,
+		"cd": 3,
+		"school": "shadow",
+		"buy": {
+			"research": 2000,
+			"codices": 30,
+			"firegem": 10
+		},
+		"cost": {
+			"shadow": 8,
+			"hp": 8
+		},
+		"summon": [
+			{
+				"id": "sum_quasit",
+				"count": 1,
+				"max": 5
+			}
+		]
+	},
+	{
+		"id": "mk_grimstalk",
+		"name": "summon grimstalk",
+		"require": "(g.warlock+g.archlock+g.deathlock)>0&&g.summoning>=5&&g.naturelore>=13",
+		"desc": "Summon one of your patron's servants to die for you.",
+		"level": 9,
+		"cd": 5,
+		"school": "nature",
+		"buy": {
+			"research": 6000,
+			"tomes": 25,
+			"naturegem": 40
+		},
+		"cost": {
+			"shadow": 13,
+			"nature": 5,
+			"hp": 13
+		},
+		"summon": [
+			{
+				"id": "sum_grimstalk",
+				"count": 1,
+				"max": 3
+			}
+		]
+	},
+	{
+		"id": "mk_demon",
+		"name": "summon demon",
+		"require": "(g.archlock+g.deathlock)>0&&g.summoning>=5&&g.firelore>=15&&g.shadowlore>=15",
+		"desc": "Summon one of your patron's servants to die for you.",
+		"level": 5,
+		"cd": 5,
+		"school": "fire",
+		"buy": {
+			"research": 6666,
+			"tomes": 40,
+			"firegem": 30,
+			"shadowgem": 30
+		},
+		"cost": {
+			"fire": 7,
+			"shadow": 18,
+			"hp": 13
+		},
+		"summon": [
+			{
+				"id": "sum_demon",
+				"count": 1,
+				"max": 3
+			}
+		]
+	},
+	{
+		"id": "reclaim_power",
+		"name": "reclaim power",
+		"require": "g.summoning>=11&&g.charms>=5",
+		"desc": "Sacrifice the minion with proportionally the lowest current life to buff everyone else. It's fine, summons are just mana simulacra.",
+		"level": 4,
+		"school": "charms",
+		"buy": {
+			"research": 800,
+			"codices": 10,
+			"runestones": 5
+		},
+		"cost": {
+			"mana": 5
+		},
+		"attack": {
+			"only": "t_summon",
+			"targets": "minion",
+			"targetspec": {
+				"stat": "hp",
+				"highest": false,
+				"usepercentage": true
+			},
+			"dot": {
+				"duration": 60,
+				"harmless": true,
+				"nodefense": true,
+				"damage": "10+t.hp.max",
+				"onDeath": {
+					"targets": "allies",
+					"dot": {
+						"name": "reclaimed power",
+						"duration": 20,
+						"mod": {
+							"self.speed": 5,
+							"self.hp.max": "25%"
+						}
+					}
+				}
+			}
+		},
+		"flavor": "Just be careful not to use it on non-summoned minions, okay? Okay."
+	},
+	{
+		"id": "absorb_minion",
+		"name": "absorb summon",
+		"require": "g.summoning>=12&&g.charms>=5",
+		"desc": "Sacrifice the minion with the highest life to heal yourself. Remember, summons are merely mana simulacra.",
+		"level": 6,
+		"school": "charms",
+		"buy": {
+			"research": 800,
+			"codices": 10,
+			"runestones": 5
+		},
+		"cost": {
+			"mana": 5
+		},
+		"attack": {
+			"only": "t_summon",
+			"targets": "minion",
+			"targetspec": {
+				"stat": "hp",
+				"highest": true,
+				"usepercentage": false
+			},
+			"harmless": true,
+			"nodefense": true,
+			"damage": "t.hp",
+			"leech": 1
+		},
+		"flavor": "Just be careful not to use it on non-summoned minions, okay? Okay."
+	},
+	{
+		"id": "conjure_minion_armor",
+		"name": "conjure minion armor",
+		"require": "g.conjuration>=9",
+		"desc": "Conjure armor for your precious minions.",
+		"level": 3,
+		"school": "earth",
+		"buy": {
+			"research": 500,
+			"earthgem": 5,
+			"codices": 3
+		},
+		"cost": {
+			"earth": 8
+		},
+		"dot": {
+			"targets": "minions",
+			"harmless": true,
+			"tags": "toughskin",
+			"duration": 20,
+			"mod": {
+				"self.defense": 5
+			}
+		}
+	},
+	{
+		"id": "conjure_stone_barrier",
+		"name": "conjure stone barrier",
+		"require": "(g.conjuration>=7&&g.earthlore>=5)||(g.earthlore>=10&&g.tier3>0)",
+		"desc": "Conjure a wall of stone to protect yourself.",
+		"level": 3,
+		"cd": 3,
+		"school": "earth",
+		"buy": {
+			"research": 500,
+			"earthgem": 5,
+			"codices": 3
+		},
+		"cost": {
+			"earth": 10
+		},
+		"summon": [
+			{
+				"id": "sum_stone_barrier",
+				"count": 1,
+				"max": 1
+			}
+		]
+	},
+	{
+		"id": "conjure_beartrap",
+		"name": "conjure beartrap",
+		"require": "(g.conjuration>=7&&g.crafting>=7)||g.crafting>=15",
+		"desc": "Conjure a bear trap to maim someone.",
+		"level": 3,
+		"cd": 3,
+		"school": "arcane",
+		"buy": {
+			"research": 500,
+			"gold": 300,
+			"codices": 3
+		},
+		"cost": {
+			"mana": 5,
+			"gold": 50
+		},
+		"summon": [
+			{
+				"id": "sum_beartrap",
+				"count": 1,
+				"max": 3
+			}
+		]
 	}
 ]

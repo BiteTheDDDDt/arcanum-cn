@@ -12,7 +12,7 @@ export class DisplayItem {
 	 * @param {boolean} isRate
 	 * @param {boolean} isAvailable
 	 */
-	constructor( name, value, isRate, isAvailable ) {
+	constructor(name, value, isRate, isAvailable) {
 
 		//this.path = path;
 		//.toTitleCase() here fixes the caps of all items in the tooltips.
@@ -27,18 +27,18 @@ export class DisplayItem {
 	 * Add amount to display item.
 	 * @param {*} v
 	 */
-	add( v ) {
+	add(v) {
 		this.value = this.value + v;
 	}
 
-	toString(){
+	toString() {
 
-		let typ = typeof this.value;
-		if ( typ === 'boolean' ) return this.name;
+		const typ = typeof this.value;
+		if (typ === 'boolean') return this.name;
 
 		return (this.name + ': ') +
-			((typ ==='object') ? this.value.toString() : precise(this.value) ) +
-			( this.isRate ? '/s' : '');
+			((typ === 'object') ? this.value.toString() : precise(this.value)) +
+			(this.isRate ? '/s' : '');
 	}
 
 }

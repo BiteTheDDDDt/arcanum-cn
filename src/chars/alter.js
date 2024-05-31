@@ -1,5 +1,5 @@
 import Base, {mergeClass} from '../items/base';
-import { assign } from 'objecty';
+import { assign } from '../util/objecty';
 import { ParseMods } from '../modules/parsing';
 
 /**

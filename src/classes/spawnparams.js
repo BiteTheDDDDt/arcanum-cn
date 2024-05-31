@@ -25,6 +25,12 @@ export class SpawnParams {
 	get range() {return this._range;}
 	set range(v) {this._range = v;}
 
+	get quantity() {return this._quantity;}
+	set quantity(v) {this._quantity = v;}
+
+	get quantitypenalty() {return this._quantitypenalty;}
+	set quantitypenalty(v) {this._quantitypenalty = v;}
+
 	/**
 	 *
 	 * @param {object} vars
@@ -36,6 +42,8 @@ export class SpawnParams {
 		if ( vars ) {
 			this.level = vars.level;
 			this.range = vars.range;
+			this.quantity = vars.quantity;
+			this.quantitypenalty = vars.quantitypenalty;
 		} else console.warn('NO SPAWN PARAMS: ' + vars );
 
 	}
@@ -55,7 +63,7 @@ export class SpawnParams {
 	 * @returns {Npc|Encounter|null}
 	 */
 	random( pct=0 ) {
-		if ( this.type !== ENCOUNTER ) return [ Game.itemGen.randEnemy( this, null, pct ) ];
+		if ( this.type !== ENCOUNTER ) return  Game.itemGen.randEnemy( this, null, pct );
 		return Game.itemGen.randEncounter( this, null, pct );
 
 	}

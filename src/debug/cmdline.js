@@ -74,16 +74,16 @@ export default class CmdLine {
 	 */
 	exec( parts, path='' ) {
 
-		var context = this.context;
-		let len = parts.length;
+		let context = this.context;
+		const len = parts.length;
 
 		for( let i = 0; i < len; i++ ) {
 
-			var p = parts[i];
+			const p = parts[i];
 			if ( p === undefined || p === null ) {
 				return ('Invalid Command: ' + path );
 			}
-			var sub = this.getValue( p, context );
+			const sub = this.getValue( p, context );
 
 			if ( sub === null || sub === undefined ) {
 
@@ -124,7 +124,7 @@ export default class CmdLine {
 		let len = parts.length;
 		for( let i = 0; i < len; i++ ) {
 
-			var p = context[parts[i]];
+			const p = context[parts[i]];
 			if ( p === undefined ) return path;
 			else if ( typeof p === 'object') context = p;
 			else return p;

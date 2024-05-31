@@ -5,15 +5,15 @@ import Proxy from "./proxy";
  */
 export default class QuickSlot extends Proxy {
 
-	toJSON(){
+	toJSON() {
 
-		if ( this._item || this.recipe ) {
+		if (this._item || this.recipe) {
 
 
-			if ( !this.recipe ) return this._item.id;
+			if (!this.recipe) return this._item.id;
 			return {
-				item:this.item.id,
-				recipe:this.recipe
+				item: this.item.id,
+				recipe: this.recipe
 			}
 
 		}
@@ -24,8 +24,10 @@ export default class QuickSlot extends Proxy {
 
 	get name() {
 
-		return super.item ? super.item.name.toTitleCase() :
-		this.recipe || '';
+		if (super.item) {
+			return (super.item.name && super.item.name !== undefined) ? super.item.name.toTitleCase() : this.recipe || '';
+		}
+		return this.recipe || '';
 
 	}
 
@@ -34,10 +36,10 @@ export default class QuickSlot extends Proxy {
 
 		super.item = v;
 
-		if ( v && typeof v === 'object' ){
+		if (v && typeof v === 'object') {
 
 			// if id === recipe, the item is just using the recipe as a stand-in until item is found.
-			if ( v.id !== this.recipe ) this.recipe = v.recipe || null;
+			if (v.id !== this.recipe) this.recipe = v.recipe || null;
 
 		} else this.recipe = null;
 
@@ -49,7 +51,7 @@ export default class QuickSlot extends Proxy {
 	 * runs out.
 	 * @todo clean this up so recipes are reassigned to item automatically.
 	 */
-	get recipe() {return this._recipe;}
+	get recipe() { return this._recipe; }
 	set recipe(v) {
 
 		this._recipe = v;
@@ -60,18 +62,18 @@ export default class QuickSlot extends Proxy {
 	 * JSON data or null.
 	 * @param {Object} [vars=null]
 	 */
-	constructor( vars=null ) {
+	constructor(vars = null) {
 
 		super();
 
-		if ( vars ) {
+		if (vars) {
 
-			if ( typeof vars === 'string') {
+			if (typeof vars === 'string') {
 
 				this.item = vars;
 				this.recipe = null;
 
-			} else if ( typeof vars === 'object' ) {
+			} else if (typeof vars === 'object') {
 
 				this.item = vars.item;
 				this.recipe = vars.recipe;
@@ -88,19 +90,19 @@ export default class QuickSlot extends Proxy {
 	/**
 	 * @returns {GData} target of the quickSlot item.
 	 */
-	slotTarget( g ) {
+	slotTarget(g) {
 
 		// if the recipe.id === item.id then the recipe was being used as a representative stand-in until an item isntance
 		// could be found.
-		if ( this.item && !this.recipe ) {
+		if (this.item && !this.recipe) {
 
 			return this.item;
 
-		} else if ( this.item && this.item.count > 0 ) { //@TODO make sure wearables dont try to do findInstance. 
+		} else if (this.item && this.item.count > 0) { //@TODO make sure wearables dont try to do findInstance. 
 
-			 return this.item;
+			return this.item;
 
-		} else if ( this.recipe ) return g.state.findInstance( this.recipe, true );
+		} else if (this.recipe) return g.state.findInstance(this.recipe, true);
 
 		return null;
 
@@ -110,21 +112,21 @@ export default class QuickSlot extends Proxy {
 	 * Unused?!?!?
 	 * @param {Game} g
 	 */
-	onUse( g ) {
+	onUse(g) {
 
 		let targ = this.slotTarget(g);
-		if ( targ != null && targ.value >0 ) targ.onUse(g);
+		if (targ != null && targ.value > 0) targ.onUse(g);
 
 	}
 
 	revive(gs) {
 
-		if ( this.item ) {
+		if (this.item) {
 
 			//console.log('finding quickslot item: ' + this.item );
 
-			var revive = gs.findData( this.item, false );
-			if ( revive ) {
+			const revive = gs.findData(this.item, false);
+			if (revive) {
 				//console.log('quickslot found: ' + revive.id );
 				this.item = revive;
 				return;
@@ -133,7 +135,7 @@ export default class QuickSlot extends Proxy {
 		}
 
 		// if the item didnt revive, need to rely on recipe.
-		if ( this.recipe ) {
+		if (this.recipe) {
 
 			// save recipe so item setter doesnt overwrite.
 			let recipe = this.recipe;
@@ -142,7 +144,7 @@ export default class QuickSlot extends Proxy {
 
 			// no item. if a matching item type can't be found, the recipe item
 			// is used as the quickbar rollover and a type will be searched on use.
-			this.item = gs.findInstance( recipe, true ) || gs.getData( recipe );
+			this.item = gs.findInstance(recipe, true) || gs.getData(recipe);
 
 		}
 

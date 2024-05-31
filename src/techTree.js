@@ -13,7 +13,7 @@ const FuncRE = /[^\.]\b\w+\.((?:\w|\.)+\b)/gi;
  * Used to loop on changes from current frame while marking changes
  * for next frame.
  */
-var NextChanges = new Set();
+let NextChanges = new Set();
 
 /**
  * @property {Set<GData>} Changed - items changed on previous frame.
@@ -22,7 +22,7 @@ export var Changed = new Set();
 
 export const GetChanged = ()=>{
 
-	var temp = Changed;
+	const temp = Changed;
 
 	NextChanges.clear();
 	Changed = NextChanges;

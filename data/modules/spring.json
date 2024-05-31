@@ -62,7 +62,7 @@
 				"id": "spr_jar_bees",
 				"stack": true,
 				"desc": "A jar of wild bees.",
-				"use": "apiary"
+				"use": "mk_apiary"
 			}
 		],
 		"resources": [
@@ -111,7 +111,7 @@
 				},
 				"mod": {
 					"dist": 325,
-					"player.bonuses.nature": 2,
+					"naturedmg": 5,
 					"naturelore.max": 1
 				}
 			},
@@ -154,6 +154,7 @@
 						"value": 0.7
 					},
 					"stamina": 0.7,
+					"vigor": 0.07,
 					"hp": 1,
 					"nature": 0.3,
 					"spirit": 0.2

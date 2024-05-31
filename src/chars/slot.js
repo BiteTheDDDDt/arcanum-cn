@@ -58,7 +58,7 @@ export default class Slot {
 
 		if ( Array.isArray(this.item)) {
 
-			let a = [];
+			const a = [];
 			for( let i = 0; i < this.item.length; i++ ) a.push( this.item[i].id);
 			return a;
 
@@ -95,7 +95,7 @@ export default class Slot {
 	 */
 	equip( it ){
 
-		let spaces = it.numslots || 1;
+		const spaces = it.numslots || 1;
 
 		// won't fit in slot.
 		if ( spaces > this.max ) return false;
@@ -113,7 +113,7 @@ export default class Slot {
 
 		} else {
 
-			let tmp = this.item;
+			const tmp = this.item;
 			this.item = it;
 
 			it.updated();
@@ -140,7 +140,7 @@ export default class Slot {
 
 			spaces += (this.item[i].numslots || 1);
 			if ( spaces > this.max ) {
-				let removed = this.item.splice( 0, i+1);
+				const removed = this.item.splice( 0, i+1);
 				removed.forEach(item => item.updated());
 				return removed;
 
@@ -217,7 +217,7 @@ export default class Slot {
 
 		} else if ( this.multi ) {
 
-			let ind = this.item.indexOf(it);
+			const ind = this.item.indexOf(it);
 			if ( ind < 0 ) return false;
 
 			it.updated();
@@ -250,12 +250,12 @@ export default class Slot {
 		if ( this.item === null || this.item === undefined ) return;
 		if ( Array.isArray( this.item) ) {
 
-			let ids = {};
+			const ids = {};
 
-			let all = this.item;
+			const all = this.item;
 			for( let i = all.length-1; i>= 0; i-- ) {
 
-				var it = itemRevive(gs, all[i]);
+				const it = itemRevive(gs, all[i]);
 
 				if ( !it || ids[it.id]===true) {
 

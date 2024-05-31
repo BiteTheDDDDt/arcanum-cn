@@ -2,6 +2,7 @@
 import Game from '../../game';
 import FilterBox from '../components/filterbox.vue';
 import { USE } from '../../events';
+import { canTarget } from '../../values/consts';
 
 export default {
 
@@ -11,30 +12,61 @@ export default {
 	 * @property {boolean} selecting - inventory is selection only. sell-all & size information hidden.
 	 * @property {string[]} types - item types to display.
 	 */
-	props:['inv', 'take', 'value', 'selecting', 'nosearch', 'types', 'combat'],
+	props: ['inv', 'take', 'value', 'selecting', 'nosearch', 'types', "kinds", 'combat'],
 	data() {
 		return {
-			filtered:null
+			filtered: null,
+			cols: 1,
 		}
 	},
-	created() { this.USE = USE; },
-	components:{
-		filterbox:FilterBox
+	created() {
+		this.USE = USE;
+
+		const rootStyle = window.getComputedStyle(document.documentElement);
+		const baseFontSize = parseFloat(rootStyle.fontSize);
+	
+		/// assuming grid is 12rem
+		this.cellWidth = baseFontSize*12;
+
 	},
-	methods:{
+	mounted() {
+		window.addEventListener('resize', this.resize);
+		this.resize();
+	},
+	unmounted() {
+		window.removeEventListener('resize', this.resize);
+	},
+	components: {
+		filterbox: FilterBox
+	},
+	methods: {
+		resize() {
 
-		sellAll(){
+			const grid = this.$refs.gridRef;
+			if (grid) {
 
-			let items = this.filtered;// this.inv.removeAll();
-			for( let i = items.length-1; i>=0; i-- ){
-				this.emit( 'sell', items[i], this.inv, items[i].count);
+				this.cols = Math.floor(grid.offsetWidth / this.cellWidth );
+			} else {
+				this.cols = 1;
+			}
+
+		},
+		forceRefresh() {
+			this.$forceUpdate();
+			console.warn("Inventory update forced");
+		},
+		sellAll() {
+
+			const items = this.filtered;// this.inv.removeAll();
+			for (let i = items.length - 1; i >= 0; i--) {
+				this.emit('sell', items[i], this.inv, items[i].count);
 			}
 			//this.$refs.filter.clear();
 
 		},
 
-		count(count) { return count > 1 ? ' (' + Math.floor(count) + ')': ''; },
-		drop( it ){ this.inv.remove(it); },
+		count(count) { return count > 1 ? ' (' + Math.floor(count) + ')' : ''; },
+		drop(it) { this.inv.remove(it); },
 
 		/**
 		 * Test if item can be added to USER inventory.
@@ -47,29 +79,35 @@ export default {
 			return Game.canEquip(it)
 		},
 
+		canUse(it) {
+			return Game.canUse(it)
+		},
+
 		onTake(it) {
 
 			//console.log('start take: ' + it.id );
-			this.emit('take', it );
+			this.emit('take', it);
 			this.inv.remove(it);
 
 		}
 
 	},
-	computed:{
+	computed: {
 
-		baseItems(){
+		baseItems() {
 
-			let types = this.types;
-			if ( this.types ) {
-				return this.inv.items.filter(it=>this.types.includes(it.type));
+			const types = this.types;
+			const items = types ?
+				this.inv.items.filter(it=>types.includes(it.type))
+					: this.inv.items;
+			if ( this.kinds && this.kinds.length >0 ){
+				return items.filter(it=>canTarget(this.kinds, it));
 			}
-			return this.inv.items;
-
+			return items;
 		},
 
-		playerInv(){ return this.inv === Game.state.inventory; },
-		playerFull(){ return Game.state.inventory.full(); }
+		playerInv() { return this.inv === Game.state.inventory; },
+		playerFull() { return Game.state.inventory.full(); }
 	}
 
 }
@@ -81,31 +119,35 @@ export default {
 
 	<span class="top">
 	<filterbox ref="filter" v-if="!nosearch" v-model="filtered" :items="baseItems" min-items="7" />
-	<span v-if="!selecting&&!combat">
-		<span v-if="inv.max>0">{{ inv.items.length + ' / ' + Math.floor(inv.max.value ) + ' Used' }}</span>
-		<button v-if="inv.count>0" @click="sellAll">Sell All</button>
+	<span v-if="!selecting && !combat">
+		<span v-if="inv.max > 0">{{ inv.items.length + ' / ' + Math.floor(inv.max.value) + ' Used' }}</span>
+		<button v-if="inv.count > 0" @click="sellAll">Sell All</button>
 	</span>
 	</span>
 
-	<div class="item-table">
+	<div class="item-table" ref="gridRef">
 
-	<div class="item separate" v-for="it in ( nosearch ? baseItems : filtered )" :key="it.id">
-		<span class="item-name" @mouseenter.capture.stop="itemOver($event,it)">{{ it.name + count(it.count) }}</span>
+	<div v-for="(it, ind) in (nosearch ? baseItems : filtered)"
+		:class="(ind % (2 * cols) < cols) ? 'off-color' : ''"
+		class="item separate"
+		:key="it.id">
+
+		<span class="item-name" @mouseenter.capture.stop="itemOver($event, it)">{{ it.name + count(it.count) }}</span>
 
 
-		<template v-if="!selecting&&!combat">
+		<template v-if="!selecting && !combat">
 
-			<button v-if="it.equippable&&canEquip(it)" class="item-action" @click="emit('equip',it, inv)">Equip</button>
-			<button v-if="it.use" class="item-action" @mouseenter.capture.stop="itemOver($event,it)" @click="emit( USE, it, inv)">Use</button>
-			<button v-if="take&&canAdd(it)" class="item-action" @click="onTake(it)">Take</button>
+			<button v-if="it.equippable && canEquip(it)" class="item-action" @click="emit('equip', it, inv)">Equip</button>
+			<button v-if="it.use" :disabled="!canUse(it)" class="item-action" @mouseenter.capture.stop="itemOver($event, it)" @click="emit(USE, it, inv)">Use</button>
+			<button v-if="take && canAdd(it)" class="item-action" @click="onTake(it)">Take</button>
 
-			<button class="item-action"  @click="emit('sell',it,inv)" @mouseenter.capture.stop="itemOver($event,it)">Sell</button>
-			<button v-if="it.count>1" class="item-action"  @click="emit('sell',it,inv, it.count)" @mouseenter.capture.stop="itemOver($event,it)">Sell All</button>
+			<button class="item-action"  @click="emit('sell', it, inv)" @mouseenter.capture.stop="itemOver($event, it)">Sell</button>
+			<button v-if="it.count > 1" class="item-action"  @click="emit('sell', it, inv, it.count)" @mouseenter.capture.stop="itemOver($event, it)">Sell All</button>
 
 		</template>
-		<template v-if="!selecting&&combat">
+		<template v-if="!selecting && combat">
 
-		<button v-if="it.use" class="item-action" @mouseenter.capture.stop="itemOver($event,it)" @click="emit( USE, it, inv)">Use</button>
+		<button v-if="it.use" :disabled="!canUse(it)" class="item-action" @mouseenter.capture.stop="itemOver($event, it)" @click="emit(USE, it, inv)">Use</button>
 
 		</template>
 		<template v-if="selecting">
@@ -120,12 +162,11 @@ export default {
 
 
 <style scoped>
-
 .inventory {
-	display:flex;
+	display: flex;
 	flex-direction: column;
-	width:100%;
-	height:100%;
+	width: 100%;
+	height: 100%;
 	min-height: 0;
 }
 
@@ -135,7 +176,7 @@ export default {
 }
 
 .filter-box {
-	display:inline;
+	display: inline;
 	font-size: 0.9rem;
 }
 
@@ -148,25 +189,31 @@ export default {
 .item-table {
 	flex-grow: 1;
 	flex-shrink: 1;
-		overflow-y: auto;
-		min-height: 0;
-		margin: 0;
-		padding:0;
-		display: grid; grid-template-columns: repeat( auto-fit, minmax( 12rem, 1fr ));
-		 grid-auto-rows: min-content;
+	overflow-y: auto;
+	min-height: 0;
+	margin: 0;
+	padding: 0;
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));
+	grid-auto-rows: min-content;
 
-    }
+}
+
+.item-table>.off-color {
+	background: var(--odd-list-color);
+}
 
 .item-name {
 	flex-grow: 1;
 }
 
 .item-table .item {
-	margin: var(--sm-gap);
-        padding: var(--sm-gap); align-items: center;
-    }
+	padding: var(--sm-gap) var(--md-gap);
+	align-items: center;
+	margin: 0;
+}
 
-.item .item-action { margin: var(--tiny-gap); }
-
-
+.item .item-action {
+	margin: var(--tiny-gap);
+}
 </style>

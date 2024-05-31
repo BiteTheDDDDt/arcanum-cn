@@ -1,4 +1,5 @@
-import dataLoader, { loadFiles, freezeData } from '../dataLoader';
+import dataLoader, { loadFiles } from '../dataLoader';
+import { freezeData } from '../util/util';
 
 const HALL_ID = 'hall';
 
@@ -106,10 +107,10 @@ export default class Module {
 	typesLoaded(files) {
 
 		// modules can only be merged after all lists have been made.
-		let modules = [];
-		for( let p in files ) {
+		const modules = [];
+		for( const p in files ) {
 
-			var file = files[p];
+			const file = files[p];
 			if ( !file ) {
 				console.warn('no file: ' + p );
 
@@ -196,12 +197,12 @@ export default class Module {
 	 */
 	parseList( arr ){
 
-		let sym = this.sym;
-		let modName = this.name;
+		const sym = this.sym;
+		const modName = this.name;
 
 		for( let i = arr.length-1; i >= 0; i-- ) {
 
-			var it = arr[i];
+			const it = arr[i];
 			if ( !it.id ){
 				console.warn('missing id: ' + it.name );
 				continue;

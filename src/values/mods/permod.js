@@ -72,7 +72,7 @@ export default class PerMod extends Mod {
 	 * @param {*} gs
 	 * @param {*} targ
 	 */
-	getApply(gs, targ) {
+	getApply() {
 		return this.source && (( this.source.value % this.per ) === 0) ? this.count*this.value : 0;
 	}
 

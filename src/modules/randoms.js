@@ -16,7 +16,7 @@ export default {
 
 		for( let i = this.randoms.length-1; i>=0; i-- ) {
 
-			var e = this.randoms[i];
+			const e = this.randoms[i];
 			if ( e.disabled === true ) {
 
 				quickSplice( this.randoms, i );

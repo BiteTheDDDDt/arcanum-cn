@@ -70,7 +70,7 @@ export const FBRemote = {
 	 */
 	loadHall(){
 
-		var store = firebase.storage().ref( this.hallDir( this.userid ) );
+		const store = firebase.storage().ref( this.hallDir( this.userid ) );
 		return store.getDownloadURL().then( url=>JSONLoad(url, false), err=>{
 			console.warn(err);
 			throw err;
@@ -84,8 +84,8 @@ export const FBRemote = {
 	 */
 	loadChar( charid){
 
-		var store = firebase.storage().ref( this.saveDir( this.userid, charid ) );
-		console.log('LOADING FIREBASE: ' + charid );
+		const store = firebase.storage().ref( this.saveDir( this.userid, charid ) );
+
 		return store.getDownloadURL().then( url=>JSONLoad(url, false), err=>{
 			console.warn(err);
 			return null;
@@ -110,7 +110,7 @@ export const FBRemote = {
 	 */
 	saveChar( save, charid ){
 
-		var store = firebase.storage().ref( this.saveDir( this.userid, charid ) );
+		const store = firebase.storage().ref( this.saveDir( this.userid, charid ) );
 		return store.putString( save, StringFormat.RAW );
 
 	},
@@ -122,7 +122,7 @@ export const FBRemote = {
 	 * @returns {Promise<object>}
 	 */
 	saveHall( save, hid ) {
-		var store = firebase.storage().ref( this.hallDir( this.userid ) );
+		const store = firebase.storage().ref( this.hallDir( this.userid ) );
 		return store.putString( save, StringFormat.RAW );
 	},
 

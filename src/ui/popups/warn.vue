@@ -9,7 +9,9 @@ export default {
 		return {
 			item:null,
 			cb:null,
-			nowarn:false
+			nowarn:false,
+			nomsg:false,
+			passon:null
 		}
 	},
 	updated() {
@@ -22,22 +24,27 @@ export default {
 		}
 	},
 	methods:{
-		show( it, cb=null ){
+		show( it, cb=null, nomsg = false, passon = null ){
 			this.item = it;
 			this.cb = cb;
 			this.nowarn=false;
+			this.nomsg = nomsg;
+			this.passon = passon;
 		},
 		confirm(){
 
 			let it = this.item;
 			let f = this.cb;
 			let nowarn = this.nowarn;
+			let passon = this.passon;
 
 			this.item = null;
 			this.cb = null;
 			this.nowarn=false;
+			this.passon = null;
+			this.nomsg = false;
 
-			if ( it ) this.$emit('confirmed', it, nowarn );
+			if ( it ) this.$emit('confirmed', it, nowarn, passon );
 			if (f ) f();
 
 		},
@@ -45,6 +52,8 @@ export default {
 			this.cb = null;
 			this.nowarn=false;
 			this.item = null;
+			this.passon = null;
+			this.nomsg = false;
 		}
 
 	}
@@ -57,12 +66,12 @@ export default {
 
 		<div v-if="typeof item ==='string'">
 			<div>{{item }}</div>
-			<div>{{ msg }}</div>
+			<div v-if="!nomsg">{{ msg }}</div>
 		</div>
 		<div v-else>
 		<div class="log-title">{{ item.name.toString().toTitleCase() }}</div>
 		<div>{{ item.desc }}</div>
-		<div>{{ msg }}</div>
+		<div v-if="!nomsg">{{ msg }}</div>
 		<div class="skip"><label :for="elmId('nowarn')">Skip Warning</label>
 		<input type="checkbox" v-model="nowarn" :id="elmId('nowarn')"></div>
 		</div>

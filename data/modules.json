@@ -28,7 +28,8 @@
 		"reagents",
 		"properties",
 		"potencies",
-		"hall"
+		"hall",
+		"glossaryentries"
 	],
 	"modules": [
 		"patrons",
@@ -45,7 +46,6 @@
 		"shopkeeping",
 		"debitomancy",
 		"furniture_upgrades",
-		"contributors",
-		"winter"
+		"contributors"
 	]
 }

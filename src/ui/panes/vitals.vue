@@ -44,7 +44,7 @@ export default {
 		manaList() { return this.state.filterItems (it=> (it.hasTag('manas') || it.hasTag('Mana energies') ) && !it.locked)},
 		visMana(){return this.manaList.filter(v=>this.show(v))},
 
-		stamina(){ return this.state.getData('stamina'); }
+		stamina(){ return this.state.getData('stamina'); },
 	}
 
 }

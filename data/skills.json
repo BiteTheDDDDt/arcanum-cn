@@ -114,7 +114,7 @@
 		"school": "arcane",
 		"verb": "conjuring",
 		"desc": "",
-		"require": "g.lore>=10&&g.divination>=3",
+		"require": "g.tier0>0&&g.lore>=7&&g.divination>=3",
 		"run": {
 			"stamina": 0.2,
 			"spirit": 0.2
@@ -151,11 +151,12 @@
 			"sp": 0.05
 		},
 		"mod": {
-			"research.max": 5,
-			"languages.rate": "0.1+2%",
+			"research.max": "0.1%",
+			"languages.rate": "20+3%",
 			"languages.max": 0.2,
-			"lore.rate": 0.1,
-			"lore.max": 0.2
+			"lore.rate": "50+5%",
+			"lore.max": 0.2,
+			"craftrune.result.runestones": 0.05
 		},
 		"flavor": ""
 	},
@@ -391,15 +392,16 @@
 		},
 		"mod": {
 			"anatomy.rate": "1%",
-			"hp.max": 10,
-			"hp.rate": 0.1
+			"hp.max": "5%",
+			"hp.rate": 0.1,
+			"player.hits.blood": 1
 		}
 	},
 	{
 		"id": "bladelore",
 		"name": "swordplay",
 		"desc": "Incorporate martial weapons into your magic.",
-		"require": "g.spellblade>0||g.battlemage>0||g.dreadlord>0",
+		"require": "g.t_swordmaster>0",
 		"need": "armssource",
 		"level": 3,
 		"buy": {
@@ -996,7 +998,8 @@
 		},
 		"mod": {
 			"planeslore.rate": "1%",
-			"research.max": 5
+			"research.max": 5,
+			"dist": 5
 		}
 	},
 	{
@@ -1053,7 +1056,7 @@
 	{
 		"id": "astrallore",
 		"name": "astral communion",
-		"require": "g.planeslore>=25&&g.tier5>0",
+		"require": "g.planeslore>=15&&g.tier5>0",
 		"desc": "Anyone can see the stars. Few can read them.",
 		"level": 10,
 		"buy": {

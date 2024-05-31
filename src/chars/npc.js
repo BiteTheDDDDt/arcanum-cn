@@ -1,7 +1,6 @@
 import Char from './char';
 import Range, { RangeTest } from '../values/range';
 import Percent, { PercentTest } from '../values/percent';
-import MaxStat from '../values/maxStat';
 import Attack from './attack';
 import { TEAM_NPC, TYP_PCT, getDelay } from 'values/consts';
 import { ParseDmg } from '../values/combatVars'
@@ -10,17 +9,39 @@ import Instance from '../items/instance';
 import Game from '../game';
 import { MakeDataList } from '../gameState';
 import Context from './context';
-import { assignPublic } from '../util/util';
+import { assignPublic, findNonObjects } from '../util/util';
 import { NO_ATTACK } from './states';
-import Events, { CHAR_STATE, EVT_COMBAT, RESISTED, CHAR_ACTION, STATE_BLOCK, DOT_ACTION } from '../events';
+import Events, { EVT_COMBAT, CHAR_ACTION, STATE_BLOCK } from '../events';
+import { mergeSafe, cloneClass } from '../util/objecty';
+
+/**
+ * Defaults for Npc
+ */
+const Defaults = {
+	team: TEAM_NPC,
+	active: false
+}
+
+/**
+ * Exclusion list for findNonObjects
+ */
+const RangeExclude = [
+	"mod", "runmod", "alter",
+	"attack", "damage",
+	"cost", "run",
+	"result", "effect", "loot",
+	"statedata", "template"
+];
 
 /**
  * Class for specific Enemies/Minions in game.
  */
 export default class Npc extends Char {
+	static Defaults = Defaults;
 
 	toJSON() {
 
+		// TODO Nested statedata wont save on monsters, due to their toJSON
 		let data = super.toJSON() || {};
 		data.id = this.id;
 
@@ -38,6 +59,15 @@ export default class Npc extends Char {
 
 		} else data.name = this._name;
 
+		data.statedata = this.context.state.toJSON();
+		// HP saved in statedata, no need for a duplicate.
+		delete data.hp;
+
+		for(let prop in data) {
+			let val = data[prop];
+			if(typeof val === "object" && !Object.keys(val).length) delete data[prop];
+		}
+
 		//data.keep = this.keep;
 
 		//data.died = this.died||undefined;
@@ -53,18 +83,6 @@ export default class Npc extends Char {
 	set keep(v) { this._keep = v;}
 
 	/**
-	 * @property {MaxStat} hp
-	 */
-	get hp() { return this._hp; }
-	set hp(v) {
-
-		if ( this._hp === undefined || this._hp === null || typeof v === 'object') {
-			 this._hp = v instanceof MaxStat ? v : new MaxStat(v);
-		} else this._hp.set( v );
-
-	}
-
-	/**
 	 * @property {object|string|object[]}
 	 */
 	get loot() { return this._loot; }
@@ -75,9 +93,9 @@ export default class Npc extends Char {
 			return;
 		}
 
-		for( var p in loot ) {
+		for( const p in loot ) {
 
-			var sub = loot[p];
+			const sub = loot[p];
 			if ( (typeof sub==='string') ) {
 
 				if ( PercentTest.test(sub)) {
@@ -118,55 +136,137 @@ export default class Npc extends Char {
 
 		super( vars );
 
-		if ( save ) assignPublic( this, save );
+		// Unneeded.
+		delete this.defaults;
+		delete this.instTemplate;
 
-		//if ( this.id.includes('mecha')) console.dir(this.attack, 'post-save');
+		/**
+		 * Clone of possibly modified statedata.  
+		 * Always includes all player stats.
+		 */
+		let statedata = cloneClass(this.statedata) || {};
+		/** 
+		 * Original statedata template generated from a monster.  
+		 * Always includes all player stats.
+		 */
+		let origStatedata = this.stateTemplate;
 
-		this.dodge = this.dodge || this.level;
+		// Converting ranged and modded playerStats properties in statedata into numbers. val and max are the main targets.
+		for(let stat of Game.state.playerStats) {
+			let statId = stat.id;
+			let stateObj = statedata[statId];
 
-		if (!this.chaincast ) this.chaincast = 0.8;
+			// Handling max and val as a specific case as they can interact with each other.
+			let {max, val} = stateObj;
+			if(!stat.stat && max != null) {
+				//Dealing with max
+				if(typeof max === "string" && RangeTest.exec(max)) max = new Range(max);
+				if(!isNaN(max)) stateObj.max = max = +max;
+				else console.warn(`Non-numeric statedata property max: ${max}`);
+				if(val == null) stateObj.val = val = max;
+			}
+			if(val != null) {
+				//Dealing with val
+				if(typeof val === "string" && RangeTest.exec(val)) val = new Range(val);
+				if(!isNaN(val)) stateObj.val = val = +val;
+				else console.warn(`Non-numeric statedata property val: ${val}`);
+				if(!stat.stat && max == null) stateObj.max = max = val;
+			}
 
-		this.active = (this.active === undefined || this.active === null) ? false : this._active;
-
-		this.context = new Context( Game.state, this );
-
-		if ( this._spells ) {
-			this.spells.revive( this._context.state );
-
+			// General number conversion.
+			findNonObjects(statedata[statId], (obj, prop, val) => {
+				if(val != null) {
+					if(typeof val === "string" && RangeTest.exec(val)) val = new Range(val);
+					if(!isNaN(val)) obj[prop] = +val;
+					// else console.warn(`Non-numeric statedata property ${prop}: ${val}`);
+				}
+			}, ...RangeExclude);
 		}
 
+		// Second iterator is needed to save template for all items
+		for(let prop in statedata) {
+			let it = statedata[prop];
+			it.template = cloneClass(origStatedata[prop]);
+			// @TODO possibly add findNonObjects here for ranges within non-playerstats
+		}
+
+		if ( save ) {
+			let savestatedata = save.statedata;
+			if(savestatedata) {
+				// Save's statedata overwrites statedata.
+				mergeSafe(savestatedata, statedata);
+				statedata = savestatedata;
+			}
+			assignPublic( this, save );
+		}
+
+		this.context = new Context( Game.state, this, statedata );
+
+		// No longer needed.
+		delete this.statedata;
+		delete this.stateTemplate;
+
+		//if ( this.id.includes('mecha')) console.dir(this.attack, 'post-save');
 
 		if ( typeof this.hp === 'string' ) this.hp = new Range(this.hp).value;
 		else if ( this.hp instanceof Range ) {
 
 			this.hp = this.hp.value;
 		}
-		if (!this.hp ) { this.hp = 1; }
 
-		if ( !this.team) this.team = TEAM_NPC;
-		if ( !this.tohit ) this.tohit = this.level*1.5;
-
-		if ( this.dmg && (this.damage===null||this.damage===undefined) ) this.damage = this.dmg;
+		if ( this.dmg && this.damage==null ) this.damage = this.dmg;
 		if ( !this.attack ) {
 			this.attack = new Attack( this.damage );
 			this.damage = 0;
 		}
 		if (!this.cdtimers) this.cdtimers = {}
 
+		// No 0 max hp
+		// @Note hp can be 0 if the npc is already dead.
+		if(!+this.hp.max) {
+			this.hp.max.set(1);
+			if(!+this.hp) this.hp = +this.hp.max;
+		}
+
+		// Non-playerstat defaults assigner
+		for(let prop in Defaults) {
+			if(this[prop] == null) this[prop] = Defaults[prop];
+		}
 	}
 
 	revive(gs) {
+		// Occurs during Game revive, shouldn't be a thing during Npc creation (which also calls revive)
+		if ( typeof this.template === 'string') {
+			this.template = gs.getData(this.template);
+			if ( this.template && this.template.attack) {
 
-		if ( typeof this.template === 'string') this.template = gs.getData(this.template);
-		if ( this.template ) {
+				this.attack = this.template.attack;
+				//mergeSafe( this.template, this );
 
-			this.attack = this.template.attack;
-			//mergeSafe( this.template, this );
-
+			}
 		}
+
+		// Done before spell list handling as to not revive spell list twice.
+		this.context.revive(gs);
+
+		if ( this._spells ) {
+			this.spells.revive( this._context.state );
+			this.spells.name = this.spells.id = "spelllist";
+			this.context.state.npcItems.set("spelllist", this.spells);
+		}
+
 		super.revive(gs);
 
+	}
 
+	begin() {
+		if(this.dots) {
+			for( let i = this.dots.length-1; i>=0; i-- ){
+				if ( this.dots[i].mod) this.context.applyMods( this.dots[i].mod, 1 );
+			}
+		}
+
+		this.context.restoreMods();
 	}
 
 	/**

@@ -6,13 +6,13 @@
 			{
 				"id": "trainingdagger",
 				"name": "dagger",
-				"desc":"a plain looking wooden dagger",
+				"desc": "a plain looking wooden dagger",
 				"level": 1,
 				"tags":"t_dagger,t_training",
 				"type": "weapon",
 				"material": "wood",
-				"hands":1,
-				"enchants":1,
+				"hands": 1,
+				"enchants": 1,
 				"attack": {
 					"kind": "slash",
 					"tohit": 4,
@@ -22,10 +22,10 @@
 			{
 				"id": "trainingdart",
 				"name": "homing dart",
-				"desc":"this should hit anything",
+				"desc": "this should hit anything",
 				"level": 1,
-				"hands":1,
-				"enchants":1,
+				"hands": 1,
+				"enchants": 1,
 				"type": "weapon",
 				"material": "wood",
 				"tags":"t_dart,t_training",
@@ -56,7 +56,7 @@
 				"id": "traininggrounds",
 				"name": "training grounds",
 				"title": "Certified",
-				"distance": 1,
+				"dist": 1,
 				"length": 20,
 				"locked": false,
 				"boss": {
@@ -101,7 +101,9 @@
 						"desc": "Use your magic missile, from spellpage bind as quickslot or add to memorized"
 					}
 				},
-				"loot": {"trainingdagger":1}
+				"loot": {
+					"trainingdagger": 1
+				}
 			},
 			{
 				"id": "weapondummy",
@@ -117,7 +119,9 @@
 						"desc": "Go to the tab Equip and find the wood dagger and equip it"
 					}
 				},
-				"loot": {"trainingdart":1}
+				"loot": {
+					"trainingdart": 1
+				}
 			},
 			{
 				"id": "dodgydummy",
@@ -133,7 +137,9 @@
 						"desc": "Use the homing dart to hit this obnoxious dummy"
 					}
 				},
-				"loot": {"traininghammer":1}
+				"loot": {
+					"traininghammer": 1
+				}
 			},
 			{
 				"id": "armorydummy",
@@ -161,8 +167,8 @@
 				"speed": 3,
 				"attack": {
 					"name": "mockery",
-					"dmg": "0~2",
-					"type": "slashing",
+					"damage": "0~2",
+					"type": "slash",
 					"log": [
 						{
 							"%": "10%",

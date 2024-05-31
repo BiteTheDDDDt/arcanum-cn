@@ -30,7 +30,7 @@ export default class SpellLoadouts extends Inventory {
 		let g = new Group();
 
 		g.id = gs.nextId('spelllist');
-		g.type = 'spellist';
+		g.type = 'spelllist';
 		g.name = name || 'new spell list';
         
 		if (copy === "init"){

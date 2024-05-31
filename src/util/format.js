@@ -7,6 +7,27 @@ const PostFixes = [
 
 const FuncRE = /(^[^]*\{|return|\}$)|\w\.(\w+)|(\!)|(\&\&)|(\|\|)/gi;
 
+export const formatNumber = (n, decimals=3, floor = true)=>{
+
+	const asNum = typeof n === 'number' ? n : parseFloat(n);
+	if ( !asNum ) return n;
+
+	const sign = Math.sign(asNum);
+	let digits = Math.floor( Math.abs(asNum) );
+	const remainder = Math.abs(asNum) - digits;
+ 
+	let s = (remainder > 0 && !floor) ? remainder.toFixed(decimals).slice(1) : '';
+
+	while ( digits >= 1000 ) {
+		s = ',' + ( digits % 1000).toString().padStart(3,'0') + s;
+		digits = Math.floor(digits/1000);
+	}
+	s = (digits % 1000).toString() + s;
+
+	return sign > 0 ? s : '-'+s;
+
+}
+
 /**
  * Converts a function to some semblance of plain text.
  * @param {function} f
@@ -70,9 +91,8 @@ export const toLarge = (v) => {
  */
 export const precise = (v, n=2) => {
 
-	let r = Number(v);
+	const r = Number(v);
 	if ( Number.isNaN(r) ) return v;
-
 	if ( r === Math.floor(r) ) return r;
 
 	let maxDivide = Math.pow(10,n);

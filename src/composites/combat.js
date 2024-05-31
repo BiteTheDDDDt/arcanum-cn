@@ -1,16 +1,18 @@
-import { assign } from 'objecty';
+import { assign } from '../util/objecty';
 
 import Events, {
 	EVT_COMBAT, ENEMY_SLAIN, ALLY_DIED,
-	DAMAGE_MISS, CHAR_DIED, STATE_BLOCK, CHAR_ACTION, ITEM_ACTION, COMBAT_WON, DOT_ACTION
+	DAMAGE_MISS, CHAR_DIED, STATE_BLOCK, CHAR_ACTION, ITEM_ACTION, COMBAT_WON, DOT_ACTION, DOT_EXPIREACTION
 } from '../events';
 
 import { itemRevive } from '../modules/itemgen';
 import { DEFENSIVE, NO_SPELLS } from '../chars/states';
 
-import { TEAM_PLAYER, getDelay, TEAM_NPC, TEAM_ALL, COMPANION, WEAPON } from '../values/consts';
-import { TARGET_ENEMY, TARGET_ALLY, TARGET_SELF,
-	TARGET_RAND, TARGET_PRIMARY, ApplyAction, TARGET_GROUP, TARGET_ANY, RandTarget, PrimeTarget, TARGET_NONPRIMARY, PrimeInd, TARGET_RAND_ENEMY, TARGET_RAND_ALLY } from "../values/combatVars";
+import { TEAM_PLAYER, getDelay, TEAM_NPC, TEAM_ALL, COMPANION, WEAPON, canTarget } from '../values/consts';
+import {
+	TARGET_ENEMY, TARGET_ALLY, TARGET_SELF,
+	TARGET_RAND, TARGET_PRIMARY, ApplyAction, TARGET_GROUP, TARGET_ANY, RandTarget, PrimeTarget, TARGET_NONPRIMARY, PrimeInd, TARGET_RAND_ENEMY, TARGET_RAND_ALLY, TARGET_NOTSELF
+} from "../values/combatVars";
 import Npc from '../chars/npc';
 import game from '../game';
 
@@ -26,20 +28,20 @@ export default class Combat {
 
 	toJSON() {
 
-		var a = undefined;
-		if ( this.allies.length > 1 ) {
+		let a = undefined;
+		if (this.allies.length > 1) {
 
 			a = [];
-			for( let i = 1; i < this.allies.length; i++ ) {
-				var v = this.allies[i];
-				a.push( v.keep ? v.id : v )
+			for (let i = 1; i < this.allies.length; i++) {
+				const v = this.allies[i];
+				a.push(v.keep ? v.id : v)
 			}
 
 		}
 
 		return {
 			enemies: this._enemies,
-			allies:a
+			allies: a
 		}
 
 	}
@@ -48,14 +50,14 @@ export default class Combat {
 	 * Whether combat is active.
 	 * @property {boolean} active
 	 */
-	get active() { return this._active;}
-	set active(v) {this._active=v}
+	get active() { return this._active; }
+	set active(v) { this._active = v }
 
 	/**
 	 * @property {Npc[]} enemies - enemies in the combat.
 	 */
 	get enemies() { return this._enemies; }
-	set enemies(v) {this._enemies = v;}
+	set enemies(v) { this._enemies = v; }
 
 	/**
 	 * @property {Char[]} allies - player & allies. allies[0] is always the player.
@@ -71,14 +73,14 @@ export default class Combat {
 	/**
 	 * @property {Char[][]} teams - maps team id to team list.
 	 */
-	get teams(){ return this._teams; }
+	get teams() { return this._teams; }
 
-	constructor( vars=null ) {
+	constructor(vars = null) {
 
 		if (vars) assign(this, vars);
 
 		if (!this.enemies) this.enemies = [];
-		if ( !this.allies) this.allies = [];
+		if (!this.allies) this.allies = [];
 		this.active = false;
 
 		this._teams = [];
@@ -97,95 +99,114 @@ export default class Combat {
 
 		let it;
 
-		for( let i = this._enemies.length-1; i>=0; i-- ) {
+		for (let i = this._enemies.length - 1; i >= 0; i--) {
 
 			// data can be null both before and after itemRevive()
 			it = this._enemies[i];
-			if ( it ) {
-				it = this._enemies[i] = itemRevive( gs, it );
+			if (it) {
+				it = this._enemies[i] = itemRevive(gs, it);
 			}
-			if ( !it || !(it instanceof Npc) ) {
-				this._enemies.splice(i,1);
+			if (!it || !(it instanceof Npc)) {
+				this._enemies.splice(i, 1);
 			}
 
 
 		}
 
-		for( let i = this._allies.length-1; i>=0; i-- ) {
+		for (let i = this._allies.length - 1; i >= 0; i--) {
 
 			it = this._allies[i];
-			if ( typeof it === 'string' ) this._allies[i] = gs.minions.find( it );
-			else if ( it && typeof it === 'object' && !(it instanceof Npc)) {
+			if (typeof it === 'string') this._allies[i] = gs.minions.find(it);
+			else if (it && typeof it === 'object' && !(it instanceof Npc)) {
 				console.log('NEW ALLY');
-				this._allies[i] = itemRevive( gs, it );
+				this._allies[i] = itemRevive(gs, it);
 			}
 
-			if ( !this._allies[i] ) this._allies.splice(i,1);
+			if (!this._allies[i]) this._allies.splice(i, 1);
 
 		}
 
-		this._allies.unshift( this.player );
+		this._allies.unshift(this.player);
 		this.enemies = [...this.enemies];
 
 		this.resetTeamArrays();
 
-		Events.add( ITEM_ACTION, this.itemAction, this );
-		Events.add( CHAR_ACTION, this.spellAction, this );
-		Events.add( DOT_ACTION, this.dotAction, this );
-		Events.add( CHAR_DIED, this.charDied, this );
+		Events.add(ITEM_ACTION, this.itemAction, this);
+		Events.add(CHAR_ACTION, this.spellAction, this);
+		Events.add(DOT_ACTION, this.dotAction, this);
+		Events.add(DOT_EXPIREACTION, this.dotExpireAction, this);
+		Events.add(CHAR_DIED, this.charDied, this);
 
+	}
+
+	begin() {
+		for(let enemy of this.enemies) {
+			if(enemy.begin instanceof Function) enemy.begin();
+		}
 	}
 
 	update(dt) {
 
-		if ( this.player.alive === false ) return;
+		if (this.player.alive === false) return;
 
-		var e, action;
-		for( let i = this._allies.length-1; i >= 0; i-- ) {
+		let e, action;
+		for (let i = this._allies.length - 1; i >= 0; i--) {
 
-			e = this._allies[i];
+			const e = this._allies[i];
 
-			if ( i > 0 ) {
+			if (i > 0) {
 				// non-player allies.
-				if ( e.alive === false ) {
-
-					/** @todo messy minion removal. */
-					e.hp -= dt;
-					if ( e.hp < -5 ) {
-						this._allies.splice(i,1);
-					}
+				if (e.alive === false) {
+					e.deathThroes();
+					this._allies.splice(i, 1);
 					continue;
-
 				}
+				
 				e.update(dt);
+
+				if ( e.alive === false ) {
+					e.deathThroes();
+					this._allies.splice(i,1);
+					continue;
+				}
 			}
 
 			action = e.combat(dt);
-			if ( !action ) continue;
+			if (!action) continue;
 
-			else if ( !action.canAttack() ) {
-				Events.emit( STATE_BLOCK, e, action );
-			} else this.attack( e, action );
+			else if (!action.canAttack()) {
+				Events.emit(STATE_BLOCK, e, action);
+			} else this.attack(e, action);
 
 		}
 
-		for( let i = this._enemies.length-1; i >= 0; i-- ) {
+		for (let i = this._enemies.length - 1; i >= 0; i--) {
 
 			e = this._enemies[i];
-			e.update(dt);
-
+			// Checked before, because the enemy could've died from an attack, and update could cause it to heal after dying.
 			if ( e.alive === false ) {
+				e.deathThroes();
 				this._enemies.splice(i,1);
 				if ( this._enemies.length === 0 ) Events.emit( COMBAT_WON );
 				continue;
 			}
 
-			action = e.combat(dt);
-			if ( !action ) continue;
+			e.update(dt);
 
-			else if ( !action.canAttack() ){
-				Events.emit( STATE_BLOCK, e, action );
-			} else this.attack( e, action );
+			// Checked after, to see if it died after updates, possibly due to dots.
+			if (e.alive === false) {
+				e.deathThroes();
+				this._enemies.splice(i, 1);
+				if (this._enemies.length === 0) Events.emit(COMBAT_WON);
+				continue;
+			}
+
+			action = e.combat(dt);
+			if (!action) continue;
+
+			else if (!action.canAttack()) {
+				Events.emit(STATE_BLOCK, e, action);
+			} else this.attack(e, action);
 
 		}
 
@@ -197,39 +218,38 @@ export default class Combat {
 	 * @param {Item} it
 	 * @param {Context} g
 	 */
-	spellAction( it, g ) {
+	spellAction(it, g) {
 		//first we check if the action has any caststoppers - aka conditions that would prevent it. If it does, we check if we have any of those conditions, and if we have even 1, gg.
 		let a
-		if(it.caststoppers) { 
-			for (let b of it.caststoppers)
-				{
-					a = g.self.getCause(b);
-					if(a) break;
-				}
+		if (it.caststoppers) {
+			for (let b of it.caststoppers) {
+				a = g.self.getCause(b);
+				if (a) break;
 			}
-		if ( a ) {
-			Events.emit( STATE_BLOCK, g.self, a );
+		}
+		if (a) {
+			Events.emit(STATE_BLOCK, g.self, a);
 
 		} else {
 
 			//Events.emit(EVT_COMBAT, null, g.self.name + ' casts ' + it.name + ' at the darkness.' );
 			//This capitalizes all the spells in the combat log.
-			Events.emit(EVT_COMBAT, g.self.name.toTitleCase() + ' Casts ' + it.name.toTitleCase() );
-			if ( it.attack ) {
-				this.attack( g.self, it.attack );
+			Events.emit(EVT_COMBAT, g.self.name.toTitleCase() + ' Casts ' + it.name.toTitleCase());
+			if (it.attack) {
+				this.attack(g.self, it.attack);
 			}
-			if ( it.action ) {
-				
-				console.log('ACTION: ' + it.action );
-				let target = this.getTarget( g.self, it.action.targets );
+			if (it.action) {
 
-				if (!target ) return;
-				if ( Array.isArray(target)) {
+				console.log('ACTION: ' + it.action);
+				let target = this.getTarget(g.self, it.action.targets, it.action.targetspec);
 
-					for( let i = target.length-1; i>= 0; i-- ) ApplyAction( target[i], it.action, g.self );
+				if (!target) return;
+				if (Array.isArray(target)) {
+
+					for (let i = target.length - 1; i >= 0; i--) ApplyAction(target[i], it.action, g.self);
 
 				} else {
-					ApplyAction( target, it.action, g.self );
+					ApplyAction(target, it.action, g.self);
 				}
 
 
@@ -242,82 +262,92 @@ export default class Combat {
 	 * @param {Item} it
 	 * @param {Context} g
 	 */
-	itemAction( it, g ) {
+	itemAction(it, g) {
 
-	
-			Events.emit(EVT_COMBAT, null, g.self.name + ' Uses ' + it.name.toTitleCase() );
-			if ( it.use.attack ) {
-				this.attack( g.self, it.use.attack );
-				
+
+		Events.emit(EVT_COMBAT, null, g.self.name + ' Uses ' + it.name.toTitleCase());
+		if (it.use.attack) {
+			this.attack(g.self, it.use.attack);
+
+		}
+		if (it.use.action) {
+
+			console.log('ACTION: ' + it.use.action);
+			let target = this.getTarget(g.self, it.use.action.targets, it.use.action.targetspec);
+
+			if (!target) return;
+			if (Array.isArray(target)) {
+
+				for (let i = target.length - 1; i >= 0; i--) ApplyAction(target[i], it.use.action, g.self);
+
+			} else {
+				ApplyAction(target, it.use.action, g.self);
 			}
-			if ( it.use.action ) {
-				
-				console.log('ACTION: ' + it.use.action );
-				let target = this.getTarget( g.self, it.use.action.targets );
-
-				if (!target ) return;
-				if ( Array.isArray(target)) {
-
-					for( let i = target.length-1; i>= 0; i-- ) ApplyAction( target[i], it.use.action, g.self );
-
-				} else {
-					ApplyAction( target, it.use.action, g.self );
-				}
 
 
-			}
-		
+		}
+
 
 	}
 	//for use by dots
-	dotAction( it, g ) {
-		
-		if ( it.attack ) {
-			this.attack( g.self, it.getAttack() );
+	dotAction(it, g) {
+
+		if (it.attack) {
+			this.attack(g.self, it.getAttack());
 		}
-		if ( it.action ) {
-			
-			console.log('ACTION: ' + it.action );
-			let target = this.getTarget( g.self, it.action.targets );
+		if (it.action) {
 
-			if (!target ) return;
-			if ( Array.isArray(target)) {
+			console.log('ACTION: ' + it.action);
+			let target = this.getTarget(g.self, it.action.targets, it.action.targetspec);
 
-				for( let i = target.length-1; i>= 0; i-- ) ApplyAction( target[i], it.action, g.self );
+			if (!target) return;
+			if (Array.isArray(target)) {
+
+				for (let i = target.length - 1; i >= 0; i--) ApplyAction(target[i], it.action, g.self);
 
 			} else {
-				ApplyAction( target, it.action, g.self );
+				ApplyAction(target, it.action, g.self);
 			}
 		}
 
+	}
+	dotExpireAction(it, g) {
+		this.attack(g.self, it);
 	}
 	/**
 	 * Attack a target.
 	 * @param {Char} attacker - enemy attacking.
 	 * @param {Object|Char} atk - attack object.
 	 */
-	attack( attacker, atk ) {
-		if ( atk.log ) {
-			Events.emit( EVT_COMBAT, null, atk.log );
+	attack(attacker, atk) {
+		if (atk.log) {
+			Events.emit(EVT_COMBAT, null, atk.log);
 		}
 
-		if ( atk.hits ) {
-			
-			for( let p in atk.hits ) {
-				this.attack( attacker, atk.hits[p] );
+		if (atk.hits) {
+
+			for (let p in atk.hits) {
+				this.attack(attacker, atk.hits[p]);
 			}
 		}
 
-		let targ = this.getTarget( attacker, atk.targets );
-		if ( !targ) return;
+		let targ = this.getTarget(attacker, atk.targets, atk.targetspec);
+		if (!targ) return;
+		for (let a = 0; a < (atk.repeathits || 1); a++) {
+			if (Array.isArray(targ)) {
 
-		if ( Array.isArray(targ)) {
+				for (let i = targ.length - 1; i >= 0; i--) {
+					if (!atk.only || canTarget(atk.only, targ[i])) {
+						this.doAttack(attacker, atk, targ[i]);
+					}
+				}
 
-			for( let i = targ.length-1; i>= 0; i-- ) {
-				this.doAttack( attacker, atk, targ[i]);
+			} else {
+				if (!atk.only || canTarget(atk.only, targ)) {
+					this.doAttack(attacker, atk, targ);
+				}
 			}
-
-		} else this.doAttack( attacker, atk, targ );
+		}
 
 	}
 
@@ -327,10 +357,10 @@ export default class Combat {
 	 * @param {Attack} atk
 	 * @param {Char} targ
 	 */
-	doAttack( attacker, atk, targ ) {
+	doAttack(attacker, atk, targ) {
 
-		if (!targ || !targ.alive ) return;
-
+		if (!targ || !targ.alive) return;
+		// attack automatically hits if it's harmless, target is defenseless OR in defensive stance AND dodge roll fails.
 		if ( atk.harmless || !targ.canDefend() || this.tryHit( attacker, targ, atk ) ) {
 			ApplyAction( targ, atk, attacker );
 			
@@ -343,42 +373,106 @@ export default class Combat {
 	 * @param {string} targets
 	 * @returns {Char|Char[]|null}
 	 */
-	getTarget( char, targets ) {
+	getTarget(char, targets, targetspec = null) {
 		// retarget based on state.
 		targets = char.retarget(targets);
-		
-		var group = this.getGroup( targets, char.team );
-		if ( !this.active ) {
 
-			if ( group === this.enemies ) return null;
-			if ( group === this.teams[TEAM_ALL] ) return this.allies;
-		}
+		const group = this.getGroup(targets, char.team);
 
-		if ( targets & TARGET_GROUP ) {
-			if(targets & TARGET_NONPRIMARY)
-			{	
-				let trimgroup = Array.from(group)
-				if ( group !== this.teams[TEAM_ALL] ){ //if not ALL, we just lop off however many we need to remove the first alive element.
-					trimgroup.splice(0, PrimeInd(group)+1)
-				} else { //If all, first we chop off the enemy part of ALL which starts after this.allies.length, THEN we chop off the allies.
-					trimgroup.splice(this.allies.length, PrimeInd(this.enemies)+1)
-					trimgroup.splice(0, PrimeInd(group)+1)
+		let filtergroup = Array.from(group)
+		// Get id for ally leader (relative to attacker)
+		let allylead = this.allies[PrimeInd(this.allies)].id
+
+		if (!this.active) {
+
+			if (group === this.enemies) return null;
+			if (group === this.teams[TEAM_ALL]) {
+				filtergroup = Array.from(this.allies)
+
+				if (targets & TARGET_PRIMARY) {
+					filtergroup.splice(1);
+					return filtergroup;
 				}
-				
-				return trimgroup;
-			}
-			else return group;
-		}
-		
-		if ( !targets || (targets & TARGET_RAND && !(targets & TARGET_GROUP))) {
-			let ignoretaunt = false;
-			let only_nonprimary = false;
-			if (!(targets & TARGET_ENEMY)) ignoretaunt = true;
-			if ( targets & TARGET_NONPRIMARY) only_nonprimary = true;
-			return RandTarget(group,only_nonprimary,ignoretaunt);
-		} else if ( targets & TARGET_SELF ) return char;
 
-		if ( targets & TARGET_PRIMARY) return PrimeTarget(group);
+				if (targets & TARGET_NONPRIMARY) {
+					filtergroup.splice(filtergroup.map(e => e.id).indexOf(allylead), 1)
+				}
+
+				if (targets & TARGET_NOTSELF) {
+					let attackerIndex = filtergroup.map(e => e.id).indexOf(char.id)
+					if (attackerIndex > -1) {
+						filtergroup.splice(attackerIndex, 1)
+					}
+				}
+
+				return filtergroup
+			}
+		}
+		let enemylead = undefined
+		if (this.enemies[PrimeInd(this.enemies)]) {
+			enemylead = this.enemies[PrimeInd(this.enemies)].id
+		}
+
+		if (targets & TARGET_GROUP) {
+
+			// Handling for "group" + "primary" + "any" condition aka "bothleaders"
+			if ((targets & TARGET_PRIMARY) && (group === this.teams[TEAM_ALL])) {
+				filtergroup = [this.allies[0], this.enemies[0]];
+				return filtergroup;
+			}
+
+			if (targets & TARGET_NONPRIMARY) {
+				if (group !== this.teams[TEAM_ALL]) {
+					filtergroup = filtergroup.slice()
+					filtergroup.splice(0, PrimeInd(group) + 1)
+				} else {
+					filtergroup.splice(filtergroup.map(e => e.id).indexOf(allylead), 1)
+					filtergroup.splice(filtergroup.map(e => e.id).indexOf(enemylead), 1)
+				}
+			}
+
+			if (targets & TARGET_NOTSELF) {
+				let attackerIndex = filtergroup.map(e => e.id).indexOf(char.id)
+				if (attackerIndex > -1) {
+					filtergroup.splice(attackerIndex, 1)
+				}
+			}
+			return filtergroup;
+		}
+
+		if (!targets || (targets & TARGET_RAND && !(targets & TARGET_GROUP))) {
+			let ignoretaunt = false;
+
+			if (targets && !(targets & TARGET_ENEMY)) ignoretaunt = true;
+			if (targets & TARGET_NONPRIMARY) {
+				let allyleadIdx = filtergroup.map(e => e.id).indexOf(allylead)
+				if (allyleadIdx > -1) {
+					filtergroup.splice(allyleadIdx, 1)
+				}
+
+				let enemyleadIdx = filtergroup.map(e => e.id).indexOf(enemylead)
+				if (enemyleadIdx > -1) {
+					filtergroup.splice(enemyleadIdx, 1)
+				}
+
+			}
+
+			if (targets & TARGET_NOTSELF) {
+				let attackerIndex = filtergroup.map(e => e.id).indexOf(char.id)
+				if (attackerIndex > -1) {
+					filtergroup.splice(attackerIndex, 1)
+				}
+			}
+
+			// Handling for "random primary" condition aka "randomleader"
+			if (targets & TARGET_PRIMARY) {
+				filtergroup = [this.allies[0], this.enemies[0]];
+			}
+
+			return RandTarget(filtergroup, ignoretaunt, targetspec);
+		} else if (targets & TARGET_SELF) return char;
+
+		if (targets & TARGET_PRIMARY) return PrimeTarget(group);
 
 	}
 
@@ -388,17 +482,17 @@ export default class Combat {
 	 * @param {number} targets
 	 * @param {number} team - ally team.
 	 */
-	getGroup( targets, team ) {
-		
-		if ( !targets || (targets & TARGET_ENEMY) ) {
+	getGroup(targets, team) {
+
+		if (!targets || (targets & TARGET_ENEMY)) {
 
 			return team === TEAM_PLAYER ? this.enemies : this.allies;
 
-		} else if ( targets & (TARGET_ALLY+TARGET_SELF) ) {
+		} else if (targets & (TARGET_ALLY + TARGET_SELF)) {
 			return this.teams[team];
 
-		} else if ( targets & TARGET_ANY ) return this.teams[TEAM_ALL];
-		else if ( targets & TARGET_RAND ) {
+		} else if (targets & TARGET_ANY) return this.teams[TEAM_ALL];
+		else if (targets & TARGET_RAND) {
 			return Math.random() < 0.5 ? this.allies : this.enemies;
 		}
 		return null;
@@ -445,14 +539,14 @@ export default class Combat {
 	 *
 	 * @param {Npc[]} enemies
 	 */
-	setEnemies( enemies ) {
+	setEnemies(enemies) {
 
-		this.enemies.push.apply( this.enemies, enemies );
+		this.enemies.push.apply(this.enemies, enemies);
 		//	this.enemies.push.apply( this.enemies, enemies );
 
-		if ( enemies.length>0 ){
+		if (enemies.length > 0) {
 
-			if ( enemies[0] ) Events.emit( EVT_COMBAT, enemies[0].name.toTitleCase() + ' Encountered' );
+			if (enemies[0]) Events.emit(EVT_COMBAT, enemies[0].name.toTitleCase() + ' Encountered');
 			else console.warn('No valid enemy');
 
 		}
@@ -466,12 +560,12 @@ export default class Combat {
 	 * Add Npc to combat
 	 * @param {Npc} it
 	 */
-	addNpc( it ){
+	addNpc(it) {
 
-		it.timer = getDelay( it.speed );
+		it.timer = getDelay(it.speed);
 
-		if ( it.team === TEAM_PLAYER ) {
-			this._allies.push( it)
+		if (it.team === TEAM_PLAYER) {
+			this._allies.push(it)
 		} else this._enemies.push(it);
 
 		this.teams[TEAM_ALL].push(it);
@@ -493,10 +587,10 @@ export default class Combat {
 
 		this.allies = this.state.minions.allies.toArray();
 		let comp = this.state.getSlot(COMPANION)
-		if(comp){
-			if ( comp.onCreate ) comp.onCreate( game, TEAM_PLAYER, false)
+		if (comp) {
+			if (comp.onCreate) comp.onCreate(game, TEAM_PLAYER, false)
 		}
-		this.allies.unshift( this.player );
+		this.allies.unshift(this.player);
 		this.resetTeamArrays();
 
 	}
@@ -518,25 +612,26 @@ export default class Combat {
 	 */
 	setTimers() {
 
-		let minDelay = this.player.timer = getDelay( this.player.speed );
+		let minDelay = getDelay(this.player.speed);
 
-		var t;
-		for( let i = this.enemies.length-1; i >= 0; i-- ) {
-			t = this.enemies[i].timer = getDelay( this.enemies[i].speed );
-			if ( t < minDelay ) minDelay = t;
+		let t;
+		for (let i = this.enemies.length - 1; i >= 0; i--) {
+			t = this.enemies[i].timer = getDelay(this.enemies[i].speed);
+			if (t < minDelay) minDelay = t;
 		}
-		for( let i = this.allies.length-1; i >= 0; i-- ) {
-			t = this.allies[i].timer = getDelay( this.allies[i].speed );
-			if ( t < minDelay ) minDelay = t;
+		for (let i = this.allies.length - 1; i >= 1; i--) { // >= 1 excludes player from this consideration. Let the player keep their delay, if any.
+			t = this.allies[i].timer = getDelay(this.allies[i].speed);
+			if (t < minDelay) minDelay = t;
 		}
 
-		// +1 initial encounter delay.
+
+		// +1 initial encounter delay. Excludes player.
 		minDelay -= 1;
 
-		for( let i = this.enemies.length-1; i >= 0; i-- ) {
+		for (let i = this.enemies.length - 1; i >= 0; i--) {
 			this.enemies[i].timer -= minDelay;
 		}
-		for( let i = this.allies.length-1; i >= 0; i-- ) {
+		for (let i = this.allies.length - 1; i >= 1; i--) {
 			this.allies[i].timer -= minDelay;
 		}
 
@@ -561,37 +656,30 @@ export default class Combat {
 
 	}
 
-	charDied( char, attacker ) {
+	charDied(char, attacker) {
 
-		if ( char === this.player ) return;
-		else if ( char.team === TEAM_PLAYER ) {
+		if (char === this.player) return;
+		else if (char.team === TEAM_PLAYER) {
 
-			Events.emit( ALLY_DIED, char );
+			Events.emit(ALLY_DIED, char);
 
-		} else Events.emit( ENEMY_SLAIN, char, attacker );
+		} else Events.emit(ENEMY_SLAIN, char, attacker);
 
 	}
 
-	getMonsters(id,team)
-	{
+	getMonsters(id, team) {
 		let monsters = []
-		if ( team === TEAM_PLAYER ) {
-			for (let i =0;i<this._allies.length;i++)
-			{
-				if(this._allies[i].template)
-				{
-					if(this._allies[i]?.template.id == id && this._allies[i].alive == true)
-					{
+		if (team === TEAM_PLAYER) {
+			for (let i = 0; i < this._allies.length; i++) {
+				if (this._allies[i].template) {
+					if (this._allies[i]?.template.id == id && this._allies[i].alive == true) {
 						monsters.push(this._allies[i])
 					}
 				}
 			}
-		} else 
-		{
-			for (let i =0;i<this._enemies.length;i++)
-			{
-				if(this._enemies[i]?.template.id == id && this._enemies[i].alive == true)
-				{
+		} else {
+			for (let i = 0; i < this._enemies.length; i++) {
+				if (this._enemies[i]?.template.id == id && this._enemies[i].alive == true) {
 					monsters.push(this._enemies[i])
 				}
 			}

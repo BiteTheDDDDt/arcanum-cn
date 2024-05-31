@@ -11,26 +11,27 @@ export const RangeTest = /^\-?\d+\.?\d*\~\-?\d+\.?\d*$/i;
  * @param {*} source
  * @param {*} recur
  */
-export const InitRVals = ( obj=this, source, recur=new Set() ) => {
+export const InitRVals = ( obj=this, source=obj, recur=new Set(), force=false ) => {
 
 		recur.add(obj);
 
-		for( let p in obj ) {
+		for( const p in obj ) {
 
-			var s = obj[p];
+			const s = obj[p];
 			if ( s === null || s=== undefined ) continue;
 			if ( Array.isArray(s) ) {
 
 				for( let i = s.length-1; i>= 0; i-- ) {
-					var t = s[i];
-					if ( typeof t === 'object' && !recur.has(t)) InitRVals( t, source, recur);
+					const t = s[i];
+					if ( typeof t === 'object' && !recur.has(t)) InitRVals( t, source, recur, force );
 				}
 
 			} else if ( typeof s === 'object' && !recur.has(s)) {
 
-				if ( s instanceof RValue  && !s.source ) {
-					s.source = source;
-				} else InitRVals( s, source, recur );
+				if ( s instanceof RValue ) {
+					if ( !s.source || force ) s.source = source;
+					else if ( s.source !== source ) console.warn("Mismatching source while setting initiating RValues", source, s.source);
+				} else InitRVals( s, source, recur, force );
 
 			}
 
@@ -66,9 +67,12 @@ export default class RValue {
 	 * @property {object} source - object that defined the value,
 	 * and may affect how the RValue is counted.
 	 */
-	get source(){return this._source;}
+	get source(){
+		return this._source instanceof WeakRef ? this._source.deref() : this._source;
+	}
 	set source(v) {
-		this._source = v;
+		// Saved as a WeakRef to prevent circular reference. There should never be a case where this WeakRef refers to something that has been garbage collected.
+		this._source = v != null && v instanceof Object ? new WeakRef(v) : v ;
 		//if ( !v ) this._source = null;
 		//else this._source = v instanceof RValue ? v : v.value;
 	}

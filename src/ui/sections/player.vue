@@ -144,11 +144,14 @@ export default {
 			<tr><td>Stamina</td><th>
 			{{ floor( stamina.valueOf() ) }} / {{ floor(stamina.max.value )}}</th></tr>
 
-			<tr><td>Defense</td><th>{{ defense }}</th></tr>
-			<tr><td>Dodge</td><th>{{ dodge }}</th></tr>
+			<tr>
+			<td>Defense</td><th>{{ defense }} </th> </tr>
+			<tr>
+			<td>Dodge</td><th>{{ dodge }} </th> </tr>
 			<tr><td>Luck</td><th>{{ luck }}</th></tr>
 			<tr><td>Damage Bonus</td><th>{{ damage }}</th></tr>
-			<tr><td>Hit Bonus</td><th>{{ precise( tohit ) }}</th></tr>
+			<tr>
+			<td>Hit Bonus</td><th>{{ precise( tohit ) }} </th> </tr>
 
 			<tr @mouseenter.capture.stop="itemOver( $event,null,null,null,delay)">
 				<td>Speed</td><th>{{ speed }} </th> </tr>
@@ -172,7 +175,7 @@ export default {
 		<table class="bonuses">
 			<tr><th>Bonus Damage</th></tr>
 			<tr v-for="(r,k) in player.bonuses" :key="k">
-				<td v-if="r.valueOf()!==0">{{ k.toString().toTitleCase() }}: {{ r.valueOf() }}</td>
+				<td v-if="r.valueOf()!==0">{{ k.toString().toTitleCase() }}: {{ precise(r.valueOf())  }}</td>
 			</tr>
 		</table>
 		</div>

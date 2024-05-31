@@ -1,4 +1,3 @@
-import game from "../game";
 import SpawnGroup from "./spawngroup";
 import { SpawnParams } from "./spawnparams";
 
@@ -33,7 +32,7 @@ export default class Spawns {
 	 */
 	get weightTot(){ 
 		return this.groups.reduce((sum, spawn) => {
-			let amt = +(spawn.w instanceof Function ? spawn.w(game) : spawn.w);
+			let amt = +spawn.w;
 			if(isNaN(amt)) {
 				console.warn("isNaN weight", spawn, spawn.w);
 				return sum;
@@ -71,7 +70,7 @@ export default class Spawns {
 			for( i = 0; i < len; i++ ) {
 
 				weight = groups[i].w;
-				tot += weight instanceof Function ? (weight = weight(game)) : weight;
+				tot +=  weight;
 
 				if( p <= tot ) break;
 
@@ -103,7 +102,7 @@ export default class Spawns {
 
 		for( let i = list.length-1; i>= 0; i-- ) {
 
-			var g = list[i];
+			let g = list[i];
 
 			if ( !(g instanceof SpawnGroup)) g = list[i] = new SpawnGroup(g);
 

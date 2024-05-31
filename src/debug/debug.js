@@ -64,14 +64,14 @@ export default class Debug {
 
 		if ( type ) {
 
-			var list = this.state[type];
+			const list = this.state[type];
 			if ( !list) return 'no such list';
 			return list.map(v=>v.id).join(', ');
 
 		} else {
 
-			let a = [];
-			for( let p in this.items ) a.push(p);
+			const a = [];
+			for( const p in this.items ) a.push(p);
 			return a.join(', ');
 
 		}
@@ -139,10 +139,10 @@ export default class Debug {
 
 	fillall(){
 
-		let res = this.resources;
-		for( let p in res ){
+		const res = this.resources;
+		for( const p in res ){
 
-			var r = res[p];
+			const r = res[p];
 			if ( !r.locked ){
 				this.game.fillItem( r )
 			}
@@ -165,10 +165,10 @@ export default class Debug {
 
 	getall( amt ) {
 
-		let res = this.resources;
-		for( let p in res ){
+		const res = this.resources;
+		for( const p in res ){
 
-			var r = res[p];
+			const r = res[p];
 			if ( !r.locked && r instanceof Resource ){
 				this.get(r.id, amt );
 			}

@@ -1,5 +1,5 @@
 import { quickSplice } from "../util/array";
-import { TARGET_ALLIES, TARGET_ENEMIES, TARGET_ENEMY, TARGET_ALLY, TARGET_SELF, TARGET_RAND, TARGET_RANDG, TARGET_LEADER, TARGET_PRIMARY, TARGET_MINIONS, TARGET_FLUNKIES, TARGET_RAND_ENEMY, TARGET_RAND_ALLY, TARGET_MINION, TARGET_FLUNKY, TARGET_RANDNP } from "../values/combatVars";
+import { TARGET_ALLIES, TARGET_ENEMIES, TARGET_ENEMY, TARGET_ALLY, TARGET_SELF, TARGET_RAND, TARGET_RANDG, TARGET_LEADER,TARGET_ENEMYLEADER, TARGET_PRIMARY, TARGET_MINIONS, TARGET_FLUNKIES, TARGET_RAND_ENEMY, TARGET_RAND_ALLY, TARGET_MINION, TARGET_FLUNKY, TARGET_RANDNP, TARGET_RANDNPG, TARGET_OTHERMINION, TARGET_OTHERMINIONS } from "../values/combatVars";
 
 
 export const NO_ATTACK = 1;
@@ -10,6 +10,8 @@ export const CHARMED = 16;
 export const TAUNT = 32;
 export const HIDE = 64;
 export const DEFENSIVE = 128;
+export const NO_ONEXPIRE = 256;
+export const NO_ONDEATH = 512;
 
 export const NO_ACT = NO_ATTACK + NO_DEFEND + NO_SPELLS;
 export const IMMOBILE = NO_ATTACK + 32;
@@ -22,7 +24,7 @@ export const ParseFlags = (list)=>{
 
 	for( let i = list.length-1; i >= 0; i-- ) {
 
-		var v = list[i];
+		const v = list[i];
 		if ( v === 'noact') f |= NO_ACT;
 		else if ( v === 'noattack') f |= NO_ATTACK;
 		else if ( v === 'nodefend' ) f |= NO_DEFEND;
@@ -32,6 +34,8 @@ export const ParseFlags = (list)=>{
 		else if ( v === 'taunt') f |= TAUNT;
 		else if ( v === 'hiding') f |= HIDE;
 		else if ( v === 'defensive') f |= DEFENSIVE;
+		else if ( v === 'noonexpire') f |= NO_ONEXPIRE;
+		else if ( v === 'noondeath') f |= NO_ONDEATH;
 
 	}
 	return f;
@@ -45,13 +49,16 @@ const ConfuseTargets = {
 	[TARGET_RAND_ENEMY]:TARGET_RAND,
 	[TARGET_RAND_ALLY]:TARGET_RAND,
 	[TARGET_LEADER]:TARGET_RAND,
+	[TARGET_ENEMYLEADER]:TARGET_RAND,
 	[TARGET_PRIMARY]:TARGET_RAND,
 	[TARGET_ALLY]:TARGET_RAND,
-	[TARGET_SELF]:TARGET_RAND,
 	[TARGET_MINIONS]:TARGET_RANDG,
 	[TARGET_FLUNKIES]:TARGET_RANDG,
 	[TARGET_MINION]:TARGET_RANDNP,
-	[TARGET_FLUNKY]:TARGET_RANDNP
+	[TARGET_FLUNKY]:TARGET_RANDNP,
+	[TARGET_OTHERMINION]:TARGET_RANDNP,
+	[TARGET_OTHERMINIONS]:TARGET_RANDNPG
+
 }
 const CharmTargets = {
 	[TARGET_ALLIES]:TARGET_ENEMIES,
@@ -59,13 +66,16 @@ const CharmTargets = {
 	[TARGET_ENEMY]:TARGET_ALLY,
 	[TARGET_RAND_ENEMY]:TARGET_RAND_ALLY,
 	[TARGET_RAND_ALLY]:TARGET_RAND_ENEMY,
-	[TARGET_LEADER]:TARGET_PRIMARY,
+	[TARGET_LEADER]:TARGET_ENEMYLEADER,
+	[TARGET_ENEMYLEADER]:TARGET_LEADER,
 	[TARGET_PRIMARY]:TARGET_LEADER,
 	[TARGET_ALLY]:TARGET_ENEMY,
 	[TARGET_MINIONS]:TARGET_FLUNKIES,
 	[TARGET_FLUNKIES]:TARGET_MINIONS,
 	[TARGET_MINION]:TARGET_FLUNKY,
-	[TARGET_FLUNKY]:TARGET_MINION
+	[TARGET_FLUNKY]:TARGET_MINION,
+	[TARGET_OTHERMINION]:TARGET_FLUNKY,
+	[TARGET_OTHERMINIONS]:TARGET_FLUNKIES
 };
 
 /**
@@ -106,7 +116,7 @@ export default class States {
 	 */
 	has( flag ) {
 
-		var a = this._causes[flag];
+		const a = this._causes[flag];
 		return a && a.length > 0;
 
 	}
@@ -127,12 +137,12 @@ export default class States {
 		if ( (this.flags & CONFUSED) > 0 ) {
 
 			if ( !targ ) return TARGET_RAND;
-			return ConfuseTargets[targ];
+			if(ConfuseTargets[targ]) return ConfuseTargets[targ];
 
 		} else if ( (this.flags & CHARMED) > 0) {
 
 			if ( !targ ) return TARGET_ALLY;
-			return CharmTargets[targ];
+			if(CharmTargets[targ]) return CharmTargets[targ];
 
 		}
 		return targ;
@@ -222,13 +232,13 @@ export default class States {
 	refresh( dots ) {
 
 		this._flags = 0;
-		for( let p in this._causes ) {
+		for( const p in this._causes ) {
 			this._causes[p] = null;
 		}
 
 		for( let i = dots.length-1; i >= 0; i-- ) {
 
-			var d = dots[i];
+			const d = dots[i];
 			if ( d.flags ) {
 				this.add( d );
 			}

@@ -32,7 +32,8 @@ export default class Inventory {
 				( this.saveMode === SAVE_IDS || !this.saveMap ) ? this.items.map(v=>v.id ) :
 				this.items.map( this.saveMap, this )
 			),
-			max:(this.max)
+			max:this.max,
+			countProp:this._cProp
 		}
 	}
 
@@ -171,12 +172,12 @@ export default class Inventory {
 	 */
 	revive( gs, reviver ){
 
-		let len = this.items.length;
-		let loads = this.items.splice(0, len );
+		const len = this.items.length;
+		const loads = this.items.splice(0, len );
 
 		for( let i = 0; i < len; i++ ) {
 
-			var it = loads[i];
+			let it = loads[i];
 			if ( reviver ) {
 				it = reviver(gs, it);
 			} else if ( typeof it === 'object' ) {
@@ -325,11 +326,15 @@ export default class Inventory {
 	
 
 	move(it, amt) {
-		return moveElm(this.items, it, amt);
+		let a = moveElm(this.items, it, amt);
+		this.items = a
+		return true;
 	}
 
 	moveInd(ind, amt) {
-		return move(this.items, ind, amt);
+		let a = move(this.items, ind, amt);
+		this.items = a
+		return true;
 	}
 
 
@@ -414,12 +419,12 @@ export default class Inventory {
 	 */
 	calcUsed() {
 
-		let used = 0;
-		let prop = this.spaceProp;
+		const prop = this.spaceProp;
 
+		let used = 0;
 		for( let i = this.items.length-1; i >= 0; i-- ) {
 
-			var it = this.items[i];
+			const it = this.items[i];
 			if ( !it ) console.warn( this.id + ' null Item in Inv: ' + it );
 			else used += prop ? ( it[prop] || 0 ) : 1;
 

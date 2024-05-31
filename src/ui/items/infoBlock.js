@@ -1,7 +1,7 @@
 import { DisplayItem } from "./displayItem";
 import {RollOver} from 'ui/popups/itemPopup.vue';
 
-import { SKILL } from '../../values/consts';
+import { SKILL, UNTAG } from '../../values/consts';
 
 import Game from '../../game';
 
@@ -71,7 +71,14 @@ export const ConvertPath = ( rootPath, prop ) => {
 	} else {
 
 		// no conversion func.
-		prop = DisplayName( prop );
+		if (prop.startsWith(UNTAG)){
+			prop = prop.slice(UNTAG.length);
+			prop = DisplayName( prop );
+			prop = "Existing " + prop;
+		} else {
+			prop = DisplayName( prop );
+		}
+
 		return rootPath ? rootPath + ' ' + prop : prop;
 
 	}
@@ -109,7 +116,7 @@ export class InfoBlock {
 		this.results = {};
 	}
 
-	add( itemName, value, isRate=false, checkType=null, ref=null){
+	add( itemName, value, isRate=false, checkType=null, ref=null, testfunc=null){
 
 		if ( ref && ref.reverseDisplay ) value = -value;
 
@@ -120,13 +127,21 @@ export class InfoBlock {
 			let isAvailable = true;
 
 			if (ref instanceof Object && checkType && ctx === Game) {
-					
+				
 				if (checkType === CheckTypes.NEED && ref.fillsRequire instanceof Function) isAvailable &&= ref.fillsRequire(ctx);
-				if (checkType === CheckTypes.COST && ref.canPay instanceof Function) isAvailable &&= ref.canPay(value);
+				if (checkType === CheckTypes.COST && ref.canPay instanceof Function && !(ref.isRecipe || ref.instanced)) isAvailable &&= ref.canPay(value);
+				if (checkType === CheckTypes.COST && (ref.isRecipe || ref.instanced) ){
+					let CheckObj = {}
+					CheckObj[ref.id] = value
+					isAvailable &&= Game.canPay(CheckObj);
+				} 
 				if (checkType === CheckTypes.FULL && ref.maxed instanceof Function) isAvailable &&= !ref.maxed();
-
+				
 			}
-
+			if (checkType === CheckTypes.NEED && testfunc instanceof Function)
+			{
+				isAvailable &&= testfunc(Game.gdata, null, Game.state);
+			}
 			if(value.toString() != 0) this.results[itemName] = new DisplayItem( itemName, value, isRate, isAvailable );
 
 		} else {

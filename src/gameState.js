@@ -22,36 +22,36 @@ export const REST_SLOT = 'rest';
 /**
  * Used to avoid circular include references.
  * @param {string[]|object} list
+ * @returns {DataList}
  */
-export const MakeDataList = (list)=>{
+export const MakeDataList = (list) => {
 	return new DataList(list);
 }
 
 export default class GameState {
 
-	toJSON(){
+	toJSON() {
 
 		let slotIds = {};
-		for( let p in this.slots ) {
-			if ( this.slots[p] ) slotIds[p] = this.slots[p].id;
+		for (let p in this.slots) {
+			if (this.slots[p]) slotIds[p] = this.slots[p].id;
 		}
 
 		let data = {
 
-			version:__VERSION,
-			pid:this.pid,
-
-			name:this.player.name,
-			items:this.saveItems,
-			bars:this.bars,
-			slots:slotIds,
-			equip:this.equip,
-			combat:this.combat,
-			drops:this.drops,
-			explore:this.explore,
-			sellRate:this.sellRate,
-			currentSpellLoadout:this.currentSpellLoadout,
-			NEXT_ID:this.NEXT_ID
+			version: __VERSION,
+			pid: this.pid,
+			name: this.player.name,
+			items: this.saveItems,
+			bars: this.bars,
+			slots: slotIds,
+			equip: this.equip,
+			combat: this.combat,
+			drops: this.drops,
+			explore: this.explore,
+			sellRate: this.sellRate,
+			currentSpellLoadout: this.currentSpellLoadout,
+			NEXT_ID: this.NEXT_ID
 
 		};
 
@@ -62,14 +62,14 @@ export default class GameState {
 	/**
 	 * @property {string[]} modules - list of modules used.
 	 */
-	get modules(){return this._modules}
-	set modules(v){this._modules = v;}
+	get modules() { return this._modules }
+	set modules(v) { this._modules = v; }
 
 	/**
 	 * Create unique string id.
 	 * @param {string} [s='']
 	 */
-	nextId( s='' ) { return s + '_' + this.nextIdNum(); }
+	nextId(s = '') { return s + '_' + this.nextIdNum(); }
 
 	nextIdNum() { return this.NEXT_ID++; }
 
@@ -77,9 +77,9 @@ export default class GameState {
 	 *
 	 * @param {Object} baseData - base game data.
 	 */
-	constructor( baseData ){
+	constructor(baseData) {
 
-		Object.assign( this, baseData );
+		Object.assign(this, baseData);
 
 		/**
 		 * @property {.<string,GData} saveItems - items actually saved.
@@ -98,12 +98,12 @@ export default class GameState {
 		 */
 		this.NEXT_ID = this.NEXT_ID || 0;
 
-		if ( !this.pid ) {
+		if (!this.pid) {
 
 			/**@ hid compat */
 			this.pid = this.player.hid || TimeId('p');
-			if ( this.player.hid ) console.log('USING LEGACY HID: ' + this.player.hid );
-			else console.log('GENERATING NEW PLAYERID: ' + this.pid );
+			if (this.player.hid) console.log('USING LEGACY HID: ' + this.player.hid);
+			else console.log('GENERATING NEW PLAYERID: ' + this.pid);
 
 		}
 
@@ -112,39 +112,40 @@ export default class GameState {
 		this.bars = new Quickbars(
 
 			baseData.bars ||
-				{ bars:[baseData.quickbar] }
+			{ bars: [baseData.quickbar] }
 		);
 
 		// this.tagSets = baseData.items.tagSets;
 
-		this.inventory = new Inventory( this.items.inv || baseData.inventory || {max:3} );
+		this.inventory = new Inventory(this.items.inv || baseData.inventory || { max: 3, countProp: 'count' });
+		this.inventory.countProp = 'count'
 		this.items.inv = this.inventory;
 		this.inventory.removeDupes = true;
 
 		this.self = this.player;
-		this.drops = new Inventory( baseData.drops );
+		this.drops = new Inventory(baseData.drops);
 
-		this.items[ENCHANTSLOTS] = new EnchantSlots( this.items[ENCHANTSLOTS] );
+		this.items[ENCHANTSLOTS] = new EnchantSlots(this.items[ENCHANTSLOTS]);
 
 		/**
 		 * @property {Minions} minions
 		 */
-		this.items.minions = this.minions = new Minions( baseData.items.minions || null );
+		this.items.minions = this.minions = new Minions(baseData.items.minions || null);
 
-		this.equip = new Equip( baseData.equip );
+		this.equip = new Equip(baseData.equip);
 
 		this.initStats();
 
-		this.combat = new Combat( baseData.combat );
-		this.explore = new Explore( baseData.explore );
+		this.combat = new Combat(baseData.combat);
+		this.explore = new Explore(baseData.explore);
 
-		this.runner = this.items.runner = new Runner( this.items.runner );
+		this.runner = this.items.runner = new Runner(this.items.runner);
 
 		this.prepItems();
 
-		this.userSpells = this.items.userSpells = new UserSpells( this.items.userSpells );
+		this.userSpells = this.items.userSpells = new UserSpells(this.items.userSpells);
 
-		this.items.spelllist = this.spelllist = new DataList( this.items.spelllist );
+		this.items.spelllist = this.spelllist = new DataList(this.items.spelllist);
 		this.spelllist.spaceProp = 'level';
 		this.spelllist.name = this.spelllist.id = 'spelllist';
 
@@ -152,7 +153,7 @@ export default class GameState {
 		 * Support for Spell Loadouts (stored spell lists)
 		 */
 
-		this.items.spellLoadouts = this.spellLoadouts = new SpellLoadouts( this.items.spellLoadouts );
+		this.items.spellLoadouts = this.spellLoadouts = new SpellLoadouts(this.items.spellLoadouts);
 
 		/**
 		 * Ensures we have a current Spell Loadout
@@ -165,16 +166,16 @@ export default class GameState {
 		 * Either way, set the currentSpellLoadout to the 0th list's id.
 		 */
 
-		if ( !this.currentSpellLoadout ){
-			if ( this.items.spellLoadouts.items[0] === undefined ){
-				this.spellLoadouts.create( this, "init", "Default Spell List");
-				
+		if (!this.currentSpellLoadout) {
+			if (this.items.spellLoadouts.items[0] === undefined) {
+				this.spellLoadouts.create(this, "init", "Default Spell List");
+
 				/**
 				 * Then reinstantiate the data properly, because the game refuses
 				 * to initialize this list properly as a Group object within the
 				 * spellLoadouts container when called like this.
 				 */
-				let newid = this.spellLoadouts.items[0].id;
+				const newid = this.spellLoadouts.items[0].id;
 
 				this.spellLoadouts.items[0] = this.findData(newid);
 
@@ -186,7 +187,7 @@ export default class GameState {
 
 		this.items.currentSpellLoadout = this.currentSpellLoadout;
 
-		this.items.pursuits = new DataList( this.items.pursuits );
+		this.items.pursuits = new DataList(this.items.pursuits);
 		this.items.pursuits.id = PURSUITS;
 
 	}
@@ -211,14 +212,20 @@ export default class GameState {
 		 * @todo: messy bug fix. used to place player-specific resources on update-list.
 		 * just move to player update()?
 		 */
-		this.playerStats = this.player.getResources();
+		/*
+		let playerStats = this.player.getResources();
+		if(this.playerStats.length !== playerStats.length && !this.playerStats.filter(it => !playerStats.includes(it)).length) {
+			console.warn("Non-matching player stats", playerStats, this.playerStats);
+			// this.playerStats = playerStats;
+		}
+		*/
 
 		/**
 		 * @property {Object.<string,TagSet>} tagsets - tag to array of items with tag.
 		 * makes upgrading/referencing by tag easier.
 		*/
-		this.tagSets = this.makeTagSets( this.items, this.tagSets.reduce((obj, tagset) => {
-			if(tagset.id) obj[tagset.id] = tagset;
+		this.tagSets = this.makeTagSets(this.items, this.tagSets.reduce((obj, tagset) => {
+			if (tagset.id) obj[tagset.id] = tagset;
 			else console.warn("TAGSET MISSING ID: ", tagset);
 			return obj;
 		}, {}));
@@ -234,10 +241,10 @@ export default class GameState {
 	initStats() {
 
 		/**
- 		* @property {number} sellRate - percent of initial cost
- 		* items sell for.
- 		*/
-		 this.sellRate = this.sellRate || new Stat(0.5, 'sellRate');
+			* @property {number} sellRate - percent of initial cost
+			* items sell for.
+			*/
+		this.sellRate = this.sellRate || new Stat(0.5, 'sellRate');
 
 	}
 
@@ -246,24 +253,24 @@ export default class GameState {
 	 */
 	prepItems() {
 
-		for( let p in this.items ) {
+		for (const p in this.items) {
 
-			var it = this.items[p];
+			const it = this.items[p];
 
-			if ( !it ) {
-				console.warn('prepItems() item undefined: ' + p );
+			if (!it) {
+				console.warn('prepItems() item undefined: ' + p);
 				delete this.items[p];
 				continue;
 			}
 			/**
 			 * special instanced item.
 			 */
-			if ( it.custom === 'group') {
+			if (it.custom === 'group') {
 
 				//console.warn('CUSTOM: ' + it.id + ' name: ' + it.name );
-				this.items[p] = new Group( it );
+				this.items[p] = new Group(it);
 
-			} else if ( it.instanced ) {
+			} else if (it.instanced) {
 
 			}
 
@@ -274,12 +281,12 @@ export default class GameState {
 
 	reviveSpecial() {
 
-		for( let p in this.slots ) {
-			if ( typeof this.slots[p] === 'string') this.slots[p] = this.getData(this.slots[p] );
+		for (let p in this.slots) {
+			if (typeof this.slots[p] === 'string') this.slots[p] = this.getData(this.slots[p]);
 		}
 		this.restAction = this.slots[REST_SLOT];
 
-		this.equip.revive( this );
+		this.equip.revive(this);
 
 		this.player.revive(this);
 
@@ -288,7 +295,7 @@ export default class GameState {
 
 		this.combat.revive(this);
 		this.explore.revive(this);
-		new Set([this.player, ...this.minions.items, ...this.combat.enemies, ...this.combat.allies]).forEach(it => it.reviveDots(this))	
+		new Set([this.player, ...this.minions.items, ...this.combat.enemies, ...this.combat.allies]).forEach(it => it.reviveDots(this))
 	}
 
 	/**
@@ -297,32 +304,32 @@ export default class GameState {
 	 */
 	reviveItems() {
 
-		var manualRevive = new Set( ['minions', 'player', 'explore', 'equip', 'drops'] );
+		const manualRevive = new Set(['minions', 'player', 'explore', 'equip', 'drops']);
 
 		let count = 0;
-		for( let p in this.items ) {
+		for (const p in this.items) {
 
-			var it = this.items[p];
+			const it = this.items[p];
 			/**
 			 * revive() has to be called after prepItems() so custom items are instanced
 			 * and can be referenced.
 			 */
-			if ( it.revive && typeof it.revive === 'function' && !manualRevive.has(p) ) {
+			if (it.revive && typeof it.revive === 'function' && !manualRevive.has(p)) {
 
 				//console.log('REVIVING: ' + it.id );
 				it.revive(this);
 			}
 
-			if ( !it.hasTag ) {
+			if (!it.hasTag) {
 
-				console.warn( p + ': ' + this.items[p].id + ' missing hasTag(). Removing.');
+				console.warn(p + ': ' + this.items[p].id + ' missing hasTag(). Removing.');
 				delete this.items[p];
 
 			} else {
 
 				this.saveItems[p] = it;
 				// need hasTag() func.
-				if ( it.hasTag(HOME)) {
+				if (it.hasTag(HOME)) {
 					it.need = this.homeTest;
 				}
 				count++;
@@ -339,17 +346,17 @@ export default class GameState {
 	 * @param {GData} i - item being tested.
 	 * @param {GameState} gs
 	 */
-	homeTest( g, i, gs ) {
+	homeTest(g, i, gs) {
 
-		var cur = gs.slots.home;
+		const cur = gs.slots.home;
 
-		return g.space.valueOf()<=
-			g.space.max.delValue( i.mod.space.max.bonus - ( cur ? cur.mod.space.max.bonus : 0) );
+		return g.space.valueOf() <=
+			g.space.max.delValue(i.mod.space.max.bonus - (cur ? cur.mod.space.max.bonus : 0));
 
 	}
 
 
-	initSlots(){
+	initSlots() {
 
 		/**
 		 * @property {Object.<string,Item>} slots - slots for items which can only have
@@ -358,8 +365,8 @@ export default class GameState {
 		this.slots = this.slots || {};
 
 		// must be defined for Vue. slots could be missing from save.
-		ensure( this.slots, [HOME, 'mount', 'bed', REST_SLOT, COMPANION ]);
-		if ( !this.slots[REST_SLOT] ) this.slots[REST_SLOT] = this.getData('rest');
+		ensure(this.slots, [HOME, 'mount', 'bed', REST_SLOT, COMPANION]);
+		if (!this.slots[REST_SLOT]) this.slots[REST_SLOT] = this.getData('rest');
 
 	}
 
@@ -368,22 +375,22 @@ export default class GameState {
 	 * @param {.<string,GData>} items
 	 * @returns {Object.<string,GData[]>} lists
 	 */
-	makeTagSets( items, tagSets = {} ) {
+	makeTagSets(items, tagSets = {}) {
 
-		for( let p in items ) {
+		for (const p in items) {
 
-			var it = items[p];
-			var tags = it.tags;
-			if ( !tags ) continue;
+			const it = items[p];
+			const tags = it.tags;
+			if (!tags) continue;
 
-			for( var t of tags ){
+			for (const t of tags) {
 
-				var list = tagSets[t];
-				if ( !list ) {
+				let list = tagSets[t];
+				if (!list) {
 					items[t] = tagSets[t] = list = new TagSet(t);
 				}
 
-				list.add( it );
+				list.add(it);
 
 			}
 
@@ -398,7 +405,7 @@ export default class GameState {
 	 * @param {GData} it
 	 * @param {number} slotNum
 	 */
-	setQuickSlot( it, slotNum ) {
+	setQuickSlot(it, slotNum) {
 
 		//console.log('QUICK: ' + it.name );
 
@@ -410,8 +417,8 @@ export default class GameState {
 	 * @param {number} slotNum
 	 * @returns {?GData}
 	*/
-	getQuickSlot( slotNum ) {
-		return this.bars.active.getSlot( slotNum);
+	getQuickSlot(slotNum) {
+		return this.bars.active.getSlot(slotNum);
 	}
 
 	/**
@@ -423,10 +430,9 @@ export default class GameState {
 
 		if (!a) return [];
 
-		for( let i = a.length-1; i >= 0; i-- ) {
+		for (let i = a.length - 1; i >= 0; i--) {
 
-			var s = a[i];
-			if ( typeof s === 'string') a[i] = this.getData(s);
+			if (typeof a[i] === 'string') a[i] = this.getData(a[i]);
 
 		}
 
@@ -438,7 +444,7 @@ export default class GameState {
 	 * @param {string} tag
 	 * @returns {GData[]|undefined}
 	 */
-	getTagSet( tag ) {
+	getTagSet(tag) {
 		return this.tagSets[tag];
 	}
 
@@ -447,9 +453,9 @@ export default class GameState {
 	 * @param {string} type
 	 * @returns {number}
 	 */
-	typeCost( cost, type ) {
+	typeCost(cost, type) {
 
-		if ( !cost ) return 0;
+		if (!cost) return 0;
 		return cost[type] || 0;
 	}
 
@@ -459,10 +465,10 @@ export default class GameState {
 	 * @param {string} id
 	 * @param {number} amt
 	 */
-	addMax( id, amt=50) {
+	addMax(id, amt = 50) {
 
 		let it = typeof id === 'string' ? this.getData(id) : id;
-		if ( !it) return;
+		if (!it) return;
 
 		it.max.base += amt;
 	}
@@ -471,11 +477,11 @@ export default class GameState {
 	 *
 	 * @param {(it)=>boolean} pred
 	 */
-	filterItems( pred ) {
-		let a = [];
-		let items = this.items;
-		for( let p in items ) {
-			if ( pred( items[p] ) ) a.push( items[p] );
+	filterItems(pred) {
+		const a = [];
+		const items = this.items;
+		for (const p in items) {
+			if (pred(items[p])) a.push(items[p]);
 		}
 		return a;
 	}
@@ -484,18 +490,18 @@ export default class GameState {
 	 * Add created item to items list.
 	 * @param {GData} it
 	 */
-	addItem( it ) {
+	addItem(it) {
 
-		if ( this.items[it.id] ) console.warn('OVERWRITE ID: ' + it.id);
+		if (this.items[it.id]) console.warn('OVERWRITE ID: ' + it.id);
 
-		if ( !it.hasTag ) {
-			console.log('MISSING HASTAG: ' + it.id );
+		if (!it.hasTag) {
+			console.log('MISSING HASTAG: ' + it.id);
 			return false;
 		}
 
 		this.items[it.id] = it;
 
-		if ( it.module !== 'hall') {
+		if (it.module !== 'hall') {
 			//console.log('ADDING SAVE ITEM: ' + it.id );
 			this.saveItems[it.id] = it;
 		}
@@ -509,7 +515,7 @@ export default class GameState {
 	 * Call from Game so DELETE_ITEM event called.
 	 * @param {GData} it
 	 */
-	deleteItem( it ) {
+	deleteItem(it) {
 		delete this.items[it.id];
 		delete this.saveItems[it.id];
 	}
@@ -518,7 +524,7 @@ export default class GameState {
 	 * Get state slots so they can be modified for Vue reactivity.
 	 * @returns {.<string,GData>}
 	 */
-	getSlots(){ return this.slots; }
+	getSlots() { return this.slots; }
 
 	/**
 	 * Get item in named slot.
@@ -526,8 +532,8 @@ export default class GameState {
 	 * @param {string} type - item type for determining subslot (equip,home,etc)
 	 * @returns {?GData}
 	 */
-	getSlot( id, type) {
-		if ( type === WEARABLE || type === ARMOR || type ===WEAPON ) return null;
+	getSlot(id, type) {
+		if (type === WEARABLE || type === ARMOR || type === WEAPON) return null;
 		return this.slots[id];
 	}
 
@@ -536,12 +542,12 @@ export default class GameState {
 	 * @param {string} slot
 	 * @param {?GData} v - item to place in slot, or null.
 	 */
-	setSlot(slot,v) {
+	setSlot(slot, v) {
 
-		if ( v && (v.type === WEARABLE) ) return;
+		if (v && (v.type === WEARABLE)) return;
 		this.slots[slot] = v;
 
-		if ( slot === REST_SLOT ) this.restAction = v;
+		if (slot === REST_SLOT) this.restAction = v;
 
 	}
 
@@ -549,20 +555,20 @@ export default class GameState {
 	 * Find an item instantiated from given item proto/recipe.
 	 * @param {string} id
 	 */
-	findInstance( id ) {
-		return this.inventory.find(id, true) || this.equip.find(id, true );
+	findInstance(id) {
+		return this.inventory.find(id, true) || this.equip.find(id, true);
 	}
 
-	exists(id){ return this.items.hasOwnProperty(id);}
+	exists(id) { return this.items.hasOwnProperty(id); }
 
 	/**
 	 * Find item in base items, equip, or inventory.
 	 * @param {string} id
 	 * @param {boolean} [any=false] - whether to return any matching instanced item.
 	 */
-	findData(id, any=false) {
+	findData(id, any = false) {
 
-		return this.getData(id) || this.inventory.find(id, any) || this.equip.find(id, any );
+		return this.getData(id) || this.inventory.find(id, any) || this.equip.find(id, any);
 	}
 
 	/**
@@ -572,14 +578,14 @@ export default class GameState {
 	 */
 	hasUnique(it) {
 
-		if ( typeof it ==='string') it = this.getData(it);
+		if (typeof it === 'string') it = this.getData(it);
 
-		if ( it === undefined || !it.unique ) return false;
+		if (it === undefined || !it.unique) return false;
 
-		if ( it.isRecipe || it.instanced ) {
+		if (it.isRecipe || it.instanced) {
 
-			return this.inventory.find(it.id,true) != null ||
-			this.drops.find(it.id,true) != null || this.equip.find(it.id,true) != null || this.items.enchantslots.findItem(it.id,true) != null;
+			return this.inventory.find(it.id, true) != null ||
+				this.drops.find(it.id, true) != null || this.equip.find(it.id, true) != null || this.items.enchantslots.findItem(it.id, true) != null;
 
 		} else return it.value > 0;
 
@@ -592,14 +598,22 @@ export default class GameState {
 	getUnique(id) {
 
 		let it = this.items[id];
-		return ( it === undefined || !it.unique ) ? it : (
-			it.value>0 ? null : it
+		return (it === undefined || !it.unique) ? it : (
+			it.value > 0 ? null : it
 		);
 
 	}
 
 	getData(id) { return this.items[id] || this[id]; }
 
-	getMonster(v) {return this.combat.enemies.find(w => w.id === v) || this.combat.allies.find(w => w.id === v) || this.minions.items.find(w => w.id === v)}
+	getMonster(v) { return this.combat.enemies.find(w => w.id === v) || this.combat.allies.find(w => w.id === v) || this.minions.items.find(w => w.id === v) }
 
+	unlockFunc(...unlockers) {
+		let totalunlock = 0
+		for (let i of unlockers) {
+
+			totalunlock += i * (i.unlockweight || 0)
+		}
+		return totalunlock || 0
+	}
 }

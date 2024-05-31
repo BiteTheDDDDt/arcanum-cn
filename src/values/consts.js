@@ -1,12 +1,10 @@
-import { CalcDmgWithBonus } from "./combatVars";
-
 /**
  * @property {object.<string,string|object>} - maps school to skill determining school level.
  */
 const skillMap = {
-	mana:{
-		id:'lore',
-		reqs:2	// requirements doubled when unlocking with skill
+	mana: {
+		id: 'lore',
+		reqs: 2	// requirements doubled when unlocking with skill
 	}
 }
 
@@ -18,14 +16,14 @@ skillMap.arcane = skillMap.lore = skillMap.mana;
  * @property {.<string,string>} schoolName - maps school to display name.
  */
 const schoolNames = {
-	mana:'arcane'
+	mana: 'arcane'
 }
 
 /**
  * Identifier based on current time and a random suffix that is extremely unlikely to be duplicated.
  * @param {string} prefix
  */
-export const TimeId = (prefix)=>( prefix + Date.now().toString(36).slice(3) + (4096*Math.random()).toString(36) );
+export const TimeId = (prefix) => (prefix + Date.now().toString(36).slice(3) + (4096 * Math.random()).toString(36));
 
 /**
  * @const TYP_PCT - object key to indicate a percentile in the given effect/result.
@@ -75,6 +73,9 @@ const LOCALE = 'locale';
 const EXPLORE = 'explore';
 const CLASH = 'clash';
 
+export const UNTAG = 'untag_';
+export const DESCENDLIST = ["cost","run","effect","result","convert","input","output"];
+
 /**
  * @const {number} TEAM_PLAYER - team constant for allies.
  */
@@ -100,60 +101,34 @@ export { HOME, RESOURCE, NPC, SKILL, ACTION, ENCOUNTER, WEARABLE, MONSTER, ARMOR
  */
 export const DELAY_RATE = 3.5;
 export function getDelay(s) {
-	if (s<0){
-		return 0.5 + DELAY_RATE + (-s/20)
+	if (s < 0) {
+		return 0.5 + DELAY_RATE + (-s / 20)
 	}
-	else 
-	{
-		return 0.5 + DELAY_RATE*Math.exp(-s/20)
+	else {
+		return 0.5 + DELAY_RATE * Math.exp(-s / 20)
 	}
 	;
 }
 
 /**
  * Dictionary of possible dynamic function parameters.
- * @prop {String} FP.GAME - Game data
+ * @prop {String} FP.GDATA - Game data
  * @prop {String} FP.TARGET - Target data
  * @prop {String} FP.ACTOR - Actor/Caster data 
  * @prop {String} FP.ITEM - Item data
  * @prop {String} FP.CONTEXT - (Target's) context data
  * @prop {String} FP.STATE - Game state data
+ * @prop {String} FP.MOD - Mods applied to the FValue containing the function
  */
 export const FP = Object.freeze({
-	GAME: "g",
+	GDATA: "g",
 	TARGET: "t",
 	ACTOR: "a",
 	ITEM: "i",
 	CONTEXT: "c",
-	STATE: "s"
+	STATE: "s",
+	MOD: "mod"
 });
-
-/**
- * Parses value functions into its parameters 
- * @param {Function} func - function to be parsed
- * @returns {Array.<String>} array of parameters
- */
-export const getParams = func => {
-	if(!func || typeof func !== 'function') return null;
-	let params = func.toString().match(/\(([^)]*)\)/)[1];
-	if(!params) return [];
-	return params.split(",").map(s => s.trim());
-}
-
-/**
- * Applies parameters to function when order of function parameters are unknown
- * @param {Function} func - target function
- * @param {*} params - function parameters to be mapped to function
- * @returns result of function
- */
-export const applyParams = (func, params) => {
-	if(!func || typeof func !== 'function') return null;
-	
-	if(params == null) params = {};
-	else if(typeof params === 'string') params = {[FP.GAME]: params};
-
-	return func(...(getParams(func).map(p => params[p])));
-}
 
 /**
  * Determine if the given target allows targetting of item.
@@ -161,14 +136,14 @@ export const applyParams = (func, params) => {
  * @param {GData} it
  * @returns {boolean} true if targs can target it.
  */
-export const canTarget = (targs, it ) => {
+export const canTarget = (targs, it) => {
 
-	if ( Array.isArray(targs) ) {
+	if (Array.isArray(targs)) {
 
-		for( let i = targs.length-1; i >= 0; i-- ) {
+		for (let i = targs.length - 1; i >= 0; i--) {
 
-			var t = targs[i];
-			if ( t && t == it.type || t === it.kind || t === it.slot || it.hasTag(t) ) return true;
+			const t = targs[i];
+			if (t && t == it.type || t === it.kind || t === it.slot || it.hasTag(t)) return true;
 
 		}
 		return false;
@@ -177,18 +152,4 @@ export const canTarget = (targs, it ) => {
 
 	return targs === it.type || targs === it.kind || targs === it.slot || it.hasTag(targ);
 
-}
-
-/**
- * Sets an attack/dot to be instantiated, that is, unaffected by any changes on the source
- * @param {attack/dot} attack - thing to modify
- * @param {char} applier - the one using the attack
- * @param {char} target - the target of the attack
- * @returns modified attack
- */
-export const instanceDamage = (attack, applier, target) => {
-	attack.damage = CalcDmgWithBonus(attack, applier, target)
-	attack.tohit += applier.getHit()
-	attack.showinstanced = true;
-	return attack
 }

@@ -1,13 +1,12 @@
-import {changes, jsonify, cloneClass, getDescs  } from 'objecty';
+import {changes, jsonify, cloneClass, getDescs  } from '../util/objecty';
 import Game from '../game';
 import Stat from '../values/rvals/stat';
 import Mod from '../values/mods/mod';
-import { TYP_MOD } from '../values/consts';
+import { TYP_MOD, DESCENDLIST, UNTAG, FP } from '../values/consts';
 import RValue, { SubPath } from '../values/rvals/rvalue';
 import { Changed } from '../techTree';
 import { ParseMods } from '../modules/parsing';
 import { canWriteProp, splitKeys, subset } from '../util/util';
-import FValue from '../values/rvals/fvalue';
 
 export const SetModCounts = ( m, v)=>{
 
@@ -89,7 +88,7 @@ export default {
 		let vars = JSON.parse(JSON.stringify(jsonify(this, JSONIgnore ) || {}));
 		if ( this.template ) {
 			vars = changes( vars, this.template );
-			if(this.cost) {
+			if(this.cost && this.template.cost != null) {
 				if(this.template.cost instanceof String) delete vars.cost;
 				else if(typeof this.template.cost === "number" && vars.cost.gold === this.template.cost) delete vars.cost;
 				else if(vars?.cost) {
@@ -121,6 +120,8 @@ export default {
 			vars.locked = this.locked;
 		}
 		if ( vars && vars.name ) vars.name = this.sname;
+
+		if (vars && this.timer > 0) vars.timer = this.timer;
 
 		return vars && Object.keys(vars).length ? vars : undefined;
 
@@ -267,10 +268,10 @@ export default {
 
 		} else if ( typeof mods === 'object') {
 
-			for( let p in mods ) {
+			for( const p in mods ) {
 
-				var mod = mods[p];
-				var sub = targ[p];
+				const mod = mods[p];
+				let sub = targ[p];
 
 				if ( sub === undefined || sub === null ) {
 
@@ -314,8 +315,12 @@ export default {
 			this.value.add( vars*amt );
 
 		} else if ( vars.isRVal ) {
+			const Params = {
+				[FP.GDATA]: Game.gdata,
+				[FP.ITEM]: this
+			};
 
-			this.amount( amt*vars.getApply( Game.state, this ) );
+			this.amount( amt*vars.getApply( Params ) );
 			//this.value.add( amt*vars.getApply( Game.state, this ) );
 
 
@@ -330,12 +335,6 @@ export default {
 
 				let targ = this[p];
 				let sub = vars[p];
-
-				
-
-				if ( sub instanceof Function ) sub = sub( Game.gdata );
-
-				if ( sub instanceof FValue ) sub = sub.fn( Game.gdata );
 
 				if ( targ instanceof RValue ) {
 
@@ -462,15 +461,78 @@ export default {
 			let newSrc = modCheck || isNaN(+subTarg) ? src : subTarg; //may need a better check for source.
 			let newPath = (path ? path + '.' : '') + p;
 
-			if ( (subTarg === undefined || subTarg === null) ) {
+			// Define a list of targeted objects that require special handling
+//			let descendArr = ["cost","run","effect","result","convert","input","output"];
+			if ( typeof subMod === 'boolean' ) {
+				if (typeof subTarg === "object") {
+					console.warn("applyObj boolean target is an obj. Skipping.", targ, p, this.id);
+				} else {
+					if (amt>0) {
+						targ[p] = subMod;
+					} else if (amt<0) {
+						targ[p] = !subMod;
+					};
+				}
+			} else if ( (subTarg === undefined || subTarg === null) ) {
 
 				if( !canWriteProp(targ, p ) ) continue;
 
-				if ( subMod.constructor === Object ) {
+				if ( subMod.constructor === Object && (modCheck || !p.startsWith(UNTAG))) {
 
 					res = this.applyObj( subMod, amt, targ[p]={}, newSrc, newPath, modCheck );
 
+				} else if ( p.startsWith(UNTAG) && !modCheck ) {
+					//console.warn("Un-tagging: ", subMod, targ, p, amt);
+					if(subMod?.applyTo) {
+					/**
+					 * Basic scenario, such as thing.untag_stress
+					 * We send directly to applyTo to handle the untagging
+					 */
+						res = subMod.applyTo( targ, p, amt );
+					} else {
+					/**
+					 * Sub-target scenario - thing.untag_skill.exp
+					 * For each child key under the untag, we split things off
+					 * NOTE - this will probably only work 1 level down at the moment, 
+					 * but that should be sufficient for the current use cases
+					 */
+						res = [];
+						for(const key in subMod){
+							const childMod = subMod[key];
+							if(childMod?.applyTo) {
+								const retarg = childMod.applyTo(targ, p, amt, false, key);
+								res.unshift(retarg);
+							}
+						}
+						continue;
+					}
+
+				} else if( DESCENDLIST.includes(p) && modCheck === null ){
+					/**
+					 * If we are trying to mod a non-specific member of the DESCENDLIST list, but
+					 * if doesn't already exist (eg. .cost on something with no cost), just skip it.
+					 */
+					//console.warn(mods, p, subMod, targ, src, path, modType, modCheck);
+					continue;
+
 				} else {
+					// This is the entry point when multiple items under a DESCENDLIST member could exist
+					// When that happens, we need to handle .value and all other members separately
+					let descVal = false;
+					if(p === "value") {
+						let srcId = src.id;
+						for (let d in DESCENDLIST) {
+							let descendStr = DESCENDLIST[d];
+							let checkPath = srcId + "." + descendStr + ".value";
+							if (newPath === checkPath){
+								descVal = true;
+								res = subMod.applyTo( src, descendStr, amt );
+//								console.warn(subMod, src, descendStr, amt);
+								continue;
+							}
+						}
+					}
+					if (descVal) continue;
 
 					let params = [
 						0, //vars
@@ -482,7 +544,6 @@ export default {
 
 										//@todo use more accurate subpath.
 					// subTarg.id = SubPath(this.id, p );
-					
 					//console.log( this.id + '.' + p  + ': ' + subMod + ': targ null: ' + subTarg.valueOf() + ' mod? ' + isMod );
 				}
 
@@ -498,16 +559,12 @@ export default {
 			} else if ( subMod instanceof Mod ) {
 
 				res = subTarg.isRVal ? subTarg.addMod( subMod, amt ) : subMod.applyTo( targ, p, amt );
-
+				/*if( DESCENDLIST.includes(p) && modCheck === null ){
+					console.warn("Descending with applyTo: ", subMod, targ, p, amt);
+				}*/
+				
 			}else if ( typeof subMod === 'number' ) {
 				console.warn( 'RAW NUMBER MOD on: ' + this.id + ': ' + p + ': ' + subMod );
-			}
-			else if ( typeof subMod === 'boolean' ) {
-				if (amt>0) {
-					subTarg.value = subMod;
-				} else if (amt<0) {
-					subTarg.value = !subMod;
-				};
 			}
 			/*else if ( typeof subMod === 'number' ) {
 
@@ -578,17 +635,31 @@ export default {
 
 		for( let p in m ) {
 
+			let target = obj[p];
+			let source = m[p];
+
 			//console.log('SUBEFFECT(): ' + p + '=' + m[p]);
+			if ( source && typeof source === 'object' ) {
+				if ( source.isRVal ) {
+					// Converting all rvalue sources into a number to prevent infinite recursion
+					source = +source;
+				} else if ( source.constructor.name !== 'Object' ) {
+					console.warn( 'Class instance source in subeffect', source );
+				}
+			}
 
-			if ( typeof m[p] === 'object' ) {
-				this.subeffect( obj[p], m[p], amt );
+			if ( typeof source === 'object' ) {
+				this.subeffect( target, source, amt );
 			} else {
+				if ( target instanceof Stat ) {
 
-				if ( typeof obj[p] === 'object') {
+					target.base += source * amt;
 
-					obj[p].value = ( obj[p].value || 0 ) + Number(m[p])*amt;
+				} else if ( typeof target === 'object') {
 
-				} else obj[p] += Number(m[p])*amt;
+					target.value = ( target.value || 0 ) + source * amt;
+
+				} else obj[p] += source * amt;
 
 			}
 

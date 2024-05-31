@@ -8,8 +8,6 @@ export default class Hall {
 
 	toJSON(){
 
-		//for( let p in this.items ) console.log('SAVING HALL ITEM: '+ p);
-
 		return {
 
 			id:this.id,
@@ -198,10 +196,10 @@ export default class Hall {
 	 */
 	initChars(){
 
-		let max = this.max.value;
+		const max = this.max.value;
 		for( let i = 0; i < max; i++ ) {
 
-			var c = this.chars[i];
+			const c = this.chars[i];
 			if ( c === undefined ) {
 				this.chars.push( new CharInfo() );
 			}
@@ -217,7 +215,7 @@ export default class Hall {
 	 */
 	getChars(){
 
-		let max = this.max.value;
+		const max = this.max.value;
 		for( let i = 0; i < max; i++ ) {
 
 			if ( this.chars[i] === undefined ) {

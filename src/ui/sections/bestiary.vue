@@ -10,71 +10,89 @@ import { NpcLoreLevels } from 'values/craftVars';
 
 export default {
 
-	mixins:[ItemBase],
-	data(){
+	mixins: [ItemBase],
+	data() {
 		return {
-			filtered:null,
-			sortBy:'level',
-			sortOrder:1,
-			loreLevels:{
+			filtered: null,
+			sortBy: 'level',
+			sortOrder: 1,
+			loreLevels: {
 			}
 
 		};
 	},
-	components:{
-		filterbox:FilterBox
+	components: {
+		filterbox: FilterBox
 	},
-	beforeCreate(){
+	beforeCreate() {
 		this.game = Game;
 	},
-	methods:{
+	methods: {
 
-		tryUse(m){
-			this.emit( TRY_USE, m );
+		tryUse(m) {
+			this.emit(TRY_USE, m);
 		},
 
-		loreLevel(m){
+		loreLevel(m) {
 			let lore = this.loreLevels[m.kind];
-			if ( lore === undefined ) lore = this.$set( this.loreLevels, m.kind, NpcLoreLevels(m.kind, Game ));
+			if (lore === undefined) lore = this.$set(this.loreLevels, m.kind, NpcLoreLevels(m.kind, Game));
 			return lore;
 		},
 
 		showHp(m) {
-			return this.loreLevel(m) >= 4*m.level;
+			return this.loreLevel(m) >= 4 * m.level;
 
 		},
 
 		toNum(v) {
-			return ( typeof v === 'object' ?
-				( v.type === TYP_RANGE ? v.max : v.value ) : v ).toFixed(0);
+			return (typeof v === 'object' ?
+				(v.type === TYP_RANGE ? v.max : v.value) : v).toFixed(0);
 		},
 
-		setSort( by ) {
+		setSort(by) {
 
-			if ( this.sortBy === by ) {
+			if (this.sortBy === by) {
 				this.sortOrder = -this.sortOrder;
 			} else this.sortBy = by;
+
+		},
+		searchIt(it, t) {
+
+			if (it.name.includes(t)) return true;
+			if (it.kind) return it.kind.includes(t);
+			if (it.tags) {
+
+				let tags = it.tags;
+				for (let i = tags.length - 1; i >= 0; i--) {
+					if (tags[i].includes(t)) return true;
+				}
+
+			}
+
+
+			return false;
+
 
 		}
 
 	},
-	computed:{
+	computed: {
 
-		minions(){return Game.state.minions; },
+		minions() { return Game.state.minions; },
 
-		allItems(){
+		allItems() {
 
 			let all = Game.state.monsters;
-			for( let i = all.length-1; i>=0; i-- ) {
+			for (let i = all.length - 1; i >= 0; i--) {
 				all[i].name = all[i].name.toTitleCase()
 			}
 			var a = [];
 
-			for( let i = all.length-1; i>=0; i-- ) {
+			for (let i = all.length - 1; i >= 0; i--) {
 
 				var it = all[i];
-				if ( it.value <= 0 ) continue;
-				if ( !it.cost ) this.$set( it, 'cost', npcCost(it));
+				if (it.value <= 0) continue;
+				if (!it.cost) this.$set(it, 'cost', npcCost(it));
 				a.push(it);
 
 			}
@@ -83,19 +101,19 @@ export default {
 
 		},
 
-		sorted(){
+		sorted() {
 
 			let by = this.sortBy;
 			let order = this.sortOrder;
-			let v1,v2;
+			let v1, v2;
 
-			return ( this.filtered || this.allItems ).sort(
-				(a,b)=> {
+			return (this.filtered || this.allItems).sort(
+				(a, b) => {
 
 					v1 = a[by];
 					v2 = b[by];
-					if ( v1 > v2 ) return order;
-					else if ( v2 > v1 ) return -order;
+					if (v1 > v2) return order;
+					else if (v2 > v1) return -order;
 					else return 0;
 
 				}
@@ -106,34 +124,33 @@ export default {
 </script>
 
 <template>
+	<div class="bestiary">
 
-<div class="bestiary">
+		<filterbox v-model="filtered" :prop="searchIt" :items="allItems" min-items="14" />
 
-	<filterbox v-model="filtered" :items="allItems" min-items="14" />
+		<div class="char-list">
+			<table class="bestiary">
+				<tr>
+					<th class="table-head" @click="setSort('name')">Creature</th>
+					<th class="table-head" @click="setSort('level')">Level</th>
+					<th class="table-head" @click="setSort('value')">Slain</th>
+					<th class="num-align table-head" @click="setSort('hp')">Hp</th>
+				</tr>
+				<tr v-for="b in sorted" :key="b.id" @mouseenter.capture.stop="itemOver($event, b)">
+					<th class="lg-name">{{ b.name }}</th>
+					<td class="num-align">{{ Math.floor(b.level) }}</td>
+					<td class="num-align">{{ Math.floor(b.value) }}</td>
+					<td class="num-align">{{ showHp(b) ? toNum(b.hp) : '???' }}</td>
+					<td><button @click="tryUse(b)"
+							:disabled="b.unique || !b.canUse(game) || minions.freeSpace() == 0">Buy</button></td>
+				</tr>
+			</table>
+		</div>
 
-	<div class="char-list">
-	<table class="bestiary">
-		<tr>
-			<th class="table-head" @click="setSort('name')">Creature</th>
-			<th class="table-head" @click="setSort('level')">Level</th>
-			<th class="table-head" @click="setSort('value')">Slain</th>
-			<th class="num-align table-head" @click="setSort('hp')">Hp</th></tr>
-		<tr v-for="b in sorted" :key="b.id" @mouseenter.capture.stop="itemOver($event,b)">
-			<th class="lg-name">{{ b.name }}</th>
-			<td class="num-align">{{ Math.floor( b.level ) }}</td>
-			<td class="num-align">{{ Math.floor( b.value ) }}</td>
-			<td class="num-align">{{ showHp(b) ? toNum(b.hp) : '???' }}</td>
-			<td><button @click="tryUse(b)" :disabled="b.unique||!b.canUse(game)||minions.freeSpace()==0">Buy</button></td>
-		</tr>
-	</table>
 	</div>
-
-</div>
-
 </template>
 
 <style scoped>
-
 tr .table-head {
 	cursor: pointer;
 	text-decoration: underline;
@@ -143,18 +160,19 @@ tr .table-head {
 }
 
 div.bestiary {
-display:flex;
-flex-direction: column;
-margin-left:0.9em;
-padding:0;
-margin:0;
+	display: flex;
+	flex-direction: column;
+	margin-left: 0.9em;
+	padding: 0;
+	margin: 0;
 }
 
 .char-list {
-	width:100%;
-	padding: 0; margin: 0;
-	overflow-y:auto;
-	margin-bottom:1rem;
+	width: 100%;
+	padding: 0;
+	margin: 0;
+	overflow-y: auto;
+	margin-bottom: 1rem;
 }
 
 table.bestiary {
@@ -166,7 +184,7 @@ table.bestiary {
 
 tr:first-child .table-head {
 	border-bottom: 1pt solid black;
-	margin:var(--sm-gap);
+	margin: var(--sm-gap);
 }
 
 
@@ -177,5 +195,4 @@ tr:first-child .table-head {
 td.num-align {
 	padding: var(--md-gap);
 }
-
 </style>

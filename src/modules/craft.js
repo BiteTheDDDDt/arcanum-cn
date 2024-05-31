@@ -130,11 +130,11 @@ export const schoolBuy = (school, buy={}, level=1 )=>{
  */
 export const spellCost = (list) => {
 
-	var res = {};
+	const res = {};
 
 	for( let i = list.length-1; i>= 0; i--) {
 
-		var s = list[i];
+		const s = list[i];
 		res.gold = (res.gold||0) + 300*s.level;
 
 		schoolCost( s.school, s.level, res );
