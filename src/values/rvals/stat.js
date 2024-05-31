@@ -4,15 +4,6 @@ import Game from '../../game';
 
 import { precise } from '../../util/format';
 
-// number of times all stats recalculated this frame.
-/*var LoopCount = 0;
-
-export function ShowLoops(){
-
-	if ( LoopCount > 10 ) console.log('Loops: ' + LoopCount);
-	LoopCount=0;
-}*/
-
 /**
  * Stat with a list of modifiers.
  */
@@ -41,13 +32,7 @@ export default class Stat extends RValue {
 
 		//let abs = Math.abs( this._base + this._mBase );
 
-		let bTot = this._value + this._mBase;
-
-		if ( this._pos === true ) {
-
-			return Math.max( bTot + Math.abs(bTot)*(this._mPct ),0);
-
-		} else return bTot + Math.abs(bTot)*(this._mPct);
+		return this.valueOf();
 
 	}
 
@@ -61,9 +46,9 @@ export default class Stat extends RValue {
 
 		if ( this._pos === true ) {
 
-			return Math.max( bTot + Math.abs(bTot)*(this._mPct ),0);
+			return Math.max( bTot*(1 + this._mPct),0);
 
-		} else return bTot + Math.abs(bTot)*(this._mPct);
+		} else return bTot*(1 + this._mPct);
 
 	}
 
@@ -114,10 +99,10 @@ export default class Stat extends RValue {
 	get mods() { return this._mods; }
 	set mods(v) {
 
-		let mods = {};
-		for( let p in v ) {
+		const mods = {};
+		for( const p in v ) {
 
-			var mod = v[p];
+			const mod = v[p];
 			mods[p] = (mod instanceof Mod ) ? mod : new Mod( v[p] );
 		}
 		this._mods = mods;
@@ -196,7 +181,7 @@ export default class Stat extends RValue {
 		
 		if( val.type === TYP_MOD ) console.warn('MOD WITHOUT ID: ' + val );
 
-		if ( val instanceof Stat ) val = val.valueOf();
+		if ( !isNaN(val) ) val = +val;
 
 		if ( typeof val ==='number' ) {
 
@@ -321,9 +306,9 @@ export default class Stat extends RValue {
 
 		let bonus = 0, pct = 0;
 
-		for( let p in this._mods ) {
+		for( const p in this._mods ) {
 
-			var mod = this._mods[p];
+			const mod = this._mods[p];
 			if (mod === undefined ) continue;
 
 			pct += mod.countPct || 0;
@@ -340,7 +325,7 @@ export default class Stat extends RValue {
 
 	canPay(amt) {
 		let temp = (this.base - amt) + this._mBase;
-		return !this.pos || temp + Math.abs(temp)*(this._mPct) >= 0;
+		return !this.pos || temp*(1 + this._mPct) >= 0;
 	}
 
 }

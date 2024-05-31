@@ -65,14 +65,14 @@
 			{
 				"id": "frost",
 				"desc": "Winter chill reduces your effectiveness.",
-				"max": 80,
+				"max": 200,
 				"group": "adversities",
 				"reverse": true,
 				"mod": {
-					"hp.rate": "-1%",
-					"fire.rate": "-1%",
-					"water.rate": "-1%",
-					"ice.rate": "1%"
+					"hp.rate": "-0.4%",
+					"fire.rate": "-0.4%",
+					"water.rate": "-0.4%",
+					"ice.rate": "0.25%"
 				}
 			},
 			{
@@ -380,7 +380,7 @@
 				],
 				"mod": {
 					"skill.rate": "50%",
-					"focus.result.runner.exp": "50%",
+					"focus.result.runner.skillprogress": "50%",
 					"runner.max": 1,
 					"stamina.rate": -0.25
 				}
@@ -637,7 +637,7 @@
 				"mod": {
 					"fazbithearth.mod.frost.rate": 80,
 					"icelore.max": 4,
-					"frost.mod.hp.rate": "1%",
+					"frost.mod.hp.rate": "0.4%",
 					"player.bonuses.ice": 3,
 					"player.hits.ice": 3,
 					"frost.rate": 2
@@ -750,6 +750,7 @@
 				"tags": "frost_spell",
 				"require": "g.ice>=3",
 				"school": "ice",
+				"desc": "Shoot a fragment of winter's wrath at an enemy. Can accumulate tremendous potential.",
 				"buy": {
 					"ice": 2,
 					"watergem": 3
@@ -883,9 +884,8 @@
 					"livingsnow.max": 2,
 					"snowman.max": 1,
 					"ice.max": 1,
-					"ice.rate": 0.1,
-					"frost.rate": 0.2,
-					"player.bonuses.ice": 0.1
+					"ice.rate": "0.1//20/-1",
+					"frost.rate": "0.2//20/-1"
 				}
 			}
 		],
@@ -924,10 +924,7 @@
 						"frostelemental"
 					],
 					"avalanche",
-					[
-						"iceelemental",
-						"iceelemental"
-					],
+					"iceelemental",
 					"w_troll",
 					"icywinds",
 					"frixie"
@@ -1082,10 +1079,12 @@
 					"kind": "ice",
 					"damage": "2~3"
 				},
+				"result": {
+					"icelore.exp": 50
+				},
 				"loot": {
 					"ice": 3,
-					"winteressence": 0.04,
-					"icelore.exp": 50
+					"winteressence": 0.04
 				}
 			},
 			{
@@ -1458,34 +1457,7 @@
 					}
 				],
 				"upgrades": [
-					{
-						"id": "fazbit_restoration",
-						"name": "fazbit's workshop restoration project",
-						"sym": "🏰❄️",
-						"tags": "hall",
-						"desc": "This place must have once been a source of great joy to people all over the realm. It would be a tremendous accomplishment to repair it.",
-						"require": "g.w_fazbit10>0",
-						"max": 1,
-						"result": {
-							"fame": 10
-						}
-					},
-					{
-						"id": "fazbit_restoration2",
-						"name": "fazbit's refurbished winter workshop",
-						"sym": "🏰❄️",
-						"tags": "hall",
-						"desc": "Finish the restoration and allow the workshop to work towards its original purpose.",
-						"need": "(g.fazbit_restoration_stage1+g.fazbit_restoration_stage2+g.fazbit_restoration_stage3)>2",
-						"require": "g.fazbit_restoration>0",
-						"max": 1,
-						"result": {
-							"fame": 25
-						},
-						"mod": {
-							"w_dolls.rate": 0.01
-						}
-					}
+					
 				],
 				"tasks": [
 					{

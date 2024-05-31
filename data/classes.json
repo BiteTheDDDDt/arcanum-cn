@@ -179,7 +179,6 @@
 		"id": "magician",
 		"tags": "t_tier1",
 		"desc": "Magic in its purest form.",
-		"actname": "The Prestige",
 		"actdesc": "Pursue the path of pure magic.",
 		"require": "g.tier0>0&&g.lore>=10",
 		"cost": {
@@ -236,7 +235,7 @@
 	{
 		"id": "reanimator",
 		"tags": "t_tier1",
-		"desc": "Create and ressurect living materials.",
+		"desc": "Create and resurrect living materials.",
 		"require": "g.tier0>0&&g.reanimation>=3",
 		"cost": {
 			"research": 500,
@@ -265,7 +264,6 @@
 		"tags": "t_tier1",
 		"desc": "Witch",
 		"name": "witchcraft",
-		"actname": "The Craft",
 		"actdesc": "Enter into the practice of witchcraft.",
 		"require": "g.tier0>0&&g.animals>=2&&g.potions>=3&&g.tier1==0",
 		"flavor": "'What is't you do?' 'A deed without a name'",
@@ -389,9 +387,8 @@
 		"require": "g.tier2>0&&g.evil>0&&g.tier3==0",
 		"cost": {
 			"research": 1500,
-			"bones": 100,
-			"bodies": 50,
-			"bonedust": 25,
+			"bodies": 10,
+			"bloodgem": 20,
 			"arcana": 15
 		},
 		"result": {
@@ -412,7 +409,7 @@
 	{
 		"id": "battlemage",
 		"name": "battle mage",
-		"tags": "t_tier2",
+		"tags": "t_tier2,t_swordmaster",
 		"actdesc": "Pursue the path of battle.",
 		"require": "g.tier1>0&&g.player.level>=10&&g.armory>0&&g.tier2==0",
 		"cost": {
@@ -436,7 +433,7 @@
 	},
 	{
 		"id": "bladeweaver",
-		"tags": "t_tier4",
+		"tags": "t_tier4,t_swordmaster",
 		"desc": "You have taken your training further, weaving magic and steel with a flourish of magical grace.",
 		"require": "g.tier3>0&&g.spellblade>0&&g.tier4==0",
 		"cost": {
@@ -465,7 +462,7 @@
 	{
 		"id": "arcanedervish",
 		"name": "arcane dervish",
-		"tags": "t_tier5",
+		"tags": "t_tier5,t_swordmaster",
 		"desc": "Your skills with blade and magic blend together in a blur, each stroke seeming like a step in a dance.",
 		"require": "g.tier4>0&&g.spellblade>0&&g.tier5==0",
 		"cost": {
@@ -494,7 +491,7 @@
 	{
 		"id": "eldritchknight",
 		"name": "eldritch knight",
-		"tags": "t_tier6",
+		"tags": "t_tier6,t_swordmaster",
 		"desc": "You have reached the pinnacle of blending steel and sorcery, and your sword strokes seem to cleave the air itself.",
 		"require": "g.tier5>0&&g.spellblade>0&&g.tier6==0",
 		"cost": {
@@ -524,7 +521,7 @@
 	{
 		"id": "spellblade",
 		"name": "spell blade",
-		"tags": "t_tier3",
+		"tags": "t_tier3,t_swordmaster",
 		"desc": "A combat specialist, melding sorcery with traditional martial techniques.",
 		"require": "g.tier2>0&&g.enchanting>=7&&g.player.tohit>=10&&g.tier3==0",
 		"cost": {
@@ -548,7 +545,7 @@
 	{
 		"id": "dreadlord",
 		"desc": "Harbinger of destruction",
-		"tags": "t_tier3",
+		"tags": "t_tier3,t_swordmaster",
 		"require": "g.tier2>0&&g.evil>0&&g.hp>=100&&g.player.level>=17&&g.tier3==0",
 		"cost": {
 			"research": 1500,
@@ -631,7 +628,7 @@
 		"id": "summoner",
 		"tags": "t_tier3",
 		"desc": "Alone or with friends, a summoner is never without an army.",
-		"require": "g.minions>=5&&g.tier2>0&&g.lore>=20",
+		"require": "g.summoning>=5&&g.tier2>0&&g.lore>=20",
 		"cost": {
 			"research": 2000,
 			"arcana": 20,
@@ -660,6 +657,7 @@
 		"tags": "t_tier2",
 		"require": "g.tier1>0&&g.naturelore>=12",
 		"need": "(g.outdoors+g.lodge)>0",
+		"needtext": "You must live outdoors or in a lodge",
 		"cost": {
 			"research": 1500,
 			"naturegem": 15,
@@ -739,7 +737,7 @@
 		"desc": "Lord of rocks.",
 		"tags": "t_tier2",
 		"actdesc": "A mage specialising in earth manipulation and endurance.",
-		"require": "g.tier1>0&&g.earthlore>=10&&g.tier2==0",
+		"require": "g.tier1>0&&g.earthlore>=7&&g.tier2==0",
 		"cost": {
 			"research": 1000,
 			"arcana": 15,
@@ -764,7 +762,7 @@
 		"desc": "Master of the tectonics.",
 		"tags": "t_tier4",
 		"actdesc": "A supreme master of earth's destructive magics.",
-		"require": "g.tier3>0&&g.earthlore>=15&&g.tier4==0",
+		"require": "g.tier3>0&&g.earthlore>=11&&g.tier4==0",
 		"cost": {
 			"research": 4000,
 			"arcana": 25,
@@ -1144,7 +1142,7 @@
 		"id": "fey",
 		"desc": "A being of wild and natural magic",
 		"tags": "t_tier4",
-		"require": "g.tier3>0&&g.naturelore>=19&&(g.witch+g.druid+g.elementalist)>0",
+		"require": "g.tier3>0&&g.naturelore>=15&&(g.witch+g.druid+g.elementalist)>0",
 		"cost": {
 			"research": 5000,
 			"naturegem": 30,
@@ -1295,7 +1293,7 @@
 		"id": "kell",
 		"desc": "Immortal spirits of nature, even the weakest Kell are beings to rival wizards",
 		"tags": "t_tier5",
-		"require": "g.tier4>0&&g.naturelore>=23&&(g.witch+g.fey+g.highelemental)>0",
+		"require": "g.tier4>0&&g.naturelore>=20&&(g.witch+g.fey+g.highelemental)>0",
 		"cost": {
 			"research": 15000,
 			"naturegem": 50,
@@ -1523,7 +1521,7 @@
 		"name": "astral seer",
 		"desc": "The stars are an open book, to those who can read.",
 		"tags": "t_tier6",
-		"require": "g.tier5>0&&g.astronomy>=15&&g.planeslore>=15",
+		"require": "g.tier5>0&&g.astronomy>=15&&g.planeslore>=12",
 		"cost": {
 			"research": 17000,
 			"arcana": 75,
@@ -1578,5 +1576,32 @@
 			"firelore.rate": "15%"
 		},
 		"flavor": "'I am the flood and the tempest, the whisper-wind and the inferno'."
+	},
+	{
+		"id": "conjurer",
+		"tags": "t_tier1",
+		"desc": "A master of quickly moving things from one place to another.",
+		"require": "g.conjuration>=5&&g.tier0>0",
+		"cost": {
+			"research": 500,
+			"arcana": 10,
+			"codices": 5
+		},
+		"result": {
+			"sp": 1
+		},
+		"mod": {
+			"tier1": true,
+			"minions.max": 1,
+			"summoning.max": 2,
+			"summoning.rate": "2%",
+			"charms.max": 1,
+			"lore.max": 2,
+			"lore.rate": "5%",
+			"mana.max": 2,
+			"conjuration.max": 4,
+			"conjuration.rate": "20%"
+		},
+		"flavor": "Surely they can't 'just appear'..."
 	}
 ]

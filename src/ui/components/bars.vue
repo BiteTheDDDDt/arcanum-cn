@@ -12,33 +12,33 @@ import ItemBase from '../itemsBase';
  */
 export default {
 
-	props:[ 'bars'],
-	mixins:[ItemBase, UIMixin],
-	components:{
-		progbar:ProgBar
+	props: ['bars'],
+	mixins: [ItemBase, UIMixin],
+	components: {
+		progbar: ProgBar
 	},
-	data(){
+	data() {
 
-		let ops = Settings.getSubVars('bars');
-		if ( !ops.hide ) ops.hide = {};
+		const ops = Settings.getSubVars('bars');
+		if (!ops.hide) ops.hide = {};
 
 		return {
-			hide:ops.hide
+			hide: ops.hide
 		}
 
 	},
 
-	computed:{
+	computed: {
 
-		baseItems(){
+		baseItems() {
 
-			let res = [];
+			const res = [];
 
-			let a = this.bars;
-			for( let i = a.length-1; i>= 0; i-- ) {
+			const a = this.bars;
+			for (let i = a.length - 1; i >= 0; i--) {
 
-				var it = Game.getData(a[i]);
-				if ( it ) res.push(it);
+				const it = Game.getData(a[i]);
+				if (it) res.push(it);
 
 			}
 
@@ -46,8 +46,8 @@ export default {
 
 		},
 
-		itemList(){
-			return this.baseItems.filter(v=>this.show(v))
+		itemList() {
+			return this.baseItems.filter(v => this.show(v))
 		}
 
 	}
@@ -61,8 +61,8 @@ export default {
 	<div class="statbars">
 
 		<div class="hidable statbar" v-for="it in itemList" :key="it.key" :data-key="it.id">
-			<span class="name">{{it.name}}</span><span class="barspan"><progbar :value="it.valueOf()" :class="it.id" :max="it.max.value" :color="it.color"
-			@mouseenter.native.capture.stop="itemOver($event,it)"/></span></div>
+			<span class="name">{{ it.name.toTitleCase() }}</span><span class="barspan"><progbar :value="it.valueOf()" :class="it.id" :max="it.max.value" :color="it.color"
+			@mouseenter.native.capture.stop="itemOver($event, it)"/></span></div>
 
 	</div>
 

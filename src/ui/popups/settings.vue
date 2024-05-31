@@ -10,14 +10,15 @@ import { centerX } from './popups';
  */
 export default {
 
-	data(){
+	data() {
 
 		let vars = Settings.vars;
 
 		return {
-			sCompactMode:vars.compactMode,
-			sDarkMode:vars.darkMode,
-			saves:Object.assign( {}, Settings.getSubVars('saves') )
+			sCompactMode: vars.compactMode,
+			sDarkMode: vars.darkMode,
+			sSmoothBars: vars.smoothBars,
+			saves: Object.assign({}, Settings.getSubVars('saves'))
 		};
 
 
@@ -28,14 +29,14 @@ export default {
 	},
 	created() {
 
-		for( let p in Settings.vars ) {
-			this.dispatch('setting', p, Settings.vars[p] );
+		for (let p in Settings.vars) {
+			this.dispatch('setting', p, Settings.vars[p]);
 		}
 
 	},
-	methods:{
+	methods: {
 
-		clear(){
+		clear() {
 
 		},
 
@@ -45,43 +46,53 @@ export default {
 		}
 
 	},
-	computed:{
+	computed: {
 
 		compactMode: {
 			get() { return this.sCompactMode; },
-			set(v){
+			set(v) {
 				Settings.set('compactMode', v);
 				this.sCompactMode = v;
 				this.dispatch('setting', 'compactMode', v);
 			}
 
 		},
-		remoteFirst:{
-			get(){
+		remoteFirst: {
+			get() {
 				return this.saves.remoteFirst;
 			},
-			set(v){
-				this.saves.remoteFirst = Settings.setSubVar( 'saves', 'remoteFirst', v );
-				this.dispatch('setting', 'remoteFirst', v );
+			set(v) {
+				this.saves.remoteFirst = Settings.setSubVar('saves', 'remoteFirst', v);
+				this.dispatch('setting', 'remoteFirst', v);
 			}
 		},
-		autosave:{
-			get(){
+		autosave: {
+			get() {
 				return this.saves.autosave;
 			},
-			set(v){
-				this.saves.autoSave = Settings.setSubVar( 'saves', 'autosave', v );
-				this.dispatch('setting', 'autosave', v );
+			set(v) {
+				this.saves.autosave = Settings.setSubVar('saves', 'autosave', v);
+				this.dispatch('setting', 'autosave', v);
 			}
 		},
-		darkMode:{
-			get(){
+		darkMode: {
+			get() {
 				return this.sDarkMode;
 			},
-			set(v){
-				Settings.set( 'darkMode', v);
+			set(v) {
+				Settings.set('darkMode', v);
 				this.sDarkMode = v;
-				this.dispatch('setting', 'darkMode', v );
+				this.dispatch('setting', 'darkMode', v);
+			}
+		},
+		smoothBars: {
+			get() {
+				return this.sSmoothBars;
+			},
+			set(v) {
+				Settings.set('smoothBars', v);
+				this.sSmoothBars = v;
+				this.dispatch('setting', 'smoothBars', v);
 			}
 		}
 
@@ -104,6 +115,11 @@ export default {
 	<div>
 	<label :for="elmId('compact-mode')">Compact Mode</label>
 	<input type="checkbox" :id="elmId('compact-mode')" v-model="compactMode">
+	</div>
+
+	<div>
+	<label :for="elmId('smooth-bars')">Smooth bars</label>
+	<input type="checkbox" :id="elmId('smooth-bars')" v-model="smoothBars">
 	</div>
 
 	<div>
@@ -132,25 +148,23 @@ export default {
 </template>
 
 <style scoped>
-
 .settings {
-	height:auto;
-	min-height:5.5rem;
-	min-width:30%;
-	max-width:60%;
+	height: auto;
+	min-height: 5.5rem;
+	min-width: 30%;
+	max-width: 60%;
 	position: absolute;
-	z-index:10000;
-	top:3rem;
-	background:inherit;
+	z-index: 10000;
+	top: 3rem;
+	background: inherit;
 	border: var(--popup-border);
 	border-radius: 0.20rem;
-	padding:var(--md-gap);
+	padding: var(--md-gap);
 }
 
 button.close {
-	position:absolute;
-	bottom:var(--md-gap);
-	right:var(--md-gap);
+	position: absolute;
+	bottom: var(--md-gap);
+	right: var(--md-gap);
 }
-
 </style>

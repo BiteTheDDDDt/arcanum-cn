@@ -1,7 +1,7 @@
 import Game from '../game';
 import Debug from './debug';
 
-var cheats;
+let cheats;
 
 if ( !__CHEATS ) {
 

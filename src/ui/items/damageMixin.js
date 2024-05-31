@@ -1,9 +1,10 @@
 import game from '../../game';
 import { precise } from '../../util/format';
-import { applyParams, FP, TYP_FUNC } from '../../values/consts';
+import { FP } from '../../values/consts';
 import Char from '../../chars/char';
 import { RollOver } from '../popups/itemPopup.vue';
 import Range from '../../values/range';
+import FValue from '../../values/rvals/fvalue';
 
 export default function DamageMixin(itemProp="item") {
     return {
@@ -22,20 +23,14 @@ export default function DamageMixin(itemProp="item") {
                     bonus = 0
                 }
                 if(!dmg) return null;
-                else if(typeof dmg === 'number') return dmg*mult+bonus;
+                else if(typeof dmg === 'number') return precise(dmg*mult+bonus);
 
-                if ( dmg && dmg.type === TYP_FUNC) {
-                    dmg = dmg.fn;
-                }
-                if ( dmg instanceof Function ) {
+                if ( dmg instanceof FValue) {
                     let params = {
-                        [FP.GAME]: game.gdata, 
-                        [FP.TARGET]: game.state.player, 
                         [FP.ACTOR]: RollOver.item instanceof Char ? RollOver.item : RollOver.source instanceof Char ? RollOver.source : game.state.player,
-                        [FP.CONTEXT]: game.state.player.context,
                         [FP.ITEM]: this[itemProp]
                     };
-                    return precise(applyParams(dmg, params)*mult+bonus);
+                    return precise(dmg.applyDummy(params) * mult + bonus);
                 }
                 if ( dmg ) {
                     let dmgdisp
@@ -46,7 +41,7 @@ export default function DamageMixin(itemProp="item") {
                         dmgdisp.multiply(mult)
                     }
                     else {
-                        dmgdisp = dmg*mult+bonus;
+                        dmgdisp = precise(dmg*mult+bonus);
                     }
                     return dmgdisp.toString()
                     //return dmgdisp.toString(this[itemProp]);
@@ -58,7 +53,7 @@ export default function DamageMixin(itemProp="item") {
                 if(!it) return false;
 
                 let dmg = it.damage || it.dmg;
-                return dmg != null && (dmg instanceof Function || dmg?.type === TYP_FUNC || this.getDamageStr(dmg, it)); 
+                return dmg != null && (dmg instanceof FValue || this.getDamageStr(dmg, it)); 
             },
             getDamageMult(it) {
                 let PotencyMult = 1
@@ -78,7 +73,12 @@ export default function DamageMixin(itemProp="item") {
                     {	
                         let potency = Actor.context.state.getData(p)
                         if(potency){
-                            PotencyMult = PotencyMult * potency.damage.fn( Actor, game.state.player, game.state.player.context, potency )
+                            PotencyMult = PotencyMult * potency.damage.getApply({
+                                [FP.ACTOR]: Actor,
+                                [FP.TARGET]: game.state.player,
+                                [FP.CONTEXT]: game.state.player.context,
+                                [FP.ITEM]: potency 
+                            });
                         }
                     }
                 }

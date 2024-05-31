@@ -12,8 +12,8 @@
 		"name": "Mana Energies"
 	},
 	{
-		"id": "primordialgems",
-		"name": "Primordial Gems"
+		"id": "fundamentalgems",
+		"name": "fundamental Gems"
 	},
 	{
 		"id": "prismaticgems",
@@ -24,8 +24,8 @@
 		"name": "Elemental Gems"
 	},
 	{
-		"id": "primordialrunes",
-		"name": "Primordial Runes"
+		"id": "fundamentalrunes",
+		"name": "fundamental Runes"
 	},
 	{
 		"id": "prismaticrunes",
@@ -370,5 +370,153 @@
 	{
 		"id": "t_animalcompanion",
 		"name": "animal companion"
+	},
+	{
+		"id": "t_goodcompanion",
+		"name": "good-aligned companion"
+	},
+	{
+		"id": "t_extremegood",
+		"name": "Virtuous Acts"
+	},
+	{
+		"id": "t_extremeevil",
+		"name": "Vile Acts"
+	},
+	{
+		"id": "t_goodact",
+		"name": "Good Acts"
+	},
+	{
+		"id": "t_evilact",
+		"name": "Evil Acts"
+	},
+	{
+		"id": "t_graveyard_remodel",
+		"name": "Graveyard Remodeling"
+	},
+	{
+		"id": "t_healspell",
+		"name": "Healing Spell"
+	},
+	{
+		"id": "t_furn_portal",
+		"name": "home portal"
+	},
+	{
+		"id": "t_furn_researchable",
+		"name": "research object"
+	},
+	{
+		"id": "t_infusion",
+		"name": "infusion",
+		"sharecd": true
+	},
+	{
+		"id": "t_glossary_entry",
+		"name": "glossary entry"
+	},
+	{
+		"id": "t_gloss_school",
+		"name": "spell school"
+	},
+	{
+		"id": "t_gloss_animation",
+		"name": "animation"
+	},
+	{
+		"id": "t_gloss_crafting",
+		"name": "crafting"
+	},
+	{
+		"id": "t_gloss_minions",
+		"name": "minions"
+	},
+	{
+		"id": "t_gloss_skill",
+		"name": "skill"
+	},
+	{
+		"id": "t_gloss_resource",
+		"name": "resource"
+	},
+	{
+		"id": "t_gloss_hall",
+		"name": "hall"
+	},
+	{
+		"id": "t_gloss_player",
+		"name": "player"
+	},
+	{
+		"id": "t_gloss_action",
+		"name": "action"
+	},
+	{
+		"id": "t_gloss_enchant",
+		"name": "enchant"
+	},
+	{
+		"id": "t_gloss_combat",
+		"name": "combat"
+	},
+	{
+		"id": "t_gloss_exploration",
+		"name": "exploration"
+	},
+	{
+		"id": "t_summon",
+		"name": "summon"
+	},
+	{
+		"id": "t_healthpot",
+		"name": "health potion",
+		"sharecd": true
+	},
+	{
+		"id": "t_manapot",
+		"name": "mana potion",
+		"sharecd": true
+	},
+	{
+		"id": "t_stampot",
+		"name": "stamina potion",
+		"sharecd": true
+	},
+	{
+		"id": "t_combatpot",
+		"name": "combat potion",
+		"sharecd": true
+	},
+	{
+		"id": "t_statuspot",
+		"name": "status recovery potion",
+		"sharecd": true
+	},
+	{
+		"id": "t_oneiropot",
+		"name": "oneiric potion",
+		"sharecd": true
+	},
+	{
+		"id": "t_speeddown",
+		"name": "speed reduction"
+	},
+	{
+		"id": "t_tohitdown",
+		"name": "accuracy reduction"
+	},
+	{
+		"id": "t_tohitup",
+		"name": "accuracy increase"
+	},
+	{
+		"id": "t_speedup",
+		"name": "speed increase"
+	},
+	{
+		"id": "t_dueling",
+		"name": "dueling weapon"
 	}
+
 ]

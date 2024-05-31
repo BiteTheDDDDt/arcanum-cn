@@ -1,4 +1,4 @@
-import { assign } from 'objecty';
+import { assign } from '../util/objecty';
 
 /**
  * @class Proxy - proxies an item to add functionality/different behavior.

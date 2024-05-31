@@ -130,5 +130,11 @@
 		"name": "charm damage",
 		"value": 100,
 		"damage": "Math.max((i.value/100)||0,0)"
+	},
+	{
+		"id": "spellheal",
+		"name": "spell healing",
+		"value": 100,
+		"damage": "Math.max((i.value/100)||0,0)"
 	}
 ]

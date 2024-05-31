@@ -79,5 +79,10 @@
 		"name": "converters",
 		"locked": false,
 		"parent": "home"
+	},
+	{
+		"id": "sect_glossary",
+		"name": "glossary",
+		"require": "apprentice"
 	}
 ]

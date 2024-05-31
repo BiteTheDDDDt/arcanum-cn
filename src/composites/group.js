@@ -1,5 +1,5 @@
 import Base, { mergeClass } from "../items/base";
-import { assign } from 'objecty';
+import { assign } from '../util/objecty';
 import { addValues } from "../util/dataUtil";
 
 /**
@@ -8,24 +8,24 @@ import { addValues } from "../util/dataUtil";
  */
 export default class Group {
 
-	toJSON(){
+	toJSON() {
 
 		return {
 
-			id:this.id,
-			items:this.items.map(v=>v.id),
-			name:this.name,
-			type:this.type,
-			val:this.value,
-			custom:'group'
+			id: this.id,
+			items: this.items.map(v => v.id),
+			name: this.name,
+			type: this.type,
+			val: this.value,
+			custom: 'group'
 
 		}
 	}
 
 	get id() { return this._id; }
-	set id(v) { this._id = v;}
+	set id(v) { this._id = v; }
 
-	get name() {return this._name; }
+	get name() { return this._name; }
 	set name(v) { this._name = v; }
 
 	/**
@@ -34,16 +34,21 @@ export default class Group {
 	get items() { return this._items; }
 	set items(v) {
 
-		var a = [];
+		const a = [];
 
 		let level = 0;
 
-		if ( v ) {
+		if (v) {
 
-			for( let i = v.length-1; i >= 0; i-- ) {
+			for (let i = v.length - 1; i >= 0; i--) {
 
-				var it = v[i];
-				if ( typeof it === 'object') level += it.level || 0;
+				const it = v[i];
+				if (it === null) {
+					v.splice(i,1)
+					a.splice(i,1)
+					continue
+				}
+				if (typeof it === 'object') level += it.level || 0;
 				a[i] = it;
 
 			}
@@ -55,6 +60,7 @@ export default class Group {
 
 		this._items = a;
 	}
+
 
 	/**
 	 * @property {string} type - type might need to be a standard type
@@ -73,54 +79,59 @@ export default class Group {
 	/**
 	 * Cost to use.
 	 */
-	get cost() { return this._cost; }
-	set cost(v) { this._cost = v;}
+	get cost() {
+		return this.computeCost(false);
+	}
+	set cost(v) { this._cost = v; }
 
 	/*get instanced() { return true; }
 	set instanced(v){}*/
 
-	get locked() { return false;}
-	get owned(){return true;}
-	maxed(){ return false; }
+	get locked() { return false; }
+	get owned() { return true; }
+	maxed() { return false; }
 
-	constructor(vars=null ) {
+	constructor(vars = null) {
 
-		if( vars) assign( this, vars );
+		if (vars) assign(this, vars);
 
-		if (!this.items ) this.items = null;
+		if (!this.items) this.items = null;
 
 	}
 
-	computeCost() {
+	computeCost(save = true) {
 
-		if ( !this.items || this.items.length === 0) {
+		if (!this.items || this.items.length === 0) {
 			this.cost = null;
 			return;
 		}
 		let cost = {};
 
-		for( let i = this.items.length-1; i >= 0; i-- ) {
+		for (let i = this.items.length - 1; i >= 0; i--) {
 
 			let it = this.items[i];
-			if (!it) this.items.splice( i, 1);
-			else if ( it.cost ) addValues( cost, it.cost );
+			if (!it) this.items.splice(i, 1);
+			else if (it.cost) addValues(cost, it.cost);
 
 
 		}
 
-		this.effect = this.items.map( v=> typeof v === 'string' ? v : v.name );
-		this.cost = cost;
+		if (save) {
+			this.effect = this.items.map(v => typeof v === 'string' ? v : v.name);
+			this.cost = cost;
+		}
+		return cost;
 
 	}
 
-	canUse( g ) {
+	canUse(g) {
 
 		//check for additional blocks like cd, locks, disabled, etc.
-		for( let i = this.items.length-1; i>=0; i-- ) {
-			if ( !this.items[i].canUse(g) ) return false;
+		for (let i = this.items.length - 1; i >= 0; i--) {
+			if (!this.items[i].canUse(g)) return false;
 		}
 
-		return g.canPay( this.cost );
+		return g.canPay(this.cost);
 
 	}
 
@@ -132,7 +143,7 @@ export default class Group {
 	onUse(g) {
 
 		let len = this.items.length;
-		for( let i = 0; i < len; i++ ) {
+		for (let i = 0; i < len; i++) {
 
 			this.items[i].onUse(g);
 
@@ -140,7 +151,7 @@ export default class Group {
 
 	}
 
-	add( it ) {
+	add(it) {
 
 		this.items.push(it);
 
@@ -151,11 +162,11 @@ export default class Group {
 	 * @param {Game} g
 	 * @param {*} amt
 	 */
-	amount( amt ) {
+	amount(amt) {
 
 		let len = this.items.length;
-		for( let i = 0; i < len; i++ ) {
-			this.items[i].amount( amt );
+		for (let i = 0; i < len; i++) {
+			this.items[i].amount(amt);
 		}
 
 	}
@@ -166,11 +177,11 @@ export default class Group {
 	 * @param {number} amt - factor of base amount added
 	 * ( fractions of full amount due to tick time. )
 	 */
-	applyVars( mods, amt=1 ) {
+	applyVars(mods, amt = 1) {
 
 		let len = this.items.length;
-		for( let i = 0; i < len; i++ ) {
-			this.items[i].applyVars( mods, amt );
+		for (let i = 0; i < len; i++) {
+			this.items[i].applyVars(mods, amt);
 		}
 	}
 
@@ -180,14 +191,14 @@ export default class Group {
 	 * @param {number} amt
 	 * @param {Object} [targ=null]
 	 */
-	applyMods( mods, amt=1, targ, src, path, isMod=false, initialCall=true ) {
+	applyMods(mods, amt = 1, targ, src, path, isMod = false, initialCall = true) {
 
 		let len = this.items.length,
 			results = [];
 
-		for( let i = 0; i < len; i++ ) {
+		for (let i = 0; i < len; i++) {
 			let it = this.items[i];
-			results.push( it.applyMods( mods, amt, it, isMod ? src : it, path ? path : it.id, isMod, initialCall ) );
+			results.push(it.applyMods(mods, amt, it, isMod ? src : it, path ? path : it.id, isMod, initialCall));
 		}
 		return results;
 
@@ -197,7 +208,7 @@ export default class Group {
 	 *
 	 * @param {GameState} gs
 	 */
-	revive(gs){
+	revive(gs) {
 
 		this.items = gs.toData(this.items);
 		this.computeCost();
@@ -206,4 +217,4 @@ export default class Group {
 
 }
 
-mergeClass( Group, Base );
+mergeClass(Group, Base);

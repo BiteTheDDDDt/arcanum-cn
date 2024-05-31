@@ -4,6 +4,10 @@ import Npc from "../chars/npc";
 import Attack from '../chars/attack';
 import { NpcLoreLevels } from '../values/craftVars';
 import Percent from "../values/percent";
+import { freezeData, splitKeys } from "../util/util";
+import { cloneClass } from "../util/objecty";
+import Game from "../game";
+import Range, { RangeTest } from "../values/range";
 
 /**
  *
@@ -11,48 +15,115 @@ import Percent from "../values/percent";
  * @param {Game} g
  * @returns {Npc}
  */
-export const CreateNpc = (proto, g ) => {
 
-	let it = new Npc( proto );
+export const CreateNpc = (proto, g) => {
+
+	let it = new Npc(proto);
 	it.value = 1;
 	//
 	it.name = proto.name;
 	it.id = g.state.nextId(proto.id);
+	it.revive(g.state);
+	it.begin();
 	return it;
 
 }
 
-export const genDefaultLoot = char => {
+const GenDefaults = target => {
+	/** @type {number} */
+	let level =  1;
+	if(target.level != null) {
+		if(!isNaN(target.level)) {
+			level = +target.level
+		} else {
+			console.warn(`Target ${target.id} level is NaN (${target.level})`);
+		}
+	}
 	return {
-		maxlevel: char.level, 
+		level,
+		hp: level * 2,
+		speed: level,
+		tohit: level * 1.5,
+		dodge: level / 2,
+		defense: level,
+		chaincast: 0.8,
+		loot: GenDefaultLoot
+	}
+}
+
+export const GenDefaultLoot = char => {
+	/** @type {number} */
+	let level = char.level ?? 1;
+	return {
+		maxlevel: level,
 		[TYP_PCT]: new Percent(10)
 	}
 }
 
+/**
+ * Generates a template for state using passed-in template and base's default values as references.
+ * The minimum amount of defined items within the state template is all player stats.
+ * @param {Monster} base Item to generate state template for.
+ * @param {*} template Template to use as reference. If nullish, uses base's template.
+ * @returns {*} A state template
+ */
+// Ideally called within constructor
+function generateStateTemplate(base, template) {
+	// Assumes base is a monster
+	const defaults = base.defaults ?? {};
+	if(template == null) template = base.template ?? {};
+	// This is a state template, meaning it has to mirror how game's gdata looks (id-data pairing)
+	/**
+	 * Template copy of statedata.  
+	 * The minimum amount of defined items within the state template is all player stats.
+	 */
+	let stateTemplate = template.statedata ? cloneClass(template.statedata) : {};
+
+	for(let stat of Game.state.playerStats) {
+		let id = stat.id;
+
+		// Since this should be generated within constructor, order of priority goes state -> vars -> defaults
+		let src = template[id] ?? defaults[id];
+		let dest = stateTemplate[id];
+		if(!dest) dest = stateTemplate[id] = {};
+
+		// If the stat is a MaxStat (has a maximum)
+		if(!stat.stat && dest.max == null) {
+			dest.max = src;
+		}
+		if(stat.stat && dest.val == null) {
+			dest.val = src
+		}
+	}
+
+	return stateTemplate;
+}
+
 export default class Monster extends GData {
+	static GenDefaults = GenDefaults;
 
 	/**
 	 * @property {true} isRecipe
 	 */
-	get isRecipe() {return true; }
+	get isRecipe() { return true; }
 
 	/**
 	 * @returns {object}
 	 */
 	toJSON() {
-		if (this.require) return { value:this.value, locked:this.locked};
-		else if ( this.value > 0 ) return { value:this.value};
+		if (this.require) return { value: this.value, locked: this.locked };
+		else if (this.value > 0) return { value: this.value };
 		else return undefined;
 	}
 	get attack() { return this._attack; }
 	set attack(v) {
 
-		if ( Array.isArray(v)) {
+		if (Array.isArray(v)) {
 
 			let a = [];
-			for( let i = v.length-1; i>=0; i-- ) {
+			for (let i = v.length - 1; i >= 0; i--) {
 
-				a.push( (v[i] instanceof Attack) ? v[i] :
+				a.push((v[i] instanceof Attack) ? v[i] :
 					new Attack(v[i])
 				);
 
@@ -60,30 +131,47 @@ export default class Monster extends GData {
 
 			this._attack = a;
 
-		} else this._attack = ( v instanceof Attack) ? v : new Attack(v);
+		} else this._attack = (v instanceof Attack) ? v : new Attack(v);
+
+	}
+	get onDeath() { return this._onDeath; }
+	set onDeath(v) {
+
+		if (Array.isArray(v)) {
+
+			let a = [];
+			for (let i = v.length - 1; i >= 0; i--) {
+
+				a.push((v[i] instanceof Attack) ? v[i] :
+					new Attack(v[i])
+				);
+
+			}
+
+			this._onDeath = a;
+
+		} else this._onDeath = (v instanceof Attack) ? v : new Attack(v);
 
 	}
 	/**
 	 *
 	 * @param {object} [vars=null]
 	 */
-	constructor(vars=null) {
+	constructor(vars = null) {
 
-		super(vars );
+		if(!(vars instanceof Object && vars.constructor.name === 'Object')) console.log(`Non-object vars for ${vars.id}`);
+
+		super(vars, GenDefaults);
+
+		if(this.statedata) splitKeys(this.statedata);
 
 		this.type = MONSTER;
 
-		if ( !this.level ) this.level = 1;
-
-		this.hp = this.hp || (2*this.level);
-		this.speed = this.speed || this.level;
-		this.tohit = this.tohit || this.level*1.5;
-		this.defense = ( this.defense === null || this.defense === undefined )
-								? this.level : this.defense;
-
 		if (this.locked != false) this.locked = this.require ? true : false;
 
-		if(!this.loot) this.loot = genDefaultLoot(this);
+		// To prevent these properties being defined in module files.
+		delete this.subInstance;
+		delete this.instTemplate;
 
 	}
 
@@ -92,14 +180,14 @@ export default class Monster extends GData {
 	 * @param {Game} g
 	 * @returns {boolean}
 	 */
-	canUse( g ){
+	canUse(g) {
 
-		if ( this.value < 10 ) return false;
+		if (this.value < 10) return false;
 
-		let npcSkills = NpcLoreLevels( this.kind, g);
-		if ( npcSkills < this.level ) return false;
+		let npcSkills = NpcLoreLevels(this.kind, g);
+		if (npcSkills < this.level) return false;
 
-		return super.canUse( g );
+		return super.canUse(g);
 
 	}
 
@@ -108,10 +196,10 @@ export default class Monster extends GData {
 	 * @param {Game} g
 	 * @param {number} [count=1]
 	 */
-	amount( g, count ) {
-		if(!count) count = 1;
+	amount(g, count) {
+		if (!count) count = 1;
 		let minions = g.getData('minions');
-		g.create( this, minions.shouldKeep(this), count );
+		g.create(this, minions.shouldKeep(this), count);
 
 	}
 
@@ -121,44 +209,58 @@ export default class Monster extends GData {
 	 * @param {number} [team=TEAM_PLAYER]
 	 * @param {boolean} [keep=false]
 	 */
-	onCreate( g, team = TEAM_PLAYER, keep=false, max = 0 ){
+	onCreate(g, team = TEAM_PLAYER, keep = false, max = 0) {
+		let combat = g.getData("combat");
+
+		if(!keep && max > 0 && combat.getMonsters(this.id, team).length >= max) {
+			return;
+		}
 
 		//if ( team === TEAM_PLAYER ) console.log('create npc: ' + this.id );
-
+		
 		let it = CreateNpc(this, g);
 		it.team = team;
 		it.active = !keep;
 
-		if ( keep ) {
+		if (keep) {
 
-			g.state.minions.add( it );
+			let minions = g.getData("minions", false, false);
+			if(!minions) console.warn("Context does not have minions!", g.self.id)
+			else minions.add(it);
 
 		} else {
-			if (g.state.combat){
-				if (max>0)
-				{
-					if(g.state.combat.getMonsters(this.id,team).length>=max)
-					{
-						return null
-					} else g.state.combat.addNpc( it );
 
-				}
-				else g.state.combat.addNpc( it );
-				
-			}
-			else if (g.state.state){
-				if (max>0)
-				{
-					if(g.state.state.combat.getMonsters(this.id,team).length>=max)
-					{
-						return null
-					} else g.state.state.combat.addNpc( it );
+			g.getData("combat").addNpc(it);
 
-				}
-				else g.state.state.combat.addNpc( it );
-			}
 		}
 
+	}
+
+	revive( gs ) {
+		let parsedState = generateStateTemplate(this, this.instTemplate);
+		this.statedata = parsedState;
+		/** State template of the original monster. Sub-instances (Monster instances generated by an NPC) will refer to the original state template. */
+		// Must use Game.state as gs might be a context state.
+		this.stateTemplate = this.subInstance ? Game.state.getData(this.id).stateTemplate : freezeData(cloneClass(parsedState));
+		for(let stat of Game.state.playerStats) {
+			let id = stat.id;
+			let prop = stat.stat ? "val" : "max";
+			let stateItem = this.statedata[id], {val, max} = stateItem;
+			// Need to make max and stat ranges here for modding purposes and bestiary purposes.
+			if(typeof val === "string" && RangeTest.exec(val)) stateItem.val = new Range(val);
+			if(!stat.stat && typeof max === "string" && RangeTest.exec(max)) stateItem.max = new Range(max);
+			// Making it so that modding or changing stats on monsters affects the stat in state instead.
+			Object.defineProperty(this, id, {
+				get() {
+					return this.statedata[id][prop];
+				},
+				set(v) {
+					this.statedata[id][prop] = v;
+				},
+				configurable: true,
+				enumerable: true
+			});
+		}
 	}
 
 	/**

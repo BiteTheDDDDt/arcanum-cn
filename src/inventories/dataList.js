@@ -55,15 +55,15 @@ export default class DataList extends Inventory {
 	 */
 	getRunnable(g, check){
 
-		var len = this.items.length;
+		const len = this.items.length;
 
 		if ( len === 0) return null;
 
-		let start = this.nextInd();
+		const start = this.nextInd();
 		let i = start;
 
 		do {
-			let it = this.items[i];
+			const it = this.items[i];
 			if ( it.canRun(g) ) {
 				if ( check && check instanceof Function ) {
 					if ( check(it) ) return it;
@@ -139,15 +139,15 @@ export default class DataList extends Inventory {
 	 */
 	nextUsable(g){
 
-		var len = this.items.length;
+		const len = this.items.length;
 		if ( len <= 0 ) return null;
 
-		let start = this.nextInd();
+		const start = this.nextInd();
 		let i = start;
 
 		do {
 
-			var it = this.items[i];
+			const it = this.items[i];
 
 			if ( it.canUse(g) ) {
 
@@ -171,7 +171,7 @@ export default class DataList extends Inventory {
 	 */
 	onUse(g) {
 
-		var it = this.nextUsable(g);
+		const it = this.nextUsable(g);
 		if ( it ) {
 			it.onUse(g);
 			return it;

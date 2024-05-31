@@ -3,6 +3,7 @@ import Game from '../../game';
 
 import ItemsBase from '../itemsBase';
 import FilterBox from '../components/filterbox.vue';
+import { move } from '../../util/array';
 
 export default {
 
@@ -28,7 +29,7 @@ export default {
 
 	},
 	methods:{
-
+		move: move,
 		/**
 		 * Get list of ressurect spells which can be applied to b.
 		 * @param {Npc}
@@ -45,7 +46,7 @@ export default {
 		useRez( rez, b) {
 
 			Game.tryItem(rez);
-			b.hp.set(1);
+			b.hp = 1;
 
 		},
 
@@ -64,7 +65,7 @@ export default {
 		toNum(v) {
 
 			if ( v === undefined || v=== null ) return 0;
-			return ( (typeof v === 'object') ? v.value : v ).toFixed(1);
+			return ( (typeof v === 'object') ? +v.value : v ).toFixed(1);
 
 		}
 
@@ -87,7 +88,9 @@ export default {
 	<div class="char-list">
 	<table>
 		<tr><th>Creature</th><th class="num-align">Life</th><th>Active</th><th>Actions</th></tr>
-		<tr class="char-row" v-for="b in filtered" :key="b.id" @mouseenter.capture.stop="itemOver($event,b)">
+		<tr class="char-row" v-for="(b,ind) in filtered" :key="b.id" @mouseenter.capture.stop="itemOver($event,b)">
+			<button v-if="filtered.length == minions.items.length" :disabled= "!(ind>0)"   class="stop" @click="minions.items = move(minions.items,ind,-1)">↑</button>
+			<button v-if="filtered.length == minions.items.length" :disabled= "!(ind < minions.items.length-1)"   class="stop" @click="minions.items = move(minions.items,ind,1)">↓</button>
 			<th><input class="fld-name" type="text" v-model="b.name"></th>
 			<td class="num-align">{{ toNum(b.hp) }} / {{ toNum( b.hp.max ) }}</td>
 

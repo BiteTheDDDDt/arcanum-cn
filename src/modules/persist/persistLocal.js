@@ -1,55 +1,65 @@
-const SAVE_DIR = '';
-const CHARS_DIR = 'chars/';
+/**
+ * window.localStorage is deprecated due to size limitations.
+ * Should only be used as a fallback.
+ * @param {*} persist 
+ * @returns 
+ */
+export const useLocalStorage = (persist)=> {
 
-export const Local = {
+	const SAVE_DIR = '';
+	const CHARS_DIR = 'chars/';
 
-	/**
-	 * Clear all stored data.
-	 */
-	clearAll(){ window.localStorage.clear(); },
+	return persist.addLoader({
 
-	deleteChar( charid ) {
+		fallback:true,
 
-		window.localStorage.setItem( this.charLoc(charid), null );
+		/**
+		 * Clear all stored data.
+		 */
+		clearAll(){ window.localStorage.clear(); },
 
-	},
+		deleteChar( charid ) {
 
-	saveChar( data, charid ) {
-		console.log('LOCAL SAVE AT: ' + this.charLoc(charid ));
-		window.localStorage.setItem( this.charLoc( charid ), data );
-	},
+			window.localStorage.setItem( this.charLoc(charid), null );
 
-	loadChar( charid ){
-		let str = window.localStorage.getItem( this.charLoc( charid ) );
+		},
 
-		console.log('LOCAL LOAD CHAR: ' + this.charLoc(charid) );
-		if ( str ) {
-			console.log('loading LOCAL: ' + charid );
-			return JSON.parse(str);
-		}
-		console.log('CHAR NOT FOUND');
-		return null;
-	},
+		saveChar( data, charid ) {
+			window.localStorage.setItem( this.charLoc( charid ), data );
+		},
 
-	/**
-	 *
-	 * @param {string} data
-	 */
-	saveHall( data, hid ){
-		window.localStorage.setItem( this.hallLoc( hid ), data );
-	},
+		loadChar( charid ){
+			const str = window.localStorage.getItem( this.charLoc( charid ) );
 
-	loadHall( hid ){
-		let str = window.localStorage.getItem( this.hallLoc( hid ) );
-		console.log('LOCAL LOAD HALL: ' + this.hallLoc(hid) );
-		if ( str) return JSON.parse(str);
-		console.log('LOCAL HALL NOT FOUND');
-		return null;
-	},
+			console.log('LOCAL LOAD CHAR: ' + this.charLoc(charid) );
+			if ( str ) {
+				console.log('loading LOCAL: ' + charid );
+				return JSON.parse(str);
+			}
+			console.log('CHAR NOT FOUND');
+			return null;
+		},
+
+		/**
+		 *
+		 * @param {string} data
+		 */
+		saveHall( data, hid ){
+			window.localStorage.setItem( this.hallLoc( hid ), data );
+		},
+
+		loadHall( hid ){
+			let str = window.localStorage.getItem( this.hallLoc( hid ) );
+			console.log('LOCAL LOAD HALL: ' + this.hallLoc(hid) );
+			if ( str) return JSON.parse(str);
+			console.log('LOCAL HALL NOT FOUND');
+			return null;
+		},
 
 
-	charLoc( charid ) { return SAVE_DIR + CHARS_DIR + charid },
+		charLoc( charid ) { return SAVE_DIR + CHARS_DIR + charid },
 
-	hallLoc( hid ){ return (SAVE_DIR + hid); }
+		hallLoc( hid ){ return (SAVE_DIR + hid); }
+	});
 
 }

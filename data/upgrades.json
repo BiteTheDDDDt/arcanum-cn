@@ -180,7 +180,7 @@
 		"mod": {
 			"dist": 270,
 			"shadow.rate": 0.1,
-			"skull.max": 1,
+			"skulls.max": 1,
 			"bones.max": 5
 		}
 	},
@@ -206,7 +206,7 @@
 	{
 		"id": "fly",
 		"desc": "Fly on the winds",
-		"require": "g.airlore>=20",
+		"require": "g.airlore>=16",
 		"slot": "mount",
 		"buy": {
 			"arcana": 20,
@@ -223,7 +223,7 @@
 		"id": "firechariot",
 		"name": "chariot of fire",
 		"desc": "",
-		"require": "g.firelore>=20||g.lightlore>=20",
+		"require": "g.firelore>=16||g.lightlore>=16",
 		"slot": "mount",
 		"buy": {
 			"research": 10000,
@@ -242,7 +242,7 @@
 		"id": "pegasusmount",
 		"name": "pegasus",
 		"desc": "A winged horse",
-		"require": "g.lightlore>=20&&g.stables>0",
+		"require": "g.lightlore>=10&&g.stables>0",
 		"need": "stables",
 		"slot": "mount",
 		"tags": "steed",
@@ -409,6 +409,7 @@
 		"flavor": "Who prices these bags?!",
 		"mod": {
 			"magicgems.max": 1,
+			"bloodgem.max": 1,
 			"gems.max": 5
 		}
 	},
@@ -653,7 +654,7 @@
 			"research.max": 10,
 			"divination.max": 1,
 			"divination.rate": "20%",
-			"astronomy.max": 1,
+			"astronomy.max": 2,
 			"astronomy.rate": "10%",
 			"starcharts.rate": 0.001
 		}
@@ -671,9 +672,9 @@
 		"mod": {
 			"starcharts.max": 10,
 			"research.max": 10,
-			"planeslore.max": 1,
+			"planeslore.max": 2,
 			"planeslore.rate": 0.3,
-			"astronomy.max": 1,
+			"astronomy.max": 2,
 			"astronomy.rate": 0.3,
 			"starcharts.rate": 0.008
 		}
@@ -687,9 +688,6 @@
 			"spirit": 2,
 			"research": 50,
 			"codices": 1
-		},
-		"result": {
-			"sp": 1
 		},
 		"mod": {
 			"codices.rate": 0.001,
@@ -1193,7 +1191,7 @@
 	{
 		"id": "guidingstar",
 		"name": "guiding star",
-		"require": "g.astronomy>=15&&g.evil<=0",
+		"require": "g.astronomy>=15",
 		"desc": "A light in the heavens guides your way.",
 		"cost": {
 			"research": 5000,
@@ -1361,11 +1359,10 @@
 		"max": 5,
 		"require": "g.spiritlore.max>=7",
 		"cost": {
-			"gold": 150,
-			"bonedust": 10
+			"gold": 75
 		},
 		"mod": {
-			"spiritlore.max": 0.2,
+			"spirit.max": 0.2,
 			"spirit.rate": 0.01
 		}
 	},
@@ -1392,13 +1389,13 @@
 		"require": "g.crafting>=5&&g.spirit>=5",
 		"max": 3,
 		"cost": {
-			"gold": 300,
-			"research": 100,
-			"spirit": 5
+			"gold": 180,
+			"research": 60,
+			"spirit": 3
 		},
 		"mod": {
 			"bonedust.max": 5,
-			"spiritlore.max": 0.25,
+			"shadowlore.rate": 0.1,
 			"spiritlore.rate": 0.1
 		}
 	},
@@ -1551,7 +1548,7 @@
 			"mana": 5
 		},
 		"mod": {
-			"hp.max": 2
+			"hp.max": 5
 		}
 	},
 	{
@@ -1669,7 +1666,8 @@
 			"bloodgem": 5
 		},
 		"mod": {
-			"arcanebody.mod.hp.max": 2
+			"arcanebody.mod.hp.max": 5,
+			"arcanebody.mod.bloodgem.max": 10
 		}
 	},
 	{
@@ -1820,7 +1818,7 @@
 			"lore.max": 2,
 			"demonology.max": 2,
 			"demonology.rate": 0.3,
-			"planeslore.max": 1
+			"planeslore.max": 2
 		},
 		"flavor": "And they say the blood has to be yours."
 	},
@@ -1842,7 +1840,7 @@
 			"player.defense": 30,
 			"stamina.rate": -0.5,
 			"sp.rate": 0.0001,
-			"planeslore.max": 2,
+			"planeslore.max": 3,
 			"shadowlore.max": 2,
 			"reanimation.max": 2,
 			"lore.max": 1,
@@ -1891,6 +1889,30 @@
 			"air.rate": 0.05
 		},
 		"flavor": "The nothing you've become"
+	},
+	{
+		"id": "typhoon",
+		"name": "typhoon",
+		"tags": [
+			"airsource",
+			"watersource"
+		],
+		"desc": "The whirling chaos above the sea",
+		"require": "(g.air.max>=15&&g.water.max>=15)||g.stormcaller>0",
+		"cost": {
+			"research": 1000,
+			"air": 10,
+			"water": 10,
+			"airgem": 5,
+			"watergem": 5,
+			"arcana": 5
+		},
+		"mod": {
+			"dodge": 2,
+			"player.hits.air": 3,
+			"player.hits.water": 3
+		},
+		"flavor": "Become one with the wind and water"
 	},
 	{
 		"id": "autonomicmending",
@@ -2095,7 +2117,7 @@
 		"id": "innerfire",
 		"name": "inner fire",
 		"tags": "firesource",
-		"desc": "Your body is a source fire.",
+		"desc": "Your body is a source of fire.",
 		"flavor": "Ashes to ashes",
 		"require": "g.fire.max>=10",
 		"cost": {
@@ -2498,11 +2520,13 @@
 		"name": "fire werry",
 		"desc": "A hidden pocket of the plane of ash and fire",
 		"require": "g.tier5>0&&g.gate>0&&g.firelore>=10",
+		"need": [
+			"gate"
+		],
 		"buy": {
 			"firerune": 50,
-			"gold": 15000,
-			"tomes": 50,
-			"gate": 1
+			"gold": 20000,
+			"tomes": 75
 		},
 		"mod": {
 			"space.max": "30%",
@@ -2520,11 +2544,13 @@
 		"slot": "werry",
 		"desc": "A pocket of the endless sea",
 		"require": "g.tier5>0&&g.gate>0&&g.waterlore>=10",
+		"need": [
+			"gate"
+		],
 		"buy": {
 			"waterrune": 50,
-			"gold": 15000,
-			"tomes": 50,
-			"gate": 1
+			"gold": 20000,
+			"tomes": 75
 		},
 		"mod": {
 			"space.max": "30%",
@@ -2542,11 +2568,13 @@
 		"desc": "A space carved from the plane of earth",
 		"slot": "werry",
 		"require": "g.tier5>0&&g.gate>0&&g.earthlore>=10",
+		"need": [
+			"gate"
+		],
 		"buy": {
 			"earthrune": 50,
-			"gold": 15000,
-			"tomes": 50,
-			"gate": 1
+			"gold": 20000,
+			"tomes": 75
 		},
 		"mod": {
 			"space.max": "30%",
@@ -2564,11 +2592,13 @@
 		"desc": "An island floating in an endless sky",
 		"slot": "werry",
 		"require": "g.tier5>0&&g.gate>0&&g.airlore>=10",
+		"need": [
+			"gate"
+		],
 		"buy": {
 			"airrune": 50,
-			"gold": 15000,
-			"tomes": 50,
-			"gate": 1
+			"gold": 20000,
+			"tomes": 75
 		},
 		"mod": {
 			"space.max": "30%",
@@ -2685,6 +2715,158 @@
 			"lore.rate": 0.2,
 			"petfamiliar.result.research": 100,
 			"petfamiliar.result.stress": -25
+		}
+	},
+	{
+		"id": "animate_model_skeleton",
+		"name": "animate model skeleton",
+		"require": "g.model_skeleton>=1&&g.reanimation>=6&&g.evil==1",
+		"desc": "Perpetual, if rudimentary, reanimation of your model skeleton",
+		"max": 1,
+		"cost": {
+			"shadowgem": 5,
+			"spiritgem": 3,
+			"research": 750
+		},
+		"mod": {
+			"reanimation.max": 1
+		},
+		"flavor": "Not useful for much, but it's a start. Now what if I..."
+	},
+	{
+		"id": "onewithnature",
+		"name": "one with nature",
+		"tags": "plantsource",
+		"desc": "You have become as one with nature after communing with it for so long.",
+		"require": "g.naturecamp>=3600",
+		"cost": {
+			"research": 600,
+			"nature": 10,
+			"naturegem": 5,
+			"arcana": 2
+		},
+		"mod": {
+			"stamina.max": 2,
+			"hp.max": 1,
+			"stamina.rate": 0.1,
+			"naturelore.max": 2,
+			"naturelore.rate": 0.2,
+			"nature.rate": 0.1,
+			"player.resist.nature": 5
+		}
+	},
+	{
+		"id": "bloodstorage1",
+		"name": "blood gem cache",
+		"require": "g.bloodgem>0",
+		"desc": "These things seem... vital. Find room for more.",
+		"max": 1,
+		"cost":{
+			"research": 200
+		},
+		"mod":{
+			"bloodgem.max": 6
+		}
+	},
+	{
+		"id": "bloodstorage2",
+		"name": "blood gem stash",
+		"require": "bloodstorage1",
+		"desc": "More. You need more. Secrete them away from prying eyes.",
+		"max": 1,
+		"cost":{
+			"research": 300
+		},
+		"mod":{
+			"bloodgem.max": 8
+		}
+	},
+	{
+		"id": "bloodstorage3",
+		"name": "blood gem arsenal",
+		"require": "bloodstorage2",
+		"desc": "Closer. Closer. Somewhere they'll never leave your sight.",
+		"max": 1,
+		"cost":{
+			"research": 500
+		},
+		"mod":{
+			"bloodgem.max": 12
+		}
+	},
+	{
+		"id": "bodyrebuild",
+		"name": "corporeal reconstruction",
+		"require": "g.anatomy>=20",
+		"desc": "You've learned better. Perfected the science. You can recreate yourself perfect and free of mankind's flaws.",
+		"max": 1,
+		"cost":{
+			"research": 10000,
+			"tomes": 100,
+			"bloodgem": 50,
+			"ichor": 2
+		},
+		"mod":{
+			"anatomy.mod.hp.max": 2
+		},
+		"flavor": "The optic nerve doesn't have to connect like that. The joints are inefficient. Why does that nerve take such a detour? So many baffling errors."
+	},
+	{
+		"id": "flourishingbody",
+		"name": "flourishing body",
+		"require": "plantsource",
+		"desc": "Breathe as the plants do. Study them. Grow. Blossom. Become.",
+		"max": 6,
+		"cost":{
+			"naturegem": 1,
+			"research": 100,
+			"herbs": 10
+		},
+		"mod":{
+			"hp.max": 5
+		}
+	},
+	{
+		"id": "stonyresilience",
+		"name": "stony resilience",
+		"require": "(g.gargoyle>0||g.grotesque>0)&&g.tier4>0",
+		"desc": "Inspired by your statuary, make your flesh as enduring as granite.",
+		"max": 0,
+		"cost":{
+			"earthrune": 1
+		},
+		"mod":{
+			"hp.max": 6
+		}
+	},
+	{
+		"id": "ablativebarrier",
+		"name": "ablative barrier",
+		"require": "wardsource",
+		"desc": "The circle's ward shields you from harm.",
+		"max": 3,
+		"cost":{
+			"managem": 3,
+			"research": 100,
+			"gold": 100
+		},
+		"mod":{
+			"hp.max": 4
+		}
+	},
+	{
+		"id": "unquenchableflames",
+		"name": "unquenchable flames",
+		"require": "g.innerfire>0&&g.tier2>0",
+		"desc": "The flame of life within you refuses to go out.",
+		"max": 1,
+		"cost": {
+			"firegem": 10,
+			"research": 1500,
+			"codices": 10
+		},
+		"result":{
+			"hp.max": 15
 		}
 	}
 ]

@@ -63,11 +63,9 @@ export default {
 			<button @click="dispatch('save')">Save</button>
 			<button @click="dispatch('load')">Load</button>
 
-			<div class="text-button"><a href=""
-				@click.self="dispatch('save-file',$event )" type="text/json">Get Save</a></div>
+			<button @click="emit('save-file-check',$event)">Get Save</button>
 
-			<div v-if="hasHall" class="text-button"><a href=""
-				@click.self="dispatch('hall-file',$event )" type="text/json">Hall Save</a></div>
+			<button v-if="hasHall" class="text-button" @click="dispatch('hall-file',$event )">Hall Save</button>
 
 			<!--<input type="file" name="[File]" accept="text/json" @change="fileDrop">-->
 			<button id="drop-file" @click="$refs.fileInput.click()" @drop="fileDrop" @dragover="fileDrag" @dragleave.capture.stop="dragOut" name="[Load Save]">[Load Save]</button>
@@ -81,7 +79,7 @@ export default {
 		<span class="link-bar">
 			<a href="https://arcanumtesting.gitlab.io/arcanum/" target="_blank">Test Site</a>
 			<a href="https://discord.gg/bCABC96" target="_blank">Discord</a>
-			<a href="https://gitlab.com/mathiashjelm/arcanum/-/wikis/home" target="_blank">Wiki</a>
+			<a href="https://gitlab.com/Regallion/arcanum-wiki/-/wikis/home" target="_blank">Wiki</a>
 			<a href="https://www.reddit.com/r/wizrobe/" target="_blank">Reddit</a>
 			<span class="vers">Version: {{ VERSION }}</span>
 			<button class="text-button" @click="$emit('open-settings')">&#9881;</button>

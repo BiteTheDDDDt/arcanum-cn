@@ -8,11 +8,9 @@ export default class SlotGroup {
 	get slots() { return this._slots; }
 	set slots(v) {
 
-		for( let p in v ) {
+		for( const p in v ) {
 
-			var s = v[p];
-			if ( s instanceof Slot ) continue;
-			v[p] = new Slot(s);
+			if ( !(v[p] instanceof Slot) ) v[p] = new Slot(v[p]);
 
 		}
 
@@ -33,8 +31,8 @@ export default class SlotGroup {
 	 */
 	find( id, proto=false  ) {
 
-		for( let p in this.slots ) {
-			var it = this.slots[p].find(id, proto);
+		for( const p in this.slots ) {
+			const it = this.slots[p].find(id, proto);
 			if ( it ) return it;
 		}
 		return null;
@@ -48,10 +46,10 @@ export default class SlotGroup {
 	 */
 	findAll( pred ){
 
-		let a = [];
+		const a = [];
 
-		for( let p in this.slots ) {
-			var it = this.slots[p].match(pred);
+		for( const p in this.slots ) {
+			const it = this.slots[p].match(pred);
 			if ( it ) {
 				a.push(it);
 			}
@@ -136,9 +134,9 @@ export default class SlotGroup {
 
 	*[Symbol.iterator]() {
 
-		for( let k in this.slots ) {
+		for( const k in this.slots ) {
 
-			var it = this.slots[k].item;
+			const it = this.slots[k].item;
 			if ( Array.isArray(it) ) {
 	
 				for( let i = it.length-1; i>= 0; i-- ) {

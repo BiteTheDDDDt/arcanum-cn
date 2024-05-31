@@ -16,6 +16,9 @@
 				"result": {
 					"sp": 0.05
 				},
+				"buy": {
+					"sp": 1
+				},
 				"mod": {
 					"minions.puppet.hp.max": "1%",
 					"minions.puppet.attack.damage": "1%",
@@ -29,6 +32,9 @@
 				"require": "g.puppetry>=5&&g.spiritlore>=10",
 				"desc": "Imbue objects with the power of motion",
 				"level": 3,
+				"buy": {
+					"sp": 2
+				},
 				"run": {
 					"stamina": 0.7
 				},
@@ -46,6 +52,9 @@
 				"require": "g.crafting>=12&&g.puppetry>=6&&g.magicalanimation>=5&&g.tier2>0",
 				"desc": "Assemble magic constructs",
 				"level": 3,
+				"buy": {
+					"sp": 2
+				},
 				"run": {
 					"stamina": 0.7
 				},
@@ -64,9 +73,12 @@
 			{
 				"id": "magiphysics",
 				"name": "magiphysics",
-				"require": "g.lore>=25&&g.planeslore>=15&&g.tier4>0",
+				"require": "g.lore>=25&&g.planeslore>=10&&g.tier4>0",
 				"desc": "The study of magic in motion.",
 				"level": 12,
+				"buy": {
+					"sp": 3
+				},
 				"run": {
 					"stamina": 0.7
 				},
@@ -85,6 +97,9 @@
 				"require": "g.crafting>=18&&g.puppetry>=8&&g.magicalanimation>=6&&g.magiphysics>=5&&(g.mechanist+g.mechamancer)>0",
 				"desc": "They think, therefore they are.",
 				"level": 13,
+				"buy": {
+					"sp": 5
+				},
 				"run": {
 					"stamina": 1
 				},
@@ -139,8 +154,8 @@
 					"gems": 0.01,
 					"gold": 4
 				},
-				"result": {
-					"puppetry.max": 0.01
+				"mod": {
+					"puppetry.max": "0.01//500/-10"
 				}
 			},
 			{
@@ -195,8 +210,8 @@
 					"gold": 6,
 					"gems": 0.1
 				},
-				"result": {
-					"machinacreation.max": 0.01
+				"mod": {
+					"machinacreation.max": "0.01//500/-10"
 				}
 			},
 			{
@@ -236,14 +251,12 @@
 					"stamina": 4,
 					"research": 150
 				},
-				"effect": {
-					"lore.max": 0.001,
-					"history.max": 0.001,
-					"charms.max": 0.001,
-					"languages.max": 0.001
-				},
-				"result": {
-					"automatasculpting.max": 0.05
+				"mod": {
+					"lore.max": "0.02//100/-10",
+					"history.max": "0.02//100/-10",
+					"charms.max": "0.02//100/-10",
+					"languages.max": "0.02//100/-10",
+					"automatasculpting.max": "0.05//160/-10"
 				}
 			},
 			{
@@ -786,7 +799,7 @@
 					{
 						"id": "puppetattacker",
 						"count": 1,
-						"max":5
+						"max": 5
 					}
 				]
 			},
@@ -807,7 +820,7 @@
 					{
 						"id": "mechacharger",
 						"count": 1,
-						"max":2
+						"max": 2
 					}
 				]
 			},
@@ -828,7 +841,7 @@
 					{
 						"id": "autoslayer",
 						"count": 1,
-						"max":1
+						"max": 1
 					}
 				]
 			},
@@ -851,7 +864,7 @@
 					{
 						"id": "puppetdefender",
 						"count": 1,
-						"max":5
+						"max": 5
 					}
 				]
 			},
@@ -872,7 +885,7 @@
 					{
 						"id": "mechamender",
 						"count": 1,
-						"max":2
+						"max": 2
 					}
 				]
 			},
@@ -893,7 +906,7 @@
 					{
 						"id": "autocaster",
 						"count": 1,
-						"max":1
+						"max": 1
 					}
 				]
 			},
@@ -917,7 +930,7 @@
 					{
 						"id": "clockcrow",
 						"count": 1,
-						"max":5
+						"max": 5
 					}
 				]
 			},
@@ -942,7 +955,7 @@
 					{
 						"id": "clockservant",
 						"count": 1,
-						"max":3
+						"max": 3
 					}
 				]
 			},
@@ -968,7 +981,7 @@
 					{
 						"id": "clockknight",
 						"count": 1,
-						"max":3
+						"max": 3
 					}
 				]
 			},
@@ -982,7 +995,7 @@
 					{
 						"id": "clockknight_elite",
 						"count": 1,
-						"max":3
+						"max": 3
 					}
 				]
 			},
@@ -996,7 +1009,7 @@
 					{
 						"id": "clockmage_elite",
 						"count": 1,
-						"max":3
+						"max": 3
 					}
 				]
 			}
@@ -1290,53 +1303,24 @@
 					},
 					{
 						"name": "slice",
-						"hits": [
-							{
-								"tohit": 1,
-								"kind": "slash",
-								"damage": "25~35"
-							},
-							{
-								"tohit": 1,
-								"kind": "slash",
-								"damage": "25~35"
-							}
-						]
+						"tohit": 1,
+						"kind": "slash",
+						"damage": "25~35",
+						"repeathits": 2
 					},
 					{
 						"name": "dice",
-						"hits": [
-							{
-								"tohit": 3,
-								"kind": "slash",
-								"damage": "20~25"
-							},
-							{
-								"tohit": 3,
-								"kind": "slash",
-								"damage": "20~25"
-							}
-						]
+						"tohit": 3,
+						"kind": "slash",
+						"damage": "20~25",
+						"repeathits": 2
 					},
 					{
 						"name": "mince",
-						"hits": [
-							{
-								"tohit": 2,
-								"kind": "slash",
-								"damage": "20~26"
-							},
-							{
-								"tohit": 2,
-								"kind": "slash",
-								"damage": "20~26"
-							},
-							{
-								"tohit": 2,
-								"kind": "slash",
-								"damage": "20~26"
-							}
-						]
+						"tohit": 2,
+						"kind": "slash",
+						"damage": "20~26",
+						"repeathits": 3
 					},
 					{
 						"name": "chop",
@@ -1352,23 +1336,10 @@
 					},
 					{
 						"name": "mash",
-						"hits": [
-							{
-								"tohit": 2,
-								"kind": "blunt",
-								"damage": "0~50"
-							},
-							{
-								"tohit": 2,
-								"kind": "blunt",
-								"damage": "0~50"
-							},
-							{
-								"tohit": 2,
-								"kind": "blunt",
-								"damage": "0~50"
-							}
-						]
+						"tohit": 2,
+						"kind": "blunt",
+						"damage": "0~50",
+						"repeathits": 3
 					},
 					{
 						"name": "recover",
@@ -1436,6 +1407,11 @@
 					{
 						"name": "mend",
 						"targets": "ally",
+						"targetspec": {
+							"stat": "hp",
+							"highest": false,
+							"usepercentage": true
+						},
 						"harmless": true,
 						"result": {
 							"hp": 40
@@ -1454,9 +1430,19 @@
 					},
 					{
 						"name": "align",
+						"id": "mechamender_align",
 						"targets": "ally",
 						"harmless": true,
+						"targetspec": {
+							"notaffectedby": {
+								"condition": [
+									"t_tohitup"
+								]
+							}
+						},
 						"dot": {
+							"tags": "t_tohitup",
+							"level": 3,
 							"duration": 10,
 							"mod": {
 								"self.tohit": 2
@@ -1577,7 +1563,16 @@
 						"name": "serve hot drink",
 						"kind": "fire",
 						"damage": "15~20",
+						"targetspec": {
+							"notaffectedby": {
+								"condition": [
+									"hotdrinkservant"
+								],
+								"conditiontext": "hot drink"
+							}
+						},
 						"dot": {
+							"id": "hotdrinkservant",
 							"kind": "fire",
 							"name": "hot drink",
 							"damage": "3~5",
@@ -1587,8 +1582,17 @@
 					{
 						"name": "serve oil",
 						"targets": "ally",
+						"targetspec": {
+							"notaffectedby": {
+								"condition": [
+									"t_speedup"
+								]
+							}
+						},
 						"dot": {
+							"tags": "t_speedup",
 							"duration": 30,
+							"level": 6,
 							"mod": {
 								"self.speed": 5
 							}
@@ -1766,7 +1770,15 @@
 					{
 						"name": "serve oil",
 						"targets": "ally",
+						"targetspec": {
+							"notaffectedby": {
+								"condition": [
+									"t_speedup"
+								]
+							}
+						},
 						"dot": {
+							"tags": "t_speedup",
 							"duration": 30,
 							"mod": {
 								"self.speed": 5
@@ -1835,7 +1847,17 @@
 						"name": "tracking gaze",
 						"kind": "charm",
 						"damage": "5~8",
+						"targetspec": {
+							"notaffectedby": {
+								"condition": [
+									"tracking_dot"
+								],
+								"conditiontext": "tracking"
+							}
+						},
 						"dot": {
+							"name":"tracking",
+							"id": "tracking_dot",
 							"duration": 20,
 							"mod": {
 								"self.dodge": -6,
@@ -1922,7 +1944,7 @@
 				"id": "clockknight_elite",
 				"tags": "t_automata,clockwork",
 				"name": "pristine brass knight",
-				"desc": "A shining knight in brass armor. Not a mark spoils it's features",
+				"desc": "A shining knight in brass armor. Not a mark spoils its features",
 				"level": 11,
 				"kind": "automata",
 				"noproc": true,
@@ -1957,7 +1979,17 @@
 					{
 						"name": "commanding presence",
 						"targets": "ally",
+						"targetspec": {
+							"notaffectedby": {
+								"condition": [
+									"command_dot"
+								],
+								"conditiontext": "commanding presence"
+							}
+						},
 						"dot": {
+							"name":"commanding presence",
+							"id": "command_dot",
 							"duration": 30,
 							"mod": {
 								"self.speed": 8
@@ -2199,7 +2231,7 @@
 			{
 				"id": "puppet_plow",
 				"name": "automated plower",
-				"desc": "A lone mechanism plows the fields for it's rich master.",
+				"desc": "A lone mechanism plows the fields for its rich master.",
 				"effect": {
 					"weary": "1~3",
 					"machinacreation.exp": 5
@@ -2294,7 +2326,7 @@
 					"bf": "1~2"
 				},
 				"result": {
-					"runner.exp": 350
+					"runner.skillprogress": 350
 				}
 			},
 			{
@@ -2599,7 +2631,7 @@
 					]
 				}
 			}
-		],	
+		],
 		"events": [
 			{
 				"id": "evt_puppet_locallord",

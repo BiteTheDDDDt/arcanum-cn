@@ -76,8 +76,8 @@ export const mapSet = (s, p) => {
  */
 export const toStats = (obj) => {
 
-	for( let p in obj ) {
-		var s = obj[p];
+	for( const p in obj ) {
+		const s = obj[p];
 		obj[p] = s instanceof Stat ? s : new Stat( s, p);
 		//console.log('NEW STAT: ' + p + ': ' + s.valueOf() );
 	}
@@ -93,7 +93,7 @@ export const toStats = (obj) => {
  */
 const addValue = ( dest, prop, v ) => {
 
-	var cur = dest[prop];
+	const cur = dest[prop];
 	if ( cur === undefined ) dest[prop] = new RValue( v.valueOf() );
 	else {
 

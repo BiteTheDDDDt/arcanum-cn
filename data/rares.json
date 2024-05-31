@@ -103,22 +103,22 @@
 		"alter": {
 			"mod": {
 				"craftrune.cost.managem": -1,
-				"craftrune.cost.mana": 3,
+				"craftrune.cost.mana": 2,
 				"craftrune.length": -4,
 				"craftfirerune.cost.firegem": -2,
-				"craftfirerune.cost.fire": 3,
+				"craftfirerune.cost.fire": 2,
 				"craftfirerune.length": -4,
 				"craftearthrune.cost.earthgem": -2,
-				"craftearthrune.cost.earth": 3,
+				"craftearthrune.cost.earth": 2,
 				"craftearthrune.length": -4,
 				"craftairrune.cost.airgem": -2,
-				"craftairrune.cost.air": 3,
+				"craftairrune.cost.air": 2,
 				"craftairrune.length": -4,
 				"craftwaterrune.cost.watergem": -2,
-				"craftwaterrune.cost.water": 3,
+				"craftwaterrune.cost.water": 2,
 				"craftwaterrune.length": -4,
 				"craftspiritrune.cost.spiritgem": -2,
-				"craftspiritrune.cost.spirit": 3,
+				"craftspiritrune.cost.spirit": 2,
 				"craftspiritrune.length": -4
 			}
 		}
@@ -164,7 +164,6 @@
 			"mod": {
 				"scribescroll.result.scrolls": 1,
 				"scribescroll.length": 1,
-				"scribescroll.perpetual": true,
 				"scribescroll.cost.fire": 0.2,
 				"bindcodex.result.codices": 1,
 				"bindcodex.cost.fire": 2,

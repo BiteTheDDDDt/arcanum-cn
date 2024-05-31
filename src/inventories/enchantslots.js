@@ -68,7 +68,7 @@ export default class EnchantSlots extends Inventory {
 
 		for( let i = this.items.length-1; i >= 0; i--) {
 
-			var it = new Enchanting( this.items[i] );
+			const it = new Enchanting( this.items[i] );
 			if ( !it ) {
 				console.warn('invalid enchanting: ' + i );
 				this.items.splice(i,1);
@@ -100,7 +100,7 @@ export default class EnchantSlots extends Inventory {
 
 		for( let i = this.items.length-1; i >= 0; i--) {
 
-			var it = this.items[i];
+			const it = this.items[i];
 			if ( !it.done ) {
 
 				it.update(dt);

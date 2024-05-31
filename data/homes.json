@@ -277,16 +277,16 @@
 	{
 		"id": "ancientruins",
 		"name": "ancient ruins",
-		"desc": "A rambling fortress of crumbled stone.",
+		"desc": "A rambling fortress of crumbled stone. Ancient patterns can be found in every corner.",
 		"cost": 5000,
 		"require": "g.spirit>=15&&g.arcana>=12",
 		"mod": {
 			"space.max": 110,
 			"tapestries.max": 2,
 			"minions.max": 10,
-			"runelore.max": 2,
+			"craftrune.cost.tomes": "-50%",
+			"craftrune.cost.managem": "-50%",
 			"demonology.max": 1,
-			"runelore.rate": "10%",
 			"spiritlore.max": 1,
 			"spiritlore.rate": 0.1,
 			"lore.rate": "10%"

@@ -1,9 +1,7 @@
 import { NpcState } from "./npcState";
 import Events, { EVT_EVENT } from "../events";
-import { P_TITLE, P_LOG, TYP_PCT, MONSTER } from "../values/consts";
-import { TICK_LEN } from '../game';
-
-import { assign, clone } from 'objecty';
+import { P_TITLE, P_LOG, TYP_PCT, MONSTER, FP } from "../values/consts";
+import TagSet from "../composites/tagset";
 
 /**
  * @interface Context
@@ -23,9 +21,9 @@ export default class Context {
 	get self(){ return this._state.self; }
 	set self(v){ this._state.self = v }
 
-	constructor( stateObj, caster ) {
+	constructor( stateObj, caster, data ) {
 
-		this.state = new NpcState( stateObj, caster );
+		this.state = new NpcState( stateObj, caster, data );
 
 	}
 
@@ -90,6 +88,15 @@ export default class Context {
 	}
 
 	disable(it){
+	}
+
+	/**
+	 * This was added for symmetry with the empty disable(it) call, which
+	 * is presumably to prevent a context from being disabled in the event
+	 * that gets called. Since it can't be disabled in the first place,
+	 * there's no condition where we would need to re-enable it.
+	 */
+	enable(it){
 	}
 
 	/**
@@ -176,9 +183,9 @@ export default class Context {
 			return parent.value >= cost;
 		}
 
-		for( let p in cost ) {
+		for( const p in cost ) {
 
-			var val = cost[p];
+			const val = cost[p];
 			if ( !isNaN(val) || (val instanceof RValue) ) {
 				if ( parent.value < val*amt ) return false;
 			} else if ( typeof val === 'object'){
@@ -254,12 +261,12 @@ export default class Context {
 		if ( !mod ) return;
 
 		if ( Array.isArray(mod)  ) {
-			for( let m of mod ) this.applyMods(m, amt);
+			for( const m of mod ) this.applyMods(m, amt);
 		} else if ( typeof mod === 'object' ) {
 
-			for( let p in mod ) {
+			for( const p in mod ) {
 
-				var target = this.getData( p );
+				const target = this.getData( p );
 				if ( target === undefined || target === null ) continue;
 				if ( target.applyMods) {
 
@@ -282,7 +289,7 @@ export default class Context {
 
 	}
 
-	applyVars( vars, dt, amt=1 ) {
+	applyVars( vars, dt=1, amt=1 ) {
 		
 		if (  Array.isArray(vars) ) {
 			for( let e of vars ) { this.applyVars( e,dt,amt); }
@@ -311,7 +318,13 @@ export default class Context {
 
 					} else if ( e.isRVal ) {
 						// messy code. this shouldn't be here. what's going on?!?!
-						target.amount( amt*dt*e.getApply(this.state, target ) );
+						// @TODO make the if condition exclude tagsets (and other things with items property) and verify that theres no issues
+						const Params = {
+							[FP.GDATA]: this.state.state.gdata, // @TODO need to change this to target npcItems when it isnt a map.
+							[FP.ITEM]: target
+						};
+
+						target.amount( amt*dt*e.getApply( Params ) );
 
 					} else if ( e === true ) {
 
@@ -340,6 +353,31 @@ export default class Context {
 
 		}
 
+	}
+
+	restoreMods() {
+		this.state.npcItems.forEach(it => {
+			if ( it instanceof TagSet) return;
+
+			if ( /*!it.locked && !it.disabled &&*/ !(it.instanced||it.isRecipe) ) {
+
+				if ( it.value != 0 ) {
+
+					if ( it.applyImproves ) it.applyImproves();
+					if ( it.mod && +it.value ) this.applyMods( it.mod, it.value, it.id);
+					if ( it.lock ) {
+						this.lock( it.lock, it.value );
+					}
+
+				}
+
+			}
+
+		});
+	}
+
+	revive(gs) {
+		this.state.revive(gs);
 	}
 
 }

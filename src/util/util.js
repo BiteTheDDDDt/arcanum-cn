@@ -1,11 +1,11 @@
-import {getPropDesc} from 'objecty';
+import {getPropDesc, cloneClass} from '../util/objecty';
 
 /**
  * alphabetical sort by name property.
  * @param {*} a
  * @param {*} b
  */
-export const alphasort = (a,b)=> a.name < b.name ? -1 : 1;
+export const alphasort = (a,b)=> typeof a.name === "string" ? a.name.localeCompare(b.name, "en", {sensitivity: "base"}) : a.name < b.name ? -1 : 1;
 
 /**
  * sort by level property.
@@ -31,7 +31,7 @@ export const levelsort = (a,b)=>{
 export const ensure = ( obj, props ) => {
 
 	for( let i = props.length-1; i>= 0; i-- ) {
-		var s = props[i];
+		const s = props[i];
 		if ( !obj.hasOwnProperty(s) ) obj[s] = null;
 	}
 
@@ -73,12 +73,12 @@ export const canWriteProp = ( targ, prop ) => {
  */
 export const assignOwn = (dest, src ) => {
 
-	var vars = Object.getPrototypeOf(dest);
+	let vars = Object.getPrototypeOf(dest);
 	while ( vars !== Object.prototype ) {
 
-		for( let p of Object.getOwnPropertyNames(vars) ) {
+		for( const p of Object.getOwnPropertyNames(vars) ) {
 
-			var desc = getPropDesc(dest, p);
+			const desc = getPropDesc(dest, p);
 			if ( desc && (!desc.writable && desc.set === undefined) ) {
 				continue;
 			}
@@ -131,7 +131,7 @@ export const assignPublic = ( dest, src ) => {
 			continue;
 		}
 
-		var desc = getPropDesc(dest, p);
+		const desc = getPropDesc(dest, p);
 		if ( desc ) {
 
 			if ( desc.set ) {
@@ -155,34 +155,6 @@ export const assignPublic = ( dest, src ) => {
 
 }
 
-/*export const assignPublic = ( dest, src ) => {
-
-	var vars = src;
-	while ( vars !== Object.prototype ) {
-
-		for( let p of Object.getOwnPropertyNames(vars) ) {
-
-			if ( p[0] === '_'){
-				continue;
-			}
-
-			var desc = getPropDesc(dest, p);
-			if ( desc && (!desc.writable && desc.set === undefined) ) {
-				//console.log('SKIPPING: ' + p);
-				continue;
-			}
-
-			dest[p ] = src[p];
-
-		}
-		vars = Object.getPrototypeOf(vars);
-
-	}
-
-	return dest;
-
-}*/
-
 export function getPropertyDescriptors(obj, ...props) {
 	let descs = {};
 	while(obj !== Object.prototype && props.length) {
@@ -190,7 +162,7 @@ export function getPropertyDescriptors(obj, ...props) {
 		props = props.filter(prop => {
 			//Checks if property exists in current descriptor set, and if it does, saves it, then marks it as found by filtering it out.
 			if(currentDesc[prop]) {
-				desc[prop] = currentDesc[prop];
+				descs[prop] = currentDesc[prop];
 				return false;
 			}
 			return true;
@@ -213,21 +185,21 @@ export function getAllPropertyDescriptors(obj) {
 
 export const assignNoFunc = ( dest, src ) => {
 
-	var vars = src;
+	let vars = src;
 	while ( vars !== Object.prototype ) {
 
-		for( let p of Object.getOwnPropertyNames(vars) ) {
+		for( const p of Object.getOwnPropertyNames(vars) ) {
 
 			if ( p[0] === '_' ){
 				continue;
 			}
 
-			var desc = getPropDesc(dest, p);
+			const desc = getPropDesc(dest, p);
 			if ( desc ) {
 
 				if ( desc.set ) {
 
-					if ( typeof dest[p] === 'function') console.log('OVERWRITE: '+p);
+					if ( typeof dest[p] === 'function') console.log('OVERWRITE func: '+p);
 
 				} else if ( !desc.writable ) continue;
 				else if ( typeof dest[p] ==='function') {
@@ -249,6 +221,96 @@ export const assignNoFunc = ( dest, src ) => {
 }
 
 /**
+ * Sets default values on target if the properties within default do no exist on target.  
+ * Mutates target.
+ * @param {*} target Target to set defaults for.
+ * @param {*} defaults Values to be set on target if corresponding properties do not exist.
+ * @returns {*} Object containing all properties that were set in target, along with the corresponding values.
+ */
+export function setDefaults( target, defaults ) {
+
+	let obj;
+	const assigned = {};
+	if(defaults instanceof Function) defaults = defaults(target);
+
+	for( const p in defaults ) {
+
+		if ( target[p] == null ) {
+
+			obj = defaults[p];
+			if ( typeof obj === 'function' ) assigned[p] = target[p] = obj( target );
+			else if ( typeof obj === 'object' ) {
+				console.log('clone: ' + target.id );
+				assigned[p] = target[p] = cloneClass( obj );
+			}
+			else assigned[p] = target[p] = obj;
+
+		}
+
+	}
+
+	return assigned;
+
+}
+
+/**
+ * Performs a deep check if obj1 is the same as obj2.
+ * Both properties and types of object and subobjects must match.
+ * Primitives are checked via strict equality.
+ * Will reach stack call size if both objects are similar enough and have circular references.
+ * @param {*} obj1 
+ * @param {*} obj2 
+ * @returns {boolean} Whether or not obj1 matches obj2.
+ */
+export function isEqual(obj1, obj2) {
+	if(obj1 === obj2) return true;
+	if(typeof obj1 === typeof obj2 && typeof obj1 === "object" && obj1.constructor.name === obj2.constructor.name) {
+		let keys1 = Object.keys(obj1), keys2 = Object.keys(obj2);
+		if(keys1.length !== keys2.length || keys1.find(key => !keys2.includes(key))) return false;
+		for(let key in keys1) {
+			if(!isEqual(obj1[key], obj2[key])) return false;
+		}
+		return true;
+	} else return false;
+}
+
+/**
+ * Check if obj is and is only an object.
+ * @param {*} obj 
+ * @returns {boolean} Whether obj is stictly an object.
+ */
+function isStrictObject(obj) {
+	return typeof obj === "object" && obj.constructor.name === "Object";
+}
+
+/**
+ * Recursively search for any subproperty that contains a value that's not strictly an object.
+ * @param {Object} obj Object to crawl through.
+ * @param {function(Object, string, *): void} cb callback function to be performed on all non-strict objects.
+ * @returns {Array<{obj: *, prop: string, sub:*}>} List of all non-objects found.
+ */
+export function findNonObjects(obj, cb, ...exclude) {
+	if(!isStrictObject(obj)) return [];
+
+	let items = [];
+	for(let prop in obj) {
+		if(exclude.includes(prop)) continue;
+		let sub = obj[prop];
+		
+		if(isStrictObject(sub)) items.push(...findNonObjects(sub, cb, ...exclude));
+		else {
+			if(cb && cb instanceof Function) {
+				cb(obj, prop, sub);
+				//In case of updated value.
+				sub = obj[prop];
+			}
+			items.push({obj, prop, sub});
+		}
+	}
+	return items;
+}
+
+/**
  * Only split NON-class keys. Classes shouldn't be
  * grouped into key-paths.
  * @param {*} obj
@@ -257,9 +319,9 @@ export const splitKeys = (obj)=>{
 
 	if ( !obj || typeof obj !== 'object' ) return;
 
-	for( let s in obj ){
+	for( const s in obj ){
 
-		var sub = obj[s];
+		const sub = obj[s];
 		if ( s.includes('.')){
 			splitKeyPath( obj, s );
 		}
@@ -271,38 +333,58 @@ export const splitKeys = (obj)=>{
 
 }
 
-	/**
-	 * For an object variable path key, the key is expanded
-	 * into subojects with keys from the split key path.
-	 * This is done to allow object props to represent variable paths
-	 * without changing all the code to use Maps (with VarPath keys) and not Objects.
-	 * @param {Object} obj - object containing the key to expand.
-	 * @param {string} prop - key being split into subobjects.
-	 */
-	export const splitKeyPath = ( obj, prop ) => {
+/**
+ * For an object variable path key, the key is expanded
+ * into subojects with keys from the split key path.
+ * This is done to allow object props to represent variable paths
+ * without changing all the code to use Maps (with VarPath keys) and not Objects.
+ * @param {Object} obj - object containing the key to expand.
+ * @param {string} prop - key being split into subobjects.
+ */
+export const splitKeyPath = ( obj, prop ) => {
 
-		let val = obj[prop];
-		delete obj[prop];
+	const val = obj[prop];
+	delete obj[prop];
 
-		let keys = prop.split('.');
+	const keys = prop.split('.');
 
-		let max = keys.length-1;
+	const max = keys.length-1;
 
-		// stops before length-1 since last assign goes to val.
-		for( let i = 0; i < max; i++ ) {
+	// stops before length-1 since last assign goes to val.
+	for( let i = 0; i < max; i++ ) {
 
-			var cur = obj[ keys[i] ];
+		let cur = obj[ keys[i] ];
 
-			if ( cur === null || cur === undefined ) cur = {};
-			else if ( (typeof cur) !== 'object' || Object.getPrototypeOf(cur) !== Object.prototype ) cur = { value:cur };
+		if ( cur === null || cur === undefined ) cur = {};
+		else if ( (typeof cur) !== 'object' || Object.getPrototypeOf(cur) !== Object.prototype ) cur = { value:cur };
 
-			obj = (obj[ keys[i] ] = cur);
-
-		}
-
-		obj[ keys[max] ] = val;
+		obj = (obj[ keys[i] ] = cur);
 
 	}
+
+	obj[ keys[max] ] = val;
+
+}
+
+/**
+ * Recursive freezing of an object template.
+ * Clones must be made to make any changes.
+ * @param {*} obj
+ */
+ export const freezeData = ( obj ) => {
+
+	let sub;
+	for( let p in obj ){
+
+		sub = obj[p];
+		if ( typeof sub === 'object') freezeData(sub);
+		else Object.freeze( sub );
+
+	}
+
+	return Object.freeze( obj );
+
+}
 
 /**
  * Log deprecation warning.

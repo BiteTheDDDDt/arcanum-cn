@@ -8,7 +8,9 @@ const Defaults = {
 	darkMode:false,
 	compactMode:false,
 	curview:null,
+	entryview:null,
 	homeview:null,
+	smoothBars:true,
 	spells:{
 
 	},
@@ -34,6 +36,7 @@ export default {
 
 		darkMode:false,
 		compactMode:false,
+		smoothBars:true,
 		spells:{
 
 		}

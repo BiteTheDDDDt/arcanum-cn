@@ -3,6 +3,7 @@ import Game from 'game';
 import { precise } from 'util/format';
 import {alphasort} from 'util/util';
 import {CheckTypes} from '../../ui/items/infoBlock.js';
+import Profile from 'modules/profile';
 
 export default {
 
@@ -19,7 +20,7 @@ export default {
 		},
 		isEmpty(it){
 			for( let [key, value] of Object.entries(Game.getData(it).convert.input) ){
-				if(!this.canAfford({[key]: value}, it.value)) return true;
+				if(!this.canAfford({[key]: value}, it.convert.singular ? 1 : it.value)) return true;
 			}
 			return false;
 		},
@@ -49,7 +50,7 @@ export default {
 		},
 
 		upgrades(){
-			return Game.state.upgrades.filter(v=>!v.disabled&&v.convert&&v.value>=1&&!v.cost.space&&!Game.state.typeCost(v.mod,'space')).sort(alphasort);
+			return (Game.state.upgrades.concat(this.hall.upgrades)).filter(v=>!v.disabled&&v.convert&&v.value>=1&&!v.cost.space&&!Game.state.typeCost(v.mod,'space')).sort(alphasort);
 		},
 		furniture(){
 
@@ -63,8 +64,9 @@ export default {
 
 		},
 		resources(){
-			return Game.state.resources.filter(v=>!v.disabled&&v.convert&&v.value>=0.1).sort(alphasort);
-		}
+			return (Game.state.resources.concat(this.hall.resources)).filter(v=>!v.disabled&&v.convert&&v.value>=0.1).sort(alphasort);
+		},
+		hall() { return Profile.hall; },
 
 	},
 	beforeCreate(){
@@ -86,8 +88,8 @@ export default {
 				<tr><th>Converter</th><th>Total Inputs</th><th>Total Outputs</th><th>Converter Status</th></tr>
 				<tr v-for="it in list" :key="it.id" @mouseenter.capture.stop="itemOver( $event,it)">
 					<td>{{it.name.toTitleCase() + count(it) }}</td>
-					<td><div v-for="(value, key) in it.convert.input" :class="{failed: !canAfford({[key]: value}, it.value)}">{{ precise(value * it.value,4) }} {{ lookup(key) }}</div></td>
-					<td><div v-for="(value, key) in it.convert.output.effect" :class="{full: cantFill(key)}">{{ precise(value * it.value,4) }} {{ lookup(key) }}</div></td>
+					<td><div v-for="(value, key) in it.convert.input" :class="{failed: !canAfford({[key]: value}, it.convert.singular ? 1 : it.value)}">{{ precise(value * (it.convert.singular ? 1 : it.value),4) }} {{ lookup(key) }}</div></td>
+					<td><div v-for="(value, key) in it.convert.output.effect" :class="{full: cantFill(key)}">{{ precise(value * (it.convert.singular ? 1 : it.value),4) }} {{ lookup(key) }}</div></td>
 					<td>
 						<div v-if="isFull(it)">Not running - output full</div>
 						<div v-else-if="isEmpty(it)">Not running - input missing</div>

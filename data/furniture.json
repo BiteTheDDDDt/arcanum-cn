@@ -128,6 +128,7 @@
 			"outdoors",
 			"g.enchanting>0"
 		],
+		"needtext": "Must live outdoors and be capable of enchanting",
 		"max": 3,
 		"cost": {
 			"research": 50,
@@ -154,9 +155,9 @@
 			"inv.max": 2,
 			"prismaticgems.max": 10,
 			"tapestries.max": 3,
-			"gembox.max": 5,
+			"magicgems.max": 10,
 			"gold.max": 1800,
-			"gems.max": 20,
+			"gems.max": 35,
 			"space": 10
 		}
 	},
@@ -174,9 +175,9 @@
 			"inv.max": 3,
 			"prismaticgems.max": 20,
 			"tapestries.max": 5,
-			"gembox.max": 10,
+			"magicgems.max": 20,
 			"gold.max": 4000,
-			"gems.max": 50,
+			"gems.max": 80,
 			"space": 20
 		}
 	},
@@ -194,16 +195,14 @@
 		},
 		"mod": {
 			"inv.max": 5,
-			"prismaticgems.max": 5,
+			"prismaticgems.max": 10,
 			"tapestries.max": 15,
-			"starcharts.max": 5,
-			"gembox.max": 3,
 			"glassware.max": 5,
 			"model_animals.max": 2,
 			"runestones.max": 3,
 			"skulls.max": 5,
 			"bones.max": 5,
-			"gems.max": 10,
+			"gems.max": 20,
 			"space": 20
 		}
 	},
@@ -211,6 +210,7 @@
 		"id": "magiccircle",
 		"name": "magic circle",
 		"desc": "Magic circle",
+		"tags": "wardsource",
 		"require": "arcana",
 		"max": 3,
 		"cost": {
@@ -516,7 +516,6 @@
 			"gold": 200
 		},
 		"mod": {
-			"starcharts.max": 1,
 			"codices": {
 				"max": 15,
 				"mod.research.max": 0.5
@@ -552,7 +551,7 @@
 			"gold": 300
 		},
 		"mod": {
-			"light.max": 1,
+			"lightlore.max": 1,
 			"airlore.max": 1,
 			"light.rate": 0.02,
 			"airlore.rate": 0.05,
@@ -643,6 +642,7 @@
 		"id": "campfire",
 		"tags": "firesource",
 		"need": "outdoors",
+		"needtext": "Must live outdoors",
 		"cost": {},
 		"mod": {
 			"naturelore.max": 1,
@@ -712,6 +712,7 @@
 			"earthlore.max": 1,
 			"shadowlore.rate": 0.1,
 			"shadowlore.max": 1,
+			"stonyresilience.max": 1,
 			"space": 5
 		}
 	},
@@ -729,6 +730,7 @@
 			"shadowlore.rate": 0.1,
 			"shadowlore.max": 1,
 			"waterlore.max": 1,
+			"stonyresilience.max": 1,
 			"space": 5
 		}
 	},
@@ -898,8 +900,8 @@
 		"require": "g.evilamt>=3",
 		"cost": {
 			"gold": 30,
-			"bones": 10,
-			"shadow": 10
+			"bones": 5,
+			"shadow": 2
 		},
 		"mod": {
 			"evilamt": 1,
@@ -946,21 +948,23 @@
 	},
 	{
 		"id": "mineshaft",
-		"tags": "t_mine",
-		"require": "g.earthlore>=10&&g.planeslore>=20",
+		"tags": "t_mine,t_furn_portal",
+		"require": "g.earthlore>=10&&g.planeslore>=13",
 		"max": 1,
+		"need": [
+			"gate"
+		],
 		"cost": {
 			"earth": 25,
 			"earthrune": 5,
 			"gold": 7000,
-			"research": 2500,
-			"gate": 1
+			"research": 2500
 		},
 		"mod": {
 			"earthlore.max": 1,
 			"earthlore.rate": 0.2,
 			"gold.rate": 0.1,
-			"space": 20
+			"space": 100
 		}
 	},
 	{
@@ -996,7 +1000,6 @@
 			"codices.max": 50,
 			"codices.rate": 0.01,
 			"tomes.rate": 0.002,
-			"starcharts.max": 25,
 			"space": 10
 		}
 	},
@@ -1030,7 +1033,7 @@
 			"bones": 20
 		},
 		"mod": {
-			"regen": 0.1,
+			"hp.rate": 0.1,
 			"shadow.rate": 0.05,
 			"shadow.max": 1,
 			"space": 5
@@ -1099,7 +1102,7 @@
 		},
 		"mod": {
 			"tapestries.max": 1,
-			"starcharts.max": 50,
+			"starcharts.max": 40,
 			"codices.max": 100,
 			"lore.rate": 0.2,
 			"research.max": 100,
@@ -1119,7 +1122,6 @@
 		},
 		"mod": {
 			"tapestries.max": 3,
-			"starcharts.max": 50,
 			"codices.max": 100,
 			"scrolls.rate": 0.05,
 			"space": 20
@@ -1146,7 +1148,6 @@
 			"research": 900
 		},
 		"mod": {
-			"starcharts.max": 50,
 			"chronomancy.max": 1,
 			"chronomancy.rate": 0.01,
 			"astronomy.max": 3,
@@ -1211,13 +1212,13 @@
 		"max": 5,
 		"cost": {
 			"research": 10000,
-			"starcharts": 25,
+			"starcharts": 5,
 			"arcana": 20
 		},
 		"mod": {
 			"sindel.rate": 0.0001,
 			"arcana.rate": 0.0001,
-			"airlore.max": 1,
+			"airlore.max": 0.2,
 			"airlore.rate": "1%",
 			"space": 5
 		}
@@ -1230,7 +1231,7 @@
 		"max": 3,
 		"cost": {
 			"research": 30000,
-			"starcharts": 50,
+			"starcharts": 10,
 			"arcana": 30
 		},
 		"mod": {
@@ -1252,10 +1253,16 @@
 			"research": 5000,
 			"gems": 75
 		},
+		"sell": {
+			"gold": 2000,
+			"research": 2500,
+			"gems": 35
+		},
 		"mod": {
 			"t_runes.max": 5,
 			"space": 5
-		}
+		},
+		"flavor": "Now with side compartments for elemental runes, too!"
 	},
 	{
 		"id": "latticefence",
@@ -1348,7 +1355,7 @@
 		"id": "bottomlesspit",
 		"name": "bottomless pit",
 		"desc": "An endless hole in the ground.",
-		"require": "g.planeslore>=12&&g.space.max>=20&&g.tier4>0",
+		"require": "g.planeslore>=8&&g.space.max>=20&&g.tier4>0",
 		"cost": {
 			"gems": 10,
 			"research": 500,
@@ -1469,6 +1476,7 @@
 	},
 	{
 		"id": "library",
+		"tags": "booksource",
 		"desc": "The most important part of a proper wizard's stronghold.",
 		"require": "g.codices>=100",
 		"cost": {
@@ -1490,17 +1498,17 @@
 	{
 		"id": "lexyrinth",
 		"desc": "All libraries hold hidden doors into its halls. Unlocking them is the hard bit.",
-		"require": "g.library>0&&g.planeslore>=20",
+		"require": "g.library>0&&g.planeslore>=13",
+		"tags": "t_furn_portal,booksource",
 		"max": 1,
+		"need": "gate",
 		"cost": {
-			"gate": 1,
 			"gold": 5000,
 			"research": 10000
 		},
 		"mod": {
 			"tapestries.max": 3,
 			"tomes.rate": 0.01,
-			"starcharts.max": 50,
 			"tomes.mod.research.max": "3%",
 			"tomes.mod.arcana.max": "0.5",
 			"codices.max": 100,
@@ -1512,42 +1520,28 @@
 	},
 	{
 		"id": "gate",
-		"desc": "Dhrunic Gate",
-		"require": "g.planeslore>=20&&g.tier4>0",
-		"max": 3,
-		"cost": {
-			"gold": 5000,
-			"tomes": 25,
-			"runestones": 20,
-			"arcana": 10
-		},
-		"mod": {
-			"arcana.rate": 0.001,
-			"voidlore.max": 1,
-			"planeslore.max": 1,
-			"space": 25
-		}
-	},
-	{
-		"id": "nexus",
-		"desc": "A nexus between all worlds",
+		"name": "dhrunic nexus",
+		"tags": "t_furn_researchable",
+		"desc": "A nexus of portals, leading to all kinds of places and dimensions.",
+		"require": "g.planeslore>=10&&g.tier4>0",
 		"max": 1,
+		"monitor": true,
 		"cost": {
-			"gate": 3,
-			"tomes": 50,
-			"runestones": 25
+			"gold": 12000,
+			"tomes": 60,
+			"runestones": 30,
+			"arcana": 25
 		},
 		"mod": {
-			"arcana.rate": 0.005,
-			"prismaticgems.rate": 0.01,
-			"space": 50
+			"t_furn_portal.mod.space.base": "-80%",
+			"space": 75
 		}
 	},
 	{
 		"id": "ziggurat",
 		"desc": "A vast mound of earth dedicated to occult practices.",
 		"require": "tier4",
-		"tags": "starsource",
+		"tags": "starsource,ritesource",
 		"cost": {
 			"gold": 300,
 			"research": 4000,
@@ -1572,7 +1566,7 @@
 		"id": "bindcircle",
 		"name": "binding circle",
 		"desc": "Magic circle for binding summoned entities",
-		"tags": "prison",
+		"tags": "prison,wardsource,summonsource",
 		"require": "g.summoning>=6||g.demonology>=7",
 		"cost": {
 			"gold": 500,
@@ -1592,7 +1586,7 @@
 		"id": "pentagram",
 		"name": "demonic pentagram",
 		"desc": "Used for summoning demonic entities.",
-		"tags": "prison",
+		"tags": "prison,summonsource",
 		"require": "g.demonology>=12",
 		"cost": {
 			"gold": 1500,
@@ -1647,6 +1641,108 @@
 			"shadow.rate": 0.01,
 			"demonology.max": 1,
 			"space": 100
+		}
+	},
+	{
+		"id": "bonsaitree",
+		"name": "bonsai tree",
+		"desc": "A small, meticulously manicured tree.",
+		"tags": "naturesource",
+		"require": "g.pond>0",
+		"cost": {
+			"gold": 75,
+			"research": 75
+		},
+		"mod": {
+			"naturelore.max": 1,
+			"nature.rate": 0.02,
+			"space": 1
+		}
+	},
+	{
+		"id": "cleansingfire",
+		"name": "cleansing fire",
+		"tags": "firesource",
+		"require": "g.tier1>0&&(g.firelore>=4||g.lightlore>=4)",
+		"desc": "A constantly burning flame, devoid of smoke or ash",
+		"max": 4,
+		"cost": {
+			"gold": 750
+		},
+		"mod": {
+			"firelore.rate": 0.2,
+			"firelore.max": 1,
+			"lightlore.rate": 0.1,
+			"lightlore.max": 1,
+			"space": 5
+		}
+	},
+	{
+		"id": "glassdome",
+		"name": "stained glass dome",
+		"tags": "airsource",
+		"require": "g.tier1>0&&(g.airlore>=4||g.lightlore>=4)",
+		"desc": "Intricate patterns of light and a gentle breeze flow through its elaborate designs",
+		"max": 4,
+		"cost": {
+			"gold": 750
+		},
+		"mod": {
+			"airlore.rate": 0.2,
+			"airlore.max": 1,
+			"lightlore.rate": 0.1,
+			"lightlore.max": 1,
+			"space": 5
+		}
+	},
+	{
+		"id": "runepress",
+		"name": "runic printing press",
+		"desc": "Technology too new to have a guild monopoly! Perfect for those pesky runes.",
+		"require": "g.tier4>0&&g.runelore>=3&&g.crafting>=15",
+		"max": 1,
+		"cost": {
+			"gold": 5000,
+			"tomes": 50
+		},
+		"sell": {
+			"gold": 5000,
+			"tomes": 25
+		},
+		"mod": {
+			"craftrune.length": 5,
+			"craftrune.cost.research": 300,
+			"craftrune.cost.managem": 4,
+			"craftrune.result.runestones": 1,
+			"space": 30
+		}
+	},
+	{
+		"id": "runeworkshop",
+		"name": "closed-loop runic workspace",
+		"desc": "Designed to reuse arcane energies that would otherwise dissipate, increases efficiency of rune-crafting.",
+		"require": "g.crafting>=14&&g.runelore>=3",
+		"max": 5,
+		"cost": {
+			"gold": 1000,
+			"tomes": 2.5,
+			"managem": 20,
+			"runestones": 3
+		},
+		"sell": {
+			"gold": 1500,
+			"tomes": 1,
+			"managem": 10,
+			"runestones": 1.5
+		},
+		"mod": {
+			"craftrune.length": 2,
+			"craftrune.cost.research": -30,
+			"craftrune.cost.managem": -0.4,
+			"craftrune.cost.tomes": -0.05,
+			"runepress.mod.craftrune.cost.managem": -0.4,
+			"runepress.mod.craftrune.cost.research": -30,
+			"space": 10
 		}
 	}
 ]

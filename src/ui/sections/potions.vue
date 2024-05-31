@@ -45,8 +45,8 @@ export default {
 
 			<span>{{ it.name.toTitleCase() }}</span>
 
-			<button v-if="it.buy&&!it.owned" :disabled="!it.canBuy(game)" @click="emit(BUY, it)">🔒</button>
-			<button v-else :disabled="!it.canUse()"
+			<button v-if="it.buy&&!it.owned" :disabled="!it.canBuy(game)||(game.state.inventory.full()&&!game.state.inventory.findMatch(it))" @click="emit(BUY, it)">🔒</button>
+			<button v-else :disabled="!it.canUse()||(game.state.inventory.full()&&!game.state.inventory.findMatch(it))"
 				@click="emit( 'craft', it )">Brew</button>
 
 		</div>

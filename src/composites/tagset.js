@@ -213,7 +213,28 @@ export default class TagSet {
 
 	}
 
-	disable(){
+	/**
+	 * @param {Game} g
+	 */
+	disable(g){
+
+		for ( let it of this.items ) {
+			//console.warn("Disabling tag member: " + it.id)
+			g.disable(it);
+		}
+
+	}
+
+	/**
+	 * @param {Game} g
+	 */
+	enable(g){
+
+		for ( let it of this.items ) {
+			//console.warn("Enabling tag member: " + it.id)
+			g.enable(it);
+		}
+
 	}
 
 	/**
@@ -293,6 +314,23 @@ export default class TagSet {
 	 */
 	forEach(p){
 		return this.items.forEach(p);
+	}
+
+	/**
+	 * Share the provided cooldown across all members of the tagSet
+	 * @param {Game} g
+	 * @param {number} t 
+	 */
+
+	cdshare(g, t){
+		if(this.sharecd){
+			for ( let it of this.items ) {
+				if (!it.timer || it.timer < t){
+					it.timer = t;
+					g.addTimer(it);
+				}
+			}
+		}
 	}
 
 }

@@ -43,14 +43,11 @@
 					},
 					"100": {
 						"result.gold": 432,
-						"cost.tomes": 2,
-						"result.tomes.max": 0.01
+						"cost.tomes": 2
 					},
 					"250": {
 						"result.gold": 825,
-						"cost.tomes": 5,
-						"result.tomes.max": 0.01,
-						"result.shopkeeping.max": 0.001
+						"cost.tomes": 5
 					}
 				},
 				"cost": {
@@ -61,6 +58,10 @@
 				},
 				"result": {
 					"gold": 115
+				},
+				"mod":{
+					"shopkeeping.max": "0.001/0/>=250/5250/-100",
+					"tomes.max": "0.01%/0/>=100/2600/-10"
 				}
 			},
 			{
@@ -82,14 +83,11 @@
 					},
 					"100": {
 						"result.gold": 111,
-						"cost.codices": 2,
-						"result.codices.max": 0.01
+						"cost.codices": 2
 					},
 					"250": {
 						"result.gold": 211,
-						"cost.codices": 5,
-						"result.codices.max": 0.01,
-						"result.shopkeeping.max": 0.001
+						"cost.codices": 5
 					}
 				},
 				"cost": {
@@ -100,6 +98,10 @@
 				},
 				"result": {
 					"gold": 28
+				},
+				"mod":{
+					"shopkeeping.max": "0.001/0/>=250/5250/100",
+					"codices.max": "0.01%/0/>=100/2600/-10"
 				}
 			},
 			{
@@ -121,14 +123,11 @@
 					},
 					"100": {
 						"result.gold": 26,
-						"cost.scrolls": 2,
-						"result.scrolls.max": 0.01
+						"cost.scrolls": 2
 					},
 					"250": {
 						"result.gold": 50,
-						"cost.scrolls": 5,
-						"result.scrolls.max": 0.01,
-						"result.shopkeeping.max": 0.001
+						"cost.scrolls": 5
 					}
 				},
 				"cost": {
@@ -139,6 +138,10 @@
 				},
 				"result": {
 					"gold": 7
+				},
+				"mod":{
+					"shopkeeping.max": "0.001/0/>=250/5250/-100",
+					"scrolls.max": "0.01%/0/>=100/2600/-10"
 				}
 			},
 			{
@@ -160,15 +163,11 @@
 					},
 					"100": {
 						"result.gold": 10.4,
-						"cost.herbs": 2,
-						"result.herbs.max": 0.001
+						"cost.herbs": 2
 					},
 					"250": {
 						"result.gold": 20,
-						"cost.herbs": 5,
-						"result.herbs.max": 0.001,
-						"result.shopkeeping.max": 0.001
-					}
+						"cost.herbs": 5					}
 				},
 				"cost": {
 					"herbs": 1
@@ -178,6 +177,10 @@
 				},
 				"result": {
 					"gold": 2.8
+				},
+				"mod":{
+					"shopkeeping.max": "0.001/0/>=250/5250/-100",
+					"herbs.max": "0.01%/0/>=100/2600/-10"
 				}
 			},
 			{
@@ -203,9 +206,7 @@
 					},
 					"250": {
 						"result.gold": 260,
-						"cost.gems": 5,
-						"result.gems.max": 0.01,
-						"result.shopkeeping.max": 0.001
+						"cost.gems": 5
 					}
 				},
 				"cost": {
@@ -216,11 +217,15 @@
 				},
 				"result": {
 					"gold": 40
+				},
+				"mod":{
+					"shopkeeping.max": "0.001/0/>=250/5250/-100",
+					"gems.max": "0.01%/0/>=100/2600/-10"
 				}
 			},
 			{
 				"id": "accountingbook",
-				"name": "accounting Ledger",
+				"name": "accounting ledger",
 				"actname": "calculating expenses",
 				"require": "g.shopkeeping>=4&&g.crafting>=2&&g.languages>=5",
 				"craftable": true,

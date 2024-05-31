@@ -9,20 +9,6 @@ import Main from 'ui/main.vue';
 import Confirm from 'ui/components/confirm.vue';
 import { ItemOver } from 'ui/popups/itemPopup.vue';
 
-
-//window.localStorage.clear();
-
-if ( __KONG ) {
-
-	kongregateAPI.loadAPI( function(){
-
-	window.kong = kongregateAPI.getAPI();
-	// You can now access the Kongregate API with:
-	// kongregate.services.getUsername()
-
-	});
-}
-
 Vue.mixin({
 
 	components:{ confirm:Confirm },
@@ -132,10 +118,6 @@ const vm = new Vue({
 		},
 
 		doStat( evt, val ) {
-
-			if ( window.kong ) {
-				window.kong.stats.submit( evt, val );
-			}
 		},
 
 		/**
@@ -281,7 +263,7 @@ const vm = new Vue({
 			let json = JSON.stringify(data);
 			let file = new Blob( [json], {type:"text/json;charset=utf-8"} );
 
-			var a = document.createElement( 'a');
+			const a = document.createElement( 'a');
 			//targ.type = 'text/json';
 			a.download = a.title = saveName + '.json';
 
@@ -368,9 +350,8 @@ const vm = new Vue({
 
 			if (!this.game.loaded ) return;
 			console.log('Saving...');
-			let charsave = await Profile.saveActive( this.game.state );
+			const charsave = await Profile.saveActive( this.game.state );
 
-			console.log('Saving Hall..: ' + charsave );
 			if ( charsave ) {
 
 				Profile.saveHall();

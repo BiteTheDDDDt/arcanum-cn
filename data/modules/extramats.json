@@ -1,8 +1,6 @@
 {
 	"module": "extramats",
 	"data": {
-		"weapons": [
-		],
 		"enchants": [
 			{
 				"id": "en_wandgold",
@@ -276,7 +274,7 @@
 					"tempus": 10
 				},
 				"alter": {
-					"mod.focus.result.runner.exp": "50%",
+					"mod.focus.result.runner.skillprogress": "50%",
 					"mod.focus.cost.mana": "100%"
 				}
 			},
@@ -419,8 +417,7 @@
 				"alter": {
 					"mod.lifedrain.attack.dot.damage.min": "15%",
 					"mod.lifedrain.attack.dot.damage.max": "15%",
-					"mod.blast.attack.dot.damage.min": "15%",
-					"mod.blast.attack.dot.damage.max": "15%"
+					"mod.blast.attack.dot.damage": "15%"
 				}
 			},
 			{
@@ -449,6 +446,137 @@
 							"self.damage": "25%"
 						}
 					}
+				}
+			},
+			{
+				"id": "en_wings_of_flight",
+				"name": "wings of flight",
+				"adj": "%i of greater momentum",
+				"verb": "gluing feathers",
+				"only": "t_wings",
+				"desc": "Allow the wings on your back to aid you in movement.",
+				"require": "g.enchanting>=9",
+				"level": 3,
+				"buy": {
+					"tomes": 15,
+					"research": 1000,
+					"air": 20
+				},
+				"length": 30,
+				"cost": {
+					"airgem": 20,
+					"air": 15
+				},
+				"alter": {
+					"mod.speed": 2
+				}
+			},
+			{
+				"id": "en_cape_of_bravery",
+				"name": "cape of bravery",
+				"adj": "%i of courage",
+				"verb": "layering",
+				"only": "t_cape",
+				"desc": "Reinforce your cape against attacks on the mind.",
+				"require": "g.enchanting>=3",
+				"level": 3,
+				"buy": {
+					"arcana": 2,
+					"research": 700,
+					"spirit": 5
+				},
+				"length": 30,
+				"cost": {
+					"spiritgem": 5,
+					"spirit": 5
+				},
+				"alter": {
+					"mod.stress.max": 3
+				}
+			},
+			{
+				"id": "en_belt_of_holding",
+				"name": "belt of holding",
+				"adj": "%i of storage",
+				"verb": "weaving",
+				"only": "t_belt",
+				"desc": "Simple but effective ways to expand already present pouches.",
+				"require": "g.enchanting>=4&&g.weaving>=4",
+				"level": 2,
+				"buy": {
+					"tomes": 1,
+					"research": 800,
+					"mana": 10
+				},
+				"length": 30,
+				"cost": {
+					"managem": 4,
+					"mana": 5
+				},
+				"alter": {
+					"mod": {
+						"inv.max": 4
+					}
+				}
+			},
+			{
+				"id": "en_robes_of_manamax1",
+				"name": "robes of mana",
+				"adj": "%i of condensing mana",
+				"verb": "mana weaving",
+				"only": "t_robe",
+				"desc": "Have your robes constantly gather mana and store it for later use.",
+				"require": "g.enchanting>=6&&g.weaving>=6",
+				"level": 5,
+				"buy": {
+					"arcana": 3,
+					"tomes": 3,
+					"managem": 12,
+					"research": 1600,
+					"mana": 10
+				},
+				"length": 30,
+				"cost": {
+					"arcana": 5,
+					"managem": 7,
+					"mana": 10
+				},
+				"alter": {
+					"mod": {
+						"mana.max": 5,
+						"mana.rate": 0.2
+					}
+				}
+			},
+			{
+				"id": "en_robes_of_color_max1",
+				"name": "robes of gathering manas",
+				"adj": "%i gathering color",
+				"verb": "dying",
+				"only": "t_robe",
+				"desc": "Store energies of all kinds in the weaves of a robe.",
+				"require": "g.enchanting>=9&&g.weaving>=7",
+				"level": 3,
+				"buy": {
+					"arcana": 5,
+					"tomes": 1,
+					"managem": 10,
+					"research": 800,
+					"mana": 10
+				},
+				"length": 30,
+				"cost": {
+					"managem": 5,
+					"airgem": 5,
+					"watergem": 5,
+					"earthgem": 5,
+					"firegem": 5,
+					"lightgem": 5,
+					"shadowgem": 5,
+					"spiritgem": 5
+				},
+				"alter": {
+					"mod.prismatic.max": 1
 				}
 			}
 		]

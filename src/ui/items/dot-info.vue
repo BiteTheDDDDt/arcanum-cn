@@ -4,6 +4,7 @@ import InfoBlock from './info-block.vue';
 import DamageMixin from './damageMixin.js';
 import game from '../../game';
 import Summon from './summon.vue';
+import HealingMixin from './healingMixin.js';
 
 /**
  * This is the dot InfoBlock in an info-popup, not the dotView in window.
@@ -12,16 +13,20 @@ export default {
 
 	props: ['dot', 'title', 'item', 'target'],
 	name: 'dot',
-	mixins: [ItemsBase, DamageMixin()],
+	mixins: [ItemsBase, DamageMixin(), HealingMixin()],
 	components: {
 		gdata: () => import(/* webpackChunkName: "gdata-ui" */ './gdata.vue'),
 		info: InfoBlock,
-		Summon
+		Summon,
+		attack: () => import('./attack.vue')
 	},
 	computed: {
 
 		damage() {
 			return this.getDamage(this.dot);
+		},
+		healing() {
+			return this.getHealing(this.dot);
 		},
 		name() {
 			return this.dot.name || this.dot.id || this.item?.name;
@@ -30,15 +35,12 @@ export default {
 			let potencystring = ""
 			for (let a of this.dot.potencies) {
 				if (potencystring != "") potencystring = potencystring.concat(", ");
-				potencystring = potencystring.concat(game.state.getData(a).name.replace(" damage","").toTitleCase())
+				potencystring = potencystring.concat(game.state.getData(a).name.replace(" damage", "").toTitleCase())
 			}
 			return potencystring
 		}
 
 
-	},
-	beforeCreate() {
-		this.$options.components.attack = require('./attack.vue').default;
 	}
 
 }
@@ -66,6 +68,11 @@ export default {
 			<div>
 				<div v-if="displayDamage(dot)">
 					<span>Estimated damage: </span><span>{{ damage }}</span>
+					<div v-if="dot.potencies">Damage scaling: {{ potency }}</div>
+				</div>
+				<div v-if="displayHealing(dot)">
+					<span>Estimated healing: </span><span>{{ healing }}</span>
+					<div v-if="dot.potencies">Heal scaling: {{ potency }}</div>
 				</div>
 				<div v-if="dot.kind">Kind: {{ dot.kind.toString().toTitleCase() }}</div>
 				<div v-if="dot.duration">Duration: {{ dot.duration + "s" || 'infinity' }}</div>
@@ -86,6 +93,14 @@ export default {
 			<div v-if="dot.attack">
 				<div class="info-sect">Attack</div>
 				<attack :item="dot" class="info-subsubsect" />
+			</div>
+			<div v-if="dot.onExpire">
+				<div class="info-sect">On expiration</div>
+				<attack :item="dot" onexpireflag = "true" class="info-subsubsect" />
+			</div>
+			<div v-if="dot.onDeath">
+				<div class="info-sect">When target killed</div>
+				<attack :item="dot" ondeathflag = "true" class="info-subsubsect" />
 			</div>
 		</div>
 	</div>

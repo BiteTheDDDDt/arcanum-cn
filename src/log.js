@@ -8,7 +8,7 @@ export class LogItem {
 		this.title = title;
 
 		/**
-	 	* @var {number} type - message type.
+	 	* @property {number} type - message type.
 	 	*/
 		this.type = type;
 
@@ -84,17 +84,16 @@ export default class Log {
 	 */
 	cut( type, count=50 ) {
 
-		let max = this.items.length;
-
-		let del = 0;
+		const max = this.items.length;
 
 		// new bottom elements.
-		let bot = [];
+		const bot = [];
 
-		var i = 0;
+		let del = 0;
+		let i = 0;
 		while ( i < max) {
 
-			var it = this.items[i++];
+			const it = this.items[i++];
 			if ( it.type === type ){
 
 				if ( ++del >= count ) break;
@@ -123,7 +122,7 @@ export default class Log {
 
 		for( let i = this.items.length-1; i>=0; i-- ) {
 
-			var last = this.items[i];
+			const last = this.items[i];
 			if ( (type & last.type) === 0 ) continue;
 
 			if ( last.title === title && last.text === text ) {

@@ -1,6 +1,8 @@
 [
 	{
 		"id": "pot_remedy",
+		"tags": "t_statuspot",
+		"cd": 5,
 		"name": "remedy",
 		"desc": "Cures most common ailments and renders the imbiber more resistant to them.",
 		"require": "g.potions>=8",
@@ -18,14 +20,14 @@
 			"ichor": 1
 		},
 		"use": {
-			"action": {
+			"attack": {
 				"cure": [
-					"paralysis",
-					"enrage",
-					"charmed",
-					"fear",
-					"silence",
-					"sick"
+					"t_paralysis",
+					"t_enrage",
+					"t_charmed",
+					"t_fear",
+					"t_silence",
+					"t_sick"
 				],
 				"targets": "self"
 			},
@@ -44,28 +46,28 @@
 	},
 	{
 		"id": "pot_midas",
-		"name": "sip of gold",
+		"name": "goldeneye tincture",
 		"desc": "Temporarily grants you an impeccable ability to acquire valuables.",
 		"require": "g.potions>=9",
 		"level": 10,
 		"buy": {
 			"gold": 5000,
 			"research": 6000,
-			"potionessence": 1
+			"potionessence": 2
 		},
 		"cost": {
 			"herbs": 50,
-			"gold": 2000,
-			"gems": 40,
-			"spirit": 15,
+			"gold": 1500,
+			"gems": 30,
+			"spirit": 10,
 			"potionessence": 2
 		},
 		"use": {
 			"dot": {
 				"duration": 1200,
-				"effect": {
-					"gold": 5,
-					"gems": 0.1
+				"mod": {
+					"encounter.result.gold": 15,
+					"encounter.result.gems": 0.3
 				}
 			}
 		}
@@ -103,7 +105,7 @@
 	{
 		"id": "pot_metallicizer",
 		"name": "liquid metal",
-		"desc": "A flask of metal that stays liquid even in the coldest weather. Converts organic materials to more liquid metal. Becomes inert after some time.",
+		"desc": "A surreptious flask of cold, yet liquid metal. Bonds easily with organic materials, strenghtening them. Caution advised.",
 		"require": "g.puppet_enhancedlabs>0&&g.potions>0",
 		"level": 10,
 		"buy": {
@@ -112,27 +114,25 @@
 			"potionessence": 1
 		},
 		"cost": {
-			"herbs": 50,
-			"gold": 2500,
-			"gems": 25,
-			"mana": 15,
+			"herbs": 25,
+			"gold": 500,
+			"gems": 5,
+			"mana": 10,
 			"potionessence": 1
 		},
 		"use": {
 			"dot": {
 				"id": "metallicize",
-				"name": "liquidation",
-				"duration": 120,
-				"effect": {
-					"bodies": -1,
-					"herbs": -1,
-					"hp": -2
-				},
+				"name": "reinforced materials",
+				"duration": 600,
 				"mod": {
-					"gatherherbs.result.herbs": -0.2,
-					"gatherherbs.result.gold": 4,
-					"murder.result.bodies": -1,
-					"murder.result.gold": 200
+					"assemblepuppet.cost.gold": -10,
+					"assemblepuppet.result.puppets": 1,
+					"puppetautomation.convert.input.gold": -0.1,
+					"assemblemachina.cost.gold": -50,
+					"assemblemachina.result.machinae": 1,
+					"machinaautomation.convert.input.gold": -0.5,
+					"machinaautomation.convert.input.gems": -0.01
 				}
 			}
 		}
@@ -149,11 +149,11 @@
 			"potionessence": 1
 		},
 		"cost": {
-			"herbs": 50,
+			"herbs": 30,
 			"gold": 2500,
 			"spiritgem": 25,
-			"hp": 150,
-			"spirit": 15,
+			"hp": 50,
+			"spirit": 10,
 			"potionessence": 1
 		},
 		"use": {
@@ -195,7 +195,7 @@
 				"name": "night's sight",
 				"duration": 900,
 				"effect": {
-					"astronomy.exp": "0 + (g.astronomy.length*0.00005)"
+					"astronomy.exp": "0 + (g.astronomy.length*0.0011)"
 				},
 				"mod": {
 					"astronomy.rate": "500+2%",
@@ -304,6 +304,8 @@
 	{
 		"id": "pot_mana1",
 		"name": "draught of mana",
+		"tags": "t_manapot",
+		"cd": 3,
 		"require": "g.potions>=1",
 		"buy": {
 			"gold": 25,
@@ -313,13 +315,15 @@
 			"herbs": 10
 		},
 		"use": {
-			"mana": 5
+			"mana": "5+g.mana.max*0.1"
 		}
 	},
 	{
 		"id": "pot_mana2",
 		"name": "well of mana",
-		"require": "g.potions>=9",
+		"tags": "t_manapot",
+		"cd": 5,
+		"require": "g.potions>=(9-g.alchemist*3)",
 		"buy": {
 			"gold": 750,
 			"research": 800,
@@ -331,21 +335,186 @@
 			"managem": 1
 		},
 		"use": {
-			"mana": 20
+			"mana": "8+g.mana.max*0.25"
+		}
+	},
+	{
+		"id": "pot_mana3",
+		"name": "river of mana",
+		"tags": "t_manapot",
+		"cd": 8,
+		"require": "g.potions>=(12-g.alchemist*5)",
+		"buy": {
+			"gold": 2500,
+			"research": 2500,
+			"tomes": 10,
+			"codices": 25
+		},
+		"cost": {
+			"herbs": 20,
+			"managem": 3
+		},
+		"use": {
+			"mana": "10+g.mana.max*0.4"
+		}
+	},
+	{
+		"id": "pot_elemental1",
+		"name": "thimble of elements",
+		"tags": "t_manapot",
+		"cd": 3,
+		"require": "g.potions>=(3-g.alchemist*2)",
+		"buy": {
+			"gold": 50,
+			"research": 100
+		},
+		"cost": {
+			"herbs": 5,
+			"gems": 1
+		},
+		"use": {
+			"fire": "3+g.fire.max*0.1",
+			"water": "3+g.water.max*0.1",
+			"air": "3+g.air.max*0.1",
+			"earth": "3+g.earth.max*0.1"
+		}
+	},
+	{
+		"id": "pot_elemental2",
+		"name": "cup of elements",
+		"tags": "t_manapot",
+		"cd": 6,
+		"require": "g.potions>=(8-g.alchemist*3)",
+		"buy": {
+			"gold": 1000,
+			"research": 1200,
+			"tomes": 1,
+			"codices": 20
+		},
+		"cost": {
+			"herbs": 25,
+			"firegem": 0.5,
+			"airgem": 0.5,
+			"watergem": 0.5,
+			"earthgem": 0.5
+		},
+		"use": {
+			"fire": "5+g.fire.max*0.25",
+			"water": "5+g.water.max*0.25",
+			"air": "5+g.air.max*0.25",
+			"earth": "5+g.earth.max*0.25"
+		}
+	},
+	{
+		"id": "pot_elemental3",
+		"name": "jug of elements",
+		"tags": "t_manapot",
+		"cd": 9,
+		"require": "g.potions>=(14-g.alchemist*5)",
+		"buy": {
+			"gold": 3000,
+			"research": 3000,
+			"tomes": 15,
+			"runestones": 1
+		},
+		"cost": {
+			"firegem": 2,
+			"airgem": 2,
+			"watergem": 2,
+			"earthgem": 2
+		},
+		"use": {
+			"fire": "7+g.fire.max*0.4",
+			"water": "7+g.water.max*0.4",
+			"air": "7+g.air.max*0.4",
+			"earth": "7+g.earth.max*0.4"
+		}
+	},
+	{
+		"id": "pot_primal1",
+		"name": "primal whisper",
+		"tags": "t_manapot",
+		"cd": 3,
+		"require": "g.potions>=(3-g.alchemist*2)",
+		"buy": {
+			"gold": 50,
+			"research": 100
+		},
+		"cost": {
+			"herbs": 5,
+			"gems": 1
+		},
+		"use": {
+			"spirit": "3+g.spirit.max*0.1",
+			"nature": "3+g.nature.max*0.1",
+			"shadow": "3+g.shadow.max*0.1",
+			"light": "3+g.light.max*0.1"
+		}
+	},
+	{
+		"id": "pot_primal2",
+		"name": "primal echo",
+		"tags": "t_manapot",
+		"cd": 6,
+		"require": "g.potions>=(8-g.alchemist*3)",
+		"buy": {
+			"gold": 1000,
+			"research": 1200,
+			"tomes": 1,
+			"codices": 20
+		},
+		"cost": {
+			"herbs": 25,
+			"spiritgem": 0.5,
+			"naturegem": 0.5,
+			"lightgem": 0.5,
+			"shadowgem": 0.5
+		},
+		"use": {
+			"spirit": "5+g.spirit.max*0.25",
+			"nature": "5+g.nature.max*0.25",
+			"shadow": "5+g.shadow.max*0.25",
+			"light": "5+g.light.max*0.25"
+		}
+	},
+	{
+		"id": "pot_primal3",
+		"name": "primal reverberation",
+		"tags": "t_manapot",
+		"cd": 9,
+		"require": "g.potions>=(14-g.alchemist*5)",
+		"buy": {
+			"gold": 3000,
+			"research": 3000,
+			"tomes": 15,
+			"runestones": 1
+		},
+		"cost": {
+			"spiritgem": 2,
+			"naturegem": 2,
+			"lightgem": 2,
+			"shadowgem": 2
+		},
+		"use": {
+			"spirit": "7+g.spirit.max*0.4",
+			"nature": "7+g.nature.max*0.4",
+			"shadow": "7+g.shadow.max*0.4",
+			"light": "7+g.light.max*0.4"
 		}
 	},
 	{
 		"id": "pot_manadot",
 		"name": "drip of mana",
-		"desc": "Raw mana injected right into the veins of a mage can allow for sustained casting, if one disregards the side-effects",
+		"desc": "Raw mana injected right into the veins of a mage can allow for sustained casting",
 		"require": "g.potions>=8",
 		"buy": {
-			"gold": 250,
-			"research": 500
+			"gold": 1250,
+			"research": 1500
 		},
 		"cost": {
 			"herbs": 25,
-			"managem": 5
+			"managem": 15,
+			"tomes": 1
 		},
 		"use": {
 			"dot": {
@@ -353,10 +522,9 @@
 				"name": "mana drip",
 				"tags": "manadot",
 				"level": 15,
-				"duration": 900,
+				"duration": 1800,
 				"effect": {
-					"mana": 1,
-					"hp": -1
+					"mana": 1
 				}
 			}
 		}
@@ -367,13 +535,13 @@
 		"desc": "This reddish potion causes a surge of energy in the imbiber, at the expense of health",
 		"require": "g.potions>=8",
 		"buy": {
-			"gold": 250,
-			"research": 500
+			"gold": 1250,
+			"research": 1500
 		},
 		"cost": {
 			"herbs": 25,
-			"managem": 5,
-			"bloodgem": 5
+			"managem": 12,
+			"bloodgem": 12
 		},
 		"use": {
 			"dot": {
@@ -381,10 +549,9 @@
 				"name": "bull's tenacity",
 				"tags": "stamdot",
 				"level": 15,
-				"duration": 900,
+				"duration": 1800,
 				"effect": {
-					"stamina": 2.25,
-					"hp": -1
+					"stamina": 2.25
 				}
 			}
 		}
@@ -413,9 +580,9 @@
 			"dot": {
 				"id": "fakeeternalyouth",
 				"name": "eternal youth",
-				"duration": 150,
+				"duration": 15,
 				"effect": {
-					"hp": -50
+					"hp": -250
 				}
 			}
 		}
@@ -450,6 +617,8 @@
 		"id": "pot_cparalysis",
 		"name": "tincture of limberness",
 		"desc": "Removes most forms of inisidious motion impairment.",
+		"tags": "t_statuspot",
+		"cd": 1,
 		"level": 5,
 		"require": "g.potions>=5",
 		"cost": {
@@ -462,6 +631,8 @@
 		"id": "pot_csilence",
 		"name": "echoing flask",
 		"desc": "Amplifies even significantly muffled sounds.",
+		"tags": "t_statuspot",
+		"cd": 1,
 		"level": 7,
 		"buy": {
 			"gold": 150,
@@ -478,6 +649,8 @@
 		"id": "pot_csilence2",
 		"name": "amplified echoing flask",
 		"desc": "A refined formula protects your voice for a time after application.",
+		"tags": "t_statuspot",
+		"cd": 5,
 		"level": 9,
 		"require": "g.potions>=7",
 		"buy": {
@@ -507,8 +680,10 @@
 	},
 	{
 		"id": "pot_heal1",
-		"name": "minor healing",
-		"require": "g.potions>0",
+		"name": "cream of mending",
+		"require": "g.potions>=1",
+		"tags": "t_healthpot",
+		"cd": 5,
 		"buy": {
 			"gold": 25,
 			"research": 50
@@ -518,25 +693,89 @@
 			"herbs": 10
 		},
 		"use": {
-			"hp": 75
+			"hp": "20+g.hp.max*0.1"
+		}
+	},
+	{
+		"id": "pot_heal2",
+		"name": "salve of mending",
+		"require": "g.potions>=(8-g.alchemist*4)",
+		"tags": "t_healthpot",
+		"cd": 10,
+		"buy": {
+			"gold": 250,
+			"research": 500,
+			"codices": 5
+		},
+		"level": 4,
+		"cost": {
+			"herbs": 25
+		},
+		"use": {
+			"hp": "30+g.hp.max*0.2"
 		}
 	},
 	{
 		"id": "pot_heal3",
-		"name": "healing potion",
-		"require": "g.potions>=9",
+		"name": "ointment of mending",
+		"require": "g.potions>=(12-g.alchemist*5)",
+		"tags": "t_healthpot",
+		"cd": 15,
 		"buy": {
-			"gold": 100,
-			"lightgem": 1,
-			"research": 500
+			"gold": 1200,
+			"lightgem": 5,
+			"research": 1500
 		},
 		"level": 7,
 		"cost": {
 			"herbs": 25,
-			"gems": 3
+			"gems": 5
 		},
 		"use": {
-			"hp": 200
+			"hp": "50+g.hp.max*0.25"
+		}
+	},
+	{
+		"id": "pot_healdream",
+		"name": "oneirodistillation of wholeness",
+		"require": "g.potions>=(12-g.alchemist*5)&&g.dreamchamber>0",
+		"desc": "Distilled from your dreams of self.",
+		"tags": "t_oneiropot",
+		"cd": 30,
+		"buy": {
+			"dreams": 5
+		},
+		"level": 7,
+		"cost": {
+			"dreams": 1
+		},
+		"use": {
+			"hp": "15+g.hp.max*0.15"
+		}
+	},
+	{
+		"id": "pot_manadream",
+		"name": "oneirodistillation of energy",
+		"require": "g.potions>=(12-g.alchemist*5)&&g.dreamchamber>0",
+		"desc": "Distilled from your dreams of power.",
+		"tags": "t_oneiropot",
+		"cd": 30,
+		"buy": {
+			"dreams": 5
+		},
+		"level": 7,
+		"cost": {
+			"dreams": 1
+		},
+		"use": {
+			"spirit": "4+g.spirit.max*0.15",
+			"nature": "4+g.nature.max*0.15",
+			"shadow": "4+g.shadow.max*0.15",
+			"light": "4+g.light.max*0.15",
+			"fire": "4+g.fire.max*0.15",
+			"water": "4+g.water.max*0.15",
+			"air": "4+g.air.max*0.15",
+			"earth": "4+g.earth.max*0.15"
 		}
 	},
 	{
@@ -583,11 +822,11 @@
 		"buy": {
 			"gold": 250,
 			"research": 500,
-			"potionessence": 1
+			"potionessence": 3
 		},
 		"cost": {
 			"herbs": 10,
-			"potionessence": 4
+			"potionessence": 3
 		},
 		"use": {
 			"sp": 1
@@ -599,6 +838,7 @@
 		"desc": "Converts accumulated life experience into short-term benefit",
 		"require": "g.potions>=9",
 		"level": 5,
+		"cd": 120,
 		"buy": {
 			"gold": 2500,
 			"research": 5000,
@@ -610,9 +850,10 @@
 			"potionessence": 1
 		},
 		"use": {
-			"research": 2000,
+			"research": "g.research.max",
 			"manas": 250,
-			"stamina": 250,
+			"stamina": "g.stamina.max",
+			"hp": "g.hp.max",
 			"dot": {
 				"id": "pot_sp_sink_dot",
 				"name": "skillfulness",
@@ -620,7 +861,7 @@
 				"mod": {
 					"mana": 1.15,
 					"stamina": 1.15,
-					"focus.result.runner.exp": "2%"
+					"focus.result.runner.skillprogress": "100%"
 				}
 			}
 		}
@@ -745,7 +986,7 @@
 					"name": "blinded",
 					"kind": "shadow",
 					"duration": 120,
-					"id": "tohitdown",
+					"tags": "t_tohitdown",
 					"mod": {
 						"self": {
 							"tohit": -5
@@ -974,14 +1215,14 @@
 			"gold": 500,
 			"tomes": 5,
 			"research": 500,
-			"potionessence": 1
+			"potionessence": 2
 		},
 		"cost": {
 			"herbs": 50,
 			"hp": 150,
 			"earth": 15,
 			"bloodgem": 50,
-			"potionessence": 3
+			"potionessence": 2
 		},
 		"use": {
 			"dot": {
@@ -1001,6 +1242,8 @@
 		"desc": "Reshapes your body to make it ever so slightly more ideal.",
 		"level": 25,
 		"require": "g.potions>=10",
+		"tags": "t_infusion",
+		"cd": 3600,
 		"buy": {
 			"gold": 15000,
 			"tomes": 50,
@@ -1013,11 +1256,11 @@
 		},
 		"cost": {
 			"herbs": 50,
-			"hp": 150,
-			"research": 15000,
-			"gold": 10000,
-			"bloodgem": 50,
-			"potionessence": 5
+			"hp": 100,
+			"research": 10000,
+			"gold": 5000,
+			"bloodgem": 10,
+			"potionessence": 1
 		},
 		"use": {
 			"hp.max": 2
@@ -1029,20 +1272,22 @@
 		"desc": "Allows the user to become more vigorous over time.",
 		"level": 25,
 		"require": "g.potions>=10",
+		"tags": "t_infusion",
+		"cd": 3600,
 		"buy": {
 			"gold": 15000,
 			"tomes": 50,
-			"research": 25000,
+			"research": 15000,
 			"runestones": 50,
 			"potionessence": 1
 		},
 		"cost": {
 			"herbs": 50,
-			"runestones": 30,
-			"research": 15000,
-			"gold": 10000,
-			"bloodgem": 50,
-			"potionessence": 5
+			"runestones": 15,
+			"research": 10000,
+			"gold": 5000,
+			"bloodgem": 10,
+			"potionessence": 1
 		},
 		"use": {
 			"stamina.max": 1,
@@ -1057,6 +1302,8 @@
 		"desc": "Expands your mind's capacity for knowledge.",
 		"level": 25,
 		"require": "g.potions>=10",
+		"tags": "t_infusion",
+		"cd": 3600,
 		"buy": {
 			"gold": 15000,
 			"tomes": 50,
@@ -1069,11 +1316,11 @@
 		},
 		"cost": {
 			"herbs": 50,
-			"hp": 150,
-			"research": 15000,
-			"gold": 10000,
-			"managem": 50,
-			"potionessence": 5
+			"hp": 100,
+			"research": 10000,
+			"gold": 5000,
+			"managem": 25,
+			"potionessence": 1
 		},
 		"use": {
 			"research.max": 250,
@@ -1088,6 +1335,8 @@
 		"desc": "What was theirs is now yours.",
 		"level": 25,
 		"require": "g.potions>=10&&g.evil>0",
+		"tags": "t_infusion",
+		"cd": 3600,
 		"buy": {
 			"gold": 15000,
 			"tomes": 50,
@@ -1097,11 +1346,11 @@
 		},
 		"cost": {
 			"herbs": 50,
-			"research": 15000,
-			"bodies": 100,
-			"souls": 100,
-			"bloodgem": 50,
-			"potionessence": 5
+			"research": 10000,
+			"bodies": 50,
+			"souls": 50,
+			"bloodgem": 10,
+			"potionessence": 1
 		},
 		"use": {
 			"hp.max": 1,
@@ -1114,6 +1363,8 @@
 		"desc": "Causes you to become more attuned to the world's elements. Harmful to one's physical body.",
 		"level": 25,
 		"require": "g.potions>=10",
+		"tags": "t_infusion",
+		"cd": 3600,
 		"buy": {
 			"gold": 15000,
 			"tomes": 50,
@@ -1126,14 +1377,14 @@
 		},
 		"cost": {
 			"herbs": 50,
-			"hp": 150,
-			"research": 15000,
-			"gold": 10000,
-			"firegem": 50,
-			"airgem": 50,
-			"watergem": 50,
-			"earthgem": 50,
-			"potionessence": 5
+			"hp": 100,
+			"research": 10000,
+			"gold": 5000,
+			"firegem": 25,
+			"airgem": 25,
+			"watergem": 25,
+			"earthgem": 25,
+			"potionessence": 1
 		},
 		"use": {
 			"hp.max": -4,

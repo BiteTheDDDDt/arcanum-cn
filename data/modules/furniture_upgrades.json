@@ -1,5 +1,5 @@
 {
-	"module":"furniture_upgrades",
+	"module": "furniture_upgrades",
 	"data":{
 
 	"upgrades":[
@@ -16,8 +16,8 @@
 				"tapestries": 25
 			},
 			"mod": {
-				"studyroom.mod.focus.result.runner.exp": "3%",
-				"arcanestudy.mod.focus.result.runner.exp": "2%"
+				"studyroom.mod.focus.result.runner.skillprogress": "3%",
+				"arcanestudy.mod.focus.result.runner.skillprogress": "2%"
 			}
 		},
 		{
@@ -33,7 +33,7 @@
 				"bookcase": 5
 			},
 			"mod": {
-				"studyroom.mod.focus.result.runner.exp": "2%"
+				"studyroom.mod.focus.result.runner.skillprogress": "2%"
 			}
 		},
 		{
@@ -49,7 +49,7 @@
 				"lightgem": 3
 			},
 			"mod": {
-				"pedestal.mod.focus.result.runner.exp": "1.05%"
+				"pedestal.mod.focus.result.runner.skillprogress": "1.05%"
 			}
 		},
 		{
@@ -129,6 +129,9 @@
 			"name": "graveyard landscaping",
 			"desc": "Redesign many areas of the graveyard to be more respectful to the dead.",
 			"require": "g.virtue>=75&&g.graveyard>0",
+			"tags": "t_graveyard_remodel",
+			"lock": "t_graveyard_remodel",
+			"warn": true,
 			"cost": {
 				"gold": 5000,
 				"gems": 30
@@ -145,8 +148,11 @@
 			"name": "graveyard soul binding",
 			"desc": "Tie the dead souls forcefully to the graveyard area.",
 			"require": "g.evil>0&&g.spiritlore>=10&&g.graveyard>0",
+			"tags": "t_graveyard_remodel",
+			"lock": "t_graveyard_remodel",
+			"warn": true,
 			"cost": {
-				"gold": 300,
+				"gold": 3000,
 				"gems": 10
 			},
 			"mod": {
@@ -154,8 +160,37 @@
 				"graveyard.mod.spiritlore.rate": 1,
 				"graveyard.mod.souls.rate": 0.01,
 				"graveyard.mod.souls.max": 15
-            }
-        }
-    ]
-    }
+			}
+		},
+		{
+			"id": "packmule",
+			"name": "pack mule",
+			"desc": "A clever design from the sack-maker's guild.",
+			"require": "g.mule>=1",
+			"cost": {
+				"gold": 500,
+				"herbs": 10,
+				"ironchest": 1
+			},
+			"mod": {
+				"mule.mod.inv.max": 5,
+				"mule.mod.gold.max": 750
+			}
+		},
+		{
+			"id": "rejuvenation_feed",
+			"name": "rejuvenation feed",
+			"desc": "A new concoction of herbs, carrots, and exotic fruits to invigorate the weary steed.",
+			"require": "(g.mule+g.oldnag)>=1&&g.potions>=3",
+			"cost": {
+				"gold": 800,
+				"herbs": 30
+			},
+			"mod": {
+				"mule.mod.dist": 50,
+				"oldnag.mod.dist": 60
+			}
+		}
+	]
+	}
 }

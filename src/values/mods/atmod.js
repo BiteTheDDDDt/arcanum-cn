@@ -129,7 +129,7 @@ export default class AtMod extends Mod {
 	 * @param {GameState} gs
 	 * @param {*} targ
 	 */
-	getApply(gs, targ) {
+	getApply() {
 		//if ( this.source && this.source.id === 'breath') console.log('breathe count: ' + this.count + '  value: ' + this.value );
 		return this.count ? this.value : 0;
 	}

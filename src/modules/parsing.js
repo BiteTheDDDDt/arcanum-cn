@@ -12,7 +12,8 @@ import AtMod, { IsAtMod } from '../values/mods/atmod';
 
 import { FP } from "../values/consts";
 import RangedMod, { isRangedMod } from '../values/mods/rangedmod';
-import FValue, { MkParams } from '../values/rvals/fvalue';
+import CurvedMod, { isCurvedMod } from '../values/mods/curvedmod';
+import FValue from '../values/rvals/fvalue';
 
 /**
  * @const {RegEx} IdTest - Test for a simple id name.
@@ -58,6 +59,7 @@ export const StrMod = ( str, id, src ) => {
 	if ( IsPerMod(str ) ) return new PerMod( str, id, src );
 	else if ( IsAtMod(str) ) return new AtMod(str, id, src );
 	else if ( isRangedMod(str) ) return new RangedMod( str, id, src );
+	else if ( isCurvedMod(str) ) return new CurvedMod( str, id, src );
 	return str;
 
 }
@@ -86,9 +88,9 @@ const SubMods = ( mods, id, source )=>{
 	// @note str is @compat
 	if ( mods.id || mods.base || mods.str ) return new Mod( mods, id, source );
 
-	for( let s in mods ) {
+	for( const s in mods ) {
 
-		let val = mods[s];
+		const val = mods[s];
 		if ( val === 0 ) {
 			delete mods[s];
 			continue;
@@ -126,13 +128,13 @@ export const PrepData = ( sub, id='' ) => {
 
 	} else if ( typeof sub === 'object' ) {
 
-		for( let p in sub ) {
+		for( const p in sub ) {
 
 			if ( p === 'mod' || p === 'runmod' || p === 'alter' ) {
 
 				sub[p] = ParseMods( sub[p],  SubPath(id, p) );
 				continue;
-			} else if ( p ==='effect' || p === 'result' ) {
+			} else if ( p ==='effect' || p === 'result' || p === 'use' ) {
 
 				sub[p] = ParseEffects( sub[p], MakeEffectFunc );
 
@@ -144,13 +146,19 @@ export const PrepData = ( sub, id='' ) => {
 
 				sub[p] = ParseRequire( sub[p] );
 				continue;
+ 
+			} else if ( p === 'convert' ) {
 
+				sub[p]['input'] = ParseEffects( sub[p]['input'], MakeEffectFunc );
+				sub[p]['output']['effect'] = ParseEffects( sub[p]['output']['effect'], MakeEffectFunc );
+				sub[p]['output']['mod'] = ParseMods( sub[p]['output']['mod'] , SubPath(id, 'mod') )
 			}
+			
 
 			if ( p.includes('.')) splitKeyPath( sub, p );
 
-			var obj = sub[p];
-			var typ = typeof obj;
+			const obj = sub[p];
+			const typ = typeof obj;
 			if ( typ === 'string' ){
 
 				if ( PercentTest.test(obj) ) {
@@ -160,11 +168,13 @@ export const PrepData = ( sub, id='' ) => {
 				} else if ( RangeTest.test(obj) ) sub[p] = new Range(obj);
 				else if ( IsPerMod(obj) ) sub[p] = new PerMod( obj, SubPath(id,p) );
 				else if ( isRangedMod(obj) ) return new RangedMod( obj, SubPath(id,p) );
+				else if ( isCurvedMod(obj) ) return new CurvedMod( obj, SubPath(id,p) );
 				else if ( !isNaN(obj) ) {
 					if ( obj !== '') console.warn('string used as Number: ' + p + ' -> ' + obj );
 					sub[p] = Number(obj);
 				}
 				else if ( p === 'damage' || p === 'dmg') sub[p] = MakeDmgFunc(obj);
+				else if ( p === 'healing' || p === 'heal') sub[p] = MakeDmgFunc(obj);
 
 			} else if ( typ === 'object' ) PrepData(obj, id);
 			else if (typ === 'number') {
@@ -200,6 +210,7 @@ export const ParseRVal = ( str ) => {
 	else if ( IsPerMod(str ) ) return new PerMod( str );
 	else if ( IsAtMod(str) ) return new AtMod(str);
 	else if ( isRangedMod(str) ) return new RangedMod( str );
+	else if ( isCurvedMod(str) ) return new CurvedMod( str );
 	return str;
 
 }
@@ -224,14 +235,15 @@ export const ParseEffects = ( effects, funcMaker ) => {
 		else if ( IsPerMod(effects ) ) return new PerMod( effects );
 		else if ( IsAtMod(effects) ) return new AtMod( effects );
 		else if ( isRangedMod(effects) ) return new RangedMod( effects );
+		else if ( isCurvedMod(effects) ) return new CurvedMod( effects );
 		else if ( effects.includes( '.' ) ) return funcMaker(effects);
 
 		return effects;
 
 	} else if ( typeof effects === 'object' ) {
 
-		for( let p in effects ) {
-			effects[p] = ParseEffects( effects[p], funcMaker );
+		for( const p in effects ) {
+			if (p !== 'dot' && p !== 'attack') effects[p] = ParseEffects( effects[p], funcMaker );
 		}
 
 	} else if ( typeof effects === 'number' ) return new Stat( effects );
@@ -269,7 +281,7 @@ export function MakeTestFunc( text ) {
 	 * i - item being tested for unlock.
 	 * s - game state
 	 */
-	return new Function( FP.GAME, FP.ITEM, FP.STATE, 'return ' + text );
+	return new Function( FP.GDATA, FP.ITEM, FP.STATE, 'return ' + text );
 }
 
 /**
@@ -277,7 +289,7 @@ export function MakeTestFunc( text ) {
  * @param {*} text
  */
 export function MakeCostFunc(text) {
-	return new Function( FP.GAME, FP.ACTOR, 'return ' + text );
+	return new FValue( [FP.GDATA, FP.ACTOR], text );
 }
 
 /**
@@ -287,5 +299,5 @@ export function MakeCostFunc(text) {
  * @param {string} text
  */
 export function MakeEffectFunc( text ) {
-	return new FValue( MkParams(FP.GAME, FP.TARGET, FP.ACTOR), text );
+	return new FValue( [FP.GDATA, FP.TARGET, FP.ACTOR], text );
 }

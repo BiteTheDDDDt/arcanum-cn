@@ -140,11 +140,11 @@ export default class Minions extends Inventory {
 
 		if ( !this.allies.max ) { this.allies.max = Math.floor( state.player.level / 5 ); }
 
-		var actives = [];
+		const actives = [];
 
 		for( let i = this.items.length-1; i>=0; i-- ) {
 
-			var m = this.items[i];
+			const m = this.items[i];
 			if ( m.type !== NPC ) {
 				this.items.splice( i, 1 );
 				continue;
@@ -170,9 +170,9 @@ export default class Minions extends Inventory {
 	 */
 	applyMods( mods, amt ){
 
-		for( let p in mods ){
+		for( const p in mods ){
 
-			var mod = mods[p];
+			const mod = mods[p];
 
 			if ( this[p] ) {
 

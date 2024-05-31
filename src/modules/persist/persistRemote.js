@@ -76,7 +76,7 @@ export const Remote = {
 
 		console.log('saving remote: ' + charid );
 
-		var t = Date.now();
+		const t = Date.now();
 		if ( t - this.lastSave < minWait ) return null;
 		this.lastSave = t;
 
@@ -93,7 +93,7 @@ export const Remote = {
 
 		if ( !FBRemote.loggedIn ) return null;
 
-		var t = Date.now();
+		const t = Date.now();
 		if ( t - this.lastHallSave < minWait ) return null;
 		this.lastHallSave = t;
 

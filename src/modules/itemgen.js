@@ -1,6 +1,6 @@
 import Npc from '../chars/npc';
 import Wearable from "../chars/wearable";
-import { includesAny} from 'objecty';
+import { includesAny } from '../util/objecty';
 import Percent from '../values/percent';
 import Item from '../items/item';
 import GenGroup from '../genGroup';
@@ -17,23 +17,23 @@ import { Changed } from '../techTree';
 * @param {*} p
 * @param {*} t
 */
-const flatMap = ( p, t )=>{
+const flatMap = (p, t) => {
 
 	let a = [];
 	let len = this.length;
-	for( let i = 0; i < len; i++ ) {
+	for (let i = 0; i < len; i++) {
 
 		let v = this[i];
 
-		if ( Array.isArray( v ) ) {
+		if (Array.isArray(v)) {
 
-			v = v.flatMap( p, t );
-			for( let j = 0; j < v.length; j++) {
+			v = v.flatMap(p, t);
+			for (let j = 0; j < v.length; j++) {
 				a.push(v[j]);
 			}
 
 		} else {
-			a.push( p.call( t, v ) );
+			a.push(p.call(t, v));
 		}
 
 	}
@@ -47,43 +47,43 @@ const flatMap = ( p, t )=>{
  * @param {GameState} gs
  * @param {object} save
  */
-export function itemRevive( gs, save ) {
+export function itemRevive(gs, save) {
 
-	if ( !save ) {
-		console.warn('Missing gen item: ' + save );
+	if (!save) {
+		console.warn('Missing gen item: ' + save);
 		return null;
 	}
 
-	var orig = save.template || save.recipe;
+	let orig = save.template || save.recipe;
 
-	if ( typeof orig === 'string') orig = gs.getData( orig );
-	var type = orig !== undefined ? ( orig.type || save.type ) : save.type;
+	if (typeof orig === 'string') orig = gs.getData(orig);
+	let type = orig !== undefined ? (orig.type || save.type) : save.type;
 
-	if ( !type) {
+	if (!type) {
 
-		if ( !save.id ) return null;
+		if (!save.id) return null;
 
-		console.warn( save.id + ' unknown type: ' + type + ' -> ' + save.template + ' -> ' + save.recipe );
+		console.warn(save.id + ' unknown type: ' + type + ' -> ' + save.template + ' -> ' + save.recipe);
 		type = 'item';
 
 	}
 
-	if ( type === ARMOR || type === WEAPON || type === WEARABLE) {
+	if (type === ARMOR || type === WEAPON || type === WEARABLE) {
 
-		save = new Wearable( orig,save);
+		save = new Wearable(orig, save);
 
-	} else if ( type === MONSTER || type === NPC ) {
+	} else if (type === MONSTER || type === NPC) {
 
 		//it.template = orig;
-		save = new Npc( orig, save );
+		save = new Npc(orig, save);
 
 	} else {
 		//console.log('default revive: ' + it.id );
-		save = new Item( orig, save );
+		save = new Item(orig, save);
 	}
 	save.owned = true;
 
-	save.revive( gs );
+	save.revive(gs);
 
 	return save;
 
@@ -94,7 +94,7 @@ export function itemRevive( gs, save ) {
  */
 export default class ItemGen {
 
-	constructor( game ){
+	constructor(game) {
 
 		this.game = game;
 		this.state = game.state;
@@ -109,9 +109,9 @@ export default class ItemGen {
 		/*this.initGroup( ARMOR, this.state.armors );
 		this.initGroup( WEAPON, this.state.weapons );*/
 
-		this.initGroup( WEARABLE, this.state.weapons.concat(this.state.armors ) );
-		this.initGroup( 'materials', this.state.materials );
-		this.initGroup( 'properties', this.state.properties );
+		this.initGroup(WEARABLE, this.state.weapons.concat(this.state.armors));
+		this.initGroup('materials', this.state.materials);
+		this.initGroup('properties', this.state.properties);
 
 	}
 
@@ -121,21 +121,21 @@ export default class ItemGen {
 	 * @param {string} biome
 	 * @param {number} pct - percent through locale.
 	 */
-	randEncounter( data, biome, pct=1 ) {
+	randEncounter(data, biome, pct = 1) {
 
-		var level = data.level || 1;
-		if ( typeof level ==='object') {
+		let level = data.level || 1;
+		if (typeof level === 'object') {
 
-			if ( level.type === TYP_RANGE ) level = level.percent(pct);
-			else level = level.value*pct;
+			if (level.type === TYP_RANGE) level = level.percent(pct);
+			else level = level.value * pct;
 
 		}
 
-		if ( data.range ) level += (data.range*( -1 + 2*Math.random() ) );
+		if (data.range) level += (data.range * (-1 + 2 * Math.random()));
 		level = Math.ceil(level);
 
-		if ( !this.groups.hasOwnProperty(ENCOUNTER)) this.initGroup( ENCOUNTER, this.state.encounters );
-		return this.groups[ENCOUNTER].randAt( level );
+		if (!this.groups.hasOwnProperty(ENCOUNTER)) this.initGroup(ENCOUNTER, this.state.encounters);
+		return this.groups[ENCOUNTER].randAt(level);
 
 	}
 
@@ -145,27 +145,38 @@ export default class ItemGen {
 	 * @param {string|string[]} biome
 	 * @param {number} [pct=1] level modifier / progress within dungeon.
 	 */
-	randEnemy( data, biome, pct=1 ) {
+	randEnemy(data, biome, pct = 1) {
 
-		if ( !this.groups.hasOwnProperty(MONSTER) ) this.initGroup( MONSTER, this.state.monsters, ['biome','kind'] );
+		if (!this.groups.hasOwnProperty(MONSTER)) this.initGroup(MONSTER, this.state.monsters, ['biome', 'kind']);
 
-		if ( biome ) {
-			return randByBiome( data, biome, pct );
+		if (biome) {
+			return randByBiome(data, biome, pct);
 		}
 
-		var level = data.level || 1;
-		if ( typeof level ==='object') {
+		let level = data.level || 1;
+		let quantity = data.quantity || 2
+		const penalty = data.quantitypenalty || 0.05 //by default, 5% penalty to level for each extra spawn
+		if (typeof level === 'object') { //handling for progress in dungeon - trend towards upper end of range the closer to thhe top you are
 
-			if ( level.type === TYP_RANGE ) level = level.percent(pct);
-			else level = level.value*pct;
+			if (level.type === TYP_RANGE) level = level.percent(pct);
+			else level = level.value * pct;
 
 		}
-
-		if ( data.range ) level += (data.range*( -1 + 2*Math.random() ) );
+		quantity = Math.round(quantity);
+		if (data.range) level += (data.range * (-1 + 2 * Math.random())); //a + - the range value
+		level *= Math.max(1 - (quantity - 1) * penalty, 0.1) //if we are spawning multiples, penalize the level
 		level = Math.ceil(level);
+		
+		const enemyarray = [];
+		for (let i = 0; i < quantity; i++) {
+	
+			const npc = this.groups[MONSTER].randAt(level)
+			enemyarray.push(CreateNpc(npc, this.game))
+			level += -1 + (2 - i * penalty) * Math.random()  // to prevent samey spawns, randomly jiggle the level 
+			level = Math.max(Math.round(level),1)
 
-		let npc = this.groups[ MONSTER ].randAt( level );
-		return npc ? CreateNpc( npc, this.game ) : null;
+		}
+		return enemyarray.length > 0 ? enemyarray : null;
 
 	}
 
@@ -175,7 +186,7 @@ export default class ItemGen {
 	 * @param {string|string[]} biome
 	 * @param {number} level
 	 */
-	randByBiome( data, biome, level ) {
+	randByBiome(data, biome, level) {
 
 
 	}
@@ -185,39 +196,39 @@ export default class ItemGen {
 	 * @param {object} proto
 	 * @returns {Item|Wearable} the item created, or null on failure.
 	 */
-	instance( proto, level = null, amt = 1 ) {
+	instance(proto, level = null, amt = 1) {
 		let it;
 
-		if ( proto.disabled || proto.locked || this.state.hasUnique(proto) ) {
+		if (proto.disabled || proto.locked || this.state.hasUnique(proto)) {
 			return null;
 		}
 
-		if ( proto.type === ARMOR || proto.type === WEAPON || proto.type === WEARABLE ) {
+		if (proto.type === ARMOR || proto.type === WEAPON || proto.type === WEARABLE) {
 
-			console.log('itgen wearable: ' + proto.id );
+			console.log('itgen wearable: ' + proto.id);
 			it = this.fromProto(proto, level);
 			it.owned = true;
 			it.updated();
 			return it;
 
-		} else if ( proto.type === POTION ) {
+		} else if (proto.type === POTION) {
 
 			it = new Item(proto);
 
-		} else if ( proto.type === ITEM) {
+		} else if (proto.type === ITEM) {
 
-			it = new Item( proto );
+			it = new Item(proto);
 
-		} else if ( proto.type === MONSTER || proto.type === NPC ) {
+		} else if (proto.type === MONSTER || proto.type === NPC) {
 			return CreateNpc(proto, this.game);
 		}
 
-		if ( it === undefined ) return null;
+		if (it === undefined) return null;
 
 		it.id = this.state.nextId(it.id);
 
 		//this.state.addInstance(it);
-		it.count = amt||1;
+		it.count = amt || 1;
 		it.value = 1;
 		it.owned = true;
 		it.updated();
@@ -231,38 +242,38 @@ export default class ItemGen {
 	 * @param {string|Wearable|Object|Array} info
 	 * @returns {?Wearable|Wearable[]}
 	 */
-	getLoot( info, amt=1 ) {
+	getLoot(info, amt = 1) {
 
-		if ( amt instanceof Percent ) {
+		if (amt instanceof Percent) {
 
-			if ( !amt.roll( this.luck.value ) ) return null;
+			if (!amt.roll(this.luck.value)) return null;
 			amt = 1;
 
-		} else if ( amt.value ) amt = amt.value;
+		} else if (amt.value) amt = amt.value;
 
-		if ( Array.isArray(info) ) {
-			return info.flatMap ?  info.flatMap( this.getLoot, this )
-				: flatMap.call( info, this.getLoot, this )
+		if (Array.isArray(info)) {
+			return info.flatMap ? info.flatMap(this.getLoot, this)
+				: flatMap.call(info, this.getLoot, this)
 		}
 
-		if ( typeof info === 'string' ) info = this.state.getData(info);
+		if (typeof info === 'string') info = this.state.getData(info);
 		if (!info) return null;
 
-		if ( info[TYP_PCT] ) {
-			if( info[TYP_PCT] instanceof Percent ) {
-				if( !info[TYP_PCT].roll(+this.luck) ) return null;
-			} else if( 100*Math.random() > info[TYP_PCT] ) return null;
+		if (info[TYP_PCT]) {
+			if (info[TYP_PCT] instanceof Percent) {
+				if (!info[TYP_PCT].roll(+this.luck)) return null;
+			} else if (100 * Math.random() > info[TYP_PCT]) return null;
 		}
 
-		if ( info instanceof GData || info instanceof TagSet ) return this.getGData( info, amt, info.maxlevel||null );
-		else if ( info.id ) {
-			let instanceditem =  this.state.getData(info.id);
-			if ( instanceditem instanceof GData || instanceditem instanceof TagSet ) return this.getGData( instanceditem, amt, info.level||info.maxlevel||amt );
+		if (info instanceof GData || info instanceof TagSet) return this.getGData(info, amt, info.maxlevel || null);
+		else if (info.id) {
+			let instanceditem = this.state.getData(info.id);
+			if (instanceditem instanceof GData || instanceditem instanceof TagSet) return this.getGData(instanceditem, amt, info.level || info.maxlevel || amt);
 			return this.instance(info);
 		}
-		else if ( info.level || info.maxlevel ) return this.randLoot( info, amt );
+		else if (info.level || info.maxlevel) return this.randLoot(info, amt);
 
-		return this.objLoot( info );
+		return this.objLoot(info);
 
 	}
 
@@ -270,15 +281,15 @@ export default class ItemGen {
 	 * Loot specified by subobject.
 	 * @param {object} info
 	 */
-	objLoot( info ){
+	objLoot(info) {
 
 		let items = [];
-		for( let p in info ) {
+		for (const p in info) {
 			//console.log('GETTING SUB LOOT: ' + p);
-			var it = this.getLoot( p, info[p] );
-			if ( !it ) continue;
-			else if ( Array.isArray(it)) items = pushNonNull( items, it );
-			else items.push(it );
+			const it = this.getLoot(p, info[p]);
+			if (!it) continue;
+			else if (Array.isArray(it)) items = pushNonNull(items, it);
+			else items.push(it);
 		}
 
 		return items;
@@ -290,24 +301,24 @@ export default class ItemGen {
 	 * @param {GData} it
 	 * @param {number} [amt=1]
 	 */
-	getGData( it, amt=1, level = null ) {
+	getGData(it, amt = 1, level = null) {
 
-		if ( !it ) return null;
+		if (!it) return null;
 
-		if ( it instanceof TagSet ) it = it.random();
-		if ( this.state.hasUnique(it) ) return null;
+		if (it instanceof TagSet) it = it.random();
+		if (this.state.hasUnique(it)) return null;
 
-		if ( it.instanced || it.isRecipe ) return this.instance( it, level, amt );
+		if (it.instanced || it.isRecipe) return this.instance(it, level, amt);
 
-		if ( typeof amt === 'number' || typeof amt === 'boolean') {
+		if (typeof amt === 'number' || typeof amt === 'boolean') {
 
-			if ( it.type === 'upgrade' || it.type === TASK || it.type === 'furniture' || it.type === EVENT) it.doUnlock( this.game );
+			if (it.type === 'upgrade' || it.type === TASK || it.type === 'furniture' || it.type === EVENT) it.doUnlock(this.game);
 			else {
-				it.amount( amt );
-				if ( amt > 0 ) return it.name;
+				it.amount(amt);
+				if (amt > 0) return it.name;
 			}
 
-		} else console.warn('bad amount: '+ it + ' -> ' + amt );
+		} else console.warn('bad amount: ' + it + ' -> ' + amt);
 
 		return null;
 	}
@@ -316,41 +327,41 @@ export default class ItemGen {
 	 * Return loot from an object of random parameters.
 	 * @param {object} info
 	 */
-	randLoot( info ) {
+	randLoot(info) {
 
 		let material = info.material;
 		let type = info.type;
 		let level = info.maxlevel ?? info.level;
 
-		if ( material ) {
-			if( typeof material === "string" ) material = this.state.getData(material);
-			else if( material && material.constructor === Object ) {
+		if (material) {
+			if (typeof material === "string") material = this.state.getData(material);
+			else if (material && material.constructor === Object) {
 				material = this.randItemBelow(this.groups.materials, material, level);
 			}
 
-			if( material instanceof TagSet ) material = material.random();
+			if (material instanceof TagSet) material = material.random();
 		}
-		if ( type ) {
-			if( typeof type === "string" ) type = this.state.getData(type);
-			else if( type && type.constructor === Object ) {
+		if (type) {
+			if (typeof type === "string") type = this.state.getData(type);
+			else if (type && type.constructor === Object) {
 				type = this.randItemBelow(this.groups[WEARABLE], type, level);
 			}
 
-			if( type instanceof TagSet ) type = type.random();
+			if (type instanceof TagSet) type = type.random();
 		}
 
-		if ( !type && !material ) {
-			type = this.groups[WEARABLE].randBelow( level );
+		if (!type && !material) {
+			type = this.groups[WEARABLE].randBelow(level);
 		}
 
-		if ( material && !type ) {
-			type = this.getCompatible( this.groups[WEARABLE], material, level );
+		if (material && !type) {
+			type = this.getCompatible(this.groups[WEARABLE], material, level);
 
-		} else if ( type && !material ) {
-			material = this.getCompatible( this.groups.materials, type, level );
+		} else if (type && !material) {
+			material = this.getCompatible(this.groups.materials, type, level);
 		}
 
-		return this.fromProto( type, material );
+		return this.fromProto(type, material);
 
 	}
 
@@ -361,17 +372,17 @@ export default class ItemGen {
 	 * @param {number} level - maximum level for item
 	 * @returns {?Material} A material matching passed in prerequisites. Returns null if one cannot be found.
 	 */
-	randItemBelow(group, data, level=0) {
-		let {only, exclude} = data;
+	randItemBelow(group, data, level = 0) {
+		let { only, exclude } = data;
 		level = data.maxlevel ?? data.level ?? level;
-		if(typeof only === "string") only = only.split(",");
-		if(typeof exclude === "string") exclude = exclude.split(",");
+		if (typeof only === "string") only = only.split(",");
+		if (typeof exclude === "string") exclude = exclude.split(",");
 
-		return group.randBelow(level, v=> {
+		return group.randBelow(level, v => {
 			let checks = [v.type, v.kind, v.id, ...(v.tags ?? [])];
 
-			if(only && only.find(it => checks.includes(it)) == null) return false;
-			if(exclude && exclude.find(it => checks.includes(it)) != null) return false;
+			if (only && only.find(it => checks.includes(it)) == null) return false;
+			if (exclude && exclude.find(it => checks.includes(it)) != null) return false;
 
 			return true;
 		})
@@ -383,16 +394,16 @@ export default class ItemGen {
 	 * @param {?string} [type=null]
 	 * @param {?string|Material} [mat=null] - item material.
 	 */
-	randAt( level=0, type=null, mat=null ){
+	randAt(level = 0, type = null, mat = null) {
 
 		type = type || WEARABLE;
 
 		let g = this.groups[type];
 
-		if ( g ) {
+		if (g) {
 
-			let it = g.randBy('level', level );
-			if (it ) return this.fromProto( it, mat || level );
+			let it = g.randBy('level', level);
+			if (it) return this.fromProto(it, mat || level);
 
 		} else console.warn('No group: ' + type);
 
@@ -407,15 +418,15 @@ export default class ItemGen {
 	 * @param {?string|Material} [mat=null] - item material.
 	 * @returns {Wearable|null}
 	 */
-	randBelow( maxlevel=1, type=null, mat=null ){
+	randBelow(maxlevel = 1, type = null, mat = null) {
 
 		type = type || WEARABLE;
 		let g = this.groups[type];
 
-		maxlevel = Math.floor( 1 + Math.random()*maxlevel );
+		maxlevel = Math.floor(1 + Math.random() * maxlevel);
 
-		let it = g.randBelow( maxlevel );
-		return it ? this.fromProto( it, mat || maxlevel ) : null;
+		let it = g.randBelow(maxlevel);
+		return it ? this.fromProto(it, mat || maxlevel) : null;
 
 	}
 
@@ -426,22 +437,22 @@ export default class ItemGen {
 	 * @param {Item} item - chosen item must be compatible with item.
 	 * @returns {object|null}
 	 */
-	getCompatible( group, item, level = null) {
+	getCompatible(group, item, level = null) {
 
 		let only = item.only;
 		let exclude = item.exclude;
 
 		let mat = item.material ? item.material.id : null;
 		let itTags = item.tags || [];
-		let targetlevel = level||item.level+1||1;
-		return group.randBelow( targetlevel ,
-			v=>{
+		let targetlevel = level || item.level + 1 || 1;
+		return group.randBelow(targetlevel,
+			v => {
 				let tags = v.tags || [];
- 				if ( only && !includesAny(only, v.type, v.kind, v.id, ...tags ) ) return false;
-				if ( exclude && includesAny(exclude, v.type, v.kind, v.id, ...tags) ) return false;
+				if (only && !includesAny(only, v.type, v.kind, v.id, ...tags)) return false;
+				if (exclude && includesAny(exclude, v.type, v.kind, v.id, ...tags)) return false;
 
-				if ( v.only && !includesAny( v.only, item.type, item.kind, item.id, mat, ...itTags ) ) return false;
-				if ( v.exclude && includesAny( v.exclude, item.type, item.kind, item.id, mat, ...itTags ) ) return false;
+				if (v.only && !includesAny(v.only, item.type, item.kind, item.id, mat, ...itTags)) return false;
+				if (v.exclude && includesAny(v.exclude, item.type, item.kind, item.id, mat, ...itTags)) return false;
 				return true;
 
 			}
@@ -455,29 +466,29 @@ export default class ItemGen {
 	 * @param {ProtoItem} data
 	 * @param {string|Material|number} material - material or material level.
 	 */
-	fromProto( data, material=null ) {
+	fromProto(data, material = null) {
 
 		//console.log('wearable from data');
-		if ( data === null || data === undefined ) return null;
+		if (data === null || data === undefined) return null;
 
 		let mat = data.material || material;
-		if ( typeof mat ==='number' ) mat = this.getCompatible( this.groups.materials, data, mat );
-		else if ( typeof mat === 'string' ) mat = this.state.getData( mat );
+		if (typeof mat === 'number') mat = this.getCompatible(this.groups.materials, data, mat);
+		else if (typeof mat === 'string') mat = this.state.getData(mat);
 
-		return this.makeWearable( data, mat );
+		return this.makeWearable(data, mat);
 
 	}
 
-	genProperties( it, count ) {
+	genProperties(it, count) {
 
 		let propGroup = this.groups.properties;
 
-		if ( typeof count === 'object') count = Math.round(count.value);
-		if ( count <= 0 ) return;
+		if (typeof count === 'object') count = Math.round(count.value);
+		if (count <= 0) return;
 
-		console.log( it.name + ' props lvl: ' +  it.level + '  kind: ' + it.kind );
+		console.log(it.name + ' props lvl: ' + it.level + '  kind: ' + it.kind);
 
-		for( count; count > 0; count-- ) {
+		for (count; count > 0; count--) {
 			//it.addProperty( this.getCompatible( propGroup, it, it.level ) );
 		}
 
@@ -488,20 +499,20 @@ export default class ItemGen {
 	 * @param {ProtoItem} data
 	 * @param {*} material
 	 */
-	makeWearable( data, material ) {
+	makeWearable(data, material) {
 
-		let item = new Wearable( data );
+		let item = new Wearable(data);
 		item.template = data;
 		item.begin(this.game);
 
-		if ( material ) {
+		if (material) {
 
-			item.applyMaterial( material );
+			item.applyMaterial(material);
 
-		} else item.name = (data.name || data.id );
+		} else item.name = (data.name || data.id);
 
-		if ( data.properties ){
-			this.genProperties( item, data.properties );
+		if (data.properties) {
+			this.genProperties(item, data.properties);
 		}
 
 		item.id = this.state.nextId(item.id);
@@ -518,18 +529,18 @@ export default class ItemGen {
 	 * @param {?string[]} [filters=null] additional filters to use in group creation.
 	 * @returns {GenGroup}
 	 */
-	initGroup( name, items, filters=null ) {
+	initGroup(name, items, filters = null) {
 
-		if ( !items ) {
-			console.warn( 'group undefined: ' + name );
+		if (!items) {
+			console.warn('group undefined: ' + name);
 			return;
 		}
 
 		let g = this.groups[name] = new GenGroup(items);
 		g.makeFilter('level');
 
-		if ( filters ) {
-			for( let i = filters.length-1; i >= 0; i--) g.makeFilter( filters[i]);
+		if (filters) {
+			for (let i = filters.length - 1; i >= 0; i--) g.makeFilter(filters[i]);
 		}
 		return g;
 

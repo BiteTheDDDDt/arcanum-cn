@@ -207,7 +207,7 @@
 		"only": "feet",
 		"desc": "Imbue an item with inherent speed",
 		"require": "g.enchanting>=3",
-		"level": 1,
+		"level": 2,
 		"buy": {
 			"arcana": 1,
 			"research": 200
@@ -224,12 +224,12 @@
 	},
 	{
 		"id": "en_fire1",
-		"name": "fire ring",
-		"adj": "%i of fire",
+		"name": "salamander's ring",
+		"adj": "%i of the salamander",
 		"only": "ring",
-		"desc": "Increases your aptitude with fire",
-		"require": "g.enchanting>0&&g.firelore>=7",
-		"level": 3,
+		"desc": "increases your aptitude with fire",
+		"require": "g.enchanting>=1&&g.firelore>=7",
+		"level": 2,
 		"buy": {
 			"research": 300
 		},
@@ -239,18 +239,67 @@
 			"fire": 5
 		},
 		"alter": {
-			"mod.firelore.max": 1,
-			"mod.fire.rate": 0.1
+			"mod.fire.max": 1,
+			"mod.fire.rate": 0.125,
+			"mod.player.hits.fire": 0.2,
+			"mod.firelore2.mod.player.hits.fire": 0.04
+		}
+	},
+	{
+		"id": "en_fire2",
+		"name": "ifrit's ring",
+		"adj": "%i of the Ifrit",
+		"only": "ring",
+		"desc": "Increases your aptitude for fire.",
+		"require": "g.en_fire1.owned>=1&&g.firelore>=10",
+		"level": 2,
+		"buy": {
+			"arcana": 1,
+			"firegem": 5,
+			"research": 1500
+		},
+		"length": 50,
+		"cost": {
+			"firegem": 3,
+			"fire": 10
+		},
+		"alter": {
+			"mod.fire.max": 1,
+			"mod.fire.rate": 0.25
+		}
+	},
+	{
+		"id": "en_fire3",
+		"name": "sun Dog's ring",
+		"adj": "%i of the Sun Dog",
+		"only": "ring",
+		"desc": "Dramatically increases your aptitude with fire.",
+		"require": "g.en_fire2.owned>=1&&g.firelore>=15",
+		"level": 3,
+		"buy": {
+			"firerune": 5,
+			"arcana": 10,
+			"firegem": 20,
+			"research": 3000
+		},
+		"length": 100,
+		"cost": {
+			"firegem": 5,
+			"fire": 15
+		},
+		"alter": {
+			"mod.fire.max": 2,
+			"mod.fire.rate": 0.5
 		}
 	},
 	{
 		"id": "en_water1",
-		"name": "water ring",
-		"adj": "%i of water",
+		"name": "crabs's ring",
+		"adj": "%i of the crab",
 		"only": "ring",
-		"desc": "Increases your aptitude with water",
-		"require": "g.enchanting>0&&g.waterlore>=7",
-		"level": 3,
+		"desc": "increases your aptitude with water",
+		"require": "g.enchanting>=1&&g.waterlore>=7",
+		"level": 2,
 		"buy": {
 			"research": 300
 		},
@@ -260,18 +309,67 @@
 			"water": 5
 		},
 		"alter": {
-			"mod.waterlore.max": 1,
-			"mod.water.rate": 0.1
+			"mod.water.max": 1,
+			"mod.water.rate": 0.125,
+			"mod.player.hits.water": 0.2,
+			"mod.waterlore2.mod.player.hits.water": 0.04
+		}
+	},
+	{
+		"id": "en_water2",
+		"name": "otters's ring",
+		"adj": "%i of the otter",
+		"only": "ring",
+		"desc": "Increases your water reserves significantly.",
+		"require": "g.en_water1.owned>=1&&g.waterlore>=10",
+		"level": 2,
+		"buy": {
+			"arcana": 1,
+			"watergem": 5,
+			"research": 1500
+		},
+		"length": 50,
+		"cost": {
+			"watergem": 3,
+			"water": 10
+		},
+		"alter": {
+			"mod.water.max": 1,
+			"mod.water.rate": 0.25
+		}
+	},
+	{
+		"id": "en_water3",
+		"name": "pisces' ring",
+		"adj": "%i of the Pisces",
+		"only": "ring",
+		"desc": "Increases your water reserves dramatically.",
+		"require": "g.en_water2.owned>=1&&g.waterlore>=15",
+		"level": 3,
+		"buy": {
+			"waterrune": 5,
+			"arcana": 10,
+			"watergem": 20,
+			"research": 3000
+		},
+		"length": 100,
+		"cost": {
+			"watergem": 5,
+			"water": 15
+		},
+		"alter": {
+			"mod.water.max": 2,
+			"mod.water.rate": 0.5
 		}
 	},
 	{
 		"id": "en_earth1",
-		"name": "earth ring",
-		"adj": "%i of earth",
+		"name": "vole's ring",
+		"adj": "%i of the vole",
 		"only": "ring",
-		"desc": "Increases your aptitude with earth",
-		"require": "g.enchanting>0&&g.earthlore>=7",
-		"level": 3,
+		"desc": "increases your aptitude with earth",
+		"require": "g.enchanting>=1&&g.earthlore>=7",
+		"level": 2,
 		"buy": {
 			"research": 300
 		},
@@ -281,18 +379,67 @@
 			"earth": 5
 		},
 		"alter": {
-			"mod.earthlore.max": 1,
-			"mod.earth.rate": 0.1
+			"mod.earth.max": 1,
+			"mod.earth.rate": 0.125,
+			"mod.player.hits.earth": 0.2,
+			"mod.earthlore2.mod.player.hits.earth": 0.04
+		}
+	},
+	{
+		"id": "en_earth2",
+		"name": "worms's Ring",
+		"adj": "%i of the Worm",
+		"only": "ring",
+		"desc": "Increases your earth reserves significantly.",
+		"require": "g.en_earth1.owned>=1&&g.earthlore>=10",
+		"level": 2,
+		"buy": {
+			"arcana": 1,
+			"earthgem": 5,
+			"research": 1500
+		},
+		"length": 50,
+		"cost": {
+			"earthgem": 3,
+			"earth": 10
+		},
+		"alter": {
+			"mod.earth.max": 1,
+			"mod.earth.rate": 0.25
+		}
+	},
+	{
+		"id": "en_earth3",
+		"name": "delver's ring",
+		"adj": "%i of the Delver",
+		"only": "ring",
+		"desc": "Increases your earth reserves dramatically.",
+		"require": "g.en_earth2.owned>=1&&g.earthlore>=15",
+		"level": 3,
+		"buy": {
+			"earthrune": 5,
+			"arcana": 10,
+			"earthgem": 20,
+			"research": 3000
+		},
+		"length": 100,
+		"cost": {
+			"earthgem": 5,
+			"earth": 15
+		},
+		"alter": {
+			"mod.earth.max": 2,
+			"mod.earth.rate": 0.5
 		}
 	},
 	{
 		"id": "en_air1",
-		"name": "air ring",
-		"adj": "%i of air",
+		"name": "sparrow's ring",
+		"adj": "%i of the sparrow",
 		"only": "ring",
-		"desc": "Increases your aptitude with air",
-		"require": "g.enchanting>0&&g.airlore>=7",
-		"level": 3,
+		"desc": "An aid to call upon the wind.",
+		"require": "g.enchanting>=1&&g.airlore>=7",
+		"level": 2,
 		"buy": {
 			"research": 300
 		},
@@ -302,8 +449,57 @@
 			"air": 5
 		},
 		"alter": {
-			"mod.airlore.max": 1,
-			"mod.air.rate": 0.1
+			"mod.air.max": 1,
+			"mod.air.rate": 0.125,
+			"mod.player.hits.air": 0.2,
+			"mod.airlore2.mod.player.hits.air": 0.04
+		}
+	},
+	{
+		"id": "en_air2",
+		"name": "eagle's ring",
+		"adj": "%i of the Eagle",
+		"only": "ring",
+		"desc": "Increases your air reserves significantly.",
+		"require": "g.en_air1.owned>0&&g.airlore>=10",
+		"level": 2,
+		"buy": {
+			"arcana": 1,
+			"airgem": 5,
+			"research": 1500
+		},
+		"length": 50,
+		"cost": {
+			"airgem": 3,
+			"air": 10
+		},
+		"alter": {
+			"mod.air.max": 1,
+			"mod.air.rate": 0.25
+		}
+	},
+	{
+		"id": "en_air3",
+		"name": "albatross's ring",
+		"adj": "%i of the Albatross",
+		"only": "ring",
+		"desc": "Increases your air reserves dramatically.",
+		"require": "g.en_air2.owned>=0&&g.airlore>=15",
+		"level": 3,
+		"buy": {
+			"airrune": 5,
+			"arcana": 10,
+			"airgem": 20,
+			"research": 3000
+		},
+		"length": 100,
+		"cost": {
+			"airgem": 5,
+			"air": 15
+		},
+		"alter": {
+			"mod.air.max": 2,
+			"mod.air.rate": 0.5
 		}
 	},
 	{
@@ -398,24 +594,24 @@
 		}
 	},
 	{
-		"id": "en_scraft",
-		"name": "spellcraft",
-		"adj": "%i of spells",
-		"desc": "Increases your spellcrafting power.",
-		"only": "armor,weapon",
-		"level": 3,
+		"id": "en_clarity2",
+		"name": "great clarity",
+		"only": "head",
+		"adj": "%i of %s",
+		"desc": "An enchantment to aid the mind.",
+		"require": "g.en_clarity.owned>0&&g.enchanting>=11",
+		"level": 7,
 		"buy": {
-			"gold": 100,
-			"research": 700,
-			"codices": 10
+			"tomes": 5,
+			"airrune": 3,
+			"research": 2000
 		},
 		"length": 20,
 		"cost": {
-			"managem": 15,
-			"mana": 5
+			"managem": 10
 		},
 		"alter": {
-			"mod.scraft": 1
+			"mod.bf.rate": -0.75
 		}
 	},
 	{
@@ -454,27 +650,6 @@
 		},
 		"alter": {
 			"mod.madness.rate": -1
-		}
-	},
-	{
-		"id": "en_clarity2",
-		"name": "great clarity",
-		"only": "head",
-		"adj": "%i of %s",
-		"desc": "An enchantment to aid the mind.",
-		"require": "g.en_clarity.owned>0&&g.enchanting>=11",
-		"level": 7,
-		"buy": {
-			"tomes": 5,
-			"airrune": 3,
-			"research": 2000
-		},
-		"length": 20,
-		"cost": {
-			"managem": 10
-		},
-		"alter": {
-			"mod.bf.rate": -0.75
 		}
 	},
 	{
@@ -523,28 +698,6 @@
 		}
 	},
 	{
-		"id": "en_scraft2",
-		"name": "spellcraft II",
-		"adj": "%i of spells",
-		"only": "armor,weapon",
-		"desc": "Increases your spellcrafting power",
-		"require": "g.en_scraft.owned>0&&g.enchanting>=6",
-		"level": 6,
-		"buy": {
-			"gold": 500,
-			"research": 700,
-			"tomes": 5
-		},
-		"length": 30,
-		"cost": {
-			"managem": 15,
-			"spiritgem": 15
-		},
-		"alter": {
-			"mod.scraft": 2
-		}
-	},
-	{
 		"id": "en_tohit2",
 		"name": "keen weapon II",
 		"verb": "infusing weapon",
@@ -565,6 +718,49 @@
 		},
 		"alter": {
 			"attack.tohit": 2
+		}
+	},
+	{
+		"id": "en_scraft",
+		"name": "spellcraft",
+		"adj": "%i of spells",
+		"desc": "Increases your spellcrafting power.",
+		"only": "armor,weapon",
+		"level": 3,
+		"buy": {
+			"gold": 100,
+			"research": 700,
+			"codices": 10
+		},
+		"length": 20,
+		"cost": {
+			"managem": 15,
+			"mana": 5
+		},
+		"alter": {
+			"mod.scraft": 1
+		}
+	},
+	{
+		"id": "en_scraft2",
+		"name": "spellcraft II",
+		"adj": "%i of spells",
+		"only": "armor,weapon",
+		"desc": "Increases your spellcrafting power",
+		"require": "g.en_scraft.owned>0&&g.enchanting>=6",
+		"level": 6,
+		"buy": {
+			"gold": 500,
+			"research": 700,
+			"tomes": 5
+		},
+		"length": 30,
+		"cost": {
+			"managem": 15,
+			"spiritgem": 15
+		},
+		"alter": {
+			"mod.scraft": 2
 		}
 	},
 	{
@@ -610,7 +806,7 @@
 			"spiritrune": 10
 		},
 		"alter": {
-			"mod.scraft": 5
+			"mod.scraft": 4
 		}
 	},
 	{
@@ -619,6 +815,7 @@
 		"only": "back",
 		"adj": "%i of %s",
 		"desc": "A cloak to confuse your enemies.",
+		"require": "g.trickery>=4&&g.enchanting>=1",
 		"level": 9,
 		"buy": {
 			"tomes": 4,
@@ -638,6 +835,7 @@
 		"only": "ring",
 		"adj": "%i of colors",
 		"desc": "Restores energies of all kinds.",
+		"require": "g.enchanting>=6",
 		"level": 8,
 		"buy": {
 			"tomes": 5,

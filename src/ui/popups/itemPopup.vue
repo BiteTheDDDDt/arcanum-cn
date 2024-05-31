@@ -2,7 +2,7 @@
 import Game from 'game';
 
 import ItemView from 'ui/items/gdata.vue';
-import {positionAt} from './popups.js';
+import { positionAt } from './popups.js';
 import Char from '../../chars/char.js';
 
 /**
@@ -10,23 +10,23 @@ import Char from '../../chars/char.js';
  */
 export const RollOver = {
 
-	item:null,
-	elm:null,
-	title:null,
-	source:null,
-	text:null
+	item: null,
+	elm: null,
+	title: null,
+	source: null,
+	text: null
 
 };
 
-export const ItemOver = ( evt, it, source, title, text=null ) => {
+export const ItemOver = (evt, it, source, title, text = null) => {
 
 	RollOver.item = it;
 	RollOver.elm = evt.currentTarget;
 	RollOver.source = source != null || it instanceof Char ? source : Game.player;
 
-	if( it && it.context ) {
+	if (it && it.context) {
 		RollOver.context = it.context;
-	} else if ( RollOver.source && RollOver.source.context ) {
+	} else if (RollOver.source && RollOver.source.context) {
 		RollOver.context = RollOver.source.context;
 	} else {
 		console.warn("Item and Source don't have context. Defaulting to game.", it, source);
@@ -51,34 +51,33 @@ export const ItemOut = () => {
  */
 export default {
 
-	data(){
+	data() {
 		return RollOver;
 	},
 
 	updated() {
 		// waiting for width to change before reposition.
-		if ( this.item||this.text ) {
-			positionAt( this.$el, this.elm );
+		if (this.item || this.text) {
+			positionAt(this.$el, this.elm);
 			//this fixes "Tooltip too long" by applying a column style to any window that's a bit too tall.
 			//The reason for the default setters, is that without them, iteminfo gets an incorrect height.
-			let popup = document.getElementsByClassName("item-popup")[0]
+			const popup = document.getElementsByClassName("item-popup")[0]
 			popup.style["column-count"] = "auto"
-			popup.style["column-width"]= "auto"
+			popup.style["column-width"] = "auto"
 			popup.style["max-width"] = "280px"
 			var positionInfo = popup.getBoundingClientRect();
 			var height = positionInfo.height;
-			if (height >= window.innerHeight*0.85)
-			{
+			if (height >= window.innerHeight * 0.85) {
 				let iteminfo = document.getElementsByClassName("popup-content")[0]
-				let colCount = Math.ceil(iteminfo.getBoundingClientRect().height/(window.innerHeight*0.95))
+				let colCount = Math.ceil(iteminfo.getBoundingClientRect().height / (window.innerHeight * 0.95))
 				let maxwidth = colCount * 300 + "px"
-				popup.style["column-width"]= 280+"px"
+				popup.style["column-width"] = 280 + "px"
 				popup.style["column-count"] = colCount
 				popup.style["max-width"] = maxwidth
 			}
 		}
 	},
-	components:{ gdata:ItemView }
+	components: { gdata: ItemView }
 
 }
 </script>
@@ -86,7 +85,7 @@ export default {
 
 <template>
 
-	<div class="item-popup" v-show="item!=null||text!=null">
+	<div class="item-popup" v-show="item != null || text != null">
 		<div class="popup-content">
 		<div v-if="title" class="pop-title">{{ title }}</div>
 		<template v-if="Array.isArray(item)">
@@ -106,7 +105,6 @@ export default {
 </template>
 
 <style scoped>
-
 div.pop-title {
 
 	font-weight: bold;
@@ -119,5 +117,4 @@ div.pop-title {
 .popup-content {
 	padding: var(--md-gap);
 }
-
 </style>

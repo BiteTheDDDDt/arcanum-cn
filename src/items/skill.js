@@ -22,7 +22,8 @@ const levLength = (n)=>{
  */
 const Defaults = Object.freeze({
 	rate: 0.5,
-	max: 5
+	max: 5,
+	unlockweight: 0.5
 });
 
 export default class Skill extends Task {
@@ -62,7 +63,7 @@ export default class Skill extends Task {
 		if ( !(this.exp instanceof Scaler) ) this.ex = 0;
 
 		if (  !this.max ) this.max = new Stat(Defaults.max, this.id + '.max', true );
-
+		if (!this.unlockweight) this.unlockweight = Defaults.unlockweight
 	}
 
 	/**

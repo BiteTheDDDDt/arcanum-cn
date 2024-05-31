@@ -1,32 +1,33 @@
-import { Local } from "./persistLocal";
-
-/**
- * @const {number} LOCAL_FAIL - error indicating local io failure.
- */
-export const LOCAL_FAIL = 1;
-/**
- * @const {number} REMOTE_FAIL - error indicating remote io failure.
- */
-export const REMOTE_FAIL = 2;
-
 const HALL_FILE = 'hall';
 const SETTINGS_DIR = 'settings/';
+
+const Remote = null;
 
 /**
  * Handles persisting data to various sources: local, remote, file.
  */
 export const Persist = {
 
+	loggedIn(){return Remote?.loggedIn;},
+
+	logout(){ if(Remote?.loggedIn ) Remote.logout(); },
+
+	loaders:[],
+
 	/**
-	 * @property {boolean} remoteFirst - attempt to load from remote sources
-	 * before local.
+	 * 
+	 * @param {*} loader 
+	 * @param {boolean} first - whether this should be first loader attempted.
 	 */
-	remoteFirst:false,
+	addLoader( loader, first){
 
-	loggedIn(){return Remote && Remote.loggedIn;},
+		if ( first ){
+			this.loaders.unshift(loader);
+		} else {
+			this.loaders.push(loader);
+		}
+		return loader;
 
-	logout(){
-		if(Remote && Remote.loggedIn ) Remote.logout();
 	},
 
 	/**
@@ -34,19 +35,25 @@ export const Persist = {
 	 */
 	async clearAll(){
 
-		Local.clearAll();
-		if ( Remote) return Remote.clearAll();
+		for( let i = 0; i < this.loaders.length; i++){
+			try {
+				this.loaders[i].clearAll();
+			} catch(err){
+				console.warn(err);
+			}
+		}
 
 	},
 
 	async deleteChar( charid ) {
 
-		var file = this.charFile(charid);
-
-		Local.deleteChar(file);
-		if ( Remote) return Remote.deleteChar(file);
-
-		//window.localStorage.setItem( this.settingsLoc(charid), null);
+		for( let i = 0; i < this.loaders.length; i++){
+			try {
+				this.loaders[i].deleteChar( charid);
+			} catch(err){
+				console.warn(err);
+			}
+		}
 
 	},
 
@@ -58,12 +65,21 @@ export const Persist = {
 	 */
 	async saveChar( data, charid ) {
 
-		var file = this.charFile(charid);
+		let saved = false;
+		for( let i = 0; i < this.loaders.length; i++){
 
-		Local.saveChar( data, file );
-		console.log('SAVING CHAR');
+			const ldr = this.loaders[i];
+			//if ( saved && ldr.fallback ) continue;
 
-		if ( Remote) return Remote.saveChar( data, file );
+			try {
+				await ldr.saveChar( data, charid);
+				saved = true;
+			} catch(err){
+				console.warn(err);
+			}
+			
+
+		}
 
 	},
 
@@ -72,11 +88,20 @@ export const Persist = {
 	 * @param {string} data
 	 * @param {?string} [hid=HALL_FILE]
 	 */
-	async saveHall( data, hid=HALL_FILE ){
+	async saveHall( data ){
 
-		hid = HALL_FILE;
-		Local.saveHall( data, hid );
-		if ( Remote) return Remote.saveHall( data, hid );
+		let saved = false;
+
+		for( let i = 0; i < this.loaders.length; i++){
+			const ldr = this.loaders[i];
+			//if ( saved && ldr.fallback ) continue;
+			try {
+				await ldr.saveHall( data, HALL_FILE);
+				saved = true;
+			} catch(err){
+				console.warn(err);
+			}
+		}
 
 	},
 
@@ -87,55 +112,28 @@ export const Persist = {
 	 */
 	async loadChar( charid ){
 
-		var file = this.charFile(charid);
+		for( let i = 0; i < this.loaders.length; i++ ){
 
-		if ( this.remoteFirst && Remote ) {
-
-			console.log('TRY REMOTE LOAD: ' + file);
-			let res = await Remote.loadChar( file );
-			if (res ) return res;
-			console.log('REMOTE LOAD FAILED');
-			return Local.loadChar( file );
-
-		} else {
-
-			console.log('TRY LOCAL LOAD: ' + file );
-			let res = Local.loadChar( file );
-
-			if ( res || !Remote || !Remote.loggedIn ) return res;
-			console.log('Returning Remote');
-			return Remote.loadChar( file );
+			const res = await this.loaders[i].loadChar(charid);
+			if ( res ) return res;
 
 		}
-
 
 	},
 
 	/**
 	 * @returns {Promise.<object>}
 	 */
-	async loadHall( hid=HALL_FILE, type=null ){
+	async loadHall( hid=HALL_FILE ){
 
-		hid = HALL_FILE;
-		if ( Remote && (type==='remote' ||this.remoteFirst) ) {
+		for( let i = 0; i < this.loaders.length; i++ ){
 
-			console.log('REMOTE FIRST');
-			let res = await Remote.loadHall( hid );
+			const res = await this.loaders[i].loadHall(hid);
 			if ( res ) return res;
-			return Local.loadHall( hid );
 
-		} else {
-
-			let res = Local.loadHall( hid );
-			if ( !res ) console.log('LOCAL HALL NOT FOUND');
-			if ( res || !Remote ) return res;
-
-			return Remote.loadHall( hid );
 		}
 
 	},
-
-	charFile: ( charid ) => {return charid},
 
 	saveSettings( data, charid ) {
 		window.localStorage.setItem( this.settingsLoc(charid), data );
@@ -154,11 +152,3 @@ export const Persist = {
 
 };
 
-var Remote = null;
-if ( __CLOUD ) {
-
-	import( /* webpackChunkName: "remote" */ './persistRemote' ).then( mod=>{
-		Remote = mod.Remote;
-	});
-
-}

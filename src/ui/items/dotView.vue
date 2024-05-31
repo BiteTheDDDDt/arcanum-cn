@@ -42,9 +42,10 @@ div.dot-view {
 	position:relative;
 	flex-flow: row nowrap;
 	align-items: center;
-	justify-content: space-around;
+	justify-content: left;
 	border: 1px solid var(--very-quiet-text-color);
-	overflow-x: hidden;
+	overflow-x: scroll;
+	scrollbar-width: thin;
 	overflow-y: visible;
 	height:100%;
 }

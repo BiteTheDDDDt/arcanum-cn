@@ -7,7 +7,7 @@ const PADDING = 20;
  */
 const getTop = ( elm, targRect) => {
 
-	let y = targRect.top - 40;
+	const y = targRect.top - 40;
 
 	return ( y < PADDING ) ? PADDING : (
 
@@ -20,14 +20,13 @@ const getTop = ( elm, targRect) => {
 
 export const centerX = elm => {
 
-	let style = elm.style;
-	style.left = (( window.innerWidth - elm.offsetWidth )/2) + 'px'
+	elm.style.left = (( window.innerWidth - elm.offsetWidth )/2) + 'px'
 
 };
 
 export const centerXY = (elm, pctY) => {
 
-	let style = elm.style;
+	const style = elm.style;
 	style.left = (( window.innerWidth - elm.offsetWidth )/2) + 'px'
 	style.top = ( (pctY||0.5)*(window.innerHeight-elm.offsetHeight) ) + 'px';
 
@@ -41,11 +40,11 @@ export const centerXY = (elm, pctY) => {
  */
 export const positionAt = (elm, target, pad=32 ) =>{
 
-	let style = elm.style;
-	let rect = target.getBoundingClientRect();
+	const style = elm.style;
+	const rect = target.getBoundingClientRect();
 	//let myBox = this.$el.getBoundingClientRect();
 
-	let left = rect.left;
+	const left = rect.left;
 	if ( left < window.innerWidth/2 ) {
 
 			//	console.log('left: ' + left);

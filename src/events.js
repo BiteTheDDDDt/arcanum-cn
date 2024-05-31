@@ -128,6 +128,7 @@ const TASK_BLOCKED = 'taskblock';
 const CHAR_ACTION = 'charact';
 const ITEM_ACTION = 'itemact';
 const DOT_ACTION = 'dotact';
+const DOT_EXPIREACTION = 'dotexpireact';
 /**
  * Completely delete item data. Use for Custom items only.
  */
@@ -168,7 +169,7 @@ const CHAR_CLASS = 'charclass';
 const CHAR_CHANGE = 'charchange';
 
 /**
- * @const {string} EVT_STAT - statistic event to send to server (kong).
+ * @const {string} EVT_STAT - statistic event to send to server.
  */
 export const EVT_STAT = 'stat';
 
@@ -179,7 +180,7 @@ export const TOGGLE = 'toggle';
 
 export { CHAR_TITLE, NEW_TITLE, LEVEL_UP, CHAR_CLASS, CHAR_CHANGE };
 
-export { HALT_TASK, EVT_EVENT, EVT_UNLOCK, EVT_LOOT, TASK_DONE, CHAR_ACTION, ITEM_ACTION, DOT_ACTION, STOP_ALL, DELETE_ITEM,
+export { HALT_TASK, EVT_EVENT, EVT_UNLOCK, EVT_LOOT, TASK_DONE, CHAR_ACTION, ITEM_ACTION, DOT_ACTION, DOT_EXPIREACTION, STOP_ALL, DELETE_ITEM,
 	TASK_REPEATED, TASK_IMPROVED, TASK_BLOCKED,
 	DAMAGE_MISS, DEFEATED, ENC_START, ENC_DONE };
 
@@ -408,7 +409,7 @@ export default {
 
 			for( let i = 0; i < msg.length; i++ ) {
 
-				var sub = msg[i];
+				const sub = msg[i];
 				if ( sub[TYP_PCT] && sub[TYP_PCT].roll() ) {
 					this.onCombat( title, sub );
 					return;

@@ -429,8 +429,11 @@
 				"dot": {
 					"duration": 120,
 					"mod": {
-						"stress.max": "20+50%",
-						"tempus.rate": -0.5
+						"stress.max": 5,
+						"stress.rate": -0.1,
+						"timerip_locale.runmod.stress.max": "20+50%",
+						"timerip_locale.runmod.stress.rate": -1,
+						"timerip_locale.run.tempus": 0.5
 					}
 				}
 			},

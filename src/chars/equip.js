@@ -57,7 +57,7 @@ export default class Equip extends SlotGroup {
 	replaceCount(it) {
 
 		// @TODO Replace && with + when hand items gets redone
-		let space = (it.type==='weapon') ?
+		const space = (it.type==='weapon') ?
 			this.freeSpace( 'right' ) && this.freeSpace('left') : this.freeSpace(it.slot);
 
 		return Math.max( ( it.numslots || 1 ) - space, 0 );
@@ -80,7 +80,7 @@ export default class Equip extends SlotGroup {
 			return false;
 		}
 
-		let cur = this.slots[slot];
+		const cur = this.slots[slot];
 		return cur.equip(it);
 	}
 
@@ -98,13 +98,13 @@ export default class Equip extends SlotGroup {
 	 */
 	equipWeap( it ) {
 
-		let right = this.slots.right;
-		let left = this.slots.left;
+		const right = this.slots.right;
+		const left = this.slots.left;
 
 		if ( it.hands === 2 ) {
 
-			let rightItem = right.equip( it );
-			let leftItem = left.remove();
+			const rightItem = right.equip( it );
+			const leftItem = left.remove();
 
 			return (rightItem && leftItem) ? [ rightItem, leftItem ] :
 				(rightItem || leftItem || true );
@@ -113,14 +113,10 @@ export default class Equip extends SlotGroup {
 
 			if ( right.empty() ) {
 
-				console.log('setting right.');
-
 				right.equip( it );
 				return ( !left.empty() ) ? left.remove() : true;
 
 			} else if ( left.empty() ) {
-
-				console.log('setting left.');
 
 				left.equip( it );
 				return ( !right.empty() ) ? right.remove() : true;
@@ -129,8 +125,7 @@ export default class Equip extends SlotGroup {
 
 				console.log('NEITHER EMPTY. switch hands.');
 
-				let res = right.equip( left.equip(it) );
-				return res;
+				return right.equip( left.equip(it) );
 
 			}
 

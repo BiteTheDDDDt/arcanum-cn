@@ -174,7 +174,7 @@
 				"elf",
 				"elf"
 			],
-			"beserker",
+			"berserker",
 			[
 				"roc",
 				"m_druid",
@@ -223,7 +223,18 @@
 			"bones": "3~7",
 			"bodies": "0~2"
 		},
-		"boss": {"200":[
+		"boss": {
+			"50": "vampiremaster",
+			"100": [
+				"skellord",
+				"skeleton",
+				"skeleton"
+			],
+			"150": [
+				"vampiremaster",
+				"vampire"
+			],
+			"200":[
 			"palus"
 		]},
 		"spawns": [
@@ -256,8 +267,6 @@
 				"wight",
 				"ghast"
 			],
-			"vampiremaster",
-			"skellord",
 			[
 				"m_hierophant",
 				"evilpriest",
@@ -431,21 +440,26 @@
 			"gold": "20~30",
 			"gems": "4~5"
 		},
+		"boss":{
+			"40": "naga",
+			"80": "medusa",
+			"120": [
+				"naga",
+				"naga"
+			],
+			"160": [
+				"naga",
+				"medusa"
+			]
+		},
 		"spawns": [
-			"naga",
 			[
 				"raven",
 				"raven",
 				"raven",
 				"raven"
 			],
-			"medusa",
-			[
-				"naga",
-				"naga"
-			],
 			"shriekingeel",
-			"naga",
 			"magicblade",
 			"evilpriest",
 			[
@@ -774,8 +788,10 @@
 			"mountain"
 		],
 		"spawns": {
-			"level": "15~23",
-			"range": 2
+			"level": "16~24",
+			"range": 2,
+			"quantity": "1~5",
+			"quantitypenalty": 0.1
 		},
 		"flavor": "Day and night the dark gates stand open to all... but to return to the open air... that is the task, that is the labor"
 	},
@@ -791,7 +807,7 @@
 		"length": 50,
 		"result": {
 			"gems": "9~12",
-			"lightgem":3
+			"lightgem": 3
 		},
 		"boss": "lightningelemental",
 		"spawns": [
@@ -1028,7 +1044,7 @@
 		"require": "g.scrying>=12&&g.history>=12",
 		"start": "You scry the location of an ancient ruined temple.",
 		"level": 20,
-		"length":3,
+		"length": 3,
 		"boss": {
 			"1": "strativax1",
 			"2": "strativax2",
@@ -1039,7 +1055,7 @@
 		"id": "holyhall",
 		"name": "Hall of the Holy",
 		"desc": "Various divine spirits watch over the world. And the greatest have their halls and kingdoms.",
-		"require": "g.planeslore.max>=12&&g.evil>0",
+		"require": "g.planeslore.max>=8&&g.evil>0",
 		"level": 17,
 		"length": 50,
 		"run": {

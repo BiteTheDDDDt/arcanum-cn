@@ -114,8 +114,8 @@
 		"result": {
 			"gold": 0.5,
 			"trickery.exp": 0.1,
-			"evilamt": 0.01,
-			"virtue": -0.01
+			"evilamt": 0.3,
+			"virtue": -0.2
 		}
 	},
 	{
@@ -131,13 +131,15 @@
 		},
 		"effect": {
 			"research": -0.8,
-			"trickery.max": 0.001,
-			"trickery.exp": 0.5
+			"trickery.exp": 0.5,
+			"virtue": -0.3
 		},
 		"result": {
-			"virtue": -1,
 			"gems": "4~10",
 			"gold": 200
+		},
+		"mod": {
+			"trickery.max": "0.05//100/-10"
 		}
 	},
 	{
@@ -205,6 +207,7 @@
 		"verb": "tending",
 		"require": "tier0",
 		"perpetual": true,
+		"tags": "t_goodact",
 		"at": {
 			"25": {
 				"effect.animals.exp": 0.1
@@ -221,7 +224,7 @@
 			"nature": 0.1
 		},
 		"effect": {
-			"evilamt": -0.3,
+			"virtue": 0.3,
 			"naturelore.exp": 0.2,
 			"animals.exp": 0.2
 		}
@@ -246,13 +249,10 @@
 			},
 			"1200": {
 				"effect.herbs": 0.2,
-				"effect.naturelore.exp": 0.5,
-				"effect.naturelore.max": 0.0005
+				"effect.naturelore.exp": 0.5
 			},
 			"5000": {
 				"effect.research": 0.1,
-				"effect.herbalism.max": 0.0005,
-				"effect.naturelore.max": 0.0015,
 				"effect.naturelore.rate": 0.001
 			}
 		},
@@ -368,16 +368,18 @@
 			},
 			"500": {
 				"effect.research": 0.2,
-				"effect.arcana": 0.001,
-				"effect.alchemy.max": 0.0001,
-				"effect.firelore.max": 0.0001,
-				"effect.waterlore.max": 0.0001,
-				"effect.earthlore.max": 0.0001,
-				"effect.airlore.max": 0.0001
+				"effect.arcana": 0.001
 			}
 		},
 		"effect": {
 			"research": 1.3
+		},
+		"mod": {
+			"alchemy.max": "0.0001/0/>=500/30500/1",
+			"firelore.max": "0.0001/0/>=500/30500/1",
+			"waterlore.max": "0.0001/0/>=500/30500/1",
+			"earthlore.max": "0.0001/0/>=500/30500/1",
+			"airlore.max": "0.0001/0/>=500/30500/1"
 		}
 	},
 	{
@@ -386,6 +388,7 @@
 		"desc": "Delve the depths for gems of mystic potential. Requires a mine or sufficient geosculpting.",
 		"verb": "mining",
 		"need": "g.t_mine>0||g.geosculpting>=10",
+		"needtext": "Must own a mineshaft or be a specialized earth mage",
 		"length": 40,
 		"perpetual": true,
 		"run": {
@@ -524,9 +527,11 @@
 		"run": {
 			"stamina": 0.3
 		},
+		"effect": {
+			"virtue": -0.3
+		},
 		"result": {
-			"bones": 2,
-			"virtue": -0.1
+			"bones": 2
 		},
 		"flavor": "It's for a good cause."
 	},
@@ -539,7 +544,7 @@
 			"stamina": 1
 		},
 		"result": {
-			"evilamt": 5,
+			"evilamt": 10,
 			"rage": -1,
 			"bodies": 1
 		},
@@ -576,7 +581,7 @@
 		},
 		"result": {
 			"bonedust": 1,
-			"evilamt": 1,
+			"evilamt": 20,
 			"bones": "2~5"
 		}
 	},
@@ -748,8 +753,8 @@
 			}
 		},
 		"result": {
-			"virtue": 0.1,
-			"evilamt": -0.1,
+			"virtue": 0.8,
+			"evilamt": -0.2,
 			"gold": 0.4
 		}
 	},
@@ -805,8 +810,8 @@
 			}
 		},
 		"result": {
-			"virtue": 0.1,
-			"evilamt": -0.01,
+			"virtue": 0.3,
+			"evilamt": -0.2,
 			"gold": 0.35
 		},
 		"flavor": "Whether they know it or not"
@@ -944,7 +949,7 @@
 		},
 		"effect": {
 			"prismatic": 0.6,
-			"primordial": 0.5,
+			"primal": 0.5,
 			"stamina": 1,
 			"hp": 1.2,
 			"stress": -1.1,
@@ -1000,10 +1005,9 @@
 				"skipLocked": true,
 				"value": 0.5
 			},
-			"stamina": 0.7,
+			"stamina": 0.75,
 			"hp": 1,
-			"nature": 0.2,
-			"naturelore.max": 0.001
+			"nature": 0.2
 		}
 	},
 	{
@@ -1038,7 +1042,7 @@
 			}
 		},
 		"effect": {
-			"evilamt": 1,
+			"evilamt": 2,
 			"mana": 0.6,
 			"shadow": 0.4,
 			"spirit": 0.4,
@@ -1054,7 +1058,7 @@
 		"desc": "A revelry of demons and witches.",
 		"require": "g.witch>0&&g.demonology>=7&&g.spiritlore>=8",
 		"length": 100,
-		"cd": 666,
+		"cd": 100,
 		"cost": {
 			"spirit": 10,
 			"bodies": 1
@@ -1063,12 +1067,13 @@
 			"stamina": 0.8
 		},
 		"effect": {
-			"arcana": 0.001,
-			"sp": 0.0001,
-			"demonology.max": 0.001,
 			"demonology.exp": 1,
-			"spiritlore.max": 0.001,
 			"spiritlore.exp": 1
+		},
+		"result": {
+			"arcana": 0.2,
+			"arcana.max": 0.1,
+			"sp": 0.02
 		}
 	},
 	{
@@ -1087,10 +1092,15 @@
 			"hp": 2.5
 		},
 		"effect": {
-			"evilamt": 0.1,
+			"arcana": 0.001,
+			"evilamt": 1,
 			"fame": 0.0024,
-			"shadowlore.max": 0.001,
+			"history.exp": 1,
 			"shadowlore.exp": 1
+		},
+		"mod": {
+			"history.max": "0.1//20/1",
+			"shadowlore.max": "0.1//20/1"
 		}
 	},
 	{
@@ -1109,12 +1119,15 @@
 		},
 		"effect": {
 			"arcana": 0.001,
-			"virtue": 0.1,
+			"virtue": 0.9,
+			"evilamt": -0.1,
 			"fame": 0.002,
-			"history.max": 0.001,
 			"history.exp": 1,
-			"lightlore.max": 0.001,
 			"lightlore.exp": 1
+		},
+		"mod": {
+			"history.max": "0.1//20/1",
+			"lightlore.max": "0.1//20/1"
 		}
 	},
 	{
@@ -1125,6 +1138,7 @@
 		"verb": "travelling",
 		"desc": "Travel the wide world.",
 		"need": "g.wagon>0||g.mendicant>0||g.camp>0",
+		"needtext": "Must live in a wagon or camp, or must eschew material attachments by becoming a mendicant",
 		"run": {
 			"stamina": 0.4
 		},
@@ -1135,8 +1149,14 @@
 			"200": {
 				"effect.naturelore.max": 0.002
 			},
+			"500": {
+				"effect.naturelore.max": -0.002
+			},
 			"1000": {
-				"effect.naturelore.max": 0.003
+				"effect.naturelore.max": -0.001
+			},
+			"1420": {
+				"effect.naturelore.max": -0.001
 			}
 		},
 		"effect": {
@@ -1245,35 +1265,39 @@
 		"need": "workspace",
 		"length": 10,
 		"cost": {
-			"tomes": 1,
-			"research": 500,
-			"managem": 5
+			"tomes": 0.75,
+			"research": 300,
+			"managem": 4
 		},
 		"run": {
-			"stamina": 2,
-			"mana": 1
+			"stamina": 1,
+			"mana": 0.75
 		},
 		"fill": "runestones",
-		"result": "runestones"
+		"result": {
+			"runestones": 1
+		}
 	},
 	{
 		"id": "craftschematic",
 		"name": "craft schematic",
 		"require": "g.tier6>0&&g.crafting.max>=23&&g.lore>=25",
 		"need": "workspace",
-		"length": 3600,
+		"length": 360,
 		"cost": {
 			"tomes": 100
 		},
 		"run": {
 			"research": 100,
-			"runestones": 0.1,
+			"runestones": 1,
 			"gems": 0.1,
 			"gold": 2,
 			"stamina": 1
 		},
 		"fill": "schematic",
-		"result": "schematic"
+		"result": {
+			"schematic": 1
+		}
 	},
 	{
 		"id": "demonbag",
@@ -1393,12 +1417,14 @@
 		"require": "g.astronomy>=5",
 		"fill": "starcharts",
 		"cost": {
-			"scrolls": 5
+			"scrolls": 1
 		},
 		"run": {
-			"research": 10
+			"research": 1
 		},
-		"result": "starcharts"
+		"result": {
+			"starcharts": 1
+		}
 	},
 	{
 		"id": "bestiary",
@@ -1697,8 +1723,8 @@
 			"gems.max": 0.0002,
 			"prismaticgems.max": 0.0002
 		},
-		"result": {
-			"geosculpting.max": 0.01
+		"mod": {
+			"geosculpting.max": "0.01//1400/-10"
 		}
 	},
 	{
@@ -1858,7 +1884,6 @@
 	{
 		"id": "almagest",
 		"desc": "Compile a manual of the sun and stars",
-		"actname": "almagest",
 		"require": "g.astronomy>=7&&g.tier1>0",
 		"craftable": true,
 		"max": 1,
@@ -1884,7 +1909,7 @@
 			"lore.max": 1,
 			"lore.rate": 0.2,
 			"astronomy": {
-				"max": 1,
+				"max": 2,
 				"rate": "0.1+1%"
 			},
 			"planeslore": {
@@ -1917,8 +1942,10 @@
 			"mana": 2
 		},
 		"result": {
-			"gems": 1,
-			"crafting.max": 0.01
+			"gems": 1
+		},
+		"mod": {
+			"crafting.max": "0.01//300/-10"
 		}
 	},
 	{
@@ -1939,7 +1966,6 @@
 		"fill": "naturegem",
 		"tags": "gemimbue",
 		"cost": {
-			"herbs": 10,
 			"gems": 1,
 			"nature": 5
 		},
@@ -1987,7 +2013,9 @@
 			"water": 1,
 			"hp": 20
 		},
-		"result": "bloodgem"
+		"result": {
+			"bloodgem": 1
+		}
 	},
 	{
 		"id": "imbuefiregem",
@@ -1999,7 +2027,9 @@
 			"gems": 1,
 			"fire": 5
 		},
-		"result": "firegem"
+		"result": {
+			"firegem": 1
+		}
 	},
 	{
 		"id": "imbueairgem",
@@ -2011,7 +2041,9 @@
 			"gems": 1,
 			"air": 5
 		},
-		"result": "airgem"
+		"result": {
+			"airgem": 1
+		}
 	},
 	{
 		"id": "imbueearthgem",
@@ -2023,7 +2055,9 @@
 			"gems": 1,
 			"earth": 5
 		},
-		"result": "earthgem"
+		"result": {
+			"earthgem": 1
+		}
 	},
 	{
 		"id": "imbuewatergem",
@@ -2035,7 +2069,9 @@
 			"gems": 1,
 			"water": 5
 		},
-		"result": "watergem"
+		"result": {
+			"watergem": 1
+		}
 	},
 	{
 		"id": "imbuelightgem",
@@ -2047,7 +2083,9 @@
 			"gems": 1,
 			"light": 5
 		},
-		"result": "lightgem"
+		"result": {
+			"lightgem": 1
+		}
 	},
 	{
 		"id": "imbueshadowgem",
@@ -2059,7 +2097,9 @@
 			"gems": 1,
 			"shadow": 5
 		},
-		"result": "shadowgem"
+		"result": {
+			"shadowgem": 1
+		}
 	},
 	{
 		"id": "imbuespiritgem",
@@ -2071,7 +2111,9 @@
 			"gems": 1,
 			"spirit": 5
 		},
-		"result": "spiritgem"
+		"result": {
+			"spiritgem": 1
+		}
 	},
 	{
 		"id": "craftfirerune",
@@ -2087,7 +2129,9 @@
 		"run": {
 			"stamina": 1
 		},
-		"result": "firerune"
+		"result": {
+			"firerune": 1
+		}
 	},
 	{
 		"id": "craftearthrune",
@@ -2103,7 +2147,9 @@
 		"run": {
 			"stamina": 1
 		},
-		"result": "earthrune"
+		"result": {
+			"earthrune": 1
+		}
 	},
 	{
 		"id": "craftairrune",
@@ -2119,7 +2165,9 @@
 		"run": {
 			"stamina": 1
 		},
-		"result": "airrune"
+		"result": {
+			"airrune": 1
+		}
 	},
 	{
 		"id": "craftwaterrune",
@@ -2135,7 +2183,9 @@
 		"run": {
 			"stamina": 1
 		},
-		"result": "waterrune"
+		"result": {
+			"waterrune": 1
+		}
 	},
 	{
 		"id": "craftspiritrune",
@@ -2151,7 +2201,9 @@
 		"run": {
 			"stamina": 1
 		},
-		"result": "spiritrune"
+		"result": {
+			"spiritrune": 1
+		}
 	},
 	{
 		"id": "craftchaosrune",
@@ -2167,7 +2219,9 @@
 		"run": {
 			"stamina": 1
 		},
-		"result": "chaosrune"
+		"result": {
+			"chaosrune": 1
+		}
 	},
 	{
 		"id": "sellscroll",
@@ -2248,14 +2302,14 @@
 		"need": "g.runner.hasType('skill')",
 		"every": {
 			"25": {
-				"result.runner.exp": "0.02:25"
+				"result.runner.skillprogress": "0.02:25"
 			}
 		},
 		"cost": {
 			"mana": 0.1
 		},
 		"result": {
-			"runner.exp": 0.2
+			"runner.skillprogress": 0.2
 		}
 	},
 	{
@@ -2313,5 +2367,356 @@
 		"require": "(g.familiarcat+g.familiarowl+g.familiarkobold+g.familiarimp+g.familiartome)>0",
 		"cd": 120,
 		"result": {}
+	},
+	{
+		"id": "planar_exploration",
+		"name": "planar exploration",
+		"require": "g.gate>0",
+		"need": [
+			"gate"
+		],
+		"desc": "Explore the connections between this plane and the others.",
+		"max": 3,
+		"length": 300,
+		"craftable": true,
+		"run": {
+			"tomes": 0.3,
+			"research": 50,
+			"runestones": 0.1
+		},
+		"mod": {
+			"arcana.rate": 0.001,
+			"voidlore.max": 1,
+			"planeslore.max": 1
+		},
+		"flavor": "Much like unraveling a spiderweb, it even includes the spider"
+	},
+	{
+		"id": "gardenersalmanac",
+		"name": "gardener's almanac",
+		"require": "g.garden>=3000",
+		"craftable": true,
+		"desc": "Advice on properly tending your garden for maximum yields.",
+		"length": 75,
+		"max": 1,
+		"cost": {
+			"codices": 10
+		},
+		"run": {
+			"research": 1,
+			"nature": 2.5
+		},
+		"mod": {
+			"herbalism.max": 1,
+			"herbalism.rate": 0.2,
+			"naturelore.max": 2,
+			"naturelore.rate": 0.3,
+			"act_garden.effect.herbs": 0.1
+		}
+	},
+	{
+		"id": "blackbook",
+		"name": "black book of ages",
+		"desc": "The vellum is black, containing forbidden secrets written in blood. Just looking at it causes pain.",
+		"flavor": "'What knowledge do you seek?' the voices asked Vezial. 'Everything.'",
+		"require": "(g.darkmagician+g.warlock)>0&&g.tier4>0&&g.evil>=1&&g.demonology>=15",
+		"craftable": true,
+		"length": 120,
+		"max": 1,
+		"cost": {
+			"tomes": 10,
+			"arcana": 5,
+			"research": 2000,
+			"hp": 40,
+			"shadowgem": 20
+		},
+		"run": {
+			"research": 15,
+			"shadow": 1,
+			"hp": 2.5,
+			"stamina": 2
+		},
+		"mod": {
+			"demonology.max": 2,
+			"lore.max": 2,
+			"research.max": 2000,
+			"languages.rate": "10%",
+			"history.rate": "10%",
+			"planeslore.rate": "10%",
+			"arcana.rate": 0.001
+		},
+		"effect": {
+			"evilamt": 0.1,
+			"demonology.exp": 0.2,
+			"lore.exp": 0.2
+		}
+	},
+	{
+		"id": "smallanatomy",
+		"name": "critter dissections",
+		"require": "g.anatomy>=3",
+		"need": "vivarium",
+		"desc": "While preserving the specimens that passed away, you may as well study their insides.",
+		"craftable": true,
+		"verb": "dissecting frogs",
+		"length": 10,
+		"max": 1,
+		"run": {
+			"gold": 20,
+			"research": 10,
+			"scrolls": 2
+		},
+		"mod": {
+			"anatomy.max": 1
+		},
+		"flavor": "Now dear old Ribbert will be immortalized in your research."
+	},
+	{
+		"id": "horsemeds",
+		"name": "horse medicines",
+		"require": "g.anatomy>=5",
+		"need": "stables",
+		"desc": "Horses show great promise as experimental subjects for new tonics. Try some once they're done.",
+		"craftable": true,
+		"verb": "chugging",
+		"length": 10,
+		"max": 1,
+		"run": {
+			"gold": 30,
+			"research": 50,
+			"codices": 0.1,
+			"naturegem": 1,
+			"herbs": 0.5
+		},
+		"mod": {
+			"anatomy.max": 2
+		},
+		"flavor": "Healthy as a horse? No, more than that"
+	},
+	{
+		"id": "biganatomy",
+		"name": "muscle studies",
+		"require": "g.anatomy>=7",
+		"need": "menagerie",
+		"desc": "Study the skeletal structure and musculature of countless beasts.",
+		"craftable": true,
+		"verb": "watching animals run",
+		"length": 10,
+		"max": 1,
+		"run": {
+			"gold": 50,
+			"research": 120,
+			"tomes": 0.2
+		},
+		"mod": {
+			"anatomy.max": 2
+		},
+		"flavor": "How does the cheetah run so fast? How can the giraffe support such limbs? Just what exactly is a platypus?"
+	},
+	{
+		"id": "demonicanatomy",
+		"name": "demonic examinations",
+		"require": "summonsource",
+		"desc": "They may be reluctant subjects, but there's much to learn of how demons stabilize their bodies.",
+		"craftable": true,
+		"verb": "labeling demon organs",
+		"length": 15,
+		"max": 1,
+		"run": {
+			"gold": 33,
+			"research": 45,
+			"codices": 0.2,
+			"bloodgem": 1
+		},
+		"mod": {
+			"anatomy.max": 1
+		}
+	},
+	{
+		"id": "spiritanatomy",
+		"name": "spirit examinations",
+		"require": "summonsource",
+		"desc": "For all the pains, cajoling spirits pays off once you see how such ethereal creatures maintain their existences.",
+		"craftable": true,
+		"verb": "analyzing plasms",
+		"length": 15,
+		"max": 1,
+		"run": {
+			"gold": 33,
+			"research": 45,
+			"codices": 0.2,
+			"spiritgem": 1
+		},
+		"mod": {
+			"anatomy.max": 1
+		}
+	},
+	{
+		"id": "autovivisect",
+		"name": "auto-vivisection",
+		"require": "g.timesplit>0&&g.chronomancy>=5",
+		"desc": "You've mastered time magic enough to try things beyond lesser mages' wildest dreams. Some care setting up the loop, and finally you can examine yourself.",
+		"craftable": true,
+		"verb": "autovivisecting",
+		"length": 60,
+		"max": 1,
+		"cost": {
+			"research": 7500,
+			"tomes": 60,
+			"runestones": 30,
+			"bloodgem": 50
+		},
+		"run": {
+			"tempus": 0.5,
+			"hp": 10
+		},
+		"mod": {
+			"anatomy.max": 2
+		},
+		"flavor": "To think they dared call you heartless."
+	},
+	{
+		"id": "dehumanis",
+		"name": "de humanis",
+		"require": "g.corporisfabrica>0&&g.anatomy>=10",
+		"need": "booksource",
+		"craftable": true,
+		"desc": "A sequel to one of your greatest hits.",
+		"tags": "book",
+		"length": 40,
+		"max": 1,
+		"cost": {
+			"tomes": 10
+		},
+		"run": {
+			"research": 100
+		},
+		"mod": {
+			"research.max": 20,
+			"anatomy.max": 3,
+			"anatomy.rate": 2
+		}
+	},
+	{
+		"id": "healthrite",
+		"name": "rite of vitality",
+		"require": "g.ritesource>0&&g.tier5>0",
+		"desc": "The ancients hoped to attain longevity with the power of the cosmos. You can achieve vitality, at least.",
+		"craftable": true,
+		"verb": "seizing heaven",
+		"length": 180,
+		"max": 1,
+		"cost": {
+			"tomes": 100,
+			"gold": 10000
+		},
+		"run": {
+			"bloodgem": 0.3,
+			"runestones": 0.15,
+			"stamina": 3,
+			"hp": 10
+		},
+		"mod": {
+			"hp.max": 50,
+			"hp.rate": 1
+		},
+		"flavor": "Best to do it when the gods are preoccupied"
+	},
+	{
+		"id": "bloodascension",
+		"name": "sanguine apotheosis",
+		"require": "potroom",
+		"craftable": true,
+		"desc": "Replace your blood with ichor, such that even the marrow ascends.",
+		"verb": "dialyzing",
+		"length": 20,
+		"max": 1,
+		"cost": {
+			"tomes": 10,
+			"research": 5000
+		},
+		"run": {
+			"ichor": 0.05,
+			"hp": 5,
+			"stamina": 1.5
+		},
+		"mod": {
+			"hp.max": 20
+		}
+	},
+	{
+		"id": "artificedskeleton",
+		"name": "skeletal artifice",
+		"require": "g.workshop>0&&g.crafting>=15&&g.tier4>0",
+		"desc": "Forge something greater into your skeleton and your skeleton into something greater.",
+		"craftable": true,
+		"verb": "enduring agony",
+		"length": 40,
+		"max": 1,
+		"cost": {
+			"tomes": 7,
+			"research": 3000
+		},
+		"run": {
+			"earthrune": 0.25,
+			"firerune": 0.25
+		},
+		"mod": {
+			"hp.max": 25
+		}
+	},
+	{
+		"id": "planarvitality",
+		"name": "planar vitality",
+		"require": "g.gate>0&&g.tier4>0",
+		"desc": "Limitless power wells up from the planes. Harness some for yourself.",
+		"craftable": true,
+		"verb": "tapping power",
+		"length": 90,
+		"max": 1,
+		"cost": {
+			"tomes": 100,
+			"research": 8000,
+			"gold": 10000
+		},
+		"mod": {
+			"hp.max": 30
+		}
+	},
+	{
+		"id": "act_spy",
+		"name": "spy",
+		"perpetual": true,
+		"verb": "spying",
+		"desc": "Time to see what all those other wizards are up to.",
+		"require": "g.trickster>0&&g.scrying>=1",
+		"run": {
+			"stamina": 0.3,
+			"chaos": 0.1
+		},
+		"at": {
+			"100": {
+				"effect.gems": 0.01,
+				"effect.lore.exp": 0.5,
+				"effect.scrying.exp": 0.5
+			},
+			"1200": {
+				"effect.gems": 0.02,
+				"effect.lore.exp": 0.5,
+				"effect.scrying.exp": 0.5
+			},
+			"5000": {
+				"effect.research": 0.1,
+				"effect.gems": 0.02,
+				"effect.lore.rate": 0.001,
+				"effect.scrying.rate": 0.001
+			}
+		},
+		"effect": {
+			"research": 1.5,
+			"sp": 0.0001,
+			"gems": 0.01
+		},
+		"flavor": "...What do you mean, they're just pacing around?"
 	}
 ]

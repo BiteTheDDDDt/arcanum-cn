@@ -28,6 +28,13 @@ export default {
 		}, ops );
 
 	},
+	updated() {
+		if(this.prevWidth !== this.getWidth(this.$el) || this.prevLength !== this.filtered.length) {
+			this.resizeGrid();
+			this.prevWidth = this.getWidth(this.$el);
+			this.prevLength = this.filtered.length;
+		}
+	},
 	computed:{
 
 		chkHide:{
@@ -50,6 +57,27 @@ export default {
 
 		train(skill){
 			Game.toggleTask( skill );
+		},
+
+		getWidth(elm) {
+			return elm.getBoundingClientRect().width;
+		},
+
+		resizeGrid() {
+			let gridElm = this.$refs.skillgrid;
+			gridElm.style = "";
+			let maxWidth = 0;
+			for(let child of gridElm.children) {
+				let childWidth = this.getWidth(child.children[0]);
+				if(childWidth > maxWidth) {
+					maxWidth = childWidth;
+				}
+			}
+
+			if(maxWidth > 0) {
+				let width = Math.floor(this.getWidth(gridElm) / maxWidth);
+				gridElm.style = `grid-template-columns: repeat( auto-fit, minmax(calc(100% / ${width}), 0.5fr) )`;
+			}
 		}
 
 	}
@@ -59,17 +87,18 @@ export default {
 
 <template>
 	<div class="skills">
-
 		<span class="separate title">
 			<filterbox v-model="filtered" :items="available" min-items="7" />
 
-			<span><input :id="elmId('hideMax')" type="checkbox" v-model="chkHide">
-			<label :for="elmId('hideMax')">Hide Maxed</label></span>
+			<span>
+				<input :id="elmId('hideMax')" type="checkbox" v-model="chkHide">
+				<label :for="elmId('hideMax')">Hide Maxed</label>
+			</span>
 
 			<span>Skill Points: {{ sp }}</span>
 		</span>
 
-		<div class="subs">
+		<div class="subs" ref="skillgrid">
 			<skill v-for="s in filtered" :key="s.id" :skill="s" :active="s.running" @train="train"></skill>
 		</div>
 
@@ -77,63 +106,45 @@ export default {
 </template>
 
 <style scoped>
-
-div.skills .title > span {
-	align-self:center
-}
-
 div.skills {
-	height:100%;
-	width:(100% - 40px );
-	max-width:( 100% - 40px );
+	height: 100%;
+	width: (100% - 40px);
+	max-width: (100% - 40px);
 	padding: 0;
-	display:flex;
+	display: flex;
 	flex-flow: column nowrap;
 	align-items: center;
 }
 
-	.skill div:last-child {
-		color: var(--quiet-text-color);
-		text-align: center; }
-	body.compact .skill div:last-child { display: flex; }
-
-    body.compact div.subs { justify-content: center;}
-	body.compact div.subs div.skill { background: var(--list-entry-background);width: 100%; }
-	body.compact div.subs div.skill > div > div .bar {
-		max-height: var(--md-gap);
-		background: var(--list-entry-background);
-		border: none;
-		margin: 0.5em
-	}
-
-    div.subs {
-		overflow-y: auto;
-        display: grid; grid-template-columns: repeat( auto-fit, minmax( 12rem, 0.5fr) );
-        margin: 0; padding: var(--md-gap); overflow-x: hidden; gap: var(--sm-gap);
-        width: 100%; justify-content: space-between;
-    }
-
-    div.subs div.skill {
-        margin-bottom: 0; width: unset; flex-basis: 100%; box-sizing: border-box;
-        padding: var(--md-gap); text-transform: capitalize; font-size: var(--compact-small-font);
-        border-radius: var(--list-entry-border-radius);
-		width: 83%;
-    }
-    div.sub div.skill button { font-size: 0.75em; }
-    div.sub div.skill > div {
-        font-size: 0.75em; position: relative; text-align: right; display: flex; flex: 1;  align-items: center;
-    }
-    div.subs div.skill > div > div { flex: 1; }
-    div.subs div.skill .separate span:first-child { text-overflow: ellipsis; white-space: nowrap; overflow:hidden;}
-    div.subs div.skill .separate span:nth-child(2) {
-        flex-basis: 50%;
-        color: var(--quiet-text-color);
-	}
+div.skills .title > span {
+	align-self: center;
+}
 
 .separate {
 	width:90%;
 }
 
+div.subs {
+	overflow-y: auto;
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(12rem, 0.5fr));
+	margin: 0;
+	padding: var(--md-gap);
+	overflow-x: hidden;
+	gap: var(--sm-gap);
+	width: 100%;
+	justify-content: space-between;
+}
 
+/* Compact mode style */
+body.compact div.subs {
+	justify-content: center;
+}
 
+body.compact div.subs div.skill > div > div .bar {
+	max-height: var(--md-gap);
+	background: var(--list-entry-background);
+	border: none;
+	margin: 0.5em;
+}
 </style>

@@ -70,6 +70,24 @@ export default class Wearable extends Item {
 	get damage() {
 		return this._attack ? this._attack.damage : 0;
 	}
+	/**
+	 * @property {Healing} heal
+	 * @alias attack.healing
+	 */
+	get heal(){
+		return this.healing;
+	}
+	set heal(v) { this.healing = v; }
+	/**
+	 * @property {Healing} heal
+	 * @alias attack.healing
+	 */
+	get healing() {
+		return this._healing;
+	}
+	set healing(v) {
+		this._healing = ParseDmg(v);
+	}
 
 	get equippable() { return true; }
 

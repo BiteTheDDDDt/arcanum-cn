@@ -1,24 +1,6 @@
 {
 	"module": "sackmakers",
 	"data": {
-		"materials": [
-			{
-				"id": "sackcloth",
-				"kind": "cloth",
-				"priceMod": 10,
-				"bonus": 3,
-				"level": 8,
-				"noproc": true,
-				"exclude": [
-					"weapon"
-				],
-				"mod": {
-					"bloodgem.max": 1,
-					"magicgems.max": 1,
-					"gold.max": 10
-				}
-			}
-		],
 		"dungeons": [
 			{
 				"id": "sackguild",
@@ -160,7 +142,23 @@
 					"damage": "20~30"
 				},
 				"loot": {
+					"maxlevel": 7,
 					"material": "sackcloth"
+				},
+				"immune": "spirit,sleep,fear,paralysis,blunt"
+			},
+			{
+				"id": "sum_burlapgolem",
+				"name": "burlap golem",
+				"tags": "t_summon",
+				"desc": "Summoned woven golem filled with heavy sand",
+				"level": 14,
+				"noproc": true,
+				"hp": 400,
+				"attack": {
+					"name": "sand punch",
+					"kind": "earth",
+					"damage": "20~30"
 				},
 				"immune": "spirit,sleep,fear,paralysis,blunt"
 			},
@@ -175,6 +173,7 @@
 					"damage": "40~50"
 				},
 				"loot": {
+					"maxlevel": 7,
 					"material": "sackcloth"
 				}
 			},
@@ -206,7 +205,7 @@
 				"desc": "",
 				"level": 20,
 				"hp": 900,
-				"spells": "mk_burlapgolem",
+				"spells": "mon_mk_burlapgolem",
 				"attack": {
 					"name": "adamant needle",
 					"kind": "pierce",
@@ -219,7 +218,7 @@
 				"id": "mk_burlapgolem",
 				"name": "create burlap golem",
 				"school": "conjuring",
-				"require": "g.sackguild>=50",
+				"require": "g.sackguild>=10",
 				"level": 19,
 				"buy": {
 					"arcana": 10,
@@ -228,7 +227,34 @@
 				"cost": {
 					"mana": 20
 				},
-				"result": "burlapgolem"
+				"summon": [
+					{
+						"id": "sum_burlapgolem",
+						"count": 1,
+						"max": 1
+					}
+				]
+			},
+			{
+				"id": "mon_mk_burlapgolem",
+				"name": "create burlap golem",
+				"school": "conjuring",
+				"require": "g.lore>999",
+				"level": 19,
+				"buy": {
+					"arcana": 10,
+					"tomes": 10
+				},
+				"cost": {
+					"mana": 20
+				},
+				"summon": [
+					{
+						"id": "sum_burlapgolem",
+						"count": 1,
+						"max": 3
+					}
+				]
 			}
 		]
 	}

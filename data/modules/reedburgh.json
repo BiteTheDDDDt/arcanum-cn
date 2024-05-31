@@ -48,6 +48,19 @@
 				}
 			},
 			{
+				"id": "reedburgh_gym_membership",
+				"name": "reedburgh gymnasium pass",
+				"desc": "Membership to a gymnasium you found in Reedburgh.",
+				"require": "g.reedburgh_market>0",
+				"max": 1,
+				"cost": {
+					"gold": 250
+				},
+				"mod":{
+					"citynavigation.max": 1
+				}
+			},
+			{
 				"id": "reedburgh_city_bank",
 				"name": "reedburgh city bank documents",
 				"desc": "Gain access to shops and markets using the local currencies, that are tightly controlled through banks and debt.",
@@ -129,6 +142,21 @@
 						"max": 3
 					}
 				]
+			},
+			{
+				"id": "mon_blunt_heavy",
+				"name": "heavy slam",
+				"level": 4,
+				"school": "martial",
+				"cd": 5,
+				"desc": "A thunderous blow that does impressive damage.",
+				"require": "g.citynavigation>999",
+				"attack":{
+					"kind": "blunt",
+					"tohit": 5,
+					"damage": "15~25"
+				},
+				"flavor": "That's gonna leave a bruise in the morning."
 			},
 			{
 				"id": "reedburgh_call_backup_captain",
@@ -560,6 +588,93 @@
 					"gems": "0~2",
 					"bloodgem": "20%"
 				}
+			},
+			{
+				"id": "the_last_rep",
+				"name": "the last rep",
+				"desc": "Just one more then you can go home, right? The receptionist said this was a good gym...",
+				"effect":{
+					"weary": "2~5",
+					"stamina": -2
+				},
+				"flavor": "It's always the hardest."
+			},
+			{
+				"id": "gym_crowd",
+				"name": "crowded gym",
+				"desc": "Everywhere people shout and grunt. A spot's nowhere to be found.",
+				"effect":{
+					"rage": "1~2",
+					"madness": "0.5~1.5",
+					"stamina": -0.5
+				},
+				"flavor": "Amidst it all a man in a horse mask slumps."
+			},
+			{
+				"id": "running_laps",
+				"name": "running laps",
+				"desc": "Best to build up your legs with how many places you have to see and how many creditors you have to flee.",
+				"effect":{
+					"weary": "1~3",
+					"stamina": -0.5
+				},
+				"mod":{
+					"dist": "1//20/-1"
+				}
+			},
+			{
+				"id": "dropped_the_weights",
+				"name": "dropped the weights",
+				"desc": "You dropped the bar oh gods oh gods o gods don't go into the light",
+				"effect":{
+					"hp": -1,
+					"stamina": -0.5,
+					"unease": "1~3"
+				}
+			},
+			{
+				"id": "hair_pluckers",
+				"name": "hair pluckers",
+				"desc": "People getting their bodies tweezed free of hair would be a lot easier to ignore if not for the screaming.",
+				"effect":{
+					"bf": "1~3",
+					"unease": "1~3"
+				}
+			},
+			{
+				"id": "dodge_shotputs",
+				"name": "shotput dodge",
+				"desc": "The shotput team's aim is bad enough sober. Their drinking makes it worse.",
+				"effect":{
+					"stamina": -0.5,
+					"unease": "1~2",
+					"weary": "2~3",
+					"hp": -2
+				}
+			},
+			{
+				"id": "gym_supplements",
+				"name": "supplement pusher",
+				"desc": "A suspicious man browbeats you into buying something to drink for workouts.",
+				"effect":{
+					"bf": "1~3"
+				},
+				"result":{
+					"debt": "1~2",
+					"pot_stam1": 1
+				}
+			},
+			{
+				"id": "gym_supplements_bad",
+				"name": "supplement pusher",
+				"desc": "A suspicious man browbeats you into buying something to drink for workouts.",
+				"effect":{
+					"bf": "1~3"
+				},
+				"result":{
+					"debt": "1~2",
+					"water": 1
+				}
 			}
 		],
 		"locales": [
@@ -612,6 +727,49 @@
 					"reedburgh_nothing",
 					"reedburgh_streets",
 					"reedburgh_crime"
+				]
+			},
+			{
+				"id": "reedburgh_gymnasium",
+				"name": "reedburgh Gymnasium",
+				"level": 5,
+				"length": 40,
+				"dist": 69,
+				"require": "g.reedburgh_gym_membership>0",
+				"desc": "Finally, someplace pleasant in this wretched city.",
+				"run": {
+					"stamina": 1
+				},
+				"buy":{
+					"gold": 250
+				},
+				"once":{
+					"citynavigation.max": 1
+				},
+				"mod": {
+					"hp.max": "5//10/-1"
+				},
+				"boss":{
+					"40":[
+						"unleashed_beast"
+					]
+				},
+				"encs": [
+					[
+						"roid_rage",
+						"roid_rage"
+					],
+					"roid_rage",
+					"the_last_rep",
+					"gym_crowd",
+					"lifting_weights",
+					"running_laps",
+					"dropped_the_weight",
+					"hair_pluckers",
+					"dodge_shotputs",
+					"gym_spar",
+					"gym_supplements",
+					"gym_supplements_bad"
 				]
 			},
 			{
@@ -1153,6 +1311,44 @@
 						"id": "d_spear"
 					}
 				]
+			},
+			{
+				"id": "roid_rage",
+				"name": "enraged strongman",
+				"level": 5,
+				"kind": "humanoid",
+				"desc": "You took his spot!",
+				"hp": 30,
+				"defense": 12,
+				"spells": "mon_blunt_heavy",
+				"attack": {
+						"name": "barbell",
+						"kind": "blunt",
+						"damage": "6~12"
+					}
+			},
+			{
+				"id": "unleashed_beast",
+				"name": "unleashed beast",
+				"level": 9,
+				"kind": "beast",
+				"desc": "Someone's sparring opponent broke free!",
+				"hp": 40,
+				"defense": 19,
+				"spells": "terrifyingvisage",
+				"attack": [
+					{
+						"name": "bite",
+						"kind": "pierce",
+						"damage": "15~25"
+					},
+					{
+						"name": "swipe",
+						"kind": "slash",
+						"damage": "10~20"
+					}
+				],
+				"flavor": "The tiger/He destroyed his cage/Yes/YES/The tiger is out"
 			}
 		],
 		"dungeons": [
@@ -1173,7 +1369,7 @@
 					"gems": "1~2"
 				},
 				"mod": {
-					"pillage_village.distance": 5
+					"pillage_village.dist": 5
 				},
 				"encs": [
 					[

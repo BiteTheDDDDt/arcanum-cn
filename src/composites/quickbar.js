@@ -60,9 +60,9 @@ export default class Quickbar {
 	 */
 	remove( id ) {
 
-		for( let p in this.slots ) {
+		for( const p in this.slots ) {
 
-			var s = this.slots[p];
+			const s = this.slots[p];
 			if ( s && s.item && s.id === id ) {
 				this.clear(p);
 			}

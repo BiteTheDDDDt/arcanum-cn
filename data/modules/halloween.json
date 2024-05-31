@@ -891,12 +891,12 @@
 						"name": "hideous laughter",
 						"kind": "madness",
 						"targets": "enemies",
-						"dmg": "11~18"
+						"damage": "11~18"
 					},
 					{
 						"name": "life drain",
 						"kind": "necrotic",
-						"dmg": "30~40",
+						"damage": "30~40",
 						"targets": "enemyleader",
 						"leech": 2
 					},
@@ -904,8 +904,8 @@
 						"name": "playful bite",
 						"kind": "necrotic",
 						"targets": "minion",
-						"dmg": "5~10",
-						"tohit": 500,
+						"damage": "5~10",
+						"harmless":true,
 						"leech": 4
 					}
 				]
@@ -923,18 +923,18 @@
 					{
 						"name": "flaming pumpkin",
 						"kind": "fire",
-						"dmg": "1~3",
+						"damage": "1~3",
 						"dot": {
 							"name": "burning",
 							"kind": "fire",
-							"dmg": "1~2",
+							"damage": "1~2",
 							"duration": 5
 						}
 					},
 					{
 						"name": "vorpal blade",
 						"kind": "slash",
-						"dmg": "4~10"
+						"damage": "4~10"
 					}
 				],
 				"loot": [
@@ -957,12 +957,12 @@
 					{
 						"name": "necrotic pumpkin",
 						"kind": "necrotic",
-						"dmg": "80~120",
+						"damage": "80~120",
 						"targets": "enemyleader",
 						"dot": {
 							"name": "decaying",
 							"kind": "necrotic",
-							"dmg": "60~80",
+							"damage": "60~80",
 							"duration": 5
 						}
 					},
@@ -970,15 +970,15 @@
 						"name": "snicker-snack",
 						"kind": "void",
 						"targets": "enemyleader",
-						"dmg": "30~40",
+						"damage": "30~40",
 						"tohit": 25
 					},
 					{
 						"name": "behead",
 						"kind": "void",
 						"targets": "flunky",
-						"dmg": 1200,
-						"tohit": 500
+						"damage": 1200,
+						"harmless":true
 					},
 					{
 						"name": "midnight hour",
@@ -1015,7 +1015,7 @@
 				"attack": {
 					"name": "plea",
 					"kind": "psychic",
-					"dmg": "8~12",
+					"damage": "8~12",
 					"log": {
 						"%": "10%",
 						"desc": "He can't stop rattling out the details on the experiments performed on him."
@@ -1037,8 +1037,8 @@
 				"tohit": 20,
 				"attack": {
 					"name": "scratch",
-					"kind": "slashing",
-					"dmg": "6~12"
+					"kind": "slash",
+					"damage": "6~12"
 				},
 				"loot": {
 					"naturegem": "10%",
@@ -1057,17 +1057,17 @@
 				"tohit": 20,
 				"attack": {
 					"name": "bite",
-					"kind": "piercing",
-					"dmg": "8~12",
+					"kind": "pierce",
+					"damage": "8~12",
 					"dot": {
 						"name": "bleed",
 						"duration": 5,
-						"kind": "piercing",
-						"dmg": "3~6"
+						"kind": "pierce",
+						"damage": "3~6"
 					}
 				},
 				"loot": {
-					"skull": "10%",
+					"skulls": "10%",
 					"bloodgem": 1
 				}
 			},
@@ -1083,8 +1083,8 @@
 				"tohit": 25,
 				"attack": {
 					"name": "axe",
-					"kind": "slashing",
-					"dmg": "8~20",
+					"kind": "slash",
+					"damage": "8~20",
 					"log": {
 						"%": "10%",
 						"desc": "Stop poking your nose where it doesn't belong!"
@@ -1108,8 +1108,8 @@
 				"attack": [
 					{
 						"name": "hank's axe",
-						"kind": "slashing",
-						"dmg": "8~20",
+						"kind": "slash",
+						"damage": "8~20",
 						"log": {
 							"%": "10%",
 							"desc": "Your face will be a fine addition to my repertoire!"
@@ -1117,8 +1117,8 @@
 					},
 					{
 						"name": "wolf's bite",
-						"kind": "piercing",
-						"dmg": "10~14",
+						"kind": "pierce",
+						"damage": "10~14",
 						"log": {
 							"%": "10%",
 							"desc": "Low, guttural growls punctuate the attempts at exsanguinating you."
@@ -1126,14 +1126,14 @@
 						"dot": {
 							"name": "bleed",
 							"duration": 5,
-							"kind": "piercing",
-							"dmg": "5~7"
+							"kind": "pierce",
+							"damage": "5~7"
 						}
 					},
 					{
 						"name": "fox's claws",
-						"kind": "slashing",
-						"dmg": 12,
+						"kind": "slash",
+						"damage": 12,
 						"log": {
 							"%": "10%",
 							"desc": "Won't you join my collection?"
@@ -1148,6 +1148,7 @@
 			{
 				"id": "hal_wight",
 				"name": "frost wight",
+				"noproc": true,
 				"level": 5,
 				"kind": "undead",
 				"desc": "The unwholesome creature leaves a trail of frost along the grass.",
@@ -1157,7 +1158,7 @@
 				"attack": {
 					"name": "frosty touch",
 					"kind": "necrotic",
-					"dmg": "1~3",
+					"damage": "1~3",
 					"leech": 1
 				},
 				"loot": {
@@ -1167,7 +1168,7 @@
 			{
 				"id": "hal_wight2",
 				"name": "midnight frost wight",
-				"level": 5,
+				"level": 20,
 				"kind": "undead",
 				"noproc": true,
 				"desc": "Empowered by the hour's energies, its mere presence is enough to freeze a hapless human in moments.",
@@ -1177,7 +1178,7 @@
 				"attack": {
 					"name": "frosty touch",
 					"kind": "necrotic",
-					"dmg": "50~60",
+					"damage": "50~60",
 					"leech": 1
 				},
 				"loot": {
@@ -1187,6 +1188,7 @@
 			{
 				"id": "nec_zombie",
 				"name": "necrotic zombie",
+				"noproc": true,
 				"level": 4,
 				"kind": "undead",
 				"desc": "A vicious zombie in a tattered dress.",
@@ -1196,7 +1198,7 @@
 				"attack": {
 					"name": "slam",
 					"kind": "necrotic",
-					"dmg": "8~12"
+					"damage": "8~12"
 				},
 				"loot": {
 					"pumpkins": "10%"
@@ -1206,6 +1208,7 @@
 			{
 				"id": "nec_ghost",
 				"name": "necrotic ghost",
+				"noproc": true,
 				"level": 2,
 				"kind": "undead",
 				"desc": "No one's seen the Miller since he died last year...",
@@ -1215,7 +1218,7 @@
 				"attack": {
 					"name": "chilling touch",
 					"kind": "necrotic",
-					"dmg": "4~8"
+					"damage": "4~8"
 				},
 				"loot": {
 					"pumpkins": "10%"
@@ -1225,7 +1228,7 @@
 			{
 				"id": "nec_ghost2",
 				"name": "midnight necrotic ghost",
-				"level": 15,
+				"level": 20,
 				"noproc": true,
 				"kind": "undead",
 				"desc": "At this hour, the ghostly apparitions seem to acquire a semblance of flesh and an unrelenting desire to kill.",
@@ -1236,8 +1239,7 @@
 					"name": "chilling touch",
 					"kind": "necrotic",
 					"targets": "enemyleader",
-					"dmg": 100,
-					"tohit": 30
+					"damage": 100
 				},
 				"loot": {
 					"pumpkins": 1
@@ -1247,6 +1249,7 @@
 			{
 				"id": "nec_ghoul",
 				"name": "necrotic ghoul",
+				"noproc": true,
 				"level": 3,
 				"kind": "undead",
 				"hp": 15,
@@ -1254,12 +1257,12 @@
 				"attack": {
 					"name": "infectious bite",
 					"kind": "necrotic",
-					"dmg": "4~8",
+					"damage": "4~8",
 					"dot": {
 						"name": "disease",
 						"duration": 5,
 						"kind": "necrotic",
-						"dmg": "1~2"
+						"damage": "1~2"
 					}
 				},
 				"loot": {
@@ -1269,6 +1272,7 @@
 			{
 				"id": "nec_ghast",
 				"name": "necrotic ghast",
+				"noproc": true,
 				"level": 4,
 				"kind": "undead",
 				"desc": "Farmer John looks angry.",
@@ -1277,12 +1281,12 @@
 				"attack": {
 					"name": "infectious bite",
 					"kind": "necrotic",
-					"dmg": "5~10",
+					"damage": "5~10",
 					"dot": {
 						"name": "disease",
 						"duration": 5,
 						"kind": "necrotic",
-						"dmg": "1.5~3"
+						"damage": "1.5~3"
 					}
 				},
 				"loot": {
@@ -1292,6 +1296,7 @@
 			{
 				"id": "m_pumpkin",
 				"name": "ravenous pumpkin",
+				"noproc": true,
 				"level": 5,
 				"kind": "undead",
 				"desc": "A monstrous red jack o' lantern with evil glowing eyes.",
@@ -1301,7 +1306,7 @@
 					"name": "seed storm",
 					"kind": "necrotic",
 					"targets": "enemies",
-					"dmg": "8~15"
+					"damage": "8~15"
 				},
 				"loot": {
 					"jacklantern": "50%",
@@ -1311,6 +1316,7 @@
 			{
 				"id": "nec_skeleton",
 				"name": "necrotic skeleton",
+				"noproc": true,
 				"level": 2,
 				"kind": "undead",
 				"desc": "The bones are mostly clean.",
@@ -1320,7 +1326,7 @@
 					"tohit": 5,
 					"name": "impalement",
 					"kind": "necrotic",
-					"dmg": "1~3"
+					"damage": "1~3"
 				},
 				"loot": {
 					"pumpkins": "10%"
@@ -1338,8 +1344,8 @@
 					"name": "moan",
 					"kind": "madness",
 					"targets": "enemies",
-					"dmg": "4~7",
-					"tohit": 15
+					"damage": "4~7",
+					"tohit": 5
 				}
 			}
 		],

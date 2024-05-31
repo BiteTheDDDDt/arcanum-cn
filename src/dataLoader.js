@@ -1,4 +1,4 @@
-import GData from './items/gdata';
+import GData, { GDataDescAssigner } from './items/gdata';
 
 import { PrepData } from './modules/parsing';
 
@@ -13,7 +13,7 @@ import { Locale } from './items/locale';
 import Spell from './items/spell.js';
 import Task from './items/task';
 
-import { mergeSafe } from 'objecty';
+import { mergeSafe } from './util/objecty';
 import ProtoItem from './protos/protoItem';
 import Alter from './chars/alter';
 import Enchant from './items/enchant';
@@ -45,7 +45,7 @@ const ModFiles = 'modules';
  */
 export const loadFiles = ( fileList, dir=DataDir ) => {
 
-	let loader = new Loader( dir, fileList );
+	const loader = new Loader( dir, fileList );
 	return loader.load();
 
 }
@@ -76,7 +76,7 @@ export default {
 	},
 
 	async requestData() {
-		let files = await this.loadModInfo( ModFiles );
+		const files = await this.loadModInfo( ModFiles );
 		this.main = new Module();
 		//Creating hall module here so that the core hall module doesn't assign it's symbol to all other blank hall module symbols.
 		this.main.hall = new Module();
@@ -110,7 +110,7 @@ export default {
 		saveData = saveData || {};
 
 		// restore Percent/Range classes /special functions of non-item data.
-		for( let p in saveData ) {
+		for( const p in saveData ) {
 
 			// items prepped separately so template can be written over, then prep, then template assigned.
 			if ( p === 'items' || p === 'drops') continue;
@@ -122,12 +122,12 @@ export default {
 		let items = saveData.items;
 		if ( items ) {
 
-			for( let p in raws ) {
+			for( const p in raws ) {
 
-				let t = raws[p];
+				const t = raws[p];
 				if ( t.alias && !items[p] ) {
 					// check aliased item.
-					var it = items[t.alias];
+					const it = items[t.alias];
 					if ( it ) {
 						console.warn('alias: ' + t.alias + ' -> ' + p );
 						items[p] = it;
@@ -143,7 +143,7 @@ export default {
 		saveData.items = this.mergeItems( items, raws );
 
 		// replace original data list items with saveData items.
-		let gameLists = this.buildLists( saveData.items, dataLists );
+		const gameLists = this.buildLists( saveData.items, dataLists );
 
 		return this.initInstance( saveData, gameLists );
 
@@ -158,16 +158,16 @@ export default {
 	 */
 	buildLists( items, dataLists ){
 
-		let gameLists = {};
+		const gameLists = {};
 
-		for( let p in dataLists ) {
+		for( const p in dataLists ) {
 
-			var dataList = dataLists[p];
+			const dataList = dataLists[p];
 			// possibly missing file or empty list.
 			if ( !dataList ) continue;
 
 			// lists of game-item data by type.
-			var gameList = gameLists[p] = [];
+			const gameList = gameLists[p] = [];
 
 			for( let i = 0; i < dataList.length; i++ ) {
 				gameList[i] = items[ dataList[i].id ];
@@ -193,9 +193,9 @@ export default {
 		 * 2) data prepared with type instances.
 		 * 3) template assigned LAST because the template is frozen and can't be prepped.
 		 */
-		for( let p in raws ) {
+		for( const p in raws ) {
 
-			var saveObj = saveItems[p] || {};
+			let saveObj = saveItems[p] || {};
 
 			if ( typeof saveObj === 'number') {
 				saveObj = { val:saveObj };
@@ -214,7 +214,7 @@ export default {
 
 	initInstance( inst, lists ){
 
-		var items = inst.items;
+		const items = inst.items;
 
 		if ( lists.tags ) inst.tagSets = this.initItems( items, lists.tags, TagSet);
 
@@ -292,7 +292,12 @@ export default {
 		if ( lists.enchants ) inst.enchants =this.initItems( items, lists.enchants, Enchant, null, 'enchant' );
 		if ( lists.sections ) inst.sections = this.initItems( items, lists.sections );
 
-		if ( lists.player ) inst.player = this.initPlayer( items, lists.player, inst.items.player );
+		if ( lists.player ) {
+			([ inst.player, inst.playerStats ] = this.initPlayer( items, lists.player, inst.items.player ));
+			GDataDescAssigner(inst.player, ...inst.playerStats.map(it =>it.id));
+		}
+		
+		if ( lists.glossaryentries) inst.glossaryentries = this.initItems( items, lists['glossaryentries'], GData, 't_glossary_entry', 'Glossary entry' );
 
 		return inst;
 
@@ -315,7 +320,7 @@ export default {
 
 		for( let i = dataList.length-1; i >= 0; i-- ) {
 
-			var def = dataList[i];
+			let def = dataList[i];
 
 			if ( def.reverse) dataList[i] = def = new RevStat(def);
 			else if ( def.stat ) dataList[i] = def = new StatData(def);
@@ -343,7 +348,7 @@ export default {
 
 		let vars = savePlayer || {};
 
-		let res;
+		let list = [], res;
 		for( let def of stats ) {
 
 			res = vars[ def.id ] =
@@ -352,31 +357,12 @@ export default {
 			);
 			res.type = RESOURCE;
 			items[def.id] = res;
+			list.push(res);
 
 		}
 
-		return items.player = new Player( vars );
+		return [items.player = new Player( vars ), list];
 
 	},
-
-}
-
-/**
- * Recursive freezing of an object template.
- * Clones must be made to make any changes.
- * @param {*} obj
- */
-export const freezeData = ( obj ) => {
-
-	let sub;
-	for( let p in obj ){
-
-		sub = obj[p];
-		if ( typeof sub === 'object') freezeData(sub);
-		else Object.freeze( sub );
-
-	}
-
-	return Object.freeze( obj );
 
 }

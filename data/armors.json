@@ -58,7 +58,12 @@
 		"tags": "t_paddedarmor,d_paddedarmor",
 		"cost": 150,
 		"level": 4,
-		"only": "leather,cloth"
+		"only": "leather,cloth",
+		"alter": {
+			"mod": {
+				"self.dodge": -1
+			}
+		}
 	},
 	{
 		"id": "chainmail",
@@ -68,18 +73,28 @@
 		"cost": 350,
 		"level": 5,
 		"enchants": 2,
-		"only": "metal,ethereal"
+		"only": "metal,ethereal",
+		"alter": {
+			"mod": {
+				"self.dodge": -2
+			}
+		}
 	},
 	{
 		"id": "platemail",
 		"name": "plate mail",
-		"armor": 8,
+		"armor": 7,
 		"slot": "chest",
 		"tags": "t_platemail,d_platemail",
 		"cost": 700,
 		"level": 9,
 		"enchants": 2,
-		"only": "metal,ethereal"
+		"only": "metal,ethereal",
+		"alter": {
+			"mod": {
+				"self.dodge": -3
+			}
+		}
 	},
 	{
 		"id": "robe",
@@ -94,7 +109,7 @@
 		"id": "conicalhelm",
 		"name": "conical helm",
 		"armor": 3,
-		"level":2,
+		"level": 2,
 		"slot": "head",
 		"tags": "t_conicalhelm,d_conicalhelm",
 		"cost": 40,
@@ -107,7 +122,12 @@
 		"tags": "t_belt,d_belt",
 		"cost": 30,
 		"enchants": 2,
-		"only": "natural,cloth"
+		"only": "natural,cloth",
+		"alter": {
+			"mod": {
+				"inv.max": 1
+			}
+		}
 	},
 	{
 		"id": "girdle",
@@ -122,7 +142,7 @@
 		"slot": "waist",
 		"tags": "t_cincture,d_cincture",
 		"cost": 50,
-		"enchants": 3
+		"enchants": 5
 	},
 	{
 		"id": "sash",
@@ -202,6 +222,7 @@
 		"tags": "t_necklace,d_necklace",
 		"cost": 50,
 		"properties": "1%",
+		"level": 9,
 		"enchants": 3
 	},
 	{
@@ -222,7 +243,7 @@
 		"tags": "t_loop,d_loop",
 		"kind": "ring",
 		"cost": 10,
-		"level": 1,
+		"level": 5,
 		"enchants": 2
 	},
 	{
@@ -231,7 +252,7 @@
 		"slot": "fingers",
 		"tags": "t_ring,d_ring",
 		"kind": "ring",
-		"level": 5,
+		"level": 9,
 		"cost": 100,
 		"properties": "3%",
 		"enchants": 5
