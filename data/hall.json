@@ -227,24 +227,6 @@
 				}
 			},
 			{
-				"id": "hall_time_refund",
-				"name": "wind back",
-				"tags": "hall",
-				"desc": "By using the traces left in your timewell, you can rewind the time to before you purchased it.",
-				"require": "g.timewell>0",
-				"max": 1,
-				"cost": {
-					"timewell": 1
-				},
-				"result": {
-					"fame": 75
-				},
-				"disable": [
-					"hall_time_refund",
-					"timewell"
-				]
-			},
-			{
 				"id": "magicstables",
 				"name": "magic stables",
 				"tags": "hall",
@@ -320,18 +302,6 @@
 					"earthlore.buy.sp": -1,
 					"waterlore.buy.sp": -1,
 					"airlore.buy.sp": -1
-				}
-			},
-			{
-				"id": "timewell",
-				"name": "shallow timewell",
-				"require": "g.timewell>=2",
-				"tags": "hall",
-				"comment": "deprecated, purposely unattainable, left in for compatibility purposes.",
-				"desc": "Once, there was all the time in the world. Now, you are out of time.",
-				"max": 0,
-				"cost": {
-					"prestige": 75
 				}
 			},
 			{
