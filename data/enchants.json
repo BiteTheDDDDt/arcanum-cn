@@ -294,7 +294,7 @@
 	},
 	{
 		"id": "en_water1",
-		"name": "crabs's ring",
+		"name": "crab's ring",
 		"adj": "%i of the crab",
 		"only": "ring",
 		"desc": "increases your aptitude with water",
@@ -317,7 +317,7 @@
 	},
 	{
 		"id": "en_water2",
-		"name": "otters's ring",
+		"name": "otter's ring",
 		"adj": "%i of the otter",
 		"only": "ring",
 		"desc": "Increases your water reserves significantly.",
@@ -387,7 +387,7 @@
 	},
 	{
 		"id": "en_earth2",
-		"name": "worms's Ring",
+		"name": "worm's Ring",
 		"adj": "%i of the Worm",
 		"only": "ring",
 		"desc": "Increases your earth reserves significantly.",
