@@ -93,7 +93,6 @@ export default {
 		this._gdata = null;
 		this.runner = null;
 		this.log.clear();
-		this.isInTurboMode = false;
 
 	},
 

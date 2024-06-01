@@ -113,7 +113,6 @@ export default {
 
 		this.listen('show-register', this.onShowRegister, this);
 		this.listen('show-login', this.onShowLogin, this);
-		document.addEventListener('visibilitychange', this.handleVisibilityChange);
 		
 
 
@@ -131,7 +130,6 @@ export default {
 
 		this.removeListener('show-register', this.onShowRegister);
 		this.removeListener('show-login', this.onShowLogin);
-		document.removeEventListener("visibilitychange", this.handleVisibilityChange)
 
 
 	},
@@ -286,17 +284,6 @@ if ( Game.loaded ) {
 }
 
 
-		},
-		handleVisibilityChange() {
-			if (document.hidden) {
-				this.pause();
-			} else {
-				this.unpause();
-			}
-		},
-
-		handleTurboModeChange() {
-			Game.isInTurboMode = !Game.isInTurboMode;
 		},
 
 
