@@ -352,7 +352,14 @@ export default {
 		this.doResources( profile.hall.resources, dt);
 		this.doConversions( profile.hall.upgrades, dt );
 		this.doConversions( profile.hall.resources, dt );
-
+		
+		let monitor = Object.values(game.state.items).filter(v => v.monitor === true);
+		for (let obj in monitor) {
+			let refresh = monitor[obj];
+			if (refresh.value) {
+				this.applyMods(refresh.mod, refresh.value);
+			}
+		}
 	},
 
 	/**
