@@ -23,6 +23,27 @@
 		}
 	},
 	{
+		"id": "mk_blade",
+		"name": "summon blade",
+		"desc": "In combat, summon a magical blade to fight for you.",
+		"level": 7,
+		"school": "summoning",
+		"require": "(g.bladelore>=7&&g.summoning>=5)||g.summoner>0",
+		"buy": {
+			"research": 5000,
+			"tomes": 5
+		},
+		"cost": {
+			"mana": 10
+		},
+		"summon": [
+			{
+				"id": "sum_magicblade",
+				"count": 1
+			}
+		]
+	},
+	{
 		"id": "wake",
 		"level": 5,
 		"school": "mana",
