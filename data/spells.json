@@ -1077,7 +1077,7 @@
 			"300": {
 				"attack.damage.max": 3,
 				"attack.damage.min": 2,
-				"attack.tohit": 72
+				"attack.tohit": 2
 			}
 		},
 		"cost": {
