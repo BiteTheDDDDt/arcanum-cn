@@ -1,16 +1,16 @@
-import Npc from '../chars/npc';
-import Wearable from "../chars/wearable";
-import { includesAny } from '../util/objecty';
-import Percent from '../values/percent';
-import Item from '../items/item';
-import GenGroup from '../genGroup';
-import { pushNonNull } from '../util/array';
-import GData from '../items/gdata';
-import { WEARABLE, MONSTER, ARMOR, WEAPON, TYP_PCT, EVENT, ITEM, POTION, TYP_RANGE, NPC, TASK, ENCOUNTER } from '../values/consts';
-import { CreateNpc } from '../items/monster';
-import TagSet from '../composites/tagset';
-import ProtoItem from '../protos/protoItem';
-import { Changed } from '../techTree';
+import Npc from '@/chars/npc';
+import Wearable from '@/chars/wearable';
+import { includesAny } from '@/util/objecty';
+import Percent from '@/values/percent';
+import Item from '@/items/item';
+import GenGroup from '@/genGroup';
+import { pushNonNull } from '@/util/array';
+import GData from '@/items/gdata';
+import { WEARABLE, MONSTER, ARMOR, WEAPON, TYP_PCT, EVENT, ITEM, POTION, TYP_RANGE, NPC, TASK, ENCOUNTER } from '@/values/consts';
+import { CreateNpc } from '@/items/monster';
+import TagSet from '@/composites/tagset';
+import ProtoItem from '@/protos/protoItem';
+import { Changed } from '@/changes';
 
 /**
 * Hacky implementation of flatMap since stupid browsers don't support.
@@ -166,14 +166,14 @@ export default class ItemGen {
 		if (data.range) level += (data.range * (-1 + 2 * Math.random())); //a + - the range value
 		level *= Math.max(1 - (quantity - 1) * penalty, 0.1) //if we are spawning multiples, penalize the level
 		level = Math.ceil(level);
-		
+
 		const enemyarray = [];
 		for (let i = 0; i < quantity; i++) {
-	
+
 			const npc = this.groups[MONSTER].randAt(level)
 			enemyarray.push(CreateNpc(npc, this.game))
 			level += -1 + (2 - i * penalty) * Math.random()  // to prevent samey spawns, randomly jiggle the level 
-			level = Math.max(Math.round(level),1)
+			level = Math.max(Math.round(level), 1)
 
 		}
 		return enemyarray.length > 0 ? enemyarray : null;
@@ -243,13 +243,10 @@ export default class ItemGen {
 	 * @returns {?Wearable|Wearable[]}
 	 */
 	getLoot(info, amt = 1) {
-
 		if (amt instanceof Percent) {
-
 			if (!amt.roll(this.luck.value)) return null;
 			amt = 1;
-
-		} else if (amt.value) amt = amt.value;
+		}
 
 		if (Array.isArray(info)) {
 			return info.flatMap ? info.flatMap(this.getLoot, this)
@@ -271,7 +268,7 @@ export default class ItemGen {
 			if (instanceditem instanceof GData || instanceditem instanceof TagSet) return this.getGData(instanceditem, amt, info.level || info.maxlevel || amt);
 			return this.instance(info);
 		}
-		else if (info.level || info.maxlevel) return this.randLoot(info, amt);
+		else if (info.level || info.maxlevel) return this.randLoot(info);
 
 		return this.objLoot(info);
 
@@ -299,20 +296,31 @@ export default class ItemGen {
 	/**
 	 * Get some amount of non-instanced gameData.
 	 * @param {GData} it
-	 * @param {number} [amt=1]
+	 * @param {number|boolean|object} [amt=1]
 	 */
 	getGData(it, amt = 1, level = null) {
-
 		if (!it) return null;
 
 		if (it instanceof TagSet) it = it.random();
 		if (this.state.hasUnique(it)) return null;
 
-		if (it.instanced || it.isRecipe) return this.instance(it, level, amt);
+		if (it.instanced || it.isRecipe) {
+			amt = +amt?.value || +amt || 0;
+			level = +level?.value || +level || 0;
+			return this.instance(it, level, amt);
+		}
+
+		if (typeof amt === 'object') {
+			if (amt.skipLocked && (it.disabled === true || it.locks > 0 || it.locked !== false))
+				return null;
+		}
+
+		amt = +amt?.value || +amt || 0;
 
 		if (typeof amt === 'number' || typeof amt === 'boolean') {
 
-			if (it.type === 'upgrade' || it.type === TASK || it.type === 'furniture' || it.type === EVENT) it.doUnlock(this.game);
+			if (it.type === 'upgrade' || it.type === TASK || it.type === 'furniture' || it.type === EVENT)
+				it.doUnlock(this.game);
 			else {
 				it.amount(amt);
 				if (amt > 0) return it.name;
@@ -331,7 +339,8 @@ export default class ItemGen {
 
 		let material = info.material;
 		let type = info.type;
-		let level = info.maxlevel ?? info.level;
+		let level = info.maxlevel || info.level || 0;
+		level = +level?.value || +level || 0;
 
 		if (material) {
 			if (typeof material === "string") material = this.state.getData(material);
@@ -472,8 +481,11 @@ export default class ItemGen {
 		if (data === null || data === undefined) return null;
 
 		let mat = data.material || material;
-		if (typeof mat === 'number') mat = this.getCompatible(this.groups.materials, data, mat);
-		else if (typeof mat === 'string') mat = this.state.getData(mat);
+
+		if (mat) {
+			if (typeof mat === 'number') mat = this.getCompatible(this.groups.materials, data, mat);
+			if (typeof mat === 'string') mat = this.state.getData(mat);
+		}
 
 		return this.makeWearable(data, mat);
 

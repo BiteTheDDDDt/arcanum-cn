@@ -1,45 +1,60 @@
 <script>
-import Game from '../../game';
-import Upgrades from '../panes/upgrades.vue';
+import Game from '@/game';
+import Upgrades from '@/ui/panes/upgrades.vue';
 import Profile from 'modules/profile';
 import Settings from 'modules/settings';
-import ItemsBase from '../itemsBase';
-import UIMixin from '../uiMixin';
+import ItemsBase from '@/ui/itemsBase';
+import UIMixin from '@/ui/uiMixin';
+import TaskGroup from "@/ui/panes/TaskGroup.vue"
+import { isTypeAliasDeclaration } from 'typescript';
 
 export default {
 
-	mixins:[ItemsBase,UIMixin],
-	components:{
-		upgrades:Upgrades
+	mixins: [ItemsBase, UIMixin],
+	components: {
+		upgrades: Upgrades,
+		TaskGroup: TaskGroup
 	},
-	data(){
+	data() {
 
 		let ops = Settings.getSubVars('main');
 		if (!ops.hide) ops.hide = {}
 
 		return {
-			hide:ops.hide
+			hide: ops.hide
 		}
 
 	},
-	computed:{
 
-		hall(){ return Profile.hall; },
-		mergedtasks(){return Game.state.tasks.concat(this.hall.tasks)},
-		tasks(){return this.mergedtasks.filter(v=>(!v.perpetual||v.perpetual==0)&&(!v.length||v.length==0))},
-		runnables(){return this.mergedtasks.filter(v=>(v.perpetual>0||v.length>0)&&!v.craftable&&!v.morality)},
-		crafts(){return this.mergedtasks.filter(v=>(v.perpetual>0||v.length>0)&&v.craftable&&(v.value<v.max||!v.max)&&v.locked==false)},
+	collapseSection() {
 
-		visActs(){return this.tasks.filter(v=>this.show(v))},
-		visRuns(){return this.runnables.filter(v=>this.show(v))},
-		visCrafts(){return this.crafts.filter(v=>this.show(v))},
+	},
+	computed: {
 
-		ups(){
-			return Game.state.upgrades.filter( v=>!this.locked(v)&&this.show(v) )
+		hall() { return Profile.hall; },
+		mergedtasks() { return Game.state.tasks.concat(this.hall.tasks) },
+
+		visibleTasks() {
+			return this.mergedtasks.filter(task => !this.locked(task) && !task.morality && this.show(task) && (!task.max && task.repeat));
+
 		},
-		classes(){
-			return Game.state.classes.filter(v=>!this.locked(v)&&this.show(v));
-		}
+		visibleUpgrades() {
+			return Game.state.upgrades.filter(upgrade =>  !this.locked(upgrade) && this.show(upgrade) && (!upgrade.owned || upgrade.repeat)).concat(this.mergedtasks.filter(task => !this.locked(task) && !task.morality && this.show(task) && (task.max || !task.repeat)));
+		},
+
+		groupedTasks() {
+			let ret = Map.groupBy(this.visibleTasks, (task) => task.group ? task.group : "other");
+			return ret;
+		},
+		groupedUpgrades() {
+			let ret = Map.groupBy(this.visibleUpgrades, (upgrade) => upgrade.group ? upgrade.group : "other");
+			return ret;
+		},
+		classes() {
+			return Game.state.classes.filter(v => !this.locked(v) && this.show(v));
+		},
+		morals() { return this.mergedtasks.filter(v => v.value < 1 && !v.locked && v.morality && !v.disabled && v.locked == false) },
+		visMorals() { return this.morals.filter(v => this.show(v)) },
 
 
 	}
@@ -50,30 +65,39 @@ export default {
 <template>
 	<div class="main-tasks" ref="hidables">
 		<div class="config"><button ref="btnHides" class="btnConfig"></button></div>
-		<div v-if="visActs.length != 0" class="div-hs">Actions</div>
-		<upgrades class="task-list" :items="visActs" :preventClick="inConfig" />
-		<div v-if="visRuns.length != 0" class="div-hs">Tasks</div>
-		<upgrades class="task-list" :items="visRuns" :preventClick="inConfig" />
-		<div v-if="ups.length != 0" class="div-hs">Upgrades</div>
-		<upgrades class="upgrade-list" :items="ups" :preventClick="inConfig" />
+		<div class="div-hs">Tasks</div>
+		<TaskGroup v-for="group in Array.from(groupedTasks.keys()).toSorted()" :title="group">
+			<upgrades class="task-list" :items="groupedTasks.get(group)" :preventClick="inConfig" />
+		</TaskGroup>
+		<div v-if="groupedUpgrades.length != 0" class="div-hs">Upgrades</div>
+		<TaskGroup v-for="group in Array.from(groupedUpgrades.keys()).toSorted()" :title="group">
+			<upgrades class="task-list" :items="groupedUpgrades.get(group)" :preventClick="inConfig" />
+		</TaskGroup>
 		<div v-if="classes.length != 0" class="div-hs">Classes</div>
 		<upgrades class="upgrade-list" :items="classes" :preventClick="inConfig" />
-		<div v-if="visCrafts.length != 0" class="div-hs">Craftables</div>
-		<upgrades class="upgrade-list" :items="visCrafts" :preventClick="inConfig" />
+		<div v-if="visMorals.length != 0" class="div-hs">Morality Options</div>
+		<upgrades class="upgrade-list" :items="visMorals" :preventClick="inConfig" />
 	</div>
 </template>
 
 <style scoped>
+div.task-list,
+.main-tasks>div.upgrade-list {
+	margin: 0;
+	padding: var(--md-gap);
+	display: grid;
+	grid-template-columns: repeat(auto-fit, var(--task-button-width));
+}
 
-    div.task-list, .main-tasks > div.upgrade-list {
-        margin: 0; padding: var(--md-gap);
-		display: grid;
-		grid-template-columns: repeat( auto-fit, var(--task-button-width) );
-    }
+div.upgrade-list:empty {
+	padding: 0px;
+}
 
-	div.upgrade-list:empty{ padding: 0px;}
-    div.task-list .runnable:hover {background: var(--accent-color-hover); }
-    div.task-list .runnable:active {background: var(--accent-color-active); }
+div.task-list .runnable:hover {
+	background: var(--accent-color-hover);
+}
 
-
+div.task-list .runnable:active {
+	background: var(--accent-color-active);
+}
 </style>

@@ -41,11 +41,17 @@
 		"reedburgh",
 		"extramats",
 		"extraaction",
-		"legacy",
+		"legacy_halloween",
+		"legacy_winter",
 		"timerip",
 		"shopkeeping",
 		"debitomancy",
 		"furniture_upgrades",
-		"contributors"
+		"swordplay",
+		"martial",
+		"companions",
+		"contributors",
+		"priest",
+		"seasonal/halloween"
 	]
 }

@@ -1,13 +1,13 @@
-import { quickSplice, moveElm } from '../util/array';
+import { moveElm } from '../util/array';
 import Events, { TASK_DONE, TASK_REPEATED, HALT_TASK, TASK_BLOCKED, STOP_ALL } from '../events';
-import Stat from '../values/rvals/stat';
+import Stat from '@/values/rvals/stat';
 import Base, { mergeClass } from '../items/base';
-import Runnable from '../composites/runnable';
-import { SKILL, REST_TAG, TYP_RUN, PURSUITS, EXPLORE, TASK } from '../values/consts';
-import { assign } from '../util/objecty';
-import { iterableMap, mapSet } from '../util/dataUtil';
-import { Changed } from '../techTree';
-import Game from '../game';
+import Runnable from '@/composites/runnable';
+import { SKILL, REST_TAG, TYP_RUN, PURSUITS, EXPLORE, TASK, TASK_END_REASON } from '@/values/consts';
+import { assign } from '@/util/objecty';
+import { iterableMap, mapSet } from '@/util/dataUtil';
+import { Changed } from '@/changes';
+import Game from '@/game';
 /**
  * Tracks running/perpetual tasks.
  */
@@ -75,15 +75,15 @@ export default class Runner {
 		return a ? a.exp : 0;
 	}
 	set skillprogress(v) {
-		
+
 	}
 
 	set encounterprogress(v) {
-		
+
 	}
 
 	set taskprogress(v) {
-		
+
 	}
 
 	/* used to be a thing
@@ -252,7 +252,7 @@ export default class Runner {
 	toggleAct(a) {
 
 		if (this.actives.includes(a)) {
-			this.stopTask(a, false);
+			this.stopTask(a, TASK_END_REASON.USER, false);
 		} else this.setTask(a);
 
 	}
@@ -304,7 +304,7 @@ export default class Runner {
 		for (const a of this.actives) {
 
 			if (a === not) continue;
-			this.stopTask(a, false);
+			this.stopTask(a, TASK_END_REASON.USER, false);
 			if (a.type === TYP_RUN) this.addWait(a);
 
 			if (--remove <= 0) return;
@@ -322,11 +322,12 @@ export default class Runner {
 	/**
 	 * @private
 	 * @param {Task} act
+	 * @param {number} [reason=TASK_END_REASON.USER] reason for blocking. Defaults to forced.
 	 * @param {boolean} [resume=true] - attempt to resume task later.
 	 */
-	actBlocked(act, resume = true) {
+	actBlocked(act, reason = TASK_END_REASON.USER, resume = true) {
 
-		this.stopTask(act);
+		this.stopTask(act, reason);
 		if (resume) this.addWait(act);
 
 	}
@@ -334,9 +335,10 @@ export default class Runner {
 	/**
 	 * UNIQUE ACCESS POINT for removing active task.
 	 * @param {Task} i
+	 * @param {number} [endReason=TASK_END_REASON.USER] - reason for stopping task. Defaults to forced.
 	 * @param {boolean} [tryWaiting=true] - whether to attempt to resume other tasks.
 	 */
-	stopTask(a, tryWaiting = true, success = false) {
+	stopTask(a, endReason = TASK_END_REASON.USER, tryWaiting = true) {
 
 
 		if (a.runmod) {
@@ -347,7 +349,7 @@ export default class Runner {
 				Game.removeMods(a.baseTask.runmod)
 			}
 		}
-		if (a.onStop) a.onStop(success);
+		if (a.onStop) a.onStop(endReason);
 		a.running = false;
 		let idx = this.actives.indexOf(a);
 		if (idx >= 0) this.actives.splice(idx, 1);
@@ -404,8 +406,47 @@ export default class Runner {
 			return false;
 		}
 
-		return !!this.pursuits.getRunnable(this.context, it => this.tryAdd(it, 0, true));
+		return !!this.pursuits.nextConditional(it => this.tryAdd(it, 0, true));
 
+	}
+
+	/**
+	 * Finds the first task that can be added to the list of active tasks.
+	 * @param {boolean} continuing - If tasks should go though idle-related checks
+	 * @returns {GData | null} First task found that can be added. Returns null if there isn't any.
+	 */
+	getNextTask(continuing) {
+		for(let task of this.waiting) {
+			if(this.canAdd(task, continuing)) return task;
+		}
+
+		let pursuit = this.pursuits.nextConditional(it => this.canAdd(it, continuing));
+		if(pursuit) return pursuit;
+
+		let rest = this.context.state.restAction;
+		if(this.canAdd(rest, continuing)) return rest;
+
+		return null;
+	}
+
+	/**
+	 * Checks if a task can be added.  
+	 * Ignores amount of available space.
+	 * @param {GData} task - Task that is being checked
+	 * @param {boolean} continuing - If task should go though idle-related checks
+	 * @returns {boolean} - If task can be added
+	 */
+	canAdd(task, continuing) {
+		if (task.controller) {
+			let controller = this.getContoller(task);
+			if (this.has(controller) && controller.baseTask === task) return false;
+			if (continuing && !controller.canContinue(this.context, task)) return false;
+		} else {
+			if (this.has(task)) return false;
+			if (continuing && !task.canContinue(this.context)) return false;
+		}
+		if (task.fill && this.context.filled(task.fill, task)) return false;
+		return task.canRun(this.context);
 	}
 
 	/**
@@ -418,16 +459,7 @@ export default class Runner {
 	tryAdd(a, pos, cont) {
 		if (!this.free) return false;
 
-		if (a.controller) {
-			let controller = this.getContoller(a);
-			if (this.has(controller) && controller.baseTask === a) return false;
-			if (cont && !controller.canContinue(this.context, a)) return false;
-		} else {
-			if (this.has(a)) return false;
-			if (cont && !a.canContinue(this.context)) return false;
-		}
-		if (a.fill && this.context.filled(a.fill, a)) return false;
-		if (!a.canRun(this.context)) return false;
+		if(!this.canAdd(a, cont)) return false;
 
 		return this.setTask(a, pos);
 
@@ -483,15 +515,15 @@ export default class Runner {
 
 	}
 
-	haltTask(act) {
+	haltTask(act, reason = TASK_END_REASON.USER) {
 
 		if (act.controller) act = this.getContoller(act);
 
 		// absolute rest stop if no tasks waiting.
-		if (this.waiting.length === 0 && act.hasTag(REST_TAG)) this.stopTask(act, false);
+		if (this.waiting.length === 0 && act.hasTag(REST_TAG)) this.stopTask(act, reason, false);
 
 		else {
-			this.stopTask(act);
+			this.stopTask(act, reason);
 		}
 
 	}
@@ -503,25 +535,28 @@ export default class Runner {
 	 */
 	actDone(act, repeatable = true) {
 
+		let baseTask = act.baseTask || act;
+
 		//console.log('COMPLETE: ' + act.id );
 
-		if (act.running === false || !repeatable) {
+		if (act.running === false || !repeatable || (this.pursuits.items.includes(baseTask) && this.getNextTask(true) !== act)) {
 			// skills cant complete when not running.
-			this.stopTask(act, true, true);
+			this.stopTask(act, TASK_END_REASON.SUCCESS);
 
 		} else if (repeatable) {
 
-			if (this.context.canRun(act) && this.actives.length <= this.max.value) {
+			let canRun = this.context.canRun(baseTask);
 
-				this.setTask(act);
+			if (canRun && this.free >= 0) {
+
+				this.setTask(baseTask);
 				if (!act.hasTag(REST_TAG)) {
 					this.tryResume();
 				}
 
-
 			} else {
 
-				this.actBlocked(act);
+				this.actBlocked(act, TASK_END_REASON.CANTRUN);
 
 			}
 
@@ -532,7 +567,7 @@ export default class Runner {
 	stopAll() {
 
 		for (let a of this.actives) {
-			this.stopTask(a, false);
+			this.stopTask(a, TASK_END_REASON.USER, false);
 		}
 		this.clearWaits();
 
@@ -546,6 +581,7 @@ export default class Runner {
 	 * Attempt to resume any waiting tasks.
 	 */
 	tryResume() {
+		if(this.free <= 0) return;
 
 		//console.log('tryResume() avail: ' + avail );
 
@@ -581,6 +617,10 @@ export default class Runner {
 		}
 
 		for (let a of this.timers) {
+			if (a == undefined|| !a.id) {
+				this.timers.delete(a) 
+				continue
+			}
 			if (a.tick(dt)) this.timers.delete(a);
 		}
 
@@ -588,7 +628,7 @@ export default class Runner {
 
 		// Force tryResume if it's been too long since the last one
 		// Value is in seconds
-		if(this.resumeTick >= 15) this.tryResume();
+		if (this.resumeTick >= 15) this.tryResume();
 	}
 
 	/**
@@ -609,13 +649,13 @@ export default class Runner {
 	doTask(a, dt) {
 
 		if ((a.length == 0 && a.perpetual == 0) || a.maxed()) {
-			this.stopTask(a);
+			this.stopTask(a, TASK_END_REASON.MAXED);
 			return false;
 		}
 
 		if (a.fill && this.context.filled(a.fill, a)) {
 
-			this.actBlocked(a);
+			this.actBlocked(a, TASK_END_REASON.FULL);
 			return false;
 
 		}
@@ -623,7 +663,7 @@ export default class Runner {
 		if (a.run) {
 
 			if (!this.context.canPay(a.run, dt)) {
-				this.actBlocked(a);
+				this.actBlocked(a, TASK_END_REASON.COST);
 				return false;
 			}
 			this.context.payCost(a.run, dt);

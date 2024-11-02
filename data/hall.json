@@ -24,7 +24,7 @@
 				"tags": "t_gloss_example",
 				"desc": [
 					"Example line.",
-					"Forced example newline",
+					"Forced example newline.",
 					"Example large text. Example large text. Example large text. Example large text. Example large text. Example large text. Example large text. Example large text. Example large text. Example large text. Example large text. Example large text. Example large text. Example large text. Example large text. Example large text. Example large text. Example large text. Example large text. Example large text. Example large text. Example large text. Example large text. Example large text. Example large text."
 				],
 				"require": "g.lore>999"
@@ -149,22 +149,24 @@
 					"prestige": 15
 				},
 				"mod": {
-					"spellcraft.max": "20%"
+					"spellcraft.max": "20%",
+					"spellcraft.rate": 2
 				}
 			},
 			{
 				"id": "dreamchamber",
 				"name": "dream chamber",
 				"tags": "hall,t_oneiromancy",
-				"desc": "An ancient artifact from before the art of Oneiromancy was lost. Makes users capable of controlling dreams... and vice-versa",
+				"desc": "An ancient artifact from before the art of Oneiromancy was lost. Makes users capable of controlling dreams... and vice-versa.",
 				"require": "tier5",
 				"max": 1,
 				"cost": {
 					"prestige": 40
 				},
 				"mod": {
+					"dreams.max": 5,
 					"dreams.rate": 0.0001,
-					"dreams.max": 5
+					"fourposter.mod.dreams.rate": 0.0001
 				},
 				"flavor": "In some time and place, even dreams were once real."
 			},
@@ -202,14 +204,11 @@
 				"name": "time fork",
 				"tags": "hall",
 				"desc": "Forces the timelines of all hall members to diverge without a need for a complicated procedure.",
+				"extdesc": "Adds a free timesplit to all wizards who do not yet own one, regardless of normal requirements.",
 				"require": "tier6",
 				"max": 1,
 				"cost": {
-					"prestige": 25,
-					"timesplit": 1
-				},
-				"mod": {
-					"timesplit": 1
+					"prestige": 25
 				}
 			},
 			{
@@ -238,9 +237,8 @@
 				},
 				"mod": {
 					"animals.max": 1,
-					"animals.rate": 1,
-					"cleanstables.result.gold": 0.05,
-					"chores.result.gold": 0.1,
+					"cleanstables.result.gold": 0.5,
+					"chores.result.gold": 1,
 					"errands.effect.gold": 0.15
 				}
 			},
@@ -319,12 +317,98 @@
 					"ritualnotes.max": 12,
 					"ritualward.max": 7
 				}
+			},
+			{
+				"id": "hall_dimensionalnexus",
+				"name": "dimensional nexus",
+				"tags": "hall",
+				"desc": "A more advanced version of a dhrunic nexus, permitting deeper exploration into the planes.",
+				"require": "g.tier6>0&&g.gate>0",
+				"max": 1,
+				"cost": {
+					"prestige": 40
+				},
+				"mod": {
+					"gate.mod.space": -15
+				}
+			},
+			{
+				"id": "hall_dimensionalexploration",
+				"name": "dimensional exploration",
+				"tags": "hall",
+				"desc": "Crossing the vast distances between planes personally is a risky and expensive endeavor. Use a probe to research them instead.",
+				"require": "g.hall_dimensionalnexus>0",
+				"max": 1,
+				"cost": {
+					"prestige": 10
+				}
+			},
+			{
+				"id": "hall_probing_mastery1",
+				"name": "early dimensional exploration results",
+				"tags": "hall",
+				"desc": "Well-known planes: Fire, Darkness, Void. Most wizards would find such information basic, but the comprehensive surveys are nonetheless valuable.",
+				"require": "g.hall_probedepth>=5",
+				"max": 1,
+				"mod": {
+					"planeslore.max": 1
+				}
+			},
+			{
+				"id": "hall_probing_mastery2",
+				"name": "further dimensional exploration results",
+				"tags": "hall",
+				"desc": "Lesser-known planes: That-which-exists, Zolohedron, Plane of Loathing. Inimical to existance of Dhrune's creatures, one can rest easy that the inhhabitants would not be able to exist on Dhrune either.",
+				"require": "g.hall_probedepth>=25",
+				"max": 1,
+				"mod": {
+					"planeslore.max": 2
+				}
+			},
+			{
+				"id": "hall_probing_mastery3",
+				"name": "furthest dimensional exploration results",
+				"tags": "hall",
+				"desc": "Previously unknown planes. At this point, the laws governing them are largely incomprehensible to a denizen of Dhrune. Further exploration will not yield much in a way of practical insight.",
+				"require": "g.hall_probedepth>=100",
+				"max": 1,
+				"mod": {
+					"planeslore.max": 3
+				}
 			}
 		],
 		"resources": [
-
+			{
+				"id": "hall_probematerials",
+				"name": "dimensional probe materials",
+				"desc": "Properly staged materials for further advancement of dimensional probing.",
+				"max": 30,
+				"group": "hall",
+				"convert": {
+					"singular": true,
+					"input": {
+						"hall_probematerials": "g.hall_probematerials.max"
+					},
+					"output": {
+						"effect": {
+							"hall_probedepth": 1
+						}
+					}
+				}
+			}
 		],
 		"stats": [
+			{
+				"id": "hall_probedepth",
+				"name": "dimensions probed",
+				"tags": "hall",
+				"locked": false,
+				"mod": {
+					"hall_probematerials.max": 10,
+					"planeslore.rate": "0.5%",
+					"voidlore.rate": "0.5%"
+				}
+			},
 			{
 				"id": "hallSize",
 				"tags": "hall",
@@ -376,8 +460,6 @@
 				"name": "hall"
 			}
 		],
-		"tasks": [
-
-		]
+		"tasks": []
 	}
 }

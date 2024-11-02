@@ -11,12 +11,7 @@
 			"kind": "squiggly",
 			"damage": "1~2"
 		},
-		"biome": [
-			"swamp",
-			"plains",
-			"woods",
-			"hills"
-		],
+		"biome": ["swamp", "plains", "woods", "hills"],
 		"loot": {
 			"maxlevel": 1
 		}
@@ -39,12 +34,12 @@
 		"name": "undead crow",
 		"level": 1,
 		"kind": "undead",
-		"desc": "Little more than tatters and bones",
+		"desc": "Little more than tatters and bones.",
 		"hp": 4,
 		"defense": 2,
 		"attack": {
 			"name": "pecking",
-			"kind": "necrotic",
+			"kind": "shadow",
 			"damage": "0.2~1"
 		},
 		"flavor": "How does it fly?"
@@ -137,11 +132,7 @@
 		"id": "bat",
 		"level": 1,
 		"kind": "beast",
-		"biome": [
-			"hills",
-			"cave",
-			"woods"
-		],
+		"biome": ["hills", "cave", "woods"],
 		"hp": 3,
 		"defense": 1,
 		"attack": {
@@ -232,11 +223,7 @@
 				"duration": 1
 			}
 		},
-		"biome": [
-			"town",
-			"plains",
-			"hills"
-		],
+		"biome": ["town", "plains", "hills"],
 		"resist": {
 			"mana": 50
 		},
@@ -396,7 +383,7 @@
 			"damage": "0~2"
 		},
 		"loot": {
-			"bones": 1
+			"bones": { "value": 1, "skipLocked": true }
 		}
 	},
 	{
@@ -467,7 +454,7 @@
 	{
 		"id": "willowisp",
 		"name": "will o' wisp",
-		"desc": "A gleaming orb of light",
+		"desc": "A gleaming orb of light.",
 		"kind": "spirit",
 		"level": 3,
 		"dodge": 5,
@@ -524,7 +511,7 @@
 		},
 		"loot": [
 			{
-				"bones": "2~5"
+				"bones": { "value": "2~5", "skipLocked": true }
 			},
 			{
 				"%": "25%",
@@ -569,7 +556,7 @@
 		"id": "m_scarab",
 		"level": 4,
 		"name": "scarab",
-		"desc": "Massive shimmering beetle with a projecting horn",
+		"desc": "Massive shimmering beetle with a projecting horn.",
 		"kind": "beast",
 		"hp": 5,
 		"defense": 7,
@@ -726,7 +713,7 @@
 				"gold": "5~7"
 			}
 		],
-		"flavor": "You remind me of the babe"
+		"flavor": "You remind me of the babe."
 	},
 	{
 		"id": "warg",
@@ -778,11 +765,7 @@
 			"kind": "pierce",
 			"damage": "1~4"
 		},
-		"biome": [
-			"mountains",
-			"hills",
-			"swamp"
-		],
+		"biome": ["mountains", "hills", "swamp"],
 		"loot": {
 			"gold": "1~3"
 		}
@@ -859,7 +842,7 @@
 			"shadow": 15
 		},
 		"loot": {
-			"bodies": "10%"
+			"bodies": { "%": "10%", "value": 1, "skipLocked": true }
 		}
 	},
 	{
@@ -951,10 +934,7 @@
 		"id": "slinger",
 		"name": "hobbit slinger",
 		"level": 5,
-		"biome": [
-			"town",
-			"plains"
-		],
+		"biome": ["town", "plains"],
 		"kind": "humanoid",
 		"evil": -1,
 		"flavor": "How much damage could he do with just a sling?",
@@ -1065,7 +1045,7 @@
 		"spells": "frostbolt",
 		"attack": {
 			"name": "frozen claws",
-			"kind": "cold",
+			"kind": "water",
 			"damage": "3~6"
 		},
 		"immune": "water"
@@ -1260,7 +1240,7 @@
 		"level": 6,
 		"kind": "magicbeast",
 		"desc": "Fiercely loyal when summoned by magic.",
-		"flavor": "Do not boop",
+		"flavor": "Do not boop.",
 		"hp": 50,
 		"regen": 2,
 		"defense": 20,
@@ -1306,7 +1286,7 @@
 		"name": "giant centipede",
 		"kind": "beast",
 		"level": 5,
-		"desc": "Creepy crawly",
+		"desc": "Creepy crawly.",
 		"hp": 16,
 		"defense": 15,
 		"attack": {
@@ -1315,7 +1295,8 @@
 			"damage": "5~8",
 			"dot": {
 				"damage": "1~3",
-				"kind": "venom",
+				"kind": "poison",
+				"name": "venom",
 				"duration": 3
 			}
 		}
@@ -1337,7 +1318,7 @@
 		"id": "leech",
 		"level": 4,
 		"kind": "beast",
-		"desc": "Blood sucking leech",
+		"desc": "Blood sucking leech.",
 		"hp": 6,
 		"attack": {
 			"name": "suck",
@@ -1370,7 +1351,7 @@
 		"defense": 14,
 		"attack": {
 			"name": "bite",
-			"kind": "physical",
+			"kind": "pierce",
 			"damage": "2~3",
 			"dot": {
 				"id": "sick",
@@ -1381,7 +1362,7 @@
 			"shadow": 20
 		},
 		"loot": {
-			"bodies": 1
+			"bodies": { "value": 1, "skipLocked": true }
 		}
 	},
 	{
@@ -1449,7 +1430,7 @@
 		"kind": "beast",
 		"hp": 12,
 		"defense": 25,
-		"desc": "A massive scuttling crab",
+		"desc": "A massive scuttling crab.",
 		"attack": {
 			"name": "claws",
 			"kind": "pierce",
@@ -1489,12 +1470,11 @@
 		"speed": 9,
 		"attack": {
 			"name": "claws",
-			"kind": "cold",
+			"kind": "water",
 			"damage": "4~7"
 		},
 		"resist": {
-			"cold": 20,
-			"water": 10
+			"water": 20
 		}
 	},
 	{
@@ -1577,7 +1557,7 @@
 		"level": 4,
 		"kind": "demon",
 		"evil": 5,
-		"desc": "Little demonic bastards",
+		"desc": "Little demonic bastards.",
 		"hp": 17,
 		"defense": 30,
 		"regen": 1,
@@ -1616,7 +1596,7 @@
 			"kind": "pierce",
 			"damage": "4~9",
 			"dot": {
-				"kind": "venom",
+				"kind": "poison",
 				"name": "poison",
 				"damage": "1~2",
 				"duration": 3
@@ -1625,11 +1605,7 @@
 		"resist": {
 			"poison": 25
 		},
-		"biome": [
-			"swamp",
-			"woods",
-			"mountains"
-		]
+		"biome": ["swamp", "woods", "mountains"]
 	},
 	{
 		"id": "vampirebat",
@@ -1652,7 +1628,7 @@
 		"name": "sand mite",
 		"kind": "beast",
 		"level": 5,
-		"desc": "Oversized parasites of the dunes",
+		"desc": "Oversized parasites of the dunes.",
 		"hp": 16,
 		"speed": 7,
 		"spells": "tremor",
@@ -1676,7 +1652,7 @@
 			"kind": "slash",
 			"damage": "7~12"
 		},
-		"flavor": "Vrrek is what most of their words sound like"
+		"flavor": "Vrrek is what most of their words sound like."
 	},
 	{
 		"id": "callodiper",
@@ -1922,11 +1898,7 @@
 	{
 		"id": "bear",
 		"level": 7,
-		"biome": [
-			"woods",
-			"hills",
-			"mountains"
-		],
+		"biome": ["woods", "hills", "mountains"],
 		"kind": "beast",
 		"desc": "He's angry now!!!",
 		"hp": 55,
@@ -2002,7 +1974,7 @@
 			"damage": "7~12"
 		},
 		"loot": {
-			"bodies": 1
+			"bodies": { "value": 1, "skipLocked": true }
 		}
 	},
 	{
@@ -2016,7 +1988,7 @@
 		"defense": 20,
 		"attack": {
 			"name": "scream",
-			"kind": "sonic",
+			"kind": "air",
 			"damage": "7~11"
 		},
 		"resist": {
@@ -2165,12 +2137,7 @@
 		"level": 10,
 		"evil": 8,
 		"kind": "giant",
-		"biome": [
-			"hills",
-			"woods",
-			"swamp",
-			"mountains"
-		],
+		"biome": ["hills", "woods", "swamp", "mountains"],
 		"desc": "Two heads are better than one.",
 		"hp": 65,
 		"defense": 30,
@@ -2211,7 +2178,7 @@
 		"spells": "deathbolt",
 		"attack": {
 			"name": "cold touch",
-			"kind": "cold",
+			"kind": "water",
 			"damage": "10~20",
 			"leech": 0.5
 		},
@@ -2245,7 +2212,7 @@
 		"name": "druid",
 		"level": 7,
 		"kind": "humanoid",
-		"desc": "Ardent of nature",
+		"desc": "Ardent of nature.",
 		"hp": 27,
 		"defense": 25,
 		"spells": "venom2",
@@ -2377,10 +2344,7 @@
 			"kind": "pierce",
 			"damage": "7~14"
 		},
-		"biome": [
-			"plains",
-			"woods"
-		]
+		"biome": ["plains", "woods"]
 	},
 	{
 		"id": "vampire",
@@ -2478,7 +2442,7 @@
 		"defense": 35,
 		"attack": {
 			"name": "ice shard",
-			"kind": "cold",
+			"kind": "water",
 			"damage": "8~15"
 		},
 		"loot": {
@@ -2531,7 +2495,7 @@
 		"defense": 40,
 		"attack": {
 			"name": "stare",
-			"kind": "magic",
+			"kind": "mana",
 			"targets": "enemies",
 			"damage": "17~25"
 		}
@@ -2564,13 +2528,8 @@
 			"kind": "slash",
 			"damage": "17~27"
 		},
-		"biome": [
-			"hills",
-			"woods"
-		],
-		"loot": [
-			"bear claw"
-		]
+		"biome": ["hills", "woods"],
+		"loot": ["bear claw"]
 	},
 	{
 		"id": "undeadhorror",
@@ -2603,11 +2562,7 @@
 			"kind": "slash",
 			"damage": "7~15"
 		},
-		"biome": [
-			"town",
-			"woods",
-			"plains"
-		],
+		"biome": ["town", "woods", "plains"],
 		"resist": {
 			"spirit": 25
 		}
@@ -2706,11 +2661,7 @@
 		"level": 9,
 		"evil": 15,
 		"kind": "giant",
-		"biome": [
-			"hills",
-			"mountains",
-			"cave"
-		],
+		"biome": ["hills", "mountains", "cave"],
 		"flavor": "They have a cave troll...",
 		"hp": 90,
 		"defense": 35,
@@ -2830,7 +2781,7 @@
 		"defense": 44,
 		"attack": {
 			"name": "mind flay",
-			"kind": "psionic",
+			"kind": "mana",
 			"damage": "11~19",
 			"dot": {
 				"id": "silence",
@@ -3012,12 +2963,7 @@
 			"kind": "slash",
 			"damage": "17~23"
 		},
-		"biome": [
-			"woods",
-			"hills",
-			"mountains",
-			"swamp"
-		]
+		"biome": ["woods", "hills", "mountains", "swamp"]
 	},
 	{
 		"id": "vampiremaster",
@@ -3047,6 +2993,7 @@
 		"desc": "A devoted follower of the sorceress Desilla.",
 		"kind": "humanoid",
 		"hp": 90,
+		"noproc": true,
 		"defense": 50,
 		"attack": {
 			"name": "claws",
@@ -3054,7 +3001,7 @@
 			"type": "slash"
 		},
 		"loot": {
-			"ecdysiastwrap": "1%"
+			"ecdysiastwrap": "100%"
 		}
 	},
 	{
@@ -3109,7 +3056,7 @@
 		"id": "trow",
 		"level": 12,
 		"evil": 5,
-		"desc": "A towering giant of stone",
+		"desc": "A towering giant of stone.",
 		"flavor": "You should have stayed out of the cloudspine.",
 		"kind": "giant",
 		"hp": 225,
@@ -3181,7 +3128,7 @@
 		"kind": "humanoid",
 		"unique": true,
 		"biome": "swamp",
-		"desc": "Vicious witch in the waters of the Great Bog",
+		"desc": "Vicious witch in the waters of the Great Bog.",
 		"hp": 500,
 		"defense": 48,
 		"regen": 2,
@@ -3332,7 +3279,7 @@
 		"name": "sand wyrm",
 		"kind": "beast",
 		"level": 14,
-		"desc": "Terror of the desert wastes",
+		"desc": "Terror of the desert wastes.",
 		"hp": 130,
 		"defense": 50,
 		"spells": "quake",
@@ -3529,12 +3476,12 @@
 		"defense": 65,
 		"attack": {
 			"name": "punch",
-			"kind": "cold",
+			"kind": "water",
 			"damage": "40~60"
 		},
 		"resist": {
 			"water": 75,
-			"air": 75
+			"air": 50
 		}
 	},
 	{
@@ -3682,7 +3629,7 @@
 		"name": "adamant golem",
 		"level": 21,
 		"kind": "construct",
-		"desc": "Unbreakable",
+		"desc": "Unbreakable.",
 		"hp": 450,
 		"defense": 130,
 		"attack": {
@@ -3918,7 +3865,7 @@
 		"name": "avatar",
 		"level": 23,
 		"kind": "deity",
-		"desc": "Incarnation of a god",
+		"desc": "Incarnation of a god.",
 		"hp": 700,
 		"defense": 120,
 		"regen": 20,
@@ -4093,13 +4040,14 @@
 	},
 	{
 		"id": "dhrozenknight",
+		"name": "dhrozen knight",
 		"level": 25,
 		"evil": 70,
 		"desc": "An immortal knight of Dhroz. Of fifty slain, one is knighted.",
 		"hp": 1200,
 		"attack": {
 			"name": "nether blade",
-			"kind": "nether",
+			"kind": "shadow",
 			"damage": "130~150"
 		},
 		"flavor": "To escape Sarnagar one had only collect the pieces of a single set of Dhrozen armor.",
@@ -4132,7 +4080,7 @@
 	{
 		"id": "netherwraith",
 		"level": 26,
-		"kind": "nether",
+		"kind": "spirit",
 		"desc": "A spirit cloaked in noxious nether.",
 		"hp": 1000,
 		"defense": 40,
@@ -4143,7 +4091,7 @@
 			"damage": "50~80",
 			"dot": {
 				"duration": 10,
-				"kind": "nether",
+				"kind": "shadow",
 				"damage": 30
 			}
 		},
@@ -4189,7 +4137,7 @@
 		"unused": true,
 		"evil": 100,
 		"kind": "humanoid",
-		"desc": "The terror before the Wind Age",
+		"desc": "The terror before the Wind Age.",
 		"hp": 9000,
 		"regen": 30,
 		"defense": 400,
@@ -4210,7 +4158,7 @@
 		"kind": "deity",
 		"unused": true,
 		"unique": true,
-		"desc": "The serpent that grips the earth in its scales",
+		"desc": "The serpent that grips the earth in its scales.",
 		"hp": 130000,
 		"defense": 200,
 		"attack": {
@@ -4231,7 +4179,22 @@
 		"noproc": true,
 		"defense": 1,
 		"speed": -10,
-		"spells": "mon_ephemeral"
+		"onSummon": {
+			"name": "ephemeral",
+			"id": "mon_selfdestruct5",
+			"targets": "self",
+			"dot": {
+				"targets": "self",
+				"duration": 5,
+				"onExpire": {
+					"name": "fade away",
+					"harmless": true,
+					"nodefense": true,
+					"targets": "self",
+					"damage": "100+a.hp"
+				}
+			}
+		}
 	},
 	{
 		"id": "sum_hobgoblin",
@@ -4264,7 +4227,7 @@
 			"kind": "pierce",
 			"damage": "4~9",
 			"dot": {
-				"kind": "venom",
+				"kind": "poison",
 				"name": "poison",
 				"damage": "1~2",
 				"duration": 3
@@ -4301,7 +4264,21 @@
 		"noproc": true,
 		"defense": 2,
 		"speed": -10,
-		"spells": "mon_ephemeral"
+		"onSummon": {
+			"name": "ephemeral",
+			"id": "mon_selfdestruct5",
+			"targets": "self",
+			"dot": {
+				"duration": 5,
+				"onExpire": {
+					"name": "fade away",
+					"harmless": true,
+					"nodefense": true,
+					"targets": "self",
+					"damage": "100+a.hp"
+				}
+			}
+		}
 	},
 	{
 		"id": "sum_magicblade",
@@ -4329,7 +4306,7 @@
 		"level": 6,
 		"kind": "magicbeast",
 		"desc": "Summoned by magic, now fiercely loyal to you.",
-		"flavor": "Boop as desired",
+		"flavor": "Boop as desired.",
 		"hp": 50,
 		"noproc": true,
 		"regen": 2,
@@ -4364,8 +4341,23 @@
 		"hp": 100,
 		"noproc": true,
 		"defense": 50,
-		"spells": "mon_ephemeral",
+		"onSummon": {
+			"name": "ephemeral",
+			"id": "mon_selfdestruct5",
+			"targets": "self",
+			"dot": {
+				"duration": 5,
+				"onExpire": {
+					"name": "fade away",
+					"harmless": true,
+					"nodefense": true,
+					"targets": "self",
+					"damage": "100+a.hp"
+				}
+			}
+		},
 		"onDeath": {
+			"name": "radiant burst",
 			"targets": "enemies",
 			"harmless": true,
 			"damage": 100,
@@ -4431,17 +4423,22 @@
 		"hp": 160,
 		"noproc": true,
 		"defense": 65,
-		"spells": "mon_taunt",
+		"onSummon": {
+			"name": "stalwart",
+			"targets": "self",
+			"dot": {
+				"tags": "t_taunt",
+				"flags": "taunt"
+			}
+		},
 		"attack": {
 			"name": "punch",
-			"kind": "cold",
+			"kind": "water",
 			"damage": "40~60"
 		},
 		"resist": {
 			"water": 75,
-			"air": 75,
-			"cold": 75,
-			"ice": 75
+			"air": 50
 		}
 	},
 	{
@@ -4500,7 +4497,36 @@
 		"hp": 10,
 		"noproc": true,
 		"defense": 30,
-		"spells": "mon_incubate_phoenix",
+		"onSummon": {
+			"name": "incubate",
+			"targets": "self",
+			"dot": {
+				"duration": 10,
+				"onExpire": {
+					"name": "hatch",
+					"hits": [
+						{
+							"name": "hatch",
+							"targets": "leader",
+							"summon": [
+								{
+									"id": "sum_phoenix",
+									"count": 1,
+									"max": 3
+								}
+							]
+						},
+						{
+							"name": "fade away",
+							"targets": "self",
+							"harmless": true,
+							"nodefense": true,
+							"damage": "100+a.hp"
+						}
+					]
+				}
+			}
+		},
 		"immune": "fire"
 	},
 	{
@@ -4513,7 +4539,23 @@
 		"hp": 47,
 		"noproc": true,
 		"defense": 40,
-		"spells": "mon_phoenix_rebirth",
+		"onSummon": {
+			"name": "rebirth",
+			"targets": "self",
+			"dot": {
+				"onDeath": {
+					"name": "rebirth",
+					"targets": "leader",
+					"summon": [
+						{
+							"id": "sum_phoenixegg",
+							"count": 1,
+							"max": 3
+						}
+					]
+				}
+			}
+		},
 		"attack": {
 			"name": "flame wing",
 			"kind": "fire",
@@ -4527,7 +4569,7 @@
 		"tags": "t_summon",
 		"kind": "beast",
 		"level": 5,
-		"desc": "Oversized parasites of the dunes",
+		"desc": "Oversized parasites of the dunes.",
 		"hp": 16,
 		"noproc": true,
 		"speed": 7,
@@ -4560,6 +4602,7 @@
 			"leech": 0.1
 		},
 		"onDeath": {
+			"name": "shadow price",
 			"targets": "leader",
 			"harmless": true,
 			"nodefense": true,
@@ -4619,15 +4662,28 @@
 		"hp": 100,
 		"noproc": true,
 		"defense": 50,
-		"spells": "mon_ephemeral",
+		"onSummon": {
+			"id": "mon_selfdestruct5",
+			"name": "ephemeral",
+			"targets": "self",
+			"dot": {
+				"duration": 5,
+				"onExpire": {
+					"name": "fade away",
+					"harmless": true,
+					"nodefense": true,
+					"targets": "self",
+					"damage": "100+a.hp"
+				}
+			}
+		},
 		"onDeath": {
+			"name": "supernova",
 			"hits": [
 				{
 					"targets": "allies",
 					"harmless": true,
-					"result": {
-						"hp": 20
-					}
+					"healing": "20~25"
 				},
 				{
 					"targets": "enemies",
@@ -4649,8 +4705,23 @@
 		"hp": 100,
 		"noproc": true,
 		"defense": 50,
-		"spells": "mon_ephemeral",
+		"onSummon": {
+			"name": "ephemeral",
+			"id": "mon_selfdestruct5",
+			"targets": "self",
+			"dot": {
+				"duration": 5,
+				"onExpire": {
+					"name": "fade away",
+					"harmless": true,
+					"nodefense": true,
+					"targets": "self",
+					"damage": "100+a.hp"
+				}
+			}
+		},
 		"onDeath": {
+			"name": "event horizon",
 			"hits": [
 				{
 					"targets": "allies",
@@ -4671,15 +4742,14 @@
 	{
 		"id": "sum_imp",
 		"name": "imp",
-		"tags": "t_summon",
-		"level": 4,
+		"desc": "Little demonic bastards.",
 		"kind": "demon",
-		"evil": 5,
-		"desc": "Little demonic bastards",
-		"hp": 17,
+		"tags": "t_summon",
 		"noproc": true,
-		"defense": 30,
-		"regen": 1,
+		"level": 5,
+		"hp": 21,
+		"defense": 22,
+		"regen": 3,
 		"spells": "darkbolt,magicmissile,firedart",
 		"attack": [
 			{
@@ -4696,60 +4766,72 @@
 			}
 		],
 		"resist": {
-			"fire": 20
+			"fire": 60,
+			"light": -30
 		}
 	},
 	{
 		"id": "sum_quasit",
 		"name": "quasit",
-		"tags": "t_summon",
-		"level": 7,
-		"kind": "demon",
 		"desc": "Like a demonic humanoid vulture.",
-		"hp": 22,
+		"kind": "demon",
+		"tags": "t_summon",
 		"noproc": true,
-		"defense": 30,
-		"regen": 1,
+		"level": 11,
+		"hp": 79,
+		"defense": 33,
+		"regen": 7,
 		"spells": "searingbolt,magebolt",
 		"attack": {
 			"name": "claws",
 			"kind": "slash",
 			"damage": "4~9"
+		},
+		"resist": {
+			"fire": 40,
+			"light": -20
 		}
 	},
 	{
 		"id": "sum_grimstalk",
 		"name": "grimstalk",
-		"tags": "t_summon",
-		"level": 11,
 		"desc": "A wooden demon with fingers like blades.",
 		"kind": "demon",
-		"evil": 19,
-		"hp": 53,
-		"defense": 35,
+		"tags": "t_summon",
+		"noproc": true,
+		"level": 17,
+		"hp": 444,
+		"defense": 55,
 		"regen": 7,
 		"attack": {
 			"name": "claws",
 			"kind": "slash",
 			"damage": "12~28"
+		},
+		"resist": {
+			"fire": -10,
+			"light": -10
 		}
 	},
 	{
 		"id": "sum_demon",
 		"name": "demon",
+		"flavor": "He should really trim his horns a bit, they are starting to get tangled.",
 		"tags": "t_summon",
-		"level": 14,
+		"level": 21,
 		"kind": "demon",
-		"evil": 32,
-		"desc": "",
-		"hp": 145,
+		"hp": 666,
 		"noproc": true,
-		"defense": 65,
-		"regen": 2,
+		"defense": 66,
+		"regen": 17,
 		"attack": {
 			"name": "darksword",
 			"kind": "evil",
-			"damage": "15~40"
+			"damage": "33~66"
+		},
+		"resist": {
+			"fire": 80,
+			"light": -30
 		}
 	},
 	{
@@ -4763,7 +4845,14 @@
 		"noproc": true,
 		"defense": 40,
 		"dodge": -10,
-		"spells": "mon_taunt",
+		"onSummon": {
+			"name": "impassable",
+			"targets": "self",
+			"dot": {
+				"tags": "t_taunt",
+				"flags": "taunt"
+			}
+		},
 		"resist": {
 			"physical": 75,
 			"slash": 75,
@@ -4787,6 +4876,7 @@
 		"noproc": true,
 		"defense": 15,
 		"onDeath": {
+			"name": "crunch",
 			"targets": "enemy",
 			"damage": "10~20",
 			"dot": {
@@ -4801,5 +4891,229 @@
 			"kind": "pierce"
 		},
 		"immune": "spirit"
+	},
+	{
+		"id": "sillyrabbitcomp",
+		"tags": "t_animalcompanion",
+		"slot": "companion",
+		"require": "g.rabbittrick>0",
+		"name": "rabbit companion",
+		"level": 10,
+		"kind": "beast",
+		"noproc": true,
+		"speed": 15,
+		"hp": 10,
+		"tohit": 20,
+		"defense": -1,
+		"dodge": 50,
+		"regen": 1,
+		"onSummon": {
+			"name": "wascally",
+			"targets": "self",
+			"dot": {
+				"tags": "t_taunt",
+				"flags": "taunt"
+			}
+		},
+		"attack": [
+			{
+				"name": "vorpal bite",
+				"kind": "pierce",
+				"targets": "enemy",
+				"damage": "1+(Math.random()*Math.min(t.hp.max/10, 50))"
+			},
+			{
+				"name": "tomfoolery",
+				"kind": "chaos",
+				"targets": "enemy",
+				"damage": "1~7",
+				"dot": {
+					"mod": {
+						"self.resist.chaos": -20
+					},
+					"duration": 10
+				}
+			},
+			{
+				"name": "shenanigans",
+				"kind": "chaos",
+				"targets": "enemies",
+				"damage": "1~7",
+				"dot": {
+					"name": "jinx",
+					"kind": "curse",
+					"duration": 10,
+					"mod": {
+						"self.tohit": -2
+					}
+				}
+			}
+		],
+		"immune": "chaos",
+		"flavor": "Loves childish tricks."
+	},
+	{
+		"id": "abyssal_dreg",
+		"name": "Dreg of the Abyss",
+		"level": 30,
+		"kind": "abyssal",
+		"hp": 500,
+		"defense": 0,
+		"speed": 40,
+		"tohit": 50,
+		"dodge": 30,
+		"attack": [
+			{
+				"name": "pale struggle",
+				"kind": "shadow",
+				"damage": "15~35"
+			}
+		],
+		"loot": []
+	},
+	{
+		"id": "abyssal_lesser_shadow",
+		"name": "Lesser Shadow of the Abyss",
+		"level": 30,
+		"kind": "abyssal",
+		"hp": 650,
+		"defense": 25,
+		"speed": 40,
+		"tohit": 50,
+		"dodge": 30,
+		"attack": [
+			{
+				"name": "spectral wallop",
+				"kind": "spirit",
+				"damage": "25~75"
+			}
+		],
+		"loot": []
+	},
+	{
+		"id": "abyssal_rat_mother",
+		"name": "Rat Mother of the Abyss",
+		"level": 30,
+		"kind": "abyssal",
+		"hp": 600,
+		"defense": 0,
+		"speed": 40,
+		"tohit": 50,
+		"dodge": 30,
+		"attack": [
+			{
+				"name": "tainted slam",
+				"kind": "nature",
+				"damage": "20~60"
+			}
+		],
+		"loot": []
+	},
+	{
+		"id": "abyssal_rat",
+		"name": "Rat of the Abyss",
+		"level": 30,
+		"kind": "abyssal",
+		"hp": 200,
+		"defense": 0,
+		"speed": 40,
+		"tohit": 50,
+		"dodge": 30,
+		"attack": [
+			{
+				"name": "tainted bite",
+				"kind": "nature",
+				"damage": "5~35"
+			}
+		],
+		"loot": []
+	},
+	{
+		"id": "abyssal_raven_flock",
+		"name": "Raven Flock of the Abyss",
+		"level": 30,
+		"kind": "abyssal",
+		"hp": 750,
+		"defense": 0,
+		"speed": 40,
+		"tohit": 50,
+		"dodge": 40,
+		"attack": [
+			{
+				"name": "swarming assault",
+				"kind": "air",
+				"damage": "20~50"
+			}
+		],
+		"loot": []
+	},
+	{
+		"id": "abyssal_cinder_golem",
+		"name": "Cinder Golem of the Abyss",
+		"level": 30,
+		"kind": "abyssal",
+		"hp": 800,
+		"defense": 100,
+		"speed": 40,
+		"tohit": 50,
+		"dodge": 30,
+		"attack": [
+			{
+				"name": "boulder sling",
+				"kind": "earth",
+				"damage": "50~100"
+			},
+			{
+				"name": "heatwave",
+				"kind": "fire",
+				"targets": "enemies",
+				"damage": "30~70"
+			}
+		]
+	},
+	{
+		"id": "abyssal_proselyte",
+		"name": "Proselyte of the Abyss",
+		"level": 32,
+		"kind": "abyssal",
+		"hp": 1200,
+		"defense": 0,
+		"speed": 40,
+		"tohit": 50,
+		"dodge": 30,
+		"attack": [
+			{
+				"name": "lightless burst",
+				"kind": "light",
+				"damage": "75~125",
+				"targets": "enemies"
+			}
+		]
+	},
+	{
+		"id": "abyssal_soldier",
+		"name": "Soldier of the Abyss",
+		"level": 32,
+		"kind": "abyssal",
+		"hp": 1500,
+		"defense": 25,
+		"speed": 45,
+		"tohit": 55,
+		"dodge": 35,
+		"attack": [
+			{ "name": "piercing thrust", "kind": "pierce", "damage": "60~80" }
+		]
+	},
+	{
+		"id": "abyssal_knight",
+		"name": "Knight of the Abyss",
+		"level": 35,
+		"kind": "abyssal",
+		"hp": 2000,
+		"defense": 50,
+		"speed": 50,
+		"tohit": 60,
+		"dodge": 35,
+		"attack": [{ "name": "square off", "kind": "slash", "damage": "95~105" }]
 	}
 ]

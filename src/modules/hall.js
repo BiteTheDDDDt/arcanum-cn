@@ -1,20 +1,20 @@
-import CharInfo from "./charinfo";
-import { TimeId } from "../values/consts";
+import CharInfo from '@/modules/charinfo';
+import { TimeId } from '@/values/consts';
 
 /**
  * Wizards hall.
  */
 export default class Hall {
 
-	toJSON(){
+	toJSON() {
 
 		return {
 
-			id:this.id,
-			name:this.name,
-			chars:this.chars,
-			curId:this.curId,
-			items:this.items
+			id: this.id,
+			name: this.name,
+			chars: this.chars,
+			curId: this.curId,
+			items: this.items
 
 		}
 
@@ -23,8 +23,8 @@ export default class Hall {
 	/**
 	 * @property {string} id
 	 */
-	get id(){return this._id;}
-	set id(v){this._id = v;}
+	get id() { return this._id; }
+	set id(v) { this._id = v; }
 
 	/**
 	 * @property {string} name - name of hall.
@@ -43,14 +43,14 @@ export default class Hall {
 	/**
 	 * @public @property {string} activeId - pid of active character.
 	 */
-	get curId(){
+	get curId() {
 		return this._curId;
 	}
 	/**
 	 * @private @property {string} activeId
 	 */
-	set curId(v){
-		this._curId=v;
+	set curId(v) {
+		this._curId = v;
 	}
 
 	/**
@@ -59,7 +59,7 @@ export default class Hall {
 	get chars() { return this._chars; }
 	set chars(v) {
 
-		for( let i = v.length-1; i >= 0; i-- ) {
+		for (let i = v.length - 1; i >= 0; i--) {
 			v[i] = new CharInfo(v[i]);
 		}
 
@@ -70,32 +70,33 @@ export default class Hall {
 	 * @property {StatData} prestige
 	 */
 	get prestige() { return this._prestige; }
-	set prestige(v) { this._prestige = v;
+	set prestige(v) {
+		this._prestige = v;
 
 	}
 
 	/**
 	 * @property {StatData} points - player point total.
 	 */
-	get points(){return this._points;}
-	set points(v){this._points=v;}
+	get points() { return this._points; }
+	set points(v) { this._points = v; }
 
 	/**
 	 * GData specific to hall.
 	 * @property {Object.<string,GData>} items
 	 */
-	get items() {return this._items;}
-	set items(v){
+	get items() { return this._items; }
+	set items(v) {
 
 		/*for( let p in v ){ console.log( 'hall: ' + p); }*/
-		this._items=v;
+		this._items = v;
 	}
 
 	/**
 	 * @property {Stat} max - maximum char slots.
 	 * slots are zero-based indices.
 	 */
-	get max() {return this._max; }
+	get max() { return this._max; }
 	set max(v) { this._max = v; }
 
 	/**
@@ -103,20 +104,20 @@ export default class Hall {
 	 * @param {object} vars - merged hall saved and module data,
 	 * all hall items, and standard hall lists.
 	 */
-	constructor(vars=null ){
+	constructor(vars = null) {
 
-		if ( vars ) Object.assign(this, vars);
+		if (vars) Object.assign(this, vars);
 
-		if (!this.id ) {
+		if (!this.id) {
 			this.id = TimeId('h');
-			console.log('NEW HALL ID: ' + this.id );
-		} else console.log('HALL ID: ' + this.id );
+			console.log('NEW HALL ID: ' + this.id);
+		} else console.log('HALL ID: ' + this.id);
 
-		if ( !this.chars ) this.chars = [];
+		if (!this.chars) this.chars = [];
 
 		this.findCur(vars);
 
-		if ( !this.name ) this.name = "Wizard's Hall";
+		if (!this.name) this.name = "Wizard's Hall";
 
 		/*if ( this.items ) {
 			console.log( 'EVT HALL: ' + this.items.evt_hall.value );
@@ -132,7 +133,7 @@ export default class Hall {
 		const hallPoints = this.items.hallPoints && this.items.hallPoints.value.value || 0;
 
 		this.prestige = this.items.prestige;
-		this.items.prestige.value.set(hallPoints+prestige > 0 ? hallPoints+prestige : 0);
+		this.items.prestige.value.set(hallPoints + prestige > 0 ? hallPoints + prestige : 0);
 		this.items.hallPoints.value.set(0);
 
 
@@ -144,25 +145,25 @@ export default class Hall {
 	 * Set curId/active index based on save.
 	 * @param {object} vars
 	 */
-	findCur(vars){
+	findCur(vars) {
 
-		if ( vars.active ) {
+		if (vars.active) {
 
-			console.log('LEGACY HALL SLOT: ' + vars.active );
+			console.log('LEGACY HALL SLOT: ' + vars.active);
 
 			this.legacy = true;
-			this.setActive( vars.active );
+			this.setActive(vars.active);
 
 		} else {
 
 			let pid = this.curId = vars.curId;
-			this.curSlot = this.chars.findIndex(c=>c.pid===pid);
+			this.curSlot = this.chars.findIndex(c => c.pid === pid);
 
-			console.log('CUR HALL CHAR: ' + pid + '  AT SLOT: '+this.curSlot )
+			console.log('CUR HALL CHAR: ' + pid + '  AT SLOT: ' + this.curSlot)
 
 		}
 
-		if ( !this.curId ||  this.curSlot < 0 ) {
+		if (!this.curId || this.curSlot < 0) {
 			this.curId = null;
 			this.curSlot = 0;
 		}
@@ -179,9 +180,9 @@ export default class Hall {
 	 * @param {string} slot
 	 * @returns {boolean} false on invalid slot.
 	 */
-	dismiss( slot ) {
+	dismiss(slot) {
 
-		if ( slot < 0 || slot >= this.chars.length ) return false;
+		if (slot < 0 || slot >= this.chars.length) return false;
 
 		this.chars[slot].empty = true;
 		this.chars[slot].name = null;
@@ -194,14 +195,14 @@ export default class Hall {
 	/**
 	 * Creates char objects and calculates points.
 	 */
-	initChars(){
+	initChars() {
 
 		const max = this.max.value;
-		for( let i = 0; i < max; i++ ) {
+		for (let i = 0; i < max; i++) {
 
 			const c = this.chars[i];
-			if ( c === undefined ) {
-				this.chars.push( new CharInfo() );
+			if (c === undefined) {
+				this.chars.push(new CharInfo());
 			}
 
 		}
@@ -213,18 +214,18 @@ export default class Hall {
 	 * Also creates new CharInfo for uninstantiated seats.
 	 * @returns {CharInfo[]} available chars.
 	 */
-	getChars(){
+	getChars() {
 
 		const max = this.max.value;
-		for( let i = 0; i < max; i++ ) {
+		for (let i = 0; i < max; i++) {
 
-			if ( this.chars[i] === undefined ) {
-				this.chars.push( new CharInfo() );
+			if (this.chars[i] === undefined) {
+				this.chars.push(new CharInfo());
 			}
 
 		}
 
-		if ( this.chars.length > max ) this.chars = this.chars.slice( 0, Math.floor(max) );
+		if (this.chars.length > max) this.chars = this.chars.slice(0, Math.floor(max));
 
 		return this.chars;
 
@@ -237,10 +238,10 @@ export default class Hall {
 	 * @param {number} slot
 	 * @returns {boolean} false on invalid slot.
 	 */
-	setActive( slot ) {
+	setActive(slot) {
 
-		if ( slot < 0 || slot >= this.chars.length ) {
-			console.warn('invalid char slot: '+ slot);
+		if (slot < 0 || slot >= this.chars.length) {
+			console.warn('invalid char slot: ' + slot);
 			return false;
 		}
 		this.curSlot = slot;
@@ -256,29 +257,29 @@ export default class Hall {
 	 * Player data loaded. Copy information into the active slot.
 	 * @param {Player} p
 	 */
-	updateChar( p, pid=null ) {
+	updateChar(p, pid = null) {
 
 		let char = this.getSlot(this.curSlot);
 
-		if ( !char ) char = this.chars[ this.curSlot  ] = new CharInfo();
-		char.update( p );
-		if ( pid ) {
+		if (!char) char = this.chars[this.curSlot] = new CharInfo();
+		char.update(p);
+		if (pid) {
 			this.curId = char.pid = pid;
 		}
 
 	}
 
-	setLevel( player, lvl ){
+	setLevel(player, lvl) {
 
-		let char = this.getSlot( this.curSlot );
-		if ( char) char.level = lvl;
+		let char = this.getSlot(this.curSlot);
+		if (char) char.level = lvl;
 
 	}
 
-	setName(name, slot=-1 ){
+	setName(name, slot = -1) {
 
 		let char = this.getSlot(slot);
-		if ( char) char.name = name;
+		if (char) char.name = name;
 
 	}
 
@@ -286,11 +287,11 @@ export default class Hall {
 	 * @param {number} pid - character pid to search for.
 	 * @returns {number} slot of character with given pid, or -1.
 	 */
-	pidSlot( pid ){ return this.chars.findIndex( v=>v.pid==pid); }
+	pidSlot(pid) { return this.chars.findIndex(v => v.pid == pid); }
 
-	setTitle( title, slot=-1 ){
+	setTitle(title, slot = -1) {
 		let char = this.getSlot(slot);
-		if ( char) char.title = title;
+		if (char) char.title = title;
 	}
 
 	/**
@@ -298,8 +299,8 @@ export default class Hall {
 	 * @param {number} slot
 	 * @returns {string}
 	 */
-	charId( slot=-1) {
-		if ( slot > this.chars.length ) return null;
+	charId(slot = -1) {
+		if (slot > this.chars.length) return null;
 		return this.chars[slot].pid;
 	}
 
@@ -308,16 +309,16 @@ export default class Hall {
 	 * @param {*} slot
 	 * @returns {CharInfo}
 	 */
-	getSlot(slot=-1) {
-		return this.chars[ slot < 0 ? this.curSlot : slot ];
+	getSlot(slot = -1) {
+		return this.chars[slot < 0 ? this.curSlot : slot];
 	}
 
 	/**
 	 * Remove character by slot.
 	 * @param {number} slot
 	 */
-	rmChar( slot ) {
-		this.chars[ slot ] = undefined;
+	rmChar(slot) {
+		this.chars[slot] = undefined;
 	}
 
 }

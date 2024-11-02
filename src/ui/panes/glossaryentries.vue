@@ -10,12 +10,13 @@ export default {
 	 * @property {Entry[]} items
 	 */
 	props: ['items'],
+
 	mixins: [UIMixin],
 
 	data() {
 
 		const ops = Settings.getSubVars('entryview');
-		
+
 		let hide = {};
 
 		if (ops && ops.hide) hide = ops.hide;
@@ -30,21 +31,17 @@ export default {
 		}
 
 	},
+
 	components: {
 		group: EntryGroup
 	},
+
 	methods: {
-		passSelected(it) {
-			this.$emit('selected', it)
+		onSelected(event) {
+			this.$emit('selected', event);
 		},
-		resetSelected(it)
-		{
-			for (let a of this.$children)
-			{
-				if (a.selecteditem != it) a.selecteditem = null
-			}
-		}
 	},
+
 	computed: {
 		filteredItems() {
 			const items = this.items;
@@ -68,6 +65,7 @@ export default {
 			return this.groups
 		}
 	},
+
 	created() {
 
 		// build item groups.
@@ -93,17 +91,15 @@ export default {
 		this.groups = groups;
 
 	}
-
-}
+};
 </script>
 
 
 <template>
 	<div class="res-list">
-		<div class="config"><button ref="btnHides" class="btnConfig"></button></div>
-		<div v-if="groups" class="res-container"> 
-			<group class="res-group" @selected="$emit('selected', $event)" v-for="(g, p) in filteredItems" :items="g" :group="p"
-				:hide="hide" :key="p" />
+		<div class="config"><button type="button" ref="btnHides" class="btnConfig"></button></div>
+		<div v-if="groups" class="res-container">
+			<group class="res-group" v-for="(g, p) in filteredItems" :items="g" :group="p" :hide="hide" :key="p" />
 		</div>
 	</div>
 </template>

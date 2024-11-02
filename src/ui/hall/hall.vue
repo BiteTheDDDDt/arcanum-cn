@@ -1,12 +1,12 @@
 <script>
 
-import Profile from '../../modules/profile';
+import Profile from '@/modules/profile';
 
-import Info from './charinfo.vue';
-import Upgrades from './hall_upgrades.vue';
-import { centerXY } from '../popups/popups.js';
-import { EVT_STAT } from '../../events';
-import { formatNumber } from '../../util/format';
+import Info from '@/ui/hall/charinfo.vue';
+import Upgrades from '@/ui/hall/hall_upgrades.vue';
+import { centerXY } from '@/ui/popups/popups.js';
+import { EVT_STAT } from '@/events';
+import { formatNumber } from '@/util/format';
 /**
  * Hall of Wizards
  *
@@ -15,24 +15,29 @@ import { formatNumber } from '../../util/format';
  * @emits close
  */
 export default {
+    emits: ["close"],
 
-	components: {
+    components: {
 		info: Info,
 		upgrades: Upgrades
 	},
-	data() {
+
+    data() {
 		return {
 			chars: Profile.hall.chars,
 			hName: Profile.hall.name
 		}
 	},
-	mounted() {
+
+    mounted() {
 		centerXY(this.$el);
 	},
-	updated() {
+
+    updated() {
 		centerXY(this.$el);
 	},
-	methods: {
+
+    methods: {
 		formatNumber: formatNumber,
 
 		load(slot) {
@@ -57,7 +62,8 @@ export default {
 			if (okay) this.dispatch('set-char', slot);
 		},
 	},
-	computed: {
+
+    computed: {
 
 		hall() { return Profile.hall; },
 
@@ -74,6 +80,13 @@ export default {
 			return p;
 
 		},
+		probedepth() {
+
+			const p = this.hall.items.hall_probedepth;
+
+			return p;
+
+		},
 
 		hallName: {
 			get() { return this.hName; },
@@ -83,8 +96,7 @@ export default {
 			}
 		}
 	}
-
-}
+};
 </script>
 
 <template>
@@ -94,13 +106,16 @@ export default {
 			<div class="flex-col">
 				<div  @mouseenter.capture.stop="itemOver($event, hall.prestige)">Hall Prestige: {{
 					formatNumber(prestige) }}</div>
+				<div v-if='probedepth.valueOf()'  @mouseenter.capture.stop="itemOver($event, probedepth)">
+					Dimensions probed: {{
+					formatNumber(probedepth.valueOf()) }}</div>
 			</div>
 			
 			<div class="header"><input class="fld-name text-entry" type="text" v-model="hallName">
 				<div class="text-button"><a href="" @click.self.prevent="dispatch('hall-file', $event)"
 						type="text/json">Hall Save</a></div>
 
-				<confirm @confirm="dispatch('resetHall')">Wipe Hall Save</confirm>
+				
 
 			</div>
 			<div></div>

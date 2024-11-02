@@ -1,16 +1,17 @@
 <script>
-import Game from '../../game';
-import ItemBase from '../itemsBase.js';
-import { alphasort, levelsort } from '../../util/util';
-import Settings from '../../modules/settings';
+import Game from '@/game';
+import ItemBase from '@/ui/itemsBase.js';
+import { alphasort, levelsort } from '@/util/util';
+import Settings from '@/modules/settings';
 
-import ProgBar from '../components/progbar.vue';
-import FilterBox from '../components/filterbox.vue';
+import ProgBar from '@/ui/components/progbar.vue';
+import FilterBox from '@/ui/components/filterbox.vue';
 
-import Explore from '../items/explore.vue';
+import Explore from '@/ui/items/explore.vue';
 
-import { LOG_COMBAT } from '../../events';
-import { EXPLORE, DUNGEON, LOCALE, CLASH } from '../../values/consts';
+import { LOG_COMBAT } from '@/events';
+import { EXPLORE, DUNGEON, LOCALE, CLASH } from '@/values/consts';
+import { defineAsyncComponent } from 'vue';
 
 const MAX_ITEMS = 7;
 
@@ -19,65 +20,65 @@ const MAX_ITEMS = 7;
  */
 export default {
 
-	props:['state'],
-	mixins:[ItemBase],
-	data(){
+	props: ['state'],
+	mixins: [ItemBase],
+	data() {
 
 		let ops = Settings.getSubVars(EXPLORE);
 
 		return {
-			showDone:ops.hasOwnProperty('showDone') ? ops.showDone : true,
-			showCombatDungeon:ops.hasOwnProperty('showCombatDungeon') ? ops.showCombatDungeon : true,
-			showLocale:ops.hasOwnProperty('showLocale') ? ops.showLocale : true,
-			showClash:ops.hasOwnProperty('showClash') ? ops.showClash : true,
-			lvlSort:ops.lvlSort,
-			log:Game.log,
-			filtered:null
+			showDone: ops.hasOwnProperty('showDone') ? ops.showDone : true,
+			showCombatDungeon: ops.hasOwnProperty('showCombatDungeon') ? ops.showCombatDungeon : true,
+			showLocale: ops.hasOwnProperty('showLocale') ? ops.showLocale : true,
+			showClash: ops.hasOwnProperty('showClash') ? ops.showClash : true,
+			lvlSort: ops.lvlSort,
+			log: Game.log,
+			filtered: null
 		}
 
 	},
-	beforeCreate(){
+	beforeCreate() {
 		this.game = Game;
 	},
-	components:{
-		explore:Explore,
-		progbar:ProgBar,
-		filterbox:FilterBox,
-		inv:()=>import( /* webpackChunkName: "inv-ui" */ './inventory.vue')
+	components: {
+		explore: Explore,
+		progbar: ProgBar,
+		filterbox: FilterBox,
+		inv: defineAsyncComponent(() => import( /* webpackChunkName: "inv-ui" */ './inventory.vue'))
 	},
-	computed:{
+	computed: {
 
-		chkLevelSort:{
-			get(){ return this.lvlSort; },
-			set(v){
-				this.lvlSort = Settings.setSubVar( EXPLORE, 'lvlSort', v );
+		chkLevelSort: {
+			get() { return this.lvlSort; },
+			set(v) {
+				this.lvlSort = Settings.setSubVar(EXPLORE, 'lvlSort', v);
 			}
 		},
-		chkShowDone:{
-			get(){return this.showDone;},
-			set(v){
-				this.showDone = Settings.setSubVar( EXPLORE, 'showDone', v );
-			}
-		},
-
-		chkShowCombatDungeon:{
-			get(){return this.showCombatDungeon;},
-			set(v){
-				this.showCombatDungeon = Settings.setSubVar( EXPLORE, 'showCombatDungeon', v );
+		chkShowDone: {
+			get() { return this.showDone; },
+			set(v) {
+				this.showDone = Settings.setSubVar(EXPLORE, 'showDone', v);
 			}
 		},
 
-		chkShowClash:{
-			get(){return this.showClash;},
-			set(v){
-				this.showClash = Settings.setSubVar( EXPLORE, 'showClash', v );
+		chkShowCombatDungeon: {
+			get() { return this.showCombatDungeon; },
+			set(v) {
+				this.showCombatDungeon = Settings.setSubVar(EXPLORE, 'showCombatDungeon', v);
 			}
 		},
 
-		chkShowLocale:{
-			get(){return this.showLocale;},
-			set(v){
-				this.showLocale = Settings.setSubVar( EXPLORE, 'showLocale', v );
+		chkShowClash: {
+			get() { return this.showClash; },
+			set(v) {
+				this.showClash = Settings.setSubVar(EXPLORE, 'showClash', v);
+			}
+		},
+
+		chkShowLocale: {
+			get() { return this.showLocale; },
+			set(v) {
+				this.showLocale = Settings.setSubVar(EXPLORE, 'showLocale', v);
 			}
 		},
 
@@ -89,13 +90,13 @@ export default {
 			let count = 0;
 			let a = [];
 
-			for( let i = items.length-1; i>=0; i-- ) {
+			for (let i = items.length - 1; i >= 0; i--) {
 
 				var it = items[i];
-				if ( it.type === LOG_COMBAT ) {
+				if (it.type === LOG_COMBAT) {
 
 					a.push(it);
-					if ( ++count === MAX_ITEMS ) break;
+					if (++count === MAX_ITEMS) break;
 
 				}
 
@@ -110,13 +111,13 @@ export default {
 		/**
 		 * Only sort once.
 		 */
-		allLocs(){
+		allLocs() {
 			return this.state.filterItems(
-				it=>(it.type===DUNGEON||it.type===LOCALE||it.type===CLASH)
-			).sort( this.lvlSort ? levelsort : alphasort );
+				it => (it.type === DUNGEON || it.type === LOCALE || it.type === CLASH)
+			).sort(this.lvlSort ? levelsort : alphasort);
 		},
 
-		locales(){
+		locales() {
 
 			let d = this.showDone;
 			let cd = this.showCombatDungeon;
@@ -124,10 +125,10 @@ export default {
 			let cl = this.showClash;
 
 			return this.allLocs.filter(
-				it=>!this.locked(it) && (d||it.value<=0) &&
-				( cd || it.type !== DUNGEON ) &&
-				( l || it.type !== LOCALE ) &&
-				( cl || it.type !== CLASH )
+				it => !this.locked(it) && (d || it.value <= 0) &&
+					(cd || it.type !== DUNGEON) &&
+					(l || it.type !== LOCALE) &&
+					(cl || it.type !== CLASH)
 			);
 
 		}
@@ -165,7 +166,7 @@ export default {
 				</span>
 
 
-				<filterbox class="inline" v-model="filtered" :items="locales" min-items="8" />
+				<filterbox class="inline" v-model="filtered" :items="locales" :min-items=8 />
 
 
 			</div>
@@ -175,9 +176,9 @@ export default {
 
 					<span class="separate">
 						<!-- EVENT MUST BE ON OUTER SPAN - CHROME -->
-					<span @mouseenter.capture.stop="itemOver( $event, d )"><span>{{ d.sname.toString().toTitleCase() }}</span>
+					<span @mouseenter.capture.stop="itemOver($event, d)"><span>{{ d.sname.toString().toTitleCase() }}</span>
 
-					<button class="raid-btn" :disabled="!game.canRun(d)" @click="emit( 'task', d )">Enter</button></span>
+					<button type="button" class="raid-btn" :disabled="!game.canRun(d)" @click="emit('task', d)">Enter</button></span>
 
 
 					<span class="sym">{{ d.sym }}</span>
@@ -190,14 +191,14 @@ export default {
 			</div>
 		</div>
 
-	<div class="raid-bottom" v-if="explore.running||drops.count>0">
+	<div class="raid-bottom" v-if="explore.running || drops.count > 0">
 
 		<inv class="inv" :inv="state.inventory" types="potion" nosearch = "true" combat = "true" />
 		<div class="log">
 			<!--<span v-if="exploring">Exploring...<br></span>-->
 
 			<div class="outlog">
-			<div class="log-item" v-for="(it,i) in combatLog" :key="i">
+			<div class="log-item" v-for="(it, i) in combatLog" :key="i">
 				<div><span class="log-title" v-if="it.title">{{ it.title.toString().toTitleCase() }}</span></div>
 				<span class="log-text" v-if="it.text">{{ it.text }}</span>
 			</div>
@@ -211,18 +212,19 @@ export default {
 </template>
 
 <style scoped>
-
 .sym {
-	align-self:center;
+	align-self: center;
 }
+
 div.adventure {
-	display:flex;
-	padding:0 1rem;
+	display: flex;
+	padding: 0 1rem;
 	align-self: flex-start;
 	flex-flow: column;
-	padding: 0; margin: 0;
+	padding: 0;
+	margin: 0;
 	height: 100%;
-	overflow-y:hidden;
+	overflow-y: hidden;
 
 }
 
@@ -243,57 +245,78 @@ div.locales {
 	display: flex;
 	flex-flow: row wrap;
 	grid-gap: 0;
-	flex-grow:1;
+	flex-grow: 1;
 	justify-content: space-between;
 	overflow-y: auto;
 	min-height: 50%;
-	height:100%;
+	height: 100%;
 	padding: var(--tiny-gap) var(--md-gap);
 
 }
+
 div.locales .locale {
 	flex-basis: 48%;
 }
 
 
-body.compact div.adventure > div.locales {
-	display:grid;
-	grid-template-columns: minmax( 9rem, 1fr) repeat( auto-fit, minmax( 9rem, 1fr) );
+body.compact div.adventure>div.locales {
+	display: grid;
+	grid-template-columns: minmax(9rem, 1fr) repeat(auto-fit, minmax(9rem, 1fr));
 }
-body.compact div.adventure > div.locales .locale { background: var(--list-entry-background); }
-body.compact div.adventure > div.locales .locale .bar { border: none;}
 
-		div.adventure > div.locales .locale {
-			padding: var(--md-gap);
-			border-radius: var(--list-entry-border-radius);
-			display: flex; flex-flow: column; height: 100%;
-		}
-		div.adventure > div.locales .locale > span:nth-child(1) {
-			display: flex; flex-flow: row; justify-content: space-between; flex: 1;
-		}
+body.compact div.adventure>div.locales .locale {
+	background: var(--list-entry-background);
+}
+
+body.compact div.adventure>div.locales .locale .bar {
+	border: none;
+}
+
+div.adventure>div.locales .locale {
+	padding: var(--md-gap);
+	border-radius: var(--list-entry-border-radius);
+	display: flex;
+	flex-flow: column;
+	height: 100%;
+}
+
+div.adventure>div.locales .locale>span:nth-child(1) {
+	display: flex;
+	flex-flow: row;
+	justify-content: space-between;
+	flex: 1;
+}
 
 
 
 div.raid-bottom {
-	display:flex;
+	display: flex;
 	flex-flow: row nowrap;
 	justify-content: space-between;
 	border-top: 1px solid var(--separator-color);
 	min-height: 0;
 	max-height: 35%;
-	width:100%;
-	overflow-y:auto;
+	width: 100%;
+	overflow-y: auto;
 }
 
-.menu-content div.adventure .log span { padding: var(--sm-gap); }
-.menu-content div.adventure .log .outlog { overflow-y: auto; overflow-x: hidden; }
+.menu-content div.adventure .log span {
+	padding: var(--sm-gap);
+}
+
+.menu-content div.adventure .log .outlog {
+	overflow-y: auto;
+	overflow-x: hidden;
+}
 
 .raid-bottom .log {
-	flex: 1; font-size: var(--compact-small-font); border-left: 1px solid var(--separator-color);
-	display:  flex; flex-direction: column;
-	flex-basis:50%;
-	flex-grow:1;
+	flex: 1;
+	font-size: var(--compact-small-font);
+	border-left: 1px solid var(--separator-color);
+	display: flex;
+	flex-direction: column;
+	flex-basis: 50%;
+	flex-grow: 1;
 	margin: 0;
 }
-
 </style>

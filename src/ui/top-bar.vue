@@ -1,34 +1,32 @@
 <script>
 import Profile from 'modules/profile';
-import Game from '../game';
 
-import LoginStatus from './components/loginStatus.vue';
+import LoginStatus from '@/ui/components/loginStatus.vue';
 
 export default {
-
-	computed:{
-		hasHall(){return Profile.hasHall() },
-		VERSION(){return __VERSION; }
+	computed: {
+		hasHall() { return Profile.hasHall() },
+		VERSION() { return __VERSION; }
 
 	},
-	created(){
+	created() {
 		this.Profile = Profile;
 	},
-	components:{
-		login:LoginStatus
+	components: {
+		login: LoginStatus
 	},
-	methods:{
+	methods: {
 
 		fileSelect(e) {
 
 			e.stopPropagation();
 			e.preventDefault();
 
-			this.dispatch( 'load-file', e.target.files );
+			this.dispatch('load-file', e.target.files);
 
 		},
 
-		fileDrop(e){
+		fileDrop(e) {
 			e.stopPropagation();
 			e.preventDefault();
 
@@ -38,12 +36,12 @@ export default {
 			this.dispatch('load-file', dt.files);
 
 		},
-		fileDrag(e){
+		fileDrag(e) {
 			e.stopPropagation();
 			e.preventDefault();
 			e.currentTarget.classList.add('hilite');
 		},
-		dragOut(e){
+		dragOut(e) {
 			e.stopPropagation();
 			e.preventDefault();
 			e.currentTarget.classList.remove('hilite');
@@ -58,31 +56,34 @@ export default {
 
 	<div class="top-bar">
 
-		<span class="load-opts" >
+		<span class="load-opts">
 			<login v-if="Profile.CLOUD" />
-			<button @click="dispatch('save')">Save</button>
-			<button @click="dispatch('load')">Load</button>
+			<button type="button" @click="dispatch('save')">Save</button>
+			<button type="button" @click="dispatch('load')">Load</button>
 
-			<button @click="emit('save-file-check',$event)">Get Save</button>
+			<button type="button" @click="emit('save-file-check', $event)">Get Save</button>
 
-			<button v-if="hasHall" class="text-button" @click="dispatch('hall-file',$event )">Hall Save</button>
+			<button type="button" v-if="hasHall" class="text-button" @click="dispatch('hall-file', $event)">Hall Save</button>
 
 			<!--<input type="file" name="[File]" accept="text/json" @change="fileDrop">-->
-			<button id="drop-file" @click="$refs.fileInput.click()" @drop="fileDrop" @dragover="fileDrag" @dragleave.capture.stop="dragOut" name="[Load Save]">[Load Save]</button>
+			<button type="button" id="drop-file" @click="$refs.fileInput.click()" @drop="fileDrop" @dragover="fileDrag"
+				@dragleave.capture.stop="dragOut" name="[Load Save]">[Load Save]</button>
 			<input ref="fileInput" type="file" @change="fileSelect" accept="text/json text/*">
 
-			<confirm @confirm="dispatch('reset')">Wipe Wizard</confirm>
+			
 		</span>
 
-		<span class="items"><slot name="center"></slot></span>
+		<span class="items">
+			<slot name="center"></slot>
+		</span>
 
 		<span class="link-bar">
-			<a href="https://arcanumtesting.gitlab.io/arcanum/" target="_blank">Test Site</a>
+			<a href="https://mathiashjelm.gitlab.io/arcanum/" target="_blank">Stable</a>
 			<a href="https://discord.gg/bCABC96" target="_blank">Discord</a>
 			<a href="https://gitlab.com/Regallion/arcanum-wiki/-/wikis/home" target="_blank">Wiki</a>
 			<a href="https://www.reddit.com/r/wizrobe/" target="_blank">Reddit</a>
 			<span class="vers">Version: {{ VERSION }}</span>
-			<button class="text-button" @click="$emit('open-settings')">&#9881;</button>
+			<button type="button" class="text-button" @click="$emit('open-settings')">&#9881;</button>
 		</span>
 
 	</div>
@@ -91,7 +92,6 @@ export default {
 </template>
 
 <style scoped>
-
 span.vers {
 	font-size: 0.9em;
 	align-self: center;
@@ -103,7 +103,7 @@ div.text-button a {
 }
 
 input[type="file"] {
-	display:none;
+	display: none;
 }
 
 #drop-file {
@@ -111,18 +111,15 @@ input[type="file"] {
 }
 
 .load-opts {
-	display:flex;
+	display: flex;
 }
 
 .load-opts button {
-	height:100%;
-}
-.load-opts .text-button {
-	max-height:var(--lg-gap);
+	height: 100%;
 }
 
-span.load-message {
-	padding: var(--md-gap) var(--md-gap) var(--tiny-gap);
+.load-opts .text-button {
+	max-height: var(--lg-gap);
 }
 
 span.items {

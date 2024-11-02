@@ -298,3 +298,4 @@ export const SchoolCostTable = {
 /*export const NpcSkillLevels = (b, c)=>{
 	return SkillLevels( NpcInfoSkills, b.kind, c );
 }*/
+

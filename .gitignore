@@ -1,11 +1,13 @@
 test/**
 dist/**
 dev/**
-kong/**
 node_modules/**
 vers.json
 package-lock.json
 dist/wizrobe.dev.bundle.js
 arcanum.zip
 .vscode
+.idea
 .DS_Store
+pnpm-lock.yaml
+node_modules

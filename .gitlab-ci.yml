@@ -3,21 +3,29 @@ image: node:latest
 variables:
   PAGES_BRANCH: master
 
+#include:
+#   - template: Code-Quality.gitlab-ci.yml
+
+
+#code_quality:
+#  artifacts:
+#    paths: [gl-code-quality-report.json]
+
 stages:
+#  - test
   - make_dev
   - pages
 
 cache:
   key: ${CI_COMMIT_REF_SLUG}
   paths:
-  - node_modules/
-
-before_script:
-  - npm install
+  - node_modules/  
 
 make_dev:
   stage: make_dev
-  script: npm run-script ci-dev
+  script: 
+    - npm install
+    - npm run-script ci-dev
   artifacts:
     paths:
       - dev
@@ -29,6 +37,7 @@ pages:
       when: always
     - when: never
   script:
+    - npm install
     - cp -r dev public
   artifacts:
     paths:

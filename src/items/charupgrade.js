@@ -1,14 +1,14 @@
-import GData from "./gdata";
+import GData from '@/items/gdata';
 
 /**
  * Upgrade locked to unique character.
  */
 export default class CharUpgrade extends GData {
 
-	toJSON(){
+	toJSON() {
 
 		let data = super.toJSON() || {};
-		if ( this.char ) {
+		if (this.char) {
 			data.char = this.char;
 		}
 		return data && Object.keys(data).length ? data : undefined;
@@ -18,18 +18,18 @@ export default class CharUpgrade extends GData {
 	/**
 	 * @property {boolean} charlock - indicates upgrade locked to a single character.
 	 */
-	get charlock(){ return this._charlock }
-	set charlock(v){
-		this._charlock=v;
+	get charlock() { return this._charlock }
+	set charlock(v) {
+		this._charlock = v;
 	}
 
 	/**
 	 * @property {string} char - id of character bound to upgrade.
 	 */
-	get char(){ return this._char }
-	set char(v){ this._char = v;}
+	get char() { return this._char }
+	set char(v) { this._char = v; }
 
-	constructor(vars=null){
+	constructor(vars = null) {
 
 		super(vars);
 
@@ -41,12 +41,12 @@ export default class CharUpgrade extends GData {
 	 * @param {number} amt
 	 * @returns {boolean}
 	 */
-	changed( g, amt ) {
+	changed(g, amt) {
 
-		if ( this.charlock && amt > 0 ) {
+		if (this.charlock && amt > 0) {
 			this.char = g.state.player.hid;
 		}
-		return super.changed( g, amt );
+		return super.changed(g, amt);
 
 	}
 
@@ -54,12 +54,12 @@ export default class CharUpgrade extends GData {
 	 *
 	 * @param {GameState} gs
 	 */
-	revive( gs ) {
+	revive(gs) {
 
 		let p = gs.player;
-		if ( this.char && p.hid !== this.char ) {
+		if (this.char && p.hid !== this.char) {
 			this.disabled = true;
-			console.log( this.id + ' DISABLED FOR ' + p.hid );
+			console.log(this.id + ' DISABLED FOR ' + p.hid);
 		}
 
 	}

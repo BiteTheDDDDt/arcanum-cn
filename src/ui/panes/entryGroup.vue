@@ -1,6 +1,6 @@
 <script>
 import ItemsBase from 'ui/itemsBase';
-import { formatNumber } from '../../util/format';
+import { formatNumber } from '@/util/format';
 export default {
 
 	/**
@@ -9,6 +9,8 @@ export default {
 	 */
 	props: ['items', 'group', 'hide'],
 	mixins: [ItemsBase],
+	emits: ['update:modelValue'],
+	inject: ['selected'],
 	methods: {
 		formatNumber: formatNumber
 	},
@@ -16,7 +18,6 @@ export default {
 
 		return {
 			isOpen: true,
-			selecteditem: null
 		}
 
 	},
@@ -46,14 +47,17 @@ export default {
 <template>
 	<div v-if="shown.length > 0">
 
-		<div class="groupTitle separate " @click="isOpen = !isOpen"><span>{{ group }}</span><span class="arrows">{{ isOpen ?
-			'▼' : '▲' }}</span></div>
+		<div class="groupTitle separate " @click="isOpen = !isOpen"><span>{{ group }}</span><span class="arrows">{{
+			isOpen ?
+				'▼' : '▲' }}</span></div>
 		<div v-if="isOpen" class="gloss-items">
 
 			<div class="rsrc separate hidable gloss-item" v-for="it in shown" :data-key="it.id" :key="it.id">
 
-				<span v-if="it != selecteditem" @click="$emit('selected', it); selecteditem = it"><u>{{it.name.toTitleCase()}}</u></span>
+				<span v-if="it != selected" @click="selected = it">
+					<u>{{ it.name.toTitleCase() }}</u></span>
 				<span v-else>{{ it.name.toTitleCase() }}</span>
+
 
 			</div>
 

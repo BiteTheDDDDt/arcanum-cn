@@ -7,9 +7,8 @@
 				"name": "city navigation",
 				"require": "tier1",
 				"desc": "Like stars, spells, or any complex systems, cities and their tunnels also merit study.",
-				"level": 1,
 				"run": {
-					"stamina": 0.4
+					"stamina": 0.2
 				},
 				"result": {
 					"sp": 0.15
@@ -32,7 +31,8 @@
 				},
 				"mod": {
 					"citynavigation.max": 1
-				}
+				},
+				"group": "exploration"
 			},
 			{
 				"id": "reedburgh_city_map",
@@ -45,7 +45,8 @@
 				},
 				"mod": {
 					"reedburgh_market.run.bf": -0.1
-				}
+				},
+				"group": "exploration"
 			},
 			{
 				"id": "reedburgh_gym_membership",
@@ -56,9 +57,10 @@
 				"cost": {
 					"gold": 250
 				},
-				"mod":{
+				"mod": {
 					"citynavigation.max": 1
-				}
+				},
+				"group": "exploration"
 			},
 			{
 				"id": "reedburgh_city_bank",
@@ -71,7 +73,8 @@
 				},
 				"mod": {
 					"debitomancy.max": 0.5
-				}
+				},
+				"group": "knowledge"
 			}
 		],
 		"rares": [
@@ -121,10 +124,15 @@
 			{
 				"id": "reedburgh_call_backup",
 				"name": "Call guard",
+				"desc": "HELP! HELLLPPP! HELP ME!!",
 				"level": 1,
 				"school": "charm",
-				"cd": 30,
-				"desc": "HELP! HELLLPPP! HELP ME!!",
+				"keywords": {
+					"type": ["summon"],
+					"target": ["ally"],
+					"targets": ["single"],
+					"delivery": ["instant"]
+				},
 				"require": "g.citynavigation>999",
 				"buy": {
 					"research": 500,
@@ -135,6 +143,7 @@
 					"gold": 100,
 					"gems": 5
 				},
+				"cd": 30,
 				"summon": [
 					{
 						"id": "reedburgh_guard_backup",
@@ -146,25 +155,36 @@
 			{
 				"id": "mon_blunt_heavy",
 				"name": "heavy slam",
+				"desc": "A thunderous blow that does impressive damage.",
+				"flavor": "That's gonna leave a bruise in the morning.",
 				"level": 4,
 				"school": "martial",
-				"cd": 5,
-				"desc": "A thunderous blow that does impressive damage.",
+				"keywords": {
+					"type": ["damage"],
+					"target": ["enemy"],
+					"targets": ["single"],
+					"delivery": ["instant"]
+				},
 				"require": "g.citynavigation>999",
-				"attack":{
+				"cd": 5,
+				"attack": {
 					"kind": "blunt",
 					"tohit": 5,
 					"damage": "15~25"
-				},
-				"flavor": "That's gonna leave a bruise in the morning."
+				}
 			},
 			{
 				"id": "reedburgh_call_backup_captain",
 				"name": "Call guard",
+				"desc": "HELP! HELLLPPP! HELP ME!!",
 				"level": 1,
 				"school": "charm",
-				"cd": 30,
-				"desc": "HELP! HELLLPPP! HELP ME!!",
+				"keywords": {
+					"type": ["summon"],
+					"target": ["ally"],
+					"targets": ["single"],
+					"delivery": ["instant"]
+				},
 				"require": "g.citynavigation>999",
 				"buy": {
 					"research": 500,
@@ -175,6 +195,7 @@
 					"gold": 100,
 					"gems": 5
 				},
+				"cd": 30,
 				"summon": [
 					{
 						"id": "reedburgh_guard",
@@ -265,8 +286,7 @@
 					"shadow": -0.5
 				},
 				"result": {
-					"gold": "0~10",
-					"tapestries": "10%"
+					"gold": "0~10"
 				},
 				"loot": [
 					{
@@ -311,8 +331,7 @@
 					"weary": "1~2"
 				},
 				"result": {
-					"gold": "15~20",
-					"tapestries": "60%"
+					"gold": "15~20"
 				},
 				"loot": [
 					{
@@ -593,9 +612,10 @@
 				"id": "the_last_rep",
 				"name": "the last rep",
 				"desc": "Just one more then you can go home, right? The receptionist said this was a good gym...",
-				"effect":{
+				"effect": {
 					"weary": "2~5",
-					"stamina": -2
+					"stamina": -2,
+					"vigor": -1
 				},
 				"flavor": "It's always the hardest."
 			},
@@ -603,22 +623,37 @@
 				"id": "gym_crowd",
 				"name": "crowded gym",
 				"desc": "Everywhere people shout and grunt. A spot's nowhere to be found.",
-				"effect":{
+				"effect": {
 					"rage": "1~2",
 					"madness": "0.5~1.5",
-					"stamina": -0.5
+					"stamina": -0.5,
+					"vigor": -0.05
 				},
 				"flavor": "Amidst it all a man in a horse mask slumps."
+			},
+			{
+				"id": "lifting_weights",
+				"name": "lifting weights",
+				"desc": "And putting them down again.",
+				"effect": {
+					"weary": "1~3",
+					"stamina": -1,
+					"vigor": -0.1
+				},
+				"mod": {
+					"weaponlore.max": "0.05//20/-1"
+				}
 			},
 			{
 				"id": "running_laps",
 				"name": "running laps",
 				"desc": "Best to build up your legs with how many places you have to see and how many creditors you have to flee.",
-				"effect":{
+				"effect": {
 					"weary": "1~3",
-					"stamina": -0.5
+					"stamina": -0.5,
+					"vigor": -0.05
 				},
-				"mod":{
+				"mod": {
 					"dist": "1//20/-1"
 				}
 			},
@@ -626,9 +661,10 @@
 				"id": "dropped_the_weights",
 				"name": "dropped the weights",
 				"desc": "You dropped the bar oh gods oh gods o gods don't go into the light",
-				"effect":{
+				"effect": {
 					"hp": -1,
 					"stamina": -0.5,
+					"vigor": -0.05,
 					"unease": "1~3"
 				}
 			},
@@ -636,7 +672,7 @@
 				"id": "hair_pluckers",
 				"name": "hair pluckers",
 				"desc": "People getting their bodies tweezed free of hair would be a lot easier to ignore if not for the screaming.",
-				"effect":{
+				"effect": {
 					"bf": "1~3",
 					"unease": "1~3"
 				}
@@ -645,21 +681,35 @@
 				"id": "dodge_shotputs",
 				"name": "shotput dodge",
 				"desc": "The shotput team's aim is bad enough sober. Their drinking makes it worse.",
-				"effect":{
+				"effect": {
 					"stamina": -0.5,
+					"vigor": -0.05,
 					"unease": "1~2",
 					"weary": "2~3",
 					"hp": -2
 				}
 			},
 			{
+				"id": "gym_spar",
+				"name": "gymnasium sparring",
+				"desc": "Practice your strikes and grappling.",
+				"effect": {
+					"stamina": -0.8,
+					"vigor": -0.08,
+					"weary": "1~3"
+				},
+				"mod": {
+					"weaponlore.max": "0.05//20/-1"
+				}
+			},
+			{
 				"id": "gym_supplements",
 				"name": "supplement pusher",
 				"desc": "A suspicious man browbeats you into buying something to drink for workouts.",
-				"effect":{
+				"effect": {
 					"bf": "1~3"
 				},
-				"result":{
+				"result": {
 					"debt": "1~2",
 					"pot_stam1": 1
 				}
@@ -668,10 +718,10 @@
 				"id": "gym_supplements_bad",
 				"name": "supplement pusher",
 				"desc": "A suspicious man browbeats you into buying something to drink for workouts.",
-				"effect":{
+				"effect": {
 					"bf": "1~3"
 				},
-				"result":{
+				"result": {
 					"debt": "1~2",
 					"water": 1
 				}
@@ -681,11 +731,11 @@
 			{
 				"id": "reedburgh_market",
 				"name": "reedburgh Markets",
+				"desc": "Navigate the intricate web of city streets, bustling stalls, and vibrant shops. Travelers, burdened by debt, find themselves compelled to lend a hand in the noble task of sewer cleanup.",
 				"level": 4,
-				"length": 40,
 				"dist": 65,
 				"require": "g.reedburgh_city_papers>0",
-				"desc": "Navigate the intricate web of city streets, bustling stalls, and vibrant shops. Travelers, burdened by debt, find themselves compelled to lend a hand in the noble task of sewer cleanup.",
+				"length": 40,
 				"run": {
 					"stamina": 0.2,
 					"bf": 0.2
@@ -696,14 +746,8 @@
 					"gembag.max": 1
 				},
 				"encs": [
-					[
-						"daylight_mugging",
-						"daylight_mugging"
-					],
-					[
-						"gang_mugging",
-						"gang_mugging"
-					],
+					["daylight_mugging", "daylight_mugging"],
+					["gang_mugging", "gang_mugging"],
 					"daylight_mugging",
 					"gang_mugging",
 					{
@@ -732,33 +776,29 @@
 			{
 				"id": "reedburgh_gymnasium",
 				"name": "reedburgh Gymnasium",
+				"desc": "Finally, someplace pleasant in this wretched city.",
 				"level": 5,
-				"length": 40,
 				"dist": 69,
 				"require": "g.reedburgh_gym_membership>0",
-				"desc": "Finally, someplace pleasant in this wretched city.",
+				"length": 40,
 				"run": {
-					"stamina": 1
+					"stamina": 1,
+					"vigor": 0.1
 				},
-				"buy":{
+				"buy": {
 					"gold": 250
 				},
-				"once":{
+				"once": {
 					"citynavigation.max": 1
 				},
 				"mod": {
 					"hp.max": "5//10/-1"
 				},
-				"boss":{
-					"40":[
-						"unleashed_beast"
-					]
+				"boss": {
+					"40": ["unleashed_beast"]
 				},
 				"encs": [
-					[
-						"roid_rage",
-						"roid_rage"
-					],
+					["roid_rage", "roid_rage"],
 					"roid_rage",
 					"the_last_rep",
 					"gym_crowd",
@@ -775,27 +815,20 @@
 			{
 				"id": "reedburgh_second_ring",
 				"name": "infiltrate reedburgh second ring",
-				"level": 4,
-				"length": 31,
-				"dist": 65,
-				"require": "g.evil>0&&g.citynavigation>=6&&g.reedburgh_city_sewer>=1",
 				"desc": "By utilizing waterways, one can discover hidden passages into the second city ring of Reedburgh.",
+				"level": 4,
+				"dist": 65,
+				"require": "g.evil1>0&&g.citynavigation>=6&&g.reedburgh_city_sewer>=1",
+				"length": 31,
 				"run": {
 					"stamina": 0.3,
 					"shadow": 0.1
 				},
 				"boss": {
-					"31": [
-						"reedburgh_captain",
-						"reedburgh_guard",
-						"reedburgh_guard"
-					]
+					"31": ["reedburgh_captain", "reedburgh_guard", "reedburgh_guard"]
 				},
 				"encs": [
-					[
-						"reedburgh_guard",
-						"reedburgh_guard"
-					],
+					["reedburgh_guard", "reedburgh_guard"],
 					"reedburgh_guard",
 					"reedburgh_guardpost",
 					"reedburgh_training",
@@ -1198,7 +1231,6 @@
 				"loot": {
 					"gold": 120,
 					"gems": 5,
-					"tapestries": 1,
 					"lightgem": 2,
 					"reedburgh_herobadge": 1
 				}
@@ -1248,7 +1280,6 @@
 					{
 						"gold": "15~25",
 						"gems": "60%",
-						"tapestries": "10%",
 						"lightgem": "1%"
 					},
 					{
@@ -1302,7 +1333,6 @@
 					{
 						"gold": "15~25",
 						"gems": "60%",
-						"tapestries": "10%",
 						"lightgem": "1%"
 					},
 					{
@@ -1322,10 +1352,10 @@
 				"defense": 12,
 				"spells": "mon_blunt_heavy",
 				"attack": {
-						"name": "barbell",
-						"kind": "blunt",
-						"damage": "6~12"
-					}
+					"name": "barbell",
+					"kind": "blunt",
+					"damage": "6~12"
+				}
 			},
 			{
 				"id": "unleashed_beast",
@@ -1358,7 +1388,7 @@
 				"level": 2,
 				"length": 30,
 				"dist": 35,
-				"require": "g.evil>0",
+				"require": "g.evil1>0",
 				"desc": "Go out and steal, plunder and otherwise ruin a once peaceful village.",
 				"run": {
 					"stamina": 0.2,
@@ -1372,19 +1402,9 @@
 					"pillage_village.dist": 5
 				},
 				"encs": [
-					[
-						"village_militia",
-						"village_militia"
-					],
-					[
-						"village_farmer",
-						"village_hunter"
-					],
-					[
-						"village_militia",
-						"village_hunter",
-						"village_farmer"
-					],
+					["village_militia", "village_militia"],
+					["village_farmer", "village_hunter"],
+					["village_militia", "village_hunter", "village_farmer"],
 					"village_militia",
 					"village_hunter",
 					"village_farmer",
@@ -1416,32 +1436,13 @@
 					"debt": "-50~-100"
 				},
 				"boss": {
-					"30": [
-						"reedburgh_water_massvines",
-						"reedburgh_quest_monster",
-						"slime",
-						"slime"
-					]
+					"30": ["reedburgh_water_massvines", "reedburgh_quest_monster", "slime", "slime"]
 				},
 				"encs": [
-					[
-						"slime",
-						"slime"
-					],
-					[
-						"slime",
-						"slime",
-						"slime"
-					],
-					[
-						"lgspider",
-						"lgspider",
-						"lgspider"
-					],
-					[
-						"lgspider",
-						"lgspider"
-					],
+					["slime", "slime"],
+					["slime", "slime", "slime"],
+					["lgspider", "lgspider", "lgspider"],
+					["lgspider", "lgspider"],
 					"reedburgh_smuggler",
 					"reedburgh_quest_monster",
 					"reedburgh_water_vines",

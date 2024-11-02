@@ -1,20 +1,19 @@
-import { assign } from '../util/objecty';
+import { assign } from '@/util/objecty';
 
 import Events, {
 	EVT_COMBAT, ENEMY_SLAIN, ALLY_DIED,
-	DAMAGE_MISS, CHAR_DIED, STATE_BLOCK, CHAR_ACTION, ITEM_ACTION, COMBAT_WON, DOT_ACTION, DOT_EXPIREACTION
+	DAMAGE_MISS, CHAR_DIED, STATE_BLOCK, CHAR_ACTION, ITEM_ACTION, COMBAT_WON, DOT_ACTION, TRIGGER_ACTION
 } from '../events';
 
-import { itemRevive } from '../modules/itemgen';
-import { DEFENSIVE, NO_SPELLS } from '../chars/states';
+import { itemRevive } from '@/modules/itemgen';
 
-import { TEAM_PLAYER, getDelay, TEAM_NPC, TEAM_ALL, COMPANION, WEAPON, canTarget } from '../values/consts';
+import { TEAM_PLAYER, getDelay, TEAM_NPC, TEAM_ALL, COMPANION, WEAPON, enforceOnly } from '@/values/consts';
 import {
 	TARGET_ENEMY, TARGET_ALLY, TARGET_SELF,
 	TARGET_RAND, TARGET_PRIMARY, ApplyAction, TARGET_GROUP, TARGET_ANY, RandTarget, PrimeTarget, TARGET_NONPRIMARY, PrimeInd, TARGET_RAND_ENEMY, TARGET_RAND_ALLY, TARGET_NOTSELF
-} from "../values/combatVars";
-import Npc from '../chars/npc';
-import game from '../game';
+} from '@/values/combatVars';
+import Npc from '@/chars/npc';
+import game from '@/game';
 
 
 /**
@@ -127,21 +126,20 @@ export default class Combat {
 		}
 
 		this._allies.unshift(this.player);
-		this.enemies = [...this.enemies];
 
 		this.resetTeamArrays();
 
 		Events.add(ITEM_ACTION, this.itemAction, this);
 		Events.add(CHAR_ACTION, this.spellAction, this);
 		Events.add(DOT_ACTION, this.dotAction, this);
-		Events.add(DOT_EXPIREACTION, this.dotExpireAction, this);
+		Events.add(TRIGGER_ACTION, this.triggerAction, this);
 		Events.add(CHAR_DIED, this.charDied, this);
 
 	}
 
 	begin() {
-		for(let enemy of this.enemies) {
-			if(enemy.begin instanceof Function) enemy.begin();
+		for (let enemy of this.enemies) {
+			if (enemy.begin instanceof Function) enemy.begin();
 		}
 	}
 
@@ -161,12 +159,12 @@ export default class Combat {
 					this._allies.splice(i, 1);
 					continue;
 				}
-				
+
 				e.update(dt);
 
-				if ( e.alive === false ) {
+				if (e.alive === false) {
 					e.deathThroes();
-					this._allies.splice(i,1);
+					this._allies.splice(i, 1);
 					continue;
 				}
 			}
@@ -184,10 +182,10 @@ export default class Combat {
 
 			e = this._enemies[i];
 			// Checked before, because the enemy could've died from an attack, and update could cause it to heal after dying.
-			if ( e.alive === false ) {
+			if (e.alive === false) {
 				e.deathThroes();
-				this._enemies.splice(i,1);
-				if ( this._enemies.length === 0 ) Events.emit( COMBAT_WON );
+				this._enemies.splice(i, 1);
+				if (this._enemies.length === 0) Events.emit(COMBAT_WON);
 				continue;
 			}
 
@@ -246,10 +244,10 @@ export default class Combat {
 				if (!target) return;
 				if (Array.isArray(target)) {
 
-					for (let i = target.length - 1; i >= 0; i--) ApplyAction(target[i], it.action, g.self);
+					for (let i = target.length - 1; i >= 0; i--) ApplyAction(target[i], it.action, g.self, 0, this.player);
 
 				} else {
-					ApplyAction(target, it.action, g.self);
+					ApplyAction(target, it.action, g.self, 0, this.player);
 				}
 
 
@@ -278,10 +276,10 @@ export default class Combat {
 			if (!target) return;
 			if (Array.isArray(target)) {
 
-				for (let i = target.length - 1; i >= 0; i--) ApplyAction(target[i], it.use.action, g.self);
+				for (let i = target.length - 1; i >= 0; i--) ApplyAction(target[i], it.use.action, g.self, 0, this.player);
 
 			} else {
-				ApplyAction(target, it.use.action, g.self);
+				ApplyAction(target, it.use.action, g.self, 0, this.player);
 			}
 
 
@@ -303,15 +301,15 @@ export default class Combat {
 			if (!target) return;
 			if (Array.isArray(target)) {
 
-				for (let i = target.length - 1; i >= 0; i--) ApplyAction(target[i], it.action, g.self);
+				for (let i = target.length - 1; i >= 0; i--) ApplyAction(target[i], it.action, g.self, 0, this.player);
 
 			} else {
-				ApplyAction(target, it.action, g.self);
+				ApplyAction(target, it.action, g.self, 0, this.player);
 			}
 		}
 
 	}
-	dotExpireAction(it, g) {
+	triggerAction(it, g) {
 		this.attack(g.self, it);
 	}
 	/**
@@ -331,21 +329,17 @@ export default class Combat {
 			}
 		}
 
-		let targ = this.getTarget(attacker, atk.targets, atk.targetspec);
+		let targ = this.getTarget(attacker, atk.targets, atk.targetspec, atk.only);
 		if (!targ) return;
 		for (let a = 0; a < (atk.repeathits || 1); a++) {
 			if (Array.isArray(targ)) {
 
 				for (let i = targ.length - 1; i >= 0; i--) {
-					if (!atk.only || canTarget(atk.only, targ[i])) {
-						this.doAttack(attacker, atk, targ[i]);
-					}
+					this.doAttack(attacker, atk, targ[i]);
 				}
-
-			} else {
-				if (!atk.only || canTarget(atk.only, targ)) {
-					this.doAttack(attacker, atk, targ);
-				}
+			}
+			else {
+				this.doAttack(attacker, atk, targ);
 			}
 		}
 
@@ -361,9 +355,10 @@ export default class Combat {
 
 		if (!targ || !targ.alive) return;
 		// attack automatically hits if it's harmless, target is defenseless OR in defensive stance AND dodge roll fails.
-		if ( atk.harmless || !targ.canDefend() || this.tryHit( attacker, targ, atk ) ) {
-			ApplyAction( targ, atk, attacker );
-			
+		if (atk.harmless || !targ.canDefend() || this.tryHit(attacker, targ, atk) || targ.canParry()) {
+
+			ApplyAction(targ, atk, attacker, this.tryParry(attacker, targ, atk), this.player);
+
 		}
 
 	}
@@ -373,29 +368,35 @@ export default class Combat {
 	 * @param {string} targets
 	 * @returns {Char|Char[]|null}
 	 */
-	getTarget(char, targets, targetspec = null) {
+	getTarget(char, targets, targetspec = null, only = null) {
 		// retarget based on state.
 		targets = char.retarget(targets);
 
 		const group = this.getGroup(targets, char.team);
-
-		let filtergroup = Array.from(group)
 		// Get id for ally leader (relative to attacker)
 		let allylead = this.allies[PrimeInd(this.allies)].id
+		let enemylead = undefined
+		if (this.enemies[PrimeInd(this.enemies)]) {
+			enemylead = this.enemies[PrimeInd(this.enemies)].id
+		}
+		let filtergroup = enforceOnly(Array.from(group), only);
 
 		if (!this.active) {
 
 			if (group === this.enemies) return null;
 			if (group === this.teams[TEAM_ALL]) {
-				filtergroup = Array.from(this.allies)
 
+				filtergroup = enforceOnly(Array.from(this.allies), only)
 				if (targets & TARGET_PRIMARY) {
 					filtergroup.splice(1);
 					return filtergroup;
 				}
 
 				if (targets & TARGET_NONPRIMARY) {
-					filtergroup.splice(filtergroup.map(e => e.id).indexOf(allylead), 1)
+					let allyleadIdx = filtergroup.map(e => e.id).indexOf(allylead)
+					if (allyleadIdx > -1) {
+						filtergroup.splice(allyleadIdx, 1)
+					}
 				}
 
 				if (targets & TARGET_NOTSELF) {
@@ -408,26 +409,23 @@ export default class Combat {
 				return filtergroup
 			}
 		}
-		let enemylead = undefined
-		if (this.enemies[PrimeInd(this.enemies)]) {
-			enemylead = this.enemies[PrimeInd(this.enemies)].id
-		}
 
 		if (targets & TARGET_GROUP) {
 
 			// Handling for "group" + "primary" + "any" condition aka "bothleaders"
 			if ((targets & TARGET_PRIMARY) && (group === this.teams[TEAM_ALL])) {
-				filtergroup = [this.allies[0], this.enemies[0]];
+				filtergroup = enforceOnly([this.allies[0], this.enemies[0]], only);
 				return filtergroup;
 			}
 
 			if (targets & TARGET_NONPRIMARY) {
-				if (group !== this.teams[TEAM_ALL]) {
-					filtergroup = filtergroup.slice()
-					filtergroup.splice(0, PrimeInd(group) + 1)
-				} else {
-					filtergroup.splice(filtergroup.map(e => e.id).indexOf(allylead), 1)
-					filtergroup.splice(filtergroup.map(e => e.id).indexOf(enemylead), 1)
+				let allyleadIdx = filtergroup.map(e => e.id).indexOf(allylead)
+				let enemyleadIdx = filtergroup.map(e => e.id).indexOf(enemylead)
+				if (allyleadIdx > -1) {
+					filtergroup.splice(allyleadIdx, 1)
+				}
+				if (enemyleadIdx > -1) {
+					filtergroup.splice(enemyleadIdx, 1)
 				}
 			}
 
@@ -466,7 +464,7 @@ export default class Combat {
 
 			// Handling for "random primary" condition aka "randomleader"
 			if (targets & TARGET_PRIMARY) {
-				filtergroup = [this.allies[0], this.enemies[0]];
+				filtergroup = enforceOnly([this.allies[0], this.enemies[0]], only);
 			}
 
 			return RandTarget(filtergroup, ignoretaunt, targetspec);
@@ -505,34 +503,31 @@ export default class Combat {
 	 * @param {Object} attack - attack or weapon used to hit.
 	 * @returns {boolean} true if char hit.
 	 */
-	tryHit( attacker, defender, attack ){
+	tryHit(attacker, defender, attack) {
 
-		let tohit = attacker.getHit(attack.kind||null, (attack?.source?.type == WEAPON || attack?.source?.school == "martial" ));
-		if ( attack && (attack != attacker) ) tohit += ( attack.tohit || 0 );
+		let tohit = attacker.getHit(attack.kind || null, (attack?.source?.type == WEAPON || attack?.source?.school == "martial"));
+		if (attack && (attack != attacker)) tohit += (attack.tohit || 0);
 
-		if ( this.dodgeRoll( defender.dodge, tohit )&&!attack.nododge) {
-			if(attack.name) {
-				Events.emit( DAMAGE_MISS, defender.name.toTitleCase() + ' Dodges ' + (attack.name.toTitleCase()));
-				
+		if (this.dodgeRoll(defender.dodge, tohit) && !attack.nododge) {
+			if (attack.name) {
+				Events.emit(DAMAGE_MISS, defender.name.toTitleCase() + ' Dodges ' + (attack.name.toTitleCase()));
+
 			}
-			else
-			{
-				Events.emit( DAMAGE_MISS, defender.name.toTitleCase() + ' Dodges ' + (attacker.name.toTitleCase()));
+			else {
+				Events.emit(DAMAGE_MISS, defender.name.toTitleCase() + ' Dodges ' + (attacker.name.toTitleCase()));
 			}
 
-		} else if ( Math.random()*( 10 + tohit ) >= Math.random()*(10 + defender.defense * DEFENSE_RATE ) ) {
-			return true;
-		} else {
-			if(attack.name) {
-				Events.emit( DAMAGE_MISS, defender.name.toTitleCase() + ' Parries ' + (attack.name.toTitleCase()));
-				
-			}
-			else
-			{
-				Events.emit( DAMAGE_MISS, defender.name.toTitleCase() + ' Parries ' + (attacker.name.toTitleCase()));
-			}
+		} else return true
+
+	}
+
+	tryParry(attacker, defender, attack) {
+		if (!attack.noparry && defender.canParry() && !attack.harmless) {
+			let tohit = attacker.getHit(attack.kind || null, (attack?.source?.type == WEAPON || attack?.source?.school == "martial"));
+			if (attack && (attack != attacker)) tohit += (attack.tohit || 0);
+			return this.dodgeRoll(Math.pow(defender.defense, 0.7), tohit)
 		}
-
+		else return false
 	}
 
 	/**
@@ -553,6 +548,9 @@ export default class Combat {
 
 		this.resetTeamArrays();
 		this.setTimers();
+		for (let i = this.enemies.length - 1; i >= 0; i--) {
+			if (this.enemies[i].onSummon) this.enemies[i].openingAction()
+		}
 
 	}
 
@@ -569,6 +567,7 @@ export default class Combat {
 		} else this._enemies.push(it);
 
 		this.teams[TEAM_ALL].push(it);
+		if (it.onSummon) it.openingAction();
 
 	}
 
@@ -642,17 +641,22 @@ export default class Combat {
 	 * @param {number} tohit
 	 * @returns {boolean} true if defender dodges.
 	 */
-	dodgeRoll( dodge, tohit ) {
+	dodgeRoll(dodge, tohit) {
 
 		//let sig = 1 + (dodge-tohit)/( 1+ Math.abs(dodge-tohit));
 		//let sig = 1 + (2/Math.PI)*( Math.atan(dodge-tohit) );
 		//new attempt:
+		/*
 		let high = Math.max(Math.abs(tohit),Math.abs(dodge));
-		if ( high == 0 ) return 0.5 > Math.random();
-		let sig = 1/(1+Math.exp(-(10*(dodge-tohit)/high)));
+		if ( high == 0 ) {
+			let a = 0.25 - Math.random()
+			return a > 0 ? a : false
+		};
+		*/
+		let sig = Math.min(0.95, (9 + Math.pow(Math.max(0, (dodge - tohit) + 14.7), 2)) / 900); // chance to dodge or parry
 		//console.log( 'dodge: ' + dodge + ' tohit: ' + tohit + '  sig: ' + sig );
-
-		return sig > Math.random();
+		let a = sig - Math.random()
+		return a > 0 ? a : false;
 
 	}
 

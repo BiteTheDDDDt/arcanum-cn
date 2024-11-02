@@ -1,6 +1,6 @@
 <script>
 import ItemsBase from 'ui/itemsBase';
-import { formatNumber } from '../../util/format';
+import { formatNumber } from '@/util/format';
 export default {
 
 	/**

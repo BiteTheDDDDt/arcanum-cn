@@ -1,8 +1,8 @@
-import FValue from "./rvals/fvalue";
-import Range, { RangeTest } from "./range";
-import Events, { IS_IMMUNE, CHAR_DIED, COMBAT_HIT, EVT_COMBAT } from "../events";
-import { FP, TYP_PCT } from "./consts";
-import RValue from "./rvals/rvalue";
+import FValue from '@/values/rvals/fvalue';
+import Range, { RangeTest } from "@/values/range";
+import Events, { IS_IMMUNE, CHAR_DIED, COMBAT_HIT, EVT_COMBAT } from "@/events";
+import { FP, TYP_PCT } from '@/values/consts';
+import RValue from '@/values/rvals/rvalue';
 
 /**
  * @const {number} TARGET_SELF - target self.
@@ -225,9 +225,9 @@ export const RandTarget = (a, ignoretaunt = false, targetspec = null) => {
 
 	if (a.length == 0) return null;
 	if (targetspec && (targetspec.affectedby || targetspec.notaffectedby)) {
-		a = AffectedTargets(a,targetspec.affectedby, targetspec.notaffectedby)
+		a = AffectedTargets(a, targetspec.affectedby, targetspec.notaffectedby)
 	}
-	if (a.length==0) return null
+	if (a.length == 0) return null
 	let v = [] //array of non-hiding targets. If everyone's hiding, goes unused.
 	if (!ignoretaunt) {
 		for (let i = 0; i < a.length; i++) {
@@ -291,41 +291,35 @@ export const AffectedTargets = (a, affectedby, notaffectedby) => {
 	//We know that the notaffectedby array is just "all targets" therefore the intersection of "valid affected targets" and "all targets" is "valid affected targets"
 	//The intersection is null, meaning we have no valid targets.
 	//We check if targeting is strict. If it is not strict (prioritize), we just target whoever. If it's strict (ONLY) we can target no one.
-	if (affectedby && !notaffectedby)
-	{
+	if (affectedby && !notaffectedby) {
 		return affectedby.strict ? [] : a
 	}
 	//same as the previous condition just for the flipped case.
-	if (!affectedby && notaffectedby)
-	{
+	if (!affectedby && notaffectedby) {
 		return notaffectedby.strict ? [] : a
 	}
 	//Now we deal with cases where both conditions are present. We know it can't be neither condition as we would not be here then.
 	//If at least one array is present and targeting is not strict on either side, we return the sum of both arrays.
 	//So we target either someone valid for condition one, or someone valid for condition 2.
-	if ((notaffected.length > 0 || affected.length > 0) && !notaffectedby.strict && !affectedby.strict)
-	{
+	if ((notaffected.length > 0 || affected.length > 0) && !notaffectedby.strict && !affectedby.strict) {
 		return arr1.concat(arr2)
 	}
 	// If we have a valid affected target and affected targeting is strict (ONLY) and notaffected targeting is not strict, we return the affected targets.
 	//If notaffected targeting was strict, we would not have any valid targets as we know no target satisfies both by this point.
-	if (affected.length > 0 && !notaffectedby.strict && affectedby.strict)
-	{
+	if (affected.length > 0 && !notaffectedby.strict && affectedby.strict) {
 		return arr1
 	}
 	//ditto for not affected.
-	if (notaffected.length > 0 && notaffectedby.strict && !affectedby.strict)
-	{
+	if (notaffected.length > 0 && notaffectedby.strict && !affectedby.strict) {
 		return arr2
 	}
 	//If both arrays are empty and the targeting is not strict, we just target whoever. (if either array is not empty, it would be caught by the condition above)
-	if (!notaffectedby.strict && !affectedby.strict)
-	{
+	if (!notaffectedby.strict && !affectedby.strict) {
 		return a
 	}
 	//in all other cases no target would be valid. For example, if the "Not affected" array is empty and "not afffected targeting" is strict, then there is no one we can target.
 	return []
-	
+
 
 }
 
@@ -428,7 +422,7 @@ export const GetTarget = (n) => {
  * @returns {(a,t,c,i)=>number}
  */
 export const MakeDmgFunc = (s) => {
-	return new FValue([FP.ACTOR, FP.TARGET, FP.CONTEXT, FP.ITEM], s);
+	return new FValue([FP.ACTOR, FP.TARGET, FP.CONTEXT, FP.ITEM, FP.GDATA], s);
 };
 
 export const ParseDmg = (v) => {
@@ -447,7 +441,7 @@ export const ParseDmg = (v) => {
 * @param {Char} target
 * @param {Object} action
 */
-export const ApplyAction = (target, action, attacker = null, parried = 0) => {
+export const ApplyAction = (target, action, attacker = null, parried = 0, player = null) => {
 
 	if (!target || !target.alive) return;
 	if (target.isImmune(action.kind)) {
@@ -470,6 +464,9 @@ export const ApplyAction = (target, action, attacker = null, parried = 0) => {
 		//console.log('APPLY ON: '+ target.name );
 		//if ( attacker && action.name ) Events.emit(EVT_COMBAT, attacker.name + ' uses ' + action.name );
 		target.context.applyVars(action.result);
+	}
+	if (action.acquire) {
+		player.context.applyVars(action.acquire, 1, 1, attacker, target);
 	}
 	if (action.dot) {
 		target.addDot(action.dot, action, null, attacker);
@@ -507,11 +504,12 @@ export const CalcDamage = (dmg, attack, attacker, target = null, applyBonus = tr
 			[FP.ACTOR]: attacker,
 			[FP.TARGET]: target,
 			[FP.CONTEXT]: target.context,
-			[FP.ITEM]: attack.source
+			[FP.ITEM]: attack.source,
+			[FP.GDATA]: attacker.context.state.items
 		});
 	}
 	else dmg = dmg.value;
-	if(applyBonus) {
+	if (applyBonus) {
 		if (attack.bonus) dmg += attack.bonus;
 		if (attacker) {
 			if (attacker.getBonus) dmg += attacker.getBonus(attack.kind);
@@ -543,13 +541,29 @@ export const ApplyDamage = (target, attack, attacker, parried = 0) => {
 	}
 
 	let dmg_reduce = 0
-	if ( (resist === 0 || resist < 1) && !attack.nodefense ) {
+	if ((resist === 0 || resist < 1) && !attack.nodefense) {
 
-		dmg_reduce = target.defense/(target.defense + (10/3)*dmg*( attack.duration || 1 ) );
-		dmg *= ( 1 - dmg_reduce );
+		dmg_reduce = target.defense / (target.defense + (10 / 3) * dmg * (attack.duration || 1));
+		dmg *= (1 - dmg_reduce);
 
 	}
-	if (parried) dmg*=parried;
+
+	/*
+	if ((resist === 0 || resist < 1) && !attack.nodefense) {
+		// This was the 10/3 in the old formula, the 9/5 in the proposed formula
+		// The closer this is to 1, the better the damage mitigation is per point of defense
+		let posScaling = 1.8;
+		// Basically, "how far below 0 defense is necessary to double the damage"
+		// Will scale linearly for 1/n starting from defense 0
+		let negScaling = 40;
+		// This is basically the same formula as before, just pulling the scaling out into the variable above
+		if (target.defense > 0) dmg_reduce = target.defense / (target.defense + (posScaling) * dmg );
+		// This removes the the * dmg in the divisor - things are already multiplying dmg in the reduction output
+		else if (target.defense < 0) dmg_reduce = target.defense / negScaling;
+		dmg *= (1 - dmg_reduce);
+	}
+	*/
+	if (parried) dmg *= parried;
 	target.hp -= dmg;
 
 	Events.emit(COMBAT_HIT, target, dmg, resist, dmg_reduce, (attack.name || (attacker ? attacker.name : '')), parried);

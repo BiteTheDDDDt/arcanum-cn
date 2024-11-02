@@ -1,21 +1,20 @@
-import Inventory from './inventories/inventory';
-import GData from './items/gdata';
-import Equip from './chars/equip';
-import Minions from './inventories/minions';
+import Inventory from '@/inventories/inventory';
+import Equip from '@/chars/equip';
+import Minions from '@/inventories/minions';
 
-import Runner from './modules/runner';
-import Explore from './composites/explore';
-import { ensure } from './util/util';
-import DataList from './inventories/dataList';
-import Group from './composites/group';
-import SpellLoadouts from './inventories/spellLoadouts';
-import UserSpells from './inventories/userSpells';
-import Quickbars from './composites/quickbars';
-import { WEARABLE, ARMOR, WEAPON, HOME, PURSUITS, ENCHANTSLOTS, TimeId, COMPANION } from './values/consts';
-import Stat from './values/rvals/stat';
-import TagSet from './composites/tagset';
-import EnchantSlots from './inventories/enchantslots';
-import Combat from './composites/combat';
+import Runner from '@/modules/runner';
+import Explore from '@/composites/explore';
+import { ensure } from '@/util/util';
+import DataList, { ORDER } from '@/inventories/dataList';
+import Group from '@/composites/group';
+import SpellLoadouts from '@/inventories/spellLoadouts';
+import UserSpells from '@/inventories/userSpells';
+import Quickbars from '@/composites/quickbars';
+import { WEARABLE, ARMOR, WEAPON, HOME, PURSUITS, ENCHANTSLOTS, TimeId, COMPANION } from '@/values/consts';
+import Stat from '@/values/rvals/stat';
+import TagSet from '@/composites/tagset';
+import EnchantSlots from '@/inventories/enchantslots';
+import Combat from '@/composites/combat';
 
 export const REST_SLOT = 'rest';
 
@@ -41,6 +40,7 @@ export default class GameState {
 
 			version: __VERSION,
 			pid: this.pid,
+			lastUpdate: this.lastUpdate,
 			name: this.player.name,
 			items: this.saveItems,
 			bars: this.bars,
@@ -80,6 +80,8 @@ export default class GameState {
 	constructor(baseData) {
 
 		Object.assign(this, baseData);
+
+		this.lastUpdate = this.lastUpdate ?? Date.now();
 
 		/**
 		 * @property {.<string,GData} saveItems - items actually saved.
@@ -189,6 +191,7 @@ export default class GameState {
 
 		this.items.pursuits = new DataList(this.items.pursuits);
 		this.items.pursuits.id = PURSUITS;
+		this.items.pursuits.order = ORDER;
 
 	}
 
@@ -269,8 +272,6 @@ export default class GameState {
 
 				//console.warn('CUSTOM: ' + it.id + ' name: ' + it.name );
 				this.items[p] = new Group(it);
-
-			} else if (it.instanced) {
 
 			}
 
@@ -559,7 +560,9 @@ export default class GameState {
 		return this.inventory.find(id, true) || this.equip.find(id, true);
 	}
 
-	exists(id) { return this.items.hasOwnProperty(id); }
+	exists(id) {
+		return Object.hasOwn(this.items, id);
+	}
 
 	/**
 	 * Find item in base items, equip, or inventory.

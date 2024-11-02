@@ -1,7 +1,7 @@
 <script>
-import Game from '../game';
-import {abbr} from '../util/format';
-import { TRY_USE } from '../events';
+import Game from '@/game';
+import {abbr} from '@/util/format';
+import { TRY_USE } from '@/events';
 
 /**
  * Bar for quick-use items.

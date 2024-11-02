@@ -21,27 +21,12 @@
 					"sackweaver",
 					"pouchmerchant",
 					"m_gemcutter",
-					[
-						"sackenforcer",
-						"sackthug",
-						"sackthug"
-					],
-					[
-						"irongolem",
-						"irongolem",
-						"sackenforcer"
-					],
+					["sackenforcer", "sackthug", "sackthug"],
+					["irongolem", "irongolem", "sackenforcer"],
 					"sackjman",
 					"greendragon",
-					[
-						"burlapgolem",
-						"burlapgolem",
-						"burlapgolem"
-					],
-					[
-						"sackthug",
-						"sackthug"
-					]
+					["burlapgolem", "burlapgolem", "burlapgolem"],
+					["sackthug", "sackthug"]
 				],
 				"result": {
 					"title": "Guild Breaker"
@@ -217,9 +202,16 @@
 			{
 				"id": "mk_burlapgolem",
 				"name": "create burlap golem",
-				"school": "conjuring",
+				"sortOrder": 1755,
+				"level": 9,
+				"school": "summoning",
+				"keywords": {
+					"type": ["summon"],
+					"target": ["ally"],
+					"targets": ["single"],
+					"delivery": ["instant"]
+				},
 				"require": "g.sackguild>=10",
-				"level": 19,
 				"buy": {
 					"arcana": 10,
 					"tomes": 10
@@ -227,6 +219,7 @@
 				"cost": {
 					"mana": 20
 				},
+				"cd": 20,
 				"summon": [
 					{
 						"id": "sum_burlapgolem",
@@ -238,9 +231,15 @@
 			{
 				"id": "mon_mk_burlapgolem",
 				"name": "create burlap golem",
-				"school": "conjuring",
-				"require": "g.lore>999",
 				"level": 19,
+				"school": "summoning",
+				"keywords": {
+					"type": ["summon"],
+					"target": ["ally"],
+					"targets": ["single"],
+					"delivery": ["instant"]
+				},
+				"require": "g.lore>999",
 				"buy": {
 					"arcana": 10,
 					"tomes": 10

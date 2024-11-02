@@ -1,8 +1,8 @@
-import GData from "./gdata";
-import Game from '../game';
-import { ENCOUNTER } from "../values/consts";
-import Scaler from "../values/rvals/scaler";
-import Stat from "../values/rvals/stat";
+import GData from '@/items/gdata';
+import Game from '@/game';
+import { ENCOUNTER } from '@/values/consts';
+import Scaler from '@/values/rvals/scaler';
+import Stat from '@/values/rvals/stat';
 
 
 /**

@@ -1,1 +1,11 @@
-[ "hp", "stamina", "rage", "bf", "unease", "weary", "rage", "madness", "instability" ]
+[
+	"hp",
+	"stamina",
+	"rage",
+	"bf",
+	"unease",
+	"weary",
+	"rage",
+	"madness",
+	"instability"
+]

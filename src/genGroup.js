@@ -1,4 +1,4 @@
-import {randElm, randFrom, propSort, randWhere} from './util/array';
+import { randElm, randFrom, propSort, randWhere } from '@/util/array';
 
 /**
  * Category to assign items with no property value
@@ -16,9 +16,9 @@ export default class GenGroup {
 	 *
 	 * @param {GData[]} items
 	 */
-	constructor( items ){
+	constructor(items) {
 
-		this.items= items.filter( v=>!v.unique&&!v.noproc );
+		this.items = items.filter(v => !v.unique && !v.noproc);
 
 		/**
 		 * Data split/grouped by a variable/subcategory of the data
@@ -28,7 +28,7 @@ export default class GenGroup {
 
 	}
 
-	subgroup(){
+	subgroup() {
 	}
 
 	/**
@@ -37,27 +37,27 @@ export default class GenGroup {
 	 * @property {(object)=>boolean} pred - optional filter predicate.
 	 * @returns {GData}
 	 */
-	randBelow( max=1, pred) {
+	randBelow(max = 1, pred) {
 
 		let levels = this.filterBy.level;
 
-		let st = 1 + Math.floor( Math.random()*max );
+		let st = 1 + Math.floor(Math.random() * max);
 		let lvl = st;
 
 		do {
 
 			let list = levels[lvl];
 			let it;
-			if ( list ) {
+			if (list) {
 
-				it = pred ? randWhere( list, pred ) : randElm( list );
-				if ( it ) return it;
+				it = pred ? randWhere(list, pred) : randElm(list);
+				if (it) return it;
 
 			}
 
-			if ( --lvl < 0 ) lvl = max;
+			if (--lvl < 0) lvl = max;
 
-		} while ( lvl !== st );
+		} while (lvl !== st);
 
 		return null;
 
@@ -69,13 +69,13 @@ export default class GenGroup {
 	 * @param {boolean} fallback - if item of given level not found,
 	 * fall back to a lower level.
 	 */
-	randAt( level, fallback=true ) {
+	randAt(level, fallback = true) {
 
 		let levels = this.filterBy.level;
 		let a = levels[level];
 
-		if ( !a || a.length===0 ) {
-			return fallback ? this.randBelow(level-1) : null;
+		if (!a || a.length === 0) {
+			return fallback ? this.randBelow(level - 1) : null;
 		}
 
 		return randElm(a);
@@ -86,9 +86,9 @@ export default class GenGroup {
 	 * Get random item with no restriction.
 	 * @returns {object}
 	 */
-	rand(){
-		if ( this.items.length === 0) return null;
-		return this.items[Math.floor(Math.random()*this.items.length)];
+	rand() {
+		if (this.items.length === 0) return null;
+		return this.items[Math.floor(Math.random() * this.items.length)];
 	}
 
 	/**
@@ -98,12 +98,12 @@ export default class GenGroup {
 	 * @param {boolean} allowBlank - accept items with null value on property. e.g. biome:null
 	 * @returns {Array}
 	 */
-	filtered( filter, match, allowBlank=false ) {
+	filtered(filter, match, allowBlank = false) {
 
 		let f = this.filterBy[filter];
 
 		let res = f[match] || [];
-		if ( allowBlank && f.hasOwnProperty(BLANK_CATEGORY) ) return res.concat( f[BLANK_CATEGORY ] );
+		if (allowBlank && f.hasOwnProperty(BLANK_CATEGORY)) return res.concat(f[BLANK_CATEGORY]);
 
 		return res;
 
@@ -116,22 +116,22 @@ export default class GenGroup {
 	 * @param {boolean} allowBlank
 	 * @returns {Array[]}
 	 */
-	getCategories( filter, matches, allowBlank ) {
+	getCategories(filter, matches, allowBlank) {
 
 		const subs = this.filterBy[filter];
 		const res = [];
 
-		if ( subs === undefined ) return res;
-		if ( allowBlank && subs.hasOwnProperty(BLANK_CATEGORY)) res.push( subs[BLANK_CATEGORY]);
-		if ( typeof matches === 'string') {
+		if (subs === undefined) return res;
+		if (allowBlank && subs.hasOwnProperty(BLANK_CATEGORY)) res.push(subs[BLANK_CATEGORY]);
+		if (typeof matches === 'string') {
 
-			if ( subs.hasOwnProperty(matches) ) res.push( subs[matches]);
+			if (subs.hasOwnProperty(matches)) res.push(subs[matches]);
 
-		} else if ( Array.isArray(matches)) {
+		} else if (Array.isArray(matches)) {
 
-			for( let i = matches.length-1; i>= 0; i--) {
-				const sub = subs[matches[i] ];
-				if ( sub ) res.push(sub);
+			for (let i = matches.length - 1; i >= 0; i--) {
+				const sub = subs[matches[i]];
+				if (sub) res.push(sub);
 			}
 
 		}
@@ -146,18 +146,18 @@ export default class GenGroup {
 	 * @param {string} matches - valid property matches.
 	 * @param {boolean} allowBlank - accept items with no prop value on filter. e.g. biome:null
 	 */
-	randBy( filter, matches, allowBlank=false ) {
+	randBy(filter, matches, allowBlank = false) {
 
 		/// no filters of this type.
-		if ( this.filterBy[filter] === undefined ) return null;
+		if (this.filterBy[filter] === undefined) return null;
 
-		if ( Array.isArray( matches ) ) {
+		if (Array.isArray(matches)) {
 
-			return randFrom( this.getCategories(filter, matches, allowBlank) );
+			return randFrom(this.getCategories(filter, matches, allowBlank));
 
 		} else {
 
-			return randElm( this.filtered( filter, matches, allowBlank) );
+			return randElm(this.filtered(filter, matches, allowBlank));
 
 		}
 
@@ -170,32 +170,32 @@ export default class GenGroup {
 	 * @param {?string} prop - prop to sort on. defaults to name.
 	 * @param {?string} [sortBy=level] property to sort filtered lists by.
 	 */
-	makeFilter( name, prop, sortBy='level') {
+	makeFilter(name, prop, sortBy = 'level') {
 
 		const group = this.filterBy[name] = {};
 		prop = prop || name;
 
-		for( let i = this.items.length-1; i>= 0; i-- ) {
+		for (let i = this.items.length - 1; i >= 0; i--) {
 
 			const it = this.items[i];
 			const cat = it[prop] || BLANK_CATEGORY;
 
-			const list = group[ cat ];
-			if ( list === undefined ) {
+			const list = group[cat];
+			if (list === undefined) {
 
-				group[ cat ] = [ it ];
+				group[cat] = [it];
 
 			} else {
-				list.push( it );
+				list.push(it);
 			}
 
 		}
 
 		// sort all lists.
-		if ( sortBy && sortBy !== prop) {
+		if (sortBy && sortBy !== prop) {
 
-			for( const p in group ) {
-				propSort( group[p], sortBy );
+			for (const p in group) {
+				propSort(group[p], sortBy);
 			}
 
 		}

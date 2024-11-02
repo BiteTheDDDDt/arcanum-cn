@@ -1,6 +1,6 @@
 import Base, { mergeClass } from "../items/base";
-import { assign } from '../util/objecty';
-import { addValues } from "../util/dataUtil";
+import { assign } from '@/util/objecty';
+import { addValues } from '@/util/dataUtil';
 
 /**
  * Currently used to make custom user spells.
@@ -44,8 +44,8 @@ export default class Group {
 
 				const it = v[i];
 				if (it === null) {
-					v.splice(i,1)
-					a.splice(i,1)
+					v.splice(i, 1)
+					a.splice(i, 1)
 					continue
 				}
 				if (typeof it === 'object') level += it.level || 0;
@@ -102,8 +102,8 @@ export default class Group {
 	computeCost(save = true) {
 
 		if (!this.items || this.items.length === 0) {
-			this.cost = null;
-			return;
+			if (save && this._cost != null) this.cost = null;
+			return
 		}
 		let cost = {};
 
@@ -191,16 +191,15 @@ export default class Group {
 	 * @param {number} amt
 	 * @param {Object} [targ=null]
 	 */
-	applyMods(mods, amt = 1, targ, src, path, isMod = false, initialCall = true) {
+	applyMods(mods, amt = 1, targ, src, path, modType, recurse) {
 
-		let len = this.items.length,
-			results = [];
+		const len = this.items.length;
 
 		for (let i = 0; i < len; i++) {
-			let it = this.items[i];
-			results.push(it.applyMods(mods, amt, it, isMod ? src : it, path ? path : it.id, isMod, initialCall));
+			const it = this.items[i];
+			it.applyMods(mods, amt, it, src, path, modType, recurse);
 		}
-		return results;
+
 
 	}
 

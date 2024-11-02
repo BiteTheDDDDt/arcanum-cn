@@ -1,4 +1,4 @@
-import Proxy from "./proxy";
+import Proxy from '@/composites/proxy';
 
 /**
  * Slot in quickslot bar.

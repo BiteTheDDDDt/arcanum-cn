@@ -465,6 +465,10 @@
 		"name": "exploration"
 	},
 	{
+		"id": "t_gloss_chaos",
+		"name": "chaos"
+	},
+	{
 		"id": "t_summon",
 		"name": "summon"
 	},
@@ -485,12 +489,21 @@
 	},
 	{
 		"id": "t_combatpot",
-		"name": "combat potion",
+		"name": "combat potion"
+	},
+	{
+		"id": "t_explodypot",
+		"name": "explosive potion",
 		"sharecd": true
 	},
 	{
 		"id": "t_statuspot",
 		"name": "status recovery potion",
+		"sharecd": true
+	},
+	{
+		"id": "t_coating",
+		"name": "coating",
 		"sharecd": true
 	},
 	{
@@ -517,6 +530,248 @@
 	{
 		"id": "t_dueling",
 		"name": "dueling weapon"
+	},
+	{
+		"id": "t_craftwork",
+		"name": "craftwork"
+	},
+	{
+		"id": "t_languagework",
+		"name": "wordplay"
+	},
+	{
+		"id": "t_enchantment",
+		"name": "enchantment"
+	},
+	{
+		"id": "t_stambuff",
+		"name": "stamina buff",
+		"sharecd": true
+	},
+	{
+		"id": "t_dodgebuff",
+		"name": "dodge buff",
+		"sharecd": true
+	},
+	{
+		"id": "t_manabuff",
+		"name": "mana buff",
+		"sharecd": true
+	},
+	{
+		"id": "t_regenbuff",
+		"name": "regen buff",
+		"sharecd": true
+	},
+	{
+		"id": "t_defbuff",
+		"name": "defence buff",
+		"sharecd": true
+	},
+	{
+		"id": "t_speedbuff",
+		"name": "speed buff",
+		"sharecd": true
+	},
+	{
+		"id": "t_accuracybuff",
+		"name": "accuracy buff",
+		"sharecd": true
+	},
+	{
+		"id": "t_immunitybuff",
+		"name": "immunity buff",
+		"sharecd": true
+	},
+	{
+		"id": "t_waterhealbuff",
+		"name": "water heal buff",
+		"sharecd": true
+	},
+	{
+		"id": "t_naturehealbuff",
+		"name": "nature heal buff",
+		"sharecd": true
+	},
+	{
+		"id": "t_obscurebuff",
+		"name": "obscuring buff",
+		"sharecd": true
+	},
+	{
+		"id": "t_etherealbuff",
+		"name": "ethereal buff",
+		"sharecd": true
+	},
+	{
+		"id": "t_silencespell",
+		"name": "silence spell",
+		"sharecd": true
+	},
+	{
+		"id": "t_confusespell",
+		"name": "confusion spell",
+		"sharecd": true
+	},
+	{
+		"id": "t_resist_debuff",
+		"name": "resistance debuff",
+		"sharecd": true
+	},
+	{
+		"id": "t_actionexpansion",
+		"name": "advanced extra action upgrade"
+	},
+	{
+		"id": "t_bulk_sale_task",
+		"name": "bulk sale task"
+	},
+	{
+		"id": "t_quest",
+		"name": "questing"
+	},
+	{
+		"id": "t_chaosclass",
+		"name": "master of chaos"
+	},
+	{
+		"id": "t_lightclass",
+		"name": "master of light"
+	},
+	{
+		"id": "t_mobilehome",
+		"name": "mobile home"
+	},
+	{
+		"id": "t_underground",
+		"name": "underground"
+	},
+	{
+		"id": "t_natureclass",
+		"name": "master of nature"
+	},
+	{
+		"id": "t_earthclass",
+		"name": "master of earth"
+	},
+	{
+		"id": "t_waterclass",
+		"name": "master of water"
+	},
+	{
+		"id": "t_airclass",
+		"name": "master of air"
+	},
+	{
+		"id": "t_fireclass",
+		"name": "master of fire"
+	},
+	{
+		"id": "t_elementalclass",
+		"name": "master of elements"
+	},
+	{
+		"id": "t_divinationclass",
+		"name": "master of divination"
+	},
+	{
+		"id": "t_manaclass",
+		"name": "master of the arcane"
+	},
+	{
+		"id": "t_knowledgeclass",
+		"name": "master of knowledge"
+	},
+	{
+		"id": "t_shadowclass",
+		"name": "master of shadow"
+	},
+	{
+		"id": "t_demonclass",
+		"name": "master of demonology"
+	},
+	{
+		"id": "t_healingclass",
+		"name": "master of healing"
+	},
+	{
+		"id": "t_necroclass",
+		"name": "master of necromancy"
+	},
+	{
+		"id": "t_spiritclass",
+		"name": "master of spirits"
+	},
+	{
+		"id": "t_swordclass",
+		"name": "master of swords"
+	},
+	{
+		"id": "t_hammerclass",
+		"name": "master of hammers"
+	},
+	{
+		"id": "t_bloodclass",
+		"name": "master of blood"
+	},
+	{
+		"id": "t_summonclass",
+		"name": "master of summoning"
+	},
+	{
+		"id": "t_minionclass",
+		"name": "master of minions"
+	},
+	{
+		"id": "t_potionclass",
+		"name": "master of potions"
+	},
+	{
+		"id": "t_craftingclass",
+		"name": "master of crafting"
+	},
+	{
+		"id": "t_enchantingclass",
+		"name": "master of enchanting"
+	},
+	{
+		"id": "t_mechaclass",
+		"name": "master of mechanics"
+	},
+	{
+		"id": "t_body_preparation",
+		"name": "body preparation"
+	},
+	{
+		"id": "t_omendot",
+		"name": "omen"
+	},
+	{
+		"id": "t_fortunedot",
+		"name": "fortune"
+	},
+	{
+		"id": "t_misfortunedot",
+		"name": "misfortune"
+	},
+	{
+		"id": "t_prophecydot",
+		"name": "prophecy"
+	},
+	{
+		"id": "t_brand",
+		"name": "brand"
+	},
+	{
+		"id": "t_birthsign",
+		"name": "birth signs"
+	},
+	{
+		"id": "t_school",
+		"name": "School of Magic"
+	},
+	{
+		"id": "t_locale",
+		"name": "Exploration Adventure"
 	}
-
 ]

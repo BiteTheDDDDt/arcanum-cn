@@ -1,28 +1,28 @@
 <script>
-import ItemsBase from '../itemsBase.js';
-import Progress from '../components/progbar.vue';
-import { toLarge } from 'util/format'
+import ItemsBase from '@/ui/itemsBase.js';
+import Progress from '@/ui/components/progbar.vue';
+import { toLarge } from '@/util/format'
 
 export default {
 
 	/**
 	 * @property {boolean} active - true if skill is the active skill.
 	 */
-	props:['skill', 'active'],
-	mixins:[ItemsBase],
-	components:{
-		bar:Progress
+	props: ['skill', 'active'],
+	mixins: [ItemsBase],
+	components: {
+		bar: Progress
 	},
-	computed:{
+	computed: {
 
-		rate(){
+		rate() {
 			return this.skill.rate.value.toFixed(1);
 		},
-		exp(){
-			return toLarge( Math.floor( this.skill.exp ) );
+		exp() {
+			return toLarge(Math.floor(this.skill.exp));
 		},
-		length(){
-			return toLarge(Math.floor( this.skill.length ) );
+		length() {
+			return toLarge(Math.floor(this.skill.length));
 		}
 	}
 
@@ -30,23 +30,24 @@ export default {
 </script>
 
 <template>
-	<div class="skill">
-		<span class="separate" @mouseenter.capture.stop="itemOver( $event, skill )">
-			<span>{{skill.name}}</span>
+	<div class="skill fade-in">
+		<span class="separate" @mouseenter.capture.stop="itemOver($event, skill)">
+			<span>{{ skill.name }}</span>
 
 			<div class="flex-row" v-if="skill.owned">
 				<div class="flex-col">
 					<span>Level</span>
-					<span>{{Math.floor(skill.valueOf()) + '/' + (Math.trunc(skill.max.valueOf()*10)/10).toFixed(1)}}</span>
+					<span>{{ Math.floor(skill.valueOf()) + '/' +
+						(Math.trunc(skill.max.valueOf() * 10) / 10).toFixed(1) }}</span>
 				</div>
 
-				<button class="train-btn" @click="$emit('train',skill)" :disabled="!skill.canUse()">
-					{{active ? 'Stop' : 'Train'}}
+				<button type="button" class="train-btn" @click="$emit('train', skill)" :disabled="!skill.canUse()">
+					{{ active ? 'Stop' : 'Train' }}
 				</button>
 			</div>
 
 			<span v-else>
-				<button @click="emit('buy', skill)" :disabled="!skill.canUse()">🔒</button>
+				<button type="button" @click="emit('buy', skill)" :disabled="!skill.canUse()">🔒</button>
 			</span>
 		</span>
 
@@ -77,7 +78,7 @@ export default {
 	font-size: 0.75em;
 }
 
-.skill > div {
+.skill>div {
 	font-size: 0.75em;
 	text-align: right;
 	display: flex;

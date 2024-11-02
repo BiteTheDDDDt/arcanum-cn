@@ -1,7 +1,7 @@
-import { NpcState } from "./npcState";
+import { NpcState } from '@/chars/npcState';
 import Events, { EVT_EVENT } from "../events";
-import { P_TITLE, P_LOG, TYP_PCT, MONSTER, FP } from "../values/consts";
-import TagSet from "../composites/tagset";
+import { P_TITLE, P_LOG, TYP_PCT, MONSTER, FP } from '@/values/consts';
+import TagSet from '@/composites/tagset';
 
 /**
  * @interface Context
@@ -9,35 +9,35 @@ import TagSet from "../composites/tagset";
  */
 export default class Context {
 
-	get runner() { return this._runner;}
-	set runner(v) { this._runner = v;}
+	get runner() { return this._runner; }
+	set runner(v) { this._runner = v; }
 
-	get state(){return this._state;}
-	set state(v) { this._state=v}
+	get state() { return this._state; }
+	set state(v) { this._state = v }
 
 	/**
 	 * @property {Char} self - caster/user of any spell/action.
 	 */
-	get self(){ return this._state.self; }
-	set self(v){ this._state.self = v }
+	get self() { return this._state.self; }
+	set self(v) { this._state.self = v }
 
-	constructor( stateObj, caster, data ) {
+	constructor(stateObj, caster, data) {
 
-		this.state = new NpcState( stateObj, caster, data );
+		this.state = new NpcState(stateObj, caster, data);
 
 	}
 
-	getData(id, create=true, elevate=true){
+	getData(id, create = true, elevate = true) {
 		return this.state.getData(id, create, elevate);
 	}
 
-	tryItem( it ){
+	tryItem(it) {
 	}
 
-	tryUseOn( it, targ ) {
+	tryUseOn(it, targ) {
 	}
 
-	tryBuy( it ) {
+	tryBuy(it) {
 		return true;
 	}
 
@@ -45,30 +45,30 @@ export default class Context {
 	 * Don't unlock items.
 	 * @param {*} test
 	 */
-	unlockTest(test){
+	unlockTest(test) {
 		return false;
 	}
 
-	craft(it){
+	craft(it) {
 		return true;
 	}
 
-	create( it, keep, count=1, cap = 0 ) {
+	create(it, keep, count = 1, cap = 0) {
 
-		if ( typeof it === 'string') it = this.state.getData(it);
-		else if ( Array.isArray(it) ) {
-			for( let i = it.length-1; i>=0; i--) {
+		if (typeof it === 'string') it = this.state.getData(it);
+		else if (Array.isArray(it)) {
+			for (let i = it.length - 1; i >= 0; i--) {
 				this.create(it[i], false, count);
 			}
 			return;
 		}
 
-		if (!it ) return;
+		if (!it) return;
 
-		for( let i = count; i >0; i--) {
+		for (let i = count; i > 0; i--) {
 
-			if ( it.type === MONSTER ) {
-				if ( it.onCreate ) it.onCreate( this, this.self.team, false, cap );
+			if (it.type === MONSTER) {
+				if (it.onCreate) it.onCreate(this, this.self.team, false, cap);
 			}
 
 		}
@@ -76,18 +76,18 @@ export default class Context {
 
 	}
 
-	filled(){
+	filled() {
 		return false;
 	}
 
-	removeMods( mod, amt ){
-		this.applyMods(mod,-amt);
+	removeMods(mod, amt) {
+		this.applyMods(mod, -amt);
 	}
 
 	remove(id, amt) {
 	}
 
-	disable(it){
+	disable(it) {
 	}
 
 	/**
@@ -96,7 +96,7 @@ export default class Context {
 	 * that gets called. Since it can't be disabled in the first place,
 	 * there's no condition where we would need to re-enable it.
 	 */
-	enable(it){
+	enable(it) {
 	}
 
 	/**
@@ -105,21 +105,21 @@ export default class Context {
 	 * @param {*} it
 	 * @param {*} targ
 	 */
-	useOn( it, targ ) {
+	useOn(it, targ) {
 	}
-	
+
 
 	/**
 	 * Not implemented.
 	 * @param {*} it
 	 */
-	addTimer(it){
+	addTimer(it) {
 	}
 
 	/**
 	 * Not implemented
 	 */
-	getLoot(){
+	getLoot() {
 	}
 
 	/**
@@ -128,7 +128,7 @@ export default class Context {
 	 * @param {Array|Object} cost
 	 * @returns {boolean} true if cost can be paid.
 	 */
-	canPay( cost, amt=1 ) {
+	canPay(cost, amt = 1) {
 		/*
 		if (cost===null||cost===undefined) return true;
 		// @note @todo: this doesnt work since some items might charge same cost.
@@ -175,26 +175,26 @@ export default class Context {
 	 * @param {number} amt - cost multiplier.
 	 * @returns {boolean}
 	 */
-	canPayObj( parent, cost, amt=1 ){
+	canPayObj(parent, cost, amt = 1) {
 
-		if ( !parent ) return false;
+		if (!parent) return false;
 
-		if ( (cost instanceof RValue) || !isNaN(cost)){
+		if ((cost instanceof RValue) || !isNaN(cost)) {
 			return parent.value >= cost;
 		}
 
-		for( const p in cost ) {
+		for (const p in cost) {
 
 			const val = cost[p];
-			if ( !isNaN(val) || (val instanceof RValue) ) {
-				if ( parent.value < val*amt ) return false;
-			} else if ( typeof val === 'object'){
+			if (!isNaN(val) || (val instanceof RValue)) {
+				if (parent.value < val * amt) return false;
+			} else if (typeof val === 'object') {
 
 
 				//console.log('checking sub cost: ' + p + ' ' +cost.constructor.name );
 				//if ( parent ) console.log( 'parent: ' + parent.id );
 
-				if ( !this.canPayObj( parent[p], val, amt ) ) return false;
+				if (!this.canPayObj(parent[p], val, amt)) return false;
 			}
 
 		}
@@ -202,22 +202,22 @@ export default class Context {
 		return true;
 	}
 
-	canEquip(it) {return true;}
+	canEquip(it) { return true; }
 
-	equip(it){
+	equip(it) {
 	}
 
-	unequip( slot, it ){
+	unequip(slot, it) {
 	}
 
-	onUnequip(it){
+	onUnequip(it) {
 	}
 
 	/**
 	 * Needed for proper item interactions.
 	 * @param {*} it
 	 */
-	setSlot( it ) {
+	setSlot(it) {
 	}
 
 	/**
@@ -227,14 +227,14 @@ export default class Context {
 	payCost(cost) {
 	}
 
-	canMod(mod){
+	canMod(mod) {
 		return true;
 	}
 
-	payInst( p, amt ) {
+	payInst(p, amt) {
 	}
 
-	setTask(it){
+	setTask(it) {
 
 	}
 
@@ -242,7 +242,7 @@ export default class Context {
 	 * Determines whether an item can be run as a continuous task.
 	 * @returns {boolean}
 	 */
-	canRun( it ) {
+	canRun(it) {
 		/*
 		if ( !it.canRun ) {
 			console.error( it.id + ' no canRun()');
@@ -256,32 +256,32 @@ export default class Context {
 		return true;
 	}
 
-	applyMods( mod, amt=1) {
+	applyMods(mod, amt = 1) {
 
-		if ( !mod ) return;
+		if (!mod) return;
 
-		if ( Array.isArray(mod)  ) {
-			for( const m of mod ) this.applyMods(m, amt);
-		} else if ( typeof mod === 'object' ) {
+		if (Array.isArray(mod)) {
+			for (const m of mod) this.applyMods(m, amt);
+		} else if (typeof mod === 'object') {
 
-			for( const p in mod ) {
+			for (const p in mod) {
 
-				const target = this.getData( p );
-				if ( target === undefined || target === null ) continue;
-				if ( target.applyMods) {
+				const target = this.getData(p);
+				if (target === undefined || target === null) continue;
+				if (target.applyMods) {
 
-						target.applyMods( mod[p], amt );
+					target.applyMods(mod[p], amt);
 
-				} else console.warn( 'no applyMods(): ' + target );
+				} else console.warn('no applyMods(): ' + target);
 			}
 
-		} else if ( typeof mod === 'string') {
+		} else if (typeof mod === 'string') {
 
 			let t = this.getData(mod);
-			if ( t ) {
+			if (t) {
 
-				console.warn('!!!!!!!!!!ADDED NUMBER MOD: ' + mod );
-				t.amount( this, 1 );
+				console.warn('!!!!!!!!!!ADDED NUMBER MOD: ' + mod);
+				t.amount(this, 1);
 
 			}
 
@@ -289,67 +289,69 @@ export default class Context {
 
 	}
 
-	applyVars( vars, dt=1, amt=1 ) {
-		
-		if (  Array.isArray(vars) ) {
-			for( let e of vars ) { this.applyVars( e,dt,amt); }
+	applyVars(vars, dt = 1, amt = 1, valueactor = null, valuetarget = null) {
 
-		} else if ( typeof vars === 'object' ) {
+		if (Array.isArray(vars)) {
+			for (let e of vars) { this.applyVars(e, dt, amt); }
+
+		} else if (typeof vars === 'object') {
 
 			let target, e = vars[TYP_PCT];
-			if ( e && !e.roll() ) return;
+			if (e && !e.roll()) return;
 
-			for( let p in vars ){
-				
+			for (let p in vars) {
+
 				target = this.getData(p);
 				e = vars[p];
 
-				if ( target === undefined || target === null ) {
+				if (target === undefined || target === null) {
 
-					if ( p === P_TITLE ) this.self.addTitle( e );
-					else if ( p === P_LOG ) Events.emit( EVT_EVENT, e );
-					else console.warn( p + ' no effect target: ' + e );
+					if (p === P_TITLE) this.self.addTitle(e);
+					else if (p === P_LOG) Events.emit(EVT_EVENT, e);
+					else console.warn(p + ' no effect target: ' + e);
 
 				} else {
 
-					if ( typeof e === 'number' ) {
+					if (typeof e === 'number') {
 
-						target.amount( e*dt*amt );
+						target.amount(e * dt * amt);
 
-					} else if ( e.isRVal ) {
+					} else if (e.isRVal) {
 						// messy code. this shouldn't be here. what's going on?!?!
 						// @TODO make the if condition exclude tagsets (and other things with items property) and verify that theres no issues
 						const Params = {
 							[FP.GDATA]: this.state.state.gdata, // @TODO need to change this to target npcItems when it isnt a map.
-							[FP.ITEM]: target
+							[FP.ITEM]: target,
+							[FP.ACTOR]: valueactor,
+							[FP.TARGET]: valuetarget
 						};
 
-						target.amount( amt*dt*e.getApply( Params ) );
+						target.amount(amt * dt * e.getApply(Params));
 
-					} else if ( e === true ) {
+					} else if (e === true) {
 
 						target.doUnlock(this);
-						target.onUse( this );
+						target.onUse(this);
 
-					} else if ( e.type === TYP_PCT ) {
+					} else if (e.type === TYP_PCT) {
 
-						if ( e.roll() ) target.amount( 1 );
+						if (e.roll()) target.amount(1);
 
-					} else target.applyVars(e,dt,amt);
+					} else target.applyVars(e, dt, amt);
 
 				}
 			}
 
-		} else if ( typeof vars === 'string') {
+		} else if (typeof vars === 'string') {
 			let target = this.getData(vars);
-			if ( target !== undefined ) {
-				if(target.amount.length === 1){ 
-					target.amount( dt ); 
+			if (target !== undefined) {
+				if (target.amount.length === 1) {
+					target.amount(dt);
 				}
-				else if (target.amount.length === 2){ 
-					target.amount(this, dt ); 
+				else if (target.amount.length === 2) {
+					target.amount(this, dt);
 				}
-			}		
+			}
 
 		}
 
@@ -357,16 +359,16 @@ export default class Context {
 
 	restoreMods() {
 		this.state.npcItems.forEach(it => {
-			if ( it instanceof TagSet) return;
+			if (it instanceof TagSet) return;
 
-			if ( /*!it.locked && !it.disabled &&*/ !(it.instanced||it.isRecipe) ) {
+			if ( /*!it.locked && !it.disabled &&*/ !(it.instanced || it.isRecipe)) {
 
-				if ( it.value != 0 ) {
+				if (it.value != 0) {
 
-					if ( it.applyImproves ) it.applyImproves();
-					if ( it.mod && +it.value ) this.applyMods( it.mod, it.value, it.id);
-					if ( it.lock ) {
-						this.lock( it.lock, it.value );
+					if (it.applyImproves) it.applyImproves();
+					if (it.mod && +it.value) this.applyMods(it.mod, it.value, it.id);
+					if (it.lock) {
+						this.lock(it.lock, it.value);
 					}
 
 				}

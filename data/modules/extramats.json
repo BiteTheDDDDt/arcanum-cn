@@ -136,7 +136,7 @@
 					"managem": 5
 				},
 				"alter": {
-					"mod.player.bonuses.mana": "3%"
+					"mod.manadmg": "3%"
 				}
 			},
 			{
@@ -214,7 +214,7 @@
 				"verb": "imbuing staff",
 				"only": "t_greatstaff",
 				"desc": "Cause your staff to restore health to yourself and your allies.",
-				"need": "g.evil<=0",
+				"need": "g.good3==1",
 				"require": "g.enchanting>=777",
 				"level": 8,
 				"buy": {
@@ -379,7 +379,7 @@
 				"verb": "dedicating fetish",
 				"only": "t_fetish",
 				"desc": "Many souls are imprisoned within this vessel. You will add even more.",
-				"require": "g.enchanting>=7",
+				"require": "g.enchanting>=7&&g.necromancy>=7",
 				"level": 6,
 				"buy": {
 					"tomes": 15,
@@ -401,9 +401,9 @@
 				"adj": "%i of shadows",
 				"verb": "dedicating fetish",
 				"only": "t_fetish",
-				"need": "g.evil>0",
+				"need": "g.evil1>=0&&g.good3==0",
 				"desc": "Shadowy tendrils radiate from this macabre curio.",
-				"require": "g.enchanting>=7",
+				"require": "g.enchanting>=7&&g.necromancy>=13",
 				"level": 6,
 				"buy": {
 					"tomes": 15,
@@ -501,7 +501,7 @@
 				"verb": "weaving",
 				"only": "t_belt",
 				"desc": "Simple but effective ways to expand already present pouches.",
-				"require": "g.enchanting>=4&&g.weaving>=4",
+				"require": "g.enchanting>=4&&g.weaving>=2",
 				"level": 2,
 				"buy": {
 					"tomes": 1,
@@ -526,7 +526,7 @@
 				"verb": "mana weaving",
 				"only": "t_robe",
 				"desc": "Have your robes constantly gather mana and store it for later use.",
-				"require": "g.enchanting>=6&&g.weaving>=6",
+				"require": "g.enchanting>=6&&g.weaving>=5",
 				"level": 5,
 				"buy": {
 					"arcana": 3,
@@ -555,7 +555,7 @@
 				"verb": "dying",
 				"only": "t_robe",
 				"desc": "Store energies of all kinds in the weaves of a robe.",
-				"require": "g.enchanting>=9&&g.weaving>=7",
+				"require": "g.enchanting>=9&&g.weaving>=8",
 				"level": 3,
 				"buy": {
 					"arcana": 5,

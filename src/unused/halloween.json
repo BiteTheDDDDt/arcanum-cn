@@ -578,6 +578,12 @@
 				"id": "pumpbomb",
 				"name": "pumpkin bomb",
 				"level":3,
+				"keywords": {
+					"type": ["damage"],
+					"target": ["enemy"],
+					"targets": ["single"],
+					"delivery": ["instant"]
+				},
 				"buy":{
 
 					"jacklantern":1,

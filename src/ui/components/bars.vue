@@ -1,15 +1,12 @@
 <script>
-import ProgBar from 'ui/components/progbar.vue';
-import Settings from 'modules/settings';
+import ProgBar from '@/ui/components/progbar.vue';
+import Settings from '@/modules/settings';
 
-import Game from '../../game';
-import UIMixin from '../uiMixin';
-import ItemBase from '../itemsBase';
+import Game from '@/game';
+import UIMixin from '@/ui/uiMixin';
+import ItemBase from '@/ui/itemsBase';
 
-
-/**
- * Display the progress bars listed.
- */
+/// Display progress bars defined in props
 export default {
 
 	props: ['bars'],
@@ -62,7 +59,7 @@ export default {
 
 		<div class="hidable statbar" v-for="it in itemList" :key="it.key" :data-key="it.id">
 			<span class="name">{{ it.name.toTitleCase() }}</span><span class="barspan"><progbar :value="it.valueOf()" :class="it.id" :max="it.max.value" :color="it.color"
-			@mouseenter.native.capture.stop="itemOver($event, it)"/></span></div>
+			@mouseenter.capture.stop="itemOver($event, it)"/></span></div>
 
 	</div>
 

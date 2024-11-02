@@ -1,8 +1,8 @@
 <script>
-import Game from '../../game';
-import FilterBox from '../components/filterbox.vue';
-import { USE } from '../../events';
-import { canTarget } from '../../values/consts';
+import Game from '@/game';
+import FilterBox from '@/ui/components/filterbox.vue';
+import { USE } from '@/events';
+import { canTarget } from '@/values/consts';
 
 export default {
 
@@ -12,7 +12,8 @@ export default {
 	 * @property {boolean} selecting - inventory is selection only. sell-all & size information hidden.
 	 * @property {string[]} types - item types to display.
 	 */
-	props: ['inv', 'take', 'value', 'selecting', 'nosearch', 'types', "kinds", 'combat'],
+	props: ['modelValue', 'inv', 'take', 'selecting', 'nosearch', 'types', "kinds", 'combat'],
+	emits: ['update:modelValue'],
 	data() {
 		return {
 			filtered: null,
@@ -24,9 +25,9 @@ export default {
 
 		const rootStyle = window.getComputedStyle(document.documentElement);
 		const baseFontSize = parseFloat(rootStyle.fontSize);
-	
+
 		/// assuming grid is 12rem
-		this.cellWidth = baseFontSize*12;
+		this.cellWidth = baseFontSize * 12;
 
 	},
 	mounted() {
@@ -45,15 +46,11 @@ export default {
 			const grid = this.$refs.gridRef;
 			if (grid) {
 
-				this.cols = Math.floor(grid.offsetWidth / this.cellWidth );
+				this.cols = Math.floor(grid.clientWidth / this.cellWidth);
 			} else {
 				this.cols = 1;
 			}
 
-		},
-		forceRefresh() {
-			this.$forceUpdate();
-			console.warn("Inventory update forced");
 		},
 		sellAll() {
 
@@ -89,6 +86,13 @@ export default {
 			this.emit('take', it);
 			this.inv.remove(it);
 
+		},
+		onselect(it) {
+			console.log(it);
+			console.log(this.modelValue);
+			this.$emit('update:modelValue', it);
+			console.log(this.modelValue);
+
 		}
 
 	},
@@ -98,10 +102,10 @@ export default {
 
 			const types = this.types;
 			const items = types ?
-				this.inv.items.filter(it=>types.includes(it.type))
-					: this.inv.items;
-			if ( this.kinds && this.kinds.length >0 ){
-				return items.filter(it=>canTarget(this.kinds, it));
+				this.inv.items.filter(it => types.includes(it.type))
+				: this.inv.items;
+			if (this.kinds && this.kinds.length > 0) {
+				return items.filter(it => canTarget(this.kinds, it));
 			}
 			return items;
 		},
@@ -115,49 +119,50 @@ export default {
 
 
 <template>
-<div class="inventory">
+	<div class="inventory">
 
-	<span class="top">
-	<filterbox ref="filter" v-if="!nosearch" v-model="filtered" :items="baseItems" min-items="7" />
-	<span v-if="!selecting && !combat">
-		<span v-if="inv.max > 0">{{ inv.items.length + ' / ' + Math.floor(inv.max.value) + ' Used' }}</span>
-		<button v-if="inv.count > 0" @click="sellAll">Sell All</button>
-	</span>
-	</span>
+		<span class="top">
+			<filterbox ref="filter" v-if="!nosearch" v-model="filtered" :items="baseItems" :min-items="7" />
+			<span v-if="!selecting && !combat">
+				<span v-if="inv.max > 0">{{ inv.items.length + ' / ' + Math.floor(inv.max.value) + ' Used' }}</span>
+				<button type="button" v-if="inv.count > 0" @click="sellAll">Sell All</button>
+			</span>
+		</span>
 
-	<div class="item-table" ref="gridRef">
+		<div class="item-table" ref="gridRef">
 
-	<div v-for="(it, ind) in (nosearch ? baseItems : filtered)"
-		:class="(ind % (2 * cols) < cols) ? 'off-color' : ''"
-		class="item separate"
-		:key="it.id">
+			<div v-for="(it, ind) in (nosearch ? baseItems : filtered)"
+				:class="(ind % (2 * cols) < cols) ? 'off-color' : ''" class="item separate" :key="it.id">
 
-		<span class="item-name" @mouseenter.capture.stop="itemOver($event, it)">{{ it.name + count(it.count) }}</span>
+				<span class="item-name" @mouseenter.capture.stop="itemOver($event, it)">{{ it.name + count(it.count)
+					}}</span>
 
+				<div class="item-buttons">
+					<template v-if="selecting">
+						<button type="button" class="item-action" @click="onselect(it)">Select</button>
+					</template>
+					<template v-else-if="combat">
+						<button type="button" v-if="it.use" :disabled="!canUse(it)" class="item-action"
+							@mouseenter.capture.stop="itemOver($event, it)" @click="emit(USE, it, inv)">Use</button>
+					</template>
+					<template v-else>
+						<button type="button" v-if="it.equippable && canEquip(it)" class="item-action"
+							@click="emit('equip', it, inv)">Equip</button>
+						<button type="button" v-if="it.use" :disabled="!canUse(it)" class="item-action"
+							@mouseenter.capture.stop="itemOver($event, it)" @click="emit(USE, it, inv)">Use</button>
+						<button type="button" v-if="take && canAdd(it)" class="item-action" @click="onTake(it)">Take</button>
 
-		<template v-if="!selecting && !combat">
+						<button type="button" class="item-action" @click="emit('sell', it, inv)"
+							@mouseenter.capture.stop="itemOver($event, it)">Sell</button>
+						<button type="button" v-if="it.count > 1" class="item-action" @click="emit('sell', it, inv, it.count)"
+							@mouseenter.capture.stop="itemOver($event, it)">Sell All</button>
+					</template>
+				</div>
+			</div>
+		</div>
 
-			<button v-if="it.equippable && canEquip(it)" class="item-action" @click="emit('equip', it, inv)">Equip</button>
-			<button v-if="it.use" :disabled="!canUse(it)" class="item-action" @mouseenter.capture.stop="itemOver($event, it)" @click="emit(USE, it, inv)">Use</button>
-			<button v-if="take && canAdd(it)" class="item-action" @click="onTake(it)">Take</button>
-
-			<button class="item-action"  @click="emit('sell', it, inv)" @mouseenter.capture.stop="itemOver($event, it)">Sell</button>
-			<button v-if="it.count > 1" class="item-action"  @click="emit('sell', it, inv, it.count)" @mouseenter.capture.stop="itemOver($event, it)">Sell All</button>
-
-		</template>
-		<template v-if="!selecting && combat">
-
-		<button v-if="it.use" :disabled="!canUse(it)" class="item-action" @mouseenter.capture.stop="itemOver($event, it)" @click="emit(USE, it, inv)">Use</button>
-
-		</template>
-		<template v-if="selecting">
-			<button class="item-action"  @click="$emit('input', it)">Select</button>
-		</template>
+		<div v-if="playerFull" class="warn-text">Inventory Full</div>
 	</div>
-</div>
-
-<div v-if="playerFull" class="warn-text">Inventory Full</div>
-</div>
 </template>
 
 
@@ -204,16 +209,31 @@ export default {
 }
 
 .item-name {
+	display: flex;
+	align-items: center;
+	text-align: center;
 	flex-grow: 1;
 }
 
 .item-table .item {
 	padding: var(--sm-gap) var(--md-gap);
-	align-items: center;
 	margin: 0;
+
+	display: flex;
+	flex-direction: column;
+	align-items: center;
 }
 
 .item .item-action {
+	margin: 0;
+}
+
+.item .item-buttons {
 	margin: var(--tiny-gap);
+	gap: var(--tiny-gap);
+
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
 }
 </style>

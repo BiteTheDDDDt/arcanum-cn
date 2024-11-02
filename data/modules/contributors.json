@@ -2,6 +2,19 @@
 	"module": "contributors",
 	"sym": "✪",
 	"data": {
+		"events": [
+			{
+				"id": "evn_yurisexpander",
+				"name": "yuri Dhjeeyn's von Neumann House",
+				"hidden": true,
+				"require": "g.clockworkexpansione>=15",
+				"mod": {
+					"clockworkexpansione.mod.yurisexpander.convert.input.puppets": 0.00028,
+					"clockworkexpansione.mod.yurisexpander.convert.input.machinae": 0.00028,
+					"clockworkexpansione.mod.yurisexpander.convert.input.automatas": 0.00028
+				}
+			}
+		],
 		"furniture": [
 			{
 				"id": "yurisexpander",
@@ -29,7 +42,7 @@
 						}
 					}
 				},
-				"flavor": "Most Wizards build their Towers on the labours of the less magically inclined. \n But not you, you shall spare the common people and build your Domain on the backs of your loyal Automata and their lesser cousins. \n And if a few of them are to be sacrificed and integrated into your works, then that is a sacrifice you are willing to make." 
+				"flavor": "Most Wizards build their Towers on the labours of the less magically inclined. \n But not you, you shall spare the common people and build your Domain on the backs of your loyal Automata and their lesser cousins. \n And if a few of them are to be sacrificed and integrated into your works, then that is a sacrifice you are willing to make."
 			}
 		],
 		"spells": [
@@ -37,19 +50,26 @@
 				"id": "mk_phoenixegg",
 				"name": "baron's phoenix incubator",
 				"desc": "In combat, summon a phoenix egg which you must guard until it hatches.",
-				"require": "g.summoner>0||(g.conjurer>0&&g.tier2>0)",
+				"sortOrder": 760,
 				"level": 3,
-				"cd": 60,
 				"school": "fire",
-				"buy":{
+				"keywords": {
+					"type": ["summon"],
+					"target": ["ally"],
+					"targets": ["single"],
+					"delivery": ["instant"]
+				},
+				"require": "g.summoner>0||(g.t_summonclass>0&&g.tier2>0)",
+				"buy": {
 					"research": 1000,
 					"firegem": 30,
 					"codices": 20
 				},
-				"cost":{
+				"cost": {
 					"fire": 10
 				},
-				"summon":[
+				"cd": 60,
+				"summon": [
 					{
 						"id": "sum_phoenixegg",
 						"count": 1,
@@ -60,4 +80,3 @@
 		]
 	}
 }
-

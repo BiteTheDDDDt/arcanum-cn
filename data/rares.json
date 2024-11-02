@@ -12,7 +12,7 @@
 		"armor": 5,
 		"alter": {
 			"mod": {
-				"self.bonuses.fire": "5%",
+				"firedmg": "5%",
 				"self.resist.fire": 10,
 				"self.resist.silence": 5,
 				"self.tohit": 1,
@@ -52,7 +52,7 @@
 		"alter": {
 			"mod": {
 				"self.resist.paralysis": 10,
-				"charms.max": 1,
+				"charms.mod.magicadvice.result.gold": 0.13,
 				"charms.rate": 0.3
 			}
 		},
@@ -139,11 +139,10 @@
 		"alter": {
 			"mod": {
 				"herbs.max": 20,
-				"gatherherbs.result.herbalism.exp": 0.2,
-				"gatherherbs.result.herbs": 0.3,
+				"gatherherbs.result.herbalism.exp": 2,
+				"gatherherbs.result.herbs": 3,
 				"act_garden.effect.herbs": 0.1,
-				"act_garden.effect.herbalism.exp": 1,
-				"act_garden.effect.research": 0.1
+				"act_garden.effect.research": 0.5
 			}
 		}
 	},
@@ -190,7 +189,7 @@
 		"alter": {
 			"mod": {
 				"scribescroll.cost.research": 10,
-				"scribescroll.cost.mana": -1,
+				"scribescroll.cost.mana": -0.5,
 				"bindcodex.cost.research": 30,
 				"bindcodex.cost.mana": -1,
 				"bindcodex.cost.scrolls": -2,
@@ -212,7 +211,7 @@
 		"slot": "trinket",
 		"alter": {
 			"mod": {
-				"s_travel.max": 2,
+				"s_travel.mod.dist": "5%",
 				"bf.rate": -0.5
 			}
 		},
@@ -280,27 +279,31 @@
 		"name": "titan's hammer",
 		"desc": "Wrought from unyielding adamant, it hums with the energies of the earth.",
 		"type": "weapon",
+		"damage": "15~20",
 		"attack": [
 			{
 				"name": "earthbreaker",
-				"targets":"enemies",
-				"dmg": "10~12",
+				"targets": "enemies",
+				"damage": "(i.damage||0)*0.33",
 				"kind": "blunt",
+				"potencies": ["physdmg", "hammerdmg", "bluntdmg"],
 				"dot": {
 					"duration": 6,
-					"dmg": "3~6",
+					"damage": "3~6",
 					"mod": {
 						"self.speed": -5
-						}
-					}
-				},	
-				{
+					},
+					"potencies": ["physdmg", "hammerdmg", "bluntdmg"]
+				}
+			},
+			{
 				"name": "titanic slam",
 				"kind": "blunt",
-				"targets":"enemy",
-				"dmg": "30~35"
-				},
-				{
+				"targets": "enemy",
+				"damage": "(i.damage||0)*1.5",
+				"potencies": ["physdmg", "hammerdmg", "bluntdmg"]
+			},
+			{
 				"name": "earth barrier",
 				"targets": "allies",
 				"harmless": true,
@@ -352,7 +355,7 @@
 		},
 		"alter": {
 			"mod": {
-				"gatherherbs.cost.stamina": -0.1
+				"gatherherbs.cost.stamina": -1
 			}
 		}
 	},
@@ -396,5 +399,175 @@
 				"chores.cost.stamina": -0.05
 			}
 		}
+	},
+	{
+		"id": "jesterhat",
+		"name": "jester's cap",
+		"type": "armor",
+		"enchants": 10,
+		"slot": "head",
+		"desc": "A brightly-colored cap jingling cheerfully as you go.",
+		"level": 1,
+		"armor": 0,
+		"sell": {
+			"gold": 2
+		},
+		"alter": {
+			"mod": {
+				"chaosdmg": 5,
+				"dodge": 1,
+				"stress.rate": -0.025
+			}
+		}
+	},
+	{
+		"id": "jestershirt",
+		"name": "jester's tunic",
+		"type": "armor",
+		"enchants": 10,
+		"slot": "chest",
+		"desc": "A brightly-colored tunic in an eyetwisting pattern.",
+		"level": 1,
+		"armor": 0,
+		"sell": {
+			"gold": 2
+		},
+		"alter": {
+			"mod": {
+				"chaosdmg": 5,
+				"dodge": 1,
+				"stress.rate": -0.025
+			}
+		}
+	},
+	{
+		"id": "jesterpants",
+		"name": "jester's trousers",
+		"type": "armor",
+		"enchants": 10,
+		"slot": "shins",
+		"desc": "A brightly-colored pair of trousers to fool the eye.",
+		"level": 1,
+		"armor": 0,
+		"sell": {
+			"gold": 2
+		},
+		"alter": {
+			"mod": {
+				"chaosdmg": 5,
+				"dodge": 1,
+				"stress.rate": -0.025
+			}
+		}
+	},
+	{
+		"id": "jestershoes",
+		"name": "jester's boots",
+		"type": "armor",
+		"enchants": 10,
+		"slot": "feet",
+		"desc": "A brightly-colored pair of poulaines to obscure your steps.",
+		"level": 1,
+		"armor": 0,
+		"sell": {
+			"gold": 2
+		},
+		"alter": {
+			"mod": {
+				"chaosdmg": 5,
+				"dodge": 1,
+				"stress.rate": -0.025
+			}
+		}
+	},
+	{
+		"id": "fishysword",
+		"name": "swordfish",
+		"desc": "A weapon far too unexpected to guard against.",
+		"type": "weapon",
+		"material": "fish",
+		"damage": "1~4",
+		"enchants": 3,
+		"attack": {
+			"kind": "slash",
+			"damage": "i.damage||0",
+			"nododge": true,
+			"potencies": ["sworddmg", "physdmg", "slashdmg", "waterdmg", "chaosdmg"]
+		},
+		"tags": "t_martial,t_slash,t_swords",
+		"cost": 30,
+		"level": 1,
+		"flavor": "It's always swordfish."
+	},
+	{
+		"id": "fishyspear",
+		"name": "pike",
+		"desc": "A weapon far too unexpected to guard against.",
+		"type": "weapon",
+		"material": "fish",
+		"damage": "1~4",
+		"enchants": 3,
+		"attack": {
+			"kind": "pierce",
+			"damage": "i.damage||0",
+			"nododge": true,
+			"potencies": ["physdmg", "piercedmg", "waterdmg", "chaosdmg"]
+		},
+		"tags": "t_martial,t_pierce,t_spear",
+		"cost": 30,
+		"level": 1,
+		"flavor": "Ah? Some likes 'em, but they are too muddy for my taste."
+	},
+	{
+		"id": "fishyhammer",
+		"name": "hammerhead shark",
+		"desc": "A weapon far too unexpected to guard against.",
+		"type": "weapon",
+		"material": "fish",
+		"damage": "1~4",
+		"enchants": 3,
+		"attack": {
+			"kind": "blunt",
+			"damage": "i.damage||0",
+			"nododge": true,
+			"potencies": ["hammerdmg", "physdmg", "bluntdmg", "waterdmg", "chaosdmg"]
+		},
+		"tags": "t_martial,t_blunt,t_warhammer",
+		"cost": 30,
+		"level": 1,
+		"flavor": "For when you're having trouble nailing down your enemies."
+	},
+	{
+		"id": "fishyrapier",
+		"name": "en gar",
+		"desc": "A weapon far too unexpected to guard against.",
+		"type": "weapon",
+		"material": "fish",
+		"damage": 2,
+		"enchants": 3,
+		"attack": {
+			"kind": "pierce",
+			"damage": "i.damage||0",
+			"nododge": true,
+			"targetspec": {
+				"affectedby": {
+					"condition": ["enemy_engagement"],
+					"conditiontext": "engagement"
+				}
+			},
+			"targets": "enemy",
+			"potencies": [
+				"physdmg",
+				"piercedmg",
+				"duelingdmg",
+				"sworddmg",
+				"waterdmg",
+				"chaosdmg"
+			]
+		},
+		"tags": "t_rapiers,t_swords,t_martial,t_pierce,t_dueling",
+		"cost": 30,
+		"level": 1,
+		"flavor": "You mean en garde? No."
 	}
 ]

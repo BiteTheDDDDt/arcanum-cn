@@ -11,3 +11,4 @@ workbox.routing.registerRoute( /\.css$/,
 
 workbox.routing.registerRoute( /\.(?:png|jpg|jpeg|gif|svg)$/,
 new workbox.strategies.CacheFirst() );
+

@@ -1,5 +1,5 @@
-import { precise } from '../util/format';
-import GData from './gdata';
+import { precise } from '@/util/format';
+import GData from '@/items/gdata';
 
 /**
  * Like a resource but a single Stat value with no max, that can be directly modified.
@@ -36,10 +36,10 @@ export default class StatData extends GData {
 	 * @param {Game} g - game instance, for mods stuff. ( @todo use event instead?)
 	 * @param {number} amt
 	 */
-	setBase( g, amt ) {
+	setBase(g, amt) {
 
-		let del = this.add( amt - this.value.base );
-		this.changed( g, del );
+		let del = this.add(amt - this.value.base);
+		this.changed(g, del);
 
 	}
 
@@ -47,19 +47,19 @@ export default class StatData extends GData {
 	 *
 	 * @param {?Object} [vars=null]
 	 */
-	constructor( vars=null ){
+	constructor(vars = null) {
 
 		super(vars);
 
-		if ( this.value === undefined || this.value === null ) this.value = 0;
+		if (this.value === undefined || this.value === null) this.value = 0;
 		this.repeat = true;
 
 		/**
 		 * @property {boolean} unit - true if current value is reported in integer amounts.
 		 */
-		if ( this.unit === null || this.unit === undefined ) this.unit = true;
+		if (this.unit === null || this.unit === undefined) this.unit = true;
 
-		if ( this._rate === null || this.rate === undefined ) this.rate = 0;
+		if (this._rate === null || this.rate === undefined) this.rate = 0;
 
 	}
 

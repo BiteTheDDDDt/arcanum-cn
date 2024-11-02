@@ -1,4 +1,4 @@
-import Stat from "../values/rvals/stat";
+import Stat from '@/values/rvals/stat';
 
 /**
  * CURRENTLY UNUSED.
@@ -6,32 +6,32 @@ import Stat from "../values/rvals/stat";
  */
 export default class Bonus {
 
-	toJSON(){
+	toJSON() {
 
-		if ( this.tohit === null || this.tohit.valueOf()=== 0) return this._dmg;
+		if (this.tohit === null || this.tohit.valueOf() === 0) return this._dmg;
 
 		return {
-			hit:this.tohit ? this.tohit : undefined,
-			dmg:this.damage ? this.damage : undefined
+			hit: this.tohit ? this.tohit : undefined,
+			dmg: this.damage ? this.damage : undefined
 		};
 
 	}
 
-	get tohit(){return this._tohit;}
-	set tohit(v){this._tohit = new Stat(v);}
+	get tohit() { return this._tohit; }
+	set tohit(v) { this._tohit = new Stat(v); }
 
-	get damage(){return this._dmg;}
-	set damage(v){this._dmg=new Stat(v);}
+	get damage() { return this._dmg; }
+	set damage(v) { this._dmg = new Stat(v); }
 
-	constructor(vars){
+	constructor(vars) {
 
-		if ( vars ){
+		if (vars) {
 
-			if ( typeof vars === 'number') {
+			if (typeof vars === 'number') {
 
 				this.damage = vars;
 
-			} else if ( typeof vars === 'object') {
+			} else if (typeof vars === 'object') {
 
 				this.tohit = vars.hit;
 				this.damage = vars.dmg || vars.damage;
@@ -42,7 +42,7 @@ export default class Bonus {
 
 	}
 
-	getDamage(){return this._dmg ? this._dmg.valueOf() : 0;}
-	getHit(){return this.tohit ? this.tohit.valueOf() : 0;}
+	getDamage() { return this._dmg ? this._dmg.valueOf() : 0; }
+	getHit() { return this.tohit ? this.tohit.valueOf() : 0; }
 
 }

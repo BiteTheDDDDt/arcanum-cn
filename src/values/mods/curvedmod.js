@@ -1,6 +1,6 @@
-import { precise } from "../../util/format";
-import { OPS } from "./atmod";
-import Mod from "./mod";
+import { precise } from '@/util/format';
+import { OPS } from '@/values/mods/atmod';
+import Mod from '@/values/mods/mod';
 
 /**
  * Regex for parsing CurvedMod
@@ -32,9 +32,9 @@ export default class CurvedMod extends Mod {
         let basePct = +this.basePct || 0;
 
         let m = `${base || ""}${base && basePct ? " & " : ""}${base < 0 && basePct > 0 ? "+" : ""}${basePct ? basePct * 100 + "%" : ""}`;
-        let mhalf = `${base/2 || ""}${base && basePct ? " & " : ""}${base < 0 && basePct > 0 ? "+" : ""}${basePct ? basePct/2 * 100 + "%" : ""}`;
+        let mhalf = `${base / 2 || ""}${base && basePct ? " & " : ""}${base < 0 && basePct > 0 ? "+" : ""}${basePct ? basePct / 2 * 100 + "%" : ""}`;
 
-        let half = Math.ceil((p*n)/100);
+        let half = Math.ceil((p * n) / 100);
 
         let str = "";
 
@@ -42,17 +42,17 @@ export default class CurvedMod extends Mod {
 
         str = mhalf + " at " + half;
 
-        if(p === 50){
-            str += ", "; 
-        }else if(p < 50){
-            str += " decreasing to ";
-        }else{
-            str += " increasing to ";
+        if (p === 50) {
+            str += " linearily increasing to ";
+        } else if (p < 50) {
+            str += " slowly increasing to ";
+        } else {
+            str += " sharply increasing to ";
         }
-        
+
         str += m + " total at " + n;
 
-        if(cur){
+        if (cur) {
             str += " (cur: " + cur + ")";
         }
 
@@ -74,7 +74,7 @@ export default class CurvedMod extends Mod {
     }
 
     get str() {
-        return `${this.base || ""}${this.basePct > 0 && this.base && this.basePct ? "+" : ""}${this.basePct * 100 + "%"|| ""}|${this.max || ""}|${this.percent}`;
+        return `${this.base || ""}${this.basePct > 0 && this.base && this.basePct ? "+" : ""}${this.basePct * 100 + "%" || ""}|${this.max || ""}|${this.percent}`;
     }
     set str(v) {
         this.parseMod(v);
@@ -132,12 +132,12 @@ export default class CurvedMod extends Mod {
             console.warn("CurvedMod was declared improperly", this.max, this.percent, this);
         }
 
-        if(this.percent <= 0){
+        if (this.percent <= 0) {
             this.percent = 1;
             console.warn("CurvedMod defined with 'percent' <= 0, resetting to 1", this);
         }
 
-        if(this.percent >= 100){
+        if (this.percent >= 100) {
             this.percent = 99;
             console.warn("CurvedMod defined with 'percent' >= 100, resetting to 99", this);
         }
@@ -168,19 +168,19 @@ export default class CurvedMod extends Mod {
         let max = +this.max;
         let s = this.scaling;
 
-        if(iter >= this.max){
+        if (iter >= this.max) {
             iter = +this.max;
             return 1;
-        } else if(!s) {
-            return iter/max;
+        } else if (!s) {
+            return iter / max;
         } else {
-//            bonusMult = (((-max)/((iter*s)+max))+1) * (s+1)/s; // Original formula
-            bonusMult = ((s+1)*iter)/(max+s*iter); // Alternate, simplified formula
+            //            bonusMult = (((-max)/((iter*s)+max))+1) * (s+1)/s; // Original formula
+            bonusMult = ((s + 1) * iter) / (max + s * iter); // Alternate, simplified formula
             return bonusMult;
         }
     }
 
-    calcScale(percent){
-        return ((100-(2*percent))/percent);
+    calcScale(percent) {
+        return ((100 - (2 * percent)) / percent);
     }
 }

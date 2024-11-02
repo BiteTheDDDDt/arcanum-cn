@@ -1,11 +1,12 @@
 import Events, { DEFEATED, TASK_DONE, ENC_START, TASK_BLOCKED, ENEMY_SLAIN, CHAR_DIED, EVT_COMBAT } from "../events";
-import { assign } from '../util/objecty';
-import Game from '../game';
-import { EXPLORE, getDelay, TYP_PCT, ENCOUNTER } from "../values/consts";
-import Encounter from "../items/encounter";
-import { Locale } from "../items/locale";
-import { GenDefaultLoot } from "../items/monster";
+import { assign } from '@/util/objecty';
+import Game from '@/game';
+import { EXPLORE, getDelay, TYP_PCT, ENCOUNTER, TASK_END_REASON } from '@/values/consts';
+import Encounter from '@/items/encounter';
+import { Locale } from '@/items/locale';
+import { GenDefaultLoot } from '@/items/monster';
 
+const MARGIN_OF_ERROR = 0.05;
 /**
  * Controls locale exploration.
  */
@@ -105,7 +106,8 @@ export default class Explore {
 				statCheck = statCheck.filter(it => it == null);
 			}
 
-			if (statCheck.find(it => it.max ? !it.maxed() : false)) {
+			// @note the max check is not the same as some of the max checks since some of them also take delta into consideration.
+			if (statCheck.find(it => it.max ? (!it.reverse ? it < it.max * (1-MARGIN_OF_ERROR) : it > it.max * MARGIN_OF_ERROR) : false)) {
 				return false;
 			} else {
 				this.exhausted = false;
@@ -260,12 +262,13 @@ export default class Explore {
 		if (this.locale && this.locale.onStart) this.locale.onStart();
 	}
 
-	onStop(success = false) {
-		if (this.locale && this.locale.onStop) this.locale.onStop();
-		if (this.unreturnable && !success) {
+	onStop(stopReason) {
+
+		if (this.locale?.onStop) this.locale.onStop(stopReason);
+		if (this.unreturnable && stopReason != TASK_END_REASON.SUCCESS) {
 			this.reset();
 		}
-		if(!success && this.locale) {
+		if ( this.locale && ( stopReason & TASK_END_REASON.MIDRUN_LOSS ) ) {
 			this.exhausted = true;
 		}
 	}
@@ -277,8 +280,8 @@ export default class Explore {
 	}
 	emitDefeat() {
 		Events.emit(DEFEATED, this.locale);
-		Events.emit(TASK_BLOCKED, this,
-			this.locale && this.player.level > this.locale.level && this.player.retreat > 0);
+		Events.emit(TASK_BLOCKED, this, TASK_END_REASON.DEFEATED, true);
+			// this.locale && this.player.level > this.locale.level && this.player.retreat > 0);
 		this.exhausted = true;
 	}
 
@@ -301,9 +304,7 @@ export default class Explore {
 			}
 			if (this.player.defeated()) {
 
-				Events.emit(DEFEATED, this);
-				Events.emit(TASK_BLOCKED, this, true);
-				this.exhausted = true;
+				this.emitDefeat();
 
 			}
 		}
@@ -318,7 +319,7 @@ export default class Explore {
 		if (e !== null) {
 
 			if (e.type === ENCOUNTER) {
-				
+
 				this.enc = e;
 				e.exp.set(0); //exp has to be set to 0 with this method, since it's a scaler.
 				Events.emit(ENC_START, e.name, e.desc);
@@ -354,7 +355,7 @@ export default class Explore {
 			if (enc.result) Game.applyVars(enc.result);
 			if (enc.loot) Game.getLoot(enc.loot, this.drops);
 			if (enc.mod) Game.applyMods(enc.mod);
-			enc.exp.set( enc.length);
+			enc.exp.set(enc.length);
 
 		}
 		this.enc = null;
@@ -383,16 +384,18 @@ export default class Explore {
 
 	complete() {
 
-		this.locale.amount(1);
+		let locale = this.locale;
+		let isPursuit = Game.getData("pursuits").items.includes(this.locale);
 
-		const del = Math.max(1 + this.player.level - this.locale.level, 1);
+		locale.amount(1);
 
-		this.player.exp += (this.locale.level) * (15 + this.locale.length) / (0.8 * del);
+		const del = Math.max(1 + this.player.level - locale.level, 1);
 
-		Events.emit(TASK_DONE, this, false);
+		this.player.exp += (locale.level) * (15 + locale.length) / (0.8 * del);
 
-		this.enc = null;
 		this.locale = null;
+
+		Events.emit(TASK_DONE, this, isPursuit);
 
 	}
 

@@ -52,10 +52,7 @@
 				"id": "evt_hole",
 				"name": "public commotion",
 				"desc": "A large spire has risen closeby, quite a few are testing their luck, you better hurry if you want to be ahead",
-				"require": [
-					"mtgorborung",
-					"tier3"
-				]
+				"require": ["mtgorborung", "tier3"]
 			},
 			{
 				"id": "evt_hole2",
@@ -74,7 +71,7 @@
 			{
 				"id": "gathersouls",
 				"name": "ghost catcher",
-				"require": "g.soulflag2>0",
+				"require": "g.shian>0",
 				"desc": "Bind the dead that haunt the world.",
 				"length": 180,
 				"cost": {
@@ -83,7 +80,8 @@
 				"result": {
 					"souls.max": 5,
 					"souls": 20
-				}
+				},
+				"group": "storage"
 			},
 			{
 				"id": "mkcave",
@@ -106,10 +104,10 @@
 					"cave.mod.minions.max": 8,
 					"cave.mod.research.rate": 1.5,
 					"cave.mod.mana.rate": 0.2,
-					"cave.mod.spirit.rate": 0.5,
-					"cave.mod.spiritlore.rate": 150
+					"cave.mod.spirit.rate": 0.5
 				},
-				"flavor": "This will take a while..."
+				"flavor": "This will take a while...",
+				"group": "housing"
 			},
 			{
 				"id": "mkpagoda",
@@ -128,7 +126,8 @@
 					"air": 1,
 					"spirit": 1
 				},
-				"flavor": "This will take a while..."
+				"flavor": "This will take another while...",
+				"group": "housing"
 			},
 			{
 				"id": "soulflag",
@@ -145,7 +144,8 @@
 				"mod": {
 					"souls.max": 5,
 					"souls.rate": 0.01
-				}
+				},
+				"group": "storage"
 			},
 			{
 				"id": "soulflag2",
@@ -165,12 +165,15 @@
 					"spiritart.attack.damage.max": 3,
 					"spiritart.attack.damage.min": 3,
 					"spiritart.attack.tohit": 3
-				}
+				},
+				"group": "spellcasting"
 			},
 			{
 				"id": "soulflag3",
 				"name": "complete soulflag",
 				"require": "g.soulflag2>0&&g.shian>0",
+				"need": "g.inv.max-g.inv._used>=1",
+				"needtext": "Must have at least 1 inventory space free.",
 				"craftable": true,
 				"desc": "Containing ten thousand souls, this is a powerful tool ",
 				"length": 9000,
@@ -185,12 +188,15 @@
 				},
 				"loot": {
 					"itemsoulflag": 1
-				}
+				},
+				"group": "weapon"
 			},
 			{
 				"id": "soulflagreacquire",
 				"name": "re-weave soulflag",
 				"require": "g.soulflag3>0&&g.shian>0",
+				"need": "g.inv.max-g.inv._used>=1",
+				"needtext": "Must have at least 1 inventory space free.",
 				"craftable": true,
 				"desc": "Even if it's been reduced to scraps, it can be restored",
 				"length": 60,
@@ -200,7 +206,8 @@
 				},
 				"loot": {
 					"itemsoulflag": 1
-				}
+				},
+				"group": "weapon"
 			}
 		],
 		"homes": [
@@ -235,7 +242,8 @@
 					"swordart.attack.damage.max": 2,
 					"swordart.attack.damage.min": 2,
 					"swordart.attack.tohit": 2
-				}
+				},
+				"group": "spellcasting"
 			},
 			{
 				"id": "breakthrough",
@@ -251,7 +259,8 @@
 					"spiritart.attack.tohit": 1,
 					"soulart.attack.dot.damage.max": 1,
 					"soulart.attack.dot.damage.min": 1
-				}
+				},
+				"group": "spellcasting"
 			},
 			{
 				"id": "fastsoul",
@@ -261,30 +270,44 @@
 				"mod": {
 					"soulflag3.length": "-50%",
 					"soulflag3.run.souls": 1
-				}
+				},
+				"group": "crafting"
 			}
 		],
 		"spells": [
 			{
 				"id": "throw_swords",
 				"name": "lost sword art: flying swords",
-				"school": "summoning",
-				"require": "sworduse",
+				"sortOrder": 1740,
 				"level": 11,
+				"school": "summoning",
 				"tags": "swordart",
+				"keywords": {
+					"type": ["damage", "summon"],
+					"target": ["enemy", "ally"],
+					"targets": ["multiple"],
+					"delivery": ["instant"]
+				},
+				"require": "sworduse",
 				"buy": {
 					"research": 1000,
 					"codices": 10,
 					"spiritgem": 10
 				},
 				"cost": {
-					"mana": 10
+					"mana": 10,
+					"vigor": 5
+				},
+				"result": {
+					"lore.exp": 1,
+					"weaponlore.exp": 0.5
 				},
 				"attack": {
 					"targets": "enemies",
 					"damage": "20~30",
 					"kind": "slash",
-					"tohit": 2
+					"tohit": 2,
+					"potencies": ["spelldmg", "slashdmg", "sworddmg"]
 				},
 				"summon": [
 					{
@@ -296,10 +319,17 @@
 			{
 				"id": "giantkilling",
 				"name": "lost sword art: giant slayer",
+				"sortOrder": 300,
 				"level": 12,
 				"school": "martial",
-				"require": "g.sworduse>=2",
 				"tags": "swordart",
+				"keywords": {
+					"type": ["damage", "debuff"],
+					"target": ["enemy"],
+					"targets": ["single"],
+					"delivery": ["instant"]
+				},
+				"require": "g.sworduse>=2",
 				"buy": {
 					"research": 1000,
 					"codices": 10,
@@ -307,11 +337,17 @@
 				},
 				"cost": {
 					"gems": 1,
-					"mana": 12
+					"mana": 12,
+					"vigor": 7
+				},
+				"result": {
+					"lore.exp": 1.4,
+					"weaponlore.exp": 0.9
 				},
 				"attack": {
 					"damage": "35~65",
 					"kind": "slash",
+					"potencies": ["spelldmg", "slashdmg", "sworddmg"],
 					"tohit": 2,
 					"dot": {
 						"duration": 10,
@@ -324,10 +360,17 @@
 			{
 				"id": "soulstrike",
 				"name": "spirit art: soulstrike",
-				"school": "spirit",
-				"require": "g.shian>0&&g.soulflag>0",
+				"sortOrder": 1001,
 				"level": 6,
+				"school": "spirit",
 				"tags": "spiritart",
+				"keywords": {
+					"type": ["damage"],
+					"target": ["enemy"],
+					"targets": ["single"],
+					"delivery": ["instant"]
+				},
+				"require": "g.shian>0&&g.soulflag>0",
 				"buy": {
 					"research": 1000,
 					"codices": 10,
@@ -337,20 +380,31 @@
 					"souls": 1,
 					"spirit": 1
 				},
+				"result": {
+					"spiritlore.exp": 0.2
+				},
 				"attack": {
 					"damage": "20~29",
 					"kind": "spirit",
-					"tohit": 3
+					"tohit": 3,
+					"potencies": ["spelldmg", "spiritdmg"]
 				}
 			},
 			{
 				"id": "soullure",
 				"name": "soul card: soul lure",
-				"school": "spirit",
-				"require": "g.shian>0&&g.soulflag2>0",
-				"level": 10,
-				"tags": "soulart",
 				"desc": "Lure the souls of enemies from out their mortal bodies",
+				"sortOrder": 1002,
+				"level": 10,
+				"school": "spirit",
+				"tags": "soulart",
+				"keywords": {
+					"type": ["damage"],
+					"target": ["enemy"],
+					"targets": ["multiple"],
+					"delivery": ["over time"]
+				},
+				"require": "g.shian>0&&g.soulflag2>0",
 				"buy": {
 					"research": 1000,
 					"codices": 10,
@@ -359,6 +413,9 @@
 				"cost": {
 					"spirit": 10
 				},
+				"result": {
+					"spiritlore.exp": 1
+				},
 				"attack": {
 					"tohit": 4,
 					"targets": "enemies",
@@ -366,17 +423,25 @@
 						"id": "soullure",
 						"kind": "spirit",
 						"duration": 10,
-						"damage": "10~15"
+						"damage": "10~15",
+						"potencies": ["spelldmg", "spiritdmg"]
 					}
 				}
 			},
 			{
 				"id": "soulriver",
 				"name": "spirit art: soul river",
-				"school": "spirit",
-				"require": "g.shian>0&&g.soulflag3>0",
+				"sortOrder": 1000,
 				"level": 15,
+				"school": "spirit",
 				"tags": "spiritart",
+				"keywords": {
+					"type": ["damage"],
+					"target": ["enemy"],
+					"targets": ["single"],
+					"delivery": ["instant"]
+				},
+				"require": "g.shian>0&&g.soulflag3>0",
 				"buy": {
 					"research": 1000,
 					"codices": 10,
@@ -386,10 +451,14 @@
 					"souls": 15,
 					"spirit": 5
 				},
+				"result": {
+					"spiritlore.exp": 2
+				},
 				"attack": {
 					"damage": "80~110",
 					"kind": "spirit",
-					"tohit": 5
+					"tohit": 5,
+					"potencies": ["spelldmg", "spiritdmg"]
 				}
 			}
 		],
@@ -399,7 +468,7 @@
 				"name": "shian anchorite",
 				"desc": "An ancient magic from beyond the sea, combining spirit and blade.",
 				"secret": true,
-				"tags": "t_tier4,t_swordmaster",
+				"tags": "t_tier4,t_swordclass",
 				"require": "g.tier3>0&&g.unstablespire>0",
 				"cost": {
 					"research": 25000,
@@ -412,8 +481,7 @@
 				},
 				"mod": {
 					"tier4": true,
-					"spiritlore.max": 3,
-					"bladelore": true
+					"spiritlore.max": 3
 				},
 				"flavor": "Contemplation of the small as well as great."
 			}
@@ -428,7 +496,7 @@
 				"damage": "60~70",
 				"attack": {
 					"kind": "spirit",
-					"damage": "60~70"
+					"damage": "(i.damage||0)"
 				},
 				"alter": {
 					"mod": {
@@ -466,10 +534,7 @@
 					"gems": "10~20",
 					"gold": "100~200"
 				},
-				"biome": [
-					"cave",
-					"mountain"
-				],
+				"biome": ["cave", "mountain"],
 				"spawns": {
 					"level": "4~15",
 					"range": 3,

@@ -1,8 +1,21 @@
 {
-	"compilerOptions":{
+	"compilerOptions": {
+		"baseUrl": "./",
+		"outDir": "dev",
 		"noImplicitAny": false,
 		"module": "es6",
 		"target": "es6",
-		"allowJs": true
-	}
+		"allowJs": true,
+		"paths": {
+			"@/*": [
+				"src/*"
+			],
+		}
+	},
+	"include": [
+		"src/**/*.ts"
+	],
+	"exclude": [
+		"node_modules"
+	]
 }

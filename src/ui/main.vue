@@ -1,35 +1,35 @@
 <script>
+import { defineAsyncComponent, reactive, isReactive, isReadonly } from 'vue'
 import Profile from 'modules/profile';
-import Game from 'game';
-import Menu from './components/menu.vue';
-import ResourcesView from './panes/resources.vue';
-import Tasks from './sections/tasks.vue';
-import Quickbar from './quickbar.vue';
-import ItemsBase from './itemsBase';
-import Vitals from './panes/vitals.vue';
-import DotView from './items/dotView.vue';
-import TopBar from './top-bar.vue';
+import Game from '@/game';
+import Menu from '@/ui/components/menu.vue';
+import ResourcesView from '@/ui/panes/resources.vue';
+import Tasks from '@/ui/sections/tasks.vue';
+import Quickbar from '@/ui/quickbar.vue';
+import ItemsBase from '@/ui/itemsBase';
+import Vitals from '@/ui/panes/vitals.vue';
+import DotView from '@/ui/items/dotView.vue';
+import TopBar from '@/ui/top-bar.vue';
 
 import Warn from 'ui/popups/warn.vue';
 import ItemPopup, { RollOver, ItemOut } from './popups/itemPopup.vue';
-import SettingsUI from './popups/settings.vue';
+import SettingsUI from '@/ui/popups/settings.vue';
 
-import LogView from './outlog.vue';
+import LogView from '@/ui/outlog.vue';
 
 import Settings from 'modules/settings';
-import Cheats from 'debug/cheats';
-import DevConsole from 'debug/devconsole.vue';
+import Cheats from '@/debug/cheats';
+import DevConsole from '@/debug/devconsole.vue';
 
-import { TRY_BUY, USE, TRY_USE, EVT_STAT } from '../events';
-import { TICK_TIME } from '../game';
-import { TASK } from '../values/consts';
+import { TRY_BUY, USE, TRY_USE, EVT_STAT } from '@/events';
+import { TICK_TIME } from '@/game';
+import { TASK } from '@/values/consts';
 
 /**
  * @const {number} SAVE_TIME  - time in seconds between auto-saves.
  */
 const SAVE_TIME = 30;
 const SAVE_MSG = 'As you currently own the Wizard hall, exporting the character file will not allow you to bring any hall progression over. Are you sure you want to export only the character data?';
-
 
 /**
  * @listens [sell]
@@ -50,28 +50,31 @@ export default {
 		warn: Warn,
 		topbar: TopBar,
 		settings: SettingsUI,
-		login: () => import(/* webpackChunkName: "remote" */ './popups/login.vue'),
-		register: () => import(/* webpackChunkName: "remote" */ './components/register.vue'),
-		activities: () => import(/* webpackChunkName: "popups-ui" */ './popups/activities.vue'),
-		choice: () => import(/* webpackChunkName: "popups-ui" */ './popups/choice.vue'),
-		skills: () => import(/* webpackChunkName: "skills-ui" */ './sections/skills.vue'),
-		equip: () => import(/* webpackChunkName: "equip-ui" */ './sections/equip.vue'),
-		inventory: () => import(/* webpackChunkName: "inv-ui" */ './sections/inventory.vue'),
-		potions: () => import(/* webpackChunkName: "potions-ui" */ './sections/potions.vue'),
-		home: () => import(/* webpackChunkName: "home-ui" */ './sections/home.vue'),
-		player: () => import(/* webpackChunkName: "player-ui" */ './sections/player.vue'),
-		bestiary: () => import(/* webpackChunkName: "glossary-ui" */ './sections/bestiary.vue'),
-		spells: () => import(/* webpackChunkName: "spells-ui" */ './sections/spells.vue'),
-		adventure: () => import(/* webpackChunkName: "raid-ui" */ './sections/adventure.vue'),
-		enchanting: () => import(/* webpackChunkName: "enchant-ui" */ './sections/enchanting.vue'),
-		minions: () => import(/* webpackChunkName: "minions-ui" */ './sections/minions.vue'),
-		scraft: () => import(/* webpackChunkName: "scraft-ui" */ './sections/scraft.vue'),
-		glossary: () => import(/* webpackChunkName: "glossary-ui" */ './sections/glossary.vue'),
+		login: defineAsyncComponent(() => import('./popups/login.vue')),
+		register: defineAsyncComponent(() => import('./components/register.vue')),
+		activities: defineAsyncComponent(() => import('./popups/activities.vue')),
+		choice: defineAsyncComponent(() => import('./popups/choice.vue')),
+		skills: defineAsyncComponent(() => import('./sections/skills.vue')),
+		equip: defineAsyncComponent(() => import('./sections/equip.vue')),
+		inventory: defineAsyncComponent(() => import('./sections/inventory.vue')),
+		potions: defineAsyncComponent(() => import('./sections/potions.vue')),
+		home: defineAsyncComponent(() => import('./sections/home.vue')),
+		player: defineAsyncComponent(() => import('./sections/player.vue')),
+		bestiary: defineAsyncComponent(() => import('./sections/bestiary.vue')),
+		spells: defineAsyncComponent(() => import('./sections/spells.vue')),
+		adventure: defineAsyncComponent(() => import('./sections/adventure.vue')),
+		enchanting: defineAsyncComponent(() => import('./sections/enchanting.vue')),
+		minions: defineAsyncComponent(() => import('./sections/minions.vue')),
+		scraft: defineAsyncComponent(() => import('./sections/scraft.vue')),
+		glossary: defineAsyncComponent(() => import('./sections/glossary.vue')),
 		'vue-menu': Menu
 	},
 	data() {
 
 		return {
+			displayError: null,
+
+			timed: false,
 			state: null,
 			psection: null,
 			togRegister: false,
@@ -105,6 +108,7 @@ export default {
 
 		this.Profile = Profile;
 
+		this.listen('load-error', this.onLoadError);
 		this.listen('game-loaded', this.gameLoaded);
 		this.listen('setting', this.onSetting);
 
@@ -113,16 +117,14 @@ export default {
 
 		this.listen('show-register', this.onShowRegister, this);
 		this.listen('show-login', this.onShowLogin, this);
-		
-
-
 
 	},
-	beforeDestroy() {
+	beforeUnmount() {
 
 		ItemOut();
 		this.endRepeater();
 
+		this.removeListener('load-error', this.onLoadError);
 		this.removeListener('game-loaded', this.gameLoaded);
 		this.removeListener('setting', this.onSetting);
 		this.removeListener('pause', this.pause);
@@ -131,16 +133,18 @@ export default {
 		this.removeListener('show-register', this.onShowRegister);
 		this.removeListener('show-login', this.onShowLogin);
 
-
 	},
 	methods: {
 
+		onLoadError(err) {
+			this.displayError = err;
+		},
+
 		gameLoaded() {
 
-			this.state = Game.state;
+			this.state = Game.state
 
 			let curview = Settings.get('curview') || 'sect_main';
-			//console.warn('VIEW CHANGE: ' +  curview );
 			this.section = this.state.sections.find(v => v.id === curview);
 
 			this.initEvents();
@@ -199,7 +203,6 @@ export default {
 
 		stopAutoSave() {
 			if (this.saver) {
-				//console.log('STOP AUTOSAVE');
 				let int = this.saver;
 				this.saver = null;
 				clearInterval(int);
@@ -212,9 +215,7 @@ export default {
 			const s = Settings;
 			let setting = s.get('autosave');
 
-			//if ( setting && !this.saver ) { //renabled autosaver regardless
 			if (!this.saver) {
-				//console.log('START AUTOSAVE');
 				this.saver = setInterval(() => this.dispatch('autosave'), 1000 * SAVE_TIME);
 			}
 
@@ -267,35 +268,45 @@ export default {
 
 		unpause() {
 
-if ( Game.loaded ) {
+			if (Game.loaded) {
 
-	Game.lastUpdate = Date.now();
-	if ( !this.loopId ) {
-		this.loopId = setInterval( ()=>Game.update(), TICK_TIME );
-	}
+				if (!this.loopId) {
+					this.loopId = setInterval(() => {
+						if (this.timed) console.time('frame');
+						Game.update()
+						if (this.timed) {
 
-	this.keyListen = evt=>{
-	if ( evt.repeat) return;
-	this.keyDown( evt ); evt.stopPropagation(); }
+							console.timeEnd('frame');
+							this.timed = false;
+						}
+					}, TICK_TIME);
+				}
 
-	window.addEventListener('keydown', this.keyListen, false );
-	this.startAutoSave();
+				this.keyListen = evt => {
+					if (evt.repeat) return;
+					this.keyDown(evt); evt.stopPropagation();
+				}
 
-}
-
-
+				window.addEventListener('keydown', this.keyListen, false);
+				this.startAutoSave();
+			}
 		},
 
+		handleTurboModeChange() {
+			Game.isInTurboMode.value = !Game.isInTurboMode.value;
+		},
 
 		keyDown(e) {
 
 			if (!this.loopId) return;
 
+			if (e.key === 't') {
+				this.timed = true;
+			}
 			let slice = e.code.slice(0, -1);
 			if (slice === 'Digit' || slice === 'Numpad') {
 
 				let num = Number(e.code.slice(-1));
-				//console.log('number: ' + num );
 
 				if (e.altKey) {
 					let oldid = Game.state.currentSpellLoadout;
@@ -315,7 +326,7 @@ if ( Game.loaded ) {
 					if (it) this.doQuickslot(it);
 				}
 
-			} 
+			}
 		},
 
 		doQuickslot(it) {
@@ -397,7 +408,7 @@ if ( Game.loaded ) {
 
 	},
 
-	
+
 	computed: {
 
 		hasHall() { return Profile.hasHall() },
@@ -417,26 +428,35 @@ if ( Game.loaded ) {
 
 		mergedresources() { return this.state.resources.concat(this.hall.resources) },
 
-		drops() { return Game.state.drops; }
+		drops() { return Game.state.drops; },
+
+
+		turboButton() {
+			return {
+				backgroundColor: Game.isInTurboMode.value ? 'green' : '',
+			};
+		}
 	}
 
 }
 </script>
 
 <template>
-
-	<div class="full" @mouseover.capture.stop="itemOut">
-
+	<div class="full" @mouseover.capture.stop="itemOut($event)">
 		<devconsole />
 		<topbar @open-settings="togSettings = true">
-			
-			<template slot="center">
+			<template #center>
+				<button type="button" v-if="state"
+						@mouseenter.capture.stop="itemOver($event, null, null, null, 'Use stored time to speed up the game')"
+						@click="handleTurboModeChange" :style="turboButton">
+					Fast-forward
+				</button>
 				<span class="load-message" v-if="!state">LOADING DATA...</span>
+				<span class="load-error" v-if="displayError">ERROR {{ displayError }}</span>
 				<dots v-if="state" :dots="state.player.dots" />
-
 			</template>
-
 		</topbar>
+
 
 		<!-- popups -->
 		<itempopup />
@@ -446,82 +466,77 @@ if ( Game.loaded ) {
 		<login v-if="Profile.CLOUD && showLogin" @close="showLogin = false" />
 		<settings v-if="togSettings" @close-settings="togSettings = false" />
 		<activities v-if="togActivities" @close="togActivities = false" />
-
 		<!-- end popups -->
 
+		<span class="load-message" v-if="displayError">Please try refreshing the page few times. If problem persists, you can seek help through Discord.</span>
 		<div v-if="state" class="game-main">
-
 			<resources :items="mergedresources" />
-
 			<vue-menu class="game-mid" :items="menuItems" v-model="section">
-
-				<template slot="sect_main">
+				<template #sect_main>
 					<tasks class="main-tasks" />
 				</template>
 
-				<template slot="sect_skills">
-					<skills :state="state"></skills>
+				<template #sect_skills>
+					<skills :state="state" />
 				</template>
 
-				<template slot="sect_player">
+				<template #sect_player>
 					<player />
 				</template>
 
-				<template slot="sect_home">
+				<template #sect_home>
 					<home :state="state" />
 				</template>
 
-				<template slot="sect_raid">
+				<template #sect_raid>
 					<adventure :state="state" />
 				</template>
 
-				<template slot="sect_loot">
-					<inventory :inv="drops" take=true />
+				<template #sect_loot>
+					<inventory :inv="drops" :take="true" />
 				</template>
 
-				<template slot="sect_equip">
-
+				<template #sect_equip>
 					<div class="inv-equip">
 						<equip :equip="state.equip" />
 						<inventory :inv="state.inventory" />
 					</div>
-
 				</template>
 
-				<template slot="sect_spells">
+				<template #sect_spells>
 					<spells />
 				</template>
-				<template slot="sect_scraft">
+
+				<template #sect_scraft>
 					<scraft />
 				</template>
 
-				<template slot="sect_potions">
+				<template #sect_potions>
 					<potions />
 				</template>
 
-				<template slot="sect_bestiary">
+				<template #sect_bestiary>
 					<bestiary />
 				</template>
-				<template slot="sect_minions">
-					<minions :minions="state.minions" />
+
+				<template #sect_minions>
+					<minions />
 				</template>
 
-				<template slot="sect_enchant">
+				<template #sect_enchant>
 					<enchanting />
 				</template>
-				<template slot="sect_glossary">
+
+				<template #sect_glossary>
 					<glossary />
 				</template>
 			</vue-menu>
 
 			<vitals :state="state" />
-
 			<log />
-
 		</div>
 
 		<quickbar v-if="state" class="bot-bar" :bars="state.bars" />
-
 	</div>
 </template>
 
@@ -563,5 +578,14 @@ div.bot-bar {
 	background: inherit;
 	border-top: 1px solid var(--separator-color);
 	padding: var(--md-gap);
+}
+
+span.load-message {
+	padding: var(--md-gap) var(--md-gap) var(--md-gap);
+}
+
+span.load-error {
+	padding: var(--md-gap) var(--md-gap) var(--md-gap);
+	color: red
 }
 </style>

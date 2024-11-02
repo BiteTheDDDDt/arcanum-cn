@@ -1,5 +1,5 @@
 <script>
-import CharPane from '../panes/charpane.vue';
+import CharPane from '@/ui/panes/charpane.vue';
 
 export default {
 

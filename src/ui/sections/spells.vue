@@ -1,194 +1,469 @@
 <script>
-import Game from '../../game';
-import Settings from 'modules/settings';
-import ItemBase from '../itemsBase';
+import Game from "@/game";
+import Settings from "modules/settings";
+import ItemBase from "@/ui/itemsBase";
 
-import FilterBox from '../components/filterbox.vue';
-import Book from '../spellbook.vue';
-import SpellList from '../spelllist.vue';
+import FilterBox from "@/ui/components/filterbox.vue";
+import SpellList from "@/ui/spelllist.vue";
+import SpellSchool from "ui/spellschool.vue";
 
 export default {
-
-	data(){
-
-		let spellOps = Settings.getSubVars( 'spells');
-
-		return Object.assign( {
-			showList:false,
-			filtered:null,
-			schools:[],
-			min:null,
-			max:null
-		}, spellOps );
-
+	data() {
+		return Object.assign(
+			{
+				min: 0,
+				showList: false,
+				showKeywords: false,
+				schools: {},
+				keywords: [],
+				spellsBySearch: null,
+			},
+			Settings.getSubVars("spells")
+		);
 	},
-	mixins:[ItemBase],
-	components:{
 
-		filterbox:FilterBox,
-		book:Book,
-		spelllist:SpellList
-
+	mixins: [ItemBase],
+	components: {
+		filterbox: FilterBox,
+		spellschool: SpellSchool,
+		spelllist: SpellList,
 	},
-	created(){
 
-		// remove schools not in allSchools.
-		let all = this.allSchools;
-		let a = [];
+	created() {
 
-		for( let i = this.schools.length-1; i>=0; i-- ) {
-			if ( all[this.schools[i] ] ) a.push(this.schools[i] );
+		// trim saved schools
+		const spells = this.spells;
+		const schools = {};
+
+		for (let i = 0; i < spells.length; i++) {
+			const spell = spells[i];
+			schools[spell.school] = this.schools[spell.school] === true;
 		}
 
-		this.schools = a;
+		this.schools = schools;
 
+		// trim saved keywords
+		const allKeywords = this.allKeywords;
+		const keywords = [];
+		for (let i = 0; i < this.keywords.length; i++) {
+			const keyword = this.keywords[i];
+			for (let group in allKeywords)
+				if (allKeywords[group][keyword]) {
+					keywords.push(keyword);
+					break;
+				}
+		}
+
+		this.keywords = keywords;
 	},
-	methods:{
 
-		forceRefresh() {
-			this.$forceUpdate();
-			console.warn("Spells update forced");
+	setup() {
+		const counter = 0;
+		return { counter };
+	},
+
+	updated() {
+		this.counter++;
+	},
+
+	methods: {
+		toggleShow() {
+			this.showList = Settings.setSubVar("spells", "showList", !this.showList);
+		},
+		toggleKeywords() {
+			this.showKeywords = Settings.setSubVar("spells", "showKeywords", !this.showKeywords);
+		},
+		toggleSchool(school) {
+			this.schools[school] = !this.schools[school];
+			Settings.setSubVar("spells", "schools", this.schools);
+		},
+		toggleAllSchools() {
+			const spells = this.spellsBySearch || this.spellsByLevel;
+
+			let anyOpen = false;
+
+			for (let i = 0; i < spells.length; i++)
+				anyOpen ||= !this.schools[spells[i].school]
+
+			for (let i = 0; i < spells.length; i++)
+				this.schools[spells[i].school] = anyOpen;
+
+			Settings.setSubVar("spells", "schools", this.schools);
 		},
 
-		/**
-		 * toggle memorized list.
-		 */
-		toggle(){
-			this.showList = Settings.setSubVar( 'spells', 'showList', !this.showList );
+		getSpellOrder(spell) {
+			if (!spell.template)
+				return -9999;
+			return spell.sortOrder ?? 9999;
+		},
+
+		searchSpell(spell, target) {
+			const groups = target.split('|');
+			for (let i = 0; i < groups.length; i++) {
+				if (groups[i].length == 0)
+					continue;
+				const mandatory = groups[i].split(' ');
+				let passed = true;
+				for (let j = 0; j < mandatory.length; j++) {
+					if (mandatory[j].length == 0)
+						continue;
+					if (this.crawlSpell(spell, new RegExp(mandatory[j], "i")))
+						continue;
+					passed = false;
+					break;
+				}
+				if (passed)
+					return true;
+			}
+			return false;
+		},
+		crawlSpell(spell, regex) {
+			if (spell.template)
+				return this.crawlTemplate(spell.template, regex);
+			const items = spell.items;
+			for (let i = 0; i < items.length; i++)
+				if (this.crawlSpell(items[i], regex))
+					return true;
+			return false;
+		},
+		crawlTemplate(template, regex) {
+			if (template.dot && regex.test("buffs"))
+				return true;
+			if (template.summon && regex.test("summons"))
+				return true;
+			if (template.cost)
+				for (let c in template.cost)
+					if (this.crawlProperty(c, regex))
+						return true;
+
+			for (let k in template) {
+				if (k == "desc" || k == "flavor" || k == "require" || k == "buy" || k == "cost" || k == "need" || k == "needtext")
+					continue;
+				if (this.crawlProperty(template[k], regex))
+					return true;
+			}
+			return false;
+		},
+		crawlObject(obj, regex) {
+			for (let k in obj) {
+				if (this.crawlProperty(k, regex))
+					return true;
+				if (this.crawlProperty(obj[k], regex))
+					return true;
+			}
+			return false;
+		},
+		crawlProperty(prop, regex) {
+			const type = typeof (prop);
+			if (type == "object" || type == "array")
+				return this.crawlObject(prop, regex);
+
+			if (type != "string")
+				prop = prop.toString();
+			const split = prop.split(/\.|=|<|>|!|,|&&|\|\||\(|\)|\+|\-|'/);
+			for (let i = 0; i < split.length; i++) {
+				const str = split[i];
+				if (/^[0-9\*\~\%]*$/.test(str))
+					continue;
+				if (/^[a-zA-Z0-9_ ]*$/.test(str)) {
+					const data = Game.state.getData(str);
+					if (data) {
+						if (regex.test(data.name))
+							return true;
+						continue;
+					}
+				}
+				if (regex.test(str))
+					return true;
+			}
+			return false;
+		},
+
+		testSpellKeywords(spell, keywords) {
+			if (!spell.template) {
+				const items = spell.items;
+				for (let i = 0; i < items.length; i++)
+					if (this.testSpellKeywords(items[i], keywords))
+						return true;
+				return false;
+			}
+
+			if (!spell.keywords)
+				return false;
+
+			for (let i = 0; i < keywords.length; i++) {
+				const keyword = keywords[i];
+				let passed = false;
+				for (let k in spell.keywords) {
+					passed ||= spell.keywords[k].includes(keyword);
+				}
+				if (!passed)
+					return false;
+			}
+			return true;
 		}
+	},
 
-	}, computed:{
+	computed: {
+		// filters
+		minLevel: {
+			get() { return this.min; },
+			set(v) { this.min = Settings.setSubVar("spells", "min", Number(v)); },
+		},
+		varKeywords: {
+			get() { return this.keywords; },
+			set(v) { this.keywords = Settings.setSubVar("spells", "keywords", v); },
+		},
 
+		// spell funnel
 		state() { return Game.state; },
 
-		/**
-		 * @property {DataList} spelllist - spells in active use. (dungeons)
-		 */
+		// filter out locked spells
+		spells() {
+			return this.state.filterItems((it) => it.type === "spell" && !this.locked(it)).sort((a, b) => this.getSpellOrder(a) - this.getSpellOrder(b));
+		},
+
+		// compute avilable keywords
+		allKeywords() {
+			const result = {
+				type: {
+					damage: false,
+					recovery: false,
+					buff: false,
+					debuff: false,
+					summon: false
+				},
+				target: {
+					self: false,
+					ally: false,
+					enemy: false
+				},
+				targets: {
+					single: false,
+					multiple: false
+				},
+				delivery: {
+					instant: false,
+					"over time": false
+				},
+				special: {
+					explore: false,
+					resource: false,
+					weapon: false,
+					stance: false
+				}
+			};
+
+			const spells = this.spells;
+			for (let i = 0; i < spells.length; i++) {
+				const keywords = spells[i].keywords ?? {};
+				for (let k in keywords) {
+					const group = result[k] ?? (result[k] = {});
+					const array = keywords[k];
+					for (let j = 0; j < array.length; j++)
+						group[array[j]] = true;
+				}
+			}
+
+			for (let k1 in result) {
+				const group = result[k1];
+				for (let k2 in group)
+					if (!group[k2])
+						delete group[k2];
+				if (Object.keys(group).length == 0)
+					delete result[k1];
+			}
+
+			return result;
+		},
+
+		// filter out spells without selected keywords
+		spellsByKeywords() {
+			const spells = this.spells;
+			const keywords = this.keywords;
+
+			if (!keywords || keywords.length == 0)
+				return spells;
+			return spells.filter(spell => this.testSpellKeywords(spell, keywords));
+		},
+
+		// filter out unselected levels of spells
+		spellsByLevel() {
+			const spells = this.spellsByKeywords;
+			const level = this.minLevel;
+
+			if (!level)
+				return spells;
+
+			return spells.filter(
+				(v) => (!level || v.level === level)
+			);
+		},
+
+		/* filterbox happens here */
+
+		// split on schools and render
+		spellBySchools() {
+			const spells = this.spellsBySearch || this.spellsByLevel;
+			const schools = {};
+
+			let spellschool;
+			const len = spells.length;
+			for (let i = 0; i < len; i++) {
+				let spell = spells[i];
+				let school = spell.school;
+				spellschool = schools[school] || (schools[school] = []);
+				spellschool.push(spell);
+			}
+			return schools;
+		},
+
+		// spelllist pass-through
 		list() { return Game.state.spelllist; },
 
-		minLevel:{
-
-			get(){ return this.min; },
-			set(v){ this.min = Settings.setSubVar( 'spells', 'min', Number(v) ); }
-
-		},
-
-		viewSchools:{
-
-			get(){
-
-
-				return this.schools;
-			},
-			set(v){
-
-				this.schools = v;
-				Settings.setSubVar( 'spells', 'schools', this.schools.concat() );
-
+		currentSpellLoadout() {
+			if (!Game.state.currentSpellLoadout) {
+				return "";
 			}
-
+			return Game.state.currentSpellLoadout;
 		},
 
-		/**
-		 * @property {.<string,string>} schools - schools of all unlocked spells.
-		 */
-		allSchools() {
+		spellLoadouts() {
+			return Game.state.spellLoadouts;
+		},
 
-			let res = {};
-
-			let a = this.spells;
-			for( let i = a.length-1; i>= 0; i-- ) {
-				var s = a[i];
-				if ( s.school ) res[s.school] = true;
+		topTier() {
+			for (let i = 9; i >= 0; i--) {
+				let tierString = "tier" + i;
+				let tierItem = Game.state.items[tierString];
+				if (tierItem !== undefined) {
+					let tierBool = tierItem.value.value;
+					if (tierBool) return i;
+				}
 			}
-
-			return res;
-
+			return 0;
 		},
-
-		/**
-		 * @property {Spell[]} viewing - array of spells actually visible
-		 * after min/max levels and schools have been applied to filtered.
-		 */
-		viewing() {
-
-			let spells = this.filtered || this.spells;
-			let schools = this.schools;
-			let level = this.minLevel;
-
-			if ( schools.length>0 || level ) {
-
-				return spells.filter(v=> (schools.length===0||schools.includes(v.school))
-						&&(!level||(v.level===level))
-				);
-
-			}
-
-			return spells;
-
-		},
-
-		/**
-		 * @property {Spell} spells - array of unlocked spells.
-		 */
-		spells(){
-			return this.state.filterItems(
-				it=>it.type === 'spell' && !this.locked(it) );
-		}
-
-	}
-
-}
+	},
+};
 </script>
 
 <template>
+	<div class="spells">
+		<div class="filters">
+			<div class="inputgroup">
+				<filterbox v-model="spellsBySearch" :prop="searchSpell" :items="spellsByLevel" />
 
-<div class="spells">
+				<label class="level-lbl" :for="elmId('level')">Level</label>
+				<input class="level" :id="elmId('level')" type="number" v-model="minLevel" min="0" size="5" />
+			</div>
 
-	<div class="filters">
+			<div class="keywordcontainer">
+				<div class="keywords" v-for="(arr, gr) in allKeywords" :key="gr" v-if="showKeywords"
+					:style="{ 'min-width': Object.keys(arr).length * 9 + '%' }">
+					<div class="keytitle"><b>{{ gr }}</b></div>
+					<div class="keywordgroup">
+						<div class="checks" v-for="(_, k) in arr" :key="k">
+							<input type="checkbox" :value="k" :id="elmId('chk' + k)" v-model="varKeywords" />
+							<label :for="elmId('chk' + k)">{{ k.toTitleCase() }}</label>
+						</div>
+					</div>
+				</div>
+			</div>
 
-			<filterbox v-model="filtered" :items="spells" />
-
-		<div>
-			<label class="level-lbl" :for="elmId('level')">Level</label>
-			<input class="level" :id="elmId('level')" type="number" v-model="minLevel" min=0 size=5>
+			<div class="buttongroup">
+				<button type="button" @click="toggleShow">Memorized</button>
+				<button type="button" @click="toggleKeywords">Keywords</button>
+				<button type="button" @click="toggleAllSchools">Toggle Schools</button>
+			</div>
+			<!-- <div class="checks" v-for="(p, k) in allSchools" :key="k">
+				<input type="checkbox" :value="k" :id="elmId('chk' + k)" v-model="viewSchools" />
+				<label :for="elmId('chk' + k)">{{ k.toTitleCase() }}</label>
+			</div> -->
 
 		</div>
 
-		<div class="checks" v-for="(p,k) in allSchools" :key="k">
-					<input type="checkbox" :value="k" :id="elmId('chk'+k)" v-model="viewSchools" >
-					<label :for="elmId('chk'+k)">{{ k.toTitleCase() }}</label>
+		<div class="bottom">
+			<div class="spellbook">
+				<spellschool v-for="(v, k) in spellBySchools" :spells="v" :school="k" :key="k" :isOpen="!schools[k]"
+					@toggle-open="toggleSchool" />
+			</div>
+
+			<spelllist v-show="showList" class="spelllist" :list="list" :topTier="topTier"
+				:spellLoadouts="spellLoadouts" :currentSpellLoadout="currentSpellLoadout" />
 		</div>
-
-		<button @click="toggle">Memorized</button>
-
 	</div>
-
-<div class="bottom">
-
-<book class="spellbook" :viewing="viewing" />
-
-<spelllist v-show="showList" class="spelllist" :list="list" />
-
-</div>
-
-</div>
-
 </template>
 
 <style scoped>
-
 div.spells {
-
-	display:flex;
+	display: flex;
 	flex-flow: column nowrap;
 	padding: var(--sm-gap) var(--md-gap);
-	height:100%;
+	height: 100%;
+}
 
+div.filters {
+	flex-flow: row wrap;
+	display: flex;
+	text-align: center;
+	border-bottom: 1px solid var(--separator-color);
+	margin: 0;
+	padding: var(--sm-gap);
+	line-height: 2em;
+	justify-content: center;
+}
+
+div.inputgroup {
+	width: 100%;
+	display: flex;
+	justify-content: center;
+}
+
+div.inputgroup label {
+	margin-left: 1em;
+	padding: var(--tiny-gap) 0;
+	text-indent: var(--sm-gap);
+}
+
+div.inputgroup input {
+	margin-right: 1em;
+	margin-left: 1em;
+	padding: var(--tiny-gap) 0;
+	text-indent: var(--sm-gap);
+}
+
+div.keywordcontainer {
+	display: flex;
+	flex-wrap: wrap;
+}
+
+div.keywords {
+	padding: var(--sm-gap);
+	background-color: #9992;
+	flex-grow: 1;
+}
+
+div.keytitle {
+	border: 1px solid #9998;
+	width: 100%;
+	text-transform: capitalize;
+	text-align: center;
+}
+
+div.keywordgroup {
+	width: 100%;
+	display: flex;
+	justify-content: center;
+}
+
+div.buttongroup {
+	width: 100%;
+	display: flex;
+	justify-content: center;
 }
 
 div.spells .bottom {
-	display:flex;
+	display: flex;
 	flex-flow: row nowrap;
 }
 
@@ -197,43 +472,20 @@ div.spells .spellbook {
 	flex-grow: 1;
 }
 
-
 div.spells .spelllist {
-	border-left: 1px solid var( --separator-color );
-	padding: var( --sm-gap );
+	border-left: 1px solid var(--separator-color);
+	padding: var(--sm-gap);
 }
 
-div.spells div.filters div { box-sizing: border-box; margin: 0; }
-div.spells div.filters div:nth-child(1),
-div.spells div.filters div:nth-child(2) {
-        flex-basis: 50%;
-	}
-
-
-div.spells div.filters > div input[type=text],
-div.spells div.filters > div input[type=number] {
-
-		flex: 1;
-		margin-right: 1em;
-		margin-left: 1em;
-		min-width: unset;
-		max-width: unset;
-		padding:var(--tiny-gap) 0;
-		font-size: 105%;
+div.spells div.filters div {
+	box-sizing: border-box;
+	margin: 0;
 }
 
-div.spells div.filters > div input { min-width: 0; padding: 0; text-indent: var(--sm-gap); }
 
-
-div.spells .filters {
-        flex-flow: row wrap; display: flex; text-align: center;
-        border-bottom: 1px solid var(--separator-color);
-        margin: 0; padding: var(--sm-gap); line-height: 2em; justify-content: flex-start;
-    }
-
-
- div.spells div.filters div.checks { margin: 0; padding: 0 0.5em; flex-basis: unset; }
-
-
-
+div.spells div.filters div.checks {
+	margin: 0;
+	padding: 0 0.5em;
+	flex-basis: unset;
+}
 </style>

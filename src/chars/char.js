@@ -1,17 +1,17 @@
 import Base, { mergeClass } from '../items/base';
-import { instanceDamage } from '../values/combatVars';
-import Stat from '../values/rvals/stat';
-import Attack from './attack';
-import Dot from './dot';
+import { instanceDamage } from '@/values/combatVars';
+import Stat from '@/values/rvals/stat';
+import Attack from '@/chars/attack';
+import Dot from '@/chars/dot';
 
-import { NPC, getDelay, TYP_PCT, TYP_STATE } from '../values/consts';
-import { toStats } from "../util/dataUtil";
-import Events, { CHAR_STATE, EVT_COMBAT, RESISTED, CHAR_ACTION, STATE_BLOCK, DOT_ACTION, DOT_EXPIREACTION } from '../events';
+import { NPC, getDelay, TYP_PCT, TYP_STATE } from '@/values/consts';
+import { toStats } from '@/util/dataUtil';
+import Events, { CHAR_STATE, EVT_COMBAT, RESISTED, CHAR_ACTION, STATE_BLOCK, DOT_ACTION, TRIGGER_ACTION } from '../events';
 import States, { NO_ATTACK, NO_ONDEATH, NO_ONEXPIRE, NO_SPELLS } from './states';
 
-import { ApplyAction, CalcDamage } from '../values/combatVars';
-import { assignNoFunc } from '../util/util';
-import { cloneClass, mergeSafe } from '../util/objecty';
+import { ApplyAction, CalcDamage } from '@/values/combatVars';
+import { assignNoFunc } from '@/util/util';
+import { cloneClass, mergeSafe } from '@/util/objecty';
 
 export default class Char {
 	get resist() { return this._resist };
@@ -445,7 +445,7 @@ export default class Char {
 
 			if (dot.duration <= dt && !dot.perm) {
 				if (dot.onExpire && !this.getCause(NO_ONEXPIRE)) {
-					Events.emit(DOT_EXPIREACTION, dot.onExpire, this.context);
+					Events.emit(TRIGGER_ACTION, dot.onExpire, this.context);
 				}
 				this.rmDot(i);
 			}
@@ -673,15 +673,18 @@ export default class Char {
 	}
 	deathThroes() {
 		if (!this.getCause(NO_ONDEATH)) {
-			if (this.onDeath) Events.emit(DOT_EXPIREACTION, this.onDeath, this.context);
+			if (this.onDeath) Events.emit(TRIGGER_ACTION, this.onDeath, this.context);
 			const dots = this.dots;
 			for (let i = dots.length - 1; i >= 0; i--) {
 
 				const dot = dots[i];
 
-				if (dot.onDeath) Events.emit(DOT_EXPIREACTION, dot.onDeath, this.context);
+				if (dot.onDeath) Events.emit(TRIGGER_ACTION, dot.onDeath, this.context);
 			}
 		}
+	}
+	openingAction() {
+		if (this.onSummon) Events.emit(TRIGGER_ACTION, this.onSummon, this.context);
 	}
 
 }

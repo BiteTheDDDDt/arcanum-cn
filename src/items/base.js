@@ -1,35 +1,37 @@
-import {changes, jsonify, cloneClass, getDescs  } from '../util/objecty';
-import Game from '../game';
-import Stat from '../values/rvals/stat';
-import Mod from '../values/mods/mod';
-import { TYP_MOD, DESCENDLIST, UNTAG, FP } from '../values/consts';
+import { changes, jsonify, cloneClass, getDescs } from '@/util/objecty';
+import Game from '@/game';
+import Stat from '@/values/rvals/stat';
+import Mod from '@/values/mods/mod';
+import { TYP_MOD, DESCENDLIST, UNTAG, FP } from '@/values/consts';
 import RValue, { SubPath } from '../values/rvals/rvalue';
-import { Changed } from '../techTree';
-import { ParseMods } from '../modules/parsing';
-import { canWriteProp, splitKeys, subset } from '../util/util';
+import { Changed } from '@/changes';
+import { ParseMods } from '@/modules/parsing';
+import { canWriteProp, splitKeys, subset } from '@/util/util';
+import { MarkModded } from '../changes';
+import GData from './gdata';
 
-export const SetModCounts = ( m, v)=>{
+export const SetModCounts = (m, v) => {
 
-	if ( m instanceof Mod ) {
+	if (m instanceof Mod) {
 		//console.log('setting mod count: ' + m.id + ' val: ' + v );
 		m.count = v;
 	}
-	else if ( typeof m ==='object') {
-		for( let p in m ){ SetModCounts(m[p], v); }
+	else if (typeof m === 'object') {
+		for (let p in m) { SetModCounts(m[p], v); }
 	}
 
 }
 
 
-export const mergeClass = ( destClass, src ) => {
+export const mergeClass = (destClass, src) => {
 
 	let proto = destClass.prototype || destClass;
-	let srcDescs = Object.getOwnPropertyDescriptors( src );
+	let srcDescs = Object.getOwnPropertyDescriptors(src);
 	let protoDescs = getDescs(proto);
 
 	// NOTE: valueOf not overwritten.
-	for( let p in srcDescs ) {
-		if ( !protoDescs.has(p) ) Object.defineProperty( proto, p, srcDescs[p]);
+	for (let p in srcDescs) {
+		if (!protoDescs.has(p)) Object.defineProperty(proto, p, srcDescs[p]);
 	}
 
 	return destClass;
@@ -44,9 +46,9 @@ const ModKeys = ["runmod", "mod"];
  * @param {Object} obj object to be reduced
  * @returns {Array<Object>} objects array containing all mod property values found
  */
-function findMods( obj, src ) {
+function findMods(obj, src) {
 	//prevents delving into any instances of classes; should only be dealing with Objects
-	if( !obj || !( typeof obj === "object" && obj.constructor === Object ) ) return {};
+	if (!obj || !(typeof obj === "object" && obj.constructor === Object)) return {};
 
 	//Grabbing mods within current object
 	let [mods, check] = subset(obj, ...ModKeys);
@@ -55,24 +57,24 @@ function findMods( obj, src ) {
 	});
 
 	//Collects all mods into one object
-	for(let key in check) {
+	for (let key in check) {
 		let res = findMods(check[key]);
 		ModKeys.forEach(modtype => {
-			if(res[modtype]) mods[modtype].push(...res[modtype])
+			if (res[modtype]) mods[modtype].push(...res[modtype])
 		});
 	}
 	return mods;
 }
 
 
- /**
-  * @todo shorten list by implementing better base/defaults logic.
-  * @const {Set.<string>} JSONIgnore - ignore these properties by default when saving.
-  */
- const JSONIgnore = new Set( ['template', 'id', 'type', 'defaults', 'module', 'sname',
-	 'sym', 'warn', "effect", "length", 'runmod', 'name', 'desc', 'running', 'current', 'warnMsg',
-	 'once', 'context', 'enemies', 'encs', 'boss', 'spawns','targets','only',
-	 'locked', 'locks', 'value', 'exp', 'delta', 'tags', 'mod', 'alter', 'progress','need', 'require','action', 'repeat' ]);
+/**
+ * @todo shorten list by implementing better base/defaults logic.
+ * @const {Set.<string>} JSONIgnore - ignore these properties by default when saving.
+ */
+const JSONIgnore = new Set(['template', 'id', 'type', 'defaults', 'module', 'sname',
+	'sym', 'warn', "effect", "length", 'runmod', 'name', 'desc', 'running', 'current', 'warnMsg',
+	'once', 'context', 'enemies', 'encs', 'boss', 'spawns', 'targets', 'only',
+	'locked', 'locks', 'value', 'exp', 'delta', 'tags', 'mod', 'alter', 'progress', 'need', 'require', 'action', 'repeat']);
 
 /**
  * Base class of all Game Objects.
@@ -81,32 +83,32 @@ export default {
 
 	toJSON() {
 
-		if ( this.save && (this.value>0||this.owned)) return this.forceSave();
+		if (this.save && (this.value > 0 || this.owned)) return this.forceSave();
 
 		//the JSON parse + stringify is to make sure that all items in vars have been formatted to JSON.
 		//jsonify only does shallow toJSON, and won't toJSON inner objects.
-		let vars = JSON.parse(JSON.stringify(jsonify(this, JSONIgnore ) || {}));
-		if ( this.template ) {
-			vars = changes( vars, this.template );
-			if(this.cost && this.template.cost != null) {
-				if(this.template.cost instanceof String) delete vars.cost;
-				else if(typeof this.template.cost === "number" && vars.cost.gold === this.template.cost) delete vars.cost;
-				else if(vars?.cost) {
+		let vars = JSON.parse(JSON.stringify(jsonify(this, JSONIgnore) || {}));
+		if (this.template) {
+			vars = changes(vars, this.template);
+			if (this.cost && this.template.cost != null) {
+				if (this.template.cost instanceof String) delete vars.cost;
+				else if (typeof this.template.cost === "number" && vars.cost.gold === this.template.cost) delete vars.cost;
+				else if (vars?.cost) {
 					let ref = cloneClass(this.template.cost);
 					splitKeys(ref);
-					if(!changes(vars.cost, ref)) delete vars.cost;
+					if (!changes(vars.cost, ref)) delete vars.cost;
 				}
 			}
 		}
 
 		let defaults = this.Defaults || this.constructor.Defaults;
-		if(defaults) {
+		if (defaults) {
 			// Warning: changes doesn't do strict equality checks, which means falsy values can be lost.
 			// vars = changes(vars, defaults);
-			for(let key in defaults) {
-				if(vars[key] === undefined) continue;
-				if(!(defaults[key] instanceof Object)) {
-					if(vars[key] === defaults[key]) {
+			for (let key in defaults) {
+				if (vars[key] === undefined) continue;
+				if (!(defaults[key] instanceof Object)) {
+					if (vars[key] === defaults[key]) {
 						delete vars[key];
 					}
 				} else {
@@ -115,11 +117,11 @@ export default {
 			}
 		}
 
-		if ( this.locked === false && this.template && this.template.locked !== false ){
+		if (this.locked === false && this.template && this.template.locked !== false) {
 			vars = vars || {};
 			vars.locked = this.locked;
 		}
-		if ( vars && vars.name ) vars.name = this.sname;
+		if (vars && vars.name) vars.name = this.sname;
 
 		if (vars && this.timer > 0) vars.timer = this.timer;
 
@@ -127,16 +129,16 @@ export default {
 
 	},
 
-	forceSave(){
+	forceSave() {
 
 		let data = jsonify(this);
-		if ( this.mod ) data.mod = this.mod;
-		if ( this.slot ) data.slot = this.slot;
-		if ( this.effect) data.effect = this.effect;
-		if ( this.use ) data.use = this.use;
+		if (this.mod) data.mod = this.mod;
+		if (this.slot) data.slot = this.slot;
+		if (this.effect) data.effect = this.effect;
+		if (this.use) data.use = this.use;
 
-		if ( data.template && typeof data.template === 'object' ) data.template = data.template.id;
-		if ( data.val ) data.value = undefined;
+		if (data.template && typeof data.template === 'object') data.template = data.template.id;
+		if (data.val) data.value = undefined;
 		data.name = this.sname;
 
 		return data;
@@ -147,44 +149,45 @@ export default {
 	 * @property {string} id
 	 */
 	get id() { return this._id; },
-	set id(v) { this._id = v;},
+	set id(v) { this._id = v; },
 
 	/**
 	 * @property {Object} template - original data used to create the Item.
 	 * Should be raw, immutable data.
 	 */
 	get template() { return this._template; },
-	set template(v) { this._template = v;},
+	set template(v) { this._template = v; },
 
 	/**
 	 * @property {string} type
 	 */
 	get type() { return this._type },
-	set type(v) { this._type =v;},
+	set type(v) { this._type = v; },
 
-	get typeName(){return this._type;},
+	get typeName() { return this._type; },
 
 	/**
 	 * @property {string} id - internal id.
 	 */
-	toString(){return this.id;},
+	toString() { return this.id; },
 
 	/**
 	 * @property {string} sname - Simple name without symbol.
 	 */
-	get sname(){ return this._name || this.id; },
+	get sname() { return this._name || this.id; },
 
 	/**
 	 * @property {string} name - displayed name.
 	 */
-	get name() { return (( this._actname && this._value < 1 ) ? this.actname
-		: (this.sym||'') + (this._name||this.id));
+	get name() {
+		return ((this._actname && this._value < 1) ? this.actname
+			: (this.sym || '') + (this._name || this.id));
 	},
 	set name(v) {
 
-		if ( v&&this.sym ) {
+		if (v && this.sym) {
 
-			this._name = v.split(this.sym).join( '').trim();
+			this._name = v.split(this.sym).join('').trim();
 
 		} else this._name = v;
 
@@ -194,20 +197,20 @@ export default {
 	/**
 	 * @property {string} sym - optional unicode symbol.
 	 */
-	 get sym() { return this._sym; },
-	 set sym(v) { this._sym=v;},
+	get sym() { return this._sym; },
+	set sym(v) { this._sym = v; },
 
 	/**
 	 * @property {boolean} repeat - whether the item is repeatable.
 	 */
-	get repeat(){return this._repeat;},
-	set repeat(v) { this._repeat=v},
+	get repeat() { return this._repeat; },
+	set repeat(v) { this._repeat = v },
 
 	/**
 	 * @property {string} desc
 	 */
-	get desc() { return ( this.actdesc && this._value < 1 ) ? this.actdesc : (this._desc || null ); },
-	set desc(v) { this._desc=v;},
+	get desc() { return (this.actdesc && this._value < 1) ? this.actdesc : (this._desc || null); },
+	set desc(v) { this._desc = v; },
 
 	/**
 	 * @property {number} current - displayable value; override in subclass for auto rounding, floor, etc.
@@ -217,8 +220,8 @@ export default {
 	/**
 	 * @property {number} ex - save/load alias for exp without triggers.
 	 */
-	get ex(){return this._exp; },
-	set ex(v) { this._exp = v;},
+	get ex() { return this._exp; },
+	set ex(v) { this._exp = v; },
 
 	/**
 	 * @property {number} val - saving/loading from json without triggers.
@@ -239,18 +242,18 @@ export default {
 	 * @property {number} delta - value change this frame.
 	 * added to value at end of frame.
 	 */
-	get delta(){return 0;},
+	get delta() { return 0; },
 
 	/**
 	 * @property {string[]} tags - tag to distinguish between
 	 * item subtypes.
 	 */
-	get tags() { return this._tags;},
+	get tags() { return this._tags; },
 	set tags(v) {
 
-		if ( typeof v === 'string') {
+		if (typeof v === 'string') {
 			this._tags = v.split(',');
-		} else if ( Array.isArray(v) ) {
+		} else if (Array.isArray(v)) {
 
 			this._tags = v;
 
@@ -258,42 +261,42 @@ export default {
 
 	},
 
-	permVars( mods, targ=this ) {
+	permVars(mods, targ = this) {
 
 		//console.log( 'PERM VARS: ' + typeof mods);
 		//console.log('eNC TARG: ' + typeof targ);
-		if ( typeof targ === 'number') {
+		if (typeof targ === 'number') {
 
 			// error.
 
-		} else if ( typeof mods === 'object') {
+		} else if (typeof mods === 'object') {
 
-			for( const p in mods ) {
+			for (const p in mods) {
 
 				const mod = mods[p];
 				let sub = targ[p];
 
-				if ( sub === undefined || sub === null ) {
+				if (sub === undefined || sub === null) {
 
-					sub = targ[p] = cloneClass( mod );
+					sub = targ[p] = cloneClass(mod);
 
-				} else if ( typeof sub === 'number' ) {
+				} else if (typeof sub === 'number') {
 
-					targ[p] = (sub||0) + mods[p].valueOf();
+					targ[p] = (sub || 0) + mods[p].valueOf();
 
-				} else if ( typeof mod === 'object' ) {
+				} else if (typeof mod === 'object') {
 
-					if ( mod.constructor !== Object ) sub.perm( mod );
-					else this.permVars( mod, sub );
+					if (mod.constructor !== Object) sub.perm(mod);
+					else this.permVars(mod, sub);
 
 				}
-				else console.log( this.id + ' UNKNOWN PERM VAR: ' + p + ' typ: ' + (typeof sub ));
+				else console.log(this.id + ' UNKNOWN PERM VAR: ' + p + ' typ: ' + (typeof sub));
 
 
 			}
 
-			if ( targ === this && mods.mod ) {
-				ParseMods( this.mod, this.id, this );
+			if (targ === this && mods.mod) {
+				ParseMods(this.mod, this.id, this);
 				//SetModIds( targ.mod, targ.id );
 			}
 
@@ -307,78 +310,63 @@ export default {
 	 * @param {number} amt - factor of base amount added
 	 * ( fractions of full amount due to tick time. )
 	 */
-	applyVars( vars, amt=1 ) {
-
-		if ( typeof vars === 'number') {
-
+	applyVars(vars, amt = 1) {
+		if (typeof vars === 'number') {
 			//deprec( this.id + ' mod: ' + mods );
-			this.value.add( vars*amt );
-
-		} else if ( vars.isRVal ) {
+			this.value.add(vars * amt);
+		} else if (vars.isRVal) {
 			const Params = {
 				[FP.GDATA]: Game.gdata,
 				[FP.ITEM]: this
 			};
 
-			this.amount( amt*vars.getApply( Params ) );
+			this.amount(amt * vars.getApply(Params));
 			//this.value.add( amt*vars.getApply( Game.state, this ) );
+		} else if (typeof vars === 'object') {
+			if (vars.mod)
+				this.changeMod(vars.mod, amt);
 
-
-		} else if ( typeof vars === 'object' ) {
-
-			if ( vars.mod ) this.changeMod( vars.mod, amt );
-
-			for( let p in vars ) {
-
+			for (let p in vars) {
 				// add any final value last.
-				if (  p === 'skipLocked' || p === 'value') continue;
+				if (p === 'skipLocked' || p === 'value') continue;
 
 				let targ = this[p];
 				let sub = vars[p];
 
-				if ( targ instanceof RValue ) {
-
+				if (targ instanceof RValue) {
 					//console.log('APPLY ' + vars[p] + ' to stat: '+ this.id + '.'+ p + ': ' + amt*vars[p] + ' : ' + (typeof vars[p]) );
 
-					targ.apply( sub, amt );
-
-				} else if ( typeof sub === 'object' ) {
-
-					if ( sub.type === TYP_MOD ) {
-
-						sub.applyTo( this, p, amt );
-
-					} else if ( typeof targ === 'number' || sub.isRVal ) {
-
+					targ.apply(sub, amt);
+				} else if (typeof sub === 'object') {
+					if (sub.type === TYP_MOD) {
+						sub.applyTo(this, p, amt);
+					} else if (typeof targ === 'number' || sub.isRVal) {
 						//deprec( this.id + ' targ: ' + p + ': ' + targ );
-						this[p] += Number(sub)*amt;
+						this[p] += Number(sub) * amt;
 					} else {
-
-							//console.log( this.id + ' subapply: ' + p);
-						this.subeffect( targ, sub, amt );
+						//console.log( this.id + ' subapply: ' + p);
+						this.subeffect(targ, sub, amt);
 					}
-
-				} else if ( targ !== undefined ) {
-
+				} else if (targ !== undefined) {
 					//console.log( this.id + ' adding vars: ' + p );
-					this[p] += Number(sub)*amt;
-
+					this[p] += Number(sub) * amt;
 				} else {
-					console.log('NEW SUB: ' + p );
-					this.newSub( this, p, sub, amt )
+					console.log('NEW SUB: ' + p);
+					this.newSub(this, p, sub, amt)
 				}
-
-			}
-			if ( vars.value ) {
-				this.amount( vars.value*amt);
-				//this.value += (vars.value)*amt;
 			}
 
+			if (vars.value) {
+				if (vars.skipLocked && (this.disabled === true || this.locks > 0 || this.locked !== false)) {
+					//console.log(`Skipping disabled resource: ${this.id}`);
+				} else {
+					this.amount(vars.value * amt);
+					//this.value += (vars.value)*amt;
+				}
+			}
 		}
 
-
 		Changed.add(this);
-
 	},
 
 	/**
@@ -391,28 +379,22 @@ export default {
 	 * @param {string} [modType=null] - subobject mod check.
 	 * @returns {Object} mod path object used in applyObj
 	 */
-	applyMods( mods, amt=1, targ=this, src=this, path=this.id, modType=null, initialCall=true ) {
+	applyMods(mods, amt = 1, targ = this, src = this, path = this.id, modType = null, recurse = true) {
 
 		Changed.add(this);
 
-		if ( mods instanceof Mod ) {
+		if (mods instanceof Mod) {
 
-			return mods.applyTo( targ, 'value', amt );
+			return mods.applyTo(targ, 'value', amt);
 
-		} else if ( mods.constructor === Object ) {
+		} else if (mods.constructor === Object) {
 
-			let nextMods = this.applyObj( mods, amt, targ, src, path, modType );
-			if ( initialCall ) {
-				let { mod, runmod } = findMods( nextMods );
-				this.changeMod( mod , amt );
-				if ( this.running ) this.changeMod( runmod, 1, false );
-			}
+			this.applyObj(mods, amt, targ, src, path, modType, recurse);
 
-			return nextMods;
 
-		} else if ( typeof mods === 'number') {
+		} else if (typeof mods === 'number') {
 
-			console.warn( mods + ' RAW NUM MOD ON: ' + this.id );
+			console.warn(mods + ' RAW NUM MOD ON: ' + this.id);
 
 			/*if ( targ instanceof Stat ) {
 
@@ -429,7 +411,7 @@ export default {
 				console.error( this.id + ' !!invalid mod: ' + mods );
 			}*/
 
-		} else console.warn( this.id + ' unknown mod type: ' + mods );
+		} else console.warn(this.id + ' unknown mod type: ' + mods);
 
 		return null;
 
@@ -445,69 +427,69 @@ export default {
 	 * @param {?string} [modType=null] - subobject mod check.
 	 * @returns {Object} New mod objects
 	 */
-	applyObj( mods, amt, targ, src, path, modType ) {
+	applyObj(mods, amt, targ, src, path, modType, recurse) {
 
-		let results = {}
-
-		for( let p in mods ) {
-
-			let res = null;
+		for (let p in mods) {
 
 			let subMod = mods[p];
 			let subTarg = targ[p];
 			let modCheck = modType || (ModKeys.includes(p) ? p : null);
+
+			if (recurse && modCheck) {
+				if (targ instanceof GData || targ instanceof Stat) { MarkModded(targ) }
+				else MarkModded(this);
+			}
 
 			//Only needed when subTarg is null or undefined
 			let newSrc = modCheck || isNaN(+subTarg) ? src : subTarg; //may need a better check for source.
 			let newPath = (path ? path + '.' : '') + p;
 
 			// Define a list of targeted objects that require special handling
-//			let descendArr = ["cost","run","effect","result","convert","input","output"];
-			if ( typeof subMod === 'boolean' ) {
+			//			let descendArr = ["cost","run","effect","result","convert","input","output"];
+			if (typeof subMod === 'boolean') {
 				if (typeof subTarg === "object") {
 					console.warn("applyObj boolean target is an obj. Skipping.", targ, p, this.id);
 				} else {
-					if (amt>0) {
+					if (amt > 0) {
 						targ[p] = subMod;
-					} else if (amt<0) {
+					} else if (amt < 0) {
 						targ[p] = !subMod;
 					};
 				}
-			} else if ( (subTarg === undefined || subTarg === null) ) {
+			} else if ((subTarg === undefined || subTarg === null)) {
 
-				if( !canWriteProp(targ, p ) ) continue;
+				if (!canWriteProp(targ, p)) continue;
 
-				if ( subMod.constructor === Object && (modCheck || !p.startsWith(UNTAG))) {
+				if (subMod.constructor === Object && (modCheck || !p.startsWith(UNTAG))) {
 
-					res = this.applyObj( subMod, amt, targ[p]={}, newSrc, newPath, modCheck );
 
-				} else if ( p.startsWith(UNTAG) && !modCheck ) {
+					this.applyObj(subMod, amt, targ[p] = {}, newSrc, newPath, modCheck, recurse);
+
+				} else if (p.startsWith(UNTAG) && !modCheck) {
 					//console.warn("Un-tagging: ", subMod, targ, p, amt);
-					if(subMod?.applyTo) {
-					/**
-					 * Basic scenario, such as thing.untag_stress
-					 * We send directly to applyTo to handle the untagging
-					 */
-						res = subMod.applyTo( targ, p, amt );
+					if (subMod?.applyTo) {
+						/**
+						 * Basic scenario, such as thing.untag_stress
+						 * We send directly to applyTo to handle the untagging
+						 */
+						subMod.applyTo(targ, p, amt);
 					} else {
-					/**
-					 * Sub-target scenario - thing.untag_skill.exp
-					 * For each child key under the untag, we split things off
-					 * NOTE - this will probably only work 1 level down at the moment, 
-					 * but that should be sufficient for the current use cases
-					 */
-						res = [];
-						for(const key in subMod){
+						/**
+						 * Sub-target scenario - thing.untag_skill.exp
+						 * For each child key under the untag, we split things off
+						 * NOTE - this will probably only work 1 level down at the moment, 
+						 * but that should be sufficient for the current use cases
+						 */
+						for (const key in subMod) {
 							const childMod = subMod[key];
-							if(childMod?.applyTo) {
-								const retarg = childMod.applyTo(targ, p, amt, false, key);
-								res.unshift(retarg);
+							if (childMod?.applyTo) {
+								childMod.applyTo(targ, p, amt, false, key);
 							}
 						}
 						continue;
 					}
 
-				} else if( DESCENDLIST.includes(p) && modCheck === null ){
+				} else if (DESCENDLIST.includes(p) && modCheck === null) {
 					/**
 					 * If we are trying to mod a non-specific member of the DESCENDLIST list, but
 					 * if doesn't already exist (eg. .cost on something with no cost), just skip it.
@@ -519,15 +501,15 @@ export default {
 					// This is the entry point when multiple items under a DESCENDLIST member could exist
 					// When that happens, we need to handle .value and all other members separately
 					let descVal = false;
-					if(p === "value") {
+					if (p === "value") {
 						let srcId = src.id;
 						for (let d in DESCENDLIST) {
 							let descendStr = DESCENDLIST[d];
 							let checkPath = srcId + "." + descendStr + ".value";
-							if (newPath === checkPath){
+							if (newPath === checkPath) {
 								descVal = true;
-								res = subMod.applyTo( src, descendStr, amt );
-//								console.warn(subMod, src, descendStr, amt);
+								subMod.applyTo(src, descendStr, amt);
+								//								console.warn(subMod, src, descendStr, amt);
 								continue;
 							}
 						}
@@ -540,31 +522,31 @@ export default {
 						modType !== "runmod" ? newSrc : 1 //source
 					];
 
-					(res = targ[p] = modCheck ? new Mod( ...params ) : new Stat( ...params )).addMod( subMod, amt );
+					(targ[p] = modCheck ? new Mod(...params) : new Stat(...params)).addMod(subMod, amt);
 
-										//@todo use more accurate subpath.
+					//@todo use more accurate subpath.
 					// subTarg.id = SubPath(this.id, p );
 					//console.log( this.id + '.' + p  + ': ' + subMod + ': targ null: ' + subTarg.valueOf() + ' mod? ' + isMod );
 				}
 
 
-			} else if ( subTarg.applyMods ) {
+			} else if (subTarg.applyMods) {
 
-				res = subTarg.applyMods( subMod, amt, subTarg, newSrc, newPath, modCheck );
+				subTarg.applyMods(subMod, amt, subTarg, newSrc, newPath, modCheck, recurse);
 
-			} else if ( subMod.constructor === Object ) {
+			} else if (subMod.constructor === Object) {
 
-				res = this.applyObj( subMod, amt, subTarg, newSrc, newPath, modCheck );
+				this.applyObj(subMod, amt, subTarg, newSrc, newPath, modCheck, recurse);
 
-			} else if ( subMod instanceof Mod ) {
+			} else if (subMod instanceof Mod) {
 
-				res = subTarg.isRVal ? subTarg.addMod( subMod, amt ) : subMod.applyTo( targ, p, amt );
+				subTarg.isRVal ? subTarg.addMod(subMod, amt) : subMod.applyTo(targ, p, amt);
 				/*if( DESCENDLIST.includes(p) && modCheck === null ){
 					console.warn("Descending with applyTo: ", subMod, targ, p, amt);
 				}*/
-				
-			}else if ( typeof subMod === 'number' ) {
-				console.warn( 'RAW NUMBER MOD on: ' + this.id + ': ' + p + ': ' + subMod );
+
+			} else if (typeof subMod === 'number') {
+				console.warn('RAW NUMBER MOD on: ' + this.id + ': ' + p + ': ' + subMod);
 			}
 			/*else if ( typeof subMod === 'number' ) {
 
@@ -577,14 +559,11 @@ export default {
 
 			}*/else {
 
-				console.warn( `UNKNOWN Mod to ${this.id}.${p}: ${subMod}` + '  ' + typeof subMod);
+				console.warn(`UNKNOWN Mod to ${this.id}.${p}: ${subMod}` + '  ' + typeof subMod);
 			}
-
-			if ( res && Object.keys(res).length ) results[p] = res;
 
 		}
 
-		return results;
 
 	},
 
@@ -593,30 +572,30 @@ export default {
 	 * @param {Mod|Object} mods
 	 * @param {Object} [targ=null]
 	 */
-	removeMods( mods, targ=this ) {
+	removeMods(mods, targ = this) {
 
-		if ( targ === this ) Changed.add(this);
-		else if ( !targ ) return;
+		if (targ === this) Changed.add(this);
+		else if (!targ) return;
 
-		if ( mods instanceof Mod ) {
+		if (mods instanceof Mod) {
 
-			if ( typeof targ === 'object') {
+			if (typeof targ === 'object') {
 
-				if ( targ.isRVal ) targ.removeMods( mods );
-				else this.removeMods(mods, targ.value );
+				if (targ.isRVal) targ.removeMods(mods);
+				else this.removeMods(mods, targ.value);
 			}
 
-		} else if ( mods.constructor === Object ) {
+		} else if (mods.constructor === Object) {
 
-			for( let p in mods ) {
-				this.removeMods( mods[p], targ[p] );
+			for (let p in mods) {
+				this.removeMods(mods[p], targ[p]);
 			}
 
-		} else if ( typeof mods === 'number') {
+		} else if (typeof mods === 'number') {
 
-			console.warn( this.id + ' REMOVED NUMBER MOD: ' + mods );
+			console.warn(this.id + ' REMOVED NUMBER MOD: ' + mods);
 
-		} else console.warn( this.id + ' unknown mod type: ' + mods );
+		} else console.warn(this.id + ' unknown mod type: ' + mods);
 
 	},
 
@@ -626,38 +605,38 @@ export default {
 	 * @param {Object} m - object with subobjects representing assignment paths.
 	 * @param {number} amt - amount multiplier for any assignments.
 	 */
-	subeffect( obj, m, amt ) {
+	subeffect(obj, m, amt) {
 
-		if ( typeof obj !== 'object' ) {
+		if (typeof obj !== 'object') {
 			//console.warn( 'invalid assign: ' + obj + ' = ' + m );
 			return;
 		}
 
-		for( let p in m ) {
+		for (let p in m) {
 
 			let target = obj[p];
 			let source = m[p];
 
 			//console.log('SUBEFFECT(): ' + p + '=' + m[p]);
-			if ( source && typeof source === 'object' ) {
-				if ( source.isRVal ) {
+			if (source && typeof source === 'object') {
+				if (source.isRVal) {
 					// Converting all rvalue sources into a number to prevent infinite recursion
 					source = +source;
-				} else if ( source.constructor.name !== 'Object' ) {
-					console.warn( 'Class instance source in subeffect', source );
+				} else if (source.constructor.name !== 'Object') {
+					console.warn('Class instance source in subeffect', source);
 				}
 			}
 
-			if ( typeof source === 'object' ) {
-				this.subeffect( target, source, amt );
+			if (typeof source === 'object') {
+				this.subeffect(target, source, amt);
 			} else {
-				if ( target instanceof Stat ) {
+				if (target instanceof Stat) {
 
 					target.base += source * amt;
 
-				} else if ( typeof target === 'object') {
+				} else if (typeof target === 'object') {
 
-					target.value = ( target.value || 0 ) + source * amt;
+					target.value = (target.value || 0) + source * amt;
 
 				} else obj[p] += source * amt;
 
@@ -676,12 +655,12 @@ export default {
 	 * @param {Object} mod - modify amount.
 	 * @param {number} [amt=1] - times modifier applied.
 	 */
-	newSub( obj, key, mod, amt=1 ) {
+	newSub(obj, key, mod, amt = 1) {
 
-		console.warn( 'ADD SUB: ' + this.id + ' ' + key + ' stat: ' + (amt*mod.value) );
+		console.warn('ADD SUB: ' + this.id + ' ' + key + ' stat: ' + (amt * mod.value));
 
-		let s = obj[key] = new Stat( typeof mod === 'number' ? mod*amt : 0, 'key' );
-		if ( mod instanceof Mod ) s.apply( mod, amt );
+		let s = obj[key] = new Stat(typeof mod === 'number' ? mod * amt : 0, 'key');
+		if (mod instanceof Mod) s.apply(mod, amt);
 
 	},
 
@@ -690,10 +669,10 @@ export default {
 	 * @param {Object|Mod|number} mod
 	 * @param {number} amt - percent of change applied to modifier.
 	 */
-	changeMod( mod, amt, scale=true ) {
+	changeMod(mod, amt, scale = true) {
 
 		// apply change to modifier for existing item amount.
-		Game.applyMods( mod, scale ? amt*this.value : amt );
+		Game.applyMods(mod, scale ? amt * this.value : amt);
 
 	},
 
@@ -701,11 +680,11 @@ export default {
 	 * Add tag to object.
 	 * @param {string} tag
 	 */
-	addTag( tag ) {
-		if ( Array.isArray(tag) ) tag.forEach( t => this.addTag( t ), this );
+	addTag(tag) {
+		if (Array.isArray(tag)) tag.forEach(t => this.addTag(t), this);
 
-		else if ( this._tags == null ) this._tags = [ tag ];
-		else if ( !this._tags.includes(tag) ) this._tags.push(tag);
+		else if (this._tags == null) this._tags = [tag];
+		else if (!this._tags.includes(tag)) this._tags.push(tag);
 	},
 
 	/**
@@ -713,23 +692,23 @@ export default {
 	 * @param {string} t - tag to test.
 	 * @returns {boolean}
 	 */
-	hasTag( t ) { return this.tags && this.tags.includes(t); },
+	hasTag(t) { return this.tags && this.tags.includes(t); },
 
 	/**
 	 * Test if item has every tag in list.
 	 * @param {string[]} a - array of tags to test.
 	 * @returns {boolean}
 	*/
-	hasTags( a ) {
+	hasTags(a) {
 
-		if ( !this._tags ) return false;
-		for( let i = a.length-1; i >= 0; i-- ) if ( !this._tags.includes(a[i]) ) return false;
+		if (!this._tags) return false;
+		for (let i = a.length - 1; i >= 0; i--) if (!this._tags.includes(a[i])) return false;
 
 		return true;
 
 	},
 
-	canUse(){return true;},
+	canUse() { return true; },
 
 	/**
 	 * Test if tag has any tag in the list.

@@ -47,6 +47,32 @@
 	--lg-gap: 1.25em;
 	--comfy-gap: 0.4em;
 
+	--fire-color:#ce230c;
+	--water-color:#0479c2;
+	--air-color:#e9e4e4;
+	--earth-color:#c27304;
+	--shadow-color:#3a0e66;
+	--nature-color:#045a04;
+	--spirit-color:#afa5a5;
+	--light-color:#f0c907;
+	--tempus-color:#c27304;
+	--void-color:#373737;
+
+	--grad-start-alpha:0.9;
+	--grad-end-alpha: 0.1;
+
+	--fire-color-bg:#a72d1f;
+	--water-color-bg:#186da2;
+	--air-color-bg:#dacbcb;
+	--earth-color-bg:#ae5f09;
+	--shadow-color-bg:#300e53;
+	--nature-color-bg:#0b500b;
+	--spirit-color-bg:#9e9292;
+	--light-color-bg:#c6ad33;
+	--tempus-color-bg:#b88d0b;
+	--void-color-bg:#302e2e;
+
+
 }
 :root body.darkmode {
 
@@ -75,6 +101,15 @@
 
 
 * { box-sizing: border-box; }
+
+.fade-in {
+	animation: fadeIn 250ms;
+}
+
+@keyframes fadeIn {
+	0% { opacity: 0; }
+	100% { opacity: 1; }
+}
 
 span.arrows {
 	font-variant-position: super;
@@ -130,7 +165,11 @@ div.popup {
     body.compact div.bar { height: 1em; border-radius: var(--md-radius); }
     body.compact div.bar .bar-text { font-size: 0.7rem; line-height: 1.1em; }
 
-button { color: var(--button-text-color); border: 1px solid #0006; outline:none; }
+button {
+	color: var(--button-text-color);
+	border: 1px solid #0006;
+	outline:none;
+}
 
 
 input[type="button"]:enabled:active, button:enabled:active, .hilite {
@@ -696,43 +735,49 @@ div.mana .fill, div.mana .bgfill {
 	background: #2531b3;
 }
 
+
 div.fire .fill, div.fire .bgfill {
-	background:#ce230c;
+	background:var(--fire-color);
 }
 
 div.water .fill, div.water .bgfill {
-	background:#0479c2;
+	background:var(--water-color);
 }
 div.air .fill, div.air .bgfill {
-	background:#e9e4e4;
+	background:var(--air-color);
 }
 
 div.earth .fill, div.earth .bgfill {
-	background:#c27304;
+	background:var(--earth-color);
 }
 
 div.shadow .fill, div.shadow .bgfill {
-	background:#3a0e66;
+	background:var(--shadow-color);
 }
 
 div.nature .fill, div.nature .bgfill {
-	background:#045a04;
+	background:var(--nature-color);
 }
 
 div.spirit .fill, div.spirit .bgfill {
 
-	background:#afa5a5;
+	background: var(--spirit-color);
 }
 
 div.light .fill, div.light .bgfill {
-	background:#f0c907;
+	background:var(--light-color);
 }
 
 div.tempus .fill, div.tempus .bgfill {
-	background:#c27304;
+	background: var(--tempus-color);
 }
 div.void .fill, div.void .bgfill {
-	background:#373737;
+	background: var(--void-color);
+}
+
+
+tr.arcane.fill, div.arcane.bgfill {
+	background:#8011ac;
 }
 
 .sm {

@@ -1,8 +1,8 @@
-import Attack from '../chars/attack';
-import Task from './task';
-import { canTarget } from '../values/consts';
-import { NO_SPELLS } from '../chars/states';
-import { processDot } from '../values/combatVars';
+import Attack from '@/chars/attack';
+import Task from '@/items/task';
+import { canTarget } from '@/values/consts';
+import { NO_SPELLS } from '@/chars/states';
+import { processDot } from '@/values/combatVars';
 /**
  * Single requirement substring.
  * @param {string} s - GData/Idable id.

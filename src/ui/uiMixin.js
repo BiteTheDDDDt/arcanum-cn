@@ -3,22 +3,22 @@
  */
 export default {
 
-	data(){
+	data() {
 		return {
-			inConfig:false,
-			hide:{}
+			inConfig: false,
+			hideUIMixin: {}
 		}
 	},
 
-	mounted(){
+	mounted() {
 
 		let btnHides = this.$refs.btnHides;
-		if ( btnHides) {
+		if (btnHides) {
 
-			btnHides.addEventListener( 'click', (e)=>{
+			btnHides.addEventListener('click', (e) => {
 
 				e.preventDefault();
-				if ( this.inConfig ) {
+				if (this.inConfig) {
 
 					this.stopHides();
 
@@ -34,9 +34,9 @@ export default {
 					e.target.classList.add('inConfig');
 
 					this.newHides = this.hide;
-					this.hide={};
+					this.hide = {};
 
-					this.$nextTick( ()=>this.configHides());
+					this.$nextTick(() => this.configHides());
 
 
 				}
@@ -49,29 +49,29 @@ export default {
 
 	methods: {
 
-		show(it){
-			return (this.inConfig || !this.hide[it.id])&&!it.hide;
+		show(it) {
+			return (this.inConfig || !this.hide[it.id]) && !it.hide;
 		},
 
-		configHides(){
+		configHides() {
 
 			// containing element.
 			var sel = this.$refs.hidables || this.$el;
 			var hideElms = sel.querySelectorAll('.hidable');
-			if ( !hideElms) return;
+			if (!hideElms) return;
 
 			/**
 			 * @property {(Event)=>null} onTogHide - listens to click events.
 			 */
-			this.onTogHide = (e)=>this.hideToggle(e);
+			this.onTogHide = (e) => this.hideToggle(e);
 
-			for( let i = hideElms.length-1; i>= 0; i--) {
+			for (let i = hideElms.length - 1; i >= 0; i--) {
 
 				var h = hideElms[i];
-				if ( this.newHides[h.dataset.key] ) h.classList.add( 'inConfig', 'configHiding');
+				if (this.newHides[h.dataset.key]) h.classList.add('inConfig', 'configHiding');
 				else h.classList.add('inConfig');
 
-				h.addEventListener('pointerdown', this.onTogHide, true );
+				h.addEventListener('pointerdown', this.onTogHide, true);
 
 			}
 
@@ -81,7 +81,7 @@ export default {
 		/**
 		 * Stop toggling hide on elements.
 		 */
-		stopHides(){
+		stopHides() {
 
 			// containing element.
 			var sel = this.$refs.hidables || this.$el;
@@ -89,11 +89,11 @@ export default {
 			if (!hideElms) return;
 
 			// remove event listeners.
-			for( let i = hideElms.length-1; i>= 0; i--) {
+			for (let i = hideElms.length - 1; i >= 0; i--) {
 
 				var h = hideElms[i];
 
-				h.removeEventListener('pointerdown', this.onTogHide, true );
+				h.removeEventListener('pointerdown', this.onTogHide, true);
 				h.classList.remove('configHiding', 'inConfig');
 
 			}
@@ -107,7 +107,7 @@ export default {
 		 * Toggle the hidden status of a button.
 		 * @param {*} it
 		 */
-		hideToggle( e ) {
+		hideToggle(e) {
 
 			e.preventDefault();
 			e.stopPropagation();
@@ -115,15 +115,15 @@ export default {
 			let targ = e.currentTarget;
 			let id = targ.dataset.key;
 
-			if ( !id) return;
+			if (!id) return;
 
 			let v = this.newHides[id];
-			if ( v === undefined || v === null) {
+			if (v === undefined || v === null) {
 				this.newHides[id] = true;
 			}
 			else this.newHides[id] = !v;
 
-			if ( !v ) targ.classList.add('configHiding');
+			if (!v) targ.classList.add('configHiding');
 			else targ.classList.remove('configHiding');
 
 

@@ -1,4 +1,5 @@
-import { assignPublic } from "../util/util";
+import { assignPublic } from '@/util/util';
+import { MarkModded } from '../changes';
 
 /**
  * @class TagSet to allow referencing tagged items by id.
@@ -8,13 +9,13 @@ export default class TagSet {
 	/**
 	 * TagSets are internal and not meant to be saved.
 	 */
-	toJSON(){return undefined;}
+	toJSON() { return undefined; }
 
 	/**
 	 * @property {string}
 	 */
 	get id() { return this._id; }
-	set id(v) { this._id = v;}
+	set id(v) { this._id = v; }
 
 	/**
 	 * @property {Set.<GData>} items
@@ -24,7 +25,7 @@ export default class TagSet {
 		this._items = v;
 	}
 
-	[Symbol.iterator](){return this._items[Symbol.iterator]()}
+	[Symbol.iterator]() { return this._items[Symbol.iterator]() }
 
 	/**
 	 * @property {string} type - type might need to be a standard type.
@@ -35,7 +36,7 @@ export default class TagSet {
 	/**
 	 * @property {string} name
 	 */
-	get name() {return this._name }
+	get name() { return this._name }
 	set name(v) { this._name = v; }
 
 
@@ -46,8 +47,8 @@ export default class TagSet {
 	 * @property {boolean} locked
 	 */
 	get locked() {
-		for( let it of this.items ) {
-			if ( it.locked === false ) return false;
+		for (let it of this.items) {
+			if (it.locked === false) return false;
 		}
 		return true;
 	}
@@ -55,8 +56,8 @@ export default class TagSet {
 	/**
 	 * Used by cheat menu.
 	 */
-	set locked(v){
-		for( let it of this.items ) {
+	set locked(v) {
+		for (let it of this.items) {
 			it.locked = v;
 		}
 	}
@@ -64,22 +65,22 @@ export default class TagSet {
 	/**
 	 * @property {boolean} owned
 	 */
-	get owned(){
-		for( let it of this.items ) {
-			if ( it.owned === true ) return true;
+	get owned() {
+		for (let it of this.items) {
+			if (it.owned === true) return true;
 		}
 		return false;
 	}
 
-	get delta(){ return 0; }
+	get delta() { return 0; }
 
 	/**
 	 * @returns {number}
 	 */
-	valueOf(){
+	valueOf() {
 
 		let v = 0;
-		for( let it of this.items ) {
+		for (let it of this.items) {
 			v += it.valueOf();
 		}
 		return v;
@@ -93,20 +94,20 @@ export default class TagSet {
 
 		this.items = new Set();
 
-		if(vars instanceof Object) {
+		if (vars instanceof Object) {
 			assignPublic(this, vars);
 		} else {
 			this.id = vars;
 		}
 
-		if(!this.id) console.warn("TAGSET NO ID!!!!!");
-		
-		if(!this.name) {
+		if (!this.id) console.warn("TAGSET NO ID!!!!!");
+
+		if (!this.name) {
 			//The following .toString() resolves an error thrown in console
 			let ind = vars.toString().indexOf('t_');
-			if ( ind < 0) this.name = vars.toString();
+			if (ind < 0) this.name = vars.toString();
 			else {
-				this.name = vars.toString().slice(ind+2);
+				this.name = vars.toString().slice(ind + 2);
 			}
 		}
 
@@ -115,17 +116,17 @@ export default class TagSet {
 	/**
 	 * @returns {boolean}
 	 */
-	canUse( g ) {
-		return g.canPay( this.cost );
+	canUse(g) {
+		return g.canPay(this.cost);
 	}
 
 	/**
 	 * Tests whether item fills unlock requirement.
 	 * @returns {boolean}
 	 */
-	fillsRequire(){
-		for( let it of this.items ) {
-			if ( it.fillsRequire()) return true;
+	fillsRequire() {
+		for (let it of this.items) {
+			if (it.fillsRequire()) return true;
 		}
 		return false;
 	}
@@ -133,9 +134,9 @@ export default class TagSet {
 	/**
 	 * @returns {boolean}
 	 */
-	filled( rate ){
-		for( let it of this.items ) {
-			if ( !it.filled(rate) ) return false;
+	filled(rate) {
+		for (let it of this.items) {
+			if (!it.filled(rate)) return false;
 		}
 		return true;
 	}
@@ -143,22 +144,22 @@ export default class TagSet {
 	/**
 	 * @returns {boolean}
 	 */
-	maxed(){
-		for( let it of this.items ) {
-			if ( !it.maxed() ) return false;
+	maxed() {
+		for (let it of this.items) {
+			if (!it.maxed()) return false;
 		}
 		return true;
 	}
 
 	canPay(amt) {
-		for( let it of this.items ) {
-			if ( !it.canPay(amt) ) return false;
+		for (let it of this.items) {
+			if (!it.canPay(amt)) return false;
 		}
 		return true;
 	}
 
-	remove(amt){
-		for( let it of this.items ) {
+	remove(amt) {
+		for (let it of this.items) {
 			it.remove(amt);
 		}
 	}
@@ -175,7 +176,7 @@ export default class TagSet {
 	 *
 	 * @param {GData} it
 	 */
-	add( it ) {
+	add(it) {
 		this.items.add(it);
 	}
 
@@ -185,13 +186,13 @@ export default class TagSet {
 	random() {
 
 		let size = this.items.size;
-		if ( size <= 0 ) return null;
+		if (size <= 0) return null;
 
 		// dont know better way to do random on iterator.
-		let ind = Math.floor(Math.random()*size);
+		let ind = Math.floor(Math.random() * size);
 
 		const itr = this.items.values();
-		while ( ind-- > 0 ) {
+		while (ind-- > 0) {
 			itr.next();
 		}
 		return itr.next().value;
@@ -204,9 +205,9 @@ export default class TagSet {
 	 * @param {Game} g
 	 * @param {*} amt
 	 */
-	amount( amt ) {
+	amount(amt) {
 
-		for( let it of this.items ) {
+		for (let it of this.items) {
 			//if ( typeof it.amount === 'function' ) it.amount( amt );
 			it.amount(amt);
 		}
@@ -216,9 +217,9 @@ export default class TagSet {
 	/**
 	 * @param {Game} g
 	 */
-	disable(g){
+	disable(g) {
 
-		for ( let it of this.items ) {
+		for (let it of this.items) {
 			//console.warn("Disabling tag member: " + it.id)
 			g.disable(it);
 		}
@@ -228,9 +229,9 @@ export default class TagSet {
 	/**
 	 * @param {Game} g
 	 */
-	enable(g){
+	enable(g) {
 
-		for ( let it of this.items ) {
+		for (let it of this.items) {
 			//console.warn("Enabling tag member: " + it.id)
 			g.enable(it);
 		}
@@ -243,10 +244,10 @@ export default class TagSet {
 	 * @param {number} amt - factor of base amount added
 	 * ( fractions of full amount due to tick time. )
 	 */
-	applyVars( mods, amt=1 ) {
+	applyVars(mods, amt = 1) {
 
-		for( let it of this.items ) {
-			it.applyVars( mods, amt );
+		for (let it of this.items) {
+			it.applyVars(mods, amt);
 		}
 
 	}
@@ -257,13 +258,11 @@ export default class TagSet {
 	 * @param {number} amt
 	 * @param {Object} [targ=null]
 	 */
-	applyMods( mods, amt=1, targ, src, path, isMod=false, initialCall=true ) {
-		
-		let results = [];
-		for( let it of this.items ) {
-			results.push( it.applyMods( mods, amt, it, isMod ? src : it, path ? path : it.id, isMod, initialCall ) );
+	applyMods(mods, amt, targ, src, path, modType, recurse) {
+
+		for (let it of this.items) {
+			it.applyMods(mods, amt, it, src, path, modType, recurse);
 		}
-		return results;
 
 	}
 
@@ -273,21 +272,21 @@ export default class TagSet {
 	 * @param {number} amt
 	 * @param {Object} [targ=null]
 	 */
-	removeMods( mods ) {
+	removeMods(mods) {
 
-		for( let it of this.items ) {
-			it.removeMods( mods, it );
+		for (let it of this.items) {
+			it.removeMods(mods, it);
 		}
 
 	}
 
-	hasTag(t){ return t === 'tagset'}
+	hasTag(t) { return t === 'tagset' }
 
 	/**
 	 * Get raw array of tagged items.
 	 * @returns {GData[]}
 	 */
-	toArray(){
+	toArray() {
 		return Array.from(this.items);
 	}
 
@@ -296,12 +295,12 @@ export default class TagSet {
 	 * @param {v=>boolean} p
 	 * @returns {GData[]}
 	 */
-	filter(p){
+	filter(p) {
 
 		let a = [];
 
-		for( let it of this.items ) {
-			if ( p(it) ) a.push(it);
+		for (let it of this.items) {
+			if (p(it)) a.push(it);
 		}
 
 		return a;
@@ -312,7 +311,7 @@ export default class TagSet {
 	 * Wrap Set forEach()
 	 * @param {*=>*} p
 	 */
-	forEach(p){
+	forEach(p) {
 		return this.items.forEach(p);
 	}
 
@@ -322,10 +321,10 @@ export default class TagSet {
 	 * @param {number} t 
 	 */
 
-	cdshare(g, t){
-		if(this.sharecd){
-			for ( let it of this.items ) {
-				if (!it.timer || it.timer < t){
+	cdshare(g, t) {
+		if (this.sharecd) {
+			for (let it of this.items) {
+				if (!it.timer || it.timer < t) {
 					it.timer = t;
 					g.addTimer(it);
 				}

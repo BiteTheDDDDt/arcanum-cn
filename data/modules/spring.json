@@ -49,7 +49,7 @@
 				"armor": 1,
 				"alter": {
 					"mod": {
-						"charms.max": 1
+						"charms.mod.gatherherbs.result.herbs": 0.2
 					}
 				}
 			},
@@ -94,8 +94,7 @@
 				"id": "spr_portal",
 				"name": "portal of trees",
 				"desc": "A portal of tree trucks grows from the ground. If you could activate it, you might learn where the beasts came from.",
-				"cost": {
-				}
+				"cost": {}
 			},
 			{
 				"id": "spr_mabs_carriage",
@@ -141,18 +140,10 @@
 				"slot": "rest",
 				"perpetual": true,
 				"verb": "directing weaves",
-				"fill": [
-					"hp",
-					"prismatic",
-					"stamina",
-					"stress"
-				],
+				"fill": ["hp", "prismatic", "stamina", "stress"],
 				"effect": {
 					"stress": -1.7,
-					"prismatic": {
-						"skipLocked": true,
-						"value": 0.7
-					},
+					"prismatic": { "value": 0.7, "skipLocked": true },
 					"stamina": 0.7,
 					"vigor": 0.07,
 					"hp": 1,
@@ -183,7 +174,7 @@
 					"weary": "2~3"
 				},
 				"result": {
-					"starcharts": "1~2"
+					"astronomy.exp": "10~20"
 				}
 			},
 			{
@@ -194,8 +185,7 @@
 					"bf": "1~2",
 					"unease": "1~2"
 				},
-				"result": {
-				}
+				"result": {}
 			},
 			{
 				"id": "spr_night_dance",
@@ -204,8 +194,7 @@
 				"effect": {
 					"weary": "3~5"
 				},
-				"result": {
-				}
+				"result": {}
 			},
 			{
 				"id": "spr_bonfire",
@@ -215,8 +204,7 @@
 					"rage": "1~3",
 					"wear": "0~2"
 				},
-				"result": {
-				}
+				"result": {}
 			},
 			{
 				"id": "spr_enc_maypole",
@@ -285,22 +273,15 @@
 				"id": "spr_fair",
 				"name": "aylesmeade fair",
 				"desc": "Each spring Aylesmeade holds its fabled fair in sight of the World Tree, Aesilwyr.",
-				"start": {
-				},
-				"encs": [
-					"spr_enc_maypole",
-					"spr_enc_market",
-					"spr_enc_tinker",
-					"spr_enc_rumors"
-				],
+				"start": {},
+				"encs": ["spr_enc_maypole", "spr_enc_market", "spr_enc_tinker", "spr_enc_rumors"],
 				"flavor": ""
 			},
 			{
 				"id": "spr_aesilwyr",
 				"name": "tree of fate",
 				"desc": "At the center of the world the great idrasil stretches to the heavens.",
-				"encs": [
-				],
+				"encs": [],
 				"flavor": "A single seed once fell from Yggrasil."
 			}
 		],
@@ -363,16 +344,7 @@
 				"loot": {
 					"maxlevel": 25
 				},
-				"spawns": [
-					"wyvern2",
-					[
-						"wyvern",
-						"wyvern",
-						"wyvern"
-					],
-					"m_cordyceps",
-					"m_stranglevine"
-				]
+				"spawns": ["wyvern2", ["wyvern", "wyvern", "wyvern"], "m_cordyceps", "m_stranglevine"]
 			},
 			{
 				"id": "spr_sunnyfield",
@@ -400,11 +372,7 @@
 				"spawns": [
 					"basilisk2",
 					"basilisk",
-					[
-						"wyvern",
-						"wyvern",
-						"wyvern"
-					],
+					["wyvern", "wyvern", "wyvern"],
 					"m_cordyceps",
 					"greendragon",
 					"manticore",

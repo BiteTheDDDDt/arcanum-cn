@@ -1,13 +1,18 @@
-import { defineExcept, cloneClass } from '../util/objecty';
-import Stat from '../values/rvals/stat';
-import Base, { mergeClass } from './base';
-import { arrayMerge } from '../util/array';
-import { assignPublic, getPropertyDescriptors, setDefaults } from '../util/util';
-import Events, { CHAR_ACTION, EVT_EVENT, EVT_UNLOCK, STATE_BLOCK } from '../events';
-import Game, { TICK_LEN } from '../game';
-import { WEARABLE, WEAPON, TYP_PCT } from '../values/consts';
-import RValue, { InitRVals } from '../values/rvals/rvalue';
-import { Changed } from '../techTree';
+import { defineExcept, cloneClass } from "@/util/objecty";
+import Stat from "@/values/rvals/stat";
+import Base, { mergeClass } from "./base";
+import { arrayMerge } from "@/util/array";
+import { assignPublic, getPropertyDescriptors, setDefaults } from "@/util/util";
+import Events, {
+	CHAR_ACTION,
+	EVT_EVENT,
+	EVT_UNLOCK,
+	STATE_BLOCK,
+} from "../events";
+import Game, { TICK_LEN } from "../game";
+import { WEARABLE, WEAPON, TYP_PCT } from "@/values/consts";
+import RValue, { InitRVals } from "../values/rvals/rvalue";
+import { Changed } from "@/changes";
 
 /**
  * @typedef {Object} Effect
@@ -17,122 +22,171 @@ import { Changed } from '../techTree';
 /**
  * @const {Set} NoDefine - properties not to set to default values.
  */
-const NoDefine = new Set(['require', 'rate', 'current', 'need', 'value', 'buy', "on",
-	'cost', 'id', 'name', 'warn', 'effect', 'slot', 'exp', 'delta'])
+const NoDefine = new Set([
+	"require",
+	"rate",
+	"current",
+	"need",
+	"value",
+	"buy",
+	"on",
+	"cost",
+	"id",
+	"name",
+	"warn",
+	"effect",
+	"slot",
+	"exp",
+	"delta",
+]);
 
 /**
  * Game Data base class.
  */
 export default class GData {
-
 	/**
 	 * @property {string} module - source module.
 	 */
-	get module() { return this._module; }
-	set module(v) { this._module = v; }
+	get module() {
+		return this._module;
+	}
+	set module(v) {
+		this._module = v;
+	}
 
 	/**
 	 * @property {boolean} disabled - whether the item has been
 	 * disabled / is no longer available.
 	 */
-	get disabled() { return this._disabled; }
-	set disabled(v) { this._disabled = v; }
+	get disabled() {
+		return this._disabled;
+	}
+	set disabled(v) {
+		this._disabled = v;
+	}
 
 	/**
 	 * @property {Stat} max
 	 */
-	get max() { return this._max; }
+	get max() {
+		return this._max;
+	}
 	set max(v) {
-
 		if (v === null || v === undefined) return;
 
 		if (this._max) {
-
 			if (v instanceof Stat) this._max.base = v.base;
 			else if (!isNaN(v)) this._max.base = v;
-
-		} else this._max = v instanceof Stat ? v : new Stat(v, this.id + '.max', true);
+		} else
+			this._max = v instanceof Stat ? v : new Stat(v, this.id + ".max", true);
 	}
 
 	/**
 	 * @property {Stat} rate - rate of stat change in value/second.
 	 */
-	get rate() { return this._rate; }
+	get rate() {
+		return this._rate;
+	}
 	set rate(v) {
-
 		if (v instanceof Stat) {
-
-			v.id = this.id + '.rate';
+			v.id = this.id + ".rate";
 			this._rate = v;
-
 		} else if (this._rate) {
-
-			if (typeof v === 'object') Object.assign(this._rate, v);
+			if (typeof v === "object") Object.assign(this._rate, v);
 			else this._rate.base = v;
-
-		} else this._rate = new Stat(v, this.id + '.rate');
-
+		} else this._rate = new Stat(v, this.id + ".rate");
 	}
 
 	/**
 	 * @property {.<string,object>} on - actions to take on string triggers.
 	 */
-	get on() { return this._on; }
-	set on(v) { this._on = v; }
+	get on() {
+		return this._on;
+	}
+	set on(v) {
+		this._on = v;
+	}
 
-	get triggers() { return this._triggers; }
-	set triggers(v) { this._triggers = v; }
+	get triggers() {
+		return this._triggers;
+	}
+	set triggers(v) {
+		this._triggers = v;
+	}
 
 	/**
 	 * @property {.<string,number>} cost
 	 */
-	get cost() { return this._cost; }
+	get cost() {
+		return this._cost;
+	}
 	set cost(v) {
-
-		if (typeof v !== 'object' || v instanceof RValue) {
+		if (typeof v !== "object" || v instanceof RValue) {
 			this._cost = {
-				gold: v
-			}
+				gold: v,
+			};
 		} else this._cost = v;
 	}
 
 	/**
 	 * @property {string|Object}
 	 */
-	get require() { return this._require; }
-	set require(v) { this._require = v; }
+	get require() {
+		return this._require;
+	}
+	set require(v) {
+		this._require = v;
+	}
 
 	/**
 	 * @property {boolean} warn - whether to display a warning before
 	 * purchasing or using item.
 	 */
-	get warn() { return this._warn; }
-	set warn(v) { this._warn = v; }
+	get warn() {
+		return this._warn;
+	}
+	set warn(v) {
+		this._warn = v;
+	}
 
 	/**
 	 * @property {string} warnMsg - warning message to display
 	 * before purchasing item.
 	 */
-	get warnMsg() { return this._warnMsg; }
-	set warnMsg(v) { this._warnMsg = v; }
+	get warnMsg() {
+		return this._warnMsg;
+	}
+	set warnMsg(v) {
+		this._warnMsg = v;
+	}
 
 	/**
 	 * @property {object} mod - mods applied by object.
 	 */
-	get mod() { return this.value.mod; }
-	set mod(v) { this.value.mod = v; }
+	get mod() {
+		return this.value.mod;
+	}
+	set mod(v) {
+		this.value.mod = v;
+	}
 
 	/**
 	 * @property {Object|Array|string|function} effect
 	 */
-	get effect() { return this._effect; }
-	set effect(v) { this._effect = v; }
+	get effect() {
+		return this._effect;
+	}
+	set effect(v) {
+		this._effect = v;
+	}
 
 	/**
 	 * @property {number} locks - number of locks preventing item from
 	 * being used or unlocked.
 	 */
-	get locks() { return this._locks || 0; }
+	get locks() {
+		return this._locks || 0;
+	}
 	set locks(v) {
 		this._locks = v;
 	}
@@ -140,14 +194,22 @@ export default class GData {
 	/**
 	 * @property {boolean} locked
 	 */
-	get locked() { return this._locked; }
-	set locked(v) { this._locked = v; }
+	get locked() {
+		return this._locked;
+	}
+	set locked(v) {
+		this._locked = v;
+	}
 
 	/**
 	 * @property {boolean} owned
 	 */
-	get owned() { return this._owned; }
-	set owned(v) { this._owned = v; }
+	get owned() {
+		return this._owned;
+	}
+	set owned(v) {
+		this._owned = v;
+	}
 
 	/**
 	 * @property {boolean} usable - cached usable variable.
@@ -159,7 +221,9 @@ export default class GData {
 	/**
 	 * @property {number} delta - Amount to add at end of frame.
 	 */
-	get delta() { return this._delta; }
+	get delta() {
+		return this._delta;
+	}
 	set delta(v) {
 		this._delta = v;
 	}
@@ -167,38 +231,37 @@ export default class GData {
 	/**
 	 * @property {Stat} value
 	 */
-	get value() { return this._value; }
+	get value() {
+		return this._value;
+	}
 	set value(v) {
-
 		//if ( this.id === 'space') console.log('setting space: ' + v );
 		if (v instanceof Stat) {
-
 			if (this._value === null || this._value === undefined) this._value = v;
 			else if (v !== this._value) {
-
 				this._value.base = v.base;
 				this._value.basePct = v.basePct;
-
 			}
-
-		} else if (this._value !== undefined) {
-
-
-			this._value.base = (typeof v === 'object') ? v.value : v;
+		} else if (this._value != null) {
+			this._value.base = typeof v === "object" ? v?.value ?? 0 : v;
 			//if ( this.id === 'space') console.log('setting BASE SPACE: ' + v );
-
 		} else this._value = new Stat(v, this.id);
-
 	}
 
 	/**
 	 * @property {Stat} val - value assignment from save data.
 	 * assigns value without triggering game events.
 	 */
-	get val() { return this.value; }
-	set val(v) { this.value = v; }
+	get val() {
+		return this.value;
+	}
+	set val(v) {
+		this.value = v ?? 0;
+	}
 
-	valueOf() { return this._value.valueOf(); }
+	valueOf() {
+		return this._value.valueOf();
+	}
 
 	/**
 	 *
@@ -206,17 +269,14 @@ export default class GData {
 	 * @param {?defaults} [defaults=null]
 	 */
 	constructor(vars = null, defaults = null) {
-
 		if (vars) {
-
-			if (typeof vars === 'object') {
-				if (vars.id) this.id = vars.id;	// used to assign sub-ids.
+			if (typeof vars === "object") {
+				if (vars.id) this.id = vars.id; // used to assign sub-ids.
 				this.val = vars.val || 0;
 				assignPublic(this, vars);
-			}
-			else if (!isNaN(vars)) this.val = vars;
+			} else if (!isNaN(vars)) this.val = vars;
 		}
-		if ( defaults ) this.defaults = setDefaults( this, defaults );
+		if (defaults) this.defaults = setDefaults(this, defaults);
 
 		if (this._locked === undefined || this._locked === null) this.locked = true;
 
@@ -233,7 +293,6 @@ export default class GData {
 
 		InitRVals(this);
 		InitRVals(this.mod, this);
-
 	}
 
 	/**
@@ -251,25 +310,28 @@ export default class GData {
 	 * @returns {boolean}
 	 */
 	canRun(g, dt = TICK_LEN) {
-
-		if (this.disabled || this.maxed() || this.locks > 0 ||
-			(this.need && !g.unlockTest(this.need, this))) return false;
+		if (
+			this.disabled ||
+			this.maxed() ||
+			this.locks > 0 ||
+			(this.need && !g.unlockTest(this.need, this))
+		)
+			return false;
 
 		if (this.buy && !this.owned && !g.canPay(this.buy)) return false;
 
 		// cost only paid at _start_ of runnable task.
-		if (this.cost && (this.exp == 0) && !g.canPay(this.cost)) return false;
+		if (this.cost && this.exp == 0 && !g.canPay(this.cost)) return false;
 
 		if (this.fill && g.filled(this.fill, this)) return false;
 
 		return !this.run || g.canPay(this.run, dt);
-
 	}
 
 	/**
 	 * Detemines whether an item can continue to run as a continuous task.
 	 * Does not check canRun.
-	 * @param {Game} g 
+	 * @param {Game} g
 	 * @param {number} dt - minimum length of time item would run.
 	 */
 	canContinue(g) {
@@ -281,8 +343,16 @@ export default class GData {
 	 * Made a function for reverseStats, among other things.
 	 * @param {number} amt
 	 */
-	canPay(amt) { return amt >= 0 ? this.value >= amt : (this.max ? this.value - amt <= this.max.value : true) }
-	remove(amt) { this.value.base -= amt; }
+	canPay(amt) {
+		return amt >= 0
+			? this.value >= amt
+			: this.max
+			? this.value - amt <= this.max.value
+			: true;
+	}
+	remove(amt) {
+		this.value.base -= amt;
+	}
 
 	/**
 	 * Determine if an item can be used. Ongoing/perpetual tasks
@@ -290,14 +360,19 @@ export default class GData {
 	 * @param {Context} g
 	 */
 	canUse(g = Game) {
-
 		if (this.perpetual > 0 || this.length > 0) return this.canRun(g, TICK_LEN);
 
-		if (this.disabled || this.locks > 0 || this.maxed() ||
-			(this.need && !g.unlockTest(this.need, this))) return false;
+		if (
+			this.disabled ||
+			this.locks > 0 ||
+			this.maxed() ||
+			(this.need && !g.unlockTest(this.need, this))
+		)
+			return false;
 		if (this.buy && !this.owned && !g.canPay(this.buy)) return false;
 
-		if (this.slot && g.state.getSlot(this.slot, this.type) === this) return false;
+		if (this.slot && g.state.getSlot(this.slot, this.type) === this)
+			return false;
 
 		if (this.fill && g.filled(this.fill, this)) return false;
 
@@ -309,11 +384,10 @@ export default class GData {
 	}
 
 	canBuy(g) {
+		if (this.disabled || this.locked || this.locks > 0 || this.maxed())
+			return false;
 
-		if (this.disabled || this.locked || this.locks > 0 || this.maxed()) return false;
-
-		return (!this.buy || g.canPay(this.buy));
-
+		return !this.buy || g.canPay(this.buy);
 	}
 
 	/**
@@ -322,36 +396,32 @@ export default class GData {
 	 * @returns {number} - change in final value.
 	 */
 	add(amt) {
-
 		let prev = this.value.valueOf();
 
 		if (amt <= 0) {
-
 			if (prev <= 0 || amt === 0) return 0;
 			else if (prev + amt <= 0) {
 				/** @todo **/
 				this.value.base = 0;
 				return -prev;
 			}
-
 		} else {
-
-			if (this.repeat !== true && !this.max &&
+			if (
+				this.repeat !== true &&
+				!this.max &&
 				this.value > 1 &&
-				(!this.buy || this.owned === true)) {
+				(!this.buy || this.owned === true)
+			) {
 				return 0;
 			}
 
-			if (this.max && (prev + amt) >= this.max.value) {
-
+			if (this.max && prev + amt >= this.max.value) {
 				amt = this.max.value - prev;
 			}
-
 		}
 
 		this.value.base += amt;
 		return this.value.valueOf() - prev;
-
 	}
 
 	/**
@@ -359,11 +429,9 @@ export default class GData {
 	 * @returns {boolean} true if some amount was actually added.
 	 */
 	amount(count = 1) {
-
 		this.delta += count;
 
 		Changed.add(this);
-
 	}
 
 	/**
@@ -373,12 +441,11 @@ export default class GData {
 	 * @param {number} count - total change in value.
 	 */
 	changed(g, count) {
-
 		this.delta = 0;
 		count = this.add(count);
 		if (count === 0) return;
 
-		let a
+		let a;
 		if (this.caststoppers) {
 			for (let b of this.caststoppers) {
 				a = g.self.getCause(b);
@@ -386,11 +453,15 @@ export default class GData {
 			}
 		}
 
-		if (this.isRecipe) { return g.create(this, true, count); }
+		if (this.isRecipe) {
+			return g.create(this, true, count);
+		}
 
 		if (this.once && this.valueOf() === 1) {
 			g.applyVars(this.once);
-			if (this.once.loot) { g.getLoot(this.once.loot); }
+			if (this.once.loot) {
+				g.getLoot(this.once.loot);
+			}
 		}
 
 		if (this.cd) {
@@ -408,7 +479,6 @@ export default class GData {
 			for (let i = 0; i < count; i++) {
 				g.getLoot(this.loot);
 			}
-
 		}
 
 		if (this.title) g.self.setTitle(this.title);
@@ -421,27 +491,27 @@ export default class GData {
 		}
 		if (this.create) g.create(this.create);
 		if (this.summon) {
-
 			if (a) {
 				Events.emit(STATE_BLOCK, g.self, a);
-			}
-			else {
+			} else {
 				for (let i = 0; i < count; i++) {
 					for (let smn of this.summon) {
 						if (smn[TYP_PCT] && !smn[TYP_PCT].roll()) {
 							continue;
 						}
-						let smnid = smn.id
-						let smncount = smn.count || 1
-						let smnmax = smn.max || 0
-						let minions = g.getData('minions');
-						let mon = g.getData(smn.id)
-						g.create(smnid, minions.shouldKeep(mon), smncount, smnmax)
+						let smnid = smn.id;
+						let smncount = smn.count || 1;
+						let smnmax = smn.max || 0;
+						let minions = g.getData("minions");
+						let mon = g.getData(smn.id);
+						g.create(smnid, minions.shouldKeep(mon), smncount, smnmax);
 					}
 				}
 			}
 		}
-		if (this.mod) { g.applyMods(this.mod); }
+		if (this.mod) {
+			g.applyMods(this.mod);
+		}
 
 		if (this.lock) g.lock(this.lock);
 		if (this.dot) {
@@ -465,18 +535,14 @@ export default class GData {
 					Events.emit(CHAR_ACTION, this, g);
 				}
 		}
-
 	}
 
 	doLock(amt) {
-
 		this.locks += amt;
 		Changed.add(this);
-
 	}
 
 	doUnlock() {
-
 		if (this.disabled || this.locked === false || this.locks > 0) return;
 
 		this.locked = false;
@@ -491,10 +557,8 @@ export default class GData {
 	 * @param {Context} g
 	 */
 	onUse(g) {
-
 		if (this.slot) g.setSlot(this);
 		else this.amount(1);
-
 	}
 
 	/**
@@ -504,19 +568,20 @@ export default class GData {
 	 * @param {number} rate
 	 */
 	filled(rate = 0) {
-		return (this._max && this.value >= this._max.value) ||
-			(this.rate && (this.rate + rate.valueOf()) <= 0);
+		return (
+			(this._max && this.value >= this._max.value) ||
+			(this.rate && this.rate + rate.valueOf() <= 0)
+		);
 	}
 
 	/**
 	 * @returns {boolean} true if an unlocked item is at maximum value.
-	*/
+	 */
 	maxed() {
-
-		if (this._max) return this.value + this.delta >= Math.floor(this._max.value);
+		if (this._max)
+			return this.value + this.delta >= Math.floor(this._max.value);
 
 		return !(this.repeat || this.owned) && this.value + this.delta >= 1;
-
 	}
 
 	/**
@@ -551,34 +616,35 @@ export default class GData {
 	 * @param {string|string[]} item
 	 */
 	addRequire(item) {
-
 		if (!this.require) {
-
 			this.require = item;
-
-		} else if (this.require === item ||
-			(Array.isArray(this.require) && this.require.includes(item))) {
+		} else if (
+			this.require === item ||
+			(Array.isArray(this.require) && this.require.includes(item))
+		) {
 			return;
 		} else {
 			this.require = arrayMerge(this.require, item);
 		}
-
 	}
-
 }
 
 mergeClass(GData, Base);
 
 export function GDataDescAssigner(obj, ...props) {
 	let descriptors = getPropertyDescriptors(obj, ...props);
-	for(let prop of props) {
+	for (let prop of props) {
 		/** @type {PropertyDescriptor} */
 		let desc = descriptors[prop];
 		let val = obj[prop];
 
-		if(desc) {
-			if(!desc.configurable) {
-				console.warn(`Cannot overwrite non-configurable property ${prop} of ${obj.id ?? obj}. Skipping.`);
+		if (desc) {
+			if (!desc.configurable) {
+				console.warn(
+					`Cannot overwrite non-configurable property ${prop} of ${
+						obj.id ?? obj
+					}. Skipping.`
+				);
 				continue;
 			}
 			// Commented out because this gets spammed whenever an NPC is created. Could be helpful for debugging.
@@ -590,15 +656,21 @@ export function GDataDescAssigner(obj, ...props) {
 				return val;
 			},
 			set(v) {
-				if(val instanceof GData) {
-					if(isNaN(v)) console.warn(`Non-numeric property set ${prop} on ${obj.id ?? obj}: ${v}`);
+				if (val instanceof GData) {
+					if (isNaN(v))
+						console.warn(
+							`Non-numeric property set ${prop} on ${obj.id ?? obj}: ${v}`
+						);
 					else val.value = +v;
 					return;
-				} else if(!(v instanceof GData)) console.warn(`Non-Gdata property set ${prop} on ${obj.id ?? obj}: ${v}`);
+				} else if (!(v instanceof GData))
+					console.warn(
+						`Non-Gdata property set ${prop} on ${obj.id ?? obj}: ${v}`
+					);
 				val = v;
 			},
 			configurable: true,
-			enumerable: true
-		})
+			enumerable: true,
+		});
 	}
 }

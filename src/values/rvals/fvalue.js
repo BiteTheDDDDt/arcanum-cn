@@ -1,8 +1,9 @@
-import RValue from "./rvalue";
-import Stat from "./stat";
-import { TYP_FUNC, FP } from "../consts";
-import Game from "../../game";
-import { precise } from "../../util/format";
+import RValue from '@/values/rvals/rvalue';
+import Stat from '@/values/rvals/stat';
+import { TYP_FUNC, FP } from '@/values/consts';
+import Game from '@/game';
+import { precise } from '@/util/format';
+import { TYP_MOD } from '@/values/consts';
 
 const MkParams = (...args) => {
 	return `{${args.join(",")}}`;
@@ -17,17 +18,17 @@ const MOD_PARAM = FP.MOD;
 export default class FValue extends RValue {
 
 	/** @type {Record<String,WeakRef>} */
-	#recordedParams = {};
+	_recordedParams = {};
 
-	toJSON(){
+	toJSON() {
 		return this._src;
 	}
 
 	/**
 	 * @property {function} fn - function that serves as the base value.
 	 */
-	get fn(){return this._fn;}
-	set fn(v) { this._fn=v;}
+	get fn() { return this._fn; }
+	set fn(v) { this._fn = v; }
 
 	get type() { return TYP_FUNC }
 
@@ -44,19 +45,19 @@ export default class FValue extends RValue {
 	/** @property {*} recordedParams A list of parameters saved to use for FValue value calculations such as toString. */
 	get recordedParams() {
 		let params = {};
-		for(const key in this.#recordedParams) {
-			const value = this.#recordedParams[key].deref();
-			if(value != null) params[key] = value;
+		for (const key in this._recordedParams) {
+			const value = this._recordedParams[key].deref();
+			if (value != null) params[key] = value;
 			else {
 				console.warn("FValue parameter has been garbage collected", key, this);
-				delete this.#recordedParams[key];
+				delete this._recordedParams[key];
 			}
 		}
 		return params;
 	}
 
 	set recordedParams(v) {
-		for(const key in v) {
+		for (const key in v) {
 			this.setParameter(key, v[key]);
 		}
 	}
@@ -72,22 +73,22 @@ export default class FValue extends RValue {
 	toString(params) {
 		return precise(this.applyDummy(params)) + " (Function)";
 	}
-	
+
 	valueOf(params) {
 		return this.getApply(params);
 	}
 
-	constructor( params, src, path ){
+	constructor(params, src, path) {
 
-		super( 0, path );
+		super(0, path);
 
 		/** @type {Array<String>} */
 		this._params = [...(params ?? PARAMS)];
-		if(!this._params.includes(MOD_PARAM)) this._params.push(MOD_PARAM);
+		if (!this._params.includes(MOD_PARAM)) this._params.push(MOD_PARAM);
 
 		this._src = src;
 
-		this._fn = new Function( MkParams(...this._params), 'return ' + src );
+		this._fn = new Function(MkParams(...this._params), 'return ' + src);
 
 		this.mods = {};
 
@@ -103,14 +104,14 @@ export default class FValue extends RValue {
 	 * @param {*} targ
 	 * @returns {Number}
 	 */
-	getApply( params ) {
+	getApply(params) {
 		const recordedParams = this.recordedParams;
-		if(params == null) {
+		if (params == null) {
 			if (Object.values(recordedParams).length) params = {};
 			else return this.applyDummy();
 		}
 
-		if(typeof params !== "object") {
+		if (typeof params !== "object") {
 			console.warn("Non-object params in FValue apply", params, this);
 			return 0;
 		}
@@ -119,12 +120,12 @@ export default class FValue extends RValue {
 			...recordedParams,
 			...params
 		};
-		
+
 		return this.calculateValue(params);
 	}
 
 	applyDummy(params = {}) {
-		if(typeof params !== "object") {
+		if (typeof params !== "object") {
 			console.warn("Non-object params in FValue applyDummy", params, this);
 			params = {};
 		}
@@ -137,10 +138,10 @@ export default class FValue extends RValue {
 			[FP.CONTEXT]: Game.player.context, // @note should be game. @TODO replace context with target context once target is replaced.
 			[FP.STATE]: Game.state,
 			[FP.ITEM]: this.source, // @note may not be correct
-			
+
 			// Recorded values
 			...this.recordedParams,
-			
+
 			// Values passed in. Highest priority.
 			...params
 		};
@@ -163,16 +164,16 @@ export default class FValue extends RValue {
 			}
 		}
 
-		let value = this._fn( params );
+		let value = this._fn(params);
 
-		if(isNaN(value)) {
+		if (isNaN(value)) {
 			console.warn("Cannot convert FValue into number", value, this);
 			return 0;
 		}
 
 		// If percent bonus is applied, return without caring about flat bonus
-		if(!modPct) {
-			if(!modFlat) {
+		if (!modPct) {
+			if (!modFlat) {
 				value += this.mBase;
 			}
 
@@ -182,17 +183,17 @@ export default class FValue extends RValue {
 		return value;
 	}
 
-	setParameter( key, value ) {
+	setParameter(key, value) {
 		// Saved as a WeakRef to prevent circular references causing memory leak.
-		this.#recordedParams[key] = new WeakRef(value);
+		this._recordedParams[key] = new WeakRef(value);
 	}
 
 	// @note instantiate does not use valueOf like stats or rvalues, but creates another instance like mods do.
 	instantiate = this.clone;
 
-	clone(){
+	clone() {
 
-		let f = new FValue( this._params, this._src, this._id );
+		let f = new FValue(this._params, this._src, this._id);
 		f.source = this.source;
 		f.recordedParams = this.recordedParams;
 
@@ -204,26 +205,26 @@ export default class FValue extends RValue {
 	canPay() {
 		return false;
 	}
-	
-	apply( val, amt=1 ) {
 
-		if ( (val.type === TYP_MOD) && val.id ) return this.addMod( val, amt );
+	apply(val, amt = 1) {
+
+		if ((val.type === TYP_MOD) && val.id) return this.addMod(val, amt);
 		console.warn("Cannot apply", val, "to FValue", this);
-		
+
 	}
-	
+
 	/**
 	 * Recalculate the total bonus and percent applied to FValue.
 	 * @protected
 	 */
-	recalc(){
+	recalc() {
 
 		let bonus = 0, pct = 0;
 
-		for( let p in this.mods ) {
+		for (let p in this.mods) {
 
 			var mod = this.mods[p];
-			if (mod === undefined ) continue;
+			if (mod === undefined) continue;
 
 			pct += mod.countPct || 0;
 			bonus += mod.countBonus || 0;
@@ -236,8 +237,8 @@ export default class FValue extends RValue {
 		return false;
 
 	}
-	
+
 	addMod = Stat.prototype.addMod;
 	removeMods = Stat.prototype.removeMods;
-	
+
 }

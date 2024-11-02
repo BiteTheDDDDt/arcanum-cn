@@ -5,7 +5,7 @@
 		"cd": 5,
 		"name": "remedy",
 		"desc": "Cures most common ailments and renders the imbiber more resistant to them.",
-		"require": "g.potions>=8",
+		"require": "(g.potions+g.t_potionclass)>=8",
 		"level": 10,
 		"buy": {
 			"gold": 2500,
@@ -48,7 +48,7 @@
 		"id": "pot_midas",
 		"name": "goldeneye tincture",
 		"desc": "Temporarily grants you an impeccable ability to acquire valuables.",
-		"require": "g.potions>=9",
+		"require": "(g.potions+g.t_potionclass)>=9",
 		"level": 10,
 		"buy": {
 			"gold": 5000,
@@ -57,8 +57,8 @@
 		},
 		"cost": {
 			"herbs": 50,
-			"gold": 1500,
-			"gems": 30,
+			"gold": 2200,
+			"gems": 50,
 			"spirit": 10,
 			"potionessence": 2
 		},
@@ -66,8 +66,8 @@
 			"dot": {
 				"duration": 1200,
 				"mod": {
-					"encounter.result.gold": 15,
-					"encounter.result.gems": 0.3
+					"encounter.effect.gold": 6,
+					"encounter.effect.gems": 0.12
 				}
 			}
 		}
@@ -141,7 +141,7 @@
 		"id": "pot_invisibility",
 		"name": "vial of invisibility",
 		"desc": "Appears to contain nothing at all.",
-		"require": "g.madcap>0&&g.potions>0",
+		"require": "(g.madcap>0||(g.t_chaosclass+g.t_potionclass)>=2)&&g.potions>0",
 		"level": 10,
 		"buy": {
 			"gold": 2500,
@@ -186,7 +186,6 @@
 			"herbs": 30,
 			"research": 600,
 			"water": 2,
-			"bonedust": 5,
 			"gold": 500
 		},
 		"use": {
@@ -195,15 +194,13 @@
 				"name": "night's sight",
 				"duration": 900,
 				"effect": {
-					"astronomy.exp": "0 + (g.astronomy.length*0.0011)"
+					"astronomy.exp": "g.astronomy.length*0.0011"
 				},
 				"mod": {
-					"astronomy.rate": "500+2%",
-					"scrying.rate": "20+30%",
+					"astronomy.rate": "25%",
+					"scrying.rate": "25%",
 					"shadow.rate": "-30%",
 					"light.rate": "-30%",
-					"mapstars.length": -5,
-					"mapstars.run.research": 5,
 					"act_scry.run.stamina": -0.1,
 					"act_scry.run.mana": -0.1
 				}
@@ -214,21 +211,19 @@
 		"id": "pot_weavers_balm",
 		"name": "weaver's balm",
 		"desc": "A cream made of previously woven fibers that helps guide the unwoven fibers.",
-		"require": "g.potions>=2&&g.weaving>=1",
+		"require": "g.potions>=2&&g.weaving>=2",
 		"level": 10,
 		"buy": {
-			"gold": 700,
-			"research": 800,
-			"tapestries": 12,
+			"gold": 1000,
+			"research": 900,
 			"codices": 5
 		},
 		"cost": {
 			"herbs": 15,
-			"tapestries": 1,
-			"research": 200,
+			"research": 210,
 			"earth": 2,
 			"nature": 1,
-			"gold": 200
+			"gold": 230
 		},
 		"use": {
 			"dot": {
@@ -237,9 +232,6 @@
 				"duration": 1800,
 				"mod": {
 					"weaving.rate": "40%",
-					"weavetapestry.length": -5,
-					"weavetapestry.run.stamina": -0.2,
-					"weavetapestry.run.gold": 2,
 					"spingold.run.mana": -0.1,
 					"spingold.run.stamina": -0.1
 				}
@@ -250,20 +242,18 @@
 		"id": "pot_dream_weaver_fibers",
 		"name": "dream weaver's fibers",
 		"desc": "Enchanted fibers from tapestries infused with herbs and spices before being applied around the eyes to aid in dream weaving.",
-		"require": "g.potions>=8&&g.weaving>=5&&g.dreamweaver>0",
+		"require": "g.potions>=8&&g.dreamweaver>0",
 		"level": 10,
 		"buy": {
-			"gold": 1200,
-			"research": 2000,
+			"gold": 1230,
+			"research": 2010,
 			"codices": 15,
-			"tomes": 15,
-			"tapestries": 1
+			"tomes": 15
 		},
 		"cost": {
 			"herbs": 30,
-			"research": 800,
-			"tapestries": 1,
-			"gold": 900
+			"research": 810,
+			"gold": 930
 		},
 		"use": {
 			"dot": {
@@ -323,7 +313,7 @@
 		"name": "well of mana",
 		"tags": "t_manapot",
 		"cd": 5,
-		"require": "g.potions>=(9-g.alchemist*3)",
+		"require": "(g.potions+g.t_potionclass)>=9",
 		"buy": {
 			"gold": 750,
 			"research": 800,
@@ -343,7 +333,7 @@
 		"name": "river of mana",
 		"tags": "t_manapot",
 		"cd": 8,
-		"require": "g.potions>=(12-g.alchemist*5)",
+		"require": "(g.potions+g.t_potionclass*2)>=12",
 		"buy": {
 			"gold": 2500,
 			"research": 2500,
@@ -363,7 +353,7 @@
 		"name": "thimble of elements",
 		"tags": "t_manapot",
 		"cd": 3,
-		"require": "g.potions>=(3-g.alchemist*2)",
+		"require": "(g.potions+g.t_potionclass)>=3",
 		"buy": {
 			"gold": 50,
 			"research": 100
@@ -384,7 +374,7 @@
 		"name": "cup of elements",
 		"tags": "t_manapot",
 		"cd": 6,
-		"require": "g.potions>=(8-g.alchemist*3)",
+		"require": "(g.potions+g.t_potionclass)>=8",
 		"buy": {
 			"gold": 1000,
 			"research": 1200,
@@ -410,7 +400,7 @@
 		"name": "jug of elements",
 		"tags": "t_manapot",
 		"cd": 9,
-		"require": "g.potions>=(14-g.alchemist*5)",
+		"require": "(g.potions+g.t_potionclass*2)>=15",
 		"buy": {
 			"gold": 3000,
 			"research": 3000,
@@ -435,7 +425,7 @@
 		"name": "primal whisper",
 		"tags": "t_manapot",
 		"cd": 3,
-		"require": "g.potions>=(3-g.alchemist*2)",
+		"require": "(g.potions+g.t_potionclass)>=3",
 		"buy": {
 			"gold": 50,
 			"research": 100
@@ -456,7 +446,7 @@
 		"name": "primal echo",
 		"tags": "t_manapot",
 		"cd": 6,
-		"require": "g.potions>=(8-g.alchemist*3)",
+		"require": "(g.potions+g.t_potionclass)>=8",
 		"buy": {
 			"gold": 1000,
 			"research": 1200,
@@ -482,7 +472,7 @@
 		"name": "primal reverberation",
 		"tags": "t_manapot",
 		"cd": 9,
-		"require": "g.potions>=(14-g.alchemist*5)",
+		"require": "(g.potions+g.t_potionclass*2)>=14",
 		"buy": {
 			"gold": 3000,
 			"research": 3000,
@@ -505,8 +495,8 @@
 	{
 		"id": "pot_manadot",
 		"name": "drip of mana",
-		"desc": "Raw mana injected right into the veins of a mage can allow for sustained casting",
-		"require": "g.potions>=8",
+		"desc": "Raw mana injected right into the veins of a mage can allow for sustained casting.",
+		"require": "(g.potions+g.t_potionclass)>=8",
 		"buy": {
 			"gold": 1250,
 			"research": 1500
@@ -532,8 +522,8 @@
 	{
 		"id": "pot_stamdot",
 		"name": "potion of bull's tenacity",
-		"desc": "This reddish potion causes a surge of energy in the imbiber, at the expense of health",
-		"require": "g.potions>=8",
+		"desc": "This reddish potion causes a surge of energy in the imbiber, at the expense of health.",
+		"require": "(g.potions+g.t_potionclass)>=8",
 		"buy": {
 			"gold": 1250,
 			"research": 1500
@@ -541,7 +531,7 @@
 		"cost": {
 			"herbs": 25,
 			"managem": 12,
-			"bloodgem": 12
+			"bloodgem": 6
 		},
 		"use": {
 			"dot": {
@@ -652,7 +642,7 @@
 		"tags": "t_statuspot",
 		"cd": 5,
 		"level": 9,
-		"require": "g.potions>=7",
+		"require": "(g.potions+g.t_potionclass)>=7",
 		"buy": {
 			"gold": 1000,
 			"research": 1500
@@ -663,9 +653,7 @@
 		},
 		"use": {
 			"action": {
-				"cure": [
-					"silence"
-				],
+				"cure": ["silence"],
 				"targets": "self"
 			},
 			"dot": {
@@ -699,7 +687,7 @@
 	{
 		"id": "pot_heal2",
 		"name": "salve of mending",
-		"require": "g.potions>=(8-g.alchemist*4)",
+		"require": "(g.potions+g.t_potionclass*2)>=8",
 		"tags": "t_healthpot",
 		"cd": 10,
 		"buy": {
@@ -718,7 +706,7 @@
 	{
 		"id": "pot_heal3",
 		"name": "ointment of mending",
-		"require": "g.potions>=(12-g.alchemist*5)",
+		"require": "(g.potions+g.t_potionclass*2)>=12",
 		"tags": "t_healthpot",
 		"cd": 15,
 		"buy": {
@@ -738,7 +726,7 @@
 	{
 		"id": "pot_healdream",
 		"name": "oneirodistillation of wholeness",
-		"require": "g.potions>=(12-g.alchemist*5)&&g.dreamchamber>0",
+		"require": "(g.potions+g.t_potionclass*2)>=12&&g.dreamchamber>0",
 		"desc": "Distilled from your dreams of self.",
 		"tags": "t_oneiropot",
 		"cd": 30,
@@ -756,7 +744,7 @@
 	{
 		"id": "pot_manadream",
 		"name": "oneirodistillation of energy",
-		"require": "g.potions>=(12-g.alchemist*5)&&g.dreamchamber>0",
+		"require": "(g.potions+g.t_potionclass*2)>=12&&g.dreamchamber>0",
 		"desc": "Distilled from your dreams of power.",
 		"tags": "t_oneiropot",
 		"cd": 30,
@@ -791,7 +779,8 @@
 			"herbs": 10
 		},
 		"use": {
-			"stamina": 10
+			"stamina": 10,
+			"vigor": 2
 		}
 	},
 	{
@@ -809,14 +798,15 @@
 			"watergem": 1
 		},
 		"use": {
-			"stamina": 50
+			"stamina": 50,
+			"vigor": 10
 		},
-		"flavor": "Magnum"
+		"flavor": "Magnum."
 	},
 	{
 		"id": "pot_sp",
 		"name": "philter of clarity",
-		"desc": "A master's skill in liquid form",
+		"desc": "A master's skill in liquid form.",
 		"require": "g.potions>0",
 		"level": 1,
 		"buy": {
@@ -835,33 +825,36 @@
 	{
 		"id": "pot_sp_sink",
 		"name": "phial of skillfulness",
-		"desc": "Converts accumulated life experience into short-term benefit",
-		"require": "g.potions>=9",
+		"desc": "Converts accumulated life experience into short-term benefit.",
+		"require": "(g.potions+g.t_potionclass*2)>=9",
 		"level": 5,
 		"cd": 120,
 		"buy": {
 			"gold": 2500,
 			"research": 5000,
-			"sp": 100,
+			"sp": 30,
 			"potionessence": 1
 		},
 		"cost": {
-			"sp": 50,
+			"sp": 15,
 			"potionessence": 1
 		},
 		"use": {
-			"research": "g.research.max",
-			"manas": 250,
-			"stamina": "g.stamina.max",
 			"hp": "g.hp.max",
+			"stamina": "g.stamina.max",
+			"vigor": "g.vigor.max",
+			"manas": 250,
+			"research": "g.research.max",
 			"dot": {
 				"id": "pot_sp_sink_dot",
 				"name": "skillfulness",
-				"duration": 300,
-				"mod": {
+				"duration": 1800,
+				"effect": {
 					"mana": 1.15,
-					"stamina": 1.15,
-					"focus.result.runner.skillprogress": "100%"
+					"stamina": 1.15
+				},
+				"mod": {
+					"skill.rate": "300%"
 				}
 			}
 		}
@@ -869,9 +862,11 @@
 	{
 		"id": "pot_explodium",
 		"name": "volatile concoction",
+		"tags": "t_combatpot,t_explodypot",
 		"desc": "Holding it seems dangerous. Not holding it, even more so.",
-		"require": "g.potions>=9&&g.alchemist>0",
+		"require": "g.potions>=9&&(g.t_potionclass+g.firelord*2)>=2",
 		"level": 5,
+		"cd": 20,
 		"buy": {
 			"gold": 2500,
 			"research": 3000
@@ -880,8 +875,7 @@
 			"fire": 15,
 			"air": 15,
 			"herbs": 15,
-			"water": 15,
-			"potioncombatflask": 5
+			"water": 15
 		},
 		"use": {
 			"attack": {
@@ -898,9 +892,11 @@
 	{
 		"id": "pot_corrosion",
 		"name": "corrosive mixture",
+		"tags": "t_combatpot",
 		"desc": "Highly acidic and prone to reducing even the toughest materials to sludge.",
 		"require": "g.potions>=7",
 		"level": 5,
+		"cd": 20,
 		"buy": {
 			"gold": 1000,
 			"research": 2000
@@ -909,8 +905,7 @@
 			"shadow": 5,
 			"air": 5,
 			"herbs": 15,
-			"water": 5,
-			"potioncombatflask": 1
+			"water": 5
 		},
 		"use": {
 			"attack": {
@@ -932,9 +927,11 @@
 	{
 		"id": "pot_sticky",
 		"name": "engulfing glue",
+		"tags": "t_combatpot",
 		"desc": "Quickly solidifies when in contact with air.",
 		"require": "g.potions>=6",
 		"level": 5,
+		"cd": 20,
 		"buy": {
 			"gold": 1000,
 			"research": 2000
@@ -943,8 +940,7 @@
 			"nature": 5,
 			"earth": 5,
 			"herbs": 15,
-			"water": 5,
-			"potioncombatflask": 1
+			"water": 5
 		},
 		"use": {
 			"attack": {
@@ -965,9 +961,11 @@
 	{
 		"id": "pot_smoke",
 		"name": "smoke bomb",
+		"tags": "t_combatpot",
 		"desc": "Only someone gifted with true sight would be able to see through the thick smoke produced by this alchemical marvel.",
 		"require": "g.potions>=5",
 		"level": 10,
+		"cd": 20,
 		"buy": {
 			"gold": 1000,
 			"research": 2000
@@ -976,8 +974,7 @@
 			"shadow": 5,
 			"earth": 5,
 			"herbs": 15,
-			"water": 5,
-			"potioncombatflask": 1
+			"water": 5
 		},
 		"use": {
 			"attack": {
@@ -999,9 +996,11 @@
 	{
 		"id": "pot_ignition",
 		"name": "flame potion",
+		"tags": "t_combatpot,t_explodypot",
 		"desc": "Throw at an enemy and watch them ignite into a fireball.",
 		"require": "g.potions>=4",
 		"level": 5,
+		"cd": 20,
 		"buy": {
 			"gold": 1000,
 			"research": 2000
@@ -1010,8 +1009,7 @@
 			"fire": 5,
 			"earth": 5,
 			"herbs": 15,
-			"air": 5,
-			"potioncombatflask": 1
+			"air": 5
 		},
 		"use": {
 			"attack": {
@@ -1028,9 +1026,11 @@
 	{
 		"id": "pot_frost",
 		"name": "Everfreeze potion",
+		"tags": "t_combatpot",
 		"desc": "More accurately a set of potions, designed to induce rapid heat loss in the affected subject.",
 		"require": "g.alchemist>0",
 		"level": 5,
+		"cd": 20,
 		"buy": {
 			"gold": 5500,
 			"research": 6600
@@ -1039,8 +1039,7 @@
 			"water": 15,
 			"shadow": 15,
 			"herbs": 25,
-			"mana": 15,
-			"potioncombatflask": 5
+			"mana": 15
 		},
 		"use": {
 			"attack": {
@@ -1113,7 +1112,7 @@
 		"id": "pot_truestrike",
 		"name": "true striking",
 		"level": 10,
-		"require": "g.potions>=10",
+		"require": "(g.potions+g.t_potionclass)>=10",
 		"buy": {
 			"gold": 500,
 			"tomes": 3,
@@ -1137,7 +1136,7 @@
 		"id": "pot_serenity",
 		"name": "serenity",
 		"level": 11,
-		"require": "g.potions>=10",
+		"require": "(g.potions+g.t_potionclass)>=10",
 		"buy": {
 			"gold": 500,
 			"tomes": 5,
@@ -1161,7 +1160,7 @@
 		"id": "pot_godspeed",
 		"name": "godspeed",
 		"level": 15,
-		"require": "g.potions>=10",
+		"require": "(g.potions+g.t_potionclass)>=10",
 		"buy": {
 			"gold": 500,
 			"tomes": 5,
@@ -1185,7 +1184,7 @@
 		"id": "pot_godsblood",
 		"name": "god's blood",
 		"level": 12,
-		"require": "g.potions>=10",
+		"require": "(g.potions+g.t_potionclass)>=10",
 		"buy": {
 			"gold": 500,
 			"tomes": 5,
@@ -1210,7 +1209,7 @@
 		"name": "weaponmeld salve",
 		"desc": "Applied to a weapon, lets the wielder utilize his skills to the fullest extent.",
 		"level": 12,
-		"require": "g.potions>=10&&(g.bladelore+g.hammerlore)>=5",
+		"require": "g.potions>=10&&(g.t_hammerclass+g.t_swordclass)>=0",
 		"buy": {
 			"gold": 500,
 			"tomes": 5,
@@ -1221,16 +1220,16 @@
 			"herbs": 50,
 			"hp": 150,
 			"earth": 15,
-			"bloodgem": 50,
+			"bloodgem": 15,
 			"potionessence": 2
 		},
 		"use": {
 			"dot": {
 				"mod": {
-					"bladelore.mod.player.bonuses.slash": 0.5,
-					"bladelore.mod.player.hits.slash": 0.5,
-					"hammerlore.mod.player.bonuses.blunt": 0.5,
-					"hammerlore.mod.player.hits.blunt": 0.5
+					"bladelore.mod.sworddmg": 3,
+					"hammerlore.mod.hammerdmg": 3,
+					"weaponlore.mod.player.hits.blunt": 0.3,
+					"weaponlore.mod.player.hits.slash": 0.3
 				},
 				"duration": 600
 			}
@@ -1241,7 +1240,7 @@
 		"name": "flask of perfection",
 		"desc": "Reshapes your body to make it ever so slightly more ideal.",
 		"level": 25,
-		"require": "g.potions>=10",
+		"require": "(g.potions+g.t_potionclass)>=10",
 		"tags": "t_infusion",
 		"cd": 3600,
 		"buy": {
@@ -1259,7 +1258,7 @@
 			"hp": 100,
 			"research": 10000,
 			"gold": 5000,
-			"bloodgem": 10,
+			"bloodgem": 5,
 			"potionessence": 1
 		},
 		"use": {
@@ -1271,7 +1270,7 @@
 		"name": "packmule's formula",
 		"desc": "Allows the user to become more vigorous over time.",
 		"level": 25,
-		"require": "g.potions>=10",
+		"require": "(g.potions+g.t_potionclass)>=10",
 		"tags": "t_infusion",
 		"cd": 3600,
 		"buy": {
@@ -1286,7 +1285,7 @@
 			"runestones": 15,
 			"research": 10000,
 			"gold": 5000,
-			"bloodgem": 10,
+			"bloodgem": 5,
 			"potionessence": 1
 		},
 		"use": {
@@ -1301,7 +1300,7 @@
 		"name": "bubble of mind expansion",
 		"desc": "Expands your mind's capacity for knowledge.",
 		"level": 25,
-		"require": "g.potions>=10",
+		"require": "(g.potions+g.t_potionclass)>=10",
 		"tags": "t_infusion",
 		"cd": 3600,
 		"buy": {
@@ -1362,7 +1361,7 @@
 		"name": "vial of attunement",
 		"desc": "Causes you to become more attuned to the world's elements. Harmful to one's physical body.",
 		"level": 25,
-		"require": "g.potions>=10",
+		"require": "(g.potions+g.t_potionclass)>=10",
 		"tags": "t_infusion",
 		"cd": 3600,
 		"buy": {
@@ -1390,5 +1389,45 @@
 			"hp.max": -4,
 			"element.max": 0.25
 		}
+	},
+	{
+		"id": "pot_tarandfeathers",
+		"name": "tar-and-feathers potion",
+		"tags": "t_coating",
+		"desc": "Bottled tar, perfect for making someone flammable.",
+		"level": 3,
+		"require": "g.firelore>=3&&g.potions>=1",
+		"cd": 120,
+		"buy":{
+			"gold": 100,
+			"codices": 1,
+			"research": 100,
+			"firegem": 3,
+			"herbs": 10
+		},
+		"cost":{
+			"herbs": 1,
+			"gold": 10,
+			"fire": 3
+		},
+		"use":{
+			"attack":{
+				"targets": "enemy",
+				"dot":{
+					"name": "tarred and feathered",
+					"kind": "fire",
+					"damage": "1~3",
+					"duration": 60,
+					"mod":{
+						"self": {
+							"resist.fire": -30,
+							"speed": -5,
+							"tohit": -2
+						}
+					}
+				}
+			}
+		},
+		"flavor": "Someday you need to actually figure out liquid feathers."
 	}
 ]

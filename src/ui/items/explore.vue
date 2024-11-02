@@ -1,21 +1,22 @@
 <script>
-import Game from '../../game';
+import Game from '@/game';
 
-import Combat from './combat.vue';
-import ProgBar from '../components/progbar.vue';
+import Combat from '@/ui/items/combat.vue';
+import ProgBar from '@/ui/components/progbar.vue';
 
-import {HALT_TASK} from '../../events';
-import { DUNGEON, CLASH } from '../../values/consts';
+import { HALT_TASK } from '@/events';
+import { DUNGEON, CLASH } from '@/values/consts';
+import { defineAsyncComponent } from 'vue';
 
 export default {
 
-	props:['explore'],
-	components:{
-		combat:Combat,
-		bars:()=>import( /* webpackChunkName: "bars-ui" */  '../components/bars.vue'),
-		progbar:ProgBar
+	props: ['explore'],
+	components: {
+		combat: Combat,
+		bars: defineAsyncComponent(() => import(/* webpackChunkName: "bars-ui" */ '../components/bars.vue')),
+		progbar: ProgBar
 	},
-	created(){
+	created() {
 
 		this.HALT_TASK = HALT_TASK;
 		// continue to display previous encounter until new encounter ready.
@@ -24,22 +25,22 @@ export default {
 		this.lastCombat = true;
 
 	},
-	methods:{
+	methods: {
 
 		/**
 		 * Enc rollover
 		 */
-		encOver($event){
+		encOver($event) {
 
-			if ( this.enc ) this.itemOver( $event, this.enc );
+			if (this.enc) this.itemOver($event, this.enc);
 
 		}
 
 	},
-	computed:{
+	computed: {
 
 		stressors() {
-			return Game.state.stressors.filter(v=>!v.locked&&!v.disabled);
+			return Game.state.stressors.filter(v => !v.locked && !v.disabled);
 		},
 
 		/**
@@ -55,9 +56,9 @@ export default {
 		/**
 		 * @property {boolean} inCombat
 		 */
-		inCombat(){
+		inCombat() {
 
-			return this.enc ? (this.enc === this.explore.combat) : this.type === (DUNGEON||CLASH);
+			return this.enc ? (this.enc === this.explore.combat) : this.type === (DUNGEON || CLASH);
 
 		},
 
@@ -66,25 +67,25 @@ export default {
 		 */
 		enc() {
 
-			if ( this.explore.enc ) this.lastEnc = this.explore.enc;
+			if (this.explore.enc) this.lastEnc = this.explore.enc;
 			return this.lastEnc;
 
 		},
 
-		encDesc(){ return this.enc ? this.enc.desc : '&nbsp;';},
+		encDesc() { return this.enc ? this.enc.desc : '&nbsp;'; },
 
-		encName(){
+		encName() {
 			return this.enc ? this.enc.name.toTitleCase() : '&nbsp;';
 		},
-		encProg(){
+		encProg() {
 			return this.enc ? this.enc.exp.valueOf() : 0;
 
 		},
-		encLen(){
+		encLen() {
 			return this.enc ? this.enc.length.valueOf() : 0;
 		},
-		localeBars(){
-			return this.explore?.locale?.bars ? this.explore.locale.bars : false;
+		localeBars() {
+			return this.explore?.locale?.bars ?? undefined;
 		}
 
 	}
@@ -97,9 +98,9 @@ export default {
 <div class='explore'>
 
 	<span class="active-title">
-		<span>{{ explore.name.toTitleCase() }}</span><button class="raid-btn"
-		@click="emit( HALT_TASK, explore.locale, false )"
-		@mouseenter.capture.stop="itemOver( $event, explore.locale )">Flee</button>
+		<span>{{ explore.name.toTitleCase() }}</span><button type="button" class="raid-btn"
+		@click="emit(HALT_TASK, explore.locale)"
+		@mouseenter.capture.stop="itemOver($event, explore.locale)">Flee</button>
 		</span>
 
 		<span class="bar"><progbar :value="explore.exp.valueOf()" :max="Number(explore.length)" /></span>
@@ -118,8 +119,8 @@ export default {
 			</div>
 
 			<div class="stressors">
-			<div class="stress" v-for="s in stressors" :key="s.id" @mouseenter.capture.stop="itemOver( $event, s )">
-				<span>{{s.name.toTitleCase()}}</span>
+			<div class="stress" v-for="s in stressors" :key="s.id" @mouseenter.capture.stop="itemOver($event, s)">
+				<span>{{ s.name.toTitleCase() }}</span>
 				<progbar :value="s.value.valueOf()" :max="s.max.value" />
 			</div>
 			</div>
@@ -132,18 +133,17 @@ export default {
 
 
 <style scoped>
-
 .explore {
-	display:flex;
+	display: flex;
 	flex-flow: column;
 	overflow-y: hidden;
-	padding: var( --md-gap);
-	flex-basis:50%;
+	padding: var(--md-gap);
+	flex-basis: 50%;
 	flex-grow: 2;
 }
 
 div.explore div.stressors {
-	display:flex;
+	display: flex;
 	flex-flow: row wrap;
 	justify-content: space-between;
 }
@@ -151,17 +151,17 @@ div.explore div.stressors {
 .name {
 	font-weight: bold;
 }
+
 div.stressors .stress {
 	flex-basis: 48%;
 }
 
 div.explore .active-title {
-	display:flex;
+	display: flex;
 	min-width: 20rem;
 }
 
-div.explore .active-title > span {
-	margin-right:1rem;
+div.explore .active-title>span {
+	margin-right: 1rem;
 }
-
 </style>

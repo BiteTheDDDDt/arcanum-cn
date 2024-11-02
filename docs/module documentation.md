@@ -43,6 +43,7 @@ Format:
 Other important notes: 
  - Required
  - Must be unique
+ - The prefix of 'untag_' is reserved for special targeting of tagSets within mods. Do not use this for object Ids.
 
 Used to uniquely identify any item within the game.   
 Must be unique, otherwise an item may overwrite another item or may be overwritten by another item.

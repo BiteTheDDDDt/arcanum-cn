@@ -1,14 +1,15 @@
-import { DisplayItem } from "./displayItem";
-import {RollOver} from 'ui/popups/itemPopup.vue';
+import { DisplayItem } from '@/ui/items/displayItem';
+import { RollOver } from 'ui/popups/itemPopup.vue';
 
-import { SKILL, UNTAG } from '../../values/consts';
+import { SKILL, UNTAG } from '@/values/consts';
 
-import Game from '../../game';
+import Game from '@/game';
+import { toRaw } from "vue";
 
 /**
 * Name to use for object in current context.
 */
-export const DisplayName = ( obj ) => {
+export const DisplayName = (obj) => {
 
 	let it = RollOver.context.getData(obj, false);
 	return it ? it.name : obj;
@@ -29,18 +30,19 @@ export const CheckTypes = Object.freeze({
  */
 var PathConversions = {
 
-	effect:( rootPath )=>rootPath,
-	skipLocked:()=>undefined,
-	max:( rootPath )=>'max ' + rootPath,
-	rate:(rootPath, subProp)=>{
+	effect: (rootPath) => rootPath,
+	skipLocked: () => undefined,
+	max: (rootPath) => 'max ' + rootPath,
+	rate: (rootPath, subProp) => {
 
 		//subProp = rootPath;
 
 		let ind = rootPath.indexOf('.');
-		if ( ind > 0 ) {
+		if (ind > 0) {
 
-			let baseItem = RollOver.context.getData( rootPath.slice(0,ind) );
-			if ( baseItem && baseItem.type === SKILL ) subProp = 'train ' + subProp + ' rate';
+			let baseItem = RollOver.context.getData(rootPath.slice(0, ind));
+			if (baseItem && baseItem.type === TASK) subProp = 'completion ' + subProp + ' rate';
+			if (baseItem && baseItem.type === SKILL) subProp = 'train ' + subProp + ' rate';
 
 		} else return rootPath + ' ' + subProp;
 
@@ -60,23 +62,23 @@ PathConversions.mod = PathConversions.base = PathConversions.value = PathConvers
 * @returns {string} path displayed. returns undefined if no information
 * should be displayed for this variable path.
 */
-export const ConvertPath = ( rootPath, prop ) => {
+export const ConvertPath = (rootPath, prop) => {
 
 	let func = PathConversions[prop];
-	if ( func !== undefined ) {
+	if (func !== undefined) {
 
 		// use conversion function.
-		return func( rootPath, prop );
+		return func(rootPath, prop);
 
 	} else {
 
 		// no conversion func.
-		if (prop.startsWith(UNTAG)){
+		if (prop.startsWith(UNTAG)) {
 			prop = prop.slice(UNTAG.length);
-			prop = DisplayName( prop );
+			prop = DisplayName(prop);
 			prop = "Existing " + prop;
 		} else {
-			prop = DisplayName( prop );
+			prop = DisplayName(prop);
 		}
 
 		return rootPath ? rootPath + ' ' + prop : prop;
@@ -94,14 +96,14 @@ export class InfoBlock {
 	 * Attempt to add a path to the current item being referred to.
 	 * @param {string} p
 	 */
-	static GetItem( p, curItem=null ) {
+	static GetItem(p, curItem = null) {
 
-		if ( !curItem ) return RollOver.context.getData(p, false);
+		if (!curItem) return RollOver.context.getData(p, false);
 		else return curItem[p] || curItem;
 
 	}
 
-	constructor(){
+	constructor() {
 
 		this.results = {};
 
@@ -112,41 +114,41 @@ export class InfoBlock {
 
 	}
 
-	clear(){
+	clear() {
 		this.results = {};
 	}
 
-	add( itemName, value, isRate=false, checkType=null, ref=null, testfunc=null){
+	add(itemName, value, isRate = false, checkType = null, ref = null, testfunc = null) {
 
-		if ( ref && ref.reverseDisplay ) value = -value;
+		if (ref && ref.reverseDisplay) value = -value;
 
 		let cur = this.results[itemName];
 		let ctx = RollOver.context;
 
-		if ( cur === undefined ){
+		if (cur === undefined) {
 			let isAvailable = true;
 
-			if (ref instanceof Object && checkType && ctx === Game) {
-				
+			if (ref instanceof Object && checkType && toRaw(ctx) === Game) {
+
 				if (checkType === CheckTypes.NEED && ref.fillsRequire instanceof Function) isAvailable &&= ref.fillsRequire(ctx);
 				if (checkType === CheckTypes.COST && ref.canPay instanceof Function && !(ref.isRecipe || ref.instanced)) isAvailable &&= ref.canPay(value);
-				if (checkType === CheckTypes.COST && (ref.isRecipe || ref.instanced) ){
+				if (checkType === CheckTypes.COST && (ref.isRecipe || ref.instanced)) {
 					let CheckObj = {}
 					CheckObj[ref.id] = value
 					isAvailable &&= Game.canPay(CheckObj);
-				} 
+				}
 				if (checkType === CheckTypes.FULL && ref.maxed instanceof Function) isAvailable &&= !ref.maxed();
-				
+
 			}
-			if (checkType === CheckTypes.NEED && testfunc instanceof Function)
-			{
+			if (checkType === CheckTypes.NEED && testfunc instanceof Function) {
 				isAvailable &&= testfunc(Game.gdata, null, Game.state);
+				itemName = testfunc.toString()
 			}
-			if(value.toString() != 0) this.results[itemName] = new DisplayItem( itemName, value, isRate, isAvailable );
+			if (value.toString() != 0) this.results[itemName] = new DisplayItem(itemName, value, isRate, isAvailable);
 
 		} else {
 
-			cur.add( value );
+			cur.add(value);
 
 		}
 

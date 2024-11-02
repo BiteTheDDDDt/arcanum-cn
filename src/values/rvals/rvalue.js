@@ -1,5 +1,5 @@
-import { TYP_RVAL } from "../consts";
-import { precise } from '../../util/format';
+import { TYP_RVAL } from '@/values/consts';
+import { precise } from '@/util/format';
 
 export const PercentTest = /^(\d+(?:\.?\d+)?)\%$/i
 export const RangeTest = /^\-?\d+\.?\d*\~\-?\d+\.?\d*$/i;
@@ -11,33 +11,33 @@ export const RangeTest = /^\-?\d+\.?\d*\~\-?\d+\.?\d*$/i;
  * @param {*} source
  * @param {*} recur
  */
-export const InitRVals = ( obj=this, source=obj, recur=new Set(), force=false ) => {
+export const InitRVals = (obj = this, source = obj, recur = new Set(), force = false) => {
 
-		recur.add(obj);
+	recur.add(obj);
 
-		for( const p in obj ) {
+	for (const p in obj) {
 
-			const s = obj[p];
-			if ( s === null || s=== undefined ) continue;
-			if ( Array.isArray(s) ) {
+		const s = obj[p];
+		if (s === null || s === undefined) continue;
+		if (Array.isArray(s)) {
 
-				for( let i = s.length-1; i>= 0; i-- ) {
-					const t = s[i];
-					if ( typeof t === 'object' && !recur.has(t)) InitRVals( t, source, recur, force );
-				}
-
-			} else if ( typeof s === 'object' && !recur.has(s)) {
-
-				if ( s instanceof RValue ) {
-					if ( !s.source || force ) s.source = source;
-					else if ( s.source !== source ) console.warn("Mismatching source while setting initiating RValues", source, s.source);
-				} else InitRVals( s, source, recur, force );
-
+			for (let i = s.length - 1; i >= 0; i--) {
+				const t = s[i];
+				if (typeof t === 'object' && !recur.has(t)) InitRVals(t, source, recur, force);
 			}
+
+		} else if (typeof s === 'object' && !recur.has(s)) {
+
+			if (s instanceof RValue) {
+				if (!s.source || force) s.source = source;
+				else if (s.source !== source) console.warn("Mismatching source while setting initiating RValues", source, s.source);
+			} else InitRVals(s, source, recur, force);
 
 		}
 
 	}
+
+}
 
 
 /**
@@ -46,17 +46,17 @@ export const InitRVals = ( obj=this, source=obj, recur=new Set(), force=false ) 
  * @param {string} child
  * @returns {string}
  */
-export const SubPath = ( id, child ) => {
+export const SubPath = (id, child) => {
 	return id + '.' + child;
 }
 
 export default class RValue {
 
-	toJSON(){return this._value;}
+	toJSON() { return this._value; }
 
-	clone(){
+	clone() {
 
-		let r = new RValue( this._value, this._id );
+		let r = new RValue(this._value, this._id);
 		r.source = this.source;
 
 		return r;
@@ -67,12 +67,12 @@ export default class RValue {
 	 * @property {object} source - object that defined the value,
 	 * and may affect how the RValue is counted.
 	 */
-	get source(){
+	get source() {
 		return this._source instanceof WeakRef ? this._source.deref() : this._source;
 	}
 	set source(v) {
 		// Saved as a WeakRef to prevent circular reference. There should never be a case where this WeakRef refers to something that has been garbage collected.
-		this._source = v != null && v instanceof Object ? new WeakRef(v) : v ;
+		this._source = v != null && v instanceof Object ? new WeakRef(v) : v;
 		//if ( !v ) this._source = null;
 		//else this._source = v instanceof RValue ? v : v.value;
 	}
@@ -80,7 +80,7 @@ export default class RValue {
 	/**
 	 * @property {boolean} isRVal - simple test for RVal interface.
 	 */
-	get isRVal(){ return true; }
+	get isRVal() { return true; }
 
 	/**
 	 * @property {string} id
@@ -97,17 +97,17 @@ export default class RValue {
 	/**
 	 * @property {string} type
 	 */
-	get type(){ return TYP_RVAL }
+	get type() { return TYP_RVAL }
 
 	/**
 	 * @returns {string}
 	 */
-	toString(){ return precise( this.value ); }
+	toString() { return precise(this.value); }
 
 	/**
 	 * @returns {number}
 	 */
-	valueOf(){
+	valueOf() {
 		return this._value;
 	}
 
@@ -116,7 +116,7 @@ export default class RValue {
 	 * @param {number} vars
 	 * @param {?string} path
 	 */
-	constructor( vars=0, path=null ){
+	constructor(vars = 0, path = null) {
 
 		this.id = path;
 		this._value = vars || 0;
@@ -124,10 +124,10 @@ export default class RValue {
 	}
 
 	add(v) { this.value += v }
-	set(v){ this.value = Number(v); }
+	set(v) { this.value = Number(v); }
 
-	apply(mod,amt=1){
-		this.add(mod.value*amt);
+	apply(mod, amt = 1) {
+		this.add(mod.value * amt);
 	}
 
 	/**
@@ -135,9 +135,9 @@ export default class RValue {
 	 * @param {Mod} mod
 	 * @param {number} amt
 	 */
-	addMod( mod, amt ){
+	addMod(mod, amt) {
 		// base rvalue does not accept modifiers.
-		console.warn('ATTEMPT TO MOD RVAL: ' + this.id + ' mod: ' + mod.id );
+		console.warn('ATTEMPT TO MOD RVAL: ' + this.id + ' mod: ' + mod.id);
 	}
 
 	/**
@@ -165,7 +165,7 @@ export default class RValue {
 	 * @param {number} delPct - delta percent. ignored.
 	 * @returns {number} - new stat value.
 	 */
-	delValue( delBonus=0 ) {
+	delValue(delBonus = 0) {
 		return this._value + delBonus;
 	}
 
@@ -173,7 +173,7 @@ export default class RValue {
 	 * Remove a standard modifier.
 	 * @param {Mod} mod
 	 */
-	removeMods( mod ){
+	removeMods(mod) {
 		// ignored.
 	}
 
