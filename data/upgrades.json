@@ -177,6 +177,7 @@
 		"desc": "It neither breathes nor tires.",
 		"require": "g.reanimation>=5",
 		"need": "stables",
+		"group": "mount",
 		"slot": "mount",
 		"tags": "steed",
 		"buy": {
