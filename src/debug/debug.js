@@ -1,4 +1,4 @@
-import Resource from "../items/resource";
+import Resource from '@/items/resource';
 
 const ALL = 'all';
 const ALL_ALT = '*';
@@ -29,14 +29,14 @@ export default class Debug {
 	/**
 	 * @property {GData[]} resources
 	 */
-	get resources(){
+	get resources() {
 		return this.game.state.resources;
 	}
 
-	get state() {return this.game.state;}
-	get items(){return this.game.state.items}
+	get state() { return this.game.state; }
+	get items() { return this.game.state.items }
 
-	constructor( game ){
+	constructor(game) {
 
 		this.game = window.game = game;
 
@@ -44,34 +44,34 @@ export default class Debug {
 
 	}
 
-	max(str, amt) {this.addmax(str,amt)}
+	max(str, amt) { this.addmax(str, amt) }
 
-	addmax( str, amt ){
+	addmax(str, amt) {
 
-		if ( str === ALL || str === ALL_ALT ) {
-			for( let p in this.items ) {
+		if (str === ALL || str === ALL_ALT) {
+			for (let p in this.items) {
 				this.addmax(p, amt);
 			}
 			return;
 		}
 
 		this.unlock(str);
-		this.state.addMax( str, amt );
+		this.state.addMax(str, amt);
 
 	}
 
 	ids(type) {
 
-		if ( type ) {
+		if (type) {
 
 			const list = this.state[type];
-			if ( !list) return 'no such list';
-			return list.map(v=>v.id).join(', ');
+			if (!list) return 'no such list';
+			return list.map(v => v.id).join(', ');
 
 		} else {
 
 			const a = [];
-			for( const p in this.items ) a.push(p);
+			for (const p in this.items) a.push(p);
 			return a.join(', ');
 
 		}
@@ -83,20 +83,20 @@ export default class Debug {
 	 * @param {string} id
 	 * @param {GData=>*} f
 	 */
-	apply( id, f ){
+	apply(id, f) {
 
-		if ( id === ALL || id === ALL_ALT ) {
+		if (id === ALL || id === ALL_ALT) {
 
-			for( let p in this.items ) {
-				f( this.items[p] );
+			for (let p in this.items) {
+				f(this.items[p]);
 			}
 
 		} else {
 
 			let data = this.state.getData(id);
-			if ( data ) {
+			if (data) {
 
-				f( data );
+				f(data);
 				return true;
 
 			}
@@ -106,152 +106,152 @@ export default class Debug {
 
 	}
 
-	emptyall(){
-		for( let p in this.items) {
+	emptyall() {
+		for (let p in this.items) {
 			let it = this.items[p];
-			if ( it && (typeof it.amount === 'function') ) {
-				it.amount( -it.value );
+			if (it && (typeof it.amount === 'function')) {
+				it.amount(-it.value);
 			}
 		}
 	}
 
-	empty( id ) {
-		this.apply(id, it=>{
-			if ( typeof it.amount ==='function' ) it.amount( -it.value );
+	empty(id) {
+		this.apply(id, it => {
+			if (typeof it.amount === 'function') it.amount(-it.value);
 		});
 	}
 
-	removeall(){
-		for( let p in this.items) {
+	removeall() {
+		for (let p in this.items) {
 			let it = this.items[p];
-			if ( it && it instanceof Resource ) {
-				this.game.remove(it,Number(it.value));
+			if (it && it instanceof Resource) {
+				this.game.remove(it, Number(it.value));
 			}
 		}
 	}
 
-	remove(id, amt){
-		return this.apply(id,it=>{
+	remove(id, amt) {
+		return this.apply(id, it => {
 			this.game.remove(it, Number(amt));
 		});
 	}
 
 
-	fillall(){
+	fillall() {
 
 		const res = this.resources;
-		for( const p in res ){
+		for (const p in res) {
 
 			const r = res[p];
-			if ( !r.locked ){
-				this.game.fillItem( r )
+			if (!r.locked) {
+				this.game.fillItem(r)
 			}
 
 		}
 
 	}
 
-	fill( id) {
-		return this.apply( id, it=>{
+	fill(id) {
+		return this.apply(id, it => {
 			it.locked = false;
 			this.game.fillItem(it);
 		});
 	}
 
-	addall(amt){
+	addall(amt) {
 		this.getall(amt);
 	}
-	add( id, amt ) { return this.get(id,amt)}
+	add(id, amt) { return this.get(id, amt) }
 
-	getall( amt ) {
+	getall(amt) {
 
 		const res = this.resources;
-		for( const p in res ){
+		for (const p in res) {
 
 			const r = res[p];
-			if ( !r.locked && r instanceof Resource ){
-				this.get(r.id, amt );
+			if (!r.locked && r instanceof Resource) {
+				this.get(r.id, amt);
 			}
 
 		}
 
 	}
 
-	get( id, amt ) {
+	get(id, amt) {
 
-		if ( !isNaN(id) ) {
+		if (!isNaN(id)) {
 			let t = id;
 			id = amt;
 			amt = t;
 		}
-		if ( !id ) return;
+		if (!id) return;
 
-		if ( id === ALL || id === ALL_ALT ) {
+		if (id === ALL || id === ALL_ALT) {
 			this.getall(amt);
 			return;
 		}
 
-		let it = this.state.getData( id );
-		if ( !it ) return;
+		let it = this.state.getData(id);
+		if (!it) return;
 
-		if ( it.isRecipe ) {
+		if (it.isRecipe) {
 			it.locked = false;
 			it.disabled = false;
-			this.game.create(it,true);
+			this.game.create(it, true);
 			return;
 		}
 
 		let newval = it.value + amt;
-		if ( newval > it.max ) it.max = newval;
-		it.amount( Number(amt) || 1 );
+		if (newval > it.max) it.max = newval;
+		it.amount(Number(amt) || 1);
 
 	}
 
-	lock( id ){
-		return this.apply( id, it=>this.game.lock(it) );
+	lock(id) {
+		return this.apply(id, it => this.game.lock(it));
 	}
 
 	unlockall() {
 
-		for( let p in this.items ){
+		for (let p in this.items) {
 			this.unlock(p);
 		}
 
 	}
 
 
-	unlock( str ){
+	unlock(str) {
 
-		return this.apply( str, it=>{
+		return this.apply(str, it => {
 			try {
-				it.locked=false;
-			} catch(e) { return false;}
+				it.locked = false;
+			} catch (e) { return false; }
 			return true;
 		});
 
 	}
 
-  help(){
-    window.alert("Printed to console!");
-    console.log(
-    "Current commands:"
-    +"\n(Items refer to any Data items in game: Upgrades, furniture,actions, etc.)"
-    +"\naddmax, max - add stat max"
-    +"\nget [item|amount] [item|amount] - get quantity of item."
-    +"\nadd - same as get"
-    +"\naddall [amount] - add quantity to all items."
-    +"\ngetall [amount] - same as addall"
-    +"\nfill [item] - fill item."
-    +"\nfillall - fill all resources."
-    +"\nemptyall - remove all count of item."
-    +"\nemptyid - remove all of one item type."
-    +"\nhelp - prints this list into the console."
-    +"\nremoveall [amount] - remove quantity from one resource."
-    +"\nremove [item] [amount] - remove quantity of item."
-    +"\nlock [item] - apply lock to item."
-    +"\nunlock [item] - unlock item."
-    +"\nunlockall - unlock all items."
-  );
-  }
+	help() {
+		window.alert("Printed to console!");
+		console.log(
+			"Current commands:"
+			+ "\n(Items refer to any Data items in game: Upgrades, furniture,actions, etc.)"
+			+ "\naddmax, max - add stat max"
+			+ "\nget [item|amount] [item|amount] - get quantity of item."
+			+ "\nadd - same as get"
+			+ "\naddall [amount] - add quantity to all items."
+			+ "\ngetall [amount] - same as addall"
+			+ "\nfill [item] - fill item."
+			+ "\nfillall - fill all resources."
+			+ "\nemptyall - remove all count of item."
+			+ "\nemptyid - remove all of one item type."
+			+ "\nhelp - prints this list into the console."
+			+ "\nremoveall [amount] - remove quantity from one resource."
+			+ "\nremove [item] [amount] - remove quantity of item."
+			+ "\nlock [item] - apply lock to item."
+			+ "\nunlock [item] - unlock item."
+			+ "\nunlockall - unlock all items."
+		);
+	}
 
 }

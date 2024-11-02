@@ -1,21 +1,21 @@
-import {getPropDesc, cloneClass} from '../util/objecty';
+import { getPropDesc, cloneClass } from '@/util/objecty';
 
 /**
  * alphabetical sort by name property.
  * @param {*} a
  * @param {*} b
  */
-export const alphasort = (a,b)=> typeof a.name === "string" ? a.name.localeCompare(b.name, "en", {sensitivity: "base"}) : a.name < b.name ? -1 : 1;
+export const alphasort = (a, b) => typeof a.name === "string" ? a.name.localeCompare(b.name, "en", { sensitivity: "base" }) : a.name < b.name ? -1 : 1;
 
 /**
  * sort by level property.
  * @param {*} a
  * @param {*} b
  */
-export const levelsort = (a,b)=>{
+export const levelsort = (a, b) => {
 
 	let v = a.level - b.level;
-	if ( v === 0 ) {
+	if (v === 0) {
 		return a.name < b.name ? -1 : 1;
 	}
 	return v;
@@ -28,11 +28,11 @@ export const levelsort = (a,b)=>{
  * @property {Object} obj
  * @property {string[]} props - props to set.
  */
-export const ensure = ( obj, props ) => {
+export const ensure = (obj, props) => {
 
-	for( let i = props.length-1; i>= 0; i-- ) {
+	for (let i = props.length - 1; i >= 0; i--) {
 		const s = props[i];
-		if ( !obj.hasOwnProperty(s) ) obj[s] = null;
+		if (!obj.hasOwnProperty(s)) obj[s] = null;
 	}
 
 }
@@ -43,10 +43,10 @@ export const ensure = ( obj, props ) => {
  * @param {string} prop
  * @param {object} v - property value.
 */
-export const tryAddProp = ( targ, prop, v ) => {
+export const tryAddProp = (targ, prop, v) => {
 
-	let desc = getPropDesc( targ, prop );
-	if ( !desc || !desc.set && !desc.writable ) return null;
+	let desc = getPropDesc(targ, prop);
+	if (!desc || !desc.set && !desc.writable) return null;
 
 	return targ[prop] = v;
 
@@ -58,9 +58,9 @@ export const tryAddProp = ( targ, prop, v ) => {
  * @param {object} targ
  * @param {string} prop
 */
-export const canWriteProp = ( targ, prop ) => {
+export const canWriteProp = (targ, prop) => {
 
-	let desc = getPropDesc( targ, prop );
+	let desc = getPropDesc(targ, prop);
 	return !desc || desc.set || desc.writable;
 
 }
@@ -71,19 +71,19 @@ export const canWriteProp = ( targ, prop ) => {
  * @param {*} dest
  * @param {*} src
  */
-export const assignOwn = (dest, src ) => {
+export const assignOwn = (dest, src) => {
 
 	let vars = Object.getPrototypeOf(dest);
-	while ( vars !== Object.prototype ) {
+	while (vars !== Object.prototype) {
 
-		for( const p of Object.getOwnPropertyNames(vars) ) {
+		for (const p of Object.getOwnPropertyNames(vars)) {
 
 			const desc = getPropDesc(dest, p);
-			if ( desc && (!desc.writable && desc.set === undefined) ) {
+			if (desc && (!desc.writable && desc.set === undefined)) {
 				continue;
 			}
 
-			if ( src[p] !== undefined ) dest[p] = src[p];
+			if (src[p] !== undefined) dest[p] = src[p];
 
 		}
 		vars = Object.getPrototypeOf(vars);
@@ -123,30 +123,30 @@ export const assignOwn = (dest, src ) => {
  * @param {object} dest
  * @param {object} src
  */
-export const assignPublic = ( dest, src ) => {
+export const assignPublic = (dest, src) => {
 
-	for( let p of Object.getOwnPropertyNames(src) ) {
+	for (let p of Object.getOwnPropertyNames(src)) {
 
-		if ( p[0] === '_' ){
+		if (p[0] === '_') {
 			continue;
 		}
 
 		const desc = getPropDesc(dest, p);
-		if ( desc ) {
+		if (desc) {
 
-			if ( desc.set ) {
+			if (desc.set) {
 
-				if ( typeof dest[p] === 'function') console.log('OVERWRITE: '+p);
+				if (typeof dest[p] === 'function') console.log('OVERWRITE: ' + p);
 
-			} else if ( !desc.writable ) continue;
-			else if ( typeof dest[p] ==='function') {
+			} else if (!desc.writable) continue;
+			else if (typeof dest[p] === 'function') {
 				//console.log('skipping func: ' + p);
 				continue;
 			}
 
 		}
 
-		dest[p ] = src[p];
+		dest[p] = src[p];
 
 	}
 
@@ -157,11 +157,11 @@ export const assignPublic = ( dest, src ) => {
 
 export function getPropertyDescriptors(obj, ...props) {
 	let descs = {};
-	while(obj !== Object.prototype && props.length) {
+	while (obj !== Object.prototype && props.length) {
 		let currentDesc = Object.getOwnPropertyDescriptors(obj);
 		props = props.filter(prop => {
 			//Checks if property exists in current descriptor set, and if it does, saves it, then marks it as found by filtering it out.
-			if(currentDesc[prop]) {
+			if (currentDesc[prop]) {
 				descs[prop] = currentDesc[prop];
 				return false;
 			}
@@ -174,42 +174,42 @@ export function getPropertyDescriptors(obj, ...props) {
 
 export function getAllPropertyDescriptors(obj) {
 	let descs = {};
-	while(obj !== Object.prototype) {
-		for(let [prop, desc] of Object.entries(Object.getOwnPropertyDescriptors(obj))) {
-			if(!descs[prop]) descs[prop] = desc;
+	while (obj !== Object.prototype) {
+		for (let [prop, desc] of Object.entries(Object.getOwnPropertyDescriptors(obj))) {
+			if (!descs[prop]) descs[prop] = desc;
 		}
 		obj = Object.getPrototypeOf(obj);
 	}
 	return descs;
 }
 
-export const assignNoFunc = ( dest, src ) => {
+export const assignNoFunc = (dest, src) => {
 
 	let vars = src;
-	while ( vars !== Object.prototype ) {
+	while (vars !== Object.prototype) {
 
-		for( const p of Object.getOwnPropertyNames(vars) ) {
+		for (const p of Object.getOwnPropertyNames(vars)) {
 
-			if ( p[0] === '_' ){
+			if (p[0] === '_') {
 				continue;
 			}
 
 			const desc = getPropDesc(dest, p);
-			if ( desc ) {
+			if (desc) {
 
-				if ( desc.set ) {
+				if (desc.set) {
 
-					if ( typeof dest[p] === 'function') console.log('OVERWRITE func: '+p);
+					if (typeof dest[p] === 'function') console.log('OVERWRITE func: ' + p);
 
-				} else if ( !desc.writable ) continue;
-				else if ( typeof dest[p] ==='function') {
+				} else if (!desc.writable) continue;
+				else if (typeof dest[p] === 'function') {
 					//console.log('skipping func: ' + p);
 					continue;
 				}
 
 			}
 
-			dest[p ] = src[p];
+			dest[p] = src[p];
 
 		}
 		vars = Object.getPrototypeOf(vars);
@@ -227,21 +227,21 @@ export const assignNoFunc = ( dest, src ) => {
  * @param {*} defaults Values to be set on target if corresponding properties do not exist.
  * @returns {*} Object containing all properties that were set in target, along with the corresponding values.
  */
-export function setDefaults( target, defaults ) {
+export function setDefaults(target, defaults) {
 
 	let obj;
 	const assigned = {};
-	if(defaults instanceof Function) defaults = defaults(target);
+	if (defaults instanceof Function) defaults = defaults(target);
 
-	for( const p in defaults ) {
+	for (const p in defaults) {
 
-		if ( target[p] == null ) {
+		if (target[p] == null) {
 
 			obj = defaults[p];
-			if ( typeof obj === 'function' ) assigned[p] = target[p] = obj( target );
-			else if ( typeof obj === 'object' ) {
-				console.log('clone: ' + target.id );
-				assigned[p] = target[p] = cloneClass( obj );
+			if (typeof obj === 'function') assigned[p] = target[p] = obj(target);
+			else if (typeof obj === 'object') {
+				console.log('clone: ' + target.id);
+				assigned[p] = target[p] = cloneClass(obj);
 			}
 			else assigned[p] = target[p] = obj;
 
@@ -263,12 +263,12 @@ export function setDefaults( target, defaults ) {
  * @returns {boolean} Whether or not obj1 matches obj2.
  */
 export function isEqual(obj1, obj2) {
-	if(obj1 === obj2) return true;
-	if(typeof obj1 === typeof obj2 && typeof obj1 === "object" && obj1.constructor.name === obj2.constructor.name) {
+	if (obj1 === obj2) return true;
+	if (typeof obj1 === typeof obj2 && typeof obj1 === "object" && obj1.constructor.name === obj2.constructor.name) {
 		let keys1 = Object.keys(obj1), keys2 = Object.keys(obj2);
-		if(keys1.length !== keys2.length || keys1.find(key => !keys2.includes(key))) return false;
-		for(let key in keys1) {
-			if(!isEqual(obj1[key], obj2[key])) return false;
+		if (keys1.length !== keys2.length || keys1.find(key => !keys2.includes(key))) return false;
+		for (let key in keys1) {
+			if (!isEqual(obj1[key], obj2[key])) return false;
 		}
 		return true;
 	} else return false;
@@ -290,21 +290,21 @@ function isStrictObject(obj) {
  * @returns {Array<{obj: *, prop: string, sub:*}>} List of all non-objects found.
  */
 export function findNonObjects(obj, cb, ...exclude) {
-	if(!isStrictObject(obj)) return [];
+	if (!isStrictObject(obj)) return [];
 
 	let items = [];
-	for(let prop in obj) {
-		if(exclude.includes(prop)) continue;
+	for (let prop in obj) {
+		if (exclude.includes(prop)) continue;
 		let sub = obj[prop];
-		
-		if(isStrictObject(sub)) items.push(...findNonObjects(sub, cb, ...exclude));
+
+		if (isStrictObject(sub)) items.push(...findNonObjects(sub, cb, ...exclude));
 		else {
-			if(cb && cb instanceof Function) {
+			if (cb && cb instanceof Function) {
 				cb(obj, prop, sub);
 				//In case of updated value.
 				sub = obj[prop];
 			}
-			items.push({obj, prop, sub});
+			items.push({ obj, prop, sub });
 		}
 	}
 	return items;
@@ -315,19 +315,19 @@ export function findNonObjects(obj, cb, ...exclude) {
  * grouped into key-paths.
  * @param {*} obj
  */
-export const splitKeys = (obj)=>{
+export const splitKeys = (obj) => {
 
-	if ( !obj || typeof obj !== 'object' ) return;
+	if (!obj || typeof obj !== 'object') return;
 
-	for( const s in obj ){
+	for (const s in obj) {
 
 		const sub = obj[s];
-		if ( s.includes('.')){
-			splitKeyPath( obj, s );
+		if (s.includes('.')) {
+			splitKeyPath(obj, s);
 		}
-		if ( sub && typeof sub === 'object' && (
-			Object.getPrototypeOf(sub) === Object.prototype )
-		) splitKeys( sub );
+		if (sub && typeof sub === 'object' && (
+			Object.getPrototypeOf(sub) === Object.prototype)
+		) splitKeys(sub);
 
 	}
 
@@ -341,28 +341,28 @@ export const splitKeys = (obj)=>{
  * @param {Object} obj - object containing the key to expand.
  * @param {string} prop - key being split into subobjects.
  */
-export const splitKeyPath = ( obj, prop ) => {
+export const splitKeyPath = (obj, prop) => {
 
 	const val = obj[prop];
 	delete obj[prop];
 
 	const keys = prop.split('.');
 
-	const max = keys.length-1;
+	const max = keys.length - 1;
 
 	// stops before length-1 since last assign goes to val.
-	for( let i = 0; i < max; i++ ) {
+	for (let i = 0; i < max; i++) {
 
-		let cur = obj[ keys[i] ];
+		let cur = obj[keys[i]];
 
-		if ( cur === null || cur === undefined ) cur = {};
-		else if ( (typeof cur) !== 'object' || Object.getPrototypeOf(cur) !== Object.prototype ) cur = { value:cur };
+		if (cur === null || cur === undefined) cur = {};
+		else if ((typeof cur) !== 'object' || Object.getPrototypeOf(cur) !== Object.prototype) cur = { value: cur };
 
-		obj = (obj[ keys[i] ] = cur);
+		obj = (obj[keys[i]] = cur);
 
 	}
 
-	obj[ keys[max] ] = val;
+	obj[keys[max]] = val;
 
 }
 
@@ -371,18 +371,18 @@ export const splitKeyPath = ( obj, prop ) => {
  * Clones must be made to make any changes.
  * @param {*} obj
  */
- export const freezeData = ( obj ) => {
+export const freezeData = (obj) => {
 
 	let sub;
-	for( let p in obj ){
+	for (let p in obj) {
 
 		sub = obj[p];
-		if ( typeof sub === 'object') freezeData(sub);
-		else Object.freeze( sub );
+		if (typeof sub === 'object') freezeData(sub);
+		else Object.freeze(sub);
 
 	}
 
-	return Object.freeze( obj );
+	return Object.freeze(obj);
 
 }
 
@@ -390,22 +390,22 @@ export const splitKeyPath = ( obj, prop ) => {
  * Log deprecation warning.
  * @param {*} msg
  */
-export const deprec = ( msg ) => {
-	console.trace( 'deprecated: ' + msg );
+export const deprec = (msg) => {
+	console.trace('deprecated: ' + msg);
 }
 
 export const showObj = (obj) => {
 
-	if ( Array.isArray(obj)){
+	if (Array.isArray(obj)) {
 
-		return '[ \n' + obj.map(v=>showObj(v)).join(', ') + '\n ]';
+		return '[ \n' + obj.map(v => showObj(v)).join(', ') + '\n ]';
 
-	} else if ( typeof obj === 'object') {
+	} else if (typeof obj === 'object') {
 
 		let s = '{ ';
-		for( let p in obj ) {
+		for (let p in obj) {
 
-			s += `\n${p}: ` + showObj(obj[p] );
+			s += `\n${p}: ` + showObj(obj[p]);
 
 		}
 		s += '\n}';
@@ -417,8 +417,8 @@ export const showObj = (obj) => {
 
 }
 
-export const logObj = ( obj, msg='' ) => {
-	console.log( (msg ? msg + ': ' : '' ) + showObj(obj) );
+export const logObj = (obj, msg = '') => {
+	console.log((msg ? msg + ': ' : '') + showObj(obj));
 }
 
 
@@ -427,8 +427,8 @@ export const logObj = ( obj, msg='' ) => {
  * @param {number} min
  * @param {number} max
  */
-export const random = (min, max)=>{
-	return min + Math.round( Math.random()*(max-min) );
+export const random = (min, max) => {
+	return min + Math.round(Math.random() * (max - min));
 }
 
 
@@ -436,7 +436,7 @@ export const uppercase = (s) => {
 	return !s ? '' : (s.length > 1 ? s[0].toUpperCase() + s.slice(1) : s[0].toUpperCase());
 }
 
-export const indexAfter = ( s, k ) => {
+export const indexAfter = (s, k) => {
 
 	let i = s.indexOf(k);
 	return i >= 0 ? i + k.length : i;
@@ -450,11 +450,11 @@ export const indexAfter = ( s, k ) => {
  * @returns {?[*, *]} An object containing all properties specified and an object containing all the properties not extracted.
  */
 export function subset(obj, ...props) {
-	if(!obj || !(obj instanceof Object)) return null
+	if (!obj || !(obj instanceof Object)) return null
 
-	let sub = {}, remainder = {...obj};
-	for(let prop of props) {
-		if(Object.hasOwn(remainder, prop) || remainder[prop] !== undefined) {
+	let sub = {}, remainder = { ...obj };
+	for (let prop of props) {
+		if (Object.hasOwn(remainder, prop) || remainder[prop] !== undefined) {
 			sub[prop] = remainder[prop];
 			delete remainder[prop];
 		}
@@ -465,7 +465,7 @@ export function subset(obj, ...props) {
 String.prototype.toTitleCase = function () {
 	let string = this.trim().toLowerCase().replace(/\w\S*/g, (w) => (w.replace(/^\w/, (c) => c.toUpperCase())))
 	let prefix = string.substr(0, string.lastIndexOf(" "))
-	let suffix = string.substr(string.lastIndexOf(" ")+1)
+	let suffix = string.substr(string.lastIndexOf(" ") + 1)
 	//This accounts for roman numerals.
 	if (suffix.toLowerCase() == "ii") {
 		suffix = "II"
@@ -478,7 +478,7 @@ String.prototype.toTitleCase = function () {
 	}
 	string = prefix + " " + suffix
 	//This makes sure the words 'of' and 'the' are not capittalized.
-	string=string.replace(" Of "," of ");
-	string=string.replace(" The "," the ");
+	string = string.replace(" Of ", " of ");
+	string = string.replace(" The ", " the ");
 	return prefix + " " + suffix
 }

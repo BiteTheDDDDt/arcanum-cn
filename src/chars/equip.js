@@ -1,36 +1,36 @@
-import Slot from './slot';
-import SlotGroup from './slotgroup';
+import Slot from '@/chars/slot';
+import SlotGroup from '@/chars/slotgroup';
 
 export default class Equip extends SlotGroup {
 
-	toJSON(){
-		return { slots:( this.slots ) };
+	toJSON() {
+		return { slots: (this.slots) };
 	}
 
-	constructor( vars=null ) {
+	constructor(vars = null) {
 
-		super(vars );
+		super(vars);
 
 		this.slots = this._slots || {
-			"left":new Slot(),
-			"right":new Slot(),
-			"head":new Slot(),
-			"hands":new Slot(),
-			"back":new Slot(),
-			"waist":new Slot(),
-			"neck":new Slot({
-				max:3
+			"left": new Slot(),
+			"right": new Slot(),
+			"head": new Slot(),
+			"hands": new Slot(),
+			"back": new Slot(),
+			"waist": new Slot(),
+			"neck": new Slot({
+				max: 3
 			}),
-			"trinket":new Slot(),
-			"fingers":new Slot({
-				max:4
+			"trinket": new Slot(),
+			"fingers": new Slot({
+				max: 4
 			}),
-			"chest":new Slot(),
-			"shins":new Slot(),
-			"feet":new Slot()
+			"chest": new Slot(),
+			"shins": new Slot(),
+			"feet": new Slot()
 		};
 
-		for( let p in this._slots ) this._slots[p].name = p.toString().toTitleCase();
+		for (let p in this._slots) this._slots[p].name = p.toString().toTitleCase();
 
 	}
 
@@ -38,11 +38,11 @@ export default class Equip extends SlotGroup {
 	 *
 	 * @param {Item} it
 	 */
-	remove( it, slot=null ) {
-		return ( it.type === 'weapon') ? this.removeWeap(it) : super.remove(it,slot);
+	remove(it, slot = null) {
+		return (it.type === 'weapon') ? this.removeWeap(it) : super.remove(it, slot);
 	}
 
-	removeWeap( it ) {
+	removeWeap(it) {
 		return this.slots.right.remove(it) || this.slots.left.remove(it);
 	}
 
@@ -57,10 +57,10 @@ export default class Equip extends SlotGroup {
 	replaceCount(it) {
 
 		// @TODO Replace && with + when hand items gets redone
-		const space = (it.type==='weapon') ?
-			this.freeSpace( 'right' ) && this.freeSpace('left') : this.freeSpace(it.slot);
+		const space = (it.type === 'weapon') ?
+			this.freeSpace('right') && this.freeSpace('left') : this.freeSpace(it.slot);
 
-		return Math.max( ( it.numslots || 1 ) - space, 0 );
+		return Math.max((it.numslots || 1) - space, 0);
 
 	}
 
@@ -70,13 +70,13 @@ export default class Equip extends SlotGroup {
 	 * @param {string} slot
 	 * @returns {boolean|Wearable|Wearable[]}
 	 */
-	equip( it, slot=null ) {
+	equip(it, slot = null) {
 
-		if ( it.type === 'weapon' ) return this.equipWeap(it);
+		if (it.type === 'weapon') return this.equipWeap(it);
 
 		slot = slot || it.slot;
-		if( slot === null || !this.slots.hasOwnProperty(slot)) {
-			console.log( it.id + ' bad equip slot: ' + it.slot );
+		if (slot === null || !this.slots.hasOwnProperty(slot)) {
+			console.log(it.id + ' bad equip slot: ' + it.slot);
 			return false;
 		}
 
@@ -88,7 +88,7 @@ export default class Equip extends SlotGroup {
 	 * @returns {Wearable|null} equipped weapon, or null.
 	 */
 	getWeapon() {
-		return ( this.slots.right.empty() ===false) ? this.slots.right.item :this.slots.left.item;
+		return (this.slots.right.empty() === false) ? this.slots.right.item : this.slots.left.item;
 	}
 
 	/**
@@ -96,36 +96,36 @@ export default class Equip extends SlotGroup {
 	 * @param {*} it
 	 * @returns {Item|Item[]|true}
 	 */
-	equipWeap( it ) {
+	equipWeap(it) {
 
 		const right = this.slots.right;
 		const left = this.slots.left;
 
-		if ( it.hands === 2 ) {
+		if (it.hands === 2) {
 
-			const rightItem = right.equip( it );
+			const rightItem = right.equip(it);
 			const leftItem = left.remove();
 
-			return (rightItem && leftItem) ? [ rightItem, leftItem ] :
-				(rightItem || leftItem || true );
+			return (rightItem && leftItem) ? [rightItem, leftItem] :
+				(rightItem || leftItem || true);
 
 		} else {
 
-			if ( right.empty() ) {
+			if (right.empty()) {
 
-				right.equip( it );
-				return ( !left.empty() ) ? left.remove() : true;
+				right.equip(it);
+				return (!left.empty()) ? left.remove() : true;
 
-			} else if ( left.empty() ) {
+			} else if (left.empty()) {
 
-				left.equip( it );
-				return ( !right.empty() ) ? right.remove() : true;
+				left.equip(it);
+				return (!right.empty()) ? right.remove() : true;
 
 			} else {
 
 				console.log('NEITHER EMPTY. switch hands.');
 
-				return right.equip( left.equip(it) );
+				return right.equip(left.equip(it));
 
 			}
 

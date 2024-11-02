@@ -1,5 +1,5 @@
-import Quickbar from "./quickbar";
-import Stat from "../values/rvals/stat";
+import Quickbar from '@/composites/quickbar';
+import Stat from '@/values/rvals/stat';
 import events, { DELETE_ITEM } from "../events";
 
 /**
@@ -7,12 +7,12 @@ import events, { DELETE_ITEM } from "../events";
  */
 export default class Quickbars {
 
-	toJSON(){
+	toJSON() {
 
 		return {
-			bars:this.bars,
-			index:this.index,
-			max:this.max
+			bars: this.bars,
+			index: this.index,
+			max: this.max
 		};
 
 	}
@@ -23,19 +23,19 @@ export default class Quickbars {
 	get bars() { return this._bars; }
 	set bars(v) {
 
-		if ( !Array.isArray(v) ) {
-			console.warn('NONARRAY: ' +v);
+		if (!Array.isArray(v)) {
+			console.warn('NONARRAY: ' + v);
 			return;
 		}
 
-		for( let i = v.length-1; i>= 0; i-- ) {
+		for (let i = v.length - 1; i >= 0; i--) {
 			v[i] = v[i] instanceof Quickbar ? v[i] : new Quickbar(v[i]);
 		}
 		this._bars = v;
 
 	}
 
-	get active(){ return this._active; }
+	get active() { return this._active; }
 
 	/**
 	 * @property {number} index - index of current bar.
@@ -43,28 +43,28 @@ export default class Quickbars {
 	get index() { return this._index; }
 	set index(v) { this._index = v; }
 
-	constructor( vars=null ) {
+	constructor(vars = null) {
 
-		if ( vars ) Object.assign( this, vars );
+		if (vars) Object.assign(this, vars);
 
-		if ( !this.bars || this.bars.length === 0 ) this.bars = [ {} ];
-		if ( !this.max ) this.max = new Stat(1, 'quickbars.max');
+		if (!this.bars || this.bars.length === 0) this.bars = [{}];
+		if (!this.max) this.max = new Stat(1, 'quickbars.max');
 
 	}
 
-	next(){
+	next() {
 
-		if ( ++this._index >= this.bars.length ) {
+		if (++this._index >= this.bars.length) {
 			this._index = 0;
 		}
 		this._active = this._bars[this._index];
 
 	}
 
-	prev(){
+	prev() {
 
-		if ( --this._index < 0 ) {
-			this._index = this._bars.length-1;
+		if (--this._index < 0) {
+			this._index = this._bars.length - 1;
 		}
 		this._active = this._bars[this._index];
 
@@ -72,9 +72,9 @@ export default class Quickbars {
 
 	dataDeleted(it) {
 
-		if ( !it ) return;
+		if (!it) return;
 
-		for( let i = this.bars.length-1; i>=0; i-- ) {
+		for (let i = this.bars.length - 1; i >= 0; i--) {
 			this._bars[i].remove(it.id);
 		}
 
@@ -82,14 +82,14 @@ export default class Quickbars {
 
 	revive(state) {
 
-		for( let i = this.bars.length-1; i>=0; i-- ) {
+		for (let i = this.bars.length - 1; i >= 0; i--) {
 			this._bars[i].revive(state);
 		}
 
 		this._index = this._index || 0;
 		this._active = this._bars[this._index];
 
-		events.add( DELETE_ITEM, this.dataDeleted, this );
+		events.add(DELETE_ITEM, this.dataDeleted, this);
 
 	}
 

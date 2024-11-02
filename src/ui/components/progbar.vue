@@ -1,5 +1,5 @@
 <script>
-import settings from '../../modules/settings';
+import settings from '@/modules/settings';
 
 export default {
 
@@ -9,6 +9,7 @@ export default {
 			delta: undefined
 		}
 	},
+	emits: ['mouseenter'],
 	watch: {
 
 		value(newVal, oldVal) {
@@ -17,6 +18,7 @@ export default {
 			}
 		}
 	},
+
 	computed: {
 
 		style() {
@@ -44,15 +46,15 @@ export default {
 
 <template>
 
-<div class="container">
-	<label v-if="label" :for="elmId('bar')">{{ label }}</label>
-	<div class="bar" :id="elmId('bar')">
-		<div class="fill" :style="style">
-			<span class="bar-text" v-if="!hideStats">{{ value.toFixed(1) + '/' + max.toFixed(1) }}</span>
-			<span v-else>&nbsp;</span>
+	<div class="container" @mouseenter.capture="this.$emit('mouseenter', $event);">
+		<label v-if="label" :for="elmId('bar')">{{ label }}</label>
+		<div class="bar" :id="elmId('bar')">
+			<div class="fill" :style="style">
+				<span class="bar-text" v-if="!hideStats">{{ value.toFixed(1) + '/' + max.toFixed(1) }}</span>
+				<span v-else>&nbsp;</span>
+			</div>
 		</div>
 	</div>
-</div>
 
 </template>
 

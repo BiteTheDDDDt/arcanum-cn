@@ -1,6 +1,6 @@
 <script>
-import { LogTypes } from '../events';
-import Game from '../game';
+import { LogTypes } from '@/events';
+import Game from '@/game';
 
 /**
  * Displays event output to user.
@@ -75,7 +75,7 @@ export default {
 
 			<div class="top-span">
 				<button type="button" class="inline btn-sm" @click="clearLog">Clear</button>
-				<!--<button class="text-button" @click="doOptions">&#9881;</button>-->
+				<!--<button type="button" class="text-button" @click="doOptions">&#9881;</button>-->
 				<span class="checks">
 
 				<span v-for="(p, k) in LogTypes" :key="k">

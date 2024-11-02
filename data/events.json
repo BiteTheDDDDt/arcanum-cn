@@ -25,7 +25,6 @@
 			"arcana.rate": 0.0001,
 			"research.max": 10,
 			"lore.max": 1,
-			"lore.rate": 0.1,
 			"player.exp": 10,
 			"player.tohit": 1
 		}
@@ -69,14 +68,34 @@
 		"require": "g.respectable>0&&g.player.level>=15&&g.virtue>=75",
 		"desc": "Learning of your virtuous ways, a cabal of ossurite priests plots your destruction. Travel to the Fetid Barrows and unravel their schemes."
 	},
-	
+
 	{
 		"id": "evt_nexusadjust1",
 		"name": "Gate implosion",
 		"require": "g.gate==2",
 		"desc": "A powerful magical disturbance rocks the foundations of your home. As you survey the damage, you realize your gates have converged into a single nexus.",
 		"result": {
-			"gate":-1
+			"gate": -1
+		}
+	},
+	{
+		"id": "evt_manafix",
+		"name": "Technical adjustment to max mana for reasons",
+		"desc": "If you see this, report it in discord.",
+		"hide": true,
+		"require": "g.lore>0",
+		"mod": {
+			"mana.max": 5
+		}
+	},
+	{
+		"id": "evt_vigorfix",
+		"name": "Technical adjustment to vigor for reasons",
+		"desc": "If you see this, report it in discord.",
+		"hide": true,
+		"require": "g.cleanstables>0",
+		"result": {
+			"vigor": 10
 		}
 	},
 	{
@@ -85,7 +104,17 @@
 		"require": "g.gate==3",
 		"desc": "A powerful magical disturbance rocks the foundations of your home. As you survey the damage, you realize your gates have converged into a single nexus.",
 		"result": {
-			"gate":-2
+			"gate": -2
+		}
+	},
+	{
+		"id": "evt_hall_time_1_add",
+		"name": "Timesplit upgrade from time fork technical addition",
+		"desc": "If you see this, report it in discord.",
+		"hide": true,
+		"require": "g.hall_time_1>0&&g.timesplit==0",
+		"mod": {
+			"timesplit": 1
 		}
 	},
 	{
@@ -114,20 +143,17 @@
 			"buyscroll.result.scrolls": 1,
 			"buyscroll.cost.gold": 20,
 			"player.hp.max": 10,
-			"player.tohit": 1
+			"player.tohit": 1,
+			"falconer.mod.gold.rate": 0.03,
+			"herbalist.mod.gold.rate": 0.02
 		}
 	},
 	{
 		"id": "tier1",
 		"name": "Professional Magick",
 		"desc": "Every province has its handful of runaway apprentices and failed Adepts. It's not uncommon for thieves and rangers to know a spell or two. They are nothing compared to the talents of a true professional.",
-		"disable": [
-			"prestidigitation"
-		],
-		"lock": [
-			"t_tier1",
-			"t_tier0"
-		],
+		"disable": ["prestidigitation"],
+		"lock": "t_tier1",
 		"result": {
 			"sp": 1,
 			"player.exp": 15,
@@ -191,9 +217,7 @@
 		"name": "Supreme Sorcery",
 		"desc": "Not even the masters could challenge you.",
 		"lock": "t_tier4",
-		"disable": [
-			"buyscroll"
-		],
+		"disable": ["buyscroll"],
 		"result": {
 			"sp": 1,
 			"player.exp": 75,
@@ -254,7 +278,7 @@
 	{
 		"id": "tier7",
 		"name": "Dhrunic Pillar",
-		"desc": "A foundation of the world",
+		"desc": "A foundation of the world.",
 		"lock": "t_tier7",
 		"result": {
 			"sp": 1,
@@ -276,48 +300,42 @@
 		"name": "servant of the secret fire",
 		"desc": "",
 		"mod": {
-			"firelore.rate": 0.2,
 			"firelore.max": 1,
-			"lightlore.rate": 0.2,
 			"lightlore.max": 1
 		}
 	},
 	{
 		"id": "decent",
-		"require": "g.virtue>=90&&g.evilamt<=10",
+		"require": "(g.virtue-g.evilamt)>=90&&g.evilamt<=200&&g.virtue>=90",
 		"desc": "You are turning out to be an upstanding spellcaster.",
-		"mod": {
-			"light.rate": 0.1
+		"result": {
+			"decent1": 1
 		}
 	},
 	{
 		"id": "respectable",
-		"require": "g.virtue>=350&&g.evilamt<=20",
+		"require": "(g.virtue-g.evilamt)>=375&&g.evilamt<=100&&g.virtue>=250",
 		"desc": "You have become a respected personage in the magical world.",
 		"result": {
-			"fame": 1
-		},
-		"mod": {
-			"light.rate": 0.1
+			"fame": 1,
+			"respectable1": 1
 		}
 	},
 	{
 		"id": "good",
 		"name": "virtuous",
-		"require": "g.virtue>=750&&g.evil<=0",
+		"require": "(g.virtue-g.evilamt)>=750&&g.evilamt<=50&&g.tier0==1&&g.virtue>=750",
 		"desc": "Your actions have shown you to be a virtuous wizard.",
-		"mod": {
-			"light.max": 1,
-			"lightlore.rate": 0.1,
-			"lightlore.max": 1
+		"result": {
+			"good1": 1
 		}
 	},
 	{
 		"id": "immoral",
 		"desc": "You have taken your first steps on the path of evil. It's a good thing.",
 		"require": "g.evilamt>=5",
-		"mod": {
-			"shadowlore.rate": 0.2
+		"result": {
+			"immoral1": 1
 		}
 	},
 	{
@@ -325,29 +343,117 @@
 		"desc": "Your wicked deeds put you on the sure path of evil. A few more steps, and there will be no turning back.",
 		"require": "g.evilamt>=250",
 		"result": {
-			"fame": 1
-		},
-		"mod": {
-			"shadowlore.max": 1,
-			"shadowlore.rate": 0.2
+			"fame": 1,
+			"wicked1": 1
 		}
 	},
 	{
 		"id": "evil",
 		"name": "vile",
 		"desc": "Freed of pitiful notions of right, and morality, the dark arts lie open before you.",
-		"require": "g.evilamt>=500",
-		"disable": [
-			"light",
-			"good",
-			"lightlore"
-		],
+		"require": "g.evilamt>=500&&g.tier0==1",
+		"result": {
+			"evil1": 1
+		}
+	},
+	{
+		"id": "recal_evil",
+		"hide": true,
+		"require": "g.evil==1&&g.evil1==0",
+		"desc": "Updating internals - players should not see this.",
+		"result": {
+			"evil1": 1
+		},
+		"enable": ["good", "light", "lightlore", "lightlore2"]
+	},
+	{
+		"id": "recal_good",
+		"hide": true,
+		"require": "g.good==1&&g.good1==0",
+		"desc": "Updating internals - players should not see this.",
+		"result": {
+			"good1": 1
+		}
+	},
+	{
+		"id": "recal_immoral",
+		"hide": true,
+		"require": "g.immoral==1&&g.immoral1==0",
+		"desc": "Updating internals - players should not see this.",
+		"result": {
+			"immoral1": 1
+		}
+	},
+	{
+		"id": "recal_wicked",
+		"hide": true,
+		"require": "g.wicked==1&&g.wicked1==0",
+		"desc": "Updating internals - players should not see this.",
+		"result": {
+			"wicked1": 1
+		}
+	},
+	{
+		"id": "recal_decent",
+		"hide": true,
+		"require": "g.decent==1&&g.decent1==0",
+		"desc": "Updating internals - players should not see this.",
+		"result": {
+			"decent1": 1
+		}
+	},
+	{
+		"id": "recal_respectable",
+		"hide": true,
+		"require": "g.respectable==1&&g.respectable1==0",
+		"desc": "Updating internals - players should not see this.",
+		"result": {
+			"respectable1": 1
+		}
+	},
+	{
+		"id": "good3_trickster",
+		"name": "a thief gone straight",
+		"require": "g.good3==1&&g.t_chaosclass>0",
+		"desc": "A former scoundrel knows best how to think like a scoundrel.",
 		"mod": {
-			"shadow.max": 1,
-			"shadowlore": {
-				"max": 1,
-				"rate": 0.1
-			}
+			"heist.mod.securityconsultant": 1
+		},
+		"lock": "heist"
+	},
+	{
+		"id": "idrasil_shift",
+		"hide": true,
+		"require": "g.sm_idrasil>0",
+		"lock": "sm_idrasil",
+		"desc": "Moving from deprecated home to new version - players should not see this.",
+		"result": {
+			"home_idrasil_sprout": true
+		}
+	},
+	{
+		"id": "moving_out_of_inn",
+		"name": "Moving out",
+		"require": "g.tier0>0&&g.innroom<=0",
+		"desc": "Having acquired a place to call your own, you now have a proper place for all the experiments and tools your research requires.",
+		"lock": "innroom"
+	},
+	{
+		"id": "recal_evil3",
+		"hide": true,
+		"require": "(g.greynecromancer+g.archlock+g.necro3+g.deathlock+g.phylactory)>=1&&g.evil3==0",
+		"desc": "Updating internals - players should not see this. Ensures existing T5/6 evil classes, or anyone with a phylactory, gets evil3.",
+		"result": {
+			"evil3": 1
+		}
+	},
+	{
+		"id": "recal_evil2",
+		"hide": true,
+		"require": "(g.thanophage+g.dreadlord+g.necromancer+g.warlock+g.necromancy+g.evil3)>=1&&g.evil2==0",
+		"desc": "Updating internals - players should not see this. Ensures existing T3/4 evil classes, or anyone with necromancy, gets evil2.",
+		"result": {
+			"evil2": 1
 		}
 	}
 ]

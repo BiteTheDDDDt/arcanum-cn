@@ -1,38 +1,38 @@
-import Inventory from "./inventory";
-import { TYP_RUN, ENCHANTSLOTS } from "../values/consts";
-import Enchanting from "../composites/enchanting";
+import Inventory from '@/inventories/inventory';
+import { TYP_RUN, ENCHANTSLOTS } from '@/values/consts';
+import Enchanting from '@/composites/enchanting';
 
 export default class EnchantSlots extends Inventory {
 
-	get exp(){
+	get exp() {
 		return this._exp;
 	}
 	/**
 	 * @private
 	 * @property {number} exp
 	 */
-	set exp(v){
+	set exp(v) {
 		this._exp = v;
 	}
 
 	/**
 	 * @property {number} length
 	 */
-	get length(){
+	get length() {
 		return this._length;
 	}
 	/**
 	 * @private
 	 * @property {number} length
 	 */
-	set length(v){
-		this._length=v;
+	set length(v) {
+		this._length = v;
 	}
-	percent(){
-		return this._length>0 ? Math.round(100*this.exp/this.length) : 0;
+	percent() {
+		return this._length > 0 ? Math.round(100 * this.exp / this.length) : 0;
 	}
 
-	constructor( vars ) {
+	constructor(vars) {
 
 		super(vars);
 
@@ -50,10 +50,10 @@ export default class EnchantSlots extends Inventory {
 	/**
 	 * Note: this is called by Runner to determine if enchants complete.
 	 */
-	maxed(){
+	maxed() {
 
-		for( let i = this.items.length-1; i>= 0; i--) {
-			if ( !this.items[i].done ) {
+		for (let i = this.items.length - 1; i >= 0; i--) {
+			if (!this.items[i].done) {
 				return false;
 			}
 		}
@@ -61,22 +61,22 @@ export default class EnchantSlots extends Inventory {
 
 	}
 
-	revive( gs ){
+	revive(gs) {
 
 		let ltot = 0;
 		let extot = 0;
 
-		for( let i = this.items.length-1; i >= 0; i--) {
+		for (let i = this.items.length - 1; i >= 0; i--) {
 
-			const it = new Enchanting( this.items[i] );
-			if ( !it ) {
-				console.warn('invalid enchanting: ' + i );
-				this.items.splice(i,1);
+			const it = new Enchanting(this.items[i]);
+			if (!it) {
+				console.warn('invalid enchanting: ' + i);
+				this.items.splice(i, 1);
 				continue;
 			}
 			it.revive(gs);
-			if ( !it || it.target === null || it.item === null ) {
-				this.items.splice(i,1);
+			if (!it || it.target === null || it.item === null) {
+				this.items.splice(i, 1);
 			} else {
 				ltot += it.length;
 				extot += it.exp;
@@ -98,10 +98,10 @@ export default class EnchantSlots extends Inventory {
 		let ltot = 0;
 		let extot = 0;
 
-		for( let i = this.items.length-1; i >= 0; i--) {
+		for (let i = this.items.length - 1; i >= 0; i--) {
 
 			const it = this.items[i];
-			if ( !it.done ) {
+			if (!it.done) {
 
 				it.update(dt);
 				ltot += it.length;
@@ -120,54 +120,54 @@ export default class EnchantSlots extends Inventory {
 	 *
 	 * @param {Enchanting} e
 	 */
-	runWith( e ) {
+	runWith(e) {
 
-		if ( !this.includes(e) && e instanceof Enchanting ) {
+		if (!this.includes(e) && e instanceof Enchanting) {
 			super.add(e);
 		}
 
 	}
 
-	add( item, enchant=null ){
+	add(item, enchant = null) {
 
-		if ( item.type === TYP_RUN ){
+		if (item.type === TYP_RUN) {
 
 			super.add(item);
 
-		} else if ( item && enchant ) {
+		} else if (item && enchant) {
 
-			let r = new Enchanting( enchant, item );
-			super.add( r );
+			let r = new Enchanting(enchant, item);
+			super.add(r);
 
 		}
 
 	}
-	findItem(id, proto=false ) {
+	findItem(id, proto = false) {
 
-		return proto === true ? this.items.find( v=>v._target.id===id||v._target.recipe===id) :
-			this.items.find( v=>v._target.id===id);
+		return proto === true ? this.items.find(v => v._target.id === id || v._target.recipe === id) :
+			this.items.find(v => v._target.id === id);
 
 	}
 	/**
 	 *
 	 * @param {} e - running task or enchant target.
 	 */
-	remove( e ){
+	remove(e) {
 
-		if ( e.type !== TYP_RUN) {
+		if (e.type !== TYP_RUN) {
 
-			e = this.items.find( v=>v.targ===e);
-			if ( !e) return;
+			e = this.items.find(v => v.targ === e);
+			if (!e) return;
 
 		}
 
-		super.remove( e );
+		super.remove(e);
 
 	}
 	//God damn magic, calls begin for target instead of item since the item in enchantslots in an enchant with a target, not a real item.
-	begin(g){
-		for( let i = this.items.length-1; i>= 0; i-- ) {
-			if ( typeof this.items[i].target.begin === 'function' ) this.items[i].target.begin(g);
+	begin(g) {
+		for (let i = this.items.length - 1; i >= 0; i--) {
+			if (typeof this.items[i].target.begin === 'function') this.items[i].target.begin(g);
 		}
 	}
 

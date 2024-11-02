@@ -3,9 +3,9 @@ import Profile from 'modules/profile';
 
 export default {
 
-	data(){
+	data() {
 		return {
-			active:Profile.active,
+			active: Profile.active,
 		};
 	}
 
@@ -18,3 +18,4 @@ export default {
 </span>
 <span v-else><button type="button" @click="dispatch('show-login')">Login</button></span>
 </template>
+

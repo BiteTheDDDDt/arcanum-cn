@@ -1,12 +1,13 @@
 <script>
-import Game from '../../game';
-import { FP, UNTAG } from '../../values/consts';
+import Game from '@/game';
+import { FP, UNTAG } from '@/values/consts';
 
-import ItemsBase from '../itemsBase.js';
-import { CheckTypes, InfoBlock, DisplayName, ConvertPath } from './infoBlock';
-import { RollOver } from '../popups/itemPopup.vue';
-import Char from '../../chars/char';
-import FValue from '../../values/rvals/fvalue';
+import ItemsBase from '@/ui/itemsBase.js';
+import { CheckTypes, InfoBlock, DisplayName, ConvertPath } from '@/ui/items/infoBlock';
+import { RollOver } from '@/ui/popups/itemPopup.vue';
+import Char from '@/chars/char';
+import FValue from '@/values/rvals/fvalue';
+import { defineAsyncComponent } from 'vue';
 
 /** Regex to check if a string is a function. Note: does not process newlines, have to be removed manually. */
 const FunctionRegex = /^function *\w+\( *(?<params>[^\)]+) *\) *{ *return +(?<body>.*)}$/;
@@ -27,8 +28,8 @@ export default {
 	props: ['title', 'info', 'text', 'rate', 'checkType', 'target', 'require', 'separate'],
 	mixins: [ItemsBase],
 	components: {
-		dot: () => import("./dot-info.vue"),
-		attack: () => import("./attack.vue")
+		dot: defineAsyncComponent(() => import("./dot-info.vue")),
+		attack: defineAsyncComponent(() => import("./attack.vue"))
 	},
 	beforeCreate() {
 		this.infos = new InfoBlock();
@@ -136,6 +137,15 @@ export default {
 					InfoBlock.GetItem(obj, refItem));
 				return;
 			}
+            if (typeof obj === 'function') {
+                //TODO other possible parsing for functions.
+                if (this.text) {
+                    this.infos.add(
+                        obj,
+                        true, false, checkType, null, obj);
+                    return;
+                }
+            }
 
 			for (let p in obj) {
 
@@ -169,17 +179,13 @@ export default {
 					};
 					this.infos.add(subPath, sub.applyDummy(params), subRate, subCheckType, subItem);
 				} else if (sub instanceof Object) {
-
 					if (sub.skipLocked) {
-
-						let refItem = this.infos.rootItem;
-						if (refItem && (refItem.locked || refItem.disabled)) continue;
-
+						if (subItem && (subItem.disabled === true || subItem.locks > 0 || subItem.locked !== false)) 
+							continue;
 					}
 					if (sub.constructor !== Object && sub.constructor.name !== 'Attack') {
 						this.infos.add(subPath, sub, subRate, subCheckType, subItem);
 					} else if (sub.constructor.name !== 'Attack') {
-
 						//special code for DOT subpath, currently unique to potions
 						if (subPath === 'dot') {
 							sub = { ...sub }
@@ -194,7 +200,6 @@ export default {
 							if (sub[undefined]) delete sub[undefined];
 						}
 						this.effectList(sub, subPath, subRate, subCheckType, subItem, target);
-
 					}
 				} else {
 					this.infos.add(subPath, sub, subRate, subCheckType, subItem);
@@ -216,7 +221,7 @@ export default {
 			<div v-if="subTitle" class="note-text">{{ subTitle }}</div>
 			<div :class="subTitle ? 'info-subsubsect' : ''">
 				<template v-if="text">
-					<span :class="{ failed: !isAvailable, full: checkType === CheckTypes.FULL }">
+					<span class = 'replacetext' :class="{ failed: !isAvailable, full: checkType === CheckTypes.FULL}">
 						{{ text }}
 						<span v-if="!isAvailable && checkType === CheckTypes.FULL">(Full)</span>
 					</span>
@@ -269,6 +274,10 @@ div.item-desc {
 
 .failed.full {
 	color: slategrey;
+}
+
+.replacetext {
+	white-space: pre-wrap;
 }
 
 .darkmode .failed.full {

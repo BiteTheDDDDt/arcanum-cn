@@ -1,7 +1,7 @@
-import { precise } from "../../util/format";
-import { OPS } from "./atmod";
-import Mod from "./mod";
-import Stat from "../rvals/stat"
+import { precise } from '@/util/format';
+import { OPS } from '@/values/mods/atmod';
+import Mod from '@/values/mods/mod';
+import Stat from '@/values/rvals/stat'
 
 /**
  * Regex for parsing RangedMod
@@ -46,7 +46,7 @@ export default class RangedMod extends Mod {
         if (!str) return "0";
 
         if (+this.step) {
-            str += ` per ${precise(this.estimateStep())} amount${this.roundingSym ? ` (rounded ${this.roundingSym === "+" ? "up" : "down"})`: ""}`;
+            str += ` per ${precise(this.estimateStep())} amount${this.roundingSym ? ` (rounded ${this.roundingSym === "+" ? "up" : "down"})` : ""}`;
         }
 
         if (+this.min) {
@@ -90,7 +90,7 @@ export default class RangedMod extends Mod {
 
     get str() {
         let base = Stat.getBase(this.base), basePct = Stat.getBase(this.basePct);
-        return `${base || ""}${basePct > 0 && base ? "+" : ""}${basePct ? basePct * 100 + "%": ""}/${this._start != null ? Stat.getBase(this._start) + "/" : ""}${OPS[this.minOp] || ""}${Stat.getBase(this.min) || ""}/${Stat.getBase(this.max) || ""}/${this.section ? "~" : ""}${this.roundingSym || ""}${Stat.getBase(this.step)}`;
+        return `${base || ""}${basePct > 0 && base ? "+" : ""}${basePct ? basePct * 100 + "%" : ""}/${this._start != null ? Stat.getBase(this._start) + "/" : ""}${OPS[this.minOp] || ""}${Stat.getBase(this.min) || ""}/${Stat.getBase(this.max) || ""}/${this.section ? "~" : ""}${this.roundingSym || ""}${Stat.getBase(this.step)}`;
     }
     set str(v) {
         this.parseMod(v);
@@ -109,7 +109,7 @@ export default class RangedMod extends Mod {
         // Copy constructor
         if (vars instanceof RangedMod) {
             this.str = vars.str;
-            if(!this.id) {
+            if (!this.id) {
                 this.id = vars.id;
             }
             if (vars._count) {
@@ -132,7 +132,7 @@ export default class RangedMod extends Mod {
     }
 
     estimateStep() {
-        if(!+this.step) return 1;
+        if (!+this.step) return 1;
         return this.section ? this.range / this.step : +this.step;
     }
 
@@ -155,7 +155,7 @@ export default class RangedMod extends Mod {
         this.min = res.min == null || res.min === "" ? null : +res.min;
         this.max = res.max == null || res.max === "" ? null : +res.max;
 
-        if(res.start) this.start = res.start;
+        if (res.start) this.start = res.start;
 
         this.minOp = !res.minOp ? null : typeof res.minOp === "number" ? res.minOp : OPS[res.minOp];
 
@@ -208,7 +208,7 @@ export default class RangedMod extends Mod {
             if (this.bonus) s += " & ";
             s += precise(100 * this.pctTot * count) + "%";
         }
-        
+
         return s
     }
 
@@ -221,7 +221,7 @@ export default class RangedMod extends Mod {
         } else if (this.step) {
             let rounding = roundingFunc(this.roundingSym);
             let min = this.min || 0;
-            let {range, step} = this;
+            let { range, step } = this;
             if (this.section) {
                 count = rounding((count - min) * step / range) * range / step;
             } else {

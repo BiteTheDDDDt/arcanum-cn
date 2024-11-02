@@ -1,12 +1,12 @@
 <script>
-import Game from '../../game';
-import ItemBase from '../itemsBase';
-import Range from '../../values/range';
-import FilterBox from '../components/filterbox.vue';
-import { TRY_USE } from '../../events';
+import Game from '@/game';
+import ItemBase from '@/ui/itemsBase';
+import Range from '@/values/range';
+import FilterBox from '@/ui/components/filterbox.vue';
+import { TRY_USE } from '@/events';
 import { npcCost } from 'modules/craft';
-import { TYP_RANGE } from 'values/consts';
-import { NpcLoreLevels } from 'values/craftVars';
+import { TYP_RANGE } from '@/values/consts';
+import { NpcLoreLevels } from '@/values/craftVars';
 
 export default {
 
@@ -35,7 +35,7 @@ export default {
 
 		loreLevel(m) {
 			let lore = this.loreLevels[m.kind];
-			if (lore === undefined) lore = this.$set(this.loreLevels, m.kind, NpcLoreLevels(m.kind, Game));
+			if (lore === undefined) lore = this.loreLevels[m.kind] = NpcLoreLevels(m.kind, Game);
 			return lore;
 		},
 
@@ -68,8 +68,6 @@ export default {
 				}
 
 			}
-
-
 			return false;
 
 
@@ -82,17 +80,14 @@ export default {
 
 		allItems() {
 
-			let all = Game.state.monsters;
-			for (let i = all.length - 1; i >= 0; i--) {
-				all[i].name = all[i].name.toTitleCase()
-			}
+			let all = this.game.state.monsters;
 			var a = [];
 
 			for (let i = all.length - 1; i >= 0; i--) {
 
 				var it = all[i];
 				if (it.value <= 0) continue;
-				if (!it.cost) this.$set(it, 'cost', npcCost(it));
+				if (!it.cost) it['cost'] = npcCost(it);
 				a.push(it);
 
 			}
@@ -126,7 +121,7 @@ export default {
 <template>
 	<div class="bestiary">
 
-		<filterbox v-model="filtered" :prop="searchIt" :items="allItems" min-items="14" />
+		<filterbox v-model="filtered" :prop="searchIt" :items="allItems" :min-items=14 />
 
 		<div class="char-list">
 			<table class="bestiary">
@@ -137,11 +132,11 @@ export default {
 					<th class="num-align table-head" @click="setSort('hp')">Hp</th>
 				</tr>
 				<tr v-for="b in sorted" :key="b.id" @mouseenter.capture.stop="itemOver($event, b)">
-					<th class="lg-name">{{ b.name }}</th>
+					<th class="lg-name">{{ b.name.toTitleCase() }}</th>
 					<td class="num-align">{{ Math.floor(b.level) }}</td>
 					<td class="num-align">{{ Math.floor(b.value) }}</td>
 					<td class="num-align">{{ showHp(b) ? toNum(b.hp) : '???' }}</td>
-					<td><button @click="tryUse(b)"
+					<td><button type="button" @click="tryUse(b)"
 							:disabled="b.unique || !b.canUse(game) || minions.freeSpace() == 0">Buy</button></td>
 				</tr>
 			</table>

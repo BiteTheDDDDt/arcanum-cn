@@ -37,44 +37,37 @@ export const swap = <T>(
 
 /**
  * Moves an element (specified by index) within an array by a specific number of elements.
- * If the amount to be moved would go over array bounds, goes up to the bounds. Non-mutating
- * @param {T[]} array Array to move elements in
+ * If the amount to be moved would go over array bounds, goes up to the bounds.
+ * @param {T[]} arr Array to move elements in
  * @param {number} index Index of target element to move
- * @param {number} amount Amount of elements to move the target
+ * @param {number} count Amount of elements to move the target
  * @returns {T[]} - Returns array with the element moved
  */
-export const move = <T>(array: T[], index: number, amount: number) => {
+export const move = <T>(arr: T[], index: number, count: number) => {
+
   // Validate arguments
-  if (
-    index < 0 ||
-    index >= array.length ||
-    (index === array.length - 1 && amount > 0) ||
-    (index === 0 && amount < 0)
-  ) {
-    return array; // If arguments invalid, return the array that was passed in
+  if (index < 0 || index >= arr.length) {
+    return arr; // If arguments invalid, return the array that was passed in
   }
 
-  // Get a shallow copy of the array
-  const newArray = array.concat();
+  const dest = count > 0 ? Math.min(index + count, arr.length - 1) : Math.max(index + count, 0);
 
-  // Update the values in the new array
-  newArray.splice(index + amount, 0, ...newArray.splice(index, 1));
+  arr.splice(dest, 0, ...arr.splice(index, 1));
 
-  return newArray;
+  return arr;
 };
 
 /**
  * Finds the first instance of an element within an array and move it by a specific number of elements.
- * If the amount to be moved would go over array bounds, goes up to the bounds. Does nothing if element isn't found. Non-mutating
- * @param {T[]} array Array to move elements in
+ * If the amount to be moved would go over array bounds, goes up to the bounds. Does nothing if element isn't found. Mutating.
+ * @param {T[]} arr Array to move elements in
  * @param {T} element The target element to move
- * @param {number} amount Amount of elements to move the target
+ * @param {number} count Amount of elements to move the target
  * @returns {T[]} The array with the element moved
  */
-export const moveElm = <T>(array: T[], element: T, amount: number) => {
+export const moveElm = <T>(arr: T[], element: T, count: number) => {
   // No arguement validation needed, this occurs in the move function.
-  const index = array.indexOf(element);
-  return move(array, index, amount); // Returns a new array, leaves the current array unmutated.
+  return move(arr, arr.indexOf(element), count); // Returns a new array, leaves the current array unmutated.
 };
 
 /**

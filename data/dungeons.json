@@ -15,25 +15,10 @@
 			"maxlevel": 1
 		},
 		"boss": {
-			"10":[
-				"kakapo"
-			],
-			"5":[
-				"gardengnome"
-			]
+			"10": ["kakapo"],
+			"5": ["gardengnome"]
 		},
-		"spawns": [
-			[
-				"newt",
-				"newt",
-				"newt"
-			],
-			"lgmouse",
-			"bigstone",
-			"stingybee",
-			"smsnake",
-			"twikman"
-		],
+		"spawns": [["newt", "newt", "newt"], "lgmouse", "bigstone", "stingybee", "smsnake", "twikman"],
 		"flavor": "Every budding mage needs to start somewhere."
 	},
 	{
@@ -51,17 +36,7 @@
 		"loot": {
 			"maxlevel": 2
 		},
-		"spawns": [
-			[
-				"stingybee",
-				"stingybee"
-			],
-			"lgrat",
-			"smbox",
-			"gremlin",
-			"angrybird",
-			"smsnake"
-		],
+		"spawns": [["stingybee", "stingybee"], "lgrat", "smbox", "gremlin", "angrybird", "smsnake"],
 		"desc": "An idyllic grove for a walk or long nap."
 	},
 	{
@@ -77,7 +52,7 @@
 		"length": 25,
 		"dist": 0,
 		"run": {
-			"stamina": 1
+			"stamina": 0.7
 		},
 		"result": {
 			"sp": 1,
@@ -92,20 +67,8 @@
 			"name": "Pests Clear",
 			"desc": "With the basement cleared your master will have more room to stash all the gold you've been earning."
 		},
-		"boss": {"25":[
-			"ratking"
-		]},
-		"spawns": [
-			[
-				"lgmouse",
-				"lgmouse"
-			],
-			"lgrat",
-			"badexperiment",
-			"ratskeleton",
-			"homunculus",
-			"gremlin"
-		]
+		"boss": { "25": ["ratking"] },
+		"spawns": [["lgmouse", "lgmouse"], "lgrat", "badexperiment", "ratskeleton", "homunculus", "gremlin"]
 	},
 	{
 		"id": "stonyhills",
@@ -130,15 +93,8 @@
 			"kobold",
 			"goblin",
 			"smbox",
-			[
-				"bat",
-				"bat",
-				"bat"
-			],
-			[
-				"twikman",
-				"twikman"
-			],
+			["bat", "bat", "bat"],
+			["twikman", "twikman"],
 			"bigstone",
 			"hawk"
 		]
@@ -159,52 +115,20 @@
 			"gems": "0~2",
 			"title": "Forest Scourge"
 		},
-		"boss": {"200":[
-			"eledin",
-			"gildella"
-		]},
+		"boss": { "200": ["eledin", "gildella"] },
 		"spawns": [
-			[
-				"ranger",
-				"ranger"
-			],
-			[
-				"elf",
-				"elf",
-				"elf",
-				"elf"
-			],
+			["ranger", "ranger"],
+			["elf", "elf", "elf", "elf"],
 			"berserker",
-			[
-				"roc",
-				"m_druid",
-				"roc"
-			],
-			[
-				"ranger",
-				"gryffon"
-			],
-			[
-				"m_druid",
-				"m_druid"
-			],
+			["roc", "m_druid", "roc"],
+			["ranger", "gryffon"],
+			["m_druid", "m_druid"],
 			"ent",
-			[
-				"bear",
-				"bear",
-				"bear",
-				"ranger"
-			],
+			["bear", "bear", "bear", "ranger"],
 			"direbear",
 			"highranger",
-			[
-				"elf",
-				"highelf"
-			],
-			[
-				"slinger",
-				"direbear"
-			]
+			["elf", "highelf"],
+			["slinger", "direbear"]
 		]
 	},
 	{
@@ -220,69 +144,26 @@
 		},
 		"result": {
 			"title": "Cabal Breaker",
-			"bones": "3~7",
-			"bodies": "0~2"
+			"bodies": { "value": "0~2", "skipLocked": true },
+			"bones": { "value": "3~7", "skipLocked": true }
 		},
 		"boss": {
 			"50": "vampiremaster",
-			"100": [
-				"skellord",
-				"skeleton",
-				"skeleton"
-			],
-			"150": [
-				"vampiremaster",
-				"vampire"
-			],
-			"200":[
-			"palus"
-		]},
+			"100": ["skellord", "skeleton", "skeleton"],
+			"150": ["vampiremaster", "vampire"],
+			"200": ["palus"]
+		},
 		"spawns": [
-			[
-				"evilpriest",
-				"evilpriest",
-				"evilpriest"
-			],
-			[
-				"corpse",
-				"corpse",
-				"skeleton",
-				"corpse"
-			],
-			[
-				"ghost",
-				"ghost",
-				"wraith"
-			],
-			[
-				"evilpriest",
-				"greaterzombie"
-			],
-			[
-				"undeadhorror",
-				"undeadhorror"
-			],
-			[
-				"wight",
-				"wight",
-				"ghast"
-			],
-			[
-				"m_hierophant",
-				"evilpriest",
-				"evilpriest"
-			],
-			[
-				"blasphemer",
-				"blasphemer"
-			],
+			["evilpriest", "evilpriest", "evilpriest"],
+			["corpse", "corpse", "skeleton", "corpse"],
+			["ghost", "ghost", "wraith"],
+			["evilpriest", "greaterzombie"],
+			["undeadhorror", "undeadhorror"],
+			["wight", "wight", "ghast"],
+			["m_hierophant", "evilpriest", "evilpriest"],
+			["blasphemer", "blasphemer"],
 			"wraith",
-			[
-				"ghoul",
-				"ghoul",
-				"ghast",
-				"evilpriest"
-			]
+			["ghoul", "ghoul", "ghast", "evilpriest"]
 		]
 	},
 	{
@@ -299,22 +180,8 @@
 			"herbs": "3~7",
 			"gems": "0~2"
 		},
-		"boss": {"20":[
-			"gobchief"
-		]},
-		"spawns": [
-			[
-				"goblin",
-				"goblin"
-			],
-			"gardengnome",
-			"wombat",
-			"slime",
-			"hobgoblin",
-			"ranger",
-			"elf",
-			"slinger"
-		],
+		"boss": { "20": ["gobchief"] },
+		"spawns": [["goblin", "goblin"], "gardengnome", "wombat", "slime", "hobgoblin", "ranger", "elf", "slinger"],
 		"loot": {
 			"maxlevel": 4
 		}
@@ -322,7 +189,7 @@
 	{
 		"id": "underden",
 		"name": "Under Den",
-		"desc": "Proverbial den of thieves",
+		"desc": "Proverbial den of thieves.",
 		"require": "tier0",
 		"level": 5,
 		"run": {
@@ -332,19 +199,7 @@
 			"gold": "25~40"
 		},
 		"boss": "banditlord",
-		"spawns": [
-			"cutpurse",
-			"bandit",
-			[
-				"bat",
-				"bat",
-				"bat",
-				"bat"
-			],
-			"cutpurse",
-			"bandit",
-			"cutpurse"
-		]
+		"spawns": ["cutpurse", "bandit", ["bat", "bat", "bat", "bat"], "cutpurse", "bandit", "cutpurse"]
 	},
 	{
 		"id": "veldranswreck",
@@ -366,16 +221,13 @@
 			"gems": 10
 		},
 		"loot": {
-			"veldranearring": "25%"
+			"veldranearring": "25%",
+			"fishysword": "25%",
+			"fishyspear": "25%",
+			"fishyhammer": "25%",
+			"fishyrapier": "25%"
 		},
-		"spawns": [
-			"eel",
-			"jellyfish",
-			"ghost",
-			"barracuda",
-			"piranha",
-			"electriceel"
-		]
+		"spawns": ["eel", "jellyfish", "ghost", "barracuda", "piranha", "electriceel"]
 	},
 	{
 		"id": "aragheights",
@@ -390,20 +242,7 @@
 		"result": {
 			"gold": "20~30"
 		},
-		"spawns": [
-			"lgbird",
-			[
-				"kobold",
-				"kobold",
-				"kobold"
-			],
-			"orc",
-			"bandit",
-			"wolf",
-			"hawk",
-			"goblin",
-			"coyote"
-		]
+		"spawns": ["lgbird", ["kobold", "kobold", "kobold"], "orc", "bandit", "wolf", "hawk", "goblin", "coyote"]
 	},
 	{
 		"id": "hauntedmanor",
@@ -419,14 +258,7 @@
 			"gold": "20~30"
 		},
 		"boss": "poltergeist",
-		"spawns": [
-			"ghost",
-			"ghost",
-			"zombie",
-			"skeleton",
-			"skeleton",
-			"direrat"
-		]
+		"spawns": ["ghost", "ghost", "zombie", "skeleton", "skeleton", "direrat"]
 	},
 	{
 		"id": "sereditetemple",
@@ -440,36 +272,19 @@
 			"gold": "20~30",
 			"gems": "4~5"
 		},
-		"boss":{
+		"boss": {
 			"40": "naga",
 			"80": "medusa",
-			"120": [
-				"naga",
-				"naga"
-			],
-			"160": [
-				"naga",
-				"medusa"
-			]
+			"120": ["naga", "naga"],
+			"160": ["naga", "medusa"]
 		},
 		"spawns": [
-			[
-				"raven",
-				"raven",
-				"raven",
-				"raven"
-			],
+			["raven", "raven", "raven", "raven"],
 			"shriekingeel",
 			"magicblade",
 			"evilpriest",
-			[
-				"eel",
-				"eel"
-			],
-			[
-				"crab",
-				"crab"
-			]
+			["eel", "eel"],
+			["crab", "crab"]
 		],
 		"flavor": "Would the ancient seredites appreciate the temple's new inhabitants?"
 	},
@@ -491,17 +306,7 @@
 			"gold": "20~30"
 		},
 		"boss": "gobchief",
-		"spawns": [
-			[
-				"goblin",
-				"goblin"
-			],
-			"gobwarrior",
-			"gobwarrior",
-			"goblin",
-			"goblin",
-			"gobpriest"
-		],
+		"spawns": [["goblin", "goblin"], "gobwarrior", "gobwarrior", "goblin", "goblin", "gobpriest"],
 		"loot": {
 			"maxlevel": 3
 		}
@@ -519,14 +324,7 @@
 			"gold": "40~50"
 		},
 		"boss": "orcchief",
-		"spawns": [
-			"orc",
-			"orcwarrior",
-			"orcwarrior",
-			"orc",
-			"orc",
-			"orcpriest"
-		],
+		"spawns": ["orc", "orcwarrior", "orcwarrior", "orc", "orc", "orcpriest"],
 		"flavor": "Lok'tar!"
 	},
 	{
@@ -544,58 +342,26 @@
 			"stamina": 1.7
 		},
 		"result": {
-			"bones": "5~10",
-			"gold": "40~50"
+			"gold": "40~50",
+			"bones": { "value": "5~10", "skipLocked": true }
 		},
-		"boss": {"100":[
-			"orcchief",
-			"ogre",
-			"ogre"
-		]},
+		"boss": { "100": ["orcchief", "ogre", "ogre"] },
 		"spawns": [
 			"ogre",
-			[
-				"bugbear",
-				"bugbear"
-			],
-			[
-				"giantspider",
-				"lgspider",
-				"lgspider",
-				"lgspider"
-			],
-			[
-				"ogre",
-				"warg",
-				"warg"
-			],
+			["bugbear", "bugbear"],
+			["giantspider", "lgspider", "lgspider", "lgspider"],
+			["ogre", "warg", "warg"],
 			"orcwarrior",
-			[
-				"ogrewarrior",
-				"ogrewarrior"
-			],
+			["ogrewarrior", "ogrewarrior"],
 			"troll",
 			"minotaur",
-			[
-				"vampirebat",
-				"vampirebat",
-				"vampirebat"
-			],
-			[
-				"ogre",
-				"wolf",
-				"wolf",
-				"wolf"
-			],
+			["vampirebat", "vampirebat", "vampirebat"],
+			["ogre", "wolf", "wolf", "wolf"],
 			"hillgiant",
 			"direbear",
 			"ettin",
 			"orcchief",
-			[
-				"orcpriest",
-				"ogre",
-				"ogre"
-			]
+			["orcpriest", "ogre", "ogre"]
 		]
 	},
 	{
@@ -619,10 +385,7 @@
 				"ids": "jazid",
 				"weight": 0.1
 			},
-			[
-				"lgspider",
-				"lgspider"
-			],
+			["lgspider", "lgspider"],
 			"lgspider",
 			"lgspider",
 			"direbat"
@@ -640,37 +403,23 @@
 		"boss": "roc",
 		"result": {
 			"gold": "20~30",
-			"bones": "3~7"
+			"bones": { "value": "3~7", "skipLocked": true }
 		},
 		"spawns": [
 			"vulture",
 			"minotaur",
 			"orc",
 			"warg",
-			[
-				"vrrek",
-				"vrrek"
-			],
-			[
-				"m_scarab",
-				"m_scarab"
-			],
+			["vrrek", "vrrek"],
+			["m_scarab", "m_scarab"],
 			"bandit",
 			"wolf",
 			"sandmite",
 			"bugbear",
 			"hawk",
 			"goblin",
-			[
-				"vulture",
-				"vulture",
-				"vulture"
-			],
-			[
-				"coyote",
-				"coyote",
-				"coyote"
-			]
+			["vulture", "vulture", "vulture"],
+			["coyote", "coyote", "coyote"]
 		]
 	},
 	{
@@ -723,44 +472,23 @@
 			"title": "Fetid Pathfinder",
 			"gems": "3~5",
 			"gold": "100~200",
-			"bones": 10
+			"bones": { "value": 10, "skipLocked": true }
 		},
 		"boss": "bogwitch",
 		"spawns": [
-			[
-				"direcrocodile",
-				"direcrocodile"
-			],
+			["direcrocodile", "direcrocodile"],
 			"ghost",
-			[
-				"leech",
-				"leech",
-				"leech",
-				"leech",
-				"leech"
-			],
+			["leech", "leech", "leech", "leech", "leech"],
 			"grimstalk",
 			"jazid",
 			"basilisk",
 			"stalker",
-			[
-				"corpse",
-				"corpse",
-				"corpse",
-				"corpse"
-			],
-			[
-				"eel",
-				"eel",
-				"eel"
-			],
+			["corpse", "corpse", "corpse", "corpse"],
+			["eel", "eel", "eel"],
 			"lesserwyrm",
 			"willowisp",
 			"direrat",
-			[
-				"piranha",
-				"piranha"
-			]
+			["piranha", "piranha"]
 		],
 		"flavor": "Also known as Barden's bog, no one can say exactly just who Barden was."
 	},
@@ -768,10 +496,7 @@
 		"id": "catacrypts",
 		"name": "The Catacrypts",
 		"desc": "Old Mirthemgnar dug its dungeons til they joined the hollows beneath the world. In terror they sealed them forever. Or so they tried.",
-		"require": [
-			"mtgorborung",
-			"tier3"
-		],
+		"require": ["mtgorborung", "tier3"],
 		"level": 15,
 		"run": {
 			"stamina": 3
@@ -783,17 +508,14 @@
 			"gems": "30~50",
 			"gold": "1000~2000"
 		},
-		"biome": [
-			"cave",
-			"mountain"
-		],
+		"biome": ["cave", "mountain"],
 		"spawns": {
 			"level": "16~24",
 			"range": 2,
 			"quantity": "1~5",
 			"quantitypenalty": 0.1
 		},
-		"flavor": "Day and night the dark gates stand open to all... but to return to the open air... that is the task, that is the labor"
+		"flavor": "Day and night the dark gates stand open to all... but to return to the open air... that is the task, that is the labor."
 	},
 	{
 		"id": "elementrift",
@@ -810,13 +532,7 @@
 			"lightgem": 3
 		},
 		"boss": "lightningelemental",
-		"spawns": [
-			"fireelemental",
-			"iceelemental",
-			"earthelemental",
-			"airelemental",
-			"lightningelemental"
-		]
+		"spawns": ["fireelemental", "iceelemental", "earthelemental", "airelemental", "lightningelemental"]
 	},
 	{
 		"id": "veldransstorehouse",
@@ -832,26 +548,14 @@
 			"gold": "80~150"
 		},
 		"spawns": [
-			[
-				"claygolem",
-				"claygolem",
-				"claygolem"
-			],
+			["claygolem", "claygolem", "claygolem"],
 			"hobgoblin",
 			"doppelganger",
 			"masterswordsman",
 			"irongolem",
 			"quasit",
-			[
-				"slime",
-				"slime",
-				"slime",
-				"slime"
-			],
-			[
-				"stonegolem",
-				"stonegolem"
-			],
+			["slime", "slime", "slime", "slime"],
+			["stonegolem", "stonegolem"],
 			"banditlord",
 			"magicmirror",
 			"woodgolem"
@@ -872,38 +576,21 @@
 			"gold": "50~100",
 			"ichor": 1
 		},
+		"mod": {
+			"charms.max": "0.5//2/2"
+		},
 		"boss": "desillaconcubine",
 		"spawns": [
 			"masterswordsman",
-			[
-				"magicblade",
-				"magicblade"
-			],
-			[
-				"magicmirror",
-				"magicmirror"
-			],
+			["magicblade", "magicblade"],
+			["magicmirror", "magicmirror"],
 			"unicorn",
-			[
-				"pegasus",
-				"pegasus"
-			],
+			["pegasus", "pegasus"],
 			"quasit",
-			[
-				"stalker",
-				"willowisp"
-			],
-			[
-				"elf",
-				"elf",
-				"elf"
-			],
+			["stalker", "willowisp"],
+			["elf", "elf", "elf"],
 			"incubus",
-			[
-				"imp",
-				"imp",
-				"imp"
-			],
+			["imp", "imp", "imp"],
 			"succubus"
 		],
 		"flavor": "Desilla was known as much for her entertainments as her ruthlessness."
@@ -922,46 +609,26 @@
 			"gold": "300~500",
 			"ichor": 3
 		},
-		"boss": {"100":[
-			"reddragon",
-			"karnivex",
-			"reddragon"
-		]},
+		"boss": { "100": ["reddragon", "karnivex", "reddragon"] },
 		"spawns": [
 			"mithrilgolem",
-			[
-				"bloodgolem",
-				"bloodgolem"
-			],
-			[
-				"magicmirror",
-				"magicmirror"
-			],
+			["bloodgolem", "bloodgolem"],
+			["magicmirror", "magicmirror"],
 			"maturereddragon",
-			[
-				"manticore",
-				"manticore"
-			],
+			["manticore", "manticore"],
 			"reddragon",
 			"demon",
 			"jazid",
-			[
-				"greendragon",
-				"greendragon"
-			],
+			["greendragon", "greendragon"],
 			"balrog",
 			"ancientvampire",
-			[
-				"masterswordsman",
-				"masterswordsman",
-				"masterswordsman"
-			]
+			["masterswordsman", "masterswordsman", "masterswordsman"]
 		],
-		"flavor": "Burned black by its own denizens"
+		"flavor": "Burned black by its own denizens."
 	},
 	{
 		"id": "belowgorborung",
-		"name": "Below Mt Gorborung",
+		"name": "Below Mt. Gorborung",
 		"desc": "They say the roots of the mountain extend deeper than its heights.",
 		"level": 25,
 		"length": 100,
@@ -981,59 +648,23 @@
 			"100": "gorborung"
 		},
 		"spawns": [
-			[
-				"stonegolem",
-				"stonegolem"
-			],
-			[
-				"magmaelemental",
-				"magmaelemental"
-			],
-			[
-				"earthelemental",
-				"earthelemental",
-				"earthelemental"
-			],
-			[
-				"dwarp",
-				"dwarp"
-			],
-			[
-				"callodiper",
-				"callodiper",
-				"callodiper"
-			],
-			[
-				"cavetroll",
-				"cavetroll"
-			],
-			[
-				"skellord",
-				"skellord"
-			],
-			[
-				"wyvern",
-				"wyvern"
-			],
+			["stonegolem", "stonegolem"],
+			["magmaelemental", "magmaelemental"],
+			["earthelemental", "earthelemental", "earthelemental"],
+			["dwarp", "dwarp"],
+			["callodiper", "callodiper", "callodiper"],
+			["cavetroll", "cavetroll"],
+			["skellord", "skellord"],
+			["wyvern", "wyvern"],
 			"behemoth",
-			[
-				"trow",
-				"trow"
-			],
+			["trow", "trow"],
 			"reddragon",
 			"balrog",
 			"jazid",
 			"m_lichlord",
-			[
-				"shade",
-				"shade"
-			],
+			["shade", "shade"],
 			"beholder",
-			[
-				"ogre",
-				"ogre",
-				"ogre"
-			],
+			["ogre", "ogre", "ogre"],
 			"cavetroll"
 		]
 	},
@@ -1055,7 +686,8 @@
 		"id": "holyhall",
 		"name": "Hall of the Holy",
 		"desc": "Various divine spirits watch over the world. And the greatest have their halls and kingdoms.",
-		"require": "g.planeslore.max>=8&&g.evil>0",
+		"require": "g.planeslore.max>=10&&g.evil2>0",
+		"tags": "t_extremeevil",
 		"level": 17,
 		"length": 50,
 		"run": {
@@ -1069,45 +701,17 @@
 		"boss": "archon",
 		"spawns": [
 			"angel",
-			[
-				"valkyrie",
-				"valkyrie"
-			],
-			[
-				"gryffon",
-				"gryffon"
-			],
+			["valkyrie", "valkyrie"],
+			["gryffon", "gryffon"],
 			"mithrilgolem",
 			"angel",
 			"firegolem",
-			[
-				"angel",
-				"angel"
-			],
-			[
-				"lightelem",
-				"lightelem",
-				"lightelem"
-			],
-			[
-				"roc",
-				"roc",
-				"roc"
-			],
-			[
-				"unicorn",
-				"unicorn"
-			],
-			[
-				"ghost",
-				"ghost",
-				"ghost"
-			],
-			[
-				"pegasus",
-				"pegasus",
-				"pegasus"
-			]
+			["angel", "angel"],
+			["lightelem", "lightelem", "lightelem"],
+			["roc", "roc", "roc"],
+			["unicorn", "unicorn"],
+			["ghost", "ghost", "ghost"],
+			["pegasus", "pegasus", "pegasus"]
 		]
 	}
 ]

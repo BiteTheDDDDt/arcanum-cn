@@ -1,10 +1,10 @@
 import Inventory, { SAVE_IDS } from "./inventory";
-import Group from "../composites/group";
+import Group from '@/composites/group';
 import Events, { DELETE_ITEM } from "../events";
 
 export default class SpellLoadouts extends Inventory {
 
-	constructor(vars=null) {
+	constructor(vars = null) {
 
 		super(vars);
 
@@ -25,25 +25,25 @@ export default class SpellLoadouts extends Inventory {
 	 *
 	 * @param {GameState} gs
 	 */
-	create( gs, copy=null, name=null ) {
+	create(gs, copy = null, name = null) {
 
 		let g = new Group();
 
 		g.id = gs.nextId('spelllist');
 		g.type = 'spelllist';
 		g.name = name || 'new spell list';
-        
-		if (copy === "init"){
+
+		if (copy === "init") {
 			console.warn("Cloning list from default");
 		}
 
-		if( copy ){
+		if (copy) {
 			g.items = gs.spelllist.items;
 		}
 
-		gs.addItem( g );
+		gs.addItem(g);
 
-		this.add( g );
+		this.add(g);
 
 		return g;
 
@@ -52,9 +52,9 @@ export default class SpellLoadouts extends Inventory {
 	removeAt(ind) {
 
 		let it = this.items[ind];
-		if ( it ) {
+		if (it) {
 
-			Events.emit( DELETE_ITEM, it );
+			Events.emit(DELETE_ITEM, it);
 			super.removeAt(ind);
 
 		}
@@ -70,7 +70,7 @@ export default class SpellLoadouts extends Inventory {
 		 */
 		let oldid = gs.currentSpellLoadout;
 
-		if (oldid == id){
+		if (oldid == id) {
 			return;
 		}
 		let oldloadout = gs.spellLoadouts.items.find(i => i.id === oldid);

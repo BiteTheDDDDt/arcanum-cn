@@ -1,116 +1,90 @@
 <script>
-import Game from '../../game';
-
-import ItemsBase from '../itemsBase.js';
-import InfoBlock from './info-block.vue';
-import { CheckTypes } from './infoBlock.js';
-import Attack from './attack.vue';
-import Dot from './dot-info.vue';
-import DamageMixin from './damageMixin.js';
-import HealingMixin from './healingMixin.js';
-
-import { precise, formatNumber } from '../../util/format';
-import Summon from './summon.vue';
+import Game from '@/game';
+import ItemsBase from '@/ui/itemsBase.js';
+import InfoBlock from '@/ui/items/info-block.vue';
+import { CheckTypes } from '@/ui/items/infoBlock.js';
+import Attack from '@/ui/items/attack.vue';
+import Dot from '@/ui/items/dot-info.vue';
+import DamageMixin from '@/ui/items/damageMixin.js';
+import HealingMixin from '@/ui/items/healingMixin.js';
+import { precise, formatNumber } from '@/util/format';
+import Summon from '@/ui/items/summon.vue';
 
 export default {
+	name: 'gdata',
 	props: ['item'],
-	name: "gdata",
 	mixins: [ItemsBase, DamageMixin(), HealingMixin()],
 	components: {
 		info: InfoBlock,
 		attack: Attack,
 		dot: Dot,
-		summon: Summon
+		summon: Summon,
 	},
 	methods: {
-		precise: precise,
-
-		formatNumber: formatNumber,
-
+		precise,
+		formatNumber,
 		/**
 		 * Convert tag strings into viewable format.
 		 * @param {string|string[]} t
 		 * @returns {string|string[]}
 		 */
+
 		tagNames(t) {
-
 			if (Array.isArray(t)) return t.map(this.tagNames, this);
-
 			if (typeof t === 'string' && t.substring(0, 2) === 't_') return t.slice(2).toTitleCase();
-
 			return t.toTitleCase();
-
 		},
 		formatTime(millis) {
 			if (millis < 0) millis = 0;
 			let hr = Math.floor(millis / 3600000);
 			let min = Math.floor(millis / 60000) % 60;
 			let sec = Math.floor(millis / 1000) % 60;
-
-			return `${(hr < 10 && "0") + hr}:${(min < 10 && "0") + min}:${(sec < 10 && "0") + sec}`;
-		}
-
+			return `${(hr < 10 ? '0' : '') + hr}:${(min < 10 ? '0' : '') + min}:${(sec < 10 ? '0' : '') + sec}`;
+		},
 	},
 	beforeCreate() {
 		this.player = Game.state.player;
 		this.CheckTypes = CheckTypes;
 	},
-	computed: {
 
+
+	computed: {
 		name() { return this.item.sname || this.item.name.toTitleCase(); },
-		damage() {
-			return this.getDamage(this.item);
-		},
-		healing() {
-			return this.getHealing(this.item);
-		},
+		damage() { return this.getDamage(this.item); },
+		healing() { return this.getHealing(this.item); },
 		sellPrice() { return Game.sellPrice(this.item); },
 
-		nextImprove() {
-			return this.nextAt > 0 ? this.nextAt : this.nextEvery;
-		},
+		nextImprove() { return this.nextAt > 0 ? this.nextAt : this.nextEvery; },
+
 
 		/**
 		 * Occurance of next 'every' improvement relative to cur value.
 		 */
+
 		nextEvery() {
-
 			let v = Math.floor(this.item.value);
-
 			var next = Number.MAX_VALUE;
-
-			var f;	// save every-divisor for pct computation.
-
+			var f;
 			for (let p in this.item.every) {
-
 				var dist = p - (v % p);
 				if (dist < next) {
 					next = dist;
 					f = p;
 				}
-
 			}
-
-			return (next !== Number.MAX_VALUE) ? ((f - dist) / f) : -1;
-
+			return next !== Number.MAX_VALUE ? (f - dist) / f : -1;
 		},
-
 		nextAt() {
-
 			let v = this.item.value;
-
 			// least upper bound.
 			var sup = Number.MAX_VALUE;
 			for (let p in this.item.at) {
 				p = Number(p);
 				if (p > v && p < sup) sup = p;
 			}
-
-			return (sup > v && sup !== Number.MAX_VALUE) ? sup : -1;
-
+			return sup > v && sup !== Number.MAX_VALUE ? sup : -1;
 		},
 		tags() {
-
 			let tags = this.item.tags;
 			if (typeof tags === 'string') tags = [tags];
 			let names = [];
@@ -124,9 +98,7 @@ export default {
 					names.push(this.tagNames(tag));
 				}
 			}
-
 			return names.join(', ');
-
 		},
 		cdtags() {
 			if (!this.item.tags) return null;
@@ -143,11 +115,8 @@ export default {
 					names.push(this.tagNames(tag));
 				}
 			}
-
 			return names.join(', ');
-
 		},
-
 		cdRemain() {
 			if (this.item.template) {
 				let parentid = this.item.template;
@@ -159,13 +128,10 @@ export default {
 			} else {
 				return this.item.timer;
 			}
-		}
-
-	}
-
-}
+		},
+	},
+};
 </script>
-
 
 <template>
 	<div class="item-info">
@@ -174,7 +140,8 @@ export default {
 			<span class="item-name">{{ name.toString().toTitleCase() }}</span>
 
 			<span v-if="item.type === 'resource' || item.type === 'stat'">
-				{{ formatNumber(Math.floor(item.current)) + (formatNumber(item.max) ? (' / ' + formatNumber(item.max.value))
+				{{ formatNumber(Math.floor(item.current)) + (formatNumber(item.max) ? (' / ' +
+					formatNumber(item.max.value))
 					: '') }}
 			</span>
 			<span v-else-if="item.type === 'furniture'">
@@ -198,7 +165,8 @@ export default {
 			<span v-if="item.sym">{{ item.sym }}</span>
 		</span>
 
-		<div class="tight note-text" v-if="item.tags || item.hands"><span v-if="item.hands > 1">Two-Handed </span>{{ tags }}
+		<div class="tight note-text" v-if="item.tags || item.hands"><span v-if="item.hands > 1">Two-Handed </span>{{
+			tags }}
 		</div>
 
 		<span class="flex-right"
@@ -206,7 +174,7 @@ export default {
 				precise(item.rate.value) }}/s</span>
 		<span class="flex-right"
 			v-if="item.rate && item.rate.value != 0 && item.length > 0 && (item.type == 'task' || item.type == 'encounter')">Completion
-			rate: {{ precise(item.rate.value) * 100 }}%</span>
+			rate: {{ precise(item.rate.value * 100) }}%</span>
 		<div>
 			<span class="separate">
 				<span v-if="item.showLevel">Level: {{ item.showLevel() }}</span>
@@ -225,13 +193,13 @@ export default {
 				Next Improvement: {{ Math.round(100 * nextEvery) + '%' }}
 			</span>
 
-			<div v-if="item.cd || cdRemain > 0" class="note-text">Cooldown: {{ cdRemain > 0 ? cdRemain.toFixed(2) + ' Left'
-				: item.cd + 's' }}</div>
-			<div v-if="cdtags" class="note-text">Shares cooldown with: {{cdtags}}</div>
+			<div v-if="item.cd || cdRemain > 0" class="note-text">Cooldown: {{ cdRemain > 0 ? cdRemain.toFixed(2) +
+				'Left' : item.cd + 's' }}</div>
+			<div v-if="cdtags" class="note-text">Shares cooldown with: {{ cdtags }}</div>
 			<div v-if="+item.dist && item.type !== 'player' && item.type !== 'npc'">Distance: {{ item.dist }}</div>
 			<div v-if="+item.armor">Armor: {{ item.armor }}</div>
 			<div v-if="+item.dmg && (!item.attack || item.attack.dmg !== item.dmg)">Base damage: {{ damage }}</div>
-		<div v-if="+item.heal && (!item.attack || item.attack.heal !== item.heal)">Healing: {{ healing }}</div>
+			<div v-if="+item.heal && (!item.attack || item.attack.heal !== item.heal)">Healing: {{ healing }}</div>
 
 			<div class="item-desc" v-if="item.desc">{{ item.desc }}</div>
 			<div class="item-extdesc" v-if="item.extdesc">{{ item.extdesc }}</div>
@@ -242,16 +210,13 @@ export default {
 		</span>
 		<!-- End of upper section of tooltip -->
 
-		<info v-if="item.need"
-			title="Need" :require="true"
-			:info="item.need"
-			:text="item.needtext"
-			:checkType="CheckTypes.NEED"
-		/>
+		<info v-if="item.need" title="Need" :require="true" :info="item.need" :text="item.needtext"
+			:checkType="CheckTypes.NEED" />
 		<info v-if="item.buy && !item.owned" :info="item.buy" :checkType="CheckTypes.COST" title="Purchase Cost" />
 		<info v-if="item.cost" :info="item.cost" :checkType="CheckTypes.COST" title="Cost" />
-		<info v-if="item.sell || item.instanced || item.type === 'Furniture' && item.type !== 'player' && item.type !== 'npc'" :info="sellPrice" :checkType="CheckTypes.FULL"
-			title="Sell" />
+		<info
+			v-if="item.sell || item.instanced || item.type === 'Furniture' && item.type !== 'player' && item.type !== 'npc'"
+			:info="sellPrice" :checkType="CheckTypes.FULL" title="Sell" />
 		<info v-if="item.run" :info="item.run" :checkType="CheckTypes.COST" title="Progress Cost" rate="true" />
 
 		<div v-if="item.attack && item.type !== 'armor'">
@@ -259,39 +224,43 @@ export default {
 			<attack :item="item" class="info-subsubsect" />
 		</div>
 		<div v-if="item.onDeath && item.type !== 'armor'">
-			<div class="info-sect">When killed</div>
-			<attack :item="item" ondeathflag="true" class="info-subsubsect" />
+			<div v-if="item.onDeath.name">
+				<div class="info-sect">When killed</div>
+				<attack :item="item" ondeathflag="true" class="info-subsubsect" />
+			</div>
 		</div>
 		<div v-if="item.onExpire && item.type !== 'armor'">
-			<div class="info-sect">On expiration</div>
-			<attack :item="item" onexpireflag="true" class="info-subsubsect" />
+			<div v-if="item.onExpire.name">
+				<div class="info-sect">On expiration</div>
+				<attack :item="item" onexpireflag="true" class="info-subsubsect" />
+			</div>
+		</div>
+		<div v-if="item.onSummon && item.type !== 'armor'">
+			<div v-if="item.onSummon.name">
+				<div class="info-sect">When summoned in combat</div>
+				<attack :item="item" onsummonflag="true" class="info-subsubsect" />
+			</div>
 		</div>
 
 		<div v-if="item.effect">
 			<div class="info-sect">Effects:</div>
-			<info :info="item.effect"
-				:text="item.effecttext"
-				:rate="item.perpetual > 0 || item.length > 0"
-				:checkType="CheckTypes.FULL"
-			/>
+			<info :info="item.effect" :text="item.effecttext" :rate="item.perpetual > 0 || item.length > 0"
+				:checkType="CheckTypes.FULL" />
 		</div>
 
 		<div v-if="(item.mod && Object.keys(item.mod).length) || (item.alter && Object.keys(item.alter).length)">
 			<div class="info-sect">Modifications:</div>
-			<info v-if="item.mod && Object.keys(item.mod).length"
-				:info="item.mod"
-				:text="item.modtext"
-			/>
-			<info v-if="item.alter && Object.values(item.alter).length"
-				:info="item.alter"
-				:text="item.altertext"
-			/>
+			<info v-if="item.mod && Object.keys(item.mod).length" :info="item.mod" :text="item.modtext" />
+			<info v-if="item.alter && Object.values(item.alter).length" :info="item.alter" :text="item.altertext" />
 		</div>
 		<div v-if="item.convert">
-			<div v-if = "!item.convert.singular" class="info-sect">Conversion per {{ name.toString().toTitleCase() }}</div>
-			<div v-if = "item.convert.singular" class="info-sect">Constant conversion for {{ name.toString().toTitleCase() }}</div>
+			<div v-if="!item.convert.singular" class="info-sect">Conversion per {{ name.toString().toTitleCase() }}
+			</div>
+			<div v-if="item.convert.singular" class="info-sect">Constant conversion for {{ name.toString().toTitleCase()
+				}}</div>
 			<div class="info-sect">Input:</div>
-			<info :info="item.convert.input" :rate="item.perpetual > 0 || item.length > 0" :checkType="CheckTypes.COST" />
+			<info :info="item.convert.input" :rate="item.perpetual > 0 || item.length > 0"
+				:checkType="CheckTypes.COST" />
 			<div class="info-sect">Output:</div>
 			<info v-if="item.convert.output.effect && Object.values(item.convert.output.effect).length"
 				:info="item.convert.output.effect" :rate="item.perpetual > 0 || item.length > 0"

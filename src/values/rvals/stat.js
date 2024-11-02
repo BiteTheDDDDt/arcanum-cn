@@ -1,8 +1,8 @@
-import { TYP_MOD, TYP_STAT, TYP_RVAL } from '../consts';
-import RValue from './rvalue';
-import Game from '../../game';
+import { TYP_MOD, TYP_STAT, TYP_RVAL } from '@/values/consts';
+import RValue from '@/values/rvals/rvalue';
+import Game from '@/game';
 
-import { precise } from '../../util/format';
+import { precise } from '@/util/format';
 
 /**
  * Stat with a list of modifiers.
@@ -12,17 +12,17 @@ export default class Stat extends RValue {
 		return s instanceof Stat ? s.base : s;
 	}
 
-	toJSON(){
+	toJSON() {
 		return this._value;
 	}
 
 	/**
 	 * @returns {string}
 	 */
-	toString(){ return precise( this.value ); }
+	toString() { return precise(this.value); }
 
 	/** @todo */
-	set value(v){
+	set value(v) {
 		this._value = v;
 	}
 	/**
@@ -43,12 +43,12 @@ export default class Stat extends RValue {
 	valueOf() {
 
 		let bTot = this._value + this._mBase;
+		let mult = Math.max(1 + this._mPct, 0);
 
-		if ( this._pos === true ) {
-
-			return Math.max( bTot*(1 + this._mPct),0);
-
-		} else return bTot*(1 + this._mPct);
+		if (this._pos === true) 
+			return Math.max(bTot * mult, 0);
+		else 
+			return bTot * mult;
 
 	}
 
@@ -62,9 +62,9 @@ export default class Stat extends RValue {
 	 * @property {number} bonus - total bonus to base, computed from mods.
 	 * @protected
 	 */
-	get mBase(){return this._mBase; }
+	get mBase() { return this._mBase; }
 
-	set mBase(v){this._mBase = v; }
+	set mBase(v) { this._mBase = v; }
 
 	/**
 	 * @property {number} mPct - mod pct bonuses, as decimal.
@@ -77,7 +77,7 @@ export default class Stat extends RValue {
 	 * @property {number} pctTot - total percent added by mods.
 	 * Same as mPct for Stat, but different in Mod
 	 */
-	get pctTot(){
+	get pctTot() {
 		return this._mPct;
 	}
 
@@ -91,7 +91,7 @@ export default class Stat extends RValue {
 	 * @property {object} - mods being applied by object
 	 */
 	get mod() { return this._mod; }
-	set mod(v) { this._mod = v;	}
+	set mod(v) { this._mod = v; }
 
 	/**
 	 * @property {.<string,Mod>} mods - mods applied to object.
@@ -100,10 +100,10 @@ export default class Stat extends RValue {
 	set mods(v) {
 
 		const mods = {};
-		for( const p in v ) {
+		for (const p in v) {
 
 			const mod = v[p];
-			mods[p] = (mod instanceof Mod ) ? mod : new Mod( v[p] );
+			mods[p] = (mod instanceof Mod) ? mod : new Mod(v[p]);
 		}
 		this._mods = mods;
 		this.recalc();
@@ -112,10 +112,10 @@ export default class Stat extends RValue {
 	/**
 	 * @property {boolean} pos - restrict stat to positive values after mods.
 	 */
-	get pos(){return this._pos; }
-	set pos(v) { this._pos = v;}
+	get pos() { return this._pos; }
+	set pos(v) { this._pos = v; }
 
-	get type(){ return TYP_STAT }
+	get type() { return TYP_STAT }
 
 
 	/**
@@ -123,33 +123,33 @@ export default class Stat extends RValue {
 	 * @param {Object|number} vars
 	 * @param {string} path
 	 */
-	constructor( vars=null, path, pos ) {
+	constructor(vars = null, path, pos) {
 
-		super( 0, path );
+		super(0, path);
 
-		if ( vars ) {
+		if (vars) {
 
-			if ( typeof vars === 'object') {
+			if (typeof vars === 'object') {
 
-				if ( vars.type === TYP_RVAL ) {
-					this.base = vars.value;
+				if (vars.type === TYP_RVAL) {
+					this.base = vars.value ?? 0;
 				} else {
 					this.base = vars.base;
 				}
 
-			} else if ( !isNaN(vars) ) this.base = Number(vars);
+			} else if (!isNaN(vars)) this.base = Number(vars);
 
 		}
 
-		if ( pos ) this.pos = pos;
+		if (pos) this.pos = pos;
 
-		if ( !this.base ) this.base = 0;
+		if (!this.base) this.base = 0;
 
 		this._mBase = this._mPct = 0;
 
-		if ( !this.mod ) this.mod = {};
+		if (!this.mod) this.mod = {};
 
-		if ( !this.mods ) this.mods = {};
+		if (!this.mods) this.mods = {};
 
 	}
 
@@ -165,7 +165,7 @@ export default class Stat extends RValue {
 	 * Add amount to base stat.
 	 * @param {number} amt
 	 */
-	add( amt ) {
+	add(amt) {
 		super.value += amt;
 	}
 
@@ -175,33 +175,33 @@ export default class Stat extends RValue {
 	 * @param {Mod|number|Percent|Object} val
 	 * @param {number} [amt=1]
 	 */
-	apply( val, amt=1 ) {
+	apply(val, amt = 1) {
 
-		if ( (val.type === TYP_MOD) && val.id ) return this.addMod( val, amt );
-		
-		if( val.type === TYP_MOD ) console.warn('MOD WITHOUT ID: ' + val );
+		if ((val.type === TYP_MOD) && val.id) return this.addMod(val, amt);
 
-		if ( !isNaN(val) ) val = +val;
+		if (val.type === TYP_MOD) console.warn('MOD WITHOUT ID: ' + val);
 
-		if ( typeof val ==='number' ) {
+		if (!isNaN(val)) val = +val;
 
-			this.base += amt*val;
+		if (typeof val === 'number') {
+
+			this.base += amt * val;
 			//deprec( this.id + ' mod: ' + mod );
 			// console.warn( this.id + ' adding: ' + val +'  DEPRECATED NEW base: ' + this.vaTYP_MOD, lue );
 
 			return;
 
-		} else if ( typeof val === 'object') {
+		} else if (typeof val === 'object') {
 
 			/// when an object has no id, must apply to base.
-			this.base += amt*( val.bonus || val.value || 0 );
+			this.base += amt * (val.bonus || val.value || 0);
 
-			console.warn( this.id + ' DEPRECATED APPLY: ' + val + '  type: ' + val.constructor.name );
+			console.warn(this.id + ' DEPRECATED APPLY: ' + val + '  type: ' + val.constructor.name);
 
 			//console.dir( val );
 
 		} else {
-			console.dir( val, 'unknown mod: ' + typeof val );
+			console.dir(val, 'unknown mod: ' + typeof val);
 		}
 
 
@@ -212,12 +212,12 @@ export default class Stat extends RValue {
 	 * Used for instances.
 	 * @param {Stat} mod
 	 */
-	perm( mod ) {
+	perm(mod) {
 
-		console.warn( this.id + ' PERM MOD: ' + mod )
-		if ( mod.countBonus ){
+		console.warn(this.id + ' PERM MOD: ' + mod)
+		if (mod.countBonus) {
 			this.base += mod.countBonus;
-		} else if ( typeof mod === 'number') {
+		} else if (typeof mod === 'number') {
 			this.base += mod;
 		} else {
 
@@ -230,11 +230,11 @@ export default class Stat extends RValue {
 	 * @param {Mod} mod
 	 * @param {number} amt
 	 */
-	addMod( mod, amt=1 ) {
+	addMod(mod, amt = 1) {
 
-		if ( !mod.id ) {
-			console.dir( mod, 'NO MOD ID' );
-			this.apply(mod, amt );
+		if (!mod.id) {
+			console.dir(mod, 'NO MOD ID');
+			this.apply(mod, amt);
 			return;
 		}
 
@@ -255,12 +255,12 @@ export default class Stat extends RValue {
 	 *
 	 * @param {*} mod
 	 */
-	removeMods( mod ){
+	removeMods(mod) {
 
 		console.log('REMOVE MOD: ' + mod.id);
 
 		let cur = this.mods[mod.id];
-		if ( cur === undefined) return;
+		if (cur === undefined) return;
 
 		this.mods[mod.id] = undefined;
 
@@ -275,8 +275,8 @@ export default class Stat extends RValue {
 	 * @param {number} delPct - delta percent.
 	 * @returns {number} - new stat value.
 	 */
-	delValue( delBonus=0, delPct=0 ) {
-		return ( this._value + this._mBase + delBonus )*( 1 + this._mPct + delPct );
+	delValue(delBonus = 0, delPct = 0) {
+		return (this._value + this._mBase + delBonus) * (1 + this._mPct + delPct);
 	}
 
 	/**
@@ -288,8 +288,8 @@ export default class Stat extends RValue {
 
 		let current = +this, result = current !== this.prev;
 
-		if ( result && this.mod && Object.values(this.mod).length ) {
-			Game.applyMods( this.mod, current );
+		if (result && this.mod && Object.values(this.mod).length) {
+			Game.applyMods(this.mod, current);
 		}
 
 		this.prev = current;
@@ -302,14 +302,14 @@ export default class Stat extends RValue {
 	 * Recalculate the total bonus and percent applied to stat.
 	 * @protected
 	 */
-	recalc(){
+	recalc() {
 
 		let bonus = 0, pct = 0;
 
-		for( const p in this._mods ) {
+		for (const p in this._mods) {
 
 			const mod = this._mods[p];
-			if (mod === undefined ) continue;
+			if (mod === undefined) continue;
 
 			pct += mod.countPct || 0;
 			bonus += mod.countBonus || 0;
@@ -325,7 +325,7 @@ export default class Stat extends RValue {
 
 	canPay(amt) {
 		let temp = (this.base - amt) + this._mBase;
-		return !this.pos || temp*(1 + this._mPct) >= 0;
+		return !this.pos || temp * (1 + this._mPct) >= 0;
 	}
 
 }

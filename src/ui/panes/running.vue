@@ -1,7 +1,7 @@
 <script>
-import Game from '../../game.js';
-import { HALT_TASK, STOP_ALL } from '../../events';
-import { PURSUITS, TASK } from 'values/consts';
+import Game from '@/game.js';
+import { HALT_TASK, STOP_ALL } from '@/events';
+import { PURSUITS, TASK } from '@/values/consts';
 
 export default {
 
@@ -20,9 +20,18 @@ export default {
 			return this.restAction.running;
 		},
 
-		pursuits() { return Game.state.getData(PURSUITS) }
+		pursuits() { return Game.state.getData(PURSUITS) },
+
+
 
 	},
+
+	data() {
+		return {
+			highlightAutoFocus: false
+		}
+	},
+
 	methods: {
 
 		taskStr(a) {
@@ -37,17 +46,23 @@ export default {
 		halt(a) {
 			this.emit(HALT_TASK, a);
 		},
-		run() {
-			if (this.autofocus) {
-				this.emit('endrepeater', this.focus)
-				document.getElementById('auto').style = ""
-				this.autofocus = false
-			} else {
-				this.emit('repeater', this.focus)
-				document.getElementById('auto').style = "background-color:green;"
-				this.autofocus = true
+		autofocusSwitch(focusMouseDown) {
+			if (focusMouseDown) {
+				Game.activeRepeaters.set(this.focus, 0);
+				this.autofocus = true;
+				this.highlightAutoFocus = false;
 			}
+			else if (this.autofocus) {
+				Game.activeRepeaters.delete(this.focus);
+				this.highlightAutoFocus = false;
+				this.autofocus = false;
+			}
+			else {
+				Game.activeRepeaters.set(this.focus, 0);
+				this.autofocus = true;
+				this.highlightAutoFocus = true;
 
+			}
 		},
 
 	}
@@ -57,42 +72,54 @@ export default {
 
 <template>
 
-<div>
-	<div class="separate">
+	<div>
+		<div class="separate-run">
 
-		<button class="btn-sm" @click="emit(STOP_ALL)">Stop All</button>
+			<button type="button" class="btn-sm" @click="emit(STOP_ALL)">Stop All</button>
 
-		<button class="btn-sm" @click="emit(TASK, restAction)" :disabled="resting"
-		@mouseenter.capture.stop="itemOver($event, restAction)">{{ restAction.name.toTitleCase() }}</button>
-		<div v-if="!focus.locked">
-			<button class="btn-sm" @mouseenter.capture.stop="itemOver($event, focus)"
-			:disabled="!focus.canUse" @click="emit(TASK, focus)"
-			@mousedown="emit('repeater', focus)" @mouseup="emit('endrepeater', focus)">Focus</button>
-		<button class="btn-sm" @click="run()" id="auto" :disabled="!focus.canUse">Auto Focus</button>
-		</div>
-		<button class="btnMenu" @click="emit('showActivities')"></button>
-	</div>
-
-	<div class='running'>
-
-		<div class="relative" v-for="v of runner.actives" :key="v.id"
-			@mouseenter.capture.stop="itemOver($event, v)">
-			<button class="stop" @click="halt(v)">&nbsp;X&nbsp;</button>
-			
-			<span >{{ taskStr(v) }}</span>
-			<span v-if="v.type === 'skill'"> {{ levelStr(v) }}</span>
-
-
-				<button v v-if="runner.canPursuit(v)" :class="['pursuit', pursuits.includes(runner.baseTask(v)) ? 'current' : '']"
-				@click="runner.togglePursuit(v)"> F </button>
+			<button type="button" class="btn-sm" @click="emit(TASK, restAction)" :disabled="resting"
+				@mouseenter.capture.stop="itemOver($event, restAction)">{{ restAction.name.toTitleCase() }}</button>
+			<button type="button" class="btn-sm" v-if="!focus.locked" @mouseenter.capture.stop="itemOver($event, focus)"
+				:disabled="!focus.canUse" @mousedown=autofocusSwitch(true) @mouseup=autofocusSwitch(false)
+				@click="emit(TASK, focus)">Focus</button>
+			<button type="button" class="btn-sm" v-if="!focus.locked" @click="autofocusSwitch(false)" id="auto"
+				:disabled="!focus.canUse" :class="{ highlighted: highlightAutoFocus }">Auto Focus</button>
+			<button type="button" class="btnMenu" @click="emit('showActivities')"></button>
 		</div>
 
+		<div class='running'>
+
+			<div class="relative" v-for="v of runner.actives" :key="v.id"
+				@mouseenter.capture.stop="itemOver($event, v)">
+				<button type="button" class="stop" @click="halt(v)">&nbsp;X&nbsp;</button>
+
+				<span>{{ taskStr(v) }}</span>
+				<span v-if="v.type === 'skill'"> {{ levelStr(v) }}</span>
+
+
+				<button type="button" v v-if="runner.canPursuit(v)"
+					:class="['pursuit', pursuits.includes(runner.baseTask(v)) ? 'current' : '']"
+					@click="runner.togglePursuit(v)"> F </button>
+			</div>
+
+			<div class="relative" v-for="n in Math.max(Math.floor(runner.max - runner.actives.length), 0)">
+				<button type="button" class="stop" disabled>&nbsp;X&nbsp;</button>
+				<span>Idle</span>
+			</div>
+
+		</div>
 	</div>
-</div>
 
 </template>
 
 <style scoped>
+
+div.separate-run {
+	display:flex;
+	flex-direction: row;
+	justify-content:space-between;
+}
+
 div.running {
 	display: flex;
 	flex-flow: column nowrap;
@@ -100,5 +127,9 @@ div.running {
 
 div.running .relative {
 	position: relative;
+}
+
+.highlighted {
+	background-color: green;
 }
 </style>

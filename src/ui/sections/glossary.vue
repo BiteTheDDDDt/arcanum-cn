@@ -1,10 +1,11 @@
 <script>
-import Game from '../../game';
-import FilterBox from '../components/filterbox.vue';
-import { USE } from '../../events';
+import Game from '@/game';
+import FilterBox from '@/ui/components/filterbox.vue';
+import { USE } from '@/events';
 import Settings from 'modules/settings';
-import GlossaryEntries from '../panes/glossaryentries.vue';
-import profile from '../../modules/profile';
+import GlossaryEntries from '@/ui/panes/glossaryentries.vue';
+import profile from '@/modules/profile';
+import { computed } from 'vue';
 
 export default {
 
@@ -21,6 +22,16 @@ export default {
 			selected: null
 		}
 	},
+
+	provide() {
+		return {
+			// explicitly provide a computed property
+			selected: computed({
+				get: () => this.selected,
+				set: (v) => this.selected = v
+			})
+		}
+	},
 	created() {
 		let curentry = Settings.getSubVars('entryview');
 		if (curentry) {
@@ -34,12 +45,9 @@ export default {
 		filterbox: FilterBox,
 		entries: GlossaryEntries
 	},
+
+
 	methods: {
-		setSelected(it) {
-			this.selected = it;
-			Settings.set('entryview',it.id);
-			this.$children.find(v => v.$el.className == "res-list").resetSelected(it)
-		},
 		searchIt(it, t) {
 
 			if (it.name.includes(t)) return true;
@@ -97,7 +105,7 @@ export default {
 	<div class="main">
 		<div class="menu">
 			<filterbox v-model="filtered" :prop="searchIt" :items="baseItems" />
-			<entries @selected="setSelected" :items="postfilter" />
+			<entries :items="postfilter" />
 		</div>
 		<div class="glossary" v-if="selected">
 			<div class='boldlarge'>{{ selected.name.toTitleCase() || '' }}</div>

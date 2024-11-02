@@ -1,12 +1,12 @@
 import { ParseMods } from "modules/parsing";
-import { ParseDmg } from "../values/combatVars";
-import { assign } from '../util/objecty';
-import { ParseFlags, NO_SPELLS, NO_ATTACK, NO_DEFEND } from "./states";
-import { TYP_DOT } from "../values/consts";
-import Game from "../game";
-import { getAllPropertyDescriptors } from "../util/util";
-import Attack from "./attack";
-import { MakeEffectFunc, ParseEffects } from "../modules/parsing";
+import { ParseDmg } from '@/values/combatVars';
+import { assign } from '@/util/objecty';
+import { ParseFlags, NO_SPELLS, NO_ATTACK, NO_DEFEND } from '@/chars/states';
+import { TYP_DOT } from '@/values/consts';
+import Game from '@/game';
+import { getAllPropertyDescriptors } from '@/util/util';
+import Attack from '@/chars/attack';
+import { MakeEffectFunc, ParseEffects } from '@/modules/parsing';
 
 
 export default class Dot {

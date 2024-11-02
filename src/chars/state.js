@@ -1,7 +1,7 @@
-import Base, {mergeClass} from '../items/base';
-import { assign } from '../util/objecty';
-import { TYP_STATE } from '../values/consts';
-import { ParseFlags } from './states';
+import Base, { mergeClass } from '../items/base';
+import { assign } from '@/util/objecty';
+import { TYP_STATE } from '@/values/consts';
+import { ParseFlags } from '@/chars/states';
 
 export default class State {
 	toJSON() {
@@ -9,16 +9,16 @@ export default class State {
 	}
 
 	get type() { return TYP_STATE }
-	set type(v){}
+	set type(v) { }
 
 	get id() { return this._id; }
-	set id(v) { this._id =v;}
+	set id(v) { this._id = v; }
 
 	get name() { return this._name || this._id; }
-	set name(v) { this._name = v;}
+	set name(v) { this._name = v; }
 
 	get value() { return this._value; }
-	set value(v) { this._value=v;}
+	set value(v) { this._value = v; }
 
 	get mod() { return this._mod; }
 	set mod(v) { this._mod = v; }
@@ -28,13 +28,13 @@ export default class State {
 		this._effect = v;
 	}
 
-		/**
-	 * @property {number} flags
-	 */
-	get flags(){return this._flags;}
+	/**
+ * @property {number} flags
+ */
+	get flags() { return this._flags; }
 	set flags(v) {
 
-		if ( typeof v !== 'number' ) this._flags = ParseFlags(v);
+		if (typeof v !== 'number') this._flags = ParseFlags(v);
 		else this._flags = v;
 
 	}
@@ -42,12 +42,12 @@ export default class State {
 	/**
 	 * @property {boolean} stack
 	 */
-	get stack() { return this._stack;}
+	get stack() { return this._stack; }
 	set stack(v) { this._stack = v; }
 
-	constructor( vars){
+	constructor(vars) {
 
-		if ( vars ) assign(this, vars);
+		if (vars) assign(this, vars);
 
 	}
 
@@ -56,9 +56,9 @@ export default class State {
 	 * @param {Char} char
 	 * @param {Game} g
 	 */
-	applyTo( char, g ) {
+	applyTo(char, g) {
 
-		if ( this.mod ) char.applyMods( this.mod, g );
+		if (this.mod) char.applyMods(this.mod, g);
 
 	}
 
@@ -67,9 +67,9 @@ export default class State {
 	 * @param {Char} char
 	 * @param {Game} g
 	 */
-	remove( char, g ) {
+	remove(char, g) {
 	}
 
 }
 
-mergeClass( State, Base );
+mergeClass(State, Base);

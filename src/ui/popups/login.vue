@@ -1,18 +1,21 @@
 <script>
 
 export default {
+    emits: ["close", "close"],
+    props:[],
 
-	props:[],
-	data(){
+    data(){
 		return {
 
 		}
 	},
-	beforeDestroy(){
+
+    beforeUnmount(){
 		if ( this.ui ) this.ui.delete();
 		this.removeListener( 'login', this.emitClose );
 	},
-	mounted(){
+
+    mounted(){
 
 		this.listen('login', this.emitClose, this );
 
@@ -53,11 +56,11 @@ export default {
 		this.ui.start('#firebaseui-auth-container', uiConfig);
 
 	},
-	methods:{
+
+    methods:{
 		emitClose(){this.$emit('close')}
 	}
-
-}
+};
 </script>
 
 <template>
@@ -73,3 +76,4 @@ export default {
 }
 
 </style>
+

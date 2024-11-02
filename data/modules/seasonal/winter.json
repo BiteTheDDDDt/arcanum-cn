@@ -56,7 +56,7 @@
 				"max": 20,
 				"group": "seasonal",
 				"mod": {
-					"icelore.rate": 5,
+					"icelore.rate": 0.05,
 					"livingsnow.rate": -0.0001,
 					"water.rate": 0.01
 				},
@@ -115,26 +115,19 @@
 				"tags": "t_rest",
 				"slot": "rest",
 				"perpetual": true,
-				"fill": [
-					"stamina",
-					"prismatic",
-					"hp",
-					"stress",
-					"frost"
-				],
+				"fill": ["stamina", "prismatic", "hp", "stress", "frost"],
 				"effect": {
-					"prismatic": {
-						"skipLocked": true,
-						"value": 0.5
-					},
+					"prismatic": { "value": 0.5, "skipLocked": true },
 					"fire": 0.5,
 					"stamina": 0.5,
+					"vigor": 0.05,
 					"hp": 0.75,
 					"frost": -10,
 					"stress": -0.5
-				}
+				},
+				"group": "winter ❄️"
 			},
-			{
+			{	
 				"id": "makesnowman",
 				"name": "build snomunculus",
 				"desc": "Build a homunculus from snow",
@@ -153,7 +146,8 @@
 				},
 				"result": {
 					"snowman": 1
-				}
+				},
+				"group": "winter ❄️"
 			},
 			{
 				"id": "meltsnowman",
@@ -165,16 +159,13 @@
 					"snowman": 1,
 					"fire": 5
 				},
-				"fill": [
-					"watergem",
-					"water",
-					"frost"
-				],
+				"fill": ["watergem", "water", "frost"],
 				"result": {
 					"watergem": 2,
 					"water": 10,
 					"frost": -10
-				}
+				},
+				"group": "winter ❄️"
 			},
 			{
 				"id": "icystudy",
@@ -194,7 +185,8 @@
 				"result": {
 					"icelore.max": 2,
 					"ice.rate": 0.1
-				}
+				},
+				"group": "winter ❄️"
 			}
 		],
 		"upgrades": [
@@ -206,7 +198,8 @@
 				"mod": {
 					"crafting.max": 1
 				},
-				"lock": "enc_w_faz_auditlog"
+				"lock": "enc_w_faz_auditlog",
+				"group": "winter ❄️"
 			},
 			{
 				"id": "w_fazbit2",
@@ -216,7 +209,8 @@
 				"mod": {
 					"anatomy.max": 1
 				},
-				"lock": "enc_w_faz_tinyskeletons"
+				"lock": "enc_w_faz_tinyskeletons",
+				"group": "winter ❄️"
 			},
 			{
 				"id": "w_fazbit3",
@@ -224,13 +218,12 @@
 				"desc": "You have found the reason behind the distorted laughter - the crystals that held the recordings have heavily deteriorated. You can replace them with your own.",
 				"require": "g.w_fazbitknowledge>=1500&&g.w_fazbit2>0",
 				"mod": {
-					"crafting.rate": "50%",
-					"spiritlore.max": 1
+					"crafting.rate": 0.2,
+					"spiritlore.max": 1,
+					"spiritlore.rate": 0.1
 				},
-				"lock": [
-					"enc_w_faz_creepylaugh",
-					"enc_w_faz_boominglaugh"
-				]
+				"lock": ["enc_w_faz_creepylaugh", "enc_w_faz_boominglaugh"],
+				"group": "winter ❄️"
 			},
 			{
 				"id": "w_fazbit4",
@@ -241,9 +234,8 @@
 					"alchemy.max": 1,
 					"potions.max": 1
 				},
-				"lock": [
-					"enc_w_faz_blobs"
-				]
+				"lock": ["enc_w_faz_blobs"],
+				"group": "winter ❄️"
 			},
 			{
 				"id": "w_fazbit5",
@@ -253,9 +245,8 @@
 				"mod": {
 					"concentrate.max": 1
 				},
-				"lock": [
-					"enc_w_faz_stockpile"
-				]
+				"lock": ["enc_w_faz_stockpile"],
+				"group": "winter ❄️"
 			},
 			{
 				"id": "w_fazbit6",
@@ -268,9 +259,8 @@
 					"puppetry.max": 1,
 					"machinacreation.max": 1
 				},
-				"lock": [
-					"enc_w_faz_prototype"
-				]
+				"lock": ["enc_w_faz_prototype"],
+				"group": "winter ❄️"
 			},
 			{
 				"id": "w_fazbit7",
@@ -280,10 +270,8 @@
 				"mod": {
 					"runelore.max": 1
 				},
-				"lock": [
-					"enc_w_faz_nothingthere",
-					"enc_w_faz_somethingthere"
-				]
+				"lock": ["enc_w_faz_nothingthere", "enc_w_faz_somethingthere"],
+				"group": "winter ❄️"
 			},
 			{
 				"id": "w_fazbit8",
@@ -291,13 +279,12 @@
 				"desc": "A letter from a few centuries ago, requesting the aid of Fazbit in producing a large amount of items for an unknown festivity. The designs are supposed to be enclosed, but are clearly missing.",
 				"require": "g.w_fazbitknowledge>=40000&&g.w_fazbit7>0",
 				"mod": {
-					"history.rate": "100%",
+					"history.rate": 0.3,
 					"history.max": 1,
 					"tomes.rate": 0.001
 				},
-				"lock": [
-					"enc_w_faz_paint"
-				]
+				"lock": ["enc_w_faz_paint"],
+				"group": "winter ❄️"
 			},
 			{
 				"id": "w_fazbit9",
@@ -305,15 +292,14 @@
 				"desc": "A large bin full of paper dust. With your restoration technique, you manage to recover what appears to be missives and drawings crudely detailing the golems produced by the workshop.",
 				"require": "g.w_fazbitknowledge>=60000&&g.w_fazbit8>0",
 				"mod": {
-					"lore.rate": "100%",
+					"lore.rate": 0.2,
 					"history.max": 1,
 					"tomes.max": 25,
 					"codices.max": 25,
 					"scrolls.max": 25
 				},
-				"lock": [
-					"enc_w_faz_scrapper"
-				]
+				"lock": ["enc_w_faz_scrapper"],
+				"group": "winter ❄️"
 			},
 			{
 				"id": "w_fazbit10",
@@ -327,7 +313,8 @@
 				},
 				"result": {
 					"title": "Fazbit's Legacy"
-				}
+				},
+				"group": "winter ❄️"
 			},
 			{
 				"id": "w_multitask",
@@ -338,13 +325,11 @@
 				},
 				"require": "g.evt_snowcopy>=1",
 				"warn": true,
-				"disable": [
-					"w_fame",
-					"w_scholar"
-				],
+				"disable": ["w_fame", "w_scholar"],
 				"mod": {
 					"runner.max": 1
-				}
+				},
+				"group": "winter ❄️"
 			},
 			{
 				"id": "w_fame",
@@ -355,15 +340,13 @@
 				},
 				"warn": true,
 				"require": "g.evt_snowcopy>=1",
-				"disable": [
-					"w_multitask",
-					"w_scholar"
-				],
+				"disable": ["w_multitask", "w_scholar"],
 				"mod": {
 					"gold.rate": 0.5,
 					"stamina.rate": -0.25,
 					"runner.max": 1
-				}
+				},
+				"group": "winter ❄️"
 			},
 			{
 				"id": "w_scholar",
@@ -374,16 +357,14 @@
 				},
 				"warn": true,
 				"require": "g.evt_snowcopy>=1",
-				"disable": [
-					"w_fame",
-					"w_multitask"
-				],
+				"disable": ["w_fame", "w_multitask"],
 				"mod": {
-					"skill.rate": "50%",
+					"skill.rate": 0.3,
 					"focus.result.runner.skillprogress": "50%",
 					"runner.max": 1,
 					"stamina.rate": -0.25
-				}
+				},
+				"group": "winter ❄️"
 			},
 			{
 				"id": "hearthexpansion",
@@ -395,7 +376,8 @@
 				},
 				"mod": {
 					"hearth.mod.frost.rate": -1
-				}
+				},
+				"group": "winter ❄️"
 			},
 			{
 				"id": "winterboon",
@@ -407,8 +389,10 @@
 				},
 				"mod": {
 					"waterlore2.max": 1,
-					"icelore.max": 2
-				}
+					"icelore.max": 2,
+					"icedmg": 5
+				},
+				"group": "winter ❄️"
 			},
 			{
 				"id": "winteraward",
@@ -421,8 +405,11 @@
 				},
 				"mod": {
 					"waterlore2.max": 1,
-					"icelore.rate": 50
-				}
+					"waterlore2.rate": 0.1,
+					"icelore.rate": 0.2,
+					"icedmg": 5
+				},
+				"group": "winter ❄️"
 			},
 			{
 				"id": "winterhowl",
@@ -435,8 +422,10 @@
 				},
 				"mod": {
 					"ice.max": 10,
-					"ice.rate": 2
-				}
+					"ice.rate": 2,
+					"icedmg": 5
+				},
+				"group": "winter ❄️"
 			},
 			{
 				"id": "winterchill",
@@ -450,8 +439,11 @@
 				},
 				"mod": {
 					"waterlore2.max": 1,
-					"icelore.rate": "200%"
-				}
+					"waterlore2.rate": 0.1,
+					"icelore.rate": 0.2,
+					"icedmg": 10
+				},
+				"group": "winter ❄️"
 			},
 			{
 				"id": "winterbreath",
@@ -466,8 +458,10 @@
 				},
 				"mod": {
 					"icelore.max": 5,
-					"icelore.rate": "200%"
-				}
+					"icelore.rate": 0.5,
+					"icedmg": 15
+				},
+				"group": "winter ❄️"
 			},
 			{
 				"id": "winterenvoy",
@@ -481,14 +475,13 @@
 					"waterrune": 25
 				},
 				"mod": {
-					"iceshard.attack.damage.min": 10,
-					"iceshard.attack.damage.max": 15,
-					"iceshard.cost.ice": 6,
 					"iceflame.attack.dot.damage.min": 20,
 					"iceflame.attack.dot.damage.max": 30,
 					"iceflame.cost.ice": 6,
-					"iceflame.cost.fire": 2
-				}
+					"iceflame.cost.fire": 2,
+					"icedmg": 20
+				},
+				"group": "winter ❄️"
 			},
 			{
 				"id": "wintermastery",
@@ -500,7 +493,8 @@
 				},
 				"result": {
 					"title": "Master of Winter"
-				}
+				},
+				"group": "winter ❄️"
 			},
 			{
 				"id": "warmpotion",
@@ -508,12 +502,7 @@
 				"need": "potsource",
 				"require": "((g.icystudy+g.alchemist)>0&&(g.firelore+g.icelore)>=15&&g.potions>=7)",
 				"desc": "A sure way to combat the freezing cold. It will however, render many of your icy spells useless.",
-				"disable": [
-					"iceshard",
-					"iceshard0",
-					"iceshard1",
-					"iceshard2"
-				],
+				"disable": ["iceshard", "iceshard0", "iceshard1", "iceshard2"],
 				"warn": true,
 				"cost": {
 					"ice": 5,
@@ -526,7 +515,8 @@
 					"icelore.mod.frost.rate": -0.15,
 					"hearth.mod.frost.rate": -1,
 					"snowman.mod.frost.rate": -0.8
-				}
+				},
+				"group": "winter ❄️"
 			},
 			{
 				"id": "preparetree",
@@ -544,7 +534,8 @@
 					"gold": 500,
 					"research": 1500,
 					"gems": 25
-				}
+				},
+				"group": "winter ❄️"
 			},
 			{
 				"id": "good_sacrifice",
@@ -563,7 +554,8 @@
 					"lightlore.max": 1,
 					"light.rate": 0.2,
 					"frost.rate": -1
-				}
+				},
+				"group": "winter ❄️"
 			},
 			{
 				"id": "evil_sacrifice",
@@ -573,15 +565,16 @@
 				"require": "g.winterlore>=5&&(g.good==0||g.evil==1)",
 				"warn": true,
 				"cost": {
-					"bodies": 5,
-					"skulls": 2
+					"hp": 50,
+					"bloodgem": 5
 				},
 				"mod": {
 					"evilamt": 20,
 					"ice.rate": 0.5,
 					"icelore.max": 2,
 					"shadow.rate": 0.2
-				}
+				},
+				"group": "winter ❄️"
 			},
 			{
 				"id": "iceshard0",
@@ -595,9 +588,11 @@
 				"mod": {
 					"frost.rate": 4,
 					"icelore.max": 1,
-					"player.bonuses.ice": 0.5,
-					"player.hits.ice": 0.5
-				}
+					"icedmg": 5,
+					"player.hits.ice": 0.5,
+					"iceshard.cost.ice": -1
+				},
+				"group": "winter ❄️"
 			},
 			{
 				"id": "iceshard1",
@@ -611,13 +606,15 @@
 				"mod": {
 					"frost.rate": 7,
 					"icelore.max": 1,
-					"player.bonuses.ice": 1.5,
-					"player.hits.ice": 1.5
+					"icedmg": 15,
+					"player.hits.ice": 1.5,
+					"iceshard.cost.ice": -1
 				},
 				"log": {
 					"name": "ice shard proficiency",
 					"desc": "With each Ice Shard cast you feel your power grow, but your warmth begins to fade as well."
-				}
+				},
+				"group": "winter ❄️"
 			},
 			{
 				"id": "iceshard2",
@@ -625,10 +622,7 @@
 				"desc": "You feel like imbuing yourself with Ice can push your power even further.",
 				"require": "g.iceshard>=1000&&g.iceshard1>0",
 				"warn": true,
-				"disable": [
-					"hearth",
-					"hearthexpansion"
-				],
+				"disable": ["hearth", "hearthexpansion"],
 				"cost": {
 					"ice": 10,
 					"sp": 2,
@@ -638,14 +632,16 @@
 					"fazbithearth.mod.frost.rate": 80,
 					"icelore.max": 4,
 					"frost.mod.hp.rate": "0.4%",
-					"player.bonuses.ice": 3,
+					"icedmg": 30,
 					"player.hits.ice": 3,
-					"frost.rate": 2
+					"frost.rate": 5,
+					"iceshard.cost.ice": -1
 				},
 				"log": {
 					"name": "heart of ice",
 					"desc": "Your power is immeasurable, your veins suffused with cold. But something feels wrong. The warmth is gone."
-				}
+				},
+				"group": "winter ❄️"
 			}
 		],
 		"spells": [
@@ -654,9 +650,15 @@
 				"name": "frost golem",
 				"desc": "Transform a minor construct into a lumbering hulk of ice.",
 				"level": 5,
-				"tags": "frost_spell",
-				"require": "g.snowman>=1",
 				"school": "ice",
+				"tags": "frost_spell",
+				"keywords": {
+					"type": ["summon"],
+					"target": ["ally"],
+					"targets": ["single"],
+					"delivery": ["instant"]
+				},
+				"require": "g.snowman>=1",
 				"buy": {
 					"ice": 5
 				},
@@ -677,17 +679,34 @@
 			{
 				"id": "iceflame",
 				"name": "icy flame",
-				"level": 3,
-				"tags": "frost_spell",
 				"desc": "A contradiction sustained by magic.",
-				"require": "(g.icelore>=10&&g.firelore>=10)||g.warmpotion",
+				"level": 3,
 				"school": "ice",
+				"tags": "frost_spell",
+				"keywords": {
+					"type": ["damage"],
+					"target": ["enemy"],
+					"targets": ["single"],
+					"delivery": ["instant", "over time"]
+				},
+				"require": "(g.icelore>=10&&g.firelore>=10)||g.warmpotion",
 				"buy": {
 					"ice": 2
 				},
 				"cost": {
 					"ice": 3,
 					"fire": 1
+				},
+				"attack": {
+					"damage": "5~10",
+					"tohit": 2,
+					"kind": "fire",
+					"potencies": ["spelldmg", "firedmg"],
+					"dot": {
+						"duration": 5,
+						"damage": "3~5",
+						"potencies": ["spelldmg", "firedmg"]
+					}
 				},
 				"at": {
 					"100": {
@@ -702,30 +721,36 @@
 						"attack.tohit": 2,
 						"attack.dot.duration": 10
 					}
-				},
-				"attack": {
-					"damage": "5~10",
-					"tohit": 2,
-					"kind": "fire",
-					"dot": {
-						"duration": 5,
-						"damage": "3~5"
-					}
 				}
 			},
 			{
 				"id": "warmfield",
 				"name": "field of heat",
+				"sortOrder": 740,
 				"level": 5,
-				"tags": "frost_spell",
-				"require": "g.firelore>=5",
 				"school": "fire",
+				"tags": "frost_spell",
+				"keywords": {
+					"type": ["buff"],
+					"target": ["self"],
+					"targets": ["single"],
+					"delivery": ["over time"]
+				},
+				"require": "g.firelore>=5",
 				"buy": {
 					"firegem": 4,
 					"arcana": 1
 				},
 				"cost": {
 					"fire": 2
+				},
+				"cd": 30,
+				"dot": {
+					"duration": 60,
+					"mod": {
+						"frost.rate": -2,
+						"player.resist.ice": 20
+					}
 				},
 				"at": {
 					"30": {
@@ -734,73 +759,116 @@
 					"100": {
 						"dot.duration": 120
 					}
-				},
-				"dot": {
-					"duration": 60,
-					"mod": {
-						"frost.rate": -2,
-						"player.resist.ice": 20
-					}
 				}
 			},
 			{
 				"id": "iceshard",
 				"name": "ice shard",
-				"level": 3,
-				"tags": "frost_spell",
-				"require": "g.ice>=3",
-				"school": "ice",
 				"desc": "Shoot a fragment of winter's wrath at an enemy. Can accumulate tremendous potential.",
+				"level": 3,
+				"school": "ice",
+				"tags": "frost_spell",
+				"keywords": {
+					"type": ["damage"],
+					"target": ["enemy"],
+					"targets": ["single"],
+					"delivery": ["instant"]
+				},
+				"require": "g.ice>=3",
 				"buy": {
 					"ice": 2,
 					"watergem": 3
 				},
 				"cost": {
-					"ice": 1
-				},
-				"at": {
-					"10": {
-						"attack.damage.min": 2,
-						"attack.damage.max": 4,
-						"attack.tohit": 2
-					},
-					"50": {
-						"attack.damage.min": 3,
-						"attack.damage.max": 5
-					},
-					"100": {
-						"attack.damage.min": 2,
-						"attack.damage.max": 4,
-						"attack.tohit": 2
-					},
-					"200": {
-						"attack.damage.min": 2,
-						"attack.damage.max": 4
-					},
-					"500": {
-						"attack.damage.min": 2,
-						"attack.damage.max": 3
-					},
-					"1000": {
-						"attack.damage.min": 2,
-						"attack.damage.max": 4,
-						"attack.tohit": 2
-					},
-					"2000": {
-						"attack.damage.min": 3,
-						"attack.damage.max": 5
-					},
-					"10000": {
-						"attack.damage.min": 3,
-						"attack.damage.max": 5
-					}
+					"ice": 4
 				},
 				"result": {
 					"frost": 2
 				},
 				"attack": {
-					"damage": "6~9",
-					"tohit": 5
+					"damage": "1~3",
+					"potencies": ["spelldmg", "icedmg"]
+				},
+				"at": {
+					"10": {
+						"attack.tohit": 1
+					},
+					"50": {
+						"attack.damage.max": 1,
+						"attack.tohit": 1
+					},
+					"100": {
+						"attack.tohit": 1
+					},
+					"200": {
+						"attack.damage.min": 1,
+						"attack.damage.max": 1,
+						"attack.tohit": 1
+					},
+					"500": {
+						"attack.damage.max": 1,
+						"attack.tohit": 1
+					},
+					"1000": {
+						"attack.damage.min": 1,
+						"attack.damage.max": 1,
+						"attack.tohit": 1
+					},
+					"2000": {
+						"attack.damage.max": 1,
+						"attack.tohit": 1
+					},
+					"10000": {
+						"attack.damage.min": 1,
+						"attack.damage.max": 1,
+						"attack.tohit": 1
+					}
+				}
+			},
+			{
+				"id": "icicledisaster",
+				"name": "icicle disaster",
+				"desc": "Invoke the power of the glacial blade.",
+				"level": 5,
+				"school": "ice",
+				"tags": "frost_spell,t_finisher",
+				"keywords": {
+					"type": ["damage"],
+					"target": ["enemy"],
+					"targets": ["single"],
+					"delivery": ["instant"]
+				},
+				"require": "g.ice_blade.isEquipped()",
+				"buy": {
+					"ice": 5,
+					"watergem": 25
+				},
+				"need": "g.ice_blade.isEquipped()",
+				"needtext": "Only works with the glacial blade",
+				"cost": {
+					"ice": "g.ice.max*0.25"
+				},
+				"cd": 30,
+				"attack": {
+					"damage": "a.context.gdata.ice.max",
+					"targets": "enemy",
+					"targetspec": {
+						"stat": "hp",
+						"highest": false,
+						"usepercentage": false
+					},
+					"potencies": ["physdmg", "icedmg", "sworddmg"],
+					"dot": {
+						"duration": 1,
+						"onDeath": {
+							"name": "echoing disaster",
+							"targets": "enemyleader",
+							"harmless": true,
+							"result": {
+								"icicledisaster.timer": -30
+							}
+						}
+					}
 				}
 			}
 		],
@@ -831,7 +899,6 @@
 				"mod": {
 					"frost.rate": -100,
 					"fire.rate": 0.5,
-					"firelore.max": 5,
 					"iceflame.attack.dot.duration": 5
 				}
 			},
@@ -885,7 +952,8 @@
 					"snowman.max": 1,
 					"ice.max": 1,
 					"ice.rate": "0.1//20/-1",
-					"frost.rate": "0.2//20/-1"
+					"frost.rate": "0.2//20/-1",
+					"icedmg": 1
 				}
 			}
 		],
@@ -918,11 +986,7 @@
 				},
 				"boss": "iceyeti",
 				"spawns": [
-					[
-						"frostelemental",
-						"frostelemental",
-						"frostelemental"
-					],
+					["frostelemental", "frostelemental", "frostelemental"],
 					"avalanche",
 					"iceelemental",
 					"w_troll",
@@ -947,44 +1011,22 @@
 				},
 				"length": 100,
 				"loot": {
-					"iceorb": 1
+					"iceorb": 1,
+					"ice_blade": 1
 				},
 				"boss": "frostgiant",
 				"spawns": [
 					"w_blizzardguardian",
-					[
-						"icywinds",
-						"w_blizzardguardian",
-						"icywinds"
-					],
-					[
-						"frostelemental",
-						"iceelemental",
-						"frostelemental"
-					],
+					["icywinds", "w_blizzardguardian", "icywinds"],
+					["frostelemental", "iceelemental", "frostelemental"],
 					"frostelemental",
 					"w_troll",
-					[
-						"frixie",
-						"elf",
-						"elf",
-						"frixie",
-						"frixie"
-					],
+					["frixie", "elf", "elf", "frixie", "frixie"],
 					"poltergeist",
 					"iceelemental",
-					[
-						"elf",
-						"elf",
-						"frixie"
-					],
+					["elf", "elf", "frixie"],
 					"yeti",
-					[
-						"icewalker",
-						"icewalker",
-						"icewalker",
-						"icewalker"
-					]
+					["icewalker", "icewalker", "icewalker", "icewalker"]
 				]
 			}
 		],
@@ -1132,10 +1174,10 @@
 			{
 				"id": "winter_village",
 				"name": "winter village",
-				"level": 2,
-				"length": 50,
-				"require": "g.emblemofice>=1",
 				"desc": "Now that you command the power of winter, the villagers ask you to help with their preparations",
+				"level": 2,
+				"require": "g.emblemofice>=1",
+				"length": 50,
 				"run": {
 					"stamina": 0.4
 				},
@@ -1309,13 +1351,7 @@
 				"result": {
 					"evt_snowcopy": 1
 				},
-				"encs": [
-					"enc_w_lifeforce",
-					"enc_w_drawscheme",
-					"enc_w_placegems",
-					"enc_w_setfocus",
-					"enc_w_attune"
-				]
+				"encs": ["enc_w_lifeforce", "enc_w_drawscheme", "enc_w_placegems", "enc_w_setfocus", "enc_w_attune"]
 			}
 		],
 		"encounters": [],
@@ -1456,9 +1492,7 @@
 						"sym": "🏰❄️"
 					}
 				],
-				"upgrades": [
-					
-				],
+				"upgrades": [],
 				"tasks": [
 					{
 						"id": "fazbit_restoration_stage1",
@@ -1506,11 +1540,7 @@
 						"run": {
 							"stamina": 3
 						},
-						"lock": [
-							"frostparts_production1",
-							"frostparts_production2",
-							"frostparts_productionex"
-						],
+						"lock": ["frostparts_production1", "frostparts_production2", "frostparts_productionex"],
 						"result": {
 							"fame": 15
 						}
@@ -1782,7 +1812,8 @@
 						"desc": "Utilize your expertise with weaponry to speed up the carving process.",
 						"perpetual": true,
 						"run": {
-							"stamina": 1
+							"stamina": 1,
+							"vigor": 0.1
 						},
 						"runmod": {
 							"frostsigils_production2.runmod.frostsigils_production1.result.frostsigils": 5

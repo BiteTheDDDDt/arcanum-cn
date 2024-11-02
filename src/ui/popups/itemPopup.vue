@@ -1,14 +1,14 @@
 <script>
-import Game from 'game';
+import Game from '@/game';
 
 import ItemView from 'ui/items/gdata.vue';
-import { positionAt } from './popups.js';
-import Char from '../../chars/char.js';
-
+import { positionAt } from '@/ui/popups/popups.js';
+import Char from '@/chars/char.js';
+import { reactive } from 'vue';
 /**
  * Information about current rollover object.
  */
-export const RollOver = {
+export const RollOver = reactive({
 
 	item: null,
 	elm: null,
@@ -16,28 +16,32 @@ export const RollOver = {
 	source: null,
 	text: null
 
-};
+});
 
 export const ItemOver = (evt, it, source, title, text = null) => {
-
-	RollOver.item = it;
-	RollOver.elm = evt.currentTarget;
-	RollOver.source = source != null || it instanceof Char ? source : Game.player;
+	const next = {};
+	next.item = it;
+	next.elm = evt.currentTarget;
+	next.source = source != null || it instanceof Char ? source : Game.player;
 
 	if (it && it.context) {
-		RollOver.context = it.context;
-	} else if (RollOver.source && RollOver.source.context) {
-		RollOver.context = RollOver.source.context;
+		next.context = it.context;
+	} else if (next.source && next.source.context) {
+		next.context = next.source.context;
 	} else {
 		console.warn("Item and Source don't have context. Defaulting to game.", it, source);
-		RollOver.context = Game;
+		next.context = Game;
 	}
 
-	RollOver.title = title;
-	RollOver.text = text;
+	next.title = title;
+	next.text = text;
+	Object.assign(RollOver, next);
 }
 
-export const ItemOut = () => {
+export const ItemOut = (event) => {
+	if (event && event.target === RollOver.elm) {
+		return;
+	}
 	RollOver.item = null;
 	RollOver.elm = null;
 	RollOver.source = null;
@@ -87,24 +91,28 @@ export default {
 
 	<div class="item-popup" v-show="item != null || text != null">
 		<div class="popup-content">
-		<div v-if="title" class="pop-title">{{ title }}</div>
-		<template v-if="Array.isArray(item)">
+			<div v-if="title" class="pop-title">{{ title }}</div>
+			<template v-if="Array.isArray(item)">
 
-			<div v-for="t in item" :key="t">{{ t.toString() }}</div>
+				<div v-for="t in item" :key="t">{{ t.toString() }}</div>
 
-		</template>
-		<template v-else>
-			<gdata v-if="item" :item="item" />
-		</template>
-		<template v-if="text">
-			<div>{{ text }}</div>
-		</template>
+			</template>
+			<template v-else>
+				<gdata v-if="item" :item="item" />
+			</template>
+			<template v-if="text">
+				<div>{{ text }}</div>
+			</template>
 		</div>
 	</div>
 
 </template>
 
 <style scoped>
+.item-popup {
+	background-color: var(--odd-list-color);
+}
+
 div.pop-title {
 
 	font-weight: bold;

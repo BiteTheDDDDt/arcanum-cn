@@ -8,11 +8,9 @@
 				"tags": "t_halloween_aspect",
 				"id": "asp_zombie",
 				"desc": "The restless souls wander around, wrecking havoc wherever they are.",
-				"require": "g.hal_aspect2>0&&g.anatomy>=5",
+				"require": "(g.hal_mill_intime>0||g.hal_mill_late>0)&&g.anatomy>=5&&g.bodies>0",
 				"warn": true,
-				"lock": [
-					"t_halloween_aspect"
-				],
+				"lock": ["t_halloween_aspect"],
 				"cost": {
 					"hp": 25,
 					"bodies": 3
@@ -20,28 +18,30 @@
 				"mod": {
 					"stamina.max": 5,
 					"stamina.rate": 1.5,
-					"t_rest.effect.stamina": "-100%"
+					"vigor.max": 5,
+					"vigor.rate": 0.15,
+					"t_rest.effect.stamina": "-80%",
+					"t_rest.effect.vigor": "-80%"
 				},
 				"result": {
 					"anatomy.max": 3,
 					"reanimation.max": 3
-				}
+				},
+				"group": "halloween 🎃"
 			},
 			{
 				"id": "asp_ghost",
 				"name": "Ghost Aspect",
 				"tags": "t_halloween_aspect",
-				"desc": "Incorporal creatures using magic to fulfill their needs.",
-				"require": "g.hal_aspect2>0&&g.hauntedmanor>1",
+				"desc": "Incorporeal creatures using magic to fulfill their needs.",
+				"require": "(g.hal_mill_intime>0||g.hal_mill_late>0)&&g.hauntedmanor>1",
 				"warn": true,
-				"lock": [
-					"t_halloween_aspect"
-				],
+				"lock": ["t_halloween_aspect"],
 				"cost": {
 					"spiritgem": 5
 				},
 				"mod": {
-					"prismatic.rate": 1,
+					"prismatic.rate": 0.5,
 					"player.resist.blunt": 30,
 					"player.resist.slash": 30,
 					"player.resist.pierce": 30
@@ -49,40 +49,38 @@
 				"result": {
 					"spiritlore.max": 3,
 					"airlore.max": 3
-				}
+				},
+				"group": "halloween 🎃"
 			},
 			{
 				"id": "asp_ghoul",
 				"name": "Ghoul Aspect",
 				"tags": "t_halloween_aspect",
 				"desc": "A undead hunter who preys in the night.",
-				"require": "g.hal_aspect2>0&&g.player.defense>=15",
+				"require": "(g.hal_mill_intime>0||g.hal_mill_late>0)&&g.player.defense>=15",
 				"warn": true,
-				"lock": [
-					"t_halloween_aspect"
-				],
+				"lock": ["t_halloween_aspect"],
 				"cost": {
 					"bloodgem": 5
 				},
 				"mod": {
-					"hp.max": 20,
-					"hp.rate": 5
+					"hp.max": 40,
+					"hp.rate": 3
 				},
 				"result": {
 					"demonology.max": 3,
 					"necromancy.max": 3
-				}
+				},
+				"group": "halloween 🎃"
 			},
 			{
 				"id": "asp_goblin",
 				"name": "Goblin Aspect",
 				"tags": "t_halloween_aspect",
 				"desc": "Their greed for gold and all things shiny is legendary.",
-				"require": "g.hal_aspect2>0&&g.gold>=100",
+				"require": "(g.hal_mill_intime>0||g.hal_mill_late>0)&&g.gold>=100",
 				"warn": true,
-				"lock": [
-					"t_halloween_aspect"
-				],
+				"lock": ["t_halloween_aspect"],
 				"cost": {
 					"gold": 500,
 					"gems": 20
@@ -96,50 +94,49 @@
 				"result": {
 					"trickery.max": 3,
 					"languages.max": 3
-				}
+				},
+				"group": "halloween 🎃"
 			},
 			{
 				"id": "asp_satyr",
 				"name": "Satyr Aspect",
 				"tags": "t_halloween_aspect",
 				"desc": "Dancing under the moonlight, and misleading wanderers.",
-				"require": "g.hal_aspect2>0&&g.trickery>5&&g.nature>10",
+				"require": "(g.hal_mill_intime>0||g.hal_mill_late>0)&&g.trickery>5&&g.nature>10",
 				"warn": true,
-				"lock": [
-					"t_halloween_aspect"
-				],
+				"lock": ["t_halloween_aspect"],
 				"cost": {
 					"naturegem": 5,
 					"chaosgem": 5
 				},
 				"mod": {
 					"res_treat.rate": 0.1,
-					"eat_treat.result.hp.min": "-10",
-					"eat_treat.result.hp.max": "20",
-					"eat_treat.result.stamina.min": "-10",
-					"eat_treat.result.stamina.max": "20"
+					"eat_treat.result.hp.min": -10,
+					"eat_treat.result.hp.max": 20,
+					"eat_treat.result.stamina.min": -10,
+					"eat_treat.result.stamina.max": 20,
+					"eat_treat.result.stress": 5
 				},
 				"result": {
 					"naturelore.max": 3,
 					"trickery.max": 3
-				}
+				},
+				"group": "halloween 🎃"
 			},
 			{
 				"id": "asp_drake",
 				"name": "Drake Aspect",
 				"tags": "t_halloween_aspect",
 				"desc": "Ancient flying monstrosities.",
-				"require": "g.hal_aspect2>0&&g.mtgorborung>1",
+				"require": "(g.hal_mill_intime>0||g.hal_mill_late>0)&&g.mtgorborung>1",
 				"warn": true,
-				"lock": [
-					"t_halloween_aspect"
-				],
+				"lock": ["t_halloween_aspect"],
 				"cost": {
 					"airrune": 3,
 					"firerune": 3
 				},
 				"mod": {
-					"dist": "30%",
+					"dist": "20%",
 					"air.rate": 2,
 					"player.resist.air": "20%",
 					"fire.rate": 2,
@@ -148,7 +145,8 @@
 				"result": {
 					"firelore.max": 3,
 					"airlore.max": 3
-				}
+				},
+				"group": "halloween 🎃"
 			},
 			{
 				"id": "hal_charger",
@@ -162,8 +160,9 @@
 				},
 				"mod": {
 					"dist": 250,
-					"player.resist.shadow": 15
-				}
+					"player.resist.shadow": 25
+				},
+				"group": "halloween 🎃"
 			},
 			{
 				"id": "hal_carriage",
@@ -182,10 +181,11 @@
 				"mod": {
 					"dist": 150,
 					"inv.max": 3,
-					"herbs.rate": 0.1,
-					"weary.rate": -0.1,
-					"unease.rate": -0.1
-				}
+					"herbs.rate": 0.2,
+					"weary.rate": -0.2,
+					"unease.rate": -0.2
+				},
+				"group": "halloween 🎃"
 			},
 			{
 				"id": "hal_broomstick",
@@ -197,9 +197,10 @@
 				"mod": {
 					"dist": 200,
 					"spirit.rate": 0.5,
-					"rage.rate": -0.2,
-					"player.resist.spirit": 4
-				}
+					"rage.rate": -0.3,
+					"player.resist.spirit": 15
+				},
+				"group": "halloween 🎃"
 			},
 			{
 				"id": "pumpsack",
@@ -207,12 +208,13 @@
 				"require": "g.pumpseeds>=10",
 				"max": 3,
 				"cost": {
-					"gold": 500
+					"gold": "150+g.pumpsack*50"
 				},
 				"mod": {
 					"pumpseeds.max": 10
 				},
-				"flavor": "You need to have a word with the sack-maker's guild."
+				"flavor": "You need to have a word with the sack-maker's guild.",
+				"group": "halloween 🎃"
 			},
 			{
 				"id": "hal_ritual",
@@ -222,7 +224,8 @@
 				"cost": {
 					"research": 25000
 				},
-				"flavor": "You have a bad feeling about this."
+				"flavor": "You have a bad feeling about this.",
+				"group": "halloween 🎃"
 			}
 		],
 		"tasks": [
@@ -241,7 +244,8 @@
 				},
 				"mod": {
 					"runner.max": 1
-				}
+				},
+				"group": "halloween 🎃"
 			},
 			{
 				"id": "applebob",
@@ -255,7 +259,8 @@
 					"res_apple": "40%",
 					"watergem": "0.1%",
 					"runestones": "0.01%"
-				}
+				},
+				"group": "halloween 🎃"
 			},
 			{
 				"id": "filchpump",
@@ -273,17 +278,15 @@
 				},
 				"result": {
 					"pumpkins": 1
-				}
+				},
+				"group": "halloween 🎃"
 			},
 			{
 				"id": "mk_jacklant",
 				"name": "carve lantern",
 				"require": "pumpkins",
 				"length": 15,
-				"fill": [
-					"jacklantern",
-					"pumpseeds"
-				],
+				"fill": ["jacklantern", "pumpseeds"],
 				"cost": {
 					"pumpkins": 1
 				},
@@ -296,7 +299,8 @@
 				"result": {
 					"pumpseeds": 3,
 					"jacklantern": 1
-				}
+				},
+				"group": "halloween 🎃"
 			},
 			{
 				"id": "smashpump",
@@ -307,13 +311,15 @@
 				},
 				"result": {
 					"pumpseeds": 3
-				}
+				},
+				"group": "halloween 🎃"
 			},
 			{
 				"id": "tricktreat",
 				"name": "trick & treat",
 				"require": "trickery",
 				"desc": "Threaten homes with magical trickery if they don't give you loot.",
+				"extdesc": "Provides a random assortment of goodies",
 				"length": 20,
 				"perpetual": true,
 				"run": {
@@ -328,7 +334,31 @@
 					"gold": "0~5",
 					"gems": "1%",
 					"pumpkins": "20%"
-				}
+				},
+				"group": "halloween 🎃"
+			},
+			{
+				"id": "trickthreat",
+				"name": "trick & threat",
+				"require": "g.trickery>0&&g.evil1>0",
+				"desc": "Nothing gets the candy flowing quite like a few well-advertised arsons.",
+				"extdesc": "Provides a random assortment of goodies",
+				"length": 20,
+				"perpetual": true,
+				"run": {
+					"stamina": 0.4
+				},
+				"effect": {
+					"trickery.exp": 3
+				},
+				"loot": {
+					"res_treat": 3,
+					"pumpseeds": "1~4",
+					"gold": "2~7",
+					"gems": "2%",
+					"pumpkins": "40%"
+				},
+				"group": "halloween 🎃"
 			}
 		],
 		"events": [
@@ -341,6 +371,45 @@
 				"id": "hal_suspicion",
 				"name": "Strange Village",
 				"desc": "The outsider has a point. Something's wrong here."
+			},
+			{
+				"id": "hal_timewaste",
+				"name": "Waste of time",
+				"desc": "The house was indeed haunted, but it is clear that the thief story was a fabrication. If you have no other leads, additional investigation in the village might be in order.",
+				"require": "g.hal_fakehouse>0",
+				"lock": ["hal_fakehouse", "hal_mill_intime"]
+			},
+			{
+				"id": "hal_faceless_failed",
+				"name": "Faceless corpse",
+				"desc": "Searching the rest of the mill, you find a corpse of a man with his face removed. That... probably was Hank.",
+				"require": "g.hal_mill_late>0",
+				"lock": [
+					"hal_age_doppel",
+					"hal_missing2",
+					"hal_missing",
+					"hal_grumpy_doppel",
+					"hal_fox_doppel",
+					"hal_resident_doppel",
+					"hal_mill_late"
+				]
+			},
+			{
+				"id": "hal_faceless_success",
+				"name": "Hank",
+				"desc": "You find Hank tied up in the cellar of the mill. He thanks you profusely for the rescue and laments that he was unable to best the fiend in combat.",
+				"require": "g.hal_mill_intime>0",
+				"lock": [
+					"hal_age_doppel",
+					"hal_missing2",
+					"hal_missing",
+					"hal_grumpy_doppel",
+					"hal_fox_doppel",
+					"hal_resident_doppel",
+					"hal_fakehouse",
+					"hal_mill_late",
+					"hal_mill_intime"
+				]
 			},
 			{
 				"id": "evt_hallomar",
@@ -356,28 +425,19 @@
 			{
 				"id": "evt_hal_imp",
 				"name": "a strange imp",
-				"desc": "Outside the fields, an imp at a water barrel offers you a chance at magic riches, for a small fee."
+				"desc": "Just past the fields, an imp at a water barrel offers you a chance at magic riches, for a small fee."
 			},
 			{
 				"id": "evt_hal_hestia_done",
 				"name": "purple amulet",
 				"desc": "As you leave her cottage, Hestia presses a small amulet into your hand."
-			},
-			{
-				"id": "trick_unlock",
-				"name": "Mischievous spirit",
-				"desc": "Peculiar energies permeate the hall, driving all to mischief.",
-				"require": "g.hal_trick_pumpkin>0&&g.apprentice>0&&g.trickery==0",
-				"result": {
-					"trickery": true
-				}
 			}
 		],
 		"locales": [
 			{
 				"id": "hal_aspect",
 				"name": "Investigate Hallomar",
-				"desc": "Some people just vanish in thin air, and pop up unexpectedly.",
+				"desc": "There are rumors of recent disappearances and unusually fortuitous reappearances in the nearby village. This bears investigation.",
 				"require": "hal_suspicion",
 				"length": 20,
 				"level": 3,
@@ -385,16 +445,24 @@
 					"stamina": 0.5,
 					"res_apple": 0.1
 				},
-				"result": {
-					"res_treat.max": 10,
-					"res_apple.max": 10
+				"mod": {
+					"res_treat.max": "5//20/-1",
+					"res_apple.max": "5//20/-1"
 				},
 				"encs": [
-					"hal_age",
-					"hal_oldman",
+					"hal_oldwoman",
+					"hal_oldwoman_doppel",
 					"hal_fox",
+					"hal_fox_doppel",
 					"hal_grumpy",
-					"hal_missing"
+					"hal_grumpy_doppel",
+					"hal_footprints",
+					"hal_missing",
+					"hal_scratches",
+					"hal_age",
+					"hal_age_doppel",
+					"hal_resident",
+					"hal_resident_doppel"
 				]
 			},
 			{
@@ -511,7 +579,6 @@
 				"mod": {
 					"herbs.max": 5,
 					"herbalism.rate": 0.1,
-					"herbalism.max": 0.2,
 					"herbs.rate": 0.1,
 					"jacklantern.max": 1,
 					"cobwebs.rate": 0.01,
@@ -567,58 +634,6 @@
 		],
 		"dungeons": [
 			{
-				"id": "hal_aspect2",
-				"name": "ruined house",
-				"desc": "The origin of Hallomar's disturbances.",
-				"level": 15,
-				"length": 20,
-				"dist": 50,
-				"require": "hal_aspect",
-				"run": {
-					"stamina": 0.4
-				},
-				"log": {
-					"name": "Laboratory",
-					"desc": "The shapeshifter's laboratory yields a clue as to how he managed to perform his transformations. You could make use of it yourself, if you so desire."
-				},
-				"boss": {
-					"16": "hal_ratminion",
-					"17": "hal_foxshape",
-					"18": "hal_wolfshape",
-					"19": "hal_hank",
-					"20": "hal_shapechange"
-				},
-				"spawns": [
-					[
-						"wolf",
-						"wolf"
-					],
-					[
-						"nec_zombie",
-						"nec_zombie",
-						"nec_zombie"
-					],
-					[
-						"evilpriest",
-						"evilpriest"
-					],
-					"ghost",
-					[
-						"hal_wight",
-						"hal_wight"
-					],
-					[
-						"undeadcrow",
-						"nec_ghast",
-						"nec_ghast"
-					],
-					[
-						"greaterzombie",
-						"greaterzombie"
-					]
-				]
-			},
-			{
 				"id": "hal_bloodmanor",
 				"name": "blood manor",
 				"desc": "Asleep for a century, the orange lights of the Blood Manor glow once more on Grimpen Hill.",
@@ -631,41 +646,17 @@
 					"hp": 0.1
 				},
 				"spawns": [
-					[
-						"undeadcrow",
-						"nec_ghast",
-						"nec_ghast"
-					],
-					[
-						"nec_zombie",
-						"nec_zombie",
-						"nec_zombie"
-					],
+					["undeadcrow", "nec_ghast", "nec_ghast"],
+					["nec_zombie", "nec_zombie", "nec_zombie"],
 					"nec_ghoul",
 					"nec_ghast",
-					[
-						"wolf",
-						"wolf"
-					],
+					["wolf", "wolf"],
 					"ghost",
-					[
-						"hal_wight",
-						"hal_wight"
-					],
-					[
-						"evilpriest",
-						"evilpriest"
-					],
-					[
-						"greaterzombie",
-						"greaterzombie"
-					],
+					["hal_wight", "hal_wight"],
+					["evilpriest", "evilpriest"],
+					["greaterzombie", "greaterzombie"],
 					"nec_ghost",
-					[
-						"nec_skeleton",
-						"nec_skeleton",
-						"nec_ghoul"
-					]
+					["nec_skeleton", "nec_skeleton", "nec_ghoul"]
 				]
 			},
 			{
@@ -683,21 +674,14 @@
 					"title": "Hallowed Defender",
 					"evt_hoofs": true
 				},
-				"loot": [
-					"cobwebs",
-					"bdagg"
-				],
+				"loot": ["cobwebs", "bdagg"],
 				"log": {
 					"name": "graves silenced",
 					"desc": "The graveyard is once more at rest. For now."
 				},
 				"boss": "m_pumpkin",
 				"spawns": [
-					[
-						"undeadcrow",
-						"undeadcrow",
-						"undeadcrow"
-					],
+					["undeadcrow", "undeadcrow", "undeadcrow"],
 					"nec_zombie",
 					"nec_ghoul",
 					"nec_ghast",
@@ -748,9 +732,94 @@
 		],
 		"spells": [
 			{
+				"id": "hal_mischief",
+				"name": "mischief",
+				"desc": "Call upon the season's powers to do a little mischief.",
+				"sortOrder": 1311,
+				"level": 1,
+				"school": "halloween",
+				"keywords": {
+					"type": ["damage"],
+					"target": ["enemy"],
+					"targets": ["single"],
+					"delivery": ["instant", "over time"]
+				},
+				"require": "g.spiritlore>=3||g.trickery>=2",
+				"buy": {
+					"codices": 1
+				},
+				"cost": {
+					"spirit": 2
+				},
+				"result": {
+					"spiritlore.exp": 0.4
+				},
+				"attack": {
+					"targets": "enemy",
+					"damage": "1~10",
+					"kind": "chaos",
+					"nodefense": true,
+					"potencies": ["spelldmg", "chaosdmg"],
+					"dot": {
+						"%": "25%",
+						"name": "bewildered",
+						"tag": "t_hal_havoc",
+						"kind": "chaos",
+						"damage": "2~4",
+						"duration": 5
+					}
+				}
+			},
+			{
+				"id": "hal_havoc",
+				"name": "havoc",
+				"desc": "Call upon the season's powers to wreak havoc upon your foes.",
+				"sortOrder": 1312,
+				"level": 2,
+				"school": "halloween",
+				"keywords": {
+					"type": ["damage"],
+					"target": ["enemy"],
+					"targets": ["single"],
+					"delivery": ["instant", "over time"]
+				},
+				"require": "(g.spiritlore>=3||g.trickery>=2)&&g.evil1>0",
+				"buy": {
+					"codices": 1
+				},
+				"cost": {
+					"spirit": 3
+				},
+				"result": {
+					"spiritlore.exp": 0.4
+				},
+				"attack": {
+					"targets": "enemy",
+					"damage": "3~15",
+					"kind": "chaos",
+					"nodefense": true,
+					"potencies": ["spelldmg", "chaosdmg"],
+					"dot": {
+						"%": "35%",
+						"name": "bamboozled",
+						"tag": "t_hal_havoc",
+						"kind": "chaos",
+						"damage": "3~5",
+						"duration": 5
+					}
+				}
+			},
+			{
 				"id": "pumpbomb",
 				"name": "pumpkin bomb",
 				"level": 3,
+				"school": "halloween",
+				"keywords": {
+					"type": ["damage"],
+					"target": ["enemy"],
+					"targets": ["single"],
+					"delivery": ["instant"]
+				},
 				"buy": {
 					"jacklantern": 1,
 					"research": 100
@@ -767,12 +836,22 @@
 				"id": "eat_apple",
 				"name": "eating an apple",
 				"desc": "healthy, are you?",
+				"keywords": {
+					"type": ["recovery"],
+					"target": ["self"],
+					"targets": ["single"],
+					"delivery": ["instant"]
+				},
 				"require": "g.res_apple>10",
 				"buy": {
 					"res_apple": 10
 				},
 				"cost": {
 					"res_apple": 1
+				},
+				"result": {
+					"hp": "0~10",
+					"stamina": "0~10"
 				},
 				"at": {
 					"10": {
@@ -786,23 +865,30 @@
 					"100": {
 						"result.nature": 5
 					}
-				},
-				"result": {
-					"hp": "0~10",
-					"stamina": "0~10"
 				}
 			},
 			{
 				"id": "eat_treat",
 				"name": "eating a treat",
-				"level": 1,
 				"desc": "Local confections may have unpredictable effects.",
+				"level": 1,
+				"keywords": {
+					"type": ["recovery"],
+					"target": ["self"],
+					"targets": ["single"],
+					"delivery": ["instant"]
+				},
 				"require": "g.res_treat>10",
 				"buy": {
 					"res_treat": 1
 				},
 				"cost": {
 					"res_treat": 1
+				},
+				"result": {
+					"hp": "-10~10",
+					"stamina": "-10~10",
+					"mana": "-10~10"
 				},
 				"at": {
 					"10": {
@@ -820,20 +906,21 @@
 						"result.stamina.min": 5,
 						"result.mana.min": 5
 					}
-				},
-				"result": {
-					"hp": "-10~10",
-					"stamina": "-10~10",
-					"mana": "-10~10"
 				}
 			},
 			{
 				"id": "mon_mk_wight2",
 				"name": "command wight",
 				"desc": "summons a midnight wight",
-				"school": "animation",
-				"require": "g.pumpkins>9999",
 				"level": 4,
+				"school": "animation",
+				"keywords": {
+					"type": ["summon"],
+					"target": ["ally"],
+					"targets": ["single"],
+					"delivery": ["instant"]
+				},
+				"require": "g.pumpkins>9999",
 				"summon": [
 					{
 						"id": "hal_wight2",
@@ -846,9 +933,15 @@
 				"id": "mon_mk_ghost2",
 				"name": "command ghost",
 				"desc": "summons a midnight ghost",
-				"school": "animation",
-				"require": "g.pumpkins>9999",
 				"level": 4,
+				"school": "animation",
+				"keywords": {
+					"type": ["summon"],
+					"target": ["ally"],
+					"targets": ["single"],
+					"delivery": ["instant"]
+				},
+				"require": "g.pumpkins>9999",
 				"summon": [
 					{
 						"id": "nec_ghost2",
@@ -861,9 +954,16 @@
 				"id": "mon_mk_plaything",
 				"name": "call reveler",
 				"desc": "summons a blood bank",
-				"school": "animation",
-				"require": "g.pumpkins>9999",
+				"cd": 5,
 				"level": 4,
+				"school": "animation",
+				"keywords": {
+					"type": ["summon"],
+					"target": ["ally"],
+					"targets": ["single"],
+					"delivery": ["instant"]
+				},
+				"require": "g.pumpkins>9999",
 				"summon": [
 					{
 						"id": "hal_mindslave",
@@ -879,8 +979,8 @@
 				"name": "bloody baroness",
 				"level": 18,
 				"kind": "human",
-				"spells": "mon_mk_plaything",
-				"chaincast": 0.3,
+				"spells": "mon_mk_plaything,lifedrain",
+				"chaincast": 0.8,
 				"desc": "A devotee of the immortal Night Queen, the Bloody Baroness extends her own life with harvests of blood.",
 				"hp": 1000,
 				"noproc": true,
@@ -894,7 +994,7 @@
 						"damage": "11~18"
 					},
 					{
-						"name": "life drain",
+						"name": "vampiric embrace",
 						"kind": "necrotic",
 						"damage": "30~40",
 						"targets": "enemyleader",
@@ -905,10 +1005,31 @@
 						"kind": "necrotic",
 						"targets": "minion",
 						"damage": "5~10",
-						"harmless":true,
+						"harmless": true,
 						"leech": 4
 					}
-				]
+				],
+				"statedata": {
+					"lifedrain": {
+						"need": null,
+						"cd": 3,
+						"attack": {
+							"targetspec": {
+								"notaffectedby": {
+									"condition": ["lifedrain_dot"],
+									"conditiontext": "life drain"
+								}
+							},
+							"dot": {
+								"id": "lifedrain_dot",
+								"kind": "shadow",
+								"leech": 0.5,
+								"duration": 10,
+								"damage": "3~8"
+							}
+						}
+					}
+				}
 			},
 			{
 				"id": "hal_headless",
@@ -934,13 +1055,11 @@
 					{
 						"name": "vorpal blade",
 						"kind": "slash",
+						"nodefense": true,
 						"damage": "4~10"
 					}
 				],
-				"loot": [
-					"vorpal_sword",
-					"jacklantern"
-				]
+				"loot": ["vorpal_sword", "jacklantern"]
 			},
 			{
 				"id": "hal_headless2",
@@ -971,14 +1090,16 @@
 						"kind": "void",
 						"targets": "enemyleader",
 						"damage": "30~40",
-						"tohit": 25
+						"nodefense": true,
+						"tohit": 5
 					},
 					{
 						"name": "behead",
 						"kind": "void",
 						"targets": "flunky",
 						"damage": 1200,
-						"harmless":true
+						"nodefense": true,
+						"harmless": true
 					},
 					{
 						"name": "midnight hour",
@@ -989,130 +1110,213 @@
 							"duration": 12,
 							"mod": {
 								"self.defense": 12,
-								"self.dodge": 12,
-								"self.tohit": 12,
+								"self.dodge": 1.2,
+								"self.tohit": 1.2,
 								"self.speed": 12
 							}
 						}
 					}
 				],
-				"loot": [
-					"vorpal_sword2",
-					"jacklantern"
-				],
+				"loot": ["vorpal_sword2", "jacklantern"],
 				"flavor": "Don't lose your head"
 			},
 			{
 				"id": "hal_ratminion",
-				"name": "rat minion",
-				"level": 5,
+				"name": "ratman minion",
+				"level": 8,
 				"kind": "beast",
-				"desc": "Once used to be a common rat, now turned into a humanoid creature by the shapeshifter's experiments. It begs you to kill it.",
-				"hp": 50,
+				"desc": "It is unclear if this was once a rat that was reshaped into a human, or a human twisted into a ratlike abomination. Either way, it bars your way forward",
+				"hp": 800,
 				"noproc": true,
-				"defense": 4,
-				"tohit": 6,
-				"attack": {
-					"name": "plea",
-					"kind": "psychic",
-					"damage": "8~12",
-					"log": {
-						"%": "10%",
-						"desc": "He can't stop rattling out the details on the experiments performed on him."
-					}
-				},
-				"loot": {
-					"bloodgem": "10%"
-				}
-			},
-			{
-				"id": "hal_foxshape",
-				"name": "furious fox",
-				"level": 10,
-				"kind": "beast",
-				"desc": "it attacks frenziedly.",
-				"hp": 80,
-				"noproc": true,
-				"defense": 10,
-				"tohit": 20,
-				"attack": {
-					"name": "scratch",
-					"kind": "slash",
-					"damage": "6~12"
-				},
-				"loot": {
-					"naturegem": "10%",
-					"tome": "10%"
-				}
-			},
-			{
-				"id": "hal_wolfshape",
-				"name": "man-eating wolf",
-				"level": 14,
-				"kind": "beast",
-				"desc": "As you turn away from the corpse of the fox, a bone-chilling growl sounds out from behind you.",
-				"hp": 90,
-				"noproc": true,
-				"defense": 15,
-				"tohit": 20,
-				"attack": {
-					"name": "bite",
-					"kind": "pierce",
-					"damage": "8~12",
+				"defense": 80,
+				"tohit": 10,
+				"onSummon": {
+					"name": "twisted experiment",
+					"id": "mon_unstable",
+					"targets": "self",
 					"dot": {
-						"name": "bleed",
-						"duration": 5,
+						"mod": {
+							"self.resist.chaos": -500
+						}
+					}
+				},
+				"attack": [
+					{
+						"name": "plea",
+						"kind": "psychic",
+						"damage": "8~12",
+						"targets": "enemies",
+						"log": {
+							"%": "10%",
+							"desc": "He can't stop rattling out the details on the experiments performed on him."
+						}
+					},
+					{
+						"name": "infectious bite",
 						"kind": "pierce",
-						"damage": "3~6"
+						"damage": "4~5",
+						"targets": "enemyleader",
+						"dot": {
+							"name": "plague",
+							"duration": 60,
+							"kind": "nature",
+							"damage": 3
+						},
+						"log": {
+							"%": "10%",
+							"desc": "With a wicked squeak, he lunges at you."
+						}
+					},
+					{
+						"name": "brute punch",
+						"kind": "blunt",
+						"damage": "20~25",
+						"targets": "enemyleader",
+						"log": {
+							"%": "10%",
+							"desc": "His body twists as he delivers a brutal left hook. Reluctance flashes in his eyes."
+						}
 					}
-				},
-				"loot": {
-					"skulls": "10%",
-					"bloodgem": 1
-				}
+				]
 			},
 			{
-				"id": "hal_hank",
-				"name": "hank",
-				"level": 16,
-				"kind": "human",
-				"noproc": true,
-				"desc": "The wolf, defeated, has turned into a human. It's Hank! Finally! One small issue - the axe he grabbed and is now wielding menacingly.",
-				"hp": 120,
-				"defense": 20,
-				"tohit": 25,
-				"attack": {
-					"name": "axe",
-					"kind": "slash",
-					"damage": "8~20",
-					"log": {
-						"%": "10%",
-						"desc": "Stop poking your nose where it doesn't belong!"
-					}
-				},
-				"loot": {
-					"gold": 10,
-					"gems": "2~4"
-				}
-			},
-			{
-				"id": "hal_shapechange",
+				"id": "hal_faceless",
 				"name": "???",
-				"level": 16,
+				"level": 10,
 				"kind": "human",
 				"noproc": true,
-				"desc": "Now that there is no point to trying to trick you anymore, the shapeshifter unleashes the full potential of his transformations.",
-				"hp": 250,
+				"spells": "newfaceheal,chaosconfuse,chaoswave",
+				"desc": "The man turns to face you, except instead of a face he simply has a patch of smooth, featureless skin.",
+				"hp": 500,
 				"defense": 25,
-				"tohit": 30,
+				"tohit": 12,
+				"onSummon": {
+					"name": "unstable form",
+					"id": "mon_unstable",
+					"targets": "self",
+					"dot": {
+						"mod": {
+							"self.resist.chaos": -100
+						}
+					}
+				},
 				"attack": [
 					{
 						"name": "hank's axe",
 						"kind": "slash",
-						"damage": "8~20",
+						"damage": "15~20",
+						"targets": "enemyleader",
 						"log": {
 							"%": "10%",
-							"desc": "Your face will be a fine addition to my repertoire!"
+							"desc": "No sound except for the parting air is heard"
+						}
+					},
+					{
+						"name": "wolf's bite",
+						"kind": "pierce",
+						"damage": "10~14",
+						"targets": "enemyleader",
+						"log": {
+							"%": "10%",
+							"desc": "There is a distinct lack of barking, howling or other normal intimidation tactics you'd expect."
+						},
+						"dot": {
+							"name": "bleed",
+							"duration": 8,
+							"kind": "pierce",
+							"damage": "5~7"
+						}
+					},
+					{
+						"name": "fox's claws",
+						"kind": "slash",
+						"targets": "enemyleader",
+						"damage": 17,
+						"log": {
+							"%": "10%",
+							"desc": "You don't get to learn what sounds a fox would make."
+						}
+					}
+				],
+				"loot": {
+					"chaosrune": "10%",
+					"chaosgem": "2~4"
+				},
+				"statedata": {
+					"newfaceheal": {
+						"need": null,
+						"cd": 15,
+						"attack": {
+							"targets": "self",
+							"harmless": true,
+							"healing": 50,
+							"kind": "chaos",
+							"potencies": []
+						}
+					},
+					"chaosconfuse": {
+						"need": null,
+						"cd": 25,
+						"attack": {
+							"damage": "1~7",
+							"targets": "enemyleader",
+							"potencies": [],
+							"dot": {
+								"id": "confuse",
+								"name": "confused",
+								"flags": "confused",
+								"sym": "🤪",
+								"kind": "chaos",
+								"duration": 5
+							}
+						}
+					},
+					"chaoswave": {
+						"need": null,
+						"cd": 5,
+						"attack": {
+							"targets": "enemies",
+							"damage": "1~5",
+							"kind": "chaos",
+							"potencies": [],
+							"dot": {
+								"name": "unstable",
+								"damage": "1~3",
+								"duration": 3
+							}
+						}
+					}
+				}
+			},
+			{
+				"id": "hal_hank",
+				"name": "Hank",
+				"level": 10,
+				"kind": "human",
+				"spells": "newfaceheal,chaosconfuse,chaoswave",
+				"noproc": true,
+				"desc": "The man turns to face you. It's Hank! Only the axe in his hands serves to alert you to what happens next.",
+				"hp": 500,
+				"defense": 25,
+				"tohit": 12,
+				"onSummon": {
+					"name": "unstable form",
+					"id": "mon_unstable",
+					"targets": "self",
+					"dot": {
+						"mod": {
+							"self.resist.chaos": -100
+						}
+					}
+				},
+				"attack": [
+					{
+						"name": "hank's axe",
+						"kind": "slash",
+						"damage": "15~20",
+						"log": {
+							"%": "10%",
+							"desc": "You know, your face would be even more useful than this one!"
 						}
 					},
 					{
@@ -1125,7 +1329,7 @@
 						},
 						"dot": {
 							"name": "bleed",
-							"duration": 5,
+							"duration": 8,
 							"kind": "pierce",
 							"damage": "5~7"
 						}
@@ -1133,16 +1337,61 @@
 					{
 						"name": "fox's claws",
 						"kind": "slash",
-						"damage": 12,
+						"damage": 17,
 						"log": {
 							"%": "10%",
-							"desc": "Won't you join my collection?"
+							"desc": "The screeching sounds buzz in your ears for a few seconds."
 						}
 					}
 				],
 				"loot": {
 					"chaosrune": "10%",
 					"chaosgem": "2~4"
+				},
+				"statedata": {
+					"newfaceheal": {
+						"need": null,
+						"cd": 15,
+						"attack": {
+							"targets": "self",
+							"harmless": true,
+							"healing": 50,
+							"kind": "chaos",
+							"potencies": []
+						}
+					},
+					"chaosconfuse": {
+						"need": null,
+						"cd": 25,
+						"attack": {
+							"damage": "1~7",
+							"targets": "enemyleader",
+							"potencies": [],
+							"dot": {
+								"id": "confuse",
+								"name": "confused",
+								"flags": "confused",
+								"sym": "🤪",
+								"kind": "chaos",
+								"duration": 5
+							}
+						}
+					},
+					"chaoswave": {
+						"need": null,
+						"cd": 5,
+						"attack": {
+							"targets": "enemies",
+							"damage": "1~5",
+							"kind": "chaos",
+							"potencies": [],
+							"dot": {
+								"name": "unstable",
+								"damage": "1~3",
+								"duration": 3
+							}
+						}
+					}
 				}
 			},
 			{
@@ -1349,6 +1598,12 @@
 				}
 			}
 		],
+		"tags": [
+			{
+				"id": "t_halloween_aspect",
+				"name": "halloween aspect"
+			}
+		],
 		"clashes": [
 			{
 				"id": "hal_bridge1",
@@ -1366,15 +1621,8 @@
 					"headless_ride": "15%"
 				},
 				"spawns": [
-					[
-						"hal_wight",
-						"hal_wight"
-					],
-					[
-						"nec_ghost",
-						"nec_ghost",
-						"nec_ghost"
-					]
+					["hal_wight", "hal_wight"],
+					["nec_ghost", "nec_ghost", "nec_ghost"]
 				]
 			},
 			{
@@ -1398,15 +1646,8 @@
 					"headless_ride": 1
 				},
 				"spawns": [
-					[
-						"hal_wight2",
-						"hal_wight2"
-					],
-					[
-						"nec_ghost2",
-						"nec_ghost2",
-						"nec_ghost2"
-					]
+					["hal_wight2", "hal_wight2"],
+					["nec_ghost2", "nec_ghost2", "nec_ghost2"]
 				]
 			},
 			{
@@ -1430,6 +1671,71 @@
 						"hal_mindslave",
 						"hal_mindslave"
 					]
+				}
+			},
+			{
+				"id": "hal_mill_intime",
+				"name": "Abandoned windmill",
+				"desc": "You have reason to suspect Hank is here. Why would he go that way though?",
+				"level": 10,
+				"unreturnable": true,
+				"length": 3,
+				"dist": 50,
+				"sym": "🎃⚔💀",
+				"log": {
+					"name": "Laboratory",
+					"desc": "The shapeshifter's laboratory yields a clue as to how he managed to perform his transformations. You could make use of it yourself, if you so desire."
+				},
+				"require": "(g.hal_resident+g.hal_grumpy+g.hal_missing+g.hal_footprints+g.hal_age)>=50",
+				"run": {
+					"stamina": 0.4
+				},
+				"boss": {
+					"1": ["nec_ghost", "nec_ghost", "nec_ghost"],
+					"2": ["hal_ratminion"],
+					"3": ["hal_faceless"]
+				}
+			},
+			{
+				"id": "hal_fakehouse",
+				"name": "Abandoned house",
+				"desc": "You have reason to suspect Hank is here. The ghost of the thief must have stolen him away to enact revenge.",
+				"level": 10,
+				"unreturnable": true,
+				"length": 3,
+				"dist": 50,
+				"sym": "🎃⚔💀",
+				"require": "(g.hal_resident_doppel+g.hal_grumpy_doppel+g.hal_missing+g.hal_age_doppel)>=30",
+				"run": {
+					"stamina": 0.4
+				},
+				"boss": {
+					"1": ["nec_ghost", "nec_ghost", "nec_ghost"],
+					"2": ["nec_ghost", "nec_ghost", "nec_ghost"],
+					"3": ["nec_ghost", "nec_ghost", "nec_ghost"]
+				}
+			},
+			{
+				"id": "hal_mill_late",
+				"name": "Abandoned windmill",
+				"desc": "You are sure that this is where Hank must be.",
+				"level": 10,
+				"unreturnable": true,
+				"length": 3,
+				"dist": 50,
+				"sym": "🎃⚔💀",
+				"log": {
+					"name": "Laboratory",
+					"desc": "The shapeshifter's laboratory yields a clue as to how he managed to perform his transformations. You could make use of it yourself, if you so desire."
+				},
+				"require": "(g.hal_resident+g.hal_grumpy+g.hal_missing+g.hal_footprints+g.hal_age)>=50&&g.hal_timewaste>0",
+				"run": {
+					"stamina": 0.4
+				},
+				"boss": {
+					"1": ["nec_ghost", "nec_ghost", "nec_ghost"],
+					"2": ["hal_ratminion"],
+					"3": ["hal_hank"]
 				}
 			}
 		],

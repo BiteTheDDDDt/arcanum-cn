@@ -9,13 +9,50 @@
 		"only": "cloth,leather"
 	},
 	{
-		"id": "boots",
+		"id": "vambraces",
+		"armor": 2,
+		"level": 2,
+		"slot": "hands",
+		"tags": "t_vambraces,d_vambraces",
+		"cost": 30,
+		"only": "cloth,leather"
+	},
+	{
+		"id": "gauntlets",
+		"armor": 3,
+		"level": 4,
+		"slot": "hands",
+		"tags": "t_gauntlets,d_gauntlets",
+		"cost": 50,
+		"only": "metal,ethereal"
+	},
+	{
+		"id": "shoes",
 		"armor": 1,
+		"level": 1,
+		"slot": "feet",
+		"tags": "t_shoes,d_shoes",
+		"cost": 10,
+		"only": "cloth,leather"
+	},
+	{
+		"id": "boots",
+		"armor": 2,
+		"level": 2,
 		"slot": "feet",
 		"tags": "t_boots,d_boots",
 		"cost": 20,
+		"only": "cloth,leather"
+	},
+	{
+		"id": "sabatons",
+		"armor": 3,
+		"level": 4,
+		"slot": "feet",
+		"tags": "t_sabatons,d_sabatons",
+		"cost": 30,
 		"enchants": 2,
-		"only": "cloth,leather,metal"
+		"only": "metal,ethereal"
 	},
 	{
 		"id": "hat",
@@ -38,7 +75,7 @@
 		"slot": "head",
 		"tags": "t_helm,d_helm",
 		"cost": 30,
-		"level": 3
+		"level": 2
 	},
 	{
 		"id": "jerkin",
@@ -109,7 +146,7 @@
 		"id": "conicalhelm",
 		"name": "conical helm",
 		"armor": 3,
-		"level": 2,
+		"level": 4,
 		"slot": "head",
 		"tags": "t_conicalhelm,d_conicalhelm",
 		"cost": 40,
@@ -182,11 +219,31 @@
 		"enchants": 4
 	},
 	{
-		"id": "greaves",
+		"id": "pantaloons",
 		"armor": 1,
+		"level": 1,
+		"slot": "shins",
+		"tags": "t_pantaloons,d_pantaloons",
+		"cost": 10,
+		"only": "cloth,leather"
+	},
+	{
+		"id": "chaps",
+		"armor": 2,
+		"level": 2,
+		"slot": "shins",
+		"tags": "t_chaps,d_chaps",
+		"cost": 30,
+		"only": "cloth,leather"
+	},
+	{
+		"id": "greaves",
+		"armor": 3,
+		"level": 4,
 		"slot": "shins",
 		"tags": "t_greaves,d_greaves",
-		"cost": 30
+		"cost": 50,
+		"only": "metal,ethereal"
 	},
 	{
 		"id": "pendant",

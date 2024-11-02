@@ -2,8 +2,9 @@
 // show is the variable name of the object displayed for the name.
 // pick is the name of the variable returned as the selected data item. Use '*' for the picked object itself.
 export default {
+    emits: ["input"],
 
-	/**
+    /**
 	 * @property {string} label - the label displayed for the entire control, if any.
 	 * @property {string[]|Object[]} options - options to display.
 	 * 
@@ -11,22 +12,24 @@ export default {
 	 * the user, or a function that takes the object and returns the display string.
 	 * If undefined, the object itself is used.
 	 * 
-	 * @property {string|function} [pick='value'] - property of selected object to return
+	 * @property {string|function} [pick='modelValue'] - property of selected object to return
 	 * when an object is selected. If undefined, the object itself is returned.
 	 * 
 	 * @property {string} disabled - text to display when nothing is selected.
 	 *  
  	 */
-	props:['label', 'options', 'value', 'show', 'pick', 'disabled', 'disabledValue'],
-	data(){
+    props:['label', 'options', 'modelValue', 'show', 'pick', 'disabled', 'disabledValue'],
+
+    data(){
 
 		return {
 			pshow:this.show||'text',
-			pvar:this.pick||'value'
+			pvar:this.pick||'modelValue'
 		}
 
 	},
-	methods:{
+
+    methods:{
 
 		text(t){
 
@@ -48,20 +51,20 @@ export default {
 		}
 	
 	},
-	computed:{
+
+    computed:{
 
 		selected:{
 			get(){
 				return this.value;
 			},
 			set(v) {
-				this.$emit( 'input', v );
+				this.$emit( 'update:modelValue', v );
 			}
 		}
 
 	}
-
-}
+};
 </script>
 <template>
 	<div class="dropdown">
@@ -74,3 +77,4 @@ export default {
 
 	</div>
 </template>
+

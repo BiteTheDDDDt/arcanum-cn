@@ -1,12 +1,12 @@
 import Base, { mergeClass } from './base';
-import { assign, cloneClass } from '../util/objecty';
+import { assign, cloneClass } from '@/util/objecty';
 import { ParseMods } from 'modules/parsing';
-import Instance from './instance';
+import Instance from '@/items/instance';
 import RValue, { InitRVals } from '../values/rvals/rvalue';
 import Events, {
 	ITEM_ACTION
 } from '../events';
-import { Changed } from '../techTree';
+import { Changed } from '@/changes';
 
 const ItemDefaults = {
 	stack: true,
@@ -127,19 +127,16 @@ export default class Item {
 
 	canUse(g) {
 		let sharecd = false
-		if (this.tags)
-		{
-			for (let tag of this.tags)
-			{
+		if (this.tags) {
+			for (let tag of this.tags) {
 				let t = g.state.getData(tag);
-				if (t.sharecd)
-				{
+				if (t.sharecd) {
 					sharecd = true
 					break;
 				}
 			}
 		}
-		if (sharecd||this.cd) {
+		if (sharecd || this.cd) {
 			if (this.template) {
 				let parentid = this.template;
 				if (this.template.id) {
@@ -151,7 +148,7 @@ export default class Item {
 			}
 		}
 
-		return !(this.timer>0) && (this.consume || this.use);
+		return !(this.timer > 0) && (this.consume || this.use);
 	}
 
 	canRun(g) { return this.canUse(g); }
@@ -237,8 +234,8 @@ export default class Item {
 
 	begin(g) {
 		//console.log('BEGIN CALLED: ' + this.id );
-		if (this.template && this.template.alter) this.applyMods(this.template.alter);
-		this.initAlters(g);
+		if (this.template && this.template.alter) this.applyMods(this.template.alter, ...Array(5), !this.equippable || this.value > 0);
+		this.initAlters(g, !this.equippable || this.value > 0);
 	}
 
 }

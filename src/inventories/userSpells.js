@@ -1,5 +1,5 @@
 import Inventory, { SAVE_IDS } from "./inventory";
-import Group from "../composites/group";
+import Group from '@/composites/group';
 import Events, { DELETE_ITEM } from "../events";
 
 /**
@@ -9,7 +9,7 @@ import Events, { DELETE_ITEM } from "../events";
  */
 export default class UserSpells extends Inventory {
 
-	constructor(vars=null) {
+	constructor(vars = null) {
 
 		super(vars);
 
@@ -24,9 +24,9 @@ export default class UserSpells extends Inventory {
 		super.revive(gs);
 		this.state = gs;
 
-		for( let s of this.items ) {
+		for (let s of this.items) {
 
-			if ( !s.school ) s.school = 'crafted';
+			if (!s.school) s.school = 'crafted';
 
 		}
 
@@ -39,9 +39,9 @@ export default class UserSpells extends Inventory {
 	removeAt(ind) {
 
 		let it = this.items[ind];
-		if ( it ) {
+		if (it) {
 
-			Events.emit( DELETE_ITEM, it );
+			Events.emit(DELETE_ITEM, it);
 			super.removeAt(ind);
 
 		}
@@ -54,7 +54,7 @@ export default class UserSpells extends Inventory {
 	 * @param {GameState} gs
 	 * @param {string} [name=null]
 	 */
-	create( list, gs, name=null ) {
+	create(list, gs, name = null) {
 
 		let g = new Group();
 
@@ -66,9 +66,9 @@ export default class UserSpells extends Inventory {
 		g.name = name || 'new spell';
 		g.computeCost();
 
-		gs.addItem( g );
+		gs.addItem(g);
 
-		this.add( g );
+		this.add(g);
 
 		return g;
 

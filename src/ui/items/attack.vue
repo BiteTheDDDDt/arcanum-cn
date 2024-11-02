@@ -1,14 +1,14 @@
 <script>
-import Dot from './dot-info.vue';
-import InfoBlock from './info-block.vue';
-import DamageMixin from './damageMixin.js';
-import game from '../../game';
-import Summon from './summon.vue';
-import HealingMixin from './healingMixin.js';
+import Dot from '@/ui/items/dot-info.vue';
+import InfoBlock from '@/ui/items/info-block.vue';
+import DamageMixin from '@/ui/items/damageMixin.js';
+import game from '@/game';
+import Summon from '@/ui/items/summon.vue';
+import HealingMixin from '@/ui/items/healingMixin.js';
 
 export default {
 
-	props: ['item', 'atk', 'target', 'ondeathflag', 'onexpireflag'],
+	props: ['item', 'atk', 'target', 'ondeathflag', 'onexpireflag','onsummonflag'],
 	name: 'attack',
 	mixins: [DamageMixin(), HealingMixin()],
 	components: {
@@ -40,13 +40,19 @@ export default {
 			else targetstr += condition.filter(target => target).map(target => (game.getData(target)?.name || target === this.attack.id && this.attack.name || target).toTitleCase()).join(", ");
 
 			return targetstr;
-		}
+		},
+		tagNames(t) {
+			if (Array.isArray(t)) return t.map(this.tagNames, this);
+			if (typeof t === 'string' && t.substring(0, 2) === 't_') return t.slice(2).toTitleCase();
+			return t.toTitleCase();
+		},
 	},
 	computed: {
 
 		attack() {
 			if (this.ondeathflag) return this.item.onDeath;
 			if (this.onexpireflag) return this.item.onExpire;
+			if (this.onsummonflag) return this.item.onSummon;
 			return this.atk || this.item.attack;
 		},
 		damage() {
@@ -57,6 +63,9 @@ export default {
 		},
 		hitBonus() {
 			return this.attack.tohit || 0;
+		},
+		leech() {
+			return this.attack.leech*100 + "%";
 		},
 		bonus() {
 
@@ -94,6 +103,11 @@ export default {
 			}
 			return targetstring
 		},
+		shortTarget() {
+			let targetstring = this.attack.targetstring || this.target || "enemy"
+			targetstring = targetstring.toTitleCase();
+			return targetstring
+		},	
 		potency() {
 			let potencystring = ""
 			for (let a of this.attack.potencies) {
@@ -107,7 +121,13 @@ export default {
 			//			let onlyArr = this.attack.only.split(',');
 			for (let o of this.attack.only) {
 				if (onlystring != "") onlystring = onlystring.concat(", ");
-				onlystring = onlystring.concat(o.toTitleCase());
+				o = game.state.tagSets[o] || o
+				if (o instanceof Object && o.name) {
+					onlystring = onlystring.concat(o.name.toTitleCase());
+				} else {
+					onlystring = onlystring.concat(this.tagNames(o));
+				}
+				
 			}
 			return onlystring
 		}
@@ -128,16 +148,18 @@ export default {
 		</div>
 		<div v-else>
 			<div
-				v-if="damage && itemtype !== 'armor' || attack.hits || attack.dot || attack.result || attack.summon || attack.healing || attack.cure">
+				v-if="damage && itemtype !== 'armor' || attack.hits || attack.dot || attack.result || attack.acquire || attack.summon || attack.healing || attack.cure">
 				<div v-if="attack.name && attack.name !== item.name"><span>Name:
 					</span><span>{{ attack.name.toString().toTitleCase() }}</span></div>
 
 				<div v-if="damage">
 					<div v-if="hitBonus">Hit Bonus: {{ hitBonus }}</div>
 					<div class="damage">Estimated damage: {{ damage }}<span v-if="bonus">{{ bonus }}</span></div>
+					<div v-if="attack.leech">Returns {{ leech }} of damage as healing</div>
 					<div v-if="attack.repeathits">Repeats: {{ attack.repeathits }} times</div>
 					<div v-if="attack.potencies">Damage scaling: {{ potency }}</div>
 					<div v-if="attack.kind">Kind: {{ attack.kind.toString().toTitleCase() }}</div>
+					<div v-if="attack.nodefense">Ignores defense</div>
 				</div>
 
 				<div v-if="healing">
@@ -145,6 +167,9 @@ export default {
 					<div v-if="attack.potencies">Heal scaling: {{ potency }}</div>
 					<div v-if="attack.kind">Kind: {{ attack.kind.toString().toTitleCase() }}</div>
 				</div>
+				<div v-if="attack.noparry">Cannot be parried</div>
+				<div v-if="attack.nododge">Cannot be dodged</div>
+				<div v-if="attack.harmless">Cannot be dodged or parried</div>
 				<div v-if="attack.cure">Cures: {{ cureeffects }}</div>
 				<div v-if="attack.targets||attack.targetspec">Targets: {{ calcTarget }}</div>
 				<div v-if="attack.only">Only Affects: {{ only }}</div>
@@ -153,7 +178,9 @@ export default {
 					<summon :item="item" :smn="attack.summon" class="info-subsubsect" />
 				</div>
 				<div v-if="attack.result" class="info-sect">Results:</div>
-				<info v-if="attack.result" :info="attack.result" :target="calcTarget" />
+				<info v-if="attack.result" :info="attack.result" :target="shortTarget" />
+				<div v-if="attack.acquire" class="info-sect">Produces:</div>
+				<info v-if="attack.acquire" :info="attack.acquire" :target="shortTarget" />
 			</div>
 
 			<div v-if="attack.hits">

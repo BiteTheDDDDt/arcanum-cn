@@ -1,4 +1,4 @@
-import { precise } from "../../util/format";
+import { precise } from '@/util/format';
 
 /**
  * Single item in a display block.

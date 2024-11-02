@@ -1,6 +1,6 @@
 <script>
-import Game from '../../game';
-import Group from './npc-group.vue';
+import Game from '@/game';
+import Group from '@/ui/items/npc-group.vue';
 
 export default {
 

@@ -1,11 +1,11 @@
 {
-	"module": "legacy",
+	"module": "legacy_winter",
 	"data": {
 		"materials": [
 			{
 				"id": "crimsonice",
 				"priceMod": 20,
-				"tohit": 10,
+				"tohit": 2,
 				"bonus": 3,
 				"kind": "ice",
 				"noproc": true,
@@ -15,7 +15,7 @@
 				"id": "coldsteel",
 				"kind": "metal",
 				"priceMod": 30,
-				"tohit": 9,
+				"tohit": 3,
 				"enchants": 4,
 				"bonus": 7,
 				"noproc": true,
@@ -25,221 +25,13 @@
 				"id": "permafrost",
 				"priceMod": 80,
 				"bonus": 10,
-				"tohit": 11,
+				"tohit": 3,
 				"kind": "ice",
 				"noproc": true,
 				"level": 7
 			}
 		],
-		"potions": [
-			{
-				"id": "pumpcider",
-				"name": "spoiled pumpkin cider",
-				"level": 1,
-				"cost": {
-					"gold": 1
-				},
-				"use": {
-					"dot": {
-						"duration": 45,
-						"effect": {
-							"hp": -1
-						}
-					}
-				},
-				"flavor": "Used to be a refreshing brew, now nothing more than a bottle of rot."
-			},
-			{
-				"id": "bubblebrew",
-				"name": "once-bubbling brew",
-				"level": 1,
-				"cost": {
-					"herbs": 1
-				},
-				"use": {
-					"hp": -1
-				},
-				"flavor": "Flat and flavorless."
-			}
-		],
 		"encounters": [
-			{
-				"id": "enc_blackcat",
-				"name": "black cat",
-				"desc": "A black cat is an omen to be studied seriously",
-				"effect": {
-					"unease": "1~4",
-					"rage": "2~4",
-					"divination.exp": 5,
-					"scrying.exp": 5
-				},
-				"result": {
-					"arcana": 0.04
-				},
-				"mod": {
-					"spiritlore.max": "0.05//20/-10"
-				}
-			},
-			{
-				"id": "enc_hest_ward",
-				"name": "warding charm",
-				"desc": "A hanging charm wards away the borgles and grimstalks.",
-				"effect": {
-					"unease": "1~5",
-					"bf": "1~5",
-					"charms.exp": 5,
-					"enchanting.exp": 5
-				},
-				"mod": {
-					"enchanting.max": "0.05//20/-10",
-					"charms.max": "0.05//20/-10"
-				}
-			},
-			{
-				"id": "enc_cauldron",
-				"name": "bubbling cauldron",
-				"desc": "The cauldron bubbles and glows with a odorous brew.",
-				"effect": {
-					"unease": "0~2",
-					"weary": "1~3",
-					"bf": "-1~2.5",
-					"potions.exp": 5,
-					"alchemy.exp": 5,
-					"crafting.exp": 5
-				},
-				"mod": {
-					"potions.max": "0.05//20/-10"
-				},
-				"loot": "hestiabrew"
-			},
-			{
-				"id": "enc_hestia",
-				"name": "Hestia",
-				"desc": "Hestia has no interest in the world outside Thangmor, but will teach those who come to her.",
-				"effect": {
-					"unease": "2~4",
-					"bf": "-2~3",
-					"herbalism.exp": 1
-				},
-				"result": {
-					"potions.exp": 50,
-					"arcana": 0.01
-				},
-				"mod": {
-					"scrying.max": "0.05//20/-10",
-					"history.max": "0.05//20/-10"
-				}
-			},
-			{
-				"id": "hal_oldman",
-				"name": "Old Harold",
-				"desc": "He keeps ranting about a wolf he saw in the granary.",
-				"effect": {
-					"bf": 1,
-					"weary": 0.5
-				},
-				"mod": {
-					"languages.max": "0.05//20/-10"
-				}
-			},
-			{
-				"id": "hal_fox",
-				"name": "Fox",
-				"desc": "An odd fox squirms its way into a trapdoor.",
-				"effect": {
-					"unease": 0.5
-				},
-				"result": {
-					"stamina": -0.5
-				},
-				"mod": {
-					"animals.max": "0.05//20/-10"
-				}
-			},
-			{
-				"id": "hal_grumpy",
-				"name": "Grumpy Granny",
-				"desc": "The second you even think about cursing, she appears, soap at the ready.",
-				"effect": {
-					"unease": "-1~2",
-					"gold": -0.1
-				},
-				"result": {
-					"virtue": 1
-				}
-			},
-			{
-				"id": "hal_stranger",
-				"name": "Outsider",
-				"desc": "A man stands just outside the village, visibly shaken. As you approach him, he warns you that something strange is going on in Hallomar.",
-				"effect": {
-					"madness": "0~2"
-				},
-				"result": {
-					"hal_suspicion": true
-				},
-				"mod": {
-					"history.max": "0.05//20/-10"
-				}
-			},
-			{
-				"id": "hal_missing",
-				"name": "Hank is Missing",
-				"desc": "Everyone claims they just saw him, but you can't find him at all.",
-				"effect": {
-					"weary": "1~2"
-				}
-			},
-			{
-				"id": "hal_age",
-				"name": "Berta",
-				"desc": "Overnight, she had aged 30 years. By the next day, she was back to her youthful self.",
-				"effect": {
-					"bf": "0~2",
-					"madness": "0~2"
-				},
-				"mod": {
-					"anatomy.max": "0.05//20/-10"
-				}
-			},
-			{
-				"id": "enc_hal_hest_talk",
-				"name": "talk to hestia",
-				"desc": "Hestia is busy concocting a special pumpkin brew.",
-				"effect": {
-					"bf": "0~2",
-					"weary": "0~2",
-					"potions.exp": 1
-				},
-				"loot": {
-					"pumpcider": 1
-				},
-				"result": {
-					"pumpcider": true
-				},
-				"mod": {
-					"crafting.max": "0.05//20/-10"
-				}
-			},
-			{
-				"id": "en_pumppatch",
-				"name": "pumpkin patch",
-				"desc": "Hallomar's autumn fields grow some of the largest pumpkins to be found.",
-				"effect": {
-					"weary": "1~2",
-					"rage": "1~2",
-					"herbalism.exp": 1,
-					"spiritlore.exp": 1
-				},
-				"loot": {
-					"evt_hal_imp": "15%",
-					"cobwebs": "0~2",
-					"pumpkins": 1
-				},
-				"mod": {
-					"spiritlore.max": "0.05//20/-10"
-				}
-			},
 			{
 				"id": "enc_w_lifeforce",
 				"name": "siphon lifeforce",
@@ -361,7 +153,7 @@
 					"w_fazbitknowledge": "3~4",
 					"frostbrass": 0.75,
 					"winteressence": 0.15,
-					"crafting.rate": 1
+					"crafting.rate": 0.1
 				},
 				"mod": {
 					"anatomy.max": "0.05//20/-10"
@@ -378,7 +170,7 @@
 				"result": {
 					"w_dolls": 0.05,
 					"winteressence": 0.2,
-					"crafting.rate": 2
+					"crafting.rate": 0.2
 				},
 				"mod": {
 					"anatomy.max": "0.025//40/-10"
@@ -1077,76 +869,19 @@
 		],
 		"rares": [
 			{
-				"id": "vorpal_sword",
-				"alias": "vorpal",
-				"sym": "🎃",
-				"name": "vorpal blade",
-				"level": 8,
+				"id": "ice_blade",
+				"sym": "❄️",
+				"name": "glacial blade",
 				"type": "weapon",
-				"tags": "t_longsword,t_swords",
+				"tags": "t_martial,t_slash,t_swords",
+				"damage": "8~10",
 				"attack": {
 					"kind": "slash",
-					"damage": "8~10"
-				}
-			},
-			{
-				"id": "vorpal_sword2",
-				"sym": "🎃",
-				"name": "midnight vorpal blade",
-				"level": 14,
-				"type": "weapon",
-				"tags": "t_longsword,t_swords",
-				"attack": [
-					{
-						"name": "snicker-snack",
-						"kind": "void",
-						"targets": "enemyleader",
-						"dmg": "20~40"
-					},
-					{
-						"name": "behead",
-						"kind": "void",
-						"targets": "flunky",
-						"dmg": "50~100"
-					},
-					{
-						"name": "midnight hour",
-						"targets": "self",
-						"dot": {
-							"id": "hal_midnight",
-							"name": "midnight hour",
-							"duration": 12,
-							"mod": {
-								"self.defense": 12,
-								"self.dodge": 12,
-								"self.tohit": 12,
-								"physdmg": 12,
-								"spelldmg": 12
-							}
-						}
-					}
-				]
-			},
-			{
-				"id": "bdagg",
-				"sym": "🎃",
-				"name": "necrotic dagger",
-				"material": "bone",
-				"type": "weapon",
-				"tags": "t_dagger",
-				"tohit": 2,
-				"attack": {
-					"kind": "pierce",
-					"damage": "2~4",
-					"dot": {
-						"duration": 3,
-						"dmg": "2~3",
-						"name": "necrosis",
-						"kind": "necrotic"
-					}
+					"damage": "i.damage||0",
+					"potencies": ["sworddmg", "slashdmg", "physdmg", "icedmg"]
 				},
 				"cost": 20,
-				"level": 3
+				"level": 5
 			},
 			{
 				"id": "iceorb",
@@ -1164,56 +899,35 @@
 				},
 				"attack": {
 					"name": "blizzard",
-					"tohit": 10,
-					"damage": "8~15",
+					"damage": "3~6",
 					"kind": "ice",
+					"tohit": 2,
 					"targets": "enemies",
+					"potencies": ["spelldmg", "icedmg"],
 					"dot": {
 						"duration": 5,
 						"id": "frostbite",
 						"kind": "ice",
-						"dmg": "8~15",
+						"damage": "3~4",
 						"mod": {
 							"self.speed": -3
-						}
+						},
+						"potencies": ["spelldmg", "icedmg"]
 					}
 				},
 				"alter": {
 					"mod": {
 						"ice.rate": "20%",
 						"ice.max": "20%",
-						"icelore.rate": "50+50%",
+						"icedmg": 50,
+						"icelore.rate": "0.15+30%",
 						"water.rate": "10%",
 						"water.max": "10%",
-						"waterlore.rate": "50+50%",
+						"waterlore.rate": "0.15+30%",
 						"fire.rate": "-80%",
 						"fire.max": "-80%"
 					}
 				}
-			},
-			{
-				"id": "hal_amulet",
-				"sym": "🎃",
-				"name": "hestia's charm",
-				"desc": "Hestia's amulet throbs with a dull purple light.",
-				"type": "armor",
-				"armor": 2,
-				"slot": "neck",
-				"alter": {
-					"mod": {
-						"player.resist.necrotic": 10
-					}
-				}
-			},
-			{
-				"id": "nymiescharm",
-				"sym": "🎃",
-				"name": "nymie's charm",
-				"desc": "A small figurine of a black cat.",
-				"level": 20,
-				"type": "armor",
-				"slot": "trinket",
-				"enchants": 0
 			},
 			{
 				"id": "coldnecklace",
@@ -1228,7 +942,7 @@
 				"enchants": 10,
 				"alter": {
 					"mod": {
-						"focus.result.runner.skillprogress": "25%",
+						"focus.result.runner.skillprogress": "100%",
 						"stress.rate": -0.3
 					}
 				}
@@ -1246,21 +960,14 @@
 			"data": {
 				"upgrades": [
 					{
-						"id": "hal_trick_pumpkin",
-						"name": "mischievous wisps",
-						"sym": "🏰🎃",
-						"tags": "hall",
-						"desc": "The heart of the horseman has finally dissipated. Only the faintest trace of mischief remains.",
-						"require": "g.lore>999",
-						"max": 1
-					},
-					{
 						"id": "fazbit_restoration",
 						"name": "fazbit's workshop restoration project",
 						"sym": "🏰❄️",
 						"tags": "hall",
 						"desc": "This place must have once been a source of great joy to people all over the realm. It would be a tremendous accomplishment to repair it... when the season permits, that is.",
 						"require": "g.lore>999",
+						"need": "g.lore>999",
+						"needtext": "Can only be done in winter",
 						"max": 1,
 						"result": {
 							"fame": 10
@@ -1273,26 +980,30 @@
 						"tags": "hall",
 						"desc": "It slumbers, waiting for the next time it's needed.",
 						"require": "g.lore>999",
+						"need": "g.lore>999",
+						"needtext": "Can only be done in winter",
 						"max": 1,
 						"mod": {
 							"puppetry.buy.sp": -1,
 							"machinacreation.buy.sp": -1,
 							"automatasculpting.buy.sp": -2
 						}
+					},
+					{
+						"id": "fazbitjolliness",
+						"name": "fazbit's jolliness",
+						"require": "g.fazbithearth>0",
+						"desc": "Even in the depths of frost and cold, warmth endures.",
+						"max": 1,
+						"cost": {
+							"research": 100
+						},
+						"mod": {
+							"firelore.max": 5
+						}
 					}
 				]
 			}
-		},
-		"events": [
-			{
-				"id": "trick_unlock",
-				"name": "Mischievous spirit",
-				"desc": "Peculiar energies permeate the hall, driving all to mischief.",
-				"require": "g.hal_trick_pumpkin>0&&g.apprentice>0&&g.trickery==0",
-				"result": {
-					"trickery": true
-				}
-			}
-		]
+		}
 	}
 }

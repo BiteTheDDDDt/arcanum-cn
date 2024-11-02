@@ -1,35 +1,34 @@
 <script>
 
 export default {
+	emits: ["update:modelValue"],
+	props: ['modelValue', 'items'],
 
-	props:['value', 'items'],
-	methods:{
+	methods: {
 
 		itemTitle(it) {
-
-			if ( it instanceof Object ) {
+			if (it instanceof Object) {
 				return it.name || it.desc || it.id;
 			} return it;
 
 		},
 
-		itemId(it){
-			if ( it instanceof Object ) {
+		itemId(it) {
+			if (it instanceof Object) {
 				return it.id;
 			}
 			return it;
 		},
 
-		setActive( it ) {
+		setActive(it) {
 
-			this.$emit( 'input', it );
-			this.$emit( 'changed', it );
+			this.$emit('update:modelValue', it);
+			//this.$emit( 'changed', it );
 
 		}
 
 	}
-
-}
+};
 
 </script>
 
@@ -38,26 +37,44 @@ export default {
 
 		<div class="menu-items">
 
-		<div class="menu-item" v-for="(it) in items" :key="it.id">
+			<div class="menu-item" v-for="(it) in items" :key="it.id">
 
-			<span v-if="it != value" @click="setActive(it)" :key="itemTitle(it)"> <u> {{ itemTitle(it) }} </u></span>
-			<span v-else :key="itemTitle(it)"> {{ itemTitle(it) }} </span>
+				<span v-if="it != modelValue" @click="setActive(it)" :key="itemTitle(it)"> <u> {{ itemTitle(it) }}
+					</u></span>
+				<span v-else :key="'selected' +
 
-		</div>
+
+
+					itemTitle(it)"> {{ itemTitle(it) }} </span>
+
+			</div>
 
 		</div>
 
 
 		<!-- NOTE: slot css-class ignored -->
-		<span class="menu-content"><slot :name="itemId(value)"></slot></span>
+		<span class="menu-content">
+			<slot :name="itemId(modelValue)"></slot>
+		</span>
 
 	</div>
 </template>
 
 <style scoped>
-    .menu-items .menu-item { color: #000; }
-    body.darkmode .menu-items .menu-item { color: #FFF; }
-    .menu-items .menu-item u { color: #999; }
-	.menu-items .menu-item:hover, .menu-items .menu-item u:hover { color: #33F; }
+.menu-items .menu-item {
+	color: #000;
+}
 
+body.darkmode .menu-items .menu-item {
+	color: #FFF;
+}
+
+.menu-items .menu-item u {
+	color: #999;
+}
+
+.menu-items .menu-item:hover,
+.menu-items .menu-item u:hover {
+	color: #33F;
+}
 </style>

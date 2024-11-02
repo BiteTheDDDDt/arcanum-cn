@@ -1,19 +1,22 @@
 <script>
 export default {
+	emits: ["click", "confirm", "cancel"],
 
 	/**
 	 * @property {string} confirm - confirm display text.
 	 * @property {string} cancel - cancel display text.
 	 */
-	props:['confirm','cancel'],
-	data(){
+	props: ['confirm', 'cancel'],
+
+	data() {
 		return {
-			btnConfirm:this.confirm||'Confirm',
-			btnCancel:this.cancel||'Cancel',
-			confirming:false
+			btnConfirm: this.confirm || 'Confirm',
+			btnCancel: this.cancel || 'Cancel',
+			confirming: false
 		};
 	},
-	methods:{
+
+	methods: {
 
 		/**
 		 * @public
@@ -23,29 +26,28 @@ export default {
 		reset() {
 			this.confirming = false;
 		},
-		mainClick(){
-			this.confirming=true;
-			this.$emit( 'click' );
+		mainClick() {
+			this.confirming = true;
+			this.$emit('click');
 		},
-		confirmClick(){
+		confirmClick() {
 			this.confirming = false;
-			this.$emit( 'confirm' );
+			this.$emit('confirm');
 		},
-		cancelClick(){
-			this.confirming=false;
-			this.$emit( 'cancel' );
+		cancelClick() {
+			this.confirming = false;
+			this.$emit('cancel');
 		}
 
 	}
-
-}
+};
 </script>
 
 
 <template>
 	<span class="my-span" v-if="confirming">
-		<button type="button" @click="confirmClick">{{btnConfirm}}</button>
-		<button type="button" @click="cancelClick">{{btnCancel}}</button>
+		<button type="button" @click="confirmClick">{{ btnConfirm }}</button>
+		<button type="button" @click="cancelClick">{{ btnCancel }}</button>
 	</span>
 	<span v-else class="my-span">
 		<button type="button" @click="mainClick"><slot>Delete</slot></button>
@@ -54,9 +56,8 @@ export default {
 </template>
 
 <style scoped>
-
 span.my-span {
-	display:contents;
+	display: contents;
 }
-
 </style>
+

@@ -1,7 +1,8 @@
-import {cloneClass, mergeSafe} from '../util/objecty';
-import { freezeData } from '../util/util';
-import { GDataDescAssigner } from '../items/gdata';
-import { PrepData } from '../modules/parsing';
+import { cloneClass, mergeSafe } from '@/util/objecty';
+import { freezeData } from '@/util/util';
+import { GDataDescAssigner } from '@/items/gdata';
+import { PrepData } from '@/modules/parsing';
+import { toRaw } from 'vue';
 
 /**
  * Proxy GameState for Npcs
@@ -12,14 +13,14 @@ export class NpcState {
 		let data = {};
 		this.npcItems.forEach((value, key) => {
 			// Skipping spell list, as npc should be saving that.
-			if(key === "spelllist") return;
+			if (key === "spelllist") return;
 			let json = value.toJSON();
-			if(json != null && (typeof json !== "object" || Object.keys(json).length)) data[key] = json;
+			if (json != null && (typeof json !== "object" || Object.keys(json).length)) data[key] = json;
 		});
 		return data;
 	}
 
-	constructor( gs, caster, data ){
+	constructor(gs, caster, data) {
 
 		this.state = gs;
 		this.self = caster;
@@ -29,7 +30,7 @@ export class NpcState {
 		 */
 		this.npcItems = new Map();
 
-		for(let prop in data) {
+		for (let prop in data) {
 			/*
 			 * Replicating the method dataLoader loads stuff, it is necessary to
 			 *   1. Grab the template of the item that is being copied
@@ -45,18 +46,18 @@ export class NpcState {
 			 * @note Tagsets may become an issue in the future...
 			 */
 			let it = this.state.getData(prop, false);
-			if(!it) {
+			if (!it) {
 				console.warn(`Cannot find id ${prop}. Skipping.`);
-			} else  {
+			} else {
 				// Cloned in npc, no need to worry about mutating the data copy reference.
 				let dataCopy = data[prop];
-				if(!it.template) console.warn(`!!! NO TEMPLATE FOR ${prop}!`);
+				if (!it.template) console.warn(`!!! NO TEMPLATE FOR ${prop}!`);
 				let template = it.template || {};
 				// If the npc is a subInstance npc, its template has already been overwritten in npc by the original state template in Monster revive.
-				let instTemplate = dataCopy.template || {};
+				let instTemplate = toRaw(dataCopy.template) || {};
 				delete dataCopy.template;
 				// Specific exclusion of level's mod and result, for a reason.
-				if(prop === "level") {
+				if (prop === "level") {
 					// As this is the original's template, cloning is necessary in order to remove properties.
 					template = cloneClass(template);
 					delete template.mod;
@@ -66,7 +67,7 @@ export class NpcState {
 				dataCopy = PrepData(dataCopy, prop);
 				let copy = new it.constructor(dataCopy);
 				// Only adjust template if it isn't a recipe, so that items instanced from this context can still saved with modified data
-				if(it.isRecipe) {
+				if (it.isRecipe) {
 					// Mainly for monster. Tells the Monster's revive function to use Game's copy of its stateTemplate instead of its own generated one. 
 					copy.subInstance = true;
 					// Need to save template, for saving edited values, and instance template, to properly edit values from state. 
@@ -79,7 +80,7 @@ export class NpcState {
 				}
 				freezeData(copy.template);
 				this.npcItems.set(prop, copy);
-				if(this.state.playerStats.includes(it)) {
+				if (this.state.playerStats.includes(it)) {
 					GDataDescAssigner(caster, prop);
 					caster[prop] = copy;
 				}
@@ -90,7 +91,7 @@ export class NpcState {
 
 	//get player(){return this.self; }
 
-	nextId(id){
+	nextId(id) {
 		return this.state.nextId(id);
 	}
 
@@ -98,21 +99,21 @@ export class NpcState {
 		return null;
 	}
 
-	setSlot(slot, v){
+	setSlot(slot, v) {
 		return;
 	}
 
-	findInstance(id){
+	findInstance(id) {
 		return null;
 	}
 
-	getUnique(id){return this.state.getUnique(id)}
+	getUnique(id) { return this.state.getUnique(id) }
 
-	findData(id, any=false) {
+	findData(id, any = false) {
 		return this.getData(p);
 	}
 
-	hasUnique(id){return false}
+	hasUnique(id) { return false }
 
 
 
@@ -120,61 +121,61 @@ export class NpcState {
 	 *
 	 * @param {string} p
 	 */
-	getData( p, create=true, elevate=true ){
+	getData(p, create = true, elevate = true) {
 
 		// appears to be check for special variables defined on state directly;
 		// e.g. explore. @todo many issues with this.
-		if ( p === 'self' ) {
+		if (p === 'self') {
 			return this.self;
-		} else if ( this.state[p] ) return this.state[p];
+		} else if (this.state[p]) return this.state[p];
 
 		let it = this.npcItems.get(p);
-		if ( it !== undefined ) return it;
+		if (it !== undefined) return it;
 
 
-		if(elevate) {
+		if (elevate) {
 			it = this.state.getData(p, false, elevate);
-			if ( it ) {
-				
+			if (it) {
+
 				//console.log('NEW NPC ITEM: ' + p + ': ' + it );
-				return it.isRecipe || !create ? it : this.makeNpcItem( p, it );
+				return it.isRecipe || !create ? it : this.makeNpcItem(p, it);
 
 			}
 		}
-		
+
 		//console.log('item not found: ' + p );
 		return null;
 
 	}
 
-	makeNpcItem( p, data ){
+	makeNpcItem(p, data) {
 
 		//console.log('MAKE NPC ITEM: ' + data.id );
 
 		let copy;
 
-		if ( data.template ) {
-			copy = cloneClass( data.template );
-			copy = PrepData(copy, data.id );
+		if (data.template) {
+			copy = cloneClass(data.template);
+			copy = PrepData(copy, data.id);
 		} else {
 			console.warn(`No template for ${data.id}. Directly copying data.`)
-			copy = cloneClass(data,{});
+			copy = cloneClass(data, {});
 		}
 
-		if ( data.constructor ) {
+		if (data.constructor) {
 			//console.log('using constr: ' + data.constructor.name );
-			copy = new data.constructor( copy );
+			copy = new data.constructor(copy);
 		}
 
-		if ( copy == null ) {
-			console.log('NPC: Cant create: ' + p );
+		if (copy == null) {
+			console.log('NPC: Cant create: ' + p);
 			copy = data;
 		} else {
 			copy.template = data.template;
 		}
 
-		this.npcItems.set( p, copy );
-		if(this.state.playerStats.find(it => it.id === p)) {
+		this.npcItems.set(p, copy);
+		if (this.state.playerStats.find(it => it.id === p)) {
 			GDataDescAssigner(this.self, p);
 			this.self[p] = copy;
 		}
@@ -183,7 +184,7 @@ export class NpcState {
 
 	revive() {
 		this.npcItems.forEach(it => {
-			if(it.revive instanceof Function) it.revive(this);
+			if (it.revive instanceof Function) it.revive(this);
 		});
 	}
 

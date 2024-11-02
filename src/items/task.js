@@ -1,12 +1,12 @@
-import GData from './gdata';
-import Game from '../game';
+import GData from '@/items/gdata';
+import Game from '@/game';
 import Events, { TASK_DONE, TASK_IMPROVED } from '../events';
-import Stat from '../values/rvals/stat';
-import Scaler from '../values/rvals/scaler';
-import { TASK } from '../values/consts';
-import { ParseMods } from '../modules/parsing';
-import { SetModCounts } from './base';
-import { Changed } from '../techTree'
+import Stat from '@/values/rvals/stat';
+import Scaler from '@/values/rvals/scaler';
+import { TASK } from '@/values/consts';
+import { ParseMods } from '@/modules/parsing';
+import { SetModCounts } from '@/items/base';
+import { Changed } from '@/changes';
 
 /*function ShowModTotals( mods ){
 
@@ -115,9 +115,9 @@ export default class Task extends GData {
 	get running() { return this._running; }
 	set running(v) { this._running = v; }
 
-	get timer() {return this._timer}
-	set timer(v) {this._timer=v}
-
+	get timer() { return this._timer }
+	set timer(v) { this._timer = v }
+	
 	percent() { return 100 * (this._exp / this._length); }
 
 	constructor(vars = null) {
@@ -133,16 +133,16 @@ export default class Task extends GData {
 
 		if (this.every) this.every = ParseMods(this.every, this.id, this);
 		//this is added to ensure task progress can scale.
-		if ( !this.rate) this.rate = new Stat( Defaults.rate, this.id + '.rate' );
-		if ( !this.rate.base ) this.rate.base = Defaults.rate;
+		if (!this.rate) this.rate = new Stat(Defaults.rate, this.id + '.rate');
+		if (!this.rate.base) this.rate.base = Defaults.rate;
 
-		
+
 		if ((this.length > 0 || this.perpetual > 0)) {
-			
-			if ( !(this.exp instanceof Scaler) ) this.ex = 0;
+
+			if (!(this.exp instanceof Scaler)) this.ex = 0;
 			this.ex = this.ex || 0;
 		}
-		
+
 		this.timer = this.timer || 0
 		this.running = this.running || false;
 

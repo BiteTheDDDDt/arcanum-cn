@@ -1,5 +1,5 @@
 <script>
-import { abbr } from 'util/format.js';
+import { abbr } from '@/util/format.js';
 import ItemBase from 'ui/itemsBase';
 
 /**
@@ -7,9 +7,9 @@ import ItemBase from 'ui/itemsBase';
  */
 export default {
 
-	props:['dots', 'mini', 'char'],
-	mixins:[ItemBase],
-	beforeCreate(){
+	props: ['dots', 'mini', 'char'],
+	mixins: [ItemBase],
+	beforeCreate() {
 		this.abbr = abbr;
 	}
 
@@ -18,16 +18,16 @@ export default {
 
 <template>
 
-	<div class="dot-view" v-if="dots.length>0">
+	<div class="dot-view" v-if="dots.length > 0">
 
-		<div :class="['dot',d.kind, d.school, mini ? 'mini':'']" v-for="d in dots" :key="d.id"
-		@mouseenter.capture.stop="itemOver( $event, d, char )">
+		<div :class="['dot', d.kind, d.school, mini ? 'mini' : '']" v-for="d in dots" :key="d.id"
+			@mouseenter.capture.stop="itemOver($event, d, char)">
 
-			<span v-if="!d.perm">{{ Math.ceil( d.duration ) }}</span>
+			<span v-if="!d.perm">{{ Math.ceil(d.duration) }}</span>
 			<span v-else-if="mini">∞</span>
-			<span v-if="!mini"><br>{{ mini ? abbr( d ) : d.name }}</span>
+			<span v-if="!mini"><br>{{ mini ? abbr(d) : d.name }}</span>
 
-			<div v-if="d.kind||d.school" class="bgfill" >&nbsp;</div>
+			<div v-if="d.kind || d.school" class="bgfill">&nbsp;</div>
 
 		</div>
 
@@ -36,10 +36,9 @@ export default {
 </template>
 
 <style scoped>
-
 div.dot-view {
-	display:flex;
-	position:relative;
+	display: flex;
+	position: relative;
 	flex-flow: row nowrap;
 	align-items: center;
 	justify-content: left;
@@ -47,29 +46,33 @@ div.dot-view {
 	overflow-x: scroll;
 	scrollbar-width: thin;
 	overflow-y: visible;
-	height:100%;
+	height: 100%;
 }
+
 div.dot-view .dot {
-	flex: 1; margin: 0; font-size: 0.75em; text-overflow: ellipsis; white-space: nowrap;
+	flex: 1;
+	margin: 0;
+	font-size: 0.75em;
+	text-overflow: ellipsis;
+	white-space: nowrap;
 	border: none;
 	outline: 1px solid var(--very-quiet-text-color);
 	position: relative;
 	text-align: center;
-	padding:var(--sm-gap);
+	padding: var(--sm-gap);
 	background: unset;
 }
 
-	div.dot-view span.mini {
-		display:flex;
-		flex-direction: row;
-		justify-content: space-around;
-		align-items: center;
-	}
+div.dot-view span.mini {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-around;
+	align-items: center;
+}
 
-	div.mini {
-		width:auto;
-		font-size: 0.7em;
-		padding:0;
-	}
-
+div.mini {
+	width: auto;
+	font-size: 0.7em;
+	padding: 0;
+}
 </style>

@@ -1,11 +1,11 @@
-import GData from "./gdata";
+import GData from '@/items/gdata';
 
 
 export default class Recipe extends GData {
 
-	get isRecipe(){return true;}
+	get isRecipe() { return true; }
 
-	constructor(vars=null) {
+	constructor(vars = null) {
 
 		super(vars);
 

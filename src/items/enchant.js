@@ -1,26 +1,26 @@
-import Task from './task';
-import GData from './gdata';
-import { SetModCounts } from './base';
-import { canTarget, ENCHANTSLOTS } from '../values/consts';
-import Enchanting from '../composites/enchanting';
+import Task from '@/items/task';
+import GData from '@/items/gdata';
+import { SetModCounts } from '@/items/base';
+import { canTarget, ENCHANTSLOTS } from '@/values/consts';
+import Enchanting from '@/composites/enchanting';
 
 
 export default class Enchant extends Task {
 
-	get isRecipe(){return true;}
+	get isRecipe() { return true; }
 
 	/**
 	 * @property {string} only - limit target type by name, kind, or tag, to which
 	 * the enchantment can be applied.
 	 */
-	get only(){return this._only;}
-	set only(v){
+	get only() { return this._only; }
+	set only(v) {
 		this._only = typeof v === 'string' ? v.split(',') : v;
 	}
 
-	get controller(){ return ENCHANTSLOTS; }
+	get controller() { return ENCHANTSLOTS; }
 
-	constructor( vars ){
+	constructor(vars) {
 
 		super(vars);
 
@@ -29,7 +29,7 @@ export default class Enchant extends Task {
 		this.level = this.level || 1;
 		this.need = this.need || 'enchantsource';
 
-		if ( this.alter ) SetModCounts( this.alter, 1);
+		if (this.alter) SetModCounts(this.alter, 1);
 
 	}
 
@@ -38,24 +38,24 @@ export default class Enchant extends Task {
 	 * @param {GData} targ
 	 * @returns {Enchanting}
 	 */
-	beginUseOn( targ ) {
-		return new Enchanting( this, targ );
+	beginUseOn(targ) {
+		return new Enchanting(this, targ);
 	}
 
 	/**
 	 * Catch complete
 	 */
-	complete(){}
+	complete() { }
 
 	/**
 	 * Called when enchant is being used on target.
 	 * @param {*} targ
 	 * @param {Context} g - execution context, Game.
 	 */
-	useOn( targ, g ) {
+	useOn(targ, g) {
 
-		if ( !targ) return;
-		targ.doAlter( this );
+		if (!targ) return;
+		targ.doAlter(this);
 
 	}
 
@@ -63,15 +63,15 @@ export default class Enchant extends Task {
 	 * Test if enchantment can be applied to target item.
 	 * @param {Item} targ
 	 */
-	canAlter( targ ) {
+	canAlter(targ) {
 
-		if ( targ.hasEnchant(this.id) || (targ.enchants + this.level > targ.enchants.max) ) {
+		if (targ.hasEnchant(this.id) || (targ.enchants + this.level > targ.enchants.max)) {
 			return false;
 		}
 
 		//console.log('can target: ' + canTarget(this.only, targ));
 
-		return !this.only || canTarget( this.only, targ );
+		return !this.only || canTarget(this.only, targ);
 
 	}
 

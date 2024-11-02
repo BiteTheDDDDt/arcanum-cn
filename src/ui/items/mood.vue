@@ -1,5 +1,5 @@
 <script>
-import Game from '../../game';
+import Game from '@/game';
 
 export default {
 

@@ -1,7 +1,7 @@
 <script>
-import CmdLine from './cmdline';
-import Game from '../game';
-import Debug from './debug';
+import CmdLine from '@/debug/cmdline';
+import Game from '@/game';
+import Debug from '@/debug/debug';
 
 const TOGGLE_KEY = 192;
 // france

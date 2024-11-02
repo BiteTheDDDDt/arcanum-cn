@@ -40,7 +40,7 @@
 		"alter": {
 			"mod.luck": 1
 		},
-		"flavor": "Let's keep this party polite"
+		"flavor": "Let's keep this party polite."
 	},
 	{
 		"id": "en_mana1",
@@ -151,7 +151,7 @@
 			"mana": 5
 		},
 		"alter": {
-			"attack.bonus": 1
+			"damage": 1
 		}
 	},
 	{
@@ -173,7 +173,7 @@
 			"mana": 5
 		},
 		"alter": {
-			"attack.bonus": 2
+			"damage": 2
 		}
 	},
 	{
@@ -196,7 +196,7 @@
 			"mana": 5
 		},
 		"alter": {
-			"attack.bonus": 3
+			"damage": 3
 		}
 	},
 	{
@@ -205,7 +205,7 @@
 		"verb": "infusing shoes",
 		"adj": "%i of speed",
 		"only": "feet",
-		"desc": "Imbue an item with inherent speed",
+		"desc": "Imbue an item with inherent speed.",
 		"require": "g.enchanting>=3",
 		"level": 2,
 		"buy": {
@@ -227,7 +227,7 @@
 		"name": "salamander's ring",
 		"adj": "%i of the salamander",
 		"only": "ring",
-		"desc": "increases your aptitude with fire",
+		"desc": "Increases your aptitude with fire.",
 		"require": "g.enchanting>=1&&g.firelore>=7",
 		"level": 2,
 		"buy": {
@@ -247,7 +247,7 @@
 	},
 	{
 		"id": "en_fire2",
-		"name": "ifrit's ring",
+		"name": "fox's ring",
 		"adj": "%i of the Ifrit",
 		"only": "ring",
 		"desc": "Increases your aptitude for fire.",
@@ -297,7 +297,7 @@
 		"name": "crab's ring",
 		"adj": "%i of the crab",
 		"only": "ring",
-		"desc": "increases your aptitude with water",
+		"desc": "Increases your aptitude with water.",
 		"require": "g.enchanting>=1&&g.waterlore>=7",
 		"level": 2,
 		"buy": {
@@ -367,7 +367,7 @@
 		"name": "vole's ring",
 		"adj": "%i of the vole",
 		"only": "ring",
-		"desc": "increases your aptitude with earth",
+		"desc": "Increases your aptitude with earth.",
 		"require": "g.enchanting>=1&&g.earthlore>=7",
 		"level": 2,
 		"buy": {
@@ -387,7 +387,7 @@
 	},
 	{
 		"id": "en_earth2",
-		"name": "worm's Ring",
+		"name": "worms' Ring",
 		"adj": "%i of the Worm",
 		"only": "ring",
 		"desc": "Increases your earth reserves significantly.",
@@ -508,7 +508,7 @@
 		"verb": "infusing shoes",
 		"adj": "%i of speed",
 		"only": "feet",
-		"desc": "Imbue an item with inherent speed",
+		"desc": "Imbue an item with inherent speed.",
 		"require": "g.en_speed1.owned>0&&g.enchanting>=5",
 		"level": 3,
 		"buy": {
@@ -522,7 +522,7 @@
 			"mana": 10
 		},
 		"alter": {
-			"mod.speed": 4
+			"mod.speed": 2
 		}
 	},
 	{
@@ -531,9 +531,9 @@
 		"verb": "infusing shoes",
 		"adj": "%i of speed",
 		"only": "feet",
-		"desc": "Imbue an item with inherent speed",
+		"desc": "Imbue an item with inherent speed.",
 		"require": "g.en_speed2.owned>0&&g.enchanting>=7",
-		"level": 5,
+		"level": 4,
 		"buy": {
 			"tomes": 10,
 			"research": 200
@@ -546,7 +546,7 @@
 			"mana": 15
 		},
 		"alter": {
-			"mod.speed": 6
+			"mod.speed": 3
 		}
 	},
 	{
@@ -555,9 +555,9 @@
 		"verb": "infusing shoes",
 		"only": "feet",
 		"adj": "%i of speed",
-		"desc": "Imbue your boots with speed",
+		"desc": "Imbue your boots with speed.",
 		"require": "g.en_speed3.owned>0&&g.enchanting>=10",
-		"level": 7,
+		"level": 5,
 		"buy": {
 			"tomes": 10,
 			"runestones": 10,
@@ -571,7 +571,7 @@
 			"mana": 20
 		},
 		"alter": {
-			"mod.speed": 8
+			"mod.speed": 4
 		}
 	},
 	{
@@ -638,7 +638,7 @@
 		"name": "sanity",
 		"only": "head",
 		"adj": "%i of %s",
-		"desc": "An enchantment to ward off madness",
+		"desc": "An enchantment to ward off madness.",
 		"level": 6,
 		"buy": {
 			"tomes": 5,
@@ -659,7 +659,7 @@
 		"adj": "%i of %s",
 		"only": "ring",
 		"desc": "Runed ring refreshes your stamina.",
-		"require": "g.enchanting>=10&&g.enchanter>0",
+		"require": "g.enchanting>=10&&g.t_enchantingclass>0",
 		"level": 7,
 		"buy": {
 			"arcana": 1,
@@ -672,7 +672,8 @@
 			"mana": 5
 		},
 		"alter": {
-			"mod.stamina.rate": 0.3
+			"mod.stamina.rate": 0.3,
+			"mod.vigor.rate": 0.03
 		}
 	},
 	{
@@ -746,7 +747,7 @@
 		"name": "spellcraft II",
 		"adj": "%i of spells",
 		"only": "armor,weapon",
-		"desc": "Increases your spellcrafting power",
+		"desc": "Increases your spellcrafting power.",
 		"require": "g.en_scraft.owned>0&&g.enchanting>=6",
 		"level": 6,
 		"buy": {
@@ -768,7 +769,7 @@
 		"name": "spellcraft III",
 		"adj": "%i of spells",
 		"only": "armor,weapon",
-		"desc": "Increases your spellcrafting power",
+		"desc": "Increases your spellcrafting power.",
 		"require": "g.en_scraft2.owned>0&&g.enchanting>=10",
 		"level": 8,
 		"buy": {
@@ -791,7 +792,7 @@
 		"name": "spellcraft IV",
 		"adj": "%i of spells",
 		"only": "armor,weapon",
-		"desc": "Increases your spellcrafting power",
+		"desc": "Increases your spellcrafting power.",
 		"require": "g.en_scraft3.owned>0&&g.enchanting>=15",
 		"level": 10,
 		"buy": {
@@ -807,26 +808,6 @@
 		},
 		"alter": {
 			"mod.scraft": 4
-		}
-	},
-	{
-		"id": "en_decep",
-		"name": "deception",
-		"only": "back",
-		"adj": "%i of %s",
-		"desc": "A cloak to confuse your enemies.",
-		"require": "g.trickery>=4&&g.enchanting>=1",
-		"level": 9,
-		"buy": {
-			"tomes": 4,
-			"research": 2000
-		},
-		"length": 20,
-		"cost": {
-			"watergem": 10
-		},
-		"alter": {
-			"mod.trickery": 2
 		}
 	},
 	{

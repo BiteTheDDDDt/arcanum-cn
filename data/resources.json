@@ -1,50 +1,36 @@
 [
 	{
 		"id": "gold",
-		"desc": "Gold Coins",
+		"group": "basic",
+		"desc": "Gold coins.",
 		"locked": false,
-		"max": 5
+		"max": 5,
+		"sortOrder": 5
 	},
 	{
 		"id": "research",
-		"desc": "Research into the Arcane",
-		"max": 10
+		"group": "knowledge",
+		"desc": "Research into the Arcane.",
+		"max": 10,
+		"sortOrder": 105
 	},
 	{
 		"id": "arcana",
+		"group": "knowledge",
 		"school": "arcane",
-		"desc": "Profound mystical knowledge",
-		"max": 0
+		"desc": "Profound mystical knowledge.",
+		"max": 0,
+		"sortOrder": 110
 	},
 	{
 		"id": "scrolls",
-		"group": "books",
-		"desc": "Scroll of arcane lore",
+		"group": "knowledge",
+		"desc": "Scroll of arcane lore.",
 		"max": 10,
+		"sortOrder": 115,
 		"mod": {
 			"research.rate": 0.005,
 			"research.max": 1
-		}
-	},
-	{
-		"id": "starcharts",
-		"desc": "A map of the stars",
-		"max": 10,
-		"mod": {
-			"research.max": 1,
-			"astronomy.max": 0.1,
-			"astronomy.rate": 0.02,
-			"planeslore.max": 0.05,
-			"planeslore.rate": 0.02
-		}
-	},
-	{
-		"id": "tapestries",
-		"name": "tapestries",
-		"desc": "History, lore, and even spells, may be woven in their threads.",
-		"max": 3,
-		"mod": {
-			"research.max": 5
 		}
 	},
 	{
@@ -54,9 +40,10 @@
 		"desc": "Runes carved on pieces of stone.",
 		"tags": "t_runes",
 		"max": 10,
+		"sortOrder": 205,
 		"mod": {
 			"research.max": "1%",
-			"runelore.rate": 0.1,
+			"runelore.rate": "0.02//100/-8",
 			"runelore.max": "0.05//100/-20"
 		},
 		"flavor": ""
@@ -66,8 +53,9 @@
 		"name": "flame runes",
 		"tags": "t_runes,elementalrunes,prismaticrunes",
 		"group": "runes",
-		"desc": "Rune etched with lines of fire",
+		"desc": "Rune etched with lines of fire.",
 		"max": 10,
+		"sortOrder": 230,
 		"mod": {
 			"research.max": 10
 		},
@@ -78,8 +66,9 @@
 		"name": "water runes",
 		"tags": "t_runes,elementalrunes,prismaticrunes",
 		"group": "runes",
-		"desc": "Rune lined in flowing water",
+		"desc": "Rune lined in flowing water.",
 		"max": 10,
+		"sortOrder": 220,
 		"mod": {
 			"research.max": 10
 		},
@@ -92,6 +81,7 @@
 		"group": "runes",
 		"desc": "A Runestone carved in bone; it seems to whisper.",
 		"max": 10,
+		"sortOrder": 245,
 		"mod": {
 			"research.max": 10
 		},
@@ -102,8 +92,9 @@
 		"name": "air runes",
 		"tags": "t_runes,elementalrunes,prismaticrunes",
 		"group": "runes",
-		"desc": "Rune etched with solid air",
+		"desc": "Rune etched with solid air.",
 		"max": 10,
+		"sortOrder": 225,
 		"mod": {
 			"research.max": 10
 		},
@@ -114,8 +105,9 @@
 		"name": "earth runes",
 		"tags": "t_runes,elementalrunes,prismaticrunes",
 		"group": "runes",
-		"desc": "Rune ingrained with moonstone",
+		"desc": "Rune ingrained with moonstone.",
 		"max": 10,
+		"sortOrder": 235,
 		"mod": {
 			"research.max": 10
 		},
@@ -126,8 +118,9 @@
 		"name": "light runes",
 		"tags": "t_runes,prismaticrunes,primalrunes",
 		"group": "runes",
-		"desc": "Rune ingrained with sparkling diamond",
+		"desc": "Rune ingrained with sparkling diamond.",
 		"max": 10,
+		"sortOrder": 250,
 		"mod": {
 			"research.max": 10
 		},
@@ -140,6 +133,7 @@
 		"group": "runes",
 		"desc": "Black upon black, only a trained eye can distinguish the tiniest difference in the shades of black.",
 		"max": 10,
+		"sortOrder": 255,
 		"mod": {
 			"research.max": 10
 		},
@@ -152,6 +146,7 @@
 		"group": "runes",
 		"desc": "The surging energy of this rune can be felt even by the least talented of mages.",
 		"max": 10,
+		"sortOrder": 215,
 		"mod": {
 			"research.max": 10
 		},
@@ -164,6 +159,7 @@
 		"group": "runes",
 		"desc": "Formed out of a complicated tangle of stems and leaves.",
 		"max": 10,
+		"sortOrder": 240,
 		"mod": {
 			"research.max": 10
 		},
@@ -176,6 +172,7 @@
 		"group": "runes",
 		"desc": "Unmistakably a rune, even if it's impossible to tell quite what it looks like.",
 		"max": 10,
+		"sortOrder": 260,
 		"mod": {
 			"chaos.max": 1
 		},
@@ -186,12 +183,13 @@
 		"name": "time runes",
 		"tags": "fundamentalrunes",
 		"group": "runes",
-		"desc": "Time flows along the grooves of the rune",
+		"desc": "Time flows along the grooves of the rune.",
 		"mod": {
 			"tempus.rate": 0.05,
 			"bf.rate": 0.01
 		},
 		"max": 6,
+		"sortOrder": 265,
 		"flavor": "It's not easy to look at."
 	},
 	{
@@ -238,36 +236,39 @@
 	{
 		"id": "schematic",
 		"name": "schematics",
-		"desc": "Schematic of Thurn the Artificer",
+		"desc": "Schematic of Thurn the Artificer.",
+		"group": "materials",
 		"max": 3,
+		"sortOrder": 420,
 		"mod": {
 			"crafting.max": 0.1,
-			"crafting.rate": "5%"
+			"crafting.rate": 0.1
 		}
 	},
 	{
 		"id": "codices",
 		"name": "codices",
-		"group": "books",
-		"desc": "Codex of arcane lore",
+		"group": "knowledge",
+		"desc": "Codex of arcane lore.",
 		"max": 10,
+		"sortOrder": 120,
 		"mod": {
 			"research.rate": 0.07,
-			"research.max": 5,
-			"lore.rate": 0.1
+			"research.max": 5
 		}
 	},
 	{
 		"id": "tomes",
 		"name": "tomes",
-		"group": "books",
+		"group": "knowledge",
 		"desc": "A hefty tome of knowledge.",
 		"max": 5,
+		"sortOrder": 125,
 		"mod": {
 			"research.max": 7,
 			"arcana.rate": 0.001,
-			"lore.rate": 0.1,
-			"lore.max": 0.1
+			"lore.rate": 0.01,
+			"lore.max": "0.1//100/-10"
 		}
 	},
 	{
@@ -275,7 +276,8 @@
 		"name": "gemstones",
 		"group": "gems",
 		"desc": "Various fine gemstones.",
-		"max": 5
+		"max": 5,
+		"sortOrder": 305
 	},
 	{
 		"id": "managem",
@@ -283,7 +285,8 @@
 		"group": "gems",
 		"name": "arcane gem",
 		"desc": "Gem infused with arcane energy.",
-		"max": 2
+		"max": 2,
+		"sortOrder": 315
 	},
 	{
 		"id": "firegem",
@@ -291,7 +294,8 @@
 		"group": "gems",
 		"name": "fire gem",
 		"desc": "Gem imbued with the essence of fire.",
-		"max": 2
+		"max": 2,
+		"sortOrder": 330
 	},
 	{
 		"id": "watergem",
@@ -299,7 +303,8 @@
 		"group": "gems",
 		"name": "water gem",
 		"desc": "Gem imbued with the essence of water.",
-		"max": 2
+		"max": 2,
+		"sortOrder": 320
 	},
 	{
 		"id": "naturegem",
@@ -308,7 +313,8 @@
 		"name": "nature gem",
 		"desc": "Physical essence of life.",
 		"max": 2,
-		"flavor": "The force from the beginning"
+		"sortOrder": 340,
+		"flavor": "The force from the beginning."
 	},
 	{
 		"id": "earthgem",
@@ -316,7 +322,8 @@
 		"group": "gems",
 		"name": "earth gem",
 		"desc": "Gem imbued with the essence of earth.",
-		"max": 2
+		"max": 2,
+		"sortOrder": 335
 	},
 	{
 		"id": "airgem",
@@ -324,7 +331,8 @@
 		"group": "gems",
 		"name": "air gem",
 		"desc": "Gem imbued with the essence of air.",
-		"max": 2
+		"max": 2,
+		"sortOrder": 325
 	},
 	{
 		"id": "shadowgem",
@@ -332,7 +340,8 @@
 		"group": "gems",
 		"name": "shadow gem",
 		"desc": "Gem imbued with the essence of darkness.",
-		"max": 2
+		"max": 2,
+		"sortOrder": 355
 	},
 	{
 		"id": "lightgem",
@@ -340,7 +349,8 @@
 		"group": "gems",
 		"name": "light gem",
 		"desc": "Gem imbued with the essence of light.",
-		"max": 2
+		"max": 2,
+		"sortOrder": 350
 	},
 	{
 		"id": "spiritgem",
@@ -348,14 +358,16 @@
 		"group": "gems",
 		"name": "spirit gem",
 		"desc": "Gem imbued with raw spirit.",
-		"max": 2
+		"max": 2,
+		"sortOrder": 345
 	},
 	{
 		"id": "bloodgem",
 		"group": "gems",
 		"name": "blood gem",
-		"desc": "A little magic and a lot of blood",
+		"desc": "A little magic and a lot of blood.",
 		"max": 2,
+		"sortOrder": 310,
 		"mod": {
 			"hp.max": 1
 		}
@@ -370,7 +382,8 @@
 			"gems.rate": -0.005,
 			"tempus.rate": 0.01
 		},
-		"max": 3
+		"max": 3,
+		"sortOrder": 365
 	},
 	{
 		"id": "voidgem",
@@ -382,7 +395,8 @@
 			"player.resist.void": 1
 		},
 		"max": 3,
-		"flavor": "There was a GEM here. It's gone now"
+		"sortOrder": 370,
+		"flavor": "There was a GEM here. It's gone now."
 	},
 	{
 		"id": "chaosgem",
@@ -394,21 +408,25 @@
 			"chaos.rate": 0.01
 		},
 		"max": 3,
-		"flavor": "Chaos,chaos!"
+		"sortOrder": 360,
+		"flavor": "Chaos, chaos!"
 	},
 	{
 		"id": "ichor",
-		"tags": "reagent",
+		"group": "materials",
 		"desc": "The blood of gods.",
-		"flavor": "The secret courtesy that courses like ichor",
-		"max": 5
+		"flavor": "The secret courtesy that courses like ichor.",
+		"max": 5,
+		"sortOrder": 415
 	},
 	{
 		"id": "sindel",
 		"name": "star shard",
+		"group": "esoteric",
 		"desc": "A glowing cinder of the stars.",
-		"flavor": "The pillars broke; the stars fell screaming from the sky",
+		"flavor": "The pillars broke; the stars fell screaming from the sky.",
 		"max": 3,
+		"sortOrder": 505,
 		"mod": {
 			"light.rate": 0.1,
 			"player.resist.shadow": 1
@@ -416,8 +434,10 @@
 	},
 	{
 		"id": "dreams",
+		"group": "esoteric",
 		"desc": "We are such stuff as dreams are made of. And our little life is rounded with a sleep.",
 		"max": 3,
+		"sortOrder": 510,
 		"mod": {
 			"weary.rate": -0.1,
 			"arcana.rate": "1%"
@@ -426,83 +446,92 @@
 	},
 	{
 		"id": "herbs",
-		"group": "reagent",
+		"group": "materials",
 		"desc": "Special plants for potions and alchemy.",
-		"max": 10
+		"max": 10,
+		"sortOrder": 405
 	},
 	{
 		"id": "potionessence",
 		"name": "potion base",
-		"group": "reagent",
+		"group": "materials",
 		"desc": "Basic essence for creating advanced potions.",
 		"flavor": "Smells faintly of milk.",
-		"max": 3
-	},
-	{
-		"id": "potioncombatflask",
-		"name": "combat flask",
-		"group": "reagent",
-		"desc": "Specialized glassware allowing for simultaneously safe storage and easy combat use.",
-		"flavor": "Developed after a string of corrosive potion incidents.",
-		"max": 8
+		"max": 3,
+		"sortOrder": 410
 	},
 	{
 		"id": "space",
 		"name": "floor space",
-		"desc": "Space Available",
+		"desc": "Available space.",
 		"hide": true,
 		"reverse": true,
 		"reverseDisplay": true,
 		"max": 0
 	},
 	{
+		"id": "vigor",
+		"tags": "t_endurance",
+		"desc": "Your capacity for short-term exertions.",
+		"unit": false,
+		"require": "lore",
+		"name": "vigor",
+		"max": 10
+	},
+	{
 		"id": "mana",
 		"tags": "manas,prismatic",
-		"desc": "Raw magical energy",
+		"desc": "Raw magical energy.",
 		"unit": false,
 		"require": "lore",
 		"name": "mana",
-		"max": 5
+		"max": 0,
+		"sortOrder": 10
 	},
 	{
 		"id": "fire",
 		"require": "firelore",
 		"unit": false,
 		"tags": "manas,element,prismatic",
-		"desc": "Fire Mana",
-		"max": 0
+		"desc": "Fire mana.",
+		"max": 0,
+		"sortOrder": 40
 	},
 	{
 		"id": "air",
 		"require": "airlore",
 		"unit": false,
 		"tags": "manas,element,prismatic",
-		"desc": "Air Mana",
-		"max": 0
+		"desc": "Air mana.",
+		"max": 0,
+		"sortOrder": 30
 	},
 	{
 		"id": "earth",
 		"unit": false,
 		"tags": "manas,element,prismatic",
 		"require": "earthlore",
-		"desc": "Earth Mana",
-		"max": 0
+		"desc": "Earth mana.",
+		"max": 0,
+		"sortOrder": 50
 	},
 	{
 		"id": "water",
 		"unit": false,
 		"tags": "manas,element,prismatic",
-		"desc": "Water Mana",
+		"desc": "Water mana.",
 		"require": "waterlore",
-		"max": 0
+		"max": 0,
+		"sortOrder": 20
 	},
 	{
 		"id": "nature",
 		"tags": "manas,primal,prismatic",
 		"unit": false,
 		"require": "naturelore",
-		"desc": "Nature Mana",
-		"max": 0
+		"desc": "Nature mana.",
+		"max": 0,
+		"sortOrder": 60
 	},
 	{
 		"id": "shadow",
@@ -510,24 +539,27 @@
 		"tags": "manas,primal,prismatic",
 		"unit": false,
 		"require": "shadowlore",
-		"desc": "Shadow mana",
-		"max": 0
+		"desc": "Shadow mana.",
+		"max": 0,
+		"sortOrder": 90
 	},
 	{
 		"id": "light",
 		"tags": "manas,primal,prismatic",
 		"unit": false,
 		"require": "lightlore",
-		"desc": "Light mana",
-		"max": 0
+		"desc": "Light mana.",
+		"max": 0,
+		"sortOrder": 80
 	},
 	{
 		"id": "spirit",
 		"tags": "manas,primal,prismatic",
 		"unit": false,
-		"desc": "Spirit mana",
+		"desc": "Spirit mana.",
 		"require": "spiritlore",
-		"max": 0
+		"max": 0,
+		"sortOrder": 70
 	},
 	{
 		"id": "tempus",
@@ -535,14 +567,17 @@
 		"tags": "manas,fundamental",
 		"unit": false,
 		"desc": "Time incarnate. If only...",
-		"max": 0
+		"max": 0,
+		"sortOrder": 110
 	},
 	{
 		"id": "chaos",
 		"tags": "manas,fundamental",
+		"require": "g.t_chaosclass>0||g.chaoslore>0",
 		"unit": false,
-		"desc": "Chaos incarnate. No current use.",
-		"max": 0
+		"desc": "Chaos incarnate. You can do anything!",
+		"max": 0,
+		"sortOrder": 100
 	},
 	{
 		"id": "void",
@@ -550,6 +585,16 @@
 		"unit": false,
 		"desc": "Nothingness. No current use.",
 		"flavor": "",
-		"max": 0
+		"max": 0,
+		"sortOrder": 120
+	},
+	{
+		"id": "offlinetime",
+		"name": "stored time",
+		"group": "basic",
+		"desc": "Time since you last checked in. Can be used to speed up the game.",
+		"flavor": "Where does time go when you aren't looking?",
+		"locked": false,
+		"max": 3600
 	}
 ]

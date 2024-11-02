@@ -1,15 +1,15 @@
 import Events, { EVT_EVENT } from "../events";
-import CharUpgrade from "./charupgrade";
+import CharUpgrade from '@/items/charupgrade';
 /**
  * Represents in-game wizard class.
  */
 export default class GClass extends CharUpgrade {
 
-	constructor(vars=null){
+	constructor(vars = null) {
 
 		super(vars);
 
-		if ( vars.warn !== false ) {
+		if (vars.warn !== false) {
 			this.warnMsg = 'Alternate Wizard classes of this tier will be locked.';
 			this.warn = true;
 		}
@@ -22,15 +22,15 @@ export default class GClass extends CharUpgrade {
 	 * @param {number} amt
 	 * @returns {boolean}
 	 */
-	changed( g, amt ) {
+	changed(g, amt) {
 
-		super.changed( g, amt );
+		super.changed(g, amt);
 
-		g.state.player.setClass( this.name );
+		g.state.player.setClass(this.name);
 
 		this.locked = false;
 
-		Events.emit( EVT_EVENT, this );
+		Events.emit(EVT_EVENT, this);
 
 	}
 

@@ -7,7 +7,7 @@
 	},
 	{
 		"id": "sage",
-		"desc": "use oracular powers to answer the questions of supplicants",
+		"desc": "Use oracular powers to answer the questions of supplicants.",
 		"mod": {
 			"gold.rate": "0.8+10%"
 		}

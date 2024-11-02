@@ -5,19 +5,19 @@ export default {
 	 * @property {Inventory} eslots - running enchantment slots.
 	 * @property {Inventory} inv - player inventory.
 	 */
-	props:[ 'eslots', 'inv'],
-	computed:{
+	props: ['eslots', 'inv'],
+	computed: {
 
 	},
-	methods:{
+	methods: {
 
-		canTake(it){
+		canTake(it) {
 			return it.target && this.inv.canAdd(it.target);
 		},
 
-		onTake( it ){
+		onTake(it) {
 
-			if ( !this.inv.canAdd(it.target) ) return;
+			if (!this.inv.canAdd(it.target)) return;
 
 			this.inv.add(it.target);
 			this.eslots.remove(it);
@@ -32,17 +32,17 @@ export default {
 <template>
 
 <div class="enchant-slots">
-<span>{{ Math.floor(eslots.used) }} / {{ Math.floor( eslots.max) }} Slot-levels used. </span>
+<span>{{ Math.floor(eslots.used) }} / {{ Math.floor(eslots.max) }} Slot-levels used. </span>
 <div class="enchant-slot" v-for="s in eslots.items" :key="s.id">
 <span class="enchant-desc">
 <span>Level {{ s.item.level }}</span>
-<span class="item-name" @mouseenter.capture.stop="itemOver( $event, s.target )">{{s.target.name.toTitleCase()}}</span>
-<span class="enchant-name" @mouseenter.capture.stop="itemOver( $event, s.item )">{{s.item.name.toTitleCase()}}</span>
+<span class="item-name" @mouseenter.capture.stop="itemOver($event, s.target)">{{ s.target.name.toTitleCase() }}</span>
+<span class="enchant-name" @mouseenter.capture.stop="itemOver($event, s.item)">{{ s.item.name.toTitleCase() }}</span>
 
 </span>
-<span>{{ s.percent() + '%'}}</span>
+<span>{{ s.percent() + '%' }}</span>
 
-<button class="btn-take" :disabled="!canTake(s)" @click="onTake(s)">{{ s.done ? 'take' : 'cancel' }}</button>
+<button type="button" class="btn-take" :disabled="!canTake(s)" @click="onTake(s)">{{ s.done ? 'take' : 'cancel' }}</button>
 
 </div>
 
@@ -51,7 +51,6 @@ export default {
 </template>
 
 <style scoped>
-
 .enchant-slots span {
 	font-size: 0.9em;
 
@@ -63,5 +62,5 @@ export default {
 .enchant-name {
 	font-size: 0.9em;
 }*/
-
 </style>
+

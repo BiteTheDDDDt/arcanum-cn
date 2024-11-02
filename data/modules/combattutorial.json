@@ -8,15 +8,16 @@
 				"name": "dagger",
 				"desc": "a plain looking wooden dagger",
 				"level": 1,
-				"tags":"t_dagger,t_training",
+				"tags": "t_slash,t_martial,t_dagger,t_training",
 				"type": "weapon",
 				"material": "wood",
 				"hands": 1,
 				"enchants": 1,
 				"attack": {
 					"kind": "slash",
-					"tohit": 4,
-					"dmg": "1~2"
+					"tohit": 1,
+					"damage": "1~2",
+					"potencies": ["slashdmg", "physdmg"]
 				}
 			},
 			{
@@ -28,26 +29,28 @@
 				"enchants": 1,
 				"type": "weapon",
 				"material": "wood",
-				"tags":"t_dart,t_training",
+				"tags": "t_martial,t_pierce,t_dart,t_training",
 				"attack": {
-					"kind": "piercing",
-					"tohit": 30,
-					"dmg": 1
+					"kind": "pierce",
+					"harmless": true,
+					"damage": 1,
+					"potencies": ["piercedmg", "physdmg"]
 				}
 			},
 			{
 				"id": "traininghammer",
 				"name": "wooden hammer",
 				"level": 1,
-				"enchants":1,
-				"hands":2,
-				"tags":"t_warhammer,t_training",
+				"enchants": 1,
+				"hands": 2,
+				"tags": "t_martial,t_blunt,t_warhammer,t_training",
 				"type": "weapon",
 				"material": "wood",
 				"attack": {
 					"kind": "blunt",
-					"tohit": -10,
-					"dmg": "2~3"
+					"tohit": -2,
+					"damage": "2~3",
+					"potencies": ["bluntdmg", "physdmg", "hammerdmg"]
 				}
 			}
 		],
@@ -58,7 +61,7 @@
 				"title": "Certified",
 				"dist": 1,
 				"length": 20,
-				"locked": false,
+				"require": "g.evt_helper>0",
 				"boss": {
 					"1": "stddummy",
 					"2": "noweapondummy",
@@ -67,9 +70,7 @@
 					"5": "armorydummy",
 					"20": "instructor"
 				},
-				"spawns": [
-					"dummy"
-				]
+				"spawns": ["dummy"]
 			}
 		],
 		"monsters": [

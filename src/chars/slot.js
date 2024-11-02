@@ -1,39 +1,39 @@
-import { itemRevive } from "../modules/itemgen";
-import Item from "../items/item";
+import { itemRevive } from '@/modules/itemgen';
+import Item from '@/items/item';
 
 /**
  * Equipment slot.
  */
 export default class Slot {
 
-	toJSON(){
+	toJSON() {
 		return {
-			item:this.item,
-			multi:this.multi,
-			max:this.max
+			item: this.item,
+			multi: this.multi,
+			max: this.max
 		}
 	}
 
 	get item() {
 		return this._item;
 	}
-	set item(v){
+	set item(v) {
 
 		this._item = v;
 
 	}
 
-	constructor(vars=null){
+	constructor(vars = null) {
 
-		if ( vars ) Object.assign( this, vars);
+		if (vars) Object.assign(this, vars);
 
 		this.max = this.max || 1;
-		this.item = this.item || ( this.max > 1 ? [] : null );
+		this.item = this.item || (this.max > 1 ? [] : null);
 
 		/**
 		 * @property {boolean} multi - true if slot holds multiple items.
 		 */
-		this.multi = Array.isArray( this.item );
+		this.multi = Array.isArray(this.item);
 
 		//this.name = this._name || this.id;
 
@@ -41,9 +41,9 @@ export default class Slot {
 
 	*[Symbol.iterator]() {
 
-		if ( Array.isArray(this.item) ) {
+		if (Array.isArray(this.item)) {
 
-			for( let i = 0; i < this.item.length;i ++ ) yield this.item[i];
+			for (let i = 0; i < this.item.length; i++) yield this.item[i];
 
 		} else yield this.item;
 
@@ -52,14 +52,14 @@ export default class Slot {
 	/**
 	 * @returns {string[]}
 	 */
-	getItemIds(){
+	getItemIds() {
 
-		if ( this.item == null ) return [];
+		if (this.item == null) return [];
 
-		if ( Array.isArray(this.item)) {
+		if (Array.isArray(this.item)) {
 
 			const a = [];
-			for( let i = 0; i < this.item.length; i++ ) a.push( this.item[i].id);
+			for (let i = 0; i < this.item.length; i++) a.push(this.item[i].id);
 			return a;
 
 		} else return [this.item.id]
@@ -73,14 +73,14 @@ export default class Slot {
 	freeSpace() {
 
 		let count = this.max;
-		if ( !this.item ) return count;
-		else if ( count === 1 ) return 0;
+		if (!this.item) return count;
+		else if (count === 1) return 0;
 
 		// should be impossible.
-		if ( !Array.isArray(this.item) ) return 0;
+		if (!Array.isArray(this.item)) return 0;
 
-		for( let i = this.item.length-1; i>= 0; i-- ) {
-			count -= ( this.item[i].numslots || 1 );
+		for (let i = this.item.length - 1; i >= 0; i--) {
+			count -= (this.item[i].numslots || 1);
 		}
 
 		return count;
@@ -93,18 +93,18 @@ export default class Slot {
 	 * @returns {Item|boolean} Item(s) removed from slot, or true,
 	 * if no item needs to be removed.
 	 */
-	equip( it ){
+	equip(it) {
 
 		const spaces = it.numslots || 1;
 
 		// won't fit in slot.
-		if ( spaces > this.max ) return false;
+		if (spaces > this.max) return false;
 
-		if ( this.multi === true ) {
+		if (this.multi === true) {
 
-			return this.addMult( it, spaces );
+			return this.addMult(it, spaces);
 
-		} else if ( !this.item ) {
+		} else if (!this.item) {
 
 			it.updated();
 
@@ -130,17 +130,17 @@ export default class Slot {
 	 * @param {*} it
 	 * @param {number} spaces - used spaces.
 	 */
-	addMult( it, spaces ){
+	addMult(it, spaces) {
 
-		if ( this.item.find(v=>v.id===it.id) ) return false;
+		if (this.item.find(v => v.id === it.id)) return false;
 
 		it.updated();
 		this.item.push(it);
-		for( let i = this.item.length-2; i >= 0; i-- ) {
+		for (let i = this.item.length - 2; i >= 0; i--) {
 
 			spaces += (this.item[i].numslots || 1);
-			if ( spaces > this.max ) {
-				const removed = this.item.splice( 0, i+1);
+			if (spaces > this.max) {
+				const removed = this.item.splice(0, i + 1);
 				removed.forEach(item => item.updated());
 				return removed;
 
@@ -157,19 +157,18 @@ export default class Slot {
 	 * @param {string} id
 	 * @returns {Item|null}
 	 */
-	find(id, proto=false ) {
-		if ( this.item === null) return null;
-		if (proto)
-		{		
+	find(id, proto = false) {
+		if (this.item === null) return null;
+		if (proto) {
 			return this.multi ?
-			this.item.find( v=>v.id===id||v.recipe===id) :
-			(this.item.id === id || this.item.recipe===id ) ? this.item : null
+				this.item.find(v => v.id === id || v.recipe === id) :
+				(this.item.id === id || this.item.recipe === id) ? this.item : null
 
 		} else {
-			
+
 			return this.multi ?
-			this.item.find(v=>v.id===id) :
-			(this.item.id === id) ? this.item : null
+				this.item.find(v => v.id === id) :
+				(this.item.id === id) ? this.item : null
 		}
 	}
 
@@ -177,9 +176,9 @@ export default class Slot {
 	 *
 	 * @param {(*)=>boolean} pred
 	 */
-	match( pred  ) {
-		if ( this.item === null) return null;
-		return this.multi ? this.item.find( pred ) : pred(this.item) ? this.item : null;
+	match(pred) {
+		if (this.item === null) return null;
+		return this.multi ? this.item.find(pred) : pred(this.item) ? this.item : null;
 	}
 
 	/**
@@ -188,7 +187,7 @@ export default class Slot {
 	 * @returns {boolean}
 	 */
 	has(it) {
-		return (this.multi === false ) ? this.item === it : this.item.includes(it);
+		return (this.multi === false) ? this.item === it : this.item.includes(it);
 	}
 
 	/**
@@ -197,16 +196,16 @@ export default class Slot {
 	 * @returns {?Item|boolean} - If no parameter is specified, removes all items and returns them.
 	 * If a param is specified, returns the item removed.
 	 */
-	remove( it=undefined) {
+	remove(it = undefined) {
 
-		if ( this.item === it ) {
+		if (this.item === it) {
 
 			it.updated();
 
 			this.item = null;
 			return it;
 
-		} else if ( it === null || it === undefined ) {
+		} else if (it === null || it === undefined) {
 
 			it = this.item;
 			this.item = null;
@@ -215,14 +214,14 @@ export default class Slot {
 
 			return it;
 
-		} else if ( this.multi ) {
+		} else if (this.multi) {
 
 			const ind = this.item.indexOf(it);
-			if ( ind < 0 ) return false;
+			if (ind < 0) return false;
 
 			it.updated();
 
-			return this.item.splice(ind,1)[0];
+			return this.item.splice(ind, 1)[0];
 
 		}
 
@@ -234,45 +233,45 @@ export default class Slot {
 	 *
 	 * @param {Context} g
 	 */
-	begin(g){
-		if ( this.item === null || this.item === undefined ) return;
-		if ( Array.isArray( this.item) ) {
+	begin(g) {
+		if (this.item === null || this.item === undefined) return;
+		if (Array.isArray(this.item)) {
 
-			for( let i = this.item.length-1; i>= 0; i-- ) {
+			for (let i = this.item.length - 1; i >= 0; i--) {
 				this.item[i].begin(g);
 			}
 
-		} else this.item.begin( g );
+		} else this.item.begin(g);
 	}
 
-	revive( gs ) {
+	revive(gs) {
 
-		if ( this.item === null || this.item === undefined ) return;
-		if ( Array.isArray( this.item) ) {
+		if (this.item === null || this.item === undefined) return;
+		if (Array.isArray(this.item)) {
 
 			const ids = {};
 
 			const all = this.item;
-			for( let i = all.length-1; i>= 0; i-- ) {
+			for (let i = all.length - 1; i >= 0; i--) {
 
 				const it = itemRevive(gs, all[i]);
 
-				if ( !it || ids[it.id]===true) {
+				if (!it || ids[it.id] === true) {
 
-					all.splice(i,1);
+					all.splice(i, 1);
 
 				} else {
 					// @note seems to be some sort of duplicate item check.
 					// this shouldn't occur but seems familiar as a previous bug.
 					all[i] = it;
-					ids[ it.id ] = true;
+					ids[it.id] = true;
 					//it.worn=true;
 				}
 
 			}
 
 		} else {
-			this.item = itemRevive(gs, this.item );
+			this.item = itemRevive(gs, this.item);
 			//if ( this.item !== null && this.item !== undefined )this.item.worn=true;
 		}
 
@@ -285,9 +284,9 @@ export default class Slot {
 		return this.item != null ? (this.item.hands) || 0 : 0;
 	}
 
-	empty(){
+	empty() {
 		return this.item === null ||
-			(Array.isArray(this.item) && this.item.length===0);
+			(Array.isArray(this.item) && this.item.length === 0);
 	}
 
 }

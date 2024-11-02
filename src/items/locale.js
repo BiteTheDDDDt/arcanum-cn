@@ -1,7 +1,7 @@
-import Task from "./task";
-import { EXPLORE, LOCALE } from "../values/consts";
-import { ParseSpawns } from '../classes/spawns';
-import SpawnGroup from '../classes/spawngroup';
+import Task from '@/items/task';
+import { EXPLORE, LOCALE } from '@/values/consts';
+import { ParseSpawns } from '@/classes/spawns';
+import SpawnGroup from '@/classes/spawngroup';
 
 /**
  * Default dist per level function. Also currently used by dungeon.

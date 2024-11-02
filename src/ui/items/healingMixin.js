@@ -1,47 +1,46 @@
-import game from '../../game';
-import { precise } from '../../util/format';
-import { FP } from '../../values/consts';
-import Char from '../../chars/char';
-import { RollOver } from '../popups/itemPopup.vue';
-import Range from '../../values/range';
-import FValue from '../../values/rvals/fvalue';
+import game from '@/game';
+import { precise } from '@/util/format';
+import { FP } from '@/values/consts';
+import Char from '@/chars/char';
+import { RollOver } from '@/ui/popups/itemPopup.vue';
+import Range from '@/values/range';
+import FValue from '@/values/rvals/fvalue';
 
-export default function HealingMixin(itemProp="item") {
+export default function HealingMixin(itemProp = "item") {
     return {
         methods: {
             getHealing(it) {
                 let heal = it.healing || it.heal;
                 return this.getHealingStr(heal, it);
-                
+
             },
             getHealingStr(heal, it) {
                 let mult = this.getHealingMult(it);
                 let bonus = this.getHealingBonus(it);
-                if (it.showinstanced)
-                {
+                if (it.showinstanced) {
                     mult = 1
                     bonus = 0
                 }
-                if(!heal) return null;
-                else if(typeof heal === 'number') return precise(heal*mult+bonus);
+                if (!heal) return null;
+                else if (typeof heal === 'number') return precise(heal * mult + bonus);
 
-                if ( heal instanceof FValue) {
+                if (heal instanceof FValue) {
                     let params = {
                         [FP.ACTOR]: RollOver.item instanceof Char ? RollOver.item : RollOver.source instanceof Char ? RollOver.source : game.state.player,
-                        [FP.ITEM]: this[itemProp]
+                        [FP.ITEM]: this[itemProp],
+                        [FP.GDATA]: (RollOver.item instanceof Char ? RollOver.item : RollOver.source instanceof Char ? RollOver.source : game.state.player).context.state.items
                     };
                     return precise(heal.applyDummy(params) * mult + bonus);
                 }
-                if ( heal ) {
+                if (heal) {
                     let healdisp
-                    if(heal instanceof Range)
-                    {
+                    if (heal instanceof Range) {
                         healdisp = heal.instantiate();
                         healdisp.add(bonus)
                         healdisp.multiply(mult)
                     }
                     else {
-                        healdisp = precise(heal*mult+bonus);
+                        healdisp = precise(heal * mult + bonus);
                     }
                     return healdisp.toString()
                     //return healdisp.toString(this[itemProp]);
@@ -50,34 +49,30 @@ export default function HealingMixin(itemProp="item") {
                 return null;
             },
             displayHealing(it) {
-                if(!it) return false;
+                if (!it) return false;
 
                 let heal = it.healing || it.heal;
-                return heal != null && (heal instanceof FValue || this.getHealingStr(heal, it)); 
+                return heal != null && (heal instanceof FValue || this.getHealingStr(heal, it));
             },
             getHealingMult(it) {
                 let PotencyMult = 1
                 let Actor
-                if(RollOver.item instanceof Char||RollOver.item.type == "monster")
-                {
+                if (RollOver.item instanceof Char || RollOver.item.type == "monster") {
                     Actor = RollOver.item
                 }
-                else if(RollOver.source instanceof Char)
-                {
+                else if (RollOver.source instanceof Char) {
                     Actor = RollOver.source
                 }
                 else Actor = game.state.player;
-                if (Actor.context && it.potencies && Actor.id =="player")
-                {
-                    for (let p of it.potencies)
-                    {	
+                if (Actor.context && it.potencies && Actor.id == "player") {
+                    for (let p of it.potencies) {
                         let potency = Actor.context.state.getData(p)
-                        if(potency){
+                        if (potency) {
                             PotencyMult = PotencyMult * potency.damage.getApply({
                                 [FP.ACTOR]: Actor,
                                 [FP.TARGET]: game.state.player,
                                 [FP.CONTEXT]: game.state.player.context,
-                                [FP.ITEM]: potency 
+                                [FP.ITEM]: potency
                             });
                         }
                     }
@@ -87,17 +82,15 @@ export default function HealingMixin(itemProp="item") {
             getHealingBonus(it) {
                 let HealingBonus = 0
                 let Actor
-                if(RollOver.item instanceof Char||RollOver.item.type == "monster")
-                {
+                if (RollOver.item instanceof Char || RollOver.item.type == "monster") {
                     Actor = RollOver.item
                 }
-                else if(RollOver.source instanceof Char)
-                {
+                else if (RollOver.source instanceof Char) {
                     Actor = RollOver.source
                 }
                 else Actor = game.state.player;
-                if ( Actor && Actor.getBonus ) HealingBonus += Actor.getBonus( it.kind );
-	            if ( it.bonus ) HealingBonus += it.bonus;
+                if (Actor && Actor.getBonus) HealingBonus += Actor.getBonus(it.kind);
+                if (it.bonus) HealingBonus += it.bonus;
                 return HealingBonus
             }
         }

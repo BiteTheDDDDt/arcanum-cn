@@ -73,8 +73,23 @@ const LOCALE = 'locale';
 const EXPLORE = 'explore';
 const CLASH = 'clash';
 
+export const TASK_END_REASON = Object.freeze({
+	SUCCESS: 1,
+	FAIL: 2,
+	DEFEATED: 4,
+
+	USER: 8,
+	CANTRUN: 16, // Unspecific reason caused by going through GData's canRun. Most likely it would be due to cost, full, or maxed
+	COST: 32,
+	FULL: 64,
+	MAXED: 128,
+
+	// Combined cases
+	MIDRUN_LOSS: 52 // 4 + 16 + 32
+});
+
 export const UNTAG = 'untag_';
-export const DESCENDLIST = ["cost","run","effect","result","convert","input","output"];
+export const DESCENDLIST = ["cost", "run", "effect", "result", "convert", "input", "output"];
 
 /**
  * @const {number} TEAM_PLAYER - team constant for allies.
@@ -151,5 +166,22 @@ export const canTarget = (targs, it) => {
 	}
 
 	return targs === it.type || targs === it.kind || targs === it.slot || it.hasTag(targ);
+
+}
+/**
+ * Filters the target list so it only has targets fitting the condition.
+ * @param {[]} targs - array of targets
+ * @param {string} only - list of properties that validate a target
+ * @returns {[]}  targs filtered by only. Has no effect if only is not present.
+ */
+export const enforceOnly = (targs, only = null) => {
+	if (only) {
+		for (let i = targs.length - 1; i >= 0; i--) {
+			if (!canTarget(only, targs[i])) {
+				targs.splice(i, 1)
+			}
+		}
+	}
+	return targs
 
 }

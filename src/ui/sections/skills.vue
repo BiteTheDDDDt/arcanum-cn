@@ -1,20 +1,20 @@
 <script>
-import Game from '../../game';
-import ItemBase from '../itemsBase';
-import SkillView from '../items/skill.vue';
+import Game from '@/game';
+import ItemBase from '@/ui/itemsBase';
+import SkillView from '@/ui/items/skill.vue';
 import Settings from 'modules/settings';
-import {lowFixed} from '../../util/format';
-import {alphasort} from '../../util/util';
+import { lowFixed } from '@/util/format';
+import { alphasort } from '@/util/util';
 
-import FilterBox from '../components/filterbox.vue';
+import FilterBox from '@/ui/components/filterbox.vue';
 
 export default {
 
-	props:['state'],
-	mixins:[ItemBase],
-	components:{
-		skill:SkillView,
-		filterbox:FilterBox
+	props: ['state'],
+	mixins: [ItemBase],
+	components: {
+		skill: SkillView,
+		filterbox: FilterBox
 	},
 	data() {
 
@@ -24,39 +24,39 @@ export default {
 			/**
 			 * @property {Item[]} filtered - filtered search results.
 			 */
-			filtered:null
-		}, ops );
+			filtered: null
+		}, ops);
 
 	},
 	updated() {
-		if(this.prevWidth !== this.getWidth(this.$el) || this.prevLength !== this.filtered.length) {
+		if (this.prevWidth !== this.getWidth(this.$el) || this.prevLength !== this.filtered.length) {
 			this.resizeGrid();
 			this.prevWidth = this.getWidth(this.$el);
 			this.prevLength = this.filtered.length;
 		}
 	},
-	computed:{
+	computed: {
 
-		chkHide:{
-			get(){return this.hideMaxed;},
-			set(v){
-				this.hideMaxed = Settings.setSubVar( 'skills', 'hideMaxed', v );
+		chkHide: {
+			get() { return this.hideMaxed; },
+			set(v) {
+				this.hideMaxed = Settings.setSubVar('skills', 'hideMaxed', v);
 			}
 		},
-		sp() { return lowFixed( this.state.getData('sp').value ); },
+		sp() { return lowFixed(this.state.getData('sp').value); },
 
-		skills() { return this.state.skills.sort( alphasort ); },
+		skills() { return this.state.skills.slice().sort(alphasort); },
 
-		available(){
-			return this.hideMaxed ? this.skills.filter( it=>!it.maxed()&&!this.reslocked(it) ) :
-				this.skills.filter(it=> !this.reslocked(it) );
+		available() {
+			return this.hideMaxed ? this.skills.filter(it => !it.maxed() && !this.reslocked(it)) :
+				this.skills.filter(it => !this.reslocked(it));
 		}
 
 	},
-	methods:{
+	methods: {
 
-		train(skill){
-			Game.toggleTask( skill );
+		train(skill) {
+			Game.toggleTask(skill);
 		},
 
 		getWidth(elm) {
@@ -67,14 +67,14 @@ export default {
 			let gridElm = this.$refs.skillgrid;
 			gridElm.style = "";
 			let maxWidth = 0;
-			for(let child of gridElm.children) {
+			for (let child of gridElm.children) {
 				let childWidth = this.getWidth(child.children[0]);
-				if(childWidth > maxWidth) {
+				if (childWidth > maxWidth) {
 					maxWidth = childWidth;
 				}
 			}
 
-			if(maxWidth > 0) {
+			if (maxWidth > 0) {
 				let width = Math.floor(this.getWidth(gridElm) / maxWidth);
 				gridElm.style = `grid-template-columns: repeat( auto-fit, minmax(calc(100% / ${width}), 0.5fr) )`;
 			}
@@ -88,7 +88,7 @@ export default {
 <template>
 	<div class="skills">
 		<span class="separate title">
-			<filterbox v-model="filtered" :items="available" min-items="7" />
+			<filterbox v-model="filtered" :items="available" :min-items="7" />
 
 			<span>
 				<input :id="elmId('hideMax')" type="checkbox" v-model="chkHide">
@@ -116,12 +116,12 @@ div.skills {
 	align-items: center;
 }
 
-div.skills .title > span {
+div.skills .title>span {
 	align-self: center;
 }
 
 .separate {
-	width:90%;
+	width: 90%;
 }
 
 div.subs {
@@ -141,7 +141,7 @@ body.compact div.subs {
 	justify-content: center;
 }
 
-body.compact div.subs div.skill > div > div .bar {
+body.compact div.subs div.skill>div>div .bar {
 	max-height: var(--md-gap);
 	background: var(--list-entry-background);
 	border: none;

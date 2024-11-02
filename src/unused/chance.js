@@ -1,4 +1,4 @@
-import Percent from "../values/percent";
+import Percent from '@/values/percent';
 
 /**
  * Percent with an associated object to trigger on successful roll.
@@ -6,11 +6,11 @@ import Percent from "../values/percent";
  */
 export default class Chance {
 
-	toJSON(){
+	toJSON() {
 
 		return {
-			pct:this.pct,
-			result:this.result
+			pct: this.pct,
+			result: this.result
 		}
 
 	}
@@ -24,7 +24,7 @@ export default class Chance {
 	get pct() { return this._pct; }
 	set pct(v) { this._pct = v instanceof Percent ? v : new Percent(v); }
 
-	constructor( pct, obj ) {
+	constructor(pct, obj) {
 
 		this.pct = pct;
 		this.result = obj;

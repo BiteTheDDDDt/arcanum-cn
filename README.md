@@ -40,8 +40,6 @@ Note: You will need to have git installed. It comes packaged on most operating s
 
 9. Keep the Command Prompt or Terminal window open, we'll be coming back to it later.
 
-  
-
 ## Part 2: Setup VSCode
 
 1. Download and install [VSCode](https://code.visualstudio.com/download). This is free software produced by Microsoft for coding. It is available for Windows, Mac, and Linux.
@@ -50,11 +48,11 @@ Note: You will need to have git installed. It comes packaged on most operating s
 
 3. Press the following keys at the same time
 
-- If on Mac: Shift Cmd P
+   - If on Mac: Shift Cmd P
 
-- If on Windows/Linux: Shift Ctrl P
+   - If on Windows/Linux: Shift Ctrl P
 
-A search bar will appear. This is called the command pallette.
+    A search bar will appear. This is called the command pallette.
 
 4. Search `install command`, which may display this as one of the options:
 
@@ -62,19 +60,7 @@ A search bar will appear. This is called the command pallette.
 
    - If this option is available, run it to install the `code` command.
 
-5. Within VS code, switch to the extensions tab located on the left hand side.
-
-6. Search for the extension called `Live Server` by Ritwick Dey.
-
-7. Tap on it and tap install.
-
-8. Completely close out of VS Code.
-
-  
-
-## Part 3: Setup the local repo and run the game.
-
-  
+## Part 3: Setup the local repo and run the game
 
 For the following to succeed, ensure that within Command Prompt or Terminal, you are still navigated to the `arcanum` folder as described in Part 1 above.
 
@@ -94,20 +80,10 @@ For the following to succeed, ensure that within Command Prompt or Terminal, you
 
 4. Within Command Prompt or Terminal, run the following command: `npm run dev`
 
-   - You will notice that you no longer are able to type in commands. This command is long running and will continue working until you exit the command by hitting the following keys together: Ctrl C
+   - You will notice that you no longer are able to type in commands. This command is long running and will continue working until you exit the command by hitting the following keys together: Ctrl C or q followed by enter, h followed by enter opens the help menu
 
-   - This will create a folder in the `arcanum` directory called `dev`. While this command is running, any changes made to the code will automatically be reflected within the dev folder.
+   - While this command is running, any changes made to the code will automatically be reflected within the dev folder.
 
-5. Switch to VS Code. In the explorer on the left hand side, you will see all the files and folders within the `arcanum` directory.
+5 You should now, if the program compiled sucessfully, see a message like ``` -> Local: http://localhost:3000 ```, this is the url to the now running game on your local machine, you can eihter enter the url manually into a browser, or click alt + left click on it to open a page in your default browser automtaically.
 
-6. Reveal the contents of the `dev` directory by tapping on it.
-
-7. Tap on `index.html` This will show it's code within the main VS Code window.
-
-8. Right click somewhere in the main window to show the options available.
-
-9. Tap on the option: `Open with Live Server` This will open a new tab within your chosen web browser. Any changes you make within the code in VSCode from this point forward will automatically refresh this page thereby keeping the version up to date with your latest code changes.
-
-  
-
-#### Feel free to play or modify the game from this point forward. If you have questions, feel free to ask on [discord](https://discord.com/channels/622495527485046805/735060637918691359). If this is your first time editing code, take some time to familiarize yourself with the repo, don't get discouraged, ask lots of questions.
+### Feel free to play or modify the game from this point forward. If you have questions, feel free to ask on [discord](https://discord.com/channels/622495527485046805/735060637918691359). If this is your first time editing code, take some time to familiarize yourself with the repo, don't get discouraged, ask lots of questions

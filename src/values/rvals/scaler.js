@@ -1,4 +1,4 @@
-import RValue from "./rvalue";
+import RValue from '@/values/rvals/rvalue';
 
 /**
  * @class {Scaler} Scaler -NOT a Scalar.
@@ -8,24 +8,24 @@ import RValue from "./rvalue";
  */
 export default class Scaler extends RValue {
 
-	get value(){return super.value;}
-	set value(v){
+	get value() { return super.value; }
+	set value(v) {
 		/** super.value +  necessary for Edge. :/ */
-		super.value = super.value + (v - super.value)*(1+this.scale.pctTot);
+		super.value = super.value + (v - super.value) * (1 + this.scale.pctTot);
 	}
 
 	/**
 	 * @property {Stat} scale - RValue percent that scales
 	 * positive numbers before adding to base value.
 	 */
-	get scale(){return this._scale; }
-	set scale(v){this._scale =v}
+	get scale() { return this._scale; }
+	set scale(v) { this._scale = v }
 
-	constructor( vars=0, path, scale=null ){
+	constructor(vars = 0, path, scale = null) {
 
-		super( Number(vars), path );
+		super(Number(vars), path);
 
-		this.scale = scale || new RValue( 0, this.id + '.scale' );
+		this.scale = scale || new RValue(0, this.id + '.scale');
 
 	}
 
@@ -33,7 +33,7 @@ export default class Scaler extends RValue {
 	 * Set value with no scaling.
 	 * @param {number} v
 	 */
-	set(v){
+	set(v) {
 		super.value = typeof v === 'number' ? v : v.valueOf();
 	}
 
@@ -45,8 +45,8 @@ export default class Scaler extends RValue {
 		super.value += v;
 	}
 
-	apply(val, amt=1) {
-		this.value = this.value + val*amt;
+	apply(val, amt = 1) {
+		this.value = this.value + val * amt;
 	}
 
 }

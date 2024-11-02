@@ -1,7 +1,8 @@
 <script>
-import InfoBlock from './info-block.vue';
-import game from '../../game';
-import MaxStat from '../../values/maxStat';
+import InfoBlock from '@/ui/items/info-block.vue';
+import game from '@/game';
+import MaxStat from '@/values/maxStat';
+import { TYP_PCT} from "@/values/consts";
 
 export default {
 
@@ -12,6 +13,10 @@ export default {
 	},
 	computed:{	
 
+		percent()
+		{
+			return this.summon[TYP_PCT]
+		},
 		summon()
 		{
 			return this.smn || this.item.summon
@@ -45,6 +50,9 @@ export default {
 		</div>
 	</div>
 	<div v-else>
+			<div v-if="percent">
+				<div>Chance to summon: {{percent}}</div>
+			</div>
 			<div>Name: {{ itemName }}</div>
 			<div>Amount: {{ count }}</div>
 			<div>Max: {{ cap }}</div>

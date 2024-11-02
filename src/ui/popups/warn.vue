@@ -1,37 +1,41 @@
 <script>
-import {centerX} from './popups.js';
+import { centerX } from '@/ui/popups/popups.js';
 
 const WARN_MSG = 'This action is not reversible. Continue?';
 
 export default {
+	emits: ["confirmed"],
 
-	data(){
+	data() {
 		return {
-			item:null,
-			cb:null,
-			nowarn:false,
-			nomsg:false,
-			passon:null
+			item: null,
+			cb: null,
+			nowarn: false,
+			nomsg: false,
+			passon: null
 		}
 	},
+
 	updated() {
-		if ( this.item ) {centerX( this.$el );}
+		if (this.item) { centerX(this.$el); }
 	},
-	computed:{
-		msg(){
-			if ( typeof this.item === 'string') return WARN_MSG;
+
+	computed: {
+		msg() {
+			if (typeof this.item === 'string') return WARN_MSG;
 			return this.item.warnMsg || WARN_MSG;
 		}
 	},
-	methods:{
-		show( it, cb=null, nomsg = false, passon = null ){
+
+	methods: {
+		show(it, cb = null, nomsg = false, passon = null) {
 			this.item = it;
 			this.cb = cb;
-			this.nowarn=false;
+			this.nowarn = false;
 			this.nomsg = nomsg;
 			this.passon = passon;
 		},
-		confirm(){
+		confirm() {
 
 			let it = this.item;
 			let f = this.cb;
@@ -40,32 +44,31 @@ export default {
 
 			this.item = null;
 			this.cb = null;
-			this.nowarn=false;
+			this.nowarn = false;
 			this.passon = null;
 			this.nomsg = false;
 
-			if ( it ) this.$emit('confirmed', it, nowarn, passon );
-			if (f ) f();
+			if (it) this.$emit('confirmed', it, nowarn, passon);
+			if (f) f();
 
 		},
-		cancel(){
+		cancel() {
 			this.cb = null;
-			this.nowarn=false;
+			this.nowarn = false;
 			this.item = null;
 			this.passon = null;
 			this.nomsg = false;
 		}
 
 	}
-
-}
+};
 </script>
 
 <template>
 	<div class="popup" v-if="item">
 
-		<div v-if="typeof item ==='string'">
-			<div>{{item }}</div>
+		<div v-if="typeof item === 'string'">
+			<div>{{ item }}</div>
 			<div v-if="!nomsg">{{ msg }}</div>
 		</div>
 		<div v-else>
@@ -77,22 +80,20 @@ export default {
 		</div>
 
 		<div>
-		<button @click="confirm">Confirm</button>
-		<button @click="cancel">Cancel</button>
+		<button type="button" @click="confirm">Confirm</button>
+		<button type="button" @click="cancel">Cancel</button>
 		</div>
 
 	</div>
 </template>
 
 <style scoped>
-
 div.skip {
-	margin-top:1em;
+	margin-top: 1em;
 	font-size: 0.9em;
 }
 
 div.popup div {
-	margin:var(--sm-gap) 0;
+	margin: var(--sm-gap) 0;
 }
-
 </style>

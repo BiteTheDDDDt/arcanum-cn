@@ -1,43 +1,43 @@
 <script>
-import ItemBase from '../itemsBase';
+import ItemBase from '@/ui/itemsBase';
 
-import {spellCost} from 'modules/craft';
-import Game from '../../game';
-import { alphasort } from '../../util/util';
+import { spellCost } from 'modules/craft';
+import Game from '@/game';
+import { alphasort } from '@/util/util';
 
 export default {
 
-	mixins:[ItemBase],
-	data(){
+	mixins: [ItemBase],
+	data() {
 
 		return {
 
-			userSpells:Game.state.userSpells,
+			userSpells: Game.state.userSpells,
 
 			/**
 			 * List of spells in current crafting.
 			 */
-			list:[],
+			list: [],
 
 			/**
 			 * Craft info object.
 			 */
-			craft:{
+			craft: {
 
-				name:'Crafted Spell',
-				level:0,
-				buy:null
+				name: 'Crafted Spell',
+				level: 0,
+				buy: null
 			}
 
 		};
 
 	},
-	methods:{
+	methods: {
 
 		/**
 		 * Remove user spell from UserSpells
 		 */
-		removeSpell(s){
+		removeSpell(s) {
 			this.userSpells.remove(s);
 		},
 
@@ -50,11 +50,11 @@ export default {
 		 */
 		create() {
 
-			if (!this.list || this.list.length === 0 ) return;
+			if (!this.list || this.list.length === 0) return;
 
-			Game.payCost( this.craft.buy );
+			Game.payCost(this.craft.buy);
 
-			this.userSpells.create( this.list, Game.state, this.craft.name );
+			this.userSpells.create(this.list, Game.state, this.craft.name);
 			this.list = [];
 
 			this.craft.level = 0;
@@ -71,7 +71,7 @@ export default {
 			this.list.push(s);
 			this.craft.level += s.level;
 
-			this.craft.buy = spellCost( this.list );
+			this.craft.buy = spellCost(this.list);
 
 		},
 
@@ -82,17 +82,17 @@ export default {
 
 			let s = this.list[i];
 
-			if ( s ) {
+			if (s) {
 				this.craft.level -= s.level;
 			}
 
-			this.list.splice(i,1);
-			this.craft.buy = spellCost( this.list );
+			this.list.splice(i, 1);
+			this.craft.buy = spellCost(this.list);
 
 		}
 
 	},
-	computed:{
+	computed: {
 
 		/**
 		 * Determine if the group being created can be crafted.
@@ -101,8 +101,8 @@ export default {
 		 */
 		canCraft() {
 
-			return !this.userSpells.full() && this.list.length>0
-				&& Game.canPay( this.craft.buy );
+			return !this.userSpells.full() && this.list.length > 0
+				&& Game.canPay(this.craft.buy);
 
 		},
 
@@ -110,18 +110,18 @@ export default {
 		 * @property {Spell[]} spells - all spells in game, except bloodshot.
 		 */
 		spells() {
-			return Game.state.filterItems( v=>v.type === 'spell'&&!this.locked(v)&&v.owned&&!v.hasTag('t_nospellcraft')).sort( alphasort );
+			return Game.state.filterItems(v => v.type === 'spell' && !this.locked(v) && v.owned && !v.hasTag('t_nospellcraft')).sort(alphasort);
 		},
 
 		/**
 		 * Spellcraft power.
 		 */
-		scraft(){
+		scraft() {
 			return Game.state.getData('scraft');
 		},
 
 		maxLevels() {
-			return Math.floor( this.scraft.valueOf() );
+			return Math.floor(this.scraft.valueOf());
 		}
 
 	}
@@ -137,14 +137,14 @@ export default {
 <div class="userspells">
 
 	<div>
-		Custom Spells: {{ Math.floor( userSpells.used) + ' / ' + Math.floor( userSpells.max.value ) }}
+		Custom Spells: {{ Math.floor(userSpells.used) + ' / ' + Math.floor(userSpells.max.value) }}
 	</div>
 	<div class="spells">
-	<div class="custom" v-for="c in userSpells.items" :key="c.id" @mouseenter.capture.stop="itemOver($event,c)">
+	<div class="custom" v-for="c in userSpells.items" :key="c.id" @mouseenter.capture.stop="itemOver($event, c)">
 		<span class="text-entry">
 			<input class="fld-name" type="text" v-model="c.name">
 		</span>
-		<button class="stop" @click="removeSpell(c)">X</button>
+		<button type="button" class="stop" @click="removeSpell(c)">X</button>
 	</div>
 	</div>
 
@@ -154,29 +154,29 @@ export default {
 <div class="crafting">
 
 	<div class="options">
-		<span class="warn-text" v-if="craft.level>=maxLevels">You are at your power limit.</span>
+		<span class="warn-text" v-if="craft.level >= maxLevels">You are at your power limit.</span>
 
 		<div class="text-entry"><label :for="elmId('spName')">Spell</label>
 		<input class="fld-name" :id="elmId('spName')" type="text" v-model="craft.name">
 		</div>
 
 		<!--chrome wrap-->
-		<span @mouseenter.capture.stop="itemOver($event,craft)">
+		<span @mouseenter.capture.stop="itemOver($event, craft)">
 		<span>Power: {{ craft.level + ' / ' + Math.floor(maxLevels) }}</span>
-		<button @click="create" :disabled="!canCraft">Craft</button>
+		<button type="button" @click="create" :disabled="!canCraft">Craft</button>
 		</span>
 
 	</div>
 
-	<div v-for="(s,ind) in list" class="separate" :key="ind" @mouseenter.capture.stop="itemOver($event,s)">
-		<span>{{s.name.toTitleCase()}}</span><button class="remove" @click="removeAt(ind)">X</button>
+	<div v-for="(s, ind) in list" class="separate" :key="ind" @mouseenter.capture.stop="itemOver($event, s)">
+		<span>{{ s.name.toTitleCase() }}</span><button type="button" class="remove" @click="removeAt(ind)">X</button>
 	</div>
 
 </div>
 <div class="allspells">
 
-	<div class="separate" v-for="(s) in spells" :key="s.id"  @mouseenter.capture.stop="itemOver($event,s)">
-		<span>{{s.name.toTitleCase()}}</span><button class="add" @click="add(s)" :disabled="!canAdd(s)">+</button>
+	<div class="separate" v-for="(s) in spells" :key="s.id"  @mouseenter.capture.stop="itemOver($event, s)">
+		<span>{{ s.name.toTitleCase() }}</span><button type="button" class="add" @click="add(s)" :disabled="!canAdd(s)">+</button>
 	</div>
 
 </div>
@@ -187,26 +187,25 @@ export default {
 </template>
 
 <style scoped>
-
 div.spellcraft {
-	display:flex;
+	display: flex;
 	flex-direction: column;
 }
 
 div.spellcraft .userspells {
-	display:flex;
+	display: flex;
 	flex-direction: column;
 	padding: var(--md-gap);
-	border-bottom: 1pt solid var( --separator-color );
+	border-bottom: 1pt solid var(--separator-color);
 }
 
 div.userspells .spells {
-	display:flex;
+	display: flex;
 	flex-flow: row wrap;
 }
 
 div.spells .custom {
-	margin-right:1.2rem;
+	margin-right: 1.2rem;
 }
 
 .crafting .options {
@@ -214,16 +213,16 @@ div.spells .custom {
 }
 
 div.spellcraft .bottom {
-	display:flex;
+	display: flex;
 	flex-direction: row;
 	justify-content: space-between;
-	padding-top:var(--md-gap);
-	padding-left:var(--md-gap);
+	padding-top: var(--md-gap);
+	padding-left: var(--md-gap);
 }
 
-div.spellcraft .crafting, div.spellcraft .allspells {
-	display:flex;
+div.spellcraft .crafting,
+div.spellcraft .allspells {
+	display: flex;
 	flex-direction: column;
 }
-
 </style>

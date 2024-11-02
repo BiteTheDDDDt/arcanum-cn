@@ -1,4 +1,4 @@
-import Stat from "./rvals/stat";
+import Stat from '@/values/rvals/stat';
 
 /**
  * @class
@@ -6,16 +6,16 @@ import Stat from "./rvals/stat";
  */
 export default class MaxStat {
 
-	toJSON(){
+	toJSON() {
 
 		let v = this._value.toJSON();
 		let m = this.max.toJSON();
 
-		if ( v === m ) return v;
+		if (v === m) return v;
 
 		return {
-			v:this._value,
-			max:this.max
+			v: this._value,
+			max: this.max
 		};
 
 	}
@@ -25,17 +25,17 @@ export default class MaxStat {
 	}
 	set base(v) {
 
-		if ( v && typeof v === 'object') {
+		if (v && typeof v === 'object') {
 			this._value.base = v.base || v.value;
 		} else this._value.base = v;
 	}
 
-	get value(){ return this._value.value; }
+	get value() { return this._value.value; }
 	set value(v) {
 
-		if ( v > this._max.value ) v = this._max.value;
+		if (v > this._max.value) v = this._max.value;
 
-		if ( this._value ) {
+		if (this._value) {
 			this._value.set(v);
 		} else {
 			this.v = v;
@@ -43,16 +43,16 @@ export default class MaxStat {
 
 	}
 
-	set v(v){
-		this._value = new Stat(v,this.path +'.value');
+	set v(v) {
+		this._value = new Stat(v ?? 0, this.path + '.value');
 	}
 
-	get max(){ return this._max; }
-	set max(v){
-		this._max = v instanceof Stat ? v : new Stat(v, this.path + '.max', true );
+	get max() { return this._max; }
+	set max(v) {
+		this._max = v instanceof Stat ? v : new Stat(v, this.path + '.max', true);
 	}
 
-	valueOf(){ return this._value.value; }
+	valueOf() { return this._value.value; }
 
 
 	/**
@@ -61,7 +61,7 @@ export default class MaxStat {
 	 */
 	set(v) {
 
-		if ( v > this.max.value ) v = this.max.value;
+		if (v > this.max.value) v = this.max.value;
 		this._value.set(v);
 	}
 
@@ -72,14 +72,14 @@ export default class MaxStat {
 	amount(v) {
 
 		this._value.base += v;
-		if ( this._value.value > this.max.value ) this._value.base = this.max.value;
+		if (this._value.value > this.max.value) this._value.base = this.max.value;
 
 	}
 
 	/**
 	 * @returns {boolean} true if stat is maxed.
 	 */
-	maxed(){ return this._value >= this.max; }
+	maxed() { return this._value >= this.max; }
 
 	/**
 	 *
@@ -87,28 +87,28 @@ export default class MaxStat {
 	 * @param {boolean} empty - whether to init empty by default.
 	 * ignored if vars defines both a max and value.
 	 */
-	constructor(vars=null, empty=false ){
+	constructor(vars = null, empty = false) {
 
 
-		if ( vars && typeof vars === 'object') {
+		if (vars && typeof vars === 'object') {
 
-			if ( vars.isRVal ) {
+			if (vars.isRVal) {
 
 				this.max = vars.value;
 				this.v = empty ? 0 : this.max.value;
 
 			} else {
 
-				if ( vars.max ) this.max = vars.max;
-				else if ( vars.v) this.max = vars.v;
+				if (vars.max) this.max = vars.max;
+				else if (vars.v) this.max = vars.v;
 				else this.max = 0;
 
-				if ( vars.v ) this.v = vars.v;
+				if (vars.v) this.v = vars.v;
 				else this.v = empty || !vars.max ? 0 : vars.max;
 
 			}
 
-		} else if ( typeof vars === 'number' ) {
+		} else if (typeof vars === 'number') {
 
 			this.max = vars;
 			this.v = empty ? 0 : vars;

@@ -26,7 +26,7 @@ export default {
 	/**
 	 * Map property strings to source property objects.
 	 */
-	initAlters( g ){
+	initAlters( g, recurse = false ){
 
 		let alters = this.alters || [];
 		if ( typeof alters === 'string') {
@@ -45,7 +45,7 @@ export default {
 
 				if ( p.alter ) {
 					//console.log(this.id + ' INIT ALTER: ' + p.id );
-					this.applyMods( p.alter, 1, this );
+					this.applyMods( p.alter, ...Array(5), recurse );
 				}
 			}
 

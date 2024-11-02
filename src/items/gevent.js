@@ -1,6 +1,6 @@
-import GData from "./gdata";
+import GData from '@/items/gdata';
 import Events, { EVT_EVENT, EVT_UNLOCK } from "../events";
-import Game from "../game";
+import Game from '@/game';
 
 /**
  * Represents in-game event.
@@ -18,9 +18,9 @@ export default class GEvent extends GData {
 	 * @property {number} cd - cooldown.
 	 */
 	get cd() { return this._cd; }
-	set cd(v) { this._cd =v; }
+	set cd(v) { this._cd = v; }
 
-	constructor(vars=null){
+	constructor(vars = null) {
 
 		super(vars);
 
@@ -30,24 +30,24 @@ export default class GEvent extends GData {
 	 * Unlocking the event triggers the event.
 	 * @todo: randomized events won't work this way.
 	 */
-	doUnlock(g=Game) {
+	doUnlock(g = Game) {
 
 
-		if ( this.disabled || (this.value>0 &&!this.repeat) ) {
+		if (this.disabled || (this.value > 0 && !this.repeat)) {
 			return;
 		}
-		if ( this.locked ) Events.emit( EVT_UNLOCK, this );
+		if (this.locked) Events.emit(EVT_UNLOCK, this);
 		//loot getter here is redundant, because amount(1) triggers changed() which has a loot getter already.
 		//if ( this.loot ) g.getLoot( this.loot );
 
 		// randomized event.
-		if ( this.rand ) {
+		if (this.rand) {
 
-		} else super.amount( 1 );
+		} else super.amount(1);
 
 		this.locked = false;
 
-		Events.emit( EVT_EVENT, this );
+		Events.emit(EVT_EVENT, this);
 
 	}
 
@@ -58,7 +58,7 @@ export default class GEvent extends GData {
 	 */
 	// currently the only correct way to trigger the event is via "true" which bypasses this function. Events are meant to be unique, so we are commenting this out for the time being.
 
-	amount( amt ) {
+	amount(amt) {
 		if (this.locked) this.doUnlock();
 	}
 

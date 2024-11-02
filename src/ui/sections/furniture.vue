@@ -1,12 +1,12 @@
 <script>
-import Game from 'game';
+import Game from '@/game';
 import Settings from 'modules/settings';
-import { alphasort } from 'util/util';
+import { alphasort } from '@/util/util';
 
-import ItemsBase from '../itemsBase';
+import ItemsBase from '@/ui/itemsBase';
 
-import FilterBox from '../components/filterbox.vue';
-import { HOME } from 'values/consts';
+import FilterBox from '@/ui/components/filterbox.vue';
+import { HOME } from '@/values/consts';
 
 /**
  * @emits sell
@@ -17,8 +17,8 @@ export default {
 	mixins: [ItemsBase],
 	components: {
 		filterbox: FilterBox,
-		hall: () => import( /* webpackChunkName: "hall-ui" */ '../hall/hall.vue')
 	},
+	emits: ['mouseEnter'],
 	data() {
 
 		let opts = Settings.getSubVars(HOME);
@@ -45,7 +45,7 @@ export default {
 	},
 	methods: {
 
-		empty(){
+		empty() {
 			return (Math.floor(Game.state.getData('space').free()) <= 0);
 		},
 		searchIt(it, t) {
@@ -169,7 +169,7 @@ export default {
 			<filterbox class="inline" v-model="filtered" :prop="searchIt" :items="viewable" />
 			<span class="space">Space: {{ Math.floor(space.free()) }} / {{ Math.floor(space.max.value) }}</span>
 		</div>
-		
+
 		<div class="warn-text" style="text-align:center" v-if="empty()">No space remaining. Sell
 			items or find a new Home.
 			<span v-if="homesAvail.length > 0">If your max gold is not enough to buy a new home, free space for more
@@ -203,7 +203,7 @@ export default {
 						<td class="name">{{ it.name }}</td>
 						<td class="count">{{ it.value.valueOf() }}/1</td>
 					</template>
-					<td><span v-if="it.maxed()" class="sm">Max</span><button v-else type="button"
+					<td><span v-if="it.maxed()" class="sm">Max</span><button v-else type="button"  
 							:disabled="!it.canUse()" class="buy-btn" @click="emit('upgrade', it)">Buy</button></td>
 
 					<td><button type="button" :disabled="it.value <= 0" class="sell-btn"
@@ -301,4 +301,5 @@ table .name {
 
 table tr:nth-child(2n) {
 	background: var(--odd-list-color);
-}</style>
+}
+</style>

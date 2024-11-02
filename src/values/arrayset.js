@@ -1,13 +1,13 @@
-import { swap } from "../util/array";
+import { swap } from '@/util/array';
 
 /**
  * Implements Set class using Array for Vue reactivity.
  */
 export default class ArraySet {
 
-	get size(){return this._store.length; }
+	get size() { return this._store.length; }
 
-	[Symbol.iterator](){
+	[Symbol.iterator]() {
 		return this._store[Symbol.iterator]();
 	}
 
@@ -15,7 +15,7 @@ export default class ArraySet {
 	 *
 	 * @param {?Iterable} a
 	 */
-	constructor( a ) {
+	constructor(a) {
 
 		/**
 		 * @property {object[]} _store
@@ -23,46 +23,46 @@ export default class ArraySet {
 		 */
 		this._store = [];
 
-		if ( a ) {
-			for( let it of a ) this.add(it);
+		if (a) {
+			for (let it of a) this.add(it);
 		}
 
 	}
 
-	clear(){
+	clear() {
 		this._store = [];
 	}
 
-	forEach(p){
+	forEach(p) {
 		return this._store.forEach(p);
 	}
 
-	values(){
+	values() {
 		return this._store.slice(0);
 	}
 
-	inc(it){
+	inc(it) {
 		let i = this._store.indexOf(it);
-		swap(this._store, i,i+1);
+		swap(this._store, i, i + 1);
 	}
 
-	dec(it){
+	dec(it) {
 		let i = this._store.indexOf(it);
-		swap(this._store, i,i-1);
+		swap(this._store, i, i - 1);
 	}
 
-	add( it ){
+	add(it) {
 		this._store.push(it);
 	}
 
-	has(it){
+	has(it) {
 		return this._store.includes(it);
 	}
 
-	delete( it){
+	delete(it) {
 
 		let ind = this._store.indexOf(it);
-		if ( ind < 0) return false;
+		if (ind < 0) return false;
 		this._store.splice(ind, 1);
 		return true;
 
