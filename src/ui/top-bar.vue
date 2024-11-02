@@ -78,7 +78,7 @@ export default {
 		</span>
 
 		<span class="link-bar">
-			<a href="https://mathiashjelm.gitlab.io/arcanum/" target="_blank">Stable</a>
+			<a href="https://arcanumtesting.gitlab.io/arcanum/" target="_blank">Test Site</a>
 			<a href="https://discord.gg/bCABC96" target="_blank">Discord</a>
 			<a href="https://gitlab.com/Regallion/arcanum-wiki/-/wikis/home" target="_blank">Wiki</a>
 			<a href="https://www.reddit.com/r/wizrobe/" target="_blank">Reddit</a>
