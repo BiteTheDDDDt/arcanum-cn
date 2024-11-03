@@ -264,7 +264,6 @@
 		"tags": "spiritsource",
 		"mod": {
 			"space.max": 75,
-			"tapestries.max": 2,
 			"spiritlore.max": 1,
 			"spiritlore.rate": 0.1,
 			"shadow.rate": 0.1,
@@ -300,7 +299,6 @@
 		"tags": "airsource",
 		"mod": {
 			"space.max": 55,
-			"tapestries.max": 2,
 			"minions.max": 5,
 			"airlore.max": 1,
 			"airlore.rate": 0.1
