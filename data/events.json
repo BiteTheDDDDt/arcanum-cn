@@ -450,7 +450,7 @@
 	{
 		"id": "recal_evil2",
 		"hide": true,
-		"require": "(g.thanophage+g.dreadlord+g.necromancer+g.warlock+g.necromancy+g.evil3)>=1&&g.evil2==0",
+		"require": "(g.thanophage+g.dreadlord+g.necromancer+g.warlock+g.necromancy+g.evil3)>=1&&g.evil2==0&&g.redemption_path==0",
 		"desc": "Updating internals - players should not see this. Ensures existing T3/4 evil classes, or anyone with necromancy, gets evil2.",
 		"result": {
 			"evil2": 1
