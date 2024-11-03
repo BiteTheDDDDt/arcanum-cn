@@ -612,8 +612,6 @@ export default {
 
 			if (it && it.disabled) {
 				it.disabled = null;
-				Changed.add(it);
-				TechTree.forceCheck();
 				if (it.mod) {
 					//console.log('REMOVING MOD: ' + it.id + ' --> ' + it.value );
 					this.applyMods(it.mod, it.value);
