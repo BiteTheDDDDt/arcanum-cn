@@ -1359,7 +1359,7 @@
 		"id": "bottomlesspit",
 		"name": "bottomless pit",
 		"desc": "An endless hole in the ground.",
-		"tags": "underground",
+		"tags": "t_underground",
 		"require": "g.planeslore>=8&&g.space.max>=20&&g.tier4>0",
 		"cost": {
 			"gems": 10,
