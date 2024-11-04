@@ -16,6 +16,17 @@
 		"group": "starting out"
 	},
 	{
+		"id": "tech_fix_manafix",
+		"name": "technical fix",
+		"desc": "Applies a fix to a certain event not triggering correctly. Do this to fix your mana max",
+		"require":"g.lore>=2&&g.evt_manafix==0",
+		"max":1,
+		"result": {
+			"tech_fix_manafix": true
+		},
+		"group": "technical"
+	},
+	{
 		"id": "chores",
 		"name": "do chores",
 		"desc": "Standard apprentice work.",

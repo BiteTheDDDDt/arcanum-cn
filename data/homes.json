@@ -475,7 +475,7 @@
 		"name": "volcanic lair",
 		"desc": "Stark lair carved into a mountain of fire",
 		"require": "g.fire>=20",
-		"cost": {
+		"buy": {
 			"research": 500,
 			"gold": 3000,
 			"firegem": 2

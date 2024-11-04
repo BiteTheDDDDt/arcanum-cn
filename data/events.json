@@ -86,7 +86,10 @@
 		"require": "g.lore>0",
 		"mod": {
 			"mana.max": 5
-		}
+		},
+		"lock":[
+			"tech_fix_manafix"
+		]
 	},
 	{
 		"id": "evt_vigorfix",

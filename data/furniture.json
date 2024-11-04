@@ -1428,7 +1428,6 @@
 			"research": 250
 		},
 		"mod": {
-			"tapestries.max": 1,
 			"dissection.max": 3,
 			"dissection.rate": 0.4,
 			"shadow.max": 5,
@@ -1619,7 +1618,6 @@
 			"arcana": 1
 		},
 		"mod": {
-			"tapestries.max": 2,
 			"bodies.max": 25,
 			"bones.max": 30,
 			"bonedust.max": 20,
@@ -1638,7 +1636,6 @@
 			"gold": 1000
 		},
 		"mod": {
-			"tapestries.max": 1,
 			"bodies.max": 20,
 			"bones.max": 20,
 			"shadowlore.max": 1,
