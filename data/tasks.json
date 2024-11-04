@@ -16,6 +16,30 @@
 		"group": "starting out"
 	},
 	{
+		"id": "trapsoul",
+		"name": "trap soul",
+		"verb": "catching souls",
+		"desc": "Capture a soul within a spirit gem.",
+		"group": "materials",
+		"require": "g.bonedust>0",
+		"need": "wardsource",
+		"length": 15,
+		"cost": {
+			"spiritgem": 1,
+			"research": 25
+		},
+		"run": {
+			"bonedust": 0.2,
+			"stamina": 0.3,
+			"spirit": 0.3
+		},
+		"result": {
+			"souls.max": 0.5,
+			"souls": 1,
+			"dreams": { "value": 0.0015, "skipLocked": true }
+		}
+	},
+	{
 		"id": "tech_fix_manafix",
 		"name": "technical fix",
 		"desc": "Applies a fix to a certain event not triggering correctly. Do this to fix your mana max",
