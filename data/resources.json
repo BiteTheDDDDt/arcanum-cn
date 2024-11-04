@@ -595,6 +595,6 @@
 		"desc": "Time since you last checked in. Can be used to speed up the game.",
 		"flavor": "Where does time go when you aren't looking?",
 		"locked": false,
-		"max": 3600
+		"max": 10800
 	}
 ]
