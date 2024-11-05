@@ -909,7 +909,7 @@
 		"perpetual": true,
 		"fill": ["stamina", "hp", "prismatic", "stress"],
 		"effect": {
-			"prismatic": { "value": 0.5, "skipLocked": true },
+			"prismatic": { "value": 0.5 },
 			"stamina": 0.8,
 			"vigor": 0.08,
 			"hp": 1,
