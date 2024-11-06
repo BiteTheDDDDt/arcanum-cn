@@ -1320,7 +1320,7 @@
 		"require": "g.t_chaosclass>0&&g.crafting>=20&&g.tier3>0&&g.chaosgem>=3",
 		"craftable": true,
 		"max": 1,
-		"length": 2000,
+		"length": 200,
 		"desc": "Badger, badger, badger, badger, why are there so many badgers in there???",
 		"cost": {
 			"gold": 1000,
