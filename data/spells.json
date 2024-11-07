@@ -2922,8 +2922,7 @@
 		},
 		"cost": {
 			"earth": 25,
-			"sindel": 2,
-			"deepsteel": 1
+			"sindel": 2
 		},
 		"result": {
 			"geosculpting.exp": 600

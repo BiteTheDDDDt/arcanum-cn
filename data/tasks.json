@@ -1743,7 +1743,7 @@
 		"needtext": "Must have at least 1 inventory space free.",
 		"max": 1,
 		"verb": "Creating Masterpiece",
-		"require": "g.titan>0&&g.mythicanvil>0&&g.deepsteel>=1",
+		"require": "g.titan>0&&g.mythicanvil>0",
 		"craftable": true,
 		"length": 180,
 		"cost": {
