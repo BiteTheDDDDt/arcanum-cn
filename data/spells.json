@@ -2810,7 +2810,7 @@
 		"id": "mk_unicorn",
 		"name": "summon unicorn",
 		"desc": "In combat, summon an unicorn to fight for you.",
-		"require": "(g.good2+g.t_divinationclass+g.t_summoningclass)>0&&g.magicbeasts>=5",
+		"require": "(g.good2+g.t_divinationclass+g.t_summonclass)>0&&g.magicbeasts>=5",
 		"sortOrder": 1771,
 		"level": 5,
 		"school": "summoning",
