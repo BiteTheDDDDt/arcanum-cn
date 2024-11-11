@@ -43,8 +43,8 @@
 		"id": "tech_fix_manafix",
 		"name": "technical fix",
 		"desc": "Applies a fix to a certain event not triggering correctly. Do this to fix your mana max",
-		"require":"g.lore>=2&&g.evt_manafix==0",
-		"max":1,
+		"require": "g.lore>=2&&g.evt_manafix==0",
+		"max": 1,
 		"result": {
 			"tech_fix_manafix": true
 		},
@@ -4538,6 +4538,80 @@
 			"s_travel.max": 1
 		},
 		"group": "knowledge"
+	},
+	{
+		"id": "chronomancylearn1",
+		"name": "Walking backwards",
+		"desc": "",
+		"flavor": "",
+		"group": "education",
+		"require": "g.chronomancy>=1",
+		"cost": {
+			"tempus": 1,
+			"research": 250
+		},
+		"mod": {
+			"chronomancy.max": 1,
+			"chronomancy.rate": 0.25
+		}
+	},
+	{
+		"id": "chronomancylearn2",
+		"name": "Thinking backwards",
+		"desc": "",
+		"flavor": "",
+		"group": "education",
+		"require": "g.chronomancy>=2&&g.chronomancylearn1>0",
+		"cost": {
+			"sp": 1,
+			"tempus": 2,
+			"research": 250
+		},
+		"mod": {
+			"chronomancy.max": 1,
+			"chronomancy.rate": 0.5,
+			"chronomancy.mod.tempus.rate": 0.003
+		}
+	},
+	{
+		"id": "chronomancylearn3",
+		"name": "Timely independence",
+		"desc": "",
+		"flavor": "",
+		"group": "education",
+		"require": "g.chronomancy>=3&&g.chronomancylearn2>0",
+		"cost": {
+			"sp": 1,
+			"tempus": 3,
+			"research": 250
+		},
+		"mod": {
+			"chronomancy.max": 1,
+			"chronomancy.rate": 1,
+			"chronomancy.mod.tempus.rate": 0.006,
+			"chronomancy.mod.offlinetime.max": 1800
+		}
+	},
+	{
+		"id": "chronomancylearn4",
+		"name": "Chronomancy: Unleashed",
+		"desc": "",
+		"flavor": "",
+		"group": "education",
+		"require": "g.chronomancy>=4&&g.chronomancylearn3>0",
+		"cost": {
+			"sp": 1,
+			"tempus": 4,
+			"research": 250
+		},
+		"result": {
+			"fame": 1
+		},
+		"mod": {
+			"chronomancy.max": 1,
+			"chronomancy.rate": 2.25,
+			"chronomancy.mod.tempus.rate": "3%"
+		}
 	},
 	{
 		"id": "recordstars",
