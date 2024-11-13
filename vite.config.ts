@@ -13,7 +13,7 @@ export default defineConfig(({ mode }) => {
     const isProduction = mode === 'production';
     const isCloud = process.env.CLOUD === 'true';
 
-    const origins = ["'self'", "https://arcanumtesting.gitlab.io/"].join(" ");
+    const origins = ["'self'", "https://mathiashjelm.gitlab.io/"].join(" ");
 
     const securityPolicies = [
         `default-src ${origins}`,
