@@ -4559,5 +4559,26 @@
 			"astronomy.max": 1
 		},
 		"group": "knowledge"
+	},
+	{
+		"id": "bloodsiphon",
+		"name": "blood siphon",
+		"desc": "Leech blood from a body to restore your health.",
+		"require": "transfusions",
+		"perpetual": true,
+		"run": {
+			"bodies": 0.1
+		},
+		"effect": {
+			"hp": 5
+		},
+		"at": {
+			"900": {
+				"effect.hp": 2
+			},
+			"3600": {
+				"effect.hp": 3
+			}
+		}
 	}
 ]
