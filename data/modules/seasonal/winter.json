@@ -1516,7 +1516,10 @@
 							"fame": 25
 						},
 						"mod": {
-							"w_dolls.rate": 0.01
+							"w_dolls.rate": 0.01,
+							"puppetry.buy.sp": -1,
+							"machinacreation.buy.sp": -1,
+							"automatasculpting.buy.sp": -2
 						}
 					}
 				],
