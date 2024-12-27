@@ -285,14 +285,14 @@
 		},
 		"length": 400,
 		"run": {
-			"stamina": 4
+			"stamina": 3
 		},
 		"result": {
 			"title": "Nomad",
 			"fame": 1
 		},
 		"mod": {
-			"s_travel.max": "0.5//4/2"
+			"s_travel.max": "0.5//4/-1"
 		},
 		"loot": [
 			{

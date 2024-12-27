@@ -8,6 +8,7 @@
 	{
 		"id": "evt_scroll",
 		"name": "A tattered scroll",
+		"require": "g.scrolls>0",
 		"desc": "You buy a strange scroll from a travelling peddler. If you could only decipher the cryptic symbols."
 	},
 	{
@@ -24,7 +25,6 @@
 		"result": {
 			"arcana.rate": 0.0001,
 			"research.max": 10,
-			"lore.max": 1,
 			"player.exp": 10,
 			"player.tohit": 1
 		}
@@ -86,10 +86,7 @@
 		"require": "g.lore>0",
 		"mod": {
 			"mana.max": 5
-		},
-		"lock":[
-			"tech_fix_manafix"
-		]
+		}
 	},
 	{
 		"id": "evt_vigorfix",
@@ -135,42 +132,31 @@
 			"atticbedroom"
 		],
 		"lock": "t_tier0",
+		"mod": {
+			"t_0": 1
+		},
 		"result": {
 			"innroom": true,
 			"sp": 1,
 			"player.exp": 15,
 			"fame": 1
-		},
-		"mod": {
-			"research.max": 15,
-			"buyscroll.result.scrolls": 1,
-			"buyscroll.cost.gold": 20,
-			"player.hp.max": 10,
-			"player.tohit": 1,
-			"falconer.mod.gold.rate": 0.03,
-			"herbalist.mod.gold.rate": 0.02
 		}
 	},
 	{
 		"id": "tier1",
 		"name": "Professional Magick",
 		"desc": "Every province has its handful of runaway apprentices and failed Adepts. It's not uncommon for thieves and rangers to know a spell or two. They are nothing compared to the talents of a true professional.",
-		"disable": ["prestidigitation"],
+		"disable": [
+			"prestidigitation"
+		],
 		"lock": "t_tier1",
+		"mod": {
+			"t_1": 1
+		},
 		"result": {
 			"sp": 1,
 			"player.exp": 15,
 			"fame": 2
-		},
-		"mod": {
-			"crafting.max": 1,
-			"arcanebody.max": 1,
-			"occultendure.max": 1,
-			"crystalmind.max": 1,
-			"buyscroll.result.scrolls": 1,
-			"buyscroll.cost.gold": 30,
-			"player.hp.max": 20,
-			"player.tohit": 1
 		}
 	},
 	{
@@ -178,19 +164,12 @@
 		"name": "Arcane Ascendant",
 		"desc": "The masses of arcane dabblers never reach such heights.",
 		"lock": "t_tier2",
+		"mod": {
+			"t_2": 1
+		},
 		"result": {
 			"player.exp": 25,
 			"fame": 3
-		},
-		"mod": {
-			"lore.max": 2,
-			"arcanebody.max": 1,
-			"occultendure.max": 1,
-			"crystalmind.max": 1,
-			"buyscroll.result.scrolls": 1,
-			"buyscroll.cost.gold": 40,
-			"player.hp.max": 20,
-			"player.tohit": 1
 		}
 	},
 	{
@@ -198,21 +177,13 @@
 		"name": "Magical Mastery",
 		"desc": "You are a master of your field of magic.",
 		"lock": "t_tier3",
+		"mod": {
+			"t_3": 1
+		},
 		"result": {
 			"sp": 1,
 			"player.exp": 50,
 			"fame": 4
-		},
-		"mod": {
-			"lore.max": 3,
-			"crafting.max": 2,
-			"arcanebody.max": 1,
-			"occultendure.max": 1,
-			"crystalmind.max": 1,
-			"buyscroll.result.scrolls": 1,
-			"buyscroll.cost.gold": 50,
-			"player.hp.max": 30,
-			"player.tohit": 1
 		}
 	},
 	{
@@ -220,20 +191,16 @@
 		"name": "Supreme Sorcery",
 		"desc": "Not even the masters could challenge you.",
 		"lock": "t_tier4",
-		"disable": ["buyscroll"],
+		"disable": [
+			"buyscroll"
+		],
+		"mod": {
+			"t_4": 1
+		},
 		"result": {
 			"sp": 1,
 			"player.exp": 75,
 			"fame": 5
-		},
-		"mod": {
-			"lore.max": 4,
-			"crafting.max": 2,
-			"arcanebody.max": 1,
-			"occultendure.max": 1,
-			"crystalmind.max": 1,
-			"player.hp.max": 30,
-			"player.tohit": 2
 		}
 	},
 	{
@@ -241,20 +208,13 @@
 		"name": "Dhrunic Magic",
 		"desc": "Magic from a forgotten age.",
 		"lock": "t_tier5",
+		"mod": {
+			"t_5": 1
+		},
 		"result": {
 			"sp": 1,
 			"player.exp": 100,
 			"fame": 6
-		},
-		"mod": {
-			"lore.max": 4,
-			"crafting.max": 2,
-			"arcanebody.max": 1,
-			"arcanebody2.max": 2,
-			"occultendure.max": 1,
-			"crystalmind.max": 2,
-			"player.hp.max": 40,
-			"player.tohit": 2
 		}
 	},
 	{
@@ -262,20 +222,13 @@
 		"name": "Ageless Magic",
 		"desc": "Ages of the world come and go; only these endure.",
 		"lock": "t_tier6",
+		"mod": {
+			"t_6": 1
+		},
 		"result": {
 			"sp": 1,
 			"player.exp": 100,
 			"fame": 7
-		},
-		"mod": {
-			"lore.max": 3,
-			"crafting.max": 4,
-			"arcanebody.max": 1,
-			"arcanebody2.max": 1,
-			"occultendure.max": 1,
-			"crystalmind.max": 1,
-			"player.hp.max": 40,
-			"player.tohit": 2
 		}
 	},
 	{
@@ -420,9 +373,26 @@
 		"require": "g.good3==1&&g.t_chaosclass>0",
 		"desc": "A former scoundrel knows best how to think like a scoundrel.",
 		"mod": {
-			"heist.mod.securityconsultant": 1
+			"securityconsultant.result.gems.min": -3,
+			"securityconsultant.result.gems.max": -8,
+			"securityconsultant.result.gold": -150
+		},
+		"result": {
+			"securityconsultant": "g.heist"
 		},
 		"lock": "heist"
+	},
+	{
+		"id": "evt_securityconsultantfix",
+		"require": "g.good3_trickster>0",
+		"desc": "If you are reading this, report it as a bug",
+		"hide": true,
+		"mod": {
+			"securityconsultant.result.gems.min": 3,
+			"securityconsultant.result.gems.max": 8,
+			"securityconsultant.result.gold": 150
+		},
+		"disable": ["heist"]
 	},
 	{
 		"id": "idrasil_shift",
@@ -442,21 +412,98 @@
 		"lock": "innroom"
 	},
 	{
-		"id": "recal_evil3",
+		"id": "ruinedpalace_evt",
+		"require": "g.ruinedpalace>0",
+		"desc": "If a player reads this, report it as a bug.",
 		"hide": true,
-		"require": "(g.greynecromancer+g.archlock+g.necro3+g.deathlock+g.phylactory)>=1&&g.evil3==0",
-		"desc": "Updating internals - players should not see this. Ensures existing T5/6 evil classes, or anyone with a phylactory, gets evil3.",
-		"result": {
-			"evil3": 1
+		"mod": {
+			"palace.buy.gold": -2500
 		}
 	},
 	{
-		"id": "recal_evil2",
+		"id": "ruinedcastle_evt",
+		"require": "g.ruinedcastle>0",
+		"desc": "If a player reads this, report it as a bug.",
 		"hide": true,
-		"require": "(g.thanophage+g.dreadlord+g.necromancer+g.warlock+g.necromancy+g.evil3)>=1&&g.evil2==0&&g.redemption_path==0",
-		"desc": "Updating internals - players should not see this. Ensures existing T3/4 evil classes, or anyone with necromancy, gets evil2.",
-		"result": {
-			"evil2": 1
+		"mod": {
+			"castle.buy.gold": -2500
 		}
+	},
+	{
+		"id": "home_idrasil_sprout_evt",
+		"require": "g.home_idrasil_sprout>0",
+		"hide": true,
+		"desc": "If a player reads this, report it as a bug.",
+		"mod": {
+			"home_idrasil_tree.buy.herbs": -25,
+			"home_idrasil_tree.buy.gems": -15,
+			"home_idrasil_sapling.buy.herbs": -25,
+			"home_idrasil_sapling.buy.gems": -15
+		}
+	},
+	{
+		"id": "home_idrasil_saping_evt",
+		"require": "g.home_idrasil_sapling>0&&g.home_idrasil_sprout_evt<1",
+		"hide": true,
+		"desc": "If a player reads this, report it as a bug.",
+		"mod": {
+			"home_idrasil_tree.buy.herbs": -25,
+			"home_idrasil_tree.buy.gems": -15
+		}
+	},
+	{
+		"id": "home_waterfall_evt",
+		"require": "g.home_waterfall>0",
+		"hide": true,
+		"desc": "If a player reads this, report it as a bug.",
+		"mod": {
+			"cataract.buy.gold": -500
+		}
+	},
+	{
+		"id": "restfix",
+		"require": "g.chant>0||g.naturecamp>0||g.eatchildren>0||g.stabilize>0",
+		"hide": true,
+		"desc": "If you see this, say so on discord.",
+		"result": {
+			"rest": true
+		},
+		"disable": ["chant", "naturecamp", "eatchildren", "stabilize"]
+	},
+	{
+		"id": "restfix2",
+		"require": "g.slumber>0&&g.up_slumber==0",
+		"hide": true,
+		"desc": "If you see this, say so on discord.",
+		"disable": ["rest"],
+		"lock": ["up_slumber"],
+		"result": {
+			"slumber": true
+		}
+	},
+	{
+		"id": "potlock",
+		"require": "g.hellfiretinctures>0",
+		"hide": true,
+		"desc": "Pyro backfix. If you see it, no you don't",
+		"disable": ["pot_ignition", "pot_explodium"]
+	},
+	{
+		"id": "enchantedgrant",
+		"require": "g.arcanestudy>0",
+		"name":"Study collapse",
+		"desc": "A worrying rumble from your enchanted study is quickly followed by a localized dimensional collapse. You now seem to only have a single study. At least it seems better than before.",
+		"disable": ["arcanestudy"],
+		"result":{
+			"enchanted_study":1,
+			"studyroom":"g.studyroom==0"
+		}
+	},
+	{
+		"id": "enchantedungrant",
+		"require": "g.arcanestudy==0",
+		"hide":true,
+		"desc": "Disables illegal study, if you did not own it.",
+		"disable": ["arcanestudy"]
 	}
 ]

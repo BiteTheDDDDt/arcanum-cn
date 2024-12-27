@@ -84,6 +84,26 @@ export default class Group {
 	}
 	set cost(v) { this._cost = v; }
 
+	get cd()
+	{
+		let a = null
+		for (let i = this.items.length - 1; i >= 0; i--) {
+			if (this.items[i].cd) a = Math.max(a,this.items[i].cd);
+		}
+		return a
+	}
+	get timer()
+	{
+		let a = null
+		for (let i = this.items.length - 1; i >= 0; i--) {
+			if (this.items[i].timer) a = Math.max(a,this.items[i].timer);
+		}
+		return a
+	}
+	get caststoppers() {
+		return this.computeCaststoppers();
+	}
+
 	/*get instanced() { return true; }
 	set instanced(v){}*/
 
@@ -121,6 +141,31 @@ export default class Group {
 			this.cost = cost;
 		}
 		return cost;
+
+	}
+
+	computeCaststoppers() {
+
+		if (!this.items || this.items.length === 0) {
+			return
+		}
+		let caststoppers = [];
+
+		for (let i = this.items.length - 1; i >= 0; i--) {
+
+			let it = this.items[i];
+			if (!it) {
+				this.items.splice(i, 1)
+				continue
+			};
+			if (!it.caststoppers) continue
+			for (let a of it.caststoppers)
+			{
+				if (!caststoppers.includes(a)) caststoppers.push(a)
+			}
+		}
+
+		return caststoppers;
 
 	}
 

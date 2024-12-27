@@ -91,7 +91,7 @@
 				"require": "g.icelore>=1",
 				"max": 0,
 				"color": "#44beeb",
-				"tags": "manas"
+				"tags": "manas,specialty"
 			},
 			{
 				"id": "snowdrop",
@@ -107,27 +107,6 @@
 		],
 		"tasks": [
 			{
-				"id": "restincottage",
-				"name": "warm yourself",
-				"desc": "Warm yourself by a fire",
-				"require": "g.frost>=10",
-				"verb": "Warming Hands",
-				"tags": "t_rest",
-				"slot": "rest",
-				"perpetual": true,
-				"fill": ["stamina", "prismatic", "hp", "stress", "frost"],
-				"effect": {
-					"prismatic": { "value": 0.5, "skipLocked": true },
-					"fire": 0.5,
-					"stamina": 0.5,
-					"vigor": 0.05,
-					"hp": 0.75,
-					"frost": -10,
-					"stress": -0.5
-				},
-				"group": "winter ❄️"
-			},
-			{	
 				"id": "makesnowman",
 				"name": "build snomunculus",
 				"desc": "Build a homunculus from snow",
@@ -190,6 +169,19 @@
 			}
 		],
 		"upgrades": [
+			{
+				"id": "restincottage",
+				"name": "warm up",
+				"desc": "Light extra fires as you rest to stave off the cold",
+				"tags": "t_restmod",
+				"require": "g.frost>=10",
+				"slot": "leisure",
+				"buy": {},
+				"mod": {
+					"t_rest.effect.frost": -10
+				},
+				"group": "winter ❄️"
+			},
 			{
 				"id": "w_fazbit1",
 				"name": "paper restoration",
@@ -689,7 +681,7 @@
 					"targets": ["single"],
 					"delivery": ["instant", "over time"]
 				},
-				"require": "(g.icelore>=10&&g.firelore>=10)||g.warmpotion",
+				"require": "(g.icelore>=10&&g.firelore>=10)||g.warmpotion>0",
 				"buy": {
 					"ice": 2
 				},
@@ -1351,7 +1343,13 @@
 				"result": {
 					"evt_snowcopy": 1
 				},
-				"encs": ["enc_w_lifeforce", "enc_w_drawscheme", "enc_w_placegems", "enc_w_setfocus", "enc_w_attune"]
+				"encs": [
+					"enc_w_lifeforce",
+					"enc_w_drawscheme",
+					"enc_w_placegems",
+					"enc_w_setfocus",
+					"enc_w_attune"
+				]
 			}
 		],
 		"encounters": [],
@@ -1379,10 +1377,10 @@
 						"name": "ice cream lure",
 						"duration": 3600,
 						"mod": {
-							"eatchildren.effect.stress": -0.2,
-							"eatchildren.effect.prismatic": 0.1,
-							"eatchildren.effect.stamina": 0.3,
-							"eatchildren.effect.hp": 1
+							"eatchildrenrest.mod.t_rest.effect.stress": -0.05,
+							"eatchildrenrest.mod.t_rest.effect.shadow": 0.1,
+							"eatchildrenrest.mod.t_rest.effect.spirit": 0.1,
+							"eatchildrenrest.mod.t_rest.effect.hp": 0.5
 						}
 					}
 				}
@@ -1492,14 +1490,43 @@
 						"sym": "🏰❄️"
 					}
 				],
-				"upgrades": [],
+				"upgrades": [
+					{
+						"id": "fazbit_restoration",
+						"name": "fazbit's workshop restoration project",
+						"sym": "🏰❄️",
+						"tags": "hall",
+						"desc": "This place must have once been a source of great joy to people all over the realm. It would be a tremendous accomplishment to repair it.",
+						"require": "g.w_fazbit10>0",
+						"max": 1,
+						"result": {
+							"fame": 10
+						}
+					},
+					{
+						"id": "fazbit_restoration2",
+						"name": "fazbit's refurbished winter workshop",
+						"sym": "🏰❄️",
+						"tags": "hall",
+						"desc": "Finish the restoration and allow the workshop to work towards its original purpose.",
+						"need": "(g.fazbit_restoration_stage1+g.fazbit_restoration_stage2+g.fazbit_restoration_stage3)>2",
+						"require": "g.fazbit_restoration>0",
+						"max": 1,
+						"result": {
+							"fame": 25
+						},
+						"mod": {
+							"w_dolls.rate": 0.01
+						}
+					}
+				],
 				"tasks": [
 					{
 						"id": "fazbit_restoration_stage1",
 						"name": "workshop structure renovation",
 						"sym": "🏰❄️",
 						"tags": "hall",
-						"require": "g.fazbit_restoration>0",
+						"require": "g.fazbit_restoration>0&&g.fazbit_restoration2==0",
 						"craftable": true,
 						"desc": "Restore the outside walls of the workshop, with an eye for future expansion.",
 						"length": 1200,
@@ -1540,7 +1567,11 @@
 						"run": {
 							"stamina": 3
 						},
-						"lock": ["frostparts_production1", "frostparts_production2", "frostparts_productionex"],
+						"lock": [
+							"frostparts_production1",
+							"frostparts_production2",
+							"frostparts_productionex"
+						],
 						"result": {
 							"fame": 15
 						}

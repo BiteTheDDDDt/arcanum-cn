@@ -140,7 +140,6 @@ export const assignPublic = (dest, src) => {
 
 			} else if (!desc.writable) continue;
 			else if (typeof dest[p] === 'function') {
-				//console.log('skipping func: ' + p);
 				continue;
 			}
 
@@ -203,7 +202,6 @@ export const assignNoFunc = (dest, src) => {
 
 				} else if (!desc.writable) continue;
 				else if (typeof dest[p] === 'function') {
-					//console.log('skipping func: ' + p);
 					continue;
 				}
 
@@ -463,22 +461,15 @@ export function subset(obj, ...props) {
 }
 
 String.prototype.toTitleCase = function () {
-	let string = this.trim().toLowerCase().replace(/\w\S*/g, (w) => (w.replace(/^\w/, (c) => c.toUpperCase())))
-	let prefix = string.substr(0, string.lastIndexOf(" "))
-	let suffix = string.substr(string.lastIndexOf(" ") + 1)
-	//This accounts for roman numerals.
-	if (suffix.toLowerCase() == "ii") {
-		suffix = "II"
-	} else if (suffix.toLowerCase() == "iii") {
-		suffix = "III"
-	} else if (suffix.toLowerCase() == "iv") {
-		suffix = "IV"
-	} else if (suffix.toLowerCase() == "v") {
-		suffix = "V"
-	}
-	string = prefix + " " + suffix
-	//This makes sure the words 'of' and 'the' are not capittalized.
-	string = string.replace(" Of ", " of ");
-	string = string.replace(" The ", " the ");
-	return prefix + " " + suffix
+
+	return this.trim().toLowerCase().replace(/\b\w\S*/g, (match) => {
+
+		if (match === 'of' || match === 'the') return match;
+		if (match === 'i' || match == 'ii' || match === 'iii' || match === 'iv' || match === 'v') {
+			return match.toUpperCase();
+		}
+		return match[0].toUpperCase() + match.slice(1);
+
+	});
+
 }

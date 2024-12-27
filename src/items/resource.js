@@ -68,8 +68,6 @@ export default class Resource extends GData {
 
 		super(vars);
 
-		//if ( this._value != vars.val ) console.log( 'this.valu: ' + this._value );
-
 		if (this.repeat !== false) this.repeat = true;
 
 		/**

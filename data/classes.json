@@ -37,8 +37,8 @@
 			"player.exp": 10
 		},
 		"mod": {
-			"gold.rate": 0.07,
-			"lore.max": 1,
+			"gold.rate": 0.1,
+			"lore.max": 2,
 			"animals.max": 3,
 			"nature.max": 2
 		}
@@ -59,8 +59,8 @@
 			"player.exp": 10
 		},
 		"mod": {
-			"gold.rate": 0.08,
-			"lore.max": 1,
+			"gold.rate": 0.1,
+			"lore.max": 2,
 			"herbalism.max": 3,
 			"alchemy.max": 2
 		}
@@ -83,7 +83,7 @@
 			"gold.rate": 0.1,
 			"research.max": 10,
 			"arcana.rate": 0.0001,
-			"lore.max": 1.5,
+			"lore.max": 2.5,
 			"history.max": 1
 		},
 		"flavor": "When I get a little money I buy books, and if any is left I buy food and clothes."
@@ -549,7 +549,7 @@
 		"secret": true,
 		"buyname": "Infinite Jest",
 		"tags": "t_tier4,t_chaosclass",
-		"require": "g.trickery>=15&&g.madcap>0&&g.tier3>0&&g.tier4==0",
+		"require": "g.trickery>=15&&g.t_chaosclass>0&&g.tier3>0&&g.tier4==0",
 		"cost": {
 			"research": 1313,
 			"gems": 13,
@@ -592,7 +592,6 @@
 		},
 		"mod": {
 			"tier2": true,
-			"research.max": -50,
 			"mana.max": 4,
 			"mana.rate": 0.5,
 			"firelore.max": 2,
@@ -616,7 +615,6 @@
 		},
 		"mod": {
 			"tier3": true,
-			"research.max": -50,
 			"bloodgem.max": 10,
 			"bloodgem.mod.bloodsiphon.effect.hp": 0.02,
 			"mana.max": 2,
@@ -964,7 +962,6 @@
 			"potions.max": 1
 		}
 	},
-	
 	{
 		"id": "highelemental",
 		"name": "high elementalist",
@@ -1232,7 +1229,7 @@
 		"id": "kell",
 		"desc": "Immortal spirits of nature, even the weakest Kell are beings to rival wizards.",
 		"tags": "t_tier5,t_natureclass",
-		"require": "g.tier4>0&&g.naturelore>=21&&((g.neutral+g.t_natureclass)>=2||g.fey>0)",
+		"require": "g.tier4>0&&g.naturelore>=21&&((g.neutral+g.t_natureclass)>=2||g.fey>0||g.druid>0)",
 		"cost": {
 			"research": 15000,
 			"naturegem": 50,

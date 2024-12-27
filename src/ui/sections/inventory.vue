@@ -82,17 +82,12 @@ export default {
 
 		onTake(it) {
 
-			//console.log('start take: ' + it.id );
 			this.emit('take', it);
 			this.inv.remove(it);
 
 		},
 		onselect(it) {
-			console.log(it);
-			console.log(this.modelValue);
 			this.$emit('update:modelValue', it);
-			console.log(this.modelValue);
-
 		}
 
 	},
@@ -132,7 +127,7 @@ export default {
 		<div class="item-table" ref="gridRef">
 
 			<div v-for="(it, ind) in (nosearch ? baseItems : filtered)"
-				:class="(ind % (2 * cols) < cols) ? 'off-color' : ''" class="item separate" :key="it.id">
+				 :class="(ind % (2 * cols) < cols) ? 'off-color' : ''" class="item separate" :key="it.id">
 
 				<span class="item-name" @mouseenter.capture.stop="itemOver($event, it)">{{ it.name + count(it.count)
 					}}</span>
@@ -143,19 +138,21 @@ export default {
 					</template>
 					<template v-else-if="combat">
 						<button type="button" v-if="it.use" :disabled="!canUse(it)" class="item-action"
-							@mouseenter.capture.stop="itemOver($event, it)" @click="emit(USE, it, inv)">Use</button>
+								@mouseenter.capture.stop="itemOver($event, it)" @click="emit(USE, it, inv)">Use</button>
 					</template>
 					<template v-else>
 						<button type="button" v-if="it.equippable && canEquip(it)" class="item-action"
-							@click="emit('equip', it, inv)">Equip</button>
+								@click="emit('equip', it, inv)">Equip</button>
 						<button type="button" v-if="it.use" :disabled="!canUse(it)" class="item-action"
-							@mouseenter.capture.stop="itemOver($event, it)" @click="emit(USE, it, inv)">Use</button>
-						<button type="button" v-if="take && canAdd(it)" class="item-action" @click="onTake(it)">Take</button>
+								@mouseenter.capture.stop="itemOver($event, it)" @click="emit(USE, it, inv)">Use</button>
+						<button type="button" v-if="take && canAdd(it)" class="item-action"
+								@click="onTake(it)">Take</button>
 
 						<button type="button" class="item-action" @click="emit('sell', it, inv)"
-							@mouseenter.capture.stop="itemOver($event, it)">Sell</button>
-						<button type="button" v-if="it.count > 1" class="item-action" @click="emit('sell', it, inv, it.count)"
-							@mouseenter.capture.stop="itemOver($event, it)">Sell All</button>
+								@mouseenter.capture.stop="itemOver($event, it)">Sell</button>
+						<button type="button" v-if="it.count > 1" class="item-action"
+								@click="emit('sell', it, inv, it.count)"
+								@mouseenter.capture.stop="itemOver($event, it)">Sell All</button>
 					</template>
 				</div>
 			</div>

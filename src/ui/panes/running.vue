@@ -1,7 +1,7 @@
 <script>
 import Game from '@/game.js';
 import { HALT_TASK, STOP_ALL } from '@/events';
-import { PURSUITS, TASK } from '@/values/consts';
+import { PURSUITS, GOALS, TASK } from '@/values/consts';
 
 export default {
 
@@ -15,13 +15,13 @@ export default {
 	computed: {
 
 		focus() { return Game.state.getData('focus'); },
-		restAction() { return Game.state.restAction },
+		restAction() { return Game.state.restAction || Game.getData("rest") },
 		resting() {
-			return this.restAction.running;
+			return this.restAction.running||(!this.restAction.canRun(this.game));
 		},
 
 		pursuits() { return Game.state.getData(PURSUITS) },
-
+		goals() { return Game.state.getData(GOALS) }
 
 
 	},
@@ -77,8 +77,6 @@ export default {
 
 			<button type="button" class="btn-sm" @click="emit(STOP_ALL)">Stop All</button>
 
-			<button type="button" class="btn-sm" @click="emit(TASK, restAction)" :disabled="resting"
-				@mouseenter.capture.stop="itemOver($event, restAction)">{{ restAction.name.toTitleCase() }}</button>
 			<button type="button" class="btn-sm" v-if="!focus.locked" @mouseenter.capture.stop="itemOver($event, focus)"
 				:disabled="!focus.canUse" @mousedown=autofocusSwitch(true) @mouseup=autofocusSwitch(false)
 				@click="emit(TASK, focus)">Focus</button>
@@ -96,10 +94,13 @@ export default {
 				<span>{{ taskStr(v) }}</span>
 				<span v-if="v.type === 'skill'"> {{ levelStr(v) }}</span>
 
-
+				<button type="button" v v-if="runner.canGoal(v)"
+					:class="['goal', goals.includes(runner.baseTask(v)) ? 'current' : '']"
+					@click="runner.toggleGoal(v)"> G </button>
 				<button type="button" v v-if="runner.canPursuit(v)"
 					:class="['pursuit', pursuits.includes(runner.baseTask(v)) ? 'current' : '']"
-					@click="runner.togglePursuit(v)"> F </button>
+					@click="runner.togglePursuit(v)"> P </button>
+
 			</div>
 
 			<div class="relative" v-for="n in Math.max(Math.floor(runner.max - runner.actives.length), 0)">
@@ -113,11 +114,10 @@ export default {
 </template>
 
 <style scoped>
-
 div.separate-run {
-	display:flex;
+	display: flex;
 	flex-direction: row;
-	justify-content:space-between;
+	justify-content: space-between;
 }
 
 div.running {

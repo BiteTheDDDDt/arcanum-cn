@@ -146,7 +146,6 @@ export default class Module {
 	 */
 	fileLoaded(mod) {
 
-		//console.log('File Loaded: ' + mod.module );
 		this.lists = mod.data;
 
 		this.name = mod.module || this.name;

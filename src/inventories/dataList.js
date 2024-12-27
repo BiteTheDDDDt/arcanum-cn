@@ -4,7 +4,7 @@ import GData from "@/items/gdata";
 
 /**
  * List of GData items to attempt to use/cast.
- * Spelllists and pursuits, currently.
+ * Spelllists and pursuits/goals, currently.
  */
 export const ORDER = "top";
 export const RANDOM = "rand";

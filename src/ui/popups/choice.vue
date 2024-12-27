@@ -99,8 +99,7 @@ export default {
 		 */
 		show(choices, opts) {
 
-			//console.log('showing choices');
-			this.title = opts.title;
+			this.title = opts.title? opts.title.toTitleCase() : "";
 			this.cb = opts.cb;
 			this.elm = opts.elm;
 			this.strings = opts.strings;
@@ -108,6 +107,7 @@ export default {
 
 			this.choices = choices;
 			this.open = true;
+			this.canRemove = opts.canRemove;
 
 		},
 
@@ -120,7 +120,7 @@ export default {
 		},
 
 		choose(opt) {
-			if (this.disabled(opt)) return;
+			if (this.disabled(opt) && opt) return;
 
 			this.open = false;
 			this.item = null;
@@ -150,24 +150,23 @@ export default {
 </script>
 
 <template>
-<div class="popup" v-if="choices != null && choices.length > 0">
-	<div class="content">
+	<div class="popup" v-if="choices != null && choices.length > 0">
+		<div class="content">
 
-		<span class="title" v-if="title">{{ title }}</span>
+			<span class="title" v-if="title">{{ title }}</span>
 
-		<div class="items">
-      <!--			:disabled="!strings&&!slottable(it)||(mustPay&&cantPay(it))"-->
-		<button type="button" class="task-btn"
-      :class="disabled(it) && 'disabled'"
-			v-for="it in choices" :key="strings ? it : it.id"
-			@mouseenter.capture.stop="!strings ? itemOver($event, it) : ''"
-			@click="choose(it)">{{ strings ? it : it.name }}</button>
+			<div class="items">
+				<!--			:disabled="!strings&&!slottable(it)||(mustPay&&cantPay(it))"-->
+				<button type="button" class="task-btn" :class="disabled(it) && 'disabled'" v-for="it in choices"
+					:key="strings ? it : it.id" @mouseenter.capture.stop="!strings ? itemOver($event, it) : ''"
+					@click="choose(it)">{{ strings ? it : it.name }}</button>
+				<button type="button" class="task-btn" v-if="canRemove" @click="choose(false)">None</button>
+			</div>
+
+			<button type="button" class="close-btn" @click="cancel">Cancel</button>
+
 		</div>
-
-		<button type="button" class="close-btn" @click="cancel">Cancel</button>
-
 	</div>
-</div>
 
 </template>
 

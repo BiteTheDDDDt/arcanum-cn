@@ -46,12 +46,12 @@ export default class Minions extends Inventory {
 		/*this.saveMode = 'custom';
 		this.saveMap = SaveInstanced;*/
 
-		this._allies = new Inventory({ id: 'allies', spaceProp: 'level', saveMode: SAVE_IDS });
+		this._allies = new Inventory({ id: 'allies', name: 'Active Minions Levels', spaceProp: 'level', saveMode: SAVE_IDS });
 		this.mods = new Map();
-		this.keep = new Set();
+		//this.keep = new Set();
 
 	}
-
+	/* Deprecating class keep
 	addKeep(mod) {
 
 		if (typeof mod === 'string') {
@@ -61,11 +61,12 @@ export default class Minions extends Inventory {
 		}
 
 	}
-
+	*/
 	/**
 	 * @todo - improve this w/ NpcState/Context.
 	 * @param {GData} it
 	 */
+	/* deprecated
 	shouldKeep(it) {
 
 		if (this.keep.has(it.id) || this.keep.has(it.kind)) return true;
@@ -73,7 +74,7 @@ export default class Minions extends Inventory {
 		return false;
 
 	}
-
+	*/
 	update(dt) {
 
 		for (let i = this.items.length - 1; i >= 0; i--) {
@@ -103,7 +104,6 @@ export default class Minions extends Inventory {
 		for (let pair of this.mods) {
 
 			if (m.is(pair[1])) {
-				//console.log('APPLY MINION MOD: ' + pair[1] );
 				m.applyMods(pair[0]);
 			}
 
@@ -179,7 +179,7 @@ export default class Minions extends Inventory {
 
 				// own property.
 				if (this[p] instanceof RValue) this[p].addMod(mod);
-				else if (p === 'keep') this.addKeep(mod);
+				//else if (p === 'keep') this.addKeep(mod);
 				else this[p].applyMods(mod);
 
 			} else if (this.mods.has(mod)) continue;
@@ -227,7 +227,6 @@ export default class Minions extends Inventory {
 
 		super.remove(m);
 
-		console.log('removing minion: ' + m.id);
 		// @note mods are not removed here.
 		this.setActive(m, false);
 

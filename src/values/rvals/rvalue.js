@@ -145,7 +145,6 @@ export default class RValue {
 	 * @returns {number} this.valueOf() by default.
 	 */
 	getApply() {
-		//console.log( this.id + ' getApply: ' + this.value );
 		return this.valueOf();
 	}
 

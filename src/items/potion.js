@@ -82,10 +82,9 @@ export default class Potion extends GData {
 	tick(dt) {
 
 		this.timer -= dt;
-		//console.log('TIME TICK: ' + this.timer );
+
 		if (this.timer < 0) {
 
-			//console.log('timer: ' + this.timer );
 			this.timer = 0;
 			return true;
 

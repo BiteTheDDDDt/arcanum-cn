@@ -24,7 +24,7 @@ export default class Proxy {
 	set count(v) { }
 
 	hasTag(t) { return this.item && this.item.hasTag(t); }
-	hasTags(t) { return this.item && this.items.hasTag(t); }
+	hasTags(t) { return this.item && this.item.hasTag(t); }
 
 	get buy() { return this.item ? this.item.buy : null; }
 	get cost() { return this.item ? this.item.cost : null; }

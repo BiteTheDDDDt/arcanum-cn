@@ -24,6 +24,10 @@
 		"name": "Elemental Gems"
 	},
 	{
+		"id": "primalgems",
+		"name": "Primal Gems"
+	},
+	{
 		"id": "fundamentalrunes",
 		"name": "fundamental Runes"
 	},
@@ -336,8 +340,12 @@
 		"hide": true
 	},
 	{
-		"id": "bed_rest",
-		"name": "Bed-Related Rest"
+		"id": "t_rest",
+		"name": "Resting"
+	},
+	{
+		"id": "t_restmod",
+		"name": "Leisure focus"
 	},
 	{
 		"id": "manadot",
@@ -415,6 +423,10 @@
 	{
 		"id": "t_glossary_entry",
 		"name": "glossary entry"
+	},
+	{
+		"id": "t_gloss_tasks",
+		"name": "tasks"
 	},
 	{
 		"id": "t_gloss_school",
@@ -773,5 +785,9 @@
 	{
 		"id": "t_locale",
 		"name": "Exploration Adventure"
+	},
+	{
+		"id": "t_craftedbag",
+		"name": "Illicit Sack"
 	}
 ]

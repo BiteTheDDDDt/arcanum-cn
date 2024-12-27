@@ -476,11 +476,13 @@
 					"gold": 2000
 				},
 				"mod": {
-					"bed_rest": {
+					"t_rest": {
 						"effect": {
-							"stamina": -0.1,
-							"vigor": -0.01,
-							"prismatic": 0.1
+							"stamina": 0.25,
+							"vigor": 0.025,
+							"prismatic": 0.15,
+							"stress": -0.5,
+							"gold": 0.25
 						}
 					},
 					"gold.rate": 0.05,

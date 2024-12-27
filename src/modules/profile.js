@@ -273,7 +273,6 @@ export default {
 		if (save.hall.active) {
 
 			let active = save.hall.active;
-			console.log('active: ' + active);
 			let cur = save.hall.chars[active];
 			if (cur) {
 				save.hall.curId = cur.pid || cur.hid;

@@ -484,9 +484,8 @@ export const ApplyAction = (target, action, attacker = null, parried = 0, player
 			let smnid = smn.id
 			let smncount = smn.count || 1
 			let smnmax = smn.max || 0
-			let minions = smntarget.context.getData('minions');
-			let mon = smntarget.context.getData(smn.id)
-			smntarget.context.create(smnid, minions.shouldKeep(mon), smncount, smnmax)
+			let keep = smn.keep || false
+			smntarget.context.create(smnid, keep, smncount, smnmax)
 		}
 
 	}

@@ -123,8 +123,6 @@ export default class Equip extends SlotGroup {
 
 			} else {
 
-				console.log('NEITHER EMPTY. switch hands.');
-
 				return right.equip(left.equip(it));
 
 			}

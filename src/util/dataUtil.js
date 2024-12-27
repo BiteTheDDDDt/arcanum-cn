@@ -79,7 +79,6 @@ export const toStats = (obj) => {
 	for (const p in obj) {
 		const s = obj[p];
 		obj[p] = s instanceof Stat ? s : new Stat(s, p);
-		//console.log('NEW STAT: ' + p + ': ' + s.valueOf() );
 	}
 	return obj;
 
@@ -144,7 +143,6 @@ export const addValues = (dest, vals) => {
 			} else if (typeof cur === 'object') {
 
 				// src is not object.
-				console.log('cur: object; src: ' + typeof src);
 				addValue(cur, 'value', src);
 
 			} else {

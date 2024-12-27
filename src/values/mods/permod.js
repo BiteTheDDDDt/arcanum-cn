@@ -64,7 +64,6 @@ export default class PerMod extends Mod {
 		if (this.value == null) this.value = 1;
 		if (this.per == null) this.per = 1;
 
-		//console.log( this.id + ' PERVAL: ' + this.toString() );
 	}
 
 	/**

@@ -221,10 +221,6 @@ export default class Item {
 	revive(gs) {
 
 		if (typeof this.template === 'string') this.template = gs.getData(this.template);
-		/*if ( this.template ) {
-			//console.log('it revive from: ' + this.template );
-			//cloneClass( this.template, this );
-		}*/
 
 		if (this.mod) this.mod = ParseMods(this.mod, this.id, this);
 

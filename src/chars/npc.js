@@ -308,78 +308,76 @@ export default class Npc extends Char {
 
 			this.timer += getDelay(this.speed);
 
-			for (let i = this.castAmt(this.chaincast); i > 0; i--) {
-				if (this.spells) {
-					let s;
-					for (let i = 0; i < this.spells.items.length; i++) { //checking the CDs, casting the first spell available. If none are available, exits.
-						s = this.tryCast()
-						//if (this.cdtimers[s.id]) console.log(s.id, "is on cooldown of ", this.cdtimers[s.id])
-						if (!s) break;
-						if (s && !this.cdtimers[s.id]) {
-							//console.log("using", s.id)
-							break;
-						}
-						else s = null;
+			for (let i = this.spells ? this.castAmt(this.chaincast) : 0; i > 0; i--) {
+
+				let s = null;
+				for (let i = 0; i < this.spells.items.length; i++) {
+					//check CDs, cast first spell available. If none available, exit.
+					s = this.tryCast()
+					if (!s || !this.cdtimers[s.id]) break;
+					s = null;
+				}
+				// found no castable.
+				if (!s) break;
+
+				if (s.caststoppers) {
+					let a
+					for (const b of s.caststoppers) {
+						a = this.getCause(b);
+						if (a) break;
 					}
-					if (s) {
-						let a
-						if (s.caststoppers) {
-							for (let b of s.caststoppers) {
-								a = this.getCause(b);
-								if (a) break;
-							}
-						}
-						if (a) {
-							Events.emit(STATE_BLOCK, this, a);
-						}
-						else {
-							let logged = false;
-							if (s.cd) {
-								this.cdtimers[s.id] = s.cd; //if a spell has a CD adds an NPC cd
-							}
-							if (s.attack || s.action) {
-								Events.emit(CHAR_ACTION, s, this.context);
-								logged = true;
-							}
-							if (s.mod) {
-								this.context.applyMods(this.mod);
-								if (!logged) {
-									Events.emit(EVT_COMBAT, this.name + ' uses ' + s.name);
-									logged = true;
-								}
-							}
-							if (s.create) this.context.create(s.create);
-							if (s.summon) {
-								for (let smn of s.summon) {
-									if (smn[TYP_PCT] && !smn[TYP_PCT].roll()) {
-										continue;
-									}
-									let smnid = smn.id
-									let smncount = smn.count || 1
-									let smnmax = smn.max || 0
-									this.context.create(smnid, undefined, smncount, smnmax)
-								}
-							}
-							if (s.result) {
-								if (!logged) {
-									Events.emit(EVT_COMBAT, this.name + ' uses ' + s.name);
-									logged = true;
-								}
-								this.context.applyVars(s.result, 1);
-							}
-							if (s.dot) {
-								if (!logged) {
-									Events.emit(EVT_COMBAT, this.name + ' uses ' + s.name);
-									logged = true;
-								}
-								this.context.self.addDot(s.dot, s, null, this);
-							}
-						}
+					if (a) {
+						Events.emit(STATE_BLOCK, this, a);
+						continue;
 					}
 				}
+
+				let logged = false;
+				if (s.cd) {
+					this.cdtimers[s.id] = s.cd; //if a spell has a CD adds an NPC cd
+				}
+				if (s.attack || s.action) {
+					Events.emit(CHAR_ACTION, s, this.context);
+					logged = true;
+				}
+				if (s.mod) {
+					this.context.applyMods(this.mod);
+					if (!logged) {
+						Events.emit(EVT_COMBAT, this.name + ' uses ' + s.name);
+						logged = true;
+					}
+				}
+				if (s.create) this.context.create(s.create);
+				if (s.summon) {
+					for (let smn of s.summon) {
+						if (smn[TYP_PCT] && !smn[TYP_PCT].roll()) {
+							continue;
+						}
+						let smnid = smn.id
+						let smncount = smn.count || 1
+						let smnmax = smn.max || 0
+						this.context.create(smnid, undefined, smncount, smnmax)
+					}
+				}
+				if (s.result) {
+					if (!logged) {
+						Events.emit(EVT_COMBAT, this.name + ' uses ' + s.name);
+						logged = true;
+					}
+					this.context.applyVars(s.result, 1);
+				}
+				if (s.dot) {
+					if (!logged) {
+						Events.emit(EVT_COMBAT, this.name + ' uses ' + s.name);
+						logged = true;
+					}
+					this.context.self.addDot(s.dot, s, null, this);
+				}
+
 			}
 			return this.getCause(NO_ATTACK) || this.getAttack();
 		}
 	}
+
 }
 mergeClass(Npc, Instance)

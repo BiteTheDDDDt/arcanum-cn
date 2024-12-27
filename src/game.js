@@ -14,6 +14,7 @@ import Events, {
 	EVT_EVENT,
 	EVT_LOOT,
 	SET_SLOT,
+	CLEAR_SLOT,
 	DELETE_ITEM,
 	CHAR_DIED,
 	STATE_BLOCK,
@@ -172,6 +173,7 @@ export default {
 
 				//Events.add( DROP_ITEM, this.state.deleteInstance, this.state );
 				Events.add(SET_SLOT, this.setSlot, this);
+				Events.add(CLEAR_SLOT, this.clearSlot, this);
 				Events.add(DELETE_ITEM, this.onDelete, this);
 
 				this.loaded = true;
@@ -270,10 +272,8 @@ export default {
 				this.player.addWeapon(e);
 			}
 			if (e.mod) {
-				if (e.remod)
-					e.remod(
-						this
-					); //used to call ApplyMods, but that does not work. Instead calls the Remod function of wearable which simulates equipping it.
+				if (e.remod) e.remod(this);
+				//used to call ApplyMods, but that does not work. Instead calls the Remod function of wearable which simulates equipping it.
 				else console.warn("Equipped item has mods but no remod.", e);
 			}
 		}
@@ -334,6 +334,13 @@ export default {
 		}
 	},
 
+	//clears a slot
+	clearSlot(slotstring) {
+		let cur = this.state.getSlot(slotstring);
+		if (cur) {
+			this.remove(cur, 1);
+		}
+	},
 	/// Frame update.
 	update() {
 		//const represent time differences in ms
@@ -583,10 +590,13 @@ export default {
 
 				if (it.running) this.runner.stopTask(it);
 
-				if (it instanceof Resource || it instanceof Skill || it instanceof GData) {
+				if (
+					it instanceof Resource ||
+					it instanceof Skill ||
+					it instanceof GData
+				) {
 					this.remove(it, it.value);
 				} else if (it.mod) {
-					//console.log('REMOVING MOD: ' + it.id + ' --> ' + it.value );
 					this.removeMods(it.mod, it.value);
 				}
 			}
@@ -613,7 +623,6 @@ export default {
 			if (it && it.disabled) {
 				it.disabled = null;
 				if (it.mod) {
-					//console.log('REMOVING MOD: ' + it.id + ' --> ' + it.value );
 					this.applyMods(it.mod, it.value);
 				}
 			}
@@ -748,8 +757,6 @@ export default {
 	 * @param {number} [count=1]
 	 */
 	create(it, keep = true, count = 1, cap = 0) {
-		//console.log('CREATING: ' + it.id );
-
 		if (typeof it === "string") it = this.state.getData(it);
 		else if (Array.isArray(it)) {
 			for (let i = it.length - 1; i >= 0; i--) {
@@ -759,7 +766,6 @@ export default {
 		}
 
 		if (!it) {
-			//console.log('not found: ' + it.id );
 			return;
 		}
 
@@ -888,8 +894,6 @@ export default {
 
 		if (it.instanced) {
 			it.count -= count;
-
-			//console.log('remainig: ' + it.value );
 			if (inv && (!it.stack || it.count <= 0)) inv.remove(it);
 		} else this.remove(it, count);
 
@@ -948,7 +952,6 @@ export default {
 			console.warn("test not found: " + test + " : " + item);
 			return true;
 		}
-		//console.log('trying unlock: ' + item.id );
 		let type = typeof test;
 		if (type === "function") {
 			return test(this._gdata, item, this.state);
@@ -1251,9 +1254,6 @@ export default {
 					if (!parent.canPay(val * amt)) return false;
 				} else if (parent.value < val * amt) return false;
 			} else if (typeof val === "object") {
-				//console.log('checking sub cost: ' + p + ' ' +cost.constructor.name );
-				//if ( parent ) console.log( 'parent: ' + parent.id );
-
 				if (!this.canPayObj(parent[p], val, amt)) return false;
 			}
 		}
@@ -1283,9 +1283,6 @@ export default {
 	 */
 	equip(it, inv = null) {
 		if (!this.canEquip(it)) {
-			console.log(
-				"equip: " + it.id + " type: " + it.type + " kind: " + it.kind
-			);
 			return false;
 		}
 
@@ -1346,8 +1343,6 @@ export default {
 	 */
 	getLoot(it, inv = null) {
 		if (!it) return null;
-
-		//console.log('LOOT: ' + it.id );
 
 		inv = inv || this.state.inventory;
 		if (inv.full()) inv = this.state.drops;

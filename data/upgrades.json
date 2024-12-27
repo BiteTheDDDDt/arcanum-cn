@@ -585,7 +585,9 @@
 		"id": "unseenscribe",
 		"name": "unseen scribe",
 		"desc": "The quill lifts off the desk and begins to write...",
-		"need": ["writingdesk", "air", "spirit"],
+		"require": "g.spiritlore>=5&&g.airlore>0",
+		"need": ["writingdesk"],
+		"needtext": "Writing Desk",
 		"max": 3,
 		"cost": {
 			"arcana": 1,
@@ -1021,7 +1023,7 @@
 		"id": "carddeck",
 		"name": "card deck",
 		"desc": "A simple deck of cards.",
-		"require": "g.prestidigitation>0",
+		"require": "g.prestidigitation>0||g.trickery>0",
 		"max": 1,
 		"tags": "tricksource",
 		"cost": {
@@ -1054,6 +1056,7 @@
 		"name": "membranous pouch",
 		"desc": "A sack woven from living tissue helps preserve the gems.",
 		"require": "g.bloodlore>=5&&g.weaving>=5",
+		"tags": "t_craftedbag",
 		"max": 1,
 		"cost": {
 			"hp": 100,
@@ -1083,8 +1086,9 @@
 	{
 		"id": "bagofholding",
 		"name": "bag of holding",
-		"require": "g.lore>=11&&g.conjuration>=8",
+		"require": "g.lore>=11&&g.conjuration>=5&&g.crafting>=15",
 		"desc": "You'll make your own bags, thank you.",
+		"tags": "t_craftedbag",
 		"max": 1,
 		"cost": {
 			"gold": 1000,
@@ -1752,7 +1756,7 @@
 		"mod": {
 			"arcana.rate": 0.0001,
 			"spirit.max": 1,
-			"readpalms.result.gold":1,
+			"readpalms.result.gold": 1,
 			"spirit.rate": 0.01
 		},
 		"group": "magic"
@@ -2128,15 +2132,80 @@
 		"group": "bargain"
 	},
 	{
-		"id": "pursuit",
-		"name": "favored pursuit",
-		"desc": "Mark an activity as a pursuit to return to in idle moments.",
-		"flavor": "Monomaniacal pursuits are characteristic of all independent wizards.",
-		"require": "g.tier0>0",
+		"id": "goals1",
+		"alias": "pursuit",
+		"name": "dedicated goal",
+		"desc": "The first step of becoming a wizard is finding the motivation.",
+		"extdesc": "Mark an activity as a goal to perform it as much as possible.",
+		"require": "g.lore>=6",
 		"max": 1,
 		"cost": {
-			"research": 500,
+			"research": 50,
+			"arcana": 1
+		},
+		"mod": {
+			"goals.max": 1
+		},
+		"group": "special"
+	},
+	{
+		"id": "goals2",
+		"name": "maniacal goals",
+		"desc": "Monomaniacal pursuits are characteristic of all independent wizards.",
+		"extdesc": "Mark an additional activity as a goal",
+		"require": "g.tier1>0",
+		"max": 1,
+		"cost": {
+			"research": 800,
 			"arcana": 10
+		},
+		"mod": {
+			"goals.max": 1
+		},
+		"group": "special"
+	},
+	{
+		"id": "pursuit1",
+		"name": "idle pursuits",
+		"desc": "Any good wizard knows that the best rest is a change of occupation.",
+		"extdesc": "Mark an activity as a pursuit, to perform while idle.",
+		"require": "g.lore>=7",
+		"max": 1,
+		"cost": {
+			"research": 50,
+			"codices": 1
+		},
+		"mod": {
+			"pursuits.max": 1
+		},
+		"group": "special"
+	},
+	{
+		"id": "pursuit2",
+		"name": "expanded interests",
+		"desc": "Expand your idle interests to an additional area.",
+		"extdesc": "Mark an additional activity as a pursuit",
+		"require": "g.tier2>0",
+		"max": 1,
+		"cost": {
+			"research": 800,
+			"codices": 10
+		},
+		"mod": {
+			"pursuits.max": 1
+		},
+		"group": "special"
+	},
+	{
+		"id": "pursuit3",
+		"name": "never-idle",
+		"desc": "You do not remember the last time you had a truly idle moment.",
+		"extdesc": "Mark yet another activity as a pursuit",
+		"require": "g.tier5>0",
+		"max": 1,
+		"cost": {
+			"research": 2500,
+			"tomes": 5
 		},
 		"mod": {
 			"pursuits.max": 1
@@ -3001,6 +3070,7 @@
 		"id": "fireplane",
 		"slot": "werry",
 		"name": "fire werry",
+		"tags": "t_werry",
 		"desc": "A hidden pocket of the plane of ash and fire.",
 		"require": "g.tier5>0&&g.gate>0&&g.firelore>=10",
 		"need": ["gate"],
@@ -3025,6 +3095,7 @@
 		"name": "water werry",
 		"slot": "werry",
 		"desc": "A pocket of the endless sea.",
+		"tags": "t_werry",
 		"require": "g.tier5>0&&g.gate>0&&g.waterlore>=10",
 		"need": ["gate"],
 		"buy": {
@@ -3047,6 +3118,7 @@
 		"id": "earthplane",
 		"name": "earth werry",
 		"desc": "A space carved from the plane of earth.",
+		"tags": "t_werry",
 		"slot": "werry",
 		"require": "g.tier5>0&&g.gate>0&&g.earthlore>=10",
 		"need": ["gate"],
@@ -3070,6 +3142,7 @@
 		"id": "airplane",
 		"name": "wind werry",
 		"desc": "An island floating in an endless sky.",
+		"tags": "t_werry",
 		"slot": "werry",
 		"require": "g.tier5>0&&g.gate>0&&g.airlore>=10",
 		"need": ["gate"],
@@ -3210,30 +3283,6 @@
 			"reanimation.max": 1
 		},
 		"flavor": "Not useful for much, but it's a start. Now what if I..."
-	},
-	{
-		"id": "onewithnature",
-		"name": "one with nature",
-		"tags": "plantsource",
-		"desc": "You have become as one with nature after communing with it for so long.",
-		"require": "g.naturecamp>=3600",
-		"max": 1,
-		"cost": {
-			"research": 600,
-			"nature": 10,
-			"naturegem": 5,
-			"arcana": 2
-		},
-		"mod": {
-			"stamina.max": 2,
-			"hp.max": 1,
-			"stamina.rate": 0.1,
-			"naturelore.max": 2,
-			"naturelore.rate": 0.2,
-			"nature.rate": 0.1,
-			"player.resist.nature": 5
-		},
-		"group": "body"
 	},
 	{
 		"id": "bloodstorage1",
@@ -3472,5 +3521,200 @@
 			"facecollect.rate": "25%"
 		},
 		"group": "crafting"
+	},
+	{
+		"id": "chantrest",
+		"name": "chant",
+		"tags": ["t_restmod", "t_extremegood"],
+		"slot": "leisure",
+		"max": 1,
+		"require": "(g.t_divinationclass+g.t_lightclass+g.mage)>0",
+		"need": "g.evil2<=0",
+		"needtext": "Cannot be sinister.",
+		"buy": {
+			"light": 5
+		},
+		"mod": {
+			"t_rest.effect.virtue": 1.5,
+			"t_rest.effect.stress": -0.2,
+			"t_rest.effect.hp": 0.1,
+			"t_rest.effect.light": 0.2,
+			"t_rest.effect.evilamt": -0.5
+		},
+		"group": "rest"
+	},
+	{
+		"id": "naturecamprest",
+		"tags": "t_restmod",
+		"name": "commune",
+		"slot": "leisure",
+		"max": 1,
+		"desc": "Commune with natural forces.",
+		"require": "g.naturelore>=12",
+		"buy": {
+			"nature": 5
+		},
+		"mod": {
+			"t_rest.effect.stress": -0.4,
+			"t_rest.effect.nature": 0.2
+		},
+		"group": "rest"
+	},
+	{
+		"id": "up_slumber",
+		"max": 1,
+		"name": "Lucid Dreaming",
+		"require": "g.dreamchamber>0&&g.runner.max>=3",
+		"extdesc": "Replaces Relax with a superior rest action.",
+		"desc": "It is within a grand dream that an oneiromancer can do the impossible.",
+		"flavor": "You almost wish to never wake up again.",
+		"cost": {
+			"arcana": 20
+		},
+		"disable": ["rest"],
+		"result": {
+			"slumber": true
+		},
+		"group": "rest"
+	},
+	{
+		"id": "enchanted_study",
+		"name": "Enchanted Study",
+		"desc": "Using your arcane powers, enchant the texts populating your study's shelves to whisper their hidden wisdoms.",
+		"flavor": "For what good is a wizard without grimoires as magical as himself?",
+		"require": "g.codices>=100&&g.enchanting>=6",
+		"need": "studyroom",
+		"needtext": "Study",
+		"cost": {
+			"arcana": 8,
+			"gold": 1000,
+			"research": 1000
+		},
+		"mod": {
+			"studyroom.mod.scrolls.rate": 0.05,
+			"studyroom.mod.scribescroll.cost.mana": -0.1,
+			"studyroom.mod.bindcodex.cost.mana": -0.2,
+			"studyroom.convert.input.codices": 0.001,
+			"studyroom.convert.output.effect.tomes": 0.002
+		},
+		"group": "furniture"
+	},
+	{
+		"id": "t_0",
+		"name": "Solitary Magic",
+		"desc": "Some say the study of magic doesn't truly begin until apprenticeship ends. People say a lot of things.",
+		"max": 1,
+		"wizardtier": true,
+		"mod": {
+			"research.max": 15,
+			"buyscroll.result.scrolls": 1,
+			"buyscroll.cost.gold": 20,
+			"player.hp.max": 10,
+			"player.tohit": 1
+		}
+	},
+	{
+		"id": "t_1",
+		"name": "Professional Magick",
+		"wizardtier": true,
+		"max": 1,
+		"desc": "Every province has its handful of runaway apprentices and failed Adepts. It's not uncommon for thieves and rangers to know a spell or two. They are nothing compared to the talents of a true professional.",
+		"disable": ["prestidigitation"],
+		"mod": {
+			"crafting.max": 1,
+			"arcanebody.max": 1,
+			"occultendure.max": 1,
+			"crystalmind.max": 1,
+			"buyscroll.result.scrolls": 1,
+			"buyscroll.cost.gold": 30,
+			"player.hp.max": 20,
+			"player.tohit": 1
+		}
+	},
+	{
+		"id": "t_2",
+		"name": "Arcane Ascendant",
+		"wizardtier": true,
+		"max": 1,
+		"desc": "The masses of arcane dabblers never reach such heights.",
+		"mod": {
+			"lore.max": 2,
+			"arcanebody.max": 1,
+			"occultendure.max": 1,
+			"crystalmind.max": 1,
+			"buyscroll.result.scrolls": 1,
+			"buyscroll.cost.gold": 40,
+			"player.hp.max": 20,
+			"player.tohit": 1
+		}
+	},
+	{
+		"id": "t_3",
+		"name": "Magical Mastery",
+		"wizardtier": true,
+		"max": 1,
+		"desc": "You are a master of your field of magic.",
+		"mod": {
+			"lore.max": 3,
+			"crafting.max": 2,
+			"arcanebody.max": 1,
+			"occultendure.max": 1,
+			"crystalmind.max": 1,
+			"buyscroll.result.scrolls": 1,
+			"buyscroll.cost.gold": 50,
+			"player.hp.max": 30,
+			"player.tohit": 1
+		}
+	},
+	{
+		"id": "t_4",
+		"name": "Supreme Sorcery",
+		"wizardtier": true,
+		"max": 1,
+		"desc": "Not even the masters could challenge you.",
+		"disable": ["buyscroll"],
+		"mod": {
+			"lore.max": 4,
+			"crafting.max": 2,
+			"arcanebody.max": 1,
+			"occultendure.max": 1,
+			"crystalmind.max": 1,
+			"player.hp.max": 30,
+			"player.tohit": 2
+		}
+	},
+	{
+		"id": "t_5",
+		"name": "Dhrunic Magic",
+		"wizardtier": true,
+		"max": 1,
+		"desc": "Magic from a forgotten age.",
+		"mod": {
+			"lore.max": 4,
+			"crafting.max": 2,
+			"arcanebody.max": 1,
+			"arcanebody2.max": 2,
+			"occultendure.max": 1,
+			"crystalmind.max": 2,
+			"player.hp.max": 40,
+			"player.tohit": 2
+		}
+	},
+	{
+		"id": "t_6",
+		"name": "Ageless Magic",
+		"wizardtier": true,
+		"max": 1,
+		"desc": "Ages of the world come and go; only these endure.",
+		"mod": {
+			"lore.max": 3,
+			"crafting.max": 4,
+			"arcanebody.max": 1,
+			"arcanebody2.max": 1,
+			"occultendure.max": 1,
+			"crystalmind.max": 1,
+			"player.hp.max": 40,
+			"player.tohit": 2
+		}
 	}
 ]

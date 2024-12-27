@@ -107,7 +107,7 @@ export default class Explore {
 			}
 
 			// @note the max check is not the same as some of the max checks since some of them also take delta into consideration.
-			if (statCheck.find(it => it.max ? (!it.reverse ? it < it.max * (1-MARGIN_OF_ERROR) : it > it.max * MARGIN_OF_ERROR) : false)) {
+			if (statCheck.find(it => it.max ? (!it.reverse ? it < it.max * (1 - MARGIN_OF_ERROR) : it > it.max * MARGIN_OF_ERROR) : false)) {
 				return false;
 			} else {
 				this.exhausted = false;
@@ -268,7 +268,7 @@ export default class Explore {
 		if (this.unreturnable && stopReason != TASK_END_REASON.SUCCESS) {
 			this.reset();
 		}
-		if ( this.locale && ( stopReason & TASK_END_REASON.MIDRUN_LOSS ) ) {
+		if (this.locale && (stopReason & TASK_END_REASON.MIDRUN_LOSS)) {
 			this.exhausted = true;
 		}
 	}
@@ -281,7 +281,7 @@ export default class Explore {
 	emitDefeat() {
 		Events.emit(DEFEATED, this.locale);
 		Events.emit(TASK_BLOCKED, this, TASK_END_REASON.DEFEATED, true);
-			// this.locale && this.player.level > this.locale.level && this.player.retreat > 0);
+		// this.locale && this.player.level > this.locale.level && this.player.retreat > 0);
 		this.exhausted = true;
 	}
 
@@ -344,8 +344,6 @@ export default class Explore {
 	 */
 	encDone(enc) {
 
-		//console.log('ENEMY templ: ' + (typeof enemy.template) );
-
 		if (enc !== this.combat) {
 
 			this.player.exp += 0.75 + Math.max(enc.level - this.player.level, 0);
@@ -366,8 +364,6 @@ export default class Explore {
 
 		this.player.exp += Math.max(1.5 * enemy.level - this.player.level, 1);
 
-		//console.log('ENEMY templ: ' + (typeof enemy.template) );
-
 		if (enemy.template && enemy.template.id) {
 
 			let tmp = this.state.getData(enemy.template.id);
@@ -386,6 +382,7 @@ export default class Explore {
 
 		let locale = this.locale;
 		let isPursuit = Game.getData("pursuits").items.includes(this.locale);
+		let isGoal = Game.getData("goals").items.includes(this.locale);
 
 		locale.amount(1);
 
@@ -395,7 +392,7 @@ export default class Explore {
 
 		this.locale = null;
 
-		Events.emit(TASK_DONE, this, isPursuit);
+		Events.emit(TASK_DONE, this, isPursuit || isGoal);
 
 	}
 

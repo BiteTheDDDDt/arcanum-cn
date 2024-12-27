@@ -35,7 +35,7 @@ export default {
 		 * @param {Npc}
 		 */
 		rezzes(b) {
-			return this.rezList.filter(v => v.canUseOn(b));
+			return this.rezList.filter(v => v.canRez(b));
 		},
 
 		/**
@@ -44,10 +44,7 @@ export default {
 		 * @param {Npc}
 		 */
 		useRez(rez, b) {
-
 			Game.tryItem(rez);
-			b.hp = 1;
-
 		},
 
 		/**
@@ -82,16 +79,17 @@ export default {
 
 		<div v-if="inExplore" class="warn-text">Cannot change active minions while adventuring</div>
 		<div class="minion-title">
-			<span>Total Minions: {{ minions.count + ' / ' + Math.floor(minions.max) }}</span>
-			<span>Allies Power: {{ Math.floor(allies.used) + ' / ' + Math.floor(allies.max.value) }}</span>
+			<span>Owned Minions: {{ minions.count + ' / ' + Math.floor(minions.max) }}</span>
+			<span>Minions Levels: {{ Math.floor(allies.used) + ' / ' + Math.floor(allies.max.value) }}</span>
 		</div>
 
 		<div class="char-list">
 			<table>
 				<tr>
+					<th>Order</th>
 					<th>Creature</th>
+					<th class="num-align">Level</th>
 					<th class="num-align">Life</th>
-					<th>Active</th>
 					<th>Actions</th>
 				</tr>
 				<tr class="char-row" v-for="(b, ind) in filtered" :key="b.id"
@@ -101,6 +99,7 @@ export default {
 					<button type="button" v-if="filtered.length == minions.items.length" :disabled="!(ind < minions.items.length - 1)"
 						class="stop" @click="minions.items = move(minions.items, ind, 1)">↓</button>
 					<th><input class="fld-name" type="text" v-model="b.name"></th>
+					<td class="num-align">Lvl.{{(b.level)}}</td>
 					<td class="num-align">{{ toNum(b.hp) }} / {{ toNum(b.hp.max) }}</td>
 
 					<td v-if="!b.alive">

@@ -69,8 +69,6 @@ export default class Enchant extends Task {
 			return false;
 		}
 
-		//console.log('can target: ' + canTarget(this.only, targ));
-
 		return !this.only || canTarget(this.only, targ);
 
 	}

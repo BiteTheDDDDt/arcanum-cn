@@ -32,6 +32,10 @@ export default {
 		count()
 		{
 			return this.summon.count || 1
+		},
+		keep()
+		{
+			return this.summon.keep || false
 		}
 
 	}
@@ -56,6 +60,7 @@ export default {
 			<div>Name: {{ itemName }}</div>
 			<div>Amount: {{ count }}</div>
 			<div>Max: {{ cap }}</div>
+			<div v-if="keep">Instead of summoning, creates a permanent minion.</div>
 	</div>
 </div>
 

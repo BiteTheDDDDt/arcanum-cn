@@ -56,8 +56,10 @@
 			"gold": 10
 		},
 		"mod": {
-			"bed_rest.effect.stamina": 0.23,
-			"bed_rest.effect.vigor": 0.023,
+			"t_rest.effect.stamina": 0.2,
+			"t_rest.effect.vigor": 0.02,
+			"t_rest.effect.hp": 0.1,
+			"t_rest.effect.stress": -0.1,
 			"space": 1
 		}
 	},
@@ -67,13 +69,15 @@
 		"desc": "Small wooden bed.",
 		"tags": "bed",
 		"slot": "bed",
-		"require": "g.stamina>=15",
+		"require": "g.stamina>=15&&g.evt_helper>0",
 		"cost": {
 			"gold": 40
 		},
 		"mod": {
-			"bed_rest.effect.stamina": 0.27,
-			"bed_rest.effect.vigor": 0.027,
+			"t_rest.effect.stamina": 0.3,
+			"t_rest.effect.vigor": 0.03,
+			"t_rest.effect.hp": 0.2,
+			"t_rest.effect.stress": -0.3,
 			"space": 2
 		}
 	},
@@ -82,19 +86,122 @@
 		"desc": "Four post bed.",
 		"tags": "bed",
 		"slot": "bed",
-		"require": "g.stamina>=30",
+		"require": "g.stamina>=30&&g.tier1>0",
 		"cost": {
 			"gold": 150
 		},
 		"mod": {
-			"bed_rest": {
+			"t_rest": {
 				"effect": {
 					"stamina": 0.4,
 					"vigor": 0.04,
-					"hp": 0.02
+					"hp": 0.3,
+					"stress": -0.5,
+					"prismatic": 0.1
 				}
 			},
 			"space": 4
+		}
+	},
+	{
+		"id": "luxbedroom",
+		"name": "luxury bedroom",
+		"desc": "Luxurious bedding, perfect air temperature, currents of mana to absorb as you sleep.",
+		"tags": "bed",
+		"slot": "bed",
+		"require": "g.tier3>0&&g.space.max>200",
+		"cost": {
+			"gold": 1250
+		},
+		"mod": {
+			"t_rest": {
+				"effect": {
+					"stamina": 0.6,
+					"vigor": 0.06,
+					"hp": 0.6,
+					"prismatic": 0.25,
+					"stress": -0.75
+				}
+			},
+			"space": 10
+		}
+	},
+	{
+		"id": "loungeroom",
+		"name": "lounge room",
+		"desc": "Staffed with the most experienced professionals in the field of leisure, one could spend days here without even noticing.",
+		"extdesc": "Significantly increases the benefits of resting at the cost of gold",
+		"tags": "bed",
+		"slot": "bed",
+		"require": "g.tier5>0&&g.gold.max>10000",
+		"cost": {
+			"gold": 5000
+		},
+		"mod": {
+			"t_rest": {
+				"run": {
+					"gold": 5
+				},
+				"effect": {
+					"stamina": 1.2,
+					"vigor": 0.11,
+					"hp": 1.2,
+					"prismatic": 0.5,
+					"stress": -1.2
+				}
+			},
+			"space": 10
+		},
+		"flavor": "A little to the left, please"
+	},
+	{
+		"id": "otherworlysuite",
+		"name": "otherwordly suite",
+		"desc": "Located in the plane of leisure, the unparalleled relaxation is guaranteed.",
+		"tags": "bed,t_furn_portal",
+		"slot": "bed",
+		"need": "gate",
+		"require": "g.tier6>0&&g.t_werry>0",
+		"cost": {
+			"gold": 5000
+		},
+		"mod": {
+			"t_rest": {
+				"effect": {
+					"stamina": 0.9,
+					"vigor": 0.09,
+					"hp": 0.9,
+					"prismatic": 0.4,
+					"stress": -1
+				}
+			},
+			"space": 125
+		},
+		"flavor": "Bed and bath, beyond"
+	},
+	{
+		"id": "fiveposter",
+		"name": "Pentaposter.",
+		"desc": "Shaped like a pentagram, it grants otherwordly insights in your sleep.",
+		"tags": "bed",
+		"slot": "bed",
+		"require": "g.t_demonclass>0",
+		"cost": {
+			"shadow": 15,
+			"gold": 1200,
+			"research": 2000
+		},
+		"mod": {
+			"t_rest": {
+				"effect": {
+					"stamina": 0.6,
+					"vigor": 0.06,
+					"spirit": 0.6,
+					"shadow": 0.6,
+					"stress": -0.6
+				}
+			},
+			"space": 5
 		}
 	},
 	{
@@ -109,12 +216,13 @@
 		},
 		"mod": {
 			"firelore.mod.fire.max": 0.1,
-			"bed_rest": {
+			"t_rest": {
 				"effect": {
-					"stamina": 0.35,
-					"vigor": 0.035,
+					"stamina": 0.45,
+					"vigor": 0.045,
 					"prismatic": 0.1,
-					"fire": 0.2
+					"fire": 0.3,
+					"stress": -0.4
 				}
 			},
 			"space": 2
@@ -293,9 +401,9 @@
 		},
 		"mod": {
 			"scrolls.rate": 0.001,
-			"scribescroll.result.scrolls":0.25,
-			"bindcodex.result.codices":0.1,
-			"bindcodex.cost.scrolls":-2,
+			"scribescroll.result.scrolls": 0.25,
+			"bindcodex.result.codices": 0.1,
+			"bindcodex.cost.scrolls": -2,
 			"research.max": 5,
 			"languages.max": 1,
 			"scrolls.max": 10,
@@ -315,7 +423,7 @@
 		"mod": {
 			"crafting.max": 1,
 			"crafting.rate": 0.2,
-			"bindcodex.cost.scrolls":-1,
+			"bindcodex.cost.scrolls": -1,
 			"t_craftwork.rate": "10%",
 			"space": 2
 		}
@@ -334,7 +442,7 @@
 		"mod": {
 			"enchanting.max": 1,
 			"enchanting.rate": 0.2,
-			"bindcodex.cost.mana":-1,
+			"bindcodex.cost.mana": -1,
 			"space": 1
 		}
 	},
@@ -394,7 +502,7 @@
 		"mod": {
 			"research.max": 10,
 			"study.effect.research": 0.1,
-			"scribescroll.cost.mana":-0.1,
+			"scribescroll.cost.mana": -0.1,
 			"space": 1
 		}
 	},
@@ -1110,37 +1218,9 @@
 			"codices.max": 100,
 			"research.max": 100,
 			"scrolls.rate": 0.05,
-			"scribescroll.cost.mana":-0.1,
-			"bindcodex.cost.mana":-0.2,
+			"scribescroll.cost.mana": -0.1,
+			"bindcodex.cost.mana": -0.2,
 			"space": 20
-		}
-	},
-	{
-		"id": "arcanestudy",
-		"name": "enchanted study",
-		"desc": "A study enchanted with magic.",
-		"require": "g.codices>=100&&g.enchanting>=6",
-		"cost": {
-			"studyroom": 1,
-			"gold": 1000,
-			"research": 1000
-		},
-		"mod": {
-			"codices.max": 100,
-			"scrolls.rate": 0.05,
-			"scribescroll.cost.mana":-0.1,
-			"bindcodex.cost.mana":-0.2,
-			"space": 20
-		},
-		"convert": {
-			"input": {
-				"codices": 0.001
-			},
-			"output": {
-				"effect": {
-					"tomes": 0.002
-				}
-			}
 		}
 	},
 	{
@@ -1261,9 +1341,9 @@
 			"research": 2500,
 			"gems": 35
 		},
-		"modtext": "Requires 5 space.\nIncreases storage of plain and prismatic runes by 5.",
 		"mod": {
-			"t_runes.max": 5,
+			"runestones.max": 5,
+			"prismaticrunes.max": 5,
 			"space": 5
 		},
 		"flavor": "Now with side compartments for elemental runes, too!"
@@ -1393,28 +1473,10 @@
 			"potions.max": 2,
 			"potionessence.rate": 0.00028,
 			"potionessence.max": 2,
-			"potioncombatflask.rate": 0.0005,
-			"potioncombatflask.max": 2,
 			"potions.rate": 0.5,
 			"alchemy.max": 1,
 			"alchemy.rate": 1,
 			"space": 20
-		}
-	},
-	{
-		"id": "glassblower",
-		"name": "glass-making room",
-		"desc": "Dedicated to production of specialized glassware",
-		"require": "potions",
-		"max": 5,
-		"cost": {
-			"gold": 500,
-			"research": 800
-		},
-		"mod": {
-			"potioncombatflask.rate": 0.0003,
-			"potioncombatflask.max": 2,
-			"space": 5
 		}
 	},
 	{
@@ -1766,6 +1828,15 @@
 			"runepress.mod.craftrune.cost.managem": -0.4,
 			"runepress.mod.craftrune.cost.research": -30,
 			"space": 10
+		}
+	},
+	{
+		"id": "arcanestudy",
+		"name": "enchanted study",
+		"desc": "DEPRECATED.",
+		"max": 1,
+		"cost": {
+			"gold": 1
 		}
 	}
 ]

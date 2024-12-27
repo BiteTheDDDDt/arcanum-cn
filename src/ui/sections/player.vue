@@ -96,7 +96,8 @@ export default {
 
 				},
 				elm: $evt.target,
-				strings: true
+				strings: true,
+				title: "Titles"
 			});
 
 		}
@@ -157,9 +158,9 @@ export default {
 
 
 					<tr>
-						<td>Rest</td>
+						<td>Leisure</td>
 						<th>
-							<slotpick pick="rest" />
+							<slotpick pick='leisure' canRemove=true />
 						</th>
 					</tr>
 					<tr>

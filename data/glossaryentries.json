@@ -275,7 +275,7 @@
 	},
 	{
 		"id": "gloss_minions_allies",
-		"name": "minions and allies",
+		"name": "minions",
 		"group": "combat",
 		"tags": "t_gloss_combat,t_gloss_minions",
 		"desc": [
@@ -299,8 +299,8 @@
 			"Spirits: Divination, spirit communion, and summoning.",
 			"Undead: Necromancy and reanimation.",
 			"If a monster's type doesn't appear above, it currently can't be summoned, such as dragons.",
-			"You can have up to a maximum number of minions indicated as Total Minions, above your list of current minions in the Minions tab.",
-			"You're also constrained by ally power - the total level of your minions can't exceed your maximum Allies Power, listed to the right of Total Minions.",
+			"You can have up to a maximum number of minions indicated as Owned Minions, above your list of current minions in the Minions tab.",
+			"You're also constrained by Minions Levels - the total level of your minions can't exceed your maximum Minions Levels, listed to the right of Owned Minions.",
 			"Both of these caps can be increased by a variety of upgrades, furnitures, classes, homes, and skills, with charms and summoning being reliable general options for this."
 		],
 		"require": "g.evt_helper>0"
@@ -373,5 +373,20 @@
 			"Whether it be positional changes, physiological changes, or the reimagination of a world operating on order, Chaos Magic is a force to be reckoned with."
 		],
 		"require": "g.chaoslore>0"
+	},
+	{
+		"id": "gloss_priority",
+		"name": "task priorities",
+		"group": "tasks",
+		"tags": "t_gloss_tasks",
+		"desc": [
+			"Running tasks priority can be further modified by assigining them as (G)oals or (P)ursuits.",
+			"You can do that by clicking the relevant button to the right of the task name in task list. A task may only have one of those properties at a time and you can only have a limited number of goals and pursuits assigned",
+			"When a task is set as a goal, it will attempt to perform itself whenever another action is performed. Assuming it can be performed or resumed it will take the slot of the completed action or an empty slot if available",
+			"Use goals to set high-priority tasks that need to be performed above all else",
+			"When a task is set as a pursuit, it is essentially marked as desirable, but low-priority. Pursuits will attempt to trigger when you have an empty slot, but will yield to queued tasks and goals if any of those try to resume themselves.",
+			"Use pursuits to set background activities that you want your wizard to perform when they ran out of other things to do"
+		],
+		"require": "g.goals1>0||g.pursuit1>0"
 	}
 ]

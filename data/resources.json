@@ -45,6 +45,7 @@
 			"research.max": "1%",
 			"runelore.rate": "0.02//100/-8",
 			"runelore.max": "0.05//100/-20"
+
 		},
 		"flavor": ""
 	},
@@ -241,7 +242,6 @@
 		"max": 3,
 		"sortOrder": 420,
 		"mod": {
-			"crafting.max": 0.1,
 			"crafting.rate": 0.1
 		}
 	},

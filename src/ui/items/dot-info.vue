@@ -80,15 +80,15 @@ export default {
 			<div>
 				<div v-if="displayDamage(dot)">
 					<span>Estimated damage: </span><span>{{ damage }}</span>
+					<div v-if="dot.potencies">Scales With: {{ potency || 'No'}} Potencies</div>
 					<div v-if="dot.leech">Returns {{ leech }} of damage as healing</div>
-					<div v-if="dot.potencies">Damage scaling: {{ potency }}</div>
 					<div v-if="dot.nodefense">Ignores defense</div>
 				</div>
 				<div v-if="displayHealing(dot)">
 					<span>Estimated healing: </span><span>{{ healing }}</span>
-					<div v-if="dot.potencies">Heal scaling: {{ potency }}</div>
+					<div v-if="dot.potencies">Scales With: {{ potency || 'No'}} Potencies</div>
 				</div>
-				<div v-if="dot.kind">Kind: {{ dot.kind.toString().toTitleCase() }}</div>
+				<div v-if="dot.kind">Type: {{ dot.kind.toString().toTitleCase() }}</div>
 				<div v-if="dot.duration">Duration: {{ dot.duration + "s" || 'infinity' }}</div>
 			</div>
 

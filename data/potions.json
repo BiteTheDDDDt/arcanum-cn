@@ -884,6 +884,7 @@
 					"name": "volatile combustion",
 					"kind": "fire",
 					"damage": "12~15",
+					"potencies": [],
 					"duration": 120
 				}
 			}
@@ -914,6 +915,7 @@
 					"name": "corroding",
 					"kind": "acid",
 					"damage": "3~5",
+					"potencies": [],
 					"duration": 120,
 					"mod": {
 						"self": {
@@ -1018,6 +1020,7 @@
 					"name": "ignited",
 					"kind": "fire",
 					"damage": "6~10",
+					"potencies": [],
 					"duration": 120
 				}
 			}
@@ -1048,6 +1051,7 @@
 					"name": "everfrozen",
 					"kind": "ice",
 					"damage": 5,
+					"potencies": [],
 					"duration": 120,
 					"mod": {
 						"self": {
@@ -1417,6 +1421,7 @@
 					"name": "tarred and feathered",
 					"kind": "fire",
 					"damage": "1~3",
+					"potencies": [],
 					"duration": 60,
 					"mod":{
 						"self": {
