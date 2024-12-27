@@ -921,13 +921,18 @@
 	},
 	{
 		"id": "enchanting",
-		"require": "g.tier1>0&&g.lore>=14",
+		"require": "g.tier1>0&&g.lore>=11",
 		"desc": "Imbue mundane gems and items with magical properties.",
 		"level": 10,
 		"run": {
 			"stamina": 0.4,
 			"research": 1
 		},
+		"buy": {
+			"research": 300
+		},
+		"need": "((g.managem>=1)+(g.firegem>=1)+(g.watergem>=1)+(g.naturegem>=1)+(g.earthgem>=1)+(g.airgem>=1)+(g.shadowgem>=1)+(g.lightgem>=1)+(g.spiritgem>=1))>=3",
+		"needtext": "Must own at least 3 types of magical gems. Perhaps they can be found while exploring some nearby locales.",
 		"mod": {
 			"enchantslots.max": 1
 		},
@@ -1020,7 +1025,7 @@
 	{
 		"id": "astrallore",
 		"name": "astral communion",
-		"require": "g.planeslore>=15&&g.tier5>0",
+		"require": "g.planeslore>=13&&g.tier5>0",
 		"desc": "Anyone can see the stars. Few can read them.",
 		"level": 15,
 		"buy": {

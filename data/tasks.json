@@ -40,17 +40,6 @@
 		}
 	},
 	{
-		"id": "tech_fix_manafix",
-		"name": "technical fix",
-		"desc": "Applies a fix to a certain event not triggering correctly. Do this to fix your mana max",
-		"require": "g.lore>=2&&g.evt_manafix==0",
-		"max": 1,
-		"result": {
-			"tech_fix_manafix": true
-		},
-		"group": "technical"
-	},
-	{
 		"id": "chores",
 		"name": "do chores",
 		"desc": "Standard apprentice work.",
@@ -185,7 +174,6 @@
 		"verb": "thieving",
 		"require": "g.t_chaosclass>0&&g.trickery>=5",
 		"length": 50,
-		"tags": "t_evilact",
 		"run": {
 			"stamina": 0.4,
 			"mana": 0.4
@@ -406,7 +394,7 @@
 	},
 	{
 		"id": "act_element",
-		"name": "Attune (elements)",
+		"name": "Attune to elements",
 		"perpetual": true,
 		"verb": "attuning",
 		"desc": "Attune to primal forces of the world.",
@@ -438,11 +426,11 @@
 			"research": 1.3
 		},
 		"mod": {
-			"alchemy.max": "0.0001/0/>=500/30500/1",
-			"firelore.max": "0.0001/0/>=500/30500/1",
-			"waterlore.max": "0.0001/0/>=500/30500/1",
-			"earthlore.max": "0.0001/0/>=500/30500/1",
-			"airlore.max": "0.0001/0/>=500/30500/1"
+			"alchemy.max": "0.001//3000/-1",
+			"firelore.max": "0.001//3000/-1",
+			"waterlore.max": "0.001//3000/-1",
+			"earthlore.max": "0.001//3000/-1",
+			"airlore.max": "0.001//3000/-1"
 		},
 		"group": "research"
 	},
@@ -900,10 +888,10 @@
 	},
 	{
 		"id": "rest",
-		"tags": "t_rest,bed_rest",
+		"tags": "t_rest",
 		"name": "relax",
-		"slot": "rest",
 		"verb": "relaxing",
+		"slot": "rest",
 		"locked": false,
 		"owned": true,
 		"perpetual": true,
@@ -918,42 +906,13 @@
 		"group": "rest"
 	},
 	{
-		"id": "indulge",
-		"tags": "t_rest",
-		"verb": "indulging",
-		"owned": true,
-		"slot": "rest",
-		"require": "g.player.level>=9999",
-		"length": 10,
-		"need": "g.tier2>0",
-		"fill": ["stamina", "hp", "prismatic", "stress"],
-		"run": {
-			"gold": 25,
-			"research": 20
-		},
-		"effect": {
-			"stress": -2,
-			"prismatic": 1,
-			"stamina": 1.2,
-			"vigor": 0.12,
-			"hp": 2
-		},
-		"group": "rest"
-	},
-	{
 		"id": "slumber",
 		"desc": "The deepest sleep guards the greatest insights.",
-		"require": "g.tier0>0&&g.dreamchamber>0",
-		"tags": "t_rest,bed_rest",
-		"slot": "rest",
+		"require": "g.up_slumber>0",
+		"tags": "t_rest",
 		"verb": "sleeping",
+		"slot": "rest",
 		"perpetual": true,
-		"buy": {
-			"arcana": 20
-		},
-		"run": {
-			"arcana": 0.03
-		},
 		"effect": {
 			"prismatic": 0.6,
 			"fundamental": 0.5,
@@ -964,86 +923,6 @@
 			"dreams": 0.0003
 		},
 		"group": "rest"
-	},
-	{
-		"id": "chant",
-		"tags": ["t_rest", "t_extremegood"],
-		"verb": "chanting",
-		"owned": true,
-		"slot": "rest",
-		"length": 10,
-		"need": "(g.t_divinationclass+g.t_lightclass+g.mage)>0&&g.evil2<=0",
-		"needtext": "Cannot be sinister.",
-		"fill": ["stamina", "hp", "prismatic", "stress"],
-		"effect": {
-			"virtue": 1.5,
-			"stress": -1.2,
-			"prismatic": 0.5,
-			"stamina": 0.82,
-			"vigor": 0.082,
-			"hp": 1.1,
-			"light": 0.2,
-			"evilamt": -0.5
-		},
-		"group": "rest"
-	},
-	{
-		"id": "naturecamp",
-		"tags": "t_rest",
-		"name": "commune",
-		"slot": "rest",
-		"owned": true,
-		"verb": "communing",
-		"desc": "Commune with natural forces.",
-		"perpetual": true,
-		"require": "g.naturelore>=12",
-		"fill": ["hp", "prismatic", "stamina", "stress"],
-		"effect": {
-			"stress": -1.4,
-			"prismatic": 0.5,
-			"stamina": 0.75,
-			"vigor": 0.075,
-			"hp": 1,
-			"nature": 0.2
-		},
-		"group": "rest"
-	},
-	{
-		"id": "eatchildren",
-		"name": "eat children",
-		"tags": "t_rest",
-		"verb": "eating children",
-		"slot": "rest",
-		"owned": true,
-		"length": 10,
-		"require": "(g.witch+g.thanophage)>0",
-		"need": "cauldron",
-		"flavor": "How could you!?!",
-		"fill": ["hp", "prismatic", "stamina", "stress"],
-		"at": {
-			"100": {
-				"effect.hp": 0.5,
-				"effect.shadow": 0.05
-			},
-			"500": {
-				"effect.hp": 1,
-				"effect.shadow": 0.1
-			},
-			"1000": {
-				"effect.hp": 1,
-				"effect.shadow": 0.1
-			}
-		},
-		"effect": {
-			"evilamt": 2,
-			"mana": 0.6,
-			"shadow": 0.4,
-			"spirit": 0.4,
-			"prismatic": 0.2,
-			"stress": -1.1,
-			"stamina": 1,
-			"hp": 2
-		}
 	},
 	{
 		"id": "sabbat",
@@ -1137,27 +1016,12 @@
 		"run": {
 			"stamina": 0.4
 		},
-		"at": {
-			"20": {
-				"effect.naturelore.max": 0.001
-			},
-			"200": {
-				"effect.naturelore.max": 0.002
-			},
-			"500": {
-				"effect.naturelore.max": -0.002
-			},
-			"1000": {
-				"effect.naturelore.max": -0.001
-			},
-			"1420": {
-				"effect.naturelore.max": -0.001
-			}
+		"mod": {
+			"naturelore.max": "0.0024//1250/-10"
 		},
 		"effect": {
 			"nature": 0.3,
 			"naturelore.exp": "g.naturelore.rate*0.2",
-			"naturelore.max": 0.001,
 			"animals.exp": 1,
 			"herbalism.exp": 1
 		},
@@ -1206,8 +1070,7 @@
 		},
 		"fill": "scrolls",
 		"result": {
-			"scrolls": 1,
-			"evt_scroll": true
+			"scrolls": 1
 		},
 		"group": "materials"
 	},
@@ -1291,6 +1154,7 @@
 		"actname": "craft bag of demons",
 		"require": "g.demonology>=10&&g.crafting>=20&&g.tier3>0",
 		"craftable": true,
+		"tags": "t_craftedbag",
 		"max": 1,
 		"length": 200,
 		"desc": "You'll make your own bags, thank you.",
@@ -1319,6 +1183,7 @@
 		"actname": "craft bag of mayhem",
 		"require": "g.t_chaosclass>0&&g.crafting>=20&&g.tier3>0&&g.chaosgem>=3",
 		"craftable": true,
+		"tags": "t_craftedbag",
 		"max": 1,
 		"length": 200,
 		"desc": "Badger, badger, badger, badger, why are there so many badgers in there???",
@@ -1749,8 +1614,8 @@
 		"cost": {
 			"earthgem": 300,
 			"earthrune": 80,
-			"sindel": 5,
-			"ichor": 5
+			"ichor": 5,
+			"sindel": 5
 		},
 		"run": {
 			"stamina": 4,
@@ -2136,8 +2001,7 @@
 		"length": 10,
 		"cost": {
 			"runestones": 1,
-			"firegem": 10,
-			"tomes": 1
+			"firegem": 10
 		},
 		"run": {
 			"stamina": 1
@@ -2156,8 +2020,7 @@
 		"length": 10,
 		"cost": {
 			"runestones": 1,
-			"earthgem": 10,
-			"tomes": 1
+			"earthgem": 10
 		},
 		"run": {
 			"stamina": 1
@@ -2176,8 +2039,7 @@
 		"length": 10,
 		"cost": {
 			"runestones": 1,
-			"airgem": 10,
-			"tomes": 1
+			"airgem": 10
 		},
 		"run": {
 			"stamina": 1
@@ -2196,8 +2058,7 @@
 		"length": 10,
 		"cost": {
 			"runestones": 1,
-			"watergem": 10,
-			"tomes": 1
+			"watergem": 10
 		},
 		"run": {
 			"stamina": 1
@@ -2216,8 +2077,7 @@
 		"length": 10,
 		"cost": {
 			"runestones": 1,
-			"spiritgem": 10,
-			"tomes": 1
+			"spiritgem": 10
 		},
 		"run": {
 			"stamina": 1
@@ -2236,8 +2096,7 @@
 		"length": 10,
 		"cost": {
 			"runestones": 1,
-			"chaosgem": 10,
-			"tomes": 1
+			"chaosgem": 10
 		},
 		"run": {
 			"stamina": 1
@@ -2337,7 +2196,6 @@
 			"runner.skillprogress": 0.2
 		}
 	},
-
 	{
 		"id": "grind",
 		"require": "g.lore>=6&&g.research.max<5",
@@ -2567,9 +2425,6 @@
 			"light": 1,
 			"stamina": 2
 		},
-		"runmod": {
-			"prismatic.rate": "-50%"
-		},
 		"mod": {
 			"light": {
 				"max": 2,
@@ -2607,9 +2462,6 @@
 			"hp": 1,
 			"light": 1,
 			"stamina": 2
-		},
-		"runmod": {
-			"prismatic.rate": "-50%"
 		},
 		"mod": {
 			"light": {
@@ -2663,9 +2515,6 @@
 			"hp": 1,
 			"light": 1,
 			"stamina": 2
-		},
-		"runmod": {
-			"prismatic.rate": "-50%"
 		},
 		"mod": {
 			"light": {
@@ -2730,9 +2579,6 @@
 			"light": 1,
 			"stamina": 2
 		},
-		"runmod": {
-			"prismatic.rate": "-50%"
-		},
 		"mod": {
 			"light": {
 				"max": 2,
@@ -2777,9 +2623,6 @@
 			"light": 1,
 			"stamina": 2
 		},
-		"runmod": {
-			"prismatic.rate": "-50%"
-		},
 		"disable": ["corruption_path", "evil2", "evil3", "revoke_neutral"],
 		"enable": ["good2", "neutral", "t_extremegood"],
 		"group": "morality"
@@ -2800,11 +2643,11 @@
 			"nature": 2,
 			"stamina": 2
 		},
-		"runmod": {
-			"prismatic.rate": "-50%"
-		},
 		"mod": {
-			"naturelore2.max": 1,
+			"nature.max": 1,
+			"nature.rate": "1%",
+			"naturedmg": 3,
+			"naturelore.mod.player.hits.nature": 0.04,
 			"unease.rate": -0.2
 		},
 		"disable": "spirit_balanced",
@@ -2826,11 +2669,11 @@
 			"spirit": 2,
 			"stamina": 2
 		},
-		"runmod": {
-			"prismatic.rate": "-50%"
-		},
 		"mod": {
-			"spiritlore2.max": 1,
+			"spirit.max": 1,
+			"spirit.rate": "1%",
+			"spiritdmg": 3,
+			"spiritlore.mod.player.hits.spirit": 0.04,
 			"bf.rate": -0.2
 		},
 		"disable": "nature_balanced",
@@ -2862,9 +2705,6 @@
 			"nature": 1,
 			"spirit": 1,
 			"stamina": 2
-		},
-		"runmod": {
-			"prismatic.rate": "-50%"
 		},
 		"mod": {
 			"nature.rate": 0.2,
@@ -2914,9 +2754,6 @@
 			"spirit": 1,
 			"stamina": 2
 		},
-		"runmod": {
-			"prismatic.rate": "-50%"
-		},
 		"mod": {
 			"nature.rate": 0.1,
 			"spirit.rate": 0.1,
@@ -2950,9 +2787,6 @@
 			"spirit": 1,
 			"stamina": 2
 		},
-		"runmod": {
-			"prismatic.rate": "-50%"
-		},
 		"mod": {
 			"nature.rate": 0.1,
 			"spirit.rate": 0.1,
@@ -2980,9 +2814,6 @@
 			"nature": 1,
 			"spirit": 1,
 			"stamina": 2
-		},
-		"runmod": {
-			"prismatic.rate": "-50%"
 		},
 		"disable": [
 			"corruption_path",
@@ -3020,9 +2851,6 @@
 			"nature": 1,
 			"spirit": 1,
 			"stamina": 2
-		},
-		"runmod": {
-			"prismatic.rate": "-50%"
 		},
 		"mod": {
 			"nature.rate": 0.2,
@@ -3067,9 +2895,6 @@
 			"spirit": 1,
 			"stamina": 2
 		},
-		"runmod": {
-			"prismatic.rate": "-50%"
-		},
 		"mod": {
 			"nature.rate": 0.4,
 			"spirit.rate": 0.4,
@@ -3101,11 +2926,11 @@
 			"nature": 2,
 			"stamina": 2
 		},
-		"runmod": {
-			"prismatic.rate": "-50%"
-		},
 		"mod": {
-			"naturelore2.max": 1,
+			"nature.max": 1,
+			"nature.rate": "1%",
+			"naturedmg": 3,
+			"naturelore.mod.player.hits.nature": 0.04,
 			"rage.rate": -0.2
 		},
 		"disable": "spirit_detached",
@@ -3126,11 +2951,11 @@
 			"spirit": 2,
 			"stamina": 2
 		},
-		"runmod": {
-			"prismatic.rate": "-50%"
-		},
 		"mod": {
-			"spiritlore2.max": 1,
+			"spirit.max": 1,
+			"spirit.rate": "1%",
+			"spiritdmg": 3,
+			"spiritlore.mod.player.hits.spirit": 0.04,
 			"madness.rate": -0.2
 		},
 		"disable": "nature_detached",
@@ -3153,9 +2978,6 @@
 			"shadow": 1,
 			"stamina": 2
 		},
-		"runmod": {
-			"prismatic.rate": "-50%"
-		},
 		"disable": ["redemption_path", "good2", "good3", "revoke_neutral"],
 		"enable": ["evil2", "neutral", "t_extremeevil"],
 		"group": "morality"
@@ -3174,9 +2996,6 @@
 			"hp": 1,
 			"shadow": 1,
 			"stamina": 2
-		},
-		"runmod": {
-			"prismatic.rate": "-50%"
 		},
 		"mod": {
 			"shadow": {
@@ -3211,9 +3030,6 @@
 			"hp": 1,
 			"shadow": 1,
 			"stamina": 2
-		},
-		"runmod": {
-			"prismatic.rate": "-50%"
 		},
 		"mod": {
 			"shadow": {
@@ -3260,9 +3076,6 @@
 			"shadow": 1,
 			"stamina": 2
 		},
-		"runmod": {
-			"prismatic.rate": "-50%"
-		},
 		"mod": {
 			"shadow": {
 				"max": 2,
@@ -3304,9 +3117,6 @@
 			"shadow": 1,
 			"stamina": 2
 		},
-		"runmod": {
-			"prismatic.rate": "-50%"
-		},
 		"mod": {
 			"shadow": {
 				"max": 3,
@@ -3343,9 +3153,6 @@
 			"hp": 1,
 			"shadow": 1,
 			"stamina": 2
-		},
-		"runmod": {
-			"prismatic.rate": "-50%"
 		},
 		"mod": {
 			"shadow": {
@@ -3915,12 +3722,9 @@
 		"id": "idrasilgrow1",
 		"name": "nourish sprout",
 		"verb": "nourishing",
-		"craftable": true,
 		"require": "g.tier3>0&&g.naturelore>=10&&g.arcana>=10",
-		"need": "g.home_idrasil_sprout>0",
-		"needtext": "Must live in the idrasil sprout.",
-		"desc": "Nourish your idrasil sprout so it can grow into something greater. This will permanently lock the idrasil sprout and replace it with a better home.",
-		"warn": true,
+		"desc": "Nourish your idrasil sprout so it can grow into something greater.",
+		"extdesc": " This will permanently lock the idrasil sprout and replace it with a better home.",
 		"lock": "home_idrasil_sprout",
 		"max": 1,
 		"length": 120,
@@ -3938,21 +3742,15 @@
 			"watergem": 0.025,
 			"lightgem": 0.025
 		},
-		"result": {
-			"home_idrasil_sapling": true
-		},
 		"group": "housing"
 	},
 	{
 		"id": "idrasilgrow2",
 		"name": "nourish sapling",
 		"verb": "nourishing",
-		"craftable": true,
 		"require": "g.tier4>0&&g.naturelore>=14&&g.arcana>=14&&g.idrasilgrow1>0",
-		"need": "g.home_idrasil_sapling>0",
-		"needtext": "Must live in the idrasil sapling.",
-		"desc": "Nourish your idrasil sapling so it can realize its full splendor. This will permanently lock the idrasil sapling and replace it with a better home.",
-		"warn": true,
+		"desc": "Nourish your idrasil sapling so it can realize its full splendor.",
+		"extdesc": "This will permanently lock the idrasil sapling and replace it with a better home.",
 		"lock": "home_idrasil_sapling",
 		"max": 1,
 		"length": 180,
@@ -3969,9 +3767,6 @@
 			"lightgem": 0.5,
 			"earthrune": 0.025,
 			"waterrune": 0.025
-		},
-		"result": {
-			"home_idrasil_tree": true
 		},
 		"group": "housing"
 	},
@@ -4002,20 +3797,28 @@
 			"ancientruins.mod": {
 				"space.max": 250,
 				"craftfirerune.cost": {
-					"tomes": "-50%",
 					"firegem": "-50%"
 				},
+				"craftfirerune.result": {
+					"firerune": "25%"
+				},
 				"craftwaterrune.cost": {
-					"tomes": "-50%",
 					"watergem": "-50%"
 				},
+				"craftwaterrune.result": {
+					"waterrune": "25%"
+				},
 				"craftairrune.cost": {
-					"tomes": "-50%",
 					"airgem": "-50%"
 				},
+				"craftairrune.result": {
+					"airrune": "25%"
+				},
 				"craftearthrune.cost": {
-					"tomes": "-50%",
 					"earthgem": "-50%"
+				},
+				"craftearthrune.result": {
+					"earthrune": "25%"
 				}
 			}
 		},
@@ -4058,8 +3861,8 @@
 			"research": 500
 		},
 		"run": {
-			"gold": 75,
-			"gems": 1
+			"gold": 40,
+			"gems": 0.5
 		},
 		"result": {
 			"fame": 1
@@ -4080,8 +3883,8 @@
 			"research": 500
 		},
 		"run": {
-			"gold": 75,
-			"gems": 1
+			"gold": 40,
+			"gems": 0.5
 		},
 		"result": {
 			"fame": 1
@@ -4093,9 +3896,10 @@
 		"name": "excavate waterfall",
 		"verb": "excavating",
 		"craftable": true,
-		"require": "g.tier3>0&&g.waterlore>=10&&g.earthlore>0&&g.naturelore>0",
+		"require": "g.tier3>0&&g.waterlore>=10&&g.earthlore>0&&g.naturelore>=6",
 		"desc": "Dig out some more space behind the waterfall and raise the cliff it plunges over.",
-		"extdesc": "Unlocks a new home when completed.",
+		"extdesc": "This will permanently lock the Waterfall and unlock a new home when completed.",
+		"lock": "home_waterfall",
 		"max": 1,
 		"length": 120,
 		"cost": {
@@ -4252,7 +4056,9 @@
 		"craftable": true,
 		"require": "g.tier4>0",
 		"desc": "You deserve better. It's time to restore your ruined castle to its past splendor.",
-		"extdesc": "Unlocks a new home when completed.",
+		"warn": true,
+		"lock": "ruinedcastle",
+		"extdesc": "This will permanently lock the Crumbling Castle and unlock a better home when completed.",
 		"max": 1,
 		"length": 180,
 		"cost": {
@@ -4278,7 +4084,7 @@
 		"craftable": true,
 		"require": "g.tier4>0",
 		"desc": "You deserve better. It's time to restore your ruined palace to its past splendor.",
-		"extdesc": "Unlocks a new home when completed.",
+		"extdesc": "This will permanently lock the Mouldering Palace and unlock a better home when completed.",
 		"max": 1,
 		"length": 180,
 		"cost": {
@@ -4295,6 +4101,7 @@
 		"result": {
 			"fame": 1
 		},
+		"lock": "ruinedpalace",
 		"group": "housing"
 	},
 	{
@@ -4302,7 +4109,7 @@
 		"name": "grove trimming",
 		"verb": "trimming",
 		"craftable": true,
-		"require": "g.tier4>0&&(g.t_enchantingclass+g.t_natureclass+g.t_potionclass)>0",
+		"require": "g.tier4>0&&(g.t_enchantingclass+g.t_natureclass)>0",
 		"desc": "The plants have been carpeting the rest of your home, not just the floors. Time to see to that.",
 		"max": 1,
 		"length": 180,
@@ -4580,5 +4387,48 @@
 				"effect.hp": 3
 			}
 		}
+	},
+	{
+		"id": "onewithnature",
+		"name": "one with nature",
+		"tags": "plantsource",
+		"desc": "You have become as one with nature after communing with it for so long.",
+		"require": "g.naturelore>=12",
+		"max": 1,
+		"length": 30,
+		"cost": {
+			"research": 600,
+			"nature": 10,
+			"naturegem": 5,
+			"arcana": 2
+		},
+		"run": {
+			"nature": 0.2
+		},
+		"mod": {
+			"stamina.max": 2,
+			"hp.max": 1,
+			"stamina.rate": 0.1,
+			"naturelore.max": 2,
+			"naturelore.rate": 0.2,
+			"nature.rate": 0.1,
+			"player.resist.nature": 5
+		},
+		"group": "body"
+	},
+	{
+		"id": "chant",
+		"slot": "rest",
+		"group": "rest"
+	},
+	{
+		"id": "naturecamp",
+		"slot": "rest",
+		"group": "rest"
+	},
+	{
+		"id": "eatchildren",
+		"slot": "rest",
+		"group": "rest"
 	}
 ]

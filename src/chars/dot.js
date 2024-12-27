@@ -51,7 +51,6 @@ export default class Dot {
 			if (!save.flags) delete save.flags;
 			save.tags = save.tags.join(",") || undefined;
 
-			//console.log("Forcibly saving DOT", this, save);
 			return save;
 		}
 
@@ -282,10 +281,6 @@ export default class Dot {
 			//SetModCounts( this.mod, this );
 		}
 		if (!this.flags) this.flags = 0;
-
-		/*for( let p in this ) {
-			if ( p === 'damage' || p =='dmg') console.log('DOT HAS DAMAGE');
-		}*/
 
 		if (this._attack) {
 			this.attack = this._attack;

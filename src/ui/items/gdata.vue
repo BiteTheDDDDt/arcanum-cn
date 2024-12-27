@@ -41,6 +41,21 @@ export default {
 			let sec = Math.floor(millis / 1000) % 60;
 			return `${(hr < 10 ? '0' : '') + hr}:${(min < 10 ? '0' : '') + min}:${(sec < 10 ? '0' : '') + sec}`;
 		},
+		only(onlybase) {
+			let onlystring = ""
+			let basestring = (typeof onlybase === 'string')  ? onlybase.split(',') : onlybase; 
+			for (let o of basestring) {
+				if (onlystring != "") onlystring = onlystring.concat(", ");
+				o = game.state.tagSets[o] || o
+				if (o instanceof Object && o.name) {
+					onlystring = onlystring.concat(o.name.toTitleCase());
+				} else {
+					onlystring = onlystring.concat(this.tagNames(o));
+				}
+				
+			}
+			return onlystring
+		}
 	},
 	beforeCreate() {
 		this.player = Game.state.player;
@@ -128,7 +143,7 @@ export default {
 			} else {
 				return this.item.timer;
 			}
-		},
+		}
 	},
 };
 </script>
@@ -272,6 +287,12 @@ export default {
 			<div class="info-sect">Summons:</div>
 			<summon :item="item" class="info-subsubsect" />
 		</div>
+		<div v-if="item.resurrect">
+			<div class="info-sect">Resurrects:</div>
+			<div v-if="item.resurrect.only">Only: {{ this.only(item.resurrect.only) }}</div>
+			<div v-if="item.resurrect.maxlevel">Up to level {{item.resurrect.maxlevel}}</div>
+			<div>Up to {{item.resurrect.count || 1}} minions per cast</div>
+		</div>
 		<div v-if="item.result">
 			<div class="info-sect">Results:</div>
 			<info :info="item.resulttext || item.result" :checkType="CheckTypes.FULL" />
@@ -286,7 +307,7 @@ export default {
 		</div>
 
 		<div v-if="item.runmod && Object.values(item.runmod).length">
-			<div class="info-sect">When active:</div>
+			<div class="info-sect">Modifications While Progressing:</div>
 			<info :info="item.runmod" />
 		</div>
 

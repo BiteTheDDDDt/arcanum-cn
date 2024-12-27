@@ -95,7 +95,6 @@ const vm = createApp({
 		},
 
 		dismissChar(ind) {
-			//console.log('DISMISS: ' + ind );
 			Profile.dismiss(ind);
 		},
 
@@ -269,7 +268,7 @@ const vm = createApp({
 
 		async save() {
 			if (!this.game.loaded) return;
-			console.log("Saving...");
+
 			const charsave = await Profile.saveActive(this.game.state);
 
 			if (charsave) {

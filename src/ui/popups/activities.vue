@@ -48,6 +48,9 @@ export default {
 		 */
 		pursuits() {
 			return this.runner.pursuits.items;
+		},
+		goals() {
+			return this.runner.goals.items;
 		}
 
 	},
@@ -75,6 +78,13 @@ export default {
 
 		removePursuit(t) {
 			this.runner.pursuits.remove(t);
+		},
+		moveGoal(task, amt) {
+			this.runner.goals.move(task, amt);
+		},
+
+		removeGoal(t) {
+			this.runner.goals.remove(t);
 		}
 
 	}
@@ -96,7 +106,8 @@ export default {
 						t.name.toTitleCase() }}</span>
 					<div v-if="actives.length > 1">
 						<button type="button" @click="moveActive(t, -1)" :disabled="ind === 0">↑</button>
-						<button type="button" @click="moveActive(t, 1)" :disabled="(ind + 1) === actives.length">↓</button>
+						<button type="button" @click="moveActive(t, 1)"
+							:disabled="(ind + 1) === actives.length">↓</button>
 					</div>
 
 				</div>
@@ -113,13 +124,30 @@ export default {
 					<!-- note: indices are reversed. Move amount reversed. -->
 					<div v-if="waiting.length > 1">
 						<button type="button" @click="moveWaiting(t, 1)" :disabled="ind === 0">↑</button>
-						<button type="button" @click="moveWaiting(t, -1)" :disabled="(ind + 1) === waiting.length">↓</button>
+						<button type="button" @click="moveWaiting(t, -1)"
+							:disabled="(ind + 1) === waiting.length">↓</button>
 					</div>
 
 				</div>
 			</div>
 		</div>
 
+		<div class="section">
+			<header>Goals</header>
+			<div v-if="goals.count === 0" class="note-text">None</div>
+			<div v-else>
+				<div v-for="(t, ind) in goals" :key="'p' + ind" class="task-info">
+
+					<button type="button" class="stop" @click="removeGoal(t)">X</button><span class="task-name">{{
+						t.name.toTitleCase() }}</span>
+					<div v-if="goals.length > 1">
+						<button type="button" @click="moveGoal(t, -1)" :disabled="ind === 0">↑</button>
+						<button type="button" @click="moveGoal(t, 1)"
+							:disabled="(ind + 1) === goals.length">↓</button>
+					</div>
+				</div>
+			</div>
+		</div>
 		<div class="section">
 			<header>Pursuits</header>
 			<div v-if="pursuits.count === 0" class="note-text">None</div>
@@ -130,7 +158,8 @@ export default {
 						t.name.toTitleCase() }}</span>
 					<div v-if="pursuits.length > 1">
 						<button type="button" @click="movePursuit(t, -1)" :disabled="ind === 0">↑</button>
-						<button type="button" @click="movePursuit(t, 1)" :disabled="(ind + 1) === pursuits.length">↓</button>
+						<button type="button" @click="movePursuit(t, 1)"
+							:disabled="(ind + 1) === pursuits.length">↓</button>
 					</div>
 					<!--<button type="button" v-if="runner.canPursuit(t)" :class="['pursuit', pursuits.includes( runner.baseTask(t) ) ? 'current' : '']"
 					@click="runner.togglePursuit(t)"> F </button>-->

@@ -79,7 +79,7 @@
 		"spells": [
 			{
 				"id": "resurrection",
-				"desc": "Reknit the body and recall the soul of a stronger (up to level 10) humanoid or goblinoid minion. From the \"Minions\" tab only",
+				"desc": "Reknit the body and recall the soul of a stronger humanoid or goblinoid minion.",
 				"sortOrder": 1147,
 				"level": 5,
 				"school": "light",
@@ -95,12 +95,17 @@
 					"research": 500,
 					"codices": 25
 				},
-				"only": "humanoid,goblinoid",
 				"cost": {
 					"light": 7,
 					"spirit": 7,
 					"lightgem": 1,
 					"spiritgem": 1
+				},
+				"resurrect":
+				{
+					"only": ["humanoid","goblinoid"],
+					"maxlevel":99,
+					"count":1
 				}
 			},
 			{

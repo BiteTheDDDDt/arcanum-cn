@@ -190,10 +190,6 @@ export default class Context {
 				if (parent.value < val * amt) return false;
 			} else if (typeof val === 'object') {
 
-
-				//console.log('checking sub cost: ' + p + ' ' +cost.constructor.name );
-				//if ( parent ) console.log( 'parent: ' + parent.id );
-
 				if (!this.canPayObj(parent[p], val, amt)) return false;
 			}
 

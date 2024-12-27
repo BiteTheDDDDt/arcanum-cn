@@ -214,8 +214,6 @@ export default class Wearable extends Item {
 	 */
 	revive(gs) {
 
-		//console.log('reviving: ' + this.id );
-
 		if (typeof this.material === 'string') this.material = gs.getData(this.material);
 
 		if (typeof this.recipe === 'string') this.template = gs.getData(this.recipe);
@@ -258,9 +256,6 @@ export default class Wearable extends Item {
 		// @compat
 		if (!this.enchants.max) this.calcMaxEnchants();
 
-		/*console.log('WEARABLE LEVEL: ' + this.level + ' MAT: '+ (this.material ? this.material.level : 0 )
-		 + ' base: ' + (this.template ? this.template.level : 0 ) );*/
-		//this.initAlters(gs);
 	}
 
 	/**
@@ -328,14 +323,8 @@ export default class Wearable extends Item {
 
 		this.value = 1;
 		if (this.mod) {
-
-			for (let p in this.mod) {
-				//console.log('apply mod: ' + p );
-			}
 			g.applyMods(this.mod, 1);
 
-		} else {
-			//console.log('no mods: '+ this.id );
 		}
 
 	}
@@ -344,14 +333,8 @@ export default class Wearable extends Item {
 		let p = g.state.player;
 		this.value = 1;
 		if (this.mod) {
-
-			for (let p in this.mod) {
-				//console.log('apply mod: ' + p );
-			}
 			g.applyMods(this.mod, 1);
 
-		} else {
-			//console.log('no mods: '+ this.id );
 		}
 
 	}
@@ -382,8 +365,6 @@ export default class Wearable extends Item {
 		if (t === 'object') {
 
 			if (v.id) {
-				//console.log('new mod: ' +this.id);
-				//for( let p in v ) console.log( p + ' -> ' + v[p]);
 				return new Mod(v, v.id, this);
 			} else {
 

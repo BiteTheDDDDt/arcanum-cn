@@ -13,7 +13,6 @@ import GData from './gdata';
 export const SetModCounts = (m, v) => {
 
 	if (m instanceof Mod) {
-		//console.log('setting mod count: ' + m.id + ' val: ' + v );
 		m.count = v;
 	}
 	else if (typeof m === 'object') {
@@ -263,8 +262,6 @@ export default {
 
 	permVars(mods, targ = this) {
 
-		//console.log( 'PERM VARS: ' + typeof mods);
-		//console.log('eNC TARG: ' + typeof targ);
 		if (typeof targ === 'number') {
 
 			// error.
@@ -334,24 +331,18 @@ export default {
 				let sub = vars[p];
 
 				if (targ instanceof RValue) {
-					//console.log('APPLY ' + vars[p] + ' to stat: '+ this.id + '.'+ p + ': ' + amt*vars[p] + ' : ' + (typeof vars[p]) );
-
 					targ.apply(sub, amt);
 				} else if (typeof sub === 'object') {
 					if (sub.type === TYP_MOD) {
 						sub.applyTo(this, p, amt);
 					} else if (typeof targ === 'number' || sub.isRVal) {
-						//deprec( this.id + ' targ: ' + p + ': ' + targ );
 						this[p] += Number(sub) * amt;
 					} else {
-						//console.log( this.id + ' subapply: ' + p);
 						this.subeffect(targ, sub, amt);
 					}
 				} else if (targ !== undefined) {
-					//console.log( this.id + ' adding vars: ' + p );
 					this[p] += Number(sub) * amt;
 				} else {
-					console.log('NEW SUB: ' + p);
 					this.newSub(this, p, sub, amt)
 				}
 			}
@@ -361,7 +352,6 @@ export default {
 					//console.log(`Skipping disabled resource: ${this.id}`);
 				} else {
 					this.amount(vars.value * amt);
-					//this.value += (vars.value)*amt;
 				}
 			}
 		}
@@ -524,9 +514,6 @@ export default {
 
 					(targ[p] = modCheck ? new Mod(...params) : new Stat(...params)).addMod(subMod, amt);
 
-					//@todo use more accurate subpath.
-					// subTarg.id = SubPath(this.id, p );
-					//console.log( this.id + '.' + p  + ': ' + subMod + ': targ null: ' + subTarg.valueOf() + ' mod? ' + isMod );
 				}
 
 
@@ -608,7 +595,6 @@ export default {
 	subeffect(obj, m, amt) {
 
 		if (typeof obj !== 'object') {
-			//console.warn( 'invalid assign: ' + obj + ' = ' + m );
 			return;
 		}
 
@@ -617,7 +603,7 @@ export default {
 			let target = obj[p];
 			let source = m[p];
 
-			//console.log('SUBEFFECT(): ' + p + '=' + m[p]);
+
 			if (source && typeof source === 'object') {
 				if (source.isRVal) {
 					// Converting all rvalue sources into a number to prevent infinite recursion

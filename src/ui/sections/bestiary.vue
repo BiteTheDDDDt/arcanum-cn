@@ -1,7 +1,6 @@
 <script>
 import Game from '@/game';
 import ItemBase from '@/ui/itemsBase';
-import Range from '@/values/range';
 import FilterBox from '@/ui/components/filterbox.vue';
 import { TRY_USE } from '@/events';
 import { npcCost } from 'modules/craft';
@@ -137,7 +136,7 @@ export default {
 					<td class="num-align">{{ Math.floor(b.value) }}</td>
 					<td class="num-align">{{ showHp(b) ? toNum(b.hp) : '???' }}</td>
 					<td><button type="button" @click="tryUse(b)"
-							:disabled="b.unique || !b.canUse(game) || minions.freeSpace() == 0">Buy</button></td>
+								:disabled="b.unique || !b.canUse(game) || minions.freeSpace() == 0">Buy</button></td>
 				</tr>
 			</table>
 		</div>

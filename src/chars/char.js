@@ -116,13 +116,12 @@ export default class Char {
 
 	hasDot(id) {
 		for (let i = this.dots.length - 1; i >= 0; i--) {
-			//console.log('TRY cure: ' + this.dots[i].id + ': ' + this.dots[i].kind );
+
 			if (this.dots[i].id === id || this.dots[i].kind === id || this.dots[i].hasTag(id)) {
-				//console.log('FOUND: ' + id);
+
 				return this.dots[i];
 			}
 		}
-		//console.log('NOT FOUND: ' + id);
 		return false
 	}
 
@@ -234,9 +233,9 @@ export default class Char {
 		}
 
 		for (let i = this.dots.length - 1; i >= 0; i--) {
-			//console.log('TRY cure: ' + this.dots[i].id + ': ' + this.dots[i].kind );
+
 			if (this.dots[i].id === state || this.dots[i].kind === state || this.dots[i].hasTag(state)) {
-				console.log('CURING: ' + state);
+
 				this.rmDot(i);
 				return;
 			}
@@ -468,62 +467,62 @@ export default class Char {
 
 			this.timer += getDelay(this.speed);
 
-			for (let i = this.castAmt(this.chaincast); i > 0; i--) {
-				if (this.spells) {
-					let s = this.tryCast()
-					if (s) {
-						let a
-						if (s.caststoppers) {
-							for (let b of s.caststoppers) {
-								a = this.getCause(b);
-								if (a) break;
-							}
-						}
-						if (a) {
-							Events.emit(STATE_BLOCK, this, a);
-						}
-						else {
-							let logged = false;
-							if (s.attack || s.action) {
-								Events.emit(CHAR_ACTION, s, this.context);
-								logged = true;
-							}
-							if (s.mod) {
-								this.context.applyMods(this.mod);
-								if (!logged) {
-									Events.emit(EVT_COMBAT, this.name + ' uses ' + s.name);
-									logged = true;
-								}
-							}
-							if (s.create) this.context.create(s.create);
-							if (s.summon) {
-								for (let smn of s.summon) {
-									if (smn[TYP_PCT] && !smn[TYP_PCT].roll()) {
-										continue;
-									}
-									let smnid = smn.id
-									let smncount = smn.count || 1
-									let smnmax = smn.max || 0
-									this.context.create(smnid, undefined, smncount, smnmax)
-								}
-							}
-							if (s.result) {
-								if (!logged) {
-									Events.emit(EVT_COMBAT, this.name + ' uses ' + s.name);
-									logged = true;
-								}
-								this.context.applyVars(s.result, 1);
-							}
-							if (s.dot) {
-								if (!logged) {
-									Events.emit(EVT_COMBAT, this.name + ' uses ' + s.name);
-									logged = true;
-								}
-								this.context.self.addDot(s.dot, s, null, this);
-							}
-						}
+			for (let i = this.spells ? this.castAmt(this.chaincast) : 0; i > 0; i--) {
+
+				const s = this.tryCast();
+				if (!s) break;
+
+				if (s.caststoppers) {
+					let a;
+					for (const b of s.caststoppers) {
+						a = this.getCause(b);
+						if (a) break;
+					}
+					if (a) {
+						Events.emit(STATE_BLOCK, this, a);
+						continue;
 					}
 				}
+
+				let logged = false;
+				if (s.attack || s.action) {
+					Events.emit(CHAR_ACTION, s, this.context);
+					logged = true;
+				}
+				if (s.mod) {
+					this.context.applyMods(this.mod);
+					if (!logged) {
+						Events.emit(EVT_COMBAT, this.name + ' uses ' + s.name);
+						logged = true;
+					}
+				}
+				if (s.create) this.context.create(s.create);
+				if (s.summon) {
+					for (const smn of s.summon) {
+						if (smn[TYP_PCT] && !smn[TYP_PCT].roll()) {
+							continue;
+						}
+						const smncount = smn.count || 1
+						const smnmax = smn.max || 0
+						this.context.create(smn.id, undefined, smncount, smnmax)
+					}
+				}
+				if (s.result) {
+					if (!logged) {
+						Events.emit(EVT_COMBAT, this.name + ' uses ' + s.name);
+						logged = true;
+					}
+					this.context.applyVars(s.result, 1);
+				}
+				if (s.dot) {
+					if (!logged) {
+						Events.emit(EVT_COMBAT, this.name + ' uses ' + s.name);
+						logged = true;
+					}
+					this.context.self.addDot(s.dot, s, null, this);
+				}
+
+
 			}
 
 			return this.getCause(NO_ATTACK) || this.getAttack();
@@ -531,6 +530,7 @@ export default class Char {
 		}
 
 	}
+
 
 	/**
 	 * Get bonus damage for the damage type.
@@ -634,6 +634,7 @@ export default class Char {
 	castAmt(casts) {
 		return Math.floor(casts) + (Math.random() < (casts - Math.floor(casts)))
 	}
+
 	instanceDot(dot, applier) {
 
 		dot.damage = CalcDamage(dot.damage, dot, applier, this);

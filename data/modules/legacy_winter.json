@@ -958,7 +958,7 @@
 		],
 		"hall": {
 			"data": {
-				"upgrades": [
+				"upgrades_unused": [
 					{
 						"id": "fazbit_restoration",
 						"name": "fazbit's workshop restoration project",
@@ -988,10 +988,13 @@
 							"machinacreation.buy.sp": -1,
 							"automatasculpting.buy.sp": -2
 						}
-					},
+					}
+				],
+				"upgrades": [
 					{
 						"id": "fazbitjolliness",
 						"name": "fazbit's jolliness",
+						"sym": "🏰❄️",
 						"require": "g.fazbithearth>0",
 						"desc": "Even in the depths of frost and cold, warmth endures.",
 						"max": 1,

@@ -105,6 +105,12 @@ export default class Spell extends Task {
 		return !this.only || canTarget(this.only, targ);
 
 	}
+	canRez(targ) {
+
+		if (targ.level && (this.resurrect.maxlevel < targ.level)) return false;
+		return !this.resurrect.only || canTarget(this.resurrect.only, targ);
+
+	}
 
 
 };

@@ -5,10 +5,10 @@
 			{
 				"id": "sackguild",
 				"name": "guild of the sack makers",
-				"require": "(g.demonbag+g.bloodbag+g.bagofholding)>0",
+				"require": "g.t_craftedbag>0",
 				"level": 19,
 				"run": {
-					"stamina": 5
+					"stamina": 3.5
 				},
 				"start": {
 					"name": "Guild Practices",
@@ -211,7 +211,7 @@
 					"targets": ["single"],
 					"delivery": ["instant"]
 				},
-				"require": "g.sackguild>=10",
+				"require": "g.sackguild>0",
 				"buy": {
 					"arcana": 10,
 					"tomes": 10

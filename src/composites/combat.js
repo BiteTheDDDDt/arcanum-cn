@@ -117,7 +117,6 @@ export default class Combat {
 			it = this._allies[i];
 			if (typeof it === 'string') this._allies[i] = gs.minions.find(it);
 			else if (it && typeof it === 'object' && !(it instanceof Npc)) {
-				console.log('NEW ALLY');
 				this._allies[i] = itemRevive(gs, it);
 			}
 
@@ -218,43 +217,41 @@ export default class Combat {
 	 */
 	spellAction(it, g) {
 		//first we check if the action has any caststoppers - aka conditions that would prevent it. If it does, we check if we have any of those conditions, and if we have even 1, gg.
-		let a
+
 		if (it.caststoppers) {
-			for (let b of it.caststoppers) {
-				a = g.self.getCause(b);
-				if (a) break;
-			}
-		}
-		if (a) {
-			Events.emit(STATE_BLOCK, g.self, a);
-
-		} else {
-
-			//Events.emit(EVT_COMBAT, null, g.self.name + ' casts ' + it.name + ' at the darkness.' );
-			//This capitalizes all the spells in the combat log.
-			Events.emit(EVT_COMBAT, g.self.name.toTitleCase() + ' Casts ' + it.name.toTitleCase());
-			if (it.attack) {
-				this.attack(g.self, it.attack);
-			}
-			if (it.action) {
-
-				console.log('ACTION: ' + it.action);
-				let target = this.getTarget(g.self, it.action.targets, it.action.targetspec);
-
-				if (!target) return;
-				if (Array.isArray(target)) {
-
-					for (let i = target.length - 1; i >= 0; i--) ApplyAction(target[i], it.action, g.self, 0, this.player);
-
-				} else {
-					ApplyAction(target, it.action, g.self, 0, this.player);
+			for (const b of it.caststoppers) {
+				const stopper = g.self.getCause(b);
+				if (stopper) {
+					Events.emit(STATE_BLOCK, g.self, stopper);
+					return;
 				}
-
-
 			}
 		}
+
+		//This capitalizes all the spells in the combat log.
+		Events.emit(EVT_COMBAT, g.self.name.toTitleCase() + ' Casts ' + it.name.toTitleCase());
+		if (it.attack) {
+			this.attack(g.self, it.attack);
+		}
+		if (it.action) {
+
+			const target = this.getTarget(g.self, it.action.targets, it.action.targetspec);
+
+			if (!target) return;
+			if (Array.isArray(target)) {
+
+				for (let i = target.length - 1; i >= 0; i--) ApplyAction(target[i], it.action, g.self, 0, this.player);
+
+			} else {
+				ApplyAction(target, it.action, g.self, 0, this.player);
+			}
+
+
+		}
+
 
 	}
+
 	/**
 	 * item-casted spell or action attack.
 	 * @param {Item} it
@@ -270,7 +267,6 @@ export default class Combat {
 		}
 		if (it.use.action) {
 
-			console.log('ACTION: ' + it.use.action);
 			let target = this.getTarget(g.self, it.use.action.targets, it.use.action.targetspec);
 
 			if (!target) return;
@@ -295,7 +291,6 @@ export default class Combat {
 		}
 		if (it.action) {
 
-			console.log('ACTION: ' + it.action);
 			let target = this.getTarget(g.self, it.action.targets, it.action.targetspec);
 
 			if (!target) return;
@@ -654,7 +649,7 @@ export default class Combat {
 		};
 		*/
 		let sig = Math.min(0.95, (9 + Math.pow(Math.max(0, (dodge - tohit) + 14.7), 2)) / 900); // chance to dodge or parry
-		//console.log( 'dodge: ' + dodge + ' tohit: ' + tohit + '  sig: ' + sig );
+
 		let a = sig - Math.random()
 		return a > 0 ? a : false;
 

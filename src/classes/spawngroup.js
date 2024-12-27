@@ -12,8 +12,6 @@ import FValue from '@/values/rvals/fvalue';
 const MakeSpawn = (e) => {
 
 	e = Game.getData(e);
-	//console.log('spawn: ' + e + '  unique? ' + Game.state.hasUnique(e) + '  type? ' + e.type );
-	//console.log('spawn: ' + e + '  locked? ' + e.locked + '  disabled ' + e.disabled + ' locks: ' + e.locks  );
 
 	if (!e || Game.state.hasUnique(e) || (e.locked || e.disabled || e.locks > 0)) return null;
 
@@ -94,8 +92,6 @@ export default class SpawnGroup {
 		let e;
 
 		if (typeof this.ids === 'string') {
-
-			//console.log('TRY SPAWN: '  + this.spawns );
 
 			e = MakeSpawn(this.ids, pct);
 			if (e === null) return null;

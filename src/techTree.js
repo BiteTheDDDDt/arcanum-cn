@@ -233,9 +233,6 @@ export default class TechTree {
 
 		while (results = FuncRE.exec(text)) {
 
-			//var varPath = results[1];
-			//console.log( item.id + 'require: ' + varPath );
-
 			let unlocker = results[1].split('.')[0];
 			if (unlocker === 'mod' || unlocker === 'slot') continue;
 			this.mapIdRequire(targ, unlocker, graph);
@@ -273,7 +270,7 @@ export default class TechTree {
 		if (it === undefined) return;
 		else if (it instanceof TagSet) {
 			return it.forEach(v => {
-				//console.log( it.id + ': ' +v.id + ' unlock: ' + targ.id );
+
 				this.mapIdRequire(targ, v.id, graph)
 			}
 			);

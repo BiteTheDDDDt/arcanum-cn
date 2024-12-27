@@ -118,7 +118,7 @@ export default {
 		},
 		only() {
 			let onlystring = ""
-			//			let onlyArr = this.attack.only.split(',');
+			//let onlyArr = this.attack.only.split(',');
 			for (let o of this.attack.only) {
 				if (onlystring != "") onlystring = onlystring.concat(", ");
 				o = game.state.tagSets[o] || o
@@ -153,19 +153,19 @@ export default {
 					</span><span>{{ attack.name.toString().toTitleCase() }}</span></div>
 
 				<div v-if="damage">
-					<div v-if="hitBonus">Hit Bonus: {{ hitBonus }}</div>
 					<div class="damage">Estimated damage: {{ damage }}<span v-if="bonus">{{ bonus }}</span></div>
+					<div v-if="attack.repeathits">Total hits: {{ attack.repeathits }}</div>
+					<div v-if="attack.kind">Damage Type: {{ attack.kind.toString().toTitleCase() }}</div>
+					<div v-if="attack.potencies">Scales with: {{ potency || 'No' }} Potencies</div>
 					<div v-if="attack.leech">Returns {{ leech }} of damage as healing</div>
-					<div v-if="attack.repeathits">Repeats: {{ attack.repeathits }} times</div>
-					<div v-if="attack.potencies">Damage scaling: {{ potency }}</div>
-					<div v-if="attack.kind">Kind: {{ attack.kind.toString().toTitleCase() }}</div>
 					<div v-if="attack.nodefense">Ignores defense</div>
+					<div v-if="hitBonus">Hit Bonus: {{ hitBonus }}</div>
 				</div>
 
 				<div v-if="healing">
 					<div class="damage">Estimated healing: {{ healing }}<span v-if="bonus">{{ bonus }}</span></div>
-					<div v-if="attack.potencies">Heal scaling: {{ potency }}</div>
-					<div v-if="attack.kind">Kind: {{ attack.kind.toString().toTitleCase() }}</div>
+					<div v-if="attack.kind">Heal Type: {{ attack.kind.toString().toTitleCase() }}</div>
+					<div v-if="attack.potencies">Scales with: {{ potency || 'No'}} Potencies</div>
 				</div>
 				<div v-if="attack.noparry">Cannot be parried</div>
 				<div v-if="attack.nododge">Cannot be dodged</div>

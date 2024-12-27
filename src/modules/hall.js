@@ -119,9 +119,6 @@ export default class Hall {
 
 		if (!this.name) this.name = "Wizard's Hall";
 
-		/*if ( this.items ) {
-			console.log( 'EVT HALL: ' + this.items.evt_hall.value );
-		} else console.warn('HALL NOT YET OWNED');*/
 		this.max = this.items.hallSize;
 
 		this.points = this.items.hallPoints;

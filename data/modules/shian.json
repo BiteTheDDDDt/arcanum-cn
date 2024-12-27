@@ -520,7 +520,7 @@
 		"dungeons": [
 			{
 				"id": "unstablespire",
-				"name": "the unstable spire",
+				"name": "The unstable spire",
 				"desc": "A large spire which rose from the ground. It looks like it might collapse any day now",
 				"require": "evt_hole",
 				"level": 15,

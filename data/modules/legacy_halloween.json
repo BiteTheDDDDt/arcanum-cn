@@ -1,7 +1,7 @@
 {
 	"module": "legacy_halloween",
 	"data": {
-		"potions_unused": [
+		"potions": [
 			{
 				"id": "pumpcider",
 				"name": "spoiled pumpkin cider",
@@ -118,9 +118,8 @@
 				"effect": {
 					"bf": "1~2"
 				},
-				"result":
-				{
-					"res_treat":1
+				"result": {
+					"res_treat": 1
 				}
 			},
 			{
@@ -281,7 +280,7 @@
 				"attack": {
 					"kind": "slash",
 					"damage": "i.damage||0",
-					"nodefense":true,
+					"nodefense": true,
 					"potencies": ["sworddmg", "slashdmg", "physdmg"]
 				}
 			},
@@ -299,7 +298,7 @@
 						"kind": "void",
 						"targets": "enemyleader",
 						"damage": "(i.damage||0)*2",
-						"nodefense":true,
+						"nodefense": true,
 						"potencies": ["physdmg", "voiddmg", "sworddmg"]
 					},
 					{
@@ -307,7 +306,7 @@
 						"kind": "void",
 						"targets": "flunky",
 						"damage": "(i.damage||0)*5",
-						"nodefense":true,
+						"nodefense": true,
 						"potencies": ["physdmg", "voiddmg", "sworddmg"]
 					},
 					{
@@ -378,7 +377,7 @@
 		],
 		"hall": {
 			"data": {
-				"upgrades_unused": [
+				"upgrades": [
 					{
 						"id": "hal_trick_pumpkin",
 						"name": "mischievous wisps",
@@ -401,7 +400,6 @@
 							"herbalism.max": 1
 						}
 					}
-				
 				]
 			}
 		},

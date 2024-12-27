@@ -106,27 +106,6 @@
 			}
 		],
 		"tasks": [
-			{
-				"id": "stabilize",
-				"desc": "Untangle the paradoxes. Assert your existence.",
-				"require": "g.instability>=25",
-				"tags": "t_rest",
-				"slot": "rest",
-				"verb": "anchoring",
-				"perpetual": true,
-				"effect": {
-					"prismatic": 0.15,
-					"stamina": 0.2,
-					"vigor": 0.02,
-					"hp": 0.3,
-					"stress": -0.2,
-					"tempus": 0.1,
-					"instability": -1,
-					"timeparadox": -0.01
-				},
-				"flavor": "It's as if you ever existed.",
-				"group": "rest"
-			}
 		],
 		"potions": [
 			{
@@ -147,8 +126,8 @@
 				"use": {
 					"dot": {
 						"mod": {
-							"stabilize.effect.instability": -0.5,
-							"stabilize.effect.timeparadox": -0.01
+							"stabilizerest.mod.t_rest.effect.instability": -0.5,
+							"stabilizerest.mod.t_rest.effect.timeparadox": -0.01
 						},
 						"duration": 3600
 					}
@@ -256,6 +235,25 @@
 		],
 		"upgrades": [
 			{
+				"id": "stabilizerest",
+				"name": "stabilize",
+				"desc": "Untangle the paradoxes. Assert your existence.",
+				"require": "g.instability>=25",
+				"tags": "t_restmod",
+				"slot": "leisure",
+				"max": 1,
+				"buy": {
+					"tempus": 100
+				},
+				"mod": {
+					"t_rest.effect.tempus": 0.1,
+					"t_rest.effect.instability": -1,
+					"t_rest.effect.timeparadox": -0.01
+				},
+				"flavor": "It's as if you ever existed.",
+				"group": "rest"
+			},
+			{
 				"id": "timeledger",
 				"name": "ledger of time",
 				"desc": "A book of uncertain dimensions, containing exacting information about various states of the universe.",
@@ -266,8 +264,8 @@
 					"timerune": 2
 				},
 				"mod": {
-					"stabilize.effect.instability": -0.3,
-					"stabilize.effect.timeparadox": -0.01
+					"stabilizerest.mod.t_rest.effect.instability": -0.3,
+					"stabilizerest.mod.t_rest.effect.timeparadox": -0.01
 				},
 				"group": "instability"
 			},
@@ -309,17 +307,12 @@
 				"desc": "With the immense amount of practice, you can streamline the stabilization process allowing you to regain more strength while using it.",
 				"require": "g.timerip_locale>=5&&g.chronomancy>=5",
 				"cost": {
-					"research": 33333,
-					"timegem": 20,
-					"timerune": 3
+					"research": 3333,
+					"timegem": 6
 				},
 				"mod": {
-					"stabilize.effect.prismatic": 0.15,
-					"stabilize.effect.stamina": 0.2,
-					"stabilize.effect.vigor": 0.02,
-					"stabilize.effect.hp": 0.3,
-					"stabilize.effect.stress": -0.2,
-					"stabilize.effect.tempus": 0.1
+					"stabilizerest.mod.t_rest.effect.stress": -0.2,
+					"stabilizerest.mod.t_rest.effect.tempus": 0.1
 				},
 				"group": "instability"
 			},

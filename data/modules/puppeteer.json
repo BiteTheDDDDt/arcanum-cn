@@ -716,9 +716,13 @@
 					"research": 500,
 					"puppets": 5
 				},
-				"only": "puppet",
 				"cost": {
-					"puppets": 3
+					"puppets": 1
+				},
+				"resurrect": {
+					"only": "puppet",
+					"maxlevel": 20,
+					"count": 2
 				}
 			},
 			{
@@ -726,7 +730,7 @@
 				"name": "repair machina",
 				"desc": "Repair a wrecked machina.",
 				"sortOrder": 1837,
-				"level": 20,
+				"level": 2,
 				"school": "animation",
 				"tags": "rez",
 				"keywords": {
@@ -740,9 +744,13 @@
 					"research": 8000,
 					"machinae": 10
 				},
-				"only": "machina",
 				"cost": {
-					"machinae": 3
+					"machinae": 1
+				},
+				"resurrect": {
+					"only": "machina",
+					"maxlevel": 40,
+					"count": 2
 				}
 			},
 			{
@@ -750,7 +758,7 @@
 				"name": "tune automata",
 				"desc": "Re-tune a discordant automata.",
 				"sortOrder": 1836,
-				"level": 30,
+				"level": 3,
 				"school": "animation",
 				"tags": "rez",
 				"keywords": {
@@ -764,9 +772,13 @@
 					"research": 8000,
 					"automatas": 20
 				},
-				"only": "automata",
 				"cost": {
-					"automatas": 3
+					"automatas": 1
+				},
+				"resurrect": {
+					"only": "automata",
+					"maxlevel": 60,
+					"count": 2
 				}
 			},
 			{
@@ -860,7 +872,8 @@
 			},
 			{
 				"id": "mk_puppet",
-				"name": "animate puppet attacker",
+				"name": "construct puppet attacker",
+				"desc": "Summon a temporary puppet to assist you in a fight",
 				"sortOrder": 1882,
 				"level": 1,
 				"school": "animation",
@@ -876,6 +889,36 @@
 					"puppets": 5
 				},
 				"cost": {
+					"puppets": 1,
+					"spirit": 2
+				},
+				"summon": [
+					{
+						"id": "puppetattacker",
+						"count": 1,
+						"max": 3
+					}
+				]
+			},
+			{
+				"id": "mk_puppet_perm",
+				"name": "animate puppet attacker",
+				"desc": "Create a stable puppet attacker",
+				"sortOrder": 1882,
+				"level": 1,
+				"school": "animation",
+				"keywords": {
+					"type": ["summon"],
+					"target": ["ally"],
+					"targets": ["single"],
+					"delivery": ["instant"]
+				},
+				"require": "g.puppetry>=5&&g.puppeteer>0",
+				"buy": {
+					"research": 500,
+					"puppets": 5
+				},
+				"cost": {
 					"puppets": 5,
 					"spirit": 10
 				},
@@ -883,13 +926,14 @@
 					{
 						"id": "puppetattacker",
 						"count": 1,
-						"max": 5
+						"keep": true
 					}
 				]
 			},
 			{
 				"id": "mk_charger",
-				"name": "assemble mecha-charger",
+				"name": "construct mecha-charger",
+				"desc": "Summon a temporary machina to assist you in a fight",
 				"sortOrder": 1872,
 				"level": 1,
 				"school": "animation",
@@ -905,19 +949,48 @@
 					"machinae": 10
 				},
 				"cost": {
+					"machinae": 1
+				},
+				"summon": [
+					{
+						"id": "mechacharger",
+						"count": 1,
+						"max": 1
+					}
+				]
+			},
+			{
+				"id": "mk_charger_perm",
+				"name": "assemble mecha-charger",
+				"sortOrder": 1872,
+				"level": 1,
+				"school": "animation",
+				"keywords": {
+					"type": ["summon"],
+					"target": ["ally"],
+					"targets": ["single"],
+					"delivery": ["instant"]
+				},
+				"require": "g.machinacreation>=5&&g.mechanist>0",
+				"buy": {
+					"research": 8000,
+					"machinae": 10
+				},
+				"cost": {
 					"machinae": 5
 				},
 				"summon": [
 					{
 						"id": "mechacharger",
 						"count": 1,
-						"max": 2
+						"keep": true
 					}
 				]
 			},
 			{
 				"id": "mk_autoslayer",
-				"name": "shape autoslayer",
+				"name": "construct autoslayer",
+				"desc": "Summon a temporary automata to assist you in a fight",
 				"sortOrder": 1862,
 				"level": 1,
 				"school": "animation",
@@ -930,7 +1003,35 @@
 				"require": "g.automatasculpting>=5",
 				"buy": {
 					"research": 8000,
-					"automatas": 20
+					"automatas": 10
+				},
+				"cost": {
+					"automatas": 1
+				},
+				"summon": [
+					{
+						"id": "autoslayer",
+						"count": 1,
+						"max": 1
+					}
+				]
+			},
+			{
+				"id": "mk_autoslayer_perm",
+				"name": "shape autoslayer",
+				"sortOrder": 1862,
+				"level": 1,
+				"school": "animation",
+				"keywords": {
+					"type": ["summon"],
+					"target": ["ally"],
+					"targets": ["single"],
+					"delivery": ["instant"]
+				},
+				"require": "g.automatasculpting>=5&&g.mechamancer>0",
+				"buy": {
+					"research": 8000,
+					"automatas": 15
 				},
 				"cost": {
 					"automatas": 5
@@ -939,7 +1040,7 @@
 					{
 						"id": "autoslayer",
 						"count": 1,
-						"max": 1
+						"keep": true
 					}
 				]
 			},
@@ -969,7 +1070,7 @@
 					{
 						"id": "puppetdefender",
 						"count": 1,
-						"max": 5
+						"keep": true
 					}
 				]
 			},
@@ -997,7 +1098,7 @@
 					{
 						"id": "mechamender",
 						"count": 1,
-						"max": 2
+						"keep": true
 					}
 				]
 			},
@@ -1025,7 +1126,7 @@
 					{
 						"id": "autocaster",
 						"count": 1,
-						"max": 1
+						"keep": true
 					}
 				]
 			},
@@ -1056,7 +1157,8 @@
 					{
 						"id": "clockcrow",
 						"count": 1,
-						"max": 5
+						"max": 5,
+						"keep": true
 					}
 				]
 			},
@@ -1088,7 +1190,8 @@
 					{
 						"id": "clockservant",
 						"count": 1,
-						"max": 3
+						"max": 3,
+						"keep": true
 					}
 				]
 			},
@@ -1121,7 +1224,8 @@
 					{
 						"id": "clockknight",
 						"count": 1,
-						"max": 3
+						"max": 3,
+						"keep": true
 					}
 				]
 			},
@@ -2250,7 +2354,6 @@
 					"tier1": true,
 					"t_skill_animation.rate": 0.5,
 					"puppetry.max": 2,
-					"minions.keep": "puppet",
 					"magicalanimation.max": 1,
 					"allies.max": 5,
 					"clockworkhome.mod.space.max": 50,
@@ -2276,7 +2379,6 @@
 					"tier3": true,
 					"t_skill_animation.rate": 1,
 					"puppetry.max": 1,
-					"minions.keep": "machina",
 					"magicalanimation.max": 2,
 					"machinacreation.max": 2,
 					"allies.max": 5,
@@ -2305,7 +2407,6 @@
 					"magicalanimation.max": 1,
 					"machinacreation.max": 2,
 					"automatasculpting.max": 3,
-					"minions.keep": "automata",
 					"allies.max": 5,
 					"clockworkhome.mod.space.max": 150,
 					"shapinglab.max": 2,
@@ -2574,7 +2675,7 @@
 					"gold": 5
 				},
 				"mod": {
-					"puppetry.max": "0.5//2/2"
+					"puppetry.max": "0.5//2/-1"
 				},
 				"loot": {
 					"herbs": "1~3",

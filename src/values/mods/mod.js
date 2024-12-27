@@ -129,12 +129,9 @@ export default class Mod extends Stat {
 			if (res) {
 
 				if (res.length === 3) {
-					//console.log('res len 3: ' + v );
-					//res.forEach((v,i)=>console.log('reg['+i+']: ' + v ));
 					this.base = Number(res[1]) || 0;
 					this.basePct = Number(res[2]) / 100 || 0;
 				} else if (res.length === 2) {
-					console.log('RES LEN IS 2: ' + v);
 					this.base = res[1] || 0;
 					this.basePct = 0;
 				}
@@ -254,13 +251,9 @@ export default class Mod extends Stat {
 				console.log('NOT WRITABLE: ' + p);
 				return null;
 			}
-			//console.log( p + ': STAT FROM NUMBER: ' + obj[p] );
 
 			const s = obj[p] = new Stat(targ || 0, (obj.id ? obj.id + '.' : '') + p);
 			s.addMod(this, amt);
-
-			/*if ( isMod ) console.log('SHOULD BE MOD: ' + s.id );
-			else console.log( this.id + ' NEW STAT: ' +  s.id );*/
 
 		} else if (targ === null || targ === undefined) {
 
@@ -268,7 +261,6 @@ export default class Mod extends Stat {
 
 		} else if (typeof targ === 'object') {
 
-			//console.dir( targ,  this.id + ' UNKNOWN MOD TARGET')
 			if (Array.isArray(targ)) {
 
 				//Theorhetical
@@ -290,7 +282,7 @@ export default class Mod extends Stat {
 					if (!targ) {
 						return;
 					}
-					//console.warn(p);
+
 					if (DESCENDLIST.includes(p) || descend) {
 						let val = null;
 						for (let subtarg in targ) {
@@ -300,12 +292,12 @@ export default class Mod extends Stat {
 								console.warn("Skipping boolean value: " + p + "." + subtarg);
 								continue;
 							}
-							//console.warn(retarg);
+
 
 							if (typeof retarg === 'undefined') {
 								continue;
 							}
-							//console.warn(this.id + " applying to " + obj.id + "." + p + "." + subtarg + " " + amt);
+
 							val = this.applyTo(targ, subtarg, amt, true);
 
 							res.unshift(val);

@@ -57,6 +57,7 @@ export const TRY_USE_WITH = "tryUseOn";
 export const USE = "use";
 
 export const SET_SLOT = "set_slot";
+export const CLEAR_SLOT = "clear_slot";
 
 /**
  * @event DROP_ITEM - permanently remove an instanced item.
@@ -211,7 +212,6 @@ export default {
 		 */
 		this._triggers = {};
 
-		console.log("clearGameEvents()");
 		this.clearGameEvents();
 
 		events.addListener(EVT_LOOT, this.onLoot, this);

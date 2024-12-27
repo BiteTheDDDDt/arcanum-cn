@@ -67,10 +67,8 @@ export default {
 
 			if (copy) {
 				this.spellLoadouts.create(Game.state, copy);
-				console.log("Copying list");
 			} else {
 				this.spellLoadouts.create(Game.state);
-				console.log("Creating empty list");
 			}
 
 		}
@@ -83,13 +81,13 @@ export default {
 		 * total spell levels in the spelllist exceed
 		 * the character's current spelllist.max
 		 */
-/*
-		let curList = Game.state.items.spelllist
-		if (curList.used > curList.max.value) {
-			curList.removeAt(curList.items.length - 1);
-		}
-	},
-	*/
+	/*
+			let curList = Game.state.items.spelllist
+			if (curList.used > curList.max.value) {
+				curList.removeAt(curList.items.length - 1);
+			}
+		},
+		*/
 	/*updated() {
 		this.$parent.$emit('cascadeUpdate', 'spellbook');
 	}*/
@@ -104,27 +102,29 @@ export default {
 		<div v-if="topTier >= 1" class="spellloadouts">
 			<div><select @change="chooseLoadout()">
 					<option v-for="loadout in spellLoadouts.items" :value="loadout.id"
-						:selected="currentSpellLoadout === loadout.id">
+							:selected="currentSpellLoadout === loadout.id">
 						{{ loadout.name }}
 					</option>
 				</select>
 			</div>
 			<span class="warn-text" v-if="spellLoadouts.items.length > topTier">At your limit of {{ topTier + 1 }} spell
 				lists.</span>
-			<div v-if="!(spellLoadouts.items.length > topTier)"><button type="button" @click="create(true)">Copy List</button><button
-					@click="create(null)">New List</button></div>
+			<div v-if="!(spellLoadouts.items.length > topTier)"><button type="button" @click="create(true)">Copy
+					List</button><button
+						@click="create(null)">New List</button></div>
 
 			<span class="hint">You can press Alt+{Num} to change lists as well.</span>
 
 			<div v-for="(l, index) in spellLoadouts.items" class="custom" :key="'l' + index">
 				<span class="text-entry">
 					[{{ index + 1 }}]<input class="fld-name" type="text" v-model="l.name">
-					<button type="button" :disabled="!(index > 0)" class="stop" @click="spellLoadouts.moveInd(index, -1)">↑</button>
+					<button type="button" :disabled="!(index > 0)" class="stop"
+							@click="spellLoadouts.moveInd(index, -1)">↑</button>
 					<button type="button" :disabled="!(index < spellLoadouts.items.length - 1)" class="stop"
-						
-						@click="spellLoadouts.moveInd(index, 1)">↓</button>
+
+							@click="spellLoadouts.moveInd(index, 1)">↓</button>
 					<button type="button" :disabled="l.id === currentSpellLoadout" class="stop"
-						@click="spellLoadouts.removeAt(index)">X</button>
+							@click="spellLoadouts.removeAt(index)">X</button>
 				</span>
 			</div>
 		</div>
@@ -135,9 +135,10 @@ export default {
 			<div class='warn-text note-text' v-if="list.full()">Spelllist is Full</div>
 		</span>
 
-		<div v-for="(it, ind) in list.items" :key="ind" @mouseenter.capture.stop="	($event, it)">
+		<div v-for="(it, ind) in list.items" :key="ind" @mouseenter.capture.stop="itemOver($event, it)">
 			<button type="button" :disabled="!(ind > 0)" class="stop" @click="list.moveInd(ind, -1)">↑</button>
-			<button type="button" :disabled="!(ind < list.items.length - 1)" class="stop" @click="list.moveInd(ind, 1)">↓</button>
+			<button type="button" :disabled="!(ind < list.items.length - 1)" class="stop"
+					@click="list.moveInd(ind, 1)">↓</button>
 			<button type="button" class="stop" @click="list.removeAt(ind)">X</button>
 			<span>{{ it.name.toTitleCase() }}</span>
 		</div>

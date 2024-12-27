@@ -112,12 +112,22 @@ export default class Task extends GData {
 
 	}
 
+	get exclude() { return this._exclude; }
+	set exclude(v) {
+		this._exclude = typeof v === 'string' ? v.split(',') : v;
+	}
+
+	get only() { return this._only; }
+	set only(v) {
+		this._only = typeof v === 'string' ? v.split(',') : v;
+	}
+	
 	get running() { return this._running; }
 	set running(v) { this._running = v; }
 
 	get timer() { return this._timer }
 	set timer(v) { this._timer = v }
-	
+
 	percent() { return 100 * (this._exp / this._length); }
 
 	constructor(vars = null) {
@@ -293,10 +303,8 @@ export default class Task extends GData {
 	tick(dt) {
 
 		this.timer -= dt;
-		//console.log('TIME TICK: ' + this.timer );
 		if (this.timer < 0) {
 
-			//console.log('timer: ' + this.timer );
 			this.timer = 0;
 			return true;
 

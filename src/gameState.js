@@ -10,7 +10,7 @@ import Group from '@/composites/group';
 import SpellLoadouts from '@/inventories/spellLoadouts';
 import UserSpells from '@/inventories/userSpells';
 import Quickbars from '@/composites/quickbars';
-import { WEARABLE, ARMOR, WEAPON, HOME, PURSUITS, ENCHANTSLOTS, TimeId, COMPANION } from '@/values/consts';
+import { WEARABLE, ARMOR, WEAPON, HOME, PURSUITS, GOALS, ENCHANTSLOTS, TimeId, COMPANION } from '@/values/consts';
 import Stat from '@/values/rvals/stat';
 import TagSet from '@/composites/tagset';
 import EnchantSlots from '@/inventories/enchantslots';
@@ -190,8 +190,11 @@ export default class GameState {
 		this.items.currentSpellLoadout = this.currentSpellLoadout;
 
 		this.items.pursuits = new DataList(this.items.pursuits);
+		this.items.goals = new DataList(this.items.goals);
 		this.items.pursuits.id = PURSUITS;
 		this.items.pursuits.order = ORDER;
+		this.items.goals.id = GOALS;
+		this.items.goals.order = ORDER;
 
 	}
 
@@ -199,7 +202,6 @@ export default class GameState {
 
 		console.log('Reviving GameState Items');
 		this.reviveItems();
-
 
 		this.reviveSpecial();
 
@@ -285,7 +287,7 @@ export default class GameState {
 		for (let p in this.slots) {
 			if (typeof this.slots[p] === 'string') this.slots[p] = this.getData(this.slots[p]);
 		}
-		this.restAction = this.slots[REST_SLOT];
+		this.restAction = this.slots[REST_SLOT] || Game.getData("rest");
 
 		this.equip.revive(this);
 
@@ -316,8 +318,6 @@ export default class GameState {
 			 * and can be referenced.
 			 */
 			if (it.revive && typeof it.revive === 'function' && !manualRevive.has(p)) {
-
-				//console.log('REVIVING: ' + it.id );
 				it.revive(this);
 			}
 
@@ -407,9 +407,6 @@ export default class GameState {
 	 * @param {number} slotNum
 	 */
 	setQuickSlot(it, slotNum) {
-
-		//console.log('QUICK: ' + it.name );
-
 		this.bars.active.setSlot(it, slotNum);
 	}
 
@@ -503,7 +500,6 @@ export default class GameState {
 		this.items[it.id] = it;
 
 		if (it.module !== 'hall') {
-			//console.log('ADDING SAVE ITEM: ' + it.id );
 			this.saveItems[it.id] = it;
 		}
 

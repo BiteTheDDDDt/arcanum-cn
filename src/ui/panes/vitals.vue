@@ -153,7 +153,7 @@ export default {
 <style scoped>
 .vitals {
 	text-transform: capitalize;
-	min-width: 15rem;
+	min-width: 20rem;
 	overflow-y: auto;
 	overflow-x: hidden;
 }

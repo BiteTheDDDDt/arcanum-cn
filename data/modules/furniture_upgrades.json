@@ -6,7 +6,7 @@
 				"id": "better_arcanestudy",
 				"name": "magically soundproofed study",
 				"desc": "Magically refine your enchanted study into an ideal location for researching topics without any distractions.",
-				"require": "g.arcanestudy>0&&g.airlore2>=1",
+				"require": "g.enchanted_study>0&&g.airlore2>=1",
 				"cost": {
 					"tomes": 15,
 					"gold": 6750,
@@ -15,8 +15,7 @@
 					"arcana": 12
 				},
 				"mod": {
-					"studyroom.mod.focus.result.runner.skillprogress": "10%",
-					"arcanestudy.mod.focus.result.runner.skillprogress": "15%"
+					"studyroom.mod.focus.result.runner.skillprogress": "25%"
 				},
 				"group": "furniture"
 			},

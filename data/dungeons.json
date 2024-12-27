@@ -18,7 +18,14 @@
 			"10": ["kakapo"],
 			"5": ["gardengnome"]
 		},
-		"spawns": [["newt", "newt", "newt"], "lgmouse", "bigstone", "stingybee", "smsnake", "twikman"],
+		"spawns": [
+			["newt", "newt", "newt"],
+			"lgmouse",
+			"bigstone",
+			"stingybee",
+			"smsnake",
+			"twikman"
+		],
 		"flavor": "Every budding mage needs to start somewhere."
 	},
 	{
@@ -36,7 +43,14 @@
 		"loot": {
 			"maxlevel": 2
 		},
-		"spawns": [["stingybee", "stingybee"], "lgrat", "smbox", "gremlin", "angrybird", "smsnake"],
+		"spawns": [
+			["stingybee", "stingybee"],
+			"lgrat",
+			"smbox",
+			"gremlin",
+			"angrybird",
+			"smsnake"
+		],
 		"desc": "An idyllic grove for a walk or long nap."
 	},
 	{
@@ -68,7 +82,14 @@
 			"desc": "With the basement cleared your master will have more room to stash all the gold you've been earning."
 		},
 		"boss": { "25": ["ratking"] },
-		"spawns": [["lgmouse", "lgmouse"], "lgrat", "badexperiment", "ratskeleton", "homunculus", "gremlin"]
+		"spawns": [
+			["lgmouse", "lgmouse"],
+			"lgrat",
+			"badexperiment",
+			"ratskeleton",
+			"homunculus",
+			"gremlin"
+		]
 	},
 	{
 		"id": "stonyhills",
@@ -181,7 +202,16 @@
 			"gems": "0~2"
 		},
 		"boss": { "20": ["gobchief"] },
-		"spawns": [["goblin", "goblin"], "gardengnome", "wombat", "slime", "hobgoblin", "ranger", "elf", "slinger"],
+		"spawns": [
+			["goblin", "goblin"],
+			"gardengnome",
+			"wombat",
+			"slime",
+			"hobgoblin",
+			"ranger",
+			"elf",
+			"slinger"
+		],
 		"loot": {
 			"maxlevel": 4
 		}
@@ -199,7 +229,14 @@
 			"gold": "25~40"
 		},
 		"boss": "banditlord",
-		"spawns": ["cutpurse", "bandit", ["bat", "bat", "bat", "bat"], "cutpurse", "bandit", "cutpurse"]
+		"spawns": [
+			"cutpurse",
+			"bandit",
+			["bat", "bat", "bat", "bat"],
+			"cutpurse",
+			"bandit",
+			"cutpurse"
+		]
 	},
 	{
 		"id": "veldranswreck",
@@ -227,7 +264,14 @@
 			"fishyhammer": "25%",
 			"fishyrapier": "25%"
 		},
-		"spawns": ["eel", "jellyfish", "ghost", "barracuda", "piranha", "electriceel"]
+		"spawns": [
+			"eel",
+			"jellyfish",
+			"ghost",
+			"barracuda",
+			"piranha",
+			"electriceel"
+		]
 	},
 	{
 		"id": "aragheights",
@@ -242,7 +286,16 @@
 		"result": {
 			"gold": "20~30"
 		},
-		"spawns": ["lgbird", ["kobold", "kobold", "kobold"], "orc", "bandit", "wolf", "hawk", "goblin", "coyote"]
+		"spawns": [
+			"lgbird",
+			["kobold", "kobold", "kobold"],
+			"orc",
+			"bandit",
+			"wolf",
+			"hawk",
+			"goblin",
+			"coyote"
+		]
 	},
 	{
 		"id": "hauntedmanor",
@@ -306,7 +359,14 @@
 			"gold": "20~30"
 		},
 		"boss": "gobchief",
-		"spawns": [["goblin", "goblin"], "gobwarrior", "gobwarrior", "goblin", "goblin", "gobpriest"],
+		"spawns": [
+			["goblin", "goblin"],
+			"gobwarrior",
+			"gobwarrior",
+			"goblin",
+			"goblin",
+			"gobpriest"
+		],
 		"loot": {
 			"maxlevel": 3
 		}
@@ -532,7 +592,13 @@
 			"lightgem": 3
 		},
 		"boss": "lightningelemental",
-		"spawns": ["fireelemental", "iceelemental", "earthelemental", "airelemental", "lightningelemental"]
+		"spawns": [
+			"fireelemental",
+			"iceelemental",
+			"earthelemental",
+			"airelemental",
+			"lightningelemental"
+		]
 	},
 	{
 		"id": "veldransstorehouse",
@@ -577,7 +643,7 @@
 			"ichor": 1
 		},
 		"mod": {
-			"charms.max": "0.5//2/2"
+			"charms.max": "0.5//2/-1"
 		},
 		"boss": "desillaconcubine",
 		"spawns": [
@@ -669,7 +735,8 @@
 		]
 	},
 	{
-		"id": "temple of strativax",
+		"id": "temple_of_strativax",
+		"name": "Temple of Strativax",
 		"desc": "His acolytes fed the beast on offerings from a thousand leagues.",
 		"flavor": "Strativax curled up to nap. His temple fell to ruins, and the ages fled like leaves.",
 		"require": "g.scrying>=12&&g.history>=12",

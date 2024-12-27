@@ -137,20 +137,16 @@ export class NpcState {
 			it = this.state.getData(p, false, elevate);
 			if (it) {
 
-				//console.log('NEW NPC ITEM: ' + p + ': ' + it );
 				return it.isRecipe || !create ? it : this.makeNpcItem(p, it);
 
 			}
 		}
 
-		//console.log('item not found: ' + p );
 		return null;
 
 	}
 
 	makeNpcItem(p, data) {
-
-		//console.log('MAKE NPC ITEM: ' + data.id );
 
 		let copy;
 
@@ -163,7 +159,6 @@ export class NpcState {
 		}
 
 		if (data.constructor) {
-			//console.log('using constr: ' + data.constructor.name );
 			copy = new data.constructor(copy);
 		}
 

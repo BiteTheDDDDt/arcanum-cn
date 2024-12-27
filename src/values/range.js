@@ -120,8 +120,6 @@ export default class Range {
 	 */
 	add(amt) {
 
-		//console.log('ADDING RANGE: ' + amt );
-
 		if (typeof amt === 'number') {
 			this.min += amt;
 			this.max += amt;

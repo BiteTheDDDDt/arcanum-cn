@@ -416,6 +416,10 @@
 		"desc": "The saplings of Yggdrasil become trees to rival mountains.",
 		"tags": "outdoors,starsource",
 		"require": "g.idrasilgrow1>0",
+		"buy": {
+			"gems": 15,
+			"herbs": 25
+		},
 		"mod": {
 			"space.max": 300,
 			"minions.max": 10,
@@ -429,6 +433,9 @@
 		"id": "palace",
 		"desc": "Luxurious, sprawling estate to advance your studies and host peers in maximum comfort.",
 		"require": "g.palacerestoration>0",
+		"buy": {
+			"gold": 2500
+		},
 		"mod": {
 			"space.max": 400,
 			"minions.max": 20,
@@ -444,6 +451,9 @@
 		"id": "castle",
 		"desc": "A vast and practical fortress, for the magic user with enemies. Or targets.",
 		"require": "g.castlerestoration>0",
+		"buy": {
+			"gold": 2500
+		},
 		"mod": {
 			"space.max": 400,
 			"minions.max": 20,
@@ -615,6 +625,10 @@
 		"desc": "A tree grown large enough to become a microcosm unto itself.",
 		"tags": "outdoors,starsource",
 		"require": "g.idrasilgrow2>0",
+		"buy": {
+			"gems": 15,
+			"herbs": 25
+		},
 		"mod": {
 			"space.max": 400,
 			"naturelore.max":3,
@@ -707,6 +721,9 @@
 		"desc": "Just chill underneath a waterfall.",
 		"tags": "watersource",
 		"require": "g.water>=6&&g.naturelore>=6&&g.tier1>0",
+		"buy": {
+			"gold": 500
+		},
 		"mod": {
 			"space.max": 50,
 			"minions.max": 2,

@@ -218,8 +218,8 @@ export default class Monster extends GData {
 	 */
 	amount(g, count) {
 		if (!count) count = 1;
-		let minions = g.getData('minions');
-		g.create(this, minions.shouldKeep(this), count);
+		//let minions = g.getData('minions');
+		g.create(this, false, count);
 
 	}
 
@@ -236,7 +236,6 @@ export default class Monster extends GData {
 			return;
 		}
 
-		//if ( team === TEAM_PLAYER ) console.log('create npc: ' + this.id );
 
 		let it = CreateNpc(this, g);
 		it.team = team;

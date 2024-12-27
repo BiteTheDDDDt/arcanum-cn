@@ -2608,39 +2608,8 @@
 		]
 	},
 	{
-		"id": "undeadheal",
-		"name": "circle of unlife",
-		"sortOrder": 1230,
-		"level": 8,
-		"school": "shadow",
-		"keywords": {
-			"type": ["recovery"],
-			"target": ["ally"],
-			"targets": ["multiple"],
-			"delivery": ["instant"]
-		},
-		"require": "g.shadowlore>=15&&g.reanimation>=8&&g.tier3>0",
-		"buy": {
-			"research": 5000,
-			"shadowgem": 20,
-			"tomes": 10
-		},
-		"need": "g.good2==0",
-		"needtext": "Cannot be scrupulous.",
-		"cost": {
-			"shadow": 7
-		},
-		"attack": {
-			"targets": "minions",
-			"only": "undead,ghost",
-			"result": {
-				"hp": 45
-			}
-		}
-	},
-	{
 		"id": "reanimate",
-		"desc": "Reanimate a weak (up to level 6) undead minion. From the \"Minions\" tab only.",
+		"desc": "Reanimate a weak undead minion.",
 		"sortOrder": 1237,
 		"level": 3,
 		"school": "shadow",
@@ -2658,16 +2627,20 @@
 		},
 		"need": "g.good3==0",
 		"needtext": "Cannot be incorruptible.",
-		"only": "undead",
 		"cost": {
 			"bonedust": 5,
 			"shadow": 5
+		},
+		"resurrect": {
+			"only": ["undead"],
+			"maxlevel": 10,
+			"count": 1
 		}
 	},
 	{
 		"id": "reanimate2",
 		"name": "greater reanimate",
-		"desc": "Reanimate a stronger (up to level 10) undead minion. From the \"Minions\" tab only.",
+		"desc": "Reanimate a stronger undead minion.",
 		"sortOrder": 1236,
 		"level": 5,
 		"school": "shadow",
@@ -2685,18 +2658,22 @@
 		},
 		"need": "g.good3==0",
 		"needtext": "Cannot be incorruptible.",
-		"only": "undead",
 		"cost": {
 			"bonedust": 10,
 			"bones": 3,
 			"shadow": 5
+		},
+		"resurrect": {
+			"only": ["undead"],
+			"maxlevel": 30,
+			"count": 1
 		}
 	},
 	{
 		"id": "revive",
-		"desc": "Call back to life a weak (up to level 6) humanoid or goblinoid minion. From the \"Minions\" tab only.",
+		"desc": "Call back to life a weak humanoid or goblinoid minion.",
 		"sortOrder": 1030,
-		"level": 3,
+		"level": 1,
 		"school": "spirit",
 		"tags": "rez",
 		"keywords": {
@@ -2710,18 +2687,22 @@
 			"research": 100,
 			"scrolls": 20
 		},
-		"only": "humanoid,goblinoid",
 		"cost": {
 			"scrolls": 5,
 			"mana": 5
+		},
+		"resurrect": {
+			"only": ["humanoid", "goblinoid"],
+			"maxlevel": 10,
+			"count": 1
 		}
 	},
 	{
 		"id": "tend",
 		"name": "magic tending",
-		"desc": "Revive a weak (up to level 6) beast minion. From the \"Minions\" tab only.",
+		"desc": "Revive a weak beast minion.",
 		"sortOrder": 936,
-		"level": 3,
+		"level": 1,
 		"school": "nature",
 		"tags": "rez",
 		"keywords": {
@@ -2735,19 +2716,23 @@
 			"research": 100,
 			"scrolls": 20
 		},
-		"only": "beast",
 		"cost": {
 			"herbs": 5,
 			"nature": 5
+		},
+		"resurrect": {
+			"only": ["beast"],
+			"maxlevel": 10,
+			"count": 1
 		}
 	},
 	{
 		"id": "wildtend",
 		"name": "wild tending",
-		"desc": "Revive a stronger (up to level 10) beast minion. From the \"Minions\" tab only.",
+		"desc": "Revive a stronger beast minion.",
 		"require": "g.t_natureclass>0",
 		"sortOrder": 935,
-		"level": 5,
+		"level": 2,
 		"school": "nature",
 		"tags": "rez",
 		"keywords": {
@@ -2760,10 +2745,14 @@
 			"research": 100,
 			"codices": 25
 		},
-		"only": "beast",
 		"cost": {
 			"herbs": 10,
 			"nature": 7
+		},
+		"resurrect": {
+			"only": ["beast"],
+			"maxlevel": 40,
+			"count": 1
 		}
 	},
 	{
@@ -3011,6 +3000,37 @@
 				"kind": "earth",
 				"duration": 6,
 				"id": "prone"
+			}
+		}
+	},
+	{
+		"id": "proshadow",
+		"name": "protection: shadow",
+		"sortOrder": 1156,
+		"level": 2,
+		"school": "light",
+		"keywords": {
+			"type": ["buff"],
+			"target": ["self"],
+			"targets": ["single"],
+			"delivery": ["over time"]
+		},
+		"require": "g.player.level>=4&&g.lightlore>=3",
+		"buy": {
+			"research": 100,
+			"scrolls": 5
+		},
+		"cost": {
+			"light": 2
+		},
+		"result": {
+			"lightlore.exp": 0.2
+		},
+		"dot": {
+			"duration": 20,
+			"mod": {
+				"self.resist.shadow": 10,
+				"self.resist.drain": 10
 			}
 		}
 	},
@@ -4498,6 +4518,7 @@
 		},
 		"dot": {
 			"id": "dot_adamantskin",
+			"name": "adamant shell",
 			"tags": "toughskin",
 			"duration": 180,
 			"mod": {
@@ -6038,8 +6059,8 @@
 		"require": "g.tier5>0&&g.summoning>=5&&g.lore>=20",
 		"buy": {
 			"research": 5000,
-			"tomes": 50,
-			"runestones": 10
+			"tomes": 25,
+			"runestones": 5
 		},
 		"cost": {
 			"mana": 20
@@ -6072,8 +6093,8 @@
 		"require": "g.tier5>0&&g.summoning>=5&&g.spiritlore>=15",
 		"buy": {
 			"research": 5000,
-			"tomes": 50,
-			"spiritgem": 100
+			"tomes": 25,
+			"spiritgem": 50
 		},
 		"cost": {
 			"spirit": 20
@@ -7534,9 +7555,9 @@
 			"name": "astrology",
 			"duration": 60,
 			"mod": {
+				"astraldmg": 20,
 				"self": {
-					"luck": 5,
-					"astraldmg": 20
+					"luck": 5
 				}
 			}
 		}

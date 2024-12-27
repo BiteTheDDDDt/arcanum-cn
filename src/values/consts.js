@@ -10,15 +10,6 @@ const skillMap = {
 
 skillMap.arcane = skillMap.lore = skillMap.mana;
 
-
-
-/**
- * @property {.<string,string>} schoolName - maps school to display name.
- */
-const schoolNames = {
-	mana: 'arcane'
-}
-
 /**
  * Identifier based on current time and a random suffix that is extremely unlikely to be duplicated.
  * @param {string} prefix
@@ -63,6 +54,7 @@ const HOME = 'home';
 const COMPANION = 'companion';
 const EVENT = 'event';
 const PURSUITS = 'pursuits';
+const GOALS = 'goals';
 const ARMOR = 'armor', WEAPON = 'weapon';
 
 export const REST_TAG = 't_rest';
@@ -109,7 +101,7 @@ export const TEAM_NPC = 0;
 export const TEAM_ALL = 2;
 
 export { DUNGEON, EXPLORE, LOCALE, CLASH };
-export { HOME, RESOURCE, NPC, SKILL, ACTION, ENCOUNTER, WEARABLE, MONSTER, ARMOR, WEAPON, PURSUITS, EVENT, COMPANION };
+export { HOME, RESOURCE, NPC, SKILL, ACTION, ENCOUNTER, WEARABLE, MONSTER, ARMOR, WEAPON, PURSUITS, GOALS, EVENT, COMPANION };
 
 /**
  * @constant {number} DELAY_RATE - speed to attack delay conversion constant.
@@ -165,7 +157,7 @@ export const canTarget = (targs, it) => {
 
 	}
 
-	return targs === it.type || targs === it.kind || targs === it.slot || it.hasTag(targ);
+	return targs === it.type || targs === it.kind || targs === it.slot || it.hasTag(targs);
 
 }
 /**

@@ -13,6 +13,7 @@ import Game, { TICK_LEN } from "../game";
 import { WEARABLE, WEAPON, TYP_PCT } from "@/values/consts";
 import RValue, { InitRVals } from "../values/rvals/rvalue";
 import { Changed } from "@/changes";
+import { includesAny } from "@/util/objecty";
 
 /**
  * @typedef {Object} Effect
@@ -235,7 +236,6 @@ export default class GData {
 		return this._value;
 	}
 	set value(v) {
-		//if ( this.id === 'space') console.log('setting space: ' + v );
 		if (v instanceof Stat) {
 			if (this._value === null || this._value === undefined) this._value = v;
 			else if (v !== this._value) {
@@ -244,7 +244,6 @@ export default class GData {
 			}
 		} else if (this._value != null) {
 			this._value.base = typeof v === "object" ? v?.value ?? 0 : v;
-			//if ( this.id === 'space') console.log('setting BASE SPACE: ' + v );
 		} else this._value = new Stat(v, this.id);
 	}
 
@@ -325,6 +324,18 @@ export default class GData {
 
 		if (this.fill && g.filled(this.fill, this)) return false;
 
+		if(this.exclude)
+			{
+				let exclude = this.exclude;
+				let itTags = this.tags || [];
+				for (const a of g.runner.actives)
+				{	
+					if (this == a) continue;
+					let tags = a.tags || [];
+					if (exclude && includesAny(exclude, a.type, a.id, ...tags)) return false;
+					if (a.exclude && includesAny(a.exclude, this.type, this.id, ...itTags)) return false;
+				}
+			}
 		return !this.run || g.canPay(this.run, dt);
 	}
 
@@ -449,10 +460,23 @@ export default class GData {
 		if (this.caststoppers) {
 			for (let b of this.caststoppers) {
 				a = g.self.getCause(b);
-				if (a) break;
+				if (a) {
+					Events.emit(STATE_BLOCK, g.self, a);
+					return;
+				}
 			}
 		}
-
+		if (this.cd) {
+			count = Math.min(count,1) //if this has a cd, there is no legitimate possibility for it being used more than once this tick, meaning we need to curtail it. It is possible to have fractional uses.
+			this.timer = Number(this.cd);
+			g.addTimer(this);
+			if (this.tags) {
+				for (let tag of this.tags) {
+					let t = g.state.getData(tag);
+					t.cdshare(g, this.timer);
+				}
+			}
+		}
 		if (this.isRecipe) {
 			return g.create(this, true, count);
 		}
@@ -464,16 +488,6 @@ export default class GData {
 			}
 		}
 
-		if (this.cd) {
-			this.timer = Number(this.cd);
-			g.addTimer(this);
-			if (this.tags) {
-				for (let tag of this.tags) {
-					let t = g.state.getData(tag);
-					t.cdshare(g, this.timer);
-				}
-			}
-		}
 		if (this.loot) {
 			//fix for turbolooting
 			for (let i = 0; i < count; i++) {
@@ -483,43 +497,42 @@ export default class GData {
 
 		if (this.title) g.self.setTitle(this.title);
 		if (this.result) {
-			if (a) {
-				Events.emit(STATE_BLOCK, g.self, a);
-			} else {
-				g.applyVars(this.result, count);
-			}
+			g.applyVars(this.result, count);
 		}
 		if (this.create) g.create(this.create);
 		if (this.summon) {
-			if (a) {
-				Events.emit(STATE_BLOCK, g.self, a);
-			} else {
-				for (let i = 0; i < count; i++) {
-					for (let smn of this.summon) {
-						if (smn[TYP_PCT] && !smn[TYP_PCT].roll()) {
-							continue;
-						}
-						let smnid = smn.id;
-						let smncount = smn.count || 1;
-						let smnmax = smn.max || 0;
-						let minions = g.getData("minions");
-						let mon = g.getData(smn.id);
-						g.create(smnid, minions.shouldKeep(mon), smncount, smnmax);
+			for (let i = 0; i < count; i++) {
+				for (let smn of this.summon) {
+					if (smn[TYP_PCT] && !smn[TYP_PCT].roll()) {
+						continue;
 					}
+					let smnid = smn.id;
+					let smncount = smn.count || 1;
+					let smnmax = smn.max || 0;
+					let keep = smn.keep || false;
+					g.create(smnid, keep, smncount, smnmax);
 				}
 			}
 		}
+		if (this.resurrect) {
+			const minions = g.getData("minions");
+			const validminions = minions.filter((v) => this.canRez(v) && !v.alive);
+			let repeats = (this.resurrect.count || 1)*count;
+			for (let a of validminions) {
+				a.hp = a.hp.max / 2;
+				minions.setActive(a, true);
+				repeats--;
+				if (repeats == 0) break;
+			}
+		}
+		//TODO: If a spell has a mod, a silence could somehow allow accruing infinite count?
 		if (this.mod) {
 			g.applyMods(this.mod);
 		}
 
 		if (this.lock) g.lock(this.lock);
 		if (this.dot) {
-			if (a) {
-				Events.emit(STATE_BLOCK, g.self, a);
-			} else {
-				g.self.addDot(this.dot, this, null, g.self);
-			}
+			g.self.addDot(this.dot, this, null, g.self);
 		}
 
 		if (this.disable) g.disable(this.disable);
