@@ -390,6 +390,7 @@
 					{
 						"id": "pumpkinharvest",
 						"name": "pumpkin harvest",
+						"sym": "🏰🎃",
 						"require": "g.f_pumppatch>0",
 						"desc": "All these pumpkins... what other possibilities do gourds hold?",
 						"max": 1,
