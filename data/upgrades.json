@@ -3561,6 +3561,28 @@
 		"group": "rest"
 	},
 	{
+		"id": "eatchildrenrest",
+		"name": "eat children",
+		"tags": ["t_restmod", "t_extremeevil"],
+		"slot": "leisure",
+		"max": 1,
+		"require": "g.t_demonclass>0",
+		"need": "cauldron",
+		"buy": {
+			"shadow": 5
+		},
+		"flavor": "How could you!?!",
+		"mod": {
+			"t_rest.effect.evilamt": 2,
+			"t_rest.effect.mana": 0.1,
+			"t_rest.effect.shadow": 0.15,
+			"t_rest.effect.spirit": 0.1,
+			"t_rest.effect.stress": -0.1,
+			"t_rest.effect.hp": 0.5
+		},
+		"group": "rest"
+	},
+	{
 		"id": "up_slumber",
 		"max": 1,
 		"name": "Lucid Dreaming",
