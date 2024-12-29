@@ -231,6 +231,11 @@
 					"timegem": 25,
 					"timerune": 5
 				}
+			},
+			{
+				"id": "stabilize",
+				"slot": "rest",
+				"group": "rest"
 			}
 		],
 		"upgrades": [
