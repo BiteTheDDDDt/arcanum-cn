@@ -2427,15 +2427,17 @@
 		},
 		"mod": {
 			"light": {
-				"max": 2,
-				"rate": 0.8
+				"max": 3,
+				"rate": "0.8+1%"
 			},
 			"lightlore": {
 				"max": 2,
 				"mod.light.max": 0.2,
-				"mod.light.rate": 0.002
+
+				"mod.light.rate": 0.002,
+				"mod.player.hits.light": 0.04
 			},
-			"lightlore2.max": 1
+			"lightdmg": 3
 		},
 		"disable": ["evil1", "evil2", "evil3", "evil"]
 	},
@@ -2697,7 +2699,7 @@
 		],
 		"warn": true,
 		"desc": "You find equilibrium between the shadow and the light, leading to further balance between the various forces that drive the world.",
-		"needtext": "You must be both Virtuous and Vile. Your Virtue and Evil must be at least 750 each and at least 2,000 combined. You must have both a spiritsource and a plantsource.",
+		"needtext": "You must be both Virtuous and Vile. Your Virtue and Evil must be at least 750 each and at least 2,000 combined. You must have both a spiritsource and a plantsource. You must be tier 3 or higher.",
 		"max": 1,
 		"length": 100,
 		"run": {
@@ -2745,7 +2747,7 @@
 		],
 		"warn": true,
 		"desc": "Balancing respectable and wicked acts, you ensure that both light and shadow can flourish without either becoming too powerful to constrain.",
-		"needtext": "You must be both Wicked and Respectable. Your Virtue and Evil must be at least 350 each and at least 1,000 combined. You must have both a plantsource and a spiritsource.",
+		"needtext": "You must be both Wicked and Respectable. Your Virtue and Evil must be at least 350 each and at least 1,000 combined. You must have both a plantsource and a spiritsource. You must be tier 1 or higher.",
 		"max": 1,
 		"length": 100,
 		"run": {
@@ -2778,7 +2780,7 @@
 		],
 		"warn": true,
 		"desc": "You vow to take a neutral stance in the battle between light and shadow - whether by maintaining active balance between the two, or by abstaining from that which would further either's goals.",
-		"needtext": "If you did any of the tasks named: Decent/Immoral, Respectable/Wicked, or Virtuous/Vile, then you need to also do the one separated by a slash (Immoral if you did Decent, etc). If you have none of them, you qualify already.",
+		"needtext": "If you did any of the tasks named: Decent/Immoral, Respectable/Wicked, or Virtuous/Vile, then you need to also do the one separated by a slash (Immoral if you did Decent, etc). If you have none of them, you qualify already. You must be tier 0 or higher.",
 		"max": 1,
 		"length": 100,
 		"run": {
@@ -3156,15 +3158,16 @@
 		},
 		"mod": {
 			"shadow": {
-				"max": 2,
-				"rate": 0.7
+				"max": 3,
+				"rate": "0.7+1%"
 			},
 			"shadowlore": {
 				"max": 2,
 				"mod.shadow.rate": 0.002,
-				"mod.shadow.max": 0.2
+				"mod.shadow.max": 0.2,
+				"mod.player.hits.shadow": 0.04
 			},
-			"shadowlore2.max": 1
+			"shadowdmg": 3
 		},
 		"disable": ["good1", "good2", "good3", "good"],
 		"group": "morality"
