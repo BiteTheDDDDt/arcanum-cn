@@ -3738,5 +3738,41 @@
 			"player.hp.max": 40,
 			"player.tohit": 2
 		}
+	},
+	{
+		"id": "bolthole",
+		"name": "bolthole",
+		"tags": "t_underground",
+		"desc": "A portal to a safe place deep underground, for exploration and experiments.",
+		"max": 1,
+		"require": "g.tier4>0&&(g.earthlore+g.shadowlore+g.planeslore>=15)&&(g.cellar+g.basement>0)",
+		"need": "gate",
+		"cost": {
+			"gold": 500,
+			"research": 2500,
+			"earthgem": 25
+		},
+		"mod": {
+			"space.max": 5
+		},
+		"group": "housing"
+	},
+	{
+		"id": "backyard",
+		"name": "backyard",
+		"tags": "outdoors",
+		"desc": "A portal to a safe place far into the wilderness, for relaxation and landscaping.",
+		"max": 1,
+		"require": "g.tier4>0&&(g.naturelore+g.planeslore>=10)",
+		"need": "gate",
+		"cost": {
+			"gold": 500,
+			"research": 2500,
+			"naturegem": 25
+		},
+		"mod": {
+			"space.max": 5
+		},
+		"group": "housing"
 	}
 ]

@@ -1330,7 +1330,7 @@
 		"name": "astral seer",
 		"desc": "The stars are an open book, to those who can read.",
 		"tags": "t_tier6",
-		"require": "g.tier5>0&&g.astronomy>=15&&g.planeslore>=15",
+		"require": "g.tier5>0&&g.astronomy>=15&&g.planeslore>=12",
 		"cost": {
 			"research": 17000,
 			"arcana": 75,
