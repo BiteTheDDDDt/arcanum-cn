@@ -411,7 +411,7 @@ export default {
 
 	computed: {
 
-		hasHall() { return Profile.hasHall() },
+		hasHall() { return this.Profile.hasHall() },
 		section: {
 
 			get() { return this.psection; },
@@ -424,9 +424,11 @@ export default {
 
 		menuItems() { return this.state.sections.filter(it => !this.locked(it) && !it.parent); },
 
-		hall() { return Profile.hall; },
+		hall() { return this.Profile.hall; },
 
-		mergedresources() { return this.state.resources.concat(this.hall.resources) },
+		mergedresources() { 
+			let a = Object.assign(this.state.resources, this.hall.resources)
+			return a},
 
 		drops() { return Game.state.drops; },
 
