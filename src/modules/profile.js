@@ -172,7 +172,7 @@ export default {
 
 		const id = gs.pid || p.hid;
 		console.log('player id: ' + id);
-
+		this.hall = reactive(this.hall)
 		const slot = this.hall.pidSlot(id);
 
 		if (slot >= 0) {
