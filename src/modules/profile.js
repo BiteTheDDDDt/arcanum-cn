@@ -6,6 +6,7 @@ import Events, { LEVEL_UP, CHAR_NAME, CHAR_TITLE, CHAR_CLASS } from "../events";
 import { Persist } from '@/modules/persist/persist';
 import { useLocalStorage } from '@/modules/persist/persistLocal';
 import { useDB } from '@/modules/persist/persist-db';
+import { reactive, ref } from "vue";
 
 const HALL_FILE = 'hall';
 
