@@ -50,6 +50,11 @@
 		"require": "g.bestiary>0||g.lore>=11"
 	},
 	{
+		"id": "sect_travelogue",
+		"name": "travelogue",
+		"require": "g.travelogue>0"
+	},
+	{
 		"id": "sect_enchant",
 		"name": "enchanting",
 		"require": "enchanting"

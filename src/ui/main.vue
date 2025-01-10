@@ -61,6 +61,7 @@ export default {
 		home: defineAsyncComponent(() => import('./sections/home.vue')),
 		player: defineAsyncComponent(() => import('./sections/player.vue')),
 		bestiary: defineAsyncComponent(() => import('./sections/bestiary.vue')),
+		travelogue: defineAsyncComponent(() => import('./sections/travelogue.vue')),
 		spells: defineAsyncComponent(() => import('./sections/spells.vue')),
 		adventure: defineAsyncComponent(() => import('./sections/adventure.vue')),
 		enchanting: defineAsyncComponent(() => import('./sections/enchanting.vue')),
@@ -427,7 +428,6 @@ export default {
 		hall() { return Profile.hall; },
 
 		mergedresources() { return this.state.resources.concat(this.hall.resources) },
-
 		drops() { return Game.state.drops; },
 
 
@@ -517,6 +517,10 @@ export default {
 
 				<template #sect_bestiary>
 					<bestiary />
+				</template>
+
+				<template #sect_travelogue>
+					<travelogue />
 				</template>
 
 				<template #sect_minions>

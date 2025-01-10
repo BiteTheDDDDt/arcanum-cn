@@ -653,8 +653,6 @@
 		"desc": "A keeper of the forests, mountains, and hills. Only those who make forest their home can become one.",
 		"tags": "t_tier2,t_natureclass",
 		"require": "g.tier1>0&&g.naturelore>=12",
-		"need": "(g.outdoors+g.lodge)>0",
-		"needtext": "You must live outdoors or in a lodge.",
 		"cost": {
 			"research": 1500,
 			"naturegem": 15,

@@ -210,6 +210,7 @@
 				"id": "reedburgh_seized_goods",
 				"name": "seized goods wagon",
 				"desc": "A halted wagon with confiscated goodies",
+				"tags": "loot_equip_gen",
 				"effect": {
 					"weary": "1~2",
 					"shadow": -0.5
@@ -236,6 +237,7 @@
 				"id": "reedburgh_armory",
 				"name": "reedburgh weapon storage",
 				"desc": "A compact shed with an assortment of mounted weapons inside.",
+				"tags": "loot_equip_gen",
 				"level": 1,
 				"length": 5,
 				"effect": {
@@ -279,6 +281,7 @@
 				"id": "reedburgh_training",
 				"name": "guard training grounds",
 				"desc": "A field strewn with combat training equipment, weapons, and scattered personal belongings.",
+				"tags": "loot_equip_gen",
 				"level": 1,
 				"length": 5,
 				"effect": {
@@ -325,6 +328,7 @@
 				"id": "reedburgh_barracks",
 				"name": "reedburgh barracks housing",
 				"desc": "empty guard quarters, housing equipment and personal items.",
+				"tags": "loot_equip_gen",
 				"level": 1,
 				"length": 5,
 				"effect": {
@@ -416,8 +420,9 @@
 				},
 				"result": {
 					"debt": "75~125",
-					"herbs": "3~5",
-					"bones": "3~5",
+					"herbs": "3~5"
+				},
+				"loot": {
 					"codices": "80%",
 					"scrolls": "1~2",
 					"gems": "1~2",
@@ -464,7 +469,9 @@
 					"rage": 0.5
 				},
 				"result": {
-					"debt": "30~50",
+					"debt": "30~50"
+				},
+				"loot": {
 					"scrolls": 1
 				}
 			},
@@ -497,7 +504,9 @@
 					"bf": -1
 				},
 				"result": {
-					"debt": "150~175",
+					"debt": "150~175"
+				},
+				"loot": {
 					"gems": "1~2",
 					"watergem": "0~2",
 					"firegem": "0~2",
@@ -601,7 +610,7 @@
 					"bf": "0.75~2.5",
 					"stamina": -0.4
 				},
-				"result": {
+				"loot": {
 					"gold": "0~12",
 					"gems": "0~2",
 					"bloodgem": "20%"
@@ -634,6 +643,7 @@
 				"id": "lifting_weights",
 				"name": "lifting weights",
 				"desc": "And putting them down again.",
+				"tags": "enc_site_of_learning",
 				"effect": {
 					"weary": "1~3",
 					"stamina": -1,
@@ -647,6 +657,7 @@
 				"id": "running_laps",
 				"name": "running laps",
 				"desc": "Best to build up your legs with how many places you have to see and how many creditors you have to flee.",
+				"tags": "enc_site_of_learning",
 				"effect": {
 					"weary": "1~3",
 					"stamina": -0.5,
@@ -692,6 +703,7 @@
 				"id": "gym_spar",
 				"name": "gymnasium sparring",
 				"desc": "Practice your strikes and grappling.",
+				"tags": "enc_site_of_learning",
 				"effect": {
 					"stamina": -0.8,
 					"vigor": -0.08,
@@ -709,7 +721,9 @@
 					"bf": "1~3"
 				},
 				"result": {
-					"debt": "1~2",
+					"debt": "1~2"
+				},
+				"loot": {
 					"pot_stam1": 1
 				}
 			},
@@ -1073,7 +1087,7 @@
 				"level": 8,
 				"kind": "monster",
 				"desc": "Watery creatures from the sewers. Local guilds, pay a decent amount for their eradication",
-				"hp": "70~90",
+				"hp": 80,
 				"noproc": true,
 				"defense": 5,
 				"attack": [
@@ -1104,7 +1118,7 @@
 				"level": 10,
 				"kind": "monster",
 				"desc": "A mass of thin weeds and vines grappling in its victims, known to clog up water ways.",
-				"hp": "90~150",
+				"hp": 120,
 				"noproc": true,
 				"defense": 8,
 				"speed": -8,
@@ -1142,7 +1156,7 @@
 				"desc": "A overgrown mass of vines and water tangle.",
 				"tohit": 10,
 				"noproc": true,
-				"hp": "180~200",
+				"hp": 190,
 				"defense": 10,
 				"speed": -6,
 				"spells": "vinewhip,poisonnettle,venom1",
@@ -1435,7 +1449,12 @@
 					"debt": "-50~-100"
 				},
 				"boss": {
-					"30": ["reedburgh_water_massvines", "reedburgh_quest_monster", "slime", "slime"]
+					"30": [
+						"reedburgh_water_massvines",
+						"reedburgh_quest_monster",
+						"slime",
+						"slime"
+					]
 				},
 				"encs": [
 					["slime", "slime"],

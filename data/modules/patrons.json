@@ -229,20 +229,22 @@
 				"id": "enc_cyril",
 				"name": "view stars with cyril",
 				"desc": "",
+				"tags": "enc_site_of_learning",
 				"effect": {
 					"rage": "1~5",
 					"weary": "2~5",
 					"astronomy.exp": 1,
 					"research": 1
 				},
-				"result": {
-					"astronomy.max": "1/(1.3*(g.enc_cyril+1))"
+				"mod": {
+					"astronomy.max": "4|100|30"
 				}
 			},
 			{
 				"id": "enc_kanna",
 				"name": "Study under Kanna",
 				"desc": "A fox-girl delightedly teaches you some practical ways to use your weapon more effectively",
+				"tags": "enc_site_of_learning",
 				"effect": {
 					"bf": "0~2",
 					"weary": "2~5",
@@ -250,46 +252,49 @@
 					"bladelore.exp": 1,
 					"enchanting.exp": 1
 				},
-				"result": {
-					"bladelore.max": "1/(1.3*(g.enc_kanna+1))"
+				"mod": {
+					"bladelore.max": "4|100|30"
 				}
 			},
 			{
 				"id": "enc_jeremy",
 				"name": "jeremi",
 				"desc": "Nothing is known about this mage.",
+				"tags": "enc_site_of_learning",
 				"effect": {
 					"rage": "1~5",
 					"weary": "2~5",
 					"research": 1
 				},
-				"result": {
-					"lore.max": "1/(1.3*(g.enc_jeremy+1))"
+				"mod": {
+					"lore.max": "4|100|30"
 				}
 			},
 			{
 				"id": "enc_phrenesis",
 				"name": "phrenesis",
 				"desc": "Phrenesis was forever preoccupied with the cycles of death and rebirth.",
+				"tags": "enc_site_of_learning",
 				"effect": {
 					"stress": -0.1,
 					"hp": -4
 				},
-				"result": {
-					"anatomy.max": "1/(1.3*(g.enc_phrenesis+1))"
+				"mod": {
+					"anatomy.max": "4|100|30"
 				}
 			},
 			{
 				"id": "enc_sinae",
 				"name": "sinae the puppeteer",
 				"desc": "A researcher, more machine than human",
+				"tags": "enc_site_of_learning",
 				"effect": {
 					"unease": "1~5",
 					"rage": "2~5",
 					"research": 1
 				},
-				"result": {
-					"puppetry.max": "1/(1.3*(g.enc_sinae+1))"
+				"mod": {
+					"puppetry.max": "4|100|30"
 				},
 				"flavor": "You can hear the clock mechanisms clicking within him"
 			},
@@ -297,19 +302,21 @@
 				"id": "enc_stags",
 				"name": "stags",
 				"desc": "Nothing is known about the enigmatic mage.",
+				"tags": "enc_site_of_learning",
 				"effect": {
 					"rage": "1~5",
 					"weary": "2~5",
 					"research": 1
 				},
-				"result": {
-					"lore.max": "1/(1.3*(g.enc_stags+1))"
+				"mod": {
+					"lore.max": "4|100|30"
 				}
 			},
 			{
 				"id": "enc_tainted",
 				"name": "Tainted, Archon of the Void",
 				"desc": "A violent echo still wanders the halls it never walked.",
+				"tags": "enc_site_of_learning",
 				"effect": {
 					"madness": "2~4",
 					"unease": "2~4",
@@ -317,8 +324,8 @@
 					"chronomancy.exp": 1,
 					"voidlore.exp": 1
 				},
-				"result": {
-					"composure.max": "1/(1.3*(g.enc_tainted+1))"
+				"mod": {
+					"composure.max": "4|100|30"
 				},
 				"loot": {
 					"voidrune": "1%",
@@ -332,13 +339,14 @@
 				"id": "enc_kaidi",
 				"name": "kaidi the mixer",
 				"desc": "A teacher and maker of the oddest concoctions.",
+				"tags": "enc_site_of_learning",
 				"effect": {
 					"bf": "2~5",
 					"unease": "1~2",
 					"potions.exp": 1
 				},
-				"result": {
-					"potions.max": "1/(1.3*(g.enc_kaidi+1))"
+				"mod": {
+					"potions.max": "4|100|30"
 				},
 				"loot": {
 					"pot_breath1": "1%",
@@ -351,20 +359,22 @@
 				"id": "enc_tjoker",
 				"name": "a joker",
 				"desc": "A crafty expression suggests trouble.",
+				"tags": "enc_site_of_learning",
 				"effect": {
 					"rage": "1~5",
 					"bf": "2~5",
 					"trickery.exp": 1,
 					"player.exp": 1
 				},
-				"result": {
-					"trickery.max": "1/(1.3*(g.enc_tjoker+1))"
+				"mod": {
+					"trickery.max": "4|100|30"
 				}
 			},
 			{
 				"id": "enc_vondrey",
 				"name": "vondrey",
 				"desc": "The mage does not appear inclined to speak.",
+				"tags": "enc_site_of_learning",
 				"effect": {
 					"bf": "1~5",
 					"rage": "1~5",
@@ -372,36 +382,38 @@
 					"concentrate.exp": 1,
 					"composure.exp": 1
 				},
-				"result": {
-					"concentrate.max": "1/(1.3*(g.enc_vondrey+1))"
+				"mod": {
+					"concentrate.max": "4|100|30"
 				}
 			},
 			{
 				"id": "enc_mrwild",
 				"name": "master wild",
 				"desc": "A mage of the wilds makes a perplexing teacher.",
+				"tags": "enc_site_of_learning",
 				"effect": {
 					"madness": "1~5",
 					"weary": "2~5",
 					"naturelore.exp": 1,
 					"animals.exp": 1
 				},
-				"result": {
-					"herbalism.max": "1/(1.3*(g.enc_mrwild+1))"
+				"mod": {
+					"herbalism.max": "4|100|30"
 				}
 			},
 			{
 				"id": "enc_mrreaper",
 				"name": "mister reaper",
 				"desc": "A grim name for an otherwise respectable mage.",
+				"tags": "enc_site_of_learning",
 				"effect": {
 					"madness": "1~5",
 					"bf": "2~5",
 					"history.exp": 1,
 					"shadowlore.exp": 1
 				},
-				"result": {
-					"dissection.max": "1/(1.3*(g.enc_mrreaper+1))"
+				"mod": {
+					"dissection.max": "4|100|30"
 				}
 			}
 		],

@@ -37,7 +37,7 @@ export default {
 
 		<div class="menu-items">
 
-			<div class="menu-item" v-for="(it) in items" :key="it.id">
+			<div class="menu-item" role="tab" v-for="(it) in items" :key="it.id">
 
 				<span v-if="it != modelValue" @click="setActive(it)" :key="itemTitle(it)"> <u> {{ itemTitle(it) }}
 					</u></span>

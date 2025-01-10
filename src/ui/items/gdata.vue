@@ -297,6 +297,11 @@ export default {
 			<div class="info-sect">Results:</div>
 			<info :info="item.resulttext || item.result" :checkType="CheckTypes.FULL" />
 		</div>
+		<div v-if=" item.type === 'encounter'">
+        <div v-if="item.loot && (item.tags.includes('loot_equip_gen')===false)">
+		<div class="info-sect">Loot:</div>
+        <info :info="item.loottext || item.loot" :checkType="CheckTypes.FULL" /></div>
+        </div>
 
 		<div v-if="item.use">
 			<div class="info-sect">When used:</div>

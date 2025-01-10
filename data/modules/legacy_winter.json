@@ -144,6 +144,7 @@
 				"id": "enc_w_faz_tinyskeletons2",
 				"name": "doll's endoskeletons",
 				"desc": "Brass contraptions sit still, inanimate and imperfect.",
+				"tags": "enc_site_of_learning",
 				"require": "w_fazbit2",
 				"effect": {
 					"madness": "2~3",
@@ -163,6 +164,7 @@
 				"id": "enc_w_faz_tinyskeletons3",
 				"name": "prepared endoskeletons",
 				"desc": "Molded out of brass, they will serve as a fine conduit for animation charms.",
+				"tags": "enc_site_of_learning",
 				"effect": {
 					"madness": "1~2",
 					"unease": "2~4"
@@ -193,6 +195,7 @@
 				"id": "enc_w_faz_blobs2",
 				"name": "automatic coater",
 				"desc": "A malfunctioning machine attempts to coat the malformed skeletons to no avail.",
+				"tags": "enc_site_of_learning",
 				"require": "w_fazbit4",
 				"effect": {
 					"bf": "2~3",
@@ -213,6 +216,7 @@
 				"id": "enc_w_faz_blobs3",
 				"name": "endo coating station",
 				"desc": "You adjust the coating thickness a little, to ensure better adhesion to the base endo.",
+				"tags": "enc_site_of_learning",
 				"effect": {
 					"bf": "1~2",
 					"unease": "2~4"
@@ -304,6 +308,7 @@
 				"id": "enc_w_faz_boominglaugh2",
 				"name": "cheerful laugh",
 				"desc": "Cheerful laughter reverberates in the empty halls.",
+				"tags": "enc_site_of_learning",
 				"require": "w_fazbit3",
 				"effect": {
 					"madness": "2~3",
@@ -322,6 +327,7 @@
 				"id": "enc_w_faz_creepylaugh2",
 				"name": "children's laugh",
 				"desc": "Sounds of happy children echo in the desolate halls.",
+				"tags": "enc_site_of_learning",
 				"require": "w_fazbit3",
 				"effect": {
 					"madness": "2~3",
@@ -340,6 +346,7 @@
 				"id": "enc_w_faz_boominglaugh3",
 				"name": "cheerful laugh",
 				"desc": "Cheerful laughter fills the halls.",
+				"tags": "enc_site_of_learning",
 				"effect": {
 					"madness": "1~2",
 					"unease": "2~4"
@@ -356,6 +363,7 @@
 				"id": "enc_w_faz_creepylaugh3",
 				"name": "children's laugh",
 				"desc": "Sounds of happy children echo in the halls. The cold ones seem a little warmer at that.",
+				"tags": "enc_site_of_learning",
 				"effect": {
 					"madness": "1~2",
 					"unease": "2~4"
@@ -434,6 +442,7 @@
 				"id": "enc_w_faz_prototype2",
 				"name": "animated doll",
 				"desc": "It's clear that the enchantments applied to this were meant to follow the animation spellchart, but age has taken its toll.",
+				"tags": "enc_site_of_learning",
 				"require": "w_fazbit6",
 				"effect": {
 					"madness": "2~3",
@@ -453,6 +462,7 @@
 				"id": "enc_w_faz_prototype3",
 				"name": "prototype unit",
 				"desc": "The first doll made after the repairs, it now sits as a standard for all future production.",
+				"tags": "enc_site_of_learning",
 				"effect": {
 					"madness": "1~2",
 					"unease": "2~4"
@@ -555,6 +565,7 @@
 				"id": "enc_icestudy",
 				"name": "ebin's notes",
 				"desc": "A detailed study of the properties of ice.",
+				"tags": "enc_site_of_learning",
 				"effect": {
 					"bf": "1~3",
 					"icelore.exp": 1
@@ -644,6 +655,7 @@
 				"id": "enc_w_attune",
 				"name": "attuning to local magic",
 				"desc": "Attuning to magic of the tree, before the rite proceeds.",
+				"tags": "enc_site_of_learning",
 				"level": 2,
 				"effect": {
 					"madness": "1~2",
@@ -769,6 +781,7 @@
 				"id": "drippingwater",
 				"name": "water source",
 				"desc": "Some of the ice here is melting. How it fights the cold is a mystery.",
+				"tags": "enc_site_of_learning",
 				"effect": {
 					"madness": "1~2",
 					"frost": "-1~0",
@@ -813,6 +826,7 @@
 				"id": "icegrave",
 				"name": "ice grave",
 				"desc": "A traveller here was frozen alive. The body may still be of use.",
+				"tags": "enc_site_of_learning",
 				"effect": {
 					"madness": "2~3",
 					"weary": "1~4",
@@ -837,6 +851,7 @@
 				"id": "icesculpture",
 				"name": "ice sculpture",
 				"desc": "Humanoid figure formed from ice and snow. The right enchantment will give it life.",
+				"tags": "enc_site_of_learning",
 				"level": 2,
 				"effect": {
 					"weary": "1~4",
@@ -854,6 +869,7 @@
 				"id": "icefairy",
 				"name": "ice fairy",
 				"desc": "A flickering of crystalline wings can be seen in the distance. Approaching it would be unwise.",
+				"tags": "enc_site_of_learning",
 				"level": 2,
 				"effect": {
 					"weary": "1~4",
@@ -952,7 +968,7 @@
 			{
 				"id": "icedmg",
 				"name": "ice damage",
-				"value": 100,
+				"val": 100,
 				"damage": "Math.max((i.value/100)||0,0)"
 			}
 		],

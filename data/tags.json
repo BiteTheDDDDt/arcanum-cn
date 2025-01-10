@@ -789,5 +789,13 @@
 	{
 		"id": "t_craftedbag",
 		"name": "Illicit Sack"
+	},
+	{
+		"id": "enc_site_of_learning",
+		"name": "Site of Learning"
+	},
+	{
+		"id": "loot_equip_gen",
+		"name": "Loot Generator"
 	}
 ]

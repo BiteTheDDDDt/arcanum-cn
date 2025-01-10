@@ -666,7 +666,6 @@ div.stamina-bar {
 	font-size: 1.1em;
 	cursor: pointer;
 	margin: var(--tiny-gap) var(--md-gap);
-	justify-content: center;
 }
 
 div.top {

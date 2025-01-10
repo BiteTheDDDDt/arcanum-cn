@@ -54,7 +54,7 @@
 					"timeparadox.mod.instability.rate": 0.2,
 					"timeparadox.mod.stress.max": "-3%"
 				},
-				"loot": {
+				"result": {
 					"timegem": 25,
 					"timerune": 2
 				},
@@ -105,8 +105,7 @@
 				]
 			}
 		],
-		"tasks": [
-		],
+		"tasks": [],
 		"potions": [
 			{
 				"id": "pot_stability",
@@ -797,10 +796,10 @@
 					"instability": 2
 				},
 				"result": {
-					"timeparadox": 1,
-					"timegem": "5%"
+					"timeparadox": 1
 				},
 				"loot": {
+					"timegem": "5%",
 					"timerune": "1%"
 				}
 			},
@@ -853,10 +852,10 @@
 					"instability": 2
 				},
 				"result": {
-					"timeparadox": 1,
-					"timegem": "5%"
+					"timeparadox": 1
 				},
 				"loot": {
+					"timegem": "5%",
 					"timerune": "1%"
 				}
 			},
@@ -896,10 +895,10 @@
 					"dissection.exp": "g.dissection.rate*2"
 				},
 				"result": {
-					"timeparadox": 1,
-					"timegem": "5%"
+					"timeparadox": 1
 				},
 				"loot": {
+					"timegem": "5%",
 					"timerune": "1%"
 				}
 			},
@@ -912,11 +911,11 @@
 					"instability": 3
 				},
 				"result": {
-					"timeparadox": 1,
-					"timegem": "50%",
-					"gems": 1
+					"timeparadox": 1
 				},
 				"loot": {
+					"timegem": "50%",
+					"gems": 1,
 					"timerune": "1%"
 				}
 			},
@@ -937,6 +936,7 @@
 				"id": "timerip_holdup",
 				"name": "A ⚔👗♨️⚗️✒️♾️",
 				"desc": "A blacksmith is hammering his needle into the soft silk. With every stitch, the potion's hue changes slightly, as the engraving spreads across the surface of the clock.",
+				"tags": "loot_equip_gen",
 				"effect": {
 					"unease": 7,
 					"madness": 7,
@@ -965,10 +965,10 @@
 				},
 				"result": {
 					"timeparadox": 1,
-					"timegem": "5%",
 					"gold": -50
 				},
 				"loot": {
+					"timegem": "5%",
 					"timerune": "1%"
 				}
 			},
@@ -1021,10 +1021,10 @@
 					"bladelore.exp": "g.bladelore.rate*2"
 				},
 				"result": {
-					"timeparadox": 1,
-					"timegem": "5%"
+					"timeparadox": 1
 				},
 				"loot": {
+					"timegem": "5%",
 					"timerune": "1%"
 				}
 			},
@@ -1077,10 +1077,10 @@
 					"automatasculpting.exp": "g.automatasculpting.rate*2"
 				},
 				"result": {
-					"timeparadox": 1,
-					"timegem": "5%"
+					"timeparadox": 1
 				},
 				"loot": {
+					"timegem": "5%",
 					"timerune": "1%"
 				}
 			},
@@ -1159,10 +1159,10 @@
 					"naturelore.exp": "g.naturelore.rate*2"
 				},
 				"result": {
-					"timeparadox": 1,
-					"timegem": "5%"
+					"timeparadox": 1
 				},
 				"loot": {
+					"timegem": "5%",
 					"timerune": "1%"
 				}
 			},
@@ -1176,10 +1176,10 @@
 					"divination.exp": "g.divination.rate*2"
 				},
 				"result": {
-					"timeparadox": 1,
-					"timegem": "5%"
+					"timeparadox": 1
 				},
 				"loot": {
+					"timegem": "5%",
 					"timerune": "1%"
 				}
 			},
@@ -1232,10 +1232,10 @@
 					"mysticism.exp": "g.mysticism.rate*2"
 				},
 				"result": {
-					"timeparadox": 1,
-					"timegem": "5%"
+					"timeparadox": 1
 				},
 				"loot": {
+					"timegem": "5%",
 					"timerune": "1%"
 				}
 			},
@@ -1249,10 +1249,10 @@
 					"mysticism.exp": "g.mysticism.rate*2"
 				},
 				"result": {
-					"timeparadox": 1,
-					"timegem": "5%"
+					"timeparadox": 1
 				},
 				"loot": {
+					"timegem": "5%",
 					"timerune": "1%"
 				}
 			},

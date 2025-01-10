@@ -45,7 +45,6 @@
 			"research.max": "1%",
 			"runelore.rate": "0.02//100/-8",
 			"runelore.max": "0.05//100/-20"
-
 		},
 		"flavor": ""
 	},
@@ -379,7 +378,6 @@
 		"group": "gems",
 		"desc": "Crafted from gems which do not yet exist.",
 		"mod": {
-			"gems.rate": -0.005,
 			"tempus.rate": 0.01
 		},
 		"max": 3,

@@ -42,7 +42,7 @@
 			"waterlore.exp": 1,
 			"arcana": 0.001
 		},
-		"result": {
+		"loot": {
 			"watergem": "25%"
 		}
 	},
@@ -56,7 +56,7 @@
 			"naturelore.exp": 1,
 			"herbalism.exp": 1
 		},
-		"result": {
+		"loot": {
 			"managem": "25%"
 		}
 	},
@@ -167,9 +167,11 @@
 			"languages.exp": 1
 		},
 		"result": {
-			"codices": "10%",
 			"research": 10,
 			"arcana": 0.02
+		},
+		"loot": {
+			"codices": "10%"
 		}
 	},
 	{
@@ -183,7 +185,9 @@
 			"research": 1
 		},
 		"result": {
-			"arcana": 0.01,
+			"arcana": 0.01
+		},
+		"loot": {
 			"managem": "75%"
 		}
 	},
@@ -199,14 +203,17 @@
 			"lore.exp": 1
 		},
 		"result": {
-			"naturegem": "10%",
 			"arcana": 0.01
+		},
+		"loot": {
+			"naturegem": "10%"
 		}
 	},
 	{
 		"id": "enc_gnome",
 		"name": "affable gnome",
 		"desc": "A gnome is always more than willing to talk over a pint or a pipe.",
+		"tags": "enc_site_of_learning",
 		"effect": {
 			"weary": "0~2",
 			"bf": "1~2",
@@ -229,8 +236,10 @@
 			"research": 1
 		},
 		"result": {
-			"shadowgem": "5%",
 			"arcana": 0.01
+		},
+		"loot": {
+			"shadowgem": "5%"
 		},
 		"flavor": "Legend tells of a massive gibbering, who will answer any question in return for a murder."
 	},
@@ -238,6 +247,7 @@
 		"id": "enc_mummy",
 		"name": "mummified remains",
 		"desc": "A corpse preserved by the stale air.",
+		"tags": "enc_site_of_learning",
 		"effect": {
 			"madness": "0~2",
 			"unease": "1~3",
@@ -249,7 +259,6 @@
 		},
 		"loot": {
 			"gold": "0~70",
-			"bonedust": "0~2",
 			"gems": "0~2",
 			"bodies": "30%"
 		}
@@ -284,7 +293,7 @@
 			"bf": "-1~2",
 			"unease": "0~2"
 		},
-		"result": {
+		"loot": {
 			"spiritgem": "90%",
 			"bodies": { "value": "1~4"},
 			"bonedust": { "value": "3~7"}
@@ -324,6 +333,7 @@
 		"id": "hauntedglade",
 		"name": "haunted glade",
 		"desc": "Trees here have an eerie aspect.",
+		"tags": "enc_site_of_learning",
 		"effect": {
 			"madness": "1~2",
 			"unease": "0~2",
@@ -355,19 +365,23 @@
 		"id": "murkywater",
 		"name": "murky waters",
 		"desc": "Ominous shapes drift and flow beneath the murky waters.",
+		"tags": "enc_site_of_learning",
 		"effect": {
 			"bf": "0~2",
 			"unease": "2~3",
 			"madness": "1~2",
 			"waterlore.exp": 1,
-			"shadowlore.exp": 1,
-			"arcana.max": 0.05
+			"shadowlore.exp": 1
+		},
+		"mod": {
+			"waterlore.max": "0.1//30/-10"
 		}
 	},
 	{
 		"id": "enc_hettie",
 		"name": "hettie",
 		"desc": "An ancient gryffon lives atop the Rithel's solitary turret, and Hettie spends her days grooming and feeding the beast.",
+		"tags": "enc_site_of_learning",
 		"effect": {
 			"weary": "1~3",
 			"bf": "1~2"
@@ -375,7 +389,7 @@
 		"mod": {
 			"magicbeasts.max": "0.1//30/-10"
 		},
-		"result": {
+		"loot": {
 			"airgem": "1~3"
 		}
 	},
@@ -476,21 +490,26 @@
 			"lore.exp": 1
 		},
 		"result": {
-			"codices": 1,
 			"arcana": 0.01
+		},
+		"loot": {
+			"codices": 1
 		}
 	},
 	{
 		"id": "enc_history",
 		"name": "dhrunic manuscript",
 		"desc": "Much that was is lost.",
+		"tags": "enc_site_of_learning",
 		"effect": {
 			"bf": "-1~4",
 			"rage": "0~4",
 			"history.exp": 1
 		},
 		"result": {
-			"arcana": 0.01,
+			"arcana": 0.01
+		},
+		"loot": {
 			"tomes": "50%"
 		},
 		"mod": {
@@ -502,6 +521,7 @@
 		"id": "enc_workbook2",
 		"name": "master's workbook",
 		"desc": "A book on the practical applications of magic.",
+		"tags": "enc_site_of_learning",
 		"effect": {
 			"bf": "-1~3",
 			"madness": "0~3",
@@ -516,13 +536,14 @@
 		"id": "enc_furnace",
 		"name": "fazbit's furnace",
 		"desc": "Its embers still glow after centuries.",
+		"tags": "enc_site_of_learning",
 		"effect": {
 			"bf": "-1~4",
 			"madness": "0~2",
 			"unease": "1~3",
 			"firelore.exp": 1
 		},
-		"result": {
+		"loot": {
 			"firegem": "1~4"
 		},
 		"mod": {
@@ -533,6 +554,7 @@
 		"id": "enc_alchemy",
 		"name": "alchemical equipment",
 		"desc": "The uses of these instruments are beyond you.",
+		"tags": "enc_site_of_learning",
 		"effect": {
 			"bf": "-1~4",
 			"madness": "0~2",
@@ -547,6 +569,7 @@
 		"id": "enc_statue2",
 		"name": "crumbled statue",
 		"desc": "The old stonemasons often chiselled spells into their works.",
+		"tags": "enc_site_of_learning",
 		"effect": {
 			"earthlore.exp": 1,
 			"bf": "0~2",
@@ -561,13 +584,14 @@
 		"id": "enc_statue4",
 		"name": "eldar statue",
 		"desc": "Its weathered face has gazed upon the world since the Wind Age.",
+		"tags": "enc_site_of_learning",
 		"effect": {
 			"madness": 1,
 			"bf": "3~7",
 			"unease": "3~7",
 			"history.exp": 1
 		},
-		"result": {
+		"loot": {
 			"runestones": "10%"
 		},
 		"mod": {
@@ -578,6 +602,7 @@
 		"id": "enc_battle1",
 		"name": "ancient battlefield",
 		"desc": "Blasted hills and scraps of armor still mark an ancient site of battle.",
+		"tags": "enc_site_of_learning",
 		"effect": {
 			"madness": 0.5,
 			"weary": "2~7",
@@ -592,12 +617,13 @@
 		"id": "enc_mtpass",
 		"name": "thandhrun pass",
 		"desc": "Higher even than Gorborung, the passes of Thandhrun incessantly thunder.",
+		"tags": "enc_site_of_learning",
 		"effect": {
 			"madness": 0.5,
 			"weary": "4~7",
 			"rage": "2~7"
 		},
-		"result": {
+		"loot": {
 			"airrune": "10%"
 		},
 		"mod": {
@@ -614,7 +640,7 @@
 			"madness": "0~2",
 			"history.exp": 1
 		},
-		"result": {
+		"loot": {
 			"earthrune": "10%"
 		},
 		"flavor": "A voice seems to grumble from the ground."
@@ -623,6 +649,7 @@
 		"id": "enc_sindel",
 		"name": "star shrine",
 		"desc": "A glowing star cinder embedded in a shrine.",
+		"tags": "enc_site_of_learning",
 		"effect": {
 			"lightlore.exp": 1,
 			"bf": "2~5",
@@ -655,20 +682,21 @@
 			"bf": "3~7",
 			"unease": "2~4"
 		},
-		"result": {},
+		"loot": {},
 		"flavor": "Blank verse is hard to interpret."
 	},
 	{
 		"id": "enc_gap",
 		"name": "markhul's gap",
 		"desc": "Gazing over the dizzy edge, you see no sign of a bottom.",
+		"tags": "enc_site_of_learning",
 		"effect": {
 			"bf": "0~3",
 			"unease": "1~4",
 			"madness": "0~3",
 			"airlore.exp": 1
 		},
-		"result": {
+		"loot": {
 			"airgem": "10%"
 		},
 		"mod": {
@@ -684,7 +712,7 @@
 			"weary": "1~3",
 			"unease": "1~2"
 		},
-		"result": {}
+		"loot": {}
 	},
 	{
 		"id": "enc_mirror2",
@@ -695,7 +723,7 @@
 			"rage": "1~3",
 			"bf": "1~2"
 		},
-		"result": {}
+		"loot": {}
 	},
 	{
 		"id": "enc_futuremirror",
@@ -706,7 +734,7 @@
 			"madness": "1~3",
 			"unease": "2~3"
 		},
-		"result": {}
+		"loot": {}
 	},
 	{
 		"id": "enc_rageemirror",
@@ -715,7 +743,7 @@
 		"effect": {
 			"rage": "4~5"
 		},
-		"result": {}
+		"loot": {}
 	},
 	{
 		"id": "enc_mirrorhall",
@@ -726,7 +754,7 @@
 			"rage": "2~3",
 			"bf": "3~5"
 		},
-		"result": {}
+		"loot": {}
 	},
 	{
 		"id": "enc_voidmirror",
@@ -784,7 +812,7 @@
 			"earth": 0.5,
 			"air": 0.5
 		},
-		"result": {}
+		"loot": {}
 	},
 	{
 		"id": "enc_oasis",
@@ -800,6 +828,7 @@
 		"id": "enc_mirage",
 		"name": "mirage",
 		"desc": "Extended travel beneath the hot sun produces visceral visions in the sand.",
+		"tags": "enc_site_of_learning",
 		"effect": {
 			"madness": "1~3",
 			"unease": "0~2",
@@ -819,7 +848,7 @@
 			"madness": "1~3",
 			"mana": -1
 		},
-		"result": {
+		"loot": {
 			"bloodgem": "20%",
 			"managem": "10%",
 			"codices": "15%"
@@ -855,7 +884,7 @@
 			"unease": "1~3",
 			"void": 0.1
 		},
-		"result": {
+		"loot": {
 			"codices": "2~4",
 			"tomes": "0~3",
 			"runestones": "10%"
@@ -865,6 +894,7 @@
 		"id": "enc_caravan",
 		"name": "caravan",
 		"desc": "All features of the riders are hidden in robes. They communicate with guttural sounds and gestures.",
+		"tags": "enc_site_of_learning",
 		"effect": {
 			"unease": "1~3"
 		},
@@ -876,6 +906,7 @@
 		"id": "enc_aeonclock",
 		"name": "aeon clock",
 		"desc": "Legend has it that Thurn himself crafted the ten leagues of clockworks in the Orrem Sands. Year by year, it ticks away the endless Aeons.",
+		"tags": "enc_site_of_learning",
 		"effect": {
 			"madness": "0~3",
 			"unease": "0~2",
@@ -884,7 +915,7 @@
 			"crafting.exp": 1,
 			"history.exp": 1
 		},
-		"result": {
+		"loot": {
 			"runestones": "10%"
 		},
 		"mod": {
@@ -1071,6 +1102,7 @@
 		"id": "e_bestiary2",
 		"name": "bestiary",
 		"desc": "A manual of beastly lore rests atop an ancient pedestal.",
+		"tags": "enc_site_of_learning",
 		"effect": {
 			"unease": "1~2",
 			"madness": "1~2",
@@ -1091,7 +1123,9 @@
 		},
 		"result": {
 			"research": 1,
-			"arcana": 0.06,
+			"arcana": 0.06
+		},
+		"loot": {
 			"scrolls": "0~2"
 		}
 	},
@@ -1105,7 +1139,7 @@
 			"naturelore.exp": 1,
 			"waterlore.exp": 1
 		},
-		"result": {
+		"loot": {
 			"watergem": "1~4",
 			"herbs": "3~7"
 		}
@@ -1120,15 +1154,12 @@
 			"bf": "-1~2",
 			"naturelore.exp": 1
 		},
-		"result": {
-			"watergem": "25%"
-		},
 		"loot": {
 			"gold": "0~50",
 			"gems": "0~3",
 			"scrolls": "2~4",
 			"codices": "0~4",
-			"watergem": "1~2"
+			"watergem": "1~3"
 		}
 	},
 	{
@@ -1157,7 +1188,7 @@
 			"earthlore.exp": 1,
 			"arcana": 0.001
 		},
-		"result": {
+		"loot": {
 			"naturegem": "1~2"
 		}
 	},
@@ -1170,7 +1201,7 @@
 			"bf": "-1~2",
 			"naturelore.exp": 1
 		},
-		"result": {
+		"loot": {
 			"earthgem": "1~5"
 		}
 	},
@@ -1186,8 +1217,10 @@
 			"lore.exp": 1
 		},
 		"result": {
-			"naturegem": "1~2",
 			"arcana": 0.01
+		},
+		"loot": {
+			"naturegem": "1~2"
 		}
 	},
 	{
@@ -1221,7 +1254,7 @@
 			"herbalism.exp": 1,
 			"lightlore.exp": 1
 		},
-		"result": {
+		"loot": {
 			"naturegem": "50%"
 		}
 	},
@@ -1229,12 +1262,13 @@
 		"id": "enc_hugetree",
 		"name": "gnarled old tree",
 		"desc": "An ancient, gnarled old tree stands here. You almost feel like it's watching you.",
+		"tags": "enc_site_of_learning",
 		"effect": {
 			"madness": "1~2",
 			"unease": "0~2",
 			"naturelore.exp": 1
 		},
-		"result": {
+		"loot": {
 			"earthgem": "50%",
 			"naturegem": "50%"
 		},
@@ -1269,8 +1303,10 @@
 			"lore.exp": 1
 		},
 		"result": {
-			"naturegem": "10%",
 			"arcana": 0.01
+		},
+		"loot": {
+			"naturegem": "10%"
 		}
 	},
 	{
@@ -1285,15 +1321,18 @@
 			"lore.exp": 1
 		},
 		"result": {
-			"codices": "10%",
 			"research": 10,
 			"arcana": 0.02
+		},
+		"loot": {
+			"codices": "10%"
 		}
 	},
 	{
 		"id": "rithel_woods",
 		"name": "watching the woods",
 		"desc": "You spend some time monitoring the nearby forest from atop Rithel's walls. Everything seems quiet.",
+		"tags": "enc_site_of_learning",
 		"effect": {
 			"weary": "1~3",
 			"bf": "1~2"
@@ -1313,7 +1352,7 @@
 			"naturelore.exp": 1,
 			"lightlore.exp": 1
 		},
-		"result": {
+		"loot": {
 			"airgem": "1~3"
 		}
 	},
@@ -1333,13 +1372,14 @@
 		"id": "enc_alchemy2",
 		"name": "alchemical transmutation",
 		"desc": "This alchemical apparatus seems to have been intended to transmute lead into gold.",
+		"tags": "enc_site_of_learning",
 		"effect": {
 			"bf": "-1~4",
 			"madness": "0~2",
 			"rage": "1~3",
 			"alchemy.exp": 1
 		},
-		"result": {
+		"loot": {
 			"gold": "0~130"
 		},
 		"mod": {
@@ -1359,7 +1399,7 @@
 			"fire": 0.5,
 			"air": 0.5
 		},
-		"result": {
+		"loot": {
 			"firerune": "10%"
 		}
 	},
@@ -1373,10 +1413,8 @@
 			"bf": "1~3",
 			"automatasculpting.exp": 1
 		},
-		"result": {
-			"runestones": "15%"
-		},
 		"loot": {
+			"runestones": "15%",
 			"shadowgem": "1~4"
 		}
 	},
@@ -1390,7 +1428,7 @@
 			"unease": "1~4",
 			"waterlore.exp": 1
 		},
-		"result": {
+		"loot": {
 			"waterrune": "10%"
 		}
 	}

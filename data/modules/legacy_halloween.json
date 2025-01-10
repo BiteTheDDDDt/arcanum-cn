@@ -37,6 +37,7 @@
 				"id": "enc_blackcat",
 				"name": "black cat",
 				"desc": "A black cat is an omen to be studied seriously",
+				"tags": "enc_site_of_learning",
 				"effect": {
 					"unease": "1~4",
 					"rage": "2~4",

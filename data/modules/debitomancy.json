@@ -28,7 +28,6 @@
 				"actname": "burning records",
 				"desc": "Accumulated records of your debt, forever burning, erasing",
 				"flavor": "The unending scroll's malicious counterpart.",
-				"craftable": true,
 				"require": "g.debitomancy>=6&&g.firelore>=7&&g.languages>=7",
 				"max": 1,
 				"length": 120,
@@ -128,16 +127,16 @@
 				},
 				"at": {
 					"100": {
-						"encasedebt.effect.debt": -1
+						"effect.debt": -1
 					},
 					"200": {
-						"encasedebt.effect.debt": -1
+						"effect.debt": -1
 					},
 					"300": {
-						"encasedebt.effect.debt": -1
+						"effect.debt": -1
 					},
 					"400": {
-						"encasedebt.effect.debt": -1
+						"effect.debt": -1
 					}
 				},
 				"group": "affluence"
