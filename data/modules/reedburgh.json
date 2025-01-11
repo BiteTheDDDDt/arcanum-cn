@@ -426,7 +426,7 @@
 					"codices": "80%",
 					"scrolls": "1~2",
 					"gems": "1~2",
-					"starcharts": "50%"
+					"bones": { "value": "3~5"}
 				}
 			},
 			{
