@@ -376,7 +376,7 @@
 	},
 	{
 		"id": "gloss_priority",
-		"name": "task priorities",
+		"name": "task priorities (goals and pursuits)",
 		"group": "tasks",
 		"tags": "t_gloss_tasks",
 		"desc": [
