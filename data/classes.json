@@ -800,7 +800,7 @@
 	{
 		"id": "pyromancer",
 		"desc": "Shaper of fire",
-		"tags": "t_tier2",
+		"tags": "t_tier2,t_fireclass",
 		"actdesc": "Become a pyromancer.",
 		"require": "g.tier1>0&&g.firelore>=10",
 		"cost": {
