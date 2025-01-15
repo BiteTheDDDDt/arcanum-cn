@@ -2312,6 +2312,52 @@
 		}
 	},
 	{
+		"id": "siversdemon",
+		"name": "Plane of Demons",
+		"desc": "Irith. Gellmud. Vornith. They offer you knowledge beyond your imagination.",
+		"flavor": "All they ask for, is a single step.",
+		"group": "bargain",
+		"require": "g.lore>=30&&g.tier4>0&&g.demonology>0",
+		"need": "siversgate",
+		"max": 1,
+		"cost": {
+			"arcana": 20,
+			"shadow": 20
+		},
+		"mod": {
+			"planeslore.max": 1,
+			"planeslore.rate": "10%",
+			"demonology.max": 3,
+			"demonology.rate": "30%",
+			"vivification.max": 2
+		}
+	},
+	{
+		"id": "siversnecro",
+		"name": "Plane of Death",
+		"desc": "You feel the connection to the plane of Death beyond the gate.",
+		"flavor": "And you can't be killed like most men.",
+		"group": "bargain",
+		"require": "g.lore>=30&&g.tier4>0&&g.necromancy>0",
+		"need": "siversgate",
+		"max": 1,
+		"cost": {
+			"bodies": 10,
+			"skulls": 10,
+			"bones": 10,
+			"shadow": 20
+		},
+		"mod": {
+			"planeslore.max": 1,
+			"planeslore.rate": "10%",
+			"reanimation.max": 2,
+			"reanimation.rate": "30%",
+			"necromancy.max": 2,
+			"necromancy.rate": "30%",
+			"necromancy.mod.hp.rate": 0.05
+		}
+	},
+	{
 		"id": "dishwasher",
 		"name": "lesser hydrokinesis",
 		"desc": "Learn how to gently nudge water with your will alone. Little more than a party trick for most, it is a great tool for cleaning the mountains of dishes your master's experiments leave behind.",
