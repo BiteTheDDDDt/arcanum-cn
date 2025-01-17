@@ -48,7 +48,7 @@
 				"desc": "Deep in Delkin Wood, Master Wild kept his fabled camp.",
 				"require": "(g.warden+g.druid+g.fey+g.kell)>0&&g.tier2>0",
 				"tags": "outdoors,plantsource,t_pets,patron",
-				"cost": {
+				"buy": {
 					"gold": 300,
 					"naturegem": 20,
 					"herbs": 50,
