@@ -296,10 +296,8 @@
 				},
 				"group": "crafting"
 			}
-			
 		],
 		"upgrades": [
-			
 			{
 				"id": "clockworkexpansion",
 				"name": "clockwork expansion",
@@ -1150,12 +1148,10 @@
 					"managem": 10,
 					"puppets": 10
 				},
-				"cost": {
-					"puppets": 5
-				},
+				"cost": { "puppets": 5 },
 				"summon": [
 					{
-						"id": "clockcrow",
+						"id": "sum_clockcrow",
 						"count": 1,
 						"max": 5,
 						"keep": true
@@ -1183,12 +1179,10 @@
 					"puppets": 20,
 					"machinae": 12
 				},
-				"cost": {
-					"automatas": 1
-				},
+				"cost": { "automatas": 1 },
 				"summon": [
 					{
-						"id": "clockservant",
+						"id": "sum_clockservant",
 						"count": 1,
 						"max": 3,
 						"keep": true
@@ -1217,12 +1211,10 @@
 					"machinae": 12,
 					"puppets": 20
 				},
-				"cost": {
-					"automatas": 1
-				},
+				"cost": { "automatas": 1 },
 				"summon": [
 					{
-						"id": "clockknight",
+						"id": "sum_clockknight",
 						"count": 1,
 						"max": 3,
 						"keep": true
@@ -1230,44 +1222,59 @@
 				]
 			},
 			{
+				"id": "mon_mk_clockcrow",
+				"name": "assemble mechanical crow",
+				"require": "g.machinacreation>=999",
+				"cd": 20,
+				"summon": {
+					"id": "mon_clockcrow",
+					"count": 1,
+					"max": 3
+				}
+			},
+			{
+				"id": "mon_mk_clockservant",
+				"name": "assemble automata servant",
+				"require": "g.machinacreation>=999",
+				"cd": 30,
+				"summon": {
+					"id": "mon_clockservant",
+					"count": 1,
+					"max": 2
+				}
+			},
+			{
 				"id": "mon_mk_clockknight",
+				"name": "assemble brass knight",
+				"require": "g.machinacreation>=999",
+				"cd": 30,
+				"summon": {
+					"id": "mon_clockknight",
+					"count": 1,
+					"max": 2
+				}
+			},
+			{
+				"id": "mon_mk_mon_clockknight_elite",
 				"name": "assemble elite brass knight",
-				"level": 4,
-				"school": "animation",
-				"keywords": {
-					"type": ["summon"],
-					"target": ["ally"],
-					"targets": ["single"],
-					"delivery": ["instant"]
-				},
-				"require": "g.magiphysics>=9999&&g.machinacreation>=8&&g.corivar_trophy>0",
-				"summon": [
-					{
-						"id": "clockknight_elite",
-						"count": 1,
-						"max": 3
-					}
-				]
+				"require": "g.machinacreation>=999",
+				"cd": 30,
+				"summon": {
+					"id": "mon_mon_clockknight_elite",
+					"count": 1,
+					"max": 1
+				}
 			},
 			{
 				"id": "mon_mk_clockmage",
 				"name": "assemble elite auto mage",
-				"level": 4,
-				"school": "animation",
-				"keywords": {
-					"type": ["summon"],
-					"target": ["ally"],
-					"targets": ["single"],
-					"delivery": ["instant"]
-				},
-				"require": "g.magiphysics>=9999&&g.machinacreation>=8&&g.corivar_trophy>0",
-				"summon": [
-					{
-						"id": "clockmage_elite",
-						"count": 1,
-						"max": 3
-					}
-				]
+				"require": "g.machinacreation>=999",
+				"cd": 30,
+				"summon": {
+					"id": "mon_clockmage_elite",
+					"count": 1,
+					"max": 1
+				}
 			}
 		],
 		"homes": [
@@ -1788,7 +1795,7 @@
 				]
 			},
 			{
-				"id": "clockservant",
+				"id": "sum_clockservant",
 				"tags": "t_automata,clockwork",
 				"name": "automata servant",
 				"desc": "A shining servant of the castle.",
@@ -1808,7 +1815,7 @@
 					},
 					{
 						"name": "forgive me bow",
-						"kind": "charm",
+						"kind": "spirit",
 						"damage": "35~40"
 					},
 					{
@@ -1862,57 +1869,501 @@
 				]
 			},
 			{
-				"id": "clocksentry",
+				"id": "sum_clockknight",
 				"tags": "t_automata,clockwork",
-				"name": "crossbow sentry",
-				"desc": "A ranged guard firing brass arrows.",
-				"level": 10,
+				"name": "brass knight",
+				"desc": "A shining knight in brass armor.",
+				"level": 11,
 				"kind": "automata",
 				"noproc": true,
 				"hp": 300,
-				"defense": 5,
-				"spells": "mk_clockcrow,perfectstrike",
-				"loot": {
-					"managem": "1~2"
-				},
+				"defense": 45,
+				"spells": "whirl3,perfectstrike",
 				"attack": [
 					{
-						"name": "long shot",
-						"kind": "pierce",
+						"name": "hour hand slash",
+						"kind": "slash",
 						"damage": "50~60"
 					},
 					{
-						"name": "repeater",
-						"kind": "slash",
-						"damage": "30~45"
+						"name": "second hand pierce",
+						"kind": "pierce",
+						"damage": "55~70"
 					},
 					{
-						"name": "oiled arrow",
+						"name": "minute hand maul",
 						"kind": "blunt",
-						"damage": "25~30",
+						"damage": "35~50",
 						"dot": {
-							"damage": "5~12",
-							"duration": 10
+							"kind": "slash",
+							"name": "bleeding time",
+							"damage": "15~25",
+							"duration": 5
 						}
 					},
 					{
-						"name": "retune crossbow",
+						"name": "commanding presence",
+						"targets": "ally",
+						"dot": {
+							"duration": 30,
+							"mod": {
+								"self.speed": 5
+							}
+						}
+					},
+					{
+						"name": "realign shield",
 						"targets": "self",
 						"result": {
 							"hp": 5
 						},
 						"dot": {
-							"duration": 5,
+							"duration": 30,
 							"mod": {
-								"self.defense": -5,
-								"self.speed": 5
+								"self.defense": 45
 							}
 						}
 					}
 				]
 			},
 			{
-				"id": "clockknight",
+				"id": "mon_clockdicer",
+				"tags": "t_automata,clockwork",
+				"name": "automata chef",
+				"desc": "An automated cook with sharp knives and a hardened brass shell, looking to make you the next meal.",
+				"level": 13,
+				"kind": "automata",
+				"spells": "whirl3,perfectstrike",
+				"noproc": true,
+				"hp": 300,
+				"defense": 15,
+				"loot": {
+					"herbs": "5~6",
+					"gems": 1
+				},
+				"attack": [
+					{
+						"name": "season wounds",
+						"kind": "spirit",
+						"damage": "15~20"
+					},
+					{
+						"name": "brass slashes",
+						"kind": "slash",
+						"damage": "35~40",
+						"dot": {
+							"kind": "slash",
+							"name": "precise cuts",
+							"damage": "10~25",
+							"duration": 10
+						}
+					},
+					{
+						"name": "blowtorch",
+						"kind": "fire",
+						"damage": "35~40",
+						"dot": {
+							"kind": "fire",
+							"name": "oil flames",
+							"damage": "20~35",
+							"duration": 5
+						}
+					},
+					{
+						"name": "serve oil",
+						"targets": "ally",
+						"targetspec": {
+							"notaffectedby": {
+								"condition": ["t_speedup"]
+							}
+						},
+						"dot": {
+							"tags": "t_speedup",
+							"duration": 30,
+							"mod": {
+								"self.speed": 5
+							}
+						}
+					},
+					{
+						"name": "self serving",
+						"targets": "self",
+						"result": {
+							"hp": 100
+						},
+						"dot": {
+							"duration": 60,
+							"mod": {
+								"self.defense": 10,
+								"self.speed": 10
+							}
+						}
+					}
+				]
+			},
+			{
+				"id": "sum_clockcrow",
+				"tags": "t_puppet,clockwork",
+				"name": "mechanical crow",
+				"desc": "A mechanical crow-like contraption, it watches with gemstone eyes.",
+				"level": 9,
+				"kind": "puppet",
+				"noproc": true,
+				"hp": 80,
+				"tohit": 20,
+				"defense": 10,
+				"loot": {
+					"gems": "50%"
+				},
+				"attack": [
+					{
+						"name": "sharp peck",
+						"kind": "blunt",
+						"damage": "10~15"
+					},
+					{
+						"name": "tracking gaze",
+						"kind": "spirit",
+						"damage": "5~8",
+						"targetspec": {
+							"notaffectedby": {
+								"condition": ["tracking_dot"],
+								"conditiontext": "tracking"
+							}
+						},
+						"dot": {
+							"name": "tracking",
+							"id": "tracking_dot",
+							"duration": 20,
+							"mod": {
+								"self.dodge": -6,
+								"self.speed": -3
+							}
+						}
+					}
+				]
+			},
+			{
+				"id": "mon_clockmage_elite",
+				"tags": "t_automata,clockwork",
+				"name": "pristine automated mage",
+				"desc": "A collection of runes, gems and brass capable of dangerous spellcasting.",
+				"level": 12,
+				"kind": "automata",
+				"noproc": true,
+				"hp": 600,
+				"defense": 30,
+				"chaincast": 1,
+				"spells": "elec2,elec1,massjinx,magebolt,lightspear2,prismaticspray2,quell",
+				"loot": {
+					"runestones": 1
+				},
+				"attack": [
+					{
+						"name": "brass shrapnel",
+						"kind": "blunt",
+						"damage": "40~55"
+					}
+				]
+			},
+			{
+				"id": "mon_clockknight_elite",
+				"tags": "t_automata,clockwork",
+				"name": "pristine brass knight",
+				"desc": "A shining knight in brass armor. Not a mark spoils its features",
+				"level": 11,
+				"kind": "automata",
+				"noproc": true,
+				"hp": 700,
+				"defense": 55,
+				"spells": "whirl3,perfectstrike",
+				"loot": {
+					"managem": 3
+				},
+				"attack": [
+					{
+						"name": "hour hand slash",
+						"kind": "slash",
+						"damage": "60~70"
+					},
+					{
+						"name": "second hand pierce",
+						"kind": "pierce",
+						"damage": "60~75"
+					},
+					{
+						"name": "minute hand maul",
+						"kind": "blunt",
+						"damage": "40~55",
+						"dot": {
+							"kind": "slash",
+							"name": "bleeding time",
+							"damage": "18~30",
+							"duration": 5
+						}
+					},
+					{
+						"name": "commanding presence",
+						"targets": "ally",
+						"targetspec": {
+							"notaffectedby": {
+								"condition": ["command_dot"],
+								"conditiontext": "commanding presence"
+							}
+						},
+						"dot": {
+							"name": "commanding presence",
+							"id": "command_dot",
+							"duration": 30,
+							"mod": {
+								"self.speed": 8
+							}
+						}
+					},
+					{
+						"name": "realign shield",
+						"targets": "self",
+						"result": {
+							"hp": 25
+						},
+						"dot": {
+							"duration": 10,
+							"mod": {
+								"self.defense": 30
+							}
+						}
+					}
+				]
+			},
+			{
+				"id": "mon_clockwork_core_elite",
+				"tags": "t_automata,clockwork",
+				"name": "pristine castle core",
+				"desc": "A supporting unit for the replica, capable of summoning and maintaining masses of reinforcements.",
+				"level": 22,
+				"kind": "automata",
+				"noproc": true,
+				"hp": 1500,
+				"defense": 20,
+				"speed": 15,
+				"chaincast": 0.5,
+				"spells": "massjinx,quell,mon_mk_clockservant,mon_mk_clockknight,mon_mk_clockmage",
+				"loot": {
+					"managem": 5,
+					"gems": 5,
+					"runestones": 3,
+					"gold": 250
+				},
+				"attack": [
+					{
+						"name": "blunt brass arrow",
+						"kind": "blunt",
+						"damage": "20~30"
+					},
+					{
+						"name": "mass repair",
+						"targets": "allies",
+						"harmless": true,
+						"result": {
+							"hp": 45
+						}
+					},
+					{
+						"name": "crackle",
+						"targets": "enemies",
+						"damage": "10~15",
+						"harmless": true
+					}
+				]
+			},
+			{
+				"id": "mon_corivar_replica",
+				"name": "corivar's replica",
+				"tags": "t_automata,clockwork",
+				"level": 15,
+				"spells": "mon_mk_clockknight_elite,mon_mk_clockmage,mon_mk_clockknight,mon_mk_clockservant",
+				"chaincast": 0.25,
+				"kind": "automata",
+				"desc": "What stands before you is a result of hubris unimaginable, borne out of desire to achieve immortality. It thinks it's Corivar. It most certainly is not.",
+				"noproc": true,
+				"hp": 4000,
+				"defense": 60,
+				"dodge": 10,
+				"tohit": 25,
+				"speed": 25,
+				"attack": [
+					{
+						"name": "suppress magic",
+						"targets": "enemyleader",
+						"harmless": true,
+						"dot": {
+							"id": "silence",
+							"duration": 60
+						}
+					},
+					{
+						"name": "crackle",
+						"targets": "enemies",
+						"damage": "15~25",
+						"harmless": true
+					},
+					{
+						"name": "mass repair",
+						"targets": "allies",
+						"harmless": true,
+						"result": {
+							"hp": 60
+						}
+					}
+				],
+				"loot": {
+					"brassbauble": 1
+				}
+			},
+			{
+				"id": "mon_clockwork_core",
+				"tags": "t_automata,clockwork",
+				"name": "corivar's castle core",
+				"desc": "A large mobile core that darts around the castle reshaping and remaking its subjects.",
+				"level": 22,
+				"kind": "automata",
+				"noproc": true,
+				"hp": 1000,
+				"defense": 20,
+				"speed": -1,
+				"spells": "massjinx,quell,mk_clockservant,mk_clockknight,mk_clockcrow",
+				"loot": {
+					"managem": 5,
+					"gems": 5,
+					"runestones": 3,
+					"gold": 250
+				},
+				"attack": [
+					{
+						"name": "blunt brass arrow",
+						"kind": "blunt",
+						"damage": "20~30"
+					}
+				]
+			},
+			{
+				"id": "mon_clockcrow",
+				"tags": "t_puppet,clockwork",
+				"name": "mechanical crow",
+				"desc": "A mechanical crow-like contraption, it watches with gemstone eyes.",
+				"level": 9,
+				"kind": "puppet",
+				"noproc": true,
+				"hp": 80,
+				"tohit": 20,
+				"defense": 10,
+				"loot": {
+					"gems": "50%"
+				},
+				"attack": [
+					{
+						"name": "sharp peck",
+						"kind": "blunt",
+						"damage": "10~15"
+					},
+					{
+						"name": "tracking gaze",
+						"kind": "spirit",
+						"damage": "5~8",
+						"targetspec": {
+							"notaffectedby": {
+								"condition": ["tracking_dot"],
+								"conditiontext": "tracking"
+							}
+						},
+						"dot": {
+							"name": "tracking",
+							"id": "tracking_dot",
+							"duration": 20,
+							"mod": {
+								"self.dodge": -6,
+								"self.speed": -3
+							}
+						}
+					}
+				]
+			},
+			{
+				"id": "mon_clockservant",
+				"tags": "t_automata,clockwork",
+				"name": "automata servant",
+				"desc": "A shining servant of the castle.",
+				"level": 9,
+				"kind": "automata",
+				"noproc": true,
+				"hp": 500,
+				"defense": 25,
+				"loot": {
+					"managem": 1
+				},
+				"attack": [
+					{
+						"name": "tray bash",
+						"kind": "blunt",
+						"damage": "15~20"
+					},
+					{
+						"name": "forgive me bow",
+						"kind": "spirit",
+						"damage": "35~40"
+					},
+					{
+						"name": "serve hot drink",
+						"kind": "fire",
+						"damage": "15~20",
+						"targetspec": {
+							"notaffectedby": {
+								"condition": ["hotdrinkservant"],
+								"conditiontext": "hot drink"
+							}
+						},
+						"dot": {
+							"id": "hotdrinkservant",
+							"kind": "fire",
+							"name": "hot drink",
+							"damage": "3~5",
+							"duration": 8
+						}
+					},
+					{
+						"name": "serve oil",
+						"targets": "ally",
+						"targetspec": {
+							"notaffectedby": {
+								"condition": ["t_speedup"]
+							}
+						},
+						"dot": {
+							"tags": "t_speedup",
+							"duration": 30,
+							"level": 6,
+							"mod": {
+								"self.speed": 5
+							}
+						}
+					},
+					{
+						"name": "tray shield",
+						"targets": "self",
+						"result": {
+							"hp": 5
+						},
+						"dot": {
+							"duration": 10,
+							"mod": {
+								"self.defense": 25
+							}
+						}
+					}
+				]
+			},
+			{
+				"id": "mon_clockknight",
 				"tags": "t_automata,clockwork",
 				"name": "brass knight",
 				"desc": "A shining knight in brass armor.",
@@ -1973,146 +2424,57 @@
 				]
 			},
 			{
-				"id": "clockdicer",
+				"id": "mon_clocksentry",
 				"tags": "t_automata,clockwork",
-				"name": "automata chef",
-				"desc": "An automated cook with sharp knives and a hardened brass shell, looking to make you the next meal.",
-				"level": 13,
+				"name": "crossbow sentry",
+				"desc": "A ranged guard firing brass arrows.",
+				"level": 10,
 				"kind": "automata",
-				"spells": "whirl3,perfectstrike",
 				"noproc": true,
 				"hp": 300,
-				"defense": 15,
+				"defense": 5,
+				"spells": "mk_clockcrow,perfectstrike",
 				"loot": {
-					"herbs": "5~6",
-					"gems": 1
+					"managem": "1~2"
 				},
 				"attack": [
 					{
-						"name": "season wounds",
-						"kind": "charm",
-						"damage": "15~20"
+						"name": "long shot",
+						"kind": "pierce",
+						"damage": "50~60"
 					},
 					{
-						"name": "brass slashes",
+						"name": "repeater",
 						"kind": "slash",
-						"damage": "35~40",
+						"damage": "30~45"
+					},
+					{
+						"name": "oiled arrow",
+						"kind": "blunt",
+						"damage": "25~30",
 						"dot": {
-							"kind": "bleed",
-							"name": "precise cuts",
-							"damage": "10~25",
+							"damage": "5~12",
 							"duration": 10
 						}
 					},
 					{
-						"name": "blowtorch",
-						"kind": "fire",
-						"damage": "35~40",
-						"dot": {
-							"kind": "fire",
-							"name": "oil flames",
-							"damage": "20~35",
-							"duration": 5
-						}
-					},
-					{
-						"name": "serve oil",
-						"targets": "ally",
-						"targetspec": {
-							"notaffectedby": {
-								"condition": ["t_speedup"]
-							}
+						"name": "retune crossbow",
+						"targets": "self",
+						"result": {
+							"hp": 5
 						},
 						"dot": {
-							"tags": "t_speedup",
-							"duration": 30,
+							"duration": 5,
 							"mod": {
+								"self.defense": -5,
 								"self.speed": 5
 							}
 						}
-					},
-					{
-						"name": "self serving",
-						"targets": "self",
-						"result": {
-							"hp": 100
-						},
-						"dot": {
-							"duration": 60,
-							"mod": {
-								"self.defense": 10,
-								"self.speed": 10
-							}
-						}
 					}
 				]
 			},
 			{
-				"id": "clockscout",
-				"tags": "t_automata,clockwork",
-				"name": "copper scout",
-				"desc": "A fast moving, green cloaked rogue, looking to call out your every movement.",
-				"level": 7,
-				"kind": "automata",
-				"noproc": true,
-				"hp": 100,
-				"defense": 5,
-				"spells": "whirl3,perfectstrike,downswinging",
-				"loot": {
-					"gems": "1~2"
-				},
-				"attack": [
-					{
-						"name": "pipe bash",
-						"kind": "blunt",
-						"damage": "15~20"
-					}
-				]
-			},
-			{
-				"id": "clockcrow",
-				"tags": "t_puppet,clockwork",
-				"name": "mechanical crow",
-				"desc": "A mechanical crow-like contraption, it watches with gemstone eyes.",
-				"level": 9,
-				"kind": "puppet",
-				"noproc": true,
-				"hp": 80,
-				"tohit": 20,
-				"defense": 10,
-				"loot": {
-					"gems": "50%"
-				},
-				"attack": [
-					{
-						"name": "sharp peck",
-						"kind": "blunt",
-						"damage": "10~15"
-					},
-					{
-						"name": "tracking gaze",
-						"kind": "charm",
-						"damage": "5~8",
-						"targetspec": {
-							"notaffectedby": {
-								"condition": ["tracking_dot"],
-								"conditiontext": "tracking"
-							}
-						},
-						"dot": {
-							"name": "tracking",
-							"id": "tracking_dot",
-							"duration": 20,
-							"mod": {
-								"self.dodge": -6,
-								"self.speed": -3
-							}
-						}
-					}
-				]
-			},
-			{
-				"id": "clockmage",
+				"id": "mon_clockmage",
 				"tags": "t_automata,clockwork",
 				"name": "automated mage",
 				"desc": "A collection of runes, gems and brass able to cast a few spells.",
@@ -2136,207 +2498,26 @@
 				]
 			},
 			{
-				"id": "clockwork_core",
+				"id": "mon_clockscout",
 				"tags": "t_automata,clockwork",
-				"name": "corivar's castle core",
-				"desc": "A large mobile core that darts around the castle reshaping and remaking its subjects.",
-				"level": 22,
+				"name": "copper scout",
+				"desc": "A fast moving, green cloaked rogue, looking to call out your every movement.",
+				"level": 7,
 				"kind": "automata",
 				"noproc": true,
-				"hp": 1000,
-				"defense": 20,
-				"speed": -1,
-				"spells": "massjinx,quell,mk_clockservant,mk_clockknight,mk_clockcrow",
+				"hp": 100,
+				"defense": 5,
+				"spells": "whirl3,perfectstrike,downswinging",
 				"loot": {
-					"managem": 5,
-					"gems": 5,
-					"runestones": 3,
-					"gold": 250
+					"gems": "1~2"
 				},
 				"attack": [
 					{
-						"name": "blunt brass arrow",
+						"name": "pipe bash",
 						"kind": "blunt",
-						"damage": "20~30"
+						"damage": "15~20"
 					}
 				]
-			},
-			{
-				"id": "clockmage_elite",
-				"tags": "t_automata,clockwork",
-				"name": "pristine automated mage",
-				"desc": "A collection of runes, gems and brass capable of dangerous spellcasting.",
-				"level": 12,
-				"kind": "automata",
-				"noproc": true,
-				"hp": 600,
-				"defense": 30,
-				"chaincast": 1,
-				"spells": "doublestrike,lightning,massjinx,magebolt,lightspear2,prismaticspray2,quell",
-				"loot": {
-					"runestones": 1
-				},
-				"attack": [
-					{
-						"name": "brass shrapnel",
-						"kind": "blunt",
-						"damage": "40~55"
-					}
-				]
-			},
-			{
-				"id": "clockknight_elite",
-				"tags": "t_automata,clockwork",
-				"name": "pristine brass knight",
-				"desc": "A shining knight in brass armor. Not a mark spoils its features",
-				"level": 11,
-				"kind": "automata",
-				"noproc": true,
-				"hp": 700,
-				"defense": 55,
-				"spells": "whirl3,perfectstrike",
-				"loot": {
-					"managem": 3
-				},
-				"attack": [
-					{
-						"name": "hour hand slash",
-						"kind": "slash",
-						"damage": "60~70"
-					},
-					{
-						"name": "second hand pierce",
-						"kind": "pierce",
-						"damage": "60~75"
-					},
-					{
-						"name": "minute hand maul",
-						"kind": "blunt",
-						"damage": "40~55",
-						"dot": {
-							"kind": "bleed",
-							"name": "bleeding time",
-							"damage": "18~30",
-							"duration": 5
-						}
-					},
-					{
-						"name": "commanding presence",
-						"targets": "ally",
-						"targetspec": {
-							"notaffectedby": {
-								"condition": ["command_dot"],
-								"conditiontext": "commanding presence"
-							}
-						},
-						"dot": {
-							"name": "commanding presence",
-							"id": "command_dot",
-							"duration": 30,
-							"mod": {
-								"self.speed": 8
-							}
-						}
-					},
-					{
-						"name": "realign shield",
-						"targets": "self",
-						"result": {
-							"hp": 25
-						},
-						"dot": {
-							"duration": 10,
-							"mod": {
-								"self.defense": 30
-							}
-						}
-					}
-				]
-			},
-			{
-				"id": "clockwork_core_elite",
-				"tags": "t_automata,clockwork",
-				"name": "pristine castle core",
-				"desc": "A supporting unit for the replica, capable of summoning and maintaining masses of reinforcements.",
-				"level": 22,
-				"kind": "automata",
-				"noproc": true,
-				"hp": 1500,
-				"defense": 20,
-				"speed": 15,
-				"chaincast": 0.5,
-				"spells": "massjinx,quell,mk_clockservant,mk_clockknight,mon_mk_clockmage",
-				"loot": {
-					"managem": 5,
-					"gems": 5,
-					"runestones": 3,
-					"gold": 250
-				},
-				"attack": [
-					{
-						"name": "blunt brass arrow",
-						"kind": "blunt",
-						"damage": "20~30"
-					},
-					{
-						"name": "mass repair",
-						"targets": "allies",
-						"harmless": true,
-						"result": {
-							"hp": 45
-						}
-					},
-					{
-						"name": "crackle",
-						"targets": "enemies",
-						"damage": "10~15",
-						"harmless": true
-					}
-				]
-			},
-			{
-				"id": "corivar_replica",
-				"name": "corivar's replica",
-				"tags": "t_automata,clockwork",
-				"level": 15,
-				"spells": "mon_mk_clockknight,mon_mk_clockmage,mk_clockknight,mk_clockservant",
-				"chaincast": 0.25,
-				"kind": "automata",
-				"desc": "What stands before you is a result of hubris unimaginable, borne out of desire to achieve immortality. It thinks it's Corivar. It most certainly is not.",
-				"noproc": true,
-				"hp": 4000,
-				"defense": 60,
-				"dodge": 10,
-				"tohit": 25,
-				"speed": 25,
-				"attack": [
-					{
-						"name": "suppress magic",
-						"targets": "enemyleader",
-						"harmless": true,
-						"dot": {
-							"id": "silence",
-							"duration": 60
-						}
-					},
-					{
-						"name": "crackle",
-						"targets": "enemies",
-						"damage": "15~25",
-						"harmless": true
-					},
-					{
-						"name": "mass repair",
-						"targets": "allies",
-						"harmless": true,
-						"result": {
-							"hp": 60
-						}
-					}
-				],
-				"loot": {
-					"brassbauble": 1
-				}
 			}
 		],
 		"classes": [
@@ -2752,44 +2933,30 @@
 					"loosecog": "100%"
 				},
 				"boss": {
-					"200": [
-						"clockwork_core",
-						"clockknight",
-						"clockknight",
-						"clockknight",
-						"clocksentry",
-						"clocksentry",
-						"clockmage",
-						"clockmage"
+					"1": [
+						"mon_clockscout",
+						"mon_clockscout",
+						"mon_clockscout",
+						"mon_clockscout"
 					],
-					"1": ["clockscout", "clockservant", "clockservant", "clockservant"],
-					"150": [
-						"clockwork_core",
-						"clockknight",
-						"clockknight",
-						"clockservant",
-						"clockservant"
-					],
-					"100": [
-						"clockwork_core",
-						"clockknight",
-						"clockknight",
-						"clockmage",
-						"clockmage"
-					],
-					"50": ["clockwork_core", "clockservant", "clockservant", "clockdicer"]
+					"15": ["mon_clockwork_core"],
+					"20": ["mon_clockwork_core", "mon_clockmage"],
+					"25": ["mon_clockwork_core", "mon_clockknight", "mon_clockservant"],
+					"30": [
+						"mon_clockwork_core",
+						"mon_clocksentry",
+						"mon_clocksentry",
+						"mon_clockmage",
+						"mon_clockmage"
+					]
 				},
 				"spawns": [
-					["clockservant", "clockservant"],
-					["clockservant", "clockdicer"],
-					["clockknight", "clocksentry"],
-					["clockknight", "clockknight", "clockmage"],
-					["clockknight", "clocksentry", "clockmage"],
-					["clockknight", "clocksentry", "clockmage", "clockscout"],
-					"clockknight",
-					"clocksentry",
-					"clockmage",
-					"clockservant"
+					["mon_clockservant", "mon_clockservant"],
+					["mon_clockservant", "mon_clockknight"],
+					["mon_clockknight", "mon_clocksentry"],
+					["mon_clockknight", "mon_clockknight", "mon_clockmage"],
+					["mon_clockknight", "mon_clocksentry", "mon_clockmage"],
+					["mon_clockknight", "mon_clocksentry", "mon_clockmage"]
 				]
 			}
 		],
@@ -2815,15 +2982,15 @@
 				"length": 2,
 				"boss": {
 					"1": [
-						"clockknight_elite",
-						"clockknight_elite",
-						"clockmage_elite",
-						"clockmage_elite"
+						"mon_clockknight_elite",
+						"mon_clockknight_elite",
+						"mon_clockmage_elite",
+						"mon_clockmage_elite"
 					],
 					"2": [
-						"corivar_replica",
-						"clockwork_core_elite",
-						"clockwork_core_elite"
+						"mon_corivar_replica",
+						"mon_clockwork_core_elite",
+						"mon_clockwork_core_elite"
 					]
 				}
 			}
