@@ -1255,7 +1255,7 @@
 				}
 			},
 			{
-				"id": "mon_mk_mon_clockknight_elite",
+				"id": "mon_mk_clockknight_elite",
 				"name": "assemble elite brass knight",
 				"require": "g.machinacreation>=999",
 				"cd": 30,
@@ -2231,7 +2231,7 @@
 				"hp": 1000,
 				"defense": 20,
 				"speed": -1,
-				"spells": "massjinx,quell,mk_clockservant,mk_clockknight,mk_clockcrow",
+				"spells": "massjinx,quell,mon_mk_clockservant,mon_mk_clockknight,mon_mk_clockcrow",
 				"loot": {
 					"managem": 5,
 					"gems": 5,
@@ -2433,7 +2433,7 @@
 				"noproc": true,
 				"hp": 300,
 				"defense": 5,
-				"spells": "mk_clockcrow,perfectstrike",
+				"spells": "mon_mk_clockcrow,perfectstrike",
 				"loot": {
 					"managem": "1~2"
 				},
