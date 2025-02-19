@@ -88,6 +88,7 @@
 					"codices": 25
 				},
 				"need": "g.evil2==0",
+				"needtext": "Cannot be sinister.",
 				"cost": {
 					"light": 2
 				},
@@ -119,6 +120,7 @@
 					"codices": 25
 				},
 				"need": "g.evil2==0",
+				"needtext": "Cannot be sinister.",
 				"cost": {
 					"light": 6
 				},
