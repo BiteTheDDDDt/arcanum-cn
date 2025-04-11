@@ -392,11 +392,11 @@
 					"livingsnow": 10
 				},
 				"mod": {
-                    "waterrune.max": 2,
-                    "water.max": 1,
-                    "water.rate": "1%",
-                    "waterdmg": 3,
-                    "waterlore.mod.player.hits.water": 0.04,
+					"waterrune.max": 2,
+					"water.max": 1,
+					"water.rate": "1%",
+					"waterdmg": 3,
+					"waterlore.mod.player.hits.water": 0.04,
 					"icelore.max": 2,
 					"icedmg": 5
 				},
@@ -412,11 +412,11 @@
 					"snowman": 10
 				},
 				"mod": {
-                    "waterrune.max": 2,
-                    "water.max": 1,
-                    "water.rate": "1%",
-                    "waterdmg": 3,
-                    "waterlore.mod.player.hits.water": 0.04,
+					"waterrune.max": 2,
+					"water.max": 1,
+					"water.rate": "1%",
+					"waterdmg": 3,
+					"waterlore.mod.player.hits.water": 0.04,
 					"icelore.rate": 0.2,
 					"icedmg": 5
 				},
@@ -449,10 +449,10 @@
 					"watergem": 75
 				},
 				"mod": {
-                    "waterrune.max": 2,
-                    "water.max": 1,
-                    "water.rate": "1%",
-                    "waterdmg": 3,
+					"waterrune.max": 2,
+					"water.max": 1,
+					"water.rate": "1%",
+					"waterdmg": 3,
 					"waterlore.mod.player.hits.water": 0.04,
 					"icelore.rate": 0.2,
 					"icedmg": 10
@@ -1383,7 +1383,7 @@
 				"id": "pot_icecreamevil",
 				"name": "ice cream lure",
 				"desc": "A batch of ice cream, for children",
-				"require": "g.potions>=1&&g.eatchildren>0",
+				"require": "g.potions>=1&&g.t_demonclass>0",
 				"buy": {
 					"gold": 250,
 					"ice": 5
