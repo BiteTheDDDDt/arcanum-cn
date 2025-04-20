@@ -1095,9 +1095,7 @@
 			"tags": "obscuringshadows",
 			"duration": 30,
 			"mod": {
-				"mod": {
-					"self.dodge": 4
-				}
+				"self.dodge": 4
 			}
 		}
 	},
