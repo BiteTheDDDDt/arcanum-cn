@@ -170,7 +170,7 @@
 		],
 		"upgrades": [
 			{
-				"id": "restincottage",
+				"id": "warmrest",
 				"name": "warm up",
 				"desc": "Light extra fires as you rest to stave off the cold",
 				"tags": "t_restmod",
