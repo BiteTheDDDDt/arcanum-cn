@@ -1,0 +1,1213 @@
+{
+	"module": "equipment-armors",
+	"author": "nagshell",
+	"data": {
+		"tags": [],
+		"materials": [
+			{
+				"id": "mat_armor_iron",
+				"name": "Iron",
+				"level": 1,
+				"kind": "metal",
+				"only": "armor",
+				"cost": {
+					"iron": 8
+				},
+				"require": "g.craftinglearn1>0",
+				"alter": {
+					"sell": { "iron": 4 }
+				}
+			},
+			{
+				"id": "mat_armor_quicksteel",
+				"name": "Quicksteel",
+				"level": 4,
+				"kind": "metal",
+				"only": "armor",
+				"cost": {
+					"quicksteel": 8,
+					"managem": 2,
+					"research": 100
+				},
+				"require": "g.craftinglearn2>0",
+				"alter": {
+					"sell": { "quicksteel": 4 },
+					"armor": 2,
+					"enchants.max": 1
+				}
+			},
+			{
+				"id": "mat_armor_adamant",
+				"name": "Adamant",
+				"adj": "Adamantine",
+				"level": 9,
+				"kind": "metal",
+				"only": "armor",
+				"cost": {
+					"adamant": 8,
+					"runestones": 1,
+					"research": 300
+				},
+				"require": "g.craftinglearn4>0",
+				"alter": {
+					"sell": { "adamant": 4 },
+					"armor": 5,
+					"enchants.max": 2
+				}
+			},
+			{
+				"id": "mat_armor_artifact_rare",
+				"name": "Artifact cape",
+				"adj": "%i",
+				"level": 9,
+				"kind": "artifact",
+				"only": "aegismantle,phantomveil,etherealshroud",
+				"cost": {
+					"adamant": 2,
+					"aetherhide": 2,
+					"amberroot": 2,
+					"runestones": 2
+				},
+				"require": "g.craftinglearn5>0",
+				"alter": {}
+			},
+			{
+				"id": "mat_armor_leather",
+				"name": "Leather",
+				"level": 1,
+				"kind": "leather",
+				"only": "armor",
+				"cost": {
+					"leather": 8
+				},
+				"require": "g.craftinglearn1>0",
+				"alter": {
+					"sell": { "leather": 4 }
+				}
+			},
+			{
+				"id": "mat_armor_manabound",
+				"name": "Manabound",
+				"level": 4,
+				"kind": "leather",
+				"only": "armor",
+				"cost": {
+					"serpentskin": 8,
+					"managem": 2,
+					"research": 100
+				},
+				"require": "g.craftinglearn2>0",
+				"alter": {
+					"sell": { "serpentskin": 4 },
+					"enchants.max": 1,
+					"evasion": 2
+				}
+			},
+			{
+				"id": "mat_armor_runestitch",
+				"name": "Runestitch",
+				"level": 9,
+				"kind": "leather",
+				"only": "armor",
+				"cost": {
+					"aetherhide": 8,
+					"runestones": 1,
+					"research": 300
+				},
+				"require": "g.craftinglearn4>0",
+				"alter": {
+					"sell": { "aetherhide": 4 },
+					"enchants.max": 2,
+					"evasion": 5
+				}
+			},
+			{
+				"id": "mat_armor_cotton",
+				"name": "Cotton",
+				"level": 1,
+				"kind": "cloth",
+				"only": "armor",
+				"cost": {
+					"cotton": 8
+				},
+				"require": "g.craftinglearn1>0",
+				"alter": {
+					"sell": { "cotton": 4 }
+				}
+			},
+			{
+				"id": "mat_armor_spellweave",
+				"name": "Spellweave",
+				"level": 4,
+				"kind": "cloth",
+				"only": "armor",
+				"cost": {
+					"spidersilk": 8,
+					"managem": 2,
+					"research": 100
+				},
+				"require": "g.craftinglearn2>0",
+				"alter": {
+					"sell": { "spidersilk": 4 },
+					"enchants.max": 1,
+					"shield": 10
+				}
+			},
+			{
+				"id": "mat_armor_runecloth",
+				"name": "Runecloth",
+				"level": 9,
+				"kind": "cloth",
+				"only": "armor",
+				"cost": {
+					"amberroot": 8,
+					"runestones": 1,
+					"research": 300
+				},
+				"require": "g.craftinglearn4>0",
+				"alter": {
+					"sell": { "amberroot": 4 },
+					"enchants.max": 2,
+					"shield": 25
+				}
+			},
+			{
+				"id": "mat_armor_basiliskhide",
+				"name": "Basilisk Hide",
+				"level": 9,
+				"kind": "leather",
+				"only": "armor",
+				"cost": {
+					"basiliskhide": 8,
+					"runestones": 1,
+					"research": 300
+				},
+				"require": "g.craftinglearn4>0",
+				"alter": {
+					"sell": { "basiliskhide": 4 },
+					"enchants.max": 2,
+					"mod": { "self.negate.paralysis": 10 }
+				}
+			},
+			{
+				"id": "mat_armor_dragonscale",
+				"name": "Dragonscale",
+				"level": 9,
+				"kind": "metal",
+				"only": "armor",
+				"cost": {
+					"dragonscale": 80,
+					"adamant": 2,
+					"runestones": 1,
+					"research": 300
+				},
+				"require": "g.craftinglearn4>0",
+				"alter": {
+					"sell": { "dragonscale": 40, "adamant": 1 },
+					"armor": 2,
+					"enchants.max": 2,
+					"mod": { "self.resist.fire": 10 }
+				}
+			}
+		],
+		"armors": [
+			{
+				"id": "helmet",
+				"name": "Helmet",
+				"level": 1,
+				"slot": "head",
+				"tags": "t_helm",
+				"require": "g.craftinglearn1>0",
+				"cost": {
+					"gold": 50,
+					"research": 50
+				},
+				"craftcostmult": 1,
+				"sell": {},
+				"only": "metal",
+				"enchants": 1,
+				"armor": 5,
+				"alter": { "mod.hp.max": 5 }
+			},
+			{
+				"id": "bascinet",
+				"name": "Bascinet",
+				"level": 3,
+				"slot": "head",
+				"tags": "t_helm",
+				"require": "g.craftinglearn3>0",
+				"cost": {
+					"gold": 150,
+					"research": 150
+				},
+				"craftcostmult": 1,
+				"sell": {},
+				"only": "metal",
+				"enchants": 1,
+				"armor": 10
+			},
+			{
+				"id": "greathelm",
+				"name": "Great Helm",
+				"level": 6,
+				"slot": "head",
+				"tags": "t_helm",
+				"require": "g.craftinglearn5>0",
+				"cost": {
+					"gold": 500,
+					"research": 500
+				},
+				"craftcostmult": 1.5,
+				"sell": {},
+				"only": "metal",
+				"enchants": 1,
+				"armor": 15,
+				"alter": { "mod.self.dodge": "-10%" }
+			},
+			{
+				"id": "hood",
+				"name": "Hood",
+				"level": 1,
+				"slot": "head",
+				"tags": "t_helm",
+				"require": "g.craftinglearn1>0",
+				"cost": {
+					"gold": 50,
+					"research": 50
+				},
+				"craftcostmult": 1,
+				"sell": {},
+				"only": "leather",
+				"enchants": 1,
+				"evasion": 5,
+				"alter": { "mod.hp.max": 5 }
+			},
+			{
+				"id": "gamblerhat",
+				"name": "Gambler Hat",
+				"level": 3,
+				"slot": "head",
+				"tags": "t_helm",
+				"require": "g.craftinglearn3>0",
+				"cost": {
+					"gold": 150,
+					"research": 150
+				},
+				"craftcostmult": 1,
+				"sell": {},
+				"only": "leather",
+				"enchants": 1,
+				"evasion": 10
+			},
+			{
+				"id": "tricorne",
+				"name": "Tricorne",
+				"level": 6,
+				"slot": "head",
+				"tags": "t_helm",
+				"require": "g.craftinglearn5>0",
+				"cost": {
+					"gold": 500,
+					"research": 500
+				},
+				"craftcostmult": 1.5,
+				"sell": {},
+				"only": "leather",
+				"enchants": 1,
+				"evasion": 15,
+				"alter": { "mod.self.defense": "-10%" }
+			},
+			{
+				"id": "cap",
+				"name": "Cap",
+				"level": 1,
+				"slot": "head",
+				"tags": "t_helm",
+				"require": "g.craftinglearn1>0",
+				"cost": {
+					"gold": 50,
+					"research": 50
+				},
+				"craftcostmult": 1,
+				"sell": {},
+				"only": "cloth",
+				"enchants": 1,
+				"shield": 25,
+				"alter": { "mod.hp.max": 5 }
+			},
+			{
+				"id": "turban",
+				"name": "Turban",
+				"level": 3,
+				"slot": "head",
+				"tags": "t_helm",
+				"require": "g.craftinglearn3>0",
+				"cost": {
+					"gold": 150,
+					"research": 150
+				},
+				"craftcostmult": 1,
+				"sell": {},
+				"only": "cloth",
+				"enchants": 1,
+				"shield": 50
+			},
+			{
+				"id": "pointedhat",
+				"name": "Pointed Hat",
+				"level": 6,
+				"slot": "head",
+				"tags": "t_helm",
+				"require": "g.craftinglearn5>0",
+				"cost": {
+					"gold": 500,
+					"research": 500
+				},
+				"craftcostmult": 1.5,
+				"sell": {},
+				"only": "cloth",
+				"enchants": 1,
+				"shield": 75,
+				"alter": { "mod.self.hp.max": "-5%" }
+			},
+			{
+				"id": "chainmail",
+				"name": "Chain Mail",
+				"level": 1,
+				"slot": "chest",
+				"tags": "t_chestplate",
+				"require": "g.craftinglearn1>0",
+				"cost": {
+					"gold": 50,
+					"research": 50
+				},
+				"craftcostmult": 1,
+				"sell": {},
+				"only": "metal",
+				"enchants": 1,
+				"armor": 5,
+				"alter": { "mod.hp.max": 5 }
+			},
+			{
+				"id": "lamellar",
+				"name": "Lamellar",
+				"level": 3,
+				"slot": "chest",
+				"tags": "t_chestplate",
+				"require": "g.craftinglearn3>0",
+				"cost": {
+					"gold": 150,
+					"research": 150
+				},
+				"craftcostmult": 1,
+				"sell": {},
+				"only": "metal",
+				"enchants": 1,
+				"armor": 10
+			},
+			{
+				"id": "platemail",
+				"name": "Plate Mail",
+				"level": 6,
+				"slot": "chest",
+				"tags": "t_chestplate",
+				"require": "g.craftinglearn5>0",
+				"cost": {
+					"gold": 500,
+					"research": 500
+				},
+				"craftcostmult": 1.5,
+				"sell": {},
+				"only": "metal",
+				"enchants": 1,
+				"armor": 15,
+				"alter": { "mod.self.dodge": "-10%" }
+			},
+			{
+				"id": "tunic",
+				"name": "Tunic",
+				"level": 1,
+				"slot": "chest",
+				"tags": "t_chestplate",
+				"require": "g.craftinglearn1>0",
+				"cost": {
+					"gold": 50,
+					"research": 50
+				},
+				"craftcostmult": 1,
+				"sell": {},
+				"only": "leather",
+				"enchants": 1,
+				"evasion": 5,
+				"alter": { "mod.hp.max": 5 }
+			},
+			{
+				"id": "jerkin",
+				"name": "Jerkin",
+				"level": 3,
+				"slot": "chest",
+				"tags": "t_chestplate",
+				"require": "g.craftinglearn3>0",
+				"cost": {
+					"gold": 150,
+					"research": 150
+				},
+				"craftcostmult": 1,
+				"sell": {},
+				"only": "leather",
+				"enchants": 1,
+				"evasion": 10
+			},
+			{
+				"id": "doublet",
+				"name": "Doublet",
+				"level": 6,
+				"slot": "chest",
+				"tags": "t_chestplate",
+				"require": "g.craftinglearn1>0",
+				"cost": {
+					"gold": 500,
+					"research": 500
+				},
+				"craftcostmult": 1.5,
+				"sell": {},
+				"only": "leather",
+				"enchants": 1,
+				"evasion": 15,
+				"alter": { "mod.self.defense": "-10%" }
+			},
+			{
+				"id": "shirt",
+				"name": "Shirt",
+				"level": 1,
+				"slot": "chest",
+				"tags": "t_chestplate",
+				"require": "g.craftinglearn1>0",
+				"cost": {
+					"gold": 50,
+					"research": 50
+				},
+				"craftcostmult": 1,
+				"sell": {},
+				"only": "cloth",
+				"enchants": 1,
+				"shield": 25,
+				"alter": { "mod.hp.max": 5 }
+			},
+			{
+				"id": "vestment",
+				"name": "Vestment",
+				"level": 3,
+				"slot": "chest",
+				"tags": "t_chestplate",
+				"require": "g.craftinglearn3>0",
+				"cost": {
+					"gold": 150,
+					"research": 150
+				},
+				"craftcostmult": 1,
+				"sell": {},
+				"only": "cloth",
+				"enchants": 1,
+				"shield": 50
+			},
+			{
+				"id": "robe",
+				"name": "Robe",
+				"level": 6,
+				"slot": "chest",
+				"tags": "t_chestplate",
+				"require": "g.craftinglearn5>0",
+				"cost": {
+					"gold": 500,
+					"research": 500
+				},
+				"craftcostmult": 1.5,
+				"sell": {},
+				"only": "cloth",
+				"enchants": 1,
+				"shield": 75,
+				"alter": { "mod.self.hp.max": "-5%" }
+			},
+			{
+				"id": "bracers",
+				"name": "Bracers",
+				"level": 1,
+				"slot": "hands",
+				"tags": "t_gloves",
+				"require": "g.craftinglearn1>0",
+				"cost": {
+					"gold": 50,
+					"research": 50
+				},
+				"craftcostmult": 1,
+				"sell": {},
+				"only": "metal",
+				"enchants": 1,
+				"armor": 5,
+				"alter": { "mod.hp.max": 5 }
+			},
+			{
+				"id": "vambraces",
+				"name": "Vambraces",
+				"level": 3,
+				"slot": "hands",
+				"tags": "t_gloves",
+				"require": "g.craftinglearn3>0",
+				"cost": {
+					"gold": 150,
+					"research": 150
+				},
+				"craftcostmult": 1,
+				"sell": {},
+				"only": "metal",
+				"enchants": 1,
+				"armor": 10
+			},
+			{
+				"id": "gauntlets",
+				"name": "Gauntlets",
+				"level": 6,
+				"slot": "hands",
+				"tags": "t_gloves",
+				"require": "g.craftinglearn5>0",
+				"cost": {
+					"gold": 500,
+					"research": 500
+				},
+				"craftcostmult": 1.5,
+				"sell": {},
+				"only": "metal",
+				"enchants": 1,
+				"armor": 15,
+				"alter": { "mod.self.dodge": "-10%" }
+			},
+			{
+				"id": "grips",
+				"name": "Grips",
+				"level": 1,
+				"slot": "hands",
+				"tags": "t_gloves",
+				"require": "g.craftinglearn1>0",
+				"cost": {
+					"gold": 50,
+					"research": 50
+				},
+				"craftcostmult": 1,
+				"sell": {},
+				"only": "leather",
+				"enchants": 1,
+				"evasion": 5,
+				"alter": { "mod.hp.max": 5 }
+			},
+			{
+				"id": "wristcuffs",
+				"name": "Wrist Cuffs",
+				"level": 3,
+				"slot": "hands",
+				"tags": "t_gloves",
+				"require": "g.craftinglearn3>0",
+				"cost": {
+					"gold": 150,
+					"research": 150
+				},
+				"craftcostmult": 1,
+				"sell": {},
+				"only": "leather",
+				"enchants": 1,
+				"evasion": 10
+			},
+			{
+				"id": "gloves",
+				"name": "Gloves",
+				"level": 6,
+				"slot": "hands",
+				"tags": "t_gloves",
+				"require": "g.craftinglearn5>0",
+				"cost": {
+					"gold": 500,
+					"research": 500
+				},
+				"craftcostmult": 1.5,
+				"sell": {},
+				"only": "leather",
+				"enchants": 1,
+				"evasion": 15,
+				"alter": { "mod.self.defense": "-10%" }
+			},
+			{
+				"id": "wraps",
+				"name": "Wraps",
+				"level": 1,
+				"slot": "hands",
+				"tags": "t_gloves",
+				"require": "g.craftinglearn1>0",
+				"cost": {
+					"gold": 50,
+					"research": 50
+				},
+				"craftcostmult": 1,
+				"sell": {},
+				"only": "cloth",
+				"enchants": 1,
+				"shield": 25,
+				"alter": { "mod.hp.max": 5 }
+			},
+			{
+				"id": "mitts",
+				"name": "Mitts",
+				"level": 3,
+				"slot": "hands",
+				"tags": "t_gloves",
+				"require": "g.craftinglearn3>0",
+				"cost": {
+					"gold": 150,
+					"research": 150
+				},
+				"craftcostmult": 1,
+				"sell": {},
+				"only": "cloth",
+				"enchants": 1,
+				"shield": 50
+			},
+			{
+				"id": "sleeves",
+				"name": "Sleeves",
+				"level": 6,
+				"slot": "hands",
+				"tags": "t_gloves",
+				"require": "g.craftinglearn5>0",
+				"cost": {
+					"gold": 500,
+					"research": 500
+				},
+				"craftcostmult": 1.5,
+				"sell": {},
+				"only": "cloth",
+				"enchants": 1,
+				"shield": 75,
+				"alter": { "mod.self.hp.max": "-5%" }
+			},
+			{
+				"id": "shinguards",
+				"name": "Shin Guards",
+				"level": 1,
+				"slot": "shins",
+				"tags": "t_greaves",
+				"require": "g.craftinglearn1>0",
+				"cost": {
+					"gold": 50,
+					"research": 50
+				},
+				"craftcostmult": 1,
+				"sell": {},
+				"only": "metal",
+				"enchants": 1,
+				"armor": 5,
+				"alter": { "mod.hp.max": 5 }
+			},
+			{
+				"id": "greaves",
+				"name": "Greaves",
+				"level": 3,
+				"slot": "shins",
+				"tags": "t_greaves",
+				"require": "g.craftinglearn3>0",
+				"cost": {
+					"gold": 150,
+					"research": 150
+				},
+				"craftcostmult": 1,
+				"sell": {},
+				"only": "metal",
+				"enchants": 1,
+				"armor": 10
+			},
+			{
+				"id": "legplates",
+				"name": "Legplates",
+				"level": 6,
+				"slot": "shins",
+				"tags": "t_greaves",
+				"require": "g.craftinglearn5>0",
+				"cost": {
+					"gold": 500,
+					"research": 500
+				},
+				"craftcostmult": 1.5,
+				"sell": {},
+				"only": "metal",
+				"enchants": 1,
+				"armor": 15,
+				"alter": { "mod.self.dodge": "-10%" }
+			},
+			{
+				"id": "leggings",
+				"name": "Leggings",
+				"level": 1,
+				"slot": "shins",
+				"tags": "t_greaves",
+				"require": "g.craftinglearn1>0",
+				"cost": {
+					"gold": 50,
+					"research": 50
+				},
+				"craftcostmult": 1,
+				"sell": {},
+				"only": "leather",
+				"enchants": 1,
+				"evasion": 5,
+				"alter": { "mod.hp.max": 5 }
+			},
+			{
+				"id": "trousers",
+				"name": "Trousers",
+				"level": 3,
+				"slot": "shins",
+				"tags": "t_greaves",
+				"require": "g.craftinglearn3>0",
+				"cost": {
+					"gold": 150,
+					"research": 150
+				},
+				"craftcostmult": 1,
+				"sell": {},
+				"only": "leather",
+				"enchants": 1,
+				"evasion": 10
+			},
+			{
+				"id": "chausses",
+				"name": "Chausses",
+				"level": 6,
+				"slot": "shins",
+				"tags": "t_greaves",
+				"require": "g.craftinglearn5>0",
+				"cost": {
+					"gold": 500,
+					"research": 500
+				},
+				"craftcostmult": 1.5,
+				"sell": {},
+				"only": "leather",
+				"enchants": 1,
+				"evasion": 15,
+				"alter": { "mod.self.defense": "-10%" }
+			},
+			{
+				"id": "legwraps",
+				"name": "Legwraps",
+				"level": 1,
+				"slot": "shins",
+				"tags": "t_greaves",
+				"require": "g.craftinglearn1>0",
+				"cost": {
+					"gold": 50,
+					"research": 50
+				},
+				"craftcostmult": 1,
+				"sell": {},
+				"only": "cloth",
+				"enchants": 1,
+				"shield": 25,
+				"alter": { "mod.hp.max": 5 }
+			},
+			{
+				"id": "pantalons",
+				"name": "Pantalons",
+				"level": 3,
+				"slot": "shins",
+				"tags": "t_greaves",
+				"require": "g.craftinglearn3>0",
+				"cost": {
+					"gold": 150,
+					"research": 150
+				},
+				"craftcostmult": 1,
+				"sell": {},
+				"only": "cloth",
+				"enchants": 1,
+				"shield": 50
+			},
+			{
+				"id": "breeches",
+				"name": "Breeches",
+				"level": 6,
+				"slot": "shins",
+				"tags": "t_greaves",
+				"require": "g.craftinglearn5>0",
+				"cost": {
+					"gold": 500,
+					"research": 500
+				},
+				"craftcostmult": 1.5,
+				"sell": {},
+				"only": "cloth",
+				"enchants": 1,
+				"shield": 75,
+				"alter": { "mod.self.hp.max": "-5%" }
+			},
+			{
+				"id": "boots",
+				"name": "Boots",
+				"level": 1,
+				"slot": "feet",
+				"tags": "t_boots",
+				"require": "g.craftinglearn1>0",
+				"cost": {
+					"gold": 50,
+					"research": 50
+				},
+				"craftcostmult": 1,
+				"sell": {},
+				"only": "metal",
+				"enchants": 1,
+				"armor": 5,
+				"alter": { "mod.hp.max": 5 }
+			},
+			{
+				"id": "treads",
+				"name": "Treads",
+				"level": 3,
+				"slot": "feet",
+				"tags": "t_boots",
+				"require": "g.craftinglearn3>0",
+				"cost": {
+					"gold": 150,
+					"research": 150
+				},
+				"craftcostmult": 1,
+				"sell": {},
+				"only": "metal",
+				"enchants": 1,
+				"armor": 10
+			},
+			{
+				"id": "sabatons",
+				"name": "Sabatons",
+				"level": 6,
+				"slot": "feet",
+				"tags": "t_boots",
+				"require": "g.craftinglearn5>0",
+				"cost": {
+					"gold": 500,
+					"research": 500
+				},
+				"craftcostmult": 1.5,
+				"sell": {},
+				"only": "metal",
+				"enchants": 1,
+				"armor": 15,
+				"alter": { "mod.self.dodge": "-10%" }
+			},
+			{
+				"id": "moccasins",
+				"name": "Moccasins",
+				"level": 1,
+				"slot": "feet",
+				"tags": "t_boots",
+				"require": "g.craftinglearn1>0",
+				"cost": {
+					"gold": 50,
+					"research": 50
+				},
+				"craftcostmult": 1,
+				"sell": {},
+				"only": "leather",
+				"enchants": 1,
+				"evasion": 5,
+				"alter": { "mod.hp.max": 5 }
+			},
+			{
+				"id": "shoes",
+				"name": "Shoes",
+				"level": 3,
+				"slot": "feet",
+				"tags": "t_boots",
+				"require": "g.craftinglearn3>0",
+				"cost": {
+					"gold": 150,
+					"research": 150
+				},
+				"craftcostmult": 1,
+				"sell": {},
+				"only": "leather",
+				"enchants": 1,
+				"evasion": 10
+			},
+			{
+				"id": "striders",
+				"name": "Striders",
+				"level": 6,
+				"slot": "feet",
+				"tags": "t_boots",
+				"require": "g.craftinglearn1>0",
+				"cost": {
+					"gold": 500,
+					"research": 500
+				},
+				"craftcostmult": 1.5,
+				"sell": {},
+				"only": "leather",
+				"enchants": 1,
+				"evasion": 15,
+				"alter": { "mod.self.defense": "-10%" }
+			},
+			{
+				"id": "sandals",
+				"name": "Sandals",
+				"level": 1,
+				"slot": "feet",
+				"tags": "t_boots",
+				"require": "g.craftinglearn1>0",
+				"cost": {
+					"gold": 50,
+					"research": 50
+				},
+				"craftcostmult": 1,
+				"sell": {},
+				"only": "cloth",
+				"enchants": 1,
+				"shield": 25,
+				"alter": { "mod.hp.max": 5 }
+			},
+			{
+				"id": "walkers",
+				"name": "Walkers",
+				"level": 3,
+				"slot": "feet",
+				"tags": "t_boots",
+				"require": "g.craftinglearn3>0",
+				"cost": {
+					"gold": 150,
+					"research": 150
+				},
+				"craftcostmult": 1,
+				"sell": {},
+				"only": "cloth",
+				"enchants": 1,
+				"shield": 50
+			},
+			{
+				"id": "slippers",
+				"name": "Slippers",
+				"level": 6,
+				"slot": "feet",
+				"tags": "t_boots",
+				"require": "g.craftinglearn5>0",
+				"cost": {
+					"gold": 500,
+					"research": 500
+				},
+				"craftcostmult": 1.5,
+				"sell": {},
+				"only": "cloth",
+				"enchants": 1,
+				"shield": 75,
+				"alter": { "mod.self.hp.max": "-5%" }
+			},
+			{
+				"id": "aegismantle",
+				"name": "Aegis Mantle",
+				"level": 25,
+				"type": "armor",
+				"slot": "back",
+				"tags": "t_back",
+				"require": "g.craftinglearn5>0",
+				"cost": {
+					"gold": 500,
+					"research": 500,
+					"adamant": 3
+				},
+				"craftcostmult": 20,
+				"sell": { "arcana": 5 },
+				"only": "artifact",
+				"enchants": 3,
+				"armor": 15
+			},
+			{
+				"id": "phantomveil",
+				"name": "Phantom Veil",
+				"level": 25,
+				"type": "armor",
+				"slot": "back",
+				"tags": "t_back",
+				"require": "g.craftinglearn5>0",
+				"cost": {
+					"gold": 500,
+					"research": 500,
+					"aetherhide": 3
+				},
+				"craftcostmult": 20,
+				"sell": { "arcana": 5 },
+				"only": "artifact",
+				"enchants": 3,
+				"evasion": 15
+			},
+			{
+				"id": "etherealshroud",
+				"name": "Ethereal Shroud",
+				"level": 25,
+				"type": "armor",
+				"slot": "back",
+				"tags": "t_back",
+				"require": "g.craftinglearn5>0",
+				"cost": {
+					"gold": 500,
+					"research": 500,
+					"amberroot": 3
+				},
+				"craftcostmult": 20,
+				"sell": { "arcana": 5 },
+				"only": "artifact",
+				"enchants": 3,
+				"shield": 75
+			}
+		],
+		"rares": [],
+		"enchants": [
+			{
+				"id": "en_armor_evasion",
+				"name": "Elusive Dodge",
+				"adj": "Elusive",
+				"desc": "Makes you harder to hit",
+				"extdesc": "Effect scales with item's base evasion",
+				"require": "g.enchanting>0",
+				"buy": {
+					"arcana": 1,
+					"research": 100
+				},
+				"level": 1,
+				"only": "t_helm,t_chestplate,t_gloves,t_greaves,t_boots,t_back",
+				"length": 30,
+				"cost": { "arcana": 1 },
+				"alter": { "evasion": "100%" }
+			},
+			{
+				"id": "en_armor_armor",
+				"name": "Reinforced Defence",
+				"adj": "Reinforced",
+				"desc": "Makes you more durable against incoming assault",
+				"extdesc": "Effect scales with item's base armor",
+				"require": "g.enchanting>0",
+				"buy": {
+					"arcana": 1,
+					"research": 100
+				},
+				"level": 1,
+				"only": "t_helm,t_chestplate,t_gloves,t_greaves,t_boots,t_back",
+				"length": 30,
+				"cost": { "arcana": 1 },
+				"alter": { "armor": "100%" }
+			},
+			{
+				"id": "en_armor_barrier_pct",
+				"name": "Radiating",
+				"desc": "Reinforces your arcane barriers with additional layers",
+				"extdesc": "Effect scales with item's base shield",
+				"require": "g.enchanting>0",
+				"buy": {
+					"arcana": 1,
+					"research": 100
+				},
+				"level": 1,
+				"only": "t_helm,t_chestplate,t_gloves,t_greaves,t_boots,t_back",
+				"length": 30,
+				"cost": { "arcana": 1 },
+				"alter": { "shield": "100%" }
+			},
+			{
+				"id": "en_armor_barrier_flat",
+				"name": "Glimmering",
+				"desc": "Create channels for your arcane barrier energies",
+				"require": "g.enchanting>0",
+				"buy": {
+					"arcana": 1,
+					"research": 100
+				},
+				"level": 1,
+				"only": "t_helm,t_chestplate,t_gloves,t_greaves,t_boots,t_back",
+				"length": 30,
+				"cost": { "arcana": 1 },
+				"alter": { "shield": 15 }
+			},
+			{
+				"id": "en_armor_speed",
+				"name": "Swift",
+				"desc": "Controls air around the garment, quickening all movements",
+				"require": "g.enchanting>0",
+				"buy": {
+					"arcana": 1,
+					"research": 100
+				},
+				"level": 1,
+				"only": "t_helm,t_chestplate,t_gloves,t_greaves,t_boots,t_back",
+				"length": 30,
+				"cost": { "arcana": 1 },
+				"alter": { "mod.self.speed": 1 }
+			},
+			{
+				"id": "en_armor_dist",
+				"name": "Weightless",
+				"desc": "Makes garment more comfortable and lighter, allowing you to tire less while travelling.",
+				"flavor": "Get all the loot AND fast travel?",
+				"require": "g.enchanting>0",
+				"buy": {
+					"arcana": 1,
+					"research": 100
+				},
+				"level": 1,
+				"only": "t_helm,t_chestplate,t_gloves,t_greaves,t_boots,t_back",
+				"length": 30,
+				"cost": { "arcana": 1 },
+				"alter": { "mod.dist": 10 }
+			},
+			{
+				"id": "en_armor_resist_physical",
+				"name": "Armadillo's Resistance",
+				"adj": "%i of the Armadillo",
+				"desc": "Disperses portion of incoming physical damage.",
+				"require": "g.enchanting>0",
+				"buy": {
+					"arcana": 1,
+					"research": 100
+				},
+				"level": 1,
+				"only": "t_helm,t_chestplate,t_gloves,t_greaves,t_boots,t_back",
+				"length": 30,
+				"cost": { "arcana": 1 },
+				"alter": {
+					"mod.self.resist.blunt": 10,
+					"mod.self.resist.pierce": 10,
+					"mod.self.resist.slash": 10
+				}
+			},
+			{
+				"id": "en_armor_resist_mana",
+				"name": "Djinn's Resistance",
+				"adj": "%i of the Djinn",
+				"desc": "Disperses portion of incoming prismatic damage.",
+				"require": "g.enchanting>0",
+				"buy": {
+					"arcana": 1,
+					"research": 100
+				},
+				"level": 1,
+				"only": "t_helm,t_chestplate,t_gloves,t_greaves,t_boots,t_back",
+				"length": 30,
+				"cost": { "arcana": 1 },
+				"alter": {
+					"mod.self.resist.mana": 10,
+					"mod.self.resist.water": 10,
+					"mod.self.resist.air": 10,
+					"mod.self.resist.fire": 10,
+					"mod.self.resist.earth": 10,
+					"mod.self.resist.nature": 10,
+					"mod.self.resist.spirit": 10,
+					"mod.self.resist.light": 10,
+					"mod.self.resist.shadow": 10
+				}
+			}
+		]
+	}
+}

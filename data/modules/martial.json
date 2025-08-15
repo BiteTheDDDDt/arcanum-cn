@@ -15,136 +15,22 @@
 					"stamina": 0.6,
 					"vigor": 0.12
 				},
-				"result": {
-					"sp": 0.05
-				},
-				"once": {
-					"loot": {
-						"trainingknife": 1,
-						"traininghammer2": 1,
-						"trainingsword": 1
-					}
-				},
 				"mod": {
 					"physdmg": 1,
 					"bluntdmg": 0.4,
 					"piercedmg": 0.4,
-					"slashdmg": 0.4,
-					"player.hits.blunt": 0.2,
-					"player.hits.slash": 0.2,
-					"player.hits.pierce": 0.2
+					"slashdmg": 0.4
 				}
 			}
 		],
-		"rares": [
-			{
-				"id": "trainingsword",
-				"name": "training sword",
-				"desc": "a plain wooden sword",
-				"level": 1,
-				"tags": "t_slash,t_martial,t_sword,t_training",
-				"type": "weapon",
-				"material": "wood",
-				"hands": 1,
-				"enchants": 1,
-				"attack": {
-					"kind": "slash",
-					"tohit": 1,
-					"dmg": "1~2",
-					"potencies": ["slashdmg", "sworddmg", "physdmg"]
-				}
-			},
-			{
-				"id": "trainingknife",
-				"name": "training knife",
-				"desc": "a plain wooden knife",
-				"level": 1,
-				"tags": "t_pierce,t_martial,t_knife,t_training",
-				"type": "weapon",
-				"material": "wood",
-				"hands": 1,
-				"enchants": 1,
-				"attack": {
-					"kind": "pierce",
-					"tohit": 1,
-					"dmg": "1~2",
-					"potencies": ["piercedmg", "physdmg"]
-				}
-			},
-			{
-				"id": "traininghammer2",
-				"name": "training hammer",
-				"desc": "a plain wooden hammer",
-				"level": 1,
-				"tags": "t_blunt,t_martial,t_hammer,t_training",
-				"type": "weapon",
-				"material": "wood",
-				"hands": 1,
-				"enchants": 1,
-				"attack": {
-					"kind": "blunt",
-					"tohit": 1,
-					"dmg": "1~2",
-					"potencies": ["hammerdmg", "bluntdmg", "physdmg"]
-				}
-			}
-		],
-		"furniture": [
-			{
-				"id": "trainingdummy",
-				"name": "training dummy",
-				"desc": "a way to practice your skills",
-				"tags": "armssource",
-				"require": "g.evt_helper>0",
-				"repeat": true,
-				"cost": {
-					"gold": 15
-				},
-				"mod": {
-					"inv.max": 1,
-					"space": 1
-				}
-			}
-		],
-		"states": [
-			{
-				"id": "disarm",
-				"adj": "disarmed",
-				"kind": "disarm",
-				"flags": "noattack"
-			},
-			{
-				"id": "stun",
-				"adj": "stunned",
-				"kind": "stun",
-				"flags": "noact"
-			},
-			{
-				"id": "maim",
-				"kind": "maim",
-				"adj": "maimed",
-				"mod": {
-					"self.tohit": -1,
-					"self.speed": -2
-				}
-			},
-			{
-				"id": "weak",
-				"kind": "weak",
-				"adj": "weakened",
-				"mod": {
-					"self.tohit": -1,
-					"self.bonuses.blunt": -0.5,
-					"self.bonuses.pierce": -0.5,
-					"self.bonuses.slash": -0.5
-				}
-			}
-		],
+		"events": [],
+		"rares": [],
+		"furniture": [],
 		"upgrades": [
 			{
 				"id": "weapon_care",
 				"name": "weapon Servicing",
-				"require": "g.weaponlore>=2&&g.player.weapon.damage>=8",
+				"require": "g.weaponlore>=2&&g.player.getWeapon().damage>=8",
 				"desc": "Clean and service your weapon.",
 				"need": "armssource",
 				"max": 3,
@@ -155,10 +41,7 @@
 				"mod": {
 					"weaponlore.max": 0.5,
 					"weaponlore.rate": 0.1,
-					"player.tohit": 0.1,
-					"weaponlore.mod.player.hits.blunt": 0.03,
-					"weaponlore.mod.player.hits.slash": 0.03,
-					"weaponlore.mod.player.hits.pierce": 0.03
+					"player.tohit": 0.1
 				},
 				"flavor": "Take care of your weapon and it will take care of you.",
 				"group": "martial"
@@ -176,10 +59,7 @@
 				"mod": {
 					"weaponlore.max": 1,
 					"weaponlore.rate": 0.2,
-					"player.tohit": 0.3,
-					"weaponlore.mod.player.hits.blunt": 0.1,
-					"weaponlore.mod.player.hits.slash": 0.1,
-					"weaponlore.mod.player.hits.pierce": 0.1
+					"player.tohit": 0.3
 				},
 				"flavor": "Investing time to produce better results",
 				"group": "martial"
@@ -243,15 +123,14 @@
 			{
 				"id": "martial_basics",
 				"name": "training spars",
-				"craftable": true,
 				"require": "g.weaponlore>=1&&g.tier1>0",
 				"need": "armssource",
 				"desc": "Refine your weapon use against a friendly opponent. Costs more and takes longer with each session.",
 				"max": 5,
 				"length": 15,
 				"cost": {
-					"codices": "2+g.martial_basics*2",
-					"research": "200+g.martial_basics*150",
+					"codices": "1+g.martial_basics",
+					"research": "100+g.martial_basics*50",
 					"gold": "250+g.martial_basics*20"
 				},
 				"run": {
@@ -264,10 +143,7 @@
 					"weaponlore.rate": 0.2,
 					"stamina.max": 0.2,
 					"vigor.max": 0.2,
-					"martial_basics.length": 5,
-					"weaponlore.mod.player.hits.blunt": 0.01,
-					"weaponlore.mod.player.hits.slash": 0.01,
-					"weaponlore.mod.player.hits.pierce": 0.01
+					"martial_basics.length": 5
 				},
 				"flavor": "Not much help, but better than a dummy.",
 				"group": "martial"
@@ -275,15 +151,14 @@
 			{
 				"id": "martial_defense",
 				"name": "defensive training",
-				"craftable": true,
 				"require": "g.weaponlore>=2&&g.martial_basics>0",
 				"need": "armssource",
 				"desc": "Learn to take a hit from an experienced weaponmaster. Costs more and takes longer with each session.",
 				"max": 5,
 				"length": 15,
 				"cost": {
-					"codices": "2+g.martial_defense*2",
-					"research": "200+g.martial_defense*150",
+					"codices": "1+g.martial_defense*1",
+					"research": "100+g.martial_defense*50",
 					"gold": "500+g.martial_defense*10"
 				},
 				"run": {
@@ -294,7 +169,7 @@
 					"player.resist.blunt": 1,
 					"player.resist.pierce": 1,
 					"player.resist.slash": 1,
-					"hp.max": 0.5,
+					"hp.max": 1,
 					"martial_defense.length": 5
 				},
 				"flavor": "Take the hits now so you don't take them later.",
@@ -303,15 +178,14 @@
 			{
 				"id": "arms_tome",
 				"name": "manual of arms",
-				"craftable": true,
 				"require": "g.weaponlore>=5&&g.tier1>0",
 				"need": "armssource",
 				"desc": "Enlighten yourself to the multitude of weapons",
 				"max": 1,
 				"length": 150,
 				"cost": {
-					"tomes": 10,
-					"research": 3000,
+					"codices": 3,
+					"research": 300,
 					"gold": 1800
 				},
 				"run": {
@@ -323,10 +197,7 @@
 					"weaponlore.rate": 0.5,
 					"slashdmg": 1,
 					"piercedmg": 1,
-					"bluntdmg": 1,
-					"weaponlore.mod.player.hits.blunt": 0.05,
-					"weaponlore.mod.player.hits.slash": 0.05,
-					"weaponlore.mod.player.hits.pierce": 0.05
+					"bluntdmg": 1
 				},
 				"flavor": "Write down the techniques in a large book.",
 				"group": "martial"
@@ -334,15 +205,14 @@
 			{
 				"id": "legs_tome",
 				"name": "manual of legs",
-				"craftable": true,
 				"require": "g.arms_tome>0&&(g.martial_defense+g.martial_basics)>=10",
 				"need": "legssource",
 				"desc": "All this training has gotten your legs into fantastic shape. Figure out how to put them to work.",
 				"max": 1,
 				"length": 150,
 				"cost": {
-					"tomes": 10,
-					"research": 3000,
+					"codices": 3,
+					"research": 300,
 					"gold": 1800
 				},
 				"run": {
@@ -362,14 +232,14 @@
 		"potencies": [
 			{
 				"id": "sworddmg",
-				"name": "sword damage",
-				"value": 100,
+				"name": "sword potency",
+				"val": 100,
 				"damage": "Math.max((i.value/100)||0,0)"
 			},
 			{
 				"id": "hammerdmg",
-				"name": "hammer damage",
-				"value": 100,
+				"name": "hammer potency",
+				"val": 100,
 				"damage": "Math.max((i.value/100)||0,0)"
 			}
 		],
@@ -397,11 +267,10 @@
 				},
 				"require": "g.weaponlore>=1",
 				"buy": {
-					"arcana": 0,
 					"vigor": 4
 				},
 				"caststoppers": [1],
-				"need": "g.player.weapon.hasTag('t_blunt')",
+				"need": "g.player.getWeapon().hasTag('t_blunt')",
 				"needtext": "Currently equipped weapon must be blunt",
 				"cost": {
 					"vigor": 3
@@ -413,7 +282,7 @@
 				"attack": {
 					"kind": "blunt",
 					"tohit": 1,
-					"damage": "(a.weapon.damage||0)*0.9",
+					"damage": "(a.getWeapon().damage||0)*0.9",
 					"potencies": ["physdmg", "bluntdmg"]
 				}
 			},
@@ -434,11 +303,10 @@
 				},
 				"require": "g.weaponlore>=1",
 				"buy": {
-					"arcana": 0,
 					"vigor": 4
 				},
 				"caststoppers": [1],
-				"need": "g.player.weapon.hasTag('t_pierce')",
+				"need": "g.player.getWeapon().hasTag('t_pierce')",
 				"needtext": "Currently equipped weapon must be piercing",
 				"cost": {
 					"vigor": 3
@@ -450,7 +318,7 @@
 				"attack": {
 					"kind": "pierce",
 					"tohit": 1,
-					"damage": "(a.weapon.damage||0)*0.9",
+					"damage": "(a.getWeapon().damage||0)*0.9",
 					"potencies": ["physdmg", "piercedmg"]
 				}
 			},
@@ -471,11 +339,10 @@
 				},
 				"require": "g.weaponlore>=1",
 				"buy": {
-					"arcana": 0,
 					"vigor": 4
 				},
 				"caststoppers": [1],
-				"need": "g.player.weapon.hasTag('t_slash')",
+				"need": "g.player.getWeapon().hasTag('t_slash')",
 				"needtext": "Currently equipped weapon must be slashing",
 				"cost": {
 					"vigor": 3
@@ -487,7 +354,7 @@
 				"attack": {
 					"kind": "slash",
 					"tohit": 1,
-					"damage": "(a.weapon.damage||0)*0.9",
+					"damage": "(a.getWeapon().damage||0)*0.9",
 					"potencies": ["physdmg", "slashdmg"]
 				}
 			},
@@ -514,7 +381,7 @@
 					"vigor": 3
 				},
 				"caststoppers": [1],
-				"need": "g.player.weapon.hasTag('t_martial')",
+				"need": "g.player.getWeapon().hasTag('t_martial')",
 				"needtext": "Currently equipped weapon must be martial",
 				"result": {
 					"weaponlore.exp": 0.3
@@ -547,12 +414,11 @@
 				},
 				"require": "g.spellbook.value>0&&g.weaponlore>=3&&g.lore>=5",
 				"buy": {
-					"arcana": 2,
 					"scrolls": 5,
 					"vigor": 5
 				},
 				"caststoppers": [1, 4],
-				"need": "g.player.weapon.hasTag('t_martial')",
+				"need": "g.player.getWeapon().hasTag('t_martial')",
 				"needtext": "Currently equipped weapon must be martial",
 				"cost": {
 					"vigor": 4,
@@ -565,7 +431,7 @@
 				"attack": {
 					"kind": "mana",
 					"tohit": 1,
-					"damage": "3+(a.weapon.damage||0)*0.75",
+					"damage": "3+(a.getWeapon().damage||0)*0.75",
 					"potencies": ["physdmg", "manadmg"]
 				}
 			},
@@ -588,12 +454,11 @@
 				"require": "g.spellbook.value>0&&g.arms_tome>0",
 				"caststoppers": [1, 4],
 				"buy": {
-					"arcana": 3,
 					"codices": 2,
 					"vigor": 8,
 					"managem": 1
 				},
-				"need": "g.player.weapon.hasTag('t_martial')",
+				"need": "g.player.getWeapon().hasTag('t_martial')",
 				"needtext": "Currently equipped weapon must be martial",
 				"cost": {
 					"vigor": 6,
@@ -608,13 +473,13 @@
 						{
 							"kind": "mana",
 							"tohit": 1,
-							"damage": "2+(a.weapon.damage||0)*0.65",
+							"damage": "2+(a.getWeapon().damage||0)*0.65",
 							"potencies": ["physdmg", "manadmg"]
 						},
 						{
 							"kind": "mana",
 							"tohit": 1,
-							"damage": "1+(a.weapon.damage||0)*0.85",
+							"damage": "1+(a.getWeapon().damage||0)*0.85",
 							"potencies": ["physdmg", "manadmg"]
 						}
 					]
@@ -638,12 +503,11 @@
 				},
 				"require": "g.weaponlore>=4",
 				"buy": {
-					"arcana": 1,
 					"scrolls": 5,
 					"vigor": 7
 				},
 				"caststoppers": [1],
-				"need": "g.player.weapon.hasTag('t_martial')",
+				"need": "g.player.getWeapon().hasTag('t_martial')",
 				"needtext": "Currently equipped weapon must be martial",
 				"cost": {
 					"vigor": 5
@@ -655,10 +519,10 @@
 				"attack": {
 					"kind": "blunt",
 					"tohit": 1,
-					"damage": "(a.weapon.damage||0)*0.8",
+					"damage": "(a.getWeapon().damage||0)*0.8",
 					"potencies": ["physdmg", "bluntdmg"],
 					"dot": {
-						"id": "stun",
+						"id": "paralyze",
 						"duration": 1.2
 					}
 				}
@@ -681,12 +545,11 @@
 				},
 				"require": "g.weaponlore>=3",
 				"buy": {
-					"arcana": 2,
 					"scrolls": 5,
 					"vigor": 5
 				},
 				"caststoppers": [1],
-				"need": "g.player.weapon.hasTag('t_martial')",
+				"need": "g.player.getWeapon().hasTag('t_martial')",
 				"needtext": "Currently equipped weapon must be martial",
 				"cost": {
 					"vigor": 4
@@ -698,10 +561,10 @@
 				"attack": {
 					"kind": "slash",
 					"tohit": -1,
-					"damage": "(a.weapon.damage||0)*0.85",
+					"damage": "(a.getWeapon().damage||0)*0.85",
 					"potencies": ["physdmg", "slashdmg"],
 					"dot": {
-						"id": "disarm",
+						"id": "tangled",
 						"duration": 2
 					}
 				}
@@ -724,12 +587,11 @@
 				},
 				"require": "g.weaponlore>=2",
 				"buy": {
-					"arcana": 1,
 					"scrolls": 5,
 					"vigor": 5
 				},
 				"caststoppers": [1],
-				"need": "g.player.weapon.hasTag('t_martial')",
+				"need": "g.player.getWeapon().hasTag('t_martial')",
 				"needtext": "Currently equipped weapon must be martial",
 				"cost": {
 					"vigor": 3
@@ -741,7 +603,7 @@
 				"attack": {
 					"kind": "pierce",
 					"tohit": 1,
-					"damage": "((a.weapon.damage||0)*0.7)",
+					"damage": "((a.getWeapon().damage||0)*0.7)",
 					"potencies": ["physdmg", "piercedmg"],
 					"dot": {
 						"name": "bleed",
@@ -769,12 +631,11 @@
 				},
 				"require": "g.spec_pierce>0",
 				"buy": {
-					"arcana": 2,
 					"codices": 5,
 					"vigor": 5
 				},
 				"caststoppers": [1],
-				"need": "g.player.weapon.hasTag('t_pierce')",
+				"need": "g.player.getWeapon().hasTag('t_pierce')",
 				"needtext": "Currently equipped weapon must be piercing",
 				"cost": {
 					"vigor": 4
@@ -786,7 +647,7 @@
 				"attack": {
 					"kind": "pierce",
 					"tohit": 1,
-					"damage": "4+((a.weapon.damage||0)*1.2)",
+					"damage": "4+((a.getWeapon().damage||0)*1.2)",
 					"potencies": ["physdmg", "piercedmg"]
 				}
 			},
@@ -809,12 +670,11 @@
 				"require": "g.spec_pierce>0&&g.weaponlore>=6",
 				"cd": 5,
 				"buy": {
-					"arcana": 3,
 					"codices": 5,
 					"vigor": 5
 				},
 				"caststoppers": [1],
-				"need": "g.player.weapon.hasTag('t_pierce')",
+				"need": "g.player.getWeapon().hasTag('t_pierce')",
 				"needtext": "Currently equipped weapon must be piercing",
 				"cost": {
 					"vigor": 6
@@ -825,7 +685,7 @@
 				"attack": {
 					"kind": "pierce",
 					"tohit": 1,
-					"damage": "((a.weapon.damage||0)*1.0)",
+					"damage": "((a.getWeapon().damage||0)*1.0)",
 					"potencies": ["physdmg", "piercedmg"],
 					"dot": {
 						"name": "pierced armor",
@@ -854,12 +714,11 @@
 				},
 				"require": "g.spec_blunt>0",
 				"buy": {
-					"arcana": 2,
 					"codices": 5,
 					"vigor": 5
 				},
 				"caststoppers": [1],
-				"need": "g.player.weapon.hasTag('t_blunt')",
+				"need": "g.player.getWeapon().hasTag('t_blunt')",
 				"needtext": "Currently equipped weapon must be blunt",
 				"cost": {
 					"vigor": 4
@@ -871,7 +730,7 @@
 				"attack": {
 					"kind": "blunt",
 					"tohit": 1,
-					"damage": "((a.weapon.damage||0)*1.5)",
+					"damage": "((a.getWeapon().damage||0)*1.5)",
 					"potencies": ["physdmg", "bluntdmg"]
 				}
 			},
@@ -893,12 +752,11 @@
 				},
 				"require": "g.spec_blunt>0&&g.weaponlore>=6",
 				"buy": {
-					"arcana": 3,
 					"codices": 5,
 					"vigor": 5
 				},
 				"caststoppers": [1],
-				"need": "g.player.weapon.hasTag('t_blunt')",
+				"need": "g.player.getWeapon().hasTag('t_blunt')",
 				"needtext": "Currently equipped weapon must be blunt",
 				"cost": {
 					"vigor": 6
@@ -910,11 +768,14 @@
 				"attack": {
 					"kind": "blunt",
 					"tohit": 1,
-					"damage": "5+((a.weapon.damage||0)*0.7)",
+					"damage": "5+((a.getWeapon().damage||0)*0.7)",
 					"potencies": ["physdmg", "bluntdmg"],
 					"dot": {
-						"id": "maim",
-						"duration": 10
+						"duration": 10,
+						"mod": {
+							"self.tohit": -1,
+							"self.defense": -5
+						}
 					}
 				}
 			},
@@ -936,12 +797,11 @@
 				},
 				"require": "g.spec_slash>0",
 				"buy": {
-					"arcana": 2,
 					"codices": 5,
 					"vigor": 5
 				},
 				"caststoppers": [1],
-				"need": "g.player.weapon.hasTag('t_slash')",
+				"need": "g.player.getWeapon().hasTag('t_slash')",
 				"needtext": "Currently equipped weapon must be slashing",
 				"cost": {
 					"vigor": 4
@@ -953,7 +813,7 @@
 				"attack": {
 					"kind": "slash",
 					"tohit": 1,
-					"damage": "2+((a.weapon.damage||0)*1.35)",
+					"damage": "2+((a.getWeapon().damage||0)*1.35)",
 					"potencies": ["physdmg", "slashdmg"]
 				}
 			},
@@ -975,12 +835,11 @@
 				},
 				"require": "g.spec_slash>0&&g.weaponlore>=6",
 				"buy": {
-					"arcana": 3,
 					"codices": 5,
 					"vigor": 5
 				},
 				"caststoppers": [1],
-				"need": "g.player.weapon.hasTag('t_slash')",
+				"need": "g.player.getWeapon().hasTag('t_slash')",
 				"needtext": "Currently equipped weapon must be slashing",
 				"cost": {
 					"vigor": 6
@@ -992,11 +851,14 @@
 				"attack": {
 					"kind": "slash",
 					"tohit": 1,
-					"damage": "((a.weapon.damage||0)*1.0)",
+					"damage": "((a.getWeapon().damage||0)*1.0)",
 					"potencies": ["physdmg", "slashdmg"],
 					"dot": {
-						"id": "weak",
-						"duration": 10
+						"duration": 10,
+						"mod": {
+							"self.tohit": -1,
+							"self.dodge": -5
+						}
 					}
 				}
 			}

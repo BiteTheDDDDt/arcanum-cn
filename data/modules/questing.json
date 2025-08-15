@@ -1,0 +1,136 @@
+{
+	"module": "questing",
+	"author": "zenu",
+	"data": {
+		"tasks": [
+			{
+				"id": "hall_quest",
+				"name": "Grand Quest",
+				"require": "g.evt_hall>0&&g.tier4>0&&(g.good1>0||g.evil1>0)",
+				"length": 60,
+				"cd": 120,
+				"desc": "Embark on a perilous adventure to shape the world as you see fit. For good or ill.",
+				"extdesc": "Grants more Tales, the more good and/or evil aligned moralities and classes you obtain.",
+				"cost": {
+					"light": 5,
+					"shadow": 5,
+					"spirit": 7
+				},
+				"run": {
+					"stamina": 3,
+					"hp": 3
+				},
+				"mod": {
+					"hall_quest.result.prestige": "-0.003//100/-1"
+				},
+				"result": {
+					"virtuetale": "g.good1+g.good2*2+g.good3*5+g.benevolent*2+g.t_lightclass*2+g.balanced1*2+g.balanced2*3",
+					"eviltale": "g.evil1+g.evil2*2+g.evil3*5+g.malevolent*2+g.t_shadowclass*2+g.balanced1*2+g.balanced2*3",
+					"prestige": 0.4
+				}
+			}
+		],
+		"hall": {
+			"data": {
+				"resources": [
+					{
+						"id": "virtuetale",
+						"name": "Tales of Heroics",
+						"sym": "🏰",
+						"desc": "The exploits of your Hall have begun to become well-known amongst the people, lauding you as their saviour.",
+						"group": "hall",
+						"max": 1250,
+						"mod": {
+							"light.rate": 0.00032
+						}
+					},
+					{
+						"id": "eviltale",
+						"name": "Tales of Villainy",
+						"sym": "🏰",
+						"desc": "The mere mention of your Hall has begun striking fear in the hearts of people, frightened over your next conquest.",
+						"group": "hall",
+						"max": 1250,
+						"mod": {
+							"shadow.rate": 0.00032
+						}
+					}
+				],
+				"upgrades": [
+					{
+						"id": "up_virtuequest",
+						"name": "The Hero's Journey",
+						"desc": "Having defeated the great evils plaguing this land, your wizards are often viewed as being closer to characters of myth.",
+						"flavor": "The minstrels sing your praises.",
+						"sym": "🏰",
+						"require": "g.virtuetale>0",
+						"max": 1,
+						"need": "g.virtuetale>=1250",
+						"needtext": "Become known for a total of 1250 Tales of Heroics.",
+						"tags": "lightsource,hall",
+						"cost": {
+							"prestige": 25
+						},
+						"mod": {
+							"lightlore.buy.arcana": "-100%",
+							"lightlore.mod.light.rate": 0.01,
+							"lightlore.max": 2,
+							"history.max": 1
+						}
+					},
+					{
+						"id": "up_evilquest",
+						"name": "Reign of Terror",
+						"desc": "Having dominated all challenges of this land, your wizards rule as unchallenged despots.",
+						"flavor": "The iron hand crushed the tyrant's head, and became a tyrant in his stead",
+						"sym": "🏰",
+						"require": "g.eviltale>0",
+						"max": 1,
+						"need": "g.eviltale>=1250",
+						"needtext": "Become known for a total of 1250 Tales of Villainy.",
+						"tags": "shadowsource,hall",
+						"cost": {
+							"prestige": 25
+						},
+						"mod": {
+							"shadowlore.buy.arcana": "-100%",
+							"shadowlore.mod.shadow.rate": 0.01,
+							"shadowlore.max": 2,
+							"history.max": 1
+						}
+					}
+				],
+				"glossaryentries": [
+					{
+						"id": "gloss_questing",
+						"name": "The Grand Quest",
+						"group": "hall",
+						"tags": "t_gloss_game_mechanic,t_gloss_hall",
+						"sym": "🛠️🏰",
+						"desc": [
+							"➢ The Grand Quest task shall henceforth be unlocked whenever a Virtuous or Vile wizard in your Hall achieves Tier 4.",
+							"",
+							"➢ As tales linked to your current wizard spread, the gain of prestige from performing this task will gradually wane, falling to 0.1 prestige after 100 completions.",
+							"The first 100 completions will reward you with ~25 prestige.",
+							"",
+							"➢ Besides producing prestige, it also grants 'Tales of Heroics' and 'Tales of Villainy', scaling with your good/evil aligned moralities and classes.",
+							"",
+							"➢ The formula for 'Tales of Heroics' generated on each completion is as follows:-",
+							"• From moralities: 1 for 'Virtuous', 2 for 'Scrupulous', 5 for 'Incorruptible', 2 for 'Benevolent', 2 for 'Balanced' and 3 for 'In Equilibrium'.",
+							"• From classes: 2 for each class tagged as 'Master of Light'.",
+							"Tales of Heroics grant 0.00032 Light Rate each, maxing out at 0.4 at 1250.",
+							"",
+							"➢ The formula for 'Tales of Villainy' generated on each completion is as follows:-",
+							"• From moralities: 1 for 'Vile', 2 for 'Sinister', 5 for 'Irredeemable', 2 for 'Malevolent', 2 for 'Balanced' and 3 for 'In Equilibrium'.",
+							"• From classes: 2 for each class tagged as 'Master of Shadow'.",
+							"Tales of Villainy grant 0.00032 Shadow Rate each, maxing out at 0.4 at 1250.",
+							"",
+							"➢ After maxing out each respective type of Tale, you will be able to purchase a Hall upgrade specific to it."
+						],
+						"require": "g.evt_hall>0&&g.tier4>0"
+					}
+				]
+			}
+		}
+	}
+}

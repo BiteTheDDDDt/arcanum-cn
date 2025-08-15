@@ -57,7 +57,7 @@
 			{
 				"id": "evt_hole2",
 				"name": "the first one",
-				"desc": "You're the first one to the top, you find some books unlike many you've seen",
+				"desc": "You're the first one to the top, you find some books unlike any you've seen",
 				"require": "g.tier3>0&&g.unstablespire>0&&g.tier4==0"
 			},
 			{
@@ -113,7 +113,6 @@
 				"id": "mkpagoda",
 				"name": "Make a Beautiful Home",
 				"require": "g.mkcave>0&&g.tier6>0&&g.shian>0",
-				"craftable": true,
 				"desc": "Make a home where you can improve your mastery of the mysterious sword arts and spirits are plentiful",
 				"length": 1800,
 				"max": 1,
@@ -133,7 +132,6 @@
 				"id": "soulflag",
 				"name": "craft soulflag",
 				"require": "g.spiritlore>=13&&g.shian>0",
-				"craftable": true,
 				"desc": "So many souls around, there has to be a way to keep them out of your way",
 				"length": 100,
 				"max": 1,
@@ -151,7 +149,6 @@
 				"id": "soulflag2",
 				"name": "improve soulflag",
 				"require": "g.soulflag>0&&g.shian>0",
-				"craftable": true,
 				"desc": "There is room for more souls",
 				"length": 900,
 				"max": 1,
@@ -174,7 +171,6 @@
 				"require": "g.soulflag2>0&&g.shian>0",
 				"need": "g.inv.max-g.inv._used>=1",
 				"needtext": "Must have at least 1 inventory space free.",
-				"craftable": true,
 				"desc": "Containing ten thousand souls, this is a powerful tool ",
 				"length": 9000,
 				"max": 1,
@@ -197,7 +193,6 @@
 				"require": "g.soulflag3>0&&g.shian>0",
 				"need": "g.inv.max-g.inv._used>=1",
 				"needtext": "Must have at least 1 inventory space free.",
-				"craftable": true,
 				"desc": "Even if it's been reduced to scraps, it can be restored",
 				"length": 60,
 				"run": {
@@ -241,7 +236,8 @@
 				"mod": {
 					"swordart.attack.damage.max": 2,
 					"swordart.attack.damage.min": 2,
-					"swordart.attack.tohit": 2
+					"swordart.attack.tohit": 2,
+					"throw_swords.summon.0.max": 3
 				},
 				"group": "spellcasting"
 			},
@@ -258,7 +254,8 @@
 					"spiritart.attack.damage.min": 2,
 					"spiritart.attack.tohit": 1,
 					"soulart.attack.dot.damage.max": 1,
-					"soulart.attack.dot.damage.min": 1
+					"soulart.attack.dot.damage.min": 1,
+					"throw_swords.summon.0.max": 1
 				},
 				"group": "spellcasting"
 			},
@@ -280,7 +277,7 @@
 				"name": "lost sword art: flying swords",
 				"sortOrder": 1740,
 				"level": 11,
-				"school": "summoning",
+				"school": "shian",
 				"tags": "swordart",
 				"keywords": {
 					"type": ["damage", "summon"],
@@ -304,6 +301,7 @@
 				},
 				"attack": {
 					"targets": "enemies",
+					"maxTargets": 999,
 					"damage": "20~30",
 					"kind": "slash",
 					"tohit": 2,
@@ -312,7 +310,8 @@
 				"summon": [
 					{
 						"id": "sum_magicblade",
-						"count": 3
+						"count": 2,
+						"max": 0
 					}
 				]
 			},
@@ -321,7 +320,7 @@
 				"name": "lost sword art: giant slayer",
 				"sortOrder": 300,
 				"level": 12,
-				"school": "martial",
+				"school": "shian",
 				"tags": "swordart",
 				"keywords": {
 					"type": ["damage", "debuff"],
@@ -362,7 +361,7 @@
 				"name": "spirit art: soulstrike",
 				"sortOrder": 1001,
 				"level": 6,
-				"school": "spirit",
+				"school": "shian",
 				"tags": "spiritart",
 				"keywords": {
 					"type": ["damage"],
@@ -396,7 +395,7 @@
 				"desc": "Lure the souls of enemies from out their mortal bodies",
 				"sortOrder": 1002,
 				"level": 10,
-				"school": "spirit",
+				"school": "shian",
 				"tags": "soulart",
 				"keywords": {
 					"type": ["damage"],
@@ -419,6 +418,7 @@
 				"attack": {
 					"tohit": 4,
 					"targets": "enemies",
+					"maxTargets": 999,
 					"dot": {
 						"id": "soullure",
 						"kind": "spirit",
@@ -433,7 +433,7 @@
 				"name": "spirit art: soul river",
 				"sortOrder": 1000,
 				"level": 15,
-				"school": "spirit",
+				"school": "shian",
 				"tags": "spiritart",
 				"keywords": {
 					"type": ["damage"],
@@ -468,19 +468,15 @@
 				"name": "shian anchorite",
 				"desc": "An ancient magic from beyond the sea, combining spirit and blade.",
 				"secret": true,
-				"tags": "t_tier4,t_swordclass",
-				"require": "g.tier3>0&&g.unstablespire>0",
+				"tags": "t_tier4,t_swordclass,t_spiritclass",
+				"require": "g.tier3>0&&(g.unstablespire>0||g.up_shian>0)&&g.spiritlore>=15&&g.weaponlore>=8",
 				"cost": {
 					"research": 25000,
 					"arcana": 25,
 					"tomes": 100,
 					"ichor": 2
 				},
-				"result": {
-					"sp": 2
-				},
 				"mod": {
-					"tier4": true,
 					"spiritlore.max": 3
 				},
 				"flavor": "Contemplation of the small as well as great."
@@ -492,6 +488,7 @@
 				"name": "soulflag",
 				"desc": "Ten thousand souls muffled in its fabric.",
 				"type": "weapon",
+				"slot": "mainhand",
 				"unique": true,
 				"damage": "60~70",
 				"attack": {
@@ -507,11 +504,9 @@
 						"spiritart.attack.tohit": 5
 					}
 				},
-				"hands": 2,
 				"kind": "flag",
 				"tags": "flag",
 				"level": 15,
-				"enchants": 15,
 				"sell": {
 					"souls": 1
 				}
@@ -521,28 +516,51 @@
 			{
 				"id": "unstablespire",
 				"name": "The unstable spire",
-				"desc": "A large spire which rose from the ground. It looks like it might collapse any day now",
+				"flavor": "Some things are left to time.",
+				"desc": "A large spire which rose from the ground. It looks like it might collapse any day now.",
+				"biome": ["cave", "mountain"],
+				"difficulty": "💀💀💀",
+				"sortOrder": 49,
 				"require": "evt_hole",
-				"level": 15,
 				"dist": 50,
-				"run": {
-					"stamina": 2
-				},
-				"length": 10000,
+				"run": { "stamina": 2 },
 				"result": {
 					"fame": 1,
 					"gems": "10~20",
-					"gold": "100~200"
+					"gold": "100~200",
+					"basiliskhide": "10~20"
 				},
-				"biome": ["cave", "mountain"],
+				"length": 400,
 				"spawns": {
-					"level": "4~15",
+					"level": "4~42",
 					"range": 3,
 					"quantity": "1~3",
-					"quantitypenalty": 0.1
-				},
-				"flavor": "some things are left to time"
+					"quantitypenalty": 0.16
+				}
 			}
-		]
+		],
+		"hall": {
+			"data": {
+				"upgrades": [
+					{
+						"id": "up_shian",
+						"name": "Treatise of Soul Arts",
+						"sym": "🏰",
+						"max": 1,
+						"desc": "A series of tomes obtained from atop the Unstable Spire, detailing methods of manipulating souls thought long lost to time.",
+						"tags": "spiritsource,hall",
+						"extdesc": "The 'Shian Anchorite' Tier 4 Class will no longer require defeating the Unstable Spire.",
+						"require": "g.evt_hole2>0",
+						"mod": {
+							"spiritlore.buy.arcana": "-100%",
+							"spiritlore.mod.spirit.rate": 0.01
+						},
+						"result": {
+							"fame": 5
+						}
+					}
+				]
+			}
+		}
 	}
 }

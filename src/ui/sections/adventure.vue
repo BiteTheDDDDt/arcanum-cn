@@ -1,17 +1,15 @@
 <script>
-import Game from '@/game';
-import ItemBase from '@/ui/itemsBase.js';
-import { alphasort, levelsort } from '@/util/util';
-import Settings from '@/modules/settings';
-
-import ProgBar from '@/ui/components/progbar.vue';
-import FilterBox from '@/ui/components/filterbox.vue';
-
-import Explore from '@/ui/items/explore.vue';
-
-import { LOG_COMBAT } from '@/events';
-import { EXPLORE, DUNGEON, LOCALE, CLASH } from '@/values/consts';
-import { defineAsyncComponent } from 'vue';
+import Game from "@/game";
+import ItemBase from "@/ui/itemsBase.js";
+import { alphasort, localeLevelsort } from "@/util/util";
+import Settings from "@/modules/settings";
+import SlotPick from "@/ui/components/slotpick.vue";
+import ProgBar from "@/ui/components/progbar.vue";
+import FilterBox from "@/ui/components/filterbox.vue";
+import Explore from "@/ui/items/explore.vue";
+import { LOG_COMBAT } from "@/events";
+import { EXPLORE, DUNGEON, LOCALE, CLASH } from "@/values/consts";
+import { defineAsyncComponent } from "vue";
 
 const MAX_ITEMS = 7;
 
@@ -19,23 +17,20 @@ const MAX_ITEMS = 7;
  * Handles display of both Dungeons/Locales.
  */
 export default {
-
-	props: ['state'],
+	props: ["state"],
 	mixins: [ItemBase],
 	data() {
-
 		let ops = Settings.getSubVars(EXPLORE);
 
 		return {
-			showDone: ops.hasOwnProperty('showDone') ? ops.showDone : true,
-			showCombatDungeon: ops.hasOwnProperty('showCombatDungeon') ? ops.showCombatDungeon : true,
-			showLocale: ops.hasOwnProperty('showLocale') ? ops.showLocale : true,
-			showClash: ops.hasOwnProperty('showClash') ? ops.showClash : true,
+			showDone: ops.hasOwnProperty("showDone") ? ops.showDone : true,
+			showCombatDungeon: ops.hasOwnProperty("showCombatDungeon") ? ops.showCombatDungeon : true,
+			showLocale: ops.hasOwnProperty("showLocale") ? ops.showLocale : true,
+			showClash: ops.hasOwnProperty("showClash") ? ops.showClash : true,
 			lvlSort: ops.lvlSort,
 			log: Game.log,
-			filtered: null
-		}
-
+			filtered: null,
+		};
 	},
 	beforeCreate() {
 		this.game = Game;
@@ -44,171 +39,211 @@ export default {
 		explore: Explore,
 		progbar: ProgBar,
 		filterbox: FilterBox,
-		inv: defineAsyncComponent(() => import( /* webpackChunkName: "inv-ui" */ './inventory.vue'))
+		inv: defineAsyncComponent(() => import(/* webpackChunkName: "inv-ui" */ "./inventory.vue")),
+		slotpick: SlotPick,
+	},
+	methods: {
+		searchIt(it, t) {
+			const regex = new RegExp(t, "i");
+			if (regex.test(it.name)) return true;
+			if (it.tags) {
+				let tags = it.tags;
+				for (let i = tags.length - 1; i >= 0; i--) {
+					if (regex.test(tags[i])) return true;
+				}
+			}
+			if (it.mod && typeof it.mod === "object") {
+				for (let p in it.mod) {
+					if (game.state.getData(p) && typeof game.state.getData(p) === "object") {
+						if (regex.test(game.state.getData(p).name)) return true;
+					}
+				}
+			}
+			if (it.result) {
+				for (let p in it.result) {
+					let data = game.state.getData(p);
+					if (data == null) continue;
+					if (data.name.toLowerCase().includes(t.toLowerCase())) return true;
+				}
+			}
+			if (it.loot && it.value > 0) {
+				for (let p in it.loot) {
+					let data = game.state.getData(p);
+					if (data == null) continue;
+					if (data.name.toLowerCase().includes(t.toLowerCase())) return true;
+				}
+			}
+			if (it.once) {
+				for (let p in it.once) {
+					let data = game.state.getData(p);
+					if (data == null) continue;
+					if (data.name.toLowerCase().includes(t.toLowerCase())) return true;
+				}
+			}
+			return false;
+		},
 	},
 	computed: {
-
 		chkLevelSort: {
-			get() { return this.lvlSort; },
+			get() {
+				return this.lvlSort;
+			},
 			set(v) {
-				this.lvlSort = Settings.setSubVar(EXPLORE, 'lvlSort', v);
-			}
+				this.lvlSort = Settings.setSubVar(EXPLORE, "lvlSort", v);
+			},
 		},
 		chkShowDone: {
-			get() { return this.showDone; },
+			get() {
+				return this.showDone;
+			},
 			set(v) {
-				this.showDone = Settings.setSubVar(EXPLORE, 'showDone', v);
-			}
+				this.showDone = Settings.setSubVar(EXPLORE, "showDone", v);
+			},
 		},
-
 		chkShowCombatDungeon: {
-			get() { return this.showCombatDungeon; },
+			get() {
+				return this.showCombatDungeon;
+			},
 			set(v) {
-				this.showCombatDungeon = Settings.setSubVar(EXPLORE, 'showCombatDungeon', v);
-			}
+				this.showCombatDungeon = Settings.setSubVar(EXPLORE, "showCombatDungeon", v);
+			},
 		},
-
 		chkShowClash: {
-			get() { return this.showClash; },
+			get() {
+				return this.showClash;
+			},
 			set(v) {
-				this.showClash = Settings.setSubVar(EXPLORE, 'showClash', v);
-			}
+				this.showClash = Settings.setSubVar(EXPLORE, "showClash", v);
+			},
 		},
-
 		chkShowLocale: {
-			get() { return this.showLocale; },
+			get() {
+				return this.showLocale;
+			},
 			set(v) {
-				this.showLocale = Settings.setSubVar(EXPLORE, 'showLocale', v);
-			}
+				this.showLocale = Settings.setSubVar(EXPLORE, "showLocale", v);
+			},
 		},
-
-		drops() { return Game.state.drops; },
-
+		mount() {
+			return Game.state.getSlot("mount");
+		},
+		dist() {
+			return Game.player.dist;
+		},
+		drops() {
+			return Game.state.drops;
+		},
 		combatLog() {
-
 			let items = this.log.items;
 			let count = 0;
 			let a = [];
 
 			for (let i = items.length - 1; i >= 0; i--) {
-
 				var it = items[i];
 				if (it.type === LOG_COMBAT) {
-
 					a.push(it);
 					if (++count === MAX_ITEMS) break;
-
 				}
-
 			}
 
 			return a;
-
 		},
-
-		explore() { return this.state.explore; },
-
-		/**
-		 * Only sort once.
-		 */
+		explore() {
+			return this.state.explore;
+		},
 		allLocs() {
-			return this.state.filterItems(
-				it => (it.type === DUNGEON || it.type === LOCALE || it.type === CLASH)
-			).sort(this.lvlSort ? levelsort : alphasort);
+			// Only sort once.
+			return this.state
+				.filterItems(it => it.type === DUNGEON || it.type === LOCALE || it.type === CLASH)
+				.sort(this.lvlSort ? localeLevelsort : alphasort);
 		},
-
 		locales() {
-
 			let d = this.showDone;
 			let cd = this.showCombatDungeon;
 			let l = this.showLocale;
 			let cl = this.showClash;
 
 			return this.allLocs.filter(
-				it => !this.locked(it) && (d || it.value <= 0) &&
+				it =>
+					!this.locked(it) &&
+					(d || it.value <= 0) &&
 					(cd || it.type !== DUNGEON) &&
 					(l || it.type !== LOCALE) &&
-					(cl || it.type !== CLASH)
+					(cl || it.type !== CLASH),
 			);
-
-		}
-
-	}
-
-}
+		},
+	},
+};
 </script>
 
-
 <template>
-
-<div class="adventure">
-
+	<div class="adventure">
 		<!-- also contains combat -->
 		<explore v-if="explore.running" :explore="explore" />
-
 		<div class="content" v-else>
 			<div class="top">
-
+				<slotpick title="Mount" pick="mount" />
+				<span> Distance: {{ dist.current }} </span>
 				<span>
-				<span class="opt"><input :id="elmId('lvlSort')" type="checkbox" v-model="chkLevelSort">
-				<label :for="elmId('lvlSort')">Sort Level</label></span>
+					<span class="opt">
+						<input :id="elmId('lvlSort')" type="checkbox" v-model="chkLevelSort" />
+						<label :for="elmId('lvlSort')">Sort Level</label>
+					</span>
 				</span>
-
 				<span>
-				<span class="opt"><input :id="elmId('showDone')" type="checkbox" v-model="chkShowDone">
-				<label :for="elmId('showDone')">Complete</label></span>
-				<span class="opt"><input :id="elmId('ShowCombatDungeon')" type="checkbox" v-model="chkShowCombatDungeon">
-				<label :for="elmId('ShowCombatDungeon')">Dungeon</label></span>
-				<span class="opt"><input :id="elmId('ShowClash')" type="checkbox" v-model="chkShowClash">
-				<label :for="elmId('ShowClash')">Clash</label></span>
-				<span class="opt"><input :id="elmId('showLocale')" type="checkbox" v-model="chkShowLocale">
-				<label :for="elmId('showLocale')">Explore</label></span>
+					<span class="opt">
+						<input :id="elmId('showDone')" type="checkbox" v-model="chkShowDone" />
+						<label :for="elmId('showDone')">Complete</label>
+					</span>
+					<span class="opt">
+						<input :id="elmId('ShowCombatDungeon')" type="checkbox" v-model="chkShowCombatDungeon" />
+						<label :for="elmId('ShowCombatDungeon')">Dungeon</label>
+					</span>
+					<span class="opt">
+						<input :id="elmId('ShowClash')" type="checkbox" v-model="chkShowClash" />
+						<label :for="elmId('ShowClash')">Clash</label>
+					</span>
+					<span class="opt">
+						<input :id="elmId('showLocale')" type="checkbox" v-model="chkShowLocale" />
+						<label :for="elmId('showLocale')">Locale</label>
+					</span>
 				</span>
-
-
-				<filterbox class="inline" v-model="filtered" :items="locales" :min-items=8 />
-
-
+				<filterbox class="inline" v-model="filtered" :prop="searchIt" :items="locales" />
 			</div>
 			<div class="locales">
-
 				<div class="locale" v-for="d in filtered" :key="d.id">
-
 					<span class="separate">
 						<!-- EVENT MUST BE ON OUTER SPAN - CHROME -->
-					<span @mouseenter.capture.stop="itemOver($event, d)"><span>{{ d.sname.toString().toTitleCase() }}</span>
-
-					<button type="button" class="raid-btn" :disabled="!game.canRun(d)" @click="emit('task', d)">Enter</button></span>
-
-
-					<span class="sym">{{ d.sym }}</span>
+						<span @mouseenter.capture.stop="itemOver($event, d)">
+							<span>{{ d.sname.toString().toTitleCase() }}</span>
+							<button type="button" class="raid-btn" :disabled="!game.canRun(d)" @click="emit('task', d)">
+								Enter
+							</button>
+						</span>
+						<span class="sym">{{ d.sym }}</span>
 					</span>
-
 					<progbar :value="d.exp.valueOf()" :max="d.length.valueOf()" />
-
 				</div>
-
 			</div>
 		</div>
 
-	<div class="raid-bottom" v-if="explore.running || drops.count > 0">
-
-		<inv class="inv" :inv="state.inventory" types="potion" nosearch = "true" combat = "true" />
-		<div class="log">
-			<!--<span v-if="exploring">Exploring...<br></span>-->
-
-			<div class="outlog">
-			<div class="log-item" v-for="(it, i) in combatLog" :key="i">
-				<div><span class="log-title" v-if="it.title">{{ it.title.toString().toTitleCase() }}</span></div>
-				<span class="log-text" v-if="it.text">{{ it.text }}</span>
-			</div>
+		<div class="raid-bottom" v-if="explore.running || drops.count > 0">
+			<inv class="inv" :inv="state.inventory" types="potion" nosearch="true" combat="true" />
+			<div class="log">
+				<!--<span v-if="exploring">Exploring...<br></span>-->
+				<div class="outlog">
+					<div class="log-item" v-for="(it, i) in combatLog" :key="i">
+						<div>
+							<div>
+								<span class="log-title" v-if="it.title">{{ it.title.toString().toTitleCase() }}</span>
+							</div>
+							<span class="log-text" v-if="it.text">{{ it.text }}</span>
+						</div>
+					</div>
+				</div>
 			</div>
 		</div>
-
 	</div>
-
-</div>
-
 </template>
 
 <style scoped>
@@ -225,7 +260,6 @@ div.adventure {
 	margin: 0;
 	height: 100%;
 	overflow-y: hidden;
-
 }
 
 div.adventure .content {
@@ -241,7 +275,6 @@ div.top {
 }
 
 div.locales {
-
 	display: flex;
 	flex-flow: row wrap;
 	grid-gap: 0;
@@ -251,28 +284,26 @@ div.locales {
 	min-height: 50%;
 	height: 100%;
 	padding: var(--tiny-gap) var(--md-gap);
-
 }
 
 div.locales .locale {
 	flex-basis: 48%;
 }
 
-
-body.compact div.adventure>div.locales {
+body.compact div.adventure > div.locales {
 	display: grid;
 	grid-template-columns: minmax(9rem, 1fr) repeat(auto-fit, minmax(9rem, 1fr));
 }
 
-body.compact div.adventure>div.locales .locale {
+body.compact div.adventure > div.locales .locale {
 	background: var(--list-entry-background);
 }
 
-body.compact div.adventure>div.locales .locale .bar {
+body.compact div.adventure > div.locales .locale .bar {
 	border: none;
 }
 
-div.adventure>div.locales .locale {
+div.adventure > div.locales .locale {
 	padding: var(--md-gap);
 	border-radius: var(--list-entry-border-radius);
 	display: flex;
@@ -280,23 +311,20 @@ div.adventure>div.locales .locale {
 	height: 100%;
 }
 
-div.adventure>div.locales .locale>span:nth-child(1) {
+div.adventure > div.locales .locale > span:nth-child(1) {
 	display: flex;
 	flex-flow: row;
 	justify-content: space-between;
 	flex: 1;
 }
 
-
-
 div.raid-bottom {
 	display: flex;
 	flex-flow: row nowrap;
 	justify-content: space-between;
 	border-top: 1px solid var(--separator-color);
-	min-height: 0;
-	max-height: 35%;
 	width: 100%;
+	height: 35%;
 	overflow-y: auto;
 }
 

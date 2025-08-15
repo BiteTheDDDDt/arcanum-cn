@@ -1,29 +1,34 @@
-import GData from '@/items/gdata';
+import GData from "@/items/gdata";
 import Events, { EVT_EVENT, EVT_UNLOCK } from "../events";
-import Game from '@/game';
+import Game from "@/game";
 
 /**
  * Represents in-game event.
  */
 export default class GEvent extends GData {
-
 	/**
 	 * @property {number} rand - 100-based percent chance per 100 seconds
 	 * for event to occur. indicates a randomized event.
 	 */
-	get rand() { return this._rand; }
-	set rand(v) { this._rand = v; }
+	get rand() {
+		return this._rand;
+	}
+	set rand(v) {
+		this._rand = v;
+	}
 
 	/**
 	 * @property {number} cd - cooldown.
 	 */
-	get cd() { return this._cd; }
-	set cd(v) { this._cd = v; }
+	get cd() {
+		return this._cd;
+	}
+	set cd(v) {
+		this._cd = v;
+	}
 
 	constructor(vars = null) {
-
 		super(vars);
-
 	}
 
 	/**
@@ -31,8 +36,6 @@ export default class GEvent extends GData {
 	 * @todo: randomized events won't work this way.
 	 */
 	doUnlock(g = Game) {
-
-
 		if (this.disabled || (this.value > 0 && !this.repeat)) {
 			return;
 		}
@@ -42,13 +45,11 @@ export default class GEvent extends GData {
 
 		// randomized event.
 		if (this.rand) {
-
 		} else super.amount(1);
 
 		this.locked = false;
 
 		Events.emit(EVT_EVENT, this);
-
 	}
 
 	/**
@@ -61,6 +62,4 @@ export default class GEvent extends GData {
 	amount(amt) {
 		if (this.locked) this.doUnlock();
 	}
-
-
 }

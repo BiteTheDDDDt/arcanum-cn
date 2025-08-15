@@ -7,7 +7,8 @@
 				"id": "consecrateshrine",
 				"name": "consecrate shrine",
 				"desc": "Consecrating your shrine, you gain insights into both body and spirit",
-				"require": "g.good2>0&&g.shrine>0",
+				"require": "g.good2>0",
+				"need": "shrine",
 				"cost": {
 					"research": 3000,
 					"gold": 1500,
@@ -101,11 +102,10 @@
 					"lightgem": 1,
 					"spiritgem": 1
 				},
-				"resurrect":
-				{
-					"only": ["humanoid","goblinoid"],
-					"maxlevel":99,
-					"count":1
+				"resurrect": {
+					"only": ["humanoid", "goblinoid"],
+					"maxlevel": 99,
+					"count": 1
 				}
 			},
 			{
@@ -140,6 +140,7 @@
 				},
 				"attack": {
 					"targets": "allies",
+					"maxTargets": 999,
 					"harmless": true,
 					"healing": 50,
 					"kind": "light",
@@ -249,7 +250,7 @@
 				"slot": "companion",
 				"require": "(g.t_lightclass+g.tier5+g.tier6)>=3",
 				"name": "paladin companion",
-				"level": 10,
+				"level": 20,
 				"kind": "humanoid",
 				"noproc": true,
 				"speed": 5,
@@ -295,7 +296,7 @@
 				"slot": "companion",
 				"require": "g.t_lightclass>0",
 				"name": "acolyte companion",
-				"level": 10,
+				"level": 20,
 				"kind": "humanoid",
 				"noproc": true,
 				"speed": 12,
@@ -326,7 +327,7 @@
 				"slot": "companion",
 				"require": "(g.t_lightclass+g.tier5)>=2",
 				"name": "lightbearer companion",
-				"level": 10,
+				"level": 20,
 				"kind": "humanoid",
 				"noproc": true,
 				"speed": 15,
@@ -348,6 +349,7 @@
 								"name": "purging light",
 								"kind": "light",
 								"targets": "enemies",
+								"maxTargets": 999,
 								"damage": "5~10"
 							}
 						]
@@ -366,12 +368,11 @@
 					"research": 20000,
 					"arcana": 50,
 					"sindel": 3,
-					"tomes": 75,
+					"tomes": 20,
 					"lightgem": 75,
-					"runestones": 30
+					"runestones": 10
 				},
 				"mod": {
-					"tier6": true,
 					"lightdmg": 5,
 					"lightlore.max": 2,
 					"heallore.max": 3,
@@ -396,7 +397,6 @@
 					"runestones": 15
 				},
 				"mod": {
-					"tier5": true,
 					"lightlore.max": 2,
 					"heallore.max": 3,
 					"anatomy.max": 1,
@@ -412,17 +412,13 @@
 				"require": "g.tier3>0&&g.lightlore>=17&&g.spiritlore>=10&&g.tier4==0",
 				"need": "good2",
 				"cost": {
-					"research": 4000,
+					"research": 3000,
 					"arcana": 15,
 					"tomes": 20,
 					"lightgem": 20,
 					"runestones": 5
 				},
-				"result": {
-					"sp": 2
-				},
 				"mod": {
-					"tier4": true,
 					"lightdmg": 5,
 					"lightlore.max": 3,
 					"heallore.max": 2,
@@ -439,14 +435,10 @@
 				"cost": {
 					"research": 1500,
 					"arcana": 10,
-					"tomes": 10,
+					"tomes": 5,
 					"lightgem": 20
 				},
-				"result": {
-					"sp": 2
-				},
 				"mod": {
-					"tier3": true,
 					"lightlore.max": 2,
 					"heallore.max": 2,
 					"anatomy.max": 1,

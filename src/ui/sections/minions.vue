@@ -1,32 +1,38 @@
 <script>
-import Game from '@/game';
+import Game from "@/game";
 
-import ItemsBase from '@/ui/itemsBase';
-import FilterBox from '@/ui/components/filterbox.vue';
-import { move } from '@/util/array';
+import ItemsBase from "@/ui/itemsBase";
+import FilterBox from "@/ui/components/filterbox.vue";
+import { move } from "@/util/array";
 
 export default {
 	data() {
 		return {
-			filtered: null
+			filtered: null,
 		};
 	},
 	mixins: [ItemsBase],
 	components: {
-		filterbox: FilterBox
+		filterbox: FilterBox,
 	},
 	computed: {
+		allies() {
+			return this.minions.allies;
+		},
 
-		allies() { return this.minions.allies; },
-
-		inExplore() { return Game.state.explore.running },
+		inExplore() {
+			return Game.state.explore.running;
+		},
 
 		/*items(){ return this.minions.filter( v=>v.value>=1 ); },*/
 
-		rezList() { return Game.state.getTagSet('rez').filter(v => v.owned && !v.disabled); },
+		rezList() {
+			return Game.state.getTagSet("rez").filter(v => v.owned && !v.disabled);
+		},
 
-		minions() { return Game.state.minions }
-
+		minions() {
+			return Game.state.minions;
+		},
 	},
 	methods: {
 		move: move,
@@ -60,27 +66,21 @@ export default {
 
 		/** @todo: shared display funcs. */
 		toNum(v) {
-
 			if (v === undefined || v === null) return 0;
-			return ((typeof v === 'object') ? +v.value : v).toFixed(1);
-
-		}
-
-	}
-
-}
+			return (typeof v === "object" ? +v.value : v).toFixed(1);
+		},
+	},
+};
 </script>
 
 <template>
-
 	<div class="minions">
-
 		<filterbox v-model="filtered" :items="this.minions.items" :min-items="10" />
 
 		<div v-if="inExplore" class="warn-text">Cannot change active minions while adventuring</div>
 		<div class="minion-title">
-			<span>Owned Minions: {{ minions.count + ' / ' + Math.floor(minions.max) }}</span>
-			<span>Minions Levels: {{ Math.floor(allies.used) + ' / ' + Math.floor(allies.max.value) }}</span>
+			<span>Owned Minions: {{ minions.count + " / " + Math.floor(minions.max) }}</span>
+			<span>Minions Levels: {{ Math.floor(allies.used) + " / " + Math.floor(allies.max.value) }}</span>
 		</div>
 
 		<div class="char-list">
@@ -89,44 +89,71 @@ export default {
 					<th>Order</th>
 					<th>Creature</th>
 					<th class="num-align">Level</th>
-					<th class="num-align">Life</th>
+					<th class="num-align">Life & Barrier</th>
 					<th>Actions</th>
 				</tr>
-				<tr class="char-row" v-for="(b, ind) in filtered" :key="b.id"
+				<tr
+					class="char-row"
+					v-for="(b, ind) in filtered"
+					:key="b.id"
 					@mouseenter.capture.stop="itemOver($event, b)">
-					<button type="button" v-if="filtered.length == minions.items.length" :disabled="!(ind > 0)" class="stop"
-						@click="minions.items = move(minions.items, ind, -1)">↑</button>
-					<button type="button" v-if="filtered.length == minions.items.length" :disabled="!(ind < minions.items.length - 1)"
-						class="stop" @click="minions.items = move(minions.items, ind, 1)">↓</button>
-					<th><input class="fld-name" type="text" v-model="b.name"></th>
-					<td class="num-align">Lvl.{{(b.level)}}</td>
-					<td class="num-align">{{ toNum(b.hp) }} / {{ toNum(b.hp.max) }}</td>
+					<button
+						type="button"
+						v-if="filtered.length == minions.items.length"
+						:disabled="!(ind > 0)"
+						class="stop"
+						@click="minions.items = move(minions.items, ind, -1)">
+						↑
+					</button>
+					<button
+						type="button"
+						v-if="filtered.length == minions.items.length"
+						:disabled="!(ind < minions.items.length - 1)"
+						class="stop"
+						@click="minions.items = move(minions.items, ind, 1)">
+						↓
+					</button>
+					<th><input class="fld-name" type="text" v-model="b.name" /></th>
+					<td class="num-align">Lvl.{{ b.level }}</td>
+					<td class="num-align">
+						<div>{{ toNum(b.hp) }} / {{ toNum(b.hp.max) }}</div>
+						<div v-if="b.barrier.max > 0">{{ toNum(b.barrier) }} / {{ toNum(b.barrier.max) }}</div>
+					</td>
 
 					<td v-if="!b.alive">
 						<span>Dead</span>
-
 					</td>
 					<td v-else>
-						<button type="button" v-if="b.active" @click="toggleActive(b)" :disabled="inExplore">Rest</button>
-						<button  v-else type="button"  @click="toggleActive(b)"
-							:disabled="inExplore || !allies.canAdd(b)">Activate</button>
+						<button type="button" v-if="b.active" @click="toggleActive(b)" :disabled="inExplore">
+							Rest
+						</button>
+						<button
+							v-else
+							type="button"
+							@click="toggleActive(b)"
+							:disabled="inExplore || !allies.canAdd(b)">
+							Activate
+						</button>
 					</td>
 					<td v-if="!b.alive">
 						<!-- note this is a separate section from the one above -->
-						<button type="button" class="rez" v-for="r in rezzes(b)" :key="r.id" :disabled="!r.canUse()"
-							@click="useRez(r, b)">{{ r.name }}</button>
-
+						<button
+							type="button"
+							class="rez"
+							v-for="r in rezzes(b)"
+							:key="r.id"
+							:disabled="!r.canUse()"
+							@click="useRez(r, b)">
+							{{ r.name }}
+						</button>
 					</td>
 					<td>
-						<confirm @confirm="dismiss(b)">{{ 'Dismiss' }}</confirm>
+						<confirm @confirm="dismiss(b)">{{ "Dismiss" }}</confirm>
 					</td>
-
 				</tr>
 			</table>
 		</div>
-
 	</div>
-
 </template>
 
 <style scoped>
@@ -161,7 +188,6 @@ table {
 	border-collapse: collapse;
 	row-gap: var(--sm-gap);
 	column-gap: var(--md-gap);
-
 }
 
 tr:first-child th {
@@ -169,7 +195,7 @@ tr:first-child th {
 	margin: var(--sm-gap);
 }
 
-tr>th:first-of-type {
+tr > th:first-of-type {
 	text-align: left;
 }
 

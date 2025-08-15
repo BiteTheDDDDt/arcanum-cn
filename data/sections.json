@@ -61,7 +61,8 @@
 	},
 	{
 		"id": "sect_craft",
-		"name": "crafting"
+		"name": "crafting",
+		"require": "g.craftinglearn1>0"
 	},
 	{
 		"id": "sect_potions",
@@ -89,5 +90,15 @@
 		"id": "sect_glossary",
 		"name": "glossary",
 		"require": "apprentice"
+	},
+	{
+		"id": "sect_settings_main",
+		"name": "main",
+		"parent": "settings"
+	},
+	{
+		"id": "sect_settings_extra",
+		"name": "extra stats",
+		"parent": "settings"
 	}
 ]

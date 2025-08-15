@@ -1,0 +1,399 @@
+{
+	"module": "equipment-caster",
+	"author": "nagshell",
+	"data": {
+		"tags": [],
+		"materials": [
+			{
+				"id": "mat_caster_gold",
+				"name": "Golden",
+				"level": 1,
+				"kind": "caster",
+				"only": "t_caster",
+				"cost": {
+					"gold": 300,
+					"iron": 5,
+					"research": 100,
+					"arcana": 2,
+					"scrolls": 3
+				},
+				"require": "g.craftinglearn1>0",
+				"alter": {
+					"sell": { "gold": 500, "iron": 2 },
+					"mod.self.speed": 4
+				}
+			},
+			{
+				"id": "mat_caster_ruby",
+				"name": "Carmine",
+				"level": 9,
+				"kind": "caster",
+				"only": "t_caster",
+				"cost": {
+					"rubies": 12,
+					"quicksteel": 5,
+					"research": 300,
+					"arcana": 4,
+					"codices": 3
+				},
+				"require": "g.craftinglearn2>0",
+				"alter": {
+					"sell": { "rubies": 8, "quicksteel": 2 },
+					"enchants.max": 1
+				}
+			},
+			{
+				"id": "mat_caster_diamond",
+				"name": "Crystalline",
+				"level": 19,
+				"kind": "caster",
+				"only": "t_caster",
+				"cost": {
+					"diamonds": 12,
+					"adamant": 5,
+					"research": 500,
+					"arcana": 7,
+					"runestones": 2
+				},
+				"require": "g.craftinglearn4>0",
+				"alter": {
+					"sell": { "diamonds": 8, "adamant": 2 },
+					"enchants.max": 2
+				}
+			}
+		],
+		"weapons": [
+			{
+				"id": "c_focus",
+				"name": "Focus",
+				"level": 1,
+				"slot": "mainhand",
+				"tags": "t_caster",
+				"require": "g.craftinglearn1>0",
+				"cost": {
+					"gold": 50,
+					"research": 50
+				},
+				"craftcostmult": 1,
+				"sell": {},
+				"only": "caster",
+				"enchants": 1,
+				"alter": { "mod.spelldmg": 20 }
+			},
+			{
+				"id": "c_mirror",
+				"name": "Mirror",
+				"level": 6,
+				"slot": "mainhand",
+				"tags": "t_caster",
+				"require": "g.craftinglearn3>0",
+				"cost": {
+					"gold": 150,
+					"research": 150
+				},
+				"craftcostmult": 1,
+				"sell": {},
+				"only": "caster",
+				"enchants": 1,
+				"alter": { "mod.self.dodge": 25, "mod.self.negate.silence": 50 }
+			},
+			{
+				"id": "c_twinstaff",
+				"name": "Twin Staves",
+				"level": 11,
+				"slot": "mainhand",
+				"tags": "t_caster",
+				"require": "g.craftinglearn5>0",
+				"cost": {
+					"gold": 500,
+					"research": 500
+				},
+				"craftcostmult": 1.5,
+				"sell": {},
+				"only": "caster",
+				"enchants": 1,
+				"alter": { "mod.self.chaincast": 1, "mod.spelldmg": -70 }
+			},
+			{
+				"id": "c_wand",
+				"name": "Wand",
+				"level": 1,
+				"slot": "mainhand",
+				"tags": "t_caster",
+				"require": "g.craftinglearn1>0",
+				"cost": {
+					"gold": 50,
+					"research": 50
+				},
+				"craftcostmult": 1,
+				"sell": {},
+				"only": "caster",
+				"enchants": 1,
+				"alter": {
+					"mod.self.tohit": 10,
+					"mod.self.speed": 4
+				}
+			},
+			{
+				"id": "c_sceptre",
+				"name": "Sceptre",
+				"level": 1,
+				"slot": "mainhand",
+				"tags": "t_caster",
+				"require": "g.craftinglearn3>0",
+				"cost": {
+					"gold": 150,
+					"research": 150
+				},
+				"craftcostmult": 1,
+				"sell": {},
+				"only": "caster",
+				"enchants": 1,
+				"attack": {
+					"name": "Elemental Bonk",
+					"kind": "pure",
+					"damage": 2,
+					"potencies": ["spelldmg", "manadmg", "waterdmg", "airdmg", "firedmg", "earthdmg"]
+				}
+			},
+			{
+				"id": "c_greatstaff",
+				"name": "Greatstaff",
+				"level": 1,
+				"slot": "mainhand",
+				"tags": "t_caster",
+				"require": "g.craftinglearn5>0",
+				"cost": {
+					"gold": 500,
+					"research": 500
+				},
+				"craftcostmult": 1.5,
+				"sell": {},
+				"only": "caster",
+				"enchants": 1,
+				"alter": { "mod.spelldmg": 50, "mod.self.speed": -5 }
+			},
+			{
+				"id": "c_orb",
+				"name": "Orb",
+				"level": 1,
+				"slot": "mainhand",
+				"tags": "t_caster",
+				"require": "g.craftinglearn1>0",
+				"cost": {
+					"gold": 50,
+					"research": 50
+				},
+				"craftcostmult": 1,
+				"sell": {},
+				"only": "caster",
+				"enchants": 1,
+				"alter": { "mod.barrier.max": 50 }
+			},
+			{
+				"id": "c_caduceus",
+				"name": "Caduceus",
+				"level": 1,
+				"slot": "mainhand",
+				"tags": "t_caster",
+				"require": "g.craftinglearn3>0",
+				"cost": {
+					"gold": 150,
+					"research": 150
+				},
+				"craftcostmult": 1,
+				"sell": {},
+				"only": "caster",
+				"enchants": 1,
+				"attack": {
+					"targets": "minions",
+					"maxTargets": 999,
+					"harmless": true,
+					"healing": 10,
+					"kind": "pure",
+					"potencies": ["spellheal"]
+				}
+			},
+			{
+				"id": "c_effigy",
+				"name": "Effigy",
+				"level": 1,
+				"slot": "mainhand",
+				"tags": "t_caster",
+				"require": "g.craftinglearn5>0",
+				"cost": {
+					"gold": 500,
+					"research": 500
+				},
+				"craftcostmult": 1.5,
+				"sell": {},
+				"only": "caster",
+				"enchants": 1,
+				"attack": {
+					"targets": "self",
+					"harmless": true,
+					"summon": [{ "id": "sum_effigy_shield", "count": 1, "max": 1 }]
+				},
+				"alter": { "mod.self.resist.mana": "-20%" }
+			}
+		],
+		"monsters": [
+			{
+				"id": "sum_effigy_shield",
+				"name": "Effigy's Shield",
+				"tags": "t_summon",
+				"level": 1,
+				"hp": 1000,
+				"noproc": true,
+				"defense": 200,
+				"attack": [],
+				"onSummon": {
+					"name": "Full Cover",
+					"targets": "self",
+					"dot": {
+						"tags": "t_taunt",
+						"flags": "taunt"
+					}
+				},
+				"onDeath": {
+					"name": "Backlash",
+					"targets": "leader",
+					"harmless": true,
+					"nodefense": true,
+					"damage": 1000,
+					"kind": "mana"
+				}
+			}
+		],
+		"enchants": [
+			{
+				"id": "en_caster_spelldmg",
+				"name": "Channelling Core",
+				"adj": "Channelling",
+				"desc": "Increases spell damage",
+				"require": "g.enchanting>0",
+				"buy": {
+					"arcana": 1,
+					"research": 100
+				},
+				"level": 1,
+				"only": "t_caster",
+				"length": 30,
+				"cost": { "arcana": 1 },
+				"alter": { "mod.spelldmg": 20 }
+			},
+			{
+				"id": "en_caster_spelldmg_bargain",
+				"name": "Lifebane's Seal",
+				"adj": "Lifebane",
+				"desc": "Increases spell damage",
+				"require": "g.enchanting>0",
+				"buy": {
+					"arcana": 1,
+					"research": 100
+				},
+				"level": 2,
+				"only": "t_caster",
+				"length": 30,
+				"cost": { "arcana": 1 },
+				"alter": { "mod.spelldmg": 40, "mod.spellheal": -80 }
+			},
+			{
+				"id": "en_caster_spellheal",
+				"name": "Mending Core",
+				"adj": "Mending",
+				"desc": "Increases spell damage",
+				"require": "g.enchanting>0",
+				"buy": {
+					"arcana": 1,
+					"research": 100
+				},
+				"level": 1,
+				"only": "t_caster",
+				"length": 30,
+				"cost": { "arcana": 1 },
+				"alter": { "mod.spellheal": 10 }
+			},
+			{
+				"id": "en_caster_chaincast",
+				"name": "Splintering Cap",
+				"adj": "Splintering",
+				"desc": "Grants a chance to cast two spells at once",
+				"require": "g.enchanting>0",
+				"buy": {
+					"arcana": 1,
+					"research": 100
+				},
+				"level": 1,
+				"only": "t_caster",
+				"length": 30,
+				"cost": { "arcana": 1 },
+				"alter": { "mod.self.chaincast": 0.1 }
+			},
+			{
+				"id": "en_caster_prismatic",
+				"name": "Empowering Channels",
+				"adj": "Empowering",
+				"desc": "Improves accumulation of prismatic energies.",
+				"require": "g.enchanting>0",
+				"buy": {
+					"arcana": 1,
+					"research": 100
+				},
+				"level": 1,
+				"only": "t_caster",
+				"length": 30,
+				"cost": { "arcana": 1 },
+				"alter": { "mod.prismatic.rate": 0.3 }
+			},
+			{
+				"id": "en_caster_speed",
+				"name": "Hare's Speed",
+				"adj": "%i of the Hare",
+				"desc": "Increases speed",
+				"require": "g.enchanting>0",
+				"buy": {
+					"arcana": 1,
+					"research": 100
+				},
+				"level": 1,
+				"only": "t_caster",
+				"length": 30,
+				"cost": { "arcana": 1 },
+				"alter": { "mod.self.speed": 3 }
+			},
+			{
+				"id": "en_caster_tohit",
+				"name": "Falcon's Accuracy",
+				"adj": "%i of the Falcon",
+				"desc": "Increases chance to hit",
+				"require": "g.enchanting>0",
+				"buy": {
+					"arcana": 1,
+					"research": 100
+				},
+				"level": 1,
+				"only": "t_caster",
+				"length": 30,
+				"cost": { "arcana": 1 },
+				"alter": { "mod.self.tohit": 30 }
+			},
+			{
+				"id": "en_caster_resist_silence",
+				"name": "Silence Nullification",
+				"adj": "%i of Freedom",
+				"desc": "Greatly improves chance of negating silence.",
+				"require": "g.enchanting>0",
+				"buy": {
+					"arcana": 1,
+					"research": 100
+				},
+				"level": 1,
+				"only": "t_caster",
+				"length": 30,
+				"cost": { "arcana": 1 },
+				"alter": { "mod.self.negate.silence": 75 }
+			}
+		]
+	}
+}

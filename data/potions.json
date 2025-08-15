@@ -21,25 +21,15 @@
 		},
 		"use": {
 			"attack": {
-				"cure": [
-					"t_paralysis",
-					"t_enrage",
-					"t_charmed",
-					"t_fear",
-					"t_silence",
-					"t_sick"
-				],
+				"cure": ["t_paralysis", "t_charmed", "t_silence"],
 				"targets": "self"
 			},
 			"dot": {
 				"duration": 60,
 				"mod": {
-					"self.resist.paralysis": 15,
-					"self.resist.enrage": 15,
-					"self.resist.charmed": 15,
-					"self.resist.fear": 15,
-					"self.resist.silence": 15,
-					"self.resist.sick": 15
+					"self.negate.paralysis": 15,
+					"self.negate.charmed": 15,
+					"self.negate.silence": 15
 				}
 			}
 		}
@@ -68,36 +58,6 @@
 				"mod": {
 					"encounter.effect.gold": 6,
 					"encounter.effect.gems": 0.12
-				}
-			}
-		}
-	},
-	{
-		"id": "pot_souls",
-		"name": "soulbind essence",
-		"desc": "A measure of this sickly green substance can significantly improve the effects of soul traps.",
-		"require": "g.potions>=6&&g.evil>0",
-		"level": 10,
-		"buy": {
-			"gold": 2500,
-			"research": 3000,
-			"potionessence": 1
-		},
-		"cost": {
-			"souls": 15,
-			"gold": 500,
-			"spiritgem": 5,
-			"spirit": 15,
-			"shadowgem": 5,
-			"potionessence": 1
-		},
-		"use": {
-			"dot": {
-				"duration": 1800,
-				"mod": {
-					"trapsoul.run.bonedust": -0.2,
-					"trapsoul.length": -5,
-					"trapsoul.result.souls.max": 0.25
 				}
 			}
 		}
@@ -138,6 +98,38 @@
 		}
 	},
 	{
+		"id": "pot_workhorse",
+		"name": "Workhorse tonic",
+		"desc": "Originally devised as a way to supplement labor shortages, its addictive nature has proven to be more trouble than it's worth.",
+		"require": "g.potions>=7",
+		"level": 10,
+		"buy": {
+			"gold": 8000,
+			"potionessence": 1
+		},
+		"cost": {
+			"herbs": 50,
+			"earthgem": 25,
+			"watergem": 25,
+			"gems": 25,
+			"stamina": 25,
+			"potionessence": 1
+		},
+		"use": {
+			"dot": {
+				"id": "workhorse",
+				"name": "horsepower",
+				"duration": 7200,
+				"mod": {
+					"t_craftwork.rate": "50%",
+					"craftfinepart.rate": "75%",
+					"smith_work.length": -2,
+					"deepsteelforging.mod.smith_work.length": -8
+				}
+			}
+		}
+	},
+	{
 		"id": "pot_invisibility",
 		"name": "vial of invisibility",
 		"desc": "Appears to contain nothing at all.",
@@ -164,9 +156,9 @@
 				"mod": {
 					"player.dodge": 5,
 					"player.speed": 5,
-					"heist.result.gems.min": 1,
-					"heist.result.gems.max": 1,
-					"heist.length": -25
+					"t_heist_act.result.gems.min": 1,
+					"t_heist_act.result.gems.max": 1,
+					"t_heist_act.length": -25
 				}
 			}
 		}
@@ -541,38 +533,7 @@
 				"level": 15,
 				"duration": 1800,
 				"effect": {
-					"stamina": 2.25
-				}
-			}
-		}
-	},
-	{
-		"id": "pot_fake",
-		"name": "potion of eternal youth",
-		"desc": "Ensures the drinker never becomes old. For sale only",
-		"require": "g.potions>=1&&g.evil>0",
-		"buy": {
-			"gold": 250,
-			"research": 500,
-			"potionessence": 1
-		},
-		"cost": {
-			"herbs": 25,
-			"bodies": 15,
-			"shadowgem": 2,
-			"potionessence": 1
-		},
-		"sell": {
-			"gold": 2000,
-			"gems": 25
-		},
-		"use": {
-			"dot": {
-				"id": "fakeeternalyouth",
-				"name": "eternal youth",
-				"duration": 15,
-				"effect": {
-					"hp": -250
+					"stamina": 1
 				}
 			}
 		}
@@ -661,7 +622,7 @@
 				"name": "echoing",
 				"duration": 20,
 				"mod": {
-					"self.resist.silence": 50
+					"self.negate.silence": 50
 				}
 			}
 		}
@@ -819,44 +780,7 @@
 			"potionessence": 3
 		},
 		"use": {
-			"sp": 1
-		}
-	},
-	{
-		"id": "pot_sp_sink",
-		"name": "phial of skillfulness",
-		"desc": "Converts accumulated life experience into short-term benefit.",
-		"require": "(g.potions+g.t_potionclass*2)>=9",
-		"level": 5,
-		"cd": 120,
-		"buy": {
-			"gold": 2500,
-			"research": 5000,
-			"sp": 30,
-			"potionessence": 1
-		},
-		"cost": {
-			"sp": 15,
-			"potionessence": 1
-		},
-		"use": {
-			"hp": "g.hp.max",
-			"stamina": "g.stamina.max",
-			"vigor": "g.vigor.max",
-			"manas": 250,
-			"research": "g.research.max",
-			"dot": {
-				"id": "pot_sp_sink_dot",
-				"name": "skillfulness",
-				"duration": 1800,
-				"effect": {
-					"mana": 1.15,
-					"stamina": 1.15
-				},
-				"mod": {
-					"skill.rate": "300%"
-				}
-			}
+			"arcana": "Math.min(g.arcana.max/2,50)"
 		}
 	},
 	{
@@ -880,6 +804,7 @@
 		"use": {
 			"attack": {
 				"targets": "enemies",
+				"maxTargets": 999,
 				"dot": {
 					"name": "volatile combustion",
 					"kind": "fire",
@@ -913,7 +838,7 @@
 				"targets": "enemy",
 				"dot": {
 					"name": "corroding",
-					"kind": "acid",
+					"kind": "nature",
 					"damage": "3~5",
 					"potencies": [],
 					"duration": 120,
@@ -981,6 +906,7 @@
 		"use": {
 			"attack": {
 				"targets": "all",
+				"maxTargets": 999,
 				"dot": {
 					"name": "blinded",
 					"kind": "shadow",
@@ -1049,7 +975,7 @@
 				"targets": "enemy",
 				"dot": {
 					"name": "everfrozen",
-					"kind": "ice",
+					"kind": "water",
 					"damage": 5,
 					"potencies": [],
 					"duration": 120,
@@ -1231,9 +1157,7 @@
 			"dot": {
 				"mod": {
 					"bladelore.mod.sworddmg": 3,
-					"hammerlore.mod.hammerdmg": 3,
-					"weaponlore.mod.player.hits.blunt": 0.3,
-					"weaponlore.mod.player.hits.slash": 0.3
+					"hammerlore.mod.hammerdmg": 3
 				},
 				"duration": 600
 			}
@@ -1333,34 +1257,6 @@
 		"flavor": "It's big brain time."
 	},
 	{
-		"id": "pot_vileempowerment",
-		"name": "vile concoction",
-		"desc": "What was theirs is now yours.",
-		"level": 25,
-		"require": "g.potions>=10&&g.evil>0",
-		"tags": "t_infusion",
-		"cd": 3600,
-		"buy": {
-			"gold": 15000,
-			"tomes": 50,
-			"research": 15000,
-			"souls": 150,
-			"potionessence": 1
-		},
-		"cost": {
-			"herbs": 50,
-			"research": 10000,
-			"bodies": 50,
-			"souls": 50,
-			"bloodgem": 10,
-			"potionessence": 1
-		},
-		"use": {
-			"hp.max": 1,
-			"element.max": 0.1
-		}
-	},
-	{
 		"id": "pot_attunement",
 		"name": "vial of attunement",
 		"desc": "Causes you to become more attuned to the world's elements. Harmful to one's physical body.",
@@ -1402,28 +1298,28 @@
 		"level": 3,
 		"require": "g.firelore>=3&&g.potions>=1",
 		"cd": 120,
-		"buy":{
+		"buy": {
 			"gold": 100,
 			"codices": 1,
 			"research": 100,
 			"firegem": 3,
 			"herbs": 10
 		},
-		"cost":{
+		"cost": {
 			"herbs": 1,
 			"gold": 10,
 			"fire": 3
 		},
-		"use":{
-			"attack":{
+		"use": {
+			"attack": {
 				"targets": "enemy",
-				"dot":{
+				"dot": {
 					"name": "tarred and feathered",
 					"kind": "fire",
 					"damage": "1~3",
 					"potencies": [],
 					"duration": 60,
-					"mod":{
+					"mod": {
 						"self": {
 							"resist.fire": -30,
 							"speed": -5,

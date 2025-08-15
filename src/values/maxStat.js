@@ -1,13 +1,11 @@
-import Stat from '@/values/rvals/stat';
+import Stat from "@/values/rvals/stat";
 
 /**
  * @class
  * Combines Stat with a max value.
  */
 export default class MaxStat {
-
 	toJSON() {
-
 		let v = this._value.toJSON();
 		let m = this.max.toJSON();
 
@@ -15,24 +13,23 @@ export default class MaxStat {
 
 		return {
 			v: this._value,
-			max: this.max
+			max: this.max,
 		};
-
 	}
 
 	get base() {
 		return this._value.base;
 	}
 	set base(v) {
-
-		if (v && typeof v === 'object') {
+		if (v && typeof v === "object") {
 			this._value.base = v.base || v.value;
 		} else this._value.base = v;
 	}
 
-	get value() { return this._value.value; }
+	get value() {
+		return this._value.value;
+	}
 	set value(v) {
-
 		if (v > this._max.value) v = this._max.value;
 
 		if (this._value) {
@@ -40,27 +37,28 @@ export default class MaxStat {
 		} else {
 			this.v = v;
 		}
-
 	}
 
 	set v(v) {
-		this._value = new Stat(v ?? 0, this.path + '.value');
+		this._value = new Stat(v ?? 0, this.path + ".value");
 	}
 
-	get max() { return this._max; }
+	get max() {
+		return this._max;
+	}
 	set max(v) {
-		this._max = v instanceof Stat ? v : new Stat(v, this.path + '.max', true);
+		this._max = v instanceof Stat ? v : new Stat(v, this.path + ".max", 0);
 	}
 
-	valueOf() { return this._value.value; }
-
+	valueOf() {
+		return this._value.value;
+	}
 
 	/**
 	 *
 	 * @param {number} v
 	 */
 	set(v) {
-
 		if (v > this.max.value) v = this.max.value;
 		this._value.set(v);
 	}
@@ -70,16 +68,16 @@ export default class MaxStat {
 	 * @param {number} v
 	 */
 	amount(v) {
-
 		this._value.base += v;
 		if (this._value.value > this.max.value) this._value.base = this.max.value;
-
 	}
 
 	/**
 	 * @returns {boolean} true if stat is maxed.
 	 */
-	maxed() { return this._value >= this.max; }
+	maxed() {
+		return this._value >= this.max;
+	}
 
 	/**
 	 *
@@ -88,38 +86,24 @@ export default class MaxStat {
 	 * ignored if vars defines both a max and value.
 	 */
 	constructor(vars = null, empty = false) {
-
-
-		if (vars && typeof vars === 'object') {
-
+		if (vars && typeof vars === "object") {
 			if (vars.isRVal) {
-
 				this.max = vars.value;
 				this.v = empty ? 0 : this.max.value;
-
 			} else {
-
 				if (vars.max) this.max = vars.max;
 				else if (vars.v) this.max = vars.v;
 				else this.max = 0;
 
 				if (vars.v) this.v = vars.v;
 				else this.v = empty || !vars.max ? 0 : vars.max;
-
 			}
-
-		} else if (typeof vars === 'number') {
-
+		} else if (typeof vars === "number") {
 			this.max = vars;
 			this.v = empty ? 0 : vars;
-
 		} else {
-
 			this.max = 0;
 			this.v = 0;
-
 		}
-
 	}
-
 }

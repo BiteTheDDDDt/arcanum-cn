@@ -1,18 +1,12 @@
 export default class Timer {
-
-	constructor( time, vars=null ){
-
+	constructor(time, vars = null) {
 		this.time = time;
-
 	}
 
-	update( dt ){
-
+	update(dt) {
 		this.time -= dt;
-		if ( this.time <0 ) return true;
+		if (this.time < 0) return true;
 
 		return false;
-
 	}
-
 }

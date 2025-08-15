@@ -13,16 +13,16 @@
 		"name": "earthen spire",
 		"desc": "An impervious spire of metal and stone.",
 		"buy": {
-			"research": 3000,
+			"research": 500,
 			"gold": 3000,
-			"codices": 50
+			"codices": 15
 		},
 		"require": "g.geosculpting>=5",
 		"mod": {
 			"space.max": 150,
 			"minions.max": 10,
-			"earthlore.max": 5,
-			"geosculpting.max": 3,
+			"earthlore.mod.earth.max": 1,
+			"geosculpting.mod.player.defense": 0.2,
 			"earth.max": 5,
 			"earth.rate": 0.5
 		},
@@ -36,7 +36,7 @@
 		"require": "neophyte",
 		"lock": ["alcove"],
 		"buy": {
-			"research": 100
+			"research": 50
 		},
 		"mod": {
 			"space.max": 10
@@ -81,11 +81,7 @@
 			"space.max": 14,
 			"lore.rate": -0.1,
 			"research.rate": -0.1,
-			"earthlore.max": 1,
-			"naturelore.max": 2,
-			"naturelore.rate": 0.1,
-			"animals.max": 1,
-			"animals.rate": 0.1
+			"naturelore.mod.nature.max": 0.25
 		}
 	},
 	{
@@ -100,11 +96,12 @@
 		},
 		"mod": {
 			"space.max": 12,
-			"naturelore.max": 2,
-			"earthlore.max": 1,
-			"naturelore.rate": 0.3,
-			"animals.max": 2,
-			"animals.rate": 0.15
+			"naturelore.mod.minions.max": 0.2,
+			"animals.mod.steed.mod.dist": 2,
+			"inv.max": 5,
+			"gold.max": 100,
+			"mule.mod.inv.max": 2,
+			"mule.mod.gold.max": 50
 		}
 	},
 	{
@@ -225,10 +222,8 @@
 			"space.max": 25,
 			"minions.max": 2,
 			"research.rate": -0.5,
-			"earthlore.max": 2,
-			"earthlore.rate": 0.1,
-			"shadowlore.max": 1,
-			"shadowlore.rate": 0.1,
+			"earthlore.mod.earth.max": 0.5,
+			"shadowlore.mod.shadow.max": 0.25,
 			"light.max": -2,
 			"light.rate": "-2%"
 		},
@@ -264,10 +259,9 @@
 		"tags": "spiritsource",
 		"mod": {
 			"space.max": 75,
-			"spiritlore.max": 1,
-			"spiritlore.rate": 0.1,
+			"spiritlore.mod.spirit.max": 0.25,
 			"shadow.rate": 0.1,
-			"demonology.max": 1
+			"demonology.mod.minions.max": 1
 		}
 	},
 	{
@@ -283,10 +277,8 @@
 			"minions.max": 10,
 			"craftrune.cost.tomes": "-50%",
 			"craftrune.cost.managem": "-50%",
-			"demonology.max": 1,
-			"spiritlore.max": 1,
-			"spiritlore.rate": 0.1,
-			"lore.rate": "10%"
+			"demonology.mod.arcana.max": 0.4,
+			"spiritlore.mod.spirit.max": 0.5
 		}
 	},
 	{
@@ -300,8 +292,7 @@
 		"mod": {
 			"space.max": 55,
 			"minions.max": 5,
-			"airlore.max": 1,
-			"airlore.rate": 0.1
+			"airlore.mod.air.max": 0.25
 		}
 	},
 	{
@@ -314,10 +305,8 @@
 		"mod": {
 			"space.max": 80,
 			"minions.max": 5,
-			"waterlore.max": 3,
-			"waterlore.rate": 0.1,
-			"lightlore.max": 3,
-			"lightlore.rate": 0.1
+			"waterlore.mod.water.max": 0.25,
+			"lightlore.mod.light.max": 0.5
 		}
 	},
 	{
@@ -332,13 +321,7 @@
 			"space.max": 330,
 			"minions.max": 4,
 			"research.rate": "-10%",
-			"waterlore.max": 2,
-			"waterlore.rate": 0.2,
-			"naturelore.max": 1,
-			"naturelore.rate": 0.1,
-			"earthlore.max": 1,
-			"lightlore.max": -2,
-			"lightlore.rate": "-5%"
+			"waterlore.mod.water.max": 1
 		},
 		"lock": ["latticewindow"],
 		"flavor": "Even more space, even more waterfall. Bracing!"
@@ -381,11 +364,11 @@
 		"require": "(g.t_divinationclass+g.t_lightclass)>0",
 		"mod": {
 			"space.max": 60,
-			"composure.max": 1,
+			"composure.mod.stress.rate": -0.01,
 			"virtue.rate": 0.001,
 			"arcana.rate": 0.001,
 			"minions.max": 8,
-			"lightlore.max": 1,
+			"lightlore.mod.light.max": 0.6,
 			"shadow.max": -3,
 			"shadow.rate": "-10%"
 		}
@@ -399,14 +382,14 @@
 			"gold": 7000,
 			"research": 5000,
 			"managem": 30,
-			"tomes": 20
+			"tomes": 10
 		},
 		"mod": {
 			"space.max": 420,
 			"minions.max": 10,
-			"mysticism.max": 1,
+			"mysticism.mod.prismatic.rate": 0.01,
 			"prismatic.rate": 0.05,
-			"history.max": 1,
+			"history.mod.arcana.max": 0.9,
 			"arcana.rate": 0.0001
 		}
 	},
@@ -423,9 +406,8 @@
 		"mod": {
 			"space.max": 300,
 			"minions.max": 10,
-			"naturelore.max": 3,
-			"naturelore.rate": "2%",
-			"airlore.max": 1,
+			"naturelore.mod.nature.max": "0.5",
+			"airlore.mod.air.max": 0.1,
 			"fire.rate": "-3%"
 		}
 	},
@@ -438,11 +420,9 @@
 		},
 		"mod": {
 			"space.max": 400,
-			"minions.max": 20,
-			"charms.max": 2,
-			"charms.rate": "10%",
-			"spirit.rate": "-2%",
-			"shadowlore.max": "-2%",
+			"gold.mod.stress.rate": -0.000004,
+			"stress.rate": -0.05,
+			"magicadvice.result.gold": 0.65,
 			"research.rate": -0.5
 		},
 		"flavor": "Whoever said more money brings more problems?"
@@ -456,9 +436,12 @@
 		},
 		"mod": {
 			"space.max": 400,
-			"minions.max": 20,
-			"earthlore.max": 1,
-			"earthlore.rate": 0.2,
+			"minions.max": 30,
+			"hall_quest.run": {
+				"hp": "-50%",
+				"stamina": "-50%"
+			},
+			"earthlore.mod.earth.max": 0.1,
 			"earth.rate": 0.1
 		}
 	},
@@ -473,40 +456,11 @@
 		"mod": {
 			"space.max": 300,
 			"minions.max": 20,
-			"airlore.max": 1,
-			"waterlore.max": 2,
-			"waterlore.rate": 0.2,
+			"airlore.mod.air.max": 0.25,
+			"waterlore.mod.water.max": 0.5,
 			"water.max": 2,
 			"water.rate": 0.1
 		}
-	},
-	{
-		"id": "volcano",
-		"name": "volcanic lair",
-		"desc": "Stark lair carved into a mountain of fire",
-		"require": "g.fire>=20",
-		"buy": {
-			"research": 500,
-			"gold": 3000,
-			"firegem": 2
-		},
-		"tags": "firesource",
-		"mod": {
-			"space.max": 200,
-			"minions.max": 20,
-			"research.rate": -0.5,
-			"fire.max": 4,
-			"fire.rate": 0.2,
-			"firelore.max": 2,
-			"firelore.rate": 0.2,
-			"earthlore.max": 3,
-			"earthlore.rate": 0.2,
-			"water.max": "-15%",
-			"water.rate": -2
-		},
-		"lock": [
-			"latticewindow"
-		]
 	},
 	{
 		"id": "cavern",
@@ -523,13 +477,11 @@
 			"minions.max": 20,
 			"research.rate": -0.5,
 			"earth.rate": 0.2,
-			"earthlore.max": 3,
-			"earthlore.rate": "20%",
+			"earthlore.mod.earth.max": 0.5,
 			"shadow.max": 3,
 			"shadow.rate": 0.2,
-			"demonology.max": 1,
+			"demonology.mod.arcana.max": 0.4,
 			"light.max": -3,
-			"lightlore.rate": -2,
 			"light.rate": "-10%"
 		},
 		"lock": ["latticewindow"]
@@ -548,9 +500,8 @@
 		"mod": {
 			"space.max": 320,
 			"minions.max": 20,
-			"naturelore.max": 1,
-			"enchanting.max": 2,
-			"enchanting.rate": "10%"
+			"naturelore.mod.nature.max": 0.5,
+			"enchanting.mod.enchantslots.max": 1
 		}
 	},
 	{
@@ -567,8 +518,8 @@
 		"mod": {
 			"space.max": 320,
 			"minions.max": 25,
-			"waterlore.max": 5,
-			"airlore.max": 2,
+			"waterlore.mod.water.max": 0.5,
+			"airlore.mod.air.max": 0.5,
 			"water.rate": 0.1,
 			"air.rate": 0.05
 		}
@@ -592,15 +543,6 @@
 		}
 	},
 	{
-		"id": "sm_idrasil",
-		"name": "idrasil seedling (DEPRECATED)",
-		"require": "g.naturelore>999",
-		"mod": {
-			"space.max": 300
-		}
-	},
-
-	{
 		"id": "home_idrasil_sprout",
 		"name": "idrasil sprout",
 		"tags": "outdoors,starsource",
@@ -612,7 +554,6 @@
 		},
 		"mod": {
 			"space.max": 150,
-			"naturelore.max":3,
 			"minions.max": 5,
 			"naturelore.mod.nature.max": "0.25",
 			"airlore.mod.air.max": 0.05,
@@ -631,9 +572,8 @@
 		},
 		"mod": {
 			"space.max": 400,
-			"naturelore.max":3,
 			"minions.max": 20,
-			"naturelore.mod.nature.max": 1,
+			"naturelore.mod.nature.max": "1",
 			"airlore.mod.air.max": 0.2,
 			"fire.rate": "-3%"
 		},
@@ -686,7 +626,7 @@
 		"id": "home_emporium",
 		"name": "emporium",
 		"desc": "A monument to commerce in a bustling metropolis.",
-		"tags": "watersource,plantsource,booksource,t_pets,firesource,earthsource,airsource,potsource,spiritsource,shadowsource,lightsource,starsource,enchantsource,armssource,legssource",
+		"tags": "watersource,plantsource,booksource,t_pets,workspace,firesource,earthsource,airsource,potsource,spiritsource,shadowsource,lightsource,starsource,enchantsource,armssource,legssource",
 		"require": "g.buildemporium>0",
 		"mod": {
 			"space.max": 150,

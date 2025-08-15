@@ -8,7 +8,7 @@ import Main from "ui/main.vue";
 import globalMixin from "@/globalMixin";
 
 if (__DIST) {
-	console.log = function () { };
+	console.log = function () {};
 }
 
 const vm = createApp({
@@ -53,7 +53,9 @@ const vm = createApp({
 		this.listen("login-changed", this.onLoginChanged, this);
 		//this.listen( 'try-register', this.tryRegister, this );
 
-		DataLoader.requestData().then(() => this.loadHall()).catch(err => this.onError(err));
+		DataLoader.requestData()
+			.then(() => this.loadHall())
+			.catch(err => this.onError(err));
 	},
 	methods: {
 		onError(err) {
@@ -74,7 +76,7 @@ const vm = createApp({
 			Profile.logout();
 		},
 
-		tryLogin(uname, pw) { },
+		tryLogin(uname, pw) {},
 
 		loadHall(type = null) {
 			//if ( forceClear ) this.reset();
@@ -84,7 +86,7 @@ const vm = createApp({
 			Profile.loadHall(type).then(() => this.loadSave());
 		},
 
-		doStat(evt, val) { },
+		doStat(evt, val) {},
 
 		/**
 		 * Set current character.
@@ -143,13 +145,16 @@ const vm = createApp({
 
 		onSetting(setting, v) {
 			if (setting === "darkMode") {
-				if (v) document.body.classList.add("darkmode");
-				else document.body.classList.remove("darkmode");
+				if (v) {
+					document.body.classList.remove("lightmode");
+					document.body.classList.add("darkmode");
+				} else {
+					document.body.classList.remove("darkmode");
+					document.body.classList.add("lightmode");
+				}
 			} else if (setting === "compactMode") {
 				if (v) document.body.classList.add("compact");
 				else document.body.classList.remove("compact");
-			} else if (setting === "remoteFirst") {
-				Profile.remoteFirst = true;
 			}
 		},
 
@@ -223,7 +228,7 @@ const vm = createApp({
 			this.dispatch("pause");
 
 			const reader = new FileReader();
-			reader.onload = (e) => {
+			reader.onload = e => {
 				try {
 					let data = JSON.parse(e.target.result);
 					if (data.type === "hall") {
@@ -256,7 +261,7 @@ const vm = createApp({
 			try {
 				this.renderKey++;
 
-				this.game.load(obj, Profile.getHallItems()).then(this.gameLoaded, (err) => this.onError(err));
+				this.game.load(obj, Profile.getHallItems()).then(this.gameLoaded, err => this.onError(err));
 			} catch (err) {
 				this.onError(err);
 			}

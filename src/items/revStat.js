@@ -1,4 +1,4 @@
-import Resource from '@/items/resource';
+import Resource from "@/items/resource";
 
 /**
  * A reversed Resource is empty/used up at max, and 'filled' (usable)
@@ -6,30 +6,35 @@ import Resource from '@/items/resource';
  * this.value is the amount used out of max.
  */
 export default class RevStat extends Resource {
-
 	constructor(vars) {
-
 		super(vars);
 
 		if (!this._max) this.max = 0;
-
 	}
 
-	free() { return this.max - this.value - this.delta; }
+	free() {
+		return this.max - this.value - this.delta;
+	}
 
-	empty() { return this.value + this.delta >= this.max.value; }
+	empty() {
+		return this.value + this.delta >= this.max.value;
+	}
 
 	/**
 	 * Determine if this resource can pay the given amount of value.
 	 * Made a function for reverseStats, among other things.
 	 * @param {number} amt
 	 */
-	canPay(amt) { return amt >= 0 ? (this.max ? this.value + amt <= this.max.value : true) : this.value >= -amt }
+	canPay(amt) {
+		return amt >= 0 ? (this.max ? this.value + amt <= this.max.value : true) : this.value >= -amt;
+	}
 	remove(amt) {
 		this.value.base += amt;
 	}
 
-	doFill() { this.value = 0; }
+	doFill() {
+		this.value = 0;
+	}
 
 	/**
 	 * Determine whether the item is filled relative to a filling rate.
@@ -37,8 +42,11 @@ export default class RevStat extends Resource {
 	 * it is considered filled to avoid getting stuck.
 	 * @param {number} rate
 	 */
-	filled(rate = 0) { return this.value + this.delta <= 0 || (this.rate && (this.rate + rate) >= 0); }
+	filled(rate = 0) {
+		return this.value + this.delta <= 0 || (this.rate && this.rate + rate >= 0);
+	}
 
-	maxed() { return this.value + this.delta <= 0; }
-
+	maxed() {
+		return this.value + this.delta <= 0;
+	}
 }

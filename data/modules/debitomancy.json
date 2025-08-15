@@ -5,15 +5,15 @@
 		"skills": [
 			{
 				"id": "debitomancy",
-				"require": "g.debt>=10&&g.tier1>0",
+				"require": "(g.debt>=10||g.shopkeeping>=6)&&g.tier1>0",
 				"desc": "Master that which is owed, and those who owe it",
 				"level": 5,
+				"buy": {
+					"arcana": 40
+				},
 				"run": {
 					"stamina": 0.3,
 					"debt": 1
-				},
-				"result": {
-					"sp": 0.05
 				},
 				"mod": {
 					"research.max": 5,
@@ -32,11 +32,11 @@
 				"max": 1,
 				"length": 120,
 				"cost": {
-					"tomes": 2
+					"codices": 2
 				},
 				"run": {
 					"stamina": 2,
-					"scrolls": 1,
+					"scrolls": 0.25,
 					"fire": 0.5
 				},
 				"effect": {
@@ -103,20 +103,19 @@
 				"tags": "t_languagework",
 				"require": "g.debitomancy>=10",
 				"perpetual": true,
-				"length": 15,
+				"length": 36,
+				"max": 100,
 				"cost": {
-					"scrolls": "Math.min(5+g.encase_debt*0.5, 130)",
-					"codices": "Math.min(1+g.encase_debt*0.1, 26)",
-					"tomes": "Math.min(0.1+g.encase_debt*0.01, 2.6)"
+					"scrolls": 5,
+					"codices": 5,
+					"tomes": 5
 				},
 				"run": {
 					"stamina": 1,
-					"research": 5
+					"research": 20
 				},
 				"mod": {
-					"debitomancy.max": "0.02//250/5",
-					"encase_debt.run.research": "0.5//250/1",
-					"encase_debt.length": "5//237/1",
+					"debitomancy.max": "0.05//100/20",
 					"encase_debt.result.debt": -1
 				},
 				"effect": {
@@ -126,16 +125,16 @@
 					"debt": -1
 				},
 				"at": {
-					"100": {
+					"10": {
 						"effect.debt": -1
 					},
-					"200": {
+					"20": {
 						"effect.debt": -1
 					},
-					"300": {
+					"30": {
 						"effect.debt": -1
 					},
-					"400": {
+					"40": {
 						"effect.debt": -1
 					}
 				},
@@ -194,7 +193,7 @@
 				"require": "g.debitomancy>=4",
 				"max": 1,
 				"cost": {
-					"research": 1000,
+					"research": 100,
 					"gold": 500,
 					"scrolls": 40
 				},
@@ -437,8 +436,8 @@
 				"name": "ashen truth",
 				"desc": "Amidst the charred ledgers, you realize the true banality of material possessions.",
 				"require": "g.debtrevelation>0&&g.encase_debt>=10",
-				"need": "g.encase_debt>=250",
-				"needtext": "Must have expanded accounting logs 250 or more times.",
+				"need": "g.encase_debt>=50",
+				"needtext": "Must have expanded accounting logs 50 or more times.",
 				"max": 1,
 				"mod": {
 					"voidlore.max": 1
@@ -450,15 +449,14 @@
 				"name": "ashen bliss",
 				"desc": "You liberate yourself from the chains of material existence as you destroy all records of yourself.",
 				"require": "g.ashdebtrevelation1>0",
-				"need": "g.encase_debt>=500",
-				"needtext": "Must have expanded accounting logs 500 or more times.",
+				"need": "g.encase_debt>=100",
+				"needtext": "Must have expanded accounting logs 100 or more times.",
 				"max": 1,
 				"mod": {
 					"voidlore.max": 1
 				},
 				"group": "debt"
 			}
-
 		],
 		"furniture": [
 			{
@@ -559,7 +557,7 @@
 					"targetspec": {
 						"notaffectedby": {
 							"condition": ["pilfered_dot"],
-							"strict": "true",
+							"strict": true,
 							"conditiontext": "having their valuables stolen"
 						}
 					},
@@ -572,7 +570,7 @@
 					"acquire": {
 						"gold": "(10+Math.pow(t.level,1.3))*(0.8+0.5*Math.random())"
 					}
-				}		
+				}
 			}
 		],
 		"monsters": [
@@ -581,7 +579,7 @@
 				"name": "loan shark",
 				"tags": "t_summon",
 				"kind": "demon",
-				"level": 10,
+				"level": 20,
 				"desc": "It can smell desperation in the water from seven leagues away.",
 				"hp": 73,
 				"noproc": true,

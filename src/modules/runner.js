@@ -1,24 +1,9 @@
 import { moveElm } from "../util/array";
-import Events, {
-	TASK_DONE,
-	TASK_REPEATED,
-	HALT_TASK,
-	TASK_BLOCKED,
-	STOP_ALL,
-} from "../events";
+import Events, { TASK_DONE, TASK_REPEATED, HALT_TASK, TASK_BLOCKED, STOP_ALL } from "../events";
 import Stat from "@/values/rvals/stat";
 import Base, { mergeClass } from "../items/base";
 import Runnable from "@/composites/runnable";
-import {
-	SKILL,
-	REST_TAG,
-	TYP_RUN,
-	PURSUITS,
-	GOALS,
-	EXPLORE,
-	TASK,
-	TASK_END_REASON,
-} from "@/values/consts";
+import { SKILL, REST_TAG, TYP_RUN, HOBBIES, GOALS, EXPLORE, TASK, TASK_END_REASON } from "@/values/consts";
 import { assign } from "@/util/objecty";
 import { iterableMap, mapSet } from "@/util/dataUtil";
 import { Changed } from "@/changes";
@@ -65,12 +50,9 @@ export default class Runner {
 	toJSON() {
 		return {
 			max: this.max,
-			waiting: this.waiting.map((v) => v.id),
-			actives: this.actives.map((v) => v.id),
-			timers:
-				this.timers.size > 0
-					? iterableMap(this.timers, (v) => v.id)
-					: undefined,
+			waiting: this.waiting.map(v => v.id),
+			actives: this.actives.map(v => v.id),
+			timers: this.timers.size > 0 ? iterableMap(this.timers, v => v.id) : undefined,
 		};
 	}
 
@@ -78,17 +60,17 @@ export default class Runner {
 	 * Getters and setters to enable modifying the progress of encounters, skills and tasks.
 	 */
 	get skillprogress() {
-		let a = this.actives.find((v) => v.type === SKILL);
+		let a = this.actives.find(v => v.type === SKILL);
 		return a ? a.exp : 0;
 	}
 
 	get encounterprogress() {
-		let a = this.actives.find((v) => v.type === EXPLORE);
+		let a = this.actives.find(v => v.type === EXPLORE);
 		return a?.enc ? a.enc.exp : 0;
 	}
 
 	get taskprogress() {
-		let a = this.actives.find((v) => v.type === TASK);
+		let a = this.actives.find(v => v.type === TASK);
 		return a ? a.exp : 0;
 	}
 	set skillprogress(v) {}
@@ -116,7 +98,7 @@ export default class Runner {
 	 * Used for cheat.
 	 */
 	autoProgress() {
-		this.actives.forEach((v) => {
+		this.actives.forEach(v => {
 			if (v.length) {
 				v.exp = v.length - 0.001;
 			}
@@ -152,7 +134,7 @@ export default class Runner {
 	}
 	set max(v) {
 		if (!this._max) {
-			this._max = v instanceof Stat ? v : new Stat(v, "max", true);
+			this._max = v instanceof Stat ? v : new Stat(v, "max", 0);
 		} else {
 			this._max.base = v instanceof Stat ? v.base : v;
 		}
@@ -166,9 +148,9 @@ export default class Runner {
 		this.max = this._max || 1;
 
 		/**
-		 * @property {DataList} pursuits
+		 * @property {DataList} hobbies
 		 */
-		this.pursuits = gs.getData(PURSUITS);
+		this.hobbies = gs.getData(HOBBIES);
 		this.goals = gs.getData(GOALS);
 
 		this.waiting = this.reviveList(this.waiting, gs, false);
@@ -179,7 +161,7 @@ export default class Runner {
 
 		this.actives = this.reviveList(this.actives, gs, true);
 
-		this.timers = mapSet(this.timers, (v) => gs.getData(v));
+		this.timers = mapSet(this.timers, v => gs.getData(v));
 
 		Events.add(TASK_DONE, this.actDone, this);
 		Events.add(HALT_TASK, this.haltTask, this);
@@ -266,8 +248,9 @@ export default class Runner {
 	setTask(a, pos) {
 		if (!a) return false;
 
-		if (a.cost && a.exp.valueOf() === 0) {
+		if (a.cost && a.exp.valueOf() === 0 && !a.paid) {
 			this.context.payCost(a.cost);
+			a.paid = true;
 		}
 
 		if (a.controller) {
@@ -355,18 +338,12 @@ export default class Runner {
 	 */
 	canPursuit(a) {
 		return (
-			this.pursuits.max > 0 &&
-			a.type !== TYP_RUN &&
-			!this.goals.includes(a) &&
-			!this.goals.includes(a.baseTask)
+			this.hobbies.max > 0 && a.type !== TYP_RUN && !this.goals.includes(a) && !this.goals.includes(a.baseTask)
 		);
 	}
 	canGoal(a) {
 		return (
-			this.goals.max > 0 &&
-			a.type !== TYP_RUN &&
-			!this.pursuits.includes(a) &&
-			!this.pursuits.includes(a.baseTask)
+			this.goals.max > 0 && a.type !== TYP_RUN && !this.hobbies.includes(a) && !this.hobbies.includes(a.baseTask)
 		);
 	}
 	/**
@@ -386,10 +363,10 @@ export default class Runner {
 		a = this.baseTask(a);
 		if (!a) return;
 
-		if (this.pursuits.includes(a)) {
-			this.pursuits.remove(a);
+		if (this.hobbies.includes(a)) {
+			this.hobbies.remove(a);
 		} else {
-			this.pursuits.cycleAdd(a);
+			this.hobbies.cycleAdd(a);
 		}
 	}
 	toggleGoal(a) {
@@ -411,13 +388,13 @@ export default class Runner {
 			return false;
 		}
 
-		return !!this.pursuits.nextConditional((it) => this.tryAdd(it, 0, true));
+		return !!this.hobbies.nextConditional(it => this.tryAdd(it, 0, true));
 	}
 	tryGoal() {
 		if (this.free <= 0) {
 			return false;
 		}
-		return !!this.goals.nextConditional((it) => this.tryAdd(it, 0, true));
+		return !!this.goals.nextConditional(it => this.tryAdd(it, 0, true));
 	}
 	/**
 	 * Finds the first task that can be added to the list of active tasks.
@@ -425,16 +402,14 @@ export default class Runner {
 	 * @returns {GData | null} First task found that can be added. Returns null if there isn't any.
 	 */
 	getNextTask(continuing) {
-		let goals = this.goals.nextConditional((it) => this.canAdd(it, continuing));
+		let goals = this.goals.nextConditional(it => this.canAdd(it, continuing));
 		if (goals) return goals;
 
 		for (let task of this.waiting) {
 			if (this.canAdd(task, continuing)) return task;
 		}
 
-		let pursuit = this.pursuits.nextConditional((it) =>
-			this.canAdd(it, continuing)
-		);
+		let pursuit = this.hobbies.nextConditional(it => this.canAdd(it, continuing));
 		if (pursuit) return pursuit;
 
 		let rest = this.context.state.restAction || Game.getData("rest");
@@ -454,8 +429,7 @@ export default class Runner {
 		if (task.controller) {
 			let controller = this.getContoller(task);
 			if (this.has(controller) && controller.baseTask === task) return false;
-			if (continuing && !controller.canContinue(this.context, task))
-				return false;
+			if (continuing && !controller.canContinue(this.context, task)) return false;
 		} else {
 			if (this.has(task)) return false;
 			if (continuing && !task.canContinue(this.context)) return false;
@@ -516,7 +490,7 @@ export default class Runner {
 			a == null ||
 			a.hasTag(REST_TAG) ||
 			this.waiting.includes(a) ||
-			this.pursuits.includes(a) ||
+			this.hobbies.includes(a) ||
 			this.goals.includes(a) ||
 			(a.maxed && a.maxed()) ||
 			(a.max != null && +a >= a.max)
@@ -524,9 +498,7 @@ export default class Runner {
 			return;
 		if (
 			a.baseTask != null &&
-			(this.waiting.includes(a.baseTask) ||
-				this.pursuits.includes(a.baseTask) ||
-				this.goals.includes(a.baseTask))
+			(this.waiting.includes(a.baseTask) || this.hobbies.includes(a.baseTask) || this.goals.includes(a.baseTask))
 		)
 			return;
 		//@todo fill check
@@ -540,8 +512,7 @@ export default class Runner {
 		if (act.controller) act = this.getContoller(act);
 
 		// absolute rest stop if no tasks waiting.
-		if (this.waiting.length === 0 && act.hasTag(REST_TAG))
-			this.stopTask(act, reason, false);
+		if (this.waiting.length === 0 && act.hasTag(REST_TAG)) this.stopTask(act, reason, false);
 		else {
 			this.stopTask(act, reason);
 		}
@@ -558,8 +529,7 @@ export default class Runner {
 		if (
 			act.running === false ||
 			!repeatable ||
-			(this.pursuits.items.includes(baseTask) &&
-				!this.pursuits.items.includes(this.getNextTask(true)))
+			(this.hobbies.items.includes(baseTask) && !this.hobbies.items.includes(this.getNextTask(true)))
 		) {
 			// skills cant complete when not running.
 			this.stopTask(act, TASK_END_REASON.SUCCESS);
@@ -610,7 +580,7 @@ export default class Runner {
 				if (this.free <= 0) return;
 			}
 		}
-		for (let i = this.pursuits.items.length; i > 0; i--) {
+		for (let i = this.hobbies.items.length; i > 0; i--) {
 			this.tryPursuit();
 			if (this.free <= 0) return;
 		}
@@ -711,12 +681,7 @@ export default class Runner {
 	 * @returns {boolean}
 	 */
 	has(a) {
-		if (a.controller)
-			console.warn(
-				"runner has checking for task with controller:",
-				a.id,
-				a.controller
-			);
+		if (a.controller) console.warn("runner has checking for task with controller:", a.id, a.controller);
 		return this.actives.includes(a);
 	}
 
@@ -728,7 +693,7 @@ export default class Runner {
 	 */
 	hasType(it) {
 		let t = typeof it === "string" ? it : it.type;
-		return this.actives.find((a) => a.type === t) != null;
+		return this.actives.find(a => a.type === t) != null;
 	}
 
 	getContoller(act) {

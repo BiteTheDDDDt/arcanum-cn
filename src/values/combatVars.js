@@ -1,419 +1,165 @@
-import FValue from '@/values/rvals/fvalue';
+import FValue from "@/values/rvals/fvalue";
 import Range, { RangeTest } from "@/values/range";
-import Events, { IS_IMMUNE, CHAR_DIED, COMBAT_HIT, EVT_COMBAT } from "@/events";
-import { FP, TYP_PCT } from '@/values/consts';
-import RValue from '@/values/rvals/rvalue';
+import Events, { IS_IMMUNE, CHAR_DIED, COMBAT_HIT, EVT_COMBAT, TRIGGER_ACTION } from "@/events";
+import { FP, TYP_PCT } from "@/values/consts";
+import RValue from "@/values/rvals/rvalue";
+import { NO_ONHIT } from "@/chars/states";
+
+export const TargetSelf = 0;
+
+export const CanTargetAllyLeader = 1;
+export const CanTargetAllyMinions = 2;
+export const CanTargetEnemyLeader = 4;
+export const CanTargetEnemyMinions = 8;
+export const FixedTarget = 16;
 
 /**
- * @const {number} TARGET_SELF - target self.
+ * @const {object.<string,number>} Targets - targetting constants.
  */
-export const TARGET_SELF = 1;
+export const Targets = {
+	self: TargetSelf,
+	ally: CanTargetAllyLeader + CanTargetAllyMinions,
+	allies: CanTargetAllyLeader + CanTargetAllyMinions,
+	enemy: CanTargetEnemyLeader + CanTargetEnemyMinions,
+	enemies: CanTargetEnemyLeader + CanTargetEnemyMinions,
+	leader: CanTargetAllyLeader,
+	enemyleader: CanTargetEnemyLeader,
+	randomleader: CanTargetAllyLeader + CanTargetEnemyLeader,
+	bothleaders: CanTargetAllyLeader + CanTargetEnemyLeader,
+	minion: CanTargetAllyMinions,
+	minions: CanTargetAllyMinions,
+	flunky: CanTargetEnemyMinions,
+	flunkies: CanTargetEnemyMinions,
+	otherminion: CanTargetAllyMinions, //+not self
+	otherminions: CanTargetAllyMinions, //+not self
+	nonleader: CanTargetAllyMinions + CanTargetEnemyMinions,
+	nonleaders: CanTargetAllyMinions + CanTargetEnemyMinions,
+	fixed: FixedTarget, //only works with things that can specify an explicit target, currently only onHit and onMiss does that.
+	all: CanTargetAllyLeader + CanTargetAllyMinions + CanTargetEnemyLeader + CanTargetEnemyMinions,
+	epicenter: CanTargetAllyLeader + CanTargetAllyMinions + CanTargetEnemyLeader + CanTargetEnemyMinions, //+not self
+};
 
-/**
- * @const {number} TARGET_ENEMY - target has to be on enemy team
- */
-export const TARGET_ENEMY = 2;
+export const ConfuseTargets = {
+	[Targets.ally]: Targets.all,
+	[Targets.allies]: Targets.all,
+	[Targets.enemy]: Targets.all,
+	[Targets.enemies]: Targets.all,
+	[Targets.leader]: Targets.randomleader,
+	[Targets.enemyleader]: Targets.randomleader,
+	[Targets.minion]: Targets.all,
+	[Targets.minions]: Targets.all,
+	[Targets.flunky]: Targets.all,
+	[Targets.flunkies]: Targets.all,
+	[Targets.otherminion]: Targets.all,
+	[Targets.otherminions]: Targets.all,
+};
 
-/**
- * @const {number} TARGET_ALLY - target has to be ally team
- */
-export const TARGET_ALLY = 4;
+export const CharmTargets = {
+	[Targets.self]: Targets.enemy,
+	[Targets.ally]: Targets.enemy,
+	[Targets.allies]: Targets.enemies,
+	[Targets.enemy]: Targets.ally,
+	[Targets.enemies]: Targets.allies,
+	[Targets.leader]: Targets.enemyleader,
+	[Targets.enemyleader]: Targets.leader,
+	[Targets.minion]: Targets.flunky,
+	[Targets.minions]: Targets.flunkies,
+	[Targets.flunky]: Targets.minion,
+	[Targets.flunkies]: Targets.minions,
+	[Targets.otherminion]: Targets.flunky,
+	[Targets.otherminions]: Targets.flunkies,
+};
 
-/**
- * @const {number} TARGET_RAND - one target is chosen randomly
- */
-export const TARGET_RAND = 8;
+/* Randomize array in-place using Durstenfeld shuffle algorithm */
+export function shuffleArray(a) {
+	for (let i = a.length - 1; i >= 0; i--) {
+		const j = Math.floor(Math.random() * (i + 1));
+		const swap = a[i];
+		a[i] = a[j];
+		a[j] = swap;
+	}
+}
 
-/**
- * @const {number} TARGET_GROUP - affect an entire group, depending on other flags
- */
-export const TARGET_GROUP = 16;
+export function AffectedTargets(targets, targetspec) {
+	const affectedBy = targetspec.affectedby;
+	const notAffectedBy = targetspec.notaffectedby;
 
-/**
- * @const {number} TARGET_ANY - Everyone not excluded is a valid target (largely equivalent to ALLY+ENEMY, but not quite)
- */
-export const TARGET_ANY = 32;
+	const both = []; // targets fitting both criteria - highest priority
+	const single = []; // medium priority
+	const none = []; // lower priority
 
-/**
- * @const {number} TARGET_PRIMARY - Target has to be the 1st in it's group.
- */
-export const TARGET_PRIMARY = 64;
+	for (let target of targets) {
+		const isAffected =
+			!affectedBy ||
+			(affectedBy.all
+				? affectedBy.condition.every(c => target.hasDot(c))
+				: affectedBy.condition.some(c => target.hasDot(c)));
 
-/**
- * @const {number} TARGET_NONPRIMARY - Target has to NOT be the 1st in it's group. If targeting a group, exclude the 1st.
- */
-export const TARGET_NONPRIMARY = 128;
+		// strict check failing means target should not be added to any array
+		if (!isAffected && affectedBy.strict) continue;
 
-/**
- * @const {number} TARGET_NOTSELF - avoid targetting self
- * only takes effect in RAND or GROUP contexts
- * should not be used with TARGET_PRIMARY unless you want unexpected results
- */
-export const TARGET_NOTSELF = 256;
+		const isNotAffected =
+			!notAffectedBy ||
+			(notAffectedBy.all
+				? notAffectedBy.condition.every(c => !target.hasDot(c))
+				: notAffectedBy.condition.some(c => !target.hasDot(c)));
 
-// Composite targets combining multiple conditions
+		// strict check failing means target should not be added to any array
+		if (!isNotAffected && notAffectedBy.strict) continue;
 
-export const TARGET_ALL = TARGET_ANY + TARGET_GROUP; // Target everyone, targets entire group.
+		if (isAffected && isNotAffected) both.push(target);
+		else if (isAffected || isNotAffected) single.push(target);
+		else none.push(target);
+	}
 
-export const TARGET_RAND_ENEMY = TARGET_RAND + TARGET_ENEMY; //target a random target from an enemy group
-
-export const TARGET_RAND_ALLY = TARGET_RAND + TARGET_ALLY; //target a random target from an ally group
-
-export const TARGET_ENEMYLEADER = TARGET_ENEMY + TARGET_PRIMARY; // target the 1st entity in enemy group
-
-export const TARGET_LEADER = TARGET_ALLY + TARGET_PRIMARY; // target the 1st entity in ally group 
-
-export const TARGET_FLUNKIES = TARGET_GROUP + TARGET_ENEMY + TARGET_NONPRIMARY; // target everyone in an enemy group, except the 1st entity
-
-export const TARGET_MINIONS = TARGET_GROUP + TARGET_ALLY + TARGET_NONPRIMARY; // target everyone in an ally group, except the 1st entity
-
-export const TARGET_FLUNKY = TARGET_RAND + TARGET_ENEMY + TARGET_NONPRIMARY; //target a random target from an enemy group but never the 1st
-
-export const TARGET_MINION = TARGET_RAND + TARGET_ALLY + TARGET_NONPRIMARY;  //target a random target from an ally group but never the 1st
-
-export const TARGET_ENEMIES = TARGET_GROUP + TARGET_ENEMY; // target entire group of enemies
-
-export const TARGET_ALLIES = TARGET_GROUP + TARGET_ALLY; // target entire group of allies
-
-export const TARGET_EPICENTER = TARGET_ANY + TARGET_GROUP + TARGET_NOTSELF; // targets all entities but the "attacker"
-
-export const TARGET_RANDG = TARGET_RAND + TARGET_GROUP; // Target everyone in a random group
-
-export const TARGET_RANDNP = TARGET_RAND + TARGET_NONPRIMARY; // target someone random who isn't the 1st in their group
-
-// Additional, experimental composite targeting types
-export const TARGET_NONLEADERS = TARGET_ANY + TARGET_GROUP + TARGET_NONPRIMARY; // target everyone who isn't their group's leader
-
-export const TARGET_BOTHLEADERS = TARGET_ANY + TARGET_GROUP + TARGET_PRIMARY; // target both group leaders
-
-export const TARGET_RANDLEADER = TARGET_RAND + TARGET_PRIMARY; // target 1 group leader at random
-
-export const TARGET_OTHERMINION = TARGET_RAND + TARGET_ALLY + TARGET_NONPRIMARY + TARGET_NOTSELF;  // target a random target from an ally group but never the attacker and never the 1st (which may be the same)
-
-export const TARGET_OTHERMINIONS = TARGET_GROUP + TARGET_ALLY + TARGET_NONPRIMARY + TARGET_NOTSELF; // target everyone in an ally group, except attacker and the 1st entity (which may be the same)
-
-export const TARGET_RANDNPG = TARGET_RAND + TARGET_GROUP + TARGET_NONPRIMARY; // target a random group, exclude primary
-
-
-/**
- * Determine if target can target type.
- * @param {number} targs
- */
-export const CanTarget = (targs, target) => {
-	return targs & target > 0;
+	both.push.apply(both, single);
+	both.push.apply(both, none);
+	return both;
 }
 
 /**
- * @const {object.<string,string>} Targets - targetting constants.
+ * @param {Char} a
+ * @param {Char} b
+ * @returns {number} - see array.sort compareFn
  */
-export const Targets = {
+export const CompareTargetStats = (a, b, targetspec) => {
+	if (!targetspec) return 0;
+	const stat = targetspec.stat;
+	if (!stat) return 0;
 
-	all: TARGET_ALL,
+	const aS = targetspec.usepercentage ? a[stat] / a[stat]["max"] : a[stat];
+	const bS = targetspec.usepercentage ? b[stat] / b[stat]["max"] : b[stat];
 
-	/**
-	  * @const {string} TARGET_SELF - target self.
-	  */
-	self: TARGET_SELF,
-
-	/**
-	 * @property {string} TARGET_RAND_ENEMY - target one enemy.
-	   */
-	enemy: TARGET_RAND_ENEMY,
-
-	/**
-	 * @property {string} TARGET_RAND_ALLY - target one ally.
-	   */
-	ally: TARGET_RAND_ALLY,
-
-	/**
-	 * @const {string} ENEMIES - target all enemies.
-	 */
-	enemies: TARGET_ENEMIES,
-	/**
-	* @const {string} TARGET_ALLIES - target all allies.
-	 */
-	allies: TARGET_ALLIES,
-
-	/**
-	  * @const TARGET_RANDG - target random group.
-	 */
-	randomgroup: TARGET_RANDG,
-
-	/**
-	 * @const {string} TARGET_RAND - random target.
-	 */
-	random: TARGET_RAND,
-
-	/**
-	 * @const {number} TARGET_ENEMYLEADER - target opposing leader.
-	 */
-	enemyleader: TARGET_ENEMYLEADER,
-
-	/**
-	 * @const {number} TARGET_LEADER - target (same-team) leader.
-	 */
-	leader: TARGET_LEADER,
-
-	/**
-	 * @const {number} TARGET_FLUNKIES - target all enemies except their leader.
-	 */
-	flunkies: TARGET_FLUNKIES,
-
-	/**
-	 * @const {number} TARGET_MINIONS - target all allies except self.
-	 */
-	minions: TARGET_MINIONS,
-
-	/**
-	 * @const {number} TARGET_FLUNKY - target a random enemy that is not a leader.
-	 */
-	flunky: TARGET_FLUNKY,
-
-	/**
-	 * @const {number} TARGET_MINION - target a random ally except leader.
-	 */
-	minion: TARGET_MINION,
-
-	// Keywords for experimental targeting types
-	/**
-	 * @const {number} TARGET_EPICENTER - target everyone except self.
-	 */
-	epicenter: TARGET_EPICENTER,
-
-	/**
-	 * @const {number} TARGET_RANDNP - target a random entity that is not a leader
-	 */
-	nonleader: TARGET_RANDNP,
-
-	/**
-	 * @const {number} TARGET_NONLEADERS - target all entities that are not leaders
-	 */
-	nonleaders: TARGET_NONLEADERS,
-
-	/**
-	 * @const {number} TARGET_RANDLEADER - target a random group leader
-	 */
-	randomleader: TARGET_RANDLEADER,
-
-	/**
-	 * @const {number} TARGET_BOTHLEADERS - target a random group leader
-	 */
-	bothleaders: TARGET_BOTHLEADERS,
-
-	/**
-	 * @const {number} TARGET_OTHERMINION - target a random non-primary ally other than self
-	 */
-	otherminion: TARGET_OTHERMINION,
-
-	/**
-	 * @const {number} TARGET_OTHERMINIONS - target all non-primary allies other than self
-	 */
-	otherminions: TARGET_OTHERMINIONS,
-
-	/**
-	 * @const {number} TARGET_RANDNPG - target a random group, but exclude primary target
-	 */
-	randomgroupnp: TARGET_RANDNPG
-
+	return targetspec.highest ? bS - aS : aS - bS;
 };
 
 /**
  * @param {Char[]} a - array of targets.
  * @returns {Char} next attack target
  */
-export const RandTarget = (a, ignoretaunt = false, targetspec = null) => {
-
-	if (a.length == 0) return null;
-	if (targetspec && (targetspec.affectedby || targetspec.notaffectedby)) {
-		a = AffectedTargets(a, targetspec.affectedby, targetspec.notaffectedby)
-	}
-	if (a.length == 0) return null
-	let v = [] //array of non-hiding targets. If everyone's hiding, goes unused.
-	if (!ignoretaunt) {
-		for (let i = 0; i < a.length; i++) {
-			if (a[i].alive) {
-				if (a[i].getCause(32)) return a[i]; //taunt is prioritized, even over stat priority.
-				if (!a[i].getCause(64)) v.push(a[i]);
-			}
-		}
-	}
-
-	return StatTarget(v.length > 0 ? v : a, targetspec?.stat, targetspec?.highest, targetspec?.usepercentage);
-}
-
-export const AffectedTargets = (a, affectedby, notaffectedby) => {
-	let affected = [] //array of new valid targets for affected check
-	let notaffected = [] //array of new valid targets for notaffected check
-
-	for (let i = 0; i < a.length; i++) {
-		if (a[i].alive) {
-			if (affectedby) {
-				let valid = true
-				for (let b of affectedby.condition) {
-					if (a[i].hasDot(b)) {
-						if (!affectedby.all) {
-							valid = true
-							break
-						}
-						continue
-					}
-					valid = false
-				}
-				if (valid) {
-					affected.push(a[i])
-				}
-			}
-			if (notaffectedby) {
-				let valid = true
-				for (let b of notaffectedby.condition) {
-					if (!a[i].hasDot(b)) {
-						if (!notaffectedby.all) {
-							valid = true
-							break
-						}
-						continue
-					}
-					valid = false
-				}
-				if (valid) {
-					notaffected.push(a[i])
-				}
-			}
-		}
-	}
-	let arr1 = (affectedby) ? Array.from(affected) : Array.from(a)
-	let arr2 = (notaffectedby) ? Array.from(notaffected) : Array.from(a)
-	let newarr = arr1.filter(element => arr2.includes(element))
-	// If we have enemies who fulfill both the affected by and notaffectedby conditions we just return that.
-	if (newarr.length > 0) return newarr
-	//Otherwise, we can assume that we might have enemies that fulfill one condition, but not both.
-	//If targeting has an affectedby clause, but not the notaffectedby clause.
-	//We know that the notaffectedby array is just "all targets" therefore the intersection of "valid affected targets" and "all targets" is "valid affected targets"
-	//The intersection is null, meaning we have no valid targets.
-	//We check if targeting is strict. If it is not strict (prioritize), we just target whoever. If it's strict (ONLY) we can target no one.
-	if (affectedby && !notaffectedby) {
-		return affectedby.strict ? [] : a
-	}
-	//same as the previous condition just for the flipped case.
-	if (!affectedby && notaffectedby) {
-		return notaffectedby.strict ? [] : a
-	}
-	//Now we deal with cases where both conditions are present. We know it can't be neither condition as we would not be here then.
-	//If at least one array is present and targeting is not strict on either side, we return the sum of both arrays.
-	//So we target either someone valid for condition one, or someone valid for condition 2.
-	if ((notaffected.length > 0 || affected.length > 0) && !notaffectedby.strict && !affectedby.strict) {
-		return arr1.concat(arr2)
-	}
-	// If we have a valid affected target and affected targeting is strict (ONLY) and notaffected targeting is not strict, we return the affected targets.
-	//If notaffected targeting was strict, we would not have any valid targets as we know no target satisfies both by this point.
-	if (affected.length > 0 && !notaffectedby.strict && affectedby.strict) {
-		return arr1
-	}
-	//ditto for not affected.
-	if (notaffected.length > 0 && notaffectedby.strict && !affectedby.strict) {
-		return arr2
-	}
-	//If both arrays are empty and the targeting is not strict, we just target whoever. (if either array is not empty, it would be caught by the condition above)
-	if (!notaffectedby.strict && !affectedby.strict) {
-		return a
-	}
-	//in all other cases no target would be valid. For example, if the "Not affected" array is empty and "not afffected targeting" is strict, then there is no one we can target.
-	return []
-
-
-}
-
-/**
- * @param {*} a
- * @returns {Char} highest priority ( lowest index ) living target.
- */
-export const PrimeTarget = (a) => {
-	for (let i = 0; i < a.length; i++) {
-		if (a[i].alive) return a[i];
-	}
-	return 0 //failsafe if everyone is dead.
-}
-export const PrimeInd = (a) => {
-	for (let i = 0; i < a.length; i++) {
-		if (a[i].alive) return i;
-	}
-	return 0 //failsafe if everyone is dead.
-}
-export const StatTarget = (a, stat, high, percentage) => {
-	if (!stat) return a[Math.floor(Math.random() * (a.length))];
-	let target
-	let beststat
-	let nextstat
-	for (let i = 0; i < a.length; i++) {
-		if (a[i].alive) {
-			if (!target) {
-				target = a[i]
-				beststat = percentage ? a[i][stat] / a[i][stat]["max"] : a[i][stat]
-				continue
-			}
-			// if we are looking for the high stat, switch target if stat of target higher than current best. Reverse for if we are looking for low.
-			nextstat = percentage ? a[i][stat] / a[i][stat]["max"] : a[i][stat]
-			if (high === nextstat > beststat
-			) {
-				target = a[i]
-				beststat = nextstat
-			}
-		}
-	}
-	if (target) {
-		return target;
-	}
-	return 0 //failsafe if everyone is dead.
-}
-
-/**
- * @param {Char[]} a - array of targets.
- * @returns {Char} next attack target
- */
-export const NextTarget = (a) => {
-
+export const NextTarget = a => {
 	for (let i = a.length - 1; i >= 0; i--) {
 		if (a[i].alive) return a[i];
 	}
-}
-
+};
 
 /**
  * Parse string target into integer target for flag checking.
- * @param {string|string[]} s
+ * @param {string} s
  * @returns {number}
  */
-export const ParseTarget = (s) => {
+export const ParseTarget = s => {
+	return Targets[s] ?? Targets.enemy;
+};
 
-	let a = s.split(',');
-	let t = 0;
-	for (let i = a.length - 1; i >= 0; i--) {
-
-		t |= (Targets[a[i]] || 0);
-	}
-
-	return t || Targets.enemy;
-
-}
-
-export const GetTarget = (n) => {
-	if (!n || typeof n !== "number") return "";
+export const GetTarget = n => {
+	if (typeof n !== "number") return "";
 
 	let targs = Object.entries(Targets);
 
 	let str = targs.find(it => it[1] === n);
-	if (str) return str[0];
-
-	str = [];
-	for (let [targ, val] of targs.sort((a, b) => b[1] - a[1])) {
-		if (val > n) continue;
-		if (val & n === val) {
-			str.push(targ);
-			n -= val;
-		}
-	}
-	return str.join(",");
-}
+	return str ? str[0] : "";
+};
 
 /**
  * Create a function that returns a numeric damage value.
@@ -421,37 +167,32 @@ export const GetTarget = (n) => {
  * @param {string} s
  * @returns {(a,t,c,i)=>number}
  */
-export const MakeDmgFunc = (s) => {
+export const MakeDmgFunc = s => {
 	return new FValue([FP.ACTOR, FP.TARGET, FP.CONTEXT, FP.ITEM, FP.GDATA], s);
 };
 
-export const ParseDmg = (v) => {
+export const ParseDmg = v => {
+	if (v === null || v === undefined || v === "") return null;
 
-	if (v === null || v === undefined || v === '') return null;
-
-	if ((typeof v === 'string') && !RangeTest.test(v) && isNaN(v)) return MakeDmgFunc(v);
+	if (typeof v === "string" && !RangeTest.test(v) && isNaN(v)) return MakeDmgFunc(v);
 	else if (v instanceof RValue) return v;
 	return new Range(v);
-
-}
+};
 
 /**
-* Apply an attack. Attack is already assumed to have hit, but immunities,
-* resistances, can still be applied.
-* @param {Char} target
-* @param {Object} action
-*/
-export const ApplyAction = (target, action, attacker = null, parried = 0, player = null) => {
-
-	if (!target || !target.alive) return;
+ * Apply an attack. Attack is already assumed to have hit, but immunities,
+ * resistances, can still be applied.
+ * @param {Char} target
+ * @param {Object} action
+ */
+export const ApplyAction = (target, action, attacker = null, player = null) => {
+	if ((!target || !target.alive) && target.id != attacker.id) return; //can still do things on self even if dead, useful for onDeath purposes.
 	if (target.isImmune(action.kind)) {
-
 		Events.emit(IS_IMMUNE, target, action.kind);
 		return false;
 	}
 
-
-	if (action.damage) ApplyDamage(target, action, attacker, parried);
+	if (action.damage) ApplyDamage(target, action, attacker);
 	if (action.healing) ApplyHealing(target, action, attacker);
 	if (action.cure) {
 		target.cure(action.cure);
@@ -471,28 +212,13 @@ export const ApplyAction = (target, action, attacker = null, parried = 0, player
 	if (action.dot) {
 		target.addDot(action.dot, action, null, attacker);
 	}
-	if (action.dot) {
-		target.addDot(action.dot, action, null, attacker);
-	}
 	if (action.summon) {
-
-		let smntarget = target || attacker
-		for (let smn of action.summon) {
-			if (smn[TYP_PCT] && !smn[TYP_PCT].roll()) {
-				continue;
-			}
-			let smnid = smn.id
-			let smncount = smn.count || 1
-			let smnmax = smn.max || 0
-			let keep = smn.keep || false
-			smntarget.context.create(smnid, keep, smncount, smnmax)
-		}
-
+		let smntarget = target || attacker;
+		smntarget.context.summon(action.summon);
 	}
 
 	return true;
-
-}
+};
 
 export const CalcDamage = (dmg, attack, attacker, target = null, applyBonus = true) => {
 	if (!dmg) return;
@@ -504,111 +230,104 @@ export const CalcDamage = (dmg, attack, attacker, target = null, applyBonus = tr
 			[FP.TARGET]: target,
 			[FP.CONTEXT]: target.context,
 			[FP.ITEM]: attack.source,
-			[FP.GDATA]: attacker.context.state.items
+			[FP.GDATA]: attacker.context.state.items,
 		});
-	}
-	else dmg = dmg.value;
+	} else dmg = dmg.value;
 	if (applyBonus) {
 		if (attack.bonus) dmg += attack.bonus;
 		if (attacker) {
 			if (attacker.getBonus) dmg += attacker.getBonus(attack.kind);
-			if (attacker.context && attack.potencies && attacker.id == "player") {
+			if (attacker.context && attack.potencies) {
 				for (let p of attack.potencies) {
-					let potency = attacker.context.state.getData(p)
+					let potency = attacker.context.state.getData(p, false, false);
 					if (potency) {
-						dmg = dmg * potency.damage.getApply({
-							[FP.ACTOR]: attacker,
-							[FP.TARGET]: target,
-							[FP.CONTEXT]: target.context,
-							[FP.ITEM]: potency
-						});
+						dmg =
+							dmg *
+							potency.damage.getApply({
+								[FP.ACTOR]: attacker,
+								[FP.TARGET]: target,
+								[FP.CONTEXT]: target.context,
+								[FP.ITEM]: potency,
+							});
 					}
 				}
 			}
 		}
 	}
-	return dmg
-}
+	return dmg;
+};
 
-export const ApplyDamage = (target, attack, attacker, parried = 0) => {
+export const ApplyDamage = (target, attack, attacker) => {
 	let dmg = CalcDamage(attack.damage, attack, attacker, target, !attack.showinstanced);
 
-	let resist = target.getResist(attack.kind);
-	if (resist !== 0) {
-		dmg *= (1 - resist);
+	let resistMultiplier = target.getResistMultiplier(attack.kind);
+	dmg *= resistMultiplier;
 
+	let defenceMultiplier = attack.nodefense ? 1 : target.getDefenceMultiplier();
+	dmg *= defenceMultiplier;
+	let reflectbase = dmg;
+	if (!attack.noLogs) Events.emit(COMBAT_HIT, target, dmg, attack.name || (attacker ? attacker.name : ""));
+
+	if (target.barrier > dmg) {
+		target.barrier -= dmg;
+		dmg = 0;
+	} else {
+		dmg -= target.barrier;
+		target.barrier = 0;
+		target.hp -= dmg;
 	}
-
-	let dmg_reduce = 0
-	if ((resist === 0 || resist < 1) && !attack.nodefense) {
-
-		dmg_reduce = target.defense / (target.defense + (10 / 3) * dmg * (attack.duration || 1));
-		dmg *= (1 - dmg_reduce);
-
-	}
-
-	/*
-	if ((resist === 0 || resist < 1) && !attack.nodefense) {
-		// This was the 10/3 in the old formula, the 9/5 in the proposed formula
-		// The closer this is to 1, the better the damage mitigation is per point of defense
-		let posScaling = 1.8;
-		// Basically, "how far below 0 defense is necessary to double the damage"
-		// Will scale linearly for 1/n starting from defense 0
-		let negScaling = 40;
-		// This is basically the same formula as before, just pulling the scaling out into the variable above
-		if (target.defense > 0) dmg_reduce = target.defense / (target.defense + (posScaling) * dmg );
-		// This removes the the * dmg in the divisor - things are already multiplying dmg in the reduction output
-		else if (target.defense < 0) dmg_reduce = target.defense / negScaling;
-		dmg *= (1 - dmg_reduce);
-	}
-	*/
-	if (parried) dmg *= parried;
-	target.hp -= dmg;
-
-	Events.emit(COMBAT_HIT, target, dmg, resist, dmg_reduce, (attack.name || (attacker ? attacker.name : '')), parried);
-	if (target.hp <= 0) { Events.emit(CHAR_DIED, target, attack); }
 
 	if (attack.leech && attacker && dmg > 0) {
 		let amt = Math.floor(100 * attack.leech * dmg) / 100;
-		attacker.hp += (amt);
-		Events.emit(EVT_COMBAT, null, attacker.name.toTitleCase() + ' Steals ' + amt + ' Life');
+		attacker.hp += amt;
+		Events.emit(EVT_COMBAT, null, attacker.name.toTitleCase() + " Steals " + amt + " Life");
 	}
-
-}
+	if (target.hp <= 0) {
+		Events.emit(CHAR_DIED, target, attack);
+	}
+	if (attacker && !attack.unreflectable) {
+		//do not retaliate to dot things
+		if (+target.stat_thorns > 0 && target.getThornAttack(0) && attacker.hp > 0) {
+			ApplyDamage(attacker, target.getThornAttack(+target.stat_thorns), target);
+		}
+		if (+target.stat_reflect > 0 && target.getReflectAttack(0) && attacker.hp > 0) {
+			ApplyDamage(attacker, target.getReflectAttack((+target.stat_reflect / 100) * reflectbase), target);
+		}
+		if (!target.getCause(NO_ONHIT)) {
+			if (target.onHit) Events.emit(TRIGGER_ACTION, target.onHit, target.context, attacker);
+			const dots = target.dots;
+			for (let i = dots.length - 1; i >= 0; i--) {
+				const dot = dots[i];
+				if (dot.onHit) Events.emit(TRIGGER_ACTION, dot.onHit, target.context, attacker);
+				if (dot.conditionaction) {
+					Events.emit(TRIGGER_ACTION, dot.conditionaction?.onHit, target.context, attacker);
+				}
+			}
+		}
+	}
+};
 
 export const ApplyHealing = (target, attack, attacker) => {
 	let heal = CalcDamage(attack.healing, attack, attacker, target, !attack.showinstanced);
-
-	/* 
-	// No reason to impact based on a resist - at least for now
-	let resist = target.getResist(attack.kind);
-	if (resist !== 0) {
-		heal *= (1 - resist);
-
-	}*/
-
 	target.hp += heal;
-
-}
+};
 
 /**
  * @note currently unused.
  * Convert damage object to raw damage value.
  * @param {number|function|Range} dmg
  * @returns {number}
-*/
+ */
 export function getDamage(dmg) {
-
 	let typ = typeof dmg;
 
-	if (typ === 'object') return dmg.value;
-	else if (typ === 'number') return dmg;
-	else if (typeof dmg === 'function') {
+	if (typ === "object") return dmg.value;
+	else if (typ === "number") return dmg;
+	else if (typeof dmg === "function") {
 	}
 
-	console.warn('Invalid damage: ' + dmg);
+	console.warn("Invalid damage: " + dmg);
 	return 0;
-
 }
 
 /**
@@ -619,41 +338,39 @@ export function getDamage(dmg) {
  * @returns modified attack
  */
 export const instanceDamage = (attack, applier, target) => {
-	attack.damage = CalcDamage(attack.damage, attack, applier, target)
-	attack.healing = CalcDamage(attack.healing, attack, applier, target)
-	attack.tohit += applier.getHit()
+	attack.damage = CalcDamage(attack.damage, attack, applier, target);
+	attack.healing = CalcDamage(attack.healing, attack, applier, target);
+	attack.tohit += applier.getHit();
 	attack.showinstanced = true;
-	return attack
-}
-export const processDot = (dot) => {
-
+	return attack;
+};
+export const processDot = dot => {
+	if (dot.conditional?.onSuccess) dot.conditional.onSuccess = processDot(dot.conditional.onSuccess);
+	if (dot.conditional?.onFailure) dot.conditional.onFailure = processDot(dot.conditional.onFailure);
 	if (dot.attack) {
 		if (Array.isArray(dot.attack)) {
-
 			for (let i = dot.attack.length - 1; i >= 0; i--) {
-
-				dot.attack[i] = processAttackForDot(dot.attack[i])
+				dot.attack[i] = processAttackForDot(dot.attack[i]);
 			}
-
-
 		} else {
-			dot.attack = processAttackForDot(dot.attack)
+			dot.attack = processAttackForDot(dot.attack);
 		}
 	}
-	if (dot.onExpire) dot.onExpire = processAttackForDot(dot.onExpire)
-	if (dot.onDeath) dot.onDeath = processAttackForDot(dot.onDeath)
-	return dot
-}
+	if (dot.onExpire) dot.onExpire = processAttackForDot(dot.onExpire);
+	if (dot.onDeath) dot.onDeath = processAttackForDot(dot.onDeath);
+	if (dot.onHit) dot.onHit = processAttackForDot(dot.onHit);
+	if (dot.onMiss) dot.onMiss = processAttackForDot(dot.onMiss);
+	return dot;
+};
 
-export const processAttackForDot = (attack) => {
-
+export const processAttackForDot = attack => {
 	attack.targetstring = attack.targets;
 	if (attack.hits) {
 		for (let b = attack.hits.length - 1; b >= 0; b--) {
 			attack.hits[b].targetstring = attack.hits[b].targets;
-			if (attack.hits[b].dot) attack.hits[b].dot = processDot(attack.hits[b].dot)
+			if (attack.hits[b].dot) attack.hits[b].dot = processDot(attack.hits[b].dot);
 		}
 	}
-	if (attack.dot) attack.dot = processDot(attack.dot)
-	return attack
-}
+	if (attack.dot) attack.dot = processDot(attack.dot);
+	return attack;
+};

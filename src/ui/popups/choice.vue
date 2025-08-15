@@ -1,8 +1,8 @@
 <script>
-import Game from '@/game';
-import { centerX, positionAt } from '@/ui/popups/popups.js';
+import Game from "@/game";
+import { centerX, positionAt } from "@/ui/popups/popups.js";
 
-import ItemsBase from '@/ui/itemsBase.js';
+import ItemsBase from "@/ui/itemsBase.js";
 
 /**
  * @note The Choice Mechanism is highly convoluted right now, due to Vue interactions
@@ -11,7 +11,6 @@ import ItemsBase from '@/ui/itemsBase.js';
  * @emits choice
  */
 export default {
-
 	data() {
 		return {
 			title: null,
@@ -20,75 +19,61 @@ export default {
 			item: null,
 			open: false,
 			mustPay: false,
-			strings: false
-		}
+			strings: false,
+		};
 	},
 	mixins: [ItemsBase],
 	created() {
-
 		this.cb = null;
 
 		this.plisten = () => {
-
 			/**
 			 * Special event to show choice dialog.
-			*/
-			this.add('choice', this.show, this);
-
+			 */
+			this.add("choice", this.show, this);
 		};
 
-		this.listen('game-loaded', this.plisten);
-
+		this.listen("game-loaded", this.plisten);
 	},
 	beforeUnmount() {
-		this.removeListener('game-loaded', this.plisten);
+		this.removeListener("game-loaded", this.plisten);
 		this.plisten = null;
 		this.cancel();
 	},
 	updated() {
-
 		if (this.open === false) return;
 
 		if (this.elm) positionAt(this.$el, this.elm, 0);
 		else centerX(this.$el);
-
 	},
 	computed: {
-
 		/**
 		 * @property {gdata[]} choices - used to convert strings or tag string into choice objects.
 		 */
 		choices: {
-
-			get() { return this.list; },
+			get() {
+				return this.list;
+			},
 			set(v) {
-
-				if (typeof v === 'string') v = Game.state.getData(v);
+				if (typeof v === "string") v = Game.state.getData(v);
 
 				if (v && v.items) v = v.items;
 				if (Array.isArray(v)) {
-
 					if (this.strings) this.list = v;
 					else {
 						var a = [];
 						for (let i = v.length - 1; i >= 0; i--) {
-
 							var it = Game.state.findData(v[i]);
 							if (it) a.push(it);
 						}
 
 						this.list = a;
 					}
-
 				} else this.list = null;
-
-			}
-
-		}
-
+			},
+		},
 	},
 	methods: {
-
 		/**
 		 * @param {object} opts - dispaly options
 		 * @param {?HTMLElement} opts.elm - element to display relative to.
@@ -98,8 +83,7 @@ export default {
 		 * @param {?boolean} opts.strings - choices given as raw strings.
 		 */
 		show(choices, opts) {
-
-			this.title = opts.title? opts.title.toTitleCase() : "";
+			this.title = opts.title ? opts.title.toTitleCase() : "";
 			this.cb = opts.cb;
 			this.elm = opts.elm;
 			this.strings = opts.strings;
@@ -108,7 +92,6 @@ export default {
 			this.choices = choices;
 			this.open = true;
 			this.canRemove = opts.canRemove;
-
 		},
 
 		cantPay(it) {
@@ -116,7 +99,7 @@ export default {
 		},
 
 		disabled(it) {
-			return !this.strings && !this.slottable(it) || (this.mustPay && this.cantPay(it));
+			return (!this.strings && !this.slottable(it)) || (this.mustPay && this.cantPay(it));
 		},
 
 		choose(opt) {
@@ -128,13 +111,10 @@ export default {
 			this.elm = null;
 
 			if (this.cb) {
-
 				let cb = this.cb;
 				this.cb = null;
 				cb(opt);
-
 			}
-
 		},
 		cancel() {
 			this.open = false;
@@ -142,32 +122,34 @@ export default {
 			this.item = null;
 			this.choices = null;
 			this.elm = null;
-		}
-
-	}
-
-}
+		},
+	},
+};
 </script>
 
 <template>
 	<div class="popup" v-if="choices != null && choices.length > 0">
 		<div class="content">
-
 			<span class="title" v-if="title">{{ title }}</span>
 
 			<div class="items">
 				<!--			:disabled="!strings&&!slottable(it)||(mustPay&&cantPay(it))"-->
-				<button type="button" class="task-btn" :class="disabled(it) && 'disabled'" v-for="it in choices"
-					:key="strings ? it : it.id" @mouseenter.capture.stop="!strings ? itemOver($event, it) : ''"
-					@click="choose(it)">{{ strings ? it : it.name }}</button>
+				<button
+					type="button"
+					class="task-btn"
+					:class="disabled(it) && 'disabled'"
+					v-for="it in choices"
+					:key="strings ? it : it.id"
+					@mouseenter.capture.stop="!strings ? itemOver($event, it) : ''"
+					@click="choose(it)">
+					{{ strings ? it : it.name }}
+				</button>
 				<button type="button" class="task-btn" v-if="canRemove" @click="choose(false)">None</button>
 			</div>
 
 			<button type="button" class="close-btn" @click="cancel">Cancel</button>
-
 		</div>
 	</div>
-
 </template>
 
 <style scoped>
@@ -202,7 +184,6 @@ export default {
 }
 
 .task-btn {
-
 	max-height: 2em;
 	width: 100%;
 }

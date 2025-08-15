@@ -7,12 +7,12 @@
 				"id": "shopkeeping",
 				"require": "g.crafting>=2&&g.gold>=1000&&g.languages>=4&&g.tier1>0",
 				"desc": "Buy and sell everything in the pursuit of gold",
+				"buy": {
+					"arcana": 15
+				},
 				"run": {
 					"stamina": 0.2,
 					"gold": 1
-				},
-				"result": {
-					"sp": 0.05
 				},
 				"mod": {
 					"research.max": 5,
@@ -40,7 +40,7 @@
 					"gold": 115
 				},
 				"mod": {
-					"shopkeeping.max": "4|500|40",
+					"shopkeeping.max": "5|500|40",
 					"tomes.max": "0.01%/0/>=100/2600/-10"
 				},
 				"at": {
@@ -232,7 +232,6 @@
 				"name": "accounting ledger",
 				"actname": "calculating expenses",
 				"desc": "Better organization of all your wizardly expenses",
-				"craftable": true,
 				"require": "g.shopkeeping>=4&&g.crafting>=2&&g.languages>=5",
 				"max": 1,
 				"length": 50,
@@ -413,30 +412,57 @@
 					"gold.rate": 0.3,
 					"gold.max": 100,
 					"space": 30,
-					"shopkeeping.mod.gold.max": 5,
-					"scrollmonger.mod.space": -1,
-					"gemmonger.mod.space": -1
+					"t_shopkeeper_assistant.convert.input": "25%",
+					"t_shopkeeper_assistant.convert.output.effect": "35%",
+					"t_shopkeeper_assistant.mod.space": -1,
+					"t_shopkeeper_assistant.max": 2,
+					"shopkeeping.mod.gold.max": 5
+				}
+			},
+			{
+				"id": "herbmonger",
+				"name": "herb monger",
+				"tags": "t_shopkeeper_assistant",
+				"desc": "Constantly sells your freshly grown herbs at your behest.",
+				"require": "g.shopkeeping>=5&&g.herbs>=30",
+				"max": 2,
+				"cost": {
+					"gold": 100
+				},
+				"mod": {
+					"space": 3
+				},
+				"convert": {
+					"input": {
+						"herbs": 0.5
+					},
+					"output": {
+						"effect": {
+							"gold": 0.5
+						}
+					}
 				}
 			},
 			{
 				"id": "scrollmonger",
 				"name": "scroll monger",
-				"desc": "Constantly sells a portion of your scroll supply at your behest.",
+				"tags": "t_shopkeeper_assistant",
+				"desc": "Constantly sells your scroll supply at your behest.",
 				"require": "g.shopkeeping>=7&&g.scrolls>=30",
-				"repeat": true,
+				"max": 2,
 				"cost": {
 					"gold": 100
 				},
 				"mod": {
-					"space": 3,
-					"scrolls.convert": {
-						"input": {
-							"scrolls": 0.001
-						},
-						"output": {
-							"effect": {
-								"gold": 0.005
-							}
+					"space": 3
+				},
+				"convert": {
+					"input": {
+						"scrolls": 0.5
+					},
+					"output": {
+						"effect": {
+							"gold": 0.15
 						}
 					}
 				}
@@ -444,22 +470,23 @@
 			{
 				"id": "gemmonger",
 				"name": "gem monger",
-				"desc": "Constantly sells a portion of your gem supply at your behest.",
+				"tags": "t_shopkeeper_assistant",
+				"desc": "Constantly sells your gem supply at your behest.",
 				"require": "g.shopkeeping>=9&&g.gems>=30",
-				"repeat": true,
+				"max": 2,
 				"cost": {
 					"gold": 200
 				},
 				"mod": {
-					"space": 3,
-					"gems.convert": {
-						"input": {
-							"gems": 0.001
-						},
-						"output": {
-							"effect": {
-								"gold": 0.035
-							}
+					"space": 3
+				},
+				"convert": {
+					"input": {
+						"gems": 0.1
+					},
+					"output": {
+						"effect": {
+							"gold": 2.5
 						}
 					}
 				}

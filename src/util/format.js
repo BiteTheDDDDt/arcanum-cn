@@ -1,59 +1,49 @@
 /**
  * Postfixes to use for every 10^3 group of large numbers.
  */
-const PostFixes = [
-	'', 'K', 'M', 'B', 'T'
-];
+const PostFixes = ["", "K", "M", "B", "T"];
 
 const FuncRE = /(^[^]*\{|return|\}$)|\w\.(\w+)|(\!)|(\&\&)|(\|\|)/gi;
 
-export const formatNumber = (n, decimals=3, floor = true)=>{
-
-	const asNum = typeof n === 'number' ? n : parseFloat(n);
-	if ( !asNum ) return n;
+export const formatNumber = (n, decimals = 3, floor = true) => {
+	const asNum = typeof n === "number" ? n : parseFloat(n);
+	if (!asNum) return n;
 
 	const sign = Math.sign(asNum);
-	let digits = Math.floor( Math.abs(asNum) );
+	let digits = Math.floor(Math.abs(asNum));
 	const remainder = Math.abs(asNum) - digits;
- 
-	let s = (remainder > 0 && !floor) ? remainder.toFixed(decimals).slice(1) : '';
 
-	while ( digits >= 1000 ) {
-		s = ',' + ( digits % 1000).toString().padStart(3,'0') + s;
-		digits = Math.floor(digits/1000);
+	let s = remainder > 0 && !floor ? remainder.toFixed(decimals).slice(1) : "";
+
+	while (digits >= 1000) {
+		s = "," + (digits % 1000).toString().padStart(3, "0") + s;
+		digits = Math.floor(digits / 1000);
 	}
 	s = (digits % 1000).toString() + s;
 
-	return sign > 0 ? s : '-'+s;
-
-}
+	return sign > 0 ? s : "-" + s;
+};
 
 /**
  * Converts a function to some semblance of plain text.
  * @param {function} f
  */
-export const funcText = (f, lookup )=>{
-
+export const funcText = (f, lookup) => {
 	let it;
 
-	return f.toString().replace( FuncRE, (match,skips,name,not,and,or)=>{
-
-		if ( name ) {
-
+	return f.toString().replace(FuncRE, (match, skips, name, not, and, or) => {
+		if (name) {
 			it = lookup.getData(name);
-			if ( it ) return it.name;
+			if (it) return it.name;
 
 			return name;
-
-		} else if ( skips ) {
-			return '';
+		} else if (skips) {
+			return "";
 		}
-		if ( not ) return ' not ';
-		if ( and) return ' and ';
-		if ( or ) return ' or ';
-
+		if (not) return " not ";
+		if (and) return " and ";
+		if (or) return " or ";
 	});
-
 };
 
 export const toInt = Math.floor;
@@ -63,95 +53,85 @@ export const toInt = Math.floor;
  * @param {number} v
  * @returns {string}
  */
-export const toLarge = (v) => {
-
+export const toLarge = v => {
 	let sgn = 1;
-	if ( v < 0 ) {
+	if (v < 0) {
 		sgn = -1;
 		v = -v;
 	}
 	// log negative.
-	if ( v <= 1 ) return sgn;
+	if (v <= 1) return sgn;
 
 	// index cutoff is every multiple of 1000, plus 2 digits over the next higher.
 	// e.g. the 'hundreds' category extends to 99,999; K extends to 99,999K
-	let ex = Math.floor( (Math.log10(v)-1)/3 );
-	if ( ex < 1 ) {
-		return sgn*v;
+	let ex = Math.floor((Math.log10(v) - 1) / 3);
+	if (ex < 1) {
+		return sgn * v;
 	} else if (ex >= PostFixes.length) {
-		return (sgn*v).toExponential(2);
+		return (sgn * v).toExponential(2);
 	}
 
-	return ( sgn*Math.round( v / Math.pow(10,3*ex) ) )+PostFixes[ex];
-
-}
+	return sgn * Math.round(v / Math.pow(10, 3 * ex)) + PostFixes[ex];
+};
 
 /**
  * Formatting helpers for HTML/Display.
  */
-export const precise = (v, n=2) => {
-
+export const precise = (v, n = 2, minTresh = 0) => {
 	const r = Number(v);
-	if ( Number.isNaN(r) ) return v;
-	if ( r === Math.floor(r) ) return r;
+	if (Number.isNaN(r)) return v;
+	if (r === Math.floor(r)) return r;
 
-	let maxDivide = Math.pow(10,n);
-
+	let maxDivide = Math.pow(10, n);
+	let treshValue = Math.pow(10, minTresh);
 	let abs = Math.abs(r);
 
 	let divide = 1;
-	while ( (abs < maxDivide) && abs !== Math.floor(abs) ) {
-
+	while (abs < maxDivide && abs !== Math.floor(abs)) {
 		abs *= 10;
 		divide *= 10;
-
 	}
 
-	abs = Math.round(abs)/divide;
+	abs = Math.round(abs) / divide;
+	if (abs * treshValue < 1 && minTresh > 0) return "~0";
 	return r >= 0 ? abs : -abs;
-
-}
-
+};
 
 /**
  * Returns abbreviation of an item based on first letters.
  * @param {*} it
  */
-export const abbr = (it)=>{
-
-	if ( !it ) return '';
+export const abbr = it => {
+	if (!it) return "";
 
 	let s = it.name;
-	if ( !s) {
+	if (!s) {
 		//console.warn( it + ' missing name');
 		return it;
 	}
 
-	let ind = s.indexOf(' ');
-	if ( ind >= 0 && ind+1 < s.length ) return s[0] + s[ind+1];
-	return s.slice(0,2);
-
-}
+	let ind = s.indexOf(" ");
+	if (ind >= 0 && ind + 1 < s.length) return s[0] + s[ind + 1];
+	return s.slice(0, 2);
+};
 
 /**
  * Returns fixed point, rounding down.
  * @param {number} v
  * @param {number} n
  */
-export const lowFixed = (v, n=2) => {
-
-	let pow = Math.pow(10,n);
-	return Math.floor( v*pow )/pow;
-
-}
+export const lowFixed = (v, n = 2) => {
+	let pow = Math.pow(10, n);
+	return Math.floor(v * pow) / pow;
+};
 
 /**
  * Floor function checks for NaN and null values.
  * @param {*} v
  */
-export const floor = ( v ) => {
-	return (v === null || isNaN(v)) ? 0 : Math.floor(v);
-}
+export const floor = v => {
+	return v === null || isNaN(v) ? 0 : Math.floor(v);
+};
 
 /**
  * Adds seconds 's' to number.
@@ -177,7 +157,6 @@ export const floor = ( v ) => {
 /*export const ceil = ( v ) => {
 	return (v === null || isNaN(v)) ? 0 : Math.ceil(v);
 }*/
-
 
 /*export const round = ( v ) => {
 	return (v === null || isNaN(v)) ? 0 : Math.round(v);

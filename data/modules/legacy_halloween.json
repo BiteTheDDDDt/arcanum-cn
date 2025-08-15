@@ -37,7 +37,7 @@
 				"id": "enc_blackcat",
 				"name": "black cat",
 				"desc": "A black cat is an omen to be studied seriously",
-				"tags": "enc_site_of_learning",
+				"tags": "site_of_learning",
 				"effect": {
 					"unease": "1~4",
 					"rage": "2~4",
@@ -274,9 +274,11 @@
 				"alias": "vorpal",
 				"sym": "🎃",
 				"name": "vorpal blade",
+				"unique": true,
 				"level": 8,
 				"type": "weapon",
-				"tags": "t_martial,t_slash,t_longsword,t_swords",
+				"slot": "mainhand",
+				"tags": "t_martial,t_slash,t_longsword,t_sword",
 				"damage": "8~10",
 				"attack": {
 					"kind": "slash",
@@ -289,9 +291,11 @@
 				"id": "vorpal_sword2",
 				"sym": "🎃",
 				"name": "midnight vorpal blade",
+				"unique": true,
 				"level": 14,
 				"type": "weapon",
-				"tags": "t_martial,t_slash,t_longsword,t_swords",
+				"slot": "mainhand",
+				"tags": "t_martial,t_slash,t_longsword,t_sword",
 				"damage": "10~20",
 				"attack": [
 					{
@@ -332,8 +336,10 @@
 				"id": "bdagg",
 				"sym": "🎃",
 				"name": "necrotic dagger",
+				"unique": true,
 				"material": "bone",
 				"type": "weapon",
+				"slot": "mainhand",
 				"tags": "t_martial,t_pierce,t_dagger",
 				"tohit": 2,
 				"attack": {
@@ -370,6 +376,7 @@
 				"sym": "🎃",
 				"name": "nymie's charm",
 				"desc": "A small figurine of a black cat.",
+				"unique": true,
 				"level": 20,
 				"type": "armor",
 				"slot": "trinket",
@@ -385,7 +392,12 @@
 						"sym": "🏰🎃",
 						"tags": "hall",
 						"desc": "The heart of the horseman has finally dissipated. Only the faintest trace of mischief remains.",
+						"extdesc": "You always satisfy the Trickery skill's requirements.",
 						"require": "g.lore>999",
+						"mod": {
+							"trickery.buy.arcana": "-50%",
+							"trickery.mod.dodge": 0.5
+						},
 						"max": 1
 					},
 					{
@@ -411,6 +423,7 @@
 				"name": "Mischievous spirit",
 				"desc": "Peculiar energies permeate the hall, driving all to mischief.",
 				"require": "g.hal_trick_pumpkin>0&&g.apprentice>0&&g.trickery==0",
+				"enable": ["trickery"],
 				"result": {
 					"trickery": true
 				}

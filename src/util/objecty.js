@@ -17,40 +17,30 @@ const EmptySet = new Set();
  * @param {Object} original
  * @returns {Object} collection of properties existing in clone, which are different from values in original.
  */
-export function changes( clone, original ) {
-
+export function changes(clone, original) {
 	let res = null;
 
-	for( const p in clone ) {
-
+	for (const p in clone) {
 		let sub = clone[p];
 		const orig = original[p];
 
-		if ( sub == orig ){
+		if (sub == orig) {
 			continue;
 		}
-		if ( !sub ) {
-
+		if (!sub) {
 			if (!orig) continue;
-
-		} else if ( typeof sub === 'object' ) {
-
-			if ( typeof orig === 'object' && orig !== null ) {
-
-				sub = changes( sub, orig );
-				if ( sub === null ) continue;
-
+		} else if (typeof sub === "object") {
+			if (typeof orig === "object" && orig !== null) {
+				sub = changes(sub, orig);
+				if (sub === null) continue;
 			}
-
 		}
 
-		if ( res === null ) res = {};
+		if (res === null) res = {};
 		res[p] = sub;
-
 	}
 
 	return res;
-
 }
 
 /**
@@ -59,33 +49,25 @@ export function changes( clone, original ) {
  * @param {Object} dest - destination object.
  * @param {Object} src - source object.
  */
-export function merge( dest, src ) {
-
+export function merge(dest, src) {
 	let nowrite = getNoWrite(dest);
 
-	for( let p in src ) {
-
-		if ( nowrite.has(p) ) continue;
+	for (let p in src) {
+		if (nowrite.has(p)) continue;
 
 		let srcSub = src[p];
 
-		if ( ( typeof srcSub !== 'object' && typeof srcSub !== 'function')
-		|| dest[p] === null || dest[p] === undefined ) {
+		if ((typeof srcSub !== "object" && typeof srcSub !== "function") || dest[p] === null || dest[p] === undefined) {
 			dest[p] = srcSub;
 			continue;
 		}
 
 		let destSub = dest[p];
-		if (  Array.isArray(destSub) ) {
-
-			if ( Array.isArray(srcSub) ) merge( destSub, srcSub );
-			else if ( !destSub.includes(srcSub) ) destSub.push(srcSub);
-
-		} else if ( typeof destSub === 'object') merge( destSub, srcSub );
-
-
+		if (Array.isArray(destSub)) {
+			if (Array.isArray(srcSub)) merge(destSub, srcSub);
+			else if (!destSub.includes(srcSub)) destSub.push(srcSub);
+		} else if (typeof destSub === "object") merge(destSub, srcSub);
 	}
-
 }
 
 /**
@@ -98,46 +80,35 @@ export function merge( dest, src ) {
  * @param {Object} src
  * @param {?Iterable<string>} [exclude=null] iterable of properties to exclude.
  */
-export function mergeSafe( dest, src, exclude=null) {
-
+export function mergeSafe(dest, src, exclude = null) {
 	const nowrite = getNoWrite(dest);
-	if ( exclude ) {
-		for( const p of exclude ) nowrite.add(p);
+	if (exclude) {
+		for (const p of exclude) nowrite.add(p);
 	}
 
 	let svars = src;
 
-	while ( svars !== Object.prototype ) {
-
-		for( const p in svars ) {
-
-			if ( nowrite.has(p) ) continue;
+	while (svars !== Object.prototype) {
+		for (const p in svars) {
+			if (nowrite.has(p)) continue;
 
 			const destSub = dest[p];
 			const srcSub = src[p];
 
-			if ( destSub === undefined ) {
-
-				if ( srcSub !== null && typeof srcSub === 'object' ) {
-					dest[p] = clone( srcSub, Array.isArray(srcSub) ? [] : {} );
-				}
-				else dest[p] = srcSub;
+			if (destSub === undefined) {
+				if (srcSub !== null && typeof srcSub === "object") {
+					dest[p] = clone(srcSub, Array.isArray(srcSub) ? [] : {});
+				} else dest[p] = srcSub;
 
 				continue;
+			} else if (destSub === null) continue;
 
-			} else if ( destSub === null ) continue;
-
-			if ( srcSub && typeof destSub === 'object' && typeof srcSub === 'object') {
-
-				if ( Array.isArray(destSub) === Array.isArray(srcSub) ) mergeSafe( destSub, srcSub );
-
+			if (srcSub && typeof destSub === "object" && typeof srcSub === "object") {
+				if (Array.isArray(destSub) === Array.isArray(srcSub)) mergeSafe(destSub, srcSub);
 			}
-
 		}
 		svars = Object.getPrototypeOf(svars);
-
 	}
-
 }
 
 /**
@@ -148,18 +119,15 @@ export function mergeSafe( dest, src, exclude=null) {
  * @param {Array} a2
  * @returns {Array}
  */
-export function mergeArrays( a1, a2) {
-
+export function mergeArrays(a1, a2) {
 	const a = a1.slice();
 	const len = a2.length;
 
-	for( let i = 0; i < len; i++ ) {
-
+	for (let i = 0; i < len; i++) {
 		const v = a2[i];
-		if ( a1.includes(v) === false ) {
+		if (a1.includes(v) === false) {
 			a.push(v);
 		}
-
 	}
 	return a;
 }
@@ -172,46 +140,36 @@ export function mergeArrays( a1, a2) {
  * @param {?Object} [dest=null] - optional base object of the clone.
  * if set, root object will not be cloned, only subobjects.
  */
-export function cloneChain( src, dest=null ) {
-
+export function cloneChain(src, dest = null) {
 	let o, proto;
 
-	if ( dest === null || dest === undefined ) {
+	if (dest === null || dest === undefined) {
+		if (src.clone && typeof src.clone === "function") return src.clone.call(src);
 
-		if ( src.clone && typeof src.clone === 'function') return src.clone.call(src);
-
-		proto = Object.getPrototypeOf( src );
-		dest = Array.isArray(src) ? [] : ( proto ? Object.create( proto ) : {} );
+		proto = Object.getPrototypeOf(src);
+		dest = Array.isArray(src) ? [] : proto ? Object.create(proto) : {};
 	}
 
 	proto = src;
-	while ( proto !== Object.prototype ) {
-
-		for( const p in proto ) {
-
+	while (proto !== Object.prototype) {
+		for (const p in proto) {
 			o = src[p];
 
-			const def = getPropDesc( dest, p );
-			if ( def && ( !def.writable && def.set === undefined ) ) continue;
+			const def = getPropDesc(dest, p);
+			if (def && !def.writable && def.set === undefined) continue;
 
-			if ( o === null || o === undefined ) dest[p] = o;
-			else if ( typeof o === 'object' ) {
-
-				if ( o.clone && typeof o.clone === 'function' ) dest[p] = o.clone.call( o );
-				else dest[p] = cloneChain( o );
-
+			if (o === null || o === undefined) dest[p] = o;
+			else if (typeof o === "object") {
+				if (o.clone && typeof o.clone === "function") dest[p] = o.clone.call(o);
+				else dest[p] = cloneChain(o);
 			} else dest[p] = o;
-
 		}
 
 		proto = Object.getPrototypeOf(proto);
-
 	}
 
 	return dest;
-
 }
-
 
 /**
  * Performs a deep-clone of an object's own properties and methods.
@@ -223,39 +181,32 @@ export function cloneChain( src, dest=null ) {
  * @param {?Object} [dest=null] - optional base object of the clone.
  * if set, root object will not be cloned, only subobjects.
  */
-export function cloneClass( src, dest=null ) {
-
+export function cloneClass(src, dest = null) {
 	let o;
 
-	if ( dest === null || dest === undefined ) {
+	if (dest === null || dest === undefined) {
+		if (src.clone && typeof src.clone === "function") return src.clone.call(src);
 
-		if ( src.clone && typeof src.clone === 'function') return src.clone.call(src);
-
-		let proto = Object.getPrototypeOf( src );
-		dest = Array.isArray(src) ? [] : ( proto ? Object.create( proto ) : {} );
+		let proto = Object.getPrototypeOf(src);
+		dest = Array.isArray(src) ? [] : proto ? Object.create(proto) : {};
 	}
 
-	for( const p in src ) {
-
+	for (const p in src) {
 		o = src[p];
 
-		const def = getPropDesc( dest, p );
-		if ( def && ( !def.writable && def.set === undefined ) ) {
+		const def = getPropDesc(dest, p);
+		if (def && !def.writable && def.set === undefined) {
 			continue;
 		}
 
-		if ( o === null || o === undefined ) dest[p] = o;
-		else if ( typeof o === 'object' ) {
-
-			if ( o.clone && typeof o.clone === 'function' ) dest[p] = o.clone.call( o );
-			else dest[p] = cloneClass( o );
-
+		if (o === null || o === undefined) dest[p] = o;
+		else if (typeof o === "object") {
+			if (o.clone && typeof o.clone === "function") dest[p] = o.clone.call(o);
+			else dest[p] = cloneClass(o);
 		} else dest[p] = o;
-
 	}
 
 	return dest;
-
 }
 
 /**
@@ -267,33 +218,25 @@ export function cloneClass( src, dest=null ) {
  * @param {object} src - object to clone.
  * @param {object} [dest={}] object to merge cloned values into.
  */
-export function clone( src, dest={} ){
-
-	if ( typeof src.clone === 'function ') {
+export function clone(src, dest = {}) {
+	if (typeof src.clone === "function ") {
 		return src.clone();
 	}
 
 	let o, f;
-	for( let p in src ) {
-
+	for (let p in src) {
 		o = src[p];
-		if ( o === null || o === undefined ) dest[p] = o;
-		else if ( Array.isArray(o) ) {
-
-			dest[p] = clone( o, [] );
-
-		} else if ( typeof o === 'object' ) {
-
-			f = ( o.clone );
-			if ( f && typeof f === 'function' ) dest[p] = f.call( o );
-			else dest[p] = clone( o );
-
+		if (o === null || o === undefined) dest[p] = o;
+		else if (Array.isArray(o)) {
+			dest[p] = clone(o, []);
+		} else if (typeof o === "object") {
+			f = o.clone;
+			if (f && typeof f === "function") dest[p] = f.call(o);
+			else dest[p] = clone(o);
 		} else dest[p] = o;
-
 	}
 
 	return dest;
-
 }
 
 /**
@@ -305,35 +248,29 @@ export function clone( src, dest={} ){
  * @param {Object} base
  * @return {string[]} - array of non-object properties reachable through base.
  */
-export function propPaths( base ) {
-
+export function propPaths(base) {
 	const res = [];
 	const objStack = [];
 	const pathStack = [];
 
-	let path = '';
+	let path = "";
 
-	while ( base ) {
-
-		for( const p in base ) {
-
+	while (base) {
+		for (const p in base) {
 			const sub = base[p];
-			if ( typeof sub === 'object' && !( Array.isArray(sub)) ) {
+			if (typeof sub === "object" && !Array.isArray(sub)) {
 				objStack.push(sub);
-				pathStack.push( path + p + '.' );
+				pathStack.push(path + p + ".");
 				continue;
-			} else res.push( path + p );
-
+			} else res.push(path + p);
 		}
 
 		base = objStack.pop();
-		if ( base === undefined ) break;
+		if (base === undefined) break;
 		path = pathStack.pop();
-
 	}
 
 	return res;
-
 }
 
 /**
@@ -346,27 +283,21 @@ export function propPaths( base ) {
  * in the nonwritable Set result.
  * @returns {Set.<string>} Set of names of unwritable properties.
  */
-export function getNoWrite( obj, includes=null ) {
-
-	const m = new Set( includes );
+export function getNoWrite(obj, includes = null) {
+	const m = new Set(includes);
 
 	let proto = obj;
-	while ( proto !== Object.prototype ) {
-
-		const descs = Object.getOwnPropertyDescriptors( proto );
-		for ( const p in descs ) {
-
+	while (proto !== Object.prototype) {
+		const descs = Object.getOwnPropertyDescriptors(proto);
+		for (const p in descs) {
 			const d = descs[p];
-			if ( (d.writable !== true) && d.set === undefined )  m.add(p);
-
+			if (d.writable !== true && d.set === undefined) m.add(p);
 		}
 
-		proto = Object.getPrototypeOf( proto );
-
+		proto = Object.getPrototypeOf(proto);
 	} // while-loop.
 
 	return m;
-
 }
 
 /**
@@ -378,24 +309,20 @@ export function getNoWrite( obj, includes=null ) {
  * @param {Map}
  * @returns {Map<string,PropertyDescriptor>}
  */
-export function getDescs( obj ) {
-
+export function getDescs(obj) {
 	const m = new Map();
 
 	let proto = obj;
-	while ( proto !== Object.prototype ) {
-
-		const descs = Object.getOwnPropertyDescriptors( proto );
-		for ( const p in descs ) {
-			m.set( p, descs[p]);
+	while (proto !== Object.prototype) {
+		const descs = Object.getOwnPropertyDescriptors(proto);
+		for (const p in descs) {
+			m.set(p, descs[p]);
 		}
 
-		proto = Object.getPrototypeOf( proto );
-
+		proto = Object.getPrototypeOf(proto);
 	} // while-loop.
 
 	return m;
-
 }
 
 /**
@@ -405,55 +332,43 @@ export function getDescs( obj ) {
  * @param {bool} getters - whether to include getter properties.
  * @return {string[]} Array of property names.
  */
-export function getProps( obj, ownData=true, getters=true ) {
-
-	if ( !obj ) return [];
+export function getProps(obj, ownData = true, getters = true) {
+	if (!obj) return [];
 
 	let proto = ownData ? obj : Object.getPrototypeOf(obj);
 
-	let p, props = [];
+	let p,
+		props = [];
 
 	/// fast version for when private variables and getters don't
 	/// have to be ruled out.
-	if ( getters === true ) {
-		while ( proto !== Object.prototype ) {
-
-			for ( p of Object.getOwnPropertyNames(proto)) {
-
-				if ( typeof obj[p] !== 'function') props.push( p );
+	if (getters === true) {
+		while (proto !== Object.prototype) {
+			for (p of Object.getOwnPropertyNames(proto)) {
+				if (typeof obj[p] !== "function") props.push(p);
 			}
 
 			// quick push.
 			//props.push.apply( props, Object.getOwnPropertyNames(proto) );
-			proto = Object.getPrototypeOf( proto );
-
+			proto = Object.getPrototypeOf(proto);
 		} // while-loop.
-
 	} else {
-
-		while ( proto !== Object.prototype ) {
-
-			for ( p of Object.getOwnPropertyNames(proto)) {
-
-				if ( typeof obj[p] === 'function') continue;
-				if ( Object.getOwnPropertyDescriptor(proto, p).get === undefined ) {
-					props.push( p );
+		while (proto !== Object.prototype) {
+			for (p of Object.getOwnPropertyNames(proto)) {
+				if (typeof obj[p] === "function") continue;
+				if (Object.getOwnPropertyDescriptor(proto, p).get === undefined) {
+					props.push(p);
 					//else console.log( 'hiding internal prop: ' + p );
 				} else {
-					if ( getters === true ) props.push(p);
+					if (getters === true) props.push(p);
 				}
-
 			}
-			proto = Object.getPrototypeOf( proto );
-
+			proto = Object.getPrototypeOf(proto);
 		} // while-loop.
-
 	}
 
 	return props;
-
 }
-
 
 /**
  * Determines if array contains any of the given params.
@@ -461,13 +376,11 @@ export function getProps( obj, ownData=true, getters=true ) {
  * @param  {...any} params - arguments to test for inclusion in array.
  * @returns {boolean} - true if at least one param is found in the array.
  */
-export function includesAny( arr, ...params ) {
-
-	for( let i = params.length-1; i>= 0; i-- ) {
-		if ( arr.includes(params[i]) ) return true;
+export function includesAny(arr, ...params) {
+	for (let i = params.length - 1; i >= 0; i--) {
+		if (arr.includes(params[i])) return true;
 	}
 	return false;
-
 }
 
 /**
@@ -475,7 +388,9 @@ export function includesAny( arr, ...params ) {
  * @param {Array} a
  * @returns {*} Random element of array.
  */
-export function randElm( a ) { return a[Math.floor( Math.random()*a.length) ]; }
+export function randElm(a) {
+	return a[Math.floor(Math.random() * a.length)];
+}
 
 /**
  * Return a random element from and array which matches
@@ -484,20 +399,16 @@ export function randElm( a ) { return a[Math.floor( Math.random()*a.length) ]; }
  * @param {(*)=>boolean} pred - predicate test which a picked array element must pass.
  * @returns {*} random element of array which passes predicate.
  */
-export function randMatch( a, pred ) {
-
-	let start = Math.floor( Math.random()*a.length );
+export function randMatch(a, pred) {
+	let start = Math.floor(Math.random() * a.length);
 	let ind = start;
 
 	do {
-
-		if ( pred( a[ind] ) ) return a[ind];
-		ind = --ind >= 0 ? ind : a.length-1;
-
-	} while ( ind !== start );
+		if (pred(a[ind])) return a[ind];
+		ind = --ind >= 0 ? ind : a.length - 1;
+	} while (ind !== start);
 
 	return null;
-
 }
 
 /**
@@ -508,28 +419,24 @@ export function randMatch( a, pred ) {
  * @returns {Object.<string|number,Array>} An object containing arrays
  * of sub-objects with matching property values.
  */
-export function sublists( arr, indexer ) {
-
+export function sublists(arr, indexer) {
 	const lists = {};
 
-	const func = ((typeof indexer) === 'function');
+	const func = typeof indexer === "function";
 
-	for( const i in arr ) {
-
+	for (const i in arr) {
 		const sub = arr[i];
-		if ( sub === null || sub === undefined ) continue;
+		if (sub === null || sub === undefined) continue;
 
 		const ind = func ? func(sub) : sub[indexer];
 
 		let list = lists[ind];
-		if ( list === null || list === undefined ) lists[ind] = list = [];
+		if (list === null || list === undefined) lists[ind] = list = [];
 
 		list.push(sub);
-
 	}
 
 	return lists;
-
 }
 
 /**
@@ -540,27 +447,19 @@ export function sublists( arr, indexer ) {
  * @param {Object} obj - Object to assign properties for.
  * @param {*} [defaultVal=null] - Value to assign to undefined properties.
  */
-export function defineVars( obj, defaultVal=null ) {
-
-	if ( !obj ) return;
+export function defineVars(obj, defaultVal = null) {
+	if (!obj) return;
 	let proto = obj;
 
-	while ( proto !== Object.prototype ) {
-
-		for ( let p of Object.getOwnPropertyNames(proto)) {
-
-			if ( obj[p] !== undefined ) continue;
-			if ( Object.getOwnPropertyDescriptor(proto, p).set !== undefined ) {
-
+	while (proto !== Object.prototype) {
+		for (let p of Object.getOwnPropertyNames(proto)) {
+			if (obj[p] !== undefined) continue;
+			if (Object.getOwnPropertyDescriptor(proto, p).set !== undefined) {
 				obj[p] = defaultVal;
-
 			}
-
 		}
-		proto = Object.getPrototypeOf( proto );
-
+		proto = Object.getPrototypeOf(proto);
 	} // while-loop.
-
 }
 
 /**
@@ -572,28 +471,20 @@ export function defineVars( obj, defaultVal=null ) {
  * @param {*} [defaultVal=null] - Value to assign to undefined properties.
  * @param {?Set.<string>} exclude - Set of properties to skip.
  */
-export function defineExcept( obj, defaultVal=null, exclude=null ) {
-
-	if ( !obj ) return;
-	if ( !exclude) exclude = EmptySet;
+export function defineExcept(obj, defaultVal = null, exclude = null) {
+	if (!obj) return;
+	if (!exclude) exclude = EmptySet;
 	let proto = obj;
 
-	while ( proto !== Object.prototype ) {
-
-		for ( let p of Object.getOwnPropertyNames(proto)) {
-
-			if ( exclude.has(p) || obj[p] !== undefined ) continue;
-			if ( Object.getOwnPropertyDescriptor(proto, p).set !== undefined ) {
-
+	while (proto !== Object.prototype) {
+		for (let p of Object.getOwnPropertyNames(proto)) {
+			if (exclude.has(p) || obj[p] !== undefined) continue;
+			if (Object.getOwnPropertyDescriptor(proto, p).set !== undefined) {
 				obj[p] = defaultVal;
-
 			}
-
 		}
-		proto = Object.getPrototypeOf( proto );
-
+		proto = Object.getPrototypeOf(proto);
 	} // while-loop.
-
 }
 
 /**
@@ -603,14 +494,12 @@ export function defineExcept( obj, defaultVal=null, exclude=null ) {
  * @property {string[]} props - props to set.
  * @property {*} [defaultVal=null] - default value to use.
  */
-export const ensure = ( obj, props, defaultVal=null ) => {
-
-	for( let i = props.length-1; i>= 0; i-- ) {
+export const ensure = (obj, props, defaultVal = null) => {
+	for (let i = props.length - 1; i >= 0; i--) {
 		let s = props[i];
-		if ( !obj.hasOwnProperty(s) ) obj[s] = defaultVal;
+		if (!obj.hasOwnProperty(s)) obj[s] = defaultVal;
 	}
-
-}
+};
 
 /**
  * Searches an object's prototype chain for a property descriptor.
@@ -619,16 +508,12 @@ export const ensure = ( obj, props, defaultVal=null ) => {
  * @returns {PropertyDescriptor|null}
  */
 export function getPropDesc(obj, k) {
-
 	while (obj !== Object.prototype) {
-
 		const desc = Object.getOwnPropertyDescriptor(obj, k);
 		if (desc) return desc;
 		obj = Object.getPrototypeOf(obj);
-
 	}
 	return null;
-
 }
 
 /**
@@ -640,24 +525,19 @@ export function getPropDesc(obj, k) {
  * @param {string[]} [exclude=null] - Array of properties not to copy from src to dest.
  * @returns {Object} the destination object.
  */
-export function assignChain(dest, src, exclude = null ) {
-
-	let nowrite = getNoWrite(dest, exclude );
+export function assignChain(dest, src, exclude = null) {
+	let nowrite = getNoWrite(dest, exclude);
 
 	let svars = src;
-	while ( svars !== Object.prototype ) {
-
-		for (let p of Object.getOwnPropertyNames(svars) ) {
-
-			if ( nowrite.has(p) !== true ) dest[p] = src[p];
-
+	while (svars !== Object.prototype) {
+		for (let p of Object.getOwnPropertyNames(svars)) {
+			if (nowrite.has(p) !== true) dest[p] = src[p];
 		} //for
 
 		svars = Object.getPrototypeOf(svars);
 	}
 
 	return dest;
-
 }
 
 /**
@@ -669,21 +549,16 @@ export function assignChain(dest, src, exclude = null ) {
  * @returns {Object} the destination object.
  */
 export function assignDefined(dest, src, exclude = null) {
-
-	for (const p in src ) {
-
+	for (const p in src) {
 		if (exclude && exclude.has(p)) continue;
-		const desc = getPropDesc(dest, p );
+		const desc = getPropDesc(dest, p);
 
-		if ( desc === null || (desc.set === undefined && !desc.writable )) continue;
+		if (desc === null || (desc.set === undefined && !desc.writable)) continue;
 
 		dest[p] = src[p];
-
 	} //for
 
-
 	return dest;
-
 }
 
 /**
@@ -695,18 +570,14 @@ export function assignDefined(dest, src, exclude = null) {
  * @param {string[]} [exclude=null] - Array of properties not to copy from src to dest.
  * @returns {Object} the destination object.
  */
-export function assign(dest, src, exclude = null ) {
+export function assign(dest, src, exclude = null) {
+	let nowrite = getNoWrite(dest, exclude);
 
-	let nowrite = getNoWrite(dest, exclude );
-
-	for ( let p of Object.getOwnPropertyNames(src) ) {
-
-		if ( nowrite.has(p) !== true ) dest[p] = src[p];
-
+	for (let p of Object.getOwnPropertyNames(src)) {
+		if (nowrite.has(p) !== true) dest[p] = src[p];
 	} //for
 
 	return dest;
-
 }
 
 /**
@@ -716,65 +587,51 @@ export function assign(dest, src, exclude = null ) {
  * @param {Iterable.<string>} [includes=null] - Iterable with keys to always encode. Includes take precedence over excludes.
  * @param {bool} [writableOnly=true] - Whether to only include writable properties / exclude read-only properties.
  */
-export function jsonify(obj, excludes=null, includes=null, writableOnly = true) {
-
+export function jsonify(obj, excludes = null, includes = null, writableOnly = true) {
 	const r = {};
 	let p, sub;
 
-	if ( excludes == null ) excludes = EmptySet;
+	if (excludes == null) excludes = EmptySet;
 	if (includes) {
-
-		for( p of includes ) {
-
+		for (p of includes) {
 			sub = obj[p];
-			if ( sub === undefined ) continue;
-			else if ( typeof sub === 'object' && sub !== null && sub.toJSON ) r[p] = sub.toJSON();
+			if (sub === undefined) continue;
+			else if (typeof sub === "object" && sub !== null && sub.toJSON) r[p] = sub.toJSON();
 			else r[p] = sub;
-
 		}
 	}
 
 	let proto = Object.getPrototypeOf(obj);
 	while (proto != Object.prototype) {
-
-		for ( p of Object.getOwnPropertyNames(proto)) {
-
-			if ( excludes.has(p) ) continue;
+		for (p of Object.getOwnPropertyNames(proto)) {
+			if (excludes.has(p)) continue;
 
 			const desc = Object.getOwnPropertyDescriptor(proto, p);
 			if (writableOnly && desc.set === undefined && !desc.writable) continue;
 
 			sub = obj[p];
-			if ( sub === undefined || typeof sub === 'function') continue;
-			else if ( typeof sub === 'object' && sub !== null && sub.toJSON ) r[p] = sub.toJSON();
+			if (sub === undefined || typeof sub === "function") continue;
+			else if (typeof sub === "object" && sub !== null && sub.toJSON) r[p] = sub.toJSON();
 			else r[p] = sub;
-
 		}
 
 		proto = Object.getPrototypeOf(proto);
-
 	} //
 
 	return r;
-
 }
 
 /**
  * Recursively freeze an object and all descendents.
  * @param {object} obj
  */
-export function freeze( obj ) {
-
+export function freeze(obj) {
 	let sub;
-	for( const p in obj ){
-
+	for (const p in obj) {
 		sub = obj[p];
-		if ( typeof sub === 'object' && sub !== null && !Object.isFrozen(sub) ) freeze(sub);
-		else Object.freeze( sub );
-
+		if (typeof sub === "object" && sub !== null && !Object.isFrozen(sub)) freeze(sub);
+		else Object.freeze(sub);
 	}
 
-	return Object.freeze( obj );
-
+	return Object.freeze(obj);
 }
-

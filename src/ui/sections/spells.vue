@@ -18,7 +18,7 @@ export default {
 				keywords: [],
 				spellsBySearch: null,
 			},
-			Settings.getSubVars("spells")
+			Settings.getSubVars("spells"),
 		);
 	},
 
@@ -30,7 +30,6 @@ export default {
 	},
 
 	created() {
-
 		// trim saved schools
 		const spells = this.spells;
 		const schools = {};
@@ -82,99 +81,85 @@ export default {
 
 			let anyOpen = false;
 
-			for (let i = 0; i < spells.length; i++)
-				anyOpen ||= !this.schools[spells[i].school]
+			for (let i = 0; i < spells.length; i++) anyOpen ||= !this.schools[spells[i].school];
 
-			for (let i = 0; i < spells.length; i++)
-				this.schools[spells[i].school] = anyOpen;
+			for (let i = 0; i < spells.length; i++) this.schools[spells[i].school] = anyOpen;
 
 			Settings.setSubVar("spells", "schools", this.schools);
 		},
 
 		getSpellOrder(spell) {
-			if (!spell.template)
-				return -9999;
+			if (!spell.template) return -9999;
 			return spell.sortOrder ?? 9999;
 		},
 
 		searchSpell(spell, target) {
-			const groups = target.split('|');
+			const groups = target.split("|");
 			for (let i = 0; i < groups.length; i++) {
-				if (groups[i].length == 0)
-					continue;
-				const mandatory = groups[i].split(' ');
+				if (groups[i].length == 0) continue;
+				const mandatory = groups[i].split(" ");
 				let passed = true;
 				for (let j = 0; j < mandatory.length; j++) {
-					if (mandatory[j].length == 0)
-						continue;
-					if (this.crawlSpell(spell, new RegExp(mandatory[j], "i")))
-						continue;
+					if (mandatory[j].length == 0) continue;
+					const term = mandatory[j].replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
+					if (this.crawlSpell(spell, new RegExp(term, "i"))) continue;
 					passed = false;
 					break;
 				}
-				if (passed)
-					return true;
+				if (passed) return true;
 			}
 			return false;
 		},
 		crawlSpell(spell, regex) {
-			if (spell.template)
-				return this.crawlTemplate(spell.template, regex);
+			if (spell.template) return this.crawlTemplate(spell.template, regex);
 			const items = spell.items;
-			for (let i = 0; i < items.length; i++)
-				if (this.crawlSpell(items[i], regex))
-					return true;
+			for (let i = 0; i < items.length; i++) if (this.crawlSpell(items[i], regex)) return true;
 			return false;
 		},
 		crawlTemplate(template, regex) {
-			if (template.dot && regex.test("buffs"))
-				return true;
-			if (template.summon && regex.test("summons"))
-				return true;
-			if (template.cost)
-				for (let c in template.cost)
-					if (this.crawlProperty(c, regex))
-						return true;
+			if (template.dot && regex.test("buffs")) return true;
+			if (template.summon && regex.test("summons")) return true;
+			if (template.cost) for (let c in template.cost) if (this.crawlProperty(c, regex)) return true;
 
 			for (let k in template) {
-				if (k == "desc" || k == "flavor" || k == "require" || k == "buy" || k == "cost" || k == "need" || k == "needtext")
+				if (
+					k == "desc" ||
+					k == "flavor" ||
+					k == "require" ||
+					k == "buy" ||
+					k == "cost" ||
+					k == "need" ||
+					k == "needtext"
+				)
 					continue;
-				if (this.crawlProperty(template[k], regex))
-					return true;
+				if (this.crawlProperty(template[k], regex)) return true;
 			}
 			return false;
 		},
 		crawlObject(obj, regex) {
 			for (let k in obj) {
-				if (this.crawlProperty(k, regex))
-					return true;
-				if (this.crawlProperty(obj[k], regex))
-					return true;
+				if (this.crawlProperty(k, regex)) return true;
+				if (this.crawlProperty(obj[k], regex)) return true;
 			}
 			return false;
 		},
 		crawlProperty(prop, regex) {
-			const type = typeof (prop);
-			if (type == "object" || type == "array")
-				return this.crawlObject(prop, regex);
+			const type = typeof prop;
+			if (type == "object" || type == "array") return this.crawlObject(prop, regex);
 
-			if (type != "string")
-				prop = prop.toString();
+			if (type != "string") prop = prop.toString();
 			const split = prop.split(/\.|=|<|>|!|,|&&|\|\||\(|\)|\+|\-|'/);
 			for (let i = 0; i < split.length; i++) {
 				const str = split[i];
-				if (/^[0-9\*\~\%]*$/.test(str))
-					continue;
+				if (/^[0-9\*\~\%]*$/.test(str)) continue;
 				if (/^[a-zA-Z0-9_ ]*$/.test(str)) {
 					const data = Game.state.getData(str);
 					if (data) {
-						if (regex.test(data.name))
-							return true;
+						if (regex.test(data.name)) return true;
 						continue;
 					}
 				}
-				if (regex.test(str))
-					return true;
+				if (regex.test(str)) return true;
 			}
 			return false;
 		},
@@ -182,14 +167,11 @@ export default {
 		testSpellKeywords(spell, keywords) {
 			if (!spell.template) {
 				const items = spell.items;
-				for (let i = 0; i < items.length; i++)
-					if (this.testSpellKeywords(items[i], keywords))
-						return true;
+				for (let i = 0; i < items.length; i++) if (this.testSpellKeywords(items[i], keywords)) return true;
 				return false;
 			}
 
-			if (!spell.keywords)
-				return false;
+			if (!spell.keywords) return false;
 
 			for (let i = 0; i < keywords.length; i++) {
 				const keyword = keywords[i];
@@ -197,30 +179,41 @@ export default {
 				for (let k in spell.keywords) {
 					passed ||= spell.keywords[k].includes(keyword);
 				}
-				if (!passed)
-					return false;
+				if (!passed) return false;
 			}
 			return true;
-		}
+		},
 	},
 
 	computed: {
 		// filters
 		minLevel: {
-			get() { return this.min; },
-			set(v) { this.min = Settings.setSubVar("spells", "min", Number(v)); },
+			get() {
+				return this.min;
+			},
+			set(v) {
+				this.min = Settings.setSubVar("spells", "min", Number(v));
+			},
 		},
 		varKeywords: {
-			get() { return this.keywords; },
-			set(v) { this.keywords = Settings.setSubVar("spells", "keywords", v); },
+			get() {
+				return this.keywords;
+			},
+			set(v) {
+				this.keywords = Settings.setSubVar("spells", "keywords", v);
+			},
 		},
 
 		// spell funnel
-		state() { return Game.state; },
+		state() {
+			return Game.state;
+		},
 
 		// filter out locked spells
 		spells() {
-			return this.state.filterItems((it) => it.type === "spell" && !this.locked(it)).sort((a, b) => this.getSpellOrder(a) - this.getSpellOrder(b));
+			return this.state
+				.filterItems(it => it.type === "spell" && !this.locked(it))
+				.sort((a, b) => this.getSpellOrder(a) - this.getSpellOrder(b));
 		},
 
 		// compute avilable keywords
@@ -231,27 +224,27 @@ export default {
 					recovery: false,
 					buff: false,
 					debuff: false,
-					summon: false
+					summon: false,
 				},
 				target: {
 					self: false,
 					ally: false,
-					enemy: false
+					enemy: false,
 				},
 				targets: {
 					single: false,
-					multiple: false
+					multiple: false,
 				},
 				delivery: {
 					instant: false,
-					"over time": false
+					"over time": false,
 				},
 				special: {
 					explore: false,
 					resource: false,
 					weapon: false,
-					stance: false
-				}
+					stance: false,
+				},
 			};
 
 			const spells = this.spells;
@@ -260,18 +253,14 @@ export default {
 				for (let k in keywords) {
 					const group = result[k] ?? (result[k] = {});
 					const array = keywords[k];
-					for (let j = 0; j < array.length; j++)
-						group[array[j]] = true;
+					for (let j = 0; j < array.length; j++) group[array[j]] = true;
 				}
 			}
 
 			for (let k1 in result) {
 				const group = result[k1];
-				for (let k2 in group)
-					if (!group[k2])
-						delete group[k2];
-				if (Object.keys(group).length == 0)
-					delete result[k1];
+				for (let k2 in group) if (!group[k2]) delete group[k2];
+				if (Object.keys(group).length == 0) delete result[k1];
 			}
 
 			return result;
@@ -282,8 +271,7 @@ export default {
 			const spells = this.spells;
 			const keywords = this.keywords;
 
-			if (!keywords || keywords.length == 0)
-				return spells;
+			if (!keywords || keywords.length == 0) return spells;
 			return spells.filter(spell => this.testSpellKeywords(spell, keywords));
 		},
 
@@ -292,12 +280,8 @@ export default {
 			const spells = this.spellsByKeywords;
 			const level = this.minLevel;
 
-			if (!level)
-				return spells;
-
-			return spells.filter(
-				(v) => (!level || v.level === level)
-			);
+			if (!level) return spells;
+			return spells.filter(v => !level || v.level.valueOf() === level);
 		},
 
 		/* filterbox happens here */
@@ -319,7 +303,9 @@ export default {
 		},
 
 		// spelllist pass-through
-		list() { return Game.state.spelllist; },
+		list() {
+			return Game.state.spelllist;
+		},
 
 		currentSpellLoadout() {
 			if (!Game.state.currentSpellLoadout) {
@@ -358,9 +344,15 @@ export default {
 			</div>
 
 			<div class="keywordcontainer">
-				<div class="keywords" v-for="(arr, gr) in allKeywords" :key="gr" v-if="showKeywords"
+				<div
+					class="keywords"
+					v-for="(arr, gr) in allKeywords"
+					:key="gr"
+					v-if="showKeywords"
 					:style="{ 'min-width': Object.keys(arr).length * 9 + '%' }">
-					<div class="keytitle"><b>{{ gr }}</b></div>
+					<div class="keytitle">
+						<b>{{ gr }}</b>
+					</div>
 					<div class="keywordgroup">
 						<div class="checks" v-for="(_, k) in arr" :key="k">
 							<input type="checkbox" :value="k" :id="elmId('chk' + k)" v-model="varKeywords" />
@@ -379,17 +371,26 @@ export default {
 				<input type="checkbox" :value="k" :id="elmId('chk' + k)" v-model="viewSchools" />
 				<label :for="elmId('chk' + k)">{{ k.toTitleCase() }}</label>
 			</div> -->
-
 		</div>
 
 		<div class="bottom">
 			<div class="spellbook">
-				<spellschool v-for="(v, k) in spellBySchools" :spells="v" :school="k" :key="k" :isOpen="!schools[k]"
+				<spellschool
+					v-for="(v, k) in spellBySchools"
+					:spells="v"
+					:school="k"
+					:key="k"
+					:isOpen="!schools[k]"
 					@toggle-open="toggleSchool" />
 			</div>
 
-			<spelllist v-show="showList" class="spelllist" :list="list" :topTier="topTier"
-				:spellLoadouts="spellLoadouts" :currentSpellLoadout="currentSpellLoadout" />
+			<spelllist
+				v-show="showList"
+				class="spelllist"
+				:list="list"
+				:topTier="topTier"
+				:spellLoadouts="spellLoadouts"
+				:currentSpellLoadout="currentSpellLoadout" />
 		</div>
 	</div>
 </template>
@@ -481,7 +482,6 @@ div.spells div.filters div {
 	box-sizing: border-box;
 	margin: 0;
 }
-
 
 div.spells div.filters div.checks {
 	margin: 0;

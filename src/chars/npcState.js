@@ -1,14 +1,13 @@
-import { cloneClass, mergeSafe } from '@/util/objecty';
-import { freezeData } from '@/util/util';
-import { GDataDescAssigner } from '@/items/gdata';
-import { PrepData } from '@/modules/parsing';
-import { toRaw } from 'vue';
+import { cloneClass, mergeSafe } from "@/util/objecty";
+import { freezeData } from "@/util/util";
+import { GDataDescAssigner } from "@/items/gdata";
+import { PrepData } from "@/modules/parsing";
+import { toRaw } from "vue";
 
 /**
  * Proxy GameState for Npcs
  */
 export class NpcState {
-
 	toJSON() {
 		let data = {};
 		this.npcItems.forEach((value, key) => {
@@ -21,7 +20,6 @@ export class NpcState {
 	}
 
 	constructor(gs, caster, data) {
-
 		this.state = gs;
 		this.self = caster;
 
@@ -39,10 +37,10 @@ export class NpcState {
 			 *   4. Instance it by passing the data into the constructor of the item being copied
 			 *   5. Overwrite the template on the copy with the original (Since the template on the original is the frozen raw, whereas the copy's might not be)
 			 *   6. Once *everything* is instanced, revive
-			 * 
+			 *
 			 * Post DataLoader stuff
 			 *   7. Restore mods (happens in game's load function)
-			 *  
+			 *
 			 * @note Tagsets may become an issue in the future...
 			 */
 			let it = this.state.getData(prop, false);
@@ -68,9 +66,9 @@ export class NpcState {
 				let copy = new it.constructor(dataCopy);
 				// Only adjust template if it isn't a recipe, so that items instanced from this context can still saved with modified data
 				if (it.isRecipe) {
-					// Mainly for monster. Tells the Monster's revive function to use Game's copy of its stateTemplate instead of its own generated one. 
+					// Mainly for monster. Tells the Monster's revive function to use Game's copy of its stateTemplate instead of its own generated one.
 					copy.subInstance = true;
-					// Need to save template, for saving edited values, and instance template, to properly edit values from state. 
+					// Need to save template, for saving edited values, and instance template, to properly edit values from state.
 					copy.template = template;
 					copy.instTemplate = instTemplate;
 				} else {
@@ -86,7 +84,6 @@ export class NpcState {
 				}
 			}
 		}
-
 	}
 
 	//get player(){return this.self; }
@@ -107,54 +104,50 @@ export class NpcState {
 		return null;
 	}
 
-	getUnique(id) { return this.state.getUnique(id) }
+	getUnique(id) {
+		return this.state.getUnique(id);
+	}
 
 	findData(id, any = false) {
 		return this.getData(p);
 	}
 
-	hasUnique(id) { return false }
-
-
+	hasUnique(id) {
+		return false;
+	}
 
 	/**
 	 *
 	 * @param {string} p
 	 */
 	getData(p, create = true, elevate = true) {
-
 		// appears to be check for special variables defined on state directly;
 		// e.g. explore. @todo many issues with this.
-		if (p === 'self') {
+		if (p === "self") {
 			return this.self;
 		} else if (this.state[p]) return this.state[p];
 
 		let it = this.npcItems.get(p);
 		if (it !== undefined) return it;
 
-
 		if (elevate) {
 			it = this.state.getData(p, false, elevate);
 			if (it) {
-
 				return it.isRecipe || !create ? it : this.makeNpcItem(p, it);
-
 			}
 		}
 
 		return null;
-
 	}
 
 	makeNpcItem(p, data) {
-
 		let copy;
 
 		if (data.template) {
 			copy = cloneClass(data.template);
 			copy = PrepData(copy, data.id);
 		} else {
-			console.warn(`No template for ${data.id}. Directly copying data.`)
+			console.warn(`No template for ${data.id}. Directly copying data.`);
 			copy = cloneClass(data, {});
 		}
 
@@ -163,7 +156,7 @@ export class NpcState {
 		}
 
 		if (copy == null) {
-			console.log('NPC: Cant create: ' + p);
+			console.log("NPC: Cant create: " + p);
 			copy = data;
 		} else {
 			copy.template = data.template;
@@ -182,5 +175,4 @@ export class NpcState {
 			if (it.revive instanceof Function) it.revive(this);
 		});
 	}
-
 }

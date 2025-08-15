@@ -1,0 +1,123 @@
+{
+	"module": "sublimation",
+	"author": "malthanis",
+	"email": "",
+	"git": "",
+	"data": {
+		"tasks": [
+			{
+				"id": "sublore",
+				"name": "sublimate lore",
+				"max": 10,
+				"desc": "Build a metaphysical array anchored to your very soul, reinforcing your magical aptitude.",
+				"require": "g.codices.max>=10&&g.crafting>=3&&g.tier0>0",
+				"cost": {
+					"scrolls": 8,
+					"codices": 2
+				},
+				"at": {
+					"10": {
+						"cost.scrolls": 1,
+						"cost.codices": 1
+					},
+					"11": {
+						"mod.research.max": 1
+					},
+					"20": {
+						"cost.scrolls": -1,
+						"cost.codices": 1,
+						"cost.tomes": 1
+					},
+					"21": {
+						"mod.research.max": 2
+					},
+					"30": {
+						"cost.scrolls": -1,
+						"cost.codices": 1,
+						"cost.tomes": 1
+					},
+					"31": {
+						"mod.research.max": 2
+					},
+					"40": {
+						"cost.scrolls": -1,
+						"cost.codices": 1,
+						"cost.tomes": 1,
+						"cost.runestones": 2
+					},
+					"41": {
+						"mod.research.max": 3
+					},
+					"50": {
+						"cost.scrolls": -1,
+						"cost.codices": 1,
+						"cost.tomes": 2,
+						"cost.runestones": 2
+					},
+					"51": {
+						"mod.research.max": 5
+					},
+					"60": {
+						"cost.scrolls": -1,
+						"cost.codices": 1,
+						"cost.tomes": 2,
+						"cost.runestones": 2
+					},
+					"61": {
+						"mod.research.max": 8
+					}
+				},
+				"mod": {
+					"research.max": 2
+				},
+				"group": "sublimation"
+			}
+		],
+		"glossaryentries": [
+			{
+				"id": "sublimation_mustytome",
+				"name": "Musty Tome",
+				"group": "sublimation",
+				"tags": "t_sublore",
+				"desc": [
+					"",
+					"An old tome found under piles of your Master's discarded projects. At some point, it boasted several locks holding it shut. The damp environment of the cellar and time have reduced the locks to dust.",
+					"",
+					"It describes some sort of self-empowering process a wizard may undertake to further bolster their powers.",
+					"Perhaps this warrants further investigation after graduation, when you can be away from your Master's prying eyes..."
+				],
+				"require": "g.tier7>0"
+			}
+		],
+		"upgrades": [
+			{
+				"id": "crystallizedthoughts",
+				"name": "crystallized thoughts",
+				"tags": "t_sublore,t_sublore_t0",
+				"desc": "Crystallize your soul array, improving your ability to absorb arcane knowledge and energies.",
+				"require": "g.sublore>=10&&g.tier7>0",
+				"warn": true,
+				"lock": ["t_sublore_t0"],
+				"cost": {
+					"research": 750,
+					"mana": 10,
+					"arcana": 7
+				},
+				"mod": {
+					"crystalmind.mod.sublore.mod.arcana.rate": "0.002"
+				},
+				"group": "sublimation"
+			}
+		],
+		"tags": [
+			{
+				"id": "t_sublore",
+				"name": "Sublimation"
+			},
+			{
+				"id": "t_sublore_t0",
+				"name": "Sublimation - First Step"
+			}
+		]
+	}
+}

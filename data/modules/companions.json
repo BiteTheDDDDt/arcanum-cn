@@ -4,11 +4,11 @@
 		"monsters": [
 			{
 				"id": "bearcomp",
-				"tags": "t_animalcompanion",
+				"tags": "t_animalcompanion,t_summon_beast",
 				"slot": "companion",
 				"require": "g.animalfriend>0",
 				"name": "bear companion",
-				"level": 10,
+				"level": 20,
 				"onSummon": {
 					"name": "bristle",
 					"targets": "self",
@@ -33,18 +33,18 @@
 						"dot": {
 							"%": "10%",
 							"duration": 5,
-							"id": "stun"
+							"id": "paralyze"
 						}
 					}
 				]
 			},
 			{
 				"id": "lynxcomp",
-				"tags": "t_animalcompanion",
+				"tags": "t_animalcompanion,t_summon_beast",
 				"slot": "companion",
 				"require": "g.animalfriend>0",
 				"name": "lynx companion",
-				"level": 10,
+				"level": 20,
 				"onSummon": {
 					"name": "stalking",
 					"targets": "self",
@@ -77,11 +77,11 @@
 			},
 			{
 				"id": "wolfcomp",
-				"tags": "t_animalcompanion",
+				"tags": "t_animalcompanion,t_summon_beast",
 				"slot": "companion",
 				"require": "g.animalfriend>0",
 				"name": "wolf companion",
-				"level": 10,
+				"level": 20,
 				"kind": "animal",
 				"noproc": true,
 				"speed": 20,
@@ -110,7 +110,7 @@
 			},
 			{
 				"id": "squirrelcomp",
-				"tags": "t_animalcompanion",
+				"tags": "t_animalcompanion,t_summon_beast",
 				"slot": "companion",
 				"require": "g.animalfriend>0",
 				"name": "squirrel companion",
@@ -124,7 +124,7 @@
 					}
 				},
 				"chaincast": 1,
-				"level": 10,
+				"level": 20,
 				"kind": "animal",
 				"noproc": true,
 				"speed": 15,
@@ -152,7 +152,7 @@
 				"id": "sqrl_taunt",
 				"tags": "t_animalcompanion",
 				"name": "feisty squirrel",
-				"level": 10,
+				"level": 20,
 				"kind": "animal",
 				"onSummon": {
 					"name": "jeering",
@@ -184,7 +184,7 @@
 				"id": "sqrl_nohit",
 				"tags": "t_animalcompanion",
 				"name": "see no squirrel",
-				"level": 10,
+				"level": 20,
 				"kind": "animal",
 				"noproc": true,
 				"speed": 15,
@@ -216,7 +216,7 @@
 				"id": "sqrl_nododge",
 				"tags": "t_animalcompanion",
 				"name": "ankle biter",
-				"level": 10,
+				"level": 20,
 				"kind": "animal",
 				"noproc": true,
 				"speed": 15,

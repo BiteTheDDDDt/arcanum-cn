@@ -1,18 +1,13 @@
-import { assignNoFunc } from '@/util/util';
-import { cloneClass } from '@/util/objecty';
-import Stat from '@/values/rvals/stat';
-import {
-	TARGET_ALLIES, TARGET_ALLY, TARGET_SELF,
-	ParseTarget, ParseDmg, GetTarget, TARGET_RAND_ALLY, TARGET_MINION, TARGET_MINIONS
-} from '@/values/combatVars';
-import { processDot } from '@/values/combatVars';
+import { assignNoFunc } from "@/util/util";
+import { cloneClass } from "@/util/objecty";
+import Stat from "@/values/rvals/stat";
+import { ParseTarget, ParseDmg, GetTarget, Targets } from "@/values/combatVars";
+import { processDot } from "@/values/combatVars";
+import { MakeEffectFunc, ParseEffects } from "@/modules/parsing";
 
 export default class Attack {
-
 	toJSON() {
-
 		return {
-
 			name: this.name,
 			dmg: this.damage || undefined,
 			heal: this.healing || undefined,
@@ -25,48 +20,52 @@ export default class Attack {
 			targets: this.targets || undefined,
 			targetstring: this.targetstring || undefined,
 			result: this.result || undefined,
+			acquire: this.acquire || undefined,
 			id: this.id,
 			dot: this.dot,
 			repeathits: this.repeathits,
 			targetspec: this.targetspec,
 			showinstanced: this.showinstanced || undefined,
-			potencies: this.potencies
-
+			potencies: this.potencies,
 		};
-
 	}
 
 	/**
 	 * @property {object|object[]}
 	 */
-	get dot() { return this._dot; }
+	get dot() {
+		return this._dot;
+	}
 	set dot(v) {
 		this._dot = v;
 	}
 
-	get id() { return this._id || this._name; }
+	get id() {
+		return this._id || this._name;
+	}
 	set id(v) {
 		this._id = v;
 
 		if (this._hits) {
 			for (let i = this._hits.length - 1; i >= 0; i--) if (!this._hits[i].id) this._hits[i].id = v;
 		}
-
 	}
 
-	get name() { return this._name; }
+	get name() {
+		return this._name;
+	}
 	set name(v) {
 		this._name = v;
 
 		if (this._hits) {
 			for (let i = this._hits.length - 1; i >= 0; i--) if (!this._hits[i].name) this._hits[i].name = v;
 		}
-
 	}
 
-	get kind() { return this._kind; }
+	get kind() {
+		return this._kind;
+	}
 	set kind(k) {
-
 		this._kind = k;
 		if (this.dot) {
 			if (!this.dot.kind) this.dot.kind = k;
@@ -74,96 +73,125 @@ export default class Attack {
 		if (this._hits) {
 			for (let i = this._hits.length - 1; i >= 0; i--) if (!this._hits[i].kind) this._hits[i].kind = k;
 			if (this._hits.dot) {
-				for (let i = this._hits.length - 1; i >= 0; i--) if (!this._hits[i].dot.kind) this._hits[i].dot.kind = this._hits[i].kind;
+				for (let i = this._hits.length - 1; i >= 0; i--)
+					if (!this._hits[i].dot.kind) this._hits[i].dot.kind = this._hits[i].kind;
 			}
 		}
-
-
 	}
 
 	/**
 	 * @property {string[]} state - states to cure/remove from target.
 	 */
-	get state() { return this._state; }
+	get state() {
+		return this._state;
+	}
 	set state(v) {
-		if (typeof v === 'string') this._state = v.split(',');
+		if (typeof v === "string") this._state = v.split(",");
 		else this._state = v;
 	}
 
 	/**
 	 * @property {string[]} cure - states to cure/remove from target.
 	 */
-	get cure() { return this._cure; }
+	get cure() {
+		return this._cure;
+	}
 	set cure(v) {
-		if (typeof v === 'string') this._cure = v.split(',');
+		if (typeof v === "string") this._cure = v.split(",");
 		else this._cure = v;
 	}
 
 	/**
 	 * @property {string} targets - target of attack.
 	 */
-	get targetstring() { return this._targetstring; }
+	get targetstring() {
+		return this._targetstring;
+	}
 	set targetstring(v) {
 		this._targetstring = v;
 	}
-	get targets() { return this._targets; }
+	get targets() {
+		return this._targets;
+	}
 	set targets(v) {
-
-		if (typeof v === 'string') {
+		if (typeof v === "string") {
 			this._targetstring = v;
 			this._targets = ParseTarget(v);
 			if (this._hits) {
-				for (let i = this._hits.length - 1; i >= 0; i--) if (!this._hits[i].targets) this._hits[i].targets = ParseTarget(v);
-				for (let i = this._hits.length - 1; i >= 0; i--) if (!this._hits[i].targetstring) this._hits[i].targetstring = v;
+				for (let i = this._hits.length - 1; i >= 0; i--)
+					if (!this._hits[i].targets) this._hits[i].targets = ParseTarget(v);
+				for (let i = this._hits.length - 1; i >= 0; i--)
+					if (!this._hits[i].targetstring) this._hits[i].targetstring = v;
 			}
-		}
-		else {
+		} else {
 			this._targetstring = GetTarget(v);
 			this._targets = v;
 			if (this._hits) {
 				for (let i = this._hits.length - 1; i >= 0; i--) if (!this._hits[i].targets) this._hits[i].targets = v;
-				for (let i = this._hits.length - 1; i >= 0; i--) if (!this._hits[i].targetstring) this._hits[i].targetstring = v;
+				for (let i = this._hits.length - 1; i >= 0; i--)
+					if (!this._hits[i].targetstring) this._hits[i].targetstring = v;
 			}
 		}
-
 	}
 
 	/**
 	 * @property {Stat} bonus - bonus damage applied by attack.
 	 */
-	get bonus() { return this._bonus; }
+	get bonus() {
+		return this._bonus;
+	}
 	set bonus(v) {
-
 		if (this._bonus) {
 			this._bonus.set(v);
 		} else this._bonus = new Stat(v);
-
 	}
-	get source() { return this._source; }
-	set source(v) { this._source = v }
+	get source() {
+		return this._source;
+	}
+	set source(v) {
+		this._source = v;
+	}
 
-	get targetspec() { return this._targetspec; }
-	set targetspec(v) { this._targetspec = v }
+	get targetspec() {
+		return this._targetspec;
+	}
+	set targetspec(v) {
+		this._targetspec = v;
+	}
 
-	get repeathits() { return this._repeathits; }
-	set repeathits(v) { this._repeathits = v }
+	get repeathits() {
+		return this._repeathits;
+	}
+	set repeathits(v) {
+		this._repeathits = v;
+	}
 
 	/**
 	 * @property {boolean} applyinstanced - for dot attacks
 	 */
-	get applyinstanced() { return this._applyinstanced; }
-	set applyinstanced(v) { this._applyinstanced = v }
+	get applyinstanced() {
+		return this._applyinstanced;
+	}
+	set applyinstanced(v) {
+		this._applyinstanced = v;
+	}
 
 	/**
 	 * @alias damage
 	 */
-	get dmg() { return this.damage; }
-	set dmg(v) { this.damage = v; }
+	get dmg() {
+		return this.damage;
+	}
+	set dmg(v) {
+		this.damage = v;
+	}
 
 	/**
 	 * @property {Range|RValue} damage
 	 */
-	get damage() { return this._damage; }
+	get damage() {
+		return this._damage;
+	}
 	set damage(v) {
 		this._damage = ParseDmg(v);
 	}
@@ -171,13 +199,19 @@ export default class Attack {
 	/**
 	 * @alias healing
 	 */
-	get heal() { return this.healing; }
-	set heal(v) { this.healing = v; }
+	get heal() {
+		return this.healing;
+	}
+	set heal(v) {
+		this.healing = v;
+	}
 
 	/**
 	 * @property {Range|RValue} damage
 	 */
-	get healing() { return this._healing; }
+	get healing() {
+		return this._healing;
+	}
 	set healing(v) {
 		this._healing = ParseDmg(v);
 	}
@@ -185,9 +219,10 @@ export default class Attack {
 	/**
 	 * @property {Attack[]} hits
 	 */
-	get hits() { return this._hits; }
+	get hits() {
+		return this._hits;
+	}
 	set hits(v) {
-
 		this._hits = v;
 		if (!v) return;
 
@@ -200,11 +235,12 @@ export default class Attack {
 			if (!h.potencies) h.potencies = this.potencies;
 			if (h.dot) {
 				h.dot.targetstring = h.dot.targets;
-				h.dot.damage = ParseDmg(h.dot.damage)
-				h.dot.healing = ParseDmg(h.dot.healing)
+				h.dot.damage = ParseDmg(h.dot.damage);
+				h.dot.healing = ParseDmg(h.dot.healing);
 			}
+			if (h.noLogs == null) h.noLogs = false;
+			if (h.unreflectable == null) h.unreflectable = false;
 			if (!(h instanceof Attack)) v[i] = new Attack(h, this);
-
 		}
 	}
 
@@ -217,52 +253,80 @@ export default class Attack {
 	set level(v) {
 		this._level = v;
 	}
+	/**
+	 * @property {bool} harmless attack cannot miss or otherwise be avoided.
+	 */
+	get harmless() {
+		return this._harmless;
+	}
+	set harmless(v) {
+		this._harmless = v;
+	}
+	/**
+	 * @property {string[]} potencies what damage potencies attack scales with
+	 */
+	get potencies() {
+		return this._potencies;
+	}
+	set potencies(v) {
+		this._potencies = v;
+	}
 
-	get harmless() { return this._harmless; }
-	set harmless(v) { this._harmless = v; }
-
-	get potencies() { return this._potencies; }
-	set potencies(v) { this._potencies = v; }
+	/**
+	 * @property {result} result attack changes values of certain properties of target.
+	 */
+	get result() {
+		return this._result;
+	}
+	set result(v) {
+		this._result = ParseEffects(v, MakeEffectFunc);
+	}
+	/**
+	 * @property {acquire} acquire attack changes values of certain properties of player, regardless of target.
+	 */
+	get acquire() {
+		return this._acquire;
+	}
+	set acquire(v) {
+		this._acquire = ParseEffects(v, MakeEffectFunc);
+	}
 
 	/**
 	 * @property {string} only - target type, name, kind, or tag, which
 	 * can be targeted by the attack
 	 */
-	get only() { return this._only; }
-	set only(v) { this._only = typeof v === 'string' ? v.split(',') : v; }
+	get only() {
+		return this._only;
+	}
+	set only(v) {
+		this._only = typeof v === "string" ? v.split(",") : v;
+	}
 
 	/**
 	 * Messy, work on dot/state interface.
 	 */
-	canAttack() { return true; }
+	canAttack() {
+		return true;
+	}
 
-	clone() { return cloneClass(this, new Attack()); }
+	clone() {
+		return cloneClass(this, new Attack());
+	}
 
 	constructor(vars = null, source) {
-
 		if (vars) {
-
 			// necessary for sub id/name assignments.
 			this.id = vars.id;
 			this.name = vars.name;
 			this.kind = vars.kind;
-			this.potencies = vars.potencies || ["physdmg"]
+			this.potencies = vars.potencies;
 			//cloneClass( vars, this ); // breaks save-reloading.
 			assignNoFunc(this, vars);
-
 		}
 
 		if (source) this.source = source;
 
-		// Override default 'physdmg' potency if this is a healing attack
-		// setting 'spellheal' instead
-		if (!this.potencies) {
-			if (this.healing) {
-				this.potencies = ["spellheal"];
-			} else {
-				this.potencies = ["physdmg"];
-			}
-		}
+		this.potencies ??= [];
 
 		if (this.dot) {
 			if (Array.isArray(this.dot)) {
@@ -281,11 +345,9 @@ export default class Attack {
 						else p.heal = p.healing;
 						if (this.potencies && !p.potencies) p.potencies = this.potencies;
 					}
-					p = processDot(p)
-
+					p = processDot(p);
 				}
-			}
-			else {
+			} else {
 				if (!this.dot.id) {
 					if (this.dot.name) this.dot.id = this.dot.name;
 					else this.dot.id = this.dot.name = this.name || this.id;
@@ -300,22 +362,20 @@ export default class Attack {
 					else this.dot.heal = this.dot.healing;
 					if (this.potencies && !this.dot.potencies) this.dot.potencies = this.potencies;
 				}
-				this.dot = processDot(this.dot)
-
+				this.dot = processDot(this.dot);
 			}
 		}
 
-
-		if (this._harmless === null || this._harmless === undefined) {
-			this.harmless = (this.targets === TARGET_SELF) ||
-				(this.targets === TARGET_ALLY) || (this.targets === TARGET_RAND_ALLY) || (this.targets === TARGET_MINION) || (this.targets === TARGET_MINIONS) || (this.targets === TARGET_ALLIES);
-		}
+		if (this._harmless === null || this._harmless === undefined)
+			this.harmless =
+				this.targets !== null &&
+				this.targets !== undefined &&
+				!(this.targets & (Targets.enemy + Targets.fixed));
 
 		//this.damage = this.damage || 0;
 		this.bonus = this.bonus || 0;
 		this.tohit = this.tohit || 0;
-
+		if (this.noLogs == null) this.noLogs = false;
+		if (this.unreflectable == null) this.unreflectable = false;
 	}
-
-
 }

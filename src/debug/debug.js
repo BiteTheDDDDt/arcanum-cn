@@ -1,7 +1,7 @@
-import Resource from '@/items/resource';
+import Resource from "@/items/resource";
 
-const ALL = 'all';
-const ALL_ALT = '*';
+const ALL = "all";
+const ALL_ALT = "*";
 
 /**
  * Current commands:
@@ -25,7 +25,6 @@ const ALL_ALT = '*';
  *
  */
 export default class Debug {
-
 	/**
 	 * @property {GData[]} resources
 	 */
@@ -33,21 +32,24 @@ export default class Debug {
 		return this.game.state.resources;
 	}
 
-	get state() { return this.game.state; }
-	get items() { return this.game.state.items }
+	get state() {
+		return this.game.state;
+	}
+	get items() {
+		return this.game.state.items;
+	}
 
 	constructor(game) {
-
 		this.game = window.game = game;
 
 		window.debug = this;
-
 	}
 
-	max(str, amt) { this.addmax(str, amt) }
+	max(str, amt) {
+		this.addmax(str, amt);
+	}
 
 	addmax(str, amt) {
-
 		if (str === ALL || str === ALL_ALT) {
 			for (let p in this.items) {
 				this.addmax(p, amt);
@@ -57,25 +59,18 @@ export default class Debug {
 
 		this.unlock(str);
 		this.state.addMax(str, amt);
-
 	}
 
 	ids(type) {
-
 		if (type) {
-
 			const list = this.state[type];
-			if (!list) return 'no such list';
-			return list.map(v => v.id).join(', ');
-
+			if (!list) return "no such list";
+			return list.map(v => v.id).join(", ");
 		} else {
-
 			const a = [];
 			for (const p in this.items) a.push(p);
-			return a.join(', ');
-
+			return a.join(", ");
 		}
-
 	}
 
 	/**
@@ -84,32 +79,25 @@ export default class Debug {
 	 * @param {GData=>*} f
 	 */
 	apply(id, f) {
-
 		if (id === ALL || id === ALL_ALT) {
-
 			for (let p in this.items) {
 				f(this.items[p]);
 			}
-
 		} else {
-
 			let data = this.state.getData(id);
 			if (data) {
-
 				f(data);
 				return true;
-
 			}
 		}
 
 		return false;
-
 	}
 
 	emptyall() {
 		for (let p in this.items) {
 			let it = this.items[p];
-			if (it && (typeof it.amount === 'function')) {
+			if (it && typeof it.amount === "function") {
 				it.amount(-it.value);
 			}
 		}
@@ -117,7 +105,7 @@ export default class Debug {
 
 	empty(id) {
 		this.apply(id, it => {
-			if (typeof it.amount === 'function') it.amount(-it.value);
+			if (typeof it.amount === "function") it.amount(-it.value);
 		});
 	}
 
@@ -136,19 +124,14 @@ export default class Debug {
 		});
 	}
 
-
 	fillall() {
-
 		const res = this.resources;
 		for (const p in res) {
-
 			const r = res[p];
 			if (!r.locked) {
-				this.game.fillItem(r)
+				this.game.fillItem(r);
 			}
-
 		}
-
 	}
 
 	fill(id) {
@@ -161,24 +144,21 @@ export default class Debug {
 	addall(amt) {
 		this.getall(amt);
 	}
-	add(id, amt) { return this.get(id, amt) }
+	add(id, amt) {
+		return this.get(id, amt);
+	}
 
 	getall(amt) {
-
 		const res = this.resources;
 		for (const p in res) {
-
 			const r = res[p];
 			if (!r.locked && r instanceof Resource) {
 				this.get(r.id, amt);
 			}
-
 		}
-
 	}
 
 	get(id, amt) {
-
 		if (!isNaN(id)) {
 			let t = id;
 			id = amt;
@@ -204,7 +184,6 @@ export default class Debug {
 		let newval = it.value + amt;
 		if (newval > it.max) it.max = newval;
 		it.amount(Number(amt) || 1);
-
 	}
 
 	lock(id) {
@@ -212,46 +191,42 @@ export default class Debug {
 	}
 
 	unlockall() {
-
 		for (let p in this.items) {
 			this.unlock(p);
 		}
-
 	}
 
-
 	unlock(str) {
-
 		return this.apply(str, it => {
 			try {
 				it.locked = false;
-			} catch (e) { return false; }
+			} catch (e) {
+				return false;
+			}
 			return true;
 		});
-
 	}
 
 	help() {
 		window.alert("Printed to console!");
 		console.log(
-			"Current commands:"
-			+ "\n(Items refer to any Data items in game: Upgrades, furniture,actions, etc.)"
-			+ "\naddmax, max - add stat max"
-			+ "\nget [item|amount] [item|amount] - get quantity of item."
-			+ "\nadd - same as get"
-			+ "\naddall [amount] - add quantity to all items."
-			+ "\ngetall [amount] - same as addall"
-			+ "\nfill [item] - fill item."
-			+ "\nfillall - fill all resources."
-			+ "\nemptyall - remove all count of item."
-			+ "\nemptyid - remove all of one item type."
-			+ "\nhelp - prints this list into the console."
-			+ "\nremoveall [amount] - remove quantity from one resource."
-			+ "\nremove [item] [amount] - remove quantity of item."
-			+ "\nlock [item] - apply lock to item."
-			+ "\nunlock [item] - unlock item."
-			+ "\nunlockall - unlock all items."
+			"Current commands:" +
+				"\n(Items refer to any Data items in game: Upgrades, furniture,actions, etc.)" +
+				"\naddmax, max - add stat max" +
+				"\nget [item|amount] [item|amount] - get quantity of item." +
+				"\nadd - same as get" +
+				"\naddall [amount] - add quantity to all items." +
+				"\ngetall [amount] - same as addall" +
+				"\nfill [item] - fill item." +
+				"\nfillall - fill all resources." +
+				"\nemptyall - remove all count of item." +
+				"\nemptyid - remove all of one item type." +
+				"\nhelp - prints this list into the console." +
+				"\nremoveall [amount] - remove quantity from one resource." +
+				"\nremove [item] [amount] - remove quantity of item." +
+				"\nlock [item] - apply lock to item." +
+				"\nunlock [item] - unlock item." +
+				"\nunlockall - unlock all items.",
 		);
 	}
-
 }

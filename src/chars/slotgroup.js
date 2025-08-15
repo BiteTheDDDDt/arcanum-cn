@@ -1,27 +1,22 @@
-import Slot from '@/chars/slot';
+import Slot from "@/chars/slot";
 
 export default class SlotGroup {
-
 	/**
 	 * @property {.<string,Slot>} slots
 	 */
-	get slots() { return this._slots; }
+	get slots() {
+		return this._slots;
+	}
 	set slots(v) {
-
 		for (const p in v) {
-
 			if (!(v[p] instanceof Slot)) v[p] = new Slot(v[p]);
-
 		}
 
 		this._slots = v;
-
 	}
 
 	constructor(vars = null) {
-
 		if (vars) Object.assign(this, vars);
-
 	}
 
 	/**
@@ -30,13 +25,11 @@ export default class SlotGroup {
 	 * @returns {Item|null}
 	 */
 	find(id, proto = false) {
-
 		for (const p in this.slots) {
 			const it = this.slots[p].find(id, proto);
 			if (it) return it;
 		}
 		return null;
-
 	}
 
 	/**
@@ -45,7 +38,6 @@ export default class SlotGroup {
 	 * @returns {?object}
 	 */
 	findAll(pred) {
-
 		const a = [];
 
 		for (const p in this.slots) {
@@ -53,10 +45,8 @@ export default class SlotGroup {
 			if (it) {
 				a.push(it);
 			}
-
 		}
 		return a;
-
 	}
 
 	/**
@@ -65,13 +55,10 @@ export default class SlotGroup {
 	 * @returns {?Item|Item[]}
 	 */
 	get(slot) {
-
 		slot = this.slots[slot];
 		if (slot === undefined) return undefined;
 
 		return slot.item;
-
-
 	}
 
 	freeSpace(slot) {
@@ -85,15 +72,13 @@ export default class SlotGroup {
 	 * @param {Item} it
 	 */
 	remove(it, slot = null) {
-
 		slot = slot || it.slot;
-		if (typeof slot === 'string') slot = this.slots[slot];
+		if (typeof slot === "string") slot = this.slots[slot];
 
 		//console.log('remove from: ' + slot.id );
 		if (slot) return slot.remove(it);
 
 		return false;
-
 	}
 
 	begin(g) {
@@ -106,7 +91,6 @@ export default class SlotGroup {
 		for (let p in this.slots) {
 			this.slots[p].revive(gs);
 		}
-
 	}
 
 	/**
@@ -116,7 +100,6 @@ export default class SlotGroup {
 	 * @returns {boolean|Wearable|Wearable[]}
 	 */
 	setSlot(it, slot = null) {
-
 		slot = slot || it.slot;
 		if (slot === null || !this.slots.hasOwnProperty(slot)) return false;
 
@@ -128,25 +111,18 @@ export default class SlotGroup {
 	 * Iterate slot names.
 	 * @returns {Iterator<string>}
 	 */
-	* slotNames() {
+	*slotNames() {
 		for (let k in this.slots) yield k;
 	}
 
 	*[Symbol.iterator]() {
-
 		for (const k in this.slots) {
-
 			const it = this.slots[k].item;
 			if (Array.isArray(it)) {
-
 				for (let i = it.length - 1; i >= 0; i--) {
 					if (it[i]) yield it[i];
 				}
-
 			} else if (it) yield it;
-
 		}
-
 	}
-
 }

@@ -1,20 +1,18 @@
 <script>
-import ItemsBase from '@/ui/itemsBase.js';
-import Progress from '@/ui/components/progbar.vue';
-import { toLarge } from '@/util/format'
+import ItemsBase from "@/ui/itemsBase.js";
+import Progress from "@/ui/components/progbar.vue";
+import { toLarge } from "@/util/format";
 
 export default {
-
 	/**
 	 * @property {boolean} active - true if skill is the active skill.
 	 */
-	props: ['skill', 'active'],
+	props: ["skill", "active"],
 	mixins: [ItemsBase],
 	components: {
-		bar: Progress
+		bar: Progress,
 	},
 	computed: {
-
 		rate() {
 			return this.skill.rate.value.toFixed(1);
 		},
@@ -23,10 +21,9 @@ export default {
 		},
 		length() {
 			return toLarge(Math.floor(this.skill.length));
-		}
-	}
-
-}
+		},
+	},
+};
 </script>
 
 <template>
@@ -37,12 +34,13 @@ export default {
 			<div class="flex-row" v-if="skill.owned">
 				<div class="flex-col">
 					<span>Level</span>
-					<span>{{ Math.floor(skill.valueOf()) + '/' +
-						(Math.trunc(skill.max.valueOf() * 10) / 10).toFixed(1) }}</span>
+					<span>
+						{{ Math.floor(skill.valueOf()) + "/" + (Math.trunc(skill.max.valueOf() * 10) / 10).toFixed(1) }}
+					</span>
 				</div>
 
 				<button type="button" class="train-btn" @click="$emit('train', skill)" :disabled="!skill.canUse()">
-					{{ active ? 'Stop' : 'Train' }}
+					{{ active ? "Stop" : "Train" }}
 				</button>
 			</div>
 
@@ -52,8 +50,8 @@ export default {
 		</span>
 
 		<div v-if="skill.owned">
-			<bar :value="skill.exp" :max="skill.length" hide-stats=true />
-			exp: {{ exp + ' / ' + length }}
+			<bar :value="skill.exp" :max="skill.length" hide-stats="true" />
+			exp: {{ exp + " / " + length }}
 		</div>
 	</div>
 </template>
@@ -78,7 +76,7 @@ export default {
 	font-size: 0.75em;
 }
 
-.skill>div {
+.skill > div {
 	font-size: 0.75em;
 	text-align: right;
 	display: flex;

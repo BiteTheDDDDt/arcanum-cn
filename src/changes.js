@@ -2,7 +2,6 @@ let NextMods = new Set();
 export var Modded = new Set();
 
 export const GetModded = () => {
-
 	const temp = Modded;
 
 	NextMods.clear();
@@ -11,14 +10,12 @@ export const GetModded = () => {
 	NextMods = temp;
 
 	return temp;
+};
 
-
-}
-
-export const MarkModded = (it) => {
+export const MarkModded = it => {
 	/// If it's in Changed, update will already happen.
 	if (it.delta == 0 || !Changed.has(it)) Modded.add(it);
-}
+};
 
 /**
  * @property {Set<GData>} NextChanges - changes for next frame.
@@ -33,7 +30,6 @@ let NextChanges = new Set();
 export var Changed = new Set();
 
 export const GetChanged = () => {
-
 	const temp = Changed;
 
 	NextChanges.clear();
@@ -42,6 +38,4 @@ export const GetChanged = () => {
 	NextChanges = temp;
 
 	return temp;
-
-
-}
+};

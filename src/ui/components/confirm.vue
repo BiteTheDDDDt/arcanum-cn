@@ -6,18 +6,17 @@ export default {
 	 * @property {string} confirm - confirm display text.
 	 * @property {string} cancel - cancel display text.
 	 */
-	props: ['confirm', 'cancel'],
+	props: ["confirm", "cancel"],
 
 	data() {
 		return {
-			btnConfirm: this.confirm || 'Confirm',
-			btnCancel: this.cancel || 'Cancel',
-			confirming: false
+			btnConfirm: this.confirm || "Confirm",
+			btnCancel: this.cancel || "Cancel",
+			confirming: false,
 		};
 	},
 
 	methods: {
-
 		/**
 		 * @public
 		 * Resets the confirm dialog when the Confirm prompt
@@ -28,21 +27,19 @@ export default {
 		},
 		mainClick() {
 			this.confirming = true;
-			this.$emit('click');
+			this.$emit("click");
 		},
 		confirmClick() {
 			this.confirming = false;
-			this.$emit('confirm');
+			this.$emit("confirm");
 		},
 		cancelClick() {
 			this.confirming = false;
-			this.$emit('cancel');
-		}
-
-	}
+			this.$emit("cancel");
+		},
+	},
 };
 </script>
-
 
 <template>
 	<span class="my-span" v-if="confirming">
@@ -52,7 +49,6 @@ export default {
 	<span v-else class="my-span">
 		<button type="button" @click="mainClick"><slot>Delete</slot></button>
 	</span>
-
 </template>
 
 <style scoped>
@@ -60,4 +56,3 @@ span.my-span {
 	display: contents;
 }
 </style>
-

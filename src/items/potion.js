@@ -1,15 +1,13 @@
-import GData from '@/items/gdata';
-import Attack from '@/chars/attack';
-import { ParseTarget } from '@/values/combatVars';
-import { processDot } from '@/values/combatVars';
+import GData from "@/items/gdata";
+import Attack from "@/chars/attack";
+import { ParseTarget } from "@/values/combatVars";
+import { processDot } from "@/values/combatVars";
 
 const defaults = {
-
 	level: 1,
 	repeat: true,
 	stack: true,
-	consume: true
-
+	consume: true,
 };
 
 /**
@@ -17,21 +15,25 @@ const defaults = {
  * Individual potions are instanced from this data.
  */
 export default class Potion extends GData {
+	get isRecipe() {
+		return true;
+	}
 
-	get isRecipe() { return true; }
-
-	get timer() { return this._timer }
-	set timer(v) { this._timer = v }
+	get timer() {
+		return this._timer;
+	}
+	set timer(v) {
+		this._timer = v;
+	}
 
 	get count() {
-		return this._count
+		return this._count;
 	}
 	set count(v) {
-		this._count = v
+		this._count = v;
 	}
 
 	constructor(vars = null) {
-
 		super(vars, defaults);
 
 		if (this.use.attack != null && !(this.use.attack instanceof Attack)) {
@@ -42,7 +44,7 @@ export default class Potion extends GData {
 				this.use.action.targetstring = this.use.action.targets;
 				this.use.action.targets = ParseTarget(this.use.action.targets);
 			}
-		};
+		}
 		if (this.use.dot != null) {
 			if (!this.use.dot.id) {
 				if (this.use.dot.name) this.use.dot.id = this.use.dot.name;
@@ -58,21 +60,17 @@ export default class Potion extends GData {
 				else this.use.dot.heal = this.use.dot.healing;
 				if (this.potencies && !this.use.dot.potencies) this.use.dot.potencies = this.potencies;
 			}
-			processDot(this.use.dot)
-		};
-		this.timer = this.timer || 0
+			processDot(this.use.dot);
+		}
+		this.timer = this.timer || 0;
 		this.require = this.require || this.unlockTest;
-
 	}
 
 	/**
 	 * Potions have this, but do nothing with it.
 	 * @param {Context} g
 	 */
-	onUse(g) {
-
-
-	}
+	onUse(g) {}
 
 	/**
 	 * Perform cd timer tick.
@@ -80,18 +78,12 @@ export default class Potion extends GData {
 	 * @returns {boolean} true if timer is complete.
 	 */
 	tick(dt) {
-
 		this.timer -= dt;
 
 		if (this.timer < 0) {
-
 			this.timer = 0;
 			return true;
-
 		}
 		return false;
-
 	}
-
-
 }

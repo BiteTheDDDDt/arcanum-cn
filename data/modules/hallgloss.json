@@ -1,0 +1,828 @@
+{
+	"module": "hallgloss",
+	"data": {
+		"hall": {
+			"data": {
+				"glossaryentries": [
+					{
+						"id": "gloss_evil",
+						"name": "evil",
+						"sym": "🛠️",
+						"group": "player",
+						"tags": "t_gloss_game_mechanic",
+						"desc": [
+							"'Dark and selfish deeds follow you, leaving a stain on your soul.'",
+							"",
+							"➢ Evil amount is generally granted by actions tagged as either 'Evil Acts' or 'Vile Acts', with you being able to check your evil score in the Player Tab.",
+							"Some of the best ways to earn evil in the early game is through Arcane Thievery, unlocked via the Trickery skill, and Murder, unlocked via the Anatomy and Umbramancy skills.",
+							"",
+							"➢ Sufficient amounts of evil will either automatically grant or unlock the ability to select evil moralities which boost your shadow magic at the expense of light magic.",
+							"These evil moralities are necessary for unlocking many of the evil classes.",
+							"",
+							"➢ With high enough evil, you will be prevented from performing 'Good Acts' and 'Virtuous Acts' altogether and unable to cast the stronger light healing spells.",
+							"Such restrictions generally begin from the 'Sinister' level of evil morality.",
+							"",
+							"➢ The progression of evil moralities are as follows:",
+							"• Immoral - Automatically granted - Have an evil score of 5.",
+							"• Wicked - Automatically granted - Have an evil score of 250.",
+							"• Vile - Automatically granted - Have an evil score of 500 or Graduate via Slaying your Master. Requires Tier 0.",
+							"• Sinister - Have an evil score of 1000. Requires Tier 1.",
+							"• Irredeemable - Have an evil score of 2000. Requires Tier 3.",
+							"• Malevolence - Requires Tier 4. Never earned the 'Respectable' morality trait. (Check the 'Virtue' glossary to see how to avoid it.)",
+							"",
+							"➢ It is possible to back out of evil and become virtuous as long as you are not Irredeemable."
+						],
+						"require": "g.evilamt>0||g.virtue>0"
+					},
+					{
+						"id": "gloss_virtue",
+						"name": "virtue",
+						"sym": "🛠️",
+						"group": "player",
+						"tags": "t_gloss_game_mechanic",
+						"desc": [
+							"'Kind and selfless acts can shine a light in the darkest of places.'",
+							"",
+							"➢ Virtue amount is generally granted by actions tagged as either 'Good Acts' or 'Virtuous Acts', with you being able to check your virtue score in the Player Tab.",
+							"Some of the best ways to earn virtue in the early game is through Tend Animals, unlocked after Graduation, and Treat Ailments, unlocked via the Anatomy skill as a Neophyte.",
+							"As an apprentice, simply performing errands and doing chores for your master will provide some virtue however, this source is finite as after their final improvement they will only provide gold.",
+							"",
+							"➢ Sufficient amounts of virtue will either automatically grant or unlock the ability to select good moralities which boost your light magic at the expense of shadow magic.",
+							"These good moralities are necessary for unlocking all the good classes.",
+							"",
+							"➢ With high enough virtue, you will be prevented from performing 'Evil Acts' and 'Vile Acts' altogether and unable to cast the strongest draining shadow spells.",
+							"Such restrictions generally begin from the 'Scrupulous' level of good morality.",
+							"",
+							"➢ The progression of good moralities are as follows:",
+							"• Decent - Automatically granted - Have a virtue score of 90 while having less than 200 evil. Your virtue must exceed your evil by 90.",
+							"• Respectable - Automatically granted - Have a virtue score of 375 while having less than 100 evil. Your virtue must exceed your evil by 250.",
+							"• Virtuous - Automatically granted - Have a virtue score of 750 while having less than 50 evil. Your virtue must exceed your evil by 750. Requires Tier 0.",
+							"• Scrupulous - Have a virtue score of 1500 while having no evil. Requires Tier 1.",
+							"• Incorruptible - Have a virtue score of 3000 while having no evil. Requires Tier 3.",
+							"• Benevolent - Requires Tier 4. Never earned the 'Wicked' morality trait. (Check the 'Evil' glossary to see how to avoid it.)",
+							"",
+							"➢ It is possible to abandon virtue and become evil as long as you are not Incorruptible."
+						],
+						"require": "g.evilamt>0||g.virtue>0"
+					},
+					{
+						"id": "gloss_neutral",
+						"name": "neutrality",
+						"sym": "🛠️",
+						"group": "player",
+						"tags": "t_gloss_game_mechanic",
+						"desc": [
+							"'You're above this illusion of choice.'",
+							"",
+							"➢ Neutrality is represented by various morality options that require you to strike a balance between Virtue and Evil.",
+							"",
+							"➢ The first shared step in this path is the Vow of Neutrality, which requires you to be :",
+							"• Either Decent and Immoral, or neither.",
+							"• Either Respectable and Wicked, or neither.",
+							"• Either Virtuous and Vile, or neither.",
+							"• Have graduated from Apprenticeship",
+							"You can learn more about the mentioned moralities in the 'Good' and 'Evil' glossary entries.",
+							"",
+							"➢ It then splits into: 1) The Detached path - which weakens both Light and Shadow to specialize in Nature and Spirit, eventually losing access to all Good, Virtuous, Evil and Sinister Acts, and 2) The Equilibrium path - which excels at both Light and Shadow, maintaining the full spectrum of actions.",
+							"The progression of the Detached path is as follows:",
+							"• Detached - Be Neutral. Be neither Vile nor Virtuous. Have 200 or less Virtue. Have 200 or less Evil. Requires Tier 1.",
+							"• Amoral - Be neither Wicked nor Respectable. Have 200 or less Virtue. Have 200 or less Evil. Requires Tier 3.",
+							"",
+							"The progression of the Equilibrium path is as follows:",
+							"• Balanced - Be Neutral. Be both Wicked and Respectable. Have 350 Virtue. Have 350 Evil. Requires Tier 1.",
+							"• In Equilibrium - Be both Vile and Virtuous. Have 750 Virtue. Have 750 Evil. Requires Tier 3.",
+							"",
+							"After becoming either Amoral or In Equilibrium, you will get to specialize in either Spirit or Nature at Tier 4.",
+							"",
+							"➢ It is possible to abandon the Vow of Neutrality, but only if you are Neutral. Gaining another morality in either branch of Neutrality will no longer allow abandonment."
+						],
+						"require": "g.evilamt>0||g.virtue>0"
+					},
+					{
+						"id": "gloss_skills",
+						"name": "Skills & Arcana",
+						"sym": "🛠️",
+						"group": "skills",
+						"tags": "t_gloss_game_mechanic,t_gloss_skill",
+						"desc": [
+							"➢ Skills are the principal requirement for most unlocks in Arcanum and typically cost research or arcana to purchase.",
+							"It is always beneficial to purchase skills and there is no advantage in delaying or skipping any of them.",
+							"",
+							"➢ Almost all skills start with a max of 5 and have many specific ways to increase their max such as through upgrades, tasks or encounters tagged as 'Sites of Learning'.",
+							"",
+							"➢ You can train a skill using up an action slot, which will increase the skill's experience each second by its rate, while simultaneously using focus for the fastest speed.",
+							"A skill can only level up if an action slot is dedicated to it. Any overflow experience is lost when a skill levels up.",
+							"",
+							"➢ You can also gain experience through some alternative means such as certain tasks, encounters in Locales and casting spells. However, training skills is the main method.",
+							"",
+							"➢ Most skills provide all their unlocks by level 25, with mage lore being the main exception having its final unlock at level 35.",
+							"",
+							"➢ Arcana is the primary cost of skills with the strongest skills costing over a hundred.",
+							"You passively generate arcana due to skills, with Mage Lore and Mysticism being amongst the earliest.",
+							"Early on, Mage Lore will be the primary source of max arcana, however later in the game, tomes will also greatly assist with this resource.",
+							"",
+							"➢ You can also gain an appreciable lump sum of arcana for completing Locales (Non-Combat Adventures).",
+							"This can be further boosted by the 'Spirit Communion' skill, which unlocks a spell which increases your arcana generation while in Locales.",
+							"Certain Locales are also necessary for obtaining upgrades which help with Arcana."
+						],
+						"require": "apprentice"
+					},
+					{
+						"id": "gloss_focus",
+						"name": "Focus",
+						"sym": "🛠️",
+						"group": "skills",
+						"tags": "t_gloss_game_mechanic,t_gloss_skill",
+						"desc": [
+							"➢ Focus consumes mana to grant skill experience. If a skill has no other skill rate boosts specific to itself, focus increases the speed of training it by ~40% if it is permanently active.",
+							"",
+							"➢ If you have multiple action slots and use them to train multiple skills simultaneously, only the topmost skill in your action list will be affected by Focus.",
+							"",
+							"➢ It's recommended to toggle on Autofocus by clicking it above your actions, for the sake of your wrist and as its mana cost quickly becomes negligible."
+						],
+						"require": "mana"
+					},
+					{
+						"id": "gloss_enchants",
+						"name": "Enchants",
+						"sym": "🛠️",
+						"group": "equipment",
+						"tags": "t_gloss_game_mechanic,t_gloss_enchant",
+						"desc": [
+							"➢ Enchants are applied to a piece of equipment to permanently modify it and improve its effectiveness in combat.",
+							"There is a wide variety in how an enchant can modify an item, from granting entirely new attacks to weapons to increasing defense to granting resistance to various damage or status types.",
+							"It is necessary to stack these resistances to reasonably clear some of the hardest dungeons.",
+							"",
+							"➢ The Enchanting skill is unlocked at 11 Mage Lore once you've reached Tier 1.",
+							"The magic gems required for its purchase can be obtained by exploring the various Locales you have unlocked by this point.",
+							"",
+							"➢ Unlocking enchants has an upfront cost, and another smaller cost each time you wish to apply it.",
+							"",
+							"➢ Each enchant is restricted to equipment which go in specific equip slots.",
+							"Besides that, to enchant an item it needs a number of unoccupied enchant levels equal or greater to that enchant's level.",
+							"",
+							"➢ Equipment have enchant levels ranging from 1 on those crafted with basic materials to a max of 3 on the best material.",
+							"Most enchants have a level of 1 and thus only occupy one of the item's enchant levels, but there are certain higher level exceptions.",
+							"",
+							"➢ The Enchanting skill grants Enchanting Power as you level it which controls how much you can enchant at a time.",
+							"",
+							"➢ To perform am enchant, you need : An enchantsource furniture, a free action, and unused Enchanting Power equal to or greater than the enchant's level.",
+							"If you have sufficient Enchanting Power, you can enchant multiple items at once. Enchanting any number of items still only counts as one action.",
+							"For example, if you had an enchanting level of 5, you would have 5 Enchanting Power and could put a level 3 enchant on one item and a level 2 enchant on another item at the same time."
+						],
+						"require": "g.tier0>0"
+					},
+					{
+						"id": "gloss_combat",
+						"name": "Combat",
+						"sym": "🛠️",
+						"group": "combat",
+						"tags": "t_gloss_game_mechanic,t_gloss_combat",
+						"desc": [
+							"➢ Dying in combat has no penalty besides time lost in recuperation. Fights can be endlessly retried any number of times.",
+							"",
+							"➢ Combat tends to give experience faster than exploration does, for the various benefits of levelling.",
+							"Monsters often drop loot, which can be used to craft equipment.",
+							"",
+							"➢ Each combat turn (depends on your speed, 3.8 s at the start) you make one weapon attack and cast one spell from your memorized spelllist, going cyclically from top to bottom.",
+							"Therefore, it is optimal to keep all of your buffing spells at the top of your spelllist to ensure you are always benefitting from them.",
+							"",
+							"➢ If a monster's life is reduced to 0, it dies and you obtain its loot. If no other monsters remain, you move to the next floor or clear the dungeon if it was the final floor.",
+							"",
+							"➢ Monsters follow the same rules of speed and attacking, and if it reduces your life to 0, you have to try again, although your progress won't be lost unless you enter a different adventure before clearing it.",
+							"You can hover over a monster to see its attacks and other additional information pertaining to it.",
+							"",
+							"➢ Experiment with a variety of offensive spells, buffs, debuffs, and heals to see what works for you and master the art of combat.",
+							"",
+							"➢ General advice - Memorize anything where you care about an effect with a duration, quickslot anything that has an instant effect."
+						],
+						"require": "g.evt_helper>0"
+					},
+					{
+						"id": "gloss_levels",
+						"name": "Levels",
+						"sym": "🛠️",
+						"group": "player",
+						"tags": "t_gloss_game_mechanic,t_gloss_player",
+						"desc": [
+							"➢ Levels are a measure of your wizard's experience. You can view your current Level and progress to the next Level in the Player Tab.",
+							"",
+							"➢ The benefits of Leveling Up are as follows: ",
+							"• 1 Max Spelllist Level",
+							"• 1 Max Stamina",
+							"• 1 Max Vigor",
+							"• 2 Max Life",
+							"• 1 Max Active Minions Levels every 5 Levels",
+							"• 1 Speed every 3 Levels",
+							"",
+							"➢ You gain Levels by accumulating experience. The amount of experience needed per level increases as your level does.",
+							"",
+							"➢ Experience is a measure of your wizard's prowess. It's independent of skill experience. You mostly earn experience from killing monsters in dungeons and clearing encounters in locales."
+						],
+						"require": "g.evt_helper>0"
+					},
+					{
+						"id": "gloss_adventures",
+						"name": "Adventures",
+						"sym": "🛠️",
+						"group": "exploration",
+						"tags": "t_gloss_game_mechanic,t_gloss_exploration",
+						"desc": [
+							"➢ Adventures are pivotal for progression in Arcanum and often unlock content like upgrades on first completion.",
+							"Clearing an adventure is often a prerequisite for unlocking further adventures.",
+							"",
+							"➢ An adventure is divided into floors containing monsters or encounters, and sometimes even both.",
+							"The number of floors in an adventure can vary wildly from just 1 floor to 1000 floors.",
+							"",
+							"➢ Each adventure has a distance stat which the player must at least match to embark on it. Distance is granted by a plethora of sources with mounts being the largest contributor.",
+							"",
+							"➢ Progress is not lost when leaving an adventure either manually or due to a loss, unless you enter another different adventure before completing the first.",
+							"",
+							"➢ Adventures are useful for granting rare resources such as Rune Stones and Magic Gems from Locales or crafting materials from Dungeons."
+						],
+						"require": "g.evt_helper>0"
+					},
+					{
+						"id": "gloss_dungeons",
+						"name": "Dungeons",
+						"sym": "🛠️",
+						"group": "exploration",
+						"tags": "t_gloss_game_mechanic,t_gloss_exploration,t_gloss_combat",
+						"desc": [
+							"➢ Dungeons are the primary type of combat adventures. For more information on combat, see the glossary entry for combat.", 
+							"Make sure to keep your life above 0.",
+							"",
+							"➢ Dungeons are assigned difficulty rankings in the Level portion of their tooltip. The early game dungeons are marked with 1~3 🦴 symbols, while the later dungeons are marked with 1~6 💀 symbols.",
+							"The greater is the number of symbols, the greater the difficulty a dungeon is deemed to possess. The number of skulls roughly correlate to the Tier at which you are expected to attempt that Dungeon. All dungeons share the ⚔ symbol in common.",
+							"",
+							"➢ Monsters in a Dungeon will frequently drop gold and gemstones as loot. The chances for such loot dropping can be increased through your 'Luck' stat.",
+							"Monsters will also drop crafting materials to create superior quality gear. If a dungeon rewards crafting materials for its completion, the monsters within that dungeon will typically drop the same crafting materials.",
+							"You can search for a monster's specific loot in the Bestiary Tab once you have unlocked it. It requires either 3 Animal Handling or 11 Mage Lore to obtain.",
+							"",
+							"Dungeons which grant skill maxes are tagged as 'Sites of Learning'."
+						],
+						"require": "g.evt_helper>0"
+					},
+					{
+						"id": "gloss_locales",
+						"name": "Locales",
+						"sym": "🛠️",
+						"group": "exploration",
+						"tags": "t_gloss_game_mechanic,t_gloss_exploration",
+						"desc": [
+							"➢ Locales are a type of adventure focused on noncombat encounters, though some, particularly the ones in Reedburgh, can contain monsters.",
+							"",
+							"➢ Locales are generally marked with the 🌳 or 📖 symbols.",
+							"",
+							"➢ Encounters inflict any combination of the 5 stresses: 1) Beffudlement 2) Unease 3) Weariness 4) Frustration 5) Madness.",
+							"If a stress bar fills up, you shall leave the Locale to rest until they're all empty.",
+							"You can hover an encounter to see its tooltip.",
+							"",
+							"➢ Like dungeons, many locales will unlock things and have rewards on their first clear, with smaller rewards for subsequent clears.",
+							"",
+							"➢ Unlike combat, encounters take a fixed amount of time, although some upgrades associated with the Travel skill can speed it up.",
+							"",
+							"➢ Some encounters are beneficial in their own right, with loot or experience or skill maxes as a reward for the encounter.",
+							"For more information on encounters in each Locale, you can refer to the Travelogue which is unlocked with 1 Level in the Travel skill.",
+							"Encounters which grant skill maxes or other permanent benefits are tagged as 'Sites of Learning' and can be filtered to be seen in the Travelogue Tab."
+						],
+						"require": "g.evt_helper>0"
+					},
+					{
+						"id": "gloss_clashes",
+						"name": "Clashes",
+						"sym": "🛠️",
+						"group": "exploration",
+						"tags": "t_gloss_game_mechanic,t_gloss_exploration,t_gloss_combat",
+						"desc": [
+							"➢ Clashes are the type of combat adventure focused on actively fighting a small number of powerful monsters.",
+							"",
+							"➢ Clashes are all marked with the symbols ⚔💀.",
+							"",
+							"➢ Clashes are unreturnable. This means that if you leave a clash for any reason, your progress will reset, unlike other types of adventures which keep your progress towards completion if you don't visit a different location.",
+							"",
+							"➢ They can be thought of as the challenge bosses of Arcanum and encourage active play instead of idling.",
+							"",
+							"➢ They have significant rewards and unlocks on first completion, with less focus on repeat clears.",
+							"",
+							"➢ Typically, a clash's boss will challenge you with at least one unique mechanic, in addition to having good survivability and offense at the tier they're intended for.",
+							"To defeat a clash, you'll often have to strategize and figure out specific counters, since brute force usually only works when you outgrow the earlier clashes."
+						],
+						"require": "g.evt_helper>0"
+					},
+					{
+						"id": "gloss_summons",
+						"name": "Summons",
+						"sym": "🛠️",
+						"group": "combat",
+						"tags": "t_gloss_game_mechanic,t_gloss_combat,t_gloss_minions",
+						"desc": [
+							"➢ Summons are temporary monsters which assist you in combat, both in terms of dealing damage and reducing attacks targeting your wizard.",
+							"If a summon is present on your side, half of all attacks without specific targetting will target your wizard while the other half will target your summons and any other allies you may have.",
+							"",
+							"➢ Summons are created by the summoning school of spells and vanish once you leave an adventure.",
+							"",
+							"➢ Each source of summons will have a 'Max:' property to describe how many of that summon you can have at once, with the weaker ones being unlimited and the stronger ones having caps.",
+							"For example, Call Spirit permits unlimited wisps that do little more than take a hit in your place, but a mightier spell could limit you to 2 especially potent summons that play a larger role in combat.",
+							"",
+							"➢ The 'Count:' property describes how many of that summon it will create each time.",
+							"",
+							"➢ WARNING: Memorizing a Summoning spell with an unlimited max and embarking on an overly long Locale or Dungeon is a known cause of save data corruption. This will usually require several hundred floors so it is not a concern for most adventures."
+						],
+						"require": "g.evt_helper>0"
+					},
+					{
+						"id": "gloss_minions_allies",
+						"name": "Minions",
+						"sym": "🛠️",
+						"group": "combat",
+						"tags": "t_gloss_game_mechanic,t_gloss_combat,t_gloss_minions",
+						"desc": [
+							"➢ Unlike summons, minions persist between explorations and last as long as they have life.",
+							"",
+							"➢ Minions are created using summoning spells which state 'Instead of summoning, creates a permanent minion.' within their tooltip.",
+							"",
+							"➢ Minions created this way go into your Minions Tab and must be manually activated while you are not in an Adventure to join you.",
+							"",
+							"➢ If a minion dies, you can cast the revival spell for that minion's 'kind' to resurrect them at half their max life however, they will not rejoin you if you are inside a dungeon.",
+							"",
+							"➢ Owned Minions states how many total minions you can possess both inside and outside of combat. You can see its max in the Minion Tab, along with how much you are using up.",
+							"You're also constrained by Active Minions Levels - the total level of your minions can't exceed your maximum Minions Levels, listed to the right of Owned Minions.",
+							"Both of these caps can be increased by a variety of upgrades, furnitures, classes, homes, and skills, with the Charms and Summoning skills being reliable generic options."
+						],
+						"require": "g.minions>0"
+					},
+					{
+						"id": "gloss_companion",
+						"name": "Companions",
+						"sym": "🛠️",
+						"group": "combat",
+						"tags": "t_gloss_game_mechanic,t_gloss_combat,t_gloss_minions",
+						"desc": [
+							"➢ Companions are a unique type of ally which are automatically generated when you enter combat with no cost attached.",
+							"",
+							"➢ You can select which Companion you wish to use in the Player Tab.",
+							"",
+							"➢ If a companion dies in combat, it will not be regenerated unless you exit and return to that Dungeon."
+						],
+						"require": "g.t_lightclass>0||g.animalfriend>0||g.rabbittrick>0"
+					},
+					{
+						"id": "gloss_classes",
+						"name": "Classes",
+						"sym": "🛠️",
+						"group": "progression",
+						"tags": "t_gloss_game_mechanic",
+						"desc": [
+							"➢ Classes are Arcanum's primary progression milestones. At a certain point, you will be offered to pick a class.",
+							"",
+							"➢ Picking a class will increase your tier and with it unlock new progression fields.",
+							"",
+							"➢ Additionally, selecting a class will cause all other classes at the same tier to become unavailable, including any classses you might have unlocked later.",
+							"",
+							"➢ During apprenticeship, your first few class choices, those being at the Job and Tier 0 levels, are of minor importance. However, once you have graduated, they will become the primary distinguishing factor between different wizards."
+						],
+						"require": "g.animals>0||g.scribescroll>0||g.herbalism>0||g.crafting>=5"
+					},
+					{
+						"id": "gloss_graduation",
+						"name": "Graduation",
+						"sym": "🛠️",
+						"group": "progression",
+						"tags": "t_gloss_game_mechanic",
+						"desc": [
+							"➢ Having learned the fundamentals of magic, it is time to finish your apprenticeship.",
+							"",
+							"➢ To do so you need to leave your master after paying your tuition fee, or by finding a way to circumvent said fee.",
+							"",
+							"➢ After doing so you will be free to discover the ways of magic on your own, no longer bound by the spatial limitations of that lousy Attic room.",
+							"",
+							"➢ All graduation methods have a common requirement of possessing the 'Aided Thoughts' upgrade, along with a max research of 100 and 4 Mage Lore.",
+							"",
+							"➢ The various graduation methods are as follows:",
+							"• End Apprenticeship - Grants the Adept class",
+							"• Slay Master - Grants the Adept class, but also grants the 'Vile' evil morality.",
+							"• Blue Adept - Requires 200 Virtue score.",
+							"• Red Adept - Requires 'The Commoner's Limit' event, which is triggered by completing the 'Treffil Woods Edges' Dungeon without doing the 'Bind Spellbook' task. The Martial school of spells with 'Stab Wound' in particular will serve you well in performing such a feat.",
+							"• Mystic Adept - Accrue 5 Arcana while having never performed the 'Study' task. It is recommended to hide Study with the gear icon to prevent any misclicks."
+						],
+						"require": "g.neophyte>0&&g.research.max>=100&&g.lore>=4"
+					},
+					{
+						"id": "gloss_tiers",
+						"name": "Tiers",
+						"sym": "🛠️",
+						"group": "progression",
+						"tags": "t_gloss_game_mechanic",
+						"desc": [
+							"➢ The progression of your wizard's tier of magic can be classified as follows, increasing every time they take a class, starting from Graduation:",
+							"",
+							"• Tier 0 - Solitary Magic - Somebody that ended their apprenticeship.",
+							"• Tier 1 - Professional Magick - A mastery of magic that allows for a stable income.",
+							"• Tier 2 - Arcane Ascendant - An accomplished mage, qualified to take on apprentices.",
+							"• Tier 3 - Magical Mastery - A complete mastery and understanding of ones chosen field of magic.",
+							"• Tier 4 - Supreme Sorcery - Unlikely to ever meet an equal, these beings transcend the rules and mechanism of society.",
+							"• Tier 5 - Dhrunic Magic - Rediscovering magic from before the rending, manipulating the powers that shaped the form of dhrune.",
+							"• Tier 6 - Ageless Magic - Powerful enough to resist the inevitability of Death.",
+							"",
+							"➢ Increasing your tier will grant some notoriety and also unlock skills or upgrades independent of your class choice."
+						],
+						"require": "tier0"
+					},
+					{
+						"id": "gloss_trickery",
+						"name": "Trickery",
+						"sym": "📚",
+						"group": "journal",
+						"tags": "t_gloss_school,t_gloss_chaos",
+						"desc": [
+							"Sleight of hand, mundane attention manipulation, and other common practices of charlatans and stage performers alike.",
+							"Enables a sufficiently-greedy wizard to rob unsuspecting passers-by, potentially even without them noticing.  Trickery is also a pathway to some upgrades.",
+							"Tricksters can make further use of this skill, utilizing the sort of long-term planning traditional for a wizard to plot a theft and unlock other upgrades."
+						],
+						"require": "g.trickery>0"
+					},
+					{
+						"id": "gloss_chaos",
+						"name": "Chaos",
+						"sym": "📚",
+						"group": "journal",
+						"tags": "t_gloss_school,t_gloss_chaos",
+						"desc": [
+							"A school of magic focused on altering reality to the whims of the wizard.",
+							"While trickery allows a wizard to make subtle changes with effects far outweighing their causes, chaos magic alters reality in ways that make causality irrelevant.",
+							"Whether it be positional changes, physiological changes, or the reimagination of a world operating on order, Chaos Magic is a force to be reckoned with."
+						],
+						"require": "g.chaoslore>0"
+					},
+					{
+						"id": "gloss_animation",
+						"name": "Animation",
+						"sym": "📚",
+						"group": "journal",
+						"tags": "t_gloss_school,t_gloss_animation,t_gloss_minions",
+						"desc": [
+							"A school of magic focused on making normally inanimate objects, animate, for the benefit of the wizard.",
+							"Fundamental to a variety of magic branches, with the most well-known one being puppetry, an adept of this school will find himself not lacking for stalwart, if somewhat silent allies.",
+							"Required for development of any advanced artificial constructs."
+						],
+						"require": "g.puppetry>0"
+					},
+					{
+						"id": "gloss_puppetry",
+						"name": "Puppetry",
+						"sym": "📚",
+						"group": "journal",
+						"tags": "t_gloss_skill,t_gloss_animation,t_gloss_crafting,t_gloss_minions",
+						"desc": [
+							"A fusion of animation and crafting, this entry-level skill is a prerequisite for advancement in the mechanical arts.",
+							"Provides the wizard with the ability to create puppets, summonable in combat. Puppets can also be used to create several upgrades.",
+							"Puppeteers can make further use of this skill, making the puppets permanent minions and unlocking additional upgrades and a way to use them to produce gold."
+						],
+						"require": "g.crafting>=8&&g.spiritlore>=5"
+					},
+					{
+						"id": "gloss_machinacreation",
+						"name": "Mechanical magic",
+						"sym": "📚",
+						"group": "journal",
+						"tags": "t_gloss_skill,t_gloss_animation,t_gloss_crafting,t_gloss_minions",
+						"desc": [
+							"An advanced fusion of animation and crafting, this skill represents an advanced understanding of construct creation.",
+							"Provides the wizard with ability to construct machinae, a more powerful combat summon, and unlocks a number of related upgrades",
+							"Machinists can field machinae as permanent minions, create additional machina types and utilize machina to create elemental gems passively.",
+							"This is the highest skill a wizard without a speciality in mechanical magic can attain."
+						],
+						"require": "g.crafting>=12&&g.puppetry>=6&&g.magicalanimation>=5&&g.tier2>0"
+					},
+					{
+						"id": "gloss_automatasculpting",
+						"name": "Automata sculpting",
+						"sym": "📚",
+						"group": "journal",
+						"tags": "t_gloss_skill,t_gloss_animation,t_gloss_crafting,t_gloss_minions",
+						"desc": [
+							"The pinnacle of the crafting/animation arts, this skill represents the capacity to create artificial life.",
+							"Automatas are extremely powerful combat summons, although the costs to creating and maintaining them are prohibitive",
+							"Allows the wizard to create powerful upgrades, including an ability to have an additional action slot, albeit mutually exclusive with the creation of a time spiral."
+						],
+						"require": "g.crafting>=18&&g.puppetry>=8&&g.magicalanimation>=6&&g.magiphysics>=5&&(g.mechanist+g.mechamancer)>0"
+					},
+					{
+						"id": "gloss_puppets",
+						"name": "Puppets",
+						"sym": "📚",
+						"group": "journal",
+						"tags": "t_gloss_resource,t_gloss_animation,t_gloss_crafting,t_gloss_minions",
+						"desc": [
+							"Puppets are simple constructs that lack any source of internal motive force and therefore must be controlled by a wizard at all times. As the animation is done directly by the wizard, puppets tend to be made out of low-weight, easily replaced materials, such as wood.",
+							"Commonly, amplifiers for easier communication with the puppet are used, with spirit gems being a popular choice. For finer control, direct connection via enchanted strings might need to be established.",
+							"Because exerting constant control is taxing, most non-dedicated practitioners find themselves unable to control a significant number of puppets in combat, much less give them any kind of advanced commands."
+						],
+						"require": "g.puppetry>=1"
+					},
+					{
+						"id": "gloss_machinae",
+						"name": "Machinae",
+						"sym": "📚",
+						"group": "journal",
+						"tags": "t_gloss_resource,t_gloss_animation,t_gloss_crafting,t_gloss_minions",
+						"desc": [
+							"Machinae are automatons capable of performing tasks without direct control. They require a source of mana and precise, pre-made instructions on how to operate, in order to do anything.",
+							"As machinae are useful even to non-mages, it is common to make them out of sturdier, if more expensive materials, most commonly steel.",
+							"The lack of adaptability is a general shortcoming of this type of construct, meaning that unless the wizard specializes in this kind of magic, they would only be able to issue the most rudimentary of instructions, not accounting for changing environment, or allowing for things like self-preservation.",
+							"Specialists have been known to lease specialized machina for specific tasks, earning a significant amount of coin in the process, although undesirable long-term effects have been known to emerge."
+						],
+						"require": "g.machinacreation>=1"
+					},
+					{
+						"id": "gloss_automatas",
+						"name": "Automatas",
+						"sym": "📚",
+						"group": "journal",
+						"tags": "t_gloss_resource,t_gloss_animation,t_gloss_crafting,t_gloss_minions",
+						"desc": [
+							"Automatas are fully sentient artificial constructs, with the cognitive capacity commonly exceeding that of an average human. As each automata is usually a hand-crafted work of art, the choice of the material is largely the prerogative of the creator. Some people claim to have once encountered some automata made out of brass, but the ones more commonly known are made out of crystal.",
+							"Automatas are capable of artificial learning and direct knowledge transfer, allowing one to create a skilled fighter in an incredibly short amount of time.",
+							"True masters of this art, have been known to teach automata how to perform magic, despite the fact that their nature prevents them from absorbing and generating mana in conventional ways. Direct mana transfers and magical gem supplies have been employed to remedy this.",
+							"As automatas tend to have outstanding intellect, they are commonly employed in management roles, such as becoming advisors or overseers.",
+							"There have been no known cases of any automata imprisoning their creator and impersonating them with the use of disguises and glamour charms, to pursue their own agenda."
+						],
+						"require": "g.automatasculpting>=1"
+					},
+					{
+						"id": "gloss_tasks",
+						"name": "Tasks",
+						"sym": "🛠️",
+						"group": "tasks",
+						"tags": "t_gloss_game_mechanic,t_gloss_tasks",
+						"desc": [
+							"➢ Tasks refer to any non-upgrade action which your wizard can perform in the Main Tab.",
+							"",
+							"➢ Tasks can either be instant or have a defined length. Tasks with a defined length take up an action slot and are coloured yellow.",
+							"",
+							"➢ For the sake of your wrist, you can massively reduce the number of times you need to click instant tasks by holding Enter after performing it once to do it twenty times a second.",
+							"",
+							"➢ The main limiting factor for tasks is your wizard's stamina.",
+							"For this reason, it is highly recommended to make 'Aquamancy' and 'Aeromancy' some of your first skill purchases, as their combination unlocks stamina generating upgrades."
+						],
+						"require": "g.apprentice>0"
+					},
+					{
+						"id": "gloss_waiting",
+						"name": "Waiting Tasks",
+						"sym": "🛠️",
+						"group": "tasks",
+						"tags": "t_gloss_game_mechanic,t_gloss_tasks",
+						"desc": [
+							"➢ Tasks which consume an action slot will attempt to perpetually perform themselves ad infinitum however, what happens when one such task can no longer be sustained?",
+							"",
+							"➢ Waiting Tasks refer to those tasks which were forced out of your action slot. They will attempt to take up your action whenever a vacancy is created.",
+							"",
+							"➢ The total number of Waiting Tasks you can have is defined by your total number of action slots + 5. Any further additions to the list will cause an older waiting task to be pushed out.",
+							"",
+							"➢ You can see your Waiting Tasks in the Activities popup menu which is the rightmost button above your actions."
+						],
+						"require": "g.apprentice>0"
+					},
+					{
+						"id": "gloss_priority",
+						"name": "Task priorities (goals and hobbies)",
+						"sym": "🛠️",
+						"group": "tasks",
+						"tags": "t_gloss_game_mechanic,t_gloss_tasks",
+						"desc": [
+							"➢ Running tasks priority can be further modified by assigining them as (G)oals or (H)obbies.",
+							"",
+							"➢ You can do that by clicking the relevant button to the right of the task name in task list. A task may only have one of these properties at a time and you can only have a limited number of goals and hobbies assigned.",
+							"",
+							"➢ When a task is set as a goal, it will attempt to perform itself whenever another action is completed. Assuming it can be performed or resumed it will take the slot of the completed action or an empty slot if available.",
+							"Use goals to set high-priority tasks that need to be performed above all else.",
+							"",
+							"➢ When a task is set as a hobby, it is essentially marked as desirable, but low-priority. Hobbies will attempt to trigger when you have an empty slot, but will yield to waiting tasks and goals if any of those try to resume themselves.",
+							"Use hobbies to set background activities that you want your wizard to perform when they have run out of other things to do.",
+							"",
+							"➢ You can open the Activities popup menu to assign waiting tasks as goals or hobbies, and to unassign any waiting tasks marked with these properties."
+						],
+						"require": "g.goals1>0||g.hobby1>0"
+					},
+					{
+						"id": "gloss_luck_stat",
+						"name": "Luck",
+						"sym": "🛠️",
+						"group": "stats",
+						"tags": "t_gloss_game_mechanic,t_gloss_stats",
+						"desc": [
+							"➢ Luck is a stat that causes monsters to drop loot more frequently than normal.",
+							"",
+							"➢ Each point of luck grants 1% increased chance to drop loot. This applies to base chance. The increased chance is displayed in brackets on the monster's tooltip.",
+							"",
+							"➢ Some examples to illustrate the effects of luck are as follows:",
+							"• For a baseline drop rate of 50% and luck of 50, the drop chance will be 75%.",
+							"• For a baseline drop rate of 20% and luck of 20, the drop chance will be 24%.",
+							"• For a baseline drop rate of 20% and luck of 40, the drop chance will be 28%.",
+							"• For a baseline drop rate of 1% and luck of 20, the drop chance will be 1.2%."
+						],
+						"require": "g.luck>=3"
+					},
+					{
+						"id": "gloss_potencies_stat",
+						"name": "Potencies",
+						"sym": "🛠️",
+						"group": "stats",
+						"tags": "t_gloss_game_mechanic,t_gloss_stats",
+						"desc": [
+							"➢ Almost all forms of inflicting damage available to the player scale with one or more potencies, whether they be weapons or spells.",
+							"This is displayed in the 'Scales With:' section of an attack's tooltip.",
+							"",
+							"➢ Potencies provide a percentage based increase to damage with a default value of 100%. A reduction in this potency below 100%, would therefore decrease effectiveness.",
+							"",
+							"➢ You can check your potencies in the Player Tab.",
+							"",
+							"➢ There are potencies for spells, physical attacks and healing which globally affect all sources of their type.",
+							"",
+							"➢ Potencies are multiplicative with each other.",
+							"For example, Magic Missile scales with both Spell and Mana Potencies. If you had 150% potency in both then it would deal 2.25 (1.5*1.5) times its base damage.",
+							"",
+							"➢ Potencies can be granted from a variety of sources including buffing spells, upgrades, skills and enchants."
+						],
+						"require": "g.evt_helper>0"
+					},
+					{
+						"id": "gloss_resist_stat",
+						"name": "Resists & Status Negation",
+						"sym": "🛠️",
+						"group": "stats",
+						"tags": "t_gloss_game_mechanic,t_gloss_stats",
+						"desc": [
+							"➢ Most sources of damage are assigned a damage type as can be seen in their tooltip.",
+							"",
+							"➢ It is based on this property that a resistance decides where it applies.",
+							"",
+							"➢ Resistances provide a percentage based reduction to damage taken. The values seen in brackets in the Player Tab for resistances describe what percentage of total damage you will be taking.",
+							"",
+							"➢ Both the player and monsters possess resistances but only monsters can be completely immune to a damage type.",
+							"",
+							"➢ Similarly, DOTs associated with status are flagged with that status' property. It is based on this flag that Status Negation is applied.",
+							"",
+							"➢ Status Negations provide a percentage chance to ignore their specific status when it would be applied. It does not weaken such DOTs if they bypass your defences.",
+							"",
+							"➢ Having a Status Negation of 100 will provide complete immunity to that status. There is no benefit in obtaining more than 100 Status Negation.",
+							"",
+							"➢ The primary sources of resistances and status negation are enchants and upgrades. It is necessary to stack these to reasonably complete some of the harder dungeons."
+						],
+						"require": "g.evt_helper>0"
+					},
+					{
+						"id": "gloss_chaincast_stat",
+						"name": "Extra Spell Casts",
+						"sym": "🛠️",
+						"group": "stats",
+						"tags": "t_gloss_game_mechanic,t_gloss_stats",
+						"desc": [
+							"➢ Each combat turn, your wizard performs a weapon attack along with casting one spell in his spelllist, right?",
+							"Not anymore.",
+							"",
+							"➢ Extra Spell Casts increase the number of different spells your wizard casts each turn over the normal amount of 1.",
+							"Each whole number increase will cause your wizard to cast an additional spell each turn, while fractional amounts translate to a percentage chance.",
+							"",
+							"➢ Some examples to illustrate the effects of Extra Spell Casts are as follows:",
+							"• For a value of 0.2, you will always cast the usual 1 spell each turn, but have an additional 20% chance to cast a second spell.",
+							"• For a value of 1, you will always cast 2 spells each turn.",
+							"• For a value of 1.5, you will always cast 2 spells each turn and have an additional 50% chance to cast a third spell.",
+							"",
+							"➢ Additional spells cast due to this stat still abide by the cyclical nature of your memorized spelllist, going from top to bottom."
+						],
+						"require": "g.chaincast>1"
+					},
+					{
+						"id": "gloss_scraft",
+						"name": "Spellcraft",
+						"sym": "🛠️",
+						"group": "spells",
+						"tags": "t_gloss_game_mechanic,t_gloss_spells",
+						"desc": [
+							"'A truly great mage makes his own spells'.",
+							"",
+							"➢ The Spellcrafting system in Arcanum allows you to staple together various spells into a spellcrafted spell. This spell's level is equal to the sum total of its components.",
+							"",
+							"➢ The Spellcrafting skill grants Spellcraft Power along with Max Crafted Spells as you level it.",
+							"",
+							"➢ Spellcraft Power is used in the Spellcraft Tab and is equal to the highest level a spellcrafted spell is allowed to be.",
+							"",
+							"➢ The cost to craft such spells is typically magic gems of the same type as the components along with codices, or tomes at a sufficiently high level.",
+							"The formula for the cost each individual component adds to a spellcrafted spell is as follows:",
+							"• (4*Level) Magic Gems, if it belongs to a school with magic gems",
+							"• (1*Level) Codices if the component's Level is 5 or lower",
+							"• 5 Tomes if the component's Level is greater than 5",
+							"You can see the total cost by hovering over the 'Craft' button.",
+							"",
+							"➢ A spellcrafted spell inherits the cooldown of its component which had the longest cooldown. Adding the same spell with a cooldown multiple times to a spellcrafted spell will cause it to only be casted once.",
+							"",
+							"➢ You can rename spellcrafted spells for easier identification. If a spellcrafted spell's level is too high to fit in your spelllist you may quickslot it to cast it manually as you please.",
+							"",
+							"➢ Certain spells have an explicit 'Cannot Spellcraft' tag on them and cannot be used as components. Particularly, all martial spells share this property, with the sole exception of Invigorate.",
+							"",
+							"➢ Some common strategies for Spellcrafting include:",
+							"• Combining several summoning spells to create your swarm at once, preventing any individual member from sustaining too much damage.",
+							"• Combining several buffing spells with the same or similar cooldowns to minimize the amount of turns wasted in casting them.",
+							"• Combining a Nature spell called 'Life's Bloom' with a spell which has a longer cooldown the Life's Bloom's duration to always gain its healing.",
+							"• Combining several damaging spells with a DOT for an extremely powerful spell."
+						],
+						"require": "g.tier2>0&&g.lore>=15"
+					},
+					{
+						"id": "gloss_equipment_crafting",
+						"name": "Equipment crafting",
+						"group": "equipment",
+						"sym": "🛠️",
+						"tags": "t_gloss_game_mechanic,t_gloss_equipment",
+						"desc": [
+							"➢ The 'Crafting: Arms of Iron' unlocks the Crafting Tab. This requires at least 3 trained levels of Crafting and a max of 6 levels of Crafting.",
+							"",
+							"➢ Crafting materials are dropped as loot from monsters along with completing dungeons. The harder a dungeon is, the better will be its loot.",
+							"If a dungeon rewards crafting materials for its completion, the monsters within that dungeon will typically drop the same crafting materials.",
+							"",
+							"➢ The steps of the crafting process are as follows:",
+							"• Select the Equip Slot you wish to make an item for.",
+							"• Select the Item Type you wish to craft.",
+							"• Select the material to be used to craft that item.",
+							"• Craft the finalized item by pressing the Craft button.",
+							"You can preview the item, as well as its cost, by hovering over the 'Craft' button.",
+							"",
+							"➢ Different items possess different baseline stats and abilities, while the material acts as a modifier to the final stats of an item.",
+							"",
+							"➢ Both the Item Type and material selected contribute to the cost of the crafted item.",
+							"",
+							"➢ You will unlock more items and materials as you increase your crafting skill and purchase further 'Crafting: Arms of' upgrades.",
+							"The final crafting upgrade will be unlocked once you reach 22 Crafting and have a max of 25 levels of Crafting."
+						],
+						"require": "g.crafting>0"
+					},
+					{
+						"id": "decipherednote_soulember",
+						"name": "soul embers & pure embers",
+						"group": "pyromancy",
+						"tags": "t_gloss_game_mechanic,t_pyromancy",
+						"sym": "🛠️🔥",
+						"desc": [
+							"➢ Soul embers are the fuel for your Pyromancer's flames. They increase your Blazing Heat production at the expense of worsening Consuming Flames.",
+							"",
+							"➢ You can obtain Soul embers by performing the 'Ignite Ember' task once you have purchased the 'Soulflames' skill.",
+							"",
+							"➢ Balancing Soul embers with your spelllist to achieve thermal equilibrium is paramount to ensuring your wizard's survival in combat.",
+							"",
+							"➢ A combination of the 'Inflame' and 'Soul Blaze' spells can tune your Soul ember to a generally sustainable range, by reducing if too hot or increasing if too cold.",
+							"",
+							"➢ Pure embers are a resource used to purchase various upgrades for your Pyromancer. They can be produced by using your Blazing Heat as cost for the 'Produce Pure Embers' task.",
+							"The amount of Pure embers generated will equal your Soul ember count."
+						],
+						"require": "g.decipherpyronotes>0"
+					},
+					{
+						"id": "decipherednote_soulheat",
+						"name": "blazing heat & consuming flames",
+						"group": "pyromancy",
+						"tags": "t_gloss_game_mechanic,t_pyromancy",
+						"sym": "🛠️🔥",
+						"desc": [
+							"➢ Upon casting fire spells, igniting enough soul embers or utilizing specialized techniques, your Pyromancer will begin to accumulate 'Blazing heat'.",
+							"",
+							"➢ This empowers most fire spells and increases your Fire mana rate. However, there is a limit to how much Blazing Heat your wizard can sustain.",
+							"",
+							"➢ The downside to accruing large amounts of Blazing Heat, is a negative Menace called Consuming Flames.",
+							"",
+							"➢ Consuming Flames reduce your wizard's Max Life, Life Rate and Mana Generation. You must minimize its generation to reach your Pyromancer's full potential.",
+							"",
+							"➢ There are several equilibrium upgrades which help in maintaining this delicate balance. You can also use the 'Disperse Heat' and 'Fan the Flames' actions to quickly manipulate it.",
+							"",
+							"➢ Some general tips to manage heat are as follows:",
+							"• Memorize the vent spells of different elements your Pyromancer will unlock. These include Scalding Steam, Molten Earth and Searing Wind. Adding enough of these will eventually counterbalance your fire spells' heat.",
+							"• Switching to the 'Cooling Immersion' Leisure in the Player Tab.",
+							"• Purchasing the Heat Capacitor and Heat Conductor furnitures."
+						],
+						"require": "g.decipherpyronotes>0"
+					}
+				]
+			}
+		},
+		"tags": [
+			{
+				"id": "t_gloss_game_mechanic",
+				"name": "Game Mechanic"
+			},
+			{
+				"id": "t_gloss_journal_entry",
+				"name": "Journal Entry"
+			},
+			{
+				"id": "t_gloss_spells",
+				"name": "Spells"
+			},
+			{
+				"id": "t_pyromancy",
+				"name": "Pyromancy"
+			}
+		]
+	}
+}

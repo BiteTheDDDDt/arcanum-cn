@@ -1,14 +1,5 @@
 [
 	{
-		"id": "hp",
-		"name": "life",
-		"desc": "Wizard life-force.",
-		"val": 5,
-		"max": 5,
-		"unit": false,
-		"locked": false
-	},
-	{
 		"id": "level",
 		"val": 0,
 		"unit": true,
@@ -21,12 +12,17 @@
 			"vigor.max": 1,
 			"hp.max": 2,
 			"allies.max": ":5",
-			"speed": ":3",
-			"sp": ":3"
+			"speed": ":3"
 		},
 		"result": {
 			"fame": 0.1
 		}
+	},
+	{
+		"id": "exp",
+		"val": 0,
+		"unit": false,
+		"locked": false
 	},
 	{
 		"id": "stamina",
@@ -36,44 +32,25 @@
 		"locked": false
 	},
 	{
-		"id": "age",
-		"val": "15~25",
-		"stat": "true",
-		"locked": false
-	},
-	{
-		"id": "dist",
-		"name": "distance",
-		"desc": "Maximum travel distance.",
-		"val": 10,
-		"stat": true,
-		"locked": false
-	},
-	{
-		"id": "exp",
-		"val": 0,
+		"id": "hp",
+		"name": "life",
+		"desc": "Wizard life-force.",
+		"val": 5,
+		"max": 5,
 		"unit": false,
 		"locked": false
 	},
 	{
-		"id": "sp",
-		"name": "skill points",
-		"desc": "Spend to unlock new skills.",
-		"stat": true,
+		"id": "barrier",
+		"desc": "Wizard's basic harm prevention measure",
+		"extdesc": "Restores much quicker if you are out of combat",
 		"val": 0,
-		"locked": false
+		"max": 0,
+		"unit": false
 	},
 	{
-		"id": "chaincast",
-		"name": "chain cast",
-		"val": 1,
-		"stat": true,
-		"unit": false,
-		"locked": false
-	},
-	{
-		"id": "tohit",
-		"val": 1,
+		"id": "defense",
+		"val": 0,
 		"stat": true,
 		"unit": false,
 		"locked": false
@@ -86,21 +63,11 @@
 		"locked": false
 	},
 	{
-		"id": "defense",
+		"id": "tohit",
 		"val": 0,
 		"stat": true,
 		"unit": false,
 		"locked": false
-	},
-	{
-		"id": "breath",
-		"max": 5,
-		"val": 5,
-		"unit": false,
-		"rate": 1,
-		"effect": {
-			"self.hp": "<=0?-20"
-		}
 	},
 	{
 		"id": "speed",
@@ -111,35 +78,36 @@
 		"locked": false
 	},
 	{
-		"id": "luck",
-		"desc": "Affinity for fortune.",
-		"val": 0,
-		"stat": true,
-		"unit": false,
-		"locked": false,
-		"flavor": "Let's keep this party polite."
-	},
-	{
-		"id": "scraft",
-		"name": "spellcraft power",
+		"id": "chaincast",
+		"name": "Extra Spell Casts",
 		"val": 1,
 		"stat": true,
-		"unit": true,
+		"unit": false,
 		"locked": false
 	},
 	{
-		"id": "DR",
-		"name": "Damage reduction",
-		"desc": "Amount of damage subtracted from total.",
-		"val": 0,
-		"stat": true,
+		"id": "breath",
+		"max": 15,
+		"val": 15,
 		"unit": false,
-		"locked": false
+		"rate": 1,
+		"effect": {
+			"self.hp": "g.breath <=0 ? -g.hp.max*0.2-20 : 0"
+		}
+	},
+	{
+		"id": "fame",
+		"name": "notoriety",
+		"hide": true,
+		"locked": false,
+		"stat": true,
+		"desc": "Your reputation in the world.",
+		"val": 0
 	},
 	{
 		"id": "virtue",
 		"require": "tier0",
-		"hide": "true",
+		"hide": true,
 		"locked": false,
 		"desc": "Tendency to good.",
 		"stat": true,
@@ -155,12 +123,37 @@
 		"val": 0
 	},
 	{
-		"id": "fame",
-		"name": "notoriety",
-		"hide": true,
-		"locked": false,
+		"id": "dist",
+		"name": "distance",
+		"desc": "Maximum travel distance.",
+		"val": 10,
 		"stat": true,
-		"desc": "Your reputation in the world.",
-		"val": 0
+		"locked": false
+	},
+	{
+		"id": "luck",
+		"desc": "Affinity for fortune.",
+		"val": 0,
+		"stat": true,
+		"unit": false,
+		"locked": false,
+		"flavor": "Let's keep this party polite."
+	},
+	{
+		"id": "stat_thorns",
+		"name": "thorns",
+		"val": 0,
+		"stat": true,
+		"unit": true,
+		"locked": false
+	},
+	{
+		"id": "stat_reflect",
+		"name": "damage reflection",
+		"comment": "Not to be used by player for balance reasons.",
+		"val": 0,
+		"stat": true,
+		"unit": true,
+		"locked": false
 	}
 ]

@@ -103,7 +103,7 @@
 				"desc": "Command the plants to grow and blossom",
 				"perpetual": true,
 				"verb": "cultivation ritual",
-				"require": "g.ritualism>=3&&(g.druid+g.fey+g.kell+g.highkell)>0",
+				"require": "g.ritualism>=3&&(g.druid+g.kell)>0",
 				"buy": {
 					"ritualward": 1
 				},
@@ -223,7 +223,7 @@
 				"desc": "Use the lifeforce of multiple bodies to create a field of herbs in a blink of an eye",
 				"perpetual": true,
 				"verb": "greater cultivation ritual",
-				"require": "g.ritualism>=9&&(g.druid+g.fey+g.kell+g.highkell)>0",
+				"require": "g.ritualism>=9&&(g.druid+g.kell)>0",
 				"buy": {
 					"ritualward": 4
 				},
@@ -1011,7 +1011,6 @@
 					"gold": 500
 				},
 				"mod": {
-					"tier2": true,
 					"ritualism.max": 2,
 					"ritualward.rate": 0.0002,
 					"rawritualpaper.rate": 0.001
@@ -1032,13 +1031,35 @@
 					"ritualnotes": 15
 				},
 				"mod": {
-					"tier5": true,
 					"ritualism.max": 2,
 					"ritualward.rate": 0.0003,
 					"rawritualpaper.rate": 0.002
 				},
 				"flavor": "The last rule of ritual magic is thus: 'No cost is too great if it guarantees success.'"
 			}
-		]
+		],
+		"hall": {
+			"data": {
+				"upgrades": [
+					{
+						"id": "ritualchamber",
+						"name": "ritual chamber",
+						"tags": "hall",
+						"sym": "🏰",
+						"require": "g.ritualist>0&&g.tier6>0",
+						"desc": "A warded room deep within the hall, dedicated to carrying out rituals in safety.",
+						"max": 1,
+						"cost": {
+							"prestige": 30
+						},
+						"mod": {
+							"ritualism.max": 2,
+							"ritualnotes.max": 12,
+							"ritualward.max": 7
+						}
+					}
+				]
+			}
+		}
 	}
 }

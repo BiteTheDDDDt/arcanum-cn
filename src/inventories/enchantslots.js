@@ -1,9 +1,10 @@
-import Inventory from '@/inventories/inventory';
-import { TYP_RUN, ENCHANTSLOTS } from '@/values/consts';
-import Enchanting from '@/composites/enchanting';
+import Inventory from "@/inventories/inventory";
+import { TYP_RUN, ENCHANTSLOTS } from "@/values/consts";
+import Enchanting from "@/composites/enchanting";
+import game from "@/game";
+import Enchant from "@/items/enchant";
 
 export default class EnchantSlots extends Inventory {
-
 	get exp() {
 		return this._exp;
 	}
@@ -29,91 +30,80 @@ export default class EnchantSlots extends Inventory {
 		this._length = v;
 	}
 	percent() {
-		return this._length > 0 ? Math.round(100 * this.exp / this.length) : 0;
+		return this._length > 0 ? Math.round((100 * this.exp) / this.length) : 0;
 	}
 
 	constructor(vars) {
-
 		super(vars);
 
 		this.id = ENCHANTSLOTS;
-		this.name = 'enchanting';
-		this.spaceProp = 'level';
+		this.name = "Enchanting Power";
+		this.spaceProp = "level";
 
 		this.removeDupes = true;
 
 		this._exp = 0;
 		this._length = 0;
-
 	}
 
 	/**
 	 * Note: this is called by Runner to determine if enchants complete.
 	 */
 	maxed() {
-
 		for (let i = this.items.length - 1; i >= 0; i--) {
 			if (!this.items[i].done) {
 				return false;
 			}
 		}
 		return true;
-
 	}
 
 	revive(gs) {
-
 		let ltot = 0;
 		let extot = 0;
-
 		for (let i = this.items.length - 1; i >= 0; i--) {
-
 			const it = new Enchanting(this.items[i]);
 			if (!it) {
-				console.warn('invalid enchanting: ' + i);
+				console.warn("invalid enchanting: " + i);
 				this.items.splice(i, 1);
 				continue;
 			}
 			it.revive(gs);
-			if (!it || it.target === null || it.item === null) {
+
+			if (!it || it.target === null || it.target === undefined || !(it.item instanceof Enchant)) {
+				if (it.target !== null && it.target !== undefined) {
+					game.state.inventory.add(it.target);
+				}
 				this.items.splice(i, 1);
+				continue;
 			} else {
 				ltot += it.length;
 				extot += it.exp;
 			}
 			this.items[i] = it;
-
-
 		}
 
 		this.exp = extot;
 		this.length = ltot;
 
 		this.calcUsed();
-
 	}
 
 	update(dt) {
-
 		let ltot = 0;
 		let extot = 0;
 
 		for (let i = this.items.length - 1; i >= 0; i--) {
-
 			const it = this.items[i];
 			if (!it.done) {
-
 				it.update(dt);
 				ltot += it.length;
 				extot += it.exp;
-
 			}
-
 		}
 
 		this.exp = extot;
 		this.length = ltot;
-
 	}
 
 	/**
@@ -121,54 +111,40 @@ export default class EnchantSlots extends Inventory {
 	 * @param {Enchanting} e
 	 */
 	runWith(e) {
-
 		if (!this.includes(e) && e instanceof Enchanting) {
 			super.add(e);
 		}
-
 	}
 
 	add(item, enchant = null) {
-
 		if (item.type === TYP_RUN) {
-
 			super.add(item);
-
 		} else if (item && enchant) {
-
 			let r = new Enchanting(enchant, item);
 			super.add(r);
-
 		}
-
 	}
 	findItem(id, proto = false) {
-
-		return proto === true ? this.items.find(v => v._target.id === id || v._target.recipe === id) :
-			this.items.find(v => v._target.id === id);
-
+		return proto === true
+			? this.items.find(v => v._target.id === id || v._target.recipe === id)
+			: this.items.find(v => v._target.id === id);
 	}
 	/**
 	 *
 	 * @param {} e - running task or enchant target.
 	 */
 	remove(e) {
-
 		if (e.type !== TYP_RUN) {
-
 			e = this.items.find(v => v.targ === e);
 			if (!e) return;
-
 		}
 
 		super.remove(e);
-
 	}
 	//God damn magic, calls begin for target instead of item since the item in enchantslots in an enchant with a target, not a real item.
 	begin(g) {
 		for (let i = this.items.length - 1; i >= 0; i--) {
-			if (typeof this.items[i].target.begin === 'function') this.items[i].target.begin(g);
+			if (typeof this.items[i].target.begin === "function") this.items[i].target.begin(g);
 		}
 	}
-
 }

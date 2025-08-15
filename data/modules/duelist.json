@@ -1,0 +1,507 @@
+{
+	"module": "duelist",
+	"author": "Regallion",
+	"data": {
+		"skills": [
+			{
+				"id": "duelinglore",
+				"name": "dueling",
+				"desc": "Mastery of one-on-one combat.",
+				"flavor": "Includes a 101 on storing loose earthen particulate within the confines of one's clothing",
+				"level": 10,
+				"require": "g.t_duelingclass>0",
+				"need": "armssource",
+				"max": 1,
+				"buy": {
+					"arcana": 40
+				},
+				"run": {
+					"stamina": 1.5
+				},
+				"mod": {
+					"duelingdmg": 2,
+					"piercedmg": 2
+				}
+			}
+		],
+		"upgrades": [
+			{
+				"id": "dueling_lessons",
+				"name": "dueling lessons",
+				"require": "g.duelinglore>=1",
+				"desc": "Arrange tutoring in the dueling arts.",
+				"max": 1,
+				"cost": {
+					"codices": "10+g.dueling_lessons*5",
+					"research": "1500+g.dueling_lessons*500",
+					"stamina": "10+g.dueling_lessons*5"
+				},
+				"mod": {
+					"duelinglore.max": 1,
+					"duelinglore.rate": 0.5
+				},
+				"flavor": "A riposte here, a reprise there, you'll get the hang of it",
+				"group": "martial"
+			},
+			{
+				"id": "quickthoughts",
+				"name": "proactive thinking",
+				"require": "g.duelinglore>=5",
+				"desc": "With practice, you can start casting a spell at the same time as you perform a fencing maneuver.",
+				"max": 1,
+				"cost": {
+					"codices": 20,
+					"research": 5000,
+					"gems": 100
+				},
+				"mod": {
+					"self.chaincast": 0.5
+				},
+				"flavor": "Quickly think all the thoughts.",
+				"group": "spellcasting"
+			},
+			{
+				"id": "quickthoughts2",
+				"name": "focused flourishes",
+				"require": "g.duelinglore>=8",
+				"desc": "Your mastery affords you an ability to channel your swings into spellcasting motions.",
+				"max": 1,
+				"cost": {
+					"tomes": 10,
+					"research": 1200,
+					"gems": 200,
+					"runestones": 5
+				},
+				"mod": {
+					"self.chaincast": 0.5
+				},
+				"flavor": "We put casting in your casting, so you can cast while you cast.",
+				"group": "spellcasting"
+			}
+		],
+		"classes": [
+			{
+				"id": "duelist",
+				"tags": "t_tier3,t_duelingclass,t_swordclass",
+				"desc": "Master of one-on-one combat, the speed of your spellcasting is matched only by your rapier.",
+				"require": "g.tier2>0&&(g.t_swordclass>0||g.redadept>0||g.t_chaosclass>0)&&g.tier3==0",
+				"cost": {
+					"research": 3000,
+					"tomes": 3,
+					"arcana": 20,
+					"gold": 1000
+				},
+				"mod": {
+					"duelingdmg": 5,
+					"dueling_lessons.max": 3,
+					"sworddmg": 5,
+					"self.chaincast": 0.5,
+					"spelldmg": -10
+				}
+			},
+			{
+				"id": "rune_fencer",
+				"name": "rune fencer",
+				"tags": "t_tier4,t_duelingclass,t_swordclass",
+				"desc": "Sharp wit, sharper blade and some quick spells as backup, make for a formidable opponent.",
+				"require": "g.tier3>0&&(g.t_swordclass>=2||g.duelist>0)&&g.tier4==0",
+				"cost": {
+					"research": 5000,
+					"tomes": 10,
+					"arcana": 20,
+					"gold": 2500,
+					"airgem": 10,
+					"firegem": 5,
+					"earthgem": 5,
+					"watergem": 5
+				},
+				"mod": {
+					"duelingdmg": 10,
+					"dueling_lessons.max": 5,
+					"runicdmg": 5,
+					"sworddmg": 10,
+					"self.chaincast": 0.5,
+					"spelldmg": -10
+				}
+			}
+		],
+		"states": [
+			{
+				"id": "duel_engagement",
+				"name": "engagement",
+				"adj": "engaged",
+				"kind": "engagement"
+			}
+		],
+		"spells": [
+			{
+				"id": "engagement",
+				"desc": "Engage the enemy in close quarters, sacrificing defense for offense.",
+				"flavor": "En garde!",
+				"sortOrder": 380,
+				"level": 2,
+				"school": "martial",
+				"tags": "t_nospellcraft",
+				"keywords": {
+					"type": ["buff", "debuff"],
+					"target": ["self", "enemy"],
+					"targets": ["single"],
+					"delivery": ["over time"]
+				},
+				"require": "g.duelinglore>=1",
+				"buy": {
+					"research": 1000,
+					"tomes": 5
+				},
+				"caststoppers": [1],
+				"need": "g.player.getWeapon().hasTag('t_rapier')",
+				"needtext": "Currently equipped weapon must be a rapier.",
+				"cost": {
+					"vigor": 5
+				},
+				"cd": 10,
+				"result": {
+					"duelinglore.exp": 0.5
+				},
+				"attack": {
+					"hits": [
+						{
+							"targets": "enemyleader",
+							"harmless": true,
+							"dot": {
+								"name": "engaged",
+								"id": "enemy_engagement",
+								"mod": {
+									"self.speed": -5,
+									"self.resist.pierce": -25,
+									"self.dodge": -50
+								},
+								"duration": 15
+							}
+						},
+						{
+							"targets": "self",
+							"dot": {
+								"id": "duel_engagement",
+								"name": "engaging",
+								"duration": 15,
+								"mod": {
+									"self.defense": "-25%",
+									"physdmg": 25,
+									"spelldmg": 25
+								}
+							}
+						}
+					]
+				}
+			},
+			{
+				"id": "disengage",
+				"desc": "Jump away from the enemy, restoring your defensive capabilities",
+				"flavor": "Adios!",
+				"sortOrder": 381,
+				"level": 2,
+				"school": "martial",
+				"tags": "t_nospellcraft",
+				"keywords": {
+					"type": ["recovery"],
+					"target": ["self"],
+					"targets": ["single"],
+					"delivery": ["instant"]
+				},
+				"require": "g.duelinglore>=1",
+				"buy": {
+					"research": 1000,
+					"tomes": 5
+				},
+				"caststoppers": [1],
+				"need": "g.player.getWeapon().hasTag('t_rapier')",
+				"needtext": "Currently equipped weapon must be a rapier.",
+				"cost": {
+					"vigor": 5
+				},
+				"cd": 10,
+				"result": {
+					"duelinglore.exp": 0.5
+				},
+				"action": {
+					"cure": "duel_engagement",
+					"targets": "self"
+				}
+			},
+			{
+				"id": "moulinet",
+				"name": "moulinet",
+				"desc": "A graceful cut, shredding through enemies.",
+				"flavor": "A revolution in your wrist.",
+				"sortOrder": 332,
+				"level": 3,
+				"school": "martial",
+				"tags": "t_nospellcraft",
+				"keywords": {
+					"type": ["damage"],
+					"target": ["enemy"],
+					"targets": ["multiple"],
+					"delivery": ["instant"],
+					"special": ["weapon"]
+				},
+				"require": "g.duelinglore>=5",
+				"buy": {
+					"research": 1500,
+					"tomes": 2
+				},
+				"caststoppers": [1],
+				"need": "g.player.getWeapon().hasTag('t_rapier')",
+				"needtext": "Currently equipped weapon must be a rapier.",
+				"cost": {
+					"vigor": 5
+				},
+				"result": {
+					"duelinglore.exp": 0.5
+				},
+				"attack": {
+					"damage": "(a.getWeapon().damage)||0",
+					"targets": "enemies",
+					"maxTargets": 999,
+					"kind": "slash",
+					"potencies": ["physdmg", "slashdmg", "sworddmg", "duelingdmg"],
+					"tohit": -2
+				}
+			},
+			{
+				"id": "duel_thrust",
+				"name": "duelist's thrust",
+				"desc": "A direct strike at the opponent.",
+				"flavor": "A basic move, yet incredibly effective.",
+				"sortOrder": 353,
+				"level": 3,
+				"school": "martial",
+				"tags": "t_nospellcraft",
+				"keywords": {
+					"type": ["damage"],
+					"target": ["enemy"],
+					"targets": ["single"],
+					"delivery": ["instant"],
+					"special": ["weapon"]
+				},
+				"require": "g.duelinglore>=2",
+				"buy": {
+					"research": 1500,
+					"tomes": 2
+				},
+				"caststoppers": [1],
+				"need": "g.player.getWeapon().hasTag('t_rapier')",
+				"needtext": "Currently equipped weapon must be a rapier.",
+				"cost": {
+					"vigor": 3
+				},
+				"result": {
+					"duelinglore.exp": 0.3
+				},
+				"attack": {
+					"damage": "(a.getWeapon().damage*1.5)||0",
+					"targetspec": {
+						"affectedby": {
+							"condition": ["enemy_engagement"],
+							"conditiontext": "engagement"
+						}
+					},
+					"targets": "enemy",
+					"kind": "pierce",
+					"potencies": ["physdmg", "piercedmg", "sworddmg", "duelingdmg"]
+				}
+			},
+			{
+				"id": "one_two",
+				"name": "one-two",
+				"desc": "An involved technique that briefly bypasses an opponent's defenses.",
+				"flavor": "A refined move, for a more civilized mage.",
+				"sortOrder": 352,
+				"level": 4,
+				"school": "martial",
+				"tags": "t_nospellcraft",
+				"keywords": {
+					"type": ["damage"],
+					"target": ["enemy"],
+					"targets": ["single"],
+					"delivery": ["instant"],
+					"special": ["weapon"]
+				},
+				"require": "g.duelinglore>=4",
+				"buy": {
+					"research": 4000,
+					"tomes": 5
+				},
+				"caststoppers": [1],
+				"need": "g.player.getWeapon().hasTag('t_rapier')",
+				"needtext": "Currently equipped weapon must be a rapier.",
+				"cost": {
+					"vigor": 6
+				},
+				"result": {
+					"duelinglore.exp": 0.6
+				},
+				"attack": {
+					"damage": "(a.getWeapon().damage*1.6)||0",
+					"targetspec": {
+						"affectedby": {
+							"condition": ["enemy_engagement"],
+							"conditiontext": "engagement"
+						}
+					},
+					"targets": "enemy",
+					"kind": "pierce",
+					"potencies": ["physdmg", "piercedmg", "sworddmg", "duelingdmg"],
+					"tohit": 1
+				}
+			},
+			{
+				"id": "colpo_fendente",
+				"name": "colpo fendente",
+				"desc": "A downward slash, inaccurate, but devastating.",
+				"flavor": "A brutish move, for a less civilized mage.",
+				"sortOrder": 331,
+				"level": 6,
+				"school": "martial",
+				"tags": "t_nospellcraft",
+				"keywords": {
+					"type": ["damage"],
+					"target": ["enemy"],
+					"targets": ["single"],
+					"delivery": ["instant"],
+					"special": ["weapon"]
+				},
+				"require": "g.duelinglore>=6",
+				"buy": {
+					"research": 4000,
+					"tomes": 5
+				},
+				"caststoppers": [1],
+				"need": "g.player.getWeapon().hasTag('t_rapier')",
+				"needtext": "Currently equipped weapon must be a rapier.",
+				"cost": {
+					"vigor": 10
+				},
+				"cd": 3,
+				"result": {
+					"duelinglore.exp": 1
+				},
+				"attack": {
+					"damage": "(a.getWeapon().damage*2.5)||0",
+					"targetspec": {
+						"affectedby": {
+							"condition": ["enemy_engagement"],
+							"conditiontext": "engagement"
+						}
+					},
+					"targets": "enemy",
+					"kind": "slash",
+					"potencies": ["physdmg", "slashdmg", "sworddmg", "duelingdmg"],
+					"tohit": -2
+				}
+			},
+			{
+				"id": "imbroccata",
+				"name": "imbroccata",
+				"desc": "A strike to the heart. Must be performed on an engaged enemy.",
+				"flavor": "A pinnacle of rapier techniques.",
+				"sortOrder": 351,
+				"level": 5,
+				"school": "martial",
+				"tags": "t_nospellcraft",
+				"keywords": {
+					"type": ["damage"],
+					"target": ["enemy"],
+					"targets": ["single"],
+					"delivery": ["instant"],
+					"special": ["weapon"]
+				},
+				"require": "g.duelinglore>=8",
+				"buy": {
+					"research": 6000,
+					"tomes": 10
+				},
+				"caststoppers": [1],
+				"need": "g.player.getWeapon().hasTag('t_rapier')",
+				"needtext": "Currently equipped weapon must be a rapier.",
+				"cost": {
+					"vigor": 15
+				},
+				"cd": 10,
+				"result": {
+					"duelinglore.exp": 1.5
+				},
+				"attack": {
+					"damage": "(a.getWeapon().damage*4)||0",
+					"targetspec": {
+						"affectedby": {
+							"condition": ["enemy_engagement"],
+							"strict": true,
+							"conditiontext": "engagement"
+						}
+					},
+					"targets": "enemy",
+					"kind": "pierce",
+					"potencies": ["physdmg", "piercedmg", "sworddmg", "duelingdmg"]
+				}
+			},
+			{
+				"id": "ripostestance",
+				"name": "riposting stance",
+				"desc": "Utilize your rapier mastery to counter all comers.",
+				"flavor": "All who dare attack you will be stained crimson",
+				"sortOrder": 397,
+				"level": 1,
+				"school": "martial",
+				"tags": "t_stance",
+				"keywords": {
+					"target": ["self"],
+					"special": ["stance"]
+				},
+				"require": "g.duelinglore>=5",
+				"buy": {
+					"research": 2000,
+					"tomes": 5
+				},
+				"dot": {
+					"id": "ripostestance_dot",
+					"name": "riposting stance",
+					"tags": "t_stance",
+					"mod": {
+						"self.defense": "-10%",
+						"self.dodge": "-10%"
+					},
+					"dotcondition": "t.getWeapon().hasTag('t_rapier')",
+					"conditiontext": "Must be using a rapier",
+					"conditional": {
+						"onSuccess": {
+							"onHit": {
+								"name": "Riposte",
+								"damage": "a.getWeapon().damage*0.5||0",
+								"targets": "fixed",
+								"unreflectable": true,
+								"potencies": ["physdmg", "duelingdmg", "piercedmg"]
+							},
+							"onMiss": {
+								"name": "Attack of opportunity",
+								"damage": "a.getWeapon().damage*0.25||0",
+								"targets": "fixed",
+								"unreflectable": true,
+								"potencies": ["physdmg", "duelingdmg", "piercedmg"]
+							}
+						}
+					}
+				}
+			}
+		],
+		"potencies": [
+			{
+				"id": "duelingdmg",
+				"name": "dueling potency",
+				"val": 100,
+				"damage": "Math.max((i.value/100)||0,0)"
+			}
+		],
+		"weapons": []
+	}
+}

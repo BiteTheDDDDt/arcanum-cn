@@ -23,8 +23,8 @@
 //  */
 // export const move = (arr, idx, amt) => {
 // 	if(
-// 		!arr || !Array.isArray(arr) || 
-// 		!amt || typeof amt !== "number" || 
+// 		!arr || !Array.isArray(arr) ||
+// 		!amt || typeof amt !== "number" ||
 // 		typeof idx !== "number" || idx < 0 || idx >= arr.length ||
 // 		idx === arr.length - 1 && amt > 0 || idx === 0 && amt < 0
 // 	) return false;
@@ -45,12 +45,10 @@
 //  */
 // export const moveElm = (arr, elm, amt) => {
 // 	if(!arr || !Array.isArray(arr) || !amt || typeof amt !== "number") return false;
-	
+
 // 	let idx = arr.indexOf(elm);
 // 	return move(arr, idx, amt);
 // }
-
-
 
 // /**
 //  * Merges items from b into array a for all items in b
