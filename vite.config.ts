@@ -1,19 +1,19 @@
-import { defineConfig } from 'vite';
 import vue from '@vitejs/plugin-vue';
-import { resolve } from 'path';
 import fs from 'fs';
-import { viteStaticCopy } from 'vite-plugin-static-copy'
+import { resolve } from 'path';
+import { defineConfig } from 'vite';
 import { createHtmlPlugin } from 'vite-plugin-html';
+import { viteStaticCopy } from 'vite-plugin-static-copy';
 
 let packData = JSON.parse(fs.readFileSync('package.json', 'utf-8'));
-packData.version = "stable " + packData.version;
+packData.version = "unstable " + packData.version;
 const VERS_STR = JSON.stringify(packData.version);
 
 export default defineConfig(({ mode }) => {
     const isProduction = mode === 'production';
     const isCloud = process.env.CLOUD === 'true';
 
-    const origins = ["'self'", "https://mathiashjelm.gitlab.io/"].join(" ");
+    const origins = ["'self'", "https://arcanumtesting.gitlab.io/"].join(" ");
 
     const securityPolicies = [
         `default-src ${origins}`,
@@ -51,8 +51,14 @@ export default defineConfig(({ mode }) => {
                     {
                         src: 'data',
                         dest: ''
-                    }
-                ]
+                    },
+                ],
+                watch: {
+                    options: {
+                        persistent: false,
+                    },
+                    reloadPageOnChange: process.env.SILENT ? false : true
+                }
             }),
 
         ],
@@ -100,7 +106,8 @@ export default defineConfig(({ mode }) => {
         },
         server: {
             port: 3000,
-            cors: true
+            cors: true,
+            hmr: !process.env.SILENT
         },
         css: {
             preprocessorOptions: {

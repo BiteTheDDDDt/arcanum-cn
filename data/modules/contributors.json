@@ -50,6 +50,7 @@
 				"id": "mk_phoenixegg",
 				"name": "baron's phoenix incubator",
 				"desc": "In combat, summon a phoenix egg which you must guard until it hatches.",
+				"tags": "t_fauna_spell",
 				"sortOrder": 760,
 				"level": 3,
 				"school": "fire",

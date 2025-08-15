@@ -1,37 +1,16 @@
-import Slot from '@/chars/slot';
-import SlotGroup from '@/chars/slotgroup';
+import SlotGroup from "@/chars/slotgroup";
 
 export default class Equip extends SlotGroup {
-
 	toJSON() {
-		return { slots: (this.slots) };
+		return undefined;
 	}
 
 	constructor(vars = null) {
-
-		super(vars);
-
-		this.slots = this._slots || {
-			"left": new Slot(),
-			"right": new Slot(),
-			"head": new Slot(),
-			"hands": new Slot(),
-			"back": new Slot(),
-			"waist": new Slot(),
-			"neck": new Slot({
-				max: 3
-			}),
-			"trinket": new Slot(),
-			"fingers": new Slot({
-				max: 4
-			}),
-			"chest": new Slot(),
-			"shins": new Slot(),
-			"feet": new Slot()
-		};
-
-		for (let p in this._slots) this._slots[p].name = p.toString().toTitleCase();
-
+		super(vars); // TODO
+		this.slots = {};
+		for (let a of vars) {
+			if (a.slotgroup == "equip") this.slots[a.id] = a;
+		}
 	}
 
 	/**
@@ -39,12 +18,14 @@ export default class Equip extends SlotGroup {
 	 * @param {Item} it
 	 */
 	remove(it, slot = null) {
-		return (it.type === 'weapon') ? this.removeWeap(it) : super.remove(it, slot);
+		return super.remove(it, slot);
 	}
 
+	/* deprecated as slots should behave in a uniform manner
 	removeWeap(it) {
 		return this.slots.right.remove(it) || this.slots.left.remove(it);
 	}
+	*/
 
 	/**
 	 * Get a count of items returned when using item.
@@ -55,13 +36,9 @@ export default class Equip extends SlotGroup {
 	 * @returns {number}
 	 */
 	replaceCount(it) {
-
-		// @TODO Replace && with + when hand items gets redone
-		const space = (it.type === 'weapon') ?
-			this.freeSpace('right') && this.freeSpace('left') : this.freeSpace(it.slot);
+		const space = this.freeSpace(it.slot);
 
 		return Math.max((it.numslots || 1) - space, 0);
-
 	}
 
 	/**
@@ -71,12 +48,11 @@ export default class Equip extends SlotGroup {
 	 * @returns {boolean|Wearable|Wearable[]}
 	 */
 	equip(it, slot = null) {
-
-		if (it.type === 'weapon') return this.equipWeap(it);
+		//if (it.type === "weapon") return this.equipWeap(it); deprecated as weapons are no longer special
 
 		slot = slot || it.slot;
 		if (slot === null || !this.slots.hasOwnProperty(slot)) {
-			console.log(it.id + ' bad equip slot: ' + it.slot);
+			console.log(it.id + " bad equip slot: " + it.slot);
 			return false;
 		}
 
@@ -88,47 +64,39 @@ export default class Equip extends SlotGroup {
 	 * @returns {Wearable|null} equipped weapon, or null.
 	 */
 	getWeapon() {
-		return (this.slots.right.empty() === false) ? this.slots.right.item : this.slots.left.item;
+		return this.slots["mainhand"];
+	}
+	redoSlots() {
+		for (let a in this.slots) {
+			this.slots[a].slotSizeChange(this.slots[a]._max.valueOf());
+		}
 	}
 
-	/**
+	/** DEPRECATED as weapons are currently set to be mainhand only
 	 *
 	 * @param {*} it
 	 * @returns {Item|Item[]|true}
-	 */
+	 *
 	equipWeap(it) {
-
 		const right = this.slots.right;
 		const left = this.slots.left;
 
 		if (it.hands === 2) {
-
 			const rightItem = right.equip(it);
 			const leftItem = left.remove();
 
-			return (rightItem && leftItem) ? [rightItem, leftItem] :
-				(rightItem || leftItem || true);
-
+			return rightItem && leftItem ? [rightItem, leftItem] : rightItem || leftItem || true;
 		} else {
-
 			if (right.empty()) {
-
 				right.equip(it);
-				return (!left.empty()) ? left.remove() : true;
-
+				return !left.empty() ? left.remove() : true;
 			} else if (left.empty()) {
-
 				left.equip(it);
-				return (!right.empty()) ? right.remove() : true;
-
+				return !right.empty() ? right.remove() : true;
 			} else {
-
 				return right.equip(left.equip(it));
-
 			}
-
 		}
-
 	}
-
+	*/
 }

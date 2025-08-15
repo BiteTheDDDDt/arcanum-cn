@@ -1,32 +1,29 @@
 <script>
-import ItemsBase from '@/ui/itemsBase';
-import InfoBlock from '@/ui/items/info-block.vue';
-import DamageMixin from '@/ui/items/damageMixin.js';
-import game from '@/game';
-import Summon from '@/ui/items/summon.vue';
-import HealingMixin from '@/ui/items/healingMixin.js';
-import { defineAsyncComponent } from 'vue';
-import { TYP_PCT} from "@/values/consts";
+import ItemsBase from "@/ui/itemsBase";
+import InfoBlock from "@/ui/items/info-block.vue";
+import DamageMixin from "@/ui/items/damageMixin.js";
+import game from "@/game";
+import Summon from "@/ui/items/summon.vue";
+import HealingMixin from "@/ui/items/healingMixin.js";
+import { defineAsyncComponent } from "vue";
+import { TYP_PCT } from "@/values/consts";
 
 /**
  * This is the dot InfoBlock in an info-popup, not the dotView in window.
  */
 export default {
-
-	props: ['dot', 'title', 'item', 'target'],
-	name: 'dot',
+	props: ["dot", "title", "item", "target"],
+	name: "dot",
 	mixins: [ItemsBase, DamageMixin(), HealingMixin()],
 	components: {
-		gdata: defineAsyncComponent(() => import(/* webpackChunkName: "gdata-ui" */ './gdata.vue')),
+		gdata: defineAsyncComponent(() => import(/* webpackChunkName: "gdata-ui" */ "./gdata.vue")),
 		info: InfoBlock,
 		Summon,
-		attack: defineAsyncComponent(() => import('./attack.vue'))
+		attack: defineAsyncComponent(() => import("./attack.vue")),
 	},
 	computed: {
-
-		percent()
-		{
-			return this.dot[TYP_PCT]
+		percent() {
+			return this.dot[TYP_PCT];
 		},
 		damage() {
 			return this.getDamage(this.dot);
@@ -35,24 +32,21 @@ export default {
 			return this.getHealing(this.dot);
 		},
 		leech() {
-			return this.dot.leech*100 + "%";
+			return this.dot.leech * 100 + "%";
 		},
 		name() {
 			return this.dot.name || this.dot.id || this.item?.name;
 		},
 		potency() {
-			let potencystring = ""
+			let potencystring = "";
 			for (let a of this.dot.potencies) {
 				if (potencystring != "") potencystring = potencystring.concat(", ");
-				potencystring = potencystring.concat(game.state.getData(a).name.replace(" damage", "").toTitleCase())
+				potencystring = potencystring.concat(game.state.getData(a).name.replace(" potency", "").toTitleCase());
 			}
-			return potencystring
-		}
-
-
-	}
-
-}
+			return potencystring;
+		},
+	},
+};
 </script>
 
 <template>
@@ -75,23 +69,42 @@ export default {
 				</div>
 			</div>
 			<div v-if="percent">
-				<div>Chance to apply: {{percent}}</div>
+				<div>Chance to apply: {{ percent }}</div>
 			</div>
 			<div>
 				<div v-if="displayDamage(dot)">
 					<span>Estimated damage: </span><span>{{ damage }}</span>
-					<div v-if="dot.potencies">Scales With: {{ potency || 'No'}} Potencies</div>
+					<div v-if="dot.kind">Damage Type: {{ dot.kind.toString().toTitleCase() }}</div>
+					<div v-if="dot.potencies?.length === 1">Scales With: {{ potency }} Potency</div>
+					<div v-if="dot.potencies?.length > 1">Scales With: {{ potency }} Potencies</div>
 					<div v-if="dot.leech">Returns {{ leech }} of damage as healing</div>
 					<div v-if="dot.nodefense">Ignores defense</div>
 				</div>
 				<div v-if="displayHealing(dot)">
 					<span>Estimated healing: </span><span>{{ healing }}</span>
-					<div v-if="dot.potencies">Scales With: {{ potency || 'No'}} Potencies</div>
+					<div v-if="dot.kind">Heal Type: {{ dot.kind.toString().toTitleCase() }}</div>
+					<div v-if="dot.potencies?.length === 1">Scales With: {{ potency }} Potency</div>
+					<div v-if="dot.potencies?.length > 1">Scales With: {{ potency }} Potencies</div>
 				</div>
-				<div v-if="dot.kind">Type: {{ dot.kind.toString().toTitleCase() }}</div>
-				<div v-if="dot.duration">Duration: {{ dot.duration + "s" || 'infinity' }}</div>
+				<div v-if="dot.duration">Duration: {{ dot.duration + "s" || "infinity" }}</div>
 			</div>
-
+			<div v-if="dot.conditiontext">
+				<div class="info-sect">Has a conditional effect:</div>
+				<div>
+					{{ dot.conditiontext }}
+				</div>
+			</div>
+			<div v-if="dot.removedot">
+				<div>This dot will be removed</div>
+			</div>
+			<div v-if="dot.conditional?.onSuccess">
+				<div class="info-subsect">When condition is met</div>
+				<dot-info :dot="dot.conditional.onSuccess" :item="this.item" :target="this.target" />
+			</div>
+			<div v-if="dot.conditional?.onFailure">
+				<div class="info-subsect">When condition is not met</div>
+				<dot-info :dot="dot.conditional.onFailure" :item="this.item" :target="this.target" />
+			</div>
 			<div v-if="dot.effect">
 				<div class="info-sect">Effects</div>
 				<info :info="dot.effect" rate="true" />
@@ -102,7 +115,8 @@ export default {
 			</div>
 			<div v-if="dot.mod">
 				<div class="info-sect">Modifications</div>
-				<info :info="dot.mod" :target="this.target" />
+				<info v-if="this.target === 'allies'" :info="dot.mod" :target="'friendly allies'" />
+				<info v-else :info="dot.mod" :target="this.target" />
 			</div>
 			<div v-if="dot.attack">
 				<div class="info-sect">Attack</div>
@@ -111,6 +125,14 @@ export default {
 			<div v-if="dot.onExpire">
 				<div class="info-sect">On expiration</div>
 				<attack :item="dot" onexpireflag="true" class="info-subsubsect" />
+			</div>
+			<div v-if="dot.onHit">
+				<div class="info-sect">When struck directly</div>
+				<attack :item="dot" onhitflag="true" class="info-subsubsect" />
+			</div>
+			<div v-if="dot.onMiss">
+				<div class="info-sect">After dodging an attack</div>
+				<attack :item="dot" onmissflag="true" class="info-subsubsect" />
 			</div>
 			<div v-if="dot.onDeath">
 				<div class="info-sect">When target killed</div>

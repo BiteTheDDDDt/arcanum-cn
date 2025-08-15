@@ -1,14 +1,14 @@
-import Hall from '@/modules/hall';
-import DataLoader from '@/dataLoader';
-import Settings from '@/modules/settings';
+import Hall from "@/modules/hall";
+import DataLoader from "@/dataLoader";
+import Settings from "@/modules/settings";
 import Events, { LEVEL_UP, CHAR_NAME, CHAR_TITLE, CHAR_CLASS } from "../events";
 
-import { Persist } from '@/modules/persist/persist';
-import { useLocalStorage } from '@/modules/persist/persistLocal';
-import { useDB } from '@/modules/persist/persist-db';
+import { Persist } from "@/modules/persist/persist";
+import { useLocalStorage } from "@/modules/persist/persistLocal";
+import { useDB } from "@/modules/persist/persist-db";
 import { reactive, ref } from "vue";
 
-const HALL_FILE = 'hall';
+const HALL_FILE = "hall";
 
 (function () {
 	useLocalStorage(Persist);
@@ -23,7 +23,6 @@ const HALL_FILE = 'hall';
  * Control access to all local storage and profile information.
  */
 export default {
-
 	/**
 	 * @const {number}
 	 */
@@ -39,30 +38,29 @@ export default {
 	 * @property {Object} active - reactive profile information for Vue.
 	 */
 	active: {
-		loggedIn: false
+		loggedIn: false,
 	},
 
-	get loggedIn() { return this.active.loggedIn },
-	set loggedIn(v) { this.active.loggedIn = v },
+	get loggedIn() {
+		return this.active.loggedIn;
+	},
+	set loggedIn(v) {
+		this.active.loggedIn = v;
+	},
 
-	logout() { Persist.logout(); },
-
-	/**
-	 * @property {boolean} remoteFirst - prefer remote save over local.
-	 */
-	set remoteFirst(v) { Persist.remoteFirst = v; },
+	logout() {
+		Persist.logout();
+	},
 
 	/**
 	 * Load Hall information.
 	 */
 	async loadHall(type = null) {
-
 		const save = await Persist.loadHall(HALL_FILE, type);
 		const data = this.loadHallData(save);
 
 		this.hall = new Hall(data);
 		if (this.hall.legacy) await this.resaveLegacy();
-
 	},
 
 	/**
@@ -71,10 +69,8 @@ export default {
 	 * @compatibility
 	 */
 	async resaveLegacy() {
-
 		const max = this.hall.max.value;
 		for (let i = 0; i < max; i++) {
-
 			const c = this.hall.getSlot(i);
 			if (c.empty) continue;
 
@@ -82,13 +78,9 @@ export default {
 			// parse to avoid double string encoding.
 			if (data) {
 				await Persist.saveChar(JSON.stringify(data), c.pid);
-
-			} else console.log('NO LEGACY FOUND: ' + i);
-
-
+			} else console.log("NO LEGACY FOUND: " + i);
 		}
 		this.hall.legacy = false;
-
 	},
 
 	/**
@@ -97,9 +89,7 @@ export default {
 	 * @returns {Promise.<HallData>}
 	 */
 	loadHallData(save) {
-
 		return DataLoader.main.hall.instance(save);
-
 	},
 
 	/**
@@ -108,10 +98,8 @@ export default {
 	 * @returns {Promise.<>}
 	 */
 	onCharLevel(player, lvl) {
-
 		this.hall.setLevel(player, lvl);
 		return this.saveHall();
-
 	},
 
 	/**
@@ -120,10 +108,8 @@ export default {
 	 * @returns {Promise}
 	 */
 	updateChar(player) {
-
 		this.hall.updateChar(player);
 		return this.saveHall();
-
 	},
 
 	/**
@@ -132,10 +118,8 @@ export default {
 	 * @returns {Promise}
 	 */
 	setHallName(s) {
-
 		this.hall.name = s;
 		return this.saveHall();
-
 	},
 
 	/**
@@ -145,37 +129,33 @@ export default {
 	 * sort of stupid to have this here?
 	 */
 	setActive(slot, state) {
-
 		this.hall.updateChar(state.player);
 
 		if (this.saveActive(state)) {
-
 			this.hall.setActive(slot);
 			this.saveHall();
-
-		} else console.error('CUR CHAR NOT SAVED');
-
+		} else console.error("CUR CHAR NOT SAVED");
 	},
 
 	/**
 	 * @returns {.<string,GData>} special hall data items.
 	 */
-	getHallItems() { return this.hall.items; },
+	getHallItems() {
+		return this.hall.items;
+	},
 
 	/**
 	 * Game of current player/game loaded.
 	 * @param {Game} game
 	 */
 	gameLoaded(game) {
-
 		const gs = game.state;
 		const p = gs.player;
 
 		const id = gs.pid || p.hid;
-		console.log('player id: ' + id);
-		this.hall = reactive(this.hall)
+		console.log("player id: " + id);
+		this.hall = reactive(this.hall);
 		const slot = this.hall.pidSlot(id);
-
 		if (slot >= 0) {
 			this.hall.setActive(slot);
 		}
@@ -188,8 +168,6 @@ export default {
 		Events.add(CHAR_NAME, this.updateChar, this);
 		Events.add(CHAR_TITLE, this.updateChar, this);
 		Events.add(CHAR_CLASS, this.updateChar, this);
-
-
 	},
 
 	/**
@@ -197,14 +175,10 @@ export default {
 	 * @param {number} slot
 	 */
 	dismiss(slot) {
-
 		if (this.hall.dismiss(slot)) {
-
 			Persist.deleteChar(this.hall.charId(slot));
 			this.saveHall();
-
 		}
-
 	},
 
 	/**
@@ -212,21 +186,15 @@ export default {
 	 * player slot, or null.
 	 */
 	async loadActive() {
-
 		try {
-
-			if (this.hall.curId) console.log('loading hall char: ' + this.hall.curId);
-			else if (this.hall.curSlot) console.log('loading slot: ' + this.hall.curSlot);
+			if (this.hall.curId) console.log("loading hall char: " + this.hall.curId);
+			else if (this.hall.curSlot) console.log("loading slot: " + this.hall.curSlot);
 
 			return Persist.loadChar(this.hall.curId || this.hall.curSlot);
-
 		} catch (e) {
-
-			console.error(e.message + '\n' + e.stack);
+			console.error(e.message + "\n" + e.stack);
 			return null;
-
 		}
-
 	},
 
 	/**
@@ -234,18 +202,16 @@ export default {
 	 * @returns {object}
 	 */
 	async getHallSave() {
-
 		let data = {
 			type: HALL_FILE,
 			hall: this.hall,
-			chars: []
+			chars: [],
 		};
 
 		let max = Math.floor(this.hall.max);
 
 		let chars = data.chars;
 		for (let i = 0; i < max; i++) {
-
 			if (!this.hall.charId(i)) continue;
 			let char = await Persist.loadChar(this.hall.charId(i));
 
@@ -253,11 +219,9 @@ export default {
 			//if ( char ) char = JSON.parse(char);
 
 			chars.push(char || null);
-
 		}
 
 		return data;
-
 	},
 
 	/**
@@ -266,24 +230,20 @@ export default {
 	 * @param {FullHall} save
 	 */
 	async setHallSave(save) {
-
 		await this.setCharDatas(save.chars);
-		console.dir(save.hall, 'Hall Save');
+		console.dir(save.hall, "Hall Save");
 
 		/** @compat */
 		if (save.hall.active) {
-
 			let active = save.hall.active;
 			let cur = save.hall.chars[active];
 			if (cur) {
 				save.hall.curId = cur.pid || cur.hid;
-				console.log('switching to cur: ' + save.hall.curId);
-			} else console.warn('cur not found: ' + cur);
+				console.log("switching to cur: " + save.hall.curId);
+			} else console.warn("cur not found: " + cur);
 			delete save.hall.active;
-
 		}
 		return Persist.saveHall(JSON.stringify(save.hall), save.hall.id);
-
 	},
 
 	/**
@@ -292,36 +252,28 @@ export default {
 	 * @param {*} chars
 	 */
 	async setCharDatas(chars) {
-
 		if (!chars) return;
 
 		let id;
 
 		for (let i = chars.length - 1; i >= 0; i--) {
-
 			const char = chars[i];
 			if (char) {
-
 				console.log(`HALL SAVE ${i}: ${char.name}`);
 
 				id = char.pid;
 				if (!id) {
-
 					const p = char.items.player;
 					// @compat hid
-					if (p) id = p.pid || p.hid
+					if (p) id = p.pid || p.hid;
 				}
-
 			} else {
-				console.log('EMPTY HALL SLOT: ' + i);
-
+				console.log("EMPTY HALL SLOT: " + i);
 			}
 
 			await Persist.saveChar(JSON.stringify(chars[i]), id);
 			id = null;
-
 		}
-
 	},
 
 	/**
@@ -330,10 +282,8 @@ export default {
 	 * @returns {string} json save data.
 	 */
 	async saveActive(state) {
-
 		try {
-
-			console.log('cur char id: ' + this.hall.curId);
+			console.log("cur char id: " + this.hall.curId);
 			const json = JSON.stringify(state);
 			if (json) {
 				await Persist.saveChar(json, this.hall.curId);
@@ -342,14 +292,11 @@ export default {
 			this.saveSettings();
 
 			return json;
-
 		} catch (e) {
-			console.error(e.message + '\n' + e.stack);
+			console.error(e.message + "\n" + e.stack);
 			return null;
 		}
-
 	},
-
 
 	/**
 	 * Wipe current player data and settings.
@@ -363,41 +310,35 @@ export default {
 	 * @returns {object}
 	 */
 	loadSettings() {
-
 		try {
-
 			let str = Persist.loadSettings();
 			let data = JSON.parse(str);
 
 			Settings.setSettings(data);
 
 			return Settings.getAll();
-
 		} catch (e) {
-			console.error(e.message + '\n' + e.stack);
+			console.error(e.message + "\n" + e.stack);
 		}
-
 	},
 
 	/**
 	 * Save settings for active wizard.
 	 */
 	saveSettings() {
-
 		try {
-
 			let data = JSON.stringify(Settings);
 			if (data) {
 				Persist.saveSettings(data, this.curId);
 			}
-
 		} catch (e) {
-			console.error(e.message + '\n' + e.stack);
+			console.error(e.message + "\n" + e.stack);
 		}
-
 	},
 
-	hasHall() { return this.hall && this.hall.owned() },
+	hasHall() {
+		return this.hall && this.hall.owned();
+	},
 
 	/**
 	 * Clear all stored data.
@@ -407,20 +348,13 @@ export default {
 	},
 
 	async saveHall() {
-
 		try {
-
 			const data = JSON.stringify(this.hall);
 			if (data) {
 				await Persist.saveHall(data, this.hall.id);
 			}
-
 		} catch (e) {
-
-			console.error(e.message + '\n' + e.stack);
-
+			console.error(e.message + "\n" + e.stack);
 		}
-
-	}
-
-}
+	},
+};

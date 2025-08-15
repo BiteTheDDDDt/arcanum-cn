@@ -1,16 +1,16 @@
 import Inventory, { SAVE_IDS } from "./inventory";
-import Events, { TASK_REPEATED } from '../events';
-import { NPC, TEAM_PLAYER } from '@/values/consts';
-import RValue from '@/values/rvals/rvalue';
-
+import Events, { TASK_REPEATED } from "../events";
+import { NPC, TEAM_PLAYER } from "@/values/consts";
+import RValue from "@/values/rvals/rvalue";
 
 export default class Minions extends Inventory {
-
 	/**
 	 * @deprecated - use allies.max
 	 * @property {Stat} maxAllies - level max allies taken into battle.
 	 */
-	get maxAllies() { return this._allies.max; }
+	get maxAllies() {
+		return this._allies.max;
+	}
 	set maxAllies(v) {
 		this._allies.max = v;
 	}
@@ -18,25 +18,36 @@ export default class Minions extends Inventory {
 	/**
 	 * @property {Inventory} - minions active in combat.
 	 */
-	get allies() { return this._allies; }
-	set allies(v) { this._allies = v; }
+	get allies() {
+		return this._allies;
+	}
+	set allies(v) {
+		this._allies = v;
+	}
 
 	/**
-	 * @property {Set<string>} - summons always kept.
+	 * @type {Set<string>} - summons always kept.
 	 */
-	get keep() { return this._keep; }
-	set keep(v) { this._keep = v; }
+	get keep() {
+		return this._keep;
+	}
+	set keep(v) {
+		this._keep = v;
+	}
 
 	/**
-	 * @property {Map.<object,string>} mods - mods applied to added minions
+	 * @type {Map<object, string>} mods - mods applied to added minions
 	 * by kind,tag,name, etc.
 	 * the mod/path object has to map to the mod tag, since tags are not unique.
 	 */
-	get mods() { return this._mods; }
-	set mods(v) { this._mods = v; }
+	get mods() {
+		return this._mods;
+	}
+	set mods(v) {
+		this._mods = v;
+	}
 
 	constructor(vars = null) {
-
 		super(vars);
 
 		this.type = this.id = "minions";
@@ -46,10 +57,14 @@ export default class Minions extends Inventory {
 		/*this.saveMode = 'custom';
 		this.saveMap = SaveInstanced;*/
 
-		this._allies = new Inventory({ id: 'allies', name: 'Active Minions Levels', spaceProp: 'level', saveMode: SAVE_IDS });
+		this._allies = new Inventory({
+			id: "allies",
+			name: "Active Minions Levels",
+			spaceProp: "level",
+			saveMode: SAVE_IDS,
+		});
 		this.mods = new Map();
 		//this.keep = new Set();
-
 	}
 	/* Deprecating class keep
 	addKeep(mod) {
@@ -76,14 +91,12 @@ export default class Minions extends Inventory {
 	}
 	*/
 	update(dt) {
-
-		for (let i = this.items.length - 1; i >= 0; i--) {
-
-			let it = this.items[i];
-			if (it.active === false && it.alive) it.rest(dt);
-
+		const isCombatActive = game.state.explore.running;
+		for (const it of this.items) {
+			if (!it.alive) continue;
+			if (isCombatActive && it.active) continue;
+			it.rest(dt);
 		}
-
 	}
 
 	/**
@@ -91,68 +104,56 @@ export default class Minions extends Inventory {
 	 * @param {*} m
 	 */
 	add(m) {
-
 		super.add(m);
 
 		m.team = TEAM_PLAYER;
 		m.keep = true;
 
 		if (m.active) {
-			this.setActive(m)
+			this.setActive(m);
 		}
 
-		for (let pair of this.mods) {
-
-			if (m.is(pair[1])) {
-				m.applyMods(pair[0]);
-			}
-
+		for (const [mod, target] of this.mods) {
+			if (!m.is(target)) continue;
+			m.applyMods(mod);
 		}
-
-
 	}
 
 	setActive(b, active = true) {
-
 		if (active === true) {
-
 			if (!b.alive || !this.allies.canAdd(b)) {
 				b.active = false;
 				return false;
 			}
 			if (!this.allies.includes(b)) {
 				this.allies.add(b);
-
 			}
-
 		} else {
-
 			this.allies.remove(b);
-
 		}
 
 		b.active = active;
-
 	}
 
 	revive(state) {
-
 		super.revive(state);
 
-		if (!this.allies.max) { this.allies.max = Math.floor(state.player.level / 5); }
+		if (!this.allies.max) {
+			this.allies.max = Math.floor(state.player.level / 5);
+		}
 
 		const actives = [];
 
 		for (let i = this.items.length - 1; i >= 0; i--) {
-
 			const m = this.items[i];
 			if (m.type !== NPC) {
 				this.items.splice(i, 1);
 				continue;
 			}
 
-			if (m.active) { actives.push(m); }
-
+			if (m.active) {
+				actives.push(m);
+			}
 		}
 
 		this.allies.items = actives;
@@ -162,7 +163,6 @@ export default class Minions extends Inventory {
 
 		//Events.add( ALLY_DIED, this.died, this );
 		Events.add(TASK_REPEATED, this.resetActives, this);
-
 	}
 
 	/**
@@ -170,34 +170,22 @@ export default class Minions extends Inventory {
 	 * @param {object} mods
 	 */
 	applyMods(mods, amt) {
-
 		for (const p in mods) {
-
 			const mod = mods[p];
 
 			if (this[p]) {
-
 				// own property.
 				if (this[p] instanceof RValue) this[p].addMod(mod);
 				//else if (p === 'keep') this.addKeep(mod);
 				else this[p].applyMods(mod);
-
-			} else if (this.mods.has(mod)) continue;
-			else {
-
+			} else {
 				this.mods.set(mod, p);
 				for (let it of this.items) {
-
-					if (it.is(p)) {
-						it.applyMods(mod, amt);
-					}
-
+					if (!it.is(p)) continue;
+					it.applyMods(mod, amt);
 				}
-
 			}
-
 		}
-
 	}
 
 	/**
@@ -205,18 +193,14 @@ export default class Minions extends Inventory {
 	 * gone inactive, etc.
 	 */
 	resetActives() {
-
 		/** @todo dangerous order referencing. */
 		let allies = this.allies.items;
 
 		for (let i = allies.length - 1; i >= 0; i--) {
-
 			if (!allies[i].active || !allies[i].alive) {
 				this.setActive(allies[i], false);
 			}
-
 		}
-
 	}
 
 	/**
@@ -224,12 +208,10 @@ export default class Minions extends Inventory {
 	 * @param {Npc} m
 	 */
 	remove(m) {
-
 		super.remove(m);
 
 		// @note mods are not removed here.
 		this.setActive(m, false);
-
 	}
 
 	/**
@@ -239,5 +221,4 @@ export default class Minions extends Inventory {
 	died(m) {
 		//m.active = false;
 	}
-
 }

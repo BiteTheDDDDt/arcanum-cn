@@ -341,15 +341,11 @@
 					"magicbeasts.max": "?1"
 				},
 				"boss": "jabberwocky",
-				"loot": {
-					"maxlevel": 25
-				},
 				"spawns": ["wyvern2", ["wyvern", "wyvern", "wyvern"], "m_cordyceps", "m_stranglevine"]
 			},
 			{
 				"id": "spr_sunnyfield",
 				"name": "sunny fields of stone",
-				"lock": "sunnyfield",
 				"level": 20,
 				"length": 100,
 				"dist": 0,
@@ -365,9 +361,6 @@
 					"gold": "100~200"
 				},
 				"title": "Sunny Champion",
-				"loot": {
-					"maxlevel": 20
-				},
 				"boss": "wyvern2",
 				"spawns": [
 					"basilisk2",

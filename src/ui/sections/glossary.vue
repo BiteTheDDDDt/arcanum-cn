@@ -1,14 +1,13 @@
 <script>
-import Game from '@/game';
-import FilterBox from '@/ui/components/filterbox.vue';
-import { USE } from '@/events';
-import Settings from 'modules/settings';
-import GlossaryEntries from '@/ui/panes/glossaryentries.vue';
-import profile from '@/modules/profile';
-import { computed } from 'vue';
+import Game from "@/game";
+import FilterBox from "@/ui/components/filterbox.vue";
+import { USE } from "@/events";
+import Settings from "modules/settings";
+import GlossaryEntries from "@/ui/panes/glossaryentries.vue";
+import profile from "@/modules/profile";
+import { computed } from "vue";
 
 export default {
-
 	/**
 	 * @property {Inventory} inv - the inventory object.
 	 * @property {boolean} take - whether to display take button.
@@ -19,8 +18,8 @@ export default {
 	data() {
 		return {
 			filtered: null,
-			selected: null
-		}
+			selected: null,
+		};
 	},
 
 	provide() {
@@ -28,12 +27,12 @@ export default {
 			// explicitly provide a computed property
 			selected: computed({
 				get: () => this.selected,
-				set: (v) => this.selected = v
-			})
-		}
+				set: v => (this.selected = v),
+			}),
+		};
 	},
 	created() {
-		let curentry = Settings.getSubVars('entryview');
+		let curentry = Settings.getSubVars("entryview");
 		if (curentry) {
 			this.selected = Game.state.glossaryentries.find(v => v.id === curentry && v.locked === false);
 		} else {
@@ -43,31 +42,27 @@ export default {
 	},
 	components: {
 		filterbox: FilterBox,
-		entries: GlossaryEntries
+		entries: GlossaryEntries,
 	},
-
 
 	methods: {
 		searchIt(it, t) {
-
 			if (it.name.includes(t)) return true;
 			if (it.tags) {
-
 				let tags = it.tags;
 				for (let i = tags.length - 1; i >= 0; i--) {
-					let tag = Game.state.tagSets[tags[i]] || tags[i]
+					let tag = Game.state.tagSets[tags[i]] || tags[i];
 					if (tag.name.includes(t)) return true;
 				}
 			}
 
 			return false;
-
-
-		}
-
+		},
 	},
 	computed: {
-		hall() { return profile.hall; },
+		hall() {
+			return profile.hall;
+		},
 		baseItems() {
 			return Game.state.glossaryentries.concat(this.hall.glossaryentries);
 		},
@@ -75,12 +70,11 @@ export default {
 			return this.filtered;
 		},
 		joineddesc() {
-			return this.selected.desc.join('\n');
+			return this.selected.desc.join("\n");
 		},
 		tags() {
-
 			let tags = this.selected.tags;
-			if (typeof tags === 'string') tags = [tags];
+			if (typeof tags === "string") tags = [tags];
 			let names = [];
 			for (var i = 0; i < tags.length; i++) {
 				let tag = tags[i];
@@ -93,13 +87,11 @@ export default {
 				}
 			}
 
-			return names.join(', ');
-
+			return names.join(", ");
 		},
-	}
-}
+	},
+};
 </script>
-
 
 <template>
 	<div class="main">
@@ -108,13 +100,12 @@ export default {
 			<entries :items="postfilter" />
 		</div>
 		<div class="glossary" v-if="selected">
-			<div class='boldlarge'>{{ selected.name.toTitleCase() || '' }}</div>
-			<div class='tight note-text' v-if="selected.tags">{{ tags }}</div>
-			<div class='glossdesc'>{{ joineddesc || '' }}</div>
+			<div class="boldlarge">{{ selected.name.toTitleCase() || "" }}</div>
+			<div class="tight note-text" v-if="selected.tags">{{ tags }}</div>
+			<div class="glossdesc">{{ joineddesc || "" }}</div>
 		</div>
 	</div>
 </template>
-
 
 <style scoped>
 .main {
@@ -152,7 +143,6 @@ export default {
 	white-space: pre-wrap;
 }
 
-
 .top {
 	padding: var(--tiny-gap);
 	padding-top: var(--sm-gap);
@@ -161,7 +151,7 @@ export default {
 .boldlarge {
 	font-weight: bold;
 	font-size: 24px;
-	font-family: 'Open sans', sans-serif
+	font-family: "Open sans", sans-serif;
 }
 
 .filter-box {
@@ -185,7 +175,6 @@ export default {
 	display: grid;
 	grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));
 	grid-auto-rows: min-content;
-
 }
 
 .item-name {

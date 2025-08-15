@@ -1,0 +1,501 @@
+{
+	"module": "equipment-jewelry",
+	"author": "nagshell",
+	"data": {
+		"tags": [],
+		"materials": [
+			{
+				"id": "mat_jewelry_gold",
+				"name": "Gold",
+				"level": 2,
+				"kind": "precious",
+				"only": "t_accessory",
+				"cost": {
+					"gold": 150,
+					"cotton": 3,
+					"arcana": 2
+				},
+				"require": "g.craftinglearn1>0",
+				"alter": {
+					"sell": { "gold": 100, "cotton": 1 }
+				}
+			},
+			{
+				"id": "mat_jewelry_ruby",
+				"name": "Ruby",
+				"level": 9,
+				"kind": "precious",
+				"only": "t_accessory",
+				"cost": {
+					"rubies": 3,
+					"spidersilk": 3,
+					"arcana": 3
+				},
+				"require": "g.craftinglearn2>0",
+				"alter": {
+					"sell": { "rubies": 1, "spidersilk": 1 },
+					"enchants.max": 1
+				}
+			},
+			{
+				"id": "mat_jewelry_diamond",
+				"name": "Diamond",
+				"level": 19,
+				"kind": "precious",
+				"only": "t_accessory",
+				"cost": {
+					"diamonds": 3,
+					"amberroot": 3,
+					"arcana": 5,
+					"research": 500
+				},
+				"require": "g.craftinglearn4>0",
+				"alter": {
+					"sell": { "diamonds": 1, "amberroot": 1 },
+					"enchants.max": 2
+				}
+			}
+		],
+		"armors": [
+			{
+				"id": "pendant",
+				"name": "Pendant",
+				"level": 1,
+				"slot": "neck",
+				"tags": "t_accessory,t_necklace",
+				"require": "g.craftinglearn1>0",
+				"cost": {
+					"gold": 50,
+					"research": 50
+				},
+				"craftcostmult": 1,
+				"sell": {},
+				"only": "precious",
+				"enchants": 1,
+				"alter": { "mod.mana.max": 3 }
+			},
+			{
+				"id": "amulet",
+				"name": "Amulet",
+				"level": 3,
+				"slot": "neck",
+				"tags": "t_accessory,t_necklace",
+				"require": "g.craftinglearn3>0",
+				"cost": {
+					"gold": 150,
+					"research": 150
+				},
+				"craftcostmult": 1,
+				"sell": {},
+				"only": "precious",
+				"enchants": 1,
+				"alter": { "mod.hp.max": 10 }
+			},
+			{
+				"id": "lariat",
+				"name": "Lariat",
+				"level": 5,
+				"slot": "neck",
+				"tags": "t_accessory,t_necklace",
+				"require": "g.craftinglearn5>0",
+				"cost": {
+					"gold": 500,
+					"research": 500
+				},
+				"craftcostmult": 1.5,
+				"sell": {},
+				"only": "precious",
+				"enchants": 1,
+				"alter": { "mod.spelldmg": 5 }
+			},
+			{
+				"id": "loop",
+				"name": "Loop",
+				"level": 1,
+				"slot": "fingers",
+				"tags": "t_accessory,t_ring",
+				"require": "g.craftinglearn1>0",
+				"cost": {
+					"gold": 50,
+					"research": 50
+				},
+				"craftcostmult": 1,
+				"sell": {},
+				"only": "precious",
+				"enchants": 1,
+				"alter": { "mod.mana.max": 3 }
+			},
+			{
+				"id": "ring",
+				"name": "Ring",
+				"level": 3,
+				"slot": "fingers",
+				"tags": "t_accessory,t_ring",
+				"require": "g.craftinglearn3>0",
+				"cost": {
+					"gold": 150,
+					"research": 150
+				},
+				"craftcostmult": 1,
+				"sell": {},
+				"only": "precious",
+				"enchants": 1,
+				"alter": { "mod.hp.max": 10 }
+			},
+			{
+				"id": "signet",
+				"name": "Signet",
+				"level": 5,
+				"slot": "fingers",
+				"tags": "t_accessory,t_ring",
+				"require": "g.craftinglearn5>0",
+				"cost": {
+					"gold": 500,
+					"research": 500
+				},
+				"craftcostmult": 1,
+				"sell": {},
+				"only": "precious",
+				"enchants": 1,
+				"alter": { "mod.spelldmg": 5 }
+			},
+			{
+				"id": "belt",
+				"name": "Belt",
+				"level": 1,
+				"slot": "waist",
+				"tags": "t_accessory,t_belt",
+				"require": "g.craftinglearn1>0",
+				"cost": {
+					"gold": 50,
+					"research": 50
+				},
+				"craftcostmult": 1,
+				"sell": {},
+				"only": "precious",
+				"enchants": 1,
+				"alter": { "mod.mana.max": 3 }
+			},
+			{
+				"id": "sash",
+				"name": "Sash",
+				"level": 3,
+				"slot": "waist",
+				"tags": "t_accessory,t_belt",
+				"require": "g.craftinglearn1>0",
+				"cost": {
+					"gold": 150,
+					"research": 150
+				},
+				"craftcostmult": 1,
+				"sell": {},
+				"only": "precious",
+				"enchants": 1,
+				"alter": { "mod.hp.max": 10 }
+			},
+			{
+				"id": "cincture",
+				"name": "Cincture",
+				"level": 5,
+				"slot": "waist",
+				"tags": "t_accessory,t_belt",
+				"require": "g.craftinglearn5>0",
+				"cost": {
+					"gold": 500,
+					"research": 500
+				},
+				"craftcostmult": 1.5,
+				"sell": {},
+				"only": "precious",
+				"enchants": 1,
+				"alter": { "mod.spelldmg": 5 }
+			}
+		],
+		"enchants": [
+			{
+				"id": "en_ring_prisma",
+				"name": "Prismatic Ring",
+				"adj": "%i of colors",
+				"desc": "Restores energies of all kinds.",
+				"require": "g.enchanting>=6",
+				"buy": {
+					"arcana": 6,
+					"research": 5000
+				},
+				"level": 3,
+				"only": "t_ring",
+				"length": 20,
+				"cost": {
+					"arcana": 6,
+					"managem": 3,
+					"watergem": 3,
+					"airgem": 3,
+					"firegem": 3,
+					"earthgem": 3,
+					"naturegem": 3,
+					"spiritgem": 3,
+					"lightgem": 3,
+					"shadowgem": 3
+				},
+				"alter": { "mod.prismatic.rate": 0.1 }
+			},
+			{
+				"id": "en_jewelry_energy",
+				"name": "Energy",
+				"adj": "Energetic",
+				"desc": "Improves mana flow near you.",
+				"require": "g.enchanting>0",
+				"buy": {
+					"arcana": 1,
+					"research": 100
+				},
+				"level": 1,
+				"only": "t_necklace,t_ring,t_belt",
+				"length": 30,
+				"cost": { "arcana": 1 },
+				"alter": { "mod.mana.rate": 0.1 }
+			},
+			{
+				"id": "en_jewelry_hp",
+				"name": "Glimmer",
+				"adj": "Glimmering",
+				"desc": "Acts as an additional nucleus for your magic barriers.",
+				"require": "g.enchanting>0",
+				"buy": {
+					"arcana": 1,
+					"research": 100
+				},
+				"level": 1,
+				"only": "t_necklace,t_ring,t_belt",
+				"length": 30,
+				"cost": { "arcana": 1 },
+				"alter": { "mod.barrier.max": 25 }
+			},
+			{
+				"id": "en_jewelry_luck",
+				"name": "Luck",
+				"adj": "Lucky",
+				"desc": "Fortune favours the brave.",
+				"flavor": "Let's keep this party polite.",
+				"require": "g.enchanting>0",
+				"buy": {
+					"arcana": 1,
+					"research": 100
+				},
+				"level": 1,
+				"only": "t_necklace,t_ring,t_belt",
+				"length": 30,
+				"cost": { "arcana": 1 },
+				"alter": { "mod.luck": 2 }
+			},
+			{
+				"id": "en_jewelry_tohit",
+				"name": "Precision",
+				"adj": "Precise",
+				"desc": "Focuses your perception slightly, improving odds of your attacks and spells finding their marks.",
+				"require": "g.enchanting>0",
+				"buy": {
+					"arcana": 1,
+					"research": 100
+				},
+				"level": 1,
+				"only": "t_necklace,t_ring,t_belt",
+				"length": 30,
+				"cost": { "arcana": 1 },
+				"alter": { "mod.self.tohit": 1 }
+			},
+			{
+				"id": "en_jewelry_resist_mana",
+				"name": "Genie's Resistance",
+				"adj": "%i of the Genie",
+				"desc": "Redirects portion of incoming mana damage.",
+				"require": "g.enchanting>0",
+				"buy": {
+					"arcana": 1,
+					"research": 100
+				},
+				"level": 1,
+				"only": "t_necklace,t_ring,t_belt",
+				"length": 30,
+				"cost": { "arcana": 1 },
+				"alter": { "mod.self.resist.mana": 20 }
+			},
+			{
+				"id": "en_jewelry_resist_water",
+				"name": "Walrus's Resistance",
+				"adj": "%i of the Walrus",
+				"desc": "Redirects portion of incoming water damage.",
+				"require": "g.enchanting>0",
+				"buy": {
+					"arcana": 1,
+					"research": 100
+				},
+				"level": 1,
+				"only": "t_necklace,t_ring,t_belt",
+				"length": 30,
+				"cost": { "arcana": 1 },
+				"alter": { "mod.self.resist.water": 20 }
+			},
+			{
+				"id": "en_jewelry_resist_air",
+				"name": "Hawk's Resistance",
+				"adj": "%i of the Hawk",
+				"desc": "Redirects portion of incoming air damage.",
+				"require": "g.enchanting>0",
+				"buy": {
+					"arcana": 1,
+					"research": 100
+				},
+				"level": 1,
+				"only": "t_necklace,t_ring,t_belt",
+				"length": 30,
+				"cost": { "arcana": 1 },
+				"alter": { "mod.self.resist.air": 20 }
+			},
+			{
+				"id": "en_jewelry_resist_fire",
+				"name": "Salamander's Resistance",
+				"adj": "%i of the Salamander",
+				"desc": "Redirects portion of incoming fire damage.",
+				"require": "g.enchanting>0",
+				"buy": {
+					"arcana": 1,
+					"research": 100
+				},
+				"level": 1,
+				"only": "t_necklace,t_ring,t_belt",
+				"length": 30,
+				"cost": { "arcana": 1 },
+				"alter": { "mod.self.resist.fire": 20 }
+			},
+			{
+				"id": "en_jewelry_resist_earth",
+				"name": "Mole's Resistance",
+				"adj": "%i of the Mole",
+				"desc": "Redirects portion of incoming earth damage.",
+				"require": "g.enchanting>0",
+				"buy": {
+					"arcana": 1,
+					"research": 100
+				},
+				"level": 1,
+				"only": "t_necklace,t_ring,t_belt",
+				"length": 30,
+				"cost": { "arcana": 1 },
+				"alter": { "mod.self.resist.earth": 20 }
+			},
+			{
+				"id": "en_jewelry_resist_nature",
+				"name": "Deer's Resistance",
+				"adj": "%i of the Deer",
+				"desc": "Redirects portion of incoming nature damage.",
+				"require": "g.enchanting>0",
+				"buy": {
+					"arcana": 1,
+					"research": 100
+				},
+				"level": 1,
+				"only": "t_necklace,t_ring,t_belt",
+				"length": 30,
+				"cost": { "arcana": 1 },
+				"alter": { "mod.self.resist.nature": 20 }
+			},
+			{
+				"id": "en_jewelry_resist_spirit",
+				"name": "Apparition's Resistance",
+				"adj": "%i of the Apparition",
+				"desc": "Redirects portion of incoming spirit damage.",
+				"require": "g.enchanting>0",
+				"buy": {
+					"arcana": 1,
+					"research": 100
+				},
+				"level": 1,
+				"only": "t_necklace,t_ring,t_belt",
+				"length": 30,
+				"cost": { "arcana": 1 },
+				"alter": { "mod.self.resist.spirit": 20 }
+			},
+			{
+				"id": "en_jewelry_resist_light",
+				"name": "Valkyrie's Resistance",
+				"adj": "%i of the Valkyrie",
+				"desc": "Redirects portion of incoming light damage.",
+				"require": "g.enchanting>0",
+				"buy": {
+					"arcana": 1,
+					"research": 100
+				},
+				"level": 1,
+				"only": "t_necklace,t_ring,t_belt",
+				"length": 30,
+				"cost": { "arcana": 1 },
+				"alter": { "mod.self.resist.light": 20 }
+			},
+			{
+				"id": "en_jewelry_resist_shadow",
+				"name": "Undead's Resistance",
+				"adj": "%i of the Undead",
+				"desc": "Redirects portion of incoming shadow damage.",
+				"require": "g.enchanting>0",
+				"buy": {
+					"arcana": 1,
+					"research": 100
+				},
+				"level": 1,
+				"only": "t_necklace,t_ring,t_belt",
+				"length": 30,
+				"cost": { "arcana": 1 },
+				"alter": { "mod.self.resist.shadow": 20 }
+			},
+			{
+				"id": "en_jewelry_resist_paralysis",
+				"name": "Paralysis Negation",
+				"adj": "%i of Unstillness",
+				"desc": "Improves chance of negating paralysis.",
+				"require": "g.enchanting>0",
+				"buy": {
+					"arcana": 1,
+					"research": 100
+				},
+				"level": 1,
+				"only": "t_necklace,t_ring,t_belt",
+				"length": 30,
+				"cost": { "arcana": 1 },
+				"alter": { "mod.self.negate.paralysis": 25 }
+			},
+			{
+				"id": "en_jewelry_resist_silence",
+				"name": "Silence Negation",
+				"adj": "%i of Freespeak",
+				"desc": "Improves chance of negating silence.",
+				"require": "g.enchanting>0",
+				"buy": {
+					"arcana": 1,
+					"research": 100
+				},
+				"level": 1,
+				"only": "t_necklace,t_ring,t_belt",
+				"length": 30,
+				"cost": { "arcana": 1 },
+				"alter": { "mod.self.negate.silence": 25 }
+			},
+			{
+				"id": "en_jewelry_resist_entangle",
+				"name": "Entangle Negation",
+				"adj": "%i of Determination",
+				"desc": "Improves chance of negating entangle.",
+				"require": "g.enchanting>0",
+				"buy": {
+					"arcana": 1,
+					"research": 100
+				},
+				"level": 1,
+				"only": "t_necklace,t_ring,t_belt",
+				"length": 30,
+				"cost": { "arcana": 1 },
+				"alter": { "mod.self.negate.entangle": 25 }
+			}
+		]
+	}
+}

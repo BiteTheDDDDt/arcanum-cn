@@ -1,16 +1,14 @@
 <script>
-
 export default {
 	emits: ["update:modelValue"],
-	props: ['modelValue', 'items'],
+	props: ["modelValue", "items"],
 
 	methods: {
-
 		itemTitle(it) {
 			if (it instanceof Object) {
 				return it.name || it.desc || it.id;
-			} return it;
-
+			}
+			return it;
 		},
 
 		itemId(it) {
@@ -21,42 +19,28 @@ export default {
 		},
 
 		setActive(it) {
-
-			this.$emit('update:modelValue', it);
+			this.$emit("update:modelValue", it);
 			//this.$emit( 'changed', it );
-
-		}
-
-	}
+		},
+	},
 };
-
 </script>
 
 <template>
 	<div class="menu">
-
 		<div class="menu-items">
-
-			<div class="menu-item" role="tab" v-for="(it) in items" :key="it.id">
-
-				<span v-if="it != modelValue" @click="setActive(it)" :key="itemTitle(it)"> <u> {{ itemTitle(it) }}
-					</u></span>
-				<span v-else :key="'selected' +
-
-
-
-					itemTitle(it)"> {{ itemTitle(it) }} </span>
-
+			<div class="menu-item" role="tab" v-for="it in items" :key="it.id">
+				<span v-if="it != modelValue" @click="setActive(it)" :key="itemTitle(it)">
+					<u> {{ itemTitle(it) }} </u>
+				</span>
+				<span v-else :key="'selected' + itemTitle(it)"> {{ itemTitle(it) }} </span>
 			</div>
-
 		</div>
-
 
 		<!-- NOTE: slot css-class ignored -->
 		<span class="menu-content">
 			<slot :name="itemId(modelValue)"></slot>
 		</span>
-
 	</div>
 </template>
 
@@ -66,7 +50,7 @@ export default {
 }
 
 body.darkmode .menu-items .menu-item {
-	color: #FFF;
+	color: #fff;
 }
 
 .menu-items .menu-item u {
@@ -75,6 +59,6 @@ body.darkmode .menu-items .menu-item {
 
 .menu-items .menu-item:hover,
 .menu-items .menu-item u:hover {
-	color: #33F;
+	color: #33f;
 }
 </style>

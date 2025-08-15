@@ -1,30 +1,30 @@
-import SpawnGroup from '@/classes/spawngroup';
-import { SpawnParams } from '@/classes/spawnparams';
-
+import SpawnGroup from "@/classes/spawngroup";
+import { SpawnParams } from "@/classes/spawnparams";
 
 /**
  * Parse Dungeon/Locale spawning information.
  * @param {object|Array} spawnData
  */
-export const ParseSpawns = (spawnData) => {
-
-	if (typeof spawnData === 'object') {
+export const ParseSpawns = spawnData => {
+	if (typeof spawnData === "object") {
 		if (Array.isArray(spawnData)) return new Spawns(spawnData);
 		return new SpawnParams(spawnData);
 	}
-
-}
+};
 
 /**
  * Describes possible spawns for a dungeon.
  */
 export default class Spawns {
-
 	/**
 	 * @property {SpawnGroup[]} groups
 	 */
-	get groups() { return this._groups; }
-	set groups(v) { this._groups = v; }
+	get groups() {
+		return this._groups;
+	}
+	set groups(v) {
+		this._groups = v;
+	}
 
 	/**
 	 * @private
@@ -46,9 +46,7 @@ export default class Spawns {
 	 * @param {Array} arr
 	 */
 	constructor(arr) {
-
 		this.initGroups(arr);
-
 	}
 
 	/**
@@ -68,12 +66,10 @@ export default class Spawns {
 			let weight, i;
 
 			for (i = 0; i < len; i++) {
-
 				weight = groups[i].w;
 				tot += weight;
 
 				if (p <= tot) break;
-
 			}
 
 			if (i >= len) {
@@ -91,7 +87,6 @@ export default class Spawns {
 
 		console.warn("Couldn't spawn anything", this.groups);
 		return null;
-
 	}
 
 	/**
@@ -99,16 +94,12 @@ export default class Spawns {
 	 * @param { Array } list
 	 */
 	initGroups(list) {
-
 		for (let i = list.length - 1; i >= 0; i--) {
-
 			let g = list[i];
 
 			if (!(g instanceof SpawnGroup)) g = list[i] = new SpawnGroup(g);
-
 		}
 
 		this.groups = list;
 	}
-
 }

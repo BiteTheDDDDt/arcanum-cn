@@ -1,11 +1,12 @@
-import { swap } from '@/util/array';
+import { swap } from "@/util/array";
 
 /**
  * Implements Set class using Array for Vue reactivity.
  */
 export default class ArraySet {
-
-	get size() { return this._store.length; }
+	get size() {
+		return this._store.length;
+	}
 
 	[Symbol.iterator]() {
 		return this._store[Symbol.iterator]();
@@ -16,7 +17,6 @@ export default class ArraySet {
 	 * @param {?Iterable} a
 	 */
 	constructor(a) {
-
 		/**
 		 * @property {object[]} _store
 		 * @private
@@ -26,7 +26,6 @@ export default class ArraySet {
 		if (a) {
 			for (let it of a) this.add(it);
 		}
-
 	}
 
 	clear() {
@@ -60,12 +59,9 @@ export default class ArraySet {
 	}
 
 	delete(it) {
-
 		let ind = this._store.indexOf(it);
 		if (ind < 0) return false;
 		this._store.splice(ind, 1);
 		return true;
-
 	}
-
 }

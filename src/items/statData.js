@@ -1,12 +1,11 @@
-import { precise } from '@/util/format';
-import GData from '@/items/gdata';
+import { precise } from "@/util/format";
+import GData from "@/items/gdata";
 
 /**
  * Like a resource but a single Stat value with no max, that can be directly modified.
  * Resources can't be modified by stats because they represent progress vs a max.
  */
 export default class StatData extends GData {
-
 	toString() {
 		return precise(this);
 	}
@@ -14,7 +13,9 @@ export default class StatData extends GData {
 	/**
 	 * @property {number} current - identical to value except uses floor of values.
 	 */
-	get current() { return this.unit ? Math.floor(this.value) : this._value; }
+	get current() {
+		return this.unit ? Math.floor(this.value) : this._value;
+	}
 
 	/**
 	 * Add amount to base value.
@@ -22,12 +23,10 @@ export default class StatData extends GData {
 	 * @returns {number} actual change in value.
 	 */
 	add(amt) {
-
 		let prev = this.value.valueOf();
 		this.value.base += amt;
 
 		return this.value.valueOf() - prev;
-
 	}
 
 	/**
@@ -37,10 +36,8 @@ export default class StatData extends GData {
 	 * @param {number} amt
 	 */
 	setBase(g, amt) {
-
 		let del = this.add(amt - this.value.base);
 		this.changed(g, del);
-
 	}
 
 	/**
@@ -48,7 +45,6 @@ export default class StatData extends GData {
 	 * @param {?Object} [vars=null]
 	 */
 	constructor(vars = null) {
-
 		super(vars);
 
 		if (this.value === undefined || this.value === null) this.value = 0;
@@ -60,7 +56,6 @@ export default class StatData extends GData {
 		if (this.unit === null || this.unit === undefined) this.unit = true;
 
 		if (this._rate === null || this.rate === undefined) this.rate = 0;
-
 	}
 
 	/*amount( g, count ) {
@@ -83,12 +78,15 @@ export default class StatData extends GData {
 	/**
 	 * @returns {false} true if an unlocked item is at maximum value.
 	 */
-	maxed() { return false; }
+	maxed() {
+		return false;
+	}
 
 	/**
 	 * Pure stat cannot be filled.
 	 * @returns {false}
 	 */
-	filled() { return false; }
-
+	filled() {
+		return false;
+	}
 }

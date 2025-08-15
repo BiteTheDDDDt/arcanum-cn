@@ -1,7 +1,7 @@
-import { CreateNpc } from '@/items/monster';
-import { ENCOUNTER, FP } from '@/values/consts';
-import Game from '@/game';
-import FValue from '@/values/rvals/fvalue';
+import { CreateNpc } from "@/items/monster";
+import { ENCOUNTER, FP } from "@/values/consts";
+import Game from "@/game";
+import FValue from "@/values/rvals/fvalue";
 
 /**
  * Create Npc from string or SpawnInfo object.
@@ -9,47 +9,46 @@ import FValue from '@/values/rvals/fvalue';
  * @param {number} [pct=1]
  * @returns {Encounter|Npc|null}
  */
-const MakeSpawn = (e) => {
-
+const MakeSpawn = e => {
 	e = Game.getData(e);
 
-	if (!e || Game.state.hasUnique(e) || (e.locked || e.disabled || e.locks > 0)) return null;
+	if (!e || Game.state.hasUnique(e) || e.locked || e.disabled || e.locks > 0) return null;
 
 	if (e.type === ENCOUNTER) return e.canUse() ? e : null;
 
 	return CreateNpc(e, Game);
-
-}
+};
 
 export default class SpawnGroup {
-
 	toJSON() {
-
 		if (this._w === 1) {
 			return this.ids;
 		} else {
-
 			return {
 				ids: this.ids,
-				w: this._w
+				w: this._w,
 			};
-
 		}
-
 	}
 
 	/**
 	 * @property {number} w - arbitrary weight of this spawn group (any number)
 	 */
-	get w() { return this._w; }
-	set w(v) { this._w = v; }
+	get w() {
+		return this._w;
+	}
+	set w(v) {
+		this._w = v;
+	}
 
 	/**
 	 * @property {string|string[]} ids
 	 */
-	get ids() { return this._ids; }
+	get ids() {
+		return this._ids;
+	}
 	set ids(v) {
-		if (typeof v === 'string' && v.includes(',')) this._ids = v.split(',');
+		if (typeof v === "string" && v.includes(",")) this._ids = v.split(",");
 		else this._ids = v;
 	}
 
@@ -61,24 +60,18 @@ export default class SpawnGroup {
 	 * @param {?string[]} vars.spawns
 	 */
 	constructor(vars) {
-
-		if (typeof vars === 'string' || Array.isArray(vars)) {
-
+		if (typeof vars === "string" || Array.isArray(vars)) {
 			this.ids = vars;
-
-		} else if (typeof vars === 'object') {
-
+		} else if (typeof vars === "object") {
 			this.ids = vars.ids;
 			this.w = vars.weight || vars.w;
 			if (typeof this.w === "string") {
 				this.w = new FValue([FP.GDATA], weight);
 				this.w.setParameter(FP.GDATA, Game.gdata);
 			}
-
 		}
 
 		if (this.w == null) this.w = 1;
-
 	}
 
 	/**
@@ -88,35 +81,24 @@ export default class SpawnGroup {
 	 * @returns {Npc[]|Encounter} instantiated npcs from group.
 	 */
 	instantiate(pct = 0) {
-
 		let e;
 
-		if (typeof this.ids === 'string') {
-
+		if (typeof this.ids === "string") {
 			e = MakeSpawn(this.ids, pct);
 			if (e === null) return null;
 			else if (e.type === ENCOUNTER) return e;
 
 			return [e];
-
 		} else {
-
 			let a = [];
 			if (typeof this.ids !== "undefined") {
 				for (let i = 0; i < this.ids.length; i++) {
-
 					e = MakeSpawn(this.ids[i], pct);
 					if (e) a.push(e);
 				}
 			}
 
-
 			return a.length > 0 ? a : null;
-
 		}
-
-
 	}
-
-
 }

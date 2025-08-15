@@ -42,9 +42,8 @@
 		"max": 10,
 		"sortOrder": 205,
 		"mod": {
-			"research.max": "1%",
-			"runelore.rate": "0.02//100/-8",
-			"runelore.max": "0.05//100/-20"
+			"research.max": 10,
+			"runelore.rate": "0.02//100/-8"
 		},
 		"flavor": ""
 	},
@@ -193,58 +192,6 @@
 		"flavor": "It's not easy to look at."
 	},
 	{
-		"id": "bodies",
-		"group": "necromancy",
-		"desc": "Bodies for necromantic magic",
-		"max": 1,
-		"mod": {
-			"dissection.rate": 0.01,
-			"embalming.rate": 0.01
-		}
-	},
-	{
-		"id": "bones",
-		"group": "necromancy",
-		"desc": "Human Bones",
-		"max": 10
-	},
-	{
-		"id": "skulls",
-		"group": "necromancy",
-		"desc": "Human Skull",
-		"max": 5
-	},
-	{
-		"id": "bonedust",
-		"name": "bone dust",
-		"group": "necromancy",
-		"desc": "The dust of human bones.",
-		"max": 10
-	},
-	{
-		"id": "souls",
-		"group": "necromancy",
-		"desc": "Imprisoned souls of living creatures.",
-		"max": 1,
-		"mod": {
-			"shadow.rate": 0.001,
-			"spirit.rate": 0.001,
-			"spiritlore.rate": 0.01
-		},
-		"flavor": "Is it wrong?"
-	},
-	{
-		"id": "schematic",
-		"name": "schematics",
-		"desc": "Schematic of Thurn the Artificer.",
-		"group": "materials",
-		"max": 3,
-		"sortOrder": 420,
-		"mod": {
-			"crafting.rate": 0.1
-		}
-	},
-	{
 		"id": "codices",
 		"name": "codices",
 		"group": "knowledge",
@@ -264,10 +211,10 @@
 		"max": 5,
 		"sortOrder": 125,
 		"mod": {
-			"research.max": 7,
+			"research.max": 25,
+			"research.rate": 0.3,
 			"arcana.rate": 0.001,
-			"lore.rate": 0.01,
-			"lore.max": "0.1//100/-10"
+			"lore.rate": 0.01
 		}
 	},
 	{
@@ -366,10 +313,7 @@
 		"name": "blood gem",
 		"desc": "A little magic and a lot of blood.",
 		"max": 2,
-		"sortOrder": 310,
-		"mod": {
-			"hp.max": 1
-		}
+		"sortOrder": 310
 	},
 	{
 		"id": "timegem",
@@ -429,6 +373,23 @@
 			"light.rate": 0.1,
 			"player.resist.shadow": 1
 		}
+	},
+	{
+		"id": "deepsteel",
+		"name": "core steel",
+		"group": "materials",
+		"desc": "Steel forged in the very core of the world.",
+		"flavor": "Forged in the hottest of fires, under the immense pressure, not even the most extraordinary smith could produce metal of such quality.",
+		"max": 25,
+		"sortOrder": 475
+	},
+	{
+		"id": "fineparts",
+		"name": "fine-tuned parts",
+		"group": "materials",
+		"desc": "Made to extremely exacting specifications, can be used in production of wondrous machines.",
+		"max": 10,
+		"sortOrder": 470
 	},
 	{
 		"id": "dreams",
@@ -593,6 +554,6 @@
 		"desc": "Time since you last checked in. Can be used to speed up the game.",
 		"flavor": "Where does time go when you aren't looking?",
 		"locked": false,
-		"max": 10800
+		"max": 3600
 	}
 ]

@@ -1,40 +1,44 @@
-import Stat from '@/values/rvals/stat';
-import Base, { mergeClass } from '../items/base';
-import Item from '@/items/item';
+import Stat from "@/values/rvals/stat";
+import Base, { mergeClass } from "../items/base";
+import Item from "@/items/item";
 
-import { itemRevive } from '@/modules/itemgen';
-import { Changed } from '@/changes';
-import { move, moveElm } from '@/util/array';
+import { itemRevive } from "@/modules/itemgen";
+import { Changed } from "@/changes";
+import { move, moveElm } from "@/util/array";
 
 /**
  * Option for saveMap which will full-save instanced items
  * and save ids for standard items.
  * @param {*} v
  */
-export const SaveInstanced = (v => v.instanced ? v : v.id);
+export const SaveInstanced = v => (v.instanced ? v : v.id);
 
-export const SAVE_FULL = 'full';
-export const SAVE_IDS = 'ids';
+export const SAVE_FULL = "full";
+export const SAVE_IDS = "ids";
 
 export default class Inventory {
-
 	/**
 	 * @property {number} length - number of items in inventory.
 	 */
-	get count() { return this.items.length; }
+	get count() {
+		return this.items.length;
+	}
 
-	valueOf() { return this.items.length; }
+	valueOf() {
+		return this.items.length;
+	}
 
 	toJSON() {
-
 		return {
-			items: this.saveMode === SAVE_FULL ? this.items : (
-				(this.saveMode === SAVE_IDS || !this.saveMap) ? this.items.map(v => v.id) :
-					this.items.map(this.saveMap, this)
-			),
+			items:
+				this.saveMode === SAVE_FULL
+					? this.items
+					: this.saveMode === SAVE_IDS || !this.saveMap
+						? this.items.map(v => v.id)
+						: this.items.map(this.saveMap, this),
 			max: this.max,
-			countProp: this._cProp
-		}
+			countProp: this._cProp,
+		};
 	}
 
 	/**
@@ -43,7 +47,9 @@ export default class Inventory {
 	 * custum save modes must implement a saveMap function to pass to items.map()
 	 * Default is 'full'
 	 */
-	get saveMode() { return this._saveMode; }
+	get saveMode() {
+		return this._saveMode;
+	}
 	set saveMode(v) {
 		this._saveMode = v;
 	}
@@ -51,8 +57,12 @@ export default class Inventory {
 	/**
 	 * @property {(*)=>*} saveMap
 	 */
-	get saveMap() { return this._saveMap }
-	set saveMap(v) { this._saveMap = v }
+	get saveMap() {
+		return this._saveMap;
+	}
+	set saveMap(v) {
+		this._saveMap = v;
+	}
 
 	/**
 	 * @property {string} spaceProp - property of items that counts
@@ -60,7 +70,9 @@ export default class Inventory {
 	 * The property must be defined on every item or 0 is counted.
 	 * If no property is defined, each item counts as 1.
 	 */
-	get spaceProp() { return this._spaceProp; }
+	get spaceProp() {
+		return this._spaceProp;
+	}
 	set spaceProp(v) {
 		this._spaceProp = v;
 	}
@@ -69,41 +81,59 @@ export default class Inventory {
 	 * @property {string} countProp - property that represents the count of an object.
 	 * Not the same as inventory.count which is separate items in inventory.
 	 */
-	get countProp() { return this._cProp; }
-	set countProp(v) { this._cProp = v }
+	get countProp() {
+		return this._cProp;
+	}
+	set countProp(v) {
+		this._cProp = v;
+	}
 
 	/**
 	 * @property {number} used - spaces used by items in inventory.
 	 * if no space prop is defined, this is just the number of items.
 	 */
-	get used() { return this._used; }
-	set used(v) { this._used = v; }
+	get used() {
+		return this._used;
+	}
+	set used(v) {
+		this._used = v;
+	}
 
 	/**
 	 * @property {string} name - display name of inventory.
 	 */
-	get name() { return this._name || this.id; }
-	set name(v) { this._name = v; }
+	get name() {
+		return this._name || this.id;
+	}
+	set name(v) {
+		this._name = v;
+	}
 
-	get max() { return this._max; }
+	get max() {
+		return this._max;
+	}
 	set max(v) {
-		this._max = v instanceof Stat ? v : new Stat(v, 'max', true);
+		this._max = v instanceof Stat ? v : new Stat(v, "max", 0);
 	}
 
 	/**
 	 * @property {boolean} removeDupes - whether to remove duplicate ids from inventory.
 	 */
-	get removeDupes() { return this._removeDupes; }
-	set removeDupes(v) { this._removeDupes = v; }
+	get removeDupes() {
+		return this._removeDupes;
+	}
+	set removeDupes(v) {
+		this._removeDupes = v;
+	}
 
 	/**
 	 * @property {Object[]}
 	 */
-	get items() { return this._items; }
+	get items() {
+		return this._items;
+	}
 	set items(v) {
-
 		if (v) {
-
 			for (let i = v.length - 1; i >= 0; i--) {
 				if (v[i] === null || v[i] === undefined) {
 					v.splice(i, 1);
@@ -112,14 +142,17 @@ export default class Inventory {
 		}
 
 		this._items = v;
-
 	}
 
 	/**
 	 * @property {boolean} saveIds - if true, only save item ids, and not
 	 */
-	get saveIds() { return this._saveIds }
-	set saveIds(v) { this._saveIds = v; }
+	get saveIds() {
+		return this._saveIds;
+	}
+	set saveIds(v) {
+		this._saveIds = v;
+	}
 
 	[Symbol.iterator]() {
 		return this.items[Symbol.iterator]();
@@ -128,30 +161,29 @@ export default class Inventory {
 	/**
 	 * @returns {Array} returns reversed Array of items.
 	 */
-	reverse() { return this._items.reverse(); }
-	toArray() { return this._items.slice(0) }
+	reverse() {
+		return this._items.reverse();
+	}
+	toArray() {
+		return this._items.slice(0);
+	}
 
 	constructor(vars = null) {
-
 		if (vars) {
-
-			if (typeof vars === 'string') {
-				this.items = vars.split(',');
+			if (typeof vars === "string") {
+				this.items = vars.split(",");
 			} else if (Array.isArray(vars)) {
 				this.items = vars;
-			}
-			else Object.assign(this, vars);
-
+			} else Object.assign(this, vars);
 		}
 		if (!this.items) this.items = [];
-		if (!this._cProp) this._cProp = 'value';
+		if (!this._cProp) this._cProp = "value";
 
 		if (!this.saveMode) this.saveMode = SAVE_FULL;
-		this.type = 'inventory';
+		this.type = "inventory";
 		if (!this.id) this.id = this.type;
 
 		if (!this.max) this.max = 0;
-
 	}
 
 	/**
@@ -161,7 +193,7 @@ export default class Inventory {
 	 */
 	begin(g) {
 		for (let i = this.items.length - 1; i >= 0; i--) {
-			if (typeof this.items[i].begin === 'function') this.items[i].begin(g);
+			if (typeof this.items[i].begin === "function") this.items[i].begin(g);
 		}
 	}
 
@@ -171,26 +203,20 @@ export default class Inventory {
 	 * @param {(gs,*)=>object} [reviver=null] optional item reviver.
 	 */
 	revive(gs, reviver) {
-
 		const len = this.items.length;
 		const loads = this.items.splice(0, len);
 
 		for (let i = 0; i < len; i++) {
-
 			let it = loads[i];
 			if (reviver) {
 				it = reviver(gs, it);
-			} else if (typeof it === 'object') {
-
+			} else if (typeof it === "object") {
 				it = itemRevive(gs, it);
-
-			} else if (typeof it === 'string') it = gs.getData(it);
+			} else if (typeof it === "string") it = gs.getData(it);
 
 			this.add(it);
-
 		}
 		this.calcUsed();
-
 	}
 
 	/**
@@ -198,24 +224,20 @@ export default class Inventory {
 	 * @param {object} it
 	 */
 	add(it) {
-
-		if (it === null || it === undefined || typeof it !== 'object') return false;
+		if (it === null || it === undefined || typeof it !== "object") return false;
 
 		if (Array.isArray(it)) {
-
 			for (let i = it.length - 1; i >= 0; i--) {
 				this.add(it[i]);
 			}
-
 		} else {
-
 			if (!it.id) return false;
 
 			if (it.stack && this.addStack(it)) {
 				return;
 			} else if (this.full()) return false;
 			else if (this.removeDupes && this.find(it.id)) {
-				console.log('removing: ' + it.id);
+				console.log("removing: " + it.id);
 				return false;
 			}
 
@@ -223,10 +245,8 @@ export default class Inventory {
 			this.used += this.spaceCost(it);
 
 			//console.warn('CUR USED: ' + this.used + '/' + this.max.value );
-
 		}
 		Changed.add(this);
-
 	}
 
 	/**
@@ -235,18 +255,15 @@ export default class Inventory {
 	 * @returns {boolean}
 	 */
 	cycleAdd(it) {
-
 		const cost = this.spaceCost(it);
 
-		if (this.max && (cost > this.max)) return false;
+		if (this.max && cost > this.max) return false;
 
-		while (this.items.length > 0 && (this.used + cost > this.max)) {
+		while (this.items.length > 0 && this.used + cost > this.max) {
 			this.removeAt(0);
 		}
 
 		return this.add(it);
-
-
 	}
 
 	/**
@@ -254,7 +271,9 @@ export default class Inventory {
 	 * @param {GData} it
 	 * @returns {number}
 	 */
-	spaceCost(it) { return this.spaceProp ? (it[this.spaceProp] || 0) : 1; }
+	spaceCost(it) {
+		return this.spaceProp ? it[this.spaceProp] || 0 : 1;
+	}
 
 	/**
 	 * Determine if item fits in inventory.
@@ -262,10 +281,8 @@ export default class Inventory {
 	 * @returns {boolean}
 	 */
 	canAdd(it) {
-
 		if (!this.max || this.max.value === 0) return true;
 		return this.used + this.spaceCost(it) <= this.max.value;
-
 	}
 
 	includes(it) {
@@ -290,10 +307,8 @@ export default class Inventory {
 	 * @returns {GData} random item or null.
 	 */
 	randItem() {
-
 		if (this.items.length <= 0) return null;
 		return this.items[Math.floor(Math.random() * this.items.length)];
-
 	}
 
 	/**
@@ -310,33 +325,28 @@ export default class Inventory {
 	 * @param {Item} it
 	 */
 	remove(it) {
-
 		let ind = this.items.indexOf(it);
 		if (ind < 0) return;
 		this.removeAt(ind);
 	}
 
 	removeAt(ind) {
-
 		let it = this.items[ind];
 		this.used -= this.spaceCost(it);
 		this.items.splice(ind, 1);
-
 	}
-
 
 	move(it, amt) {
 		let a = moveElm(this.items, it, amt);
-		this.items = a
+		this.items = a;
 		return true;
 	}
 
 	moveInd(ind, amt) {
 		let a = move(this.items, ind, amt);
-		this.items = a
+		this.items = a;
 		return true;
 	}
-
 
 	/**
 	 * Remove quantity of item and only drop from inventory
@@ -345,10 +355,8 @@ export default class Inventory {
 	 * @param {number} count
 	 */
 	removeCount(it, count) {
-
 		it[this._cProp] -= count;
 		if (it[this._cProp] <= 0) this.remove(it);
-
 	}
 
 	/**
@@ -365,7 +373,6 @@ export default class Inventory {
 	 * @param {number} count
 	 */
 	hasCount(it, count) {
-
 		it = this.findMatch(it);
 		if (!it) return false;
 		return count === 1 || (it.stack && it[this._cProp] >= count);
@@ -387,16 +394,13 @@ export default class Inventory {
 		}
 
 		return null;
-
 	}
 
 	findMatch(it) {
-
 		let id = it.id;
 		let rec = it.recipe || it.id;
 
 		return this.items.find(v => v.id === id || (rec && v.recipe === rec));
-
 	}
 
 	/**
@@ -407,10 +411,9 @@ export default class Inventory {
 	 * @returns {?object}
 	 */
 	find(id, proto = false) {
-
-		return proto === true ? this.items.find(v => v.id === id || v.recipe === id) :
-			this.items.find(v => v.id === id);
-
+		return proto === true
+			? this.items.find(v => v.id === id || v.recipe === id)
+			: this.items.find(v => v.id === id);
 	}
 
 	/**
@@ -418,22 +421,17 @@ export default class Inventory {
 	 * This is only done in the event of an error.
 	 */
 	calcUsed() {
-
 		const prop = this.spaceProp;
 
 		let used = 0;
 		for (let i = this.items.length - 1; i >= 0; i--) {
-
 			const it = this.items[i];
-			if (!it) console.warn(this.id + ' null Item in Inv: ' + it);
-			else used += prop ? (it[prop] || 0) : 1;
-
+			if (!it) console.warn(this.id + " null Item in Inv: " + it);
+			else used += prop ? it[prop] || 0 : 1;
 		}
 
 		this.used = used;
-
 	}
-
 }
 
 mergeClass(Inventory, Base);

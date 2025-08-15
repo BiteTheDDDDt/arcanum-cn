@@ -1,13 +1,13 @@
-import RValue from '@/values/rvals/rvalue';
-import Stat from '@/values/rvals/stat';
-import { TYP_FUNC, FP } from '@/values/consts';
-import Game from '@/game';
-import { precise } from '@/util/format';
-import { TYP_MOD } from '@/values/consts';
+import RValue from "@/values/rvals/rvalue";
+import Stat from "@/values/rvals/stat";
+import { TYP_FUNC, FP } from "@/values/consts";
+import Game from "@/game";
+import { precise } from "@/util/format";
+import { TYP_MOD } from "@/values/consts";
 
 const MkParams = (...args) => {
 	return `{${args.join(",")}}`;
-}
+};
 
 export const PARAMS = Object.values(FP);
 const MOD_PARAM = FP.MOD;
@@ -16,7 +16,6 @@ const MOD_PARAM = FP.MOD;
  * Wraps a function that produces a number in an object so modifiers can be applied.
  */
 export default class FValue extends RValue {
-
 	/** @type {Record<String,WeakRef>} */
 	_recordedParams = {};
 
@@ -27,10 +26,16 @@ export default class FValue extends RValue {
 	/**
 	 * @property {function} fn - function that serves as the base value.
 	 */
-	get fn() { return this._fn; }
-	set fn(v) { this._fn = v; }
+	get fn() {
+		return this._fn;
+	}
+	set fn(v) {
+		this._fn = v;
+	}
 
-	get type() { return TYP_FUNC }
+	get type() {
+		return TYP_FUNC;
+	}
 
 	/**
 	 * @property {*} mod - FValues cannot mod a target due to varying values
@@ -79,7 +84,6 @@ export default class FValue extends RValue {
 	}
 
 	constructor(params, src, path) {
-
 		super(0, path);
 
 		/** @type {Array<String>} */
@@ -88,12 +92,11 @@ export default class FValue extends RValue {
 
 		this._src = src;
 
-		this._fn = new Function(MkParams(...this._params), 'return ' + src);
+		this._fn = new Function(MkParams(...this._params), "return " + src);
 
 		this.mods = {};
 
 		this.mBase = this.mPct = 0;
-
 	}
 
 	/**
@@ -118,7 +121,7 @@ export default class FValue extends RValue {
 
 		params = {
 			...recordedParams,
-			...params
+			...params,
 		};
 
 		return this.calculateValue(params);
@@ -134,7 +137,7 @@ export default class FValue extends RValue {
 			// Default dummy parameters
 			[FP.GDATA]: Game.state.items,
 			[FP.ACTOR]: Game.player,
-			[FP.TARGET]: Game.player, // @TODO have a dummy enemy parameter that isnt the player 
+			[FP.TARGET]: Game.player, // @TODO have a dummy enemy parameter that isnt the player
 			[FP.CONTEXT]: Game.player.context, // @note should be game. @TODO replace context with target context once target is replaced.
 			[FP.STATE]: Game.state,
 			[FP.ITEM]: this.source, // @note may not be correct
@@ -143,15 +146,17 @@ export default class FValue extends RValue {
 			...this.recordedParams,
 
 			// Values passed in. Highest priority.
-			...params
+			...params,
 		};
 
 		return this.calculateValue(params);
 	}
 
 	calculateValue(params) {
-		let flat = this.mBase, modFlat = false;
-		let pct = this.mPct, modPct = false;
+		let flat = this.mBase,
+			modFlat = false;
+		let pct = this.mPct,
+			modPct = false;
 		params[MOD_PARAM] = {
 			get flat() {
 				modFlat = true;
@@ -161,8 +166,8 @@ export default class FValue extends RValue {
 			get pct() {
 				modPct = true;
 				return pct;
-			}
-		}
+			},
+		};
 
 		let value = this._fn(params);
 
@@ -192,13 +197,11 @@ export default class FValue extends RValue {
 	instantiate = this.clone;
 
 	clone() {
-
 		let f = new FValue(this._params, this._src, this._id);
 		f.source = this.source;
 		f.recordedParams = this.recordedParams;
 
 		return f;
-
 	}
 
 	// FValues can never pay for anything.
@@ -207,10 +210,8 @@ export default class FValue extends RValue {
 	}
 
 	apply(val, amt = 1) {
-
-		if ((val.type === TYP_MOD) && val.id) return this.addMod(val, amt);
+		if (val.type === TYP_MOD && val.id) return this.addMod(val, amt);
 		console.warn("Cannot apply", val, "to FValue", this);
-
 	}
 
 	/**
@@ -218,27 +219,23 @@ export default class FValue extends RValue {
 	 * @protected
 	 */
 	recalc() {
-
-		let bonus = 0, pct = 0;
+		let bonus = 0,
+			pct = 0;
 
 		for (let p in this.mods) {
-
 			var mod = this.mods[p];
 			if (mod === undefined) continue;
 
 			pct += mod.countPct || 0;
 			bonus += mod.countBonus || 0;
-
 		}
 
 		this.mPct = pct;
 		this.mBase = bonus;
 
 		return false;
-
 	}
 
 	addMod = Stat.prototype.addMod;
 	removeMods = Stat.prototype.removeMods;
-
 }

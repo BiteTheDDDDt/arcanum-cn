@@ -1,89 +1,85 @@
 <script>
-import Game from '@/game';
-import Settings from 'modules/settings';
-import Menu from '@/ui/components/menu.vue';
+import Game from "@/game";
+import Settings from "modules/settings";
+import Menu from "@/ui/components/menu.vue";
 
-import Profile from 'modules/profile';
+import Profile from "modules/profile";
 
-import ItemsBase from '@/ui/itemsBase';
+import ItemsBase from "@/ui/itemsBase";
 
-import Furniture from '@/ui/sections/furniture.vue';
-import SlotPick from '@/ui/components/slotpick.vue';
-import { HOME } from '@/values/consts';
-import { defineAsyncComponent } from 'vue';
+import Furniture from "@/ui/sections/furniture.vue";
+import SlotPick from "@/ui/components/slotpick.vue";
+import { HOME } from "@/values/consts";
+import { defineAsyncComponent } from "vue";
 
 /**
  * @emits sell
  */
 export default {
-
-	props: ['state'],
+	props: ["state"],
 	mixins: [ItemsBase],
 	components: {
 		slotpick: SlotPick,
-		hall: defineAsyncComponent(() => import( /* webpackChunkName: "hall-ui" */ '../hall/hall.vue')),
+		hall: defineAsyncComponent(() => import(/* webpackChunkName: "hall-ui" */ "../hall/hall.vue")),
 		furniture: Furniture,
-		converters: defineAsyncComponent(() => import( /* webpackChunkName: "converters-ui" */ './converters.vue')),
-		'vue-menu': Menu
+		converters: defineAsyncComponent(() => import(/* webpackChunkName: "converters-ui" */ "./converters.vue")),
+		"vue-menu": Menu,
 	},
 	data() {
-
 		let opts = Settings.getSubVars(HOME);
 
 		return {
 			hallOpen: false,
-			hsection: null
-		}
-
+			hsection: null,
+		};
 	},
 	methods: {
+		openHall() {
+			this.hallOpen = true;
+		},
 
-		openHall() { this.hallOpen = true; },
+		closeHall() {
+			this.hallOpen = false;
+		},
 
-		closeHall() { this.hallOpen = false; },
-
-		gameLoaded() {
-
-
-		}
+		gameLoaded() {},
 	},
 	computed: {
+		hallUnlocked() {
+			return Game.state.getData("evt_hall") > 0;
+		},
+		hallName() {
+			return Profile.hall.name;
+		},
 
-		hallUnlocked() { return Game.state.getData('evt_hall') > 0; },
-		hallName() { return Profile.hall.name; },
-
-		menuItems() { return this.state.sections.filter(it => !this.locked(it) && it.parent === "home"); },
+		menuItems() {
+			return this.state.sections.filter(it => !this.locked(it) && it.parent === "home");
+		},
 		section: {
-
-			get() { return (this.hsection || 'sect_furniture'); },
+			get() {
+				return this.hsection || "sect_furniture";
+			},
 			set(v) {
-
 				this.hsection = v;
-				if (v) Settings.set('homeview', v.id);
-			}
-		}
+				if (v) Settings.set("homeview", v.id);
+			},
+		},
 	},
 	created() {
-
-		let homeview = Settings.get('homeview') || 'sect_furniture';
+		let homeview = Settings.get("homeview") || "sect_furniture";
 		this.section = Game.state.sections.find(v => v.id === homeview);
-
-	}
-
-}
+	},
+};
 </script>
 
 <template>
 	<div class="home-view">
-
 		<hall v-if="hallOpen" @close="closeHall" />
 		<div class="pick-slots">
-
 			<button type="button" class="task-btn" v-if="hallUnlocked" @click="openHall">{{ hallName }}</button>
 
-			<slotpick title="Home" pick="home" must-pay=true nonetext='Move in' />
-			<slotpick title="Werry" hide-empty=true pick="werry" />
-
+			<slotpick title="Home" pick="home" must-pay="true" nonetext="Move in" />
+			<slotpick title="Werry" hide-empty="true" pick="werry" />
 		</div>
 
 		<div class="content">
@@ -95,9 +91,7 @@ export default {
 					<converters />
 				</template>
 			</vue-menu>
-
 		</div>
-
 	</div>
 </template>
 
@@ -113,7 +107,6 @@ div.home-view {
 
 div.home-mid,
 div.home-mid div.menu-items {
-
 	width: 100%;
 }
 
@@ -134,7 +127,6 @@ div.home-view .content {
 }
 
 div.pick-slots {
-
 	display: flex;
 	flex-flow: column nowrap;
 

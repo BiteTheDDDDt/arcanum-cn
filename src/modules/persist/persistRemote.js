@@ -1,4 +1,4 @@
-import { FBRemote } from 'remote/remote';
+import { FBRemote } from "remote/remote";
 
 /**
  * @const {number} MIN_SAVE_WAIT - minimum time in milliseconds for automatic
@@ -13,37 +13,36 @@ const MIN_SAVE_WAIT = 3 * 60 * 1000;
 const MANUAL_SAVE_WAIT = 10 * 1000;
 
 export const Remote = {
-
 	lastSave: 0,
 
 	lastHallSave: 0,
 
-	logout() { return FBRemote.logout() },
+	logout() {
+		return FBRemote.logout();
+	},
 
-	loggedIn() { return FBRemote.loggedIn },
+	loggedIn() {
+		return FBRemote.loggedIn;
+	},
 
 	clearAll() {
-
 		if (!FBRemote.loggedIn) return null;
-
 	},
 
 	tryRegister(email, pw) {
-
-		console.log('try register: ' + email);
+		console.log("try register: " + email);
 
 		if (!this.remote) return;
 
 		this.remote.register(email, pw).then(
 			() => {
-				this.dispatch('register-sent');
+				this.dispatch("register-sent");
 			},
 			err => {
-				console.log('dispatch reg error');
-				this.dispatch('register-error', err);
-			}
+				console.log("dispatch reg error");
+				this.dispatch("register-error", err);
+			},
 		);
-
 	},
 
 	/**
@@ -71,7 +70,6 @@ export const Remote = {
 	 * @returns {Promise<object>}
 	 */
 	saveChar(data, charid, minWait = MIN_SAVE_WAIT) {
-
 		if (!FBRemote.loggedIn) return null;
 
 		const t = Date.now();
@@ -88,7 +86,6 @@ export const Remote = {
 	 * @returns {Promise<object>}
 	 */
 	saveHall(data, hallid, minWait = MIN_SAVE_WAIT) {
-
 		if (!FBRemote.loggedIn) return null;
 
 		const t = Date.now();
@@ -96,7 +93,6 @@ export const Remote = {
 		this.lastHallSave = t;
 
 		return FBRemote.saveHall(data, hallid);
-
 	},
 
 	/**
@@ -105,7 +101,6 @@ export const Remote = {
 	 * @returns {Promise<object>}
 	 */
 	loadChar(charid) {
-
 		if (!FBRemote.loggedIn) return null;
 
 		return FBRemote.loadChar(charid);
@@ -117,10 +112,8 @@ export const Remote = {
 	 * @returns {Promise<object>}
 	 */
 	loadHall(hallid) {
-
 		if (!FBRemote.loggedIn) return null;
 
 		return FBRemote.loadHall(hallid);
-	}
-
-}
+	},
+};

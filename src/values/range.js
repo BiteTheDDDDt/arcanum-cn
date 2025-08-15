@@ -1,41 +1,57 @@
-import { TYP_RANGE } from '@/values/consts';
-import { precise } from '@/util/format';
-import Stat from '@/values/rvals/stat';
-import { SubPath } from '@/values/rvals/rvalue';
+import { TYP_RANGE } from "@/values/consts";
+import { precise } from "@/util/format";
+import Stat from "@/values/rvals/stat";
+import { SubPath } from "@/values/rvals/rvalue";
 
 export const RangeTest = /^\-?\d+\.?\d*\~\-?\d+\.?\d*$/i;
 
-const SPLIT_CHAR = '~';
+const SPLIT_CHAR = "~";
 
 export default class Range {
-
 	toJSON() {
-		return (typeof this.min === 'number' ? this.min : this.min.base) + SPLIT_CHAR +
-			(typeof this.max === 'number' ? this.max : this.max.base);
-
+		return (
+			(typeof this.min === "number" ? this.min : this.min.base) +
+			SPLIT_CHAR +
+			(typeof this.max === "number" ? this.max : this.max.base)
+		);
 	}
 
 	toString() {
-		return (this.min == this.max) ? precise(this.min) :
-			precise(this.min) + ' ' + SPLIT_CHAR + ' ' + precise(this.max);
+		const min = precise(this.min);
+		const max = precise(this.max);
+		return min == max ? min : min + " " + SPLIT_CHAR + " " + max;
 	}
 
 	/**
 	 * @property {string} id
 	 */
-	get id() { return this._id; }
-	set id(v) { this._id = v; }
+	get id() {
+		return this._id;
+	}
+	set id(v) {
+		this._id = v;
+	}
 
 	/**
 	 * @property {string} type - type constant.
 	 */
-	get type() { return TYP_RANGE; }
+	get type() {
+		return TYP_RANGE;
+	}
 
-	get min() { return this._min; }
-	set min(v) { this._min = v }
+	get min() {
+		return this._min;
+	}
+	set min(v) {
+		this._min = v;
+	}
 
-	get max() { return this._max }
-	set max(v) { this._max = v; }
+	get max() {
+		return this._max;
+	}
+	set max(v) {
+		this._max = v;
+	}
 
 	/**
 	 * @property {number} value - getting a range value
@@ -48,13 +64,21 @@ export default class Range {
 		this.min = this.max = v;
 	}
 
+	get avg() {
+		return (this.min + this.max) / 2;
+	}
+
 	/**
 	 * @property {boolean} isRVal - simple test for RVal interface.
 	 * @todo rvalue as interface base object with no values?
 	 */
-	get isRVal() { return true; }
+	get isRVal() {
+		return true;
+	}
 
-	valueOf() { return this.value; }
+	valueOf() {
+		return this.value;
+	}
 
 	/**
 	 *
@@ -62,23 +86,17 @@ export default class Range {
 	 * @param {?number} max
 	 */
 	constructor(min, max) {
-
-		if (typeof min === 'string') {
-
+		if (typeof min === "string") {
 			let parts = min.split(SPLIT_CHAR);
 			this.min = Number(parts[0]);
 			this.max = Number(parts[1]);
-
-		} else if (typeof min === 'object') Object.assign(this, min);
+		} else if (typeof min === "object") Object.assign(this, min);
 		else {
-
 			this.min = Number(min);
 			this.max = Number(max === undefined ? min : max);
-
 		}
 
-		if (typeof this.min !== 'number') console.log('min: ' + this.min + ' -> ' + this.max);
-
+		if (typeof this.min !== "number") console.log("min: " + this.min + " -> " + this.max);
 	}
 
 	/**
@@ -99,17 +117,14 @@ export default class Range {
 	}
 
 	addMod(mod, amt) {
-
-		if (!(this.min instanceof Stat)) this.min = new Stat(this.min, SubPath(this.id, 'min'));
-		if (!(this.max instanceof Stat)) this.max = new Stat(this.max, SubPath(this.id, 'max'));
+		if (!(this.min instanceof Stat)) this.min = new Stat(this.min, SubPath(this.id, "min"));
+		if (!(this.max instanceof Stat)) this.max = new Stat(this.max, SubPath(this.id, "max"));
 
 		this.min.addMod(mod, amt);
 		this.max.addMod(mod, amt);
-
 	}
 
 	removeMods(mod) {
-
 		if (this.min instanceof Stat) this.min.removeMods(mod);
 		if (this.max instanceof Stat) this.max.removeMods(mod);
 	}
@@ -119,12 +134,10 @@ export default class Range {
 	 * @param {number|Range} amt
 	 */
 	add(amt) {
-
-		if (typeof amt === 'number') {
+		if (typeof amt === "number") {
 			this.min += amt;
 			this.max += amt;
-		} else if (amt && typeof amt === 'object') {
-
+		} else if (amt && typeof amt === "object") {
 			if (amt.type === TYP_RANGE) {
 				this.min += amt.min;
 				this.max += amt.max;
@@ -132,19 +145,15 @@ export default class Range {
 				this.min += amt.value;
 				this.max += amt.value;
 			}
-
 		}
-
 	}
 	multiply(mult) {
-
 		//console.log('MULTIPLYING RANGE: ' + mult );
 
-		if (typeof mult === 'number') {
+		if (typeof mult === "number") {
 			this.min *= mult;
 			this.max *= mult;
-		} else if (mult && typeof mult === 'object') {
-
+		} else if (mult && typeof mult === "object") {
 			if (mult.type === TYP_RANGE) {
 				this.min *= mult.min;
 				this.max *= mult.max;
@@ -152,9 +161,7 @@ export default class Range {
 				this.min *= mult.value;
 				this.max *= mult.value;
 			}
-
 		}
-
 	}
 
 	/**

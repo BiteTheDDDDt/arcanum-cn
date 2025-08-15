@@ -2,8 +2,13 @@
 import Game from "@/game";
 import ItemBase from "@/ui/itemsBase";
 import FilterBox from "@/ui/components/filterbox.vue";
-import { alphasort, levelsort } from "@/util/util";
-import { TYP_RANGE, ENCOUNTER, DUNGEON, LOCALE, CLASH } from "@/values/consts";
+import { alphasort } from "@/util/util";
+import { ENCOUNTER, DUNGEON, LOCALE, CLASH } from "@/values/consts";
+import { formatNumber } from "@/util/format.js";
+import CurvedMod from "@/values/mods/curvedmod.js";
+import RangedMod from "@/values/mods/rangedmod.js";
+import AtMod from "@/values/mods/atmod.js";
+import Mod from "@/values/mods/mod.js";
 
 export default {
 	mixins: [ItemBase],
@@ -12,7 +17,8 @@ export default {
 			filtered: null,
 			sortBy: "name",
 			sortOrder: 1,
-			fltLearn: false
+			fltLearn: false,
+			showLocked: false,
 		};
 	},
 	components: {
@@ -22,16 +28,7 @@ export default {
 		this.game = Game;
 	},
 	methods: {
-		toNum(v) {
-			return (
-				typeof v === "object" ? (v.type === TYP_RANGE ? v.max : v.value) : v
-			).toFixed(0);
-		},
-		setSort(by) {
-			if (this.sortBy === by) {
-				this.sortOrder = -this.sortOrder;
-			} else this.sortBy = by;
-		},
+		formatNumber,
 		fixIt(obj) {
 			for (let a of obj) {
 				a.encs = a.baseencs.slice();
@@ -61,24 +58,21 @@ export default {
 					for (let p in it.mod) {
 						let data = game.state.getData(p);
 						if (data == null) continue;
-						if (data.name.toLowerCase().includes(t.toLowerCase()))
-							return true;
+						if (data.name.toLowerCase().includes(t.toLowerCase())) return true;
 					}
 				}
 				if (it.result) {
 					for (let p in it.result) {
 						let data = game.state.getData(p);
 						if (data == null) continue;
-						if (data.name.toLowerCase().includes(t.toLowerCase()))
-							return true;
+						if (data.name.toLowerCase().includes(t.toLowerCase())) return true;
 					}
 				}
-				if (it.loot && it.tags.includes('loot_equip_gen')===false) {
+				if (it.loot && it.tags.includes("loot_equip_gen") === false) {
 					for (let p in it.loot) {
 						let data = game.state.getData(p);
 						if (data == null) continue;
-						if (data.name.toLowerCase().includes(t.toLowerCase()))
-							return true;
+						if (data.name.toLowerCase().includes(t.toLowerCase())) return true;
 					}
 				}
 				return false;
@@ -98,9 +92,7 @@ export default {
 		},
 		allLocales() {
 			let all = this.game.state
-				.filterItems(
-					(it) => it.type === DUNGEON || it.type === LOCALE || it.type === CLASH
-				)
+				.filterItems(it => it.type === DUNGEON || it.type === LOCALE || it.type === CLASH)
 				.sort(alphasort);
 			var a = [];
 
@@ -114,7 +106,7 @@ export default {
 		},
 		encByLocale(locale, checkarray) {
 			let localencs = [];
-			if (!locale.spawns.groups) return null
+			if (!locale.spawns.groups) return null;
 			let count = locale.spawns.groups.length;
 			for (let a of locale.spawns.groups) {
 				let ag = this.game.getData(a.ids);
@@ -122,27 +114,63 @@ export default {
 					count--;
 					continue;
 				}
-				if (ag.type != ENCOUNTER) {
+				if (ag.type !== ENCOUNTER) {
 					count--;
 					continue;
 				}
-				if (checkarray.findIndex((v) => v.id == ag.id) != -1)
+				if (checkarray.findIndex(v => v.id === ag.id) !== -1)
 					checkarray.splice(
-						checkarray.findIndex((v) => v.id == ag.id),
-						1
+						checkarray.findIndex(v => v.id === ag.id),
+						1,
 					);
-				if (!localencs.find((v) => v.id == ag.id)) {
+				if (!localencs.find(v => v.id === ag.id)) {
 					if (ag.value > 0) {
-						if (this.fltLearn) {
-							let site = ag.tags.includes("enc_site_of_learning");
-							if (site) localencs.push(ag);
-						}
-						else localencs.push(ag);
+						if (this.filter(ag)) localencs.push(ag);
 						count--;
 					}
 				} else count--;
 			}
 			return { encs: localencs, unknown: count };
+		},
+		filter(encounter) {
+			if (this.fltLearn && !encounter.tags.includes("site_of_learning")) {
+				return false;
+			}
+			if (!this.showLocked && this.locked(encounter)) {
+				return false;
+			}
+			return true;
+		},
+		hasMaxedMods(siteOfLearning) {
+			//no mod means no max
+			if (!siteOfLearning.mod) return false;
+			if (Object.keys(siteOfLearning.mod).length === 0) return false;
+			for (let key in siteOfLearning.mod) {
+				let mod = siteOfLearning.mod[key];
+				if (!mod.max) {
+					// simplification - we only check for mods that look like "xyz.max" or have a max variable
+					// and we treat everything else as "not maxed"
+					return false;
+				}
+
+				//if there's a non-mod layer, shed it
+				if (!(mod instanceof Mod)) {
+					mod = mod.max;
+				}
+
+				if (mod instanceof CurvedMod) {
+					if (!mod.maxed()) return false;
+				} else if (mod instanceof RangedMod) {
+					if (!mod.maxed()) return false;
+				} else if (mod instanceof AtMod) {
+					if (!mod.count) return false;
+				} else {
+					// this is a mod that can't be maxed
+					return false;
+				}
+			}
+			//if you made it here, then you are maxed
+			return true;
 		},
 	},
 	computed: {
@@ -157,9 +185,11 @@ export default {
 					a.encs = e.encs;
 					a.baseencs = e.encs.slice();
 					a.unknown = e.unknown;
-				}
-				else continue
+				} else continue;
 				if (a.encs.length > 0) tree.push(a);
+				else if (this.fltLearn && a.locale.tags?.includes("site_of_learning")) {
+					tree.push(a);
+				}
 			}
 			if (tree.length > 0 && orphanedEncounters.length > 0)
 				tree.push({
@@ -170,21 +200,17 @@ export default {
 				});
 			return tree;
 		},
-		sorted() {
-			/*
-			let by = this.sortBy;
-			let order = this.sortOrder;
-			let v1, v2;
-
-			return (this.filtered || this.allItems).sort((a, b) => {
-				v1 = a[by];
-				v2 = b[by];
-				if (v1 > v2) return order;
-				else if (v2 > v1) return -order;
-				else return 0;
-			});
-			*/
-			return this.filtered || this.allItems;
+		solTip() {
+			return "Shows only Sites of Learning, encounters or adventures that will grant permanent positive modifiers.";
+		},
+		lockTip() {
+			return "Shows locked encounters that won't occur while adventuring.";
+		},
+		clearTip() {
+			return "Time spent per encounter.";
+		},
+		hasLockedEncounter() {
+			return this.allEncounters().some(this.locked);
 		},
 	},
 };
@@ -193,35 +219,49 @@ export default {
 <template>
 	<div class="search">
 		<filterbox v-model="filtered" :prop="searchIt" :items="allItems" :min-items="5" :defFunc="fixIt" />
-		<span class="chkSites"
-			@mouseenter.capture.stop="itemOver($event, null, null, null, 'Shows only Sites of Learning, encounters that will grant maximum skill levels.')">
-			<input :id="elmId('showSites')" type="checkbox" v-model="fltLearn">
+		<span class="chkSites" @mouseenter.capture.stop="itemOver($event, null, null, null, solTip)">
+			<input :id="elmId('showSites')" type="checkbox" v-model="fltLearn" />
 			<label :for="elmId('showSites')">Sites of Learning</label>
+		</span>
+		<span
+			v-if="hasLockedEncounter"
+			class="chkSites"
+			@mouseenter.capture.stop="itemOver($event, null, null, null, lockTip)">
+			<input :id="elmId('showLocked')" type="checkbox" v-model="showLocked" />
+			<label :for="elmId('showLocked')">Locked</label>
 		</span>
 	</div>
 	<div class="travelogue">
 		<span class="header">Encounters</span>
-		<span class="header">Length</span>
+		<span class="header" @mouseenter.capture.stop="itemOver($event, null, null, null, clearTip)">Clear Time</span>
 		<span class="header">Visits</span>
-		<template v-for="b in sorted" :key="b.locale.id">
+		<span class="header">Learned</span>
+		<template v-for="b in filtered" :key="b.locale.id">
 			<div class="locale">
 				<span @mouseenter.capture.stop="itemOver($event, b.locale)">
 					{{ b.locale.name.toTitleCase() }}
 				</span>
 			</div>
+			<span>{{ b.locale.tags?.includes("site_of_learning") && hasMaxedMods(b.locale) ? "✓" : "" }} </span>
 			<template v-for="c in b.encs" :key="c.id">
-				<span class="encounter" @mouseenter.capture.stop="itemOver($event, c)">
+				<span class="encounter" :class="locked(c) ? 'lock' : ''" @mouseenter.capture.stop="itemOver($event, c)">
 					{{ c.name.toTitleCase() }}
 				</span>
-				<span class="number"> {{ Math.floor(c.level * 5) }} </span>
-				<span class="number"> {{ Math.floor(c.value) }} </span>
+				<span>
+					{{ formatNumber(c.length / c.rate.value, 1, false) + "s" }}
+				</span>
+				<span>
+					{{ Math.floor(c.value) }}
+				</span>
+				<span>{{ c.tags?.includes("site_of_learning") && hasMaxedMods(c) ? "✓" : "" }}</span>
 			</template>
 			<template v-for="a in b.unknown">
 				<span class="encounter"> ?????? </span>
-				<span class="number"> ??? </span>
-				<span class="number"> ??? </span>
+				<span> ??? </span>
+				<span> ??? </span>
+				<span> ??? </span>
 			</template>
-			<hr style="width: 95%; grid-column: 1/4;">
+			<hr style="width: 95%; grid-column: 1/5" />
 		</template>
 	</div>
 </template>
@@ -235,13 +275,16 @@ export default {
 
 .search .chkSites {
 	align-content: center;
+	margin: var(--md-gap);
 }
 
 .travelogue {
 	width: 95%;
 	display: inline-grid;
-	grid-template-columns: 50% 25% 25%;
+	grid-template-columns: 40% 20% 20% 20%;
 	margin: var(--md-gap);
+	align-items: center;
+	text-align: center;
 }
 
 .travelogue span {
@@ -251,20 +294,25 @@ export default {
 .travelogue .header {
 	font-weight: bold;
 	text-decoration: underline;
-	text-align: center;
 }
 
 .travelogue .locale {
 	margin-left: 4%;
-	grid-column: 1 / 4;
+	text-align: left;
 	text-decoration: underline;
+	grid-column: 1 / 4;
 }
 
 .travelogue .encounter {
 	margin-left: 20%;
+	text-align: left;
 }
 
-.travelogue .number {
-	text-align: center;
+.travelogue .lock {
+	color: red;
+}
+
+.darkmode .travelogue .lock {
+	color: darkred;
 }
 </style>

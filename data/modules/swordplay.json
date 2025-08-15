@@ -11,18 +11,14 @@
 				"need": "armssource",
 				"level": 5,
 				"buy": {
-					"sp": 2
+					"arcana": 25
 				},
 				"run": {
 					"stamina": 1.5
 				},
-				"result": {
-					"sp": 0.05
-				},
 				"mod": {
 					"sworddmg": 3,
-					"sword_lessons.max": 1,
-					"player.hits.slash": 0.4
+					"sword_lessons.max": 1
 				}
 			}
 		],
@@ -52,8 +48,8 @@
 				"desc": "Use your combat prowess to resist physical blows.",
 				"max": 1,
 				"cost": {
-					"tomes": 25,
-					"research": 10000
+					"tomes": 15,
+					"research": 3000
 				},
 				"mod": {
 					"player.resist.blunt": 5,
@@ -67,14 +63,14 @@
 				"id": "divine_wind",
 				"name": "divine wind",
 				"require": "g.bladelore>=9&&g.eldritchknight>0",
-				"desc": "Learn to avoid entanglement with your speed",
+				"desc": "Learn to negate entanglement with your speed",
 				"max": 1,
 				"cost": {
-					"tomes": 45,
-					"research": 15000
+					"tomes": 15,
+					"research": 5000
 				},
 				"mod": {
-					"player.resist.entangle": 15
+					"player.negate.entangle": 15
 				},
 				"flavor": "Cut through anything tying you up.",
 				"group": "martial"
@@ -84,10 +80,7 @@
 			{
 				"id": "sword_basics",
 				"name": "training dummy practice",
-				"craftable": true,
-				"require": "g.bladelore>=1",
-				"need": "trainingdummy",
-				"needtext": "Needs a training dummy",
+				"require": "g.bladelore>=1&&g.training_dummy>0",
 				"desc": "Refine your sword use against an immobile enemy. Costs more and takes longer with each session.",
 				"max": 5,
 				"length": 15,
@@ -113,15 +106,14 @@
 			{
 				"id": "sword_lessons",
 				"name": "swordplay lessons",
-				"craftable": true,
 				"require": "g.bladelore>=5",
 				"need": "armssource",
 				"desc": "Take additional lessons in striking with a sword. Costs more and takes longer with each session.",
 				"max": 2,
 				"length": 30,
 				"cost": {
-					"tomes": "1+g.sword_lessons",
-					"research": "1000+g.sword_lessons*1000",
+					"codices": "1+g.sword_lessons",
+					"research": "500+g.sword_lessons*500",
 					"gold": "500+g.sword_lessons*500"
 				},
 				"run": {
@@ -143,13 +135,12 @@
 				"id": "blade_spellbook",
 				"name": "spellbook of Striking",
 				"require": "g.bladelore>=5&&(g.spellblade+g.bladeweaver+g.arcanedervish+g.eldritchknight)>0",
-				"craftable": true,
 				"desc": "Compile methods of using a blade to cast and enhance spells.",
 				"max": 0,
 				"length": 30,
 				"cost": {
-					"tomes": 25,
-					"research": 10000
+					"codices": 25,
+					"research": 1000
 				},
 				"run": {
 					"stamina": 0.5,
@@ -157,7 +148,7 @@
 				},
 				"mod": {
 					"bladelore.rate": 1,
-					"player.resist.silence": 2.5,
+					"player.negate.silence": 2.5,
 					"sworddmg": 2,
 					"spelldmg": 3.75
 				},
@@ -169,7 +160,6 @@
 				"name": "strenuous training",
 				"require": "g.sword_lessons>=5",
 				"need": "armssource",
-				"craftable": true,
 				"desc": "Enhance your endurance through extensive training.",
 				"max": 2,
 				"length": 300,
@@ -203,14 +193,11 @@
 				"require": "g.tier2>0&&g.enchanting>=7&&g.weaponlore>=8&&g.tier3==0",
 				"cost": {
 					"research": 3000,
+					"tomes": 3,
 					"arcana": 20,
 					"gold": 1000
 				},
-				"result": {
-					"sp": 2
-				},
 				"mod": {
-					"tier3": true,
 					"sworddmg": 3,
 					"player.speed": 1,
 					"player.tohit": 1,
@@ -230,6 +217,7 @@
 				"require": "g.tier3>0&&(g.bladelore+g.weaponlore)>=10&&g.tier4==0&&g.weaving>=5",
 				"cost": {
 					"research": 5000,
+					"tomes": 10,
 					"arcana": 20,
 					"gold": 2500,
 					"airgem": 10,
@@ -237,11 +225,7 @@
 					"earthgem": 5,
 					"watergem": 5
 				},
-				"result": {
-					"sp": 2
-				},
 				"mod": {
-					"tier4": true,
 					"player.dodge": 2,
 					"player.speed": "3%",
 					"history.max": 1,
@@ -262,6 +246,7 @@
 				"require": "g.tier4>0&&g.bladelore>=7&&g.tier5==0",
 				"cost": {
 					"research": 10000,
+					"tomes": 20,
 					"arcana": 20,
 					"gold": 4000,
 					"airgem": 20,
@@ -269,11 +254,7 @@
 					"earthgem": 10,
 					"watergem": 10
 				},
-				"result": {
-					"sp": 2
-				},
 				"mod": {
-					"tier5": true,
 					"stamina.rate": "0.3",
 					"vigor.rate": "0.03",
 					"player.dodge": "5%",
@@ -295,6 +276,8 @@
 				"require": "g.tier5>0&&g.t_swordclass>0&&(g.bladelore+g.weaponlore)>=12&&g.tier6==0",
 				"cost": {
 					"research": 15000,
+					"tomes": 15,
+					"runestones": 10,
 					"arcana": 20,
 					"gold": 7500,
 					"airgem": 40,
@@ -302,11 +285,7 @@
 					"earthgem": 20,
 					"watergem": 20
 				},
-				"result": {
-					"sp": 2
-				},
 				"mod": {
-					"tier6": true,
 					"stamina.rate": "0.5+2%",
 					"vigor.rate": "0.05+2%",
 					"history.max": 1,
@@ -356,7 +335,8 @@
 				"summon": [
 					{
 						"id": "sum_magicblade",
-						"count": 1
+						"count": 1,
+						"max": 3
 					}
 				]
 			},
@@ -372,7 +352,7 @@
 					"targets": ["multiple"],
 					"delivery": ["over time"]
 				},
-				"require": "g.enchanting>=6&&g.summoning>=5&&g.mk_blade>0",
+				"require": "g.enchanting>=6&&g.summoning>=5&&g.mk_blade.owned",
 				"buy": {
 					"tomes": 1,
 					"research": 100,
@@ -388,6 +368,7 @@
 				},
 				"attack": {
 					"targets": "minions",
+					"maxTargets": 999,
 					"harmless": true,
 					"dot": {
 						"name": "sharpened blades",
@@ -415,12 +396,11 @@
 				},
 				"require": "g.bladelore>=10&&g.waterlore>=8",
 				"buy": {
-					"arcana": 5,
 					"tomes": 5,
 					"watergem": 10
 				},
 				"caststoppers": [1, 4],
-				"need": "g.player.weapon.hasTag('t_swords')",
+				"need": "g.player.getWeapon().hasTag('t_sword')",
 				"needtext": "Currently equipped weapon must be a sword",
 				"cost": {
 					"water": 7,
@@ -433,9 +413,10 @@
 				},
 				"attack": {
 					"targets": "enemies",
+					"maxTargets": 999,
 					"kind": "water",
 					"tohit": 2,
-					"damage": "(a.weapon.damage||0)*0.8",
+					"damage": "(a.getWeapon().damage||0)*0.8",
 					"potencies": ["physdmg", "sworddmg", "waterdmg"],
 					"dot": {
 						"name": "riptide",
@@ -466,12 +447,11 @@
 				},
 				"require": "g.bladelore>=3&&g.lore>=8",
 				"buy": {
-					"arcana": 1,
 					"codices": 5,
 					"managem": 7
 				},
 				"caststoppers": [1, 4],
-				"need": "g.player.weapon.hasTag('t_swords')",
+				"need": "g.player.getWeapon().hasTag('t_sword')",
 				"needtext": "Currently equipped weapon must be a sword",
 				"cost": {
 					"mana": 4,
@@ -485,7 +465,7 @@
 				"attack": {
 					"kind": "mana",
 					"tohit": 3,
-					"damage": "(a.weapon.damage||0)*1.4",
+					"damage": "(a.getWeapon().damage||0)*1.4",
 					"potencies": ["physdmg", "sworddmg", "manadmg"]
 				}
 			},
@@ -507,12 +487,11 @@
 				"require": "g.bladelore>=8&&g.airlore>=8",
 				"cd": 2,
 				"buy": {
-					"arcana": 4,
 					"tomes": 5,
 					"airgem": 10
 				},
 				"caststoppers": [1, 4],
-				"need": "g.player.weapon.hasTag('t_swords')",
+				"need": "g.player.getWeapon().hasTag('t_sword')",
 				"needtext": "Currently equipped weapon must be a sword",
 				"cost": {
 					"air": 6,
@@ -532,9 +511,10 @@
 				},
 				"attack": {
 					"targets": "enemies",
+					"maxTargets": 999,
 					"kind": "air",
 					"tohit": 3,
-					"damage": "(a.weapon.damage||0)*1.0",
+					"damage": "(a.getWeapon().damage||0)*1.0",
 					"potencies": ["sworddmg", "spelldmg", "airdmg"]
 				},
 				"flavor": "Spinning is a good trick"
@@ -556,12 +536,11 @@
 				},
 				"require": "g.bladelore>=2&&g.scrying>=5&&g.spiritlore>=6",
 				"buy": {
-					"arcana": 1,
 					"codices": 5,
 					"spiritgem": 7
 				},
 				"caststoppers": [1],
-				"need": "g.player.weapon.hasTag('t_swords')",
+				"need": "g.player.getWeapon().hasTag('t_sword')",
 				"needtext": "Currently equipped weapon must be a sword",
 				"cost": {
 					"spirit": 3,
@@ -582,7 +561,7 @@
 				"attack": {
 					"kind": "spirit",
 					"tohit": 5,
-					"damage": "3+(a.weapon.damage||0)*0.6",
+					"damage": "3+(a.getWeapon().damage||0)*0.6",
 					"potencies": ["physdmg", "sworddmg", "spiritdmg"]
 				}
 			},
@@ -603,12 +582,11 @@
 				},
 				"require": "g.bladelore>=7&&g.lightlore>=8",
 				"buy": {
-					"arcana": 2,
 					"tomes": 5,
 					"lightgem": 10
 				},
 				"caststoppers": [1, 4],
-				"need": "g.player.weapon.hasTag('t_swords')",
+				"need": "g.player.getWeapon().hasTag('t_sword')",
 				"needtext": "Currently equipped weapon must be a sword",
 				"cost": {
 					"light": 6,
@@ -622,7 +600,7 @@
 				"attack": {
 					"kind": "light",
 					"tohit": 2,
-					"damage": "(a.weapon.damage||0)*1.2",
+					"damage": "(a.getWeapon().damage||0)*1.2",
 					"potencies": ["spelldmg", "sworddmg", "lightdmg"],
 					"dot": {
 						"name": "blind",
@@ -651,12 +629,11 @@
 				},
 				"require": "g.bladelore>=9&&g.naturelore>=8",
 				"buy": {
-					"arcana": 5,
 					"tomes": 5,
 					"naturegem": 10
 				},
 				"caststoppers": [1],
-				"need": "g.player.weapon.hasTag('t_swords')",
+				"need": "g.player.getWeapon().hasTag('t_sword')",
 				"needtext": "Currently equipped weapon must be a sword",
 				"cost": {
 					"nature": 6,
@@ -670,11 +647,11 @@
 				"attack": {
 					"kind": "nature",
 					"tohit": 1,
-					"damage": "(a.weapon.damage||0)*0.5",
+					"damage": "(a.getWeapon().damage||0)*0.5",
 					"potencies": ["physdmg", "sworddmg", "naturedmg"],
 					"dot": {
 						"name": "poisoned wound",
-						"kind": "poison",
+						"kind": "nature",
 						"duration": 20,
 						"damage": "4~6",
 						"potencies": ["sworddmg", "naturedmg", "poisondmg"]
@@ -697,12 +674,11 @@
 				},
 				"require": "g.bladelore>=6&&g.shadowlore>=8",
 				"buy": {
-					"arcana": 3,
 					"tomes": 5,
 					"shadowgem": 10
 				},
 				"caststoppers": [1, 4],
-				"need": "g.player.weapon.hasTag('t_swords')",
+				"need": "g.player.getWeapon().hasTag('t_sword')",
 				"needtext": "Currently equipped weapon must be a sword",
 				"cost": {
 					"shadow": 5,
@@ -716,10 +692,10 @@
 				"attack": {
 					"kind": "shadow",
 					"tohit": 2,
-					"damage": "(a.weapon.damage||0)*0.8",
+					"damage": "(a.getWeapon().damage||0)*0.8",
 					"potencies": ["physdmg", "sworddmg", "shadowdmg"],
 					"dot": {
-						"kind": "drain",
+						"kind": "shadow",
 						"duration": 40,
 						"damage": 3,
 						"potencies": ["shadowdmg", "spelldmg"]
@@ -742,12 +718,11 @@
 				},
 				"require": "g.bladelore>=3&&g.firelore>=8",
 				"buy": {
-					"arcana": 3,
 					"codices": 5,
 					"firegem": 10
 				},
 				"caststoppers": [1, 4],
-				"need": "g.player.weapon.hasTag('t_swords')",
+				"need": "g.player.getWeapon().hasTag('t_sword')",
 				"needtext": "Currently equipped weapon must be a sword",
 				"cost": {
 					"fire": 6,
@@ -761,7 +736,7 @@
 				"attack": {
 					"kind": "fire",
 					"tohit": 1,
-					"damage": "(a.weapon.damage||0)*0.9",
+					"damage": "(a.getWeapon().damage||0)*0.9",
 					"potencies": ["spelldmg", "sworddmg", "firedmg"],
 					"dot": {
 						"name": "burning",
@@ -793,7 +768,7 @@
 					"clepsydra": 3
 				},
 				"caststoppers": [1, 4],
-				"need": "g.player.weapon.hasTag('t_swords')",
+				"need": "g.player.getWeapon().hasTag('t_sword')",
 				"needtext": "Currently equipped weapon must be a sword",
 				"cost": {
 					"tempus": 20
@@ -828,12 +803,11 @@
 				},
 				"require": "g.bladelore>=2&&g.bloodlore>=5",
 				"buy": {
-					"arcana": 1,
 					"codices": 5,
 					"bloodgem": 10
 				},
 				"caststoppers": [1],
-				"need": "g.player.weapon.hasTag('t_swords')",
+				"need": "g.player.getWeapon().hasTag('t_sword')",
 				"needtext": "Currently equipped weapon must be a sword",
 				"cost": {
 					"hp": 20,
@@ -847,7 +821,7 @@
 				"attack": {
 					"kind": "blood",
 					"tohit": 4,
-					"damage": "10+(a.weapon.damage||0)*0.7",
+					"damage": "10+(a.getWeapon().damage||0)*0.7",
 					"potencies": ["physdmg", "sworddmg", "blooddmg"]
 				}
 			}

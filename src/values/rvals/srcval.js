@@ -1,14 +1,15 @@
-import RValue from '@/values/rvals/rvalue';
+import RValue from "@/values/rvals/rvalue";
 
 /**
  * RValue mirrors source value.
  */
 export default class SrcVal extends RValue {
-
 	/**
 	 * @property {number} value
 	 */
-	get value() { return this.source ? this.source.valueOf() : 0; }
+	get value() {
+		return this.source ? this.source.valueOf() : 0;
+	}
 
 	/**
 	 * @returns {number}
@@ -18,11 +19,8 @@ export default class SrcVal extends RValue {
 	}
 
 	constructor(source = null, path) {
-
 		super(0, path);
 
 		this.source = source;
-
 	}
-
 }

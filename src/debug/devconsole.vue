@@ -1,77 +1,63 @@
 <script>
-import CmdLine from '@/debug/cmdline';
-import Game from '@/game';
-import Debug from '@/debug/debug';
+import CmdLine from "@/debug/cmdline";
+import Game from "@/game";
+import Debug from "@/debug/debug";
 
 const TOGGLE_KEY = 192;
-// france
-const FALLBACK_KEY = 222;
 
 export default {
-
-	data(){
+	data() {
 		return {
-			open:false
-		}
+			open: false,
+		};
 	},
-	created(){
-
+	created() {
 		window.game = Game;
 
 		let debug = window.debug || new Debug(Game);
-		this.cmdLine = new CmdLine( debug );
+		this.cmdLine = new CmdLine(debug);
 
-		window.addEventListener( 'keydown', this.onkey );
-
+		window.addEventListener("keydown", this.onkey);
 	},
-	updated(){
-		if ( this.$refs.cmdInput ) {
+	updated() {
+		if (this.$refs.cmdInput) {
 			this.$refs.cmdInput.focus();
 		}
 	},
-	methods:{
-
-		toggleView(){
+	methods: {
+		toggleView() {
 			this.open = !this.open;
 		},
 
 		onkey(e) {
-			if ( e.keyCode === TOGGLE_KEY || e.keyCode === FALLBACK_KEY ) {
+			if (e.keyCode === TOGGLE_KEY) {
 				this.toggleView();
 				e.preventDefault();
 			}
 		},
 
-		doCmd( line ) {
+		doCmd(line) {
 			this.cmdLine.parse(line);
 		},
 
 		onpress(e) {
-
-			if ( e.keyCode === 38 ) {
+			if (e.keyCode === 38) {
 				// UP ARROW
 				this.$refs.cmdInput.value = this.cmdLine.prevLine();
-
-
-			} else if ( e.keyCode === 40 ) {
-
+			} else if (e.keyCode === 40) {
 				// DOWN ARROW
 				this.$refs.cmdInput.value = this.cmdLine.nextLine();
-
-			} else if ( e.keyCode === 13) {
+			} else if (e.keyCode === 13) {
 				// ENTER
 				let line = e.target.value;
-				e.target.value = '';
-				this.doCmd( line );
+				e.target.value = "";
+				this.doCmd(line);
 			}
-
-		}
-
-	}
-
-}
+		},
+	},
+};
 </script>
 
 <template>
-<input v-if="open" ref="cmdInput" type="text" @keydown="onpress">
+	<input v-if="open" ref="cmdInput" type="text" @keydown="onpress" />
 </template>

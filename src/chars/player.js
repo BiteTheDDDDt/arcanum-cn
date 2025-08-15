@@ -2,13 +2,7 @@ import Stat from "@/values/rvals/stat";
 import Resource from "@/items/resource";
 import { toStats } from "@/util/dataUtil";
 import Loader from "@/util/jsonLoader";
-import Events, {
-	LEVEL_UP,
-	NEW_TITLE,
-	CHAR_TITLE,
-	CHAR_NAME,
-	CHAR_CLASS,
-} from "../events";
+import Events, { LEVEL_UP, NEW_TITLE, CHAR_TITLE, CHAR_NAME, CHAR_CLASS } from "../events";
 import Wearable from "@/chars/wearable";
 import GData from "@/items/gdata";
 import Char from "@/chars/char";
@@ -18,13 +12,14 @@ import { NO_ATTACK } from "@/chars/states";
 import DataList from "@/inventories/dataList";
 import { Changed } from "@/changes";
 import { SAVE_IDS } from "@/inventories/inventory";
+import game from "@/game";
 
 /**
  * @const {string[]} LoseConditions - player retreats from locale if any of these stats are empty.
  */
 const DefeatStats = [];
-new Loader("./data", ["defeatstat"]).load().then((e) => {
-	e.defeatstat.forEach((i) => DefeatStats.push(i));
+new Loader("./data", ["defeatstat"]).load().then(e => {
+	e.defeatstat.forEach(i => DefeatStats.push(i));
 	Object.freeze(DefeatStats);
 });
 
@@ -134,18 +129,6 @@ export default class Player extends Char {
 	}
 
 	/**
-	 * @property {Resource} speed
-	 * speed normalized to an average of level=speed.
-	 */ /*
-get speed() { return this._speed; }
-set speed(v) {
-
-if ( this._speed ) this._speed.value = v;
-else if ( v instanceof GData ) this._speed = v;
-
-}
-*/
-	/**
 	 * @property {DataList<Wearable>} weapons - active weapons.
 	 */
 	get weapons() {
@@ -163,16 +146,6 @@ else if ( v instanceof GData ) this._speed = v;
 	 */
 	get weapon() {
 		return this._weapons ? this._weapons.curItem() : null;
-	}
-
-	/**
-	 * @property {.<string,Stat>} hits - tohit bonuses per damage kind.
-	 */
-	get hits() {
-		return this._hits ? this._hits : (this._hits = {});
-	}
-	set hits(v) {
-		this._hits = toStats(v);
 	}
 
 	/**
@@ -198,7 +171,6 @@ else if ( v instanceof GData ) this._speed = v;
 		data.dots = this.dots;
 
 		data.bonuses = this.bonuses;
-		data.hits = this.hits;
 		data.immunities = this.immunities;
 		data.resist = this.resist;
 
@@ -211,25 +183,6 @@ else if ( v instanceof GData ) this._speed = v;
 		if (data.attack) delete data.attack;
 
 		return data;
-	}
-
-	/**
-	 * Get player tohit bonus for damage type.
-	 * @param {*} kind
-	 * @returns {number}
-	 */
-	getHit(kind, weapon = null) {
-		let weaponhit = 0;
-		if (weapon && this.weapon.tags) {
-			for (let e of this.weapon.tags) {
-				let interkind = e.replace("t_", "");
-				if (interkind == kind) continue;
-				if (this.hits[interkind]) weaponhit += this.hits[interkind];
-			}
-		}
-		return (
-			this.tohit.valueOf() + (kind ? this.hits[kind] || 0 : 0) + weaponhit || 0
-		);
 	}
 
 	constructor(vars = null) {
@@ -362,6 +315,11 @@ else if ( v instanceof GData ) this._speed = v;
 		}
 	}
 
+	getWeapon() {
+		let weaponset = game.state.equip.slots["mainhand"].item;
+		if (!weaponset) return Fists;
+		return Array.isArray(weaponset) ? weaponset[0] : weaponset;
+	}
 	/**
 	 * Called once game actually begins. Dot-mods can't be applied
 	 * before game start because they can trigger game functions.
@@ -439,8 +397,7 @@ else if ( v instanceof GData ) this._speed = v;
 		if (a) return a;
 
 		let nxt = this.weapons.nextItem();
-		if (Array.isArray(nxt.attack))
-			return nxt.attack[Math.floor(Math.random() * nxt.attack.length)];
+		if (Array.isArray(nxt.attack)) return nxt.attack[Math.floor(Math.random() * nxt.attack.length)];
 		return nxt?.attack ?? null;
 	}
 
@@ -452,20 +409,10 @@ else if ( v instanceof GData ) this._speed = v;
 
 		for (let p in this) {
 			const obj = this[p];
-			if (obj !== null && typeof obj === "object" && obj.type === RESOURCE)
-				res.push(obj);
+			if (obj !== null && typeof obj === "object" && obj.type === RESOURCE) res.push(obj);
 		}
 
 		return res;
-	}
-
-	removeResist(kind, amt) {
-		if (this._resist[kind]) this._resist[kind].base -= amt;
-	}
-
-	addResist(kind, amt) {
-		if (!this._resist[kind]) this._resist[kind] = new Stat(amt);
-		else this._resist[kind].base += amt;
 	}
 
 	levelUp() {
@@ -483,9 +430,15 @@ else if ( v instanceof GData ) this._speed = v;
 	 * Init immunities, resists, etc.
 	 */
 	initStates() {
+		this._negate = this._negate || {};
+		for (let p in this._negate) {
+			this._negate[p] = new Stat(this._negate[p]);
+		}
+
 		this._resist = this._resist || {};
 		for (let p in this._resist) {
-			this._resist[p] = new Stat(this._resist[p]);
+			if (+this._resist[p] !== 0) this._resist[p] = new Stat(this._resist[p]);
+			else delete this._resist[p];
 		}
 
 		this.regen = this.regen || 0;

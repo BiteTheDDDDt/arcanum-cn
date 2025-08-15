@@ -6,7 +6,7 @@
 			{
 				"id": "nathanielshelter",
 				"name": "nathaniel's sanctuary",
-				"require": "g.tier3>0&&g.good>0",
+				"require": "g.tier3>0&&g.good1>0",
 				"desc": "A sanctuary for orphans and paupers.",
 				"tags": "patron",
 				"cost": {
@@ -34,9 +34,9 @@
 				},
 				"mod": {
 					"space": 5,
-					"spellcraft.max": 2,
-					"spellcraft.rate": "5%",
-					"enchanting.max": 2
+					"spellcraft.mod.scraftlist.max": 0.5,
+					"spellcraft.rate": 0.5,
+					"enchanting.mod.enchantslots.max": 0.5
 				},
 				"flavor": "Forsaking war and violence, Bloodbane devoted himself to crafting new forms of magic."
 			}
@@ -46,7 +46,7 @@
 				"id": "wildcamp",
 				"name": "wild's encampment",
 				"desc": "Deep in Delkin Wood, Master Wild kept his fabled camp.",
-				"require": "(g.warden+g.druid+g.fey+g.kell)>0&&g.tier2>0",
+				"require": "g.t_natureclass>0&&g.tier2>0",
 				"tags": "outdoors,plantsource,t_pets,patron",
 				"buy": {
 					"gold": 300,
@@ -58,13 +58,11 @@
 					"space.max": 40,
 					"lore.rate": -0.1,
 					"research.rate": -0.2,
-					"naturelore2.max": 1,
-					"airlore.max": 1,
-					"waterlore.max": 1,
-					"naturelore.max": 2,
-					"naturelore.rate": "5%",
-					"animals.max": 1,
-					"animals.rate": 0.1
+					"naturelore2.mod.naturedmg": 1,
+					"naturelore.mod.nature.max": 0.25,
+					"airlore.mod.air.max": 0.25,
+					"waterlore.mod.water.max": 0.25,
+					"animals.mod.steed.mod.dist": 1
 				}
 			}
 		],
@@ -95,6 +93,7 @@
 				"result": { "lightlore.exp": 0.2 },
 				"attack": {
 					"targets": "allies",
+					"maxTargets": 999,
 					"harmless": true,
 					"healing": 10,
 					"kind": "light",
@@ -130,6 +129,7 @@
 				},
 				"attack": {
 					"targets": "allies",
+					"maxTargets": 999,
 					"harmless": true,
 					"healing": 45,
 					"kind": "light",
@@ -231,7 +231,7 @@
 				"id": "enc_cyril",
 				"name": "view stars with cyril",
 				"desc": "",
-				"tags": "enc_site_of_learning",
+				"tags": "site_of_learning",
 				"effect": {
 					"rage": "1~5",
 					"weary": "2~5",
@@ -246,7 +246,7 @@
 				"id": "enc_kanna",
 				"name": "Study under Kanna",
 				"desc": "A fox-girl delightedly teaches you some practical ways to use your weapon more effectively",
-				"tags": "enc_site_of_learning",
+				"tags": "site_of_learning",
 				"effect": {
 					"bf": "0~2",
 					"weary": "2~5",
@@ -262,7 +262,7 @@
 				"id": "enc_jeremy",
 				"name": "jeremi",
 				"desc": "Nothing is known about this mage.",
-				"tags": "enc_site_of_learning",
+				"tags": "site_of_learning",
 				"effect": {
 					"rage": "1~5",
 					"weary": "2~5",
@@ -276,7 +276,7 @@
 				"id": "enc_phrenesis",
 				"name": "phrenesis",
 				"desc": "Phrenesis was forever preoccupied with the cycles of death and rebirth.",
-				"tags": "enc_site_of_learning",
+				"tags": "site_of_learning",
 				"effect": {
 					"stress": -0.1,
 					"hp": -4
@@ -289,7 +289,7 @@
 				"id": "enc_sinae",
 				"name": "sinae the puppeteer",
 				"desc": "A researcher, more machine than human",
-				"tags": "enc_site_of_learning",
+				"tags": "site_of_learning",
 				"effect": {
 					"unease": "1~5",
 					"rage": "2~5",
@@ -304,7 +304,7 @@
 				"id": "enc_stags",
 				"name": "stags",
 				"desc": "Nothing is known about the enigmatic mage.",
-				"tags": "enc_site_of_learning",
+				"tags": "site_of_learning",
 				"effect": {
 					"rage": "1~5",
 					"weary": "2~5",
@@ -318,7 +318,7 @@
 				"id": "enc_tainted",
 				"name": "Tainted, Archon of the Void",
 				"desc": "A violent echo still wanders the halls it never walked.",
-				"tags": "enc_site_of_learning",
+				"tags": "site_of_learning",
 				"effect": {
 					"madness": "2~4",
 					"unease": "2~4",
@@ -330,10 +330,7 @@
 					"composure.max": "4|100|30"
 				},
 				"loot": {
-					"voidrune": "1%",
-					"voidgem": "1%",
-					"timerune": "1%",
-					"timegem": "1%"
+					"voidgem": "1%"
 				},
 				"flavor": "Did that actually happen?"
 			},
@@ -341,7 +338,7 @@
 				"id": "enc_kaidi",
 				"name": "kaidi the mixer",
 				"desc": "A teacher and maker of the oddest concoctions.",
-				"tags": "enc_site_of_learning",
+				"tags": "site_of_learning",
 				"effect": {
 					"bf": "2~5",
 					"unease": "1~2",
@@ -361,7 +358,7 @@
 				"id": "enc_tjoker",
 				"name": "a joker",
 				"desc": "A crafty expression suggests trouble.",
-				"tags": "enc_site_of_learning",
+				"tags": "site_of_learning",
 				"effect": {
 					"rage": "1~5",
 					"bf": "2~5",
@@ -376,7 +373,7 @@
 				"id": "enc_vondrey",
 				"name": "vondrey",
 				"desc": "The mage does not appear inclined to speak.",
-				"tags": "enc_site_of_learning",
+				"tags": "site_of_learning",
 				"effect": {
 					"bf": "1~5",
 					"rage": "1~5",
@@ -392,7 +389,7 @@
 				"id": "enc_mrwild",
 				"name": "master wild",
 				"desc": "A mage of the wilds makes a perplexing teacher.",
-				"tags": "enc_site_of_learning",
+				"tags": "site_of_learning",
 				"effect": {
 					"madness": "1~5",
 					"weary": "2~5",
@@ -407,7 +404,7 @@
 				"id": "enc_mrreaper",
 				"name": "mister reaper",
 				"desc": "A grim name for an otherwise respectable mage.",
-				"tags": "enc_site_of_learning",
+				"tags": "site_of_learning",
 				"effect": {
 					"madness": "1~5",
 					"bf": "2~5",
@@ -425,6 +422,7 @@
 				"name": "hall of ages",
 				"desc": "The lost Hall of Ages was a gathering place of great and powerful patron mages.",
 				"flavor": "the knowledge within may be beyond price.",
+				"tags": "site_of_learning",
 				"require": "g.tier3>0",
 				"length": 100,
 				"mod": {
@@ -447,6 +445,37 @@
 					"enc_mrreaper",
 					"enc_mrwild"
 				]
+			}
+		],
+		"upgrades": [
+			{
+				"id": "becomewild",
+				"name": "become the wilds",
+				"desc": "Transcend the imaginary barriers setting yourself apart from the heart of the wilderness.",
+				"require": "(g.t_natureclass)>0&&g.tier2>0",
+				"cost": {
+					"herbs": 100
+				},
+				"mod": {
+					"naturelore2.max": 1
+				},
+				"group": "knowledge"
+			},
+			{
+				"id": "baneforging",
+				"name": "bloodbane's forging",
+				"require": "g.crafting>=14",
+				"need": "baneanvil",
+				"desc": "With Bloodbane's anvil at hand, replicate his methods for forging magic.",
+				"cost": {
+					"research": 1000,
+					"tomes": 1
+				},
+				"mod": {
+					"spellcraft.max": 2,
+					"enchanting.max": 2
+				},
+				"group": "knowledge"
 			}
 		]
 	}

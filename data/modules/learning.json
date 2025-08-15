@@ -1,0 +1,2617 @@
+{
+	"module": "learning",
+	"notes": {
+		"lore": 35.0,
+		"manalore2": 5.15,
+		"wizlore": 5.05,
+		"spellcraft": 25.1,
+		"mysticism": 15.1,
+		"languages": 24.0,
+		"history": 31.05,
+
+		"crafting": 27.0,
+		"weaving": 10.1,
+		"runelore": 10.1,
+		"enchanting": 18.1,
+
+		"astrallore": 6.15,
+		"planeslore": 30.05,
+		"s_travel": 16.05,
+		"divination": 35.0,
+		"scrying": 23.05,
+		"astronomy": 37.0,
+
+		"concentrate": 11.0,
+		"composure": 16.1,
+
+		"citynavigation": 8.0,
+		"shopkeeping": 27.0,
+		"debitomancy": 16.05,
+
+		"animals": 39.0,
+		"magicbeasts": 14.05,
+		"conjuration": 15.0,
+		"summoning": 17.05,
+		"demonology": 38.05,
+		"charms": 10.1,
+
+		"anatomy": 38.0,
+		"vivification": 13.05,
+
+		"waterlore": 32.0,
+		"waterlore2": 5.15,
+
+		"airlore": 40.0,
+		"airlore2": 5.15,
+
+		"firelore": 39.0,
+		"firelore2": 9.15,
+		"flamesculpting": 4.1,
+
+		"earthlore": 43.0,
+		"earthlore2": 5.15,
+		"geosculpting": 31.05,
+
+		"naturelore": 47.0,
+		"naturelore2": 7.15,
+		"herbalism": 34.0,
+		"potions": 23.05,
+		"alchemy": 32.0,
+
+		"spiritlore": 49.0,
+		"spiritlore2": 6.15,
+
+		"lightlore": 41.0,
+		"lightlore2": 6.15,
+		"heallore": 12.05,
+
+		"shadowlore": 45.0,
+		"shadowlore2": 6.15,
+		"necromancy": 18.05,
+		"reanimation": 25.05,
+		"embalming": 22.05,
+		"dissection": 15.05,
+
+		"chaoslore": 7.15,
+		"trickery": 29.05,
+
+		"voidlore": 13.15,
+		"chronomancy": 7.15,
+
+		"bloodlore": 5.1,
+
+		"weaponlore": 12.0,
+		"bladelore": 17.1,
+		"duelinglore": 13.1,
+		"hammerlore": 18.5,
+
+		"magicalanimation": 19.05,
+		"magiphysics": 6.1,
+		"puppetry": 40.0,
+		"machinacreation": 29.05,
+		"automatasculpting": 25.1
+	},
+	"data": {
+		"resources": [
+			{
+				"id": "skillboost",
+				"group": "basic",
+				"name": "Focus Boost",
+				"max": 1000,
+				"sortOrder": 10,
+				"rate": -0.001,
+				"mod": {
+					"skillboost.rate": -0.12,
+					"skill.rate": "1%"
+				}
+			}
+		],
+		"upgrades": [
+			{
+				"id": "learnJob",
+				"name": "Reviewing Your Notes",
+				"desc": "Remembering what you've been taught doesn't happen by magic.",
+				"flavor": "",
+				"group": "education",
+				"require": "g.t_job>0",
+				"cost": {
+					"scrolls": 5,
+					"research": 100
+				},
+				"mod": {
+					"skill.rate": "5%",
+					"research.max": "1%",
+					"research.rate": "2%"
+				}
+			},
+			{
+				"id": "learn0",
+				"name": "Exploring New Ideas",
+				"desc": "Now that you're free to explore magic on your own without your master breathing down your neck, there's a few things you wanted to try...",
+				"flavor": "",
+				"group": "education",
+				"require": "g.tier0>0&&g.learnJob>0",
+				"cost": {
+					"codices": 1,
+					"research": 100
+				},
+				"mod": {
+					"skill.rate": "10%",
+					"research.max": "2%",
+					"research.rate": "4%"
+				}
+			},
+			{
+				"id": "learn1",
+				"name": "Studious Trance",
+				"desc": "Sometimes you lose track of hours in your magical studies, but the knowledge is a worthy reward.",
+				"flavor": "",
+				"group": "education",
+				"require": "g.tier1>0&&g.learn0>0",
+				"cost": {
+					"codices": 3,
+					"research": 250
+				},
+				"mod": {
+					"skill.rate": "15%",
+					"research.max": "3%",
+					"research.rate": "6%"
+				}
+			},
+			{
+				"id": "learn2",
+				"name": "Mind Palace",
+				"desc": "A place for every piece of knowledge and every piece of knowledge has a place.",
+				"flavor": "",
+				"group": "education",
+				"require": "g.tier2>0&&g.learn1>0",
+				"cost": {
+					"codices": 10,
+					"research": 550
+				},
+				"mod": {
+					"skill.rate": "20%",
+					"research.max": "4%",
+					"research.rate": "9%"
+				}
+			},
+			{
+				"id": "learn3",
+				"name": "Arcane Comprehension",
+				"desc": "Remembering things you've learned CAN happen by magic if you try hard enough.",
+				"flavor": "",
+				"group": "education",
+				"require": "g.tier3>0&&g.learn2>0",
+				"cost": {
+					"codices": 25,
+					"research": 1000
+				},
+				"mod": {
+					"skill.rate": "25%",
+					"research.max": "5%",
+					"research.rate": "12%"
+				}
+			},
+			{
+				"id": "learn4",
+				"name": "Runic Recollection",
+				"desc": "Your notes are inscribed with runes that improve your ability to remember the contents of each page.",
+				"flavor": "",
+				"group": "education",
+				"require": "g.tier4>0&&g.learn3>0",
+				"cost": {
+					"tomes": 3,
+					"research": 3000
+				},
+				"mod": {
+					"skill.rate": "35%",
+					"research.max": "6%",
+					"research.rate": "15%"
+				}
+			},
+			{
+				"id": "learn5",
+				"name": "Studious Sleep",
+				"desc": "Days and weeks pass by as you study the minutiae of magic, but you no longer care: the magic is the most important thing.",
+				"flavor": "",
+				"group": "education",
+				"require": "g.tier5>0&&g.learn4>0",
+				"cost": {
+					"tomes": 5,
+					"research": 8000
+				},
+				"mod": {
+					"skill.rate": "40%",
+					"research.max": "7%",
+					"research.rate": "20%"
+				}
+			},
+			{
+				"id": "learn6",
+				"name": "Memento Memory",
+				"desc": "One day you will learn everything there is to know, and at that point all there's left to do is remember.",
+				"flavor": "",
+				"group": "education",
+				"require": "g.tier6>0&&g.learn5>0",
+				"cost": {
+					"tomes": 7,
+					"research": 10000
+				},
+				"mod": {
+					"skill.rate": "45%",
+					"research.max": "8%",
+					"research.rate": "25%"
+				}
+			},
+			{
+				"id": "magelorelearn1",
+				"name": "Mage Lore: Competence",
+				"desc": "",
+				"flavor": "",
+				"group": "education",
+				"require": "g.lore>=3&&g.lore.max>=6&&g.spellbook>0",
+				"cost": {
+					"scrolls": 1,
+					"research": 100
+				},
+				"mod": {
+					"lore.rate": 0.3,
+					"lore.mod.arcana.max": 0.05,
+					"lore.mod.research.max": 1,
+					"lore.mod.mana.max": 0.1
+				}
+			},
+			{
+				"id": "magelorelearn2",
+				"name": "Mage Lore: Expertise",
+				"desc": "",
+				"flavor": "",
+				"group": "education",
+				"require": "g.lore>=8&&g.lore.max>=11&&g.magelorelearn1>0",
+				"cost": {
+					"scrolls": 4,
+					"research": 150
+				},
+				"mod": {
+					"lore.rate": 0.4,
+					"lore.mod.arcana.max": 0.1,
+					"lore.mod.research.max": 1
+				}
+			},
+			{
+				"id": "magelorelearn3",
+				"name": "Mage Lore: Mastery",
+				"desc": "",
+				"flavor": "",
+				"group": "education",
+				"require": "g.lore>=13&&g.lore.max>=16&&g.magelorelearn2>0",
+				"cost": {
+					"codices": 1,
+					"research": 100
+				},
+				"mod": {
+					"lore.rate": 0.5,
+					"lore.mod.research.max": 1,
+					"lore.mod.arcana.max": 0.25
+				}
+			},
+			{
+				"id": "magelorelearn4",
+				"name": "Mage Lore: Supremancy",
+				"desc": "",
+				"flavor": "",
+				"group": "education",
+				"require": "g.lore>=18&&g.lore.max>=21&&g.magelorelearn3>0",
+				"cost": {
+					"codices": 3,
+					"research": 550
+				},
+				"result": {
+					"fame": 1
+				},
+				"mod": {
+					"lore.rate": 0.6,
+					"lore.mod.research.max": 2,
+					"lore.mod.arcana.max": 0.25,
+					"lore.mod.mana.max": 0.15,
+					"lore.mod.manadmg": 0.25
+				}
+			},
+			{
+				"id": "magelorelearn5",
+				"name": "Mage Lore: Transcendence",
+				"desc": "",
+				"flavor": "",
+				"group": "education",
+				"require": "g.lore>=23&&g.lore.max>=26&&g.magelorelearn4>0",
+				"cost": {
+					"tomes": 1,
+					"research": 2500
+				},
+				"result": {
+					"fame": 2
+				},
+				"mod": {
+					"lore.rate": 0.7,
+					"lore.mod.research.max": "1%",
+					"lore.mod.arcana.max": 0.5,
+					"lore.mod.mana.max": 0.25,
+					"lore.mod.spelllist.max": 0.5,
+					"lore.mod.manadmg": 0.5
+				}
+			},
+			{
+				"id": "waterlorelearn1",
+				"name": "Aquamancy: Competence",
+				"desc": "",
+				"flavor": "",
+				"group": "education",
+				"require": "g.waterlore>=3&&g.waterlore.max>=6",
+				"cost": {
+					"scrolls": 1,
+					"research": 100
+				},
+				"mod": {
+					"waterlore.rate": 0.3
+				}
+			},
+			{
+				"id": "waterlorelearn2",
+				"name": "Aquamancy: Expertise",
+				"desc": "",
+				"flavor": "",
+				"group": "education",
+				"require": "g.waterlore>=8&&g.waterlore.max>=11&&g.waterlorelearn1>0",
+				"cost": {
+					"scrolls": 4,
+					"research": 150
+				},
+				"mod": {
+					"waterlore.rate": 0.4,
+					"waterlore.mod.water.max": 0.1
+				}
+			},
+			{
+				"id": "waterlorelearn3",
+				"name": "Aquamancy: Mastery",
+				"desc": "",
+				"flavor": "",
+				"group": "education",
+				"require": "g.waterlore>=13&&g.waterlore.max>=16&&g.waterlorelearn2>0",
+				"cost": {
+					"codices": 1,
+					"research": 250
+				},
+				"mod": {
+					"waterlore.rate": 0.5,
+					"waterlore.mod.water.max": 0.15,
+					"waterlore.mod.waterdmg": 0.3
+				}
+			},
+			{
+				"id": "waterlorelearn4",
+				"name": "Aquamancy: Supremancy",
+				"desc": "",
+				"flavor": "",
+				"group": "education",
+				"require": "g.waterlore>=18&&g.waterlore.max>=21&&g.waterlorelearn3>0",
+				"cost": {
+					"codices": 3,
+					"research": 550
+				},
+				"result": {
+					"fame": 1
+				},
+				"mod": {
+					"waterlore.rate": 0.6,
+					"waterlore.mod.water.max": 0.25,
+					"waterlore.mod.water.rate": 0.002,
+					"waterlore.mod.waterrune.max": 0.25,
+					"waterlore.mod.waterdmg": 0.5
+				}
+			},
+			{
+				"id": "waterlorelearn5",
+				"name": "Aquamancy: Transcendence",
+				"desc": "",
+				"flavor": "",
+				"group": "education",
+				"require": "g.waterlore>=23&&g.waterlore.max>=26&&g.waterlorelearn4>0",
+				"cost": {
+					"tomes": 1,
+					"research": 2500
+				},
+				"result": {
+					"fame": 2
+				},
+				"mod": {
+					"waterlore.rate": 0.7,
+					"waterlore.mod.water.max": 0.5,
+					"waterlore.mod.water.rate": 0.003,
+					"waterlore.mod.waterrune.max": 0.25,
+					"waterlore.mod.waterdmg": 0.7
+				}
+			},
+			{
+				"id": "airlorelearn1",
+				"name": "Aeromancy: Competence",
+				"desc": "",
+				"flavor": "",
+				"group": "education",
+				"require": "g.airlore>=3&&g.airlore.max>=6",
+				"cost": {
+					"scrolls": 1,
+					"research": 100
+				},
+				"mod": {
+					"airlore.rate": 0.3
+				}
+			},
+			{
+				"id": "airlorelearn2",
+				"name": "Aeromancy: Expertise",
+				"desc": "",
+				"flavor": "",
+				"group": "education",
+				"require": "g.airlore>=8&&g.airlore.max>=11&&g.airlorelearn1>0",
+				"cost": {
+					"scrolls": 4,
+					"research": 150
+				},
+				"mod": {
+					"airlore.rate": 0.4,
+					"airlore.mod.air.max": 0.1
+				}
+			},
+			{
+				"id": "airlorelearn3",
+				"name": "Aeromancy: Mastery",
+				"desc": "",
+				"flavor": "",
+				"group": "education",
+				"require": "g.airlore>=13&&g.airlore.max>=16&&g.airlorelearn2>0",
+				"cost": {
+					"codices": 1,
+					"research": 250
+				},
+				"mod": {
+					"airlore.rate": 0.5,
+					"airlore.mod.air.max": 0.15,
+					"airlore.mod.airdmg": 0.3
+				}
+			},
+			{
+				"id": "airlorelearn4",
+				"name": "Aeromancy: Supremancy",
+				"desc": "",
+				"flavor": "",
+				"group": "education",
+				"require": "g.airlore>=18&&g.airlore.max>=21&&g.airlorelearn3>0",
+				"cost": {
+					"codices": 3,
+					"research": 550
+				},
+				"result": {
+					"fame": 1
+				},
+				"mod": {
+					"airlore.rate": 0.6,
+					"airlore.mod.air.max": 0.25,
+					"airlore.mod.air.rate": 0.002,
+					"airlore.mod.airrune.max": 0.25,
+					"airlore.mod.airdmg": 0.5
+				}
+			},
+			{
+				"id": "airlorelearn5",
+				"name": "Aeromancy: Transcendence",
+				"desc": "",
+				"flavor": "",
+				"group": "education",
+				"require": "g.airlore>=23&&g.airlore.max>=26&&g.airlorelearn4>0",
+				"cost": {
+					"tomes": 1,
+					"research": 2500
+				},
+				"result": {
+					"fame": 2
+				},
+				"mod": {
+					"airlore.rate": 0.7,
+					"airlore.mod.air.max": 0.5,
+					"airlore.mod.air.rate": 0.003,
+					"airlore.mod.airrune.max": 0.25,
+					"airlore.mod.airdmg": 0.7
+				}
+			},
+			{
+				"id": "firelorelearn1",
+				"name": "Pyromancy: Competence",
+				"desc": "",
+				"flavor": "",
+				"group": "education",
+				"require": "g.firelore>=3&&g.firelore.max>=6",
+				"cost": {
+					"scrolls": 1,
+					"research": 100
+				},
+				"mod": {
+					"firelore.rate": 0.3
+				}
+			},
+			{
+				"id": "firelorelearn2",
+				"name": "Pyromancy: Expertise",
+				"desc": "",
+				"flavor": "",
+				"group": "education",
+				"require": "g.firelore>=8&&g.firelore.max>=11&&g.firelorelearn1>0",
+				"cost": {
+					"scrolls": 4,
+					"research": 150
+				},
+				"mod": {
+					"firelore.rate": 0.4,
+					"firelore.mod.fire.max": 0.1
+				}
+			},
+			{
+				"id": "firelorelearn3",
+				"name": "Pyromancy: Mastery",
+				"desc": "",
+				"flavor": "",
+				"group": "education",
+				"require": "g.firelore>=13&&g.firelore.max>=16&&g.firelorelearn2>0",
+				"cost": {
+					"codices": 1,
+					"research": 250
+				},
+				"mod": {
+					"firelore.rate": 0.5,
+					"firelore.mod.fire.max": 0.15,
+					"firelore.mod.firedmg": 0.3
+				}
+			},
+			{
+				"id": "firelorelearn4",
+				"name": "Pyromancy: Supremancy",
+				"desc": "",
+				"flavor": "",
+				"group": "education",
+				"require": "g.firelore>=18&&g.firelore.max>=21&&g.firelorelearn3>0",
+				"cost": {
+					"codices": 3,
+					"research": 550
+				},
+				"result": {
+					"fame": 1
+				},
+				"mod": {
+					"firelore.rate": 0.6,
+					"firelore.mod.fire.max": 0.25,
+					"firelore.mod.fire.rate": 0.002,
+					"firelore.mod.firerune.max": 0.25,
+					"firelore.mod.firedmg": 0.5
+				}
+			},
+			{
+				"id": "firelorelearn5",
+				"name": "Pyromancy: Transcendence",
+				"desc": "",
+				"flavor": "",
+				"group": "education",
+				"require": "g.firelore>=23&&g.firelore.max>=26&&g.firelorelearn4>0",
+				"cost": {
+					"tomes": 1,
+					"research": 2500
+				},
+				"result": {
+					"fame": 2
+				},
+				"mod": {
+					"firelore.rate": 0.7,
+					"firelore.mod.fire.max": 0.5,
+					"firelore.mod.fire.rate": 0.003,
+					"firelore.mod.firerune.max": 0.25,
+					"firelore.mod.firedmg": 0.7
+				}
+			},
+			{
+				"id": "earthlorelearn1",
+				"name": "Geomancy: Competence",
+				"desc": "",
+				"flavor": "",
+				"group": "education",
+				"require": "g.earthlore>=3&&g.earthlore.max>=6",
+				"cost": {
+					"scrolls": 1,
+					"research": 100
+				},
+				"mod": {
+					"earthlore.rate": 0.3
+				}
+			},
+			{
+				"id": "earthlorelearn2",
+				"name": "Geomancy: Expertise",
+				"desc": "",
+				"flavor": "",
+				"group": "education",
+				"require": "g.earthlore>=8&&g.earthlore.max>=11&&g.earthlorelearn1>0",
+				"cost": {
+					"scrolls": 4,
+					"research": 150
+				},
+				"mod": {
+					"earthlore.rate": 0.4,
+					"earthlore.mod.earth.max": 0.1
+				}
+			},
+			{
+				"id": "earthlorelearn3",
+				"name": "Geomancy: Mastery",
+				"desc": "",
+				"flavor": "",
+				"group": "education",
+				"require": "g.earthlore>=13&&g.earthlore.max>=16&&g.earthlorelearn2>0",
+				"cost": {
+					"codices": 1,
+					"research": 250
+				},
+				"mod": {
+					"earthlore.rate": 0.5,
+					"earthlore.mod.earth.max": 0.15,
+					"earthlore.mod.earthdmg": 0.3
+				}
+			},
+			{
+				"id": "earthlorelearn4",
+				"name": "Geomancy: Supremancy",
+				"desc": "",
+				"flavor": "",
+				"group": "education",
+				"require": "g.earthlore>=18&&g.earthlore.max>=21&&g.earthlorelearn3>0",
+				"cost": {
+					"codices": 3,
+					"research": 550
+				},
+				"result": {
+					"fame": 1
+				},
+				"mod": {
+					"earthlore.rate": 0.6,
+					"earthlore.mod.earth.max": 0.25,
+					"earthlore.mod.earth.rate": 0.002,
+					"earthlore.mod.earthrune.max": 0.25,
+					"earthlore.mod.earthdmg": 0.5
+				}
+			},
+			{
+				"id": "earthlorelearn5",
+				"name": "Geomancy: Transcendence",
+				"desc": "",
+				"flavor": "",
+				"group": "education",
+				"require": "g.earthlore>=23&&g.earthlore.max>=26&&g.earthlorelearn4>0",
+				"cost": {
+					"tomes": 1,
+					"research": 2500
+				},
+				"result": {
+					"fame": 2
+				},
+				"mod": {
+					"earthlore.rate": 0.7,
+					"earthlore.mod.earth.max": 0.5,
+					"earthlore.mod.earth.rate": 0.003,
+					"earthlore.mod.earthrune.max": 0.25,
+					"earthlore.mod.earthdmg": 0.7
+				}
+			},
+			{
+				"id": "naturelorelearn1",
+				"name": "Nature Studies: Competence",
+				"desc": "",
+				"flavor": "",
+				"group": "education",
+				"require": "g.naturelore>=3&&g.naturelore.max>=6",
+				"cost": {
+					"scrolls": 1,
+					"research": 100
+				},
+				"mod": {
+					"naturelore.rate": 0.3
+				}
+			},
+			{
+				"id": "naturelorelearn2",
+				"name": "Nature Studies: Expertise",
+				"desc": "",
+				"flavor": "",
+				"group": "education",
+				"require": "g.naturelore>=8&&g.naturelore.max>=11&&g.naturelorelearn1>0",
+				"cost": {
+					"scrolls": 4,
+					"research": 150
+				},
+				"mod": {
+					"naturelore.rate": 0.4,
+					"naturelore.mod.nature.max": 0.1
+				}
+			},
+			{
+				"id": "naturelorelearn3",
+				"name": "Nature Studies: Mastery",
+				"desc": "",
+				"flavor": "",
+				"group": "education",
+				"require": "g.naturelore>=13&&g.naturelore.max>=16&&g.naturelorelearn2>0",
+				"cost": {
+					"codices": 1,
+					"research": 250
+				},
+				"mod": {
+					"naturelore.rate": 0.5,
+					"naturelore.mod.nature.max": 0.15,
+					"naturelore.mod.naturedmg": 0.3
+				}
+			},
+			{
+				"id": "naturelorelearn4",
+				"name": "Nature Studies: Supremancy",
+				"desc": "",
+				"flavor": "",
+				"group": "education",
+				"require": "g.naturelore>=18&&g.naturelore.max>=21&&g.naturelorelearn3>0",
+				"cost": {
+					"codices": 3,
+					"research": 550
+				},
+				"result": {
+					"fame": 1
+				},
+				"mod": {
+					"naturelore.rate": 0.6,
+					"naturelore.mod.nature.max": 0.25,
+					"naturelore.mod.nature.rate": 0.002,
+					"naturelore.mod.naturerune.max": 0.25,
+					"naturelore.mod.naturedmg": 0.5
+				}
+			},
+			{
+				"id": "naturelorelearn5",
+				"name": "Nature Studies: Transcendence",
+				"desc": "",
+				"flavor": "",
+				"group": "education",
+				"require": "g.naturelore>=23&&g.naturelore.max>=26&&g.naturelorelearn4>0",
+				"cost": {
+					"tomes": 1,
+					"research": 2500
+				},
+				"result": {
+					"fame": 2
+				},
+				"mod": {
+					"naturelore.rate": 0.7,
+					"naturelore.mod.nature.max": 0.5,
+					"naturelore.mod.nature.rate": 0.003,
+					"naturelore.mod.naturerune.max": 0.25,
+					"naturelore.mod.naturedmg": 0.7
+				}
+			},
+			{
+				"id": "spiritlorelearn1",
+				"name": "Spirit Communion: Competence",
+				"desc": "",
+				"flavor": "",
+				"group": "education",
+				"require": "g.spiritlore>=3&&g.spiritlore.max>=6",
+				"cost": {
+					"scrolls": 1,
+					"research": 100
+				},
+				"mod": {
+					"spiritlore.rate": 0.3
+				}
+			},
+			{
+				"id": "spiritlorelearn2",
+				"name": "Spirit Communion: Expertise",
+				"desc": "",
+				"flavor": "",
+				"group": "education",
+				"require": "g.spiritlore>=8&&g.spiritlore.max>=11&&g.spiritlorelearn1>0",
+				"cost": {
+					"scrolls": 4,
+					"research": 150
+				},
+				"mod": {
+					"spiritlore.rate": 0.4,
+					"spiritlore.mod.spirit.max": 0.1
+				}
+			},
+			{
+				"id": "spiritlorelearn3",
+				"name": "Spirit Communion: Mastery",
+				"desc": "",
+				"flavor": "",
+				"group": "education",
+				"require": "g.spiritlore>=13&&g.spiritlore.max>=16&&g.spiritlorelearn2>0",
+				"cost": {
+					"codices": 1,
+					"research": 250
+				},
+				"mod": {
+					"spiritlore.rate": 0.5,
+					"spiritlore.mod.spirit.max": 0.15,
+					"spiritlore.mod.spiritdmg": 0.3
+				}
+			},
+			{
+				"id": "spiritlorelearn4",
+				"name": "Spirit Communion: Supremancy",
+				"desc": "",
+				"flavor": "",
+				"group": "education",
+				"require": "g.spiritlore>=18&&g.spiritlore.max>=21&&g.spiritlorelearn3>0",
+				"cost": {
+					"codices": 3,
+					"research": 550
+				},
+				"result": {
+					"fame": 1
+				},
+				"mod": {
+					"spiritlore.rate": 0.6,
+					"spiritlore.mod.spirit.max": 0.25,
+					"spiritlore.mod.spirit.rate": 0.002,
+					"spiritlore.mod.spiritrune.max": 0.25,
+					"spiritlore.mod.spiritdmg": 0.5
+				}
+			},
+			{
+				"id": "spiritlorelearn5",
+				"name": "Spirit Communion: Transcendence",
+				"desc": "",
+				"flavor": "",
+				"group": "education",
+				"require": "g.spiritlore>=23&&g.spiritlore.max>=26&&g.spiritlorelearn4>0",
+				"cost": {
+					"tomes": 1,
+					"research": 2500
+				},
+				"result": {
+					"fame": 2
+				},
+				"mod": {
+					"spiritlore.rate": 0.7,
+					"spiritlore.mod.spirit.max": 0.5,
+					"spiritlore.mod.spirit.rate": 0.003,
+					"spiritlore.mod.spiritrune.max": 0.25,
+					"spiritlore.mod.spiritdmg": 0.7
+				}
+			},
+			{
+				"id": "lightlorelearn1",
+				"name": "Lumenology: Competence",
+				"desc": "",
+				"flavor": "",
+				"group": "education",
+				"require": "g.lightlore>=3&&g.lightlore.max>=6",
+				"cost": {
+					"scrolls": 1,
+					"research": 100
+				},
+				"mod": {
+					"lightlore.rate": 0.3
+				}
+			},
+			{
+				"id": "lightlorelearn2",
+				"name": "Lumenology: Expertise",
+				"desc": "",
+				"flavor": "",
+				"group": "education",
+				"require": "g.lightlore>=8&&g.lightlore.max>=11&&g.lightlorelearn1>0",
+				"cost": {
+					"scrolls": 4,
+					"research": 150
+				},
+				"mod": {
+					"lightlore.rate": 0.4,
+					"lightlore.mod.light.max": 0.1
+				}
+			},
+			{
+				"id": "lightlorelearn3",
+				"name": "Lumenology: Mastery",
+				"desc": "",
+				"flavor": "",
+				"group": "education",
+				"require": "g.lightlore>=13&&g.lightlore.max>=16&&g.lightlorelearn2>0",
+				"cost": {
+					"codices": 1,
+					"research": 250
+				},
+				"mod": {
+					"lightlore.rate": 0.5,
+					"lightlore.mod.light.max": 0.15,
+					"lightlore.mod.lightdmg": 0.3
+				}
+			},
+			{
+				"id": "lightlorelearn4",
+				"name": "Lumenology: Supremancy",
+				"desc": "",
+				"flavor": "",
+				"group": "education",
+				"require": "g.lightlore>=18&&g.lightlore.max>=21&&g.lightlorelearn3>0",
+				"cost": {
+					"codices": 3,
+					"research": 550
+				},
+				"result": {
+					"fame": 1
+				},
+				"mod": {
+					"lightlore.rate": 0.6,
+					"lightlore.mod.light.max": 0.25,
+					"lightlore.mod.light.rate": 0.002,
+					"lightlore.mod.lightrune.max": 0.25,
+					"lightlore.mod.lightdmg": 0.5
+				}
+			},
+			{
+				"id": "lightlorelearn5",
+				"name": "Lumenology: Transcendence",
+				"desc": "",
+				"flavor": "",
+				"group": "education",
+				"require": "g.lightlore>=23&&g.lightlore.max>=26&&g.lightlorelearn4>0",
+				"cost": {
+					"tomes": 1,
+					"research": 2500
+				},
+				"result": {
+					"fame": 2
+				},
+				"mod": {
+					"lightlore.rate": 0.7,
+					"lightlore.mod.light.max": 0.5,
+					"lightlore.mod.light.rate": 0.003,
+					"lightlore.mod.lightrune.max": 0.25,
+					"lightlore.mod.lightdmg": 0.7
+				}
+			},
+			{
+				"id": "shadowlorelearn1",
+				"name": "Umbramancy: Competence",
+				"desc": "",
+				"flavor": "",
+				"group": "education",
+				"require": "g.shadowlore>=3&&g.shadowlore.max>=6",
+				"cost": {
+					"scrolls": 1,
+					"research": 100
+				},
+				"mod": {
+					"shadowlore.rate": 0.3
+				}
+			},
+			{
+				"id": "shadowlorelearn2",
+				"name": "Umbramancy: Expertise",
+				"desc": "",
+				"flavor": "",
+				"group": "education",
+				"require": "g.shadowlore>=8&&g.shadowlore.max>=11&&g.shadowlorelearn1>0",
+				"cost": {
+					"scrolls": 4,
+					"research": 150
+				},
+				"mod": {
+					"shadowlore.rate": 0.4,
+					"shadowlore.mod.shadow.max": 0.1
+				}
+			},
+			{
+				"id": "shadowlorelearn3",
+				"name": "Umbramancy: Mastery",
+				"desc": "",
+				"flavor": "",
+				"group": "education",
+				"require": "g.shadowlore>=13&&g.shadowlore.max>=16&&g.shadowlorelearn2>0",
+				"cost": {
+					"codices": 1,
+					"research": 250
+				},
+				"mod": {
+					"shadowlore.rate": 0.5,
+					"shadowlore.mod.shadow.max": 0.15,
+					"shadowlore.mod.shadowdmg": 0.3
+				}
+			},
+			{
+				"id": "shadowlorelearn4",
+				"name": "Umbramancy: Supremancy",
+				"desc": "",
+				"flavor": "",
+				"group": "education",
+				"require": "g.shadowlore>=18&&g.shadowlore.max>=21&&g.shadowlorelearn3>0",
+				"cost": {
+					"codices": 3,
+					"research": 550
+				},
+				"result": {
+					"fame": 1
+				},
+				"mod": {
+					"shadowlore.rate": 0.6,
+					"shadowlore.mod.shadow.max": 0.25,
+					"shadowlore.mod.shadow.rate": 0.002,
+					"shadowlore.mod.shadowrune.max": 0.25,
+					"shadowlore.mod.shadowdmg": 0.5
+				}
+			},
+			{
+				"id": "shadowlorelearn5",
+				"name": "Umbramancy: Transcendence",
+				"desc": "",
+				"flavor": "",
+				"group": "education",
+				"require": "g.shadowlore>=23&&g.shadowlore.max>=26&&g.shadowlorelearn4>0",
+				"cost": {
+					"tomes": 1,
+					"research": 2500
+				},
+				"result": {
+					"fame": 2
+				},
+				"mod": {
+					"shadowlore.rate": 0.7,
+					"shadowlore.mod.shadow.max": 0.5,
+					"shadowlore.mod.shadow.rate": 0.003,
+					"shadowlore.mod.shadowrune.max": 0.25,
+					"shadowlore.mod.shadowdmg": 0.7
+				}
+			},
+			{
+				"id": "weavinglearn1",
+				"name": "Interweaving",
+				"desc": "",
+				"flavor": "",
+				"group": "education",
+				"require": "g.weaving>=3&&g.weaving.max>=5",
+				"cost": {
+					"scrolls": 4,
+					"research": 150
+				},
+				"mod": {
+					"weaving.rate": 0.3,
+					"weaving.mod.crafting.rate": 0.05,
+					"crafting.mod.weaving.rate": 0.05,
+					"weaving.mod.crafting.max": 0.1,
+					"weaving.mod.spingold.effect.gold": 0.05
+				}
+			},
+			{
+				"id": "weavinglearn2",
+				"name": "Braiding",
+				"desc": "",
+				"flavor": "",
+				"group": "education",
+				"require": "g.weaving>=6&&g.weaving.max>=8&&g.weavinglearn1>0",
+				"cost": {
+					"codices": 1,
+					"research": 250
+				},
+				"result": {
+					"fame": 1
+				},
+				"mod": {
+					"weaving.rate": 0.4,
+					"weaving.mod.crafting.rate": 0.05,
+					"crafting.mod.weaving.rate": 0.05,
+					"weaving.mod.t_craftwork.rate": "1%",
+					"weaving.mod.spingold.effect.gold": 0.1,
+					"weaving.mod.spingold.run.stamina": "-3%",
+					"weaving.mod.spingold.run.mana": "-3%"
+				}
+			},
+			{
+				"id": "chronomancylearn1",
+				"name": "Walking backwards",
+				"desc": "",
+				"flavor": "",
+				"group": "education",
+				"require": "g.chronomancy>=1",
+				"cost": {
+					"tempus": 1,
+					"research": 250
+				},
+				"mod": {
+					"chronomancy.max": 1,
+					"chronomancy.rate": 0.25
+				}
+			},
+			{
+				"id": "chronomancylearn2",
+				"name": "Thinking backwards",
+				"desc": "",
+				"flavor": "",
+				"group": "education",
+				"require": "g.chronomancy>=2&&g.chronomancylearn1>0",
+				"cost": {
+					"tempus": 2,
+					"research": 250
+				},
+				"mod": {
+					"chronomancy.max": 1,
+					"chronomancy.rate": 0.5,
+					"chronomancy.mod.tempus.rate": 0.003
+				}
+			},
+			{
+				"id": "chronomancylearn3",
+				"name": "Timely independence",
+				"desc": "",
+				"flavor": "",
+				"group": "education",
+				"require": "g.chronomancy>=3&&g.chronomancylearn2>0",
+				"cost": {
+					"tempus": 3,
+					"research": 250
+				},
+				"mod": {
+					"chronomancy.max": 1,
+					"chronomancy.rate": 1,
+					"chronomancy.mod.tempus.rate": 0.006,
+					"chronomancy.mod.offlinetime.max": 1800
+				}
+			},
+			{
+				"id": "chronomancylearn4",
+				"name": "Chronomancy: Unleashed",
+				"desc": "",
+				"flavor": "",
+				"group": "education",
+				"require": "g.chronomancy>=4&&g.chronomancylearn3>0",
+				"cost": {
+					"tempus": 4,
+					"research": 250
+				},
+				"result": {
+					"fame": 1
+				},
+				"mod": {
+					"chronomancy.max": 1,
+					"chronomancy.rate": 2.25,
+					"chronomancy.mod.tempus.rate": "3%"
+				}
+			},
+			{
+				"id": "craftinglearn1",
+				"name": "Crafting: Arms of Iron",
+				"desc": "Learn the basics of working with iron and other basic materials.",
+				"extdesc": "Unlocks basic materials and items for crafting.",
+				"flavor": "Normally you are supposed to get rusty, but it seems you already are.",
+				"group": "education",
+				"require": "g.crafting>=3&&g.crafting.max>=6",
+				"cost": {
+					"gold": 40
+				},
+				"mod": {
+					"crafting.rate": 0.3,
+					"crafting.mod.gold.max": 2
+				}
+			},
+			{
+				"id": "craftinglearn2",
+				"name": "Crafting: Arms of Quicksteel",
+				"desc": "Learn how to handle advanced materials in your crafting endeavors.",
+				"extdesc": "Unlocks advanced materials for crafting.",
+				"flavor": "So named for how easy it is to work with, not for its aerodynamic qualities.",
+				"group": "education",
+				"require": "g.crafting>=8&&g.crafting.max>=11&&g.craftinglearn1>0",
+				"cost": {
+					"gold": 100
+				},
+				"mod": {
+					"crafting.rate": 0.4,
+					"crafting.mod.gold.max": 3,
+					"crafting.mod.smith_work.result.gold": 0.1
+				}
+			},
+			{
+				"id": "craftinglearn3",
+				"name": "Crafting: Masterwork arms",
+				"desc": "Learn how to craft advanced items.",
+				"extdesc": "Unlocks advanced items for crafting.",
+				"flavor": "What the hell is a ricasso.",
+				"group": "education",
+				"require": "g.crafting>=13&&g.crafting.max>=16&&g.craftinglearn2>0",
+				"cost": {
+					"gems": 5,
+					"gold": 150
+				},
+				"mod": {
+					"crafting.rate": 0.5,
+					"crafting.mod.gold.max": 4,
+					"crafting.mod.t_craftwork.rate": "0.5%",
+					"crafting.mod.smith_work.result.gold": 0.2
+				}
+			},
+			{
+				"id": "craftinglearn4",
+				"name": "Crafting: Arms of Adamant",
+				"desc": "Learn how to handle adamant and other magical materials.",
+				"extdesc": "Unlocks expert materials for crafting.",
+				"flavor": "Most smiths would have trouble getting their forge to the temperature of dragonbreath. You, however, have a solution.",
+				"group": "education",
+				"require": "g.crafting>=18&&g.crafting.max>=21&&g.craftinglearn3>0",
+				"cost": {
+					"gems": 15,
+					"gold": 350
+				},
+				"result": {
+					"fame": 1
+				},
+				"mod": {
+					"crafting.rate": 0.6,
+					"crafting.mod.gold.max": 5,
+					"crafting.mod.gold.rate": 0.01,
+					"crafting.mod.t_craftwork.rate": "1%",
+					"crafting.mod.smith_work.result.gold": 0.2
+				}
+			},
+			{
+				"id": "craftinglearn5",
+				"name": "Crafting: Transcendent arms",
+				"desc": "Learn how to craft things that go beyond masterwork.",
+				"extdesc": "Unlocks expert items for crafting.",
+				"flavor": "The elusive swordchucks you have heard about, sadly remain out of reach.",
+				"group": "education",
+				"require": "g.crafting>=22&&g.crafting.max>=25&&g.craftinglearn4>0",
+				"cost": {
+					"runestones": 1,
+					"gold": 1500
+				},
+				"result": {
+					"fame": 2
+				},
+				"mod": {
+					"crafting.rate": 0.7,
+					"crafting.mod.gold.max": 6,
+					"crafting.mod.gold.rate": 0.015,
+					"crafting.mod.t_craftwork.rate": "1.5%",
+					"crafting.mod.smith_work.result.gold": 0.3,
+					"crafting.mod.space.max": 1
+				}
+			},
+			{
+				"id": "runelorelearn1",
+				"name": "Runic Lore: Competence",
+				"desc": "",
+				"flavor": "",
+				"group": "education",
+				"require": "g.runelore>=4&&g.runelore.max>=6",
+				"cost": {
+					"codices": 1,
+					"research": 250
+				},
+				"result": {
+					"fame": 1
+				},
+				"mod": {
+					"runelore.rate": 1,
+					"runelore.mod.research.max": "0.7%",
+					"runelore.mod.lore.rate": 0.05,
+					"runelore.mod.languages.rate": 0.05,
+					"runelore.mod.craftrune.result.runestones": 0.05,
+					"runechest.mod.runestones.max": 5,
+					"runechest.mod.prismaticrunes.max": 5
+				}
+			},
+			{
+				"id": "animalslearn1",
+				"name": "Animals: Competence",
+				"desc": "",
+				"flavor": "",
+				"group": "education",
+				"require": "g.animals>=3&&g.animals.max>=6",
+				"cost": {
+					"scrolls": 1,
+					"research": 100
+				},
+				"mod": {
+					"animals.rate": 0.3,
+					"animals.mod.steed.mod.dist": 0.5
+				}
+			},
+			{
+				"id": "animalslearn2",
+				"name": "Animals: Expertise",
+				"desc": "",
+				"flavor": "",
+				"group": "education",
+				"require": "g.animals>=8&&g.animals.max>=11&&g.animalslearn1>0",
+				"cost": {
+					"scrolls": 4,
+					"research": 150
+				},
+				"mod": {
+					"animals.rate": 0.4,
+					"animals.mod.steed.mod.dist": 1,
+					"animals.mod.steed.mod.gold.max": 3
+				}
+			},
+			{
+				"id": "animalslearn3",
+				"name": "Animals: Mastery",
+				"desc": "",
+				"flavor": "",
+				"group": "education",
+				"require": "g.animals>=13&&g.animals.max>=16&&g.animalslearn2>0",
+				"cost": {
+					"codices": 1,
+					"research": 250
+				},
+				"result": {
+					"fame": 1
+				},
+				"mod": {
+					"animals.rate": 0.5,
+					"animals.mod.steed.mod.dist": 1.5,
+					"animals.mod.steed.mod.gold.max": 7,
+					"animals.mod.steed.mod.gems.max": 1,
+					"animals.mod.minions.max": 0.1
+				}
+			},
+			{
+				"id": "languageslearn1",
+				"name": "Languages: Competence",
+				"desc": "",
+				"flavor": "",
+				"group": "education",
+				"require": "g.languages>=3&&g.languages.max>=6",
+				"cost": {
+					"scrolls": 1,
+					"research": 100
+				},
+				"mod": {
+					"languages.rate": 0.3,
+					"languages.mod.research.rate": 0.05,
+					"languages.mod.t_languagework.rate": "0.3%"
+				}
+			},
+			{
+				"id": "languageslearn2",
+				"name": "Languages: Expertise",
+				"desc": "",
+				"flavor": "",
+				"group": "education",
+				"require": "g.languages>=8&&g.languages.max>=11&&g.languageslearn1>0",
+				"cost": {
+					"scrolls": 4,
+					"research": 150
+				},
+				"mod": {
+					"languages.rate": 0.4,
+					"languages.mod.research.rate": 0.1,
+					"languages.mod.history.rate": 0.1,
+					"languages.mod.t_languagework.rate": "0.7%",
+					"languages.mod.t_bulk_sale_task.result.gold": "0.3%"
+				}
+			},
+			{
+				"id": "languageslearn3",
+				"name": "Languages: Mastery",
+				"desc": "",
+				"flavor": "",
+				"group": "education",
+				"require": "g.languages>=13&&g.languages.max>=16&&g.languageslearn2>0",
+				"cost": {
+					"codices": 1,
+					"research": 250
+				},
+				"result": {
+					"fame": 1
+				},
+				"mod": {
+					"languages.rate": 0.5,
+					"languages.mod.research.rate": 0.3,
+					"languages.mod.history.rate": 0.1,
+					"languages.mod.t_languagework.rate": "1%",
+					"languages.mod.t_bulk_sale_task.result.gold": "0.7%"
+				}
+			},
+			{
+				"id": "historylearn1",
+				"name": "World Lore: Competence",
+				"desc": "",
+				"flavor": "",
+				"group": "education",
+				"require": "g.history>=3&&g.history.max>=6",
+				"cost": {
+					"scrolls": 1,
+					"research": 100
+				},
+				"mod": {
+					"history.rate": 0.9,
+					"history.mod.s_travel.rate": 0.05,
+					"history.mod.languages.rate": 0.05
+				}
+			},
+			{
+				"id": "historylearn2",
+				"name": "World Lore: Expertise",
+				"desc": "",
+				"flavor": "",
+				"group": "education",
+				"require": "g.history>=8&&g.history.max>=11&&g.historylearn1>0",
+				"cost": {
+					"scrolls": 4,
+					"research": 150
+				},
+				"mod": {
+					"history.rate": 1.2,
+					"history.mod.s_travel.rate": 0.15,
+					"history.mod.languages.rate": 0.15
+				}
+			},
+			{
+				"id": "historylearn3",
+				"name": "World Lore: Mastery",
+				"desc": "",
+				"flavor": "",
+				"group": "education",
+				"require": "g.history>=13&&g.history.max>=16&&g.historylearn2>0",
+				"cost": {
+					"codices": 1,
+					"research": 250
+				},
+				"result": {
+					"fame": 1
+				},
+				"mod": {
+					"history.rate": 1.5,
+					"history.mod.s_travel.rate": 0.25,
+					"history.mod.languages.rate": 0.25
+				}
+			},
+			{
+				"id": "demonologylearn1",
+				"name": "Demonology: Competence",
+				"desc": "",
+				"flavor": "",
+				"group": "education",
+				"require": "g.demonology>=3&&g.demonology.max>=6",
+				"cost": {
+					"scrolls": 1,
+					"research": 100
+				},
+				"mod": {
+					"demonology.rate": 0.3,
+					"demonology.mod.research.max": 3
+				}
+			},
+			{
+				"id": "demonologylearn2",
+				"name": "Demonology: Expertise",
+				"desc": "",
+				"flavor": "",
+				"group": "education",
+				"require": "g.demonology>=8&&g.demonology.max>=11&&g.demonologylearn1>0",
+				"cost": {
+					"scrolls": 4,
+					"research": 150
+				},
+				"mod": {
+					"demonology.rate": 0.4,
+					"demonology.mod.research.max": 5,
+					"demonology.mod.arcana.max": 0.1,
+					"demonology.mod.arcana.rate": 0.001
+				}
+			},
+			{
+				"id": "demonologylearn3",
+				"name": "Demonology: Mastery",
+				"desc": "",
+				"flavor": "",
+				"group": "education",
+				"require": "g.demonology>=13&&g.demonology.max>=16&&g.demonologylearn2>0",
+				"cost": {
+					"codices": 1,
+					"research": 250
+				},
+				"mod": {
+					"demonology.rate": 0.5,
+					"demonology.mod.research.max": 8,
+					"demonology.mod.arcana.max": 0.2,
+					"demonology.mod.arcana.rate": 0.003,
+					"demonology.mod.minions.max": 0.2
+				}
+			},
+			{
+				"id": "demonologylearn4",
+				"name": "Demonology: Supremancy",
+				"desc": "",
+				"flavor": "",
+				"group": "education",
+				"require": "g.demonology>=18&&g.demonology.max>=21&&g.demonologylearn3>0",
+				"cost": {
+					"codices": 3,
+					"research": 550
+				},
+				"result": {
+					"fame": 1
+				},
+				"mod": {
+					"demonology.rate": 0.6,
+					"demonology.mod.research.max": 11,
+					"demonology.mod.arcana.max": 0.2,
+					"demonology.mod.arcana.rate": 0.006,
+					"demonology.mod.minions.max": 0.3
+				}
+			},
+			{
+				"id": "herbalismlearn1",
+				"name": "Herbalism: Competence",
+				"desc": "",
+				"flavor": "",
+				"group": "education",
+				"require": "g.herbalism>=3&&g.herbalism.max>=6",
+				"cost": {
+					"herbs": 10,
+					"research": 100
+				},
+				"mod": {
+					"herbalism.rate": 0.3,
+					"herbalism.mod.herbs.max": 1,
+					"herbalism.mod.herbs.rate": 0.01
+				}
+			},
+			{
+				"id": "herbalismlearn2",
+				"name": "Herbalism: Expertise",
+				"desc": "",
+				"flavor": "",
+				"group": "education",
+				"require": "g.herbalism>=8&&g.herbalism.max>=11",
+				"cost": {
+					"herbs": 50,
+					"research": 150
+				},
+				"mod": {
+					"herbalism.rate": 0.4,
+					"herbalism.mod.herbs.max": 2,
+					"herbalism.mod.herbs.rate": 0.02
+				}
+			},
+			{
+				"id": "alchemylearn1",
+				"name": "Alchemy: Competence",
+				"desc": "",
+				"flavor": "",
+				"group": "education",
+				"require": "g.alchemy>=3&&g.alchemy.max>=6",
+				"cost": {
+					"scrolls": 1,
+					"research": 100
+				},
+				"mod": {
+					"alchemy.rate": 0.3,
+					"alchemy.mod.herbalism.rate": 0.05,
+					"alchemy.mod.potions.rate": 0.05
+				}
+			},
+			{
+				"id": "alchemylearn2",
+				"name": "Alchemy: Expertise",
+				"desc": "",
+				"flavor": "",
+				"group": "education",
+				"require": "g.alchemy>=8&&g.alchemy.max>=11&&g.alchemylearn1>0",
+				"cost": {
+					"scrolls": 4,
+					"research": 150
+				},
+				"mod": {
+					"alchemy.rate": 0.4,
+					"alchemy.mod.herbalism.rate": 0.05,
+					"alchemy.mod.potions.rate": 0.05,
+					"alchemy.mod.gold.rate": 0.01
+				}
+			},
+			{
+				"id": "alchemylearn3",
+				"name": "Alchemy: Mastery",
+				"desc": "",
+				"flavor": "",
+				"group": "education",
+				"require": "g.alchemy>=13&&g.alchemy.max>=16&&g.alchemylearn2>0",
+				"cost": {
+					"codices": 1,
+					"research": 250
+				},
+				"result": {
+					"fame": 1
+				},
+				"mod": {
+					"alchemy.rate": 0.5,
+					"alchemy.mod.herbalism.rate": 0.1,
+					"alchemy.mod.potions.rate": 0.1,
+					"alchemy.mod.gold.rate": 0.03,
+					"alchemy.mod.imbuebloodgem.cost.hp": -0.25
+				}
+			},
+			{
+				"id": "astronomylearn1",
+				"name": "Astronomy: Competence",
+				"desc": "",
+				"flavor": "",
+				"group": "education",
+				"require": "g.astronomy>=3&&g.astronomy.max>=6",
+				"cost": {
+					"scrolls": 1,
+					"research": 100
+				},
+				"mod": {
+					"astronomy.rate": 0.3,
+					"astronomy.mod.dist": 2
+				}
+			},
+			{
+				"id": "astronomylearn2",
+				"name": "Astronomy: Expertise",
+				"desc": "",
+				"flavor": "",
+				"group": "education",
+				"require": "g.astronomy>=8&&g.astronomy.max>=11&&g.astronomylearn1>0",
+				"cost": {
+					"scrolls": 4,
+					"research": 150
+				},
+				"mod": {
+					"astronomy.rate": 0.4,
+					"astronomy.mod.dist": 3,
+					"astronomy.mod.planeslore.rate": 0.01,
+					"astronomy.mod.tomes.mod.planeslore.rate": 0.001
+				}
+			},
+			{
+				"id": "astronomylearn3",
+				"name": "Astronomy: Mastery",
+				"desc": "",
+				"flavor": "",
+				"group": "education",
+				"require": "g.astronomy>=13&&g.astronomy.max>=16&&g.astronomylearn2>0",
+				"cost": {
+					"codices": 1,
+					"research": 250
+				},
+				"mod": {
+					"astronomy.rate": 0.5,
+					"astronomy.mod.dist": "0.5%",
+					"astronomy.mod.planeslore.rate": 0.01,
+					"astronomy.mod.tomes.mod.research.max": 0.05
+				}
+			},
+			{
+				"id": "astronomylearn4",
+				"name": "Astronomy: Supremancy",
+				"desc": "",
+				"flavor": "",
+				"group": "education",
+				"require": "g.astronomy>=18&&g.astronomy.max>=21&&g.astronomylearn3>0",
+				"cost": {
+					"codices": 3,
+					"research": 550
+				},
+				"result": {
+					"fame": 1
+				},
+				"mod": {
+					"astronomy.rate": 0.6,
+					"astronomy.mod.dist": "0.5%",
+					"astronomy.mod.planeslore.rate": 0.02,
+					"astronomy.mod.tomes.mod.research.max": 0.1,
+					"astronomy.mod.tomes.mod.research.rate": 0.001
+				}
+			},
+			{
+				"id": "planeslorelearn1",
+				"name": "Planes Lore: Competence",
+				"desc": "",
+				"flavor": "",
+				"group": "education",
+				"require": "g.planeslore>=3&&g.planeslore.max>=6",
+				"cost": {
+					"scrolls": 1,
+					"research": 100
+				},
+				"mod": {
+					"planeslore.rate": 0.3,
+					"planeslore.mod.dist": "0.5%"
+				}
+			},
+			{
+				"id": "planeslorelearn2",
+				"name": "Planes Lore: Expertise",
+				"desc": "",
+				"flavor": "",
+				"group": "education",
+				"require": "g.planeslore>=8&&g.planeslore.max>=11&&g.planeslorelearn1>0",
+				"cost": {
+					"scrolls": 4,
+					"research": 150
+				},
+				"mod": {
+					"planeslore.rate": 0.4,
+					"planeslore.mod.dist": "0.5%",
+					"planeslore.mod.astronomy.rate": 0.01,
+					"planeslore.mod.tomes.mod.astronomy.rate": 0.001
+				}
+			},
+			{
+				"id": "planeslorelearn3",
+				"name": "Planes Lore: Mastery",
+				"desc": "",
+				"flavor": "",
+				"group": "education",
+				"require": "g.planeslore>=13&&g.planeslore.max>=16&&g.planeslorelearn2>0",
+				"cost": {
+					"codices": 1,
+					"research": 250
+				},
+				"mod": {
+					"planeslore.rate": 0.5,
+					"planeslore.mod.dist": "0.25%",
+					"planeslore.mod.astronomy.rate": 0.01,
+					"planeslore.mod.tomes.mod.dist": 0.001
+				}
+			},
+			{
+				"id": "planeslorelearn4",
+				"name": "Planes Lore: Supremancy",
+				"desc": "",
+				"flavor": "",
+				"group": "education",
+				"require": "g.planeslore>=18&&g.planeslore.max>=21&&g.planeslorelearn3>0",
+				"cost": {
+					"codices": 3,
+					"research": 550
+				},
+				"result": {
+					"fame": 1
+				},
+				"mod": {
+					"planeslore.rate": 0.6,
+					"planeslore.mod.dist": "0.25%",
+					"planeslore.mod.astronomy.rate": 0.02,
+					"planeslore.mod.tomes.mod.dist": 0.004
+				}
+			},
+			{
+				"id": "potionslearn1",
+				"name": "Potions: Competence",
+				"desc": "",
+				"flavor": "",
+				"group": "education",
+				"require": "g.potions>=3&&g.potions.max>=6",
+				"cost": {
+					"scrolls": 1,
+					"research": 100
+				},
+				"mod": {
+					"potions.rate": 0.3,
+					"potions.mod.herbalism.rate": 0.05,
+					"potions.mod.alchemy.rate": 0.05
+				}
+			},
+			{
+				"id": "potionslearn2",
+				"name": "Potions: Expertise",
+				"desc": "",
+				"flavor": "",
+				"group": "education",
+				"require": "g.potions>=8&&g.potions.max>=11&&g.potionslearn1>0",
+				"cost": {
+					"scrolls": 4,
+					"research": 150
+				},
+				"mod": {
+					"potions.rate": 0.4,
+					"potions.mod.herbalism.rate": 0.05,
+					"potions.mod.alchemy.rate": 0.05,
+					"potions.mod.potionessence.rate": "1%"
+				}
+			},
+			{
+				"id": "potionslearn3",
+				"name": "Potions: Mastery",
+				"desc": "",
+				"flavor": "",
+				"group": "education",
+				"require": "g.potions>=13&&g.potions.max>=16&&g.potionslearn2>0",
+				"cost": {
+					"codices": 1,
+					"research": 250
+				},
+				"result": {
+					"fame": 1
+				},
+				"mod": {
+					"potions.rate": 0.5,
+					"potions.mod.herbalism.rate": 0.1,
+					"potions.mod.alchemy.rate": 0.1,
+					"potions.mod.potionessence.rate": "1%",
+					"potions.mod.ichor.rate": "2%"
+				}
+			},
+			{
+				"id": "divinationlearn1",
+				"name": "Divination: Competence",
+				"desc": "",
+				"flavor": "",
+				"group": "education",
+				"require": "g.divination>=3&&g.divination.max>=6",
+				"cost": {
+					"scrolls": 1,
+					"research": 100
+				},
+				"mod": {
+					"divination.rate": 0.3,
+					"divination.mod.spiritlore.rate": 0.1
+				}
+			},
+			{
+				"id": "divinationlearn2",
+				"name": "Divination: Expertise",
+				"desc": "",
+				"flavor": "",
+				"group": "education",
+				"require": "g.divination>=8&&g.divination.max>=11&&g.divinationlearn1>0",
+				"cost": {
+					"scrolls": 4,
+					"research": 150
+				},
+				"mod": {
+					"divination.rate": 0.4,
+					"divination.mod.spiritlore.rate": 0.1,
+					"divination.mod.scrying.rate": 0.1,
+					"divination.mod.spirit.rate": 0.005
+				}
+			},
+			{
+				"id": "divinationlearn3",
+				"name": "Divination: Mastery",
+				"desc": "",
+				"flavor": "",
+				"group": "education",
+				"require": "g.divination>=13&&g.divination.max>=16&&g.divinationlearn2>0",
+				"cost": {
+					"codices": 1,
+					"research": 250
+				},
+				"mod": {
+					"divination.rate": 0.5,
+					"divination.mod.spiritlore.rate": 0.1,
+					"divination.mod.scrying.rate": 0.1,
+					"divination.mod.spirit.rate": 0.005,
+					"divination.mod.readpalms.result.gold": 0.1,
+					"divination.mod.paidseance.effect.gold": 0.02
+				}
+			},
+			{
+				"id": "divinationlearn4",
+				"name": "Divination: Supremancy",
+				"desc": "",
+				"flavor": "",
+				"group": "education",
+				"require": "g.divination>=18&&g.divination.max>=21&&g.divinationlearn3>0",
+				"cost": {
+					"codices": 3,
+					"research": 550
+				},
+				"result": {
+					"fame": 1
+				},
+				"mod": {
+					"divination.rate": 0.6,
+					"divination.mod.spiritlore.rate": 0.1,
+					"divination.mod.scrying.rate": 0.1,
+					"divination.mod.spirit.rate": 0.005,
+					"divination.mod.readpalms.result.gold": 0.2,
+					"divination.mod.paidseance.effect.gold": 0.03,
+					"divination.mod.player.tohit": "0.1%"
+				}
+			},
+			{
+				"id": "divinationlearn5",
+				"name": "Divination: Transcendence",
+				"desc": "",
+				"flavor": "",
+				"group": "education",
+				"require": "g.divination>=23&&g.divination.max>=26&&g.divinationlearn4>0",
+				"cost": {
+					"tomes": 1,
+					"research": 2500
+				},
+				"result": {
+					"fame": 2
+				},
+				"mod": {
+					"divination.rate": 0.7,
+					"divination.mod.spiritlore.rate": 0.1,
+					"divination.mod.scrying.rate": 0.1,
+					"divination.mod.spirit.rate": 0.005,
+					"divination.mod.readpalms.result.gold": 0.3,
+					"divination.mod.paidseance.effect.gold": 0.05,
+					"divination.mod.player.tohit": "0.2%"
+				}
+			},
+			{
+				"id": "scryinglearn1",
+				"name": "Scrying: Competence",
+				"desc": "",
+				"flavor": "",
+				"group": "education",
+				"require": "g.scrying>=3&&g.scrying.max>=6",
+				"cost": {
+					"scrolls": 1,
+					"research": 100
+				},
+				"mod": {
+					"scrying.rate": 0.3,
+					"scrying.mod.divination.rate": 0.1,
+					"scrying.mod.dist": "1%"
+				}
+			},
+			{
+				"id": "scryinglearn2",
+				"name": "Scrying: Expertise",
+				"desc": "",
+				"flavor": "",
+				"group": "education",
+				"require": "g.scrying>=7&&g.scrying.max>=10&&g.scryinglearn1>0",
+				"cost": {
+					"scrolls": 4,
+					"research": 150
+				},
+				"mod": {
+					"scrying.rate": 0.4,
+					"scrying.mod.divination.rate": 0.1,
+					"scrying.mod.arcana.max": 0.2,
+					"scrying.mod.encounter.rate": "1%"
+				}
+			},
+			{
+				"id": "scryinglearn3",
+				"name": "Scrying: Mastery",
+				"desc": "",
+				"flavor": "",
+				"group": "education",
+				"require": "g.scrying>=13&&g.scrying.max>=16&&g.scryinglearn2>0",
+				"cost": {
+					"codices": 1,
+					"research": 250
+				},
+				"result": {
+					"fame": 1
+				},
+				"mod": {
+					"scrying.rate": 0.5,
+					"scrying.mod.divination.rate": 0.1,
+					"scrying.mod.act_scry.run": "-2%",
+					"scrying.mod.act_scry.rate": "2%",
+					"scrying.mod.act_scry.result.research": "2%"
+				}
+			},
+			{
+				"id": "trickerylearn1",
+				"name": "Trickery: Competence",
+				"desc": "",
+				"flavor": "",
+				"group": "education",
+				"require": "g.trickery>=3&&g.trickery.max>=6",
+				"cost": {
+					"scrolls": 1,
+					"research": 100
+				},
+				"mod": {
+					"trickery.rate": 0.3,
+					"trickery.mod.dodge": 0.2
+				}
+			},
+			{
+				"id": "trickerylearn2",
+				"name": "Trickery: Expertise",
+				"desc": "",
+				"flavor": "",
+				"group": "education",
+				"require": "g.trickery>=8&&g.trickery.max>=11&&g.trickerylearn1>0",
+				"cost": {
+					"scrolls": 4,
+					"research": 150
+				},
+				"mod": {
+					"trickery.rate": 0.4,
+					"trickery.mod.dodge": 0.2,
+					"trickery.mod.luck": 0.2
+				}
+			},
+			{
+				"id": "trickerylearn3",
+				"name": "Trickery: Mastery",
+				"desc": "",
+				"flavor": "",
+				"group": "education",
+				"require": "g.trickery>=12&&g.trickery.max>=15&&g.trickerylearn2>0",
+				"cost": {
+					"codices": 1,
+					"research": 250
+				},
+				"result": {
+					"fame": 1
+				},
+				"mod": {
+					"trickery.rate": 0.5,
+					"trickery.mod.luck": 0.2,
+					"trickery.mod.thievery.cost": "-2%",
+					"trickery.mod.thievery.result.gold": "2%"
+				}
+			},
+			{
+				"id": "trickerylearn4",
+				"name": "Trickery: Supremancy",
+				"desc": "",
+				"flavor": "",
+				"group": "education",
+				"require": "g.trickery>=18&&g.trickery.max>=21&&g.trickerylearn3>0",
+				"cost": {
+					"codices": 3,
+					"research": 550
+				},
+				"result": {
+					"fame": 2
+				},
+				"mod": {
+					"trickery.rate": 0.6,
+					"trickery.mod.luck": 0.2,
+					"trickery.mod.t_heist_act.run": "-2%",
+					"trickery.mod.t_heist_act.effect.research": "-2%",
+					"trickery.mod.t_heist_act.result.gold": "2%"
+				}
+			},
+			{
+				"id": "shopkeepinglearn1",
+				"name": "Shopkeeping: Efficiency",
+				"desc": "",
+				"flavor": "",
+				"group": "education",
+				"require": "g.shopkeeping>=3&&g.shopkeeping.max>=6",
+				"cost": {
+					"scrolls": 1,
+					"gold": 100
+				},
+				"mod": {
+					"shopkeeping.rate": 0.3,
+					"shopkeeping.mod.gold.max": 10,
+					"shopkeeping.mod.t_bulk_sale_task.run": "-0.5%"
+				}
+			},
+			{
+				"id": "shopkeepinglearn2",
+				"name": "Shopkeeping: Quartermastery",
+				"desc": "",
+				"flavor": "",
+				"group": "education",
+				"require": "g.shopkeeping>=8&&g.shopkeeping.max>=11&&g.shopkeepinglearn1>0",
+				"cost": {
+					"scrolls": 4,
+					"gold": 150
+				},
+				"mod": {
+					"shopkeeping.rate": 0.4,
+					"shopkeeping.mod.gold.max": 10,
+					"shopkeeping.mod.t_bulk_sale_task.run": "-0.5%",
+					"shopkeeping.mod.goldstash.cost.gold": "2%",
+					"shopkeeping.mod.goldstash.sell.gold": "2%"
+				}
+			},
+			{
+				"id": "shopkeepinglearn3",
+				"name": "Shopkeeping: Interest",
+				"desc": "",
+				"flavor": "",
+				"group": "education",
+				"require": "g.shopkeeping>=12&&g.shopkeeping.max>=15&&g.shopkeepinglearn2>0",
+				"cost": {
+					"codices": 1,
+					"gold": 250
+				},
+				"result": {
+					"fame": 1
+				},
+				"mod": {
+					"shopkeeping.rate": 0.5,
+					"shopkeeping.mod.gold.max": 10,
+					"shopkeeping.mod.t_bulk_sale_task.run": "-1%",
+					"shopkeeping.mod.goldstash.cost.gold": "3%",
+					"shopkeeping.mod.goldstash.sell.gold": "3%",
+					"shopkeeping.mod.goldstash.mod.gold.rate": 0.001
+				}
+			},
+			{
+				"id": "shopkeepinglearn4",
+				"name": "Shopkeeping: Dealmaking",
+				"desc": "",
+				"flavor": "",
+				"group": "education",
+				"require": "g.shopkeeping>=18&&g.shopkeeping.max>=21&&g.shopkeepinglearn3>0",
+				"cost": {
+					"codices": 3,
+					"gold": 550
+				},
+				"result": {
+					"fame": 2
+				},
+				"mod": {
+					"shopkeeping.rate": 0.6,
+					"shopkeeping.mod.gold.max": 10,
+					"shopkeeping.mod.t_bulk_sale_task.run": "-1%",
+					"shopkeeping.mod.t_bulk_sale_task.result.gold": "0.5%",
+					"shopkeeping.mod.goldstash.cost.gold": "5%",
+					"shopkeeping.mod.goldstash.sell.gold": "5%",
+					"shopkeeping.mod.goldstash.mod.gold.rate": 0.003
+				}
+			},
+			{
+				"id": "shopkeepinglearn5",
+				"name": "Shopkeeping: Monopoly",
+				"desc": "",
+				"flavor": "",
+				"group": "education",
+				"require": "g.shopkeeping>=23&&g.shopkeeping.max>=25&&g.shopkeepinglearn4>0",
+				"cost": {
+					"tomes": 1,
+					"gold": 2500
+				},
+				"result": {
+					"fame": 2
+				},
+				"mod": {
+					"shopkeeping.rate": 0.7,
+					"shopkeeping.mod.gold.max": 10,
+					"shopkeeping.mod.t_bulk_sale_task.result.gold": "0.5%",
+					"shopkeeping.mod.goldstash.cost.gold": "5%",
+					"shopkeeping.mod.goldstash.sell.gold": "5%",
+					"shopkeeping.mod.goldstash.mod.gold.rate": 0.006,
+					"shopkeeping.mod.goldpile.mod.gold.rate": 0.05,
+					"shopkeeping.mod.goldpile.mod.gems.rate": 0.005
+				}
+			},
+			{
+				"id": "debitomancylearn1",
+				"name": "Debitomancy: Fixation",
+				"desc": "",
+				"flavor": "",
+				"group": "education",
+				"require": "g.debitomancy>=3&&g.debitomancy.max>=6",
+				"cost": {
+					"debt": 400
+				},
+				"mod": {
+					"debitomancy.rate": 0.3,
+					"debitomancy.mod.borrowmoney.run.debt": "1%",
+					"debitomancy.mod.borrowmoney.effect.gold": "1%"
+				}
+			},
+			{
+				"id": "debitomancylearn2",
+				"name": "Debitomancy: Craving",
+				"desc": "",
+				"flavor": "",
+				"group": "education",
+				"require": "g.debitomancy>=8&&g.debitomancy.max>=11&&g.debitomancylearn1>0",
+				"cost": {
+					"debt": 1000
+				},
+				"result": {
+					"fame": 1
+				},
+				"mod": {
+					"debitomancy.rate": 0.4,
+					"debitomancy.mod.borrowmoney.run.debt": "2%",
+					"debitomancy.mod.borrowmoney.effect.gold": "2%",
+					"debitomancy.mod.encase_debt.run.stamina": "-2%",
+					"debitomancy.mod.lendgold.run.stamina": "-2%"
+				}
+			},
+			{
+				"id": "spellcraftlearn1",
+				"name": "Spellcraft: Competence",
+				"desc": "",
+				"flavor": "",
+				"group": "education",
+				"require": "g.spellcraft>=3&&g.spellcraft.max>=6",
+				"cost": {
+					"scrolls": 1,
+					"research": 100
+				},
+				"mod": {
+					"spellcraft.rate": 0.8,
+					"spellcraft.mod.t_school.rate": 0.1
+				}
+			},
+			{
+				"id": "spellcraftlearn2",
+				"name": "Spellcraft: Expertise",
+				"desc": "",
+				"flavor": "",
+				"group": "education",
+				"require": "g.spellcraft>=8&&g.spellcraft.max>=11&&g.spellcraftlearn1>0",
+				"cost": {
+					"scrolls": 4,
+					"research": 150
+				},
+				"mod": {
+					"spellcraft.rate": 1.2,
+					"scraftlist.max": 1,
+					"spellcraft.mod.t_school.rate": 0.1,
+					"spellcraft.mod.scraftlist.max": 0.5
+				}
+			},
+			{
+				"id": "enchantinglearn1",
+				"name": "Enchanting: Competence",
+				"desc": "",
+				"flavor": "",
+				"group": "education",
+				"require": "g.enchanting>=3&&g.enchanting.max>=6",
+				"cost": {
+					"scrolls": 1,
+					"research": 100
+				},
+				"mod": {
+					"enchanting.rate": 0.6,
+					"enchanting.mod.gemimbue.cost": "-1%",
+					"enchanting.mod.gemimbue.cost.gems": "1%"
+				}
+			},
+			{
+				"id": "enchantinglearn2",
+				"name": "Enchanting: Expertise",
+				"desc": "",
+				"flavor": "",
+				"group": "education",
+				"require": "g.enchanting>=8&&g.enchanting.max>=11&&g.enchantinglearn1>0",
+				"cost": {
+					"scrolls": 4,
+					"research": 150
+				},
+				"mod": {
+					"enchanting.rate": 0.8,
+					"enchanting.mod.gemimbue.cost": "-2%",
+					"enchanting.mod.gemimbue.cost.gems": "2%",
+					"enchanting.mod.charms.rate": 0.1
+				}
+			},
+			{
+				"id": "reanimationlearn1",
+				"name": "Reanimation: Competence",
+				"desc": "",
+				"flavor": "",
+				"group": "education",
+				"tags": "t_placeholder",
+				"require": "g.reanimation>=3&&g.reanimation.max>=6",
+				"cost": {
+					"scrolls": 1,
+					"research": 100
+				},
+				"mod": {
+					"reanimation.rate": 0.3,
+					"reanimation.mod.necromancy.rate": 0.01,
+					"reanimation.mod.dissection.rate": 0.01,
+					"reanimation.mod.embalming.rate": 0.01,
+					"reanimation.mod.undeadmastery.rate": 0.1,
+					"reanimation.mod.undeadmastery.max": 0.2
+				}
+			},
+			{
+				"id": "reanimationlearn2",
+				"name": "Reanimation: Expertise",
+				"desc": "",
+				"flavor": "",
+				"group": "education",
+				"tags": "t_placeholder",
+				"require": "g.reanimation>=8&&g.reanimation.max>=11&&g.reanimationlearn1>0",
+				"cost": {
+					"scrolls": 4,
+					"research": 150
+				},
+				"mod": {
+					"reanimation.rate": 0.4,
+					"reanimation.mod.necromancy.rate": 0.03,
+					"reanimation.mod.dissection.rate": 0.03,
+					"reanimation.mod.embalming.rate": 0.03,
+					"reanimation.mod.undeadmastery.rate": 0.2,
+					"reanimation.mod.undeadmastery.max": 0.2
+				}
+			},
+			{
+				"id": "necromancylearn1",
+				"name": "Necromancy: Competence",
+				"desc": "",
+				"flavor": "",
+				"group": "education",
+				"tags": "t_placeholder",
+				"require": "g.necromancy>=3&&g.necromancy.max>=6",
+				"cost": {
+					"scrolls": 4,
+					"research": 150
+				},
+				"mod": {
+					"necromancy.rate": 0.3,
+					"necromancy.mod.shademastery.rate": 0.1,
+					"necromancy.mod.shademastery.max": 0.2
+				}
+			},
+			{
+				"id": "necromancylearn2",
+				"name": "Necromancy: Expertise",
+				"desc": "",
+				"flavor": "",
+				"group": "education",
+				"tags": "t_placeholder",
+				"require": "g.necromancy>=8&&g.necromancy.max>=11&&g.necromancylearn1>0",
+				"cost": {
+					"codices": 1,
+					"research": 250
+				},
+				"result": { "fame": 1 },
+				"mod": {
+					"necromancy.rate": 0.4,
+					"necromancy.mod.shademastery.rate": 0.2,
+					"necromancy.mod.shademastery.max": 0.3
+				}
+			},
+			{
+				"id": "embalminglearn1",
+				"name": "Embalming: Competence",
+				"desc": "",
+				"flavor": "",
+				"group": "education",
+				"tags": "t_placeholder",
+				"require": "g.embalming>=3&&g.embalming.max>=6",
+				"cost": {
+					"scrolls": 1,
+					"research": 100
+				},
+				"mod": {
+					"embalming.rate": 0.3,
+					"embalming.mod.dissection.rate": 0.02,
+					"embalming.mod.vivification.rate": 0.02
+				}
+			},
+			{
+				"id": "embalminglearn2",
+				"name": "Embalming: Expertise",
+				"desc": "",
+				"flavor": "",
+				"group": "education",
+				"tags": "t_placeholder",
+				"require": "g.embalming>=8&&g.embalming.max>=11&&g.embalminglearn1>0",
+				"cost": {
+					"scrolls": 4,
+					"research": 150
+				},
+				"mod": {
+					"embalming.rate": 0.4,
+					"embalming.mod.dissection.rate": 0.03,
+					"embalming.mod.vivification.rate": 0.03
+				}
+			},
+			{
+				"id": "embalminglearn3",
+				"name": "Embalming: Mastery",
+				"desc": "",
+				"flavor": "",
+				"group": "education",
+				"tags": "t_placeholder",
+				"require": "g.embalming>=13&&g.embalming.max>=16&&g.embalminglearn2>0",
+				"cost": {
+					"codices": 1,
+					"research": 250
+				},
+				"result": {
+					"fame": 1
+				},
+				"mod": {
+					"embalming.rate": 0.5,
+					"embalming.mod.dissection.rate": 0.05,
+					"embalming.mod.vivification.rate": 0.05
+				}
+			},
+			{
+				"id": "dissectionlearn1",
+				"name": "Dissection: Competence",
+				"desc": "",
+				"flavor": "",
+				"group": "education",
+				"tags": "t_placeholder",
+				"require": "g.dissection>=3&&g.dissection.max>=6",
+				"cost": {
+					"scrolls": 1,
+					"research": 100
+				},
+				"mod": {
+					"dissection.rate": 0.3,
+					"dissection.mod.embalming.rate": 0.02,
+					"dissection.mod.vivification.rate": 0.02
+				}
+			},
+			{
+				"id": "dissectionlearn2",
+				"name": "Dissection: Expertise",
+				"desc": "",
+				"flavor": "",
+				"group": "education",
+				"tags": "t_placeholder",
+				"require": "g.dissection>=8&&g.dissection.max>=11&&g.dissectionlearn1>0",
+				"cost": {
+					"scrolls": 4,
+					"research": 150
+				},
+				"result": {
+					"fame": 1
+				},
+				"mod": {
+					"dissection.rate": 0.4,
+					"dissection.mod.embalming.rate": 0.03,
+					"dissection.mod.vivification.rate": 0.03
+				}
+			},
+			{
+				"id": "magicbeastslearn1",
+				"name": "Magic Beasts: Competence",
+				"desc": "",
+				"flavor": "",
+				"group": "education",
+				"require": "g.magicbeasts>=3&&g.magicbeasts.max>=6",
+				"cost": {
+					"scrolls": 1,
+					"research": 100
+				},
+				"mod": {
+					"magicbeasts.rate": 0.8,
+					"magicbeasts.mod.animals.rate": 0.05,
+					"magicbeasts.mod.allies.max": 0.25
+				}
+			},
+			{
+				"id": "vivificationlearn1",
+				"name": "Vivification: Competence",
+				"desc": "",
+				"flavor": "",
+				"group": "education",
+				"require": "g.vivification>=3&&g.vivification.max>=6",
+				"cost": {
+					"scrolls": 1,
+					"research": 100
+				},
+				"mod": {
+					"vivification.rate": 0.8,
+					"vivification.mod.stamina.max": 0.5
+				}
+			},
+			{
+				"id": "s_travellearn1",
+				"name": "Travel: Competence",
+				"desc": "",
+				"flavor": "",
+				"group": "education",
+				"require": "g.s_travel>=3&&g.s_travel.max>=6",
+				"cost": {
+					"scrolls": 1,
+					"research": 100
+				},
+				"mod": {
+					"s_travel.rate": 0.3,
+					"s_travel.mod.t_locale.run.stamina": "-0.5%"
+				}
+			},
+			{
+				"id": "s_travellearn2",
+				"name": "Travel: Expertise",
+				"desc": "",
+				"flavor": "",
+				"group": "education",
+				"require": "g.s_travel>=8&&g.s_travel.max>=11&&g.s_travellearn1>0",
+				"cost": {
+					"scrolls": 4,
+					"research": 150
+				},
+				"result": {
+					"fame": 1
+				},
+				"mod": {
+					"s_travel.rate": 0.4,
+					"s_travel.mod.t_locale.run.stamina": "-0.5%",
+					"s_travel.mod.t_locale.run.vigor": "-1%"
+				}
+			},
+			{
+				"id": "s_travellearn3",
+				"name": "Travel: Mastery",
+				"desc": "",
+				"flavor": "",
+				"group": "education",
+				"require": "g.s_travel>=11&&g.s_travel.max>=14&&g.s_travellearn2>0",
+				"cost": {
+					"codices": 1,
+					"research": 250
+				},
+				"result": {
+					"fame": 2
+				},
+				"mod": {
+					"s_travel.rate": 0.5,
+					"s_travel.mod.t_locale.run.stamina": "-1%",
+					"s_travel.mod.t_locale.run.vigor": "-1%"
+				}
+			},
+			{
+				"id": "composurelearn1",
+				"name": "Inner Peace",
+				"desc": "",
+				"flavor": "",
+				"group": "education",
+				"require": "g.composure>=3",
+				"cost": {
+					"scrolls": 1,
+					"research": 100
+				},
+				"mod": {
+					"composure.mod.concentrate.rate": 0.3,
+					"concentrate.mod.composure.rate": 0.3
+				}
+			},
+			{
+				"id": "summoninglearn1",
+				"name": "Summoning: Competence",
+				"desc": "",
+				"flavor": "",
+				"group": "education",
+				"require": "g.summoning>=3",
+				"cost": {
+					"scrolls": 1,
+					"research": 100
+				},
+				"mod": {
+					"conjuration.mod.summoning.max": 0.2,
+					"conjuration.mod.summoning.rate": 0.1,
+					"summoning.mod.conjuration.rate": 0.1
+				}
+			},
+			{
+				"id": "heallorelearn1",
+				"name": "Rejuvenation: Competence",
+				"desc": "",
+				"flavor": "",
+				"group": "education",
+				"require": "g.heallore>=3&&g.heallore.max>=7",
+				"cost": {
+					"scrolls": 1,
+					"research": 100
+				},
+				"mod": {
+					"heallore.rate": 0.8,
+					"heallore.mod.hp.rate": 0.05
+				}
+			}
+		]
+	}
+}

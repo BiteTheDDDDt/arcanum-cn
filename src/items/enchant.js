@@ -1,36 +1,39 @@
-import Task from '@/items/task';
-import GData from '@/items/gdata';
-import { SetModCounts } from '@/items/base';
-import { canTarget, ENCHANTSLOTS } from '@/values/consts';
-import Enchanting from '@/composites/enchanting';
-
+import Task from "@/items/task";
+import GData from "@/items/gdata";
+import { SetModCounts } from "@/items/base";
+import { canTarget, ENCHANTSLOTS } from "@/values/consts";
+import Enchanting from "@/composites/enchanting";
+import Attack from "@/chars/attack";
 
 export default class Enchant extends Task {
-
-	get isRecipe() { return true; }
+	get isRecipe() {
+		return true;
+	}
 
 	/**
 	 * @property {string} only - limit target type by name, kind, or tag, to which
 	 * the enchantment can be applied.
 	 */
-	get only() { return this._only; }
+	get only() {
+		return this._only;
+	}
 	set only(v) {
-		this._only = typeof v === 'string' ? v.split(',') : v;
+		this._only = typeof v === "string" ? v.split(",") : v;
 	}
 
-	get controller() { return ENCHANTSLOTS; }
+	get controller() {
+		return ENCHANTSLOTS;
+	}
 
 	constructor(vars) {
-
 		super(vars);
 
-		this.verb = this.verb || 'enchanting';
+		this.verb = this.verb || "enchanting";
 
 		this.level = this.level || 1;
-		this.need = this.need || 'enchantsource';
+		this.need = this.need || "enchantsource";
 
 		if (this.alter) SetModCounts(this.alter, 1);
-
 	}
 
 	/**
@@ -45,7 +48,7 @@ export default class Enchant extends Task {
 	/**
 	 * Catch complete
 	 */
-	complete() { }
+	complete() {}
 
 	/**
 	 * Called when enchant is being used on target.
@@ -53,10 +56,8 @@ export default class Enchant extends Task {
 	 * @param {Context} g - execution context, Game.
 	 */
 	useOn(targ, g) {
-
 		if (!targ) return;
 		targ.doAlter(this);
-
 	}
 
 	/**
@@ -64,13 +65,10 @@ export default class Enchant extends Task {
 	 * @param {Item} targ
 	 */
 	canAlter(targ) {
-
-		if (targ.hasEnchant(this.id) || (targ.enchants + this.level > targ.enchants.max)) {
+		if (targ.hasEnchant(this.id) || targ.enchants + this.level > targ.enchants.max) {
 			return false;
 		}
-
 		return !this.only || canTarget(this.only, targ);
-
 	}
 
 	/**
@@ -79,6 +77,4 @@ export default class Enchant extends Task {
 	 */
 	/*onStop(targ){
 	}*/
-
-
 }

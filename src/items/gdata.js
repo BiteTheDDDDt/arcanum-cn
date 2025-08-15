@@ -3,12 +3,7 @@ import Stat from "@/values/rvals/stat";
 import Base, { mergeClass } from "./base";
 import { arrayMerge } from "@/util/array";
 import { assignPublic, getPropertyDescriptors, setDefaults } from "@/util/util";
-import Events, {
-	CHAR_ACTION,
-	EVT_EVENT,
-	EVT_UNLOCK,
-	STATE_BLOCK,
-} from "../events";
+import Events, { CHAR_ACTION, EVT_EVENT, EVT_UNLOCK, STATE_BLOCK } from "../events";
 import Game, { TICK_LEN } from "../game";
 import { WEARABLE, WEAPON, TYP_PCT } from "@/values/consts";
 import RValue, { InitRVals } from "../values/rvals/rvalue";
@@ -78,8 +73,7 @@ export default class GData {
 		if (this._max) {
 			if (v instanceof Stat) this._max.base = v.base;
 			else if (!isNaN(v)) this._max.base = v;
-		} else
-			this._max = v instanceof Stat ? v : new Stat(v, this.id + ".max", true);
+		} else this._max = v instanceof Stat ? v : new Stat(v, this.id + ".max", 0);
 	}
 
 	/**
@@ -243,7 +237,7 @@ export default class GData {
 				this._value.basePct = v.basePct;
 			}
 		} else if (this._value != null) {
-			this._value.base = typeof v === "object" ? v?.value ?? 0 : v;
+			this._value.base = typeof v === "object" ? (v?.value ?? 0) : v;
 		} else this._value = new Stat(v, this.id);
 	}
 
@@ -309,33 +303,26 @@ export default class GData {
 	 * @returns {boolean}
 	 */
 	canRun(g, dt = TICK_LEN) {
-		if (
-			this.disabled ||
-			this.maxed() ||
-			this.locks > 0 ||
-			(this.need && !g.unlockTest(this.need, this))
-		)
+		if (this.disabled || this.maxed() || this.locks > 0 || (this.need && !g.unlockTest(this.need, this)))
 			return false;
 
 		if (this.buy && !this.owned && !g.canPay(this.buy)) return false;
 
 		// cost only paid at _start_ of runnable task.
-		if (this.cost && this.exp == 0 && !g.canPay(this.cost)) return false;
+		if (this.cost && this.exp == 0 && !g.canPay(this.cost) && !this.paid) return false;
 
 		if (this.fill && g.filled(this.fill, this)) return false;
 
-		if(this.exclude)
-			{
-				let exclude = this.exclude;
-				let itTags = this.tags || [];
-				for (const a of g.runner.actives)
-				{	
-					if (this == a) continue;
-					let tags = a.tags || [];
-					if (exclude && includesAny(exclude, a.type, a.id, ...tags)) return false;
-					if (a.exclude && includesAny(a.exclude, this.type, this.id, ...itTags)) return false;
-				}
+		if (this.exclude) {
+			let exclude = this.exclude;
+			let itTags = this.tags || [];
+			for (const a of g.runner.actives) {
+				if (this == a) continue;
+				let tags = a.tags || [];
+				if (exclude && includesAny(exclude, a.type, a.id, ...tags)) return false;
+				if (a.exclude && includesAny(a.exclude, this.type, this.id, ...itTags)) return false;
 			}
+		}
 		return !this.run || g.canPay(this.run, dt);
 	}
 
@@ -355,11 +342,7 @@ export default class GData {
 	 * @param {number} amt
 	 */
 	canPay(amt) {
-		return amt >= 0
-			? this.value >= amt
-			: this.max
-			? this.value - amt <= this.max.value
-			: true;
+		return amt >= 0 ? this.value >= amt : this.max ? this.value - amt <= this.max.value : true;
 	}
 	remove(amt) {
 		this.value.base -= amt;
@@ -373,17 +356,11 @@ export default class GData {
 	canUse(g = Game) {
 		if (this.perpetual > 0 || this.length > 0) return this.canRun(g, TICK_LEN);
 
-		if (
-			this.disabled ||
-			this.locks > 0 ||
-			this.maxed() ||
-			(this.need && !g.unlockTest(this.need, this))
-		)
+		if (this.disabled || this.locks > 0 || this.maxed() || (this.need && !g.unlockTest(this.need, this)))
 			return false;
 		if (this.buy && !this.owned && !g.canPay(this.buy)) return false;
 
-		if (this.slot && g.state.getSlot(this.slot, this.type) === this)
-			return false;
+		if (this.slot && g.state.getSlot(this.slot, this.type) === this) return false;
 
 		if (this.fill && g.filled(this.fill, this)) return false;
 
@@ -395,8 +372,7 @@ export default class GData {
 	}
 
 	canBuy(g) {
-		if (this.disabled || this.locked || this.locks > 0 || this.maxed())
-			return false;
+		if (this.disabled || this.locked || this.locks > 0 || this.maxed()) return false;
 
 		return !this.buy || g.canPay(this.buy);
 	}
@@ -417,12 +393,7 @@ export default class GData {
 				return -prev;
 			}
 		} else {
-			if (
-				this.repeat !== true &&
-				!this.max &&
-				this.value > 1 &&
-				(!this.buy || this.owned === true)
-			) {
+			if (this.repeat !== true && !this.max && this.value > 1 && (!this.buy || this.owned === true)) {
 				return 0;
 			}
 
@@ -453,6 +424,14 @@ export default class GData {
 	 */
 	changed(g, count) {
 		this.delta = 0;
+		if (this.slot) {
+			//fallback for getting slottables via result
+			let cur = g.state.getSlot(this.slot);
+			if (this !== cur) {
+				g.setSlot(this);
+				return; //this is okay, as setSlot triggers 1 amount immediately and this won't repeat.
+			}
+		}
 		count = this.add(count);
 		if (count === 0) return;
 
@@ -467,7 +446,7 @@ export default class GData {
 			}
 		}
 		if (this.cd) {
-			count = Math.min(count,1) //if this has a cd, there is no legitimate possibility for it being used more than once this tick, meaning we need to curtail it. It is possible to have fractional uses.
+			count = Math.min(count, 1); //if this has a cd, there is no legitimate possibility for it being used more than once this tick, meaning we need to curtail it. It is possible to have fractional uses.
 			this.timer = Number(this.cd);
 			g.addTimer(this);
 			if (this.tags) {
@@ -500,26 +479,14 @@ export default class GData {
 			g.applyVars(this.result, count);
 		}
 		if (this.create) g.create(this.create);
-		if (this.summon) {
-			for (let i = 0; i < count; i++) {
-				for (let smn of this.summon) {
-					if (smn[TYP_PCT] && !smn[TYP_PCT].roll()) {
-						continue;
-					}
-					let smnid = smn.id;
-					let smncount = smn.count || 1;
-					let smnmax = smn.max || 0;
-					let keep = smn.keep || false;
-					g.create(smnid, keep, smncount, smnmax);
-				}
-			}
-		}
+		if (this.summon) for (let i = 0; i < count; i++) g.summon(this.summon);
 		if (this.resurrect) {
 			const minions = g.getData("minions");
-			const validminions = minions.filter((v) => this.canRez(v) && !v.alive);
-			let repeats = (this.resurrect.count || 1)*count;
+			const validminions = minions.filter(v => this.canRez(v) && !v.alive);
+			let repeats = (this.resurrect.count || 1) * count;
 			for (let a of validminions) {
 				a.hp = a.hp.max / 2;
+				a.barrier = a.barrier.max / 2;
 				minions.setActive(a, true);
 				repeats--;
 				if (repeats == 0) break;
@@ -530,7 +497,7 @@ export default class GData {
 			g.applyMods(this.mod);
 		}
 
-		if (this.lock) g.lock(this.lock);
+		if (this.lock) g.lock(this.lock, count);
 		if (this.dot) {
 			g.self.addDot(this.dot, this, null, g.self);
 		}
@@ -581,18 +548,14 @@ export default class GData {
 	 * @param {number} rate
 	 */
 	filled(rate = 0) {
-		return (
-			(this._max && this.value >= this._max.value) ||
-			(this.rate && this.rate + rate.valueOf() <= 0)
-		);
+		return (this._max && this.value >= this._max.value) || (this.rate && this.rate + rate.valueOf() <= 0);
 	}
 
 	/**
 	 * @returns {boolean} true if an unlocked item is at maximum value.
 	 */
 	maxed() {
-		if (this._max)
-			return this.value + this.delta >= Math.floor(this._max.value);
+		if (this._max) return this.value + this.delta >= Math.floor(this._max.value);
 
 		return !(this.repeat || this.owned) && this.value + this.delta >= 1;
 	}
@@ -631,10 +594,7 @@ export default class GData {
 	addRequire(item) {
 		if (!this.require) {
 			this.require = item;
-		} else if (
-			this.require === item ||
-			(Array.isArray(this.require) && this.require.includes(item))
-		) {
+		} else if (this.require === item || (Array.isArray(this.require) && this.require.includes(item))) {
 			return;
 		} else {
 			this.require = arrayMerge(this.require, item);
@@ -653,11 +613,7 @@ export function GDataDescAssigner(obj, ...props) {
 
 		if (desc) {
 			if (!desc.configurable) {
-				console.warn(
-					`Cannot overwrite non-configurable property ${prop} of ${
-						obj.id ?? obj
-					}. Skipping.`
-				);
+				console.warn(`Cannot overwrite non-configurable property ${prop} of ${obj.id ?? obj}. Skipping.`);
 				continue;
 			}
 			// Commented out because this gets spammed whenever an NPC is created. Could be helpful for debugging.
@@ -670,16 +626,11 @@ export function GDataDescAssigner(obj, ...props) {
 			},
 			set(v) {
 				if (val instanceof GData) {
-					if (isNaN(v))
-						console.warn(
-							`Non-numeric property set ${prop} on ${obj.id ?? obj}: ${v}`
-						);
+					if (isNaN(v)) console.warn(`Non-numeric property set ${prop} on ${obj.id ?? obj}: ${v}`);
 					else val.value = +v;
 					return;
 				} else if (!(v instanceof GData))
-					console.warn(
-						`Non-Gdata property set ${prop} on ${obj.id ?? obj}: ${v}`
-					);
+					console.warn(`Non-Gdata property set ${prop} on ${obj.id ?? obj}: ${v}`);
 				val = v;
 			},
 			configurable: true,

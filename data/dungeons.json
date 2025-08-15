@@ -1,261 +1,386 @@
 [
 	{
-		"id": "sunnyfield",
-		"name": "Sunny Field",
-		"level": 1,
-		"length": 10,
-		"require": "evt_helper",
-		"run": {
-			"stamina": 0.4
-		},
-		"result": {
-			"gold": "5~10"
-		},
-		"loot": {
-			"maxlevel": 1
-		},
-		"boss": {
-			"10": ["kakapo"],
-			"5": ["gardengnome"]
-		},
-		"spawns": [
-			["newt", "newt", "newt"],
-			"lgmouse",
-			"bigstone",
-			"stingybee",
-			"smsnake",
-			"twikman"
-		],
-		"flavor": "Every budding mage needs to start somewhere."
-	},
-	{
-		"id": "placidgrove",
-		"name": "Placid Grove",
-		"require": "sunnyfield",
-		"level": 2,
-		"length": 12,
-		"run": {
-			"stamina": 0.5
-		},
-		"result": {
-			"gold": "7~14"
-		},
-		"loot": {
-			"maxlevel": 2
-		},
-		"spawns": [
-			["stingybee", "stingybee"],
-			"lgrat",
-			"smbox",
-			"gremlin",
-			"angrybird",
-			"smsnake"
-		],
-		"desc": "An idyllic grove for a walk or long nap."
-	},
-	{
 		"id": "pestcontrol",
 		"name": "Leaky Cellar",
-		"require": "g.sunnyfield>0&&(g.apprentice>0||g.neophyte>0)",
 		"start": {
 			"name": "Pest Control",
 			"desc": "After your daily castigation, your master mentions the rats in the basement have become a problem. Something about stolen shortswords and building barricades. You had better go down and deal with it."
-		},
-		"repeat": false,
-		"level": 3,
-		"length": 25,
-		"dist": 0,
-		"run": {
-			"stamina": 0.7
-		},
-		"result": {
-			"sp": 1,
-			"gold": "15~20",
-			"player.exp": 10,
-			"title": "Master of the Cellar"
-		},
-		"loot": {
-			"maxlevel": 4
 		},
 		"log": {
 			"name": "Pests Clear",
 			"desc": "With the basement cleared your master will have more room to stash all the gold you've been earning."
 		},
-		"boss": { "25": ["ratking"] },
-		"spawns": [
-			["lgmouse", "lgmouse"],
-			"lgrat",
-			"badexperiment",
-			"ratskeleton",
-			"homunculus",
-			"gremlin"
-		]
+		"difficulty": "🦴",
+		"sortOrder": 1,
+		"require": "t_job",
+		"dist": 0,
+		"repeat": false,
+		"run": { "stamina": 0.7 },
+		"result": {
+			"arcana": 10,
+			"gold": "15~20",
+			"player.exp": 10,
+			"title": "Master of the Cellar"
+		},
+		"length": 10,
+		"boss": "ratking",
+		"spawns": [["lgmouse", "lgmouse"], "badexperiment", "ratskeleton", "homunculus", "gremlin", "lgrat"]
 	},
 	{
 		"id": "stonyhills",
 		"alias": "hills",
 		"name": "Stony Hills",
-		"require": "placidgrove",
-		"level": 3,
-		"length": 25,
-		"run": {
-			"stamina": 0.75
-		},
+		"difficulty": "🦴",
+		"sortOrder": 2,
+		"require": "t_job",
+		"dist": 10,
+		"run": { "stamina": 0.75 },
 		"result": {
-			"gold": "10~15"
+			"gold": "10~15",
+			"cotton": "2~5"
 		},
-		"loot": {
-			"maxlevel": 3
-		},
-		"biome": "hills",
-		"spawns": [
-			"coyote",
-			"warthog",
-			"kobold",
-			"goblin",
-			"smbox",
-			["bat", "bat", "bat"],
-			["twikman", "twikman"],
-			"bigstone",
-			"hawk"
-		]
-	},
-	{
-		"id": "ettinmarchcamp",
-		"name": "Ettinmarch Camp",
-		"desc": "The perilous wilds of the Ettinmarch are a cherished home to bands of merry rangers and virtuous druids.",
-		"require": "evt_rangers",
-		"max": 1,
-		"level": 15,
-		"length": 200,
-		"run": {
-			"stamina": 2
-		},
-		"result": {
-			"herbs": "3~7",
-			"gems": "0~2",
-			"title": "Forest Scourge"
-		},
-		"boss": { "200": ["eledin", "gildella"] },
-		"spawns": [
-			["ranger", "ranger"],
-			["elf", "elf", "elf", "elf"],
-			"berserker",
-			["roc", "m_druid", "roc"],
-			["ranger", "gryffon"],
-			["m_druid", "m_druid"],
-			"ent",
-			["bear", "bear", "bear", "ranger"],
-			"direbear",
-			"highranger",
-			["elf", "highelf"],
-			["slinger", "direbear"]
-		]
-	},
-	{
-		"id": "fetidbarrow",
-		"name": "The Fetid Barrows",
-		"desc": "When the fetid barrows were discovered, dark acolytes gathered at the mounds seeking ancient patrons of their art.",
-		"require": "evt_cabal",
-		"max": 1,
-		"level": 15,
-		"length": 200,
-		"run": {
-			"stamina": 2
-		},
-		"result": {
-			"title": "Cabal Breaker",
-			"bodies": { "value": "0~2", "skipLocked": true },
-			"bones": { "value": "3~7", "skipLocked": true }
-		},
-		"boss": {
-			"50": "vampiremaster",
-			"100": ["skellord", "skeleton", "skeleton"],
-			"150": ["vampiremaster", "vampire"],
-			"200": ["palus"]
-		},
-		"spawns": [
-			["evilpriest", "evilpriest", "evilpriest"],
-			["corpse", "corpse", "skeleton", "corpse"],
-			["ghost", "ghost", "wraith"],
-			["evilpriest", "greaterzombie"],
-			["undeadhorror", "undeadhorror"],
-			["wight", "wight", "ghast"],
-			["m_hierophant", "evilpriest", "evilpriest"],
-			["blasphemer", "blasphemer"],
-			"wraith",
-			["ghoul", "ghoul", "ghast", "evilpriest"]
-		]
+		"length": 12,
+		"spawns": [["bat", "bat", "bat"], ["twikman", "twikman"], "bigstone", "kobold", "goblin", "hawk"]
 	},
 	{
 		"id": "treffilwoods",
 		"name": "Treffil Woods edges",
 		"desc": "These enchanted woods are not particularly dangerous.",
-		"dist": 17,
-		"level": 4,
-		"length": 20,
-		"run": {
-			"stamina": 1
-		},
+		"difficulty": "🦴",
+		"sortOrder": 3,
+		"require": "t_job",
+		"dist": 15,
+		"run": { "stamina": 1 },
 		"result": {
 			"herbs": "3~7",
-			"gems": "0~2"
+			"gems": "0~2",
+			"iron": "2~5"
 		},
-		"boss": { "20": ["gobchief"] },
-		"spawns": [
-			["goblin", "goblin"],
-			"gardengnome",
-			"wombat",
-			"slime",
-			"hobgoblin",
-			"ranger",
-			"elf",
-			"slinger"
-		],
-		"loot": {
-			"maxlevel": 4
-		}
+		"length": 14,
+		"boss": "gobchief",
+		"spawns": [["goblin", "goblin"], "gardengnome", "wombat", "hobgoblin", "slinger"]
 	},
 	{
 		"id": "underden",
 		"name": "Under Den",
 		"desc": "Proverbial den of thieves.",
+		"difficulty": "🦴🦴🦴",
+		"sortOrder": 11,
 		"require": "tier0",
-		"level": 5,
-		"run": {
-			"stamina": 1
+		"dist": 20,
+		"run": { "stamina": 1 },
+		"result": {
+			"gold": "25~40",
+			"cotton": "2~7",
+			"iron": "2~7",
+			"leather": "2~7"
+		},
+		"length": 20,
+		"boss": "banditlord",
+		"spawns": ["cutpurse", "bandit", ["bat", "bat", "bat", "bat"], "cutpurse", "bandit", "cutpurse"]
+	},
+	{
+		"id": "aragheights",
+		"name": "Arag Heights",
+		"desc": "Barren mountains on the coast of Arazor.",
+		"difficulty": "🦴🦴🦴",
+		"sortOrder": 12,
+		"require": "stonyhills",
+		"dist": 27,
+		"run": { "stamina": 1 },
+		"result": {
+			"gold": "20~30",
+			"cotton": "2~7",
+			"iron": "2~7",
+			"leather": "2~7"
+		},
+		"length": 22,
+		"boss": "roc",
+		"spawns": [
+			"lgbird",
+			["kobold", "kobold", "kobold"],
+			["scrapling", "scrapling"],
+			"scrapling",
+			"bandit",
+			"wolf",
+			"hawk",
+			"coyote"
+		]
+	},
+	{
+		"id": "goblincamp",
+		"name": "Goblin Camp",
+		"desc": "The pesky creatures are everywhere.",
+		"start": {
+			"name": "Goblins, Goblins!",
+			"desc": "Rumors hint at a camp of goblins in the vicinity. As an aspiring wizard, convention dictates you test your mettle on their lives."
+		},
+		"difficulty": "🦴🦴🦴",
+		"sortOrder": 13,
+		"require": "g.treffilwoods>0&&g.dist>=25",
+		"dist": 15,
+		"run": { "stamina": 1 },
+		"result": {
+			"title": "Goblin Slayer",
+			"gold": "20~30",
+			"cotton": "2~7",
+			"iron": "2~7",
+			"leather": "2~7"
+		},
+		"length": 28,
+		"boss": "gobchief",
+		"spawns": [["goblin", "goblin"], "gobwarrior", "gobwarrior", "goblin", "goblin", "gobpriest", "wolf"]
+	},
+	{
+		"id": "hauntedmanor",
+		"name": "Haunted Manor",
+		"desc": "Unsettling voices can be heard throughout the manor after dark",
+		"flavor": "Hey Vizard, ghost here...",
+		"difficulty": "🦴🦴🦴",
+		"sortOrder": 14,
+		"require": "g.tier0>0&&g.spiritlore>=9",
+		"dist": 27,
+		"run": { "stamina": 1 },
+		"result": {
+			"gold": "20~30",
+			"cotton": "2~7",
+			"iron": "2~7",
+			"leather": "2~7"
+		},
+		"length": 18,
+		"boss": "poltergeist",
+		"spawns": ["ghost", "ghost", "zombie", "skeleton", "skeleton", "direrat"]
+	},
+	{
+		"id": "aragwastes",
+		"name": "Arag Wastes",
+		"desc": "An arid plain stretching across Arazor from the Arag Heights.",
+		"difficulty": "💀",
+		"sortOrder": 21,
+		"require": "aragheights",
+		"dist": 49,
+		"run": { "stamina": 2 },
+		"result": {
+			"gold": "20~30",
+			"bones": {
+				"value": "3~7",
+				"skipLocked": true
+			},
+			"cotton": "2~7",
+			"iron": "2~7",
+			"leather": "2~7"
+		},
+		"length": 20,
+		"boss": "roc2",
+		"spawns": [
+			"vulture",
+			"minotaur",
+			"warg",
+			["vrrek", "vrrek"],
+			["m_scarab", "m_scarab"],
+			"sandmite",
+			"bugbear",
+			["vulture", "vulture", "vulture"],
+			["coyote", "coyote", "coyote"]
+		]
+	},
+	{
+		"id": "orccamp",
+		"name": "Orc Camp",
+		"desc": "A scourge of towns and cities.",
+		"flavor": "Lok'tar!",
+		"difficulty": "💀",
+		"sortOrder": 22,
+		"require": "goblincamp",
+		"dist": 36,
+		"run": { "stamina": 1.2 },
+		"once": {
+			"fame": 1
 		},
 		"result": {
-			"gold": "25~40"
+			"gold": "40~50"
 		},
-		"boss": "banditlord",
+		"length": 22,
+		"boss": "orcchief",
+		"spawns": ["orc", "orcwarrior", "orcwarrior", "orc", "orc", "orcpriest"]
+	},
+	{
+		"id": "elementalrift",
+		"name": "Elemental Rift",
+		"desc": "A tear in the fabric of reality leads to a land of raw elements.",
+		"difficulty": "💀",
+		"sortOrder": 23,
+		"require": "g.planeslore>=7",
+		"dist": 30,
+		"run": { "stamina": 1 },
+		"result": {
+			"gems": "9~12",
+			"lightgem": 3
+		},
+		"length": 30,
+		"boss": "lightningelemental",
+		"spawns": ["fireelemental", "iceelemental", "earthelemental", "airelemental"]
+	},
+	{
+		"id": "spidercave",
+		"name": "Skittering Caverns",
+		"desc": "The only treasures here, are those lost by adventurers searching for treasure.",
+		"difficulty": "💀💀",
+		"sortOrder": 31,
+		"require": ["tier0", "goblincamp"],
+		"dist": 45,
+		"run": { "stamina": 1.2 },
+		"result": {
+			"title": "Spider Slayer",
+			"gold": "40~50",
+			"spidersilk": "5~9"
+		},
+		"length": 30,
+		"boss": "spiderqueen",
+		"spawns": ["giantspider", ["lgspider", "lgspider"], "lgspider", "lgspider", "direbat"]
+	},
+	{
+		"id": "aragogres",
+		"name": "Ogre Cavern",
+		"desc": "A scourge of towns and cities.",
+		"start": {
+			"name": "Ogre Cavern",
+			"desc": "While scrying the outlying lands you discover a colossal cave in the arag heights."
+		},
+		"difficulty": "💀💀",
+		"sortOrder": 32,
+		"require": "g.orccamp>0&&g.aragheights>0&&g.scrying>0",
+		"dist": 89,
+		"run": { "stamina": 1.7 },
+		"once": {
+			"fame": 1
+		},
+		"result": {
+			"gold": "40~50",
+			"bones": {
+				"value": "5~10",
+				"skipLocked": true
+			},
+			"quicksteel": "2~7"
+		},
+		"length": 22,
+		"boss": "ogrechief",
 		"spawns": [
-			"cutpurse",
-			"bandit",
-			["bat", "bat", "bat", "bat"],
-			"cutpurse",
-			"bandit",
-			"cutpurse"
+			["ogre", "wolf", "wolf", "wolf"],
+			["ogre", "ogre"],
+			["minotaur", "minotaur"],
+			["warg", "warg"],
+			"ogrewarrior",
+			"ettin"
 		]
+	},
+	{
+		"id": "mtgorborung",
+		"name": "Mount Gorborung",
+		"desc": "One of the most perilous mountains in the world. Many journey over its passes; none venture within.",
+		"difficulty": "💀💀",
+		"sortOrder": 33,
+		"require": "g.orccamp>0",
+		"dist": 62,
+		"run": { "stamina": 2 },
+		"once": {
+			"fame": 1
+		},
+		"result": {
+			"title": "Mountaineer",
+			"watergem": "25%",
+			"airgem": "10%",
+			"gems": "3~5"
+		},
+		"length": 36,
+		"spawns": [
+			["airelemental", "airelemental"],
+			["stonegolem", "stonegolem"],
+			"yeti",
+			"harpy",
+			"icewalker",
+			"doppelganger",
+			"wight",
+			"wraith",
+			"frixie",
+			"frixie",
+			"troll",
+			"snowleopard"
+		]
+	},
+	{
+		"id": "veldransstorehouse",
+		"name": "Veldran's Storehouse",
+		"desc": "Veldran never did manage to carve a kingdom from the wreck of Bodias' reign. But he did accrue a sizeable hoard.",
+		"extdesc": "Abandoned, overgrown buildings. But security systems are still active in few of them.",
+		"difficulty": "💀💀",
+		"sortOrder": 34,
+		"require": "g.underden>0",
+		"dist": 117,
+		"run": { "stamina": 2 },
+		"result": {
+			"gems": "3~5",
+			"gold": "80~150",
+			"quicksteel": "2~7",
+			"serpenstskin": "2~7"
+		},
+		"length": 20,
+		"spawns": [
+			["claygolem", "claygolem", "claygolem"],
+			["stonegolem", "stonegolem"],
+			"irongolem",
+			"steelgolem",
+			"magicmirror",
+			["slime", "slime", "slime", "slime"],
+			["lgsnake", "lgsnake"],
+			"lgsnake",
+			"lgsnake",
+			"giantsnake"
+		]
+	},
+	{
+		"id": "sereditetemple",
+		"name": "Seredite Temple",
+		"desc": "Who they were or why they built this ruined temple in the seaside cliffs is a mystery lost to time.",
+		"flavor": "Would the ancient seredites appreciate the temple's new inhabitants?",
+		"difficulty": "💀💀💀",
+		"sortOrder": 41,
+		"require": "tier1",
+		"dist": 161,
+		"run": { "stamina": 1.2 },
+		"result": {
+			"gold": "20~30",
+			"gems": "4~5",
+			"quicksteel": "2~7",
+			"serpenstskin": "2~7",
+			"spidersilk": "2~7"
+		},
+		"length": 25,
+		"boss": {
+			"10": "naga",
+			"15": "medusa",
+			"20": ["naga", "naga"],
+			"25": ["naga", "medusa"]
+		},
+		"spawns": ["shriekingeel", "magicblade", "evilpriest", ["eel", "eel"], ["crab", "crab"]]
 	},
 	{
 		"id": "veldranswreck",
 		"name": "Veldran's Wreck",
 		"desc": "Off the stormy cliffs of Arazor a mass of cracked spars marks the resting place of the largest ship ever sailed by man.",
-		"require": "g.waterlore>=10&&g.aragheights>0",
-		"level": 7,
-		"length": 75,
+		"difficulty": "💀💀💀",
+		"tags": "t_underwater",
+		"sortOrder": 42,
+		"require": "g.veldransstorehouse>0&&g.aragheights>0",
+		"dist": 295,
 		"bars": "breath",
-		"run": {
-			"stamina": 1
-		},
-		"effect": {
-			"breath": -2
-		},
+		"run": { "stamina": 1 },
+		"effect": { "breath": -2 },
 		"result": {
-			"gold": "50~75",
-			"watergem": "50%",
-			"gems": 10
+			"gold": "75~125",
+			"gems": "10~25",
+			"rubies": "5~12",
+			"watergem": "3~5"
 		},
 		"loot": {
 			"veldranearring": "25%",
@@ -264,474 +389,235 @@
 			"fishyhammer": "25%",
 			"fishyrapier": "25%"
 		},
-		"spawns": [
-			"eel",
-			"jellyfish",
-			"ghost",
-			"barracuda",
-			"piranha",
-			"electriceel"
-		]
-	},
-	{
-		"id": "aragheights",
-		"name": "Arag Heights",
-		"desc": "Barren mountains on the coast of Arazor.",
-		"require": "stonyhills",
-		"level": 6,
-		"run": {
-			"stamina": 1
-		},
-		"boss": "roc",
-		"result": {
-			"gold": "20~30"
-		},
-		"spawns": [
-			"lgbird",
-			["kobold", "kobold", "kobold"],
-			"orc",
-			"bandit",
-			"wolf",
-			"hawk",
-			"goblin",
-			"coyote"
-		]
-	},
-	{
-		"id": "hauntedmanor",
-		"name": "Haunted Manor",
-		"desc": "",
-		"require": "g.spirit.max>=9",
-		"level": 6,
-		"run": {
-			"stamina": 1
-		},
-		"length": 30,
-		"result": {
-			"gold": "20~30"
-		},
-		"boss": "poltergeist",
-		"spawns": ["ghost", "ghost", "zombie", "skeleton", "skeleton", "direrat"]
-	},
-	{
-		"id": "sereditetemple",
-		"name": "Seredite Temple",
-		"desc": "Who they were or why they built this ruined temple in the seaside cliffs is a mystery lost to time.",
-		"level": 8,
-		"run": {
-			"stamina": 1.2
-		},
-		"result": {
-			"gold": "20~30",
-			"gems": "4~5"
-		},
-		"boss": {
-			"40": "naga",
-			"80": "medusa",
-			"120": ["naga", "naga"],
-			"160": ["naga", "medusa"]
-		},
-		"spawns": [
-			["raven", "raven", "raven", "raven"],
-			"shriekingeel",
-			"magicblade",
-			"evilpriest",
-			["eel", "eel"],
-			["crab", "crab"]
-		],
-		"flavor": "Would the ancient seredites appreciate the temple's new inhabitants?"
-	},
-	{
-		"id": "goblincamp",
-		"name": "Goblin Camp",
-		"start": {
-			"name": "Goblins, Goblins!",
-			"desc": "Rumors hint at a camp of goblins in the vicinity. As an aspiring wizard, convention dictates you test your mettle on their lives."
-		},
-		"desc": "The pesky creatures are everywhere.",
-		"require": "g.treffilwoods>0&&g.player.level>=4&&g.dist>=25",
-		"level": 4,
-		"run": {
-			"stamina": 1
-		},
-		"result": {
-			"title": "Goblin Slayer",
-			"gold": "20~30"
-		},
-		"boss": "gobchief",
-		"spawns": [
-			["goblin", "goblin"],
-			"gobwarrior",
-			"gobwarrior",
-			"goblin",
-			"goblin",
-			"gobpriest"
-		],
-		"loot": {
-			"maxlevel": 3
-		}
-	},
-	{
-		"id": "orccamp",
-		"name": "Orc Camp",
-		"desc": "A scourge of towns and cities.",
-		"require": "goblincamp",
-		"level": 7,
-		"run": {
-			"stamina": 1.2
-		},
-		"result": {
-			"gold": "40~50"
-		},
-		"boss": "orcchief",
-		"spawns": ["orc", "orcwarrior", "orcwarrior", "orc", "orc", "orcpriest"],
-		"flavor": "Lok'tar!"
-	},
-	{
-		"id": "aragogres",
-		"name": "Ogre Cavern",
-		"start": {
-			"name": "Ogre Cavern",
-			"desc": "While scrying the outlying lands you discover a colossal cave in the arag heights."
-		},
-		"desc": "A scourge of towns and cities.",
-		"require": "g.orccamp>0&&g.aragheights>0&&g.scrying>0",
-		"level": 10,
-		"length": 100,
-		"run": {
-			"stamina": 1.7
-		},
-		"result": {
-			"gold": "40~50",
-			"bones": { "value": "5~10", "skipLocked": true }
-		},
-		"boss": { "100": ["orcchief", "ogre", "ogre"] },
-		"spawns": [
-			"ogre",
-			["bugbear", "bugbear"],
-			["giantspider", "lgspider", "lgspider", "lgspider"],
-			["ogre", "warg", "warg"],
-			"orcwarrior",
-			["ogrewarrior", "ogrewarrior"],
-			"troll",
-			"minotaur",
-			["vampirebat", "vampirebat", "vampirebat"],
-			["ogre", "wolf", "wolf", "wolf"],
-			"hillgiant",
-			"direbear",
-			"ettin",
-			"orcchief",
-			["orcpriest", "ogre", "ogre"]
-		]
-	},
-	{
-		"id": "spidercave",
-		"name": "Skittering Caverns",
-		"desc": "The only treasures here, are those lost by adventurers searching for treasure.",
-		"require": "tier0",
-		"level": 7,
-		"run": {
-			"stamina": 1.2
-		},
-		"result": {
-			"title": "Spider Slayer",
-			"gold": "40~50"
-		},
-		"boss": "spiderqueen",
-		"spawns": [
-			"giantspider",
-			"kobold",
-			{
-				"ids": "jazid",
-				"weight": 0.1
-			},
-			["lgspider", "lgspider"],
-			"lgspider",
-			"lgspider",
-			"direbat"
-		]
-	},
-	{
-		"id": "aragwastes",
-		"name": "Arag Wastes",
-		"desc": "An arid plain stretching across Arazor from the Arag Heights.",
-		"require": "aragheights",
-		"level": 8,
-		"run": {
-			"stamina": 2
-		},
-		"boss": "roc",
-		"result": {
-			"gold": "20~30",
-			"bones": { "value": "3~7", "skipLocked": true }
-		},
-		"spawns": [
-			"vulture",
-			"minotaur",
-			"orc",
-			"warg",
-			["vrrek", "vrrek"],
-			["m_scarab", "m_scarab"],
-			"bandit",
-			"wolf",
-			"sandmite",
-			"bugbear",
-			"hawk",
-			"goblin",
-			["vulture", "vulture", "vulture"],
-			["coyote", "coyote", "coyote"]
-		]
-	},
-	{
-		"id": "mtgorborung",
-		"name": "Mount Gorborung",
-		"desc": "One of the most perilous mountains in the world. Many journey over its passes; none venture within.",
-		"level": 9,
-		"length": 50,
-		"run": {
-			"stamina": 2
-		},
-		"result": {
-			"title": "Mountaineer",
-			"watergem": "25%",
-			"airgem": "10%",
-			"gems": "3~5"
-		},
-		"spawns": [
-			"yeti",
-			"wolf",
-			"stonegolem",
-			"airelemental",
-			"icewalker",
-			"harpy",
-			"wolf",
-			"jazid",
-			"doppelganger",
-			"iceelemental",
-			"wight",
-			"wraith",
-			"bugbear",
-			"frixie",
-			"frixie",
-			"ogre",
-			"cavetroll",
-			"snowleopard"
-		]
+		"length": 18,
+		"boss": { "18": ["jellyfish", "piranha", "eel"] },
+		"spawns": [["ghost2", "ghost2", "ghost2"], ["eel", "eel"], "jellyfish", "barracuda", "piranha", "electriceel"]
 	},
 	{
 		"id": "greatbog",
 		"name": "The Great Bog",
 		"desc": "For hundreds of miles the great bog spreads across the dark center of Dhrune.",
-		"require": "g.player.dist>=200",
-		"level": 13,
-		"run": {
-			"stamina": 3
-		},
-		"length": 100,
+		"flavor": "Also known as Barden's bog, no one can say exactly just who Barden was.",
+		"difficulty": "💀💀💀",
+		"sortOrder": 43,
+		"require": "aragwastes",
+		"run": { "stamina": 3 },
 		"result": {
 			"title": "Fetid Pathfinder",
 			"gems": "3~5",
 			"gold": "100~200",
-			"bones": { "value": 10, "skipLocked": true }
+			"bones": { "value": 10, "skipLocked": true },
+			"rubies": "2~5"
 		},
+		"length": 24,
 		"boss": "bogwitch",
 		"spawns": [
-			["direcrocodile", "direcrocodile"],
-			"ghost",
 			["leech", "leech", "leech", "leech", "leech"],
-			"grimstalk",
-			"jazid",
-			"basilisk",
-			"stalker",
 			["corpse", "corpse", "corpse", "corpse"],
-			["eel", "eel", "eel"],
+			["direcrocodile", "direcrocodile"],
+			"grimstalk",
+			"stalker",
 			"lesserwyrm",
-			"willowisp",
-			"direrat",
-			["piranha", "piranha"]
-		],
-		"flavor": "Also known as Barden's bog, no one can say exactly just who Barden was."
-	},
-	{
-		"id": "catacrypts",
-		"name": "The Catacrypts",
-		"desc": "Old Mirthemgnar dug its dungeons til they joined the hollows beneath the world. In terror they sealed them forever. Or so they tried.",
-		"require": ["mtgorborung", "tier3"],
-		"level": 15,
-		"run": {
-			"stamina": 3
-		},
-		"length": 10000,
-		"result": {
-			"title": "Twice Born",
-			"fame": 3,
-			"gems": "30~50",
-			"gold": "1000~2000"
-		},
-		"biome": ["cave", "mountain"],
-		"spawns": {
-			"level": "16~24",
-			"range": 2,
-			"quantity": "1~5",
-			"quantitypenalty": 0.1
-		},
-		"flavor": "Day and night the dark gates stand open to all... but to return to the open air... that is the task, that is the labor."
-	},
-	{
-		"id": "elementrift",
-		"name": "Elemental Rift",
-		"desc": "A tear in the fabric of reality leads to a land of raw elements.",
-		"require": "g.planeslore>=7",
-		"level": 12,
-		"run": {
-			"stamina": 4
-		},
-		"length": 50,
-		"result": {
-			"gems": "9~12",
-			"lightgem": 3
-		},
-		"boss": "lightningelemental",
-		"spawns": [
-			"fireelemental",
-			"iceelemental",
-			"earthelemental",
-			"airelemental",
-			"lightningelemental"
+			"willowisp"
 		]
 	},
 	{
-		"id": "veldransstorehouse",
-		"name": "Veldran's Storehouse",
-		"desc": "Veldran never did manage to carve a kingdom from the wreck of Bodias' reign. But he did accrue a sizeable hoard.",
-		"level": 9,
-		"run": {
-			"stamina": 2
-		},
-		"length": 60,
+		"id": "ettinmarchcamp",
+		"name": "Ettinmarch Camp",
+		"desc": "The perilous wilds of the Ettinmarch are a cherished home to bands of merry rangers and virtuous druids.",
+		"difficulty": "💀💀💀",
+		"sortOrder": 44,
+		"require": "evt_rangers",
+		"dist": 394,
+		"max": 1,
+		"run": { "stamina": 2 },
 		"result": {
-			"gems": "3~5",
-			"gold": "80~150"
+			"herbs": "3~7",
+			"gems": "0~2",
+			"title": "Forest Scourge"
+		},
+		"length": 28,
+		"boss": { "28": ["eledin", "gildella"] },
+		"spawns": [
+			["ranger", "ranger"],
+			["elf", "elf", "elf", "elf"],
+			["ranger", "gryffon"],
+			["m_druid", "m_druid"],
+			"ent",
+			["bear", "bear", "bear", "ranger"],
+			"direbear",
+			"highranger",
+			["elf", "highelf"]
+		]
+	},
+	{
+		"id": "fetidbarrow",
+		"name": "The Fetid Barrows",
+		"desc": "When the fetid barrows were discovered, dark acolytes gathered at the mounds seeking ancient patrons of their art.",
+		"difficulty": "💀💀💀",
+		"sortOrder": 45,
+		"require": "evt_cabal",
+		"dist": 394,
+		"max": 1,
+		"run": { "stamina": 2 },
+		"result": {
+			"title": "Cabal Breaker",
+			"bodies": {
+				"value": "0~2",
+				"skipLocked": true
+			},
+			"bones": {
+				"value": "3~7",
+				"skipLocked": true
+			},
+			"spidersilk": "2~7",
+			"rubies": "2~5"
+		},
+		"length": 28,
+		"boss": {
+			"16": "vampiremaster",
+			"20": ["skellord", "skeleton", "skeleton", "skeleton", "skeleton", "skeleton", "skeleton", "skeleton"],
+			"24": ["vampiremaster", "vampire"],
+			"28": ["palus"]
 		},
 		"spawns": [
-			["claygolem", "claygolem", "claygolem"],
-			"hobgoblin",
-			"doppelganger",
-			"masterswordsman",
-			"irongolem",
-			"quasit",
-			["slime", "slime", "slime", "slime"],
-			["stonegolem", "stonegolem"],
-			"banditlord",
-			"magicmirror",
-			"woodgolem"
+			["ghost2", "ghost2", "wraith"],
+			["corpse", "corpse", "corpse"],
+			["undeadhorror", "undeadhorror"],
+			["blasphemer", "blasphemer"],
+			["wight", "wight", "ghast"],
+			["ghoul", "ghoul", "ghast"],
+			"m_hierophant",
+			"evilpriest",
+			"vampire"
+		]
+	},
+	{
+		"id": "holyhall",
+		"name": "Hall of the Holy",
+		"desc": "Various divine spirits watch over the world. And the greatest have their halls and kingdoms.",
+		"difficulty": "💀💀💀",
+		"sortOrder": 46,
+		"tags": "t_extremeevil",
+		"require": "g.planeslore.max>=10&&g.evil2>0",
+		"dist": 410,
+		"run": { "stamina": 2 },
+		"result": {
+			"title": "Holy Defiler",
+			"evilamt": 10,
+			"gold": "150~275",
+			"quicksteel": "2~7"
+		},
+		"length": 28,
+		"boss": "archon",
+		"spawns": [
+			["lightelem", "lightelem", "lightelem"],
+			["unicorn", "valkyrie"],
+			["gryffon", "valkyrie"],
+			["angel", "angel"],
+			"angel",
+			"angel"
+		]
+	},
+	{
+		"id": "elementalplane",
+		"name": "Elemental Plane",
+		"desc": "Deeper in the land of raw elements lies a huge area with much higher density of mana. Something inside it is causing this phenomenon.",
+		"difficulty": "💀💀💀💀",
+		"sortOrder": 51,
+		"require": "g.elementalrift>0",
+		"dist": 518,
+		"run": { "stamina": 2 },
+		"result": {
+			"gems": "9~12",
+			"lightgem": 3,
+			"amberroot": "2~7"
+		},
+		"length": 24,
+		"boss": {
+			"21": "tempestelemental",
+			"22": "mudelemental",
+			"23": "magmaelemental",
+			"24": "ashelemental"
+		},
+		"spawns": [
+			["fireelemental2", "earthelemental2"],
+			["earthelemental2", "iceelemental2"],
+			["iceelemental2", "airelemental2"],
+			["airelemental2", "fireelemental2"]
 		]
 	},
 	{
 		"id": "desillagrotto",
 		"name": "Desilla's Grotto",
+		"tags": "site_of_learning",
 		"desc": "In all the world, the most enjoyable place to die.",
-		"require": "g.player.dist>=500",
-		"level": 15,
-		"run": {
-			"stamina": 2.5
+		"flavor": "Desilla was known as much for her entertainments as her ruthlessness.",
+		"difficulty": "💀💀💀💀",
+		"sortOrder": 52,
+		"require": "greatbog",
+		"dist": 847,
+		"run": { "stamina": 2.5 },
+		"once": {
+			"fame": 2
 		},
-		"length": 75,
 		"result": {
 			"gems": "3~5",
 			"gold": "50~100",
-			"ichor": 1
+			"ichor": 1,
+			"adamant": "2~7",
+			"aetherhide": "2~7",
+			"amberroot": "2~7"
 		},
-		"mod": {
-			"charms.max": "0.5//2/-1"
-		},
+		"mod": { "charms.max": "0.5//2/-1" },
+		"length": 27,
 		"boss": "desillaconcubine",
 		"spawns": [
-			"masterswordsman",
-			["magicblade", "magicblade"],
-			["magicmirror", "magicmirror"],
-			"unicorn",
-			["pegasus", "pegasus"],
-			"quasit",
-			["stalker", "willowisp"],
-			["elf", "elf", "elf"],
-			"incubus",
+			["elf", "elf", "elf", "magicmirror"],
+			["magicblade", "magicblade", "magicmirror"],
 			["imp", "imp", "imp"],
-			"succubus"
-		],
-		"flavor": "Desilla was known as much for her entertainments as her ruthlessness."
+			["stalker", "willowisp"],
+			"masterswordsman",
+			"succubus",
+			"incubus",
+			"quasit"
+		]
 	},
 	{
 		"id": "charredkeep",
 		"name": "Charred Keep",
 		"desc": "Its smouldering ruins once more begin to burn.",
-		"level": 18,
-		"run": {
-			"stamina": 3
+		"flavor": "Burned black by its own denizens.",
+		"difficulty": "💀💀💀💀💀",
+		"sortOrder": 61,
+		"require": "g.mtgorborung>0",
+		"dist": 1657,
+		"run": { "stamina": 3 },
+		"once": {
+			"fame": 2
 		},
-		"length": 100,
 		"result": {
 			"title": "Lock Slayer",
 			"gold": "300~500",
-			"ichor": 3
+			"ichor": 3,
+			"adamant": "5~7",
+			"aetherhide": "5~7",
+			"diamonds": "5~7",
+			"dragonscale": "50~70"
 		},
-		"boss": { "100": ["reddragon", "karnivex", "reddragon"] },
+		"length": 40,
+		"boss": { "40": ["karnivex", "greendragon", "greendragon"] },
 		"spawns": [
-			"mithrilgolem",
-			["bloodgolem", "bloodgolem"],
-			["magicmirror", "magicmirror"],
-			"maturereddragon",
-			["manticore", "manticore"],
-			"reddragon",
-			"demon",
 			"jazid",
-			["greendragon", "greendragon"],
+			"adamantgolem",
+			"enc_dragonhoard",
+			"maturereddragon",
+			["reddragon", "reddragon"],
+			["greendragon", "greendragon", "greendragon"],
+			"demon",
 			"balrog",
 			"ancientvampire",
 			["masterswordsman", "masterswordsman", "masterswordsman"]
-		],
-		"flavor": "Burned black by its own denizens."
-	},
-	{
-		"id": "belowgorborung",
-		"name": "Below Mt. Gorborung",
-		"desc": "They say the roots of the mountain extend deeper than its heights.",
-		"level": 25,
-		"length": 100,
-		"require": "g.player.level>=20&&g.mtgorborung>0",
-		"dist": 1200,
-		"run": {
-			"stamina": 3
-		},
-		"result": {
-			"title": "Lightless",
-			"earthgem": 5,
-			"gems": 10,
-			"tomes": 2
-		},
-		"boss": {
-			"50": "cthulhu",
-			"100": "gorborung"
-		},
-		"spawns": [
-			["stonegolem", "stonegolem"],
-			["magmaelemental", "magmaelemental"],
-			["earthelemental", "earthelemental", "earthelemental"],
-			["dwarp", "dwarp"],
-			["callodiper", "callodiper", "callodiper"],
-			["cavetroll", "cavetroll"],
-			["skellord", "skellord"],
-			["wyvern", "wyvern"],
-			"behemoth",
-			["trow", "trow"],
-			"reddragon",
-			"balrog",
-			"jazid",
-			"m_lichlord",
-			["shade", "shade"],
-			"beholder",
-			["ogre", "ogre", "ogre"],
-			"cavetroll"
 		]
 	},
 	{
@@ -739,9 +625,11 @@
 		"name": "Temple of Strativax",
 		"desc": "His acolytes fed the beast on offerings from a thousand leagues.",
 		"flavor": "Strativax curled up to nap. His temple fell to ruins, and the ages fled like leaves.",
-		"require": "g.scrying>=12&&g.history>=12",
 		"start": "You scry the location of an ancient ruined temple.",
-		"level": 20,
+		"difficulty": "💀💀💀💀💀",
+		"sortOrder": 62,
+		"require": "g.scrying>=12&&g.history>=12",
+		"dist": 1986,
 		"length": 3,
 		"boss": {
 			"1": "strativax1",
@@ -750,35 +638,104 @@
 		}
 	},
 	{
-		"id": "holyhall",
-		"name": "Hall of the Holy",
-		"desc": "Various divine spirits watch over the world. And the greatest have their halls and kingdoms.",
-		"require": "g.planeslore.max>=10&&g.evil2>0",
-		"tags": "t_extremeevil",
-		"level": 17,
-		"length": 50,
-		"run": {
-			"stamina": 2
+		"id": "belowgorborung",
+		"name": "Below Mt. Gorborung",
+		"desc": "They say the roots of the mountain extend deeper than its heights.",
+		"difficulty": "💀💀💀💀💀💀",
+		"sortOrder": 71,
+		"require": "g.tier4>0&&g.mtgorborung>0",
+		"dist": 2100,
+		"run": { "stamina": 3 },
+		"once": {
+			"fame": 3
 		},
 		"result": {
-			"title": "Holy Defiler",
-			"evilamt": 10,
-			"gold": "150~275"
+			"title": "Lightless",
+			"earthgem": 5,
+			"gems": 10,
+			"tomes": 2,
+			"aetherhide": "2~7"
 		},
-		"boss": "archon",
+		"length": 100,
+		"boss": {
+			"50": "cthulhu",
+			"100": "gorborung"
+		},
 		"spawns": [
-			"angel",
-			["valkyrie", "valkyrie"],
-			["gryffon", "gryffon"],
-			"mithrilgolem",
-			"angel",
-			"firegolem",
-			["angel", "angel"],
-			["lightelem", "lightelem", "lightelem"],
-			["roc", "roc", "roc"],
-			["unicorn", "unicorn"],
-			["ghost", "ghost", "ghost"],
-			["pegasus", "pegasus", "pegasus"]
+			"jazid",
+			["skellord", "skellord", "skellord", "skellord", "skellord"],
+			["callodiper", "callodiper", "callodiper"],
+			["reddragon", "reddragon", "reddragon"],
+			["adamantgolem", "adamantgolem"],
+			["wyvern", "wyvern"],
+			["balrog", "demon"],
+			["shade", "shade"],
+			["dwarp", "dwarp"],
+			"m_lichlord",
+			"behemoth",
+			"beholder"
 		]
+	},
+	{
+		"id": "abyssal_layer1",
+		"name": "Abyssal Depths: First Layer",
+		"desc": "At the bottom of the bottomless, lies an entrance to a plane darker than ink.",
+		"difficulty": "💀💀💀💀💀💀",
+		"sortOrder": 72,
+		"require": "g.planeslore>=8&&g.space.max>=20&&g.tier4>0",
+		"need": "g.bottomlesspit>0&&g.dist>=2500",
+		"needtext": "Must own a bottomless pit and meet distance requirements",
+		"dist": 2500,
+		"run": { "stamina": 3 },
+		"once": {
+			"fame": 5
+		},
+		"result": {
+			"title": "Abyssal Spelunker",
+			"tomes": 10
+		},
+		"length": 25,
+		"boss": {
+			"1": ["abyssal_dreg"],
+			"2": ["abyssal_dreg"],
+			"3": ["abyssal_lesser_shadow"],
+			"4": ["abyssal_dreg", "abyssal_dreg"],
+			"5": ["abyssal_lesser_shadow", "abyssal_dreg"],
+			"25": "abyssal_knight"
+		},
+		"spawns": [
+			["abyssal_rat_mother", "abyssal_rat", "abyssal_rat", "abyssal_rat", "abyssal_rat"],
+			["abyssal_dreg", "abyssal_dreg", "abyssal_dreg"],
+			["abyssal_lesser_shadow", "abyssal_lesser_shadow"],
+			["abyssal_raven_flock", "abyssal_raven_flock"],
+			["abyssal_cinder_golem"],
+			["abyssal_proselyte"],
+			["abyssal_soldier"]
+		]
+	},
+	{
+		"id": "catacrypts",
+		"name": "The Catacrypts",
+		"desc": "Old Mirthemgnar dug its dungeons til they joined the hollows beneath the world. In terror they sealed them forever. Or so they tried.",
+		"flavor": "Day and night the dark gates stand open to all... but to return to the open air... that is the task, that is the labor.",
+		"difficulty": "💀💀💀💀💀💀",
+		"sortOrder": 73,
+		"require": ["belowgorborung"],
+		"dist": 2250,
+		"run": { "stamina": 3 },
+		"result": {
+			"title": "Twice Born",
+			"fame": 3,
+			"gems": "30~50",
+			"gold": "1000~2000",
+			"basiliskhide": "30~40"
+		},
+		"length": 1000,
+		"spawns": {
+			"level": "45~75",
+			"range": 2,
+			"quantity": "1~4",
+			"quantitypenalty": 0.14
+		}
 	}
 ]

@@ -1,44 +1,60 @@
-import { assignPublic } from '@/util/util';
-import { MarkModded } from '../changes';
+import { assignPublic } from "@/util/util";
+import { MarkModded } from "../changes";
 
 /**
  * @class TagSet to allow referencing tagged items by id.
  */
 export default class TagSet {
-
 	/**
 	 * TagSets are internal and not meant to be saved.
 	 */
-	toJSON() { return undefined; }
+	toJSON() {
+		return undefined;
+	}
 
 	/**
 	 * @property {string}
 	 */
-	get id() { return this._id; }
-	set id(v) { this._id = v; }
+	get id() {
+		return this._id;
+	}
+	set id(v) {
+		this._id = v;
+	}
 
 	/**
 	 * @property {Set.<GData>} items
 	 */
-	get items() { return this._items; }
+	get items() {
+		return this._items;
+	}
 	set items(v) {
 		this._items = v;
 	}
 
-	[Symbol.iterator]() { return this._items[Symbol.iterator]() }
+	[Symbol.iterator]() {
+		return this._items[Symbol.iterator]();
+	}
 
 	/**
 	 * @property {string} type - type might need to be a standard type.
 	 */
-	get type() { return this._type; }
-	set type(v) { this._type = v; }
+	get type() {
+		return this._type;
+	}
+	set type(v) {
+		this._type = v;
+	}
 
 	/**
 	 * @property {string} name
 	 */
-	get name() { return this._name }
-	set name(v) { this._name = v; }
-
+	get name() {
+		return this._name;
+	}
+	set name(v) {
+		this._name = v;
+	}
 
 	/*get.instanced() { return true; }
 	set.instanced(v){}*/
@@ -72,13 +88,14 @@ export default class TagSet {
 		return false;
 	}
 
-	get delta() { return 0; }
+	get delta() {
+		return 0;
+	}
 
 	/**
 	 * @returns {number}
 	 */
 	valueOf() {
-
 		let v = 0;
 		for (let it of this.items) {
 			v += it.valueOf();
@@ -91,7 +108,6 @@ export default class TagSet {
 	 * @param {string} vars
 	 */
 	constructor(vars) {
-
 		this.items = new Set();
 
 		if (vars instanceof Object) {
@@ -104,13 +120,12 @@ export default class TagSet {
 
 		if (!this.name) {
 			//The following .toString() resolves an error thrown in console
-			let ind = vars.toString().indexOf('t_');
+			let ind = vars.toString().indexOf("t_");
 			if (ind < 0) this.name = vars.toString();
 			else {
 				this.name = vars.toString().slice(ind + 2);
 			}
 		}
-
 	}
 
 	/**
@@ -169,7 +184,7 @@ export default class TagSet {
 	 * @param {*} g
 	 */
 	onUse(g) {
-		console.warn('TagSet onUse() not implemented');
+		console.warn("TagSet onUse() not implemented");
 	}
 
 	/**
@@ -184,7 +199,6 @@ export default class TagSet {
 	 * @returns {GData} - random tagged item.
 	 */
 	random() {
-
 		let size = this.items.size;
 		if (size <= 0) return null;
 
@@ -196,8 +210,6 @@ export default class TagSet {
 			itr.next();
 		}
 		return itr.next().value;
-
-
 	}
 
 	/**
@@ -206,36 +218,30 @@ export default class TagSet {
 	 * @param {*} amt
 	 */
 	amount(amt) {
-
 		for (let it of this.items) {
 			//if ( typeof it.amount === 'function' ) it.amount( amt );
 			it.amount(amt);
 		}
-
 	}
 
 	/**
 	 * @param {Game} g
 	 */
 	disable(g) {
-
 		for (let it of this.items) {
 			//console.warn("Disabling tag member: " + it.id)
 			g.disable(it);
 		}
-
 	}
 
 	/**
 	 * @param {Game} g
 	 */
 	enable(g) {
-
 		for (let it of this.items) {
 			//console.warn("Enabling tag member: " + it.id)
 			g.enable(it);
 		}
-
 	}
 
 	/**
@@ -245,11 +251,9 @@ export default class TagSet {
 	 * ( fractions of full amount due to tick time. )
 	 */
 	applyVars(mods, amt = 1) {
-
 		for (let it of this.items) {
 			it.applyVars(mods, amt);
 		}
-
 	}
 
 	/**
@@ -259,11 +263,9 @@ export default class TagSet {
 	 * @param {Object} [targ=null]
 	 */
 	applyMods(mods, amt, targ, src, path, modType, recurse) {
-
 		for (let it of this.items) {
 			it.applyMods(mods, amt, it, src, path, modType, recurse);
 		}
-
 	}
 
 	/**
@@ -273,14 +275,14 @@ export default class TagSet {
 	 * @param {Object} [targ=null]
 	 */
 	removeMods(mods) {
-
 		for (let it of this.items) {
 			it.removeMods(mods, it);
 		}
-
 	}
 
-	hasTag(t) { return t === 'tagset' }
+	hasTag(t) {
+		return t === "tagset";
+	}
 
 	/**
 	 * Get raw array of tagged items.
@@ -296,7 +298,6 @@ export default class TagSet {
 	 * @returns {GData[]}
 	 */
 	filter(p) {
-
 		let a = [];
 
 		for (let it of this.items) {
@@ -304,7 +305,6 @@ export default class TagSet {
 		}
 
 		return a;
-
 	}
 
 	/**
@@ -318,7 +318,7 @@ export default class TagSet {
 	/**
 	 * Share the provided cooldown across all members of the tagSet
 	 * @param {Game} g
-	 * @param {number} t 
+	 * @param {number} t
 	 */
 
 	cdshare(g, t) {
@@ -331,5 +331,4 @@ export default class TagSet {
 			}
 		}
 	}
-
 }

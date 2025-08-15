@@ -1,0 +1,127 @@
+{
+	"module": "equipment-crafting",
+	"author": "nagshell",
+	"data": {
+		"tags": [
+			{
+				"id": "t_eq_resource",
+				"name": "Equipment Material"
+			}
+		],
+		"resources": [
+			{
+				"id": "iron",
+				"tags": "t_eq_resource",
+				"group": "materials",
+				"max": 50,
+				"sortOrder": 440
+			},
+			{
+				"id": "quicksteel",
+				"tags": "t_eq_resource",
+				"group": "materials",
+				"max": 50,
+				"sortOrder": 441
+			},
+			{
+				"id": "adamant",
+				"tags": "t_eq_resource",
+				"group": "materials",
+				"max": 50,
+				"sortOrder": 442
+			},
+			{
+				"id": "leather",
+				"tags": "t_eq_resource",
+				"group": "materials",
+				"max": 50,
+				"sortOrder": 443
+			},
+			{
+				"id": "serpentskin",
+				"name": "Serpent Skin",
+				"tags": "t_eq_resource",
+				"group": "materials",
+				"max": 50,
+				"sortOrder": 444
+			},
+			{
+				"id": "aetherhide",
+				"tags": "t_eq_resource",
+				"group": "materials",
+				"max": 50,
+				"sortOrder": 445
+			},
+			{
+				"id": "cotton",
+				"tags": "t_eq_resource",
+				"group": "materials",
+				"max": 50,
+				"sortOrder": 446
+			},
+			{
+				"id": "spidersilk",
+				"name": "Spider Silk",
+				"tags": "t_eq_resource",
+				"group": "materials",
+				"max": 50,
+				"sortOrder": 447
+			},
+			{
+				"id": "amberroot",
+				"name": "Amber Root",
+				"tags": "t_eq_resource",
+				"group": "materials",
+				"max": 50,
+				"sortOrder": 448
+			},
+			{
+				"id": "rubies",
+				"tags": "t_eq_resource",
+				"group": "materials",
+				"max": 50,
+				"sortOrder": 449
+			},
+			{
+				"id": "diamonds",
+				"tags": "t_eq_resource",
+				"group": "materials",
+				"max": 50,
+				"sortOrder": 450
+			},
+			{
+				"id": "basiliskhide",
+				"name": "Basilisk Hide",
+				"tags": "t_eq_resource",
+				"group": "materials",
+				"max": 50,
+				"sortOrder": 451
+			},
+			{
+				"id": "dragonscale",
+				"name": "Dragon Scales",
+				"tags": "t_eq_resource",
+				"group": "materials",
+				"max": 500,
+				"sortOrder": 452
+			}
+		],
+		"furniture": [
+			{
+				"id": "eq_res_storage",
+				"name": "Material Chest",
+				"desc": "A big crate for magical bits and pieces you scavenge during your adventures.",
+				"flavor": "*Slaps roof of the crate* This could even fit an arm and a leg of mythical creature",
+				"require": "g.runelore>=4",
+				"repeat": true,
+				"cost": { "gold": 400 },
+				"sell": { "gold": 400 },
+				"mod": {
+					"t_eq_resource.max": "20%",
+					"space": 5
+				}
+			}
+		],
+		"tasks": []
+	}
+}

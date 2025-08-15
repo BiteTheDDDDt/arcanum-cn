@@ -4,7 +4,7 @@ import GData from "@/items/gdata";
 
 /**
  * List of GData items to attempt to use/cast.
- * Spelllists and pursuits/goals, currently.
+ * Spelllists and hobbies/goals, currently.
  */
 export const ORDER = "top";
 export const RANDOM = "rand";
@@ -37,6 +37,13 @@ export default class DataList extends Inventory {
 	}
 	set order(v) {
 		this._order = v;
+	}
+
+	get used() {
+		return this.recalcUsed();
+	}
+	set used(v) {
+		this._used = v;
 	}
 
 	constructor(vars = null) {
@@ -164,13 +171,13 @@ export default class DataList extends Inventory {
 	}
 
 	/**
-	 * Get the next GData item that fulfills predicate without any additional checks.  
+	 * Get the next GData item that fulfills predicate without any additional checks.
 	 * If no predicate is specified, calls nextItem instead.
 	 * @param {(GData) => boolean} check - predicate to check items against
 	 * @returns {GData} Next GData item, or null.
 	 */
 	nextConditional(check) {
-		if(!check || !(check instanceof Function)) return this.nextItem() || null;
+		if (!check || !(check instanceof Function)) return this.nextItem() || null;
 
 		const len = this.items.length;
 		if (len === 0) return null;
@@ -185,7 +192,6 @@ export default class DataList extends Inventory {
 				return it;
 			}
 			if (++i >= len) i = 0;
-
 		} while (i !== start);
 
 		return null;
@@ -231,5 +237,17 @@ export default class DataList extends Inventory {
 		super.revive(gs, reviver);
 
 		events.add(DELETE_ITEM, this.dataDeleted, this);
+	}
+	recalcUsed() {
+		const prop = this.spaceProp;
+
+		let used = 0;
+		for (let i = this.items.length - 1; i >= 0; i--) {
+			const it = this.items[i];
+			if (!it) console.warn(this.id + " null Item in Inv: " + it);
+			else used += prop ? it[prop] || 0 : 1;
+		}
+
+		return used;
 	}
 }

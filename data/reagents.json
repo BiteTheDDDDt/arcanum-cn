@@ -118,12 +118,5 @@
 		"id": "eyeofnewt",
 		"tags": "reagent",
 		"name": "eye of newt"
-	},
-	{
-		"id": "dragonscale",
-		"tags": "reagent",
-		"name": "dragon scales",
-		"desc": "Plucked from a living dragon.",
-		"flavor": "The plucker might not still be living."
 	}
 ]

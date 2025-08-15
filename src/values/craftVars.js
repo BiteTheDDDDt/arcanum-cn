@@ -2,7 +2,6 @@
  * Skills required to understand/buy npcs.
  */
 const NpcLoreSkills = {
-
 	beast: ["animals", "naturelore", "summoning"],
 	magicbeast: ["magicbeasts", "naturelore", "summoning"],
 	demon: ["demonology", "bloodlore", "summoning", "languages"],
@@ -15,35 +14,27 @@ const NpcLoreSkills = {
 	giant: ["charms", "summoning", "trickery"],
 	ghost: ["spiritlore", "conjuration"],
 	spirit: ["spiritlore", "divination", "summoning"],
-	deity: ["spiritlore", "divination"]
-
-
-
-}
-
-
+	deity: ["spiritlore", "divination"],
+};
 
 /**
  * @property {object.<string,string|object>} - maps school to skill determining school level.
  */
 const skillMap = {
 	mana: {
-		id: 'lore',
-		reqs: 2	// requirements doubled when unlocking with skill
-	}
-}
+		id: "lore",
+		reqs: 2, // requirements doubled when unlocking with skill
+	},
+};
 
 skillMap.arcane = skillMap.lore = skillMap.mana;
-
-
 
 /**
  * @property {.<string,string>} schoolName - maps school to display name.
  */
 const schoolNames = {
-	mana: 'arcane'
-}
-
+	mana: "arcane",
+};
 
 /**
  * @const {number[]} TierTable - levels when given tiers start.
@@ -54,25 +45,23 @@ const TierTable = [0, 3, 6, 11, 20];
  * @const {.<string,string|string[]>} SchoolTable - converts type/kind to associated school.
  */
 export const SchoolTable = {
-
-	arcane: 'mana',
-	swamp: ['shadow', 'water'],
-	plains: 'light',
-	woods: 'nature',
-	holy: 'light',
-	mountains: ['fire', 'earth', 'air'],
-	hills: ['earth', 'air'],
-	cave: ['shadow', 'earth'],
-	sea: 'water',
-	town: ['blood', 'mana'],
-	humanoid: 'blood',
-	undead: 'shadow',
-	ghost: 'spirit',
-	construct: 'craft',
-	dragon: 'fire',
-	beast: 'nature',
-	magicbeast: ['mana', 'nature']
-
+	arcane: "mana",
+	swamp: ["shadow", "water"],
+	plains: "light",
+	woods: "nature",
+	holy: "light",
+	mountains: ["fire", "earth", "air"],
+	hills: ["earth", "air"],
+	cave: ["shadow", "earth"],
+	sea: "water",
+	town: ["blood", "mana"],
+	humanoid: "blood",
+	undead: "shadow",
+	ghost: "spirit",
+	construct: "craft",
+	dragon: "fire",
+	beast: "nature",
+	magicbeast: ["mana", "nature"],
 };
 
 /**
@@ -82,12 +71,11 @@ export const SchoolTable = {
  * @param {number} lvl
  * @returns {number}
  */
-export const tierOffset = (lvl) => {
-
+export const tierOffset = lvl => {
 	for (let i = TierTable.length - 1; i >= 0; i--) {
 		if (lvl >= TierTable[i]) return lvl - TierTable[i];
 	}
-}
+};
 
 /**
  * Get loot tier/general item tier for level.
@@ -95,12 +83,10 @@ export const tierOffset = (lvl) => {
  * @returns {number}
  */
 export const getTier = (lvl = 1) => {
-
 	for (let i = TierTable.length - 1; i >= 0; i--) {
 		if (lvl >= TierTable[i]) return i;
 	}
-
-}
+};
 
 /**
  * Get total skill levels associated with a kind/name/type string.
@@ -109,29 +95,22 @@ export const getTier = (lvl = 1) => {
  * @param {Context} c
  */
 export const SkillLevels = (map, s, c) => {
-
 	let skill = map[s];
 	if (skill === undefined) return 0;
 
-	if (typeof skill === 'string') {
-
+	if (typeof skill === "string") {
 		let data = c.getData(skill);
 		return data ? data.value : 0;
-
 	} else {
-
 		let tot = 0;
 		for (let i = skill.length - 1; i >= 0; i--) {
-
 			let data = c.getData(skill[i]);
-			if (data) tot += data.value
+			if (data) tot += data.value;
 		}
 
 		return tot;
-
 	}
-
-}
+};
 
 /**
  * Total skill levels for monster type.
@@ -140,27 +119,33 @@ export const SkillLevels = (map, s, c) => {
  */
 export const NpcLoreLevels = (kind, c) => {
 	return SkillLevels(NpcLoreSkills, kind, c);
-}
+};
 
 /**
  * Get skill associated with a school.
  * @param {string} s
  * @returns {string|object}
  */
-export const schoolSkill = (s) => { return skillMap[s] || s; }
+export const schoolSkill = s => {
+	return skillMap[s] || s;
+};
 
 /**
  *
  * @param {string} s
  * @returns {string|string[]}
  */
-export const getSchool = s => { return SchoolTable[s] || s; }
+export const getSchool = s => {
+	return SchoolTable[s] || s;
+};
 
 /**
  * Get display name for a school.
  * @param {string} s
  */
-export const schoolName = (s) => { return schoolNames[s] || s; }
+export const schoolName = s => {
+	return schoolNames[s] || s;
+};
 
 /**
  * base resource to buy item by school/kind.
@@ -168,93 +153,82 @@ export const schoolName = (s) => { return schoolNames[s] || s; }
  * @param {number} tier
  */
 export const schoolResource = (school, lvl) => {
-
 	lvl = getTier(lvl);
 
 	let table = SchoolCostTable[school];
 	if (table) {
-
 		table = table[lvl];
 		if (table) return table;
-
 	}
 
 	// default
-	table = SchoolCostTable['other'];
-	return table[lvl] || 'gems';
-
-}
-
+	table = SchoolCostTable["other"];
+	return table[lvl] || "gems";
+};
+/**
+ * @const MaterialTable At which monster level should certain materials show up.
+ */
+export const MaterialTable = [
+	{ id: "iron", level: 7 },
+	{ id: "quicksteel", level: 25 },
+	{ id: "adamant", level: 40 },
+	{ id: "leather", level: 7 },
+	{ id: "serpentskin", level: 25 },
+	{ id: "aetherhide", level: 40 },
+	{ id: "cotton", level: 7 },
+	{ id: "spidersilk", level: 25 },
+	{ id: "amberroot", level: 40 },
+	{ id: "rubies", level: 35 },
+	{ id: "diamonds", level: 50 },
+];
 /**
  * @const SchoolCostTable School-> Loot Tier-> Base Resource Cost.
  */
 export const SchoolCostTable = {
-
 	shadow: {
-
-		0: 'bonedust',
-		1: 'bones',
-		2: 'shadowgem',
-		3: 'bodies'
-
+		0: "bonedust",
+		1: "bones",
+		2: "shadowgem",
+		3: "bodies",
 	},
 	nature: {
-
-		0: 'herbs',
-		1: 'naturegem'
-
+		0: "herbs",
+		1: "naturegem",
 	},
 	fire: {
-
-		1: 'firegem',
-		5: 'firerune'
-
+		1: "firegem",
+		5: "firerune",
 	},
 	earth: {
-
-		1: 'earthgem',
-		5: 'earthrune'
-
+		1: "earthgem",
+		5: "earthrune",
 	},
 	water: {
-
-		1: 'watergem',
-		5: 'waterrune'
-
+		1: "watergem",
+		5: "waterrune",
 	},
 	air: {
-
-		1: 'airgem',
-		5: 'airrune'
-
+		1: "airgem",
+		5: "airrune",
 	},
 	spirit: {
-
-		1: 'bonedust',
-		2: 'spiritgem',
-		3: 'souls'
-
+		1: "bonedust",
+		2: "spiritgem",
+		3: "souls",
 	},
 	light: {
-		1: 'lightgem',
-		4: 'sindel'
-
+		1: "lightgem",
+		4: "sindel",
 	},
 	blood: {
-
-		2: 'bloodgem',
-		3: 'souls',
-		5: 'ichor'
-
+		2: "bloodgem",
+		3: "souls",
+		5: "ichor",
 	},
 	other: {
-
-		0: 'gold',
-		1: 'gems',
-		2: 'managem',
-		3: 'runestones'
-	}
-
-
-}
-
+		0: "gold",
+		1: "gems",
+		2: "managem",
+		3: "runestones",
+	},
+};

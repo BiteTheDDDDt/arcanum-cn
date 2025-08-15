@@ -10,25 +10,8 @@ import profile from "modules/profile";
 
 import DataLoader from "@/dataLoader";
 
-import Events, {
-	EVT_EVENT,
-	EVT_LOOT,
-	SET_SLOT,
-	CLEAR_SLOT,
-	DELETE_ITEM,
-	CHAR_DIED,
-	STATE_BLOCK,
-} from "./events";
-import {
-	MONSTER,
-	TYP_PCT,
-	P_TITLE,
-	P_LOG,
-	TEAM_PLAYER,
-	ENCHANTSLOTS,
-	WEAPON,
-	FP,
-} from "@/values/consts";
+import Events, { EVT_EVENT, EVT_LOOT, SET_SLOT, CLEAR_SLOT, DELETE_ITEM, CHAR_DIED, STATE_BLOCK } from "./events";
+import { MONSTER, TYP_PCT, P_TITLE, P_LOG, TEAM_PLAYER, ENCHANTSLOTS, WEAPON, FP } from "@/values/consts";
 import TagSet from "@/composites/tagset";
 import RValue from "@/values/rvals/rvalue";
 import { SetModCounts } from "@/items/base";
@@ -41,7 +24,7 @@ let techTree;
 /**
  * @constant {number} TICK_TIME - time in milliseconds between updates.
  */
-export const TICK_TIME = 150;
+export const TICK_TIME = 120;
 
 /**
  * @constant {number} TICK_LEN - time between frames in seconds.
@@ -141,7 +124,7 @@ export default {
 		Events.init(this);
 
 		return (this.loader = DataLoader.loadGame(saveData).then(
-			async (allData) => {
+			async allData => {
 				this.state = reactive(new GameState(allData, saveData));
 				await this.state.revive();
 
@@ -156,8 +139,22 @@ export default {
 
 				if (hallData) this.addData(hallData);
 
+				/**
+				 * @property {Object.<string,TagSet>} tagsets - tag to array of items with tag.
+				 * makes upgrading/referencing by tag easier.
+				 */
+				this.state.tagSets = this.state.makeTagSets(
+					this.state.items,
+					this.state.tagSets.reduce((obj, tagset) => {
+						if (tagset.id) obj[tagset.id] = tagset;
+						else console.warn("TAGSET MISSING ID: ", tagset);
+						return obj;
+					}, {}),
+				);
+				this.state.equip.redoSlots();
 				await this.recalcSpace();
-				await this.recheckTiers();
+				//await this.recheckTiers();
+				this.state.converters = [];
 				await this.restoreMods();
 
 				// Runner's waiting list is trimmed after runner max mods are applied
@@ -180,9 +177,9 @@ export default {
 
 				return this;
 			},
-			(err) => {
+			err => {
 				console.error(err.message + "\n" + err.stack);
-			}
+			},
 		));
 	},
 
@@ -196,16 +193,11 @@ export default {
 		else {
 			//if ( full ) logObj(s,'LOG STAT' );
 			console.dir(s);
-			console.warn(
-				id +
-					" value: " +
-					s.value +
-					"  type: " +
-					s.constructor.name.toString().toTitleCase()
-			);
+			console.warn(id + " value: " + s.value + "  type: " + s.constructor.name.toString().toTitleCase());
 		}
 	},
 
+	/**
 	recheckTiers() {
 		let highClass = "";
 
@@ -233,6 +225,7 @@ export default {
 			this.state.player.setClass(highClass);
 		}
 	},
+	**/
 
 	/**
 	 * Reapply mods for all owned items.
@@ -265,10 +258,12 @@ export default {
 					}
 				}
 			}
+			//after applying mods, save convert items to separate list for re-usability
+			if (it.convert && !this.state.converters.some(x => x === it)) this.state.converters.push(it);
 		}
 
 		for (let e of this.state.equip) {
-			if (e.type === WEAPON) {
+			if (e.type === WEAPON || e.attack) {
 				this.player.addWeapon(e);
 			}
 			if (e.mod) {
@@ -344,21 +339,20 @@ export default {
 	/// Frame update.
 	update() {
 		//const represent time differences in ms
-		const maxUpdatesPerCallInTurboMode = 15;
+		const SecondsPerFastForwardTick = 1.2;
+		const maxUpdatesPerCallInTurboMode = Math.ceil(SecondsPerFastForwardTick / 0.5); //we use a bigger tick for offlinetime, as UI fidelity is of less importance. 500 is chosen to avoid the turn banking issue.
+
 		if (this.isInTurboMode.value) {
 			const offlineTime = this.getData("offlinetime");
-			let catchupcount = Math.min(
-				maxUpdatesPerCallInTurboMode,
-				offlineTime.value / TICK_LEN
-			);
-			offlineTime.amount(-catchupcount * TICK_LEN);
-			//automatically stop the turbomode if we couldn't get the maximum updatecalls from the reamining stored time
+			let catchupcount = Math.min(maxUpdatesPerCallInTurboMode, offlineTime.value / 0.5);
+			offlineTime.amount(-catchupcount * 0.5);
+			//automatically stop the turbomode if we couldn't get the maximum updatecalls from the remaining stored time
 			if (catchupcount < maxUpdatesPerCallInTurboMode) {
 				this.isInTurboMode.value = false;
 			}
 			while (catchupcount > 0) {
 				this.updateTechTree();
-				this.updateForDelta(TICK_TIME);
+				this.updateForDelta(500);
 				catchupcount--;
 			}
 		}
@@ -366,10 +360,11 @@ export default {
 		const updateTime = Date.now();
 		this.updateTechTree();
 		let dt = Math.max(updateTime - this.state.lastUpdate, 0);
-		if (dt > 1000) {
-			const overflow = (dt - 1000) / 1000;
+		const maxTick = TICK_TIME * 2; //we give a tick's worth of leeway to avoid going into stored time improperly.
+		if (dt > maxTick) {
+			const overflow = (dt - maxTick) / 1000;
 			this.getData("offlinetime").amount(overflow);
-			dt = 1000;
+			dt = maxTick;
 		}
 		this.state.lastUpdate = updateTime;
 		this.updateForDelta(dt);
@@ -390,13 +385,10 @@ export default {
 		this.doResources(this.state.resources, dt);
 		this.doResources(this.state.playerStats, dt);
 		this.doResources(this.state.stressors, dt);
-		this.doConversions(this.state.furnitures, dt);
-		this.doConversions(this.state.upgrades, dt);
-		this.doConversions(this.state.resources, dt);
 		//process the hall items too
 		this.doResources(profile.hall.resources, dt);
-		this.doConversions(profile.hall.upgrades, dt);
-		this.doConversions(profile.hall.resources, dt);
+
+		this.doConversions(this.state.converters, dt);
 	},
 
 	updateTechTree() {
@@ -470,13 +462,14 @@ export default {
 			if (stat.locked === false && !stat.disabled && stat.convert) {
 				const convert = stat.convert;
 				//if something has a convert definition
-				if (
-					stat.value > 0 &&
-					this.canPay(convert.input, convert.singular ? 1 : stat.value)
-				) {
-					const fill = convert.output.effect
-						? Object.keys(convert.output.effect)
-						: [];
+				if (stat.value > 0 && this.canPay(convert.input, convert.singular ? 1 : stat.value)) {
+					let stripped = {}; //erase any effects with 0 value from blocking fills.
+					for (let a in convert.output.effect) {
+						if (convert.output.effect[a].value != 0) {
+							stripped[a] = convert.output.effect[a];
+						}
+					}
+					const fill = convert.output.effect ? Object.keys(stripped) : [];
 					if (this.filled(fill, stat) && !convert.output.mod) continue;
 
 					//Expecting that we always have an input and an output. If there is no output, no point in doing anything, same if we can't pay or if we don't have any units of it.
@@ -485,25 +478,17 @@ export default {
 						this.applyVars(
 							convert.output.effect,
 							convert.singular ? 1 : dt,
-							convert.singular ? 1 : stat.value
+							convert.singular ? 1 : stat.value,
 						); //if we have an effect, smoothly apply it
 					}
 					if (convert.output.mod && convert.modvalue == 0) {
 						//if we have a mod and it's not applied yet, apply it
-						this.applyMods(
-							convert.output.mod,
-							convert.singular ? 1 : stat.value
-						);
+						this.applyMods(convert.output.mod, convert.singular ? 1 : stat.value);
 						convert.modvalue = convert.singular ? 1 : stat.valueOf(); //remember how many units we used for modding.
-					} else if (
-						convert.modvalue != convert.singular ? 1 : stat.valueOf()
-					) {
+					} else if (convert.modvalue != convert.singular ? 1 : stat.valueOf()) {
 						//if the amount of the provider changed (buying/selling furniture) adjusts the mod.
 						this.removeMods(convert.output.mod, convert.modvalue);
-						this.applyMods(
-							convert.output.mod,
-							convert.singular ? 1 : stat.value
-						);
+						this.applyMods(convert.output.mod, convert.singular ? 1 : stat.value);
 						convert.modvalue = convert.singular ? 1 : stat.valueOf();
 					}
 				} else if (convert.modvalue) {
@@ -590,11 +575,7 @@ export default {
 
 				if (it.running) this.runner.stopTask(it);
 
-				if (
-					it instanceof Resource ||
-					it instanceof Skill ||
-					it instanceof GData
-				) {
+				if (it instanceof Resource || it instanceof Skill || it instanceof GData) {
 					this.remove(it, it.value);
 				} else if (it.mod) {
 					this.removeMods(it.mod, it.value);
@@ -658,7 +639,7 @@ export default {
 		it.owned = true;
 
 		if (it.slot && !this.state.getSlot(it.slot)) this.setSlot(it);
-
+		Changed.add(it);
 		return true;
 	},
 
@@ -748,6 +729,20 @@ export default {
 	 */
 	/*getTarget( char, targets ) {
 	},*/
+	summon(summon) {
+		if (Array.isArray(summon)) {
+			for (let smn of summon) this.summon(smn);
+			return;
+		}
+
+		if (summon[TYP_PCT] && !summon[TYP_PCT].roll()) return;
+
+		let smnid = summon.id;
+		let keep = summon.keep || false;
+		let smncount = summon.count || 1;
+		let smnmax = summon.max || 0;
+		this.create(smnid, keep, smncount, smnmax);
+	},
 
 	/**
 	 * Create an item whose cost has been met ( or been provided by an effect )
@@ -797,7 +792,7 @@ export default {
 		if (it.buy && !it.owned) {
 			this.payCost(it.buy);
 			it.owned = true;
-
+			Changed.add(it);
 			return true;
 		} else {
 			if (!it.length) {
@@ -883,7 +878,7 @@ export default {
 		const sellPrice = this.sellPrice(it);
 
 		if (sellPrice.gold || typeof sellPrice === "object") {
-			Object.keys(sellPrice).forEach((key) => {
+			Object.keys(sellPrice).forEach(key => {
 				const res = this.getData(key);
 				const price = sellPrice[key];
 				res.amount(count * (price || 1));
@@ -960,8 +955,7 @@ export default {
 			let it = this.getData(test);
 			return it && it.fillsRequire(this);
 		} else if (Array.isArray(test)) {
-			for (let i = test.length - 1; i >= 0; i--)
-				if (!this.unlockTest(test[i], item)) return false;
+			for (let i = test.length - 1; i >= 0; i--) if (!this.unlockTest(test[i], item)) return false;
 			return true;
 		} else if (type === "object") {
 			/**
@@ -1007,9 +1001,7 @@ export default {
 					let amtFunc;
 					if (target.amount && target.amount instanceof Function)
 						amtFunc =
-							target.amount.length > 1
-								? (amt) => target.amount(this, amt)
-								: target.amount.bind(target);
+							target.amount.length > 1 ? amt => target.amount(this, amt) : target.amount.bind(target);
 
 					if (typeof e === "number") {
 						amtFunc(e * dt * amt);
@@ -1095,6 +1087,8 @@ export default {
 						target.applyMods(mod[p], amt);
 					} else console.warn("no applyMods(): " + target);
 				}
+				if (target.convert && !this.state.converters.some(x => x === target))
+					this.state.converters.push(target);
 			}
 		} else if (typeof mod === "string") {
 			const t = this.getData(mod);
@@ -1134,8 +1128,7 @@ export default {
 	 */
 	payCost(cost, unit = 1) {
 		if (cost === undefined || cost === null) return;
-		if (Array.isArray(cost))
-			return cost.forEach((v) => this.payCost(v, unit), this);
+		if (Array.isArray(cost)) return cost.forEach(v => this.payCost(v, unit), this);
 
 		if (typeof cost === "object") {
 			for (const p in cost) {
@@ -1170,7 +1163,7 @@ export default {
 	 */
 	canMod(mod, src) {
 		if (typeof mod !== "object") return true;
-		if (Array.isArray(mod)) return mod.every((v) => this.canMod(v), this);
+		if (Array.isArray(mod)) return mod.every(v => this.canMod(v), this);
 
 		for (const p in mod) {
 			const sub = mod[p];
@@ -1195,8 +1188,7 @@ export default {
 	 */
 	canPay(cost, amt = 1) {
 		// @note @todo: this doesnt work since some items might charge same cost.
-		if (Array.isArray(cost))
-			return cost.every((v) => this.canPay(v, amt), this);
+		if (Array.isArray(cost)) return cost.every(v => this.canPay(v, amt), this);
 
 		let res;
 
@@ -1238,8 +1230,7 @@ export default {
 			return parent.canPay ? parent.canPay(cost * amt) : parent >= cost * amt;
 		}
 
-		if (typeof cost !== "object" && isNaN(cost))
-			console.warn("canPayObj cost is non-object NaN", cost);
+		if (typeof cost !== "object" && isNaN(cost)) console.warn("canPayObj cost is non-object NaN", cost);
 
 		for (const p in cost) {
 			let val = cost[p];
@@ -1270,10 +1261,8 @@ export default {
 	canEquip(it) {
 		// if inventory contains item, +1 free spaces.
 		let adjust = this.state.inventory.includes(it) ? 1 : 0;
-		return (
-			this.state.equip.replaceCount(it) <=
-			this.state.inventory.freeSpace() + adjust
-		);
+		if (this.state.equip.slots[it.slot].max < 1) return false;
+		return this.state.equip.replaceCount(it) <= this.state.inventory.freeSpace() + adjust;
 	},
 
 	/**
@@ -1308,7 +1297,7 @@ export default {
 				this.onUnequip(it[i]);
 			}
 		} else {
-			this.state.inventory.add(it);
+			this.state.inventory.full() ? this.state.drops.add(it) : this.state.inventory.add(it); // if inventory full, drop it on the ground.
 			it.unequip(this);
 		}
 	},
@@ -1321,7 +1310,8 @@ export default {
 	 * @returns {boolean}
 	 */
 	unequip(slot, it) {
-		if (this.state.inventory.full()) return false;
+		//can now unequip with full inventory, will drop to loot.
+		//if (this.state.inventory.full()) return false;
 
 		this.onUnequip(this.state.equip.remove(it, slot));
 

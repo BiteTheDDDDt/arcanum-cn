@@ -1,39 +1,79 @@
 <script>
-import ItemBase from '@/ui/itemsBase';
+import ItemBase from "@/ui/itemsBase";
 
-import { spellCost } from 'modules/craft';
-import Game from '@/game';
-import { alphasort } from '@/util/util';
+import { spellCost } from "modules/craft";
+import Game from "@/game";
+
+import Settings from "modules/settings";
+
+import FilterBox from "@/ui/components/filterbox.vue";
+import SpellList from "@/ui/spelllist.vue";
+import SpellSchool from "ui/spellschool.vue";
 
 export default {
-
 	mixins: [ItemBase],
 	data() {
+		return Object.assign(
+			{
+				min: 0,
+				showList: false,
+				showKeywords: false,
+				schools: {},
+				keywords: [],
+				spellsBySearch: null,
+				userSpells: Game.state.userSpells,
 
-		return {
+				/**
+				 * Craft info object.
+				 */
+				craft: {
+					name: "Crafted Spell",
+					level: 0,
+					buy: null,
+				},
+			},
+			Settings.getSubVars("spells"),
+		);
+	},
+	created() {
+		// trim saved schools
+		const spells = this.spells;
+		const schools = {};
 
-			userSpells: Game.state.userSpells,
+		for (let i = 0; i < spells.length; i++) {
+			const spell = spells[i];
+			schools[spell.school] = this.schools[spell.school] === true;
+		}
 
-			/**
-			 * List of spells in current crafting.
-			 */
-			list: [],
+		this.schools = schools;
 
-			/**
-			 * Craft info object.
-			 */
-			craft: {
+		// trim saved keywords
+		const allKeywords = this.allKeywords;
+		const keywords = [];
+		for (let i = 0; i < this.keywords.length; i++) {
+			const keyword = this.keywords[i];
+			for (let group in allKeywords)
+				if (allKeywords[group][keyword]) {
+					keywords.push(keyword);
+					break;
+				}
+		}
 
-				name: 'Crafted Spell',
-				level: 0,
-				buy: null
-			}
-
-		};
-
+		this.keywords = keywords;
+	},
+	setup() {
+		const counter = 0;
+		return { counter };
+	},
+	components: {
+		filterbox: FilterBox,
+		spellschool: SpellSchool,
+		spelllist: SpellList,
+	},
+	updated() {
+		this.counter++;
 	},
 	methods: {
-
 		/**
 		 * Remove user spell from UserSpells
 		 */
@@ -41,188 +81,467 @@ export default {
 			this.userSpells.remove(s);
 		},
 
-		canAdd(s) {
-			return s.level + this.craft.level <= this.maxLevels;
-		},
-
 		/**
 		 * @function create - create the new spell combination.
 		 */
 		create() {
+			if (!this.scraftlist || this.scraftlist.length === 0) return;
 
-			if (!this.list || this.list.length === 0) return;
+			Game.payCost(spellCost(this.scraftlist.toArray()));
 
-			Game.payCost(this.craft.buy);
-
-			this.userSpells.create(this.list, Game.state, this.craft.name);
-			this.list = [];
-
-			this.craft.level = 0;
-			this.craft.buy = null;
-
+			this.userSpells.create(this.scraftlist.toArray(), Game.state, this.craft.name);
+			this.scraftlist.removeAll();
 		},
-
-		/**
-		 * Add spell to the current crafting group.
-		 * Crafted level = list total levels + list.length - 1
-		 */
-		add(s) {
-
-			this.list.push(s);
-			this.craft.level += s.level;
-
-			this.craft.buy = spellCost(this.list);
-
+		toggleKeywords() {
+			this.showKeywords = Settings.setSubVar("spells", "showKeywords", !this.showKeywords);
 		},
+		toggleAllSchools() {
+			const spells = this.spellsBySearch || this.spellsByLevel;
+			let anyOpen = false;
+			for (let i = 0; i < spells.length; i++) anyOpen ||= !this.schools[spells[i].school];
+			for (let i = 0; i < spells.length; i++) this.schools[spells[i].school] = anyOpen;
+			Settings.setSubVar("spells", "schools", this.schools);
+		},
+		getSpellOrder(spell) {
+			if (!spell.template) return -9999;
+			return spell.sortOrder ?? 9999;
+		},
+		searchSpell(spell, target) {
+			const groups = target.split("|");
+			for (let i = 0; i < groups.length; i++) {
+				if (groups[i].length == 0) continue;
+				const mandatory = groups[i].split(" ");
+				let passed = true;
+				for (let j = 0; j < mandatory.length; j++) {
+					if (mandatory[j].length == 0) continue;
+					const term = mandatory[j].replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
+					if (this.crawlSpell(spell, new RegExp(term, "i"))) continue;
+					passed = false;
+					break;
+				}
+				if (passed) return true;
+			}
+			return false;
+		},
+		toggleSchool(school) {
+			this.schools[school] = !this.schools[school];
+			Settings.setSubVar("spells", "schools", this.schools);
+		},
+		crawlSpell(spell, regex) {
+			if (spell.template) return this.crawlTemplate(spell.template, regex);
+			const items = spell.items;
+			for (let i = 0; i < items.length; i++) if (this.crawlSpell(items[i], regex)) return true;
+			return false;
+		},
+		crawlTemplate(template, regex) {
+			if (template.dot && regex.test("buffs")) return true;
+			if (template.summon && regex.test("summons")) return true;
+			if (template.cost) for (let c in template.cost) if (this.crawlProperty(c, regex)) return true;
 
-		/**
-		 * Remove spell from building list.
-		 */
-		removeAt(i) {
+			for (let k in template) {
+				if (
+					k == "desc" ||
+					k == "flavor" ||
+					k == "require" ||
+					k == "buy" ||
+					k == "cost" ||
+					k == "need" ||
+					k == "needtext"
+				)
+					continue;
+				if (this.crawlProperty(template[k], regex)) return true;
+			}
+			return false;
+		},
+		crawlObject(obj, regex) {
+			for (let k in obj) {
+				if (this.crawlProperty(k, regex)) return true;
+				if (this.crawlProperty(obj[k], regex)) return true;
+			}
+			return false;
+		},
+		crawlProperty(prop, regex) {
+			const type = typeof prop;
+			if (type == "object" || type == "array") return this.crawlObject(prop, regex);
 
-			let s = this.list[i];
-
-			if (s) {
-				this.craft.level -= s.level;
+			if (type != "string") prop = prop.toString();
+			const split = prop.split(/\.|=|<|>|!|,|&&|\|\||\(|\)|\+|\-|'/);
+			for (let i = 0; i < split.length; i++) {
+				const str = split[i];
+				if (/^[0-9\*\~\%]*$/.test(str)) continue;
+				if (/^[a-zA-Z0-9_ ]*$/.test(str)) {
+					const data = Game.state.getData(str);
+					if (data) {
+						if (regex.test(data.name)) return true;
+						continue;
+					}
+				}
+				if (regex.test(str)) return true;
+			}
+			return false;
+		},
+		testSpellKeywords(spell, keywords) {
+			if (!spell.template) {
+				const items = spell.items;
+				for (let i = 0; i < items.length; i++) if (this.testSpellKeywords(items[i], keywords)) return true;
+				return false;
 			}
 
-			this.list.splice(i, 1);
-			this.craft.buy = spellCost(this.list);
+			if (!spell.keywords) return false;
 
-		}
-
+			for (let i = 0; i < keywords.length; i++) {
+				const keyword = keywords[i];
+				let passed = false;
+				for (let k in spell.keywords) {
+					passed ||= spell.keywords[k].includes(keyword);
+				}
+				if (!passed) return false;
+			}
+			return true;
+		},
+		prelimSpell() {
+			let obj = {};
+			obj.buy = spellCost(this.scraftlist.toArray());
+			obj.name = this.craft.name;
+			obj.level = this.scraftlist.used;
+			return obj;
+		},
 	},
 	computed: {
-
 		/**
 		 * Determine if the group being created can be crafted.
 		 * cost+length + user slots available.
 		 * @returns {boolean}
 		 */
 		canCraft() {
-
-			return !this.userSpells.full() && this.list.length > 0
-				&& Game.canPay(this.craft.buy);
-
+			return (
+				!(this.scraftlist.used > this.scraftlist.max) &&
+				!this.userSpells.full() &&
+				this.scraftlist.used > 0 &&
+				Game.canPay(spellCost(this.scraftlist.toArray()))
+			);
 		},
-
-		/**
-		 * @property {Spell[]} spells - all spells in game, except bloodshot.
-		 */
-		spells() {
-			return Game.state.filterItems(v => v.type === 'spell' && !this.locked(v) && v.owned && !v.hasTag('t_nospellcraft')).sort(alphasort);
+		scraftlist() {
+			return Game.state.scraftlist;
 		},
-
 		/**
 		 * Spellcraft power.
 		 */
-		scraft() {
-			return Game.state.getData('scraft');
+		minLevel: {
+			get() {
+				return this.min;
+			},
+			set(v) {
+				this.min = Settings.setSubVar("spells", "min", Number(v));
+			},
 		},
+		varKeywords: {
+			get() {
+				return this.keywords;
+			},
+			set(v) {
+				this.keywords = Settings.setSubVar("spells", "keywords", v);
+			},
+		},
+		// spell funnel
+		state() {
+			return Game.state;
+		},
+		// filter out locked spells
+		spells() {
+			return this.state
+				.filterItems(it => it.type === "spell" && !this.locked(it))
+				.sort((a, b) => this.getSpellOrder(a) - this.getSpellOrder(b));
+		},
+		// compute avilable keywords
+		allKeywords() {
+			const result = {
+				type: {
+					damage: false,
+					recovery: false,
+					buff: false,
+					debuff: false,
+					summon: false,
+				},
+				target: {
+					self: false,
+					ally: false,
+					enemy: false,
+				},
+				targets: {
+					single: false,
+					multiple: false,
+				},
+				delivery: {
+					instant: false,
+					"over time": false,
+				},
+				special: {
+					explore: false,
+					resource: false,
+					weapon: false,
+					stance: false,
+				},
+			};
 
-		maxLevels() {
-			return Math.floor(this.scraft.valueOf());
-		}
+			const spells = this.spells;
+			for (let i = 0; i < spells.length; i++) {
+				const keywords = spells[i].keywords ?? {};
+				for (let k in keywords) {
+					const group = result[k] ?? (result[k] = {});
+					const array = keywords[k];
+					for (let j = 0; j < array.length; j++) group[array[j]] = true;
+				}
+			}
 
-	}
+			for (let k1 in result) {
+				const group = result[k1];
+				for (let k2 in group) if (!group[k2]) delete group[k2];
+				if (Object.keys(group).length == 0) delete result[k1];
+			}
 
-}
+			return result;
+		},
+		// filter out spells without selected keywords
+		spellsByKeywords() {
+			const spells = this.spells;
+			const keywords = this.keywords;
 
+			if (!keywords || keywords.length == 0) return spells;
+			return spells.filter(spell => this.testSpellKeywords(spell, keywords));
+		},
+		// filter out unselected levels of spells
+		spellsByLevel() {
+			const spells = this.spellsByKeywords;
+			const level = this.minLevel;
+
+			if (!level) return spells;
+			return spells.filter(v => !level || v.level.valueOf() === level);
+		},
+		/* filterbox happens here */
+
+		// split on schools and render
+		spellBySchools() {
+			const spells = this.spellsBySearch || this.spellsByLevel;
+			const schools = {};
+
+			let spellschool;
+			const len = spells.length;
+			for (let i = 0; i < len; i++) {
+				let spell = spells[i];
+				let school = spell.school;
+				spellschool = schools[school] || (schools[school] = []);
+				spellschool.push(spell);
+			}
+			return schools;
+		},
+	},
+};
 </script>
 
 <template>
-
-<div class="spellcraft">
-
-<div class="userspells">
-
-	<div>
-		Custom Spells: {{ Math.floor(userSpells.used) + ' / ' + Math.floor(userSpells.max.value) }}
-	</div>
-	<div class="spells">
-	<div class="custom" v-for="c in userSpells.items" :key="c.id" @mouseenter.capture.stop="itemOver($event, c)">
-		<span class="text-entry">
-			<input class="fld-name" type="text" v-model="c.name">
-		</span>
-		<button type="button" class="stop" @click="removeSpell(c)">X</button>
-	</div>
-	</div>
-
-</div>
-
-<div class="bottom">
-<div class="crafting">
-
-	<div class="options">
-		<span class="warn-text" v-if="craft.level >= maxLevels">You are at your power limit.</span>
-
-		<div class="text-entry"><label :for="elmId('spName')">Spell</label>
-		<input class="fld-name" :id="elmId('spName')" type="text" v-model="craft.name">
+	<div class="spellcraft">
+		<div class="userspells">
+			<div>Custom Spells: {{ Math.floor(userSpells.used) + " / " + Math.floor(userSpells.max.value) }}</div>
+			<div class="custSpellList">
+				<div v-for="c in userSpells.items" :key="c.id" @mouseenter.capture.stop="itemOver($event, c)">
+					<span class="text-entry">
+						<input class="fld-name" type="text" v-model="c.name" />
+					</span>
+					<button type="button" class="stop" @click="removeSpell(c)">X</button>
+				</div>
+			</div>
 		</div>
-
-		<!--chrome wrap-->
-		<span @mouseenter.capture.stop="itemOver($event, craft)">
-		<span>Power: {{ craft.level + ' / ' + Math.floor(maxLevels) }}</span>
-		<button type="button" @click="create" :disabled="!canCraft">Craft</button>
-		</span>
-
+		<div class="lower">
+			<div class="spellControls">
+				<div class="inputgroup">
+					<filterbox v-model="spellsBySearch" :prop="searchSpell" :items="spellsByLevel" />
+					<label class="level-lbl" :for="elmId('level')">Level</label>
+					<input class="level" :id="elmId('level')" type="number" v-model="minLevel" min="0" size="5" />
+				</div>
+				<div class="keywordcontainer">
+					<div
+						class="keywords"
+						v-for="(arr, gr) in allKeywords"
+						:key="gr"
+						v-if="showKeywords"
+						:style="{ 'min-width': Object.keys(arr).length * 9 + '%' }">
+						<div class="keytitle">
+							<b>{{ gr }}</b>
+						</div>
+						<div class="keywordgroup">
+							<div class="checks" v-for="(_, k) in arr" :key="k">
+								<input type="checkbox" :value="k" :id="elmId('chk' + k)" v-model="varKeywords" />
+								<label :for="elmId('chk' + k)">{{ k.toTitleCase() }}</label>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="buttongroup">
+					<button type="button" @click="toggleKeywords">Keywords</button>
+					<button type="button" @click="toggleAllSchools">Toggle Schools</button>
+				</div>
+				<div class="bottom">
+					<div class="spellbook">
+						<spellschool
+							v-for="(v, k) in spellBySchools"
+							:spells="v"
+							:school="k"
+							:key="k"
+							:isOpen="!schools[k]"
+							:mode="'scraft'"
+							@toggle-open="toggleSchool" />
+					</div>
+				</div>
+			</div>
+			<div class="currentCraft">
+				<div class="options">
+					<div class="text-entry">
+						<input class="fld-name" :id="elmId('spName')" type="text" v-model="craft.name" />
+					</div>
+					<span @mouseenter.capture.stop="itemOver($event, this.prelimSpell())">
+						<button type="button" @click="create" :disabled="!canCraft">Craft</button>
+					</span>
+					<span class="warn-text" v-if="scraftlist.used >= scraftlist.max">
+						You are at your power limit.
+					</span>
+				</div>
+				<spelllist class="spelllist" :list="scraftlist" />
+			</div>
+		</div>
 	</div>
-
-	<div v-for="(s, ind) in list" class="separate" :key="ind" @mouseenter.capture.stop="itemOver($event, s)">
-		<span>{{ s.name.toTitleCase() }}</span><button type="button" class="remove" @click="removeAt(ind)">X</button>
-	</div>
-
-</div>
-<div class="allspells">
-
-	<div class="separate" v-for="(s) in spells" :key="s.id"  @mouseenter.capture.stop="itemOver($event, s)">
-		<span>{{ s.name.toTitleCase() }}</span><button type="button" class="add" @click="add(s)" :disabled="!canAdd(s)">+</button>
-	</div>
-
-</div>
-</div>
-
-</div>
-
 </template>
 
 <style scoped>
-div.spellcraft {
+.spellcraft {
 	display: flex;
 	flex-direction: column;
 }
 
-div.spellcraft .userspells {
+/* custom spells top section */
+.userspells {
 	display: flex;
 	flex-direction: column;
 	padding: var(--md-gap);
 	border-bottom: 1pt solid var(--separator-color);
 }
-
-div.userspells .spells {
+.custSpellList {
 	display: flex;
 	flex-flow: row wrap;
 }
-
-div.spells .custom {
+.custSpellList div {
 	margin-right: 1.2rem;
 }
 
-.crafting .options {
+/* lower section */
+.lower {
+	display: flex;
+	flex-direction: row;
+}
+
+/* current list of spells to scraft */
+.currentCraft {
+	display: flex;
+	flex-direction: column;
+	flex: 2;
+}
+.spelllist {
+	border-left: 1px solid var(--separator-color);
+	padding: var(--sm-gap);
+}
+.options {
 	padding-bottom: var(--tiny-gap);
 }
 
-div.spellcraft .bottom {
+/* spell controls */
+.spellControls {
+	flex: 8;
+}
+div.spells {
 	display: flex;
-	flex-direction: row;
-	justify-content: space-between;
-	padding-top: var(--md-gap);
-	padding-left: var(--md-gap);
+	flex-flow: column nowrap;
+	padding: var(--sm-gap) var(--md-gap);
+	height: 100%;
 }
 
-div.spellcraft .crafting,
-div.spellcraft .allspells {
+div.filters {
+	flex-flow: row wrap;
 	display: flex;
-	flex-direction: column;
+	text-align: center;
+	border-bottom: 1px solid var(--separator-color);
+	margin: 0;
+	padding: var(--sm-gap);
+	line-height: 2em;
+	justify-content: center;
+}
+
+div.inputgroup {
+	width: 100%;
+	display: flex;
+	justify-content: center;
+}
+
+div.inputgroup label {
+	margin-left: 1em;
+	padding: var(--tiny-gap) 0;
+	text-indent: var(--sm-gap);
+}
+
+div.inputgroup input {
+	margin-right: 1em;
+	margin-left: 1em;
+	padding: var(--tiny-gap) 0;
+	text-indent: var(--sm-gap);
+}
+
+div.keywordcontainer {
+	display: flex;
+	flex-wrap: wrap;
+}
+
+div.keywords {
+	padding: var(--sm-gap);
+	background-color: #9992;
+	flex-grow: 1;
+}
+
+div.keytitle {
+	border: 1px solid #9998;
+	width: 100%;
+	text-transform: capitalize;
+	text-align: center;
+}
+
+div.keywordgroup {
+	width: 100%;
+	display: flex;
+	justify-content: center;
+}
+
+div.buttongroup {
+	width: 100%;
+	display: flex;
+	justify-content: center;
+}
+
+div.spells .bottom {
+	display: flex;
+	flex-flow: row nowrap;
+}
+
+div.spells .spellbook {
+	flex-basis: 80%;
+	flex-grow: 1;
+}
+
+div.spells div.filters div {
+	box-sizing: border-box;
+	margin: 0;
+}
+
+div.spells div.filters div.checks {
+	margin: 0;
+	padding: 0 0.5em;
+	flex-basis: unset;
 }
 </style>

@@ -148,14 +148,12 @@
 				"id": "instability",
 				"desc": "Time is a dangerous thing. Try not to wink out of existence",
 				"max": 500,
-				"reverse": "true",
+				"reverse": true,
 				"rate": -0.1,
 				"tags": "menace",
 				"mod": {
 					"tempus.rate": "-0.2%",
-					"prismatic.rate": -0.01,
-					"gems.rate": -0.01,
-					"research.rate": -1
+					"prismatic.rate": -0.01
 				}
 			}
 		],
@@ -166,7 +164,7 @@
 				"desc": "An enormous collection of clocks, all tuned to different times.",
 				"require": "tier6",
 				"tags": "timesource",
-				"repeat": true,
+				"max": 5,
 				"cost": {
 					"gold": 10000,
 					"research": 10000
@@ -175,9 +173,9 @@
 					"tempus.max": 100,
 					"tempus.rate": 1,
 					"water.rate": 1,
-					"space": 100
+					"space": 80
 				},
-				"flavor": "It took a lot of time to make this, not that you kept track"
+				"flavor": "It took a lot of time to make this, you are confident to about 80%"
 			}
 		],
 		"rares": [
@@ -186,6 +184,7 @@
 				"name": "time's flowering edge",
 				"desc": "Blossoming flows of time coalesce into a cutting edge right before your eyes.",
 				"type": "weapon",
+				"slot": "mainhand",
 				"damage": "15~20",
 				"unique": true,
 				"attack": [
@@ -193,6 +192,7 @@
 						"name": "whirling dervish",
 						"kind": "slash",
 						"targets": "enemies",
+						"maxTargets": 999,
 						"damage": "(i.damage||0)*0.75",
 						"potencies": ["sworddmg", "slashdmg", "physdmg"]
 					},
@@ -222,10 +222,9 @@
 						"timeparadox.rate": -0.01
 					}
 				},
-				"hands": 2,
-				"tags": "t_martial,t_slash,t_katana,t_swords,t_artifact",
+				"tags": "t_martial,t_slash,t_sword,t_artifact",
 				"level": 15,
-				"enchants": 15,
+				"enchants": 3,
 				"sell": {
 					"timegem": 25,
 					"timerune": 5
@@ -359,7 +358,7 @@
 				"desc": "Unleash the stored time to mask your own meddling.",
 				"sortOrder": 1470,
 				"level": 25,
-				"school": "time",
+				"school": "tempus",
 				"keywords": {
 					"type": ["recovery"],
 					"target": ["self"],
@@ -390,7 +389,7 @@
 				"desc": "Utilize an anchor to achieve transient temporal stability.",
 				"sortOrder": 1471,
 				"level": 15,
-				"school": "time",
+				"school": "tempus",
 				"keywords": {
 					"type": ["recovery"],
 					"target": ["self"],
@@ -421,7 +420,7 @@
 				"desc": "Re-align yourself with primary timeline.",
 				"sortOrder": 1430,
 				"level": 15,
-				"school": "time",
+				"school": "tempus",
 				"keywords": {
 					"type": ["recovery"],
 					"target": ["self"],
@@ -451,7 +450,7 @@
 				"desc": "Steel your mind against the ravages of time.",
 				"sortOrder": 1472,
 				"level": 15,
-				"school": "time",
+				"school": "tempus",
 				"keywords": {
 					"type": ["recovery"],
 					"target": ["self"],
@@ -485,7 +484,7 @@
 				"desc": "In time, all perish.",
 				"sortOrder": 1400,
 				"level": 25,
-				"school": "time",
+				"school": "tempus",
 				"keywords": {
 					"type": ["damage"],
 					"target": ["enemy"],
@@ -503,6 +502,7 @@
 				"cd": 30,
 				"attack": {
 					"targets": "enemies",
+					"maxTargets": 999,
 					"damage": "125~250",
 					"kind": "tempus",
 					"tohit": 5,
@@ -514,7 +514,7 @@
 				"name": "aeon blast",
 				"desc": "In time, all perish. How are you reading this?",
 				"level": 25,
-				"school": "time",
+				"school": "tempus",
 				"keywords": {
 					"type": ["damage"],
 					"target": ["enemy"],
@@ -525,6 +525,7 @@
 				"cd": 5,
 				"attack": {
 					"targets": "enemies",
+					"maxTargets": 999,
 					"damage": "80~110",
 					"kind": "tempus",
 					"tohit": 10,
@@ -537,7 +538,7 @@
 				"desc": "Change the flow of time within an opponent, causing them to desynchronize.",
 				"sortOrder": 1402,
 				"level": 15,
-				"school": "time",
+				"school": "tempus",
 				"keywords": {
 					"type": ["damage"],
 					"target": ["enemy"],
@@ -567,7 +568,7 @@
 				"name": "distortion",
 				"desc": "Change the flow of time within an opponent, causing them to desynchronize. How are you reading this?",
 				"level": 25,
-				"school": "time",
+				"school": "tempus",
 				"keywords": {
 					"type": ["damage"],
 					"target": ["enemy"],
@@ -607,7 +608,7 @@
 				"name": "dilation",
 				"desc": "Alter the flow of time to create a localized time dilation zone.",
 				"level": 15,
-				"school": "time",
+				"school": "tempus",
 				"keywords": {
 					"type": ["debuff"],
 					"target": ["enemy"],
@@ -625,6 +626,7 @@
 				"cd": 20,
 				"attack": {
 					"targets": "enemies",
+					"maxTargets": 999,
 					"dot": {
 						"duration": 20,
 						"mod": {
@@ -638,7 +640,7 @@
 				"name": "dilation",
 				"desc": "Alter the flow of time to create a localized time dilation zone. How are you reading this?",
 				"level": 25,
-				"school": "time",
+				"school": "tempus",
 				"keywords": {
 					"type": ["damage", "debuff"],
 					"target": ["enemy"],
@@ -651,6 +653,7 @@
 					"hits": [
 						{
 							"targets": "enemies",
+							"maxTargets": 999,
 							"dot": {
 								"name": "dilation",
 								"id": "mon_dilation",
@@ -681,7 +684,7 @@
 				"name": "acausal restoration",
 				"desc": "A regen spell for unknown wizard. How are you reading this?",
 				"level": 25,
-				"school": "time",
+				"school": "tempus",
 				"keywords": {
 					"type": ["damage", "recovery"],
 					"target": ["self", "enemy"],
@@ -719,7 +722,7 @@
 				"name": "acceleration",
 				"desc": "A buff spell for unknown wizard. How are you reading this?",
 				"level": 25,
-				"school": "time",
+				"school": "tempus",
 				"keywords": {
 					"type": ["damage", "buff"],
 					"target": ["self", "enemy"],
@@ -1295,7 +1298,7 @@
 			{
 				"id": "timerip_unknown_wizard",
 				"name": "unknown wizard",
-				"level": 15,
+				"level": 30,
 				"spells": "mon_aeon,mon_distort,mon_dilate,mon_temporalrestoration,prismaticmissile,mon_quicken",
 				"chaincast": 0.7,
 				"kind": "unknown",
@@ -1311,6 +1314,7 @@
 					{
 						"name": "whirling dervish",
 						"targets": "enemies",
+						"maxTargets": 999,
 						"damage": "40~45"
 					},
 					{
@@ -1327,6 +1331,68 @@
 				],
 				"loot": {
 					"timeedge": 1
+				},
+				"statedata": {
+					"prismaticmissile": {
+						"need": null,
+						"cd": 3,
+						"result": null,
+						"attack": {
+							"kind": "mana",
+							"hits": [
+								{
+									"damage": "10~15",
+									"kind": "mana",
+									"tohit": -2
+								},
+								{
+									"damage": "10~15",
+									"kind": "fire",
+									"tohit": -2
+								},
+								{
+									"damage": "10~15",
+									"kind": "water",
+									"tohit": -2
+								},
+								{
+									"damage": "10~15",
+									"kind": "nature",
+									"tohit": -2
+								},
+								{
+									"damage": "10~15",
+									"kind": "air",
+									"tohit": -2
+								},
+								{
+									"damage": "10~15",
+									"kind": "chaos",
+									"tohit": -2
+								},
+								{
+									"damage": "10~15",
+									"kind": "earth",
+									"tohit": -2
+								},
+								{
+									"damage": "10~15",
+									"kind": "shadow",
+									"tohit": -2
+								},
+								{
+									"damage": "10~15",
+									"kind": "light",
+									"tohit": -2
+								},
+								{
+									"damage": "10~15",
+									"kind": "spirit",
+									"tohit": -2
+								}
+							]
+						}
+					}
 				}
 			}
 		],

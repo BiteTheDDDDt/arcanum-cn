@@ -1,7 +1,7 @@
 /**
  * Build JSON request info for windows.fetch()
  */
-export const RequestInfo = (creds) => {
+export const RequestInfo = creds => {
 	let headers = new Headers();
 	//headers.append( 'Content-Type', 'text/plain');
 	//headers.append( 'Content-Type', 'application/octet-stream');
@@ -30,18 +30,18 @@ export const JSONLoad = (url, creds) => {
 
 function JsonFetch(url, info, retries) {
 	return window.fetch(url, info).then(
-		(r) => {
+		r => {
 			if (r.status !== 200) {
 				console.warn("Status: " + r.status);
 				if (retries > 0) return JsonFetch(url, info, retries - 1);
 				throw new Error(`Server denied access to ${url}`);
 			} else return r.json();
 		},
-		(err) => {
+		err => {
 			console.warn("Error: " + err);
 			if (retries > 0) return JsonFetch(url, info, retries - 1);
 			throw err;
-		}
+		},
 	);
 }
 
@@ -97,11 +97,11 @@ export default class JSONLoader {
 
 		let promiseArr = [];
 		for (let p in loads) {
-			promiseArr.push(JsonFetch(this._dir + p + ".json", req, 3).then((r) => (loads[p] = r)));
+			promiseArr.push(JsonFetch(this._dir + p + ".json", req, 3).then(r => (loads[p] = r)));
 
 			//promiseArr.push( loads[p]);
 		}
 
-		return this._promise = Promise.all(promiseArr).then(() => loads);
+		return (this._promise = Promise.all(promiseArr).then(() => loads));
 	}
 }

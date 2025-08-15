@@ -27,6 +27,7 @@ export const COMBAT_HIT = "char_hit";
 const EVT_EVENT = "event";
 const EVT_UNLOCK = "unlock";
 const EVT_LOOT = "loot";
+const EVT_CRAFT = "craftmsg";
 //const EVT_DISABLED = 'disabled';
 
 const LOG_EVENT = 1;
@@ -78,6 +79,10 @@ export const COMBAT_WON = "combat_won";
 
 export const ENEMY_SLAIN = "slain";
 
+/**
+ * @const {string} ENEMY_REWARDS - award rewards and increment kill count for an enemy
+ */
+export const ENEMY_REWARDS = "enemyreward";
 /**
  * @const {string} CHAR_STATE - inform current char state.
  */
@@ -177,6 +182,11 @@ export const EVT_STAT = "stat";
  */
 export const TOGGLE = "toggle";
 
+/**
+ * Item crafting is demanded
+ */
+const CRAFT_ITEM = "craftitem";
+
 export { CHAR_TITLE, NEW_TITLE, LEVEL_UP, CHAR_CLASS, CHAR_CHANGE };
 
 export {
@@ -184,6 +194,7 @@ export {
 	EVT_EVENT,
 	EVT_UNLOCK,
 	EVT_LOOT,
+	EVT_CRAFT,
 	TASK_DONE,
 	CHAR_ACTION,
 	ITEM_ACTION,
@@ -198,6 +209,7 @@ export {
 	DEFEATED,
 	ENC_START,
 	ENC_DONE,
+	CRAFT_ITEM,
 };
 
 export default {
@@ -215,6 +227,7 @@ export default {
 		this.clearGameEvents();
 
 		events.addListener(EVT_LOOT, this.onLoot, this);
+		events.addListener(EVT_CRAFT, this.onCraftMessage, this);
 		events.addListener(EVT_UNLOCK, this.onUnlock, this);
 		events.addListener(EVT_EVENT, this.onEvent, this);
 		events.addListener(LEVEL_UP, this.onLevel, this);
@@ -237,6 +250,8 @@ export default {
 		events.addListener(IS_IMMUNE, this.onImmune, this);
 		events.addListener(RESISTED, this.onResist, this);
 		events.addListener(ENC_START, this.onEnc, this);
+
+		events.addListener(CRAFT_ITEM, this.onCraft, this);
 	},
 
 	clearGameEvents() {
@@ -310,11 +325,11 @@ export default {
 
 	onUnlock(it) {
 		if (it.hide || it.type === EVENT) return;
-		this.log.log(
-			uppercase(it.typeName) + " Unlocked: " + it.name,
-			null,
-			LOG_UNLOCK
-		);
+		if (it.actname) {
+			this.log.log(uppercase(it.typeName) + " Unlocked: " + it.actname, null, LOG_UNLOCK);
+		} else {
+			this.log.log(uppercase(it.typeName) + " Unlocked: " + it.name, null, LOG_UNLOCK);
+		}
 	},
 
 	onLoot(loot) {
@@ -323,6 +338,14 @@ export default {
 		if (!text || Number.isNaN(text)) return;
 
 		this.log.log("LOOT", text, LOG_LOOT);
+	},
+
+	onCraftMessage(loot) {
+		let text = this.getDisplay(loot);
+
+		if (!text || Number.isNaN(text)) return;
+
+		this.log.log("CRAFTED", text, LOG_LOOT);
 	},
 
 	/**
@@ -381,19 +404,11 @@ export default {
 	 * @param {string} kind
 	 */
 	onImmune(target, kind) {
-		this.log.log(
-			"IMMUNE",
-			target.name.toTitleCase() + " Is Immune To " + kind,
-			LOG_COMBAT
-		);
+		this.log.log("IMMUNE", target.name.toTitleCase() + " Is Immune To " + kind, LOG_COMBAT);
 	},
 
 	onResist(target, kind) {
-		this.log.log(
-			"RESISTS",
-			target.name.toTitleCase() + " Resists " + kind,
-			LOG_COMBAT
-		);
+		this.log.log("RESISTS", target.name.toTitleCase() + " Resists " + kind, LOG_COMBAT);
 	},
 
 	onMiss(msg) {
@@ -421,27 +436,11 @@ export default {
 	/**
 	 * @param {string} msg
 	 */
-	onHit(target, dmg, resist, reduce, source, parried) {
+	onHit(target, dmg, source) {
 		let msg = source.toString().toTitleCase();
-		if (resist < 0) msg += " strongly ";
-		else if (resist > 0 && resist < 1) msg += " weakly ";
-		else if (resist == 1) msg += " unsuccessfully ";
 		msg += " hits " + target.name.toString().toTitleCase();
 		msg += " for " + precise(dmg, 1);
-		if (resist > 1) msg += " absorbed damage";
-		else msg += " damage";
-		if (parried)
-			msg += ". " + target.name.toString().toTitleCase() + " manages to parry";
-		if (parried && parried < 0.5) msg += " some of it";
-		else if (parried >= 0.5) msg += " most of it";
-
-		/*let tot_reduce = 100*(resist + reduce);
-		if (tot_reduce > 0) {
-
-			if ( tot_reduce <= 100 ) msg += " (-" + precise(tot_reduce,1) + "%)";
-			else msg += " (absorb: " + precise(tot_reduce-100, 1) + "%)";
-
-		} else if (tot_reduce < 0) msg += " (+" + precise( -tot_reduce, 1) + "%)";*/
+		msg += " damage";
 
 		this.log.log("", msg, LOG_COMBAT);
 	},
@@ -464,31 +463,19 @@ export default {
 		this.log.log(state.adj, char.name + " Is " + state.adj, LOG_COMBAT);
 	},
 
-	/**
-	 * Action blocked by state/reason.
-	 * @param {Char} char
-	 * @param {Dot} state
-	 */
-	onStateBlock(char, state) {
-		this.log.log(state.adj, char.name + " Is " + state.adj, LOG_COMBAT);
-	},
-
-	/**
-	 * Char has entered state.
-	 * @param {Char} char
-	 * @param {Dot} state
-	 */
-	onCharState(char, state) {
-		this.log.log(state.adj, char.name + " Is " + state.adj, LOG_COMBAT);
+	onCraft(mat, item) {
+		const inst = game.itemGen.instance(item, mat);
+		if (inst) {
+			game.state.inventory.add(inst);
+		}
+		this.emit(EVT_CRAFT, inst);
 	},
 
 	npcSlain(enemy, attacker) {
 		this.log.log(
 			enemy.name.toTitleCase() + " Slain",
-			attacker && attacker?.name?.toTitleCase()
-				? " By " + attacker.name.toTitleCase()
-				: "",
-			LOG_COMBAT
+			attacker && attacker?.name?.toTitleCase() ? " By " + attacker.name.toTitleCase() : "",
+			LOG_COMBAT,
 		);
 	},
 

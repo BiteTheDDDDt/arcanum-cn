@@ -3,53 +3,86 @@
  * CURRENTLY UNUSED
  */
 export default class Lock {
-
 	/**
 	 * @property {string} id - maybe a bad idea.
 	 */
-	get id() { return ( this.item ? this.item.id : '' ); }
+	get id() {
+		return this.item ? this.item.id : "";
+	}
 
-	set count(v){}
+	set count(v) {}
 
 	/**
 	 * @param {*} t
 	 * @returns {boolean}
 	 */
-	hasTag(t) { return this.item && this.item.hasTag(t); }
-	hasTags(t) { return this.item && this.items.hasTag(t); }
+	hasTag(t) {
+		return this.item && this.item.hasTag(t);
+	}
+	hasTags(t) {
+		return this.item && this.items.hasTag(t);
+	}
 
-	get buy() { return this.item ? this.item.buy : null; }
-	get cost() { return this.item ? this.item.cost : null; }
-	get run() { return this.item ? this.item.run : null; }
-	get effect() { return this.item ? this.item.effect : null; }
+	get buy() {
+		return this.item ? this.item.buy : null;
+	}
+	get cost() {
+		return this.item ? this.item.cost : null;
+	}
+	get run() {
+		return this.item ? this.item.run : null;
+	}
+	get effect() {
+		return this.item ? this.item.effect : null;
+	}
 
-	get length () {return this.item ? this.item.length : null }
-	get perpetual() { return this._item ? this._item.perpetual : false }
+	get length() {
+		return this.item ? this.item.length : null;
+	}
+	get perpetual() {
+		return this._item ? this._item.perpetual : false;
+	}
 
 	/**
 	 * @property {Item} item - item being run.
 	 */
-	get item() { return this._item; }
-	set item(v) { this._item = v; }
-
-	get owned() { return this._item ? this.item.owned : false; }
-	set owned(v) { if ( this._item ) this._item.owned = v; }
-
-	get running() { return this.item ? this.item.running:false;}
-	set running(v) {
-		if ( this.item) this.item.running=v;
+	get item() {
+		return this._item;
+	}
+	set item(v) {
+		this._item = v;
 	}
 
-	isProxy() { return true; }
+	get owned() {
+		return this._item ? this.item.owned : false;
+	}
+	set owned(v) {
+		if (this._item) this._item.owned = v;
+	}
 
-	maxed() { return this.item ? this.item.maxed() : true; }
-	canUse( g ) { return this.item ? this.item.canUse( g ) : false; }
-	canRun( g ) { return this.item ? this.item.canRun( g ) : false; }
+	get running() {
+		return this.item ? this.item.running : false;
+	}
+	set running(v) {
+		if (this.item) this.item.running = v;
+	}
 
-	constructor( vars=null ){
+	isProxy() {
+		return true;
+	}
 
-		if (vars) Object.assign( this, vars );
+	maxed() {
+		return this.item ? this.item.maxed() : true;
+	}
+	canUse(g) {
+		return this.item ? this.item.canUse(g) : false;
+	}
+	canRun(g) {
+		return this.item ? this.item.canRun(g) : false;
+	}
 
+	constructor(vars = null) {
+		if (vars) Object.assign(this, vars);
 	}
 
 	/**
@@ -58,20 +91,15 @@ export default class Lock {
 	 * @returns {boolean} true if timer is complete.
 	 */
 	update(dt) {
-
-		if ( this.timer > 0 ) {
-
+		if (this.timer > 0) {
 			//console.log('timer: ' + this.timer );
 			this.timer -= dt;
-			if ( this.timer > 0 ) return false;
+			if (this.timer > 0) return false;
 			else {
 				this.timer = 0;
 				return true;
 			}
-
 		}
 		return false;
-
 	}
-
 }

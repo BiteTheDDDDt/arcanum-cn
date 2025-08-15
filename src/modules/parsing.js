@@ -1,19 +1,19 @@
-import Mod, { ModTest } from '../values/mods/mod';
-import PerMod, { IsPerMod } from '../values/mods/permod';
-import { splitKeys, logObj, splitKeyPath } from '@/util/util';
-import RValue, { SubPath } from '../values/rvals/rvalue';
-import Stat from '@/values/rvals/stat';
+import Mod, { ModTest } from "../values/mods/mod";
+import PerMod, { IsPerMod } from "../values/mods/permod";
+import { splitKeys, logObj, splitKeyPath } from "@/util/util";
+import RValue, { SubPath } from "../values/rvals/rvalue";
+import Stat from "@/values/rvals/stat";
 
-import { MakeDmgFunc } from '@/values/combatVars';
+import { MakeDmgFunc } from "@/values/combatVars";
 
-import Range, { RangeTest } from '../values/range';
-import Percent, { PercentTest } from '../values/percent';
-import AtMod, { IsAtMod } from '../values/mods/atmod';
+import Range, { RangeTest } from "../values/range";
+import Percent, { PercentTest } from "../values/percent";
+import AtMod, { IsAtMod } from "../values/mods/atmod";
 
-import { FP } from '@/values/consts';
-import RangedMod, { isRangedMod } from '../values/mods/rangedmod';
-import CurvedMod, { isCurvedMod } from '../values/mods/curvedmod';
-import FValue from '@/values/rvals/fvalue';
+import { FP, TYP_FUNC, TYP_RVAL } from "@/values/consts";
+import RangedMod, { isRangedMod } from "../values/mods/rangedmod";
+import CurvedMod, { isCurvedMod } from "../values/mods/curvedmod";
+import FValue from "@/values/rvals/fvalue";
 
 /**
  * @const {RegEx} IdTest - Test for a simple id name.
@@ -26,25 +26,23 @@ const IdTest = /^[A-Za-z_]+\w*$/;
  * @returns {Object} parsed modifiers.
  */
 export const ParseMods = (mods, id, source) => {
-
 	if (!mods) return null;
-	if (!id && source && (typeof source === 'object')) {
+	if (!id && source && typeof source === "object") {
 		id = source.id;
 		if (!id) {
-			id = '';
-			logObj(mods, 'No Mod Id: ' + source + ': ' + id);
+			id = "";
+			logObj(mods, "No Mod Id: " + source + ": " + id);
 		}
 	}
 
 	mods = SubMods(mods, id, source);
-	if (!mods) console.warn('mods is null: ' + id);
+	if (!mods) console.warn("mods is null: " + id);
 
 	// @todo: no more key splitting. item tables?
 	splitKeys(mods);
 
 	return mods;
-
-}
+};
 
 /**
  * Parse a string source into a Mod class.
@@ -54,32 +52,25 @@ export const ParseMods = (mods, id, source) => {
  * @returns {Mod|string}
  */
 export const StrMod = (str, id, src) => {
-
 	if (ModTest.test(str) || !isNaN(str)) return new Mod(str, id, src);
 	if (IsPerMod(str)) return new PerMod(str, id, src);
 	else if (IsAtMod(str)) return new AtMod(str, id, src);
 	else if (isRangedMod(str)) return new RangedMod(str, id, src);
 	else if (isCurvedMod(str)) return new CurvedMod(str, id, src);
 	return str;
-
-}
+};
 
 /**
  *
  */
 const SubMods = (mods, id, source) => {
-
 	if (mods === null || mods === undefined) return null;
 
-	if (typeof mods === 'string') {
-
+	if (typeof mods === "string") {
 		return StrMod(mods, id, source);
-
-	} else if (typeof mods === 'number') {
-
+	} else if (typeof mods === "number") {
 		return new Mod(mods, id, source);
-
-	} else if (typeof mods !== 'object') {
+	} else if (typeof mods !== "object") {
 		// @note includes boolean (unlock) mods.
 		//console.log( id + ' unknown mod type: ' + (typeof mods) + ' source: ' + source )
 		return mods;
@@ -89,7 +80,6 @@ const SubMods = (mods, id, source) => {
 	if (mods.id || mods.base || mods.str) return new Mod(mods, id, source);
 
 	for (const s in mods) {
-
 		const val = mods[s];
 		if (val === 0) {
 			delete mods[s];
@@ -98,113 +88,85 @@ const SubMods = (mods, id, source) => {
 		// @note this includes 0 as well.
 		if (!val) continue;
 
-
 		if (val instanceof Mod) {
-
 			if (id) val.id = SubPath(id, s);
 			//console.log('NEW MOD ID: ' +SubPath(id, s) );
 			val.source = source;
 			continue;
-
 		}
 
 		mods[s] = SubMods(val, SubPath(id, s), source);
-
 	}
 	return mods;
-
-}
+};
 
 /**
  * Prepared data is instance-level data, but classes have not been instantiated.
  * @param {*} sub
  * @param {*} id
  */
-export const PrepData = (sub, id = '') => {
-
+export const PrepData = (sub, id = "") => {
 	if (Array.isArray(sub)) {
-
 		for (let i = sub.length - 1; i >= 0; i--) sub[i] = PrepData(sub[i], id);
-
-	} else if (typeof sub === 'object') {
-
+	} else if (typeof sub === "object") {
 		for (const p in sub) {
-
-			if (p === 'mod' || p === 'runmod' || p === 'alter') {
-
+			if (p === "mod" || p === "runmod" || p === "alter") {
 				sub[p] = ParseMods(sub[p], SubPath(id, p));
 				continue;
-			} else if (p === 'effect' || p === 'result' || p === 'use'|| p === 'acquire' || p=== 'loot') {
-
+			} else if (p === "effect" || p === "result" || p === "use" || p === "acquire" || p === "loot") {
 				sub[p] = ParseEffects(sub[p], MakeEffectFunc);
-
-			} else if (p === 'cost' || p === 'buy') {
-
+			} else if (p === "cost" || p === "buy" || p === "sell") {
 				sub[p] = ParseEffects(sub[p], MakeCostFunc);
-
-			} else if (p === 'require' || p === 'need') {
-
+			} else if (p === "require" || p === "need") {
 				sub[p] = ParseRequire(sub[p]);
 				continue;
-
-			} else if (p === 'convert') {
-
-				sub[p]['input'] = ParseEffects(sub[p]['input'], MakeEffectFunc);
-				sub[p]['output']['effect'] = ParseEffects(sub[p]['output']['effect'], MakeEffectFunc);
-				sub[p]['output']['mod'] = ParseMods(sub[p]['output']['mod'], SubPath(id, 'mod'))
+			} else if (p === "convert") {
+				sub[p]["input"] = ParseEffects(sub[p]["input"], MakeEffectFunc);
+				sub[p]["output"]["effect"] = ParseEffects(sub[p]["output"]["effect"], MakeEffectFunc);
+				sub[p]["output"]["mod"] = ParseMods(sub[p]["output"]["mod"], SubPath(id, "mod"));
+			} else if (p === "dotcondition") {
+				sub[p] = MakeDmgFunc(sub[p]);
 			}
 
-
-			if (p.includes('.')) splitKeyPath(sub, p);
+			if (p.includes(".")) splitKeyPath(sub, p);
 
 			const obj = sub[p];
 			const typ = typeof obj;
-			if (typ === 'string') {
-
+			if (typ === "string") {
 				if (PercentTest.test(obj)) {
-
 					sub[p] = new Percent(obj);
-
 				} else if (RangeTest.test(obj)) sub[p] = new Range(obj);
 				else if (IsPerMod(obj)) sub[p] = new PerMod(obj, SubPath(id, p));
 				else if (isRangedMod(obj)) return new RangedMod(obj, SubPath(id, p));
 				else if (isCurvedMod(obj)) return new CurvedMod(obj, SubPath(id, p));
 				else if (!isNaN(obj)) {
-					if (obj !== '') console.warn('string used as Number: ' + p + ' -> ' + obj);
+					if (obj !== "") console.warn("string used as Number: " + p + " -> " + obj);
 					sub[p] = Number(obj);
-				}
-				else if (p === 'damage' || p === 'dmg') sub[p] = MakeDmgFunc(obj);
-				else if (p === 'healing' || p === 'heal') sub[p] = MakeDmgFunc(obj);
-
-			} else if (typ === 'object') PrepData(obj, id);
-			else if (typ === 'number') {
-
+				} else if (p === "damage" || p === "dmg") sub[p] = MakeDmgFunc(obj);
+				else if (p === "healing" || p === "heal") sub[p] = MakeDmgFunc(obj);
+			} else if (typ === "object") PrepData(obj, id);
+			else if (typ === "number") {
 				//sub[p] = new RValue(obj);
-
 			}
-
 		}
 
 		// split AFTER parse so items can be made into full classes first.
 		/*for( let p in sub ) {
 			if ( p.includes('.')) splitKeyPath( sub, p );
 		}*/
-
-	} else if (typeof sub === 'string') {
+	} else if (typeof sub === "string") {
 		return ParseRVal(sub);
 	}
 
 	return sub;
-
-}
+};
 
 /**
  * Attempt to convert a string to RValue.
  * @param {string} str
  * @returns {RValue|number|str}
  */
-export const ParseRVal = (str) => {
-
+export const ParseRVal = str => {
 	if (RangeTest.test(str)) return new Range(str);
 	else if (PercentTest.test(str)) return new Percent(str);
 	else if (IsPerMod(str)) return new PerMod(str);
@@ -212,8 +174,7 @@ export const ParseRVal = (str) => {
 	else if (isRangedMod(str)) return new RangedMod(str);
 	else if (isCurvedMod(str)) return new CurvedMod(str);
 	return str;
-
-}
+};
 /**
  *
  * @param {object|string|Array|Number} effects
@@ -221,67 +182,55 @@ export const ParseRVal = (str) => {
  * (cost func, effect func, attack func, etc.)
  */
 export const ParseEffects = (effects, funcMaker) => {
-
 	if (Array.isArray(effects)) {
-
 		for (let i = effects.length - 1; i >= 0; i--) {
 			effects[i] = ParseEffects(effects[i], funcMaker);
 		}
-
-	} else if (typeof effects === 'string') {
-
+	} else if (typeof effects === "string") {
 		if (RangeTest.test(effects)) return new Range(effects);
 		else if (PercentTest.test(effects)) return new Percent(effects);
 		else if (IsPerMod(effects)) return new PerMod(effects);
 		else if (IsAtMod(effects)) return new AtMod(effects);
 		else if (isRangedMod(effects)) return new RangedMod(effects);
 		else if (isCurvedMod(effects)) return new CurvedMod(effects);
-		else if (effects.includes('.')) return funcMaker(effects);
+		else if (effects.includes(".")) return funcMaker(effects);
 
 		return effects;
-
-	} else if (typeof effects === 'object') {
-
+	} else if (typeof effects === "object") {
 		for (const p in effects) {
-			if (p !== 'dot' && p !== 'attack') effects[p] = ParseEffects(effects[p], funcMaker);
+			if (effects[p]?.type == TYP_FUNC || effects[p]?.type == TYP_RVAL) continue;
+			if (p !== "dot" && p !== "attack") effects[p] = ParseEffects(effects[p], funcMaker);
 		}
-
-	} else if (typeof effects === 'number') return new Stat(effects);
+	} else if (typeof effects === "number") return new Stat(effects);
 
 	return effects;
-
-}
+};
 
 /**
  * Parse a requirement-type object.
  * currently: 'require' or 'need'
  */
-export const ParseRequire = (sub) => {
-
+export const ParseRequire = sub => {
 	// REQUIRE
-	if (sub === null || sub === undefined || sub === false || sub === '') return undefined;
+	if (sub === null || sub === undefined || sub === false || sub === "") return undefined;
 	if (Array.isArray(sub)) {
-
-		for (let i = sub.length - 1; i >= 0; i--)sub[i] = ParseRequire(sub[i]);
-
-	} else if (typeof sub === 'string' && !IdTest.test(sub)) return MakeTestFunc(sub);
+		for (let i = sub.length - 1; i >= 0; i--) sub[i] = ParseRequire(sub[i]);
+	} else if (typeof sub === "string" && !IdTest.test(sub)) return MakeTestFunc(sub);
 
 	return sub;
-
-}
+};
 
 /**
  * Create a boolean testing function from a data string.
  * @param {string} text - function text.
  */
 export function MakeTestFunc(text) {
-
 	/**
 	 * g - game data
 	 * i - item being tested for unlock.
 	 * s - game state
 	 */
-	return new Function(FP.GDATA, FP.ITEM, FP.STATE, 'return ' + text);
+	return new Function(FP.GDATA, FP.ITEM, FP.STATE, "return " + text);
 }
 
 /**

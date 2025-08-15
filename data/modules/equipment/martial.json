@@ -1,0 +1,847 @@
+{
+	"module": "equipment-martial",
+	"author": "nagshell",
+	"data": {
+		"tags": [
+			{
+				"id": "t_slash",
+				"hide": true
+			},
+			{
+				"id": "t_pierce",
+				"hide": true
+			},
+			{
+				"id": "t_blunt",
+				"hide": true
+			},
+			{
+				"id": "t_sword",
+				"hide": true
+			},
+			{
+				"id": "t_rapier",
+				"hide": true
+			},
+			{
+				"id": "t_hammer",
+				"hide": true
+			}
+		],
+		"materials": [
+			{
+				"id": "mat_martial_wood",
+				"name": "Wood",
+				"adj": "Wooden",
+				"level": 1,
+				"kind": "trainingweapon",
+				"only": "t_training",
+				"cost": {
+					"gold": 25
+				},
+				"require": "g.craftinglearn1>0",
+				"alter": {
+					"sell": { "gold": 5 }
+				}
+			},
+			{
+				"id": "mat_martial_fish",
+				"name": "Fish",
+				"adj": "Fresh",
+				"level": 1,
+				"kind": "martial",
+				"only": "t_training",
+				"cost": {
+					"gold": 25
+				},
+				"require": "g.craftinglearn1>999",
+				"alter": {}
+			},
+			{
+				"id": "mat_martial_iron",
+				"name": "Iron",
+				"level": 2,
+				"kind": "martial",
+				"only": "t_martial",
+				"cost": {
+					"iron": 15,
+					"leather": 5
+				},
+				"require": "g.craftinglearn1>0",
+				"alter": {
+					"sell": { "iron": 10, "leather": 2 }
+				}
+			},
+			{
+				"id": "mat_martial_quicksteel",
+				"name": "Quicksteel",
+				"level": 4,
+				"kind": "martial",
+				"only": "t_martial",
+				"cost": {
+					"quicksteel": 15,
+					"serpentskin": 5
+				},
+				"require": "g.craftinglearn2>0",
+				"alter": {
+					"sell": { "quicksteel": 10, "serpentskin": 2 },
+					"enchants.max": 1,
+					"damage.min": "100%",
+					"damage.max": "100%"
+				}
+			},
+			{
+				"id": "mat_martial_adamant",
+				"name": "Adamant",
+				"adj": "Adamantine",
+				"level": 14,
+				"kind": "martial",
+				"only": "t_martial",
+				"cost": {
+					"adamant": 15,
+					"aetherhide": 5,
+					"runestones": 2
+				},
+				"require": "g.craftinglearn4>0",
+				"alter": {
+					"sell": { "adamant": 10, "aetherhide": 2 },
+					"enchants.max": 2,
+					"damage.min": "300%",
+					"damage.max": "300%"
+				}
+			}
+		],
+		"weapons": [
+			{
+				"id": "trainingsword",
+				"name": "Training sword",
+				"desc": "A plain wooden sword",
+				"level": 1,
+				"slot": "mainhand",
+				"type": "weapon",
+				"tags": "t_martial,t_slash,t_sword,t_training",
+				"require": "g.craftinglearn1>0",
+				"enchants": 1,
+				"only": "trainingweapon",
+				"damage": "1~2",
+				"attack": {
+					"kind": "slash",
+					"tohit": 1,
+					"damage": "(i.damage||0)*1",
+					"potencies": ["physdmg", "slashdmg", "sworddmg"]
+				}
+			},
+			{
+				"id": "trainingknife",
+				"name": "Training knife",
+				"desc": "A plain wooden knife",
+				"level": 1,
+				"type": "weapon",
+				"slot": "mainhand",
+				"tags": "t_martial,t_pierce,t_knife,t_training",
+				"require": "g.craftinglearn1>0",
+				"enchants": 1,
+				"only": "trainingweapon",
+				"damage": "1~2",
+				"attack": {
+					"kind": "pierce",
+					"tohit": 1,
+					"damage": "(i.damage||0)*1",
+					"potencies": ["physdmg", "piercedmg"]
+				}
+			},
+			{
+				"id": "traininghammer2",
+				"name": "Training hammer",
+				"desc": "A plain wooden hammer",
+				"level": 1,
+				"type": "weapon",
+				"slot": "mainhand",
+				"tags": "t_martial,t_blunt,t_hammer,t_training",
+				"require": "g.craftinglearn1>0",
+				"enchants": 1,
+				"only": "trainingweapon",
+				"damage": "1~2",
+				"attack": {
+					"kind": "blunt",
+					"tohit": 1,
+					"damage": "(i.damage||0)*1",
+					"potencies": ["physdmg", "bluntdmg", "hammerdmg"]
+				}
+			},
+			{
+				"id": "shortsword",
+				"name": "Shortsword",
+				"level": 1,
+				"slot": "mainhand",
+				"tags": "t_martial,t_slash,t_sword",
+				"sell": {},
+				"only": "martial",
+				"enchants": 1,
+				"damage": "2~4",
+				"require": "g.craftinglearn1>0",
+				"cost": {
+					"gold": 50,
+					"research": 50
+				},
+				"craftcostmult": 1,
+				"attack": {
+					"kind": "slash",
+					"damage": "(i.damage||0)*1",
+					"potencies": ["physdmg", "slashdmg", "sworddmg"]
+				},
+				"alter": { "mod.self.speed": 3 }
+			},
+			{
+				"id": "longsword",
+				"name": "Longsword",
+				"level": 6,
+				"slot": "mainhand",
+				"tags": "t_martial,t_slash,t_sword",
+				"require": "g.craftinglearn3>0",
+				"cost": {
+					"gold": 150,
+					"research": 150
+				},
+				"craftcostmult": 1,
+				"sell": {},
+				"only": "martial",
+				"enchants": 1,
+				"damage": "2~5",
+				"attack": {
+					"kind": "slash",
+					"damage": "(i.damage||0)*1",
+					"potencies": ["physdmg", "slashdmg", "sworddmg"]
+				}
+			},
+			{
+				"id": "greatsword",
+				"name": "Greatsword",
+				"level": 11,
+				"slot": "mainhand",
+				"tags": "t_martial,t_slash,t_sword",
+				"require": "g.craftinglearn5>0",
+				"cost": {
+					"gold": 500,
+					"research": 500
+				},
+				"craftcostmult": 1.5,
+				"sell": {},
+				"only": "martial",
+				"enchants": 1,
+				"damage": "3~6",
+
+				"attack": {
+					"kind": "slash",
+					"damage": "(i.damage||0)*1",
+					"potencies": ["physdmg", "slashdmg", "sworddmg", "runicdmg"]
+				},
+				"alter": { "mod.self.speed": -5 }
+			},
+			{
+				"id": "hatchet",
+				"name": "Hatchet",
+				"level": 1,
+				"slot": "mainhand",
+				"tags": "t_martial,t_slash",
+				"cost": {
+					"gold": 50,
+					"research": 50
+				},
+				"craftcostmult": 1,
+				"sell": {},
+				"only": "martial",
+				"enchants": 1,
+				"damage": "3~5",
+				"require": "g.craftinglearn1>0",
+
+				"attack": {
+					"kind": "slash",
+					"damage": "(i.damage||0)*1",
+					"potencies": ["physdmg", "slashdmg"]
+				},
+				"alter": { "mod.self.speed": 3 }
+			},
+			{
+				"id": "battleaxe",
+				"name": "Battleaxe",
+				"level": 6,
+				"slot": "mainhand",
+				"tags": "t_martial,t_slash",
+				"require": "g.craftinglearn3>0",
+				"cost": {
+					"gold": 150,
+					"research": 150
+				},
+				"craftcostmult": 1,
+				"sell": {},
+				"only": "martial",
+				"enchants": 1,
+				"damage": "3~6",
+
+				"attack": {
+					"kind": "slash",
+					"damage": "(i.damage||0)*1",
+					"potencies": ["physdmg", "slashdmg"]
+				}
+			},
+			{
+				"id": "halberd",
+				"name": "Halberd",
+				"level": 11,
+				"slot": "mainhand",
+				"tags": "t_martial,t_slash",
+				"require": "g.craftinglearn5>0",
+				"cost": {
+					"gold": 500,
+					"research": 500
+				},
+				"craftcostmult": 1.5,
+				"sell": {},
+				"only": "martial",
+				"enchants": 1,
+				"damage": "4~7",
+
+				"attack": {
+					"kind": "slash",
+					"damage": "(i.damage||0)*1",
+					"potencies": ["physdmg", "slashdmg", "runicdmg"]
+				},
+				"alter": { "mod.self.speed": -5 }
+			},
+			{
+				"id": "epee",
+				"name": "Epee",
+				"level": 1,
+				"slot": "mainhand",
+				"tags": "t_martial,t_pierce,t_rapier",
+				"require": "g.craftinglearn1>0",
+				"cost": {
+					"gold": 50,
+					"research": 50
+				},
+				"craftcostmult": 1,
+				"sell": {},
+				"only": "martial",
+				"enchants": 1,
+				"damage": "2~4",
+
+				"attack": {
+					"kind": "pierce",
+					"damage": "(i.damage||0)*1",
+					"potencies": ["physdmg", "piercedmg", "duelingdmg"],
+					"targets": "enemy",
+					"targetspec": {
+						"affectedby": {
+							"condition": ["enemy_engagement"],
+							"conditiontext": "engagement"
+						}
+					}
+				},
+				"alter": { "mod.self.speed": 3 }
+			},
+			{
+				"id": "rapier",
+				"name": "Rapier",
+				"level": 6,
+				"slot": "mainhand",
+				"tags": "t_martial,t_pierce,t_rapier",
+				"require": "g.craftinglearn3>0",
+				"cost": {
+					"gold": 150,
+					"research": 150
+				},
+				"craftcostmult": 1,
+				"sell": {},
+				"only": "martial",
+				"enchants": 1,
+				"damage": "2~5",
+
+				"attack": {
+					"kind": "pierce",
+					"damage": "(i.damage||0)*1",
+					"potencies": ["physdmg", "piercedmg", "duelingdmg"],
+					"targets": "enemy",
+					"targetspec": {
+						"affectedby": {
+							"condition": ["enemy_engagement"],
+							"conditiontext": "engagement"
+						}
+					}
+				}
+			},
+			{
+				"id": "estoc",
+				"name": "Estoc",
+				"level": 11,
+				"slot": "mainhand",
+				"tags": "t_martial,t_pierce,t_rapier",
+				"require": "g.craftinglearn5>0",
+				"cost": {
+					"gold": 500,
+					"research": 500
+				},
+				"craftcostmult": 1.5,
+				"sell": {},
+				"only": "martial",
+				"enchants": 1,
+				"damage": "3~6",
+
+				"attack": {
+					"kind": "pierce",
+					"damage": "(i.damage||0)*1",
+					"potencies": ["physdmg", "piercedmg", "duelingdmg", "runicdmg"],
+					"targets": "enemy",
+					"targetspec": {
+						"affectedby": {
+							"condition": ["enemy_engagement"],
+							"conditiontext": "engagement"
+						}
+					}
+				},
+				"alter": {
+					"mod.self.speed": -5,
+					"mod": {
+						"self.chaincast": 0.2,
+						"spelldmg": 15
+					}
+				}
+			},
+			{
+				"id": "dagger",
+				"name": "Dagger",
+				"level": 1,
+				"slot": "mainhand",
+				"tags": "t_martial,t_pierce",
+				"require": "g.craftinglearn1>0",
+				"cost": {
+					"gold": 50,
+					"research": 50
+				},
+				"craftcostmult": 1,
+				"sell": {},
+				"only": "martial",
+				"enchants": 1,
+				"damage": "3~5",
+
+				"attack": {
+					"kind": "pierce",
+					"damage": "(i.damage||0)*1",
+					"potencies": ["physdmg", "piercedmg"]
+				},
+				"alter": { "mod.self.speed": 3 }
+			},
+			{
+				"id": "spear",
+				"name": "Spear",
+				"level": 6,
+				"slot": "mainhand",
+				"tags": "t_martial,t_pierce",
+				"require": "g.craftinglearn3>0",
+				"cost": {
+					"gold": 150,
+					"research": 150
+				},
+				"craftcostmult": 1,
+				"sell": {},
+				"only": "martial",
+				"enchants": 1,
+				"damage": "3~6",
+
+				"attack": {
+					"kind": "pierce",
+					"damage": "(i.damage||0)*1",
+					"potencies": ["physdmg", "piercedmg"]
+				}
+			},
+			{
+				"id": "lance",
+				"name": "Lance",
+				"level": 11,
+				"slot": "mainhand",
+				"tags": "t_martial,t_pierce",
+				"require": "g.craftinglearn1>5",
+				"cost": {
+					"gold": 500,
+					"research": 500
+				},
+				"craftcostmult": 1.5,
+				"sell": {},
+				"only": "martial",
+				"enchants": 1,
+				"damage": "4~7",
+
+				"attack": {
+					"kind": "pierce",
+					"damage": "(i.damage||0)*1",
+					"potencies": ["physdmg", "piercedmg", "runicdmg"]
+				},
+				"alter": { "mod.self.speed": -5 }
+			},
+			{
+				"id": "mace",
+				"name": "Mace",
+				"level": 1,
+				"slot": "mainhand",
+				"tags": "t_martial,t_blunt,t_hammer",
+				"require": "g.craftinglearn1>0",
+				"cost": {
+					"gold": 50,
+					"research": 50
+				},
+				"craftcostmult": 1,
+				"sell": {},
+				"only": "martial",
+				"enchants": 1,
+				"damage": "2~4",
+
+				"attack": {
+					"kind": "blunt",
+					"damage": "(i.damage||0)*1",
+					"potencies": ["physdmg", "bluntdmg", "hammerdmg"]
+				},
+				"alter": { "mod.self.speed": 3 }
+			},
+			{
+				"id": "maul",
+				"name": "Maul",
+				"level": 6,
+				"slot": "mainhand",
+				"tags": "t_martial,t_blunt,t_hammer",
+				"require": "g.craftinglearn3>0",
+				"cost": {
+					"gold": 150,
+					"research": 150
+				},
+				"craftcostmult": 1,
+				"sell": {},
+				"only": "martial",
+				"enchants": 1,
+				"damage": "2~5",
+
+				"attack": {
+					"kind": "blunt",
+					"damage": "(i.damage||0)*1",
+					"potencies": ["physdmg", "bluntdmg", "hammerdmg"]
+				}
+			},
+			{
+				"id": "warhammer",
+				"name": "Warhammer",
+				"level": 11,
+				"slot": "mainhand",
+				"tags": "t_martial,t_blunt,t_hammer",
+				"sell": {},
+				"only": "martial",
+				"enchants": 1,
+				"damage": "3~6",
+				"require": "g.craftinglearn5>0",
+				"cost": {
+					"gold": 500,
+					"research": 500
+				},
+				"craftcostmult": 1.5,
+				"attack": {
+					"kind": "blunt",
+					"damage": "(i.damage||0)*1",
+					"potencies": ["physdmg", "bluntdmg", "hammerdmg", "runicdmg"]
+				},
+				"alter": { "mod.self.speed": -5 }
+			},
+			{
+				"id": "caestus",
+				"name": "Caestus",
+				"level": 1,
+				"slot": "mainhand",
+				"tags": "t_martial,t_blunt",
+				"sell": {},
+				"only": "martial",
+				"enchants": 1,
+				"damage": "3~5",
+				"require": "g.craftinglearn1>0",
+				"cost": {
+					"gold": 50,
+					"research": 50
+				},
+				"craftcostmult": 1,
+				"attack": {
+					"kind": "blunt",
+					"damage": "(i.damage||0)*1",
+					"potencies": ["physdmg", "bluntdmg"]
+				},
+				"alter": { "mod.self.speed": 3 }
+			},
+			{
+				"id": "flail",
+				"name": "Flail",
+				"level": 6,
+				"slot": "mainhand",
+				"tags": "t_martial,t_blunt",
+				"sell": {},
+				"only": "martial",
+				"enchants": 1,
+				"damage": "3~6",
+				"require": "g.craftinglearn3>0",
+				"cost": {
+					"gold": 150,
+					"research": 150
+				},
+				"craftcostmult": 1,
+				"attack": {
+					"kind": "blunt",
+					"damage": "(i.damage||0)*1",
+					"potencies": ["physdmg", "bluntdmg"]
+				}
+			},
+			{
+				"id": "quarterstaff",
+				"name": "Quarterstuff",
+				"level": 11,
+				"slot": "mainhand",
+				"tags": "t_martial,t_blunt",
+				"sell": {},
+				"only": "martial",
+				"enchants": 1,
+				"damage": "4~7",
+				"require": "g.craftinglearn5>0",
+				"cost": {
+					"gold": 500,
+					"research": 500
+				},
+				"craftcostmult": 1.5,
+				"attack": {
+					"kind": "blunt",
+					"damage": "(i.damage||0)*1",
+					"potencies": ["physdmg", "bluntdmg", "runicdmg"]
+				},
+				"alter": { "mod.self.speed": -5 }
+			}
+		],
+		"enchants": [
+			{
+				"id": "en_martial_physdmg",
+				"name": "Honed Blade",
+				"adj": "Honed",
+				"desc": "Increases physical damage.",
+				"require": "g.enchanting>0",
+				"buy": {
+					"arcana": 1,
+					"research": 100
+				},
+				"level": 1,
+				"only": "t_martial",
+				"length": 30,
+				"cost": { "arcana": 1 },
+				"alter": { "mod.physdmg": 20 }
+			},
+			{
+				"id": "en_martial_physdmg_bargain",
+				"name": "Reckless Blade",
+				"adj": "Reckless",
+				"desc": "Greatly increases physical damage",
+				"require": "g.enchanting>0",
+				"buy": {
+					"arcana": 1,
+					"research": 100
+				},
+				"level": 2,
+				"only": "t_martial",
+				"length": 30,
+				"cost": { "arcana": 1 },
+				"alter": { "mod.physdmg": 50, "mod.hp.max": "-50%" }
+			},
+			{
+				"id": "en_martial_spelldmg",
+				"name": "Channelling Core",
+				"adj": "Channelling",
+				"desc": "Increases spell damage",
+				"require": "g.enchanting>0",
+				"buy": {
+					"arcana": 1,
+					"research": 100
+				},
+				"level": 1,
+				"only": "t_martial",
+				"length": 30,
+				"cost": { "arcana": 1 },
+				"alter": { "mod.spelldmg": 15 }
+			},
+			{
+				"id": "en_martial_prismatic",
+				"name": "Empowering Core",
+				"adj": "Empowering",
+				"desc": "Improves accumulation of prismatic energies.",
+				"require": "g.enchanting>0",
+				"buy": {
+					"arcana": 1,
+					"research": 100
+				},
+				"level": 1,
+				"only": "t_martial",
+				"length": 30,
+				"cost": { "arcana": 1 },
+				"alter": { "mod.prismatic.rate": 0.3 }
+			},
+			{
+				"id": "en_martial_speed",
+				"name": "Cheetah's Speed",
+				"adj": "%i of the Cheetah",
+				"desc": "Increases speed",
+				"require": "g.enchanting>0",
+				"buy": {
+					"arcana": 1,
+					"research": 100
+				},
+				"level": 1,
+				"only": "t_martial",
+				"length": 30,
+				"cost": { "arcana": 1 },
+				"alter": { "mod.self.speed": 3 }
+			},
+			{
+				"id": "en_martial_tohit",
+				"name": "Eagle's Accuracy",
+				"adj": "%i of the Eagle",
+				"desc": "Increases chance to hit evasive enemies",
+				"require": "g.enchanting>0",
+				"buy": {
+					"arcana": 1,
+					"research": 100
+				},
+				"level": 1,
+				"only": "t_martial",
+				"length": 30,
+				"cost": { "arcana": 1 },
+				"alter": { "mod.self.tohit": 30 }
+			},
+			{
+				"id": "en_martial_resist_entangle",
+				"name": "Entangle Nullification",
+				"adj": "%i of Freedom",
+				"desc": "Greatly improves chance of negating entangle.",
+				"require": "g.enchanting>0",
+				"buy": {
+					"arcana": 1,
+					"research": 100
+				},
+				"level": 1,
+				"only": "t_martial",
+				"length": 30,
+				"cost": { "arcana": 1 },
+				"alter": { "mod.self.negate.entangle": 75 }
+			},
+			{
+				"id": "en_martial_envenomed",
+				"name": "Envenom weapon",
+				"adj": "Envenomed %i",
+				"desc": "Coat your weapon with a deadly dose of contact venom.",
+				"extdesc": "Adds a toxic attack to the weapon.",
+				"require": "g.enchanting>=6&&g.naturelore>=6",
+				"buy": {
+					"naturegem": 15,
+					"research": 200,
+					"arcana": 3
+				},
+				"level": 1,
+				"only": "t_martial",
+				"length": 30,
+				"cost": { "naturegem": 5 },
+				"alter": {
+					"attack": {
+						"name": "Toxic strike",
+						"damage": "(i.damage||0)*1.25",
+						"damagedesc": "Deals damage equal to 125% of base weapon damage.",
+						"kind": "nature",
+						"potencies": ["physdmg", "naturedmg"],
+						"dot": {
+							"name": "Poisoned",
+							"duration": 5,
+							"kind": "nature",
+							"potencies": ["physdmg", "naturedmg"],
+							"damage": 2
+						}
+					}
+				}
+			},
+			{
+				"id": "en_martial_inflamed",
+				"name": "Inflame weapon",
+				"adj": "Inflamed %i",
+				"desc": "Imbue your weapon with raging flames to scorch your enemy.",
+				"extdesc": "Adds a fiery attack to the weapon.",
+				"require": "g.enchanting>=6&&g.firelore>=6",
+				"buy": {
+					"firegem": 15,
+					"research": 200,
+					"arcana": 3
+				},
+				"level": 1,
+				"only": "t_martial",
+				"length": 30,
+				"cost": { "firegem": 5, "arcana": 1 },
+				"alter": {
+					"attack": {
+						"name": "Flaming strike",
+						"damage": "(i.damage||0)*1.5",
+						"damagedesc": "Deals damage equal to 150% of base weapon damage.",
+						"kind": "fire",
+						"potencies": ["physdmg", "firedmg"]
+					}
+				}
+			},
+			{
+				"id": "en_martial_enbreezed",
+				"name": "Windburst weapon",
+				"adj": "%i of billowing breeze",
+				"desc": "Imbue your weapon with flensing gales.",
+				"extdesc": "Adds an air attack to the weapon.",
+				"require": "g.enchanting>=6&&g.airlore>=6",
+				"buy": {
+					"airgem": 15,
+					"research": 200,
+					"arcana": 3
+				},
+				"level": 1,
+				"only": "t_martial",
+				"length": 30,
+				"cost": { "airgem": 5, "arcana": 1 },
+				"alter": {
+					"attack": {
+						"name": "Breezy strike",
+						"damage": "(i.damage||0)*0.8",
+						"damagedesc": "Deals damage equal to 80% of base weapon damage.",
+						"kind": "air",
+						"potencies": ["physdmg", "airdmg"],
+						"repeathits": 2
+					}
+				}
+			},
+			{
+				"id": "en_martial_leech",
+				"name": "Vampire's Leech",
+				"adj": "%i of the Vampire",
+				"desc": "Enchant your weapon to thirst for enemy's very life force.",
+				"extdesc": "Adds a vampiric attack to the weapon.",
+				"require": "g.enchanting>=6&&g.shadowlore>=6",
+				"buy": {
+					"shadowgem": 15,
+					"research": 200
+				},
+				"level": 1,
+				"only": "t_martial",
+				"length": 30,
+				"cost": { "shadowgem": 5, "arcana": 1 },
+				"alter": {
+					"attack": {
+						"name": "Leeching strike",
+						"damage": "(i.damage||0)*0.8",
+						"damagedesc": "Deals damage equal to 80% of base weapon damage.",
+						"kind": "shadow",
+						"leech": 0.25,
+						"potencies": ["physdmg", "shadowdmg"]
+					}
+				}
+			}
+		]
+	}
+}

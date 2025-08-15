@@ -1,23 +1,21 @@
-import { randElm, randFrom, propSort, randWhere } from '@/util/array';
+import { randElm, randFrom, propSort, randWhere } from "@/util/array";
 
 /**
  * Category to assign items with no property value
  * on the filter dimension.
  * e.g. filters['biome'] = { none:[npcs without biomes] }
  */
-const BLANK_CATEGORY = 'none';
+const BLANK_CATEGORY = "none";
 
 /**
  * Item generation group for a given item type.
  */
 export default class GenGroup {
-
 	/**
 	 *
 	 * @param {GData[]} items
 	 */
 	constructor(items) {
-
 		this.items = items.filter(v => !v.unique && !v.noproc);
 
 		/**
@@ -25,11 +23,9 @@ export default class GenGroup {
 		 * @property {.<string,<string,Array>>} groupBy
 		 */
 		this.filterBy = {};
-
 	}
 
-	subgroup() {
-	}
+	subgroup() {}
 
 	/**
 	 * Get a random item at or below the given level.
@@ -38,29 +34,23 @@ export default class GenGroup {
 	 * @returns {GData}
 	 */
 	randBelow(max = 1, pred) {
-
 		let levels = this.filterBy.level;
 
 		let st = 1 + Math.floor(Math.random() * max);
 		let lvl = st;
 
 		do {
-
 			let list = levels[lvl];
 			let it;
 			if (list) {
-
 				it = pred ? randWhere(list, pred) : randElm(list);
 				if (it) return it;
-
 			}
 
 			if (--lvl < 0) lvl = max;
-
 		} while (lvl !== st);
 
 		return null;
-
 	}
 
 	/**
@@ -70,16 +60,33 @@ export default class GenGroup {
 	 * fall back to a lower level.
 	 */
 	randAt(level, fallback = true) {
-
 		let levels = this.filterBy.level;
-		let a = levels[level];
+		let items = levels[level];
 
-		if (!a || a.length === 0) {
-			return fallback ? this.randBelow(level - 1) : null;
+		if (items?.length > 0) return randElm(items);
+		if (!fallback) return null;
+
+		return this.randCloseTo(level - 3, fallback);
+	}
+
+	/**
+	 *
+	 * @param {number} level
+	 * @param {boolean} fallback - if item of given level not found,
+	 * fall back to a lower level.
+	 */
+	randCloseTo(level, fallback = true) {
+		let levels = this.filterBy.level;
+		let arr = [];
+		for (let i = -2; i < 3; i++) {
+			let items = levels[level + i];
+			if (items?.length > 0) arr.push(randElm(items));
 		}
 
-		return randElm(a);
+		if (arr?.length > 0) return randElm(arr);
+		if (!fallback) return null;
 
+		return this.randCloseTo(level - 5, level > 5);
 	}
 
 	/**
@@ -92,6 +99,30 @@ export default class GenGroup {
 	}
 
 	/**
+	 * Get all items at or below the given level.
+	 * @property {number} level - max item level.
+	 * @property {(object)=>boolean} pred - optional filter predicate.
+	 * @returns {GData[]}
+	 */
+	allBelow(max = 1, pred) {
+		const levels = this.filterBy.level;
+		const valid = [];
+
+		let lvl = max;
+
+		while (lvl-- >= 0) {
+			let list = levels[lvl];
+			if (!list) continue;
+
+			let it = pred ? list.filter(pred) : list;
+			if (!it) continue;
+
+			valid.push(...it);
+		}
+
+		return valid;
+	}
+	/**
 	 * Get a filtered sublist.
 	 * @param {string} filter - filter type 'level', 'biome' etc.
 	 * @param {string} match - property value to match.
@@ -99,14 +130,12 @@ export default class GenGroup {
 	 * @returns {Array}
 	 */
 	filtered(filter, match, allowBlank = false) {
-
 		let f = this.filterBy[filter];
 
 		let res = f[match] || [];
 		if (allowBlank && f.hasOwnProperty(BLANK_CATEGORY)) return res.concat(f[BLANK_CATEGORY]);
 
 		return res;
-
 	}
 
 	/**
@@ -117,27 +146,21 @@ export default class GenGroup {
 	 * @returns {Array[]}
 	 */
 	getCategories(filter, matches, allowBlank) {
-
 		const subs = this.filterBy[filter];
 		const res = [];
 
 		if (subs === undefined) return res;
 		if (allowBlank && subs.hasOwnProperty(BLANK_CATEGORY)) res.push(subs[BLANK_CATEGORY]);
-		if (typeof matches === 'string') {
-
+		if (typeof matches === "string") {
 			if (subs.hasOwnProperty(matches)) res.push(subs[matches]);
-
 		} else if (Array.isArray(matches)) {
-
 			for (let i = matches.length - 1; i >= 0; i--) {
 				const sub = subs[matches[i]];
 				if (sub) res.push(sub);
 			}
-
 		}
 
 		return res;
-
 	}
 
 	/**
@@ -147,20 +170,14 @@ export default class GenGroup {
 	 * @param {boolean} allowBlank - accept items with no prop value on filter. e.g. biome:null
 	 */
 	randBy(filter, matches, allowBlank = false) {
-
 		/// no filters of this type.
 		if (this.filterBy[filter] === undefined) return null;
 
 		if (Array.isArray(matches)) {
-
 			return randFrom(this.getCategories(filter, matches, allowBlank));
-
 		} else {
-
 			return randElm(this.filtered(filter, matches, allowBlank));
-
 		}
-
 	}
 
 	/**
@@ -170,37 +187,27 @@ export default class GenGroup {
 	 * @param {?string} prop - prop to sort on. defaults to name.
 	 * @param {?string} [sortBy=level] property to sort filtered lists by.
 	 */
-	makeFilter(name, prop, sortBy = 'level') {
-
-		const group = this.filterBy[name] = {};
+	makeFilter(name, prop, sortBy = "level") {
+		const group = (this.filterBy[name] = {});
 		prop = prop || name;
 
 		for (let i = this.items.length - 1; i >= 0; i--) {
-
 			const it = this.items[i];
 			const cat = it[prop] || BLANK_CATEGORY;
 
 			const list = group[cat];
 			if (list === undefined) {
-
 				group[cat] = [it];
-
 			} else {
 				list.push(it);
 			}
-
 		}
 
 		// sort all lists.
 		if (sortBy && sortBy !== prop) {
-
 			for (const p in group) {
 				propSort(group[p], sortBy);
 			}
-
 		}
-
-
 	}
-
 }

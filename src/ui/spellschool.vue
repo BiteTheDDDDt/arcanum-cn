@@ -16,10 +16,12 @@ export default {
 		isOpen: {
 			type: Boolean,
 		},
+		mode: {
+			type: String,
+		},
 	},
 	mixins: [ItemsBase],
 	emits: ["toggleOpen"],
-
 	created() {
 		this.game = Game;
 	},
@@ -27,180 +29,142 @@ export default {
 		formatNumber: formatNumber,
 	},
 	computed: {
-		shown() { return this.spells; },
-		list() { return Game.state.spelllist; },
+		shown() {
+			return this.mode === "scraft" ? this.spells.filter(it => !it.hasTag("t_nospellcraft")) : this.spells;
+		},
+		list() {
+			return Game.state.spelllist;
+		},
+		scraftlist() {
+			return Game.state.scraftlist;
+		},
 	},
 };
 </script>
 
 <template>
-	<div class="spellschool" v-if="shown.length > 0">
-		<div class="schoolfill" :class="[school]" />
-
-		<div class="schooltitle separate" :class="[school]" @click="$emit('toggleOpen', school)">
-			<div class="schoolfill" :class="[school]" />
-			<div class="title">{{ school }}</div>
-			<span class="arrows">{{ isOpen ? "▼" : "▲" }}</span>
+	<div class="spellschool" :class="[school, 'bg']" v-if="shown.length > 0">
+		<div class="schooltitle" :class="[school, 'fill']" @click="$emit('toggleOpen', school)">
+			<span>{{ isOpen ? "▼" : "▶" }}</span>
+			<span>{{ school }}</span>
+			<span>{{ isOpen ? "▼" : "◀" }}</span>
 		</div>
-		<table v-if="isOpen">
-			<tr v-for="s in shown" :data-key="s.id" :key="s.id" @mouseenter.capture.stop="itemOver($event, s)"
-				:class="[s.school]">
-				<td>{{ s.name.toTitleCase() }}</td>
-				<td>
-					<button type="button" v-if="s.owned" @click="emit('spell', s)" :disabled="!s.canUse(game)">
-						Cast
-					</button>
-
-					<button v-else type="button" @click="emit('buy', s)" :disabled="!s.canBuy(game)">Learn</button>
-					<button type="button" v-if="s.owned && list.canAdd(s)" @click="list.add(s)">Memorize</button>
-				</td>
-			</tr>
-		</table>
+		<div class="schoolspells" v-if="isOpen">
+			<template v-for="s in shown">
+				<div class="spell" @mouseenter.capture.stop="itemOver($event, s)">
+					<span>{{ s.name.toTitleCase() }}</span>
+					<div>
+						<button
+							v-if="s.owned && !(mode === 'scraft')"
+							@click="emit('spell', s)"
+							:disabled="!s.canUse(game)"
+							class="spellButton">
+							Cast
+						</button>
+						<button
+							v-else-if="!s.owned"
+							@click="emit('buy', s)"
+							:disabled="!s.canBuy(game)"
+							class="spellButton">
+							Learn
+						</button>
+						<button
+							v-if="s.owned && list.canAdd(s) && list.max.value > 0 && !(mode === 'scraft')"
+							@click="list.add(s)"
+							class="spellButton">
+							Memorize
+						</button>
+						<button
+							v-if="s.owned && mode === 'scraft'"
+							@click="scraftlist.add(s)"
+							:disabled="!scraftlist.canAdd(s)"
+							class="spellButton">
+							+
+						</button>
+					</div>
+				</div>
+			</template>
+		</div>
 	</div>
 </template>
 
 <style scoped>
-div.spellschool {
-	padding: var(--sm-gap);
+.spellschool {
+	padding: 1px var(--sm-gap);
 	overflow-y: auto;
 	position: relative;
 	flex-direction: column;
 }
 
-div.spellschool table {
-	display: flex;
-	flex-flow: row wrap;
-	column-gap: 4px;
-}
-
-.spellschool table tr {
-	display: flex;
-	flex-basis: 49%;
-	align-items: center;
-}
-
-.spellschool table tr td:nth-child(1) {
-	flex: 2;
-	flex-basis: 50%;
-}
-
-.spellschool table tr td:nth-child(2) {
-	flex: 1;
-	flex-basis: 45%;
-}
-
-div.schooltitle {
+.schooltitle {
+	display: grid;
+	grid-template-columns: 5% 90% 5%;
 	cursor: pointer;
-	border: 1px solid #000f;
-	padding: 1px;
-	margin: -1px 0 0 0px;
-	position: relative;
-	display: flex;
+	border: 1px solid #888;
+	text-align: center;
+	text-transform: capitalize;
+	font-weight: bold;
 }
 
-@supports (-moz-appearance: button) and (contain: paint) {
-	div.schooltitle {
-		cursor: pointer;
-		border: 1px solid #000f;
-		padding: 1px;
-		margin: -1px 0 0 0px;
-		position: relative;
-		display: flex;
+.darkmode .schooltitle {
+	border: 1px solid black;
+}
+
+.schoolspells {
+	display: grid;
+	grid-template-columns: 50% 50%;
+	align-content: flex-start;
+	row-gap: 1px;
+	margin: 2px 0;
+}
+
+@media only screen and (max-width: 1440px) {
+	.schoolspells {
+		display: grid;
+		grid-template-columns: 100%;
+		align-content: flex-start;
+		row-gap: 1px;
+		margin: 2px 0;
 	}
 }
 
-div.title {
-	text-transform: capitalize;
-	font-weight: bold;
-	text-align: center;
-	flex-grow: 100;
+.spell {
+	display: grid;
+	grid-template-columns: 60% 35%;
+	margin-left: 5%;
 }
 
-div.schoolfill {
-	pointer-events: none;
-	position: absolute;
-	left: 0;
-	top: 0;
-	height: 100%;
-	width: 100%;
-	padding: 0;
-	margin: 0;
-	opacity: 0.15;
+.spell span {
+	display: inline-block;
+	align-content: center;
 }
 
-.martial.schoolfill {
-	background-color: #ff6900;
+.spellButton {
+	background-color: #bbb7;
+	border-color: #777;
 }
 
-.mana.schoolfill {
-	background-color: #2531b3;
+.spellButton:hover {
+	background-color: #888e;
 }
 
-.water.schoolfill {
-	background-color: var(--water-color);
+.spellButton:disabled {
+	color: #777;
+	background-color: #bbb3;
 }
 
-.air.schoolfill {
-	background-color: var(--air-color);
+.darkmode .spellButton {
+	color: #ccc;
+	border-color: #111;
+	background-color: #5557;
 }
 
-.fire.schoolfill {
-	background-color: var(--fire-color);
+.darkmode .spellButton:hover {
+	background-color: #666e;
 }
 
-.earth.schoolfill {
-	background-color: var(--earth-color);
-}
-
-.nature.schoolfill {
-	background-color: var(--nature-color);
-}
-
-.spirit.schoolfill {
-	background-color: var(--spirit-color);
-}
-
-.light.schoolfill {
-	background-color: var(--light-color);
-}
-
-.shadow.schoolfill {
-	background-color: var(--shadow-color);
-}
-
-.time.schoolfill {
-	background-color: var(--tempus-color);
-}
-
-.void.schoolfill {
-	background-color: var(--void-color);
-}
-
-.summoning.schoolfill {
-	background-color: #aaf;
-}
-
-.charms.schoolfill {
-	background-color: #faf;
-}
-
-.astral.schoolfill {
-	background-color: #aff;
-}
-
-.animation.schoolfill {
-	background-color: #cca;
-}
-
-.blood.schoolfill {
-	background-color: #ac0404;
-}
-
-.chaos.schoolfill {
-	background-color: #ffae00;
-}
-
-.crafted.schoolfill {
-	background-color: #a4f;
+.darkmode .spellButton:disabled {
+	color: #000;
+	background-color: #5557;
 }
 </style>

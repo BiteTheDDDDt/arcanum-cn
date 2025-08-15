@@ -9,30 +9,21 @@
  * @param {number} secondIndex - The other index which is being swapped
  * @returns {T[]} - Returns the new array with the swapped element
  */
-export const swap = <T>(
-  array: T[],
-  firstIndex: number,
-  secondIndex: number
-) => {
-  // Validate arguments
-  if (
-    firstIndex < 0 ||
-    secondIndex < 0 ||
-    firstIndex >= array.length ||
-    secondIndex >= array.length
-  ) {
-    return array; // If arguments invalid, return the array that was passed in
-  }
+export const swap = <T>(array: T[], firstIndex: number, secondIndex: number) => {
+	// Validate arguments
+	if (firstIndex < 0 || secondIndex < 0 || firstIndex >= array.length || secondIndex >= array.length) {
+		return array; // If arguments invalid, return the array that was passed in
+	}
 
-  // Get a shallow copy of an array
-  const newArray = array.concat();
+	// Get a shallow copy of an array
+	const newArray = array.concat();
 
-  // Update the values of the new array
-  const temp = newArray[secondIndex];
-  newArray[secondIndex] = newArray[firstIndex];
-  newArray[firstIndex] = temp;
+	// Update the values of the new array
+	const temp = newArray[secondIndex];
+	newArray[secondIndex] = newArray[firstIndex];
+	newArray[firstIndex] = temp;
 
-  return newArray;
+	return newArray;
 };
 
 /**
@@ -44,17 +35,16 @@ export const swap = <T>(
  * @returns {T[]} - Returns array with the element moved
  */
 export const move = <T>(arr: T[], index: number, count: number) => {
+	// Validate arguments
+	if (index < 0 || index >= arr.length) {
+		return arr; // If arguments invalid, return the array that was passed in
+	}
 
-  // Validate arguments
-  if (index < 0 || index >= arr.length) {
-    return arr; // If arguments invalid, return the array that was passed in
-  }
+	const dest = count > 0 ? Math.min(index + count, arr.length - 1) : Math.max(index + count, 0);
 
-  const dest = count > 0 ? Math.min(index + count, arr.length - 1) : Math.max(index + count, 0);
+	arr.splice(dest, 0, ...arr.splice(index, 1));
 
-  arr.splice(dest, 0, ...arr.splice(index, 1));
-
-  return arr;
+	return arr;
 };
 
 /**
@@ -66,8 +56,8 @@ export const move = <T>(arr: T[], index: number, count: number) => {
  * @returns {T[]} The array with the element moved
  */
 export const moveElm = <T>(arr: T[], element: T, count: number) => {
-  // No arguement validation needed, this occurs in the move function.
-  return move(arr, arr.indexOf(element), count); // Returns a new array, leaves the current array unmutated.
+	// No arguement validation needed, this occurs in the move function.
+	return move(arr, arr.indexOf(element), count); // Returns a new array, leaves the current array unmutated.
 };
 
 /**
@@ -77,27 +67,23 @@ export const moveElm = <T>(arr: T[], element: T, count: number) => {
  * @param {(T)=>boolean} predicate - The merge test, if this is true then the item will be merged.
  * @returns {T[]} Returns an array with the items merged in.
  */
-export const mergeInto = <T>(
-  array: T[],
-  itemsToMerge: T | T[],
-  predicate: (value: T) => boolean
-) => {
-  // No arguement validation needed
-  // Get a shallow copy of the array
-  const newArray = array.concat();
+export const mergeInto = <T>(array: T[], itemsToMerge: T | T[], predicate: (value: T) => boolean) => {
+	// No arguement validation needed
+	// Get a shallow copy of the array
+	const newArray = array.concat();
 
-  // Update new array
-  if (Array.isArray(itemsToMerge)) {
-    for (let i = 0; i <= itemsToMerge.length - 1; i++) {
-      if (predicate(itemsToMerge[i])) {
-        newArray.push(itemsToMerge[i]);
-      }
-    }
-  } else if (predicate(itemsToMerge)) {
-    newArray.push(itemsToMerge);
-  }
+	// Update new array
+	if (Array.isArray(itemsToMerge)) {
+		for (let i = 0; i <= itemsToMerge.length - 1; i++) {
+			if (predicate(itemsToMerge[i])) {
+				newArray.push(itemsToMerge[i]);
+			}
+		}
+	} else if (predicate(itemsToMerge)) {
+		newArray.push(itemsToMerge);
+	}
 
-  return newArray;
+	return newArray;
 };
 
 /**
@@ -107,14 +93,8 @@ export const mergeInto = <T>(
  * @param {number} upperLimit - Upper exclusive limit of random range, default value of the array's length.
  * @returns {T} - A randomly chosen value from the array between the indicies.
  */
-export const randBetween = <T>(
-  array: T[],
-  lowerLimit = 0,
-  upperLimit: number = array.length
-) => {
-  return array[
-    Math.floor(lowerLimit + Math.random() * (upperLimit - lowerLimit))
-  ];
+export const randBetween = <T>(array: T[], lowerLimit = 0, upperLimit: number = array.length) => {
+	return array[Math.floor(lowerLimit + Math.random() * (upperLimit - lowerLimit))];
 };
 
 /**
@@ -123,8 +103,8 @@ export const randBetween = <T>(
  * @returns {T} - A random element from the array
  */
 export const randElm = <T>(array: T[]) => {
-  // Get a random element from the randBetween function using the default parameters
-  return randBetween(array);
+	// Get a random element from the randBetween function using the default parameters
+	return randBetween(array);
 };
 
 /**
@@ -133,15 +113,14 @@ export const randElm = <T>(array: T[]) => {
  * @returns {T} - A randomly chosen element from the array.
  */
 export const randFrom = <T>(arrays: T[][]) => {
-  // No argument validation needed
-  // Iterate through all the sub arrays and get a random value from each.
-  const randomsValues: T[] = [];
-  for (let i = arrays.length - 1; i >= 0; i--)
-    randomsValues.push(randElm(arrays[i]));
-  // If no random values exist, there are none available.
-  if (randomsValues.length == 0) return null;
-  // Get a random value within the randoms array.
-  return randElm(randomsValues);
+	// No argument validation needed
+	// Iterate through all the sub arrays and get a random value from each.
+	const randomsValues: T[] = [];
+	for (let i = arrays.length - 1; i >= 0; i--) randomsValues.push(randElm(arrays[i]));
+	// If no random values exist, there are none available.
+	if (randomsValues.length == 0) return null;
+	// Get a random value within the randoms array.
+	return randElm(randomsValues);
 };
 
 /**
@@ -150,16 +129,13 @@ export const randFrom = <T>(arrays: T[][]) => {
  * @param {S=>T} predicate - The predicate determining whether the item will be mapped or not.
  * @returns {T} - Returns a new array which contains the passing predicate values.
  */
-export const mapNonNull = <S, T>(
-  array: Array<S | null>,
-  predicate: (value: S | undefined) => T
-) => {
-  // Remove the null values
-  const newArray = array.filter((value) => {
-    return value !== null;
-  }) as S[];
-  // Then map the new array
-  return newArray.map(predicate);
+export const mapNonNull = <S, T>(array: Array<S | null>, predicate: (value: S | undefined) => T) => {
+	// Remove the null values
+	const newArray = array.filter(value => {
+		return value !== null;
+	}) as S[];
+	// Then map the new array
+	return newArray.map(predicate);
 };
 
 /**
@@ -168,23 +144,20 @@ export const mapNonNull = <S, T>(
  * @param {T|undefined|Array<T|undefined>} valuesToPush - This is the value or values which are being pushed
  * @returns {T[]} - Returns a new array which contains all the non-null values passed in.
  */
-export const pushNonNull = <T>(
-  array: T[],
-  valuesToPush: T | undefined | Array<T | undefined>
-) => {
-  // Get new array to return to keep this non-mutating
-  const newArray = array.concat();
+export const pushNonNull = <T>(array: T[], valuesToPush: T | undefined | Array<T | undefined>) => {
+	// Get new array to return to keep this non-mutating
+	const newArray = array.concat();
 
-  // Ensure that the valuesToPush is an array.
-  if (!Array.isArray(valuesToPush)) valuesToPush = [valuesToPush];
+	// Ensure that the valuesToPush is an array.
+	if (!Array.isArray(valuesToPush)) valuesToPush = [valuesToPush];
 
-  // Push only the nonNull values onto the array.
-  for (let i = 0; i <= valuesToPush.length - 1; i++) {
-    const value = valuesToPush[i];
-    if (value) newArray.push(value);
-  }
+	// Push only the nonNull values onto the array.
+	for (let i = 0; i <= valuesToPush.length - 1; i++) {
+		const value = valuesToPush[i];
+		if (value) newArray.push(value);
+	}
 
-  return newArray;
+	return newArray;
 };
 
 /**
@@ -193,12 +166,12 @@ export const pushNonNull = <T>(
  * @return {T} - The first element which is not null
  */
 export const first = <T>(array: T[]) => {
-  // Iterate through the array
-  for (let i = 0; i < array.length - 1; i++) {
-    // Return the first non-null value.
-    const value = array[i];
-    if (value) return value;
-  }
+	// Iterate through the array
+	for (let i = 0; i < array.length - 1; i++) {
+		// Return the first non-null value.
+		const value = array[i];
+		if (value) return value;
+	}
 };
 
 /**
@@ -208,18 +181,18 @@ export const first = <T>(array: T[]) => {
  * @returns {T|null} - The item removed or null.
  */
 export const findRemove = <T>(array: T[], predicate: (value: T) => boolean) => {
-  // Iterate through the array
-  for (let i = 0; i <= array.length - 1; i++) {
-    // Evaluate the predicate
-    if (predicate(array[i])) {
-      // If the result is found, remove and return it
-      const result = array[i];
-      array.splice(i, 1);
-      return result;
-    }
-  }
-  // If all predicate results fail, return null.
-  return null;
+	// Iterate through the array
+	for (let i = 0; i <= array.length - 1; i++) {
+		// Evaluate the predicate
+		if (predicate(array[i])) {
+			// If the result is found, remove and return it
+			const result = array[i];
+			array.splice(i, 1);
+			return result;
+		}
+	}
+	// If all predicate results fail, return null.
+	return null;
 };
 
 /**
@@ -229,22 +202,22 @@ export const findRemove = <T>(array: T[], predicate: (value: T) => boolean) => {
  * @returns {T} - Starting at a random index, the first value found that matches the predicate.
  */
 export const randWhere = <T>(array: T[], predicate: (value: T) => boolean) => {
-  // Get a random starting index
-  const startIndex = Math.floor(Math.random() * array.length);
-  let currentIndex = startIndex;
+	// Get a random starting index
+	const startIndex = Math.floor(Math.random() * array.length);
+	let currentIndex = startIndex;
 
-  do {
-    // Check predicate and return passing value
-    if (predicate(array[currentIndex])) {
-      return array[currentIndex];
-    }
+	do {
+		// Check predicate and return passing value
+		if (predicate(array[currentIndex])) {
+			return array[currentIndex];
+		}
 
-    // Cycle through values using the mod operator to ensure we're always on a real index.
-    currentIndex = (currentIndex + 1) % array.length;
-  } while (currentIndex !== startIndex);
+		// Cycle through values using the mod operator to ensure we're always on a real index.
+		currentIndex = (currentIndex + 1) % array.length;
+	} while (currentIndex !== startIndex);
 
-  // If no matching predicate values were found, return null
-  return null;
+	// If no matching predicate values were found, return null
+	return null;
 };
 
 /**
@@ -253,11 +226,11 @@ export const randWhere = <T>(array: T[], predicate: (value: T) => boolean) => {
  * @param {number} index - The index of the element being spliced
  */
 export const quickSplice = <T>(array: T[], index: number) => {
-  // Replace the index with the last element in the array
-  array[index] = array[array.length - 1];
+	// Replace the index with the last element in the array
+	array[index] = array[array.length - 1];
 
-  // Remove the last index in the array.
-  array.pop();
+	// Remove the last index in the array.
+	array.pop();
 };
 
 /**
@@ -270,24 +243,24 @@ export const quickSplice = <T>(array: T[], index: number) => {
  * @return {T[]} - An array containing all the values of both arguements passed in.
  */
 export const arrayMerge = <T>(value1: T | T[], value2: T | T[]) => {
-  // If the first argument is an array
-  if (Array.isArray(value1)) {
-    // If the second is also an array, combined them and return
-    const newArray = value1.concat();
-    if (Array.isArray(value2)) return newArray.concat(value2);
+	// If the first argument is an array
+	if (Array.isArray(value1)) {
+		// If the second is also an array, combined them and return
+		const newArray = value1.concat();
+		if (Array.isArray(value2)) return newArray.concat(value2);
 
-    // If the second is not an array, put it on the first and return it
-    newArray.push(value2);
-    return newArray;
+		// If the second is not an array, put it on the first and return it
+		newArray.push(value2);
+		return newArray;
 
-    // If the second arguement is an array but the first is not
-  } else if (Array.isArray(value2)) {
-    const newArray = value2.concat();
-    newArray.unshift(value1); // If value1 is not an array, then put it at the front of the array.
-    return newArray;
+		// If the second arguement is an array but the first is not
+	} else if (Array.isArray(value2)) {
+		const newArray = value2.concat();
+		newArray.unshift(value1); // If value1 is not an array, then put it at the front of the array.
+		return newArray;
 
-    // If neither arguement is an array
-  } else return [value1, value2];
+		// If neither arguement is an array
+	} else return [value1, value2];
 };
 
 /**
@@ -298,24 +271,24 @@ export const arrayMerge = <T>(value1: T | T[], value2: T | T[]) => {
  * @param {string} propertyName - This is a numeric property on T to sort on.
  */
 export const propSort = <T>(array: T[], propertyName: keyof T): void => {
-  array.sort((a, b) => {
-    const propA = a[propertyName] as unknown as number | undefined; // When casting types, they must be cast first to unknown. It's a quirk of ts.
-    const propB = b[propertyName] as unknown as number | undefined;
+	array.sort((a, b) => {
+		const propA = a[propertyName] as unknown as number | undefined; // When casting types, they must be cast first to unknown. It's a quirk of ts.
+		const propB = b[propertyName] as unknown as number | undefined;
 
-    if (propA === propB) {
-      return 0;
-    }
+		if (propA === propB) {
+			return 0;
+		}
 
-    if (propA === undefined) {
-      return 1;
-    }
+		if (propA === undefined) {
+			return 1;
+		}
 
-    if (propB === undefined) {
-      return -1;
-    }
+		if (propB === undefined) {
+			return -1;
+		}
 
-    return propA - propB;
-  });
+		return propA - propB;
+	});
 };
 
 /**
@@ -330,48 +303,45 @@ export const propSort = <T>(array: T[], propertyName: keyof T): void => {
  * @return {number} - This is the index at which the value was found, or -1 if no value was found.
  */
 export const binarySearch = <T, K extends keyof T, R>(
-  array: T[],
-  target: T | T[K],
-  property?: K,
-  comparator?: (a: R, b: R) => number
+	array: T[],
+	target: T | T[K],
+	property?: K,
+	comparator?: (a: R, b: R) => number,
 ): number => {
-  const defaultComparator = (a: R, b: R) => {
-    if (a < b) {
-      return -1;
-    } else if (a > b) {
-      return 1;
-    } else {
-      return 0;
-    }
-  };
+	const defaultComparator = (a: R, b: R) => {
+		if (a < b) {
+			return -1;
+		} else if (a > b) {
+			return 1;
+		} else {
+			return 0;
+		}
+	};
 
-  const compare = comparator ?? defaultComparator;
+	const compare = comparator ?? defaultComparator;
 
-  let left = 0;
-  let right = array.length - 1;
+	let left = 0;
+	let right = array.length - 1;
 
-  while (left <= right) {
-    const mid = Math.floor((left + right) / 2);
-    const element = array[mid];
+	while (left <= right) {
+		const mid = Math.floor((left + right) / 2);
+		const element = array[mid];
 
-    let comparison: number;
-    if (property) {
-      comparison = compare(
-        element[property] as unknown as R,
-        target as unknown as R
-      );
-    } else {
-      comparison = compare(element as unknown as R, target as unknown as R);
-    }
+		let comparison: number;
+		if (property) {
+			comparison = compare(element[property] as unknown as R, target as unknown as R);
+		} else {
+			comparison = compare(element as unknown as R, target as unknown as R);
+		}
 
-    if (comparison === 0) {
-      return mid;
-    } else if (comparison < 0) {
-      left = mid + 1;
-    } else {
-      right = mid - 1;
-    }
-  }
+		if (comparison === 0) {
+			return mid;
+		} else if (comparison < 0) {
+			left = mid + 1;
+		} else {
+			right = mid - 1;
+		}
+	}
 
-  return -1;
+	return -1;
 };
