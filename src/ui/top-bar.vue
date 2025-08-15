@@ -71,11 +71,12 @@ export default {
 			<slot name="center"></slot>
 		</span>
 		<span class="link-bar">
-			<a class="item" href="https://mathiashjelm.gitlab.io/arcanum/" target="_blank">Stable</a>
-			<a class="item" href="https://discord.gg/bCABC96" target="_blank">Discord</a>
-			<a class="item" href="https://www.reddit.com/r/wizrobe/" target="_blank">Reddit</a>
-			<span class="vers item">{{ VERSION }}</span>
-			<button type="button" class="text-button item" @click="$emit('open-settings')">&#9881;</button>
+			<a href="https://arcanumtesting.gitlab.io/arcanum/" target="_blank">Test Site</a>
+			<a href="https://discord.gg/bCABC96" target="_blank">Discord</a>
+			<a href="https://theoryofmagic.miraheze.org/wiki/Main_Page" target="_blank">Wiki</a>
+			<a href="https://www.reddit.com/r/wizrobe/" target="_blank">Reddit</a>
+			<span class="vers">Version: {{ VERSION }}</span>
+			<button type="button" class="text-button" @click="$emit('open-settings')">&#9881;</button>
 		</span>
 	</div>
 </template>

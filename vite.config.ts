@@ -6,7 +6,7 @@ import { createHtmlPlugin } from 'vite-plugin-html';
 import { viteStaticCopy } from 'vite-plugin-static-copy';
 
 let packData = JSON.parse(fs.readFileSync('package.json', 'utf-8'));
-packData.version = "unstable " + packData.version;
+packData.version = "stable " + packData.version;
 const VERS_STR = JSON.stringify(packData.version);
 
 export default defineConfig(({ mode }) => {
