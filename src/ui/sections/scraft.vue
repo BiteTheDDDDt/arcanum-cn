@@ -356,7 +356,7 @@ export default {
 			<div class="spellControls">
 				<div class="inputgroup">
 					<filterbox v-model="spellsBySearch" :prop="searchSpell" :items="spellsByLevel" />
-					<label class="level-lbl" :for="elmId('level')">Level</label>
+					<label class="level-lbl" :for="elmId('level')">等级</label>
 					<input class="level" :id="elmId('level')" type="number" v-model="minLevel" min="0" size="5" />
 				</div>
 				<div class="keywordcontainer">
@@ -378,8 +378,8 @@ export default {
 					</div>
 				</div>
 				<div class="buttongroup">
-					<button type="button" @click="toggleKeywords">Keywords</button>
-					<button type="button" @click="toggleAllSchools">Toggle Schools</button>
+					<button type="button" @click="toggleKeywords">关键字</button>
+					<button type="button" @click="toggleAllSchools">切换学派</button>
 				</div>
 				<div class="bottom">
 					<div class="spellbook">
@@ -400,10 +400,10 @@ export default {
 						<input class="fld-name" :id="elmId('spName')" type="text" v-model="craft.name" />
 					</div>
 					<span @mouseenter.capture.stop="itemOver($event, this.prelimSpell())">
-						<button type="button" @click="create" :disabled="!canCraft">Craft</button>
+						<button type="button" @click="create" :disabled="!canCraft">制造</button>
 					</span>
 					<span class="warn-text" v-if="scraftlist.used >= scraftlist.max">
-						You are at your power limit.
+						你已达到能量上限。
 					</span>
 				</div>
 				<spelllist class="spelllist" :list="scraftlist" />

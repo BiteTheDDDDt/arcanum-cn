@@ -1,34 +1,38 @@
 [
 	{
 		"id": "evt_bodyfix",
-		"name": "Bodily awareness",
+		"name": "身体觉察",
 		"require": "g.evt_helper>0&&g.t_bodyplan<1",
-		"desc": "You are suddenly compelled to take a good accounting of your own limbs... and drop all your equipment in the nearby bottomless pit.",
-		"result": { "humanoid_body": 1 }
+		"desc": "你突然被迫认真盘点自己的四肢……并把所有装备丢进附近的无底洞。",
+		"result": {
+			"humanoid_body": 1
+		}
 	},
 	{
 		"id": "evt_intro",
-		"name": "Prologue",
+		"name": "序章",
 		"require": "hp",
-		"desc": "An idle waif with no prospects to speak of...",
-		"result": { "humanoid_body": 1 }
+		"desc": "一个无所事事、毫无前途的流浪儿……",
+		"result": {
+			"humanoid_body": 1
+		}
 	},
 	{
 		"id": "evt_scroll",
-		"name": "A tattered scroll",
+		"name": "破旧的卷轴",
 		"require": "g.scrolls>0",
-		"desc": "You buy a strange scroll from a travelling peddler. If you could only decipher the cryptic symbols."
+		"desc": "你从旅行商贩那里买了一张奇怪的卷轴。如果能解读那些神秘符号就好了。"
 	},
 	{
 		"id": "evt_alcove",
-		"name": "Moving In",
-		"desc": "After taking your savings, your new master grants you a small nook under the stairs.",
+		"name": "搬入新居",
+		"desc": "主人收下你的积蓄后，给了你楼梯下的小角落。",
 		"require": "alcove"
 	},
 	{
 		"id": "evt_helper",
-		"name": "Promotion",
-		"desc": "In return for your new services, your master grants you a small allowance for your studies. The position does require of course, some initial fees...",
+		"name": "晋升",
+		"desc": "作为新晋助手，主人给了你一笔小津贴用于学习。当然，这个职位也需要一些初始费用……",
 		"require": "g.t_job>0",
 		"lock": "t_job",
 		"result": {
@@ -40,8 +44,8 @@
 	},
 	{
 		"id": "evt_early_combat",
-		"name": "A commoners limit",
-		"desc": "You explored further from civilisation than most commoners would dare. You are going to need magic to survive even more dangerous environments.",
+		"name": "平民的极限",
+		"desc": "你探索的距离比大多数平民敢走的还远。要在更危险的环境中生存，你需要魔法。",
 		"require": "g.treffilwoods>0&&g.spellbook==0",
 		"result": {
 			"fame": 1
@@ -49,30 +53,29 @@
 	},
 	{
 		"id": "evt_rangers",
-		"name": "Impudent Meddlers",
+		"name": "无礼的干涉者",
 		"require": "g.wicked>0&&g.pillage_village>0",
-		"desc": "Hearing of your wicked deeds, the rangers of the Ettinmarch plot your downfall. An assault on their camps should crush their presumption."
+		"desc": "听闻你的恶行，艾廷沼地的游侠们密谋你的覆灭。袭击他们的营地可以粉碎他们的傲慢。"
 	},
 	{
 		"id": "evt_cabal",
-		"name": "Vile Plotters",
+		"name": "邪恶密谋者",
 		"require": "g.respectable>0&&g.virtue>=75",
-		"desc": "Learning of your virtuous ways, a cabal of ossurite priests plots your destruction. Travel to the Fetid Barrows and unravel their schemes."
+		"desc": "得知你的高尚品行，一群奥苏莱特祭司密谋你的毁灭。前往腐臭墓地，揭开他们的阴谋。"
 	},
-
 	{
 		"id": "evt_nexusadjust1",
-		"name": "Gate implosion",
+		"name": "传送门崩溃",
 		"require": "g.gate==2",
-		"desc": "A powerful magical disturbance rocks the foundations of your home. As you survey the damage, you realize your gates have converged into a single nexus.",
+		"desc": "强大的魔法干扰摇晃着你家园的基础。当你查看损坏情况时，你意识到你的传送门已经汇聚成一个单一的中心。",
 		"result": {
 			"gate": -1
 		}
 	},
 	{
 		"id": "evt_manafix",
-		"name": "Technical adjustment to max mana for reasons",
-		"desc": "If you see this, report it in discord.",
+		"name": "法力上限的技术调整",
+		"desc": "如果你看到了这个，请在discord上报告。",
 		"hide": true,
 		"require": "g.lore>0",
 		"mod": {
@@ -81,8 +84,8 @@
 	},
 	{
 		"id": "evt_vigorfix",
-		"name": "Technical adjustment to vigor for reasons",
-		"desc": "If you see this, report it in discord.",
+		"name": "活力的技术调整",
+		"desc": "如果你看到了这个，请在discord上报告。",
 		"hide": true,
 		"require": "g.cleanstables>0",
 		"result": {
@@ -91,17 +94,17 @@
 	},
 	{
 		"id": "evt_nexusadjust2",
-		"name": "Gate implosion",
+		"name": "传送门崩溃",
 		"require": "g.gate==3",
-		"desc": "A powerful magical disturbance rocks the foundations of your home. As you survey the damage, you realize your gates have converged into a single nexus.",
+		"desc": "强大的魔法干扰摇晃着你家园的基础。当你查看损坏情况时，你意识到你的传送门已经汇聚成一个单一的中心。",
 		"result": {
 			"gate": -2
 		}
 	},
 	{
 		"id": "evt_hall_time_1_add",
-		"name": "Timesplit upgrade from time fork technical addition",
-		"desc": "If you see this, report it in discord.",
+		"name": "时间分叉技术附加",
+		"desc": "如果你看到了这个，请在discord上报告。",
 		"hide": true,
 		"require": "g.hall_time_1>0&&g.timesplit==0",
 		"mod": {
@@ -110,9 +113,18 @@
 	},
 	{
 		"id": "tier0",
-		"name": "Tier 0 - Solitary Magic",
-		"desc": "Some say the study of magic doesn't truly begin until apprenticeship ends. People say a lot of things.",
-		"disable": ["study", "chores", "errands", "leavemaster", "slaymaster", "pestcontrol", "alcove", "atticbedroom"],
+		"name": "等级 0 - 孤独的魔法",
+		"desc": "人们说，魔法的学习直到学徒期结束才真正开始。人们说了很多话。",
+		"disable": [
+			"study",
+			"chores",
+			"errands",
+			"leavemaster",
+			"slaymaster",
+			"pestcontrol",
+			"alcove",
+			"atticbedroom"
+		],
 		"require": "(g.class-4)>=0",
 		"lock": "t_tier0",
 		"mod": {
@@ -126,10 +138,13 @@
 	},
 	{
 		"id": "tier1",
-		"name": "Tier 1 - Professional Magick",
-		"desc": "Every province has its handful of runaway apprentices and failed Adepts. It's not uncommon for thieves and rangers to know a spell or two. They are nothing compared to the talents of a true professional.",
+		"name": "等级 1 - 职业魔法",
+		"desc": "每个省份都有少数逃跑的学徒和失败的高手。盗贼和游侠会一些法术并不罕见。他们与真正的专业人士相比，简直微不足道。",
 		"require": "(g.class-4)>=1",
-		"lock": ["t_tier1", "prestidigitation"],
+		"lock": [
+			"t_tier1",
+			"prestidigitation"
+		],
 		"mod": {
 			"t_1": 1
 		},
@@ -140,8 +155,8 @@
 	},
 	{
 		"id": "tier2",
-		"name": "Tier 2 - Arcane Ascendant",
-		"desc": "The masses of arcane dabblers never reach such heights.",
+		"name": "等级 2 - 奥术升华",
+		"desc": "普通的魔法爱好者永远无法达到这样的高度。",
 		"require": "(g.class-4)>=2",
 		"lock": "t_tier2",
 		"mod": {
@@ -154,8 +169,8 @@
 	},
 	{
 		"id": "tier3",
-		"name": "Tier 3 - Magical Mastery",
-		"desc": "You are a master of your field of magic.",
+		"name": "等级 3 - 魔法精通",
+		"desc": "你是你所学魔法领域的高手。",
 		"require": "(g.class-4)>=3",
 		"lock": "t_tier3",
 		"mod": {
@@ -168,11 +183,13 @@
 	},
 	{
 		"id": "tier4",
-		"name": "Tier 4 - Supreme Sorcery",
-		"desc": "Not even the masters could challenge you.",
+		"name": "等级 4 - 终极法术",
+		"desc": "即使是大师也无法挑战你。",
 		"require": "(g.class-4)>=4",
 		"lock": "t_tier4",
-		"disable": ["buyscroll"],
+		"disable": [
+			"buyscroll"
+		],
 		"mod": {
 			"t_4": 1
 		},
@@ -183,8 +200,8 @@
 	},
 	{
 		"id": "tier5",
-		"name": "Tier 5 - Dhrunic Magic",
-		"desc": "Magic from a forgotten age.",
+		"name": "等级 5 - 德鲁尼克魔法",
+		"desc": "来自遗忘时代的魔法。",
 		"require": "(g.class-4)>=5",
 		"lock": "t_tier5",
 		"mod": {
@@ -197,8 +214,8 @@
 	},
 	{
 		"id": "tier6",
-		"name": "Tier 6 - Ageless Magic",
-		"desc": "Ages of the world come and go; only these endure.",
+		"name": "等级 6 - 永恒魔法",
+		"desc": "世界的时代来来去去；只有这些魔法永存。",
 		"require": "(g.class-4)>=6",
 		"lock": "t_tier6",
 		"mod": {
@@ -211,8 +228,8 @@
 	},
 	{
 		"id": "tier7",
-		"name": "Dhrunic Pillar",
-		"desc": "A foundation of the world.",
+		"name": "德鲁尼克支柱",
+		"desc": "世界的基础。",
 		"lock": "t_tier7",
 		"result": {
 			"player.exp": 100,
@@ -229,7 +246,7 @@
 	},
 	{
 		"id": "secretfire",
-		"name": "servant of the secret fire",
+		"name": "秘密火焰的仆人",
 		"desc": "",
 		"mod": {
 			"firelore.max": 1,
@@ -239,7 +256,7 @@
 	{
 		"id": "decent",
 		"require": "(g.virtue-g.evilamt)>=90&&g.evilamt<=200&&g.virtue>=90",
-		"desc": "You are turning out to be an upstanding spellcaster.",
+		"desc": "你正逐渐成为一个正直的施法者。",
 		"result": {
 			"decent1": 1
 		}
@@ -247,7 +264,7 @@
 	{
 		"id": "respectable",
 		"require": "(g.virtue-g.evilamt)>=375&&g.evilamt<=100&&g.virtue>=250",
-		"desc": "You have become a respected personage in the magical world.",
+		"desc": "你已成为魔法界受人尊敬的人物。",
 		"result": {
 			"fame": 1,
 			"respectable1": 1
@@ -255,16 +272,16 @@
 	},
 	{
 		"id": "good",
-		"name": "virtuous",
+		"name": "高尚",
 		"require": "(g.virtue-g.evilamt)>=750&&g.evilamt<=50&&g.tier0==1&&g.virtue>=750",
-		"desc": "Your actions have shown you to be a virtuous wizard.",
+		"desc": "你的行为表明你是一位高尚的巫师。",
 		"result": {
 			"good1": 1
 		}
 	},
 	{
 		"id": "immoral",
-		"desc": "You have taken your first steps on the path of evil. It's a good thing.",
+		"desc": "你已迈出邪恶道路的第一步。这是件好事。",
 		"require": "g.evilamt>=5",
 		"result": {
 			"immoral1": 1
@@ -272,7 +289,7 @@
 	},
 	{
 		"id": "wicked",
-		"desc": "Your wicked deeds put you on the sure path of evil. A few more steps, and there will be no turning back.",
+		"desc": "你邪恶的行为将你引向了邪恶的道路。再走几步，就再也无法回头了。",
 		"require": "g.evilamt>=250",
 		"result": {
 			"fame": 1,
@@ -281,8 +298,8 @@
 	},
 	{
 		"id": "evil",
-		"name": "vile",
-		"desc": "Freed of pitiful notions of right, and morality, the dark arts lie open before you.",
+		"name": "邪恶",
+		"desc": "摆脱了可怜的正义和道德观念，黑暗的艺术在你面前展开。",
 		"require": "g.evilamt>=500&&g.tier0==1",
 		"result": {
 			"evil1": 1
@@ -292,17 +309,22 @@
 		"id": "recal_evil",
 		"hide": true,
 		"require": "g.evil==1&&g.evil1==0",
-		"desc": "Updating internals - players should not see this.",
+		"desc": "更新内部 - 玩家不应看到此内容。",
 		"result": {
 			"evil1": 1
 		},
-		"enable": ["good", "light", "lightlore", "lightlore2"]
+		"enable": [
+			"good",
+			"light",
+			"lightlore",
+			"lightlore2"
+		]
 	},
 	{
 		"id": "recal_good",
 		"hide": true,
 		"require": "g.good==1&&g.good1==0",
-		"desc": "Updating internals - players should not see this.",
+		"desc": "更新内部 - 玩家不应看到此内容。",
 		"result": {
 			"good1": 1
 		}
@@ -311,7 +333,7 @@
 		"id": "recal_immoral",
 		"hide": true,
 		"require": "g.immoral==1&&g.immoral1==0",
-		"desc": "Updating internals - players should not see this.",
+		"desc": "更新内部 - 玩家不应看到此内容。",
 		"result": {
 			"immoral1": 1
 		}
@@ -320,7 +342,7 @@
 		"id": "recal_wicked",
 		"hide": true,
 		"require": "g.wicked==1&&g.wicked1==0",
-		"desc": "Updating internals - players should not see this.",
+		"desc": "更新内部 - 玩家不应看到此内容。",
 		"result": {
 			"wicked1": 1
 		}
@@ -329,7 +351,7 @@
 		"id": "recal_decent",
 		"hide": true,
 		"require": "g.decent==1&&g.decent1==0",
-		"desc": "Updating internals - players should not see this.",
+		"desc": "更新内部 - 玩家不应看到此内容。",
 		"result": {
 			"decent1": 1
 		}
@@ -338,16 +360,16 @@
 		"id": "recal_respectable",
 		"hide": true,
 		"require": "g.respectable==1&&g.respectable1==0",
-		"desc": "Updating internals - players should not see this.",
+		"desc": "更新内部 - 玩家不应看到此内容。",
 		"result": {
 			"respectable1": 1
 		}
 	},
 	{
 		"id": "good3_trickster",
-		"name": "a thief gone straight",
+		"name": "改邪归正的盗贼",
 		"require": "g.good3==1&&g.t_chaosclass>0",
-		"desc": "A former scoundrel knows best how to think like a scoundrel.",
+		"desc": "一位前流氓最懂得如何像流氓一样思考。",
 		"mod": {
 			"securityconsultant.result.gems.min": -4,
 			"securityconsultant.result.gems.max": -10,
@@ -361,26 +383,28 @@
 	{
 		"id": "evt_securityconsultantfix",
 		"require": "g.good3_trickster>0",
-		"desc": "If you are reading this, report it as a bug",
+		"desc": "如果你看到这个，请报告为bug",
 		"hide": true,
 		"mod": {
 			"securityconsultant.result.gems.min": 4,
 			"securityconsultant.result.gems.max": 10,
 			"securityconsultant.result.gold": "200+99.9%"
 		},
-		"disable": ["heist"]
+		"disable": [
+			"heist"
+		]
 	},
 	{
 		"id": "moving_out_of_inn",
-		"name": "Moving out",
+		"name": "搬出",
 		"require": "g.tier0>0&&g.innroom<=0",
-		"desc": "Having acquired a place to call your own, you now have a proper place for all the experiments and tools your research requires.",
+		"desc": "拥有了一个可以称之为自己的地方后，你终于有了一个合适的地方来放置所有实验和工具，以满足你的研究需求。",
 		"lock": "innroom"
 	},
 	{
 		"id": "ruinedpalace_evt",
 		"require": "g.ruinedpalace>0",
-		"desc": "If a player reads this, report it as a bug.",
+		"desc": "如果玩家看到了这个，请报告为bug。",
 		"hide": true,
 		"mod": {
 			"palace.buy.gold": -2500
@@ -389,7 +413,7 @@
 	{
 		"id": "ruinedcastle_evt",
 		"require": "g.ruinedcastle>0",
-		"desc": "If a player reads this, report it as a bug.",
+		"desc": "如果玩家看到了这个，请报告为bug。",
 		"hide": true,
 		"mod": {
 			"castle.buy.gold": -2500
@@ -399,7 +423,7 @@
 		"id": "home_idrasil_sprout_evt",
 		"require": "g.home_idrasil_sprout>0",
 		"hide": true,
-		"desc": "If a player reads this, report it as a bug.",
+		"desc": "如果玩家看到了这个，请报告为bug。",
 		"mod": {
 			"home_idrasil_tree.buy.herbs": -25,
 			"home_idrasil_tree.buy.gems": -15,
@@ -411,7 +435,7 @@
 		"id": "home_idrasil_saping_evt",
 		"require": "g.home_idrasil_sapling>0&&g.home_idrasil_sprout_evt<1",
 		"hide": true,
-		"desc": "If a player reads this, report it as a bug.",
+		"desc": "如果玩家看到了这个，请报告为bug。",
 		"mod": {
 			"home_idrasil_tree.buy.herbs": -25,
 			"home_idrasil_tree.buy.gems": -15
@@ -421,7 +445,7 @@
 		"id": "home_waterfall_evt",
 		"require": "g.home_waterfall>0",
 		"hide": true,
-		"desc": "If a player reads this, report it as a bug.",
+		"desc": "如果玩家看到了这个，请报告为bug。",
 		"mod": {
 			"cataract.buy.gold": -500
 		}
@@ -430,19 +454,28 @@
 		"id": "restfix",
 		"require": "g.chant>0||g.naturecamp>0||g.eatchildren>0||g.stabilize>0",
 		"hide": true,
-		"desc": "If you see this, say so on discord.",
+		"desc": "如果你看到了这个，请在discord上说出来。",
 		"result": {
 			"rest": true
 		},
-		"disable": ["chant", "naturecamp", "eatchildren", "stabilize"]
+		"disable": [
+			"chant",
+			"naturecamp",
+			"eatchildren",
+			"stabilize"
+		]
 	},
 	{
 		"id": "restfix2",
 		"require": "g.slumber>0&&g.up_slumber==0",
 		"hide": true,
-		"desc": "If you see this, say so on discord.",
-		"disable": ["rest"],
-		"lock": ["up_slumber"],
+		"desc": "如果你看到了这个，请在discord上说出来。",
+		"disable": [
+			"rest"
+		],
+		"lock": [
+			"up_slumber"
+		],
 		"result": {
 			"slumber": true
 		}
@@ -450,9 +483,11 @@
 	{
 		"id": "enchantedgrant",
 		"require": "g.arcanestudy>0",
-		"name": "Study collapse",
-		"desc": "A worrying rumble from your enchanted study is quickly followed by a localized dimensional collapse. You now seem to only have a single study. At least it seems better than before.",
-		"disable": ["arcanestudy"],
+		"name": "研究崩溃",
+		"desc": "来自你魔法研究室的轰鸣声很快被局部的次元崩溃所取代。你似乎现在只有一个研究室了。至少它看起来比以前要好。",
+		"disable": [
+			"arcanestudy"
+		],
 		"result": {
 			"enchanted_study": 1,
 			"studyroom": "g.studyroom==0"
@@ -462,35 +497,45 @@
 		"id": "enchantedungrant",
 		"require": "g.arcanestudy==0",
 		"hide": true,
-		"desc": "Disables illegal study, if you did not own it.",
-		"disable": ["arcanestudy"]
+		"desc": "禁用非法研究，如果你并不拥有它。",
+		"disable": [
+			"arcanestudy"
+		]
 	},
 	{
 		"id": "evt_remove_dwarves",
-		"name": "Dwarven Resignation",
+		"name": "矮人的辞职",
 		"require": "g.up_runecrafter.locked==0&&g.evil2>0",
-		"desc": "Outraged by your evil acts, the Dwarves storm out of your workshop, vowing never to return.",
-		"disable": ["up_runecrafter"]
+		"desc": "因对你邪恶行为的愤怒，矮人们冲出你的工作坊，发誓再也不回来。",
+		"disable": [
+			"up_runecrafter"
+		]
 	},
 	{
 		"id": "evt_return_dwarves",
-		"name": "Dwarven Restoration",
+		"name": "矮人的复职",
 		"require": "g.evt_remove_dwarves>0&&g.redemption_path==1",
-		"desc": "After many painstaking challenges to prove your repentance, the dwarves finally agree to return to work",
-		"enable": ["up_runecrafter"]
+		"desc": "经过许多艰难的挑战来证明你的悔改，矮人们终于同意返回工作。",
+		"enable": [
+			"up_runecrafter"
+		]
 	},
 	{
 		"id": "evt_remove_skeletons",
-		"name": "Skeletal Disintegration",
+		"name": "骷髅的解散",
 		"require": "g.up_evil_runecrafter.locked==0&&g.good2>0",
-		"desc": "As you move away from evil, the idea of using the dead runecarvers for labor no longer seems permissible to you.",
-		"disable": ["up_evil_runecrafter"]
+		"desc": "随着你远离邪恶，利用死去的符文雕刻师的想法对你来说不再可接受。",
+		"disable": [
+			"up_evil_runecrafter"
+		]
 	},
 	{
 		"id": "evt_return_skeletons",
-		"name": "Skeletal Servitude",
+		"name": "骷髅的奴役",
 		"require": "g.evt_remove_skeletons>0&&g.corruption_path==1",
-		"desc": "With your newfound lack of scruples, the skeletal runecarvers take their place in your workshops once again.",
-		"enable": ["up_evil_runecrafter"]
+		"desc": "随着你新获得的毫不在意，骷髅符文雕刻师再次在你的工作坊中占据一席之地。",
+		"enable": [
+			"up_evil_runecrafter"
+		]
 	}
 ]

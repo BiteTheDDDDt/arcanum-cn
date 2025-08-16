@@ -4,7 +4,7 @@ import { abbr } from "@/util/format";
 import { TRY_USE } from "@/events";
 
 /**
- * Bar for quick-use items.
+ * 快捷物品栏。
  */
 export default {
 	props: ["bars"],
@@ -41,8 +41,8 @@ export default {
 	</div>
 	<div class="quickbar" v-else>
 		<p class="use-msg">
-			Roll-over Item and hold {Shift} + {Number} to assign quickslot.<br />
-			Press {Number} again to use quickslot Item.
+			将鼠标移到物品上并按住 {Shift} + {Number} 分配到快捷栏。<br />
+			再次按 {Number} 可使用对应快捷栏物品。
 		</p>
 	</div>
 </template>

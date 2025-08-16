@@ -1,8 +1,8 @@
 [
 	{
 		"id": "smchest",
-		"name": "small chest",
-		"desc": "A small wooden chest.",
+		"name": "小箱子",
+		"desc": "一个小木箱。",
 		"require": "g.apprentice>0&&g.space.max>=5",
 		"max": 3,
 		"cost": {
@@ -16,8 +16,8 @@
 	},
 	{
 		"id": "ironchest",
-		"name": "iron chest",
-		"desc": "Treasure chest.",
+		"name": "铁箱子",
+		"desc": "宝箱。",
 		"require": "g.gold.max>=125",
 		"max": 5,
 		"cost": {
@@ -31,8 +31,8 @@
 	},
 	{
 		"id": "ornatechest",
-		"name": "ornate chest",
-		"desc": "Treasure chest.",
+		"name": "华丽箱子",
+		"desc": "宝箱。",
 		"require": "g.gold.max>=500",
 		"max": 5,
 		"cost": {
@@ -47,7 +47,7 @@
 	},
 	{
 		"id": "cot",
-		"desc": "Slightly better than sleeping on the floor.",
+		"desc": "比睡地板稍微好一点。",
 		"require": "g.apprentice>0&&g.space.max>=5",
 		"tags": "bed",
 		"slot": "bed",
@@ -61,12 +61,13 @@
 			"t_rest.effect.hp": 0.1,
 			"t_rest.effect.stress": -0.1,
 			"space": 1
-		}
+		},
+		"name": "简易床"
 	},
 	{
 		"id": "woodbed",
-		"name": "wooden bed",
-		"desc": "Small wooden bed.",
+		"name": "木床",
+		"desc": "小木床。",
 		"tags": "bed",
 		"slot": "bed",
 		"require": "g.stamina>=15&&g.evt_helper>0",
@@ -83,7 +84,7 @@
 	},
 	{
 		"id": "fourposter",
-		"desc": "Four post bed.",
+		"desc": "四柱床。",
 		"tags": "bed",
 		"slot": "bed",
 		"require": "g.stamina>=30&&g.tier1>0",
@@ -101,12 +102,13 @@
 				}
 			},
 			"space": 4
-		}
+		},
+		"name": "四柱床"
 	},
 	{
 		"id": "luxbedroom",
-		"name": "luxury bedroom",
-		"desc": "Luxurious bedding, perfect air temperature, currents of mana to absorb as you sleep.",
+		"name": "奢华卧室",
+		"desc": "奢华的床上用品，完美的空气温度，睡觉时可以吸收法力的气流。",
 		"tags": "bed",
 		"slot": "bed",
 		"require": "g.tier3>0&&g.space.max>200",
@@ -128,9 +130,9 @@
 	},
 	{
 		"id": "loungeroom",
-		"name": "lounge room",
-		"desc": "Staffed with the most experienced professionals in the field of leisure, one could spend days here without even noticing.",
-		"extdesc": "Significantly increases the benefits of resting at the cost of gold",
+		"name": "休息室",
+		"desc": "由该领域最有经验的专业人员提供服务，在这里你可以毫无察觉地度过几天时光。",
+		"extdesc": "显著提高休息的好处，需支付金币",
 		"tags": "bed",
 		"slot": "bed",
 		"require": "g.tier5>0&&g.gold.max>10000",
@@ -152,12 +154,12 @@
 			},
 			"space": 10
 		},
-		"flavor": "A little to the left, please"
+		"flavor": "请稍微往左一点"
 	},
 	{
 		"id": "otherworlysuite",
-		"name": "otherwordly suite",
-		"desc": "Located in the plane of leisure, the unparalleled relaxation is guaranteed.",
+		"name": "异界套房",
+		"desc": "位于休闲的位面，保证无与伦比的放松体验。",
 		"tags": "bed,t_furn_portal",
 		"slot": "bed",
 		"need": "gate",
@@ -177,12 +179,12 @@
 			},
 			"space": 50
 		},
-		"flavor": "Bed and bath, beyond"
+		"flavor": "床和浴室，超越想象"
 	},
 	{
 		"id": "fiveposter",
-		"name": "Pentaposter",
-		"desc": "Shaped like a pentagram, it grants otherwordly insights in your sleep.",
+		"name": "五角床",
+		"desc": "形状像五角星，它在你睡觉时赋予你异界的洞察力。",
 		"tags": "bed",
 		"slot": "bed",
 		"require": "g.t_demonclass>0",
@@ -206,8 +208,8 @@
 	},
 	{
 		"id": "burningcoals",
-		"name": "burning coals",
-		"desc": "Bed of burning coals.",
+		"name": "燃烧的煤炭",
+		"desc": "燃烧的煤炭床。",
 		"tags": "bed",
 		"slot": "bed",
 		"require": "g.t_fireclass>0",
@@ -230,10 +232,13 @@
 	},
 	{
 		"id": "cache",
-		"name": "buried cache",
-		"desc": "A cache of treasure buried in the ground, protected by enchantment.",
-		"need": ["outdoors", "g.enchanting>0"],
-		"needtext": "Must live outdoors and be capable of enchanting.",
+		"name": "埋藏的宝藏",
+		"desc": "埋藏在地下的宝藏，受到魔法保护。",
+		"need": [
+			"outdoors",
+			"g.enchanting>0"
+		],
+		"needtext": "必须在户外生活并且能够施展魔法",
 		"max": 3,
 		"cost": {
 			"research": 50,
@@ -250,7 +255,7 @@
 	},
 	{
 		"id": "vault",
-		"desc": "A safe space for treasure.",
+		"desc": "一个安全的宝藏空间。",
 		"require": "g.space.max>=25",
 		"max": 5,
 		"cost": {
@@ -263,12 +268,13 @@
 			"gold.max": 1800,
 			"gems.max": 35,
 			"space": 10
-		}
+		},
+		"name": "金库"
 	},
 	{
 		"id": "treasureroom",
-		"name": "treasure room",
-		"desc": "A large room for accumulated treasures.",
+		"name": "宝藏室",
+		"desc": "一个用来存放积累的宝藏的大房间。",
 		"require": "g.space.max>=50",
 		"repeat": true,
 		"cost": {
@@ -286,8 +292,8 @@
 	},
 	{
 		"id": "smcage",
-		"name": "rusty cage",
-		"desc": "A cramped cage for keeping tiny test subjects.",
+		"name": "生锈的笼子",
+		"desc": "一个狭小的笼子，用于关押小型实验对象。",
 		"tags": "t_pets,shadowsource,t_evilact",
 		"require": "g.shadowlore>0&&g.evt_helper>0",
 		"max": 3,
@@ -295,7 +301,7 @@
 			"gold": 50,
 			"research": 100
 		},
-		"flavor": "It doesn't seem very nice.",
+		"flavor": "这看起来不是很友好。",
 		"mod": {
 			"animals.mod.shadow.max": 0.1,
 			"shadow.max": 1,
@@ -304,7 +310,7 @@
 	},
 	{
 		"id": "vivarium",
-		"desc": "A glass enclosure for small reptiles, snakes, and frogs.",
+		"desc": "一个用于小型爬行动物、蛇和青蛙的玻璃围栏。",
 		"tags": "earthsource,t_pets,naturesource",
 		"require": "g.neophyte>0&&g.earthlore>=3",
 		"cost": {
@@ -318,12 +324,13 @@
 			"nature.max": 1,
 			"naturelore.rate": 0.2,
 			"space": 2
-		}
+		},
+		"name": "温室"
 	},
 	{
 		"id": "writingdesk",
-		"name": "writing desk",
-		"desc": "A desk for working and scribing.",
+		"name": "写字台",
+		"desc": "用于工作和抄写的桌子。",
 		"require": "evt_helper",
 		"tags": "workspace,t_bookfurn",
 		"cost": {
@@ -340,9 +347,9 @@
 	},
 	{
 		"id": "crafttable",
-		"name": "crafting table",
+		"name": "工艺台",
 		"tags": "workspace",
-		"desc": "Wide table for crafting projects.",
+		"desc": "用于工艺项目的宽桌子。",
 		"require": "evt_helper",
 		"max": 1,
 		"cost": {
@@ -357,9 +364,9 @@
 	},
 	{
 		"id": "enchanttable",
-		"name": "enchanting table",
+		"name": "附魔台",
 		"tags": "workspace,enchantsource",
-		"desc": "Runed table for enchanting.",
+		"desc": "用于附魔的符文桌。",
 		"require": "enchanting",
 		"cost": {
 			"gold": 200,
@@ -374,8 +381,8 @@
 	},
 	{
 		"id": "creepingvine",
-		"name": "creeping vine",
-		"desc": "A quickly growing plant.",
+		"name": "爬藤",
+		"desc": "一种快速生长的植物。",
 		"tags": "plantsource",
 		"require": "g.herbalism>=3",
 		"max": 5,
@@ -390,7 +397,7 @@
 	},
 	{
 		"id": "pedestal",
-		"desc": "A pedestal for reading magic tomes. Improves study habits.",
+		"desc": "一个用于阅读魔法卷轴的基座。改善学习习惯。",
 		"require": "evt_helper",
 		"cost": {
 			"gold": 50
@@ -400,16 +407,17 @@
 			"study.effect.research": 0.1,
 			"scribescroll.cost.mana": -0.1,
 			"space": 1
-		}
+		},
+		"name": "基座"
 	},
 	{
 		"id": "furn_gemcraft",
-		"name": "imbuement chambers",
+		"name": "宝石铸造室",
 		"require": "g.gemcraft>0",
 		"cost": {
 			"mana": 5
 		},
-		"desc": "Activate your imbuement chambers, making gem imbuement a sustained action.",
+		"desc": "激活你的宝石铸造室，使宝石铸造成为一个持续的动作。",
 		"mod": {
 			"gemimbue.perpetual": true,
 			"gemimbue.length": 4
@@ -417,12 +425,12 @@
 	},
 	{
 		"id": "furn_scrollcraft",
-		"name": "enchanted scriptorium",
+		"name": "魔法书写室",
 		"require": "g.bookcraft>0",
 		"cost": {
 			"mana": 1
 		},
-		"desc": "Activate your enchanted scriptorium, making scroll scribing a sustained action.",
+		"desc": "激活你的魔法书写室，使卷轴书写成为一个持续的动作。",
 		"mod": {
 			"scribescroll.perpetual": true,
 			"scribescroll.length": 2
@@ -430,12 +438,12 @@
 	},
 	{
 		"id": "furn_codexcraft",
-		"name": "bindery",
+		"name": "装订室",
 		"require": "g.bookcraft>0",
 		"cost": {
 			"mana": 3
 		},
-		"desc": "Activate your bindery, making codex binding a sustained action.",
+		"desc": "激活你的装订室，使书籍装订成为一个持续的动作。",
 		"mod": {
 			"bindcodex.perpetual": true,
 			"bindcodex.length": 4
@@ -443,8 +451,8 @@
 	},
 	{
 		"id": "spinwheel",
-		"name": "spinning wheel",
-		"desc": "Eases tasks related to weaving.",
+		"name": "纺车",
+		"desc": "简化与编织相关的任务。",
 		"tags": "weavesource",
 		"require": "g.weaving>=3",
 		"cost": {
@@ -471,14 +479,15 @@
 			"arcana.rate": 0.0001,
 			"astronomy.rate": 0.2,
 			"space": 2
-		}
+		},
+		"name": "望远镜"
 	},
 	{
 		"id": "scrollrack",
-		"name": "scroll rack",
+		"name": "卷轴架",
 		"tags": "t_bookfurn",
 		"max": 5,
-		"desc": "Latticed shelves for easy scroll storage.",
+		"desc": "用于方便存放卷轴的格子架。",
 		"require": "g.apprentice>0&&g.scrolls>=20",
 		"cost": {
 			"gold": 75,
@@ -491,10 +500,10 @@
 	},
 	{
 		"id": "bookshelf",
-		"name": "bookshelf",
+		"name": "书架",
 		"tags": "t_bookfurn",
 		"max": 5,
-		"desc": "A single bookshelf for your books.",
+		"desc": "一个用来放书的书架。",
 		"require": "g.codices>=5&&g.scrolls.max>=15",
 		"cost": {
 			"gold": 100
@@ -507,9 +516,9 @@
 	},
 	{
 		"id": "bookcase",
-		"name": "bookcase",
+		"name": "书柜",
 		"tags": "t_bookfurn",
-		"desc": "A rough but sturdy bookcase.",
+		"desc": "一个粗糙但坚固的书柜。",
 		"require": "g.codices>=20",
 		"max": 20,
 		"cost": {
@@ -523,10 +532,10 @@
 	},
 	{
 		"id": "scriptorium",
-		"name": "scriptorium",
+		"name": "书写室",
 		"tags": "t_bookfurn",
 		"max": 5,
-		"desc": "A niche dedicated to scrolls.",
+		"desc": "一个专门用于卷轴的区域。",
 		"require": "g.tier0>0",
 		"cost": {
 			"gold": 250
@@ -540,9 +549,9 @@
 	},
 	{
 		"id": "latticewindow",
-		"name": "lattice window",
+		"name": "格子窗",
 		"tags": "lightsource,airsource",
-		"desc": "An elegant latticed portal for letting in air and light.",
+		"desc": "一个优雅的格子窗，用于引入空气和光线。",
 		"require": "g.airlore>0&&g.space.max>=10",
 		"max": 3,
 		"cost": {
@@ -557,9 +566,9 @@
 	},
 	{
 		"id": "cloudchamber",
-		"name": "cloud chamber",
+		"name": "云室",
 		"tags": "airsource",
-		"desc": "A chamber of swirling vapours for study.",
+		"desc": "一个充满旋转蒸汽的研究室。",
 		"require": "g.neophyte>0&&g.airlore>=3",
 		"max": 3,
 		"cost": {
@@ -576,8 +585,8 @@
 	{
 		"id": "brasscandelabra",
 		"tags": "t_candelabra",
-		"name": "brass candelabra",
-		"desc": "Candle holder.",
+		"name": "黄铜烛台",
+		"desc": "蜡烛架。",
 		"require": "g.waxcandle>0&&g.gold.max>=200",
 		"max": 1,
 		"cost": {
@@ -593,7 +602,7 @@
 		"tags": "firesource",
 		"require": "g.outdoors>0&&g.firelore>0",
 		"need": "outdoors",
-		"needtext": "Must live outdoors.",
+		"needtext": "必须在户外生活。",
 		"cost": {},
 		"mod": {
 			"fire.rate": 0.05,
@@ -601,13 +610,14 @@
 			"fire.max": 1,
 			"nature.max": 1,
 			"space": 1
-		}
+		},
+		"name": "篝火"
 	},
 	{
 		"id": "bonfire",
 		"tags": "firesource",
 		"require": "g.firelore>0&&g.space.max>=15",
-		"desc": "A burning pyre for the practice of pyromancy.",
+		"desc": "用于火焰魔法练习的燃烧祭坛。",
 		"cost": {
 			"fire": 4
 		},
@@ -616,11 +626,12 @@
 			"fire.rate": 0.05,
 			"space": 2
 		},
-		"flavor": "Be careful where you put it."
+		"flavor": "小心放置位置。",
+		"name": "篝火（大）"
 	},
 	{
 		"id": "clepsydra",
-		"desc": "Crude measure of time.",
+		"desc": "粗糙的时间测量工具。",
 		"require": "tier3",
 		"tags": "timesource",
 		"max": 10,
@@ -634,11 +645,12 @@
 			"water.rate": 0.01,
 			"space": 1
 		},
-		"flavor": "What is gone is gone."
+		"flavor": "逝去的就让它逝去吧。",
+		"name": "水钟"
 	},
 	{
 		"id": "fireplace",
-		"desc": "A cozy place for cooking food and brewing potions.",
+		"desc": "一个舒适的地方，用于烹饪食物和调制药水。",
 		"tags": "firesource",
 		"require": "g.firelore>0&&g.space.max>=15",
 		"max": 5,
@@ -649,13 +661,14 @@
 			"fire.rate": 0.03,
 			"water.rate": -0.01,
 			"space": 1
-		}
+		},
+		"name": "壁炉"
 	},
 	{
 		"id": "grotesque",
 		"tags": "earthsource,shadowsource",
 		"require": "g.tier0>0&&(g.earthlore>=4||g.shadowlore>=4)",
-		"desc": "A grim, disfigured stone statue.",
+		"desc": "一个可怕的，扭曲的石像。",
 		"max": 4,
 		"cost": {
 			"gold": 750
@@ -666,13 +679,14 @@
 			"shadow.rate": 0.1,
 			"shadow.max": 3,
 			"space": 5
-		}
+		},
+		"name": "怪诞雕像"
 	},
 	{
 		"id": "gargoyle",
 		"tags": "watersource,shadowsource",
 		"require": "g.tier0>0&&(g.waterlore>=4||g.shadowlore>=4)",
-		"desc": "A fountain issues from the stone demon's mouth.",
+		"desc": "从石头恶魔的嘴里流出泉水。",
 		"max": 4,
 		"cost": {
 			"gold": 750
@@ -683,11 +697,12 @@
 			"shadow.max": 3,
 			"water.max": 3,
 			"space": 5
-		}
+		},
+		"name": "石像鬼"
 	},
 	{
 		"id": "fountain",
-		"desc": "Water fountain.",
+		"desc": "喷泉。",
 		"tags": "watersource",
 		"require": "g.space.max>=15&&g.waterlore>0",
 		"cost": {
@@ -697,11 +712,12 @@
 			"water.rate": 0.1,
 			"water.max": 3,
 			"space": 5
-		}
+		},
+		"name": "喷泉"
 	},
 	{
 		"id": "smstables",
-		"name": "stables",
+		"name": "马厩",
 		"require": "g.tier1>0||(g.tier0>0&&g.animals>=6)",
 		"tags": "stables",
 		"cost": {
@@ -728,12 +744,13 @@
 			"magicbeasts.rate": 0.4,
 			"animals.rate": 0.4,
 			"space": 20
-		}
+		},
+		"name": "珍兽馆"
 	},
 	{
 		"id": "elemsiphon",
-		"name": "elemental siphon",
-		"desc": "A crystal apparatus to siphon elemental energies into mana.",
+		"name": "元素虹吸",
+		"desc": "一个水晶装置，用于将元素能量虹吸转化为法力。",
 		"require": "g.tier4>0&&g.mana.max>=30",
 		"need": "workshop",
 		"max": 2,
@@ -762,8 +779,8 @@
 	},
 	{
 		"id": "elemflux",
-		"name": "elemental flux",
-		"desc": "Gems draw in pure mana and disperse it into elemental forms.",
+		"name": "元素通量",
+		"desc": "宝石吸收纯法力并将其分散为元素形态。",
 		"require": "g.tier4>0&&g.mana.max>=30",
 		"max": 2,
 		"cost": {
@@ -791,7 +808,7 @@
 	},
 	{
 		"id": "cairn",
-		"desc": "Mystic rock pile.",
+		"desc": "神秘的石头堆。",
 		"tags": "spiritsource",
 		"require": "g.spirit.max>=10",
 		"cost": {
@@ -805,11 +822,12 @@
 			"spirit.rate": 0.02,
 			"nature.rate": 0.01,
 			"space": 10
-		}
+		},
+		"name": "石冢"
 	},
 	{
 		"id": "reliquary",
-		"desc": "Saferoom for ancient sources of magic.",
+		"desc": "古代魔法源的安全室。",
 		"tags": "spiritsource",
 		"require": "g.spirit.max>=5",
 		"cost": {
@@ -820,12 +838,13 @@
 			"spirit.max": 1,
 			"spirit.rate": 0.01,
 			"space": 5
-		}
+		},
+		"name": "圣物箱"
 	},
 	{
 		"id": "darkshrine",
-		"name": "dark shrine",
-		"desc": "A shrine to EVIL.",
+		"name": "黑暗神殿",
+		"desc": "一个邪恶的神殿。",
 		"flavor": "Zhakul Ihnaac.",
 		"tags": "shadowsource,t_evilact",
 		"require": "g.evilamt>=3&&g.shadowlore>0&&g.good3==0",
@@ -843,7 +862,7 @@
 	},
 	{
 		"id": "armory",
-		"desc": "A storeroom of arms.",
+		"desc": "武器的储藏室。",
 		"tags": "armssource",
 		"require": "g.tier0>0&&g.weaponlore>=5",
 		"max": 5,
@@ -855,11 +874,12 @@
 			"player.defense": "2%",
 			"player.tohit": 6,
 			"space": 10
-		}
+		},
+		"name": "军械库"
 	},
 	{
 		"id": "leggery",
-		"desc": "A little cubby for maintaining shoes and boots.",
+		"desc": "一个小隔间，用于维护鞋子和靴子。",
 		"tags": "legssource",
 		"require": "g.tier0>0&&g.player.speed>=10",
 		"need": "armory",
@@ -870,14 +890,17 @@
 			"inv.max": 1,
 			"dist": 5,
 			"space": 1
-		}
+		},
+		"name": "军械室"
 	},
 	{
 		"id": "mineshaft",
 		"tags": "t_mine,t_furn_portal",
 		"require": "g.earthlore>=10&&g.planeslore>=13",
 		"max": 1,
-		"need": ["gate"],
+		"need": [
+			"gate"
+		],
 		"cost": {
 			"earth": 25,
 			"earthrune": 5,
@@ -889,12 +912,13 @@
 			"earthlore.rate": 2,
 			"gold.rate": 0.1,
 			"space": 40
-		}
+		},
+		"name": "矿井"
 	},
 	{
 		"id": "weaponrack",
-		"name": "weapon rack",
-		"desc": "Holds equipment you aren't using.",
+		"name": "武器架",
+		"desc": "放置你未使用的装备。",
 		"require": "g.armory>0",
 		"tags": "armssource",
 		"max": 3,
@@ -909,9 +933,9 @@
 	},
 	{
 		"id": "archive",
-		"name": "arcane archive",
+		"name": "奥术档案馆",
 		"tags": "t_bookfurn",
-		"desc": "A good archive does your research for you.",
+		"desc": "一个好的档案馆会为你的研究提供帮助。",
 		"require": "g.lore.max>=12",
 		"max": 3,
 		"cost": {
@@ -928,7 +952,7 @@
 	},
 	{
 		"id": "shrine",
-		"desc": "A shrine to divine forces.",
+		"desc": "一个献给神圣力量的神龛。",
 		"require": "g.good1>0&&g.evil3==0",
 		"tags": "lightsource,t_goodact",
 		"cost": {
@@ -942,12 +966,13 @@
 			"light.rate": 0.01,
 			"light.max": 1,
 			"space": 1
-		}
+		},
+		"name": "神殿"
 	},
 	{
 		"id": "bloodfountain",
-		"name": "blood fountain",
-		"desc": "Fountain of blood.",
+		"name": "血之喷泉",
+		"desc": "血液的喷泉。",
 		"tags": "shadowsource",
 		"require": "g.evil1>0&&g.shadowlore>=3",
 		"cost": {
@@ -964,9 +989,9 @@
 	},
 	{
 		"id": "portaalchemica",
-		"name": "porta alchemica",
+		"name": "炼金门",
 		"require": "g.alchemy>=5&&g.planeslore>=5&&g.crafting>=10",
-		"desc": "A monument inscribed with alchemical runes.",
+		"desc": "一个刻有炼金符文的纪念碑。",
 		"cost": {
 			"gems": 20
 		},
@@ -981,9 +1006,9 @@
 	},
 	{
 		"id": "studyroom",
-		"name": "study",
+		"name": "书房",
 		"tags": "workspace",
-		"desc": "A place for reading and research.",
+		"desc": "一个用于阅读和研究的地方。",
 		"require": "g.codices>=100",
 		"cost": {
 			"gold": 200,
@@ -1001,7 +1026,7 @@
 	},
 	{
 		"id": "orrery",
-		"desc": "A vast mechanical model of existence.",
+		"desc": "一个巨大的机械模型，展示了存在的奥秘。",
 		"require": "g.codices>=80&&g.astronomy>=8",
 		"tags": "starsource",
 		"max": 1,
@@ -1017,11 +1042,12 @@
 			"planeslore.rate": 0.1,
 			"divination.rate": 0.1,
 			"space": 50
-		}
+		},
+		"name": "天文仪"
 	},
 	{
 		"id": "garden",
-		"desc": "A small garden by your home.",
+		"desc": "你家旁边的小花园。",
 		"tags": "naturesource,plantsource",
 		"require": "(g.t_natureclass+g.t_potionclass*2)>=2",
 		"max": 3,
@@ -1037,15 +1063,16 @@
 			"nature.max": 1,
 			"nature.rate": 0.3,
 			"space": 10
-		}
+		},
+		"name": "花园"
 	},
 	{
 		"id": "gemimbue_mana_furn",
-		"name": "arcane alembic",
+		"name": "奥术蒸馏器",
 		"max": 5,
 		"require": "solidifier",
 		"tags": "t_alembic",
-		"desc": "A complex alchemical process drips arcane energy onto gemstones.",
+		"desc": "一个复杂的炼金过程，将奥术能量滴在宝石上。",
 		"cost": {
 			"research": 1000,
 			"gold": 500
@@ -1067,11 +1094,11 @@
 	},
 	{
 		"id": "gemimbue_blood_furn",
-		"name": "vital alembic",
+		"name": "生命蒸馏器",
 		"max": 5,
 		"require": "solidifier",
 		"tags": "t_alembic",
-		"desc": "captures your vital essence and condenses it into a gem.",
+		"desc": "捕捉你的生命精华并将其凝聚成宝石。",
 		"cost": {
 			"research": 1000,
 			"gold": 500
@@ -1093,11 +1120,11 @@
 	},
 	{
 		"id": "gemimbue_nature_furn",
-		"name": "verdant alembic",
+		"name": "生机蒸馏器",
 		"max": 5,
 		"require": "solidifier",
 		"tags": "t_alembic",
-		"desc": "replicates the natural process of growth, imprinting it's energies into a gem.",
+		"desc": "复制自然生长的过程，将其能量印记在宝石上。",
 		"cost": {
 			"research": 1000,
 			"gold": 500
@@ -1119,7 +1146,7 @@
 	},
 	{
 		"id": "starweb",
-		"desc": "Motes of stars fall daily from the sky. One need only collect them.",
+		"desc": "星星的微粒每天从天空中降落。人们只需收集它们。",
 		"require": "tier5",
 		"max": 5,
 		"cost": {
@@ -1131,12 +1158,13 @@
 			"arcana.rate": 0.0001,
 			"airlore.rate": 0.1,
 			"space": 5
-		}
+		},
+		"name": "星网"
 	},
 	{
 		"id": "starwell",
-		"name": "star well",
-		"desc": "Pools of light congeal softly in the basin.",
+		"name": "星之井",
+		"desc": "光辉在井 basin 中柔和地凝聚。",
 		"require": "tier5",
 		"max": 3,
 		"cost": {
@@ -1151,8 +1179,8 @@
 	},
 	{
 		"id": "runechest",
-		"name": "rune chest",
-		"desc": "A box carved from idrasil to hold the most potent runes.",
+		"name": "符文箱",
+		"desc": "一个用伊德拉希尔木雕刻的箱子，用于存放最强大的符文。",
 		"require": "g.runelore>=4",
 		"max": 5,
 		"cost": {
@@ -1170,12 +1198,12 @@
 			"prismaticrunes.max": 5,
 			"space": 5
 		},
-		"flavor": "Now with side compartments for elemental runes, too!"
+		"flavor": "现在还附带元素符文的侧 compartments ！"
 	},
 	{
 		"id": "latticefence",
-		"name": "lattice fence",
-		"desc": "Latticed fence for growing vines.",
+		"name": "格子围栏",
+		"desc": "用于种植藤蔓的格子围栏。",
 		"require": "g.neophyte>0&&g.naturelore>=5",
 		"cost": {
 			"gold": 200,
@@ -1191,7 +1219,7 @@
 	},
 	{
 		"id": "pond",
-		"desc": "Pond.",
+		"desc": "池塘。",
 		"tags": "watersource",
 		"require": "g.space.max>=30&&g.waterlore>0",
 		"cost": {
@@ -1206,13 +1234,14 @@
 			"waterlore.rate": 0.3,
 			"space": 15
 		},
-		"flavor": "Perfect for a yearly bath, if you feel fastidious."
+		"flavor": "如果你觉得讲究，可以每年洗一次澡。",
+		"name": "池塘"
 	},
 	{
 		"id": "sandgarden",
-		"name": "sand garden",
+		"name": "沙子花园",
 		"tags": "earthsource",
-		"desc": "Rocks and sand form patterns of intricate design.",
+		"desc": "岩石和沙子形成复杂的图案。",
 		"require": "g.earth.max>=5&&g.space.max>=30",
 		"cost": {
 			"gold": 100,
@@ -1227,8 +1256,8 @@
 	},
 	{
 		"id": "banquethall",
-		"name": "banquet hall",
-		"desc": "A grand hall to entertain guests and supplicants.",
+		"name": "宴会厅",
+		"desc": "一个用来招待客人和请求者的大厅。",
 		"require": "tier2",
 		"cost": {
 			"gems": 20,
@@ -1242,8 +1271,8 @@
 	},
 	{
 		"id": "bottomlesspit",
-		"name": "bottomless pit",
-		"desc": "An endless hole in the ground.",
+		"name": "无底洞",
+		"desc": "地面上的一个无尽的洞。",
 		"tags": "t_underground",
 		"require": "g.planeslore>=8&&g.space.max>=20&&g.tier4>0",
 		"cost": {
@@ -1265,8 +1294,8 @@
 	},
 	{
 		"id": "potroom",
-		"name": "potions room",
-		"desc": "Room for preparing and brewing potions.",
+		"name": "药水室",
+		"desc": "用于准备和调制药水的房间。",
 		"require": "potions",
 		"tags": "potsource",
 		"cost": {
@@ -1286,7 +1315,7 @@
 	{
 		"id": "workshop",
 		"tags": "workspace",
-		"desc": "A space suitable for crafting and enchanting items.",
+		"desc": "一个适合制作和附魔物品的空间。",
 		"require": "g.space.max>=50&&(g.crafting>=7||g.enchanting>=7)",
 		"cost": {
 			"gold": 1000,
@@ -1300,12 +1329,13 @@
 			"compiletome.cost.mana": -1,
 			"crafting.rate": 0.4,
 			"space": 50
-		}
+		},
+		"name": "作坊"
 	},
 	{
 		"id": "library",
 		"tags": "booksource,t_bookfurn",
-		"desc": "The most important part of a proper wizard's stronghold.",
+		"desc": "一个合格的法师据点最重要的部分。",
 		"require": "g.codices>=100",
 		"cost": {
 			"gold": 500,
@@ -1317,11 +1347,12 @@
 			"tomes.max": 60,
 			"tomes.mod.arcana.max": 0.1,
 			"space": 75
-		}
+		},
+		"name": "图书馆"
 	},
 	{
 		"id": "lexyrinth",
-		"desc": "All libraries hold hidden doors into its halls. Unlocking them is the hard bit.",
+		"desc": "所有的图书馆都隐藏着通往其大厅的秘密通道。解锁它们才是难点。",
 		"require": "g.library>0&&g.planeslore>=12",
 		"tags": "t_furn_portal,booksource,t_bookfurn",
 		"max": 1,
@@ -1338,11 +1369,12 @@
 			"tomes.max": 100,
 			"space": 40
 		},
-		"flavor": "Its shelves extend beyond all sight."
+		"flavor": "它的书架延伸到视线无法及之处。",
+		"name": "词语迷宫"
 	},
 	{
 		"id": "ziggurat",
-		"desc": "A vast mound of earth dedicated to occult practices.",
+		"desc": "一个巨大的土堆，献给神秘的仪式。",
 		"require": "tier4",
 		"tags": "starsource,ritesource",
 		"cost": {
@@ -1361,12 +1393,13 @@
 			"scrying.mod.dist": "1%",
 			"scrying.rate": 0.4,
 			"space": 100
-		}
+		},
+		"name": "阶梯神殿"
 	},
 	{
 		"id": "bindcircle",
-		"name": "binding circle",
-		"desc": "Magic circle for binding summoned entities.",
+		"name": "绑定法阵",
+		"desc": "用于绑定召唤实体的魔法法阵。",
 		"tags": "prison,wardsource,summonsource",
 		"require": "g.summoning>=5||g.demonology>=5",
 		"cost": {
@@ -1385,8 +1418,8 @@
 	},
 	{
 		"id": "bonsaitree",
-		"name": "bonsai tree",
-		"desc": "A small, meticulously manicured tree.",
+		"name": "盆栽树",
+		"desc": "一棵小巧、修剪整齐的树。",
 		"tags": "naturesource",
 		"require": "g.pond>0",
 		"cost": {
@@ -1401,8 +1434,8 @@
 	},
 	{
 		"id": "medicalfacility",
-		"name": "medical facility",
-		"desc": "A space for treating the ill and injured.",
+		"name": "医疗设施",
+		"desc": "用于治疗病人和伤员的空间。",
 		"require": "g.heallore>=3",
 		"cost": {
 			"research": 5000,
@@ -1423,10 +1456,10 @@
 	},
 	{
 		"id": "cleansingfire",
-		"name": "cleansing fire",
+		"name": "净化之火",
 		"tags": "firesource,lightsource",
 		"require": "g.tier0>0&&(g.firelore>=4||g.lightlore>=4)",
-		"desc": "A constantly burning flame, devoid of smoke or ash.",
+		"desc": "一种不断燃烧的火焰，无烟无灰。",
 		"max": 4,
 		"cost": {
 			"gold": 750
@@ -1441,10 +1474,10 @@
 	},
 	{
 		"id": "glassdome",
-		"name": "stained glass dome",
+		"name": "彩色玻璃穹顶",
 		"tags": "airsource,lightsource",
 		"require": "g.tier0>0&&(g.airlore>=4||g.lightlore>=4)",
-		"desc": "Intricate patterns of light and a gentle breeze flow through its elaborate designs.",
+		"desc": "通过其精美的设计，光线和微风在这里流动。",
 		"max": 4,
 		"cost": {
 			"gold": 750
@@ -1459,8 +1492,8 @@
 	},
 	{
 		"id": "runepress",
-		"name": "runic printing press",
-		"desc": "Technology too new to have a guild monopoly! Perfect for those pesky runes.",
+		"name": "符文印刷机",
+		"desc": "这种技术太新，尚未被公会垄断！非常适合那些麻烦的符文。",
 		"require": "g.tier4>0&&g.runelore>=3&&g.crafting>=15",
 		"max": 1,
 		"cost": {
@@ -1481,8 +1514,8 @@
 	},
 	{
 		"id": "runeworkshop",
-		"name": "closed-loop runic workspace",
-		"desc": "Designed to reuse arcane energies that would otherwise dissipate, increases efficiency of rune-crafting.",
+		"name": "闭环符文工作间",
+		"desc": "旨在重复利用本会消散的奥术能量，提高符文铸造的效率。",
 		"require": "g.crafting>=14&&g.runelore>=3",
 		"max": 5,
 		"cost": {
@@ -1509,8 +1542,8 @@
 	},
 	{
 		"id": "scrollloom",
-		"name": "scroll loom",
-		"desc": "Inspiration struck and you devised a more elaborate loom, enchanted to weave ink and paper instead of thread.",
+		"name": "卷轴织机",
+		"desc": "灵感突现，你设计了一种更复杂的织机，附魔以编织墨水和纸张，而不是线。",
 		"require": "g.tier0>0&&g.weaving>=2&&g.languages>=3",
 		"max": 3,
 		"cost": {
@@ -1532,8 +1565,8 @@
 	},
 	{
 		"id": "codexloom",
-		"name": "codex loom",
-		"desc": "Larger than the scroll loom, but simpler since it only needs to stitch scrolls together.",
+		"name": "法典织机",
+		"desc": "比卷轴织机大，但更简单，因为它只需要将卷轴缝合在一起。",
 		"require": "g.tier1>0&&g.weaving>=3&&g.languages>=4",
 		"max": 3,
 		"cost": {
@@ -1556,8 +1589,8 @@
 	},
 	{
 		"id": "tomeloom",
-		"name": "tome loom",
-		"desc": "The most intricate one yet. Shuttles clack as it binds codices into tomes.",
+		"name": "巨著织机",
+		"desc": "迄今为止最复杂的织机。梭子在绑定法典和巨著时发出咔嗒声。",
 		"require": "g.tier1>0&&g.weaving>=5&&g.languages>=5",
 		"max": 3,
 		"cost": {
@@ -1579,21 +1612,23 @@
 		}
 	},
 	{
-				"id": "goldportal",
-				"name": "gold portal",
-				"desc": "Interest on the gold, sent to forgotten times",
-				"tags": "t_furn_portal",
-				"max": 10,
-				"require": "g.gate>0",
-				"need": ["gate"],
-				"cost": {
-					"tempus": 5,
-					"arcana": 25,
-					"gems": 25
-				},
-				"mod": {
-					"space": 60,
-					"gold.rate": 1
-				}
-			}
+		"id": "goldportal",
+		"name": "金币传送门",
+		"desc": "金币的利息，送往被遗忘的时代",
+		"tags": "t_furn_portal",
+		"max": 10,
+		"require": "g.gate>0",
+		"need": [
+			"gate"
+		],
+		"cost": {
+			"tempus": 5,
+			"arcana": 25,
+			"gems": 25
+		},
+		"mod": {
+			"space": 60,
+			"gold.rate": 1
+		}
+	}
 ]

@@ -1,46 +1,46 @@
 [
 	{
 		"id": "paralyze",
-		"adj": "paralyzed",
-		"kind": "paralysis",
+		"adj": "麻痹",
+		"kind": "麻痹",
 		"tags": "t_paralysis",
 		"sym": "🚫",
 		"flags": "noact"
 	},
 	{
 		"id": "entangle",
-		"adj": "entangled",
-		"kind": "entangle",
+		"adj": "缠绕",
+		"kind": "缠绕",
 		"tags": "t_entangle",
 		"sym": "🚷",
 		"flags": "noattack"
 	},
 	{
 		"id": "silence",
-		"adj": "silenced",
-		"kind": "silence",
+		"adj": "沉默",
+		"kind": "沉默",
 		"tags": "t_silence",
 		"sym": "😶",
 		"flags": "nocast"
 	},
 	{
 		"id": "taunt",
-		"adj": "provoking",
-		"kind": "taunt",
+		"adj": "嘲讽",
+		"kind": "嘲讽",
 		"tags": "t_taunt",
 		"flags": "taunt"
 	},
 	{
 		"id": "hide",
-		"adj": "hiding",
-		"kind": "hiding",
+		"adj": "隐藏",
+		"kind": "隐藏",
 		"tags": "t_hiding",
 		"flags": "hiding"
 	},
 	{
 		"id": "charmed",
-		"flags": "charmed",
-		"kind": "charm",
+		"flags": "魅惑",
+		"kind": "魅惑",
 		"tags": "t_charmed",
 		"sym": "😳"
 	}

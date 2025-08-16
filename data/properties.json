@@ -1,7 +1,7 @@
 [
 	{
 		"id": "prop_studious",
-		"name": "studious",
+		"name": "勤奋",
 		"level": 2,
 		"only": "cloth",
 		"priceMod": 20,
@@ -11,7 +11,7 @@
 	},
 	{
 		"id": "prop_scholarly",
-		"name": "scholarly",
+		"name": "博学",
 		"priceMod": 30,
 		"level": 3,
 		"mod": {
@@ -21,7 +21,7 @@
 	},
 	{
 		"id": "prop_fire1",
-		"name": "warm",
+		"name": "温暖",
 		"priceMod": 30,
 		"level": 2,
 		"mod": {
@@ -31,7 +31,7 @@
 	},
 	{
 		"id": "prop_water1",
-		"name": "aquatic",
+		"name": "水性",
 		"priceMod": 30,
 		"level": 2,
 		"mod": {
@@ -41,7 +41,7 @@
 	},
 	{
 		"id": "prop_air1",
-		"name": "whistling",
+		"name": "呼啸",
 		"priceMod": 30,
 		"level": 2,
 		"mod": {
@@ -51,7 +51,7 @@
 	},
 	{
 		"id": "prop_earth1",
-		"name": "earthy",
+		"name": "泥土气息",
 		"priceMod": 30,
 		"level": 2,
 		"mod": {
@@ -61,7 +61,7 @@
 	},
 	{
 		"id": "prop_fire2",
-		"name": "fire",
+		"name": "火焰",
 		"priceMod": 50,
 		"level": 5,
 		"mod": {
@@ -71,7 +71,7 @@
 	},
 	{
 		"id": "prop_water2",
-		"name": "brackish",
+		"name": "咸水",
 		"priceMod": 50,
 		"level": 5,
 		"only": "rod",
@@ -82,7 +82,7 @@
 	},
 	{
 		"id": "prop_air2",
-		"name": "airy",
+		"name": "空气",
 		"priceMod": 50,
 		"level": 5,
 		"only": "rod",
@@ -93,7 +93,7 @@
 	},
 	{
 		"id": "prop_earth2",
-		"name": "earthy",
+		"name": "泥土气息",
 		"priceMod": 50,
 		"level": 5,
 		"only": "rod",
@@ -104,7 +104,7 @@
 	},
 	{
 		"id": "prop_saintly",
-		"name": "saintly",
+		"name": "圣洁",
 		"priceMod": 100,
 		"level": 8,
 		"only": "greatstaff",
@@ -116,7 +116,7 @@
 	},
 	{
 		"id": "prop_dowsing",
-		"name": "dowsing",
+		"name": "探测",
 		"priceMod": 50,
 		"level": 5,
 		"only": "rod",
@@ -128,7 +128,7 @@
 	},
 	{
 		"id": "prop_elemental",
-		"name": "elemental",
+		"name": "元素",
 		"priceMod": 100,
 		"level": 10,
 		"only": "greatstaff,wand,rod",
@@ -145,7 +145,7 @@
 	},
 	{
 		"id": "prop_arcane",
-		"name": "arcane",
+		"name": "奥术",
 		"priceMod": 100,
 		"level": 5,
 		"only": "staff,weap_orb,rod,greatstaff,ring",
@@ -156,10 +156,12 @@
 	},
 	{
 		"id": "prop_masterly",
-		"name": "masterly",
+		"name": "精通",
 		"priceMod": 100,
 		"level": 3,
-		"only": ["wand,weap_orb,rod,staff"],
+		"only": [
+			"wand,weap_orb,rod,staff"
+		],
 		"mod": {
 			"self.allies.max": 1,
 			"self.minions.max": 1
@@ -167,7 +169,7 @@
 	},
 	{
 		"id": "prop_optic",
-		"name": "optic",
+		"name": "光学",
 		"priceMod": 100,
 		"level": 6,
 		"only": "weap_orb",
@@ -177,7 +179,7 @@
 	},
 	{
 		"id": "prop_disturbing",
-		"name": "disturbing",
+		"name": "扰动",
 		"priceMod": 100,
 		"level": 8,
 		"only": "fetish",
@@ -189,10 +191,12 @@
 	},
 	{
 		"id": "prop_gloomy",
-		"name": "gloomy",
+		"name": "阴郁",
 		"priceMod": 100,
 		"level": 8,
-		"only": ["fetish,greatstaff,staff"],
+		"only": [
+			"fetish,greatstaff,staff"
+		],
 		"mod": {
 			"self.bonuses.shadow": "1%",
 			"shadow.max": "1%",

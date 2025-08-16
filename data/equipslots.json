@@ -1,96 +1,96 @@
 [
 	{
 		"id": "mainhand",
-		"name": "Main hand",
-		"desc": "For main hand weapons.",
+		"name": "主手",
+		"desc": "主手武器。",
 		"slotgroup": "equip",
 		"max": 1,
 		"sortOrder": 100
 	},
 	{
 		"id": "offhand",
-		"name": "Offhand",
-		"desc": "For offhand tools.",
+		"name": "副手",
+		"desc": "副手工具。",
 		"slotgroup": "equip",
 		"max": 0,
 		"sortOrder": 200
 	},
 	{
 		"id": "head",
-		"name": "Head",
-		"desc": "armor.",
+		"name": "头部",
+		"desc": "护甲。",
 		"slotgroup": "equip",
 		"max": 0,
 		"sortOrder": 300
 	},
 	{
 		"id": "hands",
-		"name": "Hands",
-		"desc": "armor.",
+		"name": "手部",
+		"desc": "护甲。",
 		"slotgroup": "equip",
 		"max": 0,
 		"sortOrder": 400
 	},
 	{
 		"id": "back",
-		"name": "Back",
-		"desc": "armor.",
+		"name": "背部",
+		"desc": "护甲。",
 		"slotgroup": "equip",
 		"max": 0,
 		"sortOrder": 500
 	},
 	{
 		"id": "waist",
-		"name": "Waist",
-		"desc": "armor.",
+		"name": "腰部",
+		"desc": "护甲。",
 		"slotgroup": "equip",
 		"max": 0,
 		"sortOrder": 600
 	},
 	{
 		"id": "neck",
-		"name": "Amulet",
-		"desc": "armor.",
+		"name": "项链",
+		"desc": "护甲。",
 		"slotgroup": "equip",
 		"max": 0,
 		"sortOrder": 700
 	},
 	{
 		"id": "trinket",
-		"name": "Trinket",
-		"desc": "armor.",
+		"name": "饰品",
+		"desc": "护甲。",
 		"slotgroup": "equip",
 		"max": 0,
 		"sortOrder": 800
 	},
 	{
 		"id": "fingers",
-		"name": "Ring",
-		"desc": "armor.",
+		"name": "戒指",
+		"desc": "护甲。",
 		"slotgroup": "equip",
 		"max": 0,
 		"sortOrder": 900
 	},
 	{
 		"id": "chest",
-		"name": "Chest",
-		"desc": "armor.",
+		"name": "胸部",
+		"desc": "护甲。",
 		"slotgroup": "equip",
 		"max": 0,
 		"sortOrder": 1000
 	},
 	{
 		"id": "shins",
-		"name": "Shins",
-		"desc": "armor.",
+		"name": "小腿",
+		"desc": "护甲。",
 		"slotgroup": "equip",
 		"max": 0,
 		"sortOrder": 1100
 	},
 	{
 		"id": "feet",
-		"name": "Feet",
-		"desc": "armor.",
+		"name": "足部",
+		"desc": "护甲。",
 		"slotgroup": "equip",
 		"max": 0,
 		"sortOrder": 1200

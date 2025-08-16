@@ -47,27 +47,27 @@ export default {
 <template>
 	<div class="allupgrades">
 		<div class="up-list">
-			<div v-if="classes.length != 0" class="div-hr">Classes</div>
+			<div v-if="classes.length != 0" class="div-hr">职业</div>
 			<div v-for="it in classes" :key="it.id" @mouseenter.capture.stop="itemOver($event, it)">
 				{{ it.name.toTitleCase() + count(it) }}
 			</div>
-			<div v-if="tiers.length != 0" class="div-hr">Tiers</div>
+			<div v-if="tiers.length != 0" class="div-hr">阶层</div>
 			<div v-for="it in tiers" :key="it.id" @mouseenter.capture.stop="itemOver($event, it)">
 				{{ it.name.toTitleCase() + count(it) }}
 			</div>
-			<div v-if="morals.length != 0" class="div-hr">Morality</div>
+			<div v-if="morals.length != 0" class="div-hr">道德</div>
 			<div v-for="it in morals" :key="it.id" @mouseenter.capture.stop="itemOver($event, it)">
 				{{ it.name.toTitleCase() + count(it) }}
 			</div>
-			<div v-if="tasks.length != 0" class="div-hr">Tasks</div>
+			<div v-if="tasks.length != 0" class="div-hr">任务</div>
 			<div v-for="it in tasks" :key="it.id" @mouseenter.capture.stop="itemOver($event, it)">
 				{{ it.name.toTitleCase() + count(it) }}
 			</div>
-			<div v-if="upgrades.length != 0" class="div-hr">Upgrades</div>
+			<div v-if="upgrades.length != 0" class="div-hr">升级</div>
 			<div v-for="it in upgrades" :key="it.id" @mouseenter.capture.stop="itemOver($event, it)">
 				{{ it.name.toTitleCase() + count(it) }}
 			</div>
-			<div v-if="hallUpgrades.length != 0" class="div-hr">Hall Upgrades</div>
+			<div v-if="hallUpgrades.length != 0" class="div-hr">大厅升级</div>
 			<div v-for="it in hallUpgrades" :key="it.id" @mouseenter.capture.stop="itemOver($event, it)">
 				{{ it.name.toTitleCase() + count(it) }}
 			</div>

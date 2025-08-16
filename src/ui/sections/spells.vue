@@ -339,7 +339,7 @@ export default {
 			<div class="inputgroup">
 				<filterbox v-model="spellsBySearch" :prop="searchSpell" :items="spellsByLevel" />
 
-				<label class="level-lbl" :for="elmId('level')">Level</label>
+				<label class="level-lbl" :for="elmId('level')">等级</label>
 				<input class="level" :id="elmId('level')" type="number" v-model="minLevel" min="0" size="5" />
 			</div>
 
@@ -363,9 +363,9 @@ export default {
 			</div>
 
 			<div class="buttongroup">
-				<button type="button" @click="toggleShow">Memorized</button>
-				<button type="button" @click="toggleKeywords">Keywords</button>
-				<button type="button" @click="toggleAllSchools">Toggle Schools</button>
+				<button type="button" @click="toggleShow">已记忆</button>
+				<button type="button" @click="toggleKeywords">关键字</button>
+				<button type="button" @click="toggleAllSchools">切换学派</button>
 			</div>
 			<!-- <div class="checks" v-for="(p, k) in allSchools" :key="k">
 				<input type="checkbox" :value="k" :id="elmId('chk' + k)" v-model="viewSchools" />

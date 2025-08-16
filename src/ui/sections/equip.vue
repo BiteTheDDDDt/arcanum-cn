@@ -34,28 +34,28 @@ export default {
 
 <template>
 	<div class="equip">
-		<div class="equip-slot" v-for="slot in slots">
-			<div class="equip-slot" v-if="slot.max > 0">
-				<td class="slot-name">{{ slot.name + slotFillString(slot) + ":" }}</td>
-				<td class="slot-item" v-if="slot.empty()"></td>
-				<td class="sub-slots" v-else-if="slot.multi">
-					<div
-						class="slot-item"
-						v-for="it in slot.item"
-						:key="it.id"
-						@mouseenter.capture.stop="itemOver($event, it)">
-						<button type="button" class="remove" @click="emit('unequip', slot, it)">X</button>
-						<span class="item-name">{{ it.name.toTitleCase() }}</span>
+			<div class="equip-slot" v-for="slot in slots">
+				<div class="equip-slot" v-if="slot.max > 0">
+					<div class="slot-name">{{ slot.name + slotFillString(slot) + ":" }}</div>
+					<div class="slot-item" v-if="slot.empty()"></div>
+					<div class="sub-slots" v-else-if="slot.multi">
+						<div
+							class="slot-item"
+							v-for="it in slot.item"
+							:key="it.id"
+							@mouseenter.capture.stop="itemOver($event, it)">
+							<button type="button" class="remove" @click="emit('unequip', slot, it)">X</button>
+							<span class="item-name">{{ it.name.toTitleCase() }}</span>
+						</div>
 					</div>
-				</td>
-				<td class="slot-item" v-else>
-					<div @mouseenter.capture.stop="itemOver($event, slot.item)">
-						<button type="button" class="remove" @click="emit('unequip', slot, slot.item)">X</button>
-						<span class="item-name">{{ slot.item.name.toTitleCase() }}</span>
+					<div class="slot-item" v-else>
+						<div @mouseenter.capture.stop="itemOver($event, slot.item)">
+							<button type="button" class="remove" @click="emit('unequip', slot, slot.item)">X</button>
+							<span class="item-name">{{ slot.item.name.toTitleCase() }}</span>
+						</div>
 					</div>
-				</td>
+				</div>
 			</div>
-		</div>
 	</div>
 </template>
 
@@ -96,7 +96,7 @@ export default {
 	padding: 0.4em;
 }
 
-td.slot-name {
+.slot-name {
 	font-weight: bold;
 }
 </style>

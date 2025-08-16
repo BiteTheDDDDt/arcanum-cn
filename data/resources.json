@@ -1,31 +1,35 @@
 [
 	{
 		"id": "gold",
-		"group": "basic",
-		"desc": "Gold coins.",
+ 		"name": "金币",
+ 		"group": "基础",
+		"desc": "金币。",
 		"locked": false,
 		"max": 5,
 		"sortOrder": 5
 	},
 	{
 		"id": "research",
-		"group": "knowledge",
-		"desc": "Research into the Arcane.",
+ 		"name": "研究",
+ 		"group": "知识",
+		"desc": "奥术研究。",
 		"max": 10,
 		"sortOrder": 105
 	},
 	{
 		"id": "arcana",
-		"group": "knowledge",
+ 		"name": "奥术",
+ 		"group": "知识",
 		"school": "arcane",
-		"desc": "Profound mystical knowledge.",
+		"desc": "深奥的神秘知识。",
 		"max": 0,
 		"sortOrder": 110
 	},
 	{
 		"id": "scrolls",
-		"group": "knowledge",
-		"desc": "Scroll of arcane lore.",
+ 		"name": "卷轴",
+ 		"group": "知识",
+		"desc": "奥术知识卷轴。",
 		"max": 10,
 		"sortOrder": 115,
 		"mod": {
@@ -35,9 +39,9 @@
 	},
 	{
 		"id": "runestones",
-		"name": "rune stones",
-		"group": "runes",
-		"desc": "Runes carved on pieces of stone.",
+		"name": "符文石",
+ 		"group": "符文",
+		"desc": "刻有符文的石块。",
 		"tags": "t_runes",
 		"max": 10,
 		"sortOrder": 205,
@@ -49,10 +53,10 @@
 	},
 	{
 		"id": "firerune",
-		"name": "flame runes",
-		"tags": "t_runes,elementalrunes,prismaticrunes",
-		"group": "runes",
-		"desc": "Rune etched with lines of fire.",
+		"name": "火焰符文",
+ 		"tags": "t_runes,elementalrunes,prismaticrunes",
+ 		"group": "符文",
+		"desc": "刻有火焰线条的符文。",
 		"max": 10,
 		"sortOrder": 230,
 		"mod": {
@@ -62,10 +66,10 @@
 	},
 	{
 		"id": "waterrune",
-		"name": "water runes",
-		"tags": "t_runes,elementalrunes,prismaticrunes",
-		"group": "runes",
-		"desc": "Rune lined in flowing water.",
+		"name": "水之符文",
+ 		"tags": "t_runes,elementalrunes,prismaticrunes",
+ 		"group": "符文",
+		"desc": "刻有流水线条的符文。",
 		"max": 10,
 		"sortOrder": 220,
 		"mod": {
@@ -75,10 +79,10 @@
 	},
 	{
 		"id": "spiritrune",
-		"name": "spirit runes",
-		"tags": "t_runes,prismaticrunes,primalrunes",
-		"group": "runes",
-		"desc": "A Runestone carved in bone; it seems to whisper.",
+		"name": "灵魂符文",
+ 		"tags": "t_runes,prismaticrunes,primalrunes",
+ 		"group": "符文",
+		"desc": "刻在骨头上的符文石，仿佛在低语。",
 		"max": 10,
 		"sortOrder": 245,
 		"mod": {
@@ -88,10 +92,10 @@
 	},
 	{
 		"id": "airrune",
-		"name": "air runes",
-		"tags": "t_runes,elementalrunes,prismaticrunes",
-		"group": "runes",
-		"desc": "Rune etched with solid air.",
+		"name": "空气符文",
+ 		"tags": "t_runes,elementalrunes,prismaticrunes",
+ 		"group": "符文",
+		"desc": "刻有凝固空气的符文。",
 		"max": 10,
 		"sortOrder": 225,
 		"mod": {
@@ -101,10 +105,10 @@
 	},
 	{
 		"id": "earthrune",
-		"name": "earth runes",
-		"tags": "t_runes,elementalrunes,prismaticrunes",
-		"group": "runes",
-		"desc": "Rune ingrained with moonstone.",
+		"name": "大地符文",
+ 		"tags": "t_runes,elementalrunes,prismaticrunes",
+ 		"group": "符文",
+		"desc": "刻有月光石的符文。",
 		"max": 10,
 		"sortOrder": 235,
 		"mod": {
@@ -114,10 +118,10 @@
 	},
 	{
 		"id": "lightrune",
-		"name": "light runes",
-		"tags": "t_runes,prismaticrunes,primalrunes",
-		"group": "runes",
-		"desc": "Rune ingrained with sparkling diamond.",
+		"name": "光明符文",
+ 		"tags": "t_runes,prismaticrunes,primalrunes",
+ 		"group": "符文",
+		"desc": "刻有闪烁钻石的符文。",
 		"max": 10,
 		"sortOrder": 250,
 		"mod": {
@@ -127,10 +131,10 @@
 	},
 	{
 		"id": "shadowrune",
-		"name": "shadow runes",
-		"tags": "t_runes,prismaticrunes,primalrunes",
-		"group": "runes",
-		"desc": "Black upon black, only a trained eye can distinguish the tiniest difference in the shades of black.",
+		"name": "暗影符文",
+ 		"tags": "t_runes,prismaticrunes,primalrunes",
+ 		"group": "符文",
+		"desc": "黑色叠加在黑色上，只有训练有素的眼睛才能分辨出细微的黑色阴影差异。",
 		"max": 10,
 		"sortOrder": 255,
 		"mod": {
@@ -140,10 +144,10 @@
 	},
 	{
 		"id": "manarune",
-		"name": "mana runes",
-		"tags": "t_runes,prismaticrunes",
-		"group": "runes",
-		"desc": "The surging energy of this rune can be felt even by the least talented of mages.",
+		"name": "法力符文",
+ 		"tags": "t_runes,prismaticrunes",
+ 		"group": "符文",
+		"desc": "即使是最没有天赋的法师也能感受到这个符文涌动的能量。",
 		"max": 10,
 		"sortOrder": 215,
 		"mod": {
@@ -153,10 +157,10 @@
 	},
 	{
 		"id": "naturerune",
-		"name": "nature runes",
-		"tags": "t_runes,prismaticrunes,primalrunes",
-		"group": "runes",
-		"desc": "Formed out of a complicated tangle of stems and leaves.",
+		"name": "自然符文",
+ 		"tags": "t_runes,prismaticrunes,primalrunes",
+ 		"group": "符文",
+		"desc": "由复杂的茎和叶缠结而成。",
 		"max": 10,
 		"sortOrder": 240,
 		"mod": {
@@ -166,36 +170,36 @@
 	},
 	{
 		"id": "chaosrune",
-		"name": "chaos runes",
-		"tags": "fundamentalrunes",
-		"group": "runes",
-		"desc": "Unmistakably a rune, even if it's impossible to tell quite what it looks like.",
+		"name": "混沌符文",
+ 		"tags": "fundamentalrunes",
+ 		"group": "符文",
+		"desc": "无疑是一个符文，即使很难说出它到底是什么样子。",
 		"max": 10,
 		"sortOrder": 260,
 		"mod": {
 			"chaos.max": 1
 		},
-		"flavor": "You can do anything!"
+		"flavor": "你可以做任何事情！"
 	},
 	{
 		"id": "timerune",
-		"name": "time runes",
-		"tags": "fundamentalrunes",
-		"group": "runes",
-		"desc": "Time flows along the grooves of the rune.",
+		"name": "时间符文",
+ 		"tags": "fundamentalrunes",
+ 		"group": "符文",
+		"desc": "时间沿着符文的凹槽流动。",
 		"mod": {
 			"tempus.rate": 0.05,
 			"bf.rate": 0.01
 		},
 		"max": 6,
 		"sortOrder": 265,
-		"flavor": "It's not easy to look at."
+		"flavor": "这可不容易看。"
 	},
 	{
 		"id": "codices",
-		"name": "codices",
-		"group": "knowledge",
-		"desc": "Codex of arcane lore.",
+		"name": "法典",
+ 		"group": "知识",
+		"desc": "奥术知识法典。",
 		"max": 10,
 		"sortOrder": 120,
 		"mod": {
@@ -205,9 +209,9 @@
 	},
 	{
 		"id": "tomes",
-		"name": "tomes",
-		"group": "knowledge",
-		"desc": "A hefty tome of knowledge.",
+		"name": "巨著",
+ 		"group": "知识",
+		"desc": "一本厚重的知识之书。",
 		"max": 5,
 		"sortOrder": 125,
 		"mod": {
@@ -219,108 +223,108 @@
 	},
 	{
 		"id": "gems",
-		"name": "gemstones",
-		"group": "gems",
-		"desc": "Various fine gemstones.",
+		"name": "宝石",
+ 		"group": "宝石",
+		"desc": "各种精美的宝石。",
 		"max": 5,
 		"sortOrder": 305
 	},
 	{
 		"id": "managem",
 		"tags": "magicgems,prismaticgems",
-		"group": "gems",
-		"name": "arcane gem",
-		"desc": "Gem infused with arcane energy.",
+		"group": "宝石",
+		"name": "奥术宝石",
+		"desc": "注入了奥术能量的宝石。",
 		"max": 2,
 		"sortOrder": 315
 	},
 	{
 		"id": "firegem",
 		"tags": "magicgems,prismaticgems,elementalgems",
-		"group": "gems",
-		"name": "fire gem",
-		"desc": "Gem imbued with the essence of fire.",
+		"group": "宝石",
+		"name": "火焰宝石",
+		"desc": "蕴含火焰精华的宝石。",
 		"max": 2,
 		"sortOrder": 330
 	},
 	{
 		"id": "watergem",
 		"tags": "magicgems,prismaticgems,elementalgems",
-		"group": "gems",
-		"name": "water gem",
-		"desc": "Gem imbued with the essence of water.",
+		"group": "宝石",
+		"name": "水之宝石",
+		"desc": "蕴含水的精华的宝石。",
 		"max": 2,
 		"sortOrder": 320
 	},
 	{
 		"id": "naturegem",
 		"tags": "magicgems,prismaticgems,primalgems",
-		"group": "gems",
-		"name": "nature gem",
-		"desc": "Physical essence of life.",
+		"group": "宝石",
+		"name": "自然宝石",
+		"desc": "生命的物质精华。",
 		"max": 2,
 		"sortOrder": 340,
-		"flavor": "The force from the beginning."
+		"flavor": "来自开端的力量。"
 	},
 	{
 		"id": "earthgem",
 		"tags": "magicgems,prismaticgems,elementalgems",
-		"group": "gems",
-		"name": "earth gem",
-		"desc": "Gem imbued with the essence of earth.",
+		"group": "宝石",
+		"name": "大地宝石",
+		"desc": "蕴含大地精华的宝石。",
 		"max": 2,
 		"sortOrder": 335
 	},
 	{
 		"id": "airgem",
 		"tags": "magicgems,prismaticgems,elementalgems",
-		"group": "gems",
-		"name": "air gem",
-		"desc": "Gem imbued with the essence of air.",
+		"group": "宝石",
+		"name": "空气宝石",
+		"desc": "蕴含空气精华的宝石。",
 		"max": 2,
 		"sortOrder": 325
 	},
 	{
 		"id": "shadowgem",
 		"tags": "magicgems,prismaticgems,primalgems",
-		"group": "gems",
-		"name": "shadow gem",
-		"desc": "Gem imbued with the essence of darkness.",
+		"group": "宝石",
+		"name": "暗影宝石",
+		"desc": "蕴含黑暗精华的宝石。",
 		"max": 2,
 		"sortOrder": 355
 	},
 	{
 		"id": "lightgem",
 		"tags": "magicgems,prismaticgems,primalgems",
-		"group": "gems",
-		"name": "light gem",
-		"desc": "Gem imbued with the essence of light.",
+		"group": "宝石",
+		"name": "光明宝石",
+		"desc": "蕴含光明精华的宝石。",
 		"max": 2,
 		"sortOrder": 350
 	},
 	{
 		"id": "spiritgem",
 		"tags": "magicgems,prismaticgems,primalgems",
-		"group": "gems",
-		"name": "spirit gem",
-		"desc": "Gem imbued with raw spirit.",
+		"group": "宝石",
+		"name": "灵魂宝石",
+		"desc": "蕴含原始灵魂的宝石。",
 		"max": 2,
 		"sortOrder": 345
 	},
 	{
 		"id": "bloodgem",
-		"group": "gems",
-		"name": "blood gem",
-		"desc": "A little magic and a lot of blood.",
+		"group": "宝石",
+		"name": "血之宝石",
+		"desc": "一点魔法和大量鲜血。",
 		"max": 2,
 		"sortOrder": 310
 	},
 	{
 		"id": "timegem",
-		"name": "time gem",
+		"name": "时间宝石",
 		"tags": "magicgems,fundamentalgems",
-		"group": "gems",
-		"desc": "Crafted from gems which do not yet exist.",
+		"group": "宝石",
+		"desc": "由尚不存在的宝石制成。",
 		"mod": {
 			"tempus.rate": 0.01
 		},
@@ -329,44 +333,45 @@
 	},
 	{
 		"id": "voidgem",
-		"name": "void gem",
+		"name": "虚空宝石",
 		"tags": "magicgems,fundamentalgems",
-		"group": "gems",
-		"desc": "The space where a gem once was.",
+		"group": "宝石",
+		"desc": "曾经有一颗宝石的地方。",
 		"mod": {
 			"player.resist.void": 1
 		},
 		"max": 3,
 		"sortOrder": 370,
-		"flavor": "There was a GEM here. It's gone now."
+		"flavor": "这里曾经有一颗宝石。现在没有了。"
 	},
 	{
 		"id": "chaosgem",
-		"name": "chaos gem",
+		"name": "混沌宝石",
 		"tags": "magicgems,fundamentalgems",
-		"group": "gems",
-		"desc": "Every time you look at it, it looks different.",
+		"group": "宝石",
+		"desc": "每次你看它，它的样子都不一样。",
 		"mod": {
 			"chaos.rate": 0.01
 		},
 		"max": 3,
 		"sortOrder": 360,
-		"flavor": "Chaos, chaos!"
+		"flavor": "混沌，混沌！"
 	},
 	{
 		"id": "ichor",
-		"group": "materials",
-		"desc": "The blood of gods.",
-		"flavor": "The secret courtesy that courses like ichor.",
+ 		"name": "诸神之血",
+ 		"group": "材料",
+		"desc": "诸神之血。",
+		"flavor": "如同秘传的礼节，流淌着神圣的血液。",
 		"max": 5,
 		"sortOrder": 415
 	},
 	{
 		"id": "sindel",
-		"name": "star shard",
-		"group": "esoteric",
-		"desc": "A glowing cinder of the stars.",
-		"flavor": "The pillars broke; the stars fell screaming from the sky.",
+		"name": "星辰碎片",
+ 		"group": "秘术",
+		"desc": "星星的发光余烬。",
+		"flavor": "支柱破碎；星星从天而降，尖叫着划过天空。",
 		"max": 3,
 		"sortOrder": 505,
 		"mod": {
@@ -376,53 +381,55 @@
 	},
 	{
 		"id": "deepsteel",
-		"name": "core steel",
-		"group": "materials",
-		"desc": "Steel forged in the very core of the world.",
-		"flavor": "Forged in the hottest of fires, under the immense pressure, not even the most extraordinary smith could produce metal of such quality.",
+		"name": "核心钢铁",
+ 		"group": "材料",
+		"desc": "在世界核心锻造的钢铁。",
+		"flavor": "在最炽热的火焰中锻造，在巨大的压力下，即使是最非凡的铁匠也无法生产出如此质量的金属。",
 		"max": 25,
 		"sortOrder": 475
 	},
 	{
 		"id": "fineparts",
-		"name": "fine-tuned parts",
-		"group": "materials",
-		"desc": "Made to extremely exacting specifications, can be used in production of wondrous machines.",
+		"name": "精密部件",
+ 		"group": "材料",
+		"desc": "按照极其严格的规格制造，可用于生产奇妙的机器。",
 		"max": 10,
 		"sortOrder": 470
 	},
 	{
 		"id": "dreams",
-		"group": "esoteric",
-		"desc": "We are such stuff as dreams are made of. And our little life is rounded with a sleep.",
+ 		"name": "梦境",
+ 		"group": "秘术",
+		"desc": "我们所做的梦就是我们自己。而我们短暂的生命则在睡眠中圆满结束。",
 		"max": 3,
 		"sortOrder": 510,
 		"mod": {
 			"weary.rate": -0.1,
 			"arcana.rate": "1%"
 		},
-		"flavor": "In your wildest..."
+		"flavor": "在你最狂野的梦中..."
 	},
 	{
 		"id": "herbs",
-		"group": "materials",
-		"desc": "Special plants for potions and alchemy.",
+ 		"name": "草药",
+ 		"group": "材料",
+		"desc": "用于药水和炼金术的特殊植物。",
 		"max": 10,
 		"sortOrder": 405
 	},
 	{
 		"id": "potionessence",
-		"name": "potion base",
-		"group": "materials",
-		"desc": "Basic essence for creating advanced potions.",
-		"flavor": "Smells faintly of milk.",
+		"name": "药水基质",
+ 		"group": "材料",
+		"desc": "制造高级药水的基本精华。",
+		"flavor": "散发着淡淡的牛奶香味。",
 		"max": 3,
 		"sortOrder": 410
 	},
 	{
 		"id": "space",
-		"name": "floor space",
-		"desc": "Available space.",
+		"name": "地板空间",
+ 		"desc": "可用空间。",
 		"hide": true,
 		"reverse": true,
 		"reverseDisplay": true,
@@ -431,7 +438,7 @@
 	{
 		"id": "vigor",
 		"tags": "t_endurance",
-		"desc": "Your capacity for short-term exertions.",
+		"desc": "你短期内的精力消耗能力。",
 		"unit": false,
 		"require": "lore",
 		"name": "vigor",
@@ -440,7 +447,7 @@
 	{
 		"id": "mana",
 		"tags": "manas,prismatic",
-		"desc": "Raw magical energy.",
+		"desc": "原始魔法能量。",
 		"unit": false,
 		"require": "lore",
 		"name": "mana",
@@ -449,110 +456,120 @@
 	},
 	{
 		"id": "fire",
-		"require": "firelore",
-		"unit": false,
-		"tags": "manas,element,prismatic",
-		"desc": "Fire mana.",
-		"max": 0,
-		"sortOrder": 40
+ 		"name": "火",
+ 		"require": "firelore",
+ 		"unit": false,
+ 		"tags": "manas,element,prismatic",
+ 		"desc": "火焰法力。",
+ 		"max": 0,
+ 		"sortOrder": 40
 	},
 	{
 		"id": "air",
-		"require": "airlore",
-		"unit": false,
-		"tags": "manas,element,prismatic",
-		"desc": "Air mana.",
-		"max": 0,
-		"sortOrder": 30
+ 		"name": "空气",
+ 		"require": "airlore",
+ 		"unit": false,
+ 		"tags": "manas,element,prismatic",
+ 		"desc": "空气法力。",
+ 		"max": 0,
+ 		"sortOrder": 30
 	},
 	{
 		"id": "earth",
-		"unit": false,
-		"tags": "manas,element,prismatic",
-		"require": "earthlore",
-		"desc": "Earth mana.",
-		"max": 0,
-		"sortOrder": 50
+ 		"name": "大地",
+ 		"unit": false,
+ 		"tags": "manas,element,prismatic",
+ 		"require": "earthlore",
+ 		"desc": "大地法力。",
+ 		"max": 0,
+ 		"sortOrder": 50
 	},
 	{
 		"id": "water",
-		"unit": false,
-		"tags": "manas,element,prismatic",
-		"desc": "Water mana.",
-		"require": "waterlore",
-		"max": 0,
-		"sortOrder": 20
+ 		"name": "水",
+ 		"unit": false,
+ 		"tags": "manas,element,prismatic",
+ 		"desc": "水法力。",
+ 		"require": "waterlore",
+ 		"max": 0,
+ 		"sortOrder": 20
 	},
 	{
 		"id": "nature",
-		"tags": "manas,primal,prismatic",
-		"unit": false,
-		"require": "naturelore",
-		"desc": "Nature mana.",
-		"max": 0,
-		"sortOrder": 60
+ 		"name": "自然",
+ 		"tags": "manas,primal,prismatic",
+ 		"unit": false,
+ 		"require": "naturelore",
+ 		"desc": "自然法力。",
+ 		"max": 0,
+ 		"sortOrder": 60
 	},
 	{
 		"id": "shadow",
-		"name": "shadow",
-		"tags": "manas,primal,prismatic",
-		"unit": false,
-		"require": "shadowlore",
-		"desc": "Shadow mana.",
-		"max": 0,
-		"sortOrder": 90
+		"name": "暗影",
+ 		"tags": "manas,primal,prismatic",
+ 		"unit": false,
+ 		"require": "shadowlore",
+ 		"desc": "暗影法力。",
+ 		"max": 0,
+ 		"sortOrder": 90
 	},
 	{
 		"id": "light",
+ 		"name": "光明",
 		"tags": "manas,primal,prismatic",
 		"unit": false,
 		"require": "lightlore",
-		"desc": "Light mana.",
+		"desc": "光明法力。",
 		"max": 0,
 		"sortOrder": 80
 	},
 	{
 		"id": "spirit",
+ 		"name": "灵魂",
 		"tags": "manas,primal,prismatic",
 		"unit": false,
-		"desc": "Spirit mana.",
+		"desc": "灵魂法力。",
 		"require": "spiritlore",
 		"max": 0,
 		"sortOrder": 70
 	},
 	{
 		"id": "tempus",
-		"require": "chronomancy",
-		"tags": "manas,fundamental",
-		"unit": false,
-		"desc": "Time incarnate. If only...",
-		"max": 0,
-		"sortOrder": 110
+ 		"name": "时间",
+ 		"require": "chronomancy",
+ 		"tags": "manas,fundamental",
+ 		"unit": false,
+ 		"desc": "时间化身。如果只有...",
+ 		"max": 0,
+ 		"sortOrder": 110
 	},
 	{
 		"id": "chaos",
-		"tags": "manas,fundamental",
-		"require": "g.t_chaosclass>0||g.chaoslore>0",
-		"unit": false,
-		"desc": "Chaos incarnate. You can do anything!",
-		"max": 0,
-		"sortOrder": 100
+ 		"name": "混沌",
+ 		"tags": "manas,fundamental",
+ 		"require": "g.t_chaosclass>0||g.chaoslore>0",
+ 		"unit": false,
+ 		"desc": "混沌化身。你可以做任何事情！",
+ 		"max": 0,
+ 		"sortOrder": 100
 	},
 	{
 		"id": "void",
-		"tags": "manas,fundamental",
-		"unit": false,
-		"desc": "Nothingness. No current use.",
-		"flavor": "",
-		"max": 0,
-		"sortOrder": 120
+ 		"name": "虚无",
+ 		"tags": "manas,fundamental",
+ 		"unit": false,
+ 		"desc": "虚无。目前没有用途。",
+ 		"flavor": "",
+ 		"max": 0,
+ 		"sortOrder": 120
 	},
 	{
 		"id": "offlinetime",
-		"name": "stored time",
-		"group": "basic",
-		"desc": "Time since you last checked in. Can be used to speed up the game.",
-		"flavor": "Where does time go when you aren't looking?",
+		"name": "储存时间",
+ 		"group": "基础",
+		"desc": "自上次签到以来的时间。可以用来加速游戏进程。",
+		"flavor": "时间在你不注意的时候去哪里了？",
 		"locked": false,
 		"max": 3600
 	}

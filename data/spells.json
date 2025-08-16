@@ -1,43 +1,66 @@
 [
 	{
 		"id": "darkbolt",
-		"name": "dark bolt",
+		"name": "暗影箭",
 		"sortOrder": 1207,
 		"level": 1,
 		"school": "shadow",
 		"keywords": {
-			"type": ["damage"],
-			"target": ["enemy"],
-			"targets": ["single"],
-			"delivery": ["instant", "over time"]
+			"type": [
+				"damage"
+			],
+			"target": [
+				"enemy"
+			],
+			"targets": [
+				"single"
+			],
+			"delivery": [
+				"instant",
+				"over time"
+			]
 		},
 		"require": "g.spellbook>0&&g.shadowlore>0",
 		"buy": {
 			"research": 25,
 			"scrolls": 1
 		},
-		"cost": { "shadow": 1 },
+		"cost": {
+			"shadow": 1
+		},
 		"attack": {
 			"damage": "0.5~2",
-			"potencies": ["spelldmg", "shadowdmg"],
+			"potencies": [
+				"spelldmg",
+				"shadowdmg"
+			],
 			"targetspec": {
 				"notaffectedby": {
-					"condition": ["darkbolt_dot"],
-					"conditiontext": "dark bolt"
+					"condition": [
+						"darkbolt_dot"
+					],
+					"conditiontext": "暗影箭"
 				}
 			},
 			"dot": {
 				"id": "darkbolt_dot",
-				"name": "dark bolt",
+				"name": "暗影箭",
 				"kind": "shadow",
 				"duration": 15,
 				"damage": 1,
-				"potencies": ["spelldmg", "shadowdmg"]
+				"potencies": [
+					"spelldmg",
+					"shadowdmg"
+				]
 			}
 		},
 		"at": {
-			"25": { "attack.damage.max": 1 },
-			"75": { "attack.damage.min": 1 },
+			"25": {
+				"attack.damage.max": 1
+			},
+			"75": {
+				"attack.damage.min": 1
+			},
 			"300": {
 				"attack.damage.max": 2,
 				"attack.damage.min": 1,
@@ -47,71 +70,105 @@
 	},
 	{
 		"id": "obscure1",
-		"name": "lesser obscuring shadows",
+		"name": "微弱遮蔽之影",
 		"sortOrder": 1246,
 		"level": 2,
 		"school": "shadow",
 		"tags": "t_obscurebuff",
 		"keywords": {
-			"type": ["buff"],
-			"target": ["self"],
-			"targets": ["single"],
-			"delivery": ["over time"]
+			"type": [
+				"buff"
+			],
+			"target": [
+				"self"
+			],
+			"targets": [
+				"single"
+			],
+			"delivery": [
+				"over time"
+			]
 		},
 		"require": "g.spellbook>0&&g.shadowlore>0",
 		"buy": {
 			"research": 25,
 			"scrolls": 1
 		},
-		"cost": { "shadow": 2 },
+		"cost": {
+			"shadow": 2
+		},
 		"dot": {
 			"tags": "obscuringshadows",
 			"duration": 20,
-			"mod": { "self.dodge": 2 }
+			"mod": {
+				"self.dodge": 2
+			}
 		}
 	},
 	{
 		"id": "immuneblind",
-		"name": "penumbral senses",
+		"name": "半影感知",
 		"sortOrder": 1248,
 		"level": 5,
 		"school": "shadow",
 		"keywords": {
-			"type": ["buff"],
-			"target": ["self"],
-			"targets": ["single"],
-			"delivery": ["over time"]
+			"type": [
+				"buff"
+			],
+			"target": [
+				"self"
+			],
+			"targets": [
+				"single"
+			],
+			"delivery": [
+				"over time"
+			]
 		},
 		"require": "g.shadowlore>=8&&g.tier1>0",
 		"buy": {
 			"research": 4000,
 			"tomes": 1
 		},
-		"cost": { "shadow": 5 },
+		"cost": {
+			"shadow": 5
+		},
 		"cd": 15,
 		"dot": {
 			"duration": 30,
-			"mod": { "self.immunities.blind": 1 }
+			"mod": {
+				"self.immunities.blind": 1
+			}
 		}
 	},
 	{
 		"id": "prolight",
-		"name": "protection: light",
+		"name": "光明防护",
 		"sortOrder": 1249,
 		"level": 2,
 		"school": "shadow",
 		"keywords": {
-			"type": ["buff"],
-			"target": ["self"],
-			"targets": ["single"],
-			"delivery": ["over time"]
+			"type": [
+				"buff"
+			],
+			"target": [
+				"self"
+			],
+			"targets": [
+				"single"
+			],
+			"delivery": [
+				"over time"
+			]
 		},
 		"require": "g.shadowlore>=3",
 		"buy": {
 			"research": 100,
 			"scrolls": 10
 		},
-		"cost": { "shadow": 2 },
+		"cost": {
+			"shadow": 2
+		},
 		"dot": {
 			"duration": 20,
 			"mod": {
@@ -121,16 +178,20 @@
 	},
 	{
 		"id": "defensivestance",
-		"name": "defensive stance",
-		"desc": "Shift your focus from dodging to parrying.",
-		"flavor": "Face to face.",
+		"name": "防御姿态",
+		"desc": "将你的注意力从闪避转移到格挡上。",
+		"flavor": "面对面。",
 		"sortOrder": 397,
 		"level": 1,
 		"school": "martial",
 		"tags": "t_stance",
 		"keywords": {
-			"target": ["self"],
-			"special": ["stance"]
+			"target": [
+				"self"
+			],
+			"special": [
+				"stance"
+			]
 		},
 		"require": "g.player.defense>=20",
 		"buy": {
@@ -139,7 +200,7 @@
 		},
 		"dot": {
 			"id": "defensivestance_dot",
-			"name": "defensive stance",
+			"name": "防御姿态",
 			"tags": "t_stance",
 			"mod": {
 				"self.defense": "5%",
@@ -149,16 +210,20 @@
 	},
 	{
 		"id": "counterstance",
-		"name": "countering stance",
-		"desc": "Focus on countering attacks.",
-		"flavor": "An eye for an eye.",
+		"name": "反击姿态",
+		"desc": "专注于反击攻击。",
+		"flavor": "以眼还眼。",
 		"sortOrder": 397,
 		"level": 1,
 		"school": "martial",
 		"tags": "t_stance",
 		"keywords": {
-			"target": ["self"],
-			"special": ["stance"]
+			"target": [
+				"self"
+			],
+			"special": [
+				"stance"
+			]
 		},
 		"require": "g.player.defense>=20",
 		"buy": {
@@ -167,22 +232,24 @@
 		},
 		"dot": {
 			"id": "counterstance_dot",
-			"name": "countering stance",
+			"name": "反击姿态",
 			"tags": "t_stance",
 			"mod": {
 				"self.defense": "-10%",
 				"self.dodge": "-10%"
 			},
 			"dotcondition": "t.getWeapon().hasTag('t_martial')",
-			"conditiontext": "Must be using a martial weapon",
+			"conditiontext": "必须使用武术武器",
 			"conditional": {
 				"onSuccess": {
 					"onHit": {
-						"name": "Counterattack",
+						"name": "反击",
 						"damage": "a.getWeapon().damage*0.5||0",
 						"unreflectable": true,
 						"targets": "fixed",
-						"potencies": ["physdmg"]
+						"potencies": [
+							"physdmg"
+						]
 					}
 				}
 			}
@@ -190,16 +257,20 @@
 	},
 	{
 		"id": "defensiveunstance",
-		"name": "Basic stance",
-		"desc": "Return to unmodified combat stance.",
-		"flavor": "Footwork and agility.",
+		"name": "基础姿态",
+		"desc": "恢复未修改的战斗姿态。",
+		"flavor": "步法和灵活性。",
 		"sortOrder": 398,
 		"level": 1,
 		"school": "martial",
 		"tags": "t_stance",
 		"keywords": {
-			"target": ["self"],
-			"special": ["stance"]
+			"target": [
+				"self"
+			],
+			"special": [
+				"stance"
+			]
 		},
 		"require": "g.player.defense>=20",
 		"buy": {
@@ -207,22 +278,33 @@
 			"scrolls": 1
 		},
 		"action": {
-			"cure": ["t_stance", "defensive"],
+			"cure": [
+				"t_stance",
+				"defensive"
+			],
 			"targets": "self"
 		}
 	},
 	{
 		"id": "invigorate",
-		"name": "invigorate",
-		"desc": "Utilize your stamina for combat.",
+		"name": "振奋",
+		"desc": "利用你的耐力进行战斗。",
 		"sortOrder": 399,
 		"level": 1,
 		"school": "martial",
 		"keywords": {
-			"type": ["recovery"],
-			"target": ["self"],
-			"targets": ["single"],
-			"delivery": ["instant"]
+			"type": [
+				"recovery"
+			],
+			"target": [
+				"self"
+			],
+			"targets": [
+				"single"
+			],
+			"delivery": [
+				"instant"
+			]
 		},
 		"require": "g.weaponlore>=1",
 		"buy": {
@@ -263,15 +345,24 @@
 	},
 	{
 		"id": "speak",
-		"desc": "Breaks a curse of silence.",
+		"desc": "解除沉默的诅咒。",
 		"sortOrder": 636,
 		"level": 8,
 		"school": "air",
 		"keywords": {
-			"type": ["recovery"],
-			"target": ["self", "ally"],
-			"targets": ["single"],
-			"delivery": ["instant"]
+			"type": [
+				"recovery"
+			],
+			"target": [
+				"self",
+				"ally"
+			],
+			"targets": [
+				"single"
+			],
+			"delivery": [
+				"instant"
+			]
 		},
 		"require": "g.airlore>=6",
 		"caststoppers": [],
@@ -287,23 +378,34 @@
 			"targets": "ally",
 			"targetspec": {
 				"affectedby": {
-					"condition": ["t_silence"]
+					"condition": [
+						"t_silence"
+					]
 				}
 			}
 		}
 	},
 	{
 		"id": "cureparalyze",
-		"name": "cure paralysis",
-		"desc": "Loosens rigid muscles, nerves, and bones.",
+		"name": "解除瘫痪",
+		"desc": "松弛僵硬的肌肉、神经和骨骼。",
 		"sortOrder": 434,
 		"level": 7,
 		"school": "mana",
 		"keywords": {
-			"type": ["recovery"],
-			"target": ["self", "ally"],
-			"targets": ["single"],
-			"delivery": ["instant"]
+			"type": [
+				"recovery"
+			],
+			"target": [
+				"self",
+				"ally"
+			],
+			"targets": [
+				"single"
+			],
+			"delivery": [
+				"instant"
+			]
 		},
 		"require": "g.lore>=11",
 		"caststoppers": [],
@@ -319,25 +421,35 @@
 			"targets": "ally",
 			"targetspec": {
 				"affectedby": {
-					"condition": ["t_paralysis"]
+					"condition": [
+						"t_paralysis"
+					]
 				}
 			}
 		}
 	},
 	{
 		"id": "pilfer_gold",
-		"name": "pilfer",
-		"desc": "Unburden your opponent of excess gold, valuable pieces of anatomy and other materials of use to an enterprising wizard.",
-		"extdesc": "Effect scales with the level of your opponent and your dedication to trickery. It is relatively random. Shown value approximates what you would get if you were stealing from yourself.",
-		"flavor": "Gold coins, dragon scales, mountain oysters, some kind of a beacon...",
+		"name": "偷取",
+		"desc": "让对手失去多余的金币、宝贵的身体部位和其他对一个有心的法师有用的材料。",
+		"extdesc": "效果随你对对手的偷窃程度和你对欺诈的执着而变化。它是相对随机的。显示的值大致上是你从自己身上偷窃时得到的值。",
+		"flavor": "金币、龙鳞、山羊睾丸、某种信标...",
 		"sortOrder": 1372,
 		"level": 3,
 		"school": "chaos",
 		"keywords": {
-			"target": ["enemy"],
-			"targets": ["single"],
-			"delivery": ["instant"],
-			"special": ["resource"]
+			"target": [
+				"enemy"
+			],
+			"targets": [
+				"single"
+			],
+			"delivery": [
+				"instant"
+			],
+			"special": [
+				"resource"
+			]
 		},
 		"require": "g.spellbook>0&&g.trickery>=5",
 		"buy": {
@@ -353,16 +465,18 @@
 		"attack": {
 			"targetspec": {
 				"notaffectedby": {
-					"condition": ["pilfered_dot"],
+					"condition": [
+						"pilfered_dot"
+					],
 					"strict": true,
-					"conditiontext": "having their valuables stolen"
+					"conditiontext": "失去财物"
 				}
 			},
 			"dot": {
 				"id": "pilfered_dot",
 				"duration": 300,
 				"kind": "chaos",
-				"name": "missing valuables"
+				"name": "失窃的财物"
 			},
 			"damage": "t.hp.max/100",
 			"acquire": {
@@ -372,17 +486,25 @@
 	},
 	{
 		"id": "pilfer_time",
-		"name": "borrow time",
-		"desc": "Just a couple of seconds, nothing bad ever happens in that amount of time.",
-		"flavor": "May I have a second of your time?",
+		"name": "偷取时间",
+		"desc": "只是几秒钟而已，这么短的时间不会发生什么坏事。",
+		"flavor": "我可以借用你一点时间吗？",
 		"sortOrder": 1316,
 		"level": 5,
 		"school": "chaos",
 		"keywords": {
-			"target": ["enemy"],
-			"targets": ["single"],
-			"delivery": ["instant"],
-			"special": ["resource"]
+			"target": [
+				"enemy"
+			],
+			"targets": [
+				"single"
+			],
+			"delivery": [
+				"instant"
+			],
+			"special": [
+				"resource"
+			]
 		},
 		"require": "g.act_fey>0&&g.trickery>=10",
 		"buy": {
@@ -398,16 +520,18 @@
 		"attack": {
 			"targetspec": {
 				"notaffectedby": {
-					"condition": ["pilfered_time_dot"],
+					"condition": [
+						"pilfered_time_dot"
+					],
 					"strict": true,
-					"conditiontext": "stolen time"
+					"conditiontext": "被偷走的时间"
 				}
 			},
 			"dot": {
 				"id": "pilfered_time_dot",
 				"kind": "chaos",
 				"duration": 300,
-				"name": "missing time"
+				"name": "丢失的时间"
 			},
 			"result": {
 				"self.timer": 2
@@ -419,17 +543,27 @@
 	},
 	{
 		"id": "dream_realm",
-		"name": "midsummer night",
-		"desc": "Pull everyone into a dream of your making.",
-		"flavor": "If you die in a dream, you die in real life.",
+		"name": "仲夏之梦",
+		"desc": "将每个人都拉入你编织的梦境中。",
+		"flavor": "如果你在梦中死去，你将在现实中死去。",
 		"sortOrder": 440,
 		"level": 10,
 		"school": "mana",
 		"keywords": {
-			"type": ["debuff"],
-			"target": ["self", "ally", "enemy"],
-			"targets": ["multiple"],
-			"delivery": ["over time"]
+			"type": [
+				"debuff"
+			],
+			"target": [
+				"self",
+				"ally",
+				"enemy"
+			],
+			"targets": [
+				"multiple"
+			],
+			"delivery": [
+				"over time"
+			]
 		},
 		"require": "g.act_fey>0||(g.dreamchamber>0&&(g.t_natureclass+g.tier5)>=3)",
 		"buy": {
@@ -446,7 +580,7 @@
 			"naturelore.exp": 1.4
 		},
 		"dot": {
-			"name": "midsummer night's dream",
+			"name": "仲夏之梦",
 			"duration": 30,
 			"applyinstanced": true,
 			"kind": "mana",
@@ -455,7 +589,7 @@
 					{
 						"targets": "enemies",
 						"maxTargets": 999,
-						"name": "midsummer nightmare",
+						"name": "仲夏噩梦",
 						"result": {
 							"self.timer": 0.2
 						},
@@ -475,7 +609,7 @@
 					{
 						"targets": "allies",
 						"maxTargets": 999,
-						"name": "midsummer reverie",
+						"name": "仲夏幻梦",
 						"result": {
 							"self.timer": -0.1
 						},
@@ -495,19 +629,29 @@
 	},
 	{
 		"id": "gems_acquisition",
-		"name": "crystal seeding",
-		"desc": "Afflict the opponent with an earthen curse, so that their bones turn into gems.",
-		"extdesc": "Gains 1 gem for every 10 defense the opponent had",
-		"flavor": "Sure to baffle future paleontologists.",
+		"name": "水晶播种",
+		"desc": "给对手施加一种土元素诅咒，使他们的骨头变成宝石。",
+		"extdesc": "每10点防御获得1颗宝石",
+		"flavor": "一定会让未来的古生物学家感到困惑。",
 		"sortOrder": 870,
 		"level": 3,
 		"school": "earth",
 		"keywords": {
-			"type": ["debuff"],
-			"target": ["enemy"],
-			"targets": ["single"],
-			"delivery": ["over time"],
-			"special": ["resource"]
+			"type": [
+				"debuff"
+			],
+			"target": [
+				"enemy"
+			],
+			"targets": [
+				"single"
+			],
+			"delivery": [
+				"over time"
+			],
+			"special": [
+				"resource"
+			]
 		},
 		"require": "g.t_earthclass>0",
 		"buy": {
@@ -523,9 +667,11 @@
 		"attack": {
 			"targetspec": {
 				"notaffectedby": {
-					"condition": ["t_body_preparation"],
+					"condition": [
+						"t_body_preparation"
+					],
 					"strict": true,
-					"conditiontext": "body preparation"
+					"conditiontext": "身体准备"
 				}
 			},
 			"dot": {
@@ -533,7 +679,7 @@
 				"tags": "t_body_preparation",
 				"kind": "earth",
 				"duration": 300,
-				"name": "crystal bones",
+				"name": "水晶骨骼",
 				"mod": {
 					"self.speed": -1
 				},
@@ -548,19 +694,29 @@
 	},
 	{
 		"id": "bloodgem_acquisition",
-		"name": "coagulant injection",
-		"desc": "Inject an enemy with a coagulant, allowing you to crystallize their blood.",
-		"extdesc": "Amount of blood gems acquired is approximately 1 per 250 maximum hp an opponent had",
-		"flavor": "A blood-curdling sight.",
+		"name": "凝血剂注射",
+		"desc": "给敌人注射一种凝血剂，让你可以使他们的血液结晶化。",
+		"extdesc": "获得的血珠数量大约是对手最大生命值的1/250",
+		"flavor": "一个血腥的场面。",
 		"sortOrder": 206,
 		"level": 3,
 		"school": "blood",
 		"keywords": {
-			"type": ["damage"],
-			"target": ["enemy"],
-			"targets": ["single"],
-			"delivery": ["over time"],
-			"special": ["resource"]
+			"type": [
+				"damage"
+			],
+			"target": [
+				"enemy"
+			],
+			"targets": [
+				"single"
+			],
+			"delivery": [
+				"over time"
+			],
+			"special": [
+				"resource"
+			]
 		},
 		"require": "g.bloodlore>=5",
 		"buy": {
@@ -576,9 +732,11 @@
 		"attack": {
 			"targetspec": {
 				"notaffectedby": {
-					"condition": ["t_body_preparation"],
+					"condition": [
+						"t_body_preparation"
+					],
 					"strict": true,
-					"conditiontext": "body preparation"
+					"conditiontext": "身体准备"
 				}
 			},
 			"dot": {
@@ -586,7 +744,7 @@
 				"tags": "t_body_preparation",
 				"kind": "blood",
 				"duration": 300,
-				"name": "coagulant poison",
+				"name": "凝血毒素",
 				"damage": 0.25,
 				"onDeath": {
 					"harmless": true,
@@ -599,7 +757,7 @@
 	},
 	{
 		"id": "quell",
-		"desc": "The full weight of a wizard's gaze is often overpowering.",
+		"desc": "巫师的凝视往往是压倒性的。",
 		"sortOrder": 442,
 		"level": 15,
 		"school": "mana",
@@ -627,15 +785,23 @@
 	},
 	{
 		"id": "poisonnettle",
-		"name": "poison nettle",
+		"name": "毒荨麻",
 		"sortOrder": 905,
 		"level": 1,
 		"school": "nature",
 		"keywords": {
-			"type": ["damage"],
-			"target": ["enemy"],
-			"targets": ["single"],
-			"delivery": ["over time"]
+			"type": [
+				"damage"
+			],
+			"target": [
+				"enemy"
+			],
+			"targets": [
+				"single"
+			],
+			"delivery": [
+				"over time"
+			]
 		},
 		"require": "g.spellbook>0&&g.naturelore>0",
 		"buy": {
@@ -651,8 +817,10 @@
 		"attack": {
 			"targetspec": {
 				"notaffectedby": {
-					"condition": ["nettle"],
-					"conditiontext": "nettle"
+					"condition": [
+						"nettle"
+					],
+					"conditiontext": "荨麻"
 				}
 			},
 			"dot": {
@@ -660,22 +828,34 @@
 				"kind": "poison",
 				"duration": 10,
 				"damage": "0.5~1",
-				"potencies": ["spelldmg", "naturedmg", "poisondmg"]
+				"potencies": [
+					"spelldmg",
+					"naturedmg",
+					"poisondmg"
+				]
 			}
 		}
 	},
 	{
 		"id": "whirl1",
-		"name": "lesser whirling step",
+		"name": "初级旋风步",
 		"sortOrder": 646,
 		"level": 1,
 		"school": "air",
 		"tags": "t_dodgebuff",
 		"keywords": {
-			"type": ["buff"],
-			"target": ["self"],
-			"targets": ["single"],
-			"delivery": ["over time"]
+			"type": [
+				"buff"
+			],
+			"target": [
+				"self"
+			],
+			"targets": [
+				"single"
+			],
+			"delivery": [
+				"over time"
+			]
 		},
 		"require": "g.spellbook>0&&g.airlore>0",
 		"buy": {
@@ -699,16 +879,24 @@
 	},
 	{
 		"id": "whirl2",
-		"name": "whirling step",
+		"name": "旋风步",
 		"sortOrder": 645,
 		"level": 3,
 		"school": "air",
 		"tags": "t_dodgebuff",
 		"keywords": {
-			"type": ["buff"],
-			"target": ["self"],
-			"targets": ["single"],
-			"delivery": ["over time"]
+			"type": [
+				"buff"
+			],
+			"target": [
+				"self"
+			],
+			"targets": [
+				"single"
+			],
+			"delivery": [
+				"over time"
+			]
 		},
 		"require": "g.whirl1.owned&&g.airlore>=5",
 		"buy": {
@@ -736,16 +924,24 @@
 	},
 	{
 		"id": "whirl3",
-		"name": "greater whirling step",
+		"name": "高级旋风步",
 		"sortOrder": 644,
 		"level": 5,
 		"school": "air",
 		"tags": "t_dodgebuff",
 		"keywords": {
-			"type": ["buff"],
-			"target": ["self"],
-			"targets": ["single"],
-			"delivery": ["over time"]
+			"type": [
+				"buff"
+			],
+			"target": [
+				"self"
+			],
+			"targets": [
+				"single"
+			],
+			"delivery": [
+				"over time"
+			]
 		},
 		"require": "g.whirl2.owned&&g.airlore>=10&&g.tier2>0",
 		"buy": {
@@ -772,17 +968,25 @@
 	},
 	{
 		"id": "lightregen1",
-		"name": "lesser pulsing light",
-		"desc": "A small pulse of light zips around you, mending injuries.",
+		"name": "初级脉动光辉",
+		"desc": "一小束光在你周围闪烁，修复伤口。",
 		"sortOrder": 1142,
 		"level": 1,
 		"school": "light",
 		"tags": "t_healspell,t_regenbuff",
 		"keywords": {
-			"type": ["recovery"],
-			"target": ["self"],
-			"targets": ["single"],
-			"delivery": ["over time"]
+			"type": [
+				"recovery"
+			],
+			"target": [
+				"self"
+			],
+			"targets": [
+				"single"
+			],
+			"delivery": [
+				"over time"
+			]
 		},
 		"require": "g.spellbook>0&&g.lightlore>0",
 		"buy": {
@@ -799,23 +1003,34 @@
 			"tags": "lightregen",
 			"duration": 20,
 			"kind": "light",
-			"potencies": ["spellheal", "lightdmg"],
+			"potencies": [
+				"spellheal",
+				"lightdmg"
+			],
 			"healing": 1.3
 		}
 	},
 	{
 		"id": "lightregen2",
-		"name": "pulsing light",
-		"desc": "A pulse of light zips around you, mending injuries.",
+		"name": "脉动光辉",
+		"desc": "一束光在你周围闪烁，修复伤口。",
 		"sortOrder": 1141,
 		"level": 4,
 		"school": "light",
 		"tags": "t_healspell,t_regenbuff",
 		"keywords": {
-			"type": ["recovery"],
-			"target": ["self"],
-			"targets": ["single"],
-			"delivery": ["over time"]
+			"type": [
+				"recovery"
+			],
+			"target": [
+				"self"
+			],
+			"targets": [
+				"single"
+			],
+			"delivery": [
+				"over time"
+			]
 		},
 		"require": "g.lightregen1.owned&&g.lightlore>=5",
 		"buy": {
@@ -834,23 +1049,34 @@
 			"tags": "lightregen",
 			"duration": 30,
 			"kind": "light",
-			"potencies": ["spellheal", "lightdmg"],
+			"potencies": [
+				"spellheal",
+				"lightdmg"
+			],
 			"healing": 3
 		}
 	},
 	{
 		"id": "lightregen3",
-		"name": "greater pulsing light",
-		"desc": "A large pulse of light zips around you, mending injuries.",
+		"name": "高级脉动光辉",
+		"desc": "一束强光在你周围闪烁，修复伤口。",
 		"sortOrder": 1140,
 		"level": 5,
 		"school": "light",
 		"tags": "t_healspell,t_regenbuff",
 		"keywords": {
-			"type": ["recovery"],
-			"target": ["self"],
-			"targets": ["single"],
-			"delivery": ["over time"]
+			"type": [
+				"recovery"
+			],
+			"target": [
+				"self"
+			],
+			"targets": [
+				"single"
+			],
+			"delivery": [
+				"over time"
+			]
 		},
 		"require": "g.lightregen2.owned&&g.lightlore>=8&&g.tier1>0&&g.heallore>=4&&g.evil2==0",
 		"buy": {
@@ -858,8 +1084,11 @@
 			"tomes": 1,
 			"lightgem": 10
 		},
-		"need": ["g.evil2==0", "good2"],
-		"needtext": "Cannot be sinister and must be at least scrupulous.",
+		"need": [
+			"g.evil2==0",
+			"good2"
+		],
+		"needtext": "不能是邪恶的，并且必须至少是严谨的。",
 		"cost": {
 			"light": 10
 		},
@@ -871,21 +1100,32 @@
 			"tags": "lightregen",
 			"duration": 40,
 			"kind": "light",
-			"potencies": ["spellheal", "lightdmg"],
+			"potencies": [
+				"spellheal",
+				"lightdmg"
+			],
 			"healing": 5
 		}
 	},
 	{
 		"id": "magicmissile",
-		"name": "magic missile",
+		"name": "魔法飞弹",
 		"sortOrder": 406,
 		"level": 1,
 		"school": "mana",
 		"keywords": {
-			"type": ["damage"],
-			"target": ["enemy"],
-			"targets": ["single"],
-			"delivery": ["instant"]
+			"type": [
+				"damage"
+			],
+			"target": [
+				"enemy"
+			],
+			"targets": [
+				"single"
+			],
+			"delivery": [
+				"instant"
+			]
 		},
 		"require": "g.spellbook>0&&g.lore>0",
 		"buy": {
@@ -902,7 +1142,10 @@
 			"damage": "1.5~2.5",
 			"kind": "mana",
 			"tohit": 2,
-			"potencies": ["spelldmg", "manadmg"]
+			"potencies": [
+				"spelldmg",
+				"manadmg"
+			]
 		},
 		"at": {
 			"10": {
@@ -919,16 +1162,24 @@
 	},
 	{
 		"id": "prismaticspray",
-		"name": "prismatic spray",
-		"desc": "Lines of arcane energy damage all enemies.",
+		"name": "棱镜喷射",
+		"desc": "法术能量的线条对所有敌人造成伤害。",
 		"sortOrder": 402,
 		"level": 1,
 		"school": "mana",
 		"keywords": {
-			"type": ["damage"],
-			"target": ["enemy"],
-			"targets": ["multiple"],
-			"delivery": ["instant"]
+			"type": [
+				"damage"
+			],
+			"target": [
+				"enemy"
+			],
+			"targets": [
+				"multiple"
+			],
+			"delivery": [
+				"instant"
+			]
 		},
 		"require": "g.spellbook>0&&g.lore>0",
 		"buy": {
@@ -947,7 +1198,10 @@
 			"damage": "0~2",
 			"kind": "mana",
 			"tohit": 1,
-			"potencies": ["spelldmg", "manadmg"]
+			"potencies": [
+				"spelldmg",
+				"manadmg"
+			]
 		},
 		"at": {
 			"25": {
@@ -962,16 +1216,24 @@
 	},
 	{
 		"id": "prismaticspray2",
-		"name": "greater prismatic spray",
-		"desc": "Lines of arcane energy strike all enemies.",
+		"name": "更大棱镜喷射",
+		"desc": "法术能量的线条攻击所有敌人。",
 		"sortOrder": 400,
 		"level": 9,
 		"school": "mana",
 		"keywords": {
-			"type": ["damage"],
-			"target": ["enemy"],
-			"targets": ["multiple"],
-			"delivery": ["instant"]
+			"type": [
+				"damage"
+			],
+			"target": [
+				"enemy"
+			],
+			"targets": [
+				"multiple"
+			],
+			"delivery": [
+				"instant"
+			]
 		},
 		"require": "g.tier3>0",
 		"buy": {
@@ -990,7 +1252,10 @@
 			"damage": "12~30",
 			"kind": "mana",
 			"tohit": 2,
-			"potencies": ["spelldmg", "manadmg"]
+			"potencies": [
+				"spelldmg",
+				"manadmg"
+			]
 		},
 		"at": {
 			"25": {
@@ -1005,16 +1270,24 @@
 	},
 	{
 		"id": "moveearth",
-		"name": "fling stone",
-		"desc": "Throw a rock using magic.",
+		"name": "投掷石头",
+		"desc": "用魔法扔一块石头。",
 		"sortOrder": 808,
 		"level": 1,
 		"school": "earth",
 		"keywords": {
-			"type": ["damage"],
-			"target": ["enemy"],
-			"targets": ["single"],
-			"delivery": ["instant"]
+			"type": [
+				"damage"
+			],
+			"target": [
+				"enemy"
+			],
+			"targets": [
+				"single"
+			],
+			"delivery": [
+				"instant"
+			]
 		},
 		"require": "g.earthlore>=5",
 		"buy": {
@@ -1031,21 +1304,32 @@
 			"damage": "2~6",
 			"kind": "earth",
 			"tohit": 1,
-			"potencies": ["spelldmg", "earthdmg"]
+			"potencies": [
+				"spelldmg",
+				"earthdmg"
+			]
 		}
 	},
 	{
 		"id": "slow1",
-		"name": "mud",
-		"desc": "Engulfs target in mud.",
+		"name": "泥沼",
+		"desc": "将目标包裹在泥中。",
 		"sortOrder": 846,
 		"level": 2,
 		"school": "earth",
 		"keywords": {
-			"type": ["debuff"],
-			"target": ["enemy"],
-			"targets": ["single"],
-			"delivery": ["instant"]
+			"type": [
+				"debuff"
+			],
+			"target": [
+				"enemy"
+			],
+			"targets": [
+				"single"
+			],
+			"delivery": [
+				"instant"
+			]
 		},
 		"require": "g.earthlore>=5",
 		"buy": {
@@ -1062,7 +1346,9 @@
 		"attack": {
 			"targetspec": {
 				"notaffectedby": {
-					"condition": ["t_speeddown"]
+					"condition": [
+						"t_speeddown"
+					]
 				}
 			},
 			"dot": {
@@ -1076,15 +1362,23 @@
 	},
 	{
 		"id": "mk_spirit",
-		"name": "call spirit",
+		"name": "召唤灵魂",
 		"sortOrder": 1790,
 		"level": 1,
 		"school": "summoning",
 		"keywords": {
-			"type": ["summon"],
-			"target": ["ally"],
-			"targets": ["single"],
-			"delivery": ["instant"]
+			"type": [
+				"summon"
+			],
+			"target": [
+				"ally"
+			],
+			"targets": [
+				"single"
+			],
+			"delivery": [
+				"instant"
+			]
 		},
 		"require": "g.spiritlore>0",
 		"buy": {
@@ -1107,16 +1401,24 @@
 	},
 	{
 		"id": "lightspear",
-		"name": "light spear",
-		"desc": "A barb of solid light.",
+		"name": "光之矛",
+		"desc": "一根坚固的光之刺。",
 		"sortOrder": 1101,
 		"level": 3,
 		"school": "light",
 		"keywords": {
-			"type": ["damage"],
-			"target": ["enemy"],
-			"targets": ["single"],
-			"delivery": ["instant"]
+			"type": [
+				"damage"
+			],
+			"target": [
+				"enemy"
+			],
+			"targets": [
+				"single"
+			],
+			"delivery": [
+				"instant"
+			]
 		},
 		"require": "g.lightlore>0",
 		"buy": {
@@ -1133,7 +1435,10 @@
 		"attack": {
 			"damage": "5~8",
 			"kind": "light",
-			"potencies": ["spelldmg", "lightdmg"]
+			"potencies": [
+				"spelldmg",
+				"lightdmg"
+			]
 		},
 		"at": {
 			"30": {
@@ -1152,16 +1457,24 @@
 	},
 	{
 		"id": "lightspear2",
-		"name": "greater light spear",
-		"desc": "A lance of solid light.",
+		"name": "更大光之矛",
+		"desc": "一根光之长矛。",
 		"sortOrder": 1100,
 		"level": 7,
 		"school": "light",
 		"keywords": {
-			"type": ["damage"],
-			"target": ["enemy"],
-			"targets": ["single"],
-			"delivery": ["instant"]
+			"type": [
+				"damage"
+			],
+			"target": [
+				"enemy"
+			],
+			"targets": [
+				"single"
+			],
+			"delivery": [
+				"instant"
+			]
 		},
 		"require": "g.lightspear.owned&&g.lightlore>=5",
 		"buy": {
@@ -1179,7 +1492,10 @@
 			"damage": "21~29",
 			"tohit": 1,
 			"kind": "light",
-			"potencies": ["spelldmg", "lightdmg"]
+			"potencies": [
+				"spelldmg",
+				"lightdmg"
+			]
 		},
 		"at": {
 			"30": {
@@ -1199,17 +1515,25 @@
 	},
 	{
 		"id": "holyhandgrenade",
-		"name": "Sacred Grenade",
-		"desc": "Blow thine enemies to tiny bits in thy mercy.",
-		"flavor": "Thou shalt count to three, no more, no less.",
+		"name": "神圣手雷",
+		"desc": "将敌人炸成碎片，施以慈悲。",
+		"flavor": "你应该数到三，不多也不少。",
 		"sortOrder": 1102,
 		"level": 9,
 		"school": "light",
 		"keywords": {
-			"type": ["damage"],
-			"target": ["enemy"],
-			"targets": ["multiple"],
-			"delivery": ["instant"]
+			"type": [
+				"damage"
+			],
+			"target": [
+				"enemy"
+			],
+			"targets": [
+				"multiple"
+			],
+			"delivery": [
+				"instant"
+			]
 		},
 		"require": "g.lightlore>=20&&g.tier3>0",
 		"buy": {
@@ -1224,21 +1548,32 @@
 			"targets": "enemies",
 			"damage": "15~35",
 			"kind": "light",
-			"potencies": ["spelldmg", "lightdmg"]
+			"potencies": [
+				"spelldmg",
+				"lightdmg"
+			]
 		}
 	},
 	{
 		"id": "waterblast",
-		"name": "water spray",
-		"desc": "A violent burst of water.",
+		"name": "水喷射",
+		"desc": "一股强烈的水流。",
 		"sortOrder": 509,
 		"level": 3,
 		"school": "water",
 		"keywords": {
-			"type": ["damage"],
-			"target": ["enemy"],
-			"targets": ["single"],
-			"delivery": ["instant"]
+			"type": [
+				"damage"
+			],
+			"target": [
+				"enemy"
+			],
+			"targets": [
+				"single"
+			],
+			"delivery": [
+				"instant"
+			]
 		},
 		"require": "g.waterlore>0",
 		"buy": {
@@ -1255,21 +1590,32 @@
 			"damage": "2~5",
 			"tohit": 2,
 			"kind": "water",
-			"potencies": ["spelldmg", "waterdmg"]
+			"potencies": [
+				"spelldmg",
+				"waterdmg"
+			]
 		}
 	},
 	{
 		"id": "frostbolt",
-		"name": "frost bolt",
-		"desc": "A sharp shard of ice.",
+		"name": "冰霜箭",
+		"desc": "一根锋利的冰箭。",
 		"sortOrder": 508,
 		"level": 2,
 		"school": "water",
 		"keywords": {
-			"type": ["damage"],
-			"target": ["enemy"],
-			"targets": ["single"],
-			"delivery": ["instant"]
+			"type": [
+				"damage"
+			],
+			"target": [
+				"enemy"
+			],
+			"targets": [
+				"single"
+			],
+			"delivery": [
+				"instant"
+			]
 		},
 		"require": "g.spellbook>0&&g.waterlore>0",
 		"buy": {
@@ -1287,7 +1633,10 @@
 			"damage": "6~11",
 			"tohit": 2,
 			"kind": "water",
-			"potencies": ["spelldmg", "waterdmg"]
+			"potencies": [
+				"spelldmg",
+				"waterdmg"
+			]
 		},
 		"at": {
 			"25": {
@@ -1305,16 +1654,24 @@
 	},
 	{
 		"id": "frostbolt2",
-		"name": "frost bolt II",
-		"desc": "Fling a large shard of ice.",
+		"name": "冰霜箭 II",
+		"desc": "投掷一根大冰箭。",
 		"sortOrder": 507,
 		"level": 6,
 		"school": "water",
 		"keywords": {
-			"type": ["damage"],
-			"target": ["enemy"],
-			"targets": ["single"],
-			"delivery": ["instant"]
+			"type": [
+				"damage"
+			],
+			"target": [
+				"enemy"
+			],
+			"targets": [
+				"single"
+			],
+			"delivery": [
+				"instant"
+			]
 		},
 		"require": "g.frostbolt.owned&&g.waterlore>=5",
 		"buy": {
@@ -1331,7 +1688,10 @@
 			"damage": "16~21",
 			"tohit": 2,
 			"kind": "water",
-			"potencies": ["spelldmg", "waterdmg"]
+			"potencies": [
+				"spelldmg",
+				"waterdmg"
+			]
 		},
 		"at": {
 			"25": {
@@ -1349,16 +1709,24 @@
 	},
 	{
 		"id": "frostbolt3",
-		"name": "frost bolt III",
-		"desc": "A heavy shard of ice.",
+		"name": "冰霜箭 III",
+		"desc": "一根沉重的冰箭。",
 		"sortOrder": 506,
 		"level": 10,
 		"school": "water",
 		"keywords": {
-			"type": ["damage"],
-			"target": ["enemy"],
-			"targets": ["single"],
-			"delivery": ["instant"]
+			"type": [
+				"damage"
+			],
+			"target": [
+				"enemy"
+			],
+			"targets": [
+				"single"
+			],
+			"delivery": [
+				"instant"
+			]
 		},
 		"require": "g.frostbolt2.owned&&g.waterlore>=8&&g.tier1>0",
 		"buy": {
@@ -1375,7 +1743,10 @@
 			"damage": "36~45",
 			"tohit": 3,
 			"kind": "water",
-			"potencies": ["spelldmg", "waterdmg"]
+			"potencies": [
+				"spelldmg",
+				"waterdmg"
+			]
 		},
 		"at": {
 			"25": {
@@ -1393,16 +1764,24 @@
 	},
 	{
 		"id": "poisonward",
-		"name": "poison ward",
-		"desc": "Reduce the efficacy of common venoms.",
+		"name": "毒素防护",
+		"desc": "降低普通毒素的效果。",
 		"sortOrder": 944,
 		"level": 2,
 		"school": "nature",
 		"keywords": {
-			"type": ["buff"],
-			"target": ["self"],
-			"targets": ["single"],
-			"delivery": ["over time"]
+			"type": [
+				"buff"
+			],
+			"target": [
+				"self"
+			],
+			"targets": [
+				"single"
+			],
+			"delivery": [
+				"over time"
+			]
 		},
 		"require": "g.spellbook>0&&g.naturelore>0",
 		"buy": {
@@ -1425,16 +1804,24 @@
 	},
 	{
 		"id": "vinewhip",
-		"name": "vine whip",
-		"desc": "Vines lash out from the ground.",
+		"name": "藤鞭",
+		"desc": "藤蔓从地面抽出。",
 		"sortOrder": 900,
 		"level": 3,
 		"school": "nature",
 		"keywords": {
-			"type": ["damage"],
-			"target": ["enemy"],
-			"targets": ["single"],
-			"delivery": ["instant"]
+			"type": [
+				"damage"
+			],
+			"target": [
+				"enemy"
+			],
+			"targets": [
+				"single"
+			],
+			"delivery": [
+				"instant"
+			]
 		},
 		"require": "g.naturelore>=5",
 		"buy": {
@@ -1452,7 +1839,10 @@
 			"damage": "6.5~10.5",
 			"tohit": 3,
 			"kind": "nature",
-			"potencies": ["spelldmg", "naturedmg"]
+			"potencies": [
+				"spelldmg",
+				"naturedmg"
+			]
 		},
 		"at": {
 			"25": {
@@ -1470,16 +1860,24 @@
 	},
 	{
 		"id": "mk_hobgoblin",
-		"name": "summon hobgoblin",
-		"desc": "In combat, summon a hobgoblin to fight for you.",
+		"name": "召唤霍布戈林",
+		"desc": "在战斗中，召唤一个霍布戈林为你而战。",
 		"sortOrder": 1768,
 		"level": 6,
 		"school": "summoning",
 		"keywords": {
-			"type": ["summon"],
-			"target": ["ally"],
-			"targets": ["single"],
-			"delivery": ["instant"]
+			"type": [
+				"summon"
+			],
+			"target": [
+				"ally"
+			],
+			"targets": [
+				"single"
+			],
+			"delivery": [
+				"instant"
+			]
 		},
 		"require": "g.conjuration>=5",
 		"buy": {
@@ -1502,16 +1900,24 @@
 	},
 	{
 		"id": "mk_spider",
-		"name": "summon spider",
-		"desc": "Summon a spider to fight for you.",
+		"name": "召唤蜘蛛",
+		"desc": "召唤一只蜘蛛为你而战。",
 		"sortOrder": 1770,
 		"level": 5,
 		"school": "summoning",
 		"keywords": {
-			"type": ["summon"],
-			"target": ["ally"],
-			"targets": ["single"],
-			"delivery": ["instant"]
+			"type": [
+				"summon"
+			],
+			"target": [
+				"ally"
+			],
+			"targets": [
+				"single"
+			],
+			"delivery": [
+				"instant"
+			]
 		},
 		"require": "g.conjuration>=3&&g.naturelore>=5",
 		"buy": {
@@ -1534,16 +1940,24 @@
 	},
 	{
 		"id": "revive",
-		"desc": "Call back to life a weak humanoid or goblinoid minion.",
+		"desc": "召回一个虚弱的人形或半身人仆从复活。",
 		"sortOrder": 1030,
 		"level": 1,
 		"school": "spirit",
 		"tags": "rez",
 		"keywords": {
-			"type": ["summon"],
-			"target": ["ally"],
-			"targets": ["single"],
-			"delivery": ["instant"]
+			"type": [
+				"summon"
+			],
+			"target": [
+				"ally"
+			],
+			"targets": [
+				"single"
+			],
+			"delivery": [
+				"instant"
+			]
 		},
 		"require": "g.spiritlore>=4",
 		"buy": {
@@ -1555,24 +1969,35 @@
 			"mana": 5
 		},
 		"resurrect": {
-			"only": ["humanoid", "goblinoid"],
+			"only": [
+				"humanoid",
+				"goblinoid"
+			],
 			"maxlevel": 10,
 			"count": 1
 		}
 	},
 	{
 		"id": "tend",
-		"name": "magic tending",
-		"desc": "Revive a weak beast minion.",
+		"name": "魔法护理",
+		"desc": "复活一个虚弱的野兽仆从。",
 		"sortOrder": 936,
 		"level": 1,
 		"school": "nature",
 		"tags": "rez",
 		"keywords": {
-			"type": ["summon"],
-			"target": ["ally"],
-			"targets": ["single"],
-			"delivery": ["instant"]
+			"type": [
+				"summon"
+			],
+			"target": [
+				"ally"
+			],
+			"targets": [
+				"single"
+			],
+			"delivery": [
+				"instant"
+			]
 		},
 		"require": "g.naturelore>=4",
 		"buy": {
@@ -1584,25 +2009,35 @@
 			"nature": 5
 		},
 		"resurrect": {
-			"only": ["beast"],
+			"only": [
+				"beast"
+			],
 			"maxlevel": 10,
 			"count": 1
 		}
 	},
 	{
 		"id": "wildtend",
-		"name": "wild tending",
-		"desc": "Revive a stronger beast minion.",
+		"name": "野性护理",
+		"desc": "复活一个更强大的野兽仆从。",
 		"require": "g.t_natureclass>0",
 		"sortOrder": 935,
 		"level": 2,
 		"school": "nature",
 		"tags": "rez",
 		"keywords": {
-			"type": ["summon"],
-			"target": ["ally"],
-			"targets": ["single"],
-			"delivery": ["instant"]
+			"type": [
+				"summon"
+			],
+			"target": [
+				"ally"
+			],
+			"targets": [
+				"single"
+			],
+			"delivery": [
+				"instant"
+			]
 		},
 		"buy": {
 			"research": 100,
@@ -1613,25 +2048,35 @@
 			"nature": 7
 		},
 		"resurrect": {
-			"only": ["beast"],
+			"only": [
+				"beast"
+			],
 			"maxlevel": 40,
 			"count": 1
 		}
 	},
 	{
 		"id": "mk_unicorn",
-		"name": "summon unicorn",
-		"desc": "In combat, summon an unicorn to fight for you.",
+		"name": "召唤独角兽",
+		"desc": "在战斗中，召唤一只独角兽为你而战。",
 		"tags": "t_fauna_spell",
 		"require": "(g.good2+g.t_divinationclass+g.t_summonclass)>0&&g.magicbeasts>=5",
 		"sortOrder": 1771,
 		"level": 5,
 		"school": "summoning",
 		"keywords": {
-			"type": ["summon"],
-			"target": ["ally"],
-			"targets": ["single"],
-			"delivery": ["instant"]
+			"type": [
+				"summon"
+			],
+			"target": [
+				"ally"
+			],
+			"targets": [
+				"single"
+			],
+			"delivery": [
+				"instant"
+			]
 		},
 		"buy": {
 			"research": 1000,
@@ -1655,17 +2100,25 @@
 	},
 	{
 		"id": "deepshell",
-		"name": "core steel shell",
-		"desc": "Cover yourself in a shell made of core steel.",
+		"name": "核心钢铁外壳",
+		"desc": "用核心钢铁制成的外壳覆盖自己。",
 		"sortOrder": 840,
 		"level": 15,
 		"school": "earth",
 		"tags": "t_defbuff",
 		"keywords": {
-			"type": ["buff"],
-			"target": ["self"],
-			"targets": ["single"],
-			"delivery": ["over time"]
+			"type": [
+				"buff"
+			],
+			"target": [
+				"self"
+			],
+			"targets": [
+				"single"
+			],
+			"delivery": [
+				"over time"
+			]
 		},
 		"require": "g.titan>0&&g.geosculpting>=12",
 		"buy": {
@@ -1691,15 +2144,24 @@
 	},
 	{
 		"id": "quicksand",
-		"desc": "Command the earth to swallow the enemy.",
+		"desc": "命令大地吞噬敌人。",
 		"sortOrder": 802,
 		"level": 15,
 		"school": "earth",
 		"keywords": {
-			"type": ["damage", "debuff"],
-			"target": ["enemy"],
-			"targets": ["multiple"],
-			"delivery": ["over time"]
+			"type": [
+				"damage",
+				"debuff"
+			],
+			"target": [
+				"enemy"
+			],
+			"targets": [
+				"multiple"
+			],
+			"delivery": [
+				"over time"
+			]
 		},
 		"require": "g.geosculpting>=8",
 		"buy": {
@@ -1719,7 +2181,10 @@
 			"dot": {
 				"duration": 15,
 				"damage": "15~25",
-				"potencies": ["spelldmg", "earthdmg"],
+				"potencies": [
+					"spelldmg",
+					"earthdmg"
+				],
 				"mod": {
 					"self.speed": -5
 				}
@@ -1728,15 +2193,24 @@
 	},
 	{
 		"id": "entomb",
-		"desc": "Bury your enemies deep beneath the ground.",
+		"desc": "将你的敌人深埋在地下。",
 		"sortOrder": 800,
 		"level": 25,
 		"school": "earth",
 		"keywords": {
-			"type": ["damage", "debuff"],
-			"target": ["enemy"],
-			"targets": ["multiple"],
-			"delivery": ["over time"]
+			"type": [
+				"damage",
+				"debuff"
+			],
+			"target": [
+				"enemy"
+			],
+			"targets": [
+				"multiple"
+			],
+			"delivery": [
+				"over time"
+			]
 		},
 		"require": "g.titan>0",
 		"buy": {
@@ -1760,7 +2234,10 @@
 			"dot": {
 				"duration": 30,
 				"damage": "50~75",
-				"potencies": ["spelldmg", "earthdmg"],
+				"potencies": [
+					"spelldmg",
+					"earthdmg"
+				],
 				"mod": {
 					"self.speed": -15
 				}
@@ -1774,19 +2251,31 @@
 		"school": "martial",
 		"tags": "t_nospellcraft",
 		"keywords": {
-			"type": ["damage"],
-			"target": ["enemy"],
-			"targets": ["single"],
-			"delivery": ["instant"],
-			"special": ["weapon"]
+			"type": [
+				"damage"
+			],
+			"target": [
+				"enemy"
+			],
+			"targets": [
+				"single"
+			],
+			"delivery": [
+				"instant"
+			],
+			"special": [
+				"weapon"
+			]
 		},
 		"require": "g.hammerlore>=5&&g.earthlore>=8&&g.tier1>0",
 		"buy": {
 			"research": 500
 		},
-		"caststoppers": [1],
+		"caststoppers": [
+			1
+		],
 		"need": "g.player.getWeapon().hasTag('t_blunt')",
-		"needtext": "Currently equipped weapon must be blunt.",
+		"needtext": "当前装备的武器必须是钝器。",
 		"cost": {
 			"earth": 3,
 			"vigor": 4
@@ -1798,30 +2287,48 @@
 			"damage": "((a.getWeapon().damage||0)+mod.flat)*(1.3+ mod.pct) ",
 			"tohit": 3,
 			"kind": "earth",
-			"potencies": ["physdmg", "earthdmg", "hammerdmg"]
+			"potencies": [
+				"physdmg",
+				"earthdmg",
+				"hammerdmg"
+			]
 		}
 	},
 	{
 		"id": "fissure",
-		"desc": "Crack the earth beneath the feet of your enemy.",
+		"desc": "在敌人脚下裂开大地。",
 		"sortOrder": 310,
 		"level": 5,
 		"school": "martial",
 		"tags": "t_nospellcraft",
 		"keywords": {
-			"type": ["damage", "debuff"],
-			"target": ["enemy"],
-			"targets": ["single"],
-			"delivery": ["instant", "over time"],
-			"special": ["weapon"]
+			"type": [
+				"damage",
+				"debuff"
+			],
+			"target": [
+				"enemy"
+			],
+			"targets": [
+				"single"
+			],
+			"delivery": [
+				"instant",
+				"over time"
+			],
+			"special": [
+				"weapon"
+			]
 		},
 		"require": "g.hammerlore>=10&&g.earthlore>=12&&g.tier3>0",
 		"buy": {
 			"research": 12000
 		},
-		"caststoppers": [1],
+		"caststoppers": [
+			1
+		],
 		"need": "g.player.getWeapon().hasTag('t_blunt')",
-		"needtext": "Currently equipped weapon must be blunt.",
+		"needtext": "当前装备的武器必须是钝器。",
 		"cost": {
 			"earth": 8,
 			"vigor": 15
@@ -1833,7 +2340,11 @@
 		"attack": {
 			"damage": "((a.getWeapon().damage||0))*4",
 			"tohit": 15,
-			"potencies": ["physdmg", "earthdmg", "hammerdmg"],
+			"potencies": [
+				"physdmg",
+				"earthdmg",
+				"hammerdmg"
+			],
 			"kind": "earth",
 			"dot": {
 				"kind": "earth",
@@ -1844,15 +2355,23 @@
 	},
 	{
 		"id": "proshadow",
-		"name": "protection: shadow",
+		"name": "暗影防护",
 		"sortOrder": 1156,
 		"level": 2,
 		"school": "light",
 		"keywords": {
-			"type": ["buff"],
-			"target": ["self"],
-			"targets": ["single"],
-			"delivery": ["over time"]
+			"type": [
+				"buff"
+			],
+			"target": [
+				"self"
+			],
+			"targets": [
+				"single"
+			],
+			"delivery": [
+				"over time"
+			]
 		},
 		"require": "g.lightlore>=3",
 		"buy": {
@@ -1874,15 +2393,23 @@
 	},
 	{
 		"id": "profire",
-		"name": "protection: fire",
+		"name": "火焰防护",
 		"sortOrder": 748,
 		"level": 2,
 		"school": "fire",
 		"keywords": {
-			"type": ["buff"],
-			"target": ["self"],
-			"targets": ["single"],
-			"delivery": ["over time"]
+			"type": [
+				"buff"
+			],
+			"target": [
+				"self"
+			],
+			"targets": [
+				"single"
+			],
+			"delivery": [
+				"over time"
+			]
 		},
 		"require": "g.firelore>=2",
 		"buy": {
@@ -1904,15 +2431,23 @@
 	},
 	{
 		"id": "prowater",
-		"name": "protection: water",
+		"name": "水防护",
 		"sortOrder": 546,
 		"level": 2,
 		"school": "water",
 		"keywords": {
-			"type": ["buff"],
-			"target": ["self"],
-			"targets": ["single"],
-			"delivery": ["over time"]
+			"type": [
+				"buff"
+			],
+			"target": [
+				"self"
+			],
+			"targets": [
+				"single"
+			],
+			"delivery": [
+				"over time"
+			]
 		},
 		"require": "g.waterlore>=3",
 		"buy": {
@@ -1934,15 +2469,23 @@
 	},
 	{
 		"id": "pronature",
-		"name": "protection: nature",
+		"name": "自然防护",
 		"sortOrder": 946,
 		"level": 2,
 		"school": "nature",
 		"keywords": {
-			"type": ["buff"],
-			"target": ["self"],
-			"targets": ["single"],
-			"delivery": ["over time"]
+			"type": [
+				"buff"
+			],
+			"target": [
+				"self"
+			],
+			"targets": [
+				"single"
+			],
+			"delivery": [
+				"over time"
+			]
 		},
 		"require": "g.naturelore>=3",
 		"buy": {
@@ -1964,17 +2507,25 @@
 	},
 	{
 		"id": "heal1",
-		"name": "sealing light",
-		"desc": "Seams of light close your wounds.",
+		"name": "封印之光",
+		"desc": "光的缝合关闭你的伤口。",
 		"sortOrder": 1136,
 		"level": 2,
 		"school": "light",
 		"tags": "t_healspell",
 		"keywords": {
-			"type": ["recovery"],
-			"target": ["self"],
-			"targets": ["single"],
-			"delivery": ["instant"]
+			"type": [
+				"recovery"
+			],
+			"target": [
+				"self"
+			],
+			"targets": [
+				"single"
+			],
+			"delivery": [
+				"instant"
+			]
 		},
 		"require": "g.lightlore>=4",
 		"buy": {
@@ -1993,19 +2544,27 @@
 			"harmless": true,
 			"healing": 20,
 			"kind": "light",
-			"potencies": ["spellheal", "lightdmg"]
+			"potencies": [
+				"spellheal",
+				"lightdmg"
+			]
 		}
 	},
 	{
 		"id": "gold_exploration",
-		"name": "windcomb",
-		"desc": "Use directed gusts of wind to clear away debris and detritus, making exploration a much more profitable affair.",
+		"name": "风之梳理",
+		"desc": "利用定向的气流清除碎石和杂物，使探索变得更加富有成效。",
 		"sortOrder": 670,
 		"level": 2,
 		"school": "air",
 		"keywords": {
-			"delivery": ["over time"],
-			"special": ["explore", "resource"]
+			"delivery": [
+				"over time"
+			],
+			"special": [
+				"explore",
+				"resource"
+			]
 		},
 		"require": "g.airlore>=4",
 		"buy": {
@@ -2029,17 +2588,25 @@
 	},
 	{
 		"id": "insight",
-		"name": "insight",
-		"desc": "All your studies fall neatly into place.",
-		"flavor": "I know the pieces fit.",
+		"name": "洞察",
+		"desc": "你所有的研究都井然有序。",
+		"flavor": "我知道这些片段是如何契合的。",
 		"sortOrder": 1172,
 		"level": 3,
 		"school": "light",
 		"keywords": {
-			"type": ["buff"],
-			"target": ["self"],
-			"targets": ["single"],
-			"delivery": ["over time"]
+			"type": [
+				"buff"
+			],
+			"target": [
+				"self"
+			],
+			"targets": [
+				"single"
+			],
+			"delivery": [
+				"over time"
+			]
 		},
 		"require": "g.lightlore>=5",
 		"buy": {
@@ -2063,16 +2630,24 @@
 	},
 	{
 		"id": "fireinsight",
-		"name": "fire sense",
-		"desc": "Temporarily increase your natural aptitude for fire.",
+		"name": "火焰感知",
+		"desc": "暂时提高你对火焰的天生敏感度。",
 		"sortOrder": 772,
 		"level": 2,
 		"school": "fire",
 		"keywords": {
-			"type": ["buff"],
-			"target": ["self"],
-			"targets": ["single"],
-			"delivery": ["over time"]
+			"type": [
+				"buff"
+			],
+			"target": [
+				"self"
+			],
+			"targets": [
+				"single"
+			],
+			"delivery": [
+				"over time"
+			]
 		},
 		"require": "g.firelore>=1",
 		"buy": {
@@ -2096,16 +2671,24 @@
 	},
 	{
 		"id": "earthinsight",
-		"name": "earth sense",
-		"desc": "Temporarily increase your natural aptitude for earth.",
+		"name": "大地感知",
+		"desc": "暂时提高你对大地的天生敏感度。",
 		"sortOrder": 874,
 		"level": 2,
 		"school": "earth",
 		"keywords": {
-			"type": ["buff"],
-			"target": ["self"],
-			"targets": ["single"],
-			"delivery": ["over time"]
+			"type": [
+				"buff"
+			],
+			"target": [
+				"self"
+			],
+			"targets": [
+				"single"
+			],
+			"delivery": [
+				"over time"
+			]
 		},
 		"require": "g.earthlore>=1",
 		"buy": {
@@ -2129,16 +2712,24 @@
 	},
 	{
 		"id": "waterinsight",
-		"name": "water sense",
-		"desc": "Temporarily increase your natural aptitude for water.",
+		"name": "水感知",
+		"desc": "暂时提高你对水的天生敏感度。",
 		"sortOrder": 570,
 		"level": 2,
 		"school": "water",
 		"keywords": {
-			"type": ["buff"],
-			"target": ["self"],
-			"targets": ["single"],
-			"delivery": ["over time"]
+			"type": [
+				"buff"
+			],
+			"target": [
+				"self"
+			],
+			"targets": [
+				"single"
+			],
+			"delivery": [
+				"over time"
+			]
 		},
 		"require": "g.waterlore>=1",
 		"buy": {
@@ -2162,16 +2753,24 @@
 	},
 	{
 		"id": "airinsight",
-		"name": "wind sense",
-		"desc": "Temporarily increase your natural aptitude for air.",
+		"name": "风感知",
+		"desc": "暂时提高你对风的天生敏感度。",
 		"sortOrder": 672,
 		"level": 2,
 		"school": "air",
 		"keywords": {
-			"type": ["buff"],
-			"target": ["self"],
-			"targets": ["single"],
-			"delivery": ["over time"]
+			"type": [
+				"buff"
+			],
+			"target": [
+				"self"
+			],
+			"targets": [
+				"single"
+			],
+			"delivery": [
+				"over time"
+			]
 		},
 		"require": "g.airlore>=1",
 		"buy": {
@@ -2195,14 +2794,19 @@
 	},
 	{
 		"id": "herbs_exploration",
-		"name": "natural instinct",
-		"desc": "Enhance your sense of smell to more easily locate herbs worth harvesting.",
+		"name": "自然本能",
+		"desc": "增强你的嗅觉，更容易找到值得采摘的草药。",
 		"sortOrder": 971,
 		"level": 1,
 		"school": "nature",
 		"keywords": {
-			"delivery": ["over time"],
-			"special": ["explore", "resource"]
+			"delivery": [
+				"over time"
+			],
+			"special": [
+				"explore",
+				"resource"
+			]
 		},
 		"require": "g.spellbook>0&&g.herbalism>=3&&g.naturelore>0",
 		"buy": {
@@ -2225,16 +2829,24 @@
 	},
 	{
 		"id": "magebolt",
-		"name": "mage bolt",
+		"name": "法师之箭",
 		"sortOrder": 404,
 		"level": 9,
 		"require": "g.t_manaclass>=2",
 		"school": "mana",
 		"keywords": {
-			"type": ["damage"],
-			"target": ["enemy"],
-			"targets": ["single"],
-			"delivery": ["instant"]
+			"type": [
+				"damage"
+			],
+			"target": [
+				"enemy"
+			],
+			"targets": [
+				"single"
+			],
+			"delivery": [
+				"instant"
+			]
 		},
 		"buy": {
 			"research": 5000,
@@ -2251,7 +2863,10 @@
 			"damage": "10~20",
 			"kind": "mana",
 			"tohit": 10,
-			"potencies": ["spelldmg", "manadmg"]
+			"potencies": [
+				"spelldmg",
+				"manadmg"
+			]
 		},
 		"at": {
 			"10": {
@@ -2268,15 +2883,20 @@
 	},
 	{
 		"id": "knowledge_exploration",
-		"name": "ancient communion",
-		"desc": "Call on remnants of the dead to impart the knowledge of their lives. Has a relatively short effective range.",
-		"flavor": "Did you hear something?",
+		"name": "古老的交流",
+		"desc": "呼唤死者的残余，让他们的生命知识传授给你。有效范围相对较短。",
+		"flavor": "你听到了什么吗？",
 		"sortOrder": 1070,
 		"level": 1,
 		"school": "spirit",
 		"keywords": {
-			"delivery": ["over time"],
-			"special": ["explore", "resource"]
+			"delivery": [
+				"over time"
+			],
+			"special": [
+				"explore",
+				"resource"
+			]
 		},
 		"require": "g.spiritlore>=4",
 		"buy": {
@@ -2302,15 +2922,23 @@
 	},
 	{
 		"id": "venom1",
-		"name": "venom I",
+		"name": "毒素 I",
 		"sortOrder": 904,
 		"level": 5,
 		"school": "nature",
 		"keywords": {
-			"type": ["damage"],
-			"target": ["enemy"],
-			"targets": ["single"],
-			"delivery": ["over time"]
+			"type": [
+				"damage"
+			],
+			"target": [
+				"enemy"
+			],
+			"targets": [
+				"single"
+			],
+			"delivery": [
+				"over time"
+			]
 		},
 		"require": "g.naturelore>=6&&g.tier1>0",
 		"buy": {
@@ -2327,32 +2955,46 @@
 		"attack": {
 			"targetspec": {
 				"notaffectedby": {
-					"condition": ["t_venom"],
-					"conditiontext": "venom"
+					"condition": [
+						"t_venom"
+					],
+					"conditiontext": "毒素"
 				}
 			},
 			"dot": {
-				"name": "venom",
+				"name": "毒素",
 				"kind": "poison",
 				"id": "t_venom",
 				"duration": 30,
 				"damage": "2~4",
-				"potencies": ["spelldmg", "naturedmg", "poisondmg"]
+				"potencies": [
+					"spelldmg",
+					"naturedmg",
+					"poisondmg"
+				]
 			}
 		}
 	},
 	{
 		"id": "hex1",
-		"name": "spiteful hex",
+		"name": "恶意魔咒",
 		"sortOrder": 1009,
 		"level": 4,
 		"require": "g.t_spiritclass>0",
 		"school": "spirit",
 		"keywords": {
-			"type": ["damage"],
-			"target": ["enemy"],
-			"targets": ["single"],
-			"delivery": ["over time"]
+			"type": [
+				"damage"
+			],
+			"target": [
+				"enemy"
+			],
+			"targets": [
+				"single"
+			],
+			"delivery": [
+				"over time"
+			]
 		},
 		"buy": {
 			"research": 1000,
@@ -2368,31 +3010,44 @@
 		"attack": {
 			"targetspec": {
 				"notaffectedby": {
-					"condition": ["t_hex"],
-					"conditiontext": "hex"
+					"condition": [
+						"t_hex"
+					],
+					"conditiontext": "魔咒"
 				}
 			},
 			"dot": {
-				"name": "hex",
+				"name": "魔咒",
 				"kind": "hex",
 				"id": "hex",
 				"duration": 15,
 				"damage": "5~7",
-				"potencies": ["spelldmg", "spiritdmg"]
+				"potencies": [
+					"spelldmg",
+					"spiritdmg"
+				]
 			}
 		}
 	},
 	{
 		"id": "jinx",
-		"desc": "Curse an enemy with a streak of bad luck.",
+		"desc": "给敌人施加一连串厄运的诅咒。",
 		"sortOrder": 1347,
 		"level": 2,
 		"school": "chaos",
 		"keywords": {
-			"type": ["debuff"],
-			"target": ["enemy"],
-			"targets": ["single"],
-			"delivery": ["over time"]
+			"type": [
+				"debuff"
+			],
+			"target": [
+				"enemy"
+			],
+			"targets": [
+				"single"
+			],
+			"delivery": [
+				"over time"
+			]
 		},
 		"require": "trickster",
 		"buy": {
@@ -2407,13 +3062,15 @@
 		"attack": {
 			"targetspec": {
 				"notaffectedby": {
-					"condition": ["dot_jinx1"],
-					"conditiontext": "jinx"
+					"condition": [
+						"dot_jinx1"
+					],
+					"conditiontext": "厄运"
 				}
 			},
 			"dot": {
 				"id": "dot_jinx1",
-				"name": "jinx",
+				"name": "厄运",
 				"kind": "curse",
 				"mod": {
 					"self.tohit": -2
@@ -2424,17 +3081,25 @@
 	},
 	{
 		"id": "speed1",
-		"name": "dust devil",
-		"desc": "A whirl of wind at your feet.",
+		"name": "尘土魔风",
+		"desc": "你脚下的风旋转成一个漩涡。",
 		"sortOrder": 641,
 		"level": 3,
 		"school": "air",
 		"tags": "t_speedbuff",
 		"keywords": {
-			"type": ["buff"],
-			"target": ["self"],
-			"targets": ["single"],
-			"delivery": ["over time"]
+			"type": [
+				"buff"
+			],
+			"target": [
+				"self"
+			],
+			"targets": [
+				"single"
+			],
+			"delivery": [
+				"over time"
+			]
 		},
 		"require": "g.airlore>=4",
 		"buy": {
@@ -2450,7 +3115,7 @@
 		},
 		"dot": {
 			"id": "dot_dustdevil1",
-			"name": "dust devil",
+			"name": "尘土魔风",
 			"tags": "t_speedup",
 			"duration": 20,
 			"mod": {
@@ -2460,17 +3125,25 @@
 	},
 	{
 		"id": "speed2",
-		"name": "dust devil II",
-		"desc": "A whirl of wind at your feet.",
+		"name": "尘土魔风 II",
+		"desc": "你脚下的风旋转成一个漩涡。",
 		"sortOrder": 640,
 		"level": 5,
 		"school": "air",
 		"tags": "t_speedbuff",
 		"keywords": {
-			"type": ["buff"],
-			"target": ["self"],
-			"targets": ["single"],
-			"delivery": ["over time"]
+			"type": [
+				"buff"
+			],
+			"target": [
+				"self"
+			],
+			"targets": [
+				"single"
+			],
+			"delivery": [
+				"over time"
+			]
 		},
 		"require": "g.airlore>=8&&g.speed1.owned&&g.tier1>0",
 		"buy": {
@@ -2487,7 +3160,7 @@
 		},
 		"dot": {
 			"id": "dot_dustdevil2",
-			"name": "dust devil",
+			"name": "尘土魔风",
 			"tags": "t_speedup",
 			"duration": 45,
 			"mod": {
@@ -2497,16 +3170,24 @@
 	},
 	{
 		"id": "massjinx",
-		"name": "mass jinx",
-		"desc": "Curse all enemies with a streak of bad luck.",
+		"name": "群体厄运",
+		"desc": "给所有敌人施加一连串厄运的诅咒。",
 		"sortOrder": 1346,
 		"level": 4,
 		"school": "chaos",
 		"keywords": {
-			"type": ["debuff"],
-			"target": ["enemy"],
-			"targets": ["multiple"],
-			"delivery": ["over time"]
+			"type": [
+				"debuff"
+			],
+			"target": [
+				"enemy"
+			],
+			"targets": [
+				"multiple"
+			],
+			"delivery": [
+				"over time"
+			]
 		},
 		"require": "g.trickster>0||g.t_chaosclass>=2",
 		"buy": {
@@ -2524,7 +3205,7 @@
 			"maxTargets": 999,
 			"dot": {
 				"id": "dot_jinx2",
-				"name": "jinx",
+				"name": "厄运",
 				"kind": "curse",
 				"tags": "jinx",
 				"duration": 30,
@@ -2536,16 +3217,24 @@
 	},
 	{
 		"id": "guidestr",
-		"name": "guided strike",
+		"name": "引导打击",
 		"sortOrder": 1046,
 		"level": 1,
 		"school": "spirit",
 		"tags": "t_accuracybuff",
 		"keywords": {
-			"type": ["buff"],
-			"target": ["self"],
-			"targets": ["single"],
-			"delivery": ["over time"]
+			"type": [
+				"buff"
+			],
+			"target": [
+				"self"
+			],
+			"targets": [
+				"single"
+			],
+			"delivery": [
+				"over time"
+			]
 		},
 		"require": "g.divination>=3",
 		"buy": {
@@ -2569,16 +3258,24 @@
 	},
 	{
 		"id": "truestrike",
-		"name": "true strike",
+		"name": "真实打击",
 		"sortOrder": 1045,
 		"level": 3,
 		"school": "spirit",
 		"tags": "t_accuracybuff",
 		"keywords": {
-			"type": ["buff"],
-			"target": ["self"],
-			"targets": ["single"],
-			"delivery": ["over time"]
+			"type": [
+				"buff"
+			],
+			"target": [
+				"self"
+			],
+			"targets": [
+				"single"
+			],
+			"delivery": [
+				"over time"
+			]
 		},
 		"require": "g.scrying>=1",
 		"buy": {
@@ -2602,16 +3299,24 @@
 	},
 	{
 		"id": "perfectstrike",
-		"name": "perfect strike",
+		"name": "完美打击",
 		"sortOrder": 1044,
 		"level": 5,
 		"school": "spirit",
 		"tags": "t_accuracybuff",
 		"keywords": {
-			"type": ["buff"],
-			"target": ["self"],
-			"targets": ["single"],
-			"delivery": ["over time"]
+			"type": [
+				"buff"
+			],
+			"target": [
+				"self"
+			],
+			"targets": [
+				"single"
+			],
+			"delivery": [
+				"over time"
+			]
 		},
 		"require": "g.scrying>=5",
 		"buy": {
@@ -2636,17 +3341,25 @@
 	},
 	{
 		"id": "heal2",
-		"name": "sealing light II",
-		"desc": "Seams of light close your wounds.",
+		"name": "封印之光 II",
+		"desc": "光的缝合关闭你的伤口。",
 		"sortOrder": 1135,
 		"level": 4,
 		"school": "light",
 		"tags": "t_healspell",
 		"keywords": {
-			"type": ["recovery"],
-			"target": ["self"],
-			"targets": ["single"],
-			"delivery": ["instant"]
+			"type": [
+				"recovery"
+			],
+			"target": [
+				"self"
+			],
+			"targets": [
+				"single"
+			],
+			"delivery": [
+				"instant"
+			]
 		},
 		"require": "g.heal1.owned&&g.lightlore>=6&&g.evil2==0",
 		"buy": {
@@ -2655,7 +3368,7 @@
 			"lightgem": 1
 		},
 		"need": "g.evil2==0",
-		"needtext": "Cannot be sinister.",
+		"needtext": "不能是邪恶的。",
 		"cost": {
 			"light": 5
 		},
@@ -2667,20 +3380,31 @@
 			"harmless": true,
 			"healing": 75,
 			"kind": "light",
-			"potencies": ["spellheal", "lightdmg"]
+			"potencies": [
+				"spellheal",
+				"lightdmg"
+			]
 		}
 	},
 	{
 		"id": "airburst",
-		"name": "burst",
+		"name": "爆发",
 		"sortOrder": 610,
 		"level": 1,
 		"school": "air",
 		"keywords": {
-			"type": ["damage"],
-			"target": ["enemy"],
-			"targets": ["single"],
-			"delivery": ["instant"]
+			"type": [
+				"damage"
+			],
+			"target": [
+				"enemy"
+			],
+			"targets": [
+				"single"
+			],
+			"delivery": [
+				"instant"
+			]
 		},
 		"require": "g.airlore>0",
 		"buy": {
@@ -2697,20 +3421,33 @@
 			"damage": "1~4",
 			"tohit": 3,
 			"kind": "air",
-			"potencies": ["spelldmg", "airdmg"]
+			"potencies": [
+				"spelldmg",
+				"airdmg"
+			]
 		}
 	},
 	{
 		"id": "zap",
-		"desc": "An electric shock leaps from your fingers.",
+		"desc": "电击从你的手指跳跃而出。",
 		"sortOrder": 608,
 		"level": 3,
 		"school": "air",
 		"keywords": {
-			"type": ["damage", "debuff"],
-			"target": ["enemy"],
-			"targets": ["single"],
-			"delivery": ["instant", "over time"]
+			"type": [
+				"damage",
+				"debuff"
+			],
+			"target": [
+				"enemy"
+			],
+			"targets": [
+				"single"
+			],
+			"delivery": [
+				"instant",
+				"over time"
+			]
 		},
 		"require": "g.lightlore>=5||g.airlore>=5",
 		"buy": {
@@ -2727,7 +3464,10 @@
 			"damage": "1~2",
 			"tohit": 5,
 			"kind": "air",
-			"potencies": ["spelldmg", "airdmg"],
+			"potencies": [
+				"spelldmg",
+				"airdmg"
+			],
 			"dot": {
 				"name": "blind",
 				"duration": 5,
@@ -2752,17 +3492,27 @@
 	},
 	{
 		"id": "elec1",
-		"name": "lightning",
-		"desc": "An arc of lightning flashes from the sky.",
-		"flavor": "Shazaaam?",
+		"name": "闪电",
+		"desc": "从天空闪现出一道闪电弧。",
+		"flavor": "沙扎姆？",
 		"sortOrder": 606,
 		"level": 6,
 		"school": "air",
 		"keywords": {
-			"type": ["damage", "debuff"],
-			"target": ["enemy"],
-			"targets": ["single"],
-			"delivery": ["instant", "over time"]
+			"type": [
+				"damage",
+				"debuff"
+			],
+			"target": [
+				"enemy"
+			],
+			"targets": [
+				"single"
+			],
+			"delivery": [
+				"instant",
+				"over time"
+			]
 		},
 		"require": "g.airlore>=8&&g.zap.owned&&g.tier1>0",
 		"buy": {
@@ -2781,7 +3531,10 @@
 			"damage": "5~10",
 			"tohit": 7,
 			"kind": "air",
-			"potencies": ["spelldmg", "airdmg"],
+			"potencies": [
+				"spelldmg",
+				"airdmg"
+			],
 			"dot": {
 				"name": "blind",
 				"duration": 5,
@@ -2806,17 +3559,27 @@
 	},
 	{
 		"id": "elec2",
-		"name": "doublestrike",
-		"desc": "Twin arcs of lightning flash from the sky.",
-		"flavor": "Sometimes lightning does strike twice.",
+		"name": "双重打击",
+		"desc": "从天空闪现出双重闪电弧。",
+		"flavor": "有时候闪电确实会闪两次。",
 		"sortOrder": 602,
 		"level": 9,
 		"school": "air",
 		"keywords": {
-			"type": ["damage", "debuff"],
-			"target": ["enemy"],
-			"targets": ["single"],
-			"delivery": ["instant", "over time"]
+			"type": [
+				"damage",
+				"debuff"
+			],
+			"target": [
+				"enemy"
+			],
+			"targets": [
+				"single"
+			],
+			"delivery": [
+				"instant",
+				"over time"
+			]
 		},
 		"require": "g.airlore>=12&&g.elec1.owned&&g.tier3>0",
 		"buy": {
@@ -2834,13 +3597,19 @@
 			"damage": "7~15",
 			"tohit": 12,
 			"kind": "air",
-			"potencies": ["spelldmg", "airdmg"],
+			"potencies": [
+				"spelldmg",
+				"airdmg"
+			],
 			"dot": {
 				"name": "blind",
 				"duration": 5,
 				"tags": "t_tohitdown",
 				"damage": "2~3",
-				"potencies": ["spelldmg", "airdmg"],
+				"potencies": [
+					"spelldmg",
+					"airdmg"
+				],
 				"mod": {
 					"self.tohit": -3
 				}
@@ -2861,16 +3630,26 @@
 	},
 	{
 		"id": "elec3",
-		"name": "thunderstrike",
-		"desc": "A blinding storm of lightning.",
+		"name": "雷霆一击",
+		"desc": "一场闪电风暴。",
 		"sortOrder": 600,
 		"level": 12,
 		"school": "air",
 		"keywords": {
-			"type": ["damage", "debuff"],
-			"target": ["enemy"],
-			"targets": ["multiple"],
-			"delivery": ["instant", "over time"]
+			"type": [
+				"damage",
+				"debuff"
+			],
+			"target": [
+				"enemy"
+			],
+			"targets": [
+				"multiple"
+			],
+			"delivery": [
+				"instant",
+				"over time"
+			]
 		},
 		"require": "g.airlore>=15&&g.elec2.owned&&g.tier3>0",
 		"buy": {
@@ -2892,7 +3671,10 @@
 				"kind": "air",
 				"duration": 15,
 				"damage": "7~25",
-				"potencies": ["spelldmg", "airdmg"],
+				"potencies": [
+					"spelldmg",
+					"airdmg"
+				],
 				"mod": {
 					"self.tohit": -5
 				}
@@ -2915,17 +3697,27 @@
 	},
 	{
 		"id": "downswinging",
-		"name": "down swinging",
-		"desc": "You won't go down without a fight.",
-		"flavor": "Am I more than you bargained for yet?",
+		"name": "下压攻击",
+		"desc": "你不会毫无斗志地倒下。",
+		"flavor": "我还不够让你失望吗？",
 		"sortOrder": 210,
 		"level": 7,
 		"school": "blood",
 		"keywords": {
-			"type": ["recovery", "buff"],
-			"target": ["self"],
-			"targets": ["single"],
-			"delivery": ["instant", "over time"]
+			"type": [
+				"recovery",
+				"buff"
+			],
+			"target": [
+				"self"
+			],
+			"targets": [
+				"single"
+			],
+			"delivery": [
+				"instant",
+				"over time"
+			]
 		},
 		"require": "g.bloodmage>0",
 		"buy": {
@@ -2959,17 +3751,27 @@
 	},
 	{
 		"id": "bodyisdry",
-		"name": "last stand",
-		"desc": "Before your body is dry.",
-		"flavor": "Don't lose your way.",
+		"name": "最后的坚守",
+		"desc": "在你身体干涸之前。",
+		"flavor": "不要迷失方向。",
 		"sortOrder": 208,
 		"level": 10,
 		"school": "blood",
 		"keywords": {
-			"type": ["recovery", "buff"],
-			"target": ["self"],
-			"targets": ["single"],
-			"delivery": ["instant", "over time"]
+			"type": [
+				"recovery",
+				"buff"
+			],
+			"target": [
+				"self"
+			],
+			"targets": [
+				"single"
+			],
+			"delivery": [
+				"instant",
+				"over time"
+			]
 		},
 		"require": "g.t_bloodclass>=2&&g.tier5>0",
 		"buy": {
@@ -3003,18 +3805,26 @@
 	},
 	{
 		"id": "bloodshot",
-		"desc": "A projectile made of your blood savagely mutilates the enemy.",
-		"extdesc": "Costs part of your hp, scaling with the amount of blood mastery classes you took. Deals damage based on your max hp, improved with use and blood classes taken.",
-		"flavor": "You would put it in a sausage instead, but you are not in the mood.",
+		"desc": "用你的血液制成的投射物残忍地 mutilates 敌人。",
+		"extdesc": "消耗你的一部分生命值，随着你学习的血脉法术的增加而增加。根据你的最大生命值造成伤害，随着使用和血脉法术的学习而提高。",
+		"flavor": "你本可以把它放进香肠里，但你现在没有心情。",
 		"sortOrder": 202,
 		"level": 8,
 		"school": "blood",
 		"tags": "t_nospellcraft",
 		"keywords": {
-			"type": ["damage"],
-			"target": ["enemy"],
-			"targets": ["single"],
-			"delivery": ["instant"]
+			"type": [
+				"damage"
+			],
+			"target": [
+				"enemy"
+			],
+			"targets": [
+				"single"
+			],
+			"delivery": [
+				"instant"
+			]
 		},
 		"require": "g.bloodlore>=3",
 		"buy": {
@@ -3032,20 +3842,31 @@
 		"attack": {
 			"kind": "blood",
 			"damage": "15+20*Math.min(1,g.bloodshot/100)+(a.hp*(1+2*Math.min(1,g.bloodshot/100)))/(50-5*g.t_bloodclass)",
-			"potencies": ["spelldmg", "blooddmg"]
+			"potencies": [
+				"spelldmg",
+				"blooddmg"
+			]
 		}
 	},
 	{
 		"id": "bloodspike",
-		"desc": "Blast all enemies with crystallized shards of magically charged blood.",
+		"desc": "用结晶化的魔法血液碎片攻击所有敌人。",
 		"sortOrder": 204,
 		"level": 5,
 		"school": "blood",
 		"keywords": {
-			"type": ["damage"],
-			"target": ["enemy"],
-			"targets": ["multiple"],
-			"delivery": ["instant"]
+			"type": [
+				"damage"
+			],
+			"target": [
+				"enemy"
+			],
+			"targets": [
+				"multiple"
+			],
+			"delivery": [
+				"instant"
+			]
 		},
 		"require": "g.bloodlore>=5",
 		"buy": {
@@ -3064,7 +3885,10 @@
 			"damage": 16,
 			"targets": "enemies",
 			"maxTargets": 999,
-			"potencies": ["spelldmg", "blooddmg"]
+			"potencies": [
+				"spelldmg",
+				"blooddmg"
+			]
 		},
 		"at": {
 			"100": {
@@ -3079,15 +3903,20 @@
 	},
 	{
 		"id": "gems_exploration",
-		"name": "gem resonance",
-		"desc": "Use your knowledge of the earth to detect valuable gemstones by their resonance.",
-		"flavor": "Hi-Ho, Hi-Ho.",
+		"name": "宝石共鸣",
+		"desc": "利用你对大地的了解，通过共鸣来探测有价值的宝石。",
+		"flavor": "嗨-霍，嗨-霍。",
 		"sortOrder": 870,
 		"level": 1,
 		"school": "earth",
 		"keywords": {
-			"delivery": ["over time"],
-			"special": ["explore", "resource"]
+			"delivery": [
+				"over time"
+			],
+			"special": [
+				"explore",
+				"resource"
+			]
 		},
 		"require": "g.earthlore>=8&&g.tier1>0",
 		"buy": {
@@ -3112,18 +3941,26 @@
 	},
 	{
 		"id": "mk_apiary",
-		"name": "dbulm's apiary",
-		"desc": "In combat, summon a really angry bee to fight for you.",
+		"name": "召唤蜜蜂箱",
+		"desc": "在战斗中，召唤一只极度愤怒的蜜蜂为你而战。",
 		"tags": "t_fauna_spell",
-		"flavor": "Beees.",
+		"flavor": "蜜蜂。",
 		"sortOrder": 1772,
 		"level": 5,
 		"school": "summoning",
 		"keywords": {
-			"type": ["summon"],
-			"target": ["ally"],
-			"targets": ["multiple"],
-			"delivery": ["over time"]
+			"type": [
+				"summon"
+			],
+			"target": [
+				"ally"
+			],
+			"targets": [
+				"multiple"
+			],
+			"delivery": [
+				"over time"
+			]
 		},
 		"require": "g.tier5>0&&g.conjuration>=5&&g.summoning>=10",
 		"buy": {
@@ -3157,15 +3994,23 @@
 	},
 	{
 		"id": "starfall",
-		"desc": "You can't escape the sky.",
+		"desc": "你无法逃脱天空的惩罚。",
 		"sortOrder": 1600,
 		"level": 10,
 		"school": "astral",
 		"keywords": {
-			"type": ["damage"],
-			"target": ["enemy"],
-			"targets": ["multiple"],
-			"delivery": ["over time"]
+			"type": [
+				"damage"
+			],
+			"target": [
+				"enemy"
+			],
+			"targets": [
+				"multiple"
+			],
+			"delivery": [
+				"over time"
+			]
 		},
 		"require": "g.tier5>0&&(g.astralseer+g.wizard3+g.wizard2)>0&&g.astronomy>=15&&g.evil2==0",
 		"buy": {
@@ -3188,22 +4033,33 @@
 				"duration": 30,
 				"kind": "astral",
 				"damage": "20~30",
-				"potencies": ["spelldmg", "astraldmg"]
+				"potencies": [
+					"spelldmg",
+					"astraldmg"
+				]
 			}
 		}
 	},
 	{
 		"id": "stoneskin",
-		"name": "stone skin",
+		"name": "石肤",
 		"sortOrder": 845,
 		"level": 1,
 		"school": "earth",
 		"tags": "t_defbuff",
 		"keywords": {
-			"type": ["buff"],
-			"target": ["self"],
-			"targets": ["single"],
-			"delivery": ["over time"]
+			"type": [
+				"buff"
+			],
+			"target": [
+				"self"
+			],
+			"targets": [
+				"single"
+			],
+			"delivery": [
+				"over time"
+			]
 		},
 		"require": "g.spellbook>0&&g.earthlore>0",
 		"buy": {
@@ -3227,17 +4083,25 @@
 	},
 	{
 		"id": "copperskin",
-		"name": "copper skin",
-		"desc": "Hardens the skin of the self.",
+		"name": "铜肤",
+		"desc": "硬化自身的皮肤。",
 		"sortOrder": 844,
 		"level": 2,
 		"school": "earth",
 		"tags": "t_defbuff",
 		"keywords": {
-			"type": ["buff"],
-			"target": ["self"],
-			"targets": ["single"],
-			"delivery": ["over time"]
+			"type": [
+				"buff"
+			],
+			"target": [
+				"self"
+			],
+			"targets": [
+				"single"
+			],
+			"delivery": [
+				"over time"
+			]
 		},
 		"require": "g.earthlore>=8&&g.tier0>0",
 		"buy": {
@@ -3262,17 +4126,25 @@
 	},
 	{
 		"id": "ironskin",
-		"name": "iron skin",
-		"desc": "Hardens the skin of the self.",
+		"name": "铁肤",
+		"desc": "硬化自身的皮肤。",
 		"sortOrder": 843,
 		"level": 3,
 		"school": "earth",
 		"tags": "t_defbuff",
 		"keywords": {
-			"type": ["buff"],
-			"target": ["self"],
-			"targets": ["single"],
-			"delivery": ["over time"]
+			"type": [
+				"buff"
+			],
+			"target": [
+				"self"
+			],
+			"targets": [
+				"single"
+			],
+			"delivery": [
+				"over time"
+			]
 		},
 		"require": "g.stoneskin.owned&&g.earthlore>=8&&g.tier1>0",
 		"buy": {
@@ -3297,17 +4169,25 @@
 	},
 	{
 		"id": "steelskin",
-		"name": "steel skin",
-		"desc": "Hardens the skin of the self.",
+		"name": "钢铁之肤",
+		"desc": "硬化自身的皮肤。",
 		"sortOrder": 842,
 		"level": 5,
 		"school": "earth",
 		"tags": "t_defbuff",
 		"keywords": {
-			"type": ["buff"],
-			"target": ["self"],
-			"targets": ["single"],
-			"delivery": ["over time"]
+			"type": [
+				"buff"
+			],
+			"target": [
+				"self"
+			],
+			"targets": [
+				"single"
+			],
+			"delivery": [
+				"over time"
+			]
 		},
 		"require": "g.ironskin.owned&&g.earthlore>=12&&g.tier2>0",
 		"buy": {
@@ -3332,17 +4212,25 @@
 	},
 	{
 		"id": "adamantshell",
-		"name": "adamant shell",
-		"desc": "Your skin becomes adamant.",
+		"name": "金刚外壳",
+		"desc": "你的皮肤变得如金刚石般坚硬。",
 		"sortOrder": 841,
 		"level": 10,
 		"school": "earth",
 		"tags": "t_defbuff",
 		"keywords": {
-			"type": ["buff"],
-			"target": ["self"],
-			"targets": ["single"],
-			"delivery": ["over time"]
+			"type": [
+				"buff"
+			],
+			"target": [
+				"self"
+			],
+			"targets": [
+				"single"
+			],
+			"delivery": [
+				"over time"
+			]
 		},
 		"require": "g.steelskin.owned&&g.earthlore>=15&&g.tier3>0",
 		"buy": {
@@ -3359,7 +4247,7 @@
 		},
 		"dot": {
 			"id": "dot_adamantskin",
-			"name": "adamant shell",
+			"name": "金刚外壳",
 			"tags": "toughskin",
 			"duration": 180,
 			"mod": {
@@ -3369,15 +4257,24 @@
 	},
 	{
 		"id": "tremor",
-		"desc": "The earth shakes beneath your enemies' feet.",
+		"desc": "大地在你敌人脚下震动。",
 		"sortOrder": 804,
 		"level": 5,
 		"school": "earth",
 		"keywords": {
-			"type": ["damage", "debuff"],
-			"target": ["enemy"],
-			"targets": ["multiple"],
-			"delivery": ["over time"]
+			"type": [
+				"damage",
+				"debuff"
+			],
+			"target": [
+				"enemy"
+			],
+			"targets": [
+				"multiple"
+			],
+			"delivery": [
+				"over time"
+			]
 		},
 		"require": "g.slow1.owned&&g.earthlore>=8&&g.tier1>0",
 		"buy": {
@@ -3398,7 +4295,10 @@
 			"kind": "earth",
 			"dot": {
 				"damage": "2~3",
-				"potencies": ["spelldmg", "earthdmg"],
+				"potencies": [
+					"spelldmg",
+					"earthdmg"
+				],
 				"duration": 3,
 				"mod": {
 					"self.speed": -5
@@ -3422,16 +4322,25 @@
 	},
 	{
 		"id": "quake",
-		"alias": "earthquake",
-		"desc": "The earth shakes at your command.",
+		"alias": "地震",
+		"desc": "大地在你指挥下震动。",
 		"sortOrder": 803,
 		"level": 9,
 		"school": "earth",
 		"keywords": {
-			"type": ["damage", "debuff"],
-			"target": ["enemy"],
-			"targets": ["multiple"],
-			"delivery": ["over time"]
+			"type": [
+				"damage",
+				"debuff"
+			],
+			"target": [
+				"enemy"
+			],
+			"targets": [
+				"multiple"
+			],
+			"delivery": [
+				"over time"
+			]
 		},
 		"require": "g.earthlore>=10&&g.tier2>0",
 		"buy": {
@@ -3453,7 +4362,10 @@
 			"dot": {
 				"duration": 30,
 				"damage": "5~12",
-				"potencies": ["spelldmg", "earthdmg"],
+				"potencies": [
+					"spelldmg",
+					"earthdmg"
+				],
 				"mod": {
 					"self.speed": -7
 				}
@@ -3462,16 +4374,24 @@
 	},
 	{
 		"id": "resistparalysis",
-		"name": "resist paralysis",
-		"desc": "Keep your limbs fluid.",
+		"name": "抵抗瘫痪",
+		"desc": "保持四肢灵活。",
 		"sortOrder": 548,
 		"level": 7,
 		"school": "water",
 		"keywords": {
-			"type": ["buff"],
-			"target": ["self"],
-			"targets": ["single"],
-			"delivery": ["over time"]
+			"type": [
+				"buff"
+			],
+			"target": [
+				"self"
+			],
+			"targets": [
+				"single"
+			],
+			"delivery": [
+				"over time"
+			]
 		},
 		"require": "g.waterlore>=10&&g.tier2>0",
 		"buy": {
@@ -3494,16 +4414,24 @@
 	},
 	{
 		"id": "resistsilence",
-		"name": "resist silence",
-		"desc": "Keep your mind active and alert.",
+		"name": "抵抗沉默",
+		"desc": "保持头脑清醒和警觉。",
 		"sortOrder": 448,
 		"level": 7,
 		"school": "mana",
 		"keywords": {
-			"type": ["buff"],
-			"target": ["self"],
-			"targets": ["single"],
-			"delivery": ["over time"]
+			"type": [
+				"buff"
+			],
+			"target": [
+				"self"
+			],
+			"targets": [
+				"single"
+			],
+			"delivery": [
+				"over time"
+			]
 		},
 		"require": "g.lore>=15",
 		"buy": {
@@ -3527,15 +4455,23 @@
 	},
 	{
 		"id": "splendor",
-		"alias": "magnificence",
+		"alias": "壮丽",
 		"sortOrder": 1150,
 		"level": 7,
 		"school": "light",
 		"keywords": {
-			"type": ["buff"],
-			"target": ["self"],
-			"targets": ["single"],
-			"delivery": ["over time"]
+			"type": [
+				"buff"
+			],
+			"target": [
+				"self"
+			],
+			"targets": [
+				"single"
+			],
+			"delivery": [
+				"over time"
+			]
 		},
 		"require": "g.lightlore>=9&&g.tier1>0",
 		"buy": {
@@ -3564,13 +4500,18 @@
 	},
 	{
 		"id": "abundance",
-		"desc": "Herbs sprout all around you as you walk.",
+		"desc": "草药在你走过的地方纷纷冒出。",
 		"sortOrder": 970,
 		"level": 8,
 		"school": "nature",
 		"keywords": {
-			"delivery": ["over time"],
-			"special": ["explore", "resource"]
+			"delivery": [
+				"over time"
+			],
+			"special": [
+				"explore",
+				"resource"
+			]
 		},
 		"require": "g.naturelore>=15&&g.tier3>0",
 		"buy": {
@@ -3593,16 +4534,26 @@
 	},
 	{
 		"id": "blindflash",
-		"name": "blinding flash",
-		"desc": "A flash of pure white light.",
+		"name": "致盲闪光",
+		"desc": "一闪而过的纯白光芒。",
 		"sortOrder": 1104,
 		"level": 8,
 		"school": "light",
 		"keywords": {
-			"type": ["damage", "debuff"],
-			"target": ["enemy"],
-			"targets": ["multiple"],
-			"delivery": ["instant", "over time"]
+			"type": [
+				"damage",
+				"debuff"
+			],
+			"target": [
+				"enemy"
+			],
+			"targets": [
+				"multiple"
+			],
+			"delivery": [
+				"instant",
+				"over time"
+			]
 		},
 		"require": "g.lightlore>=10&&g.tier2>0",
 		"buy": {
@@ -3620,7 +4571,10 @@
 			"targets": "enemies",
 			"maxTargets": 999,
 			"damage": "3~5",
-			"potencies": ["spelldmg", "lightdmg"],
+			"potencies": [
+				"spelldmg",
+				"lightdmg"
+			],
 			"dot": {
 				"name": "blind",
 				"kind": "light",
@@ -3634,15 +4588,23 @@
 	},
 	{
 		"id": "venom2",
-		"name": "venom II",
+		"name": "毒素 II",
 		"sortOrder": 903,
 		"level": 9,
 		"school": "nature",
 		"keywords": {
-			"type": ["damage"],
-			"target": ["enemy"],
-			"targets": ["single"],
-			"delivery": ["over time"]
+			"type": [
+				"damage"
+			],
+			"target": [
+				"enemy"
+			],
+			"targets": [
+				"single"
+			],
+			"delivery": [
+				"over time"
+			]
 		},
 		"require": "g.venom1.owned&&g.naturelore>=15&&g.tier3>0",
 		"buy": {
@@ -3659,32 +4621,49 @@
 		"attack": {
 			"targetspec": {
 				"notaffectedby": {
-					"condition": ["t_venom"],
-					"conditiontext": "venom"
+					"condition": [
+						"t_venom"
+					],
+					"conditiontext": "毒素"
 				}
 			},
 			"dot": {
-				"name": "venom",
+				"name": "毒素",
 				"kind": "poison",
 				"tags": "t_venom",
 				"duration": 30,
 				"damage": "8~15",
-				"potencies": ["spelldmg", "naturedmg", "poisondmg"]
+				"potencies": [
+					"spelldmg",
+					"naturedmg",
+					"poisondmg"
+				]
 			}
 		}
 	},
 	{
 		"id": "hightide",
-		"name": "high tide",
-		"desc": "Flood the field of battle.",
+		"name": "高潮",
+		"desc": "淹没战场。",
 		"sortOrder": 502,
 		"level": 6,
 		"school": "water",
 		"keywords": {
-			"type": ["damage", "debuff"],
-			"target": ["self", "ally", "enemy"],
-			"targets": ["multiple"],
-			"delivery": ["over time"]
+			"type": [
+				"damage",
+				"debuff"
+			],
+			"target": [
+				"self",
+				"ally",
+				"enemy"
+			],
+			"targets": [
+				"multiple"
+			],
+			"delivery": [
+				"over time"
+			]
 		},
 		"require": "g.waterlore>=11",
 		"buy": {
@@ -3700,7 +4679,7 @@
 			"waterlore.exp": 0.5
 		},
 		"dot": {
-			"name": "high tide",
+			"name": "高潮",
 			"duration": 30,
 			"applyinstanced": true,
 			"kind": "water",
@@ -3709,34 +4688,22 @@
 					{
 						"targets": "enemies",
 						"maxTargets": 999,
-						"dot": {
-							"name": "crushing tide",
-							"applyinstanced": true,
-							"kind": "water",
-							"damage": "4~8",
-							"duration": 3,
-							"mod": {
-								"self.speed": -3,
-								"dodge": -3
-							},
-							"potencies": ["spelldmg", "waterdmg"]
-						}
+						"kind": "water",
+						"damage": "20~30",
+						"name": "飓风",
+						"potencies": [
+							"spelldmg",
+							"waterdmg"
+						]
 					},
 					{
 						"targets": "allies",
 						"maxTargets": 999,
-						"dot": {
-							"name": "tide backlash",
-							"applyinstanced": true,
-							"kind": "water",
-							"damage": "1~2",
-							"duration": 3,
-							"mod": {
-								"self.speed": -3,
-								"dodge": -3
-							},
-							"potencies": []
-						}
+						"kind": "water",
+						"damage": "5~7.5",
+						"unreflectable": true,
+						"name": "倾盆大雨",
+						"potencies": []
 					}
 				]
 			}
@@ -3748,13 +4715,21 @@
 		"level": 7,
 		"school": "nature",
 		"keywords": {
-			"type": ["damage"],
-			"target": ["enemy"],
-			"targets": ["multiple"],
-			"delivery": ["over time"]
+			"type": [
+				"damage"
+			],
+			"target": [
+				"enemy"
+			],
+			"targets": [
+				"multiple"
+			],
+			"delivery": [
+				"over time"
+			]
 		},
 		"require": "g.venom2.owned&&(g.t_natureclass+g.tier4)>=2",
-		"desc": "A fungal cloud that damages all enemies.",
+		"desc": "一团真菌云，伤害所有敌人。",
 		"buy": {
 			"research": 4000,
 			"tomes": 10,
@@ -3771,28 +4746,40 @@
 			"maxTargets": 999,
 			"dot": {
 				"id": "dot_venom3",
-				"name": "venom",
+				"name": "毒素",
 				"kind": "poison",
 				"tags": "t_venom",
 				"duration": 45,
 				"damage": "7~11",
-				"potencies": ["spelldmg", "naturedmg", "poisondmg"]
+				"potencies": [
+					"spelldmg",
+					"naturedmg",
+					"poisondmg"
+				]
 			}
 		}
 	},
 	{
 		"id": "heal3",
-		"name": "sealing light III",
-		"desc": "Seams of light close your wounds.",
+		"name": "封印之光 III",
+		"desc": "光的缝合关闭你的伤口。",
 		"sortOrder": 1134,
 		"level": 7,
 		"school": "light",
 		"tags": "t_healspell",
 		"keywords": {
-			"type": ["recovery"],
-			"target": ["self"],
-			"targets": ["single"],
-			"delivery": ["instant"]
+			"type": [
+				"recovery"
+			],
+			"target": [
+				"self"
+			],
+			"targets": [
+				"single"
+			],
+			"delivery": [
+				"instant"
+			]
 		},
 		"require": "g.lightlore>=14&&g.heal2.owned&&g.heallore>=3&&g.tier3>0&&g.evil2==0",
 		"buy": {
@@ -3800,8 +4787,11 @@
 			"tomes": 10,
 			"lightgem": 10
 		},
-		"need": ["g.evil2==0", "good2"],
-		"needtext": "Cannot be sinister and must be at least scrupulous.",
+		"need": [
+			"g.evil2==0",
+			"good2"
+		],
+		"needtext": "不能是邪恶的，并且必须至少是严谨的。",
 		"cost": {
 			"light": 7
 		},
@@ -3813,22 +4803,35 @@
 			"harmless": true,
 			"healing": 200,
 			"kind": "light",
-			"potencies": ["spellheal", "lightdmg"]
+			"potencies": [
+				"spellheal",
+				"lightdmg"
+			]
 		}
 	},
 	{
 		"id": "forceten",
-		"name": "force ten",
-		"desc": "The storm before the calm.",
-		"flavor": "Force without form.",
+		"name": "强制十倍",
+		"desc": "风暴来临之前。",
+		"flavor": "无形的力量。",
 		"sortOrder": 500,
 		"level": 15,
 		"school": "water",
 		"keywords": {
-			"type": ["damage"],
-			"target": ["self", "ally", "enemy"],
-			"targets": ["multiple"],
-			"delivery": ["over time"]
+			"type": [
+				"damage"
+			],
+			"target": [
+				"self",
+				"ally",
+				"enemy"
+			],
+			"targets": [
+				"multiple"
+			],
+			"delivery": [
+				"over time"
+			]
 		},
 		"require": "g.waterlore>=18&&g.tier4>0",
 		"buy": {
@@ -3844,7 +4847,7 @@
 			"waterlore.exp": 0.8
 		},
 		"dot": {
-			"name": "force ten",
+			"name": "强制十倍",
 			"duration": 30,
 			"applyinstanced": true,
 			"kind": "water",
@@ -3855,8 +4858,11 @@
 						"maxTargets": 999,
 						"kind": "water",
 						"damage": "20~30",
-						"name": "hurricane",
-						"potencies": ["spelldmg", "waterdmg"]
+						"name": "飓风",
+						"potencies": [
+							"spelldmg",
+							"waterdmg"
+						]
 					},
 					{
 						"targets": "allies",
@@ -3864,7 +4870,7 @@
 						"kind": "water",
 						"damage": "5~7.5",
 						"unreflectable": true,
-						"name": "downpour",
+						"name": "倾盆大雨",
 						"potencies": []
 					}
 				]
@@ -3873,14 +4879,24 @@
 	},
 	{
 		"id": "disdream",
-		"name": "dispersal dream",
+		"name": "梦境驱散",
 		"sortOrder": 1500,
 		"school": "void",
 		"keywords": {
-			"type": ["damage"],
-			"target": ["self", "ally", "enemy"],
-			"targets": ["multiple"],
-			"delivery": ["over time"]
+			"type": [
+				"damage"
+			],
+			"target": [
+				"self",
+				"ally",
+				"enemy"
+			],
+			"targets": [
+				"multiple"
+			],
+			"delivery": [
+				"over time"
+			]
 		},
 		"require": "g.voidlore>0&&g.dreams>0",
 		"buy": {
@@ -3899,23 +4915,36 @@
 				"duration": 30,
 				"damage": "200~300",
 				"kind": "void",
-				"potencies": ["spelldmg", "voiddmg"]
+				"potencies": [
+					"spelldmg",
+					"voiddmg"
+				]
 			}
 		}
 	},
 	{
 		"id": "calming",
-		"name": "calming murmurs",
-		"desc": "Whispers on the wind calm your troubled mind.",
+		"name": "平静低语",
+		"desc": "风中的低语平静你烦躁的心灵。",
 		"sortOrder": 1970,
 		"level": 2,
 		"school": "charms",
 		"keywords": {
-			"type": ["recovery"],
-			"target": ["self"],
-			"targets": ["single"],
-			"delivery": ["over time"],
-			"special": ["explore"]
+			"type": [
+				"recovery"
+			],
+			"target": [
+				"self"
+			],
+			"targets": [
+				"single"
+			],
+			"delivery": [
+				"over time"
+			],
+			"special": [
+				"explore"
+			]
 		},
 		"require": "g.spiritlore>=5",
 		"buy": {
@@ -3941,17 +4970,27 @@
 	},
 	{
 		"id": "soothing",
-		"name": "soothing breeze",
-		"desc": "A light wind steadies your nerves.",
+		"name": "安抚微风",
+		"desc": "轻风稳定你的神经。",
 		"sortOrder": 1971,
 		"level": 2,
 		"school": "charms",
 		"keywords": {
-			"type": ["recovery"],
-			"target": ["self"],
-			"targets": ["single"],
-			"delivery": ["over time"],
-			"special": ["explore"]
+			"type": [
+				"recovery"
+			],
+			"target": [
+				"self"
+			],
+			"targets": [
+				"single"
+			],
+			"delivery": [
+				"over time"
+			],
+			"special": [
+				"explore"
+			]
 		},
 		"require": "g.airlore>=3",
 		"buy": {
@@ -3977,16 +5016,26 @@
 	},
 	{
 		"id": "quickening_melody",
-		"name": "quickening melody",
-		"desc": "A magical melody that quickens everyone's pace.",
+		"name": "加速旋律",
+		"desc": "一种魔法旋律，加快每个人的步伐。",
 		"sortOrder": 1940,
 		"level": 3,
 		"school": "charms",
 		"keywords": {
-			"type": ["buff"],
-			"target": ["self", "ally", "enemy"],
-			"targets": ["multiple"],
-			"delivery": ["over time"]
+			"type": [
+				"buff"
+			],
+			"target": [
+				"self",
+				"ally",
+				"enemy"
+			],
+			"targets": [
+				"multiple"
+			],
+			"delivery": [
+				"over time"
+			]
 		},
 		"require": "g.charms>=4",
 		"buy": {
@@ -4019,16 +5068,26 @@
 	},
 	{
 		"id": "luminescent_enchantment",
-		"name": "luminescent enchantment",
-		"desc": "Conjure a swirling array of dancing lights that stick to everyone.",
+		"name": "发光魔法",
+		"desc": "召唤出一阵旋转的舞动光点，粘附在每个人身上。",
 		"sortOrder": 1944,
 		"level": 6,
 		"school": "charms",
 		"keywords": {
-			"type": ["debuff"],
-			"target": ["self", "ally", "enemy"],
-			"targets": ["multiple"],
-			"delivery": ["over time"]
+			"type": [
+				"debuff"
+			],
+			"target": [
+				"self",
+				"ally",
+				"enemy"
+			],
+			"targets": [
+				"multiple"
+			],
+			"delivery": [
+				"over time"
+			]
 		},
 		"require": "g.charms>=4&&g.evil2<=0",
 		"buy": {
@@ -4039,7 +5098,7 @@
 			"lightgem": 4
 		},
 		"need": "g.evil2==0",
-		"needtext": "Cannot be sinister.",
+		"needtext": "不能是邪恶的。",
 		"cost": {
 			"lightgem": 1,
 			"light": 5
@@ -4063,16 +5122,26 @@
 	},
 	{
 		"id": "glimmering_aura",
-		"name": "glimmering aura",
-		"desc": "Render a gemstone into a temporary source of illumination.",
+		"name": "微光光环",
+		"desc": "将一块宝石变成临时的光源。",
 		"sortOrder": 1942,
 		"level": 2,
 		"school": "charms",
 		"keywords": {
-			"type": ["buff"],
-			"target": ["self", "ally", "enemy"],
-			"targets": ["multiple"],
-			"delivery": ["over time"]
+			"type": [
+				"buff"
+			],
+			"target": [
+				"self",
+				"ally",
+				"enemy"
+			],
+			"targets": [
+				"multiple"
+			],
+			"delivery": [
+				"over time"
+			]
 		},
 		"require": "g.charms>=4",
 		"buy": {
@@ -4104,16 +5173,24 @@
 	},
 	{
 		"id": "eclipsing_desolate_destinies",
-		"name": "eclipsing desolate destinies",
-		"desc": "Fill the mind of a foe with visions of varying horrifying fates, forcing them to grapple with the reality of their imminent demise.",
+		"name": "遮蔽荒凉命运",
+		"desc": "用各种可怕的命运的幻象填满敌人的心灵，迫使他们面对即将到来的死亡的现实。",
 		"sortOrder": 1900,
 		"level": 8,
 		"school": "charms",
 		"keywords": {
-			"type": ["damage"],
-			"target": ["enemy"],
-			"targets": ["single"],
-			"delivery": ["over time"]
+			"type": [
+				"damage"
+			],
+			"target": [
+				"enemy"
+			],
+			"targets": [
+				"single"
+			],
+			"delivery": [
+				"over time"
+			]
 		},
 		"require": "g.charms>=5&&g.spiritlore>=8",
 		"buy": {
@@ -4131,7 +5208,7 @@
 			"charms.exp": 1.6
 		},
 		"dot": {
-			"name": "desolation's wake",
+			"name": "荒凉的觉醒",
 			"duration": 15,
 			"applyinstanced": true,
 			"kind": "charm",
@@ -4139,27 +5216,38 @@
 				"targets": "enemyleader",
 				"tohit": 6,
 				"dot": {
-					"name": "desolation",
+					"name": "荒凉",
 					"applyinstanced": true,
 					"kind": "spirit",
 					"damage": "3~5",
 					"duration": 3,
-					"potencies": ["spelldmg", "charmdmg"]
+					"potencies": [
+						"spelldmg",
+						"charmdmg"
+					]
 				}
 			}
 		}
 	},
 	{
 		"id": "clarity",
-		"desc": "Cure yourself or an ally of a charm.",
+		"desc": "治愈自己或盟友的魅惑。",
 		"sortOrder": 1938,
 		"level": 7,
 		"school": "charms",
 		"keywords": {
-			"type": ["recovery"],
-			"target": ["self"],
-			"targets": ["single"],
-			"delivery": ["instant"]
+			"type": [
+				"recovery"
+			],
+			"target": [
+				"self"
+			],
+			"targets": [
+				"single"
+			],
+			"delivery": [
+				"instant"
+			]
 		},
 		"require": "g.charms>=3",
 		"caststoppers": [],
@@ -4176,16 +5264,28 @@
 	},
 	{
 		"id": "bolstering_hope",
-		"name": "bolstering hope",
-		"desc": "Gently disperse the essence of hopeful aspirations, imbuing the minds of others.",
+		"name": "鼓舞人心的希望",
+		"desc": "轻轻地散播希望的本质，赋予他人心灵的力量。",
 		"sortOrder": 1930,
 		"level": 4,
 		"school": "charms",
 		"keywords": {
-			"type": ["recovery", "buff"],
-			"target": ["self", "ally", "enemy"],
-			"targets": ["multiple"],
-			"delivery": ["instant", "over time"]
+			"type": [
+				"recovery",
+				"buff"
+			],
+			"target": [
+				"self",
+				"ally",
+				"enemy"
+			],
+			"targets": [
+				"multiple"
+			],
+			"delivery": [
+				"instant",
+				"over time"
+			]
 		},
 		"require": "g.charms>=3",
 		"buy": {
@@ -4241,16 +5341,27 @@
 	},
 	{
 		"id": "aura_of_benevolence",
-		"name": "aura of benevolence",
-		"desc": "Use your life force to produce a beneficial aura, mending the wounds and spirits of your allies.",
+		"name": "仁慈光环",
+		"desc": "用你的生命力产生有益的光环，治愈盟友的伤口和心灵。",
 		"sortOrder": 1932,
 		"level": 3,
 		"school": "charms",
 		"keywords": {
-			"type": ["damage", "recovery", "buff"],
-			"target": ["self", "ally"],
-			"targets": ["multiple"],
-			"delivery": ["over time"]
+			"type": [
+				"damage",
+				"recovery",
+				"buff"
+			],
+			"target": [
+				"self",
+				"ally"
+			],
+			"targets": [
+				"multiple"
+			],
+			"delivery": [
+				"over time"
+			]
 		},
 		"require": "g.tier3>=1&&g.charms>=5",
 		"buy": {
@@ -4317,17 +5428,25 @@
 	},
 	{
 		"id": "waterregen1",
-		"name": "lesser mending river",
-		"desc": "Cleansing waters trickle over you, slowly mending your wounds.",
+		"name": "初级治愈之河",
+		"desc": "净化之水缓缓流过你，慢慢修复你的伤口。",
 		"sortOrder": 532,
 		"level": 4,
 		"school": "water",
 		"tags": "t_healspell,t_waterhealbuff",
 		"keywords": {
-			"type": ["recovery"],
-			"target": ["self"],
-			"targets": ["single"],
-			"delivery": ["over time"]
+			"type": [
+				"recovery"
+			],
+			"target": [
+				"self"
+			],
+			"targets": [
+				"single"
+			],
+			"delivery": [
+				"over time"
+			]
 		},
 		"require": "g.waterlore>=4&&g.tier0>0",
 		"buy": {
@@ -4345,7 +5464,10 @@
 			"harmless": true,
 			"targets": "self",
 			"kind": "water",
-			"potencies": ["spellheal", "waterdmg"],
+			"potencies": [
+				"spellheal",
+				"waterdmg"
+			],
 			"tags": "t_waterheal",
 			"duration": 90,
 			"healing": 2
@@ -4353,17 +5475,25 @@
 	},
 	{
 		"id": "waterregen2",
-		"name": "mending river",
-		"desc": "Cleansing waters flow over you, slowly mending your wounds.",
+		"name": "治愈之河",
+		"desc": "净化之水流过你，慢慢修复你的伤口。",
 		"sortOrder": 531,
 		"level": 7,
 		"school": "water",
 		"tags": "t_healspell,t_waterhealbuff",
 		"keywords": {
-			"type": ["recovery"],
-			"target": ["self"],
-			"targets": ["single"],
-			"delivery": ["over time"]
+			"type": [
+				"recovery"
+			],
+			"target": [
+				"self"
+			],
+			"targets": [
+				"single"
+			],
+			"delivery": [
+				"over time"
+			]
 		},
 		"require": "g.waterlore>=7&&g.tier0>0",
 		"buy": {
@@ -4382,7 +5512,10 @@
 			"harmless": true,
 			"targets": "self",
 			"kind": "water",
-			"potencies": ["spellheal", "waterdmg"],
+			"potencies": [
+				"spellheal",
+				"waterdmg"
+			],
 			"tags": "t_waterheal",
 			"duration": 90,
 			"healing": 4
@@ -4390,17 +5523,25 @@
 	},
 	{
 		"id": "waterregen3",
-		"name": "greater mending river",
-		"desc": "Cleansing waters rush over you, rapidly mending your wounds.",
+		"name": "高级治愈之河",
+		"desc": "净化之水冲刷你，迅速修复你的伤口。",
 		"sortOrder": 530,
 		"level": 10,
 		"school": "water",
 		"tags": "t_healspell,t_waterhealbuff",
 		"keywords": {
-			"type": ["recovery"],
-			"target": ["self"],
-			"targets": ["single"],
-			"delivery": ["over time"]
+			"type": [
+				"recovery"
+			],
+			"target": [
+				"self"
+			],
+			"targets": [
+				"single"
+			],
+			"delivery": [
+				"over time"
+			]
 		},
 		"require": "g.waterlore>=12&&g.tier1>0&&g.heallore>=5",
 		"buy": {
@@ -4419,7 +5560,10 @@
 			"harmless": true,
 			"targets": "self",
 			"kind": "water",
-			"potencies": ["spellheal", "waterdmg"],
+			"potencies": [
+				"spellheal",
+				"waterdmg"
+			],
 			"tags": "t_waterheal",
 			"duration": 90,
 			"healing": 6
@@ -4427,17 +5571,25 @@
 	},
 	{
 		"id": "natureheal1",
-		"name": "lesser life's bloom",
-		"desc": "Wild energies flow through you, slowly closing wounds before providing a burst of healing energy.",
+		"name": "初级生命绽放",
+		"desc": "野性能量流经你，慢慢愈合伤口，随后爆发治愈之力。",
 		"sortOrder": 931,
 		"level": 5,
 		"school": "nature",
 		"tags": "t_healspell,t_naturehealbuff",
 		"keywords": {
-			"type": ["recovery"],
-			"target": ["self"],
-			"targets": ["single"],
-			"delivery": ["over time"]
+			"type": [
+				"recovery"
+			],
+			"target": [
+				"self"
+			],
+			"targets": [
+				"single"
+			],
+			"delivery": [
+				"over time"
+			]
 		},
 		"require": "g.naturelore>=9",
 		"buy": {
@@ -4458,30 +5610,44 @@
 			"tags": "t_natureheal",
 			"duration": 10,
 			"healing": 1.5,
-			"potencies": ["spellheal", "naturedmg"],
+			"potencies": [
+				"spellheal",
+				"naturedmg"
+			],
 			"onExpire": {
 				"name": "blossom",
 				"harmless": true,
 				"targets": "self",
 				"kind": "nature",
-				"potencies": ["spellheal", "naturedmg"],
+				"potencies": [
+					"spellheal",
+					"naturedmg"
+				],
 				"healing": 40
 			}
 		}
 	},
 	{
 		"id": "natureheal2",
-		"name": "life's bloom",
-		"desc": "Wild energies course through you, knitting together injuries and then providing a rapid burst of healing.",
+		"name": "生命绽放",
+		"desc": "野性能量涌动，快速愈合伤口，随后爆发治愈之力。",
 		"sortOrder": 930,
 		"level": 9,
 		"school": "nature",
 		"tags": "t_healspell,t_naturehealbuff",
 		"keywords": {
-			"type": ["recovery"],
-			"target": ["self"],
-			"targets": ["single"],
-			"delivery": ["over time"]
+			"type": [
+				"recovery"
+			],
+			"target": [
+				"self"
+			],
+			"targets": [
+				"single"
+			],
+			"delivery": [
+				"over time"
+			]
 		},
 		"require": "g.naturelore>=14&&g.heallore>=5&&g.tier0>0",
 		"buy": {
@@ -4503,28 +5669,42 @@
 			"tags": "t_natureheal",
 			"duration": 15,
 			"healing": 3,
-			"potencies": ["spellheal", "naturedmg"],
+			"potencies": [
+				"spellheal",
+				"naturedmg"
+			],
 			"onExpire": {
 				"name": "blossom",
 				"harmless": true,
 				"targets": "self",
 				"kind": "nature",
-				"potencies": ["spellheal", "naturedmg"],
+				"potencies": [
+					"spellheal",
+					"naturedmg"
+				],
 				"healing": 100
 			}
 		}
 	},
 	{
 		"id": "braveryaura",
-		"name": "Aura of Bravery",
+		"name": "勇气光环",
 		"sortOrder": 1151,
 		"level": 6,
 		"school": "light",
 		"keywords": {
-			"type": ["buff"],
-			"target": ["ally"],
-			"targets": ["multiple"],
-			"delivery": ["over time"]
+			"type": [
+				"buff"
+			],
+			"target": [
+				"ally"
+			],
+			"targets": [
+				"multiple"
+			],
+			"delivery": [
+				"over time"
+			]
 		},
 		"require": "g.lightlore>=12&&g.charms>=4",
 		"buy": {
@@ -4556,17 +5736,25 @@
 	},
 	{
 		"id": "etherealness1",
-		"name": "lesser etherealness",
-		"desc": "A partial intangibility to protect from physical attacks.",
+		"name": "初级虚化",
+		"desc": "部分虚化以抵御物理攻击。",
 		"sortOrder": 1041,
 		"level": 5,
 		"school": "spirit",
 		"tags": "t_etherealbuff",
 		"keywords": {
-			"type": ["buff"],
-			"target": ["self"],
-			"targets": ["single"],
-			"delivery": ["over time"]
+			"type": [
+				"buff"
+			],
+			"target": [
+				"self"
+			],
+			"targets": [
+				"single"
+			],
+			"delivery": [
+				"over time"
+			]
 		},
 		"require": "g.spiritlore>=3",
 		"buy": {
@@ -4592,17 +5780,25 @@
 	},
 	{
 		"id": "etherealness2",
-		"name": "etherealness",
-		"desc": "More potent than its predecessor, with greater protection against the weapons of your enemies.",
+		"name": "虚化",
+		"desc": "比前者更强力，能更好地抵御敌人的武器。",
 		"sortOrder": 1040,
 		"level": 8,
 		"school": "spirit",
 		"tags": "t_etherealbuff",
 		"keywords": {
-			"type": ["buff"],
-			"target": ["self"],
-			"targets": ["single"],
-			"delivery": ["over time"]
+			"type": [
+				"buff"
+			],
+			"target": [
+				"self"
+			],
+			"targets": [
+				"single"
+			],
+			"delivery": [
+				"over time"
+			]
 		},
 		"require": "g.etherealness1.owned&&g.spiritlore>=9&&g.tier2>0",
 		"buy": {
@@ -4628,17 +5824,26 @@
 	},
 	{
 		"id": "spiritpossess",
-		"name": "spiritual possession",
-		"desc": "Entreat a captured soul to briefly possess an enemy before being granted its release.",
-		"flavor": "Their screams of terror would pierce your ears, if only they could make a sound.",
+		"name": "灵魂附身",
+		"desc": "请求被捕获的灵魂短暂附身于敌人，然后释放它。",
+		"flavor": "他们的恐惧尖叫本会刺穿你的耳膜，只可惜他们无法发声。",
 		"sortOrder": 1007,
 		"level": 10,
 		"school": "spirit",
 		"keywords": {
-			"type": ["damage"],
-			"target": ["enemy"],
-			"targets": ["single"],
-			"delivery": ["instant", "over time"]
+			"type": [
+				"damage"
+			],
+			"target": [
+				"enemy"
+			],
+			"targets": [
+				"single"
+			],
+			"delivery": [
+				"instant",
+				"over time"
+			]
 		},
 		"tags": "t_silencespell",
 		"require": "g.spiritlore>=15&&g.tier3>0",
@@ -4657,30 +5862,46 @@
 		},
 		"attack": {
 			"damage": "20~25",
-			"potencies": ["spelldmg", "spiritdmg"],
+			"potencies": [
+				"spelldmg",
+				"spiritdmg"
+			],
 			"dot": {
 				"flags": "silence",
 				"name": "possessed",
 				"kind": "spirit",
 				"duration": 6,
 				"damage": "4~6",
-				"potencies": ["spelldmg", "spiritdmg"]
+				"potencies": [
+					"spelldmg",
+					"spiritdmg"
+				]
 			}
 		}
 	},
 	{
 		"id": "spiritconfuse",
-		"name": "befuddling spirits",
-		"desc": "Confuse the mind of the target.",
+		"name": "迷乱之灵",
+		"desc": "扰乱目标的心智。",
 		"sortOrder": 1005,
 		"level": 7,
 		"school": "spirit",
 		"tags": "t_confusespell",
 		"keywords": {
-			"type": ["damage", "debuff"],
-			"target": ["enemy"],
-			"targets": ["single"],
-			"delivery": ["instant", "over time"]
+			"type": [
+				"damage",
+				"debuff"
+			],
+			"target": [
+				"enemy"
+			],
+			"targets": [
+				"single"
+			],
+			"delivery": [
+				"instant",
+				"over time"
+			]
 		},
 		"require": "g.spiritlore>=12&&g.tier2>0",
 		"buy": {
@@ -4697,7 +5918,10 @@
 		},
 		"attack": {
 			"damage": "25~30",
-			"potencies": ["spelldmg", "spiritdmg"],
+			"potencies": [
+				"spelldmg",
+				"spiritdmg"
+			],
 			"dot": {
 				"id": "confuse",
 				"name": "confused",
@@ -4709,17 +5933,25 @@
 	},
 	{
 		"id": "mk_snek",
-		"name": "summon arcane serpent",
-		"desc": "In combat, summon an arcane serpent to fight for you.",
+		"name": "召唤奥术巨蛇",
+		"desc": "在战斗中，召唤一条奥术巨蛇为你而战。",
 		"tags": "t_fauna_spell",
 		"sortOrder": 1780,
 		"level": 3,
 		"school": "summoning",
 		"keywords": {
-			"type": ["summon"],
-			"target": ["ally"],
-			"targets": ["single"],
-			"delivery": ["instant"]
+			"type": [
+				"summon"
+			],
+			"target": [
+				"ally"
+			],
+			"targets": [
+				"single"
+			],
+			"delivery": [
+				"instant"
+			]
 		},
 		"require": "g.tier3>0&&g.conjuration>=5&&g.lore>=15",
 		"buy": {
@@ -4741,16 +5973,24 @@
 	},
 	{
 		"id": "mk_prism",
-		"name": "summon fulminant prism",
-		"desc": "In combat, create a fulminant prism to destroy your enemies.",
+		"name": "召唤雷霆棱镜",
+		"desc": "在战斗中，制造一个雷霆棱镜摧毁你的敌人。",
 		"sortOrder": 1759,
 		"level": 8,
 		"school": "summoning",
 		"keywords": {
-			"type": ["summon"],
-			"target": ["ally"],
-			"targets": ["single"],
-			"delivery": ["instant"]
+			"type": [
+				"summon"
+			],
+			"target": [
+				"ally"
+			],
+			"targets": [
+				"single"
+			],
+			"delivery": [
+				"instant"
+			]
 		},
 		"require": "g.tier5>0&&g.summoning>=5&&g.lore>=20",
 		"buy": {
@@ -4775,16 +6015,24 @@
 	},
 	{
 		"id": "mk_hero_ancestor",
-		"name": "summon heroic ancestor",
-		"desc": "In combat, summon an ancestral hero to defend you.",
+		"name": "召唤英灵祖先",
+		"desc": "在战斗中，召唤一位祖先英灵保护你。",
 		"sortOrder": 1757,
 		"level": 8,
 		"school": "summoning",
 		"keywords": {
-			"type": ["summon"],
-			"target": ["ally"],
-			"targets": ["single"],
-			"delivery": ["instant"]
+			"type": [
+				"summon"
+			],
+			"target": [
+				"ally"
+			],
+			"targets": [
+				"single"
+			],
+			"delivery": [
+				"instant"
+			]
 		},
 		"require": "g.tier5>0&&g.summoning>=5&&g.spiritlore>=15",
 		"buy": {
@@ -4809,16 +6057,24 @@
 	},
 	{
 		"id": "mk_frostgiant",
-		"name": "summon frost giant",
-		"desc": "In combat, summon a frost giant to fight for you.",
+		"name": "召唤霜巨人",
+		"desc": "在战斗中，召唤一名霜巨人为你而战。",
 		"sortOrder": 1758,
 		"level": 8,
 		"school": "summoning",
 		"keywords": {
-			"type": ["summon"],
-			"target": ["ally"],
-			"targets": ["single"],
-			"delivery": ["instant"]
+			"type": [
+				"summon"
+			],
+			"target": [
+				"ally"
+			],
+			"targets": [
+				"single"
+			],
+			"delivery": [
+				"instant"
+			]
 		},
 		"require": "g.tier5>0&&g.summoning>=5&&g.waterlore>=15",
 		"buy": {
@@ -4847,10 +6103,18 @@
 		"level": 5,
 		"school": "arcane",
 		"keywords": {
-			"type": ["summon"],
-			"target": ["ally"],
-			"targets": ["single"],
-			"delivery": ["instant"]
+			"type": [
+				"summon"
+			],
+			"target": [
+				"ally"
+			],
+			"targets": [
+				"single"
+			],
+			"delivery": [
+				"instant"
+			]
 		},
 		"require": "g.lore>9999",
 		"cd": 30,
@@ -4867,17 +6131,25 @@
 	},
 	{
 		"id": "mk_phoenix",
-		"name": "summon phoenix",
-		"desc": "In combat, summon a phoenix to fight for you.",
+		"name": "召唤凤凰",
+		"desc": "在战斗中，召唤一只凤凰为你而战。",
 		"tags": "t_fauna_spell",
 		"sortOrder": 1760,
 		"level": 7,
 		"school": "summoning",
 		"keywords": {
-			"type": ["summon"],
-			"target": ["ally"],
-			"targets": ["single"],
-			"delivery": ["instant"]
+			"type": [
+				"summon"
+			],
+			"target": [
+				"ally"
+			],
+			"targets": [
+				"single"
+			],
+			"delivery": [
+				"instant"
+			]
 		},
 		"require": "g.summoning>=12&&g.tier4>0",
 		"buy": {
@@ -4902,17 +6174,25 @@
 	},
 	{
 		"id": "mk_sandmite",
-		"name": "summon sand mite",
-		"desc": "In combat, summon a sand mite to fight for you.",
+		"name": "召唤沙螨",
+		"desc": "在战斗中，召唤一只沙螨为你而战。",
 		"tags": "t_fauna_spell",
 		"sortOrder": 1778,
 		"level": 4,
 		"school": "summoning",
 		"keywords": {
-			"type": ["summon"],
-			"target": ["ally"],
-			"targets": ["single"],
-			"delivery": ["instant"]
+			"type": [
+				"summon"
+			],
+			"target": [
+				"ally"
+			],
+			"targets": [
+				"single"
+			],
+			"delivery": [
+				"instant"
+			]
 		},
 		"require": "g.conjuration>=7||g.tier2>0",
 		"buy": {
@@ -4937,14 +6217,22 @@
 	},
 	{
 		"id": "mon_dig",
-		"name": "dig",
+		"name": "掘地",
 		"level": 1,
 		"school": "earth",
 		"keywords": {
-			"type": ["damage"],
-			"target": ["enemy"],
-			"targets": ["multiple"],
-			"delivery": ["over time"]
+			"type": [
+				"damage"
+			],
+			"target": [
+				"enemy"
+			],
+			"targets": [
+				"multiple"
+			],
+			"delivery": [
+				"over time"
+			]
 		},
 		"require": "g.earthlore>999",
 		"cd": 10,
@@ -4975,16 +6263,24 @@
 	},
 	{
 		"id": "mk_shadow",
-		"name": "coalesce shadow",
-		"desc": "Animate your shadow for a dependable ally- a risky move.",
+		"name": "凝聚暗影",
+		"desc": "赋予你的影子生命，成为可靠的盟友——但风险不小。",
 		"sortOrder": 1773,
 		"level": 5,
 		"school": "summoning",
 		"keywords": {
-			"type": ["summon"],
-			"target": ["ally"],
-			"targets": ["single"],
-			"delivery": ["instant"]
+			"type": [
+				"summon"
+			],
+			"target": [
+				"ally"
+			],
+			"targets": [
+				"single"
+			],
+			"delivery": [
+				"instant"
+			]
 		},
 		"require": "(g.conjuration>=8||g.tier2>0)&&g.shadowlore>=5",
 		"buy": {
@@ -5010,16 +6306,24 @@
 	},
 	{
 		"id": "mk_painrune",
-		"name": "summon rune of agony",
-		"desc": "Summon a rune of pure suffering. Its dark power doesn't distinguish between friend and foe.",
+		"name": "召唤痛苦符文",
+		"desc": "召唤纯粹痛苦的符文，其黑暗力量不分敌我。",
 		"sortOrder": 1761,
 		"level": 7,
 		"school": "summoning",
 		"keywords": {
-			"type": ["summon"],
-			"target": ["ally"],
-			"targets": ["single"],
-			"delivery": ["instant"]
+			"type": [
+				"summon"
+			],
+			"target": [
+				"ally"
+			],
+			"targets": [
+				"single"
+			],
+			"delivery": [
+				"instant"
+			]
 		},
 		"require": "g.summoning>=10&&g.runelore>=3&&g.shadowlore>=10",
 		"buy": {
@@ -5044,16 +6348,24 @@
 	},
 	{
 		"id": "mk_nova",
-		"name": "summon nova",
-		"desc": "Summon an incarnation of extreme light as an ally.",
+		"name": "召唤极光化身",
+		"desc": "召唤极致光明的化身作为盟友。",
 		"sortOrder": 1747,
 		"level": 10,
 		"school": "summoning",
 		"keywords": {
-			"type": ["summon"],
-			"target": ["ally"],
-			"targets": ["single"],
-			"delivery": ["instant"]
+			"type": [
+				"summon"
+			],
+			"target": [
+				"ally"
+			],
+			"targets": [
+				"single"
+			],
+			"delivery": [
+				"instant"
+			]
 		},
 		"require": "g.summoning>=13&&g.planeslore>=15&&g.lightlore>=15",
 		"buy": {
@@ -5079,16 +6391,24 @@
 	},
 	{
 		"id": "mk_black_hole",
-		"name": "summon black hole",
-		"desc": "Summon an incarnation of extreme shadow as an ally.",
+		"name": "召唤黑洞化身",
+		"desc": "召唤极致暗影的化身作为盟友。",
 		"sortOrder": 1748,
 		"level": 10,
 		"school": "summoning",
 		"keywords": {
-			"type": ["summon"],
-			"target": ["ally"],
-			"targets": ["single"],
-			"delivery": ["instant"]
+			"type": [
+				"summon"
+			],
+			"target": [
+				"ally"
+			],
+			"targets": [
+				"single"
+			],
+			"delivery": [
+				"instant"
+			]
 		},
 		"require": "g.summoning>=13&&g.voidlore>=3&&g.shadowlore>=15",
 		"buy": {
@@ -5113,17 +6433,27 @@
 	},
 	{
 		"id": "reclaim_power",
-		"name": "reclaim power",
-		"desc": "Sacrifice the minion with proportionally the lowest current life to buff everyone else. It's fine, summons are just mana simulacra.",
-		"flavor": "Just be careful not to use it on non-summoned minions, okay? Okay.",
+		"name": "回收能量",
+		"desc": "牺牲当前生命比例最低的召唤物，为所有人提供增益。没关系，召唤物只是法力幻象。",
+		"flavor": "千万别用在非召唤物身上，明白吗？明白。",
 		"sortOrder": 1701,
 		"level": 4,
 		"school": "summoning",
 		"keywords": {
-			"type": ["damage", "buff"],
-			"target": ["self", "ally"],
-			"targets": ["multiple"],
-			"delivery": ["over time"]
+			"type": [
+				"damage",
+				"buff"
+			],
+			"target": [
+				"self",
+				"ally"
+			],
+			"targets": [
+				"multiple"
+			],
+			"delivery": [
+				"over time"
+			]
 		},
 		"require": "g.summoning>=11&&g.charms>=5",
 		"buy": {
@@ -5168,17 +6498,27 @@
 	},
 	{
 		"id": "absorb_minion",
-		"name": "absorb summon",
-		"desc": "Sacrifice the minion with the highest life to heal yourself. Remember, summons are merely mana simulacra.",
-		"flavor": "Just be careful not to use it on non-summoned minions, okay? Okay.",
+		"name": "吸收召唤物",
+		"desc": "牺牲生命值最高的召唤物来治疗自己。记住，召唤物只是法力幻象。",
+		"flavor": "千万别用在非召唤物身上，明白吗？明白。",
 		"sortOrder": 1700,
 		"level": 6,
 		"school": "summoning",
 		"keywords": {
-			"type": ["damage", "recovery"],
-			"target": ["self", "ally"],
-			"targets": ["single"],
-			"delivery": ["over time"]
+			"type": [
+				"damage",
+				"recovery"
+			],
+			"target": [
+				"self",
+				"ally"
+			],
+			"targets": [
+				"single"
+			],
+			"delivery": [
+				"over time"
+			]
 		},
 		"require": "g.summoning>=12&&g.charms>=5",
 		"buy": {
@@ -5208,16 +6548,24 @@
 	},
 	{
 		"id": "conjure_minion_armor",
-		"name": "conjure minion armor",
-		"desc": "Conjure armor for your precious minions.",
+		"name": "召唤仆从护甲",
+		"desc": "为你珍贵的仆从召唤护甲。",
 		"sortOrder": 1702,
 		"level": 3,
 		"school": "summoning",
 		"keywords": {
-			"type": ["buff"],
-			"target": ["ally"],
-			"targets": ["multiple"],
-			"delivery": ["over time"]
+			"type": [
+				"buff"
+			],
+			"target": [
+				"ally"
+			],
+			"targets": [
+				"multiple"
+			],
+			"delivery": [
+				"over time"
+			]
 		},
 		"require": "g.conjuration>=9",
 		"buy": {
@@ -5246,16 +6594,24 @@
 	},
 	{
 		"id": "conjure_stone_barrier",
-		"name": "conjure stone barrier",
-		"desc": "Conjure a wall of stone to protect yourself.",
+		"name": "召唤石墙",
+		"desc": "召唤一道石墙保护自己。",
 		"sortOrder": 1781,
 		"level": 3,
 		"school": "summoning",
 		"keywords": {
-			"type": ["summon"],
-			"target": ["ally"],
-			"targets": ["single"],
-			"delivery": ["instant"]
+			"type": [
+				"summon"
+			],
+			"target": [
+				"ally"
+			],
+			"targets": [
+				"single"
+			],
+			"delivery": [
+				"instant"
+			]
 		},
 		"require": "(g.conjuration>=7&&g.earthlore>=5)||(g.earthlore>=10&&g.tier3>0)",
 		"buy": {
@@ -5280,16 +6636,24 @@
 	},
 	{
 		"id": "conjure_beartrap",
-		"name": "conjure beartrap",
-		"desc": "Conjure a bear trap to maim someone.",
+		"name": "召唤捕兽夹",
+		"desc": "召唤一个捕兽夹伤害敌人。",
 		"sortOrder": 1782,
 		"level": 3,
 		"school": "summoning",
 		"keywords": {
-			"type": ["summon"],
-			"target": ["ally"],
-			"targets": ["single"],
-			"delivery": ["instant"]
+			"type": [
+				"summon"
+			],
+			"target": [
+				"ally"
+			],
+			"targets": [
+				"single"
+			],
+			"delivery": [
+				"instant"
+			]
 		},
 		"require": "(g.conjuration>=7&&g.crafting>=7)||g.crafting>=15",
 		"buy": {
@@ -5315,17 +6679,25 @@
 	},
 	{
 		"id": "illusiondance",
-		"name": "illusive dance",
-		"desc": "A bewildering dance that makes you seem to be in multiple places at once.",
+		"name": "幻影之舞",
+		"desc": "令人迷惑的舞蹈，让你仿佛身处多个位置。",
 		"sortOrder": 1331,
 		"level": 5,
 		"school": "chaos",
 		"tags": "t_dodgebuff",
 		"keywords": {
-			"type": ["buff"],
-			"target": ["self"],
-			"targets": ["single"],
-			"delivery": ["over time"]
+			"type": [
+				"buff"
+			],
+			"target": [
+				"self"
+			],
+			"targets": [
+				"single"
+			],
+			"delivery": [
+				"over time"
+			]
 		},
 		"require": "g.chaoslore>=3&&g.madcap>0",
 		"buy": {
@@ -5352,16 +6724,24 @@
 	},
 	{
 		"id": "superposition",
-		"desc": "This one has you actually shift between multiple places at once.",
-		"flavor": "Or are you just rolling around at the speed of sound?",
+		"desc": "你真的在多个位置间切换。",
+		"flavor": "还是你只是以音速滚动？",
 		"sortOrder": 1330,
 		"level": 7,
 		"school": "chaos",
 		"keywords": {
-			"type": ["buff"],
-			"target": ["self"],
-			"targets": ["single"],
-			"delivery": ["over time"]
+			"type": [
+				"buff"
+			],
+			"target": [
+				"self"
+			],
+			"targets": [
+				"single"
+			],
+			"delivery": [
+				"over time"
+			]
 		},
 		"require": "g.illusiondance.owned&&g.chaoslore>=5&&g.jester>0",
 		"buy": {
@@ -5388,17 +6768,29 @@
 	},
 	{
 		"id": "stealdodge",
-		"name": "steal fortune",
-		"desc": "Claim your enemy's fortune for yourself.",
+		"name": "窃取幸运",
+		"desc": "将敌人的幸运据为己有。",
 		"sortOrder": 1370,
 		"level": 3,
 		"school": "chaos",
 		"keywords": {
-			"type": ["buff", "debuff"],
-			"target": ["self", "enemy"],
-			"targets": ["single"],
-			"delivery": ["over time"],
-			"special": ["resource"]
+			"type": [
+				"buff",
+				"debuff"
+			],
+			"target": [
+				"self",
+				"enemy"
+			],
+			"targets": [
+				"single"
+			],
+			"delivery": [
+				"over time"
+			],
+			"special": [
+				"resource"
+			]
 		},
 		"require": "g.chaoslore>=2",
 		"buy": {
@@ -5437,18 +6829,26 @@
 	},
 	{
 		"id": "toonphysics",
-		"name": "convenient physics",
-		"desc": "Alter reality to make certain injuries irrelevant.",
-		"flavor": "Fire only leaves a layer of soot. Your body bounces back from impacts. Holes plug themselves back up.",
+		"name": "便利物理法则",
+		"desc": "改变现实，让某些伤害变得无关紧要。",
+		"flavor": "火焰只留下一层灰烬。你的身体能从冲击中弹回。洞会自动堵上。",
 		"sortOrder": 1333,
 		"level": 6,
 		"cd": 90,
 		"school": "chaos",
 		"keywords": {
-			"type": ["buff"],
-			"target": ["self"],
-			"targets": ["single"],
-			"delivery": ["over time"]
+			"type": [
+				"buff"
+			],
+			"target": [
+				"self"
+			],
+			"targets": [
+				"single"
+			],
+			"delivery": [
+				"over time"
+			]
 		},
 		"require": "g.chaoslore>=5&&(g.jester>0||g.fey>0)",
 		"buy": {
@@ -5474,16 +6874,24 @@
 	},
 	{
 		"id": "chaosbolt",
-		"name": "chaos bolt",
-		"desc": "A brief burst of magic destabilizing whatever it touches.",
+		"name": "混沌之矢",
+		"desc": "短暂的魔法爆发，扰乱所触之物。",
 		"sortOrder": 1306,
 		"level": 2,
 		"school": "chaos",
 		"keywords": {
-			"type": ["damage"],
-			"target": ["enemy"],
-			"targets": ["single"],
-			"delivery": ["instant"]
+			"type": [
+				"damage"
+			],
+			"target": [
+				"enemy"
+			],
+			"targets": [
+				"single"
+			],
+			"delivery": [
+				"instant"
+			]
 		},
 		"require": "g.chaoslore>=1",
 		"buy": {
@@ -5499,7 +6907,10 @@
 			"damage": "1~17",
 			"tohit": 2,
 			"kind": "chaos",
-			"potencies": ["spelldmg", "chaosdmg"]
+			"potencies": [
+				"spelldmg",
+				"chaosdmg"
+			]
 		},
 		"at": {
 			"25": {
@@ -5516,16 +6927,25 @@
 	},
 	{
 		"id": "chaoswave",
-		"name": "chaos wave",
-		"desc": "Research suggests that your enemies dislike having bits swapped at random.",
+		"name": "混沌波动",
+		"desc": "研究表明，敌人很讨厌身体部位被随机交换。",
 		"sortOrder": 1303,
 		"level": 3,
 		"school": "chaos",
 		"keywords": {
-			"type": ["damage"],
-			"target": ["enemy"],
-			"targets": ["multiple"],
-			"delivery": ["instant", "over time"]
+			"type": [
+				"damage"
+			],
+			"target": [
+				"enemy"
+			],
+			"targets": [
+				"multiple"
+			],
+			"delivery": [
+				"instant",
+				"over time"
+			]
 		},
 		"require": "g.chaoslore>=2",
 		"buy": {
@@ -5542,7 +6962,10 @@
 			"maxTargets": 999,
 			"damage": "1~5",
 			"kind": "chaos",
-			"potencies": ["spelldmg", "chaosdmg"],
+			"potencies": [
+				"spelldmg",
+				"chaosdmg"
+			],
 			"dot": {
 				"name": "bleed",
 				"damage": "1~3",
@@ -5562,17 +6985,25 @@
 	},
 	{
 		"id": "chaosblast",
-		"name": "chaos blast",
-		"desc": "An onslaught of chaos drowns your foe.",
+		"name": "混沌爆裂",
+		"desc": "混沌的猛攻淹没你的敌人。",
 		"sortOrder": 1305,
 		"level": 5,
 		"school": "chaos",
 		"require": "g.chaosbolt.owned&&g.chaoslore>=3&&(g.madcap>0||g.t_chaosclass>=2)",
 		"keywords": {
-			"type": ["damage"],
-			"target": ["enemy"],
-			"targets": ["single"],
-			"delivery": ["instant"]
+			"type": [
+				"damage"
+			],
+			"target": [
+				"enemy"
+			],
+			"targets": [
+				"single"
+			],
+			"delivery": [
+				"instant"
+			]
 		},
 		"buy": {
 			"chaosgem": 66
@@ -5587,7 +7018,10 @@
 			"damage": "1~28",
 			"tohit": 2,
 			"kind": "chaos",
-			"potencies": ["spelldmg", "chaosdmg"]
+			"potencies": [
+				"spelldmg",
+				"chaosdmg"
+			]
 		},
 		"at": {
 			"25": {
@@ -5605,17 +7039,26 @@
 	},
 	{
 		"id": "chaosstorm",
-		"name": "chaos storm",
-		"desc": "You've learned to swap bits between living and inanimate things.",
+		"name": "混沌风暴",
+		"desc": "你学会了在生物与无生命物体之间交换部分结构。",
 		"sortOrder": 1302,
 		"level": 6,
 		"school": "chaos",
 		"require": "g.chaoswave.owned&&g.chaoslore>=4&&(g.madcap>0||g.t_chaosclass>=2)",
 		"keywords": {
-			"type": ["damage"],
-			"target": ["enemy"],
-			"targets": ["multiple"],
-			"delivery": ["instant", "over time"]
+			"type": [
+				"damage"
+			],
+			"target": [
+				"enemy"
+			],
+			"targets": [
+				"multiple"
+			],
+			"delivery": [
+				"instant",
+				"over time"
+			]
 		},
 		"buy": {
 			"chaosgem": 77
@@ -5631,7 +7074,10 @@
 			"maxTargets": 999,
 			"damage": "1~12",
 			"kind": "chaos",
-			"potencies": ["spelldmg", "chaosdmg"],
+			"potencies": [
+				"spelldmg",
+				"chaosdmg"
+			],
 			"dot": {
 				"name": "bleed",
 				"damage": "1~9",
@@ -5652,8 +7098,8 @@
 	},
 	{
 		"id": "unmake",
-		"name": "unmake",
-		"desc": "The weight of your will grinds your adversaries away.",
+		"name": "消解",
+		"desc": "你的意志之重将敌人碾碎。",
 		"sortOrder": 1300,
 		"level": 12,
 		"school": "chaos",
@@ -5671,7 +7117,10 @@
 			"damage": 42,
 			"tohit": 3,
 			"kind": "chaos",
-			"potencies": ["spelldmg", "chaosdmg"]
+			"potencies": [
+				"spelldmg",
+				"chaosdmg"
+			]
 		},
 		"at": {
 			"25": {
@@ -5689,16 +7138,29 @@
 	},
 	{
 		"id": "chaosworld",
-		"name": "world of chaos",
-		"desc": "Elements invert. Ground and sky dance. Gales howl, and fragments slice.",
+		"name": "混沌世界",
+		"desc": "元素颠倒，天地共舞，狂风怒号，碎片横飞。",
+		"flavor": "让所有人一窥初始之前的景象。",
 		"sortOrder": 1320,
 		"level": 13,
 		"school": "chaos",
 		"keywords": {
-			"type": ["damage", "buff", "debuff"],
-			"target": ["self", "ally", "enemy"],
-			"targets": ["multiple"],
-			"delivery": ["over time"]
+			"type": [
+				"damage",
+				"buff",
+				"debuff"
+			],
+			"target": [
+				"self",
+				"ally",
+				"enemy"
+			],
+			"targets": [
+				"multiple"
+			],
+			"delivery": [
+				"over time"
+			]
 		},
 		"require": "g.chaosstorm.owned&&g.chaoslore>=5&&g.jester>0&&g.tier5>0",
 		"buy": {
@@ -5740,7 +7202,10 @@
 							"damage": "1~10",
 							"duration": 3,
 							"kind": "chaos",
-							"potencies": ["spelldmg", "chaosdmg"],
+							"potencies": [
+								"spelldmg",
+								"chaosdmg"
+							],
 							"mod": {
 								"self.speed": -10,
 								"self.dodge": -10
@@ -5750,22 +7215,30 @@
 				]
 			}
 		},
-		"flavor": "Let all glimpse how it was before the beginning."
+		"flavor": "让所有人一窥初始之前的景象。"
 	},
 	{
 		"id": "petroleumdouse",
-		"name": "douse in petroleum",
-		"desc": "Make an enemy more susceptible to flames.",
-		"flavor": "For when you feel too impatient to heat the tar and feathers.",
+		"name": "石油浸泡",
+		"desc": "让敌人更易受到火焰伤害。",
+		"flavor": "当你不耐烦加热焦油和羽毛时使用。",
 		"sortOrder": 1353,
 		"level": 2,
 		"school": "chaos",
 		"tags": "t_coating",
 		"keywords": {
-			"type": ["debuff"],
-			"target": ["enemy"],
-			"targets": ["single"],
-			"delivery": ["over time"]
+			"type": [
+				"debuff"
+			],
+			"target": [
+				"enemy"
+			],
+			"targets": [
+				"single"
+			],
+			"delivery": [
+				"over time"
+			]
 		},
 		"require": "g.trickery>=1&&g.firelore>=3",
 		"buy": {
@@ -5792,17 +7265,25 @@
 	},
 	{
 		"id": "invertelements",
-		"name": "elemental inversion",
-		"desc": "Invert the cycle of the natural elements within the target to create a weakness to them.",
+		"name": "元素逆转",
+		"desc": "逆转目标体内自然元素的循环，使其对元素变得脆弱。",
 		"sortOrder": 1343,
 		"level": 5,
 		"school": "chaos",
 		"tags": "t_resist_debuff",
 		"keywords": {
-			"type": ["debuff"],
-			"target": ["enemy"],
-			"targets": ["single"],
-			"delivery": ["over time"]
+			"type": [
+				"debuff"
+			],
+			"target": [
+				"enemy"
+			],
+			"targets": [
+				"single"
+			],
+			"delivery": [
+				"over time"
+			]
 		},
 		"require": "g.chaoslore>=3&&g.firelore>=3&&g.waterlore>=3&&g.airlore>=3&&g.earthlore>=3",
 		"buy": {
@@ -5834,17 +7315,25 @@
 	},
 	{
 		"id": "invertesoterics",
-		"name": "esoteric inversion",
-		"desc": "Invert the cycle of the esoteric elements within the target to create a weakness to them.",
+		"name": "秘能逆转",
+		"desc": "逆转目标体内秘能元素的循环，使其对秘能变得脆弱。",
 		"sortOrder": 1344,
 		"level": 5,
 		"school": "chaos",
 		"tags": "t_resist_debuff",
 		"keywords": {
-			"type": ["debuff"],
-			"target": ["enemy"],
-			"targets": ["single"],
-			"delivery": ["over time"]
+			"type": [
+				"debuff"
+			],
+			"target": [
+				"enemy"
+			],
+			"targets": [
+				"single"
+			],
+			"delivery": [
+				"over time"
+			]
 		},
 		"require": "g.chaoslore>=3&&g.spiritlore>=3&&g.naturelore>3&&g.lightlore>=3&&g.shadowlore>=3",
 		"buy": {
@@ -5876,17 +7365,25 @@
 	},
 	{
 		"id": "invertphysical",
-		"name": "physical inversion",
-		"desc": "Invert the regulation of matter within the target to create a weakness to physical attacks.",
+		"name": "物理逆转",
+		"desc": "逆转目标体内物质的调节，使其对物理攻击变得脆弱。",
 		"sortOrder": 1341,
 		"level": 5,
 		"school": "chaos",
 		"tags": "t_resist_debuff",
 		"keywords": {
-			"type": ["debuff"],
-			"target": ["enemy"],
-			"targets": ["single"],
-			"delivery": ["over time"]
+			"type": [
+				"debuff"
+			],
+			"target": [
+				"enemy"
+			],
+			"targets": [
+				"single"
+			],
+			"delivery": [
+				"over time"
+			]
 		},
 		"require": "g.chaoslore>=3&&g.weaponlore>=3&&(g.trickster>0||g.t_chaosclass>=2)",
 		"buy": {
@@ -5914,16 +7411,24 @@
 	},
 	{
 		"id": "invertreality",
-		"name": "reality inversion",
-		"desc": "Invert the laws of reality within the target to create a weakness to chaos.",
+		"name": "现实逆转",
+		"desc": "逆转目标体内现实法则，使其对混沌变得脆弱。",
 		"sortOrder": 1342,
 		"level": 5,
 		"school": "chaos",
 		"keywords": {
-			"type": ["debuff"],
-			"target": ["enemy"],
-			"targets": ["single"],
-			"delivery": ["over time"]
+			"type": [
+				"debuff"
+			],
+			"target": [
+				"enemy"
+			],
+			"targets": [
+				"single"
+			],
+			"delivery": [
+				"over time"
+			]
 		},
 		"require": "g.chaoslore>=4&&(g.trickster>0||g.t_chaosclass>=2)",
 		"buy": {
@@ -5949,16 +7454,24 @@
 	},
 	{
 		"id": "debilitate",
-		"name": "debilitate",
-		"desc": "Weaken the concept of your enemy just so, and render them no longer immune to attacks.",
+		"name": "削弱",
+		"desc": "削弱敌人的本质，使其不再免疫攻击。",
 		"sortOrder": 1340,
 		"level": 5,
 		"school": "chaos",
 		"keywords": {
-			"type": ["debuff"],
-			"target": ["enemy"],
-			"targets": ["single"],
-			"delivery": ["over time"]
+			"type": [
+				"debuff"
+			],
+			"target": [
+				"enemy"
+			],
+			"targets": [
+				"single"
+			],
+			"delivery": [
+				"over time"
+			]
 		},
 		"require": "g.chaoslore>=5&&(g.madcap>0||g.t_chaosclass>=2)",
 		"buy": {
@@ -5997,17 +7510,27 @@
 	},
 	{
 		"id": "chaosconfuse",
-		"name": "chaotic madness",
-		"desc": "Chaos makes it impossible to think straight.",
+		"name": "混沌疯狂",
+		"desc": "混沌让人无法理清思路。",
 		"sortOrder": 1308,
 		"level": 7,
 		"school": "chaos",
 		"tags": "t_confusespell",
 		"keywords": {
-			"type": ["damage", "debuff"],
-			"target": ["enemy"],
-			"targets": ["single"],
-			"delivery": ["instant", "over time"]
+			"type": [
+				"damage",
+				"debuff"
+			],
+			"target": [
+				"enemy"
+			],
+			"targets": [
+				"single"
+			],
+			"delivery": [
+				"instant",
+				"over time"
+			]
 		},
 		"require": "g.chaoslore>=4&&g.madcap>0",
 		"buy": {
@@ -6024,7 +7547,10 @@
 		},
 		"attack": {
 			"damage": "1~7",
-			"potencies": ["spelldmg", "chaosdmg"],
+			"potencies": [
+				"spelldmg",
+				"chaosdmg"
+			],
 			"dot": {
 				"id": "confuse",
 				"name": "confused",
@@ -6037,17 +7563,25 @@
 	},
 	{
 		"id": "stickygum",
-		"name": "chewing gum prank",
-		"desc": "Trip up your enemies.",
-		"flavor": "Double the flavor, stick both their feet to the ground and double your fun.",
+		"name": "口香糖恶作剧",
+		"desc": "让敌人绊倒。",
+		"flavor": "双倍口味，双脚粘地，双倍乐趣。",
 		"sortOrder": 1351,
 		"level": 2,
 		"school": "chaos",
 		"keywords": {
-			"type": ["debuff"],
-			"target": ["enemy"],
-			"targets": ["multiple"],
-			"delivery": ["over time"]
+			"type": [
+				"debuff"
+			],
+			"target": [
+				"enemy"
+			],
+			"targets": [
+				"multiple"
+			],
+			"delivery": [
+				"over time"
+			]
 		},
 		"require": "g.trickery>=3",
 		"buy": {
@@ -6075,17 +7609,25 @@
 	},
 	{
 		"id": "randomizearmor",
-		"name": "randomize armor",
-		"desc": "Rearrange your enemies' defenses.",
-		"flavor": "A pauldron does no good worn like a crown.",
+		"name": "防具重组",
+		"desc": "重新排列敌人的防御。",
+		"flavor": "肩甲戴在头上毫无用处。",
 		"sortOrder": 1349,
 		"level": 4,
 		"school": "chaos",
 		"keywords": {
-			"type": ["debuff"],
-			"target": ["enemy"],
-			"targets": ["multiple"],
-			"delivery": ["over time"]
+			"type": [
+				"debuff"
+			],
+			"target": [
+				"enemy"
+			],
+			"targets": [
+				"multiple"
+			],
+			"delivery": [
+				"over time"
+			]
 		},
 		"require": "g.chaoslore>3&&(g.madcap>0||g.t_chaosclass>=2)",
 		"buy": {
@@ -6113,18 +7655,26 @@
 	},
 	{
 		"id": "newfaceheal",
-		"name": "facioplasty",
-		"desc": "Replace your injured flesh.",
-		"flavor": "For most, this would be a disfiguring injury.  For me, it is merely an inconvenience.",
+		"name": "面容重塑术",
+		"desc": "替换你受伤的皮肤。",
+		"flavor": "对大多数人来说这是毁容，但对我只是小麻烦。",
 		"sortOrder": 1133,
 		"level": 2,
 		"school": "light",
 		"tags": "t_healspell",
 		"keywords": {
-			"type": ["recovery"],
-			"target": ["self"],
-			"targets": ["single"],
-			"delivery": ["instant"]
+			"type": [
+				"recovery"
+			],
+			"target": [
+				"self"
+			],
+			"targets": [
+				"single"
+			],
+			"delivery": [
+				"instant"
+			]
 		},
 		"require": "g.facecollect>0&&g.chaoslore>=4",
 		"buy": {
@@ -6143,19 +7693,32 @@
 			"harmless": true,
 			"healing": 33,
 			"kind": "chaos",
-			"potencies": ["spellheal", "chaosdmg"]
+			"potencies": [
+				"spellheal",
+				"chaosdmg"
+			]
 		}
 	},
 	{
 		"id": "starbolt",
-		"desc": "A weak projection of astral energy. Perhaps you could do better if you devoted yourself fully to the study of stars.",
-		"level": 3,
+		"name": "星辰之矢",
+		"desc": "微弱的星能投射。若你专注于星辰研究，或许能做得更好。",
+		"sortOrder": 406,
+		"level": 1,
 		"school": "astral",
 		"keywords": {
-			"type": ["damage"],
-			"target": ["enemy"],
-			"targets": ["single"],
-			"delivery": ["instant"]
+			"type": [
+				"damage"
+			],
+			"target": [
+				"enemy"
+			],
+			"targets": [
+				"single"
+			],
+			"delivery": [
+				"instant"
+			]
 		},
 		"require": "g.picatrix>0",
 		"buy": {
@@ -6171,7 +7734,10 @@
 			"damage": "6~11",
 			"tohit": 2,
 			"kind": "astral",
-			"potencies": ["spelldmg", "astraldmg"]
+			"potencies": [
+				"spelldmg",
+				"astraldmg"
+			]
 		},
 		"at": {
 			"25": {
@@ -6189,14 +7755,24 @@
 	},
 	{
 		"id": "astrology",
-		"desc": "Borrow a little of the influence of a star. Perhaps you could do better if you devoted yourself fully to the study of stars.",
-		"level": 3,
+		"name": "占星术",
+		"desc": "借用星辰的部分影响。若你专注于星辰研究，或许能做得更好。",
+		"sortOrder": 403,
+		"level": 1,
 		"school": "astral",
 		"keywords": {
-			"type": ["buff"],
-			"target": ["self"],
-			"targets": ["single"],
-			"delivery": ["over time"]
+			"type": [
+				"buff"
+			],
+			"target": [
+				"self"
+			],
+			"targets": [
+				"single"
+			],
+			"delivery": [
+				"over time"
+			]
 		},
 		"require": "g.picatrix>0",
 		"buy": {
@@ -6222,17 +7798,25 @@
 	},
 	{
 		"id": "manaveil",
-		"name": "Mana Veil",
-		"desc": "Restore your barrier with a surge of arcane energy",
-		"extdesc": "Effect scales with your maximum barrier, restoring about half of it.",
+		"name": "法力帷幕",
+		"desc": "用奥术能量恢复你的屏障。",
+		"extdesc": "效果随你的最大屏障值变化，约恢复一半。",
 		"sortOrder": 435,
 		"level": 3,
 		"school": "mana",
 		"keywords": {
-			"type": ["recovery"],
-			"target": ["self"],
-			"targets": ["single"],
-			"delivery": ["over time"]
+			"type": [
+				"recovery"
+			],
+			"target": [
+				"self"
+			],
+			"targets": [
+				"single"
+			],
+			"delivery": [
+				"over time"
+			]
 		},
 		"require": "g.lore>8&&g.barrier.max>100",
 		"buy": {
@@ -6240,12 +7824,18 @@
 			"codices": 1,
 			"mana": 8
 		},
-		"cost": { "mana": 8 },
+		"cost": {
+			"mana": 8
+		},
 		"cd": 30,
-		"result": { "lore.exp": 0.8 },
+		"result": {
+			"lore.exp": 0.8
+		},
 		"dot": {
 			"duration": 10,
-			"effect": { "barrier": "t.barrier.max * 0.05" }
+			"effect": {
+				"barrier": "t.barrier.max * 0.05"
+			}
 		}
 	}
 ]

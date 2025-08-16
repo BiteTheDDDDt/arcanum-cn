@@ -58,7 +58,7 @@ export default {
 					type="button"
 					:disabled="!it.canUse() || (game.state.inventory.full() && !game.state.inventory.findMatch(it))"
 					@click="emit('craft', it)">
-					Brew
+					酿造
 				</button>
 			</div>
 		</div>

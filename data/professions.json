@@ -7,7 +7,7 @@
 	},
 	{
 		"id": "sage",
-		"desc": "Use oracular powers to answer the questions of supplicants.",
+		"desc": "用神谕之力为求助者解答问题。",
 		"mod": {
 			"gold.rate": "0.8+10%"
 		}

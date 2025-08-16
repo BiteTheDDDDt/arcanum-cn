@@ -1,10 +1,10 @@
 [
 	{
 		"id": "karnivexcrown",
-		"name": "crown of karnivex",
-		"type": "armor",
-		"desc": "The conceits of Karnivex were without bounds.",
-		"slot": "head",
+		"name": "卡尼维克斯之冠",
+		"type": "护甲",
+		"desc": "卡尼维克斯的傲慢无边无际。",
+		"slot": "头部",
 		"tags": "t_crown,t_helm",
 		"unique": true,
 		"level": 7,
@@ -22,15 +22,15 @@
 	},
 	{
 		"id": "veldranearring",
-		"name": "veldran's earring",
-		"type": "armor",
-		"desc": "A small blue stone with swirls of white.",
+		"name": "维尔德兰耳环",
+		"type": "护甲",
+		"desc": "一颗带有白色漩涡的小蓝石。",
 		"tags": "t_earring,t_trinket",
 		"unique": true,
 		"level": 5,
 		"enchants": 0,
 		"armor": 1,
-		"slot": "trinket",
+		"slot": "饰品",
 		"alter": {
 			"mod": {
 				"water.rate": 0.1,
@@ -41,15 +41,15 @@
 	},
 	{
 		"id": "ecdysiastwrap",
-		"name": "wraps of the ecdysiast",
-		"type": "armor",
-		"slot": "shins",
+		"name": "脱皮者裹布",
+		"type": "护甲",
+		"slot": "小腿",
 		"tags": "t_ankleguard,t_greaves",
 		"unique": true,
 		"material": "mat_armor_runecloth",
 		"level": 7,
 		"enchants": 1,
-		"desc": "Desilla awarded her servants with articles of apparel.",
+		"desc": "德西拉会奖励仆人一些服饰。",
 		"alter": {
 			"mod": {
 				"self.negate.paralysis": 10,
@@ -57,19 +57,19 @@
 				"charms.rate": 0.3
 			}
 		},
-		"flavor": "The awards however, were given sparingly."
+		"flavor": "不过这些奖励发放得很少。"
 	},
 	{
 		"id": "lillitscord",
-		"name": "lillit's cord",
-		"type": "armor",
-		"slot": "waist",
+		"name": "莉莉特之绳",
+		"type": "护甲",
+		"slot": "腰部",
 		"tags": "t_cord,t_accessory,t_belt",
 		"armor": 2,
 		"unique": true,
 		"level": 5,
 		"enchants": 1,
-		"desc": "Lillit was known for her soothing presence.",
+		"desc": "莉莉特以安抚人心著称。",
 		"alter": {
 			"mod": {
 				"rage.rate": -0.25
@@ -78,11 +78,11 @@
 	},
 	{
 		"id": "botanistgloves",
-		"name": "gloves of the botanist",
+		"name": "植物学家手套",
 		"tags": "t_gloves",
 		"unique": true,
-		"type": "armor",
-		"slot": "hands",
+		"type": "护甲",
+		"slot": "手部",
 		"material": "mat_armor_basiliskhide",
 		"armor": 5,
 		"enchants": 3,
@@ -94,13 +94,13 @@
 	},
 	{
 		"id": "jazidscompass",
-		"name": "jazid's compass",
+		"name": "贾兹德之罗盘",
 		"unique": true,
 		"level": 10,
 		"enchants": 0,
-		"desc": "What leads your way can lead to you.",
-		"type": "armor",
-		"slot": "trinket",
+		"desc": "引导你前行的，也可能引导着你。",
+		"type": "护甲",
+		"slot": "饰品",
 		"tags": "t_trinket",
 		"alter": {
 			"mod": {
@@ -108,15 +108,15 @@
 				"bf.rate": -0.5
 			}
 		},
-		"flavor": "Jazid always finds his compass."
+		"flavor": "贾兹德总能找到他的罗盘。"
 	},
 	{
 		"id": "patronring1",
-		"name": "ring of the patron",
+		"name": "守护者之戒",
 		"unique": true,
 		"material": "mat_armor_adamant",
 		"tags": "t_ring",
-		"desc": "A trinket bestowed on mages embroiled in the world's affairs.",
+		"desc": "赠予卷入世界事务的法师的饰品。",
 		"alter": {
 			"mod": {
 				"space.max": "1%"
@@ -125,11 +125,11 @@
 	},
 	{
 		"id": "icedagg",
-		"name": "icy dagger",
+		"name": "冰冷匕首",
 		"material": "ice",
 		"enchants": 3,
-		"type": "weapon",
-		"slot": "mainhand",
+		"type": "武器",
+		"slot": "主手",
 		"tags": "t_martial,t_pierce,t_dagger",
 		"unique": true,
 		"attack": {
@@ -139,7 +139,7 @@
 			"dot": {
 				"duration": 5,
 				"damage": "1~3",
-				"name": "frosty",
+				"name": "冰霜",
 				"kind": "frost"
 			}
 		},
@@ -150,13 +150,15 @@
 	},
 	{
 		"id": "tenwickstick",
-		"name": "tenwick's walking stick",
+		"name": "滕维克的手杖",
 		"level": 5,
 		"enchants": 3,
-		"sell": { "gold": 100 },
+		"sell": {
+			"gold": 100
+		},
 		"unique": true,
-		"type": "weapon",
-		"slot": "mainhand",
+		"type": "武器",
+		"slot": "主手",
 		"tags": "t_martial,t_blunt,t_cane",
 		"material": "mat_martial_wood",
 		"alter": {
@@ -173,45 +175,61 @@
 	},
 	{
 		"id": "titanhammer",
-		"name": "titan's hammer",
-		"desc": "Wrought from unyielding adamant, it hums with the energies of the earth.",
-		"type": "weapon",
-		"slot": "mainhand",
+		"name": "泰坦之锤",
+		"desc": "由坚不可摧的亚当antium锻造，蕴含着大地的能量。",
+		"type": "武器",
+		"slot": "主手",
 		"damage": "15~20",
 		"attack": [
 			{
-				"name": "titanic slam",
+				"name": "泰坦重击",
 				"kind": "blunt",
 				"targets": "enemy",
 				"damage": "(i.damage||0)*1.5",
-				"potencies": ["physdmg", "bluntdmg", "hammerdmg"]
+				"potencies": [
+					"physdmg",
+					"bluntdmg",
+					"hammerdmg"
+				]
 			},
 			{
-				"name": "earthbreaker",
+				"name": "破碎大地",
 				"targets": "enemies",
 				"maxTargets": 999,
 				"damage": "(i.damage||0)*0.33",
 				"kind": "blunt",
-				"potencies": ["physdmg", "bluntdmg", "hammerdmg"],
+				"potencies": [
+					"physdmg",
+					"bluntdmg",
+					"hammerdmg"
+				],
 				"dot": {
 					"duration": 6,
 					"damage": "3~6",
-					"mod": { "self.speed": -5 },
-					"potencies": ["physdmg", "bluntdmg", "hammerdmg"]
+					"mod": {
+						"self.speed": -5
+					},
+					"potencies": [
+						"physdmg",
+						"bluntdmg",
+						"hammerdmg"
+					]
 				}
 			},
 			{
-				"name": "earth barrier",
+				"name": "大地屏障",
 				"targets": "allies",
 				"maxTargets": 999,
 				"harmless": true,
 				"dot": {
 					"level": 1,
 					"id": "dot_adamantskin",
-					"name": "earth barrier",
+					"name": "大地屏障",
 					"tags": "toughskin",
 					"duration": 15,
-					"mod": { "self.defense": 50 }
+					"mod": {
+						"self.defense": 50
+					}
 				}
 			}
 		],
@@ -238,16 +256,18 @@
 	},
 	{
 		"id": "jesterhat",
-		"name": "jester's cap",
+		"name": "小丑帽",
 		"tags": "t_helm",
-		"type": "armor",
+		"type": "护甲",
 		"enchants": 3,
-		"slot": "head",
-		"desc": "A brightly-colored cap jingling cheerfully as you go.",
+		"slot": "头部",
+		"desc": "一顶颜色鲜艳的帽子，随着你的移动发出悦耳的叮当声。",
 		"unique": true,
 		"level": 1,
 		"evasion": 15,
-		"sell": { "gold": 2 },
+		"sell": {
+			"gold": 2
+		},
 		"alter": {
 			"mod": {
 				"chaosdmg": 5,
@@ -257,16 +277,18 @@
 	},
 	{
 		"id": "jestershirt",
-		"name": "jester's tunic",
+		"name": "小丑上衣",
 		"tags": "t_chestplate",
-		"type": "armor",
+		"type": "护甲",
 		"enchants": 3,
-		"slot": "chest",
-		"desc": "A brightly-colored tunic in an eyetwisting pattern.",
+		"slot": "胸部",
+		"desc": "一件颜色鲜艳、图案令人眼花缭乱的上衣。",
 		"unique": true,
 		"level": 1,
 		"evasion": 15,
-		"sell": { "gold": 2 },
+		"sell": {
+			"gold": 2
+		},
 		"alter": {
 			"mod": {
 				"chaosdmg": 5,
@@ -276,16 +298,18 @@
 	},
 	{
 		"id": "jesterpants",
-		"name": "jester's trousers",
+		"name": "小丑裤子",
 		"tags": "t_greaves",
-		"type": "armor",
+		"type": "护甲",
 		"enchants": 3,
-		"slot": "shins",
-		"desc": "A brightly-colored pair of trousers to fool the eye.",
+		"slot": "小腿",
+		"desc": "一条颜色鲜艳的裤子，让人眼花缭乱。",
 		"unique": true,
 		"level": 1,
 		"evasion": 15,
-		"sell": { "gold": 2 },
+		"sell": {
+			"gold": 2
+		},
 		"alter": {
 			"mod": {
 				"chaosdmg": 5,
@@ -295,16 +319,18 @@
 	},
 	{
 		"id": "jestershoes",
-		"name": "jester's boots",
+		"name": "小丑靴",
 		"tags": "t_boots",
-		"type": "armor",
+		"type": "护甲",
 		"enchants": 3,
-		"slot": "feet",
-		"desc": "A brightly-colored pair of poulaines to obscure your steps.",
+		"slot": "脚部",
+		"desc": "一双颜色鲜艳的尖头靴，掩盖了你的脚步声。",
 		"unique": true,
 		"level": 1,
 		"evasion": 15,
-		"sell": { "gold": 2 },
+		"sell": {
+			"gold": 2
+		},
 		"alter": {
 			"mod": {
 				"chaosdmg": 5,
@@ -314,10 +340,10 @@
 	},
 	{
 		"id": "fishysword",
-		"name": "swordfish",
-		"desc": "A weapon far too unexpected to guard against.",
-		"type": "weapon",
-		"slot": "mainhand",
+		"name": "剑鱼",
+		"desc": "一把出其不意的武器，令人防不胜防。",
+		"type": "武器",
+		"slot": "主手",
 		"material": "mat_martial_fish",
 		"damage": "1~4",
 		"enchants": 3,
@@ -325,20 +351,26 @@
 			"kind": "slash",
 			"damage": "i.damage||0",
 			"harmless": true,
-			"potencies": ["sworddmg", "physdmg", "slashdmg", "waterdmg", "chaosdmg"]
+			"potencies": [
+				"sworddmg",
+				"physdmg",
+				"slashdmg",
+				"waterdmg",
+				"chaosdmg"
+			]
 		},
 		"tags": "t_martial,t_slash,t_sword",
 		"unique": true,
 		"cost": 30,
 		"level": 1,
-		"flavor": "It's always swordfish."
+		"flavor": "这就是剑鱼。"
 	},
 	{
 		"id": "fishyspear",
-		"name": "pike",
-		"desc": "A weapon far too unexpected to guard against.",
-		"type": "weapon",
-		"slot": "mainhand",
+		"name": "鲑鱼",
+		"desc": "一把出其不意的武器，令人防不胜防。",
+		"type": "武器",
+		"slot": "主手",
 		"material": "mat_martial_fish",
 		"damage": "1~4",
 		"enchants": 3,
@@ -346,20 +378,25 @@
 			"kind": "pierce",
 			"damage": "i.damage||0",
 			"harmless": true,
-			"potencies": ["physdmg", "piercedmg", "waterdmg", "chaosdmg"]
+			"potencies": [
+				"physdmg",
+				"piercedmg",
+				"waterdmg",
+				"chaosdmg"
+			]
 		},
 		"tags": "t_martial,t_pierce,t_spear",
 		"unique": true,
 		"cost": 30,
 		"level": 1,
-		"flavor": "Ah? Some likes 'em, but they are too muddy for my taste."
+		"flavor": "啊？有人喜欢，但我觉得太腥了。"
 	},
 	{
 		"id": "fishyhammer",
-		"name": "hammerhead shark",
-		"desc": "A weapon far too unexpected to guard against.",
-		"type": "weapon",
-		"slot": "mainhand",
+		"name": "锤头鲨",
+		"desc": "一把出其不意的武器，令人防不胜防。",
+		"type": "武器",
+		"slot": "主手",
 		"material": "mat_martial_fish",
 		"damage": "1~4",
 		"enchants": 3,
@@ -367,20 +404,26 @@
 			"kind": "blunt",
 			"damage": "i.damage||0",
 			"harmless": true,
-			"potencies": ["hammerdmg", "physdmg", "bluntdmg", "waterdmg", "chaosdmg"]
+			"potencies": [
+				"hammerdmg",
+				"physdmg",
+				"bluntdmg",
+				"waterdmg",
+				"chaosdmg"
+			]
 		},
 		"tags": "t_martial,t_blunt,t_hammer",
 		"unique": true,
 		"cost": 30,
 		"level": 1,
-		"flavor": "For when you're having trouble nailing down your enemies."
+		"flavor": "当你难以击倒敌人时。"
 	},
 	{
 		"id": "fishyrapier",
-		"name": "en gar",
-		"desc": "A weapon far too unexpected to guard against.",
-		"type": "weapon",
-		"slot": "mainhand",
+		"name": "鱼叉",
+		"desc": "一把出其不意的武器，令人防不胜防。",
+		"type": "武器",
+		"slot": "主手",
 		"material": "mat_martial_fish",
 		"damage": 2,
 		"enchants": 3,
@@ -390,17 +433,25 @@
 			"harmless": true,
 			"targetspec": {
 				"affectedby": {
-					"condition": ["enemy_engagement"],
+					"condition": [
+						"enemy_engagement"
+					],
 					"conditiontext": "engagement"
 				}
 			},
 			"targets": "enemy",
-			"potencies": ["physdmg", "piercedmg", "duelingdmg", "waterdmg", "chaosdmg"]
+			"potencies": [
+				"physdmg",
+				"piercedmg",
+				"duelingdmg",
+				"waterdmg",
+				"chaosdmg"
+			]
 		},
 		"tags": "t_martial,t_pierce,t_rapier",
 		"unique": true,
 		"cost": 30,
 		"level": 1,
-		"flavor": "You mean en garde? No."
+		"flavor": "你的意思是鱼叉？不。"
 	}
 ]

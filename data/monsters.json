@@ -3,25 +3,30 @@
 		"id": "newt",
 		"level": 2,
 		"kind": "beast",
-		"flavor": "Wriggly.",
+		"flavor": "蠕动的小动物。",
 		"hp": 2,
 		"defense": 1,
 		"attack": {
-			"name": "newting",
+			"name": "新特攻击",
 			"kind": "blunt",
 			"damage": "1~2"
 		},
-		"biome": ["swamp", "plains", "woods", "hills"]
+		"biome": [
+			"swamp",
+			"plains",
+			"woods",
+			"hills"
+		]
 	},
 	{
 		"id": "kakapo",
 		"level": 4,
 		"kind": "beast",
-		"flavor": "Better leave it. They're endangered.",
+		"flavor": "最好别惹它。它们是濒危物种。",
 		"hp": 5,
 		"defense": 2,
 		"attack": {
-			"name": "beak",
+			"name": "喙击",
 			"type": "pierce",
 			"damage": "1~4"
 		}
@@ -30,16 +35,16 @@
 		"id": "wisp",
 		"level": 2,
 		"kind": "spirit",
-		"desc": "A ghostly wisp of air.",
+		"desc": "幽灵般的气息。",
 		"hp": 1,
 		"defense": 1,
 		"attack": {
-			"name": "shiver",
+			"name": "寒颤",
 			"kind": "spirit",
 			"damage": "0.2~1",
 			"dot": {
 				"%": "20%",
-				"adj": "shivering",
+				"adj": "颤抖",
 				"flags": "noattack",
 				"duration": 3
 			}
@@ -47,26 +52,26 @@
 	},
 	{
 		"id": "gremlin",
-		"flavor": "Na-na-na-na-Na-na Na-na-na-na-Na-na...",
+		"flavor": "啦啦啦啦啦啦啦啦啦啦啦……",
 		"kind": "goblinoid",
 		"level": 5,
 		"hp": 6,
 		"regen": 0.25,
 		"attack": {
-			"name": "claws",
+			"name": "利爪",
 			"kind": "slash",
 			"damage": 1
 		}
 	},
 	{
 		"id": "twikman",
-		"name": "twik-man",
-		"desc": "Tiny vicious humanoid riding a dragonfly.",
+		"name": "蜻骑人",
+		"desc": "骑着蜻蜓的小型凶猛类人。",
 		"kind": "humanoid",
 		"level": 3,
 		"hp": 4,
 		"attack": {
-			"name": "spear",
+			"name": "长矛",
 			"kind": "slash",
 			"damage": "1~2"
 		}
@@ -74,44 +79,48 @@
 	{
 		"id": "bat",
 		"kind": "beast",
-		"biome": ["hills", "cave", "woods"],
+		"biome": [
+			"hills",
+			"cave",
+			"woods"
+		],
 		"level": 2,
 		"hp": 3,
 		"attack": {
-			"name": "bite",
+			"name": "咬击",
 			"kind": "pierce",
 			"damage": "0.5~1.5"
 		}
 	},
 	{
 		"id": "lgmouse",
-		"name": "large mouse",
+		"name": "大老鼠",
 		"kind": "beast",
 		"level": 1,
 		"hp": 2,
 		"attack": {
-			"name": "nibble",
+			"name": "啃咬",
 			"kind": "pierce",
 			"damage": "0.2~0.7"
 		}
 	},
 	{
 		"id": "stingybee",
-		"name": "stingy bee",
+		"name": "吝啬的蜜蜂",
 		"kind": "beast",
 		"level": 2,
 		"hp": 2,
 		"defense": 2,
 		"speed": 3,
 		"attack": {
-			"name": "sting",
+			"name": "刺击",
 			"kind": "nature",
 			"damage": "0.5~1.5"
 		}
 	},
 	{
 		"id": "bigstone",
-		"name": "big stone",
+		"name": "大石头",
 		"kind": "natural",
 		"level": 1,
 		"hp": 5,
@@ -120,32 +129,40 @@
 	},
 	{
 		"id": "gardengnome",
-		"name": "garden gnome",
-		"desc": "Standard variety garden gnome.",
+		"name": "花园侏儒",
+		"desc": "标准品种的花园侏儒。",
 		"kind": "humanoid",
-		"biome": ["town", "plains", "hills"],
+		"biome": [
+			"town",
+			"plains",
+			"hills"
+		],
 		"level": 3,
 		"hp": 3,
 		"spells": "magicmissile",
 		"attack": {
-			"dev": "spell is enough dmg, so attack doesn't deal anything",
+			"dev": "法术造成足够的伤害，因此攻击没有造成任何伤害",
 			"dot": {
-				"name": "wink",
+				"name": "眨眼",
 				"%": "10%",
 				"duration": 1,
 				"id": "paralyze"
 			}
 		},
-		"loot": [{ "scrolls": 1 }]
+		"loot": [
+			{
+				"scrolls": 1
+			}
+		]
 	},
 	{
 		"id": "homunculus",
-		"desc": "Must have escaped its jar.",
+		"desc": "一定是从罐子里逃出来的。",
 		"kind": "construct",
 		"level": 6,
 		"hp": 7,
 		"attack": {
-			"name": "nasty bite",
+			"name": "讨厌的咬合",
 			"kind": "pierce",
 			"damage": "1~2"
 		}
@@ -154,11 +171,11 @@
 		"id": "jackal",
 		"level": 2,
 		"kind": "beast",
-		"desc": "They're tricksy.",
+		"desc": "它们很狡猾。",
 		"hp": 11,
 		"defense": 8,
 		"attack": {
-			"name": "bite",
+			"name": "咬击",
 			"kind": "pierce",
 			"damage": "1~3"
 		},
@@ -166,13 +183,13 @@
 	},
 	{
 		"id": "lgsnail",
-		"name": "large snail",
+		"name": "大蜗牛",
 		"kind": "beast",
 		"level": 4,
 		"hp": 14,
 		"defense": 4,
 		"attack": {
-			"name": "slime",
+			"name": "粘液",
 			"kind": "nature",
 			"damage": "1~3",
 			"dot": {
@@ -184,63 +201,72 @@
 	},
 	{
 		"id": "lgrat",
-		"name": "large rat",
+		"name": "大老鼠",
 		"kind": "beast",
 		"level": 3,
 		"hp": 4,
 		"attack": {
-			"name": "bite",
+			"name": "咬击",
 			"kind": "pierce",
 			"damage": "0~2.5"
 		}
 	},
 	{
 		"id": "lgbird",
-		"name": "angry bird",
+		"name": "愤怒的小鸟",
 		"kind": "beast",
 		"level": 3,
 		"hp": 5,
 		"attack": {
-			"name": "peck",
+			"name": "啄击",
 			"kind": "pierce",
 			"damage": "0~3"
 		},
-		"loot": { "airgem": "20%" }
+		"loot": {
+			"airgem": "20%"
+		}
 	},
 	{
 		"id": "lgsnake",
-		"name": "big snake",
-		"desc": "Intenstly venomous.",
+		"name": "大蛇",
+		"desc": "剧毒无比。",
 		"kind": "beast",
 		"level": 30,
 		"hp": 50,
 		"attack": {
 			"dot": {
-				"name": "venom",
+				"name": "毒液",
 				"duration": 5,
 				"kind": "nature",
 				"damage": "3.5~4.5"
 			}
 		},
-		"resist": { "nature": 25 },
-		"loot": { "serpentskin": { "%": "30%", "value": "2~4" } }
+		"resist": {
+			"nature": 25
+		},
+		"loot": {
+			"serpentskin": {
+				"%": "30%",
+				"value": "2~4"
+			}
+		}
 	},
 	{
 		"id": "ratskeleton",
-		"name": "skeletal rat",
-		"desc": "Even the dead rats are a problem...",
+		"name": "骷髅鼠",
+		"desc": "即使是死去的老鼠也是个麻烦……",
 		"kind": "undead",
 		"level": 2,
 		"hp": 3,
 		"attack": {
-			"name": "bite",
+			"name": "咬击",
 			"kind": "pierce",
 			"damage": "0~2"
 		}
 	},
 	{
 		"id": "raven",
-		"name": "raven",
+		"name": "乌鸦",
 		"kind": "beast",
 		"level": 4,
 		"hp": 3,
@@ -248,86 +274,89 @@
 		"defense": 3,
 		"attack": {
 			"kind": "pierce",
-			"name": "peck",
+			"name": "啄击",
 			"damage": "1~2"
 		},
-		"flavor": "Like a writing desk."
+		"flavor": "像一张写字台。"
 	},
 	{
 		"id": "wombat",
-		"desc": "Just wombatting around.",
+		"desc": "只是四处游荡的袋熊。",
 		"kind": "beast",
 		"level": 9,
 		"hp": 9,
 		"attack": {
-			"name": "wombatting",
+			"name": "袋熊攻击",
 			"kind": "blunt",
 			"damage": "1~3.5"
 		}
 	},
 	{
 		"id": "coyote",
-		"name": "coyote",
+		"name": "土狼",
 		"kind": "beast",
 		"level": 16,
 		"hp": 15,
 		"dodge": 30,
 		"attack": {
-			"name": "claws",
+			"name": "爪击",
 			"kind": "slash",
 			"damage": "2~3"
 		},
 		"loot": {
-			"leather": { "%": "30%", "value": "2~4" }
+			"leather": {
+				"%": "30%",
+				"value": "2~4"
+			}
 		}
 	},
 	{
 		"id": "hawk",
-		"name": "hawk",
+		"name": "鹰",
 		"kind": "beast",
 		"level": 8,
 		"hp": 8,
 		"attack": {
-			"name": "claws",
+			"name": "爪击",
 			"kind": "slash",
 			"damage": "1.5~3"
 		}
 	},
 	{
 		"id": "willowisp",
-		"name": "will o' wisp",
-		"desc": "A gleaming orb of light.",
+		"name": "鬼火",
+		"desc": "一团闪烁的光 orb。",
 		"kind": "spirit",
 		"level": 42,
 		"dodge": 60,
 		"attack": {
-			"name": "flicker",
+			"name": "闪烁",
 			"kind": "spirit",
 			"damage": "11~15"
 		}
 	},
 	{
 		"id": "warthog",
-		"name": "Warthog",
+		"name": "疣猪",
 		"kind": "beast",
 		"level": 6,
 		"hp": 7,
 		"defense": 4,
 		"attack": {
-			"name": "bite",
+			"name": "咬击",
 			"damage": "1~4",
 			"kind": "pierce"
 		}
 	},
 	{
 		"id": "mutantrat",
-		"name": "mutant rat",
+		"name": "变异老鼠",
 		"kind": "magicbeast",
 		"level": 6,
 		"hp": 4,
 		"defense": 3,
 		"attack": {
-			"name": "bite",
+			"name": "咬击",
 			"damage": "2~4",
 			"kind": "pierce"
 		}
@@ -335,56 +364,62 @@
 	{
 		"id": "skeleton",
 		"kind": "undead",
-		"desc": "It appears to be missing all its fleshy bits.",
+		"desc": "它似乎缺少所有肉质部分。",
 		"level": 11,
 		"hp": 11,
 		"attack": {
-			"name": "slash",
+			"name": "砍击",
 			"kind": "slash",
 			"damage": "1~4"
 		},
 		"loot": {
-			"iron": { "%": "30%", "value": "2~5" },
-			"bones": { "value": "2~5", "skipLocked": true }
+			"iron": {
+				"%": "30%",
+				"value": "2~5"
+			},
+			"bones": {
+				"value": "2~5",
+				"skipLocked": true
+			}
 		}
 	},
 	{
 		"id": "badexperiment",
-		"name": "failed experiment",
-		"desc": "Apparently some sort of long lost arcane experiment, with a mind of its own. It doesn't look friendly.",
+		"name": "失败的实验",
+		"desc": "显然是某种失落已久的奥术实验，拥有自己的思想。看起来并不友好。",
 		"kind": "arcane",
 		"level": 4,
 		"hp": 4,
 		"attack": {
-			"name": "psychic blast",
+			"name": "精神冲击",
 			"damage": "1~2",
 			"kind": "mana"
 		}
 	},
 	{
 		"id": "ratking",
-		"name": "rat king",
+		"name": "鼠王",
 		"kind": "magicbeast",
 		"unique": true,
 		"level": 6,
 		"hp": 30,
 		"regen": 0.25,
 		"attack": {
-			"name": "kingly bite",
+			"name": "王者之咬",
 			"damage": "1~3",
 			"kind": "pierce"
 		}
 	},
 	{
 		"id": "m_scarab",
-		"name": "scarab",
-		"desc": "Massive shimmering beetle with a projecting horn.",
+		"name": "圣甲虫",
+		"desc": "巨大的闪闪发光的甲壳虫，长着突出的角。",
 		"kind": "beast",
 		"level": 17,
 		"hp": 16,
 		"defense": 30,
 		"attack": {
-			"name": "charge",
+			"name": "冲撞",
 			"kind": "blunt",
 			"damage": "1~4"
 		}
@@ -395,41 +430,51 @@
 		"level": 5,
 		"hp": 5,
 		"attack": {
-			"name": "dagger",
+			"name": "匕首",
 			"kind": "pierce",
 			"damage": "1~2"
 		}
 	},
 	{
 		"id": "gobwarrior",
-		"name": "goblin warrior",
+		"name": "哥布林战士",
 		"kind": "goblinoid",
 		"level": 15,
 		"hp": 10,
 		"defense": 20,
 		"dodge": 20,
 		"attack": {
-			"name": "shortsword",
+			"name": "短剑",
 			"kind": "pierce",
 			"damage": "2~3"
 		},
-		"loot": { "iron": { "%": "50%", "value": "2~3" } }
+		"loot": {
+			"iron": {
+				"%": "50%",
+				"value": "2~3"
+			}
+		}
 	},
 	{
 		"id": "gobpriest",
-		"desc": "Covered from top to bottom in animal leathers.",
-		"flavor": "Tries to divine headache in your future",
+		"desc": "从头到脚都覆盖着动物皮革。",
+		"flavor": "试图预言你未来的头痛",
 		"kind": "goblinoid",
 		"level": 8,
 		"hp": 9,
 		"regen": 0.5,
 		"dodge": 20,
 		"attack": {
-			"name": "club",
+			"name": "木棒",
 			"kind": "blunt",
 			"damage": "2~4"
 		},
-		"loot": { "leather": { "%": "50%", "value": "2~3" } }
+		"loot": {
+			"leather": {
+				"%": "50%",
+				"value": "2~3"
+			}
+		}
 	},
 	{
 		"id": "gobchief",
@@ -439,26 +484,28 @@
 		"hp": 32,
 		"defense": 10,
 		"attack": {
-			"name": "rusty cleaver",
+			"name": "生锈的切割刀",
 			"kind": "slash",
 			"damage": "1~4"
 		}
 	},
 	{
 		"id": "gobchief2",
-		"desc": "Older cousin of the gobchief you found on the treffil woods edges",
-		"extdesc": "Looks angrier, too",
+		"desc": "在特雷菲尔森林边缘发现的哥布林酋长的表亲",
+		"extdesc": "看起来更生气了",
 		"kind": "goblinoid",
 		"unique": true,
 		"level": 20,
 		"hp": 70,
 		"defense": 30,
 		"attack": {
-			"name": "two rusty cleavers",
+			"name": "两把生锈的切割刀",
 			"kind": "slash",
 			"damage": "2~5"
 		},
-		"loot": { "iron": "5~12" }
+		"loot": {
+			"iron": "5~12"
+		}
 	},
 	{
 		"id": "gobchamp",
@@ -478,11 +525,11 @@
 		"hp": 18,
 		"defense": 23,
 		"attack": {
-			"name": "magic missle",
+			"name": "魔法飞弹",
 			"damage": "5~9",
 			"kind": "mana"
 		},
-		"flavor": "You remind me of the babe."
+		"flavor": "你让我想起了那个婴儿。"
 	},
 	{
 		"id": "warg",
@@ -491,67 +538,88 @@
 		"hp": 24,
 		"dodge": 35,
 		"attack": {
-			"name": "bite",
+			"name": "咬击",
 			"kind": "pierce",
 			"damage": "2~5"
 		},
-		"loot": { "leather": { "%": "30%", "value": "5~7" } }
+		"loot": {
+			"leather": {
+				"%": "30%",
+				"value": "5~7"
+			}
+		}
 	},
 	{
 		"id": "giantspider",
-		"name": "giant spider",
+		"name": "巨型蜘蛛",
 		"kind": "beast",
 		"level": 34,
 		"hp": 70,
-		"resist": { "nature": 25 },
+		"resist": {
+			"nature": 25
+		},
 		"attack": {
-			"name": "bite",
+			"name": "咬击",
 			"kind": "pierce",
 			"damage": "4~7",
 			"dot": {
 				"%": "20%",
-				"name": "paralysing venom",
+				"name": "麻痹毒液",
 				"duration": 3,
 				"id": "paralyze",
 				"kind": "nature",
 				"damage": "1~3"
 			}
 		},
-		"loot": { "spidersilk": { "%": "30%", "value": "3~5" } }
+		"loot": {
+			"spidersilk": {
+				"%": "30%",
+				"value": "3~5"
+			}
+		}
 	},
 	{
 		"id": "kobold",
-		"flavor": "You no take candle!",
+		"flavor": "你不拿蜡烛！",
 		"kind": "humanoid",
-		"biome": ["mountains", "hills", "swamp"],
+		"biome": [
+			"mountains",
+			"hills",
+			"swamp"
+		],
 		"level": 4,
 		"hp": 4,
 		"attack": {
-			"name": "pointy stick",
+			"name": "尖刺棍",
 			"kind": "pierce",
 			"damage": "1~3"
 		},
-		"loot": { "gold": "1~3" }
+		"loot": {
+			"gold": "1~3"
+		}
 	},
 	{
 		"id": "orc",
 		"kind": "humanoid",
-		"desc": "For the Horde!",
+		"desc": "为了部落！",
 		"level": 26,
 		"hp": 34,
 		"attack": {
-			"name": "spear",
+			"name": "长矛",
 			"kind": "pierce",
 			"damage": "3~6"
 		},
 		"loot": {
 			"gold": "4~5",
-			"cotton": { "%": "30%", "value": "3~5" }
+			"cotton": {
+				"%": "30%",
+				"value": "3~5"
+			}
 		}
 	},
 	{
 		"id": "orcpriest",
-		"name": "orc shaman",
+		"name": "兽人萨满",
 		"kind": "humanoid",
 		"level": 25,
 		"hp": 25,
@@ -559,7 +627,7 @@
 		"dodge": 30,
 		"attack": [
 			{
-				"name": "curse",
+				"name": "诅咒",
 				"kind": "shadow",
 				"damage": "4~8"
 			},
@@ -572,14 +640,20 @@
 		],
 		"loot": {
 			"managem": "30%",
-			"cotton": { "%": "30%", "value": "5~7" },
-			"leather": { "%": "30%", "value": "5~7" }
+			"cotton": {
+				"%": "30%",
+				"value": "5~7"
+			},
+			"leather": {
+				"%": "30%",
+				"value": "5~7"
+			}
 		}
 	},
 	{
 		"id": "orcchief",
-		"name": "orc chieftain",
-		"desc": "The strongest orc in the whole tribe.",
+		"name": "兽人首领",
+		"desc": "整个部落中最强壮的兽人。",
 		"kind": "humanoid",
 		"unique": true,
 		"level": 28,
@@ -587,24 +661,30 @@
 		"defense": 40,
 		"dodge": 30,
 		"attack": {
-			"name": "broadsword",
+			"name": "宽刃剑",
 			"kind": "slash",
 			"damage": "4.5~6.5"
 		}
 	},
 	{
 		"id": "zombie",
-		"desc": "Slow and rotting corpse.",
+		"desc": "缓慢而腐烂的尸体。",
 		"kind": "undead",
 		"level": 11,
 		"hp": 14,
 		"speed": 0,
 		"attack": {
-			"name": "smash",
+			"name": "重击",
 			"kind": "blunt",
 			"damage": "3~5"
 		},
-		"loot": { "bodies": { "%": "10%", "value": 1, "skipLocked": true } }
+		"loot": {
+			"bodies": {
+				"%": "10%",
+				"value": 1,
+				"skipLocked": true
+			}
+		}
 	},
 	{
 		"id": "vulture",
@@ -613,36 +693,39 @@
 		"hp": 15,
 		"dodge": 35,
 		"attack": {
-			"name": "peck",
+			"name": "啄击",
 			"kind": "pierce",
 			"damage": "2~3"
 		}
 	},
 	{
 		"id": "cutpurse",
-		"desc": "Wants to steal your stuff.",
+		"desc": "想要偷你的东西。",
 		"kind": "humanoid",
 		"biome": "town",
 		"level": 11,
 		"hp": 7,
 		"attack": {
-			"name": "dagger",
+			"name": "匕首",
 			"kind": "pierce",
 			"damage": "2~5"
 		},
 		"loot": {
 			"gold": "3~5",
-			"cotton": { "%": "30%", "value": "2~4" }
+			"cotton": {
+				"%": "30%",
+				"value": "2~4"
+			}
 		}
 	},
 	{
 		"id": "elf",
-		"desc": "So lithe. So graceful.",
+		"desc": "如此轻盈。如此优雅。",
 		"kind": "humanoid",
 		"level": 30,
 		"attack": [
 			{
-				"name": "bow",
+				"name": "弓",
 				"kind": "pierce",
 				"damage": "a.damage"
 			},
@@ -657,28 +740,31 @@
 	},
 	{
 		"id": "slinger",
-		"name": "hobbit slinger",
-		"flavor": "How much damage could he do with just a sling?",
+		"name": "霍比特人投石者",
+		"flavor": "他仅用一条投石器能造成多少伤害？",
 		"kind": "humanoid",
-		"biome": ["town", "plains"],
+		"biome": [
+			"town",
+			"plains"
+		],
 		"level": 7,
 		"hp": 7,
 		"attack": {
-			"name": "sling",
+			"name": "投石器",
 			"kind": "blunt",
 			"damage": "Math.pow(Math.random(), 3)*16"
 		}
 	},
 	{
 		"id": "direbat",
-		"name": "dire bat",
-		"desc": "That's one large bat.",
+		"name": "恐怖蝙蝠",
+		"desc": "那是一只大蝙蝠。",
 		"kind": "magicbeast",
 		"level": 31,
 		"hp": 40,
 		"dodge": 25,
 		"attack": {
-			"name": "bite",
+			"name": "咬击",
 			"kind": "pierce",
 			"damage": "4~7",
 			"leech": 0.1
@@ -686,74 +772,90 @@
 	},
 	{
 		"id": "direrat",
-		"name": "dire rat",
-		"desc": "Red eyes... that's different.",
+		"name": "恐怖老鼠",
+		"desc": "红眼睛……那是不同的。",
 		"kind": "magicbeast",
 		"level": 13,
 		"hp": 10,
 		"attack": {
-			"name": "bite",
+			"name": "咬击",
 			"kind": "pierce",
 			"damage": "1~5"
 		},
-		"loot": { "leather": { "%": "50%", "value": 2 } }
+		"loot": {
+			"leather": {
+				"%": "50%",
+				"value": 2
+			}
+		}
 	},
 	{
 		"id": "scrapling",
-		"desc": "Tiny creature made from random pieces of scrap metal, animated by residual magical energy",
-		"flavor": "Surprisingly swift, but fragile",
+		"desc": "用随机的废料片段制成的微小生物，因残余的魔法能量而被激活",
+		"flavor": "出乎意料的迅速，但脆弱",
 		"kind": "animated",
 		"level": 7,
 		"hp": 6,
 		"speed": 40,
 		"attack": {
-			"name": "scratch",
+			"name": "抓伤",
 			"kind": "slash",
 			"damage": "0.5~1.5"
 		},
-		"loot": { "iron": { "%": "75%", "value": "2~3" } }
+		"loot": {
+			"iron": {
+				"%": "75%",
+				"value": "2~3"
+			}
+		}
 	},
 	{
 		"id": "eel",
-		"name": "spark eel",
-		"desc": "So wriggly.",
-		"flavor": "Water near them turns spicy",
+		"name": "电鳗",
+		"desc": "如此扭动。",
+		"flavor": "靠近它们的水变得辛辣",
 		"kind": "beast",
 		"biome": "swamp",
 		"level": 36,
 		"hp": 80,
-		"resist": { "water": 20 },
+		"resist": {
+			"water": 20
+		},
 		"attack": {
-			"name": "shock",
+			"name": "冲击",
 			"kind": "air",
 			"damage": "0~14"
 		}
 	},
 	{
 		"id": "piranha",
-		"name": "piranha school",
-		"desc": "It's bitey.",
+		"name": "食人鱼群",
+		"desc": "它很咬人。",
 		"kind": "beast",
 		"biome": "swamp",
 		"level": 40,
-		"resist": { "water": 20 },
+		"resist": {
+			"water": 20
+		},
 		"speed": 80,
 		"attack": {
-			"name": "bite",
+			"name": "咬击",
 			"kind": "pierce",
 			"damage": 5
 		}
 	},
 	{
 		"id": "jellyfish",
-		"name": "jellyfish swarm",
-		"flavor": "No touchy.",
+		"name": "水母群",
+		"flavor": "不许碰！",
 		"kind": "beast",
 		"biome": "swamp",
 		"level": 41,
-		"resist": { "water": 20 },
+		"resist": {
+			"water": 20
+		},
 		"attack": {
-			"name": "sting",
+			"name": "刺击",
 			"kind": "nature",
 			"damage": "8~12",
 			"dot": {
@@ -765,12 +867,12 @@
 	},
 	{
 		"id": "icewalker",
-		"desc": "They say those who die on the cold heights search the passes for mortals to join them.",
+		"desc": "他们说那些死于寒冷高地的人会在山口寻找凡人来加入他们。",
 		"kind": "undead",
 		"level": 30,
 		"hp": 50,
 		"attack": {
-			"name": "frozen claws",
+			"name": "冰冻爪",
 			"kind": "water",
 			"damage": "3~6"
 		},
@@ -781,29 +883,29 @@
 	},
 	{
 		"id": "ranger",
-		"desc": "Rangers aren't very good with people.",
+		"desc": "游侠对人类不是很擅长。",
 		"kind": "humanoid",
 		"level": 34,
 		"attack": {
-			"name": "longbow",
+			"name": "长弓",
 			"kind": "pierce",
 			"damage": "a.damage*0.8"
 		}
 	},
 	{
 		"id": "highelf",
-		"name": "high elf",
-		"desc": "Other elves are as newborns to their elder kin.",
+		"name": "高等精灵",
+		"desc": "其他精灵在他们的长辈面前就像新生儿一样。",
 		"kind": "humanoid",
 		"level": 36,
 		"attack": [
 			{
-				"name": "enchanted bow",
+				"name": "附魔弓",
 				"kind": "air",
 				"damage": "a.damage"
 			},
 			{
-				"name": "stone fling",
+				"name": "石头投掷",
 				"kind": "earth",
 				"damage": "a.damage"
 			}
@@ -811,12 +913,12 @@
 	},
 	{
 		"id": "highranger",
-		"name": "thangmor ranger",
-		"desc": "All rangers travel far. Some farther than others.",
+		"name": "桑莫尔游侠",
+		"desc": "所有游侠都走得很远。有些人走得更远。",
 		"kind": "humanoid",
 		"level": 41,
 		"attack": {
-			"name": "rain of arrows",
+			"name": "箭雨",
 			"kind": "air",
 			"targets": "enemies",
 			"maxTargets": 3,
@@ -825,14 +927,14 @@
 	},
 	{
 		"id": "eledin",
-		"name": "eledin strongbow",
-		"desc": "When Tenwick told Eledin the Ettinmoors couldn't be crossed in safety, the ranger picked up his bow and headed east.",
+		"name": "埃雷丁·强弓",
+		"desc": "当特温克告诉埃雷丁·强弓埃丁沼泽无法安全穿越时，游侠拿起弓箭向东走去。",
 		"kind": "humanoid",
 		"unique": true,
 		"level": 43,
 		"hp": 500,
 		"attack": {
-			"name": "explosive greatarrows",
+			"name": "爆炸箭",
 			"kind": "fire",
 			"targets": "enemies",
 			"maxTargets": 2,
@@ -841,9 +943,9 @@
 	},
 	{
 		"id": "gildella",
-		"name": "gildella the lighthearted",
-		"desc": "The elf Gildella had roamed the Ettinmoors for centuries when Eledin first crossed her path. Their path has been the same since then.",
-		"flavor": "'I thought the moors too wild for decent folk,' said Eledin in surprise. 'Oh?' replied Gildella, 'I hadn't noticed.'",
+		"name": "吉尔德拉·轻歌",
+		"desc": "精灵吉尔德拉在埃丁沼泽游荡了几个世纪，当埃雷丁第一次与她交叉时，他们的道路就变得相同。",
+		"flavor": "'我以为沼泽对体面的人来说太荒凉了，'埃雷丁惊讶地说。'哦？'吉尔德拉回答道，'我没注意到。'",
 		"kind": "humanoid",
 		"unique": true,
 		"level": 43,
@@ -851,17 +953,17 @@
 		"speed": 60,
 		"attack": [
 			{
-				"name": "arrow of light",
+				"name": "光之箭",
 				"kind": "light",
 				"damage": "10~15"
 			},
 			{
-				"name": "arrow of nature",
+				"name": "自然之箭",
 				"kind": "nature",
 				"damage": "10~15"
 			},
 			{
-				"name": "arrow of mana",
+				"name": "法力之箭",
 				"kind": "mana",
 				"damage": "10~15"
 			}
@@ -871,37 +973,40 @@
 		"id": "thrall",
 		"level": 8,
 		"kind": "undead",
-		"desc": "One isn't too bad. 100 can be a problem.",
+		"desc": "一个还好。100个就麻烦了。",
 		"hp": 14,
 		"defense": 5,
 		"attack": {
-			"name": "axe",
+			"name": "斧头",
 			"kind": "slash",
 			"damage": "5~9"
 		}
 	},
 	{
 		"id": "bandit",
-		"desc": "Wants to steal your stuff.",
+		"desc": "想要偷你的东西。",
 		"kind": "humanoid",
 		"level": 15,
 		"hp": 14,
 		"defense": 10,
 		"dodge": 10,
 		"attack": {
-			"name": "short sword",
+			"name": "短剑",
 			"kind": "slash",
 			"damage": "4~7"
 		},
 		"loot": {
 			"gold": "10~15",
-			"cotton": { "%": "60%", "value": "2~3" }
+			"cotton": {
+				"%": "60%",
+				"value": "2~3"
+			}
 		}
 	},
 	{
 		"id": "electriceel",
-		"name": "electric eel",
-		"desc": "So wriggly.",
+		"name": "电鳗",
+		"desc": "如此扭动。",
 		"kind": "beast",
 		"biome": "sea",
 		"level": 43,
@@ -910,7 +1015,7 @@
 			"air": 25
 		},
 		"attack": {
-			"name": "zap",
+			"name": "电击",
 			"kind": "air",
 			"targets": "enemies",
 			"maxTargets": 999,
@@ -919,13 +1024,13 @@
 	},
 	{
 		"id": "orcwarrior",
-		"name": "orc warrior",
+		"name": "兽人战士",
 		"kind": "humanoid",
 		"level": 27,
 		"hp": 34,
 		"defense": 30,
 		"attack": {
-			"name": "orc hammer",
+			"name": "兽人锤",
 			"kind": "blunt",
 			"damage": "2~7"
 		}
@@ -937,16 +1042,16 @@
 		"hp": 9,
 		"defense": 17,
 		"attack": {
-			"name": "dagger",
+			"name": "匕首",
 			"kind": "pierce",
 			"damage": "2~3"
 		}
 	},
 	{
 		"id": "snek",
-		"name": "arcane serpent",
-		"desc": "Fiercely loyal when summoned by magic.",
-		"flavor": "Do not boop.",
+		"name": "奥术蛇",
+		"desc": "被魔法召唤时极为忠诚。",
+		"flavor": "请随意戳。",
 		"kind": "magicbeast",
 		"level": 12,
 		"hp": 50,
@@ -954,50 +1059,52 @@
 		"defense": 20,
 		"attack": [
 			{
-				"name": "constrict",
+				"name": "收缩",
 				"kind": "blunt",
 				"damage": "6~14"
 			},
 			{
-				"name": "venom",
+				"name": "毒液",
 				"dot": {
-					"duration": 7,
+					"duration": 10,
 					"kind": "nature",
-					"damage": "0.5~1.2"
+					"damage": "1~3"
 				}
 			}
 		]
 	},
 	{
 		"id": "barracuda",
-		"name": "great barracuda",
-		"desc": "It's bitey.",
+		"name": "大旗鱼",
+		"desc": "它很咬人。",
 		"kind": "beast",
 		"biome": "sea",
 		"level": 40,
-		"resist": { "water": 20 },
+		"resist": {
+			"water": 20
+		},
 		"attack": {
-			"name": "bite",
+			"name": "咬击",
 			"kind": "pierce",
 			"damage": "11~13"
 		}
 	},
 	{
 		"id": "giantcentipede",
-		"name": "giant centipede",
+		"name": "巨型蜈蚣",
 		"kind": "beast",
 		"level": 10,
-		"desc": "Creepy crawly.",
+		"desc": "爬行的令人毛骨悚然的生物。",
 		"hp": 16,
 		"defense": 15,
 		"attack": {
-			"name": "sting",
+			"name": "刺击",
 			"kind": "pierce",
 			"damage": "5~8",
 			"dot": {
 				"damage": "1~3",
 				"kind": "nature",
-				"name": "venom",
+				"name": "毒液",
 				"duration": 3
 			}
 		}
@@ -1009,19 +1116,24 @@
 		"hp": 16,
 		"dodge": 30,
 		"attack": {
-			"name": "bite",
+			"name": "咬击",
 			"kind": "pierce",
 			"damage": "2~4"
 		},
-		"loot": { "leather": { "%": "40%", "value": "2~4" } }
+		"loot": {
+			"leather": {
+				"%": "40%",
+				"value": "2~4"
+			}
+		}
 	},
 	{
 		"id": "leech",
 		"kind": "beast",
-		"desc": "Blood sucking leech.",
+		"desc": "吸血的水蛭。",
 		"level": 28,
 		"attack": {
-			"name": "suck",
+			"name": "吸吮",
 			"kind": "pierce",
 			"damage": "2~4",
 			"leech": 0.5
@@ -1030,48 +1142,62 @@
 	{
 		"id": "slime",
 		"kind": "magicbeast",
-		"desc": "You see some undigested bones and jewels in its... 'belly'? Gross.",
-		"flavor": "Eww, it doesn't even try to hold its form, just splashes acid everywhere.",
+		"desc": "你看到一些未消化的骨头和珠宝在它的……'肚子'里？真恶心。",
+		"flavor": "呃，它甚至不试图保持形状，只是到处溅酸。",
 		"level": 21,
 		"hp": 30,
 		"attack": {
-			"name": "squelch",
+			"name": "溅射",
 			"kind": "nature",
 			"targets": "enemies",
 			"maxTargets": 999,
 			"damage": "1~4"
 		},
 		"loot": {
-			"skulls": { "%": "20%", "value": 1, "skipLocked": true },
-			"bones": { "value": "3~5", "skipLocked": true },
+			"skulls": {
+				"%": "20%",
+				"value": 1,
+				"skipLocked": true
+			},
+			"bones": {
+				"value": "3~5",
+				"skipLocked": true
+			},
 			"gems": "2~3"
 		}
 	},
 	{
 		"id": "corpse",
-		"name": "bloated corpse",
+		"name": "肿胀的尸体",
 		"kind": "undead",
 		"level": 30,
-		"resist": { "shadow": 20 },
+		"resist": {
+			"shadow": 20
+		},
 		"attack": {
-			"name": "body slam",
+			"name": "身体冲撞",
 			"kind": "blunt",
 			"damage": "3~4"
 		},
-		"loot": { "bodies": { "value": 1, "skipLocked": true } }
+		"loot": {
+			"bodies": {
+				"value": 1,
+				"skipLocked": true
+			}
+		}
 	},
 	{
 		"id": "banditlord",
-		"name": "bandit lord",
-		"desc": "Armed, agile, and deadly. His purses are certainly filled to the brim.",
-		"flavor": "All your loot are belong to him.",
+		"name": "强盗首领",
+		"desc": "武装、敏捷且致命。他的口袋里肯定装满了战利品。",
+		"flavor": "你所有的战利品都属于他。",
 		"kind": "humanoid",
 		"level": 17,
 		"hp": 50,
 		"defense": 20,
 		"dodge": 30,
 		"attack": {
-			"name": "short sword",
+			"name": "短剑",
 			"kind": "slash",
 			"damage": "2~5"
 		},
@@ -1084,13 +1210,15 @@
 		"id": "ghoul",
 		"kind": "undead",
 		"level": 29,
-		"resist": { "shadow": 20 },
+		"resist": {
+			"shadow": 20
+		},
 		"attack": {
-			"name": "infectious bite",
+			"name": "感染性咬击",
 			"kind": "shadow",
 			"damage": "a.damage",
 			"dot": {
-				"name": "infection",
+				"name": "感染",
 				"duration": 15,
 				"damage": 1
 			}
@@ -1098,15 +1226,15 @@
 	},
 	{
 		"id": "mechswordsman",
-		"name": "mechanical swordsman",
+		"name": "机械剑士",
 		"level": 10,
 		"kind": "construct",
 		"evil": 0,
-		"desc": "Durable, but not very good at its job.",
+		"desc": "耐用，但在工作上不是很出色。",
 		"hp": 22,
 		"defense": 28,
 		"attack": {
-			"name": "short sword",
+			"name": "短剑",
 			"kind": "slash",
 			"damage": "3~7"
 		},
@@ -1114,13 +1242,13 @@
 	},
 	{
 		"id": "crab",
-		"name": "scuttling crab",
-		"desc": "A massive scuttling crab.",
+		"name": "爬行的螃蟹",
+		"desc": "一只巨大的爬行螃蟹。",
 		"kind": "beast",
 		"biome": "sea",
 		"level": 35,
 		"attack": {
-			"name": "claws",
+			"name": "爪子",
 			"kind": "blunt",
 			"damage": "7~9"
 		}
@@ -1130,11 +1258,11 @@
 		"biome": "swamp",
 		"level": 10,
 		"kind": "beast",
-		"flavor": "They're wild!",
+		"flavor": "它们是野生的！",
 		"hp": 14,
 		"defense": 20,
 		"attack": {
-			"name": "bite",
+			"name": "咬击",
 			"kind": "pierce",
 			"damage": "4~7"
 		},
@@ -1145,17 +1273,19 @@
 	},
 	{
 		"id": "snowleopard",
-		"name": "snow leopard",
+		"name": "雪豹",
 		"kind": "beast",
 		"level": 32,
 		"hp": 30,
 		"dodge": 50,
 		"attack": {
-			"name": "claws",
+			"name": "爪击",
 			"kind": "water",
 			"damage": "4~7"
 		},
-		"resist": { "water": 20 }
+		"resist": {
+			"water": 20
+		}
 	},
 	{
 		"id": "minotaur",
@@ -1164,13 +1294,19 @@
 		"hp": 30,
 		"defense": 30,
 		"attack": {
-			"name": "mallet",
+			"name": "大锤",
 			"kind": "blunt",
 			"damage": "3~6"
 		},
 		"loot": {
-			"iron": { "%": "30%", "value": "5~7" },
-			"leather": { "%": "30%", "value": "5~7" }
+			"iron": {
+				"%": "30%",
+				"value": "5~7"
+			},
+			"leather": {
+				"%": "30%",
+				"value": "5~7"
+			}
 		}
 	},
 	{
@@ -1183,7 +1319,7 @@
 		"regen": 1.5,
 		"defense": 25,
 		"attack": {
-			"name": "claws",
+			"name": "爪击",
 			"kind": "slash",
 			"damage": "3~6"
 		}
@@ -1197,54 +1333,54 @@
 		"defense": 18,
 		"speed": 8,
 		"attack": {
-			"name": "claws",
+			"name": "爪击",
 			"kind": "slash",
 			"damage": "7~10"
 		}
 	},
 	{
 		"id": "harpy",
-		"desc": "She doesn't look harpy to see you.",
+		"desc": "她看起来并不想见到你。",
 		"kind": "humanoid",
 		"level": 31,
 		"hp": 30,
 		"dodge": 30,
 		"speed": 40,
 		"attack": {
-			"name": "claws",
+			"name": "爪击",
 			"kind": "slash",
 			"damage": "3~5"
 		}
 	},
 	{
 		"id": "drunkenboxer",
-		"name": "drunken boxer",
+		"name": "醉拳师",
 		"level": 12,
 		"kind": "humanoid",
 		"evil": -2,
-		"desc": "This monk has had a bit too much to drink...",
+		"desc": "这个僧侣喝多了……",
 		"hp": 15,
 		"defense": 29,
 		"attack": {
-			"name": "fists",
+			"name": "拳头",
 			"kind": "blunt",
 			"damage": "4~8"
 		}
 	},
 	{
 		"id": "imp",
-		"desc": "Little demonic bastards.",
+		"desc": "小恶魔混蛋。",
 		"kind": "demon",
 		"level": 37,
 		"regen": 1,
 		"attack": [
 			{
-				"name": "fiery tongue",
+				"name": "火焰舌",
 				"kind": "fire",
 				"damage": "a.damage*1.4"
 			},
 			{
-				"name": "voice thievery",
+				"name": "窃取声音",
 				"dot": {
 					"%": "20%",
 					"id": "silence",
@@ -1252,41 +1388,54 @@
 				}
 			}
 		],
-		"resist": { "fire": 20 }
+		"resist": {
+			"fire": 20
+		}
 	},
 	{
 		"id": "lgspider",
-		"name": "large spider",
-		"desc": "You can't tell if she looks hungry. Or what a spider the size of a dog would eat.",
+		"name": "大蜘蛛",
+		"desc": "你无法分辨她是饿了还是想吃掉一只和她一样大的蜘蛛。",
 		"kind": "beast",
-		"biome": ["swamp", "woods", "mountains"],
+		"biome": [
+			"swamp",
+			"woods",
+			"mountains"
+		],
 		"level": 30,
 		"hp": 40,
-		"resist": { "nature": 25 },
+		"resist": {
+			"nature": 25
+		},
 		"attack": {
-			"name": "bite",
+			"name": "咬击",
 			"kind": "pierce",
 			"damage": "3~5",
 			"dot": {
-				"name": "poison",
+				"name": "毒液",
 				"duration": 3,
 				"kind": "nature",
 				"damage": 1
 			}
 		},
-		"loot": { "spidersilk": { "%": "30%", "value": "2~4" } }
+		"loot": {
+			"spidersilk": {
+				"%": "30%",
+				"value": "2~4"
+			}
+		}
 	},
 	{
 		"id": "vampirebat",
-		"name": "vampire bat",
+		"name": "吸血蝙蝠",
 		"level": 8,
 		"kind": "magicbeast",
 		"evil": 5,
-		"desc": "It vants to zuck your blood.",
+		"desc": "它想要吸你的血。",
 		"hp": 12,
 		"defense": 25,
 		"attack": {
-			"name": "bite",
+			"name": "咬击",
 			"kind": "pierce",
 			"leech": 0.2,
 			"damage": "5~7"
@@ -1294,40 +1443,42 @@
 	},
 	{
 		"id": "sandmite",
-		"name": "sand mite",
-		"desc": "Oversized parasites of the dunes.",
+		"name": "沙虫",
+		"desc": "沙丘上过大的寄生虫。",
 		"kind": "beast",
 		"level": 29,
 		"hp": 40,
 		"attack": {
-			"name": "burrow",
+			"name": "钻孔",
 			"kind": "pierce",
 			"damage": "4~6"
 		}
 	},
 	{
 		"id": "vrrek",
-		"desc": "An intelligent scavenger with the features of a vulture.",
-		"flavor": "Vrrek is what most of their words sound like.",
+		"desc": "一种具有秃鹫特征的智能 scavenger。",
+		"flavor": "Vrrek 是他们大多数单词的发音。",
 		"kind": "humanoid",
 		"level": 20,
 		"hp": 20,
 		"attack": {
-			"name": "talons",
+			"name": "爪子",
 			"kind": "slash",
 			"damage": "2~3.5"
 		}
 	},
 	{
 		"id": "callodiper",
-		"desc": "Their globed hands glow with pale, unearthly light.",
-		"flavor": "It is said they feed on darkness.",
+		"desc": "他们的球状手掌散发着苍白而超凡的光。",
+		"flavor": "据说他们以黑暗为食。",
 		"biome": "cave",
 		"kind": "humanoid",
 		"level": 55,
-		"resist": { "light": 20 },
+		"resist": {
+			"light": 20
+		},
 		"attack": {
-			"name": "light burst",
+			"name": "光束",
 			"targets": "enemies",
 			"maxTargets": 999,
 			"kind": "light",
@@ -1336,7 +1487,7 @@
 	},
 	{
 		"id": "direwolf",
-		"name": "dire wolf",
+		"name": "恐怖狼",
 		"level": 10,
 		"kind": "magicbeast",
 		"evil": 7,
@@ -1344,7 +1495,7 @@
 		"hp": 17,
 		"defense": 20,
 		"attack": {
-			"name": "bite",
+			"name": "咬击",
 			"kind": "pierce",
 			"damage": "3~6"
 		}
@@ -1360,14 +1511,14 @@
 			"shadow": 15
 		},
 		"attack": {
-			"name": "spectral claws",
+			"name": "幽灵爪",
 			"kind": "spirit",
 			"damage": "0~10"
 		}
 	},
 	{
 		"id": "doppelganger",
-		"desc": "Such a good-looking fellow!",
+		"desc": "如此好看的人！",
 		"kind": "humanoid",
 		"level": 32,
 		"hp": 25,
@@ -1376,17 +1527,17 @@
 		"speed": 10,
 		"attack": [
 			{
-				"name": "fire dart",
+				"name": "火焰飞镖",
 				"kind": "fire",
 				"damage": "5~6"
 			},
 			{
-				"name": "zap",
+				"name": "电击",
 				"kind": "air",
 				"damage": "3~7"
 			},
 			{
-				"name": "light spear",
+				"name": "光之矛",
 				"kind": "light",
 				"damage": "5~8"
 			}
@@ -1394,13 +1545,13 @@
 	},
 	{
 		"id": "ghost",
-		"flavor": "Boo!",
+		"flavor": "鬼！",
 		"kind": "undead",
 		"level": 12,
 		"hp": 10,
 		"defense": 20,
 		"attack": {
-			"name": "death touch",
+			"name": "死亡之触",
 			"kind": "shadow",
 			"damage": "1~4"
 		},
@@ -1412,8 +1563,8 @@
 	},
 	{
 		"id": "ghost2",
-		"name": "ghost",
-		"flavor": "Boooooo!",
+		"name": "鬼",
+		"flavor": "呜呜呜呜呜！",
 		"kind": "undead",
 		"level": 33,
 		"hp": 60,
@@ -1424,13 +1575,13 @@
 		},
 		"attack": [
 			{
-				"name": "death swipe",
+				"name": "死亡横扫",
 				"kind": "shadow",
 				"damage": "2~5"
 			},
 			{
 				"dot": {
-					"name": "death grab",
+					"name": "死亡抓取",
 					"%": "10%",
 					"duration": 2,
 					"id": "paralyze",
@@ -1449,12 +1600,12 @@
 		"defense": 23,
 		"spells": "firebolt",
 		"attack": {
-			"name": "flame claws",
+			"name": "火焰爪",
 			"kind": "fire",
 			"damage": "3~9",
 			"dot": {
 				"kind": "fire",
-				"name": "burning",
+				"name": "燃烧",
 				"damage": "1~3",
 				"duration": 3
 			}
@@ -1472,25 +1623,30 @@
 					"damage": "i.damage||0",
 					"tohit": 5,
 					"kind": "fire",
-					"potencies": ["spelldmg", "firedmg"]
+					"potencies": [
+						"spelldmg",
+						"firedmg"
+					]
 				}
 			}
 		}
 	},
 	{
 		"id": "giantsnake",
-		"name": "giant snake",
-		"desc": "Not venomous at all.",
+		"name": "巨型蛇",
+		"desc": "根本没有毒。",
 		"kind": "beast",
 		"level": 35,
 		"hp": 80,
 		"defense": 20,
 		"attack": {
-			"name": "constrict",
+			"name": "收缩",
 			"kind": "blunt",
 			"damage": "8~10"
 		},
-		"resist": { "nature": 25 }
+		"resist": {
+			"nature": 25
+		}
 	},
 	{
 		"id": "bugbear",
@@ -1499,39 +1655,49 @@
 		"hp": 18,
 		"defense": 25,
 		"attack": {
-			"name": "mace",
+			"name": "钉锤",
 			"kind": "blunt",
 			"damage": "2.5~4"
 		}
 	},
 	{
 		"id": "evilpriest",
-		"name": "evil priest",
-		"desc": "He worships evil.",
+		"name": "邪恶祭司",
+		"desc": "他崇拜邪恶。",
 		"kind": "human",
 		"level": 42,
 		"hp": 60,
 		"regen": 5,
 		"barrier": 60,
-		"resist": { "shadow": 20 },
+		"resist": {
+			"shadow": 20
+		},
 		"attack": {
-			"name": "dark bolt",
+			"name": "黑暗之矢",
 			"kind": "shadow",
 			"damage": "13~19"
 		},
 		"loot": {
-			"spidersilk": { "%": "30%", "value": "2~4" },
-			"rubies": { "%": "30%", "value": "3~4" }
+			"spidersilk": {
+				"%": "30%",
+				"value": "2~4"
+			},
+			"rubies": {
+				"%": "30%",
+				"value": "3~4"
+			}
 		}
 	},
 	{
 		"id": "blasphemer",
-		"desc": "She screams black obscenities.",
+		"desc": "她尖叫着说黑色的亵渎。",
 		"kind": "humanoid",
 		"level": 40,
-		"resist": { "shadow": 20 },
+		"resist": {
+			"shadow": 20
+		},
 		"attack": {
-			"name": "screech",
+			"name": "尖叫",
 			"kind": "shadow",
 			"targets": "enemies",
 			"maxTargets": 999,
@@ -1540,8 +1706,8 @@
 	},
 	{
 		"id": "m_hierophant",
-		"name": "wicked hierophant",
-		"desc": "Leader of wicked congregation",
+		"name": "邪恶的教士",
+		"desc": "邪恶教团的首领",
 		"kind": "humanoid",
 		"level": 42,
 		"hp": 100,
@@ -1552,56 +1718,73 @@
 			"light": 15
 		},
 		"attack": {
-			"name": "sunset spears",
+			"name": "日落之矛",
 			"kind": "light",
 			"targets": "enemies",
 			"maxTargets": 999,
 			"damage": "10~15"
 		},
 		"loot": {
-			"spidersilk": { "%": "50%", "value": "4~5" },
-			"rubies": { "%": "50%", "value": "3~4" }
+			"spidersilk": {
+				"%": "50%",
+				"value": "4~5"
+			},
+			"rubies": {
+				"%": "50%",
+				"value": "3~4"
+			}
 		}
 	},
 	{
 		"id": "palus",
-		"name": "palus the sinner",
-		"desc": "Palus was a mere dabbler before unearthing the remains of a Dhrozen knight. Now he leads the Barrow priests.",
+		"name": "罪人帕鲁斯",
+		"desc": "帕鲁斯曾是一个小角色，直到他挖掘出德罗岑骑士的遗骸。现在他领导着墓穴祭司。",
 		"kind": "humanoid",
 		"unique": true,
 		"level": 44,
 		"hp": 350,
 		"defense": 75,
 		"attack": {
-			"name": "harm",
+			"name": "伤害",
 			"kind": "shadow",
 			"damage": "16~22"
 		}
 	},
 	{
 		"id": "magicblade",
-		"name": "magic blade",
-		"desc": "It just floats there...",
+		"name": "魔法之刃",
+		"desc": "它只是漂浮在那里……",
 		"kind": "construct",
 		"level": 40,
 		"hp": 100,
 		"defense": 30,
-		"resist": { "mana": 30 },
+		"resist": {
+			"mana": 30
+		},
 		"attack": {
-			"name": "itself",
+			"name": "它自己",
 			"kind": "slash",
 			"damage": 13
 		},
-		"loot": { "quicksteel": { "%": "30%", "value": "2~4" } }
+		"loot": {
+			"quicksteel": {
+				"%": "30%",
+				"value": "2~4"
+			}
+		}
 	},
 	{
 		"id": "bear",
-		"desc": "He's angry now!!!",
+		"desc": "他现在很生气！！！",
 		"kind": "beast",
-		"biome": ["woods", "hills", "mountains"],
+		"biome": [
+			"woods",
+			"hills",
+			"mountains"
+		],
 		"level": 28,
 		"attack": {
-			"name": "claws",
+			"name": "爪子",
 			"kind": "slash",
 			"damage": "a.damage*0.8"
 		}
@@ -1610,121 +1793,138 @@
 		"id": "ghast",
 		"kind": "undead",
 		"level": 29,
-		"resist": { "shadow": 20 },
+		"resist": {
+			"shadow": 20
+		},
 		"attack": {
-			"name": "claws",
+			"name": "爪击",
 			"kind": "slash",
 			"damage": "a.damage*0.8"
 		}
 	},
 	{
 		"id": "berserker",
-		"flavor": "You gotta... dance.",
+		"flavor": "你得……跳舞。",
 		"kind": "humanoid",
 		"level": 14,
 		"hp": 25,
 		"defense": 29,
 		"attack": {
-			"name": "claymore",
+			"name": "巨剑",
 			"kind": "slash",
 			"damage": "3~10"
 		}
 	},
 	{
 		"id": "quasit",
-		"desc": "Like a demonic humanoid vulture.",
+		"desc": "像一个恶魔般的人形秃鹫。",
 		"kind": "demon",
 		"level": 51,
 		"regen": 1,
 		"attack": {
-			"name": "Poisonous Claws",
+			"name": "有毒爪",
 			"kind": "nature",
 			"damage": "35~42"
 		},
-		"loot": { "aetherhide": { "%": "60%", "value": "2~3" } }
+		"loot": {
+			"aetherhide": {
+				"%": "60%",
+				"value": "2~3"
+			}
+		}
 	},
 	{
 		"id": "greaterzombie",
-		"name": "greater zombie",
+		"name": "更强大的僵尸",
 		"level": 14,
 		"kind": "undead",
 		"evil": 13,
-		"desc": "It ate up all the smaller zombies.",
+		"desc": "它吃掉了所有较小的僵尸。",
 		"hp": 42,
 		"defense": 22,
 		"regen": 1,
 		"attack": {
-			"name": "slam",
+			"name": "重击",
 			"kind": "blunt",
 			"damage": "7~12"
 		},
 		"loot": {
-			"bodies": { "value": 1, "skipLocked": true }
+			"bodies": {
+				"value": 1,
+				"skipLocked": true
+			}
 		}
 	},
 	{
 		"id": "shriekingeel",
-		"name": "shrieking eel",
-		"desc": "Oversized eel with bladed teeth and a terrifying screach.",
+		"name": "尖叫鳗",
+		"desc": " oversized eel with bladed teeth and a terrifying screach。",
 		"kind": "beast",
 		"biome": "sea",
 		"level": 42,
-		"resist": { "water": 20 },
+		"resist": {
+			"water": 20
+		},
 		"attack": {
-			"name": "scream",
+			"name": "尖叫",
 			"kind": "air",
 			"damage": "10~20"
 		}
 	},
 	{
 		"id": "dwarp",
-		"desc": "Its contorted purple body can hide in the smallest crevices.",
-		"flavor": "A dwarp can hear the drip of water through 100 feet of solid rock.",
+		"desc": "扭曲的紫色身体可以藏身于最小的缝隙中。",
+		"flavor": "一个 dwarap 可以听到 100 英尺厚的固体岩石中的水滴声。",
 		"kind": "humanoid",
 		"biome": "cave",
 		"level": 57,
 		"hp": 200,
 		"dodge": 200,
 		"attack": {
-			"name": "strangle",
+			"name": "扼杀",
 			"kind": "blunt",
 			"damage": "40~60"
 		}
 	},
 	{
 		"id": "ogre",
-		"flavor": "Ever wonder how orcs would look if they were three times as large?",
+		"flavor": "你有没有想过如果兽人大三倍会是什么样子？",
 		"kind": "giant",
 		"level": 31,
 		"hp": 44,
 		"defense": 20,
 		"speed": 20,
 		"attack": {
-			"name": "club",
+			"name": "巨棒",
 			"kind": "blunt",
 			"damage": "6~9"
 		}
 	},
 	{
 		"id": "ogrewarrior",
-		"name": "ogre warrior",
-		"flavor": "Ever wonder how ogres would look if they were twice as strong?",
+		"name": "巨人战士",
+		"flavor": "你有没有想过如果巨人看起来像兽人一样强壮？",
 		"kind": "giant",
 		"level": 33,
 		"hp": 54,
 		"defense": 20,
 		"speed": 20,
 		"attack": {
-			"name": "magic club",
+			"name": "魔法巨棒",
 			"kind": "mana",
 			"damage": "9~14"
 		},
-		"loot": { "quicksteel": { "%": "30%", "value": "2~4" } }
+		"loot": {
+			"quicksteel": {
+				"%": "30%",
+				"value": "2~4"
+			}
+		}
 	},
 	{
 		"id": "ogrechief",
-		"name": "chief of ogres",
-		"flavor": "Ever wonder how ettins would look if they lead a tribe for years?",
+		"name": "巨人首领",
+		"flavor": "你有没有想过如果厄运之子领导一个部落会是什么样子？",
 		"kind": "giant",
 		"unique": true,
 		"level": 37,
@@ -1734,89 +1934,89 @@
 		"speed": 20,
 		"attack": [
 			{
-				"name": "totem pole",
+				"name": "图腾柱",
 				"kind": "blunt",
 				"damage": "16~12"
 			},
 			{
-				"name": "ice wave",
+				"name": "冰波",
 				"kind": "water",
 				"targets": "enemies",
 				"maxTargets": 999,
 				"damage": "7~10"
 			},
 			{
-				"name": "life's boon",
+				"name": "生命的恩赐",
 				"kind": "nature",
 				"targets": "self",
 				"healing": 4
 			}
 		],
-		"loot": { "quicksteel": "3~4" }
+		"loot": {
+			"quicksteel": "3~4"
+		}
 	},
 	{
 		"id": "frixie",
-		"desc": "A nasty fey of cold disposition.",
+		"desc": "一个冷漠的讨厌精灵。",
 		"kind": "fey",
 		"level": 31,
 		"hp": 45,
 		"dodge": 20,
 		"attack": {
-			"name": "frost bolt",
+			"name": "霜冻箭",
 			"kind": "water",
 			"damage": "4~17"
-		},
-		"resist": {
-			"water": 25,
-			"nature": 25
 		}
 	},
 	{
 		"id": "claygolem",
-		"name": "clay golem",
-		"desc": "Bulky little fellow, but very sluggish.",
-		"flavor": "I made you out of clay...",
+		"name": "粘土魔像",
+		"desc": "笨重的小家伙，但非常迟钝。",
+		"flavor": "我用粘土做了你……",
 		"kind": "construct",
 		"level": 32,
 		"hp": 24,
 		"defense": 20,
 		"speed": 0,
 		"attack": {
-			"name": "smash",
+			"name": "粉碎",
 			"kind": "blunt",
 			"damage": "6~10"
 		}
 	},
 	{
 		"id": "direcrocodile",
-		"name": "dire crocodile",
+		"name": "恐怖鳄鱼",
 		"kind": "magicbeast",
 		"biome": "swamp",
 		"level": 35,
 		"attack": {
-			"name": "bite",
+			"name": "咬击",
 			"kind": "nature",
 			"damage": "5~10"
 		}
 	},
 	{
 		"id": "spiderqueen",
-		"name": "spider queen",
+		"name": "蜘蛛女王",
 		"kind": "beast",
 		"unique": true,
 		"level": 38,
 		"hp": 200,
 		"attack": [
 			{
-				"name": "web throw",
+				"name": "网投",
 				"dot": {
-					"name": "webbed",
+					"name": "被网住",
 					"duration": 3,
-					"mod": { "self.speed": -5 }
+					"mod": {
+						"self.speed": -5
+					}
 				}
 			},
 			{
-				"name": "call spider",
+				"name": "召唤蜘蛛",
 				"targets": "self",
 				"summon": {
 					"id": "lgspider",
@@ -1825,13 +2025,20 @@
 				}
 			}
 		],
-		"loot": { "spidersilk": "3~5" }
+		"loot": {
+			"spidersilk": "3~5"
+		}
 	},
 	{
 		"id": "ettin",
-		"flavor": "Ever wonder how ogre warriors would look if they had twice as many heads? And used magic?",
+		"flavor": "你有没有想过如果双头巨人领导一个部落会是什么样子？",
 		"kind": "giant",
-		"biome": ["hills", "woods", "swamp", "mountains"],
+		"biome": [
+			"hills",
+			"woods",
+			"swamp",
+			"mountains"
+		],
 		"level": 35,
 		"hp": 57,
 		"defense": 20,
@@ -1839,31 +2046,36 @@
 		"speed": 20,
 		"attack": [
 			{
-				"name": "magic club",
+				"name": "魔法巨棒",
 				"kind": "mana",
 				"damage": "9~14"
 			},
 			{
-				"name": "fire wave",
+				"name": "火焰波",
 				"kind": "fire",
 				"targets": "enemies",
 				"maxTargets": 999,
 				"damage": "7~10"
 			}
 		],
-		"loot": { "quicksteel": { "%": "30%", "value": "2~4" } }
+		"loot": {
+			"quicksteel": {
+				"%": "30%",
+				"value": "2~4"
+			}
+		}
 	},
 	{
 		"id": "shark",
 		"level": 18,
 		"kind": "beast",
 		"biome": "sea",
-		"desc": "It's bitey.",
+		"desc": "它很咬人。",
 		"hp": 58,
 		"speed": 11,
 		"defense": 18,
 		"attack": {
-			"name": "bite",
+			"name": "咬击",
 			"kind": "pierce",
 			"damage": "10~15",
 			"leech": 0.2
@@ -1883,7 +2095,7 @@
 			"spirit": 50
 		},
 		"attack": {
-			"name": "otherwordly touch",
+			"name": "异界之触",
 			"kind": "spirit",
 			"damage": "100~140",
 			"leech": 0.05
@@ -1891,74 +2103,83 @@
 	},
 	{
 		"id": "stalker",
-		"name": "invisible stalker",
-		"desc": "You don't see a thing.",
+		"name": "隐形潜行者",
+		"desc": "你什么都看不见。",
 		"kind": "humanoid",
 		"level": 41,
 		"hp": 90,
 		"dodge": 60,
 		"attack": {
-			"name": "something invisible",
+			"name": "看不见的东西",
 			"kind": "mana",
 			"damage": "13~15"
 		}
 	},
 	{
 		"id": "m_druid",
-		"name": "druid",
-		"desc": "Ardent of nature.",
+		"name": "德鲁伊",
+		"desc": "自然的热心者。",
 		"kind": "humanoid",
 		"level": 34,
-		"resist": { "nature": 25 },
+		"resist": {
+			"nature": 25
+		},
 		"regen": 3,
 		"attack": {
-			"name": "leafstorm",
+			"name": "叶风暴",
 			"kind": "nature",
 			"damage": "9~17"
 		}
 	},
 	{
 		"id": "steelgolem",
-		"name": "steel golem",
-		"desc": "Much more sophisticated magic and materials went into this creation, as you see it swiftly rolling around",
+		"name": "钢铁魔像",
+		"desc": "这件作品使用了更复杂的魔法和材料，正如你看到它迅速滚动一样",
 		"kind": "construct",
 		"level": 34,
 		"hp": 50,
 		"defense": 50,
 		"attack": {
-			"name": "attached blade",
+			"name": "附加刀片",
 			"kind": "slash",
 			"damage": "7~8"
 		},
-		"loot": { "quicksteel": "4~7" }
+		"loot": {
+			"quicksteel": "4~7"
+		}
 	},
 	{
 		"id": "masterswordsman",
-		"name": "master swordsman",
-		"desc": "He's looking for a six-fingered man.",
+		"name": "大师剑士",
+		"desc": "他在寻找一个六指的男人。",
 		"kind": "humanoid",
 		"level": 51,
 		"hp": 150,
 		"defense": 50,
 		"dodge": 50,
 		"attack": {
-			"name": "longsword of highest quality",
+			"name": "最高品质的长剑",
 			"kind": "slash",
 			"damage": "a.damage*0.7"
 		},
-		"loot": { "adamant": { "%": "60%", "value": "2~3" } }
+		"loot": {
+			"adamant": {
+				"%": "60%",
+				"value": "2~3"
+			}
+		}
 	},
 	{
 		"id": "pegasus",
 		"level": 16,
 		"kind": "magicbeast",
 		"evil": -13,
-		"desc": "It's a unicorn with wings and no horn.",
+		"desc": "它是一个独角兽，长着翅膀却没有角。",
 		"hp": 54,
 		"defense": 27,
 		"spells": "whirl3",
 		"attack": {
-			"name": "trample",
+			"name": "践踏",
 			"kind": "blunt",
 			"damage": "9~15"
 		},
@@ -1968,71 +2189,84 @@
 	},
 	{
 		"id": "earthelemental",
-		"name": "earth elemental",
-		"desc": "How do you fight dirt?",
+		"name": "大地元素",
+		"desc": "你怎么能与泥土作斗争？",
 		"kind": "elemental",
 		"level": 23,
 		"hp": 25,
-		"resist": { "earth": 20 },
+		"resist": {
+			"earth": 20
+		},
 		"speed": 0,
 		"attack": {
-			"name": "pound",
+			"name": "重击",
 			"kind": "earth",
 			"damage": "8~12"
 		},
-		"loot": { "earthgem": "10%" }
+		"loot": {
+			"earthgem": "10%"
+		}
 	},
 	{
 		"id": "airelemental",
-		"name": "air elemental",
-		"desc": "It must have been the wind",
+		"name": "空气元素",
+		"desc": "一定是风的原因",
 		"kind": "elemental",
 		"level": 23,
 		"hp": 25,
-		"resist": { "air": 20 },
+		"resist": {
+			"air": 20
+		},
 		"speed": 40,
 		"attack": {
-			"name": "air whip",
+			"name": "空气鞭",
 			"kind": "air",
 			"damage": "1.5~2.5"
 		},
-		"loot": { "airgem": "10%" }
+		"loot": {
+			"airgem": "10%"
+		}
 	},
 	{
 		"id": "stonegolem",
-		"name": "stone golem",
-		"desc": "The head stone's connected to the... spine stone.",
+		"name": "石头魔像",
+		"desc": "头部石头与……脊柱石相连。",
 		"kind": "construct",
 		"level": 32,
 		"hp": 30,
 		"defense": 30,
 		"speed": 0,
 		"attack": {
-			"name": "smash",
+			"name": "粉碎",
 			"kind": "earth",
 			"damage": "9~13"
 		}
 	},
 	{
 		"id": "unicorn",
-		"desc": "Its horn is full of magic.",
+		"desc": "它的角充满了魔法。",
 		"kind": "magicbeast",
-		"biome": ["plains", "woods"],
+		"biome": [
+			"plains",
+			"woods"
+		],
 		"level": 35,
 		"attack": {
-			"name": "magic horn",
+			"name": "魔法角",
 			"kind": "mana",
 			"damage": "8~10"
 		}
 	},
 	{
 		"id": "vampire",
-		"desc": "Standard blood sucking variety.",
+		"desc": "标准的吸血品种。",
 		"kind": "undead",
 		"level": 38,
-		"resist": { "shadow": 20 },
+		"resist": {
+			"shadow": 20
+		},
 		"attack": {
-			"name": "bite",
+			"name": "咬击",
 			"kind": "shadow",
 			"damage": "6~15",
 			"leech": 0.1
@@ -2040,7 +2274,7 @@
 	},
 	{
 		"id": "wraith",
-		"desc": "A ghostly black form.",
+		"desc": "一个幽灵般的黑色形态。",
 		"kind": "undead",
 		"level": 29,
 		"hp": 30,
@@ -2050,37 +2284,45 @@
 			"shadow": 20
 		},
 		"attack": {
-			"name": "death touch",
+			"name": "死亡之触",
 			"kind": "shadow",
 			"damage": "3~7"
 		},
-		"loot": { "souls": { "%": "30%", "value": "2~4", "skipLocked": true } }
+		"loot": {
+			"souls": {
+				"%": "30%",
+				"value": "2~4",
+				"skipLocked": true
+			}
+		}
 	},
 	{
 		"id": "magicmirror",
-		"name": "magic mirror",
+		"name": "魔法镜",
 		"kind": "construct",
 		"level": 33,
 		"hp": 52,
 		"attack": {
-			"name": "light beam",
+			"name": "光束",
 			"targets": "enemies",
 			"maxTargets": 999,
 			"kind": "light",
 			"damage": "0~12"
 		},
-		"resist": { "light": 30 }
+		"resist": {
+			"light": 30
+		}
 	},
 	{
 		"id": "phoenix",
 		"level": 14,
-		"desc": "It's more fire than bird.",
+		"desc": "它是火焰而非鸟类。",
 		"kind": "magicbeast",
 		"evil": -13,
 		"hp": 47,
 		"defense": 40,
 		"attack": {
-			"name": "flame wing",
+			"name": "火焰翅膀",
 			"kind": "fire",
 			"damage": "11~20"
 		},
@@ -2092,23 +2334,27 @@
 	},
 	{
 		"id": "iceelemental",
-		"name": "ice elemental",
-		"desc": "What's so scary about a bunch of icicles?",
+		"name": "冰元素",
+		"desc": "一群冰锥有什么可怕的？",
 		"kind": "elemental",
 		"level": 23,
 		"hp": 25,
-		"resist": { "water": 20 },
+		"resist": {
+			"water": 20
+		},
 		"attack": {
-			"name": "ice shard",
+			"name": "冰霜碎片",
 			"kind": "water",
 			"damage": "3~7"
 		},
-		"loot": { "watergem": "10%" }
+		"loot": {
+			"watergem": "10%"
+		}
 	},
 	{
 		"id": "roc",
-		"desc": "An avian terror of mythic repute.",
-		"extdesc": "This one looks pretty young.",
+		"desc": "神话般的恐怖飞禽。",
+		"extdesc": "这只看起来很年轻。",
 		"kind": "magicbeast",
 		"unique": true,
 		"biome": "mountains",
@@ -2117,12 +2363,12 @@
 		"dodge": 50,
 		"attack": [
 			{
-				"name": "beak",
+				"name": "啄击",
 				"kind": "pierce",
 				"damage": "2~4"
 			},
 			{
-				"name": "razor feathers",
+				"name": "刀锋羽毛",
 				"kind": "slash",
 				"targets": "enemies",
 				"maxTargets": 999,
@@ -2132,8 +2378,8 @@
 	},
 	{
 		"id": "roc2",
-		"name": "roc",
-		"desc": "An avian terror of mythic repute.",
+		"name": "巨雕",
+		"desc": "神话般的恐怖飞禽。",
 		"kind": "magicbeast",
 		"unique": true,
 		"biome": "mountains",
@@ -2142,12 +2388,12 @@
 		"dodge": 50,
 		"attack": [
 			{
-				"name": "beak",
+				"name": "啄击",
 				"kind": "pierce",
 				"damage": "4~6"
 			},
 			{
-				"name": "razor feathers",
+				"name": "刀锋羽毛",
 				"kind": "slash",
 				"targets": "enemies",
 				"maxTargets": 999,
@@ -2157,80 +2403,96 @@
 	},
 	{
 		"id": "incubus",
-		"desc": "You could bounce a coin off those abs.",
+		"desc": "你可以在那些腹肌上弹跳硬币。",
 		"kind": "demon",
 		"level": 50,
 		"regen": 2,
 		"attack": {
-			"name": "seduction",
+			"name": "诱惑",
 			"kind": "shadow",
 			"targets": "enemies",
 			"damage": "a.damage"
 		},
-		"loot": { "aetherhide": { "%": "60%", "value": "2~3" } }
+		"loot": {
+			"aetherhide": {
+				"%": "60%",
+				"value": "2~3"
+			}
+		}
 	},
 	{
 		"id": "medusa",
-		"desc": "Kind of ugly.",
+		"desc": "有点丑。",
 		"kind": "humanoid",
 		"level": 42,
 		"hp": 100,
 		"defense": 30,
 		"dodge": 30,
 		"attack": {
-			"name": "stare",
+			"name": "凝视",
 			"kind": "mana",
 			"targets": "enemies",
 			"maxTargets": 999,
 			"damage": "10~20",
 			"dot": {
 				"%": "20%",
-				"name": "Petrified",
+				"name": "石化",
 				"duration": 2,
 				"id": "paralyze"
 			}
 		},
 		"loot": {
-			"serpentskin": { "%": "60%", "value": "4~6" },
-			"rubies": { "%": "50%", "value": "3~4" }
+			"serpentskin": {
+				"%": "60%",
+				"value": "4~6"
+			},
+			"rubies": {
+				"%": "50%",
+				"value": "3~4"
+			}
 		}
 	},
 	{
 		"id": "orcchampion",
-		"name": "orc champion",
+		"name": "兽人冠军",
 		"level": 16,
 		"kind": "humanoid",
-		"desc": "A champion among orcs.",
+		"desc": "兽人中的冠军。",
 		"hp": 100,
 		"defense": 40,
 		"attack": {
-			"name": "broadsword",
+			"name": "阔剑",
 			"kind": "slash",
 			"damage": "15~20"
 		}
 	},
 	{
 		"id": "direbear",
-		"name": "dire bear",
-		"desc": "He's angrier now!!!",
-		"biome": ["hills", "woods"],
+		"name": "恐怖熊",
+		"desc": "他现在更生气了！！！",
+		"biome": [
+			"hills",
+			"woods"
+		],
 		"kind": "magicbeast",
 		"level": 41,
 		"attack": {
-			"name": "magical claws",
+			"name": "魔法爪",
 			"kind": "nature",
 			"damage": "a.damage"
 		}
 	},
 	{
 		"id": "undeadhorror",
-		"name": "undead horror",
-		"desc": "You need to stop looking at it before you go insane.",
+		"name": "亡灵恐怖",
+		"desc": "你需要停止注视它，否则你会发疯。",
 		"kind": "undead",
 		"level": 34,
-		"resist": { "shadow": 20 },
+		"resist": {
+			"shadow": 20
+		},
 		"attack": {
-			"name": "chill touch",
+			"name": "寒冷之触",
 			"kind": "water",
 			"damage": "a.damage"
 		}
@@ -2239,23 +2501,27 @@
 		"id": "dullahan",
 		"level": 16,
 		"evil": 20,
-		"desc": "It doesn't have a head. But you do.",
+		"desc": "它没有头。但你有。",
 		"kind": "humanoid",
 		"hp": 55,
 		"defense": 45,
 		"attack": {
-			"name": "vorpal sword",
+			"name": "无头剑",
 			"kind": "slash",
 			"damage": "7~15"
 		},
-		"biome": ["town", "woods", "plains"],
+		"biome": [
+			"town",
+			"woods",
+			"plains"
+		],
 		"resist": {
 			"spirit": 25
 		}
 	},
 	{
 		"id": "naga",
-		"desc": "From the waist up, it doesn't look that bad.",
+		"desc": "从腰部向上看，还不错。",
 		"kind": "humanoid",
 		"level": 42,
 		"hp": 100,
@@ -2263,15 +2529,15 @@
 		"dodge": 30,
 		"attack": [
 			{
-				"name": "scimitars",
+				"name": "弯刀",
 				"kind": "slash",
 				"damage": "12~15"
 			},
 			{
-				"name": "fangs",
+				"name": "毒牙",
 				"kind": "nature",
 				"dot": {
-					"name": "venom",
+					"name": "毒液",
 					"duration": 4,
 					"kind": "nature",
 					"damage": "4~8"
@@ -2279,91 +2545,109 @@
 			}
 		],
 		"loot": {
-			"quicksteel": { "%": "30%", "value": "4~8" },
-			"serpentskin": { "%": "60%", "value": "4~7" }
+			"quicksteel": {
+				"%": "30%",
+				"value": "4~8"
+			},
+			"serpentskin": {
+				"%": "60%",
+				"value": "4~7"
+			}
 		}
 	},
 	{
 		"id": "poltergeist",
-		"desc": "Only the objects flying at your head alert you to its presence.",
+		"desc": "只有飞向你头部的物体才会提醒你它的存在。",
 		"kind": "undead",
 		"level": 16,
 		"hp": 60,
 		"defense": 40,
 		"attack": {
-			"name": "chill touch",
+			"name": "寒冷之触",
 			"kind": "shadow",
 			"damage": "2~5"
 		}
 	},
 	{
 		"id": "fireelemental",
-		"name": "fire elemental",
-		"desc": "Too hot to get close to.",
+		"name": "火元素",
+		"desc": "太热了，无法靠近。",
 		"kind": "elemental",
 		"level": 23,
 		"hp": 25,
-		"resist": { "fire": 20 },
+		"resist": {
+			"fire": 20
+		},
 		"attack": {
-			"name": "scorch",
+			"name": "灼烧",
 			"targets": "enemies",
 			"maxTargets": 999,
 			"kind": "fire",
 			"damage": "3~4"
 		},
-		"loot": { "firegem": "10%" }
+		"loot": {
+			"firegem": "10%"
+		}
 	},
 	{
 		"id": "lightelem",
-		"name": "light elemental",
-		"desc": "Too bright to see.",
-		"flavor": "My eyeeees!!!!",
+		"name": "光元素",
+		"desc": "太亮了，无法看。",
+		"flavor": "我的眼睛！！！！",
 		"kind": "elemental",
 		"level": 32,
 		"hp": 30,
 		"dodge": 50,
 		"attack": {
-			"name": "light beam",
+			"name": "光束",
 			"kind": "light",
 			"damage": "4~10",
 			"dot": {
-				"name": "blind",
+				"name": "失明",
 				"duration": 20,
 				"tags": "t_tohitdown",
 				"kind": "blind",
-				"mod": { "self.tohit": -20 }
+				"mod": {
+					"self.tohit": -20
+				}
 			}
 		},
-		"loot": { "lightgem": "10%" }
+		"loot": {
+			"lightgem": "10%"
+		}
 	},
 	{
 		"id": "cavetroll",
-		"name": "cave troll",
+		"name": "山洞巨魔",
 		"level": 18,
 		"evil": 15,
 		"kind": "giant",
-		"biome": ["hills", "mountains", "cave"],
-		"flavor": "They have a cave troll...",
+		"biome": [
+			"hills",
+			"mountains",
+			"cave"
+		],
+		"flavor": "他们有一个山洞巨魔……",
 		"hp": 90,
 		"defense": 35,
 		"regen": 2,
 		"attack": {
-			"name": "club",
+			"name": "巨棒",
 			"kind": "blunt",
 			"damage": "15~27"
 		}
 	},
 	{
 		"id": "irongolem",
-		"name": "iron golem",
-		"desc": "It moves with heavy clonking steps.",
+		"name": "铁魔像",
+		"desc": "它发出沉重的碰撞声。",
 		"level": 33,
 		"kind": "construct",
 		"hp": 45,
 		"defense": 45,
 		"speed": 0,
 		"attack": {
-			"name": "smash",
+			"name": "粉碎",
 			"kind": "blunt",
 			"damage": "15~24"
 		},
@@ -2372,34 +2656,41 @@
 			"pierce": 10,
 			"blunt": 10
 		},
-		"loot": { "iron": "8~12" }
+		"loot": {
+			"iron": "8~12"
+		}
 	},
 	{
 		"id": "succubus",
 		"kind": "demon",
-		"flavor": "Oh my!",
+		"flavor": "哦，我的！",
 		"level": 50,
 		"regen": 2,
 		"attack": {
-			"name": "seduction",
+			"name": "诱惑",
 			"kind": "shadow",
 			"targets": "enemies",
 			"maxTargets": 999,
 			"damage": "a.damage*0.7"
 		},
-		"loot": { "aetherhide": { "%": "60%", "value": "2~3" } }
+		"loot": {
+			"aetherhide": {
+				"%": "60%",
+				"value": "2~3"
+			}
+		}
 	},
 	{
 		"id": "drunkenmaster",
-		"name": "drunken master",
+		"name": "醉拳宗师",
 		"level": 20,
 		"evil": -10,
 		"kind": "humanoid",
-		"desc": "Master Wong Fei-Hung.",
+		"desc": "王飞洪大师。",
 		"hp": 53,
 		"defense": 44,
 		"attack": {
-			"name": "fists",
+			"name": "拳头",
 			"kind": "blunt",
 			"damage": "7~17"
 		},
@@ -2410,26 +2701,26 @@
 	},
 	{
 		"id": "yeti",
-		"flavor": "You ain't seen nothing yeti.",
+		"flavor": "你还没见过呢。",
 		"kind": "giant",
 		"biome": "mountains",
 		"level": 32,
 		"hp": 60,
 		"attack": {
-			"name": "frozen claws",
+			"name": "冰冻爪",
 			"kind": "water",
 			"damage": "5~7"
 		}
 	},
 	{
 		"id": "lightningelemental",
-		"name": "lightning elemental",
-		"flavor": "All your hairs feel prickly.",
+		"name": "闪电元素",
+		"flavor": "你所有的头发都感到刺痛。",
 		"kind": "elemental",
 		"level": 28,
 		"hp": 40,
 		"attack": {
-			"name": "lightning",
+			"name": "闪电",
 			"targets": "enemies",
 			"maxTargets": 999,
 			"kind": "light",
@@ -2443,15 +2734,15 @@
 	},
 	{
 		"id": "mindslayer",
-		"name": "mind slayer",
+		"name": "思维撕裂者",
 		"level": 22,
 		"evil": 24,
-		"desc": "It licks your brain with its mind.",
+		"desc": "它用思想舔舐你的大脑。",
 		"kind": "humanoid",
 		"hp": 49,
 		"defense": 44,
 		"attack": {
-			"name": "mind flay",
+			"name": "心灵撕裂",
 			"kind": "mana",
 			"damage": "11~19",
 			"dot": {
@@ -2462,12 +2753,12 @@
 	},
 	{
 		"id": "lesserwyrm",
-		"name": "lesser wyrm",
-		"desc": "A cross between a worm and a dragon.",
+		"name": "次级龙",
+		"desc": "介于虫子和龙之间的交叉品种。",
 		"kind": "magicbeast",
 		"level": 40,
 		"attack": {
-			"name": "bite",
+			"name": "咬击",
 			"kind": "fire",
 			"damage": "9~15"
 		}
@@ -2476,13 +2767,13 @@
 		"id": "basilisk",
 		"level": 22,
 		"kind": "magicbeast",
-		"desc": "A large lizard with a petrifying bite.",
+		"desc": "一种具有石化咬击的大型蜥蜴。",
 		"hp": 64,
 		"defense": 32,
 		"speed": 8,
 		"attack": [
 			{
-				"name": "bite",
+				"name": "咬击",
 				"kind": "earth",
 				"damage": "10~30",
 				"dot": {
@@ -2491,25 +2782,30 @@
 				}
 			},
 			{
-				"name": "claws",
+				"name": "爪击",
 				"kind": "slash",
 				"damage": "20~50"
 			}
 		],
-		"loot": { "basiliskhide": { "%": "30%", "value": "2~4" } },
+		"loot": {
+			"basiliskhide": {
+				"%": "30%",
+				"value": "2~4"
+			}
+		},
 		"immune": "poison"
 	},
 	{
 		"id": "m_cordyceps",
-		"name": "cordyceps",
+		"name": "虫草",
 		"kind": "plant",
 		"level": 26,
-		"desc": "A writhing fungus chokes the air with spores.",
+		"desc": "一团扭动的真菌，空气中弥漫着孢子。",
 		"hp": 65,
 		"defense": 80,
 		"attack": [
 			{
-				"name": "spores",
+				"name": "孢子",
 				"kind": "nature",
 				"damage": "20~40",
 				"dot": {
@@ -2521,26 +2817,26 @@
 	},
 	{
 		"id": "m_stranglevine",
-		"name": "stranglevine",
+		"name": "缠绕藤蔓",
 		"kind": "plant",
 		"level": 34,
-		"desc": "Writhing tendrils seek to ensnare fresh prey.",
+		"desc": "扭动的触手试图抓住新的猎物。",
 		"hp": 165,
 		"spells": "vinewhip",
 		"attack": {
-			"name": "strangle",
+			"name": "扼杀",
 			"kind": "blunt",
 			"damage": "10~20",
 			"dot": [
 				{
 					"id": "stranglingvine",
-					"name": "strangulation",
+					"name": "窒息",
 					"duration": 50,
 					"damage": "5~10"
 				},
 				{
 					"id": "entangle",
-					"name": "tangled",
+					"name": "缠绕",
 					"duration": 10
 				}
 			]
@@ -2550,12 +2846,12 @@
 		"id": "cockatrice",
 		"level": 30,
 		"kind": "magicbeast",
-		"desc": "The stare of the cockatrice is death.",
+		"desc": "鸡尾鹤的凝视致命。",
 		"speed": 8,
 		"hp": 300,
 		"attack": [
 			{
-				"name": "gaze",
+				"name": "凝视",
 				"kind": "earth",
 				"damage": "30~60",
 				"dot": {
@@ -2568,14 +2864,14 @@
 	},
 	{
 		"id": "basilisk2",
-		"name": "greater basilisk",
+		"name": "更强大的蛇怪",
 		"level": 34,
 		"kind": "magicbeast",
-		"desc": "A massive lizard with a petrifying bite.",
+		"desc": "一种具有石化咬击的巨型蜥蜴。",
 		"hp": 300,
 		"attack": [
 			{
-				"name": "bite",
+				"name": "咬击",
 				"kind": "earth",
 				"damage": "40~70",
 				"dot": {
@@ -2585,26 +2881,31 @@
 				}
 			},
 			{
-				"name": "claws",
+				"name": "爪击",
 				"kind": "slash",
 				"damage": "50~100"
 			}
 		],
-		"loot": { "basiliskhide": { "%": "30%", "value": "3~5" } },
+		"loot": {
+			"basiliskhide": {
+				"%": "30%",
+				"value": "3~5"
+			}
+		},
 		"immune": "poison,paralyze"
 	},
 	{
 		"id": "hillgiant",
-		"name": "hill giant",
+		"name": "山丘巨人",
 		"level": 22,
 		"biome": "hills",
 		"kind": "giant",
 		"evil": 17,
-		"desc": "You've seen bigger.",
+		"desc": "你见过更大的。",
 		"hp": 120,
 		"defense": 45,
 		"attack": {
-			"name": "club",
+			"name": "巨棒",
 			"kind": "blunt",
 			"damage": "15~24"
 		},
@@ -2614,29 +2915,34 @@
 	},
 	{
 		"id": "troll",
-		"flavor": "Tro lo lo.",
+		"flavor": "特罗洛洛。",
 		"kind": "giant",
-		"biome": ["woods", "hills", "mountains", "swamp"],
+		"biome": [
+			"woods",
+			"hills",
+			"mountains",
+			"swamp"
+		],
 		"level": 35,
 		"hp": 100,
 		"regen": 2,
 		"speed": 10,
 		"attack": {
-			"name": "claws",
+			"name": "爪子",
 			"kind": "blunt",
 			"damage": "10~13"
 		}
 	},
 	{
 		"id": "vampiremaster",
-		"name": "vampire master",
-		"desc": "Worked his way up the vampire ranks, and has his very own brood now.",
+		"name": "吸血鬼大师",
+		"desc": "在吸血鬼中晋升，并拥有自己的一群吸血鬼。",
 		"kind": "undead",
 		"unique": true,
 		"level": 43,
 		"hp": 340,
 		"attack": {
-			"name": "bite",
+			"name": "咬击",
 			"kind": "shadow",
 			"damage": "10~25",
 			"leech": 0.2
@@ -2644,8 +2950,8 @@
 	},
 	{
 		"id": "desillaconcubine",
-		"name": "desilla's concubine",
-		"desc": "A devoted follower of the sorceress Desilla.",
+		"name": "德西拉的情妇",
+		"desc": "德西拉的忠实追随者。",
 		"kind": "humanoid",
 		"unique": true,
 		"level": 54,
@@ -2654,7 +2960,7 @@
 		"dodge": 50,
 		"regen": 3,
 		"attack": {
-			"name": "claws",
+			"name": "爪击",
 			"damage": "35~45",
 			"type": "slash"
 		},
@@ -2665,14 +2971,14 @@
 	},
 	{
 		"id": "firegolem",
-		"name": "fire golem",
+		"name": "火焰魔像",
 		"level": 22,
 		"kind": "construct",
-		"desc": "Crafted from only the finest phlogiston.",
+		"desc": "由最优质的燃素制成。",
 		"hp": 100,
 		"defense": 53,
 		"attack": {
-			"name": "fire punch",
+			"name": "火焰冲拳",
 			"kind": "fire",
 			"damage": "15~23"
 		},
@@ -2681,73 +2987,79 @@
 	{
 		"id": "grimstalk",
 		"biome": "woods",
-		"desc": "A wooden demon with fingers like blades.",
+		"desc": "一个木制的恶魔，手指像刀刃一样锋利。",
 		"kind": "demon",
 		"level": 41,
 		"hp": 100,
 		"defense": 40,
 		"regen": 2,
 		"attack": {
-			"name": "claws",
+			"name": "爪击",
 			"kind": "slash",
 			"damage": "10~14"
 		}
 	},
 	{
 		"id": "valkyrie",
-		"desc": "She'll take you to Valhalla.",
+		"desc": "她会带你去瓦尔哈拉。",
 		"kind": "humanoid",
 		"level": 35,
 		"hp": 45,
 		"defense": 30,
 		"dodge": 30,
 		"attack": {
-			"name": "claymore",
+			"name": "巨剑",
 			"kind": "slash",
 			"damage": "6~7"
 		},
 		"loot": {
 			"ichor": "1%",
-			"quicksteel": { "%": "75%", "value": "4~5" },
-			"rubies": { "%": "75%", "value": "2~3" }
+			"quicksteel": {
+				"%": "75%",
+				"value": "4~5"
+			},
+			"rubies": {
+				"%": "75%",
+				"value": "2~3"
+			}
 		}
 	},
 	{
 		"id": "trow",
 		"level": 24,
 		"evil": 5,
-		"desc": "A towering giant of stone.",
-		"flavor": "You should have stayed out of the cloudspine.",
+		"desc": "一位高大的石头巨人。",
+		"flavor": "你应该呆在云脊之外。",
 		"kind": "giant",
 		"hp": 225,
 		"defense": 50,
 		"attack": {
-			"name": "kick",
+			"name": "踢",
 			"kind": "blunt",
 			"damage": "14~20"
 		}
 	},
 	{
 		"id": "gryffon",
-		"desc": "Body of a lion. Face of a giant eagle.",
+		"desc": "狮子的身体。巨鹰的面孔。",
 		"kind": "magicbeast",
 		"level": 36,
 		"attack": {
-			"name": "beak",
+			"name": "啄击",
 			"kind": "pierce",
 			"damage": "a.damage*0.8"
 		}
 	},
 	{
 		"id": "bloodgolem",
-		"name": "blood golem",
+		"name": "血魔像",
 		"level": 24,
 		"kind": "construct",
-		"desc": "A creature of pure blood.",
+		"desc": "由纯粹的血液构成的生物。",
 		"hp": 90,
 		"defense": 45,
 		"attack": {
-			"name": "slam",
+			"name": "重击",
 			"kind": "blunt",
 			"damage": "15~20",
 			"leech": 0.5
@@ -2763,7 +3075,7 @@
 		"hp": 130,
 		"defense": 48,
 		"attack": {
-			"name": "sting",
+			"name": "刺击",
 			"damage": "15~25",
 			"kind": "pierce",
 			"dot": {
@@ -2775,81 +3087,95 @@
 	},
 	{
 		"id": "bogwitch",
-		"name": "bog witch",
+		"name": "沼泽女巫",
 		"kind": "humanoid",
-		"desc": "Vicious witch in the waters of the Great Bog.",
+		"desc": "生活在大沼泽水域的凶恶女巫。",
 		"unique": true,
 		"biome": "swamp",
 		"level": 44,
 		"hp": 600,
 		"defense": 48,
 		"regen": 3,
-		"resist": { "nature": 20 },
+		"resist": {
+			"nature": 20
+		},
 		"attack": {
-			"name": "claws",
+			"name": "爪击",
 			"kind": "slash",
 			"damage": "8~16",
 			"dot": {
-				"name": "black blood",
+				"name": "黑色血液",
 				"duration": 20,
 				"kind": "nature",
 				"damage": "6~10"
 			}
 		},
-		"loot": { "rubies": { "%": "50%", "value": "6~8" } }
+		"loot": {
+			"rubies": {
+				"%": "50%",
+				"value": "6~8"
+			}
+		}
 	},
 	{
 		"id": "skellord",
-		"name": "skeleton lord",
-		"desc": "Are those rubies in its eyes?",
+		"name": "骷髅领主",
+		"desc": "它的眼睛里有红宝石吗？",
 		"kind": "undead",
 		"unique": true,
 		"level": 45,
 		"hp": 600,
 		"defense": 30,
 		"attack": {
-			"name": "longsword",
+			"name": "长剑",
 			"kind": "slash",
 			"damage": "10~18"
 		},
 		"loot": {
-			"bones": { "value": 10, "skipLocked": true },
+			"bones": {
+				"value": 10,
+				"skipLocked": true
+			},
 			"rubies": 2
 		}
 	},
 	{
 		"id": "ent",
-		"desc": "Out cruising for some ent-wives.",
+		"desc": "出门寻找一些树人妻子。",
 		"kind": "giant",
 		"biome": "woods",
 		"level": 42,
 		"hp": 120,
 		"defense": 50,
-		"resist": { "nature": 30 },
+		"resist": {
+			"nature": 30
+		},
 		"regen": 2,
 		"speed": 0,
 		"attack": {
-			"name": "trunk slam",
+			"name": "树干重击",
 			"kind": "nature",
 			"damage": "40~60"
 		}
 	},
 	{
 		"id": "wyvern",
-		"desc": "Not a dragon. But it will kill you like one.",
-		"flavor": "Except the part where it kills you like a proper dragon would.",
+		"desc": "不是龙。但它会像龙一样杀了你。",
+		"flavor": "除了它像一条合适的龙那样杀了你。",
 		"kind": "magicbeast",
 		"level": 61,
-		"resist": { "water": 50 },
+		"resist": {
+			"water": 50
+		},
 		"attack": {
-			"name": "ice spikes",
+			"name": "冰刺",
 			"kind": "water",
 			"damage": "100~120"
 		}
 	},
 	{
 		"id": "wyvern2",
-		"name": "vicious wyvern",
+		"name": "凶猛的 wyvern",
 		"level": 40,
 		"desc": "",
 		"kind": "magicbeast",
@@ -2857,7 +3183,7 @@
 		"defense": 42,
 		"attack": [
 			{
-				"name": "bite",
+				"name": "咬击",
 				"kind": "pierce",
 				"damage": "40~80",
 				"dot": {
@@ -2879,7 +3205,7 @@
 		"defense": 42,
 		"attack": [
 			{
-				"name": "bite",
+				"name": "咬击",
 				"kind": "pierce",
 				"damage": "40~80",
 				"dot": {
@@ -2893,35 +3219,39 @@
 	},
 	{
 		"id": "greendragon",
-		"name": "green dragon",
-		"desc": "Just your standard green dragon.",
+		"name": "绿龙",
+		"desc": "你标准的绿龙。",
 		"kind": "dragon",
 		"level": 50,
 		"hp": 210,
 		"defense": 50,
-		"resist": { "fire": 25 },
+		"resist": {
+			"fire": 25
+		},
 		"attack": [
 			{
-				"name": "fire breath",
+				"name": "火焰喷吐",
 				"targets": "enemies",
 				"maxTargets": 999,
 				"kind": "fire",
 				"damage": "25~35"
 			}
 		],
-		"loot": { "dragonscale": "1~16" }
+		"loot": {
+			"dragonscale": "1~16"
+		}
 	},
 	{
 		"id": "sandwyrm",
-		"name": "sand wyrm",
+		"name": "沙虫",
 		"kind": "beast",
 		"level": 28,
-		"desc": "Terror of the desert wastes.",
+		"desc": "沙漠废墟的恐怖。",
 		"hp": 130,
 		"defense": 50,
 		"spells": "quake",
 		"attack": {
-			"name": "crush",
+			"name": "粉碎",
 			"kind": "blunt",
 			"damage": "12~24"
 		},
@@ -2932,27 +3262,36 @@
 	{
 		"id": "beholder",
 		"kind": "magicbeast",
-		"desc": "It seeeeees you.",
+		"desc": "它看见你。",
 		"level": 72,
 		"hp": 1300,
 		"defense": 50,
 		"attack": [
 			{
-				"name": "Evil eye of silence",
-				"dot": { "duration": 2, "id": "silence" }
-			},
-			{
-				"name": "Evil eye of paralysis",
-				"dot": { "duration": 2, "id": "paralyze" }
-			},
-			{
-				"name": "Evil eye of entaglement",
-				"dot": { "duration": 2, "id": "entangle" }
-			},
-			{
-				"name": "Evil eye of torment",
+				"name": "沉默的邪眼",
 				"dot": {
-					"name": "Psychic torment",
+					"duration": 2,
+					"id": "silence"
+				}
+			},
+			{
+				"name": "麻痹的邪眼",
+				"dot": {
+					"duration": 2,
+					"id": "paralyze"
+				}
+			},
+			{
+				"name": "束缚的邪眼",
+				"dot": {
+					"duration": 2,
+					"id": "entangle"
+				}
+			},
+			{
+				"name": "折磨的邪眼",
+				"dot": {
+					"name": "精神折磨",
 					"duration": 5,
 					"kind": "mana",
 					"damage": "200~300"
@@ -2962,32 +3301,36 @@
 	},
 	{
 		"id": "angel",
-		"desc": "It has wings and a halo of light.",
+		"desc": "它有翅膀和光环。",
 		"kind": "celestial",
 		"level": 38,
 		"hp": 45,
 		"defense": 45,
 		"dodge": 45,
-		"resist": { "light": 20 },
+		"resist": {
+			"light": 20
+		},
 		"attack": {
-			"name": "light sword",
+			"name": "光之剑",
 			"kind": "light",
 			"damage": "a.damage"
 		},
-		"loot": { "ichor": "30%" }
+		"loot": {
+			"ichor": "30%"
+		}
 	},
 	{
 		"id": "m_lich",
-		"name": "lich",
+		"name": "巫妖",
 		"level": 28,
 		"kind": "undead",
 		"evil": 30,
-		"desc": "It was a wizard, once.",
+		"desc": "它曾经是一个巫师。",
 		"hp": 166,
 		"defense": 68,
 		"regen": 3,
 		"attack": {
-			"name": "death touch",
+			"name": "死亡之触",
 			"kind": "shadow",
 			"leech": 0.1,
 			"damage": "26~36"
@@ -3008,11 +3351,16 @@
 		},
 		"regen": 6,
 		"attack": {
-			"name": "darksword",
+			"name": "黑暗之剑",
 			"kind": "shadow",
 			"damage": "100~140"
 		},
-		"loot": { "aetherhide": { "%": "60%", "value": "4~7" } }
+		"loot": {
+			"aetherhide": {
+				"%": "60%",
+				"value": "4~7"
+			}
+		}
 	},
 	{
 		"id": "cyclops",
@@ -3023,7 +3371,7 @@
 		"hp": 170,
 		"defense": 65,
 		"attack": {
-			"name": "punch",
+			"name": "拳击",
 			"kind": "blunt",
 			"damage": "17~50"
 		},
@@ -3033,32 +3381,36 @@
 	},
 	{
 		"id": "reddragon",
-		"name": "red dragon",
+		"name": "红龙",
 		"kind": "dragon",
 		"level": 56,
 		"hp": 400,
 		"defense": 60,
-		"resist": { "fire": 50 },
+		"resist": {
+			"fire": 50
+		},
 		"attack": {
-			"name": "fire breath",
+			"name": "火焰喷吐",
 			"targets": "enemies",
 			"maxTargets": 999,
 			"kind": "fire",
 			"damage": "25~35"
 		},
-		"loot": { "dragonscale": "1~24" }
+		"loot": {
+			"dragonscale": "1~24"
+		}
 	},
 	{
 		"id": "behemoth",
-		"desc": "Such an incredible vitality.",
-		"flavor": "Much wow",
+		"desc": "如此令人难以置信的活力。",
+		"flavor": "太棒了",
 		"kind": "beast",
 		"level": 74,
 		"hp": 1200,
 		"defense": 100,
 		"regen": 15,
 		"attack": {
-			"name": "trample",
+			"name": "践踏",
 			"targets": "enemies",
 			"maxTargets": 999,
 			"kind": "earth",
@@ -3067,16 +3419,16 @@
 	},
 	{
 		"id": "vampirelord",
-		"name": "vampire lord",
+		"name": "吸血鬼领主",
 		"level": 30,
 		"kind": "undead",
 		"evil": 40,
-		"desc": "Master Vampires are its lackeys.",
+		"desc": "吸血鬼大师是它的爪牙。",
 		"hp": 120,
 		"defense": 70,
 		"regen": 5,
 		"attack": {
-			"name": "bite",
+			"name": "咬击",
 			"kind": "shadow",
 			"damage": "20~40",
 			"leech": 0.3
@@ -3091,7 +3443,7 @@
 	},
 	{
 		"id": "frostgiant",
-		"name": "frost giant",
+		"name": "冰霜巨人",
 		"kind": "giant",
 		"unique": true,
 		"level": 44,
@@ -3100,7 +3452,7 @@
 		"regen": 2,
 		"speed": 0,
 		"attack": {
-			"name": "ice quake",
+			"name": "冰震",
 			"targets": "enemies",
 			"maxTargets": 999,
 			"kind": "water",
@@ -3109,29 +3461,29 @@
 	},
 	{
 		"id": "m_lichlord",
-		"name": "lich lord",
-		"desc": "It was a wizard, once.",
+		"name": "巫妖领主",
+		"desc": "它曾经是一个巫师。",
 		"kind": "undead",
 		"level": 72,
 		"hp": 1,
 		"barrier": 2000,
 		"recharge": 20,
 		"attack": {
-			"name": "death touch",
+			"name": "死亡之触",
 			"kind": "shadow",
 			"damage": "250~300"
 		}
 	},
 	{
 		"id": "mithrilgolem",
-		"name": "mithril golem",
+		"name": "秘银魔像",
 		"level": 34,
 		"kind": "construct",
-		"desc": "Would be worth a fortune if you could even make a dent in it.",
+		"desc": "如果你能对它造成伤害，那将是非常昂贵的财富。",
 		"hp": 200,
 		"defense": 100,
 		"attack": {
-			"name": "pound",
+			"name": "重击",
 			"kind": "blunt",
 			"damage": "50~95"
 		},
@@ -3146,15 +3498,17 @@
 	},
 	{
 		"id": "ancientvampire",
-		"name": "ancient vampire",
+		"name": "古代吸血鬼",
 		"kind": "undead",
 		"level": 61,
 		"hp": 280,
 		"defense": 75,
 		"dodge": 75,
-		"resist": { "shadow": 50 },
+		"resist": {
+			"shadow": 50
+		},
 		"attack": {
-			"name": "bite",
+			"name": "咬击",
 			"kind": "shadow",
 			"damage": "80~120",
 			"leech": 0.05
@@ -3164,11 +3518,11 @@
 		"id": "leviathan",
 		"level": 36,
 		"kind": "beast",
-		"desc": "A mountain moves in the depths of the sea.",
+		"desc": "一座山在海洋深处移动。",
 		"hp": 400,
 		"defense": 75,
 		"attack": {
-			"name": "crush",
+			"name": "粉碎",
 			"kind": "blunt",
 			"damage": "80~110"
 		},
@@ -3176,46 +3530,53 @@
 	},
 	{
 		"id": "balrog",
-		"desc": "A servant of Morgoth.",
+		"desc": "摩尔戈斯的仆人。",
 		"kind": "maiar",
 		"level": 63,
 		"hp": 600,
 		"defense": 80,
 		"immune": "fire",
 		"attack": {
-			"name": "flame whip",
+			"name": "火焰鞭",
 			"kind": "fire",
 			"damage": "90~150"
 		},
 		"loot": {
 			"firegem": 10,
-			"aetherhide": { "%": "60%", "value": "4~6" }
+			"aetherhide": {
+				"%": "60%",
+				"value": "4~6"
+			}
 		}
 	},
 	{
 		"id": "archon",
 		"kind": "celestial",
-		"desc": "It has wings and a halo of light.",
-		"extdesc": "And more wings and another halo...",
-		"flavor": "And more wings and another halo...",
+		"desc": "它有翅膀和光环。",
+		"extdesc": "还有更多的翅膀和另一个光环……",
+		"flavor": "还有更多的翅膀和另一个光环……",
 		"unique": true,
 		"level": 45,
 		"hp": 270,
 		"defense": 90,
 		"regen": 10,
-		"resist": { "light": 50 },
+		"resist": {
+			"light": 50
+		},
 		"speed": -20,
 		"attack": {
-			"name": "glimpse of the apocalypse",
+			"name": "末日的瞥见",
 			"kind": "light",
 			"damage": 200
 		},
-		"loot": { "ichor": "50%" }
+		"loot": {
+			"ichor": "50%"
+		}
 	},
 	{
 		"id": "adamantgolem",
-		"name": "adamant golem",
-		"desc": "Unbreakable.",
+		"name": "坚不可摧的魔像",
+		"desc": "坚不可摧。",
 		"kind": "construct",
 		"level": 61,
 		"hp": 450,
@@ -3226,22 +3587,26 @@
 			"blunt": 100
 		},
 		"attack": {
-			"name": "smash",
+			"name": "粉碎",
 			"kind": "blunt",
 			"damage": "a.damage*0.7"
 		},
-		"loot": { "adamant": 25 }
+		"loot": {
+			"adamant": 25
+		}
 	},
 	{
 		"id": "maturereddragon",
-		"name": "mature red dragon",
+		"name": "成熟的红龙",
 		"kind": "dragon",
 		"level": 61,
 		"hp": 500,
 		"defense": 90,
-		"resist": { "fire": 90 },
+		"resist": {
+			"fire": 90
+		},
 		"attack": {
-			"name": "fire breath",
+			"name": "火焰喷吐",
 			"targets": "enemies",
 			"maxTargets": 999,
 			"kind": "fire",
@@ -3250,7 +3615,7 @@
 	},
 	{
 		"id": "mythicvampire",
-		"name": "mythic vampire",
+		"name": "神话吸血鬼",
 		"level": 38,
 		"kind": "undead",
 		"evil": 60,
@@ -3259,7 +3624,7 @@
 		"regen": 10,
 		"defense": 110,
 		"attack": {
-			"name": "bite",
+			"name": "咬击",
 			"kind": "shadow",
 			"damage": "50~70",
 			"leech": 0.5
@@ -3273,9 +3638,9 @@
 	},
 	{
 		"id": "karnivex",
-		"name": "Karnivex the BloodLock",
-		"desc": "The weakest of the Archlocks built his reputation upon sheer slaughter.",
-		"flavor": "Subtlety was lost on karnivex.",
+		"name": "卡尔尼维克斯 血锁",
+		"desc": "最弱的公爵凭借屠杀建立了自己的声誉。",
+		"flavor": "卡尔尼维克斯对微妙的事物毫无感觉。",
 		"kind": "humanoid",
 		"unique": true,
 		"level": 64,
@@ -3283,8 +3648,11 @@
 		"barrier": 1200,
 		"attack": [
 			{
-				"name": "fire storm",
-				"log": { "%": "10%", "desc": "I have no equals!" },
+				"name": "火焰风暴",
+				"log": {
+					"%": "10%",
+					"desc": "我没有对手！"
+				},
 				"targets": "enemies",
 				"maxTargets": 999,
 				"dot": {
@@ -3294,30 +3662,36 @@
 				}
 			},
 			{
-				"name": "fire bolt",
-				"log": { "%": "10%", "desc": "I will not be mocked!" },
+				"name": "火焰箭",
+				"log": {
+					"%": "10%",
+					"desc": "现在该好好享受一下了。"
+				},
 				"kind": "fire",
 				"damage": "70~100"
 			}
 		],
-		"loot": { "karnivexcrown": "100%", "diamonds": "8~12" }
+		"loot": {
+			"karnivexcrown": "100%",
+			"diamonds": "8~12"
+		}
 	},
 	{
 		"id": "desilla",
-		"name": "Desilla the Vicious",
+		"name": "德西拉 凶残",
 		"level": 40,
 		"evil": 27,
-		"desc": "Among the Archlocks, desilla was more inclined to indulgence than conquest.",
+		"desc": "在公爵中，德西拉更倾向于放纵而非征服。",
 		"kind": "humanoid",
 		"hp": 1500,
 		"defense": 133,
 		"unique": true,
 		"attack": [
 			{
-				"name": "red haze",
+				"name": "红色迷雾",
 				"log": {
 					"%": "10%",
-					"desc": "Don't be clouded by desires."
+					"desc": "不要被欲望蒙蔽了。"
 				},
 				"targets": "enemies",
 				"maxTargets": 999,
@@ -3328,11 +3702,11 @@
 				}
 			},
 			{
-				"name": "red bolt",
+				"name": "红色箭",
 				"damage": "90~123",
 				"log": {
 					"%": "10%",
-					"desc": "Now for some fun."
+					"desc": "现在该好好享受一下了。"
 				},
 				"kind": "shadow"
 			}
@@ -3340,7 +3714,7 @@
 	},
 	{
 		"id": "bodias",
-		"name": "Bodias the Grim",
+		"name": "博迪亚斯 冷酷",
 		"level": 50,
 		"evil": 27,
 		"desc": "",
@@ -3350,13 +3724,13 @@
 		"defense": 150,
 		"attack": [
 			{
-				"name": "quake",
+				"name": "地震",
 				"targets": "enemies",
 				"maxTargets": 999,
 				"kind": "earth",
 				"log": {
 					"%": "10%",
-					"desc": "Does Dhroz still slumber?"
+					"desc": "德罗兹还在沉睡吗？"
 				},
 				"dot": {
 					"id": "quake",
@@ -3366,11 +3740,11 @@
 				}
 			},
 			{
-				"name": "disintegrate",
+				"name": "灰飞烟灭",
 				"damage": "100~150",
 				"log": {
 					"%": "10%",
-					"desc": "You are dismissed."
+					"desc": "你被解雇了。"
 				},
 				"kind": "earth"
 			}
@@ -3378,7 +3752,7 @@
 	},
 	{
 		"id": "narz",
-		"name": "Narz, the Black Spindle",
+		"name": "纳兹，黑色纺锤",
 		"level": 42,
 		"desc": "",
 		"unused": true,
@@ -3388,12 +3762,12 @@
 		"defense": 200,
 		"attack": [
 			{
-				"name": "void shroud",
+				"name": "虚空斗篷",
 				"targets": "enemies",
 				"maxTargets": 999,
 				"log": {
 					"%": "10%",
-					"desc": "Even Dhroz feared the void."
+					"desc": "连德罗兹也害怕虚空。"
 				},
 				"dot": {
 					"kind": "void",
@@ -3404,7 +3778,7 @@
 				"kind": "void"
 			},
 			{
-				"name": "void bolt",
+				"name": "虚空之矢",
 				"damage": "100~150",
 				"kind": "void"
 			}
@@ -3412,7 +3786,7 @@
 	},
 	{
 		"id": "natureswrath",
-		"name": "nature's wrath",
+		"name": "大自然的愤怒",
 		"level": 44,
 		"kind": "spirit",
 		"evil": 20,
@@ -3421,7 +3795,7 @@
 		"regen": 15,
 		"defense": 120,
 		"attack": {
-			"name": "lifestorm",
+			"name": "生命风暴",
 			"kind": "nature",
 			"damage": "100~125"
 		},
@@ -3429,15 +3803,15 @@
 	},
 	{
 		"id": "m_avatar",
-		"name": "avatar",
+		"name": "化身",
 		"level": 46,
 		"kind": "deity",
-		"desc": "Incarnation of a god.",
+		"desc": "一个神的化身。",
 		"hp": 700,
 		"defense": 120,
 		"regen": 20,
 		"attack": {
-			"name": "holy shine",
+			"name": "神圣光辉",
 			"kind": "light",
 			"damage": "75~130"
 		},
@@ -3445,7 +3819,7 @@
 	},
 	{
 		"id": "cthulhu",
-		"desc": "In his house at R'lyeh dead Cthulhu waits dreaming.",
+		"desc": "在他位于拉莱耶的房子里，死去的克苏鲁在梦中等待。",
 		"kind": "outsider",
 		"unique": true,
 		"level": 75,
@@ -3453,7 +3827,7 @@
 		"defense": 125,
 		"regen": 25,
 		"attack": {
-			"name": "madness",
+			"name": "疯狂",
 			"targets": "enemies",
 			"maxTargets": 999,
 			"kind": "spirit",
@@ -3462,8 +3836,8 @@
 	},
 	{
 		"id": "jazid",
-		"desc": "Jazid's sole purpose is to kill the bearer of his compass.",
-		"flavor": "Tales of Jazid were already ancient when Dhroze was entombed.",
+		"desc": "贾兹德的唯一目的是杀死他的罗盘持有者。",
+		"flavor": "贾兹德的故事在德罗兹被封印时已经是古老的传说。",
 		"kind": "kell",
 		"unique": true,
 		"require": "g.jazidscompass.isEquipped()",
@@ -3471,7 +3845,7 @@
 		"hp": 2000,
 		"speed": -50,
 		"attack": {
-			"name": "The Claw",
+			"name": "爪击",
 			"tohit": 999,
 			"targets": "enemyleader",
 			"kind": "pure",
@@ -3480,16 +3854,16 @@
 	},
 	{
 		"id": "m_ancientlich",
-		"name": "ancient lich",
+		"name": "古代巫妖",
 		"level": 46,
 		"kind": "undead",
 		"evil": 30,
-		"desc": "Not one lich in a hundred live to reach such heights.",
+		"desc": "没有一个巫妖能活到这样的高度。",
 		"hp": 550,
 		"regen": 15,
 		"defense": 120,
 		"attack": {
-			"name": "death touch",
+			"name": "死亡之触",
 			"kind": "shadow",
 			"damage": "80~120",
 			"leech": 0.1
@@ -3506,8 +3880,8 @@
 	},
 	{
 		"id": "strativax1",
-		"name": "strativax slumbering",
-		"desc": "He does not appear to notice your presence.",
+		"name": "沉睡中的斯特拉提瓦克斯",
+		"desc": "他似乎没有注意到你的存在。",
 		"kind": "dragon",
 		"unique": true,
 		"level": 68,
@@ -3516,8 +3890,8 @@
 	},
 	{
 		"id": "strativax2",
-		"name": "strativax waking",
-		"desc": "The dragon's eyes begin to open.",
+		"name": "苏醒的斯特拉提瓦克斯",
+		"desc": "龙的眼睛开始睁开。",
 		"level": 68,
 		"unique": true,
 		"kind": "dragon",
@@ -3525,12 +3899,12 @@
 		"speed": 0,
 		"attack": [
 			{
-				"name": "tail flick",
+				"name": "尾巴抽击",
 				"kind": "pierce",
 				"damage": "100~150"
 			},
 			{
-				"name": "burning yawn",
+				"name": "燃烧的哈欠",
 				"targets": "enemies",
 				"maxTargets": 999,
 				"kind": "fire",
@@ -3540,8 +3914,8 @@
 	},
 	{
 		"id": "strativax3",
-		"name": "strativax awaken",
-		"desc": "Strativax now furious at your impetuous intrusion.",
+		"name": "斯特拉提瓦克斯觉醒",
+		"desc": "斯特拉提瓦克斯现在因你的冒失闯入而愤怒。",
 		"kind": "dragon",
 		"unique": true,
 		"level": 68,
@@ -3549,12 +3923,12 @@
 		"speed": 40,
 		"attack": [
 			{
-				"name": "talon crush",
+				"name": "爪击",
 				"kind": "blunt",
 				"damage": "200~300"
 			},
 			{
-				"name": "fire breath",
+				"name": "火焰喷吐",
 				"targets": "enemies",
 				"maxTargets": 999,
 				"kind": "fire",
@@ -3567,15 +3941,15 @@
 	},
 	{
 		"id": "gorborung",
-		"name": "the gorborung",
-		"desc": "The gargantuan entity in the depths of Mt. Gorbu never seen by mortal eyes.",
-		"flavor": "Most agree it's best the Gorborung reside in darkness.",
+		"name": "戈尔博戈",
+		"desc": "在戈尔布山深处的巨大实体，凡人之眼从未见过。",
+		"flavor": "大多数人都认为戈尔博戈待在黑暗中是最好的。",
 		"unique": true,
 		"level": 77,
 		"hp": 5000,
 		"defense": 100,
 		"attack": {
-			"name": "gorboring",
+			"name": "戈博戈",
 			"targets": "enemies",
 			"maxTargets": 999,
 			"kind": "air",
@@ -3584,16 +3958,16 @@
 	},
 	{
 		"id": "brittelwort",
-		"name": "brittelwort the watcher",
+		"name": "布里特尔沃特 监视者",
 		"kind": "kell",
 		"level": 54,
 		"unique": true,
-		"desc": "The silent Brittelwort watches in the Felkill mountains, punishing all transgressions.",
+		"desc": "沉默的布里特尔沃特在费尔基尔山脉中监视，惩罚所有的罪孽。",
 		"hp": 4000,
 		"defense": 100,
 		"attack": [
 			{
-				"name": "siphon",
+				"name": "虹吸",
 				"kind": "shadow",
 				"leech": 0.2,
 				"damage": "70~100"
@@ -3605,33 +3979,33 @@
 				}
 			}
 		],
-		"flavor": "It bears a striking similarity to the lesser mummers."
+		"flavor": "它与较低的默默者有着惊人的相似之处。"
 	},
 	{
 		"id": "dhrozenknight",
-		"name": "dhrozen knight",
+		"name": "德罗兹骑士",
 		"level": 50,
 		"evil": 70,
-		"desc": "An immortal knight of Dhroz. Of fifty slain, one is knighted.",
+		"desc": "德罗兹的不朽骑士。杀死五十个便可封为骑士。",
 		"hp": 1200,
 		"attack": {
-			"name": "nether blade",
+			"name": "虚无之刃",
 			"kind": "shadow",
 			"damage": "130~150"
 		},
-		"flavor": "To escape Sarnagar one had only collect the pieces of a single set of Dhrozen armor.",
+		"flavor": "要逃离萨尔纳格，只需收集一套完整的德罗兹盔甲的碎片。",
 		"immune": "sleep,charm"
 	},
 	{
 		"id": "mummer",
 		"level": 48,
 		"kind": "spirit",
-		"desc": "A voiceless form with a bare and twisted skull.",
+		"desc": "一个没有声音的形态，光秃秃的骷髅扭曲着。",
 		"hp": 700,
 		"defense": 70,
 		"attack": [
 			{
-				"name": "soul siphon",
+				"name": "灵魂虹吸",
 				"kind": "shadow",
 				"leech": 0.3,
 				"damage": "40~70"
@@ -3643,19 +4017,19 @@
 				}
 			}
 		],
-		"flavor": "Believed to be a corrupted form of lesser Kell.",
+		"flavor": "被认为是较低级别凯尔的腐化形式。",
 		"immune": "charm"
 	},
 	{
 		"id": "netherwraith",
 		"level": 52,
 		"kind": "spirit",
-		"desc": "A spirit cloaked in noxious nether.",
+		"desc": "一个笼罩在恶臭虚无中的灵魂。",
 		"hp": 1000,
 		"defense": 40,
 		"dodge": 30,
 		"attack": {
-			"name": "nether touch",
+			"name": "虚无之触",
 			"kind": "spirit",
 			"damage": "50~80",
 			"dot": {
@@ -3664,7 +4038,12 @@
 				"damage": 30
 			}
 		},
-		"loot": { "souls": { "value": 1, "skipLocked": true } },
+		"loot": {
+			"souls": {
+				"value": 1,
+				"skipLocked": true
+			}
+		},
 		"resist": {
 			"spirit": 50
 		},
@@ -3676,14 +4055,14 @@
 		"evil": 50,
 		"noproc": true,
 		"unused": true,
-		"desc": "a raw manifestation of death is fleeting, but terrible beyond measure.",
+		"desc": "死亡的原始化身是短暂的，但其恐怖超乎想象。",
 		"kind": "shade",
 		"hp": 6666,
 		"defense": 200,
 		"regen": -100,
 		"attack": [
 			{
-				"name": "deathly presence",
+				"name": "死亡降临",
 				"targets": "enemies",
 				"maxTargets": 999,
 				"dot": {
@@ -3693,7 +4072,7 @@
 				}
 			},
 			{
-				"name": "reap",
+				"name": "收割",
 				"kind": "shadow",
 				"damage": "150~300"
 			}
@@ -3706,12 +4085,12 @@
 		"unused": true,
 		"evil": 100,
 		"kind": "humanoid",
-		"desc": "The terror before the Wind Age.",
+		"desc": "风之时代之前的恐惧。",
 		"hp": 9000,
 		"regen": 30,
 		"defense": 400,
 		"attack": {
-			"name": "bite",
+			"name": "咬击",
 			"kind": "nature",
 			"dot": {
 				"kind": "nature",
@@ -3727,11 +4106,11 @@
 		"kind": "deity",
 		"unused": true,
 		"unique": true,
-		"desc": "The serpent that grips the earth in its scales.",
+		"desc": "用鳞片紧握大地的蛇。",
 		"hp": 130000,
 		"defense": 200,
 		"attack": {
-			"name": "crush",
+			"name": "粉碎",
 			"kind": "blunt",
 			"damage": "200~350"
 		},
@@ -3739,24 +4118,24 @@
 	},
 	{
 		"id": "sum_wisp",
-		"name": "wisp",
+		"name": "光之幽灵",
 		"tags": "t_summon",
 		"level": 2,
 		"kind": "spirit",
-		"desc": "A ghostly wisp of summoned air.",
+		"desc": "被召唤的幽灵般的气息。",
 		"hp": 1,
 		"noproc": true,
 		"defense": 1,
 		"speed": -10,
 		"onSummon": {
-			"name": "ephemeral",
+			"name": "短暂的",
 			"id": "mon_selfdestruct5",
 			"targets": "self",
 			"dot": {
 				"targets": "self",
 				"duration": 500,
 				"onExpire": {
-					"name": "fade away",
+					"name": "消失",
 					"harmless": true,
 					"nodefense": true,
 					"targets": "self",
@@ -3767,7 +4146,7 @@
 	},
 	{
 		"id": "sum_hobgoblin",
-		"name": "hobgoblin",
+		"name": "地精",
 		"tags": "t_summon",
 		"level": 10,
 		"kind": "goblinoid",
@@ -3776,28 +4155,28 @@
 		"noproc": true,
 		"defense": 17,
 		"attack": {
-			"name": "dagger",
+			"name": "匕首",
 			"kind": "pierce",
 			"damage": "1~5"
 		}
 	},
 	{
 		"id": "sum_lgspider",
-		"name": "large spider",
+		"name": "大蜘蛛",
 		"tags": "t_summon,t_summon_beast",
 		"level": 6,
 		"kind": "beast",
-		"desc": "You can't tell if she looks hungry.",
+		"desc": "你无法分辨她是饿了还是想吃掉一只和她一样大的蜘蛛。",
 		"hp": 8,
 		"noproc": true,
 		"defense": 15,
 		"attack": {
-			"name": "bite",
+			"name": "咬击",
 			"kind": "pierce",
 			"damage": "4~9",
 			"dot": {
 				"kind": "nature",
-				"name": "poison",
+				"name": "毒液",
 				"damage": "1~2",
 				"duration": 3
 			}
@@ -3808,24 +4187,24 @@
 	},
 	{
 		"id": "sum_unicorn",
-		"name": "unicorn",
+		"name": "独角兽",
 		"tags": "t_summon,t_summon_beast",
 		"level": 18,
 		"kind": "magicbeast",
-		"desc": "Its horn is full of magic.",
+		"desc": "它的角充满了魔法。",
 		"hp": 77,
 		"noproc": true,
 		"defense": 35,
 		"spells": "lightspear,lightregen1",
 		"attack": {
-			"name": "horn",
+			"name": "角击",
 			"kind": "pierce",
 			"damage": "7~14"
 		}
 	},
 	{
 		"id": "sum_stingybee",
-		"name": "stingy bee",
+		"name": "吝啬的蜜蜂",
 		"tags": "t_summon,t_summon_beast",
 		"kind": "beast",
 		"level": 2,
@@ -3834,13 +4213,13 @@
 		"defense": 2,
 		"speed": -10,
 		"onSummon": {
-			"name": "ephemeral",
+			"name": "短暂的",
 			"id": "mon_selfdestruct5",
 			"targets": "self",
 			"dot": {
 				"duration": 5,
 				"onExpire": {
-					"name": "fade away",
+					"name": "消失",
 					"harmless": true,
 					"nodefense": true,
 					"targets": "self",
@@ -3851,16 +4230,16 @@
 	},
 	{
 		"id": "sum_magicblade",
-		"name": "magic blade",
+		"name": "魔法之刃",
 		"tags": "t_summon",
 		"level": 12,
 		"kind": "construct",
-		"desc": "It just floats there...",
+		"desc": "它只是漂浮在那里……",
 		"hp": 45,
 		"noproc": true,
 		"defense": 35,
 		"attack": {
-			"name": "magic sword",
+			"name": "魔法剑",
 			"kind": "slash",
 			"damage": "4~10"
 		},
@@ -3870,12 +4249,12 @@
 	},
 	{
 		"id": "sum_snek",
-		"name": "arcane serpent",
+		"name": "奥术蛇",
 		"tags": "t_summon,t_summon_beast",
 		"level": 12,
 		"kind": "magicbeast",
-		"desc": "Summoned by magic, now fiercely loyal to you.",
-		"flavor": "Boop as desired.",
+		"desc": "被魔法召唤，现在对你极为忠诚。",
+		"flavor": "请随意戳。",
 		"hp": 50,
 		"noproc": true,
 		"regen": 2,
@@ -3883,12 +4262,12 @@
 		"speed": 12,
 		"attack": [
 			{
-				"name": "constrict",
+				"name": "收缩",
 				"kind": "blunt",
 				"damage": "6~14"
 			},
 			{
-				"name": "venom",
+				"name": "毒液",
 				"dot": {
 					"duration": 10,
 					"kind": "nature",
@@ -3902,22 +4281,22 @@
 	},
 	{
 		"id": "sum_prism",
-		"name": "fulminant prism",
+		"name": "闪耀棱镜",
 		"tags": "t_summon",
 		"level": 32,
 		"kind": "construct",
-		"desc": "A floating prism of unstable magical power.",
+		"desc": "一个漂浮的不稳定魔法能量棱镜。",
 		"hp": 100,
 		"noproc": true,
 		"defense": 50,
 		"onSummon": {
-			"name": "ephemeral",
+			"name": "短暂的",
 			"id": "mon_selfdestruct5",
 			"targets": "self",
 			"dot": {
 				"duration": 5,
 				"onExpire": {
-					"name": "fade away",
+					"name": "消失",
 					"harmless": true,
 					"nodefense": true,
 					"targets": "self",
@@ -3926,7 +4305,7 @@
 			}
 		},
 		"onDeath": {
-			"name": "radiant burst",
+			"name": "光辉爆发",
 			"targets": "enemies",
 			"maxTargets": 999,
 			"harmless": true,
@@ -3937,11 +4316,11 @@
 	},
 	{
 		"id": "sum_hero_ancestor",
-		"name": "heroic ancestor",
+		"name": "英雄祖先",
 		"tags": "t_summon",
 		"level": 26,
 		"kind": "spirit",
-		"desc": "A great hero of yore, inspiring awe with each strike.",
+		"desc": "古代伟大的英雄，以每一次打击激发敬畏。",
 		"hp": 55,
 		"noproc": true,
 		"defense": 35,
@@ -3955,7 +4334,7 @@
 		},
 		"attack": [
 			{
-				"name": "glorious blade",
+				"name": "光辉之刃",
 				"kind": "slash",
 				"damage": "36~45",
 				"dot": {
@@ -3964,7 +4343,7 @@
 				}
 			},
 			{
-				"name": "glorious hammer",
+				"name": "光辉之锤",
 				"kind": "blunt",
 				"damage": "36~45",
 				"dot": {
@@ -3973,7 +4352,7 @@
 				}
 			},
 			{
-				"name": "glorious spear",
+				"name": "光辉之矛",
 				"kind": "pierce",
 				"damage": "36~45",
 				"dot": {
@@ -3985,7 +4364,7 @@
 	},
 	{
 		"id": "sum_frostgiant",
-		"name": "frost giant",
+		"name": "冰霜巨人",
 		"tags": "t_summon",
 		"level": 32,
 		"kind": "giant",
@@ -3994,7 +4373,7 @@
 		"noproc": true,
 		"defense": 65,
 		"onSummon": {
-			"name": "stalwart",
+			"name": "坚定",
 			"targets": "self",
 			"dot": {
 				"tags": "t_taunt",
@@ -4002,7 +4381,7 @@
 			}
 		},
 		"attack": {
-			"name": "punch",
+			"name": "拳击",
 			"kind": "water",
 			"damage": "40~60"
 		},
@@ -4013,21 +4392,21 @@
 	},
 	{
 		"id": "sum_queenbee",
-		"name": "queen bee",
+		"name": "蜂后",
 		"tags": "t_summon,t_summon_beast",
 		"level": 16,
 		"kind": "beast",
-		"desc": "Dbulm called them war wasps upon their discovery, thinking of their value in battle and tenacity in defense of their home. They've later been determined to be a type of bee, but the name has stuck as well as their honey.",
+		"desc": "德布尔姆在发现它们时称它们为战争黄蜂，考虑到它们在战斗中的价值和保护家园的韧性。后来被确定为一种蜜蜂，但这个名字和它们的蜜一样被保留下来了。",
 		"hp": 85,
 		"noproc": true,
 		"defense": 30,
 		"spells": "mon_mk_stingybee",
 		"attack": {
-			"name": "sting",
+			"name": "刺击",
 			"kind": "pierce",
 			"damage": "5~10",
 			"dot": {
-				"name": "venom",
+				"name": "毒液",
 				"duration": 3,
 				"kind": "nature",
 				"damage": "1~2"
@@ -4037,20 +4416,20 @@
 	},
 	{
 		"id": "sum_warwasp",
-		"name": "war wasp",
+		"name": "战争黄蜂",
 		"tags": "t_summon,t_summon_beast",
 		"level": 8,
 		"kind": "beast",
-		"desc": "Actually a type of bee, despite Dbulm's nomenclature.",
+		"desc": "实际上是一种蜜蜂，尽管德布尔姆给了它们这个名称。",
 		"hp": 20,
 		"noproc": true,
 		"defense": 15,
 		"attack": {
-			"name": "sting",
+			"name": "刺击",
 			"kind": "pierce",
 			"damage": "5~10",
 			"dot": {
-				"name": "venom",
+				"name": "毒液",
 				"duration": 3,
 				"kind": "poison",
 				"damage": "1~2"
@@ -4059,39 +4438,27 @@
 	},
 	{
 		"id": "sum_phoenixegg",
-		"name": "phoenix egg",
+		"name": "凤凰蛋",
 		"tags": "t_summon,t_summon_beast",
 		"level": 8,
-		"desc": "Guard it carefully and the hatched phoenix will be grateful.",
+		"desc": "小心翼翼地保护它，孵化出来的凤凰会心存感激。",
 		"kind": "magicbeast",
 		"hp": 10,
 		"noproc": true,
 		"defense": 30,
 		"onSummon": {
-			"name": "incubate",
+			"name": "孵化",
 			"targets": "self",
 			"dot": {
 				"duration": 10,
 				"onExpire": {
-					"name": "hatch",
-					"hits": [
+					"name": "孵化",
+					"targets": "leader",
+					"summon": [
 						{
-							"name": "hatch",
-							"targets": "leader",
-							"summon": [
-								{
-									"id": "sum_phoenix",
-									"count": 1,
-									"max": 3
-								}
-							]
-						},
-						{
-							"name": "fade away",
-							"targets": "self",
-							"harmless": true,
-							"nodefense": true,
-							"damage": "100+a.hp"
+							"id": "sum_phoenix",
+							"count": 1,
+							"max": 3
 						}
 					]
 				}
@@ -4101,20 +4468,20 @@
 	},
 	{
 		"id": "sum_phoenix",
-		"name": "phoenix",
+		"name": "凤凰",
 		"tags": "t_summon,t_summon_beast",
 		"level": 14,
-		"desc": "It's more fire than bird.",
+		"desc": "它是火焰而非鸟类。",
 		"kind": "magicbeast",
 		"hp": 47,
 		"noproc": true,
 		"defense": 40,
 		"onSummon": {
-			"name": "rebirth",
+			"name": "重生",
 			"targets": "self",
 			"dot": {
 				"onDeath": {
-					"name": "rebirth",
+					"name": "重生",
 					"targets": "leader",
 					"summon": [
 						{
@@ -4127,7 +4494,7 @@
 			}
 		},
 		"attack": {
-			"name": "flame wing",
+			"name": "火焰翅膀",
 			"kind": "fire",
 			"damage": "11~20"
 		},
@@ -4135,17 +4502,17 @@
 	},
 	{
 		"id": "sum_sandmite",
-		"name": "sand mite",
+		"name": "沙虫",
 		"tags": "t_summon,t_summon_beast",
 		"kind": "beast",
 		"level": 10,
-		"desc": "Oversized parasites of the dunes.",
+		"desc": "沙丘上过大的寄生虫。",
 		"hp": 16,
 		"noproc": true,
 		"speed": 7,
 		"spells": "mon_dig",
 		"attack": {
-			"name": "burrow",
+			"name": "钻孔",
 			"kind": "pierce",
 			"damage": "7~14"
 		},
@@ -4155,17 +4522,17 @@
 	},
 	{
 		"id": "sum_shadow",
-		"name": "your own shadow",
+		"name": "你自己的影子",
 		"tags": "t_summon",
 		"kind": "shadow",
 		"level": 14,
-		"desc": "Your own shadow, severed to fight at your side. Take care- it remains part of you.",
+		"desc": "你自己的影子，被割断以便在你身边战斗。小心——它仍然是你的一部分。",
 		"hp": 32,
 		"noproc": true,
 		"defense": 10,
 		"spells": "gloom,deathbolt",
 		"attack": {
-			"name": "swipe",
+			"name": "挥击",
 			"kind": "shadow",
 			"targets": "enemies",
 			"maxTargets": 999,
@@ -4173,7 +4540,7 @@
 			"leech": 0.1
 		},
 		"onDeath": {
-			"name": "shadow price",
+			"name": "影子代价",
 			"targets": "leader",
 			"harmless": true,
 			"nodefense": true,
@@ -4192,11 +4559,11 @@
 	},
 	{
 		"id": "sum_painrune",
-		"name": "rune of agony",
+		"name": "痛苦符文",
 		"tags": "t_summon",
 		"kind": "rune",
 		"level": 20,
-		"desc": "Suffering made manifest, indiscriminately flooding its surroundings with dark power.",
+		"desc": "痛苦的化身，无差别地用黑暗力量淹没周围。",
 		"hp": 61,
 		"noproc": true,
 		"defense": 27,
@@ -4226,22 +4593,22 @@
 	},
 	{
 		"id": "sum_nova",
-		"name": "nova",
+		"name": "新星",
 		"tags": "t_summon",
 		"level": 32,
 		"kind": "construct",
-		"desc": "A floating orb of unstable astral magic.",
+		"desc": "一个漂浮的不稳定星体魔法。",
 		"hp": 100,
 		"noproc": true,
 		"defense": 50,
 		"onSummon": {
+			"name": "短暂的",
 			"id": "mon_selfdestruct5",
-			"name": "ephemeral",
 			"targets": "self",
 			"dot": {
 				"duration": 5,
 				"onExpire": {
-					"name": "fade away",
+					"name": "消失",
 					"harmless": true,
 					"nodefense": true,
 					"targets": "self",
@@ -4250,7 +4617,7 @@
 			}
 		},
 		"onDeath": {
-			"name": "supernova",
+			"name": "超新星",
 			"hits": [
 				{
 					"targets": "allies",
@@ -4271,22 +4638,22 @@
 	},
 	{
 		"id": "sum_black_hole",
-		"name": "black hole",
+		"name": "黑洞",
 		"tags": "t_summon",
 		"level": 32,
 		"kind": "construct",
-		"desc": "A floating orb of unstable void magic.",
+		"desc": "一个漂浮的不稳定虚空魔法。",
 		"hp": 100,
 		"noproc": true,
 		"defense": 50,
 		"onSummon": {
-			"name": "ephemeral",
+			"name": "短暂的",
 			"id": "mon_selfdestruct5",
 			"targets": "self",
 			"dot": {
 				"duration": 5,
 				"onExpire": {
-					"name": "fade away",
+					"name": "消失",
 					"harmless": true,
 					"nodefense": true,
 					"targets": "self",
@@ -4295,7 +4662,7 @@
 			}
 		},
 		"onDeath": {
-			"name": "event horizon",
+			"name": "事件视界",
 			"hits": [
 				{
 					"targets": "allies",
@@ -4317,8 +4684,8 @@
 	},
 	{
 		"id": "sum_imp",
-		"name": "imp",
-		"desc": "Little demonic bastards.",
+		"name": "小恶魔",
+		"desc": "小型恶魔杂种。",
 		"kind": "demon",
 		"tags": "t_summon",
 		"noproc": true,
@@ -4329,7 +4696,7 @@
 		"spells": "darkbolt,magicmissile,firedart",
 		"attack": [
 			{
-				"name": "claws",
+				"name": "利爪",
 				"kind": "slash",
 				"damage": "4~7"
 			},
@@ -4355,15 +4722,18 @@
 					"damage": "i.damage||0",
 					"kind": "fire",
 					"tohit": 1,
-					"potencies": ["spelldmg", "firedmg"]
+					"potencies": [
+						"spelldmg",
+						"firedmg"
+					]
 				}
 			}
 		}
 	},
 	{
 		"id": "sum_quasit",
-		"name": "quasit",
-		"desc": "Like a demonic humanoid vulture.",
+		"name": "小鬼",
+		"desc": "像恶魔一样的人形秃鹫。",
 		"kind": "demon",
 		"tags": "t_summon",
 		"noproc": true,
@@ -4373,7 +4743,7 @@
 		"regen": 7,
 		"spells": "searingbolt,magebolt",
 		"attack": {
-			"name": "claws",
+			"name": "利爪",
 			"kind": "slash",
 			"damage": "4~9"
 		},
@@ -4391,12 +4761,18 @@
 					"damage": "i.damage||0",
 					"tohit": 5,
 					"kind": "fire",
-					"potencies": ["spelldmg", "firedmg"],
+					"potencies": [
+						"spelldmg",
+						"firedmg"
+					],
 					"dot": {
 						"kind": "fire",
 						"damage": "2~3",
 						"duration": 10,
-						"potencies": ["spelldmg", "firedmg"]
+						"potencies": [
+							"spelldmg",
+							"firedmg"
+						]
 					}
 				}
 			}
@@ -4404,8 +4780,8 @@
 	},
 	{
 		"id": "sum_grimstalk",
-		"name": "grimstalk",
-		"desc": "A wooden demon with fingers like blades.",
+		"name": "格里姆斯塔克",
+		"desc": "一个木制的恶魔，手指像刀刃一样锋利。",
 		"kind": "demon",
 		"tags": "t_summon",
 		"noproc": true,
@@ -4414,7 +4790,7 @@
 		"defense": 55,
 		"regen": 7,
 		"attack": {
-			"name": "claws",
+			"name": "爪击",
 			"kind": "slash",
 			"damage": "12~28"
 		},
@@ -4425,8 +4801,8 @@
 	},
 	{
 		"id": "sum_demon",
-		"name": "demon",
-		"flavor": "He should really trim his horns a bit, they are starting to get tangled.",
+		"name": "恶魔",
+		"flavor": "他真的应该修剪一下角，它们开始缠结在一起了。",
 		"tags": "t_summon",
 		"level": 42,
 		"kind": "demon",
@@ -4435,7 +4811,7 @@
 		"defense": 666,
 		"regen": 6.6,
 		"attack": {
-			"name": "darksword",
+			"name": "黑暗之剑",
 			"kind": "shadow",
 			"damage": "33~66"
 		},
@@ -4446,17 +4822,17 @@
 	},
 	{
 		"id": "sum_stone_barrier",
-		"name": "stone wall",
+		"name": "石墙",
 		"tags": "t_summon",
 		"level": 10,
 		"kind": "construct",
-		"desc": "Rock climbing's becoming popular these days.",
+		"desc": "攀岩运动在这些日子变得很流行。",
 		"hp": 20,
 		"noproc": true,
 		"defense": 40,
 		"dodge": -10,
 		"onSummon": {
-			"name": "impassable",
+			"name": "不可逾越",
 			"targets": "self",
 			"dot": {
 				"tags": "t_taunt",
@@ -4477,16 +4853,16 @@
 	},
 	{
 		"id": "sum_beartrap",
-		"name": "beartrap",
+		"name": "捕熊器",
 		"tags": "t_summon",
 		"level": 10,
 		"kind": "construct",
-		"desc": "Don't tread on me.",
+		"desc": "不要踩到我。",
 		"hp": 10,
 		"noproc": true,
 		"defense": 15,
 		"onDeath": {
-			"name": "crunch",
+			"name": "咔嚓",
 			"targets": "enemy",
 			"damage": "10~20",
 			"dot": {
@@ -4507,7 +4883,7 @@
 		"tags": "t_animalcompanion",
 		"slot": "companion",
 		"require": "g.rabbittrick>0",
-		"name": "rabbit companion",
+		"name": "兔子伙伴",
 		"level": 20,
 		"kind": "beast",
 		"noproc": true,
@@ -4518,7 +4894,7 @@
 		"dodge": 1400,
 		"regen": 1,
 		"onSummon": {
-			"name": "wascally",
+			"name": "顽皮",
 			"targets": "self",
 			"dot": {
 				"tags": "t_taunt",
@@ -4527,13 +4903,13 @@
 		},
 		"attack": [
 			{
-				"name": "vorpal bite",
+				"name": "无畏之咬",
 				"kind": "pierce",
 				"targets": "enemy",
 				"damage": "1+(Math.random()*Math.min(t.hp.max/10, 50))"
 			},
 			{
-				"name": "tomfoolery",
+				"name": "愚弄",
 				"kind": "chaos",
 				"targets": "enemy",
 				"damage": "1~7",
@@ -4545,13 +4921,13 @@
 				}
 			},
 			{
-				"name": "shenanigans",
+				"name": "恶作剧",
 				"kind": "chaos",
 				"targets": "enemies",
 				"maxTargets": 999,
 				"damage": "1~7",
 				"dot": {
-					"name": "jinx",
+					"name": "厄运",
 					"kind": "spirit",
 					"duration": 10,
 					"mod": {
@@ -4561,52 +4937,64 @@
 			}
 		],
 		"immune": "chaos",
-		"flavor": "Loves childish tricks."
+		"flavor": "喜欢幼稚的把戏。"
 	},
 	{
 		"id": "iceelemental2",
-		"name": "Greater Ice Elemental",
-		"desc": "What's so scary about a bunch of icicles? Well... this.",
+		"name": "更强大的冰元素",
+		"desc": "这是一团扭曲的冰块。",
 		"kind": "elemental",
 		"level": 46,
-		"resist": { "water": 50 },
+		"resist": {
+			"water": 50
+		},
 		"attack": {
-			"name": "ice avalanche",
+			"name": "冰雪崩",
 			"kind": "water",
 			"damage": "a.damage"
 		},
 		"loot": {
 			"watergem": "1~3",
-			"amberroot": { "%": "60%", "value": "2~3" }
+			"amberroot": {
+				"%": "60%",
+				"value": "2~3"
+			}
 		}
 	},
 	{
 		"id": "airelemental2",
-		"name": "Greater Air Elemental",
-		"desc": "It must have been a lot, a lot of wind",
+		"name": "更强大的空气元素",
+		"desc": "这一定是很多很多风。",
 		"kind": "elemental",
 		"level": 46,
-		"resist": { "air": 50 },
+		"resist": {
+			"air": 50
+		},
 		"speed": 40,
 		"attack": {
-			"name": "wind blades",
+			"name": "风刃",
 			"kind": "air",
 			"damage": "a.damage"
 		},
 		"loot": {
 			"airgem": "1~3",
-			"amberroot": { "%": "60%", "value": "2~3" }
+			"amberroot": {
+				"%": "60%",
+				"value": "2~3"
+			}
 		}
 	},
 	{
 		"id": "fireelemental2",
-		"name": "Greater Fire Elemental",
-		"desc": "Too hot to even look at.",
+		"name": "更强大的火元素",
+		"desc": "太热了，甚至无法看。",
 		"kind": "elemental",
 		"level": 46,
-		"resist": { "fire": 50 },
+		"resist": {
+			"fire": 50
+		},
 		"attack": {
-			"name": "fireball",
+			"name": "火球",
 			"targets": "enemies",
 			"maxTargets": 6,
 			"kind": "fire",
@@ -4614,19 +5002,24 @@
 		},
 		"loot": {
 			"firegem": "1~3",
-			"amberroot": { "%": "60%", "value": "2~3" }
+			"amberroot": {
+				"%": "60%",
+				"value": "2~3"
+			}
 		}
 	},
 	{
 		"id": "earthelemental2",
-		"name": "Greater Earth Elemental",
-		"desc": "How do you fight dirt the very ground you stand on?",
+		"name": "更强大的大地元素",
+		"desc": "你如何对抗泥土，连你站立的地面都在？",
 		"kind": "elemental",
 		"level": 46,
-		"resist": { "earth": 20 },
+		"resist": {
+			"earth": 20
+		},
 		"speed": 0,
 		"attack": {
-			"name": "earthquake",
+			"name": "地震",
 			"targets": "enemies",
 			"maxTargets": 999,
 			"kind": "earth",
@@ -4634,25 +5027,30 @@
 		},
 		"loot": {
 			"earthgem": "1~3",
-			"amberroot": { "%": "60%", "value": "2~3" }
+			"amberroot": {
+				"%": "60%",
+				"value": "2~3"
+			}
 		}
 	},
 	{
 		"id": "tempestelemental",
-		"name": "Tempest Elemental",
-		"desc": "Deafening, violent and unforgiving. One can only hope it'll pass in another direction. Truly an untamed disaster.",
+		"name": "风暴元素",
+		"desc": "震耳欲聋，暴力而无情。人们只能希望它会朝另一个方向经过。真是无法驯服的灾难。",
 		"kind": "elemental",
 		"level": 52,
-		"resist": { "fire": 20 },
+		"resist": {
+			"fire": 20
+		},
 		"speed": 80,
 		"attack": [
 			{
-				"name": "lightning",
+				"name": "闪电",
 				"kind": "air",
 				"damage": "a.damage*0.6"
 			},
 			{
-				"name": "torrent",
+				"name": "倾盆大雨",
 				"kind": "water",
 				"damage": "a.damage*0.6"
 			}
@@ -4660,51 +5058,63 @@
 		"loot": {
 			"airrune": "1~2",
 			"waterrune": "1~2",
-			"amberroot": { "%": "60%", "value": "4~6" }
+			"amberroot": {
+				"%": "60%",
+				"value": "4~6"
+			}
 		}
 	},
 	{
 		"id": "mudelemental",
-		"name": "Mud Elemental",
-		"desc": "Hulking mass, constantly shifting and dripping. Slow, but immense. Truly an untamed disaster.",
+		"name": "泥元素",
+		"desc": "庞大的身体，不断扭动和滴落。缓慢但巨大。真是无法驯服的灾难。",
 		"kind": "elemental",
 		"level": 52,
-		"resist": { "air": 20 },
+		"resist": {
+			"air": 20
+		},
 		"speed": 20,
 		"attack": {
-			"name": "entomb",
+			"name": "埋葬",
 			"targets": "enemies",
 			"maxTargets": 999,
 			"kind": "earth",
 			"damage": "60~80",
 			"dot": {
-				"name": "entombed",
+				"name": "埋葬",
 				"duration": 4,
 				"kind": "water",
 				"damage": 15,
-				"mod": { "self.speed": -5 }
+				"mod": {
+					"self.speed": -5
+				}
 			}
 		},
 		"loot": {
 			"earthrune": "1~2",
 			"waterrune": "1~2",
-			"amberroot": { "%": "60%", "value": "4~6" }
+			"amberroot": {
+				"%": "60%",
+				"value": "4~6"
+			}
 		}
 	},
 	{
 		"id": "magmaelemental",
-		"name": "Magma Elemental",
-		"desc": "Relentless and everflowing. But calm and serene... at least until it's provoked. Truly an untamed disaster.",
+		"name": "岩浆元素",
+		"desc": "无情而不断流动。但平静而宁静……至少在被激怒之前。真是无法驯服的灾难。",
 		"kind": "elemental",
 		"level": 52,
-		"resist": { "earth": 20 },
+		"resist": {
+			"earth": 20
+		},
 		"speed": 40,
 		"attack": {
-			"name": "magma surge",
+			"name": "岩浆涌动",
 			"kind": "earth",
 			"damage": "40~60",
 			"dot": {
-				"name": "burning",
+				"name": "燃烧",
 				"duration": 4,
 				"kind": "fire",
 				"damage": 15
@@ -4713,14 +5123,17 @@
 		"loot": {
 			"earthrune": "1~2",
 			"firerune": "1~2",
-			"amberroot": { "%": "60%", "value": "2~3" }
+			"amberroot": {
+				"%": "60%",
+				"value": "2~3"
+			}
 		}
 	},
 	{
 		"id": "ashelemental",
-		"name": "Ash Elemental",
-		"desc": "Weight of what was lost, and hope of what shall be born anew. Aftermath of the disaster is never pretty.",
-		"flavor": "Plin plin plon...",
+		"name": "灰烬元素",
+		"desc": "失去的重量，以及将要重生的希望。灾难后的余波从来都不好看。",
+		"flavor": "噗噗噗……",
 		"kind": "elemental",
 		"unique": true,
 		"level": 55,
@@ -4734,25 +5147,25 @@
 		},
 		"attack": [
 			{
-				"name": "Tide of Regret",
+				"name": "悔恨之潮",
 				"dot": {
-					"name": "Burning regret",
+					"name": "燃烧的悔恨",
 					"duration": 4,
 					"kind": "fire",
 					"damage": "70~100"
 				}
 			},
 			{
-				"name": "Sting of Sorrow",
+				"name": "悲伤之刺",
 				"dot": {
-					"name": "Piercing sorrow",
+					"name": "刺痛的悲伤",
 					"duration": 4,
 					"kind": "air",
 					"damage": "50~120"
 				}
 			},
 			{
-				"name": "Cover of Longing",
+				"name": "渴望的庇护",
 				"kind": "nature",
 				"targets": "self",
 				"healing": "30~50"
@@ -4766,21 +5179,21 @@
 	},
 	{
 		"id": "abyssal_dreg",
-		"name": "Dreg of the Abyss",
+		"name": "深渊的污垢",
 		"kind": "abyssal",
 		"noproc": true,
 		"level": 58,
 		"hp": 500,
 		"dodge": 30,
 		"attack": {
-			"name": "pale struggle",
+			"name": "苍白的挣扎",
 			"kind": "shadow",
 			"damage": "60~90"
 		}
 	},
 	{
 		"id": "abyssal_lesser_shadow",
-		"name": "Lesser Shadow of the Abyss",
+		"name": "深渊的次级阴影",
 		"kind": "abyssal",
 		"noproc": true,
 		"level": 63,
@@ -4788,56 +5201,56 @@
 		"defense": 25,
 		"dodge": 30,
 		"attack": {
-			"name": "spectral wallop",
+			"name": "幽灵重击",
 			"kind": "spirit",
 			"damage": "100~150"
 		}
 	},
 	{
 		"id": "abyssal_rat_mother",
-		"name": "Rat Mother of the Abyss",
+		"name": "深渊的鼠母",
 		"kind": "abyssal",
 		"noproc": true,
 		"level": 63,
 		"hp": 600,
 		"dodge": 30,
 		"attack": {
-			"name": "tainted slam",
+			"name": "污染重击",
 			"kind": "nature",
 			"damage": "20~60"
 		}
 	},
 	{
 		"id": "abyssal_rat",
-		"name": "Rat of the Abyss",
+		"name": "深渊的老鼠",
 		"kind": "abyssal",
 		"noproc": true,
 		"level": 48,
 		"hp": 200,
 		"dodge": 30,
 		"attack": {
-			"name": "tainted bite",
+			"name": "污染之咬",
 			"kind": "nature",
 			"damage": "5~55"
 		}
 	},
 	{
 		"id": "abyssal_raven_flock",
-		"name": "Raven Flock of the Abyss",
+		"name": "深渊的乌鸦群",
 		"kind": "abyssal",
 		"noproc": true,
 		"level": 64,
 		"hp": 750,
 		"dodge": 40,
 		"attack": {
-			"name": "swarming assault",
+			"name": "蜂拥攻击",
 			"kind": "air",
 			"damage": "120~170"
 		}
 	},
 	{
 		"id": "abyssal_cinder_golem",
-		"name": "Cinder Golem of the Abyss",
+		"name": "深渊的灰烬魔像",
 		"kind": "abyssal",
 		"noproc": true,
 		"level": 70,
@@ -4846,12 +5259,12 @@
 		"speed": 20,
 		"attack": [
 			{
-				"name": "boulder sling",
+				"name": "巨石投掷",
 				"kind": "earth",
 				"damage": "600~750"
 			},
 			{
-				"name": "heatwave",
+				"name": "热浪",
 				"kind": "fire",
 				"targets": "enemies",
 				"damage": "150~260"
@@ -4860,14 +5273,14 @@
 	},
 	{
 		"id": "abyssal_proselyte",
-		"name": "Proselyte of the Abyss",
+		"name": "深渊的传教士",
 		"kind": "abyssal",
 		"noproc": true,
 		"level": 74,
 		"hp": 1200,
 		"dodge": 30,
 		"attack": {
-			"name": "lightless burst",
+			"name": "无光爆发",
 			"kind": "light",
 			"damage": "120~180",
 			"targets": "enemies"
@@ -4875,7 +5288,7 @@
 	},
 	{
 		"id": "abyssal_soldier",
-		"name": "Soldier of the Abyss",
+		"name": "深渊的士兵",
 		"kind": "abyssal",
 		"noproc": true,
 		"level": 74,
@@ -4883,14 +5296,14 @@
 		"defense": 25,
 		"dodge": 35,
 		"attack": {
-			"name": "piercing thrust",
+			"name": "刺穿攻击",
 			"kind": "pierce",
 			"damage": "140~160"
 		}
 	},
 	{
 		"id": "abyssal_knight",
-		"name": "Knight of the Abyss",
+		"name": "深渊的骑士",
 		"kind": "abyssal",
 		"noproc": true,
 		"level": 78,
@@ -4898,7 +5311,7 @@
 		"defense": 50,
 		"dodge": 35,
 		"attack": {
-			"name": "square off",
+			"name": "正面交锋",
 			"kind": "slash",
 			"damage": "180~220"
 		}

@@ -1,8 +1,8 @@
 [
 	{
 		"id": "crafting",
-		"need": "workspace",
-		"desc": "An absolutely vital skill for a wizard to craft arcane items.",
+		"need": "工作台",
+		"desc": "对巫师来说，制作奥术物品是绝对重要的技能。",
 		"buy": {
 			"research": 20
 		},
@@ -15,11 +15,11 @@
 	},
 	{
 		"id": "lore",
-		"name": "mage lore",
+		"name": "法师学识",
 		"school": "arcane",
 		"tags": "t_school",
-		"verb": "reading lore",
-		"desc": "Nothing is more important to a wizard than the depth of their lore.",
+		"verb": "研读学识",
+		"desc": "对巫师来说，没有什么比学识的深度更重要。",
 		"require": "g.apprentice>0",
 		"buy": {
 			"research": 20
@@ -39,8 +39,8 @@
 	{
 		"id": "spellcraft",
 		"school": "arcane",
-		"verb": "studying spells",
-		"desc": "The ability to build greater spells from lesser is what separates a practitioner from a master.",
+		"verb": "研究法术",
+		"desc": "能将小法术组合成大法术，是区分普通施法者和大师的标志。",
 		"require": "g.tier3>0&&g.lore>=15",
 		"level": 10,
 		"buy": {
@@ -58,9 +58,9 @@
 	},
 	{
 		"id": "concentrate",
-		"name": "concentration",
-		"verb": "concentrating",
-		"desc": "Keep your mind and nerves sharp under pressure.",
+		"name": "专注",
+		"verb": "集中精神",
+		"desc": "让你的头脑和神经在压力下保持敏锐。",
 		"level": 5,
 		"buy": {
 			"arcana": 8
@@ -75,7 +75,7 @@
 	},
 	{
 		"id": "composure",
-		"desc": "Remain unfazed under strain.",
+		"desc": "在压力下保持镇定。",
 		"level": 5,
 		"buy": {
 			"arcana": 12
@@ -90,13 +90,13 @@
 	},
 	{
 		"id": "trickery",
-		"verb": "scheming",
-		"flavor": "Sufficiently advanced sleight of hand is indistinguishable from magic.",
+		"verb": "谋划",
+		"flavor": "足够高明的手法与魔法无异。",
 		"level": 5,
 		"school": "arcane",
 		"require": "spellbook",
 		"need": "g.prestidigitation>=10||g.tier1>0||g.hal_trick_pumpkin>0",
-		"needtext": "Perform the Prestidigitation task a total of 10 times or attain Tier 1 - Professional Magick.",
+		"needtext": "完成 10 次巧手任务或达到 1 阶职业魔法。",
 		"buy": {
 			"arcana": 13
 		},
@@ -114,7 +114,7 @@
 	{
 		"id": "conjuration",
 		"school": "arcane",
-		"verb": "conjuring",
+		"verb": "召唤",
 		"desc": "",
 		"require": "g.tier0>0&&g.lore>=7&&g.divination>=3",
 		"buy": {
@@ -130,16 +130,16 @@
 		"mod": {
 			"research.max": 1
 		},
-		"flavor": "Who knows where things come from? They just appear."
+		"flavor": "谁知道东西是从哪里来的？它们就是出现的。"
 	},
 	{
 		"id": "runelore",
 		"alias": "runes",
-		"name": "runic lore",
+		"name": "符文学识",
 		"school": "arcane",
-		"verb": "translating",
-		"desc": "Study ancient Dhrunic runes.",
-		"extdesc": "Rumour has it, such ancient runestones still lay hidden on Eryl Eyot.",
+		"verb": "翻译",
+		"desc": "研究古老的德鲁尼符文。",
+		"extdesc": "传言，古老的符文石仍然隐藏在埃瑞尔·艾约特。",
 		"require": "g.tier2>0&&g.dwarfbook>0",
 		"level": 10,
 		"buy": {
@@ -162,7 +162,7 @@
 	},
 	{
 		"id": "animals",
-		"name": "animal handling",
+		"name": "驯兽",
 		"need": "t_pets",
 		"buy": {
 			"research": 20
@@ -174,11 +174,11 @@
 			"research.max": 1,
 			"steed.mod.dist": 1
 		},
-		"flavor": "Tend the rabbits. Or horses."
+		"flavor": "照顾兔子。或者马。"
 	},
 	{
 		"id": "magicbeasts",
-		"name": "magic beasts",
+		"name": "魔法生物",
 		"require": "g.animals>=7&&g.naturelore>=5",
 		"desc": "",
 		"level": 5,
@@ -248,8 +248,8 @@
 		"id": "languages",
 		"school": "lore",
 		"require": "lore",
-		"desc": "Books and scrolls are written in many obscure languages. Learn as many as possible.",
-		"verb": "linguisticizing",
+		"desc": "书籍和卷轴是用许多晦涩的语言写成的。尽可能多地学习。",
+		"verb": "语言学",
 		"buy": {
 			"research": 10
 		},
@@ -264,10 +264,10 @@
 	},
 	{
 		"id": "history",
-		"name": "world lore",
+		"name": "世界历史",
 		"require": "g.languages>=6",
-		"desc": "The knowledge of what has come before reveals what is yet possible.",
-		"verb": "historicizing",
+		"desc": "对过去的了解揭示了未来的可能性。",
+		"verb": "历史学",
 		"level": 5,
 		"buy": {
 			"arcana": 12
@@ -289,8 +289,12 @@
 	{
 		"id": "anatomy",
 		"require": "g.neophyte>0&&g.lore>=6",
-		"school": ["nature", "shadow", "light"],
-		"desc": "The study of physical form.",
+		"school": [
+			"nature",
+			"shadow",
+			"light"
+		],
+		"desc": "对物理形态的研究。",
 		"buy": {
 			"arcana": 5
 		},
@@ -340,7 +344,7 @@
 	},
 	{
 		"id": "bloodlore",
-		"name": "blood magic",
+		"name": "血魔法",
 		"school": "blood",
 		"require": "g.t_bloodclass>0",
 		"level": 10,
@@ -359,7 +363,7 @@
 	},
 	{
 		"id": "divination",
-		"desc": "The art of foretelling.",
+		"desc": "预言的艺术。",
 		"require": "g.spiritlore>=6||g.mysticism>=5",
 		"need": "spiritsource",
 		"school": "spirit",
@@ -379,9 +383,9 @@
 	{
 		"id": "lightlore",
 		"tags": "t_school",
-		"name": "lumenology",
+		"name": "光明学",
 		"school": "light",
-		"desc": "Study of pure light.",
+		"desc": "纯光的研究。",
 		"need": "g.lore>=3&&g.lightsource>0",
 		"buy": {
 			"arcana": 12
@@ -396,11 +400,11 @@
 				"rate": 0.01
 			}
 		},
-		"flavor": "The light fantastic."
+		"flavor": "光的幻想。"
 	},
 	{
 		"id": "shadowlore",
-		"name": "umbramancy",
+		"name": "阴影魔法",
 		"tags": "t_school",
 		"school": "shadow",
 		"need": "g.lore>=3&&g.shadowsource>0",
@@ -419,8 +423,8 @@
 	{
 		"id": "spiritlore",
 		"tags": "t_school",
-		"name": "spirit communion",
-		"desc": "Seeing the unseen.",
+		"name": "灵魂交流",
+		"desc": "看见未见之物。",
 		"need": "g.lore>=3&&g.spiritsource>0",
 		"school": "spirit",
 		"buy": {
@@ -440,8 +444,8 @@
 	{
 		"id": "firelore",
 		"tags": "t_school,elemental",
-		"name": "pyromancy",
-		"desc": "The investigation of fire.",
+		"name": "火焰魔法",
+		"desc": "对火的研究。",
 		"need": "g.lore>=3&&g.firesource>0",
 		"buy": {
 			"arcana": 10
@@ -457,11 +461,11 @@
 				"rate": 0.01
 			}
 		},
-		"flavor": "Dry is good and wind is better."
+		"flavor": "干燥是好的，风是更好的。"
 	},
 	{
 		"id": "earthlore",
-		"name": "geomancy",
+		"name": "地质魔法",
 		"tags": "t_school,elemental",
 		"need": "g.lore>=3&&g.earthsource>0",
 		"buy": {
@@ -480,9 +484,9 @@
 	},
 	{
 		"id": "waterlore",
-		"name": "aquamancy",
-		"desc": "The study of water.",
-		"verb": "studying water",
+		"name": "水文学",
+		"desc": "对水的研究。",
+		"verb": "研究水",
 		"tags": "elemental,t_school",
 		"buy": {
 			"arcana": 5
@@ -501,9 +505,9 @@
 	},
 	{
 		"id": "airlore",
-		"name": "aeromancy",
-		"desc": "The study of air.",
-		"verb": "studying air",
+		"name": "气文学",
+		"desc": "对空气的研究。",
+		"verb": "研究空气",
 		"tags": "elemental,t_school",
 		"buy": {
 			"arcana": 10
@@ -522,8 +526,8 @@
 	},
 	{
 		"id": "naturelore",
-		"name": "nature studies",
-		"verb": "observing nature",
+		"name": "自然研究",
+		"verb": "观察自然",
 		"tags": "t_school",
 		"require": "g.herbalism>=3&&g.lore>=3",
 		"buy": {
@@ -542,10 +546,10 @@
 	},
 	{
 		"id": "wizlore",
-		"name": "wizard Lore",
+		"name": "巫师学识",
 		"require": "(g.t_knowledgeclass+g.tier5)>=2",
 		"school": "arcane",
-		"desc": "Many ask 'how?' Few think to ask, 'why?'",
+		"desc": "许多人问'怎么做？' 很少有人想问，'为什么？'",
 		"level": 15,
 		"buy": {
 			"arcana": 75
@@ -564,8 +568,8 @@
 	},
 	{
 		"id": "firelore2",
-		"name": "fire mastery",
-		"desc": "A mastery of fire.",
+		"name": "火焰精通",
+		"desc": "对火的精通。",
 		"level": 15,
 		"require": "g.firelore>=10&&g.t_fireclass>0&&g.tier2>0",
 		"buy": {
@@ -581,12 +585,12 @@
 			"fire.rate": "1%",
 			"firedmg": 3
 		},
-		"flavor": "Dry is good and wind is better."
+		"flavor": "干燥是好的，风是更好的。"
 	},
 	{
 		"id": "waterlore2",
-		"name": "water mastery",
-		"desc": "A mastery of water.",
+		"name": "水的精通",
+		"desc": "对水的精通。",
 		"require": "g.waterlore>=10&&g.t_waterclass>0&&g.tier2>0",
 		"level": 15,
 		"buy": {
@@ -605,8 +609,8 @@
 	},
 	{
 		"id": "airlore2",
-		"name": "air mastery",
-		"desc": "A mastery of air.",
+		"name": "空气精通",
+		"desc": "对空气的精通。",
 		"require": "g.airlore>=10&&g.t_airclass>0&&g.tier2>0",
 		"level": 15,
 		"buy": {
@@ -625,8 +629,8 @@
 	},
 	{
 		"id": "hammerlore",
-		"name": "hammer proficiency",
-		"desc": "The anvil or the skull, it makes no difference.",
+		"name": "锤子精通",
+		"desc": "铁砧或头骨，没什么区别。",
 		"require": "g.t_hammerclass>0",
 		"need": "armssource",
 		"level": 5,
@@ -642,7 +646,7 @@
 	},
 	{
 		"id": "geosculpting",
-		"desc": "Bend the earth to your will.",
+		"desc": "弯曲大地以符合你的意志。",
 		"require": "g.t_earthclass>0",
 		"level": 5,
 		"buy": {
@@ -659,8 +663,8 @@
 	},
 	{
 		"id": "earthlore2",
-		"name": "earth mastery",
-		"desc": "A mastery of earth.",
+		"name": "大地精通",
+		"desc": "对大地的精通。",
 		"require": "g.earthlore>=10&&g.t_earthclass>0&&g.tier2>0",
 		"level": 15,
 		"buy": {
@@ -679,8 +683,8 @@
 	},
 	{
 		"id": "lightlore2",
-		"name": "light mastery",
-		"desc": "A mastery of light.",
+		"name": "光明精通",
+		"desc": "对光明的精通。",
 		"require": "g.lightlore>=10&&g.t_lightclass>0&&g.tier2>0",
 		"level": 15,
 		"buy": {
@@ -698,8 +702,8 @@
 	},
 	{
 		"id": "spiritlore2",
-		"name": "spirit mastery",
-		"desc": "A mastery of spirit.",
+		"name": "灵魂精通",
+		"desc": "对灵魂的精通。",
 		"require": "g.spiritlore>=10&&g.t_spiritclass>0&&g.tier2>0",
 		"level": 15,
 		"buy": {
@@ -717,8 +721,8 @@
 	},
 	{
 		"id": "manalore2",
-		"name": "arcane mastery",
-		"desc": "A mastery of pure magic.",
+		"name": "奥术精通",
+		"desc": "对纯魔法的精通。",
 		"require": "g.lore>=20&&g.t_knowledgeclass>0&&g.tier2>0",
 		"level": 15,
 		"buy": {
@@ -736,8 +740,8 @@
 	},
 	{
 		"id": "naturelore2",
-		"name": "viriditas",
-		"desc": "Become one with nature.",
+		"name": "自然之力",
+		"desc": "与自然融为一体。",
 		"require": "g.naturelore>=10&&g.t_natureclass>0&&g.tier2>0",
 		"level": 15,
 		"buy": {
@@ -756,12 +760,15 @@
 			"t_summon_beast.statedata.defense": "10%",
 			"t_summon_beast.statedata.speed": 1
 		},
-		"flavor": "Embrace what it means to flourish."
+		"flavor": "拥抱繁荣的意义。"
 	},
 	{
 		"id": "potions",
 		"require": "g.crafting>=3&&g.alchemy>=2&&g.potsource.locked==0",
-		"need": ["workspace", "potsource"],
+		"need": [
+			"workspace",
+			"potsource"
+		],
 		"level": 5,
 		"buy": {
 			"arcana": 23
@@ -776,7 +783,7 @@
 	{
 		"id": "enchanting",
 		"require": "g.tier1>0&&g.lore>=11",
-		"desc": "Imbue mundane gems and items with magical properties.",
+		"desc": "赋予普通宝石和物品魔法属性。",
 		"level": 10,
 		"run": {
 			"stamina": 0.4,
@@ -786,7 +793,7 @@
 			"research": 300
 		},
 		"need": "((g.managem>=1)+(g.firegem>=1)+(g.watergem>=1)+(g.naturegem>=1)+(g.earthgem>=1)+(g.airgem>=1)+(g.shadowgem>=1)+(g.lightgem>=1)+(g.spiritgem>=1))>=3",
-		"needtext": "Must own at least 3 types of magical gems. Perhaps they can be found while exploring some nearby locales.",
+		"needtext": "必须拥有至少 3 种类型的魔法宝石。也许在附近的地方探索时可以找到它们。",
 		"mod": {
 			"enchantslots.max": 1
 		},
@@ -825,7 +832,7 @@
 	{
 		"id": "mysticism",
 		"require": "g.lore>=8",
-		"desc": "The ability to sense the flow and flux of arcane energies.",
+		"desc": "感知奥术能量的流动和波动的能力。",
 		"buy": {
 			"arcana": 10
 		},
@@ -840,13 +847,13 @@
 	},
 	{
 		"id": "s_travel",
-		"name": "travel",
+		"name": "旅行",
 		"level": 5,
 		"buy": {
 			"arcana": 14
 		},
 		"require": "(g.languages+g.history)>=12",
-		"desc": "Travel offers a growing wizard new avenues of research and new sources of research.",
+		"desc": "旅行为新晋巫师提供了研究的新途径和新的研究来源。",
 		"run": {
 			"stamina": 1
 		},
@@ -856,9 +863,9 @@
 	},
 	{
 		"id": "planeslore",
-		"name": "planes lore",
-		"desc": "Farther than the stars and closer than your fingertips.",
-		"flavor": "There is no safe distance.",
+		"name": "位面学识",
+		"desc": "比星星更远，比指尖更近。",
+		"flavor": "没有安全的距离。",
 		"require": "g.astronomy>=5&&g.tier1>0",
 		"level": 5,
 		"buy": {
@@ -876,9 +883,9 @@
 	},
 	{
 		"id": "astrallore",
-		"name": "astral communion",
+		"name": "星界交流",
 		"require": "g.planeslore>=13&&g.tier5>0",
-		"desc": "Anyone can see the stars. Few can read them.",
+		"desc": "任何人都可以看到星星。很少有人能解读它们。",
 		"level": 15,
 		"buy": {
 			"arcana": 150
@@ -895,9 +902,9 @@
 	},
 	{
 		"id": "voidlore",
-		"name": "abyss gazing",
+		"name": "深渊凝视",
 		"require": "g.planeslore>=10&&g.tier5>0",
-		"desc": "The absence of all things.",
+		"desc": "万物的缺失。",
 		"level": 15,
 		"buy": {
 			"arcana": 150
@@ -912,12 +919,12 @@
 			"dist": "1%",
 			"research.max": 1
 		},
-		"flavor": "What could go wrong?"
+		"flavor": "会有什么不对劲呢？"
 	},
 	{
 		"id": "chronomancy",
-		"desc": "There must be a way...",
-		"flavor": "Too much to do, so little time.",
+		"desc": "一定有办法...",
+		"flavor": "事情太多，时间太少。",
 		"level": 15,
 		"tags": "t_school",
 		"require": "tier3",
@@ -956,12 +963,16 @@
 	},
 	{
 		"id": "heallore",
-		"name": "rejuvenation",
+		"name": "复苏",
 		"require": "g.t_healspell.owned&&g.tier1>0",
 		"need": "g.t_healspell>=200",
-		"needtext": "Cast healing spells a total of 200 times.",
-		"school": ["light", "water", "nature"],
-		"desc": "A revelation of life magic.",
+		"needtext": "施放治疗法术总计 200 次。",
+		"school": [
+			"light",
+			"water",
+			"nature"
+		],
+		"desc": "生命魔法的启示。",
 		"level": 5,
 		"buy": {
 			"arcana": 60
@@ -975,11 +986,11 @@
 	},
 	{
 		"id": "chaoslore",
-		"name": "imposition",
+		"name": "强加",
 		"require": "g.tier4>0&&g.trickery>=12",
 		"school": "chaos",
 		"level": 15,
-		"desc": "Manipulate the underlying principles of reality with varying degrees of subtlety.",
+		"desc": "以不同程度的微妙操控现实的基本原则。",
 		"buy": {
 			"arcana": 80
 		},
@@ -995,6 +1006,6 @@
 			"lore.rate": 0.05,
 			"research.rate": "1%"
 		},
-		"flavor": "Wizards do parlor tricks. I throttle the heavens."
+		"flavor": "巫师们只是表演把戏。我却扼住了天命。"
 	}
 ]

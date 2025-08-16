@@ -75,7 +75,7 @@ export default {
 			return this.groupMap(sum);
 		},
 		hideTip() {
-			return "Used to hide and unhide entries. This setting is retained between characters."
+			return "用于隐藏和显示条目。该设置在角色间保留。"
 		},
 	},
 };
@@ -84,13 +84,13 @@ export default {
 <template>
 	<div class="main-tasks" ref="hidables">
 		<div class="config"><button ref="btnHides" class="btnConfig" @mouseenter.capture.stop="itemOver($event, null, null, null, hideTip)"></button></div>
-		<div class="div-hs">Tasks</div>
+		<div class="div-hs">任务</div>
 		<taskGroup id="tasks" v-for="group in visibleTasks" :group="group" :preventClick="inConfig" />
-		<div v-if="visibleUpgrades.length != 0" class="div-hs">Upgrades</div>
+		<div v-if="visibleUpgrades.length != 0" class="div-hs">升级</div>
 		<taskGroup id="upgrades" v-for="group in visibleUpgrades" :group="group" :preventClick="inConfig" />
-		<div v-if="classes.length != 0" class="div-hs">Classes</div>
+		<div v-if="classes.length != 0" class="div-hs">职业</div>
 		<upgrades class="upgrade-list" :items="classes" :preventClick="inConfig" />
-		<div v-if="morals.length != 0" class="div-hs">Morality Options</div>
+		<div v-if="morals.length != 0" class="div-hs">道德选项</div>
 		<upgrades class="upgrade-list" :items="morals" :preventClick="inConfig" />
 	</div>
 </template>

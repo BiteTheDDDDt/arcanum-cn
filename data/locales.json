@@ -1,9 +1,9 @@
 [
 	{
 		"id": "mustylibrary",
-		"name": "musty library",
+		"name": "霉味图书馆",
 		"sym": "📖",
-		"desc": "A good apprentice spends all their free time in the library. After chores, of course.",
+		"desc": "优秀的学徒会把所有空闲时间都花在图书馆里。当然，得先做完杂务。",
 		"level": 1,
 		"require": "evt_helper",
 		"length": 15,
@@ -15,12 +15,19 @@
 			"research": 10,
 			"scrolls": "1~4"
 		},
-		"encs": ["enc_bookworm", "enc_tapestry", "enc_primer1", "enc_chest1", "enc_scrollpile", "enc_workbook1"]
+		"encs": [
+			"enc_bookworm",
+			"enc_tapestry",
+			"enc_primer1",
+			"enc_chest1",
+			"enc_scrollpile",
+			"enc_workbook1"
+		]
 	},
 	{
 		"id": "loc_spring",
-		"name": "lillit's spring",
-		"desc": "Tradition tells of a spring with enchanted waters. Investigations might prove revealing.",
+		"name": "莉莉特之泉",
+		"desc": "传说有一口泉水蕴含魔力。调查或许会有新发现。",
 		"level": 2,
 		"require": "mustylibrary",
 		"length": 20,
@@ -35,12 +42,19 @@
 		"loot": {
 			"lillitscord": "5%"
 		},
-		"encs": ["manatree", "enc_heather", "mysticwater", "enc_magicstream", "enc_lilitscache", "starrysky1"]
+		"encs": [
+			"manatree",
+			"enc_heather",
+			"mysticwater",
+			"enc_magicstream",
+			"enc_lilitscache",
+			"starrysky1"
+		]
 	},
 	{
 		"id": "eryleyot",
-		"name": "eryl eyot",
-		"desc": "The small and tranquil island is inhabited by an old hermit named thyffr.",
+		"name": "艾瑞尔小岛",
+		"desc": "这座宁静的小岛上住着一位名叫泰弗的老隐士。",
 		"level": 5,
 		"length": 30,
 		"run": {
@@ -52,12 +66,18 @@
 			"scrolls": "1~4",
 			"herbs": "2~5"
 		},
-		"encs": ["enc_eyotchest", "brightvista", "enc_thyffr", "starrysky1", "mysticwater"]
+		"encs": [
+			"enc_eyotchest",
+			"brightvista",
+			"enc_thyffr",
+			"starrysky1",
+			"mysticwater"
+		]
 	},
 	{
 		"id": "loc_treffil",
-		"name": "Explore Treffil Wood",
-		"desc": "The deeper woods posses many features of interest to the magical scholar. The spirits of the place make sure to keep the troublemakers out.",
+		"name": "特雷菲尔森林探险",
+		"desc": "深处的森林对魔法学者来说有许多值得关注的地方。这里的精灵会确保捣乱者被驱逐出去。",
 		"level": 7,
 		"length": 40,
 		"run": {
@@ -87,8 +107,8 @@
 	},
 	{
 		"id": "pidwigcove",
-		"name": "pidwig's cove",
-		"desc": "The half-goblin Pidwig has sailed the waters around his bay for hundreds of years. In that time he has collected a myriad of interesting artifacts.",
+		"name": "皮德威格湾",
+		"desc": "半地精皮德威格在这片海域航行了数百年，收集了无数有趣的宝物。",
 		"level": 9,
 		"require": "g.history>=5&&g.eryleyot>0",
 		"length": 25,
@@ -113,7 +133,7 @@
 	},
 	{
 		"id": "rithel",
-		"desc": "This tiny outpost in the center of thangmor outlasted even the pillars.",
+		"desc": "这座位于桑格莫中心的小哨站甚至比石柱还要长久。",
 		"level": 14,
 		"require": "g.evil2<=0&&g.history>=7&&g.loc_treffil>0",
 		"run": {
@@ -141,8 +161,8 @@
 	},
 	{
 		"id": "ruinedcrypt",
-		"name": "ruined crypt",
-		"desc": "An ancient crypt of crumbling stone.",
+		"name": "废弃墓穴",
+		"desc": "一座由破碎石块构成的古老墓穴。",
 		"level": 4,
 		"require": "tier0",
 		"length": 30,
@@ -153,8 +173,14 @@
 			"arcana": 3,
 			"research": 20,
 			"scrolls": "2~4",
-			"bodies": { "value": "4~8", "skipLocked": true },
-			"bonedust": { "value": "3~5", "skipLocked": true }
+			"bodies": {
+				"value": "4~8",
+				"skipLocked": true
+			},
+			"bonedust": {
+				"value": "3~5",
+				"skipLocked": true
+			}
 		},
 		"encs": [
 			"enc_tapestry",
@@ -171,6 +197,8 @@
 	{
 		"id": "hallofmirrors",
 		"sym": "📖",
+		"name": "镜之大厅",
+		"desc": "镜之大厅里充满了奇异的倒影与未来的幻象。",
 		"level": 12,
 		"require": "g.scrying>=999",
 		"length": 50,
@@ -200,9 +228,9 @@
 	},
 	{
 		"id": "fazbitshop",
-		"name": "fazbit's workshop",
+		"name": "法兹比特工坊",
 		"sym": "📖",
-		"desc": "You could spend a century in Fazbit's lost workshop and not exhaust its creations.",
+		"desc": "你可以在法兹比特失落的工坊里度过一生，也无法穷尽它的创造。",
 		"level": 9,
 		"require": "(g.alchemy+g.scrying)>=17",
 		"length": 50,
@@ -227,13 +255,14 @@
 	{
 		"id": "genezereth",
 		"sym": "📖",
-		"desc": "An ancient library at the bridge spanning Markhul's gap.",
-		"flavor": "Third of the Four Weirs of Dhrune.",
+		"name": "盖尼泽雷斯图书馆",
+		"desc": "一座横跨马库尔裂谷的古老图书馆。",
+		"flavor": "德鲁恩四堤之三。",
 		"level": 15,
 		"require": "g.history>=7",
 		"length": 100,
 		"result": {
-			"title": "Historian",
+			"title": "历史学家",
 			"arcana": 25,
 			"tomes": "1~3",
 			"shadowgem": "8~12"
@@ -255,21 +284,21 @@
 	},
 	{
 		"id": "loc_orrem",
-		"name": "sands of orrem",
-		"desc": "Only a small trading post marks the boundary of the lost cities of Orrem. Weathered masonry jutting from the sands beyond bespeak monuments of unimaginable proportions.",
+		"name": "奥雷姆之沙",
+		"desc": "只有一个小小的贸易站标志着奥雷姆失落之城的边界。风化的石砌在沙漠中突兀而出，诉说着难以想象的伟大遗迹。",
 		"tags": "site_of_learning",
 		"level": 19,
 		"require": "g.history>=7&&g.scrying>=5",
 		"start": {
-			"name": "Cities of Orrem",
-			"desc": "A vision in a crystal orb reveals to you the ruins of the lost cities of Orrem."
+			"name": "奥雷姆之城",
+			"desc": "水晶球中的幻象向你揭示了奥雷姆失落之城的废墟。"
 		},
 		"length": 200,
 		"run": {
 			"stamina": 3
 		},
 		"result": {
-			"title": "Nomad",
+			"title": "游牧者",
 			"fame": 0.5,
 			"arcana": 50
 		},
@@ -301,13 +330,13 @@
 	},
 	{
 		"id": "loc_ettinmoors",
-		"name": "ettinmoors",
+		"name": "艾廷沼泽",
 		"require": "g.player.level>=9999"
 	},
 	{
 		"id": "loc_menagerie",
-		"name": "the lost menagerie",
-		"desc": "Beneath the tallest idrasil a great menagerie thrives beneath a second sky.",
+		"name": "失落兽栏",
+		"desc": "在最高的伊德拉西尔树下，巨大的兽栏在第二片天空下繁盛。",
 		"tags": "site_of_learning",
 		"level": 23,
 		"require": "g.tier5>0&&g.magicbeasts>=5",
@@ -322,7 +351,7 @@
 			"magicbeasts.exp": 1
 		},
 		"result": {
-			"title": "Wild Compiler",
+			"title": "野性编译者",
 			"arcana": 50,
 			"gems": "5~10",
 			"herbs": "10~20"
@@ -350,8 +379,8 @@
 	},
 	{
 		"id": "loc_tenwick",
-		"name": "peregrination",
-		"desc": "Tenwick's trail runs a circuit about the notable areas of Dhrune. On foot it takes the better part of a year to complete.",
+		"name": "特恩威克之旅",
+		"desc": "特恩威克小径环绕着德鲁恩的著名地区。步行一圈需要大半年的时间。",
 		"level": 19,
 		"require": "g.s_travel>=5&&g.a_travel>=100",
 		"length": 1000,
@@ -359,7 +388,7 @@
 			"stamina": 2
 		},
 		"result": {
-			"title": "Dhrunic Wayfarer"
+			"title": "德鲁恩旅者"
 		},
 		"loot": {
 			"tenwickstick": 1

@@ -33,8 +33,8 @@
 	},
 	{
 		"id": "hp",
-		"name": "life",
-		"desc": "Wizard life-force.",
+		"name": "生命",
+		"desc": "巫师的生命力。",
 		"val": 5,
 		"max": 5,
 		"unit": false,
@@ -42,8 +42,8 @@
 	},
 	{
 		"id": "barrier",
-		"desc": "Wizard's basic harm prevention measure",
-		"extdesc": "Restores much quicker if you are out of combat",
+		"desc": "巫师的基础防护措施。",
+		"extdesc": "脱离战斗时恢复速度更快。",
 		"val": 0,
 		"max": 0,
 		"unit": false
@@ -71,7 +71,7 @@
 	},
 	{
 		"id": "speed",
-		"desc": "Movement speed.",
+		"desc": "移动速度。",
 		"val": 1,
 		"stat": true,
 		"unit": false,
@@ -79,7 +79,7 @@
 	},
 	{
 		"id": "chaincast",
-		"name": "Extra Spell Casts",
+		"name": "额外法术释放",
 		"val": 1,
 		"stat": true,
 		"unit": false,
@@ -97,11 +97,11 @@
 	},
 	{
 		"id": "fame",
-		"name": "notoriety",
+		"name": "声望",
 		"hide": true,
 		"locked": false,
 		"stat": true,
-		"desc": "Your reputation in the world.",
+		"desc": "你在这个世界的声誉。",
 		"val": 0
 	},
 	{
@@ -109,39 +109,39 @@
 		"require": "tier0",
 		"hide": true,
 		"locked": false,
-		"desc": "Tendency to good.",
+		"desc": "向善的倾向。",
 		"stat": true,
 		"val": 0
 	},
 	{
 		"id": "evilamt",
-		"name": "evil",
+		"name": "邪恶",
 		"hide": true,
 		"locked": false,
 		"stat": true,
-		"desc": "Tendency to evil.",
+		"desc": "向恶的倾向。",
 		"val": 0
 	},
 	{
 		"id": "dist",
-		"name": "distance",
-		"desc": "Maximum travel distance.",
+		"name": "距离",
+		"desc": "最远旅行距离。",
 		"val": 10,
 		"stat": true,
 		"locked": false
 	},
 	{
 		"id": "luck",
-		"desc": "Affinity for fortune.",
+		"desc": "对好运的亲和力。",
 		"val": 0,
 		"stat": true,
 		"unit": false,
 		"locked": false,
-		"flavor": "Let's keep this party polite."
+		"flavor": "让我们保持这个聚会的礼貌。"
 	},
 	{
 		"id": "stat_thorns",
-		"name": "thorns",
+		"name": "荆棘",
 		"val": 0,
 		"stat": true,
 		"unit": true,
@@ -149,8 +149,8 @@
 	},
 	{
 		"id": "stat_reflect",
-		"name": "damage reflection",
-		"comment": "Not to be used by player for balance reasons.",
+		"name": "伤害反射",
+		"comment": "出于平衡原因，玩家请勿使用。",
 		"val": 0,
 		"stat": true,
 		"unit": true,

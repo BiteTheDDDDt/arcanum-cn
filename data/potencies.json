@@ -1,139 +1,139 @@
 [
 	{
 		"id": "physdmg",
-		"name": "physical potency",
+		"name": "物理强度",
 		"val": 100,
 		"damage": "Math.max((i.value/100)||0,0)"
 	},
 	{
 		"id": "spelldmg",
-		"name": "spell potency",
+		"name": "法术强度",
 		"val": 100,
 		"damage": "Math.max((i.value/100)||0,0)"
 	},
 	{
 		"id": "runicdmg",
-		"name": "runic potency",
+		"name": "符文强度",
 		"val": 100,
 		"damage": "Math.max((i.value/100)||0,0)"
 	},
 	{
 		"id": "spellheal",
-		"name": "healing potency",
+		"name": "治疗强度",
 		"val": 100,
 		"damage": "Math.max((i.value/100)||0,0)"
 	},
 	{
 		"id": "slashdmg",
-		"name": "slashing potency",
+		"name": "斩击强度",
 		"val": 100,
 		"damage": "Math.max((i.value/100)||0,0)"
 	},
 	{
 		"id": "piercedmg",
-		"name": "piercing potency",
+		"name": "穿刺强度",
 		"val": 100,
 		"damage": "Math.max((i.value/100)||0,0)"
 	},
 	{
 		"id": "bluntdmg",
-		"name": "bludgeoning potency",
+		"name": "钝击强度",
 		"val": 100,
 		"damage": "Math.max((i.value/100)||0,0)"
 	},
 	{
 		"id": "manadmg",
-		"name": "mana potency",
+		"name": "法力强度",
 		"val": 100,
 		"damage": "Math.max((i.value/100)||0,0)"
 	},
 	{
 		"id": "waterdmg",
-		"name": "water potency",
+		"name": "水元素强度",
 		"val": 100,
 		"damage": "Math.max((i.value/100)||0,0)"
 	},
 	{
 		"id": "airdmg",
-		"name": "air potency",
+		"name": "空气元素强度",
 		"val": 100,
 		"damage": "Math.max((i.value/100)||0,0)"
 	},
 	{
 		"id": "firedmg",
-		"name": "fire potency",
+		"name": "火元素强度",
 		"val": 100,
 		"damage": "Math.max((i.value/100)||0,0)"
 	},
 	{
 		"id": "earthdmg",
-		"name": "earth potency",
+		"name": "土元素强度",
 		"val": 100,
 		"damage": "Math.max((i.value/100)||0,0)"
 	},
 	{
 		"id": "naturedmg",
-		"name": "nature potency",
+		"name": "自然强度",
 		"val": 100,
 		"damage": "Math.max((i.value/100)||0,0)"
 	},
 	{
 		"id": "spiritdmg",
-		"name": "spirit potency",
+		"name": "灵魂强度",
 		"val": 100,
 		"damage": "Math.max((i.value/100)||0,0)"
 	},
 	{
 		"id": "lightdmg",
-		"name": "light potency",
+		"name": "光明强度",
 		"val": 100,
 		"damage": "Math.max((i.value/100)||0,0)"
 	},
 	{
 		"id": "shadowdmg",
-		"name": "shadow potency",
+		"name": "暗影强度",
 		"val": 100,
 		"damage": "Math.max((i.value/100)||0,0)"
 	},
 	{
 		"id": "chaosdmg",
-		"name": "chaos potency",
+		"name": "混沌强度",
 		"val": 100,
 		"damage": "Math.max((i.value/100)||0,0)"
 	},
 	{
 		"id": "timedmg",
-		"name": "time potency",
+		"name": "时间强度",
 		"val": 100,
 		"damage": "Math.max((i.value/100)||0,0)"
 	},
 	{
 		"id": "voiddmg",
-		"name": "void potency",
+		"name": "虚空强度",
 		"val": 100,
 		"damage": "Math.max((i.value/100)||0,0)"
 	},
 	{
 		"id": "poisondmg",
-		"name": "poison potency",
+		"name": "毒素强度",
 		"val": 100,
 		"damage": "Math.max((i.value/100)||0,0)"
 	},
 	{
 		"id": "blooddmg",
-		"name": "blood potency",
+		"name": "鲜血强度",
 		"val": 100,
 		"damage": "Math.max((i.value/100)||0,0)"
 	},
 	{
 		"id": "astraldmg",
-		"name": "astral potency",
+		"name": "星界强度",
 		"val": 100,
 		"damage": "Math.max((i.value/100)||0,0)"
 	},
 	{
 		"id": "charmdmg",
-		"name": "charm potency",
+		"name": "魅力强度",
 		"val": 100,
 		"damage": "Math.max((i.value/100)||0,0)"
 	}

@@ -76,18 +76,21 @@ export default {
 		<span><strong>Converters</strong></span>
 		<div>Displays all converters, their inputs, and their output effects.</div>
 		<div>Does not display "mod" outputs.</div>
-		<div class="conv-list">
-			<table v-for="(list, title) in allSections">
-				<tr>
-					<th colspan="4">{{ title.toTitleCase() }}</th>
-				</tr>
-				<tr>
-					<th>Converter</th>
-					<th>Total Inputs</th>
-					<th>Total Outputs</th>
-					<th>Converter Status</th>
-				</tr>
-				<tr v-for="it in list" :key="it.id" @mouseenter.capture.stop="itemOver($event, it)">
+				<div class="conv-list">
+					<table v-for="(list, title) in allSections" :key="title">
+						<thead>
+							<tr>
+								<th colspan="4">{{ title.toTitleCase() }}</th>
+							</tr>
+							<tr>
+								<th>Converter</th>
+								<th>Total Inputs</th>
+								<th>Total Outputs</th>
+								<th>Converter Status</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr v-for="it in list" :key="it.id" @mouseenter.capture.stop="itemOver($event, it)">
 					<td>{{ it.name.toTitleCase() + count(it) }}</td>
 					<td>
 						<div
@@ -106,7 +109,8 @@ export default {
 						<div v-else-if="isEmpty(it)">Not running - input missing</div>
 					</td>
 				</tr>
-			</table>
+						</tbody>
+					</table>
 		</div>
 	</div>
 </template>
@@ -140,12 +144,12 @@ td {
 	width: 25%;
 }
 
-table tr:first-child {
+thead tr:first-child {
 	top: 0;
 	background: var(--header-background-color);
 }
 
-table tr:nth-child(2n) {
+tbody tr:nth-child(2n) {
 	background: var(--odd-list-color);
 }
 

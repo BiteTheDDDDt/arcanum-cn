@@ -103,14 +103,14 @@ export default {
 				</select>
 			</div>
 			<span class="warn-text" v-if="spellLoadouts.items.length > topTier">
-				At your limit of {{ topTier + 1 }} spell lists.
+				你已达到 {{ topTier + 1 }} 个法术列表的上限。
 			</span>
 			<div v-if="!(spellLoadouts.items.length > topTier)">
-				<button type="button" @click="create(true)">Copy List</button>
-				<button @click="create(null)">New List</button>
+				<button type="button" @click="create(true)">复制列表</button>
+				<button @click="create(null)">新建列表</button>
 			</div>
 
-			<span class="hint">You can press Alt+{Num} to change lists as well.</span>
+			<span class="hint">你也可以按 Alt+数字 切换列表。</span>
 
 			<div v-for="(l, index) in spellLoadouts.items" class="custom" :key="'l' + index">
 				<span class="text-entry">
@@ -140,11 +140,11 @@ export default {
 			</div>
 		</div>
 
-		<div><button type="button" @click="list.removeAll()">Clear all spells</button></div>
+		<div><button type="button" @click="list.removeAll()">清除所有法术</button></div>
 
 		<span class="maxlevels">
-			Max Levels: {{ list.used + " / " + Math.floor(list.max.value) }}
-			<div class="warn-text note-text" v-if="list.full()">Spelllist is Full</div>
+			最大等级：{{ list.used + " / " + Math.floor(list.max.value) }}
+			<div class="warn-text note-text" v-if="list.full()">法术列表已满</div>
 		</span>
 
 		<div v-for="(it, ind) in list.items" :key="ind" @mouseenter.capture.stop="itemOver($event, it)">

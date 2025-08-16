@@ -1,585 +1,585 @@
 [
 	{
 		"id": "magicgems",
-		"name": "Magic Gems"
+ 		"name": "魔法宝石"
 	},
 	{
 		"id": "gemimbue",
-		"name": "Imbue Gem"
+ 		"name": "附魔宝石"
 	},
 	{
 		"id": "manas",
-		"name": "Mana Energies"
+ 		"name": "魔力能量"
 	},
 	{
 		"id": "fundamentalgems",
-		"name": "fundamental Gems"
+ 		"name": "基础宝石"
 	},
 	{
 		"id": "prismaticgems",
-		"name": "Prismatic Gems"
+ 		"name": "棱彩宝石"
 	},
 	{
 		"id": "elementalgems",
-		"name": "Elemental Gems"
+ 		"name": "元素宝石"
 	},
 	{
 		"id": "primalgems",
-		"name": "Primal Gems"
+ 		"name": "原始宝石"
 	},
 	{
 		"id": "fundamentalrunes",
-		"name": "fundamental Runes"
+ 		"name": "基础符文"
 	},
 	{
 		"id": "prismaticrunes",
-		"name": "Prismatic Runes"
+ 		"name": "棱彩符文"
 	},
 	{
 		"id": "elementalrunes",
-		"name": "Elemental Runes"
+ 		"name": "元素符文"
 	},
 	{
 		"id": "t_nospellcraft",
-		"name": "Cannot spellcraft"
+ 		"name": "无法施法"
 	},
 	{
 		"id": "t_rest",
-		"name": "Resting"
+ 		"name": "休息中"
 	},
 	{
 		"id": "t_restmod",
-		"name": "Leisure focus"
+ 		"name": "休闲专注"
 	},
 	{
 		"id": "manadot",
-		"name": "Mana"
+ 		"name": "魔力"
 	},
 	{
 		"id": "stamdot",
-		"name": "Fount"
+ 		"name": "活力源泉"
 	},
 	{
 		"id": "whirlingstep",
-		"name": "Whirling Step"
+ 		"name": "旋风步"
 	},
 	{
 		"id": "toughskin",
-		"name": "Tough Skin"
+ 		"name": "厚皮"
 	},
 	{
 		"id": "lightregen",
-		"name": "Pulsing Light"
+ 		"name": "脉动之光"
 	},
 	{
 		"id": "strike",
-		"name": "Enhanced Strike"
+ 		"name": "强化打击"
 	},
 	{
 		"id": "bloodbuff",
-		"name": "Defiant"
+ 		"name": "不屈"
 	},
 	{
 		"id": "t_animalcompanion",
-		"name": "animal companion"
+ 		"name": "动物伙伴"
 	},
 	{
 		"id": "t_goodcompanion",
-		"name": "good-aligned companion"
+ 		"name": "善良契合伙伴"
 	},
 	{
 		"id": "t_extremegood",
-		"name": "Virtuous Acts"
+ 		"name": "高尚行为"
 	},
 	{
 		"id": "t_extremeevil",
-		"name": "Vile Acts"
+ 		"name": "卑劣行为"
 	},
 	{
 		"id": "t_goodact",
-		"name": "Good Acts"
+ 		"name": "善行"
 	},
 	{
 		"id": "t_evilact",
-		"name": "Evil Acts"
+ 		"name": "恶行"
 	},
 	{
 		"id": "t_graveyard_remodel",
-		"name": "Graveyard Remodeling"
+ 		"name": "墓地改造"
 	},
 	{
 		"id": "t_healspell",
-		"name": "Healing Spell"
+ 		"name": "治疗法术"
 	},
 	{
 		"id": "t_furn_portal",
-		"name": "home portal"
+ 		"name": "家园传送门"
 	},
 	{
 		"id": "t_furn_researchable",
-		"name": "research object"
+ 		"name": "可研究物件"
 	},
 	{
 		"id": "t_infusion",
-		"name": "infusion",
+ 		"name": "注能",
 		"sharecd": true
 	},
 	{
 		"id": "t_glossary_entry",
-		"name": "glossary entry"
+ 		"name": "术语条目"
 	},
 	{
 		"id": "t_gloss_tasks",
-		"name": "tasks"
+ 		"name": "任务"
 	},
 	{
 		"id": "t_gloss_stats",
-		"name": "stats"
+ 		"name": "属性"
 	},
 	{
 		"id": "t_gloss_school",
-		"name": "spell school"
+ 		"name": "法术学派"
 	},
 	{
 		"id": "t_gloss_animation",
-		"name": "animation"
+ 		"name": "动画"
 	},
 	{
 		"id": "t_gloss_crafting",
-		"name": "crafting"
+ 		"name": "制作"
 	},
 	{
 		"id": "t_gloss_minions",
-		"name": "minions"
+ 		"name": "仆从"
 	},
 	{
 		"id": "t_gloss_skill",
-		"name": "skill"
+ 		"name": "技能"
 	},
 	{
 		"id": "t_gloss_resource",
-		"name": "resource"
+ 		"name": "资源"
 	},
 	{
 		"id": "t_gloss_hall",
-		"name": "hall"
+ 		"name": "大厅"
 	},
 	{
 		"id": "t_gloss_player",
-		"name": "player"
+ 		"name": "玩家"
 	},
 	{
 		"id": "t_gloss_action",
-		"name": "action"
+ 		"name": "动作"
 	},
 	{
 		"id": "t_gloss_enchant",
-		"name": "enchant"
+ 		"name": "附魔"
 	},
 	{
 		"id": "t_gloss_combat",
-		"name": "combat"
+ 		"name": "战斗"
 	},
 	{
 		"id": "t_gloss_exploration",
-		"name": "exploration"
+ 		"name": "探索"
 	},
 	{
 		"id": "t_gloss_chaos",
-		"name": "chaos"
+ 		"name": "混沌"
 	},
 	{
 		"id": "t_gloss_equipment",
-		"name": "equipment"
+ 		"name": "装备"
 	},
 	{
 		"id": "t_summon",
-		"name": "summon"
+ 		"name": "召唤"
 	},
 	{
 		"id": "t_healthpot",
-		"name": "health potion",
+ 		"name": "生命药水",
 		"sharecd": true
 	},
 	{
 		"id": "t_manapot",
-		"name": "mana potion",
+ 		"name": "法力药水",
 		"sharecd": true
 	},
 	{
 		"id": "t_stampot",
-		"name": "stamina potion",
+ 		"name": "耐力药水",
 		"sharecd": true
 	},
 	{
 		"id": "t_combatpot",
-		"name": "combat potion"
+ 		"name": "战斗药剂"
 	},
 	{
 		"id": "t_explodypot",
-		"name": "explosive potion",
+ 		"name": "爆裂药剂",
 		"sharecd": true
 	},
 	{
 		"id": "t_statuspot",
-		"name": "status recovery potion",
+ 		"name": "状态恢复药水",
 		"sharecd": true
 	},
 	{
 		"id": "t_coating",
-		"name": "coating",
+ 		"name": "覆盖涂层",
 		"sharecd": true
 	},
 	{
 		"id": "t_oneiropot",
-		"name": "oneiric potion",
+ 		"name": "梦境药水",
 		"sharecd": true
 	},
 	{
 		"id": "t_speeddown",
-		"name": "speed reduction"
+ 		"name": "速度下降"
 	},
 	{
 		"id": "t_tohitdown",
-		"name": "accuracy reduction"
+ 		"name": "命中率下降"
 	},
 	{
 		"id": "t_tohitup",
-		"name": "accuracy increase"
+ 		"name": "命中率提升"
 	},
 	{
 		"id": "t_speedup",
-		"name": "speed increase"
+ 		"name": "速度提升"
 	},
 	{
 		"id": "t_craftwork",
-		"name": "craftwork"
+ 		"name": "手艺活"
 	},
 	{
 		"id": "t_languagework",
-		"name": "wordplay"
+ 		"name": "文字游戏"
 	},
 	{
 		"id": "t_enchantment",
-		"name": "enchantment"
+ 		"name": "魔化"
 	},
 	{
 		"id": "t_stambuff",
-		"name": "stamina buff",
+ 		"name": "耐力增益",
 		"sharecd": true
 	},
 	{
 		"id": "t_dodgebuff",
-		"name": "dodge buff",
+ 		"name": "闪避增益",
 		"sharecd": true
 	},
 	{
 		"id": "t_manabuff",
-		"name": "mana buff",
+ 		"name": "魔力增益",
 		"sharecd": true
 	},
 	{
 		"id": "t_regenbuff",
-		"name": "regen buff",
+ 		"name": "回复增益",
 		"sharecd": true
 	},
 	{
 		"id": "t_defbuff",
-		"name": "defence buff",
+ 		"name": "防御增益",
 		"sharecd": true
 	},
 	{
 		"id": "t_speedbuff",
-		"name": "speed buff",
+ 		"name": "速度增益",
 		"sharecd": true
 	},
 	{
 		"id": "t_accuracybuff",
-		"name": "accuracy buff",
+ 		"name": "命中增益",
 		"sharecd": true
 	},
 	{
 		"id": "t_immunitybuff",
-		"name": "immunity buff",
+ 		"name": "免疫增益",
 		"sharecd": true
 	},
 	{
 		"id": "t_waterhealbuff",
-		"name": "water heal buff",
+ 		"name": "水系治疗增益",
 		"sharecd": true
 	},
 	{
 		"id": "t_naturehealbuff",
-		"name": "nature heal buff",
+ 		"name": "自然治疗增益",
 		"sharecd": true
 	},
 	{
 		"id": "t_obscurebuff",
-		"name": "obscuring buff",
+ 		"name": "隐匿增益",
 		"sharecd": true
 	},
 	{
 		"id": "t_etherealbuff",
-		"name": "ethereal buff",
+ 		"name": "虚空增益",
 		"sharecd": true
 	},
 	{
 		"id": "t_silencespell",
-		"name": "silence spell",
+ 		"name": "沉默法术",
 		"sharecd": true
 	},
 	{
 		"id": "t_confusespell",
-		"name": "confusion spell",
+ 		"name": "混乱法术",
 		"sharecd": true
 	},
 	{
 		"id": "t_resist_debuff",
-		"name": "resistance debuff",
+ 		"name": "抗性削弱",
 		"sharecd": true
 	},
 	{
 		"id": "t_actionexpansion",
-		"name": "advanced extra action upgrade"
+ 		"name": "高级额外行动升级"
 	},
 	{
 		"id": "t_bulk_sale_task",
-		"name": "bulk sale task"
+ 		"name": "批量出售任务"
 	},
 	{
 		"id": "t_quest",
-		"name": "questing"
+ 		"name": "任务系统"
 	},
 	{
 		"id": "t_chaosclass",
-		"name": "master of chaos"
+ 		"name": "混沌大师"
 	},
 	{
 		"id": "t_lightclass",
-		"name": "master of light"
+ 		"name": "光明大师"
 	},
 	{
 		"id": "t_mobilehome",
-		"name": "mobile home"
+ 		"name": "移动家园"
 	},
 	{
 		"id": "t_underground",
-		"name": "underground"
+ 		"name": "地下世界"
 	},
 	{
 		"id": "t_natureclass",
-		"name": "master of nature"
+ 		"name": "自然大师"
 	},
 	{
 		"id": "t_earthclass",
-		"name": "master of earth"
+ 		"name": "大地大师"
 	},
 	{
 		"id": "t_waterclass",
-		"name": "master of water"
+ 		"name": "水系大师"
 	},
 	{
 		"id": "t_airclass",
-		"name": "master of air"
+ 		"name": "风系大师"
 	},
 	{
 		"id": "t_fireclass",
-		"name": "master of fire"
+ 		"name": "火系大师"
 	},
 	{
 		"id": "t_elementalclass",
-		"name": "master of elements"
+ 		"name": "元素大师"
 	},
 	{
 		"id": "t_divinationclass",
-		"name": "master of divination"
+ 		"name": "占卜大师"
 	},
 	{
 		"id": "t_manaclass",
-		"name": "master of the arcane"
+ 		"name": "奥术大师"
 	},
 	{
 		"id": "t_knowledgeclass",
-		"name": "master of knowledge"
+ 		"name": "学识大师"
 	},
 	{
 		"id": "t_shadowclass",
-		"name": "master of shadow"
+ 		"name": "暗影大师"
 	},
 	{
 		"id": "t_demonclass",
-		"name": "master of demonology"
+ 		"name": "恶魔学大师"
 	},
 	{
 		"id": "t_healingclass",
-		"name": "master of healing"
+ 		"name": "疗愈大师"
 	},
 	{
 		"id": "t_necroclass",
-		"name": "master of necromancy"
+ 		"name": "死灵大师"
 	},
 	{
 		"id": "t_spiritclass",
-		"name": "master of spirits"
+ 		"name": "灵魂大师"
 	},
 	{
 		"id": "t_swordclass",
-		"name": "master of swords"
+ 		"name": "剑术大师"
 	},
 	{
 		"id": "t_duelingclass",
-		"name": "master of duels"
+ 		"name": "决斗大师"
 	},
 	{
 		"id": "t_hammerclass",
-		"name": "master of hammers"
+ 		"name": "锤技大师"
 	},
 	{
 		"id": "t_bloodclass",
-		"name": "master of blood"
+ 		"name": "血能大师"
 	},
 	{
 		"id": "t_summonclass",
-		"name": "master of summoning"
+ 		"name": "召唤大师"
 	},
 	{
 		"id": "t_minionclass",
-		"name": "master of minions"
+ 		"name": "仆从大师"
 	},
 	{
 		"id": "t_potionclass",
-		"name": "master of potions"
+ 		"name": "药剂大师"
 	},
 	{
 		"id": "t_craftingclass",
-		"name": "master of crafting"
+ 		"name": "工匠大师"
 	},
 	{
 		"id": "t_enchantingclass",
-		"name": "master of enchanting"
+ 		"name": "附魔大师"
 	},
 	{
 		"id": "t_mechaclass",
-		"name": "master of mechanics"
+ 		"name": "机械大师"
 	},
 	{
 		"id": "t_body_preparation",
-		"name": "body preparation"
+ 		"name": "身体准备"
 	},
 	{
 		"id": "t_omendot",
-		"name": "omen"
+ 		"name": "预兆"
 	},
 	{
 		"id": "t_fortunedot",
-		"name": "fortune"
+ 		"name": "福祉"
 	},
 	{
 		"id": "t_misfortunedot",
-		"name": "misfortune"
+ 		"name": "不幸"
 	},
 	{
 		"id": "t_prophecydot",
-		"name": "prophecy"
+ 		"name": "预言"
 	},
 	{
 		"id": "t_brand",
-		"name": "brand"
+ 		"name": "烙印"
 	},
 	{
 		"id": "t_birthsign",
-		"name": "birth signs"
+ 		"name": "出生徽记"
 	},
 	{
 		"id": "t_school",
-		"name": "School of Magic"
+ 		"name": "魔法学派"
 	},
 	{
 		"id": "t_locale",
-		"name": "Locale"
+ 		"name": "地区"
 	},
 	{
 		"id": "t_dungeon",
-		"name": "Dungeon"
+ 		"name": "地下城"
 	},
 	{
 		"id": "t_clash",
-		"name": "Clash"
+ 		"name": "冲突"
 	},
 	{
 		"id": "t_craftedbag",
-		"name": "Illicit Sack"
+ 		"name": "非法袋"
 	},
 	{
 		"id": "site_of_learning",
-		"name": "Site of Learning"
+ 		"name": "学习场所"
 	},
 	{
 		"id": "loot_equip_gen",
-		"name": "Loot Generator",
+ 		"name": "战利品生成器",
 		"hide": true
 	},
 	{
 		"id": "t_bookfurn",
-		"name": "Book furniture",
+ 		"name": "书籍家具",
 		"hide": true
 	},
 	{
 		"id": "t_heist_act",
-		"name": "grand larceny"
+ 		"name": "重大盗窃"
 	},
 	{
 		"id": "t_stance",
-		"name": "combat stance"
+ 		"name": "战斗姿态"
 	},
 	{
 		"id": "t_shade_spell",
-		"name": "shade",
+ 		"name": "影体",
 		"hide": true
 	},
 	{
 		"id": "t_undead_spell",
-		"name": "undead",
+ 		"name": "不死",
 		"hide": true
 	},
 	{
 		"id": "t_ventspell",
-		"name": "Vent Spell"
+ 		"name": "宣泄法术"
 	},
 	{
 		"id": "class",
-		"name": "class",
+ 		"name": "职业",
 		"hide": true
 	},
 	{
 		"id": "t_spell",
-		"name": "Spell",
+ 		"name": "法术",
 		"hide": true
 	},
 	{
 		"id": "hall",
-		"name": "hall",
+ 		"name": "大厅",
 		"hide": true
 	},
 	{
 		"id": "t_permanent_transformation",
-		"name": "permanent transformation"
+ 		"name": "永久变形"
 	},
 	{
 		"id": "t_summon_beast",
-		"name": "summoned fauna"
+ 		"name": "召唤生物"
 	},
 	{
 		"id": "t_bodyplan",
-		"name": "bodily configuration"
+ 		"name": "身体结构"
 	},
 	{
 		"id": "t_fauna_spell",
-		"name": "fauna spell",
+ 		"name": "生物法术",
 		"hide": true
 	},
 	{
 		"id": "t_shopkeeper_assistant",
-		"name": "assistant shopkeeper"
+ 		"name": "店主助理"
 	}
 ]

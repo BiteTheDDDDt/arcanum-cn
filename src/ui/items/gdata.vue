@@ -220,7 +220,7 @@ export default {
 					}}
 				</span>
 				<span v-else-if="item.type === 'furniture'">
-					max: {{ item.max ? formatNumber(item.max.value) : item.repeat ? "&infin;" : 1 }}
+					最大：{{ item.max ? formatNumber(item.max.value) : item.repeat ? "&infin;" : 1 }}
 				</span>
 				<span v-else-if="item.type === 'upgrade' || item.type === 'task'">
 					<br />
@@ -244,7 +244,7 @@ export default {
 		</span>
 
 		<div class="tight note-text" v-if="item.tags || item.hands">
-			<span v-if="item.hands > 1">Two-Handed </span>{{ tags }}
+			<span v-if="item.hands > 1">双手武器 </span>{{ tags }}
 		</div>
 		<span
 			class="flex-right"
@@ -270,71 +270,72 @@ export default {
 				item.rate.value != 0 &&
 				item.length > 0 &&
 				(item.type == 'task' || item.type == 'encounter')
-			">
-			Completion rate: {{ precise(item.rate.value * 100) }}%
+			"
+		>
+			完成率：{{ precise(item.rate.value * 100) }}%
 		</span>
 		<div>
 			<span class="separate">
-				<span v-if="item.showLevel">Level: {{ item.showLevel() }}</span>
-				<span v-else-if="item.level && item.type === 'encounter'">Length: {{ item.length }} </span>
-				<span v-else-if="item.level">Level: {{ item.level }}</span>
+				<span v-if="item.showLevel">等级：{{ item.showLevel() }}</span>
+				<span v-else-if="item.level && item.type === 'encounter'">时长：{{ item.length }} </span>
+				<span v-else-if="item.level">等级：{{ item.level }}</span>
 
 				<span v-if="item.slot && item.type !== 'armor' && item.type !== 'weapon'"
-					>Slot: {{ item.slot.toString().toTitleCase() }}</span
+					>部位：{{ item.slot.toString().toTitleCase() }}</span
 				>
-				<span v-else-if="item.slot">Slot: {{ itemSlot }}</span>
+				<span v-else-if="item.slot">部位：{{ itemSlot }}</span>
 				<span v-if="item.kind && (item.type === 'monster' || item.type === 'npc')">
-					Kind: {{ item.kind.toTitleCase() }}
+					种类：{{ item.kind.toTitleCase() }}
 				</span>
 			</span>
 			<span class="separate">
-				<span v-if="item.regen && item.type !== 'player'">Regen: {{ item.regen }}</span>
-				<span v-if="item.recharge && item.type !== 'player'">Recharge: {{ item.recharge }}</span>
+				<span v-if="item.regen && item.type !== 'player'">回复：{{ item.regen }}</span>
+				<span v-if="item.recharge && item.type !== 'player'">充能：{{ item.recharge }}</span>
 			</span>
 
 			<span v-if="item.enchants && item.enchants.max > 0">
-				Enchant Levels: {{ item.enchants.value }} / {{ item.enchants.max }}
+				附魔等级：{{ item.enchants.value }} / {{ item.enchants.max }}
 			</span>
 
 			<span v-if="item.at && nextAt > 0" class="note-text">
-				Next Improvement: {{ Math.round((100 * item.value) / nextAt) + "%" }}
+				下次提升：{{ Math.round((100 * item.value) / nextAt) + "%" }}
 			</span>
 			<span v-else-if="item.every && nextEvery >= 0" class="note-text">
-				Next Improvement: {{ Math.round(100 * nextEvery) + "%" }}
+				下次提升：{{ Math.round(100 * nextEvery) + "%" }}
 			</span>
 
 			<div v-if="item.cd || cdRemain > 0" class="note-text">
-				Cooldown: {{ cdRemain > 0 ? cdRemain.toFixed(2) + "Left" : item.cd + "s" }}
+				冷却：{{ cdRemain > 0 ? cdRemain.toFixed(2) + " 剩余" : item.cd + "s" }}
 			</div>
-			<div v-if="cdtags" class="note-text">Shares cooldown with: {{ cdtags }}</div>
-			<div v-if="item.exclude" class="note-text">Cannot be used with: {{ this.exclude(item.exclude) }}</div>
+			<div v-if="cdtags" class="note-text">共享冷却：{{ cdtags }}</div>
+			<div v-if="item.exclude" class="note-text">不能与以下同时使用：{{ this.exclude(item.exclude) }}</div>
 			<div v-if="+item.dist && item.type !== 'player' && item.type !== 'npc' && item.type !== 'monster'">
-				Distance: {{ item.dist }}
+				距离：{{ item.dist }}
 			</div>
-			<div v-if="+item.armor">Armor: {{ item.armor }}</div>
-			<div v-if="+item.evasion">Evasion: {{ item.evasion }}</div>
-			<div v-if="+item.shield">Shield: {{ item.shield }}</div>
-			<div v-if="+item.dmg && (!item.attack || item.attack.dmg !== item.dmg)">Base damage: {{ damage }}</div>
-			<div v-if="+item.heal && (!item.attack || item.attack.heal !== item.heal)">Healing: {{ healing }}</div>
+			<div v-if="+item.armor">护甲：{{ item.armor }}</div>
+			<div v-if="+item.evasion">回避：{{ item.evasion }}</div>
+			<div v-if="+item.shield">护盾：{{ item.shield }}</div>
+			<div v-if="+item.dmg && (!item.attack || item.attack.dmg !== item.dmg)">基础伤害：{{ damage }}</div>
+			<div v-if="+item.heal && (!item.attack || item.attack.heal !== item.heal)">治疗：{{ healing }}</div>
 
 			<div class="item-desc" v-if="item.desc">{{ item.desc }}</div>
 			<div class="item-extdesc" v-if="item.extdesc">{{ item.extdesc }}</div>
 		</div>
 
 		<span v-if="item.length > 0 && item.type === 'task'">
-			Completion time: {{ formatTime(((item.length - item.exp) * 1000) / item.rate) }}
+			完成时间：{{ formatTime(((item.length - item.exp) * 1000) / item.rate) }}
 		</span>
 		<!-- End of upper section of tooltip -->
 
 		<info
 			v-if="item.need"
-			title="Need"
+			title="需求"
 			:require="true"
 			:info="item.need"
 			:text="item.needtext"
 			:checkType="CheckTypes.NEED" />
-		<info v-if="item.buy && !item.owned" :info="item.buy" :checkType="CheckTypes.COST" title="Purchase Cost" />
-		<info v-if="item.cost" :info="item.cost" :checkType="CheckTypes.COST" title="Cost" />
+		<info v-if="item.buy && !item.owned" :info="item.buy" :checkType="CheckTypes.COST" title="购买价" />
+		<info v-if="item.cost" :info="item.cost" :checkType="CheckTypes.COST" title="花费" />
 		<info
 			v-if="
 				item.sell ||
@@ -343,66 +344,66 @@ export default {
 			"
 			:info="sellPrice"
 			:checkType="CheckTypes.FULL"
-			title="Sell" />
-		<info v-if="item.run" :info="item.run" :checkType="CheckTypes.COST" title="Progress Cost" rate="true" />
+			title="卖出" />
+		<info v-if="item.run" :info="item.run" :checkType="CheckTypes.COST" title="进度花费" rate="true" />
 		<div v-if="item.attack">
-			<div class="info-sect">Attack</div>
+			<div class="info-sect">攻击</div>
 			<attack :item="item" class="info-subsubsect" />
 		</div>
 		<div v-if="item.onSummon">
 			<div v-if="item.onSummon.name">
-				<div class="info-sect">When summoned in combat</div>
+				<div class="info-sect">在战斗中召唤时</div>
 				<attack :item="item" onsummonflag="true" class="info-subsubsect" />
 			</div>
 		</div>
 		<div v-if="item.onHit">
 			<div v-if="item.onHit.name">
-				<div class="info-sect">When struck directly</div>
+				<div class="info-sect">直接受击时</div>
 				<attack :item="item" onhitflag="true" class="info-subsubsect" />
 			</div>
 		</div>
 		<div v-if="item.onMiss">
 			<div v-if="item.onMiss.name">
-				<div class="info-sect">After dodging an attack</div>
+				<div class="info-sect">闪避攻击后</div>
 				<attack :item="item" onmissflag="true" class="info-subsubsect" />
 			</div>
 		</div>
 		<div v-if="item.onExpire">
 			<div v-if="item.onExpire.name">
-				<div class="info-sect">On expiration</div>
+				<div class="info-sect">失效时</div>
 				<attack :item="item" onexpireflag="true" class="info-subsubsect" />
 			</div>
 		</div>
 		<div v-if="item.onDeath">
 			<div v-if="item.onDeath.name">
-				<div class="info-sect">When killed</div>
+				<div class="info-sect">死亡时</div>
 				<attack :item="item" ondeathflag="true" class="info-subsubsect" />
 			</div>
 		</div>
 		<div v-if="item.conditiontext">
-			<div class="info-sect">Has a conditional effect:</div>
+			<div class="info-sect">有条件效果：</div>
 			<div :class="{ failed: !item.conditionstatus }">
 				{{ item.conditiontext }}
 			</div>
 		</div>
 		<div v-if="item.removedot">
-			<div>This dot will be removed</div>
+			<div>该持续效果将被移除</div>
 		</div>
 		<div v-if="item.conditional?.onSuccess">
-			<div class="info-subsect">When condition is met</div>
+			<div class="info-subsect">条件满足时</div>
 			<dot :dot="item.conditional.onSuccess" :item="item" />
 		</div>
 		<div v-if="item.conditional?.onFailure">
-			<div class="info-subsect">When condition is not met</div>
+			<div class="info-subsect">条件不满足时</div>
 			<dot :dot="item.conditional.onFailure" :item="item" />
 		</div>
 		<div v-if="item.effect">
-			<div class="info-sect">Effects:</div>
+			<div class="info-sect">效果：</div>
 			<info :info="item.effect" :text="item.effecttext" :rate="true" :checkType="CheckTypes.FULL" />
 		</div>
 
 		<div v-if="(item.mod && Object.keys(item.mod).length) || (item.alter && Object.keys(item.alter).length)">
-			<div class="info-sect">Modifications:</div>
+			<div class="info-sect">修改项：</div>
 			<info v-if="item.mod && Object.keys(item.mod).length" :info="item.mod" :text="item.modtext" />
 			<info
 				v-if="item.alter && Object.values(item.alter).length"
@@ -412,17 +413,17 @@ export default {
 		</div>
 		<div v-if="item.convert">
 			<div v-if="!item.convert.singular" class="info-sect">
-				Conversion per {{ name.toString().toTitleCase() }}
+				每个 {{ name.toString().toTitleCase() }} 的转换
 			</div>
 			<div v-if="item.convert.singular" class="info-sect">
-				Constant conversion for {{ name.toString().toTitleCase() }}
+				针对 {{ name.toString().toTitleCase() }} 的恒定转换
 			</div>
-			<div class="info-sect">Input:</div>
+			<div class="info-sect">输入：</div>
 			<info
 				:info="item.convert.input"
 				:rate="item.perpetual > 0 || item.length > 0"
 				:checkType="CheckTypes.COST" />
-			<div class="info-sect">Output:</div>
+			<div class="info-sect">输出：</div>
 			<info
 				v-if="item.convert.output.effect && Object.values(item.convert.output.effect).length"
 				:info="item.convert.output.effect"
@@ -433,66 +434,66 @@ export default {
 				:info="item.convert.output.mod" />
 		</div>
 		<div v-if="item.summon">
-			<div class="info-sect">Summons:</div>
+			<div class="info-sect">召唤：</div>
 			<summon :item="item" class="info-subsubsect" />
 		</div>
 		<div v-if="item.resurrect">
-			<div class="info-sect">Resurrects:</div>
-			<div v-if="item.resurrect.only">Only: {{ this.only(item.resurrect.only) }}</div>
-			<div v-if="item.resurrect.maxlevel">Up to level {{ item.resurrect.maxlevel }}</div>
-			<div>Up to {{ item.resurrect.count || 1 }} minions per cast</div>
+			<div class="info-sect">复活：</div>
+			<div v-if="item.resurrect.only">仅限：{{ this.only(item.resurrect.only) }}</div>
+			<div v-if="item.resurrect.maxlevel">最高等级 {{ item.resurrect.maxlevel }}</div>
+			<div>每次施法最多 {{ item.resurrect.count || 1 }} 个随从</div>
 		</div>
 		<div v-if="item.once">
-			<div class="info-sect">On First Completion:</div>
+			<div class="info-sect">首次完成时：</div>
 			<info :info="item.once" :checkType="CheckTypes.FULL" />
 			<div v-if="item.once.loot">
-				<div class="info-sect">Loot:</div>
+				<div class="info-sect">掉落：</div>
 				<info :info="item.once.loot" :checkType="CheckTypes.FULL" />
 			</div>
 		</div>
 		<div v-if="item.result">
-			<div class="info-sect">Results:</div>
+			<div class="info-sect">结果：</div>
 			<info :info="item.resulttext || item.result" :checkType="CheckTypes.FULL" />
 		</div>
 		<div>
 			<div v-if="item.loot">
-				<div class="info-sect">Loot:</div>
-				<div v-if="item.type === CONST.MONSTER && !+item.value">Kill to discover</div>
-				<div v-else-if="item.type === CONST.ENCOUNTER && !+item.value">Complete to discover</div>
-				<div v-else-if="item.controller === CONST.EXPLORE && !+item.value">Complete to discover</div>
+				<div class="info-sect">掉落：</div>
+				<div v-if="item.type === CONST.MONSTER && !+item.value">击杀以解锁</div>
+				<div v-else-if="item.type === CONST.ENCOUNTER && !+item.value">完成以解锁</div>
+				<div v-else-if="item.controller === CONST.EXPLORE && !+item.value">完成以解锁</div>
 				<info v-else :info="item.loottext || item.loot" :checkType="CheckTypes.FULL" />
 			</div>
 		</div>
 
 		<div v-if="item.use">
-			<div class="info-sect">When used:</div>
+			<div class="info-sect">使用时：</div>
 			<div class="info-subsubsect">
 				<info :info="item.use" :separate="true" />
 			</div>
 		</div>
 
 		<div v-if="item.runmod && Object.values(item.runmod).length">
-			<div class="info-sect">Modifications While Progressing:</div>
+			<div class="info-sect">进度中修改：</div>
 			<info :info="item.runmod" />
 		</div>
 
 		<div v-if="item.dot">
-			<div class="info-sect">Buffs:</div>
+			<div class="info-sect">增益：</div>
 			<dot :dot="item.dot" :item="item" class="info-subsubsect" />
 		</div>
 
 		<div v-if="item.lock">
-			<div class="info-sect">Locks:</div>
+			<div class="info-sect">锁定：</div>
 			<info :info="item.lock" />
 		</div>
 
 		<div v-if="item.disable">
-			<div class="info-sect">Disables:</div>
+			<div class="info-sect">禁用：</div>
 			<info :info="item.disable" />
 		</div>
 
 		<div v-if="item.enable">
-			<div class="info-sect">Enables:</div>
+			<div class="info-sect">启用：</div>
 			<info :info="item.enable" />
 		</div>
 

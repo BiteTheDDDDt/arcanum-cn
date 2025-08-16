@@ -1,10 +1,10 @@
 [
 	{
 		"id": "en_deeparmor",
-		"name": "core steel armor",
-		"adj": "core",
-		"desc": "Amplify a piece of armor with core steel.",
-		"verb": "infusing armor",
+		"name": "深核钢护甲",
+		"adj": "深核",
+		"desc": "用深核钢强化一件护甲。",
+		"verb": "注入护甲",
 		"require": "g.deepsteel>=1",
 		"buy": {
 			"arcana": 15,
@@ -14,15 +14,19 @@
 		"level": 3,
 		"only": "t_helm,t_chestplate,t_gloves,t_greaves,t_boots,t_back",
 		"length": 30,
-		"cost": { "deepsteel": 8 },
-		"alter": { "armor": "250%" }
+		"cost": {
+			"deepsteel": 8
+		},
+		"alter": {
+			"armor": "250%"
+		}
 	},
 	{
 		"id": "en_deepdmg",
-		"name": "core coating",
-		"adj": "%i of the deepest earth",
-		"desc": "Coat a weapon with core steel.",
-		"verb": "infusing weapon",
+		"name": "深核涂层",
+		"adj": "最深之地的%i",
+		"desc": "用深核钢涂覆武器。",
+		"verb": "注入武器",
 		"require": "g.deepsteel>=1",
 		"buy": {
 			"arcana": 15,
@@ -32,7 +36,11 @@
 		"level": 2,
 		"only": "t_martial,t_caster",
 		"length": 30,
-		"cost": { "deepsteel": 7 },
-		"alter": { "mod.earthdmg": 50 }
+		"cost": {
+			"deepsteel": 7
+		},
+		"alter": {
+			"mod.earthdmg": 50
+		}
 	}
 ]

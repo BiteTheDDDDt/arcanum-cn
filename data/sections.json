@@ -1,104 +1,104 @@
 [
 	{
 		"id": "sect_main",
-		"name": "main",
+		"name": "主界面",
 		"locked": false
 	},
 	{
 		"id": "sect_skills",
-		"name": "skills",
+		"name": "技能",
 		"require": "apprentice"
 	},
 	{
 		"id": "sect_home",
-		"name": "home",
+		"name": "家园",
 		"require": "apprentice"
 	},
 	{
 		"id": "sect_raid",
-		"name": "adventure",
+		"name": "冒险",
 		"require": "evt_helper"
 	},
 	{
 		"id": "sect_loot",
-		"name": "loot",
+		"name": "战利品",
 		"require": "evt_helper"
 	},
 	{
 		"id": "sect_player",
-		"name": "player",
+		"name": "角色",
 		"locked": false
 	},
 	{
 		"id": "sect_spells",
-		"name": "spells",
+		"name": "法术",
 		"require": "g.spellbook.value>0||g.weaponlore>0"
 	},
 	{
 		"id": "sect_scraft",
-		"name": "spellcraft",
+		"name": "法术工艺",
 		"require": "spellcraft"
 	},
 	{
 		"id": "sect_equip",
-		"name": "equip",
+		"name": "装备",
 		"require": "apprentice"
 	},
 	{
 		"id": "sect_bestiary",
-		"name": "bestiary",
+		"name": "怪物图鉴",
 		"require": "g.bestiary>0||g.lore>=11"
 	},
 	{
 		"id": "sect_travelogue",
-		"name": "travelogue",
+		"name": "旅行日志",
 		"require": "g.travelogue>0"
 	},
 	{
 		"id": "sect_enchant",
-		"name": "enchanting",
+		"name": "附魔",
 		"require": "enchanting"
 	},
 	{
 		"id": "sect_craft",
-		"name": "crafting",
+		"name": "工艺",
 		"require": "g.craftinglearn1>0"
 	},
 	{
 		"id": "sect_potions",
-		"name": "potions",
+		"name": "药剂",
 		"require": "g.potions>0"
 	},
 	{
 		"id": "sect_minions",
-		"name": "minions",
+		"name": "仆从",
 		"require": "g.minions>0"
 	},
 	{
 		"id": "sect_furniture",
-		"name": "furniture",
+		"name": "家具",
 		"locked": false,
 		"parent": "home"
 	},
 	{
 		"id": "sect_converters",
-		"name": "converters",
+		"name": "转换器",
 		"locked": false,
 		"parent": "home"
 	},
 	{
 		"id": "sect_glossary",
-		"name": "glossary",
+		"name": "词汇表",
 		"require": "apprentice"
 	},
 	{
 		"id": "sect_settings_main",
-		"name": "main",
+		"name": "主设置",
 		"parent": "settings"
 	},
 	{
 		"id": "sect_settings_extra",
-		"name": "extra stats",
+		"name": "额外属性",
 		"parent": "settings"
 	}
 ]

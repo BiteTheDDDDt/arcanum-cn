@@ -1,19 +1,19 @@
 [
 	{
 		"id": "nettle",
-		"name": "stinging nettle",
+		"name": "荨麻",
 		"tags": "herb,reagent",
 		"desc": "",
 		"flavor": ""
 	},
 	{
 		"id": "sulphur",
-		"desc": "Principle of fire.",
+		"desc": "火元素原理。",
 		"max": 10
 	},
 	{
 		"id": "mercury",
-		"desc": "Principle of metal.",
+		"desc": "金属元素原理。",
 		"max": 10
 	},
 	{
@@ -36,7 +36,7 @@
 	},
 	{
 		"id": "kingsfoil",
-		"name": "king's foil",
+		"name": "王叶",
 		"desc": "",
 		"flavor": ""
 	},
@@ -48,17 +48,17 @@
 	},
 	{
 		"id": "grimwort",
-		"desc": "A morbid plant that only blooms in crypts and graveyards.",
+		"desc": "一种只在墓穴和坟地开花的阴郁植物。",
 		"flavor": ""
 	},
 	{
 		"id": "manabell",
-		"desc": "Mages search the ponds by ley-lines for its faintly glowing bulbs.",
+		"desc": "法师们在地脉池塘边寻找它微微发光的鳞茎。",
 		"flavor": ""
 	},
 	{
 		"id": "foxfire",
-		"desc": "Found at night in deep forests, glowing on the roots and trunks of trees.",
+		"desc": "夜晚在深林中树根和树干上发光。",
 		"flavor": ""
 	},
 	{
@@ -68,25 +68,25 @@
 	},
 	{
 		"id": "vikaroot",
-		"name": "vika root",
-		"desc": "Its roots drive so deep that none have found their source.",
-		"flavor": "Druids claim all vika root are a single great plant, rooted at the world's center."
+		"name": "维卡根",
+		"desc": "其根系极深，无人找到源头。",
+		"flavor": "德鲁伊称所有维卡根都是同一株大植物，根植于世界中心。"
 	},
 	{
 		"id": "bloodgrass",
-		"name": "blood grass",
-		"desc": "Blood drawn from its sharp blades are all the sustenance it requires."
+		"name": "血草",
+		"desc": "锋利的叶片吸取血液为养分。"
 	},
 	{
 		"id": "firethistle",
-		"name": "fire thistle",
+		"name": "火蓟",
 		"tags": "herb,reagent",
 		"desc": "",
-		"flavor": "It burns."
+		"flavor": "它会燃烧。"
 	},
 	{
 		"id": "goldfel",
-		"name": "goldfel",
+		"name": "金蕨",
 		"tags": "herb,reagent",
 		"desc": "",
 		"flavor": ""
@@ -94,29 +94,29 @@
 	{
 		"id": "marigold",
 		"tags": "herb,reagent",
-		"desc": "A bright and cheerful spring bloom."
+		"desc": "明亮而愉快的春季花朵。"
 	},
 	{
 		"id": "lavender",
 		"tags": "herb,reagent",
 		"desc": "",
-		"flavor": "No one actually knows what lavender does."
+		"flavor": "没有人知道薰衣草的作用。"
 	},
 	{
 		"id": "oleander",
 		"tags": "herb,reagent,poison",
-		"desc": "Such a delicate bloom for such deadly poison.",
+		"desc": "如此娇嫩的花朵，却是如此致命的毒药。",
 		"flavor": ""
 	},
 	{
 		"id": "crocodiletears",
-		"name": "crocodile tears",
+		"name": "鳄鱼眼泪",
 		"tags": "reagent",
-		"desc": "Tears without remorse."
+		"desc": "没有悔恨的眼泪。"
 	},
 	{
 		"id": "eyeofnewt",
 		"tags": "reagent",
-		"name": "eye of newt"
+		"name": "新t眼睛"
 	}
 ]

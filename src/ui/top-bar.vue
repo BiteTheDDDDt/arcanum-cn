@@ -48,11 +48,11 @@ export default {
 	<div class="top-bar">
 		<span class="load-opts">
 			<login v-if="Profile.CLOUD" />
-			<button type="button" @click="dispatch('save')">Save</button>
-			<button type="button" @click="dispatch('load')">Load</button>
-			<button type="button" @click="emit('save-file-check', $event)">Get Save</button>
+			<button type="button" @click="dispatch('save')">保存</button>
+			<button type="button" @click="dispatch('load')">加载</button>
+			<button type="button" @click="emit('save-file-check', $event)">获取存档</button>
 			<button type="button" v-if="hasHall" class="text-button" @click="dispatch('hall-file', $event)">
-				Hall Save
+				大厅存档
 			</button>
 			<!--<input type="file" name="[File]" accept="text/json" @change="fileDrop">-->
 			<button
@@ -62,8 +62,8 @@ export default {
 				@drop="fileDrop"
 				@dragover="fileDrag"
 				@dragleave.capture.stop="dragOut"
-				name="[Load Save]">
-				[Load Save]
+				name="[加载存档]">
+				[加载存档]
 			</button>
 			<input ref="fileInput" type="file" @change="fileSelect" accept="text/json text/*" />
 		</span>

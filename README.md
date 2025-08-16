@@ -1,6 +1,8 @@
 # 魔法理论 汉化版
 
 从 https://gitlab.com/mathiashjelm/arcanum fork并进行汉化。
+主要修改都来自于copilot-GPT。
+github page 部署页面：https://bitetheddddt.github.io/arcanum-cn 。
 
 # To play or modify the game
 
