@@ -71,7 +71,8 @@ export default {
 			<slot name="center"></slot>
 		</span>
 		<span class="link-bar">
-			<a class="item" href="https://arcanumtesting.gitlab.io/arcanum/" target="_blank">Test Site</a>
+			<a class="item" href="https://github.com/BiteTheDDDDt/arcanum-cn" target="_blank">汉化仓库</a>
+			<a class="item" href="https://arcanumtesting.gitlab.io/arcanum/" target="_blank">原版</a>
 			<a class="item" href="https://discord.gg/bCABC96" target="_blank">Discord</a>
 			<a class="item" href="https://theoryofmagic.miraheze.org/wiki/Main_Page" target="_blank">Wiki</a>
 			<a class="item" href="https://www.reddit.com/r/wizrobe/" target="_blank">Reddit</a>
@@ -119,7 +120,8 @@ export default {
 	overflow-x: hidden;
 	overflow-y: visible;
 	font-size: 0.9em;
-	width: 20%;
+	width: 40%;
+	white-space: nowrap;
 }
 
 .link-bar .item {

@@ -326,9 +326,9 @@ export default {
 	onUnlock(it) {
 		if (it.hide || it.type === EVENT) return;
 		if (it.actname) {
-			this.log.log(uppercase(it.typeName) + " Unlocked: " + it.actname, null, LOG_UNLOCK);
+			this.log.log(uppercase(it.typeName) + " 已解锁：" + it.actname, null, LOG_UNLOCK);
 		} else {
-			this.log.log(uppercase(it.typeName) + " Unlocked: " + it.name, null, LOG_UNLOCK);
+			this.log.log(uppercase(it.typeName) + " 已解锁：" + it.name, null, LOG_UNLOCK);
 		}
 	},
 
@@ -337,7 +337,7 @@ export default {
 
 		if (!text || Number.isNaN(text)) return;
 
-		this.log.log("LOOT", text, LOG_LOOT);
+		this.log.log("拾取", text, LOG_LOOT);
 	},
 
 	onCraftMessage(loot) {
@@ -345,7 +345,7 @@ export default {
 
 		if (!text || Number.isNaN(text)) return;
 
-		this.log.log("CRAFTED", text, LOG_LOOT);
+		this.log.log("制作完成", text, LOG_LOOT);
 	},
 
 	/**
@@ -379,23 +379,23 @@ export default {
 	 * @param {number} len - new title number.
 	 */
 	onNewTitle(t, len) {
-		this.log.log("Title Earned: " + uppercase(t), null, LOG_UNLOCK);
+		this.log.log("获得称号：" + uppercase(t), null, LOG_UNLOCK);
 
 		this.dispatch(EVT_STAT, "titles", len);
 	},
 
 	actImproved(it) {
-		this.log.log(it.name.toTitleCase() + " Improved", null, LOG_UNLOCK);
+		this.log.log(it.name.toTitleCase() + " 提升", null, LOG_UNLOCK);
 	},
 
 	onLevel(player, lvl) {
-		this.log.log(player.name + " Level Up!", null, LOG_EVENT);
+		this.log.log(player.name + " 升级了！", null, LOG_EVENT);
 
 		this.dispatch(EVT_STAT, "level", lvl);
 	},
 
 	onDefeat(locale) {
-		this.log.log("RETREAT", "Leaving " + locale.name.toTitleCase(), LOG_COMBAT);
+		this.log.log("撤退", "离开 " + locale.name.toTitleCase(), LOG_COMBAT);
 	},
 
 	/**
@@ -404,11 +404,11 @@ export default {
 	 * @param {string} kind
 	 */
 	onImmune(target, kind) {
-		this.log.log("IMMUNE", target.name.toTitleCase() + " Is Immune To " + kind, LOG_COMBAT);
+			this.log.log("免疫", target.name.toTitleCase() + " 免疫 " + kind, LOG_COMBAT);
 	},
 
 	onResist(target, kind) {
-		this.log.log("RESISTS", target.name.toTitleCase() + " Resists " + kind, LOG_COMBAT);
+			this.log.log("抵抗", target.name.toTitleCase() + " 抵抗 " + kind, LOG_COMBAT);
 	},
 
 	onMiss(msg) {
@@ -437,12 +437,11 @@ export default {
 	 * @param {string} msg
 	 */
 	onHit(target, dmg, source) {
-		let msg = source.toString().toTitleCase();
-		msg += " hits " + target.name.toString().toTitleCase();
-		msg += " for " + precise(dmg, 1);
-		msg += " damage";
+			let msg = source.toString().toTitleCase();
+			msg += " 击中 " + target.name.toString().toTitleCase();
+			msg += "，造成 " + precise(dmg, 1) + " 点伤害";
 
-		this.log.log("", msg, LOG_COMBAT);
+			this.log.log("", msg, LOG_COMBAT);
 	},
 
 	/**
@@ -451,7 +450,7 @@ export default {
 	 * @param {Dot} state
 	 */
 	onStateBlock(char, state) {
-		this.log.log(state.adj, char.name + " Is " + state.adj, LOG_COMBAT);
+			this.log.log(state.adj, char.name + " 处于 " + state.adj, LOG_COMBAT);
 	},
 
 	/**
@@ -460,7 +459,7 @@ export default {
 	 * @param {Dot} state
 	 */
 	onCharState(char, state) {
-		this.log.log(state.adj, char.name + " Is " + state.adj, LOG_COMBAT);
+			this.log.log(state.adj, char.name + " 处于 " + state.adj, LOG_COMBAT);
 	},
 
 	onCraft(mat, item) {

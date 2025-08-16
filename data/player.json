@@ -1,6 +1,7 @@
 [
 	{
 		"id": "level",
+		"name": "等级",
 		"val": 0,
 		"unit": true,
 		"stat": true,
@@ -20,12 +21,14 @@
 	},
 	{
 		"id": "exp",
+		"name": "经验",
 		"val": 0,
 		"unit": false,
 		"locked": false
 	},
 	{
 		"id": "stamina",
+		"name": "体力",
 		"max": 10,
 		"val": 10,
 		"unit": false,
@@ -42,6 +45,7 @@
 	},
 	{
 		"id": "barrier",
+		"name": "护盾",
 		"desc": "巫师的基础防护措施。",
 		"extdesc": "脱离战斗时恢复速度更快。",
 		"val": 0,
@@ -50,6 +54,7 @@
 	},
 	{
 		"id": "defense",
+		"name": "防御",
 		"val": 0,
 		"stat": true,
 		"unit": false,
@@ -57,6 +62,7 @@
 	},
 	{
 		"id": "dodge",
+		"name": "闪避",
 		"val": 1,
 		"stat": true,
 		"unit": false,
@@ -64,6 +70,7 @@
 	},
 	{
 		"id": "tohit",
+		"name": "命中",
 		"val": 0,
 		"stat": true,
 		"unit": false,
@@ -87,6 +94,7 @@
 	},
 	{
 		"id": "breath",
+		"name": "呼吸",
 		"max": 15,
 		"val": 15,
 		"unit": false,
@@ -106,6 +114,7 @@
 	},
 	{
 		"id": "virtue",
+		"name": "美德",
 		"require": "tier0",
 		"hide": true,
 		"locked": false,
@@ -132,6 +141,7 @@
 	},
 	{
 		"id": "luck",
+		"name": "幸运",
 		"desc": "对好运的亲和力。",
 		"val": 0,
 		"stat": true,

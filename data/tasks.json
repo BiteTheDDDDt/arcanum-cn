@@ -72,8 +72,8 @@
 		"group": "研究",
 		"require": "g.scrolls>=1",
 		"fill": [
-			"研究",
-			"奥术"
+			"research",
+			"arcana"
 		],
 		"perpetual": true,
 		"run": {

@@ -45,6 +45,7 @@
 	},
 	{
 		"id": "falconer",
+		"name": "猎鹰师",
 		"tags": "t_job",
 		"actdesc": "照料主人的猫头鹰和猎鹰。",
 		"require": "animals",
@@ -64,6 +65,7 @@
 	},
 	{
 		"id": "herbalist",
+		"name": "草药师",
 		"tags": "t_job",
 		"actdesc": "为主人的药剂和炼金术采集草药。",
 		"require": "herbalism",
@@ -83,6 +85,7 @@
 	},
 	{
 		"id": "scribe",
+		"name": "书记官",
 		"tags": "t_job",
 		"actdesc": "成为主人的私人书记官。",
 		"require": "scribescroll",
@@ -102,6 +105,7 @@
 	},
 	{
 		"id": "neophyte",
+		"name": "新手",
 		"actdesc": "学徒生涯的最后一步。",
 		"require": "(g.evt_helper>0)&&g.research.max>=125&&g.spellbook>0",
 		"log": {
@@ -352,6 +356,7 @@
 	},
 	{
 		"id": "summoner",
+		"name": "召唤师",
 		"tags": "t_tier3,t_summonclass",
 		"desc": "无论是独自一人还是与朋友们在一起，召唤师从不缺少军队。",
 		"require": "g.summoning>=5&&g.tier2>0&&g.lore>=20",
@@ -372,6 +377,7 @@
 	},
 	{
 		"id": "warden",
+		"name": "守护者",
 		"desc": "森林、山脉和丘陵的守护者。",
 		"tags": "t_tier1,t_natureclass",
 		"require": "g.tier0>0&&g.naturelore>=8",
@@ -390,6 +396,7 @@
 	},
 	{
 		"id": "alchemist",
+		"name": "炼金术士",
 		"tags": "t_tier2,t_bloodclass,t_potionclass,t_craftingclass",
 		"desc": "炼金术士利用魔法知识来制作奇迹。",
 		"require": "g.tier1>0&&g.potions>=4&&g.alchemy>=5",
@@ -413,6 +420,7 @@
 	},
 	{
 		"id": "enchanter",
+		"name": "附魔师",
 		"desc": "魅力和附魔的大师。",
 		"require": "g.tier1>0&&g.enchanting>=6&&g.charms>=3",
 		"tags": "t_tier2,t_craftingclass,t_enchantingclass",
@@ -434,6 +442,7 @@
 	},
 	{
 		"id": "geomancer",
+		"name": "地术师",
 		"desc": "岩石之主。",
 		"tags": "t_tier2,t_earthclass,t_hammerclass",
 		"actdesc": "一位专注于地球操控和耐力的法师。",
@@ -455,6 +464,7 @@
 	},
 	{
 		"id": "earthshaker",
+		"name": "震地者",
 		"desc": "构造的主宰。",
 		"tags": "t_tier4,t_earthclass,t_hammerclass",
 		"actdesc": "一位地球毁灭魔法的至高无上的大师。",
@@ -476,6 +486,7 @@
 	},
 	{
 		"id": "titan",
+		"name": "泰坦",
 		"desc": "金属和石头的外衣。",
 		"tags": "t_tier6,t_earthclass,t_hammerclass",
 		"actdesc": "不可阻挡的自然力量，泰坦是意志的化身。",
@@ -498,6 +509,7 @@
 	},
 	{
 		"id": "hydromancer",
+		"name": "水术师",
 		"desc": "水的主宰。",
 		"tags": "t_tier2,t_waterclass",
 		"actdesc": "一位专注于水操控和适应性的法师。",
@@ -537,6 +549,7 @@
 	},
 	{
 		"id": "stormcaller",
+		"name": "唤风者",
 		"desc": "利用自然力量的暴力。",
 		"require": "g.t_waterclass>0||g.t_airclass>0",
 		"tags": "t_tier3,t_waterclass,t_airclass",
@@ -557,6 +570,7 @@
 	},
 	{
 		"id": "elementalist",
+		"name": "元素使",
 		"desc": "元素力量的主宰。",
 		"require": "g.tier0>0&&g.airlore>=3&&g.firelore>=3&&g.earthlore>=3&&g.waterlore>=3",
 		"tags": "t_tier1,t_elementalclass",
@@ -574,6 +588,7 @@
 	},
 	{
 		"id": "sorcerer",
+		"name": "术士",
 		"desc": "原始魔法力量的施法者。",
 		"require": "g.tier3>0&&(g.earthlore>=15||g.waterlore>=15||g.firelore>=15)&&(g.t_elementalclass+g.t_fireclass+g.t_waterclass+g.t_earthclass)>0",
 		"tags": "t_tier4,t_elementalclass",
@@ -596,6 +611,7 @@
 	},
 	{
 		"id": "druid",
+		"name": "德鲁伊",
 		"desc": "致力于自然世界的法术施法者。",
 		"tags": "t_tier3,t_natureclass",
 		"require": "g.tier2>0&&g.naturelore>=15",
@@ -640,6 +656,7 @@
 	},
 	{
 		"id": "oracle",
+		"name": "神谕者",
 		"tags": "t_tier1,t_divinationclass",
 		"desc": "命运和厄运仅仅是因果关系的表现。",
 		"require": "g.tier0>0&&g.spiritlore>=5&&g.divination>=5",
@@ -662,6 +679,7 @@
 	},
 	{
 		"id": "seer",
+		"name": "预言者",
 		"desc": "洞察房间，洞察人，预言他们的未来。",
 		"require": "g.tier1>0&&g.divination>=10",
 		"tags": "t_tier2,t_divinationclass",
@@ -681,6 +699,7 @@
 	},
 	{
 		"id": "mage",
+		"name": "法师",
 		"desc": "神秘组织的成员。",
 		"tags": "t_tier2,t_manaclass,t_knowledgeclass",
 		"require": "g.tier1>0&&g.lore>=14",
@@ -721,6 +740,7 @@
 	},
 	{
 		"id": "doomsayer",
+		"name": "末日预言者",
 		"desc": "毁灭的先驱。",
 		"require": "g.tier2>0&&g.spirit>=12&&g.divination>=12",
 		"tags": "t_tier3,t_divinationclass",
@@ -781,6 +801,7 @@
 	},
 	{
 		"id": "wizard",
+		"name": "巫师",
 		"desc": "原始魔法力量。",
 		"tags": "t_tier4,t_manaclass,t_knowledgeclass",
 		"require": "g.tier3>0&&g.lore>=25&&(g.evil1==0||g.good2==1)",
@@ -834,6 +855,7 @@
 	},
 	{
 		"id": "kell",
+		"name": "凯尔",
 		"desc": "自然的永生灵魂，即使是最弱小的凯尔也能与巫师相媲美。",
 		"tags": "t_tier5,t_natureclass",
 		"require": "g.tier4>0&&g.naturelore>=21&&g.t_natureclass>0&&g.act_fey>0",
@@ -855,6 +877,7 @@
 	},
 	{
 		"id": "heresiarch",
+		"name": "异端领袖",
 		"desc": "审判的时刻到了。",
 		"require": "g.tier4>0&&g.spirit>=15&&g.divination>=17",
 		"tags": "t_tier5,t_divinationclass",
@@ -967,6 +990,7 @@
 	},
 	{
 		"id": "conjurer",
+		"name": "召唤师",
 		"tags": "t_tier1,t_summonclass",
 		"desc": "快速将事物从一个地方移动到另一个地方的大师。",
 		"require": "g.conjuration>=5&&g.tier0>0",

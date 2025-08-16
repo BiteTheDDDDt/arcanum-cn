@@ -1,6 +1,7 @@
 [
 	{
 		"id": "crafting",
+		"name": "工艺",
 		"need": "工作台",
 		"desc": "对巫师来说，制作奥术物品是绝对重要的技能。",
 		"buy": {
@@ -38,6 +39,7 @@
 	},
 	{
 		"id": "spellcraft",
+		"name": "法术工艺",
 		"school": "arcane",
 		"verb": "研究法术",
 		"desc": "能将小法术组合成大法术，是区分普通施法者和大师的标志。",
@@ -75,6 +77,7 @@
 	},
 	{
 		"id": "composure",
+		"name": "镇定",
 		"desc": "在压力下保持镇定。",
 		"level": 5,
 		"buy": {
@@ -90,6 +93,7 @@
 	},
 	{
 		"id": "trickery",
+		"name": "巧技",
 		"verb": "谋划",
 		"flavor": "足够高明的手法与魔法无异。",
 		"level": 5,
@@ -113,6 +117,7 @@
 	},
 	{
 		"id": "conjuration",
+		"name": "召唤术",
 		"school": "arcane",
 		"verb": "召唤",
 		"desc": "",
@@ -199,6 +204,7 @@
 	},
 	{
 		"id": "charms",
+		"name": "护符",
 		"require": "g.enchanting>=5&&g.lore>=10",
 		"level": 10,
 		"buy": {
@@ -215,6 +221,7 @@
 	},
 	{
 		"id": "herbalism",
+		"name": "草药学",
 		"school": "nature",
 		"require": "lore",
 		"need": "plantsource",
@@ -231,6 +238,7 @@
 	},
 	{
 		"id": "weaving",
+		"name": "编织",
 		"need": "weavesource",
 		"level": 5,
 		"buy": {
@@ -246,6 +254,7 @@
 	},
 	{
 		"id": "languages",
+		"name": "语言学",
 		"school": "lore",
 		"require": "lore",
 		"desc": "书籍和卷轴是用许多晦涩的语言写成的。尽可能多地学习。",
@@ -288,6 +297,7 @@
 	},
 	{
 		"id": "anatomy",
+		"name": "解剖学",
 		"require": "g.neophyte>0&&g.lore>=6",
 		"school": [
 			"nature",
@@ -310,6 +320,7 @@
 	},
 	{
 		"id": "vivification",
+		"name": "活化术",
 		"require": "g.tier4>0&&g.anatomy>0&&g.spiritlore>=5",
 		"desc": "",
 		"level": 5,
@@ -327,6 +338,7 @@
 	},
 	{
 		"id": "summoning",
+		"name": "召唤术",
 		"require": "g.tier1>0&&g.conjuration>=5",
 		"school": "arcane",
 		"level": 5,
@@ -363,6 +375,7 @@
 	},
 	{
 		"id": "divination",
+		"name": "占卜术",
 		"desc": "预言的艺术。",
 		"require": "g.spiritlore>=6||g.mysticism>=5",
 		"need": "spiritsource",
