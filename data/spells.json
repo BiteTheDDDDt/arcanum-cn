@@ -288,7 +288,7 @@
 	{
 		"id": "invigorate",
 		"name": "振奋",
-		"desc": "利用你的耐力进行战斗。",
+		"desc": "利用你的体力进行战斗。",
 		"sortOrder": 399,
 		"level": 1,
 		"school": "martial",

@@ -1691,9 +1691,9 @@
 	},
 	{
 		"id": "occultendure",
-		"name": "神秘耐力",
+		"name": "神秘体力",
 		"max": 3,
-		"desc": "消耗你的研究以发现新的耐力来源。",
+		"desc": "消耗你的研究以发现新的体力来源。",
 		"require": "tier1",
 		"cost": {
 			"research": "5*Math.pow(2,g.occultendure)",

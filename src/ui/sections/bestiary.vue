@@ -108,22 +108,25 @@ export default {
 
 		<div class="char-list">
 			<table class="bestiary">
-				<tr>
-					<th class="table-head" @click="setSort('name')">Creature</th>
-					<th class="table-head" @click="setSort('level')">Level</th>
-					<th class="table-head" @click="setSort('value')">Slain</th>
-					<th class="table-head" @click="setSort('hp')">Hp</th>
-				</tr>
-				<tr v-for="m in sorted" :key="m.id" @mouseenter.capture.stop="itemOver($event, m)">
-					<th class="lg-name">{{ m.name.toTitleCase() }}</th>
-					<td class="num-align">{{ Math.floor(m.level) }}</td>
-					<td class="num-align">{{ Math.floor(m.value) }}</td>
-					<td class="num-align">{{ Math.floor(m.hp) }}</td>
-
-					<td v-if="canShowBuy(m)">
-						<button type="button" @click="tryUse(m)" :disabled="!canBuy(m)">Buy</button>
-					</td>
-				</tr>
+				<thead>
+					<tr>
+						<th class="table-head" @click="setSort('name')">Creature</th>
+						<th class="table-head" @click="setSort('level')">Level</th>
+						<th class="table-head" @click="setSort('value')">Slain</th>
+						<th class="table-head" @click="setSort('hp')">Hp</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr v-for="m in sorted" :key="m.id" @mouseenter.capture.stop="itemOver($event, m)">
+						<td class="lg-name">{{ m.name.toTitleCase() }}</td>
+						<td class="num-align">{{ Math.floor(m.level) }}</td>
+						<td class="num-align">{{ Math.floor(m.value) }}</td>
+						<td class="num-align">{{ Math.floor(m.hp) }}</td>
+						<td v-if="canShowBuy(m)">
+							<button type="button" @click="tryUse(m)" :disabled="!canBuy(m)">Buy</button>
+						</td>
+					</tr>
+				</tbody>
 			</table>
 		</div>
 	</div>

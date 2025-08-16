@@ -85,6 +85,7 @@ export default {
 			togSettings: false,
 			// toggle activity manager
 			togActivities: false,
+			showQuickbar: true,
 		};
 	},
 
@@ -506,7 +507,7 @@ export default {
 		<span class="load-message" v-if="displayError">
 			Please try refreshing the page few times. If problem persists, you can seek help through Discord.
 		</span>
-		<div v-if="state" class="game-main">
+	<div v-if="state" class="game-main" :style="{ paddingBottom: showQuickbar ? '1em' : '0' }">
 			<resources :items="mergedresources" />
 			<vue-menu class="game-mid" :items="menuItems" v-model="section">
 				<template #sect_main>
@@ -582,7 +583,30 @@ export default {
 			<log />
 		</div>
 
-		<quickbar v-if="state" class="bot-bar" :bars="state.bars" />
+		<div v-if="state" style="position:fixed;bottom:2.5em;right:1.5em;z-index:202;text-align:center;">
+			<div style="font-size:0.95em;color:#444;margin-bottom:0.2em;">快捷栏显示/隐藏</div>
+			<button
+				class="quickbar-toggle-bottom"
+				@click="showQuickbar = !showQuickbar"
+				title="{{ showQuickbar ? '隐藏快捷栏' : '显示快捷栏' }}"
+				style="background:#eee;border:1px solid #aaa;border-radius:50%;width:2em;height:2em;font-size:1.3em;cursor:pointer;opacity:0.85;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 8px #0002;"
+			>{{ showQuickbar ? '✕' : '≡' }}</button>
+		</div>
+		<template v-if="state && showQuickbar && (state.bars.active.slots.some(v => v.item != null) || true)">
+			<quickbar
+				v-if="state.bars.active.slots.some(v => v.item != null)"
+				:class="['quickbar', 'bot-bar', { hide: !showQuickbar }]"
+				:bars="state.bars"
+				@close="showQuickbar = false"
+			/>
+			<div
+				v-else
+				class="bot-bar"
+				style="display:flex;align-items:center;justify-content:center;font-size:1.2em;line-height:1.4em;min-height:3em;width:100%;color:#666;"
+			>
+				将鼠标移到物品上并按住 <b>Shift</b> + <b>数字</b> 分配到快捷栏。再次按 <b>数字</b> 可使用对应快捷栏物品。
+			</div>
+		</template>
 	</div>
 </template>
 
@@ -592,8 +616,13 @@ div.full {
 	background: inherit;
 	flex-direction: column;
 	min-width: 50vw;
-	max-height: 100vh;
 	height: 100vh;
+}
+
+div.game-main {
+	flex: 1 1 auto;
+	min-height: 0;
+	overflow-y: auto;
 }
 
 div.game-mid div.main-tasks {
@@ -620,9 +649,14 @@ div.inv-equip > div:nth-child(2) {
 }
 
 div.bot-bar {
+	position: fixed;
+	left: 0;
+	right: 0;
+	bottom: 0;
 	background: inherit;
 	border-top: 1px solid var(--separator-color);
 	padding: var(--md-gap);
+	z-index: 201;
 }
 
 span.load-message {

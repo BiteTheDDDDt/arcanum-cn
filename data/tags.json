@@ -208,7 +208,7 @@
 	},
 	{
 		"id": "t_stampot",
- 		"name": "耐力药水",
+ 		"name": "体力药水",
 		"sharecd": true
 	},
 	{
@@ -265,7 +265,7 @@
 	},
 	{
 		"id": "t_stambuff",
- 		"name": "耐力增益",
+ 		"name": "体力增益",
 		"sharecd": true
 	},
 	{

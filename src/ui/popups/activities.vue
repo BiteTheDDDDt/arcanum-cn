@@ -84,10 +84,10 @@ export default {
 
 <template>
 	<div class="popup activities">
-		<div class="popup-close" @click="$emit('close')">X</div>
+	<div class="popup-close" @click="$emit('close')">关闭</div>
 
 		<div class="section" :key="'k' + activeKey">
-			<header>Activities</header>
+		<header>活动</header>
 			<div v-for="(t, ind) in actives" :key="'a' + ind" class="task-info">
 				<button type="button" class="stop" @click="removeActive(t)">X</button>
 				<span class="task-name">{{ t.name.toTitleCase() }}</span>
@@ -112,13 +112,13 @@ export default {
 			</div>
 			<div class="relative" v-for="n in Math.max(Math.floor(runner.max - runner.actives.length), 0)">
 				<button type="button" class="stop" disabled>X</button>
-				<span>Idle</span>
+				<span>空闲</span>
 			</div>
 		</div>
 
 		<div class="section">
-			<header>Goals</header>
-			<div v-if="goals.length === 0 && runner.goals.max < 1" class="note-text">None</div>
+		<header>目标</header>
+			<div v-if="goals.length === 0 && runner.goals.max < 1" class="note-text">无</div>
 			<div v-else>
 				<div v-for="(t, ind) in goals" :key="'p' + ind" class="task-info">
 					<button type="button" class="stop" @click="removeGoal(t)">X</button>
@@ -138,12 +138,12 @@ export default {
 			</div>
 			<div class="relative" v-for="n in Math.max(Math.floor(runner.goals.max - goals.length), 0)">
 				<button type="button" class="stop" disabled>X</button>
-				<span>None</span>
+				<span>无</span>
 			</div>
 		</div>
 		<div class="section">
-			<header>Hobbies</header>
-			<div v-if="hobbies.length === 0 && runner.hobbies.max < 1" class="note-text">None</div>
+		<header>爱好</header>
+			<div v-if="hobbies.length === 0 && runner.hobbies.max < 1" class="note-text">无</div>
 			<div v-else>
 				<div v-for="(t, ind) in hobbies" :key="'p' + ind" class="task-info">
 					<button type="button" class="stop" @click="removePursuit(t)">X</button>
@@ -165,13 +165,13 @@ export default {
 			</div>
 			<div class="relative" v-for="n in Math.max(Math.floor(runner.hobbies.max - hobbies.length), 0)">
 				<button type="button" class="stop" disabled>X</button>
-				<span>None</span>
+				<span>无</span>
 			</div>
 		</div>
 
 		<div class="section" :key="'w' + waitKey">
-			<header>Waiting/Blocked</header>
-			<div v-if="waiting.length === 0" class="note-text">None</div>
+		<header>等待/阻塞</header>
+			<div v-if="waiting.length === 0" class="note-text">无</div>
 			<div v-else>
 				<div v-for="(t, ind) in [...waiting].reverse()" :key="'w' + ind" class="task-info">
 					<button type="button" class="stop" @click="removeWait(t)">X</button>
@@ -200,7 +200,7 @@ export default {
 				</div>
 			</div>
 			<div v-if="runner.max - waiting.length + 5 >= 1">
-				<span> Spare Waiting: {{ runner.max - waiting.length + 5 }} </span>
+				<span> 剩余等待位：{{ runner.max - waiting.length + 5 }} </span>
 			</div>
 		</div>
 	</div>

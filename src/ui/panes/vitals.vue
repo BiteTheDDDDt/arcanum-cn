@@ -120,7 +120,7 @@ export default {
 				</span>
 			</div>
 			<div class="hidable statbar" data-key="stamina" v-show="show(stamina)">
-				<span class="name">耐力</span>
+				<span class="name">体力</span>
 				<span class="barspan">
 					<progbar
 						type="stamina"
@@ -130,7 +130,7 @@ export default {
 				</span>
 			</div>
 			<div class="hidable statbar" data-key="vigor" v-show="show(vigor)">
-				<span class="name">精力</span>
+				<span class="name">活力</span>
 				<span class="barspan">
 					<progbar
 						type="vigor"

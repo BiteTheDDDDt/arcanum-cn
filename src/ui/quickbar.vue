@@ -39,12 +39,6 @@ export default {
 			<div class="container" v-else>{{ i != 9 ? i + 1 : 0 }}</div>
 		</div>
 	</div>
-	<div class="quickbar" v-else>
-		<p class="use-msg">
-			将鼠标移到物品上并按住 {Shift} + {Number} 分配到快捷栏。<br />
-			再次按 {Number} 可使用对应快捷栏物品。
-		</p>
-	</div>
 </template>
 
 <style scoped>

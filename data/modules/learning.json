@@ -8,83 +8,64 @@
 		"mysticism": 15.1,
 		"languages": 24.0,
 		"history": 31.05,
-
 		"crafting": 27.0,
 		"weaving": 10.1,
 		"runelore": 10.1,
 		"enchanting": 18.1,
-
 		"astrallore": 6.15,
 		"planeslore": 30.05,
 		"s_travel": 16.05,
 		"divination": 35.0,
 		"scrying": 23.05,
 		"astronomy": 37.0,
-
 		"concentrate": 11.0,
 		"composure": 16.1,
-
 		"citynavigation": 8.0,
 		"shopkeeping": 27.0,
 		"debitomancy": 16.05,
-
 		"animals": 39.0,
 		"magicbeasts": 14.05,
 		"conjuration": 15.0,
 		"summoning": 17.05,
 		"demonology": 38.05,
 		"charms": 10.1,
-
 		"anatomy": 38.0,
 		"vivification": 13.05,
-
 		"waterlore": 32.0,
 		"waterlore2": 5.15,
-
 		"airlore": 40.0,
 		"airlore2": 5.15,
-
 		"firelore": 39.0,
 		"firelore2": 9.15,
 		"flamesculpting": 4.1,
-
 		"earthlore": 43.0,
 		"earthlore2": 5.15,
 		"geosculpting": 31.05,
-
 		"naturelore": 47.0,
 		"naturelore2": 7.15,
 		"herbalism": 34.0,
 		"potions": 23.05,
 		"alchemy": 32.0,
-
 		"spiritlore": 49.0,
 		"spiritlore2": 6.15,
-
 		"lightlore": 41.0,
 		"lightlore2": 6.15,
 		"heallore": 12.05,
-
 		"shadowlore": 45.0,
 		"shadowlore2": 6.15,
 		"necromancy": 18.05,
 		"reanimation": 25.05,
 		"embalming": 22.05,
 		"dissection": 15.05,
-
 		"chaoslore": 7.15,
 		"trickery": 29.05,
-
 		"voidlore": 13.15,
 		"chronomancy": 7.15,
-
 		"bloodlore": 5.1,
-
 		"weaponlore": 12.0,
 		"bladelore": 17.1,
 		"duelinglore": 13.1,
 		"hammerlore": 18.5,
-
 		"magicalanimation": 19.05,
 		"magiphysics": 6.1,
 		"puppetry": 40.0,
@@ -109,10 +90,10 @@
 		"upgrades": [
 			{
 				"id": "learnJob",
-				"name": "Reviewing Your Notes",
-				"desc": "Remembering what you've been taught doesn't happen by magic.",
+				"name": "复习笔记",
+				"desc": "记住你学过的内容并不是魔法自动发生的。",
 				"flavor": "",
-				"group": "education",
+				"group": "教育",
 				"require": "g.t_job>0",
 				"cost": {
 					"scrolls": 5,
@@ -126,10 +107,10 @@
 			},
 			{
 				"id": "learn0",
-				"name": "Exploring New Ideas",
-				"desc": "Now that you're free to explore magic on your own without your master breathing down your neck, there's a few things you wanted to try...",
+				"name": "探索新思路",
+				"desc": "现在你终于可以自由探索魔法，不用再被导师盯着，有些事情你早就想试试了……",
 				"flavor": "",
-				"group": "education",
+				"group": "教育",
 				"require": "g.tier0>0&&g.learnJob>0",
 				"cost": {
 					"codices": 1,
@@ -143,10 +124,10 @@
 			},
 			{
 				"id": "learn1",
-				"name": "Studious Trance",
-				"desc": "Sometimes you lose track of hours in your magical studies, but the knowledge is a worthy reward.",
+				"name": "专注冥思",
+				"desc": "有时你会在魔法学习中忘记时间，但知识是值得的回报。",
 				"flavor": "",
-				"group": "education",
+				"group": "教育",
 				"require": "g.tier1>0&&g.learn0>0",
 				"cost": {
 					"codices": 3,
@@ -160,10 +141,10 @@
 			},
 			{
 				"id": "learn2",
-				"name": "Mind Palace",
-				"desc": "A place for every piece of knowledge and every piece of knowledge has a place.",
+				"name": "心灵宫殿",
+				"desc": "每一份知识都有归属，每一个归属都有知识。",
 				"flavor": "",
-				"group": "education",
+				"group": "教育",
 				"require": "g.tier2>0&&g.learn1>0",
 				"cost": {
 					"codices": 10,
@@ -177,10 +158,10 @@
 			},
 			{
 				"id": "learn3",
-				"name": "Arcane Comprehension",
-				"desc": "Remembering things you've learned CAN happen by magic if you try hard enough.",
+				"name": "奥术领悟",
+				"desc": "只要你足够努力，记住学过的内容也可以靠魔法实现。",
 				"flavor": "",
-				"group": "education",
+				"group": "教育",
 				"require": "g.tier3>0&&g.learn2>0",
 				"cost": {
 					"codices": 25,
@@ -194,10 +175,10 @@
 			},
 			{
 				"id": "learn4",
-				"name": "Runic Recollection",
-				"desc": "Your notes are inscribed with runes that improve your ability to remember the contents of each page.",
+				"name": "符文回忆",
+				"desc": "你的笔记上刻有符文，提升了你记忆每一页内容的能力。",
 				"flavor": "",
-				"group": "education",
+				"group": "教育",
 				"require": "g.tier4>0&&g.learn3>0",
 				"cost": {
 					"tomes": 3,
@@ -211,10 +192,10 @@
 			},
 			{
 				"id": "learn5",
-				"name": "Studious Sleep",
-				"desc": "Days and weeks pass by as you study the minutiae of magic, but you no longer care: the magic is the most important thing.",
+				"name": "勤学入梦",
+				"desc": "你沉浸在魔法细节的学习中，日复一日，周复一周，但你已不在乎：魔法才是最重要的。",
 				"flavor": "",
-				"group": "education",
+				"group": "教育",
 				"require": "g.tier5>0&&g.learn4>0",
 				"cost": {
 					"tomes": 5,
@@ -228,10 +209,10 @@
 			},
 			{
 				"id": "learn6",
-				"name": "Memento Memory",
-				"desc": "One day you will learn everything there is to know, and at that point all there's left to do is remember.",
+				"name": "回忆纪念",
+				"desc": "总有一天你会学会所有知识，到那时剩下的就是回忆。",
 				"flavor": "",
-				"group": "education",
+				"group": "教育",
 				"require": "g.tier6>0&&g.learn5>0",
 				"cost": {
 					"tomes": 7,
@@ -342,10 +323,10 @@
 			},
 			{
 				"id": "waterlorelearn1",
-				"name": "Aquamancy: Competence",
+				"name": "水术：入门",
 				"desc": "",
 				"flavor": "",
-				"group": "education",
+				"group": "教育",
 				"require": "g.waterlore>=3&&g.waterlore.max>=6",
 				"cost": {
 					"scrolls": 1,
@@ -357,10 +338,10 @@
 			},
 			{
 				"id": "waterlorelearn2",
-				"name": "Aquamancy: Expertise",
+				"name": "水术：精通",
 				"desc": "",
 				"flavor": "",
-				"group": "education",
+				"group": "教育",
 				"require": "g.waterlore>=8&&g.waterlore.max>=11&&g.waterlorelearn1>0",
 				"cost": {
 					"scrolls": 4,
@@ -373,10 +354,10 @@
 			},
 			{
 				"id": "waterlorelearn3",
-				"name": "Aquamancy: Mastery",
+				"name": "水术：大师",
 				"desc": "",
 				"flavor": "",
-				"group": "education",
+				"group": "教育",
 				"require": "g.waterlore>=13&&g.waterlore.max>=16&&g.waterlorelearn2>0",
 				"cost": {
 					"codices": 1,
@@ -390,10 +371,10 @@
 			},
 			{
 				"id": "waterlorelearn4",
-				"name": "Aquamancy: Supremancy",
+				"name": "水术：至高",
 				"desc": "",
 				"flavor": "",
-				"group": "education",
+				"group": "教育",
 				"require": "g.waterlore>=18&&g.waterlore.max>=21&&g.waterlorelearn3>0",
 				"cost": {
 					"codices": 3,
@@ -412,10 +393,10 @@
 			},
 			{
 				"id": "waterlorelearn5",
-				"name": "Aquamancy: Transcendence",
+				"name": "水术：超越",
 				"desc": "",
 				"flavor": "",
-				"group": "education",
+				"group": "教育",
 				"require": "g.waterlore>=23&&g.waterlore.max>=26&&g.waterlorelearn4>0",
 				"cost": {
 					"tomes": 1,
@@ -434,10 +415,10 @@
 			},
 			{
 				"id": "airlorelearn1",
-				"name": "Aeromancy: Competence",
+				"name": "气术：入门",
 				"desc": "",
 				"flavor": "",
-				"group": "education",
+				"group": "教育",
 				"require": "g.airlore>=3&&g.airlore.max>=6",
 				"cost": {
 					"scrolls": 1,
@@ -449,10 +430,10 @@
 			},
 			{
 				"id": "airlorelearn2",
-				"name": "Aeromancy: Expertise",
+				"name": "气术：精通",
 				"desc": "",
 				"flavor": "",
-				"group": "education",
+				"group": "教育",
 				"require": "g.airlore>=8&&g.airlore.max>=11&&g.airlorelearn1>0",
 				"cost": {
 					"scrolls": 4,
@@ -465,10 +446,10 @@
 			},
 			{
 				"id": "airlorelearn3",
-				"name": "Aeromancy: Mastery",
+				"name": "气术：大师",
 				"desc": "",
 				"flavor": "",
-				"group": "education",
+				"group": "教育",
 				"require": "g.airlore>=13&&g.airlore.max>=16&&g.airlorelearn2>0",
 				"cost": {
 					"codices": 1,
@@ -482,10 +463,10 @@
 			},
 			{
 				"id": "airlorelearn4",
-				"name": "Aeromancy: Supremancy",
+				"name": "气术：至高",
 				"desc": "",
 				"flavor": "",
-				"group": "education",
+				"group": "教育",
 				"require": "g.airlore>=18&&g.airlore.max>=21&&g.airlorelearn3>0",
 				"cost": {
 					"codices": 3,
@@ -504,10 +485,10 @@
 			},
 			{
 				"id": "airlorelearn5",
-				"name": "Aeromancy: Transcendence",
+				"name": "气术：超越",
 				"desc": "",
 				"flavor": "",
-				"group": "education",
+				"group": "教育",
 				"require": "g.airlore>=23&&g.airlore.max>=26&&g.airlorelearn4>0",
 				"cost": {
 					"tomes": 1,
@@ -526,10 +507,10 @@
 			},
 			{
 				"id": "firelorelearn1",
-				"name": "Pyromancy: Competence",
+				"name": "火术：入门",
 				"desc": "",
 				"flavor": "",
-				"group": "education",
+				"group": "教育",
 				"require": "g.firelore>=3&&g.firelore.max>=6",
 				"cost": {
 					"scrolls": 1,
@@ -541,10 +522,10 @@
 			},
 			{
 				"id": "firelorelearn2",
-				"name": "Pyromancy: Expertise",
+				"name": "火术：精通",
 				"desc": "",
 				"flavor": "",
-				"group": "education",
+				"group": "教育",
 				"require": "g.firelore>=8&&g.firelore.max>=11&&g.firelorelearn1>0",
 				"cost": {
 					"scrolls": 4,
@@ -557,10 +538,10 @@
 			},
 			{
 				"id": "firelorelearn3",
-				"name": "Pyromancy: Mastery",
+				"name": "火术：大师",
 				"desc": "",
 				"flavor": "",
-				"group": "education",
+				"group": "教育",
 				"require": "g.firelore>=13&&g.firelore.max>=16&&g.firelorelearn2>0",
 				"cost": {
 					"codices": 1,
@@ -574,10 +555,10 @@
 			},
 			{
 				"id": "firelorelearn4",
-				"name": "Pyromancy: Supremancy",
+				"name": "火术：至高",
 				"desc": "",
 				"flavor": "",
-				"group": "education",
+				"group": "教育",
 				"require": "g.firelore>=18&&g.firelore.max>=21&&g.firelorelearn3>0",
 				"cost": {
 					"codices": 3,
@@ -596,10 +577,10 @@
 			},
 			{
 				"id": "firelorelearn5",
-				"name": "Pyromancy: Transcendence",
+				"name": "火术：超越",
 				"desc": "",
 				"flavor": "",
-				"group": "education",
+				"group": "教育",
 				"require": "g.firelore>=23&&g.firelore.max>=26&&g.firelorelearn4>0",
 				"cost": {
 					"tomes": 1,
@@ -618,10 +599,10 @@
 			},
 			{
 				"id": "earthlorelearn1",
-				"name": "Geomancy: Competence",
+				"name": "地术：入门",
 				"desc": "",
 				"flavor": "",
-				"group": "education",
+				"group": "教育",
 				"require": "g.earthlore>=3&&g.earthlore.max>=6",
 				"cost": {
 					"scrolls": 1,
@@ -633,10 +614,10 @@
 			},
 			{
 				"id": "earthlorelearn2",
-				"name": "Geomancy: Expertise",
+				"name": "地术：精通",
 				"desc": "",
 				"flavor": "",
-				"group": "education",
+				"group": "教育",
 				"require": "g.earthlore>=8&&g.earthlore.max>=11&&g.earthlorelearn1>0",
 				"cost": {
 					"scrolls": 4,
@@ -649,10 +630,10 @@
 			},
 			{
 				"id": "earthlorelearn3",
-				"name": "Geomancy: Mastery",
+				"name": "地术：大师",
 				"desc": "",
 				"flavor": "",
-				"group": "education",
+				"group": "教育",
 				"require": "g.earthlore>=13&&g.earthlore.max>=16&&g.earthlorelearn2>0",
 				"cost": {
 					"codices": 1,
@@ -666,10 +647,10 @@
 			},
 			{
 				"id": "earthlorelearn4",
-				"name": "Geomancy: Supremancy",
+				"name": "地术：至高",
 				"desc": "",
 				"flavor": "",
-				"group": "education",
+				"group": "教育",
 				"require": "g.earthlore>=18&&g.earthlore.max>=21&&g.earthlorelearn3>0",
 				"cost": {
 					"codices": 3,
@@ -688,10 +669,10 @@
 			},
 			{
 				"id": "earthlorelearn5",
-				"name": "Geomancy: Transcendence",
+				"name": "地术：超越",
 				"desc": "",
 				"flavor": "",
-				"group": "education",
+				"group": "教育",
 				"require": "g.earthlore>=23&&g.earthlore.max>=26&&g.earthlorelearn4>0",
 				"cost": {
 					"tomes": 1,
@@ -710,10 +691,10 @@
 			},
 			{
 				"id": "naturelorelearn1",
-				"name": "Nature Studies: Competence",
+				"name": "自然学：入门",
 				"desc": "",
 				"flavor": "",
-				"group": "education",
+				"group": "教育",
 				"require": "g.naturelore>=3&&g.naturelore.max>=6",
 				"cost": {
 					"scrolls": 1,
@@ -725,10 +706,10 @@
 			},
 			{
 				"id": "naturelorelearn2",
-				"name": "Nature Studies: Expertise",
+				"name": "自然学：精通",
 				"desc": "",
 				"flavor": "",
-				"group": "education",
+				"group": "教育",
 				"require": "g.naturelore>=8&&g.naturelore.max>=11&&g.naturelorelearn1>0",
 				"cost": {
 					"scrolls": 4,
@@ -741,10 +722,10 @@
 			},
 			{
 				"id": "naturelorelearn3",
-				"name": "Nature Studies: Mastery",
+				"name": "自然学：大师",
 				"desc": "",
 				"flavor": "",
-				"group": "education",
+				"group": "教育",
 				"require": "g.naturelore>=13&&g.naturelore.max>=16&&g.naturelorelearn2>0",
 				"cost": {
 					"codices": 1,
@@ -758,10 +739,10 @@
 			},
 			{
 				"id": "naturelorelearn4",
-				"name": "Nature Studies: Supremancy",
+				"name": "自然学：至高",
 				"desc": "",
 				"flavor": "",
-				"group": "education",
+				"group": "教育",
 				"require": "g.naturelore>=18&&g.naturelore.max>=21&&g.naturelorelearn3>0",
 				"cost": {
 					"codices": 3,
@@ -780,10 +761,10 @@
 			},
 			{
 				"id": "naturelorelearn5",
-				"name": "Nature Studies: Transcendence",
+				"name": "自然学：超越",
 				"desc": "",
 				"flavor": "",
-				"group": "education",
+				"group": "教育",
 				"require": "g.naturelore>=23&&g.naturelore.max>=26&&g.naturelorelearn4>0",
 				"cost": {
 					"tomes": 1,
@@ -817,10 +798,10 @@
 			},
 			{
 				"id": "spiritlorelearn2",
-				"name": "Spirit Communion: Expertise",
+				"name": "灵魂交流：精通",
 				"desc": "",
 				"flavor": "",
-				"group": "education",
+				"group": "教育",
 				"require": "g.spiritlore>=8&&g.spiritlore.max>=11&&g.spiritlorelearn1>0",
 				"cost": {
 					"scrolls": 4,
@@ -833,10 +814,10 @@
 			},
 			{
 				"id": "spiritlorelearn3",
-				"name": "Spirit Communion: Mastery",
+				"name": "灵魂交流：大师",
 				"desc": "",
 				"flavor": "",
-				"group": "education",
+				"group": "教育",
 				"require": "g.spiritlore>=13&&g.spiritlore.max>=16&&g.spiritlorelearn2>0",
 				"cost": {
 					"codices": 1,
@@ -850,10 +831,10 @@
 			},
 			{
 				"id": "spiritlorelearn4",
-				"name": "Spirit Communion: Supremancy",
+				"name": "灵魂交流：至高",
 				"desc": "",
 				"flavor": "",
-				"group": "education",
+				"group": "教育",
 				"require": "g.spiritlore>=18&&g.spiritlore.max>=21&&g.spiritlorelearn3>0",
 				"cost": {
 					"codices": 3,
@@ -872,10 +853,10 @@
 			},
 			{
 				"id": "spiritlorelearn5",
-				"name": "Spirit Communion: Transcendence",
+				"name": "灵魂交流：超越",
 				"desc": "",
 				"flavor": "",
-				"group": "education",
+				"group": "教育",
 				"require": "g.spiritlore>=23&&g.spiritlore.max>=26&&g.spiritlorelearn4>0",
 				"cost": {
 					"tomes": 1,
@@ -894,10 +875,10 @@
 			},
 			{
 				"id": "lightlorelearn1",
-				"name": "Lumenology: Competence",
+				"name": "光学：入门",
 				"desc": "",
 				"flavor": "",
-				"group": "education",
+				"group": "教育",
 				"require": "g.lightlore>=3&&g.lightlore.max>=6",
 				"cost": {
 					"scrolls": 1,
@@ -909,10 +890,10 @@
 			},
 			{
 				"id": "lightlorelearn2",
-				"name": "Lumenology: Expertise",
+				"name": "光学：精通",
 				"desc": "",
 				"flavor": "",
-				"group": "education",
+				"group": "教育",
 				"require": "g.lightlore>=8&&g.lightlore.max>=11&&g.lightlorelearn1>0",
 				"cost": {
 					"scrolls": 4,
@@ -925,10 +906,10 @@
 			},
 			{
 				"id": "lightlorelearn3",
-				"name": "Lumenology: Mastery",
+				"name": "光学：大师",
 				"desc": "",
 				"flavor": "",
-				"group": "education",
+				"group": "教育",
 				"require": "g.lightlore>=13&&g.lightlore.max>=16&&g.lightlorelearn2>0",
 				"cost": {
 					"codices": 1,
@@ -942,10 +923,10 @@
 			},
 			{
 				"id": "lightlorelearn4",
-				"name": "Lumenology: Supremancy",
+				"name": "光学：至高",
 				"desc": "",
 				"flavor": "",
-				"group": "education",
+				"group": "教育",
 				"require": "g.lightlore>=18&&g.lightlore.max>=21&&g.lightlorelearn3>0",
 				"cost": {
 					"codices": 3,
@@ -964,10 +945,10 @@
 			},
 			{
 				"id": "lightlorelearn5",
-				"name": "Lumenology: Transcendence",
+				"name": "光学：超越",
 				"desc": "",
 				"flavor": "",
-				"group": "education",
+				"group": "教育",
 				"require": "g.lightlore>=23&&g.lightlore.max>=26&&g.lightlorelearn4>0",
 				"cost": {
 					"tomes": 1,
@@ -986,10 +967,10 @@
 			},
 			{
 				"id": "shadowlorelearn1",
-				"name": "Umbramancy: Competence",
+				"name": "暗影术：入门",
 				"desc": "",
 				"flavor": "",
-				"group": "education",
+				"group": "教育",
 				"require": "g.shadowlore>=3&&g.shadowlore.max>=6",
 				"cost": {
 					"scrolls": 1,
@@ -1001,10 +982,10 @@
 			},
 			{
 				"id": "shadowlorelearn2",
-				"name": "Umbramancy: Expertise",
+				"name": "暗影术：精通",
 				"desc": "",
 				"flavor": "",
-				"group": "education",
+				"group": "教育",
 				"require": "g.shadowlore>=8&&g.shadowlore.max>=11&&g.shadowlorelearn1>0",
 				"cost": {
 					"scrolls": 4,
@@ -1017,10 +998,10 @@
 			},
 			{
 				"id": "shadowlorelearn3",
-				"name": "Umbramancy: Mastery",
+				"name": "暗影术：大师",
 				"desc": "",
 				"flavor": "",
-				"group": "education",
+				"group": "教育",
 				"require": "g.shadowlore>=13&&g.shadowlore.max>=16&&g.shadowlorelearn2>0",
 				"cost": {
 					"codices": 1,
@@ -1034,10 +1015,10 @@
 			},
 			{
 				"id": "shadowlorelearn4",
-				"name": "Umbramancy: Supremancy",
+				"name": "暗影术：至高",
 				"desc": "",
 				"flavor": "",
-				"group": "education",
+				"group": "教育",
 				"require": "g.shadowlore>=18&&g.shadowlore.max>=21&&g.shadowlorelearn3>0",
 				"cost": {
 					"codices": 3,
@@ -1056,10 +1037,10 @@
 			},
 			{
 				"id": "shadowlorelearn5",
-				"name": "Umbramancy: Transcendence",
+				"name": "暗影术：超越",
 				"desc": "",
 				"flavor": "",
-				"group": "education",
+				"group": "教育",
 				"require": "g.shadowlore>=23&&g.shadowlore.max>=26&&g.shadowlorelearn4>0",
 				"cost": {
 					"tomes": 1,
@@ -1078,10 +1059,10 @@
 			},
 			{
 				"id": "weavinglearn1",
-				"name": "Interweaving",
+				"name": "织造：交织",
 				"desc": "",
 				"flavor": "",
-				"group": "education",
+				"group": "教育",
 				"require": "g.weaving>=3&&g.weaving.max>=5",
 				"cost": {
 					"scrolls": 4,
@@ -1097,10 +1078,10 @@
 			},
 			{
 				"id": "weavinglearn2",
-				"name": "Braiding",
+				"name": "织造：编织",
 				"desc": "",
 				"flavor": "",
-				"group": "education",
+				"group": "教育",
 				"require": "g.weaving>=6&&g.weaving.max>=8&&g.weavinglearn1>0",
 				"cost": {
 					"codices": 1,
@@ -1121,10 +1102,10 @@
 			},
 			{
 				"id": "chronomancylearn1",
-				"name": "Walking backwards",
+				"name": "时术：倒行",
 				"desc": "",
 				"flavor": "",
-				"group": "education",
+				"group": "教育",
 				"require": "g.chronomancy>=1",
 				"cost": {
 					"tempus": 1,
@@ -1137,10 +1118,10 @@
 			},
 			{
 				"id": "chronomancylearn2",
-				"name": "Thinking backwards",
+				"name": "时术：逆思",
 				"desc": "",
 				"flavor": "",
-				"group": "education",
+				"group": "教育",
 				"require": "g.chronomancy>=2&&g.chronomancylearn1>0",
 				"cost": {
 					"tempus": 2,
@@ -1154,10 +1135,10 @@
 			},
 			{
 				"id": "chronomancylearn3",
-				"name": "Timely independence",
+				"name": "时术：独立",
 				"desc": "",
 				"flavor": "",
-				"group": "education",
+				"group": "教育",
 				"require": "g.chronomancy>=3&&g.chronomancylearn2>0",
 				"cost": {
 					"tempus": 3,
@@ -1172,10 +1153,10 @@
 			},
 			{
 				"id": "chronomancylearn4",
-				"name": "Chronomancy: Unleashed",
+				"name": "时术：解放",
 				"desc": "",
 				"flavor": "",
-				"group": "education",
+				"group": "教育",
 				"require": "g.chronomancy>=4&&g.chronomancylearn3>0",
 				"cost": {
 					"tempus": 4,
@@ -1225,11 +1206,11 @@
 			},
 			{
 				"id": "craftinglearn3",
-				"name": "Crafting: Masterwork arms",
-				"desc": "Learn how to craft advanced items.",
-				"extdesc": "Unlocks advanced items for crafting.",
-				"flavor": "What the hell is a ricasso.",
-				"group": "education",
+				"name": "锻造：大师级武器",
+				"desc": "学习如何锻造高级物品。",
+				"extdesc": "解锁锻造高级物品。",
+				"flavor": "什么是ricasso？",
+				"group": "教育",
 				"require": "g.crafting>=13&&g.crafting.max>=16&&g.craftinglearn2>0",
 				"cost": {
 					"gems": 5,
@@ -1244,11 +1225,11 @@
 			},
 			{
 				"id": "craftinglearn4",
-				"name": "Crafting: Arms of Adamant",
-				"desc": "Learn how to handle adamant and other magical materials.",
-				"extdesc": "Unlocks expert materials for crafting.",
-				"flavor": "Most smiths would have trouble getting their forge to the temperature of dragonbreath. You, however, have a solution.",
-				"group": "education",
+				"name": "锻造：精金武器",
+				"desc": "学习如何处理精金及其他魔法材料。",
+				"extdesc": "解锁锻造专家级材料。",
+				"flavor": "大多数铁匠很难让熔炉达到龙息温度，而你有办法。",
+				"group": "教育",
 				"require": "g.crafting>=18&&g.crafting.max>=21&&g.craftinglearn3>0",
 				"cost": {
 					"gems": 15,
@@ -1267,11 +1248,11 @@
 			},
 			{
 				"id": "craftinglearn5",
-				"name": "Crafting: Transcendent arms",
-				"desc": "Learn how to craft things that go beyond masterwork.",
-				"extdesc": "Unlocks expert items for crafting.",
-				"flavor": "The elusive swordchucks you have heard about, sadly remain out of reach.",
-				"group": "education",
+				"name": "锻造：超越武器",
+				"desc": "学习如何锻造超越大师级的物品。",
+				"extdesc": "解锁锻造专家级物品。",
+				"flavor": "传说中的swordchucks你听说过，但可惜仍然无法获得。",
+				"group": "教育",
 				"require": "g.crafting>=22&&g.crafting.max>=25&&g.craftinglearn4>0",
 				"cost": {
 					"runestones": 1,
@@ -1291,10 +1272,10 @@
 			},
 			{
 				"id": "runelorelearn1",
-				"name": "Runic Lore: Competence",
+				"name": "符文学：入门",
 				"desc": "",
 				"flavor": "",
-				"group": "education",
+				"group": "教育",
 				"require": "g.runelore>=4&&g.runelore.max>=6",
 				"cost": {
 					"codices": 1,
@@ -1315,10 +1296,10 @@
 			},
 			{
 				"id": "animalslearn1",
-				"name": "Animals: Competence",
+				"name": "动物学：入门",
 				"desc": "",
 				"flavor": "",
-				"group": "education",
+				"group": "教育",
 				"require": "g.animals>=3&&g.animals.max>=6",
 				"cost": {
 					"scrolls": 1,
@@ -1331,10 +1312,10 @@
 			},
 			{
 				"id": "animalslearn2",
-				"name": "Animals: Expertise",
+				"name": "动物学：精通",
 				"desc": "",
 				"flavor": "",
-				"group": "education",
+				"group": "教育",
 				"require": "g.animals>=8&&g.animals.max>=11&&g.animalslearn1>0",
 				"cost": {
 					"scrolls": 4,
@@ -1348,10 +1329,10 @@
 			},
 			{
 				"id": "animalslearn3",
-				"name": "Animals: Mastery",
+				"name": "动物学：大师",
 				"desc": "",
 				"flavor": "",
-				"group": "education",
+				"group": "教育",
 				"require": "g.animals>=13&&g.animals.max>=16&&g.animalslearn2>0",
 				"cost": {
 					"codices": 1,
@@ -1370,10 +1351,10 @@
 			},
 			{
 				"id": "languageslearn1",
-				"name": "Languages: Competence",
+				"name": "语言学：入门",
 				"desc": "",
 				"flavor": "",
-				"group": "education",
+				"group": "教育",
 				"require": "g.languages>=3&&g.languages.max>=6",
 				"cost": {
 					"scrolls": 1,
@@ -1387,10 +1368,10 @@
 			},
 			{
 				"id": "languageslearn2",
-				"name": "Languages: Expertise",
+				"name": "语言学：精通",
 				"desc": "",
 				"flavor": "",
-				"group": "education",
+				"group": "教育",
 				"require": "g.languages>=8&&g.languages.max>=11&&g.languageslearn1>0",
 				"cost": {
 					"scrolls": 4,
@@ -1406,10 +1387,10 @@
 			},
 			{
 				"id": "languageslearn3",
-				"name": "Languages: Mastery",
+				"name": "语言学：大师",
 				"desc": "",
 				"flavor": "",
-				"group": "education",
+				"group": "教育",
 				"require": "g.languages>=13&&g.languages.max>=16&&g.languageslearn2>0",
 				"cost": {
 					"codices": 1,
@@ -1428,10 +1409,10 @@
 			},
 			{
 				"id": "historylearn1",
-				"name": "World Lore: Competence",
+				"name": "世界学：入门",
 				"desc": "",
 				"flavor": "",
-				"group": "education",
+				"group": "教育",
 				"require": "g.history>=3&&g.history.max>=6",
 				"cost": {
 					"scrolls": 1,
@@ -1445,10 +1426,10 @@
 			},
 			{
 				"id": "historylearn2",
-				"name": "World Lore: Expertise",
+				"name": "世界学：精通",
 				"desc": "",
 				"flavor": "",
-				"group": "education",
+				"group": "教育",
 				"require": "g.history>=8&&g.history.max>=11&&g.historylearn1>0",
 				"cost": {
 					"scrolls": 4,
@@ -1462,10 +1443,10 @@
 			},
 			{
 				"id": "historylearn3",
-				"name": "World Lore: Mastery",
+				"name": "世界学：大师",
 				"desc": "",
 				"flavor": "",
-				"group": "education",
+				"group": "教育",
 				"require": "g.history>=13&&g.history.max>=16&&g.historylearn2>0",
 				"cost": {
 					"codices": 1,
@@ -1482,10 +1463,10 @@
 			},
 			{
 				"id": "demonologylearn1",
-				"name": "Demonology: Competence",
+				"name": "恶魔学：入门",
 				"desc": "",
 				"flavor": "",
-				"group": "education",
+				"group": "教育",
 				"require": "g.demonology>=3&&g.demonology.max>=6",
 				"cost": {
 					"scrolls": 1,
@@ -1498,10 +1479,10 @@
 			},
 			{
 				"id": "demonologylearn2",
-				"name": "Demonology: Expertise",
+				"name": "恶魔学：精通",
 				"desc": "",
 				"flavor": "",
-				"group": "education",
+				"group": "教育",
 				"require": "g.demonology>=8&&g.demonology.max>=11&&g.demonologylearn1>0",
 				"cost": {
 					"scrolls": 4,
@@ -1516,10 +1497,10 @@
 			},
 			{
 				"id": "demonologylearn3",
-				"name": "Demonology: Mastery",
+				"name": "恶魔学：大师",
 				"desc": "",
 				"flavor": "",
-				"group": "education",
+				"group": "教育",
 				"require": "g.demonology>=13&&g.demonology.max>=16&&g.demonologylearn2>0",
 				"cost": {
 					"codices": 1,
@@ -1535,10 +1516,10 @@
 			},
 			{
 				"id": "demonologylearn4",
-				"name": "Demonology: Supremancy",
+				"name": "恶魔学：至高",
 				"desc": "",
 				"flavor": "",
-				"group": "education",
+				"group": "教育",
 				"require": "g.demonology>=18&&g.demonology.max>=21&&g.demonologylearn3>0",
 				"cost": {
 					"codices": 3,
@@ -1557,10 +1538,10 @@
 			},
 			{
 				"id": "herbalismlearn1",
-				"name": "Herbalism: Competence",
+				"name": "草药学：入门",
 				"desc": "",
 				"flavor": "",
-				"group": "education",
+				"group": "教育",
 				"require": "g.herbalism>=3&&g.herbalism.max>=6",
 				"cost": {
 					"herbs": 10,
@@ -1574,10 +1555,10 @@
 			},
 			{
 				"id": "herbalismlearn2",
-				"name": "Herbalism: Expertise",
+				"name": "草药学：精通",
 				"desc": "",
 				"flavor": "",
-				"group": "education",
+				"group": "教育",
 				"require": "g.herbalism>=8&&g.herbalism.max>=11",
 				"cost": {
 					"herbs": 50,
@@ -1591,10 +1572,10 @@
 			},
 			{
 				"id": "alchemylearn1",
-				"name": "Alchemy: Competence",
+				"name": "炼金术：入门",
 				"desc": "",
 				"flavor": "",
-				"group": "education",
+				"group": "教育",
 				"require": "g.alchemy>=3&&g.alchemy.max>=6",
 				"cost": {
 					"scrolls": 1,
@@ -1608,10 +1589,10 @@
 			},
 			{
 				"id": "alchemylearn2",
-				"name": "Alchemy: Expertise",
+				"name": "炼金术：精通",
 				"desc": "",
 				"flavor": "",
-				"group": "education",
+				"group": "教育",
 				"require": "g.alchemy>=8&&g.alchemy.max>=11&&g.alchemylearn1>0",
 				"cost": {
 					"scrolls": 4,
@@ -1626,10 +1607,10 @@
 			},
 			{
 				"id": "alchemylearn3",
-				"name": "Alchemy: Mastery",
+				"name": "炼金术：大师",
 				"desc": "",
 				"flavor": "",
-				"group": "education",
+				"group": "教育",
 				"require": "g.alchemy>=13&&g.alchemy.max>=16&&g.alchemylearn2>0",
 				"cost": {
 					"codices": 1,
@@ -1648,10 +1629,10 @@
 			},
 			{
 				"id": "astronomylearn1",
-				"name": "Astronomy: Competence",
+				"name": "天文学：入门",
 				"desc": "",
 				"flavor": "",
-				"group": "education",
+				"group": "教育",
 				"require": "g.astronomy>=3&&g.astronomy.max>=6",
 				"cost": {
 					"scrolls": 1,
@@ -1664,10 +1645,10 @@
 			},
 			{
 				"id": "astronomylearn2",
-				"name": "Astronomy: Expertise",
+				"name": "天文学：精通",
 				"desc": "",
 				"flavor": "",
-				"group": "education",
+				"group": "教育",
 				"require": "g.astronomy>=8&&g.astronomy.max>=11&&g.astronomylearn1>0",
 				"cost": {
 					"scrolls": 4,
@@ -1682,10 +1663,10 @@
 			},
 			{
 				"id": "astronomylearn3",
-				"name": "Astronomy: Mastery",
+				"name": "天文学：大师",
 				"desc": "",
 				"flavor": "",
-				"group": "education",
+				"group": "教育",
 				"require": "g.astronomy>=13&&g.astronomy.max>=16&&g.astronomylearn2>0",
 				"cost": {
 					"codices": 1,
@@ -1700,10 +1681,10 @@
 			},
 			{
 				"id": "astronomylearn4",
-				"name": "Astronomy: Supremancy",
+				"name": "天文学：至高",
 				"desc": "",
 				"flavor": "",
-				"group": "education",
+				"group": "教育",
 				"require": "g.astronomy>=18&&g.astronomy.max>=21&&g.astronomylearn3>0",
 				"cost": {
 					"codices": 3,
@@ -1722,10 +1703,10 @@
 			},
 			{
 				"id": "planeslorelearn1",
-				"name": "Planes Lore: Competence",
+				"name": "位面学：入门",
 				"desc": "",
 				"flavor": "",
-				"group": "education",
+				"group": "教育",
 				"require": "g.planeslore>=3&&g.planeslore.max>=6",
 				"cost": {
 					"scrolls": 1,
@@ -1738,10 +1719,10 @@
 			},
 			{
 				"id": "planeslorelearn2",
-				"name": "Planes Lore: Expertise",
+				"name": "位面学：精通",
 				"desc": "",
 				"flavor": "",
-				"group": "education",
+				"group": "教育",
 				"require": "g.planeslore>=8&&g.planeslore.max>=11&&g.planeslorelearn1>0",
 				"cost": {
 					"scrolls": 4,
@@ -1756,10 +1737,10 @@
 			},
 			{
 				"id": "planeslorelearn3",
-				"name": "Planes Lore: Mastery",
+				"name": "位面学：大师",
 				"desc": "",
 				"flavor": "",
-				"group": "education",
+				"group": "教育",
 				"require": "g.planeslore>=13&&g.planeslore.max>=16&&g.planeslorelearn2>0",
 				"cost": {
 					"codices": 1,
@@ -1774,10 +1755,10 @@
 			},
 			{
 				"id": "planeslorelearn4",
-				"name": "Planes Lore: Supremancy",
+				"name": "位面学：至高",
 				"desc": "",
 				"flavor": "",
-				"group": "education",
+				"group": "教育",
 				"require": "g.planeslore>=18&&g.planeslore.max>=21&&g.planeslorelearn3>0",
 				"cost": {
 					"codices": 3,
@@ -1795,10 +1776,10 @@
 			},
 			{
 				"id": "potionslearn1",
-				"name": "Potions: Competence",
+				"name": "药剂学：入门",
 				"desc": "",
 				"flavor": "",
-				"group": "education",
+				"group": "教育",
 				"require": "g.potions>=3&&g.potions.max>=6",
 				"cost": {
 					"scrolls": 1,
@@ -1812,10 +1793,10 @@
 			},
 			{
 				"id": "potionslearn2",
-				"name": "Potions: Expertise",
+				"name": "药剂学：精通",
 				"desc": "",
 				"flavor": "",
-				"group": "education",
+				"group": "教育",
 				"require": "g.potions>=8&&g.potions.max>=11&&g.potionslearn1>0",
 				"cost": {
 					"scrolls": 4,
@@ -1830,10 +1811,10 @@
 			},
 			{
 				"id": "potionslearn3",
-				"name": "Potions: Mastery",
+				"name": "药剂学：大师",
 				"desc": "",
 				"flavor": "",
-				"group": "education",
+				"group": "教育",
 				"require": "g.potions>=13&&g.potions.max>=16&&g.potionslearn2>0",
 				"cost": {
 					"codices": 1,
@@ -1852,10 +1833,10 @@
 			},
 			{
 				"id": "divinationlearn1",
-				"name": "Divination: Competence",
+				"name": "占卜术：入门",
 				"desc": "",
 				"flavor": "",
-				"group": "education",
+				"group": "教育",
 				"require": "g.divination>=3&&g.divination.max>=6",
 				"cost": {
 					"scrolls": 1,
@@ -1868,10 +1849,10 @@
 			},
 			{
 				"id": "divinationlearn2",
-				"name": "Divination: Expertise",
+				"name": "占卜术：精通",
 				"desc": "",
 				"flavor": "",
-				"group": "education",
+				"group": "教育",
 				"require": "g.divination>=8&&g.divination.max>=11&&g.divinationlearn1>0",
 				"cost": {
 					"scrolls": 4,
@@ -1886,10 +1867,10 @@
 			},
 			{
 				"id": "divinationlearn3",
-				"name": "Divination: Mastery",
+				"name": "占卜术：大师",
 				"desc": "",
 				"flavor": "",
-				"group": "education",
+				"group": "教育",
 				"require": "g.divination>=13&&g.divination.max>=16&&g.divinationlearn2>0",
 				"cost": {
 					"codices": 1,
@@ -1906,10 +1887,10 @@
 			},
 			{
 				"id": "divinationlearn4",
-				"name": "Divination: Supremancy",
+				"name": "占卜术：至高",
 				"desc": "",
 				"flavor": "",
-				"group": "education",
+				"group": "教育",
 				"require": "g.divination>=18&&g.divination.max>=21&&g.divinationlearn3>0",
 				"cost": {
 					"codices": 3,
@@ -1930,10 +1911,10 @@
 			},
 			{
 				"id": "divinationlearn5",
-				"name": "Divination: Transcendence",
+				"name": "占卜术：超越",
 				"desc": "",
 				"flavor": "",
-				"group": "education",
+				"group": "教育",
 				"require": "g.divination>=23&&g.divination.max>=26&&g.divinationlearn4>0",
 				"cost": {
 					"tomes": 1,
@@ -1954,10 +1935,10 @@
 			},
 			{
 				"id": "scryinglearn1",
-				"name": "Scrying: Competence",
+				"name": "占视术：入门",
 				"desc": "",
 				"flavor": "",
-				"group": "education",
+				"group": "教育",
 				"require": "g.scrying>=3&&g.scrying.max>=6",
 				"cost": {
 					"scrolls": 1,
@@ -1971,10 +1952,10 @@
 			},
 			{
 				"id": "scryinglearn2",
-				"name": "Scrying: Expertise",
+				"name": "占视术：精通",
 				"desc": "",
 				"flavor": "",
-				"group": "education",
+				"group": "教育",
 				"require": "g.scrying>=7&&g.scrying.max>=10&&g.scryinglearn1>0",
 				"cost": {
 					"scrolls": 4,
@@ -1989,10 +1970,10 @@
 			},
 			{
 				"id": "scryinglearn3",
-				"name": "Scrying: Mastery",
+				"name": "占视术：大师",
 				"desc": "",
 				"flavor": "",
-				"group": "education",
+				"group": "教育",
 				"require": "g.scrying>=13&&g.scrying.max>=16&&g.scryinglearn2>0",
 				"cost": {
 					"codices": 1,
@@ -2011,10 +1992,10 @@
 			},
 			{
 				"id": "trickerylearn1",
-				"name": "Trickery: Competence",
+				"name": "诡术：入门",
 				"desc": "",
 				"flavor": "",
-				"group": "education",
+				"group": "教育",
 				"require": "g.trickery>=3&&g.trickery.max>=6",
 				"cost": {
 					"scrolls": 1,
@@ -2027,10 +2008,10 @@
 			},
 			{
 				"id": "trickerylearn2",
-				"name": "Trickery: Expertise",
+				"name": "诡术：精通",
 				"desc": "",
 				"flavor": "",
-				"group": "education",
+				"group": "教育",
 				"require": "g.trickery>=8&&g.trickery.max>=11&&g.trickerylearn1>0",
 				"cost": {
 					"scrolls": 4,
@@ -2044,10 +2025,10 @@
 			},
 			{
 				"id": "trickerylearn3",
-				"name": "Trickery: Mastery",
+				"name": "诡术：大师",
 				"desc": "",
 				"flavor": "",
-				"group": "education",
+				"group": "教育",
 				"require": "g.trickery>=12&&g.trickery.max>=15&&g.trickerylearn2>0",
 				"cost": {
 					"codices": 1,
@@ -2065,10 +2046,10 @@
 			},
 			{
 				"id": "trickerylearn4",
-				"name": "Trickery: Supremancy",
+				"name": "诡术：至高",
 				"desc": "",
 				"flavor": "",
-				"group": "education",
+				"group": "教育",
 				"require": "g.trickery>=18&&g.trickery.max>=21&&g.trickerylearn3>0",
 				"cost": {
 					"codices": 3,
@@ -2087,10 +2068,10 @@
 			},
 			{
 				"id": "shopkeepinglearn1",
-				"name": "Shopkeeping: Efficiency",
+				"name": "商贩：高效",
 				"desc": "",
 				"flavor": "",
-				"group": "education",
+				"group": "教育",
 				"require": "g.shopkeeping>=3&&g.shopkeeping.max>=6",
 				"cost": {
 					"scrolls": 1,
@@ -2104,10 +2085,10 @@
 			},
 			{
 				"id": "shopkeepinglearn2",
-				"name": "Shopkeeping: Quartermastery",
+				"name": "商贩：物资管理",
 				"desc": "",
 				"flavor": "",
-				"group": "education",
+				"group": "教育",
 				"require": "g.shopkeeping>=8&&g.shopkeeping.max>=11&&g.shopkeepinglearn1>0",
 				"cost": {
 					"scrolls": 4,
@@ -2123,10 +2104,10 @@
 			},
 			{
 				"id": "shopkeepinglearn3",
-				"name": "Shopkeeping: Interest",
+				"name": "商贩：利息",
 				"desc": "",
 				"flavor": "",
-				"group": "education",
+				"group": "教育",
 				"require": "g.shopkeeping>=12&&g.shopkeeping.max>=15&&g.shopkeepinglearn2>0",
 				"cost": {
 					"codices": 1,
@@ -2146,10 +2127,10 @@
 			},
 			{
 				"id": "shopkeepinglearn4",
-				"name": "Shopkeeping: Dealmaking",
+				"name": "商贩：谈判",
 				"desc": "",
 				"flavor": "",
-				"group": "education",
+				"group": "教育",
 				"require": "g.shopkeeping>=18&&g.shopkeeping.max>=21&&g.shopkeepinglearn3>0",
 				"cost": {
 					"codices": 3,
@@ -2170,10 +2151,10 @@
 			},
 			{
 				"id": "shopkeepinglearn5",
-				"name": "Shopkeeping: Monopoly",
+				"name": "商贩：垄断",
 				"desc": "",
 				"flavor": "",
-				"group": "education",
+				"group": "教育",
 				"require": "g.shopkeeping>=23&&g.shopkeeping.max>=25&&g.shopkeepinglearn4>0",
 				"cost": {
 					"tomes": 1,
@@ -2195,10 +2176,10 @@
 			},
 			{
 				"id": "debitomancylearn1",
-				"name": "Debitomancy: Fixation",
+				"name": "债术：专注",
 				"desc": "",
 				"flavor": "",
-				"group": "education",
+				"group": "教育",
 				"require": "g.debitomancy>=3&&g.debitomancy.max>=6",
 				"cost": {
 					"debt": 400
@@ -2211,10 +2192,10 @@
 			},
 			{
 				"id": "debitomancylearn2",
-				"name": "Debitomancy: Craving",
+				"name": "债术：渴望",
 				"desc": "",
 				"flavor": "",
-				"group": "education",
+				"group": "教育",
 				"require": "g.debitomancy>=8&&g.debitomancy.max>=11&&g.debitomancylearn1>0",
 				"cost": {
 					"debt": 1000
@@ -2232,10 +2213,10 @@
 			},
 			{
 				"id": "spellcraftlearn1",
-				"name": "Spellcraft: Competence",
+				"name": "法术工艺：入门",
 				"desc": "",
 				"flavor": "",
-				"group": "education",
+				"group": "教育",
 				"require": "g.spellcraft>=3&&g.spellcraft.max>=6",
 				"cost": {
 					"scrolls": 1,
@@ -2248,10 +2229,10 @@
 			},
 			{
 				"id": "spellcraftlearn2",
-				"name": "Spellcraft: Expertise",
+				"name": "法术工艺：精通",
 				"desc": "",
 				"flavor": "",
-				"group": "education",
+				"group": "教育",
 				"require": "g.spellcraft>=8&&g.spellcraft.max>=11&&g.spellcraftlearn1>0",
 				"cost": {
 					"scrolls": 4,
@@ -2266,10 +2247,10 @@
 			},
 			{
 				"id": "enchantinglearn1",
-				"name": "Enchanting: Competence",
+				"name": "附魔：入门",
 				"desc": "",
 				"flavor": "",
-				"group": "education",
+				"group": "教育",
 				"require": "g.enchanting>=3&&g.enchanting.max>=6",
 				"cost": {
 					"scrolls": 1,
@@ -2283,10 +2264,10 @@
 			},
 			{
 				"id": "enchantinglearn2",
-				"name": "Enchanting: Expertise",
+				"name": "附魔：精通",
 				"desc": "",
 				"flavor": "",
-				"group": "education",
+				"group": "教育",
 				"require": "g.enchanting>=8&&g.enchanting.max>=11&&g.enchantinglearn1>0",
 				"cost": {
 					"scrolls": 4,
@@ -2301,10 +2282,10 @@
 			},
 			{
 				"id": "reanimationlearn1",
-				"name": "Reanimation: Competence",
+				"name": "复苏术：入门",
 				"desc": "",
 				"flavor": "",
-				"group": "education",
+				"group": "教育",
 				"tags": "t_placeholder",
 				"require": "g.reanimation>=3&&g.reanimation.max>=6",
 				"cost": {
@@ -2322,10 +2303,10 @@
 			},
 			{
 				"id": "reanimationlearn2",
-				"name": "Reanimation: Expertise",
+				"name": "复苏术：精通",
 				"desc": "",
 				"flavor": "",
-				"group": "education",
+				"group": "教育",
 				"tags": "t_placeholder",
 				"require": "g.reanimation>=8&&g.reanimation.max>=11&&g.reanimationlearn1>0",
 				"cost": {
@@ -2343,10 +2324,10 @@
 			},
 			{
 				"id": "necromancylearn1",
-				"name": "Necromancy: Competence",
+				"name": "死灵术：入门",
 				"desc": "",
 				"flavor": "",
-				"group": "education",
+				"group": "教育",
 				"tags": "t_placeholder",
 				"require": "g.necromancy>=3&&g.necromancy.max>=6",
 				"cost": {
@@ -2361,17 +2342,19 @@
 			},
 			{
 				"id": "necromancylearn2",
-				"name": "Necromancy: Expertise",
+				"name": "死灵术：精通",
 				"desc": "",
 				"flavor": "",
-				"group": "education",
+				"group": "教育",
 				"tags": "t_placeholder",
 				"require": "g.necromancy>=8&&g.necromancy.max>=11&&g.necromancylearn1>0",
 				"cost": {
 					"codices": 1,
 					"research": 250
 				},
-				"result": { "fame": 1 },
+				"result": {
+					"fame": 1
+				},
 				"mod": {
 					"necromancy.rate": 0.4,
 					"necromancy.mod.shademastery.rate": 0.2,
@@ -2380,10 +2363,10 @@
 			},
 			{
 				"id": "embalminglearn1",
-				"name": "Embalming: Competence",
+				"name": "防腐术：入门",
 				"desc": "",
 				"flavor": "",
-				"group": "education",
+				"group": "教育",
 				"tags": "t_placeholder",
 				"require": "g.embalming>=3&&g.embalming.max>=6",
 				"cost": {
@@ -2398,10 +2381,10 @@
 			},
 			{
 				"id": "embalminglearn2",
-				"name": "Embalming: Expertise",
+				"name": "防腐术：精通",
 				"desc": "",
 				"flavor": "",
-				"group": "education",
+				"group": "教育",
 				"tags": "t_placeholder",
 				"require": "g.embalming>=8&&g.embalming.max>=11&&g.embalminglearn1>0",
 				"cost": {
@@ -2416,10 +2399,10 @@
 			},
 			{
 				"id": "embalminglearn3",
-				"name": "Embalming: Mastery",
-				"desc": "",
-				"flavor": "",
-				"group": "education",
+				"name": "防腐术：精通",
+				"desc": "防腐术的最高造诣，提升所有相关效率。",
+				"flavor": "你已成为防腐领域的宗师。",
+				"group": "教育",
 				"tags": "t_placeholder",
 				"require": "g.embalming>=13&&g.embalming.max>=16&&g.embalminglearn2>0",
 				"cost": {
@@ -2437,10 +2420,10 @@
 			},
 			{
 				"id": "dissectionlearn1",
-				"name": "Dissection: Competence",
-				"desc": "",
-				"flavor": "",
-				"group": "education",
+				"name": "解剖术：入门",
+				"desc": "掌握基础解剖技能，提升效率。",
+				"flavor": "你开始理解生命的结构。",
+				"group": "教育",
 				"tags": "t_placeholder",
 				"require": "g.dissection>=3&&g.dissection.max>=6",
 				"cost": {
@@ -2455,10 +2438,10 @@
 			},
 			{
 				"id": "dissectionlearn2",
-				"name": "Dissection: Expertise",
-				"desc": "",
-				"flavor": "",
-				"group": "education",
+				"name": "解剖术：精通",
+				"desc": "精通解剖术，进一步提升效率。",
+				"flavor": "你能轻松分解复杂的生物体。",
+				"group": "教育",
 				"tags": "t_placeholder",
 				"require": "g.dissection>=8&&g.dissection.max>=11&&g.dissectionlearn1>0",
 				"cost": {
@@ -2476,10 +2459,10 @@
 			},
 			{
 				"id": "magicbeastslearn1",
-				"name": "Magic Beasts: Competence",
-				"desc": "",
-				"flavor": "",
-				"group": "education",
+				"name": "魔兽学：入门",
+				"desc": "掌握基础魔兽知识，提升相关能力。",
+				"flavor": "你开始理解魔兽的习性。",
+				"group": "教育",
 				"require": "g.magicbeasts>=3&&g.magicbeasts.max>=6",
 				"cost": {
 					"scrolls": 1,
@@ -2493,10 +2476,10 @@
 			},
 			{
 				"id": "vivificationlearn1",
-				"name": "Vivification: Competence",
-				"desc": "",
-				"flavor": "",
-				"group": "education",
+				"name": "复苏术：入门",
+				"desc": "掌握复苏术基础，提升相关效率。",
+				"flavor": "你能唤醒沉睡的生命。",
+				"group": "教育",
 				"require": "g.vivification>=3&&g.vivification.max>=6",
 				"cost": {
 					"scrolls": 1,
@@ -2509,10 +2492,10 @@
 			},
 			{
 				"id": "s_travellearn1",
-				"name": "Travel: Competence",
-				"desc": "",
-				"flavor": "",
-				"group": "education",
+				"name": "旅行：入门",
+				"desc": "掌握旅行技能，提升移动效率。",
+				"flavor": "你学会了如何高效地跋涉。",
+				"group": "教育",
 				"require": "g.s_travel>=3&&g.s_travel.max>=6",
 				"cost": {
 					"scrolls": 1,
@@ -2525,10 +2508,10 @@
 			},
 			{
 				"id": "s_travellearn2",
-				"name": "Travel: Expertise",
-				"desc": "",
-				"flavor": "",
-				"group": "education",
+				"name": "旅行：精通",
+				"desc": "精通旅行技能，进一步提升效率。",
+				"flavor": "你能轻松应对各种旅途挑战。",
+				"group": "教育",
 				"require": "g.s_travel>=8&&g.s_travel.max>=11&&g.s_travellearn1>0",
 				"cost": {
 					"scrolls": 4,
@@ -2545,10 +2528,10 @@
 			},
 			{
 				"id": "s_travellearn3",
-				"name": "Travel: Mastery",
-				"desc": "",
-				"flavor": "",
-				"group": "education",
+				"name": "旅行：宗师",
+				"desc": "旅行技能的最高造诣，提升所有相关效率。",
+				"flavor": "你已成为旅途的宗师。",
+				"group": "教育",
 				"require": "g.s_travel>=11&&g.s_travel.max>=14&&g.s_travellearn2>0",
 				"cost": {
 					"codices": 1,
@@ -2565,10 +2548,10 @@
 			},
 			{
 				"id": "composurelearn1",
-				"name": "Inner Peace",
-				"desc": "",
-				"flavor": "",
-				"group": "education",
+				"name": "内心平静",
+				"desc": "提升专注与镇定能力。",
+				"flavor": "你学会了在混乱中保持冷静。",
+				"group": "教育",
 				"require": "g.composure>=3",
 				"cost": {
 					"scrolls": 1,
@@ -2581,10 +2564,10 @@
 			},
 			{
 				"id": "summoninglearn1",
-				"name": "Summoning: Competence",
-				"desc": "",
-				"flavor": "",
-				"group": "education",
+				"name": "召唤术：入门",
+				"desc": "掌握基础召唤技能，提升相关能力。",
+				"flavor": "你能召唤简单的生物协助。",
+				"group": "教育",
 				"require": "g.summoning>=3",
 				"cost": {
 					"scrolls": 1,
@@ -2598,10 +2581,10 @@
 			},
 			{
 				"id": "heallorelearn1",
-				"name": "Rejuvenation: Competence",
-				"desc": "",
-				"flavor": "",
-				"group": "education",
+				"name": "复原术：入门",
+				"desc": "掌握基础复原技能，提升治疗效率。",
+				"flavor": "你能加速伤口的愈合。",
+				"group": "教育",
 				"require": "g.heallore>=3&&g.heallore.max>=7",
 				"cost": {
 					"scrolls": 1,

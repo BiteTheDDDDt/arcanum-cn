@@ -445,7 +445,7 @@
 		"name": "地术师",
 		"desc": "岩石之主。",
 		"tags": "t_tier2,t_earthclass,t_hammerclass",
-		"actdesc": "一位专注于地球操控和耐力的法师。",
+		"actdesc": "一位专注于地球操控和体力的法师。",
 		"require": "g.tier1>0&&g.earthlore>=7&&g.tier2==0",
 		"cost": {
 			"research": 1000,

@@ -69,7 +69,7 @@ export default {
 <template>
 	<div>
 		<div class="separate-run">
-			<button type="button" class="btn-sm" @click="emit(STOP_ALL)">Stop All</button>
+			<button type="button" class="btn-sm" @click="emit(STOP_ALL)">全部停止</button>
 			<button
 				type="button"
 				class="btn-sm"
@@ -79,7 +79,7 @@ export default {
 				@mousedown="autofocusSwitch(true)"
 				@mouseup="autofocusSwitch(false)"
 				@click="emit(TASK, focus)">
-				Focus
+				专注
 			</button>
 			<button
 				type="button"
@@ -89,7 +89,7 @@ export default {
 				id="auto"
 				:disabled="!focus.canUse"
 				:class="{ highlighted: highlightAutoFocus }">
-				Auto Focus
+				自动专注
 			</button>
 			<button
 				type="button"
@@ -129,7 +129,7 @@ export default {
 
 			<div class="relative" v-for="n in Math.max(Math.floor(runner.max - runner.actives.length), 0)">
 				<button type="button" class="stop" disabled>&nbsp;X&nbsp;</button>
-				<span>Idle</span>
+				<span>空闲</span>
 			</div>
 		</div>
 	</div>
