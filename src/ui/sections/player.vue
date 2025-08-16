@@ -40,9 +40,9 @@ export default {
 		speed() {
 			return this.player.speed.value;
 		},
-		delay() {
-			return "".concat("Turn delay: ", getDelay(this.player.speed.value).toPrecision(2), " seconds");
-		},
+			delay() {
+				return "".concat("回合延迟：", getDelay(this.player.speed.value).toPrecision(2), " 秒");
+			},
 		bonusNames() {
 			return Object.keys(this.player.bonuses);
 		},
@@ -150,32 +150,32 @@ export default {
 		schoolPotencies() {
 			return this.orderedPotencies[1];
 		},
-		notorietyTip() {
-			return this.hallUnlocked
-				? "A measure of reputation. Each point of notoriety provides one point of hall prestige. Hall prestige may be spent to purchase Hall Upgrades."
-				: "A measure of reputation. Found a Wizard's Hall to learn more.";
-		},
-		defenseTip() {
-			return "Reduces damage taken.";
-		},
-		dodgeTip() {
-			return "Determines your chance to dodge.";
-		},
-		thornsTip() {
-			return "Retaliates with flat damage when struck by an enemy. Reduced by enemy defense.";
-		},
-		reflectTip() {
-			return "Retaliates with percentage of damage taken when struck by an enemy. Reduced by enemy defense.";
-		},
-		hitTip() {
-			return "Determines your accuracy. Every 100 hit bonus halves opponents effective dodge";
-		},
-		luckTip() {
-			return "Increases your overall chance to gain loot.";
-		},
-		chaincastTip() {
-			return "Each point means an additional spell cast each turn. Fractional amounts translate to a percentage chance (eg:- 0.2 equals 20%).";
-		},
+			notorietyTip() {
+				return this.hallUnlocked
+					? "名声值。每一点名声提供一点大厅威望。大厅威望可用于购买大厅升级。"
+					: "名声值。找到巫师大厅以了解更多信息。";
+			},
+			defenseTip() {
+				return "减少所受伤害。";
+			},
+			dodgeTip() {
+				return "决定你的闪避几率。";
+			},
+			thornsTip() {
+				return "被敌人击中时以固定伤害反击。受敌方防御影响。";
+			},
+			reflectTip() {
+				return "被敌人击中时按所受伤害的百分比反击。受敌方防御影响。";
+			},
+			hitTip() {
+				return "决定你的命中率。每100点命中会使对手的有效闪避减半。";
+			},
+			luckTip() {
+				return "提高获得战利品的总体概率。";
+			},
+			chaincastTip() {
+				return "每点表示每回合额外施放一次法术。小数部分表示概率（例如：0.2 表示 20%）。";
+			},
 	},
 	methods: {
 		floor: floor,
@@ -186,18 +186,18 @@ export default {
 		closeHall() {
 			this.hallOpen = false;
 		},
-		pickTitle($evt) {
-			this.emit("choice", this.player.titles, {
-				cb: p => {
-					if (p) {
-						this.player.setTitle(p);
-					}
-				},
-				elm: $evt.target,
-				strings: true,
-				title: "Titles",
-			});
-		},
+			pickTitle($evt) {
+				this.emit("choice", this.player.titles, {
+					cb: p => {
+						if (p) {
+							this.player.setTitle(p);
+						}
+					},
+					elm: $evt.target,
+					strings: true,
+					title: "称号",
+				});
+			},
 	},
 };
 </script>
@@ -223,39 +223,39 @@ export default {
 				</span>
 			</div>
 			<div class="stat-block">
-				<div class="slotpick"><strong>Leisure</strong><slotpick pick="leisure" canRemove="true" /></div>
-				<div class="slotpick"><strong>Mount</strong><slotpick pick="mount" /></div>
-				<div class="slotpick"><strong>Companion</strong><slotpick pick="companion" /></div>
+				<div class="slotpick"><strong>休闲</strong><slotpick pick="leisure" canRemove="true" /></div>
+				<div class="slotpick"><strong>坐骑</strong><slotpick pick="mount" /></div>
+				<div class="slotpick"><strong>同伴</strong><slotpick pick="companion" /></div>
 			</div>
-			<h4 class="section-header">Personal</h4>
+			<h4 class="section-header">个人属性</h4>
 			<div class="stat-block">
 				<div class="stat">
-					<strong>Level<br />Experience</strong>
+					<strong>等级<br />经验</strong>
 					<span>{{ level }}<br />{{ exp }} / {{ next }}</span>
 				</div>
 				<div class="stat">
-					<strong>Virtue<br />Evil</strong>
+					<strong>美德<br />邪恶</strong>
 					<span>
 						{{ Math.floor(player.virtue.valueOf()) }}<br />{{ Math.floor(player.evilamt.valueOf()) }}
 					</span>
 				</div>
 				<div class="stat" @mouseenter.capture.stop="itemOver($event, null, null, null, notorietyTip)">
-					<strong>Notoriety:</strong>
+					<strong>名声：</strong>
 					<span>{{ Math.floor(player.fame.valueOf()) }}</span>
 				</div>
 			</div>
-			<h4 class="section-header">Combat</h4>
+			<h4 class="section-header">战斗</h4>
 			<div class="stat-block">
 				<div class="stat" @mouseenter.capture.stop="itemOver($event, null, null, null, defenseTip)">
-					<strong>Defense:</strong>
+					<strong>防御：</strong>
 					<span>{{ defense }} ({{ (100 - 100 * player.getDefenceMultiplier()).toFixed(1) }}%)</span>
 				</div>
 				<div class="stat" @mouseenter.capture.stop="itemOver($event, null, null, null, dodgeTip)">
-					<strong>Dodge:</strong>
+					<strong>闪避：</strong>
 					<span>{{ dodge }} ({{ (100 * player.getDodgeChance()).toFixed(1) }}%)</span>
 				</div>
 				<div class="stat" v-if="thorns > 0" @mouseenter.capture.stop="itemOver($event, null, null, null, thornsTip)">
-					<strong>Thorns:</strong>
+					<strong>荆棘：</strong>
 					<span>{{ thorns }}</span>
 				</div>
 				<!--
@@ -265,15 +265,15 @@ export default {
 				</div>
 				-->
 				<div class="stat" @mouseenter.capture.stop="itemOver($event, null, null, null, hitTip)">
-					<strong>Hit Bonus:</strong>
+					<strong>命中加值：</strong>
 					<span>{{ precise(tohit) }}</span>
 				</div>
 				<div class="stat" @mouseenter.capture.stop="itemOver($event, null, null, null, delay)">
-					<strong>Speed:</strong>
+					<strong>速度：</strong>
 					<span>{{ speed }}</span>
 				</div>
 				<div class="stat" @mouseenter.capture.stop="itemOver($event, null, null, null, luckTip)">
-					<strong>Luck:</strong>
+					<strong>运气：</strong>
 					<span>{{ luck }}</span>
 				</div>
 				<div v-if="chaincast > 0">
@@ -284,7 +284,7 @@ export default {
 				</div>
 			</div>
 			<div>
-				<h4 class="section-header">Global Potencies</h4>
+				<h4 class="section-header">全局强效</h4>
 				<div class="stat-block">
 					<template v-for="(r, k) in globalPotencies" :key="k">
 						<div class="stat">
@@ -293,7 +293,7 @@ export default {
 						</div>
 					</template>
 				</div>
-				<h4 class="section-header">Potencies</h4>
+				<h4 class="section-header">学派强效</h4>
 				<div class="stat-block">
 					<template v-for="(r, k) in schoolPotencies" :key="k">
 						<div class="stat">
@@ -302,7 +302,7 @@ export default {
 						</div>
 					</template>
 				</div>
-				<h4 class="section-header">Status Negation</h4>
+				<h4 class="section-header">状态抵抗</h4>
 				<div class="stat-block">
 					<template v-for="(r, k) in player.negate" :key="k">
 						<div class="stat">
@@ -311,7 +311,7 @@ export default {
 						</div>
 					</template>
 				</div>
-				<h4 class="section-header">Resists</h4>
+				<h4 class="section-header">抗性</h4>
 				<div class="stat-block">
 					<template v-for="(r, k) in orderedResist" :key="k">
 						<div class="stat">

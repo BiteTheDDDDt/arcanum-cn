@@ -5,8 +5,8 @@
 		"skills": [
 			{
 				"id": "weaponlore",
-				"name": "martial",
-				"desc": "Incorporate martial weapons into your magic.",
+				"name": "武技",
+				"desc": "将武器技艺融入你的魔法。",
 				"need": "armssource",
 				"buy": {
 					"vigor": 5
@@ -29,9 +29,9 @@
 		"upgrades": [
 			{
 				"id": "weapon_care",
-				"name": "weapon Servicing",
+				"name": "武器保养",
 				"require": "g.weaponlore>=2&&g.player.getWeapon().damage>=8",
-				"desc": "Clean and service your weapon.",
+				"desc": "清洁并保养你的武器。",
 				"need": "armssource",
 				"max": 3,
 				"cost": {
@@ -43,14 +43,14 @@
 					"weaponlore.rate": 0.1,
 					"player.tohit": 0.1
 				},
-				"flavor": "Take care of your weapon and it will take care of you.",
+				"flavor": "照顾好武器，它也会照顾你。",
 				"group": "martial"
 			},
 			{
 				"id": "weapon_attune",
-				"name": "weapon Attunement",
+				"name": "武器契合",
 				"require": "g.weaponlore>=6&&g.spiritlore>=8",
-				"desc": "Open yourself to forging a connection with your weapon.",
+				"desc": "与武器建立连接。",
 				"max": 1,
 				"cost": {
 					"research": 1000,
@@ -61,17 +61,19 @@
 					"weaponlore.rate": 0.2,
 					"player.tohit": 0.3
 				},
-				"flavor": "Investing time to produce better results",
+				"flavor": "投入时间以获得更佳效果",
 				"group": "martial"
 			},
 			{
 				"id": "spec_blunt",
-				"name": "blunt Specialization",
+				"name": "钝器专精",
 				"tags": "t_martial_spec",
-				"desc": "Specialize in blunt weapons like hammers and canes.",
+				"desc": "专精于锤类与棍类等钝器。",
 				"require": "g.arms_tome>0&&g.tier2>0",
 				"warn": true,
-				"lock": ["t_martial_spec"],
+				"lock": [
+					"t_martial_spec"
+				],
 				"cost": {
 					"gold": 1000,
 					"vigor": 10
@@ -84,12 +86,14 @@
 			},
 			{
 				"id": "spec_pierce",
-				"name": "piercing Specialization",
+				"name": "穿刺专精",
 				"tags": "t_martial_spec",
-				"desc": "Specialize in piercing weapons like spears and daggers.",
+				"desc": "专精于长矛与匕首等穿刺武器。",
 				"require": "g.arms_tome>0&&g.tier2>0",
 				"warn": true,
-				"lock": ["t_martial_spec"],
+				"lock": [
+					"t_martial_spec"
+				],
 				"cost": {
 					"gold": 1000,
 					"vigor": 10
@@ -102,12 +106,14 @@
 			},
 			{
 				"id": "spec_slash",
-				"name": "slashing Specialization",
+				"name": "斩击专精",
 				"tags": "t_martial_spec",
-				"desc": "Specialize in slashing weapons like swords and axes.",
+				"desc": "专精于剑斧等斩击武器。",
 				"require": "g.arms_tome>0&&g.tier2>0",
 				"warn": true,
-				"lock": ["t_martial_spec"],
+				"lock": [
+					"t_martial_spec"
+				],
 				"cost": {
 					"gold": 1000,
 					"vigor": 10
@@ -122,10 +128,10 @@
 		"tasks": [
 			{
 				"id": "martial_basics",
-				"name": "training spars",
+				"name": "基础对练",
 				"require": "g.weaponlore>=1&&g.tier1>0",
 				"need": "armssource",
-				"desc": "Refine your weapon use against a friendly opponent. Costs more and takes longer with each session.",
+				"desc": "与友方对手磨练武器使用。每次训练成本升高且耗时更久。",
 				"max": 5,
 				"length": 15,
 				"cost": {
@@ -145,15 +151,15 @@
 					"vigor.max": 0.2,
 					"martial_basics.length": 5
 				},
-				"flavor": "Not much help, but better than a dummy.",
+				"flavor": "帮助有限，但胜过稻草人。",
 				"group": "martial"
 			},
 			{
 				"id": "martial_defense",
-				"name": "defensive training",
+				"name": "防守训练",
 				"require": "g.weaponlore>=2&&g.martial_basics>0",
 				"need": "armssource",
-				"desc": "Learn to take a hit from an experienced weaponmaster. Costs more and takes longer with each session.",
+				"desc": "学习承受经验武器大师的重击。每次训练成本升高且耗时更久。",
 				"max": 5,
 				"length": 15,
 				"cost": {
@@ -172,15 +178,15 @@
 					"hp.max": 1,
 					"martial_defense.length": 5
 				},
-				"flavor": "Take the hits now so you don't take them later.",
+				"flavor": "现在承受打击，避免将来更痛苦。",
 				"group": "martial"
 			},
 			{
 				"id": "arms_tome",
-				"name": "manual of arms",
+				"name": "兵器手册",
 				"require": "g.weaponlore>=5&&g.tier1>0",
 				"need": "armssource",
-				"desc": "Enlighten yourself to the multitude of weapons",
+				"desc": "熟悉各种兵器。",
 				"max": 1,
 				"length": 150,
 				"cost": {
@@ -199,15 +205,15 @@
 					"piercedmg": 1,
 					"bluntdmg": 1
 				},
-				"flavor": "Write down the techniques in a large book.",
+				"flavor": "把技法记录在一本巨书中。",
 				"group": "martial"
 			},
 			{
 				"id": "legs_tome",
-				"name": "manual of legs",
+				"name": "腿法手册",
 				"require": "g.arms_tome>0&&(g.martial_defense+g.martial_basics)>=10",
 				"need": "legssource",
-				"desc": "All this training has gotten your legs into fantastic shape. Figure out how to put them to work.",
+				"desc": "大量训练让你的双腿状态极佳。学会如何发挥它们的作用。",
 				"max": 1,
 				"length": 150,
 				"cost": {
@@ -225,20 +231,20 @@
 					"dist": 50,
 					"speed": 1
 				},
-				"flavor": "All the writing is a nice cooldown for your legs to stop aching.",
+				"flavor": "写作也是给双腿的休整时间，缓解疲劳。",
 				"group": "martial"
 			}
 		],
 		"potencies": [
 			{
 				"id": "sworddmg",
-				"name": "sword potency",
+				"name": "剑类效能",
 				"val": 100,
 				"damage": "Math.max((i.value/100)||0,0)"
 			},
 			{
 				"id": "hammerdmg",
-				"name": "hammer potency",
+				"name": "锤类效能",
 				"val": 100,
 				"damage": "Math.max((i.value/100)||0,0)"
 			}
@@ -246,32 +252,46 @@
 		"tags": [
 			{
 				"id": "t_martial_spec",
-				"name": "martial specialization"
+				"name": "武技专精"
 			}
 		],
 		"spells": [
 			{
 				"id": "blunt_simple",
-				"name": "simple bash",
-				"desc": "Use your training to bash a foe.",
+				"name": "基础重击",
+				"desc": "用你的训练对敌人进行重击。",
 				"sortOrder": 373,
 				"level": 2,
 				"school": "martial",
-				"tags": ["t_nospellcraft"],
+				"tags": [
+					"t_nospellcraft"
+				],
 				"keywords": {
-					"type": ["damage"],
-					"target": ["enemy"],
-					"targets": ["single"],
-					"delivery": ["instant"],
-					"special": ["weapon"]
+					"type": [
+						"damage"
+					],
+					"target": [
+						"enemy"
+					],
+					"targets": [
+						"single"
+					],
+					"delivery": [
+						"instant"
+					],
+					"special": [
+						"weapon"
+					]
 				},
 				"require": "g.weaponlore>=1",
 				"buy": {
 					"vigor": 4
 				},
-				"caststoppers": [1],
+				"caststoppers": [
+					1
+				],
 				"need": "g.player.getWeapon().hasTag('t_blunt')",
-				"needtext": "Currently equipped weapon must be blunt",
+				"needtext": "当前装备的武器必须为钝器",
 				"cost": {
 					"vigor": 3
 				},
@@ -283,31 +303,48 @@
 					"kind": "blunt",
 					"tohit": 1,
 					"damage": "(a.getWeapon().damage||0)*0.9",
-					"potencies": ["physdmg", "bluntdmg"]
+					"potencies": [
+						"physdmg",
+						"bluntdmg"
+					]
 				}
 			},
 			{
 				"id": "pierce_simple",
-				"name": "simple thrust",
-				"desc": "Use your training to thrust at a foe.",
+				"name": "基础刺击",
+				"desc": "用你的训练对敌人刺击。",
 				"sortOrder": 358,
 				"level": 2,
 				"school": "martial",
-				"tags": ["t_nospellcraft"],
+				"tags": [
+					"t_nospellcraft"
+				],
 				"keywords": {
-					"type": ["damage"],
-					"target": ["enemy"],
-					"targets": ["single"],
-					"delivery": ["instant"],
-					"special": ["weapon"]
+					"type": [
+						"damage"
+					],
+					"target": [
+						"enemy"
+					],
+					"targets": [
+						"single"
+					],
+					"delivery": [
+						"instant"
+					],
+					"special": [
+						"weapon"
+					]
 				},
 				"require": "g.weaponlore>=1",
 				"buy": {
 					"vigor": 4
 				},
-				"caststoppers": [1],
+				"caststoppers": [
+					1
+				],
 				"need": "g.player.getWeapon().hasTag('t_pierce')",
-				"needtext": "Currently equipped weapon must be piercing",
+				"needtext": "当前装备的武器必须为穿刺武器",
 				"cost": {
 					"vigor": 3
 				},
@@ -319,31 +356,48 @@
 					"kind": "pierce",
 					"tohit": 1,
 					"damage": "(a.getWeapon().damage||0)*0.9",
-					"potencies": ["physdmg", "piercedmg"]
+					"potencies": [
+						"physdmg",
+						"piercedmg"
+					]
 				}
 			},
 			{
 				"id": "slash_simple",
-				"name": "simple slash",
-				"desc": "Use your training to slash at a foe.",
+				"name": "基础斩击",
+				"desc": "用你的训练对敌人进行斩击。",
 				"sortOrder": 337,
 				"level": 2,
 				"school": "martial",
-				"tags": ["t_nospellcraft"],
+				"tags": [
+					"t_nospellcraft"
+				],
 				"keywords": {
-					"type": ["damage"],
-					"target": ["enemy"],
-					"targets": ["single"],
-					"delivery": ["instant"],
-					"special": ["weapon"]
+					"type": [
+						"damage"
+					],
+					"target": [
+						"enemy"
+					],
+					"targets": [
+						"single"
+					],
+					"delivery": [
+						"instant"
+					],
+					"special": [
+						"weapon"
+					]
 				},
 				"require": "g.weaponlore>=1",
 				"buy": {
 					"vigor": 4
 				},
-				"caststoppers": [1],
+				"caststoppers": [
+					1
+				],
 				"need": "g.player.getWeapon().hasTag('t_slash')",
-				"needtext": "Currently equipped weapon must be slashing",
+				"needtext": "当前装备的武器必须为斩击武器",
 				"cost": {
 					"vigor": 3
 				},
@@ -355,22 +409,35 @@
 					"kind": "slash",
 					"tohit": 1,
 					"damage": "(a.getWeapon().damage||0)*0.9",
-					"potencies": ["physdmg", "slashdmg"]
+					"potencies": [
+						"physdmg",
+						"slashdmg"
+					]
 				}
 			},
 			{
 				"id": "defense_stance",
-				"name": "protective stance",
-				"desc": "Enhance your defense for a limited time.",
+				"name": "防御姿态",
+				"desc": "在短时间内提升你的防御。",
 				"sortOrder": 391,
 				"level": 3,
 				"school": "martial",
-				"tags": ["t_nospellcraft"],
+				"tags": [
+					"t_nospellcraft"
+				],
 				"keywords": {
-					"type": ["buff"],
-					"target": ["self"],
-					"targets": ["single"],
-					"delivery": ["over time"]
+					"type": [
+						"buff"
+					],
+					"target": [
+						"self"
+					],
+					"targets": [
+						"single"
+					],
+					"delivery": [
+						"over time"
+					]
 				},
 				"require": "g.weaponlore>=2",
 				"buy": {
@@ -380,14 +447,16 @@
 				"cost": {
 					"vigor": 3
 				},
-				"caststoppers": [1],
+				"caststoppers": [
+					1
+				],
 				"need": "g.player.getWeapon().hasTag('t_martial')",
-				"needtext": "Currently equipped weapon must be martial",
+				"needtext": "当前装备的武器必须为武技武器",
 				"result": {
 					"weaponlore.exp": 0.3
 				},
 				"dot": {
-					"name": "protective stance",
+					"name": "防御姿态",
 					"duration": 10,
 					"mod": {
 						"self.defense": 10,
@@ -398,26 +467,41 @@
 			},
 			{
 				"id": "mana_martial",
-				"name": "imbued attack",
-				"desc": "Charge your weapon with mana before attacking.",
-				"flavor": "Magic and a weapon, deals magic damage.",
+				"name": "注能攻击",
+				"desc": "在攻击前为武器注入法力。",
+				"flavor": "魔法与武器结合，造成魔法伤害。",
 				"sortOrder": 317,
 				"level": 3,
 				"school": "martial",
-				"tags": ["t_nospellcraft"],
+				"tags": [
+					"t_nospellcraft"
+				],
 				"keywords": {
-					"type": ["damage"],
-					"target": ["enemy"],
-					"targets": ["single"],
-					"delivery": ["instant"],
-					"special": ["weapon"]
+					"type": [
+						"damage"
+					],
+					"target": [
+						"enemy"
+					],
+					"targets": [
+						"single"
+					],
+					"delivery": [
+						"instant"
+					],
+					"special": [
+						"weapon"
+					]
 				},
 				"require": "g.spellbook.value>0&&g.weaponlore>=3&&g.lore>=5",
 				"buy": {
 					"scrolls": 5,
 					"vigor": 5
 				},
-				"caststoppers": [1, 4],
+				"caststoppers": [
+					1,
+					4
+				],
 				"need": "g.player.getWeapon().hasTag('t_martial')",
 				"needtext": "Currently equipped weapon must be martial",
 				"cost": {
@@ -432,27 +516,45 @@
 					"kind": "mana",
 					"tohit": 1,
 					"damage": "3+(a.getWeapon().damage||0)*0.75",
-					"potencies": ["physdmg", "manadmg"]
+					"potencies": [
+						"physdmg",
+						"manadmg"
+					]
 				}
 			},
 			{
 				"id": "mana_double",
-				"name": "charged combo",
-				"desc": "Imbue your weapon with mana, then strike twice.",
-				"flavor": "Set them up, then knock them down.",
+				"name": "充能连击",
+				"desc": "为武器注能，然后连击两次。",
+				"flavor": "先设局，再击倒对手。",
 				"sortOrder": 316,
 				"level": 4,
 				"school": "martial",
-				"tags": ["t_nospellcraft"],
+				"tags": [
+					"t_nospellcraft"
+				],
 				"keywords": {
-					"type": ["damage"],
-					"target": ["enemy"],
-					"targets": ["single"],
-					"delivery": ["instant"],
-					"special": ["weapon"]
+					"type": [
+						"damage"
+					],
+					"target": [
+						"enemy"
+					],
+					"targets": [
+						"single"
+					],
+					"delivery": [
+						"instant"
+					],
+					"special": [
+						"weapon"
+					]
 				},
 				"require": "g.spellbook.value>0&&g.arms_tome>0",
-				"caststoppers": [1, 4],
+				"caststoppers": [
+					1,
+					4
+				],
 				"buy": {
 					"codices": 2,
 					"vigor": 8,
@@ -474,39 +576,59 @@
 							"kind": "mana",
 							"tohit": 1,
 							"damage": "2+(a.getWeapon().damage||0)*0.65",
-							"potencies": ["physdmg", "manadmg"]
+							"potencies": [
+								"physdmg",
+								"manadmg"
+							]
 						},
 						{
 							"kind": "mana",
 							"tohit": 1,
 							"damage": "1+(a.getWeapon().damage||0)*0.85",
-							"potencies": ["physdmg", "manadmg"]
+							"potencies": [
+								"physdmg",
+								"manadmg"
+							]
 						}
 					]
 				}
 			},
 			{
 				"id": "pommel_strike",
-				"name": "pommel strike",
-				"desc": "Use your weapon's pommel to stun an enemy.",
-				"flavor": "deal 9 damage, draw a card.",
+				"name": "柄击",
+				"desc": "用武器的柄部击晕敌人。",
+				"flavor": "造成9点伤害，抽一张牌。",
 				"sortOrder": 372,
 				"level": 4,
 				"school": "martial",
-				"tags": ["t_nospellcraft"],
+				"tags": [
+					"t_nospellcraft"
+				],
 				"keywords": {
-					"type": ["damage"],
-					"target": ["enemy"],
-					"targets": ["single"],
-					"delivery": ["instant"],
-					"special": ["weapon"]
+					"type": [
+						"damage"
+					],
+					"target": [
+						"enemy"
+					],
+					"targets": [
+						"single"
+					],
+					"delivery": [
+						"instant"
+					],
+					"special": [
+						"weapon"
+					]
 				},
 				"require": "g.weaponlore>=4",
 				"buy": {
 					"scrolls": 5,
 					"vigor": 7
 				},
-				"caststoppers": [1],
+				"caststoppers": [
+					1
+				],
 				"need": "g.player.getWeapon().hasTag('t_martial')",
 				"needtext": "Currently equipped weapon must be martial",
 				"cost": {
@@ -520,7 +642,10 @@
 					"kind": "blunt",
 					"tohit": 1,
 					"damage": "(a.getWeapon().damage||0)*0.8",
-					"potencies": ["physdmg", "bluntdmg"],
+					"potencies": [
+						"physdmg",
+						"bluntdmg"
+					],
 					"dot": {
 						"id": "paralyze",
 						"duration": 1.2
@@ -529,26 +654,42 @@
 			},
 			{
 				"id": "disarm_martial",
-				"name": "disarming blow",
-				"desc": "Remove your opponent's weapon from their hands.",
-				"flavor": "Hey, where'd your sword go?",
+				"name": "缴械猛击",
+				"desc": "将对手的武器击落或夺走。",
+				"flavor": "嘿，你的剑哪去了？",
 				"sortOrder": 336,
 				"level": 5,
 				"school": "martial",
-				"tags": ["t_nospellcraft"],
+				"tags": [
+					"t_nospellcraft"
+				],
 				"keywords": {
-					"type": ["damage", "debuff"],
-					"target": ["enemy"],
-					"targets": ["single"],
-					"delivery": ["instant", "over time"],
-					"special": ["weapon"]
+					"type": [
+						"damage",
+						"debuff"
+					],
+					"target": [
+						"enemy"
+					],
+					"targets": [
+						"single"
+					],
+					"delivery": [
+						"instant",
+						"over time"
+					],
+					"special": [
+						"weapon"
+					]
 				},
 				"require": "g.weaponlore>=3",
 				"buy": {
 					"scrolls": 5,
 					"vigor": 5
 				},
-				"caststoppers": [1],
+				"caststoppers": [
+					1
+				],
 				"need": "g.player.getWeapon().hasTag('t_martial')",
 				"needtext": "Currently equipped weapon must be martial",
 				"cost": {
@@ -562,7 +703,10 @@
 					"kind": "slash",
 					"tohit": -1,
 					"damage": "(a.getWeapon().damage||0)*0.85",
-					"potencies": ["physdmg", "slashdmg"],
+					"potencies": [
+						"physdmg",
+						"slashdmg"
+					],
 					"dot": {
 						"id": "tangled",
 						"duration": 2
@@ -571,26 +715,41 @@
 			},
 			{
 				"id": "pierce_bleed",
-				"name": "stab wound",
-				"desc": "Aim for the vital organs for a lasting impression.",
-				"flavor": "Holes in armor tend to be a really bad idea.",
+				"name": "刺伤",
+				"desc": "瞄准要害器官以造成持久创伤。",
+				"flavor": "盔甲上的洞通常不是好主意。",
 				"sortOrder": 357,
 				"level": 3,
 				"school": "martial",
-				"tags": ["t_nospellcraft"],
+				"tags": [
+					"t_nospellcraft"
+				],
 				"keywords": {
-					"type": ["damage"],
-					"target": ["enemy"],
-					"targets": ["single"],
-					"delivery": ["instant", "over time"],
-					"special": ["weapon"]
+					"type": [
+						"damage"
+					],
+					"target": [
+						"enemy"
+					],
+					"targets": [
+						"single"
+					],
+					"delivery": [
+						"instant",
+						"over time"
+					],
+					"special": [
+						"weapon"
+					]
 				},
 				"require": "g.weaponlore>=2",
 				"buy": {
 					"scrolls": 5,
 					"vigor": 5
 				},
-				"caststoppers": [1],
+				"caststoppers": [
+					1
+				],
 				"need": "g.player.getWeapon().hasTag('t_martial')",
 				"needtext": "Currently equipped weapon must be martial",
 				"cost": {
@@ -604,37 +763,57 @@
 					"kind": "pierce",
 					"tohit": 1,
 					"damage": "((a.getWeapon().damage||0)*0.7)",
-					"potencies": ["physdmg", "piercedmg"],
+					"potencies": [
+						"physdmg",
+						"piercedmg"
+					],
 					"dot": {
-						"name": "bleed",
+						"name": "流血",
 						"damage": "3~6",
 						"duration": 10,
-						"potencies": ["physdmg", "piercedmg"]
+						"potencies": [
+							"physdmg",
+							"piercedmg"
+						]
 					}
 				}
 			},
 			{
 				"id": "pierce_thrust",
-				"name": "precise thrust",
-				"desc": "Put some power behind your thrusts.",
-				"flavor": "Not just a gentle poke.",
+				"name": "精准刺击",
+				"desc": "在刺击中加入力道。",
+				"flavor": "不只是轻轻一戳。",
 				"sortOrder": 356,
 				"level": 4,
 				"school": "martial",
-				"tags": ["t_nospellcraft"],
+				"tags": [
+					"t_nospellcraft"
+				],
 				"keywords": {
-					"type": ["damage"],
-					"target": ["enemy"],
-					"targets": ["single"],
-					"delivery": ["instant"],
-					"special": ["weapon"]
+					"type": [
+						"damage"
+					],
+					"target": [
+						"enemy"
+					],
+					"targets": [
+						"single"
+					],
+					"delivery": [
+						"instant"
+					],
+					"special": [
+						"weapon"
+					]
 				},
 				"require": "g.spec_pierce>0",
 				"buy": {
 					"codices": 5,
 					"vigor": 5
 				},
-				"caststoppers": [1],
+				"caststoppers": [
+					1
+				],
 				"need": "g.player.getWeapon().hasTag('t_pierce')",
 				"needtext": "Currently equipped weapon must be piercing",
 				"cost": {
@@ -648,24 +827,41 @@
 					"kind": "pierce",
 					"tohit": 1,
 					"damage": "4+((a.getWeapon().damage||0)*1.2)",
-					"potencies": ["physdmg", "piercedmg"]
+					"potencies": [
+						"physdmg",
+						"piercedmg"
+					]
 				}
 			},
 			{
 				"id": "pierce_armor",
-				"name": "armor piercer",
-				"desc": "Leave a hole in your foe's armor.",
-				"flavor": "Holes in armor are sometimes a really good idea.",
+				"name": "破甲",
+				"desc": "在敌人的盔甲上留下孔洞。",
+				"flavor": "盔甲上的洞有时是个好主意。",
 				"sortOrder": 355,
 				"level": 6,
 				"school": "martial",
-				"tags": ["t_nospellcraft"],
+				"tags": [
+					"t_nospellcraft"
+				],
 				"keywords": {
-					"type": ["damage", "debuff"],
-					"target": ["enemy"],
-					"targets": ["single"],
-					"delivery": ["instant", "over time"],
-					"special": ["weapon"]
+					"type": [
+						"damage",
+						"debuff"
+					],
+					"target": [
+						"enemy"
+					],
+					"targets": [
+						"single"
+					],
+					"delivery": [
+						"instant",
+						"over time"
+					],
+					"special": [
+						"weapon"
+					]
 				},
 				"require": "g.spec_pierce>0&&g.weaponlore>=6",
 				"cd": 5,
@@ -673,7 +869,9 @@
 					"codices": 5,
 					"vigor": 5
 				},
-				"caststoppers": [1],
+				"caststoppers": [
+					1
+				],
 				"need": "g.player.getWeapon().hasTag('t_pierce')",
 				"needtext": "Currently equipped weapon must be piercing",
 				"cost": {
@@ -686,7 +884,10 @@
 					"kind": "pierce",
 					"tohit": 1,
 					"damage": "((a.getWeapon().damage||0)*1.0)",
-					"potencies": ["physdmg", "piercedmg"],
+					"potencies": [
+						"physdmg",
+						"piercedmg"
+					],
 					"dot": {
 						"name": "pierced armor",
 						"duration": 20,
@@ -698,26 +899,40 @@
 			},
 			{
 				"id": "blunt_heavy",
-				"name": "heavy slam",
-				"desc": "A thunderous blow that does impressive damage.",
-				"flavor": "That's gonna leave a bruise in the morning.",
+				"name": "重击",
+				"desc": "响彻的重击，造成巨量伤害。",
+				"flavor": "早上肯定会留下瘀伤。",
 				"sortOrder": 371,
 				"level": 4,
 				"school": "martial",
-				"tags": ["t_nospellcraft"],
+				"tags": [
+					"t_nospellcraft"
+				],
 				"keywords": {
-					"type": ["damage"],
-					"target": ["enemy"],
-					"targets": ["single"],
-					"delivery": ["instant"],
-					"special": ["weapon"]
+					"type": [
+						"damage"
+					],
+					"target": [
+						"enemy"
+					],
+					"targets": [
+						"single"
+					],
+					"delivery": [
+						"instant"
+					],
+					"special": [
+						"weapon"
+					]
 				},
 				"require": "g.spec_blunt>0",
 				"buy": {
 					"codices": 5,
 					"vigor": 5
 				},
-				"caststoppers": [1],
+				"caststoppers": [
+					1
+				],
 				"need": "g.player.getWeapon().hasTag('t_blunt')",
 				"needtext": "Currently equipped weapon must be blunt",
 				"cost": {
@@ -731,31 +946,50 @@
 					"kind": "blunt",
 					"tohit": 1,
 					"damage": "((a.getWeapon().damage||0)*1.5)",
-					"potencies": ["physdmg", "bluntdmg"]
+					"potencies": [
+						"physdmg",
+						"bluntdmg"
+					]
 				}
 			},
 			{
 				"id": "blunt_crush",
-				"name": "crushing blow",
-				"desc": "A swing designed to crush armor and whatever's behind it.",
-				"flavor": "Keeping the local armorsmith in business.",
+				"name": "碾压打击",
+				"desc": "一记旨在粉碎盔甲及其后方物体的挥击。",
+				"flavor": "让本地铠匠有活干。",
 				"sortOrder": 370,
 				"level": 6,
 				"school": "martial",
-				"tags": ["t_nospellcraft"],
+				"tags": [
+					"t_nospellcraft"
+				],
 				"keywords": {
-					"type": ["damage", "debuff"],
-					"target": ["enemy"],
-					"targets": ["single"],
-					"delivery": ["instant", "over time"],
-					"special": ["weapon"]
+					"type": [
+						"damage",
+						"debuff"
+					],
+					"target": [
+						"enemy"
+					],
+					"targets": [
+						"single"
+					],
+					"delivery": [
+						"instant",
+						"over time"
+					],
+					"special": [
+						"weapon"
+					]
 				},
 				"require": "g.spec_blunt>0&&g.weaponlore>=6",
 				"buy": {
 					"codices": 5,
 					"vigor": 5
 				},
-				"caststoppers": [1],
+				"caststoppers": [
+					1
+				],
 				"need": "g.player.getWeapon().hasTag('t_blunt')",
 				"needtext": "Currently equipped weapon must be blunt",
 				"cost": {
@@ -769,7 +1003,10 @@
 					"kind": "blunt",
 					"tohit": 1,
 					"damage": "5+((a.getWeapon().damage||0)*0.7)",
-					"potencies": ["physdmg", "bluntdmg"],
+					"potencies": [
+						"physdmg",
+						"bluntdmg"
+					],
 					"dot": {
 						"duration": 10,
 						"mod": {
@@ -781,26 +1018,40 @@
 			},
 			{
 				"id": "slash_twohand",
-				"name": "two-handed slash",
-				"desc": "Use your strength to deal a forceful strike.",
-				"flavor": "A sharp blade goes through like butter.",
+				"name": "双手斩",
+				"desc": "用你的力量发动强力斩击。",
+				"flavor": "锋利的刀刃如黄油般切开。",
 				"sortOrder": 335,
 				"level": 4,
 				"school": "martial",
-				"tags": ["t_nospellcraft"],
+				"tags": [
+					"t_nospellcraft"
+				],
 				"keywords": {
-					"type": ["damage"],
-					"target": ["enemy"],
-					"targets": ["single"],
-					"delivery": ["instant"],
-					"special": ["weapon"]
+					"type": [
+						"damage"
+					],
+					"target": [
+						"enemy"
+					],
+					"targets": [
+						"single"
+					],
+					"delivery": [
+						"instant"
+					],
+					"special": [
+						"weapon"
+					]
 				},
 				"require": "g.spec_slash>0",
 				"buy": {
 					"codices": 5,
 					"vigor": 5
 				},
-				"caststoppers": [1],
+				"caststoppers": [
+					1
+				],
 				"need": "g.player.getWeapon().hasTag('t_slash')",
 				"needtext": "Currently equipped weapon must be slashing",
 				"cost": {
@@ -814,31 +1065,50 @@
 					"kind": "slash",
 					"tohit": 1,
 					"damage": "2+((a.getWeapon().damage||0)*1.35)",
-					"potencies": ["physdmg", "slashdmg"]
+					"potencies": [
+						"physdmg",
+						"slashdmg"
+					]
 				}
 			},
 			{
 				"id": "slash_weaken",
-				"name": "weakening slash",
-				"desc": "Aim for the tendons and joints to weaken your enemy's attacks.",
-				"flavor": "Cut them off at the kneecaps, or the elbows, or whatever they happen to have.",
+				"name": "削弱斩",
+				"desc": "瞄准肌腱与关节以削弱敌人的攻击。",
+				"flavor": "斩断他们的膝盖或肘部，或他们的任何要害。",
 				"sortOrder": 334,
 				"level": 6,
 				"school": "martial",
-				"tags": ["t_nospellcraft"],
+				"tags": [
+					"t_nospellcraft"
+				],
 				"keywords": {
-					"type": ["damage", "debuff"],
-					"target": ["enemy"],
-					"targets": ["single"],
-					"delivery": ["instant", "over time"],
-					"special": ["weapon"]
+					"type": [
+						"damage",
+						"debuff"
+					],
+					"target": [
+						"enemy"
+					],
+					"targets": [
+						"single"
+					],
+					"delivery": [
+						"instant",
+						"over time"
+					],
+					"special": [
+						"weapon"
+					]
 				},
 				"require": "g.spec_slash>0&&g.weaponlore>=6",
 				"buy": {
 					"codices": 5,
 					"vigor": 5
 				},
-				"caststoppers": [1],
+				"caststoppers": [
+					1
+				],
 				"need": "g.player.getWeapon().hasTag('t_slash')",
 				"needtext": "Currently equipped weapon must be slashing",
 				"cost": {
@@ -852,7 +1122,10 @@
 					"kind": "slash",
 					"tohit": 1,
 					"damage": "((a.getWeapon().damage||0)*1.0)",
-					"potencies": ["physdmg", "slashdmg"],
+					"potencies": [
+						"physdmg",
+						"slashdmg"
+					],
 					"dot": {
 						"duration": 10,
 						"mod": {

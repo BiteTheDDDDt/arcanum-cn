@@ -6,31 +6,31 @@
 			{
 				"id": "evt_mountain",
 				"require": "evt_helper",
-				"name": "wintertide",
+				"name": "冬潮",
 				"result": {
 					"frost": 1
 				},
-				"desc": "The winter is colder than ever, and new horrors have appeared with the chill. The gales from Thandhrun groan more loudly each day and bear investigation. Knowledge of fire should help you prepare."
+				"desc": "冬天比以往更冷，随寒意而来的新恐怖显现。来自桑德隆的狂风日渐悲鸣，值得你去探查。火之知识将有助于你准备。"
 			},
 			{
 				"id": "evt_snowcopy",
-				"name": "snow double",
-				"desc": "A copy of yourself arises from the quickened snow. You feel its limbs like you feel your own arms."
+				"name": "雪之双",
+				"desc": "一具由活化雪凝成的分身升起。你能感受到它的四肢，就像感知自己的手臂一般。"
 			},
 			{
 				"id": "evt_sacrifice",
-				"name": "the path opens",
-				"desc": "The sacrifice made, a portion of the fog parts before you, like curtains hanging in the air. The faintest outlines of a path appear on the frozen ground."
+				"name": "道路显现",
+				"desc": "祭品献上后，薄雾在你面前分开，如同空中垂悬的帷幕。冰冻地面上隐约显出一条道路的轮廓。"
 			},
 			{
 				"id": "evt_w_legend",
-				"name": "legend tells",
-				"desc": "Of an icy wasteland on a plain of endless fog. An altar marks the way to the Tree of Winter, which grew when the first snows fell."
+				"name": "传说所述",
+				"desc": "在无尽雾原上有一片冰冷荒原。祭坛指引通往冬之树的道路，那树在初雪降临时生长。"
 			},
 			{
 				"id": "evt_w_chillforge",
-				"name": "a cold legend",
-				"desc": "A tome tells of a forge without fire, a stronghold in the mountain passes, and an endless blizzard trapped within a globe.",
+				"name": "冰冷传说",
+				"desc": "一本古卷记载着无火之炉、山口中的要塞，以及被封于球体内的无尽暴雪。",
 				"mod": {
 					"winterlore.max": 2
 				}
@@ -39,19 +39,19 @@
 		"resources": [
 			{
 				"id": "snowman",
-				"name": "snomunculus",
-				"desc": "A being of living snow",
+				"name": "雪灵",
+				"desc": "由活雪构成的存在",
 				"max": 5,
 				"group": "seasonal",
 				"mod": {
 					"frost.rate": 1,
 					"icelore.rate": 0.2
 				},
-				"flavor": "It's not a snowman. Why would you say that?"
+				"flavor": "它不是一个雪人。你为什么会那样称呼它？"
 			},
 			{
 				"id": "livingsnow",
-				"desc": "Snow that pulsates and beats like a heart; it melts away slowly",
+				"desc": "如心脏般跳动的雪；缓慢融化",
 				"require": "g.livingsnow>=1",
 				"max": 20,
 				"group": "seasonal",
@@ -60,11 +60,11 @@
 					"livingsnow.rate": -0.0001,
 					"water.rate": 0.01
 				},
-				"flavor": "there's a metaphor here somewhere."
+				"flavor": "这背后总有个隐喻。"
 			},
 			{
 				"id": "frost",
-				"desc": "Winter chill reduces your effectiveness.",
+				"desc": "冬寒削弱你的效能。",
 				"max": 200,
 				"group": "adversities",
 				"reverse": true,
@@ -77,9 +77,9 @@
 			},
 			{
 				"id": "emblemofice",
-				"name": "emblem of ice",
+				"name": "冰之纹章",
 				"group": "seasonal",
-				"desc": "An ancient rune engraved in unmelting ice",
+				"desc": "刻在不融之冰上的古老符文",
 				"max": 1,
 				"mod": {
 					"ice.rate": 0.2
@@ -87,7 +87,7 @@
 			},
 			{
 				"id": "ice",
-				"desc": "ice mana",
+				"desc": "冰魔力",
 				"require": "g.icelore>=1",
 				"max": 0,
 				"color": "#44beeb",
@@ -95,10 +95,10 @@
 			},
 			{
 				"id": "snowdrop",
-				"name": "snowdrop",
+				"name": "雪铃花",
 				"tags": "herb,reagent",
 				"group": "seasonal",
-				"desc": "A tiny white flower that starts to bloom despite the cold",
+				"desc": "在严寒中绽放的小白花",
 				"max": 5,
 				"mod": {
 					"nature.rate": 0.05
@@ -108,11 +108,11 @@
 		"tasks": [
 			{
 				"id": "makesnowman",
-				"name": "build snomunculus",
-				"desc": "Build a homunculus from snow",
-				"flavor": "It's not a snowman. Why would you say that?",
+				"name": "制造雪灵",
+				"desc": "用雪打造一个小型魔傀儡",
+				"flavor": "它不是一个雪人。你为什么会那样称呼它？",
 				"require": "g.emblemofice>=1",
-				"verb": "building",
+				"verb": "制造中",
 				"length": 10,
 				"fill": "snowman",
 				"cost": {
@@ -130,15 +130,19 @@
 			},
 			{
 				"id": "meltsnowman",
-				"name": "melt snomunculus",
-				"desc": "Liquify your cold creation.",
+				"name": "融化雪灵",
+				"desc": "将你寒冷的创造液化。",
 				"require": "g.snowman>=1",
-				"verb": "Melting",
+				"verb": "融化中",
 				"cost": {
 					"snowman": 1,
 					"fire": 5
 				},
-				"fill": ["watergem", "water", "frost"],
+				"fill": [
+					"watergem",
+					"water",
+					"frost"
+				],
 				"result": {
 					"watergem": 2,
 					"water": 10,
@@ -148,9 +152,9 @@
 			},
 			{
 				"id": "icystudy",
-				"name": "nixifer's study",
+				"name": "尼西弗的研究",
 				"require": "g.arctictower>0",
-				"desc": "Ebin Nixifer's notes on the magical properties of ice.",
+				"desc": "伊宾·尼西弗关于冰的魔法属性的笔记。",
 				"length": 75,
 				"repeat": false,
 				"cost": {
@@ -171,8 +175,8 @@
 		"upgrades": [
 			{
 				"id": "warmrest",
-				"name": "warm up",
-				"desc": "Light extra fires as you rest to stave off the cold",
+				"name": "温暖休憩",
+				"desc": "在休息时点燃额外的火焰以抵御寒冷",
 				"tags": "t_restmod",
 				"require": "g.frost>=10",
 				"slot": "leisure",
@@ -184,11 +188,11 @@
 			},
 			{
 				"id": "snowcraft",
-				"desc": "The more you sculpt your snow homunculi, the more you learn about ice magic.",
+				"desc": "你塑造的雪傀愈多，对冰魔法的理解也随之增长。",
 				"require": "g.snowman>=5",
 				"need": "g.snowman>=((g.snowcraft+1)*5)",
 				"max": 14,
-				"needtext": "Each purchase needs 5 more snomunculi than the previous, starting with 5 for the first and ending with 70 for the fourteenth.",
+				"needtext": "每次购买比上一次需要多5个雪灵，第一阶需要5个， 第十四阶为70个。",
 				"mod": {
 					"icelore.max": 1
 				},
@@ -196,9 +200,9 @@
 			},
 			{
 				"id": "w_fazbit1",
-				"name": "paper restoration",
-				"extdesc": "Locks a negative encounter in 'Fazbit's Workshop?' and replaces it with a superior one.",
-				"desc": "The old documents found in the workshop could be restored, with a sufficient investment",
+				"name": "文档修复",
+				"extdesc": "锁定‘法兹比特的工作室?’中的负面遭遇并以更好的遭遇替换。",
+				"desc": "工作室中发现的旧文档可以通过足够的修复恢复。",
 				"require": "g.w_fazbitknowledge>=50&&g.w_fazbitshop>0",
 				"mod": {
 					"crafting.max": 1
@@ -208,9 +212,9 @@
 			},
 			{
 				"id": "w_fazbit2",
-				"name": "withered designs",
-				"extdesc": "Locks a negative encounter in 'Fazbit's Workshop?' and replaces it with a superior one.",
-				"desc": "An anatomical drawing of a human with unnaturally large eyes. The skeleton is wrong, yet familliar.",
+				"name": "枯萎的设计",
+				"extdesc": "锁定‘法兹比特的工作室?’中的负面遭遇并以更好的遭遇替换。",
+				"desc": "一幅人体解剖图，眼睛异常巨大。骨骼结构有误，但却令人熟悉。",
 				"require": "g.w_fazbitknowledge>=500&&g.w_fazbit1>0",
 				"mod": {
 					"anatomy.max": 1
@@ -220,48 +224,55 @@
 			},
 			{
 				"id": "w_fazbit3",
-				"name": "record restoration",
-				"extdesc": "Locks negative encounters in 'Fazbit's Workshop?' and replaces them with superior ones.",
-				"desc": "You have found the reason behind the distorted laughter - the crystals that held the recordings have heavily deteriorated. You can replace them with your own.",
+				"name": "记录修复",
+				"extdesc": "锁定‘法兹比特的工作室?’中的负面遭遇并以更好的遭遇替换。",
+				"desc": "你找到了扭曲笑声的原因——保存录音的水晶严重退化。你可以用自己的水晶替换它们。",
 				"require": "g.w_fazbitknowledge>=1500&&g.w_fazbit2>0",
 				"mod": {
 					"crafting.rate": 0.2,
 					"spiritlore.max": 1,
 					"spiritlore.rate": 0.1
 				},
-				"lock": ["enc_w_faz_creepylaugh", "enc_w_faz_boominglaugh"],
+				"lock": [
+					"enc_w_faz_creepylaugh",
+					"enc_w_faz_boominglaugh"
+				],
 				"group": "winter ❄️"
 			},
 			{
 				"id": "w_fazbit4",
-				"name": "alchemical formula",
-				"extdesc": "Locks a negative encounter in 'Fazbit's Workshop?' and replaces it with a superior one.",
-				"desc": "A formula for producing a thick, firm, yet easily yielding coating.",
+				"name": "炼金配方",
+				"extdesc": "锁定‘法兹比特的工作室?’中的负面遭遇并以更好的遭遇替换。",
+				"desc": "一种生成厚实、坚固却易于塑形涂层的配方。",
 				"require": "g.w_fazbitknowledge>=5000&&g.w_fazbit3>0",
 				"mod": {
 					"alchemy.max": 1,
 					"potions.max": 1
 				},
-				"lock": ["enc_w_faz_blobs"],
+				"lock": [
+					"enc_w_faz_blobs"
+				],
 				"group": "winter ❄️"
 			},
 			{
 				"id": "w_fazbit5",
-				"name": "battered ledger",
-				"extdesc": "Locks a negative encounter in 'Fazbit's Workshop?' and replaces it with a superior one.",
-				"desc": "A ledger detailing the payments for shipments. It appears the products were shipped out to arrive at a specific date.",
+				"name": "破损账本",
+				"extdesc": "锁定‘法兹比特的工作室?’中的负面遭遇并以更好的遭遇替换。",
+				"desc": "一本记录发货付款的账本。似乎曾安排产品在特定日期送达。",
 				"require": "g.w_fazbitknowledge>=10000&&g.w_fazbit4>0",
 				"mod": {
 					"concentrate.max": 1
 				},
-				"lock": ["enc_w_faz_stockpile"],
+				"lock": [
+					"enc_w_faz_stockpile"
+				],
 				"group": "winter ❄️"
 			},
 			{
 				"id": "w_fazbit6",
-				"name": "odd spellchart",
-				"extdesc": "Locks a negative encounter in 'Fazbit's Workshop?' and replaces it with a superior one.",
-				"desc": "A spellchart detailing a superbly efficient spell for animating a small golem. Multiple flaws prevent the golem from applying any dangerous force.",
+				"name": "奇怪的法阵图",
+				"extdesc": "锁定‘法兹比特的工作室?’中的负面遭遇并以更好的遭遇替换。",
+				"desc": "一张描述如何高效唤醒小型魔像的法术图。多处缺陷使得魔像无法施展任何危险之力。",
 				"require": "g.w_fazbitknowledge>=15000&&g.w_fazbit5>0",
 				"mod": {
 					"summoning.max": 1,
@@ -269,40 +280,47 @@
 					"puppetry.max": 1,
 					"machinacreation.max": 1
 				},
-				"lock": ["enc_w_faz_prototype"],
+				"lock": [
+					"enc_w_faz_prototype"
+				],
 				"group": "winter ❄️"
 			},
 			{
 				"id": "w_fazbit7",
-				"name": "transportation sigils",
-				"extdesc": "Locks negative encounters in 'Fazbit's Workshop?' and replaces them with superior ones.",
-				"desc": "Your investigation reveals multiple sigils woven into the walls and floors of the workshop. They appear to be designed to transport materials in an automated fashion. Warning spells are included, to compel anyone in the way to step aside.",
+				"name": "传送符文",
+				"extdesc": "锁定‘法兹比特的工作室?’中的负面遭遇并以更好的遭遇替换。",
+				"desc": "调查发现工坊墙面与地板中编织着多重符文，似用于自动传送材料。还包括警戒法术，迫使阻路者让开。",
 				"require": "g.w_fazbitknowledge>=25000&&g.w_fazbit6>0",
 				"mod": {
 					"runelore.max": 1
 				},
-				"lock": ["enc_w_faz_nothingthere", "enc_w_faz_somethingthere"],
+				"lock": [
+					"enc_w_faz_nothingthere",
+					"enc_w_faz_somethingthere"
+				],
 				"group": "winter ❄️"
 			},
 			{
 				"id": "w_fazbit8",
-				"name": "letter of request",
-				"extdesc": "Locks a negative encounter in 'Fazbit's Workshop?' and replaces it with a superior one.",
-				"desc": "A letter from a few centuries ago, requesting the aid of Fazbit in producing a large amount of items for an unknown festivity. The designs are supposed to be enclosed, but are clearly missing.",
+				"name": "请求函件",
+				"extdesc": "锁定‘法兹比特的工作室?’中的负面遭遇并以更好的遭遇替换。",
+				"desc": "一封几百年前的信，委托法兹比特为某个未知的庆典大量制作物品。设计稿应随信附上，但明显缺失。",
 				"require": "g.w_fazbitknowledge>=40000&&g.w_fazbit7>0",
 				"mod": {
 					"history.rate": 0.3,
 					"history.max": 1,
 					"tomes.rate": 0.001
 				},
-				"lock": ["enc_w_faz_paint"],
+				"lock": [
+					"enc_w_faz_paint"
+				],
 				"group": "winter ❄️"
 			},
 			{
 				"id": "w_fazbit9",
-				"name": "discarded missives",
-				"extdesc": "Locks a negative encounter in 'Fazbit's Workshop?' and replaces it with a superior one.",
-				"desc": "A large bin full of paper dust. With your restoration technique, you manage to recover what appears to be missives and drawings crudely detailing the golems produced by the workshop.",
+				"name": "废弃文稿",
+				"extdesc": "锁定‘法兹比特的工作室?’中的负面遭遇并以更好的遭遇替换。",
+				"desc": "一个装满纸屑的大箱。通过修复技术，你恢复出一些粗糙的信件和图纸，记录了车间制作的魔像。",
 				"require": "g.w_fazbitknowledge>=60000&&g.w_fazbit8>0",
 				"mod": {
 					"lore.rate": 0.2,
@@ -311,13 +329,15 @@
 					"codices.max": 25,
 					"scrolls.max": 25
 				},
-				"lock": ["enc_w_faz_scrapper"],
+				"lock": [
+					"enc_w_faz_scrapper"
+				],
 				"group": "winter ❄️"
 			},
 			{
 				"id": "w_fazbit10",
-				"name": "the purpose",
-				"desc": "The entire facility was created by Fazbit and what surely was a team of exceptional wizards, to provide large amounts of what must be animated toys for multiple settlements, to be used in an unknown festivity. Perhaps, you should revive the tradition.",
+				"name": "本源",
+				"desc": "整个设施由法兹比特与一群杰出的魔法师打造，目的是为多处聚落提供大量可被赋予生命的玩具，用于某个不为人知的节庆。或许，你应当复兴这一传统。",
 				"require": "g.w_fazbitknowledge>=100000&&g.w_fazbit9>0",
 				"mod": {
 					"crafting.max": 1,
@@ -325,20 +345,23 @@
 					"allies.max": 5
 				},
 				"result": {
-					"title": "Fazbit's Legacy"
+					"title": "法兹比特的遗产"
 				},
 				"group": "winter ❄️"
 			},
 			{
 				"id": "w_multitask",
-				"name": "Multitask focus",
-				"desc": "Use your Snow Double as an extension of yourself, without tasking it otherwise",
+				"name": "多工专注",
+				"desc": "将你的雪之分身作为你的延伸来使用，但不让它执行其它任务",
 				"cost": {
 					"ice": 2
 				},
 				"require": "g.evt_snowcopy>=1",
 				"warn": true,
-				"disable": ["w_fame", "w_scholar"],
+				"disable": [
+					"w_fame",
+					"w_scholar"
+				],
 				"mod": {
 					"runner.max": 1
 				},
@@ -346,14 +369,17 @@
 			},
 			{
 				"id": "w_fame",
-				"name": "gold-focused copy",
-				"desc": "Set your snow double to acquisition of cold hard gold",
+				"name": "金钱导向分身",
+				"desc": "让你的雪之分身专注于获取冰冷的金币",
 				"cost": {
 					"gold": 100
 				},
 				"warn": true,
 				"require": "g.evt_snowcopy>=1",
-				"disable": ["w_multitask", "w_scholar"],
+				"disable": [
+					"w_multitask",
+					"w_scholar"
+				],
 				"mod": {
 					"gold.rate": 0.5,
 					"stamina.rate": -0.25,
@@ -363,14 +389,17 @@
 			},
 			{
 				"id": "w_scholar",
-				"name": "cold calculation",
-				"desc": "Dedicate your Snow Double to arcane studies.",
+				"name": "寒学者",
+				"desc": "将你的雪之分身奉献给奥术研究。",
 				"cost": {
 					"arcana": 2
 				},
 				"warn": true,
 				"require": "g.evt_snowcopy>=1",
-				"disable": ["w_fame", "w_multitask"],
+				"disable": [
+					"w_fame",
+					"w_multitask"
+				],
 				"mod": {
 					"skill.rate": 0.3,
 					"focus.result.runner.skillprogress": "50%",
@@ -381,8 +410,8 @@
 			},
 			{
 				"id": "hearthexpansion",
-				"name": "expanded hearth",
-				"desc": "Doubles the effectiveness of your Hearths",
+				"name": "炉心扩展",
+				"desc": "使你的炉火效果翻倍",
 				"require": "g.frost.rate>0&&g.hearth>=5",
 				"cost": {
 					"firegem": 10
@@ -394,8 +423,8 @@
 			},
 			{
 				"id": "winterboon",
-				"name": "winter's boon",
-				"desc": "A small piece of winter finds a home within you",
+				"name": "冬恩",
+				"desc": "一小片冬之气息在你体内找到了栖所",
 				"require": "g.winteressence>=1&&g.snowymountain>0",
 				"cost": {
 					"livingsnow": 10
@@ -412,8 +441,8 @@
 			},
 			{
 				"id": "winteraward",
-				"name": "winter's reward",
-				"desc": "You can feel the chill spreading",
+				"name": "冬之馈赠",
+				"desc": "你能感觉到寒气在扩散",
 				"require": "g.winteressence>=10&&g.winterboon>0",
 				"cost": {
 					"livingsnow": 30,
@@ -431,8 +460,8 @@
 			},
 			{
 				"id": "winterhowl",
-				"name": "winter's howl",
-				"desc": "A howling wind surrounds you, always",
+				"name": "冬之嚎鸣",
+				"desc": "凛冽的风永远环绕着你",
 				"require": "g.winteressence>=100&&g.winteraward>0",
 				"cost": {
 					"livingsnow": 40,
@@ -447,8 +476,8 @@
 			},
 			{
 				"id": "winterchill",
-				"name": "winter's chill",
-				"desc": "People around you start to shiver uncontrollably.",
+				"name": "冬之寒颤",
+				"desc": "你周围的人开始不由自主地颤抖。",
 				"require": "g.winteressence>=500&&g.winterhowl>0",
 				"cost": {
 					"livingsnow": 50,
@@ -467,8 +496,8 @@
 			},
 			{
 				"id": "winterbreath",
-				"name": "winter's breath",
-				"desc": "Your mere presence is enough to turn the warmest summer to a winter night.",
+				"name": "冬之气息",
+				"desc": "仅凭你的存在就能将最暖的夏夜化为冬夜。",
 				"require": "g.winteressence>=1000&&g.winterchill>0",
 				"cost": {
 					"livingsnow": 60,
@@ -485,8 +514,8 @@
 			},
 			{
 				"id": "winterenvoy",
-				"name": "winter's envoy",
-				"desc": "You spread the joy of the cold far and wide, for the winter has come",
+				"name": "冬之使者",
+				"desc": "你把冰冷的喜悦传播得更广，因为冬季已至",
 				"require": "g.winteressence>=5000&&g.winterbreath>0",
 				"cost": {
 					"livingsnow": 80,
@@ -505,24 +534,29 @@
 			},
 			{
 				"id": "wintermastery",
-				"name": "master of winter",
-				"desc": "You braved every blizzard and stayed cool throughout. Congratulations!",
+				"name": "冬之宗师",
+				"desc": "你勇闯每一次暴雪，始终无惧寒冷。恭喜！",
 				"require": "g.winteressence>=10000&&g.winterenvoy>0",
 				"cost": {
 					"livingsnow": 100
 				},
 				"result": {
-					"title": "Master of Winter"
+					"title": "冬之宗师"
 				},
 				"group": "winter ❄️"
 			},
 			{
 				"id": "warmpotion",
-				"name": "dew of icy fire",
+				"name": "冰火露",
 				"need": "potsource",
 				"require": "((g.icystudy+g.alchemist)>0&&(g.firelore+g.icelore)>=15&&g.potions>=7)",
-				"desc": "A sure way to combat the freezing cold. It will however, render many of your icy spells useless.",
-				"disable": ["iceshard", "iceshard0", "iceshard1", "iceshard2"],
+				"desc": "对抗严寒的可靠方法，但会使许多冰系法术失效。",
+				"disable": [
+					"iceshard",
+					"iceshard0",
+					"iceshard1",
+					"iceshard2"
+				],
 				"warn": true,
 				"cost": {
 					"ice": 5,
@@ -540,8 +574,8 @@
 			},
 			{
 				"id": "preparetree",
-				"name": "preparation",
-				"desc": "The altar glows faintly with your offerings. Your gifts were well-received, but more is required.",
+				"name": "准备",
+				"desc": "祭坛在你的贡品下微微发光。你的礼物被接受，但仍需更多。",
 				"require": "g.evil_sacrifice>=1||g.good_sacrifice>=1",
 				"result": {
 					"prestige": 1,
@@ -559,8 +593,8 @@
 			},
 			{
 				"id": "good_sacrifice",
-				"name": "Winter's Oblation",
-				"desc": "You enter a relentless fog which the strongest spells do not disperse. At their center you find an altar of sacrifice. A small offering should do.",
+				"name": "冬之奉献",
+				"desc": "你进入一片连最强法术也无法驱散的无情雾中。在中心你发现一座牺牲祭坛。小小的供品即可。",
 				"disable": "evil_sacrifice",
 				"warn": true,
 				"require": "g.winterlore>=5&&(g.evil==0||g.good==1)",
@@ -579,8 +613,8 @@
 			},
 			{
 				"id": "evil_sacrifice",
-				"name": "Winter's Ablation",
-				"desc": "You enter a relentless fog which the strongest spells do not disperse. At their center you find an altar of sacrifice. Inwardly you smile; you know just the thing.",
+				"name": "冬之剥离",
+				"desc": "你进入一片连最强法术也无法驱散的无情雾中。在中心你发现一座牺牲祭坛。你暗自一笑；你知道该如何行事。",
 				"disable": "good_sacrifice",
 				"require": "g.winterlore>=5&&(g.good==0||g.evil==1)",
 				"warn": true,
@@ -599,11 +633,11 @@
 			},
 			{
 				"id": "iceshard0",
-				"name": "improve ice shard",
-				"desc": "After a few preliminary tests of the spell, you feel the potential in it.",
+				"name": "精进冰裂",
+				"desc": "在对该法术做了几次初步试验后，你感到其中潜力巨大。",
 				"require": "g.iceshard.owned",
 				"need": "g.iceshard>=10",
-				"needtext": "Cast Ice Shard a total of 10 times.",
+				"needtext": "累计施放冰裂10次。",
 				"cost": {
 					"ice": 2,
 					"research": 100
@@ -618,11 +652,11 @@
 			},
 			{
 				"id": "iceshard1",
-				"name": "ice proficiency",
-				"desc": "As you use ice magic more and more, it starts to resonate with you. Maybe, you can push it little further",
+				"name": "冰术精通",
+				"desc": "随着你越来越多地运用冰魔法，它开始与你共鸣。也许，你能再将它推进一步。",
 				"require": "g.iceshard0>0",
 				"need": "g.iceshard>=100",
-				"needtext": "Cast Ice Shard a total of 100 times.",
+				"needtext": "累计施放冰裂100次。",
 				"cost": {
 					"ice": 3,
 					"research": 250
@@ -634,20 +668,23 @@
 					"iceshard.cost.ice": -1
 				},
 				"log": {
-					"name": "ice shard proficiency",
-					"desc": "With each Ice Shard cast you feel your power grow, but your warmth begins to fade as well."
+					"name": "冰裂熟练",
+					"desc": "每次施放冰裂你都感到力量在增长，但温暖也在渐渐消逝。"
 				},
 				"group": "winter ❄️"
 			},
 			{
 				"id": "iceshard2",
-				"name": "ice mastery",
-				"desc": "You feel like imbuing yourself with Ice can push your power even further.",
+				"name": "冰之精通",
+				"desc": "你感觉将自身注以寒冰可进一步提升你的力量。",
 				"require": "g.iceshard1>0",
 				"need": "g.iceshard>=1000",
-				"needtext": "Cast Ice Shard a total of 1000 times.",
+				"needtext": "累计施放冰裂1000次。",
 				"warn": true,
-				"disable": ["hearth", "hearthexpansion"],
+				"disable": [
+					"hearth",
+					"hearthexpansion"
+				],
 				"cost": {
 					"ice": 10,
 					"arcana": 20
@@ -661,8 +698,8 @@
 					"iceshard.cost.ice": -1
 				},
 				"log": {
-					"name": "heart of ice",
-					"desc": "Your power is immeasurable, your veins suffused with cold. But something feels wrong. The warmth is gone."
+					"name": "冰之心",
+					"desc": "你的力量无可估量，静脉充满寒冷。但有什么不对，温暖已不复存在。"
 				},
 				"group": "winter ❄️"
 			}
@@ -670,16 +707,24 @@
 		"spells": [
 			{
 				"id": "snowminion",
-				"name": "frost golem",
-				"desc": "Transform a minor construct into a lumbering hulk of ice.",
+				"name": "霜傀儡",
+				"desc": "将一具小型构造体转化为笨重的冰之巨像。",
 				"level": 5,
 				"school": "ice",
 				"tags": "frost_spell",
 				"keywords": {
-					"type": ["summon"],
-					"target": ["ally"],
-					"targets": ["single"],
-					"delivery": ["instant"]
+					"type": [
+						"summon"
+					],
+					"target": [
+						"ally"
+					],
+					"targets": [
+						"single"
+					],
+					"delivery": [
+						"instant"
+					]
 				},
 				"require": "g.snowman>=1",
 				"buy": {
@@ -701,16 +746,25 @@
 			},
 			{
 				"id": "iceflame",
-				"name": "icy flame",
-				"desc": "A contradiction sustained by magic.",
+				"name": "冰焰",
+				"desc": "由魔法维持的矛盾。",
 				"level": 3,
 				"school": "ice",
 				"tags": "frost_spell",
 				"keywords": {
-					"type": ["damage"],
-					"target": ["enemy"],
-					"targets": ["single"],
-					"delivery": ["instant", "over time"]
+					"type": [
+						"damage"
+					],
+					"target": [
+						"enemy"
+					],
+					"targets": [
+						"single"
+					],
+					"delivery": [
+						"instant",
+						"over time"
+					]
 				},
 				"require": "(g.icelore>=10&&g.firelore>=10)||g.warmpotion>0",
 				"buy": {
@@ -724,11 +778,17 @@
 					"damage": "5~10",
 					"tohit": 2,
 					"kind": "fire",
-					"potencies": ["spelldmg", "firedmg"],
+					"potencies": [
+						"spelldmg",
+						"firedmg"
+					],
 					"dot": {
 						"duration": 5,
 						"damage": "3~5",
-						"potencies": ["spelldmg", "firedmg"]
+						"potencies": [
+							"spelldmg",
+							"firedmg"
+						]
 					}
 				},
 				"at": {
@@ -748,16 +808,24 @@
 			},
 			{
 				"id": "warmfield",
-				"name": "field of heat",
+				"name": "热域",
 				"sortOrder": 740,
 				"level": 5,
 				"school": "fire",
 				"tags": "frost_spell",
 				"keywords": {
-					"type": ["buff"],
-					"target": ["self"],
-					"targets": ["single"],
-					"delivery": ["over time"]
+					"type": [
+						"buff"
+					],
+					"target": [
+						"self"
+					],
+					"targets": [
+						"single"
+					],
+					"delivery": [
+						"over time"
+					]
 				},
 				"require": "g.firelore>=5",
 				"buy": {
@@ -786,16 +854,24 @@
 			},
 			{
 				"id": "iceshard",
-				"name": "ice shard",
-				"desc": "Shoot a fragment of winter's wrath at an enemy. Can accumulate tremendous potential.",
+				"name": "冰裂",
+				"desc": "向敌人射出一片冬之怒的碎片，可积累巨大的潜能。",
 				"level": 3,
 				"school": "ice",
 				"tags": "frost_spell",
 				"keywords": {
-					"type": ["damage"],
-					"target": ["enemy"],
-					"targets": ["single"],
-					"delivery": ["instant"]
+					"type": [
+						"damage"
+					],
+					"target": [
+						"enemy"
+					],
+					"targets": [
+						"single"
+					],
+					"delivery": [
+						"instant"
+					]
 				},
 				"require": "g.ice>=3",
 				"buy": {
@@ -810,7 +886,10 @@
 				},
 				"attack": {
 					"damage": "1~3",
-					"potencies": ["spelldmg", "icedmg"]
+					"potencies": [
+						"spelldmg",
+						"icedmg"
+					]
 				},
 				"at": {
 					"10": {
@@ -850,16 +929,24 @@
 			},
 			{
 				"id": "icicledisaster",
-				"name": "icicle disaster",
-				"desc": "Invoke the power of the glacial blade.",
+				"name": "冰锥浩劫",
+				"desc": "唤动冰川之刃的力量。",
 				"level": 5,
 				"school": "ice",
 				"tags": "frost_spell,t_finisher",
 				"keywords": {
-					"type": ["damage"],
-					"target": ["enemy"],
-					"targets": ["single"],
-					"delivery": ["instant"]
+					"type": [
+						"damage"
+					],
+					"target": [
+						"enemy"
+					],
+					"targets": [
+						"single"
+					],
+					"delivery": [
+						"instant"
+					]
 				},
 				"require": "g.ice_blade.isEquipped()",
 				"buy": {
@@ -867,7 +954,7 @@
 					"watergem": 25
 				},
 				"need": "g.ice_blade.isEquipped()",
-				"needtext": "Only works with the glacial blade",
+				"needtext": "仅在配备冰川之刃时生效",
 				"cost": {
 					"ice": "g.ice.max*0.25"
 				},
@@ -880,7 +967,11 @@
 						"highest": false,
 						"usepercentage": false
 					},
-					"potencies": ["physdmg", "icedmg", "sworddmg"],
+					"potencies": [
+						"physdmg",
+						"icedmg",
+						"sworddmg"
+					],
 					"dot": {
 						"duration": 1,
 						"onDeath": {
@@ -898,7 +989,7 @@
 		"furniture": [
 			{
 				"id": "hearth",
-				"desc": "A warm fireplace; the more you have the more gems you require to create them.",
+				"desc": "温暖的壁炉；你拥有的越多，制造它们所需的宝石越多。",
 				"require": "g.frost>=10",
 				"max": 20,
 				"cost": {
@@ -911,8 +1002,8 @@
 			},
 			{
 				"id": "fazbithearth",
-				"name": "fazbit's hearth",
-				"desc": "Originally used to warm the entire workshop, can be repurposed for home use.",
+				"name": "法兹比特之炉",
+				"desc": "最初用于温暖整个工坊，可改作家庭使用。",
 				"require": "w_fazbit6",
 				"max": 1,
 				"cost": {
@@ -927,7 +1018,7 @@
 			},
 			{
 				"id": "freezer",
-				"desc": "A place to store the melting snow.",
+				"desc": "用于存放融化雪水的容器。",
 				"require": "g.livingsnow>=1",
 				"max": 1,
 				"cost": {
@@ -944,8 +1035,8 @@
 		"skills": [
 			{
 				"id": "winterlore",
-				"name": "winter lore",
-				"desc": "Study of winter legends",
+				"name": "冬之学",
+				"desc": "研究冬季传说",
 				"require": "evt_w_legend",
 				"buy": {
 					"research": 100
@@ -959,8 +1050,8 @@
 			{
 				"id": "icelore",
 				"tags": "t_school",
-				"name": "cryomancy",
-				"desc": "The study of cold incarnate.",
+				"name": "冰术",
+				"desc": "对寒冰具象化的研究。",
 				"require": "g.emblemofice>=1",
 				"buy": {
 					"livingsnow": 10
@@ -981,11 +1072,11 @@
 		"dungeons": [
 			{
 				"id": "snowymountain",
-				"name": "thandhrune cavern",
-				"desc": "The mountain is filled with the perils of winter, but also with its treasures",
+				"name": "桑德隆洞窟",
+				"desc": "山中充斥着冬日的凶险，也蕴藏着其珍宝",
 				"log": {
-					"name": "Mountaineer",
-					"desc": "You have survived the chilly winds and monsters of the white"
+					"name": "登山者",
+					"desc": "你已在白雪中活下，挺过寒风与怪物。"
 				},
 				"difficulty": "💀💀",
 				"sortOrder": 39,
@@ -995,7 +1086,9 @@
 					"fire": 0.2,
 					"stamina": 1
 				},
-				"runmod": { "frost.rate": 2 },
+				"runmod": {
+					"frost.rate": 2
+				},
 				"result": {
 					"emblemofice": 1,
 					"title": "Winter's Heart",
@@ -1004,7 +1097,11 @@
 				"length": 26,
 				"boss": "iceyeti",
 				"spawns": [
-					["frostelemental", "frostelemental", "frostelemental"],
+					[
+						"frostelemental",
+						"frostelemental",
+						"frostelemental"
+					],
 					"avalanche",
 					"w_troll",
 					"icywinds",
@@ -1013,14 +1110,20 @@
 			},
 			{
 				"id": "w_chillforge",
-				"name": "chilled forge",
-				"desc": "An old citadel of the icy craft, where wizards wrought artifacts of snow and ice.",
+				"name": "寒霜铸炉",
+				"desc": "古老的冰工堡垒，巫师们在此锻造雪与冰的神器。",
 				"difficulty": "💀💀💀",
 				"sortOrder": 49,
 				"require": "g.evt_w_chillforge>0&&g.winterlore>=7",
-				"run": { "stamina": 2 },
-				"runmod": { "frost.rate": 1 },
-				"result": { "winteressence": 10 },
+				"run": {
+					"stamina": 2
+				},
+				"runmod": {
+					"frost.rate": 1
+				},
+				"result": {
+					"winteressence": 10
+				},
 				"loot": {
 					"iceorb": 1,
 					"ice_blade": 1
@@ -1029,26 +1132,49 @@
 				"boss": "frostgiant",
 				"spawns": [
 					"w_blizzardguardian",
-					["icywinds", "w_blizzardguardian", "icywinds"],
-					["frostelemental", "iceelemental", "frostelemental"],
-					["w_troll", "yeti"],
-					["frixie", "frixie"],
-					["elf", "frixie"],
-					["yeti", "icewalker"],
-					["icewalker", "w_troll"]
+					[
+						"icywinds",
+						"w_blizzardguardian",
+						"icywinds"
+					],
+					[
+						"frostelemental",
+						"iceelemental",
+						"frostelemental"
+					],
+					[
+						"w_troll",
+						"yeti"
+					],
+					[
+						"frixie",
+						"frixie"
+					],
+					[
+						"elf",
+						"frixie"
+					],
+					[
+						"yeti",
+						"icewalker"
+					],
+					[
+						"icewalker",
+						"w_troll"
+					]
 				]
 			}
 		],
 		"monsters": [
 			{
 				"id": "frostelemental",
-				"name": "frost elemental",
-				"desc": "A spiral of deadly icicles",
+				"name": "霜元素",
+				"desc": "一道致命冰刺的螺旋",
 				"kind": "elemental",
 				"level": 22,
 				"hp": 20,
 				"attack": {
-					"name": "icicles",
+					"name": "冰刺",
 					"kind": "ice",
 					"damage": "2~5"
 				},
@@ -1059,12 +1185,12 @@
 			},
 			{
 				"id": "avalanche",
-				"desc": "The mass of snow seems to aim directly for you as it tumbles down the mountain",
+				"desc": "滚落的雪团仿佛直指你而来",
 				"kind": "hazard",
 				"level": 30,
 				"hp": 100,
 				"attack": {
-					"name": "chilling",
+					"name": "寒噤",
 					"kind": "ice",
 					"targets": "enemies",
 					"maxTargets": 999,
@@ -1077,15 +1203,15 @@
 			},
 			{
 				"id": "w_troll",
-				"name": "ice troll",
-				"desc": "A huge dumb looking creature with a club of ice",
+				"name": "冰巨魔",
+				"desc": "一只挥舞冰制大棍的巨大愚蠢生物",
 				"kind": "giant",
 				"level": 30,
 				"hp": 40,
 				"defense": 10,
 				"regen": 1,
 				"attack": {
-					"name": "smash",
+					"name": "重击",
 					"kind": "blunt",
 					"damage": "5~6"
 				},
@@ -1097,14 +1223,14 @@
 			},
 			{
 				"id": "w_blizzardguardian",
-				"name": "blizzard guardian",
-				"desc": "Winter holds its own secrets, and summons guardians to watch them.",
+				"name": "暴雪守护者",
+				"desc": "冬天自有其秘密，并召唤守护者看守。",
 				"kind": "elemental",
 				"level": 38,
 				"attack": {
 					"targets": "enemies",
 					"maxTargets": 999,
-					"name": "freeze",
+					"name": "冻结",
 					"kind": "ice",
 					"damage": "a.damage*0.7"
 				},
@@ -1115,8 +1241,8 @@
 			},
 			{
 				"id": "icywinds",
-				"name": "icy winds",
-				"desc": "A chilling wind",
+				"name": "冰风",
+				"desc": "刺骨的寒风",
 				"kind": "hazard",
 				"level": 30,
 				"hp": 30,
@@ -1126,11 +1252,13 @@
 					"blunt": 50
 				},
 				"attack": {
-					"name": "Icy winds",
+					"name": "冰风",
 					"kind": "ice",
 					"damage": "3~5"
 				},
-				"result": { "icelore.exp": 50 },
+				"result": {
+					"icelore.exp": 50
+				},
 				"loot": {
 					"ice": 3,
 					"winteressence": 0.04
@@ -1138,8 +1266,8 @@
 			},
 			{
 				"id": "iceyeti",
-				"name": "yeti",
-				"desc": "A mythical creature, found only in legends",
+				"name": "雪人",
+				"desc": "只见于传说的神秘生物",
 				"kind": "giant",
 				"unique": true,
 				"level": 30,
@@ -1147,7 +1275,7 @@
 				"defense": 20,
 				"speed": 0,
 				"attack": {
-					"name": "icybreath",
+					"name": "冰息",
 					"kind": "ice",
 					"targets": "enemies",
 					"maxTargets": 999,
@@ -1160,15 +1288,15 @@
 			},
 			{
 				"id": "snowmanmonster",
-				"name": "frost golem",
+				"name": "霜傀儡",
 				"level": 2,
-				"desc": "A hulking Golem sculpted in ice",
+				"desc": "一具以冰雕刻而成的笨重魔像",
 				"hp": 50,
 				"defense": 8,
 				"speed": 10,
 				"regen": 2,
 				"attack": {
-					"name": "snowball",
+					"name": "雪球",
 					"kind": "ice",
 					"damage": "3~5"
 				},
@@ -1182,8 +1310,8 @@
 		"locales": [
 			{
 				"id": "winter_village",
-				"name": "winter village",
-				"desc": "Now that you command the power of winter, the villagers ask you to help with their preparations",
+				"name": "冬季村落",
+				"desc": "既然你掌握了冬之力量，村民们请求你协助他们的准备工作",
 				"tags": "site_of_learning",
 				"level": 2,
 				"require": "g.emblemofice>=1",
@@ -1215,11 +1343,11 @@
 			},
 			{
 				"id": "w_fazbitshop",
-				"name": "fazbit's workshop?",
+				"name": "法兹比特的工作室？",
 				"level": 3,
 				"length": 100,
 				"require": "g.fazbitshop>0&&g.tier3>0",
-				"desc": "Travelers have reported unusual activity in the long-abandoned workshop. Deep, unsettling laughing and the loud clanking of metal can be heard throughout the day.",
+				"desc": "旅人报告称这座长期废弃的工作室有异常活动。整日可闻深沉不安的笑声与金属的铿锵声。",
 				"run": {
 					"stamina": 2
 				},
@@ -1254,11 +1382,11 @@
 			},
 			{
 				"id": "w_fazbitshop2",
-				"name": "restored fazbit's workshop",
+				"name": "修复后的法兹比特工作室",
 				"level": 3,
 				"length": 100,
 				"require": "g.fazbit_restoration2>0&&g.tier1>0",
-				"desc": "The old workshop, fully repaired and ready to produce. Of course, it could always use a little extra maintenance and tuning.",
+				"desc": "老旧的工作室已被全面修复并准备投入生产。当然，它仍可接受额外的维护与调试。",
 				"run": {
 					"stamina": 3
 				},
@@ -1282,11 +1410,11 @@
 			},
 			{
 				"id": "icelake",
-				"name": "ice lake",
+				"name": "冰湖",
 				"level": 3,
 				"length": 50,
 				"require": "g.emblemofice>=1",
-				"desc": "At the bottom of the frozen lake, numerous caves can be found, full of curiosities and wonders.",
+				"desc": "在冰封湖底可发现无数洞窟，满载奇物与奇观。",
 				"run": {
 					"stamina": 0.5
 				},
@@ -1312,11 +1440,11 @@
 			},
 			{
 				"id": "arctictower",
-				"name": "tower of nixifer",
+				"name": "尼西弗之塔",
 				"level": 3,
 				"length": 50,
 				"require": "g.winterlore>=4&&g.tier3>0",
-				"desc": "The frozen tower once belonged to a wizard who mastered the mysteries of ice",
+				"desc": "这座冰冻的塔曾属于一位掌握冰之秘术的巫师",
 				"run": {
 					"stamina": 0.5
 				},
@@ -1324,7 +1452,7 @@
 					"frost.rate": 1
 				},
 				"result": {
-					"title": "Nixifer's Disciple",
+					"title": "尼西弗的徒弟",
 					"winteressence": 5
 				},
 				"encs": [
@@ -1344,11 +1472,11 @@
 			},
 			{
 				"id": "treeofrites",
-				"name": "tree of rites",
+				"name": "仪式之树",
 				"level": 5,
 				"length": 30,
 				"require": "g.preparetree>=1",
-				"desc": "A fir older than the mountains stands alone in the midst of a clearing. You feel its age, heavier than the fog itself. The embodiment of the living winter.",
+				"desc": "一株比群山更古老的杉树独立于空地中央。你感受到它的年岁，沉重过雾本身。活生生的冬之化身。",
 				"tags": "site_of_learning",
 				"run": {
 					"stamina": 0.5
@@ -1362,7 +1490,13 @@
 				"result": {
 					"evt_snowcopy": 1
 				},
-				"encs": ["enc_w_lifeforce", "enc_w_drawscheme", "enc_w_placegems", "enc_w_setfocus", "enc_w_attune"]
+				"encs": [
+					"enc_w_lifeforce",
+					"enc_w_drawscheme",
+					"enc_w_placegems",
+					"enc_w_setfocus",
+					"enc_w_attune"
+				]
 			}
 		],
 		"encounters": [],
@@ -1370,8 +1504,8 @@
 		"potions": [
 			{
 				"id": "pot_icecreamevil",
-				"name": "ice cream lure",
-				"desc": "A batch of ice cream, for children",
+				"name": "诱惑冰淇淋",
+				"desc": "一份为儿童准备的冰淇淋",
 				"require": "g.potions>=1&&g.t_demonclass>0",
 				"buy": {
 					"gold": 250,
@@ -1387,7 +1521,7 @@
 				"use": {
 					"dot": {
 						"id": "icecreamlure",
-						"name": "ice cream lure",
+						"name": "诱惑冰淇淋",
 						"duration": 3600,
 						"mod": {
 							"eatchildrenrest.mod.t_rest.effect.stress": -0.05,
@@ -1400,8 +1534,8 @@
 			},
 			{
 				"id": "pot_icecream",
-				"name": "ice cream",
-				"desc": "A batch of ice cream flavored with eleven wintery herbs and spices",
+				"name": "冰淇淋",
+				"desc": "一份以十一种冬日草本和香料调制的冰淇淋",
 				"require": "g.potions>=1",
 				"buy": {
 					"gold": 250,
@@ -1417,7 +1551,7 @@
 				"use": {
 					"dot": {
 						"id": "icecream",
-						"name": "ice cream high",
+						"name": "冰淇淋快感",
 						"duration": 3600,
 						"effect": {
 							"hp": 0.5,
@@ -1432,73 +1566,73 @@
 				"resources": [
 					{
 						"id": "w_fazbitknowledge",
-						"name": "fazbit's knowledge",
-						"desc": "Accumulated knowledge on the workings of the mysterious workshop. May yield benefits as it accumulates",
+						"name": "法兹比特的知识",
+						"desc": "关于神秘工坊运作的积累知识，积累到一定程度可能带来益处",
 						"max": 100000,
 						"sym": "🏰❄️",
 						"group": "hall"
 					},
 					{
 						"id": "winteressence",
-						"name": "essence of winter",
+						"name": "冬之精华",
 						"group": "hall",
-						"desc": "As you go deeper into the winter, understanding dawns.",
+						"desc": "当你深入冬域，理解渐渐显现。",
 						"max": 10000,
 						"sym": "🏰❄️"
 					},
 					{
 						"id": "frostbrass",
-						"name": "treated brass",
+						"name": "处理黄铜",
 						"group": "hall",
-						"desc": "Brass, forged by an unknown wizard and treated with long-lost alchemical expertise of Fazbit.",
+						"desc": "由未知巫师锻造并经过法兹比特失传炼金术处理的黄铜。",
 						"max": 1000,
 						"sym": "🏰❄️"
 					},
 					{
 						"id": "frostwood",
-						"name": "frost-touched wood",
+						"name": "霜触木材",
 						"group": "hall",
-						"desc": "Rare timber, infused with winter's energies and extremely malleable under magical influences.",
+						"desc": "罕见木材，注入冬之能量，在魔法影响下极易塑形。",
 						"max": 1000,
 						"sym": "🏰❄️"
 					},
 					{
 						"id": "frostparts",
-						"name": "rime-rimmed parts",
+						"name": "霜缘零件",
 						"group": "hall",
-						"desc": "Cogs, springs and multitudes of other mechanical parts. Ever-cold, even after prolonged use.",
+						"desc": "齿轮、弹簧及大量机械零件。即使长时间使用也始终寒冷。",
 						"max": 1000,
 						"sym": "🏰❄️"
 					},
 					{
 						"id": "froststone",
-						"name": "permafrost stone",
+						"name": "永霜石",
 						"group": "hall",
-						"desc": "Harvested from below unthawing ice, one stone is enough to cool an entire house for years on end.",
+						"desc": "采自不解封冻之冰下方，一块足以多年内为整户降温。",
 						"max": 1000,
 						"sym": "🏰❄️"
 					},
 					{
 						"id": "frostservants",
-						"name": "cold ones",
+						"name": "霜仆",
 						"group": "hall",
-						"desc": "Winter is generally lauded as indifferent, yet it is unquestionably proud to preserve its kills. It would be a shame to let them go to waste.",
+						"desc": "冬季通常被称为冷漠，但它无疑自豪于保存其猎物。若将其浪费，实属可惜。",
 						"max": 1000,
 						"sym": "🏰❄️"
 					},
 					{
 						"id": "frostsigils",
-						"name": "ice-etched sigils",
+						"name": "冰刻符文",
 						"group": "hall",
-						"desc": "Etched in purest ice, charged with energies of winter, ready to assist in arcane tasks.",
+						"desc": "刻于纯净冰面，蕴含冬之能量，随时可助你进行奥术任务。",
 						"max": 1000,
 						"sym": "🏰❄️"
 					},
 					{
 						"id": "w_dolls",
-						"name": "animated toys",
+						"name": "自动玩具",
 						"group": "hall",
-						"desc": "Just like they were back in the day.",
+						"desc": "正如当年一般。",
 						"max": 1000,
 						"sym": "🏰❄️"
 					}
@@ -1506,10 +1640,10 @@
 				"upgrades": [
 					{
 						"id": "fazbit_restoration",
-						"name": "fazbit's workshop restoration project",
+						"name": "法兹比特工坊修复计划",
 						"sym": "🏰❄️",
 						"tags": "hall",
-						"desc": "This place must have once been a source of great joy to people all over the realm. It would be a tremendous accomplishment to repair it.",
+						"desc": "这里曾是举国欢欣之源。修复它将是一项伟大成就。",
 						"require": "g.w_fazbit10>0",
 						"max": 1,
 						"result": {
@@ -1518,10 +1652,10 @@
 					},
 					{
 						"id": "fazbit_restoration2",
-						"name": "fazbit's refurbished winter workshop",
+						"name": "修复完成的法兹比特冬季工坊",
 						"sym": "🏰❄️",
 						"tags": "hall",
-						"desc": "Finish the restoration and allow the workshop to work towards its original purpose.",
+						"desc": "完成修复，让工坊恢复其原有用途。",
 						"need": "(g.fazbit_restoration_stage1+g.fazbit_restoration_stage2+g.fazbit_restoration_stage3)>2",
 						"require": "g.fazbit_restoration>0",
 						"max": 1,
@@ -1540,11 +1674,11 @@
 				"tasks": [
 					{
 						"id": "fazbit_restoration_stage1",
-						"name": "workshop structure renovation",
+						"name": "工坊结构修缮",
 						"sym": "🏰❄️",
 						"tags": "hall",
 						"require": "g.fazbit_restoration>0&&g.fazbit_restoration2==0",
-						"desc": "Restore the outside walls of the workshop, with an eye for future expansion.",
+						"desc": "修复工坊外墙，并为未来扩建留出考虑。",
 						"length": 1200,
 						"max": 1,
 						"cost": {
@@ -1568,11 +1702,11 @@
 					},
 					{
 						"id": "fazbit_restoration_stage2",
-						"name": "workshop internals renovation",
+						"name": "工坊内部修缮",
 						"sym": "🏰❄️",
 						"tags": "hall",
 						"require": "g.fazbit_restoration_stage1>0",
-						"desc": "Restore the machinery inside the workshop, to prepare for its reactivation.",
+						"desc": "修复工坊内部机器，为恢复生产做准备。",
 						"length": 1200,
 						"max": 1,
 						"cost": {
@@ -1582,18 +1716,22 @@
 						"run": {
 							"stamina": 3
 						},
-						"lock": ["frostparts_production1", "frostparts_production2", "frostparts_productionex"],
+						"lock": [
+							"frostparts_production1",
+							"frostparts_production2",
+							"frostparts_productionex"
+						],
 						"result": {
 							"fame": 15
 						}
 					},
 					{
 						"id": "fazbit_restoration_stage3",
-						"name": "workshop production restoration",
+						"name": "工坊生产修复",
 						"sym": "🏰❄️",
 						"tags": "hall",
 						"require": "g.fazbit_restoration_stage2>0",
-						"desc": "Provide the necessary workforce and magical reserves to resume production in the workshop.",
+						"desc": "提供必要的劳动力与魔法储备以恢复工坊生产。",
 						"length": 1200,
 						"max": 1,
 						"cost": {
@@ -1617,12 +1755,12 @@
 					},
 					{
 						"id": "frostwood_production1",
-						"name": "produce frost-touched wood",
+						"name": "生产霜触木材",
 						"sym": "🏰❄️",
 						"tags": "hall",
 						"require": "g.fazbit_restoration>0",
 						"need": "kell",
-						"desc": "Infuse the freshly-grown wood with frost. Will not work without a source of fresh wood",
+						"desc": "将新生木材注入霜之气。没有新鲜木材来源则无法完成。",
 						"length": 10,
 						"run": {
 							"stamina": 2,
@@ -1632,12 +1770,12 @@
 					},
 					{
 						"id": "frostwood_production2",
-						"name": "wood growth",
+						"name": "木材生长",
 						"sym": "🏰❄️",
 						"tags": "hall",
 						"require": "g.fazbit_restoration>0",
 						"need": "kell",
-						"desc": "Grow new wood to enable production of frost-touched wood.",
+						"desc": "培育新木，使霜触木材的生产成为可能。",
 						"perpetual": true,
 						"run": {
 							"stamina": 1,
@@ -1649,12 +1787,12 @@
 					},
 					{
 						"id": "frostwood_productionex",
-						"name": "growth tinctures",
+						"name": "生长药剂",
 						"sym": "🏰❄️",
 						"tags": "hall",
 						"require": "g.fazbit_restoration>0",
 						"need": "alchemist",
-						"desc": "Produce a special fast-growth formula to supplement the growth of wood needed.",
+						"desc": "配制一种特效速生溶剂，用以辅助木材生长需求。",
 						"perpetual": true,
 						"run": {
 							"stamina": 1,
@@ -1666,12 +1804,12 @@
 					},
 					{
 						"id": "frostparts_production1",
-						"name": "produce rime-rimmed parts",
+						"name": "生产霜缘零件",
 						"sym": "🏰❄️",
 						"tags": "hall",
 						"require": "g.fazbit_restoration_stage1>0",
 						"need": "mechamancer",
-						"desc": "Quench the parts in the frost, imbuing them with endless cold. Only work on just-forged parts.",
+						"desc": "将零件浸入霜中，注入永恒寒冷。仅对新锻造的零件有效。",
 						"length": 10,
 						"run": {
 							"stamina": 2,
@@ -1681,12 +1819,12 @@
 					},
 					{
 						"id": "frostparts_production2",
-						"name": "forge parts",
+						"name": "锻造零件",
 						"sym": "🏰❄️",
 						"tags": "hall",
 						"require": "g.fazbit_restoration_stage1>0",
 						"need": "mechamancer",
-						"desc": "Forge parts with intent to turn them into rime-rimmed parts.",
+						"desc": "锻造并处理零件，使之成为霜缘零件。",
 						"perpetual": true,
 						"run": {
 							"stamina": 1,
@@ -1698,12 +1836,12 @@
 					},
 					{
 						"id": "frostparts_productionex",
-						"name": "forge enchantments",
+						"name": "锻造附魔",
 						"sym": "🏰❄️",
 						"tags": "hall",
 						"require": "g.fazbit_restoration_stage1>0",
 						"need": "enchanter",
-						"desc": "Enchant your forge to increase smithing efficiency.",
+						"desc": "对熔炉施加魔法，以提高锻造效率。",
 						"perpetual": true,
 						"run": {
 							"stamina": 1,
@@ -1715,12 +1853,12 @@
 					},
 					{
 						"id": "froststone_production1",
-						"name": "produce permafrost stone",
+						"name": "生产永霜石",
 						"sym": "🏰❄️",
 						"tags": "hall",
 						"require": "g.fazbit_restoration>0",
 						"need": "titan",
-						"desc": "Harvest the cold stone from the depths of the earth. Requires proper mining support to function.",
+						"desc": "从地底深处采掘寒冷之石。需要适当的矿务支持才能进行。",
 						"length": 10,
 						"run": {
 							"stamina": 2,
@@ -1730,12 +1868,12 @@
 					},
 					{
 						"id": "froststone_production2",
-						"name": "mining supports",
+						"name": "矿务支援",
 						"sym": "🏰❄️",
 						"tags": "hall",
 						"require": "g.fazbit_restoration>0",
 						"need": "titan",
-						"desc": "Maintain a mineshaft to the deep layers, where ice never melts.",
+						"desc": "维持通往深层的矿井，在那里冰永不融化。",
 						"perpetual": true,
 						"run": {
 							"stamina": 1,
@@ -1747,12 +1885,12 @@
 					},
 					{
 						"id": "froststone_productionex",
-						"name": "Frost summoning",
+						"name": "霜之召唤",
 						"sym": "🏰❄️",
 						"tags": "hall",
 						"require": "g.fazbit_restoration>0",
 						"need": "summoner",
-						"desc": "Increase the efficiency of your permafrost mining endeavors, by summoning the nearby stone to you, extending your reach.",
+						"desc": "通过召唤附近的岩石来扩展采掘范围，从而提高永冻层采矿效率。",
 						"perpetual": true,
 						"run": {
 							"stamina": 1,
@@ -1764,12 +1902,12 @@
 					},
 					{
 						"id": "frostservants_production1",
-						"name": "reanimate cold ones",
+						"name": "复活霜仆",
 						"sym": "🏰❄️",
 						"tags": "hall",
 						"require": "g.fazbit_restoration_stage2>0",
 						"need": "necro3",
-						"desc": "Animate the corpses of those slain by the frost. Requires corpses that were recently unearthed.",
+						"desc": "让被寒霜所杀之尸复苏为仆役。需要近期出土的尸体。",
 						"length": 10,
 						"run": {
 							"stamina": 2,
@@ -1779,12 +1917,12 @@
 					},
 					{
 						"id": "frostservants_production2",
-						"name": "corpse harvesting",
+						"name": "尸体采集",
 						"sym": "🏰❄️",
 						"tags": "hall",
 						"require": "g.fazbit_restoration_stage2>0",
 						"need": "necro3",
-						"desc": "Harvest the frosty corpses of the unfortunates.",
+						"desc": "搜集那些被霜冻保存的亡者遗体。",
 						"perpetual": true,
 						"run": {
 							"stamina": 1,
@@ -1796,12 +1934,12 @@
 					},
 					{
 						"id": "frostservants_productionex",
-						"name": "corpse divination",
+						"name": "尸体占卜",
 						"sym": "🏰❄️",
 						"tags": "hall",
 						"require": "g.fazbit_restoration_stage2>0",
 						"need": "seer",
-						"desc": "Many winters mean many corpses and divination is exactly what you need to find them.",
+						"desc": "漫长的寒冬带来大量尸骸，通灵正是寻找它们所需之术。",
 						"perpetual": true,
 						"run": {
 							"stamina": 1,
@@ -1813,12 +1951,12 @@
 					},
 					{
 						"id": "frostsigils_production1",
-						"name": "imbue frost sigils",
+						"name": "灌注霜符",
 						"sym": "🏰❄️",
 						"tags": "hall",
 						"require": "g.fazbit_restoration_stage2>0",
 						"need": "wizard3",
-						"desc": "Imbue frost into carved sigils. Requires sigils to be untainted by ambient energies.",
+						"desc": "将霜注入雕刻好的符文。要求符文未受外界能量污染。",
 						"length": 10,
 						"run": {
 							"stamina": 2,
@@ -1828,12 +1966,12 @@
 					},
 					{
 						"id": "frostsigils_production2",
-						"name": "carve sigils",
+						"name": "雕刻符文",
 						"sym": "🏰❄️",
 						"tags": "hall",
 						"require": "g.fazbit_restoration_stage2>0",
 						"need": "wizard3",
-						"desc": "Carve out the sigils in prepared conduits.",
+						"desc": "在预备的导槽中雕刻符文。",
 						"perpetual": true,
 						"run": {
 							"stamina": 1,
@@ -1845,12 +1983,12 @@
 					},
 					{
 						"id": "frostsigils_productionex",
-						"name": "optimized carving",
+						"name": "优化雕刻",
 						"sym": "🏰❄️",
 						"tags": "hall",
 						"require": "g.fazbit_restoration_stage2>0",
 						"need": "battlemage",
-						"desc": "Utilize your expertise with weaponry to speed up the carving process.",
+						"desc": "利用你在武器上的专业知识以加速雕刻过程。",
 						"perpetual": true,
 						"run": {
 							"stamina": 1,
@@ -1862,12 +2000,12 @@
 					},
 					{
 						"id": "w_doll_charity",
-						"name": "distribute presents",
+						"name": "分发礼物",
 						"sym": "🏰❄️",
 						"tags": "hall",
 						"require": "g.w_dolls>0",
 						"need": "tier0",
-						"desc": "Distribute the animated toys to the children of Dhrune, earning recognition for your hall.",
+						"desc": "把这些有生命的玩具分发给德伦的孩子们，为你的殿堂赢得声望。",
 						"length": 20,
 						"cost": {
 							"w_dolls": 10
@@ -1879,12 +2017,12 @@
 					},
 					{
 						"id": "w_doll_profit",
-						"name": "sell toys",
+						"name": "贩卖玩具",
 						"sym": "🏰❄️",
 						"tags": "hall",
 						"require": "g.w_dolls>0",
 						"need": "tier0",
-						"desc": "Sell the toys for a tidy profit.",
+						"desc": "把玩具出售以获得可观的利润。",
 						"length": 10,
 						"fill": "gold",
 						"cost": {

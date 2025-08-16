@@ -2,7 +2,7 @@
 	{
 		"id": "crafting",
 		"name": "工艺",
-		"need": "工作台",
+		"need": "workplace",
 		"desc": "对巫师来说，制作奥术物品是绝对重要的技能。",
 		"buy": {
 			"research": 20

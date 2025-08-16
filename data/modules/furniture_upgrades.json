@@ -4,8 +4,8 @@
 		"upgrades": [
 			{
 				"id": "better_arcanestudy",
-				"name": "magically soundproofed study",
-				"desc": "Magically refine your enchanted study into an ideal location for researching topics without any distractions.",
+				"name": "魔法隔音书房",
+				"desc": "通过魔法精化你的附魔书房，使其成为研究课题的理想场所，免受任何干扰。",
 				"require": "g.enchanted_study>0&&g.airlore2>=1",
 				"cost": {
 					"codices": 15,
@@ -21,8 +21,8 @@
 			},
 			{
 				"id": "better_study",
-				"name": "soundproof study",
-				"desc": "Refine your study into an ideal location for researching topics without any distractions.",
+				"name": "隔音书房",
+				"desc": "将你的书房精修为研究课题的理想场所，免受任何干扰。",
 				"require": "g.studyroom>0&&g.airlore>=5",
 				"cost": {
 					"scrolls": 12,
@@ -38,8 +38,8 @@
 			},
 			{
 				"id": "better_pedestal",
-				"name": "utility pedestal",
-				"desc": "A pedestal with added grooves to keep the reading material in place, small compartments holding spare bookmarks and even a light gem holder for night reading.",
+				"name": "多功能阅台",
+				"desc": "带有凹槽固定读物的阅台，小隔间可放备用书签，甚至设有用于夜间阅读的光石托座。",
 				"require": "g.pedestal>0&&g.crafting>=7",
 				"cost": {
 					"scrolls": 3,
@@ -55,8 +55,8 @@
 			},
 			{
 				"id": "packmule",
-				"name": "pack mule",
-				"desc": "A clever design from the sack-maker's guild.",
+				"name": "驮骡",
+				"desc": "袋匠公会的巧妙设计。",
 				"require": "g.mule>=1",
 				"cost": {
 					"gold": 500,
@@ -71,8 +71,8 @@
 			},
 			{
 				"id": "rejuvenation_feed",
-				"name": "rejuvenation feed",
-				"desc": "A new concoction of herbs, carrots, and exotic fruits to invigorate the weary steed.",
+				"name": "活力饲料",
+				"desc": "由草药、胡萝卜与异国水果调制的新饲料，能振奋疲惫的坐骑。",
 				"require": "(g.mule+g.oldnag)>=1&&g.potions>=3",
 				"cost": {
 					"gold": 800,
