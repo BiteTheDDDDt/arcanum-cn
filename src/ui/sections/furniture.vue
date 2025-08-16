@@ -160,39 +160,39 @@ export default {
 	<div class="home-furniture">
 		<div class="top separate">
 			<span>
-				<span class="opt">
+					<span class="opt">
 					<input :id="elmId('showMax')" type="checkbox" v-model="chkShowMax" /><label :for="elmId('showMax')">
-						Maxed
+						已满
 					</label>
 				</span>
 				<span class="opt">
 					<input :id="elmId('showOwn')" type="checkbox" v-model="chkShowOwned" /><label
 						:for="elmId('showOwn')">
-						Owned
+						已拥有
 					</label>
 				</span>
 				<span class="opt">
 					<input :id="elmId('showUnowned')" type="checkbox" v-model="chkShowUnowned" /><label
 						:for="elmId('showUnowned')">
-						Unowned
+						未拥有
 					</label>
 				</span>
 				<span class="opt">
 					<input :id="elmId('showBlock')" type="checkbox" v-model="chkShowBlocked" /><label
 						:for="elmId('showBlock')">
-						Blocked
+						已锁定
 					</label>
 				</span>
 			</span>
 
 			<filterbox class="inline" v-model="filtered" :prop="searchIt" :items="viewable" />
-			<span class="space">Space: {{ Math.floor(space.free()) }} / {{ Math.floor(space.max.value) }}</span>
+			<span class="space">空间：{{ Math.floor(space.free()) }} / {{ Math.floor(space.max.value) }}</span>
 		</div>
 
 		<div class="warn-text" style="text-align: center" v-if="empty()">
-			No space remaining. Sell items or find a new Home.
+			没有剩余空间。出售物品或寻找新住所。
 			<span v-if="homesAvail.length > 0">
-				If your max gold is not enough to buy a new home, free space for more chests.
+				如果你的最大金币不足以购买新住所，释放空间以容纳更多箱子。
 			</span>
 		</div>
 
@@ -200,9 +200,9 @@ export default {
 			<table class="furniture">
 				<thead>
 					<tr>
-						<th>Space</th>
-						<th class="name">Furnishing</th>
-						<th>Owned</th>
+						<th>占用</th>
+						<th class="name">家具</th>
+						<th>拥有</th>
 						<th />
 						<th />
 					</tr>
@@ -223,20 +223,20 @@ export default {
 							<td class="count">{{ it.value.valueOf() }}/1</td>
 						</template>
 						<td>
-							<span v-if="it.maxed()" class="sm">Max</span>
+							<span v-if="it.maxed()" class="sm">已满</span>
 							<button
 								v-else
 								type="button"
 								:disabled="!it.canUse()"
 								class="buy-btn"
 								@click="emit('upgrade', it)">
-								Buy
+								购买
 							</button>
 						</td>
 
 						<td>
 							<button type="button" :disabled="it.value <= 0" class="sell-btn" @click="emit('sell', it)">
-								Sell
+								出售
 							</button>
 						</td>
 					</tr>

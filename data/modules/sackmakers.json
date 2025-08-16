@@ -4,18 +4,20 @@
 		"dungeons": [
 			{
 				"id": "sackguild",
-				"name": "guild of the sack makers",
+				"name": "袋匠行会",
 				"start": {
-					"name": "Guild Practices",
-					"desc": "Your unauthorized construction of pouches has sparked the ire of the Guild of Sackmakers."
+					"name": "行会训习",
+					"desc": "你擅自制作小袋的行为激怒了袋匠行会。"
 				},
 				"difficulty": "💀💀💀💀💀",
 				"sortOrder": 65,
 				"require": "g.t_craftedbag>0",
 				"dist": 1830,
-				"run": { "stamina": 3.5 },
+				"run": {
+					"stamina": 3.5
+				},
 				"result": {
-					"title": "Guild Breaker",
+					"title": "行会破坏者",
 					"iron": "0~5",
 					"leather": "0~5",
 					"cotton": "0~5",
@@ -35,69 +37,95 @@
 					"sackweaver",
 					"pouchmerchant",
 					"m_gemcutter",
-					["sackenforcer", "sackthug", "sackthug"],
-					["irongolem", "irongolem", "sackenforcer"],
+					[
+						"sackenforcer",
+						"sackthug",
+						"sackthug"
+					],
+					[
+						"irongolem",
+						"irongolem",
+						"sackenforcer"
+					],
 					"sackjman",
-					["burlapgolem", "burlapgolem", "burlapgolem"],
-					["sackthug", "sackthug"]
+					[
+						"burlapgolem",
+						"burlapgolem",
+						"burlapgolem"
+					],
+					[
+						"sackthug",
+						"sackthug"
+					]
 				]
 			}
 		],
 		"monsters": [
 			{
 				"id": "rumpelstiltskin",
-				"desc": "A strange imp that spins magic threads.",
+				"name": "纺线小鬼",
+				"desc": "一个用魔法纺线的奇异小精灵。",
 				"noproc": true,
 				"level": 62,
 				"attack": {
-					"name": "wooden spool",
+					"name": "木制线轴",
 					"kind": "blunt",
 					"damage": "a.damage*0.7"
 				},
-				"loot": { "aetherhide": { "%": "60%", "value": "4~6" } }
+				"loot": {
+					"aetherhide": {
+						"%": "60%",
+						"value": "4~6"
+					}
+				}
 			},
 			{
 				"id": "sackapprentice",
-				"name": "sackmaker apprentice",
-				"desc": "They have no respect for wizard apprentices.",
+				"name": "袋匠学徒",
+				"desc": "他们不把巫师学徒放在眼里。",
 				"noproc": true,
 				"level": 4,
 				"hp": 50,
 				"attack": {
-					"name": "sewing needle",
+					"name": "缝针",
 					"damage": "5~10"
 				}
 			},
 			{
 				"id": "sackthug",
-				"name": "guild thug",
-				"desc": "The guild's policies on unauthorized pouch sales are strictly enforced.",
+				"name": "行会恶霸",
+				"desc": "行会对未经许可售卖袋子的政策执行得非常严格。",
 				"level": 51,
 				"attack": {
-					"name": "sand bag",
+					"name": "沙袋",
 					"kind": "earth",
 					"damage": "a.damage"
 				}
 			},
 			{
 				"id": "sackenforcer",
-				"name": "sack guild enforcer",
+				"name": "行会执法者",
 				"level": 55,
 				"attack": {
-					"name": "brick bag",
+					"name": "砖袋",
 					"kind": "earth",
 					"damage": "a.damage"
 				},
-				"loot": { "amberroot": { "%": "60%", "value": "4~6" } }
+				"loot": {
+					"amberroot": {
+						"%": "60%",
+						"value": "4~6"
+					}
+				}
 			},
 			{
 				"id": "m_gemcutter",
-				"name": "gem cutter",
-				"flavor": "The guild sells its gems cheaply. Now if you want a place to store them...",
+				"name": "宝石切割师",
+				"flavor": "行会低价出售宝石。现在，如果你想找个地方存放它们...",
 				"noproc": true,
 				"level": 61,
 				"attack": {
-					"name": "precision cut",
+					"name": "精密切割",
 					"kind": "air",
 					"damage": "a.damage",
 					"tohit": 30
@@ -110,55 +138,95 @@
 			},
 			{
 				"id": "pouchmerchant",
-				"name": "pouch merchant",
-				"desc": "The guild hires merchants to drain gold from the pouches of others.",
+				"name": "袋木商人",
+				"desc": "行会雇佣商人从他人袋中抽取金币。",
 				"noproc": true,
 				"level": 63,
 				"immune": "charm",
 				"speed": 20,
 				"attack": {
-					"name": "transfer gold",
+					"name": "转移金币",
 					"kind": "spirit",
 					"damage": "66~77",
-					"result": { "gold": "-100~-200" }
+					"result": {
+						"gold": "-100~-200"
+					}
 				},
 				"loot": {
-					"iron": { "%": "50%", "value": "1~2" },
-					"leather": { "%": "50%", "value": "1~2" },
-					"cotton": { "%": "50%", "value": "1~2" },
-					"quicksteel": { "%": "50%", "value": "1~2" },
-					"serpentskin": { "%": "50%", "value": "1~2" },
-					"spidersilk": { "%": "50%", "value": "1~2" },
-					"rubies": { "%": "50%", "value": "1~2" },
-					"adamant": { "%": "50%", "value": "1~2" },
-					"aetherhide": { "%": "50%", "value": "1~2" },
-					"amberroot": { "%": "50%", "value": "1~2" },
-					"diamonds": { "%": "50%", "value": "1~2" }
+					"iron": {
+						"%": "50%",
+						"value": "1~2"
+					},
+					"leather": {
+						"%": "50%",
+						"value": "1~2"
+					},
+					"cotton": {
+						"%": "50%",
+						"value": "1~2"
+					},
+					"quicksteel": {
+						"%": "50%",
+						"value": "1~2"
+					},
+					"serpentskin": {
+						"%": "50%",
+						"value": "1~2"
+					},
+					"spidersilk": {
+						"%": "50%",
+						"value": "1~2"
+					},
+					"rubies": {
+						"%": "50%",
+						"value": "1~2"
+					},
+					"adamant": {
+						"%": "50%",
+						"value": "1~2"
+					},
+					"aetherhide": {
+						"%": "50%",
+						"value": "1~2"
+					},
+					"amberroot": {
+						"%": "50%",
+						"value": "1~2"
+					},
+					"diamonds": {
+						"%": "50%",
+						"value": "1~2"
+					}
 				}
 			},
 			{
 				"id": "burlapgolem",
-				"name": "burlap golem",
-				"desc": "Woven golem filled with heavy sand",
+				"name": "麻布巨像",
+				"desc": "编织而成、内部填满沉重沙土的巨像",
 				"noproc": true,
 				"level": 50,
 				"attack": {
-					"name": "sand punch",
+					"name": "沙拳",
 					"kind": "earth",
 					"damage": "a.damage"
 				},
-				"loot": { "amberroot": { "%": "60%", "value": "5~8" } }
+				"loot": {
+					"amberroot": {
+						"%": "60%",
+						"value": "5~8"
+					}
+				}
 			},
 			{
 				"id": "sum_burlapgolem",
-				"name": "burlap golem",
+				"name": "麻布巨像",
 				"tags": "t_summon",
-				"desc": "Summoned woven golem filled with heavy sand",
+				"desc": "被召唤出的编织巨像，内部填满沉重沙土",
 				"level": 28,
 				"noproc": true,
 				"hp": 400,
 				"attack": {
-					"name": "sand punch",
+					"name": "沙拳",
 					"kind": "earth",
 					"damage": "20~30"
 				},
@@ -166,39 +234,47 @@
 			},
 			{
 				"id": "sackjman",
-				"name": "sackmaker journeyman",
-				"desc": "Travels to towns, selling the finest quality bags and pouches.",
+				"name": "袋匠熟练工",
+				"desc": "走访城镇，出售优质的袋子与小囊。",
 				"level": 60,
 				"attack": {
-					"name": "punch",
+					"name": "重拳",
 					"kind": "blunt",
 					"damage": "60~80"
 				},
-				"loot": { "amberroot": { "%": "60%", "value": "3~5" } }
+				"loot": {
+					"amberroot": {
+						"%": "60%",
+						"value": "3~5"
+					}
+				}
 			},
 			{
 				"id": "sackweaver",
-				"desc": "Uses flows of magic to weave bags for sale.",
+				"name": "袋织者",
+				"desc": "利用魔流编织可供出售的袋子。",
 				"noproc": true,
 				"level": 61,
 				"attack": {
-					"name": "magic needle",
+					"name": "魔针",
 					"kind": "mana",
 					"damage": "a.damage"
 				},
-				"loot": { "adamant": 1 }
+				"loot": {
+					"adamant": 1
+				}
 			},
 			{
 				"id": "sackmaster",
-				"name": "sackmaker's lodge master",
-				"desc": "Surrounded by a cloud of needles, weaves and half finished pouches.",
-				"extdesc": "In matter of seconds you see burlap golems appear from the cloud and jump towards you!.",
+				"name": "袋匠堂主",
+				"desc": "被针线和半成品袋所环绕。",
+				"extdesc": "片刻之间，你目睹麻布巨像从云雾中出现并向你扑来！",
 				"noproc": true,
 				"level": 40,
 				"hp": 900,
 				"spells": "mon_mk_burlapgolem",
 				"attack": {
-					"name": "flying needles",
+					"name": "飞针",
 					"kind": "pierce",
 					"damage": "40~75"
 				}
@@ -207,15 +283,23 @@
 		"spells": [
 			{
 				"id": "mk_burlapgolem",
-				"name": "create burlap golem",
+				"name": "制造麻布巨像",
 				"sortOrder": 1755,
 				"level": 9,
 				"school": "summoning",
 				"keywords": {
-					"type": ["summon"],
-					"target": ["ally"],
-					"targets": ["single"],
-					"delivery": ["instant"]
+					"type": [
+						"summon"
+					],
+					"target": [
+						"ally"
+					],
+					"targets": [
+						"single"
+					],
+					"delivery": [
+						"instant"
+					]
 				},
 				"require": "g.sackguild>0",
 				"buy": {
@@ -236,7 +320,7 @@
 			},
 			{
 				"id": "mon_mk_burlapgolem",
-				"name": "create burlap golem",
+				"name": "制造麻布巨像",
 				"require": "g.lore>999",
 				"summon": {
 					"id": "sum_burlapgolem",

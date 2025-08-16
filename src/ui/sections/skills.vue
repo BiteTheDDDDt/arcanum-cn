@@ -120,10 +120,10 @@ export default {
 
 			<span>
 				<input :id="elmId('hideMax')" type="checkbox" v-model="chkHide" />
-				<label :for="elmId('hideMax')">Hide Maxed</label>
+				<label :for="elmId('hideMax')">隐藏已满</label>
 			</span>
 
-			<span>Arcana: {{ lowFixed(arcana.value) }}/{{ lowFixed(arcana.max) }}</span>
+				<span>奥秘：{{ lowFixed(arcana.value) }}/{{ lowFixed(arcana.max) }}</span>
 		</span>
 
 		<div class="subs" ref="skillgrid">

@@ -783,10 +783,10 @@
 			},
 			{
 				"id": "spiritlorelearn1",
-				"name": "Spirit Communion: Competence",
+				"name": "灵魂交流：入门",
 				"desc": "",
 				"flavor": "",
-				"group": "education",
+				"group": "教育",
 				"require": "g.spiritlore>=3&&g.spiritlore.max>=6",
 				"cost": {
 					"scrolls": 1,

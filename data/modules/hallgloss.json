@@ -241,9 +241,9 @@
 					},
 					{
 						"id": "gloss_dungeons",
-						"name": "Dungeons",
+						"name": "地下城",
 						"sym": "🛠️",
-						"group": "exploration",
+						"group": "探索",
 						"tags": "t_gloss_game_mechanic,t_gloss_exploration,t_gloss_combat",
 						"desc": [
 							"➢ 地下城是主要的战斗冒险类型。更多战斗信息请参见‘战斗’词条。",
@@ -284,9 +284,9 @@
 					},
 					{
 						"id": "gloss_clashes",
-						"name": "Clashes",
+						"name": "冲突",
 						"sym": "🛠️",
-						"group": "exploration",
+						"group": "探索",
 						"tags": "t_gloss_game_mechanic,t_gloss_exploration,t_gloss_combat",
 						"desc": [
 							"➢ 冲突是一类专注于主动对抗少数强力怪物的战斗冒险。",
@@ -423,9 +423,9 @@
 					},
 					{
 						"id": "gloss_trickery",
-						"name": "Trickery",
+						"name": "诡术",
 						"sym": "📚",
-						"group": "journal",
+						"group": "日志",
 						"tags": "t_gloss_school,t_gloss_chaos",
 						"desc": [
 							"巧手、注意力操控，以及骗子和表演者常用的各种手法。",
@@ -436,9 +436,9 @@
 					},
 					{
 						"id": "gloss_chaos",
-						"name": "Chaos",
+						"name": "混沌",
 						"sym": "📚",
-						"group": "journal",
+						"group": "日志",
 						"tags": "t_gloss_school,t_gloss_chaos",
 						"desc": [
 							"专注于随法师意愿改变现实的魔法流派。",
@@ -449,9 +449,9 @@
 					},
 					{
 						"id": "gloss_animation",
-						"name": "Animation",
+						"name": "动画",
 						"sym": "📚",
-						"group": "journal",
+						"group": "日志",
 						"tags": "t_gloss_school,t_gloss_animation,t_gloss_minions",
 						"desc": [
 							"专注于让无生命物体动起来的魔法流派。",
@@ -462,9 +462,9 @@
 					},
 					{
 						"id": "gloss_puppetry",
-						"name": "Puppetry",
+						"name": "傀儡术",
 						"sym": "📚",
-						"group": "journal",
+						"group": "日志",
 						"tags": "t_gloss_skill,t_gloss_animation,t_gloss_crafting,t_gloss_minions",
 						"desc": [
 							"动画与工艺的结合，入门技能，是机械艺术进阶的前提。",
@@ -475,9 +475,9 @@
 					},
 					{
 						"id": "gloss_machinacreation",
-						"name": "Mechanical magic",
+						"name": "机械魔法",
 						"sym": "📚",
-						"group": "journal",
+						"group": "日志",
 						"tags": "t_gloss_skill,t_gloss_animation,t_gloss_crafting,t_gloss_minions",
 						"desc": [
 							"动画与工艺的高级结合，代表对造物创造的深刻理解。",
@@ -489,9 +489,9 @@
 					},
 					{
 						"id": "gloss_automatasculpting",
-						"name": "Automata sculpting",
+						"name": "自律人塑造",
 						"sym": "📚",
-						"group": "journal",
+						"group": "日志",
 						"tags": "t_gloss_skill,t_gloss_animation,t_gloss_crafting,t_gloss_minions",
 						"desc": [
 							"工艺与动画艺术的巅峰，代表创造人工生命的能力。",

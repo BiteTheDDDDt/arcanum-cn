@@ -13,6 +13,7 @@
 		"skills": [
 			{
 				"id": "puppetry",
+				"name": "傀儡术",
 				"desc": "创造并赋予魔法傀儡生命",
 				"tags": "t_skill_animation",
 				"require": "g.crafting>=8&&g.spiritlore>=5",
@@ -115,7 +116,7 @@
 				"id": "puppetshow",
 				"name": "木偶戏",
 				"desc": "用动画傀儡表演一场演出",
-				"verb": "puppeteering",
+				"verb": "操偶",
 				"require": "g.puppeteer>0",
 				"length": 15,
 				"at": {
@@ -146,12 +147,12 @@
 				"mod": {
 					"puppetry.max": "0.01//500/-10"
 				},
-				"group": "affluence"
+				"group": "财富"
 			},
 			{
 				"id": "assemblepuppet",
 				"name": "组装傀儡",
-				"verb": "assembling puppets",
+				"verb": "组装傀儡",
 				"desc": "组装一个傀儡。",
 				"tags": "t_craftwork",
 				"require": "g.puppetry>=1",
@@ -172,13 +173,13 @@
 				"result": {
 					"puppets": 1
 				},
-				"group": "crafting"
+				"group": "制造"
 			},
 			{
 				"id": "machinalabor",
 				"name": "出租劳力",
 				"desc": "出租你的机体来执行琐碎任务",
-				"verb": "leasing",
+				"verb": "出租",
 				"require": "g.mechanist>0",
 				"length": 50,
 				"at": {
@@ -205,12 +206,12 @@
 				"mod": {
 					"machinacreation.max": "0.01//500/-10"
 				},
-				"group": "affluence"
+				"group": "财富"
 			},
 			{
 				"id": "assemblemachina",
 				"name": "组装机体",
-				"verb": "assembling machinae",
+				"verb": "组装机体",
 				"desc": "组装一个机体。",
 				"tags": "t_craftwork",
 				"require": "g.machinacreation>=1",
@@ -230,12 +231,12 @@
 				"result": {
 					"machinae": 1
 				},
-				"group": "crafting"
+				"group": "制造"
 			},
 			{
 				"id": "futurecouncil",
 				"name": "规划未来",
-				"verb": "Counseling",
+				"verb": "商议",
 				"desc": "与自动人偶商议以规划未来。",
 				"require": "g.mechamancer>0",
 				"length": 100,
@@ -254,12 +255,12 @@
 					"languages.max": "0.02//100/-10",
 					"automatasculpting.max": "0.05//160/-10"
 				},
-				"group": "knowledge"
+				"group": "知识"
 			},
 			{
 				"id": "assembleautomata",
 				"name": "塑形自动人偶",
-				"verb": "shaping automata",
+				"verb": "塑形",
 				"desc": "创造一个自动人偶。",
 				"tags": "t_craftwork",
 				"require": "g.automatasculpting>=1",
@@ -281,12 +282,12 @@
 				"result": {
 					"automatas": 1
 				},
-				"group": "crafting"
+				"group": "制造"
 			},
 			{
 				"id": "craftfinepart",
 				"name": "制作精密零件",
-				"verb": "engineering",
+				"verb": "工程",
 				"tags": "t_craftwork",
 				"desc": "制作一个精密零件。",
 				"require": "g.automatasculpting>=5",
@@ -311,7 +312,7 @@
 				"result": {
 					"fineparts": 1
 				},
-				"group": "crafting"
+				"group": "制造"
 			}
 		],
 		"upgrades": [
@@ -335,7 +336,7 @@
 					"automatasculpting.rate": 0.3
 				},
 				"flavor": "它们动作多么顺畅，比人类更易理解……",
-				"group": "knowledge"
+				"group": "知识"
 			},
 			{
 				"id": "finesorting",
@@ -345,7 +346,7 @@
 				"max": 1,
 				"need": "g.fineparts>0",
 				"needtext": "至少制作一个精密零件以开始。",
-				"group": "crafting"
+				"group": "制造"
 			},
 			{
 				"id": "clockworkexpansion",
@@ -361,7 +362,7 @@
 					"clockworkhome.mod.puppetry.rate": 1
 				},
 				"flavor": "突出的肢臂对家庭维护非常有用",
-				"group": "housing"
+				"group": "居住"
 			},
 			{
 				"id": "clockworkexpansion2",
@@ -377,7 +378,7 @@
 					"clockworkhome.mod.machinacreation.rate": 1
 				},
 				"flavor": "活动的地板确实减少了人流",
-				"group": "housing"
+				"group": "居住"
 			},
 			{
 				"id": "clockworkexpansion3",
@@ -393,7 +394,7 @@
 					"clockworkhome.mod.automatasculpting.rate": 1
 				},
 				"flavor": "居所能预判你的需求与愿望",
-				"group": "housing"
+				"group": "居住"
 			},
 			{
 				"id": "clockworkexpansione",
@@ -413,7 +414,7 @@
 					"machinae.max": 1
 				},
 				"flavor": "何必停下？",
-				"group": "housing"
+				"group": "居住"
 			},
 			{
 				"id": "strongstrings",
@@ -430,7 +431,7 @@
 					"puppetry.rate": 0.3
 				},
 				"flavor": "你才是掌控者",
-				"group": "knowledge"
+				"group": "知识"
 			},
 			{
 				"id": "ebonwoodsupply",
@@ -448,7 +449,7 @@
 					"minions.puppet.hp.max": 5
 				},
 				"flavor": "深色外观适合暗杀",
-				"group": "minions"
+				"group": "仆从"
 			},
 			{
 				"id": "runicanimation",
@@ -467,7 +468,7 @@
 					"minions.puppet.hp.max": "20%"
 				},
 				"flavor": "符文的微光相当醒目",
-				"group": "minions"
+				"group": "仆从"
 			},
 			{
 				"id": "proxies",
@@ -484,7 +485,7 @@
 					"vigor.rate": 0.01
 				},
 				"flavor": "到处走动是愚人的事",
-				"group": "body"
+				"group": "身体"
 			},
 			{
 				"id": "proxies2",
@@ -500,7 +501,7 @@
 				"mod": {
 					"spelllist.max": 10
 				},
-				"group": "spellcasting"
+				"group": "施法"
 			},
 			{
 				"id": "puppetspies",
@@ -516,7 +517,7 @@
 				"mod": {
 					"composure.max": 2
 				},
-				"group": "knowledge"
+				"group": "知识"
 			},
 			{
 				"id": "clockworkbutler",
@@ -533,7 +534,7 @@
 					"vigor.rate": 0.01
 				},
 				"flavor": "极为高效的仆从",
-				"group": "body"
+				"group": "身体"
 			},
 			{
 				"id": "precisionengineering",
@@ -551,7 +552,7 @@
 					"minions.machina.hp.max": 5
 				},
 				"flavor": "一层润饰",
-				"group": "minions"
+				"group": "仆从"
 			},
 			{
 				"id": "lubricant",
@@ -570,7 +571,7 @@
 					"minions.machina.speed": 3
 				},
 				"flavor": "在多种情况下都很有用",
-				"group": "minions"
+				"group": "仆从"
 			},
 			{
 				"id": "autoappraiser",
@@ -600,7 +601,7 @@
 						}
 					}
 				},
-				"group": "affluence"
+				"group": "财富"
 			},
 			{
 				"id": "autominer",
@@ -616,7 +617,7 @@
 				"mod": {
 					"gems.rate": 0.05
 				},
-				"group": "affluence"
+				"group": "财富"
 			},
 			{
 				"id": "algorithms",
@@ -635,7 +636,7 @@
 					"proxies2.max": 1,
 					"autominer.max": 2
 				},
-				"group": "crafting"
+				"group": "制造"
 			},
 			{
 				"id": "automatalab",
@@ -657,7 +658,7 @@
 					"charms.rate": "50%"
 				},
 				"flavor": "极为独特的事业",
-				"group": "education"
+				"group": "教育"
 			},
 			{
 				"id": "automatastudy",
@@ -675,7 +676,7 @@
 					"automatasculpting.rate": 0.3
 				},
 				"flavor": "努力往往没有回报",
-				"group": "knowledge"
+				"group": "知识"
 			},
 			{
 				"id": "autoagents",
@@ -698,7 +699,7 @@
 				"mod": {
 					"runner.max": 1
 				},
-				"group": "actions"
+				"group": "行动"
 			},
 			{
 				"id": "automatamastery",
@@ -718,7 +719,7 @@
 					"puppetry.max": 5,
 					"t_skill_animation.rate": 2
 				},
-				"group": "knowledge"
+				"group": "知识"
 			},
 			{
 				"id": "sculptingmastery",
@@ -737,7 +738,7 @@
 					"automataautomation.convert.output.effect.automatas": 0.01,
 					"assembleautomata.length": -5
 				},
-				"group": "crafting"
+				"group": "制造"
 			}
 		],
 		"spells": [
@@ -1644,8 +1645,9 @@
 		"resources": [
 			{
 				"id": "puppets",
+				"name": "傀儡",
 				"desc": "易于控制，但本质上无自主性。",
-				"group": "constructs",
+				"group": "构造物",
 				"max": 20,
 				"sortOrder": 605,
 				"flavor": "熟练的使用者可以上演精彩的表演。"
@@ -1654,7 +1656,7 @@
 				"id": "machinae",
 				"name": "机体",
 				"desc": "高耸的金属巨体，随时服从主人的命令。",
-				"group": "constructs",
+				"group": "构造物",
 				"max": 20,
 				"sortOrder": 610,
 				"flavor": "嗶嗶嘟嘟。"
@@ -1663,7 +1665,7 @@
 				"id": "automatas",
 				"name": "自动人偶",
 				"desc": "由半透明晶体构成的构造体，拥有纯净的学习心智。",
-				"group": "constructs",
+				"group": "构造物",
 				"max": 20,
 				"sortOrder": 615,
 				"flavor": "它肯定没你聪明。"
@@ -2013,7 +2015,7 @@
 								"condition": [
 									"hotdrinkservant"
 								],
-								"conditiontext": "hot drink"
+								"conditiontext": "热饮"
 							}
 						},
 						"dot": {
@@ -2219,7 +2221,7 @@
 								"condition": [
 									"tracking_dot"
 								],
-								"conditiontext": "tracking"
+								"conditiontext": "追踪"
 							}
 						},
 						"dot": {
@@ -2617,14 +2619,14 @@
 			},
 			{
 				"id": "mon_clockscout",
-				"name": "copper scout",
-				"desc": "A fast moving, green cloaked rogue, looking to call out your every movement.",
+				"name": "铜色侦察者",
+				"desc": "一个快速移动、披着绿斗篷的潜行者，似乎想记录你的每一个动作。",
 				"kind": "automata",
 				"tags": "clockwork",
 				"level": 28,
 				"noproc": true,
 				"attack": {
-					"name": "pipe bash",
+					"name": "管状重击",
 					"kind": "blunt",
 					"damage": "a.damage*0.8"
 				},
@@ -2636,7 +2638,8 @@
 		"classes": [
 			{
 				"id": "puppeteer",
-				"desc": "Assemble and control mechanical minions.",
+				"name": "傀儡师",
+				"desc": "组装并控制机械随从。",
 				"tags": "t_tier1,t_craftingclass,t_minionclass,t_mechaclass",
 				"require": "g.tier0>0&&g.puppetry>=5",
 				"cost": {
@@ -2658,8 +2661,8 @@
 			},
 			{
 				"id": "mechanist",
-				"name": "mechanist",
-				"desc": "Steel and magic",
+				"name": "机械师",
+				"desc": "钢铁与魔法的融合",
 				"tags": "t_tier3,t_craftingclass,t_minionclass,t_mechaclass",
 				"require": "g.tier2>0&&g.machinacreation>=5&&g.tier3==0",
 				"cost": {
@@ -2683,8 +2686,8 @@
 			},
 			{
 				"id": "mechamancer",
-				"name": "mechamancer",
-				"desc": "Master of magical constructs",
+				"name": "机魔法师",
+				"desc": "魔法构造物的大师",
 				"tags": "t_tier5,t_craftingclass,t_minionclass,t_mechaclass",
 				"require": "g.tier4>0&&g.magiphysics>=5&&g.machinacreation>=9&&g.t_mechaclass>0&&g.tier5==0",
 				"cost": {

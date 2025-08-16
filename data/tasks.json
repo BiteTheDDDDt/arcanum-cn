@@ -1705,7 +1705,7 @@
 	},
 	{
 		"id": "imbuebloodgem",
-		"name": "凝结宝石（血液）",
+		"name": "灌注宝石（血液）",
 		"require": "g.alchemy>=5&&g.anatomy>=5",
 		"need": "g.waterlore>0&&g.earthlore>0",
 		"fill": "bloodgem",

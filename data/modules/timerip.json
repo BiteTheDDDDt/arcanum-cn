@@ -140,7 +140,7 @@
 				"id": "timeparadox",
 				"name": "时间悖论",
 				"desc": "等等，马厩不是一百年前就被拆除了吗？",
-				"group": "adversities",
+				"group": "逆境",
 				"rate": -0.01,
 				"max": 20,
 				"sortOrder": 810,
@@ -284,7 +284,7 @@
 					"stabilizerest.mod.t_rest.effect.instability": -0.3,
 					"stabilizerest.mod.t_rest.effect.timeparadox": -0.01
 				},
-				"group": "instability"
+				"group": "不稳定性"
 			},
 			{
 				"id": "paradoxmitigation",
@@ -300,7 +300,7 @@
 					"timeparadox.rate": -0.01,
 					"timerip_locale.runmod.timeparadox.mod.instability.rate": -0.04
 				},
-				"group": "instability"
+				"group": "不稳定性"
 			},
 			{
 				"id": "instabilitymitigation",
@@ -316,7 +316,7 @@
 					"instability.rate": -0.3,
 					"instability.mod.tempus.rate": "0.1%"
 				},
-				"group": "instability"
+				"group": "不稳定性"
 			},
 			{
 				"id": "restfulstabilization",
@@ -346,7 +346,7 @@
 				"mod": {
 					"timerip_locale.length": -50
 				},
-				"group": "rip in time"
+				"group": "时裂"
 			},
 			{
 				"id": "ripshortening",
@@ -362,7 +362,7 @@
 					"timerip_locale.run.stamina": 0.2,
 					"timerip_locale.run.tempus": 0.2
 				},
-				"group": "rip in time"
+				"group": "时裂"
 			}
 		],
 		"spells": [
