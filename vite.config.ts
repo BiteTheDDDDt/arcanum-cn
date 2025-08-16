@@ -26,7 +26,7 @@ export default defineConfig(({ mode }) => {
 
     return {
 
-        base: isProduction ? 'arcanum' : undefined,
+        base: isProduction ? '/arcanum-cn/' : undefined,
         plugins: [
             vue({
                 template: {
@@ -73,7 +73,7 @@ export default defineConfig(({ mode }) => {
             __VUE_PROD_HYDRATION_MISMATCH_DETAILS__: !isProduction
         },
         build: {
-            outDir: isProduction ? 'dev' : 'dev',
+            outDir: isProduction ? 'dist' : 'dev',
             emptyOutDir: true,
             rollupOptions: {
                 input: {

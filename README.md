@@ -1,3 +1,6 @@
+# 魔法理论 汉化版
+
+从 https://gitlab.com/mathiashjelm/arcanum fork并进行汉化。
 
 # To play or modify the game
 
