@@ -5,8 +5,8 @@
 		"rares": [
 			{
 				"id": "trainingdagger",
-				"name": "dagger",
-				"desc": "A plain looking wooden dagger",
+				"name": "匕首",
+				"desc": "一把看起来普通的木制匕首",
 				"unique": true,
 				"level": 1,
 				"tags": "t_slash,t_martial,t_dagger,t_training",
@@ -18,13 +18,16 @@
 					"kind": "slash",
 					"tohit": 1,
 					"damage": "1~2",
-					"potencies": ["slashdmg", "physdmg"]
+					"potencies": [
+						"slashdmg",
+						"physdmg"
+					]
 				}
 			},
 			{
 				"id": "trainingdart",
-				"name": "homing dart",
-				"desc": "this should hit anything",
+				"name": "自导飞镖",
+				"desc": "这应该能命中任何目标",
 				"unique": true,
 				"level": 1,
 				"enchants": 1,
@@ -36,12 +39,15 @@
 					"kind": "pierce",
 					"harmless": true,
 					"damage": 1,
-					"potencies": ["piercedmg", "physdmg"]
+					"potencies": [
+						"piercedmg",
+						"physdmg"
+					]
 				}
 			},
 			{
 				"id": "traininghammer",
-				"name": "hammer",
+				"name": "训练锤",
 				"unique": true,
 				"level": 1,
 				"enchants": 1,
@@ -53,15 +59,19 @@
 					"kind": "blunt",
 					"tohit": -2,
 					"damage": "2~3",
-					"potencies": ["bluntdmg", "physdmg", "hammerdmg"]
+					"potencies": [
+						"bluntdmg",
+						"physdmg",
+						"hammerdmg"
+					]
 				}
 			}
 		],
 		"dungeons": [
 			{
 				"id": "traininggrounds",
-				"name": "training grounds",
-				"title": "Certified",
+				"name": "训练场",
+				"title": "认证",
 				"dist": 1,
 				"length": 20,
 				"require": "g.evt_helper>0",
@@ -73,29 +83,31 @@
 					"5": "armorydummy",
 					"20": "instructor"
 				},
-				"spawns": ["dummy"]
+				"spawns": [
+					"dummy"
+				]
 			}
 		],
 		"monsters": [
 			{
 				"id": "stddummy",
-				"name": "dummy1",
-				"desc": "Even fists would do",
+				"name": "训练傀儡",
+				"desc": "徒手也能击败它",
 				"noproc": true,
 				"level": 0,
 				"speed": -10,
 				"hp": 10,
 				"attack": {
 					"log": {
-						"name": "hit me!",
-						"desc": "Harder, HARDER I said. Spells will help"
+						"name": "打我！",
+						"desc": "用力点，我说过。法术会有帮助。"
 					}
 				}
 			},
 			{
 				"id": "noweapondummy",
-				"name": "hard dummy",
-				"desc": "Fists don't work against this guy",
+				"name": "韧性傀儡",
+				"desc": "徒手对它无效",
 				"noproc": true,
 				"level": 0,
 				"speed": -10,
@@ -103,8 +115,8 @@
 				"immune": "physical",
 				"attack": {
 					"log": {
-						"name": "Spells",
-						"desc": "Use your magic missile, from spellpage bind as quickslot or add to memorized"
+						"name": "法术",
+						"desc": "使用魔法飞弹：在法术页中绑定为快捷键或加入已记忆法术。"
 					}
 				},
 				"loot": {
@@ -113,8 +125,8 @@
 			},
 			{
 				"id": "weapondummy",
-				"name": "spellabsorber",
-				"desc": "Use a weapon for this guy",
+				"name": "吸法傀儡",
+				"desc": "对付它要使用武器",
 				"noproc": true,
 				"level": 0,
 				"speed": -10,
@@ -122,8 +134,8 @@
 				"immune": "force,blunt",
 				"attack": {
 					"log": {
-						"name": "Use your weapon",
-						"desc": "Go to the tab Equip and find the wood dagger and equip it"
+						"name": "使用你的武器",
+						"desc": "前往“装备”标签，找到木匕首并装备它。"
 					}
 				},
 				"loot": {
@@ -132,8 +144,8 @@
 			},
 			{
 				"id": "dodgydummy",
-				"name": "dodging dummy",
-				"desc": "Any normal means of attack is useless",
+				"name": "闪避傀儡",
+				"desc": "任何普通攻击对它无效",
 				"noproc": true,
 				"level": 0,
 				"hp": 1,
@@ -141,8 +153,8 @@
 				"dodge": 5,
 				"attack": {
 					"log": {
-						"name": "Can't hit me",
-						"desc": "Use the homing dart to hit this obnoxious dummy"
+						"name": "打不到我",
+						"desc": "使用自导飞镖命中这个烦人的傀儡。"
 					}
 				},
 				"loot": {
@@ -151,8 +163,8 @@
 			},
 			{
 				"id": "armorydummy",
-				"name": "armored dummy",
-				"desc": "Any normal attack leaves no mark",
+				"name": "装甲傀儡",
+				"desc": "任何普通攻击都无法留下痕迹",
 				"noproc": true,
 				"dodge": -30,
 				"hp": 10,
@@ -163,14 +175,14 @@
 				},
 				"attack": {
 					"log": {
-						"name": "Use your hammer",
-						"desc": "Only the hammer could leave a dent at this iron chunk"
+						"name": "使用你的锤子",
+						"desc": "只有锤子能在这块铁块上留下凹痕。"
 					}
 				}
 			},
 			{
 				"id": "instructor",
-				"desc": "Is he toying with you?",
+				"desc": "他是在戏耍你吗？",
 				"noproc": true,
 				"level": 1,
 				"dodge": 4,
@@ -183,22 +195,22 @@
 					"log": [
 						{
 							"%": "10%",
-							"desc": "Having a spell in memorized and a weapon in hand is most effective"
+							"desc": "将法术记忆并手持武器最为有效。"
 						},
 						{
 							"%": "10%",
-							"desc": "Casting spells manually makes for an easy combat"
+							"desc": "手动施法能让战斗更轻松。"
 						},
 						{
 							"%": "10%",
-							"desc": "Memorizing a good combination of buffs and attack spells increases survivability"
+							"desc": "记忆合理的增益与攻击法术组合可提高生存能力。"
 						}
 					]
 				}
 			},
 			{
 				"id": "dummy",
-				"desc": "Can't even hit back",
+				"desc": "甚至无法反击",
 				"noproc": true,
 				"level": 0,
 				"dodge": -10,

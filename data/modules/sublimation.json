@@ -7,9 +7,9 @@
 		"tasks": [
 			{
 				"id": "sublore",
-				"name": "sublimate lore",
+				"name": "升华学识",
 				"max": 10,
-				"desc": "Build a metaphysical array anchored to your very soul, reinforcing your magical aptitude.",
+				"desc": "构建一个以你的灵魂为锚的形而上阵列，从而增强你的魔法天赋。",
 				"require": "g.codices.max>=10&&g.crafting>=3&&g.tier0>0",
 				"cost": {
 					"scrolls": 8,
@@ -70,21 +70,21 @@
 				"mod": {
 					"research.max": 2
 				},
-				"group": "sublimation"
+				"group": "升华"
 			}
 		],
 		"glossaryentries": [
 			{
 				"id": "sublimation_mustytome",
-				"name": "Musty Tome",
-				"group": "sublimation",
+				"name": "发霉古卷",
+				"group": "升华",
 				"tags": "t_sublore",
 				"desc": [
 					"",
-					"An old tome found under piles of your Master's discarded projects. At some point, it boasted several locks holding it shut. The damp environment of the cellar and time have reduced the locks to dust.",
+					"在你师傅丢弃的项目堆下发现的一本古旧典籍。曾几何时，它有好几个锁将其封闭。地窖潮湿的环境与时间已将那些锁腐蚀成粉末。",
 					"",
-					"It describes some sort of self-empowering process a wizard may undertake to further bolster their powers.",
-					"Perhaps this warrants further investigation after graduation, when you can be away from your Master's prying eyes..."
+					"书中描述了一种法师可进行的自我赋能过程，以进一步增强其力量。",
+					"或许在毕业后、远离师傅窥视之时，这值得进一步探究……"
 				],
 				"require": "g.tier7>0"
 			}
@@ -92,12 +92,14 @@
 		"upgrades": [
 			{
 				"id": "crystallizedthoughts",
-				"name": "crystallized thoughts",
+				"name": "思绪结晶",
 				"tags": "t_sublore,t_sublore_t0",
-				"desc": "Crystallize your soul array, improving your ability to absorb arcane knowledge and energies.",
+				"desc": "将你的灵魂阵列结晶化，提高吸收奥术知识与能量的能力。",
 				"require": "g.sublore>=10&&g.tier7>0",
 				"warn": true,
-				"lock": ["t_sublore_t0"],
+				"lock": [
+					"t_sublore_t0"
+				],
 				"cost": {
 					"research": 750,
 					"mana": 10,
@@ -106,17 +108,17 @@
 				"mod": {
 					"crystalmind.mod.sublore.mod.arcana.rate": "0.002"
 				},
-				"group": "sublimation"
+				"group": "升华"
 			}
 		],
 		"tags": [
 			{
 				"id": "t_sublore",
-				"name": "Sublimation"
+				"name": "升华"
 			},
 			{
 				"id": "t_sublore_t0",
-				"name": "Sublimation - First Step"
+				"name": "升华 — 第一步"
 			}
 		]
 	}

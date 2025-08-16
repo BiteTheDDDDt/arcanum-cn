@@ -182,30 +182,30 @@ export default {
 		<explore v-if="explore.running" :explore="explore" />
 		<div class="content" v-else>
 			<div class="top">
-				<slotpick title="Mount" pick="mount" />
-				<span> Distance: {{ dist.current }} </span>
+				<slotpick title="坐骑" pick="mount" />
+				<span> 距离： {{ dist.current }} </span>
 				<span>
 					<span class="opt">
 						<input :id="elmId('lvlSort')" type="checkbox" v-model="chkLevelSort" />
-						<label :for="elmId('lvlSort')">Sort Level</label>
+						<label :for="elmId('lvlSort')">按等级排序</label>
 					</span>
 				</span>
 				<span>
 					<span class="opt">
 						<input :id="elmId('showDone')" type="checkbox" v-model="chkShowDone" />
-						<label :for="elmId('showDone')">Complete</label>
+						<label :for="elmId('showDone')">完成</label>
 					</span>
 					<span class="opt">
 						<input :id="elmId('ShowCombatDungeon')" type="checkbox" v-model="chkShowCombatDungeon" />
-						<label :for="elmId('ShowCombatDungeon')">Dungeon</label>
+						<label :for="elmId('ShowCombatDungeon')">地下城</label>
 					</span>
 					<span class="opt">
 						<input :id="elmId('ShowClash')" type="checkbox" v-model="chkShowClash" />
-						<label :for="elmId('ShowClash')">Clash</label>
+						<label :for="elmId('ShowClash')">对决</label>
 					</span>
 					<span class="opt">
 						<input :id="elmId('showLocale')" type="checkbox" v-model="chkShowLocale" />
-						<label :for="elmId('showLocale')">Locale</label>
+						<label :for="elmId('showLocale')">地点</label>
 					</span>
 				</span>
 				<filterbox class="inline" v-model="filtered" :prop="searchIt" :items="locales" />
@@ -217,7 +217,7 @@ export default {
 						<span @mouseenter.capture.stop="itemOver($event, d)">
 							<span>{{ d.sname.toString().toTitleCase() }}</span>
 							<button type="button" class="raid-btn" :disabled="!game.canRun(d)" @click="emit('task', d)">
-								Enter
+								进入
 							</button>
 						</span>
 						<span class="sym">{{ d.sym }}</span>

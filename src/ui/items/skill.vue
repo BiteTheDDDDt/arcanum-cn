@@ -33,14 +33,14 @@ export default {
 
 			<div class="flex-row" v-if="skill.owned">
 				<div class="flex-col">
-					<span>Level</span>
+					<span>等级</span>
 					<span>
 						{{ Math.floor(skill.valueOf()) + "/" + (Math.trunc(skill.max.valueOf() * 10) / 10).toFixed(1) }}
 					</span>
 				</div>
 
 				<button type="button" class="train-btn" @click="$emit('train', skill)" :disabled="!skill.canUse()">
-					{{ active ? "Stop" : "Train" }}
+					{{ active ? "停止" : "训练" }}
 				</button>
 			</div>
 
@@ -51,7 +51,7 @@ export default {
 
 		<div v-if="skill.owned">
 			<bar :value="skill.exp" :max="skill.length" hide-stats="true" />
-			exp: {{ exp + " / " + length }}
+			经验： {{ exp + " / " + length }}
 		</div>
 	</div>
 </template>

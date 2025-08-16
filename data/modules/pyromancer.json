@@ -7,9 +7,9 @@
 		"skills": [
 			{
 				"id": "flamesculpting",
-				"name": "soulflames",
+				"name": "灵焰术",
 				"require": "g.fulmination>0",
-				"desc": "Let the world see your radiance",
+				"desc": "让世人见证你的光辉",
 				"level": 10,
 				"max": 1,
 				"buy": {
@@ -28,11 +28,13 @@
 		"tasks": [
 			{
 				"id": "addember",
-				"name": "Ignite ember",
-				"desc": "Ignite a soul ember",
-				"group": "pyromancy",
+				"name": "点燃余烬",
+				"desc": "点燃一枚灵魂余烬",
+				"group": "火焰术",
 				"require": "g.flamesculpting>0",
-				"fill": ["soulember"],
+				"fill": [
+					"soulember"
+				],
 				"cost": {
 					"fire": 10
 				},
@@ -42,9 +44,9 @@
 			},
 			{
 				"id": "removeember",
-				"name": "Quench ember",
-				"desc": "Quench a soul ember",
-				"group": "pyromancy",
+				"name": "熄灭余烬",
+				"desc": "熄灭一枚灵魂余烬",
+				"group": "火焰术",
 				"require": "g.flamesculpting>0",
 				"cost": {
 					"soulember": 1
@@ -55,10 +57,10 @@
 			},
 			{
 				"id": "dissipateheat",
-				"name": "Disperse heat",
+				"name": "散热",
 				"cd": 60,
-				"desc": "Desperately release excess heat.",
-				"group": "pyromancy",
+				"desc": "紧急释放多余的热量。",
+				"group": "火焰术",
 				"require": "g.blazingsoul>=30",
 				"dot": {
 					"duration": 10,
@@ -70,10 +72,10 @@
 			},
 			{
 				"id": "heatup",
-				"name": "Fan the flames",
+				"name": "煽动火焰",
 				"cd": 60,
-				"desc": "Quickly generate a large amount of heat.",
-				"group": "pyromancy",
+				"desc": "快速产生大量热量。",
+				"group": "火焰术",
 				"require": "g.soulember>0",
 				"cost": {
 					"fire": 15
@@ -87,12 +89,14 @@
 			},
 			{
 				"id": "craftpureembers",
-				"name": "produce pure embers",
-				"desc": "Crystallize new pure embers, using your soul embers as catalysts.",
-				"group": "materials",
-				"verb": "refining embers",
+				"name": "精纯余烬",
+				"desc": "结晶新的纯净余烬，使用你的灵焰作为催化剂。",
+				"group": "材料",
+				"verb": "精炼余烬",
 				"require": "g.soulember>0",
-				"fill": ["pureember"],
+				"fill": [
+					"pureember"
+				],
 				"length": 30,
 				"cost": {
 					"soulheat": "Math.pow(25*g.soulember,0.9)"
@@ -103,12 +107,12 @@
 			},
 			{
 				"id": "remakeclaws",
-				"name": "call efreet's claws",
-				"desc": "The flames never die, the merely dissipate.",
-				"group": "weapon",
+				"name": "召回伊弗利特爪",
+				"desc": "火焰不会消亡，只会消散。",
+				"group": "武器",
 				"need": "g.inv.max-g.inv._used>=1",
-				"needtext": "Must have at least 1 inventory space free.",
-				"verb": "Recalling",
+				"needtext": "必须至少保留 1 个背包空位。",
+				"verb": "召回中",
 				"require": "g.makeclaws>0",
 				"length": 10,
 				"cost": {
@@ -127,13 +131,13 @@
 			},
 			{
 				"id": "makeclaws",
-				"name": "efreet's claws",
-				"desc": "Biting flames, shaped to rend and tear those who oppose you. Surrender to the destruction.",
-				"group": "weapon",
+				"name": "伊弗利特之爪",
+				"desc": "烈焰利爪，撕裂所有反对者。向毁灭臣服。",
+				"group": "武器",
 				"need": "g.inv.max-g.inv._used>=1",
-				"needtext": "Must have at least 1 inventory space free.",
+				"needtext": "必须至少保留 1 个背包空位。",
 				"max": 1,
-				"verb": "Creating Masterpiece",
+				"verb": "锻造中",
 				"require": "g.firelord>0&&g.flameofcreation>0",
 				"length": 180,
 				"cost": {
@@ -153,13 +157,13 @@
 			},
 			{
 				"id": "lavafishing",
-				"name": "Lava fishing",
-				"desc": "Fish for obsidianfish, flarefin koi and various other lava creatures. Leave valuable parts for your own use, sell the rest.",
-				"group": "affluence",
-				"flavor": "There is a surprisingly big market for salamander steaks, who knew....",
+				"name": "熔岩捕鱼",
+				"desc": "在熔岩中捕捞黑曜鱼、火鳍锦鲤及其他熔岩生物。留下贵重部位自用，其余出售。",
+				"group": "富裕",
+				"flavor": "火蜥蜴肉排居然有很大的市场，谁能想到……",
 				"need": "g.volcano>0",
-				"needtext": "Must live in the volcano.",
-				"verb": "lava dredging",
+				"needtext": "必须居住在火山。",
+				"verb": "熔岩打捞",
 				"require": "g.t_fireclass>0&&g.tier4>0",
 				"length": 60,
 				"cost": {
@@ -182,9 +186,9 @@
 		"upgrades": [
 			{
 				"id": "restingpoint",
-				"name": "equilibrium",
-				"desc": "Given enough time, any system tends toward equilibrium",
-				"group": "pyromancy",
+				"name": "平衡点",
+				"desc": "在足够时间下，任何系统趋向平衡",
+				"group": "火焰术",
 				"require": "g.flamesculpting>0",
 				"max": 1,
 				"cost": {
@@ -197,10 +201,10 @@
 			},
 			{
 				"id": "fulmination",
-				"name": "fulmination",
-				"desc": "Unlock the fiery potential within yourself",
-				"extdesc": "It is recommended that you read the relevant glossary entries first",
-				"group": "pyromancy",
+				"name": "爆燃",
+				"desc": "解锁体内的炽烈潜能",
+				"extdesc": "建议先阅读相关词条",
+				"group": "火焰术",
 				"require": "g.decipherpyronotes>0&&g.t_fireclass>0",
 				"max": 1,
 				"cost": {
@@ -210,9 +214,9 @@
 			},
 			{
 				"id": "thermalstudies",
-				"name": "thermal studies",
-				"desc": "A true adept of the flame must be well versed in the mysteries of thermodynamics",
-				"group": "magic",
+				"name": "热学研究",
+				"desc": "真正的火焰通晓热力学奥秘",
+				"group": "魔法",
 				"require": "g.flamesculpting>0&&g.t_fireclass>0",
 				"max": 1,
 				"cost": {
@@ -227,9 +231,9 @@
 			},
 			{
 				"id": "thermalbranding",
-				"name": "thermal branding",
-				"desc": "Application of arcane brands allows for significantly faster heat transfer",
-				"group": "magic",
+				"name": "热烙印",
+				"desc": "施加奥术烙印可显著加速热量传递",
+				"group": "魔法",
 				"require": "g.flamesculpting>0&&g.t_fireclass>=2",
 				"max": 1,
 				"cost": {
@@ -244,9 +248,9 @@
 			},
 			{
 				"id": "thermaldomination",
-				"name": "thermal dominion",
-				"desc": "Almost as if an invisible demon is at your disposal",
-				"group": "magic",
+				"name": "热力统御",
+				"desc": "仿佛有无形恶灵为你效力",
+				"group": "魔法",
 				"require": "g.flamesculpting>0&&g.t_fireclass>=3",
 				"max": 1,
 				"cost": {
@@ -261,13 +265,13 @@
 					"restingpoint.mod.blazingsoul.rate": -0.5,
 					"soulheat.mod.fire.rate": 0.005
 				},
-				"flavor": "You would probably name him Maxwell, if he existed"
+				"flavor": "如果他存在，你大概会叫他麦克斯韦"
 			},
 			{
 				"id": "flamedomain",
-				"name": "flame's domain",
-				"desc": "Harness the power of the volcano to amplify your magics",
-				"group": "housing",
+				"name": "火域",
+				"desc": "利用火山之力放大你的魔法",
+				"group": "住宅",
 				"require": "g.flamesculpting>0&&g.t_fireclass>0",
 				"max": 1,
 				"cost": {
@@ -283,9 +287,9 @@
 			},
 			{
 				"id": "cremation",
-				"name": "cremation",
-				"desc": "Add a little extra to your repertoire of funerary services",
-				"group": "affluence",
+				"name": "火葬服务",
+				"desc": "为你的殡葬服务增添一项额外选项",
+				"group": "富裕",
 				"require": "g.pyromancer>0&&g.embalm>0",
 				"max": 1,
 				"cost": {
@@ -297,13 +301,13 @@
 					"embalm.effect.gold": 0.75,
 					"embalm.run.fire": 1
 				},
-				"flavor": "Few are capable of reducing a body to ashes. You are amongst them"
+				"flavor": "少数人能将尸体化作灰烬，你正是其中之一"
 			},
 			{
 				"id": "wordsoffire",
-				"name": "words of fire",
-				"desc": "They say the flames hold the secrets of every book ever burned. Perhaps there is truth to that",
-				"group": "magic",
+				"name": "火之言语",
+				"desc": "据说火焰囊括了被焚书籍的所有秘密，也许这其中有其真相",
+				"group": "魔法",
 				"require": "g.flamesculpting>=3",
 				"max": 1,
 				"cost": {
@@ -315,13 +319,13 @@
 					"sublore.mod.research.max": 3,
 					"sublore.cost.codices": -2
 				},
-				"flavor": "Best not think about all the books burned for being 'indecent'"
+				"flavor": "最好别去想那些因所谓“不雅”而被焚毁的书籍"
 			},
 			{
 				"id": "flowingflames",
-				"name": "flowing flames",
-				"desc": "The flames flicker and dance, and so do you",
-				"group": "body",
+				"name": "流动之焰",
+				"desc": "火焰跳动，你亦随之舞动",
+				"group": "身体",
 				"require": "g.firebrand>0",
 				"max": 1,
 				"cost": {
@@ -336,9 +340,9 @@
 			},
 			{
 				"id": "firebranding",
-				"name": "brand of fire",
-				"desc": "Brand yourself with sigils of fire",
-				"group": "magic",
+				"name": "火之烙印",
+				"desc": "以火之符文烙印自身",
+				"group": "魔法",
 				"require": "g.firebrand>0",
 				"max": 1,
 				"cost": {
@@ -350,13 +354,13 @@
 					"firedmg": 5,
 					"restingpoint.mod.blazingsoul.rate": -0.05
 				},
-				"flavor": "Those in the know will recognize it"
+				"flavor": "知情者会认出它"
 			},
 			{
 				"id": "exoticfuels",
-				"name": "exotic fuels",
-				"desc": "A collection of arcane materials that facilitate production and imbuement of fire into objects",
-				"group": "materials",
+				"name": "异域燃料",
+				"desc": "一系列便于注入火焰的奥术材料",
+				"group": "材料",
 				"require": "g.pyromancer>0",
 				"max": 1,
 				"cost": {
@@ -368,30 +372,33 @@
 					"imbuefiregem.cost.fire": -3,
 					"craftfirerune.cost.firegem": -5
 				},
-				"flavor": "A lot of things burn. Some of them burn in ways most haven't seen before"
+				"flavor": "许多东西会燃烧，其中一些以人未见之方式燃烧"
 			},
 			{
 				"id": "hellfiretinctures",
-				"name": "hellfire tinctures",
-				"desc": "Most alchemists would advise running upon encountering the concoctions you can produce",
-				"group": "potions",
+				"name": "地狱火酊剂",
+				"desc": "多数炼金术士见到你能配出的这些混合物都会建议逃跑",
+				"group": "药剂",
 				"require": "g.firelord>0",
 				"max": 1,
-				"extdesc": "Replaces Flame Potion and Volatile Concoction with superior potions.",
+				"extdesc": "用更强效的药剂替换火焰药水和易爆配方。",
 				"cost": {
 					"firerune": 15,
 					"pureember": 8,
 					"pot_ignition": 1,
 					"pot_explodium": 1
 				},
-				"disable": ["pot_ignition", "pot_explodium"],
-				"flavor": "...it is also hypergolic with such things as cloth, wood, and hapless apprentices, not to mention asbestos, sand, and water-with which it reacts explosively"
+				"disable": [
+					"pot_ignition",
+					"pot_explodium"
+				],
+				"flavor": "…它会与布、木、手无寸铁的学徒甚至石棉、沙子和水发生超燃反应，剧烈爆炸。"
 			},
 			{
 				"id": "volcanostabilization",
-				"name": "volcano stabilization",
-				"desc": "Control the flow of magma to allow more space to be effectively used.",
-				"group": "housing",
+				"name": "火山稳定化",
+				"desc": "控制岩浆流动以更有效地利用空间。",
+				"group": "住宅",
 				"require": "g.firelord>0&&g.volcano>0",
 				"max": 10,
 				"cost": {
@@ -403,13 +410,13 @@
 					"pureember.max": 2,
 					"firerune.max": 2
 				},
-				"flavor": "Convection schmonvection"
+				"flavor": "对流算什么"
 			},
 			{
 				"id": "hightempsmelting",
-				"name": "high-temperature smelting",
-				"desc": "Use your mastery of fire to extract additional materials from mined ore.",
-				"group": "materials",
+				"name": "高温冶炼",
+				"desc": "利用对火焰的掌控，从矿石中提取额外材料。",
+				"group": "材料",
 				"require": "g.flamesculpting>=3&&g.act_mine>0",
 				"max": 2,
 				"cost": {
@@ -426,9 +433,9 @@
 			},
 			{
 				"id": "flameofcreation",
-				"name": "flame of creation",
-				"desc": "capture an ember of primordial flames for your own use.",
-				"group": "pyromancy",
+				"name": "创造之焰",
+				"desc": "捕获原始火焰的一缕余烬以供己用。",
+				"group": "火焰术",
 				"require": "g.firelord>0&&g.flamesculpting>=3",
 				"max": 1,
 				"cost": {
@@ -446,15 +453,15 @@
 					"pureember.max": 5,
 					"soulember.mod.soulheat.max": 3
 				},
-				"flavor": "With this, the possibilities seem endless"
+				"flavor": "有了它，可能性似乎无穷无尽"
 			},
 			{
 				"id": "quenchingrest",
 				"tags": "t_restmod",
-				"name": "Cooling immersion",
+				"name": "冷却浸泡",
 				"slot": "leisure",
 				"max": 1,
-				"desc": "Jump into a vat of freezing water as part of your relaxation routine.",
+				"desc": "作为放松程序的一部分，跳入冰冷的水缸。",
 				"require": "g.fulmination>0",
 				"buy": {
 					"watergem": 25,
@@ -465,21 +472,29 @@
 					"blazingsoul.mod.blazingsoul.rate": -0.01,
 					"soulheat.mod.soulheat.rate": -0.01
 				},
-				"group": "rest"
+				"group": "休息"
 			}
 		],
 		"spells": [
 			{
 				"id": "firedart",
-				"name": "fire dart",
+				"name": "火焰飞镖",
 				"sortOrder": 705,
 				"level": 1,
 				"school": "fire",
 				"keywords": {
-					"type": ["damage"],
-					"target": ["enemy"],
-					"targets": ["single"],
-					"delivery": ["instant"]
+					"type": [
+						"damage"
+					],
+					"target": [
+						"enemy"
+					],
+					"targets": [
+						"single"
+					],
+					"delivery": [
+						"instant"
+					]
 				},
 				"require": "g.spellbook>0&&g.firelore>0",
 				"buy": {
@@ -498,7 +513,10 @@
 					"damage": "i.damage||0",
 					"kind": "fire",
 					"tohit": 1,
-					"potencies": ["spelldmg", "firedmg"]
+					"potencies": [
+						"spelldmg",
+						"firedmg"
+					]
 				},
 				"at": {
 					"25": {
@@ -516,16 +534,24 @@
 			},
 			{
 				"id": "firebolt",
-				"name": "fire bolt",
-				"desc": "A small bolt of flame.",
+				"name": "火焰弹",
+				"desc": "一小股火焰。",
 				"sortOrder": 704,
 				"level": 2,
 				"school": "fire",
 				"keywords": {
-					"type": ["damage"],
-					"target": ["enemy"],
-					"targets": ["single"],
-					"delivery": ["instant"]
+					"type": [
+						"damage"
+					],
+					"target": [
+						"enemy"
+					],
+					"targets": [
+						"single"
+					],
+					"delivery": [
+						"instant"
+					]
 				},
 				"require": "g.firedart.owned&&g.firelore>=5",
 				"buy": {
@@ -545,7 +571,10 @@
 					"damage": "i.damage||0",
 					"tohit": 3,
 					"kind": "fire",
-					"potencies": ["spelldmg", "firedmg"]
+					"potencies": [
+						"spelldmg",
+						"firedmg"
+					]
 				},
 				"at": {
 					"25": {
@@ -563,16 +592,25 @@
 			},
 			{
 				"id": "searingbolt",
-				"name": "searing bolt",
-				"desc": "A bolt of fire with lingering flames",
+				"name": "灼热箭",
+				"desc": "带有余烬的火焰箭。",
 				"sortOrder": 703,
 				"level": 3,
 				"school": "fire",
 				"keywords": {
-					"type": ["damage"],
-					"target": ["enemy"],
-					"targets": ["single"],
-					"delivery": ["instant", "over time"]
+					"type": [
+						"damage"
+					],
+					"target": [
+						"enemy"
+					],
+					"targets": [
+						"single"
+					],
+					"delivery": [
+						"instant",
+						"over time"
+					]
 				},
 				"require": "g.firebolt.owned&&g.firelore>=8&&g.tier1>0",
 				"buy": {
@@ -592,12 +630,18 @@
 					"damage": "i.damage||0",
 					"tohit": 5,
 					"kind": "fire",
-					"potencies": ["spelldmg", "firedmg"],
+					"potencies": [
+						"spelldmg",
+						"firedmg"
+					],
 					"dot": {
 						"kind": "fire",
 						"damage": "2~3",
 						"duration": 10,
-						"potencies": ["spelldmg", "firedmg"]
+						"potencies": [
+							"spelldmg",
+							"firedmg"
+						]
 					}
 				},
 				"at": {
@@ -616,16 +660,25 @@
 			},
 			{
 				"id": "magmabolt",
-				"name": "magma bolt",
-				"desc": "A bolt of liquid-hot magma",
+				"name": "熔岩弹",
+				"desc": "一颗炽热的熔岩弹。",
 				"sortOrder": 702,
 				"level": 5,
 				"school": "fire",
 				"keywords": {
-					"type": ["damage"],
-					"target": ["enemy"],
-					"targets": ["single"],
-					"delivery": ["instant", "over time"]
+					"type": [
+						"damage"
+					],
+					"target": [
+						"enemy"
+					],
+					"targets": [
+						"single"
+					],
+					"delivery": [
+						"instant",
+						"over time"
+					]
 				},
 				"require": "g.searingbolt.owned&&g.firelore>=12&&g.tier3>0",
 				"buy": {
@@ -645,12 +698,18 @@
 					"damage": "i.damage||0",
 					"tohit": 7,
 					"kind": "fire",
-					"potencies": ["spelldmg", "firedmg"],
+					"potencies": [
+						"spelldmg",
+						"firedmg"
+					],
 					"dot": {
 						"damage": "4~6",
 						"kind": "fire",
 						"duration": 20,
-						"potencies": ["spelldmg", "firedmg"]
+						"potencies": [
+							"spelldmg",
+							"firedmg"
+						]
 					}
 				},
 				"at": {
@@ -669,17 +728,30 @@
 			},
 			{
 				"id": "flamestrike",
-				"desc": "Imbue your weapon with flame before striking.",
+				"name": "焰击",
+				"desc": "在出手前为武器注入火焰。",
 				"sortOrder": 313,
 				"level": 3,
 				"school": "martial",
-				"tags": ["t_nospellcraft"],
+				"tags": [
+					"t_nospellcraft"
+				],
 				"keywords": {
-					"type": ["damage"],
-					"target": ["enemy"],
-					"targets": ["single"],
-					"delivery": ["instant"],
-					"special": ["weapon"]
+					"type": [
+						"damage"
+					],
+					"target": [
+						"enemy"
+					],
+					"targets": [
+						"single"
+					],
+					"delivery": [
+						"instant"
+					],
+					"special": [
+						"weapon"
+					]
 				},
 				"require": "g.spellbook.value>0&&g.weaponlore>=4&&g.firelore>=8",
 				"buy": {
@@ -687,7 +759,9 @@
 					"tomes": 5,
 					"firegem": 10
 				},
-				"caststoppers": [1],
+				"caststoppers": [
+					1
+				],
 				"need": "g.player.getWeapon().hasTag('t_martial')",
 				"needtext": "Currently equipped weapon must be martial",
 				"cost": {
@@ -705,20 +779,33 @@
 					"kind": "fire",
 					"tohit": 5,
 					"damage": "(a.getWeapon().damage||0)*1.2",
-					"potencies": ["physdmg", "firedmg"]
+					"potencies": [
+						"physdmg",
+						"firedmg"
+					]
 				}
 			},
 			{
 				"id": "firestorm",
-				"desc": "Rain hell from above",
+				"desc": "从天而降的火雨",
 				"sortOrder": 700,
 				"level": 6,
 				"school": "fire",
 				"keywords": {
-					"type": ["damage"],
-					"target": ["self", "ally", "enemy"],
-					"targets": ["multiple"],
-					"delivery": ["over time"]
+					"type": [
+						"damage"
+					],
+					"target": [
+						"self",
+						"ally",
+						"enemy"
+					],
+					"targets": [
+						"multiple"
+					],
+					"delivery": [
+						"over time"
+					]
 				},
 				"require": "(g.firelore+g.firelore2)>=20&&g.tier4>0",
 				"buy": {
@@ -746,7 +833,10 @@
 								"kind": "fire",
 								"damage": "20~30",
 								"name": "firestorm",
-								"potencies": ["spelldmg", "firedmg"]
+								"potencies": [
+									"spelldmg",
+									"firedmg"
+								]
 							},
 							{
 								"targets": "allies",
@@ -763,16 +853,24 @@
 			},
 			{
 				"id": "conflagration",
-				"name": "conflagration",
-				"desc": "Incinerate all who stand before you",
+				"name": "焚燃",
+				"desc": "将所有挡在面前者化为灰烬",
 				"sortOrder": 710,
 				"level": 8,
 				"school": "fire",
 				"keywords": {
-					"type": ["damage"],
-					"target": ["enemy"],
-					"targets": ["multiple"],
-					"delivery": ["over time"]
+					"type": [
+						"damage"
+					],
+					"target": [
+						"enemy"
+					],
+					"targets": [
+						"multiple"
+					],
+					"delivery": [
+						"over time"
+					]
 				},
 				"require": "(g.firelore+g.firelore2)>=20&&g.tier4>0&&g.fulmination>0",
 				"buy": {
@@ -795,23 +893,34 @@
 						"kind": "fire",
 						"damage": "20~30",
 						"duration": 30,
-						"potencies": ["spelldmg", "firedmg"]
+						"potencies": [
+							"spelldmg",
+							"firedmg"
+						]
 					}
 				}
 			},
 			{
 				"id": "searingradiance",
-				"name": "searing radiance",
-				"desc": "All shall perish in flames",
-				"flavor": "Let them face the inferno",
+				"name": "灼热光辉",
+				"desc": "诸人皆将于烈焰中湮灭",
+				"flavor": "让他们直面炼狱之火",
 				"sortOrder": 715,
 				"level": 5,
 				"school": "fire",
 				"keywords": {
-					"type": ["damage"],
-					"target": ["enemy"],
-					"targets": ["multiple"],
-					"delivery": ["over time"]
+					"type": [
+						"damage"
+					],
+					"target": [
+						"enemy"
+					],
+					"targets": [
+						"multiple"
+					],
+					"delivery": [
+						"over time"
+					]
 				},
 				"require": "g.t_fireclass>=2&&g.fulmination>0",
 				"buy": {
@@ -835,22 +944,33 @@
 						"kind": "fire",
 						"damage": "10~20",
 						"duration": 15,
-						"potencies": ["spelldmg", "firedmg"]
+						"potencies": [
+							"spelldmg",
+							"firedmg"
+						]
 					}
 				}
 			},
 			{
 				"id": "starfire",
-				"name": "starfire",
-				"desc": "Like the power of the sun",
+				"name": "星火",
+				"desc": "仿若太阳之力",
 				"sortOrder": 716,
 				"level": 5,
 				"school": "fire",
 				"keywords": {
-					"type": ["damage"],
-					"target": ["enemy"],
-					"targets": ["multiple"],
-					"delivery": ["over time"]
+					"type": [
+						"damage"
+					],
+					"target": [
+						"enemy"
+					],
+					"targets": [
+						"multiple"
+					],
+					"delivery": [
+						"over time"
+					]
 				},
 				"require": "g.firelord>0&&g.fulmination>0",
 				"buy": {
@@ -875,24 +995,35 @@
 						"kind": "fire",
 						"damage": "10~15",
 						"duration": 120,
-						"potencies": ["spelldmg", "firedmg"]
+						"potencies": [
+							"spelldmg",
+							"firedmg"
+						]
 					}
 				}
 			},
 			{
 				"id": "water_heatdown",
-				"name": "scalding steam",
-				"desc": "Release a stream of extremely hot steam at an enemy",
-				"flavor": "hissssssssssssss",
+				"name": "灼热蒸汽",
+				"desc": "向敌人释放极热蒸汽",
+				"flavor": "嘶——",
 				"sortOrder": 504,
 				"level": 3,
 				"school": "water",
 				"tags": "t_ventspell",
 				"keywords": {
-					"type": ["damage"],
-					"target": ["enemy"],
-					"targets": ["single"],
-					"delivery": ["instant"]
+					"type": [
+						"damage"
+					],
+					"target": [
+						"enemy"
+					],
+					"targets": [
+						"single"
+					],
+					"delivery": [
+						"instant"
+					]
 				},
 				"require": "g.fulmination>0&&g.waterlore>=7",
 				"buy": {
@@ -912,23 +1043,35 @@
 				"attack": {
 					"kind": "water",
 					"damage": "10~12",
-					"potencies": ["spelldmg", "waterdmg", "firedmg"]
+					"potencies": [
+						"spelldmg",
+						"waterdmg",
+						"firedmg"
+					]
 				}
 			},
 			{
 				"id": "air_heatdown",
-				"name": "searing wind",
-				"desc": "Buffet a foe with scorching gusts of wind",
-				"flavor": "It's like a brief visit to hell",
+				"name": "灼风",
+				"desc": "以灼热劲风猛击敌人",
+				"flavor": "仿佛短暂造访炼狱",
 				"sortOrder": 604,
 				"level": 3,
 				"school": "air",
 				"tags": "t_ventspell",
 				"keywords": {
-					"type": ["damage"],
-					"target": ["enemy"],
-					"targets": ["single"],
-					"delivery": ["instant"]
+					"type": [
+						"damage"
+					],
+					"target": [
+						"enemy"
+					],
+					"targets": [
+						"single"
+					],
+					"delivery": [
+						"instant"
+					]
 				},
 				"require": "g.fulmination>0&&g.airlore>=7",
 				"buy": {
@@ -948,23 +1091,35 @@
 				"attack": {
 					"kind": "air",
 					"damage": "10~12",
-					"potencies": ["spelldmg", "airdmg", "firedmg"]
+					"potencies": [
+						"spelldmg",
+						"airdmg",
+						"firedmg"
+					]
 				}
 			},
 			{
 				"id": "earth_heatdown",
-				"name": "molten earth",
-				"desc": "Melt the ground under your foe's feet",
-				"flavor": "Better wear some thick-soled boots",
+				"name": "炽热大地",
+				"desc": "融化敌人脚下的土地",
+				"flavor": "最好穿上厚底靴",
 				"sortOrder": 807,
 				"level": 3,
 				"school": "earth",
 				"tags": "t_ventspell",
 				"keywords": {
-					"type": ["damage"],
-					"target": ["enemy"],
-					"targets": ["single"],
-					"delivery": ["instant"]
+					"type": [
+						"damage"
+					],
+					"target": [
+						"enemy"
+					],
+					"targets": [
+						"single"
+					],
+					"delivery": [
+						"instant"
+					]
 				},
 				"require": "g.fulmination>0&&g.earthlore>=7",
 				"buy": {
@@ -984,25 +1139,37 @@
 				"attack": {
 					"kind": "earth",
 					"damage": "10~12",
-					"potencies": ["spelldmg", "earthdmg", "firedmg"]
+					"potencies": [
+						"spelldmg",
+						"earthdmg",
+						"firedmg"
+					]
 				}
 			},
 			{
 				"id": "soulember_up",
-				"name": "Inflame",
-				"desc": "Explosively ignite a soul ember",
+				"name": "点燃",
+				"desc": "将一枚灵魂余烬猛烈点燃",
 				"sortOrder": 718,
 				"level": 2,
 				"school": "fire",
 				"keywords": {
-					"type": ["damage"],
-					"target": ["enemy"],
-					"targets": ["single"],
-					"delivery": ["instant"]
+					"type": [
+						"damage"
+					],
+					"target": [
+						"enemy"
+					],
+					"targets": [
+						"single"
+					],
+					"delivery": [
+						"instant"
+					]
 				},
 				"require": "g.fulmination>0&&g.soulember.max>=4",
 				"need": "g.blazingsoul<=1",
-				"needtext": "Cannot be performed when suffering from consuming flames",
+				"needtext": "处于吞噬之焰状态时无法施放",
 				"buy": {
 					"research": 5000,
 					"firegem": 25,
@@ -1021,25 +1188,36 @@
 				"attack": {
 					"kind": "fire",
 					"damage": "15~25",
-					"potencies": ["spelldmg", "firedmg"]
+					"potencies": [
+						"spelldmg",
+						"firedmg"
+					]
 				}
 			},
 			{
 				"id": "soulember_down",
-				"name": "Soul blaze",
-				"desc": "Expend a soul ember, enveloping the surroundings in released energies",
+				"name": "灵焰爆发",
+				"desc": "消耗一枚灵魂余烬，释放吞噬周围的能量",
 				"sortOrder": 717,
 				"level": 2,
 				"school": "fire",
 				"keywords": {
-					"type": ["damage"],
-					"target": ["enemy"],
-					"targets": ["multiple"],
-					"delivery": ["instant"]
+					"type": [
+						"damage"
+					],
+					"target": [
+						"enemy"
+					],
+					"targets": [
+						"multiple"
+					],
+					"delivery": [
+						"instant"
+					]
 				},
 				"require": "g.fulmination>0&&g.soulember.max>=4",
 				"need": "g.blazingsoul>=50",
-				"needtext": "Must be suffering from at least 50 consuming flames",
+				"needtext": "必须处于至少50点吞噬之焰状态",
 				"buy": {
 					"research": 5000,
 					"firegem": 25,
@@ -1059,21 +1237,32 @@
 					"maxTargets": 999,
 					"kind": "fire",
 					"damage": "10~15",
-					"potencies": ["spelldmg", "firedmg"]
+					"potencies": [
+						"spelldmg",
+						"firedmg"
+					]
 				}
 			},
 			{
 				"id": "searingflash",
-				"name": "flashfire",
-				"desc": "Release a gem's worth of fire in an instant",
+				"name": "闪燃",
+				"desc": "瞬间释放相当于一颗宝石的火焰",
 				"sortOrder": 719,
 				"level": 1,
 				"school": "fire",
 				"keywords": {
-					"type": ["damage"],
-					"target": ["enemy"],
-					"targets": ["single"],
-					"delivery": ["instant"]
+					"type": [
+						"damage"
+					],
+					"target": [
+						"enemy"
+					],
+					"targets": [
+						"single"
+					],
+					"delivery": [
+						"instant"
+					]
 				},
 				"require": "g.fulmination>0",
 				"buy": {
@@ -1091,19 +1280,26 @@
 				"attack": {
 					"kind": "fire",
 					"damage": "5~10",
-					"potencies": ["spelldmg", "firedmg"]
+					"potencies": [
+						"spelldmg",
+						"firedmg"
+					]
 				}
 			},
 			{
 				"id": "combust",
-				"name": "combustion",
-				"desc": "Use a fire gem to stoke the fire within.",
+				"name": "燃烧",
+				"desc": "以一颗火焰宝石激发体内之火。",
 				"sortOrder": 770,
 				"level": 1,
 				"school": "fire",
 				"keywords": {
-					"delivery": ["instant"],
-					"special": ["resource"]
+					"delivery": [
+						"instant"
+					],
+					"special": [
+						"resource"
+					]
 				},
 				"require": "(g.firebrand+g.firelord)>0",
 				"buy": {
@@ -1125,8 +1321,8 @@
 		"homes": [
 			{
 				"id": "volcano",
-				"name": "volcanic lair",
-				"desc": "Stark lair carved into a mountain of fire",
+				"name": "火山巢穴",
+				"desc": "雕刻于炽热山体中的粗陋巢穴",
 				"require": "g.fire>=20&&g.t_fireclass>0",
 				"buy": {
 					"research": 2000,
@@ -1142,14 +1338,16 @@
 					"lakeoffire.max": 2,
 					"lakeoffire.mod.firegem.rate": 0.03
 				},
-				"lock": ["latticewindow"]
+				"lock": [
+					"latticewindow"
+				]
 			}
 		],
 		"furniture": [
 			{
 				"id": "lakeoffire",
-				"name": "lake of fire",
-				"desc": "A lake of burning fire.",
+				"name": "火焰湖",
+				"desc": "一片燃烧的火焰湖。",
 				"tags": "firesource",
 				"max": 1,
 				"require": "(g.fire.max>=10&&g.space.max>=100)||g.volcano>0",
@@ -1168,8 +1366,8 @@
 			},
 			{
 				"id": "embercapacitor",
-				"name": "ember pedestal",
-				"desc": "Holds your soul embers safely.",
+				"name": "余烬祭台",
+				"desc": "安全安放你的灵魂余烬。",
 				"max": 3,
 				"require": "g.flamesculpting>0",
 				"cost": {
@@ -1185,8 +1383,8 @@
 			},
 			{
 				"id": "heatcapacitor",
-				"name": "heat capacitor",
-				"desc": "A large tank of enchanted water, capable of transmitting heat to and from you instantly.",
+				"name": "热容器",
+				"desc": "一个大型附魔水箱，可实现热量的瞬时传输。",
 				"max": 5,
 				"require": "g.soulheat>=50&&g.enchanting>=5",
 				"cost": {
@@ -1204,8 +1402,9 @@
 			},
 			{
 				"id": "heatconductor",
-				"name": "heat conductor",
-				"desc": "A number of enchantments designed for cooling your heat capacitors.",
+				"name": "导热装置",
+				"desc": "一系列设计用于冷却热容器的附魔。",
+				"flavor": "附魔制冰器、精确计算的气流、烧烤酱……",
 				"max": 5,
 				"require": "g.soulheat>=50&&g.enchanting>=5",
 				"cost": {
@@ -1217,16 +1416,15 @@
 				"mod": {
 					"heatcapacitor.mod.restingpoint.mod.blazingsoul.rate": -0.02,
 					"space": 5
-				},
-				"flavor": "Enchanted ice-makers, specially calculated airflow, barbeque sauce..."
+				}
 			}
 		],
 		"resources": [
 			{
 				"id": "soulember",
-				"name": "soul ember",
-				"desc": "The rising flames in your soul.",
-				"group": "esoteric",
+				"name": "灵魂余烬",
+				"desc": "体内升腾的焰火。",
+				"group": "秘术",
 				"max": 2,
 				"sortOrder": 560,
 				"mod": {
@@ -1242,12 +1440,12 @@
 					"soulheat.mod.fire.rate": 0.002,
 					"soulheat.mod.blazingsoul.rate": 0.005
 				},
-				"flavor": "Take care, lest it turns into a wildfire."
+				"flavor": "小心，免得它演变成失控的野火。"
 			},
 			{
 				"id": "soulheat",
-				"name": "blazing heat",
-				"desc": "Your accumulated heat, ready to burn your enemies to cinders",
+				"name": "灼热之焰",
+				"desc": "你积攒的热能，足以将敌人化为灰烬",
 				"tags": "specialty",
 				"rate": -1,
 				"max": 100,
@@ -1261,12 +1459,12 @@
 					"searingradiance.attack.dot.damage.max": 0.04,
 					"blazingsoul.rate": 0.015
 				},
-				"flavor": "The sight of a pyromancer, red-hot with radiant energies, is quite a spectacle to behold"
+				"flavor": "见到赤热散发光芒的火焰术士，确实是一场壮观的景象。"
 			},
 			{
 				"id": "blazingsoul",
-				"name": "consuming flames",
-				"desc": "Your lack of control resulted in the fire within breaking free.",
+				"name": "吞噬之焰",
+				"desc": "你对火焰的失控导致内火暴走。",
 				"tags": "menace",
 				"max": 100,
 				"rate": -0.2,
@@ -1279,16 +1477,16 @@
 					"element.rate": -0.0075,
 					"fire.rate": -0.01
 				},
-				"flavor": "By fire be purged!"
+				"flavor": "以火净化！"
 			},
 			{
 				"id": "pureember",
-				"name": "pure ember",
-				"desc": "Crystallized soulflame, tempered with annihilating energies.",
-				"group": "materials",
+				"name": "纯净余烬",
+				"desc": "结晶的灵焰，经湮灭之力淬炼。",
+				"group": "材料",
 				"max": 25,
 				"sortOrder": 585,
-				"flavor": "Too precious to ever entrust to anyone."
+				"flavor": "珍贵得不应托付于任何人。"
 			}
 		],
 		"classes": [
@@ -1361,7 +1559,11 @@
 					"kind": "fire",
 					"damage": "1+Math.pow((a.context.getData('soulheat')||0)*0.15,0.75)",
 					"tohit": -1,
-					"potencies": ["physdmg", "slashdmg", "firedmg"],
+					"potencies": [
+						"physdmg",
+						"slashdmg",
+						"firedmg"
+					],
 					"repeathits": 2,
 					"acquire": {
 						"soulheat": "1+(Math.pow(g.soulember,1.1))"
@@ -1417,7 +1619,9 @@
 				"length": 1,
 				"require": "g.tier1>0&&g.firelore>=10",
 				"boss": {
-					"1": ["consumedshade"]
+					"1": [
+						"consumedshade"
+					]
 				},
 				"run": {
 					"fire": 0.5
@@ -1457,12 +1661,18 @@
 							"damage": "i.damage||0",
 							"tohit": 5,
 							"kind": "fire",
-							"potencies": ["spelldmg", "firedmg"],
+							"potencies": [
+								"spelldmg",
+								"firedmg"
+							],
 							"dot": {
 								"kind": "fire",
 								"damage": "2~3",
 								"duration": 10,
-								"potencies": ["spelldmg", "firedmg"]
+								"potencies": [
+									"spelldmg",
+									"firedmg"
+								]
 							}
 						}
 					},
@@ -1475,7 +1685,10 @@
 							"damage": "i.damage||0",
 							"kind": "fire",
 							"tohit": 1,
-							"potencies": ["spelldmg", "firedmg"]
+							"potencies": [
+								"spelldmg",
+								"firedmg"
+							]
 						}
 					},
 					"magmabolt": {
@@ -1487,12 +1700,18 @@
 							"damage": "i.damage||0",
 							"tohit": 7,
 							"kind": "fire",
-							"potencies": ["spelldmg", "firedmg"],
+							"potencies": [
+								"spelldmg",
+								"firedmg"
+							],
 							"dot": {
 								"damage": "4~6",
 								"kind": "fire",
 								"duration": 20,
-								"potencies": ["spelldmg", "firedmg"]
+								"potencies": [
+									"spelldmg",
+									"firedmg"
+								]
 							}
 						}
 					}
@@ -1502,9 +1721,9 @@
 		"potions": [
 			{
 				"id": "pot_inferno",
-				"name": "Infernal Cocktail",
+				"name": "地狱鸡尾酒",
 				"tags": "t_combatpot,t_explodypot",
-				"desc": "A dangerous blend of flammable alcohols which smokelessly burns at a luminosity far too low to see in a dungeon.",
+				"desc": "一种危险的易燃混合物，在地牢中无烟燃烧，几乎无法用肉眼察觉。",
 				"require": "g.hellfiretinctures>0",
 				"level": 5,
 				"cd": 20,
@@ -1522,7 +1741,9 @@
 							"name": "invisible fire",
 							"kind": "fire",
 							"damage": "11~15",
-							"potencies": ["firedmg"],
+							"potencies": [
+								"firedmg"
+							],
 							"duration": 120
 						}
 					}
@@ -1530,9 +1751,9 @@
 			},
 			{
 				"id": "pot_dragonfire",
-				"name": "Dragonfire Phial",
+				"name": "龙焰瓶",
 				"tags": "t_combatpot,t_explodypot",
-				"desc": "An imminent chain-reaction kept in delicate suspension. Its flames stick to the target until no flesh remains.",
+				"desc": "一触即发的连锁反应精心悬浮于此，其火焰会粘附目标直至无肉可见。",
 				"require": "g.hellfiretinctures>0",
 				"level": 5,
 				"cd": 20,
@@ -1550,7 +1771,9 @@
 							"name": "dragonfire",
 							"kind": "fire",
 							"damage": "18~22",
-							"potencies": ["firedmg"],
+							"potencies": [
+								"firedmg"
+							],
 							"duration": 120
 						}
 					}
@@ -1562,10 +1785,10 @@
 				"upgrades": [
 					{
 						"id": "firelord_pyre",
-						"name": "ageless pyre",
+						"name": "永燃祭台",
 						"tags": "hall",
 						"sym": "🏰",
-						"desc": "Ever-bright, it acts as a stark reminder of the inevitable end.",
+						"desc": "永远明亮，作为不可避免终结的严峻提醒。",
 						"require": "g.firelord>0",
 						"max": 3,
 						"cost": {
@@ -1580,10 +1803,10 @@
 					},
 					{
 						"id": "charred_trophy",
-						"name": "charred notes",
+						"name": "焦炭残卷",
 						"tags": "hall",
 						"sym": "🏰",
-						"desc": "Found at a site of a failed experiment, only skilled pyromancers have any chance of deciphering them.",
+						"desc": "发现在一次失败实验的现场，只有熟练的火焰术士才有可能辨读其中内容。",
 						"require": "g.consumedshack>0",
 						"max": 1,
 						"mod": {
@@ -1597,11 +1820,11 @@
 				"tasks": [
 					{
 						"id": "decipherpyronotes",
-						"name": "decipher pyromancer's notes",
-						"desc": "The notes you found in that shack are finally starting to make sense.",
-						"extdesc": "Permanently unlocks Pyromancy glossary entries. You will not need to perform this action on following playthroughs once completed.",
-						"group": "pyromancy",
-						"verb": "deciphering",
+						"name": "解读火焰术笔记",
+						"desc": "你在小屋中发现的笔记终于开始变得有条理。",
+						"extdesc": "永久解锁火焰术词条。完成后在后续通关中无需再次执行此操作。",
+						"group": "火焰术",
+						"verb": "解读中",
 						"require": "(g.pyromancer+g.firebrand+g.firelord)>0&&(g.charred_trophy>0||g.consumedshack>0)",
 						"max": 1,
 						"length": 60,

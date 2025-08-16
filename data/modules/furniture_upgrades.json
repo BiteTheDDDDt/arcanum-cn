@@ -17,7 +17,7 @@
 				"mod": {
 					"studyroom.mod.focus.result.runner.skillprogress": "25%"
 				},
-				"group": "furniture"
+				"group": "家具"
 			},
 			{
 				"id": "better_study",
@@ -34,7 +34,7 @@
 				"mod": {
 					"studyroom.mod.focus.result.runner.skillprogress": "10%"
 				},
-				"group": "furniture"
+				"group": "家具"
 			},
 			{
 				"id": "better_pedestal",
@@ -51,7 +51,7 @@
 				"mod": {
 					"pedestal.mod.focus.result.runner.skillprogress": "5%"
 				},
-				"group": "furniture"
+				"group": "家具"
 			},
 			{
 				"id": "packmule",
@@ -67,7 +67,7 @@
 					"mule.mod.inv.max": 5,
 					"mule.mod.gold.max": 150
 				},
-				"group": "mount"
+				"group": "坐骑"
 			},
 			{
 				"id": "rejuvenation_feed",
@@ -82,7 +82,7 @@
 					"mule.mod.dist": 50,
 					"oldnag.mod.dist": 60
 				},
-				"group": "mount"
+				"group": "坐骑"
 			}
 		]
 	}

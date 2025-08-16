@@ -659,6 +659,7 @@
 	},
 	{
 		"id": "geosculpting",
+		"name": "大地塑形",
 		"desc": "弯曲大地以符合你的意志。",
 		"require": "g.t_earthclass>0",
 		"level": 5,
@@ -777,6 +778,7 @@
 	},
 	{
 		"id": "potions",
+		"name": "药剂学",
 		"require": "g.crafting>=3&&g.alchemy>=2&&g.potsource.locked==0",
 		"need": [
 			"workspace",
@@ -795,6 +797,7 @@
 	},
 	{
 		"id": "enchanting",
+		"name": "附魔",
 		"require": "g.tier1>0&&g.lore>=11",
 		"desc": "赋予普通宝石和物品魔法属性。",
 		"level": 10,
@@ -816,6 +819,7 @@
 	},
 	{
 		"id": "alchemy",
+		"name": "炼金术",
 		"school": "elemental",
 		"require": "g.tier0>0&&g.herbalism>=4",
 		"buy": {
@@ -831,6 +835,7 @@
 	},
 	{
 		"id": "astronomy",
+		"name": "天文学",
 		"need": "starsource",
 		"buy": {
 			"arcana": 7
@@ -844,6 +849,7 @@
 	},
 	{
 		"id": "mysticism",
+		"name": "神秘学",
 		"require": "g.lore>=8",
 		"desc": "感知奥术能量的流动和波动的能力。",
 		"buy": {
@@ -936,6 +942,7 @@
 	},
 	{
 		"id": "chronomancy",
+		"name": "时间魔法",
 		"desc": "一定有办法...",
 		"flavor": "事情太多，时间太少。",
 		"level": 15,
@@ -958,6 +965,7 @@
 	},
 	{
 		"id": "scrying",
+		"name": "占视术",
 		"require": "g.divination>=6",
 		"level": 5,
 		"buy": {

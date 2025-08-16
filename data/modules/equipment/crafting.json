@@ -5,103 +5,111 @@
 		"tags": [
 			{
 				"id": "t_eq_resource",
-				"name": "Equipment Material"
+				"name": "装备材料"
 			}
 		],
 		"resources": [
 			{
 				"id": "iron",
+				"name": "铁",
 				"tags": "t_eq_resource",
-				"group": "materials",
+				"group": "材料",
 				"max": 50,
 				"sortOrder": 440
 			},
 			{
 				"id": "quicksteel",
+				"name": "速钢",
 				"tags": "t_eq_resource",
-				"group": "materials",
+				"group": "材料",
 				"max": 50,
 				"sortOrder": 441
 			},
 			{
 				"id": "adamant",
+				"name": "精金",
 				"tags": "t_eq_resource",
-				"group": "materials",
+				"group": "材料",
 				"max": 50,
 				"sortOrder": 442
 			},
 			{
 				"id": "leather",
+				"name": "皮革",
 				"tags": "t_eq_resource",
-				"group": "materials",
+				"group": "材料",
 				"max": 50,
 				"sortOrder": 443
 			},
 			{
 				"id": "serpentskin",
-				"name": "Serpent Skin",
+				"name": "蛇皮",
 				"tags": "t_eq_resource",
-				"group": "materials",
+				"group": "材料",
 				"max": 50,
 				"sortOrder": 444
 			},
 			{
 				"id": "aetherhide",
+				"name": "以太皮",
 				"tags": "t_eq_resource",
-				"group": "materials",
+				"group": "材料",
 				"max": 50,
 				"sortOrder": 445
 			},
 			{
 				"id": "cotton",
+				"name": "棉布",
 				"tags": "t_eq_resource",
-				"group": "materials",
+				"group": "材料",
 				"max": 50,
 				"sortOrder": 446
 			},
 			{
 				"id": "spidersilk",
-				"name": "Spider Silk",
+				"name": "蜘蛛丝",
 				"tags": "t_eq_resource",
-				"group": "materials",
+				"group": "材料",
 				"max": 50,
 				"sortOrder": 447
 			},
 			{
 				"id": "amberroot",
-				"name": "Amber Root",
+				"name": "琥珀根",
 				"tags": "t_eq_resource",
-				"group": "materials",
+				"group": "材料",
 				"max": 50,
 				"sortOrder": 448
 			},
 			{
 				"id": "rubies",
+				"name": "红宝石",
 				"tags": "t_eq_resource",
-				"group": "materials",
+				"group": "材料",
 				"max": 50,
 				"sortOrder": 449
 			},
 			{
 				"id": "diamonds",
+				"name": "钻石",
 				"tags": "t_eq_resource",
-				"group": "materials",
+				"group": "材料",
 				"max": 50,
 				"sortOrder": 450
 			},
 			{
 				"id": "basiliskhide",
-				"name": "Basilisk Hide",
+				"name": "蛇怪皮",
 				"tags": "t_eq_resource",
-				"group": "materials",
+				"group": "材料",
 				"max": 50,
 				"sortOrder": 451
 			},
 			{
 				"id": "dragonscale",
-				"name": "Dragon Scales",
+				"name": "龙鳞",
 				"tags": "t_eq_resource",
-				"group": "materials",
+				"group": "材料",
 				"max": 500,
 				"sortOrder": 452
 			}
@@ -109,13 +117,17 @@
 		"furniture": [
 			{
 				"id": "eq_res_storage",
-				"name": "Material Chest",
-				"desc": "A big crate for magical bits and pieces you scavenge during your adventures.",
-				"flavor": "*Slaps roof of the crate* This could even fit an arm and a leg of mythical creature",
+				"name": "材料箱",
+				"desc": "一个用来存放你冒险中收集的魔法材料的大箱子。",
+				"flavor": "*拍了拍箱子的盖子* 甚至能装下一只神话生物的胳膊和一条腿",
 				"require": "g.runelore>=4",
 				"repeat": true,
-				"cost": { "gold": 400 },
-				"sell": { "gold": 400 },
+				"cost": {
+					"gold": 400
+				},
+				"sell": {
+					"gold": 400
+				},
 				"mod": {
 					"t_eq_resource.max": "20%",
 					"space": 5

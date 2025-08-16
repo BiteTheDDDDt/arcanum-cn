@@ -77,7 +77,7 @@
 			{
 				"id": "skillboost",
 				"group": "basic",
-				"name": "Focus Boost",
+				"name": "专注提升",
 				"max": 1000,
 				"sortOrder": 10,
 				"rate": -0.001,
@@ -226,10 +226,10 @@
 			},
 			{
 				"id": "magelorelearn1",
-				"name": "Mage Lore: Competence",
+				"name": "法术学识：入门",
 				"desc": "",
 				"flavor": "",
-				"group": "education",
+				"group": "教育",
 				"require": "g.lore>=3&&g.lore.max>=6&&g.spellbook>0",
 				"cost": {
 					"scrolls": 1,
@@ -244,10 +244,10 @@
 			},
 			{
 				"id": "magelorelearn2",
-				"name": "Mage Lore: Expertise",
+				"name": "法术学识：精通",
 				"desc": "",
 				"flavor": "",
-				"group": "education",
+				"group": "教育",
 				"require": "g.lore>=8&&g.lore.max>=11&&g.magelorelearn1>0",
 				"cost": {
 					"scrolls": 4,
@@ -261,10 +261,10 @@
 			},
 			{
 				"id": "magelorelearn3",
-				"name": "Mage Lore: Mastery",
+				"name": "法术学识：大师",
 				"desc": "",
 				"flavor": "",
-				"group": "education",
+				"group": "教育",
 				"require": "g.lore>=13&&g.lore.max>=16&&g.magelorelearn2>0",
 				"cost": {
 					"codices": 1,
@@ -278,10 +278,10 @@
 			},
 			{
 				"id": "magelorelearn4",
-				"name": "Mage Lore: Supremancy",
+				"name": "法术学识：至高",
 				"desc": "",
 				"flavor": "",
-				"group": "education",
+				"group": "教育",
 				"require": "g.lore>=18&&g.lore.max>=21&&g.magelorelearn3>0",
 				"cost": {
 					"codices": 3,
@@ -300,10 +300,10 @@
 			},
 			{
 				"id": "magelorelearn5",
-				"name": "Mage Lore: Transcendence",
+				"name": "法术学识：超越",
 				"desc": "",
 				"flavor": "",
-				"group": "education",
+				"group": "教育",
 				"require": "g.lore>=23&&g.lore.max>=26&&g.magelorelearn4>0",
 				"cost": {
 					"tomes": 1,
@@ -1173,11 +1173,11 @@
 			},
 			{
 				"id": "craftinglearn1",
-				"name": "Crafting: Arms of Iron",
-				"desc": "Learn the basics of working with iron and other basic materials.",
-				"extdesc": "Unlocks basic materials and items for crafting.",
-				"flavor": "Normally you are supposed to get rusty, but it seems you already are.",
-				"group": "education",
+				"name": "锻造：铁器基础",
+				"desc": "学习使用铁与基础材料的基本方法。",
+				"extdesc": "解锁用于锻造的基础材料与物品。",
+				"flavor": "别人通常会生锈，但看起来你已经如此。",
+				"group": "教育",
 				"require": "g.crafting>=3&&g.crafting.max>=6",
 				"cost": {
 					"gold": 40
@@ -1189,11 +1189,11 @@
 			},
 			{
 				"id": "craftinglearn2",
-				"name": "Crafting: Arms of Quicksteel",
-				"desc": "Learn how to handle advanced materials in your crafting endeavors.",
-				"extdesc": "Unlocks advanced materials for crafting.",
-				"flavor": "So named for how easy it is to work with, not for its aerodynamic qualities.",
-				"group": "education",
+				"name": "锻造：速钢技艺",
+				"desc": "学习在锻造中处理更高级材料的技巧。",
+				"extdesc": "解锁用于锻造的高级材料。",
+				"flavor": "此名源于其易于加工，而非空气动力学特性。",
+				"group": "教育",
 				"require": "g.crafting>=8&&g.crafting.max>=11&&g.craftinglearn1>0",
 				"cost": {
 					"gold": 100

@@ -16,7 +16,8 @@
 			"plains",
 			"woods",
 			"hills"
-		]
+		],
+		"name": "蝾螈"
 	},
 	{
 		"id": "kakapo",
@@ -29,7 +30,8 @@
 			"name": "喙击",
 			"type": "pierce",
 			"damage": "1~4"
-		}
+		},
+		"name": "卡卡波"
 	},
 	{
 		"id": "wisp",
@@ -48,7 +50,8 @@
 				"flags": "noattack",
 				"duration": 3
 			}
-		}
+		},
+		"name": "幽光"
 	},
 	{
 		"id": "gremlin",
@@ -61,7 +64,8 @@
 			"name": "利爪",
 			"kind": "slash",
 			"damage": 1
-		}
+		},
+		"name": "小地精"
 	},
 	{
 		"id": "twikman",
@@ -90,7 +94,8 @@
 			"name": "咬击",
 			"kind": "pierce",
 			"damage": "0.5~1.5"
-		}
+		},
+		"name": "蝙蝠"
 	},
 	{
 		"id": "lgmouse",
@@ -165,7 +170,8 @@
 			"name": "讨厌的咬合",
 			"kind": "pierce",
 			"damage": "1~2"
-		}
+		},
+		"name": "人造侏儒"
 	},
 	{
 		"id": "jackal",
@@ -179,7 +185,8 @@
 			"kind": "pierce",
 			"damage": "1~3"
 		},
-		"biome": "plains"
+		"biome": "plains",
+		"name": "豺"
 	},
 	{
 		"id": "lgsnail",
@@ -289,7 +296,8 @@
 			"name": "袋熊攻击",
 			"kind": "blunt",
 			"damage": "1~3.5"
-		}
+		},
+		"name": "Wombat"
 	},
 	{
 		"id": "coyote",
@@ -381,7 +389,8 @@
 				"value": "2~5",
 				"skipLocked": true
 			}
-		}
+		},
+		"name": "骷髅"
 	},
 	{
 		"id": "badexperiment",
@@ -433,7 +442,8 @@
 			"name": "匕首",
 			"kind": "pierce",
 			"damage": "1~2"
-		}
+		},
+		"name": "哥布林"
 	},
 	{
 		"id": "gobwarrior",
@@ -474,7 +484,8 @@
 				"%": "50%",
 				"value": "2~3"
 			}
-		}
+		},
+		"name": "哥布林祭司"
 	},
 	{
 		"id": "gobchief",
@@ -487,7 +498,8 @@
 			"name": "生锈的切割刀",
 			"kind": "slash",
 			"damage": "1~4"
-		}
+		},
+		"name": "哥布林酋长"
 	},
 	{
 		"id": "gobchief2",
@@ -505,7 +517,8 @@
 		},
 		"loot": {
 			"iron": "5~12"
-		}
+		},
+		"name": "哥布林酋长（强大）"
 	},
 	{
 		"id": "gobchamp",
@@ -516,7 +529,8 @@
 		"attack": {
 			"damage": "4~7",
 			"kind": "slash"
-		}
+		},
+		"name": "Gobchamp"
 	},
 	{
 		"id": "gobking",
@@ -529,7 +543,8 @@
 			"damage": "5~9",
 			"kind": "mana"
 		},
-		"flavor": "你让我想起了那个婴儿。"
+		"flavor": "你让我想起了那个婴儿。",
+		"name": "Gobking"
 	},
 	{
 		"id": "warg",
@@ -547,7 +562,8 @@
 				"%": "30%",
 				"value": "5~7"
 			}
-		}
+		},
+		"name": "Warg"
 	},
 	{
 		"id": "giantspider",
@@ -596,7 +612,8 @@
 		},
 		"loot": {
 			"gold": "1~3"
-		}
+		},
+		"name": "科博德"
 	},
 	{
 		"id": "orc",
@@ -615,7 +632,8 @@
 				"%": "30%",
 				"value": "3~5"
 			}
-		}
+		},
+		"name": "兽人"
 	},
 	{
 		"id": "orcpriest",
@@ -684,7 +702,8 @@
 				"value": 1,
 				"skipLocked": true
 			}
-		}
+		},
+		"name": "僵尸"
 	},
 	{
 		"id": "vulture",
@@ -696,7 +715,8 @@
 			"name": "啄击",
 			"kind": "pierce",
 			"damage": "2~3"
-		}
+		},
+		"name": "Vulture"
 	},
 	{
 		"id": "cutpurse",
@@ -716,7 +736,8 @@
 				"%": "30%",
 				"value": "2~4"
 			}
-		}
+		},
+		"name": "Cutpurse"
 	},
 	{
 		"id": "elf",
@@ -736,7 +757,8 @@
 					"id": "entangle"
 				}
 			}
-		]
+		],
+		"name": "Elf"
 	},
 	{
 		"id": "slinger",
@@ -807,7 +829,8 @@
 				"%": "75%",
 				"value": "2~3"
 			}
-		}
+		},
+		"name": "Scrapling"
 	},
 	{
 		"id": "eel",
@@ -879,7 +902,8 @@
 		"resist": {
 			"water": 25,
 			"air": 25
-		}
+		},
+		"name": "Icewalker"
 	},
 	{
 		"id": "ranger",
@@ -890,7 +914,8 @@
 			"name": "长弓",
 			"kind": "pierce",
 			"damage": "a.damage*0.8"
-		}
+		},
+		"name": "Ranger"
 	},
 	{
 		"id": "highelf",
@@ -980,7 +1005,8 @@
 			"name": "斧头",
 			"kind": "slash",
 			"damage": "5~9"
-		}
+		},
+		"name": "Thrall"
 	},
 	{
 		"id": "bandit",
@@ -1001,7 +1027,8 @@
 				"%": "60%",
 				"value": "2~3"
 			}
-		}
+		},
+		"name": "Bandit"
 	},
 	{
 		"id": "electriceel",
@@ -1045,7 +1072,8 @@
 			"name": "匕首",
 			"kind": "pierce",
 			"damage": "2~3"
-		}
+		},
+		"name": "Hobgoblin"
 	},
 	{
 		"id": "snek",
@@ -1125,7 +1153,8 @@
 				"%": "40%",
 				"value": "2~4"
 			}
-		}
+		},
+		"name": "狼"
 	},
 	{
 		"id": "leech",
@@ -1137,7 +1166,8 @@
 			"kind": "pierce",
 			"damage": "2~4",
 			"leech": 0.5
-		}
+		},
+		"name": "Leech"
 	},
 	{
 		"id": "slime",
@@ -1164,7 +1194,8 @@
 				"skipLocked": true
 			},
 			"gems": "2~3"
-		}
+		},
+		"name": "黏液怪"
 	},
 	{
 		"id": "corpse",
@@ -1222,7 +1253,8 @@
 				"duration": 15,
 				"damage": 1
 			}
-		}
+		},
+		"name": "Ghoul"
 	},
 	{
 		"id": "mechswordsman",
@@ -1269,7 +1301,8 @@
 		"resist": {
 			"water": 15,
 			"nature": 20
-		}
+		},
+		"name": "Crocodile"
 	},
 	{
 		"id": "snowleopard",
@@ -1307,7 +1340,8 @@
 				"%": "30%",
 				"value": "5~7"
 			}
-		}
+		},
+		"name": "牛头人"
 	},
 	{
 		"id": "werewolf",
@@ -1322,7 +1356,8 @@
 			"name": "爪击",
 			"kind": "slash",
 			"damage": "3~6"
-		}
+		},
+		"name": "Werewolf"
 	},
 	{
 		"id": "lion",
@@ -1336,7 +1371,8 @@
 			"name": "爪击",
 			"kind": "slash",
 			"damage": "7~10"
-		}
+		},
+		"name": "狮子"
 	},
 	{
 		"id": "harpy",
@@ -1350,7 +1386,8 @@
 			"name": "爪击",
 			"kind": "slash",
 			"damage": "3~5"
-		}
+		},
+		"name": "Harpy"
 	},
 	{
 		"id": "drunkenboxer",
@@ -1390,7 +1427,8 @@
 		],
 		"resist": {
 			"fire": 20
-		}
+		},
+		"name": "Imp"
 	},
 	{
 		"id": "lgspider",
@@ -1465,7 +1503,8 @@
 			"name": "爪子",
 			"kind": "slash",
 			"damage": "2~3.5"
-		}
+		},
+		"name": "Vrrek"
 	},
 	{
 		"id": "callodiper",
@@ -1483,7 +1522,8 @@
 			"maxTargets": 999,
 			"kind": "light",
 			"damage": "a.damage*0.7"
-		}
+		},
+		"name": "Callodiper"
 	},
 	{
 		"id": "direwolf",
@@ -1514,7 +1554,8 @@
 			"name": "幽灵爪",
 			"kind": "spirit",
 			"damage": "0~10"
-		}
+		},
+		"name": "Wight"
 	},
 	{
 		"id": "doppelganger",
@@ -1541,7 +1582,8 @@
 				"kind": "light",
 				"damage": "5~8"
 			}
-		]
+		],
+		"name": "Doppelganger"
 	},
 	{
 		"id": "ghost",
@@ -1559,7 +1601,8 @@
 			"slash": 50,
 			"pierce": 50,
 			"blunt": 50
-		}
+		},
+		"name": "Ghost"
 	},
 	{
 		"id": "ghost2",
@@ -1629,7 +1672,8 @@
 					]
 				}
 			}
-		}
+		},
+		"name": "Salamander"
 	},
 	{
 		"id": "giantsnake",
@@ -1658,7 +1702,8 @@
 			"name": "钉锤",
 			"kind": "blunt",
 			"damage": "2.5~4"
-		}
+		},
+		"name": "Bugbear"
 	},
 	{
 		"id": "evilpriest",
@@ -1702,7 +1747,8 @@
 			"targets": "enemies",
 			"maxTargets": 999,
 			"damage": "10~15"
-		}
+		},
+		"name": "Blasphemer"
 	},
 	{
 		"id": "m_hierophant",
@@ -1787,7 +1833,8 @@
 			"name": "爪子",
 			"kind": "slash",
 			"damage": "a.damage*0.8"
-		}
+		},
+		"name": "熊"
 	},
 	{
 		"id": "ghast",
@@ -1800,7 +1847,8 @@
 			"name": "爪击",
 			"kind": "slash",
 			"damage": "a.damage*0.8"
-		}
+		},
+		"name": "Ghast"
 	},
 	{
 		"id": "berserker",
@@ -1813,7 +1861,8 @@
 			"name": "巨剑",
 			"kind": "slash",
 			"damage": "3~10"
-		}
+		},
+		"name": "Berserker"
 	},
 	{
 		"id": "quasit",
@@ -1831,7 +1880,8 @@
 				"%": "60%",
 				"value": "2~3"
 			}
-		}
+		},
+		"name": "Quasit"
 	},
 	{
 		"id": "greaterzombie",
@@ -1884,7 +1934,8 @@
 			"name": "扼杀",
 			"kind": "blunt",
 			"damage": "40~60"
-		}
+		},
+		"name": "Dwarp"
 	},
 	{
 		"id": "ogre",
@@ -1898,7 +1949,8 @@
 			"name": "巨棒",
 			"kind": "blunt",
 			"damage": "6~9"
-		}
+		},
+		"name": "巨魔"
 	},
 	{
 		"id": "ogrewarrior",
@@ -1967,7 +2019,8 @@
 			"name": "霜冻箭",
 			"kind": "water",
 			"damage": "4~17"
-		}
+		},
+		"name": "Frixie"
 	},
 	{
 		"id": "claygolem",
@@ -2063,7 +2116,8 @@
 				"%": "30%",
 				"value": "2~4"
 			}
-		}
+		},
+		"name": "Ettin"
 	},
 	{
 		"id": "shark",
@@ -2082,7 +2136,8 @@
 		},
 		"resist": {
 			"water": 50
-		}
+		},
+		"name": "Shark"
 	},
 	{
 		"id": "shade",
@@ -2099,7 +2154,8 @@
 			"kind": "spirit",
 			"damage": "100~140",
 			"leech": 0.05
-		}
+		},
+		"name": "Shade"
 	},
 	{
 		"id": "stalker",
@@ -2185,7 +2241,8 @@
 		},
 		"resist": {
 			"air": 20
-		}
+		},
+		"name": "天马"
 	},
 	{
 		"id": "earthelemental",
@@ -2255,7 +2312,8 @@
 			"name": "魔法角",
 			"kind": "mana",
 			"damage": "8~10"
-		}
+		},
+		"name": "独角兽"
 	},
 	{
 		"id": "vampire",
@@ -2270,7 +2328,8 @@
 			"kind": "shadow",
 			"damage": "6~15",
 			"leech": 0.1
-		}
+		},
+		"name": "吸血鬼"
 	},
 	{
 		"id": "wraith",
@@ -2294,7 +2353,8 @@
 				"value": "2~4",
 				"skipLocked": true
 			}
-		}
+		},
+		"name": "Wraith"
 	},
 	{
 		"id": "magicmirror",
@@ -2330,7 +2390,8 @@
 			{
 				"firegem": "1~3"
 			}
-		]
+		],
+		"name": "凤凰"
 	},
 	{
 		"id": "iceelemental",
@@ -2374,7 +2435,8 @@
 				"maxTargets": 999,
 				"damage": "1.5~3.5"
 			}
-		]
+		],
+		"name": "Roc"
 	},
 	{
 		"id": "roc2",
@@ -2418,7 +2480,8 @@
 				"%": "60%",
 				"value": "2~3"
 			}
-		}
+		},
+		"name": "诱魔"
 	},
 	{
 		"id": "medusa",
@@ -2450,7 +2513,8 @@
 				"%": "50%",
 				"value": "3~4"
 			}
-		}
+		},
+		"name": "Medusa"
 	},
 	{
 		"id": "orcchampion",
@@ -2517,7 +2581,8 @@
 		],
 		"resist": {
 			"spirit": 25
-		}
+		},
+		"name": "Dullahan"
 	},
 	{
 		"id": "naga",
@@ -2553,7 +2618,8 @@
 				"%": "60%",
 				"value": "4~7"
 			}
-		}
+		},
+		"name": "Naga"
 	},
 	{
 		"id": "poltergeist",
@@ -2566,7 +2632,8 @@
 			"name": "寒冷之触",
 			"kind": "shadow",
 			"damage": "2~5"
-		}
+		},
+		"name": "Poltergeist"
 	},
 	{
 		"id": "fireelemental",
@@ -2678,7 +2745,8 @@
 				"%": "60%",
 				"value": "2~3"
 			}
-		}
+		},
+		"name": "魅魔"
 	},
 	{
 		"id": "drunkenmaster",
@@ -2710,7 +2778,8 @@
 			"name": "冰冻爪",
 			"kind": "water",
 			"damage": "5~7"
-		}
+		},
+		"name": "Yeti"
 	},
 	{
 		"id": "lightningelemental",
@@ -2793,7 +2862,8 @@
 				"value": "2~4"
 			}
 		},
-		"immune": "poison"
+		"immune": "poison",
+		"name": "蛇怪"
 	},
 	{
 		"id": "m_cordyceps",
@@ -2860,7 +2930,8 @@
 				}
 			}
 		],
-		"immune": "paralyze"
+		"immune": "paralyze",
+		"name": "Cockatrice"
 	},
 	{
 		"id": "basilisk2",
@@ -2931,7 +3002,8 @@
 			"name": "爪子",
 			"kind": "blunt",
 			"damage": "10~13"
-		}
+		},
+		"name": "巨魔"
 	},
 	{
 		"id": "vampiremaster",
@@ -2997,7 +3069,8 @@
 			"name": "爪击",
 			"kind": "slash",
 			"damage": "10~14"
-		}
+		},
+		"name": "Grimstalk"
 	},
 	{
 		"id": "valkyrie",
@@ -3022,7 +3095,8 @@
 				"%": "75%",
 				"value": "2~3"
 			}
-		}
+		},
+		"name": "Valkyrie"
 	},
 	{
 		"id": "trow",
@@ -3037,7 +3111,8 @@
 			"name": "踢",
 			"kind": "blunt",
 			"damage": "14~20"
-		}
+		},
+		"name": "Trow"
 	},
 	{
 		"id": "gryffon",
@@ -3048,7 +3123,8 @@
 			"name": "啄击",
 			"kind": "pierce",
 			"damage": "a.damage*0.8"
-		}
+		},
+		"name": "Gryffon"
 	},
 	{
 		"id": "bloodgolem",
@@ -3083,7 +3159,8 @@
 				"damage": "5~8",
 				"duration": 5
 			}
-		}
+		},
+		"name": "Manticore"
 	},
 	{
 		"id": "bogwitch",
@@ -3156,7 +3233,8 @@
 			"name": "树干重击",
 			"kind": "nature",
 			"damage": "40~60"
-		}
+		},
+		"name": "Ent"
 	},
 	{
 		"id": "wyvern",
@@ -3171,7 +3249,8 @@
 			"name": "冰刺",
 			"kind": "water",
 			"damage": "100~120"
-		}
+		},
+		"name": "飞龙"
 	},
 	{
 		"id": "wyvern2",
@@ -3215,7 +3294,8 @@
 				}
 			}
 		],
-		"immune": "air,poison"
+		"immune": "air,poison",
+		"name": "Jabberwocky"
 	},
 	{
 		"id": "greendragon",
@@ -3297,7 +3377,8 @@
 					"damage": "200~300"
 				}
 			}
-		]
+		],
+		"name": "独眼魔"
 	},
 	{
 		"id": "angel",
@@ -3317,7 +3398,8 @@
 		},
 		"loot": {
 			"ichor": "30%"
-		}
+		},
+		"name": "天使"
 	},
 	{
 		"id": "m_lich",
@@ -3360,7 +3442,8 @@
 				"%": "60%",
 				"value": "4~7"
 			}
-		}
+		},
+		"name": "Demon"
 	},
 	{
 		"id": "cyclops",
@@ -3377,7 +3460,8 @@
 		},
 		"loot": {
 			"ichor": "5%"
-		}
+		},
+		"name": "Cyclops"
 	},
 	{
 		"id": "reddragon",
@@ -3415,7 +3499,8 @@
 			"maxTargets": 999,
 			"kind": "earth",
 			"damage": "150~200"
-		}
+		},
+		"name": "Behemoth"
 	},
 	{
 		"id": "vampirelord",
@@ -3526,7 +3611,8 @@
 			"kind": "blunt",
 			"damage": "80~110"
 		},
-		"immune": "water"
+		"immune": "water",
+		"name": "Leviathan"
 	},
 	{
 		"id": "balrog",
@@ -3547,7 +3633,8 @@
 				"%": "60%",
 				"value": "4~6"
 			}
-		}
+		},
+		"name": "Balrog"
 	},
 	{
 		"id": "archon",
@@ -3571,7 +3658,8 @@
 		},
 		"loot": {
 			"ichor": "50%"
-		}
+		},
+		"name": "Archon"
 	},
 	{
 		"id": "adamantgolem",
@@ -3832,7 +3920,8 @@
 			"maxTargets": 999,
 			"kind": "spirit",
 			"damage": "160~200"
-		}
+		},
+		"name": "Cthulhu"
 	},
 	{
 		"id": "jazid",
@@ -3850,7 +3939,8 @@
 			"targets": "enemyleader",
 			"kind": "pure",
 			"damage": "5000~8000"
-		}
+		},
+		"name": "Jazid"
 	},
 	{
 		"id": "m_ancientlich",
@@ -4018,7 +4108,8 @@
 			}
 		],
 		"flavor": "被认为是较低级别凯尔的腐化形式。",
-		"immune": "charm"
+		"immune": "charm",
+		"name": "Mummer"
 	},
 	{
 		"id": "netherwraith",
@@ -4047,7 +4138,8 @@
 		"resist": {
 			"spirit": 50
 		},
-		"immune": "paralysis"
+		"immune": "paralysis",
+		"name": "Netherwraith"
 	},
 	{
 		"id": "reaper",
@@ -4076,7 +4168,8 @@
 				"kind": "shadow",
 				"damage": "150~300"
 			}
-		]
+		],
+		"name": "Reaper"
 	},
 	{
 		"id": "fetigern",
@@ -4098,7 +4191,8 @@
 				"damage": "130~200"
 			},
 			"damage": "100~200"
-		}
+		},
+		"name": "Fetigern"
 	},
 	{
 		"id": "ouroboros",
@@ -4114,7 +4208,8 @@
 			"kind": "blunt",
 			"damage": "200~350"
 		},
-		"immune": "earth"
+		"immune": "earth",
+		"name": "Ouroboros"
 	},
 	{
 		"id": "sum_wisp",
