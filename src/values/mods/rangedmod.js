@@ -47,15 +47,15 @@ export default class RangedMod extends Mod {
 		if (!str) return "0";
 
 		if (+this.step) {
-			str += ` per ${precise(this.estimateStep())} amount${this.roundingSym ? ` (rounded ${this.roundingSym === "+" ? "up" : "down"})` : ""}`;
+			str = ` 每 ${precise(this.estimateStep())} 点数${this.roundingSym ? `（向${this.roundingSym === "+" ? "上" : "下"}取整）` : ""}`+"增加"+this.strBonus(this.estimateStep());
 		}
 
 		if (+this.min) {
 			// Uses strBonus(start) instead of adjustedbonus(min) to account for greater than comparison, which would cause adjustCount to always return 0
-			str += ` ${this.minOp ? "active" : "starting"} ${this.minOp === OPS.GT.value ? "past" : "at"} ${precise(this.min)} (resulting in ${this.strBonus(this.start)})`;
+			str += `。 ${this.minOp ? "生效于" : "起始于"} ${this.minOp === OPS.GT.value ? "超过" : "达到"} ${precise(this.min)}（计算结果 ${this.strBonus(this.start)}）`;
 		}
 		if (+this.max) {
-			str += ` up to ${precise(this.max)} (resulting in ${this.adjustedbonus(this.max)})`;
+			str += ` 最多 ${precise(this.max)}（计算结果 ${this.adjustedbonus(this.max)}）`;
 		}
 
 		// Old compressed version of toString. Re-add if a setting for compressed tooltip is ever added.
@@ -90,9 +90,35 @@ export default class RangedMod extends Mod {
 	}
 
 	get str() {
-		let base = Stat.getBase(this.base),
-			basePct = Stat.getBase(this.basePct);
-		return `${base || ""}${basePct > 0 && base ? "+" : ""}${basePct ? basePct * 100 + "%" : ""}/${this._start != null ? Stat.getBase(this._start) + "/" : ""}${OPS[this.minOp] || ""}${Stat.getBase(this.min) || ""}/${Stat.getBase(this.max) || ""}/${this.section ? "~" : ""}${this.roundingSym || ""}${Stat.getBase(this.step)}`;
+		let base = Stat.getBase(this.base), basePct = Stat.getBase(this.basePct);
+
+		// 格式化基础数值和百分比为可读字符串
+		const formatBase = () => {
+			const parts = [];
+			if (base) parts.push(base);
+			if (basePct) parts.push(precise(basePct * 100) + "%");
+			return parts.length ? parts.join(" & ") : "0";
+		};
+
+		const pieces = [];
+		pieces.push(`效果: ${formatBase()}`);
+
+		if (+this.step) {
+			pieces.push(`每 ${precise(this.estimateStep())} 点${this.roundingSym ? `（向${this.roundingSym === "+" ? "上" : "下"}取整）` : ""}${this.section ? "（分段）" : ""}`);
+		} else if (this.section) {
+			pieces.push("分段模式");
+		}
+
+		if (this.min != null) {
+			const minLabel = this.minOp ? "生效于超过" : "起始于";
+			pieces.push(`${minLabel} ${Stat.getBase(this.min) || precise(this.min)}（计算: ${this.strBonus(this.start)}）`);
+		}
+
+		if (this.max != null) {
+			pieces.push(`最多 ${Stat.getBase(this.max) || precise(this.max)}（计算: ${this.adjustedbonus(this.max)}）`);
+		}
+
+		return pieces.join("，");
 	}
 	set str(v) {
 		this.parseMod(v);

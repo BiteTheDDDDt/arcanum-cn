@@ -24,10 +24,10 @@
 		"tasks": [
 			{
 				"id": "sellbooks",
-				"name": "出售典籍",
+				"name": "出售巨著",
 				"tags": "t_bulk_sale_task,t_languagework",
 				"desc": "即便有最好的抄写员，这些作品也常被低估",
-				"verb": "为典籍讨价还价",
+				"verb": "为巨著讨价还价",
 				"fill": "gold",
 				"require": "g.shopkeeping>=6&&g.tomes>=1",
 				"length": 10,
@@ -62,9 +62,9 @@
 			},
 			{
 				"id": "sellcodices",
-				"name": "出售古抄本",
-				"verb": "为古抄本讨价还价",
-				"desc": "向任何需要古抄本的人出售",
+				"name": "出售典籍",
+				"verb": "为典籍讨价还价",
+				"desc": "向任何需要典籍的人出售",
 				"tags": "t_bulk_sale_task,t_languagework",
 				"require": "g.shopkeeping>=3&&g.codices>=1",
 				"fill": "gold",

@@ -5,14 +5,14 @@
 		"events": [
 			{
 				"id": "spr_intro",
-				"desc": "As winter thaws, life springs new from the ground, and the eternal cycle begins again."
+				"desc": "随着冬日融化，生命从土地中复苏，永恒的循环再次开始。"
 			}
 		],
 		"potions": [
 			{
 				"id": "stone_soup",
 				"stack": true,
-				"desc": "A natural repast.",
+				"desc": "天然的简餐。",
 				"cost": {
 					"earthgem": 3,
 					"herbs": 10
@@ -30,8 +30,8 @@
 		"rares": [
 			{
 				"id": "valelily",
-				"name": "lily of the vale",
-				"desc": "A scented white flower, worn for luck.",
+				"name": "谷间铃兰",
+				"desc": "一种有香味的白花，佩戴能带来好运。",
 				"slot": "trinket",
 				"alter": {
 					"mod": {
@@ -42,7 +42,7 @@
 			},
 			{
 				"id": "laurel_crown",
-				"name": "laurel crown",
+				"name": "月桂冠",
 				"slot": "head",
 				"type": "armor",
 				"level": 10,
@@ -56,50 +56,50 @@
 			{
 				"id": "spr_honey_jar",
 				"stack": true,
-				"desc": "A jar of golden honey."
+				"desc": "一罐金色蜂蜜。"
 			},
 			{
 				"id": "spr_jar_bees",
 				"stack": true,
-				"desc": "A jar of wild bees.",
+				"desc": "一罐野蜂。",
 				"use": "mk_apiary"
 			}
 		],
 		"resources": [
 			{
 				"id": "spr_bees",
-				"name": "bees",
+				"name": "蜜蜂",
 				"max": 0,
 				"require": "apiculture",
-				"desc": "Bees have unexpected uses in spells of life and generation.",
-				"flavor": "Dbulm has a collection"
+				"desc": "蜜蜂在生命与繁衍魔法中有意想不到的用途。",
+				"flavor": "Dbulm 有一个收藏。"
 			},
 			{
 				"id": "spr_hyacinth",
-				"name": "hyacinth",
+				"name": "风信子",
 				"max": 5,
-				"desc": "A colorful and poisonous spring bloom.",
-				"flavor": "I could not speak, and my eyes failed, I was neither living nor dead, and I knew nothing."
+				"desc": "一种色彩鲜艳但有毒的春季花卉。",
+				"flavor": "我无法言语，双眼失明，我既非生者亦非亡者，我一无所知。"
 			},
 			{
 				"id": "spr_bees",
-				"name": "bees",
+				"name": "蜜蜂",
 				"require": "apiculture",
-				"desc": "Bees have unexpected uses in spells of life and generation.",
-				"flavor": "Dbulm has a collection"
+				"desc": "蜜蜂在生命与繁衍魔法中有意想不到的用途。",
+				"flavor": "Dbulm 有一个收藏。"
 			}
 		],
 		"upgrades": [
 			{
 				"id": "spr_portal",
-				"name": "portal of trees",
-				"desc": "A portal of tree trucks grows from the ground. If you could activate it, you might learn where the beasts came from.",
+				"name": "树之传送门",
+				"desc": "一座由树干构成的传送门从地面生长而出。若能激活，或可得知这些野兽的来源。",
 				"cost": {}
 			},
 			{
 				"id": "spr_mabs_carriage",
-				"name": "queen mab's carriage",
-				"desc": "A fairie-carriage carved from an enchanted chestnut.",
+				"name": "梅布女王的马车",
+				"desc": "一辆由魔法栗木雕刻而成的仙灵马车。",
 				"require": "",
 				"slot": "mount",
 				"cost": {
@@ -116,8 +116,8 @@
 			},
 			{
 				"id": "spr_beeswax_candle",
-				"name": "beeswax candle",
-				"desc": "A candle with a refreshing aroma.",
+				"name": "蜂蜡蜡烛",
+				"desc": "带有清新香气的蜡烛。",
 				"require": "spr_bees",
 				"max": 1,
 				"cost": {
@@ -133,17 +133,25 @@
 		"tasks": [
 			{
 				"id": "spr_task_maypole",
-				"name": "spring rites",
-				"desc": "Call on satyrs and dryads to weave spells about your maypole.",
+				"name": "春季仪式",
+				"desc": "召唤半人马与树精围绕你的舞杆编织法术。",
 				"require": "spr_maypole",
 				"tags": "t_rest",
 				"slot": "rest",
 				"perpetual": true,
-				"verb": "directing weaves",
-				"fill": ["hp", "prismatic", "stamina", "stress"],
+				"verb": "指挥编织",
+				"fill": [
+					"hp",
+					"prismatic",
+					"stamina",
+					"stress"
+				],
 				"effect": {
 					"stress": -1.7,
-					"prismatic": { "value": 0.7, "skipLocked": true },
+					"prismatic": {
+						"value": 0.7,
+						"skipLocked": true
+					},
 					"stamina": 0.7,
 					"vigor": 0.07,
 					"hp": 1,
@@ -160,15 +168,15 @@
 				"cost": {
 					"sp": 1
 				},
-				"desc": "Beekeeping has surprising uses in the magic of life and creation.",
+				"desc": "养蜂在生命与创造魔法中有着出人意料的用途。",
 				"flavor": ""
 			}
 		],
 		"encounters": [
 			{
 				"id": "spr_stargaze",
-				"name": "stargazing",
-				"desc": "Bright spring skies bring new stars into view.",
+				"name": "观星",
+				"desc": "明亮的春夜带来新的星辰入目。",
 				"effect": {
 					"bf": "1~2",
 					"weary": "2~3"
@@ -179,8 +187,8 @@
 			},
 			{
 				"id": "spr_enc_rumors",
-				"name": "idle rumors",
-				"desc": "Every year rumors abound of lights and music from the nearby woods.",
+				"name": "闲言碎语",
+				"desc": "每年总有传闻称林中传出灯光与音乐。",
 				"effect": {
 					"bf": "1~2",
 					"unease": "1~2"
@@ -189,8 +197,8 @@
 			},
 			{
 				"id": "spr_night_dance",
-				"name": "evening dances",
-				"desc": "With warmer weather and lighter skies, the celebrations last long into the night.",
+				"name": "夜舞",
+				"desc": "天暖夜长，庆典延续到深夜。",
 				"effect": {
 					"weary": "3~5"
 				},
@@ -198,8 +206,8 @@
 			},
 			{
 				"id": "spr_bonfire",
-				"name": "festive fires",
-				"desc": "As evening fades to night, revellers kindle fires to continue the festivities.",
+				"name": "节日篝火",
+				"desc": "夜幕降临时，狂欢者点燃篝火延续庆典。",
 				"effect": {
 					"rage": "1~3",
 					"wear": "0~2"
@@ -208,8 +216,8 @@
 			},
 			{
 				"id": "spr_enc_maypole",
-				"name": "maypole dance",
-				"desc": "Young women from Aylesmeade weave patterns of colored ribbons around a bare trunk.",
+				"name": "舞杆之舞",
+				"desc": "来自艾尔斯米德的年轻女子绕着光秃的树干编织彩带图案。",
 				"effect": {
 					"weaving.exp": 2,
 					"bf": "1~2",
@@ -221,8 +229,8 @@
 			},
 			{
 				"id": "spr_flowers",
-				"name": "potted flowers",
-				"desc": "Aylesmeade villagers arrange their spring blooms for sale.",
+				"name": "花卉摆设",
+				"desc": "艾尔斯米德村民为出售摆放春季花卉。",
 				"effect": {
 					"herbalism.exp": 2,
 					"weary": "2~3"
@@ -233,8 +241,8 @@
 			},
 			{
 				"id": "spr_enc_gobmarket",
-				"name": "goblin market",
-				"desc": "In the woods at night, goblins hold a market of their own.",
+				"name": "哥布林集市",
+				"desc": "夜晚林中，哥布林自办集市。",
 				"effect": {
 					"gold": -10,
 					"rage": "1~3",
@@ -248,8 +256,8 @@
 			},
 			{
 				"id": "spr_enc_market",
-				"name": "aylesmeade market",
-				"desc": "From spring spices to dwarven garnets, all manner of luxuries are bartered at the fair.",
+				"name": "艾尔斯米德市集",
+				"desc": "从春季香料到矮人工艺，市集上交易各种珍品。",
 				"effect": {
 					"gold": -0.5,
 					"weary": "1~3",
@@ -261,8 +269,8 @@
 			},
 			{
 				"id": "spr_enc_tinker",
-				"name": "tinker's wagon",
-				"desc": "Tinker wagons from distant lands creak along the roads, to trade their wares at the fair.",
+				"name": "修补匠货车",
+				"desc": "来自远方的修补匠车辘辘前来在集市上换取货物。",
 				"effect": {
 					"rage": "1~3"
 				}
@@ -271,24 +279,29 @@
 		"locales": [
 			{
 				"id": "spr_fair",
-				"name": "aylesmeade fair",
-				"desc": "Each spring Aylesmeade holds its fabled fair in sight of the World Tree, Aesilwyr.",
+				"name": "艾尔斯米德集市",
+				"desc": "每年春季，艾尔斯米德在世界树艾西尔维尔旁举办著名集市。",
 				"start": {},
-				"encs": ["spr_enc_maypole", "spr_enc_market", "spr_enc_tinker", "spr_enc_rumors"],
+				"encs": [
+					"spr_enc_maypole",
+					"spr_enc_market",
+					"spr_enc_tinker",
+					"spr_enc_rumors"
+				],
 				"flavor": ""
 			},
 			{
 				"id": "spr_aesilwyr",
-				"name": "tree of fate",
-				"desc": "At the center of the world the great idrasil stretches to the heavens.",
+				"name": "命运之树",
+				"desc": "世界中心的伟大世界树直伸苍穹。",
 				"encs": [],
-				"flavor": "A single seed once fell from Yggrasil."
+				"flavor": "曾有一粒种子从伊格德拉西尔落下。"
 			}
 		],
 		"furniture": [
 			{
 				"id": "spr_flower_pot",
-				"name": "flower pot",
+				"name": "花盆",
 				"tags": "plantsource",
 				"cost": {
 					"spr_hyacinth": 5,
@@ -301,8 +314,8 @@
 			},
 			{
 				"id": "spr_maypole",
-				"name": "maypole",
-				"desc": "Raise a maypole to perform spring rituals.",
+				"name": "舞杆",
+				"desc": "竖起舞杆以举行春季仪式。",
 				"cost": {
 					"gold": 500,
 					"herbs": 30
@@ -310,8 +323,8 @@
 			},
 			{
 				"id": "spr_beehive",
-				"name": "beehive",
-				"desc": "A small hive for keeping bees.",
+				"name": "蜂箱",
+				"desc": "用于养蜂的小型蜂箱。",
 				"cost": {
 					"gold": 100,
 					"herbs": 10,
@@ -325,8 +338,8 @@
 		"dungeons": [
 			{
 				"id": "spr_wilds",
-				"name": "hidden wilds",
-				"desc": "A land of magic beasts, unknown to your lore.",
+				"name": "隐秘荒野",
+				"desc": "充满魔法野兽的土地，你的知识所未及。",
 				"length": 100,
 				"require": "spr_portal",
 				"start": {
@@ -336,36 +349,49 @@
 				"run": {
 					"stamina": 2.5
 				},
-				"title": "Tamer of Wilds",
+				"title": "荒野驯服者",
 				"mod": {
 					"magicbeasts.max": "?1"
 				},
 				"boss": "jabberwocky",
-				"spawns": ["wyvern2", ["wyvern", "wyvern", "wyvern"], "m_cordyceps", "m_stranglevine"]
+				"spawns": [
+					"wyvern2",
+					[
+						"wyvern",
+						"wyvern",
+						"wyvern"
+					],
+					"m_cordyceps",
+					"m_stranglevine"
+				]
 			},
 			{
 				"id": "spr_sunnyfield",
-				"name": "sunny fields of stone",
+				"name": "石之阳光田野",
 				"level": 20,
 				"length": 100,
 				"dist": 0,
 				"start": {
 					"name": "",
-					"desc": "Returning from the fair you receive reports of fields overrun by great serpents and lizards. It may bear investigation."
+					"desc": "从集市返回时，你收到报告称田野被巨大的蛇与蜥蜴侵占，或许值得调查。"
 				},
-				"desc": "The fields you remember from former days are now overrun with fearsome beasts.",
+				"desc": "你记得的那些田野如今被可怕的猛兽占据。",
 				"run": {
 					"stamina": 1.5
 				},
 				"result": {
 					"gold": "100~200"
 				},
-				"title": "Sunny Champion",
+				"title": "阳光勇士",
 				"boss": "wyvern2",
 				"spawns": [
 					"basilisk2",
 					"basilisk",
-					["wyvern", "wyvern", "wyvern"],
+					[
+						"wyvern",
+						"wyvern",
+						"wyvern"
+					],
 					"m_cordyceps",
 					"greendragon",
 					"manticore",
@@ -373,7 +399,7 @@
 					"cockatrice",
 					"basilisk"
 				],
-				"flavor": "Every budding mage needs to die somewhere."
+				"flavor": "每个崭露头角的法师都需要在某处陨命。"
 			}
 		]
 	}

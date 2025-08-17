@@ -2109,7 +2109,7 @@
 				"name": "葬礼仪式",
 				"verb": "主持葬礼",
 				"desc": "监督商贾与贵族的葬礼仪式。",
-				"group": "富裕",
+				"group": "财富",
 				"require": "g.embalming>=5&&g.tier0>0",
 				"perpetual": true,
 				"length": 25,

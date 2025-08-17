@@ -41,20 +41,13 @@ export default class CurvedMod extends Mod {
 
 		let cur = `${precise(this.countBonus.toString()) || ""}${this.countBonus && this.countPct ? " & " : ""}${this.countPct ? this.countPct * 100 + "%" : ""}`;
 
-		str = mhalf + " at " + half;
+		str += `${mhalf}（在 ${half} 次时）`;
 
-		if (p === 50) {
-			str += " linearily increasing to ";
-		} else if (p < 50) {
-			str += " slowly increasing to ";
-		} else {
-			str += " sharply increasing to ";
-		}
-
-		str += m + " total at " + n;
+		const tempo = p === 50 ? "线性地" : p < 50 ? "缓慢地" : "急剧地";
+		str += `，${tempo}增加到 ${m || "（无基值）"}，并在 ${n} 次时达到上限`;
 
 		if (cur) {
-			str += " (cur: " + cur + ")";
+			str += `（当前：${cur}）`;
 		}
 
 		return str;

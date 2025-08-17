@@ -5,8 +5,8 @@
 		"upgrades": [
 			{
 				"id": "consecrateshrine",
-				"name": "consecrate shrine",
-				"desc": "Consecrating your shrine, you gain insights into both body and spirit",
+				"name": "祝圣神龛",
+				"desc": "祝圣你的神龛，你将获得关于身心的洞见。",
 				"require": "g.good2>0",
 				"need": "shrine",
 				"cost": {
@@ -27,8 +27,8 @@
 			},
 			{
 				"id": "templerenovation",
-				"name": "temple renovations",
-				"desc": "Expand the grounds of the temple with room for like-minded individuals",
+				"name": "寺庙整修",
+				"desc": "扩建寺庙场地，为志同道合者提供更多空间。",
 				"cost": {
 					"gold": 1000,
 					"research": 400,
@@ -37,7 +37,7 @@
 				"max": 3,
 				"require": "g.t_lightclass>0",
 				"need": "(1+g.t_lightclass)>g.templerenovation",
-				"needtext": "You need to have taken classes tagged 'Master of Light' at least as many times as you've done this task. It still maxes at 3.",
+				"needtext": "你需要参加过至少与已完成此任务次数相同的、标记为 “光之大师” 的课程。该任务仍然最多可做 3 次。",
 				"mod": {
 					"temple.mod.space.max": 80,
 					"temple.mod.virtue.rate": 0.001,
@@ -50,8 +50,8 @@
 			},
 			{
 				"id": "templealtar",
-				"name": "grand altar",
-				"desc": "Raise a grand altar in defiance of the fading age of darkness.",
+				"name": "宏伟祭坛",
+				"desc": "建造宏伟的祭坛，以对抗衰落的黑暗时代。",
 				"cost": {
 					"gold": 10000,
 					"research": 5000,
@@ -73,14 +73,14 @@
 						"lightlore.mod.light.max": 0.1
 					}
 				},
-				"flavor": "The greatest to stand since the Rending ushered in the Age of Silence.",
+				"flavor": "自裂隙以来最为壮丽，宣告寂静之世的到来。",
 				"group": "住宅"
 			}
 		],
 		"spells": [
 			{
 				"id": "resurrection",
-				"desc": "Reknit the body and recall the soul of a stronger humanoid or goblinoid minion.",
+				"desc": "重塑身体并召回较强的类人生物或地精类随从的灵魂。",
 				"sortOrder": 1147,
 				"level": 5,
 				"school": "light",
@@ -121,9 +121,9 @@
 			},
 			{
 				"id": "mendinglight",
-				"name": "mending light",
-				"desc": "A cascade of light closes your wounds and those of your allies.",
-				"extdesc": "Healing gains twice the normal benefit from Light and Spell Healing potencies.",
+				"name": "疗愈之光",
+				"desc": "光之瀑流愈合你和你盟友的创伤。",
+				"extdesc": "在光与法术治疗加成下，治疗效果翻倍。",
 				"sortOrder": 1130,
 				"level": 15,
 				"school": "light",
@@ -179,7 +179,7 @@
 			},
 			{
 				"id": "callacolyte",
-				"name": "call reinforcement: acolyte",
+				"name": "召唤增援：侍从",
 				"sortOrder": 1162,
 				"level": 5,
 				"school": "light",
@@ -218,7 +218,7 @@
 			},
 			{
 				"id": "callpaladin",
-				"name": "call reinforcement: paladin",
+				"name": "召唤增援：圣骑士",
 				"sortOrder": 1161,
 				"level": 7,
 				"school": "light",
@@ -258,7 +258,7 @@
 			},
 			{
 				"id": "calllightbearer",
-				"name": "call reinforcement: light bearer",
+				"name": "召唤增援：光明使者",
 				"sortOrder": 1160,
 				"level": 6,
 				"school": "light",
@@ -303,7 +303,7 @@
 				"tags": "t_goodcompanion",
 				"slot": "companion",
 				"require": "(g.t_lightclass+g.tier5+g.tier6)>=3",
-				"name": "paladin companion",
+				"name": "圣骑士随从",
 				"level": 20,
 				"kind": "humanoid",
 				"noproc": true,
@@ -320,7 +320,7 @@
 								"targets": "self",
 								"dot": {
 									"id": "taunt",
-									"name": "issue challenge",
+									"name": "发起挑战",
 									"tags": "t_taunt",
 									"duration": 10,
 									"mod": {
@@ -330,14 +330,14 @@
 							},
 							{
 								"targets": "enemy",
-								"name": "shield bash",
+								"name": "盾击",
 								"damage": "3~10",
 								"kind": "blunt"
 							}
 						]
 					},
 					{
-						"name": "righteous charge",
+						"name": "正义冲锋",
 						"targets": "enemy",
 						"damage": "6~16",
 						"kind": "slash"
@@ -349,7 +349,7 @@
 				"tags": "t_goodcompanion",
 				"slot": "companion",
 				"require": "g.t_lightclass>0",
-				"name": "acolyte companion",
+				"name": "侍从随从",
 				"level": 20,
 				"kind": "humanoid",
 				"noproc": true,
@@ -362,14 +362,14 @@
 				"attack": [
 					{
 						"kind": "light",
-						"name": "flash of light",
+						"name": "光之闪",
 						"targets": "enemy",
 						"damage": "10~15"
 					},
 					{
 						"targets": "leader",
 						"harmless": true,
-						"name": "healing chant",
+						"name": "治疗圣歌",
 						"kind": "light",
 						"healing": 5
 					}
@@ -380,7 +380,7 @@
 				"tags": "t_goodcompanion",
 				"slot": "companion",
 				"require": "(g.t_lightclass+g.tier5)>=2",
-				"name": "lightbearer companion",
+				"name": "光明使者随从",
 				"level": 20,
 				"kind": "humanoid",
 				"noproc": true,
@@ -394,13 +394,13 @@
 					{
 						"hits": [
 							{
-								"name": "light spear",
+								"name": "光枪",
 								"targets": "enemy",
 								"kind": "light",
 								"damage": "10~15"
 							},
 							{
-								"name": "purging light",
+								"name": "净化之光",
 								"kind": "light",
 								"targets": "enemies",
 								"maxTargets": 999,
@@ -415,7 +415,7 @@
 			{
 				"id": "hierarch",
 				"tags": "t_tier6,t_lightclass,t_healingclass",
-				"desc": "Your authority is unquestioned in matters of faith",
+				"desc": "在信仰事务中，你的权威不容置疑。",
 				"require": "g.tier5>0&&g.lightlore>=25&&g.t_lightclass>0&&g.tier6==0",
 				"need": "good3",
 				"cost": {
@@ -440,7 +440,7 @@
 			{
 				"id": "hallowed",
 				"tags": "t_tier5,t_lightclass,t_healingclass",
-				"desc": "Other members of the faith defer to your wisdom and experience",
+				"desc": "教内其他成员对你的智慧与经验深表敬重。",
 				"require": "g.tier4>0&&g.lightlore>=21&&g.spiritlore>=15&&g.tier5==0",
 				"need": "good3",
 				"cost": {
@@ -461,8 +461,9 @@
 			},
 			{
 				"id": "lightbringer",
+				"name": "光明使者",
 				"tags": "t_tier4,t_lightclass,t_healingclass",
-				"desc": "The light blesses you on your mission to create a virtuous world.",
+				"desc": "光明祝福你的使命，助你塑造一个充满美德的世界。",
 				"require": "g.tier3>0&&g.lightlore>=17&&g.spiritlore>=10&&g.tier4==0",
 				"need": "good2",
 				"cost": {
@@ -482,8 +483,9 @@
 			},
 			{
 				"id": "priest",
+				"name": "牧师",
 				"tags": "t_tier3,t_lightclass,t_healingclass",
-				"desc": "Join the assembly that recognizes the good inherent in the light.",
+				"desc": "加入承认光明内在善性的信众行列。",
 				"require": "g.tier2>0&&g.lightlore>=13&&g.spiritlore>=10&&g.tier3==0",
 				"need": "good2",
 				"cost": {

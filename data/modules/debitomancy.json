@@ -5,8 +5,9 @@
 		"skills": [
 			{
 				"id": "debitomancy",
+				"name": "债务学",
 				"require": "(g.debt>=10||g.shopkeeping>=6)&&g.tier1>0",
-				"desc": "Master that which is owed, and those who owe it",
+				"desc": "掌控欠债与债务人",
 				"level": 5,
 				"buy": {
 					"arcana": 40
@@ -24,10 +25,10 @@
 		"tasks": [
 			{
 				"id": "burningrecords",
-				"name": "ever burning records",
-				"actname": "burning records",
-				"desc": "Accumulated records of your debt, forever burning, erasing",
-				"flavor": "The unending scroll's malicious counterpart.",
+				"name": "永燃账册",
+				"actname": "燃烧账册",
+				"desc": "你欠款的累积记录，永恒燃烧并被抹去",
+				"flavor": "无尽卷轴的邪恶对应物。",
 				"require": "g.debitomancy>=6&&g.firelore>=7&&g.languages>=7",
 				"max": 1,
 				"length": 120,
@@ -53,9 +54,9 @@
 			},
 			{
 				"id": "borrowmoney",
-				"name": "Borrow Money",
-				"verb": "borrowing",
-				"desc": "Borrow some fast money from people you know",
+				"name": "借钱",
+				"verb": "借款中",
+				"desc": "向熟人借些速借资金",
 				"require": "g.shopkeeping>=6||g.debitomancy>=1",
 				"perpetual": true,
 				"run": {
@@ -69,10 +70,10 @@
 			},
 			{
 				"id": "prisonlabor",
-				"name": "prison Labor",
-				"verb": "cracking rocks",
-				"desc": "Manual labor to pay off your debt, a horrific thought for any self-respecting wizard",
-				"flavor": "No magic allowed, since the chronomancy incident.",
+				"name": "苦役",
+				"verb": "破石劳作",
+				"desc": "通过体力劳动偿还债务，对于自尊的法师而言是可怕的事",
+				"flavor": "自从时间魔法事件后禁止魔法。",
 				"require": "g.debitomancy>=1",
 				"need": "g.debt>=1",
 				"perpetual": true,
@@ -96,10 +97,10 @@
 			},
 			{
 				"id": "encase_debt",
-				"name": "Expand Accounting Logs",
-				"verb": "inking papers",
-				"desc": "Perhaps another set of books can throw off the debt collectors?",
-				"flavor": "This paper trail never seems to end... and keeps getting more expensive!",
+				"name": "扩展会计记录",
+				"verb": "记账",
+				"desc": "也许另一套账本能误导讨债者？",
+				"flavor": "这条纸质痕迹似乎永无止境……且越来越昂贵！",
 				"tags": "t_languagework",
 				"require": "g.debitomancy>=10",
 				"perpetual": true,
@@ -142,9 +143,9 @@
 			},
 			{
 				"id": "lendgold",
-				"name": "lend Gold",
-				"verb": "moneylending",
-				"desc": "Lend gold to needy and foolish",
+				"name": "放贷",
+				"verb": "放贷中",
+				"desc": "把金币借给有需要又愚蠢的人",
 				"tags": "t_languagework",
 				"require": "g.debitomancy>=3",
 				"length": 20,
@@ -169,8 +170,8 @@
 		"upgrades": [
 			{
 				"id": "moredebt",
-				"name": "more lenders",
-				"desc": "Find more people to lend you money",
+				"name": "更多借贷者",
+				"desc": "找到更多愿意借钱的人",
 				"require": "g.debitomancy>=2",
 				"max": 5,
 				"cost": {
@@ -188,8 +189,8 @@
 			},
 			{
 				"id": "creativeaccounting",
-				"name": "creative accounting",
-				"desc": "Just a few rounding errors here and there",
+				"name": "创意会计",
+				"desc": "只需少量四舍五入的误差",
 				"require": "g.debitomancy>=4",
 				"max": 1,
 				"cost": {
@@ -204,8 +205,8 @@
 			},
 			{
 				"id": "cheaperdebt",
-				"name": "better lenders",
-				"desc": "With enough research you can find money lenders which don't have such ridiculous interest rates",
+				"name": "更优放贷机构",
+				"desc": "通过足够研究，你能找到利率不那么离谱的放贷人",
 				"require": "g.debitomancy>=6",
 				"max": 1,
 				"cost": {
@@ -219,8 +220,8 @@
 			},
 			{
 				"id": "debttravel",
-				"name": "debtor's travels",
-				"desc": "If you travel far enough surely they can't find you again",
+				"name": "债务旅行",
+				"desc": "如果你走得够远，他们或许找不到你了",
 				"require": "g.debitomancy>=3&&g.a_travel>0",
 				"max": 1,
 				"cost": {
@@ -234,11 +235,11 @@
 			},
 			{
 				"id": "debttrickery",
-				"name": "debtor's trickery",
-				"desc": "Fast money and faster hands make your debt disappear more quickly.",
-				"flavor": "Fake names, fake thoughts, whatever is needed to escape the debt",
+				"name": "债务诡计",
+				"desc": "快速的金钱与更快的手会让你的债务更快消失。",
+				"flavor": "假名、假身份，凡是能逃避债务之物皆可使用",
 				"warn": true,
-				"warnMsg": "Debt and gold decreases from removing debt will both be faster with this upgrade",
+				"warnMsg": "有此升级时，移除债务导致的债务与金币减少会同时加速",
 				"require": "g.debitomancy>=5&&g.trickery>=2",
 				"max": 1,
 				"cost": {
@@ -253,8 +254,8 @@
 			},
 			{
 				"id": "debtgeomancy",
-				"name": "enchanted shackles",
-				"desc": "Sneak a geomancy enchantment into the prison labor camps to make it a bit easier",
+				"name": "附魔桎梏",
+				"desc": "在苦役营中偷偷加入地术附魔，使之更轻松一些",
 				"group": "债务",
 				"require": "g.earthlore>=7&&g.debitomancy>=6",
 				"max": 1,
@@ -270,8 +271,8 @@
 			},
 			{
 				"id": "debtmurder",
-				"name": "debtor's murder",
-				"desc": "You don't owe debts to corpses",
+				"name": "债务谋杀",
+				"desc": "尸体不欠债",
 				"group": "债务",
 				"require": "g.debitomancy>=2&&g.murder>0",
 				"max": 1,
@@ -288,9 +289,9 @@
 			},
 			{
 				"id": "debtdemon",
-				"name": "demonic money lending",
-				"desc": "Alternative collaterals are totally acceptable",
-				"flavor": "The pound of flesh, which I demand of him, is dearly bought; 'tis mine and I will have it.",
+				"name": "恶魔放贷",
+				"desc": "替代的抵押品也是完全可以接受的",
+				"flavor": "我所要取的那一磅肉，是昂贵的代价；它归我所有，我必取之。",
 				"require": "g.debitomancy>=2&&g.demonology>=7",
 				"max": 1,
 				"cost": {
@@ -305,10 +306,10 @@
 			},
 			{
 				"id": "debtvirtuous",
-				"name": "virtuous credibility",
-				"desc": "When people trust you debt payments can be slowed a bit",
+				"name": "高尚信誉",
+				"desc": "当人们信任你时，债务偿还可以稍微放缓",
 				"need": "(g.virtue - g.evilamt)>=50",
-				"needtext": "Must have 50 more virtue than evil",
+				"needtext": "必须拥有比邪恶多 50 点的美德",
 				"require": "g.debitomancy>=4&&g.evil2==0&&g.good1==1",
 				"max": 1,
 				"cost": {
@@ -324,8 +325,8 @@
 			},
 			{
 				"id": "curselendgold",
-				"name": "cursed gold",
-				"desc": "Mark your gold with terrible curses befalling those who don't pay back their debts to you",
+				"name": "诅咒金币",
+				"desc": "用可怕的诅咒标记你的金币，让不还债的人遭受其害",
 				"require": "g.debitomancy>=4&&g.shadowlore>=6",
 				"max": 1,
 				"cost": {
@@ -341,8 +342,8 @@
 			},
 			{
 				"id": "planarlendgold",
-				"name": "interplanar lending",
-				"desc": "Extend your money lending services to other planes",
+				"name": "跨界放贷",
+				"desc": "将你的放贷服务扩展到其他位面",
 				"require": "g.debitomancy>=5&&g.planeslore>=10",
 				"max": 1,
 				"cost": {
@@ -360,9 +361,9 @@
 			},
 			{
 				"id": "animallendgold",
-				"name": "ursine enforcement clause",
-				"desc": "Pursuant to the clause 3:3:63 of the standard lending contract, lapses in repayment may result in punitive damages to be delivered by ursa horribilis.",
-				"flavor": "Debtors exit, pursued by a bear.",
+				"name": "熊类执行条款",
+				"desc": "根据标准借贷合同第 3:3:63 条，逾期未还可能导致由恐怖熊执行的惩罚性赔偿。",
+				"flavor": "债务人出场，被熊追赶。",
 				"require": "g.debitomancy>=9&&g.animals>=12",
 				"max": 1,
 				"cost": {
@@ -379,8 +380,8 @@
 			},
 			{
 				"id": "debtrevelation",
-				"name": "debtor's revelation",
-				"desc": "What happens when you have less than nothing",
+				"name": "债者启示",
+				"desc": "当你低于零时会发生什么",
 				"require": "g.debitomancy>=5&&g.voidlore>0",
 				"warn": true,
 				"max": 1,
@@ -407,11 +408,11 @@
 			},
 			{
 				"id": "debtrevelation2",
-				"name": "debtor's epiphany",
-				"desc": "Imagination takes on substance",
+				"name": "债者顿悟",
+				"desc": "想象化为真实",
 				"require": "g.debtrevelation>0",
 				"need": "g.debt>=2500",
-				"needtext": "Must have 2500 or more debt",
+				"needtext": "必须拥有 2500 或以上的债务",
 				"max": 1,
 				"mod": {
 					"voidlore.max": 1
@@ -420,11 +421,11 @@
 			},
 			{
 				"id": "debtrevelation3",
-				"name": "debtor's enlightenment",
-				"desc": "An inverted world reveals itself on the other side of nothingness",
+				"name": "债者觉悟",
+				"desc": "在虚无彼端，颠倒的世界展现出来",
 				"require": "g.debtrevelation2>0",
 				"need": "g.debt>=5000",
-				"needtext": "Must have 5000 or more debt",
+				"needtext": "必须拥有 5000 或以上的债务",
 				"max": 1,
 				"mod": {
 					"voidlore.max": 1
@@ -433,11 +434,11 @@
 			},
 			{
 				"id": "ashdebtrevelation1",
-				"name": "ashen truth",
-				"desc": "Amidst the charred ledgers, you realize the true banality of material possessions.",
+				"name": "灰烬真理",
+				"desc": "在烧焦的账本中，你意识到物质财物的真实平庸。",
 				"require": "g.debtrevelation>0&&g.encase_debt>=10",
 				"need": "g.encase_debt>=50",
-				"needtext": "Must have expanded accounting logs 50 or more times.",
+				"needtext": "必须扩展会计记录 50 次或以上。",
 				"max": 1,
 				"mod": {
 					"voidlore.max": 1
@@ -446,11 +447,11 @@
 			},
 			{
 				"id": "ashdebtrevelation2",
-				"name": "ashen bliss",
-				"desc": "You liberate yourself from the chains of material existence as you destroy all records of yourself.",
+				"name": "灰烬之乐",
+				"desc": "当你销毁所有关于自己的记录时，你从物质存在的枷锁中解放出来。",
 				"require": "g.ashdebtrevelation1>0",
 				"need": "g.encase_debt>=100",
-				"needtext": "Must have expanded accounting logs 100 or more times.",
+				"needtext": "必须扩展会计记录 100 次或以上。",
 				"max": 1,
 				"mod": {
 					"voidlore.max": 1
@@ -461,8 +462,8 @@
 		"furniture": [
 			{
 				"id": "debttransmuter",
-				"name": "debt transmuter",
-				"desc": "Turn debt and gold into nothing",
+				"name": "债务转化器",
+				"desc": "将债务与金币化为虚无",
 				"require": "g.debitomancy>=5&&g.voidlore>=3&&g.debtrevelation>0",
 				"max": 3,
 				"cost": {
@@ -491,8 +492,9 @@
 		"resources": [
 			{
 				"id": "debt",
+				"name": "债务",
 				"group": "逆境",
-				"desc": "Debt is gnawing at you",
+				"desc": "债务正在啃噬着你",
 				"require": "g.debt>=1",
 				"max": 500,
 				"sortOrder": 805,
@@ -512,8 +514,8 @@
 		"spells": [
 			{
 				"id": "mk_loan_shark",
-				"name": "summon loan shark",
-				"desc": "Summon a loan shark to track down your debtors. Comes with a suit and country club membership.",
+				"name": "召唤放贷鲨",
+				"desc": "召唤一个放贷鲨去追捕你的债务人。还附带一套西装和乡村俱乐部会籍。",
 				"sortOrder": 1799,
 				"level": 7,
 				"school": "summoning",
@@ -551,7 +553,7 @@
 			},
 			{
 				"id": "mon_pilfer_gold",
-				"name": "pilfer",
+				"name": "顺手牵羊",
 				"level": 3,
 				"school": "arcane",
 				"keywords": {
@@ -582,7 +584,7 @@
 					"dot": {
 						"id": "pilfered_dot",
 						"kind": "chaos",
-						"name": "missing valuables"
+						"name": "失窃的贵重物品"
 					},
 					"damage": "t.hp.max/100",
 					"acquire": {
@@ -594,11 +596,11 @@
 		"monsters": [
 			{
 				"id": "sum_loan_shark",
-				"name": "loan shark",
+				"name": "放贷鲨",
 				"tags": "t_summon",
 				"kind": "demon",
 				"level": 20,
-				"desc": "It can smell desperation in the water from seven leagues away.",
+				"desc": "它能从七重里外闻到绝望的气息。",
 				"hp": 73,
 				"noproc": true,
 				"defense": 30,
@@ -607,7 +609,7 @@
 					"water": 50
 				},
 				"attack": {
-					"name": "chomp",
+					"name": "猛咬",
 					"kind": "pierce",
 					"damage": "10~15",
 					"leech": 0.5,

@@ -5,8 +5,8 @@
 		"skills": [
 			{
 				"id": "bladelore",
-				"name": "swordplay",
-				"desc": "Incorporate swordplay into your magic, and vice versa.",
+				"name": "剑术",
+				"desc": "把剑术融入你的魔法，反之亦然。",
 				"require": "g.t_swordclass>0",
 				"need": "armssource",
 				"level": 5,
@@ -25,9 +25,9 @@
 		"upgrades": [
 			{
 				"id": "bladeweaver_upgrade",
-				"name": "sword weaving",
+				"name": "剑之编织",
 				"require": "g.bladelore>=5&&g.bladeweaver>0",
-				"desc": "Weave slashes in combat like threads into fabric.",
+				"desc": "在战斗中将斩击如线般编织入技艺。",
 				"max": 1,
 				"cost": {
 					"codices": 15,
@@ -38,14 +38,14 @@
 					"weaving.max": 2,
 					"weaving.mod.sworddmg": 0.5
 				},
-				"flavor": "The local weavers tell stories of war when spinning yarn.",
+				"flavor": "当地的织工在纺纱时讲述战争的故事。",
 				"group": "武技"
 			},
 			{
 				"id": "defensive_dance",
-				"name": "defensive dance",
+				"name": "防御之舞",
 				"require": "g.bladelore>=7&&g.arcanedervish>0",
-				"desc": "Use your combat prowess to resist physical blows.",
+				"desc": "利用你的战斗技艺抵抗物理打击。",
 				"max": 1,
 				"cost": {
 					"tomes": 15,
@@ -56,14 +56,14 @@
 					"player.resist.pierce": 5,
 					"player.resist.slash": 5
 				},
-				"flavor": "A glancing blow is better than a solid hit.",
+				"flavor": "一记擦伤胜过实打实的一击。",
 				"group": "武技"
 			},
 			{
 				"id": "divine_wind",
-				"name": "divine wind",
+				"name": "神风",
 				"require": "g.bladelore>=9&&g.eldritchknight>0",
-				"desc": "Learn to negate entanglement with your speed",
+				"desc": "学习以速度化解缠绕",
 				"max": 1,
 				"cost": {
 					"tomes": 15,
@@ -72,16 +72,16 @@
 				"mod": {
 					"player.negate.entangle": 15
 				},
-				"flavor": "Cut through anything tying you up.",
+				"flavor": "斩断一切束缚你的事物。",
 				"group": "武技"
 			}
 		],
 		"tasks": [
 			{
 				"id": "sword_basics",
-				"name": "training dummy practice",
+				"name": "训练木人练习",
 				"require": "g.bladelore>=1&&g.training_dummy>0",
-				"desc": "Refine your sword use against an immobile enemy. Costs more and takes longer with each session.",
+				"desc": "针对静止的敌人磨练你的剑技。每次训练花费更多并需要更长时间。",
 				"max": 5,
 				"length": 15,
 				"cost": {
@@ -100,15 +100,15 @@
 					"sworddmg": 1,
 					"sword_basics.length": 5
 				},
-				"flavor": "Your sparring partner doesn't move much, do they?",
+				"flavor": "你的对练伙伴动作不多，是吧？",
 				"group": "武技"
 			},
 			{
 				"id": "sword_lessons",
-				"name": "swordplay lessons",
+				"name": "剑术课程",
 				"require": "g.bladelore>=5",
 				"need": "armssource",
-				"desc": "Take additional lessons in striking with a sword. Costs more and takes longer with each session.",
+				"desc": "参加额外的剑术打击课程。每次课程花费更多且耗时更长。",
 				"max": 2,
 				"length": 30,
 				"cost": {
@@ -128,14 +128,14 @@
 					"sword_lessons.length": 5,
 					"blade_endure.max": 0.2
 				},
-				"flavor": "Learning the way of the blade takes time and dedication.",
+				"flavor": "学习刀道需要时间与奉献。",
 				"group": "武技"
 			},
 			{
 				"id": "blade_spellbook",
-				"name": "spellbook of Striking",
+				"name": "剑击法典",
 				"require": "g.bladelore>=5&&(g.spellblade+g.bladeweaver+g.arcanedervish+g.eldritchknight)>0",
-				"desc": "Compile methods of using a blade to cast and enhance spells.",
+				"desc": "汇编用刀刃施放与强化法术的方法。",
 				"max": 0,
 				"length": 30,
 				"cost": {
@@ -152,15 +152,15 @@
 					"sworddmg": 2,
 					"spelldmg": 3.75
 				},
-				"flavor": "Your sword and spells become unified, and grow stronger together.",
+				"flavor": "你的剑与法术合为一体，协同增强。",
 				"group": "武技"
 			},
 			{
 				"id": "blade_endure",
-				"name": "strenuous training",
+				"name": "苦练",
 				"require": "g.sword_lessons>=5",
 				"need": "armssource",
-				"desc": "Enhance your endurance through extensive training.",
+				"desc": "通过大量训练提升你的耐力。",
 				"max": 2,
 				"length": 300,
 				"cost": {
@@ -180,16 +180,16 @@
 					"vigor.max": "5%",
 					"vigor.rate": "2%"
 				},
-				"flavor": "Exhausting work has led to great results.",
+				"flavor": "艰苦的训练带来显著成果。",
 				"group": "身体"
 			}
 		],
 		"classes": [
 			{
 				"id": "spellblade",
-				"name": "spell blade",
+				"name": "魔剑士",
 				"tags": "t_tier3,t_swordclass",
-				"desc": "A combat specialist, melding sorcery with traditional martial techniques.",
+				"desc": "战斗专家，将巫术与传统武技融合。",
 				"require": "g.tier2>0&&g.enchanting>=7&&g.weaponlore>=8&&g.tier3==0",
 				"cost": {
 					"research": 3000,
@@ -213,7 +213,7 @@
 			{
 				"id": "bladeweaver",
 				"tags": "t_tier4,t_swordclass",
-				"desc": "You have taken your training further, weaving magic and steel with a flourish of magical grace.",
+				"desc": "你进一步修炼，将魔法与钢铁以魔法般的优雅交织。",
 				"require": "g.tier3>0&&(g.bladelore+g.weaponlore)>=10&&g.tier4==0&&g.weaving>=5",
 				"cost": {
 					"research": 5000,
@@ -240,9 +240,9 @@
 			},
 			{
 				"id": "arcanedervish",
-				"name": "arcane dervish",
+				"name": "奥术旋风",
 				"tags": "t_tier5,t_swordclass",
-				"desc": "Your skills with blade and magic blend together in a blur, each stroke seeming like a step in a dance.",
+				"desc": "你的刀法与魔法在模糊中融合，每一击如一段舞步。",
 				"require": "g.tier4>0&&g.bladelore>=7&&g.tier5==0",
 				"cost": {
 					"research": 10000,
@@ -270,9 +270,9 @@
 			},
 			{
 				"id": "eldritchknight",
-				"name": "eldritch knight",
+				"name": "秘术骑士",
 				"tags": "t_tier6,t_swordclass",
-				"desc": "You have reached the pinnacle of blending steel and sorcery, and your sword strokes seem to cleave the air itself.",
+				"desc": "你已达到钢与秘术融合的巅峰，你的剑势仿佛能劈裂空气。",
 				"require": "g.tier5>0&&g.t_swordclass>0&&(g.bladelore+g.weaponlore)>=12&&g.tier6==0",
 				"cost": {
 					"research": 15000,
@@ -303,15 +303,15 @@
 		"tags": [
 			{
 				"id": "t_blade",
-				"name": "blade spells",
+				"name": "剑系法术",
 				"hide": true
 			}
 		],
 		"spells": [
 			{
 				"id": "mk_blade",
-				"name": "summon blade",
-				"desc": "In combat, summon a magical blade to fight for you.",
+				"name": "召唤之刃",
+				"desc": "在战斗中召唤一把魔剑为你而战。",
 				"sortOrder": 1762,
 				"level": 7,
 				"school": "summoning",
@@ -350,7 +350,7 @@
 			},
 			{
 				"id": "blade_buff",
-				"name": "sharpened blades",
+				"name": "锋利之刃",
 				"sortOrder": 386,
 				"level": 5,
 				"school": "martial",
@@ -387,7 +387,7 @@
 					"maxTargets": 999,
 					"harmless": true,
 					"dot": {
-						"name": "sharpened blades",
+						"name": "锋利之刃",
 						"duration": 45,
 						"mod": {
 							"self.bonuses.slash": 7
@@ -397,8 +397,8 @@
 			},
 			{
 				"id": "tide_blows",
-				"name": "tidal blows",
-				"desc": "Cut down a group of foes with the power of the ocean.",
+				"name": "潮击",
+				"desc": "以海洋之力斩击一群敌人。",
 				"sortOrder": 323,
 				"level": 7,
 				"school": "martial",
@@ -435,7 +435,7 @@
 					4
 				],
 				"need": "g.player.getWeapon().hasTag('t_sword')",
-				"needtext": "Currently equipped weapon must be a sword",
+				"needtext": "当前装备的武器必须为剑",
 				"cost": {
 					"water": 7,
 					"vigor": 7
@@ -473,8 +473,8 @@
 			},
 			{
 				"id": "mana_slash",
-				"name": "arcane slash",
-				"desc": "Imbue your blade with mana to enhance your power.",
+				"name": "奥术斩",
+				"desc": "用法力为你的剑注能，增强威力。",
 				"sortOrder": 322,
 				"level": 4,
 				"school": "martial",
@@ -509,7 +509,7 @@
 					4
 				],
 				"need": "g.player.getWeapon().hasTag('t_sword')",
-				"needtext": "Currently equipped weapon must be a sword",
+				"needtext": "当前装备的武器必须为剑",
 				"cost": {
 					"mana": 4,
 					"vigor": 3
@@ -532,8 +532,8 @@
 			},
 			{
 				"id": "whirl_slices",
-				"name": "whirlwind slices",
-				"desc": "Cleave the air to harm multiple foes.",
+				"name": "旋风劈砍",
+				"desc": "劈裂空气以伤及多名敌人。",
 				"sortOrder": 324,
 				"level": 6,
 				"school": "martial",
@@ -601,12 +601,12 @@
 						"airdmg"
 					]
 				},
-				"flavor": "Spinning is a good trick"
+				"flavor": "旋转是一招好技巧。"
 			},
 			{
 				"id": "spirit_strike",
-				"name": "spirit strike",
-				"desc": "Lock on to your foes and attack them precisely.",
+				"name": "灵击",
+				"desc": "锁定敌人并进行精准打击。",
 				"sortOrder": 327,
 				"level": 2,
 				"school": "martial",
@@ -673,8 +673,8 @@
 			},
 			{
 				"id": "blind_sword",
-				"name": "blinding blade",
-				"desc": "Reflect the sun off your blade to blind your foes.",
+				"name": "致盲之刃",
+				"desc": "用剑反射阳光致盲敌人。",
 				"sortOrder": 328,
 				"level": 5,
 				"school": "martial",
@@ -743,8 +743,8 @@
 			},
 			{
 				"id": "poison_blade",
-				"name": "poisoned blade",
-				"desc": "Leave your enemies something to remember your sword by.",
+				"name": "毒刃",
+				"desc": "让敌人铭记你的利刃。",
 				"sortOrder": 326,
 				"level": 8,
 				"school": "martial",
@@ -810,8 +810,8 @@
 			},
 			{
 				"id": "drain_slash",
-				"name": "draining slash",
-				"desc": "Sap an enemy's life force through your blade.",
+				"name": "吸血斩",
+				"desc": "通过你的剑吸取敌人的生命力。",
 				"sortOrder": 329,
 				"level": 6,
 				"school": "martial",
@@ -876,8 +876,8 @@
 			},
 			{
 				"id": "flameslash",
-				"name": "flameslash",
-				"desc": "Send streams of fire at enemies with your sword.",
+				"name": "烈焰斩",
+				"desc": "以剑释放火流攻击敌人。",
 				"sortOrder": 325,
 				"level": 4,
 				"school": "martial",
@@ -944,8 +944,8 @@
 			},
 			{
 				"id": "cut_time",
-				"name": "cut time",
-				"desc": "Take a break from the time stream.",
+				"name": "切断时间",
+				"desc": "从时间流中短暂抽离。",
 				"sortOrder": 384,
 				"level": 15,
 				"school": "martial",
@@ -999,8 +999,8 @@
 			},
 			{
 				"id": "blood_slice",
-				"name": "slice of life",
-				"desc": "Use your blood to empower a strike.",
+				"name": "生命切片",
+				"desc": "用你的鲜血强化一击。",
 				"sortOrder": 321,
 				"level": 2,
 				"school": "martial",

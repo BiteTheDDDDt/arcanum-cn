@@ -20,7 +20,7 @@
 		"name": "铁匠",
 		"verb": "锻造",
 		"desc": "锻造装备以用于附魔。",
-		"group": "富裕",
+		"group": "财富",
 		"tags": "t_craftwork",
 		"require": "g.job_smith>0||g.crafting>=8",
 		"length": 15,
@@ -140,7 +140,7 @@
 			"research": -1,
 			"gold": 0.8
 		},
-		"group": "富裕",
+		"group": "财富",
 		"name": "魔术表演"
 	},
 	{
@@ -174,7 +174,7 @@
 				"result.gold": 5
 			}
 		},
-		"group": "富裕"
+		"group": "财富"
 	},
 	{
 		"id": "heist",
@@ -200,7 +200,7 @@
 		"mod": {
 			"trickery.max": "0.05//100/-10"
 		},
-		"group": "富裕"
+		"group": "财富"
 	},
 	{
 		"id": "spellbook",
@@ -339,7 +339,7 @@
 		"effect": {
 			"gold": 1.6
 		},
-		"group": "富裕"
+		"group": "财富"
 	},
 	{
 		"id": "tendanimals",
@@ -564,7 +564,7 @@
 		"effect": {
 			"gold": "0.5~1"
 		},
-		"group": "富裕"
+		"group": "财富"
 	},
 	{
 		"id": "dreamweaver",
@@ -645,7 +645,7 @@
 				"effect.gold": 0.75
 			}
 		},
-		"group": "富裕"
+		"group": "财富"
 	},
 	{
 		"id": "murder",
@@ -706,7 +706,7 @@
 			"gold": 0.5,
 			"divination.exp": "g.divination.rate*0.2"
 		},
-		"group": "富裕"
+		"group": "财富"
 	},
 	{
 		"id": "treatailments",
@@ -736,7 +736,7 @@
 			"evilamt": -3,
 			"gold": 3
 		},
-		"group": "富裕"
+		"group": "财富"
 	},
 	{
 		"id": "readpalms",
@@ -765,14 +765,14 @@
 		"result": {
 			"gold": 5.5
 		},
-		"group": "富裕"
+		"group": "财富"
 	},
 	{
 		"id": "magicadvice",
 		"name": "建议显贵",
 		"desc": "从担忧的村庄议会到笨拙的男爵，他们都需要你的建议。",
 		"flavor": "无论他们是否意识到。",
-		"group": "富裕",
+		"group": "财富",
 		"require": "(g.t_knowledgeclass+g.t_divinationclass)>0",
 		"cost": {
 			"stamina": 0.3
@@ -846,7 +846,7 @@
 		"result": {
 			"gold": 2
 		},
-		"group": "富裕"
+		"group": "财富"
 	},
 	{
 		"id": "rest",
@@ -1656,7 +1656,7 @@
 		"result": {
 			"gold": 35
 		},
-		"group": "富裕"
+		"group": "财富"
 	},
 	{
 		"id": "imbuelifegem",
@@ -1950,7 +1950,7 @@
 		"result": {
 			"gold": 5
 		},
-		"group": "富裕"
+		"group": "财富"
 	},
 	{
 		"id": "focus",
@@ -2104,7 +2104,7 @@
 		"mod": {
 			"trickery.max": "0.05//100/-10"
 		},
-		"group": "富裕"
+		"group": "财富"
 	},
 	{
 		"id": "gardenersalmanac",

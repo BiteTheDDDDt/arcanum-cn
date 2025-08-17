@@ -159,7 +159,7 @@
 				"id": "lavafishing",
 				"name": "熔岩捕鱼",
 				"desc": "在熔岩中捕捞黑曜鱼、火鳍锦鲤及其他熔岩生物。留下贵重部位自用，其余出售。",
-				"group": "富裕",
+				"group": "财富",
 				"flavor": "火蜥蜴肉排居然有很大的市场，谁能想到……",
 				"need": "g.volcano>0",
 				"needtext": "必须居住在火山。",
@@ -289,7 +289,7 @@
 				"id": "cremation",
 				"name": "火葬服务",
 				"desc": "为你的殡葬服务增添一项额外选项",
-				"group": "富裕",
+				"group": "财富",
 				"require": "g.pyromancer>0&&g.embalm>0",
 				"max": 1,
 				"cost": {
