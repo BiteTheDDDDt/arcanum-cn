@@ -4,8 +4,8 @@
 		"classes": [
 			{
 				"id": "witch",
-				"actdesc": "Enter into the practice of witchcraft.",
-				"flavor": "'What is't you do?' 'A deed without a name'",
+				"actdesc": "开始修习女巫术。",
+				"flavor": "‘你在做什么？’ ‘一个没有名字的仪式。’",
 				"tags": "t_tier1,t_shadowclass,t_demonclass,t_potionclass",
 				"require": "g.tier0>0&&g.animals>=2&&g.potions>=3&&g.tier1==0",
 				"cost": {
@@ -23,8 +23,8 @@
 			},
 			{
 				"id": "darkmagician",
-				"name": "dark mage",
-				"desc": "A devotee of black magic.",
+				"name": "暗黑魔导师",
+				"desc": "黑暗魔法的信徒与实践者。",
 				"tags": "t_tier2,t_shadowclass,t_demonclass,t_knowledgeclass",
 				"require": "g.tier1>0&&g.shadowlore>=10",
 				"cost": {
@@ -47,7 +47,8 @@
 			},
 			{
 				"id": "dreadlord",
-				"desc": "Harbinger of destruction.",
+				"name": "恐惧领主",
+				"desc": "毁灭与恐惧的先驱者。",
 				"tags": "t_tier3,t_shadowclass,t_swordclass",
 				"require": "g.tier2>0&&g.evil2>0&&g.hp>=100",
 				"cost": {
@@ -67,7 +68,8 @@
 			},
 			{
 				"id": "warlock",
-				"desc": "Master of demons and demonic magic.",
+				"name": "术士",
+				"desc": "通晓恶魔与魔咒的资深术士。",
 				"tags": "t_tier4,t_shadowclass,t_demonclass,t_summonclass",
 				"require": "g.tier3>0&&g.evil2>0",
 				"cost": {
@@ -87,8 +89,9 @@
 			},
 			{
 				"id": "archlock",
-				"desc": "Master of demons and demonic magic.",
-				"flavor": "In the War of the Locks the Seven raged for Power Absolute, and Dhrune trembled in their wake.",
+				"name": "大术士",
+				"desc": "掌握高阶恶魔学与禁咒的大师。",
+				"flavor": "在锁之战争中，七人争夺至高权位，德鲁恩也为之颤栗。",
 				"tags": "t_tier5,t_shadowclass,t_demonclass,t_summonclass",
 				"require": "g.warlock>0&&g.demonology>=12&&g.evil3>0",
 				"cost": {
@@ -105,9 +108,9 @@
 			},
 			{
 				"id": "deathlock",
-				"name": "death lock",
-				"desc": "An unholy synthesis of wizardry and demonology.",
-				"flavor": "Narz, Bodias, Vezial. Even among the Archlocks, some names stood in abject terror.",
+				"name": "死灵术士",
+				"desc": "巫术与恶魔学的禁忌融合者。",
+				"flavor": "Narz、Bodias、Vezial——即便在大术士中，这些名字也令人战栗。",
 				"tags": "t_tier6,t_shadowclass,t_demonclass,t_summonclass",
 				"require": "g.tier5>0&&g.demonology>=19&&g.evil3>0",
 				"cost": {
@@ -126,8 +129,9 @@
 			},
 			{
 				"id": "reanimator",
-				"desc": "Create and resurrect living materials.",
-				"flavor": "Even the dead have their uses.",
+				"name": "复生者",
+				"desc": "以死者为材料创造并复活仆从。",
+				"flavor": "即便死者也能派上用场。",
 				"tags": "t_tier1,t_shadowclass,t_necroclass",
 				"require": "g.tier0>0&&g.evil1>0&&g.good2==0",
 				"cost": {
@@ -148,8 +152,9 @@
 			},
 			{
 				"id": "bonemonger",
-				"desc": "Extend your life with spare parts from the dead.",
-				"flavor": "Even the dead have their uses.",
+				"name": "骨商",
+				"desc": "用死者的残骸延续你的计划与寿命。",
+				"flavor": "即便死者也有用途。",
 				"tags": "t_tier2,t_shadowclass,t_necroclass",
 				"require": "g.tier1>0&&g.t_necroclass>0&&g.evil1>0",
 				"cost": {
@@ -172,7 +177,8 @@
 			},
 			{
 				"id": "thanophage",
-				"desc": "Drain corpses of their lingering life-force to prolong your bleak existence.",
+				"name": "噬亡者",
+				"desc": "从尸体中吸取残留生命以延续自身存在。",
 				"tags": "t_tier3,t_shadowclass,t_bloodclass",
 				"require": "g.tier2>0&&g.evil2>0",
 				"cost": {
@@ -193,7 +199,8 @@
 			},
 			{
 				"id": "necromancer",
-				"desc": "A master of death magic.",
+				"name": "死灵法师",
+				"desc": "精通死灵魔法与复生之术的大师。",
 				"tags": "t_tier4,t_shadowclass,t_necroclass,t_minionclass",
 				"require": "g.tier3>0&&g.evil2>0&&g.shadowlore>=17",
 				"cost": {
@@ -215,8 +222,8 @@
 			},
 			{
 				"id": "greynecromancer",
-				"name": "grey necromancer",
-				"desc": "Disciple of death.",
+				"name": "灰衣死灵师",
+				"desc": "死者之力的虔诚信徒。",
 				"tags": "t_tier5,t_shadowclass,t_necroclass,t_minionclass",
 				"require": "g.tier4>0&&g.phylactory>0",
 				"cost": {
@@ -238,9 +245,9 @@
 			},
 			{
 				"id": "necro3",
-				"name": "vile necromancer",
-				"desc": "In every epoch, Death appoints her viceroy.",
-				"flavor": "The greys bowed their heads in fear.",
+				"name": "邪恶死灵师",
+				"desc": "死亡时代的副王，专司亵渎与统御亡灵。",
+				"flavor": "灰人低头，显露恐惧。",
 				"tags": "t_tier6,t_shadowclass,t_necroclass,t_minionclass",
 				"require": "g.tier5>0&&g.up_lich>0",
 				"cost": {
@@ -266,8 +273,8 @@
 		"skills": [
 			{
 				"id": "shadowlore2",
-				"name": "shadow mastery",
-				"desc": "A mastery of shadow.",
+				"name": "暗影掌握",
+				"desc": "对暗影的深刻掌握。",
 				"level": 15,
 				"require": "g.shadowlore>=10&&g.t_shadowclass>0",
 				"buy": {
@@ -323,7 +330,7 @@
 				"school": "shadow",
 				"require": "g.evil1>0&&g.embalming>=3",
 				"need": "g.good3==0",
-				"needtext": "Cannot be incorruptible.",
+				"needtext": "无法为纯洁无瑕者所习得。",
 				"buy": {
 					"arcana": 25
 				},
@@ -339,12 +346,12 @@
 			},
 			{
 				"id": "necromancy",
-				"desc": "Forbidden death magic.",
+				"desc": "禁忌的死灵魔法。",
 				"level": 5,
 				"school": "shadow",
 				"require": "g.evil2>0&&g.reanimation>=7",
 				"need": "g.good2==0",
-				"needtext": "Cannot be scrupulous.",
+				"needtext": "不会被谨慎洁癖之人所接受。",
 				"buy": {
 					"arcana": 30,
 					"souls": 3
@@ -360,7 +367,7 @@
 			},
 			{
 				"id": "undeadmastery",
-				"name": "Undead Mastery",
+				"name": "亡灵精通",
 				"level": 5,
 				"school": "shadow",
 				"require": "g.reanimation>0",
@@ -382,7 +389,7 @@
 			},
 			{
 				"id": "shademastery",
-				"name": "Shade Mastery",
+				"name": "幽影精通",
 				"level": 15,
 				"school": "shadow",
 				"require": "g.necromancy>0&&g.t_necroclass>=2",
@@ -423,8 +430,8 @@
 		"resources": [
 			{
 				"id": "bodies",
-				"desc": "Bodies for necromantic magic.",
-				"group": "necromancy",
+				"desc": "用于死灵魔法的尸体材料。",
+				"group": "死灵",
 				"max": 1,
 				"sortOrder": 705,
 				"mod": {
@@ -434,31 +441,31 @@
 			},
 			{
 				"id": "skulls",
-				"desc": "Human skull.",
-				"group": "necromancy",
+				"desc": "人类头骨。",
+				"group": "死灵",
 				"max": 5,
 				"sortOrder": 710
 			},
 			{
 				"id": "bones",
-				"desc": "Human bones.",
-				"group": "necromancy",
+				"desc": "人类骨骼。",
+				"group": "死灵",
 				"max": 10,
 				"sortOrder": 715
 			},
 			{
 				"id": "bonedust",
-				"name": "bone dust",
-				"desc": "The dust of human bones.",
-				"group": "necromancy",
+				"name": "骨粉",
+				"desc": "由人类骨骼研磨而成的粉末。",
+				"group": "死灵",
 				"max": 10,
 				"sortOrder": 720
 			},
 			{
 				"id": "souls",
-				"desc": "Imprisoned souls of living creatures.",
-				"flavor": "Is it wrong?",
-				"group": "necromancy",
+				"desc": "被囚禁的生灵之魂。",
+				"flavor": "这是错的吗？",
+				"group": "死灵",
 				"max": 1,
 				"sortOrder": 725,
 				"mod": {
@@ -471,7 +478,7 @@
 		"spells": [
 			{
 				"id": "waveofdarkness",
-				"name": "wave of darkness",
+				"name": "暗潮波动",
 				"sortOrder": 1200,
 				"level": 9,
 				"school": "shadow",
@@ -511,8 +518,8 @@
 			},
 			{
 				"id": "darkfeast",
-				"name": "dark feast",
-				"desc": "Tear life force from everything nearby and consume it to recover your own.",
+				"name": "暗影盛宴",
+				"desc": "撕裂周围一切的生命力，将其吞噬以恢复自身。",
 				"sortOrder": 1201,
 				"level": 10,
 				"school": "shadow",
@@ -563,7 +570,7 @@
 			},
 			{
 				"id": "lifedrain",
-				"name": "drain life",
+				"name": "吸血之咒",
 				"sortOrder": 1203,
 				"level": 12,
 				"school": "shadow",
@@ -630,7 +637,7 @@
 			},
 			{
 				"id": "deathbolt",
-				"name": "death bolt",
+				"name": "死亡箭矢",
 				"sortOrder": 1205,
 				"level": 7,
 				"school": "shadow",
@@ -698,7 +705,7 @@
 			},
 			{
 				"id": "blast",
-				"name": "blasting curse",
+				"name": "爆裂诅咒",
 				"sortOrder": 1206,
 				"level": 3,
 				"school": "shadow",
@@ -767,7 +774,7 @@
 			},
 			{
 				"id": "obscure2",
-				"name": "obscuring shadows",
+				"name": "隐蔽之影",
 				"sortOrder": 1245,
 				"level": 5,
 				"school": "shadow",
@@ -806,7 +813,7 @@
 			},
 			{
 				"id": "obscure3",
-				"name": "greater obscuring shadows",
+				"name": "强化隐蔽之影",
 				"sortOrder": 1244,
 				"level": 7,
 				"school": "shadow",
@@ -844,7 +851,7 @@
 			},
 			{
 				"id": "gloom",
-				"desc": "Decreases the target's resistance to shadow magic.",
+				"desc": "削弱目标对暗影魔法的抗性。",
 				"sortOrder": 1250,
 				"level": 2,
 				"school": "shadow",
@@ -885,7 +892,7 @@
 			},
 			{
 				"id": "terrifyingvisage",
-				"name": "terrifying visage",
+				"name": "恐怖相貌",
 				"sortOrder": 1251,
 				"level": 6,
 				"school": "shadow",
@@ -924,9 +931,9 @@
 			},
 			{
 				"id": "soul_acquisition",
-				"name": "soulbind branding",
-				"desc": "Carve a set of soul-trapping runes into an enemy's flesh, to prevent their soul from escaping your grasp",
-				"flavor": "It shall be engraved upon your soul!",
+				"name": "灵魂封印",
+				"desc": "在敌体上刻下囚魂符文，防止其灵魂逃逸。",
+				"flavor": "它将铭刻在你的灵魂之上！",
 				"sortOrder": 1270,
 				"level": 3,
 				"school": "shadow",
@@ -987,9 +994,9 @@
 			},
 			{
 				"id": "body_acquisition",
-				"name": "embalming injection",
-				"desc": "Inject an enemy with embalming fluid to preserve the corpse for later.",
-				"flavor": "Gives an entirely new definition to \"living dead\".",
+				"name": "防腐注射",
+				"desc": "向敌体注入防腐剂，以保存尸体供日后使用。",
+				"flavor": "为‘生而逝者’赋予新的定义。",
 				"sortOrder": 1271,
 				"level": 3,
 				"school": "shadow",
@@ -1046,8 +1053,8 @@
 			},
 			{
 				"id": "darkpromptings",
-				"name": "dark promptings",
-				"desc": "Malevolent voices whisper secrets to your mind.",
+				"name": "黑暗诱引",
+				"desc": "恶意的低语向你耳语禁忌的秘密。",
 				"sortOrder": 1272,
 				"level": 3,
 				"school": "shadow",
@@ -1089,8 +1096,8 @@
 			},
 			{
 				"id": "mk_imp",
-				"name": "Summon Imps",
-				"desc": "Summon your patron's weakest servants to perish for you.",
+				"name": "召唤小鬼",
+				"desc": "召唤主君的弱小仆从为你赴死。",
 				"sortOrder": 1752,
 				"level": 3,
 				"school": "summoning",
@@ -1134,8 +1141,8 @@
 			},
 			{
 				"id": "mk_quasit",
-				"name": "Summon quasit",
-				"desc": "Summon one of your patron's servants to die for you.",
+				"name": "召唤妖灵",
+				"desc": "召唤主君的仆从为你赴战。",
 				"sortOrder": 1753,
 				"level": 5,
 				"school": "summoning",
@@ -1178,8 +1185,8 @@
 			},
 			{
 				"id": "mk_grimstalk",
-				"name": "summon grimstalk",
-				"desc": "Summon one of your patron's servants to endure for you.",
+				"name": "召唤墓行者",
+				"desc": "召唤主君的仆从来为你坚守战场。",
 				"sortOrder": 1751,
 				"level": 7,
 				"school": "summoning",
@@ -1223,8 +1230,8 @@
 			},
 			{
 				"id": "mk_demon",
-				"name": "summon demon",
-				"desc": "Summon one of your patron's servants to fight for you.",
+				"name": "召唤恶魔",
+				"desc": "召唤主君的强力仆从来为你战斗。",
 				"sortOrder": 1750,
 				"level": 12,
 				"school": "summoning",
@@ -1268,9 +1275,9 @@
 			},
 			{
 				"id": "mk_skeleton",
-				"name": "Raise skeleton",
-				"desc": "Infuse a bunch of bones into a temporary pawn.",
-				"extdesc": "Unstable summon - It'll lose its health over time without additional infusions of deathly energy.",
+				"name": "复活骷髅",
+				"desc": "将碎骨灌注以形成短暂的傀儡。",
+				"extdesc": "不稳定的召唤——若无额外的亡灵能量注入，生命会逐渐流失。",
 				"tags": "t_undead_spell",
 				"sortOrder": 1256,
 				"level": 1,
@@ -1310,9 +1317,9 @@
 			},
 			{
 				"id": "mk_zombie",
-				"name": "Raise zombie",
-				"desc": "The corpse can be easily reanimated into a mindless but resilient ally.",
-				"extdesc": "Unstable summon - It'll lose its health over time without additional infusions of deathly energy.",
+				"name": "复活僵尸",
+				"desc": "尸体被重新激活为无意识但坚韧的盟友。",
+				"extdesc": "不稳定的召唤——在没有额外能量注入的情况下会逐渐失去生命值。",
 				"tags": "t_undead_spell",
 				"sortOrder": 1255,
 				"level": 1,
@@ -1352,8 +1359,8 @@
 			},
 			{
 				"id": "mk_bonegolem",
-				"name": "Animate Bone Golem",
-				"desc": "Bones gathered, fused, and empowered with dark magic. Surely this will create a formidable minion.",
+				"name": "唤骨傀儡",
+				"desc": "收集骨骼，融合并以黑暗魔法注能，造就强力仆从。",
 				"tags": "t_undead_spell",
 				"sortOrder": 1254,
 				"level": 1,
@@ -1394,8 +1401,8 @@
 			},
 			{
 				"id": "mk_spectre",
-				"name": "Unleash Spectre",
-				"desc": "Release a vengeful soul into the battlefield.",
+				"name": "放逐幽魂",
+				"desc": "释放一缕复仇的灵魂投入战场。",
 				"tags": "t_shade_spell",
 				"sortOrder": 1253,
 				"level": 1,
@@ -1435,8 +1442,8 @@
 			},
 			{
 				"id": "mk_lich",
-				"name": "Invoke Lesser Lich",
-				"desc": "Assemble a vessel and an ample offering in exchange for a servant of Death.",
+				"name": "召唤小巫妖",
+				"desc": "构建容器并献上祭品，以换取死神的仆从。",
 				"tags": "t_shade_spell",
 				"sortOrder": 1251,
 				"level": 1,
@@ -1477,8 +1484,8 @@
 			},
 			{
 				"id": "mk_reaper",
-				"name": "Manifest Ethereal reaper",
-				"desc": "Rend the veil of death to summon manifestation of Death itself",
+				"name": "显化灵魂收割者",
+				"desc": "撕裂死界之幕，召唤死亡的显现。",
 				"tags": "t_shade_spell",
 				"sortOrder": 1250,
 				"level": 1,
@@ -1518,7 +1525,7 @@
 			},
 			{
 				"id": "healundead",
-				"name": "circle of unlife",
+				"name": "亡灵回环",
 				"tags": "t_undead_spell",
 				"sortOrder": 1231,
 				"level": 8,
@@ -1560,7 +1567,7 @@
 			},
 			{
 				"id": "healshade",
-				"name": "Necrotic Nourishment",
+				"name": "死灵滋养",
 				"tags": "t_shade_spell",
 				"sortOrder": 1230,
 				"level": 8,
@@ -1602,8 +1609,8 @@
 			},
 			{
 				"id": "bolsterundead",
-				"name": "bolster undead",
-				"desc": "Infuse your minions with a protective layer of death energy.",
+				"name": "强化亡灵",
+				"desc": "以亡灵能量覆盖你的仆从，提供保护。",
 				"tags": "t_shade_spell,t_undead_spell",
 				"sortOrder": 1240,
 				"level": 6,
@@ -1651,10 +1658,10 @@
 			},
 			{
 				"id": "reviveundead",
-				"name": "Reanimate Undead",
-				"desc": "Once possessed with a power of unliving, remnants of your minions can be pushed back into action with just a pinch of additional energy.",
-				"extdesc": "And some replacement bones.",
-				"flavor": "You had one job — staying undead. Was that too much to ask?",
+				"name": "复活亡灵",
+				"desc": "只需少量额外能量便可让残存的仆从回归行动。",
+				"extdesc": "以及一些替换的骨骼。",
+				"flavor": "你只有一项工作——保持不死。难道这也太多了吗？",
 				"sortOrder": 1267,
 				"level": 3,
 				"school": "necromancy",
@@ -1694,8 +1701,8 @@
 			},
 			{
 				"id": "reviveshade",
-				"name": "Recall shade",
-				"desc": "Shade already bound to you can be brought back from Plane of Death with a much simpler means.",
+				"name": "召回幽影",
+				"desc": "已与您缔结的幽影可用更简便的方式从死界召回。",
 				"sortOrder": 1266,
 				"level": 5,
 				"school": "necromancy",
@@ -1737,8 +1744,8 @@
 		"furniture": [
 			{
 				"id": "casket",
-				"name": "caskets",
-				"desc": "Simple containers for preserving bodies.",
+				"name": "棺材",
+				"desc": "用于保存尸体的简易容器。",
 				"require": "g.tier0>0&&g.embalming>=5&&g.crafting>=5",
 				"max": 5,
 				"cost": {
@@ -1752,7 +1759,7 @@
 			},
 			{
 				"id": "vat",
-				"desc": "Grows bodies from raw materials.",
+				"desc": "用原料培养出尸体。",
 				"require": "g.tier1>0&&g.anatomy>=5&&(g.embalming>=5||g.transfusions>0)&&g.crafting>=10",
 				"max": 5,
 				"cost": {
@@ -1786,8 +1793,8 @@
 			},
 			{
 				"id": "bonecandelabra",
-				"name": "bone candelabra",
-				"desc": "Creepy.",
+				"name": "骨质烛台",
+				"desc": "阴森的装饰。",
 				"tags": "t_candelabra",
 				"require": "g.t_necroclass>0",
 				"repeat": false,
@@ -1803,7 +1810,7 @@
 			},
 			{
 				"id": "ossuary",
-				"desc": "Receptacle for bones.",
+				"desc": "存放骨骼的容器。",
 				"tags": "shadowsource,spiritsource",
 				"require": "g.bones>3",
 				"max": 4,
@@ -1820,7 +1827,7 @@
 			},
 			{
 				"id": "graveyard",
-				"desc": "A resting place for the dead.",
+				"desc": "安放亡者的安息之地。",
 				"tags": "shadowsource,spiritsource",
 				"require": "g.space.max>=50&&g.souls>0",
 				"cost": {
@@ -1841,7 +1848,7 @@
 			},
 			{
 				"id": "dungeon",
-				"desc": "A vast complex to lock away hazardous experiments, deadly creatures, and all those who displease you.",
+				"desc": "用于囚禁危险试验、致命生物及你不喜之人的庞大设施。",
 				"tags": "prison",
 				"require": "g.tier2>0&&g.bodies>0",
 				"cost": {
@@ -1857,8 +1864,8 @@
 			},
 			{
 				"id": "ironcell",
-				"name": "iron cell",
-				"desc": "A simple, bare cell.",
+				"name": "铁牢",
+				"desc": "简陋的牢房。",
 				"tags": "prison,shadowsource",
 				"require": "g.tier0>0&&g.space.max>=20&&g.bodies>0",
 				"repeat": true,
@@ -1873,9 +1880,9 @@
 			},
 			{
 				"id": "vivisectionlab",
-				"name": "vivisection lab",
-				"desc": "Cut open 'willing' participants to see what makes your undead tick. A tendon here, a ligament there.",
-				"flavor": "Rest in pieces.",
+				"name": "活体解剖室",
+				"desc": "在‘自愿’参与者身上切割以研究亡灵构造。",
+				"flavor": "逝者安息为碎片。",
 				"tags": "shadowsource",
 				"require": "g.evil2>0&&g.space.max>=50&&g.t_necroclass>0",
 				"cost": {
@@ -1894,8 +1901,8 @@
 			},
 			{
 				"id": "pentagram",
-				"name": "demonic pentagram",
-				"desc": "Used for summoning demonic entities.",
+				"name": "恶魔五芒星",
+				"desc": "用于召唤恶魔实体的仪式装置。",
 				"tags": "prison,summonsource",
 				"require": "g.demonology>=10",
 				"cost": {
@@ -1916,8 +1923,8 @@
 			},
 			{
 				"id": "display_room",
-				"name": "display room",
-				"desc": "A large room for nicknacks and baubles.",
+				"name": "陈列室",
+				"desc": "摆放珍奇小物与陈设的宽敞房间。",
 				"require": "g.space.max>=120&&g.skulls>0",
 				"max": 1,
 				"cost": {
@@ -1940,8 +1947,8 @@
 		"homes": [
 			{
 				"id": "home_tomb",
-				"name": "tomb",
-				"desc": "A hideout in the midst of lots of convenient corpses. Perfect for your nefarious ways.",
+				"name": "墓室",
+				"desc": "藏身于众多可用尸体之间的隐匿处，适合你的阴谋与实验。",
 				"tags": "shadowsource,t_underground",
 				"require": "g.reanimation>=(5-2*g.reanimator)&&g.tier2>0",
 				"buy": {
@@ -1962,9 +1969,9 @@
 			},
 			{
 				"id": "home_necropolis",
-				"name": "necropolis",
-				"desc": "A grand inverted city secreted below the surface. The restless dead gather en masse in preparation for your grand design.",
-				"flavor": "The great Dalassa raised the first necropolis, in ages long past.",
+				"name": "死城",
+				"desc": "位于地表之下的宏伟颠倒之城，亡者为你的宏图聚集。",
+				"flavor": "伟大的达拉萨在久远时代铸造了第一座死城。",
 				"tags": "shadowsource,t_underground",
 				"require": "g.raisenecropolis>0",
 				"mod": {
@@ -1987,9 +1994,9 @@
 		"tasks": [
 			{
 				"id": "graverob",
-				"name": "Pillage Graves",
-				"desc": "Dig up old graves for magical reagents. These guys are like 300 years old, they won't mind.",
-				"flavor": "It's for a good cause.",
+				"name": "掘墓",
+				"desc": "挖掘古墓以获取魔法材料。那些人已经百年而亡，不会介意的。",
+				"flavor": "这是为了更伟大的事业。",
 				"group": "材料",
 				"tags": "t_evilact",
 				"require": "g.dissection>=3",
@@ -2006,8 +2013,8 @@
 			},
 			{
 				"id": "vileexperiment",
-				"name": "vile experiment",
-				"desc": "Experiment on dead or soon-to-be-dead subjects. This is not something a good wizard would do.",
+				"name": "邪恶实验",
+				"desc": "对已死或临死之体进行实验——良善的巫师不会这么做。",
 				"group": "材料",
 				"tags": "t_extremeevil",
 				"require": "g.dissection>=5&&g.shadowlore>0",
@@ -2043,8 +2050,8 @@
 			},
 			{
 				"id": "dissect",
-				"name": "dissect cadaver",
-				"desc": "Dissect a body for components. Only the best pieces will serve.",
+				"name": "解剖尸体",
+				"desc": "解剖尸体以获取组件，只有最好的部位可用。",
 				"group": "制作",
 				"require": "g.dissection>=4",
 				"fill": [
@@ -2063,8 +2070,8 @@
 			},
 			{
 				"id": "grindbones",
-				"name": "grind bones",
-				"desc": "Grind bones into dust.",
+				"name": "碾碎骨骼",
+				"desc": "将骨骼研磨成粉末。",
 				"group": "制作",
 				"require": "g.dissection>=3",
 				"fill": "bonedust",
@@ -2081,8 +2088,8 @@
 			},
 			{
 				"id": "grindskull",
-				"name": "powderize skull",
-				"desc": "Grind a skull into dust.",
+				"name": "粉碎颅骨",
+				"desc": "将颅骨研磨成粉末。",
 				"group": "制作",
 				"require": "g.dissection>=4",
 				"fill": "bonedust",
@@ -2099,9 +2106,9 @@
 			},
 			{
 				"id": "embalm",
-				"name": "funerary rites",
-				"verb": "solemnizing",
-				"desc": "Oversee the funerary rites of merchants and nobles.",
+				"name": "葬礼仪式",
+				"verb": "主持葬礼",
+				"desc": "监督商贾与贵族的葬礼仪式。",
 				"group": "富裕",
 				"require": "g.embalming>=5&&g.tier0>0",
 				"perpetual": true,
@@ -2129,9 +2136,9 @@
 			},
 			{
 				"id": "medicalmalpractice",
-				"name": "vivisection practice",
-				"desc": "Put your new torture expertise to practice and do some work pro malo publico.",
-				"flavor": "Reedburgh is the kind of place no one will miss a few people off the streets.",
+				"name": "活体解剖实践",
+				"desc": "将折磨与解剖技能付诸实践，为‘公众利益’效劳。",
+				"flavor": "里德堡是那种失踪几个人也不会被注意的地方。",
 				"group": "知识",
 				"tags": "t_evilact",
 				"require": "g.evil2>0&&g.space.max>=100&&g.t_necroclass>0",
@@ -2151,9 +2158,9 @@
 			},
 			{
 				"id": "corpsestudy",
-				"name": "examine corpses",
-				"desc": "Honestly, you're getting bored here. Tamper with some corpses, see if anything interesting results from various fluids and magics.",
-				"flavor": "Just make sure the cult in the Barrows never finds out you intend to poach their knowledge.",
+				"name": "研究尸体",
+				"desc": "你渐感乏味，篡改尸体看看不同液体与魔法有什么有趣结果。",
+				"flavor": "只要别让墓穴的邪教发现你打算窃取他们的知识。",
 				"group": "知识",
 				"tags": "t_evilact",
 				"require": "g.necromancy>0&&g.evil2>0&&g.good2==0",
@@ -2175,9 +2182,9 @@
 			},
 			{
 				"id": "phylactory",
-				"actname": "craft phylactory",
+				"actname": "打造灵魄匣",
 				"tags": "t_permanent_transformation",
-				"desc": "Rip out of a piece of your soul and store it in a magic gem.",
+				"desc": "撕出一部分灵魂并将其封存于魔法宝石中。",
 				"group": "知识",
 				"require": "g.crafting>=20&&g.necromancy>=7&&g.evil3>0",
 				"lock": "t_permanent_transformation",
@@ -2208,9 +2215,9 @@
 			},
 			{
 				"id": "up_lich",
-				"name": "lich",
-				"actname": "rite of undeath",
-				"desc": "Obtain immortality by becoming a lich.",
+				"name": "巫妖",
+				"actname": "不死仪式",
+				"desc": "通过成为巫妖获得不朽。",
 				"group": "身体",
 				"require": "g.crafting>=20&&g.necromancy>=9&&g.phylactory>0",
 				"max": 1,
@@ -2239,10 +2246,10 @@
 			},
 			{
 				"id": "raisenecropolis",
-				"name": "raise necropolis",
-				"verb": "reanimating",
-				"desc": "Raise an entire undead city and make history in your infamy.",
-				"extdesc": "Unlocks a new home when completed.",
+				"name": "兴建死城",
+				"verb": "重塑亡土",
+				"desc": "兴建整座亡灵都市，以你的臭名昭著载入史册。",
+				"extdesc": "完成后会解锁新的住所。",
 				"group": "住宅",
 				"require": "g.tier4>0&&g.necromancy>=6",
 				"max": 1,
@@ -2269,9 +2276,9 @@
 			},
 			{
 				"id": "blackbook",
-				"name": "black book of ages",
-				"desc": "The vellum is black, containing forbidden secrets written in blood. Just looking at it causes pain.",
-				"flavor": "'What knowledge do you seek?' the voices asked Vezial. 'Everything.'",
+				"name": "诸世纪黑书",
+				"desc": "黑色羊皮纸记录着用血书写的禁忌秘密，仅一瞥便生痛楚。",
+				"flavor": "‘你寻求什么知识？’声音问韦齐尔。‘一切。’",
 				"group": "知识",
 				"tags": "t_languagework",
 				"require": "g.tier4>0&&g.evil2>0&&g.demonology>=15",
@@ -2307,8 +2314,8 @@
 			},
 			{
 				"id": "bloodsiphon",
-				"name": "blood siphon",
-				"desc": "Leech blood from a body to restore your health.",
+				"name": "吸血",
+				"desc": "从尸体吸取血液以恢复生命。",
 				"require": "transfusions",
 				"perpetual": true,
 				"run": {
@@ -2328,10 +2335,10 @@
 			},
 			{
 				"id": "skulltalk",
-				"name": "converse with a skull",
-				"verb": "conversing",
-				"desc": "Use a human skull as a conversation companion.",
-				"group": "research",
+				"name": "与颅骨对话",
+				"verb": "交谈中",
+				"desc": "用人类颅骨作为谈话的伙伴。",
+				"group": "研究",
 				"tags": "t_contemplation",
 				"require": "magicskull",
 				"perpetual": true,
@@ -2358,9 +2365,9 @@
 			},
 			{
 				"id": "demondict",
-				"name": "demonic dictionary",
-				"desc": "A compiliation of obscure demonic languages.",
-				"group": "knowledge",
+				"name": "恶魔辞典",
+				"desc": "汇编奇异的恶魔语文。",
+				"group": "知识",
 				"tags": "t_languagework",
 				"require": "g.languages>=10&&g.demonology>0",
 				"max": 1,
@@ -2381,10 +2388,10 @@
 			},
 			{
 				"id": "demonbag",
-				"name": "bag of demons",
-				"actname": "craft bag of demons",
-				"desc": "You'll make your own bags, thank you.",
-				"flavor": "The research costs a little more than you expected...",
+				"name": "妖袋",
+				"actname": "制作妖袋",
+				"desc": "你将亲手制作自己的妖袋，感谢你的手艺。",
+				"flavor": "研发耗费比你预想的要多一些……",
 				"group": "存储",
 				"require": "g.demonology>=10&&g.crafting>=20&&g.tier3>0",
 				"tags": "t_craftedbag",
@@ -2408,8 +2415,8 @@
 			},
 			{
 				"id": "sabbat",
-				"name": "witch's sabbat",
-				"desc": "A revelry of demons and witches.",
+				"name": "女巫狂欢夜",
+				"desc": "魔鬼与女巫共襄的狂欢仪式。",
 				"group": "研究",
 				"require": "g.witch>0&&g.demonology>=7&&g.spiritlore>=8",
 				"length": 100,
@@ -2431,9 +2438,9 @@
 			},
 			{
 				"id": "trapsoul",
-				"name": "trap soul",
-				"verb": "catching souls",
-				"desc": "Capture a soul within a spirit gem.",
+				"name": "囚魂",
+				"verb": "捕捉灵魂",
+				"desc": "将灵魂封入灵魂宝石中。",
 				"group": "材料",
 				"require": "g.bonedust>0",
 				"need": "wardsource",
@@ -2458,9 +2465,9 @@
 			},
 			{
 				"id": "demonicgrimoire",
-				"name": "Grimoire of Demons",
-				"desc": "Put together your insights on demons and ways of forcing them to do your bidding",
-				"verb": "Scribbling incomprehensibly",
+				"name": "恶魔魔典",
+				"desc": "整理关于恶魔与支配它们方法的见解。",
+				"verb": "不可理解地涂写",
 				"group": "知识",
 				"require": "g.demonology>=8&&g.tier2>0",
 				"max": 1,
@@ -2485,9 +2492,9 @@
 			},
 			{
 				"id": "demonquizzing",
-				"name": "interrogate fiends",
-				"desc": "Conjure and bind fiends to demand answers about their ilk.",
-				"flavor": "Does Hell exist? Does damnation? Is it the same place as the Nether? Do demons originate from the damned?",
+				"name": "审问魔物",
+				"desc": "召唤并束缚恶灵以逼问其同族之事。",
+				"flavor": "地狱存在吗？诅罚存在吗？它与虚界是同一处所吗？恶魔是否源于被诅者？",
 				"group": "知识",
 				"require": "g.demonology>=9&&g.tier3>0",
 				"need": [
@@ -2510,9 +2517,9 @@
 			},
 			{
 				"id": "room_displays",
-				"name": "room displays",
-				"desc": "Fill your display room with more baubles and nicknacks.",
-				"flavor": "Stuffed crocodiles and glassware filled with bubbling green goo are integral to any self-respecting wizard.",
+				"name": "陈列房扩充",
+				"desc": "为陈列室添置更多奇珍小物。",
+				"flavor": "填充鳄鱼标本与盛着泡泡绿液的玻璃器皿，是每位自尊巫师的必备。",
 				"group": "存储",
 				"require": "g.space.max>=120&&g.skulls>0",
 				"need": "display_room",
@@ -2531,7 +2538,7 @@
 		"upgrades": [
 			{
 				"id": "eatchildrenrest",
-				"name": "eat children",
+				"name": "吞食孩童",
 				"tags": [
 					"t_restmod",
 					"t_extremeevil"
@@ -2543,7 +2550,7 @@
 				"buy": {
 					"shadow": 5
 				},
-				"flavor": "How could you!?!",
+				"flavor": "你怎么能这样！？？",
 				"mod": {
 					"t_rest.effect.evilamt": 2,
 					"t_rest.effect.mana": 0.1,
@@ -2552,13 +2559,13 @@
 					"t_rest.effect.stress": -0.1,
 					"t_rest.effect.hp": 0.5
 				},
-				"group": "rest"
+				"group": "休息"
 			},
 			{
 				"id": "deepincisions",
-				"name": "deep incisions",
-				"desc": "The safest place to store your precious gems is by your heart.",
-				"group": "storage",
+				"name": "深切口袋",
+				"desc": "将宝石藏于心脏之侧，是最安全的藏匿之地。",
+				"group": "存储",
 				"require": "g.bloodbag>0&&g.dissection>=5",
 				"max": 1,
 				"cost": {
@@ -2572,10 +2579,10 @@
 			},
 			{
 				"id": "model_skeleton",
-				"name": "model skeleton",
-				"desc": "Bones and string making a complex skeleton of a human.",
-				"flavor": "If only they had a body.",
-				"group": "knowledge",
+				"name": "模型骷髅",
+				"desc": "用骨骼与线构成的人体复杂骨架。",
+				"flavor": "要是它们有个身体就好了。",
+				"group": "知识",
 				"require": "g.embalming>=2",
 				"max": 1,
 				"cost": {
@@ -2590,9 +2597,9 @@
 			},
 			{
 				"id": "model_animals",
-				"name": "taxidermy animals",
-				"desc": "Small animals stuffed, embalmed and ready for study or display.",
-				"group": "knowledge",
+				"name": "剥制动物",
+				"desc": "小动物经填充、漂白后用于研究或展示。",
+				"group": "知识",
 				"require": "g.anatomy>=2&&g.embalming>0&&g.animals>=3",
 				"max": 5,
 				"cost": {
@@ -2609,9 +2616,9 @@
 			},
 			{
 				"id": "model_skeleton_body",
-				"name": "model body",
-				"desc": "Muscles, sinew and all the red and white bits needed to show how a body looks under the surface.",
-				"group": "knowledge",
+				"name": "人体模型",
+				"desc": "展现肌肉、肌腱与其他内里结构的人体模型。",
+				"group": "知识",
 				"require": "g.anatomy>=5&&g.model_skeleton>0&&g.vivification>=3",
 				"max": 1,
 				"cost": {
@@ -2631,9 +2638,9 @@
 			},
 			{
 				"id": "skelcharger",
-				"name": "skeletal charger",
-				"desc": "It neither breathes nor tires.",
-				"group": "mount",
+				"name": "骸骨战骑",
+				"desc": "它既不呼吸也不疲惫。",
+				"group": "坐骑",
 				"slot": "mount",
 				"tags": "steed",
 				"require": "g.reanimation>=5",
@@ -2653,10 +2660,10 @@
 			},
 			{
 				"id": "animate_model_skeleton",
-				"name": "animate model skeleton",
-				"desc": "Perpetual, if rudimentary, reanimation of your model skeleton.",
-				"flavor": "Not useful for much, but it's a start. Now what if I...",
-				"group": "knowledge",
+				"name": "激活模型骷髅",
+				"desc": "为你的模型骷髅提供持续的基础复活。",
+				"flavor": "用处不大，但这是个开始。接下来如果我……",
+				"group": "知识",
 				"require": "g.model_skeleton>=1&&g.reanimation>=6&&g.evil2==1",
 				"max": 1,
 				"cost": {
@@ -2670,10 +2677,10 @@
 			},
 			{
 				"id": "bonecollector",
-				"name": "bone collector",
-				"desc": "Create a gibbering ghoul to scavenge for bones.",
-				"flavor": "Don't ask where it finds them.",
-				"group": "materials",
+				"name": "拾骨者",
+				"desc": "创造一个喋喋不休的食尸鬼去搜集骨骼。",
+				"flavor": "别问它从哪里找到的。",
+				"group": "材料",
 				"require": "g.reanimation>=5&&g.crafting>=7",
 				"max": 3,
 				"cost": {
@@ -2687,9 +2694,9 @@
 			},
 			{
 				"id": "morbidtrinkets",
-				"name": "morbid trinkets",
-				"desc": "You have an unhealthy preoccupation with the macabre.",
-				"group": "storage",
+				"name": "病态饰物",
+				"desc": "你对恐怖与诡异的事物有不健康的偏好。",
+				"group": "存储",
 				"require": "bonemonger",
 				"max": 1,
 				"cost": {
@@ -2703,9 +2710,9 @@
 			},
 			{
 				"id": "bettersiphon",
-				"name": "better siphon",
-				"desc": "allows you to extract life from corpses more efficiently.",
-				"group": "rest",
+				"name": "强化吸取",
+				"desc": "使你更有效地从尸体中抽取生命。",
+				"group": "休息",
 				"require": "(g.t_bloodclass+g.evil2)>=2",
 				"max": 1,
 				"cost": {
@@ -2719,9 +2726,9 @@
 			},
 			{
 				"id": "improvedvats",
-				"name": "improved vats",
-				"desc": "make your vats more efficient.",
-				"group": "furniture",
+				"name": "改良化渣箱",
+				"desc": "提高化渣箱的效率。",
+				"group": "家具",
 				"require": "(g.t_necroclass+g.tier4)>=2",
 				"max": 1,
 				"cost": {
@@ -2735,8 +2742,8 @@
 			},
 			{
 				"id": "transfusions",
-				"desc": "Learn to perform life-force transfusions.",
-				"group": "rest",
+				"desc": "学习进行生力输注术。",
+				"group": "休息",
 				"require": "g.t_bloodclass>0||g.slaymaster>0",
 				"max": 1,
 				"cost": {
@@ -2747,9 +2754,9 @@
 			},
 			{
 				"id": "manatrans",
-				"name": "energy Transfusion",
-				"desc": "Transfusions now draw magical energy from bodies.",
-				"group": "rest",
+				"name": "魔力输注",
+				"desc": "输注现在能从尸体汲取魔力能量。",
+				"group": "休息",
 				"require": "g.anatomy>=7&&g.lore>=8&&g.transfusions>0&&g.t_bloodclass>0",
 				"max": 1,
 				"cost": {
@@ -2764,9 +2771,9 @@
 			},
 			{
 				"id": "unholyspecimens",
-				"name": "unholy specimens",
-				"desc": "Your somber collection grows.",
-				"group": "furniture",
+				"name": "不圣之标本",
+				"desc": "你阴沉的收藏日益增多。",
+				"group": "家具",
 				"require": "g.ossuary>=4",
 				"max": 1,
 				"cost": {
@@ -2781,10 +2788,10 @@
 			},
 			{
 				"id": "magicskull",
-				"name": "magic skull",
-				"desc": "An ordinary human skull, infused with necromantic magicks.",
-				"flavor": "I knew him well.",
-				"group": "knowledge",
+				"name": "魔法颅骨",
+				"desc": "普通人类颅骨，注入了死灵魔法。",
+				"flavor": "我很了解他。",
+				"group": "知识",
 				"require": "g.skulls>0",
 				"max": 1,
 				"cost": {
@@ -2802,9 +2809,9 @@
 			},
 			{
 				"id": "graveyard_columbarium",
-				"name": "graveyard columbarium",
-				"desc": "A building for cremated remains.",
-				"group": "furniture",
+				"name": "公墓骨灰堂",
+				"desc": "存放火化骨灰的建筑。",
+				"group": "家具",
 				"require": "g.fire>=5&&g.graveyard>0",
 				"cost": {
 					"research": 20,
@@ -2819,9 +2826,9 @@
 			},
 			{
 				"id": "graveyard_landscaping",
-				"name": "graveyard landscaping",
-				"desc": "Redesign many areas of the graveyard to be more respectful to the dead.",
-				"group": "furniture",
+				"name": "公墓美化",
+				"desc": "对公墓区域重新设计以更尊重亡者。",
+				"group": "家具",
 				"tags": "t_graveyard_remodel",
 				"require": "g.respectable1==1&&g.graveyard>0",
 				"warn": true,
@@ -2839,9 +2846,9 @@
 			},
 			{
 				"id": "graveyard_soulkeeping",
-				"name": "graveyard soul binding",
-				"desc": "Tie the dead souls forcefully to the graveyard area.",
-				"group": "furniture",
+				"name": "墓地灵魂束缚",
+				"desc": "将亡者的灵魂强制束缚于墓地区域。",
+				"group": "家具",
 				"tags": "t_graveyard_remodel",
 				"require": "g.evil1==1&&g.spiritlore>=10&&g.graveyard>0",
 				"warn": true,
@@ -2859,9 +2866,9 @@
 			},
 			{
 				"id": "dungeon_modular",
-				"name": "rework dungeon",
-				"desc": "Add in new hidden passages and optimize the layout of your dungeon to make better use of its space.",
-				"group": "furniture",
+				"name": "改造地牢",
+				"desc": "增加隐藏通道并优化地牢布局以更有效利用空间。",
+				"group": "家具",
 				"require": "g.dungeon>0",
 				"cost": {
 					"research": 120,
@@ -2877,9 +2884,9 @@
 			},
 			{
 				"id": "dungeon_catacomb",
-				"name": "dungeon catacomb",
-				"desc": "Turn a room in your dungeon into a dedicated storage area for skeletons.",
-				"group": "furniture",
+				"name": "地牢墓穴",
+				"desc": "将地牢内一间房改作骷髅专用存储区。",
+				"group": "家具",
 				"require": "g.dungeon_modular>0&&g.dissection>=1",
 				"cost": {
 					"research": 120,
@@ -2895,9 +2902,9 @@
 			},
 			{
 				"id": "dungeon_treasure_room",
-				"name": "dungeon treasure room",
-				"desc": "Turn one room in your dungeon into a well-secured vault.",
-				"group": "furniture",
+				"name": "地牢金库",
+				"desc": "将地牢的一间房改为高度保安的金库。",
+				"group": "家具",
 				"require": "g.dungeon_modular>0",
 				"cost": {
 					"research": 300,
@@ -2916,10 +2923,10 @@
 			},
 			{
 				"id": "demonicpact",
-				"name": "demonic pact",
-				"desc": "A deal with a demon, sealed in blood. The knowledge offered is worth twice the price.",
-				"flavor": "And they say the blood has to be yours.",
-				"group": "knowledge",
+				"name": "恶魔契约",
+				"desc": "与恶魔以鲜血为誓的交易，所获知识价值不凡。",
+				"flavor": "他们还说鲜血必须是你的。",
+				"group": "知识",
 				"require": "g.demonology>=5",
 				"max": 1,
 				"cost": {
@@ -2938,9 +2945,9 @@
 			},
 			{
 				"id": "glassware",
-				"desc": "Glassware for keeping herbs or powders.",
-				"flavor": "Fine set of glassware with matching lids.",
-				"group": "storage",
+				"desc": "用于保存草药或粉末的玻璃器皿。",
+				"flavor": "成套精美的玻璃器皿，配有密封盖。",
+				"group": "存储",
 				"require": "g.crafting>=7&&g.bonedust>=10",
 				"max": 5,
 				"cost": {
@@ -2954,8 +2961,8 @@
 			},
 			{
 				"id": "urn",
-				"desc": "Receptacle for dust.",
-				"group": "storage",
+				"desc": "存放灰尘或粉末的坛罐。",
+				"group": "存储",
 				"require": "g.bonedust>0&&g.spirit>=5",
 				"max": 3,
 				"cost": {
@@ -2971,10 +2978,10 @@
 			},
 			{
 				"id": "siversdemon",
-				"name": "Plane of Demons",
-				"desc": "Irith. Gellmud. Vornith. They offer you knowledge beyond your imagination.",
-				"flavor": "All they ask for, is a single step.",
-				"group": "bargain",
+				"name": "恶魔位面",
+				"desc": "伊利斯、盖尔穆德、沃尼斯——它们提供超乎想象的知识。",
+				"flavor": "它们所要的，仅是一小步。",
+				"group": "讨价还价",
 				"require": "g.lore>=30&&g.tier4>0&&g.demonology>0",
 				"need": "siversgate",
 				"max": 1,
@@ -2992,10 +2999,10 @@
 			},
 			{
 				"id": "siversnecro",
-				"name": "Plane of Death",
-				"desc": "You feel the connection to the plane of Death beyond the gate.",
-				"flavor": "And you can't be killed like most men.",
-				"group": "bargain",
+				"name": "死亡位面",
+				"desc": "你感应到通往死亡位面的深层联系。",
+				"flavor": "你不再像常人那样轻易被击杀。",
+				"group": "讨价还价",
 				"require": "g.lore>=30&&g.tier4>0&&g.necromancy>0",
 				"need": "siversgate",
 				"max": 1,
@@ -3017,7 +3024,7 @@
 			},
 			{
 				"id": "magicbroomstick",
-				"name": "magic broomstick",
+				"name": "魔法扫帚",
 				"require": "g.witch>0&&g.crafting>=7&&g.spirit.max>=5",
 				"flavor": "",
 				"slot": "mount",
@@ -3032,11 +3039,11 @@
 					"dist": 115,
 					"spirit.max": 1
 				},
-				"group": "mount"
+				"group": "坐骑"
 			},
 			{
 				"id": "ebonwoodbroomstick",
-				"name": "ebonwood broomstick",
+				"name": "乌木扫帚",
 				"require": "g.witch>0&&g.crafting>=15&&g.tier3>0",
 				"flavor": "",
 				"slot": "mount",
@@ -3052,14 +3059,14 @@
 					"spirit.max": 1,
 					"spirit.rate": 0.1
 				},
-				"group": "mount"
+				"group": "坐骑"
 			}
 		],
 		"potions": [
 			{
 				"id": "pot_fake",
-				"name": "potion of eternal youth",
-				"desc": "Ensures the drinker never becomes old. For sale only.",
+				"name": "永恒青春药水",
+				"desc": "保证服用者永不衰老（仅供售卖）。",
 				"require": "g.potions>=1&&g.evil1>0",
 				"buy": {
 					"gold": 250,
@@ -3088,8 +3095,8 @@
 			},
 			{
 				"id": "pot_souls",
-				"name": "soulbind essence",
-				"desc": "A measure of this sickly green substance can significantly improve the effects of soul traps.",
+				"name": "灵魂封印精华",
+				"desc": "一小瓶病态绿液可显著提高囚魂术的效果。",
 				"require": "g.potions>=6&&g.trapsoul>20",
 				"level": 10,
 				"buy": {
@@ -3118,8 +3125,8 @@
 			},
 			{
 				"id": "pot_vileempowerment",
-				"name": "vile concoction",
-				"desc": "What was theirs is now yours.",
+				"name": "邪恶药剂",
+				"desc": "曾属他者的，现在归你所有。",
 				"level": 25,
 				"require": "(g.potions+g.t_potionclass)>=10&&g.evil2>0",
 				"tags": "t_infusion",
@@ -3147,7 +3154,7 @@
 				"id": "recal_evil3",
 				"hide": true,
 				"require": "(g.greynecromancer+g.archlock+g.necro3+g.deathlock+g.phylactory)>=1&&g.evil3==0",
-				"desc": "Updating internals - players should not see this. Ensures existing T5/6 evil classes, or anyone with a phylactory, gets evil3.",
+				"desc": "更新内部数据（隐藏）——确保已有的T5/6邪恶职业或拥有灵魄匣者获得 evil3 标记。",
 				"result": {
 					"evil3": 1
 				}
@@ -3156,7 +3163,7 @@
 				"id": "recal_evil2",
 				"hide": true,
 				"require": "(g.thanophage+g.dreadlord+g.necromancer+g.warlock+g.necromancy+g.evil3)>=1&&g.evil2==0&&g.redemption_path==0",
-				"desc": "Updating internals - players should not see this. Ensures existing T3/4 evil classes, or anyone with necromancy, gets evil2.",
+				"desc": "更新内部数据（隐藏）——确保已有的T3/4邪恶职业或拥有死灵术者获得 evil2 标记。",
 				"result": {
 					"evil2": 1
 				}
@@ -3242,15 +3249,15 @@
 				"defense": 30,
 				"speed": 5,
 				"attack": {
-					"name": "Body Slam",
+					"name": "肉身猛击",
 					"kind": "blunt",
 					"damage": "3~5"
 				}
 			},
 			{
 				"id": "sum_bone_golem",
-				"name": "Bone Golem",
-				"desc": "Amalgamation of skulls and bones. Quite handy, and can take a lot of beating.",
+				"name": "骨傀儡",
+				"desc": "骷髅与白骨的融合。非常耐打且实用。",
 				"kind": "undead",
 				"tags": "t_minion_undead",
 				"noproc": true,
@@ -3259,15 +3266,15 @@
 				"defense": 70,
 				"speed": 9,
 				"attack": {
-					"name": "Jagged Bones",
+					"name": "锯齿骨刺",
 					"kind": "pierce",
 					"damage": "5~10"
 				}
 			},
 			{
 				"id": "sum_spectre",
-				"name": "Spectre",
-				"desc": "Restless soul, empowered to act upon its grudges",
+				"name": "幽魂",
+				"desc": "不安的灵魂，受怨念驱使。",
 				"kind": "shade",
 				"tags": "t_summon_shade",
 				"noproc": true,
@@ -3277,16 +3284,16 @@
 				"defense": 200,
 				"speed": 12,
 				"attack": {
-					"name": "chilling touch",
+					"name": "冰冷触摸",
 					"kind": "shadow",
 					"damage": "8~14"
 				}
 			},
 			{
 				"id": "sum_lich",
-				"name": "Lesser Lich",
-				"desc": "Clinging to un-death through dark rituals, master of ",
-				"flavor": "I unlive to serve you, my Lord.",
+				"name": "小巫妖",
+				"desc": "通过黑暗仪式附着于不死之体。",
+				"flavor": "我为您生而不死，主人。",
 				"kind": "shade",
 				"tags": "t_minion_shade",
 				"noproc": true,
@@ -3298,7 +3305,7 @@
 				"dodge": 100,
 				"speed": 10,
 				"attack": {
-					"name": "dark bolts",
+					"name": "暗影箭",
 					"targets": "enemies",
 					"maxTargets": 999,
 					"kind": "shadow",
@@ -3307,8 +3314,8 @@
 			},
 			{
 				"id": "sum_reaper",
-				"name": "Ethereal Reaper",
-				"desc": "Death manifested, guiding your foes to the afterlife",
+				"name": "以太收割者",
+				"desc": "死亡显现，引导你的敌人走向来世。",
 				"kind": "shade",
 				"tags": "t_minion_shade",
 				"noproc": true,
@@ -3320,7 +3327,7 @@
 				"dodge": 100,
 				"speed": 11,
 				"attack": {
-					"name": "reap",
+					"name": "收割",
 					"kind": "shadow",
 					"damage": "36~60"
 				}

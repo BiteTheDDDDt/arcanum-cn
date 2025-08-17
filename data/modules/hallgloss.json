@@ -8,7 +8,7 @@
 						"id": "gloss_evil",
 						"name": "邪恶",
 						"sym": "🛠️",
-						"group": "player",
+						"group": "玩家",
 						"tags": "t_gloss_game_mechanic",
 						"desc": [
 							"黑暗和自私的行为会跟随你，在你的灵魂上留下污点。",
@@ -38,7 +38,7 @@
 						"id": "gloss_virtue",
 						"name": "美德",
 						"sym": "🛠️",
-						"group": "player",
+						"group": "玩家",
 						"tags": "t_gloss_game_mechanic",
 						"desc": [
 							"善良和无私的行为能在最黑暗的地方照亮一切。",
@@ -449,7 +449,7 @@
 					},
 					{
 						"id": "gloss_animation",
-						"name": "动画",
+						"name": "运动术",
 						"sym": "📚",
 						"group": "日志",
 						"tags": "t_gloss_school,t_gloss_animation,t_gloss_minions",
@@ -467,7 +467,7 @@
 						"group": "日志",
 						"tags": "t_gloss_skill,t_gloss_animation,t_gloss_crafting,t_gloss_minions",
 						"desc": [
-							"动画与工艺的结合，入门技能，是机械艺术进阶的前提。",
+							"运动与工艺的结合，入门技能，是机械艺术进阶的前提。",
 							"让法师能制造傀儡并在战斗中召唤，傀儡也可用于制作多种升级。",
 							"傀儡师可进一步利用此技能，让傀儡成为永久随从，解锁更多升级，并用傀儡生产金币。"
 						],
@@ -480,7 +480,7 @@
 						"group": "日志",
 						"tags": "t_gloss_skill,t_gloss_animation,t_gloss_crafting,t_gloss_minions",
 						"desc": [
-							"动画与工艺的高级结合，代表对造物创造的深刻理解。",
+							"运动与工艺的高级结合，代表对造物创造的深刻理解。",
 							"让法师能制造机械体（更强力的战斗召唤物），并解锁相关升级。",
 							"机械师可将机械体作为永久随从，制造更多机械类型，并用机械体被动生产元素宝石。",
 							"这是非机械魔法专精法师能达到的最高技能。"
@@ -494,7 +494,7 @@
 						"group": "日志",
 						"tags": "t_gloss_skill,t_gloss_animation,t_gloss_crafting,t_gloss_minions",
 						"desc": [
-							"工艺与动画艺术的巅峰，代表创造人工生命的能力。",
+							"工艺与运动艺术的巅峰，代表创造人工生命的能力。",
 							"自律人是极强的战斗召唤物，但制造和维护成本极高。",
 							"可制作强力升级，包括额外行动栏（与时间螺旋互斥）。"
 						],
@@ -507,7 +507,7 @@
 						"group": "日志",
 						"tags": "t_gloss_resource,t_gloss_animation,t_gloss_crafting,t_gloss_minions",
 						"desc": [
-							"傀儡是简单的造物，没有自身动力，必须由法师全程操控。动画由法师直接施加，材料多为轻便易替换的木头。",
+							"傀儡是简单的造物，没有自身动力，必须由法师全程操控。运动由法师直接施加，材料多为轻便易替换的木头。",
 							"常用增幅器（如灵魂宝石）便于与傀儡沟通，精细操控时需用附魔线直接连接。",
 							"持续操控极为消耗精力，大多数非专精者难以在战斗中控制大量傀儡，更别说复杂指令。"
 						],

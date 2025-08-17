@@ -4,9 +4,9 @@
 		"skills": [
 			{
 				"id": "citynavigation",
-				"name": "city navigation",
+				"name": "城市导航",
 				"require": "tier1",
-				"desc": "Like stars, spells, or any complex systems, cities and their tunnels also merit study.",
+				"desc": "像星辰、法术或任何复杂系统一样，城市及其隧道也值得研究。",
 				"buy": {
 					"arcana": 20
 				},
@@ -22,8 +22,8 @@
 		"upgrades": [
 			{
 				"id": "reedburgh_city_papers",
-				"name": "reedburgh city pass",
-				"desc": "Allows free access into and out of the Reedburgh City's first ring, Vesparia's beating heart, bursting with commerce and labour.",
+				"name": "瑞德堡城市通行证",
+				"desc": "允许自由进出瑞德堡城市第一环——维斯帕里亚的心脏，充满商业与劳动力。",
 				"require": "g.citynavigation>0",
 				"max": 1,
 				"cost": {
@@ -32,12 +32,12 @@
 				"mod": {
 					"citynavigation.max": 1
 				},
-				"group": "exploration"
+				"group": "探索"
 			},
 			{
 				"id": "reedburgh_city_map",
-				"name": "map of reedburgh city first ring",
-				"desc": "A map of the first ring, more complex than most basic spells...",
+				"name": "瑞德堡第一环地图",
+				"desc": "第一环的地图，比大多数基础法术更为复杂...",
 				"require": "g.reedburgh_market>0",
 				"max": 1,
 				"cost": {
@@ -46,12 +46,12 @@
 				"mod": {
 					"reedburgh_market.run.bf": -0.1
 				},
-				"group": "exploration"
+				"group": "探索"
 			},
 			{
 				"id": "reedburgh_gym_membership",
-				"name": "reedburgh gymnasium pass",
-				"desc": "Membership to a gymnasium you found in Reedburgh.",
+				"name": "瑞德堡健身房会籍",
+				"desc": "你在瑞德堡找到的健身房会员资格。",
 				"require": "g.reedburgh_market>0",
 				"max": 1,
 				"cost": {
@@ -60,12 +60,12 @@
 				"mod": {
 					"citynavigation.max": 1
 				},
-				"group": "exploration"
+				"group": "探索"
 			},
 			{
 				"id": "reedburgh_city_bank",
-				"name": "reedburgh city bank documents",
-				"desc": "Gain access to shops and markets using Vesparian guilders, that are tightly controlled through banks and debt.",
+				"name": "瑞德堡城市银行证件",
+				"desc": "使用维斯帕里亚货币进入商店和市场，这些货币通过银行与债务被严格控制。",
 				"require": "g.debitomancy>=1&&g.reedburgh_city_papers>0",
 				"max": 1,
 				"cost": {
@@ -74,15 +74,15 @@
 				"mod": {
 					"debitomancy.max": 0.5
 				},
-				"group": "knowledge"
+				"group": "知识"
 			}
 		],
 		"rares": [
 			{
 				"id": "reedburgh_badge",
-				"name": "reedburgh's copper medal",
+				"name": "瑞德堡铜章",
 				"type": "armor",
-				"desc": "A token from Reedburgh for clearing out the sewer ways. Having one of these makes you seem more trustworthy to people.",
+				"desc": "一枚来自瑞德堡的纪念章，因清理下水道而颁发。拥有后会让人显得更值得信赖。",
 				"tags": "t_bauble",
 				"unique": true,
 				"level": 1,
@@ -100,9 +100,9 @@
 			},
 			{
 				"id": "reedburgh_herobadge",
-				"name": "reedburgh rose gold medal",
+				"name": "瑞德堡玫瑰金章",
 				"type": "armor",
-				"desc": "Given mostly to knights for heroic acts, nobles that had made wealthy donations or others of higher standing, this medal serves as one of Vesparia's highest honours, bestowed by King Rudrich himself.",
+				"desc": "通常授予骑士的英雄之举、慷慨捐赠的贵族或其他高位者，这是维斯帕里亚的最高荣誉之一，由鲁德里克国王亲自颁发。",
 				"tags": "t_bauble",
 				"unique": true,
 				"level": 1,
@@ -123,15 +123,23 @@
 		"spells": [
 			{
 				"id": "reedburgh_call_backup",
-				"name": "Call guard",
-				"desc": "HELP! HELLLPPP! HELP ME!!",
+				"name": "呼唤守卫",
+				"desc": "救命！救命！救我！！",
 				"level": 1,
 				"school": "charm",
 				"keywords": {
-					"type": ["summon"],
-					"target": ["ally"],
-					"targets": ["single"],
-					"delivery": ["instant"]
+					"type": [
+						"summon"
+					],
+					"target": [
+						"ally"
+					],
+					"targets": [
+						"single"
+					],
+					"delivery": [
+						"instant"
+					]
 				},
 				"require": "g.citynavigation>999",
 				"buy": {
@@ -154,16 +162,24 @@
 			},
 			{
 				"id": "mon_blunt_heavy",
-				"name": "heavy slam",
-				"desc": "A thunderous blow that does impressive damage.",
-				"flavor": "That's gonna leave a bruise in the morning.",
+				"name": "重击",
+				"desc": "一记雷霆般的重击，造成可观伤害。",
+				"flavor": "明早肯定会留下淤青。",
 				"level": 4,
 				"school": "martial",
 				"keywords": {
-					"type": ["damage"],
-					"target": ["enemy"],
-					"targets": ["single"],
-					"delivery": ["instant"]
+					"type": [
+						"damage"
+					],
+					"target": [
+						"enemy"
+					],
+					"targets": [
+						"single"
+					],
+					"delivery": [
+						"instant"
+					]
 				},
 				"require": "g.citynavigation>999",
 				"cd": 5,
@@ -175,15 +191,23 @@
 			},
 			{
 				"id": "reedburgh_call_backup_captain",
-				"name": "Call guard",
-				"desc": "HELP! HELLLPPP! HELP ME!!",
+				"name": "呼唤守卫长",
+				"desc": "救命！救命！救我！！",
 				"level": 1,
 				"school": "charm",
 				"keywords": {
-					"type": ["summon"],
-					"target": ["ally"],
-					"targets": ["single"],
-					"delivery": ["instant"]
+					"type": [
+						"summon"
+					],
+					"target": [
+						"ally"
+					],
+					"targets": [
+						"single"
+					],
+					"delivery": [
+						"instant"
+					]
 				},
 				"require": "g.citynavigation>999",
 				"buy": {
@@ -208,8 +232,8 @@
 		"encounters": [
 			{
 				"id": "reedburgh_seized_goods",
-				"name": "seized goods wagon",
-				"desc": "A halted wagon with confiscated goodies",
+				"name": "查封货车",
+				"desc": "一辆停着的货车，装着被查封的物品",
 				"effect": {
 					"weary": "1~2",
 					"shadow": -0.5
@@ -221,14 +245,21 @@
 					"codices": "45%",
 					"scrolls": "1~2",
 					"managem": "80%",
-					"skulls": { "%": "50%", "value": 1, "skipLocked": true },
-					"bonedust": { "value": "3~5", "skipLocked": true }
+					"skulls": {
+						"%": "50%",
+						"value": 1,
+						"skipLocked": true
+					},
+					"bonedust": {
+						"value": "3~5",
+						"skipLocked": true
+					}
 				}
 			},
 			{
 				"id": "reedburgh_armory",
-				"name": "reedburgh weapon storage",
-				"desc": "A compact shed with an assortment of mounted weapons inside.",
+				"name": "瑞德堡武器库",
+				"desc": "一个紧凑的工具棚，里面挂着各种武器。",
 				"level": 1,
 				"length": 5,
 				"effect": {
@@ -238,8 +269,8 @@
 			},
 			{
 				"id": "reedburgh_training",
-				"name": "guard training grounds",
-				"desc": "A field strewn with combat training equipment, weapons, and scattered personal belongings.",
+				"name": "守卫训练场",
+				"desc": "一片散落着战斗训练器材、武器和个人物品的场地。",
 				"level": 1,
 				"length": 5,
 				"effect": {
@@ -252,8 +283,8 @@
 			},
 			{
 				"id": "reedburgh_barracks",
-				"name": "reedburgh barracks housing",
-				"desc": "empty guard quarters, housing equipment and personal items.",
+				"name": "瑞德堡军营宿舍",
+				"desc": "空荡的守卫宿舍，存放着装备和个人物品。",
 				"level": 1,
 				"length": 5,
 				"effect": {
@@ -265,8 +296,8 @@
 			},
 			{
 				"id": "reedburgh_guardpost",
-				"name": "guard post",
-				"desc": "Vigilant sentinels on the lookout for any signs of disturbance.",
+				"name": "岗哨",
+				"desc": "警觉的哨兵随时留意任何异样。",
 				"effect": {
 					"rage": "1~2",
 					"shadow": -0.5
@@ -274,29 +305,29 @@
 			},
 			{
 				"id": "reedburgh_streets",
-				"name": "maze-like streets",
-				"desc": "Some streets are dead ends, others loop back into themselves.",
+				"name": "迷宫般的街道",
+				"desc": "有的街道是死胡同，有的又会自成回路。",
 				"effect": {
 					"madness": "1~4"
 				}
 			},
 			{
 				"id": "reedburgh_crime",
-				"name": "alleyway trouble",
-				"desc": "Dimly lit offshoots, sounds of people in trouble, people beating up one another and other city terrors.",
+				"name": "巷道纠纷",
+				"desc": "昏暗的小巷，传来有人遇险、斗殴等城市恐怖场景的声响。",
 				"effect": {
 					"unease": "1~4"
 				}
 			},
 			{
 				"id": "reedburgh_nothing",
-				"name": "wandering",
-				"desc": "No stores to window shop, no trouble on the road, just passing by."
+				"name": "漫步",
+				"desc": "没有可看的店铺，路上也平静无事，只是路过。"
 			},
 			{
 				"id": "reedburgh_con",
-				"name": "street shows",
-				"desc": "As you pass by many street shows you find your bags to be a bit lighter, the suspects lost in crowds.",
+				"name": "街头表演",
+				"desc": "路过许多街头表演后，你发现自己的口袋变轻了些，窃贼在人群中溜走。",
 				"effect": {
 					"rage": "2~3"
 				},
@@ -306,8 +337,8 @@
 			},
 			{
 				"id": "reedburgh_stalls",
-				"name": "street stalls",
-				"desc": "A wide range of stalls, rugs and other street shops forcing wares onto passers.",
+				"name": "街边摊位",
+				"desc": "各种摊位、地毯和街头小店向过路人兜售商品。",
 				"effect": {
 					"weary": "1~3"
 				},
@@ -319,13 +350,16 @@
 					"codices": "80%",
 					"scrolls": "1~2",
 					"gems": "1~2",
-					"bones": { "value": "3~5", "skipLocked": true }
+					"bones": {
+						"value": "3~5",
+						"skipLocked": true
+					}
 				}
 			},
 			{
 				"id": "reedburgh_checkpoint_bad",
-				"name": "thug checkpoint",
-				"desc": "Threats, daggers, and harassment from locals, trying to shake down a few extra coins from passersby. All while bribed guards watch.",
+				"name": "恶棍盘查点",
+				"desc": "当地恶徒威胁、持刀并骚扰，试图向过路人勒索几枚硬币，而受贿的守卫却冷眼旁观。",
 				"effect": {
 					"rage": 1.5,
 					"unease": 1.5
@@ -336,16 +370,16 @@
 			},
 			{
 				"id": "reedburgh_checkpoint",
-				"name": "checkpoint",
-				"desc": "Lots of questions, showing papers and waiting around while guards check over everyone.",
+				"name": "检查站",
+				"desc": "大量询问，出示文件并在守卫检查时等待。",
 				"effect": {
 					"rage": 1.5
 				}
 			},
 			{
 				"id": "reedburgh_show",
-				"name": "putting on a show",
-				"desc": "Many have never seen your magic before, maybe doing a small performance wouldn't hurt.",
+				"name": "表演一下",
+				"desc": "许多人从未见过你的魔法，或许做个小表演无妨。",
 				"effect": {
 					"bf": -1.5,
 					"mana": -1
@@ -356,8 +390,8 @@
 			},
 			{
 				"id": "reedburgh_scrolls",
-				"name": "scrolls shop",
-				"desc": "Outrageous prices for common paper with an impossible to say no to, sales clerk.",
+				"name": "卷轴商店",
+				"desc": "普通纸张标价离谱，店员推销让人难以拒绝。",
 				"effect": {
 					"rage": 0.5
 				},
@@ -370,8 +404,8 @@
 			},
 			{
 				"id": "reedburgh_beggars",
-				"name": "street beggars",
-				"desc": "Passing by poorer houses, many people beg you for even a single coin, while others take it with sleight of hand.",
+				"name": "街头乞丐",
+				"desc": "路过较贫穷的住区，许多人向你乞讨一枚硬币，而有人则用手法偷窃。",
 				"effect": {
 					"rage": "3~4"
 				},
@@ -381,8 +415,8 @@
 			},
 			{
 				"id": "reedburgh_lost",
-				"name": "complex streets",
-				"desc": "Dead ends, everywhere you go. Closed-off streets only compound the issue.",
+				"name": "复杂街区",
+				"desc": "到处都是死胡同，封闭的街道让问题更棘手。",
 				"effect": {
 					"rage": "1~2",
 					"bf": "3~4"
@@ -390,8 +424,8 @@
 			},
 			{
 				"id": "reedburgh_gems",
-				"name": "gems shops",
-				"desc": "A jewelers street of colors and reflections charming even the most frugal spender.",
+				"name": "珠宝街",
+				"desc": "一条色彩与光影交织的珠宝街，连最节俭的买家也会被吸引。",
 				"effect": {
 					"rage": -1,
 					"bf": -1
@@ -409,29 +443,37 @@
 			},
 			{
 				"id": "village_pillage_tavern",
-				"name": "plundering village tavern",
-				"desc": "A merry place of gold and booze.",
+				"name": "掠夺乡村酒馆",
+				"desc": "一个充满金钱与酒意的欢乐场所。",
 				"length": 15,
-				"effect": { "stamina": -0.1 },
-				"result": { "gold": "30~50" }
+				"effect": {
+					"stamina": -0.1
+				},
+				"result": {
+					"gold": "30~50"
+				}
 			},
 			{
 				"id": "village_pillage_house",
-				"name": "ransack house",
-				"desc": "Quickly look through for a purse or loose gold coins.",
+				"name": "翻箱倒柜",
+				"desc": "迅速搜寻钱包或散落的金币。",
 				"length": 15,
 				"effect": {
 					"stamina": -0.1,
 					"mana": -0.1
 				},
-				"result": { "gold": "0~15" }
+				"result": {
+					"gold": "0~15"
+				}
 			},
 			{
 				"id": "village_pillage_shop",
-				"name": "loot village shop",
-				"desc": "Take any wealth this small cottage has.",
+				"name": "洗劫乡村商店",
+				"desc": "拿走这间小屋里所有的财富。",
 				"length": 15,
-				"effect": { "stamina": -0.1 },
+				"effect": {
+					"stamina": -0.1
+				},
 				"result": {
 					"gems": "0~6",
 					"gold": "30~75"
@@ -439,25 +481,31 @@
 			},
 			{
 				"id": "reedburgh_sewer_breath",
-				"name": "sewer walkway",
-				"desc": "A section of the sewers not engulfed in overflowing water.",
+				"name": "下水道步道",
+				"desc": "下水道中未被淹没的一段通道。",
 				"effect": {
 					"stamina": -0.1,
 					"breath": 1.2
 				},
-				"result": { "hp": "15~30" }
+				"result": {
+					"hp": "15~30"
+				}
 			},
 			{
 				"id": "reedburgh_sewer_stash",
-				"name": "lost coin bag",
-				"desc": "A lost bag, submerged in water, in a section with a harsh current",
-				"effect": { "weary": "1~2" },
-				"result": { "gold": "15~30" }
+				"name": "丢失的金币袋",
+				"desc": "一个丢失的钱袋，浸在水中且处于急流区域。",
+				"effect": {
+					"weary": "1~2"
+				},
+				"result": {
+					"gold": "15~30"
+				}
 			},
 			{
 				"id": "reedburgh_sewer_blockage",
-				"name": "sewer blockage",
-				"desc": "Trash, water vines, gates, you name it, it's in the way.",
+				"name": "下水道堵塞",
+				"desc": "垃圾、水藤、闸门，应有尽有，阻碍前行。",
 				"effect": {
 					"rage": "0.75~2.5",
 					"madness": "1~3"
@@ -465,18 +513,20 @@
 			},
 			{
 				"id": "reedburgh_sewer_beggar",
-				"name": "sewer beggars",
-				"desc": "Poor beggars cast down into lower sewer sections, begging for coins. Passing through these sections always seems to make a purse lighter.",
+				"name": "下水道乞丐",
+				"desc": "被驱逐到下层下水道的可怜乞丐，乞讨硬币。通过这些路段总让钱包变轻。",
 				"effect": {
 					"rage": "0.75~2.5",
 					"breath": 1.5
 				},
-				"result": { "gold": "0~-15" }
+				"result": {
+					"gold": "0~-15"
+				}
 			},
 			{
 				"id": "reedburgh_sewer_misunderstand",
-				"name": "sewer argument",
-				"desc": "City guards question you endlessly while you pass by an open section.",
+				"name": "下水道争执",
+				"desc": "经过开阔路段时，城市守卫不断盘问你。",
 				"effect": {
 					"rage": "0.75~2.5",
 					"breath": 1.5
@@ -484,8 +534,8 @@
 			},
 			{
 				"id": "reedburgh_sewer_crimestash",
-				"name": "hidden drop off",
-				"desc": "Remote corners and dead ends often serve as havens for the exchange of contraband materials.",
+				"name": "隐蔽交付点",
+				"desc": "偏僻角落和死胡同常是违禁品交换的藏身之处。",
 				"effect": {
 					"bf": "0.75~2.5",
 					"stamina": -0.4
@@ -498,8 +548,8 @@
 			},
 			{
 				"id": "the_last_rep",
-				"name": "the last rep",
-				"desc": "Just one more then you can go home, right? The receptionist said this was a good gym...",
+				"name": "最后一组",
+				"desc": "再来一次就可以回家了，对吧？前台说这里是家好健身房...",
 				"effect": {
 					"weary": "2~5",
 					"stamina": -2,
@@ -509,20 +559,20 @@
 			},
 			{
 				"id": "gym_crowd",
-				"name": "crowded gym",
-				"desc": "Everywhere people shout and grunt. A spot's nowhere to be found.",
+				"name": "拥挤的健身房",
+				"desc": "到处有人喊叫和哼声，连个位置都找不到。",
 				"effect": {
 					"rage": "1~2",
 					"madness": "0.5~1.5",
 					"stamina": -0.5,
 					"vigor": -0.05
 				},
-				"flavor": "Amidst it all a man in a horse mask slumps."
+				"flavor": "在这一切中，有个人戴着马面具瘫坐着。"
 			},
 			{
 				"id": "lifting_weights",
-				"name": "lifting weights",
-				"desc": "And putting them down again.",
+				"name": "举重",
+				"desc": "举起它们，然后再放下。",
 				"tags": "site_of_learning",
 				"effect": {
 					"weary": "1~3",
@@ -535,8 +585,8 @@
 			},
 			{
 				"id": "running_laps",
-				"name": "running laps",
-				"desc": "Best to build up your legs with how many places you have to see and how many creditors you have to flee.",
+				"name": "绕圈跑",
+				"desc": "考虑你要见多少地方和要躲多少债主，最好锻炼双腿。",
 				"tags": "site_of_learning",
 				"effect": {
 					"weary": "1~3",
@@ -549,8 +599,8 @@
 			},
 			{
 				"id": "dropped_the_weights",
-				"name": "dropped the weights",
-				"desc": "You dropped the bar oh gods oh gods o gods don't go into the light",
+				"name": "杠铃掉落",
+				"desc": "你把杠铃掉了——哦天啊，别去光里！",
 				"effect": {
 					"hp": -1,
 					"stamina": -0.5,
@@ -560,8 +610,8 @@
 			},
 			{
 				"id": "hair_pluckers",
-				"name": "hair pluckers",
-				"desc": "People getting their bodies tweezed free of hair would be a lot easier to ignore if not for the screaming.",
+				"name": "拔毛者",
+				"desc": "如果不是因为尖叫声，人们用镊子拔毛的场面会更容易被忽视。",
 				"effect": {
 					"bf": "1~3",
 					"unease": "1~3"
@@ -569,8 +619,8 @@
 			},
 			{
 				"id": "dodge_shotputs",
-				"name": "shotput dodge",
-				"desc": "The shotput team's aim is bad enough sober. Their drinking makes it worse.",
+				"name": "躲铅球",
+				"desc": "铅球队的人即使清醒时瞄得也不准，喝了酒就更糟。",
 				"effect": {
 					"stamina": -0.5,
 					"vigor": -0.05,
@@ -581,8 +631,8 @@
 			},
 			{
 				"id": "gym_spar",
-				"name": "gymnasium sparring",
-				"desc": "Practice your strikes and grappling.",
+				"name": "健身房对练",
+				"desc": "练习你的打击与抱摔。",
 				"tags": "site_of_learning",
 				"effect": {
 					"stamina": -0.8,
@@ -595,8 +645,8 @@
 			},
 			{
 				"id": "gym_supplements",
-				"name": "supplement pusher",
-				"desc": "A suspicious man browbeats you into buying something to drink for workouts.",
+				"name": "补剂推销员",
+				"desc": "一个可疑男子强行劝你买些运动饮品。",
 				"effect": {
 					"bf": "1~3"
 				},
@@ -609,8 +659,8 @@
 			},
 			{
 				"id": "gym_supplements_bad",
-				"name": "supplement pusher",
-				"desc": "A suspicious man browbeats you into buying something to drink for workouts.",
+				"name": "补剂推销员",
+				"desc": "一个可疑男子强行劝你买些运动饮品。",
 				"effect": {
 					"bf": "1~3"
 				},
@@ -623,9 +673,9 @@
 		"locales": [
 			{
 				"id": "reedburgh_market",
-				"name": "reedburgh Markets",
+				"name": "瑞德堡市场",
 				"tags": "site_of_learning",
-				"desc": "Navigate the intricate web of streets that is Vesparia's capital, with bustling stalls, and vibrant shops. Travelers, burdened by debt, find themselves compelled to lend a hand in the noble task of sewer cleanup.",
+				"desc": "在维斯帕里亚首都盘根错节的街巷中穿行，熙攘的摊位与繁华的商铺遍布。负债累累的旅行者常被迫参与高尚的下水道清理工作以赎债。",
 				"level": 4,
 				"dist": 65,
 				"require": "g.reedburgh_city_papers>0",
@@ -640,8 +690,14 @@
 					"gembag.max": "?1"
 				},
 				"encs": [
-					["daylight_mugging", "daylight_mugging"],
-					["gang_mugging", "gang_mugging"],
+					[
+						"daylight_mugging",
+						"daylight_mugging"
+					],
+					[
+						"gang_mugging",
+						"gang_mugging"
+					],
 					"daylight_mugging",
 					"gang_mugging",
 					{
@@ -669,8 +725,8 @@
 			},
 			{
 				"id": "reedburgh_gymnasium",
-				"name": "reedburgh Gymnasium",
-				"desc": "Finally, someplace pleasant in this wretched city.",
+				"name": "瑞德堡健身房",
+				"desc": "在这座可憎的城市里，终于有了一个令人愉快的地方。",
 				"tags": "site_of_learning",
 				"level": 5,
 				"dist": 69,
@@ -690,10 +746,15 @@
 					"hp.max": "2//10/-1"
 				},
 				"boss": {
-					"40": ["unleashed_beast"]
+					"40": [
+						"unleashed_beast"
+					]
 				},
 				"encs": [
-					["roid_rage", "roid_rage"],
+					[
+						"roid_rage",
+						"roid_rage"
+					],
 					"roid_rage",
 					"the_last_rep",
 					"gym_crowd",
@@ -709,8 +770,8 @@
 			},
 			{
 				"id": "reedburgh_second_ring",
-				"name": "infiltrate reedburgh second ring",
-				"desc": "By utilizing waterways, one can discover hidden passages into the second city ring of Reedburgh.",
+				"name": "潜入瑞德堡第二环",
+				"desc": "利用水道可以发现通往瑞德堡第二环的隐秘通道。",
 				"level": 4,
 				"dist": 65,
 				"require": "g.evil1>0&&g.citynavigation>=6&&g.reedburgh_city_sewer>=1",
@@ -720,10 +781,17 @@
 					"shadow": 0.1
 				},
 				"boss": {
-					"31": ["reedburgh_captain", "reedburgh_guard", "reedburgh_guard"]
+					"31": [
+						"reedburgh_captain",
+						"reedburgh_guard",
+						"reedburgh_guard"
+					]
 				},
 				"encs": [
-					["reedburgh_guard", "reedburgh_guard"],
+					[
+						"reedburgh_guard",
+						"reedburgh_guard"
+					],
 					"reedburgh_guard",
 					"reedburgh_guardpost",
 					"reedburgh_training",
@@ -802,8 +870,15 @@
 					}
 				],
 				"loot": {
-					"cotton": { "%": "30%", "value": "2~4" },
-					"bodies": { "%": "80%", "value": 1, "skipLocked": true }
+					"cotton": {
+						"%": "30%",
+						"value": "2~4"
+					},
+					"bodies": {
+						"%": "80%",
+						"value": 1,
+						"skipLocked": true
+					}
 				}
 			},
 			{
@@ -819,8 +894,15 @@
 					"damage": "1~2.5"
 				},
 				"loot": {
-					"leather": { "%": "30%", "value": "2~4" },
-					"bodies": { "%": "70%", "value": 1, "skipLocked": true }
+					"leather": {
+						"%": "30%",
+						"value": "2~4"
+					},
+					"bodies": {
+						"%": "70%",
+						"value": 1,
+						"skipLocked": true
+					}
 				}
 			},
 			{
@@ -838,8 +920,15 @@
 				},
 				"loot": {
 					"gold": "2~3",
-					"iron": { "%": "30%", "value": "2~4" },
-					"bodies": { "%": "60%", "value": 1, "skipLocked": true }
+					"iron": {
+						"%": "30%",
+						"value": "2~4"
+					},
+					"bodies": {
+						"%": "60%",
+						"value": 1,
+						"skipLocked": true
+					}
 				}
 			},
 			{
@@ -920,10 +1009,22 @@
 					"damage": "6~10"
 				},
 				"loot": {
-					"bloodgem": { "%": "10%", "value": "1~3" },
-					"gems": { "%": "25%", "value": "2~5" },
-					"gold": { "%": "30%", "value": "15~30" },
-					"herbs": { "%": "25%", "value": "4~7" }
+					"bloodgem": {
+						"%": "10%",
+						"value": "1~3"
+					},
+					"gems": {
+						"%": "25%",
+						"value": "2~5"
+					},
+					"gold": {
+						"%": "30%",
+						"value": "15~30"
+					},
+					"herbs": {
+						"%": "25%",
+						"value": "4~7"
+					}
 				}
 			},
 			{
@@ -1220,12 +1321,24 @@
 					"gold": "50~150",
 					"gems": "3~5"
 				},
-				"mod": { "pillage_village.dist": "200|40|10" },
+				"mod": {
+					"pillage_village.dist": "200|40|10"
+				},
 				"length": 50,
 				"encs": [
-					["village_militia", "village_hunter", "village_farmer"],
-					["village_militia", "village_militia"],
-					["village_farmer", "village_hunter"],
+					[
+						"village_militia",
+						"village_hunter",
+						"village_farmer"
+					],
+					[
+						"village_militia",
+						"village_militia"
+					],
+					[
+						"village_farmer",
+						"village_hunter"
+					],
 					"village_militia",
 					"village_militia",
 					"village_hunter",
@@ -1255,7 +1368,9 @@
 					"stamina": 0.2,
 					"mana": 0.12
 				},
-				"effect": { "breath": -1.15 },
+				"effect": {
+					"breath": -1.15
+				},
 				"result": {
 					"gold": "50~100",
 					"gems": "5~10",
@@ -1263,10 +1378,22 @@
 					"debt": "-50~-100"
 				},
 				"length": 25,
-				"boss": { "25": ["reedburgh_water_massvines", "slime", "slime"] },
+				"boss": {
+					"25": [
+						"reedburgh_water_massvines",
+						"slime",
+						"slime"
+					]
+				},
 				"encs": [
-					["slime", "slime"],
-					["slime", "slime"],
+					[
+						"slime",
+						"slime"
+					],
+					[
+						"slime",
+						"slime"
+					],
 					"reedburgh_smuggler",
 					"reedburgh_quest_monster",
 					"reedburgh_water_vines",

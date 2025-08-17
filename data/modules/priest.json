@@ -23,7 +23,7 @@
 					"spiritlore.max": 1,
 					"spiritlore.rate": 0.1
 				},
-				"group": "knowledge"
+				"group": "知识"
 			},
 			{
 				"id": "templerenovation",
@@ -46,7 +46,7 @@
 					"temple.mod.lightlore.mod.light.max": 0.1,
 					"templeexpansion.max": -1
 				},
-				"group": "housing"
+				"group": "住宅"
 			},
 			{
 				"id": "templealtar",
@@ -74,7 +74,7 @@
 					}
 				},
 				"flavor": "The greatest to stand since the Rending ushered in the Age of Silence.",
-				"group": "housing"
+				"group": "住宅"
 			}
 		],
 		"spells": [
@@ -86,10 +86,18 @@
 				"school": "light",
 				"tags": "rez",
 				"keywords": {
-					"type": ["recovery"],
-					"target": ["ally"],
-					"targets": ["single"],
-					"delivery": ["instant"]
+					"type": [
+						"recovery"
+					],
+					"target": [
+						"ally"
+					],
+					"targets": [
+						"single"
+					],
+					"delivery": [
+						"instant"
+					]
 				},
 				"require": "g.t_healingclass>0",
 				"buy": {
@@ -103,7 +111,10 @@
 					"spiritgem": 1
 				},
 				"resurrect": {
-					"only": ["humanoid", "goblinoid"],
+					"only": [
+						"humanoid",
+						"goblinoid"
+					],
 					"maxlevel": 99,
 					"count": 1
 				}
@@ -116,12 +127,23 @@
 				"sortOrder": 1130,
 				"level": 15,
 				"school": "light",
-				"tags": ["t_healspell", "t_nospellcraft"],
+				"tags": [
+					"t_healspell",
+					"t_nospellcraft"
+				],
 				"keywords": {
-					"type": ["recovery"],
-					"target": ["ally"],
-					"targets": ["multiple"],
-					"delivery": ["instant"]
+					"type": [
+						"recovery"
+					],
+					"target": [
+						"ally"
+					],
+					"targets": [
+						"multiple"
+					],
+					"delivery": [
+						"instant"
+					]
 				},
 				"require": "g.lightlore>=20&&g.heallore>=7&&(g.t_healingclass+g.tier5)>=2&&g.evil2==0",
 				"buy": {
@@ -129,7 +151,10 @@
 					"tomes": 25,
 					"lightgem": 35
 				},
-				"need": ["g.evil2==0", "g.good2>0"],
+				"need": [
+					"g.evil2==0",
+					"g.good2>0"
+				],
 				"cost": {
 					"light": 7
 				},
@@ -144,7 +169,12 @@
 					"harmless": true,
 					"healing": 50,
 					"kind": "light",
-					"potencies": ["spellheal", "spellheal", "lightdmg", "lightdmg"]
+					"potencies": [
+						"spellheal",
+						"spellheal",
+						"lightdmg",
+						"lightdmg"
+					]
 				}
 			},
 			{
@@ -154,10 +184,18 @@
 				"level": 5,
 				"school": "light",
 				"keywords": {
-					"type": ["summon"],
-					"target": ["ally"],
-					"targets": ["single"],
-					"delivery": ["instant"]
+					"type": [
+						"summon"
+					],
+					"target": [
+						"ally"
+					],
+					"targets": [
+						"single"
+					],
+					"delivery": [
+						"instant"
+					]
 				},
 				"require": "g.t_lightclass>0",
 				"buy": {
@@ -185,10 +223,18 @@
 				"level": 7,
 				"school": "light",
 				"keywords": {
-					"type": ["summon"],
-					"target": ["ally"],
-					"targets": ["single"],
-					"delivery": ["instant"]
+					"type": [
+						"summon"
+					],
+					"target": [
+						"ally"
+					],
+					"targets": [
+						"single"
+					],
+					"delivery": [
+						"instant"
+					]
 				},
 				"require": "(g.t_lightclass+g.tier5+g.tier6)>=3",
 				"buy": {
@@ -217,10 +263,18 @@
 				"level": 6,
 				"school": "light",
 				"keywords": {
-					"type": ["summon"],
-					"target": ["ally"],
-					"targets": ["single"],
-					"delivery": ["instant"]
+					"type": [
+						"summon"
+					],
+					"target": [
+						"ally"
+					],
+					"targets": [
+						"single"
+					],
+					"delivery": [
+						"instant"
+					]
 				},
 				"require": "(g.t_lightclass+g.tier5)>=2",
 				"buy": {

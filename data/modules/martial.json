@@ -44,7 +44,7 @@
 					"player.tohit": 0.1
 				},
 				"flavor": "照顾好武器，它也会照顾你。",
-				"group": "martial"
+				"group": "武技"
 			},
 			{
 				"id": "weapon_attune",
@@ -62,7 +62,7 @@
 					"player.tohit": 0.3
 				},
 				"flavor": "投入时间以获得更佳效果",
-				"group": "martial"
+				"group": "武技"
 			},
 			{
 				"id": "spec_blunt",
@@ -82,7 +82,7 @@
 					"bluntdmg": 5,
 					"player.defense": 5
 				},
-				"group": "martial"
+				"group": "武技"
 			},
 			{
 				"id": "spec_pierce",
@@ -102,7 +102,7 @@
 					"piercedmg": 5,
 					"player.tohit": 1
 				},
-				"group": "martial"
+				"group": "武技"
 			},
 			{
 				"id": "spec_slash",
@@ -122,7 +122,7 @@
 					"slashdmg": 5,
 					"player.speed": 2
 				},
-				"group": "martial"
+				"group": "武技"
 			}
 		],
 		"tasks": [
@@ -152,7 +152,7 @@
 					"martial_basics.length": 5
 				},
 				"flavor": "帮助有限，但胜过稻草人。",
-				"group": "martial"
+				"group": "武技"
 			},
 			{
 				"id": "martial_defense",
@@ -179,7 +179,7 @@
 					"martial_defense.length": 5
 				},
 				"flavor": "现在承受打击，避免将来更痛苦。",
-				"group": "martial"
+				"group": "武技"
 			},
 			{
 				"id": "arms_tome",
@@ -206,7 +206,7 @@
 					"bluntdmg": 1
 				},
 				"flavor": "把技法记录在一本巨书中。",
-				"group": "martial"
+				"group": "武技"
 			},
 			{
 				"id": "legs_tome",
@@ -232,7 +232,7 @@
 					"speed": 1
 				},
 				"flavor": "写作也是给双腿的休整时间，缓解疲劳。",
-				"group": "martial"
+				"group": "武技"
 			}
 		],
 		"potencies": [

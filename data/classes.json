@@ -1,6 +1,7 @@
 [
 	{
 		"id": "apprentice",
+		"name": "学徒",
 		"desc": "著名巫师的学徒。",
 		"actname": "学徒生涯",
 		"actdesc": "成为学徒。",
@@ -206,6 +207,7 @@
 	},
 	{
 		"id": "magician",
+		"name": "魔术师",
 		"tags": "t_tier1,t_manaclass,t_knowledgeclass",
 		"desc": "魔法的纯粹形式。",
 		"actdesc": "追求纯魔法的道路。",

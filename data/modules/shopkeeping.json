@@ -5,8 +5,9 @@
 		"skills": [
 			{
 				"id": "shopkeeping",
+				"name": "店铺经营",
 				"require": "g.crafting>=2&&g.gold>=1000&&g.languages>=4&&g.tier1>0",
-				"desc": "Buy and sell everything in the pursuit of gold",
+				"desc": "买卖万物以获取金币",
 				"buy": {
 					"arcana": 15
 				},
@@ -23,10 +24,10 @@
 		"tasks": [
 			{
 				"id": "sellbooks",
-				"name": "Sell Tomes",
+				"name": "出售典籍",
 				"tags": "t_bulk_sale_task,t_languagework",
-				"desc": "Even with the best scribes, these are always undervalued",
-				"verb": "haggling over tomes",
+				"desc": "即便有最好的抄写员，这些作品也常被低估",
+				"verb": "为典籍讨价还价",
 				"fill": "gold",
 				"require": "g.shopkeeping>=6&&g.tomes>=1",
 				"length": 10,
@@ -57,13 +58,13 @@
 						"result.gold": 20
 					}
 				},
-				"group": "affluence"
+				"group": "财富"
 			},
 			{
 				"id": "sellcodices",
-				"name": "Sell Codices",
-				"verb": "haggling over codices",
-				"desc": "Sell codices to just about anyone that wants them",
+				"name": "出售古抄本",
+				"verb": "为古抄本讨价还价",
+				"desc": "向任何需要古抄本的人出售",
 				"tags": "t_bulk_sale_task,t_languagework",
 				"require": "g.shopkeeping>=3&&g.codices>=1",
 				"fill": "gold",
@@ -99,13 +100,13 @@
 						"cost.codices": 1
 					}
 				},
-				"group": "affluence"
+				"group": "财富"
 			},
 			{
 				"id": "sellscrolls",
-				"name": "Sell Scrolls",
-				"verb": "haggling over scrolls",
-				"desc": "Sell scrolls to whoever comes along",
+				"name": "出售卷轴",
+				"verb": "为卷轴讨价还价",
+				"desc": "向路过的任何人出售卷轴",
 				"tags": "t_bulk_sale_task,t_languagework",
 				"require": "g.shopkeeping>=1&&g.scrolls>=1",
 				"fill": "gold",
@@ -141,13 +142,13 @@
 						"cost.scrolls": 5
 					}
 				},
-				"group": "affluence"
+				"group": "财富"
 			},
 			{
 				"id": "mass_sellherbs",
-				"name": "Sell Herbs",
-				"verb": "haggling over herbs",
-				"desc": "Sell herbs to people looking to make potions or incense.",
+				"name": "出售草药",
+				"verb": "为草药讨价还价",
+				"desc": "将草药出售给那些想制作药剂或香料的人。",
 				"tags": "t_bulk_sale_task,t_languagework",
 				"require": "g.shopkeeping>=2&&g.herbs>=1",
 				"fill": "gold",
@@ -183,13 +184,13 @@
 						"cost.herbs": 5
 					}
 				},
-				"group": "affluence"
+				"group": "财富"
 			},
 			{
 				"id": "sellgems",
-				"name": "Sell Gems",
-				"verb": "haggling over gems",
-				"desc": "Sell gems to jewelers and traders",
+				"name": "出售宝石",
+				"verb": "为宝石讨价还价",
+				"desc": "将宝石出售给珠宝商和商贩",
 				"tags": "t_bulk_sale_task,t_languagework",
 				"require": "g.shopkeeping>=3&&g.gems>=1",
 				"fill": "gold",
@@ -225,13 +226,13 @@
 						"cost.gems": 1
 					}
 				},
-				"group": "affluence"
+				"group": "财富"
 			},
 			{
 				"id": "accountingbook",
-				"name": "accounting ledger",
-				"actname": "calculating expenses",
-				"desc": "Better organization of all your wizardly expenses",
+				"name": "会计账簿",
+				"actname": "核算开支",
+				"desc": "更好地整理你作为法师的各类开支",
 				"require": "g.shopkeeping>=4&&g.crafting>=2&&g.languages>=5",
 				"max": 1,
 				"length": 50,
@@ -252,14 +253,14 @@
 					"composure.max": 1,
 					"composure.rate": 0.1
 				},
-				"group": "knowledge"
+				"group": "知识"
 			}
 		],
 		"upgrades": [
 			{
 				"id": "tradingstall",
-				"name": "trading stall",
-				"desc": "Makes buyers come to you for scrolls and gems, rather than having to seek them out",
+				"name": "交易摊位",
+				"desc": "让买家来找你购买卷轴和宝石，而不是到处寻找",
 				"require": "g.shopkeeping>=5",
 				"max": 1,
 				"cost": {
@@ -270,12 +271,12 @@
 					"sellscrolls.run.stamina": -0.1,
 					"sellgems.run.stamina": -0.1
 				},
-				"group": "affluence"
+				"group": "财富"
 			},
 			{
 				"id": "colorfulsigns",
-				"name": "colorful sign",
-				"desc": "You could probably sell things faster with some fancy illusions and effects",
+				"name": "色彩招牌",
+				"desc": "用一些华丽的幻术和效果你可能能更快地卖出东西",
 				"require": "g.shopkeeping>=7",
 				"max": 1,
 				"cost": {
@@ -288,12 +289,12 @@
 					"sellscrolls.length": -1,
 					"sellgems.length": -1
 				},
-				"group": "affluence"
+				"group": "财富"
 			},
 			{
 				"id": "charmingsigns",
-				"name": "enchanted sign",
-				"desc": "Why convince buyers when you have magic",
+				"name": "魔法招牌",
+				"desc": "既然有魔法，何必说服买家？",
 				"require": "g.shopkeeping>=7 && g.charms>=5",
 				"max": 1,
 				"cost": {
@@ -308,12 +309,12 @@
 					"mass_sellherbs.length": -1,
 					"sellgems.length": -1
 				},
-				"group": "affluence"
+				"group": "财富"
 			},
 			{
 				"id": "taxloopholes",
-				"name": "tax loopholes",
-				"desc": "You tire of incinerating tax collectors. Delegate the tax evasion to the best lawyer magic can find.",
+				"name": "税务漏洞",
+				"desc": "你厌倦了焚烧税务员，把避税的工作交给魔法能找到的最强律师吧。",
 				"require": "g.shopkeeping>=7&&g.demonology>=5",
 				"max": 3,
 				"cost": {
@@ -327,13 +328,13 @@
 					"shopkeeping.max": 0.5,
 					"demonology.rate": 0.5
 				},
-				"flavor": "The only lawyers more skilled than the tax legislators come from the planes below.",
-				"group": "knowledge"
+				"flavor": "比税法制定者更精于法律的律师，往往来自下界。",
+				"group": "知识"
 			},
 			{
 				"id": "gemtradercontact",
-				"name": "gemtrader contact",
-				"desc": "Seek out someone who will sell you gems for better prices",
+				"name": "宝石商联系人",
+				"desc": "寻找会以更优惠价格卖给你宝石的人",
 				"require": "g.shopkeeping>=7",
 				"max": 1,
 				"cost": {
@@ -343,12 +344,12 @@
 				"mod": {
 					"buygem.cost.gold": -20
 				},
-				"group": "affluence"
+				"group": "财富"
 			},
 			{
 				"id": "splendorandriches",
-				"name": "splendor and riches",
-				"desc": "Sometimes a lot of gold and greed is all you need to be famous",
+				"name": "光彩与财富",
+				"desc": "有时候，很多金币和贪欲就能让你声名远扬",
 				"require": "g.shopkeeping>=12",
 				"max": 1,
 				"cost": {
@@ -359,14 +360,14 @@
 					"gold.max": 1000,
 					"fame": 2
 				},
-				"group": "affluence"
+				"group": "财富"
 			}
 		],
 		"potions": [
 			{
 				"id": "pot_negotiator",
-				"name": "negotiator's cunning",
-				"desc": "A clear, viscous liquid that smells like money but tastes like pennies",
+				"name": "谈判者的机巧",
+				"desc": "一种清澈黏稠的液体，闻起来像金钱，尝起来像便士",
 				"require": "g.potions>=8&&g.shopkeeping>=5",
 				"level": 9,
 				"buy": {
@@ -384,7 +385,7 @@
 				"use": {
 					"dot": {
 						"id": "pot_negotiator_effect",
-						"name": "shrewd negotiation",
+						"name": "精明谈判",
 						"duration": 600,
 						"effect": {
 							"shopkeeping.exp": "g.shopkeeping.rate * 0.2"
@@ -400,8 +401,8 @@
 		"furniture": [
 			{
 				"id": "bazaar",
-				"name": "bazaar",
-				"desc": "A bustle of traders and merchants",
+				"name": "集市",
+				"desc": "熙熙攘攘的商贩与商人",
 				"require": "g.shopkeeping>=8&&g.tradingstall>0",
 				"max": 1,
 				"cost": {
@@ -421,9 +422,9 @@
 			},
 			{
 				"id": "herbmonger",
-				"name": "herb monger",
+				"name": "草药商",
 				"tags": "t_shopkeeper_assistant",
-				"desc": "Constantly sells your freshly grown herbs at your behest.",
+				"desc": "在你的指示下持续出售新鲜采集的草药。",
 				"require": "g.shopkeeping>=5&&g.herbs>=30",
 				"max": 2,
 				"cost": {
@@ -445,9 +446,9 @@
 			},
 			{
 				"id": "scrollmonger",
-				"name": "scroll monger",
+				"name": "卷轴商",
 				"tags": "t_shopkeeper_assistant",
-				"desc": "Constantly sells your scroll supply at your behest.",
+				"desc": "在你的指示下持续出售你的卷轴存货。",
 				"require": "g.shopkeeping>=7&&g.scrolls>=30",
 				"max": 2,
 				"cost": {
@@ -469,9 +470,9 @@
 			},
 			{
 				"id": "gemmonger",
-				"name": "gem monger",
+				"name": "宝石商",
 				"tags": "t_shopkeeper_assistant",
-				"desc": "Constantly sells your gem supply at your behest.",
+				"desc": "在你的指示下持续出售你的宝石存货。",
 				"require": "g.shopkeeping>=9&&g.gems>=30",
 				"max": 2,
 				"cost": {
@@ -493,8 +494,8 @@
 			},
 			{
 				"id": "goldpile",
-				"name": "gold pile",
-				"desc": "Why sleep like a peasant, when you can sleep like a dragon",
+				"name": "金币堆",
+				"desc": "你何必像凡人那样睡觉，当你可以像巨龙般睡在金币堆上？",
 				"require": "g.shopkeeping>=7",
 				"max": 1,
 				"tags": "bed",
@@ -519,8 +520,8 @@
 			},
 			{
 				"id": "goldstash",
-				"name": "stash of gold",
-				"desc": "Protect your gold by stashing it away",
+				"name": "金库",
+				"desc": "将金币存放起来以保护它们",
 				"require": "g.shopkeeping>=8",
 				"repeat": true,
 				"cost": {

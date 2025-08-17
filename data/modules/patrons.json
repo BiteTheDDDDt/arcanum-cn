@@ -459,7 +459,7 @@
 				"mod": {
 					"naturelore2.max": 1
 				},
-				"group": "knowledge"
+				"group": "知识"
 			},
 			{
 				"id": "baneforging",
@@ -475,7 +475,7 @@
 					"spellcraft.max": 2,
 					"enchanting.max": 2
 				},
-				"group": "knowledge"
+				"group": "知识"
 			}
 		]
 	}

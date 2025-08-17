@@ -20,7 +20,7 @@
 			{
 				"id": "gloss_hall",
 				"name": "巫师大厅",
-				"group": "hall",
+				"group": "大厅",
 				"tags": "t_gloss_game_mechanic,t_gloss_hall",
 				"sym": "🛠🏰",
 				"desc": [
@@ -38,7 +38,7 @@
 			{
 				"id": "gloss_hall_upgrades",
 				"name": "强力大厅升级",
-				"group": "hall",
+				"group": "大厅",
 				"tags": "t_gloss_game_mechanic,t_gloss_hall",
 				"sym": "🛠🏰",
 				"desc": [
@@ -57,7 +57,7 @@
 			{
 				"id": "gloss_prestige",
 				"name": "声望",
-				"group": "hall",
+				"group": "大厅",
 				"tags": "t_gloss_game_mechanic,t_gloss_hall",
 				"sym": "🛠🏰",
 				"desc": [
@@ -77,7 +77,7 @@
 			{
 				"id": "gloss_dimensionalexploration",
 				"name": "维度探索",
-				"group": "hall",
+				"group": "大厅",
 				"tags": "t_gloss_game_mechanic,t_gloss_hall",
 				"sym": "🛠🏰",
 				"desc": [
@@ -399,7 +399,7 @@
 				"name": "维度探针材料",
 				"desc": "用于进一步推进维度探测的适当分级材料。",
 				"max": 30,
-				"group": "hall",
+				"group": "大厅",
 				"convert": {
 					"singular": true,
 					"input": {

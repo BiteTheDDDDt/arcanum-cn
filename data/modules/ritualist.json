@@ -969,7 +969,7 @@
 			{
 				"id": "ritualward",
 				"name": "ritual wards",
-				"group": "ritual",
+				"group": "仪式",
 				"desc": "Specialized wards needed to prepare and improve various rituals",
 				"max": 3,
 				"flavor": "The cautionary tale of Garalad the Foolish is passed down from ritualist to ritualist"
@@ -977,7 +977,7 @@
 			{
 				"id": "ritualnotes",
 				"name": "ritual notes",
-				"group": "ritual",
+				"group": "仪式",
 				"desc": "Detailed notes on performed rituals. Can be studied to further improve one's prowess at ritualistic magic.",
 				"max": 3,
 				"flavor": "If nothing else, your apprentices will appreciate finding those in the ruins."
@@ -985,7 +985,7 @@
 			{
 				"id": "rawritualpaper",
 				"name": "arcane paper",
-				"group": "ritual",
+				"group": "仪式",
 				"desc": "Paper pressed with arcane energies, ready for conversion into ritual paper.",
 				"max": 5,
 				"flavor": "Garalad once put a stack of such paper on a shelf. The resulting explosion was seen from many miles away."
@@ -993,7 +993,7 @@
 			{
 				"id": "ritualpaper",
 				"name": "ritual paper",
-				"group": "ritual",
+				"group": "仪式",
 				"desc": "Specialized paper inscribed with sigils of power. Stabilizes advanced rituals.",
 				"max": 5,
 				"flavor": "The knowledge of the necessary preparations was earned with blood and toil. Mostly blood."

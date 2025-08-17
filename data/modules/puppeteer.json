@@ -7,7 +7,7 @@
 		"tags": [
 			{
 				"id": "t_skill_animation",
-				"name": "动画术"
+				"name": "运动术"
 			}
 		],
 		"skills": [
@@ -31,7 +31,7 @@
 			},
 			{
 				"id": "magicalanimation",
-				"name": "动画",
+				"name": "运动",
 				"desc": "赋予物体运动的力量",
 				"tags": "t_skill_animation",
 				"require": "g.puppetry>=5&&g.spiritlore>=10",
@@ -115,7 +115,7 @@
 			{
 				"id": "puppetshow",
 				"name": "木偶戏",
-				"desc": "用动画傀儡表演一场演出",
+				"desc": "用可动傀儡表演一场演出",
 				"verb": "操偶",
 				"require": "g.puppeteer>0",
 				"length": 15,
@@ -454,7 +454,7 @@
 			{
 				"id": "runicanimation",
 				"alias": "runicreinforcement",
-				"name": "符文动画",
+				"name": "符文运动术",
 				"desc": "在傀儡上刻下力量与守护的符文",
 				"require": "g.puppeteer>0&&g.runelore>=3",
 				"max": 1,
@@ -933,7 +933,7 @@
 			},
 			{
 				"id": "mk_puppet_perm",
-				"name": "动画化傀儡攻击者",
+				"name": "可动化傀儡攻击者",
 				"desc": "创造一个稳定的傀儡攻击者",
 				"sortOrder": 1881,
 				"level": 1,
@@ -1117,7 +1117,7 @@
 			},
 			{
 				"id": "mk_puppetdef",
-				"name": "动画化壁垒",
+				"name": "可动化壁垒",
 				"desc": "一具坚固的傀儡在你与危险之间撑起防线。",
 				"sortOrder": 1883,
 				"level": 5,

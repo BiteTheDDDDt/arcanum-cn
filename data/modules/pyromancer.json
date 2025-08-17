@@ -787,6 +787,7 @@
 			},
 			{
 				"id": "firestorm",
+				"name": "炎暴",
 				"desc": "从天而降的火雨",
 				"sortOrder": 700,
 				"level": 6,
@@ -1492,6 +1493,7 @@
 		"classes": [
 			{
 				"id": "pyromancer",
+				"name": "焰术士",
 				"desc": "Shaper of fire",
 				"tags": "t_tier2,t_fireclass",
 				"require": "g.tier1>0&&g.firelore>=10",
@@ -1510,6 +1512,7 @@
 			},
 			{
 				"id": "firebrand",
+				"name": "火印者",
 				"desc": "Wielder of fire",
 				"tags": "t_tier4,t_fireclass",
 				"require": "g.tier3>0&&g.firelore>=10",
@@ -1528,6 +1531,7 @@
 			},
 			{
 				"id": "firelord",
+				"name": "火焰领主",
 				"desc": "Ruler of fire",
 				"tags": "t_tier6,t_fireclass",
 				"require": "g.tier5>0&&g.flamesculpting>=2&&(g.pyromancer+g.firebrand)>0",

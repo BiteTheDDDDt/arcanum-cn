@@ -247,7 +247,7 @@
 			{
 				"id": "stabilize",
 				"slot": "rest",
-				"group": "rest"
+				"group": "休息"
 			}
 		],
 		"upgrades": [
@@ -268,7 +268,7 @@
 					"t_rest.effect.timeparadox": -0.01
 				},
 				"flavor": "仿佛你曾经存在过。",
-				"group": "rest"
+				"group": "休息"
 			},
 			{
 				"id": "timeledger",
@@ -331,7 +331,7 @@
 					"stabilizerest.mod.t_rest.effect.stress": -0.2,
 					"stabilizerest.mod.t_rest.effect.tempus": 0.1
 				},
-				"group": "instability"
+				"group": "不稳定"
 			},
 			{
 				"id": "ripexploitation",

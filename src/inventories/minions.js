@@ -51,6 +51,7 @@ export default class Minions extends Inventory {
 		super(vars);
 
 		this.type = this.id = "minions";
+		this.name = "随从";
 
 		if (!this.max) this.max = 0;
 
@@ -59,7 +60,7 @@ export default class Minions extends Inventory {
 
 		this._allies = new Inventory({
 			id: "allies",
-			name: "Active Minions Levels",
+			name: "活跃随从等级",
 			spaceProp: "level",
 			saveMode: SAVE_IDS,
 		});

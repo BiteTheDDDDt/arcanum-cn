@@ -39,7 +39,7 @@
 					"weaving.mod.sworddmg": 0.5
 				},
 				"flavor": "The local weavers tell stories of war when spinning yarn.",
-				"group": "martial"
+				"group": "武技"
 			},
 			{
 				"id": "defensive_dance",
@@ -57,7 +57,7 @@
 					"player.resist.slash": 5
 				},
 				"flavor": "A glancing blow is better than a solid hit.",
-				"group": "martial"
+				"group": "武技"
 			},
 			{
 				"id": "divine_wind",
@@ -73,7 +73,7 @@
 					"player.negate.entangle": 15
 				},
 				"flavor": "Cut through anything tying you up.",
-				"group": "martial"
+				"group": "武技"
 			}
 		],
 		"tasks": [
@@ -101,7 +101,7 @@
 					"sword_basics.length": 5
 				},
 				"flavor": "Your sparring partner doesn't move much, do they?",
-				"group": "martial"
+				"group": "武技"
 			},
 			{
 				"id": "sword_lessons",
@@ -129,7 +129,7 @@
 					"blade_endure.max": 0.2
 				},
 				"flavor": "Learning the way of the blade takes time and dedication.",
-				"group": "martial"
+				"group": "武技"
 			},
 			{
 				"id": "blade_spellbook",
@@ -153,7 +153,7 @@
 					"spelldmg": 3.75
 				},
 				"flavor": "Your sword and spells become unified, and grow stronger together.",
-				"group": "martial"
+				"group": "武技"
 			},
 			{
 				"id": "blade_endure",
@@ -181,7 +181,7 @@
 					"vigor.rate": "2%"
 				},
 				"flavor": "Exhausting work has led to great results.",
-				"group": "body"
+				"group": "身体"
 			}
 		],
 		"classes": [
@@ -316,10 +316,18 @@
 				"level": 7,
 				"school": "summoning",
 				"keywords": {
-					"type": ["summon"],
-					"target": ["ally"],
-					"targets": ["single"],
-					"delivery": ["instant"]
+					"type": [
+						"summon"
+					],
+					"target": [
+						"ally"
+					],
+					"targets": [
+						"single"
+					],
+					"delivery": [
+						"instant"
+					]
 				},
 				"require": "(g.bladelore>=7&&g.summoning>=5)||g.t_summonclass>=2",
 				"buy": {
@@ -347,10 +355,18 @@
 				"level": 5,
 				"school": "martial",
 				"keywords": {
-					"type": ["buff"],
-					"target": ["ally"],
-					"targets": ["multiple"],
-					"delivery": ["over time"]
+					"type": [
+						"buff"
+					],
+					"target": [
+						"ally"
+					],
+					"targets": [
+						"multiple"
+					],
+					"delivery": [
+						"over time"
+					]
 				},
 				"require": "g.enchanting>=6&&g.summoning>=5&&g.mk_blade.owned",
 				"buy": {
@@ -386,20 +402,38 @@
 				"sortOrder": 323,
 				"level": 7,
 				"school": "martial",
-				"tags": ["t_nospellcraft", "t_blade"],
+				"tags": [
+					"t_nospellcraft",
+					"t_blade"
+				],
 				"keywords": {
-					"type": ["damage", "debuff"],
-					"target": ["enemy"],
-					"targets": ["multiple"],
-					"delivery": ["instant", "over time"],
-					"special": ["weapon"]
+					"type": [
+						"damage",
+						"debuff"
+					],
+					"target": [
+						"enemy"
+					],
+					"targets": [
+						"multiple"
+					],
+					"delivery": [
+						"instant",
+						"over time"
+					],
+					"special": [
+						"weapon"
+					]
 				},
 				"require": "g.bladelore>=10&&g.waterlore>=8",
 				"buy": {
 					"tomes": 5,
 					"watergem": 10
 				},
-				"caststoppers": [1, 4],
+				"caststoppers": [
+					1,
+					4
+				],
 				"need": "g.player.getWeapon().hasTag('t_sword')",
 				"needtext": "Currently equipped weapon must be a sword",
 				"cost": {
@@ -417,7 +451,11 @@
 					"kind": "water",
 					"tohit": 2,
 					"damage": "(a.getWeapon().damage||0)*0.8",
-					"potencies": ["physdmg", "sworddmg", "waterdmg"],
+					"potencies": [
+						"physdmg",
+						"sworddmg",
+						"waterdmg"
+					],
 					"dot": {
 						"name": "riptide",
 						"kind": "water",
@@ -426,7 +464,10 @@
 						"mod": {
 							"self.speed": -3
 						},
-						"potencies": ["spelldmg", "waterdmg"]
+						"potencies": [
+							"spelldmg",
+							"waterdmg"
+						]
 					}
 				}
 			},
@@ -437,20 +478,36 @@
 				"sortOrder": 322,
 				"level": 4,
 				"school": "martial",
-				"tags": ["t_nospellcraft", "t_blade"],
+				"tags": [
+					"t_nospellcraft",
+					"t_blade"
+				],
 				"keywords": {
-					"type": ["damage"],
-					"target": ["enemy"],
-					"targets": ["single"],
-					"delivery": ["instant"],
-					"special": ["weapon"]
+					"type": [
+						"damage"
+					],
+					"target": [
+						"enemy"
+					],
+					"targets": [
+						"single"
+					],
+					"delivery": [
+						"instant"
+					],
+					"special": [
+						"weapon"
+					]
 				},
 				"require": "g.bladelore>=3&&g.lore>=8",
 				"buy": {
 					"codices": 5,
 					"managem": 7
 				},
-				"caststoppers": [1, 4],
+				"caststoppers": [
+					1,
+					4
+				],
 				"need": "g.player.getWeapon().hasTag('t_sword')",
 				"needtext": "Currently equipped weapon must be a sword",
 				"cost": {
@@ -466,7 +523,11 @@
 					"kind": "mana",
 					"tohit": 3,
 					"damage": "(a.getWeapon().damage||0)*1.4",
-					"potencies": ["physdmg", "sworddmg", "manadmg"]
+					"potencies": [
+						"physdmg",
+						"sworddmg",
+						"manadmg"
+					]
 				}
 			},
 			{
@@ -476,13 +537,29 @@
 				"sortOrder": 324,
 				"level": 6,
 				"school": "martial",
-				"tags": ["t_nospellcraft", "t_blade"],
+				"tags": [
+					"t_nospellcraft",
+					"t_blade"
+				],
 				"keywords": {
-					"type": ["damage", "buff"],
-					"target": ["self", "enemy"],
-					"targets": ["multiple"],
-					"delivery": ["instant", "over time"],
-					"special": ["weapon"]
+					"type": [
+						"damage",
+						"buff"
+					],
+					"target": [
+						"self",
+						"enemy"
+					],
+					"targets": [
+						"multiple"
+					],
+					"delivery": [
+						"instant",
+						"over time"
+					],
+					"special": [
+						"weapon"
+					]
 				},
 				"require": "g.bladelore>=8&&g.airlore>=8",
 				"cd": 2,
@@ -490,7 +567,10 @@
 					"tomes": 5,
 					"airgem": 10
 				},
-				"caststoppers": [1, 4],
+				"caststoppers": [
+					1,
+					4
+				],
 				"need": "g.player.getWeapon().hasTag('t_sword')",
 				"needtext": "Currently equipped weapon must be a sword",
 				"cost": {
@@ -515,7 +595,11 @@
 					"kind": "air",
 					"tohit": 3,
 					"damage": "(a.getWeapon().damage||0)*1.0",
-					"potencies": ["sworddmg", "spelldmg", "airdmg"]
+					"potencies": [
+						"sworddmg",
+						"spelldmg",
+						"airdmg"
+					]
 				},
 				"flavor": "Spinning is a good trick"
 			},
@@ -526,20 +610,38 @@
 				"sortOrder": 327,
 				"level": 2,
 				"school": "martial",
-				"tags": ["t_nospellcraft", "t_blade"],
+				"tags": [
+					"t_nospellcraft",
+					"t_blade"
+				],
 				"keywords": {
-					"type": ["damage", "buff"],
-					"target": ["self", "enemy"],
-					"targets": ["single"],
-					"delivery": ["instant", "over time"],
-					"special": ["weapon"]
+					"type": [
+						"damage",
+						"buff"
+					],
+					"target": [
+						"self",
+						"enemy"
+					],
+					"targets": [
+						"single"
+					],
+					"delivery": [
+						"instant",
+						"over time"
+					],
+					"special": [
+						"weapon"
+					]
 				},
 				"require": "g.bladelore>=2&&g.scrying>=5&&g.spiritlore>=6",
 				"buy": {
 					"codices": 5,
 					"spiritgem": 7
 				},
-				"caststoppers": [1],
+				"caststoppers": [
+					1
+				],
 				"need": "g.player.getWeapon().hasTag('t_sword')",
 				"needtext": "Currently equipped weapon must be a sword",
 				"cost": {
@@ -562,7 +664,11 @@
 					"kind": "spirit",
 					"tohit": 5,
 					"damage": "3+(a.getWeapon().damage||0)*0.6",
-					"potencies": ["physdmg", "sworddmg", "spiritdmg"]
+					"potencies": [
+						"physdmg",
+						"sworddmg",
+						"spiritdmg"
+					]
 				}
 			},
 			{
@@ -572,20 +678,38 @@
 				"sortOrder": 328,
 				"level": 5,
 				"school": "martial",
-				"tags": ["t_nospellcraft", "t_blade"],
+				"tags": [
+					"t_nospellcraft",
+					"t_blade"
+				],
 				"keywords": {
-					"type": ["damage", "debuff"],
-					"target": ["enemy"],
-					"targets": ["single"],
-					"delivery": ["instant", "over time"],
-					"special": ["weapon"]
+					"type": [
+						"damage",
+						"debuff"
+					],
+					"target": [
+						"enemy"
+					],
+					"targets": [
+						"single"
+					],
+					"delivery": [
+						"instant",
+						"over time"
+					],
+					"special": [
+						"weapon"
+					]
 				},
 				"require": "g.bladelore>=7&&g.lightlore>=8",
 				"buy": {
 					"tomes": 5,
 					"lightgem": 10
 				},
-				"caststoppers": [1, 4],
+				"caststoppers": [
+					1,
+					4
+				],
 				"need": "g.player.getWeapon().hasTag('t_sword')",
 				"needtext": "Currently equipped weapon must be a sword",
 				"cost": {
@@ -601,7 +725,11 @@
 					"kind": "light",
 					"tohit": 2,
 					"damage": "(a.getWeapon().damage||0)*1.2",
-					"potencies": ["spelldmg", "sworddmg", "lightdmg"],
+					"potencies": [
+						"spelldmg",
+						"sworddmg",
+						"lightdmg"
+					],
 					"dot": {
 						"name": "blind",
 						"tags": "t_tohitdown",
@@ -620,19 +748,33 @@
 				"sortOrder": 326,
 				"level": 8,
 				"school": "martial",
-				"tags": ["t_nospellcraft", "t_blade"],
+				"tags": [
+					"t_nospellcraft",
+					"t_blade"
+				],
 				"keywords": {
-					"type": ["damage"],
-					"target": ["enemy"],
-					"targets": ["single"],
-					"delivery": ["instant", "over time"]
+					"type": [
+						"damage"
+					],
+					"target": [
+						"enemy"
+					],
+					"targets": [
+						"single"
+					],
+					"delivery": [
+						"instant",
+						"over time"
+					]
 				},
 				"require": "g.bladelore>=9&&g.naturelore>=8",
 				"buy": {
 					"tomes": 5,
 					"naturegem": 10
 				},
-				"caststoppers": [1],
+				"caststoppers": [
+					1
+				],
 				"need": "g.player.getWeapon().hasTag('t_sword')",
 				"needtext": "Currently equipped weapon must be a sword",
 				"cost": {
@@ -648,13 +790,21 @@
 					"kind": "nature",
 					"tohit": 1,
 					"damage": "(a.getWeapon().damage||0)*0.5",
-					"potencies": ["physdmg", "sworddmg", "naturedmg"],
+					"potencies": [
+						"physdmg",
+						"sworddmg",
+						"naturedmg"
+					],
 					"dot": {
 						"name": "poisoned wound",
 						"kind": "nature",
 						"duration": 20,
 						"damage": "4~6",
-						"potencies": ["sworddmg", "naturedmg", "poisondmg"]
+						"potencies": [
+							"sworddmg",
+							"naturedmg",
+							"poisondmg"
+						]
 					}
 				}
 			},
@@ -665,19 +815,34 @@
 				"sortOrder": 329,
 				"level": 6,
 				"school": "martial",
-				"tags": ["t_nospellcraft", "t_blade"],
+				"tags": [
+					"t_nospellcraft",
+					"t_blade"
+				],
 				"keywords": {
-					"type": ["damage"],
-					"target": ["enemy"],
-					"targets": ["single"],
-					"delivery": ["instant", "over time"]
+					"type": [
+						"damage"
+					],
+					"target": [
+						"enemy"
+					],
+					"targets": [
+						"single"
+					],
+					"delivery": [
+						"instant",
+						"over time"
+					]
 				},
 				"require": "g.bladelore>=6&&g.shadowlore>=8",
 				"buy": {
 					"tomes": 5,
 					"shadowgem": 10
 				},
-				"caststoppers": [1, 4],
+				"caststoppers": [
+					1,
+					4
+				],
 				"need": "g.player.getWeapon().hasTag('t_sword')",
 				"needtext": "Currently equipped weapon must be a sword",
 				"cost": {
@@ -693,12 +858,19 @@
 					"kind": "shadow",
 					"tohit": 2,
 					"damage": "(a.getWeapon().damage||0)*0.8",
-					"potencies": ["physdmg", "sworddmg", "shadowdmg"],
+					"potencies": [
+						"physdmg",
+						"sworddmg",
+						"shadowdmg"
+					],
 					"dot": {
 						"kind": "shadow",
 						"duration": 40,
 						"damage": 3,
-						"potencies": ["shadowdmg", "spelldmg"]
+						"potencies": [
+							"shadowdmg",
+							"spelldmg"
+						]
 					}
 				}
 			},
@@ -709,19 +881,34 @@
 				"sortOrder": 325,
 				"level": 4,
 				"school": "martial",
-				"tags": ["t_nospellcraft", "t_blade"],
+				"tags": [
+					"t_nospellcraft",
+					"t_blade"
+				],
 				"keywords": {
-					"type": ["damage"],
-					"target": ["enemy"],
-					"targets": ["single"],
-					"delivery": ["instant", "over time"]
+					"type": [
+						"damage"
+					],
+					"target": [
+						"enemy"
+					],
+					"targets": [
+						"single"
+					],
+					"delivery": [
+						"instant",
+						"over time"
+					]
 				},
 				"require": "g.bladelore>=3&&g.firelore>=8",
 				"buy": {
 					"codices": 5,
 					"firegem": 10
 				},
-				"caststoppers": [1, 4],
+				"caststoppers": [
+					1,
+					4
+				],
 				"need": "g.player.getWeapon().hasTag('t_sword')",
 				"needtext": "Currently equipped weapon must be a sword",
 				"cost": {
@@ -737,13 +924,21 @@
 					"kind": "fire",
 					"tohit": 1,
 					"damage": "(a.getWeapon().damage||0)*0.9",
-					"potencies": ["spelldmg", "sworddmg", "firedmg"],
+					"potencies": [
+						"spelldmg",
+						"sworddmg",
+						"firedmg"
+					],
 					"dot": {
 						"name": "burning",
 						"kind": "fire",
 						"duration": 5,
 						"damage": "5~7",
-						"potencies": ["sworddmg", "firedmg", "spelldmg"]
+						"potencies": [
+							"sworddmg",
+							"firedmg",
+							"spelldmg"
+						]
 					}
 				}
 			},
@@ -754,12 +949,24 @@
 				"sortOrder": 384,
 				"level": 15,
 				"school": "martial",
-				"tags": ["t_nospellcraft", "t_blade"],
+				"tags": [
+					"t_nospellcraft",
+					"t_blade"
+				],
 				"keywords": {
-					"type": ["buff", "debuff"],
-					"target": ["self"],
-					"targets": ["single"],
-					"delivery": ["over time"]
+					"type": [
+						"buff",
+						"debuff"
+					],
+					"target": [
+						"self"
+					],
+					"targets": [
+						"single"
+					],
+					"delivery": [
+						"over time"
+					]
 				},
 				"require": "g.bladelore>=10&&g.chronomancy>=7",
 				"buy": {
@@ -767,7 +974,10 @@
 					"timegem": 3,
 					"clepsydra": 3
 				},
-				"caststoppers": [1, 4],
+				"caststoppers": [
+					1,
+					4
+				],
 				"need": "g.player.getWeapon().hasTag('t_sword')",
 				"needtext": "Currently equipped weapon must be a sword",
 				"cost": {
@@ -794,19 +1004,32 @@
 				"sortOrder": 321,
 				"level": 2,
 				"school": "martial",
-				"tags": ["t_nospellcraft", "t_blade"],
+				"tags": [
+					"t_nospellcraft",
+					"t_blade"
+				],
 				"keywords": {
-					"type": ["damage"],
-					"target": ["enemy"],
-					"targets": ["single"],
-					"delivery": ["instant"]
+					"type": [
+						"damage"
+					],
+					"target": [
+						"enemy"
+					],
+					"targets": [
+						"single"
+					],
+					"delivery": [
+						"instant"
+					]
 				},
 				"require": "g.bladelore>=2&&g.bloodlore>=5",
 				"buy": {
 					"codices": 5,
 					"bloodgem": 10
 				},
-				"caststoppers": [1],
+				"caststoppers": [
+					1
+				],
 				"need": "g.player.getWeapon().hasTag('t_sword')",
 				"needtext": "Currently equipped weapon must be a sword",
 				"cost": {
@@ -822,7 +1045,11 @@
 					"kind": "blood",
 					"tohit": 4,
 					"damage": "10+(a.getWeapon().damage||0)*0.7",
-					"potencies": ["physdmg", "sworddmg", "blooddmg"]
+					"potencies": [
+						"physdmg",
+						"sworddmg",
+						"blooddmg"
+					]
 				}
 			}
 		]

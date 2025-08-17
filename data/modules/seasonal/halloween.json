@@ -10,7 +10,9 @@
 				"desc": "The restless souls wander around, wrecking havoc wherever they are.",
 				"require": "(g.hal_mill_intime>0||g.hal_mill_late>0)&&g.anatomy>=5&&g.bodies>0",
 				"warn": true,
-				"lock": ["t_halloween_aspect"],
+				"lock": [
+					"t_halloween_aspect"
+				],
 				"cost": {
 					"hp": 25,
 					"bodies": 3
@@ -27,7 +29,7 @@
 					"anatomy.max": 3,
 					"reanimation.max": 3
 				},
-				"group": "halloween 🎃"
+				"group": "万圣节 🎃"
 			},
 			{
 				"id": "asp_ghost",
@@ -36,7 +38,9 @@
 				"desc": "Incorporeal creatures using magic to fulfill their needs.",
 				"require": "(g.hal_mill_intime>0||g.hal_mill_late>0)&&g.hauntedmanor>1",
 				"warn": true,
-				"lock": ["t_halloween_aspect"],
+				"lock": [
+					"t_halloween_aspect"
+				],
 				"cost": {
 					"spiritgem": 5
 				},
@@ -50,7 +54,7 @@
 					"spiritlore.max": 3,
 					"airlore.max": 3
 				},
-				"group": "halloween 🎃"
+				"group": "万圣节 🎃"
 			},
 			{
 				"id": "asp_ghoul",
@@ -59,7 +63,9 @@
 				"desc": "A undead hunter who preys in the night.",
 				"require": "(g.hal_mill_intime>0||g.hal_mill_late>0)&&g.player.defense>=15",
 				"warn": true,
-				"lock": ["t_halloween_aspect"],
+				"lock": [
+					"t_halloween_aspect"
+				],
 				"cost": {
 					"bloodgem": 5
 				},
@@ -71,7 +77,7 @@
 					"demonology.max": 3,
 					"necromancy.max": 3
 				},
-				"group": "halloween 🎃"
+				"group": "万圣节 🎃"
 			},
 			{
 				"id": "asp_goblin",
@@ -80,7 +86,9 @@
 				"desc": "Their greed for gold and all things shiny is legendary.",
 				"require": "(g.hal_mill_intime>0||g.hal_mill_late>0)&&g.gold>=100",
 				"warn": true,
-				"lock": ["t_halloween_aspect"],
+				"lock": [
+					"t_halloween_aspect"
+				],
 				"cost": {
 					"gold": 500,
 					"gems": 20
@@ -95,7 +103,7 @@
 					"trickery.max": 3,
 					"languages.max": 3
 				},
-				"group": "halloween 🎃"
+				"group": "万圣节 🎃"
 			},
 			{
 				"id": "asp_satyr",
@@ -104,7 +112,9 @@
 				"desc": "Dancing under the moonlight, and misleading wanderers.",
 				"require": "(g.hal_mill_intime>0||g.hal_mill_late>0)&&g.trickery>5&&g.nature>10",
 				"warn": true,
-				"lock": ["t_halloween_aspect"],
+				"lock": [
+					"t_halloween_aspect"
+				],
 				"cost": {
 					"naturegem": 5,
 					"chaosgem": 5
@@ -121,7 +131,7 @@
 					"naturelore.max": 3,
 					"trickery.max": 3
 				},
-				"group": "halloween 🎃"
+				"group": "万圣节 🎃"
 			},
 			{
 				"id": "asp_drake",
@@ -132,7 +142,9 @@
 				"need": "g.tier4>0",
 				"needtext": "You need to be tier 4 or higher to reasonably get your hands on elemental runes.",
 				"warn": true,
-				"lock": ["t_halloween_aspect"],
+				"lock": [
+					"t_halloween_aspect"
+				],
 				"cost": {
 					"airrune": 3,
 					"firerune": 3
@@ -148,7 +160,7 @@
 					"firelore.max": 3,
 					"airlore.max": 3
 				},
-				"group": "halloween 🎃"
+				"group": "万圣节 🎃"
 			},
 			{
 				"id": "hal_charger",
@@ -164,7 +176,7 @@
 					"dist": 250,
 					"player.resist.shadow": 25
 				},
-				"group": "halloween 🎃"
+				"group": "万圣节 🎃"
 			},
 			{
 				"id": "hal_carriage",
@@ -187,7 +199,7 @@
 					"weary.rate": -0.2,
 					"unease.rate": -0.2
 				},
-				"group": "halloween 🎃"
+				"group": "万圣节 🎃"
 			},
 			{
 				"id": "hal_broomstick",
@@ -202,7 +214,7 @@
 					"rage.rate": -0.3,
 					"player.resist.spirit": 15
 				},
-				"group": "halloween 🎃"
+				"group": "万圣节 🎃"
 			},
 			{
 				"id": "pumpsack",
@@ -216,7 +228,7 @@
 					"pumpseeds.max": 10
 				},
 				"flavor": "You need to have a word with the sack-maker's guild.",
-				"group": "halloween 🎃"
+				"group": "万圣节 🎃"
 			},
 			{
 				"id": "hal_ritual",
@@ -227,7 +239,7 @@
 					"research": 25000
 				},
 				"flavor": "You have a bad feeling about this.",
-				"group": "halloween 🎃"
+				"group": "万圣节 🎃"
 			}
 		],
 		"tasks": [
@@ -247,7 +259,7 @@
 				"mod": {
 					"runner.max": 1
 				},
-				"group": "halloween 🎃"
+				"group": "万圣节 🎃"
 			},
 			{
 				"id": "applebob",
@@ -262,7 +274,7 @@
 					"watergem": "0.1%",
 					"runestones": "0.01%"
 				},
-				"group": "halloween 🎃"
+				"group": "万圣节 🎃"
 			},
 			{
 				"id": "filchpump",
@@ -281,14 +293,17 @@
 				"result": {
 					"pumpkins": 1
 				},
-				"group": "halloween 🎃"
+				"group": "万圣节 🎃"
 			},
 			{
 				"id": "mk_jacklant",
 				"name": "carve lantern",
 				"require": "pumpkins",
 				"length": 15,
-				"fill": ["jacklantern", "pumpseeds"],
+				"fill": [
+					"jacklantern",
+					"pumpseeds"
+				],
 				"cost": {
 					"pumpkins": 1
 				},
@@ -302,7 +317,7 @@
 					"pumpseeds": 3,
 					"jacklantern": 1
 				},
-				"group": "halloween 🎃"
+				"group": "万圣节 🎃"
 			},
 			{
 				"id": "smashpump",
@@ -314,7 +329,7 @@
 				"result": {
 					"pumpseeds": 3
 				},
-				"group": "halloween 🎃"
+				"group": "万圣节 🎃"
 			},
 			{
 				"id": "tricktreat",
@@ -337,7 +352,7 @@
 					"gems": "1%",
 					"pumpkins": "20%"
 				},
-				"group": "halloween 🎃"
+				"group": "万圣节 🎃"
 			},
 			{
 				"id": "trickthreat",
@@ -360,7 +375,7 @@
 					"gems": "2%",
 					"pumpkins": "40%"
 				},
-				"group": "halloween 🎃"
+				"group": "万圣节 🎃"
 			}
 		],
 		"events": [
@@ -379,7 +394,10 @@
 				"name": "Waste of time",
 				"desc": "The house was indeed haunted, but it is clear that the thief story was a fabrication. If you have no other leads, additional investigation in the village might be in order.",
 				"require": "g.hal_fakehouse>0",
-				"lock": ["hal_fakehouse", "hal_mill_intime"]
+				"lock": [
+					"hal_fakehouse",
+					"hal_mill_intime"
+				]
 			},
 			{
 				"id": "hal_faceless_failed",
@@ -651,17 +669,41 @@
 				},
 				"length": 30,
 				"spawns": [
-					["undeadcrow2", "nec_ghast2", "nec_ghast2"],
-					["nec_zombie2", "nec_zombie2", "nec_zombie2"],
+					[
+						"undeadcrow2",
+						"nec_ghast2",
+						"nec_ghast2"
+					],
+					[
+						"nec_zombie2",
+						"nec_zombie2",
+						"nec_zombie2"
+					],
 					"nec_ghoul2",
 					"nec_ghast2",
-					["wolf", "wolf"],
+					[
+						"wolf",
+						"wolf"
+					],
 					"ghost",
-					["hal_wight", "hal_wight"],
-					["evilpriest", "evilpriest"],
-					["greaterzombie", "greaterzombie"],
+					[
+						"hal_wight",
+						"hal_wight"
+					],
+					[
+						"evilpriest",
+						"evilpriest"
+					],
+					[
+						"greaterzombie",
+						"greaterzombie"
+					],
 					"nec_ghost2",
-					["nec_skeleton", "nec_skeleton", "nec_ghoul2"]
+					[
+						"nec_skeleton",
+						"nec_skeleton",
+						"nec_ghoul2"
+					]
 				]
 			},
 			{
@@ -676,17 +718,25 @@
 				"sortOrder": 6,
 				"require": "loc_hal_pumpkin",
 				"dist": 10,
-				"run": { "stamina": 0.3 },
+				"run": {
+					"stamina": 0.3
+				},
 				"result": {
 					"pumpkin": "1~2",
 					"title": "Hallowed Defender",
 					"evt_hoofs": true
 				},
-				"loot": ["cobwebs"],
+				"loot": [
+					"cobwebs"
+				],
 				"length": 20,
 				"boss": "m_pumpkin",
 				"spawns": [
-					["undeadcrow", "undeadcrow", "undeadcrow"],
+					[
+						"undeadcrow",
+						"undeadcrow",
+						"undeadcrow"
+					],
 					"nec_zombie",
 					"nec_ghoul",
 					"nec_ghast",
@@ -744,10 +794,19 @@
 				"level": 1,
 				"school": "halloween",
 				"keywords": {
-					"type": ["damage"],
-					"target": ["enemy"],
-					"targets": ["single"],
-					"delivery": ["instant", "over time"]
+					"type": [
+						"damage"
+					],
+					"target": [
+						"enemy"
+					],
+					"targets": [
+						"single"
+					],
+					"delivery": [
+						"instant",
+						"over time"
+					]
 				},
 				"require": "g.spiritlore>=3||g.trickery>=2",
 				"buy": {
@@ -764,7 +823,10 @@
 					"damage": "1~10",
 					"kind": "chaos",
 					"nodefense": true,
-					"potencies": ["spelldmg", "chaosdmg"],
+					"potencies": [
+						"spelldmg",
+						"chaosdmg"
+					],
 					"dot": {
 						"%": "25%",
 						"name": "bewildered",
@@ -783,10 +845,19 @@
 				"level": 2,
 				"school": "halloween",
 				"keywords": {
-					"type": ["damage"],
-					"target": ["enemy"],
-					"targets": ["single"],
-					"delivery": ["instant", "over time"]
+					"type": [
+						"damage"
+					],
+					"target": [
+						"enemy"
+					],
+					"targets": [
+						"single"
+					],
+					"delivery": [
+						"instant",
+						"over time"
+					]
 				},
 				"require": "(g.spiritlore>=3||g.trickery>=2)&&g.evil1>0",
 				"buy": {
@@ -803,7 +874,10 @@
 					"damage": "3~15",
 					"kind": "chaos",
 					"nodefense": true,
-					"potencies": ["spelldmg", "chaosdmg"],
+					"potencies": [
+						"spelldmg",
+						"chaosdmg"
+					],
 					"dot": {
 						"%": "35%",
 						"name": "bamboozled",
@@ -820,10 +894,18 @@
 				"level": 3,
 				"school": "halloween",
 				"keywords": {
-					"type": ["damage"],
-					"target": ["enemy"],
-					"targets": ["single"],
-					"delivery": ["instant"]
+					"type": [
+						"damage"
+					],
+					"target": [
+						"enemy"
+					],
+					"targets": [
+						"single"
+					],
+					"delivery": [
+						"instant"
+					]
 				},
 				"buy": {
 					"jacklantern": 1,
@@ -842,10 +924,18 @@
 				"name": "eating an apple",
 				"desc": "healthy, are you?",
 				"keywords": {
-					"type": ["recovery"],
-					"target": ["self"],
-					"targets": ["single"],
-					"delivery": ["instant"]
+					"type": [
+						"recovery"
+					],
+					"target": [
+						"self"
+					],
+					"targets": [
+						"single"
+					],
+					"delivery": [
+						"instant"
+					]
 				},
 				"require": "g.res_apple>10",
 				"buy": {
@@ -878,10 +968,18 @@
 				"desc": "Local confections may have unpredictable effects.",
 				"level": 1,
 				"keywords": {
-					"type": ["recovery"],
-					"target": ["self"],
-					"targets": ["single"],
-					"delivery": ["instant"]
+					"type": [
+						"recovery"
+					],
+					"target": [
+						"self"
+					],
+					"targets": [
+						"single"
+					],
+					"delivery": [
+						"instant"
+					]
 				},
 				"require": "g.res_treat>10",
 				"buy": {
@@ -920,10 +1018,18 @@
 				"level": 4,
 				"school": "animation",
 				"keywords": {
-					"type": ["summon"],
-					"target": ["ally"],
-					"targets": ["single"],
-					"delivery": ["instant"]
+					"type": [
+						"summon"
+					],
+					"target": [
+						"ally"
+					],
+					"targets": [
+						"single"
+					],
+					"delivery": [
+						"instant"
+					]
 				},
 				"require": "g.pumpkins>9999",
 				"summon": [
@@ -941,10 +1047,18 @@
 				"level": 4,
 				"school": "animation",
 				"keywords": {
-					"type": ["summon"],
-					"target": ["ally"],
-					"targets": ["single"],
-					"delivery": ["instant"]
+					"type": [
+						"summon"
+					],
+					"target": [
+						"ally"
+					],
+					"targets": [
+						"single"
+					],
+					"delivery": [
+						"instant"
+					]
 				},
 				"require": "g.pumpkins>9999",
 				"summon": [
@@ -963,10 +1077,18 @@
 				"level": 4,
 				"school": "animation",
 				"keywords": {
-					"type": ["summon"],
-					"target": ["ally"],
-					"targets": ["single"],
-					"delivery": ["instant"]
+					"type": [
+						"summon"
+					],
+					"target": [
+						"ally"
+					],
+					"targets": [
+						"single"
+					],
+					"delivery": [
+						"instant"
+					]
 				},
 				"require": "g.pumpkins>9999",
 				"summon": [
@@ -1050,7 +1172,9 @@
 						"attack": {
 							"targetspec": {
 								"notaffectedby": {
-									"condition": ["lifedrain_dot"],
+									"condition": [
+										"lifedrain_dot"
+									],
 									"conditiontext": "life drain"
 								}
 							},
@@ -1093,7 +1217,10 @@
 						"damage": "4~10"
 					}
 				],
-				"loot": ["vorpal_sword", "jacklantern"]
+				"loot": [
+					"vorpal_sword",
+					"jacklantern"
+				]
 			},
 			{
 				"id": "hal_headless2",
@@ -1151,7 +1278,10 @@
 						}
 					}
 				],
-				"loot": ["vorpal_sword2", "jacklantern"],
+				"loot": [
+					"vorpal_sword2",
+					"jacklantern"
+				],
 				"flavor": "Don't lose your head"
 			},
 			{
@@ -1482,7 +1612,9 @@
 					"kind": "necrotic",
 					"damage": "2~3"
 				},
-				"loot": { "pumpkins": "10%" }
+				"loot": {
+					"pumpkins": "10%"
+				}
 			},
 			{
 				"id": "nec_zombie",
@@ -1498,7 +1630,9 @@
 					"kind": "necrotic",
 					"damage": "2~3"
 				},
-				"loot": { "pumpkins": "10%" }
+				"loot": {
+					"pumpkins": "10%"
+				}
 			},
 			{
 				"id": "nec_ghost",
@@ -1518,7 +1652,9 @@
 					"pierce": 50,
 					"blunt": 50
 				},
-				"loot": { "pumpkins": "10%" }
+				"loot": {
+					"pumpkins": "10%"
+				}
 			},
 			{
 				"id": "nec_ghost2",
@@ -1536,7 +1672,9 @@
 					"targets": "enemyleader",
 					"damage": 100
 				},
-				"loot": { "pumpkins": 1 }
+				"loot": {
+					"pumpkins": 1
+				}
 			},
 			{
 				"id": "nec_ghoul",
@@ -1555,7 +1693,9 @@
 						"damage": 0.5
 					}
 				},
-				"loot": { "pumpkins": "10%" }
+				"loot": {
+					"pumpkins": "10%"
+				}
 			},
 			{
 				"id": "nec_ghoul2",
@@ -1574,7 +1714,9 @@
 						"damage": 0.5
 					}
 				},
-				"loot": { "pumpkins": "10%" }
+				"loot": {
+					"pumpkins": "10%"
+				}
 			},
 			{
 				"id": "nec_ghast",
@@ -1594,7 +1736,9 @@
 					"pierce": 50,
 					"blunt": 50
 				},
-				"loot": { "pumpkins": "10%" }
+				"loot": {
+					"pumpkins": "10%"
+				}
 			},
 			{
 				"id": "nec_ghast2",
@@ -1614,7 +1758,9 @@
 					"pierce": 50,
 					"blunt": 50
 				},
-				"loot": { "pumpkins": "10%" }
+				"loot": {
+					"pumpkins": "10%"
+				}
 			},
 			{
 				"id": "m_pumpkin",
@@ -1648,7 +1794,9 @@
 					"kind": "necrotic",
 					"damage": "1~3"
 				},
-				"loot": { "pumpkins": "10%" }
+				"loot": {
+					"pumpkins": "10%"
+				}
 			},
 			{
 				"id": "nec_skeleton2",
@@ -1662,7 +1810,9 @@
 					"kind": "necrotic",
 					"damage": "1~3"
 				},
-				"loot": { "pumpkins": "10%" }
+				"loot": {
+					"pumpkins": "10%"
+				}
 			},
 			{
 				"id": "hal_mindslave",
@@ -1705,8 +1855,15 @@
 					"headless_ride": "15%"
 				},
 				"spawns": [
-					["hal_wight", "hal_wight"],
-					["nec_ghost", "nec_ghost", "nec_ghost"]
+					[
+						"hal_wight",
+						"hal_wight"
+					],
+					[
+						"nec_ghost",
+						"nec_ghost",
+						"nec_ghost"
+					]
 				]
 			},
 			{
@@ -1730,8 +1887,15 @@
 					"headless_ride": 1
 				},
 				"spawns": [
-					["hal_wight2", "hal_wight2"],
-					["nec_ghost2", "nec_ghost2", "nec_ghost2"]
+					[
+						"hal_wight2",
+						"hal_wight2"
+					],
+					[
+						"nec_ghost2",
+						"nec_ghost2",
+						"nec_ghost2"
+					]
 				]
 			},
 			{
@@ -1749,7 +1913,12 @@
 					"hp": 0.1
 				},
 				"boss": {
-					"1": ["hal_baroness", "hal_mindslave", "hal_mindslave", "hal_mindslave"]
+					"1": [
+						"hal_baroness",
+						"hal_mindslave",
+						"hal_mindslave",
+						"hal_mindslave"
+					]
 				}
 			},
 			{
@@ -1770,9 +1939,17 @@
 					"stamina": 0.4
 				},
 				"boss": {
-					"1": ["nec_ghost", "nec_ghost", "nec_ghost"],
-					"2": ["hal_ratminion"],
-					"3": ["hal_faceless"]
+					"1": [
+						"nec_ghost",
+						"nec_ghost",
+						"nec_ghost"
+					],
+					"2": [
+						"hal_ratminion"
+					],
+					"3": [
+						"hal_faceless"
+					]
 				}
 			},
 			{
@@ -1789,9 +1966,21 @@
 					"stamina": 0.4
 				},
 				"boss": {
-					"1": ["nec_ghost", "nec_ghost", "nec_ghost"],
-					"2": ["nec_ghost", "nec_ghost", "nec_ghost"],
-					"3": ["nec_ghost", "nec_ghost", "nec_ghost"]
+					"1": [
+						"nec_ghost",
+						"nec_ghost",
+						"nec_ghost"
+					],
+					"2": [
+						"nec_ghost",
+						"nec_ghost",
+						"nec_ghost"
+					],
+					"3": [
+						"nec_ghost",
+						"nec_ghost",
+						"nec_ghost"
+					]
 				}
 			},
 			{
@@ -1812,9 +2001,17 @@
 					"stamina": 0.4
 				},
 				"boss": {
-					"1": ["nec_ghost", "nec_ghost", "nec_ghost"],
-					"2": ["hal_ratminion"],
-					"3": ["hal_hank"]
+					"1": [
+						"nec_ghost",
+						"nec_ghost",
+						"nec_ghost"
+					],
+					"2": [
+						"hal_ratminion"
+					],
+					"3": [
+						"hal_hank"
+					]
 				}
 			}
 		],

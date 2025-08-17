@@ -38,7 +38,7 @@
 						"name": "Tales of Heroics",
 						"sym": "🏰",
 						"desc": "The exploits of your Hall have begun to become well-known amongst the people, lauding you as their saviour.",
-						"group": "hall",
+						"group": "大厅",
 						"max": 1250,
 						"mod": {
 							"light.rate": 0.00032
@@ -49,7 +49,7 @@
 						"name": "Tales of Villainy",
 						"sym": "🏰",
 						"desc": "The mere mention of your Hall has begun striking fear in the hearts of people, frightened over your next conquest.",
-						"group": "hall",
+						"group": "大厅",
 						"max": 1250,
 						"mod": {
 							"shadow.rate": 0.00032
@@ -104,7 +104,7 @@
 					{
 						"id": "gloss_questing",
 						"name": "The Grand Quest",
-						"group": "hall",
+						"group": "大厅",
 						"tags": "t_gloss_game_mechanic,t_gloss_hall",
 						"sym": "🛠️🏰",
 						"desc": [

@@ -41,7 +41,7 @@
 					"duelinglore.rate": 0.5
 				},
 				"flavor": "A riposte here, a reprise there, you'll get the hang of it",
-				"group": "martial"
+				"group": "武技"
 			},
 			{
 				"id": "quickthoughts",
@@ -58,7 +58,7 @@
 					"self.chaincast": 0.5
 				},
 				"flavor": "Quickly think all the thoughts.",
-				"group": "spellcasting"
+				"group": "施法"
 			},
 			{
 				"id": "quickthoughts2",
@@ -76,7 +76,7 @@
 					"self.chaincast": 0.5
 				},
 				"flavor": "We put casting in your casting, so you can cast while you cast.",
-				"group": "spellcasting"
+				"group": "施法"
 			}
 		],
 		"classes": [
@@ -143,17 +143,29 @@
 				"school": "martial",
 				"tags": "t_nospellcraft",
 				"keywords": {
-					"type": ["buff", "debuff"],
-					"target": ["self", "enemy"],
-					"targets": ["single"],
-					"delivery": ["over time"]
+					"type": [
+						"buff",
+						"debuff"
+					],
+					"target": [
+						"self",
+						"enemy"
+					],
+					"targets": [
+						"single"
+					],
+					"delivery": [
+						"over time"
+					]
 				},
 				"require": "g.duelinglore>=1",
 				"buy": {
 					"research": 1000,
 					"tomes": 5
 				},
-				"caststoppers": [1],
+				"caststoppers": [
+					1
+				],
 				"need": "g.player.getWeapon().hasTag('t_rapier')",
 				"needtext": "Currently equipped weapon must be a rapier.",
 				"cost": {
@@ -204,17 +216,27 @@
 				"school": "martial",
 				"tags": "t_nospellcraft",
 				"keywords": {
-					"type": ["recovery"],
-					"target": ["self"],
-					"targets": ["single"],
-					"delivery": ["instant"]
+					"type": [
+						"recovery"
+					],
+					"target": [
+						"self"
+					],
+					"targets": [
+						"single"
+					],
+					"delivery": [
+						"instant"
+					]
 				},
 				"require": "g.duelinglore>=1",
 				"buy": {
 					"research": 1000,
 					"tomes": 5
 				},
-				"caststoppers": [1],
+				"caststoppers": [
+					1
+				],
 				"need": "g.player.getWeapon().hasTag('t_rapier')",
 				"needtext": "Currently equipped weapon must be a rapier.",
 				"cost": {
@@ -239,18 +261,30 @@
 				"school": "martial",
 				"tags": "t_nospellcraft",
 				"keywords": {
-					"type": ["damage"],
-					"target": ["enemy"],
-					"targets": ["multiple"],
-					"delivery": ["instant"],
-					"special": ["weapon"]
+					"type": [
+						"damage"
+					],
+					"target": [
+						"enemy"
+					],
+					"targets": [
+						"multiple"
+					],
+					"delivery": [
+						"instant"
+					],
+					"special": [
+						"weapon"
+					]
 				},
 				"require": "g.duelinglore>=5",
 				"buy": {
 					"research": 1500,
 					"tomes": 2
 				},
-				"caststoppers": [1],
+				"caststoppers": [
+					1
+				],
 				"need": "g.player.getWeapon().hasTag('t_rapier')",
 				"needtext": "Currently equipped weapon must be a rapier.",
 				"cost": {
@@ -264,7 +298,12 @@
 					"targets": "enemies",
 					"maxTargets": 999,
 					"kind": "slash",
-					"potencies": ["physdmg", "slashdmg", "sworddmg", "duelingdmg"],
+					"potencies": [
+						"physdmg",
+						"slashdmg",
+						"sworddmg",
+						"duelingdmg"
+					],
 					"tohit": -2
 				}
 			},
@@ -278,18 +317,30 @@
 				"school": "martial",
 				"tags": "t_nospellcraft",
 				"keywords": {
-					"type": ["damage"],
-					"target": ["enemy"],
-					"targets": ["single"],
-					"delivery": ["instant"],
-					"special": ["weapon"]
+					"type": [
+						"damage"
+					],
+					"target": [
+						"enemy"
+					],
+					"targets": [
+						"single"
+					],
+					"delivery": [
+						"instant"
+					],
+					"special": [
+						"weapon"
+					]
 				},
 				"require": "g.duelinglore>=2",
 				"buy": {
 					"research": 1500,
 					"tomes": 2
 				},
-				"caststoppers": [1],
+				"caststoppers": [
+					1
+				],
 				"need": "g.player.getWeapon().hasTag('t_rapier')",
 				"needtext": "Currently equipped weapon must be a rapier.",
 				"cost": {
@@ -302,13 +353,20 @@
 					"damage": "(a.getWeapon().damage*1.5)||0",
 					"targetspec": {
 						"affectedby": {
-							"condition": ["enemy_engagement"],
+							"condition": [
+								"enemy_engagement"
+							],
 							"conditiontext": "engagement"
 						}
 					},
 					"targets": "enemy",
 					"kind": "pierce",
-					"potencies": ["physdmg", "piercedmg", "sworddmg", "duelingdmg"]
+					"potencies": [
+						"physdmg",
+						"piercedmg",
+						"sworddmg",
+						"duelingdmg"
+					]
 				}
 			},
 			{
@@ -321,18 +379,30 @@
 				"school": "martial",
 				"tags": "t_nospellcraft",
 				"keywords": {
-					"type": ["damage"],
-					"target": ["enemy"],
-					"targets": ["single"],
-					"delivery": ["instant"],
-					"special": ["weapon"]
+					"type": [
+						"damage"
+					],
+					"target": [
+						"enemy"
+					],
+					"targets": [
+						"single"
+					],
+					"delivery": [
+						"instant"
+					],
+					"special": [
+						"weapon"
+					]
 				},
 				"require": "g.duelinglore>=4",
 				"buy": {
 					"research": 4000,
 					"tomes": 5
 				},
-				"caststoppers": [1],
+				"caststoppers": [
+					1
+				],
 				"need": "g.player.getWeapon().hasTag('t_rapier')",
 				"needtext": "Currently equipped weapon must be a rapier.",
 				"cost": {
@@ -345,13 +415,20 @@
 					"damage": "(a.getWeapon().damage*1.6)||0",
 					"targetspec": {
 						"affectedby": {
-							"condition": ["enemy_engagement"],
+							"condition": [
+								"enemy_engagement"
+							],
 							"conditiontext": "engagement"
 						}
 					},
 					"targets": "enemy",
 					"kind": "pierce",
-					"potencies": ["physdmg", "piercedmg", "sworddmg", "duelingdmg"],
+					"potencies": [
+						"physdmg",
+						"piercedmg",
+						"sworddmg",
+						"duelingdmg"
+					],
 					"tohit": 1
 				}
 			},
@@ -365,18 +442,30 @@
 				"school": "martial",
 				"tags": "t_nospellcraft",
 				"keywords": {
-					"type": ["damage"],
-					"target": ["enemy"],
-					"targets": ["single"],
-					"delivery": ["instant"],
-					"special": ["weapon"]
+					"type": [
+						"damage"
+					],
+					"target": [
+						"enemy"
+					],
+					"targets": [
+						"single"
+					],
+					"delivery": [
+						"instant"
+					],
+					"special": [
+						"weapon"
+					]
 				},
 				"require": "g.duelinglore>=6",
 				"buy": {
 					"research": 4000,
 					"tomes": 5
 				},
-				"caststoppers": [1],
+				"caststoppers": [
+					1
+				],
 				"need": "g.player.getWeapon().hasTag('t_rapier')",
 				"needtext": "Currently equipped weapon must be a rapier.",
 				"cost": {
@@ -390,13 +479,20 @@
 					"damage": "(a.getWeapon().damage*2.5)||0",
 					"targetspec": {
 						"affectedby": {
-							"condition": ["enemy_engagement"],
+							"condition": [
+								"enemy_engagement"
+							],
 							"conditiontext": "engagement"
 						}
 					},
 					"targets": "enemy",
 					"kind": "slash",
-					"potencies": ["physdmg", "slashdmg", "sworddmg", "duelingdmg"],
+					"potencies": [
+						"physdmg",
+						"slashdmg",
+						"sworddmg",
+						"duelingdmg"
+					],
 					"tohit": -2
 				}
 			},
@@ -410,18 +506,30 @@
 				"school": "martial",
 				"tags": "t_nospellcraft",
 				"keywords": {
-					"type": ["damage"],
-					"target": ["enemy"],
-					"targets": ["single"],
-					"delivery": ["instant"],
-					"special": ["weapon"]
+					"type": [
+						"damage"
+					],
+					"target": [
+						"enemy"
+					],
+					"targets": [
+						"single"
+					],
+					"delivery": [
+						"instant"
+					],
+					"special": [
+						"weapon"
+					]
 				},
 				"require": "g.duelinglore>=8",
 				"buy": {
 					"research": 6000,
 					"tomes": 10
 				},
-				"caststoppers": [1],
+				"caststoppers": [
+					1
+				],
 				"need": "g.player.getWeapon().hasTag('t_rapier')",
 				"needtext": "Currently equipped weapon must be a rapier.",
 				"cost": {
@@ -435,14 +543,21 @@
 					"damage": "(a.getWeapon().damage*4)||0",
 					"targetspec": {
 						"affectedby": {
-							"condition": ["enemy_engagement"],
+							"condition": [
+								"enemy_engagement"
+							],
 							"strict": true,
 							"conditiontext": "engagement"
 						}
 					},
 					"targets": "enemy",
 					"kind": "pierce",
-					"potencies": ["physdmg", "piercedmg", "sworddmg", "duelingdmg"]
+					"potencies": [
+						"physdmg",
+						"piercedmg",
+						"sworddmg",
+						"duelingdmg"
+					]
 				}
 			},
 			{
@@ -455,8 +570,12 @@
 				"school": "martial",
 				"tags": "t_stance",
 				"keywords": {
-					"target": ["self"],
-					"special": ["stance"]
+					"target": [
+						"self"
+					],
+					"special": [
+						"stance"
+					]
 				},
 				"require": "g.duelinglore>=5",
 				"buy": {
@@ -480,14 +599,22 @@
 								"damage": "a.getWeapon().damage*0.5||0",
 								"targets": "fixed",
 								"unreflectable": true,
-								"potencies": ["physdmg", "duelingdmg", "piercedmg"]
+								"potencies": [
+									"physdmg",
+									"duelingdmg",
+									"piercedmg"
+								]
 							},
 							"onMiss": {
 								"name": "Attack of opportunity",
 								"damage": "a.getWeapon().damage*0.25||0",
 								"targets": "fixed",
 								"unreflectable": true,
-								"potencies": ["physdmg", "duelingdmg", "piercedmg"]
+								"potencies": [
+									"physdmg",
+									"duelingdmg",
+									"piercedmg"
+								]
 							}
 						}
 					}

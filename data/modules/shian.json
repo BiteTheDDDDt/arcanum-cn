@@ -52,7 +52,10 @@
 				"id": "evt_hole",
 				"name": "public commotion",
 				"desc": "A large spire has risen closeby, quite a few are testing their luck, you better hurry if you want to be ahead",
-				"require": ["mtgorborung", "tier3"]
+				"require": [
+					"mtgorborung",
+					"tier3"
+				]
 			},
 			{
 				"id": "evt_hole2",
@@ -81,7 +84,7 @@
 					"souls.max": 5,
 					"souls": 20
 				},
-				"group": "storage"
+				"group": "存储"
 			},
 			{
 				"id": "mkcave",
@@ -107,7 +110,7 @@
 					"cave.mod.spirit.rate": 0.5
 				},
 				"flavor": "This will take a while...",
-				"group": "housing"
+				"group": "住宅"
 			},
 			{
 				"id": "mkpagoda",
@@ -126,7 +129,7 @@
 					"spirit": 1
 				},
 				"flavor": "This will take another while...",
-				"group": "housing"
+				"group": "住宅"
 			},
 			{
 				"id": "soulflag",
@@ -143,7 +146,7 @@
 					"souls.max": 5,
 					"souls.rate": 0.01
 				},
-				"group": "storage"
+				"group": "存储"
 			},
 			{
 				"id": "soulflag2",
@@ -163,7 +166,7 @@
 					"spiritart.attack.damage.min": 3,
 					"spiritart.attack.tohit": 3
 				},
-				"group": "spellcasting"
+				"group": "施法"
 			},
 			{
 				"id": "soulflag3",
@@ -185,7 +188,7 @@
 				"loot": {
 					"itemsoulflag": 1
 				},
-				"group": "weapon"
+				"group": "武器"
 			},
 			{
 				"id": "soulflagreacquire",
@@ -202,7 +205,7 @@
 				"loot": {
 					"itemsoulflag": 1
 				},
-				"group": "weapon"
+				"group": "武器"
 			}
 		],
 		"homes": [
@@ -239,7 +242,7 @@
 					"swordart.attack.tohit": 2,
 					"throw_swords.summon.0.max": 3
 				},
-				"group": "spellcasting"
+				"group": "施法"
 			},
 			{
 				"id": "breakthrough",
@@ -257,7 +260,7 @@
 					"soulart.attack.dot.damage.min": 1,
 					"throw_swords.summon.0.max": 1
 				},
-				"group": "spellcasting"
+				"group": "施法"
 			},
 			{
 				"id": "fastsoul",
@@ -268,7 +271,7 @@
 					"soulflag3.length": "-50%",
 					"soulflag3.run.souls": 1
 				},
-				"group": "crafting"
+				"group": "制作"
 			}
 		],
 		"spells": [
@@ -280,10 +283,20 @@
 				"school": "shian",
 				"tags": "swordart",
 				"keywords": {
-					"type": ["damage", "summon"],
-					"target": ["enemy", "ally"],
-					"targets": ["multiple"],
-					"delivery": ["instant"]
+					"type": [
+						"damage",
+						"summon"
+					],
+					"target": [
+						"enemy",
+						"ally"
+					],
+					"targets": [
+						"multiple"
+					],
+					"delivery": [
+						"instant"
+					]
 				},
 				"require": "sworduse",
 				"buy": {
@@ -305,7 +318,11 @@
 					"damage": "20~30",
 					"kind": "slash",
 					"tohit": 2,
-					"potencies": ["spelldmg", "slashdmg", "sworddmg"]
+					"potencies": [
+						"spelldmg",
+						"slashdmg",
+						"sworddmg"
+					]
 				},
 				"summon": [
 					{
@@ -323,10 +340,19 @@
 				"school": "shian",
 				"tags": "swordart",
 				"keywords": {
-					"type": ["damage", "debuff"],
-					"target": ["enemy"],
-					"targets": ["single"],
-					"delivery": ["instant"]
+					"type": [
+						"damage",
+						"debuff"
+					],
+					"target": [
+						"enemy"
+					],
+					"targets": [
+						"single"
+					],
+					"delivery": [
+						"instant"
+					]
 				},
 				"require": "g.sworduse>=2",
 				"buy": {
@@ -346,7 +372,11 @@
 				"attack": {
 					"damage": "35~65",
 					"kind": "slash",
-					"potencies": ["spelldmg", "slashdmg", "sworddmg"],
+					"potencies": [
+						"spelldmg",
+						"slashdmg",
+						"sworddmg"
+					],
 					"tohit": 2,
 					"dot": {
 						"duration": 10,
@@ -364,10 +394,18 @@
 				"school": "shian",
 				"tags": "spiritart",
 				"keywords": {
-					"type": ["damage"],
-					"target": ["enemy"],
-					"targets": ["single"],
-					"delivery": ["instant"]
+					"type": [
+						"damage"
+					],
+					"target": [
+						"enemy"
+					],
+					"targets": [
+						"single"
+					],
+					"delivery": [
+						"instant"
+					]
 				},
 				"require": "g.shian>0&&g.soulflag>0",
 				"buy": {
@@ -386,7 +424,10 @@
 					"damage": "20~29",
 					"kind": "spirit",
 					"tohit": 3,
-					"potencies": ["spelldmg", "spiritdmg"]
+					"potencies": [
+						"spelldmg",
+						"spiritdmg"
+					]
 				}
 			},
 			{
@@ -398,10 +439,18 @@
 				"school": "shian",
 				"tags": "soulart",
 				"keywords": {
-					"type": ["damage"],
-					"target": ["enemy"],
-					"targets": ["multiple"],
-					"delivery": ["over time"]
+					"type": [
+						"damage"
+					],
+					"target": [
+						"enemy"
+					],
+					"targets": [
+						"multiple"
+					],
+					"delivery": [
+						"over time"
+					]
 				},
 				"require": "g.shian>0&&g.soulflag2>0",
 				"buy": {
@@ -424,7 +473,10 @@
 						"kind": "spirit",
 						"duration": 10,
 						"damage": "10~15",
-						"potencies": ["spelldmg", "spiritdmg"]
+						"potencies": [
+							"spelldmg",
+							"spiritdmg"
+						]
 					}
 				}
 			},
@@ -436,10 +488,18 @@
 				"school": "shian",
 				"tags": "spiritart",
 				"keywords": {
-					"type": ["damage"],
-					"target": ["enemy"],
-					"targets": ["single"],
-					"delivery": ["instant"]
+					"type": [
+						"damage"
+					],
+					"target": [
+						"enemy"
+					],
+					"targets": [
+						"single"
+					],
+					"delivery": [
+						"instant"
+					]
 				},
 				"require": "g.shian>0&&g.soulflag3>0",
 				"buy": {
@@ -458,7 +518,10 @@
 					"damage": "80~110",
 					"kind": "spirit",
 					"tohit": 5,
-					"potencies": ["spelldmg", "spiritdmg"]
+					"potencies": [
+						"spelldmg",
+						"spiritdmg"
+					]
 				}
 			}
 		],
@@ -518,12 +581,17 @@
 				"name": "The unstable spire",
 				"flavor": "Some things are left to time.",
 				"desc": "A large spire which rose from the ground. It looks like it might collapse any day now.",
-				"biome": ["cave", "mountain"],
+				"biome": [
+					"cave",
+					"mountain"
+				],
 				"difficulty": "💀💀💀",
 				"sortOrder": 49,
 				"require": "evt_hole",
 				"dist": 50,
-				"run": { "stamina": 2 },
+				"run": {
+					"stamina": 2
+				},
 				"result": {
 					"fame": 1,
 					"gems": "10~20",

@@ -204,7 +204,7 @@
 	},
 	{
 		"id": "charms",
-		"name": "护符",
+		"name": "魅力",
 		"require": "g.enchanting>=5&&g.lore>=10",
 		"level": 10,
 		"buy": {

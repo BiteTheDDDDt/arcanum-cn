@@ -76,7 +76,7 @@
 		"resources": [
 			{
 				"id": "skillboost",
-				"group": "basic",
+				"group": "基础",
 				"name": "专注提升",
 				"max": 1000,
 				"sortOrder": 10,

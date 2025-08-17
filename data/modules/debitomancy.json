@@ -49,7 +49,7 @@
 					"firelore.max": 1,
 					"firelore.rate": 0.1
 				},
-				"group": "debt"
+				"group": "债务"
 			},
 			{
 				"id": "borrowmoney",
@@ -65,7 +65,7 @@
 					"gold": 20,
 					"debitomancy.exp": "g.debitomancy.rate*0.2"
 				},
-				"group": "affluence"
+				"group": "财富"
 			},
 			{
 				"id": "prisonlabor",
@@ -92,7 +92,7 @@
 						"result.debt": -5
 					}
 				},
-				"group": "affluence"
+				"group": "财富"
 			},
 			{
 				"id": "encase_debt",
@@ -138,7 +138,7 @@
 						"effect.debt": -1
 					}
 				},
-				"group": "affluence"
+				"group": "财富"
 			},
 			{
 				"id": "lendgold",
@@ -163,7 +163,7 @@
 						"run.stamina": -0.2
 					}
 				},
-				"group": "affluence"
+				"group": "财富"
 			}
 		],
 		"upgrades": [
@@ -184,7 +184,7 @@
 					"borrowmoney.run.debt": 10,
 					"borrowmoney.effect.gold": 10
 				},
-				"group": "debt"
+				"group": "债务"
 			},
 			{
 				"id": "creativeaccounting",
@@ -200,7 +200,7 @@
 				"mod": {
 					"debt.convert.output.effect.debt": -0.0001
 				},
-				"group": "debt"
+				"group": "债务"
 			},
 			{
 				"id": "cheaperdebt",
@@ -215,7 +215,7 @@
 					"debt.convert.input.gold": -0.0001,
 					"debitomancy.max": 1
 				},
-				"group": "debt"
+				"group": "债务"
 			},
 			{
 				"id": "debttravel",
@@ -230,7 +230,7 @@
 					"a_travel.effect.debt": -0.5,
 					"debitomancy.max": 0.5
 				},
-				"group": "debt"
+				"group": "债务"
 			},
 			{
 				"id": "debttrickery",
@@ -249,13 +249,13 @@
 					"trickery.mod.debt.convert.input.gold": 0.0001,
 					"debitomancy.max": 0.5
 				},
-				"group": "debt"
+				"group": "债务"
 			},
 			{
 				"id": "debtgeomancy",
 				"name": "enchanted shackles",
 				"desc": "Sneak a geomancy enchantment into the prison labor camps to make it a bit easier",
-				"group": "debt",
+				"group": "债务",
 				"require": "g.earthlore>=7&&g.debitomancy>=6",
 				"max": 1,
 				"cost": {
@@ -272,7 +272,7 @@
 				"id": "debtmurder",
 				"name": "debtor's murder",
 				"desc": "You don't owe debts to corpses",
-				"group": "debt",
+				"group": "债务",
 				"require": "g.debitomancy>=2&&g.murder>0",
 				"max": 1,
 				"cost": {
@@ -301,7 +301,7 @@
 					"debt.max": 250,
 					"debitomancy.max": 0.5
 				},
-				"group": "debt"
+				"group": "债务"
 			},
 			{
 				"id": "debtvirtuous",
@@ -320,7 +320,7 @@
 					"debt.max": 250,
 					"debitomancy.max": 0.5
 				},
-				"group": "debt"
+				"group": "债务"
 			},
 			{
 				"id": "curselendgold",
@@ -337,7 +337,7 @@
 					"lendgold.result.gold.min": 50,
 					"debitomancy.max": 0.5
 				},
-				"group": "debt"
+				"group": "债务"
 			},
 			{
 				"id": "planarlendgold",
@@ -356,7 +356,7 @@
 					"lendgold.cost.gold": 200,
 					"debitomancy.max": 0.5
 				},
-				"group": "debt"
+				"group": "债务"
 			},
 			{
 				"id": "animallendgold",
@@ -375,7 +375,7 @@
 					"lendgold.cost.herbs": 1,
 					"debitomancy.max": 0.5
 				},
-				"group": "debt"
+				"group": "债务"
 			},
 			{
 				"id": "debtrevelation",
@@ -403,7 +403,7 @@
 						}
 					}
 				},
-				"group": "debt"
+				"group": "债务"
 			},
 			{
 				"id": "debtrevelation2",
@@ -416,7 +416,7 @@
 				"mod": {
 					"voidlore.max": 1
 				},
-				"group": "debt"
+				"group": "债务"
 			},
 			{
 				"id": "debtrevelation3",
@@ -429,7 +429,7 @@
 				"mod": {
 					"voidlore.max": 1
 				},
-				"group": "debt"
+				"group": "债务"
 			},
 			{
 				"id": "ashdebtrevelation1",
@@ -442,7 +442,7 @@
 				"mod": {
 					"voidlore.max": 1
 				},
-				"group": "debt"
+				"group": "债务"
 			},
 			{
 				"id": "ashdebtrevelation2",
@@ -455,7 +455,7 @@
 				"mod": {
 					"voidlore.max": 1
 				},
-				"group": "debt"
+				"group": "债务"
 			}
 		],
 		"furniture": [
@@ -491,7 +491,7 @@
 		"resources": [
 			{
 				"id": "debt",
-				"group": "adversities",
+				"group": "逆境",
 				"desc": "Debt is gnawing at you",
 				"require": "g.debt>=1",
 				"max": 500,
@@ -518,10 +518,18 @@
 				"level": 7,
 				"school": "summoning",
 				"keywords": {
-					"type": ["summon"],
-					"target": ["ally"],
-					"targets": ["single"],
-					"delivery": ["instant"]
+					"type": [
+						"summon"
+					],
+					"target": [
+						"ally"
+					],
+					"targets": [
+						"single"
+					],
+					"delivery": [
+						"instant"
+					]
 				},
 				"require": "g.debitomancy>=10&&g.tier2>0",
 				"buy": {
@@ -547,16 +555,26 @@
 				"level": 3,
 				"school": "arcane",
 				"keywords": {
-					"target": ["enemy"],
-					"targets": ["single"],
-					"delivery": ["instant"],
-					"special": ["resource"]
+					"target": [
+						"enemy"
+					],
+					"targets": [
+						"single"
+					],
+					"delivery": [
+						"instant"
+					],
+					"special": [
+						"resource"
+					]
 				},
 				"require": "g.lore>999",
 				"attack": {
 					"targetspec": {
 						"notaffectedby": {
-							"condition": ["pilfered_dot"],
+							"condition": [
+								"pilfered_dot"
+							],
 							"strict": true,
 							"conditiontext": "having their valuables stolen"
 						}

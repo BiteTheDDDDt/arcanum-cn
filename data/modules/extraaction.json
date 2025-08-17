@@ -16,14 +16,14 @@
 				"mod": {
 					"runner.max": 1
 				},
-				"group": "actions"
+				"group": "行动"
 			}
 		],
 		"resources": [
 			{
 				"id": "stillroom",
 				"name": "still room",
-				"group": "materials",
+				"group": "材料",
 				"desc": "Nothing occurs within this room.",
 				"max": 1,
 				"sortOrder": 542,
@@ -32,7 +32,7 @@
 			{
 				"id": "chargedtimepiece",
 				"name": "charged timepiece",
-				"group": "materials",
+				"group": "材料",
 				"desc": "Imbued with time energies, this timepiece shows the current time no matter when you are.",
 				"max": 6,
 				"sortOrder": 541,
@@ -41,7 +41,7 @@
 			{
 				"id": "emptytimepiece",
 				"name": "intricate timepiece",
-				"group": "materials",
+				"group": "材料",
 				"desc": "An ordinary timepiece, crafted with remarkable materials.",
 				"max": 6,
 				"sortOrder": 540,
@@ -54,10 +54,15 @@
 				"name": "craft timepiece",
 				"verb": "clockmaking",
 				"require": "g.tier5>0&&g.runner.max>=3&&g.evt_timerip>0",
-				"need": ["workspace", "timesource"],
+				"need": [
+					"workspace",
+					"timesource"
+				],
 				"desc": "Create an intricate timepiece.",
 				"length": 120,
-				"fill": ["emptytimepiece"],
+				"fill": [
+					"emptytimepiece"
+				],
 				"cost": {
 					"gold": 1000,
 					"research": 750,
@@ -74,17 +79,22 @@
 				"result": {
 					"emptytimepiece": 1
 				},
-				"group": "crafting"
+				"group": "制作"
 			},
 			{
 				"id": "imbuetimepiece",
 				"name": "imbue timepiece",
 				"verb": "weaving time",
 				"require": "g.emptytimepiece>0",
-				"need": ["workspace", "timesource"],
+				"need": [
+					"workspace",
+					"timesource"
+				],
 				"desc": "Weave time energies into the empty timepiece.",
 				"length": 60,
-				"fill": ["chargedtimepiece"],
+				"fill": [
+					"chargedtimepiece"
+				],
 				"cost": {
 					"gold": 1500,
 					"research": 100,
@@ -108,17 +118,22 @@
 				"result": {
 					"chargedtimepiece": 1
 				},
-				"group": "crafting"
+				"group": "制作"
 			},
 			{
 				"id": "createstillroom",
 				"name": "create still room",
 				"verb": "stilling",
 				"require": "g.tier5>0&&g.runner.max>=3&&g.evt_timerip>0",
-				"need": ["workspace", "timesource"],
+				"need": [
+					"workspace",
+					"timesource"
+				],
 				"desc": "Stop.",
 				"length": 720,
-				"fill": ["stillroom"],
+				"fill": [
+					"stillroom"
+				],
 				"cost": {
 					"timegem": 100,
 					"timerune": 3,
@@ -127,7 +142,7 @@
 				"result": {
 					"stillroom": 1
 				},
-				"group": "crafting"
+				"group": "制作"
 			}
 		]
 	}
