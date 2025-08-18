@@ -1798,7 +1798,7 @@
 	},
 	{
 		"id": "imbueshadowgem",
-		"name": "灌注宝石（阴影）",
+		"name": "灌注宝石（暗影）",
 		"require": "g.shadowlore>=4&&g.enchanting>=3",
 		"fill": "shadowgem",
 		"tags": "gemimbue,t_enchantment",
@@ -2803,8 +2803,8 @@
 			"g.evilamt>=750"
 		],
 		"warn": true,
-		"desc": "阴影低语着知识和力量的承诺，只要你愿意倾听。",
-		"needtext": "你必须拥有一个阴影源。你必须有 750 或更多的邪恶值。",
+		"desc": "暗影低语着知识和力量的承诺，只要你愿意倾听。",
+		"needtext": "你必须拥有一个暗影源。你必须有 750 或更多的邪恶值。",
 		"max": 1,
 		"length": 100,
 		"run": {
@@ -2834,7 +2834,7 @@
 			"evil2"
 		],
 		"warn": true,
-		"desc": "从荣耀中堕落，曾被誉为英雄。现在完全堕落，阴影帮助你解锁你认为失落的秘密。",
+		"desc": "从荣耀中堕落，曾被誉为英雄。现在完全堕落，暗影帮助你解锁你认为失落的秘密。",
 		"max": 1,
 		"length": 100,
 		"run": {
@@ -2918,8 +2918,8 @@
 			"tier1"
 		],
 		"warn": true,
-		"desc": "罪恶的行为解锁了被阴影掩盖的更深层秘密。",
-		"needtext": "你必须拥有 1000 或更多的邪恶值。你必须拥有一个阴影源。你必须是 1 级或更高。",
+		"desc": "罪恶的行为解锁了被暗影掩盖的更深层秘密。",
+		"needtext": "你必须拥有 1000 或更多的邪恶值。你必须拥有一个暗影源。你必须是 1 级或更高。",
 		"max": 1,
 		"length": 100,
 		"run": {
@@ -2969,7 +2969,7 @@
 		],
 		"warn": true,
 		"desc": "证明你是世界上最不可救药的人之一。",
-		"needtext": "你必须拥有 2000 或更多的邪恶值。你必须拥有一个阴影源。你必须是 3 级或更高。",
+		"needtext": "你必须拥有 2000 或更多的邪恶值。你必须拥有一个暗影源。你必须是 3 级或更高。",
 		"max": 1,
 		"length": 100,
 		"run": {
@@ -3010,7 +3010,7 @@
 		"morality": true,
 		"require": "g.evil3==1&&g.respectable1==0&&g.tier4==1",
 		"warn": true,
-		"desc": "从一开始就是恶意的，阴影奖励你对邪恶的无尽奉献。你必须是 4 级或更高。",
+		"desc": "从一开始就是恶意的，暗影奖励你对邪恶的无尽奉献。你必须是 4 级或更高。",
 		"max": 1,
 		"length": 100,
 		"run": {
@@ -4546,8 +4546,8 @@
 		"name": "亵渎灵魂",
 		"require": "g.tier0>0&&g.evil1>0&&g.shadowlore>=1&&g.spiritlore>=1",
 		"need": "g.shadowsource>0&&g.spiritsource>0",
-		"needtext": "需要一个阴影源和一个灵魂源。",
-		"desc": "用阴影污染不安的灵魂，研究它们的变化。",
+		"needtext": "需要一个暗影源和一个灵魂源。",
+		"desc": "用暗影污染不安的灵魂，研究它们的变化。",
 		"max": 4,
 		"length": 10,
 		"cost": {
@@ -4682,7 +4682,7 @@
 		"name": "灵魂对话",
 		"require": "g.tier0>0&&g.spiritlore>=1",
 		"need": "spiritsource",
-		"desc": "召唤已故者的阴影，询问关于来世的答案。",
+		"desc": "召唤已故者的暗影，询问关于来世的答案。",
 		"max": 3,
 		"length": 10,
 		"cost": {
@@ -4748,7 +4748,7 @@
 		"name": "深渊压力",
 		"require": "g.tier1>=0&&g.waterlore>=6&&g.shadowlore>=6",
 		"need": "g.watersource>0&&g.shadowsource>0",
-		"needtext": "需要一个水源和一个阴影源。",
+		"needtext": "需要一个水源和一个暗影源。",
 		"desc": "潜入一个大湖的底部。为你在那里发现的事物感到高兴。",
 		"max": 4,
 		"length": 20,
@@ -4772,7 +4772,7 @@
 		"name": "洞窟寂静",
 		"require": "g.tier1>=0&&g.earthlore>=6&&g.shadowlore>=6",
 		"need": "g.earthsource>0&&g.shadowsource>0",
-		"needtext": "需要一个土源和一个阴影源。",
+		"needtext": "需要一个土源和一个暗影源。",
 		"desc": "找到一个深邃的裂口的底部。为即将到来的事情做好准备。",
 		"max": 4,
 		"length": 20,

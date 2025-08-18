@@ -417,7 +417,7 @@
 	},
 	{
 		"id": "shadowlore",
-		"name": "阴影魔法",
+		"name": "暗影魔法",
 		"tags": "t_school",
 		"school": "shadow",
 		"need": "g.lore>=3&&g.shadowsource>0",

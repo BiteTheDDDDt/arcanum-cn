@@ -5288,7 +5288,7 @@
 	},
 	{
 		"id": "abyssal_lesser_shadow",
-		"name": "深渊的次级阴影",
+		"name": "深渊的次级暗影",
 		"kind": "abyssal",
 		"noproc": true,
 		"level": 63,

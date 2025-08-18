@@ -9,6 +9,7 @@
 	},
 	{
 		"id": "unease",
+		"name": "不安",
 		"desc": "普遍的不适感。",
 		"tags": "stress",
 		"reverse": true,
@@ -32,6 +33,7 @@
 	},
 	{
 		"id": "madness",
+		"name": "疯狂",
 		"desc": "魔法影响下心智的扭曲。",
 		"tags": "stress",
 		"reverse": true,

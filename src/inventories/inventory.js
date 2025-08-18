@@ -181,6 +181,7 @@ export default class Inventory {
 
 		if (!this.saveMode) this.saveMode = SAVE_FULL;
 		this.type = "inventory";
+		this.name = "库存";
 		if (!this.id) this.id = this.type;
 
 		if (!this.max) this.max = 0;

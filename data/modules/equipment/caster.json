@@ -6,7 +6,7 @@
 		"materials": [
 			{
 				"id": "mat_caster_gold",
-				"name": "Golden",
+				"name": "金色",
 				"level": 1,
 				"kind": "caster",
 				"only": "t_caster",
@@ -19,13 +19,16 @@
 				},
 				"require": "g.craftinglearn1>0",
 				"alter": {
-					"sell": { "gold": 500, "iron": 2 },
+					"sell": {
+						"gold": 500,
+						"iron": 2
+					},
 					"mod.self.speed": 4
 				}
 			},
 			{
 				"id": "mat_caster_ruby",
-				"name": "Carmine",
+				"name": "胭脂红",
 				"level": 9,
 				"kind": "caster",
 				"only": "t_caster",
@@ -38,13 +41,16 @@
 				},
 				"require": "g.craftinglearn2>0",
 				"alter": {
-					"sell": { "rubies": 8, "quicksteel": 2 },
+					"sell": {
+						"rubies": 8,
+						"quicksteel": 2
+					},
 					"enchants.max": 1
 				}
 			},
 			{
 				"id": "mat_caster_diamond",
-				"name": "Crystalline",
+				"name": "水晶质",
 				"level": 19,
 				"kind": "caster",
 				"only": "t_caster",
@@ -57,7 +63,10 @@
 				},
 				"require": "g.craftinglearn4>0",
 				"alter": {
-					"sell": { "diamonds": 8, "adamant": 2 },
+					"sell": {
+						"diamonds": 8,
+						"adamant": 2
+					},
 					"enchants.max": 2
 				}
 			}
@@ -65,7 +74,7 @@
 		"weapons": [
 			{
 				"id": "c_focus",
-				"name": "Focus",
+				"name": "法器",
 				"level": 1,
 				"slot": "mainhand",
 				"tags": "t_caster",
@@ -78,11 +87,13 @@
 				"sell": {},
 				"only": "caster",
 				"enchants": 1,
-				"alter": { "mod.spelldmg": 20 }
+				"alter": {
+					"mod.spelldmg": 20
+				}
 			},
 			{
 				"id": "c_mirror",
-				"name": "Mirror",
+				"name": "魔镜",
 				"level": 6,
 				"slot": "mainhand",
 				"tags": "t_caster",
@@ -95,11 +106,14 @@
 				"sell": {},
 				"only": "caster",
 				"enchants": 1,
-				"alter": { "mod.self.dodge": 25, "mod.self.negate.silence": 50 }
+				"alter": {
+					"mod.self.dodge": 25,
+					"mod.self.negate.silence": 50
+				}
 			},
 			{
 				"id": "c_twinstaff",
-				"name": "Twin Staves",
+				"name": "双杖",
 				"level": 11,
 				"slot": "mainhand",
 				"tags": "t_caster",
@@ -112,11 +126,14 @@
 				"sell": {},
 				"only": "caster",
 				"enchants": 1,
-				"alter": { "mod.self.chaincast": 1, "mod.spelldmg": -70 }
+				"alter": {
+					"mod.self.chaincast": 1,
+					"mod.spelldmg": -70
+				}
 			},
 			{
 				"id": "c_wand",
-				"name": "Wand",
+				"name": "魔杖",
 				"level": 1,
 				"slot": "mainhand",
 				"tags": "t_caster",
@@ -136,7 +153,7 @@
 			},
 			{
 				"id": "c_sceptre",
-				"name": "Sceptre",
+				"name": "权杖",
 				"level": 1,
 				"slot": "mainhand",
 				"tags": "t_caster",
@@ -153,12 +170,19 @@
 					"name": "Elemental Bonk",
 					"kind": "pure",
 					"damage": 2,
-					"potencies": ["spelldmg", "manadmg", "waterdmg", "airdmg", "firedmg", "earthdmg"]
+					"potencies": [
+						"spelldmg",
+						"manadmg",
+						"waterdmg",
+						"airdmg",
+						"firedmg",
+						"earthdmg"
+					]
 				}
 			},
 			{
 				"id": "c_greatstaff",
-				"name": "Greatstaff",
+				"name": "大法杖",
 				"level": 1,
 				"slot": "mainhand",
 				"tags": "t_caster",
@@ -171,11 +195,14 @@
 				"sell": {},
 				"only": "caster",
 				"enchants": 1,
-				"alter": { "mod.spelldmg": 50, "mod.self.speed": -5 }
+				"alter": {
+					"mod.spelldmg": 50,
+					"mod.self.speed": -5
+				}
 			},
 			{
 				"id": "c_orb",
-				"name": "Orb",
+				"name": "法球",
 				"level": 1,
 				"slot": "mainhand",
 				"tags": "t_caster",
@@ -188,11 +215,13 @@
 				"sell": {},
 				"only": "caster",
 				"enchants": 1,
-				"alter": { "mod.barrier.max": 50 }
+				"alter": {
+					"mod.barrier.max": 50
+				}
 			},
 			{
 				"id": "c_caduceus",
-				"name": "Caduceus",
+				"name": "杖蛇权杖",
 				"level": 1,
 				"slot": "mainhand",
 				"tags": "t_caster",
@@ -211,12 +240,14 @@
 					"harmless": true,
 					"healing": 10,
 					"kind": "pure",
-					"potencies": ["spellheal"]
+					"potencies": [
+						"spellheal"
+					]
 				}
 			},
 			{
 				"id": "c_effigy",
-				"name": "Effigy",
+				"name": "祭偶",
 				"level": 1,
 				"slot": "mainhand",
 				"tags": "t_caster",
@@ -232,15 +263,23 @@
 				"attack": {
 					"targets": "self",
 					"harmless": true,
-					"summon": [{ "id": "sum_effigy_shield", "count": 1, "max": 1 }]
+					"summon": [
+						{
+							"id": "sum_effigy_shield",
+							"count": 1,
+							"max": 1
+						}
+					]
 				},
-				"alter": { "mod.self.resist.mana": "-20%" }
+				"alter": {
+					"mod.self.resist.mana": "-20%"
+				}
 			}
 		],
 		"monsters": [
 			{
 				"id": "sum_effigy_shield",
-				"name": "Effigy's Shield",
+				"name": "祭偶之盾",
 				"tags": "t_summon",
 				"level": 1,
 				"hp": 1000,
@@ -248,7 +287,7 @@
 				"defense": 200,
 				"attack": [],
 				"onSummon": {
-					"name": "Full Cover",
+					"name": "全覆盖",
 					"targets": "self",
 					"dot": {
 						"tags": "t_taunt",
@@ -256,7 +295,7 @@
 					}
 				},
 				"onDeath": {
-					"name": "Backlash",
+					"name": "反噬",
 					"targets": "leader",
 					"harmless": true,
 					"nodefense": true,
@@ -268,7 +307,7 @@
 		"enchants": [
 			{
 				"id": "en_caster_spelldmg",
-				"name": "Channelling Core",
+				"name": "导能核心",
 				"adj": "Channelling",
 				"desc": "Increases spell damage",
 				"require": "g.enchanting>0",
@@ -279,12 +318,16 @@
 				"level": 1,
 				"only": "t_caster",
 				"length": 30,
-				"cost": { "arcana": 1 },
-				"alter": { "mod.spelldmg": 20 }
+				"cost": {
+					"arcana": 1
+				},
+				"alter": {
+					"mod.spelldmg": 20
+				}
 			},
 			{
 				"id": "en_caster_spelldmg_bargain",
-				"name": "Lifebane's Seal",
+				"name": "死咒印记",
 				"adj": "Lifebane",
 				"desc": "Increases spell damage",
 				"require": "g.enchanting>0",
@@ -295,12 +338,17 @@
 				"level": 2,
 				"only": "t_caster",
 				"length": 30,
-				"cost": { "arcana": 1 },
-				"alter": { "mod.spelldmg": 40, "mod.spellheal": -80 }
+				"cost": {
+					"arcana": 1
+				},
+				"alter": {
+					"mod.spelldmg": 40,
+					"mod.spellheal": -80
+				}
 			},
 			{
 				"id": "en_caster_spellheal",
-				"name": "Mending Core",
+				"name": "治愈核心",
 				"adj": "Mending",
 				"desc": "Increases spell damage",
 				"require": "g.enchanting>0",
@@ -311,12 +359,16 @@
 				"level": 1,
 				"only": "t_caster",
 				"length": 30,
-				"cost": { "arcana": 1 },
-				"alter": { "mod.spellheal": 10 }
+				"cost": {
+					"arcana": 1
+				},
+				"alter": {
+					"mod.spellheal": 10
+				}
 			},
 			{
 				"id": "en_caster_chaincast",
-				"name": "Splintering Cap",
+				"name": "裂变帽",
 				"adj": "Splintering",
 				"desc": "Grants a chance to cast two spells at once",
 				"require": "g.enchanting>0",
@@ -327,12 +379,16 @@
 				"level": 1,
 				"only": "t_caster",
 				"length": 30,
-				"cost": { "arcana": 1 },
-				"alter": { "mod.self.chaincast": 0.1 }
+				"cost": {
+					"arcana": 1
+				},
+				"alter": {
+					"mod.self.chaincast": 0.1
+				}
 			},
 			{
 				"id": "en_caster_prismatic",
-				"name": "Empowering Channels",
+				"name": "赋能通道",
 				"adj": "Empowering",
 				"desc": "Improves accumulation of prismatic energies.",
 				"require": "g.enchanting>0",
@@ -343,12 +399,16 @@
 				"level": 1,
 				"only": "t_caster",
 				"length": 30,
-				"cost": { "arcana": 1 },
-				"alter": { "mod.prismatic.rate": 0.3 }
+				"cost": {
+					"arcana": 1
+				},
+				"alter": {
+					"mod.prismatic.rate": 0.3
+				}
 			},
 			{
 				"id": "en_caster_speed",
-				"name": "Hare's Speed",
+				"name": "野兔之速",
 				"adj": "%i of the Hare",
 				"desc": "Increases speed",
 				"require": "g.enchanting>0",
@@ -359,12 +419,16 @@
 				"level": 1,
 				"only": "t_caster",
 				"length": 30,
-				"cost": { "arcana": 1 },
-				"alter": { "mod.self.speed": 3 }
+				"cost": {
+					"arcana": 1
+				},
+				"alter": {
+					"mod.self.speed": 3
+				}
 			},
 			{
 				"id": "en_caster_tohit",
-				"name": "Falcon's Accuracy",
+				"name": "猎鹰之准",
 				"adj": "%i of the Falcon",
 				"desc": "Increases chance to hit",
 				"require": "g.enchanting>0",
@@ -375,12 +439,16 @@
 				"level": 1,
 				"only": "t_caster",
 				"length": 30,
-				"cost": { "arcana": 1 },
-				"alter": { "mod.self.tohit": 30 }
+				"cost": {
+					"arcana": 1
+				},
+				"alter": {
+					"mod.self.tohit": 30
+				}
 			},
 			{
 				"id": "en_caster_resist_silence",
-				"name": "Silence Nullification",
+				"name": "沉默免疫",
 				"adj": "%i of Freedom",
 				"desc": "Greatly improves chance of negating silence.",
 				"require": "g.enchanting>0",
@@ -391,8 +459,12 @@
 				"level": 1,
 				"only": "t_caster",
 				"length": 30,
-				"cost": { "arcana": 1 },
-				"alter": { "mod.self.negate.silence": 75 }
+				"cost": {
+					"arcana": 1
+				},
+				"alter": {
+					"mod.self.negate.silence": 75
+				}
 			}
 		]
 	}

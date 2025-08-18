@@ -134,7 +134,7 @@
 		"name": "暗影符文",
  		"tags": "t_runes,prismaticrunes,primalrunes",
  		"group": "符文",
-		"desc": "黑色叠加在黑色上，只有训练有素的眼睛才能分辨出细微的黑色阴影差异。",
+		"desc": "黑色叠加在黑色上，只有训练有素的眼睛才能分辨出细微的黑色暗影差异。",
 		"max": 10,
 		"sortOrder": 255,
 		"mod": {

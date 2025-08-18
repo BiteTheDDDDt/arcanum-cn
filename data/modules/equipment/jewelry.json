@@ -6,7 +6,7 @@
 		"materials": [
 			{
 				"id": "mat_jewelry_gold",
-				"name": "Gold",
+				"name": "黄金",
 				"level": 2,
 				"kind": "precious",
 				"only": "t_accessory",
@@ -17,12 +17,15 @@
 				},
 				"require": "g.craftinglearn1>0",
 				"alter": {
-					"sell": { "gold": 100, "cotton": 1 }
+					"sell": {
+						"gold": 100,
+						"cotton": 1
+					}
 				}
 			},
 			{
 				"id": "mat_jewelry_ruby",
-				"name": "Ruby",
+				"name": "红宝石",
 				"level": 9,
 				"kind": "precious",
 				"only": "t_accessory",
@@ -33,13 +36,16 @@
 				},
 				"require": "g.craftinglearn2>0",
 				"alter": {
-					"sell": { "rubies": 1, "spidersilk": 1 },
+					"sell": {
+						"rubies": 1,
+						"spidersilk": 1
+					},
 					"enchants.max": 1
 				}
 			},
 			{
 				"id": "mat_jewelry_diamond",
-				"name": "Diamond",
+				"name": "钻石",
 				"level": 19,
 				"kind": "precious",
 				"only": "t_accessory",
@@ -51,7 +57,10 @@
 				},
 				"require": "g.craftinglearn4>0",
 				"alter": {
-					"sell": { "diamonds": 1, "amberroot": 1 },
+					"sell": {
+						"diamonds": 1,
+						"amberroot": 1
+					},
 					"enchants.max": 2
 				}
 			}
@@ -59,7 +68,7 @@
 		"armors": [
 			{
 				"id": "pendant",
-				"name": "Pendant",
+				"name": "挂坠",
 				"level": 1,
 				"slot": "neck",
 				"tags": "t_accessory,t_necklace",
@@ -72,11 +81,13 @@
 				"sell": {},
 				"only": "precious",
 				"enchants": 1,
-				"alter": { "mod.mana.max": 3 }
+				"alter": {
+					"mod.mana.max": 3
+				}
 			},
 			{
 				"id": "amulet",
-				"name": "Amulet",
+				"name": "护身符",
 				"level": 3,
 				"slot": "neck",
 				"tags": "t_accessory,t_necklace",
@@ -89,11 +100,13 @@
 				"sell": {},
 				"only": "precious",
 				"enchants": 1,
-				"alter": { "mod.hp.max": 10 }
+				"alter": {
+					"mod.hp.max": 10
+				}
 			},
 			{
 				"id": "lariat",
-				"name": "Lariat",
+				"name": "套索项链",
 				"level": 5,
 				"slot": "neck",
 				"tags": "t_accessory,t_necklace",
@@ -106,11 +119,13 @@
 				"sell": {},
 				"only": "precious",
 				"enchants": 1,
-				"alter": { "mod.spelldmg": 5 }
+				"alter": {
+					"mod.spelldmg": 5
+				}
 			},
 			{
 				"id": "loop",
-				"name": "Loop",
+				"name": "环形戒指",
 				"level": 1,
 				"slot": "fingers",
 				"tags": "t_accessory,t_ring",
@@ -123,11 +138,13 @@
 				"sell": {},
 				"only": "precious",
 				"enchants": 1,
-				"alter": { "mod.mana.max": 3 }
+				"alter": {
+					"mod.mana.max": 3
+				}
 			},
 			{
 				"id": "ring",
-				"name": "Ring",
+				"name": "戒指",
 				"level": 3,
 				"slot": "fingers",
 				"tags": "t_accessory,t_ring",
@@ -140,11 +157,13 @@
 				"sell": {},
 				"only": "precious",
 				"enchants": 1,
-				"alter": { "mod.hp.max": 10 }
+				"alter": {
+					"mod.hp.max": 10
+				}
 			},
 			{
 				"id": "signet",
-				"name": "Signet",
+				"name": "印戒",
 				"level": 5,
 				"slot": "fingers",
 				"tags": "t_accessory,t_ring",
@@ -157,11 +176,13 @@
 				"sell": {},
 				"only": "precious",
 				"enchants": 1,
-				"alter": { "mod.spelldmg": 5 }
+				"alter": {
+					"mod.spelldmg": 5
+				}
 			},
 			{
 				"id": "belt",
-				"name": "Belt",
+				"name": "腰带",
 				"level": 1,
 				"slot": "waist",
 				"tags": "t_accessory,t_belt",
@@ -174,11 +195,13 @@
 				"sell": {},
 				"only": "precious",
 				"enchants": 1,
-				"alter": { "mod.mana.max": 3 }
+				"alter": {
+					"mod.mana.max": 3
+				}
 			},
 			{
 				"id": "sash",
-				"name": "Sash",
+				"name": "绶带",
 				"level": 3,
 				"slot": "waist",
 				"tags": "t_accessory,t_belt",
@@ -191,11 +214,13 @@
 				"sell": {},
 				"only": "precious",
 				"enchants": 1,
-				"alter": { "mod.hp.max": 10 }
+				"alter": {
+					"mod.hp.max": 10
+				}
 			},
 			{
 				"id": "cincture",
-				"name": "Cincture",
+				"name": "束腰带",
 				"level": 5,
 				"slot": "waist",
 				"tags": "t_accessory,t_belt",
@@ -208,13 +233,15 @@
 				"sell": {},
 				"only": "precious",
 				"enchants": 1,
-				"alter": { "mod.spelldmg": 5 }
+				"alter": {
+					"mod.spelldmg": 5
+				}
 			}
 		],
 		"enchants": [
 			{
 				"id": "en_ring_prisma",
-				"name": "Prismatic Ring",
+				"name": "棱彩戒指",
 				"adj": "%i of colors",
 				"desc": "Restores energies of all kinds.",
 				"require": "g.enchanting>=6",
@@ -237,11 +264,13 @@
 					"lightgem": 3,
 					"shadowgem": 3
 				},
-				"alter": { "mod.prismatic.rate": 0.1 }
+				"alter": {
+					"mod.prismatic.rate": 0.1
+				}
 			},
 			{
 				"id": "en_jewelry_energy",
-				"name": "Energy",
+				"name": "能量",
 				"adj": "Energetic",
 				"desc": "Improves mana flow near you.",
 				"require": "g.enchanting>0",
@@ -252,12 +281,16 @@
 				"level": 1,
 				"only": "t_necklace,t_ring,t_belt",
 				"length": 30,
-				"cost": { "arcana": 1 },
-				"alter": { "mod.mana.rate": 0.1 }
+				"cost": {
+					"arcana": 1
+				},
+				"alter": {
+					"mod.mana.rate": 0.1
+				}
 			},
 			{
 				"id": "en_jewelry_hp",
-				"name": "Glimmer",
+				"name": "微光",
 				"adj": "Glimmering",
 				"desc": "Acts as an additional nucleus for your magic barriers.",
 				"require": "g.enchanting>0",
@@ -268,12 +301,16 @@
 				"level": 1,
 				"only": "t_necklace,t_ring,t_belt",
 				"length": 30,
-				"cost": { "arcana": 1 },
-				"alter": { "mod.barrier.max": 25 }
+				"cost": {
+					"arcana": 1
+				},
+				"alter": {
+					"mod.barrier.max": 25
+				}
 			},
 			{
 				"id": "en_jewelry_luck",
-				"name": "Luck",
+				"name": "幸运",
 				"adj": "Lucky",
 				"desc": "Fortune favours the brave.",
 				"flavor": "Let's keep this party polite.",
@@ -285,12 +322,16 @@
 				"level": 1,
 				"only": "t_necklace,t_ring,t_belt",
 				"length": 30,
-				"cost": { "arcana": 1 },
-				"alter": { "mod.luck": 2 }
+				"cost": {
+					"arcana": 1
+				},
+				"alter": {
+					"mod.luck": 2
+				}
 			},
 			{
 				"id": "en_jewelry_tohit",
-				"name": "Precision",
+				"name": "精准",
 				"adj": "Precise",
 				"desc": "Focuses your perception slightly, improving odds of your attacks and spells finding their marks.",
 				"require": "g.enchanting>0",
@@ -301,12 +342,16 @@
 				"level": 1,
 				"only": "t_necklace,t_ring,t_belt",
 				"length": 30,
-				"cost": { "arcana": 1 },
-				"alter": { "mod.self.tohit": 1 }
+				"cost": {
+					"arcana": 1
+				},
+				"alter": {
+					"mod.self.tohit": 1
+				}
 			},
 			{
 				"id": "en_jewelry_resist_mana",
-				"name": "Genie's Resistance",
+				"name": "精灵抗性",
 				"adj": "%i of the Genie",
 				"desc": "Redirects portion of incoming mana damage.",
 				"require": "g.enchanting>0",
@@ -317,12 +362,16 @@
 				"level": 1,
 				"only": "t_necklace,t_ring,t_belt",
 				"length": 30,
-				"cost": { "arcana": 1 },
-				"alter": { "mod.self.resist.mana": 20 }
+				"cost": {
+					"arcana": 1
+				},
+				"alter": {
+					"mod.self.resist.mana": 20
+				}
 			},
 			{
 				"id": "en_jewelry_resist_water",
-				"name": "Walrus's Resistance",
+				"name": "海象抗性",
 				"adj": "%i of the Walrus",
 				"desc": "Redirects portion of incoming water damage.",
 				"require": "g.enchanting>0",
@@ -333,12 +382,16 @@
 				"level": 1,
 				"only": "t_necklace,t_ring,t_belt",
 				"length": 30,
-				"cost": { "arcana": 1 },
-				"alter": { "mod.self.resist.water": 20 }
+				"cost": {
+					"arcana": 1
+				},
+				"alter": {
+					"mod.self.resist.water": 20
+				}
 			},
 			{
 				"id": "en_jewelry_resist_air",
-				"name": "Hawk's Resistance",
+				"name": "鹰之抗性",
 				"adj": "%i of the Hawk",
 				"desc": "Redirects portion of incoming air damage.",
 				"require": "g.enchanting>0",
@@ -349,12 +402,16 @@
 				"level": 1,
 				"only": "t_necklace,t_ring,t_belt",
 				"length": 30,
-				"cost": { "arcana": 1 },
-				"alter": { "mod.self.resist.air": 20 }
+				"cost": {
+					"arcana": 1
+				},
+				"alter": {
+					"mod.self.resist.air": 20
+				}
 			},
 			{
 				"id": "en_jewelry_resist_fire",
-				"name": "Salamander's Resistance",
+				"name": "火蜥蜴抗性",
 				"adj": "%i of the Salamander",
 				"desc": "Redirects portion of incoming fire damage.",
 				"require": "g.enchanting>0",
@@ -365,12 +422,16 @@
 				"level": 1,
 				"only": "t_necklace,t_ring,t_belt",
 				"length": 30,
-				"cost": { "arcana": 1 },
-				"alter": { "mod.self.resist.fire": 20 }
+				"cost": {
+					"arcana": 1
+				},
+				"alter": {
+					"mod.self.resist.fire": 20
+				}
 			},
 			{
 				"id": "en_jewelry_resist_earth",
-				"name": "Mole's Resistance",
+				"name": "鼹鼠抗性",
 				"adj": "%i of the Mole",
 				"desc": "Redirects portion of incoming earth damage.",
 				"require": "g.enchanting>0",
@@ -381,12 +442,16 @@
 				"level": 1,
 				"only": "t_necklace,t_ring,t_belt",
 				"length": 30,
-				"cost": { "arcana": 1 },
-				"alter": { "mod.self.resist.earth": 20 }
+				"cost": {
+					"arcana": 1
+				},
+				"alter": {
+					"mod.self.resist.earth": 20
+				}
 			},
 			{
 				"id": "en_jewelry_resist_nature",
-				"name": "Deer's Resistance",
+				"name": "鹿之抗性",
 				"adj": "%i of the Deer",
 				"desc": "Redirects portion of incoming nature damage.",
 				"require": "g.enchanting>0",
@@ -397,12 +462,16 @@
 				"level": 1,
 				"only": "t_necklace,t_ring,t_belt",
 				"length": 30,
-				"cost": { "arcana": 1 },
-				"alter": { "mod.self.resist.nature": 20 }
+				"cost": {
+					"arcana": 1
+				},
+				"alter": {
+					"mod.self.resist.nature": 20
+				}
 			},
 			{
 				"id": "en_jewelry_resist_spirit",
-				"name": "Apparition's Resistance",
+				"name": "幽灵抗性",
 				"adj": "%i of the Apparition",
 				"desc": "Redirects portion of incoming spirit damage.",
 				"require": "g.enchanting>0",
@@ -413,12 +482,16 @@
 				"level": 1,
 				"only": "t_necklace,t_ring,t_belt",
 				"length": 30,
-				"cost": { "arcana": 1 },
-				"alter": { "mod.self.resist.spirit": 20 }
+				"cost": {
+					"arcana": 1
+				},
+				"alter": {
+					"mod.self.resist.spirit": 20
+				}
 			},
 			{
 				"id": "en_jewelry_resist_light",
-				"name": "Valkyrie's Resistance",
+				"name": "女武神抗性",
 				"adj": "%i of the Valkyrie",
 				"desc": "Redirects portion of incoming light damage.",
 				"require": "g.enchanting>0",
@@ -429,12 +502,16 @@
 				"level": 1,
 				"only": "t_necklace,t_ring,t_belt",
 				"length": 30,
-				"cost": { "arcana": 1 },
-				"alter": { "mod.self.resist.light": 20 }
+				"cost": {
+					"arcana": 1
+				},
+				"alter": {
+					"mod.self.resist.light": 20
+				}
 			},
 			{
 				"id": "en_jewelry_resist_shadow",
-				"name": "Undead's Resistance",
+				"name": "不死族抗性",
 				"adj": "%i of the Undead",
 				"desc": "Redirects portion of incoming shadow damage.",
 				"require": "g.enchanting>0",
@@ -445,12 +522,16 @@
 				"level": 1,
 				"only": "t_necklace,t_ring,t_belt",
 				"length": 30,
-				"cost": { "arcana": 1 },
-				"alter": { "mod.self.resist.shadow": 20 }
+				"cost": {
+					"arcana": 1
+				},
+				"alter": {
+					"mod.self.resist.shadow": 20
+				}
 			},
 			{
 				"id": "en_jewelry_resist_paralysis",
-				"name": "Paralysis Negation",
+				"name": "麻痹免疫",
 				"adj": "%i of Unstillness",
 				"desc": "Improves chance of negating paralysis.",
 				"require": "g.enchanting>0",
@@ -461,12 +542,16 @@
 				"level": 1,
 				"only": "t_necklace,t_ring,t_belt",
 				"length": 30,
-				"cost": { "arcana": 1 },
-				"alter": { "mod.self.negate.paralysis": 25 }
+				"cost": {
+					"arcana": 1
+				},
+				"alter": {
+					"mod.self.negate.paralysis": 25
+				}
 			},
 			{
 				"id": "en_jewelry_resist_silence",
-				"name": "Silence Negation",
+				"name": "沉默免疫",
 				"adj": "%i of Freespeak",
 				"desc": "Improves chance of negating silence.",
 				"require": "g.enchanting>0",
@@ -477,12 +562,16 @@
 				"level": 1,
 				"only": "t_necklace,t_ring,t_belt",
 				"length": 30,
-				"cost": { "arcana": 1 },
-				"alter": { "mod.self.negate.silence": 25 }
+				"cost": {
+					"arcana": 1
+				},
+				"alter": {
+					"mod.self.negate.silence": 25
+				}
 			},
 			{
 				"id": "en_jewelry_resist_entangle",
-				"name": "Entangle Negation",
+				"name": "缠绕免疫",
 				"adj": "%i of Determination",
 				"desc": "Improves chance of negating entangle.",
 				"require": "g.enchanting>0",
@@ -493,8 +582,12 @@
 				"level": 1,
 				"only": "t_necklace,t_ring,t_belt",
 				"length": 30,
-				"cost": { "arcana": 1 },
-				"alter": { "mod.self.negate.entangle": 25 }
+				"cost": {
+					"arcana": 1
+				},
+				"alter": {
+					"mod.self.negate.entangle": 25
+				}
 			}
 		]
 	}

@@ -6,7 +6,7 @@
 		"materials": [
 			{
 				"id": "mat_armor_iron",
-				"name": "Iron",
+				"name": "铁",
 				"level": 1,
 				"kind": "metal",
 				"only": "armor",
@@ -15,12 +15,14 @@
 				},
 				"require": "g.craftinglearn1>0",
 				"alter": {
-					"sell": { "iron": 4 }
+					"sell": {
+						"iron": 4
+					}
 				}
 			},
 			{
 				"id": "mat_armor_quicksteel",
-				"name": "Quicksteel",
+				"name": "快钢",
 				"level": 4,
 				"kind": "metal",
 				"only": "armor",
@@ -31,14 +33,16 @@
 				},
 				"require": "g.craftinglearn2>0",
 				"alter": {
-					"sell": { "quicksteel": 4 },
+					"sell": {
+						"quicksteel": 4
+					},
 					"armor": 2,
 					"enchants.max": 1
 				}
 			},
 			{
 				"id": "mat_armor_adamant",
-				"name": "Adamant",
+				"name": "精金",
 				"adj": "Adamantine",
 				"level": 9,
 				"kind": "metal",
@@ -50,14 +54,16 @@
 				},
 				"require": "g.craftinglearn4>0",
 				"alter": {
-					"sell": { "adamant": 4 },
+					"sell": {
+						"adamant": 4
+					},
 					"armor": 5,
 					"enchants.max": 2
 				}
 			},
 			{
 				"id": "mat_armor_artifact_rare",
-				"name": "Artifact cape",
+				"name": "神器披风",
 				"adj": "%i",
 				"level": 9,
 				"kind": "artifact",
@@ -73,7 +79,7 @@
 			},
 			{
 				"id": "mat_armor_leather",
-				"name": "Leather",
+				"name": "皮革",
 				"level": 1,
 				"kind": "leather",
 				"only": "armor",
@@ -82,12 +88,14 @@
 				},
 				"require": "g.craftinglearn1>0",
 				"alter": {
-					"sell": { "leather": 4 }
+					"sell": {
+						"leather": 4
+					}
 				}
 			},
 			{
 				"id": "mat_armor_manabound",
-				"name": "Manabound",
+				"name": "魔缚皮",
 				"level": 4,
 				"kind": "leather",
 				"only": "armor",
@@ -98,14 +106,16 @@
 				},
 				"require": "g.craftinglearn2>0",
 				"alter": {
-					"sell": { "serpentskin": 4 },
+					"sell": {
+						"serpentskin": 4
+					},
 					"enchants.max": 1,
 					"evasion": 2
 				}
 			},
 			{
 				"id": "mat_armor_runestitch",
-				"name": "Runestitch",
+				"name": "符文缝合",
 				"level": 9,
 				"kind": "leather",
 				"only": "armor",
@@ -116,14 +126,16 @@
 				},
 				"require": "g.craftinglearn4>0",
 				"alter": {
-					"sell": { "aetherhide": 4 },
+					"sell": {
+						"aetherhide": 4
+					},
 					"enchants.max": 2,
 					"evasion": 5
 				}
 			},
 			{
 				"id": "mat_armor_cotton",
-				"name": "Cotton",
+				"name": "棉布",
 				"level": 1,
 				"kind": "cloth",
 				"only": "armor",
@@ -132,12 +144,14 @@
 				},
 				"require": "g.craftinglearn1>0",
 				"alter": {
-					"sell": { "cotton": 4 }
+					"sell": {
+						"cotton": 4
+					}
 				}
 			},
 			{
 				"id": "mat_armor_spellweave",
-				"name": "Spellweave",
+				"name": "法织布",
 				"level": 4,
 				"kind": "cloth",
 				"only": "armor",
@@ -148,14 +162,16 @@
 				},
 				"require": "g.craftinglearn2>0",
 				"alter": {
-					"sell": { "spidersilk": 4 },
+					"sell": {
+						"spidersilk": 4
+					},
 					"enchants.max": 1,
 					"shield": 10
 				}
 			},
 			{
 				"id": "mat_armor_runecloth",
-				"name": "Runecloth",
+				"name": "符文布",
 				"level": 9,
 				"kind": "cloth",
 				"only": "armor",
@@ -166,14 +182,16 @@
 				},
 				"require": "g.craftinglearn4>0",
 				"alter": {
-					"sell": { "amberroot": 4 },
+					"sell": {
+						"amberroot": 4
+					},
 					"enchants.max": 2,
 					"shield": 25
 				}
 			},
 			{
 				"id": "mat_armor_basiliskhide",
-				"name": "Basilisk Hide",
+				"name": "蛇怪皮",
 				"level": 9,
 				"kind": "leather",
 				"only": "armor",
@@ -184,14 +202,18 @@
 				},
 				"require": "g.craftinglearn4>0",
 				"alter": {
-					"sell": { "basiliskhide": 4 },
+					"sell": {
+						"basiliskhide": 4
+					},
 					"enchants.max": 2,
-					"mod": { "self.negate.paralysis": 10 }
+					"mod": {
+						"self.negate.paralysis": 10
+					}
 				}
 			},
 			{
 				"id": "mat_armor_dragonscale",
-				"name": "Dragonscale",
+				"name": "龙鳞",
 				"level": 9,
 				"kind": "metal",
 				"only": "armor",
@@ -203,17 +225,22 @@
 				},
 				"require": "g.craftinglearn4>0",
 				"alter": {
-					"sell": { "dragonscale": 40, "adamant": 1 },
+					"sell": {
+						"dragonscale": 40,
+						"adamant": 1
+					},
 					"armor": 2,
 					"enchants.max": 2,
-					"mod": { "self.resist.fire": 10 }
+					"mod": {
+						"self.resist.fire": 10
+					}
 				}
 			}
 		],
 		"armors": [
 			{
 				"id": "helmet",
-				"name": "Helmet",
+				"name": "头盔",
 				"level": 1,
 				"slot": "head",
 				"tags": "t_helm",
@@ -227,11 +254,13 @@
 				"only": "metal",
 				"enchants": 1,
 				"armor": 5,
-				"alter": { "mod.hp.max": 5 }
+				"alter": {
+					"mod.hp.max": 5
+				}
 			},
 			{
 				"id": "bascinet",
-				"name": "Bascinet",
+				"name": "圆顶盔",
 				"level": 3,
 				"slot": "head",
 				"tags": "t_helm",
@@ -248,7 +277,7 @@
 			},
 			{
 				"id": "greathelm",
-				"name": "Great Helm",
+				"name": "重盔",
 				"level": 6,
 				"slot": "head",
 				"tags": "t_helm",
@@ -262,11 +291,13 @@
 				"only": "metal",
 				"enchants": 1,
 				"armor": 15,
-				"alter": { "mod.self.dodge": "-10%" }
+				"alter": {
+					"mod.self.dodge": "-10%"
+				}
 			},
 			{
 				"id": "hood",
-				"name": "Hood",
+				"name": "兜帽",
 				"level": 1,
 				"slot": "head",
 				"tags": "t_helm",
@@ -280,11 +311,13 @@
 				"only": "leather",
 				"enchants": 1,
 				"evasion": 5,
-				"alter": { "mod.hp.max": 5 }
+				"alter": {
+					"mod.hp.max": 5
+				}
 			},
 			{
 				"id": "gamblerhat",
-				"name": "Gambler Hat",
+				"name": "赌徒帽",
 				"level": 3,
 				"slot": "head",
 				"tags": "t_helm",
@@ -301,7 +334,7 @@
 			},
 			{
 				"id": "tricorne",
-				"name": "Tricorne",
+				"name": "三角帽",
 				"level": 6,
 				"slot": "head",
 				"tags": "t_helm",
@@ -315,11 +348,13 @@
 				"only": "leather",
 				"enchants": 1,
 				"evasion": 15,
-				"alter": { "mod.self.defense": "-10%" }
+				"alter": {
+					"mod.self.defense": "-10%"
+				}
 			},
 			{
 				"id": "cap",
-				"name": "Cap",
+				"name": "便帽",
 				"level": 1,
 				"slot": "head",
 				"tags": "t_helm",
@@ -333,11 +368,13 @@
 				"only": "cloth",
 				"enchants": 1,
 				"shield": 25,
-				"alter": { "mod.hp.max": 5 }
+				"alter": {
+					"mod.hp.max": 5
+				}
 			},
 			{
 				"id": "turban",
-				"name": "Turban",
+				"name": "头巾",
 				"level": 3,
 				"slot": "head",
 				"tags": "t_helm",
@@ -354,7 +391,7 @@
 			},
 			{
 				"id": "pointedhat",
-				"name": "Pointed Hat",
+				"name": "尖帽",
 				"level": 6,
 				"slot": "head",
 				"tags": "t_helm",
@@ -368,11 +405,13 @@
 				"only": "cloth",
 				"enchants": 1,
 				"shield": 75,
-				"alter": { "mod.self.hp.max": "-5%" }
+				"alter": {
+					"mod.self.hp.max": "-5%"
+				}
 			},
 			{
 				"id": "chainmail",
-				"name": "Chain Mail",
+				"name": "锁子甲",
 				"level": 1,
 				"slot": "chest",
 				"tags": "t_chestplate",
@@ -386,11 +425,13 @@
 				"only": "metal",
 				"enchants": 1,
 				"armor": 5,
-				"alter": { "mod.hp.max": 5 }
+				"alter": {
+					"mod.hp.max": 5
+				}
 			},
 			{
 				"id": "lamellar",
-				"name": "Lamellar",
+				"name": "札甲",
 				"level": 3,
 				"slot": "chest",
 				"tags": "t_chestplate",
@@ -407,7 +448,7 @@
 			},
 			{
 				"id": "platemail",
-				"name": "Plate Mail",
+				"name": "板甲",
 				"level": 6,
 				"slot": "chest",
 				"tags": "t_chestplate",
@@ -421,11 +462,13 @@
 				"only": "metal",
 				"enchants": 1,
 				"armor": 15,
-				"alter": { "mod.self.dodge": "-10%" }
+				"alter": {
+					"mod.self.dodge": "-10%"
+				}
 			},
 			{
 				"id": "tunic",
-				"name": "Tunic",
+				"name": "束腰外衣",
 				"level": 1,
 				"slot": "chest",
 				"tags": "t_chestplate",
@@ -439,11 +482,13 @@
 				"only": "leather",
 				"enchants": 1,
 				"evasion": 5,
-				"alter": { "mod.hp.max": 5 }
+				"alter": {
+					"mod.hp.max": 5
+				}
 			},
 			{
 				"id": "jerkin",
-				"name": "Jerkin",
+				"name": "皮背心",
 				"level": 3,
 				"slot": "chest",
 				"tags": "t_chestplate",
@@ -460,7 +505,7 @@
 			},
 			{
 				"id": "doublet",
-				"name": "Doublet",
+				"name": "紧身上衣",
 				"level": 6,
 				"slot": "chest",
 				"tags": "t_chestplate",
@@ -474,11 +519,13 @@
 				"only": "leather",
 				"enchants": 1,
 				"evasion": 15,
-				"alter": { "mod.self.defense": "-10%" }
+				"alter": {
+					"mod.self.defense": "-10%"
+				}
 			},
 			{
 				"id": "shirt",
-				"name": "Shirt",
+				"name": "衬衫",
 				"level": 1,
 				"slot": "chest",
 				"tags": "t_chestplate",
@@ -492,11 +539,13 @@
 				"only": "cloth",
 				"enchants": 1,
 				"shield": 25,
-				"alter": { "mod.hp.max": 5 }
+				"alter": {
+					"mod.hp.max": 5
+				}
 			},
 			{
 				"id": "vestment",
-				"name": "Vestment",
+				"name": "法衣",
 				"level": 3,
 				"slot": "chest",
 				"tags": "t_chestplate",
@@ -513,7 +562,7 @@
 			},
 			{
 				"id": "robe",
-				"name": "Robe",
+				"name": "长袍",
 				"level": 6,
 				"slot": "chest",
 				"tags": "t_chestplate",
@@ -527,11 +576,13 @@
 				"only": "cloth",
 				"enchants": 1,
 				"shield": 75,
-				"alter": { "mod.self.hp.max": "-5%" }
+				"alter": {
+					"mod.self.hp.max": "-5%"
+				}
 			},
 			{
 				"id": "bracers",
-				"name": "Bracers",
+				"name": "护腕",
 				"level": 1,
 				"slot": "hands",
 				"tags": "t_gloves",
@@ -545,11 +596,13 @@
 				"only": "metal",
 				"enchants": 1,
 				"armor": 5,
-				"alter": { "mod.hp.max": 5 }
+				"alter": {
+					"mod.hp.max": 5
+				}
 			},
 			{
 				"id": "vambraces",
-				"name": "Vambraces",
+				"name": "臂铠",
 				"level": 3,
 				"slot": "hands",
 				"tags": "t_gloves",
@@ -566,7 +619,7 @@
 			},
 			{
 				"id": "gauntlets",
-				"name": "Gauntlets",
+				"name": "护手",
 				"level": 6,
 				"slot": "hands",
 				"tags": "t_gloves",
@@ -580,11 +633,13 @@
 				"only": "metal",
 				"enchants": 1,
 				"armor": 15,
-				"alter": { "mod.self.dodge": "-10%" }
+				"alter": {
+					"mod.self.dodge": "-10%"
+				}
 			},
 			{
 				"id": "grips",
-				"name": "Grips",
+				"name": "皮手套",
 				"level": 1,
 				"slot": "hands",
 				"tags": "t_gloves",
@@ -598,11 +653,13 @@
 				"only": "leather",
 				"enchants": 1,
 				"evasion": 5,
-				"alter": { "mod.hp.max": 5 }
+				"alter": {
+					"mod.hp.max": 5
+				}
 			},
 			{
 				"id": "wristcuffs",
-				"name": "Wrist Cuffs",
+				"name": "腕带",
 				"level": 3,
 				"slot": "hands",
 				"tags": "t_gloves",
@@ -619,7 +676,7 @@
 			},
 			{
 				"id": "gloves",
-				"name": "Gloves",
+				"name": "手套",
 				"level": 6,
 				"slot": "hands",
 				"tags": "t_gloves",
@@ -633,11 +690,13 @@
 				"only": "leather",
 				"enchants": 1,
 				"evasion": 15,
-				"alter": { "mod.self.defense": "-10%" }
+				"alter": {
+					"mod.self.defense": "-10%"
+				}
 			},
 			{
 				"id": "wraps",
-				"name": "Wraps",
+				"name": "布缠手",
 				"level": 1,
 				"slot": "hands",
 				"tags": "t_gloves",
@@ -651,11 +710,13 @@
 				"only": "cloth",
 				"enchants": 1,
 				"shield": 25,
-				"alter": { "mod.hp.max": 5 }
+				"alter": {
+					"mod.hp.max": 5
+				}
 			},
 			{
 				"id": "mitts",
-				"name": "Mitts",
+				"name": "厚手套",
 				"level": 3,
 				"slot": "hands",
 				"tags": "t_gloves",
@@ -672,7 +733,7 @@
 			},
 			{
 				"id": "sleeves",
-				"name": "Sleeves",
+				"name": "长袖",
 				"level": 6,
 				"slot": "hands",
 				"tags": "t_gloves",
@@ -686,11 +747,13 @@
 				"only": "cloth",
 				"enchants": 1,
 				"shield": 75,
-				"alter": { "mod.self.hp.max": "-5%" }
+				"alter": {
+					"mod.self.hp.max": "-5%"
+				}
 			},
 			{
 				"id": "shinguards",
-				"name": "Shin Guards",
+				"name": "护胫",
 				"level": 1,
 				"slot": "shins",
 				"tags": "t_greaves",
@@ -704,11 +767,13 @@
 				"only": "metal",
 				"enchants": 1,
 				"armor": 5,
-				"alter": { "mod.hp.max": 5 }
+				"alter": {
+					"mod.hp.max": 5
+				}
 			},
 			{
 				"id": "greaves",
-				"name": "Greaves",
+				"name": "胫甲",
 				"level": 3,
 				"slot": "shins",
 				"tags": "t_greaves",
@@ -725,7 +790,7 @@
 			},
 			{
 				"id": "legplates",
-				"name": "Legplates",
+				"name": "腿甲",
 				"level": 6,
 				"slot": "shins",
 				"tags": "t_greaves",
@@ -739,11 +804,13 @@
 				"only": "metal",
 				"enchants": 1,
 				"armor": 15,
-				"alter": { "mod.self.dodge": "-10%" }
+				"alter": {
+					"mod.self.dodge": "-10%"
+				}
 			},
 			{
 				"id": "leggings",
-				"name": "Leggings",
+				"name": "皮裤",
 				"level": 1,
 				"slot": "shins",
 				"tags": "t_greaves",
@@ -757,11 +824,13 @@
 				"only": "leather",
 				"enchants": 1,
 				"evasion": 5,
-				"alter": { "mod.hp.max": 5 }
+				"alter": {
+					"mod.hp.max": 5
+				}
 			},
 			{
 				"id": "trousers",
-				"name": "Trousers",
+				"name": "长裤",
 				"level": 3,
 				"slot": "shins",
 				"tags": "t_greaves",
@@ -778,7 +847,7 @@
 			},
 			{
 				"id": "chausses",
-				"name": "Chausses",
+				"name": "紧身裤",
 				"level": 6,
 				"slot": "shins",
 				"tags": "t_greaves",
@@ -792,11 +861,13 @@
 				"only": "leather",
 				"enchants": 1,
 				"evasion": 15,
-				"alter": { "mod.self.defense": "-10%" }
+				"alter": {
+					"mod.self.defense": "-10%"
+				}
 			},
 			{
 				"id": "legwraps",
-				"name": "Legwraps",
+				"name": "腿缠布",
 				"level": 1,
 				"slot": "shins",
 				"tags": "t_greaves",
@@ -810,11 +881,13 @@
 				"only": "cloth",
 				"enchants": 1,
 				"shield": 25,
-				"alter": { "mod.hp.max": 5 }
+				"alter": {
+					"mod.hp.max": 5
+				}
 			},
 			{
 				"id": "pantalons",
-				"name": "Pantalons",
+				"name": "宽腿裤",
 				"level": 3,
 				"slot": "shins",
 				"tags": "t_greaves",
@@ -831,7 +904,7 @@
 			},
 			{
 				"id": "breeches",
-				"name": "Breeches",
+				"name": "短裤",
 				"level": 6,
 				"slot": "shins",
 				"tags": "t_greaves",
@@ -845,11 +918,13 @@
 				"only": "cloth",
 				"enchants": 1,
 				"shield": 75,
-				"alter": { "mod.self.hp.max": "-5%" }
+				"alter": {
+					"mod.self.hp.max": "-5%"
+				}
 			},
 			{
 				"id": "boots",
-				"name": "Boots",
+				"name": "靴子",
 				"level": 1,
 				"slot": "feet",
 				"tags": "t_boots",
@@ -863,11 +938,13 @@
 				"only": "metal",
 				"enchants": 1,
 				"armor": 5,
-				"alter": { "mod.hp.max": 5 }
+				"alter": {
+					"mod.hp.max": 5
+				}
 			},
 			{
 				"id": "treads",
-				"name": "Treads",
+				"name": "重靴",
 				"level": 3,
 				"slot": "feet",
 				"tags": "t_boots",
@@ -884,7 +961,7 @@
 			},
 			{
 				"id": "sabatons",
-				"name": "Sabatons",
+				"name": "铁靴",
 				"level": 6,
 				"slot": "feet",
 				"tags": "t_boots",
@@ -898,11 +975,13 @@
 				"only": "metal",
 				"enchants": 1,
 				"armor": 15,
-				"alter": { "mod.self.dodge": "-10%" }
+				"alter": {
+					"mod.self.dodge": "-10%"
+				}
 			},
 			{
 				"id": "moccasins",
-				"name": "Moccasins",
+				"name": "软皮鞋",
 				"level": 1,
 				"slot": "feet",
 				"tags": "t_boots",
@@ -916,11 +995,13 @@
 				"only": "leather",
 				"enchants": 1,
 				"evasion": 5,
-				"alter": { "mod.hp.max": 5 }
+				"alter": {
+					"mod.hp.max": 5
+				}
 			},
 			{
 				"id": "shoes",
-				"name": "Shoes",
+				"name": "鞋子",
 				"level": 3,
 				"slot": "feet",
 				"tags": "t_boots",
@@ -937,7 +1018,7 @@
 			},
 			{
 				"id": "striders",
-				"name": "Striders",
+				"name": "行者鞋",
 				"level": 6,
 				"slot": "feet",
 				"tags": "t_boots",
@@ -951,11 +1032,13 @@
 				"only": "leather",
 				"enchants": 1,
 				"evasion": 15,
-				"alter": { "mod.self.defense": "-10%" }
+				"alter": {
+					"mod.self.defense": "-10%"
+				}
 			},
 			{
 				"id": "sandals",
-				"name": "Sandals",
+				"name": "凉鞋",
 				"level": 1,
 				"slot": "feet",
 				"tags": "t_boots",
@@ -969,11 +1052,13 @@
 				"only": "cloth",
 				"enchants": 1,
 				"shield": 25,
-				"alter": { "mod.hp.max": 5 }
+				"alter": {
+					"mod.hp.max": 5
+				}
 			},
 			{
 				"id": "walkers",
-				"name": "Walkers",
+				"name": "步行鞋",
 				"level": 3,
 				"slot": "feet",
 				"tags": "t_boots",
@@ -990,7 +1075,7 @@
 			},
 			{
 				"id": "slippers",
-				"name": "Slippers",
+				"name": "拖鞋",
 				"level": 6,
 				"slot": "feet",
 				"tags": "t_boots",
@@ -1004,11 +1089,13 @@
 				"only": "cloth",
 				"enchants": 1,
 				"shield": 75,
-				"alter": { "mod.self.hp.max": "-5%" }
+				"alter": {
+					"mod.self.hp.max": "-5%"
+				}
 			},
 			{
 				"id": "aegismantle",
-				"name": "Aegis Mantle",
+				"name": "庇护披风",
 				"level": 25,
 				"type": "armor",
 				"slot": "back",
@@ -1020,14 +1107,16 @@
 					"adamant": 3
 				},
 				"craftcostmult": 20,
-				"sell": { "arcana": 5 },
+				"sell": {
+					"arcana": 5
+				},
 				"only": "artifact",
 				"enchants": 3,
 				"armor": 15
 			},
 			{
 				"id": "phantomveil",
-				"name": "Phantom Veil",
+				"name": "幻影面纱",
 				"level": 25,
 				"type": "armor",
 				"slot": "back",
@@ -1039,14 +1128,16 @@
 					"aetherhide": 3
 				},
 				"craftcostmult": 20,
-				"sell": { "arcana": 5 },
+				"sell": {
+					"arcana": 5
+				},
 				"only": "artifact",
 				"enchants": 3,
 				"evasion": 15
 			},
 			{
 				"id": "etherealshroud",
-				"name": "Ethereal Shroud",
+				"name": "虚灵罩衣",
 				"level": 25,
 				"type": "armor",
 				"slot": "back",
@@ -1058,7 +1149,9 @@
 					"amberroot": 3
 				},
 				"craftcostmult": 20,
-				"sell": { "arcana": 5 },
+				"sell": {
+					"arcana": 5
+				},
 				"only": "artifact",
 				"enchants": 3,
 				"shield": 75
@@ -1080,8 +1173,12 @@
 				"level": 1,
 				"only": "t_helm,t_chestplate,t_gloves,t_greaves,t_boots,t_back",
 				"length": 30,
-				"cost": { "arcana": 1 },
-				"alter": { "evasion": "100%" }
+				"cost": {
+					"arcana": 1
+				},
+				"alter": {
+					"evasion": "100%"
+				}
 			},
 			{
 				"id": "en_armor_armor",
@@ -1097,8 +1194,12 @@
 				"level": 1,
 				"only": "t_helm,t_chestplate,t_gloves,t_greaves,t_boots,t_back",
 				"length": 30,
-				"cost": { "arcana": 1 },
-				"alter": { "armor": "100%" }
+				"cost": {
+					"arcana": 1
+				},
+				"alter": {
+					"armor": "100%"
+				}
 			},
 			{
 				"id": "en_armor_barrier_pct",
@@ -1113,8 +1214,12 @@
 				"level": 1,
 				"only": "t_helm,t_chestplate,t_gloves,t_greaves,t_boots,t_back",
 				"length": 30,
-				"cost": { "arcana": 1 },
-				"alter": { "shield": "100%" }
+				"cost": {
+					"arcana": 1
+				},
+				"alter": {
+					"shield": "100%"
+				}
 			},
 			{
 				"id": "en_armor_barrier_flat",
@@ -1128,8 +1233,12 @@
 				"level": 1,
 				"only": "t_helm,t_chestplate,t_gloves,t_greaves,t_boots,t_back",
 				"length": 30,
-				"cost": { "arcana": 1 },
-				"alter": { "shield": 15 }
+				"cost": {
+					"arcana": 1
+				},
+				"alter": {
+					"shield": 15
+				}
 			},
 			{
 				"id": "en_armor_speed",
@@ -1143,8 +1252,12 @@
 				"level": 1,
 				"only": "t_helm,t_chestplate,t_gloves,t_greaves,t_boots,t_back",
 				"length": 30,
-				"cost": { "arcana": 1 },
-				"alter": { "mod.self.speed": 1 }
+				"cost": {
+					"arcana": 1
+				},
+				"alter": {
+					"mod.self.speed": 1
+				}
 			},
 			{
 				"id": "en_armor_dist",
@@ -1159,8 +1272,12 @@
 				"level": 1,
 				"only": "t_helm,t_chestplate,t_gloves,t_greaves,t_boots,t_back",
 				"length": 30,
-				"cost": { "arcana": 1 },
-				"alter": { "mod.dist": 10 }
+				"cost": {
+					"arcana": 1
+				},
+				"alter": {
+					"mod.dist": 10
+				}
 			},
 			{
 				"id": "en_armor_resist_physical",
@@ -1175,7 +1292,9 @@
 				"level": 1,
 				"only": "t_helm,t_chestplate,t_gloves,t_greaves,t_boots,t_back",
 				"length": 30,
-				"cost": { "arcana": 1 },
+				"cost": {
+					"arcana": 1
+				},
 				"alter": {
 					"mod.self.resist.blunt": 10,
 					"mod.self.resist.pierce": 10,
@@ -1195,7 +1314,9 @@
 				"level": 1,
 				"only": "t_helm,t_chestplate,t_gloves,t_greaves,t_boots,t_back",
 				"length": 30,
-				"cost": { "arcana": 1 },
+				"cost": {
+					"arcana": 1
+				},
 				"alter": {
 					"mod.self.resist.mana": 10,
 					"mod.self.resist.water": 10,

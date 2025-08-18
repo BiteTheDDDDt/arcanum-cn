@@ -1557,7 +1557,7 @@
 		"id": "blackcandle",
 		"name": "不洁蜡烛",
 		"tags": "candle",
-		"desc": "什么火焰投下了阴影？",
+		"desc": "什么火焰投下了暗影？",
 		"max": 2,
 		"require": "g.shadow.max>=10",
 		"flavor": "黑暗，黑暗。",
