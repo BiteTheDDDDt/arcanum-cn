@@ -4,8 +4,8 @@
 		"upgrades": [
 			{
 				"id": "timespiral",
-				"name": "time spiral",
-				"desc": "Take a step back and do it again.",
+				"name": "时间螺旋",
+				"desc": "后退一步，重来一次。",
 				"require": "g.tier5>0&&g.runner.max>=3&&g.evt_timerip>0",
 				"lock": "t_actionexpansion",
 				"tags": "t_actionexpansion",
@@ -22,43 +22,43 @@
 		"resources": [
 			{
 				"id": "stillroom",
-				"name": "still room",
+				"name": "静止室",
 				"group": "材料",
-				"desc": "Nothing occurs within this room.",
+				"desc": "在这个房间里什么都不会发生。",
 				"max": 1,
 				"sortOrder": 542,
-				"flavor": "Perfect for extremely specialized experiments."
+				"flavor": "非常适合高度专业化的实验。"
 			},
 			{
 				"id": "chargedtimepiece",
-				"name": "charged timepiece",
+				"name": "充能时计",
 				"group": "材料",
-				"desc": "Imbued with time energies, this timepiece shows the current time no matter when you are.",
+				"desc": "注入了时间能量的时计，无论身处何时都会显示当前时间。",
 				"max": 6,
 				"sortOrder": 541,
-				"flavor": "How many of you have one?"
+				"flavor": "你们中有多少人拥有一个？"
 			},
 			{
 				"id": "emptytimepiece",
-				"name": "intricate timepiece",
+				"name": "精巧时计",
 				"group": "材料",
-				"desc": "An ordinary timepiece, crafted with remarkable materials.",
+				"desc": "一只普通的时计，用非凡的材料制成。",
 				"max": 6,
 				"sortOrder": 540,
-				"flavor": "The time is L1:69."
+				"flavor": "现在是 L1:69。"
 			}
 		],
 		"tasks": [
 			{
 				"id": "crafttimepiece",
-				"name": "craft timepiece",
-				"verb": "clockmaking",
+				"name": "制作时计",
+				"verb": "制表",
 				"require": "g.tier5>0&&g.runner.max>=3&&g.evt_timerip>0",
 				"need": [
 					"workspace",
 					"timesource"
 				],
-				"desc": "Create an intricate timepiece.",
+				"desc": "制作一只精巧时计。",
 				"length": 120,
 				"fill": [
 					"emptytimepiece"
@@ -83,14 +83,14 @@
 			},
 			{
 				"id": "imbuetimepiece",
-				"name": "imbue timepiece",
-				"verb": "weaving time",
+				"name": "注能时计",
+				"verb": "时光编织",
 				"require": "g.emptytimepiece>0",
 				"need": [
 					"workspace",
 					"timesource"
 				],
-				"desc": "Weave time energies into the empty timepiece.",
+				"desc": "将时间能量织入空白时计。",
 				"length": 60,
 				"fill": [
 					"chargedtimepiece"
@@ -122,14 +122,14 @@
 			},
 			{
 				"id": "createstillroom",
-				"name": "create still room",
-				"verb": "stilling",
+				"name": "创造静止室",
+				"verb": "静止化",
 				"require": "g.tier5>0&&g.runner.max>=3&&g.evt_timerip>0",
 				"need": [
 					"workspace",
 					"timesource"
 				],
-				"desc": "Stop.",
+				"desc": "停下来。",
 				"length": 720,
 				"fill": [
 					"stillroom"

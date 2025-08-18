@@ -5,7 +5,7 @@
 		"events": [
 			{
 				"id": "evt_breakthrough0",
-				"name": "breakthrough",
+				"name": "突破",
 				"desc": "A breakthrough in your understanding of spirits! It seems so clear now",
 				"require": "g.spirit.max>=20&&g.shian>0",
 				"mod": {
@@ -14,7 +14,7 @@
 			},
 			{
 				"id": "evt_breakthrough1",
-				"name": "breakthrough",
+				"name": "突破",
 				"desc": "A breakthrough in your understanding of spirits! It seems so clear now",
 				"require": "g.tier5>0&&g.evt_breakthrough0>0",
 				"mod": {
@@ -23,7 +23,7 @@
 			},
 			{
 				"id": "evt_breakthrough2",
-				"name": "breakthrough",
+				"name": "突破",
 				"desc": "A breakthrough in your understanding of spirits! It seems so clear now",
 				"require": "g.tier6>0&&g.evt_breakthrough1>0",
 				"mod": {
@@ -32,7 +32,7 @@
 			},
 			{
 				"id": "evt_sworduse",
-				"name": "mysterious arts",
+				"name": "神秘技艺",
 				"desc": "Swords fly through the sky, your mastery has improved",
 				"require": "g.tier5>0&&g.sworduse>0",
 				"mod": {
@@ -41,7 +41,7 @@
 			},
 			{
 				"id": "evt_sworduse2",
-				"name": "mysterious arts",
+				"name": "神秘技艺",
 				"desc": "Swords fly through the sky, your mastery has improved",
 				"require": "g.tier6>0&&g.evt_sworduse>0",
 				"mod": {
@@ -50,7 +50,7 @@
 			},
 			{
 				"id": "evt_hole",
-				"name": "public commotion",
+				"name": "公众骚动",
 				"desc": "A large spire has risen closeby, quite a few are testing their luck, you better hurry if you want to be ahead",
 				"require": [
 					"mtgorborung",
@@ -59,13 +59,13 @@
 			},
 			{
 				"id": "evt_hole2",
-				"name": "the first one",
+				"name": "第一个到达者",
 				"desc": "You're the first one to the top, you find some books unlike any you've seen",
 				"require": "g.tier3>0&&g.unstablespire>0&&g.tier4==0"
 			},
 			{
 				"id": "evt_hole3",
-				"name": "the top",
+				"name": "顶部",
 				"desc": "You've reached the top, but it seems others have already taken what was here",
 				"require": "g.tier4>0&&g.unstablespire>0&&g.evt_hole2<=0"
 			}
@@ -73,7 +73,7 @@
 		"tasks": [
 			{
 				"id": "gathersouls",
-				"name": "ghost catcher",
+				"name": "捕魂者",
 				"require": "g.shian>0",
 				"desc": "Bind the dead that haunt the world.",
 				"length": 180,
@@ -88,7 +88,7 @@
 			},
 			{
 				"id": "mkcave",
-				"name": "Dig out a bigger cave",
+				"name": "挖出更大的洞穴",
 				"require": "(g.earthlore+g.spiritlore)>=20&&g.shian>0",
 				"desc": "Make a underground home where the magic is strong and spirits are plentiful",
 				"length": 1800,
@@ -114,7 +114,7 @@
 			},
 			{
 				"id": "mkpagoda",
-				"name": "Make a Beautiful Home",
+				"name": "建造漂亮的住处",
 				"require": "g.mkcave>0&&g.tier6>0&&g.shian>0",
 				"desc": "Make a home where you can improve your mastery of the mysterious sword arts and spirits are plentiful",
 				"length": 1800,
@@ -133,7 +133,7 @@
 			},
 			{
 				"id": "soulflag",
-				"name": "craft soulflag",
+				"name": "制作灵旗",
 				"require": "g.spiritlore>=13&&g.shian>0",
 				"desc": "So many souls around, there has to be a way to keep them out of your way",
 				"length": 100,
@@ -150,7 +150,7 @@
 			},
 			{
 				"id": "soulflag2",
-				"name": "improve soulflag",
+				"name": "改良灵旗",
 				"require": "g.soulflag>0&&g.shian>0",
 				"desc": "There is room for more souls",
 				"length": 900,
@@ -170,7 +170,7 @@
 			},
 			{
 				"id": "soulflag3",
-				"name": "complete soulflag",
+				"name": "完成灵旗",
 				"require": "g.soulflag2>0&&g.shian>0",
 				"need": "g.inv.max-g.inv._used>=1",
 				"needtext": "Must have at least 1 inventory space free.",
@@ -192,7 +192,7 @@
 			},
 			{
 				"id": "soulflagreacquire",
-				"name": "re-weave soulflag",
+				"name": "重织灵旗",
 				"require": "g.soulflag3>0&&g.shian>0",
 				"need": "g.inv.max-g.inv._used>=1",
 				"needtext": "Must have at least 1 inventory space free.",
@@ -211,7 +211,7 @@
 		"homes": [
 			{
 				"id": "shianpagoda",
-				"name": "elegant pagoda",
+				"name": "优雅的宝塔",
 				"desc": "A peaceful structure where you can devote yourself fully to your arts.",
 				"require": "g.mkpagoda>0",
 				"mod": {
@@ -227,7 +227,7 @@
 		"upgrades": [
 			{
 				"id": "sworduse",
-				"name": "mysterious sword arts",
+				"name": "神秘剑术",
 				"desc": "The spire has yielded strange and interesting weapons; perhaps you can find a use for them.",
 				"require": "shian",
 				"max": 1,
@@ -246,6 +246,7 @@
 			},
 			{
 				"id": "breakthrough",
+				"name": "突破",
 				"desc": "A breakthrough in your spiritual meditations.",
 				"require": "evt_breakthrough0",
 				"max": 1,
@@ -264,7 +265,7 @@
 			},
 			{
 				"id": "fastsoul",
-				"name": "refinement techniques",
+				"name": "精炼技艺",
 				"desc": "Methods for making flags among other things, won't make it cheaper though",
 				"require": "g.tier5>0&&g.soulflag2>0",
 				"mod": {
@@ -277,7 +278,7 @@
 		"spells": [
 			{
 				"id": "throw_swords",
-				"name": "lost sword art: flying swords",
+				"name": "失传剑技：飞剑",
 				"sortOrder": 1740,
 				"level": 11,
 				"school": "shian",
@@ -334,7 +335,7 @@
 			},
 			{
 				"id": "giantkilling",
-				"name": "lost sword art: giant slayer",
+				"name": "失传剑技：屠巨",
 				"sortOrder": 300,
 				"level": 12,
 				"school": "shian",
@@ -388,7 +389,7 @@
 			},
 			{
 				"id": "soulstrike",
-				"name": "spirit art: soulstrike",
+				"name": "灵技：灵击",
 				"sortOrder": 1001,
 				"level": 6,
 				"school": "shian",
@@ -432,7 +433,7 @@
 			},
 			{
 				"id": "soullure",
-				"name": "soul card: soul lure",
+				"name": "灵牌：灵魂诱引",
 				"desc": "Lure the souls of enemies from out their mortal bodies",
 				"sortOrder": 1002,
 				"level": 10,
@@ -482,7 +483,7 @@
 			},
 			{
 				"id": "soulriver",
-				"name": "spirit art: soul river",
+				"name": "灵技：灵河",
 				"sortOrder": 1000,
 				"level": 15,
 				"school": "shian",
@@ -528,7 +529,7 @@
 		"classes": [
 			{
 				"id": "shian",
-				"name": "shian anchorite",
+				"name": "诗安隐修者",
 				"desc": "An ancient magic from beyond the sea, combining spirit and blade.",
 				"secret": true,
 				"tags": "t_tier4,t_swordclass,t_spiritclass",
@@ -548,7 +549,7 @@
 		"rares": [
 			{
 				"id": "itemsoulflag",
-				"name": "soulflag",
+				"name": "灵旗",
 				"desc": "Ten thousand souls muffled in its fabric.",
 				"type": "weapon",
 				"slot": "mainhand",
@@ -578,7 +579,7 @@
 		"dungeons": [
 			{
 				"id": "unstablespire",
-				"name": "The unstable spire",
+				"name": "不稳定尖塔",
 				"flavor": "Some things are left to time.",
 				"desc": "A large spire which rose from the ground. It looks like it might collapse any day now.",
 				"biome": [
@@ -612,7 +613,7 @@
 				"upgrades": [
 					{
 						"id": "up_shian",
-						"name": "Treatise of Soul Arts",
+						"name": "灵技论集",
 						"sym": "🏰",
 						"max": 1,
 						"desc": "A series of tomes obtained from atop the Unstable Spire, detailing methods of manipulating souls thought long lost to time.",

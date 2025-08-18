@@ -51,6 +51,7 @@
 			},
 			{
 				"id": "livingsnow",
+				"name": "活雪",
 				"desc": "如心脏般跳动的雪；缓慢融化",
 				"require": "g.livingsnow>=1",
 				"max": 20,
@@ -64,6 +65,7 @@
 			},
 			{
 				"id": "frost",
+				"name": "寒霜",
 				"desc": "冬寒削弱你的效能。",
 				"max": 200,
 				"group": "逆境",
@@ -87,6 +89,7 @@
 			},
 			{
 				"id": "ice",
+				"name": "冰",
 				"desc": "冰魔力",
 				"require": "g.icelore>=1",
 				"max": 0,
@@ -989,6 +992,7 @@
 		"furniture": [
 			{
 				"id": "hearth",
+				"name": "壁炉",
 				"desc": "温暖的壁炉；你拥有的越多，制造它们所需的宝石越多。",
 				"require": "g.frost>=10",
 				"max": 20,
@@ -1018,6 +1022,7 @@
 			},
 			{
 				"id": "freezer",
+				"name": "冷藏箱",
 				"desc": "用于存放融化雪水的容器。",
 				"require": "g.livingsnow>=1",
 				"max": 1,

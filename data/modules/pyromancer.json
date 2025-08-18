@@ -1494,7 +1494,7 @@
 			{
 				"id": "pyromancer",
 				"name": "焰术士",
-				"desc": "Shaper of fire",
+				"desc": "火焰的塑造者",
 				"tags": "t_tier2,t_fireclass",
 				"require": "g.tier1>0&&g.firelore>=10",
 				"cost": {
@@ -1508,12 +1508,12 @@
 					"firedmg": 3,
 					"firelore2.max": 1
 				},
-				"flavor": "The flames within swell, yearning for release"
+				"flavor": "内心的火焰膨胀，渴望释放"
 			},
 			{
 				"id": "firebrand",
 				"name": "火印者",
-				"desc": "Wielder of fire",
+				"desc": "火焰的印记",
 				"tags": "t_tier4,t_fireclass",
 				"require": "g.tier3>0&&g.firelore>=10",
 				"cost": {
@@ -1532,7 +1532,7 @@
 			{
 				"id": "firelord",
 				"name": "火焰领主",
-				"desc": "Ruler of fire",
+				"desc": "火焰的主宰",
 				"tags": "t_tier6,t_fireclass",
 				"require": "g.tier5>0&&g.flamesculpting>=2&&(g.pyromancer+g.firebrand)>0",
 				"cost": {
@@ -1548,14 +1548,14 @@
 					"flamesculpting.max": 1,
 					"firelore2.max": 2
 				},
-				"flavor": "Unquenchable flames, burning everbright for you"
+				"flavor": "焚尽世间的污秽"
 			}
 		],
 		"rares": [
 			{
 				"id": "ifritclaws",
-				"name": "efreet's claws",
-				"desc": "Made from frozen flames, their power raises and falls in tandem with their master's",
+				"name": "伊弗利特之爪",
+				"desc": "由冻结的火焰制成，其力量随主人的强弱而变化",
 				"type": "weapon",
 				"slot": "mainhand",
 				"damage": "15~20",
@@ -1594,8 +1594,8 @@
 			},
 			{
 				"id": "charredchain",
-				"name": "charred chain",
-				"desc": "Covered in soot and partially melted, it's still holding strong after all this time",
+				"name": "焦炭锁链",
+				"desc": "覆盖着煤灰，部分已熔化，历经岁月仍坚不可摧",
 				"type": "armor",
 				"slot": "neck",
 				"alter": {
@@ -1616,9 +1616,9 @@
 		"clashes": [
 			{
 				"id": "consumedshack",
-				"name": "fire-cursed shack",
+				"name": "被火诅咒的小屋",
 				"unreturnable": true,
-				"desc": "Rumors say that deep in the woods, there is a shack once inhabited by a wizard obsessed with fire. He has not been seen for years and terrible heat can be felt emanating from the place",
+				"desc": "传闻在森林深处有一间小屋，曾住着痴迷火焰的法师。多年未见其踪，屋内仍有可怕的热浪涌出",
 				"level": 8,
 				"length": 1,
 				"require": "g.tier1>0&&g.firelore>=10",
@@ -1638,8 +1638,8 @@
 		"monsters": [
 			{
 				"id": "consumedshade",
-				"name": "consumed shade",
-				"desc": "What must have once been a man, it has been consumed by flames from inside out",
+				"name": "焚化幽影",
+				"desc": "它曾是人类，如今已被内在的火焰彻底吞噬",
 				"level": 16,
 				"noproc": true,
 				"kind": "consumed",

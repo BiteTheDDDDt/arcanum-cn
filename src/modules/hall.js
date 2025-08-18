@@ -125,14 +125,14 @@ export default class Hall {
 
 		if (!this.id) {
 			this.id = TimeId("h");
-			console.log("NEW HALL ID: " + this.id);
-		} else console.log("HALL ID: " + this.id);
+			console.log("新大厅 ID: " + this.id);
+		} else console.log("大厅 ID: " + this.id);
 
 		if (!this.chars) this.chars = [];
 
 		this.findCur(vars);
 
-		if (!this.name) this.name = "Wizard's Hall";
+	if (!this.name) this.name = "巫师大厅";
 
 		this.max = this.items.hallSize;
 
@@ -157,7 +157,7 @@ export default class Hall {
 	 */
 	findCur(vars) {
 		if (vars.active) {
-			console.log("LEGACY HALL SLOT: " + vars.active);
+			console.log("旧版大厅槽位: " + vars.active);
 
 			this.legacy = true;
 			this.setActive(vars.active);
@@ -165,7 +165,7 @@ export default class Hall {
 			let pid = (this.curId = vars.curId);
 			this.curSlot = this.chars.findIndex(c => c.pid === pid);
 
-			console.log("CUR HALL CHAR: " + pid + "  AT SLOT: " + this.curSlot);
+			console.log("当前大厅角色: " + pid + " 位于槽位: " + this.curSlot);
 		}
 
 		if (!this.curId || this.curSlot < 0) {
@@ -236,7 +236,7 @@ export default class Hall {
 	 */
 	setActive(slot) {
 		if (slot < 0 || slot >= this.chars.length) {
-			console.warn("invalid char slot: " + slot);
+			console.warn("无效的角色槽位: " + slot);
 			return false;
 		}
 		this.curSlot = slot;

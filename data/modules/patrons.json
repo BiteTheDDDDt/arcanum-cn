@@ -5,9 +5,9 @@
 		"furniture": [
 			{
 				"id": "nathanielshelter",
-				"name": "nathaniel's sanctuary",
+				"name": "纳撒尼尔的庇护所",
 				"require": "g.tier3>0&&g.good1>0",
-				"desc": "A sanctuary for orphans and paupers.",
+				"desc": "一个为孤儿与贫民提供的庇护所。",
 				"tags": "patron",
 				"cost": {
 					"gold": 100
@@ -19,14 +19,14 @@
 					"light.rate": 0.1,
 					"fame.rate": 0.00005
 				},
-				"flavor": "Nathaniel insisted magic be used for the benefit of the unfortunate."
+				"flavor": "纳撒尼尔坚持认为魔法应被用于帮助不幸者。"
 			},
 			{
 				"id": "baneanvil",
-				"name": "bloodbane's anvil",
+				"name": "血祸之砧",
 				"require": "g.crafting>=14",
 				"need": "workshop",
-				"desc": "Great spells are often forged on iron.",
+				"desc": "伟大的法术常常在铁砧上铸造。",
 				"tags": "patron",
 				"cost": {
 					"research": 10000,
@@ -38,14 +38,14 @@
 					"spellcraft.rate": 0.5,
 					"enchanting.mod.enchantslots.max": 0.5
 				},
-				"flavor": "Forsaking war and violence, Bloodbane devoted himself to crafting new forms of magic."
+				"flavor": "放弃战争与暴力后，血祸致力于锻造新的魔法形态。"
 			}
 		],
 		"homes": [
 			{
 				"id": "wildcamp",
-				"name": "wild's encampment",
-				"desc": "Deep in Delkin Wood, Master Wild kept his fabled camp.",
+				"name": "维尔德的营地",
+				"desc": "在德尔金林深处，维尔德大师保留着他那传说中的营帐。",
 				"require": "g.t_natureclass>0&&g.tier2>0",
 				"tags": "outdoors,plantsource,t_pets,patron",
 				"buy": {
@@ -69,16 +69,25 @@
 		"spells": [
 			{
 				"id": "phrenesis_heal1",
-				"name": "phrenesis' healing circle",
+				"name": "弗雷内西斯的治疗圈",
 				"sortOrder": 1132,
 				"level": 4,
 				"school": "light",
 				"tags": "t_healspell",
 				"keywords": {
-					"type": ["recovery"],
-					"target": ["self", "ally"],
-					"targets": ["multiple"],
-					"delivery": ["instant"]
+					"type": [
+						"recovery"
+					],
+					"target": [
+						"self",
+						"ally"
+					],
+					"targets": [
+						"multiple"
+					],
+					"delivery": [
+						"instant"
+					]
 				},
 				"require": "g.lightlore>=7&&g.evil2==0",
 				"buy": {
@@ -86,32 +95,46 @@
 					"codices": 25
 				},
 				"need": "g.evil2==0",
-				"needtext": "Cannot be sinister.",
+				"needtext": "不能为邪恶。",
 				"cost": {
 					"light": 2
 				},
-				"result": { "lightlore.exp": 0.2 },
+				"result": {
+					"lightlore.exp": 0.2
+				},
 				"attack": {
 					"targets": "allies",
 					"maxTargets": 999,
 					"harmless": true,
 					"healing": 10,
 					"kind": "light",
-					"potencies": ["spellheal", "lightdmg"]
+					"potencies": [
+						"spellheal",
+						"lightdmg"
+					]
 				}
 			},
 			{
 				"id": "phrenesis_heal2",
-				"name": "phrenesis' healing wave",
+				"name": "弗雷内西斯的疗愈波",
 				"sortOrder": 1131,
 				"level": 10,
 				"school": "light",
 				"tags": "t_healspell",
 				"keywords": {
-					"type": ["recovery"],
-					"target": ["self", "ally"],
-					"targets": ["multiple"],
-					"delivery": ["instant"]
+					"type": [
+						"recovery"
+					],
+					"target": [
+						"self",
+						"ally"
+					],
+					"targets": [
+						"multiple"
+					],
+					"delivery": [
+						"instant"
+					]
 				},
 				"require": "g.lightlore>=20&&g.heallore>=5&&g.evil2==0",
 				"buy": {
@@ -119,7 +142,7 @@
 					"codices": 25
 				},
 				"need": "g.evil2==0",
-				"needtext": "Cannot be sinister.",
+				"needtext": "不能为邪恶。",
 				"cost": {
 					"light": 6
 				},
@@ -133,14 +156,17 @@
 					"harmless": true,
 					"healing": 45,
 					"kind": "light",
-					"potencies": ["spellheal", "lightdmg"]
+					"potencies": [
+						"spellheal",
+						"lightdmg"
+					]
 				}
 			},
 			{
 				"id": "cyrilsling",
-				"name": "cyril's celestial sling",
-				"desc": "Free a star and unleash the fury of the heavens on your foe. Hopefully your star won't turn on you...",
-				"flavor": "If you're already star-crossed, why not make a few stars cross as well?",
+				"name": "西里尔的天体弹弓",
+				"desc": "释放一颗星辰，将天罚倾注于敌人身上。希望你的星不会反噬你...",
+				"flavor": "如果你已经命运多舛，何不让几颗星也交叉一下？",
 				"level": 7,
 				"school": "chaos",
 				"keywords": {
@@ -167,18 +193,29 @@
 			},
 			{
 				"id": "kannadance",
-				"name": "kanna's dervish dance",
-				"desc": "Kanna's dance was a strenuous one for a mage, and a deadly one to her enemies.",
-				"flavor": "she danced with the devil in the pale moonlight, blades gleaming and blurring like a single streak of silver",
+				"name": "卡娜的旋风舞",
+				"desc": "卡娜的舞步对法师而言既剧烈又消耗体力，对敌人则致命。",
+				"flavor": "她在淡月光下与魔鬼共舞，刀刃闪烁模糊，宛如一道银色疾光",
 				"sortOrder": 390,
 				"level": 7,
 				"school": "martial",
 				"tags": "patron",
 				"keywords": {
-					"type": ["recovery", "buff", "debuff"],
-					"target": ["self"],
-					"targets": ["single"],
-					"delivery": ["instant", "over time"]
+					"type": [
+						"recovery",
+						"buff",
+						"debuff"
+					],
+					"target": [
+						"self"
+					],
+					"targets": [
+						"single"
+					],
+					"delivery": [
+						"instant",
+						"over time"
+					]
 				},
 				"require": "g.bladelore>=10",
 				"buy": {
@@ -215,21 +252,21 @@
 		"encounters": [
 			{
 				"id": "agetablet1",
-				"name": "ancient tablet",
-				"desc": "A tablet on a dais displays a glowing list of names.",
+				"name": "古老碑文",
+				"desc": "祭坛上的碑石展示着一列发光的名字。",
 				"flavor": "Chazza, Jiopaba, Kamianya, Alyx, Man of Smoke",
 				"effect": {}
 			},
 			{
 				"id": "agetablet2",
-				"name": "weathered tablet",
-				"desc": "A weathered tablet with a faded list of names.",
+				"name": "风化碑文",
+				"desc": "一块风化的碑石，上面的名字已然褪色。",
 				"flavor": "Chazza, Jiopaba, Kamianya, Alyx, Man of Smoke",
 				"effect": {}
 			},
 			{
 				"id": "enc_cyril",
-				"name": "view stars with cyril",
+				"name": "与西里尔观星",
 				"desc": "",
 				"tags": "site_of_learning",
 				"effect": {
@@ -244,8 +281,8 @@
 			},
 			{
 				"id": "enc_kanna",
-				"name": "Study under Kanna",
-				"desc": "A fox-girl delightedly teaches you some practical ways to use your weapon more effectively",
+				"name": "在卡娜门下学习",
+				"desc": "一位狐女愉快地教你一些更有效使用武器的实用技巧。",
 				"tags": "site_of_learning",
 				"effect": {
 					"bf": "0~2",
@@ -260,8 +297,8 @@
 			},
 			{
 				"id": "enc_jeremy",
-				"name": "jeremi",
-				"desc": "Nothing is known about this mage.",
+				"name": "杰瑞米",
+				"desc": "关于这位法师知之甚少。",
 				"tags": "site_of_learning",
 				"effect": {
 					"rage": "1~5",
@@ -274,8 +311,8 @@
 			},
 			{
 				"id": "enc_phrenesis",
-				"name": "phrenesis",
-				"desc": "Phrenesis was forever preoccupied with the cycles of death and rebirth.",
+				"name": "弗雷内西斯",
+				"desc": "弗雷内西斯总是沉迷于生死轮回的循环。",
 				"tags": "site_of_learning",
 				"effect": {
 					"stress": -0.1,
@@ -287,8 +324,8 @@
 			},
 			{
 				"id": "enc_sinae",
-				"name": "sinae the puppeteer",
-				"desc": "A researcher, more machine than human",
+				"name": "傀儡师西奈",
+				"desc": "一位研究者，机体多于人性。",
 				"tags": "site_of_learning",
 				"effect": {
 					"unease": "1~5",
@@ -298,12 +335,12 @@
 				"mod": {
 					"puppetry.max": "4|100|30"
 				},
-				"flavor": "You can hear the clock mechanisms clicking within him"
+				"flavor": "你能听到他体内齿轮机械的滴答声。"
 			},
 			{
 				"id": "enc_stags",
-				"name": "stags",
-				"desc": "Nothing is known about the enigmatic mage.",
+				"name": "斯塔格斯",
+				"desc": "关于这位神秘的法师知之甚少。",
 				"tags": "site_of_learning",
 				"effect": {
 					"rage": "1~5",
@@ -316,8 +353,8 @@
 			},
 			{
 				"id": "enc_tainted",
-				"name": "Tainted, Archon of the Void",
-				"desc": "A violent echo still wanders the halls it never walked.",
+				"name": "被玷污者，虚空执政官",
+				"desc": "一阵暴烈的回声仍在徘徊于它从未走过的大厅之中。",
 				"tags": "site_of_learning",
 				"effect": {
 					"madness": "2~4",
@@ -332,12 +369,12 @@
 				"loot": {
 					"voidgem": "1%"
 				},
-				"flavor": "Did that actually happen?"
+				"flavor": "那真的发生过吗？"
 			},
 			{
 				"id": "enc_kaidi",
-				"name": "kaidi the mixer",
-				"desc": "A teacher and maker of the oddest concoctions.",
+				"name": "混合师凯迪",
+				"desc": "一位教师与奇异药剂的制造者。",
 				"tags": "site_of_learning",
 				"effect": {
 					"bf": "2~5",
@@ -352,12 +389,12 @@
 					"pot_mana1": "5%",
 					"pot_stam1": "5%"
 				},
-				"flavor": "Fumes swirl around them from seemingly nowhere."
+				"flavor": "蒸气从他们周围莫名其妙地盘旋。"
 			},
 			{
 				"id": "enc_tjoker",
-				"name": "a joker",
-				"desc": "A crafty expression suggests trouble.",
+				"name": "小丑",
+				"desc": "狡黠的表情暗示着麻烦。",
 				"tags": "site_of_learning",
 				"effect": {
 					"rage": "1~5",
@@ -371,8 +408,8 @@
 			},
 			{
 				"id": "enc_vondrey",
-				"name": "vondrey",
-				"desc": "The mage does not appear inclined to speak.",
+				"name": "冯德雷",
+				"desc": "这位法师似乎不太愿意说话。",
 				"tags": "site_of_learning",
 				"effect": {
 					"bf": "1~5",
@@ -387,8 +424,8 @@
 			},
 			{
 				"id": "enc_mrwild",
-				"name": "master wild",
-				"desc": "A mage of the wilds makes a perplexing teacher.",
+				"name": "维尔德大师",
+				"desc": "一位来自荒野的法师，是位难以捉摸的导师。",
 				"tags": "site_of_learning",
 				"effect": {
 					"madness": "1~5",
@@ -402,8 +439,8 @@
 			},
 			{
 				"id": "enc_mrreaper",
-				"name": "mister reaper",
-				"desc": "A grim name for an otherwise respectable mage.",
+				"name": "收割先生",
+				"desc": "听上去阴森，但这位法师本身倒颇为体面。",
 				"tags": "site_of_learning",
 				"effect": {
 					"madness": "1~5",
@@ -419,9 +456,9 @@
 		"locales": [
 			{
 				"id": "loc_ageshall",
-				"name": "hall of ages",
-				"desc": "The lost Hall of Ages was a gathering place of great and powerful patron mages.",
-				"flavor": "the knowledge within may be beyond price.",
+				"name": "年代殿堂",
+				"desc": "失落的年代殿堂曾是伟大且强大的守护法师们的聚集之地。",
+				"flavor": "其中的知识或许价值连城。",
 				"tags": "site_of_learning",
 				"require": "g.tier3>0",
 				"length": 100,
@@ -429,7 +466,7 @@
 					"history.max": "?1"
 				},
 				"result": {
-					"title": "Mark of Ages"
+					"title": "时代之印"
 				},
 				"encs": [
 					"enc_kaidi",
@@ -450,8 +487,8 @@
 		"upgrades": [
 			{
 				"id": "becomewild",
-				"name": "become the wilds",
-				"desc": "Transcend the imaginary barriers setting yourself apart from the heart of the wilderness.",
+				"name": "化身荒野",
+				"desc": "超越将你与荒野之心分隔的想象屏障。",
 				"require": "(g.t_natureclass)>0&&g.tier2>0",
 				"cost": {
 					"herbs": 100
@@ -463,10 +500,10 @@
 			},
 			{
 				"id": "baneforging",
-				"name": "bloodbane's forging",
+				"name": "血祸锻造",
 				"require": "g.crafting>=14",
 				"need": "baneanvil",
-				"desc": "With Bloodbane's anvil at hand, replicate his methods for forging magic.",
+				"desc": "有了血祸之砧在侧，你可以复制他锻造魔法的技法。",
 				"cost": {
 					"research": 1000,
 					"tomes": 1

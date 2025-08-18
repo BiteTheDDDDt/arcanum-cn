@@ -345,6 +345,7 @@
 	},
 	{
 		"id": "speak",
+		"name": "解除沉默",
 		"desc": "解除沉默的诅咒。",
 		"sortOrder": 636,
 		"level": 8,
@@ -757,6 +758,7 @@
 	},
 	{
 		"id": "quell",
+		"name": "镇压",
 		"desc": "巫师的凝视往往是压倒性的。",
 		"sortOrder": 442,
 		"level": 15,
@@ -1940,6 +1942,7 @@
 	},
 	{
 		"id": "revive",
+		"name": "复活",
 		"desc": "召回一个虚弱的人形或半身人仆从复活。",
 		"sortOrder": 1030,
 		"level": 1,
@@ -2144,6 +2147,7 @@
 	},
 	{
 		"id": "quicksand",
+		"name": "流沙",
 		"desc": "命令大地吞噬敌人。",
 		"sortOrder": 802,
 		"level": 15,
@@ -2193,6 +2197,7 @@
 	},
 	{
 		"id": "entomb",
+		"name": "掩埋",
 		"desc": "将你的敌人深埋在地下。",
 		"sortOrder": 800,
 		"level": 25,
@@ -2246,6 +2251,7 @@
 	},
 	{
 		"id": "smite",
+		"name": "惩击",
 		"sortOrder": 311,
 		"level": 5,
 		"school": "martial",
@@ -2296,6 +2302,7 @@
 	},
 	{
 		"id": "fissure",
+		"name": "裂缝",
 		"desc": "在敌人脚下裂开大地。",
 		"sortOrder": 310,
 		"level": 5,
@@ -3031,6 +3038,7 @@
 	},
 	{
 		"id": "jinx",
+		"name": "厄运",
 		"desc": "给敌人施加一连串厄运的诅咒。",
 		"sortOrder": 1347,
 		"level": 2,
@@ -3429,6 +3437,7 @@
 	},
 	{
 		"id": "zap",
+		"name": "电击",
 		"desc": "电击从你的手指跳跃而出。",
 		"sortOrder": 608,
 		"level": 3,
@@ -3805,6 +3814,7 @@
 	},
 	{
 		"id": "bloodshot",
+		"name": "血弹",
 		"desc": "用你的血液制成的投射物残忍地 mutilates 敌人。",
 		"extdesc": "消耗你的一部分生命值，随着你学习的血脉法术的增加而增加。根据你的最大生命值造成伤害，随着使用和血脉法术的学习而提高。",
 		"flavor": "你本可以把它放进香肠里，但你现在没有心情。",
@@ -3850,6 +3860,7 @@
 	},
 	{
 		"id": "bloodspike",
+		"name": "血刺",
 		"desc": "用结晶化的魔法血液碎片攻击所有敌人。",
 		"sortOrder": 204,
 		"level": 5,
@@ -3994,6 +4005,7 @@
 	},
 	{
 		"id": "starfall",
+		"name": "陨星",
 		"desc": "你无法逃脱天空的惩罚。",
 		"sortOrder": 1600,
 		"level": 10,
@@ -4257,6 +4269,7 @@
 	},
 	{
 		"id": "tremor",
+		"name": "震颤",
 		"desc": "大地在你敌人脚下震动。",
 		"sortOrder": 804,
 		"level": 5,
@@ -4322,6 +4335,7 @@
 	},
 	{
 		"id": "quake",
+		"name": "地震",
 		"alias": "地震",
 		"desc": "大地在你指挥下震动。",
 		"sortOrder": 803,
@@ -4455,6 +4469,7 @@
 	},
 	{
 		"id": "splendor",
+		"name": "壮丽",
 		"alias": "壮丽",
 		"sortOrder": 1150,
 		"level": 7,
@@ -4500,6 +4515,7 @@
 	},
 	{
 		"id": "abundance",
+		"name": "丰饶",
 		"desc": "草药在你走过的地方纷纷冒出。",
 		"sortOrder": 970,
 		"level": 8,
@@ -4711,6 +4727,7 @@
 	},
 	{
 		"id": "cordyceps",
+		"name": "虫草",
 		"sortOrder": 902,
 		"level": 7,
 		"school": "nature",
@@ -5231,6 +5248,7 @@
 	},
 	{
 		"id": "clarity",
+		"name": "清醒",
 		"desc": "治愈自己或盟友的魅惑。",
 		"sortOrder": 1938,
 		"level": 7,
@@ -6724,6 +6742,7 @@
 	},
 	{
 		"id": "superposition",
+		"name": "叠加态",
 		"desc": "你真的在多个位置间切换。",
 		"flavor": "还是你只是以音速滚动？",
 		"sortOrder": 1330,

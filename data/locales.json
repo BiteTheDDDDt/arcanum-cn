@@ -133,7 +133,8 @@
 	},
 	{
 		"id": "rithel",
-		"desc": "这座位于桑格莫中心的小哨站甚至比石柱还要长久。",
+		"name": "里瑟尔哨站",
+        "desc": "这座位于桑格莫中心的小哨站甚至比石柱还要长久。",
 		"level": 14,
 		"require": "g.evil2<=0&&g.history>=7&&g.loc_treffil>0",
 		"run": {
